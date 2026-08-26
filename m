@@ -1,117 +1,152 @@
-Received: from mail-oi2-f5.google.com (mail-oi2-f5.google.com [74.125.231.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010017.outbound.protection.outlook.com [52.101.193.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93BF941834A
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 12:22:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.197
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787746955; cv=none; b=dMwfRbFl+WmQS5gAXE98Z9OSTiN4/lvwIP1Ri725uOnsGgn9hCY75iHpIsIUUXy4ijajb8EgQNErpFl6lwppCN5aPVLXUO++ccJQ+m5plKRXhJHWrbtkTbN8D7PcW/srFi95d0WNk33cA0h3ZAmyM0KolKiKWdtIqM+X92KXuAI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787746955; c=relaxed/simple;
-	bh=vJu/tgezIAyPq/jvVxwLDZ/MvZnGeML+p2SKRSGhOeg=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=F700/bdbVWOLCqJrDBwwE5Vq6fHxUUXB4wi+NvChIQCew/UScO+i3DMT3ypJwdJKX/SGumJnV2s+ftD7ngIeH7DeJuEeRbSGLO0BsS4bUqWLPuxhvjrG6Z1QroWX3w1EyN2NaRkvkmIlNMcmXIF/WXp3lgbpJ5bDsF+FxyHMWy8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi2-f5.google.com with SMTP id 5614622812f47-4b3759b7ff0so56015b6e.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 05:22:33 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787746952; x=1788351752;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=P5eo3SCH5j3Fs+ZHwEuof0JMA7kWfr4/TVZy9FrVKM4=;
-        b=SvhIhffsT/9e43kVnzw//SvrlyFq9LIwUHkEIbSh27+VXtkSstJR+ck/N0AXANFHne
-         Fx3SCy89cYCHbeVWTSAr2iuob1UUKEg+uH8QqiBVmaJCg6rtHQq9436Xo5FpX2z8rWDh
-         Cj3pmaKBtwCNL5shlHbnpT6avacMDA9ZYR5Zj/R1qs86gc2M0Zm8qNpLTwMrIsk1ruFh
-         eZ5yti+qid2armOuLGArVUG8eCat1N2dRLrmeDa7QgnLEMc3C/WPKuEluVZIGhQ+K/II
-         ZsJf7sdFVYAEdoLrH6Fi57veuToDCsDXzomy6fgBkSjy58f7fHk5+Td6SQDuld1ey+wm
-         4SDQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrCq0ttSLOC34+06DB0KQizgGMK9G6onkI1DwWuelDNadCK0v15hEnejNMI76p5wR0j8Qj87HGKIxoOT7Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++ksLYTQseYm/8k8VQ41pNzguUdHh+/fO3n3GB12h9neHM5vHLYL
-	8mXfukbPCWa11ebvWMyHBa4eAQzR2tJ84nGvGijXaHca+5KuPrUZnkl+PaasZLzFXlyS/lVVqby
-	ExQK1rmZ4yW6VuYNXsMc7X+5p99yW8U7rQDJ/Msxwb41r+g/xmA+r/E3k4dc=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CB6C3D955F
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 12:23:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.17
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787747009; cv=fail; b=j2YXYyI5JGqGs0J0Qx6LnnZqGYcxIsexDEDAGsnsbUrSEIBtfjWblF6GT9TjkTQjtd3XeVfbiNistMcynM6BNQnNzrkyZIgVpKHaH6aAst/8KcyCbxjNE/HPCZdA7ah6BxCbEVFuWQFvfrGw2j7AP4iT7RYiMbXcoWnBzETU7g8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787747009; c=relaxed/simple;
+	bh=qfGyNf0kXdGS2a/tlSsUKkwvjZ8BHWtbG9tIGpyNyZM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=nQoD232xZ94X05ylrufTq4Jw5gsqggeXYUmgfZvkmLEBwihIEzoCJWgZamWDJFxf5yKBuXMGTk7JwGIJi7uKeUMem8cyoGmF18DCH0EJUSKST+I6yGpPzHnssiRDRyhXdRHwQmyuIL66Ljbr9Cj/YaCVTRw2KrrDpIzZ2+YM5sw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Pwss7j3W; arc=fail smtp.client-ip=52.101.193.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Pwss7j3W"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JL8jM2xzoWySD56U+XoDq5OByqbZSHMohg7MTvqU7OU/Ndvd3gH0KlbwQoE6VlgDuaOV1EM0mibmSWJL+ADnjPi1mVd5MBnMA+pGB8Z7KH1xqxmsKpOzBRyT8dBrfF+lnVMUqqY1qMr1Q4i5YceXjbFO13IE/JDcZu6LC6y/dWlRzL4YYPtvGt8aiCRmutMMLVT3tMG/hHRmowcARSdLV642OsX00uzYqStodKeAo7FTgxLYXvITwHUULen4I9teIROlcDz8B8UvUXth+2ghmlbINiU0xmIy463eA57ZyWRz5I8+H6i1AZJLxOgsKAKE54Vs5o8Zpw2biexeBBf0/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HV6HSnqkuJTQJI3dzxxBIX/V4EEiZXFxX+3DqkDc3Sk=;
+ b=fP1HOk+p5cy6JbohsCHGGjG6xaJJsbZF9oj296bnQqbveDqdX0bo4tUNA8UWdVwk8Ih3rwjtA5A9V1G1jBLNjvfVEwZjS2rLlqIU+2cw7GbM/b1YIV+1ex/HmpZKROU/zdIreiH+mYgMPE/9QdoozW45klaQz8aIZ24d/IgudN7vAJejetlPe6FZA17rGeSevY+KZUU/e/cBSBLa5xeKu/fikE85DMNnYY0cCT1z2iN4oR/Ydd5fu8mlk3eUw5Gun6PqNlT6YCAafDWO/3OdDGst6WOI5icRG1Suxq5A3fPqXvdFwWQ2TGoD6GvvIKpP91kqYjFMOcZKs7iLlFNHQg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HV6HSnqkuJTQJI3dzxxBIX/V4EEiZXFxX+3DqkDc3Sk=;
+ b=Pwss7j3W6lCEUWy9QJLiVxdg+ON3TcqJzkZ3nYoJ6aEvqnNBpzB5uAooCbGf1PwyQtKLrtQOKE8ANo8F2rqpXbuRJOmcp5+0Wk1lduwFPzNTnddVMs5LiWyejIWpuUznWyQJOeIMprUv4YDKkPukvGCt05tOeXSAUCtRBpqzyCzWdMvgcP8yaXe7nLFsHgok/N/Dpe91ZwMysSmxnPIw5phdB1k+VMiUWyDl5qf26nJ3uVn044ISFSYJunZ4G7wmLw72Hj/kjbQ62Ofl3pT2EzE/YFHmHFDAOhWOFtQY8m3CrtegYbvABsavPAVmBblVb//o9PPAZQEeHCDU+c3+1Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
+ by SN7PR12MB8131.namprd12.prod.outlook.com (2603:10b6:806:32d::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.6; Wed, 26 Aug
+ 2026 12:23:21 +0000
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0360.006; Wed, 26 Aug 2026
+ 12:23:20 +0000
+Date: Wed, 26 Aug 2026 09:23:18 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Mostafa Saleh <smostafa@google.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	kvmarm@lists.linux.dev, iommu@lists.linux.dev,
+	catalin.marinas@arm.com, will@kernel.org, maz@kernel.org,
+	oliver.upton@linux.dev, joey.gouly@arm.com, suzuki.poulose@arm.com,
+	yuzenghui@huawei.com, joro@8bytes.org, mark.rutland@arm.com,
+	qperret@google.com, tabba@google.com, vdonnefort@google.com,
+	sebastianene@google.com, keirf@google.com
+Subject: Re: [PATCH v7 00/24] KVM: arm64: SMMUv3 driver for pKVM (trap and
+ emulate)
+Message-ID: <20260826122318.GI3325090@nvidia.com>
+References: <20260715115906.2664882-1-smostafa@google.com>
+ <178769159057.3356902.1232440069489543145.b4-review@b4>
+ <ao6nvupFg7neLqbN@google.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ao6nvupFg7neLqbN@google.com>
+X-ClientProxiedBy: SJ0PR03CA0347.namprd03.prod.outlook.com
+ (2603:10b6:a03:39c::22) To LV8PR12MB9620.namprd12.prod.outlook.com
+ (2603:10b6:408:2a1::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4fd1:b0:4aa:d5f:123e with SMTP id
- 5614622812f47-4b366b0ea25mr6875968b6e.9.1787746952438; Wed, 26 Aug 2026
- 05:22:32 -0700 (PDT)
-Date: Wed, 26 Aug 2026 05:22:32 -0700
-In-Reply-To: <6a778cfb.9c11d2ce.289b96.00b7.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a8eda88.1d9ded08.62e62.00ad.GAE@google.com>
-Subject: Re: [syzbot] [block?] WARNING in blk_mq_free_tag_set
-From: syzbot <syzbot+02b37e31e64ea5cb6d29@syzkaller.appspotmail.com>
-To: axboe@kernel.dk, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|SN7PR12MB8131:EE_
+X-MS-Office365-Filtering-Correlation-Id: 02c1f1de-0efc-403f-3bc7-08df036cd0f8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|7416014|10067099003|11063799006|4143699003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	MMEezEtBDPLyncg8rSAN2KM+ZHbZmKwduW5m6eEHjJmup73zs4ZLOf8MVIG2Jvh+GOPgvMepck5R7gfEBh7Y5/Ig917vLxoClhU5ISjX6DWjQeuUefQL+0bZdCGDznjpqnrMSR5cMlU0F4OJM+gQ16zcpNVIJVdUzWvPAnd0yXD2M519JC0aJh/dmDxjmwvcdSZB5OZjL1K4OEzQYYppFFQvo9lH+vv52nzqDP8FJiJmPHHeUD9w8Dew4vJa7UcfdVzrISPBe9v0s3ihI6AVvPQcERqNUT5MXAhbrvinujCc7DyiKSEKyuTQLO+j9TAvRrx/SFLs/UrGw5QOAwHH2lE7xwYgzZCHdPRhuESe3IzBxqZHnwKwfdcVfs4OENZoNv953KC4bnaDcbthr0ryti4X4K9gzmEjQpa9GMdYXUbLNdTDvUIC5xRS2Y/vxLsoPA3Gvef/yucFs9Y19Ufdw7PwX7ccuZw9k4B8dXi4NS8l1+ai/rDQqrVQd6uEz7NeuqkEYt044WeJXUmi9wIt+bSuBvWOrgs4xjR5uuOuIXWnB000aZAGeF6yrQFd5lDtkf03wNFU5/IO9kA8XVa0WwiRGgX23lalymZabPhMfxMchkczsu/AID2/QnHO0MioRqvR9DK0/Q7ARtnF13/bxkB6j9YktmN2hFpCF26F+mU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9620.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(10067099003)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?T4BAFvTOC+szduNKdQvb1S3XjJeLU8gI9Ck6NccowFD2GM2ulIp+/esRUvBe?=
+ =?us-ascii?Q?5ozyXASiCYw5H1C1chz4aheo3jKQPlYniKyVMaN8iPPKsJv9t9blrIfhMyeT?=
+ =?us-ascii?Q?SWF1jjlEq2F/yDdVx/Au6M1iBu+AMO7mGNJX5YE/KeghLbzXpgZkHU+cQg75?=
+ =?us-ascii?Q?Rgs8OG32dRUtbGb5SYn1PX4QQ8ImVdXgM7VDmYbe965/Xc4o6UYFbV3j5V4K?=
+ =?us-ascii?Q?J0dXibaBgfGsJvtjzVQltkjAQvA5XGyk2DAAlX4ZicDCuEfdeoMNttz+jSUz?=
+ =?us-ascii?Q?4gLOih6NaF3fQk4YjsgcWGXPDuToFmOdBW2uN/S0KxLM31Ni8Qr4DigEe03I?=
+ =?us-ascii?Q?4S9RRfCdCJnkejLbEkW0/0P+FLEHrb+qk8HZ5xvP6K8+x7Ocx3QzwU/pFnj2?=
+ =?us-ascii?Q?b4CeZWSYvqcBL3eIE2MxWVoZVuSndXUv5MbAlpTdjaf0qOsejC/93ksxOI+6?=
+ =?us-ascii?Q?xZggGN+iWfvAPjTGleRCXIFKzn+Tz5o34ZEJI8IoqCMTZIl3bNnVkmU2xTvz?=
+ =?us-ascii?Q?rBdeFTczFAZP+f4HwTvBP2XJ8hoggysmizaNV/f1te8kxcnRMf7KZnIYDLjp?=
+ =?us-ascii?Q?Hhbkfh7vTOg0EhhM9zzPivA1wFCJgFu4pEiEdObcEtOn+sGEnunwkEeLcOzl?=
+ =?us-ascii?Q?piqRGisyPPPTw61rP9x5oyp39iSCvhJieGRTGztEI1eM57FZX0FeIFiNVyIv?=
+ =?us-ascii?Q?FrhTP6t7eGYOAwRgr8GAd33mKEULI62Sq9AjuTd2IbG3JZLcylBduoPyzFzb?=
+ =?us-ascii?Q?iLTAklrOqyJtmZtePBjfDzxjrFXna3qw0Z/PDqrfqpSw2RZ0gc4PS+7syJQK?=
+ =?us-ascii?Q?EZ3RA/Vc6bnPZiHvhwC15hglKT2xV1FEsMs9nYkfCh/o4n9IOSq968vv0ptS?=
+ =?us-ascii?Q?OUTFDxCvCDbCbKvjgjKHJlIttHfS+k5BgOH1Slrig4A96zSl5VshoOcbhWEu?=
+ =?us-ascii?Q?yxg1aj0QwD9nH/FjOtkrht10S5X1dhS3PYKSL+oKdEJzdYzPx/+I6cEcvok1?=
+ =?us-ascii?Q?uTaeFlllOrFJGj+ZcNQ7AsQmEI1D7/AG+zxbu9+BgBb05r0/h7WNKI/fzsZu?=
+ =?us-ascii?Q?zp1SmI0pWUvzJU1RXt0uZiL/982DhMNCmSXn4DALYoGWhJb8+3/YlQeQZ7EX?=
+ =?us-ascii?Q?ctK9703dUdpNc1DFwUm2C+Xmsi2YjjDQ96cyaIunv3LxA9WvJy46499JC5+V?=
+ =?us-ascii?Q?Oh8bveyRFdNLPZydzIaygrjCOk5Eh++L0kY2O7SdC8dkjtDTYFvRPUEqAQtG?=
+ =?us-ascii?Q?G1xvmwh3zYDnS977VJlGMHgwQwS6m9VUSh93RQp7fazBsYOnGEmAPeu3a2OA?=
+ =?us-ascii?Q?JHWKJXBdWqC3SDBIMCNeXUSDhN6L3oG2ri+Bh5i53lT4JzSCSLE+bRpIg9M2?=
+ =?us-ascii?Q?VHvT9XiUZvH9nO69fyBHoLh0BE7QtE7G1sqUgCsOoDXMK6duPi612wB2cHCI?=
+ =?us-ascii?Q?y+YiE7SwKSJtLLa22wDBWp6jAwWOFC81HyFZ+VyeegZeQ1eLXSyhaqyj8zX5?=
+ =?us-ascii?Q?dcg0FuBiu9IEvo4DRmPM2T7DyHCfZwMOouuSJC/JHZ/mFbBYm1KqdBUUYwgU?=
+ =?us-ascii?Q?bRKWxS0kraRh3F8ocDhm6Yt1Bp6EYhJwnXEAdKrSvwaWh3cuY6+A/ae4KtVF?=
+ =?us-ascii?Q?Rd82xVXOwRJOhc9LWximfudfQZ16BoJho9mxF/Hs1DzGU66VrqapqiFEWb+Q?=
+ =?us-ascii?Q?5KThtZxVBkZn4A+Xo8WBlX3tPXaC31KxnMdPpdcz1VPIjCj+?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 02c1f1de-0efc-403f-3bc7-08df036cd0f8
+X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 12:23:20.9066
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6ZNO8r5ihYIILJOnojqR2YwYSTP40uLiZIjOftAVsqo69ZwgaaskJ8IdoJt4cIms
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8131
 
-syzbot has found a reproducer for the following issue on:
+On Wed, Aug 26, 2026 at 08:45:50AM +0000, Mostafa Saleh wrote:
+> On Tue, Aug 25, 2026 at 05:59:50PM -0300, Jason Gunthorpe wrote:
+> > > This is v7 of pKVM SMMUv3 support with trap and emulate
+> > 
+> > I tried to compile it:
+> > 
+> > ld.lld-21: error: undefined symbol: __kvm_nvhe_iova_bitmap_set
+> > >>> referenced by __kvm_nvhe_io-pgtable-arm.c
+> > >>>               arch/arm64/kvm/hyp/nvhe/kvm_nvhe.o:(__kvm_nvhe_visit_dirty) in archive vmlinux.a
+> > 
+> > I think it is because I have CONFIG_IOMMUFD turned on.
+> > 
+> > -#if IS_ENABLED(CONFIG_IOMMUFD_DRIVER)
+> > +#if IS_ENABLED(CONFIG_IOMMUFD_DRIVER) && !IS_ENABLED(__KVM_NVHE_HYPERVISOR__)
+> >  struct iova_bitmap *iova_bitmap_alloc(unsigned long iova, size_t length,
+> > 
+> > ?
+> 
+> Ah, I don't think I tested that config, sorry about that, I will fix
+> it in the next version, I think I will just stub it in the hypervisor
+> if possible.
 
-HEAD commit:    a8406e6c0b79 Add linux-next specific files for 20260825
-git tree:       linux-next
-console output: https://syzkaller.appspot.com/x/log.txt?x=114f1625580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=da8932b2925a9804
-dashboard link: https://syzkaller.appspot.com/bug?extid=02b37e31e64ea5cb6d29
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=13dad979580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=10136979580000
+I tried and failed, getting the include order right did not happen,
+since this non-inline non-static declaration tends to conflict.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/bd019bacac75/disk-a8406e6c.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/e47580ccc38d/vmlinux-a8406e6c.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/b7909a5638c6/bzImage-a8406e6c.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+02b37e31e64ea5cb6d29@syzkaller.appspotmail.com
-
-------------[ cut here ]------------
-timer_delete_sync(&sdp->delay_work) && rcu_segcblist_n_cbs(&sdp->srcu_cblist)
-WARNING: kernel/rcu/srcutree.c:707 at cleanup_srcu_struct+0x3d6/0x8b0 kernel/rcu/srcutree.c:706, CPU#0: syz.0.1231/9288
-Modules linked in:
-CPU: 0 UID: 0 PID: 9288 Comm: syz.0.1231 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-RIP: 0010:cleanup_srcu_struct+0x3d6/0x8b0 kernel/rcu/srcutree.c:706
-Code: f3 8b 00 48 83 7d 00 00 4c 8b 74 24 10 0f 85 dd 03 00 00 41 ff c5 41 83 e5 0f 41 83 fd 07 0f 86 e2 fe ff ff e9 ab 00 00 00 90 <0f> 0b 90 4c 8d b5 00 02 00 00 4c 89 f3 48 c1 eb 03 48 b8 00 00 00
-RSP: 0018:ffffc900033c7cf0 EFLAGS: 00010206
-RAX: 1ffffd1ffff81745 RBX: 0000607edaf36940 RCX: dffffc0000000000
-RDX: 0000000000000001 RSI: ffffffff8e478a87 RDI: 00000000ffffffff
-RBP: ffffe8ffffc0b940 R08: ffffffff907a4f7f R09: 1ffffffff20f49ef
-R10: dffffc0000000000 R11: fffffbfff20f49f0 R12: ffff888054a1e800
-R13: 0000000000000000 R14: ffffe8ffffc0ba28 R15: 1ffffffff1ce95de
-FS:  00007f73abf2d6c0(0000) GS:ffff888124cd5000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000200000000100 CR3: 0000000076d8a000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- blk_mq_free_tag_set+0x617/0x790 block/blk-mq.c:4976
- loop_remove+0x4e/0xc0 drivers/block/loop.c:2143
- loop_control_remove drivers/block/loop.c:2201 [inline]
- loop_control_ioctl+0x4a6/0x5a0 drivers/block/loop.c:2243
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f73aaf9e0d9
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f73abf2d028 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 00007f73ab225fa0 RCX: 00007f73aaf9e0d9
-RDX: 0000000000000001 RSI: 0000000000004c81 RDI: 0000000000000003
-RBP: 00007f73ab035024 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f73ab226038 R14: 00007f73ab225fa0 R15: 00007ffe4f51e5e8
- </TASK>
-
-
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+Jason
