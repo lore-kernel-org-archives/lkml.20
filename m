@@ -1,130 +1,146 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 504753F824D
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:15:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.182
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787750119; cv=pass; b=f+2QjESPausz33AkTyus1xR6b7D+5RdZE8FGTA7A6uU6/+Z8nWX08DGrzsE3RzEc32AzeDWjVKlgYDh/wix8J6BZWdKBN0EzAPoxRLEhDxJvJXc/Mmnf6+KglufGIIZ5ab7+GoJeGYGI/zEl55n93BCGjJoyZfMLTCk841KF63E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787750119; c=relaxed/simple;
-	bh=RKNzlRVl+S0k8ilZtcI6h2AWwuL8NHUOHd60FRGko2Y=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=g8VxSYniGKtc6jWcUIr3jQZr3220kcsjka/FmxhkyZwxX0lMx2yehnPqz0f+7SOvNmraQJBod+TRPdtmCJaPt9MAYg9pRB/mg9WGGR/839mpswjyVMKIGnitHpaxHD5LXA4z5iyApc2c4Me5JtgJDZWB+rtPC/NHTFGOVfrTJAA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jdnx6fAE; arc=pass smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADDA83F8251
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:16:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787750191; cv=none; b=axK2tychtVSUCQwV2zPonaJdDjTG7VKCImxW4dvdJCEq2kYKT5qCfz4QFGyYNQ0suj777sL9LiKz7kjMuW9U/4UHdWLKbliU0SGrJDmV3qjKIuvhDEL/okmynQtP9C8072zYHO3NgtWHsgS/a21L8zUFPORxB6O270CYaugbo9s=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787750191; c=relaxed/simple;
+	bh=3CFSK9d7oFF1lyFoHzxL5BXuoLl6eBpFbfPBoRFgD0M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=VZKxPvkGctaNvYfCG+FWNw+Pz92yD6htVyIyeDLTTA1rNW0dTa8o8OlUad1JDLepTYAdn3TVTetcQW5lLA02N17+JiTvRQVjBKyvaAHpGUk0gizm1BmgAo/wR5sbMgZGA5qluo/tzlbHTarEYSxAXmEqCEJb+Ju/tZdy9EP+DlM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=SDP1qw3M; arc=none smtp.client-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jdnx6fAE"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2cecdc24b1cso1377335ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 06:15:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787750113; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kZNBIpzYr7f9xu//2vRln3rlZXGvwiPjzISUeGg6ivnGWyPX42e5Y38E7pd0IMGQgo
-         2GgtqSxpWGHL363UWey2xqr2eXW1UclIW8WphLP9LmMiLO4cQxhDxifNRScw1yIlfiQi
-         akjY2Qo0auZMyJmKwNlzURgn/PDLK2Vy7wRPKyWKLpaP7oXr1A9vanDwORplMfav/gI2
-         TekIAYTdMK67ehXObL4iSUtUDWA6D96mr1h7AOYctZJGhB/D+Iv2S+B4utM2gVSH9cvA
-         RLZ92aB0ulGGAr//BEmswGGAE2kMm961sj9iAcxEaNzPn+A62fxQXY7qCgRvJyoKnPUI
-         sRGQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=d68A414WB1dkKupG8neXp1UtIKkBQkiVmGySNMv1upw=;
-        fh=yJNdUoPqznERM6FIgMSy3G7j0sqQkwdBYnQ3jFqbvnA=;
-        b=P0/wraCgo7KGWTZ0SEnfd/xgBa4O6vX3eVbVb4E/byQnN+Bt/n4pnvIMo6KMO/8RLe
-         BltElzr6uRNcgCVRXMyu3fxh5MnwgQepA6OO1gAdhbPJHJYNeXLkVfS23a2MjCpcFnRJ
-         nZJ5elrEEQZZejN75brlI25UPe2UIkJXzTDuzgPa0x1t/dYswSiVqcAMmyJse1Qh23rR
-         d8la7JX25ueago9QpDoQEfq8vl384Awpu+LxRMpPIFoboioEuNBDxFEnG9bDK/9VGJCo
-         Rx1ZbKfeRLb50GAOppN19h1p+YHZSnE9aZiQid0zFz6qZ0QkBka4G3mlLzulE8aCAc3Y
-         SPQw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787750113; x=1788354913; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=d68A414WB1dkKupG8neXp1UtIKkBQkiVmGySNMv1upw=;
-        b=jdnx6fAEKqK+q67Ubmmz6BFb0UIznCWMvOqyMkM3+8aALbPOKpTHL2GwiihfJAPCAC
-         uyFb2xJy81V20n+5b3zBQWsqdm599DoFTYlcEUehMAw65fIyhJKdmGYHYoNKZebwYK9G
-         XE+BJDa/yPqNmkX/rolJFayie/mvXpzeYvkCJXpA91NxdRT/3gwgDS4RYgxL8G3eHYNT
-         iTBZHaLndnUsKtWAGcn4nFcMVyIUHvwwvP++L2qMgooUrx9431xnW2+oCsXN+1B+kbhZ
-         qnd6sAFgZUyqh+TWDvPHRJYZHGaEZqWCv1GIOBS1met8EmJac4Mrdsa4Nn9iEYFmN3gY
-         /cGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787750113; x=1788354913;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=d68A414WB1dkKupG8neXp1UtIKkBQkiVmGySNMv1upw=;
-        b=agYJ8zS46v0YIL2/w09xoHE9hbVEW9xGYJ+W3cAgRiHa6pmyrE7isdz/fmxMxjyMVY
-         g45VgZfKlggBFB9tvFpQV50iV2Ik6NjzEdrXjidzxxbr/H/KQ/EQN9O9pcMH3dH4tdP+
-         25McUSZb9AX1fGu0IRjZLySPJfaGGP2Sp+/Q+dJ2ahJqszBE/A7dVplavI14SM2HP1c0
-         e7AGmCnOdkd7uMz5NnC98xFdH3ikgRaaFO01zHnPPXVIpFBCiRDqqxU07mwkC5zt3mEq
-         HMgVwOpa3frKmaa9Hn7okdMASz2uSBZCQ17U9loA8LraiTNQ0IInfUAoubXYxz58fZlv
-         5PIA==
-X-Forwarded-Encrypted: i=1; AHgh+RotmnobtgfHsC9QE6S3RegBZL6++7QarPfImTcU5jrCulI2hlGJM2bny0kDuHFNl1uJoBikaXGwv4YUCls=@vger.kernel.org
-X-Gm-Message-State: AFuF++my1PBAwlkQc3JqWxOO+s9Tfg4Kmeh+Kg9vuilR2zT2abxA2W74
-	YUdKzO8ni0FwXkMwilt0Z3rnGzHZIuxObykFNQHaf6vOgaevodXRgREz3s8k2qZMRBT+qzXhlFY
-	mspDuK4eETikvbCtoGTIXpUONzm5sww0=
-X-Gm-Gg: AR+sD119KWp5NaVayA3GjE+D6lS/a9GvHUzo4Tirs3Y8+AgWQdCilQFfrtXjNPFzANq
-	cFjom/xlLfTwdgDN0NU0IMb89mMzyruDWWreeciFNuInBbgZI6wo2KV3ZtCN/edtctcGdB64BjZ
-	KFRrJ9jne+5JL7kgup6tN3I8M2cq/en5XlpL0a14DccopPgUo7fUMcq6q6PQ50GWWDgnF6kxfRA
-	9lWPoo1IDWx4pIjNQ7XlLJljd1Jk1h6ggxmT4hiDcLlMDUus1BOr39v8I3ijoiC8inPp44d4BQL
-	/0ueLH29j6TKIaXV1INx8StpgiznTDQTiSTCzK8NhAbxOjHhFYXyrrOjQ6Yk94YQ03q4wrjyCOa
-	vOr63NN8rJ3vG6DbOrI1lckYGifFPXC8=
-X-Received: by 2002:a17:902:ec8f:b0:2d7:1a3f:8db5 with SMTP id
- d9443c01a7336-2d71e51eddfmr1812505ad.4.1787750112568; Wed, 26 Aug 2026
- 06:15:12 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="SDP1qw3M"
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20260826131621euoutp02b2cc4cd5c239f28c3227d01853626aba~PXVGRF7Q-0618806188euoutp02s
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:16:21 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20260826131621euoutp02b2cc4cd5c239f28c3227d01853626aba~PXVGRF7Q-0618806188euoutp02s
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1787750182;
+	bh=Rx3zqcOgBMNdvWRHnyDvlfZnynx8EEyzAHso3JsbmAA=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=SDP1qw3M5ntmu1AwgewRnrgU3G3D77HeUMw5ytAvw+g6S4Rrj8ylptGzd5VVopwrL
+	 Ibl4RLC3ddXE2EQ7oPKonvufswM9/YRoXoPBFkXPoq1ezFTqElimEYGMBp6IrdETWd
+	 JF0RCZ/V9Jzsx3JKcDr4PibFx+Z6G0dzcHU6yWBk=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+	20260826131621eucas1p252dc76f83701618d60b3713500c10a2c~PXVF5uMMi1135311353eucas1p2U;
+	Wed, 26 Aug 2026 13:16:21 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20260826131621eusmtip17e59151fa7014cb894754f178bade425~PXVFie79E1334913349eusmtip1K;
+	Wed, 26 Aug 2026 13:16:21 +0000 (GMT)
+Message-ID: <aa0fc15c-eb46-4abc-9260-7aaa8a39c040@samsung.com>
+Date: Wed, 26 Aug 2026 15:16:20 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260815180033.8958-1-linux@treblig.org> <CADnq5_PgZx7aDGFD5pPQ=1MvF9_N_omVojNiDQFHjs0Tqasv+A@mail.gmail.com>
- <2026082644-monetize-tingling-0abd@gregkh> <CADnq5_N0AxaDZswgEQ7BEcKw8mF2hnSbAQp-w9U2Fy-MaEw8Rg@mail.gmail.com>
- <2026082654-gangrene-support-8541@gregkh>
-In-Reply-To: <2026082654-gangrene-support-8541@gregkh>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 26 Aug 2026 09:15:00 -0400
-X-Gm-Features: AcwNN1X4LudWVwUaEUKscYc-hvggQoTSapOlPRsnZqqAC9NLjfVJYKctFGxUoHc
-Message-ID: <CADnq5_N+bXX2cFjxr0xHX9Yso6+OHh=9i=61boEsRedYwid9aw@mail.gmail.com>
-Subject: Re: [PATCH 0/4] drm/amdgpu: Remove is_idle method
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: linux@treblig.org, alexander.deucher@amd.com, christian.koenig@amd.com, 
-	harry.wentland@amd.com, sunpeng.li@amd.com, amd-gfx@lists.freedesktop.org, 
-	airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH v2 2/5] of: reserved_mem: reject static regions
+ overlapping no-map memory
+To: Wandun Chen <chenwandun1@gmail.com>, robh@kernel.org,
+	saravanak@kernel.org, rppt@kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Cc: akpm@linux-foundation.org
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <20260818092420.2859026-3-chenwandun1@gmail.com>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20260826131621eucas1p252dc76f83701618d60b3713500c10a2c
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260818092441eucas1p1fde9b887efa0fcfb6d158623c47d7d99
+X-EPHeader: CA
+X-CMS-RootMailID: 20260818092441eucas1p1fde9b887efa0fcfb6d158623c47d7d99
+References: <20260818092420.2859026-1-chenwandun1@gmail.com>
+	<CGME20260818092441eucas1p1fde9b887efa0fcfb6d158623c47d7d99@eucas1p1.samsung.com>
+	<20260818092420.2859026-3-chenwandun1@gmail.com>
 
-On Wed, Aug 26, 2026 at 9:09=E2=80=AFAM Greg KH <gregkh@linuxfoundation.org=
-> wrote:
+On 18.08.2026 11:24, Wandun Chen wrote:
+> From: Wandun Chen <chenwandun@lixiang.com>
 >
-> On Wed, Aug 26, 2026 at 08:45:29AM -0400, Alex Deucher wrote:
-> > On Wed, Aug 26, 2026 at 6:21=E2=80=AFAM Greg KH <gregkh@linuxfoundation=
-.org> wrote:
-> > >
-> > > On Mon, Aug 17, 2026 at 11:27:41AM -0400, Alex Deucher wrote:
-> > > > Applied.  Thanks.
-> > >
-> > > Any hints on where this was applied and if it will get to Linus "soon=
-"?
-> >
-> > It will show up in drm-next after the merge window closes. 7.4 material=
-.
+> Static no-map reserved-memory regions are marked in memblock.memory rather
+> than memblock.reserved. So the reservation overlap check does not reject
+> a static region that overlaps existing no-map memory.
 >
-> Sorry, but this is hitting me now, pre 7.3-rc1.  Booting and getting a
-> zillion kernel warnings isn't ok, that's a regression.  Please get this
-> merged sooner than that.
-
-I assume this is the series that fixes the warning you are seeing:
-https://lore.kernel.org/all/20260813143605.106104-1-mwen@igalia.com/
-We are working on picking it up now.
-
-Alex
-
+> Both regions can then be initialized and hand the same physical memory to
+> different reserved-memory drivers. So reject a static region that overlaps
+> existing no-map memory.
 >
-> greg k-h
+> Sashiko found this issue in [1].
+>
+> Fixes: 86588296acbf ("fdt: Properly handle "no-map" field in the memory region")
+> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
+Acked-by: Marek Szyprowski <m.szyprowski@samsung.com>
+> Link: https://protect2.fireeye.com/v1/url?k=c110879a-a8abef28-c1110cd5-905a08a8515a-5165b48469b02786&q=1&e=6166144c-5cef-48c6-9f6f-b36a72f258ac&u=https%3A%2F%2Fsashiko.dev%2F%23%2Fmessage%2F20260814084718.29C341F000E9%2540smtp.kernel.org [1]
+> ---
+>  drivers/of/of_reserved_mem.c |  3 ++-
+>  include/linux/memblock.h     |  1 +
+>  mm/memblock.c                | 14 ++++++++++++++
+>  3 files changed, 17 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
+> index c6e73d710ee1..9fb2e4c29443 100644
+> --- a/drivers/of/of_reserved_mem.c
+> +++ b/drivers/of/of_reserved_mem.c
+> @@ -152,7 +152,8 @@ static int __init early_init_dt_reserve_memory(phys_addr_t base,
+>  		 * if the region isn't memory as it won't be mapped.
+>  		 */
+>  		if (memblock_overlaps_region(&memblock.memory, base, size) &&
+> -		    memblock_is_region_reserved(base, size))
+> +		    (memblock_is_region_reserved(base, size) ||
+> +		     memblock_overlaps_nomap(base, size)))
+>  			return -EBUSY;
+>  
+>  		return memblock_mark_nomap(base, size);
+> diff --git a/include/linux/memblock.h b/include/linux/memblock.h
+> index d62db9e776cf..27d68fbb3157 100644
+> --- a/include/linux/memblock.h
+> +++ b/include/linux/memblock.h
+> @@ -148,6 +148,7 @@ int memblock_physmem_add(phys_addr_t base, phys_addr_t size);
+>  void memblock_trim_memory(phys_addr_t align);
+>  unsigned long memblock_addrs_overlap(phys_addr_t base1, phys_addr_t size1,
+>  				     phys_addr_t base2, phys_addr_t size2);
+> +bool memblock_overlaps_nomap(phys_addr_t base, phys_addr_t size);
+>  bool memblock_overlaps_region(struct memblock_type *type,
+>  			      phys_addr_t base, phys_addr_t size);
+>  bool memblock_validate_numa_coverage(unsigned long threshold_bytes);
+> diff --git a/mm/memblock.c b/mm/memblock.c
+> index 9ce86349a29f..4cabfe365ac4 100644
+> --- a/mm/memblock.c
+> +++ b/mm/memblock.c
+> @@ -202,6 +202,20 @@ memblock_addrs_overlap(phys_addr_t base1, phys_addr_t size1, phys_addr_t base2,
+>  	return ((base1 < (base2 + size2)) && (base2 < (base1 + size1)));
+>  }
+>  
+> +bool __init memblock_overlaps_nomap(phys_addr_t base, phys_addr_t size)
+> +{
+> +	struct memblock_region *region;
+> +
+> +	memblock_cap_size(base, &size);
+> +	for_each_mem_region(region) {
+> +		if (memblock_is_nomap(region) &&
+> +		    memblock_addrs_overlap(base, size, region->base, region->size))
+> +			return true;
+> +	}
+> +
+> +	return false;
+> +}
+> +
+>  bool __init_memblock memblock_overlaps_region(struct memblock_type *type,
+>  					phys_addr_t base, phys_addr_t size)
+>  {
+
+Best regards
+-- 
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
+
