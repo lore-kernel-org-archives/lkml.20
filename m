@@ -1,71 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F538446073
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:58:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 412933D79E2
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:58:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787756291; cv=none; b=l4K0AmbAS4Z7MUGBL7w3h510hjgb+6tSVVtO6oeDbs8XrO2sMI49Hml5e+258B9tsanUOB9RwrtSzIucQkvNCz8BjjuuFMXHhJ3ef43MF8/S3CgL47AbuliHBTQxtKwN4Dr7wtw5vnJEcFfsnVWrjtqeQFkHtmW1FAz9qVH4Zn8=
+	t=1787756332; cv=none; b=gqsF3h+ic6U4rUwwXM907quas20KFH7zwJZWcKpDiBI8LZSGVEIN3ppZZJO2zw69HTVR8IhWop5aE2uQXlLy9I1jHHOJ2zXwjlrD9nF4IL2CZq/kkTyTyvMm0X15o7oowxqLeW6+B5IaeAaq4UZCTfRi6jBTRlvFmO2rrJkjkzU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787756291; c=relaxed/simple;
-	bh=YvujksyLFDhmPQJuueDPzzMP/JE9fimvOtcAO4bvLZU=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rfqAgmqjh+JLmMeRtBwCqNoyzixTYQyvldDswA8d01OWF1bmqL6OqdzXXTphnnV2lrU7HHyLuSdMXM96Be1is+WRk1U2bPlkk5ELt4vRQRyEuPPDN5+TZEdysFjwxDgtleMk9GvvI1pv0ufD5eT6hbO4vIJxA+qCoH6tLPCGUA4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RUqdbNvZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787756332; c=relaxed/simple;
+	bh=qBLB1wTJZ/6KP7t9g/JMwKsYPovFh4gKeKF9tIbo6iw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TjP8LjkA0jta5v3Nxuy+RHjQYA2gcCy+j/bfnZruZ5OL3+/YDhPI3DG7uRz79MlkBXOAS+B+5reYmg5yAmMfJx0wG1TJyEZtxErAHbjeY1gsu74Vjs8Qf1zStGdtTT0P1JbdC8YKlorrDA4yLmifpL11Hg4HCTILH1ZY42hIQvE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FTaWbPjA; arc=none smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RUqdbNvZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00D7B1F000E9
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:58:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787756290;
-	bh=YvujksyLFDhmPQJuueDPzzMP/JE9fimvOtcAO4bvLZU=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=RUqdbNvZSuWZezsEwc2FRMAC80gbuiOrO0thk1oS3UG015LUJ/UnqR591EohEUPyU
-	 xOAhXABHctlRziAcUC0LE9RYCyZxxt7s6wRpzNlNcKKxX98Q9OxdtPI3CVCyHjOHps
-	 L8rXPCgFQhLIqdnKn6QTgAwvP2OuzjURwQGyLzH0mbkqt3/zbMh107qENU77OlavjS
-	 b82KQ+WNr49Yt84SSFXjyGTBidYmInjjkOwwZTUTaFDn0X+FDz9gvanBFjgcmYEllM
-	 OcHg+rw2f4+IOzT5aVeE7SOyFByCLQuxEOrJOduhYt1PkBlZRroLjYANjmgLjqzpUb
-	 0smNflUQs9wZw==
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5b14d1f9315so678650e87.2
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 07:58:09 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqjrUOur34VaX5/wGe25fDjGA0NSpFrq7pan+eFFD4yazISfK8ec4w0JXYhDbwijatwHpkLuwVhp18MDDo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nUmjdUrbOZ4IUEKjHL8E0wl7qUWNdW1O5a3RZgpSYp4VBSMRwq
-	3KPMaad3A/9QEzMtD5B9iZ3IvCkztioEW3wW2kKLEnyKqe6gXfIE0EexvnkFfzDTwV4FzUJY+ka
-	XGN0H9VH8T7Ge4ta34J414E98jeE3kpxKKGFKszhXcA==
-X-Received: by 2002:a05:6512:318c:b0:5b0:197b:9827 with SMTP id
- 2adb3069b0e04-5b4a9003109mr2324523e87.3.1787756288681; Wed, 26 Aug 2026
- 07:58:08 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 26 Aug 2026 09:58:06 -0500
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 26 Aug 2026 09:58:06 -0500
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260815150946.12142-3-thorsten.blum@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FTaWbPjA"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-482e2904915so569412f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 07:58:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787756327; x=1788361127; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2ESgYh6ZftCel+XEMzHlNChNKC5IMTGij4jJbzjOOzk=;
+        b=FTaWbPjAlKVdDsN2NIQrtxH6soT2/qusQpYDo+xF9gH9UweyNmOweu1SZFn1v/iUmx
+         WrmwRWuhjzhg+xYWuT0CPaNZiGV91m1VnNPm5IDTpLGyOsYNysx6ShsejO+7lyW6wiBn
+         T6TnKJsY1F98jtJMk5xmiGSFNvLBu0bF0s58da9mGdDmleMBPj9XshVjpcf3m7cSNJVi
+         xO2xD+Ngnc45It0neZr0vZ9JuPlEf+dFe5kvFe+GcTpY3jAPFO+FgmI7i3vebrszhl41
+         ij84j0DTTDNMHjYhqsptvQ+TPN1QFiw+B90ZaSOp2bojg6bx2WY8DLv7gb/Pazb/KxLc
+         u90g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787756327; x=1788361127;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2ESgYh6ZftCel+XEMzHlNChNKC5IMTGij4jJbzjOOzk=;
+        b=QRXhnLqokdHJuqxg1d3d3lAW3Ulwjzwbd2y1HSSyfqhWomfDYgsU5u9T18X97q1DhN
+         7dp5QbRb2p5t4l0CNJGpteubXVsXD1SdFbfBFt1PPH1VvewbZ/kAG2Mr39ZAoTA6G0Su
+         rJzKEdem5j2AxGHiOM7N78I3jFmM+N4Nn/VCfZUICkxvs28R/fP9osIf3/bS+p6yr648
+         ZnFzERD9sLblrykTCpiGc4l0v+9XVevWG1HABvRFTsnmcnbTbgQ827H6YBfdrVbhcKmM
+         52/Aw/UPu7cuSaX28sv5hayqOF2V4n/NmYvNny/RL+FLU66ufQsmaOmvcoVNEknq20am
+         WXUg==
+X-Forwarded-Encrypted: i=1; AHgh+RrtExKW2BkxrOTCXuuqHqrFGP0jqNW9h6VaShNN1Rlwal7fJq+YKnIme5FLV8X0jTXdY+LhdsUEPKNilwU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kWdHoGGOQIBdo3DwYo06aoL87oDouWMUyqWapxJT/iDTU5TQr6
+	mxKiK0aD8gn7d1whNb1pvfXYcUokANeDsJNL+EJoKrsK0dQkbg25mINU
+X-Gm-Gg: AR+sD10mwbVO7wR3SoDLRgSNNQMgU0lfDmvUDwqLcqRrxg+6OKAKhoquo14kTlfK43q
+	JOAyaETbW63I6OaNWjZiXd5MWtopZuomubCXEUEKbiUJrzCY3ij8RZ0/1TvpsImuqeOPqjIIkNW
+	4oSFKG7zsCjG6G24ThQVZvbqnEb6zc65OyDJzFnKMbIysfZaZsW9hrUEeTfII1Ir1FXBt+ulyfz
+	lxj3Wp/G3C9NZ1kCboB/xuv4sx7I6qPpPzKO5OJmtQSEnw0WNphSB38KHPl7VwTDXDgUVdVnxrj
+	khIWpnMF84peqTyWGyFFFs2PxtMwIgbdFjVfpKpOv8AT4M8w7Vd7wKkTVmH2TyJyT9zN5z5E1j0
+	bBid8fPt7pnprq7818Krxgq5Wg0FYgYN6xhETvW5y+RUgJSx/pZIrB4vPT2NdhPAmjJI+u67k9b
+	sZwjQiueF6PobsPlruzZb1CBWhxVQqbwtZHSEHZJrRYVTO+K+nXg64nWz2YyrwgKFij/smb4fdr
+	+A9X6XWHNIriY9hwpZoCwK4ZbvJAEy/wacgDP8jdQ==
+X-Received: by 2002:a05:6000:22c2:b0:482:e658:bb7f with SMTP id ffacd0b85a97d-482e658bdafmr3594386f8f.15.1787756326828;
+        Wed, 26 Aug 2026 07:58:46 -0700 (PDT)
+Received: from MacBookPro.lan ([2001:861:3dd1:ccb0:7ca4:98b:a443:98d8])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e28f6917sm2935144f8f.35.2026.08.26.07.58.46
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 26 Aug 2026 07:58:46 -0700 (PDT)
+From: Elouan Da Costa Peixoto <elouandacostapeixoto@gmail.com>
+To: ojeda@kernel.org
+Cc: rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	boqun@kernel.org,
+	gary@garyguo.net,
+	bjorn3_gh@protonmail.com,
+	lossin@kernel.org,
+	a.hindborg@kernel.org,
+	aliceryhl@google.com,
+	tmgross@umich.edu,
+	Elouan Da Costa Peixoto <elouandacostapeixoto@gmail.com>
+Subject: [PATCH] rust: zerocopy-derive: Remove the BoolExt trait
+Date: Wed, 26 Aug 2026 16:58:32 +0200
+Message-ID: <20260826145832.42387-1-elouandacostapeixoto@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260815150946.12142-3-thorsten.blum@linux.dev>
-Date: Wed, 26 Aug 2026 09:58:06 -0500
-X-Gmail-Original-Message-ID: <CAMRc=Mdbk0tH=-hG=MXwFpY9ARzuAuMmvi7fhTKEPzmpuw5_AQ@mail.gmail.com>
-X-Gm-Features: AcwNN1Wnew0yhSJaB7OhGm28Gy9RvMow8DWUWA6z3mUd8NRlAST-l5JlU_tfAYU
-Message-ID: <CAMRc=Mdbk0tH=-hG=MXwFpY9ARzuAuMmvi7fhTKEPzmpuw5_AQ@mail.gmail.com>
-Subject: Re: [PATCH] crypto: qce - simplify control flow in register functions
-To: Thorsten Blum <thorsten.blum@linux.dev>
-Cc: linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>, 
-	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Sat, 15 Aug 2026 17:09:47 +0200, Thorsten Blum
-<thorsten.blum@linux.dev> said:
-> Remove the goto statements and handle errors directly to simplify the
-> control flow in qce_aead_register(), qce_ahash_register(), and
-> qce_skcipher_register().
->
-> Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
-> ---
+FIXME comment was saying that this needed to
+be removed once the MSRV >= 1.62.
+The current MSRV is 1.85.0 obtained by using:
+`scripts/min-tool-version.sh rustc` command.
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Signed-off-by: Elouan Da Costa Peixoto <elouandacostapeixoto@gmail.com>
+---
+ rust/zerocopy-derive/util.rs | 16 ----------------
+ 1 file changed, 16 deletions(-)
+
+diff --git a/rust/zerocopy-derive/util.rs b/rust/zerocopy-derive/util.rs
+index 5c5e9d3bdcb8..47aa9f78bd4a 100644
+--- a/rust/zerocopy-derive/util.rs
++++ b/rust/zerocopy-derive/util.rs
+@@ -713,22 +713,6 @@ fn only_derive_is_allowed_to_implement_this_trait() {}
+ // The `#[allow(unused)]` is necessary because, on sufficiently recent toolchain
+ // versions, `b.then_some(...)` resolves to the inherent method rather than to
+ // this trait, and so this trait is considered unused.
+-//
+-// FIXME(#67): Remove this once our MSRV is >= 1.62.
+-#[allow(unused)]
+-trait BoolExt {
+-    fn then_some<T>(self, t: T) -> Option<T>;
+-}
+-
+-impl BoolExt for bool {
+-    fn then_some<T>(self, t: T) -> Option<T> {
+-        if self {
+-            Some(t)
+-        } else {
+-            None
+-        }
+-    }
+-}
+ 
+ pub(crate) fn const_block(items: impl IntoIterator<Item = Option<TokenStream>>) -> TokenStream {
+     let items = items.into_iter().flatten();
+-- 
+2.55.0
+
