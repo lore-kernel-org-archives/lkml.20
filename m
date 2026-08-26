@@ -1,130 +1,110 @@
-Received: from mta1.migadu.com (out-111.mta1.migadu.com [95.215.58.111])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC8D82FBE1F
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 23:53:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.111
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C38702F84F;
+	Thu, 27 Aug 2026 00:00:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787788417; cv=none; b=PM5c0P1IU/2nl3JkqcR7JubREMbhUZEOOL81IFU0g8KIgVgx1SeYMrHUwcNSowsk5Qt3mW92pw++z0Y8lMTp4+en+vngF+D7U0jaWyHxLSKcwJ/vNZHwPIumoHF6DIoXuJaNIljYwz1FPmprZAzkip3dHBf+qdDCjBdPQ3ufBY0=
+	t=1787788821; cv=none; b=eS0xK/ests/sQO4Vn4urG0sWAAswISbP4OuTt165/ONAviQofVYjPJDUEQhJSALcge8PC+nFpeFPds/3tab+v1cAu+hYmG70PA+sUECK43F6tJ7/2/gjopk+R2wqQVAd+AxTEn9cDNjKUnX1w/FhRpt+xMufkUeJ6wmAfrVg3dg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787788417; c=relaxed/simple;
-	bh=jSlw6hAerUXDpVZLz8w/ZxRM7DxzgIEMkO8B3L+BcAg=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=tvhVqjWuX1RRM7S1LlYeaJjFMm+vLk94YsrYbwtx8OClrnNW0bGJTcNf2yE3K4+u6xTADWD/FqPfSbFomqS/f4TPSoCbn8rXrZPDwMY0fzw+sliVx5hQLeOS3cqb1NdLa0jU/8FvEYL6z0KNQQfsTTMeCrNv5CJea5wqftu2pVU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=iDRVupQ0; arc=none smtp.client-ip=95.215.58.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="iDRVupQ0"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=jSlw6hAerUXDpVZLz8w/ZxRM7DxzgIEMkO8B3L+BcAg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787788412; v=1; x=1788393212;
- b=iDRVupQ0sNDJLPKv9Gho8nQu0ktsb26GVx30jsUsfGt8qifLcj3dYyW6X3HjbqeJ3nL8mCx0
- rfoW750cLZmTWEmX6QNdtZQVVTVHI6nj4dVRHvnDIzs7WU0ECwDQ2CIOtVy+H/0bZ/m6RPlAeFX
- GeuK26Y2PZUQ/ghZj5vKV7Y0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: from webmail.migadu.com (2001:41d0:303:fc7a::)
-	by smtp.migadu.com with ESMTPS id 67c8cdd62d0ba66e;
-	Wed, 26 Aug 2026 23:53:32 +0000
-X-Mizu-Trace-ID: 67c8cdd62d0ba66e
-X-Migadu-Flow: FLOW_OUT
+	s=arc-20240116; t=1787788821; c=relaxed/simple;
+	bh=yRsWSvoOn8OSXpVYEItFv2hDOUouxxr9e/sA+OA5Rvk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=n3VEOG6oCj0f/RzG+4jYnY+b0TzMhpyps3xhaKR3acT9Np+tHk5B0fdLaJl5i2Os+b5OvcBK9C114cV0K98aLK/al7yqe/xhK1eC51RuefBu8fPBZZpkCEpYEojEZ+gOpEGpi9ryb9f1DBvTNIpziJGOt+kzuHYiQ/0eomnHpEM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+Received: by linux.microsoft.com (Postfix, from userid 1202)
+	id C409420B7167; Wed, 26 Aug 2026 16:59:47 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com C409420B7167
+From: Long Li <longli@microsoft.com>
+To: Long Li <longli@microsoft.com>,
+	Konstantin Taranov <kotaranov@microsoft.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	"David S . Miller" <davem@davemloft.net>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Eric Dumazet <edumazet@google.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	"K . Y . Srinivasan" <kys@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>,
+	shradhagupta@linux.microsoft.com,
+	Simon Horman <horms@kernel.org>,
+	ernis@linux.microsoft.com,
+	stephen@networkplumber.org
+Cc: netdev@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
+	linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] net: mana: Clear RDMA teardown and suspend state in mana_rdma_probe()
+Date: Wed, 26 Aug 2026 16:59:40 -0700
+Message-ID: <20260826235940.1869565-1-longli@microsoft.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 26 Aug 2026 23:53:32 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Zqiang" <qiang.zhang@linux.dev>
-Message-ID: <eb2132ad05cd3804a8f2a170de441d79afa793e9@linux.dev>
-TLS-Required: No
-Subject: Re: [BUG] srcu: false-positive WARN in cleanup_srcu_struct() after
- 78a38cbf6f20
-To: "Sunho Park" <shpark061104@gmail.com>, rcu@vger.kernel.org
-Cc: paulmck@kernel.org, linux-kernel@vger.kernel.org,
- syzbot+d4faf7db59e11f6fd1ab@syzkaller.appspotmail.com
-In-Reply-To: <9e216978-d884-4d56-b39f-d134f78a4999@gmail.com>
-References: <20260824105625.3725157-1-shpark061104@gmail.com>
- <494f3e0cdb3692bf13690f4cddd3b40098b51627@linux.dev>
- <24c0edd6-3cdc-4536-ac78-394bf785aad4@gmail.com>
- <0e74e6799bf042293fd1e34e2f242c56786c3de4@linux.dev>
- <9e216978-d884-4d56-b39f-d134f78a4999@gmail.com>
+Content-Transfer-Encoding: 8bit
 
->=20
->=20On 8/26/26 22:13, Zqiang wrote:
->=20
->=20>=20
->=20> In this SRCU_SIZE_SMALL mode, when queue delayed work timer, the cb=
-list is always no-empty.
-> >  unless invoke start_poll_synchronize_srcu() to begin SRCU garce peri=
-od,
-> >  otherwise invoke call_srcu() or synchronize_srcu*() will insert call=
-back.
-> >=20
->=20Right, every grace period which armed the delay_work timer is started=
- by the real call_srcu(&kvm->srcu, &bus->rcu, __free_bus) in kvm_io_bus_r=
-egister_dev(). I missed one point: the invoke work which invoked the barr=
-ier callbacks is not queued by the nearest end of grace period. It was qu=
-eued by the timer of a previous end of GP, and it started only after the =
-last GP had ended. Meanwhile the srcu_gp_end() from the last GP armed ano=
-ther timer even though the work was already queued. The timeline is as be=
-low:
->=20
->=201. call_srcu(&kvm->srcu, &bus->rcu, __free_bus)
-> 2. One end of GP comes, arms a timer.
-> 3. The timer is fired and an invoke work is queued to rcu_gp_wq. The ti=
-mer is disabled now.
-> 4. Another call_srcu(&kvm->srcu, &bus->rcu, __free_bus)
-> 5. srcu_barrier() is called and queues barrier callbacks, waits for src=
-u_invoke_callbacks() to invoke them.
+mana_rdma_remove() sets gd->rdma_teardown to stop
+mana_rdma_service_handle() from acting on servicing events, but nothing
+ever clears it. A hardware service reset (GDMA_EQE_HWC_RESET_REQUEST)
+goes through mana_gd_suspend() -> mana_rdma_remove() and mana_gd_resume()
+-> mana_rdma_probe(), so from the first reset onwards every
+GDMA_EQE_HWC_SOC_SERVICE event returns early and RDMA suspend/resume
+servicing is silently dropped for the life of the device.
 
-Based on your description below, the 5.srcu_barrier() did not intercept t=
-he callback of 4.call_srcu(),
-this means that 4.call_srcu() and 5.srcu_barrier() concurrent calls, or c=
-alls after 5.srcu_barrier().
+gd->is_suspended has the same problem: it is set when servicing removes
+the adev and is cleared only by a matching resume. A reset while RDMA is
+suspended re-adds the adev but leaves is_suspended set, so a later resume
+event calls add_adev() on top of a live gd->adev and leaks it. This is
+currently masked by the rdma_teardown bug.
 
-The combination of srcu_barrier() and cleanup_srcu_struct() typically occ=
-urs on the module exit path.
-srcu_barrier() ensures that all previously inserted callbacks complete=EF=
-=BC=8Cso therefore, theoretically,
-there shouldn't be any callbacks left to execute after we finish executin=
-g srcu_barrier().=20
-and=20of course, there are also shouldn't be any ongoing or newly started=
- SRCU grace period and the
-WARN_ON() in cleanup_srcu_struct() is designed to detect it.
+Clear both in mana_rdma_probe(). is_suspended is otherwise only touched
+by mana_rdma_service_handle() on the ordered service workqueue, so clear
+it while rdma_teardown still gates that handler and re-open the gate with
+smp_store_release(), paired with smp_load_acquire() in the handler.
 
-If when the cleanup_srcu_struct() detects an incomplete SRCU grace period=
- or any srcu callbacks
-that have not yet been executed, this is a risk that needs to be reported=
-, even if the
-cleanup_srcu_struct() can intercept it internally.
-=20
-Therefore,=20we should investigate this issue to ensure that 5.srcu_barri=
-er() can intercept the step 4 callback.
+Fixes: 505cc26bcae0 ("net: mana: Add support for auxiliary device servicing events")
+Signed-off-by: Long Li <longli@microsoft.com>
+---
+ drivers/net/ethernet/microsoft/mana/mana_en.c | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
 
-Thanks
-Zqiang
+diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
+index 7a1ac853e3abcd28c4a1e5c6987ec631a18ad840..56f426da728647e39f4c4ffa9c66123436297ac1 100644
+--- a/drivers/net/ethernet/microsoft/mana/mana_en.c
++++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
+@@ -3983,7 +3983,8 @@ static void mana_rdma_service_handle(struct work_struct *work)
+ 	struct device *dev = gd->gdma_context->dev;
+ 	int ret;
+ 
+-	if (READ_ONCE(gd->rdma_teardown))
++	/* Pairs with the smp_store_release() in mana_rdma_probe(). */
++	if (smp_load_acquire(&gd->rdma_teardown))
+ 		goto out;
+ 
+ 	switch (serv_work->event) {
+@@ -4279,6 +4280,17 @@ int mana_rdma_probe(struct gdma_dev *gd)
+ 	if (err)
+ 		return err;
+ 
++	/* Clear the state left by a previous mana_rdma_remove() so servicing
++	 * events are handled again after a reset cycle.
++	 */
++	gd->is_suspended = false;
++
++	/* Publish is_suspended before re-opening the gate, so the handler
++	 * cannot act on a stale value.  Pairs with the smp_load_acquire()
++	 * in mana_rdma_service_handle().
++	 */
++	smp_store_release(&gd->rdma_teardown, false);
++
+ 	err = add_adev(gd, "rdma");
+ 	if (err)
+ 		mana_gd_deregister_device(gd);
+-- 
+2.43.0
 
-
-> 6. The end of GP from step 4 comes, arms another timer.
-> 7. The invoke work queued in step 3 starts, srcu_invoke_callbacks() is =
-called. It starts invoking callbacks without subtracting the cblist len f=
-ield. It will call rcu_segcblist_add_len(&sdp->srcu_cblist, -len) after t=
-he invoking loop is over.
-> When I debugged, there were five __free_bus(the real callbacks) and one=
- barrier callback, so the cblist len field was 6.
-> 8. Barrier callback is invoked, still the cblist len field is not subtr=
-acted as srcu_invoke_callbacks()'s invoking loop is not over.
-> 9. srcu_barrier() wakes up by completion and cleanup_srcu_struct() is c=
-alled before the timer armed in step 6 expires.
-> At this point the cblist is physically empty (head =3D=3D NULL, all seg=
-len are 0) as all six callbacks have already been invoked. Only the cblis=
-t len field is stale(>0).
->=20
->=20Thanks
-> Sunho Park
->
