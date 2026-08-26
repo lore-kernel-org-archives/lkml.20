@@ -1,294 +1,145 @@
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C14526ED3D
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 11:45:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787744741; cv=pass; b=Db+wcdDU6nWgx/R9FcUMtUcJa7itUAyKhd6iJOxjKo5p3BSFOywkiNOhBYuQIpTdUvx8P7BS12PTvtMwpuIK177gVrzv/SdHp+aY0Ir+NYE66GL8uqbz6uo9Cr+d/MMfYLdC70KTNqYBl21HIA/qoTserFrSc3EYQx4/+YEmZi4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787744741; c=relaxed/simple;
-	bh=P/gW8VCdRxuvei7jvHSdmaF9YehYw1Nvg7bZ/M9tvlc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LN1Pe91i8lVZps/cxQUBd7gyaMvAYV1MStk9ErVI2+eFG/gm4Hwn2mfOLFs5CNxFzFiTVX+hOQ4c3nMEmeWCLKj7OfX5owS6aCDXAVi57Pdi1oKrsxgQfYoSlkxiYsbAL2K2c9P7GuYNKVhB7P1Nye0j7+YmidQ6+j31Jto7P24=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Benw2RHB; arc=pass smtp.client-ip=209.85.208.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81CCA3BFE38
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 11:47:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787744840; cv=none; b=uqOyKZDBspqWjAbDcbDYq/peGGpQbi6JahmEm2M+639wfK4/GvOjY3nM+siebF0Tti7q+l6BlE3KstDdWpiPLZq8U2I0dsdGnMxbmML1pvD12bIF6aCy4y6gnF0hoCwxKKzWbjUBb8d9ywHekVP5i5DTaHM80SrQNN04Sln8q+g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787744840; c=relaxed/simple;
+	bh=Kl2zqF1k9v02JQ2bkbqHZklZjGBY3oXZmTa6rpngl9Q=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Vn+zco3StQ0DxwJLQnI7ejt4VDf0WMINekXvZVhQNVvp1kYyCwZCYXyTDhdEu8ZNStOJ+Uyc7DfmVT0+7VQRfkzNbJ6330tyxNgSzzsQu3SlraW11t/Mhfpfh7tG5qDdG7qe2Oqu6xLXakNt8BnUqvEWxBH0NwKC4sAxagFbMYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=nkeYywBj; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Benw2RHB"
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6a5ded53570so1389314a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 04:45:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787744737; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Kbi1n2nV07Ajmv+SAmZ+Msrx6zlbQ5bSFPTP6usSviY2xW0ImF6OUsvBNHOuVta9lx
-         3KLuz0UvepaFLZxypJ/mv/WiJCX5gfLkUDjYX8+ip57Wfdrqhm2xV9iJ3kznyo9j4aFV
-         zhYd6XlHoV8Qh9y8MCfmu25eCcHM/oDR72P9ypx1LMTToVkAyk+9QrgfWgcUCCg8FsGB
-         jnCHfSoYRi2zfDwd2LU7qlYQSGooYavGsUwfZW3kd13CrwLVrwS2WGzW1f6ZYksQZVNf
-         4gYzwxuZFCJUX7rUrh8utFt7hEP4hrH/NKb7I6LUjEUZy8Wwd++0tJK0aYSbbkAzIsOf
-         v03A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=EL3Qhu24ra+ZVTEf/c57lcIZ395PIysc4X3HnqGdH/o=;
-        fh=fJTIyYFt4cjxjJx3b12uNXPO743ZFcYbCcSw2P286JE=;
-        b=IgSaLUvQjYFjczPkNnGNN4ZOg7dg7Btv2gonnk7cC/LTpc/PHbbU3KT5FqjE54BaEm
-         KM8ZT4e1PUXzcInPSErw82H15kO8OtqAxpwUFCvo1Q1mVieyNvQiU02sNQkhv4OUr8WY
-         jdYaKj/9Dg4R6jD1+Es2MeEyhUYZPzSYf3tGbm82mTkPPFgf2UQgX191V4iGBurZx5R9
-         gleUxMO1r+HnLPaeP4iUXV2AemKyoPSeptWnH/xDn38nYo7QWHBu5nR08sn/WBqMTxO0
-         FK9tuC9fWQwoLlQ2bY+9eAvNVyR7i6SxHMf9YvzozhHsFJ6q26KlSI+BFMiVXB9Rq/iJ
-         tl4w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787744737; x=1788349537; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EL3Qhu24ra+ZVTEf/c57lcIZ395PIysc4X3HnqGdH/o=;
-        b=Benw2RHB7lbbo41u2imHv1Qyc1te18mX7cNy1o4OLdqTbAkeu8SZDuHoR3FZzHhend
-         cnojKJnWdozY7mOcI7EvzweL+uT/aNuSbLpKCmlMJC5WQ40B58YV7PRD/17+vMDSJYTl
-         TQCZXBnLkQy6goUUvP19xo/ck7OL562HfRloSLggXovdILSANp5I8f8T+DxF3JpEzcK+
-         elo0YzYNfettEOPO2wOX7kIDHyJ5VTVOmU+TFEK2JR1aModt8qO1dU9IYbQJYkeHkaSM
-         CT0Zmdo+idrRP69SVyDT89uoxkc2daMXgCmDryHMsM93ZNK7pqRTp6OKDaCubNP/b/v4
-         FksQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787744737; x=1788349537;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=EL3Qhu24ra+ZVTEf/c57lcIZ395PIysc4X3HnqGdH/o=;
-        b=sKVUKK9M9nzYBOv8Wf+gWuNHTy+IPUndoaRCJhP4sYLogezUZm1gn4qcCqczseOHeD
-         RSJa9Y14/ThIspGTHgmzp0z1O+qhogwbPQaPERmiv6PEZ33hmjxWwu1r/h+xZvWVBOOW
-         EwqMbKsHKhy0gN7gMZo2r5fYyY167/h/0QEK/eO81+PGYL6QbNjYl3mQ8fsXgLwgtmjm
-         647EwSWBnxQNgNHMZ8fl02ax3iTR+bt4ejxjLN1C3DfnmmTlQ6dcRVkmkjGXmGacM303
-         wdXBqRWONwN93IodTzEg1WYCRaTi/yNcnuYqJeryHaQngefPvK6dfrc2V2m9yKd1/Ush
-         O06Q==
-X-Forwarded-Encrypted: i=1; AHgh+Rp+CXco+/N1owhyMmhSyZxMW97TjGDWGxj3xqwXFkqWvTtf6tBV3nPdL6uTij0kwyckm1j3tgbC2D6+tVI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nWEDXfqeFtd1waLXT3fqYq0t1N3Z/KsYne1Jp0Z3PHyirk/q51
-	4zVSokdOPe04DlisIx1sjLSR+k2eRvnAue2Mjcp7ypUO453+bNt5kDlnOwfifYxJL1uQVqvHyQ/
-	Sz13+pgdpCfkhcAGRnWD6Jc6zcf3rJ0E=
-X-Gm-Gg: AR+sD10jHWZ0/iWOJQCb+cUC1PcwzNTBV1NXKujq06Mu9OcvUiiswHvIsYdnzzFIfao
-	Ny4yPdW0dO0Q7ofkvk+pGMmWD9nhdzkAaM3jNRQagAT0F1K182n1P/FKzKcImtmDSulFYgAt+nj
-	FL4zP1QXIPhyVe9eS7dswJrXqoNEyKntBDRDhPbo0h+OukOXwKT96bZvoinBWKRrr3xPKFHn3F8
-	WnvIc0I6m3fMpB3koJwr4Z0QnFF9+LsDib2WMSAcHbROQDKSOAKTg9OXEqkEwFuPEmwSptNS3qT
-	uSsBvu68a8w0E3pgWwH3cv9mYD9F4dbwf0yyIJexy5vYlg==
-X-Received: by 2002:a05:6402:a0d7:b0:6a0:8885:e6e2 with SMTP id
- 4fb4d7f45d1cf-6a5df64d135mr8524688a12.9.1787744736594; Wed, 26 Aug 2026
- 04:45:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="nkeYywBj"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Subject:Date:From:From:Reply-To;
+	bh=mDBT0y4CQaDDC0iV3ivBJAKjXjAA2GuZiocMc8fGFFs=; b=nkeYywBjnLAG9XQvSrzvj/vM81
+	AC0D3khBYW52boaKC6MbgWS6UGYVPRWDTNvmBsj+ZCaLnbGFKNIegs9H/+S0439XkznEFDT5m4Mm/
+	nbcqsdxKur6T737/V6SggLaZJx56VrpLnGR9+/0w6ipP9NX8U/+ofWd/Kb31WGq19tB1+3CG+PIOr
+	KrNP09qeri4Ue2XbdoFCpIURx0oB24kS5zRqP9ZOvWZ+7Iu+3a0aFqIyGHSHMpxa7pWnIL8polS4s
+	6rRbGxrDRYNBIJpyphEv0RJB1nnOROiiFhghAjNtogp9UM4GDAfkKMGUynR99/z7FPjRZa4HlKuZx
+	9jt67Fxw==;
+Received: from 179-125-75-211-dinamico.pombonet.net.br ([179.125.75.211] helo=[127.0.0.1])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1wzC5y-009WKN-VD; Wed, 26 Aug 2026 13:47:07 +0200
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Date: Wed, 26 Aug 2026 08:46:58 -0300
+Subject: [PATCH v4] drm: Fix drm_pending_vblank_event leak in error path
+ for out_fence_ptr
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260803012648.2195405-1-neilb@ownmail.net> <20260803012648.2195405-4-neilb@ownmail.net>
- <CAJfpegs-k3skRGiwZvQLzD7OrAK4KL8zwmpmJKyjRHSQ-rqX+Q@mail.gmail.com>
- <178642552869.2852630.11443303758249822243@noble.neil.brown.name>
- <178675372176.2852630.1305553887009521382@noble.neil.brown.name>
- <oh2lg2agqxwqopecacq6sfdnky5faxidwsybkvbwbq24r6tw6o@4swfog5ocwwb>
- <CAOQ4uxgtKvKmPaK8rPAZDSwu0Hr9JAmqJi0a1VX_Rg7jDo8HrQ@mail.gmail.com>
- <178709583480.2852630.4575326968116183366@noble.neil.brown.name>
- <CAOQ4uxj6O8Ukbn-vWU-o+zOAYyofokCTAGnSifSDh9-PACCTdg@mail.gmail.com> <178744808383.3510150.4744569341920131567@noble.neil.brown.name>
-In-Reply-To: <178744808383.3510150.4744569341920131567@noble.neil.brown.name>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Wed, 26 Aug 2026 13:45:24 +0200
-X-Gm-Features: AcwNN1UwTnVyolJOeI93hI1vksiKbaXlH0pS9IhozP61tRhaaPYyHaqK6gsXgow
-Message-ID: <CAOQ4uxi-pLMyN3WGUhN_uKgj9KbyRTepp5mcFFDuMr=eGOMkgw@mail.gmail.com>
-Subject: Re: [PATCH v1 03/12] fsnotify: don't hold a spin_lock across
- fsnotify_recalc_mask() calls.
-To: NeilBrown <neil@brown.name>
-Cc: Jan Kara <jack@suse.cz>, Miklos Szeredi <miklos@szeredi.hu>, Ian Kent <raven@themaw.net>, 
-	Chuck Lever <cel@kernel.org>, Jake Edge <jake@lwn.net>, Ilya Dryomov <idryomov@gmail.com>, 
-	Alex Markuze <amarkuze@redhat.com>, Viacheslav Dubeyko <slava@dubeyko.com>, 
-	Jan Harkes <jaharkes@cs.cmu.edu>, coda@cs.cmu.edu, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, 
-	Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Miklos Szeredi <mszeredi@redhat.com>, autofs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, ceph-devel@vger.kernel.org, 
-	codalist@coda.cs.cmu.edu, linux-fsdevel@vger.kernel.org, 
-	linux-nfs@vger.kernel.org
-Content-Type: multipart/mixed; boundary="000000000000f9b52a0659f1c1f9"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260826-drm_pending_vblank_event_leak-v4-1-f8de8b996b9d@igalia.com>
+X-B4-Tracking: v=1; b=H4sIADHSjmoC/43OwU7DMBAE0F+pfMbI3rhx0hP/gapoHW/TpalT2
+ akFqvLvOOUAiEM5jjR6MzeRKDIlsdvcRKTMiadQgnnaiP6IYSDJvmQBCmploZE+nrsLBc9h6LI
+ bMZw6yhTmbiQ8SazqnryDtnYoinGJdOD3u/+6/8rp6t6on1d0bRw5zVP8uB/Ieu39dytrqaVqD
+ LSuBeV0/cIDjozP/XQW61iGn1z7iIPC4VZZg0jK+sMfrvrmGm0fcVXh7LYBB8YY69UvblmWTxy
+ GiSh7AQAA
+X-Change-ID: 20260728-drm_pending_vblank_event_leak-a36cedb296ba
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Melissa Wen <mwen@igalia.com>, kernel-dev@igalia.com, 
+ sashiko-bot@kernel.org, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+X-Mailer: b4 0.16-dev-62088
 
---000000000000f9b52a0659f1c1f9
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+When an out_fence_ptr is provided but DRM_MODE_PAGE_FLIP_EVENT is not
+set, a drm_pending_vblank_event will be allocated. If later, there is an
+allocation failure or another failure at setup_out_fence(), that event
+will not have base.fence set and it will not be released at
+complete_signaling().
 
-On Sun, Aug 23, 2026 at 3:21=E2=80=AFAM NeilBrown <neilb@ownmail.net> wrote=
-:
->
-> On Wed, 19 Aug 2026, Amir Goldstein wrote:
-> > On Wed, Aug 19, 2026 at 1:30=E2=80=AFAM NeilBrown <neilb@ownmail.net> w=
-rote:
-> > > --- a/fs/notify/dnotify/dnotify.c
-> > > +++ b/fs/notify/dnotify/dnotify.c
-> > > @@ -75,7 +75,7 @@ static void dnotify_recalc_inode_mask(struct fsnoti=
-fy_mark *fsn_mark)
-> > >                 return;
-> > >         fsn_mark->mask =3D new_mask;
-> > >
-> > > -       fsnotify_recalc_mask(fsn_mark->connector);
-> > > +       fsnotify_recalc_mask_inatomic(fsn_mark->connector);
-> >
-> > I don't think skipping update_children is correct when called
-> > from fcntl_dirnotify().
->
-> Thanks for catching that.
-> I agree we shouldn't skip here, but also we mustn't call
-> fsnotify_conn_set_children_dentry_flags() at this point because
-> a spinlock is held.
-> In fcntl_dirnotify() is it safe to delay that call until after the
-> lock is dropped because fsnotify_group_lock() is still held.
->
-> So I would like to keep that part of my patch - the part where
-> fsnotify_recalc_mask() (and dnotify_recalc_inode_mask()) returns the
-> "update_children" flag and the caller is responsible for calling
-> fsnotify_conn_set_children_dentry_flags().
+Release the event and set crtc_state->event to NULL just like in the
+DRM_MODE_PAGE_FLIP_EVENT case when there is a failure at
+drm_event_reserve_init(). That is, prepare_signaling() releases the
+event and there is nothing to be done at complete_signaling(). Use
+drm_event_cancel_free() as that will also undo drm_event_reserve_init()
+in case it has been called.
 
-It's just a bit over complicated for my taste.
-We do not need to optimize the dnotify case this much.
-See my v2 patch, which addresses your concern and keeps
-our internal API simpler (to my taste).
+Reported-by: sashiko-bot@kernel.org
+Closes: https://sashiko.dev/#/patchset/20260727-drm_crtc_atomic_commit_leak-v1-1-23d9948a9d7c@igalia.com?part=1
+Fixes: 92c715fca907 ("drm/atomic: Fix double free in drm_atomic_state_default_clear")
+Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+---
+Changes in v4:
+- Rename label to err_free_event.
+- Use crtc_state->event instead of a local variable e.
+- Link to v3: https://patch.msgid.link/20260817-drm_pending_vblank_event_leak-v3-1-7582b24447d0@igalia.com
 
-There is nothing technically wrong with your patch.
-It's just my preference is different and Jan seems to be on the same page.
+Changes in v3:
+- Use a label for the common exit pattern.
+- Link to v2: https://patch.msgid.link/20260729-drm_pending_vblank_event_leak-v2-1-a5074aae07df@igalia.com
 
->
-> Some callers call fsnotify_conn_set_children_dentry_flags() immediately,
-> some wait until a spinlock is dropped, dnotify_handle_event() wouldn't
-> call it at all.
+Changes in v2:
+- Fix UAF when DRM_MODE_PAGE_FLIP_EVENT is used.
+- Link to v1: https://patch.msgid.link/20260728-drm_pending_vblank_event_leak-v1-1-08429b920b16@igalia.com
+---
+ drivers/gpu/drm/drm_atomic_uapi.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-There are 3 categories and my patch handles them by explicitly
-requesting update_children or explicitly calling the children walk
-outside of spinlock in the single special case.
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index ae7667d1072d..8c0eea2fed4a 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -1458,10 +1458,12 @@ static int prepare_signaling(struct drm_device *dev,
+ 			struct dma_fence *fence;
+ 			struct drm_out_fence_state *f;
+ 
++			ret = -ENOMEM;
++
+ 			f = krealloc(*fence_state, sizeof(**fence_state) *
+ 				     (*num_fences + 1), GFP_KERNEL);
+ 			if (!f)
+-				return -ENOMEM;
++				goto err_free_event;
+ 
+ 			memset(&f[*num_fences], 0, sizeof(*f));
+ 
+@@ -1470,12 +1472,12 @@ static int prepare_signaling(struct drm_device *dev,
+ 
+ 			fence = drm_crtc_create_fence(crtc);
+ 			if (!fence)
+-				return -ENOMEM;
++				goto err_free_event;
+ 
+ 			ret = setup_out_fence(&f[(*num_fences)++], fence);
+ 			if (ret) {
+ 				dma_fence_put(fence);
+-				return ret;
++				goto err_free_event;
+ 			}
+ 
+ 			crtc_state->event->base.fence = fence;
+@@ -1531,6 +1533,11 @@ static int prepare_signaling(struct drm_device *dev,
+ 	}
+ 
+ 	return 0;
++
++err_free_event:
++	drm_event_cancel_free(dev, &crtc_state->event->base);
++	crtc_state->event = NULL;
++	return ret;
+ }
+ 
+ static void complete_signaling(struct drm_device *dev,
 
->
-> Your patch might be a good addition but it doesn't block the d_children
-> walk in all cases where a spinlock is held, so it doesn't help my
-> immediate need.
+---
+base-commit: 4d4be202165e832d74849b4a68e289a2a377039c
+change-id: 20260728-drm_pending_vblank_event_leak-a36cedb296ba
 
-v2 should be ok?
+Best regards,
+--  
+Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 
-Thanks,
-Amir.
-
---000000000000f9b52a0659f1c1f9
-Content-Type: text/x-patch; charset="US-ASCII"; 
-	name="v2-0001-fsnotify-update-children-flags-only-when-adding-m.patch"
-Content-Disposition: attachment; 
-	filename="v2-0001-fsnotify-update-children-flags-only-when-adding-m.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mta0psh50>
-X-Attachment-Id: f_mta0psh50
-
-RnJvbSBiODVjNmM1MjliNmZmOTJkZDNkMWM1M2M4ZGU5NWM5YmI0YjEzZThkIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBBbWlyIEdvbGRzdGVpbiA8YW1pcjczaWxAZ21haWwuY29tPgpE
-YXRlOiBXZWQsIDE5IEF1ZyAyMDI2IDEwOjU2OjQwICswMjAwClN1YmplY3Q6IFtQQVRDSCB2Ml0g
-ZnNub3RpZnk6IHVwZGF0ZSBjaGlsZHJlbiBmbGFncyBvbmx5IHdoZW4gYWRkaW5nIG1hc2sgYml0
-cwoKU2luY2Ugd2Ugb25seSBldmVyIHNldCB0aGUgUEFSRU5UX1dBVENIRUQgZmxhZyBmcm9tCmZz
-bm90aWZ5X3JlY2FsY19tYXNrKCksIHRoZXJlIGlzIG5ldmVyIGEgbmVlZCB0byB1cGRhdGUgY2hp
-bGRyZW4gZmxhZ3MKd2hlbiByZW1vdmluZyBtYXJrIG1hc2sgYml0cyBvbmx5IHdoZW4gYWRkaW5n
-IHRoZW0uCgpBbHNvIGF2b2lkIHVwZGF0ZSBjaGlsZHJlbiB3aXRoIG1hcmsgc3BpbmxvY2sgaGVs
-ZC4KVGhpcyB3YXMgb25seSBkb25lIGJ5IGRub3RpZnkgYW5kIGNhbiBiZSBlYXNpbHkgYXZvaWRl
-ZC4KCkZpeGVzOiAxNzJlNDIyZmZlYTIwICgiZnNub3RpZnk6IGNsZWFyIFBBUkVOVF9XQVRDSEVE
-IGZsYWdzIGxhemlseSIpClNpZ25lZC1vZmYtYnk6IEFtaXIgR29sZHN0ZWluIDxhbWlyNzNpbEBn
-bWFpbC5jb20+Ci0tLQogZnMvbm90aWZ5L2Rub3RpZnkvZG5vdGlmeS5jICAgICAgICB8ICAzICsr
-LQogZnMvbm90aWZ5L2Zhbm90aWZ5L2Zhbm90aWZ5X3VzZXIuYyB8ICA0ICsrLS0KIGZzL25vdGlm
-eS9pbm90aWZ5L2lub3RpZnlfdXNlci5jICAgfCAgMiArLQogZnMvbm90aWZ5L21hcmsuYyAgICAg
-ICAgICAgICAgICAgICB8IDIyICsrKysrKysrKysrKy0tLS0tLS0tLS0KIGluY2x1ZGUvbGludXgv
-ZnNub3RpZnlfYmFja2VuZC5oICAgfCAxMCArKysrKysrKy0tCiA1IGZpbGVzIGNoYW5nZWQsIDI1
-IGluc2VydGlvbnMoKyksIDE2IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2ZzL25vdGlmeS9k
-bm90aWZ5L2Rub3RpZnkuYyBiL2ZzL25vdGlmeS9kbm90aWZ5L2Rub3RpZnkuYwppbmRleCA5ZmI3
-M2JhZmQ0MWQyLi4wNzZiYTQxMjMyODBjIDEwMDY0NAotLS0gYS9mcy9ub3RpZnkvZG5vdGlmeS9k
-bm90aWZ5LmMKKysrIGIvZnMvbm90aWZ5L2Rub3RpZnkvZG5vdGlmeS5jCkBAIC03NSw3ICs3NSw3
-IEBAIHN0YXRpYyB2b2lkIGRub3RpZnlfcmVjYWxjX2lub2RlX21hc2soc3RydWN0IGZzbm90aWZ5
-X21hcmsgKmZzbl9tYXJrKQogCQlyZXR1cm47CiAJZnNuX21hcmstPm1hc2sgPSBuZXdfbWFzazsK
-IAotCWZzbm90aWZ5X3JlY2FsY19tYXNrKGZzbl9tYXJrLT5jb25uZWN0b3IpOworCWZzbm90aWZ5
-X3JlY2FsY19tYXNrKGZzbl9tYXJrLT5jb25uZWN0b3IsIGZhbHNlKTsKIH0KIAogLyoKQEAgLTM4
-MCw2ICszODAsNyBAQCBpbnQgZmNudGxfZGlybm90aWZ5KGludCBmZCwgc3RydWN0IGZpbGUgKmZp
-bHAsIHVuc2lnbmVkIGludCBhcmcpCiAJZG5vdGlmeV9yZWNhbGNfaW5vZGVfbWFzayhmc25fbWFy
-ayk7CiBvdXQ6CiAJc3Bpbl91bmxvY2soJmZzbl9tYXJrLT5sb2NrKTsKKwlmc25vdGlmeV9jb25u
-X3NldF9jaGlsZHJlbl9kZW50cnlfZmxhZ3MoZnNuX21hcmstPmNvbm5lY3Rvcik7CiAKIAlpZiAo
-ZGVzdHJveSkKIAkJZnNub3RpZnlfZGV0YWNoX21hcmsoZnNuX21hcmspOwpkaWZmIC0tZ2l0IGEv
-ZnMvbm90aWZ5L2Zhbm90aWZ5L2Zhbm90aWZ5X3VzZXIuYyBiL2ZzL25vdGlmeS9mYW5vdGlmeS9m
-YW5vdGlmeV91c2VyLmMKaW5kZXggYTMyYzY2MzRkNTkyNy4uNzAwZTM1M2M0MjVhNiAxMDA2NDQK
-LS0tIGEvZnMvbm90aWZ5L2Zhbm90aWZ5L2Zhbm90aWZ5X3VzZXIuYworKysgYi9mcy9ub3RpZnkv
-ZmFub3RpZnkvZmFub3RpZnlfdXNlci5jCkBAIC0xMjY0LDcgKzEyNjQsNyBAQCBzdGF0aWMgaW50
-IGZhbm90aWZ5X3JlbW92ZV9tYXJrKHN0cnVjdCBmc25vdGlmeV9ncm91cCAqZ3JvdXAsCiAJcmVt
-b3ZlZCA9IGZhbm90aWZ5X21hcmtfcmVtb3ZlX2Zyb21fbWFzayhmc25fbWFyaywgbWFzaywgZmxh
-Z3MsCiAJCQkJCQkgdW1hc2ssICZkZXN0cm95X21hcmspOwogCWlmIChyZW1vdmVkICYgZnNub3Rp
-ZnlfY29ubl9tYXNrKGZzbl9tYXJrLT5jb25uZWN0b3IpKQotCQlmc25vdGlmeV9yZWNhbGNfbWFz
-ayhmc25fbWFyay0+Y29ubmVjdG9yKTsKKwkJZnNub3RpZnlfcmVjYWxjX21hc2soZnNuX21hcmst
-PmNvbm5lY3RvciwgZmFsc2UpOwogCWlmIChkZXN0cm95X21hcmspCiAJCWZzbm90aWZ5X2RldGFj
-aF9tYXJrKGZzbl9tYXJrKTsKIAlmc25vdGlmeV9ncm91cF91bmxvY2soZ3JvdXApOwpAQCAtMTUz
-OCw3ICsxNTM4LDcgQEAgc3RhdGljIGludCBmYW5vdGlmeV9hZGRfbWFyayhzdHJ1Y3QgZnNub3Rp
-ZnlfZ3JvdXAgKmdyb3VwLAogCiAJcmVjYWxjID0gZmFub3RpZnlfbWFya19hZGRfdG9fbWFzayhm
-c25fbWFyaywgbWFzaywgZmFuX2ZsYWdzKTsKIAlpZiAocmVjYWxjKQotCQlmc25vdGlmeV9yZWNh
-bGNfbWFzayhmc25fbWFyay0+Y29ubmVjdG9yKTsKKwkJZnNub3RpZnlfcmVjYWxjX21hc2soZnNu
-X21hcmstPmNvbm5lY3RvciwgdHJ1ZSk7CiAKIG91dDoKIAlmc25vdGlmeV9ncm91cF91bmxvY2so
-Z3JvdXApOwpkaWZmIC0tZ2l0IGEvZnMvbm90aWZ5L2lub3RpZnkvaW5vdGlmeV91c2VyLmMgYi9m
-cy9ub3RpZnkvaW5vdGlmeS9pbm90aWZ5X3VzZXIuYwppbmRleCA1ZjE5YzI0ZWMxODdmLi42ZDg0
-YzUxMTY3NDlkIDEwMDY0NAotLS0gYS9mcy9ub3RpZnkvaW5vdGlmeS9pbm90aWZ5X3VzZXIuYwor
-KysgYi9mcy9ub3RpZnkvaW5vdGlmeS9pbm90aWZ5X3VzZXIuYwpAQCAtNTYyLDcgKzU2Miw3IEBA
-IHN0YXRpYyBpbnQgaW5vdGlmeV91cGRhdGVfZXhpc3Rpbmdfd2F0Y2goc3RydWN0IGZzbm90aWZ5
-X2dyb3VwICpncm91cCwKIAlmc25fbWFyay0+ZmxhZ3MgfD0gaW5vdGlmeV9hcmdfdG9fZmxhZ3Mo
-YXJnKTsKIAlzcGluX3VubG9jaygmZnNuX21hcmstPmxvY2spOwogCi0JZnNub3RpZnlfcmVjYWxj
-X21hc2soZnNuX21hcmstPmNvbm5lY3Rvcik7CisJZnNub3RpZnlfcmVjYWxjX21hc2soZnNuX21h
-cmstPmNvbm5lY3RvciwgdHJ1ZSk7CiAKIAkvKiByZXR1cm4gdGhlIHdkICovCiAJcmV0ID0gaV9t
-YXJrLT53ZDsKZGlmZiAtLWdpdCBhL2ZzL25vdGlmeS9tYXJrLmMgYi9mcy9ub3RpZnkvbWFyay5j
-CmluZGV4IGIyNjQwZDgzNmE3MTIuLjU2NGU4ZjkzMThhMTcgMTAwNjQ0Ci0tLSBhL2ZzL25vdGlm
-eS9tYXJrLmMKKysrIGIvZnMvbm90aWZ5L21hcmsuYwpAQCAtMzA3LDcgKzMwNyw3IEBAIHN0YXRp
-YyBib29sIGZzbm90aWZ5X2Nvbm5fd2F0Y2hlc19jaGlsZHJlbigKIAlyZXR1cm4gZnNub3RpZnlf
-aW5vZGVfd2F0Y2hlc19jaGlsZHJlbihmc25vdGlmeV9jb25uX2lub2RlKGNvbm4pKTsKIH0KIAot
-c3RhdGljIHZvaWQgZnNub3RpZnlfY29ubl9zZXRfY2hpbGRyZW5fZGVudHJ5X2ZsYWdzKAordm9p
-ZCBmc25vdGlmeV9jb25uX3NldF9jaGlsZHJlbl9kZW50cnlfZmxhZ3MoCiAJCQkJCXN0cnVjdCBm
-c25vdGlmeV9tYXJrX2Nvbm5lY3RvciAqY29ubikKIHsKIAlpZiAoY29ubi0+dHlwZSAhPSBGU05P
-VElGWV9PQkpfVFlQRV9JTk9ERSkKQEAgLTMxNywyMCArMzE3LDIyIEBAIHN0YXRpYyB2b2lkIGZz
-bm90aWZ5X2Nvbm5fc2V0X2NoaWxkcmVuX2RlbnRyeV9mbGFncygKIH0KIAogLyoKLSAqIENhbGN1
-bGF0ZSBtYXNrIG9mIGV2ZW50cyBmb3IgYSBsaXN0IG9mIG1hcmtzLiBUaGUgY2FsbGVyIG11c3Qg
-bWFrZSBzdXJlCi0gKiBjb25uZWN0b3IgYW5kIGNvbm5lY3Rvci0+b2JqIGNhbm5vdCBkaXNhcHBl
-YXIgdW5kZXIgdXMuICBDYWxsZXJzIGFjaGlldmUKLSAqIHRoaXMgYnkgaG9sZGluZyBhIG1hcmst
-PmxvY2sgb3IgbWFyay0+Z3JvdXAtPm1hcmtfbXV0ZXggZm9yIGEgbWFyayBvbiB0aGlzCi0gKiBs
-aXN0LgorICogQ2FsY3VsYXRlIG1hc2sgb2YgZXZlbnRzIGZvciBhIGxpc3Qgb2YgbWFya3MuCisg
-KiBJZiBAdXBkYXRlX2NoaWxkcmVuIGlzIHRydWUsIHVwZGF0ZSBjaGlsZHJlbiBkZW50cnkgZmxh
-Z3MgaWYgbmVlZGVkLgorICogVGhlIGNhbGxlciBtdXN0IG1ha2Ugc3VyZSBjb25uZWN0b3IgYW5k
-IGNvbm5lY3Rvci0+b2JqIGNhbm5vdCBkaXNhcHBlYXIgdW5kZXIKKyAqIHVzLiAgQ2FsbGVycyBh
-Y2hpZXZlIHRoaXMgYnkgaG9sZGluZyBhIG1hcmstPmxvY2sgb3IgbWFyay0+Z3JvdXAtPm1hcmtf
-bXV0ZXgKKyAqIGZvciBhIG1hcmsgb24gdGhpcyBsaXN0LgorICogV2hlbiBAdXBkYXRlX2NoaWxk
-cmVuIGlzIHRydWUsIG1hcmstPmxvY2sgbXVzdCBub3QgYmUgaGVsZCBieSB0aGUgY2FsbGVyLgog
-ICovCi12b2lkIGZzbm90aWZ5X3JlY2FsY19tYXNrKHN0cnVjdCBmc25vdGlmeV9tYXJrX2Nvbm5l
-Y3RvciAqY29ubikKK3ZvaWQgZnNub3RpZnlfcmVjYWxjX21hc2soc3RydWN0IGZzbm90aWZ5X21h
-cmtfY29ubmVjdG9yICpjb25uLAorCQkJICBib29sIHVwZGF0ZV9jaGlsZHJlbikKIHsKLQlib29s
-IHVwZGF0ZV9jaGlsZHJlbjsKIAogCWlmICghY29ubikKIAkJcmV0dXJuOwogCiAJc3Bpbl9sb2Nr
-KCZjb25uLT5sb2NrKTsKLQl1cGRhdGVfY2hpbGRyZW4gPSAhZnNub3RpZnlfY29ubl93YXRjaGVz
-X2NoaWxkcmVuKGNvbm4pOworCXVwZGF0ZV9jaGlsZHJlbiAmPSAhZnNub3RpZnlfY29ubl93YXRj
-aGVzX2NoaWxkcmVuKGNvbm4pOwogCWZzbm90aWZ5X3JlY2FsY19tYXNrX3NldF9pcmVmKGNvbm4p
-OwogCXVwZGF0ZV9jaGlsZHJlbiAmPSBmc25vdGlmeV9jb25uX3dhdGNoZXNfY2hpbGRyZW4oY29u
-bik7CiAJc3Bpbl91bmxvY2soJmNvbm4tPmxvY2spOwpAQCAtMzY4LDcgKzM3MCw3IEBAIHZvaWQg
-ZnNub3RpZnlfbW9kaWZ5X21hcmtfbWFzayhzdHJ1Y3QgZnNub3RpZnlfbWFyayAqbWFyaywgdTMy
-IHNldCwgdTMyIGNsZWFyKQogCXNwaW5fdW5sb2NrKCZtYXJrLT5sb2NrKTsKIAogCWlmIChyZWNh
-bGMpCi0JCWZzbm90aWZ5X3JlY2FsY19tYXNrKG1hcmstPmNvbm5lY3Rvcik7CisJCWZzbm90aWZ5
-X3JlY2FsY19tYXNrKG1hcmstPmNvbm5lY3RvciwgISFzZXQpOwogfQogRVhQT1JUX1NZTUJPTF9H
-UEwoZnNub3RpZnlfbW9kaWZ5X21hcmtfbWFzayk7CiAKQEAgLTk5OCw3ICsxMDAwLDcgQEAgaW50
-IGZzbm90aWZ5X2FkZF9tYXJrX2xvY2tlZChzdHJ1Y3QgZnNub3RpZnlfbWFyayAqbWFyaywKIAlp
-ZiAocmV0KQogCQlnb3RvIGVycjsKIAotCWZzbm90aWZ5X3JlY2FsY19tYXNrKG1hcmstPmNvbm5l
-Y3Rvcik7CisJZnNub3RpZnlfcmVjYWxjX21hc2sobWFyay0+Y29ubmVjdG9yLCB0cnVlKTsKIAog
-CXJldHVybiByZXQ7CiBlcnI6CmRpZmYgLS1naXQgYS9pbmNsdWRlL2xpbnV4L2Zzbm90aWZ5X2Jh
-Y2tlbmQuaCBiL2luY2x1ZGUvbGludXgvZnNub3RpZnlfYmFja2VuZC5oCmluZGV4IDYxOGVlZDRk
-NmQ3MjQuLmU5MGNlZWViY2ViNWQgMTAwNjQ0Ci0tLSBhL2luY2x1ZGUvbGludXgvZnNub3RpZnlf
-YmFja2VuZC5oCisrKyBiL2luY2x1ZGUvbGludXgvZnNub3RpZnlfYmFja2VuZC5oCkBAIC04ODUs
-OCArODg1LDE0IEBAIHN0YXRpYyBpbmxpbmUgX191MzIgZnNub3RpZnlfY2FsY19tYXNrKHN0cnVj
-dCBmc25vdGlmeV9tYXJrICptYXJrKQogCiAvKiBHZXQgbWFzayBvZiBldmVudHMgZm9yIGEgbGlz
-dCBvZiBtYXJrcyAqLwogZXh0ZXJuIF9fdTMyIGZzbm90aWZ5X2Nvbm5fbWFzayhzdHJ1Y3QgZnNu
-b3RpZnlfbWFya19jb25uZWN0b3IgKmNvbm4pOwotLyogQ2FsY3VsYXRlIG1hc2sgb2YgZXZlbnRz
-IGZvciBhIGxpc3Qgb2YgbWFya3MgKi8KLWV4dGVybiB2b2lkIGZzbm90aWZ5X3JlY2FsY19tYXNr
-KHN0cnVjdCBmc25vdGlmeV9tYXJrX2Nvbm5lY3RvciAqY29ubik7CisvKgorICogQ2FsY3VsYXRl
-IG1hc2sgb2YgZXZlbnRzIGZvciBhIGxpc3Qgb2YgbWFya3MgYW5kIHVwZGF0ZSBjaGlsZHJlbiBk
-ZW50cnkKKyAqIGZsYWcgaXMgbmVlZGVkLgorICovCitleHRlcm4gdm9pZCBmc25vdGlmeV9yZWNh
-bGNfbWFzayhzdHJ1Y3QgZnNub3RpZnlfbWFya19jb25uZWN0b3IgKmNvbm4sCisJCQkJIGJvb2wg
-dXBkYXRlX2NoaWxkcmVuKTsKK2V4dGVybiB2b2lkIGZzbm90aWZ5X2Nvbm5fc2V0X2NoaWxkcmVu
-X2RlbnRyeV9mbGFncygKKwkJCQkJc3RydWN0IGZzbm90aWZ5X21hcmtfY29ubmVjdG9yICpjb25u
-KTsKIGV4dGVybiB2b2lkIGZzbm90aWZ5X2luaXRfbWFyayhzdHJ1Y3QgZnNub3RpZnlfbWFyayAq
-bWFyaywKIAkJCSAgICAgICBzdHJ1Y3QgZnNub3RpZnlfZ3JvdXAgKmdyb3VwKTsKIC8qIEZpbmQg
-bWFyayBiZWxvbmdpbmcgdG8gZ2l2ZW4gZ3JvdXAgaW4gdGhlIGxpc3Qgb2YgbWFya3MgKi8KLS0g
-CjIuNTUuMAoK
---000000000000f9b52a0659f1c1f9--
