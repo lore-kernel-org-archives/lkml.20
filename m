@@ -1,185 +1,131 @@
-Received: from mta1.migadu.com (out-126.mta1.migadu.com [95.215.58.126])
+Received: from mail-oa2-f0.google.com (mail-oa2-f0.google.com [74.125.231.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60D593B2D0A
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 12:17:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.126
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2DFB3B774B
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 12:18:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787746659; cv=none; b=sIQP+UPMWDQJhntcrH/6AOGm2NciZiSqfeJCBOGqgXJ91fUrGqLRztrMRFX1+ZFXnYPjKNkLMa2IuAIBkC+1onxKs/4EkZOKnfZamTlrgn3u4YwTM58NEWX5Ia5006uQBDKVZzsIdWUvSAR59gbc9B3xKAfH7No5UCo5szFjFNc=
+	t=1787746718; cv=none; b=FexO3CozeUvU/6sCfD1uxrJ6IssdCN+3a3EJsQa8yq/s2qENhi2/LoX+HuTCNagtJxXO+HUC9YBdv6Ss0SazT5m9bJPvts1cMJevigyB/3S17tUjAVNg4IbERzJE0kMXqbhvR4anYbnIahHIWvzMK+LgIsl7ZW1gWNGdCNJLp/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787746659; c=relaxed/simple;
-	bh=xDzobXxxxU222qeCn4cQI3aUxsYCUiL8/RnRnWerbaE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Bny1PEM3af1a06L4VUyK+dcY/PuD1bxwCAORxQwTsuZcNS+Mt3dV0bz1oBc1/TZ8CmSiUwZPHDcM5xHJl869XMe6oFBWw4Oxn1I8PKixPDc9c16TdrUqqU6A96kpFkioTVyHFh2Fmn9bUprYLBYuIrd/7eAPBGyb0Y8ZPxoAtf8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mIfgBmX4; arc=none smtp.client-ip=95.215.58.126
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mIfgBmX4"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=xDzobXxxxU222qeCn4cQI3aUxsYCUiL8/RnRnWerbaE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787746654; v=1; x=1788351454;
- b=mIfgBmX4NhNZjm5zWR6Iz4XNDJSMQUS+9SuWsnqYfdwsKVrxmNsq32+OOXVG7PqG4s/j9w4+
- EvNWoRwsct/CUVDHo73VES98bbCX9VdlYHCUwwO/kLozyeBvsnLEaE2OSKpRPDHoPSrKpJp4NN+
- dRIBbtMlqcKHy0Lm6/c6FiI4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: from [192.168.50.204] (146.199.86.12)
-	by smtp.migadu.com with ESMTPS id d9e642eb430b8d0c;
-	Wed, 26 Aug 2026 12:17:24 +0000
-X-Mizu-Trace-ID: d9e642eb430b8d0c
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <4012253e-9a7a-47cf-9c0a-75cf77677f14@linux.dev>
-Date: Wed, 26 Aug 2026 13:17:23 +0100
+	s=arc-20240116; t=1787746718; c=relaxed/simple;
+	bh=+4+M6dZAUhASDX1TdfrYD3AYj4jHa/a2eMfo72zu5Lk=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=uvBp075HoiCivJpSRGcFeg5wKM136I88DmUIYAlvE2IZ8sW/3saX3807xA2rHBV6cG14qQGmW1/3HqsTWkgJoVEjs4E05ECFcN+UGuxsL25d0dbabEoDzpGDrT7UPgNY6AwQlBumyXJIQ7WRyvDHuwpOF+tadPCUDz7xAlxT3u0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa2-f0.google.com with SMTP id 586e51a60fabf-451e8472960so540328fac.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 05:18:36 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787746715; x=1788351515;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6O+Yx3dqixsBvupZN/KGdiqVoNV2KtYYbYkmAMAGd9Y=;
+        b=SvaOYd5IhACZWBuhSIDj8O87QnVfb5HNDTTZxJ5pQ4Tdk3IhfgpkMxok7NHPNHwLnb
+         r9c2Loa4pngYhRbLpVHcWh16g+wTUkfAQB3ssuPvyJCHDouTbVml8ekFP5RhMEY2gWGN
+         Da+dZgrV5/zpeJY5VZGB92Kc11CLg2kYcKUvcqerNRJ4LJSUUCYiciKzOvPhNRJHqpAZ
+         1xRDNya9iwaofu9KMonrKYqMn1lPfpKnkndd4OsjRZXiTAHiI7LHkWreny6j+n3/bv59
+         vjM8ib0lOJAKDo7bCEFFg+L+Ldb2l7OR3+HsXHRnHNdyYX5+zaU5vkOzuWBwChTKl88X
+         Ts4g==
+X-Forwarded-Encrypted: i=1; AHgh+Ro6Gkll+rHbsPXWP8RgmfJuohTW5Y0Bxw5nEtyoiqF0WZRO2eglNfhp7i1Cx52B4d0263dJGmS2Vcvvcb8=@vger.kernel.org
+X-Gm-Message-State: AFuF++k9AS6XfgHaZNO9y7i+7nep/yigjI6WHBFO60PcHe79orhL4C/B
+	zp28Wji1sGdKu70hpmR77ZnNT/x4cmb94as0KgINB73Nsgn7hQj5RTcQuwlGu3l901fHkncFySO
+	HHOUQssBB/nHamRmSp9kWVRTJRluDb4Uy/+SQP2gMGsrLKGAX9+SLW/3xNiU=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] crypto: zstd - avoid initializing the workspace twice
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: davem@davemloft.net, dsterba@suse.com,
- Herbert Xu <herbert@gondor.apana.org.au>, linux-crypto@vger.kernel.org,
- linux-kernel@vger.kernel.org, terrelln@fb.com, hannes@cmpxchg.org,
- nphamcs@gmail.com, chengming.zhou@linux.dev, shakeel.butt@linux.dev,
- kernel-team@meta.com
-References: <20260825220616.3842633-1-usama.arif@linux.dev>
- <CAO9r8zP2FLCN5N3pJR=EiNW2ykF0mwSR8fwMXPXp6SdcPd82jA@mail.gmail.com>
-Content-Language: en-US
-From: Usama Arif <usama.arif@linux.dev>
-In-Reply-To: <CAO9r8zP2FLCN5N3pJR=EiNW2ykF0mwSR8fwMXPXp6SdcPd82jA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6820:c2cc:10b0:6b1:8ebb:7efd with SMTP id
+ 006d021491bc7-6b1a03672a4mr4766496eaf.4.1787746715710; Wed, 26 Aug 2026
+ 05:18:35 -0700 (PDT)
+Date: Wed, 26 Aug 2026 05:18:35 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a8ed99b.1d9ded08.62e62.00ab.GAE@google.com>
+Subject: [syzbot] [net?] [usb?] UBSAN: shift-out-of-bounds in __vcc_connect
+From: syzbot <syzbot+f6ac161ee9699270b8dd@syzkaller.appspotmail.com>
+To: 3chas3@gmail.com, davem@davemloft.net, edumazet@google.com, 
+	horms@kernel.org, kuba@kernel.org, linux-atm-general@lists.sourceforge.net, 
+	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
+	netdev@vger.kernel.org, pabeni@redhat.com, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+
+Hello,
+
+syzbot found the following issue on:
+
+HEAD commit:    26260251022f Merge tag 'livepatching-for-7.3' of git://git..
+git tree:       upstream
+console+strace: https://syzkaller.appspot.com/x/log.txt?x=14fa5179580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=a70bec3546180b6
+dashboard link: https://syzkaller.appspot.com/bug?extid=f6ac161ee9699270b8dd
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12698625580000
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/858149e586b7/disk-26260251.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/8c4a5ad34e66/vmlinux-26260251.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/fa4efe98315e/bzImage-26260251.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+f6ac161ee9699270b8dd@syzkaller.appspotmail.com
+
+------------[ cut here ]------------
+UBSAN: shift-out-of-bounds in net/atm/common.c:382:32
+shift exponent -1 is negative
+CPU: 0 UID: 0 PID: 5987 Comm: syz.0.18 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ ubsan_epilogue+0xa/0x30 lib/ubsan.c:233
+ __ubsan_handle_shift_out_of_bounds+0x36d/0x400 lib/ubsan.c:494
+ __vcc_connect+0x14b4/0x19c0 net/atm/common.c:382
+ vcc_connect+0x328/0x8f0 net/atm/common.c:498
+ pvc_bind+0x272/0x380 net/atm/pvc.c:52
+ __sys_bind_socket net/socket.c:1945 [inline]
+ __sys_bind+0x2e3/0x410 net/socket.c:1976
+ __do_sys_bind net/socket.c:1981 [inline]
+ __se_sys_bind net/socket.c:1979 [inline]
+ __x64_sys_bind+0x7a/0x90 net/socket.c:1979
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fc16739e0d9
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fff0c105ee8 EFLAGS: 00000246 ORIG_RAX: 0000000000000031
+RAX: ffffffffffffffda RBX: 00007fc167625fa0 RCX: 00007fc16739e0d9
+RDX: 000000000000000c RSI: 0000200000000300 RDI: 0000000000000004
+RBP: 00007fc167435024 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007fc167625fac R14: 00007fc167625fa0 R15: 00007fc167625fa0
+ </TASK>
+---[ end trace ]---
 
 
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-On 25/08/2026 23:27, Yosry Ahmed wrote:
-> On Tue, Aug 25, 2026 at 3:06 PM Usama Arif <usama.arif@linux.dev> wrote:
->>
->> Both zstd_compress() and zstd_decompress() set up the shared per-CPU
->> workspace as a C/DStream before walking the request, and then, when the
->> first source and destination fragments each span the whole request, hand
->> off to zstd_compress_one()/zstd_decompress_one(), which immediately
->> overwrite that same ctx->wksp with a CCtx/DCtx. The stream setup is
->> discarded without a byte having been processed.
->>
->> That one-shot path is not a corner case: zswap always takes it when
->> storing, and takes it for a load whenever the stored object lies within a
->> single zsmalloc page.
->>
->> These two patches defer the stream initialization to the first walk
->> iteration that actually streams, guarded by a flag because that iteration
->> can be reached more than once.
->>
->> A 4 KiB crypto_acomp benchmark [1], twelve runs of nine 30,000-operation
->> rounds. Bare metal is an Intel Xeon Platinum 8321HC, turbo off,
->> performance governor, pinned to one core; the VM is a one-vCPU KVM guest
->> on a faster host.
->>
->>                   baseline    patched     delta
->>   bare metal
->>     compress      52,283 ns   51,038 ns   1,245 ns   2.4%
->>     decompress     2,317 ns    1,998 ns     319 ns  13.8%
->>   one-vCPU KVM
->>     compress      16,675 ns   15,050 ns   1,625 ns   9.8%
->>     decompress     3,516 ns    2,265 ns   1,251 ns  35.6%
-> 
-> Nice!
-> 
->>
->> The guest numbers are larger because the two CPUID instructions in
->> ZSTD_cpuid() become unconditional VM exits there.
-> 
-> I wonder how much benefit we get from just doing CPUID once in
-> ZSTD_cpuid() and cache the results. There might still be value in
-> avoiding the overall initialization, but I think ZSTD_cpuid() should
-> only be executing CPUID once anyway (e.g. in case it's called in other
-> paths)?
-> 
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
-So I tried something like below and the numbers look really good on a VM:
-         compression      decompression
-Before   14523ns          2250ns
-After    13554ns (-6.7%)  973ns (-56.8%)
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
 
-commit c169757935b9c4f4d0765227cdf989515f1987a2 (HEAD -> zstd_cpuid_cache)
-Author: Usama Arif <usama.arif@linux.dev>
-Date:   Wed Aug 26 04:03:35 2026 -0700
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
 
-    zstd: probe the CPU for BMI2 support only once
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
 
-    ZSTD_cpuSupportsBmi2() issues CPUID on every context setup for an answer
-    that cannot change while the kernel is running.  On x86 that is two
-    serializing CPUID instructions, and the callers are not rare:
-    squashfs, erofs, btrfs, f2fs and crypto/zstd all initialise a context
-    per operation, so a busy squashfs or zswap workload pays for it per
-    block or per page.  Under KVM it is worse, because CPUID is an
-    unconditional VM exit.
-
-    Cache the result.  Keeping the cache as a single int with a negative
-    sentinel, rather than a copy of ZSTD_cpuid_t, keeps it to one word: a
-    racing pair of probes computes the same value from the same CPUID leaf,
-    so the unsynchronized access is benign, and READ_ONCE()/WRITE_ONCE()
-    keep the compiler and KCSAN in agreement about that.
-
-    ZSTD_cpuSupportsBmi2() is MEM_STATIC, so each translation unit that
-    inlines it gets its own cache - three in a modular build, plus one in
-    each preboot decompressor.  That is a handful of ints in bss and one
-    extra probe apiece, not worth avoiding.
-
-    The cached answer is the one the probing CPU reported.  zstd could
-    already be migrated between the probe and the use of the flag, so this
-    does not introduce a heterogeneity question that was not there before.
-
-    Suggested-by: Yosry Ahmed <yosry@kernel.org>
-    Signed-off-by: Usama Arif <usama.arif@linux.dev>
-
-diff --git a/lib/zstd/common/zstd_internal.h b/lib/zstd/common/zstd_internal.h
-index 41f190b533209..b179f44753598 100644
---- a/lib/zstd/common/zstd_internal.h
-+++ b/lib/zstd/common/zstd_internal.h
-@@ -312,8 +312,21 @@ size_t ZSTD_decodeSeqHeaders(ZSTD_DCtx* dctx, int* nbSeqPtr,
- MEM_STATIC int ZSTD_cpuSupportsBmi2(void)
- {
- #if DYNAMIC_BMI2
--    ZSTD_cpuid_t cpuid = ZSTD_cpuid();
--    return ZSTD_cpuid_bmi1(cpuid) && ZSTD_cpuid_bmi2(cpuid);
-+    /*
-+     * The answer cannot change over the life of the kernel, so probe
-+     * once.  Racing probes compute the same value, so the unsynchronized
-+     * access is benign; the annotations are there to keep it that way.
-+     */
-+    static int supported = -1;
-+    int s = READ_ONCE(supported);
-+
-+    if (s < 0) {
-+        ZSTD_cpuid_t const cpuid = ZSTD_cpuid();
-+
-+        s = ZSTD_cpuid_bmi1(cpuid) && ZSTD_cpuid_bmi2(cpuid);
-+        WRITE_ONCE(supported, s);
-+    }
-+    return s;
- #else
-     /* Nothing looks at the flag in this configuration. */
-     return 0;
-
->>
->> [1] https://gist.github.com/uarif1/5cf02f0e22c23f0d1b3d84348f12914c
->>
->> Usama Arif (2):
->>   crypto: zstd - Avoid redundant cstream initialization
->>   crypto: zstd - Avoid redundant dstream initialization
->>
->>  crypto/zstd.c | 40 ++++++++++++++++++++++++++++------------
->>  1 file changed, 28 insertions(+), 12 deletions(-)
->>
->>
->> base-commit: 4b18edbd8e70f7e6860d56370f13244896d0f95c
->> --
->> 2.53.0-Meta
->>
-
+If you want to undo deduplication, reply with:
+#syz undup
