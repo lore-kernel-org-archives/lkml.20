@@ -1,118 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D7B63B4EA2;
-	Wed, 26 Aug 2026 14:00:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA947439F7E;
+	Wed, 26 Aug 2026 14:00:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787752810; cv=none; b=Z7XgENZikkfB4X2jCk0zl+PVxVKkQZsZAEdAZFppUdUbYevPtm3puZYPgrP5WaT0eEz3HtJQqIecVCOy96dXSsA1AfJweIfzOsmxm3oE2JDxuHZKq+y07j8IRLefQ9dUZRWKW+LEW1mS9RQBe22lce0QsgMAqLDmJR4OWbnett0=
+	t=1787752816; cv=none; b=Tzm6UCP5LebPIMNvzPhv0SBUpC5iIPqyFLgBJ+kea9/7ruH/3kjvaBpQbthbpbp2p3KkyVm5ghyDqu9aC3qNxDRqftWq+CUGcueUOx/p14YWCt56qv9s2nmnOAidvAsRkP7HRLGonOwCxdeQXU4dKgRVWl8iXlxnI8Jz7S5vudA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787752810; c=relaxed/simple;
-	bh=bLxfwkeFxrw5PU/8QkzWwLqnBTJiVEPNX+tTwJ7opp0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ORgM+OnR4lc0nU171TzGfI8vg7IfLjwQw7c+SP5fWpJE/14LTkRbNKKJLAJv2llhRb6k90f/XnOxOqBsziI1Qm4z+puJl9hW9Rt1s2YY0OUsQO8wLXnFRfliu+6/tcTB0OhtIQahCf/p9bJfZNdup36STIdMg+tJA0c5Kx75FOU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RoxegmDX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787752816; c=relaxed/simple;
+	bh=/TzXwS4YF5gUqidjGf4wMNZnieUtP2YP6qNtEw/gL8I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=X4u/9UNxo1cskHL5EVCWGCmxiEBiLOuTbVuV0apIPHOrXK+AypxsnpNhhm9mk+Dx0HRxSjImn0Pf3MuliWtjgzmdXxCWZJ2NzGEze8Gg9OE7QeFF9c3D9OosHnFQ3Zt2T7k552N3Ua6PPHF6I1DiWwMo/pPtNUPyG4X7yKtY28I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LyqZDVQ+; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RoxegmDX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 411481F000E9;
-	Wed, 26 Aug 2026 14:00:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787752804;
-	bh=19tcek4HrcS7UOd5IyTT7qc0S0ouGBiyalEvCRLgbSk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=RoxegmDX7J80G3Ar4UcOhvYd01fs8k+Iw2xWda7B2Kk1VZAIZxiI4wr1ZWWzjrNnY
-	 grUVhB/RBZsWbiSIfVqzu4UH6bDgTbk2+NH/bp0VXJWpeEdTiDDJFNmAacUwYpTK6R
-	 4rmhvvt+Cx+zsLc6CiSt9a+/GTpdMLNwqiYuHvS4cbK9kiFdeBpurTxeZaIP3giDY0
-	 TXP51n6p6KRLnoXPp48irgNs0HuwUY7z2PEUjcJ0AEFsLRSMYRYN/ZixpLKwvcpcsg
-	 DrOJar2fK8AKSPQIDgZPhS4jDn/OWC0AaxMfpJVJPHY2nt5mRgnRFvSxEfxbTTq80b
-	 egMfgg+3djuLw==
-Message-ID: <b13c5ad3-ef9b-48f1-a538-64dfd958d5fb@kernel.org>
-Date: Wed, 26 Aug 2026 15:59:58 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LyqZDVQ+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787752811; x=1819288811;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=/TzXwS4YF5gUqidjGf4wMNZnieUtP2YP6qNtEw/gL8I=;
+  b=LyqZDVQ+CJYdS3yFvybuZQV5BaQMecgR9jvRlqNXaJ310vqgOLBBitVG
+   Lb628+kvPp+/yWKvWLfpXjx7MPUQb/8wZN59XR9etxyTVDNDR9S6CFj0r
+   GeZ/ueXVswa7JnASTRUQvPlIi98hPJq10/vTffn5qEKXLq4VfKVn08rza
+   GLgkWKzPaXn6ykHONUk8WdVPf/Ks0miAOecjTGXCtmBEsDr4WEix0lu+v
+   dY5rCKtGN1t3l4phLrs8CvCDWj6bxBRHh5FfLbIjkJHD0OvqiTFlhtPXi
+   TrIOF4buybCVSo+mjMZJn6CMmjC7nGvRegG6Z5Hhmya51rrqGZ9Cx6ukA
+   g==;
+X-CSE-ConnectionGUID: aZ1lGm9aQdWSSoN7arv80w==
+X-CSE-MsgGUID: mpn/pdsEQEGxvesHzi/2jQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11886"; a="90744756"
+X-IronPort-AV: E=Sophos;i="6.25,244,1779174000"; 
+   d="scan'208";a="90744756"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 07:00:06 -0700
+X-CSE-ConnectionGUID: dfsx2vyhRDCF5cIeDZjYWw==
+X-CSE-MsgGUID: VeOrfRlZTq6usqVghYthtw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,244,1779174000"; 
+   d="scan'208";a="267014274"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.235])
+  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 07:00:04 -0700
+Date: Wed, 26 Aug 2026 17:00:01 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Linus Walleij <linusw@kernel.org>, Jacky Huang <ychuang3@nuvoton.com>,
+	Shan-Chun Hung <schung@nuvoton.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v1 0/4] gpio: Unify the GPIO controller node check
+Message-ID: <ao7xYVKgM5jW4vUf@ashevche-desk.local>
+References: <20260824074427.3226457-1-andriy.shevchenko@linux.intel.com>
+ <CAMRc=MejNn8NJYe6ByKig8cZHL8pq98waNfVozY9SteZYYJmHw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] MAINTAINERS: add Alice Ryhl as co-maintainer for Rust
- [ALLOC]
-Content-Language: en-US
-To: Danilo Krummrich <dakr@kernel.org>, aliceryhl@google.com, ljs@kernel.org,
- liam@infradead.org, urezki@gmail.com, ojeda@kernel.org
-Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260826132729.3281308-1-dakr@kernel.org>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <20260826132729.3281308-1-dakr@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAMRc=MejNn8NJYe6ByKig8cZHL8pq98waNfVozY9SteZYYJmHw@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 8/26/26 15:27, Danilo Krummrich wrote:
-> Add Alice as co-maintainer for the Rust alloc module to share
-> maintenance responsibility. This is also a natural fit, as some of the
-> alloc code overlaps with the mm subsystem.
+On Wed, Aug 26, 2026 at 05:33:23AM -0500, Bartosz Golaszewski wrote:
+> On Mon, 24 Aug 2026 09:42:31 +0200, Andy Shevchenko
+> <andriy.shevchenko@linux.intel.com> said:
+> > There are handful of drivers perform the same check in different variations
+> > over and over with a potential to make subtle mistakes. Unify the check by
+> > providing a new helper and convert a few users as an example.
+> >
 > 
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+> I like it. With an Ack from Linus, I can take the series through the GPIO tree.
 
-Great!
+Thanks, but note that I need to either drop or redo the patch 2/4.
 
-Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+-- 
+With Best Regards,
+Andy Shevchenko
 
-> ---
->  MAINTAINERS | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 24ca91ce5d86..7daacfd70197 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -23945,6 +23945,7 @@ K:	\b(?i:rust)\b
->  
->  RUST [ALLOC]
->  M:	Danilo Krummrich <dakr@kernel.org>
-> +M:	Alice Ryhl <aliceryhl@google.com>
->  R:	Lorenzo Stoakes <ljs@kernel.org>
->  R:	Vlastimil Babka <vbabka@kernel.org>
->  R:	Liam R. Howlett <liam@infradead.org>
-> 
-> base-commit: 45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229
 
