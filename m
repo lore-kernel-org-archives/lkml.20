@@ -1,99 +1,110 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 305BB32F75B;
-	Wed, 26 Aug 2026 14:24:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89A6A49365C;
+	Wed, 26 Aug 2026 14:25:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787754265; cv=none; b=U+r1Ln5Cr1wZmXYu8Tpg5jiXH9XXPkOzl5B6Y36ZnsTA2sEulzseQRp9Xoj3WY27Z7OeNZLn91/NA/CJ3VeYEJ5m1cKeZggTjjHsAyUorGZVpRIvwbkOYEukrcZesgBmIKKHObXwRKH0i0xXe5qXZYgpeoSCNFOLaghey+N1/VU=
+	t=1787754345; cv=none; b=qcx2m33OJpDrajXNnNzWW2PKBSFmcbXOYzEzZGxYLRE1gZ6qg0TgSzPhKshYbVfzyprMg3ZqwodZLTkOo4aNcGtvuPjKoTb+4o0IUQw8TSZMvtyR7lEnlwuRsXpiH9SQKmAaHOW/XI8LL4vi36WAnSpqf+Z8qNUNl298p7/724E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787754265; c=relaxed/simple;
-	bh=NEOLQuhe/G3SC0/e44Zfkr3aith8vgHVgBMr15qCbi4=;
+	s=arc-20240116; t=1787754345; c=relaxed/simple;
+	bh=UucQZSqT7U4kBDKh05ISPmkf/HI1+SJCHSgQkiFjlGs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UXqRoTrg7CwfVWzA+3C70RoQzEH+gzuvYPgHRjpM+6UzukqxX1+91SYMw/e/zWRuyS7weToU81LtUIhW8H9aPx5ByRg6BYfb/SUfNtUq1A09IelyqZ7QtFGbficPPmFVbMzPjD2cPPiwJYp2e24dfVtlXcYEN6izdrsA7bnbDw8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZgHxYs04; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=toX9fwsHsHcEAn7l1tpUYFSCVoqePlvnr0i184Vc3yjQveFn3JKmzVgQV7aFgQHK2R4/H/6SaV31y1eWUdv//qe+Gkx8EgAg1jFShup+Gerw5KUah5ajSO/ZM2aFGmiKAEpdyfG2mmQ3VIRhjTYxmBCRLqCT9D9+zthIbPhUags=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=nEBvZkEn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZgHxYs04"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C91181F000E9;
-	Wed, 26 Aug 2026 14:24:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787754263;
-	bh=ObJu7VA70v/U06F8ZJibXS73zrK6G1viDxAXAhkRoPw=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="nEBvZkEn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CD041F000E9;
+	Wed, 26 Aug 2026 14:25:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1787754344;
+	bh=QgPiV1N6jxebGfoGJS2x8XbJ34mCs881jJPM3Kvzc+4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZgHxYs04JwgbjyIPUDGTR8IJw57LZdCOloEsaHTOTBO8EyNwgI2TdQwPLxRBmuJ1j
-	 zCYcvAITneaix2+uyBRMlHXAtMOnrzebkcMC5f7uuse0CcKjPn/Vse4kvqkG5YKPNU
-	 EOA44M8wm/NVz7R9oq7hbUFMYfYc/IizWVpZPZmpWunpsTMnIOnSP2qa1j6uS8l0hu
-	 k5l4ermEjjpsAsIAFePND/M8rA271jMwK8AZo7GNHyED/0by88FjvBObnpE0+0Absa
-	 RUW9M47P08DECoDc84ybiYC4QESA6mBOtAuYcRReUyeEz+0AeWir3OtzcCHYD2TR+B
-	 54Pm9s+6dlZcw==
-Date: Wed, 26 Aug 2026 15:24:19 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Shengyu Qu <wiagn@4d2.org>
-Cc: Vijendar.Mukunda@amd.com, venkataprasad.potturu@amd.com,
-	lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
-	Syed.SabaKareem@amd.com, linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org, wiagn233@outlook.com
-Subject: Re: [PATCH] ASoC: amd: acp-config: add quirk for more ASUS FA401EA
- variants
-Message-ID: <358dac57-4c5c-453a-a82f-41258e664be6@sirena.org.uk>
-References: <20260826094209.29299-1-wiagn@4d2.org>
+	b=nEBvZkEnYqXl9pQFnEk2j/Vsf/KxCMAjlueCfD5aW3oyEa3HGOpEnOOPiO4eUdM6Y
+	 1IuQgrJhr7+oWO0FLrGbMrEW6TYh0iflqj0UNkipJ5/TDAOgrhuOt7SRYDW1ficc88
+	 TOLlBG1plb/E8Qb8c9/eMo3wc5c3M/qWElhQwyN8=
+Date: Wed, 26 Aug 2026 16:25:42 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Michal Pecio <michal.pecio@gmail.com>
+Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
+	Daniel Gomez <da.gomez@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-usb@vger.kernel.org,
+	driver-core@lists.linux.dev, linux-trace-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] driver core: add TAINT_FORCED_BIND for when
+ userspace manually messes with devices and drivers
+Message-ID: <2026082658-statue-census-dc39@gregkh>
+References: <20260826-bind_taint-v1-0-52b05f4a965c@linuxfoundation.org>
+ <20260826153311.6340efcd.michal.pecio@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="9DtbH6Ah+pq2AKo8"
-Content-Disposition: inline
-In-Reply-To: <20260826094209.29299-1-wiagn@4d2.org>
-X-Cookie: Obey all traffic laws.
-
-
---9DtbH6Ah+pq2AKo8
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20260826153311.6340efcd.michal.pecio@gmail.com>
 
-On Wed, Aug 26, 2026 at 05:42:09PM +0800, Shengyu Qu wrote:
-> Existing quirks doesn't cover all known exising FA401EA devices, so add
-> more quirk items to cover them.
+On Wed, Aug 26, 2026 at 03:33:11PM +0200, Michal Pecio wrote:
+> On Wed, 26 Aug 2026 11:19:31 +0200, Greg Kroah-Hartman wrote:
+> > The ability to add and remove devices from a driver through the sysfs
+> > "bind" and "unbind" files was created all those decades ago as a way
+> > that kernel developers can iterate faster, and provide a debugging way
+> > for users to attempt to add a new device to a driver without having to
+> > rebuild their kernel.
+> > 
+> > This api over the years has been abused and recently come under a major
+> > fuzzing "attack" through tools like syzbot which decided that it would
+> > attempt to just randomly bind any driver to any type of device, causing
+> > loads of unneeded errors and pointless kernel patches to be generated by
+> > unsuspecting new developers.
+> 
+> Hi Greg,
+> 
+> I think you confused 'bind' / 'unbind' with the likes of 'new_id' and
+> 'driver_override'. Try binding xhci_hcd to NVMe, you won't get far.
 
-> +	{
-> +		.matches = {
-> +			DMI_MATCH(DMI_BOARD_VENDOR, "ASUSTeK COMPUTER INC."),
-> +			DMI_MATCH(DMI_PRODUCT_NAME, "FA401EA"),
-> +		},
-> +	},
->  	{
->  		.matches = {
->  			DMI_MATCH(DMI_BOARD_VENDOR, "ASUSTeK COMPUTER INC"),
->  			DMI_MATCH(DMI_PRODUCT_NAME, "TUF Gaming A14 FA401EA"),
->  		},
->  	},
-> +	{
-> +		.matches = {
-> +			DMI_MATCH(DMI_BOARD_VENDOR, "ASUSTeK COMPUTER INC."),
-> +			DMI_MATCH(DMI_PRODUCT_NAME, "TX Air FA401EA"),
-> +		},
-> +	},
+It seems to result in a failure report that people keep sending random
+patches for :(
 
-Do we need all these entries, DMI matches use substr() so I'd expect the
-first entry to match on all the machines that the other two matches,
-unless I'm misunderstanding somehow?
+> FYI, besides being footguns, the latter are apparently used to assign
+> any random PCI device to some VM drivers for passthrough or whatnot.
 
---9DtbH6Ah+pq2AKo8
-Content-Type: application/pgp-signature; name="signature.asc"
+Which should be fixed.
 
------BEGIN PGP SIGNATURE-----
+> The former hardly are footguns and have further common uses, such as
+> removing kernel drivers to make VM / USBFS work or "turn it off and on
+> again" when a driver doesn't implement recovery. I've seen a published
+> script which does this automatically when xhci goes belly up...
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqO9xIACgkQJNaLcl1U
-h9BhyAgAgGr3ZbDLxcansrn1RsdEb9DiI6bowv+eCw+yE68nmfF6F8ztjxnsJo1y
-TcTNYmjwbZD/1AMACDD6G0fZQPXQIYH4mK2DaYDm1H2t2jBqc6gTNuIkJp7u0m+P
-aovEM6fGipHwXVhr/Eg9OMcKyh5cYFU4+7ipagb6tIrQuwlCY083mFWLkkyDPWNQ
-1XrlxByJpZ2yhU83hHNw4BD66cSSNVa3sSFqHZoT2IwszKBvFwhQdoq6jU51HjGT
-9G1ynW9evn8AC7ZZh5rCJ2SZt6oDzjzU2wN/wC4Rt9XqWp3b1fun8g7gWyoCeqKa
-Ps7tKSxDbN6liSx8l61tlx/hkLSbmA==
-=g/jI
------END PGP SIGNATURE-----
+And we should fix the root cause here.
 
---9DtbH6Ah+pq2AKo8--
+> I am also not convinced that fuzzing 'unbind' alone is a bad thing.
+> How is that different from 'rmmod' or pulling out a USB-C plug, which
+> may have a bunch of USB *and* PCI devices behind it, mid-operation?
+
+rmmod too is something that is never guaranteed to work, and is for
+developers.  "luckily" syzbot doesn't seem to want to do that just yet
+:)
+
+This is to stem the tide of foolish patches where people/syzbot is
+attempting to bind any random device to any random driver and then
+reporting a "bug" for when things go wrong.  It is also here to mark a
+kernel as "hey, something was manually overridden" if a normal user does
+this and then attempts to ask for support for us.  Both are good things
+for developers to know about.
+
+thanks,
+
+greg k-h
