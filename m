@@ -1,113 +1,258 @@
-Received: from mail-wr2-f11.google.com (mail-wr2-f11.google.com [74.125.225.75])
+Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com [209.85.221.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A739C48CD67
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 22:05:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.75
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787781903; cv=none; b=HU6zy1a4o4X7jhno03WqMrMjL3wHJ13B4/F+YiUVZvCVwEwOMI+gnO3bzBcmsR3IOT7KeqDpuuQZBP1vbWp1jYZdZnnmd24KhAg12hQ0RcT8u6FE3iZelS6DehWlK1DHwA3sVk47W1lZtS1PCTprIfG2WCWBa0z1iCZHzlPfvs4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787781903; c=relaxed/simple;
-	bh=mUOu4prFbH3IaF5Zx3eYa4vcy/qKSL+mXorCQl1XPlk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=k6uAibezkhykKulws+u/XowLGyTskllqrcd0fF3P1ntjaHSXmTKAgB2GRjenu+GAXMnJwTj5uSQHV1fgby2NzzPqE0zdoMWcVMsbKQCxxLnwTdD8mO9cqgln8p0Temsu0m5CgO0VIfQuXGd95q5S7lojNt0h37ByRvZFPuSIjhw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wr2-f11.google.com with SMTP id ffacd0b85a97d-482e61db882so165755f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 15:05:00 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2739748BD47
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 22:05:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.173
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787781957; cv=pass; b=HG8o51x8FT6H7M6b4Cewsenkb2BE9sZuz4Jl0C9o+kDGLFv8a19jZvjhWUaLkQnyzyIRi9lsdMPPi4prkyd26Zie0zArSblAuG6fyrDzHsag5eas6WB1u7vk0cmbyhVk7TBFsJVWyKaVL8yRdcO4q42kY4etIUOTnkxQjctUcC0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787781957; c=relaxed/simple;
+	bh=91iL9f66E+wP8pylRCnex07f+0OG4EAgBRLF2xhH3XM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Fv4ykIS6M/Wd4Ff17QO6qffSklsiSQPFGRu6SOOhSTLaC/4enGneOEqqd+++HCAmLAUn+B1T9qKSVuxr1gdZgKEdjQ9F1H5kyGepPpzK4X5EvRngDtorM7M7KpTGkn/zRYUCZ3ep+EfbBpaucs63B5yAgmoLYDP2L4oFJGMp5RU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=BZutVFYt; arc=pass smtp.client-ip=209.85.221.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="BZutVFYt"
+Received: by mail-vk1-f173.google.com with SMTP id 71dfb90a1353d-5c66eefc868so285526e0c.3
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 15:05:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787781952; cv=none;
+        d=google.com; s=arc-20260327;
+        b=O3izLkbiDAu3bcH6Ih0m1bg5QpCuHd6oCGNdsroUf1KcLX8QJfZUhvY6DIaZ4WKAuJ
+         nypObWMZa2QD7NnNjvwUvKgSX103uJswmsFnLXb/SwmZmVDn4/SsH14HvSDwkrlnEwGY
+         +bjXgiwdUu4yy2nayVKUwsPhzQQUbKuJ6X/SjFC0d96eS2zB3NOcoZumpEMoWdX3ogak
+         gq2ESzBITwa0Dw3n+xk1kpfg6Hx0hRMSPU8pJKXGyS8Z36rqFGoFnaPB66Av4FikoyBg
+         UbXs406Vd37tvUvgnFGmDV30Jmnz9NODdBjO6/ubr8QOtJvIUD0VZXLvaKco4rbdT3IB
+         MsXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=VjNbxpuIxc8u8B4OZa7lx8RIdcA7nogA195cjmoHW0I=;
+        fh=N1sJEz2NrlmwT6qFfzh5HDJdPzBzIpoEmkCrMPv8mGI=;
+        b=Zk6sTgjbCRAlf67Pwnw3PZElQwi/Cs1d5i59etzQz85g044YALZNJ2TUA77zimVyIM
+         xTGMV+xHPQIcDP1WDxJXUA/nEPk0RB2Zy59Kd/ymX8KquSFnHyPGbooO28vPobCmGCtc
+         3BGdhJHzWFOEaVcjyesuyGggmf6v0SuUlqy/5NNKrQzHrL23xqQoiRg39cjQhBTwbV+h
+         5ySrIp4mV1qYs41e+cqjKMARA+ZLXVX3UO+d6PLUHNZzGnvjyEX6OcNBl06v4XKzTvK5
+         EZvY1zXsgByKVofzByfpUuOH9DOWp4qwUP9p7WSGQkXTT9ubUgxhGVOIAXW97ju3vFLt
+         avHA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787781952; x=1788386752; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=VjNbxpuIxc8u8B4OZa7lx8RIdcA7nogA195cjmoHW0I=;
+        b=BZutVFYti3QgMatmn8loY8f1RKPvHX+jT3tgoi7KGiMPyshbgT06GgnLqi9uUJPmPh
+         zi+kcj3L/crDHMUuu+//ugOG7mW8Glk9AV9lF4T5hpyrVUdAqkcZzEIFuvB9mWai4CqC
+         8z8mGfYxj6Ft68I43L/PuNJNJ3UksrDy44Bb6/YRERUgUY2NnWNGRUbxNr8e2zGKMRqE
+         v4trOG7xKU3f9JaD/SK3PrL+zDR2ywgnOEuQ52qCh8c/W87LxBjGFXIwXUR2gChKCUNN
+         N+P0IoHn9SWtnUtJTw/Z0Iack+bR6seuoK+hxcFPKVy1HLtCP3LP0LXKx2H/hkj81czx
+         ieCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787781899; x=1788386699;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YabbSQ2ZCljuR5SzDy1HfG5T6nOzAXlSelOf65B5pQ4=;
-        b=e6BMjE9EJuosCP8WaINpSByiwDO/JocxrX34drK48ddRVeDUCA1vGwPI/hHah7XUFR
-         I33FpxCFvsYHV/Evx5VKW23gc9kX3yOSodPOuIGiVQ623XVKZF8Cfm+F8DjZP6kmYnCI
-         yEXWsQcpVeMFhGZTG2C57pXns1T+VdSV2VWAgwCRzAj0kBoMwKUKDOYDkVaQf4Fa0zx8
-         fWdz/LxEIgT2y3wV8bYmRX1RWhyMn9a8qE/1X0s5RztzqmXHKdZYrtZ+YATxiU1TCx3R
-         XkTKFJatfieDuFTvx34ibBZrhZG+QtK3Bf43U2uki1SvLbl72YaqlCn30cDgzK0xkmLY
-         B+SQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rr4TTgMZCNS9HHuXdGYnUCAKYWRO0E0e5h1YbLPJAbxt5KuAMWl5CsjB8kg2JkFIBHKItKBLspKGqf2CjM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mUKpodEPku5Jta+etFXi2IUE1ch7oKRwX5kCCdP6OLdrXA25rS
-	HYBNGwBVt5yJKOpi7u6JDXhqtOlXud2XKOkwReykRE7ToJ+3H7cn4IoZ
-X-Gm-Gg: AR+sD12S9u71YiBrkcjaslhX7qYYAweC4iEOBabM+q+lFaLDmQYn73f2thJfWqLz6vz
-	q3oXLU1XhdEx/PrRzjR9y1ik+9ZoSQ/R+j/PAUUtt24NFp1/Cqli5/adkbCiZPv7p6mOrXYuT9h
-	ZiY0UsUprmId2GzKmZ9DrhpaFWW/cZMqrPmNMnZsAptP+dn3QeY8o3f8IvFhFQgAWeq7lW4U0AY
-	k5ngpfQatQFM45+8SsjQ3lbAkkYXQMlVburwjs+eNqqP0rJc+oa7MCkDwvNeh88tKn4ggfCp2/T
-	wRAtH64vYTJ6wTzx3/PD7E31n674Cvy3TrQkH2iZjHgzXxqSOA1zKwfPzjsA8tXkb4nUyE5yea6
-	unQIQpYIny+gYUVHL6/gX1ORY4QaAIUmqFwLv0JvP9T0z/E42piVw1+9qweWT6JArAlBhqyqpXS
-	/Hjn/2HPudCLTa9NJhkmrje/+a4nYT6owttkltPCj/PxDN+2fN7IkR47dTOyhzGkyCL9FoXjrcw
-	yGDOWq61pRd/AXVeQ==
-X-Received: by 2002:a05:6000:40e0:b0:482:ee81:f0ca with SMTP id ffacd0b85a97d-482ee81f321mr819706f8f.12.1787781898817;
-        Wed, 26 Aug 2026 15:04:58 -0700 (PDT)
-Received: from im-t490s.redhat.com (37-48-53-4.nat.epc.tmcz.cz. [37.48.53.4])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e27a9f0esm4446370f8f.10.2026.08.26.15.04.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 15:04:58 -0700 (PDT)
-From: Ilya Maximets <i.maximets@ovn.org>
-To: netdev@vger.kernel.org
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Donald Hunter <donald.hunter@gmail.com>,
-	"Remy D. Farley" <one-d-wide@protonmail.com>,
-	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
-	Florian Westphal <fw@strlen.de>,
-	linux-kernel@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	=?UTF-8?q?Asbj=C3=B8rn=20Sloth=20T=C3=B8nnesen?= <ast@fiberby.net>,
-	Ilya Maximets <i.maximets@ovn.org>,
-	stable@vger.kernel.org
-Subject: [PATCH net v2 2/2] netlink: specs: add missing mask attributes for conntrack dump
-Date: Thu, 27 Aug 2026 00:01:12 +0200
-Message-ID: <20260826220444.4054714-3-i.maximets@ovn.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260826220444.4054714-1-i.maximets@ovn.org>
-References: <20260826220444.4054714-1-i.maximets@ovn.org>
+        d=1e100.net; s=20251104; t=1787781952; x=1788386752;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VjNbxpuIxc8u8B4OZa7lx8RIdcA7nogA195cjmoHW0I=;
+        b=iE5TL41EoTrvfpy5mYRyVuLMzIRUy0r05Cuoov/FLKouQKXyD1MxuoI/Sf+R5qeczq
+         KSSgbJA4wCyG2lhC7EOnhn5mUY6aNt4xsGnmnZgWhMAIr5uqWne2C6XFdxo6Z0Ka1y9W
+         51h2Ryx6vqeSrXYaQMo5+yRWrT84zi2sCBwKCZbpp1+jcHtRm9wj5YOALeFUCTeAI2YV
+         Tm7Xm3MwA36SZCuZ7TeorrlRCcElc97DmUBTcRkmLVVXu6b/g2XVTEAy0dgfhdy0hZjl
+         jRY0ttKWt0gXLZ6HQwfc5clRmBjwYGaivFulR9QpaZ1jHQHxFXyT8nJHOzN4d0MEifbj
+         K5Kg==
+X-Gm-Message-State: AFuF++nlffs4HgYVRfYO9t0yIEjYJobIKFYrhVIak7T3hr/sz6Emupxv
+	JlxQU4M6reFvk/nD7lQAILaTyt8YIQ7sWV+878qJhv6E7jJ9JsUbqr0bWxTue3ahqmf0+L8OZ5Z
+	xRhdHiJJjBOL1Az5d/tzkYm5U43sIga+JwEEVzdCNRibd+gfBxXEHpw2cpA==
+X-Gm-Gg: AR+sD11QzuOTTVkV6oTgr7glJkeOJpdkAYc9V1fyh/2IGPo/kx8/KE0VtXUTVfCDHAU
+	668RlfJ174F9XopGwnS4Z+RdGG5rwUG+YYEywlWfWghjIQpTFuokZMgDtvabpC419h0I2CZ0Gsq
+	E3Ekiy3rIyGFQPwuFU8gtie0ayt2ReA7S3WL88mKHDRktk3wFfvxWo1ltwNAKDFxpEoiWrPoUmk
+	RNsvt6AJi1VgrHEyC2WOfJGK4jONzXgOo+Ja4BGNzjZ3FxwGZBBgxnTeMjWih53gfnzWd/rFJq1
+	c5gnF64lF+mkVwNwCgv634OFwDpKleshiCc7yTm5TazUvofPMjt+muN3WJV+T0PFZ4DlBmkwmZn
+	yz7v6h3npBmaJVCIhZ+Izgb9qMK3YoPewpmlQIxF8LQ==
+X-Received: by 2002:a05:6122:4885:b0:5bd:a5e1:c7c7 with SMTP id
+ 71dfb90a1353d-5c65ba22909mr4924761e0c.1.1787781951366; Wed, 26 Aug 2026
+ 15:05:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260823125155.1136740-1-morbo@google.com> <20260823125155.1136740-2-morbo@google.com>
+ <aosJJXsQbUUcCDpx@redhat.com>
+In-Reply-To: <aosJJXsQbUUcCDpx@redhat.com>
+From: Bill Wendling <morbo@google.com>
+Date: Wed, 26 Aug 2026 15:05:34 -0700
+X-Gm-Features: AcwNN1U-TxlG5zIoBUs2QqswLbS96u-jmZfkR3Z0OUMS7ZiUU8YcDxnDYuExDFQ
+Message-ID: <CAGG=3QXo7bvOJn+T=fLYYZMdC-1SiSicThAHkj_hfyO5i6=pEg@mail.gmail.com>
+Subject: Re: [PATCH 1/2] userns: Add __counted_by_ptr attribute to struct uid_gid_map
+To: Oleg Nesterov <oleg@redhat.com>
+Cc: linux-kernel@vger.kernel.org, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Christian Brauner <brauner@kernel.org>, 
+	Aleksa Sarai <cyphar@cyphar.com>, Jan Kara <jack@suse.cz>, Nathan Chancellor <nathan@kernel.org>, 
+	Miguel Ojeda <ojeda@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, 
+	Alice Ryhl <aliceryhl@google.com>, Douglas Anderson <dianders@chromium.org>, 
+	Anand Moon <linux.amoon@gmail.com>, codemender-patching+linux@google.com, 
+	linux-hardening@vger.kernel.org, Alexey Gladkov <legion@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-'mark-mask' and 'status-mask' are defined and supported by the
-conntrack dump, but missing from the list of arguments.
+On Sun, Aug 23, 2026 at 7:52=E2=80=AFAM Oleg Nesterov <oleg@redhat.com> wro=
+te:
+>
+> On 08/23, Bill Wendling wrote:
+> >
+> > The compiler attribute __counted_by_ptr associates a pointer field of a
+> > struct with a sibling field within the same struct that specifies the
+> > element count of the allocated memory. This enables KASAN and fortified
+> > bounds-checking to detect out-of-bounds accesses to the pointer field a=
+t
+> > runtime.
+> >
+> > We can add the __counted_by_ptr attribute to the 'forward' and 'reverse=
+'
+> > pointer fields of 'struct uid_gid_map', which are counted by
+> > 'nr_extents'. Since 'nr_extents' is defined in a sibling anonymous
+> > struct inside an anonymous union, the nearest common non-anonymous
+> > struct level is 'struct uid_gid_map' itself, which is supported by the
+> > compiler.
+> >
+> > However, doing so has runtime implications. In the original
+> > implementation of insert_extent(), elements are written to
+> > map->forward[map->nr_extents] before map->nr_extents is incremented:
+> >
+> >       if (map->nr_extents < UID_GID_MAP_MAX_BASE_EXTENTS)
+> >               dest =3D &map->extent[map->nr_extents];
+> >       else
+> >               dest =3D &map->forward[map->nr_extents];
+> >
+> >       *dest =3D *extent;
+> >       map->nr_extents++;
+> >
+> > At the time of writing to 'map->forward[map->nr_extents]',
+> > map->nr_extents is still 5, but we are accessing index 5 (which is the
+> > 6th element). Under __counted_by_ptr(nr_extents), the compiler and
+> > KASAN expect the accessed index to be strictly less than
+> > map->nr_extents. Therefore, accessing index 5 when the count is 5
+> > triggers an out-of-bounds panic/trap at runtime.
+> >
+> > To resolve this, insert_extent() is refactored to increment
+> > map->nr_extents first, and then use map->nr_extents - 1 as the index:
+> >
+> >       map->nr_extents++;
+> >       if (map->nr_extents <=3D UID_GID_MAP_MAX_BASE_EXTENTS)
+> >               dest =3D &map->extent[map->nr_extents - 1];
+> >       else
+> >               dest =3D &map->forward[map->nr_extents - 1];
+> >
+> >       *dest =3D *extent;
+>
+> I leave this to you and other reviewers (add Alexey), you can safely
+> ignore my nit.
+>
+> To me
+>
+>         if (map->nr_extents < UID_GID_MAP_MAX_BASE_EXTENTS)
+>                 dest =3D &map->extent;
+>         else
+>                 dest =3D &map->forward;
+>
+>         map->nr_extents++;
+>         dest[map->nr_extents - 1] =3D *extent;
+>
+> looks a bit more clear, but this is minor/subjective.
+>
+> Either way, I think this needs a short comment to explain why do we
+> need to increment ->nr_extents first, then subtract 1. IOW, to explain
+> why (say)
+>
+>         dest[map->nr_extents++] =3D *extent;
+>
+> would be wrong.
+>
+Hi Oleg,
 
-While at it, the order of the arguments should follow the order of
-their definition in the enum ctattr_type.  That appears to be a common
-convention for other spec files.
+I added a comment before the code in question explaining why it's
+organized that way. I certainly don't hate your version, but for
+simplicity of reviews I just left the code as is.
 
-Fixes: 23fc9311a526 ("netlink: specs: add conntrack dump and stats dump support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
----
- Documentation/netlink/specs/conntrack.yaml | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+-bw
 
-diff --git a/Documentation/netlink/specs/conntrack.yaml b/Documentation/netlink/specs/conntrack.yaml
-index 6ba28cb1c2ab..b1eb102ab843 100644
---- a/Documentation/netlink/specs/conntrack.yaml
-+++ b/Documentation/netlink/specs/conntrack.yaml
-@@ -604,10 +604,12 @@ operations:
-           attributes:
-             - tuple-orig
-             - tuple-reply
--            - mark
--            - filter
-             - status
-+            - mark
-             - zone
-+            - mark-mask
-+            - filter
-+            - status-mask
-         reply:
-           value: 0x100
-           attributes:
--- 
-2.55.0
-
+> Oleg.
+>
+> > Assisted-by: Gemini Next
+> > Signed-off-by: Bill Wendling <morbo@google.com>
+> > ---
+> > Cc: Kees Cook <kees@kernel.org>
+> > Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+> > Cc: Christian Brauner <brauner@kernel.org>
+> > Cc: Aleksa Sarai <cyphar@cyphar.com>
+> > Cc: Jan Kara <jack@suse.cz>
+> > Cc: Nathan Chancellor <nathan@kernel.org>
+> > Cc: Miguel Ojeda <ojeda@kernel.org>
+> > Cc: Thomas Gleixner <tglx@kernel.org>
+> > Cc: Nicolas Schier <nsc@kernel.org>
+> > Cc: Gary Guo <gary@garyguo.net>
+> > Cc: "Thomas Wei=C3=9Fschuh" <thomas.weissschuh@linutronix.de>
+> > Cc: Alice Ryhl <aliceryhl@google.com>
+> > Cc: Douglas Anderson <dianders@chromium.org>
+> > Cc: Anand Moon <linux.amoon@gmail.com>
+> > Cc: Oleg Nesterov <oleg@redhat.com>
+> > Cc: codemender-patching+linux@google.com
+> > Cc: linux-kernel@vger.kernel.org
+> > Cc: linux-hardening@vger.kernel.org
+> > ---
+> >  include/linux/user_namespace.h | 4 ++--
+> >  kernel/user_namespace.c        | 8 ++++----
+> >  2 files changed, 6 insertions(+), 6 deletions(-)
+> >
+> > diff --git a/include/linux/user_namespace.h b/include/linux/user_namesp=
+ace.h
+> > index e38d9e60569f..2962256eddf7 100644
+> > --- a/include/linux/user_namespace.h
+> > +++ b/include/linux/user_namespace.h
+> > @@ -29,8 +29,8 @@ struct uid_gid_map { /* 64 bytes -- 1 cache line */
+> >                       u32 nr_extents;
+> >               };
+> >               struct {
+> > -                     struct uid_gid_extent *forward;
+> > -                     struct uid_gid_extent *reverse;
+> > +                     struct uid_gid_extent *forward __counted_by_ptr(n=
+r_extents);
+> > +                     struct uid_gid_extent *reverse __counted_by_ptr(n=
+r_extents);
+> >               };
+> >       };
+> >  };
+> > diff --git a/kernel/user_namespace.c b/kernel/user_namespace.c
+> > index 0bed462e9b2a..7e5371d8f515 100644
+> > --- a/kernel/user_namespace.c
+> > +++ b/kernel/user_namespace.c
+> > @@ -809,13 +809,13 @@ static int insert_extent(struct uid_gid_map *map,=
+ struct uid_gid_extent *extent)
+> >               map->reverse =3D NULL;
+> >       }
+> >
+> > -     if (map->nr_extents < UID_GID_MAP_MAX_BASE_EXTENTS)
+> > -             dest =3D &map->extent[map->nr_extents];
+> > +     map->nr_extents++;
+> > +     if (map->nr_extents <=3D UID_GID_MAP_MAX_BASE_EXTENTS)
+> > +             dest =3D &map->extent[map->nr_extents - 1];
+> >       else
+> > -             dest =3D &map->forward[map->nr_extents];
+> > +             dest =3D &map->forward[map->nr_extents - 1];
+> >
+> >       *dest =3D *extent;
+> > -     map->nr_extents++;
+> >       return 0;
+> >  }
+> >
+> > --
+> > 2.55.0.860.g4b6b3295ed-goog
+> >
+>
