@@ -1,74 +1,70 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57CA32D94BA;
-	Wed, 26 Aug 2026 14:34:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E08C435523
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:34:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787754877; cv=none; b=bh2wzUlA/YgZzTYm2GKnXZqcvTTAHPY1W/qOfFh9tIbtS5rUDVXgMabdLGbIVxAGBqgu4rxd9PseBKiHCb0DktfCWhnT81w/2z4rXwmaVwwt4Q8AgMpPHiQLMqnvUnqTI/4Cy3xNxGiDNCZoBcb1GmHttcFtzS5ertiJ3sj8XJw=
+	t=1787754890; cv=none; b=rSyLggOw9+ENS5z2hStQKBWaWJRElP9RGC8LISd1gj/SdyTZOX2sgRU9H3qDUfQdLVXG8nTEDch90n03pIOuWUTApub8Kl0SgAfDom6TeyowDfn/gDaj2WnBYElOpZzakVuGVLLSIJ21A2hfTM6D25iQanfG/B6foYxoxSmlPiM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787754877; c=relaxed/simple;
-	bh=gz+Hy7py4G6i+BjnVLhoWdAJAkXvlOV2a2SeuO1tl2g=;
+	s=arc-20240116; t=1787754890; c=relaxed/simple;
+	bh=ZzuGnHIAIfA/t8cFWVOgErYASeqF6iVH4G5HnM/IRx8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C6g6MiTTBBSarRoEN4Gom6xTBbopJB/9oR7YsGRKN3xYS6lUqQ1P7liyYdPGxJTwNOYStysI5ElAwFTMg9DBJ0aJdXRwuT+8lD2ieiDA0HeBCgO6Dqv0jD4jCDrilhj+Ema9nyYb8zPxmdKLjBnmeL+i+afuS8S1PtHX9JdiR3A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=qdrLHCsW; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=e/7Xt5ciKZR6HrEy/cWeWFXAPcI/6UuLkUDZzntd+YD9UOc8We8B+NpBaeVu7RmNBO0Pj4JVaoR9IXoZdkrH/jU6PPxftIp4vGg/rSQNGgQx6jewvwgFKxGIjsB5L6jdOh7rJyYTdYISYoJJfxk6pVCJ6EpGHkEMMcB9nUeIx/o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=furiosa.ai; spf=none smtp.mailfrom=furiosa.ai; dkim=pass (1024-bit key) header.d=furiosa.ai header.i=@furiosa.ai header.b=oTAmHFzb; arc=none smtp.client-ip=209.85.215.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=furiosa.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=furiosa.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="qdrLHCsW"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QE1fbN4099742;
-	Wed, 26 Aug 2026 14:34:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=NCQEfP03PfJyPuRoO/iAqztIvak9OZ
-	7A+2JPlREf114=; b=qdrLHCsWghVqJz0MzEk+TWhTMkJWdrRSLHvBr7FH8g2UWe
-	sBMrrSN8sQrxtQggzYXgB474vU/8zOgEmpY/TArD6LsgeQkJeppj+pZ8QDu0CSXd
-	nb/mTWDM133xVaDzl0co89KVYOD8jMXTSpukHCSRRWeYa8EEXFk0jjOitBLKve5e
-	8pZ4kSKb+2FVmQ93HjQPBgWlpqkU41wpMHXWYR5oClPjgVZE6Ga/hhrpodq7NV8j
-	HUxDCtBEFD1mFR1YbLKy+XPjiYymBkvhby14b3l40QOw3hVi+L2q5kyFAPG6Azpm
-	qadoMH5dCvrReLDrS7u78rFT564Oy8gM22kOG7DQ==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g716hyc08-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 26 Aug 2026 14:34:31 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67QEQHbp026273;
-	Wed, 26 Aug 2026 14:34:30 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4g7rsya6gd-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 26 Aug 2026 14:34:30 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67QEYQnm47382976
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 26 Aug 2026 14:34:26 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C37422004B;
-	Wed, 26 Aug 2026 14:34:26 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 9C7F220040;
-	Wed, 26 Aug 2026 14:34:26 +0000 (GMT)
-Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown [9.224.92.206])
-	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Wed, 26 Aug 2026 14:34:26 +0000 (GMT)
-Date: Wed, 26 Aug 2026 16:34:25 +0200
-From: Alexander Gordeev <agordeev@linux.ibm.com>
-To: Heiko Carstens <hca@linux.ibm.com>
-Cc: Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Vasily Gorbik <gor@linux.ibm.com>,
-        Claudio Imbrenda <imbrenda@linux.ibm.com>,
-        Andrey Ryabinin <ryabinin.a.a@gmail.com>, linux-s390@vger.kernel.org,
-        linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-        kasan-dev@googlegroups.com
-Subject: Re: [PATCH v7 2/4] s390/mm: Batch PTE updates in lazy MMU mode
-Message-ID: <87a3147f-e993-4629-b0dd-a54aefbf20b1-agordeev@linux.ibm.com>
-References: <cover.1786956464.git.agordeev@linux.ibm.com>
- <d7fd78377a7278108ef501cf76571e80caef5968.1786956464.git.agordeev@linux.ibm.com>
- <20260824104048.11040Cdc-hca@linux.ibm.com>
- <73a0a916-b39f-4ebe-bffe-448928b13bef-agordeev@linux.ibm.com>
- <20260826130257.21444B1a-hca@linux.ibm.com>
+	dkim=pass (1024-bit key) header.d=furiosa.ai header.i=@furiosa.ai header.b="oTAmHFzb"
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cc1c3c90074so804184a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 07:34:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=furiosa.ai; s=google; t=1787754887; x=1788359687; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yn02buzACRQQNaPjkaVeG7aAyIjhQMcWh60YSklrQcY=;
+        b=oTAmHFzbXGDggyZIF6m8s5Mdk0HWGy93R19XkbKA+kLC7DYACBhdcwNPW1V08Jnq+J
+         ae4Lnt4nDkkZp5WCrp8QRbaQc/1Qr7YbQ5q5zpJ5KZn0Xa6W0OjP8OgtZ7+FiWb539JH
+         YihLQex2w3R2+IUlZhcSQO9gK6m7TdzzChyws=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787754887; x=1788359687;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yn02buzACRQQNaPjkaVeG7aAyIjhQMcWh60YSklrQcY=;
+        b=p450PIml+2n5YFFBRwHHfwgsCHZwxNgPUK5gmWT0KhCGdi1VHsZ1bZX6CbRRU4iBOU
+         51nXFYwT5rD1ivEdEQh+oseNEZJfSaMXSt6hWgz3vLoIW7GW+97kOnLgi4668EXKgdkQ
+         DtAhuYusLFCdP94G/uzfxaFD7b06UG65bQKTdwxVdWxwpt8zk8J0gmGoIReYCrKUGUqs
+         4gJ1++jYHxO0ZlriCFcs5Yp6ylcd4eQcRCt67F/PNYt3hDMVmkKLfpvWAxkxbWwCVbHX
+         FUVUUjrRsFDnXO9N1vjO45G7uRD0ZRPPQjeED8kSqmxYNv2LTh474HQZ7IQinxYQ4Jvy
+         E5zQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrGxS0AlS8apFLzyFq2hbTn9gxz2esNsoE0A5f2BCOUKkhWk1SoiH9x8YHZblUCgmPl8D8hyy445dhWYQo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lU0PaLATzzTNPFHYubyBuSD/5yDrVMYvjWwtTsbSUEbq5gQ+94
+	1ggZpu+zJAcvqGr7NGYD4H+EsTDg/E9RBPUge2RKOdPjDaw6tENXpGgkj/rZuvdGStM=
+X-Gm-Gg: AR+sD10SZAHDXpcb4Z9gQIfq3JR7a+YtPw8FE3+efBOiVX3abpY/zKFsap0rWBKinwi
+	VgC7cvYpWNcwLsPmMrFcjfGAaAza8a4jwZwmOfTZiS7AJY/8rB8WrHSdE0e3INTPTTGoNAP93Er
+	mWAEZiHYMiEfT3Btte9wm/WgReLQkofe9Pv5oYokDybf2OdONKZhnw1BZv4Wun4JNrvJHPSL+v4
+	b2bcQfemrCwk/flnPAUjbhXPU2cB5VI43SYVmfzvQyjcPqPTLMm0BtnQNdk//kcZ3lm2RUyR5P7
+	N2br790PijAFEjczVotaJylEbMz2sR/pWfqA/d+to1RFWAHAC1bGV2bqhgzT10wDNZkQTtprBrW
+	1bwYRJazMHfFrwsRp65J5iHB9eQ0aN3aE73NhSEZ14Lkwix4X46rn78Pb5hNU4M9JCp/lQujKB2
+	wLtGBBdWXs6LqAyJHYJHHeoeOhs1Aq51+zr4bfDfEhjCnArTuaBOZ0pDD4JqNOIUw=
+X-Received: by 2002:a17:90b:4e88:b0:37d:f983:7b5 with SMTP id 98e67ed59e1d1-3966d3e1aa7mr17670746a91.9.1787754887451;
+        Wed, 26 Aug 2026 07:34:47 -0700 (PDT)
+Received: from rock-5b-plus ([61.83.209.48])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39668a57396sm4760198a91.13.2026.08.26.07.34.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 07:34:47 -0700 (PDT)
+Date: Wed, 26 Aug 2026 23:34:34 +0900
+From: Sidong Yang <sidong.yang@furiosa.ai>
+To: MoGGuU <Naixumogu@whut.edu.cn>
+Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
+	Jeff Hugo <jeff.hugo@oss.qualcomm.com>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] accel/rocket: Fix job submit error handling
+Message-ID: <ao706o8ReDs-IXqf@rock-5b-plus>
+References: <20260813142059.151644-1-Naixumogu@whut.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,117 +73,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260826130257.21444B1a-hca@linux.ibm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDEyMSBTYWx0ZWRfX9d0D4fznnW9a
- dTrhFYqWYFysmfgSZ1txZuW6iXZDoIJarDIoVq86gmVpjGrAbjDS0To3u+4gTkEAy/M1WshVaH6
- c39yTFfj+xq+++UAA5ZNRMYpXkO+cC8=
-X-Proofpoint-GUID: wYHuOR7MKgKkRlRWI8pHiU2wMZ88MTiq
-X-Proofpoint-ORIG-GUID: _aZxFR0LsBp_ue5V73CXJzLqrAptb0CQ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDEyMSBTYWx0ZWRfX1R4p72y7Hl9c
- Y7etrjktOF7GCy01TJgymVg7ANPeWwQ14gvKJKrseK6x43+BPLSzUIJ8x4wPRp2Eymw8ON1bTan
- BJ+WVecuVX2dJP5ug58w2lphe8lZuV3hbyb0PWQ8S/JVsY4abgYQe9js+XWVkaveUzDWKHKkgr8
- Wh05TXsvfJmupwo2m5/wlRRcVFe1p12841x3cUprI9uSNkr2x3u5a7RTXfW8ub8vZKgv2uWOtsJ
- dGriXF6B+escX/NB9g5hxr16BWjsKhOjhYb/VEzTtFxzo2el8lkm0nIlCL5H94ZVa4eOszCnar8
- v0su8oZTg7ZnYErwZFazo3oQe6O7PZ46JAsJU3lgYAtY5cnCtIRTP6kEtEjw8OJT1k0gDXck4//
- HCYAeABUS1h3Tno8Q8dH1n4fr2c0DRpJYYBd914aXlULa991qy7UdeXCeUMFWXKMQm7Jv0pTraX
- +IH7Nv2GgcNQbZPbbhg==
-X-Authority-Analysis: v=2.4 cv=H7brBeYi c=1 sm=1 tr=0 ts=6a8ef977 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=SZl-skA7I6m2z5b9x0oA:9
- a=CjuIK1q_8ugA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-26_04,2026-08-26_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 malwarescore=0 lowpriorityscore=0 impostorscore=0 spamscore=0
- bulkscore=0 adultscore=0 priorityscore=1501 clxscore=1015 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260121
+In-Reply-To: <20260813142059.151644-1-Naixumogu@whut.edu.cn>
 
-On Wed, Aug 26, 2026 at 03:02:57PM +0200, Heiko Carstens wrote:
-> On Wed, Aug 26, 2026 at 02:00:35PM +0200, Alexander Gordeev wrote:
-> > On Mon, Aug 24, 2026 at 12:40:48PM +0200, Heiko Carstens wrote:
-> > > On Mon, Aug 17, 2026 at 01:33:00PM +0200, Alexander Gordeev wrote:
-> > > > diff --git a/arch/s390/include/asm/lowcore.h b/arch/s390/include/asm/lowcore.h
-> > > > index 3b3ecc647993..dba236664da9 100644
-> > > > --- a/arch/s390/include/asm/lowcore.h
-> > > > +++ b/arch/s390/include/asm/lowcore.h
-> > > > @@ -163,7 +163,7 @@ struct lowcore {
-> > > >  	__s32	preempt_count;			/* 0x03a8 */
-> > > >  	__u32	spinlock_lockval;		/* 0x03ac */
-> > > >  	__u32	spinlock_index;			/* 0x03b0 */
-> > > > -	__u8	pad_0x03b4[0x03b8-0x03b4];	/* 0x03b4 */
-> > > > +	__s32	lazy_mmu_count;			/* 0x03b4 */
-> > > 
-> > > Why is this signed? Can it get negative?
-> > 
-> > For the same reason preempt_count is signed, I guess.
+On Thu, Aug 13, 2026 at 10:20:59PM +0800, MoGGuU wrote:
+> Several error paths in the job submission path can be triggered by
+> unprivileged userspace through malformed DRM_ROCKET_SUBMIT requests.
+
+I think it would be better to split this per fix.
+And I've tested this patch, it works.
+
+
 > 
-> Check again, preempt_count is now unsigned and 64 bit ;)
-
-D'oh :)
-
-...
-
-> > > >  void __init arch_cpu_finalize_init(void)
-> > > >  {
-> > > > +	lazy_mmu_online_boot_cpu();
-> > > >  	sclp_init();
-> > > >  }
-> > > 
-> > > What makes this code so special that an explicit call from
-> > > arch_cpu_finalize_init() is required? This is really the last resort if
-> > > everything else fails. To me it looks like the code can be changed to use a
-> > > new static key, and add a generic early (pre-smp) initcall to allocate
-> > > memory for cpu 0, and if that succeeds enable the static key.
-> > 
-> > I had exactly similar variant, but failed to resolve a race when a secondary
-> > CPU callback was called before the CPU0's one. Probably, used a wrong event.
-> > Will look into it again.
+> First, the input and output BO handle counts are __u32, but GEM lookup and
+> reservation helpers take int counts.  Values outside the signed range can
+> become negative.  A combined count above INT_MAX can also overflow at the
+> call sites.  Reject counts that cannot be represented safely before looking
+> up the BOs.
 > 
-> early_initcall() should do the trick.
-
-Yep, early_initcall() + CPUHP_BP_PREPARE_DYN seems to be flying ;)
-
-> > > > +	local_bh_disable();
-> > > > +
-> > > > +	lockdep_assert_preemption_disabled();
-> > > > +	range = this_cpu_read(ipte_range);
-> > > 
-> > > Why is it required to disable bottom halves? A comment would be helpful.
-> > > Or a hint in the commit message - this is not obvious.
-> > 
-> > When an interrupt arrives in the middle of enter|leave_ipte_range()
-> > the chain pcpu_addr_to_page() -> vmalloc_to_page() -> ptep_get()
-> > decides ptep_get() is called in lazy mode, while the per-cpu state
-> > not yet (de-)initialized (AKA inconsistent). That led to crashes:
+> Second, rocket_job_push() arms the scheduler job before collecting its
+> implicit dependencies.  Dependency collection can fail with -ENOMEM, but
+> drm_sched_job_arm() is a point of no return.  An armed job must be pushed;
+> it must not be aborted with drm_sched_job_cleanup().  Collect dependencies
+> before taking the scheduler lock and arming the job.  Only operations that
+> cannot fail remain after arm().
 > 
-> So, I don't know what exactly lead to the crash, but I guess the
-> problem is an only partially initialized ipte_range struct, while the
-> lazy_mmu_count has been incremented already? Isn't it possible to
+> Finally, rocket_ioctl_submit() discards each job's return value and reports
+> success even when every job fails.  Return the first error
+> and stop submitting the remaining jobs.  Jobs queued before an error remain
+> queued, giving the ioctl ordered partial-submit semantics.
+> 
+> Tested on RK3588 with zero task counts, invalid task pointers, invalid BO
+> handles, and oversized BO counts.  The requests returned the expected error
+> codes without warnings or errors in the kernel log.
+> 
+> Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: MoGGuU <Naixumogu@whut.edu.cn>
+> ---
+>  drivers/accel/rocket/rocket_job.c | 34 +++++++++++++++++++------------
+>  1 file changed, 21 insertions(+), 13 deletions(-)
+> 
+> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+> index bb77b6bf0..c42bbf486 100644
+> --- a/drivers/accel/rocket/rocket_job.c
+> +++ b/drivers/accel/rocket/rocket_job.c
+> @@ -206,21 +206,20 @@ static int rocket_job_push(struct rocket_job *job)
+>  	if (ret)
+>  		goto err;
+>  
+> +	ret = rocket_acquire_object_fences(job->in_bos, job->in_bo_count,
+> +					   &job->base, false);
+> +	if (ret)
+> +		goto err_unlock;
+> +
+> +	ret = rocket_acquire_object_fences(job->out_bos, job->out_bo_count,
+> +					   &job->base, true);
+> +	if (ret)
+> +		goto err_unlock;
+> +
+>  	scoped_guard(mutex, &rdev->sched_lock) {
+>  		drm_sched_job_arm(&job->base);
+> -
+>  		job->inference_done_fence = dma_fence_get(&job->base.s_fence->finished);
+> -
+> -		ret = rocket_acquire_object_fences(job->in_bos, job->in_bo_count, &job->base, false);
+> -		if (ret)
+> -			goto err_unlock;
+> -
+> -		ret = rocket_acquire_object_fences(job->out_bos, job->out_bo_count, &job->base, true);
+> -		if (ret)
+> -			goto err_unlock;
+> -
+>  		kref_get(&job->refcount); /* put by scheduler job completion */
+> -
+>  		drm_sched_entity_push_job(&job->base);
+>  	}
+>  
+> @@ -556,6 +555,12 @@ static int rocket_ioctl_submit_job(struct drm_device *dev, struct drm_file *file
+>  	if (job->task_count == 0)
+>  		return -EINVAL;
+>  
+> +	/* GEM lookup and reservation helpers take signed object counts. */
+> +	if (job->in_bo_handle_count > INT_MAX ||
+> +	    job->out_bo_handle_count > INT_MAX ||
+> +	    job->in_bo_handle_count > INT_MAX - job->out_bo_handle_count)
+> +		return -EINVAL;
+> +
+>  	rjob = kzalloc_obj(*rjob);
+>  	if (!rjob)
+>  		return -ENOMEM;
+> @@ -639,8 +644,11 @@ int rocket_ioctl_submit(struct drm_device *dev, void *data, struct drm_file *fil
+>  	}
+>  
+>  
+> -	for (i = 0; i < args->job_count; i++)
+> -		rocket_ioctl_submit_job(dev, file, &jobs[i]);
+> +	for (i = 0; i < args->job_count; i++) {
+> +		ret = rocket_ioctl_submit_job(dev, file, &jobs[i]);
+> +		if (ret)
+> +			goto exit;
+> +	}
+>  
+>  exit:
+>  	kvfree(jobs);
+> 
+> base-commit: d85a5e9dfb42449d9f37b0ddc6ec30b129f481ce
+> -- 
+> 2.43.0
+> 
 
-Exactly.
-
-> solve that problem without disabling bottom halves by reordering
-> sequences in enter_ipte_range() and leave_ipte_range()?
-
-I guess you mean setting|unsetting the lazy mmu flag after|before the
-state is initialized? I will think about it, though I keep the door
-open for a possible lazy_mmu_mode_pause()|resume() implementation,
-which I am unable to predict how such rework would fit: lazy_mmu_count
-would have to stay non-zero in such a case.
-
-> Would be nice if we could avoid the not so obvious local_bh_disable()
-> and local_bh_enable() pairs.
-
-Calling ptep_get() from BH context was certainly unexpected, but the way
-local_bh_enable|disable() pairs are used is actually straightforward.
-This is a slow path anyway, so I would think the simplicity prevails in
-this case.
-
-But again, I will try to avoid that.
-
-Thanks!
+Tested-by: Sidong Yang <sidong.yang@furiosa.ai>
