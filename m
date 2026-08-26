@@ -1,72 +1,144 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F034B282F17
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:55:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63D7A381E9C
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:56:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787781305; cv=none; b=h5dU6DAxxcEpoXfD6d6FkZF+4g9yaafbw2KiyvbxYvfvtcnSTMSL6p2Iyvqgs7AmxyDIFoEjcYE58PvN6+35o+6L5+AMeYIDEo94ivFLYnsBtcoMSPSJJH3Naocs6GrN0edNpvxAT7S+jx1fOleS/c3PZKHjlb/SPCPEAdVb7AI=
+	t=1787781372; cv=none; b=lgLj+gnpRFlFoQrV1UIQ3qsR1yEBoiR2+EONKLqxnboL3ZFLlmtFzjke/F0gB8lNYkg3sSe/kNAathjIGgPEB45Ra23Q3pXtrS0lTjQXeb10vsrnIl2E8g7kAhvMCH05GVcksA7lEQj0C1tv7XEKlhdimZSF40c42/qNElukTFY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787781305; c=relaxed/simple;
-	bh=Q/HmKq0RYcm5NaBjnYG+Ts6HurXNpF6hy2X4bXJ3FQM=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=feDVc3hG9JVILPb97qhug6lIN5l5qqN24KTWh9pedH11bgAmt1B5SOsE75PmJcNRhhyOHE4OG9jJfpATHyX3mr6AYKdyP4mUQAetbWYRwPUKlnEmZ1NCAoO9fGAApXoRGXdpQGZmcnBt+VP+1JngdFXjD1Csg6LyrztQ4obBhnc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4b37620eb73so1522155b6e.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:55:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787781303; x=1788386103;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=AmFyU/fuG33NFzfbJCvVi2NqCZdlgCDdwMb7R8WD11w=;
-        b=NXlpsST4Dw57t6f6b8BAZXuOu2TuoqVNrANb+v3hk2g/KJr8TVFtE0F/MW82/x6M8a
-         awHOuBk1HvYxUkLJ326h/V8155mGcp0CBAnaXeU6O9Q5BqYERSK56TTOZ0l878N0b49D
-         u2u86bD2rSDJwXMuiRg7HMHEaevRkPQZa0M/hWuFVEN2SljTj9PaLyz9mFG0nFSQ3noh
-         GL4uqDpXywZcwGLPHmi3jN5iDREKMcrCzkw2G3d7ogqj5SchLIDgi7jmVYoUbERpL0Fw
-         VKxg0DGuynLQ3clzBFI/v+RpXdWVO4xQBv0F0/E74UEuuub4End1/J1M0eR98VkokkVg
-         oMCQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rqm9P1v7kdx2YC0kjVEfbV75m1eXNnppoAiI5AD7mDbtYlObMfqAL8j7IDPUU63psCpfJLf/fTUDpfTteI=@vger.kernel.org
-X-Gm-Message-State: AFuF++l1KyDU3ZXawLQJfbOitmcO0lFrfpV61wc8h26cmO0J4l5BCN+I
-	IhUMWK5LyC+7aLjfzeVaSgdl1P/LJR8p/NPagMT37DgH9VqGLo4CsPdHFa0Ls5g18LVM3zhp5EB
-	c5UWqToVIWQFBtcpm6XFfTaq1M4l3fcjih3Vh9mxnXnrR9Xf8NzJycldpFH0=
+	s=arc-20240116; t=1787781372; c=relaxed/simple;
+	bh=KAkYXAYnfeM7EWZPb0UU2vxX96nlclIp0nAmWXUJyIA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QbClSrzBHbojL4Oy3ECTq1OVAjQ4a074ifS1vtyWSJkbg1sfskMyQ1+OUL96ZJE61Rcw3kb7wFmVD4rGPYUf3I9vfM/jK/1M0grircZZfCF3L0Cl4zIAdNRi3bNcyqQrVLT2Qi77/CpBqrNNtSjs7nH7dhRSzDTIz4wfyoSxNQw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nh5AToR+; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nh5AToR+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BD861F000E9
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:56:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787781371;
+	bh=KAkYXAYnfeM7EWZPb0UU2vxX96nlclIp0nAmWXUJyIA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=nh5AToR+8+Hy4JwDQLkAQn8JX3nCyjf2TXZmf8hTWyRrvNiP4emkuq3ejwqhcSTdH
+	 DszsCD25k42ll/3FlOorkTiVJttraFnX9zOHO+jGxgbohoypS7CAw0DGKXWUdFlmpO
+	 80St1R6mG3vurizq/YaEuZnl218kTVqVfw1pPKxKb8oyrCWoojUxFT7hv6Xjbj8jAN
+	 QkWLZzjvn0oJSDjBkjHHTIiamGHHdcJLDb5Qj51AdhxG+8oYNbtnuTErj17fBUehNM
+	 lBXRlggcv/NNz7Xozb9hddNlKABSZqyDedCnu7O4A6hFVcd93XOnx/u+sqlrQkj5M6
+	 88/QGrEhrsi+g==
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c1670dad7a8so250734866b.3
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:56:11 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RrfcuNH09XBMOaOGav5QRHJXpnNQFYKNlemKPHTwrHb3PqSBelvNF7eJdmku9yxKQhbO0Or77TV7YzB13Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++nC2O2KuMAnm15SLPOlbJ4dlC/k6eN/Z8n4+l0mkMMyOUsisUkq
+	qggSApcEO/oMK+3GrThafYbZwJQrOl6OqoDLPo/O9Un5agfHN+jLXG5xCGX2y2HNZI4bFjVKohu
+	zx/4tI3MKefBq7kpNX1/qOeJurMwCeTs=
+X-Received: by 2002:a17:906:fd88:b0:c25:437:3dcf with SMTP id
+ a640c23a62f3a-c250c3c07fcmr1219596066b.21.1787781370065; Wed, 26 Aug 2026
+ 14:56:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1446:b0:497:da47:df4d with SMTP id
- 5614622812f47-4b366a79feemr11025899b6e.16.1787781302930; Wed, 26 Aug 2026
- 14:55:02 -0700 (PDT)
-Date: Wed, 26 Aug 2026 14:55:02 -0700
-In-Reply-To: <CAHc6FU4rFuMBsPh3NO4yAfF9y7dC4_8=TPSgGnaMODDCi5p-mQ@mail.gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a8f60b6.1d9ded08.62e62.00b9.GAE@google.com>
-Subject: Re: [syzbot] [gfs2?] general protection fault in _find_first_zero_bit
-From: syzbot <syzbot+cb79de2cc8b76fbf474f@syzkaller.appspotmail.com>
-To: agruenba@redhat.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
+References: <20260817131843.45121-1-husong@kylinos.cn> <1787017182353556.21.seg@mailgw.kylinos.cn>
+ <0689d805-45c6-4bb2-8eb2-f065457c45bf@kylinos.cn> <CAO9r8zNxnVYpwrsuB1Ofcwf-Lks2e+DL1Ys9CXZ5jozBug_ybQ@mail.gmail.com>
+ <CAJnrk1bFq7J7K0=X67voeZVkAb0dmiLkqomuQ+VcXBLyP5hMVg@mail.gmail.com>
+ <aoiQPrudvYZ76ZSD@cmpxchg.org> <CAO9r8zM+w-wb44G+GXev+eHVEOty5GNcmRkui4PxgeF=Hqv_DQ@mail.gmail.com>
+ <CAJnrk1bOdTE+YQRQqzfKUkOGR67a28t3p1r1zeBNzwz9xHEYdw@mail.gmail.com>
+ <CAO9r8zNQzqwVeOoZr71juX3xV06LUTntBp+7bmGdwK_s6FoT6w@mail.gmail.com> <ao9YFgBQJEy-85iB@linux.dev>
+In-Reply-To: <ao9YFgBQJEy-85iB@linux.dev>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Wed, 26 Aug 2026 14:55:57 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zO6VWRGh3CbqyymSkEaw6gFd6AKYQgZE_rTQP7svWEMfw@mail.gmail.com>
+X-Gm-Features: AcwNN1XUi59_7wlRX-aPfKbk6cG14-Ur0Kp10Fes9lEailhZFHURR2vWvYp7IrI
+Message-ID: <CAO9r8zO6VWRGh3CbqyymSkEaw6gFd6AKYQgZE_rTQP7svWEMfw@mail.gmail.com>
+Subject: Re: [PATCH] mm: memcg: use ratelimited stats flush in obj_cgroup_may_zswap()
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Joanne Koong <joannelkoong@gmail.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Song Hu <husong@kylinos.cn>, akpm@linux-foundation.org, linux-mm@kvack.org, 
+	cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, nphamcs@gmail.com, 
+	chengming.zhou@linux.dev, yunzhao@cloudflare.com
 Content-Type: text/plain; charset="UTF-8"
 
-Hello,
+[..]
+> > > I now prefer (c) as well. I hadn't realized setting zswap.max is a
+> > > rare path until Johannes mentioned it, and with your mention of
+> > > zswap_load() sitting in the fault-critical path, I think the benchmark
+> > > results show a clear improvement for c) over d) at higher depths.
+> > >
+> > > I was uneasy about the cost of c)'s reads scaling linearly with the #
+> > > of cpus on a system (ie for_each_possible_cpu per level), but given
+> > > the uncommonness of the zswap.max path, I think that's the right thing
+> > > to trade away. Either way, it's a big improvement over the baseline a)
+> > > path that currently exists anyways.
+> > >
+> > > > with more concurrency/CPUs and should generalize better to other
+> > > > stats. But I am obviously biased :P
+> > >
+> > > I'm still investigating the writeback and vmscan cases. For writeback,
+> > > using (c) is more complicated since NR_FILE_DIRTY and NR_WRITEBACK are
+> > > node stats. I'm planning to spend time this week running benchmarks
+> > > for it.
+> > >
+> > > If for those cases, (c) is viable, then I'll send a patch that adds
+> > > (c) as general infrastructure. Otherwise, I'll send out (c) as a zswap
+> > > specific patch.
+> > >
+> > > Does this sound good to everyone? If there are any objections, please
+> > > let me know.
+> >
+> > If (c) is holding up for writeback and vmscan, I would question a more
+> > radical approach of tearing apart the rstat framework and using it
+> > across the board. That is obviously a heavier lift and more
+> > controversial,
+>
+> Yes controversial because we used to have similar mechanism which did not work
+> and we had to move to rstat. Check the commit 42a300353577 and fixes to it.
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+IIUC, in that commit, the update side modifies one per-CPU per-cgroup
+counters, and when those counters exceed a threshold atomic updates
+are performed on all parents, which I think is the slow side. Then,
+the read side just reads the potentially stale atomic. That was
+problematic because:
+(1) The update side can end up performing atomic updates on all parents.
+(2) The read side can be inaccurate by up to MEMCG_CHARGE_BATCH *
+nr_cpus * nr_children
 
-Reported-by: syzbot+cb79de2cc8b76fbf474f@syzkaller.appspotmail.com
-Tested-by: syzbot+cb79de2cc8b76fbf474f@syzkaller.appspotmail.com
+What I am proposing in (c) is different:
 
-Tested on:
+(1) The update side always updates per-CPU per-cgroup counters in all
+the parents. It never does atomic operations. The parent iteration is
+not cheap, but it is cheaper than atomics for sure and we already do
+parent iteration today in some cases in memcg_rstat_updated(). So the
+"slow" path should be the same as today.
+(2) The read side always iterates per-CPU counters in this cgroup, so
+it's always accurate. This might be more expensive on an rstat flush
+on average (e.g. if memcg_vmstats_needs_flush() skips the flush), but
+it is much more consistent and the tail latency is much better.
 
-commit:         fba8cadb gfs2: No quotas for meta inodes
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=151b9625580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=f8dd02b32fb43dc7
-dashboard link: https://syzkaller.appspot.com/bug?extid=cb79de2cc8b76fbf474f
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+>
+> This worked for zswap stats because their update and consumption are not on
+> performance critical code paths i.e. these are on the way to compress or
+> decompress or in reclaim context.
 
-Note: no patches were applied.
-Note: testing is done by a robot and is best-effort only.
+Well, decompression is in the fault path, that's performance critical
+to some extent (although not like other stats updated by networking).
+Anyway, I think the update path shouldn't regress much with the
+approach described in (c).
+
+>
+> > but if we can get away with it, I think it will
+> > simplify things greatly and honestly rstat has been causing a lot of
+> > trouble in the last few years.
+> >
+> > But this can be done incrementally too, we can start by separating out
+> > the problematic stats to use the new update/flushing scheme,
+>
+> This I think we do need but for specific stats. I think the stats which have
+> in-kernel consumers need this. However not all such stats might be fine with
+> slow update side like zswap. So, we need to evaluate thoroughly.
+
+I think in the proposed approach (c) the main concern is actually read
+latency, not update latency. So if it works for in-kernel consumers it
+should definitely work for userspace consumers as well?
