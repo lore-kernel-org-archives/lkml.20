@@ -1,142 +1,128 @@
-Received: from sg-2-1.ptr.blmpb.com (sg-2-1.ptr.blmpb.com [71.18.227.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D75C0483BC5
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:20:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.1
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787779205; cv=none; b=f/cf7HY1ZgfoiEg+dzPWBdEa6632DkHOy+Qp7xSSw1VieSsVfKxJ/7tQMoY32DRq4s31ndjcXW8zMsSwxl3nQnoJPoRCRxw9+yqSLIeB4psPMgdv6bIvk1Hs/2x7i0LTjB5iUd+lgBypPoMS0lOL+85tcniA79SRJLwDJCBdlE0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787779205; c=relaxed/simple;
-	bh=PlY/IwlxoPLKIeXOhG+KaL1+BexmzdmpRVPxFH8QRtM=;
-	h=From:Subject:Mime-Version:Content-Type:To:Cc:Date:Message-Id; b=FNwpGYvguhHotUs9NpHMsuIZTg6rgNbsURQ+o3DJ/ULVtEg8iXzOS/sjZm5a/BTmLmz7LqMh1IbCvqRKfDLS/iNP3BDUCMTHmfFTivb1PRwRvEKCAcAGd38jQc76f8KU2Wc5esSsPLVfF+lJgpgn3CrpmMk2ZRV8ll8tbgCs0pE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=sCLIQJ6f; arc=none smtp.client-ip=71.18.227.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9284747A888
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:20:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787779206; cv=pass; b=tK4qeW/8IthQ5rxK9xgud58I78NiyQk6TnWUbMP3vUzIyOlERQps2DgIVHavYt0P8zTCFm8u8YrLVgClqwSY0lPysbi+OFV/q3WktsNioBO4XVE++j1Sbo3UmGbwu86KUZzRyjOy6UrxRCKamZZcy0Hze655s0DmSy72IjZZIG4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787779206; c=relaxed/simple;
+	bh=x8OlekE2MZnjNXVk39ugXBQV79er9Wj2YPeLWA8TxG4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=WYWtwpl9LFyeqSyN42Xe3FmiG4lOCOTS+MAwLKTBUgvhFPdM/f6iqz5VJVDQdyjB7v+HCUw9ZqgN+svLPSUoLSG+w8FMj8LJ14LFaVIE9MCzzkVGBJETYl6+KVOIuiD2KQgloAC3fvCkDuwb913f1XuSj5cUOv9sNHyivprhvvo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=Q4hO2XAv; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="sCLIQJ6f"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604220257; d=cherr.cc; t=1787779196; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=r7BKRwXvzFtHb2KAPCA0wNa9kxnwbggrfjVXuEj0jRY=;
- b=sCLIQJ6fbmDBicsC7ZpTdqVtJkE6lxys2I7TuV/qMJet2sWWnSaVK24TAooNpTzUQ1a6re
- s4Q8UexI9yT/YOTb9APtRbSZ5nS8MRH7ExwKMG6itoq7vNueoGdzaVI/9lUtoB1tINSYpQ
- 0+0D07C2lUt64eXpMWkM29AjZ3iCiBO7ZPLsTrwWhY41zHwqzm27R6q+wlEaXpxWKpPG0O
- 7SrMQmpOTn0ycduosRucS3+TZ8P3HErgE94V0OJEN+6ccRHVu1VO9f6oxj6FJlS2oUvbTk
- ntxCE9Kjak1XE065ylP8F9P3fwVY3lu+kUQmAjcrq85jIcCb7DJwQiiw669X5g==
-From: "Shengzhuo Wei" <me@cherr.cc>
-X-B4-Tracking: v=1; b=H4sIAHJYj2oC/yXMQQ6CMBBA0auQWTtJaZGiVyEsSpnqGENNR4GEc HeKLN/i/xWEEpPAvVgh0cTCccwoLwX4pxsfhDxkg1a6Vo226KRUGsOMcaIU3nHGytvrcLNGNcZ B7j6JAi//Z9udll//Iv89RrBtO4Wz5V91AAAA
-Subject: [PATCH] media: as102: bound firmware hex-line parsing by buffer and data sizes
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="Q4hO2XAv"
+ARC-Seal: i=1; a=rsa-sha256; t=1787779168; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=VvBq2Y5S2aRXuoQ1zWX49lG18ncBIQzYVX79jhmh8qqQJpVWbwjIb0/PFWxMKslEDWfyDsp3xF1TtTSpWG6Bu1aaZVlWMmCGa0yu/fDIEA1FTG2+rpRXklWZYeLkIyx9KGxJ6cTItgUPvnUsIuJpXoxOYbrwQuI9/7YQgIYH+dg=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1787779168; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=iTscRufj0y1CuqCTDcg3zlIOONoRR3vZY3r3L1e8kjo=; 
+	b=gXS0xoRwBr+1P087sBcQXdy1Cz+pi2u+w1n+xuxWN1nI/OiV8s02ZpuhRcKLbgXR73Po4Y1CzZXLzAmIb46T6aACM0r3hscQg4UfFsvO/1kAQNAEoCY/zD6FQT6d2YtPHl5bHgKnf5llrIHW2QGGqO8KQDpfy4HFK6C+Pptv/yc=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787779168;
+	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
+	bh=iTscRufj0y1CuqCTDcg3zlIOONoRR3vZY3r3L1e8kjo=;
+	b=Q4hO2XAvzkYUxwuoPGCi2ujjLP0IIYT+5abdyzVLs/880Bpfeo7cldtQpRHcChXK
+	eP+qWjXmjm8JwD1KAvggdUwBgY0LmAJNiNbAo+aXMxPWU1Z0yj2TvgLEyXiA6JpxgNf
+	Ck9WRTIbuXpxyI2gBeEe3DUWqbqKdsIHKaYpECTU=
+Received: by mx.zohomail.com with SMTPS id 1787779167543598.8334119563925;
+	Wed, 26 Aug 2026 14:19:27 -0700 (PDT)
+From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+Date: Wed, 26 Aug 2026 22:18:14 +0100
+Subject: [PATCH v6 12/16] drm/panfrost: Skip cache flush/invalidate when
+ enabling perfcnt
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26a8f587b+d913b0+vger.kernel.org+me@cherr.cc>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Received: from [192.168.9.107] ([111.42.148.52]) by smtp.feishu.cn with ESMTPS; Thu, 27 Aug 2026 05:19:54 +0800
-X-Mailer: b4 0.16.0
-X-Original-From: Shengzhuo Wei <me@cherr.cc>
-X-Change-Id: 20260827-as102-fw-overflow-4c75d973083a
-To: "Mauro Carvalho Chehab" <mchehab@kernel.org>, 
-	"Sylwester Nawrocki" <snjw23@gmail.com>, 
-	"Piotr Chmura" <chmooreck@poczta.onet.pl>, 
-	"Pierrick Hascoet" <pierrick.hascoet@abilis.com>, 
-	"Devin Heitmueller" <dheitmueller@kernellabs.com>
-Cc: "Kees Cook" <kees@kernel.org>, <linux-media@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
-	"Shengzhuo Wei" <me@cherr.cc>
-Date: Thu, 27 Aug 2026 05:19:47 +0800
-Message-Id: <20260827-as102-fw-overflow-v1-1-ff28890fec02@cherr.cc>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260826-claude-fixes-v6-12-78119af409e7@collabora.com>
+References: <20260826-claude-fixes-v6-0-78119af409e7@collabora.com>
+In-Reply-To: <20260826-claude-fixes-v6-0-78119af409e7@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Faith Ekstrand <faith.ekstrand@collabora.com>, 
+ "Marty E. Plummer" <hanetzer@startmail.com>, 
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
+ Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Collabora Kernel Team <kernel@collabora.com>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1778;
+ i=adrian.larumbe@collabora.com; h=from:subject:message-id;
+ bh=x8OlekE2MZnjNXVk39ugXBQV79er9Wj2YPeLWA8TxG4=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqj1gMf4kK5sSCLj82Z32bZTx32n9pMBu1WlCpq
+ /ZamlO18r+JAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCao9YDAAKCRAOJn5M7lND
+ PVcSC/9Ezy6dIBOMp9hB0BTby8aXMPHJzzjIyImQn1wHnC5qr9SW0gT49aOOVZbK3vmErCPGpc0
+ DLPl+AkmL4kFcjf+j87sWz/fYpt12JNBmOgZmrogx0NRbpFS2Txyi2gdpnp0tN+C0Hamu5213eJ
+ LSAzeUfFOwIXHxlS0iPvuugD4aglRRE4gyN1rMzL/j1aVoJuJkYLUya13TMtGnBC7YUiSBK+wud
+ Bh0Mro++DTxsY+Kc5HHC6HrLpeTEFT2wiAQHO/ERoyFk6pMUVGCUpP73EBpWyC+wustSHrVNH9A
+ F2uKxX61BOypniRmvIIEQStAZLdVg/MfoqsJ72LMzpZgi9xihp7qFY25TVoII+gzyPOpIxSm341
+ 9+6UgBgB8THs94ExA9VfVn/BrfolWX6nCI/82Malv7NbxApl8O3Z/VVI8+FsSuk9WB+2idoz15Z
+ 1CTIF66RuRDutma3QSzos+E8qGP0R1J3GS9Mb0dN1h1qx+mWnq3Vcj0Cnv97RPHgj9EwQ=
+X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
+ fpr=324030E8C005175DF93707A40E267E4CEE53433D
 
-parse_hex_line() walks the Intel HEX firmware image two characters at a
-time until the next '\n', writing every decoded byte past the sixth pair
-into fw_pkt->raw.data[], a 58-byte array inside a 64-byte heap object.
-Nothing bounds the line length: a firmware file with a hex line longer
-than 64 data bytes writes past the end of the kmalloc-64 object, byte by
-byte, with fully controlled contents. A file without a trailing newline
-additionally makes the walk run past the end of the firmware buffer
-itself. A malformed or replaced firmware file can thus corrupt adjacent
-heap memory during device probe.
+The GPU cache flush/invalidate operation is unnecessary, because at present
+all counters are always enabled for all sessions, and there are no plans to
+expand the uAPI so as to let UM select specific counter groups.
 
-Bound the walk by the remaining firmware size and reject lines whose
-payload does not fit in data[]. Verified with a KASAN reproducer of the
-loop: the overflow disappears and the oversized line is rejected with
--EFAULT.
+If the above was ever implemented, then different counter groups being
+selected between sessions might leave stale data in the GPU caches, so
+the flush/invalidate would have to be reintroduced.
 
-Fixes: 41b44e041811 ("[media] staging: as102: Initial import from Abilis")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shengzhuo Wei <me@cherr.cc>
-Assisted-by: GLM:5.3
+Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 ---
-parse_hex_line() has no bound on the hex-line length it walks in the
-firmware image: every decoded byte pair past the sixth is written into
-fw_pkt->raw.data[], a 58-byte array in a 64-byte heap object. An
-oversized line (or a firmware file with no trailing newline) writes
-past the object / reads past the firmware buffer during probe.
+ drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 15 ++-------------
+ 1 file changed, 2 insertions(+), 13 deletions(-)
 
-Verified with a KASAN reproducer of the loop (write of size 1,
-slab-out-of-bounds on kmalloc-64); silenced by the fix.
----
- drivers/media/usb/as102/as102_fw.c | 19 ++++++++++++++-----
- 1 file changed, 14 insertions(+), 5 deletions(-)
+diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+index f71534e741b6..ffc77121070e 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
++++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+@@ -124,21 +124,10 @@ static int panfrost_perfcnt_enable_locked(struct panfrost_device *pfdev,
+ 	panfrost_gem_internal_set_label(&bo->base, "Perfcnt sample buffer");
+ 
+ 	/*
+-	 * Invalidate the cache and clear the counters to start from a fresh
+-	 * state.
++	 * Clear the counters to start from a fresh state.
+ 	 */
+-	reinit_completion(&pfdev->perfcnt->dump_comp);
+-	gpu_write(pfdev, GPU_INT_CLEAR,
+-		  GPU_IRQ_CLEAN_CACHES_COMPLETED |
+-		  GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
++	gpu_write(pfdev, GPU_INT_CLEAR, GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
+ 	gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_CLEAR);
+-	gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_INV_CACHES);
+-	ret = wait_for_completion_timeout(&pfdev->perfcnt->dump_comp,
+-					  msecs_to_jiffies(1000));
+-	if (!ret) {
+-		ret = -ETIMEDOUT;
+-		goto err_vunmap;
+-	}
+ 
+ 	ret = panfrost_mmu_as_get(pfdev, perfcnt->mapping->mmu);
+ 	if (ret < 0)
 
-diff --git a/drivers/media/usb/as102/as102_fw.c b/drivers/media/usb/as102/as102_fw.c
-index d2d432789f55..0cba1ac7fb05 100644
---- a/drivers/media/usb/as102/as102_fw.c
-+++ b/drivers/media/usb/as102/as102_fw.c
-@@ -37,20 +37,28 @@ static unsigned char atohx(unsigned char *dst, char *src)
- /*
-  * Parse INTEL HEX firmware file to extract address and data.
-  */
--static int parse_hex_line(unsigned char *fw_data, unsigned char *addr,
--			  unsigned char *data, int *dataLength,
--			  unsigned char *addr_has_changed) {
-+static int parse_hex_line(unsigned char *fw_data, size_t fw_size,
-+			  unsigned char *addr, unsigned char *data,
-+			  size_t data_size, int *dataLength,
-+			  unsigned char *addr_has_changed)
-+{
- 
- 	int count = 0;
- 	unsigned char *src, dst;
- 
--	if (*fw_data++ != ':') {
-+	if (fw_size < 1 || *fw_data++ != ':') {
- 		pr_err("invalid firmware file\n");
- 		return -EFAULT;
- 	}
-+	fw_size--;
- 
- 	/* locate end of line */
- 	for (src = fw_data; *src != '\n'; src += 2) {
-+		if (src + 1 >= fw_data + fw_size ||
-+		    count >= 4 + (int)data_size) {
-+			pr_err("invalid firmware file\n");
-+			return -EFAULT;
-+		}
- 		atohx(&dst, src);
- 		/* parse line to split addr / data */
- 		switch (count) {
-@@ -107,8 +115,9 @@ static int as102_firmware_upload(struct as10x_bus_adapter_t *bus_adap,
- 		/* parse intel hex line */
- 		read_bytes = parse_hex_line(
- 				(u8 *) (firmware->data + total_read_bytes),
-+				firmware->size - total_read_bytes,
- 				fw_pkt->raw.address,
--				fw_pkt->raw.data,
-+				fw_pkt->raw.data, sizeof(fw_pkt->raw.data),
- 				&data_len,
- 				&addr_has_changed);
- 
+-- 
+2.55.0
 
----
-base-commit: 45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229
-change-id: 20260827-as102-fw-overflow-4c75d973083a
-
-Best regards,
---  
-Shengzhuo Wei <me@cherr.cc>
