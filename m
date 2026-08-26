@@ -1,225 +1,257 @@
-Received: from smtp153-141.sina.com.cn (smtp153-141.sina.com.cn [61.135.153.141])
+Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32A3E486639
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 22:50:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=61.135.153.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9110A48A2DF;
+	Wed, 26 Aug 2026 22:50:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.145
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787784617; cv=none; b=I32RrcMBsoIj/eFIBTRqwK6V4RGjSYqLVNTKOVKY0S7uR4GXaQEDyOi9dBKAy55mTk+xsNfg+1HTBHV4MJd5VL8JQJzMFqNVNmuhWmTOmzjl1ZG47e8xqr/tjtuHSVRkhANmQol3M3QOkMNL/NCQzyITReICbNv4sxfukCC4+Jw=
+	t=1787784644; cv=none; b=XoMs/knqhIE1yLnk0Dzi1kgpg3tfCjsSiV/VYcLocktknJawh63HGdoydfF/ix6sgu+w+iBQ04KPJWoJN99CRiB0WXf/Ca+6ot3hhyYmB2I/WQ8xYJaNdnBNwfCkub/owUm92qHjgQSa/0PTa3/wwmnk55QtUitYx+u8p+914LU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787784617; c=relaxed/simple;
-	bh=30+cNEQGWxKaZ47JOrBpMF5BmlWYIDN/QUJU99aQOGM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aUedqex9PxI1wCohWOw3DFtbokm0UVWVAyuD2+AJaHoAccAJ45uhgOLrh3l/yWfZkAkx8THKRQvGNbUEUASFzvOuZ/tn7zlF/LPWeMQ1C3dx3SU4IgGCvYmxrTY44r1WVXYTQKDZOFNgL+uofNDEuZnobvMSkX8uRqVZiE/RyFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=JfUnWyKm; arc=none smtp.client-ip=61.135.153.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	s=arc-20240116; t=1787784644; c=relaxed/simple;
+	bh=rwp9r1Nr8znphwZs8a+YFF6d7wcWidDSGZsxf1w3WVI=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Hk0ZWCy4Kd93z/tEMa+pOTaejDQk6Iva91GaBmp6I3+b5Tm9XlZGK7VrgSKYLZ0KWD9/o983Mt7P6iUnBrA016b90WNP/z1iBqVZWwRMrrnlIxwjntxpCr68oonuR0YLueZmoF0JGMGJoX/Dno/0ZvuCv1RnXeFjdimBy8SFyrE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org; spf=pass smtp.mailfrom=shazbot.org; dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b=NZ+xGKK1; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=hPpBUpoy; arc=none smtp.client-ip=103.168.172.145
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="JfUnWyKm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1787784608;
-	bh=CoOH3iJ4VHTGu3S3hWgkalHbFFVL4BPGTHkMrJL4Bac=;
-	h=From:Subject:Date:Message-ID;
-	b=JfUnWyKmRB+WOpSf5lmYLXM/EcPWieYoXwWNjDU/MnNr+yNEtR+u6l0apmzfG2pM5
-	 8ee94c3ILQYw34TMJwgQWi05iTwAmuVBi0EF7RD8AtZKGytryyk0i4Ou7XRmrGfr3L
-	 NpgSut0g0Gm8GhvlsTSA8nAOs2NIqebeAM0wR1JA=
-X-SMAIL-HELO: localhost.localdomain
-Received: from unknown (HELO localhost.localdomain)([114.249.62.194])
-	by sina.com (10.54.253.31) with ESMTP
-	id 6A8F6D92000037C3; Wed, 27 Aug 2026 06:49:56 +0800 (CST)
-X-Sender: hdanton@sina.com
-X-Auth-ID: hdanton@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=hdanton@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=hdanton@sina.com
-X-SMAIL-MID: 9555476816356
-X-SMAIL-UIID: D39102DEBA3F47688D93274A14CC1A2F-20260827-064956-1
-From: Hillf Danton <hdanton@sina.com>
-To: syzbot <syzbot+dd764a450d93885d847f@syzkaller.appspotmail.com>
-Cc: linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com,
-	syzbot+2d770620059281e225a4@syzkaller.appspotmail.com,
-	Eric Dumazet <edumazet@google.com>
-Subject: Re: [syzbot] [kernfs?] possible deadlock in kernfs_link_sibling (2)
-Date: Thu, 27 Aug 2026 06:49:43 +0800
-Message-ID: <20260826224944.1592-1-hdanton@sina.com>
-In-Reply-To: <6a8f3f8b.50659fcc.60cd.0005.GAE@google.com>
-References: 
+	dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b="NZ+xGKK1";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="hPpBUpoy"
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfout.phl.internal (Postfix) with ESMTP id A2302EC0277;
+	Wed, 26 Aug 2026 18:50:38 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-01.internal (MEProxy); Wed, 26 Aug 2026 18:50:38 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1787784638;
+	 x=1787871038; bh=QplW2KxtxglOqcewNzFZRR/OkHVXQZVIXwZYQhVxGak=; b=
+	NZ+xGKK1CDnkI/+Q+3dg9JXY2EpUUV0bwjH0u/z1UZS0DcCepuqqkDxnDyNOJgYr
+	JCDu2T9f6xZlXKfdzQOt7zJXSC3H5cSFAfkTs2TJVslPj0vq3htfWYboswkbaUje
+	kkG0IpLc44JIvs4mVnX9ChBwG/YPZRTPy6YabCQ79FjPCsnYu+USD8Np9k1J640Z
+	oupufBrAPH5bXYMWCFwEQjenEavI81Aw1Lbjw48YIq2UEsvKn0GRbjJhRCOtSSX3
+	Wc4fTFwd3byG4N5i+uqKDGEDkh026MRf9vqhgGQBwNaWyKuhHCsmg4VWTCqp/iqJ
+	vHTPbMwM3oJ2/YJE4+Rx0g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1787784638; x=
+	1787871038; bh=QplW2KxtxglOqcewNzFZRR/OkHVXQZVIXwZYQhVxGak=; b=h
+	PpBUpoy7rDfCyo3TpaPczzXGKEuenYj+LAGc4kWJWmdFNWdU5bG2h/D5DVvt68EQ
+	U8/sae8Pn/zNdEl1JOOVylLa1T7gSd9s01W6RLK4nhku5sac2BIXdooaJ7hGkyYx
+	V0o60RftXxj/bb1ftopm5tWn4Gvq46SeQeRdIFqFcICbeY9EVipsN7TGFeOro1ve
+	X4OA4dd2kBm1ddpsRoMUWM6Q+dtnCRfE+4QNSUVoj6h5lLUYByzSQIWbINZ/+WXm
+	LYL/4a9URfBkoyC8BqS0iwkd6tmlIjMIyRo6o64cZoVKF6iYQNiyZZdh07N47m/R
+	hn+JUEIeOPi50ZvUT5WAQ==
+X-ME-Sender: <xms:vW2Pasr7rQ_G5qB6GElMoVev1ckIfQR0Oz0IK7qUZ1FhMCx8WwF5HA>
+    <xme:vW2PagRsI5UzU6N-D9bD1DzNb6hQD0Sy59SMneHVLJ2RIEEAVolE6z9fTsNfii-MI
+    TOjtH8U1CWzueNu6bM-lzrk0Tt6XXK-XTCMnSZp3fe-6_1zJkvY>
+X-ME-Received: <xmr:vW2PaoknCS5K1m_SzqA12SKrf5lB_W97EGRm7woddUIu6LxzYxCH1nQCzdUrig>
+X-ME-Proxy-Cause: dmFkZTF6e4hR1iz/6dIAysFsGCQ71uWDQEuEPYPxGY/BNbu1t2yBp7A8qJ3IBKU8pAioAX
+    kQi2pcgAumZXLtvGdkDjDm8Zb0KsSPzz2VsqnYW42ydMMBwSPS6QnSoQAUAHv07aqMKnRl
+    xelSpx2DhqcMwig8qFnERd46xw36yZ179ft2tapX31kMdCO4EBCDZPMS+OxXASXA0mC8yJ
+    gaTocAtizYKP9ibLshPjnlDekBldB4LL8lduAolpQjZdkKTbOBm7kr4OXXecHyUwbsoYRB
+    yrtxtA8ZLexBsxbJYosZGQLm1U0QGL6Iw3Y3BNRJBkJrhYEGjH1CPTaRnzQ3Hofve2GspD
+    mdCje7Q/C99nzh28J31YfGJkClvIKkECVKoONx3ku5fGohpLpfpVf7hMU8D2ArWaBiu4XT
+    2D2ToyOUiTikWseEXh1BWf1kFEOT+F0em+n/FPKN/CwNo8k6wmSabVSYMfhwRtIuZbaZey
+    C2aaKWIjnz7V2Ica903rgVEmKwvZaAFQwDJWejuL54g0317LPKOKKOnHC6IfoXAi+elSRC
+    cJZiYjoSs/KtHZ69uy7MT8o5sEzJ3UnbXP/gMffJ8o8eVwV3rZKTr6DJjkZQTf1ci1iv5u
+    XkZBZIqLCqdmFI2Hs4FQvLmahoxpdu4sy9AqL05m+bC2lNETs3PiCgTjCxNA
+X-ME-Proxy: <xmx:vW2PasG33uUCS6HXNmERDuuODFOStFcfLQXtMbQKM99NjXMox0Mn2Q>
+    <xmx:vW2Pajlbv8YjV7iD74OwNaKzy_wiEqRehVqyqHNGe_xshYoBKRrbCw>
+    <xmx:vW2PajSOivWBuszMVd4W96Q0Mkf48PT0WgGGGlTBVkEEIt5YzKdPiw>
+    <xmx:vW2Pag6Pj0JHWPDrLEkQqOStYiF1w0zOdUuXYsh-Zfvc9rwYEa81LA>
+    <xmx:vm2PasFQS2R-HHl_00xv3lT8lZ6Xd5hamxoxnBz_Dl2aO4zKala3Jtao>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 26 Aug 2026 18:50:35 -0400 (EDT)
+Date: Wed, 26 Aug 2026 16:50:33 -0600
+From: Alex Williamson <alex@shazbot.org>
+To: <mhonap@nvidia.com>
+Cc: <jgg@ziepe.ca>, <ankita@nvidia.com>, <jic23@kernel.org>,
+ <dave.jiang@intel.com>, <alejandro.lucero-palau@amd.com>,
+ <smadhavan@nvidia.com>, <corbet@lwn.net>, <skhan@linuxfoundation.org>,
+ <dave@stgolabs.net>, <alison.schofield@intel.com>,
+ <vishal.l.verma@intel.com>, <iweiny@kernel.org>, <ming.li@zohomail.com>,
+ <yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
+ <bhelgaas@google.com>, <dmatlack@google.com>, <kees@kernel.org>,
+ <gustavoars@kernel.org>, <cjia@nvidia.com>, <kjaju@nvidia.com>,
+ <vsethi@nvidia.com>, <zhiw@nvidia.com>, <linux-doc@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>,
+ <linux-cxl@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+ <linux-kselftest@vger.kernel.org>, <linux-hardening@vger.kernel.org>,
+ alex@shazbot.org
+Subject: Re: [PATCH v4 08/27] vfio/cxl: Add the vfio-cxl module skeleton
+Message-ID: <20260826165033.582735f4@shazbot.org>
+In-Reply-To: <20260813093631.2288172-9-mhonap@nvidia.com>
+References: <20260813093631.2288172-1-mhonap@nvidia.com>
+	<20260813093631.2288172-9-mhonap@nvidia.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-> Date: Wed, 26 Aug 2026 12:33:31 -0700	[thread overview]
-> syzbot has found a reproducer for the following issue on:
+On Thu, 13 Aug 2026 15:06:12 +0530
+<mhonap@nvidia.com> wrote:
+
+> From: Manish Honap <mhonap@nvidia.com>
 > 
-> HEAD commit:    818bebeb63dd drm/xe: Don't hand out the flat CCS storage a..
-> git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-> console output: https://syzkaller.appspot.com/x/log.txt?x=10059625580000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
-> dashboard link: https://syzkaller.appspot.com/bug?extid=dd764a450d93885d847f
-> compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13de8d49580000
+> Add the vfio-cxl module that vfio-pci loads on demand for CXL Type-2
+> devices. It registers a set of callbacks with vfio-pci-core at
+> module_init and drops them at exit; the callbacks are stubs here and
+> are filled in by later patches.
+> 
+> VFIO_CXL depends on CXL_BUS and builds as vfio-cxl.ko, which
+> request_module("vfio-cxl") resolves through MODULE_ALIAS.
+> 
+> Signed-off-by: Manish Honap <mhonap@nvidia.com>
+> ---
+>  MAINTAINERS                          |  7 +++++
+>  drivers/vfio/pci/Kconfig             |  2 ++
+>  drivers/vfio/pci/Makefile            |  2 ++
+>  drivers/vfio/pci/cxl/Kconfig         | 11 ++++++++
+>  drivers/vfio/pci/cxl/Makefile        |  3 ++
+>  drivers/vfio/pci/cxl/vfio_cxl_core.c | 41 ++++++++++++++++++++++++++++
+>  6 files changed, 66 insertions(+)
+>  create mode 100644 drivers/vfio/pci/cxl/Kconfig
+>  create mode 100644 drivers/vfio/pci/cxl/Makefile
+>  create mode 100644 drivers/vfio/pci/cxl/vfio_cxl_core.c
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index c665bf8f1a28..aa8cecbc4cf2 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -28312,6 +28312,13 @@ L:	kvm@vger.kernel.org
+>  S:	Maintained
+>  F:	drivers/vfio/cdx/*
+>  
+> +VFIO CXL DRIVER
+> +M:	Manish Honap <mhonap@nvidia.com>
+> +L:	kvm@vger.kernel.org
+> +L:	linux-cxl@vger.kernel.org
+> +S:	Supported
+> +F:	drivers/vfio/pci/cxl/
+> +
+>  VFIO DRIVER
+>  M:	Alex Williamson <alex@shazbot.org>
+>  L:	kvm@vger.kernel.org
+> diff --git a/drivers/vfio/pci/Kconfig b/drivers/vfio/pci/Kconfig
+> index 296bf01e185e..c3f54fc8ccc0 100644
+> --- a/drivers/vfio/pci/Kconfig
+> +++ b/drivers/vfio/pci/Kconfig
+> @@ -70,6 +70,8 @@ source "drivers/vfio/pci/virtio/Kconfig"
+>  
+>  source "drivers/vfio/pci/nvgrace-gpu/Kconfig"
+>  
+> +source "drivers/vfio/pci/cxl/Kconfig"
+> +
+>  source "drivers/vfio/pci/qat/Kconfig"
+>  
+>  source "drivers/vfio/pci/xe/Kconfig"
 
-#syz test
+It seems fair to put this above the variant driver Kconfigs rather than
+bury it among them.
 
-syzbot reported a lockdep splat hitting DEBUG_LOCKS_WARN_ON(1) in
-hlock_class() due to an invalid class_idx:
+> diff --git a/drivers/vfio/pci/Makefile b/drivers/vfio/pci/Makefile
+> index 6138f1bf241d..c3031070a1f3 100644
+> --- a/drivers/vfio/pci/Makefile
+> +++ b/drivers/vfio/pci/Makefile
+> @@ -21,6 +21,8 @@ obj-$(CONFIG_VIRTIO_VFIO_PCI) += virtio/
+>  
+>  obj-$(CONFIG_NVGRACE_GPU_VFIO_PCI) += nvgrace-gpu/
+>  
+> +obj-$(CONFIG_VFIO_CXL) += cxl/
+> +
+>  obj-$(CONFIG_QAT_VFIO_PCI) += qat/
+>  
+>  obj-$(CONFIG_XE_VFIO_PCI) += xe/
 
-  WARNING: kernel/locking/lockdep.c:238 at __lock_acquire+0x382/0x2cf0 kernel/locking/lockdep.c:5203
-  Workqueue: wg-crypt-wg0 wg_packet_tx_worker
-  RIP: 0010:hlock_class kernel/locking/lockdep.c:238 [inline]
-  RIP: 0010:check_wait_context kernel/locking/lockdep.c:4870 [inline]
-  RIP: 0010:__lock_acquire+0x389/0x2cf0 kernel/locking/lockdep.c:5203
-  Call Trace:
-   <IRQ>
-   lock_acquire+0x106/0x350 kernel/locking/lockdep.c:5886
-   _raw_spin_lock+0x2e/0x40 kernel/locking/spinlock.c:173
-   tcp_tsq_handler+0x29/0x200 net/ipv4/tcp_output.c:1291
-   tcp_tsq_workfn+0x384/0x410 net/ipv4/tcp_output.c:1325
-   ...
+Here again, cxl is a feature of vfio-pci-core.  I'd promote it to
+between vfio-pci-core and vfio-pci.  The earlier linking also has the
+benefit that in the typical case it will be available before the
+builtin drivers (but keep the deferred loading behavior).  Thanks,
 
-When a lock class is zapped (e.g. during module unload or key
-unregistration), zap_class() clears the class's bit in
-lock_classes_in_use and removes it from the class hash table.
-However, existing lockdep_map instances embedded in data structures
-may still retain a pointer to the zapped class in their class_cache[]
-array.
+Alex
 
-When __lock_acquire() subsequently runs on such a lock, it finds
-lock->class_cache[subclass] != NULL, skipping register_lock_class() and
-assigning hlock->class_idx to the index of the zapped class. When
-check_wait_context() or hlock_class() inspects the held_lock, it finds
-!test_bit(class_idx, lock_classes_in_use) and warns. Furthermore, if
-the zapped slot is subsequently re-allocated to an unrelated lock key,
-the stale class_cache entry would erroneously match the unrelated class
-(ABA issue).
+> diff --git a/drivers/vfio/pci/cxl/Kconfig b/drivers/vfio/pci/cxl/Kconfig
+> new file mode 100644
+> index 000000000000..1392fa4ed15d
+> --- /dev/null
+> +++ b/drivers/vfio/pci/cxl/Kconfig
+> @@ -0,0 +1,11 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +config VFIO_CXL
+> +	tristate "VFIO support for CXL Type-2 devices"
+> +	depends on CXL_BUS && CXL_MEM
+> +	select VFIO_PCI_CORE
+> +	help
+> +	  Add CXL HDM handling to vfio-pci so a CXL Type-2 device, such as a
+> +	  CXL-attached accelerator, can be assigned to a virtual machine.
+> +	  vfio-pci loads this module on demand when it binds a CXL device.
+> +
+> +	  If you don't know what to do here, say N.
+> diff --git a/drivers/vfio/pci/cxl/Makefile b/drivers/vfio/pci/cxl/Makefile
+> new file mode 100644
+> index 000000000000..8501bf626108
+> --- /dev/null
+> +++ b/drivers/vfio/pci/cxl/Makefile
+> @@ -0,0 +1,3 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +obj-$(CONFIG_VFIO_CXL) += vfio-cxl.o
+> +vfio-cxl-y := vfio_cxl_core.o
+> diff --git a/drivers/vfio/pci/cxl/vfio_cxl_core.c b/drivers/vfio/pci/cxl/vfio_cxl_core.c
+> new file mode 100644
+> index 000000000000..cbec7319452c
+> --- /dev/null
+> +++ b/drivers/vfio/pci/cxl/vfio_cxl_core.c
+> @@ -0,0 +1,41 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * VFIO support for CXL Type-2 devices.
+> + *
+> + * Copyright (c) 2026 NVIDIA Corporation & Affiliates
+> + */
+> +
+> +#include <linux/module.h>
+> +#include <linux/vfio_pci_core.h>
+> +
+> +static int vfio_cxl_init_device(struct vfio_pci_core_device *vdev)
+> +{
+> +	return 0;
+> +}
+> +
+> +static void vfio_cxl_release_device(struct vfio_pci_core_device *vdev)
+> +{
+> +}
+> +
+> +static const struct vfio_cxl_ops vfio_cxl_ops = {
+> +	.init_device	= vfio_cxl_init_device,
+> +	.release_device	= vfio_cxl_release_device,
+> +	.owner		= THIS_MODULE,
+> +};
+> +
+> +static int __init vfio_cxl_init(void)
+> +{
+> +	return vfio_pci_core_register_cxl_ops(&vfio_cxl_ops);
+> +}
+> +
+> +static void __exit vfio_cxl_exit(void)
+> +{
+> +	vfio_pci_core_unregister_cxl_ops(&vfio_cxl_ops);
+> +}
+> +
+> +module_init(vfio_cxl_init);
+> +module_exit(vfio_cxl_exit);
+> +
+> +MODULE_LICENSE("GPL");
+> +MODULE_DESCRIPTION("VFIO support for CXL Type-2 devices");
+> +MODULE_ALIAS("vfio-cxl");
 
-Add lock_class_cache_is_valid() to validate that the cached class is
-within lock_classes bounds, still allocated in lock_classes_in_use
-(using uninstrumented arch_test_bit() in __always_inline context so it
-is safe in noinstr contexts like match_held_lock()), and that class->key
-matches the expected subkey (taking lockdep_set_subclass() overrides into
-account). Also use READ_ONCE()/WRITE_ONCE() when accessing class_cache[].
-If the entry is invalid or stale, fall back to register_lock_class() /
-look_up_lock_class().
-
-Fixes: a0b0fd53e1e6 ("locking/lockdep: Free lock classes that are no longer in use")
-Reported-by: syzbot+2d770620059281e225a4@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/netdev/6a8c66dc.4d75e56a.c9a88.0050.GAE@google.com/T/#u
-Assisted-by: Gemini:gemini-3.1-pro
-Signed-off-by: Eric Dumazet <edumazet@google.com>
----
- kernel/locking/lockdep.c | 50 +++++++++++++++++++++++++++++++++-------
- 1 file changed, 42 insertions(+), 8 deletions(-)
-
-diff --git a/kernel/locking/lockdep.c b/kernel/locking/lockdep.c
-index 25d77d4a1061..763f79806bd8 100644
---- a/kernel/locking/lockdep.c
-+++ b/kernel/locking/lockdep.c
-@@ -963,6 +963,34 @@ look_up_lock_class(const struct lockdep_map *lock, unsigned int subclass)
- 	return NULL;
- }
- 
-+static __always_inline bool lock_class_cache_is_valid(const struct lockdep_map *lock,
-+						      const struct lock_class *class,
-+						      unsigned int subclass)
-+{
-+	unsigned int class_subclass;
-+
-+	if (!class)
-+		return false;
-+
-+	if (unlikely(class < lock_classes || class >= lock_classes + MAX_LOCKDEP_KEYS))
-+		return false;
-+
-+	if (unlikely(!arch_test_bit(class - lock_classes, lock_classes_in_use)))
-+		return false;
-+
-+	if (unlikely(!lock->key))
-+		return false;
-+
-+	class_subclass = subclass ? subclass : class->subclass;
-+	if (unlikely(class_subclass >= MAX_LOCKDEP_SUBCLASSES))
-+		return false;
-+
-+	if (unlikely(READ_ONCE(class->key) != lock->key->subkeys + class_subclass))
-+		return false;
-+
-+	return true;
-+}
-+
- /*
-  * Static locks do not have their class-keys yet - for them the key is
-  * the lock object itself. If the lock is in the per cpu area, the
-@@ -1395,9 +1423,9 @@ register_lock_class(struct lockdep_map *lock, unsigned int subclass, int force)
- 
- out_set_class_cache:
- 	if (!subclass || force)
--		lock->class_cache[0] = class;
-+		WRITE_ONCE(lock->class_cache[0], class);
- 	else if (subclass < NR_LOCKDEP_CACHING_CLASSES)
--		lock->class_cache[subclass] = class;
-+		WRITE_ONCE(lock->class_cache[subclass], class);
- 
- 	/*
- 	 * Hash collision, did we smoke some? We found a class with a matching
-@@ -4957,7 +4985,7 @@ void lockdep_init_map_type(struct lockdep_map *lock, const char *name,
- 	int i;
- 
- 	for (i = 0; i < NR_LOCKDEP_CACHING_CLASSES; i++)
--		lock->class_cache[i] = NULL;
-+		WRITE_ONCE(lock->class_cache[i], NULL);
- 
- #ifdef CONFIG_LOCK_STAT
- 	lock->cpu = raw_smp_processor_id();
-@@ -5022,12 +5050,15 @@ EXPORT_SYMBOL_GPL(__lockdep_no_track__);
- void lockdep_set_lock_cmp_fn(struct lockdep_map *lock, lock_cmp_fn cmp_fn,
- 			     lock_print_fn print_fn)
- {
--	struct lock_class *class = lock->class_cache[0];
-+	struct lock_class *class = READ_ONCE(lock->class_cache[0]);
- 	unsigned long flags;
- 
- 	raw_local_irq_save(flags);
- 	lockdep_recursion_inc();
- 
-+	if (!lock_class_cache_is_valid(lock, class, 0))
-+		class = NULL;
-+
- 	if (!class)
- 		class = register_lock_class(lock, 0, 0);
- 
-@@ -5119,8 +5150,11 @@ static int __lock_acquire(struct lockdep_map *lock, unsigned int subclass,
- 	if (DEBUG_LOCKS_WARN_ON(subclass >= MAX_LOCKDEP_SUBCLASSES))
- 		return 0;
- 
--	if (subclass < NR_LOCKDEP_CACHING_CLASSES)
--		class = lock->class_cache[subclass];
-+	if (subclass < NR_LOCKDEP_CACHING_CLASSES) {
-+		class = READ_ONCE(lock->class_cache[subclass]);
-+		if (!lock_class_cache_is_valid(lock, class, subclass))
-+			class = NULL;
-+	}
- 	/*
- 	 * Not cached?
- 	 */
-@@ -5323,9 +5357,9 @@ static noinstr int match_held_lock(const struct held_lock *hlock,
- 		return 1;
- 
- 	if (hlock->references) {
--		const struct lock_class *class = lock->class_cache[0];
-+		const struct lock_class *class = READ_ONCE(lock->class_cache[0]);
- 
--		if (!class)
-+		if (!lock_class_cache_is_valid(lock, class, 0))
- 			class = look_up_lock_class(lock, 0);
- 
- 		/*
-
-base-commit: 0a0d1d55dad570724bf8c7ea83409639cfb4be9b
--- 
-2.55.0.766.g2966f0265a-goog
