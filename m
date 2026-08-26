@@ -1,161 +1,180 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEBDC3955CA;
-	Wed, 26 Aug 2026 23:14:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A17DD3B8128
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 23:15:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787786071; cv=none; b=u5bfTsn8yMih8qo9DKHI8ty7r8uBpqzacIBWkDjk78qbg6uFbmhujFGIzJwoLmGiHBEn+vLr91LuUHcLKqzf1Ffz6nQEe/5FqEktpNwSrN9DKHK1cVBvvLFPAOrwUtHBmpd8tUjVaum9h4NUOCSbSGvy5QMInvSdQWsgKKtY2i8=
+	t=1787786107; cv=none; b=Ihs/gAGi/HdAybzHzK2PMrhfR9WeKRtyVhFyct6LemJ5eS8fuQpU3DIfTNfu9+zWYatz0KN8CLNie/ZYkQd70/5UVzIqB6h72g/0G1huaHOu5YjwyyyUAVeReOXt2cM12w1EqCXBZTyhWibOOBkjpRpKIl88FlRSAn2hem9fF1k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787786071; c=relaxed/simple;
-	bh=r4Q+9FRjTXyHrCbuzgzJZEne8FbiCn4ajw263KnS9Xw=;
-	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
-	 Date:MIME-Version; b=Qo32aHRJb4BVn9StPieIg8NY68Iu6t1fig6mqXr/SS51MyOqSPv0APozyyC/DvGPUF2Sn/HVd/NlIuWaV+ElZozUH6IYll8qv2bWK/VnDd6bSG4EJN+Xm37H79ygIf9o06gnpCU0ybDhrAmBfq6IjQRj5kIpIw1Ai+J/PNFZjVQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Z9pptXh6; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1787786107; c=relaxed/simple;
+	bh=YUaMLPNhuDaYNJ0D8OpsuiWvuLoQ1w65HAWCQ0qaaRI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qBLV8ZCsjbZtUdm6TPc/pH7cr65gxacygY7L2SGi2YprIswyLqRNbDlimNr41T+aXZ1BR8nJFzM6SST316Is8Ug+U2PcFlhtK+BrrvHLqX50MGljNvaf2fj2TWkwzJR/Ma3/FG/xYWYn2yoJ3I2Kj8ewJAevDwmoywgdcSsqk1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jwg1mBsn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Z9pptXh6"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QL1Ynk3280523;
-	Wed, 26 Aug 2026 23:14:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=lcAJfX
-	iOPQp6Qh0jISwkxyBYW5KhBfvBU3njyOUt4q4=; b=Z9pptXh6tzy8hqEhXoJG64
-	JM5DKPclJ0roBJIcwpfDKGXiWdxMY+nSpjo8xMhgB7FymI5e6I2qeYbne+dsZFXk
-	MjRFacsJq2cCHTPkWXwanzgD4x1hiaksHeXkvf+vJo7Z6imBSGdmj83MbfQlCmJ0
-	94eBRnh3jmCisKyCaEmAnAEaKskptAOp6sx1JU1U78WhT4XMjxBgxBtnmBcZe5OY
-	YYZUD1QybmI3iCvmBh//G8xfxmu6v20UaiYe3+vEm5Cg9l9ABHUWqVsxk3NuDKKr
-	gyqLVBswloPepVqihOil3jEVj6btyTrIMtyDYk1o/lRPl8VDOkOpVFMTQYoIuBwA
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g73er1nes-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 26 Aug 2026 23:14:20 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67QNBFKE021876;
-	Wed, 26 Aug 2026 23:14:19 GMT
-Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4g7ragmj06-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 26 Aug 2026 23:14:19 +0000 (GMT)
-Received: from smtpav02.dal12v.mail.ibm.com (smtpav02.dal12v.mail.ibm.com [10.241.53.101])
-	by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67QNEJMc19399202
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 26 Aug 2026 23:14:19 GMT
-Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 0F4885805E;
-	Wed, 26 Aug 2026 23:14:19 +0000 (GMT)
-Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 70D3F58051;
-	Wed, 26 Aug 2026 23:14:18 +0000 (GMT)
-Received: from li-43857255-d5e6-4659-90f1-fc5cee4750ad.ibm.com (unknown [9.61.80.63])
-	by smtpav02.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 26 Aug 2026 23:14:18 +0000 (GMT)
-Message-ID: <21bf74a181df485f9daf47f9740972443e31471d.camel@linux.ibm.com>
-Subject: Re: [PATCH] ima: select the SHA384 PCR bank for the boot aggregate
-From: Mimi Zohar <zohar@linux.ibm.com>
-To: "Singh, Jashandeep" <jashandeep.singh@hpe.com>,
-        Roberto Sassu
-	 <roberto.sassu@huawei.com>,
-        Dmitry Kasatkin <dmitry.kasatkin@gmail.com>
-Cc: Eric Snowberg <eric.snowberg@oracle.com>,
-        "linux-integrity@vger.kernel.org"
-	 <linux-integrity@vger.kernel.org>,
-        "linux-security-module@vger.kernel.org"
-	 <linux-security-module@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org"
-	 <linux-kernel@vger.kernel.org>,
-        Jashandeep Singh <jdsw@juniper.net>
-In-Reply-To: <PH7PR84MB16549E7A6AC842D358493B0F96AE2@PH7PR84MB1654.NAMPRD84.PROD.OUTLOOK.COM>
-References: <20260826191051.219090-1-jashandeep.singh@hpe.com>
-	 <4ea0433a82c219d6efdb83ad0bf267045c91a374.camel@linux.ibm.com>
-	 <PH7PR84MB16549E7A6AC842D358493B0F96AE2@PH7PR84MB1654.NAMPRD84.PROD.OUTLOOK.COM>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 26 Aug 2026 19:14:17 -0400
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jwg1mBsn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82F7F1F00ACF
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 23:15:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787786106;
+	bh=YUaMLPNhuDaYNJ0D8OpsuiWvuLoQ1w65HAWCQ0qaaRI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Jwg1mBsnwMtqkVVzzMFGfQCThc1btDwD3mJ7wJaHS8UvvA/rFu4oJgn+Y9VYOL2Zw
+	 AQr3u1wr+7wXmarpeIsQ7iPPK8i125aNwfUcdHXwoIo3FAx/5HcEi93YE58NiInHva
+	 KTjaQc7I4dHL/yYzXPid8YPXIwQayoFRx1IR6u84Giy7ZuYDqAB9iH/12nAAfJ3uZ4
+	 keEfIm8qgocd5PcPj6jfpw8FTrPpAOa/GnlP3bw4NgF+c4PRScn5FAMdcfqt2gQbKV
+	 2BgDuEHxtsBt2cKTtJ74gfGFQSxd22in6wzk2iF7e3QIz3KdQW3NLGSJjo+B0Qqb4u
+	 /DzueysUCHcbg==
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c25099bb1fbso208371666b.3
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:15:06 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RrRjcIuVZ2VtopbS5yvDDyuv3lbrDebJP7O8GKMLUXrQ85qNWNYp0DS1OsMj9ORcrumqfaMsX7oYVl3mNE=@vger.kernel.org
+X-Gm-Message-State: AFuF++ksGsTa1aDgb7ffIXkY/4ifLoaK+jBamXxdVcxpVCfiGImhlShD
+	6tfz2c06IVh5TXp9C+ilnBxMUa0zicsnnmOteQ8yJvtaBj3IE8Ww9zt3mYVP84UlZ9EDu9Cgjl8
+	u4RfIM2OZ3dllWj1LX4ryXNHP8zf6RHM=
+X-Received: by 2002:a17:907:980e:b0:c25:2f12:1441 with SMTP id
+ a640c23a62f3a-c252f121647mr587317666b.12.1787786105306; Wed, 26 Aug 2026
+ 16:15:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: wNikh9eYVxmC-4eVOCiDDOryJYocVdrX
-X-Proofpoint-ORIG-GUID: StecVo8jO5gnhUsJ4qYZWkyE-TgWwa0b
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDE5NCBTYWx0ZWRfX4VThMTaynoE8
- rtrMk3wyOQ6pY1uiO9RikrB42l88rFQ7+PY7aMXOepUngS2OakpU7onk91tr0jLEYfcEhHxVTdu
- ThQ075TA+p3Og/gV0DsLPF6oA1M3JNwUb8Yts41rKyLk+IxMAitelQtklSNNrpO/WgorvaPxlUp
- XY2kQcJLIRT29qULZ8kOmUAovoUWasgH+mnHQ4cVT/uW4XXhxg3uI2ytEPLZiNIx07pLLDYDrrK
- HmV9o232M2H322tWqwcTnui/7vgFHJZqpmxROMjadv333XceOcibJf4TuzaAPulCs6d4g9lGksW
- X775EnZBW4tP1ZSXI0cwCfJQEZ9K/Db0jV9Y/bnv1BGZjlFsZVmhLfksst9HiP0g9+wtPNKa5In
- 7jtpuspiNwLrd79HzrxqFn/OVhuCP+O5xl/JSgD+BRaSXDoKadlFhMxlbOwFUr9JzXhmFzfsx6G
- DIgCqVvzTCChn7z5+Jw==
-X-Authority-Analysis: v=2.4 cv=QsRuG1yd c=1 sm=1 tr=0 ts=6a8f734c cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
- a=tfP5eB9Pq6O3CzWxs5kA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDE5NCBTYWx0ZWRfX80Pc8yKdOK/b
- Vn7ppxk8VfhNKMU/UKe6CskKvyLUJnUvQvz6dPCsTBfwdJfQXTniAQGtzLl8JVrAl+KX8vt4R9/
- Xivtx+jWWTPEuDrjAdtcs946UkeLjH8=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-26_06,2026-08-26_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 suspectscore=0 priorityscore=1501 impostorscore=0
- spamscore=0 lowpriorityscore=0 clxscore=1015 bulkscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260194
+References: <1787017182353556.21.seg@mailgw.kylinos.cn> <0689d805-45c6-4bb2-8eb2-f065457c45bf@kylinos.cn>
+ <CAO9r8zNxnVYpwrsuB1Ofcwf-Lks2e+DL1Ys9CXZ5jozBug_ybQ@mail.gmail.com>
+ <CAJnrk1bFq7J7K0=X67voeZVkAb0dmiLkqomuQ+VcXBLyP5hMVg@mail.gmail.com>
+ <aoiQPrudvYZ76ZSD@cmpxchg.org> <CAO9r8zM+w-wb44G+GXev+eHVEOty5GNcmRkui4PxgeF=Hqv_DQ@mail.gmail.com>
+ <CAJnrk1bOdTE+YQRQqzfKUkOGR67a28t3p1r1zeBNzwz9xHEYdw@mail.gmail.com>
+ <CAO9r8zNQzqwVeOoZr71juX3xV06LUTntBp+7bmGdwK_s6FoT6w@mail.gmail.com>
+ <ao9YFgBQJEy-85iB@linux.dev> <CAO9r8zO6VWRGh3CbqyymSkEaw6gFd6AKYQgZE_rTQP7svWEMfw@mail.gmail.com>
+ <ao9q-m9k-NMxDvA1@linux.dev>
+In-Reply-To: <ao9q-m9k-NMxDvA1@linux.dev>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Wed, 26 Aug 2026 16:14:53 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zPqJncFKQbF3tGe1d4sg-4dLQ3dQRGze_vab26wWrXTqA@mail.gmail.com>
+X-Gm-Features: AcwNN1V63NfeSNegK4PJcDTArzQ_WtI1O3OguNxglcCIZITphCd5lzAAhhQ5eqc
+Message-ID: <CAO9r8zPqJncFKQbF3tGe1d4sg-4dLQ3dQRGze_vab26wWrXTqA@mail.gmail.com>
+Subject: Re: [PATCH] mm: memcg: use ratelimited stats flush in obj_cgroup_may_zswap()
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Joanne Koong <joannelkoong@gmail.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Song Hu <husong@kylinos.cn>, akpm@linux-foundation.org, linux-mm@kvack.org, 
+	cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, nphamcs@gmail.com, 
+	chengming.zhou@linux.dev, yunzhao@cloudflare.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Jashan,
+On Wed, Aug 26, 2026 at 4:08=E2=80=AFPM Shakeel Butt <shakeel.butt@linux.de=
+v> wrote:
+>
+> On Wed, Aug 26, 2026 at 02:55:57PM -0700, Yosry Ahmed wrote:
+> > > >
+> [...]
+> > > > If (c) is holding up for writeback and vmscan, I would question a m=
+ore
+> > > > radical approach of tearing apart the rstat framework and using it
+> > > > across the board. That is obviously a heavier lift and more
+> > > > controversial,
+> > >
+> > > Yes controversial because we used to have similar mechanism which did=
+ not work
+> > > and we had to move to rstat. Check the commit 42a300353577 and fixes =
+to it.
+> >
+> > IIUC, in that commit, the update side modifies one per-CPU per-cgroup
+> > counters, and when those counters exceed a threshold atomic updates
+> > are performed on all parents, which I think is the slow side. Then,
+> > the read side just reads the potentially stale atomic. That was
+> > problematic because:
+> > (1) The update side can end up performing atomic updates on all parents=
+.
+> > (2) The read side can be inaccurate by up to MEMCG_CHARGE_BATCH *
+> > nr_cpus * nr_children
+> >
+> > What I am proposing in (c) is different:
+> >
+> > (1) The update side always updates per-CPU per-cgroup counters in all
+> > the parents. It never does atomic operations. The parent iteration is
+> > not cheap, but it is cheaper than atomics for sure and we already do
+> > parent iteration today in some cases in memcg_rstat_updated().So the
+> > "slow" path should be the same as today.
+>
+> Yes but that parent traversal is short circuited when we hit the flush
+> threshold. At Meta scale, we have observed significant cpus being spent o=
+n
+> memcg_rstat_updated before that.
 
-Mail to the kernel mailing lists are in plain text. Please refer to
-https://docs.kernel.org/process/submitting-patches.html#no-mime-no-links-no=
--compression-no-attachments-just-plain-text
+Interesting. So the upward per-CPU traversal takes time? Perhaps due
+to concurrent flushers causing the cachelines to bounce?
 
-On Wed, 2026-08-26 at 22:35 +0000, Singh, Jashandeep wrote:
-> Thanks Mimi.
->=20
->=20
-> Agreed that all allocated banks are extended via tpm_pcr_extend() - but t=
-hat's
-> the PCR-extend (write) path. The failure is in ima_calc_boot_aggregate(),=
- which
-> reads PCRs 0-9 from a *single* selected bank.
->=20
->=20
-> The issue is that a TPM can be provisioned with *only* the SHA-384 bank e=
-nabled,
-> while the default IMA hash algorithm is SHA-256. In this configuration, t=
-he
-> current selection logic only matches the configured IMA default, then SHA=
--256,
-> and then SHA-1 - it never considers SHA-384.
+>
+> > (2) The read side always iterates per-CPU counters in this cgroup, so
+> > it's always accurate. This might be more expensive on an rstat flush
+> > on average (e.g. if memcg_vmstats_needs_flush() skips the flush), but
+> > it is much more consistent and the tail latency is much better.
+> >
+>
+> It might be or not. Usually such things are more clear at scale in produc=
+tion
+> instead of benchmarks.
 
-It's walking the list of allocated TPM banks and, if allocated, sets bank_i=
-dx.
+Agreed.
 
-        for (i =3D 0; i < ima_tpm_chip->nr_allocated_banks; i++) {
-                crypto_id =3D ima_tpm_chip->allocated_banks[i].crypto_id;
-                if (crypto_id =3D=3D hash->algo) {
-                        bank_idx =3D i;
-                        break;
-                }
+>
+> > >
+> > > This worked for zswap stats because their update and consumption are =
+not on
+> > > performance critical code paths i.e. these are on the way to compress=
+ or
+> > > decompress or in reclaim context.
+> >
+> > Well, decompression is in the fault path, that's performance critical
+> > to some extent (although not like other stats updated by networking).
+> > Anyway, I think the update path shouldn't regress much with the
+> > approach described in (c).
+>
+> Decompression is on the scale of micro-seconds (and I suspect the simple =
+minor
+> page faults are on nano-seconds scale) and the upward traversal is defini=
+tely
+> much cheaper and will be a noise there.
+>
+> >
+> > >
+> > > > but if we can get away with it, I think it will
+> > > > simplify things greatly and honestly rstat has been causing a lot o=
+f
+> > > > trouble in the last few years.
+> > > >
+> > > > But this can be done incrementally too, we can start by separating =
+out
+> > > > the problematic stats to use the new update/flushing scheme,
+> > >
+> > > This I think we do need but for specific stats. I think the stats whi=
+ch have
+> > > in-kernel consumers need this. However not all such stats might be fi=
+ne with
+> > > slow update side like zswap. So, we need to evaluate thoroughly.
+> >
+> > I think in the proposed approach (c) the main concern is actually read
+> > latency, not update latency. So if it works for in-kernel consumers it
+> > should definitely work for userspace consumers as well?
+>
+> Here I was mainly talking about consumers which has more strict staleness
+> requirements and those are mainly kernel consumers. Rstat flushing is def=
+initely
+> more expensive than this for-each-cpu traversal and most of the time they=
+ just
+> need it for one or very small set of stats.
+>
+> I am imagining once we have this special mechanism for selected stats, we=
+ can
+> potentially remove ratelimited flush and stats update threshold code.
 
-The question is why isn't the sha384 bank found in the list of
-nr_allocated_banks?
+Yeah that's the hope. I was basically saying that I am hoping for
+more, to transition everything to this flushing scheme if it works
+well.
 
-Mimi
-
->=20
-> Adding a SHA-384 match allows the boot aggregate to be computed correctly
-> (sha384:...) instead of returning 0 and logging "No suitable TPM algorith=
-m for
-> boot aggregate". The fact that the SHA-384 bank can be selected and the b=
-oot
-> aggregate computed also confirms that the SHA-384 bank is recognized and
-> allocated, rather than being missing.
+Anyway, as you mentioned, ideally we need production data to proceed.
+Joanne, is this something that you are trying to collect by any
+chance? :)
