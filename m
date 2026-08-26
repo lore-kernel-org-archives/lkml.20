@@ -1,240 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-45.mta1.migadu.com [95.215.58.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D8403D955F;
-	Wed, 26 Aug 2026 12:43:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EE5E32E73E
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 12:44:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787748229; cv=none; b=GakExvVi1sHjiP0Hmri7Z7O1fdYOjcxu68V9ruz1X+ikEFRcsm/DAbPOIFMvcdYiAY5BIp57xjaoK0nak9Ks+qFy6cuStBg8JiFaOvhuvYqT1d4a37stknwrrTFl/0SYWPewcTtoEykUoSM78CzfRPNsHQcLLLIbnjcDdV4kjps=
+	t=1787748272; cv=none; b=ej1mDFspGx68o5/k+Wy+Bi/sefphxgpVBqjqlMEX56g6HyIbOVNyhU1mFIz7zn//z4mHZwmr8+n04zChkPWO3AwZ7W9lPx0iktkDhKW1kOjx1OgtV8BQHrf5GSu+Jvu7/tKsUPKTrSqtpy0EzWHtdH18GcJmoGsWiHn81ycmF+M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787748229; c=relaxed/simple;
-	bh=DkvpWssySXgIOImbdVNwuDrcbvHXIgRVF2jj72TZ9d0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OjOiCpQMKomWzQzV0G+Ip9slnqGgiyDMmtjO4y6VFj0lTQ+szr/oIpfOi/vm2B3rFoQdtwnOO98jNOmAmt8WFshc58646IyuypClycO5YfbpWCrM8TAbW5z1cKYR+NDlNZMJ2dzKocsfZ5hP7NASpdy0aiFFrJgrpg2QkpmzMRY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f1LA7J7z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787748272; c=relaxed/simple;
+	bh=IzFZRj95FedhBG7vUWVbKK27BO98pC0xOrlDItWw6R4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=XV7Bpj6K3Qqxz7Ma2x3rm5ICcxArltKg+vp2aJ5w51wd1qeknKu098yRYtoLqIlV7xZrAJj7btzv3CcZp1YHqm9v2W1a/zd8udcPul6YSO9GoA+YM2zuk28tt0Uzy5jIYvwZWt39C9SWXGVLSrFxRbEOSb5SgnV6KDQvpruB9+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Jlq+R6xr; arc=none smtp.client-ip=95.215.58.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f1LA7J7z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37DFB1F000E9;
-	Wed, 26 Aug 2026 12:43:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787748225;
-	bh=VVoAHGurQKKPZnNlP/vFZS/fhM27uYGFZFI7iKs1ktM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=f1LA7J7z4NN5MtDe8cJpSCSEfDHN0j4X2vimivztBlwl/j6ouk7hOYHCj9EUMtWlD
-	 dIymlfkDC7N2CmR2kB1sXMEqQHDM1Ivz2M9KitX6UvqHKi8FyWBSuW+hG1se2QJyvM
-	 2v1z7IgnzxtP/OtnrPyAn1IRn6NQPFwD7wGFkMvX7dkLw/ZUMtVm1lEEySV0xENhEL
-	 B2mtRNdtX0cHTtji6l9z8/VWckX6wsoO7FBwnQ11UwqZJz2AEqLKizbUOL35lfEgez
-	 g3vIAkGN6kLebnYd2/eW3mqE4tHVwBlCRkNl7qMFbb1bqLqTGMzaakC8CrxBpsokXT
-	 DzOybvulib8Rw==
-Date: Wed, 26 Aug 2026 15:43:41 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>, linux-pci@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org
-Subject: Re: [PATCH 2/2] dma-buf: Document how exporters and importers agree
- on mapping lifetime
-Message-ID: <20260826124341.GD42790@unreal>
-References: <20260825-document-dma-buf-v1-0-5ecfb3e1371c@nvidia.com>
- <20260825-document-dma-buf-v1-2-5ecfb3e1371c@nvidia.com>
- <2776f9b0-c299-45ff-bf82-89b95e73fd60@amd.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Jlq+R6xr"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=IzFZRj95FedhBG7vUWVbKK27BO98pC0xOrlDItWw6R4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787748268; v=1; x=1788353068;
+ b=Jlq+R6xr0RmFc4fb0Z0uoWumjHnkqYl6PcH8XDuSBFvGqCk80HWl01bwTou/Qefq9SAh3FhN
+ lwwSa2tgiAHnuhf6BomiF3C6l1WhGCYCQ5wcIruG6k2bDWMA7s5xMVsnCxdHtt4XrHERFJQRhSl
+ Hno5drnYDTZ+6CZHeZDgyj3A=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: from mi-ThinkCentre-M760t.mioffice.cn (14.29.108.92)
+	by smtp.migadu.com with ESMTPS id 4a6433d0eb768628;
+	Wed, 26 Aug 2026 12:44:28 +0000
+X-Mizu-Trace-ID: 4a6433d0eb768628
+X-Migadu-Flow: FLOW_OUT
+From: Ridong Chen <ridong.chen@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Johannes Weiner <hannes@cmpxchg.org>
+Cc: David Hildenbrand <david@kernel.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Ridong Chen <ridong.chen@linux.dev>,
+	Ridong Chen <chenridong@xiaomi.com>
+Subject: [PATCH] mm/vmscan: drop the combined limit gate in __node_reclaim()
+Date: Wed, 26 Aug 2026 20:44:09 +0800
+Message-Id: <20260826124409.35569-1-ridong.chen@linux.dev>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <2776f9b0-c299-45ff-bf82-89b95e73fd60@amd.com>
 
-On Wed, Aug 26, 2026 at 01:41:51PM +0200, Christian König wrote:
-> On 8/25/26 08:28, Leon Romanovsky wrote:
-> > From: Leon Romanovsky <leonro@nvidia.com>
-> > 
-> > Pinned, revoked and movable mappings are selected by which optional
-> > callbacks each side implements and by whether dma_buf_pin() succeeds,
-> > not by any flag or enum. Nothing in Documentation/ says so, and the
-> > rules are spread over the kdoc of dma_buf_ops.pin,
-> > dma_buf_attach_ops.invalidate_mappings and dma_buf_invalidate_mappings(),
-> > so a driver author has to know the symbol names before finding them.
-> > 
-> > Name, per flow, the callbacks both sides have to implement to end up in
-> > it, describe dma_buf_pin() as the runtime negotiation, and record that
-> > the pin is what tells a revoke from a move.
-> > 
-> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-> > ---
-> >  Documentation/driver-api/dma-buf.rst |  6 +++
-> >  drivers/dma-buf/dma-buf.c            | 85 +++++++++++++++++++++++++++++++++++-
-> >  2 files changed, 90 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/Documentation/driver-api/dma-buf.rst b/Documentation/driver-api/dma-buf.rst
-> > index 2f36c21d9948..39c201f38aa6 100644
-> > --- a/Documentation/driver-api/dma-buf.rst
-> > +++ b/Documentation/driver-api/dma-buf.rst
-> > @@ -113,6 +113,12 @@ Basic Operation and Device DMA Access
-> >  .. kernel-doc:: drivers/dma-buf/dma-buf.c
-> >     :doc: dma buf device access
-> >  
-> > +Mapping Lifetime Negotiation
-> > +~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> > +
-> > +.. kernel-doc:: drivers/dma-buf/dma-buf.c
-> > +   :doc: mapping lifetime negotiation
-> > +
-> >  CPU Access to DMA Buffer Objects
-> >  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> >  
-> > diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> > index d504c636dc29..30afec7365bc 100644
-> > --- a/drivers/dma-buf/dma-buf.c
-> > +++ b/drivers/dma-buf/dma-buf.c
-> > @@ -684,7 +684,90 @@ static struct file *dma_buf_getfile(size_t size, int flags)
-> >   *    reference acquired with dma_buf_get() by calling dma_buf_put().
-> >   *
-> >   * For the detailed semantics exporters are expected to implement see
-> > - * &dma_buf_ops.
-> > + * &dma_buf_ops. Whether the exporter may still move or destroy the backing
-> > + * storage after step 3 depends on what exporter and importer implement, see
-> > + * the mapping lifetime negotiation section below.
-> > + */
-> > +
-> > +/**
-> > + * DOC: mapping lifetime negotiation
-> > + *
-> > + * No flag or enum says whether the exporter may move or take away the backing
-> > + * storage while an importer holds a mapping. Each side implements a set of
-> > + * optional callbacks, and dma_buf_pin() settles the result at runtime. Three
-> > + * flows come out of it:
-> > + *
-> > + * - Pinned: the storage never moves and is never taken away.
-> 
-> That's not quite correct. The backing store can still disappear if the exporter is physically hot removed.
-> 
-> In that case the exporter will still try to invalidate the mapping even if it is pinned. A NULL invalidate_mapping callback is of course still never called and so still optional.
+From: Ridong Chen <chenridong@xiaomi.com>
 
-But what does this mean for an importer that has no idea the exporter no
-longer exists? Will it crash? I think the revoke flow actually fixes this hot-remove case.
+__node_reclaim() is called from two paths: node_reclaim() and
+user_proactive_reclaim().
 
-> 
-> > + * - Revoked: the storage never moves, but the exporter may take it away.
-> > + * - Movable: the exporter may relocate the storage at any time.
-> > + *
-> 
-> > + * Every exporter implements &dma_buf_ops.map_dma_buf,
-> > + * &dma_buf_ops.unmap_dma_buf and &dma_buf_ops.release. dma_buf_export()
-> > + * rejects an exporter missing any of them.
-> 
-> I think that this is superfluous, the check in dma_buf_export() should make sure that all exporters follow that.
+node_reclaim() already bails out early unless node_pagecache_reclaimable()
+is over pgdat->min_unmapped_pages or the reclaimable slab is over
+pgdat->min_slab_pages.  The identical check inside __node_reclaim() that
+guards the shrink_node() loop is therefore redundant for this path.
 
-Sure, will change.
+user_proactive_reclaim() is proactive reclaim driven by userspace and
+should not be gated by the per-node min_unmapped_pages / min_slab_pages
+limits at all [1].  With the gate in place, a proactive request is silently
+turned into a no-op whenever the node happens to sit below both
+thresholds.
 
-> 
-> > + *
-> > + * An importer reaches its flow like this:
-> > + *
-> > + * 1. Attach with dma_buf_dynamic_attach(). Leaving
-> > + *    &dma_buf_attach_ops.invalidate_mappings NULL rules out everything but the
-> > + *    pinned flow, because the importer can then never be told anything.
-> 
-> I would rather write "Leaving out the optional dma_buf_attach_ops.invalidate_mappings callback pins the buffer while the attachment is present".
-> 
-> > + * 2. Call dma_buf_pin() under the reservation lock.
-> > + * 3. On failure run the movable flow, or give up.
-> > + * 4. On success the storage stays put. Whether the exporter may still take it
-> > + *    away, which makes this the revoked flow instead of the pinned one, is the
-> > + *    exporter's choice and is not reported back.
-> 
-> That sentence sounds not really readable.
+Drop the gate in __node_reclaim() and always run the shrink_node() loop.
+The node_reclaim() path is unchanged, since its caller has already applied
+the same test; the proactive path is no longer wrongly gated.
 
-I will try to rephrase in next version.
+[1] https://sashiko.dev/#/patchset/20260723045718.2052070-1-ridong.chen@linux.dev
+Fixes: b980077899ea ("mm: introduce per-node proactive reclaim interface")
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+Acked-by: Johannes Weiner <hannes@cmpxchg.org>
+---
+ mm/vmscan.c | 13 +++----------
+ 1 file changed, 3 insertions(+), 10 deletions(-)
 
-> 
-> > + *
-> > + * dma_buf_attach() is the shorthand for an importer which only ever wants the
-> > + * pinned flow. It passes no &dma_buf_attach_ops, and DMA-buf then pins around
-> > + * every dma_buf_map_attachment() and waits for the DMA_RESV_USAGE_KERNEL
-> > + * fences on the importer's behalf. Peer to peer needs
-> > + * dma_buf_dynamic_attach(), because &dma_buf_attach_ops.allow_peer2peer lives
-> > + * in the attach ops.
-> 
-> That's also superfluous.
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index f11491ee9ed5..6dff207ad8c6 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -7851,16 +7851,9 @@ static unsigned long __node_reclaim(struct pglist_data *pgdat,
+ 	noreclaim_flag = memalloc_noreclaim_save();
+ 	set_task_reclaim_state(p, &sc->reclaim_state);
+ 
+-	if (node_pagecache_reclaimable(pgdat) > pgdat->min_unmapped_pages ||
+-	    node_page_state_pages(pgdat, NR_SLAB_RECLAIMABLE_B) > pgdat->min_slab_pages) {
+-		/*
+-		 * Free memory by calling shrink node with increasing
+-		 * priorities until we have enough memory freed.
+-		 */
+-		do {
+-			shrink_node(pgdat, sc);
+-		} while (sc->nr_reclaimed < nr_pages && --sc->priority >= 0);
+-	}
++	do {
++		shrink_node(pgdat, sc);
++	} while (sc->nr_reclaimed < nr_pages && --sc->priority >= 0);
+ 
+ 	set_task_reclaim_state(p, NULL);
+ 	memalloc_noreclaim_restore(noreclaim_flag);
+-- 
+2.34.1
 
-Will change.
-
-> 
-> > + *
-> > + * Pinned flow:
-> > + *
-> > + * - Exporter: implement &dma_buf_ops.pin and &dma_buf_ops.unpin to hold the
-> > + *   storage still on request. An exporter whose storage never moves implements
-> > + *   neither, and dma_buf_pin() then succeeds on its own. An exporter which
-> > + *   refuses to be pinned implements &dma_buf_ops.pin and fails it.
-> > + * - Importer: nothing more. The mapping stays valid until it unmaps.
-> > + *
-> > + * Revoked flow:
-> > + *
-> > + * - Exporter: answer dma_buf_pin() as above. Call
-> > + *   dma_buf_invalidate_mappings() when the storage goes away and fail
-> > + *   &dma_buf_ops.map_dma_buf while it is gone. The two waits which complete a
-> > + *   revocation are described in dma_buf_invalidate_mappings().
-> > + * - Importer: &dma_buf_attach_ops.invalidate_mappings has to unmap within
-> > + *   bounded time and drop the pin.
-> > + *
-> > + * Movable flow:
-> > + *
-> > + * - Exporter: call dma_buf_invalidate_mappings() before each move, then wait
-> > + *   for the &dma_buf.resv fences. &dma_buf_ops.pin and &dma_buf_ops.unpin play
-> > + *   no part here.
-> > + * - Importer: hold no pin. &dma_buf_attach_ops.invalidate_mappings drops the
-> > + *   cached mapping and has to lead to dma_buf_unmap_attachment() within
-> > + *   bounded time. It need not stop the hardware, because access runs until the
-> > + *   importer's &dma_buf.resv fences retire. Map again before the next DMA.
-> 
-> That is also not really correct. Those flows are not separated like this.
-
-How will you split them?
-
-> 
-> > + *
-> > + * The pin tells a revoke from a move.
-> > + * &dma_buf_attach_ops.invalidate_mappings carries no reason, and both flows
-> > + * ask for the same unmap. An importer holding a pin can only be seeing a
-> > + * revoke, because the exporter promised not to move. An importer without a pin
-> > + * treats every call as a move and maps again.
-> > + *
-> > + * A revoke need not be forever. An exporter revoking around a temporary loss
-> > + * of access takes mappings again afterwards. Giving up for good is the
-> > + * importer's own choice, so an exporter must not wait for one to come back.
-> > + *
-> 
-> > + * &dma_buf_ops.attach is the only place where an exporter can turn an importer
-> > + * away. An exporter which revokes rejects the importers for which
-> > + * dma_buf_attach_revocable() returns false. An exporter of memory without
-> > + * struct page rejects the importers which left
-> > + * &dma_buf_attach_ops.allow_peer2peer clear.
-> 
-> That is also not correct. A mapping can be rejected later on as well.
-
-In API level yes, but I'm not sure that failure in map_dma_buf is equal
-logically to failure in attach. So, I won't call it "rejected later".
-
-> 
-> Regards,
-> Christian.
-> 
-> > + *
-> > + * Userspace sees none of this. The two drivers negotiate the flow between
-> > + * themselves, and the DMA-buf file descriptor shows no trace of the result.
-> >   */
-> >  
-> >  /**
-> > 
-> 
