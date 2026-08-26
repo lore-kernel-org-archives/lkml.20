@@ -1,135 +1,88 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D02F7455171
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 15:06:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.179
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787756770; cv=pass; b=YBln4tEoesuovXTgq4SJ45BTa0CHE3MgcolKyN8zbwE6mcALlUxYSoyJaCrFoA7EiN3ohlQnAekN3rmgDCG82Ov+/4ddoDuGnOhf7O5jtz967oRHpix00/sgP0RG9CZu0P2Sgd1DEQJIizN1yflnP54DQl+sFM+3kW1DS6MmAQY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787756770; c=relaxed/simple;
-	bh=fKABmemTLhVq3rnCUFgsOz983VtCKrNjV3YZ5ISgLrs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=N6jXRxklZN41OIApaj/CpKWM7yS8CZJak0nu11vg99hvSJbNmfEV4pTtR7HCbXTxZTekATsEYW2CR9TE/+ABKJI2I8aqx6nWwgOMTdGlPeU+u0AjOV9j7M4YK0cMxIQoVBa8E7OcCEHt/R4yHIZ2ycdpP6pQdxGeQKGeQ8cVvrc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GJ+dM1hg; arc=pass smtp.client-ip=209.85.214.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FF1943A80C
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 15:07:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787756822; cv=none; b=JkqD7mrMT5mORduEVp7tRoNFiOdopxSzPWhjMNiVhFjeoKOwbKI7IX8EImBQ1yJcLd/xaAMWzsinnUBwxJ/K1iGTc3yNu1/CSENB8IGY4shmZRgSUsAgKvOXNLuzZJOuKZhGm/d76HHl73Il5ygZWKNJZrMICYxAZobLuMyMycI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787756822; c=relaxed/simple;
+	bh=9HwWGZNlQQx9aThkp1U5qXNMOWuuT1TXLlltrjPd004=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=olzZre7OpBjKR/uOSsmrWOgpEHEQIII1Ztfep7LvlZV9a8zuNPrkdQl0jHlLzJYu2r+fezYiz7g9Nqrc75lBvUWOKgglkGjlr4xFLSv8HewCELedGuWzpI+DfPGUoVyVQvSuGPPk3rCHK7MHDvA4XExXlbjdBWj907S+0v2c0lg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZMS57k9y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GJ+dM1hg"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2d5862bc921so2724985ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 08:06:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787756768; cv=none;
-        d=google.com; s=arc-20260327;
-        b=oe0+ouT7uwEm9SLAn5VC6ZTaqH5xkqPgostLEBQ567Y+COCIvj7l0mGENieJt/eces
-         R3BCn141vwJ75sF3CkLgo+bJzTqZXF+dC4IIagP43ax4gO9lFPwt1VJcxHztWNpFcK9A
-         /d2MUB6ILXKqN+DtdYAg/G07v6Mvi53K8T+Pa8HEBePya37R/Oe9jzRAan3kYGPb8zUa
-         LZ2XMsrDPB1E572LslHA8YSKygf7+aB63zaEGS2RlknCfabw+o/C3PoOBsuOU0EhfTun
-         x5ldkG4yF+XnMqOvH1W3XKthGMIwkqQYgVLqZjqLlP9qxMYoNRUcJA8YwXnzBFmVnr9Y
-         Ab+g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=mM06737N3KEocOk1ZcR67skwuuKDg90XAA91OQOAsGQ=;
-        fh=GMd3qk5/PRbDUJbv8/cRc0yGRgN0x952IyMkSHAPY10=;
-        b=XNGvgmOmCw7daBbX0uGrPX5cmp0Nzo5THrEzGAwh48HAA/mxqhHRj34F6+Il3/edHa
-         64HCTt36SiHLY8JYsTyCkd5das2AkpfHxa7cPzC+QI3KqiXvbmajpuII0bMKR7mxf9Vv
-         +FTZXJDXwGXYw7fpFtq8VRnYllQ5M6iFi8r4DO4HSDhxiVVgA3qju6YBhqxJffxCvjrl
-         o2aAaWJsdVOMZcDlKG0edGpDcKICPYXOWjNQ1CWVziSIiFegut4BgumUn+CX9VHh9qr3
-         0JFOWcQpG3cmv0DztzAe4MrfjYu8uuWc1t15c7pF5rp56+0NMCoxdjQMCBANEZ3YtObG
-         pPKA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787756768; x=1788361568; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mM06737N3KEocOk1ZcR67skwuuKDg90XAA91OQOAsGQ=;
-        b=GJ+dM1hgX/58wDJHXDa8UEzDZ3xWVgjBUiCLxGppVS3JOpVjsKDBNmebGxgZgk8LM4
-         4/iUMHhvvQAHKegI1iaHUCJFzihjGUESm6hqrfpgJT4sMyYJL6nkBTKSbvz+K4qDLkFn
-         /OdriwOnRFamPQspxCKOQwWPc3tptgxsba5v9eT6zNtXYgDj4WFyF/7u+ojcmqsQ7VPy
-         7t5DthcAf2FU+W8EtKg70eant02XvERd0uaees1VVfJn9yiMKP2vFDmyA1VcQJc3eg0X
-         D0sgDvoqcEq6uIFRdDXRpFN29I2oYnsKoSLsMU25qLUo1OFJlxjo6SQGfYTkCphsaKZh
-         MqRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787756768; x=1788361568;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mM06737N3KEocOk1ZcR67skwuuKDg90XAA91OQOAsGQ=;
-        b=KYmaziWayNEMq3vPQfyISXMyCXa+VmzWATpEHrTItqVMWeMMYk6rwjZCLX7jTsL0Oi
-         ESWx3gTB+VqhwX1Q97lC3XzfBp+5dxQMqXBHPb2IEHbjiH+tQRHzPJux8KQVJkVOBWy2
-         B4aOU5X5tVCxqOoYkB4HI/5jHr//DE3abbM62ygYFmTT6kIw/SVmu6tp+c/niZ9NisWc
-         AfoULrIrZ9QSSQRaKTNvc/BP/Juf/4BGSQtcfZshSeGBg02oibFVUI7Izsv/PDqTz+xZ
-         5l315b7o6OWHwQqART903LJsxAdir+oFhjkyqoWyPBtmBf2HgxkaoV+cZap4ndsYHdOx
-         9EVg==
-X-Forwarded-Encrypted: i=1; AHgh+RqEjR9VaHhGfuUXjHcD4NEXnthSlctkE0J8uyY045Oej2lctk3dwjXohuDFsZYDIsYQoJETQL0XNl7lpD0=@vger.kernel.org
-X-Gm-Message-State: AFuF++liKTMQ5Agfm3i+zof6Pfun3h6rxEezHELc30fviOQ6uXUAxPGD
-	nY8hynuMWXiZvOYnupoFnAQ7Tq01PLGBM6/oRI2SXxbqhuP7/AS5WD15jh11vunGGF+1sS5V14s
-	5yMXSs1GW1iIkY2d78XV5FkzMpIu1hqk=
-X-Gm-Gg: AR+sD11SoAV5G2FnJHBmzrkVtBg2ZXwOt5hyqwdokLEKgcpG8I+F7ktIZ5fjYTXwslh
-	fkNX5Swjj3xiEN/9UgajhksKzJQ11sYJaujujJkInowpJue8uQQNTQIVpLiE/68o+utyx2BJwLT
-	wD8jVH6+KfXq6FyJfE7UsFMKGtfuQFEfgyLn2OMGJtb4r3g1pFDJ3GO6BA2Iuhy6Ygu6pK+MGr6
-	cfET5fSBJag2s4yEObCm55FbeOjMjeSYcA6JdgHIaxJfmG9A8eOq3ekhj8NhMfPnL/mVdINRROr
-	+Pg+MZTMXHoGWSsa5EydXYbzUjOPcmXQ02KzpNxDznR99d17UL52+uuGO2r1Bz3GzPkTftVE1Uw
-	ZiyDq6DCzg0Nf5Cxis2Hs1TiiK0FQmpeAhliaiXQrKU4+q5ipkvZGlxvs28lD
-X-Received: by 2002:a17:903:4b2b:b0:2d3:a50c:5e19 with SMTP id
- d9443c01a7336-2d71e2c078cmr10095615ad.1.1787756767876; Wed, 26 Aug 2026
- 08:06:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZMS57k9y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C67C61F000E9
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 15:07:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787756820;
+	bh=bWy/hsEmThLurhqInVdnKwmSy2HFYQcbkQaYbiG48EI=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=ZMS57k9ym6NOunB+19jDohO/sz9nerAiqh2ogqTeg/UAiHfkKT+GcFSosPENdA2VY
+	 kCj1HlmwMLHDWzIKBQUjq5V/5qronGob8WkqPCqeoqKzX7ft1iUomza1UoVag9DJNe
+	 kLCf3ptKKXiR+3WctO54UBCeEp1WayRlrufsH3fZJM0wvtWVT0xcM+v0JpCBKUAjsc
+	 0xbNrurmrvvYbDpdGqIzFcOWpePjSrjZJQVjVkf2+G9m9K/uUDvEA/4keTorpVrIrx
+	 pBJs0nF60uq60ZmoX6TT+rZsn/xOhnA4UnjkJ3QpubUDZw2aJPb9FEfXlVdv6HOigc
+	 OWBjUAE+W+55A==
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5b4ae3e201cso457219e87.2
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 08:07:00 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RpAHQOGH/rOtmNQeu4S8vYqcsojvCIDQX+sJQfhwaaLFnkpPIv/YDqAP74UDFmOAYHCfcSMnIgrJrB9i7w=@vger.kernel.org
+X-Gm-Message-State: AFuF++kAGiKhxBlw4pRH+AZhaPo8XaI0OdmHNNNA7wWTsgJAtWuPkvLX
+	zbRDl8vYiTWXpW72VLRAHN+ABSuzdPLIN7ULcDX1v/Z1Yp4myhoNxPIEwQndwrJqWrx6HZzpo2Y
+	6IuzaB+r1nhQPXTd+q3sdzCeJkNCQxvxfoRs/Ceaqqg==
+X-Received: by 2002:a19:5507:0:b0:5ae:bbd3:27e3 with SMTP id
+ 2adb3069b0e04-5b4a900a129mr1641968e87.5.1787756819502; Wed, 26 Aug 2026
+ 08:06:59 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 26 Aug 2026 08:06:58 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 26 Aug 2026 08:06:58 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260820111234.1085436-1-mehmet.fide@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826145832.42387-1-elouandacostapeixoto@gmail.com> <CANiq72=NtS=YHkCbB3ui1vVkHoVpHh2S12XAC=0vqHcurJFX+Q@mail.gmail.com>
-In-Reply-To: <CANiq72=NtS=YHkCbB3ui1vVkHoVpHh2S12XAC=0vqHcurJFX+Q@mail.gmail.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Wed, 26 Aug 2026 17:05:52 +0200
-X-Gm-Features: AcwNN1UsGpHEz0OUQTEfI_QDht3IcZH63XGHNlppQWaLF0Cq9K4L96CS48RPuPE
-Message-ID: <CANiq72m_XpF=ROywGCdz4vqu3TYPeN9uzvHG1NMyepWOZq7FEQ@mail.gmail.com>
-Subject: Re: [PATCH] rust: zerocopy-derive: Remove the BoolExt trait
-To: Elouan Da Costa Peixoto <elouandacostapeixoto@gmail.com>, 
-	Joshua Liebow-Feeser <joshlf@google.com>, Jack Wrenn <jswrenn@google.com>
-Cc: ojeda@kernel.org, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, boqun@kernel.org, gary@garyguo.net, 
-	bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org, 
-	aliceryhl@google.com, tmgross@umich.edu
+References: <20260813193715.2346477-1-mehmet.fide@gmail.com> <20260820111234.1085436-1-mehmet.fide@gmail.com>
+Date: Wed, 26 Aug 2026 08:06:58 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MeCeGDEGbDMtHZXGuiPQV-QBYfNW50MmiJ0ke=De2_nVQ@mail.gmail.com>
+X-Gm-Features: AcwNN1VUFsp2lcDBnVUwH3wjnXiuWBQ9e9uP6rtiiIJvG2kr5VnZcvhrG4KG9dk
+Message-ID: <CAMRc=MeCeGDEGbDMtHZXGuiPQV-QBYfNW50MmiJ0ke=De2_nVQ@mail.gmail.com>
+Subject: Re: [PATCH] gpiolib: return quietly from gpiod_get_direction()
+ without .get_direction()
+To: Mehmet Fide <mehmet.fide@gmail.com>
+Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Aug 26, 2026 at 5:02=E2=80=AFPM Miguel Ojeda
-<miguel.ojeda.sandonis@gmail.com> wrote:
+On Thu, 20 Aug 2026 13:12:34 +0200, Mehmet Fide <mehmet.fide@gmail.com> said:
+> Hello,
 >
-> On Wed, Aug 26, 2026 at 4:58=E2=80=AFPM Elouan Da Costa Peixoto
-> <elouandacostapeixoto@gmail.com> wrote:
-> >
-> > FIXME comment was saying that this needed to
-> > be removed once the MSRV >=3D 1.62.
-> > The current MSRV is 1.85.0 obtained by using:
-> > `scripts/min-tool-version.sh rustc` command.
-> >
-> > Signed-off-by: Elouan Da Costa Peixoto <elouandacostapeixoto@gmail.com>
+> A gentle ping on this one, sent a week ago and I have not seen a reply:
 >
-> Thanks for the patch!
->
-> This code comes from upstream, i.e. it is intended to be vendored
-> as-is, so if this were to be taken, then it should be submitted
-> upstream instead.
->
-> Having said that, their MSRV is different than ours:
->
->   https://github.com/google/zerocopy/blob/main/zerocopy/POLICIES.md#msrv
 
-Cc'ing Joshua and Jack for completeness -- the full thread in case you
-are curious is at:
+Yeah, this is August in Europe for you, I've been OoO and will be until the
+end of this month.
 
-  https://lore.kernel.org/rust-for-linux/20260826145832.42387-1-elouandacos=
-tapeixoto@gmail.com/
+>   https://lore.kernel.org/linux-gpio/20260813193715.2346477-1-mehmet.fide@gmail.com/
+>
+> To recap: gpiod_get_direction() warns when a chip has no .get_direction(),
+> which is a legitimate thing for a chip to lack. On vf610 the direction is
+> not in the GPIO block at all, it is a bit of the pinmux pad register, so
+> the driver cannot implement the callback and every caller that asks for a
+> direction produces a WARN.
+>
+> Happy to respin or take a different approach if you would rather solve it
+> elsewhere.
 
-And I see Sashiko doesn't know about our vendoring -- we could add a
-hint to the prompt.
+I would rather implement the missing callback in gpio-mmio. We already call
+into pinctrl if needed when setting direction, could we call
+pinctrl_gpio_get_config() here and read the direction from the underlying
+pinctrl driver?
 
-Cheers,
-Miguel
+Thanks,
+Bartosz
