@@ -1,91 +1,90 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D9C840861E
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:36:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF0DE46E006
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:37:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787762267; cv=none; b=omwFMuE5H/2zxu9RampHLBrenwJfU2ShbDeOy2yl7t+II5Rm/NdA8hpNFIz0Lc+Q6wA/DpWjhfjW/9OBXrbMPwhjB/cckxsVBP4pFb43MBCGuaG3KlZA/zYwB/qL/AaMDfSiRUI7yVjKcJ4a/AvDiaAXUcJeb7tJNygpqYszagc=
+	t=1787762275; cv=none; b=kua7KONqpykIcbIKCsOnY2FkzpHKk2KvqYLODxF/uuRvXYY3MvM6P9sLkPrkswOKLkscXMyaB1FwR5LSYX7xUEZYvgUVYAtLcMb6oiQ04/Bl9keXX8RrxAi+j8tdHwxpijO+dxGyhPgPYlRsh+b+0dwyTEXhJFEZq65ECYL+dSA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787762267; c=relaxed/simple;
-	bh=VP9UySbgVogmmdAeRnNdziP69tEiVatE/qDzuB9S4dU=;
+	s=arc-20240116; t=1787762275; c=relaxed/simple;
+	bh=qIcM5y3Hb6kSUN2B7nsjh8Y4Ancfrv4Lu71gNXejc54=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RmfBRKvait8BkoTA8aCVV+rLKT7nUUiDX2p7IOpnyT2Qo9HZyqa4fjavyJ5WxNWrL4d/DIi2w1KI3h05ldI02Zsn4KMFCkxbFAbju1dkjEGSuaHSaSm8QgTFpbWelpuqJBf+T2HACJkD3a3ebCsBDO7jFmGrSPaZSJ8WtLMWtVQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk; spf=none smtp.mailfrom=fireburn.co.uk; dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b=HQbem1sh; arc=none smtp.client-ip=209.85.128.47
+	 MIME-Version; b=SmH/MDezGP7+sSXqC7ZOktGDi1+3MT8erR1LXkW/KUA9/S37MC4qGAt2hsvnZJlOzPYCFvmxeJtxIiggMVLczCnvf/oXOnPBqdP3gGSJbQvaYaVz5V2yPXoj+9TO9Xu0GOJKKb23xnR48fKK6kq9JDG2y6l9d6zz0W1v3+NJ3o8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk; spf=none smtp.mailfrom=fireburn.co.uk; dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b=ynKI5xRl; arc=none smtp.client-ip=209.85.128.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=fireburn.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="HQbem1sh"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-499840a2575so6683595e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 09:36:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="ynKI5xRl"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49954b88fffso9808775e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 09:37:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787762212; x=1788367012; darn=vger.kernel.org;
+        d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787762248; x=1788367048; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=DCczfjf9T7Ydp41TvxvDhWF+Y5rWcZbW/UfbMTxim7Q=;
-        b=HQbem1shn5dLWjVeiglO1KdEWoABbctDg9DWHNinfJwWs1WNCDxerSTof5qMyPcwr2
-         YoEb5Crsf5+bb6hBzi8AA5GxT+q7b1gYjME1TW47fxBYMXeR7R5mpboEFZNl1orLZanX
-         KyzVWJMO663KfVDQqGr3osrrTxle6Ubk+0vfq1AMfvFRHYp0wmxWRrGKQLHM4vERfBOG
-         3d8xDnct//aOPDgYQc3scrJzoRdbF9bOu+6PyYozs+kIT4ZpKavH12UM9PuKbhxy5SLh
-         cI60sxliQn5CU8vKzOxJRFePtKR/lOAhUMV5En/Vq8FH2uV0671T70IrTqmM87c2CVbP
-         oAxQ==
+        bh=A1HpPd4ylLTuKYL4oCpnHBVRKXPxKbcynFiK+teZyII=;
+        b=ynKI5xRlcNR7pmyDAv8VTP7Wg0eWJwJa336tr03j1EPUxIYrurhlkUM3LT6VKTC6sk
+         37oFUKEnetaRU65SXjrcia5F5SrNPoh/rQLaNDP8W33QmDJn/Cp7Y0zf6882NRt3beV1
+         Xdq5xa0EpfLW9zaH9GC5BKpdNPtnBEJXF8FNPnolDc4O00JTpWtrY+3NKyNFDypYVSoc
+         gjupH8UtBAclbksCiKlq0u4K0MkASsWLf7RfPo3PzhvUAD5nfk8dpV4PayXV/ESSCZYq
+         Vc1rTXbpX4U00eKnASBXcoCvnMnQY2UaAof/nEYaWvREVxf2bQp4s1zjXvuEgTYbixVj
+         HmUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787762212; x=1788367012;
+        d=1e100.net; s=20251104; t=1787762248; x=1788367048;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DCczfjf9T7Ydp41TvxvDhWF+Y5rWcZbW/UfbMTxim7Q=;
-        b=UeSt37Ay+6zpVrJF9+h11rHb0kKWQrCqX9xfF6NyJRmS7UBH4eaMMrP0Hn1jPH85Ub
-         QBUd2M6iBDVELIywWb/Qm10QBRSXTxS4dy7VXtZWBtE11oIlHPXGBZSKT331zHOt1BMw
-         8/RusXjOb3xZ8mTFND8dPkN1go0eYgSDgCDkCeYSlH54VNK6vyyjLN4tAqeGbI4iQ5YE
-         pcwYA1f+jjMJFONxIroqD+1CCbtzi/A48/HeqHkIyAVULOaP0KP94Bli+tgw7gOpOGAr
-         gQP7dDJmlfLzhVhSOw8vHYi+TNUotGm3yr+RcGf12gHbGtlVNhlUIDRZhHdhBX2qY2FA
-         6yTA==
-X-Forwarded-Encrypted: i=1; AHgh+RpZYdNv3hCrvpDbDrsCmrs5GPcPSPU8/zbIryOkZZQukkkKd3tBqXXoIwvSF/5klbqlNlGJayf0KKMvrt0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lE1MQa2TIXz+smuEjFSUB1S+jQSxvWoQDIPYDPpcPJRCDqdd1S
-	/RSlzmu8SSX98gAyi1xkPaa7WIIYa8Cv8cl1Ln0aqgZ2Wy0Ey1OUhSbZOYGVu0aYTw==
-X-Gm-Gg: AR+sD121ae6NamV3W6N53M3gjP4yfS2eRY8H4oK2rwMHRITmfQRr9d8CK+OV7axn69r
-	WVu3E5uN+0WFwyfpHRWYn80+EyOLTrBFgFQ8biuGnQlVQWDlGBq3KyuWLBFT9FA+wR2WquXSTgp
-	G6idKQ8ft7PyBslkfJFIHVD9ALPHyXTsas9rMq3bJU+DfN6gAXEbUHTP28seaOZLtjZdOk/IUuq
-	yPIPf6IPCp3bS7GK+BPNwsVnTU5KdxZnkYlvA0RlaMY9W85CUt/F/cGMvqCtEUtHUbS9CZuRoWe
-	WVEd6zYBdUPxttFzsFw0pUgASlEjVxPU/q/U6ZP9d4AFOO97jvt5V7K8OoRA3H8k8j7fm0JgnAF
-	KO9cLu9PouQKs9VhqeAew7jontRwfb86t6Srgzx1BcyVOsrV9L8KUN43digEo9o0ZJnS4du9RPY
-	ki5s395xrawMqSREltOunm/DPzqQa/RuDbGUM49OLNdajNSekts5vtneI3hoA0vOyjye4IJpuLi
-	yru7SHp8/rmnGdb2eawPa27lIC0WRVc0K7nQQ==
-X-Received: by 2002:a05:600c:4692:b0:499:da8b:1476 with SMTP id 5b1f17b1804b1-499dc8306f2mr73366935e9.14.1787762211579;
-        Wed, 26 Aug 2026 09:36:51 -0700 (PDT)
+        bh=A1HpPd4ylLTuKYL4oCpnHBVRKXPxKbcynFiK+teZyII=;
+        b=MHAsiUpoyFR9vRT1HGUqLwtJPI2mfUiHVVSB0zR/oG9FqdMFep5C/YuSchddDdSQUk
+         669VjvuebZGBvlEs5sIFjzOmVK05Iu7jTaV5A8T0F/gLjwL8MfeNhuZ0XFQQtiqc2nhT
+         s/Fiu963c+aVIxmjUfOkpMQpVFh64BhbtngIsNRyKGoWtBdFojwg50R/yzOMJOk1bFyN
+         3NoKv8MrJj5pQgH2urRTxIqkQS/1FWfjfhJLKcxyXPhx2iNYjj2+lEyj2tU+uiotmFdN
+         BCPinHbNHhhbFqwoUDsb/UUmK0KbvXtJ0WoGh9q0SNQsaUr5XLnFj9W26XDf2MRhn5K+
+         Wv3Q==
+X-Gm-Message-State: AFuF++nTH/FaJlz/qJ6rYE3ryO+5wFNjf97uZkqh4t1HPOXKywD4AcP2
+	i90srzLyDwCzyICrwYCQPSGVVLV1YOU1L6s1foIiF8i0/7bJkb5Y+BtSNYeJvvfxctGI7uIAvfr
+	ChZ791lJk
+X-Gm-Gg: AR+sD13h4d8CTVRFGLOQI6Hm5aCjtLD6THaa/Djz4ORmjbvKsdx1t1awDdY1Axc+Gdj
+	NM0HGKasZcqHAaS7/8mSpKkuxP4IFUj8AZdvIC5iRCkqewVhR5qBB46LxiUAU6R4wTg0j6g1JgL
+	vkhPw77Tx3PEck7dy0DhJftYzDTU5vcI3GD0GjIAXSjw9nBWwdvnwzMqS97ir7y/b/osG7ysYyG
+	3v21MWFzUtlpwn2fxzdw5HXfTQY8j64AInonvwkuhtF/3+SIo8o9fBLrlahCUx7Gyw8B+8GU5zI
+	xNxX/EfOUXRV/Z1JUZCHR56yIU6nIpmU9h9Ui5NULta99LhUlnWRBJo0QPkqGl3LLgI05mptEG9
+	gmObbM2QK7djGZx799US7LGX3AGe8oT4Em0xi47zl6v3S3IFzmJOApIiv5RM6DlUA0eOE5RU45H
+	ltFD39NhsQnaJz3FgPtyqNEqbE5FFak3tP0gQcLhRa7hTwu2CV9pYOX509Nc8gT1YmjOCyuyok3
+	wOLORalcJt3pdIpaQBskxH7IOOTGfsQc7553LCV6d2URVE=
+X-Received: by 2002:a05:600c:5491:b0:499:a4d1:d7d9 with SMTP id 5b1f17b1804b1-499dc717e32mr74023185e9.9.1787762247721;
+        Wed, 26 Aug 2026 09:37:27 -0700 (PDT)
 Received: from axion.fireburn.co.uk ([2a01:4b00:d309:1c00:caf1:6b20:8531:818c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499dca8c75csm31227535e9.2.2026.08.26.09.36.46
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e279eb11sm3350111f8f.8.2026.08.26.09.37.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 09:36:46 -0700 (PDT)
+        Wed, 26 Aug 2026 09:37:26 -0700 (PDT)
 From: Mike Lothian <mike@fireburn.co.uk>
-To: dri-devel@lists.freedesktop.org
+To: linux-kernel@vger.kernel.org
 Cc: Mike Lothian <mike@fireburn.co.uk>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Russ Weight <russ.weight@linux.dev>,
 	Danilo Krummrich <dakr@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
 	Miguel Ojeda <ojeda@kernel.org>,
 	Boqun Feng <boqun@kernel.org>,
 	Gary Guo <gary@garyguo.net>,
 	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
 	Benno Lossin <lossin@kernel.org>,
 	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
 	Trevor Gross <tmgross@umich.edu>,
 	Daniel Almeida <daniel.almeida@collabora.com>,
 	Tamir Duberstein <tamird@kernel.org>,
 	Alexandre Courbot <acourbot@nvidia.com>,
 	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	Lyude Paul <lyude@redhat.com>,
-	rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 21/23] rust: drm: kms: read a connector's colorimetry and HDR metadata
-Date: Wed, 26 Aug 2026 17:31:52 +0100
-Message-ID: <20260826163359.4998-22-mike@fireburn.co.uk>
+	driver-core@lists.linux.dev,
+	rust-for-linux@vger.kernel.org
+Subject: [PATCH 1/1] rust: firmware: add the firmware upload abstraction
+Date: Wed, 26 Aug 2026 17:37:15 +0100
+Message-ID: <20260826163716.6274-2-mike@fireburn.co.uk>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260826163359.4998-1-mike@fireburn.co.uk>
-References: <20260826163359.4998-1-mike@fireburn.co.uk>
+In-Reply-To: <20260826163716.6274-1-mike@fireburn.co.uk>
+References: <20260826163716.6274-1-mike@fireburn.co.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -94,253 +93,265 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A driver that carries a transfer function to its sink needs the connector
-state's colorimetry and HDR_OUTPUT_METADATA, and needs to reach the
-connector state routed to a CRTC from the CRTC's own atomic callback.
+request_firmware() covers "pull an image from /lib/firmware"; the other
+half of the firmware loader, firmware_upload_register(), covers "userspace
+hands the driver an image to write". It publishes
+/sys/class/firmware/<name>/ with the loading/data handshake plus status,
+error, remaining_size and cancel, and is what a driver uses when an image
+has to be written on demand rather than only when a newer one appears.
 
-Add ConnectorState::hdr_output_eotf() and
-AtomicState::new_connector_state_for_crtc().
+Add an Upload trait mirroring struct fw_upload_ops, a Registration that
+unregisters on drop, and an Error enum whose values are the fw_upload_err
+codes userspace already reads back out of the error attribute.
 
 Assisted-by: Claude:claude-opus-5
 Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
 ---
- rust/kernel/drm/kms/atomic.rs    | 104 +++++++++++++++++++++++++++++++
- rust/kernel/drm/kms/connector.rs |  77 +++++++++++++++++++++++
- rust/kernel/drm/kms/crtc.rs      |  13 ++++
- 3 files changed, 194 insertions(+)
+ rust/kernel/firmware.rs | 237 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 237 insertions(+)
 
-diff --git a/rust/kernel/drm/kms/atomic.rs b/rust/kernel/drm/kms/atomic.rs
-index 18dc136940f3..f9f91edc89c3 100644
---- a/rust/kernel/drm/kms/atomic.rs
-+++ b/rust/kernel/drm/kms/atomic.rs
-@@ -96,6 +96,88 @@ pub fn get_old_connector_state<C>(&self, connector: &C) -> Option<&C::State>
-                 .map(|p| C::State::from_raw(p))
-         }
+diff --git a/rust/kernel/firmware.rs b/rust/kernel/firmware.rs
+index 6a6b392ffc4e..a6fa565421d7 100644
+--- a/rust/kernel/firmware.rs
++++ b/rust/kernel/firmware.rs
+@@ -385,3 +385,240 @@ pub const fn build_length(self) -> usize {
+         self.n + 1
      }
-+
-+    /// Return the new state of the first connector routed to `crtc` in this [`AtomicState`], if
-+    /// any.
-+    ///
-+    /// This is the Rust spelling of walking `for_each_new_connector_in_state()` looking for
-+    /// `conn_state->crtc == crtc`, which is how a CRTC callback reaches the connector properties
-+    /// that describe the signal it is about to drive -- colorimetry, HDR metadata, `max bpc`.
-+    /// Those live on the connector state, but the driver decisions they feed are frequently made
-+    /// where only the CRTC is in hand.
-+    ///
-+    /// The state is returned opaquely because the caller is looking across mode objects and has
-+    /// no way to name the connector's driver-private state type. A CRTC that clones to several
-+    /// connectors gets the first; a driver that cares about the difference should walk the
-+    /// connectors itself.
-+    pub fn new_connector_state_for_crtc<C>(&self, crtc: &C) -> Option<&OpaqueConnectorState<T>>
-+    where
-+        C: ModesettableCrtc + ModeObject<Driver = T>,
-+    {
-+        let crtc_raw = crtc.as_raw();
-+        // SAFETY: `state` is initialized via our type invariants, and `connectors` /
-+        // `num_connector` are invariant for as long as we hold a reference to it.
-+        let (connectors, num) = unsafe {
-+            let raw = self.as_raw();
-+            ((*raw).connectors, (*raw).num_connector)
-+        };
-+        if connectors.is_null() || num <= 0 {
-+            return None;
-+        }
-+        for i in 0..num as usize {
-+            // SAFETY: `connectors` points to `num_connector` initialized entries.
-+            let new_state = unsafe { (*connectors.add(i)).new_state };
-+            if new_state.is_null() {
-+                continue;
-+            }
-+            // SAFETY: a non-null `new_state` is a valid `drm_connector_state` for the lifetime of
-+            // the atomic state.
-+            if unsafe { (*new_state).crtc } != crtc_raw {
-+                continue;
-+            }
-+            // SAFETY: as above, and the returned reference borrows from `self`, so it cannot
-+            // outlive the atomic state that owns the connector state.
-+            return Some(unsafe { OpaqueConnectorState::<T>::from_raw(new_state) });
-+        }
-+        None
-+    }
-+
-+    /// Return the old state of the first connector routed to `crtc` in this [`AtomicState`], if
-+    /// any.
-+    ///
-+    /// The counterpart to [`Self::new_connector_state_for_crtc`], for a driver comparing the two
-+    /// to decide whether a connector property it consumes has changed.
-+    pub fn old_connector_state_for_crtc<C>(&self, crtc: &C) -> Option<&OpaqueConnectorState<T>>
-+    where
-+        C: ModesettableCrtc + ModeObject<Driver = T>,
-+    {
-+        let crtc_raw = crtc.as_raw();
-+        // SAFETY: `state` is initialized via our type invariants, and `connectors` /
-+        // `num_connector` are invariant for as long as we hold a reference to it.
-+        let (connectors, num) = unsafe {
-+            let raw = self.as_raw();
-+            ((*raw).connectors, (*raw).num_connector)
-+        };
-+        if connectors.is_null() || num <= 0 {
-+            return None;
-+        }
-+        for i in 0..num as usize {
-+            // SAFETY: `connectors` points to `num_connector` initialized entries.
-+            let old_state = unsafe { (*connectors.add(i)).old_state };
-+            if old_state.is_null() {
-+                continue;
-+            }
-+            // SAFETY: a non-null `old_state` is a valid `drm_connector_state` for the lifetime of
-+            // the atomic state.
-+            if unsafe { (*old_state).crtc } != crtc_raw {
-+                continue;
-+            }
-+            // SAFETY: as above, and the returned reference borrows from `self`, so it cannot
-+            // outlive the atomic state that owns the connector state.
-+            return Some(unsafe { OpaqueConnectorState::<T>::from_raw(old_state) });
-+        }
-+        None
-+    }
  }
- 
- // SAFETY: DRM atomic state objects are always reference counted and the get/put functions satisfy
-@@ -188,6 +270,28 @@ pub fn get_old_connector_state<C>(&self, connector: &C) -> Option<&C::State>
-         self.state.get_old_connector_state(connector)
-     }
- 
-+    /// Return the new state of the first connector routed to `crtc`, if any.
-+    ///
-+    /// See [`AtomicState::new_connector_state_for_crtc`]. This borrows the connector state rather
-+    /// than taking a mutator out for it, so it does not participate in the mutator bookkeeping and
-+    /// cannot conflict with [`Self::get_new_connector_state`].
-+    pub fn new_connector_state_for_crtc<C>(&self, crtc: &C) -> Option<&OpaqueConnectorState<T>>
-+    where
-+        C: ModesettableCrtc + ModeObject<Driver = T>,
-+    {
-+        self.state.new_connector_state_for_crtc(crtc)
-+    }
 +
-+    /// Return the old state of the first connector routed to `crtc`, if any.
-+    ///
-+    /// See [`AtomicState::old_connector_state_for_crtc`].
-+    pub fn old_connector_state_for_crtc<C>(&self, crtc: &C) -> Option<&OpaqueConnectorState<T>>
-+    where
-+        C: ModesettableCrtc + ModeObject<Driver = T>,
-+    {
-+        self.state.old_connector_state_for_crtc(crtc)
-+    }
-+
-     /// Retrieve the last committed atomic state for `plane` if `plane` has already been added to
-     /// the atomic state being composed.
-     ///
-diff --git a/rust/kernel/drm/kms/connector.rs b/rust/kernel/drm/kms/connector.rs
-index 952c8e02777b..231857cc1f20 100644
---- a/rust/kernel/drm/kms/connector.rs
-+++ b/rust/kernel/drm/kms/connector.rs
-@@ -922,7 +922,84 @@ fn connector(&self) -> &Self::Connector {
-         // `self.state.connector` points to a valid instance of a `Connector<T>`
-         unsafe { Self::Connector::from_raw((*self.as_raw()).connector) }
-     }
-+
-+    /// The colorimetry userspace has requested through the `Colorspace` property, as a
-+    /// [`enum drm_colorspace`] value.
-+    ///
-+    /// Meaningful only on a connector that
-+    /// [`UnregisteredConnector::attach_colorspace_property`] was called for; everything else
-+    /// leaves it at `DRM_MODE_COLORIMETRY_DEFAULT`.
-+    ///
-+    /// [`enum drm_colorspace`]: srctree/include/drm/drm_connector.h
-+    fn colorspace(&self) -> u32 {
-+        self.as_raw().colorspace
-+    }
-+
-+    /// The electro-optical transfer function from the `HDR_OUTPUT_METADATA` blob, or [`None`] if
-+    /// userspace has not set one.
-+    ///
-+    /// This is deliberately just the curve: the rest of the infoframe is mastering-display
-+    /// metadata for the sink, and a driver that only needs to know *which curve the pixels are
-+    /// encoded in* should not have to reason about the union's other members or their versioning.
-+    ///
-+    /// [`struct hdr_output_metadata`]: srctree/include/uapi/drm/drm_mode.h
-+    fn hdr_output_eotf(&self) -> Option<Eotf> {
-+        let blob = self.as_raw().hdr_output_metadata;
-+        if blob.is_null() {
-+            return None;
-+        }
-+        // SAFETY: a non-null `hdr_output_metadata` blob is valid for the state's lifetime.
-+        let (data, length) = unsafe { ((*blob).data, (*blob).length) };
-+        // DRM validates the blob length when the property is set, but this is the boundary where
-+        // a short blob would become an out-of-bounds read.
-+        if data.is_null() || length < core::mem::size_of::<bindings::hdr_output_metadata>() {
-+            return None;
-+        }
-+        // SAFETY: the blob is at least a whole `hdr_output_metadata` and lives as long as the
-+        // state. `eotf` is the first byte of the only union member DRM defines.
-+        let eotf = unsafe {
-+            (*data.cast::<bindings::hdr_output_metadata>())
-+                .__bindgen_anon_1
-+                .hdmi_metadata_type1
-+                .eotf
-+        };
-+        Some(Eotf::from_raw(eotf))
-+    }
-+}
-+/// An electro-optical transfer function named by a `HDR_OUTPUT_METADATA` blob.
++/// Firmware upload: let userspace hand a driver an image to write to its device.
 +///
-+/// Mirrors the `HDMI_EOTF_*` values in [`enum hdmi_eotf`]. A driver matches on this rather than
-+/// comparing against the raw constants, so the one place that has to agree with the C enum is
-+/// [`Eotf::from_raw`].
-+///
-+/// [`enum hdmi_eotf`]: srctree/include/linux/hdmi.h
-+#[derive(Copy, Clone, Debug, PartialEq, Eq)]
-+pub enum Eotf {
-+    /// Ordinary SDR gamma.
-+    TraditionalGammaSdr,
-+    /// The traditional HDR gamma curve.
-+    TraditionalGammaHdr,
-+    /// SMPTE ST 2084, i.e. PQ. What a compositor sets to drive an output in HDR10.
-+    SmpteSt2084,
-+    /// BT.2100 hybrid log-gamma.
-+    Bt2100Hlg,
-+    /// A value this kernel does not name, carried through rather than discarded.
-+    Other(u8),
- }
++/// Registering creates `/sys/class/firmware/<name>/` with the `loading`/`data` handshake plus
++/// `status`, `error`, `remaining_size` and `cancel`, which is the counterpart to [`Firmware`]:
++/// the same image works either way, but this one is pushed by userspace rather than pulled from
++/// `/lib/firmware`. Drivers use it when an image has to be written on demand -- a re-flash, or a
++/// deliberate downgrade -- rather than only when a newer version appears.
++pub mod upload {
++    use super::*;
++    use crate::types::ForeignOwnable;
 +
-+impl Eotf {
-+    /// Classify the raw `eotf` byte from an infoframe.
-+    fn from_raw(eotf: u8) -> Self {
-+        match u32::from(eotf) {
-+            bindings::hdmi_eotf_HDMI_EOTF_TRADITIONAL_GAMMA_SDR => Self::TraditionalGammaSdr,
-+            bindings::hdmi_eotf_HDMI_EOTF_TRADITIONAL_GAMMA_HDR => Self::TraditionalGammaHdr,
-+            bindings::hdmi_eotf_HDMI_EOTF_SMPTE_ST2084 => Self::SmpteSt2084,
-+            bindings::hdmi_eotf_HDMI_EOTF_BT_2100_HLG => Self::Bt2100Hlg,
-+            _ => Self::Other(eotf),
++    /// Why an upload step failed. `None` means success.
++    ///
++    /// The values are the `enum fw_upload_err` the core reports back through `sysfs`, so a driver
++    /// says what went wrong in the vocabulary userspace already reads out of `error`.
++    #[derive(Clone, Copy, PartialEq, Eq)]
++    #[repr(u32)]
++    pub enum Error {
++        /// The device reported a failure; see the kernel log.
++        Hardware = bindings::fw_upload_err_FW_UPLOAD_ERR_HW_ERROR,
++        /// A handshake with the device timed out.
++        Timeout = bindings::fw_upload_err_FW_UPLOAD_ERR_TIMEOUT,
++        /// Userspace wrote `cancel`.
++        Canceled = bindings::fw_upload_err_FW_UPLOAD_ERR_CANCELED,
++        /// Another upload is already running.
++        Busy = bindings::fw_upload_err_FW_UPLOAD_ERR_BUSY,
++        /// The image is not a size this device can take.
++        InvalidSize = bindings::fw_upload_err_FW_UPLOAD_ERR_INVALID_SIZE,
++        /// A read or write to the device failed; see the kernel log.
++        ReadWrite = bindings::fw_upload_err_FW_UPLOAD_ERR_RW_ERROR,
++        /// The flash is wearing out; wait and retry.
++        WearOut = bindings::fw_upload_err_FW_UPLOAD_ERR_WEAROUT,
++        /// The image is not one this device accepts.
++        InvalidFirmware = bindings::fw_upload_err_FW_UPLOAD_ERR_FW_INVALID,
++    }
++
++    /// A driver's side of an upload.
++    ///
++    /// `prepare` runs once with the whole image, which is where a driver rejects one that is not
++    /// for this device; `write` is then called repeatedly until every byte is written.
++    pub trait Upload: Sized {
++        /// Shared driver state, handed back to every callback.
++        type Data: ForeignOwnable + Send + Sync;
++
++        /// Validate the image and get the device ready. Runs before any write.
++        fn prepare(
++            data: <Self::Data as ForeignOwnable>::Borrowed<'_>,
++            image: &[u8],
++        ) -> Result<(), Error>;
++
++        /// Write `chunk`, which starts at `offset` in the image, returning how much was written.
++        ///
++        /// Called repeatedly until the image is consumed, so a driver may write less than it was
++        /// offered and be called again with the remainder.
++        fn write(
++            data: <Self::Data as ForeignOwnable>::Borrowed<'_>,
++            image: &[u8],
++            offset: u32,
++            chunk: &[u8],
++        ) -> Result<u32, Error>;
++
++        /// Report whether the device has finished programming what it was sent.
++        fn poll_complete(data: <Self::Data as ForeignOwnable>::Borrowed<'_>) -> Result<(), Error>;
++
++        /// Asked to stop, from another thread: set a flag the other callbacks observe.
++        fn cancel(data: <Self::Data as ForeignOwnable>::Borrowed<'_>);
++
++        /// Undo whatever `prepare` set up. Runs on success and on failure alike.
++        fn cleanup(_data: <Self::Data as ForeignOwnable>::Borrowed<'_>) {}
++    }
++
++    /// The C vtable for `U`, built once at compile time.
++    struct Vtable<U: Upload>(core::marker::PhantomData<U>);
++
++    impl<U: Upload> Vtable<U> {
++        /// Turn a driver result into the `enum fw_upload_err` the core expects.
++        fn err(r: Result<(), Error>) -> bindings::fw_upload_err {
++            match r {
++                Ok(()) => bindings::fw_upload_err_FW_UPLOAD_ERR_NONE,
++                Err(e) => e as bindings::fw_upload_err,
++            }
++        }
++
++        /// # Safety
++        ///
++        /// Called by the firmware core with a valid `fw_upload` whose `dd_handle` is the pointer
++        /// [`Registration::new`] passed it, and `data` valid for `size` bytes.
++        unsafe extern "C" fn prepare(
++            fw: *mut bindings::fw_upload,
++            data: *const u8,
++            size: u32,
++        ) -> bindings::fw_upload_err {
++            // SAFETY: the core owns `fw` for the duration of the call.
++            let handle = unsafe { (*fw).dd_handle };
++            // SAFETY: `handle` came from `into_foreign()` in `Registration::new` and outlives the
++            // registration; `data`/`size` describe the image the core is holding.
++            let (d, image) = unsafe {
++                (
++                    <U::Data as ForeignOwnable>::borrow(handle.cast()),
++                    core::slice::from_raw_parts(data, size as usize),
++                )
++            };
++            Self::err(U::prepare(d, image))
++        }
++
++        /// # Safety
++        ///
++        /// As [`Self::prepare`]; `written` is a valid out-parameter.
++        unsafe extern "C" fn write(
++            fw: *mut bindings::fw_upload,
++            data: *const u8,
++            offset: u32,
++            size: u32,
++            written: *mut u32,
++        ) -> bindings::fw_upload_err {
++            // SAFETY: as above.
++            let handle = unsafe { (*fw).dd_handle };
++            // SAFETY: as above; `data + offset` is within the image the core holds.
++            let (d, image, chunk) = unsafe {
++                (
++                    <U::Data as ForeignOwnable>::borrow(handle.cast()),
++                    core::slice::from_raw_parts(data, (offset + size) as usize),
++                    core::slice::from_raw_parts(data.add(offset as usize), size as usize),
++                )
++            };
++            match U::write(d, image, offset, chunk) {
++                Ok(n) => {
++                    // SAFETY: the core passes a valid pointer for the result.
++                    unsafe { *written = n };
++                    bindings::fw_upload_err_FW_UPLOAD_ERR_NONE
++                }
++                Err(e) => e as bindings::fw_upload_err,
++            }
++        }
++
++        /// # Safety
++        ///
++        /// As [`Self::prepare`].
++        unsafe extern "C" fn poll_complete(
++            fw: *mut bindings::fw_upload,
++        ) -> bindings::fw_upload_err {
++            // SAFETY: as above.
++            let handle = unsafe { (*fw).dd_handle };
++            // SAFETY: as above.
++            let d = unsafe { <U::Data as ForeignOwnable>::borrow(handle.cast()) };
++            Self::err(U::poll_complete(d))
++        }
++
++        /// # Safety
++        ///
++        /// As [`Self::prepare`]. Runs on a different thread from the rest.
++        unsafe extern "C" fn cancel(fw: *mut bindings::fw_upload) {
++            // SAFETY: as above.
++            let handle = unsafe { (*fw).dd_handle };
++            // SAFETY: as above.
++            let d = unsafe { <U::Data as ForeignOwnable>::borrow(handle.cast()) };
++            U::cancel(d)
++        }
++
++        /// # Safety
++        ///
++        /// As [`Self::prepare`].
++        unsafe extern "C" fn cleanup(fw: *mut bindings::fw_upload) {
++            // SAFETY: as above.
++            let handle = unsafe { (*fw).dd_handle };
++            // SAFETY: as above.
++            let d = unsafe { <U::Data as ForeignOwnable>::borrow(handle.cast()) };
++            U::cleanup(d)
++        }
++
++        const VTABLE: bindings::fw_upload_ops = bindings::fw_upload_ops {
++            prepare: Some(Self::prepare),
++            write: Some(Self::write),
++            poll_complete: Some(Self::poll_complete),
++            cancel: Some(Self::cancel),
++            cleanup: Some(Self::cleanup),
++        };
++    }
++
++    /// A live `/sys/class/firmware/<name>/` upload interface, unregistered when dropped.
++    pub struct Registration<U: Upload> {
++        fw: *mut bindings::fw_upload,
++        data: *mut core::ffi::c_void,
++        _p: core::marker::PhantomData<U>,
++    }
++
++    // SAFETY: the C side is internally locked, and `U::Data` is `Send + Sync`.
++    unsafe impl<U: Upload> Send for Registration<U> {}
++    // SAFETY: as above.
++    unsafe impl<U: Upload> Sync for Registration<U> {}
++
++    impl<U: Upload> Registration<U> {
++        /// Publish an upload interface named `name` under `parent`.
++        pub fn new(
++            module: &'static crate::ThisModule,
++            parent: &Device,
++            name: &CStr,
++            data: U::Data,
++        ) -> Result<Self> {
++            let handle = data.into_foreign();
++            // SAFETY: `parent` and `name` are valid for the call; the vtable is 'static; `handle`
++            // is kept alive by this registration and released in `drop`.
++            let fw = unsafe {
++                bindings::firmware_upload_register(
++                    module.as_ptr(),
++                    parent.as_raw(),
++                    name.as_char_ptr(),
++                    &Vtable::<U>::VTABLE,
++                    handle.cast(),
++                )
++            };
++            let fw = match crate::error::from_err_ptr(fw) {
++                Ok(fw) => fw,
++                Err(e) => {
++                    // SAFETY: registration failed, so nothing else observes `handle`.
++                    drop(unsafe { <U::Data as ForeignOwnable>::from_foreign(handle) });
++                    return Err(e);
++                }
++            };
++            Ok(Self {
++                fw,
++                data: handle.cast(),
++                _p: core::marker::PhantomData,
++            })
++        }
++    }
++
++    impl<U: Upload> Drop for Registration<U> {
++        fn drop(&mut self) {
++            // SAFETY: `self.fw` came from `firmware_upload_register` and is unregistered once.
++            unsafe { bindings::firmware_upload_unregister(self.fw) };
++            // SAFETY: the core no longer holds `dd_handle` after unregistering.
++            drop(unsafe { <U::Data as ForeignOwnable>::from_foreign(self.data.cast()) });
 +        }
 +    }
 +}
-+
- impl<T: AsRawConnectorState> RawConnectorState for T {}
- 
- /// The main interface for a [`struct drm_connector_state`].
-diff --git a/rust/kernel/drm/kms/crtc.rs b/rust/kernel/drm/kms/crtc.rs
-index 9e888c4e2f68..ec01ae0430f7 100644
---- a/rust/kernel/drm/kms/crtc.rs
-+++ b/rust/kernel/drm/kms/crtc.rs
-@@ -1047,6 +1047,19 @@ pub(super) fn new<D: KmsDriver>(
-     }
- }
- 
-+impl<'a, T: FromRawCrtcState> CrtcStateMutator<'a, T> {
-+    /// Require a full mode set for this CRTC.
-+    ///
-+    /// Called from [`DriverCrtc::atomic_check`] when something the core does not track has changed
-+    /// in a way the hardware can only adopt by being reprogrammed, such as a connector property
-+    /// that forms part of the signal description the driver sends to its device.
-+    pub fn set_mode_changed(&mut self, changed: bool) {
-+        // SAFETY: `as_raw()` is a valid `drm_crtc_state`, and holding this mutator is proof that
-+        // no other reference to it exists.
-+        unsafe { (*self.as_raw()).set_mode_changed(changed) };
-+    }
-+}
-+
- impl<'a, T: DriverCrtcState> CrtcStateMutator<'a, CrtcState<T>> {
-     super::impl_from_opaque_mode_obj! {
-         fn <D, C>(CrtcStateMutator<'a, OpaqueCrtcState<D>>) -> Self
