@@ -1,300 +1,219 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EA3E368D7B
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:41:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17F4D4302FA
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:45:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787751705; cv=none; b=hiGnVvITepOW2MzUtdrWgqViCHpm+Miyii0OgvltslMqH9VXEr242sKlvmU+kJS65Z3Np6OqSUcKQSOMVVsp2V8ud86G9dtX07VLi387UmwGB1S4L0py4redeZKlzK6LVWhOJjj+zjRLvJP2XTKI1+faXzN49KX6pGJWNlQcx4c=
+	t=1787751929; cv=none; b=iuWm0L+YhZ3m3k6z80D/uqsKZOi20t1XSdu5NV8Ir8inLb+UWq46jBvuvnc6On2AOn75+aLS8bGHQ4PKOJw6ntaF7iWyA3muJb8TqeXGmd4XN1TtxetDbOB80Oq2DEEQ9zY7m/BEtALwFztL8M+eGAnsHWqdhBLElAYbbsmWVo4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787751705; c=relaxed/simple;
-	bh=QZd0NILJX8au3PgC2K06h3ujSUZBBV8dcasg/nYJ3r0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CI9u4/G5HjD1XgDInKGsOkiFaJYWGui1UiZJzxB5jJXRrRZMbBG6ecU/Q4LxIZLtx18fwU3RUWt7Qvs6SuN4BsApJzKnDpjkGVSjnKUBw/uge6Yl2bWwqZY7ylOG7rnRRd9mcITU1ODGIhmC5DhvA37kE+0JmF7h135yUhtByxE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X/ICyiEN; arc=none smtp.client-ip=209.85.214.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787751929; c=relaxed/simple;
+	bh=b3TbOLaOaVdbEoxxuz1CQtZAQmDctOUjkFHF9gAxpXw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=F+w6MqsFDebDxilUUJXbJijv2az8xnntYV5grBEiASEiTm7gXbKd8eD1VmS62hp2p0no0QD8TrTH6CgFlCOJ4UbXbtxjfXwm8cFxk8pcZWGiPffPerAN3sR4QYxefiPd8HiuHvz0hoZDeSaWSswhKff1D+kj9upRsMQtvaE6Q8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hlNd3RgX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jC/h2+QP; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X/ICyiEN"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2d032846c95so13952755ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 06:41:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hlNd3RgX";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jC/h2+QP"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QCC4Uv356875
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:45:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	4jnYIpJgtFEZlWrcRFiUwalcwxZjoeOSevlSYM3+k2M=; b=hlNd3RgXSWmiQxeY
+	bbtdV+I8fqLURJiyTIgClpz0Tr8jUPb/86Dv5BytCuvpCkSiYE7mnx38abo6bJMq
+	GjE9WG8+JKCJkKlYb0RJS8sWBugJ4FbAMqRouy5blxcv1fQmCGIbm1oml9W6uyTH
+	ef8Pna7IoNIgndJZ1ObAEwbaU9/pb0zYQD3t3Y2UWWqkWOu4IwJFSUPGu1aLnhYm
+	214P6eaLNfyjtRKPHkvmniCr8A9BwTWFvK0eJ42ay9hv8UG22ttXfiGKG53RNmSF
+	MQhJEe/Hv4GgzNS9dwjZUsGE8AREGlMrUpU85qt8eCx75ccDuh9q7j208avufXzG
+	pstV8A==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g9s9ga388-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:45:19 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38e8fee6af3so1496995a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 06:45:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787751697; x=1788356497; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NFQ51HJ7fyE1u0r/xRDp9ewL6yDSIMejUbH85HRUqXg=;
-        b=X/ICyiENktPMRq7dfLgdQ+mUpTRYwhYn3s8aoVFPF/DdUwkGl9sJzFrHouEtn5rVcs
-         MzB9BULgu/JuKbEYMQRWQGrip+denDP/Fwzn78ipgas7QQn844wOAoboBvzC6LLuCeN8
-         ezSWGGDs2QgUViq9r+FniKyAnpfnZSlcMK9WGgy/KpF7JVmaBKoNwXdd1XPMmu8Ep8wI
-         6L1uwEa2DqLxA174YO/K0etk+tNI1d9yFjlUFYySzca+cjAHDg5nQbBZiqedgatW/DP8
-         gxKg86SeKDbN2cXBq8WMKlM0Er3N4Z7RQgosXawEcVmabxrnUl0iXSrYHpBIQPHlRHpj
-         awvw==
+        d=oss.qualcomm.com; s=google; t=1787751919; x=1788356719; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4jnYIpJgtFEZlWrcRFiUwalcwxZjoeOSevlSYM3+k2M=;
+        b=jC/h2+QPo8hl2x48C929uxKU8JrlPlct4SnuE4LHjlW4kcFzkTFku/edZ2f4oYQrqy
+         FiEt+02bWDEF9s0rgh64D79/lXAag3LEJvdOWOg1SWhrIBNDa26+2tTNw2LskWsLc/v8
+         SoOM//gp7Nwm6FsCOBqIp2FiWm7qqtLOu9WEEKV2dcWLAAdDrg9gG3sXhKdNbx2D1hoC
+         lCEbzAKHnTwOFRXSEWH5lGPyIRVJoFfqvLlNWQdNooazrMzaqctpQSo3HeuzfEIOSQ0O
+         QDzsOyM1camRcV98ZzsMHI0+n8xTJfUPPZW4i6sFmPZEjVSYZCrEBdiTu2bufnUdQfRu
+         CDjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787751697; x=1788356497;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NFQ51HJ7fyE1u0r/xRDp9ewL6yDSIMejUbH85HRUqXg=;
-        b=BxpzJrxanYsxSMquXJ4uIPSmdM6YMT6w+Qx3yPWGGtX5QNCtZwW1G5NCh1FpY0X/k5
-         ARVvMsvgcy0BbaxEGYlV+lZLO6fgWYyVDsbGyQBkGM1SDJk+udnsUEPng0VtOwWofSgS
-         Xi6xMSaIXre1ULbXgU+sdonBMq5oPf1MdjPmUfIO/5ivkeOfaY1kN3bvVZ9TpbZX6qhL
-         zm9uDIL45akri8z8IAD+1tRHzvi5OzNFtbrWHRxoko7Dh3oHbNnHK3EANro3s5MqbTsT
-         fPukYI6S4mhTZbdnOtp9AwAPxTp+9YOT71fVQyR8TygwU3arg0RhNd3D4+LmJc6oaiBj
-         akfQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrDZXHsv4QZU9QpXbsr7TMRWq5Ju2j3DZA2O7yX4uZc/cTQsJRJL0s9/8soowPpItxrWX5J4xJRV7nnJJU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kVDJsvP0ijUQ1x3eM10LUlUTXpfQMX3lbTQ8/oNk3BqOXGC0w1
-	vlnmrf94uR+ekZ2+/rXGp7WwFzYjFOFAFw59EAXTW+ecGCxKTPeH3M7K99HZ5xsy
-X-Gm-Gg: AR+sD12PmSTVf6EMaY1VG7rhShdSJRSfpnpOUO+1q5TCCg/TxGb8jV7Oja/dS7gSZ8U
-	yyeU8WpdH2uvFRw+0YL3sQFmdYcZx/ILjI+J3i+Cf+le3qhElA1v+KQgbjbaXYBUO8QAh/m3oKb
-	9z1UUAnjivYQU0cja8gio45Ijnhdu2f8Xnp6PDF1RuLNuHPhMUXID3s+WkQECouvgEHtKApDZFi
-	xiezqBSxx97j2bW0424RCfhjqmzmiuZqe0Dil0yPH8XiPPO9DI6vK50771CbbNXz5o1OznMPpts
-	gqYDH7IAdMhbBkl7OpOrV45H0ZMaOt/udfI5g+tlxZ3W98rhfru9DNQI19w7s2wP/LXrQhuY3qI
-	f/ftff3Rmlj2K/YyLypwmuMfx06V4AvNJGYzHlcuwADN0WGkDhtuxnEKOkJqaecQexC5eI+rd0h
-	gMDUVw1vMrdWn+j1VeaWQ+06vpxJSQngo5+RbROD85QJntuxu2wZwAlHdO2rB8KzEOXAKHATd72
-	VPH24slzZQAY709mMUX6O3l
-X-Received: by 2002:a17:90a:d2ce:b0:393:1d92:db5 with SMTP id 98e67ed59e1d1-3966d3dc5ecmr15674934a91.10.1787751697387;
-        Wed, 26 Aug 2026 06:41:37 -0700 (PDT)
-Received: from qiwenjie-ThinkCentre-M760t.mioffice.cn ([43.224.245.241])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39645d69065sm8906472a91.13.2026.08.26.06.41.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 06:41:36 -0700 (PDT)
-From: Wenjie Qi <qwjhust@gmail.com>
-X-Google-Original-From: Wenjie Qi <qiwenjie@xiaomi.com>
-To: jaegeuk@kernel.org,
-	chao@kernel.org
-Cc: linux-f2fs-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	qiwenjie@xiaomi.com,
-	qwjhust@gmail.com,
-	daehojeong@google.com
-Subject: [PATCH 1/2] f2fs: persist device alias inode across remount
-Date: Wed, 26 Aug 2026 21:41:25 +0800
-Message-ID: <20260826134126.3729507-2-qiwenjie@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260826134126.3729507-1-qiwenjie@xiaomi.com>
-References: <20260826134126.3729507-1-qiwenjie@xiaomi.com>
+        d=1e100.net; s=20251104; t=1787751919; x=1788356719;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4jnYIpJgtFEZlWrcRFiUwalcwxZjoeOSevlSYM3+k2M=;
+        b=S11aQzRNaqy2IfaxEUr0QVQtZ89FIg2P1fzitMKMVT0USJS7HY0bDm2P1uLezYfFVP
+         NJZNPq/z9GJTCE3EKKvwa/Aq4AomBOqzNA0aFNvlMNGFJz3euGwhOgdQv7OxZEdeVHZR
+         nj5aVufCXI6lxBm3nDOX2Am71tGHYbAgKMWSYHkE40MLexjq2O6F5wYa35j6mAnRoL1l
+         D28UHs6UxRDCAWqrugYZwrEyBRJOKwDC+QDKFktbn5NjjiYCvzZwXzbwvCC8r81//E1N
+         8CGrmJv9xFYcblPxy56igch3nXrlgEAEkc1a3Gk3eAb+YkTsincdYY3xCU4ctEmTaKcb
+         phwg==
+X-Forwarded-Encrypted: i=1; AHgh+Rq5HwK4vA3WrDUseiuVNJ/2jmz+ldxwYZQPy3ivcWFt3dRoG9HvlVlw/l9I7Vwn//mKvfEUtuZpWDhLcKo=@vger.kernel.org
+X-Gm-Message-State: AFuF++msfmckZbR7yvVJrTlTWOPTg2/xDix2oTk97Eu+le1v6YRJLP1K
+	NQRGuQSnxk+b4GqAnP0rbP2l++Tbxh1FTjVlmfNchJ7b48HFHBE3Vv6KVzIUmLpO+wX8Z//FiM4
+	/ekXuBvXt356s1A6/i2h8kUdw6Nb3q0ZfueeZ5Hy0JaCkimn4fI/DPr6CRYvCGahYDi0=
+X-Gm-Gg: AR+sD12tK3Cz5S0TosPM04e4jkVuBsN55mtRpPDTFAvmhhH7yp8F4Dl0+1Zf9wJDDpR
+	0XPNG2Rx14qPVIevkKHyxtCi0n3tyCfMgYwDHelSta/RMq8WMrA8gqQ6LXStLrYOtPLMA7Al6IV
+	MOtRg3qMf9FaSy9CX/KChRTG4e3I963OV/iOFEHt42rHg1SsU9CDsRYb66LqRIyqJ2xZBN8fbW/
+	0A+ju27ii/EdVy8H8MyVyylbG2GQvvH1GXa2LsdCwjyEy2pBoLPdeKLsdkE/3Kld91+VRBTDhQD
+	FAnaVkLfJclLCG4zKT2l0RFYDDK9fnf7V9xayn4xrppTHJtJ3bRzRbd1OF5XXrgt33ZRXQsy6WA
+	NtynGsn3YEaq7+mgzEY3HeoMvj+ryOw==
+X-Received: by 2002:a17:90a:d2c6:b0:38e:5c6:4db9 with SMTP id 98e67ed59e1d1-3966d3dafb9mr15825946a91.11.1787751918699;
+        Wed, 26 Aug 2026 06:45:18 -0700 (PDT)
+X-Received: by 2002:a17:90a:d2c6:b0:38e:5c6:4db9 with SMTP id 98e67ed59e1d1-3966d3dafb9mr15825822a91.11.1787751918186;
+        Wed, 26 Aug 2026 06:45:18 -0700 (PDT)
+Received: from [10.219.57.226] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a8f20036sm13571333c88.5.2026.08.26.06.45.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 26 Aug 2026 06:45:17 -0700 (PDT)
+Message-ID: <2febead3-0f0c-4e0d-b11a-8c61ec027f44@oss.qualcomm.com>
+Date: Wed, 26 Aug 2026 19:15:07 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 09/15] accel/qda: Add DMA-backed GEM objects and memory
+ manager integration
+To: rob.clark@oss.qualcomm.com,
+        =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>
+Cc: Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Randy Dunlap
+ <rdunlap@infradead.org>,
+        Nathan Chancellor <nathan@kernel.org>,
+        Nick Desaulniers <ndesaulniers@google.com>,
+        Bill Wendling
+ <morbo@google.com>,
+        Justin Stitt <justinstitt@google.com>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Sumit Semwal <sumit.semwal@linaro.org>,
+        Bharath Kumar <quic_bkumar@quicinc.com>,
+        Chenna Kesava Raju <quic_chennak@quicinc.com>,
+        srinivas.kandagatla@oss.qualcomm.com,
+        dmitry.baryshkov@oss.qualcomm.com, linux-kernel@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev,
+        iommu@lists.linux.dev, linux-media@vger.kernel.org,
+        linaro-mm-sig@lists.linaro.org
+References: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
+ <20260817-qda-v2-v2-9-69a02e9090d4@oss.qualcomm.com>
+ <7030a8f8-f320-4b09-b2de-2c8e897409f8@amd.com>
+ <CACSVV00MubttbkVJgMommPMorf67yqn7D1kfwpxVUZ0t-6au8Q@mail.gmail.com>
+Content-Language: en-US
+From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+In-Reply-To: <CACSVV00MubttbkVJgMommPMorf67yqn7D1kfwpxVUZ0t-6au8Q@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: CrIOZ0RmymCfnkwM1daJ1nSQ6zltyd7T
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDExMyBTYWx0ZWRfXyr7hWdE8k3kR
+ NvmIv0fYCXX319EbQ4cIrH451qWFJ1XUZv5kQ9RcjXxirovQdwvGfsDiv+54N3UhOLwxVU+dnh6
+ wkg2fZb4akodeLkRcd93BD2diUU6vtespaLGJHvmfvxKiCEsYOWHhpMbe0Ckc3Q06i8Yn7O+29i
+ eP20wyVn9/7BrDPguPjWWQKneogQ9gjAlv31a0A6qonPg62QcIHwvWfb2RE2EXaSaqCgrRSgVTq
+ 3rMhiSIKZugjHWVWyEUy9ye4qHu/LgOzU4A0q8dHOlJY0SLaRVd660w3tfckrA6RxR8IQuNBLWA
+ p31rngf/pH5wAGrVnKcSvTDuC2mgxOXQlYvBRx7a2Lo6LbXpmrYg0ZN+KTV01qqD7Jt8XvvON4L
+ 5P4JDdzK3TZ7Hd07zp2TiCct8SZx+qm8EWoEmD2Ucv4h8vmDtApu25RsAqCuXef4a6qbCM9On0p
+ xdJfPIqHmk/8Q9Mf6mg==
+X-Authority-Analysis: v=2.4 cv=Xfq5Co55 c=1 sm=1 tr=0 ts=6a8eedef cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=sLzL-2GVjjNmCx-rav0A:9 a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDExMyBTYWx0ZWRfXwab+nfOm/pGM
+ 8VDK2R6AruvGVdThz6m/PYbrt6h/W5I2GM1pyfUvYOWq1zpVPM5T/V74tP31qQ/saZQFCXLNMs2
+ VHVPpVqa4ZG834+7HV6neN+1vuf4JrM=
+X-Proofpoint-ORIG-GUID: CrIOZ0RmymCfnkwM1daJ1nSQ6zltyd7T
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-26_03,2026-08-26_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0 priorityscore=1501
+ bulkscore=0 clxscore=1015 malwarescore=0 adultscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260113
 
-A released device alias loses its extent. Reserve then identifies the
-target device by matching the alias filename against the device basename,
-which fails when mkfs used a custom alias name.
+On 24-08-2026 20:37, Rob Clark wrote:
+>>> qda_memory_dma.c / qda_memory_dma.h
+>>>   DMA coherent allocation backend. qda_dma_alloc() calls
+>>>   dma_alloc_coherent() on the CB device and encodes the stream ID
+>>>   (SID) in the upper 32 bits of the returned DMA address, following
+>>>   the Qualcomm FastRPC convention for IOMMU address space tagging.
+>>>   qda_dma_free() strips the SID prefix before calling
+>>>   dma_free_coherent().
+>>>
+>>> qda_memory_manager.c
+>>>   Adds process-to-device assignment: each DRM file (process) is
+>>>   assigned one IOMMU context bank device for the lifetime of the
+>>>   session. qda_memory_manager_assign_device() first checks whether
+>>>   the process already has a device (reusing it with a refcount
+>>>   increment), then falls back to claiming an unassigned device.
+>>>   qda_memory_manager_alloc() and qda_memory_manager_free() delegate
+>>>   to the DMA backend after resolving the correct CB device for the
+>>>   calling process.
+>> Oh, stuff like that is usually a pretty big NO-GO now.
+>>
+>> AMD has made the same mistake with KFD and it resulted in a massive chaos.
+>>
+>> The DRM file is the driver context your process uses and even if there are multiple DRM files for the same PID you should absolute *NOT* share anything between them.
+>>
+>> The general rule of thumb is to not attach anything to the process using the DRM file descriptor.
+> A couple other things to keep in mind:
+> 
+> 1. drm device fd can be passed across processes
+> 2. virtgpu/virglrenderer drm native ctx is a single process that opens
+> the drm device file N times on behalf of N guest userspace processes.
+> 
+> All that to say, Christian is right here.. drm_file is your context,
+> pgtables should be attached to the drm_file (potentially via
+> drm_gpuvm.. which you perhaps want to use).
+> 
+> BR,
+> -R
+> 
+>> Regards,
+>> Christian.
+>>
 
-Store each alias inode number at its device index in the superblock
-reserved area. Record the mapping before releasing blocks and use it to
-identify the device during reserve. Reject conflicting mappings and keep
-the basename lookup for images without a recorded mapping.
+Hi Christian, Rob,
 
-Leave released alias inodes without an extent so existing fsck does not
-account the freed device range as live blocks.
+Thank you for highlighting this.
 
-Fixes: eae3faf210bd ("f2fs: support dynamic reserve/release for device aliasing")
-Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
----
- fs/f2fs/file.c          | 96 +++++++++++++++++++++++++++++++++++------
- include/linux/f2fs_fs.h |  3 +-
- 2 files changed, 84 insertions(+), 15 deletions(-)
+I'll rework the CB assignment to be per-drm_file. Each open() will get a
+CB assigned from the available pool (find-first-available, not
+find-by-PID). The assigned_pid field and PID-matching logic will be
+removed entirely.
 
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index d440231b8cb9..7f1dc00031ba 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -3725,25 +3725,44 @@ static int f2fs_ioc_get_dev_alias_file(struct file *filp, unsigned long arg)
- 			(u32 __user *)arg);
- }
- 
--static bool f2fs_get_dev_alias_extent(struct f2fs_sb_info *sbi,
--				       struct dentry *dentry,
--				       struct extent_info *ei)
-+static int f2fs_get_dev_alias_index(struct f2fs_sb_info *sbi,
-+				    struct inode *inode,
-+				    struct dentry *dentry)
- {
-+	int devi = -ENOENT;
- 	int i;
- 
-+	f2fs_down_read(&sbi->sb_lock);
-+	for (i = 0; i < MAX_DEVICES; i++) {
-+		if (le32_to_cpu(sbi->raw_super->dev_alias_ino[i]) !=
-+							inode->i_ino)
-+			continue;
-+		if (!i || i >= sbi->s_ndevs) {
-+			devi = -EFSCORRUPTED;
-+			goto out;
-+		}
-+		if (devi >= 0) {
-+			devi = -EFSCORRUPTED;
-+			goto out;
-+		}
-+		devi = i;
-+	}
-+	if (devi >= 0)
-+		goto out;
-+
- 	for (i = 1; i < sbi->s_ndevs; i++) {
- 		char *name = strrchr(FDEV(i).path, '/');
- 
- 		name = name ? name + 1 : FDEV(i).path;
- 		if (strcmp(name, dentry->d_name.name))
- 			continue;
--
--		ei->blk = FDEV(i).start_blk;
--		ei->len = FDEV(i).total_segments << sbi->log_blocks_per_seg;
--		ei->fofs = 0;
--		return true;
-+		devi = sbi->raw_super->dev_alias_ino[i] ?
-+						-EFSCORRUPTED : i;
-+		break;
- 	}
--	return false;
-+out:
-+	f2fs_up_read(&sbi->sb_lock);
-+	return devi;
- }
- 
- static int f2fs_ioc_reserve_dev_alias(struct file *filp)
-@@ -3756,7 +3775,7 @@ static int f2fs_ioc_reserve_dev_alias(struct file *filp)
- 	struct f2fs_lock_context lc, glc;
- 	blkcnt_t count;
- 	unsigned int start, end;
--	int type, err;
-+	int devi, type, err;
- 
- 	if (!capable(CAP_SYS_ADMIN))
- 		return -EPERM;
-@@ -3780,7 +3799,8 @@ static int f2fs_ioc_reserve_dev_alias(struct file *filp)
- 		goto out_inode_unlock;
- 	}
- 
--	if (!f2fs_get_dev_alias_extent(sbi, filp->f_path.dentry, &ei)) {
-+	devi = f2fs_get_dev_alias_index(sbi, inode, filp->f_path.dentry);
-+	if (devi < 0) {
- 		f2fs_warn(sbi, "device alias file (%s, ino=%llu) has no matching device",
- 			  filp->f_path.dentry->d_name.name,
- 			  (unsigned long long)inode->i_ino);
-@@ -3790,6 +3810,10 @@ static int f2fs_ioc_reserve_dev_alias(struct file *filp)
- 		goto out_inode_unlock;
- 	}
- 
-+	ei.blk = FDEV(devi).start_blk;
-+	ei.len = FDEV(devi).total_segments << sbi->log_blocks_per_seg;
-+	ei.fofs = 0;
-+
- 	spin_lock(&sbi->stat_lock);
- 	if (sbi->total_valid_block_count + ei.len >
- 			get_available_block_count(sbi, inode, true)) {
-@@ -3801,7 +3825,7 @@ static int f2fs_ioc_reserve_dev_alias(struct file *filp)
- 	spin_unlock(&sbi->stat_lock);
- 
- 	spin_lock(&FREE_I(sbi)->segmap_lock);
--	FDEV(f2fs_target_device_index(sbi, ei.blk)).is_reserving = true;
-+	FDEV(devi).is_reserving = true;
- 	spin_unlock(&FREE_I(sbi)->segmap_lock);
- 
- 	start = GET_SEGNO(sbi, ei.blk);
-@@ -3853,7 +3877,7 @@ static int f2fs_ioc_reserve_dev_alias(struct file *filp)
- 	f2fs_update_inode_page(inode);
- 
- 	spin_lock(&FREE_I(sbi)->segmap_lock);
--	FDEV(f2fs_target_device_index(sbi, ei.blk)).is_reserving = false;
-+	FDEV(devi).is_reserving = false;
- 	spin_unlock(&FREE_I(sbi)->segmap_lock);
- 
- 	f2fs_unlock_op(sbi, &lc);
-@@ -3870,7 +3894,7 @@ static int f2fs_ioc_reserve_dev_alias(struct file *filp)
- 	spin_unlock(&sbi->stat_lock);
- 
- 	spin_lock(&FREE_I(sbi)->segmap_lock);
--	FDEV(f2fs_target_device_index(sbi, ei.blk)).is_reserving = false;
-+	FDEV(devi).is_reserving = false;
- 	spin_unlock(&FREE_I(sbi)->segmap_lock);
- 	f2fs_up_write_trace(&sbi->gc_lock, &glc);
- 
-@@ -3880,6 +3904,44 @@ static int f2fs_ioc_reserve_dev_alias(struct file *filp)
- 	return err;
- }
- 
-+static int f2fs_record_dev_alias_inode(struct f2fs_sb_info *sbi,
-+				       struct inode *inode, int devi)
-+{
-+	__le32 old_ino;
-+	int err = 0;
-+	int i;
-+
-+	f2fs_down_write(&sbi->sb_lock);
-+	old_ino = sbi->raw_super->dev_alias_ino[devi];
-+	if (old_ino && le32_to_cpu(old_ino) != inode->i_ino)
-+		goto conflict;
-+
-+	for (i = 0; i < MAX_DEVICES; i++) {
-+		if (i != devi &&
-+		    le32_to_cpu(sbi->raw_super->dev_alias_ino[i]) ==
-+							inode->i_ino)
-+			goto conflict;
-+	}
-+
-+	if (!old_ino) {
-+		sbi->raw_super->dev_alias_ino[devi] =
-+						cpu_to_le32(inode->i_ino);
-+		err = f2fs_commit_super(sbi, false);
-+		if (err)
-+			sbi->raw_super->dev_alias_ino[devi] = old_ino;
-+	}
-+	goto out;
-+
-+conflict:
-+	f2fs_warn(sbi, "conflicting device alias inode mapping for device %d",
-+		  devi);
-+	set_sbi_flag(sbi, SBI_NEED_FSCK);
-+	err = -EFSCORRUPTED;
-+out:
-+	f2fs_up_write(&sbi->sb_lock);
-+	return err;
-+}
-+
- static int f2fs_ioc_release_dev_alias(struct file *filp)
- {
- 	struct inode *inode = file_inode(filp);
-@@ -3888,6 +3950,7 @@ static int f2fs_ioc_release_dev_alias(struct file *filp)
- 	struct extent_info ei = {0, };
- 	struct cp_control cpc = { CP_SYNC, 0, 0, 0 };
- 	struct f2fs_lock_context lc, glc;
-+	int devi;
- 	int err;
- 
- 	if (!capable(CAP_SYS_ADMIN))
-@@ -3920,6 +3983,11 @@ static int f2fs_ioc_release_dev_alias(struct file *filp)
- 	ei = et->largest;
- 	read_unlock(&et->lock);
- 
-+	devi = f2fs_target_device_index(sbi, ei.blk);
-+	err = f2fs_record_dev_alias_inode(sbi, inode, devi);
-+	if (err)
-+		goto out_inode_unlock;
-+
- 	f2fs_down_write_trace(&sbi->gc_lock, &glc);
- 	f2fs_lock_op(sbi, &lc);
- 
-diff --git a/include/linux/f2fs_fs.h b/include/linux/f2fs_fs.h
-index bb2b6cd5d507..2130bacdbe93 100644
---- a/include/linux/f2fs_fs.h
-+++ b/include/linux/f2fs_fs.h
-@@ -158,7 +158,8 @@ struct f2fs_super_block {
- 	__le16  s_encoding_flags;	/* Filename charset encoding flags */
- 	__u8 s_stop_reason[MAX_STOP_REASON];	/* stop checkpoint reason */
- 	__u8 s_errors[MAX_F2FS_ERRORS];		/* reason of image corrupts */
--	__u8 reserved[258];		/* valid reserved region */
-+	__le32 dev_alias_ino[MAX_DEVICES]; /* device alias inode numbers */
-+	__u8 reserved[226];		/* valid reserved region */
- 	__le32 crc;			/* checksum of superblock */
- } __packed;
- 
--- 
-2.43.0
+The hardware has a limited number of context banks that serve many
+sessions (on fastrpc, via the DT "qcom,nsessions" property), so multiple
+drm_files may end up sharing the same underlying CB due to hardware
+constraints, but while implementing that also, I'll ensure that the
+association goes through drm_file->driver_priv, never through a PID scan.
+
+I'll also look into drm_gpuvm for the longer-term address space
+management as Rob suggested.
+
+Thanks,
+Ekansh
 
