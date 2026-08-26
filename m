@@ -1,81 +1,116 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.165])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E63C3AD52B;
-	Wed, 26 Aug 2026 20:58:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787777892; cv=none; b=krrCOz1akLTAjzg+bi4jOHPho7Muqe3FXZtYrd8i8uF5nqSvH/q8ETsOzX7MgN48yi3bM0z1G/s5CoF2Lt02U/eXq0l0f8HHICVD0gpppKaEUw9POg4xeo3e8kRVPPicHxGABN2lUdIRjbzTykpr7pjXPT9UnS77Swfqy4vW+qw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787777892; c=relaxed/simple;
-	bh=0z9/8QDTndRX0GOVClV5gilwMHhR4WDORaNJ2Jj8ySM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UKLThnQq66BZ0fAmZxH9s4AsVjqdq2rVtZn9v48jOEqwwaMazjOMGJ8s+RA+Ptc2WejDajFqLUeflS9psRRo7dsEhLsebsMZoDblmODS4sGKzbcPR9xhpP8nBV29G/MlDuWIYdcIiO/8DskvN3+v4e2l3OLtRKCURdmt0jOOGE8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=Gk++gNb7; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FE3A45A287;
+	Wed, 26 Aug 2026 20:59:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.165
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787777966; cv=pass; b=jBo5BwF8WHkFU0kpsuV6tNGx1xmHBrvq8JPsO22JExcJW160O666TM6gWKDV9WA6QT4fELNz7kG7MGRUWeKUnl8axd3mrBaBj9CwF59DhZhiNosm/IxMpfIu7BcIV+rLrpcFfjBmlZp0t3HnbcIwsyCsrWo5BBxhKvmI3dcgHS0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787777966; c=relaxed/simple;
+	bh=7TimULhYK4Q/vDyDhA4QIg1dUsow0FpgWnuFD1qPrvw=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=JULe+ns4z0pmKoFMEO4sKOldZkMSyWbzj/tH2EXaAuowRfIaEmKvWtULN2sjVqvQhOnHpe5DXXftgBowCBA/wYoUS5y6QVbw3auZrL/k3GRsHm+xwbiuO/EP+2Wsd2WiS/F26afConxJWCPKQwseF6USPZ9PApnpO4ME900UD3w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de; spf=none smtp.mailfrom=iokpp.de; dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=ouKJtkks; dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=RNA4YzA0; arc=pass smtp.client-ip=81.169.146.165
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="Gk++gNb7"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=6BSYdpEPt01McAnG4u8lln5Yld57nZzWrLhCayqxD+0=; b=Gk++gNb7sGZR1YerBxsUPWVOAv
-	UOLsd1KSFlgVFGFo/4Dm7AT9R5ueV3ELForjXbWCOik5M3t7GhBzcbhrDpk6H5obJIo838smYoKG9
-	390FgaW/u4wyOhISwb+DP4JolTFF9jLWkY8P5JQLIqmEqKIli3ytdmFt7jXYDAAzgGfQ=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wzKgm-001Zg2-1Q; Wed, 26 Aug 2026 22:57:40 +0200
-Date: Wed, 26 Aug 2026 22:57:40 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Stanislav Fomichev <sdf.kernel@gmail.com>,
-	Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
-	netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
-	pabeni@redhat.com, anthony.l.nguyen@intel.com,
-	przemyslaw.kitszel@intel.com, andrew+netdev@lunn.ch,
-	saeedm@nvidia.com, tariqt@nvidia.com, mbloch@nvidia.com,
-	mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
-	aleksander.lobakin@intel.com, horms@kernel.org,
-	magnus.karlsson@intel.com, sdf@fomichev.me, ast@kernel.org,
-	daniel@iogearbox.net, hawk@kernel.org, john.fastabend@gmail.com,
-	guoren@kernel.org, dtatulea@nvidia.com, witu@nvidia.com,
-	martin.lau@kernel.org, yoong.siang.song@intel.com,
-	intel-wired-lan@lists.osuosl.org, linux-kernel@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, bpf@vger.kernel.org,
-	linux-csky@vger.kernel.org, leon@kernel.org
-Subject: Re: [PATCH net v3 3/3] net: stmmac: document oversized AF_XDP frame
- handling
-Message-ID: <0c17200b-105b-463a-8677-45f575c294f0@lunn.ch>
-References: <20260819160535.1472459-1-sdf@fomichev.me>
- <20260819160535.1472459-4-sdf@fomichev.me>
- <aoceSoSFMx69Z9up@boxer>
- <aoeoJ6-njBxcWs4w@devvm7509.cco0.facebook.com>
- <aogpDsa8hz6CPpD3@boxer>
- <aoiIarzdjk92RkCN@devvm7509.cco0.facebook.com>
- <20260824111443.34bffe04@kernel.org>
- <dc2ccb14-c7c0-402b-93b3-afba52df78fa@bootlin.com>
- <20260826132043.39fb435a@kernel.org>
+	dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="ouKJtkks";
+	dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="RNA4YzA0"
+ARC-Seal: i=1; a=rsa-sha256; t=1787777948; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=Hx3gHhNe5JnoZ0oHLDRpkwvyukEAbWIoeYD/SyWTo/QdJrO8/MuZh1uv5ucMzXBHxM
+    K3z7odOPnQIiofYoRdyc1gmHHicN+2HQMBrJ8dTZwkJJ73BkNUeuBv/Qsy3auDo6cyrI
+    YpAblI/IfcUlqI3sSA0Ny4dlYNIaPRQNeCCSj8aWC5JQVzyTCtK+Au1Apl422upIfCZQ
+    S9txYWTruma3rCJ++IWMzDDEKyhDhdHHBbICWjVsmtAiYnzDHwZGgVCNDrLcALzMpsUA
+    jOP8GiVdgL28c7XLjwbiP4xv84av3BuzvKBAn6QvAOFlIFd04ZrqPs+rSFuzwgIdYTUT
+    gCEg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1787777948;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=7TimULhYK4Q/vDyDhA4QIg1dUsow0FpgWnuFD1qPrvw=;
+    b=ZKSLZN9BQWb8uRB8WGYbyRj6DctuOAP9/ZUdzttfxgHxN03OhnXpR8OsoRdw1keQpi
+    TZR3UCEo6awPzy6nxjNx2BHKY6Q0TO2p2CJFO6r9QYLz5SBbQbGuA5sW3GcrHrOOvek9
+    lGTrIqOxKRHsQGEGInUfr3wEm0jcOnv627zYpTFqTpMJcu7MaBnFxvq3A1gMt/ePGS/2
+    MU5AEoyDUjf4658UB6FSHsn+bYf7U/eRPZTHQnsOgg0yUsopwmAHvvKuQKybcqFP57jO
+    y1qDcNWxqqNrowtDrTRZF8d5oUZw4Z3HCKfv5OIibGzMmyhWBJrzWJpeaYsoHCtFnwDW
+    DdqQ==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1787777948;
+    s=strato-dkim-0002; d=iokpp.de;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=7TimULhYK4Q/vDyDhA4QIg1dUsow0FpgWnuFD1qPrvw=;
+    b=ouKJtkksG0W0UQN0fNCa/0uOUQXYyTnzO9+AWSDsBwa5z616OxNcAZluBGyq+0W9Ew
+    ++MI7G//EAJYArAOZ7i1mtjS9V9Y11P70ZTXGXcpfbEzPzZJSYNAd2QDc/PxYJYI3WYg
+    rjvFmS36XxjIZZvrXXMZ4Tmp1tbHBD6sHa7euUnokom55Bm5qQ2J7iWyBHX8o8C7KB6Y
+    bDsC/OctzG1IfgUXPfkHphPfPIygU4a7OzQEXtXqKOQz4JLRg40gLemXXM2zipqNHPvO
+    LkWAYUrBqmGSPlA281thprv+rVc+0/eI2j+jXq0yJzkg5g4xXcz3OSU9H38IK3tZrUKB
+    LX9A==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1787777948;
+    s=strato-dkim-0003; d=iokpp.de;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=7TimULhYK4Q/vDyDhA4QIg1dUsow0FpgWnuFD1qPrvw=;
+    b=RNA4YzA0zmSJkdGF7xUN6nGBxQMMSklmB5HcVyP3ateEoLZh7DQOU+kRlAADOJK17p
+    JZO9h7KgDr5R9pym0hBQ==
+X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0zNriHg+YfT0rGaZpI+/4nexcz3kdO/c/hqkiDQr7/41mCC1SnA="
+Received: from p200300c58729688cd608b20553b67495.dip0.t-ipconnect.de
+    by smtp.strato.de (RZmta 55.6.2 AUTH)
+    with ESMTPSA id ze37e127QKx7VEc
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Wed, 26 Aug 2026 22:59:07 +0200 (CEST)
+Message-ID: <6ae9f526476cfce73c118c946f005753dd2d00b0.camel@iokpp.de>
+Subject: Re: [PATCH v3 1/2] ufs: rpmb: retry power-on UNIT ATTENTION on the
+ RPMB WLUN
+From: Bean Huo <beanhuo@iokpp.de>
+To: Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>, 
+	James.Bottomley@HansenPartnership.com, martin.petersen@oracle.com, 
+	alim.akhtar@samsung.com, avri.altman@wdc.com, bvanassche@acm.org, 
+	beanhuo@micron.com, can.guo@oss.qualcomm.com
+Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ op-tee@lists.trustedfirmware.org, jenswi@kernel.org,
+ sumit.garg@oss.qualcomm.com
+Date: Wed, 26 Aug 2026 22:59:07 +0200
+In-Reply-To: <20260821150612.3944782-2-jorge.ramirez@oss.qualcomm.com>
+References: <20260821150612.3944782-1-jorge.ramirez@oss.qualcomm.com>
+	 <20260821150612.3944782-2-jorge.ramirez@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+User-Agent: Evolution 3.44.4-0ubuntu2.1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260826132043.39fb435a@kernel.org>
 
-> Also if you try running driver ksfts - please keep us posted on what
-> the blockers are. I _think_ we just need to teach ksft to cross compile
-> C binaries?
+T24gRnJpLCAyMDI2LTA4LTIxIGF0IDE3OjA2ICswMjAwLCBKb3JnZSBSYW1pcmV6LU9ydGl6IHdy
+b3RlOgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3Vmcy9jb3JlL3Vmcy1ycG1iLmMgYi9kcml2ZXJz
+L3Vmcy9jb3JlL3Vmcy1ycG1iLmMKPiBpbmRleCBmZmFkMDQ5ODcyYjkuLmQwYzdlYTdhMzZmNCAx
+MDA2NDQKPiAtLS0gYS9kcml2ZXJzL3Vmcy9jb3JlL3Vmcy1ycG1iLmMKPiArKysgYi9kcml2ZXJz
+L3Vmcy9jb3JlL3Vmcy1ycG1iLmMKPiBAQCAtNDAsNiArNDAsMjMgQEAgc3RydWN0IHVmc19ycG1i
+X2RldiB7Cj4gwqBzdGF0aWMgaW50IHVmc19zZWNfc3VibWl0KHN0cnVjdCB1ZnNfaGJhICpoYmEs
+IHUxNiBzcHNwLCB2b2lkICpidWZmZXIsIHNpemVfdAo+IGxlbiwgYm9vbCBzZW5kKQo+IMKgewo+
+IMKgwqDCoMKgwqDCoMKgwqBzdHJ1Y3Qgc2NzaV9kZXZpY2UgKnNkZXYgPSBoYmEtPnVmc19ycG1i
+X3dsdW47Cj4gK8KgwqDCoMKgwqDCoMKgLyogUmV0cnkgdGhlIHBvd2VyLW9uIFVOSVQgQVRURU5U
+SU9OIChBU0MgMHgyOSk7IHRoZSBTQ1NJIGNvcmUgZG9lcwo+IG5vdC4gKi8KPiArwqDCoMKgwqDC
+oMKgwqBzdHJ1Y3Qgc2NzaV9mYWlsdXJlIGZhaWx1cmVfZGVmc1tdID0gewo+ICvCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqB7Cj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqAuc2Vuc2UgPSBVTklUX0FUVEVOVElPTiwKPiArwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoC5hc2MgPSAweDI5LAo+ICvCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgLmFzY3EgPSBTQ01EX0ZBSUxVUkVf
+QVNDUV9BTlksCj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAuYWxsb3dlZCA9IDMsCgoKLmFsbG93ZWQgPSAzIGlzIGEgZmluZSB2YWx1ZSwgSSBjaGVja2Vk
+IGNoLmMgKzE5NyB1c2VzIDMsIGFuZCBzZC5jIHVzZXMgNSwgc28gbm8KY29tcGxhaW50IGFib3V0
+IHRoZSBudW1iZXIgaXRzZWxmLiBCdXQgdGhlIG90aGVyIGFzYyA9IDB4MjkgdXNlcnMgZ2l2ZSBp
+dCBhCm1lYW5pbmdmdWwgbmFtZToKCmZvciBleGFtcGxlLCBzZXMuYyBoYXMgU0VTX1JFVFJJRVMg
+YW5kIHNkLmMgaGFzIFJFQURfQ0FQQUNJVFlfUkVUUklFU19PTl9SRVNFVC4KYSBVRlNfUlBNQl9V
+QV9SRVRSSUVTIChvciBvdGhlcikgd291bGQgbWF0Y2ggdGhhdCBtZWFuaW5nZnVsLgoKCm90aGVy
+cyBsb29rIGdvb2QgdG8gbWUuCgpLaW5kIHJlZ2FyZHMsCkJlYW4KCg==
 
-It would be nice to make it not give out 1000s of warnings on 32 bit
-builds. At least that is my experience doing a native ARM 32 bit
-build.
-
-	Andrew
