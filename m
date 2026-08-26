@@ -1,174 +1,170 @@
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63C6A4746BA
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 19:00:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 788AA3D0BED
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 19:03:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787770862; cv=none; b=NseSW5IYoaxwPspOcoSBXeN4S0Jeo3G43WMoFKNfc1gXco9lk08mxmKSe2O0beCi4oub7nkpQ9qsvb91g4ytE39/D84dVuePnvvMwvuyWttDqiSRyL9/DFkydEoctCe1iZGW4QQtpkF9oQYB1bfTZoUPl4jQAfeh25Bwj3dC/4A=
+	t=1787770992; cv=none; b=YoKLnnGEESldG6X3NkPb4UVyfBdXQbBFKDviALpyorL7sr+6ieFwnW0B2Czy803s0bcIZv+YjoPKrXfjtnEOb9wKgsS13R84dx1oSfAYp1E6bbmCCazviNeG8iu89q6EixtZWi68H6r4NS0haZHmP8LvWng5U//07Q5mdEglC9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787770862; c=relaxed/simple;
-	bh=r199hK+LeqZ1TLG+BUKrDlZcPBwc7S2i71PiuCEluyQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SIyLMlZcwiWB2TW+rac6aEs7Z58hc3S38gb9aedDQU+Ksf4cxrH7t8/CV36C2D+JLvljEQxnz4O186RNd6dXJgN8iSKG/WW4ZUyVqgqWJgIccGh4YYTbThJmov51Aui8cvnx/Cx6V5WW2pPYra8R3+Toeyt1L75c5D8hCozspz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q4agiFZP; arc=none smtp.client-ip=209.85.208.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787770992; c=relaxed/simple;
+	bh=wvM8aRvWPmKDto0w4PK3ahRPwdGDE0+KecxUUFw61Bw=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
+	 References:In-Reply-To; b=AexW4kJSjakw1E4ye/2ohEuN3mjr8bIQe1geI0U4AtBDo25sZ7rMdf6EQr+FGmdYYXHQRiiyfdZaD997KX4RmgsZfcTjsL403u740duRxPRnpk6tAD6Pthu1qzVd+ev7oWa/uoq0Z7igLtjlG72HnQuYhmdqDh9V3a4w4RQ6348=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=GEkvImgz; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q4agiFZP"
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6a0c8283146so2199705a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 12:00:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="GEkvImgz"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-47f96c5b722so657355f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 12:03:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787770849; x=1788375649; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CFPG1v4C7K31HHAjywAPdWkZFgAUo2dyQHyuXYjp8pY=;
-        b=q4agiFZPJfbR6Sbb33w+XfcVjAh0ytF2+HnVm94BIOv2s67lVjo8QOXhKDQf7hl1f6
-         cRdL7v2uLl0QnnxHnr5i2bRQiVkdAw2NM8liiQ4OxPW4BNoQ9cs6SDV5Oiq2LVCiZ/kT
-         1BGzzG5jEPMPkekSYmLn6xAPhSgXAsTc4U/oW7PMA+sDFtp6BXnR31McQtpFtTDFEzCw
-         TCNq8lhzblFKFUNbDW03lwcoxRVHOAuuuZlH62Imr9u/DKDu8ZFVAf0Fxe7iCbUK56Zj
-         9QF5Q++Tkn0ywma+SK1/CWLp64V8kPScthc/YB0VblTsCBOlzFiLbN+x6vbhIsW9WhRl
-         /+Rw==
+        d=linaro.org; s=google; t=1787770983; x=1788375783; darn=vger.kernel.org;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=T2Ai0YOriuHS1IQ7CT4b8R/035xHTVcwVEKbUv9HN3g=;
+        b=GEkvImgz1qvD7hqOUYhghwCsVtHsDlpxC2xmH7NBZyqzb0H5n8H2i8Uz66He7NNAe9
+         wZS0rRb2oBZuL4ANoEtBmcIxIVA90gFzq7aJrTp9DmFauDIhKhy5E/WaQ/Xl7pmfDGil
+         YOPHjGo+5Zz3aTPdwk0C54E0Zkm6uzUeXNCix5tEoyft7jH3CBAsPb3+HCLZEoJj+2An
+         LcyVzKIy4DE0D0D7gBsE4/qBt6fy6rmUpJ/Kr0fLjNaTUyut4BIv+je4Rs9snk4VKL+E
+         OgxAXHuTbG6UTuWAIq91IwoEEjJA3RW6uUVorPgYq91chYx9Crahd0fUvsaMmYDDTdBO
+         Kxsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787770849; x=1788375649;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CFPG1v4C7K31HHAjywAPdWkZFgAUo2dyQHyuXYjp8pY=;
-        b=njtc/JvGyQO147spYM/BqtvT62pn7TmqolxnHcW9v+UMAPXU0lB0BHsQuXXisOUjN2
-         HZMbSPDXNPPYCWLEbEwRy2lDrwTx70yMCFM4gMTz+FDB/my/S18wtLMrZVs9MYzwtr4C
-         fUErB3lqZYM5kyebPQUT7gZ+6K222HpokQY54tKYSud6IQHC3C7n5czWi1RtOifeo3iy
-         RhOZ5dQjbm1RbeRiKxQ8jlr1xhM27K64ctbJRSccNNnl8FauMntYE60Wx7OxmZmMt0Gq
-         XprlowtEpvUg01LV3weW/OKa9X8boRPu/GMsm5Gn/+YwWiCBC7nkQzOtFLPvcQVfAi0v
-         64rg==
-X-Forwarded-Encrypted: i=1; AHgh+Rpkf0lqirf3Tsl/1tSwG1SS3JteIZ/9RV/02znzdjNVPz7sIKlm+ggYouh+uAHTlag82gOXrlHO35S7i8Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++kC80I6X0B0hPRc7gVvEbYVGZjaf45cyijGyXdBX8R4XIaJFLoM
-	K1RyA2K/6fHCeyw9dgtgeY0Nkfti0g8pVfzcG7dWm1+soep1Or5tjrBn
-X-Gm-Gg: AR+sD11abz3IwpIJgyctZCu0sOOa2Oll24aCajWcnCI/7+Wlzo9Xd+rmeA+3heJGNlS
-	TBtwl3sCpfeFvDOVx+qWPd9q/IubgYhRs1fFHXB1YcPrbiWA6w5FVuR2P/wGvCQg0XjzNsGSJvY
-	OVzH+jACH8Yoayti7YXPy+oH4PKMpyztsNGXvqxdUZtLVxoqeObmLCUp5Z38pSR5s0gG02QNd0i
-	6/8gqfq8zh91PUgk87Qy4SFn4Sc48NhM1GSZo3j8ircC9xEQ0nnJQLM1ap6DFlfcVv5C++9Cq3L
-	wlhTpfkHVp9UbhjP1Fb+iv7onqaKw3j+c87Y+7h9PP8MH7lVaav3SiMGVYUjkG1sscNNw60jzGR
-	TIt+4zxtSsuo0Phs9BaH4or4P5lyFocjTvt1aRi+Gb3ZBZNYVAIs5gYg9nIyZk3LK7rgZ0FCsv3
-	Lr13IReaIuhUMwFQU+7mTFuC0PifYDeEFX2ePqzdfO9622FDUmylU0HLVj8W0vSdWRkK40lUcXf
-	WeWDavY4BKBGNB3KWRkNyYFtqyV1xoSWMNS
-X-Received: by 2002:a05:6402:1586:b0:6a5:d8f0:dc12 with SMTP id 4fb4d7f45d1cf-6a5df64dd40mr12745079a12.14.1787770848476;
-        Wed, 26 Aug 2026 12:00:48 -0700 (PDT)
-Received: from flaviu-Aspire-E5-572G.. ([5.15.67.216])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a5dea83ba0sm5318287a12.14.2026.08.26.12.00.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 12:00:47 -0700 (PDT)
-From: Flaviu Nistor <flaviu.nistor@gmail.com>
-To: Conor Dooley <conor+dt@kernel.org>
-Cc: Guenter Roeck <linux@roeck-us.net>,
-	Jean Delvare <jdelvare@suse.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Flaviu Nistor <flaviu.nistor@gmail.com>,
-	linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: hwmon: national,lm90: Fix channel constraints for temperature offset
-Date: Wed, 26 Aug 2026 22:00:43 +0300
-Message-ID: <20260826190044.5211-1-flaviu.nistor@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260825-iciness-unsavory-a13f2bf0f2d9@spud>
-References: <20260825-iciness-unsavory-a13f2bf0f2d9@spud>
+        d=1e100.net; s=20251104; t=1787770983; x=1788375783;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=T2Ai0YOriuHS1IQ7CT4b8R/035xHTVcwVEKbUv9HN3g=;
+        b=J3O7oR1XFyaFlomB9vmGW+MhE8lbxm9tOlwhz9L0aQ6R1ZCu6aRCtjCakH69k7C6tU
+         aUbsxV1iOeX0Bp/KybIRzqJHW/iiKZ+nb2699DTPA6h2f/PkQbMR+nSrdBxsz+NQuRls
+         NChHBCadLMC9K32dy/fr7qbPhKaVYV8/MWnla7OGxbiq/yQqq/6ArID7YqpuG9gb2gVW
+         xzJtETeLb1C3OxOVExYENdy4eI02wIApCcFZcAG9qaSPJh/bx+GAVZ0BNUycFCrGxUsg
+         qLndExDmbsv0xNnA/MvIgzY7Rbzla9l483FMTqdyW+MGQQHzzI2c73HjiK2Mw/kqKbe2
+         On8w==
+X-Forwarded-Encrypted: i=1; AHgh+RqNoM/dHMm5cZujx2dFWtaMMWK9UMUf/KyEwykEm/FsOIHjKJMUF7FFx13E1rtWRGwtZsVqk5eebky4GD0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nkxt4FLimmqV686qjM/KwGP948sCaxuFpdzAUxcuZegAazcyhK
+	gxNs8FtpQnu7j74J/jW3sN+hrHhMGDP1yI9qEmMYx3NKBoXAj6QIv8ivFkO/3VDlX2Q=
+X-Gm-Gg: AR+sD10ja9k/8HHvzP686/aHV1TTbPiddhJmasJL91gciZAiCbcU5UazHf6LPVlN4hf
+	IoroHHSA61XWTLOA3xwLt/QEPujfszwoaDwPPv7til2//qfQoeiUYsXpQOd12vqMjy0EPL/Oaai
+	VTIFRkN1rFOkbcytn+MhRTkwephf6rIvHUFLZmUtV4utIf4o56MP7miAtrqVv8m04ANxAVXeieV
+	F7hhV0VkQJE082cCtuv82EvRh4ZkuYTh2WPsl5BmdSNSqy7Aoyso82owlXYtI0aB7h5ewk22b+O
+	l1ZGN7fRgTgDJI4vNiycBERbOqD92qOpR96Z+cRGYlwoStfxQd0W6NeQRyr7bZMfWVl6N09iWno
+	oAN0oAlTn5Qx9/GYzTmtliZJAFW7lVdhnkmoq6z3Hy37C8jZmj613CFvaIXLc3uHA8SZ8Zxy+X7
+	QQ/0VdGfIU9i1dpA5+1X4eDQxjSXK96vix7PVqAX48/IAuwtjTj78DcaJmBjW+qD4pGLT1EKP+5
+	Oi+xBrooTWCFpxiedoyca+Z5nr462a5TxYRiQ0lnB+GGosZi9Rl4mwwTT5x
+X-Received: by 2002:a05:600c:190e:b0:499:a277:e8c8 with SMTP id 5b1f17b1804b1-499dc725b50mr82901585e9.13.1787770983326;
+        Wed, 26 Aug 2026 12:03:03 -0700 (PDT)
+Received: from localhost ([94.4.85.166])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e27ab4dasm3669437f8f.15.2026.08.26.12.02.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 26 Aug 2026 12:03:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 26 Aug 2026 20:02:59 +0100
+Message-Id: <DKZ3X5VUHJSK.1KSJR6K8FATGV@linaro.org>
+From: "Alexey Klimov" <alexey.klimov@linaro.org>
+To: "Thomas Turner" <tturner@lineageos.org>, "Sam Protsenko"
+ <semen.protsenko@linaro.org>
+Cc: "robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
+ <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
+ <krzysztof.kozlowski@oss.qualcomm.com>, <peter.griffin@linaro.org>,
+ <alim.akhtar@samsung.com>, <linux-arm-kernel@lists.infradead.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-samsung-soc@vger.kernel.org>
+Subject: Re: 
+X-Mailer: aerc 0.21.0
+References: <GVYP280MB12139AB976CA7ACF49FEB768A1A52@GVYP280MB1213.SWEP280.PROD.OUTLOOK.COM> <CAPLW+4kQTUX8QhKnAP7bg=iCw5hhNQZoW7cuOpTdvvAUpGaicg@mail.gmail.com> <135d48e7-58ac-48b8-8fa5-c2548e2f3ae9@lineageos.org>
+In-Reply-To: <135d48e7-58ac-48b8-8fa5-c2548e2f3ae9@lineageos.org>
 
-On Tue, Aug 25, 2026 at 7:58 PM, Conor Dooley wrote:
->On Mon, Aug 24, 2026 at 09:38:59PM +0300, Flaviu Nistor wrote:
->> Limit temperature-offset-millicelsius to remote channels only, since
->> channel 0 is local and this property does not apply to it.
->> Channel 2 is only valid on devices with two remote sensors, so reject
->> channel 2 for compatibles that do not support a second remote channel.
+On Tue Aug 25, 2026 at 10:05 PM BST, Thomas Turner wrote:
+> Hi Sam and Alexey,
+>
+> On 19/08/2026 20:51, Sam Protsenko wrote:
+>> Can you please tell us a bit about how you tested this patch, and on
+>> which board? As DPU is not currently enabled on Exynos850 SoC, I'm not
+>> sure how exactly GPU can be useful. If you have a use case or a
+>> testing procedure we can run on the E850-96 board, please share.
 >>=20
->> Signed-off-by: Flaviu Nistor <flaviu.nistor@gmail.com>
->> ---
->>  .../bindings/hwmon/national,lm90.yaml         | 29 +++++++++++++++++--
->>  1 file changed, 26 insertions(+), 3 deletions(-)
->>=20
->> diff --git a/Documentation/devicetree/bindings/hwmon/national,lm90.yaml b=
-/Documentation/devicetree/bindings/hwmon/national,lm90.yaml
->> index 164068ba069d..a7f82b202b86 100644
->> --- a/Documentation/devicetree/bindings/hwmon/national,lm90.yaml
->> +++ b/Documentation/devicetree/bindings/hwmon/national,lm90.yaml
->> @@ -113,6 +113,29 @@ allOf:
->>        properties:
->>          ti,extended-range-enable: false
->> =20
->> +  - patternProperties:
->> +      "channel@0":
->> +        type: object
->> +        properties:
->> +          temperature-offset-millicelsius: false
 >
->Instead of this, could the two if/then blocks below grow an else with
->this instead? What you've got here is a bit abnormal.
+> Sam, Alexey could you please test GPU on the E850-96 board by following
+> these instructions:
 >
->Cheers,
->Conor.
->
-Hello Conor, thanks for the suggestion. That makes perfect sense (don't know
-why I haven't thought about it directly). I will send a v2.
+> 1) Apply this patch series locally
+> 2) Change status=3D"disabled"; to status=3D"okay";
+> 3) Make sure these configs are enabled:
+> CONFIG_DRM_SIMPLEDRM=3Dy
+> CONFIG_DRM_PANFROST=3Dy
+> 4) In terms of regulators we set up a basic mali regulator via our
+> secondary bootloader [1] and configured with this dts setup [2], NOTE
+> you may be able to get away with a dummy regulator so try that first.
+> If not I am sure you can replicate something simple with u-boot PMIC.
+> 5) Boot a GUI, I saw Debian was used for the bring-up, that should work
+> 6) Run the following command:
+> $ dmesg | grep "panfrost"
+> 7) Compare that to the output at [3]
+
+Your email subject still seems to be null.
+
+[   15.206193] panfrost 11500000.gpu: clock rate =3D 377000000
+[   15.206322] panfrost 11500000.gpu: error -ENODEV: _opp_set_regulators: n=
+o regulator (mali) found
+[   15.206513] panfrost 11500000.gpu: supply mali not found, using dummy re=
+gulator
+[   15.206840] panfrost 11500000.gpu: mali-g52 id 0x7212 major 0x0 minor 0x=
+0 status 0x0
+[   15.213137] panfrost 11500000.gpu: features: 00000000,00000df7, issues: =
+00000000,00000400
+[   15.221271] panfrost 11500000.gpu: Features: L2:0x07100206 Shader:0x0000=
+0000 Tiler:0x00000809 Mem:0x1 MMU:0x00002830 AS:0xff JS:0x7
+[   15.233080] panfrost 11500000.gpu: shader_present=3D0x1 l2_present=3D0x1
+[   15.240488] panfrost 11500000.gpu: [drm] Using Transparent Hugepage
+[   15.250497] [drm] Initialized panfrost 1.6.0 for 11500000.gpu on minor 0
+
+[root@e850usb ~]# uname -a
+Linux e850usb 7.2.0-next-20260825-00009-g647b48e80572-dirty #8 SMP PREEMPT =
+Wed Aug 26 17:05:45 BST 2026 aarch64 GNU/Linux
+
+I have different DRM_SIMPLEDRM options and related  enabled but nothing
+pops up via HDMI (at least I tried simple xorg-server things).
+Is it possible that your bootloader initilises some framebuffer and inserts
+it into DTB that passed to kernel? Or you have some other pieces in
+kernel/dt that implement missing functionality?
+
+Here it seems there are no outputs:
+[root@e850usb ~]# ls -al /dev/fb*
+ls: cannot access '/dev/fb*': No such file or directory
+
+and there no simle framebuffer or related logs. "DPU is not currently
+enabled on Exynos850 SoC" looks like the reason.
+
+Panfrost itself seems to be alive though:
+
+[root@e850usb ~]# eglinfo -B
+GBM platform:
+EGL API version: 1.5
+EGL vendor string: Mesa Project
+EGL version string: 1.5
+EGL client APIs: OpenGL OpenGL_ES
+OpenGL core profile vendor: Mesa
+OpenGL core profile renderer: Mali-G52 MC1 (Panfrost)
+OpenGL core profile version: 3.1 Mesa 26.2.1-arch1.1
+OpenGL core profile shading language version: 1.40
+OpenGL compatibility profile vendor: Mesa
+OpenGL compatibility profile renderer: Mali-G52 MC1 (Panfrost)
+OpenGL compatibility profile version: 3.1 Mesa 26.2.1-arch1.1
+OpenGL compatibility profile shading language version: 1.40
+OpenGL ES profile vendor: Mesa
+OpenGL ES profile renderer: Mali-G52 MC1 (Panfrost)
+OpenGL ES profile version: OpenGL ES 3.1 Mesa 26.2.1-arch1.1
+OpenGL ES profile shading language version: OpenGL ES GLSL ES 3.10
 
 Best regards,
-Flaviu
->> +
->> +  - if:
->> +      not:
->> +        properties:
->> +          compatible:
->> +            contains:
->> +              enum:
->> +                - adi,adt7481
->> +                - dallas,max6695
->> +                - dallas,max6696
->> +    then:
->> +      patternProperties:
->> +        "^channel@[0-1]$":
->> +          properties:
->> +            reg:
->> +              enum: [0, 1]
->> +        "channel@2": false
->> +
->>    - if:
->>        properties:
->>          compatible:
->> @@ -149,7 +172,7 @@ allOf:
->>                - onnn,nct1008
->>      then:
->>        patternProperties:
->> -        "^channel@([0-2])$":
->> +        "^channel@([1-2])$":
->>            properties:
->>              temperature-offset-millicelsius:
->>                maximum: 127750
->> @@ -172,7 +195,7 @@ allOf:
->>                - winbond,w83l771
->>      then:
->>        patternProperties:
->> -        "^channel@([0-2])$":
->> +        "^channel@([1-2])$":
->>            properties:
->>              temperature-offset-millicelsius:
->>                maximum: 127875
->> @@ -186,7 +209,7 @@ allOf:
->>                - ti,tmp461
->>      then:
->>        patternProperties:
->> -        "^channel@([0-2])$":
->> +        "^channel@([1-2])$":
->>            properties:
->>              temperature-offset-millicelsius:
->>                maximum: 127937
->> --=20
->> 2.34.1
->>=20
+Alexey
