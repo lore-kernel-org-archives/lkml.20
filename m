@@ -1,57 +1,57 @@
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73F88492516
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:33:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E42B1494812
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:33:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787780011; cv=none; b=OPq9on6ZxwTxCOPF52D1KRwOcAnZetDw6oBP7g3DcA21Qy/QoowqXfrVw7kwHhuFRspcFfuBJmrsHFhHIu9q/rs1nf/qhjt4TRtu5Ltvym3PmQJ6WOZSivLiLKen/ZF4qyqz1tjw6vb/ONlVNxL5H+p/uFOjxfWdy9fDwmIbpW4=
+	t=1787780012; cv=none; b=c0DuJVI5xB20Lqxs/JfWtHt4rX/XhAFT1qTcuPgcjFlaQRuc2gzK/QRbYJkjTIa1F1J4o+Sm/i74gepVMpHXpvTM6DK9wUH//Rz24ggELl7GEjVxa992FaE9mZM1ea1JJdXk+tDwKPaoMswflJ/EzdQDuBoP5kiW44Pn70yLqhw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787780011; c=relaxed/simple;
-	bh=MifOa2XnbtMroctCQ2vPlzSapAFPZbMD1f0LVHEO7X8=;
+	s=arc-20240116; t=1787780012; c=relaxed/simple;
+	bh=5o1ucxtr3buA18SWRKhpY2bxC7WdEGghBR5g0Rxi3wM=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=Se6Lof+P2KA9V8WnwfomevQH1/U4HWV4qDSwD1PA4z+I+gDTOo9gsb0AYxJblIeZD8RektGjGTmN8TMlnvnj/Zqf17f9Ni2K06InhlkO/wSfbzDJWQJMBNUR1Tfbpy165SJp6ETI5PCXJwLrZKxtz3qKiOiijhBu3SYspoOtwz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=PC2OcvxK; arc=none smtp.client-ip=209.85.215.197
+	 To:Cc:Content-Type; b=PavVOD6xCnl+YAgdyNwDx4Q61VoeVUqRyVeeNIihjNgAh4dJsOhn8j8e6IIAQgA3wsU2ePYsJr+C7GPaGtqbjXS68TxlsBhHqaKXZBCsaoEY6Gg50s88RC3x3U3codCbH5jU5hxBCyvje29c0Ur3KMp4w1nxCIFTLHkYP8Yy9LU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Ph21pb/4; arc=none smtp.client-ip=209.85.214.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="PC2OcvxK"
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc1c1cc5206so1510028a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:33:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Ph21pb/4"
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d63c16fc5bso30925385ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:33:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787780009; x=1788384809; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1787780005; x=1788384805; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=sIs19yA05E5+D5bvhm1516uSg4N0iBHK8YfCkpxX2Cg=;
-        b=PC2OcvxKts4dmKa4tevER8k3tej1DRYZUs52ZD5uXDkXdQga7mY9QeNZWuPG3f+iUB
-         wY1lf1M2/F/1Z/ii4VYL3MhU7qKEf0ba4PIrZGxr5IEEnJS5s28H6zpSR3KhMCoF57Z5
-         G/vnAGRxMt2tmr3tk+mHmdiGY8N+DalR76Zng7j+ZPfpqo24qnve/XptvouipFiojr5b
-         llyQcZZuSMsn/J7DiydAyWKH6pMEBo8DdRzyOazKD/XzJOjSfG0gcVrfyM3+Yhf/mHr9
-         6bv3w6NYKw1GLIGIdkQRkc0Y4iexWVlNNGuNXwIwfNy9L2Sk0+SQOVuAWQLfxreC3pZB
-         DvvA==
+        bh=UiH12BgSBfe0UjZRWynvrUBvNJGP2GUeAXjWBAJFBLE=;
+        b=Ph21pb/4O1HCECZpP8VXLQV7yUva4/iJFKHjKqL9LjSGMteOsX0LTEFsZeZ2o4uCza
+         DYR5SxD562TOQObS6aHyWN7XL90Uw44bpgCVytwnZ9l7R8nlYDJyAZSogomftgf+hHkP
+         fGBC4fPkgNXBsvx+iN9rfTIPVnyAE0hQ6AKojXrGBV8Ud4wiOiIkz9W5jMa7tdMCLZSx
+         n5Jb6QwpJ+swGhz64/qUmWPlqixIacrccBL+TO2lgiIPYkn/ECuEgzvWVoevPMDIvtLK
+         y8MS5TtqQ43ij0q8ucyikJcQXfJ00PwMuKv85g7E1DUJxW4oS7cpfLEmIR1eHqF+LwUh
+         ps8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787780009; x=1788384809;
+        d=1e100.net; s=20251104; t=1787780005; x=1788384805;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=sIs19yA05E5+D5bvhm1516uSg4N0iBHK8YfCkpxX2Cg=;
-        b=ezXfMDOzmQ7KW/FvF+nqlh23V22k7j6QKg6xoxAzgT4r7Y6EWUwAlxAQ5ck5UW5K+j
-         hJ8RRlzvf2/XNP5t81FWEwBoWj1ldCBxbVHc7+C2G7uKSudq3rIp6HXvWbVksKqKuAvX
-         YhnJKWutKYZa89rVch1D0cpCyzjpTPIHSFjNf/QoX7+oMZ0VF5EpPgUwka9HD5KscrI8
-         J3iJAZ+RXYEd8d71wA6HI/svMvmZOUkPjVThP+7+RxY6RxfhskTkG2uKJcnssfgkMndv
-         0qCGrGcaq3GQjO+bzjcw0C78AYK8tSkLrNyXL7kpRteZ1q48cXemKd5d7IzxQT/yvIv2
-         bRdA==
-X-Forwarded-Encrypted: i=1; AHgh+Rpu8d/uIhRJJXTZRoimnOgcGZ4UtGVyU/nPdVRlQN5SsfC8+SdYJE6dhmu6gQSegghcZA66b8ZGfPv+PJ4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nDYE6RthBc9l4NpuV+Vcv+n4yFTh3D7KRK75NYRVht0EGbR3OE
-	ZVHAa6H+85+EmcroKS6NyAJ+McStVtsbu8ods7Q9PGJ6xO0mNUwBTpJ9djsvPETu/+qnaW1xMiS
-	mYjSuYQ==
-X-Received: from pghu17.prod.google.com ([2002:a63:ef11:0:b0:c82:a5b0:d9f0])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:e18b:b0:3be:b0b3:3962
- with SMTP id adf61e73a8af0-3cf83f36b8amr21369888637.9.1787780008574; Wed, 26
- Aug 2026 14:33:28 -0700 (PDT)
+        bh=UiH12BgSBfe0UjZRWynvrUBvNJGP2GUeAXjWBAJFBLE=;
+        b=h86CQ64EpIayPfNtZUb2xbvk1B2zG5eVNk5USKnBHzTG5gOOOkdC6AS+txklT4/Ndv
+         MXIowCskPegDR9u0TXzq4Hbw5pJkQ5pUUYmLzXtDiSe4jlM0jmVobKeMAC0gC8950L3q
+         UfZ7QHAQrYGisn6fpQHuMy5DDeEYZxnjIviA4xs6iTM3kp5Myhx/kYVPR62A1w3AKUtq
+         EPiaffMooNs7eqHLA0g/5aqAWE8Xz0YMTHFYc9Rqo++eG2ctoEKT6xNI4NRcnk3rGHBS
+         fFiBh3QdrCMzyqAW9Ucsv2aQgwyx7lBU3IgyuZ15FjlCpu5VdRJrOpIIAL6xhZ0/j+hT
+         2k4g==
+X-Forwarded-Encrypted: i=1; AHgh+RrX1WwnkmPCDB6jpL/gdJc/uB7h2tqjcQrHjo3CpUhTkdiLP24JVkUP0U7VWeqnWb2pVrf6ymYtB9PyPhs=@vger.kernel.org
+X-Gm-Message-State: AFuF++mTrpV0qMIv7SY4vMdk7ZFIw/k+85e6DWRKw8zMjz+x7hoFLppI
+	2WBFLMKsxvP9rYguZIc4crCciuFG+F7tXs47FLJY9ez+ZTXlBnJ/QRH9JCci44M06uT2vJvEtJ7
+	wjjAFMg==
+X-Received: from plbmg8.prod.google.com ([2002:a17:903:3488:b0:2c7:f626:ec80])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:3810:b0:2ca:d91d:d3a7
+ with SMTP id d9443c01a7336-2d707aea3aamr193928235ad.10.1787780005172; Wed, 26
+ Aug 2026 14:33:25 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Wed, 26 Aug 2026 14:33:01 -0700
+Date: Wed, 26 Aug 2026 14:32:58 -0700
 In-Reply-To: <20260826213303.914988-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -61,134 +61,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260826213303.914988-1-seanjc@google.com>
 X-Mailer: git-send-email 2.55.0.887.g758fc8c411-goog
-Message-ID: <20260826213303.914988-22-seanjc@google.com>
-Subject: [PATCH v10 21/21] KVM: x86: Use kernel timekeeping snapshot to get walltime+TSC
+Message-ID: <20260826213303.914988-19-seanjc@google.com>
+Subject: [PATCH v10 18/21] KVM: x86: Remove implicit rdtsc() from kvm_compute_l1_tsc_offset()
 From: Sean Christopherson <seanjc@google.com>
 To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
 Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	Paul Durrant <paul@xen.org>, David Woodhouse <dwmw@amazon.co.uk>, Dongli Zhang <dongli.zhang@oracle.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Replace the KVM-private vgettsc()+/do_do_realtime() timekeeping
-reimplementation with calls to the recently crafted, generic
-ktime_get_snapshot_id() interface.  As noted previously, the snapshot
-provides both the system time and the raw_cycles (TSC), atomically paired
-using a sequence counter.
+From: David Woodhouse <dwmw@amazon.co.uk>
 
-With great pleasure, delete the now unused read_tsc() and vgettsc()
+Let the callers pass the host TSC value in as an explicit parameter.
+This leaves some fairly obviously stupid code, which is using this
+function to compare the guest TSC at some *other* time, with the
+newly-minted TSC value from rdtsc(). Unless it's being used to measure
+*elapsed* time, that isn't very sensible.
+
+In this case, "obviously stupid" is an improvement over being
+non-obviously so.
+
+No functional change intended.
 
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-[sean: separate from other conversions, express joy at vgettsc()'s demise]
+Reviewed-by: Paul Durrant <paul@xen.org>
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/x86/kvm/x86.c | 85 ++++------------------------------------------
- 1 file changed, 6 insertions(+), 79 deletions(-)
+ arch/x86/kvm/msrs.c |  3 ++-
+ arch/x86/kvm/x86.c  | 11 ++++++-----
+ arch/x86/kvm/x86.h  |  3 ++-
+ 3 files changed, 10 insertions(+), 7 deletions(-)
 
+diff --git a/arch/x86/kvm/msrs.c b/arch/x86/kvm/msrs.c
+index 66fa7140d65d..22ceb39d41f6 100644
+--- a/arch/x86/kvm/msrs.c
++++ b/arch/x86/kvm/msrs.c
+@@ -1631,7 +1631,8 @@ int kvm_set_msr_common(struct kvm_vcpu *vcpu, struct msr_data *msr_info)
+ 		if (msr_info->host_initiated) {
+ 			kvm_synchronize_tsc(vcpu, &data);
+ 		} else if (!vcpu->arch.guest_tsc_protected) {
+-			u64 adj = kvm_compute_l1_tsc_offset(vcpu, data) - vcpu->arch.l1_tsc_offset;
++			u64 adj = kvm_compute_l1_tsc_offset(vcpu, rdtsc(), data) -
++				  vcpu->arch.l1_tsc_offset;
+ 			adjust_tsc_offset_guest(vcpu, adj);
+ 			vcpu->arch.ia32_tsc_adjust_msr += adj;
+ 		}
 diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index 0352bd147c40..34eadc75fee4 100644
+index f7d9dfe6046d..51a8250e758b 100644
 --- a/arch/x86/kvm/x86.c
 +++ b/arch/x86/kvm/x86.c
-@@ -1383,82 +1383,6 @@ void kvm_synchronize_tsc(struct kvm_vcpu *vcpu, u64 *user_value)
- 
- #ifdef CONFIG_X86_64
- 
--static u64 read_tsc(void)
--{
--	u64 ret = (u64)rdtsc_ordered();
--	u64 last = pvclock_gtod_data.clock.cycle_last;
--
--	if (likely(ret >= last))
--		return ret;
--
--	/*
--	 * GCC likes to generate cmov here, but this branch is extremely
--	 * predictable (it's just a function of time and the likely is
--	 * very likely) and there's a data dependence, so force GCC
--	 * to generate a branch instead.  I don't barrier() because
--	 * we don't actually need a barrier, and if this function
--	 * ever gets inlined it will generate worse code.
--	 */
--	asm volatile ("");
--	return last;
--}
--
--static inline u64 vgettsc(struct pvclock_clock *clock, u64 *tsc_timestamp,
--			  int *mode)
--{
--	u64 tsc_pg_val;
--	long v;
--
--	switch (clock->vclock_mode) {
--	case VDSO_CLOCKMODE_HVCLOCK:
--		if (hv_read_tsc_page_tsc(hv_get_tsc_page(),
--					 tsc_timestamp, &tsc_pg_val)) {
--			/* TSC page valid */
--			*mode = VDSO_CLOCKMODE_HVCLOCK;
--			v = (tsc_pg_val - clock->cycle_last) &
--				clock->mask;
--		} else {
--			/* TSC page invalid */
--			*mode = VDSO_CLOCKMODE_NONE;
--		}
--		break;
--	case VDSO_CLOCKMODE_TSC:
--		*mode = VDSO_CLOCKMODE_TSC;
--		*tsc_timestamp = read_tsc();
--		v = (*tsc_timestamp - clock->cycle_last) &
--			clock->mask;
--		break;
--	default:
--		*mode = VDSO_CLOCKMODE_NONE;
--	}
--
--	if (*mode == VDSO_CLOCKMODE_NONE)
--		*tsc_timestamp = v = 0;
--
--	return v * clock->mult;
--}
--
--static int do_realtime(struct timespec64 *ts, u64 *tsc_timestamp)
--{
--	struct pvclock_gtod_data *gtod = &pvclock_gtod_data;
--	unsigned long seq;
--	int mode;
--	u64 ns;
--
--	do {
--		seq = read_seqcount_begin(&gtod->seq);
--		ts->tv_sec = gtod->wall_time_sec;
--		ns = gtod->clock.base_cycles;
--		ns += vgettsc(&gtod->clock, tsc_timestamp, &mode);
--		ns >>= gtod->clock.shift;
--	} while (unlikely(read_seqcount_retry(&gtod->seq, seq)));
--
--	ts->tv_sec += __iter_div_u64_rem(ns, NSEC_PER_SEC, &ns);
--	ts->tv_nsec = ns;
--
--	return mode;
--}
--
- static bool kvm_snapshot_has_tsc(struct system_time_snapshot *snap,
- 				 u64 *tsc_timestamp)
- {
-@@ -1525,11 +1449,14 @@ bool kvm_get_monotonic_and_clockread(s64 *kernel_ns, u64 *tsc_timestamp)
- static bool kvm_get_walltime_and_clockread(struct timespec64 *ts,
- 					   u64 *tsc_timestamp)
- {
--	/* checked again under seqlock below */
--	if (!gtod_is_based_on_tsc(pvclock_gtod_data.clock.vclock_mode))
-+	struct system_time_snapshot snap = {};
-+
-+	ktime_get_snapshot_id(CLOCK_REALTIME, &snap);
-+	if (!kvm_snapshot_has_tsc(&snap, tsc_timestamp))
- 		return false;
- 
--	return gtod_is_based_on_tsc(do_realtime(ts, tsc_timestamp));
-+	*ts = ktime_to_timespec64(snap.systime);
-+	return true;
+@@ -1155,11 +1155,12 @@ u64 kvm_scale_tsc(u64 tsc, u64 ratio)
+ 	return _tsc;
  }
- #endif
  
+-u64 kvm_compute_l1_tsc_offset(struct kvm_vcpu *vcpu, u64 target_tsc)
++u64 kvm_compute_l1_tsc_offset(struct kvm_vcpu *vcpu, u64 host_tsc,
++			      u64 target_tsc)
+ {
+ 	u64 tsc;
+ 
+-	tsc = kvm_scale_tsc(rdtsc(), vcpu->arch.l1_tsc_scaling_ratio);
++	tsc = kvm_scale_tsc(host_tsc, vcpu->arch.l1_tsc_scaling_ratio);
+ 
+ 	return target_tsc - tsc;
+ }
+@@ -1321,7 +1322,7 @@ void kvm_synchronize_tsc(struct kvm_vcpu *vcpu, u64 *user_value)
+ 	bool synchronizing = false;
+ 
+ 	raw_spin_lock_irqsave(&kvm->arch.tsc_write_lock, flags);
+-	offset = kvm_compute_l1_tsc_offset(vcpu, data);
++	offset = kvm_compute_l1_tsc_offset(vcpu, rdtsc(), data);
+ 	ns = get_kvmclock_base_ns();
+ 	elapsed = ns - kvm->arch.last_tsc_nsec;
+ 
+@@ -1370,7 +1371,7 @@ void kvm_synchronize_tsc(struct kvm_vcpu *vcpu, u64 *user_value)
+ 		} else {
+ 			u64 delta = nsec_to_cycles(vcpu, elapsed);
+ 			data += delta;
+-			offset = kvm_compute_l1_tsc_offset(vcpu, data);
++			offset = kvm_compute_l1_tsc_offset(vcpu, rdtsc(), data);
+ 		}
+ 		matched = true;
+ 	}
+@@ -2627,7 +2628,7 @@ void kvm_arch_vcpu_load(struct kvm_vcpu *vcpu, int cpu)
+ 			mark_tsc_unstable("KVM discovered backwards TSC");
+ 
+ 		if (kvm_check_tsc_unstable()) {
+-			u64 offset = kvm_compute_l1_tsc_offset(vcpu,
++			u64 offset = kvm_compute_l1_tsc_offset(vcpu, rdtsc(),
+ 						vcpu->arch.last_guest_tsc);
+ 			kvm_vcpu_write_tsc_offset(vcpu, offset);
+ 			if (!vcpu->arch.guest_tsc_protected)
+diff --git a/arch/x86/kvm/x86.h b/arch/x86/kvm/x86.h
+index 0f5919b092e4..1d9a66048b01 100644
+--- a/arch/x86/kvm/x86.h
++++ b/arch/x86/kvm/x86.h
+@@ -335,7 +335,8 @@ u64 kvm_scale_tsc(u64 tsc, u64 ratio);
+ u64 kvm_read_l1_tsc(struct kvm_vcpu *vcpu, u64 host_tsc);
+ u64 kvm_calc_nested_tsc_offset(u64 l1_offset, u64 l2_offset, u64 l2_multiplier);
+ u64 kvm_calc_nested_tsc_multiplier(u64 l1_multiplier, u64 l2_multiplier);
+-u64 kvm_compute_l1_tsc_offset(struct kvm_vcpu *vcpu, u64 target_tsc);
++u64 kvm_compute_l1_tsc_offset(struct kvm_vcpu *vcpu, u64 host_tsc,
++			      u64 target_tsc);
+ void kvm_vcpu_write_tsc_offset(struct kvm_vcpu *vcpu, u64 l1_offset);
+ 
+ static inline void adjust_tsc_offset_guest(struct kvm_vcpu *vcpu,
 -- 
 2.55.0.887.g758fc8c411-goog
 
