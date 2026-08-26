@@ -1,45 +1,44 @@
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1437394793
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:20:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0BB9483BC5
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:20:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787779214; cv=pass; b=hH48gDB6pTIoZxY0qTnFFX8V9EH1wpKWztgxXizCEUi9/ECTZCUogH8HTFc3nE2orUnHjD8cJJ7ktILG0LRhE3ZQOF6DGfxRpRG1KgsfbgMePVLBCpuL2N9Q6kUSzDeWaGZT4qfcHjbz6RL80bwoET6qrviunQhAh/bp2geLyBs=
+	t=1787779220; cv=pass; b=G4VXCiODxIDOvjlWHXgIKpDsR26ZYnUWTSfMVVzsuebghMFnv2s83ZdnjKD+W8OcjyZGb6L8ii5rGaj9LTwbZBWiOVgPDxMduE7h45FSyssXyBpCSS6CH4Q1y7eTD/mRUTKnqhI521e0nj+ftZcuTchvvnKb3nZujMykLzozcNs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787779214; c=relaxed/simple;
-	bh=1ViKXn5Z9t7QEwpx1D0niBppUD0kk1O7SjFsLfT8ejE=;
+	s=arc-20240116; t=1787779220; c=relaxed/simple;
+	bh=pVmrmUYZBdwIUMlOq4luZR8AC8h9ODVC/V/HaAGiM8M=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nFckm/ayFET8tEMdR4xwzOa70mIZdvYkb/hk1c1Yl1jX8VCLsh0qYoGvtGx3nnleivNOeKYWu2k6PHnViLUJxRd2OdTzEYPR+OJEpGWLIcxo4zIBgzICkXtmFG1TbFhRFFB7A3vr0UM4S4u8kjxzJOYH1JCdXDSpTq9PwYEwUuE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=U4IR34ZG; arc=pass smtp.client-ip=136.143.188.11
+	 In-Reply-To:To:Cc; b=ECNsbsxLLEOmZSrJkHAcWYAZialfA4/ns+yWA/z81jc6UkyVY3BsuW9Z3iVRuwTaGAH4fuUWWoFg0Fsd+1x3pTZOiWQIXa8Dkvd8rwEvIKxwLbPtdS3zB7+KuhS1YpMFevFAWK6o3BbtDTZ3GX50xMLYti+MiBLFtDaIrcdcqVI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=UNXHvLMm; arc=pass smtp.client-ip=165.173.180.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="U4IR34ZG"
-ARC-Seal: i=1; a=rsa-sha256; t=1787779174; cv=none; 
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="UNXHvLMm"
+ARC-Seal: i=1; a=rsa-sha256; t=1787779180; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=dzDf/A6gDYd86QvQ/MfLWanWD7A+YpKvRu9KMVTjihz86R+0C+3EtsDT1Nc2eyE8sQSw5cumOMRxTr0nUQsfZ7EVrRZNLm9Mm64Cw6lQc9w6dj1hBpd7vhCgDkmU66RiE9U3TFQrwbUp/fIxxiLlKF2hSdW+EwD4cupcZ/KA9PE=
+	b=dOudAr/GfbpkvxdHaChA1wbNHq57ov4QMtIVv9Y2XDxIKlskx3kZC3PPZMHm17C2RJVjTZlOcjEvMBmdM7ikToX6NpbOemkbL7q1jk0i6xTV0fTinJJqTY4K/peIA1Hnte2/8QD8BQmoEFOQLtYdVdvh1o3losABdeOZ6/VhcI8=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1787779174; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=g1FXZ9snXF2f2DkW+ebuDO+prz5XwthtDAwYa3OAmL8=; 
-	b=K8HSN45vLxShZtS3+gFRmgcLap1dW/smpGitQ4Ps3f/F+doyVb6hlkg/iLc04wrIp6asewG2BvTU2Ou998Z9AMhoEbl3qL+6iv+ohX9Agl2yQ42eAVlArnQR19PdVGpMKAYwrOQ/bRMLcYThBMN0cwSkeS7cgvB6XuRiyClvm+w=
+	t=1787779180; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=QmHCSqaC4BFChgC+Mo3s3VRZb7yr2DU+TnltFCeZfiw=; 
+	b=FpFVEU9vW4fVkUaYQGNGS0MrwqYjolByGNjI+kZJ/vmC/t/nLd1vlZsaTqFP1tdKwDwZpQfloMXFGYp7jue/KcYWUzHo6m70nNoi1nCaS2lVl2S9xN9S1645Cdrd67r+LbyzE3v1dNdWqj2MmqfV1I/tq/RYuxo9OT1eyADwOg8=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=collabora.com;
 	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
 	dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787779174;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787779180;
 	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
 	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=g1FXZ9snXF2f2DkW+ebuDO+prz5XwthtDAwYa3OAmL8=;
-	b=U4IR34ZGyI1N6ji44y0jXPyikPvzwifLqkPIpWoguLDYX/Lveygh+TWhHVTA+fcC
-	392cU31brC4wKSf2JkdDHHSNYjAix3P9jCondFUXny7auH4RXGuWX/gif7ft2ZES2AE
-	y2QC+caMgiv6J2tofla5CKcd8ZCSqvd1L7yC1h5M=
-Received: by mx.zohomail.com with SMTPS id 1787779173167251.50782691295262;
-	Wed, 26 Aug 2026 14:19:33 -0700 (PDT)
+	bh=QmHCSqaC4BFChgC+Mo3s3VRZb7yr2DU+TnltFCeZfiw=;
+	b=UNXHvLMm6fNUdT9UJzELzPG8pcrQDrJGwDxLGULuv43HbQ/koSYAl1paEUB9o3d1
+	lpY2K3WZHsHW4Cmx2RvoJz+K1KAD8yjGIEGrYwfrbW4od84mrzQEpoyA+L+iB/qzuJw
+	5omG0Ile4GJB6+FmJAqell6HMlqdmUjvI7zNyfiQ=
+Received: by mx.zohomail.com with SMTPS id 1787779178917438.21898684642974;
+	Wed, 26 Aug 2026 14:19:38 -0700 (PDT)
 From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Date: Wed, 26 Aug 2026 22:18:15 +0100
-Subject: [PATCH v6 13/16] drm/panfrost: Avoid cache flush after perfcnt
- sample in fully coherent systems
+Date: Wed, 26 Aug 2026 22:18:16 +0100
+Subject: [PATCH v6 14/16] drm/panfrost: Introduce a reset lock
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,7 +47,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260826-claude-fixes-v6-13-78119af409e7@collabora.com>
+Message-Id: <20260826-claude-fixes-v6-14-78119af409e7@collabora.com>
 References: <20260826-claude-fixes-v6-0-78119af409e7@collabora.com>
 In-Reply-To: <20260826-claude-fixes-v6-0-78119af409e7@collabora.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>, 
@@ -66,45 +65,92 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1026;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3007;
  i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=1ViKXn5Z9t7QEwpx1D0niBppUD0kk1O7SjFsLfT8ejE=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqj1gMFuKz+mvU4LI9nY4ViyhJBxWl2EU90niSf
- c4MKUbik7aJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCao9YDAAKCRAOJn5M7lND
- PVx7C/sFykCT6g1swxOYk9LHjDxyph/jMYbWnrTYe3T5+1MkpIlR8XhlQL1xaU3b7cnIYoG+5e7
- SeDEKC87AAdLYU84hLOuQ9qqUEeBXhy/QyTSxDOboHhYY+81ZzDRFf5WY0a2krry0IB07JyFhJx
- CJGPrquxkP5G7TWMPPQT125j5yIsqN3QKInwu8C3Qa5W8DBeJOzZ4XmghUJp5VaVIyxG+5E/6lF
- dQG15pT7lC3y3R5nh2TpZxKfyZl7NOd8Et+4CwCialQGaTEU42/jchDF6fR3F9jRlMjr9YNdbEI
- GFLde6oPZtdaVaeqS6eRFBWz1fALoXwcxe+RFwIieRJjH2dktI45YlbBrQnznrP2mDldehCX5Gu
- 1DRIUmJqdO2GBPPJobxyfOyCWD7+r69UpF+WkoICLJoq7FqMBS80/fXR5FzbxNNlwowe98/6ktO
- qjr64XHv7zyX0ShyC7gEiiju0YpK474Q8ZU+DHBvtrEJzkF07Fz6OnZ7417o0/lROcGbs=
+ bh=pVmrmUYZBdwIUMlOq4luZR8AC8h9ODVC/V/HaAGiM8M=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqj1gMsXaaPgL4fsDTjghO73c7AaUq37LoGPvn3
+ IdTVM9ByWmJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCao9YDAAKCRAOJn5M7lND
+ PV8/C/wIPb6p8nlP/ZpeQngxxG7hYBgzGlb6z4e9wR8AHq0D++aiDS7ef5yuMgHd7mIDWMZEx3D
+ dWwfn5tUuy9ew31D0rCe3VypRqMSSWokRIsKb5z8xbnMJAq5EgUuuJ/0m37AzgYs/J6VVOlYOXp
+ f6PtjrcW5FM4fY6pUE8m3h7i/FP0Qf3bAceP3D1xO6aRzB3gm6LDfMg8u7x+98TU8iYUTE4ssis
+ +KLnB/i+6Pp296wjSztkYh/WLp6BELAIaX8mZiICAVkG71anYd9qySOgYm/zpVNOuK42BXbPh7I
+ 1808J/9jDejSfAp17XzQrGI4yUppAijq4lfvOFrV+sunLQo9ZAUDiOwWEpWmWN5QKT4oZtimA+6
+ pgldf3Ix42z8Z311rfCXKcNgYVdXYIxsttfxAeu4qP2f5I0VosILLU6N6/c1AyC41riW9co60X2
+ mYH/+nSRUlbPQERf/yPIDI/93wJiqfS3XphTOnFwiMyRWv/VTb1vfAt1PBhbUGb7FG5PA=
 X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
  fpr=324030E8C005175DF93707A40E267E4CEE53433D
 
-If the GPU and CPU are fully coherent, then there's no need to flush the
-GPU caches after a perfcnt sample is made available.
+So as to avoid accessing HW register while a reset is ongoing, a read/write
+semaphore that envelopes the reset sequence will help driver entry points
+avoid racing with it. For now, the only such racy entry point is the ioctl
+that returns the current GPU timestmap.
 
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/panfrost/panfrost_device.c | 2 ++
+ drivers/gpu/drm/panfrost/panfrost_device.h | 1 +
+ drivers/gpu/drm/panfrost/panfrost_drv.c    | 9 ++++++---
+ drivers/gpu/drm/panfrost/panfrost_job.c    | 1 +
+ 4 files changed, 10 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-index ffc77121070e..b3f71d7fd82a 100644
---- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-@@ -52,7 +52,10 @@ void panfrost_perfcnt_clean_cache_done(struct panfrost_device *pfdev)
+diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
+index 0c8f53905da8..ce1d3eb40332 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_device.c
++++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+@@ -491,6 +491,8 @@ bool panfrost_exception_needs_reset(const struct panfrost_device *pfdev,
  
- void panfrost_perfcnt_sample_done(struct panfrost_device *pfdev)
+ void panfrost_device_reset(struct panfrost_device *pfdev)
  {
--	gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_CACHES);
-+	if (pfdev->features.selected_coherency != COHERENCY_ACE)
-+		gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_CACHES);
-+	else
-+		complete(&pfdev->perfcnt->dump_comp);
- }
++	guard(rwsem_write)(&pfdev->reset.lock);
++
+ 	panfrost_gpu_soft_reset(pfdev);
+ 	panfrost_gpu_power_on(pfdev);
+ 	panfrost_mmu_reset(pfdev);
+diff --git a/drivers/gpu/drm/panfrost/panfrost_device.h b/drivers/gpu/drm/panfrost/panfrost_device.h
+index c94546b49662..0570cb1d650d 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_device.h
++++ b/drivers/gpu/drm/panfrost/panfrost_device.h
+@@ -165,6 +165,7 @@ struct panfrost_device {
+ 	struct {
+ 		struct workqueue_struct *wq;
+ 		struct work_struct work;
++		struct rw_semaphore lock;
+ 		atomic_t pending;
+ 	} reset;
  
- static int panfrost_perfcnt_dump_locked(struct panfrost_device *pfdev)
+diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+index f77780c72a1a..571a26b84126 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_drv.c
++++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+@@ -41,9 +41,12 @@ static int panfrost_ioctl_query_timestamp(struct panfrost_device *pfdev,
+ 	if (ret)
+ 		return ret;
+ 
+-	panfrost_cycle_counter_get(pfdev);
+-	*arg = panfrost_timestamp_read(pfdev);
+-	panfrost_cycle_counter_put(pfdev);
++	/* We should not read timestamp register while the GPU  is being reset */
++	scoped_guard(rwsem_read, &pfdev->reset.lock) {
++		panfrost_cycle_counter_get(pfdev);
++		*arg = panfrost_timestamp_read(pfdev);
++		panfrost_cycle_counter_put(pfdev);
++	}
+ 
+ 	pm_runtime_put(pfdev->base.dev);
+ 	return 0;
+diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
+index 087905cd347a..6107485a5332 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_job.c
++++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+@@ -876,6 +876,7 @@ int panfrost_jm_init(struct panfrost_device *pfdev)
+ 	INIT_WORK(&pfdev->reset.work, panfrost_reset_work);
+ 	spin_lock_init(&js->job_lock);
+ 	mutex_init(&pfdev->sched_lock);
++	init_rwsem(&pfdev->reset.lock);
+ 
+ 	js->irq = platform_get_irq_byname(to_platform_device(pfdev->base.dev), "job");
+ 	if (js->irq < 0)
 
 -- 
 2.55.0
