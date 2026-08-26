@@ -1,122 +1,134 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AF63424D59
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:33:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B95B427F85
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:33:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787751203; cv=none; b=KULnZVuOEM9w9lz61fo+fgBynvRfc4tRe7I6a39lfqoFYmrSEUtiLg9M7FYumc6/Gy8iX9vSfmDSejSk78m8yK3WnSqEa4uK/10CFX9OAxRfG4E46cL8UxOarHWTNl9xeG72/URh5wFAvpMfnlNhn/hs6i5FISZAG0K2NIIVGpM=
+	t=1787751207; cv=none; b=nmGNHx5kyAqk7BV2/meC4Sv7vbFuUr1B6rD6Ib/YHdXYdSfa5SVOWItv1nt3LVZtpt7GWSSwLqgy1KnRd8+ygoMP5SmLTl4VtggFz44BJkdGG7v7TqHjGc3yW54W24GC15xOc0C7E8tht6GDA+uQUm7AsR3q2sT+vwc7B+6Eqqs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787751203; c=relaxed/simple;
-	bh=skh1J20miHyQI+YX6SjrUI0pPMNxBurFeVoXPbNyAqw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rMdFz/pXcX/hcrgg6XlFHm7KxlIqMqAwx7jsjeP61caW30eTMdxFY5c64tE4H8kW4nqMZYIruJCcLJlFJG7Um7OQw/ALlhVZQ0eMqvSDEFdqOgkdoOk+F/wR0rlWk0q28Xl6HuuvL2jWMAXsndJi1EZ4UlcXElvHX7S9MES1y30=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c3jprUtV; arc=none smtp.client-ip=209.85.221.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787751207; c=relaxed/simple;
+	bh=8J4DRYWG08OsFnKUOMRGMGmz+rKwmpDGtxgc6hW2bX8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pVlcoEHf54ioARZwSePOBIR6XckqhniT0vD9SP3vkSW8bUBFEgHkAqW8Mcnift+Hq1GFMWAhFDIEB6/2UoXdozORio9AKukzcnOfsIWAF6SxXNjmhJTADdraFNiV9OAKWfaCE80O6FMC6Zo0ofROlRp3ITgUEPM9Gq02uMqM5Mg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IgYkmzh3; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c3jprUtV"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-47db714766aso1242175f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 06:33:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787751200; x=1788356000; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=eDeYb04JA1wKUlB+4fT7hBu1dYeSHzQSzUnUA5UoiTk=;
-        b=c3jprUtVQbhETdxCm6+ylXMzRdkNb5d8VOq2/82y9Gnsg3XZY9bBpfHfOBKK3nLgLV
-         3jxszFUSj7uWNo9rdwFjyJr7pX2PII0A9DohLTxTf8b3KT0BCuWUnMqb5Yjn/2zcJEPN
-         en/lU0QsLn7hSUze0FUqtrG7JwN68xGMbZNSQO/YupFlSTN+RWuj5dzrvqSW5DgBp0UA
-         VZSZRHegLfpTO5rPb3EgXN4Fj9ISh+PjEosJp/rcWM1PbuKki1kOhdh+JXu9ub8TTmFS
-         GXghIHP0hcos1PTLWyIGw63Kjxp0n8n3PWjkTnMADzJmmjILNp4eBa6Fex07ZpF0Cz3o
-         Yl6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787751200; x=1788356000;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eDeYb04JA1wKUlB+4fT7hBu1dYeSHzQSzUnUA5UoiTk=;
-        b=ITZg+byoT317Tm1Bf1kOl23pW5fmwhugbt96FBVDxsD/kqFX7ygBJ1IAB91IbJkTww
-         rCUYWTAsZ44waCoWC6IbrS5OGBo81pwnBcTM0VV9R1eQwvc5j8kMTCnJZQ9mwnKr2mz6
-         js073tFTjaKutg5i40LSj77NLPFj0FUOMmBZpW1it8HsrsbdZuPnQVT6MLZW7MWm3833
-         9S9ARMoDMzL/bY3ztlkA3uiQkIr91lYNkksn/CnFcSeA00s9gvHVzkiB+a6t9zDbiJLx
-         1keEigItCiEO1BcFKox+jR7ohm0gZgpMw4QnNDwtvsLFMtPpHEhLD4IaFDwUu0jmQf9p
-         xZ/Q==
-X-Forwarded-Encrypted: i=1; AHgh+RrOjrrJLudwz62+UhTxlIKqmGlV1wHlXvle76bmiXAM4EneB2fMrIJriredz8ZOjry9HutrKNGcPr/qQmU=@vger.kernel.org
-X-Gm-Message-State: AFuF++m/rir6Q6Zq40R3CfVDd6FlVBk0dwCXXA32F3SVJGQEjlmrqLLB
-	cptciArglHosxdmNIDFVfRVR6qrq7LBkFxtF3sn9JOf0DBV06oIkVGIH
-X-Gm-Gg: AR+sD11G6FLXX6GDBKpogLlQvsW2Q4rNAFLm7efdVogkbTb4YAClsOrxS9/hdexXTBG
-	oiQQo7JvrrFSc71IVNFYebyAiAo1dJpzQNGCGU5BKDAIKIQrEv1CjnM1cRLNl9MF0OooNqOPSf8
-	oArdLrj3064fGf5smrxeglx0C9xmRs29Qq05m6Q/EDMCzrjpHopNO7RqEN3mIyb6hgp4WbnJRu5
-	AMcL+cnA9jXNRyqYSLUlWPL6l5E0ZnHCEIXdtqlQiwi9r53lDvsQs3djpDT6JVeBt9bqMqQY7Mw
-	KFPJP5S/KX9tTXN6rs7L0i0ynEvJzpOcummfCu28IG11j1KfS9TkxVgRM+3ELdsTCtCrUV2d+P8
-	v1ohB49YMWz6yr9FGOQrqTcor/kOj4nU709YhvtFnmqVVWQiVnLLES5rxIndfw5qe5TttNWsIAK
-	qvd3WOhfNmDQhlzmSE/lCgqQZBjRTe7AC5HAfz50j44kNvapFTvi8w/5AglbQsOKeJh9o=
-X-Received: by 2002:a05:6000:29d2:b0:482:dfaa:dfa9 with SMTP id ffacd0b85a97d-482e26b3278mr4456632f8f.7.1787751199354;
-        Wed, 26 Aug 2026 06:33:19 -0700 (PDT)
-Received: from foxbook (bfk5.neoplus.adsl.tpnet.pl. [83.28.48.5])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e28f6119sm2777848f8f.34.2026.08.26.06.33.17
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Wed, 26 Aug 2026 06:33:18 -0700 (PDT)
-Date: Wed, 26 Aug 2026 15:33:11 +0200
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen
- <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, Jonathan
- Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy
- Dunlap <rdunlap@infradead.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, linux-modules@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-usb@vger.kernel.org, driver-core@lists.linux.dev,
- linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] driver core: add TAINT_FORCED_BIND for when
- userspace manually messes with devices and drivers
-Message-ID: <20260826153311.6340efcd.michal.pecio@gmail.com>
-In-Reply-To: <20260826-bind_taint-v1-0-52b05f4a965c@linuxfoundation.org>
-References: <20260826-bind_taint-v1-0-52b05f4a965c@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IgYkmzh3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787751204; x=1819287204;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=8J4DRYWG08OsFnKUOMRGMGmz+rKwmpDGtxgc6hW2bX8=;
+  b=IgYkmzh3r0nmEmu3ntaOy4yV5bqeyR0Ji6667V8ZUl4B2CvsJADjaoX5
+   KS4y1pGdUKzHnygmJylTvZw/EhmXMujyq4XNQ+jgMnWWA9rTnDhAUxSXb
+   vMf7f9dS1qL1i6IyMVwde5c+j/oSJ14/Y5UFqzuXjdRmGh+P6TznHCUkk
+   AFho9BOl7yVi++LFGMmkVk1sPvXzT9cFkO2UNgKvqwhGt86Exoq+lIHDu
+   K7LAgjD33+60DEhb1dKPIclDs/+3c66H1qoY5kWGw+a5N1jZSdDamrx57
+   o7zRFc/ZiMie6761wj6iSEDPTQi3m6/OjiyBankbXSsTz/srU+H3Uudht
+   Q==;
+X-CSE-ConnectionGUID: U44caBqrSvqnPI9JgxVuNA==
+X-CSE-MsgGUID: ULwR3TV0T9ulZCB00Iq/HQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11886"; a="90742688"
+X-IronPort-AV: E=Sophos;i="6.25,244,1779174000"; 
+   d="scan'208";a="90742688"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 06:33:23 -0700
+X-CSE-ConnectionGUID: fi5T9AQgRHK+SFB76qGiag==
+X-CSE-MsgGUID: ySqgx6cOTpOE0EdGdDI7Yw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,244,1779174000"; 
+   d="scan'208";a="305804799"
+Received: from rchatre-mobl4.amr.corp.intel.com (HELO [10.125.109.37]) ([10.125.109.37])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 06:33:24 -0700
+Message-ID: <33cf028a-58c7-4ffd-af80-d689a67684c7@intel.com>
+Date: Wed, 26 Aug 2026 06:33:23 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] x86/crash: reserve elfcorehdr for CONFIG_NR_CPUS,
+ not CONFIG_NR_CPUS_DEFAULT
+To: "Ionut Nechita (Wind River)" <ionut.nechita@windriver.com>,
+ x86@kernel.org, kexec@lists.infradead.org
+Cc: tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, hpa@zytor.com, akpm@linux-foundation.org,
+ baoquan.he@linux.dev, rppt@kernel.org, pasha.tatashin@soleen.com,
+ pratyush@kernel.org, ruirui.yang@linux.dev, eric.devolder@oracle.com,
+ hbathini@linux.ibm.com, sourabhjain@linux.ibm.com, ruanjinjie@huawei.com,
+ include@grrlz.net, linux-kernel@vger.kernel.org
+References: <20260826073527.21487-1-ionut.nechita@windriver.com>
+ <20260826073527.21487-2-ionut.nechita@windriver.com>
+From: Dave Hansen <dave.hansen@intel.com>
+Content-Language: en-US
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+In-Reply-To: <20260826073527.21487-2-ionut.nechita@windriver.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Wed, 26 Aug 2026 11:19:31 +0200, Greg Kroah-Hartman wrote:
-> The ability to add and remove devices from a driver through the sysfs
-> "bind" and "unbind" files was created all those decades ago as a way
-> that kernel developers can iterate faster, and provide a debugging way
-> for users to attempt to add a new device to a driver without having to
-> rebuild their kernel.
-> 
-> This api over the years has been abused and recently come under a major
-> fuzzing "attack" through tools like syzbot which decided that it would
-> attempt to just randomly bind any driver to any type of device, causing
-> loads of unneeded errors and pointless kernel patches to be generated by
-> unsuspecting new developers.
+On 8/26/26 00:35, Ionut Nechita (Wind River) wrote:
+> Assisted-by: LLM
 
-Hi Greg,
+"LLM" went a little wild on the changelogs here. Shouldn't this just be
+something like:
 
-I think you confused 'bind' / 'unbind' with the likes of 'new_id' and
-'driver_override'. Try binding xhci_hcd to NVMe, you won't get far.
+NR_CPUS_DEFAULT is *purely* a Kconfig thing. Its entire purpose in life
+is to start NR_CPUS at a sane value. There is precisely one (buggy)
+reference to it outside of Kconfig in the whole kernel: the x86 crash code.
 
-FYI, besides being footguns, the latter are apparently used to assign
-any random PCI device to some VM drivers for passthrough or whatnot.
+That code will undersize a reservation if NR_CPUS exceeds
+NR_CPUS_DEFAULT. This causes kexec_load() silently truncate the
+elfcorehdr, which surfaces later as a bad or unusable dump.
 
-The former hardly are footguns and have further common uses, such as
-removing kernel drivers to make VM / USBFS work or "turn it off and on
-again" when a driver doesn't implement recovery. I've seen a published
-script which does this automatically when xhci goes belly up...
+Size the elfcorehdr reservation with NR_CPUS instead.
 
+---
 
-I am also not convinced that fuzzing 'unbind' alone is a bad thing.
-How is that different from 'rmmod' or pulling out a USB-C plug, which
-may have a bunch of USB *and* PCI devices behind it, mid-operation?
-
-Regards,
-Michal
+Does it need more than that?
