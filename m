@@ -1,64 +1,64 @@
-Received: from mail-oa1-f46.google.com (mail-oa1-f46.google.com [209.85.160.46])
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6E173F1AD7
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 11:59:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98AC03F822F
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 11:59:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787745584; cv=none; b=H9RMVJuVUIoDQyMI/CqVk5aKx0/m8lHb4GCCcTCb28EP4s57JlXm1+OQIRAXQ2wvnDGpH2X9i07hJcp2jOr8M7t0xmzy/f0fvCwx2rpMXHTsPBmYWCasFk+V0++Axr44Cvaja0iFKQjYPU8t5Wz2+mWaPLpOhXLPawYOGjrLaq0=
+	t=1787745587; cv=none; b=flLj03otggxDjekerZ+HzTPhGTDPgXisnWqbufmEGh+0lkE8I8Yc7RFP52prF9d1p9XNRKSnEANQr2gwNAzb68UtZjI8uMFsZOV049kY7RtI8psFdUoWOSmhPJiZdfRGjjsK1xle9H6JmRKkGBTyyB1FkWg0Tglvf9/gHa+iuBA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787745584; c=relaxed/simple;
-	bh=M7+C+WJ6TI3LlJz4XmPvw5Lvngo1jKh4HAhbCTl2ZN0=;
+	s=arc-20240116; t=1787745587; c=relaxed/simple;
+	bh=h7J/RvhiciDfKZ1jOUjzZ+MzCgM78+0aQDx6a2MtWZk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mCNo4kOsrjmzkt1WJZYWPcr0Y0tH1E3kVD85dsk9RDu/jPL0wpOd2TAmI3T9ZPKc+8xDizJdJMb+NNZoC3Yf+jd9zEe0ZWlcThOIgrUohjbflGvhkmTg+SObeJjRLhY2XTbrGsOqGPLYTEGbW4OQihSAY1PcpRU3zbf94ix7520=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R/yA06V2; arc=none smtp.client-ip=209.85.160.46
+	 MIME-Version; b=KIU7MQDaHyOM1w/Vu19gG4wrj/DH9DCJqrrJShmU7C4vnPLHzcbbvnftOhU2KWTJZAp8OOoNi7HmRt4C7Rd1tuiTEinpAnjRS1cXA+SCZt7l6k/OnyUFTt7+jqS7Q453aMwFl+6DVsaBozlGji1Xk/Kst0JYAo/b+RJPzNcki2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MF9USS49; arc=none smtp.client-ip=209.85.215.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R/yA06V2"
-Received: by mail-oa1-f46.google.com with SMTP id 586e51a60fabf-464fb5c1ea5so626491fac.3
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 04:59:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MF9USS49"
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc1cf287ef8so83575a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 04:59:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787745581; x=1788350381; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787745585; x=1788350385; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=nAOFav5cyT0xrih7PqytNwDZmryC0k3HvKGBgMhuzW0=;
-        b=R/yA06V2XrAawFqLDWgfpmqhV2RtAKr9YpaKC173UHshgZ7pMxFz99yCInJt2uNLod
-         Yuj6Q5vX8P7+soI/VvdhSGT3KuPcZ5hj3JTlfTphpsrkAF0s7/Ra925AuROHil5GkfSp
-         9nwf5bTSVQ1ZIHTtmVq1jHLpzG5QRkpJsJtmoqtMdkwzJmTMXV7V5iri6OS6CBhSWhSq
-         Oj04YVbAMcpuJ4kNISAI5IZboe02MOasvF1CZqHhAMvwi1wOGm5gjnbhIrcOd8acsoXh
-         QkXu3TGAWih/P8f4UO44Hv2CDXnmHYdOWbHL9ZNajPI3VLT+ChNSRV6x3b5oRvvmlyKa
-         HnWg==
+        bh=RVWnW3XTZgLAyxYR/1hSOMx1kfYP5ttpGeKsRvGDajg=;
+        b=MF9USS49aExD2Sr1D0cEP6BgcQJUA6OOdO97tT5iTi5Y3sTZgTV/aLNFptQLoyTEHY
+         Dy1e5go8qqEo8sXUCz2QYHoPBsosB2hgFI8bhfEHBuTULLXOddtq5WJkKAwmcTf8Lcjp
+         CVVnWWhmea9P0x0KkWjQXOQiuPPmuseDWqv+qyEUTXZ0dnp+FyxZzJvCawr6w7fUDnfz
+         I7hzsuFnYsayT5t/wZ6tLVbb7tk3/Uyf+Gy7sCUhf68pFR2yO77gPGTqITswTW3ybVaf
+         IOOtLXTnAaD1hbwsCDG1d3DEbqhvEtfQODtKPI2XvFlSTPxxCzQc04WaaTKxl85TUQsm
+         8Viw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787745581; x=1788350381;
+        d=1e100.net; s=20251104; t=1787745585; x=1788350385;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nAOFav5cyT0xrih7PqytNwDZmryC0k3HvKGBgMhuzW0=;
-        b=pqlOtvGdyiz4+eVeUEKaefPHVDj7sZ3UqUcKW6L1Y4A3fUFXGMTf5gsZHJKbClWKOk
-         1WoImoULSBTPtBc8Qh5wxSYb+aN6OupF78/Em8/vaMnEXiARBbVID6Sp3Jh1YSKYSQ/3
-         QUcplwWU5UqRcu2OE3TqbZeg/g3Ym2E8vEJc+r/Nn9Gr9pVoadxsJ4Ez4U3KSy+wLKNb
-         H7Rk/+blRADWILcdLQ+Jlp4zONzaMsRTYOInqnk0R1svqA05lOSjvPWcMiTVntb53uPt
-         sgjmgdhq/FpqUBapeEtY8bxP/juSjuY2jvj3kA5AVnKOYQ9h/Qu7kK794P0DfkQloluf
-         kcdQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqQwLEC3AV8e2bOpoN+KVzG1yWXsA3vp7UiZYk1MOiy+qQLGREtpJCQEwdGi7DDOK2JDiNP1wJjmgD5xgU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nh/sWgzuCn3Nl63CLSRJa2+Cxy6zNNs3zGnHHuIVxuLwYXleS1
-	gnImiLn68lVKvcxAZMWhzTzF46bAeu551PYlmGIASVgGOmT1H7qpUlSO
-X-Gm-Gg: AR+sD132cpjtvnqeDVdH8qYdVr/RzqwE7yOavS63gHsj+RbzHIvoDO3foKi/66A/x35
-	6JscQQDs8yl/8ZlqddeGp7V7fWKXGCXAr2yMTtgF1Jy8NiAEKCbdyz2DGFAGOKyFdVcEPOmq0GM
-	oCLQpYIzW+iStv4GADr55cqcLuOjRqI1g0CQGYzmIiwRcVRvZe68eWQ83YUubqJbbWfwbxdpBw2
-	GoH7JOyk2gPDwSE+XloswJMktdrLNzMWXmjl5t/wkf1MribWbi4sG0nPWizaQQMxc+OziVUBmUr
-	Hg9gEitmdK6vcm8B4QiQkHSr03Y++qM2cU29Ad6ARf7sNh5VGwDvMfmeNmaRPpScyo1SyZi9QFm
-	Q/xWPJgzWFPdP34HbeyN7XHjMtrMGaKiZ4QCcNTa84M3+v3b8V3lRDzN9BStr8kb8DdTKdexZEe
-	W+7deneiZOSzdvysJDcP59aB+GgKEmJ3r3bbHenHdv5VZ2ydAfRXRsdXKXk/7sCciEof/GxZcyw
-	q3NgqbUe8g=
-X-Received: by 2002:a05:6820:83c2:10b0:6b1:4061:4193 with SMTP id 006d021491bc7-6b1a01f68a6mr4659280eaf.0.1787745581617;
-        Wed, 26 Aug 2026 04:59:41 -0700 (PDT)
+        bh=RVWnW3XTZgLAyxYR/1hSOMx1kfYP5ttpGeKsRvGDajg=;
+        b=G917i3TcgmiDvol8KWzmTq/6WfvI80L0MGF4it53broziWxiD1QQQwtSgwsAua6f3s
+         uaeRDIi3RZUTcuQDBSu18qIuIaezMk5hngjyk9txPxCH3IWF/P85IPMRg5r1/gfFgLMD
+         WEkxjzUgKm56SSMK10uXh3lSZlWoMJUA0QN+i2YWxgck6Ki8ZYB1ZjWhJD9beFZf9+0n
+         JkoJwDBo0sS+QYT3HUWfOYU51CnhZpkyzC9JeLH3QioVcJxmpj4GO4x3f6SW7R1eAHkP
+         RBm14y5KgUPp+1NMab0+f+mDS42vGJ7ydi0dnV8l1FmB2udnYmxLX+8OnJeRoD+h3POV
+         cPVw==
+X-Forwarded-Encrypted: i=1; AHgh+Ro3fsoe2j7o+W6sXxAlPlwkXDEk9lKIXMpAw/nefwDyw/bPfhNsT2erkuEloxDjOa+4mxQqb8YmRUlIRHw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kg9K+G77dWnt6Ma6QFX4EKGGkD+UrgCSRKfhgo+FwFKoUPymNR
+	CWynw8laepzfaQZeKVmcATyFQHD1FB2/hDo3VYvJ/Ck4UY1rBBB8Ntzd
+X-Gm-Gg: AR+sD12rT5geBOzr8qX4DyZBKX0c5C/T+uZS4k5w6/HgIP3f6aUTCzKUK0TsJljRF4t
+	OltV7qyPECUEBDUvvWlLSFOj+J4h7GSQxwIeRhiDMZl84E++c5u1KkObbJFIjqaS9xIUGQJvu2G
+	j2fAhTw9s4ix6IamSCExlRdqZUF9IB+BWyc4qHwRNZF3CJCha8Se6k48GQIF3J11R58WOdg7997
+	fHlGpN/EhYWz8gBjnWZGe1yJKUVaFrtGt1A2x2qqaLfc2YyHcAR9SVbHehZKSoFbkxq4NlJg8HV
+	j+dO83FKiCrnTDa/rqvg+kMi1eFVWHpj3WDXNhkLr5INJ9RMBkcZl0N07pEXBUynbZJjsSyO180
+	Z4JhXnkrrLLMGasklJHw/H0LJIT/bVLmn+zafBnwyAjqLYGqgkdrtQxVmh82l+hEgxFUyLHPXgj
+	jZEnrdOEN1hh7Swsah5Vp/8o7PZHWm7GT+a2KPoRRXQ/0dNS0WNpqB579Py3vMrPHMS93QFIQc2
+	YZz233wWP4=
+X-Received: by 2002:a17:90b:3fc4:b0:38f:dec8:f7e9 with SMTP id 98e67ed59e1d1-3966d443146mr14053031a91.12.1787745584436;
+        Wed, 26 Aug 2026 04:59:44 -0700 (PDT)
 Received: from volcano9f8e-host.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a8eefd98sm14607883c88.3.2026.08.26.04.59.39
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a8eefd98sm14607883c88.3.2026.08.26.04.59.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 04:59:41 -0700 (PDT)
+        Wed, 26 Aug 2026 04:59:44 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
 To: seanjc@google.com,
 	pbonzini@redhat.com,
@@ -66,9 +66,9 @@ To: seanjc@google.com,
 Cc: kvm@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/2] KVM: selftests: Add a helper to read a vCPU's APIC ID
-Date: Wed, 26 Aug 2026 17:29:14 +0530
-Message-ID: <20260826115915.2882221-2-hemanth.selam@gmail.com>
+Subject: [PATCH v2 2/2] KVM: selftests: Test the PV_UNHALT feature, not just its CPUID bit
+Date: Wed, 26 Aug 2026 17:29:15 +0530
+Message-ID: <20260826115915.2882221-3-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.43.7
 In-Reply-To: <20260826115915.2882221-1-hemanth.selam@gmail.com>
 References: <20260826115915.2882221-1-hemanth.selam@gmail.com>
@@ -80,37 +80,157 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Reading a vCPU's APIC ID from the host means open coding KVM_GET_LAPIC and
-picking the field out of the register block, which several tests already
-do.  Add a helper next to the other APIC definitions so that a test that
-needs to target a vCPU, e.g. to send it an IPI, can just ask for its ID.
+test_pv_unhalt() only checks that KVM clears KVM_FEATURE_PV_UNHALT from
+guest CPUID when HLT-exiting is disabled.  The feature itself has never
+been exercised, hence the FIXME.
+
+Add a two vCPU test for it.  The first vCPU halts with interrupts
+disabled, so nothing except the KVM_HC_KICK_CPU issued by the second can
+resume it: KVM delivers the kick as APIC_DM_REMRD, which sets pv_unhalted
+and makes the vCPU runnable without injecting an interrupt.  Reaching the
+instruction after HLT is therefore proof that the kick arrived.
+
+Give the halting vCPU a non-zero APIC ID, so that a kick aimed at the
+wrong vCPU fails the test instead of hitting the halter by chance, and
+enable its APIC as a guest using PV spinlocks would, since KVM only routes
+the kick once the vCPU's APIC is in the map.
+
+Wait for the halter's halt_exits to tick before kicking so that the kick
+lands on a vCPU that has actually halted, and bound the wait so a vCPU
+that never halts fails the test instead of hanging it.
+
+The kicking vCPU runs with KVM_CAP_ENFORCE_PV_FEATURE_CPUID enabled and
+PV_UNHALT advertised, so that KVM services the hypercall because the
+feature is exposed rather than because enforcement is off.
 
 Assisted-by: Cursor:claude-opus-5
 Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- tools/testing/selftests/kvm/include/x86/apic.h | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ tools/testing/selftests/kvm/x86/kvm_pv_test.c | 97 ++++++++++++++++++-
+ 1 file changed, 96 insertions(+), 1 deletion(-)
 
-diff --git a/tools/testing/selftests/kvm/include/x86/apic.h b/tools/testing/selftests/kvm/include/x86/apic.h
-index 31887bdc3d6c..293044c81228 100644
---- a/tools/testing/selftests/kvm/include/x86/apic.h
-+++ b/tools/testing/selftests/kvm/include/x86/apic.h
-@@ -79,6 +79,15 @@ void apic_disable(void);
- void xapic_enable(void);
- void x2apic_enable(void);
+diff --git a/tools/testing/selftests/kvm/x86/kvm_pv_test.c b/tools/testing/selftests/kvm/x86/kvm_pv_test.c
+index 8ed5fa635021..120d08ac25ce 100644
+--- a/tools/testing/selftests/kvm/x86/kvm_pv_test.c
++++ b/tools/testing/selftests/kvm/x86/kvm_pv_test.c
+@@ -6,8 +6,10 @@
+  */
+ #include <asm/kvm_para.h>
+ #include <linux/kvm_para.h>
++#include <pthread.h>
+ #include <stdint.h>
  
-+/* Reads the APIC ID of a vCPU from the host, e.g. to target an IPI at it. */
-+static inline u32 vcpu_get_apic_id(struct kvm_vcpu *vcpu)
-+{
-+	struct kvm_lapic_state lapic;
-+
-+	vcpu_ioctl(vcpu, KVM_GET_LAPIC, &lapic);
-+	return GET_APIC_ID_FIELD(*(u32 *)&lapic.regs[APIC_ID]);
++#include "apic.h"
+ #include "test_util.h"
+ #include "kvm_util.h"
+ #include "processor.h"
+@@ -193,7 +195,99 @@ static void test_pv_unhalt(void)
+ 	TEST_ASSERT(!vcpu_cpuid_has(vcpu, X86_FEATURE_KVM_PV_UNHALT),
+ 		    "PV_UNHALT set in guest CPUID when HLT-exiting is disabled");
+ 
+-	/* FIXME: actually test KVM_FEATURE_PV_UNHALT feature */
++	kvm_vm_free(vm);
 +}
 +
- static inline u32 get_bsp_flag(void)
- {
- 	return rdmsr(MSR_IA32_APICBASE) & MSR_IA32_APICBASE_BSP;
++static void pv_unhalt_halter_guest_code(void)
++{
++	/*
++	 * Enable the local APIC, as a guest that uses PV spinlocks would.  KVM
++	 * only routes the kick to this vCPU once its APIC is in the map.
++	 */
++	xapic_enable();
++
++	/*
++	 * Interrupts are disabled, so nothing except the KVM_HC_KICK_CPU from
++	 * the other vCPU can end the halt, i.e. reaching GUEST_DONE() proves
++	 * the kick was delivered.
++	 */
++	asm volatile("cli; hlt");
++
++	GUEST_DONE();
++}
++
++static void pv_unhalt_kicker_guest_code(u32 halter_apic_id)
++{
++	/* KVM takes flags in a0 and the APIC ID to kick in a1. */
++	GUEST_ASSERT_EQ(kvm_hypercall(KVM_HC_KICK_CPU, 0, halter_apic_id, 0, 0), 0);
++	GUEST_DONE();
++}
++
++static void run_guest_to_done(struct kvm_vcpu *vcpu)
++{
++	struct ucall uc;
++	u64 cmd;
++
++	vcpu_run(vcpu);
++	TEST_ASSERT_KVM_EXIT_REASON(vcpu, KVM_EXIT_IO);
++
++	cmd = get_ucall(vcpu, &uc);
++	if (cmd == UCALL_ABORT)
++		REPORT_GUEST_ASSERT(uc);
++	TEST_ASSERT_EQ(cmd, UCALL_DONE);
++}
++
++static void *pv_unhalt_halter_thread(void *vcpu)
++{
++	run_guest_to_done(vcpu);
++	return NULL;
++}
++
++static void test_pv_unhalt_kick(void)
++{
++	struct kvm_vcpu *halter, *kicker;
++	struct timespec start;
++	struct kvm_vm *vm;
++	pthread_t thread;
++	int r;
++
++	pr_info("testing KVM_HC_KICK_CPU\n");
++
++	/*
++	 * Give the halter a non-zero APIC ID, so that a kick sent to the wrong
++	 * vCPU fails the test instead of hitting the halter by chance.
++	 */
++	vm = vm_create_with_one_vcpu(&kicker, pv_unhalt_kicker_guest_code);
++	halter = vm_vcpu_add(vm, 1, pv_unhalt_halter_guest_code);
++	virt_pg_map(vm, APIC_DEFAULT_GPA, APIC_DEFAULT_GPA);
++
++	/*
++	 * Enforce the PV CPUID so that KVM services the hypercall because
++	 * PV_UNHALT is advertised to the kicker, and not because enforcement
++	 * is off.  KVM advertises PV_UNHALT by default while HLT-exiting is
++	 * enabled; set it explicitly so that the test keeps testing the
++	 * feature if that ever changes.
++	 */
++	vcpu_enable_cap(kicker, KVM_CAP_ENFORCE_PV_FEATURE_CPUID, 1);
++	vcpu_set_cpuid_feature(kicker, X86_FEATURE_KVM_PV_UNHALT);
++	vcpu_args_set(kicker, 1, vcpu_get_apic_id(halter));
++
++	r = pthread_create(&thread, NULL, pv_unhalt_halter_thread, halter);
++	TEST_ASSERT(!r, "pthread_create halter failed, error=%d", r);
++
++	/* Kick only once the halter has taken its HLT exit. */
++	clock_gettime(CLOCK_MONOTONIC, &start);
++	while (!vcpu_get_stat(halter, halt_exits)) {
++		TEST_ASSERT(timespec_elapsed(start).tv_sec < 10,
++			    "vCPU never halted");
++		usleep(100);
++	}
++
++	run_guest_to_done(kicker);
++
++	/* Nothing except the kick can get the halter to GUEST_DONE(). */
++	r = pthread_join(thread, NULL);
++	TEST_ASSERT(!r, "pthread_join halter failed, error=%d", r);
+ 
+ 	kvm_vm_free(vm);
+ }
+@@ -215,4 +309,5 @@ int main(void)
+ 	kvm_vm_free(vm);
+ 
+ 	test_pv_unhalt();
++	test_pv_unhalt_kick();
+ }
 -- 
 2.43.7
 
