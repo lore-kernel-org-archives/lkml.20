@@ -1,83 +1,41 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6250D3F8ED2
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 11:26:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 205DC3ACA60
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 11:27:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787743576; cv=none; b=dyTEwAAv/xT6P0rf9AyFt2SGIcnwWePORQMjhHKcCBmCZ5SAYZNhpagyDnjcWcxJDWi8RmGewJ2gAzyjDMPAFIa4aRipOJcbgGWoCjjdLfu/WEhflGlYsocMJUqdMla4q1gPyMolbJ24mdWaUG5UOzs9jl+DqJoiv5hwCA49b4g=
+	t=1787743626; cv=none; b=nbKEIpwQwNZm03gCga6q9yAGxc3PVROENbnEBtARhUNcDrS61tsg66BijyTwWLc0FIDMKG2CtOo6iQmuLLh7m3k1kBtLLJ9x4zifuAw2as/vjVG7MXWE2bkJBp1FH1l8ZfTz3FDsDpICys96SVteYpq4mxJe04uMKfqHXplBNIM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787743576; c=relaxed/simple;
-	bh=ot5s3z0y3WkGd23yN8si0am4L6kSSGA+LkIE6cUufHM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eU8Ux4GMlg4BkWkwyoZrhtxnz1HPkevs11O1XungGLrnIt2HjLrIFBgfE9HOTO/n7T6Y/84k48gmI+mL2qINpgNBSypwc3k/PiN6TQm6CxcmhMR6ISoBd7m1ZdS2jAozeQZ/gkuEUw0h6hKkfE6uFhRzjT3Tm2/hOl+xj4HA+QY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RGrfPUux; arc=none smtp.client-ip=209.85.221.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787743626; c=relaxed/simple;
+	bh=s1bpfHAoV4q7svo1G8Dub+T+J3GSTFYM9W7lcFnT7f8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ACMyTjGxMBFdhTqqxPxQj9qD6mmv488Gu0TkcKFNOX08oT2xb374GCwJCypSSudxPhp57llPrauxbQ180Gy4sHEPnGZMpyL8cFva+kEAfrdpBJ16XWTZli2HVa5BCW5KWQJxqLhg6IS+XIR4gr2OAFJj/vMrUdFtaD+FuzNo7cE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=qpLQzTON; arc=none smtp.client-ip=115.124.30.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RGrfPUux"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-482dbc9a00bso944072f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 04:26:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787743572; x=1788348372; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=p+YYaj9hB2BEbjd6/AK9OJyefsLzkvfj7sSU25cg5Eo=;
-        b=RGrfPUux2Ma3TjFzrQAH80VXbzpLAQp9b2kZW9KNpMCcO/tu1q087merOEPoVzBWqQ
-         snONxDlMQq3uRIfypYlS9w1z0242WAyd8edRkp8QGvotltHjEB2ioZ9VYbploR4XMUf7
-         5+BsBaTPnNKM7JdwCK8BSHwbORgxHnjQblZ5CXLahhq5w3tWR3yevemUUHrlCTzxZnly
-         DTq95rVVjyOt+YBWxr86Lk0XwyzoTzGo+O34C8zvaitRIjxc0FvEHRnMTovADj6H5xG5
-         osy6gVbXKsjCXWVkDTf7abkbsFJmioGL6QOjC48CNwYCm1sHFCTk4gITNxXVo65tgdn7
-         Zvpg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787743572; x=1788348372;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=p+YYaj9hB2BEbjd6/AK9OJyefsLzkvfj7sSU25cg5Eo=;
-        b=MsjTMtNBfdbI4G2Xd3W03phATQNqCGa6YRLX+g0lMURh0XRI9BZJ3su89ilUFIsomb
-         cVJlBdUYwXTV8kDjsq2BTyi4EG/+8BKIJ7x/4QUJE8bKLlCpLfmpjfbuctMDFz/LhpOk
-         QLQxALtZT7Onz39Sf/5JDXUflPYe+tTSQPzpz/SlIuZI/tjkA7aabRLbuZdghaBSciFt
-         16GYWF4+G6bfMx5uWBd1OGNioKDo3Q+2A17LGQ5Ph9CnF73KHJeAXwUBKLFTClk42smP
-         fadPfzStHB7wyGYkEJfxtFjjdvfTVtoeJ9bR5RXi69EBRfWdgogcPT4DaMuyC+Fs0cBe
-         XFyw==
-X-Gm-Message-State: AFuF++nM01PPPlf57S6t4GNuCvhGE5jsru+tzJ31u1BBZqipD4oeXwip
-	OSipKhWOYPDbfde7dCD2HKoEEeh4ZJg3PmKQ7GfDXok+F33/o7uPIV8tSRjS1J7dIJc=
-X-Gm-Gg: AR+sD10Y+XcmT8wkPjJn5qSlysftgbcmguXRBro//M2+b1s8ATOtJTzR8uAVnyBQDme
-	3gl9Updc/GWXL/lXyqK95L7Swj5MP8HIXbugZM9qMk6MdZJjVEUEMLaXAIn6EkH2Rm2cFwg95S0
-	/dCFMZDgVmMq3CeG0FzpLGKuBd2xnv8y33eHePIISHACi6PniIdcsKXjirYxmjF61kAeZkH5M2u
-	nnruIdwZvpNaPY+5d7RDQoU2Uoqzqyh67P5+BtXA1jj7oWNqYlXEYrDfNWNOnhwYzjzUwtuipos
-	2CWXDcRcRl04box+24zobw31Ptifba9TvI0+rm9KqZ6JtZMkSMFA9H20VhZtDuu/ddv3L1/mT+T
-	BXzlNzXGVi0vS8bV+DuiHy00ej5EygXwsWRHV0C6LdgRBKw3ONzLCnHSkMxSrJ8K168hvlTtL3J
-	MtRi9hCPIiDXIrM0tVFLyqH/nMT6a1bYgNYlmO99sRL2n/QGHNLNvueuHMx9NynsYSIeI=
-X-Received: by 2002:a05:6000:25c3:b0:482:a9a4:91e7 with SMTP id ffacd0b85a97d-482d99aa11amr13881439f8f.15.1787743572201;
-        Wed, 26 Aug 2026 04:26:12 -0700 (PDT)
-Received: from TC-LAPTOP ([2a01:e0a:b8a:2610:6b23:b1a3:f913:3d0b])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e28f6119sm2442098f8f.34.2026.08.26.04.26.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 04:26:11 -0700 (PDT)
-From: Thierry Chatard <tchatard@gmail.com>
-To: linux-kernel@vger.kernel.org
-Cc: hansg@kernel.org,
-	lee@kernel.org,
-	platform-driver-x86@vger.kernel.org,
-	ilpo.jarvinen@linux.intel.com,
-	djrscally@gmail.com,
-	linux-media@vger.kernel.org,
-	mchehab@kernel.org,
-	sakari.ailus@linux.intel.com,
-	jacopo.mondi@ideasonboard.com,
-	nicholas@rothemail.net,
-	andriy.shevchenko@intel.com,
-	v.vitovt@gmail.com,
-	Thierry Chatard <tchatard@gmail.com>
-Subject: [PATCH v8 6/6] media: ov8858: add ACPI device ID INT3477
-Date: Wed, 26 Aug 2026 13:24:51 +0200
-Message-ID: <20260826112452.13539-7-tchatard@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260826112452.13539-1-tchatard@gmail.com>
-References: <20260826112452.13539-1-tchatard@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="qpLQzTON"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1787743620; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=Bg0aphhePImq/b57myxGee9of8t2ClKfW3QiHxc+y7E=;
+	b=qpLQzTONuUrCQTwgP82IYaCzf3MVAhln++QecD3WnGk4vzv/A9TOQpLKBrrf0D/1MQ8Yx/WKBxF6qVYgks/rC/oo+MecKBGpoFaNvYRGHMLtOW/1r9AJJnOeuj9MBViAMRvV59hhfNHn2RYBcSDvKir13CMjWgPWElL6T4an93Y=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R171e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0X9gmVso_1787743619;
+Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0X9gmVso_1787743619 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 26 Aug 2026 19:27:00 +0800
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Heming Zhao <heming.zhao@suse.com>,
+	ZhengYuan Huang <gality369@gmail.com>
+Cc: Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] ocfs2: fix deadlock in inline-data truncate transactions
+Date: Wed, 26 Aug 2026 19:26:59 +0800
+Message-Id: <20260826112659.246574-1-joseph.qi@linux.alibaba.com>
+X-Mailer: git-send-email 2.39.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -86,39 +44,292 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Omnivision OV8858 appears in ACPI firmware under the HID INT3477 on
-Intel IPU3-based platforms such as the Dell Latitude 5285 2-in-1. Add
-INT3477 to the ACPI match table so the driver binds when instantiated by
-ipu_bridge.
+Updating an inode xattr can cause an ABBA deadlock with inline file
+truncation:
 
-Signed-off-by: Thierry Chatard <tchatard@gmail.com>
+  ocfs2_truncate_file()
+    down_write(&oi->ip_alloc_sem)
+    ocfs2_truncate_inline()
+      ocfs2_start_trans()
+
+  ocfs2_xattr_set()
+    ocfs2_start_trans()
+    ocfs2_xattr_ibody_set()
+      down_write(&oi->ip_alloc_sem)
+
+The xattr set path starts the merged transaction before the
+inode-body xattr helper acquires ip_alloc_sem, reversing the
+ip_alloc_sem -> transaction order used by the allocation and truncate
+paths.  The transaction merge in commit 85db90e77806 ("ocfs2/xattr:
+Merge xattr set transaction.") introduced this ordering.
+
+Fix it by acquiring ip_alloc_sem once in ocfs2_xattr_set(), before
+xattr preparation, allocation reservations and ocfs2_start_trans(),
+and removing the per-helper acquisition from ocfs2_xattr_ibody_find(),
+ocfs2_xattr_ibody_set() and ocfs2_xattr_create_index_block().  These
+helpers now assert via lockdep that the caller holds ip_alloc_sem.
+
+ocfs2_xattr_set_handle(), which only sets initial ACL or security
+xattrs on unpublished inodes inside the create transaction, takes
+ip_alloc_sem under a dedicated lockdep subclass so that the assertions
+hold without creating a transaction -> ip_alloc_sem cycle against the
+ip_alloc_sem -> transaction order.  The inode is unpublished, so the
+acquisition can never contend.
+
+This keeps the established ip_alloc_sem -> transaction order and makes
+the locking unconditional, so lockdep can verify a single plain
+ordering instead of conditional acquisitions.
+
+Fixes: 85db90e77806 ("ocfs2/xattr: Merge xattr set transaction.")
+Cc: ZhengYuan Huang <gality369@gmail.com>
+Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 ---
- drivers/media/i2c/ov8858.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ fs/ocfs2/xattr.c | 79 ++++++++++++++++++++++++++++++++----------------
+ 1 file changed, 53 insertions(+), 26 deletions(-)
 
-diff --git a/drivers/media/i2c/ov8858.c b/drivers/media/i2c/ov8858.c
-index 3f45f7fab..f0148c1f2 100644
---- a/drivers/media/i2c/ov8858.c
-+++ b/drivers/media/i2c/ov8858.c
-@@ -1981,11 +1981,18 @@ static const struct of_device_id ov8858_of_match[] = {
- };
- MODULE_DEVICE_TABLE(of, ov8858_of_match);
+diff --git a/fs/ocfs2/xattr.c b/fs/ocfs2/xattr.c
+index e955126e4d7d..143d6f75f9c9 100644
+--- a/fs/ocfs2/xattr.c
++++ b/fs/ocfs2/xattr.c
+@@ -2941,6 +2941,9 @@ static int ocfs2_xattr_has_space_inline(struct inode *inode,
+  *
+  * Find extended attribute in inode block and
+  * fill search info into struct ocfs2_xattr_search.
++ *
++ * The inline free-space check races with truncate and allocation, so
++ * callers must hold ip_alloc_sem for writing.
+  */
+ static int ocfs2_xattr_ibody_find(struct inode *inode,
+ 				  int name_index,
+@@ -2952,13 +2955,13 @@ static int ocfs2_xattr_ibody_find(struct inode *inode,
+ 	int ret;
+ 	int has_space = 0;
  
-+static const struct acpi_device_id ov8858_acpi_ids[] = {
-+	{ .id = "INT3477" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(acpi, ov8858_acpi_ids);
++	lockdep_assert_held_write(&oi->ip_alloc_sem);
 +
- static struct i2c_driver ov8858_i2c_driver = {
- 	.driver = {
- 		.name = "ov8858",
- 		.pm = &ov8858_pm_ops,
- 		.of_match_table = ov8858_of_match,
-+		.acpi_match_table = ov8858_acpi_ids,
- 	},
- 	.probe		= ov8858_probe,
- 	.remove		= ov8858_remove,
+ 	if (inode->i_sb->s_blocksize == OCFS2_MIN_BLOCKSIZE)
+ 		return 0;
+ 
+ 	if (!(oi->ip_dyn_features & OCFS2_INLINE_XATTR_FL)) {
+-		down_read(&oi->ip_alloc_sem);
+ 		has_space = ocfs2_xattr_has_space_inline(inode, di);
+-		up_read(&oi->ip_alloc_sem);
+ 		if (!has_space)
+ 			return 0;
+ 	}
+@@ -3039,6 +3042,7 @@ static int ocfs2_xattr_ibody_init(struct inode *inode,
+  *
+  * Set, replace or remove an extended attribute into inode block.
+  *
++ * Callers must hold ip_alloc_sem for writing.
+  */
+ static int ocfs2_xattr_ibody_set(struct inode *inode,
+ 				 struct ocfs2_xattr_info *xi,
+@@ -3049,16 +3053,17 @@ static int ocfs2_xattr_ibody_set(struct inode *inode,
+ 	struct ocfs2_inode_info *oi = OCFS2_I(inode);
+ 	struct ocfs2_xa_loc loc;
+ 
++	lockdep_assert_held_write(&oi->ip_alloc_sem);
++
+ 	if (inode->i_sb->s_blocksize == OCFS2_MIN_BLOCKSIZE)
+ 		return -ENOSPC;
+ 
+-	down_write(&oi->ip_alloc_sem);
+ 	if (!(oi->ip_dyn_features & OCFS2_INLINE_XATTR_FL)) {
+ 		ret = ocfs2_xattr_ibody_init(inode, xs->inode_bh, ctxt);
+ 		if (ret) {
+ 			if (ret != -ENOSPC)
+ 				mlog_errno(ret);
+-			goto out;
++			return ret;
+ 		}
+ 	}
+ 
+@@ -3068,13 +3073,10 @@ static int ocfs2_xattr_ibody_set(struct inode *inode,
+ 	if (ret) {
+ 		if (ret != -ENOSPC)
+ 			mlog_errno(ret);
+-		goto out;
++		return ret;
+ 	}
+ 	xs->here = loc.xl_entry;
+ 
+-out:
+-	up_write(&oi->ip_alloc_sem);
+-
+ 	return ret;
+ }
+ 
+@@ -3718,6 +3720,18 @@ static int __ocfs2_xattr_set_handle(struct inode *inode,
+ 	return ret;
+ }
+ 
++/*
++ * ip_alloc_sem subclass for inodes being initialized before publication.
++ * ocfs2_xattr_set_handle() runs inside the create transaction, so taking
++ * ip_alloc_sem there adds a transaction -> ip_alloc_sem order that would
++ * form a lockdep cycle with the ip_alloc_sem -> transaction order used
++ * elsewhere, if not for this separate subclass.  The inode is unpublished
++ * so the acquisition can never contend.
++ */
++enum {
++	OCFS2_IP_ALLOC_SEM_UNPUBLISHED = 1,
++};
++
+ /*
+  * This helper is only for setting initial ACL or security xattrs on an inode
+  * that is still unpublished, unhashed, and unattached to a dentry.
+@@ -3779,6 +3793,13 @@ int ocfs2_xattr_set_handle(handle_t *handle,
+ 	xis.inode_bh = xbs.inode_bh = di_bh;
+ 	di = (struct ocfs2_dinode *)di_bh->b_data;
+ 
++	/*
++	 * The inode is unpublished and cannot contend, but take the
++	 * semaphore anyway so the helpers' lockdep assertions hold.
++	 */
++	down_write_nested(&OCFS2_I(inode)->ip_alloc_sem,
++			  OCFS2_IP_ALLOC_SEM_UNPUBLISHED);
++
+ 	ret = ocfs2_xattr_ibody_find(inode, name_index, name, &xis);
+ 	if (ret)
+ 		goto cleanup;
+@@ -3791,6 +3812,7 @@ int ocfs2_xattr_set_handle(handle_t *handle,
+ 	ret = __ocfs2_xattr_set_handle(inode, di, &xi, &xis, &xbs, &ctxt);
+ 
+ cleanup:
++	up_write(&OCFS2_I(inode)->ip_alloc_sem);
+ 	brelse(xbs.xattr_bh);
+ 	ocfs2_xattr_bucket_free(xbs.bucket);
+ 
+@@ -3859,30 +3881,38 @@ int ocfs2_xattr_set(struct inode *inode,
+ 	di = (struct ocfs2_dinode *)di_bh->b_data;
+ 
+ 	down_write(&OCFS2_I(inode)->ip_xattr_sem);
++	/*
++	 * The allocation and truncate paths take ip_alloc_sem before
++	 * starting a transaction, so take it here before xattr
++	 * preparation, allocation reservations and ocfs2_start_trans()
++	 * to keep that order.  The xattr helpers below no longer take
++	 * it themselves.
++	 */
++	down_write(&OCFS2_I(inode)->ip_alloc_sem);
+ 	/*
+ 	 * Scan inode and external block to find the same name
+ 	 * extended attribute and collect search information.
+ 	 */
+ 	ret = ocfs2_xattr_ibody_find(inode, name_index, name, &xis);
+ 	if (ret)
+-		goto cleanup;
++		goto out_free_ac;
+ 	if (xis.not_found) {
+ 		ret = ocfs2_xattr_block_find(inode, name_index, name, &xbs);
+ 		if (ret)
+-			goto cleanup;
++			goto out_free_ac;
+ 	}
+ 
+ 	if (xis.not_found && xbs.not_found) {
+ 		ret = -ENODATA;
+ 		if (flags & XATTR_REPLACE)
+-			goto cleanup;
++			goto out_free_ac;
+ 		ret = 0;
+ 		if (!value)
+-			goto cleanup;
++			goto out_free_ac;
+ 	} else {
+ 		ret = -EEXIST;
+ 		if (flags & XATTR_CREATE)
+-			goto cleanup;
++			goto out_free_ac;
+ 	}
+ 
+ 	/* Check whether the value is refcounted and do some preparation. */
+@@ -3893,7 +3923,7 @@ int ocfs2_xattr_set(struct inode *inode,
+ 						   &ref_meta, &ref_credits);
+ 		if (ret) {
+ 			mlog_errno(ret);
+-			goto cleanup;
++			goto out_free_ac;
+ 		}
+ 	}
+ 
+@@ -3904,7 +3934,7 @@ int ocfs2_xattr_set(struct inode *inode,
+ 		if (ret < 0) {
+ 			inode_unlock(tl_inode);
+ 			mlog_errno(ret);
+-			goto cleanup;
++			goto out_free_ac;
+ 		}
+ 	}
+ 	inode_unlock(tl_inode);
+@@ -3913,7 +3943,7 @@ int ocfs2_xattr_set(struct inode *inode,
+ 					&xbs, &ctxt, ref_meta, &credits);
+ 	if (ret) {
+ 		mlog_errno(ret);
+-		goto cleanup;
++		goto out_free_ac;
+ 	}
+ 
+ 	/* we need to update inode's ctime field, so add credit for it. */
+@@ -3931,6 +3961,7 @@ int ocfs2_xattr_set(struct inode *inode,
+ 	ocfs2_commit_trans(osb, ctxt.handle);
+ 
+ out_free_ac:
++	up_write(&OCFS2_I(inode)->ip_alloc_sem);
+ 	if (ctxt.data_ac)
+ 		ocfs2_free_alloc_context(ctxt.data_ac);
+ 	if (ctxt.meta_ac)
+@@ -3939,7 +3970,6 @@ int ocfs2_xattr_set(struct inode *inode,
+ 		ocfs2_schedule_truncate_log_flush(osb, 1);
+ 	ocfs2_run_deallocs(osb, &ctxt.dealloc);
+ 
+-cleanup:
+ 	if (ref_tree)
+ 		ocfs2_unlock_refcount_tree(osb, ref_tree, 1);
+ 	up_write(&OCFS2_I(inode)->ip_xattr_sem);
+@@ -4544,6 +4574,10 @@ static void ocfs2_xattr_update_xattr_search(struct inode *inode,
+ 	xs->here = &xs->header->xh_entries[i];
+ }
+ 
++/*
++ * Caller must hold ip_alloc_sem for writing, since a new xattr block
++ * is allocated and the xattr block header is rewritten.
++ */
+ static int ocfs2_xattr_create_index_block(struct inode *inode,
+ 					  struct ocfs2_xattr_search *xs,
+ 					  struct ocfs2_xattr_set_ctxt *ctxt)
+@@ -4559,19 +4593,14 @@ static int ocfs2_xattr_create_index_block(struct inode *inode,
+ 	struct ocfs2_xattr_tree_root *xr;
+ 	u16 xb_flags = le16_to_cpu(xb->xb_flags);
+ 
++	lockdep_assert_held_write(&oi->ip_alloc_sem);
++
+ 	trace_ocfs2_xattr_create_index_block_begin(
+ 				(unsigned long long)xb_bh->b_blocknr);
+ 
+ 	BUG_ON(xb_flags & OCFS2_XATTR_INDEXED);
+ 	BUG_ON(!xs->bucket);
+ 
+-	/*
+-	 * XXX:
+-	 * We can use this lock for now, and maybe move to a dedicated mutex
+-	 * if performance becomes a problem later.
+-	 */
+-	down_write(&oi->ip_alloc_sem);
+-
+ 	ret = ocfs2_journal_access_xb(handle, INODE_CACHE(inode), xb_bh,
+ 				      OCFS2_JOURNAL_ACCESS_WRITE);
+ 	if (ret) {
+@@ -4633,8 +4662,6 @@ static int ocfs2_xattr_create_index_block(struct inode *inode,
+ 	ocfs2_journal_dirty(handle, xb_bh);
+ 
+ out:
+-	up_write(&oi->ip_alloc_sem);
+-
+ 	return ret;
+ }
+ 
 -- 
-2.53.0
+2.39.3
 
