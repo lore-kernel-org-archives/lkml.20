@@ -1,286 +1,144 @@
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com [209.85.167.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E1EE3AA4E8
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 19:19:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787771988; cv=pass; b=d/EBYX7GJFqiWsiuhBd2OCtHN1E6WSj4myl8MHopqP6uNYKzYaMamIdmlF2iSabKAY9sNZMZSQ6PamkROdbwMFdLCwxIp2giObOQyUs30Pfbfki6ijRKRlT54oVG93RCXFVk8u64gzs3KUARz2WW6xTplCHRBedEtBfHk928CW8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787771988; c=relaxed/simple;
-	bh=QHHedlUK034mwRTWAL2haf43BOwX/MEv86dFmL7F+V4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=spSW2+j/fMgSRGvuKTcK+wK8dmmwqTvOfL7EnNArUbqTpGy8Tyo9w2l3vtya1MajX0qhJRfbwxfvWoaxnS7g3eGETNp/ZWra1Qbi2OcqYj/GVxQsttjkBmXFtl5LPbScnHEYnb0rh50wYT4+4m54X6QzSc2zdUfJRR4sPcQHzUo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z13wbFrY; arc=pass smtp.client-ip=209.85.167.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E32903ACF0F;
+	Wed, 26 Aug 2026 19:22:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.11
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787772163; cv=none; b=XG6q6E82e3aT+jl1MnWkgCULLu1ZSb6NGDZstyNbs8fQMx+y2fWN/5JBTL/akM14z21BAXl0NgtrL3IxoEJHVkbxbM40gEAzqEHzvG2N/s2oP/bD+MHeY0SmCW9kKmA55HlQ0kPQ4DHK72VCDgM9lxyrb3cNjEn5eVhqCY3EtZw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787772163; c=relaxed/simple;
+	bh=oSpQfwKhoSIgOkQ9OJik+kWr+ikQsWyrw4UzrbcnRGE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ZlcsmQcV/rvOCeG08DskQkyzaeQivKPaVCS3KDip8en98Wm6lApmYUBljW55hnkmoAaqUicq+ZeyLV+m+pKUVL95XaW/tk4DOVAcGLTiIgMzv5O7KTwXpL5+8yRz6IyzpwE5uD6/LkPjSJYG5+zmeojGRrCQhyxiYHpfCW3Mweg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=CCncnxR6; arc=none smtp.client-ip=216.40.44.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z13wbFrY"
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5b4af4be667so597026e87.0
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 12:19:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787771979; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HKJsfWGKzsUKvA9AKxJx2y2JL6+ANzcjBNr0J/8XECriNaox3GHQwFlmBAQzKl0/1J
-         hf72mSICYl0BG9keNuk2tVLhw2L0z/zNvLZLjQRTeuv3wWtJdd7cnUxPO50//9734tDL
-         UTbZs5HcF3CjIzn+xUe2IBbzGba0BT3T7pB1WBaDe6Qt6RYWhLNEGe6haWzJQYTvHf8a
-         etR56eCuS/dF6/wlvlmBWzvBjeVqeWMCszNy7n6uRoOZVkU7/ZdIxitOByWGplNt0bvL
-         cR8bj6MWhm2KZD2Km1/9tLjsTWxsUvvbmAQjtUKcCzpcGQjJhQaO/A6tvMoSAU+Arkrz
-         YPDg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=t2i2L6YTIGnhSB42KjZpaHV6HA/UT99vGI1+wnSQ1WY=;
-        fh=EgR4TCxqatVveWx3P9p8Zb9dOsVbriJyWv/7T5PNgo8=;
-        b=OgWiyw5pDFIoBdvBEJo+xi+MXk1IEpfX/HOwEDpuafO2HAaOPUd54/ZVaCUB1dWuEl
-         lpomNOHC6ZbjdX8riBtjONMgWdWVUTlJArd3Q7lvSaSdecfwh20C3w9uJs6FEEiWQfNQ
-         Y5+Z1oophRgFAsePe9vPEXkRwdYrWrzbL77mFKLEfhef35mLi+0IYYOP903Dd8BS6c2j
-         dczrJ3ULvDR+452+IoXd60F9CcxCxo5K3F4UySopaYzg0/dU/ackXSSqgNwFxRRs+KyL
-         dzy2n+CzCeO+W3pPtUOErhiHdSR7R3iI7CdPxYJklEgYRdeEnFkwMYrzKFCeut944UV9
-         fqzA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787771979; x=1788376779; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=t2i2L6YTIGnhSB42KjZpaHV6HA/UT99vGI1+wnSQ1WY=;
-        b=Z13wbFrYMTw6xmd5LLbj4JpZOuN20EFFmD9Q3VWap/5Stx4wU3H9bLgc8pMWbE6+Ve
-         SxmKgxp667m3nrQmKKmhaIx5D9swKIb4T7KFDi2/jcJTQ3/wRwUYK2DvYZXWVJQXNnAo
-         Ra4N9WHAPx+r+GbPJZmewznkCxvSAb0TG8LIpcSfWkzrphRQeVvf7iN/9B+GwVJRc77o
-         0GS0/eSMVukuxZBo4LYARsk8DJLyZzGQkT5UE8ZPwYmOXEvUaYTnNj4/ZVYyUlJ4mU1R
-         gyo+BdDcS040eRk3gStAdYKJ/ow4+WIE/FnRhIV+uIRkQSgjcO7/QwrClpJnVLZUf0qY
-         CO4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787771979; x=1788376779;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=t2i2L6YTIGnhSB42KjZpaHV6HA/UT99vGI1+wnSQ1WY=;
-        b=LipyhHrNmkGfBgRDbmF7i+wipWYVqpOxipbv3fvYSyl7CaEm9jJyc5pLvjUhDD3mQg
-         fPu8KOY4z2vF+G/2bmma4bHUNOPyzo3BT2wWjRwJBl6/pfD6Irr8lCiGJgTxtyk+rxLU
-         wj4M8gpAaQH2RaH0bPVTwnvXPxz87HOAIxR/yle5HRL0BffJSJT4u93enJB2Rlc3oxYx
-         OzL00ZCZP1kGgPLK4+c7Pz2TEcRArGnTTCvG/61vVFxWdXkWZz+sN4lPbMZMKjkY7Jzu
-         HyEveQok2B7p/KIAyy7psqnq2mkDDmYTmYg8S22YrAcr7trMz7cdlhQdO3bjA5u7GQpI
-         hWcw==
-X-Forwarded-Encrypted: i=1; AHgh+RqU72HtUu2mAXmU+s7kLVPJhEo18JozPfQn+uwWQMS4r64r2n6gOwRY1b1HPBquR7PILVkzd/pgp7ZQLQA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kKjVPhlEVCz9QVqd+aXbyRN9kY56/XX/o5TzZyjKNhMbvp9Mre
-	j30fQJc7tpQ2wX9YMFrU2MjqE8nrJfIof17tjl22QQau5ozTX2CN4CzxPnJWz+8TwX5J+iWgRs6
-	m5UsYrhIgOpwy5xn0qouM1As6hh/bA68=
-X-Gm-Gg: AR+sD11+OD8pwVD5+2c3FtMmOCwCfN8jzfqbeqmF3toZy7rFGx2bNY2N2AdO6FbeFHQ
-	gT7RBV1Q9shvZpTa5pLjmhqemTFrTNAIv7pVlZQ9A/iF78focXpvknEy0RTPwMWP5mGMdlktjxr
-	dYCsMZwlZ1LyKr7pC82+TlATwTpIZDSls8MxEMc13z/aZLIACo8ZVZ+sRIwXEij0ktV0kguZw/Y
-	U0tYdqMyncm5eXKd1LwEdWaf+vHTatXi69Tw2IelxcBRLp1y/lUjBrvG2tpJw0LF59Yoonii9Pz
-	FWSO2xHAgbjBst9p+VEzji1veRm51Wc3fNDgLFoZhRQ9n9TwXAxCggLVXLy6AxLhw1KNCqZLe4A
-	2PA/6xXTs6IMBdC/qRoXsqukpw8ak5gHG5g==
-X-Received: by 2002:ac2:59cc:0:b0:5b1:5451:d969 with SMTP id
- 2adb3069b0e04-5b4a90972fcmr2330084e87.25.1787771978921; Wed, 26 Aug 2026
- 12:19:38 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="CCncnxR6"
+Received: from omf11.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay07.hostedemail.com (Postfix) with ESMTP id 1E44E1601FE;
+	Wed, 26 Aug 2026 19:22:29 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf11.hostedemail.com (Postfix) with ESMTPA id 542F120031;
+	Wed, 26 Aug 2026 19:22:27 +0000 (UTC)
+Date: Wed, 26 Aug 2026 15:23:12 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: =?UTF-8?B?SsOpcsOpbXk=?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Cc: mhiramat@kernel.org, mathieu.desnoyers@efficios.com, include@grrlz.net,
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org
+Subject: Re: [PATCH] tracing/user_events: Clear copied tracing state before
+ fork duplication
+Message-ID: <20260826152312.62d5802e@gandalf.local.home>
+In-Reply-To: <20260824211036.3729669-2-Jeremy.Jean@oss.cyber.gouv.fr>
+References: <20260824211036.3729669-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260825130126.2078627-1-chao@kernel.org> <20260825130126.2078627-4-chao@kernel.org>
-In-Reply-To: <20260825130126.2078627-4-chao@kernel.org>
-From: Daeho Jeong <daeho43@gmail.com>
-Date: Wed, 26 Aug 2026 12:19:26 -0700
-X-Gm-Features: AcwNN1WZLAUcoUopOYf-cXa06xLijW-46Ik8GMb-_Y8sRpN5XDVIpoLfrFJUe-Y
-Message-ID: <CACOAw_whg1SO2479NL7d=ScRVrqvwHbPWg1pB2T4nWHdGe+w7g@mail.gmail.com>
-Subject: Re: [f2fs-dev] [PATCH v3 03/12] f2fs: cache: introduce shrinker
-To: Chao Yu <chao@kernel.org>
-Cc: jaegeuk@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-f2fs-devel@lists.sourceforge.net
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
+X-Stat-Signature: can967q4bytt1hw1h51dkjw6ujyjrdey
+X-Rspamd-Server: rspamout06
+X-Rspamd-Queue-Id: 542F120031
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX19h4uimY2J2hA37/3JFtVFukaq1XR0G7NA=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=xhr3H1oSETvZ1QQ62lGcAt8zWUVienEqZAUbX1OVyEg=; b=CCncnxR6Jw/F7a4KqZMGsh3A4FogPy2Djhvo84dfFkkFfxDK1MdpLSFLQh8qtHLsWxr8FTXZxQLGLyQxUMOJfAWcBIeSbxMDeCxQAlNdKCGJyG7yqmXpeTMSIT64U3sTZsDL8PvUFu/vWcQuDFElQcIqbcJNlfo5wvcC+5vQj80=
+X-HE-Tag: 1787772147-505586
+X-HE-Meta: U2FsdGVkX19DU+jT0ZUm2vRFa0r0Le4ZB22SJ28hui2VIOq/tivZecDka+a5pWtjSIxqprOLhtw+nPg7Z7DKEfZ7tsmOS0KzDx118HqG7Z5Yo0CUIq4OU6jWUbwZG0nj/y/HIp4oTPiseAEoD+T638xPbBpvMtsS2RLLLYEe7NnXegB4IUV7CrH9LeoyzRQ4v3ceV/BS5hWMnLxgLAwgk3O3ik0FK+OXFo7o8C4o7BCxWX+4/xo4bvW9q4cYqL6LkBn1MjIICnOIR5fyYolMH1OdsFVJeLYpEJJ5kAaO9ghj7FoL/gJYU3e5BKt0viBO
 
-On Tue, Aug 25, 2026 at 6:03=E2=80=AFAM Chao Yu via Linux-f2fs-devel
-<linux-f2fs-devel@lists.sourceforge.net> wrote:
->
-> This patch integrates the metadata cache into the F2FS memory shrinker
-> subsystem to reclaim clean, unreferenced cached blocks under memory
-> pressure.
->
-> It implements f2fs_shrink_cache() using a 3-phase cache reclamin method:
-> 1. isolate clean entries from lru list
-> 2. truncate from radix tree under lock
-> 3. splice un-reclaimed entries back
->
-> And hooks the new interface into f2fs_shrink_count() and f2fs_shrink_scan=
-().
->
-> Signed-off-by: Chao Yu <chao@kernel.org>
+
+[ Replying again, but against the one with the Cc to the mailing lists ]
+
+On Mon, 24 Aug 2026 21:10:37 +0000
+J=C3=A9r=C3=A9my Jean <Jeremy.Jean@oss.cyber.gouv.fr> wrote:
+
+> User events keep per-mm tracing state in task_struct::user_event_mm. It
+> tracks the registrations and enablers created through the tracefs
+> user_events_data interface.
+>=20
+> dup_task_struct() starts a fork by copying this pointer from the parent.
+> user_events_fork() must then either share it for CLONE_VM, or create new
+> state for a child with a separate address space.
+>=20
+> The second case can fail. If user_event_mm_dup() cannot allocate the new
+> state or copy one of its enablers, it returns without replacing the
+> pointer copied by dup_task_struct(). The child now points at the parent's
+> tracing state, but did not take a task reference to it.
+>=20
+> When the child exits, user_event_mm_remove() can drop the parent's task
+> count to zero and queue its tracing state for release. The next
+> user-events registration in the parent calls current_user_event_mm() and
+> writes to the freed object.
+
+Please, do not cut and paste AI into your change log. Read it,
+understand it, and summerize it!
+
+The above is just mumbo jumble and is way too verbose for such a simple
+change. Show me you understand what the bug is. And tell me what was
+wrong. The above is totally not helpful for a change log. It's way too
+verbose and makes it very difficult to know what the bug is.
+
+>=20
+> KASAN reports:
+>=20
+>     BUG: KASAN: slab-use-after-free in current_user_event_mm+0x51/0x1d0
+>     Write of size 4 at addr ffff888005010d30 by task init/44
+>=20
+>     Call Trace:
+>      <TASK>
+>      kasan_report+0xce/0x100
+>      kasan_check_range+0x10f/0x1e0
+>      current_user_event_mm+0x51/0x1d0
+>      user_events_ioctl+0x82e/0x15c0
+>      __x64_sys_ioctl+0x139/0x1c0
+>      do_syscall_64+0xce/0x450
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>=20
+>     Allocated by task 44:
+>      __kasan_kmalloc+0x8f/0xa0
+>      __kmalloc_cache_noprof+0x180/0x3a0
+>      user_event_mm_alloc+0x3c/0x1f0
+>      current_user_event_mm+0x88/0x1d0
+>=20
+>     Freed by task 42:
+>      __kasan_slab_free+0x43/0x70
+>      kfree+0x13a/0x390
+>      process_one_work+0x696/0xf90
+>      worker_thread+0x420/0xba0
+>=20
+> Clear the child's copied user_event_mm before starting the fallible
+> duplication. If duplication fails, the child has no user-events tracing
+> state to release. The CLONE_VM case remains unchanged because
+> user_events_fork() explicitly installs the shared pointer and increments
+> its task count.
+>=20
+> Fixes: 7235759084a4 ("tracing/user_events: Use remote writes for event en=
+ablement")
+> Assisted-by: Codex:gpt-daybreak-blue
+> Signed-off-by: J=C3=A9r=C3=A9my Jean <Jeremy.Jean@oss.cyber.gouv.fr>
 > ---
->  fs/f2fs/cache.c    | 81 ++++++++++++++++++++++++++++++++++++++++++++++
->  fs/f2fs/cache.h    |  3 ++
->  fs/f2fs/shrinker.c | 12 +++++++
->  3 files changed, 96 insertions(+)
->
-> diff --git a/fs/f2fs/cache.c b/fs/f2fs/cache.c
-> index 8f09492c402f..3cee33c69880 100644
-> --- a/fs/f2fs/cache.c
-> +++ b/fs/f2fs/cache.c
-> @@ -534,3 +534,84 @@ void f2fs_destroy_cache(struct f2fs_cached_block_lis=
-t *cache)
->         f2fs_put_cache(entry, true);
->         goto next;
+>  include/linux/user_events.h | 1 +
+>  1 file changed, 1 insertion(+)
+>=20
+> diff --git a/include/linux/user_events.h b/include/linux/user_events.h
+> index 57d1ff0..2c9ac7b 100644
+> --- a/include/linux/user_events.h
+> +++ b/include/linux/user_events.h
+> @@ -48,6 +48,7 @@ static inline void user_events_fork(struct task_struct =
+*t,
+>  		return;
+>  	}
+> =20
+> +	t->user_event_mm =3D NULL;
+
+Honestly, that line should be in user_event_mm_dup() and not here.
+
+-- Steve
+
+>  	user_event_mm_dup(t, old_mm);
 >  }
-> +
-> +static unsigned long f2fs_do_shrink_cache(struct f2fs_cached_block_list =
-*cache,
-> +                                               unsigned long nr_to_scan)
-> +{
-> +       struct f2fs_cached_block *entry, *next;
-> +       LIST_HEAD(dispose_list);
-> +       LIST_HEAD(keep_list);
-> +       unsigned long freed =3D 0;
-> +       unsigned long isolated =3D 0;
-> +
-> +       /* Phase 1: Isolate candidate entries from LRU list into dispose_=
-list */
-> +       spin_lock(&cache->list_lock);
-> +       list_for_each_entry_safe(entry, next, &cache->lru_list, list) {
-> +               if (isolated++ >=3D nr_to_scan)
+> =20
 
-scanned?
-
-> +                       break;
-> +
-> +               if (f2fs_cache_test_dirty(entry) ||
-> +                   f2fs_cache_test_writeback(entry) ||
-> +                   f2fs_cache_test_locked(entry))
-> +                       continue;
-> +
-> +               if (f2fs_cache_refcount(entry) !=3D 1)
-> +                       continue;
-> +
-> +               list_move_tail(&entry->list, &dispose_list);
-> +       }
-> +       spin_unlock(&cache->list_lock);
-> +
-> +       /* Phase 2: Process isolated candidates one by one */
-> +       while (1) {
-> +               spin_lock(&cache->list_lock);
-
-Why do we need this lock to protect local lists?
-
-Thanks,
-
-> +               entry =3D list_first_entry_or_null(&dispose_list,
-> +                                               struct f2fs_cached_block,=
- list);
-> +               if (!entry) {
-> +                       spin_unlock(&cache->list_lock);
-> +                       break;
-> +               }
-> +               f2fs_cache_get(entry);
-> +               list_move_tail(&entry->list, &keep_list);
-> +               spin_unlock(&cache->list_lock);
-> +
-> +               if (!f2fs_trylock_cache(entry)) {
-> +                       f2fs_put_cache(entry, false);
-> +                       continue;
-> +               }
-> +
-> +               /* the entry has been truncated */
-> +               if (!entry->cache) {
-> +                       f2fs_put_cache(entry, true);
-> +                       continue;
-> +               }
-> +               /*
-> +                * at least there are shrinker, radix tree and another us=
-er
-> +                * has referenced the entry.
-> +                */
-> +               if (f2fs_cache_refcount(entry) >=3D 3) {
-> +                       f2fs_put_cache(entry, true);
-> +                       continue;
-> +               }
-> +
-> +               f2fs_do_truncate_cache(entry, false);
-> +
-> +               if (f2fs_put_cache(entry, true))
-> +                       freed++;
-> +       }
-> +
-> +       /* Phase 3: Splice un-reclaimed entries back onto cache->lru_list=
- */
-> +       if (!list_empty(&keep_list)) {
-> +               spin_lock(&cache->list_lock);
-> +               list_splice_tail(&keep_list, &cache->lru_list);
-> +               spin_unlock(&cache->list_lock);
-> +       }
-> +
-> +       return freed;
-> +}
-> +
-> +unsigned long f2fs_shrink_cache(struct f2fs_sb_info *sbi,
-> +                                       unsigned long nr_to_scan)
-> +{
-> +       return f2fs_do_shrink_cache(META_CACHE(sbi), nr_to_scan);
-> +}
-> diff --git a/fs/f2fs/cache.h b/fs/f2fs/cache.h
-> index 7ee98d276938..618b377590da 100644
-> --- a/fs/f2fs/cache.h
-> +++ b/fs/f2fs/cache.h
-> @@ -184,4 +184,7 @@ void f2fs_stop_cache_wb_thread(struct f2fs_sb_info *s=
-bi);
->  #define f2fs_truncate_meta_caches(sbi, start, len)     \
->         f2fs_drop_cache_range(META_CACHE(sbi), start, len, true)
->
-> +unsigned long f2fs_shrink_cache(struct f2fs_sb_info *sbi,
-> +                               unsigned long nr_to_scan);
-> +
->  #endif /* _LINUX_F2FS_CACHE_H */
-> diff --git a/fs/f2fs/shrinker.c b/fs/f2fs/shrinker.c
-> index 4f6bf5926de4..1755c85849e4 100644
-> --- a/fs/f2fs/shrinker.c
-> +++ b/fs/f2fs/shrinker.c
-> @@ -37,6 +37,11 @@ static unsigned long __count_extent_cache(struct f2fs_=
-sb_info *sbi,
->                                 atomic_read(&eti->total_ext_node);
->  }
->
-> +static unsigned long __count_cache(struct f2fs_sb_info *sbi)
-> +{
-> +       return sbi->meta_blocks.num_entries;
-> +}
-> +
->  unsigned long f2fs_shrink_count(struct shrinker *shrink,
->                                 struct shrink_control *sc)
->  {
-> @@ -68,6 +73,9 @@ unsigned long f2fs_shrink_count(struct shrinker *shrink=
-,
->                 /* count free nids cache entries */
->                 count +=3D __count_free_nids(sbi);
->
-> +               /* count generic cache entries */
-> +               count +=3D __count_cache(sbi);
-> +
->                 spin_lock(&f2fs_list_lock);
->                 p =3D p->next;
->                 mutex_unlock(&sbi->umount_mutex);
-> @@ -120,6 +128,10 @@ unsigned long f2fs_shrink_scan(struct shrinker *shri=
-nk,
->                 if (freed < nr)
->                         freed +=3D f2fs_try_to_free_nids(sbi, nr - freed)=
-;
->
-> +               /* shrink generic cache entries */
-> +               if (freed < nr)
-> +                       freed +=3D f2fs_shrink_cache(sbi, nr - freed);
-> +
->                 spin_lock(&f2fs_list_lock);
->                 p =3D p->next;
->                 list_move_tail(&sbi->s_list, &f2fs_list);
-> --
-> 2.49.0
->
->
->
-> _______________________________________________
-> Linux-f2fs-devel mailing list
-> Linux-f2fs-devel@lists.sourceforge.net
-> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
