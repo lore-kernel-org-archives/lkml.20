@@ -1,174 +1,157 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FCB5429013
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:56:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1DA03ED5BE
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:56:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787752563; cv=none; b=dh5JrZHU+dk0m47IP7YQjw8IYPEINFF7KkZsroSV0L4Ogkpp8icFkrSjZqsRrKcs7LEmRcLyG3bbKtB1FTtto0Wt/eUcW7o9a44uy4zVyN7EbHQZaARmCVEV5w3Luuy2XqNM0VLGSHxAVNpDSCWoWlyS6SWEdgDoatoSeNEJuRs=
+	t=1787752565; cv=none; b=Ab8MLCnbZOAbaDvUDfusMnL/tFskJEdAp6kdENmm85jTCBfwDemjL2fjNVHaNj2dkhlL5AAhLPMUWJZCzCzmWjz4/hKMpU9uR8rgpXcmUMZQ8IAFqZBo5vMmpjzg9fJnwYdWbAPn4lbc8qzq2G7KnAHQfFeiW+2KekVrAuGdGlw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787752563; c=relaxed/simple;
-	bh=Fuk5n0D0xHvMhCw4oobLuLcYYMG2iZyU2fYgQ3JvG78=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bU97Ua1vNJKZylpAPGATrIuoL7Z213DzVnxHkke2xJgTL1Vg6ADYf3e7IyeyXP9pNtrBmLXdoUHhYNx0e2eRTRsJpydMiTga/A85g0Aj5r2EUpLUGjR1/qtNlv8ZjEim+twNexsmvTz2fsjk2ryhJPR0jxYSoAYoZ254yPHqn2U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GNzIsZgY; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OATq09f1; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GNzIsZgY";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OATq09f1"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QCCHN9374858
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:56:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=GvF3M2opMH+
-	9skTu0SBBPHHkzkOh1jenzvfxkr9qQpo=; b=GNzIsZgYoZ+Cp0Ialf+Ep1+MYXo
-	Qq3p8AtunjfmGxaWwc5GMV7+vGictha0tVDGoJJxTEn4VChALWuARR2xxiZeZ0kh
-	/xo9R0wFcu/RXAuRfF7v6HbAXJTNPg3BjF6vR7WpI6SGARmAXQZi9MG6qHvPr/Ep
-	aGNZCtMfXQspnnq3yBm6sd5gf5/qnc33BTvFpP3mbQ/bEiujZLtxQIVKBCAxzodU
-	LgMfLRWvnq3cXnLknCmapMz018HzpMcCg//TseSIQNv2drRnhsnwnG+0aTEM3JUU
-	IRzRL2VqKFuqXTnGI1XbW9DGIQFKtfr3WZzZlHvEZKK7EwGhJRtH7+m/f1Q==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g9smxa426-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:56:00 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38ec0f510a9so2859935a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 06:56:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787752560; x=1788357360; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GvF3M2opMH+9skTu0SBBPHHkzkOh1jenzvfxkr9qQpo=;
-        b=OATq09f1MWGBl3aKoXjrba6WGCa9wCoPqjbCoYCivbAtxXLVW0msBTJGtRjXtIZ309
-         AD6Qw9ENRFP3P7AqTF01fLgV8tqd+gcEomeQqonX4kuILBb5SCp6qM6NDwqfiuIzS0YP
-         ZfhhyZ5F9aBQgAcRVccmpF02PtDxF8L4sEMroSfa4fkFBej8wvCl1X5BhFgMs2Il2g+X
-         3oEMWUG6UtOUyscbD7x/BnNu5aVWGIsznYtiGAzwoMTPkfFuYrQkoNJp+aWAHg1O570K
-         YMb2v6Gm8NDNJIxHFivfF5/8IIYYHkMLnlIZ6Q74V8CUuODX7crTFhwrvc3AaOskgr+4
-         3crQ==
+	s=arc-20240116; t=1787752565; c=relaxed/simple;
+	bh=RzFD0ssSLf9jwM5OiqXc8IM+RSciBLZiPQQSV/KufaM=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=hb/jiT99z4VOMuYh58tkj1FXVZ2pdpNozcKXybW2iJLxr/xmkv1KIrXBSyztfeEQ7cSzwd5yI4LFdbjEzQ3pCCuRRSoWWpDhf7k3ZJw/N1x8OBzY5eUx5ELd0tCuOj0xnNVcUIZ2BnnPXN2jxncofn+VdzbUjyIM5KjT+9li19Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4b1bd8320ecso1846546b6e.3
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 06:56:03 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787752560; x=1788357360;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GvF3M2opMH+9skTu0SBBPHHkzkOh1jenzvfxkr9qQpo=;
-        b=IhKzizzOZKKc9OU3fzRp8+vfC4j68eLtfSLaZV5aDPv7SDDTf5TauEoAAfEzoW/xU7
-         CFjAc3FZ6khcMj0Ixoky7O9GG9UO9usU5ztOgbDI/deNVmw9TGMy08hLWyLFq+U7DZ8y
-         S9rSXWLJ9VmEoxovk0WolpOvDc0MkyMW8m/0ie/FtFLv74Zz+eZLFcj6u8kHLL3/7P+U
-         tOgcyjeQXdpX5Eqy7RBlMuGsxKrxjclYfAtU2AANLTeqhiphhCZp7pWj0YrYHFDZqyib
-         YIXeIa34Qr6p7Mvx1MXfc4n7YOUqSXlnYp932pYlhl8kumOn2rSotH7lA//E+ArHhzx1
-         l+ZQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rru/HQlLxJ7JbMVkO6uCPLns4gbwAKZPcVnsLo2QLLdkyIHreOv5zjtGfn/fwSfqr81hgdJdqdPVG80e+k=@vger.kernel.org
-X-Gm-Message-State: AFuF++m7ZcgBtuBK3O33KizVEXhJzHTqCUEc6bGrKiYcqt+XjeXDAtkV
-	SEi78+lEVekfL9F2gcL8wdpbVZdoCoUs6ubgURcywyyjNFe872OaXjZSBdMe+YUn/oviuVw5JPz
-	jtbQvm2T//n23tr2TRt8mHxNtZi42axepD/kgP//p4Qc+Eeuo+CkmClM+r1WwdLegW8k=
-X-Gm-Gg: AR+sD106XG0NCuRZRPK/Ljk48OHTcwc6u9KgZnEMbUMd87oP1vmpZ/M6BZztiVkzaL1
-	HJs7SQmGjyinpmQudNjjRawaDVyE2DoIuIvUrNApMjoMoC+kN9xWv+0BPO6PpDVwnhybxnNt9V/
-	9KQXxKgBbh/kiF3TmzUIFee6VEMVcqUNVAkklsinQ0aYa3iq84LtUQpCbCFkbUUseY/1zI/vMfG
-	CrT/3zIirEXmVlCqmPtS7Sp6UmbPw5WdAG5DETPRUMeYbae/57afq3nVQU2AzqKzeTFc+1liVBP
-	hFIiE8LmI3f1kKe0UeqKw2p8QaUt3FX1Na5yUBiLOXlDq7JBXVjFLJ4QFzMtqrDRQediwPJqUcg
-	Wj0ynI5LEDbWI+Io1bvAPsT1U/Kt5LcbsroWD/eJ2Aumln621SdZrrv/SY2Fa
-X-Received: by 2002:a17:90b:268b:b0:380:fead:448d with SMTP id 98e67ed59e1d1-3966d73212emr15756293a91.13.1787752559619;
-        Wed, 26 Aug 2026 06:55:59 -0700 (PDT)
-X-Received: by 2002:a17:90b:268b:b0:380:fead:448d with SMTP id 98e67ed59e1d1-3966d73212emr15756154a91.13.1787752559073;
-        Wed, 26 Aug 2026 06:55:59 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39668a573a1sm4347911a91.14.2026.08.26.06.55.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 06:55:58 -0700 (PDT)
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Ulf Hansson <ulfh@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Subject: [PATCH v2 2/2] pmdomain: qcom: rpmhpd: Add NMXC power domain for Nord
-Date: Wed, 26 Aug 2026 21:54:54 +0800
-Message-ID: <20260826135454.658615-3-shengchao.guo@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260826135454.658615-1-shengchao.guo@oss.qualcomm.com>
-References: <20260826135454.658615-1-shengchao.guo@oss.qualcomm.com>
+        d=1e100.net; s=20251104; t=1787752562; x=1788357362;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=CAcrub0ld9kYH07a9H+KZd+2udUpFl5U5PIvNAlEB6I=;
+        b=pLPSvfN1wHxPYAJkeGaXRMzKkzV6J39DlFBsWo5EA2wsI/n8tIwcJNKerFlY90oVg5
+         QAcCV0aTtQR3Lp1Nq6Ze1fjJvJ+Z2KGKzN0VPtLnABR0yjuacQdPoFyGuOmGZmOFM9jQ
+         fF2d3ETEOTOUxKZSEJp/dJgxtSi4IYDMHhm82e0Iece0upSjFqH1R6L3EoOrzgqR/u31
+         9sFxv+sBbnGhMxHD2TZ/VBy+G4Ag/eOLXEJi0BI7+OdbeidSHX2ItGDV0+H5YBpITnZk
+         AC1M/NYUVnFnGR6in05v47eL+tL0ovBN/P7QlgN9rjLX+IzRG642rTCwTLPOhOlKGX9F
+         gS8g==
+X-Forwarded-Encrypted: i=1; AHgh+RpnRKsXQyDd1cz2E8BiUe79TzbNwViO9hes55qYm9P5Hb99VV5d12DGihmrUV4Vr9IkTDrySCmNCdL+Hw8=@vger.kernel.org
+X-Gm-Message-State: AFuF++l3uK1cxbdAUgvDmeThXJCl9/LkcLMxmqt5fi30tOTsNC8zr096
+	RSimOQwv3vX9oHo7HY4PZ6pWmh9ThJ7343AmATJQra94R2OmcL/PKTYSdDlLMBeIE3DWGyH/1k6
+	vRPKX0mGX0aAaLLsRBdKSAh0Bj1TkGp5uUkv2bKzNwx/pdG8g0TwPsU0fm1w=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=O/oJeh9W c=1 sm=1 tr=0 ts=6a8ef070 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
- a=lHabChWoiVafOPoG-uEA:9 a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-GUID: YtTBJFCu5xUnWbmko0hviRWYzQ8A33pN
-X-Proofpoint-ORIG-GUID: YtTBJFCu5xUnWbmko0hviRWYzQ8A33pN
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDExNSBTYWx0ZWRfX3p5eL2/eh4Dz
- qq1W2DrIlXOlKyqw8hXQ20POHkIfmtcLtTm6p/FRcKsv1mrQKXDuJeiBkxKodHwXX/koXrrzW19
- GKzfj1QGvq1Dl8llvLJKa8ekPHPgpgoQBSRoEkmrzHxYuiORHIhg97qyeGmH6Wo5s9Aa865jaBI
- r9Eqi3xijBBmHTBBM3NWSVYVB+GtsXrviSq3GcvoamQxtSim0lQsjDL5cYnoYYWowp5mMvmUVAA
- R4MX2HvNDSBe7vHX7mNQbROfSVz2qEHlkk8DxQcopCoezx+rhdGHuKINxPgAS32re8XLB3Qfc8d
- sGx1t8LXl1gsE/ymId7b7kmTY2X2yDhOq6Dh8x89GwM/9xjFjcKGLKw1FL58Ect4jP7AG8y72Dq
- 3bmq3A3V7QQGWFVVxLr6b9MMHfanz1CBi6ugX17Bpu+EDYmRLfueg10HBSl+fSbSVrlCd7j4U33
- buDMfYqqw6/rid+N2Mw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDExNSBTYWx0ZWRfXwfYgpFEKp7iv
- 88SJNDkAlCJoIijg8fX6atgWQQIokE0Od+Q+zDpNXxS86tMqhkxjCffijrOtFGrA3N0iEt+dkJx
- mi+y5svxS/LtX0EWPjZ4h23rfBk98AQ=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-26_03,2026-08-26_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 spamscore=0 adultscore=0 impostorscore=0
- lowpriorityscore=0 clxscore=1015 bulkscore=0 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260115
+X-Received: by 2002:a05:6808:1307:b0:497:8f1:df07 with SMTP id
+ 5614622812f47-4b3668217f5mr7641709b6e.7.1787752562470; Wed, 26 Aug 2026
+ 06:56:02 -0700 (PDT)
+Date: Wed, 26 Aug 2026 06:56:02 -0700
+In-Reply-To: <CAHc6FU6nG0BQVreh8uhacvSw-fxO2a=T7B5ct_oF8NmNL7-mqA@mail.gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a8ef072.1d9ded08.62e62.00b0.GAE@google.com>
+Subject: Re: [syzbot] [gfs2?] general protection fault in _find_first_zero_bit
+From: syzbot <syzbot+cb79de2cc8b76fbf474f@syzkaller.appspotmail.com>
+To: agruenba@redhat.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
+Hello,
 
-Add the nmxc.lvl RPMh resource and register it in the Nord power domain
-table. Nord supplies the NSP memory rail from this dedicated resource
-rather than from the shared MX rail, so consumers need it exposed as its
-own power domain.
+syzbot has tested the proposed patch but the reproducer is still triggering an issue:
+general protection fault in _find_first_zero_bit
 
-Signed-off-by: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
----
- drivers/pmdomain/qcom/rpmhpd.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+Oops: general protection fault, probably for non-canonical address 0xdffffc0000000000: 0000 [#1] SMP KASAN NOPTI
+KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+CPU: 0 UID: 0 PID: 6218 Comm: syz-executor Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
+RIP: 0010:_find_first_zero_bit+0x29/0xb0 lib/find_bit.c:149
+Code: 90 f3 0f 1e fa 41 57 41 56 41 55 41 54 53 48 85 f6 74 46 48 89 f3 49 89 fe 49 bf 00 00 00 00 00 fc ff df 48 89 f8 48 c1 e8 03 <42> 80 3c 38 00 74 08 4c 89 f7 e8 68 06 7b fd 49 8b 06 48 83 f8 ff
+RSP: 0018:ffffc90002ec76c0 EFLAGS: 00010256
+RAX: 0000000000000000 RBX: 000000000000f800 RCX: 0000000000000000
+RDX: ffff88802888cc40 RSI: 000000000000f800 RDI: 0000000000000000
+RBP: dffffc0000000000 R08: 0000000000000003 R09: 0000000000000004
+R10: dffffc0000000000 R11: fffff520005d8ecc R12: ffff88805dd283f0
+R13: ffff88802888cc38 R14: 0000000000000000 R15: dffffc0000000000
+FS:  0000000000000000(0000) GS:ffff888125207000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000013ecc44fd000 CR3: 000000000e746000 CR4: 0000000000350ef0
+Call Trace:
+ <TASK>
+ find_first_zero_bit include/linux/find.h:391 [inline]
+ slot_get fs/gfs2/quota.c:369 [inline]
+ qdsb_get+0x133/0x340 fs/gfs2/quota.c:536
+ gfs2_quota_hold+0x191/0x5c0 fs/gfs2/quota.c:620
+ gfs2_dinode_dealloc+0x176/0x3f0 fs/gfs2/inode.c:529
+ evict_unlinked_inode fs/gfs2/super.c:1334 [inline]
+ gfs2_evict_inode+0x11e0/0x1410 fs/gfs2/super.c:1484
+ evict+0x624/0xb50 fs/inode.c:822
+ gfs2_put_super+0x300/0x870 fs/gfs2/super.c:620
+ generic_shutdown_super+0x13d/0x2d0 fs/super.c:769
+ kill_block_super+0x44/0xa0 fs/super.c:1918
+ deactivate_locked_super+0xbc/0x110 fs/super.c:603
+ cleanup_mnt+0x3d3/0x460 fs/namespace.c:1317
+ task_work_run+0x1d9/0x270 kernel/task_work.c:233
+ exit_task_work include/linux/task_work.h:40 [inline]
+ do_exit+0x73a/0x2360 kernel/exit.c:1009
+ do_group_exit+0x22d/0x2f0 kernel/exit.c:1152
+ __do_sys_exit_group kernel/exit.c:1163 [inline]
+ __se_sys_exit_group kernel/exit.c:1161 [inline]
+ __x64_sys_exit_group+0x3f/0x40 kernel/exit.c:1161
+ x64_sys_call+0x2237/0x2250 arch/x86/include/generated/asm/syscalls_64.h:232
+ do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+ do_syscall_64+0x174/0x580 arch/x86/entry/syscall_64.c:94
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fe33439ce59
+Code: Unable to access opcode bytes at 0x7fe33439ce2f.
+RSP: 002b:00007ffe494bbc48 EFLAGS: 00000246 ORIG_RAX: 00000000000000e7
+RAX: ffffffffffffffda RBX: 00007fe33443233c RCX: 00007fe33439ce59
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000001
+RBP: 0000000000000016 R08: 0000000000000000 R09: 00007fe3344322ca
+R10: 0000000000000000 R11: 0000000000000246 R12: 00007ffe494bcf00
+R13: 00007fe3344322ca R14: 000055558ebba4e8 R15: 00007ffe494c12a0
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:_find_first_zero_bit+0x29/0xb0 lib/find_bit.c:149
+Code: 90 f3 0f 1e fa 41 57 41 56 41 55 41 54 53 48 85 f6 74 46 48 89 f3 49 89 fe 49 bf 00 00 00 00 00 fc ff df 48 89 f8 48 c1 e8 03 <42> 80 3c 38 00 74 08 4c 89 f7 e8 68 06 7b fd 49 8b 06 48 83 f8 ff
+RSP: 0018:ffffc90002ec76c0 EFLAGS: 00010256
+RAX: 0000000000000000 RBX: 000000000000f800 RCX: 0000000000000000
+RDX: ffff88802888cc40 RSI: 000000000000f800 RDI: 0000000000000000
+RBP: dffffc0000000000 R08: 0000000000000003 R09: 0000000000000004
+R10: dffffc0000000000 R11: fffff520005d8ecc R12: ffff88805dd283f0
+R13: ffff88802888cc38 R14: 0000000000000000 R15: dffffc0000000000
+FS:  0000000000000000(0000) GS:ffff888125207000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000013ecc44fd000 CR3: 000000000e746000 CR4: 0000000000350ef0
+----------------
+Code disassembly (best guess):
+   0:	90                   	nop
+   1:	f3 0f 1e fa          	endbr64
+   5:	41 57                	push   %r15
+   7:	41 56                	push   %r14
+   9:	41 55                	push   %r13
+   b:	41 54                	push   %r12
+   d:	53                   	push   %rbx
+   e:	48 85 f6             	test   %rsi,%rsi
+  11:	74 46                	je     0x59
+  13:	48 89 f3             	mov    %rsi,%rbx
+  16:	49 89 fe             	mov    %rdi,%r14
+  19:	49 bf 00 00 00 00 00 	movabs $0xdffffc0000000000,%r15
+  20:	fc ff df
+  23:	48 89 f8             	mov    %rdi,%rax
+  26:	48 c1 e8 03          	shr    $0x3,%rax
+* 2a:	42 80 3c 38 00       	cmpb   $0x0,(%rax,%r15,1) <-- trapping instruction
+  2f:	74 08                	je     0x39
+  31:	4c 89 f7             	mov    %r14,%rdi
+  34:	e8 68 06 7b fd       	call   0xfd7b06a1
+  39:	49 8b 06             	mov    (%r14),%rax
+  3c:	48 83 f8 ff          	cmp    $0xffffffffffffffff,%rax
 
-diff --git a/drivers/pmdomain/qcom/rpmhpd.c b/drivers/pmdomain/qcom/rpmhpd.c
-index 96e4bd2f5a14..717c44d1c39a 100644
---- a/drivers/pmdomain/qcom/rpmhpd.c
-+++ b/drivers/pmdomain/qcom/rpmhpd.c
-@@ -198,6 +198,11 @@ static struct rpmhpd mxc_ao = {
- 	.res_name = "mxc.lvl",
- };
- 
-+static struct rpmhpd nmxc = {
-+	.pd = { .name = "nmxc", },
-+	.res_name = "nmxc.lvl",
-+};
-+
- static struct rpmhpd nsp = {
- 	.pd = { .name = "nsp", },
- 	.res_name = "nsp.lvl",
-@@ -331,6 +336,7 @@ static struct rpmhpd *nord_rpmhpds[] = {
- 	[RPMHPD_MX_AO] = &mx_ao,
- 	[RPMHPD_MXC] = &mxc,
- 	[RPMHPD_MXC_AO] = &mxc_ao,
-+	[RPMHPD_NMXC] = &nmxc,
- 	[RPMHPD_NSP0] = &nsp0,
- 	[RPMHPD_NSP1] = &nsp1,
- 	[RPMHPD_NSP2] = &nsp2,
--- 
-2.43.0
 
+Tested on:
+
+commit:         8ea0df12 gfs2: Add meta inode validation to prevent co..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=15ca0579580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=f8dd02b32fb43dc7
+dashboard link: https://syzkaller.appspot.com/bug?extid=cb79de2cc8b76fbf474f
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+
+Note: no patches were applied.
