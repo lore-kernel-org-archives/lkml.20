@@ -1,186 +1,76 @@
-Received: from mta1.migadu.com (out-59.mta1.migadu.com [95.215.58.59])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35B5C3E2AB0
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:31:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.59
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9AFA14EC73
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:31:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787751098; cv=none; b=X79Te/6qOzQDvQWhwkBUl73HPgauJBQCxTpS8rmDshLPoq/CbsNgOfqEWrHgsTADstRwMvQwDWH6XiqLIrMLsb632+QkcXCgQRme88cvLW6cypAVsHg2f6buojNtolsNETxWk3MzcEUX6qm7a3f1VyDejLT4FLwAiRC43DCvXjU=
+	t=1787751104; cv=none; b=mKtnRR0yxRmgj/1O1Jhg1GMp9HhtX9hJVk9NgG9oHDCuLkaoDdOdJWrm8nSxwvZatJcbvnMWGGYk0HUXlaQYBVjKF1c2+7o6kyD5+abvHQGBa5f8H3ZhDcfdEqI8wy4cmqzGcPIntVd7tdhzulJ2eHySY7fCRRRyjqorLVbg+k0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787751098; c=relaxed/simple;
-	bh=x3tyovTSuHPSGETPwcjNdH5ZDZ4Zl6jfQyrC3+aX5GQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=guGIkPu37azczirL9R6oNh7XDi79N6X+7l9DD0xORYah5cZBNMU9uU/lFobsYlCzdx4oJNf1oDPTj9FxWQd42OV7CW2BFm2bYxDkaf3ehv1Ro2b1yfFX2UpQfAGwOFO4LCSt4gqLugo4jzG97+WQqQe0telGkM2UEJvm1Ug2YQA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=C7d7rAfs; arc=none smtp.client-ip=95.215.58.59
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787751104; c=relaxed/simple;
+	bh=ld4QhYWYapTYFWkeEHP/og+kPvuqcXsvwgb+JCgmWz8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=skgtZIQwVG1FTr5oQNkxIlLYaCxnsKKQHj5/zJAalz/1N7qNHi0HAa/B4x+Wzmpg6d9gK1lu5qOqore3xzEgpwtEzfTzEiIkPnHvq+9mjrU2qn7bo5nXG21wsSL2eW/mmid2Kh8vYxlzs0wpYD5yEazKZ44IoS99M00itjywvKU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AveYCEPO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="C7d7rAfs"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=x3tyovTSuHPSGETPwcjNdH5ZDZ4Zl6jfQyrC3+aX5GQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787751093; v=1; x=1788355893;
- b=C7d7rAfscWZy0lLuMytPxF9pgrfuOaRgMYISc1/Z/1ekH7m6KwUUUVs7I/FQk5fFxanGRNr1
- FfLjlV9SjV3Q1aosChAyoGtGq7gr9vGv5vtnBQQQozVs6nJmb825Sf4melvZFebpCsEpUyh6Y/C
- 708zwiatiA5PHri6t9I7Twus=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: from localhost (2a03:2880:10ff:5b::)
-	by mta11.migadu.com with ESMTPS id 4f3da476f759c30b;
-	Wed, 26 Aug 2026 13:31:33 +0000
-X-Mizu-Trace-ID: 4f3da476f759c30b
-X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: Alexandre Ghiti <alex@ghiti.fr>
-Cc: Usama Arif <usama.arif@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Yosry Ahmed <yosry@kernel.org>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Hugh Dickins <hughd@google.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Chris Li <chrisl@kernel.org>,
-	Kairui Song <kasong@tencent.com>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Youngjun Park <youngjun.park@lge.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Joonsoo Kim <iamjoonsoo.kim@lge.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/3] mm/swap: refault on swap-in, not in the swap cache allocator
-Date: Wed, 26 Aug 2026 06:31:28 -0700
-Message-ID: <20260826133130.806177-1-usama.arif@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260825172604.3243589-3-alex@ghiti.fr>
-References: 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AveYCEPO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA36B1F000E9;
+	Wed, 26 Aug 2026 13:31:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787751103;
+	bh=ld4QhYWYapTYFWkeEHP/og+kPvuqcXsvwgb+JCgmWz8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AveYCEPOgKoNaZaPd2+uZC9WbQc4jsDlg2ECLTzPhciM5dstuNQF+Y/P4pXc1c5/i
+	 yPCcS9tnLkGrLowkYtnXFJqN9B2Py9KPwZ2KKv1PuTNHDphu+1SiXm9ya2vfA7TlpJ
+	 IYDdODwPaZJTGEonVKUwcKtiWfbhq1GWYIsyZTnLGYx8hdnUI2Dxq0hlzrxGuFeeTC
+	 sll/yfpHHtu0qthluDWnrrJ+RTMy8Gm4Cu8OJT2UziuajqvbmwXg4CMwg7Fl7k5Oqw
+	 flkdKyQ/nY/UqA5YSG+gQJUEk4MSjaRRf5z8quYf5MbOqFPkrBDI5/Vb7WnsK4whru
+	 XNYS3kp99DIjw==
+Date: Wed, 26 Aug 2026 14:31:40 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Yang Zi <2959243019@qq.com>
+Cc: lgirdwood@gmail.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] regulator: max8660: Fix NULL pointer dereference in probe
+Message-ID: <ab860e6c-29ad-4a50-bd31-70371a0dda62@sirena.org.uk>
+References: <tencent_7AEB516C2A94CD5BE16C6C06295527FBC005@qq.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Mn/0tbs7xJCW66Oi"
+Content-Disposition: inline
+In-Reply-To: <tencent_7AEB516C2A94CD5BE16C6C06295527FBC005@qq.com>
+X-Cookie: Don't vote -- it only encourages them!
 
-On Tue, 25 Aug 2026 19:24:52 +0200 Alexandre Ghiti <alex@ghiti.fr> wrote:
 
-> The swap cache allocator evaluates the refault of every folio it
-> allocates.  zswap writeback also allocates through it: the shrinker puts
-> a buffer folio in the swap cache to write the compressed data out, and
-> that allocation is then counted as an anon refault (and, if the eviction
-> looks recent, as an activation) even though nothing faulted the page
-> back in.  On a workload that writes back continuously this inflates
-> workingset_refault_anon and workingset_activate_anon substantially.
-> 
-> Move the refault evaluation out of the allocator and into the two
-> swap-in callers, which read the slot's shadow before the allocation
-> overwrites it.  zswap writeback keeps allocating the buffer, but no
-> longer reports a refault for it.
-> 
-> The refault is evaluated before folio_add_lru(), as it was before this
-> patch, so workingset_refault() still sets PG_workingset/PG_active while
-> the folio is off the LRU: folio_add_lru() consumes both when it picks
-> the LRU list, and under MGLRU when it picks the generation.
-> 
-> Fixes: aae466b0052e ("mm/swap: implement workingset detection for anonymous LRU")
-> Signed-off-by: Nhat Pham <nphamcs@gmail.com>
-> Signed-off-by: Alexandre Ghiti <alex@ghiti.fr>
-> ---
->  mm/swap_state.c | 20 ++++++++++++++++++--
->  1 file changed, 18 insertions(+), 2 deletions(-)
-> 
-> diff --git a/mm/swap_state.c b/mm/swap_state.c
-> index bf8ff2d2dbf1..8046fea015c9 100644
-> --- a/mm/swap_state.c
-> +++ b/mm/swap_state.c
-> @@ -483,8 +483,6 @@ static struct folio *__swap_cache_alloc(struct swap_cluster_info *ci,
->  
->  	/* memsw uncharges swap when folio is added to swap cache */
->  	memcg1_swapin(folio);
-> -	if (shadow)
-> -		workingset_refault(folio, shadow);
->  
->  	node_stat_mod_folio(folio, NR_FILE_PAGES, nr_pages);
->  	lruvec_stat_mod_folio(folio, NR_SWAPCACHE, nr_pages);
-> @@ -646,17 +644,26 @@ static struct folio *swap_cache_read_folio(struct swap_io_ctx *ctx,
->  		pgoff_t ilx, bool readahead)
->  {
->  	struct folio *folio;
-> +	void *shadow = NULL;
->  
->  	do {
->  		folio = swap_cache_get_folio(entry);
->  		if (folio)
->  			return folio;
-> +		/*
-> +		 * Capture the slot's shadow before the allocation overwrites it,
-> +		 * so a fresh swap-in can be evaluated as a refault below.
-> +		 */
-> +		shadow = swap_cache_get_shadow(entry);
->  		folio = __swap_cache_alloc_folio(entry, gfp, BIT(0), NULL, mpol, ilx);
+--Mn/0tbs7xJCW66Oi
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Can this refault against a shadow from a different cache generation?
-Another swap-in can replace this value, reclaim its folio, and install
-a newer shadow while this caller is allocating.  This caller can then
-win the locked insertion but still use the older snapshot.
+On Tue, Aug 25, 2026 at 04:58:59PM +0800, Yang Zi wrote:
+> max8660_probe() dereferences pdata->num_subdevs without first checking
+> that platform data is available. When the device is instantiated without
+> a device tree node and without platform data, pdata remains NULL and probe
+> crashes with a NULL pointer dereference.
 
-What I think should be done here is have an optional shadow output to
-__swap_cache_alloc_folio() and return the value captured by the successful
-__swap_cache_add_check() under ci->lock and se that output in the swap-in
-path?
+This doesn't apply against current code, please check and resend.
 
->  	} while (PTR_ERR(folio) == -EEXIST);
->  
->  	if (IS_ERR_OR_NULL(folio))
->  		return NULL;
->  
-> +	if (shadow)
-> +		workingset_refault(folio, shadow);
-> +
->  	folio_add_lru(folio);
->  	swap_read_folio(ctx, folio);
->  	if (readahead) {
-> @@ -688,17 +695,26 @@ struct folio *swapin_sync(swp_entry_t entry, gfp_t gfp, unsigned long orders,
->  {
->  	struct swap_io_ctx ctx = {};
->  	struct folio *folio;
-> +	void *shadow = NULL;
->  
->  	do {
->  		folio = swap_cache_get_folio(entry);
->  		if (folio)
->  			return folio;
-> +		/*
-> +		 * Capture the slot's shadow before the allocation overwrites it,
-> +		 * so a fresh swap-in can be evaluated as a refault below.
-> +		 */
-> +		shadow = swap_cache_get_shadow(entry);
->  		folio = __swap_cache_alloc_folio(entry, gfp, orders, vmf, mpol, ilx);
->  	} while (PTR_ERR(folio) == -EEXIST);
->  
->  	if (IS_ERR(folio))
->  		return folio;
->  
-> +	if (shadow)
-> +		workingset_refault(folio, shadow);
-> +
->  	folio_add_lru(folio);
->  	swap_read_folio(&ctx, folio);
->  	swap_read_submit(&ctx);
-> -- 
-> 2.53.0-Meta
-> 
-> 
+--Mn/0tbs7xJCW66Oi
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqO6rsACgkQJNaLcl1U
+h9DiPgf/SE5C/lHWC5q5W0BFWH1g1/OvVNWJgeWdQaFy3yiE+Nf9badMwQbZYyFt
+mDYYZIVORsxk5bW822fd3URPRjDU99+zcx8kUhxMkMK9jSOwynyiwuTT1TvxlyAW
++zk49i/ZUYZ1pRfIZr/8pP3kdAJZKg8r98ZG39mi/6g807/np2BmK5JetI4slcaq
+or5H2FwnyBsj+jwjAaGMxC6JXpjpA2z/M5ZdMPOBB6VuBi8FA3Mg0o+7YadesHmG
+KDogD2suO9/zs4qeA+WgvRTqgjT0ZNLzEkkigd041N8jtGUDTxoqLdwJLzXAUO1z
+HL8l/KRsugCEpgSJgNaMtNy/90iZXQ==
+=NiCY
+-----END PGP SIGNATURE-----
+
+--Mn/0tbs7xJCW66Oi--
