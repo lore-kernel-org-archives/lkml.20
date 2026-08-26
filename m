@@ -1,99 +1,122 @@
-Received: from aer-iport-3.cisco.com (aer-iport-3.cisco.com [173.38.203.53])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3231847729E;
-	Wed, 26 Aug 2026 20:09:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=173.38.203.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 633D33B058E;
+	Wed, 26 Aug 2026 20:13:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787774980; cv=none; b=NVBd5mo93KZxDOJuXqlEtsA4WrijyorZLqsgabqdWXcc5HO0z0HUn8I+zrCLSvsvfVCAvLbfCk6TXJg5rbuDs43W+D9e9sHoxpcpL4C+kqyF3IyHscKEeAF9sbqLsvvjyAHUJOKlAYSgDZl70FSIRpQjMm7aaXGsBWHkukDUydM=
+	t=1787775185; cv=none; b=dM5rIS1i1mnWMgIPElSBMlTzV1gH8iZygRyHzYOas97RTM8A73Lz6jmMHrjUq2Jj7vusMtkOOj2zFWwcSKQehJ+mYPj1HeBIAUmyZmr89+RQ0Zyeza8FYO8nVSmU2JI+3DfgALOQrs6jdTEvtRSgy5RC/B/wLmrixmt8vRE+N6g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787774980; c=relaxed/simple;
-	bh=xFxKnBlj3v6Qc2mrCVc0d/tS+1MVh2H+i9VS2Fv0Lac=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 Content-Type; b=tNeBhgusMjirIXRpZN0HEDlVOeqvmL5Q5bddkK3+iIU9T8YfeNMinffZdPtzKmZo/LOczUlpPw2ogKGOixm2JgbFGr2go1EdfQwDBBeEUbjDYIspak9YweIRCYX3eGj5TddBlyAEsNvknZyp/Z3aQWy5JHGlIJDkjmJdUuLNwqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cisco.com; spf=pass smtp.mailfrom=cisco.com; dkim=pass (2048-bit key) header.d=cisco.com header.i=@cisco.com header.b=U+dLLb6x; arc=none smtp.client-ip=173.38.203.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cisco.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cisco.com
+	s=arc-20240116; t=1787775185; c=relaxed/simple;
+	bh=LDMs7gSle0lyiqX72kem48vDFieKIgrgVU1BTFLr9Fs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uFY8FbcR8EbSgrYvbYWLHvv3d451fyEbdek2n9IV8ums3cvIKIyaMEIltqQyYUerEJEO3dVlWHWNO5GKj628fsyMEHUsUB9ocdIODuOzRwMcZ68QHyWaxFDAWjs9JUGlxWeIOBazEegeLNVJVIgt3WmdVBQUCVwJEoF/TWuk7bI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kWa2eaT3; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cisco.com header.i=@cisco.com header.b="U+dLLb6x"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=cisco.com; i=@cisco.com; l=110; q=dns/txt;
-  s=iport01; t=1787774975; x=1788984575;
-  h=date:message-id:from:to:cc:subject:in-reply-to:
-   references:content-transfer-encoding;
-  bh=xFxKnBlj3v6Qc2mrCVc0d/tS+1MVh2H+i9VS2Fv0Lac=;
-  b=U+dLLb6xdrGgPq/+ks63IWqEtnbKlvCb6F7RLEIJotHCZAuCqkNKpfMY
-   Qi2lXucR8sVo4nMzB9V8U9b9q9P4DqfIzv+szwebU+YcxyhB+5rOgSTP4
-   XPB1xdmDY8iQk1m5j0tljxqteHAjawBClfvmJVwCzYSDQgIdvx8j3DjuJ
-   ma6F8eG/BR0W7g2FwpehZtHDXnNnqMLdwxmhfHAL8fpUQOya6QFxOZnF/
-   ioa67RwtebnKy89lLtDjsBJ7mE9q87lXxA/rF6PZa8Y0Az3v9wRuFe1yE
-   YUbKuBFrfTvbf44MdghK6kntBjklYycwnUZMqexmjAxFSnJFKxNml2FxG
-   w==;
-X-CSE-ConnectionGUID: MwLpWujqTLq+BRhg/vp8hQ==
-X-CSE-MsgGUID: iIwTDY1OQCufgnlsUFnyCA==
-X-IPAS-Result: =?us-ascii?q?A0BxBQDRRo9q/8pK/pBaglmEKUOFIIRNiwWGUi2NPIwEg?=
- =?us-ascii?q?X4PAQEBD1EEAQGBUQGDKQEJAo1sAiY0CQ4BAgQDAgMBAQEBAQEBAQEBAQEKA?=
- =?us-ascii?q?QEFAQEBAgEHBYEOE4ZchlsCAQMjDwFGEAsODAImAgJWBhuCeoJ1A78oeoEyg?=
- =?us-ascii?q?QGEftlJgXIVgQouiF4BhXiEfCcbgUlEhA8xPogegmoEgiKBDJNkLCZ4HANZL?=
- =?us-ascii?q?AEPETUTFwsHBYEjQwOBBiMPPAUtHYEjIR0XFx5YGwYFEiAqQUQVDgM+gRlBA?=
- =?us-ascii?q?oF1PyMZNnyBCV6BKylkAQIQF0YuFYIHAoJagSdeAgFJQw4HRz4LB2Y9NxQZB?=
- =?us-ascii?q?AIBOnuUUpdLsCOEKKFkEhwXg3EBk22TDZkIqUOBaDyBWTMaCBsVgyNSGQ+OX?=
- =?us-ascii?q?89fRW8BAQcCBw4DC4FokX4BAQ?=
-IronPort-Data: A9a23:OvUitavi9iCeNXajuklLLf2y0+fnVI1eMUV32f8akzHdYApBsoF/q
- tZmKTvVa/mMY2XzLtp1YNm+pBwD7JOGmIMwTlc9q39hFClGgMeUXt7xwmUckM+xwmwvaGo9s
- q3yv/GZdJhcokf0/0nrb/656yYghclkf5KkYMbcICd9WAR4fykojBNnioYRj5Vh6TSDK1vlV
- eja/YuFZTdJ5xYuajhKs/LZ9ks11BjPkGpwUmIWNKgjUGD2zxH5PLpHTYmtIn3xRJVjH+LSb
- 47r0LGj82rFyAwmA9Wjn6yTWhVirmn6ZFXmZtJ+AsBOszAazsAA+v9T2Mk0NS+7vw60c+VZk
- 72hg3AfpTABZcUgkMxFO/VR/roX0aduoNcrKlDn2SCfItGvn3bEm51T4E8K0YIw3/lTGV5T9
- +UkDClORCqDiKWo2OK7c7w57igjBJGD0II3s3x6iDWcBvE8TNWbGuPB5MRT23E7gcUm8fT2P
- pZFL2AyMFKfP1sVYg1/5JEWxI9EglH9bzpcrF+JjaE2+GPUigd21dABNfKIJYDSG5wKwS50o
- ErH3nvFLiBDE+W01DSK9Ha3u8HJjAjSDdd6+LqQs6QCbEeo7mAaFhATfVeyv/S8jkmwR5RZJ
- lB80jEio4A880mqRdnwQVu9rRasvBkcXZxeGvYm4QuAzKb87AOQB2xCRTlEAPQruNIzTC4ny
- neGmNTmATEpu7qQIVqR/7GVoDeaOC8aIGYYbygUCw0I/7HLqZovphHCVNBuFOiylNKdMTH53
- DOiryUkgbgXy8kR2M2T/k3Nihqvq4LPQwpz4R/YNkqs6A9jaZHmYYG05VXFxfJdKoDfRVnpl
- HQYktSD6O0HJZeTlSCMSaMGG7TBz/KINzvGhnZpAZgt9j3r8HmmFahV6jV5L0dBNNgFdT7gJ
- kTUvGt5/5ZeMXevRalpYo6wAoIhyq2IPcjsTPHNcvJIfJl9dQbB9yZrDWaP3nzwuE4ykK0+M
- NGQdsPEJW4TA6lhzRKsSusd2KNtzSc7rUvZXZ7T0Ruqy/ydaWSTRLNDN0GBBsg97aWZsEDW/
- sxZOs+i1RpSSqv9bzPR/IpVKkoFRVA/BJbru4lNeuuKChRpFXtnCPLLx74lPYt/kMx9kOrU8
- nyjclFXxUC5hnDdLwiOLHd5Z9vHRop2p3Y2FTIjMEzu2HU5Z4urqqAFePMKkaIP/eF5iPoxR
- P4fdoDYW7JESy/M/HIWapyVQJFeSSlHTDmmZ0KNCAXTtbY5L+AV0rcIpjfSyRQ=
-IronPort-HdrOrdr: A9a23:MyRuC69VFDpMh+gZk3puk+DyI+orL9Y04lQ7vn2ZhyY6TiX+rb
- HKoB17726XtN9/YhsdcLy7VJVoBEm9yXcW2+Qs1N6ZNWGMhILrFvAA0WKI+Vzd8kPFmdJ15O
- NHb7V0DsH2ABxRiMb35xT9LvMbqeP3lJxBQYzlvhFQpcYAUdAG0ztE
-X-Talos-CUID: 9a23:MzNqhW+hYn+B38i2U2+Vv2sLPtgab3/E8FPJYGWCCWkuVqXFSWbFrQ==
-X-Talos-MUID: 9a23:EuFodgjXrdA3OK5Hwne7OsMpNeZ334ifUWc0uogItM+ALhFePSa2pWHi
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-AV: E=Sophos;i="6.25,245,1779148800"; 
-   d="scan'208";a="57406177"
-Received: from aer-l-core-01.cisco.com ([144.254.74.202])
-  by aer-iport-3.cisco.com with ESMTP/TLS/TLS_AES_256_GCM_SHA384; 26 Aug 2026 20:08:20 +0000
-Received: from localhost (unknown [10.189.105.31])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by aer-l-core-01.cisco.com (Postfix) with ESMTPS id 764D823BEB2;
-	Wed, 26 Aug 2026 20:08:20 +0000 (GMT)
-Date: Wed, 26 Aug 2026 22:08:19 +0200
-Message-ID: <19fceccafbe776dc0a989b00c971edd8@cisco.com>
-From: Jerome Tollet <jtollet@cisco.com>
-To: William Tu <witu@nvidia.com>
-Cc: Dragos Tatulea <dtatulea@nvidia.com>, netdev@vger.kernel.org, saeedm@nvidia.com, tariqt@nvidia.com, mbloch@nvidia.com, leonro@nvidia.com, daniel@iogearbox.net, andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, ast@kernel.org, hawk@kernel.org, john.fastabend@gmail.com, sdf@fomichev.me, linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net v4 2/2] net/mlx5e: Prevent stale XSK buffer release on MPWQE refill retry
-In-Reply-To: <20260824141645.23700-3-jtollet@cisco.com>
-References: <20260824141645.23700-1-jtollet@cisco.com> <20260824141645.23700-3-jtollet@cisco.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Outbound-Client-TLS: ANONYMOUS;unknown [10.189.105.31];TLSv1.3;TLS_AES_256_GCM_SHA384;256
-X-Outbound-SMTP-Client: 10.189.105.31, [10.189.105.31]
-X-Outbound-Node: aer-l-core-01.cisco.com
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kWa2eaT3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787775183; x=1819311183;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=LDMs7gSle0lyiqX72kem48vDFieKIgrgVU1BTFLr9Fs=;
+  b=kWa2eaT3t0XxkrJqMBavcqGbpnsdLgl3bXqd5PwF9zJPTK8KJQ5cAiLu
+   cgeaFcFHcC7vhxwgw3dfLCU4FntvWbSqCB/ZIu6Jtke0S9PwfWTvG2CFt
+   Zz4Q3o5EkEqn2wefwK7hWGAMehx9mqEj3GEmeNpbxzicNROqSgSgZSEkf
+   ZIKdc9YBJ9f/rw9jRCzpFQM7CbS47YWc9KTwLJMqYMGyYjJwBs520YoN1
+   VT6auOtNToON7A419bJar45jN0NiYGSBHd6ygoA9NNspLsmVFFa1hACJ3
+   RBxBP+d6HhucIwD9/Z7U1nIApm1oEKPN8wC8qNTCFR4incbUUoi0+pTQB
+   g==;
+X-CSE-ConnectionGUID: EFWjAWzcQs625HwwOaUWNA==
+X-CSE-MsgGUID: d16QtXL1TLKi0IUabglrIA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="87209967"
+X-IronPort-AV: E=Sophos;i="6.25,245,1779174000"; 
+   d="scan'208";a="87209967"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 13:13:01 -0700
+X-CSE-ConnectionGUID: +xVZBjtEQQKh96mnxngFvA==
+X-CSE-MsgGUID: mH4Qdk5gT/+/zUNjSOJjKw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,245,1779174000"; 
+   d="scan'208";a="291194289"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.97])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 13:12:58 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 1217A11F82E;
+	Wed, 26 Aug 2026 23:13:11 +0300 (EEST)
+Date: Wed, 26 Aug 2026 23:13:10 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: David Heidelberg <david@ixit.cz>
+Cc: Alexander Martinz <amartinz@shiftphones.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org, phone-devel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v3 1/2] dt-bindings: media: i2c: dongwoon,dw9714:
+ Document DW9714A and V variant
+Message-ID: <ao9I1jtPJZKj6C0J@kekkonen.localdomain>
+References: <20260803-dw9714v-v3-0-8e10278dcd0d@ixit.cz>
+ <20260803-dw9714v-v3-1-8e10278dcd0d@ixit.cz>
+ <anmcEvEwld-ZV9WE@kekkonen.localdomain>
+ <de220aa4-2bf1-4cf3-8d59-904fefa7e815@ixit.cz>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <de220aa4-2bf1-4cf3-8d59-904fefa7e815@ixit.cz>
 
-Adding William Tu to Cc, as suggested by get_maintainer.pl.
-Apologies for the omission.
+Hi David,
 
+On Mon, Aug 10, 2026 at 12:24:58PM +0200, David Heidelberg wrote:
+> On 10/08/2026 11:38, Sakari Ailus wrote:
+> > Hi David,
+> > 
+> > On Mon, Aug 03, 2026 at 11:50:25AM +0200, David Heidelberg via B4 Relay wrote:
+> > > From: David Heidelberg <david@ixit.cz>
+> > > 
+> > > DW9714A is successor of DW9714 and DW9714V is successor of the DW9714A.
+> > > 
+> > > All actuators are backward compatible, but they do introduce new features,
+> > > such as Smart Actuator Control (SAC) mode which can minimize the
+> > > mechanical vibration and achieve very fast mechanical settling time.
+> > > Support for SAC can be implemented in the future.
+> > 
+> > What kind of configuration does SAC require? Such things generally aren't
+> > configured from the userspace, compare e.g. with the dw9719 bindings
+> > discussion.
+> 
+> I don't have extra deep insight (except basic how the sensor works).
+> 
+> By default all dw9714* sensors starts in the default "legacy" mode.
+> 
+> The clanker after looking at datasheets and kernel struct produced, if it
+> make sense:
+> 
+> the mode and the vibration period (SAC_CFG/PRESC/SACT) have to match
+> the mechanical tVIB of the actuator and lens assembly of the given camera
+> module, the same way dongwoon,aac-mode/aac-timing/clock-presc do for
+> dongwoon,dw9768 and dongwoon,sac-mode/vcm-prescale for dongwoon,dw9719.
+> Those properties are left out until there is driver support and measured
+> values; note the DW9714V mode set differs from DW9719's, so its enum cannot
+> be reused as is.
+
+I guess this is fine, but without the configuration there's not much
+benefit knowing the VCM is actually a bit more sophisticated one.
+
+-- 
 Regards,
-Jerome
+
+Sakari Ailus
