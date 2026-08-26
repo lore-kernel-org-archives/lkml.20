@@ -1,657 +1,253 @@
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA4C64499A4
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 17:13:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE84F455184
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 17:14:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787764419; cv=none; b=ctp1eKhx86xRG1Qa5lRfNQ5rp/eT/84f1xXMDWEMzA1glU2d5b25/xPsAL1NYE237QGYsGL4OPLNboNZsWHUlhTIX9WX8WsBhlqVe/FcqaxA/u6Xx7UB+Q/dtikVeT6GdxVC/d/iRSgDMZY+ckYtErqdGdAIO/5V9Dy9Pcp5q0I=
+	t=1787764474; cv=none; b=VlpDu+CrJkHxMN1LEGCD36FnGIaahzacB+FmBLBf9kS5xr7zOhRvDGF7tG14t7nzrKjtsLKa9OWDKdayZJI7cL+AxHGakJ53aEa2sNr9osptOZzoIf/10aJk0i0tn4Bvq2HnSbPHjao6dWGFKZ7NJLhMJUAN/kW/m1ftpG/ZGmY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787764419; c=relaxed/simple;
-	bh=Mlsg8m8eBtV+hg6nO5ioNJJ+WffsFvcsb7SrKh7p5Ms=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=o195USxs9YmEm4XaFijkOGQ8FGeVhWZ7q3IpAva7+OLj/3uqaROBcPwjEbCYovCZm8eYatGFGjGl9io93HWEME6rlISmL44D9uLV6+SVFOyVzl2RizOcJ9ggju8f3MHoEeYNU5e8asaYlUuA+Ju8s1lqcxb/gyrUdh88Q8tKl8s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=F9+vjHaB; arc=none smtp.client-ip=209.85.214.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1787764474; c=relaxed/simple;
+	bh=GVs+ZNQs+K6IwSJgOb8nQUeglTVCjZ+pd60CynzS5K4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PqCyHrJXS8JGmloi5LfOIkAK0HMrQIc/o6MOQwM7zX2r1AxXmApRWhv+xiIv9mqFTZ4esHRvqCM+jz4ZpNDwvpUnSSaTHi0wvCgIgDqHqudpaNTq6PeETxHrNJvXp4Nc7jiCK314CdOCIC0mGYfBFVCBtGd9clyzJO50WYkLS24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lJ4yYuma; arc=none smtp.client-ip=74.125.224.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="F9+vjHaB"
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2d6f75c1219so24730885ad.3
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 10:13:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lJ4yYuma"
+Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-66d2529310aso1242601d50.3
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 10:14:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787764387; x=1788369187; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=kg9kkCdY3V4ndzjq2be0bEtfBf3ttr26BVX4eOe7c0Q=;
-        b=F9+vjHaBllEME79L3tgsmXqHgZ7hZOstZUGXKZ89ps5qLImRaUFt5bNsTfPeIp6udB
-         H1yQoCOpzojUtByba+q2J6DPez/FWn9dtKBzvPzraKaSdOlw1Tzh+dKW7MNrjkdd0itl
-         T96DmeN+HR6GzRJh4h5o4zqeydo5yINE9c8LmGrg/jIsFHTboZeSWGciZlfsTmbkJ9pP
-         Ov8PklN0Yl9FIAu6dM1xLuAH3aX8jINlBdoTnWlWe+BK/wc4HZ+gZj+meUVDLCzCqnHj
-         tpnuyksr163EQuh8xf5MqFUM2MqSlv6HMg41wpsOq3uaU+nsCQUclG7gEFrzpSsPzDhD
-         3v9A==
+        d=gmail.com; s=20251104; t=1787764451; x=1788369251; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ccxl4Hbr9QQtr79HZmn4JSZFJJOV4fZach2l3iVk3ec=;
+        b=lJ4yYumaqUMaU/n9wCQ6/Il4+Nchy71zyeSBFxFtu5LkN3w6kBknApxxiqpk0v7nf2
+         +7i6QpOo0mdCJTB22Ypdev8M6iKe4xHnXXKtcw2cmKIn6/BpUHvNTSxxrkeFMDMdKkli
+         E0mLOLWQe9ANuOwZXwS6Yhdd0hDx7Zzpw58hHmVk8NMvTJXB0Sw3Dnu1qIEpphEU1u03
+         636IeyQMvT9fQ5fMwsh/L1WXtOwK1T2pZOFsRSum5E+Qx7eDtl9rNnVdL46Pq7RJ2UqR
+         h0dqso5jlr/lH0ctQLD9eAEy6AqcA5YI5ovQpaQ9j5K3CyGc4s+orsmm61IF7KqQwum/
+         LcTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787764387; x=1788369187;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kg9kkCdY3V4ndzjq2be0bEtfBf3ttr26BVX4eOe7c0Q=;
-        b=okeodQ4fxojLwCVRTCYoz3bzFx/a6/wT43GeMreDbSrIvv9PsAhsTb/50HFUzeFbY+
-         v+Mw04m8UkeoWHDW8B5zipd4scyJg3ojhT/WNOA0ZtQvFy8hPEAZj5S7Q+ZpCkYAhFJM
-         XKWm+XOpY+dZUaoCwwdDmHgL/jZomJH/3JC+tax2HCrVVgjvZm0gR09WkKvKCZ598my3
-         dx5R6gDDN65cfqmDzhoLhtV4j/okNtB1f2el104Ihhao1d7hJIK2u3ad4RppnSG0+C7P
-         9XiIe8+5XCchMh/LQKN266e1uHJuL07StjtsvYNiLf/JUA3PVX2Tv0X8a4ylIfwV0OsF
-         i1eg==
-X-Forwarded-Encrypted: i=1; AHgh+RqgGm5I497s7xMM7Ah4cQZkOmJ3RS5bSG7XAIShnZqWgWbY4OSxB/2Yd5kIpRlTogHUDP7gXWB1h0TzUrU=@vger.kernel.org
-X-Gm-Message-State: AFuF++n3y1GyDCVUzpe1bYVGE1FUMBS/ZMSzq/6zZMJ0gU7oW4806Z0z
-	8fd/X4ErawGx0/nTdhd/x1UWSHe3HECREbXD6d6mwypFvSJHeSmRjtyhVuHi9FKHe8Q80JUK3Oa
-	4TBq4ug==
-X-Received: from plhl18.prod.google.com ([2002:a17:903:1212:b0:2ca:d4a3:a7b3])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:3c46:b0:2ca:4f33:e86f
- with SMTP id d9443c01a7336-2d707b416famr157913905ad.12.1787764386860; Wed, 26
- Aug 2026 10:13:06 -0700 (PDT)
-Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Wed, 26 Aug 2026 10:12:46 -0700
-In-Reply-To: <20260826171246.777729-1-seanjc@google.com>
+        d=1e100.net; s=20251104; t=1787764451; x=1788369251;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ccxl4Hbr9QQtr79HZmn4JSZFJJOV4fZach2l3iVk3ec=;
+        b=QMLSwkbi2AWJ59/WKDueUchXg1zeauj9Rtdms7X09hLcCv+rI0/BfLcF6wgns14bc/
+         CVc0rVNdNSVpgmRioX3LJsFyDbpOK11Yrlk7f73WNI2xg//57WNRJqRwHCRaLWDb3qkF
+         N3R4o3r4RZ4FtagMCrmjqoijq8DJCgy86zwoTm/qzLjeVxzuC8whsmYJsyZJfbi015kc
+         yNZD2el3m4SrcMR5NJLURyLDg44TVp7nnqrTogYYidnG1bVimE76xuC6IGAyEQEYFWt3
+         Tg9yAUYsucMfTX36F4AC/vhuWyQNL1hP7THj2aKE4zTDELRE+kxE0LGYop/TofyQEmKD
+         67AQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoYG4c5IEyQj62nP0GmQrKCPLcgPF13YnTgS/5DPuo+LEA9/HZ28KZ241FqjmX/44kvRrpV91BnD4RPr9Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++nPlP/m2Lv10GDMwoiXa/X2McQ7vOjArHxsbodirDQnjpkimaJR
+	lMt65/1pdTpncybA1uoS1HOir3z52Q/Il+Sixey7YZvn4gjJyCfjmLiI
+X-Gm-Gg: AR+sD12t4kq0lvyfLvKxcTRVWz+OdfjMUuDx8Ql2pJAdSz28h0rE1HsJkEMvWSgy5Wb
+	PPGy18HaRo1400XLNmbmAYD3Ur4N0tUtS5vKtBdNwgp7SGdiqaEFPZEWfiJPdV+fyXua79izEUj
+	LbY8Xv56AcsCR7jNUmFCLbOvvjzI3u6yPvI0aivvP1cISu3URTh6jjEqoT0UTqbhqd0Q1MJ4ylr
+	m0Z5jDTljPCG830OSPwU18qHwFoLtTQrvpIfUkjkNopDnkQDNbat9xiNxuI5PWmyVGkLxubRp6i
+	CpSqqIJL3ugdV4WyRWmTEqcXzgH4SdBMd0l+ymWtyAgF6h4Mz5OYseLhplWYTGSDTYfPa1f0owP
+	t17R0KdeazxJWqpxDxDqkFy8zpG/AE+xyXrbXAMUkTOvc6qi7wbeaCDuv3/KMpXWft+q2dtlCzN
+	ipSvZjgNXl1jd5duhW8e7+cc+0APh8v5CwmVllwYeJNsX9uEjV14MSo8jXz9j0fg5kFc8=
+X-Received: by 2002:a05:690e:12c4:b0:667:97c4:7058 with SMTP id 956f58d0204a3-66d2578fba2mr2268394d50.37.1787764450695;
+        Wed, 26 Aug 2026 10:14:10 -0700 (PDT)
+Received: from mac.lan ([136.55.173.105])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8570d620433sm19313287b3.42.2026.08.26.10.14.10
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 26 Aug 2026 10:14:10 -0700 (PDT)
+From: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>
+To: edumazet@google.com,
+	ncardwell@google.com,
+	davem@davemloft.net,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: kuniyu@google.com,
+	horms@kernel.org,
+	matttbe@kernel.org,
+	martineau@kernel.org,
+	geliang@kernel.org,
+	yhs@fb.com,
+	kafai@fb.com,
+	andriin@fb.com,
+	ast@kernel.org,
+	netdev@vger.kernel.org,
+	mptcp@lists.linux.dev,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	AutonomousCodeSecurity@microsoft.com,
+	xmei5@asu.edu,
+	tgopinath@linux.microsoft.com,
+	kys@microsoft.com,
+	blbllhy@gmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH net v2 1/2] tcp: fix use-after-free in do_tcp_getsockopt(TCP_CONGESTION)
+Date: Wed, 26 Aug 2026 13:13:43 -0400
+Message-ID: <20260826171344.4133-2-blbllhy@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260826171344.4133-1-blbllhy@gmail.com>
+References: <20260826171344.4133-1-blbllhy@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260826171246.777729-1-seanjc@google.com>
-X-Mailer: git-send-email 2.55.0.887.g758fc8c411-goog
-Message-ID: <20260826171246.777729-9-seanjc@google.com>
-Subject: [PATCH v2 8/8] KVM: VMX: Rename common exit info getters prefixes
- from "vmx" to "vt"
-From: Sean Christopherson <seanjc@google.com>
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, Xiaoyao Li <xiaoyao.li@intel.com>, 
-	Binbin Wu <binbin.wu@linux.intel.com>, Kai Huang <kai.huang@intel.com>, 
-	Yan Zhao <yan.y.zhao@intel.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Rename all common prefixes for the APIs that get exit information common to
-VMX and TDX from "vmx" to "vt" to capture that they are used for both VMX
-and TDX vCPUs.
+From: "Cen Zhang (Microsoft Security FORGE Labs)" <blbllhy@gmail.com>
 
-No functional change intended.
+do_tcp_getsockopt() reads icsk->icsk_ca_ops->name without holding
+rcu_read_lock(). Since commit 0baf26b0fcd7 ("bpf: tcp: Support
+tcp_congestion_ops in bpf"), icsk_ca_ops can point to dynamically
+allocated BPF struct_ops memory that may be freed concurrently via
+setsockopt(TCP_CONGESTION), leading to a use-after-free.
 
-Signed-off-by: Sean Christopherson <seanjc@google.com>
+  BUG: KASAN: slab-use-after-free in _copy_to_user+0x37/0x60
+  Read of size 16 at addr ffff888013505260 by task exploit/149
+   _copy_to_user+0x37/0x60
+   do_tcp_getsockopt+0x158a/0x2460 (net/ipv4/tcp.c:4585)
+   tcp_getsockopt+0x91/0xf0
+   __sys_getsockopt+0xf7/0x170
+
+Fix this by holding rcu_read_lock() around the ca_ops->name access,
+using READ_ONCE() to load icsk_ca_ops, and copying the name to a
+stack buffer before releasing the lock. Also annotate every explicit
+icsk_ca_ops store with WRITE_ONCE() to fix the accompanying KCSAN
+data-race issue.
+
+Fixes: 0baf26b0fcd7 ("bpf: tcp: Support tcp_congestion_ops in bpf")
+Suggested-by: Eric Dumazet <edumazet@google.com>
+Reported-by: Xiang Mei (Microsoft) <xmei5@asu.edu>
+Link: https://lore.kernel.org/all/20260821182449.79785-2-blbllhy@gmail.com/
+Cc: AutonomousCodeSecurity@microsoft.com
+Cc: stable@vger.kernel.org
+Assisted-by: GitHub-Copilot:claude-opus-4.6
+Signed-off-by: Cen Zhang (Microsoft Security FORGE Labs) <blbllhy@gmail.com>
 ---
- arch/x86/kvm/vmx/common.h |  6 ++--
- arch/x86/kvm/vmx/main.c   | 10 +++----
- arch/x86/kvm/vmx/nested.c | 36 +++++++++++------------
- arch/x86/kvm/vmx/tdx.c    | 22 +++++++-------
- arch/x86/kvm/vmx/vmx.c    | 60 +++++++++++++++++++--------------------
- 5 files changed, 67 insertions(+), 67 deletions(-)
+Note: The adjacent TCP_ULP case has a similar read pattern on
+icsk_ulp_ops->name, but icsk_ulp_ops always points to static
+module data (no BPF struct_ops equivalent), so it is not affected.
 
-diff --git a/arch/x86/kvm/vmx/common.h b/arch/x86/kvm/vmx/common.h
-index c9ca0824734a..3e68fa12aca6 100644
---- a/arch/x86/kvm/vmx/common.h
-+++ b/arch/x86/kvm/vmx/common.h
-@@ -91,12 +91,12 @@ static __always_inline struct kvm_vcpu *vt_to_vcpu(struct vcpu_vt *vt)
- 	return &(container_of(vt, struct vcpu_vmx_tdx, vt)->vcpu);
- }
- 
--static __always_inline union vmx_exit_reason vmx_get_exit_reason(struct kvm_vcpu *vcpu)
-+static __always_inline union vmx_exit_reason vt_get_exit_reason(struct kvm_vcpu *vcpu)
- {
- 	return to_vt(vcpu)->exit_reason;
- }
- 
--static __always_inline unsigned long vmx_get_exit_qual(struct kvm_vcpu *vcpu)
-+static __always_inline unsigned long vt_get_exit_qual(struct kvm_vcpu *vcpu)
- {
- 	struct vcpu_vt *vt = to_vt(vcpu);
- 
-@@ -107,7 +107,7 @@ static __always_inline unsigned long vmx_get_exit_qual(struct kvm_vcpu *vcpu)
- 	return vt->exit_qualification;
- }
- 
--static __always_inline u32 vmx_get_intr_info(struct kvm_vcpu *vcpu)
-+static __always_inline u32 vt_get_intr_info(struct kvm_vcpu *vcpu)
- {
- 	struct vcpu_vt *vt = to_vt(vcpu);
- 
-diff --git a/arch/x86/kvm/vmx/main.c b/arch/x86/kvm/vmx/main.c
-index 0151baa56598..6e0b3959d73a 100644
---- a/arch/x86/kvm/vmx/main.c
-+++ b/arch/x86/kvm/vmx/main.c
-@@ -934,12 +934,12 @@ static void vt_handle_exit_irqoff(struct kvm_vcpu *vcpu)
- 	if (to_vt(vcpu)->emulation_required)
- 		return;
- 
--	switch (vmx_get_exit_reason(vcpu).basic) {
-+	switch (vt_get_exit_reason(vcpu).basic) {
- 	case EXIT_REASON_EXTERNAL_INTERRUPT:
--		handle_external_interrupt_irqoff(vcpu, vmx_get_intr_info(vcpu));
-+		handle_external_interrupt_irqoff(vcpu, vt_get_intr_info(vcpu));
+Changes in v2:
+- Add READ_ONCE() for the icsk_ca_ops load.
+- Add WRITE_ONCE() for every explicit icsk_ca_ops store.
+---
+ net/ipv4/tcp.c           | 14 +++++++++++---
+ net/ipv4/tcp_cong.c      |  4 ++--
+ net/ipv4/tcp_dctcp.c     |  2 +-
+ net/ipv4/tcp_minisocks.c |  2 +-
+ net/ipv4/tcp_output.c    |  2 +-
+ net/mptcp/protocol.c     |  2 +-
+ 6 files changed, 17 insertions(+), 9 deletions(-)
+
+diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
+index b4237d0e994d..4918f48ba76d 100644
+--- a/net/ipv4/tcp.c
++++ b/net/ipv4/tcp.c
+@@ -4577,16 +4577,24 @@ int do_tcp_getsockopt(struct sock *sk, int level,
+ 		val = !inet_csk_in_pingpong_mode(sk);
  		break;
- 	case EXIT_REASON_EXCEPTION_NMI:
--		handle_exception_irqoff(vcpu, vmx_get_intr_info(vcpu));
-+		handle_exception_irqoff(vcpu, vt_get_intr_info(vcpu));
- 		break;
- 	case EXIT_REASON_MCE_DURING_VMENTRY:
- 		kvm_machine_check();
-@@ -951,8 +951,8 @@ static void vt_handle_exit_irqoff(struct kvm_vcpu *vcpu)
  
- noinstr void vt_handle_nmi(struct kvm_vcpu *vcpu)
- {
--	if ((u16)vmx_get_exit_reason(vcpu).basic != EXIT_REASON_EXCEPTION_NMI ||
--	    !is_nmi(vmx_get_intr_info(vcpu)))
-+	if ((u16)vt_get_exit_reason(vcpu).basic != EXIT_REASON_EXCEPTION_NMI ||
-+	    !is_nmi(vt_get_intr_info(vcpu)))
- 		return;
+-	case TCP_CONGESTION:
++	case TCP_CONGESTION: {
++		char ca_name[TCP_CA_NAME_MAX] = {};
++
+ 		if (copy_from_sockptr(&len, optlen, sizeof(int)))
+ 			return -EFAULT;
+ 		len = min_t(unsigned int, len, TCP_CA_NAME_MAX);
+ 		if (copy_to_sockptr(optlen, &len, sizeof(int)))
+ 			return -EFAULT;
+-		if (copy_to_sockptr(optval, icsk->icsk_ca_ops->name, len))
++
++		rcu_read_lock();
++		ca_ops = READ_ONCE(icsk->icsk_ca_ops);
++		memcpy(ca_name, ca_ops->name, sizeof(ca_name));
++		rcu_read_unlock();
++
++		if (copy_to_sockptr(optval, ca_name, len))
+ 			return -EFAULT;
+ 		return 0;
+-
++	}
+ 	case TCP_ULP:
+ 		if (copy_from_sockptr(&len, optlen, sizeof(int)))
+ 			return -EFAULT;
+diff --git a/net/ipv4/tcp_cong.c b/net/ipv4/tcp_cong.c
+index e9f6c77e0631..8e83ef81fc18 100644
+--- a/net/ipv4/tcp_cong.c
++++ b/net/ipv4/tcp_cong.c
+@@ -223,7 +223,7 @@ void tcp_assign_congestion_control(struct sock *sk)
+ 	ca = rcu_dereference(net->ipv4.tcp_congestion_control);
+ 	if (unlikely(!bpf_try_module_get(ca, ca->owner)))
+ 		ca = &tcp_reno;
+-	icsk->icsk_ca_ops = ca;
++	WRITE_ONCE(icsk->icsk_ca_ops, ca);
+ 	rcu_read_unlock();
  
- 	kvm_before_interrupt(vcpu, KVM_HANDLING_NMI);
-diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
-index 151873407abd..47599e7312cf 100644
---- a/arch/x86/kvm/vmx/nested.c
-+++ b/arch/x86/kvm/vmx/nested.c
-@@ -446,7 +446,7 @@ static void nested_ept_inject_page_fault(struct kvm_vcpu *vcpu,
- 		 * "NMI unblocking due to IRET", i.e. the bit can be propagated
- 		 * as-is from the original EXIT_QUALIFICATION.
- 		 */
--		exit_qualification = vmx_get_exit_qual(vcpu) & INTR_INFO_UNBLOCK_NMI;
-+		exit_qualification = vt_get_exit_qual(vcpu) & INTR_INFO_UNBLOCK_NMI;
- 	} else {
- 		if (fault->error_code & PFERR_RSVD_MASK) {
- 			vm_exit_reason = EXIT_REASON_EPT_MISCONFIG;
-@@ -472,7 +472,7 @@ static void nested_ept_inject_page_fault(struct kvm_vcpu *vcpu,
- 			 * and walks the faulting GPA.
- 			 */
- 			if (from_hardware)
--				exit_qualification |= vmx_get_exit_qual(vcpu) & mask;
-+				exit_qualification |= vt_get_exit_qual(vcpu) & mask;
- 			else
- 				exit_qualification |= fault->exit_qualification & mask;
+ 	memset(icsk->icsk_ca_priv, 0, sizeof(icsk->icsk_ca_priv));
+@@ -253,7 +253,7 @@ static void tcp_reinit_congestion_control(struct sock *sk,
+ 	struct inet_connection_sock *icsk = inet_csk(sk);
  
-@@ -4747,7 +4747,7 @@ static void prepare_vmcs12(struct kvm_vcpu *vcpu, struct vmcs12 *vmcs12,
- {
- 	/* update exit information fields: */
- 	vmcs12->vm_exit_reason = vm_exit_reason;
--	if (vmx_get_exit_reason(vcpu).enclave_mode)
-+	if (vt_get_exit_reason(vcpu).enclave_mode)
- 		vmcs12->vm_exit_reason |= VMX_EXIT_REASONS_SGX_ENCLAVE_MODE;
- 	vmcs12->exit_qualification = exit_qualification;
+ 	tcp_cleanup_congestion_control(sk);
+-	icsk->icsk_ca_ops = ca;
++	WRITE_ONCE(icsk->icsk_ca_ops, ca);
+ 	icsk->icsk_ca_setsockopt = 1;
+ 	memset(icsk->icsk_ca_priv, 0, sizeof(icsk->icsk_ca_priv));
  
-@@ -5373,7 +5373,7 @@ static int nested_vmx_get_vmptr(struct kvm_vcpu *vcpu, gpa_t *vmpointer,
- 	struct x86_exception e;
- 	int r;
- 
--	if (get_vmx_mem_address(vcpu, vmx_get_exit_qual(vcpu),
-+	if (get_vmx_mem_address(vcpu, vt_get_exit_qual(vcpu),
- 				vmcs_read32(VMX_INSTRUCTION_INFO), false,
- 				sizeof(*vmpointer), &gva)) {
- 		*ret = 1;
-@@ -5665,7 +5665,7 @@ static int handle_vmread(struct kvm_vcpu *vcpu)
- {
- 	struct vmcs12 *vmcs12 = is_guest_mode(vcpu) ? get_shadow_vmcs12(vcpu)
- 						    : get_vmcs12(vcpu);
--	unsigned long exit_qualification = vmx_get_exit_qual(vcpu);
-+	unsigned long exit_qualification = vt_get_exit_qual(vcpu);
- 	u32 instr_info = vmcs_read32(VMX_INSTRUCTION_INFO);
- 	struct vcpu_vmx *vmx = to_vmx(vcpu);
- 	struct x86_exception e;
-@@ -5771,7 +5771,7 @@ static int handle_vmwrite(struct kvm_vcpu *vcpu)
- {
- 	struct vmcs12 *vmcs12 = is_guest_mode(vcpu) ? get_shadow_vmcs12(vcpu)
- 						    : get_vmcs12(vcpu);
--	unsigned long exit_qualification = vmx_get_exit_qual(vcpu);
-+	unsigned long exit_qualification = vt_get_exit_qual(vcpu);
- 	u32 instr_info = vmcs_read32(VMX_INSTRUCTION_INFO);
- 	struct vcpu_vmx *vmx = to_vmx(vcpu);
- 	struct x86_exception e;
-@@ -5960,7 +5960,7 @@ static int handle_vmptrld(struct kvm_vcpu *vcpu)
- /* Emulate the VMPTRST instruction */
- static int handle_vmptrst(struct kvm_vcpu *vcpu)
- {
--	unsigned long exit_qual = vmx_get_exit_qual(vcpu);
-+	unsigned long exit_qual = vt_get_exit_qual(vcpu);
- 	u32 instr_info = vmcs_read32(VMX_INSTRUCTION_INFO);
- 	gpa_t current_vmptr = to_vmx(vcpu)->nested.current_vmptr;
- 	struct x86_exception e;
-@@ -6021,7 +6021,7 @@ static int handle_invept(struct kvm_vcpu *vcpu)
- 	/* According to the Intel VMX instruction reference, the memory
- 	 * operand is read even if it isn't needed (e.g., for type==global)
+diff --git a/net/ipv4/tcp_dctcp.c b/net/ipv4/tcp_dctcp.c
+index 274e628e7cf8..99f68c2992d0 100644
+--- a/net/ipv4/tcp_dctcp.c
++++ b/net/ipv4/tcp_dctcp.c
+@@ -111,7 +111,7 @@ __bpf_kfunc static void dctcp_init(struct sock *sk)
+ 	/* No ECN support? Fall back to Reno. Also need to clear
+ 	 * ECT from sk since it is set during 3WHS for DCTCP.
  	 */
--	if (get_vmx_mem_address(vcpu, vmx_get_exit_qual(vcpu),
-+	if (get_vmx_mem_address(vcpu, vt_get_exit_qual(vcpu),
- 			vmx_instruction_info, false, sizeof(operand), &gva))
- 		return 1;
- 	r = kvm_read_guest_virt(vcpu, gva, &operand, sizeof(operand), &e);
-@@ -6104,7 +6104,7 @@ static int handle_invvpid(struct kvm_vcpu *vcpu)
- 	/* according to the intel vmx instruction reference, the memory
- 	 * operand is read even if it isn't needed (e.g., for type==global)
- 	 */
--	if (get_vmx_mem_address(vcpu, vmx_get_exit_qual(vcpu),
-+	if (get_vmx_mem_address(vcpu, vt_get_exit_qual(vcpu),
- 			vmx_instruction_info, false, sizeof(operand), &gva))
- 		return 1;
- 	r = kvm_read_guest_virt(vcpu, gva, &operand, sizeof(operand), &e);
-@@ -6236,8 +6236,8 @@ static int handle_vmfunc(struct kvm_vcpu *vcpu)
- 	 * EXIT_REASON_VMFUNC as the exit reason.
- 	 */
- 	nested_vmx_vmexit(vcpu, vmx->vt.exit_reason.full,
--			  vmx_get_intr_info(vcpu),
--			  vmx_get_exit_qual(vcpu));
-+			  vt_get_intr_info(vcpu),
-+			  vt_get_exit_qual(vcpu));
- 	return 1;
+-	inet_csk(sk)->icsk_ca_ops = &dctcp_reno;
++	WRITE_ONCE(inet_csk(sk)->icsk_ca_ops, &dctcp_reno);
+ 	INET_ECN_dontxmit(sk);
  }
  
-@@ -6288,7 +6288,7 @@ static bool nested_vmx_exit_handled_io(struct kvm_vcpu *vcpu,
- 	if (!nested_cpu_has(vmcs12, CPU_BASED_USE_IO_BITMAPS))
- 		return nested_cpu_has(vmcs12, CPU_BASED_UNCOND_IO_EXITING);
- 
--	exit_qualification = vmx_get_exit_qual(vcpu);
-+	exit_qualification = vt_get_exit_qual(vcpu);
- 
- 	port = exit_qualification >> 16;
- 	size = (exit_qualification & 7) + 1;
-@@ -6314,7 +6314,7 @@ static bool nested_vmx_exit_handled_msr(struct kvm_vcpu *vcpu,
- 
- 	if (exit_reason.basic == EXIT_REASON_MSR_READ_IMM ||
- 	    exit_reason.basic == EXIT_REASON_MSR_WRITE_IMM)
--		msr_index = vmx_get_exit_qual(vcpu);
-+		msr_index = vt_get_exit_qual(vcpu);
- 	else
- 		msr_index = kvm_ecx_read(vcpu);
- 
-@@ -6350,7 +6350,7 @@ static bool nested_vmx_exit_handled_msr(struct kvm_vcpu *vcpu,
- static bool nested_vmx_exit_handled_cr(struct kvm_vcpu *vcpu,
- 	struct vmcs12 *vmcs12)
- {
--	unsigned long exit_qualification = vmx_get_exit_qual(vcpu);
-+	unsigned long exit_qualification = vt_get_exit_qual(vcpu);
- 	int cr = exit_qualification & 15;
- 	int reg;
- 	unsigned long val;
-@@ -6484,7 +6484,7 @@ static bool nested_vmx_l0_wants_exit(struct kvm_vcpu *vcpu,
- 
- 	switch ((u16)exit_reason.basic) {
- 	case EXIT_REASON_EXCEPTION_NMI:
--		intr_info = vmx_get_intr_info(vcpu);
-+		intr_info = vt_get_intr_info(vcpu);
- 		if (is_nmi(intr_info))
- 			return true;
- 		else if (is_page_fault(intr_info))
-@@ -6567,7 +6567,7 @@ static bool nested_vmx_l1_wants_exit(struct kvm_vcpu *vcpu,
- 
- 	switch ((u16)exit_reason.basic) {
- 	case EXIT_REASON_EXCEPTION_NMI:
--		intr_info = vmx_get_intr_info(vcpu);
-+		intr_info = vt_get_intr_info(vcpu);
- 		if (is_nmi(intr_info))
- 			return true;
- 		else if (is_page_fault(intr_info))
-@@ -6737,14 +6737,14 @@ bool nested_vmx_reflect_vmexit(struct kvm_vcpu *vcpu)
- 	 * need to be synthesized by querying the in-kernel LAPIC, but external
- 	 * interrupts are never reflected to L1 so it's a non-issue.
- 	 */
--	exit_intr_info = vmx_get_intr_info(vcpu);
-+	exit_intr_info = vt_get_intr_info(vcpu);
- 	if (is_exception_with_error_code(exit_intr_info)) {
- 		struct vmcs12 *vmcs12 = get_vmcs12(vcpu);
- 
- 		vmcs12->vm_exit_intr_error_code =
- 			vmcs_read32(VM_EXIT_INTR_ERROR_CODE);
+diff --git a/net/ipv4/tcp_minisocks.c b/net/ipv4/tcp_minisocks.c
+index f3fa0b18eda0..0ddfd5af6e58 100644
+--- a/net/ipv4/tcp_minisocks.c
++++ b/net/ipv4/tcp_minisocks.c
+@@ -507,7 +507,7 @@ void tcp_ca_openreq_child(struct sock *sk, const struct dst_entry *dst)
+ 		ca = tcp_ca_find_key(ca_key);
+ 		if (likely(ca && bpf_try_module_get(ca, ca->owner))) {
+ 			icsk->icsk_ca_dst_locked = tcp_ca_dst_locked(dst);
+-			icsk->icsk_ca_ops = ca;
++			WRITE_ONCE(icsk->icsk_ca_ops, ca);
+ 			ca_got_dst = true;
+ 		}
+ 		rcu_read_unlock();
+diff --git a/net/ipv4/tcp_output.c b/net/ipv4/tcp_output.c
+index f2709d585edb..74727b7eb446 100644
+--- a/net/ipv4/tcp_output.c
++++ b/net/ipv4/tcp_output.c
+@@ -4092,7 +4092,7 @@ static void tcp_ca_dst_init(struct sock *sk, const struct dst_entry *dst)
+ 	if (likely(ca && bpf_try_module_get(ca, ca->owner))) {
+ 		bpf_module_put(icsk->icsk_ca_ops, icsk->icsk_ca_ops->owner);
+ 		icsk->icsk_ca_dst_locked = tcp_ca_dst_locked(dst);
+-		icsk->icsk_ca_ops = ca;
++		WRITE_ONCE(icsk->icsk_ca_ops, ca);
  	}
--	exit_qual = vmx_get_exit_qual(vcpu);
-+	exit_qual = vt_get_exit_qual(vcpu);
+ 	rcu_read_unlock();
+ }
+diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
+index b474d03620a7..006de39e8165 100644
+--- a/net/mptcp/protocol.c
++++ b/net/mptcp/protocol.c
+@@ -3218,7 +3218,7 @@ static void mptcp_ca_reset(struct sock *sk)
  
- reflect_vmexit:
- 	nested_vmx_vmexit(vcpu, exit_reason.full, exit_intr_info, exit_qual);
-diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
-index a3d6f0fb5951..efbb1ac6f51e 100644
---- a/arch/x86/kvm/vmx/tdx.c
-+++ b/arch/x86/kvm/vmx/tdx.c
-@@ -741,7 +741,7 @@ bool tdx_interrupt_allowed(struct kvm_vcpu *vcpu)
- 	 * interrupt is always allowed unless TDX guest calls TDVMCALL with HLT,
- 	 * which passes the interrupt blocked flag.
- 	 */
--	return vmx_get_exit_reason(vcpu).basic != EXIT_REASON_HLT ||
-+	return vt_get_exit_reason(vcpu).basic != EXIT_REASON_HLT ||
- 	       !to_tdx(vcpu)->vp_enter_args.r12;
+ 	/* no need to keep a reference to the ops, the name will suffice */
+ 	tcp_cleanup_congestion_control(sk);
+-	icsk->icsk_ca_ops = NULL;
++	WRITE_ONCE(icsk->icsk_ca_ops, NULL);
  }
  
-@@ -759,7 +759,7 @@ static bool tdx_protected_apic_has_interrupt(struct kvm_vcpu *vcpu)
- 	 * otherwise the interrupt would have been serviced at the instruction
- 	 * boundary.
- 	 */
--	if (vmx_get_exit_reason(vcpu).basic != EXIT_REASON_HLT ||
-+	if (vt_get_exit_reason(vcpu).basic != EXIT_REASON_HLT ||
- 	    to_tdx(vcpu)->vp_enter_args.r12)
- 		return false;
- 
-@@ -981,8 +981,8 @@ static noinstr void tdx_vcpu_enter_exit(struct kvm_vcpu *vcpu)
- 
- static bool tdx_failed_vmentry(struct kvm_vcpu *vcpu)
- {
--	return vmx_get_exit_reason(vcpu).failed_vmentry &&
--	       vmx_get_exit_reason(vcpu).full != -1u;
-+	return vt_get_exit_reason(vcpu).failed_vmentry &&
-+	       vt_get_exit_reason(vcpu).full != -1u;
- }
- 
- static fastpath_t tdx_exit_handlers_fastpath(struct kvm_vcpu *vcpu)
-@@ -1131,7 +1131,7 @@ void tdx_inject_nmi(struct kvm_vcpu *vcpu)
- 
- static int tdx_handle_exception_nmi(struct kvm_vcpu *vcpu)
- {
--	u32 intr_info = vmx_get_intr_info(vcpu);
-+	u32 intr_info = vt_get_intr_info(vcpu);
- 
- 	/*
- 	 * Machine checks are handled by handle_exception_irqoff(), or by
-@@ -1903,7 +1903,7 @@ void tdx_deliver_interrupt(struct kvm_lapic *apic, int delivery_mode,
- static inline bool tdx_is_sept_violation_unexpected_pending(struct kvm_vcpu *vcpu)
- {
- 	u64 eeq_type = to_tdx(vcpu)->ext_exit_qualification & TDX_EXT_EXIT_QUAL_TYPE_MASK;
--	u64 eq = vmx_get_exit_qual(vcpu);
-+	u64 eq = vt_get_exit_qual(vcpu);
- 
- 	if (eeq_type != TDX_EXT_EXIT_QUAL_TYPE_PENDING_EPT_VIOLATION)
- 		return false;
-@@ -1939,7 +1939,7 @@ static int tdx_handle_ept_violation(struct kvm_vcpu *vcpu)
- 		/* Only private GPA triggers zero-step mitigation */
- 		local_retry = true;
- 	} else {
--		exit_qual = vmx_get_exit_qual(vcpu);
-+		exit_qual = vt_get_exit_qual(vcpu);
- 		/*
- 		 * EPT violation due to instruction fetch should never be
- 		 * triggered from shared memory in TDX guest.  If such EPT
-@@ -2021,7 +2021,7 @@ int tdx_complete_emulated_msr(struct kvm_vcpu *vcpu, int err)
- 		return 1;
- 	}
- 
--	if (vmx_get_exit_reason(vcpu).basic == EXIT_REASON_MSR_READ)
-+	if (vt_get_exit_reason(vcpu).basic == EXIT_REASON_MSR_READ)
- 		tdvmcall_set_return_val(vcpu, kvm_read_edx_eax(vcpu));
- 
- 	return 1;
-@@ -2032,7 +2032,7 @@ int tdx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t fastpath)
- {
- 	struct vcpu_tdx *tdx = to_tdx(vcpu);
- 	u64 vp_enter_ret = tdx->vp_enter_ret;
--	union vmx_exit_reason exit_reason = vmx_get_exit_reason(vcpu);
-+	union vmx_exit_reason exit_reason = vt_get_exit_reason(vcpu);
- 
- 	if (fastpath != EXIT_FASTPATH_NONE)
- 		return 1;
-@@ -2142,9 +2142,9 @@ void tdx_get_exit_info(struct kvm_vcpu *vcpu, u32 *reason,
- 
- 	*reason = tdx->vt.exit_reason.full;
- 	if (*reason != -1u) {
--		*info1 = vmx_get_exit_qual(vcpu);
-+		*info1 = vt_get_exit_qual(vcpu);
- 		*info2 = tdx->ext_exit_qualification;
--		*intr_info = vmx_get_intr_info(vcpu);
-+		*intr_info = vt_get_intr_info(vcpu);
- 	} else {
- 		*info1 = 0;
- 		*info2 = 0;
-diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
-index 2532a9b8e92e..7e35c2d03c69 100644
---- a/arch/x86/kvm/vmx/vmx.c
-+++ b/arch/x86/kvm/vmx/vmx.c
-@@ -1791,7 +1791,7 @@ int vmx_check_emulate_instruction(struct kvm_vcpu *vcpu, int emul_type,
- 	 * so that guest userspace can't DoS the guest simply by triggering
- 	 * emulation (enclaves are CPL3 only).
- 	 */
--	if (vmx_get_exit_reason(vcpu).enclave_mode) {
-+	if (vt_get_exit_reason(vcpu).enclave_mode) {
- 		kvm_queue_exception(vcpu, UD_VECTOR);
- 		return X86EMUL_PROPAGATE_FAULT;
- 	}
-@@ -1806,7 +1806,7 @@ int vmx_check_emulate_instruction(struct kvm_vcpu *vcpu, int emul_type,
- 
- static int skip_emulated_instruction(struct kvm_vcpu *vcpu)
- {
--	union vmx_exit_reason exit_reason = vmx_get_exit_reason(vcpu);
-+	union vmx_exit_reason exit_reason = vt_get_exit_reason(vcpu);
- 	unsigned long rip, orig_rip;
- 	u32 instr_len;
- 
-@@ -5381,7 +5381,7 @@ bool vmx_guest_inject_ac(struct kvm_vcpu *vcpu)
- 
- static int vmx_handle_page_fault(struct kvm_vcpu *vcpu, u32 error_code)
- {
--	unsigned long cr2 = vmx_get_exit_qual(vcpu);
-+	unsigned long cr2 = vt_get_exit_qual(vcpu);
- 
- 	if (vcpu->arch.apf.host_apf_flags)
- 		goto handle_pf;
-@@ -5429,7 +5429,7 @@ static int handle_exception_nmi(struct kvm_vcpu *vcpu)
- 	u32 vect_info;
- 
- 	vect_info = vmx->idt_vectoring_info;
--	intr_info = vmx_get_intr_info(vcpu);
-+	intr_info = vt_get_intr_info(vcpu);
- 
- 	/*
- 	 * Machine checks are handled by handle_exception_irqoff(), or by
-@@ -5510,7 +5510,7 @@ static int handle_exception_nmi(struct kvm_vcpu *vcpu)
- 
- 	switch (ex_no) {
- 	case DB_VECTOR:
--		dr6 = vmx_get_exit_qual(vcpu);
-+		dr6 = vt_get_exit_qual(vcpu);
- 		if (!(vcpu->guest_debug &
- 		      (KVM_GUESTDBG_SINGLESTEP | KVM_GUESTDBG_USE_HW_BP))) {
- 			/*
-@@ -5586,7 +5586,7 @@ static int handle_io(struct kvm_vcpu *vcpu)
- 	int size, in, string;
- 	unsigned port;
- 
--	exit_qualification = vmx_get_exit_qual(vcpu);
-+	exit_qualification = vt_get_exit_qual(vcpu);
- 	string = (exit_qualification & 16) != 0;
- 
- 	++vcpu->stat.io_exits;
-@@ -5675,7 +5675,7 @@ static int handle_cr(struct kvm_vcpu *vcpu)
- 	int err;
- 	int ret;
- 
--	exit_qualification = vmx_get_exit_qual(vcpu);
-+	exit_qualification = vt_get_exit_qual(vcpu);
- 	cr = exit_qualification & 15;
- 	reg = (exit_qualification >> 8) & 15;
- 	switch ((exit_qualification >> 4) & 3) {
-@@ -5753,7 +5753,7 @@ static int handle_dr(struct kvm_vcpu *vcpu)
- 	int dr, dr7, reg;
- 	int err = 1;
- 
--	exit_qualification = vmx_get_exit_qual(vcpu);
-+	exit_qualification = vt_get_exit_qual(vcpu);
- 	dr = exit_qualification & DEBUG_REG_ACCESS_NUM;
- 
- 	/* First, if DR does not exist, trigger UD */
-@@ -5849,7 +5849,7 @@ static int handle_interrupt_window(struct kvm_vcpu *vcpu)
- 
- static int handle_invlpg(struct kvm_vcpu *vcpu)
- {
--	unsigned long exit_qualification = vmx_get_exit_qual(vcpu);
-+	unsigned long exit_qualification = vt_get_exit_qual(vcpu);
- 
- 	kvm_mmu_invlpg(vcpu, exit_qualification);
- 	return kvm_skip_emulated_instruction(vcpu);
-@@ -5858,7 +5858,7 @@ static int handle_invlpg(struct kvm_vcpu *vcpu)
- static int handle_apic_access(struct kvm_vcpu *vcpu)
- {
- 	if (likely(fasteoi)) {
--		unsigned long exit_qualification = vmx_get_exit_qual(vcpu);
-+		unsigned long exit_qualification = vt_get_exit_qual(vcpu);
- 		int access_type, offset;
- 
- 		access_type = exit_qualification & APIC_ACCESS_TYPE;
-@@ -5879,7 +5879,7 @@ static int handle_apic_access(struct kvm_vcpu *vcpu)
- 
- static int handle_apic_eoi_induced(struct kvm_vcpu *vcpu)
- {
--	unsigned long exit_qualification = vmx_get_exit_qual(vcpu);
-+	unsigned long exit_qualification = vt_get_exit_qual(vcpu);
- 	int vector = exit_qualification & 0xff;
- 
- 	/* EOI-induced VM exit is trap-like and thus no need to adjust IP */
-@@ -5889,7 +5889,7 @@ static int handle_apic_eoi_induced(struct kvm_vcpu *vcpu)
- 
- static int handle_apic_write(struct kvm_vcpu *vcpu)
- {
--	unsigned long exit_qualification = vmx_get_exit_qual(vcpu);
-+	unsigned long exit_qualification = vt_get_exit_qual(vcpu);
- 
- 	/*
- 	 * APIC-write VM-Exit is trap-like, KVM doesn't need to advance RIP and
-@@ -5917,7 +5917,7 @@ static int handle_task_switch(struct kvm_vcpu *vcpu)
- 	idt_index = (vmx->idt_vectoring_info & VECTORING_INFO_VECTOR_MASK);
- 	type = (vmx->idt_vectoring_info & VECTORING_INFO_TYPE_MASK);
- 
--	exit_qualification = vmx_get_exit_qual(vcpu);
-+	exit_qualification = vt_get_exit_qual(vcpu);
- 
- 	reason = (u32)exit_qualification >> 30;
- 	if (reason == TASK_SWITCH_GATE && idt_v) {
-@@ -5963,7 +5963,7 @@ static int handle_task_switch(struct kvm_vcpu *vcpu)
- 
- static int handle_ept_violation(struct kvm_vcpu *vcpu)
- {
--	unsigned long exit_qualification = vmx_get_exit_qual(vcpu);
-+	unsigned long exit_qualification = vt_get_exit_qual(vcpu);
- 	gpa_t gpa;
- 
- 	/*
-@@ -6154,7 +6154,7 @@ static int handle_invpcid(struct kvm_vcpu *vcpu)
- 	/* According to the Intel instruction reference, the memory operand
- 	 * is read even if it isn't needed (e.g., for type==all)
- 	 */
--	if (get_vmx_mem_address(vcpu, vmx_get_exit_qual(vcpu),
-+	if (get_vmx_mem_address(vcpu, vt_get_exit_qual(vcpu),
- 				vmx_instruction_info, false,
- 				sizeof(operand), &gva))
- 		return 1;
-@@ -6168,7 +6168,7 @@ static int handle_pml_full(struct kvm_vcpu *vcpu)
- 
- 	trace_kvm_pml_full(vcpu->vcpu_id);
- 
--	exit_qualification = vmx_get_exit_qual(vcpu);
-+	exit_qualification = vt_get_exit_qual(vcpu);
- 
- 	/*
- 	 * PML buffer FULL happened while executing iret from NMI,
-@@ -6272,7 +6272,7 @@ static int handle_bus_lock_vmexit(struct kvm_vcpu *vcpu)
- 
- static int handle_notify(struct kvm_vcpu *vcpu)
- {
--	unsigned long exit_qual = vmx_get_exit_qual(vcpu);
-+	unsigned long exit_qual = vt_get_exit_qual(vcpu);
- 	bool context_invalid = exit_qual & NOTIFY_VM_CONTEXT_INVALID;
- 
- 	++vcpu->stat.notify_window_exits;
-@@ -6303,13 +6303,13 @@ static int vmx_get_msr_imm_reg(struct kvm_vcpu *vcpu)
- 
- static int handle_rdmsr_imm(struct kvm_vcpu *vcpu)
- {
--	return kvm_emulate_rdmsr_imm(vcpu, vmx_get_exit_qual(vcpu),
-+	return kvm_emulate_rdmsr_imm(vcpu, vt_get_exit_qual(vcpu),
- 				     vmx_get_msr_imm_reg(vcpu));
- }
- 
- static int handle_wrmsr_imm(struct kvm_vcpu *vcpu)
- {
--	return kvm_emulate_wrmsr_imm(vcpu, vmx_get_exit_qual(vcpu),
-+	return kvm_emulate_wrmsr_imm(vcpu, vt_get_exit_qual(vcpu),
- 				     vmx_get_msr_imm_reg(vcpu));
- }
- 
-@@ -6386,10 +6386,10 @@ void vmx_get_exit_info(struct kvm_vcpu *vcpu, u32 *reason,
- 	struct vcpu_vmx *vmx = to_vmx(vcpu);
- 
- 	*reason = vmx->vt.exit_reason.full;
--	*info1 = vmx_get_exit_qual(vcpu);
-+	*info1 = vt_get_exit_qual(vcpu);
- 	if (!(vmx->vt.exit_reason.failed_vmentry)) {
- 		*info2 = vmx->idt_vectoring_info;
--		*intr_info = vmx_get_intr_info(vcpu);
-+		*intr_info = vt_get_intr_info(vcpu);
- 		if (is_exception_with_error_code(*intr_info))
- 			*error_code = vmcs_read32(VM_EXIT_INTR_ERROR_CODE);
- 		else
-@@ -6700,7 +6700,7 @@ void dump_vmcs(struct kvm_vcpu *vcpu)
- static int __vmx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t exit_fastpath)
- {
- 	struct vcpu_vmx *vmx = to_vmx(vcpu);
--	union vmx_exit_reason exit_reason = vmx_get_exit_reason(vcpu);
-+	union vmx_exit_reason exit_reason = vt_get_exit_reason(vcpu);
- 	u32 vectoring_info = vmx->idt_vectoring_info;
- 	u16 exit_handler_index;
- 
-@@ -6864,7 +6864,7 @@ int vmx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t exit_fastpath)
- 	 * Exit to user space when bus lock detected to inform that there is
- 	 * a bus lock in guest.
- 	 */
--	if (vmx_get_exit_reason(vcpu).bus_lock_detected) {
-+	if (vt_get_exit_reason(vcpu).bus_lock_detected) {
- 		if (ret > 0)
- 			vcpu->run->exit_reason = KVM_EXIT_X86_BUS_LOCK;
- 
-@@ -7176,7 +7176,7 @@ static void vmx_recover_nmi_blocking(struct vcpu_vmx *vmx)
- 		if (vmx->loaded_vmcs->nmi_known_unmasked)
- 			return;
- 
--		exit_intr_info = vmx_get_intr_info(&vmx->vcpu);
-+		exit_intr_info = vt_get_intr_info(&vmx->vcpu);
- 		unblock_nmi = (exit_intr_info & INTR_INFO_UNBLOCK_NMI) != 0;
- 		vector = exit_intr_info & INTR_INFO_VECTOR_MASK;
- 		/*
-@@ -7343,14 +7343,14 @@ static fastpath_t vmx_exit_handlers_fastpath(struct kvm_vcpu *vcpu,
- 	 * the fastpath even, all other exits must use the slow path.
- 	 */
- 	if (is_guest_mode(vcpu) &&
--	    vmx_get_exit_reason(vcpu).basic != EXIT_REASON_PREEMPTION_TIMER)
-+	    vt_get_exit_reason(vcpu).basic != EXIT_REASON_PREEMPTION_TIMER)
- 		return EXIT_FASTPATH_NONE;
- 
--	switch (vmx_get_exit_reason(vcpu).basic) {
-+	switch (vt_get_exit_reason(vcpu).basic) {
- 	case EXIT_REASON_MSR_WRITE:
- 		return handle_fastpath_wrmsr(vcpu);
- 	case EXIT_REASON_MSR_WRITE_IMM:
--		return handle_fastpath_wrmsr_imm(vcpu, vmx_get_exit_qual(vcpu),
-+		return handle_fastpath_wrmsr_imm(vcpu, vt_get_exit_qual(vcpu),
- 						 vmx_get_msr_imm_reg(vcpu));
- 	case EXIT_REASON_PREEMPTION_TIMER:
- 		return handle_fastpath_preemption_timer(vcpu, force_immediate_exit);
-@@ -7392,7 +7392,7 @@ static noinstr void vmx_vcpu_enter_exit(struct kvm_vcpu *vcpu,
- 	}
- 
- 	vmx->vt.exit_reason.full = vmcs_read32(VM_EXIT_REASON);
--	if (likely(!vmx_get_exit_reason(vcpu).failed_vmentry))
-+	if (likely(!vt_get_exit_reason(vcpu).failed_vmentry))
- 		vmx->idt_vectoring_info = vmcs_read32(IDT_VECTORING_INFO_FIELD);
- 
- 	vt_handle_nmi(vcpu);
-@@ -7532,7 +7532,7 @@ fastpath_t vmx_vcpu_run(struct kvm_vcpu *vcpu, u64 run_flags)
- 		 * checking.
- 		 */
- 		if (vcpu->arch.nested_run_pending &&
--		    !vmx_get_exit_reason(vcpu).failed_vmentry)
-+		    !vt_get_exit_reason(vcpu).failed_vmentry)
- 			++vcpu->stat.nested_run;
- 
- 		vcpu->arch.nested_run_pending = 0;
-@@ -7543,7 +7543,7 @@ fastpath_t vmx_vcpu_run(struct kvm_vcpu *vcpu, u64 run_flags)
- 
- 	trace_kvm_exit(vcpu, KVM_ISA_VMX);
- 
--	if (unlikely(vmx_get_exit_reason(vcpu).failed_vmentry))
-+	if (unlikely(vt_get_exit_reason(vcpu).failed_vmentry))
- 		return EXIT_FASTPATH_NONE;
- 
- 	vmx->loaded_vmcs->launched = 1;
+ static int mptcp_init_sock(struct sock *sk)
 -- 
-2.55.0.887.g758fc8c411-goog
-
+2.55.0
