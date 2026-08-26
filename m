@@ -1,45 +1,45 @@
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 263B83B42EF
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:19:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BF13361963
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:19:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787779143; cv=pass; b=gdb2uLEGq0FAPd4uUURQ5ieSTlaQ7EWKmfuUBa0RLYjHFT+zTgf8uC/Hl1i5EjK6HrFsDVW1fGk+2WK8KrlKKB3F6oiTMCT+MQ5MVKEA8P6ZUqKW0WkrMt9+yxsvokrrhxuNjqgTYe1JCi3Epu0lYAtbkU+1Tn0OSx6wlc4nIlA=
+	t=1787779144; cv=pass; b=Hpb92eWPHlGXD4zWUFe/ErnYbFvs/HwV4dnAfQ/iAX4HeOHhQvvnEjJKMungpqqffumuVxVwSSNOwuM5xdG17PbJNZmo5ZmDqWPoQgO5LWntmLL0JO53Qg/Lxnyru4oJ0f3Xa2tj4kS9J5DbFm6BGn4+KmTZmCAtIj9WhNhrb18=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787779143; c=relaxed/simple;
-	bh=btXuHyjlLmBjd0Mzf5fZCZ48f639iBfAD9Uyxf3qkzk=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=jsY626PPSjmFmtfLeNKxjUavpBoZHCdVfbxT2V91dzq4qSDzxY4D2vzlSAt8OyGixMOBJJkXE9LcucMyzfIT5HtoXzVijDWS3oaGWSbyM2ups2dJNQigcdboUv5LOsOoMlrsU5YA8mO/ZMaMmNtdufEAokT6/cLqsnBgcF1sK4Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=iwcrrr7w; arc=pass smtp.client-ip=136.143.188.11
+	s=arc-20240116; t=1787779144; c=relaxed/simple;
+	bh=+7lLC3RASscJtzYIoHPamAqwjiOy0dTWtgEK2tQLZCc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=ATO6uZAfSy4Ui5DU2/xcx6SBcoF3vo381ZU74e7clk98fvx1Zd2QZI27wS4pSOIpRbhtnTmIYd5/n9ICsG5PIxobJcLSqI5oLetn9UxONN6Wa9hpt7FnZprL8pjF1HtlR8F4Z1oNThQ9ptZOyJLGIqzDlHJPbEgfRY5OIkQBEDY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=lIz+CAfZ; arc=pass smtp.client-ip=165.173.180.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="iwcrrr7w"
-ARC-Seal: i=1; a=rsa-sha256; t=1787779092; cv=none; 
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="lIz+CAfZ"
+ARC-Seal: i=1; a=rsa-sha256; t=1787779104; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=ktSWRBBvjFTjW9vvic0xjrMgxaajBjaDg/EkKNxZbGdU3NGrz3p9RscqjriiKX20cPW3fuS5ITTwyEpPXJVKvpv11IK3XmM+JItcsenmS9x530cszUawLj5fUbXrlzydht51z/RjBxeGMasqI/Ruf/uNvDsGc5+NwsxqbFd++2U=
+	b=CdB28Mk/vunbih+z3b6/QxjB1zjtv3r9RyY6cQ/4XQpzNd+5nLv9GdVIj2x+Os0ltlnNhGBAkiv0591PyabSMPbbQ3ff8EBZjaLiFG5wmk/m1wZiTHQQp4PXEAlNv1SQtcpyqbNyMagXMw06Z3YBwulhuGCOmIyXQQnsOq9KjIs=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1787779092; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=HNekL85JDfu7UZrp0fuV5f9P7kUx27DQQ3Ok645EVVo=; 
-	b=MduwtmdRaTqeV/ObS4Hx0syByFdmHHq9kNGgvb8AxwvGp3Tp+S141iieqTqOuyL44uPOZ0e8+cPeYcjroqluSFpsoKLt0ARGydrREctlHrg8imVn5JZJuEh5gmz/U8LhkvuwVIYY8gZVNyhWE2rAfZf1Z5u6QF+bCSlclm16kfA=
+	t=1787779104; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=KTjS5hBPQO6+RTeil7zhPBG8q7IaCwN0MeCCodQTYuk=; 
+	b=ZudoOIJJQpvSLY8/lwY0iBAHKLoRY8ZL8Yz004TSq/imuauBwPdj5h26dwsvjcN3ZHTKjbMsRRQfg8WPfjIQye52I/POQOg7MMwlqInZ4qeOuPnUEBN9cqX61qij1S6Zg8zLFQzCsI90MmKxYSNqMmLKmJTB1xe0h3qBYXbdvGg=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=collabora.com;
 	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
 	dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787779092;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787779104;
 	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
-	h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
-	bh=HNekL85JDfu7UZrp0fuV5f9P7kUx27DQQ3Ok645EVVo=;
-	b=iwcrrr7wBdNAOMQNA6VyVXjPAEiiYASYPKQxY3ZMa6RPj3LaUuuPmqNsVKt5Erx5
-	kJzAflHpsvYlJ0/r0v3ysg74RDeIKDW1fHUKqKi6OXw4IHid82ioOUL9I15rTCew9DA
-	p6sxw0uCWlDeU7/DG0H40a1esZfLHndF55TmYWGM=
-Received: by mx.zohomail.com with SMTPS id 1787779090297473.8921003457282;
-	Wed, 26 Aug 2026 14:18:10 -0700 (PDT)
+	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
+	bh=KTjS5hBPQO6+RTeil7zhPBG8q7IaCwN0MeCCodQTYuk=;
+	b=lIz+CAfZxH8xyXbwhxgOfjT7oPR/CM5Ak7a5MlRn0k/iPVEpBf1vR+/PHg1ya5kG
+	GfNrphv6mlKd5/4UheL1n+6WdEUEyiihdz5Y9reBU1CuNFHJIFE09794hpH2QzCcKrn
+	DOsuixE7MKpPXYsH/VoquH7TYLd/IzpWAJ9kmH2Y=
+Received: by mx.zohomail.com with SMTPS id 1787779102829956.5009696482655;
+	Wed, 26 Aug 2026 14:18:22 -0700 (PDT)
 From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Subject: [PATCH v6 00/16] Collection of fixes for Panfrost: Perfcnt, RPM,
- refactorings
-Date: Wed, 26 Aug 2026 22:18:02 +0100
-Message-Id: <20260826-claude-fixes-v6-0-78119af409e7@collabora.com>
+Date: Wed, 26 Aug 2026 22:18:04 +0100
+Subject: [PATCH v6 02/16] drm/panfrost: Move all DRM device initialisation
+ into device_init()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,12 +48,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23NTU7DMBAF4KtUXmNkj38Sd8U9EIvJeEKNQoPiN
- gJVuTtOEQpYWT7Ne9/cROYpcRbHw01MPKecxnMJ/uEg6ITnV5YplixAgVcOjKQBr5Flnz45yxY
- 6ZVAbiy2JMvmY+H4oi+eXn5yv3RvTZTXWxinlyzh93f/Neu390v4/PWuppPYcgBFtsOGJxmHAb
- pzwkcZ3sfIzbIBXtgKgAK4h30VL2ju3B5gNaKAGzApYwN5r7KLq9wD7FwgVYAugdPBtD0xNg3u
- A24BW6wpwBTDRB6DAoSWogWVZvgFDfqHcwgEAAA==
-X-Change-ID: 20260523-claude-fixes-82b03a134a8c
+Message-Id: <20260826-claude-fixes-v6-2-78119af409e7@collabora.com>
+References: <20260826-claude-fixes-v6-0-78119af409e7@collabora.com>
+In-Reply-To: <20260826-claude-fixes-v6-0-78119af409e7@collabora.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>, 
  Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -69,134 +66,185 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6120;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5174;
  i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=btXuHyjlLmBjd0Mzf5fZCZ48f639iBfAD9Uyxf3qkzk=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqj1gLZq2buO3A6YazEvknUeO4y+fVeyAVSjatG
- qGPdGAnJKqJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCao9YCwAKCRAOJn5M7lND
- PZcsC/9Q0O8uHBtPeg2G2PI02p3BDBqiOhsszHeW7h+TVJ7UmsUzmBWCWyEezSJ4wlNupUiGv+G
- G7C/sT9OxlpX1U5vP9lNA4NmDXdHEhVE1PQ5MBEHYyLeBVwZ6zjbHAcb2TnBqgQD77Yu6iLLGja
- zFd/ZWVBEvcka11BFzLgvlPHvTOjYAysE4gbSh+HwahldFkIAy10wgFRZ5S3DtlQLFPaD1VT5WG
- +kqByhZnnPeo3nEd5ENqcoiD5VCzWotTFKZ/NM+OYHaUEklrmYI5JvFabOob6D1PY22haInwDAR
- QXCrexvEBsh8JsbdJsEbv0SSytm5UlW/pcYZ4ybKHNbhwF/NNTC9mzB4xhEJwK9xSM/61lx6E9I
- 15R0DakPlt5GGL5bfJ+8uOhXYwelwvQfD2Lt0pb24Mj6norvLWKIqI9dvBjpKFM/qm+qRIIyV5u
- Sn69+UlUDc3hZHOQyiF0CZeB6nh7UrtH4sdCihpN1KEjzuVNP+aCZltyvXRADTm2Ohlk0=
+ bh=+7lLC3RASscJtzYIoHPamAqwjiOy0dTWtgEK2tQLZCc=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqj1gLdvrLyXJhJ4BggXx8G1014OtUEDJyP1fvc
+ 0u5W7ppf+OJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCao9YCwAKCRAOJn5M7lND
+ PX/uDAC2pR06/NS3OJm4JXFbzaIBLfxTsO0pc84GJNbkzh+3JPCeN5XnpfCSfqPWsAGYmEzVAsI
+ NKvY5C/L1jSL/dTSwtHo5nLfH04RMw4O+Sxsooj3S8sU15qX23UFedXB4bggfKPM+O0XT9FKvOa
+ Tz8ZTUR0WUh6d09Mcc7SEO++PVt8KGaxoPBz5T9/USUg721VWES3q86XYHeIWusS2uE8DmqF9t0
+ 6CoEv/tDNJmXobmsrCtHyvdzhm8qZ+LlpoUrU38HOE48BhXCu8thpnstob4ux+ALQQDm7zuXmPi
+ j+QLav2X7fox9QEFn5khFDxz8qSa2Zr+D0cI1GaisgdHuHPzvPlCIWI1/3+eX+9Ki6ek+83mxGX
+ LJBXZh7lVNx2G0zr3mQ9dp6BDZRhTeLChjvYSeajfFGR+TxqvraE5txvZrpvWu6OcmDMNPqURSu
+ bac/i4X5J5OiY5Qcj/GCzaXF2dzD2/mfLZahVJdvk28jJNTB2n40RuF0JecF4rj560kgg=
 X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
  fpr=324030E8C005175DF93707A40E267E4CEE53433D
 
-This patch series began as an assortment of small fixes for some issues
-uncovered by Claude. Over time, it has evolved to include many other
-fixes for further problems revealed by Sashiko in successive revisions,
-and also refactorings and improvements suggested by maintainer
-discussions.
+Ideally the probe() function will do as little as possible, and all device
+initialisation and registration should happen inside the panfrost device
+subsystem, just like it's done in Panthor. This also simplifies resource
+unwinding in the error path.
 
-A subset of patches submitted in previous revisions was already merged
-after they had been reviewed, to avoid this series growing to unmanageable
-extents.
+Do the same thing for DRM driver remove, as in, sweep most of the action
+into panfrost_device_fini(), just like we did for device probe.
 
 Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 ---
-Changes in v6:
-- Grafted trivial already-reviwed patches from previous revisions into
-their own series so that they could be merged into drm-misc-next.
-- Added commits with multiple refactorings, code rearrangements and simplifications.
-- Addressed all issues brought up by reviwers and Sashiko in the previous revision.
-- Link to v5: https://patch.msgid.link/20260811-claude-fixes-v5-0-3d692c9e98c2@collabora.com
+ drivers/gpu/drm/panfrost/panfrost_device.c | 33 ++++++++++++++++++++++
+ drivers/gpu/drm/panfrost/panfrost_drv.c    | 44 +-----------------------------
+ 2 files changed, 34 insertions(+), 43 deletions(-)
 
-Changes in v5:
-- Addressed more issues uncovered by Sashiko.
-- Discarded two patches to avoid dealing with too many pre-existing issues at once.
-- Biggest change is the re-arrangement of the start sequence, made to look like Panthor.
-- Link to v4: https://patch.msgid.link/20260729-claude-fixes-v4-0-01968f2ec77a@collabora.com
+diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
+index 05c40d5a20b5..d2d2830f11a7 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_device.c
++++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+@@ -8,6 +8,7 @@
+ #include <linux/pm_domain.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/regulator/consumer.h>
++#include <drm/drm_drv.h>
+ 
+ #include "panfrost_device.h"
+ #include "panfrost_devfreq.h"
+@@ -216,6 +217,15 @@ int panfrost_device_init(struct panfrost_device *pfdev)
+ {
+ 	int err;
+ 
++	pfdev->comp = of_device_get_match_data(pfdev->base.dev);
++	if (!pfdev->comp)
++		return -ENODEV;
++
++	pfdev->coherent = device_get_dma_attr(pfdev->base.dev) == DEV_DMA_COHERENT;
++
++	mutex_init(&pfdev->shrinker_lock);
++	INIT_LIST_HEAD(&pfdev->shrinker_list);
++
+ 	mutex_init(&pfdev->sched_lock);
+ 	INIT_LIST_HEAD(&pfdev->as_lru_list);
+ 
+@@ -284,8 +294,25 @@ int panfrost_device_init(struct panfrost_device *pfdev)
+ 	if (err)
+ 		goto out_perfcnt;
+ 
++	pm_runtime_set_active(pfdev->base.dev);
++	pm_runtime_mark_last_busy(pfdev->base.dev);
++	pm_runtime_enable(pfdev->base.dev);
++	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames */
++	pm_runtime_use_autosuspend(pfdev->base.dev);
++
++	/*
++	 * Register the DRM device with the core and the connectors with
++	 * sysfs
++	 */
++	err = drm_dev_register(&pfdev->base, 0);
++	if (err < 0)
++		goto out_devreg;
++
+ 	return 0;
+ 
++out_devreg:
++	pm_runtime_disable(pfdev->base.dev);
++	panfrost_gem_fini(pfdev);
+ out_perfcnt:
+ 	panfrost_perfcnt_fini(pfdev);
+ out_job:
+@@ -304,11 +331,15 @@ int panfrost_device_init(struct panfrost_device *pfdev)
+ 	panfrost_reset_fini(pfdev);
+ out_pm_domain:
+ 	panfrost_pm_domain_fini(pfdev);
++	pm_runtime_set_suspended(pfdev->base.dev);
+ 	return err;
+ }
+ 
+ void panfrost_device_fini(struct panfrost_device *pfdev)
+ {
++	pm_runtime_get_sync(pfdev->base.dev);
++	pm_runtime_disable(pfdev->base.dev);
++
+ 	panfrost_gem_fini(pfdev);
+ 	panfrost_perfcnt_fini(pfdev);
+ 	panfrost_jm_fini(pfdev);
+@@ -319,6 +350,8 @@ void panfrost_device_fini(struct panfrost_device *pfdev)
+ 	panfrost_clk_fini(pfdev);
+ 	panfrost_reset_fini(pfdev);
+ 	panfrost_pm_domain_fini(pfdev);
++
++	pm_runtime_set_suspended(pfdev->base.dev);
+ }
+ 
+ #define PANFROST_EXCEPTION(id) \
+diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+index 9882a3ede75f..80996e311a9d 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_drv.c
++++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+@@ -964,7 +964,6 @@ MODULE_PARM_DESC(transparent_hugepage, "Use a dedicated tmpfs mount point with T
+ static int panfrost_probe(struct platform_device *pdev)
+ {
+ 	struct panfrost_device *pfdev;
+-	int err;
+ 
+ 	pfdev = devm_drm_dev_alloc(&pdev->dev, &panfrost_drm_driver,
+ 				   struct panfrost_device, base);
+@@ -973,45 +972,7 @@ static int panfrost_probe(struct platform_device *pdev)
+ 
+ 	platform_set_drvdata(pdev, pfdev);
+ 
+-	pfdev->comp = of_device_get_match_data(&pdev->dev);
+-	if (!pfdev->comp)
+-		return -ENODEV;
+-
+-	pfdev->coherent = device_get_dma_attr(&pdev->dev) == DEV_DMA_COHERENT;
+-
+-	mutex_init(&pfdev->shrinker_lock);
+-	INIT_LIST_HEAD(&pfdev->shrinker_list);
+-
+-	err = panfrost_device_init(pfdev);
+-	if (err) {
+-		if (err != -EPROBE_DEFER)
+-			dev_err(&pdev->dev, "Fatal error during GPU init\n");
+-		goto err_out0;
+-	}
+-
+-	pm_runtime_set_active(pfdev->base.dev);
+-	pm_runtime_mark_last_busy(pfdev->base.dev);
+-	pm_runtime_enable(pfdev->base.dev);
+-	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames */
+-	pm_runtime_use_autosuspend(pfdev->base.dev);
+-
+-	/*
+-	 * Register the DRM device with the core and the connectors with
+-	 * sysfs
+-	 */
+-	err = drm_dev_register(&pfdev->base, 0);
+-	if (err < 0)
+-		goto err_out1;
+-
+-
+-	return 0;
+-
+-err_out1:
+-	pm_runtime_disable(pfdev->base.dev);
+-	panfrost_device_fini(pfdev);
+-	pm_runtime_set_suspended(pfdev->base.dev);
+-err_out0:
+-	return err;
++	return panfrost_device_init(pfdev);
+ }
+ 
+ static void panfrost_remove(struct platform_device *pdev)
+@@ -1020,10 +981,7 @@ static void panfrost_remove(struct platform_device *pdev)
+ 
+ 	drm_dev_unregister(&pfdev->base);
+ 
+-	pm_runtime_get_sync(pfdev->base.dev);
+-	pm_runtime_disable(pfdev->base.dev);
+ 	panfrost_device_fini(pfdev);
+-	pm_runtime_set_suspended(pfdev->base.dev);
+ }
+ 
+ static ssize_t profiling_show(struct device *dev,
 
-Changes in v4:
-- Fixed errors and issues uncovered by Sashiko in the previous revision.
-- Changed the way RPM checks whether the device is initialised when resuming.
-- Simplified perfcnt treatment of potential resets.
-- Link to v3: https://patch.msgid.link/20260724-claude-fixes-v3-0-542af61abd0f@collabora.com
-
-Changes in v3:
-- Applied some minor suggestions for the first couple of patches in the series.
-- Moved shrinker initialisation into gem initialisation.
-- Fixed RPM bugs by moving all clock and power initialisation into RPM resume.
-- Added patch for reset sequence fixes and also a userspace knob to trigger it.
-- Reworked perfcnt fix by having the reset sequence restore its initial state.
-- Link to v2: https://patch.msgid.link/20260604-claude-fixes-v2-0-57c6bd4c1655@collabora.com
-
-Changes in v2:
-- Fixed race conditions introduced by the previous revision, in the RPM and
-HWPerf commits specifically. These can be consulted at [1]
-- Don't attempt to suspend the device unconditionally at the end of
-probe(), and do it through autosuspend instead.
-- Broke the RPM patch into one that fixes PM refcnt proper and another one
-for MMU enablement at device init time.
-- Moved perfcnt GPU disable helper into its own commmit. Same for
-transplating shrinker initialisation and unplug.
-- Added 'Fixes' and 'Reported-by' tags to all the relevant commits
-- [1] https://sashiko.dev/#/patchset/20260526-claude-fixes-v1-0-16e92eaa4949%40collabora.com
-- Link to v1: https://patch.msgid.link/20260526-claude-fixes-v1-0-16e92eaa4949@collabora.com
-
-To: Boris Brezillon <boris.brezillon@collabora.com>
-To: Rob Herring <robh@kernel.org>
-To: Steven Price <steven.price@arm.com>
-To: Adrián Larumbe <adrian.larumbe@collabora.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Faith Ekstrand <faith.ekstrand@collabora.com>
-To: "Marty E. Plummer" <hanetzer@startmail.com>
-To: Tomeu Vizoso <tomeu@tomeuvizoso.net>
-To: Eric Anholt <eric@anholt.net>
-To: Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>
-To: Robin Murphy <robin.murphy@arm.com>
-To: Philipp Zabel <p.zabel@pengutronix.de>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Cc: Neil Armstrong <neil.armstrong@linaro.org>
-
----
-Adrián Larumbe (16):
-      drm/panfrost: Move shrinker initialization and unplug one level down
-      drm/panfrost: Move all DRM device initialisation into device_init()
-      drm/panfrost: Move lock and modparam initialisations into their subsystems
-      drm/panfrost: Move debugfs initialisation to relevant subsystems
-      drm/panfrost: Skip NULL checks for clock enable/disabling
-      drm/panfrost: Consolidate device clock management and reset
-      drm/panfrost: Split subsystem init/reset from interrupt enablement
-      drm/panfrost: Fix PM refcnt and autosuspend issues at device probe/remove
-      drm/panfrost: Add warning messages to fatal error conditions
-      drm/panfrost: Add debugfs knob for manually triggering a GPU reset
-      drm/panfrost: Move perfcnt GPU disable sequence into a helper
-      drm/panfrost: Skip cache flush/invalidate when enabling perfcnt
-      drm/panfrost: Avoid cache flush after perfcnt sample in fully coherent systems
-      drm/panfrost: Introduce a reset lock
-      drm/panfrost: Fix races between perfcnt and reset sequence
-      drm/panfrost: Bump driver minor to reflect new DUMP IOCTL req field
-
- drivers/gpu/drm/panfrost/panfrost_device.c       | 274 +++++++++++++++--------
- drivers/gpu/drm/panfrost/panfrost_device.h       |   8 +-
- drivers/gpu/drm/panfrost/panfrost_drv.c          | 198 +---------------
- drivers/gpu/drm/panfrost/panfrost_drv.h          |   9 -
- drivers/gpu/drm/panfrost/panfrost_gem.c          |  63 ++++--
- drivers/gpu/drm/panfrost/panfrost_gem.h          |  10 +-
- drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c |   9 +-
- drivers/gpu/drm/panfrost/panfrost_gpu.c          |  21 +-
- drivers/gpu/drm/panfrost/panfrost_gpu.h          |   2 +
- drivers/gpu/drm/panfrost/panfrost_job.c          | 108 ++++++++-
- drivers/gpu/drm/panfrost/panfrost_job.h          |   4 +
- drivers/gpu/drm/panfrost/panfrost_mmu.c          |  12 +-
- drivers/gpu/drm/panfrost/panfrost_mmu.h          |   2 +
- drivers/gpu/drm/panfrost/panfrost_perfcnt.c      | 226 ++++++++++++-------
- drivers/gpu/drm/panfrost/panfrost_perfcnt.h      |   1 +
- include/uapi/drm/panfrost_drm.h                  |   3 +-
- 16 files changed, 534 insertions(+), 416 deletions(-)
----
-base-commit: 8aee06aa4c72e9bdfda81ce720b51fe0fe0f307e
-change-id: 20260523-claude-fixes-82b03a134a8c
-
-Best regards,
---  
-Adrián Larumbe <adrian.larumbe@collabora.com>
+-- 
+2.55.0
 
