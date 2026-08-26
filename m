@@ -1,102 +1,136 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 267E63C1090;
-	Wed, 26 Aug 2026 14:05:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 189BA3D811E;
+	Wed, 26 Aug 2026 14:05:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787753132; cv=none; b=UOSiHwsh3TrpefT6rJrPofuB8DPCQxjAvM/Q9H44G7ckiJfOCJAZcmHzt/zh3DRmsNvt+0WGd8973Ro/klHdPSyH6q4PQwrqbtydogCMDA2Zp4fS6xmXmJhX59X/RyA/8WAROhj0L63708QfSWIbYpEyTC6ggwW1z7eaVa+/a9s=
+	t=1787753138; cv=none; b=L+dZu4V5aJCrnT8X2tpM8hay49H4coT1KXCPj9JMkIht1XN3fh+W+Q8ep982Qidcr/i3Qz5Cq2n6GDdcfBhgjTzawhP3fPaLC2QIov1bNqCKBKoHRHEtI+/NfLSCsaKnU70OWKt+AxFV0YScOLUYe5U8e6T19WfxRFa7/OWeTXQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787753132; c=relaxed/simple;
-	bh=wMZ3zdjuEmxaXf9Jx5bIuFR4PBN9IYnWOls2LFmIIBc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Bx4DZ0Fe+a6QGvSxBqOs6UGKgIEpLi1zx43jFWPj/VPMsSwxkl7MHoWr13e61cGs029OJsMv9CnbFhHXBbhz1PYkzbbsA4PBqYpzCsC2tCATqPGARDKNXuPKZTkGoNeKwtvLLg/V7j2wDgNk4RD8nFvIXdNOWARyeTxbRxurpts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=FfjLbO66; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1787753138; c=relaxed/simple;
+	bh=zp4ZxFvHpCyZaEKvO6J2cBCPxykmOIHLHvOYN+zVeBI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Fi+YnbY9dgreLY2vKlA3WnJcaDy8kb25C9teIll/lfkuzjjnYQFttrWipZJrVQKVj1zWYpOFU2Qr5CJWBCo1j63cXf5eNLiIMA/tWjD4jSOnOGLrlOQ3tAf31JyyHX0FRDho0BJLaimgz87osEvL5n9mQ9S2IR4pNadEkyqgWSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=koAwKrYh; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="FfjLbO66"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 96F354E413C5;
-	Wed, 26 Aug 2026 14:05:29 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 63D0C604EC;
-	Wed, 26 Aug 2026 14:05:29 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BF0B511C78266;
-	Wed, 26 Aug 2026 16:05:24 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1787753127; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=Zzj4GVc4/x2SELeaKUar7dAIv8TFPTU4PPNQ7zCE1Ak=;
-	b=FfjLbO664rsEBix13EAJ7rDB6BedWoXbIoLiMiDoGGVO9GskY0XSHj0MNByvCpwj/BC4MH
-	H5q5XGbiBe/WvP8CGoLk1+m+OlWSAIhEiggprCjdKirInkVJekII270a1bc9Gi2twAk/aC
-	Wu5fCfpKA2egZZol0QidPvAQipS15aUTMgs/VkS4ljodqE6bs/6i2JgUofj5E5WUJf1c96
-	AjiDE3E8daeVA1fZv7QEGqQWT9b3Zz3l0QXZ0rW41JtZWWaRgtX844qbH/nEIv45mjx2+/
-	xj/AJrxpYZUwynLVQMdss3HRmWj5uMRvP5ZVP1m9mgCjXqurDNKvCnwI4dXGig==
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	davem@davemloft.net,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	=?UTF-8?q?Alexis=20Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Emil Renner Berthing <kernel@esmil.dk>,
-	Minda Chen <minda.chen@starfivetech.com>,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="koAwKrYh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787753133; x=1819289133;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=zp4ZxFvHpCyZaEKvO6J2cBCPxykmOIHLHvOYN+zVeBI=;
+  b=koAwKrYhqfF0YaxYagDwRiKK4MDFVKRASD4n059W7VcuKU21rcP9kru9
+   B7+xTBV+YRAtYC32isq/4dM2b9Nyd20oFB6P/fLUeyTMwE2QzQXAD1rC9
+   cY09AMMCy0bS+w0XTW+bKODmpAOyGlQ39fh2gJDYJ1AamILHPeTiLpegH
+   zYJTXHCy04LXUlpZNeDCtiZOSm0uWvRqE9ReVdrN4CTzf2J0RyIyByiCN
+   OjVumKkc179fGghMb1+iwJpB9WW+wTdV9Hfym0GJ3RpVynjPtVxYIuDiE
+   I3/YMliPF2XrlfQAMi5kER0BxEnDswgzEt5NvR4pOhwY/nEgaDBbKZvcw
+   w==;
+X-CSE-ConnectionGUID: pV8XyPOHSEG5CPqTvJWjFg==
+X-CSE-MsgGUID: 57fNYr+KR/urc1pyaRUf3Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11886"; a="88362974"
+X-IronPort-AV: E=Sophos;i="6.25,244,1779174000"; 
+   d="scan'208";a="88362974"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 07:05:31 -0700
+X-CSE-ConnectionGUID: MfkaBtSDSpmzcaUT3yBSlg==
+X-CSE-MsgGUID: ntLGhDOUTCuyxLKkJe4VcA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,244,1779174000"; 
+   d="scan'208";a="271090744"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.235])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 07:05:12 -0700
+Date: Wed, 26 Aug 2026 17:05:09 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Mike Leach <mike.leach@arm.com>,
+	James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
 	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Jan Petrous <jan.petrous@oss.nxp.com>,
-	Ovidiu Panait <ovidiu.panait.rb@renesas.com>,
-	Jose.Abreu@synopsys.com
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	thomas.petazzoni@bootlin.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: [PATCH net 2/6] net: stmmac: dwmac1000: Account for the primary MAC address for UC filtering
-Date: Wed, 26 Aug 2026 16:04:54 +0200
-Message-ID: <20260826140500.616466-3-maxime.chevallier@bootlin.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260826140500.616466-1-maxime.chevallier@bootlin.com>
-References: <20260826140500.616466-1-maxime.chevallier@bootlin.com>
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Michal Simek <michal.simek@amd.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Mirela Rabulea <mirela.rabulea@nxp.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Lee Jones <lee@kernel.org>,
+	Xiaowei Song <songxiaowei@hisilicon.com>,
+	Binghui Wang <wangbinghui@hisilicon.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Dvorkin Dmitry <dvorkin@tibbo.com>, Wells Lu <wellslutw@gmail.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Chin-Ting Kuo <chin-ting_kuo@aspeedtech.com>,
+	=?iso-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>,
+	Mark Brown <broonie@kernel.org>, Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Ryan Chen <ryan_chen@aspeedtech.com>,
+	Billy Tsai <billy_tsai@aspeedtech.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+	Boris Brezillon <bbrezillon@kernel.org>, info@mocean-labs.com,
+	Olof Johansson <olof@lixom.net>,
+	Shree Ramamoorthy <s-ramamoorthy@ti.com>,
+	coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linux-i2c@vger.kernel.org,
+	linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
+	imx@lists.linux.dev, linux-media@vger.kernel.org,
+	mfd@lists.linux.dev, linux-pci@vger.kernel.org,
+	linux-gpio@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
+	openbmc@lists.ozlabs.org, linux-spi@vger.kernel.org,
+	linux-pm@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: Drop redundant white-space around values in
+ <>
+Message-ID: <ao7ylZTVJFeUJ5h3@ashevche-desk.local>
+References: <20260826102044.142986-2-krzysztof.kozlowski@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260826102044.142986-2-krzysztof.kozlowski@oss.qualcomm.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-The same filter slots are used to store the main MAC address as well as
-the address for the unicast filter. Let's account for that when deciding
-whether or not to use promisc when programming the UC list in hardware.
+On Wed, Aug 26, 2026 at 12:20:45PM +0200, Krzysztof Kozlowski wrote:
+> Correct a few white-space issues around <>, which will be flagged by
+> dt-check-style.  No functional changes.
 
-Fixes: 47dd7a540b8a ("net: add support for STMicroelectronics Ethernet controllers.")
-Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
----
- drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Don't know which file triggers my name to appear in Cc, but the change
+I like, and indeed it makes style better to read and consistent.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
-index caac85fc08f1..d4ace3924891 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
-@@ -194,7 +194,7 @@ static void dwmac1000_set_filter(struct mac_device_info *hw,
- 	dwmac1000_set_mchash(ioaddr, mc_filter, mcbitslog2);
- 
- 	/* Handle multiple unicast addresses (perfect filtering) */
--	if (netdev_uc_count(dev) > perfect_addr_number)
-+	if (netdev_uc_count(dev) + 1 > perfect_addr_number)
- 		/* Switch to promiscuous mode if more than unicast
- 		 * addresses are requested than supported by hardware.
- 		 */
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+
 -- 
-2.55.0
+With Best Regards,
+Andy Shevchenko
+
 
