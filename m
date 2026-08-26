@@ -1,91 +1,100 @@
-Received: from hr2.samba.org (hr2.samba.org [144.76.82.148])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 068242DC783;
-	Wed, 26 Aug 2026 15:30:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=144.76.82.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 144072C21D9;
+	Wed, 26 Aug 2026 15:32:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787758249; cv=none; b=desQavCKGM9xitjAjBg8k2r4fiAA236uaPkQ5uYsoH5U1UmrE7N64kYk71mL09tQNAn6I66R4hpCtM5s8PZes1O7h3umRsaI8gitrSpbE6Xom+K4O+WuPupF4w1a+mgTOV24ooGkfDwB8xdJipjxqoxxOFGQjM2delQhDePeQZw=
+	t=1787758372; cv=none; b=h+uGNCjMhjMeoeOmY9h9tPewkwGXK6E3wp7K7UrrGwvDM/jqCDpDdhjT2Dc5sfsB0/V1h6jIvFskULXvoixDJTGWrQK+eZ5Kp30UgGWZ97HqfB6+gbRzv6fQDmFvAxapnEKf8ZMiEyU2+10HZK1Y++BKz4Rrhc6qr0QdZAQFO3w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787758249; c=relaxed/simple;
-	bh=+Um2CgugFn6r2dezM726FcrQNbrpFK7o8Xvtlm8ngX8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=B5XS8JczeFPnbSG+2O56vhBWnNR4D7ZYIMoPt0Y1K9SBcuJzg/gvJPW0/Mn1zN5c+rXS1Jeu5XCBPNmpNStIjPw7vKq9HnCL4M5yrTr+/sBVX6rg+HaeGCAq1d/jaPN0cNuyZM8L7rLixdRO212oo7jl+Y49T7rJKQwpLaasnE4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=samba.org; spf=pass smtp.mailfrom=samba.org; dkim=pass (3072-bit key) header.d=samba.org header.i=@samba.org header.b=2TFGA8ZI; arc=none smtp.client-ip=144.76.82.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=samba.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samba.org
+	s=arc-20240116; t=1787758372; c=relaxed/simple;
+	bh=J40l+30bqo/TWKSFs2ZS5U8M9FRsuAwO92aJdBs7SKU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Xn58Ud4VPHyTIEqiVQd534sU8tdUOY1sZF3uMFUD8ukk4y3g3a8DMQATR3+bkqJg+LGpyE/QpOxfseIRCzZg3Zs7S/P0snO2+u+62zaaNN4FYz0rXcU6mVMKlO8jVni9hOkDnqapG6hbyv9/rbs2ElMuwhWpni4SItZo7UI4MYQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FE6peSFW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (3072-bit key) header.d=samba.org header.i=@samba.org header.b="2TFGA8ZI"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=samba.org;
-	s=42; h=From:Cc:To:Date:Message-ID;
-	bh=AMBIicEQi5Dvgq8hxYz7Ll0KubEmVdgYfxCoqFx+Ito=; b=2TFGA8ZImhlzPmyR9mW8bQxJqp
-	dEXlDlsxg9+Ta9m1YfaicwzZTSGQ90vTZaAoOVVQ7aggaQeI6j60K0xtoeto7bJWGqDiJO7ipQ5uk
-	GAn4cNiGrjvrN5ah9HIs0OO2QYH71nqwgHf6bb92pB5hMUbQ38lueeUafmpG7jOvwWVZrvYqWgqSj
-	bF6aCDFX0TU2jQGj+huZvVChvdMyPbF2hTNupKPLjHdDLTUmyq5g+wyE83TW0SYktnkTaHjHDvOxi
-	gymArqNkY4Yq/iA5t3HhxiKcUlut/qQGM9B7nUHVbgaozKaIYZShHWc2otXgNdeJ3sy4GCM1V+3U+
-	eyH36sD2y7h5ZU8lYPPCEmzg5oLM/Pcg2G6XzNQ76JMgFsTNYCwhm0m7wsr4/l+20KKjq2TlTmsHJ
-	hHOSE2cCjgcOQRq736Aav0Jmd5cG6ht8J7niGjS4IrBKWxhX9bOFvIs9V/lsz0RwtguOl//R0mMIq
-	0vuNdW+pNFhTlinEcmEC3nbd;
-Received: from [127.0.0.2] (localhost [127.0.0.1])
-	by hr2.samba.org with esmtpsa (TLS1.3:ECDHE_SECP256R1__ECDSA_SECP256R1_SHA256__CHACHA20_POLY1305:256)
-	(Exim)
-	id 1wzFF2-000000013Li-2Us2;
-	Wed, 26 Aug 2026 15:08:40 +0000
-Message-ID: <f2bdf83b-70b3-4d55-af52-9a3af7c512e5@samba.org>
-Date: Wed, 26 Aug 2026 17:08:40 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FE6peSFW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C0CE1F000E9;
+	Wed, 26 Aug 2026 15:32:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787758370;
+	bh=6TMO2fi8GNP9yLMBphM2ojRf9+REGiEXMTqq48IVKdk=;
+	h=From:To:Cc:Subject:Date;
+	b=FE6peSFWNqcf0afq+JceGcCidB8ZXn0hHVcx2bLBJabnkSoAt2mKhgxF+s5zS96Md
+	 Of7zxlpxj8f2AmzdpoocPgAFjFEvLGH70q1xCs23G/jwoFIKHWF0LH4QhM0O9dbP7h
+	 g+Q0lb42sGFQyBi38We3qq6xeK+g0AywS6t83+wWpMrNonTqqqMbBThK6tByApzzJw
+	 aCKGzNHX+sjIU8XTK2xmit3vvGlze2cGKW/qKW3uknut3QMXZgxtNj+IdNUah0JVWu
+	 9oy6JTaUXOMlVcC0EIsNAJNlxxXQ+yQxNolIONISy7TBcQCkrnui6I1X453ApbKBNZ
+	 UJ1sCpDqNP+gQ==
+From: Thorsten Blum <blum@kernel.org>
+To: "Rafael J. Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>,
+	Lukasz Luba <lukasz.luba@arm.com>,
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	Thorsten Blum <blum@kernel.org>,
+	Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>
+Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] thermal: intel: int340x: Fix temperature selection around 0 C
+Date: Wed, 26 Aug 2026 17:31:43 +0200
+Message-ID: <20260826153144.299746-3-blum@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] MAINTAINERS: Add Paulo Alcantara as an SMBDIRECT
- co-maintainer
-To: Namjae Jeon <linkinjeon@kernel.org>, linux-cifs@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: tom@talpey.com, Paulo Alcantara <pc@manguebit.org>
-References: <20260826150106.15352-1-linkinjeon@kernel.org>
-Content-Language: en-US
-From: Stefan Metzmacher <metze@samba.org>
-In-Reply-To: <20260826150106.15352-1-linkinjeon@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1716; i=blum@kernel.org; h=from:subject; bh=J40l+30bqo/TWKSFs2ZS5U8M9FRsuAwO92aJdBs7SKU=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFn9bA8CtluU+N1aPHftSbs5s2beWJJ54n+dZ9Gkp4raV y+8MuhX7ChlYRDjYpAVU2R5MOvHDN/SmspNJhE7YeawMoEMYeDiFICJ7G5m+MM5RfKAq+0f71me U2ObGGRjOk8FxS1wOhs+4YWZrU1/yw6GP1zqvzvMtiwx+/Nv10LtGWI9GUsvPG9XTvwQszmP0WC lGjsA
+X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
+Content-Transfer-Encoding: 8bit
 
-Am 26.08.26 um 17:01 schrieb Namjae Jeon:
-> Steve French passed away recently. He was a long-time maintainer
-> of Linux's SMB support and will be greatly missed.
-> 
-> Add Paulo Alcantara as a co-maintainer of SMBDIRECT alongside
-> Namjae Jeon.
-> 
-> Acked-by: Paulo Alcantara <pc@manguebit.org>
+Since commit 7251b9e8a007 ("thermal/intel: Fix intel_tcc_get_temp() to
+support negative CPU temperature"), intel_tcc_get_temp() can report
+negative temperatures.
 
-Acked-by: Stefan Metzmacher <metze@samba.org>
+proc_thermal_get_zone_temp() still uses *temp as the current maximum and
+as an implicit "no reading yet" marker. However, this breaks when a CPU
+reports 0 C, because a subsequent negative reading can overwrite it.
 
-Thanks!
-metze
+Use bool temp_valid to track whether a valid temperature has been read.
+Initialize *temp with the first valid reading and only update it with
+warmer readings.
 
-> Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-> Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-> ---
->   MAINTAINERS | 3 +--
->   1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index e05570c393c5..7e1d14406619 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -25105,10 +25105,9 @@ F:	Documentation/admin-guide/LSM/Smack.rst
->   F:	security/smack/
->   
->   SMBDIRECT (RDMA Stream Transport with Read/Write-Offload, MS-SMBD)
-> -M:	Steve French <smfrench@gmail.com>
-> -M:	Steve French <sfrench@samba.org>
->   M:	Namjae Jeon <linkinjeon@kernel.org>
->   M:	Namjae Jeon <linkinjeon@samba.org>
-> +M:	Paulo Alcantara <pc@manguebit.org>
->   R:	Stefan Metzmacher <metze@samba.org>
->   R:	Tom Talpey <tom@talpey.com>
->   L:	linux-cifs@vger.kernel.org
+Fixes: 7251b9e8a007 ("thermal/intel: Fix intel_tcc_get_temp() to support negative CPU temperature")
+Cc: stable@vger.kernel.org # 6.3+
+Signed-off-by: Thorsten Blum <blum@kernel.org>
+---
+ .../intel/int340x_thermal/processor_thermal_device.c   | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/thermal/intel/int340x_thermal/processor_thermal_device.c b/drivers/thermal/intel/int340x_thermal/processor_thermal_device.c
+index f80dbe2ca7e4..b0284c2e2e74 100644
+--- a/drivers/thermal/intel/int340x_thermal/processor_thermal_device.c
++++ b/drivers/thermal/intel/int340x_thermal/processor_thermal_device.c
+@@ -179,17 +179,21 @@ static int proc_thermal_get_zone_temp(struct thermal_zone_device *zone,
+ {
+ 	int cpu;
+ 	int curr_temp, ret;
+-
+-	*temp = 0;
++	bool temp_valid = false;
+ 
+ 	for_each_online_cpu(cpu) {
+ 		ret = intel_tcc_get_temp(cpu, &curr_temp, false);
+ 		if (ret < 0)
+ 			return ret;
+-		if (!*temp || curr_temp > *temp)
++		if (!temp_valid || curr_temp > *temp) {
+ 			*temp = curr_temp;
++			temp_valid = true;
++		}
+ 	}
+ 
++	if (!temp_valid)
++		return -ENODATA;
++
+ 	*temp *= 1000;
+ 
+ 	return 0;
