@@ -1,133 +1,124 @@
-Received: from mta0.migadu.com (out-213.mta0.migadu.com [91.218.175.213])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 174B83F58D9
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 12:53:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.213
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00F3740DB3B
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 12:55:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787748787; cv=none; b=FHaTdL+xeAybGhJRReHiDTTD6hhL7nYl8IOKc15SkPNw1yELgUCnEWktybjMvk/A+BAdP68LArWfln24+ISlXrvJkhCBlsl13Gm64Dh7oay4wiELThLH0q3jnFprMHzYdMyGt39/UsRYChJ3fgrQLSIbNtMNFWtxFL2SjsnToz4=
+	t=1787748947; cv=none; b=g1x4e6CU88uAoKYVsr6+ezF4ElwbervZbX4vZZKToUHBGllAFHid0RL53TTib9v1hzdHBQjRHRtPGSdECisE5Rrqu8o9JXDUquZgEICKyYIlfBNA54odJQJ1hOu8wh2ATedwgVYIsvvyFSzyve6ZKa3sDVjj7XqQccjXdFwyNUk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787748787; c=relaxed/simple;
-	bh=04gXcZAwaH85rMaDB7p3nP8mrq3e9lgm0ZaYRKBR9UM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bqGZgYeMIhVgwQvopw4IXG48cWTm8E5TDtqXBR60CXQHdBbq3U5QUBWG31phGkTFItB4rCtI9m3F3RmNTdr4o12D4Rd1cAOij93bQMctVD7oEM8zGvFVw8TtxnGRZjEHMN/WVx4RIQVK7OaGpE1Vx6PG+NZPUNGY+hSknwKpQqI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xW6t3YJZ; arc=none smtp.client-ip=91.218.175.213
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787748947; c=relaxed/simple;
+	bh=yMnzQaobEJbTa3YXl8ltC8e5TTqYmwhe9yUESQw1eiI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Xt00X/+Qw9h95+4GJtyZqxxICoGGbDxYXDhLd9SICq2omtHdLMpnF4EM0+KsxHHhV2KELbzulxduzWE2wFlN+qYe9QJ/Vzny9q0k5KuKxp8XN3aD9VoBwulRlWfjNGIbEToB8ZnONxE8bLhRyzxCHX8Waotv+NyC0PY3gKCKRaU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=EuYOIOKO; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xW6t3YJZ"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=04gXcZAwaH85rMaDB7p3nP8mrq3e9lgm0ZaYRKBR9UM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787748781; v=1; x=1788353581;
- b=xW6t3YJZtqKo4kEILViETwX/+8oqAzrhsBMqCKH96dMyrHL2Jf2xv/plZ4k7TtF3bgZPQR5t
- 7LfM8ey9/FuIxgl6XzsuUmewwbg5lZ+VBSWHDxZ7uyT2eo95+lhFMWgiNvwiggadGo+ZZZFDYEL
- MnIcnRWBsAFwpE9eC6pyCW6U=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: from [10.63.107.123] (14.29.108.92)
-	by smtp.migadu.com with ESMTPS id 30d681f86186f6ca;
-	Wed, 26 Aug 2026 12:53:01 +0000
-X-Mizu-Trace-ID: 30d681f86186f6ca
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <a718bc24-60ea-4d3d-b1b8-2d1f181fef66@linux.dev>
-Date: Wed, 26 Aug 2026 20:52:52 +0800
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="EuYOIOKO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787748944;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VnrjRmkdDMOkUOanYpX8DXzjHMEr7A8cKpEvbJBdT7o=;
+	b=EuYOIOKOj7CUyGNrkX4TP4TspcTvZWLtVZbzCfeS6o+COPhQPySDOo9GpktSgy3uOp9lHN
+	oTnlsYnvhtwjft+xY290/JAiCi4vypOHHBalE8izox+g0498piGOTdhg5rL3qylnrlFCy/
+	bFjzsUV7Mt4Qs0jTGg2KzH9HeZ6NGSY=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-508-OyLs-H8nPUi38HBJaBo-pg-1; Wed,
+ 26 Aug 2026 08:55:40 -0400
+X-MC-Unique: OyLs-H8nPUi38HBJaBo-pg-1
+X-Mimecast-MFC-AGG-ID: OyLs-H8nPUi38HBJaBo-pg_1787748938
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 187341956088;
+	Wed, 26 Aug 2026 12:55:38 +0000 (UTC)
+Received: from fedora (unknown [10.44.48.90])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id CFE3940E;
+	Wed, 26 Aug 2026 12:55:32 +0000 (UTC)
+Received: by fedora (nbSMTP-1.00) for uid 1000
+	oleg@redhat.com; Wed, 26 Aug 2026 14:55:37 +0200 (CEST)
+Date: Wed, 26 Aug 2026 14:55:31 +0200
+From: Oleg Nesterov <oleg@redhat.com>
+To: Hyunwoo Kim <imv4bel@gmail.com>
+Cc: Thomas Gleixner <tglx@kernel.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Anna-Maria Behnsen <anna-maria@linutronix.de>,
+	Kees Cook <kees@kernel.org>, Christian Brauner <brauner@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
+	"Eric W. Biederman" <ebiederm@xmission.com>,
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [PATCH v2] posix-cpu-timers: Dequeue per-thread timers before
+ exchange_tids()
+Message-ID: <ao7iQ_wOLghOvTsq@redhat.com>
+References: <ao7Q8miiuLAPVnWv@v4bel>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 0/4] mm/vmscan: honour node reclaim limits per type
-To: Michal Hocko <mhocko@suse.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Ridong Chen <chenridong@xiaomi.com>
-References: <20260821081741.1340277-1-ridong.chen@linux.dev>
- <aogMyu5R_DZRqp2J@tiehlicka> <f45848da-9569-453f-b0c0-8aa984e1976d@linux.dev>
- <aogZZsXwCyOXISaw@tiehlicka> <bc9c3de9-17b9-4ba1-8065-3270bb455630@linux.dev>
- <aogwUac-sjfcs7Vi@tiehlicka> <dba83897-9bbb-4a44-9021-8f938bb6a12f@linux.dev>
- <aog0ch0u8BtkR-a1@tiehlicka> <de7d583e-bd9b-464f-9e28-73075c0211a4@linux.dev>
- <aowD7tUUIUbhjJQj@tiehlicka>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <aowD7tUUIUbhjJQj@tiehlicka>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ao7Q8miiuLAPVnWv@v4bel>
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
+OMG, my head spins ;) I'll try to read your explanation tomorrow.
+Right now I am all confused.
 
+But let me ask some stupid questions right now, please help me to
+understand the problem.
 
-On 8/24/2026 4:42 PM, Michal Hocko wrote:
-> On Mon 24-08-26 11:24:46, Ridong Chen wrote:
->>
->>
->> On 8/21/2026 7:20 PM, Michal Hocko wrote:
->>> On Fri 21-08-26 19:10:45, Ridong Chen wrote:
->>>>>> Did you mean that min_slab_pages and min_unmapped_pages should influence
->>>>>> proactive per-node reclaim?
->>>>>
->>
->> I apologize for being incoherent in my last email, it was after a full day
->> of work. What I wanted to say is that min_slab_pages and min_unmapped_pages
->> should *not* influence proactive per-node reclaim.
->>
->>>>> Nope, exactly opposite
->>>>>
->>>>
->>>> I would really appreciate it if you could clarify this further. Sorry, I'm
->>>> not sure I fully understand what you meant.
->>>
->>> pro-active (userspace triggered) node reclaim should completely ignore
->>> all those historical node_reclaim tunables.
->>
->> Yeah, this matches my understanding. Apologies again for the confusing reply.
->>
->> Since Johannes has acked patch 3, perhaps we can simply remove the
->> conditional check in __node_reclaim and keep the shrink loop as follows:
->>
->> ```
->> @@ -7906,16 +7906,16 @@ static unsigned long __node_reclaim(struct
->> pglist_data *pgdat,
->>   	noreclaim_flag = memalloc_noreclaim_save();
->>   	set_task_reclaim_state(p, &sc->reclaim_state);
->>
->> -	if (node_pagecache_reclaimable(pgdat) > pgdat->min_unmapped_pages ||
->> -	    node_page_state_pages(pgdat, NR_SLAB_RECLAIMABLE_B) > pgdat->min_slab_pages) {
->> -		/*
->> -		 * Free memory by calling shrink node with increasing
->> -		 * priorities until we have enough memory freed.
->> -		 */
->> -		do {
->> -			shrink_node(pgdat, sc);
->> -		} while (sc->nr_reclaimed < nr_pages && --sc->priority >= 0);
->> -	}
->> +	/*
->> +	 * Free memory by calling shrink node with increasing
->> +	 * priorities until we have enough memory freed.
->> +	 *
->> +	 * What to reclaim is gated per type by sc->skip_slab_reclaim and
->> +	 * sc->skip_file_reclaim.
->> +	 */
->> +	do {
->> +		shrink_node(pgdat, sc);
->> +	} while (sc->nr_reclaimed < nr_pages && --sc->priority >= 0);
->>
->>   	set_task_reclaim_state(p, NULL);
->>   	memalloc_noreclaim_restore(noreclaim_flag);
-> 
-> Could you post a stand alone patch with the full description please?
+On 08/26, Hyunwoo Kim wrote:
+>
+> begin_new_exec() calls posix_cpu_timers_exit(me) right after
+> exec_task_namespaces() and that removes the leftover node, so the state
+> normally stays invisible. But bprm->point_of_no_return is set before
+> de_thread(), so if unshare_files(), set_mm_exe_file(), exec_mmap() or
+> exec_task_namespaces() fails, the task dies before it gets there.
 
-I have just done so. I would appreciate any comments you might have on it.
+Do I understand this correctly? If begin_new_exec() does call
+posix_cpu_timers_exit(me), then everything is fine.
 
-Link: 
-https://lore.kernel.org/linux-mm/20260826124409.35569-1-ridong.chen@linux.dev/T/#u
+Yes? If yes
 
--- 
-Best regards
-Ridong
+> --- a/fs/exec.c
+> +++ b/fs/exec.c
+> @@ -1003,6 +1003,18 @@ static int de_thread(struct task_struct *tsk)
+>  		 * the former thread group leader:
+>  		 */
+>
+> +#ifdef CONFIG_POSIX_TIMERS
+> +		/*
+> +		 * exchange_tids() hands this thread's PID to the old leader,
+> +		 * which is reaped right after. The PID lookup in
+> +		 * timer_lock_sighand() then fails while the per thread CPU
+> +		 * timers are still queued here, so dequeue them first.
+> +		 */
+> +		spin_lock(lock);
+> +		posix_cpu_timers_exit(tsk);
+> +		spin_unlock(lock);
+> +#endif
+
+... then why do we need to call posix_cpu_timers_exit(current) before
+exchange_tids() ?
+
+And what if another process attaches another cpu timer to the execing
+thread right after the code above?
+
+Can we move posix_cpu_timers_exit() or the whole CONFIG_POSIX_TIMERS
+sequence in begin_new_exec() up, right after de_thread() before the
+"if (retval)" check?
+
+Thank you,
+
+Oleg.
 
