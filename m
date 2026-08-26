@@ -1,88 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from hr2.samba.org (hr2.samba.org [144.76.82.148])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6284448B8E
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 15:30:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 068242DC783;
+	Wed, 26 Aug 2026 15:30:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=144.76.82.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787758206; cv=none; b=Ur5RusIAxcbWA5ccMeKfIjoX0jDfTHzvf5lov727HjqMarEEp48/k9Vd1C0WWHlzi/pOKBk+y4dYGf1qtz3cPyJ51uVy1TfhzAIALKkFclkAY1r7vRk/Ey/Oej35B9VHwJMRj1EgEEZ9IP3zlf2fjLpk5iBQ/Dpd1GW4O5iowzs=
+	t=1787758249; cv=none; b=desQavCKGM9xitjAjBg8k2r4fiAA236uaPkQ5uYsoH5U1UmrE7N64kYk71mL09tQNAn6I66R4hpCtM5s8PZes1O7h3umRsaI8gitrSpbE6Xom+K4O+WuPupF4w1a+mgTOV24ooGkfDwB8xdJipjxqoxxOFGQjM2delQhDePeQZw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787758206; c=relaxed/simple;
-	bh=/pUFy2bN0U1mx8574mk29IWEVuQVMmm+/XhoJVim9Uo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gMOGyEz8VsGRiAGu9AeP4ILiPPrC2ZmhUSLDOuIWObTDgUAmCFHfce5etaLVXCTSfuFivl5QQnjJzykELI9FSv38UsYRAbv+1RgEmsqXDDhe6AOLo+yLnns2XPycZwu3IoCe3ka6w++xqw/spmYMDpNdqobEf+j0WJmFRMMgZ5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Ly3iIjF8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787758249; c=relaxed/simple;
+	bh=+Um2CgugFn6r2dezM726FcrQNbrpFK7o8Xvtlm8ngX8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=B5XS8JczeFPnbSG+2O56vhBWnNR4D7ZYIMoPt0Y1K9SBcuJzg/gvJPW0/Mn1zN5c+rXS1Jeu5XCBPNmpNStIjPw7vKq9HnCL4M5yrTr+/sBVX6rg+HaeGCAq1d/jaPN0cNuyZM8L7rLixdRO212oo7jl+Y49T7rJKQwpLaasnE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=samba.org; spf=pass smtp.mailfrom=samba.org; dkim=pass (3072-bit key) header.d=samba.org header.i=@samba.org header.b=2TFGA8ZI; arc=none smtp.client-ip=144.76.82.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=samba.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samba.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Ly3iIjF8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 867E61F00A3A;
-	Wed, 26 Aug 2026 15:30:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787758203;
-	bh=k6tE54JsOXGWnymkbDWNSeh5+QlIjTDp3evyuDhduM4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ly3iIjF8vrPg3jrQLF/nF767ivHea1dAnKQAiWc6jNbw2fkWYpMi6kaMbQSA3phH3
-	 IB5WpUHi8We7f1pibZJ8JVU5dO4LNUH2m5Kr9pUUVoLNWPAseaZIlelvsQUGlVr7tm
-	 6BEFKNA1Ohr/rPyoxOKNVf0MUFVfrq4jT/d4PPeo=
-Date: Wed, 26 Aug 2026 17:30:00 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: 3237174131@qq.com
-Cc: linux-kernel@vger.kernel.org, tglx@kernel.org
-Subject: Re: [PATCH] scripts/spdxcheck: fix file descriptor leak in
- read_spdxdata()
-Message-ID: <2026082634-diner-thyself-0378@gregkh>
-References: <tencent_0D1CF77320A0C199EB46300A4E82DADEA209@qq.com>
+	dkim=pass (3072-bit key) header.d=samba.org header.i=@samba.org header.b="2TFGA8ZI"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=samba.org;
+	s=42; h=From:Cc:To:Date:Message-ID;
+	bh=AMBIicEQi5Dvgq8hxYz7Ll0KubEmVdgYfxCoqFx+Ito=; b=2TFGA8ZImhlzPmyR9mW8bQxJqp
+	dEXlDlsxg9+Ta9m1YfaicwzZTSGQ90vTZaAoOVVQ7aggaQeI6j60K0xtoeto7bJWGqDiJO7ipQ5uk
+	GAn4cNiGrjvrN5ah9HIs0OO2QYH71nqwgHf6bb92pB5hMUbQ38lueeUafmpG7jOvwWVZrvYqWgqSj
+	bF6aCDFX0TU2jQGj+huZvVChvdMyPbF2hTNupKPLjHdDLTUmyq5g+wyE83TW0SYktnkTaHjHDvOxi
+	gymArqNkY4Yq/iA5t3HhxiKcUlut/qQGM9B7nUHVbgaozKaIYZShHWc2otXgNdeJ3sy4GCM1V+3U+
+	eyH36sD2y7h5ZU8lYPPCEmzg5oLM/Pcg2G6XzNQ76JMgFsTNYCwhm0m7wsr4/l+20KKjq2TlTmsHJ
+	hHOSE2cCjgcOQRq736Aav0Jmd5cG6ht8J7niGjS4IrBKWxhX9bOFvIs9V/lsz0RwtguOl//R0mMIq
+	0vuNdW+pNFhTlinEcmEC3nbd;
+Received: from [127.0.0.2] (localhost [127.0.0.1])
+	by hr2.samba.org with esmtpsa (TLS1.3:ECDHE_SECP256R1__ECDSA_SECP256R1_SHA256__CHACHA20_POLY1305:256)
+	(Exim)
+	id 1wzFF2-000000013Li-2Us2;
+	Wed, 26 Aug 2026 15:08:40 +0000
+Message-ID: <f2bdf83b-70b3-4d55-af52-9a3af7c512e5@samba.org>
+Date: Wed, 26 Aug 2026 17:08:40 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <tencent_0D1CF77320A0C199EB46300A4E82DADEA209@qq.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] MAINTAINERS: Add Paulo Alcantara as an SMBDIRECT
+ co-maintainer
+To: Namjae Jeon <linkinjeon@kernel.org>, linux-cifs@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: tom@talpey.com, Paulo Alcantara <pc@manguebit.org>
+References: <20260826150106.15352-1-linkinjeon@kernel.org>
+Content-Language: en-US
+From: Stefan Metzmacher <metze@samba.org>
+In-Reply-To: <20260826150106.15352-1-linkinjeon@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Aug 26, 2026 at 07:53:25AM -0700, 3237174131@qq.com wrote:
-> Hi all,
+Am 26.08.26 um 17:01 schrieb Namjae Jeon:
+> Steve French passed away recently. He was a long-time maintainer
+> of Linux's SMB support and will be greatly missed.
 > 
-> This is my first kernel patch. Please let me know if anything is wrong.
+> Add Paulo Alcantara as a co-maintainer of SMBDIRECT alongside
+> Namjae Jeon.
 > 
-> Signed-off-by: Xia Zhoxin <3237174131@qq.com>
+> Acked-by: Paulo Alcantara <pc@manguebit.org>
 
+Acked-by: Stefan Metzmacher <metze@samba.org>
 
-Hi,
+Thanks!
+metze
 
-This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
-a patch that has triggered this response.  He used to manually respond
-to these common problems, but in order to save his sanity (he kept
-writing the same thing over and over, yet to different people), I was
-created.  Hopefully you will not take offence and will fix the problem
-in your patch and resubmit it so that it can be accepted into the Linux
-kernel tree.
+> Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+> Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+> ---
+>   MAINTAINERS | 3 +--
+>   1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index e05570c393c5..7e1d14406619 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -25105,10 +25105,9 @@ F:	Documentation/admin-guide/LSM/Smack.rst
+>   F:	security/smack/
+>   
+>   SMBDIRECT (RDMA Stream Transport with Read/Write-Offload, MS-SMBD)
+> -M:	Steve French <smfrench@gmail.com>
+> -M:	Steve French <sfrench@samba.org>
+>   M:	Namjae Jeon <linkinjeon@kernel.org>
+>   M:	Namjae Jeon <linkinjeon@samba.org>
+> +M:	Paulo Alcantara <pc@manguebit.org>
+>   R:	Stefan Metzmacher <metze@samba.org>
+>   R:	Tom Talpey <tom@talpey.com>
+>   L:	linux-cifs@vger.kernel.org
 
-You are receiving this message because of the following common error(s)
-as indicated below:
-
-- Your patch was attached, please place it inline so that it can be
-  applied directly from the email message itself.
-
-- You did not specify a description of why the patch is needed, or
-  possibly, any description at all, in the email body.  Please read the
-  section entitled "The canonical patch format" in the kernel file,
-  Documentation/process/submitting-patches.rst for what is needed in
-  order to properly describe the change.
-
-- You did not write a descriptive Subject: for the patch, allowing Greg,
-  and everyone else, to know what this patch is all about.  Please read
-  the section entitled "The canonical patch format" in the kernel file,
-  Documentation/process/submitting-patches.rst for what a proper
-  Subject: line should look like.
-
-
-If you wish to discuss this problem further, or you have questions about
-how to resolve this issue, please feel free to respond to this email and
-Greg will reply once he has dug out from the pending patches received
-from other developers.
-
-thanks,
-
-greg k-h's patch email bot
