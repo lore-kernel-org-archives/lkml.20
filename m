@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D946B2E62B3;
-	Wed, 26 Aug 2026 16:06:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BE393112BD;
+	Wed, 26 Aug 2026 16:06:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787760407; cv=none; b=ifWPuv0VBW/wTFo8XY1pWKAiBkaMIt0zjmmpcoYzFXEuIEeoQwST0NVPS/mUnIcaVbMqJo4CPFVnLV6b4osPdvSEKxT2d8miexLHd+4w4Mxi0rRN0QFGxd0ULn7DIbUKRc1BMRo51DJ7tI4DIpsEZjWL0rLK3OOtH3fw9L9hgo8=
+	t=1787760415; cv=none; b=Axvj/6xe5PJpvL26TS0jb8xWVrDu0aml8LiZxE23GLcBjnUWZ77xDtOUdzjFX+CjFdBGA+2T4PB4pBRykEtoHk7h5b+lNbEu9yg1J+7yJy/ixELw1CUqQYKkbZrgJZbJJf/zGeT5W9TQ92oct0FLESM7d8gZrmiJnqhFdptqHok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787760407; c=relaxed/simple;
-	bh=DLaQXXhE3GPjz/WkKul8E4zcEVrz25q2RRBTZmkJ/Y8=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=rye/24FlC2kFb+Bhl8dEjL5CJrTACAQhHbz9iYzrhbF9ti87t/PCPttXNi/KYOAw59cMdQGE5VLUilOu8MdRzrKk5A7RVFrg6nyNj0oHbvkK0zePKKYwu7KRQ9OHZXGM4W+enL2toXGty8Zfgfb0zn9AADD6q4s2yVJxWbzaBt8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D6Ip0lEq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787760415; c=relaxed/simple;
+	bh=K84TbfxfceCW8PndmuLZov84ig4iyficrU4Ck6RdOao=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=sDi45gsdutRQBDgH2EUFBaVfog9T6WupzAvP6Pg7HGAqngsLq4Yx5VtrZq+j8BvMtM9cROhKg9WQQy4gGhAIjsoai3FkUX1WCDCAzYDPd4T7feCMYKjQzIqW4JcvmlaaeP/NmC5sAMtl32uSTdj1ebVK6mRIE7oca3lxW8glI2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XgnOTYOn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D6Ip0lEq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F8E01F000E9;
-	Wed, 26 Aug 2026 16:06:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XgnOTYOn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C192B1F000E9;
+	Wed, 26 Aug 2026 16:06:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787760406;
-	bh=qzCRwQtZ9/wP7Z02N7Vz+vk0AFHWhteXZEZwfRjGIOA=;
-	h=From:Subject:Date:To:Cc;
-	b=D6Ip0lEqBo7TaC0vEm+4INQXvt0ORtVzNxM0nL9cPiyvLdL7frUynU9l8nVrh5Hbi
-	 0DZOfCM9+5b/Vcu2UMnl6mVjQzxwSIy1lFeyN7ApPIueIAThUeKE2Q0S+xVYxRAjGE
-	 oJlaVUf6Xvy9L97Re2YL+83yOceM8rQLqjAwTsD6aK2RunFMDywrj1WllEmuoF2gkA
-	 tD5KYw8TK6MEIiuyAAx/X3AcTlG3KIUWTAC1VwROaBRfNJnwriTuOQzWUwVEOD8gGg
-	 um0nJVih40tK8jMVuZBOsdUj1qcuaS+l6xS72VeBbqm5Ae3ZkcqA4RZcJAfxeSrqXQ
-	 tcRvDlIEmmeGQ==
+	s=k20260515; t=1787760413;
+	bh=cmJCLhannwpQfe0H8AhecB4RfP76TbhEicx9QpJ/hJc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=XgnOTYOnVRzH0wZzLVRnQR05xwQjWrrl7AVdNnViIQ4Bcyw/EPxZmS4FinZ70OsWY
+	 NI+H1W/ghgVhv+9tjU/qcry166sRrHtZkaCW+UlpLBnVQ9SHnm06izP3gjYaDqI94Z
+	 EWnE5w1MOosmHr5SwiFYZNNuJWlbDdHMIjbvnM49ihiBoyuxgr7I0yd4RPDerv3xi8
+	 WwFtIZw5piEN/tTVQJpaSXNx6u6g0do/u4YPtzlQ/TpNVAlq17aUNDbfKlLQyDVKx1
+	 QMU6IIYc96dtY/44sPJtZpWLeY1J176+tOKx+Uhglz3h5Tc/OSbh08iP+PJAPMTp00
+	 8Yps6dr390Osg==
 From: Christian Brauner <brauner@kernel.org>
-Subject: [PATCH 0/2] powerpc: remove spufs coredump support
-Date: Wed, 26 Aug 2026 18:06:39 +0200
-Message-Id: <20260826-work-spufs-coredump-v1-0-579e72a7ab66@kernel.org>
+Date: Wed, 26 Aug 2026 18:06:41 +0200
+Subject: [PATCH 2/2] coredump: stop unsharing the file descriptor table
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,10 +37,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/zXMQQ7CIBCF4as0s3ZIIW0lXsW4ADq1aCyEETVpe
- nehxuU/efOtwJQ8MZyaFRK9PPuwlJCHBtxsliuhH0uDatXQajXgO6Q7cswTowuJxvyI2JHsHEn
- d9/oI5TMmmvxnV8+XX3O2N3LPStWFNUxok1ncXE8VFTsq/qioE9i2Ly3jLmaiAAAA
-X-Change-ID: 20260826-work-spufs-coredump-4e14ce185587
+Message-Id: <20260826-work-spufs-coredump-v1-2-579e72a7ab66@kernel.org>
+References: <20260826-work-spufs-coredump-v1-0-579e72a7ab66@kernel.org>
+In-Reply-To: <20260826-work-spufs-coredump-v1-0-579e72a7ab66@kernel.org>
 To: linux-fsdevel@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>, 
  Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>
 Cc: Madhavan Srinivasan <maddy@linux.ibm.com>, 
@@ -50,52 +49,68 @@ Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
  Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
  "Christian Brauner (Amutable)" <brauner@kernel.org>
 X-Mailer: b4 0.17-dev-362b8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1820; i=brauner@kernel.org;
- h=from:subject:message-id; bh=DLaQXXhE3GPjz/WkKul8E4zcEVrz25q2RRBTZmkJ/Y8=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWT18wvLGFte3TRnstVy/Q9fUwR+BztJKG36qChdzPRor
- zMfA8/TjlIWBjEuBlkxRRaHdpNwueU8FZuNMjVg5rAygQxh4OIUgIksvcXwT/lGGFtVRkNJQt3E
- M5lHJdmWTOFgqDh38P1l67uyboI7DBgZzv7X/zd34swfVvwGk+PO7Pb+/mwHv+2R3R0Nzld2zLi
- 3iQkA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1819; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=K84TbfxfceCW8PndmuLZov84ig4iyficrU4Ck6RdOao=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWT18wvf21CYzVAq/4Ndf77FU/EJZkmX07z5U1Rnd//95
+ xASP/1VRykLgxgXg6yYIotDu0m43HKeis1GmRowc1iZQIYwcHEKwETuBjP8j7/41PjNiR/Frurs
+ CzhO/9/V9aSg15/f/2bdrLU317tf+c7wz4x3AXuNAZvI2n6HIMaZ/zJKDCqnq/EwxRxdfvVP0mZ
+ PJgA=
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-A task that dumps open spufs context adds a bunch of extra elf notes
-describing the SPU state. It is the only reason do_coredump() unshares
-the file descriptor table. We could make this conditional on spufs but
-eh.
+We currently unshare the file descriptor table before we write the
+coredump. The only code that ever looked at the file descriptor table
+was the cell spufs coredump support. It walked all file descriptors to
+find the spufs contexts it would have to dump as extra elf notes.
 
-Nothing can consume those notes anymore. gdb dropped Cell Broadband
-Engine debugging in 9.1 and binutils removed it in 2.34. That's about 6
-years ago. So no program can actually read an SPU note out of a core
-file and probably never did in recent history.
-
-Note that the IBM Cell blades that shipped the Cell processor were
-removed in commit 05bf59fbeef3 ("powerpc/cell: Remove support for IBM
-Cell Blades"). The PlayStation 3 is the only platform left and nothing
-there produces or reads these notes.
-
-So remove it.
+Now that we killed spufs coredumping stop doing that and update the
+comments referencing spufs as they ave become stale.
 
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
-Christian Brauner (2):
-      powerpc: remove coredump support
-      coredump: stop unsharing the file descriptor table
+ fs/binfmt_elf.c | 4 ++--
+ fs/coredump.c   | 5 -----
+ 2 files changed, 2 insertions(+), 7 deletions(-)
 
- arch/powerpc/Kconfig                         |   1 -
- arch/powerpc/include/asm/elf.h               |   6 -
- arch/powerpc/include/asm/spu.h               |   3 -
- arch/powerpc/platforms/cell/Kconfig          |   1 -
- arch/powerpc/platforms/cell/spu_syscalls.c   |  20 ---
- arch/powerpc/platforms/cell/spufs/Makefile   |   1 -
- arch/powerpc/platforms/cell/spufs/coredump.c | 183 ---------------------------
- arch/powerpc/platforms/cell/spufs/file.c     | 114 -----------------
- arch/powerpc/platforms/cell/spufs/spufs.h    |  12 --
- arch/powerpc/platforms/cell/spufs/syscalls.c |   4 -
- fs/binfmt_elf.c                              |   4 +-
- fs/coredump.c                                |   5 -
- 12 files changed, 2 insertions(+), 352 deletions(-)
----
-base-commit: 66498c75b4f8017f62d720d9b59675bdf3abce91
-change-id: 20260826-work-spufs-coredump-4e14ce185587
+diff --git a/fs/binfmt_elf.c b/fs/binfmt_elf.c
+index 06d0df105382..db32bb40a867 100644
+--- a/fs/binfmt_elf.c
++++ b/fs/binfmt_elf.c
+@@ -2029,7 +2029,7 @@ static int elf_core_dump(struct coredump_params *cprm)
+ 	{
+ 		size_t sz = info.size;
+ 
+-		/* For cell spufs and x86 xstate */
++		/* For x86 xstate */
+ 		sz += elf_coredump_extra_notes_size();
+ 
+ 		phdr4note = kmalloc_obj(*phdr4note);
+@@ -2093,7 +2093,7 @@ static int elf_core_dump(struct coredump_params *cprm)
+ 	if (!write_note_info(&info, cprm))
+ 		goto end_coredump;
+ 
+-	/* For cell spufs and x86 xstate */
++	/* For x86 xstate */
+ 	if (elf_coredump_extra_notes_write(cprm))
+ 		goto end_coredump;
+ 
+diff --git a/fs/coredump.c b/fs/coredump.c
+index ac3cd74808c6..a49f2fd6be28 100644
+--- a/fs/coredump.c
++++ b/fs/coredump.c
+@@ -1118,11 +1118,6 @@ static void do_coredump(struct core_name *cn, struct coredump_params *cprm,
+ 	if (cn->mask & COREDUMP_REJECT)
+ 		return;
+ 
+-	/* get us an unshared descriptor table; almost always a no-op */
+-	/* The cell spufs coredump code reads the file descriptor tables */
+-	if (unshare_files())
+-		return;
+-
+ 	if ((cn->mask & COREDUMP_KERNEL) && !coredump_write(cn, cprm, binfmt))
+ 		return;
+ 
+
+-- 
+2.53.0
 
