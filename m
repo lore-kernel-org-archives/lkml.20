@@ -1,150 +1,224 @@
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B05643DA4C
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:20:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F279241DE03;
+	Wed, 26 Aug 2026 14:20:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787754018; cv=none; b=tJuMg9HkQw4LFvnT9LLRa7RACmC+xlT2ruKmT9QaNqbuW5rtqpWwpj51JaV0TAj0oFCPHvU/AnnMKXylpUCj0ma/CbHKlScalK6EQXvlIMWJnwPRcF8o3nI4U4OL/9DVnvUs6b/TvVTCMWecBHmVH9p6mtNTJIqeBP5lkv034yc=
+	t=1787754034; cv=none; b=Ru7BTVaGOAvFc5CmyKJk/YXqjR0SRuhw6kIbul8vyj+jhdF3mbfSrtGslbcTAalh9BbdUXJkuMZTvaBMYeT+PWkXqhJUKoI3M6ighhsOeWx+BjcjVKm8xNqyeY0u6V+CvJ72ErEPau5/vbfmGKfVJjI4TgOc8wKFa6pk+xrtUMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787754018; c=relaxed/simple;
-	bh=wukuL8CwW5Sw95Eq3HK+NwHjNtJ5hpUPHptVYnfF13I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QXB4Znrj+qdo5lS+OhiQ/LQ75b53Iyr1tZqgJ0sOpBf82GKHkUDbvRhCHBTcrKTuG8NfocJC2ZESYVKJCFFApyAhQh4UtGdnHsbQ0O9mQdccQkkGPoFkSeu9q1OvRM0RYs+yoBF7O7LjQUMav0rN11ZiP1zA07hGTOUqmbCbASA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cVrkRI/P; arc=none smtp.client-ip=209.85.216.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787754034; c=relaxed/simple;
+	bh=vvnjMAsefRQ+DnfrgY23xPJtyDMNFeaY1cGfQERlK5E=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=TSa/nWJrxdPYEqn1J0A3sNWYKYDxD82AEdtMWbyQ5OzNTOZYCTYUtMEruqwLlql+m3EqrMCkNJDjlUGwSb2rTOTUp34rbYmV10ImUj3O5ALDR00Tx1aNZ/FypgHxKk2UDHnPfljj2KtlqCTQtx/c/XPP3aYJAzO/I0bY+HWrta8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=b2QxcLHo; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cVrkRI/P"
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-38e42560ebcso1064813a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 07:20:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787754014; x=1788358814; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/1XUCO5ehW6HIK1UxtZ/MdhG2zZvli3B4/DG5Oizxoc=;
-        b=cVrkRI/PMurosqZocvroLG2C2KTArW7gOLQgtIC/Yvq7jlbJhoreSZ7D7umvnULUPW
-         Md3KpIdecg4PTIlWfifW/lkmAUj2tfCoqbhm1Qgl8xLfe7mz7kkhvBqymh1w/4fytj65
-         KVDkIeY3S0WpxkrzmjxYZstufgX8p6WqiJRD4lIog/FKe4yXYKq7o2O+JDqyxqf1n53j
-         R5OVGCiA71M2BeHH9BMGQE77As131utbJpRe0lLLXpukuwGgNR+phrIaWcurAelTYSEh
-         5DQlTD6yN6mgMARUfm4NmDbWguE20NQNA8O3J1/i81M2hFlFyNCwGMRKF6MkbH92Nyz4
-         G0WA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787754014; x=1788358814;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/1XUCO5ehW6HIK1UxtZ/MdhG2zZvli3B4/DG5Oizxoc=;
-        b=GOUt3FoH8EzopZ+0U6iIFRKn7/ooQ1mV9C+7ZBsY+MT/YKwsn1c/U5KJRPiqkTjL7K
-         a28xegMiEHy6oGCCsWqG38UFzWA4VswDJimp8LhsnJXjg0hXLlddpjhH2s3MvimWVhv2
-         WOiiuwj2ud9SseDE50WCyki5h+vUJJzM+cMmTFDJ1x4kwCr0zHi0M/GpU/Mhadejt8p+
-         RTLAUeEV1WyJpKuFt9qoneLYYG0A8e5EBcku0tuoBiXV3zo0wI4N1TWCglCQxEwFMvP4
-         m0vUoXGAto2/swdMT18Wkc/QItVOW06v9y7wsqt7oCNYV1BzfqrSKUpI0G06A/2oH3FM
-         xulw==
-X-Forwarded-Encrypted: i=1; AHgh+Rrs/1XGHI9wmgPs315JE3V5xaSBVqjM10+KJfsmwucy+QrBSKfMg3nE+KnGQ1w10YZTCSE8d0K4ZLN6Q34=@vger.kernel.org
-X-Gm-Message-State: AFuF++nhYnLlBmpOoYhuiTknrW5TVVkwrRLyDXsXDJf6v+a0KFn/Lb2w
-	EcItO8qKnzy98cKE13OAZjU6kfJ1DhdD6EfzcC1wadwpw48LHCcqBtcD
-X-Gm-Gg: AR+sD125tG8fQX4gGGRDKBlQbNVLBmJab6eTItzltKdTT3jAsH3eyYlB+gUcSuBfBQk
-	1kpxV3OuCo1SnmKlqcILZoxiF24U0A5G/+XNVepzvIzPpIeyrkeougCrjm2krkeI+FN9ssvPAa+
-	hTKBym+du4XjidEjUr8gOKmFz2FOkY11GvTNHlnop7MjCNuBj2zjpNdfsVPOlEBdG/0qdDNev5p
-	IgzosZjMRWduHWKbwMqQNGpUmFFIqRJy2O/gX6/ihNp04QLBrZQypHUsKnX0ulF3k4MgbMbDQnn
-	L/QhXd0klSpjK4iWnPXgYTIXRGiBkzh4Wkk+3l18uIAH+zTOH6oLCxeA7DvPMNpQJyoXNbdiQRj
-	pot1lsNVo6ZEOlHwHOw3L49wWMJWRuwo5FoDkKIdBIxvePzHxgj+czRcnlkMWGqaLpIfPaHyDXJ
-	kgVMZsxCHJxjuyI00qmszNzSH7qYsCMJtSiE1lQQsoT6O3mzvRxmQiF7T3Rw0N6cYdLe0Iop+8e
-	86kZ1b3J1uyAyA+iSfjxFBEQsXTcD5nqOkzMQ==
-X-Received: by 2002:a17:90a:d2c6:b0:38e:5c6:4db9 with SMTP id 98e67ed59e1d1-3966d3dafb9mr16370184a91.11.1787754014381;
-        Wed, 26 Aug 2026 07:20:14 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3283d60bf36sm9592172eec.2.2026.08.26.07.20.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 26 Aug 2026 07:20:13 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <7532cd0d-6f9d-4278-9216-5d9aea92fa16@roeck-us.net>
-Date: Wed, 26 Aug 2026 07:20:11 -0700
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="b2QxcLHo"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=UoZAyj+/eoYN4IkW3Mi+iU0qOKkk/pFBiqUNxsSexGc=; b=b2QxcLHoOqgvGPgDoILFpiPdWb
+	YZgE/IRM1MNSMVpuSLHXMMoO7MP2/fzIg/scMm/osKWQUHyGAOgxeMmixzOm2rtH/ejKi0I5YjvEy
+	JTe5AZk2rW517gFSZ2jafe7o0AZ9SC3OFDAXhvrUvoEZgc2PEgfe+m+LedkujvE5XSYagOwHuZaeT
+	GOx8FWBKq9IVj00ijgJIsAnVpNT4D7ti0L/IbZFUMT/XTD4Ktfw+J6k7sl4p6HDsWGoVWGX37tmr6
+	O7y5JZlU5erinatqG/mnDnodfcTggSkOi3P8ZT1GaoYcs1qajXw3eL6eryfXR2nvkzdjFJ7/BOHPO
+	8edqVghA==;
+Received: from [::1] (port=36938 helo=pf-012.whm.fr-par.scw.cloud)
+	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.99.5)
+	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
+	id 1wzEUP-000000038Oy-3jTy;
+	Wed, 26 Aug 2026 16:20:29 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] treewide: fix spelling of "overridden"
-To: Linlin Yang <yanglinlin@kylinos.cn>, linux-kernel@vger.kernel.org
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-hwmon@vger.kernel.org, linux-mmc@vger.kernel.org,
- netdev@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-spi@vger.kernel.org, linux-fbdev@vger.kernel.org
-References: <20260826083715.625136-1-yanglinlin@kylinos.cn>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260826083715.625136-1-yanglinlin@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Date: Wed, 26 Aug 2026 16:20:29 +0200
+From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Cc: Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann
+ <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, Eduard
+ Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, bpf@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] bpf, x86: Sign-extend narrow signed kfunc returns
+In-Reply-To: <DKYHCWYCB5XV.3MSN6ZJGOW2R7@gmail.com>
+References: <20260823203944.2084994-2-Jeremy.Jean@oss.cyber.gouv.fr>
+ <DKYHCWYCB5XV.3MSN6ZJGOW2R7@gmail.com>
+User-Agent: Roundcube Webmail/1.6.18
+Message-ID: <fe9ae59b603848f59757086c6309aec9@oss.cyber.gouv.fr>
+X-Sender: jeremy.jean@oss.cyber.gouv.fr
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On 8/26/26 01:37, Linlin Yang wrote:
-> Fix misspelling of "overridden" (missing a 'd') in comments across
-> multiple drivers.  The correct spelling "overridden" is already used
-> 292 times in the same drivers/ directory.
+Hello Alexei,
+
+On 2026-08-26 03:22, Alexei Starovoitov wrote:
+> On Sun Aug 23, 2026 at 1:39 PM PDT, Jérémy Jean wrote:
+>> bpf_res_spin_lock() returns a 32-bit int. On failure, the verifier
+>> models R0 as a signed 64-bit value in [-MAX_ERRNO, -1].
+>> 
+>> On x86-64, returning -EDEADLK writes 0xffffffdd to EAX and clears the
+>> upper half of RAX. Since the JIT leaves the native return value as-is,
+>> BPF sees 0x00000000ffffffdd instead of the sign-extended
+>> 0xffffffffffffffdd. A 64-bit signed comparison therefore treats the
+>> value as positive, while the verifier treats it as -35.
+>> 
+>> As a result, a signed comparison against zero can take one path during
+>> verification and another at run time. With rqspinlock aliases, this 
+>> can
+>> lead to unmatched bpf_res_spin_unlock() calls, corrupting the per-CPU
+>> rqspinlock state and unbalancing the preemption count.
 > 
-> All occurrences are in comments only, no functional change.
-> 
-> Signed-off-by: Linlin Yang <yanglinlin@kylinos.cn>
-> ---
->   .../gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c    | 2 +-
->   .../gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c    | 2 +-
->   .../amd/display/dc/link/protocols/link_edp_panel_control.c    | 4 ++--
->   drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c               | 2 +-
->   drivers/gpu/drm/msm/registers/gen_header.py                   | 2 +-
->   drivers/gpu/drm/nouveau/nouveau_bios.c                        | 2 +-
->   drivers/hwmon/abituguru.c                                     | 2 +-
+> Is that a theory? I'm pretty sure we have selftests for negative
+> error codes from res_spin_lock.
 
-I would expect this to be a separate patch to even consider applying it.
+> I'm pretty sure we have selftests for negative
+> error codes from res_spin_lock.
 
-Guenter
+As far as I could checked, this is not entirely covered: when the
+returned 32-bit signed int is a negative integer in %eax
+(0xffffffdd), it is later mapped to 64-bit register r0, which clears
+the 32 MSB as its value is taken from %rax, and this makes the
+negative error code a large 32-bit value stored in r0
+(0x00000000ffffffdd). When writing raw BPF, one could check the
+return code using r0 instead of w0, and this would introduce a
+mismatch with the verifier that sees a real negative value.
 
+In my understanding, the current selftests do not exactly verify this?
+
+> Pls craft a selftest if the issue is real.
+
+Below is an attempt for a selftest. I got help from an LLM to write
+the BPF instructions, and then try my best to shrink it but it is a
+bit long; hope that's okay. The point is to craft the check on r0
+manually after the call to bpf_res_spin_lock(), and forces the branch
+taken to be different between the verifier and the jitted code.
+
+The need for raw BPF instructions is required as the compilation from
+C correctly uses w0 for the check. I added comments to emphasize this.
+
+SEC("?tc")
+__arch_x86_64
+__load_if_JITed()
+__success
+__retval(0)
+__naked int res_spin_lock_return_sign_extension(void)
+{
+   asm volatile ("                                                       
+\
+   *(u32 *)(r10 - 4) = 0;                                                
+\
+   r2 = r10;                                                             
+\
+   r2 += -4;                                                             
+\
+   r9 = r2;                                                              
+\
+   r1 = %[arrmap] ll;                                                    
+\
+   call %[bpf_map_lookup_elem];                                          
+\
+   if r0 == 0 goto out_%=;                                               
+\
+   r6 = r0;                                                              
+\
+   /* Adversarial setup: give one map value two verifier pointer IDs. */ 
+\
+   r2 = r9;                                                              
+\
+   r1 = %[arrmap] ll;                                                    
+\
+   call %[bpf_map_lookup_elem];                                          
+\
+   if r0 == 0 goto out_%=;                                               
+\
+   r7 = r0;                                                              
+\
+   r8 = 0;                                                               
+\
+   r1 = r6;                                                              
+\
+   call %[bpf_res_spin_lock];                                            
+\
+   if w0 != 0 goto out_%=;                                               
+\
+   r1 = r7;                                                              
+\
+   call %[bpf_res_spin_lock];                                            
+\
+   /* Adversarial check: treat the negative int return as 64-bit R0. */  
+\
+   if r0 s< 0 goto unlock_%=;                                            
+\
+   r8 = 1;                                                               
+\
+   if r0 != 0 goto unlock_%=;                                            
+\
+   r1 = r7;                                                              
+\
+   call %[bpf_res_spin_unlock];                                          
+\
+unlock_%=:                                                              
+\
+   r1 = r6;                                                              
+\
+   call %[bpf_res_spin_unlock];                                          
+\
+   r0 = r8;                                                              
+\
+   exit;                                                                 
+\
+out_%=:                                                                 
+\
+   exit;                                                                 
+\
+"  :
+  : __imm(bpf_map_lookup_elem),
+    __imm(bpf_res_spin_lock),
+    __imm(bpf_res_spin_unlock),
+    __imm_addr(arrmap)
+  : __clobber_all);
+}
+
+When I run the selftest (I used 9328b3b03bdc), I get:
+
+#1/1     res_spin_lock_failure/res_spin_lock_arg:OK
+#1/2     res_spin_lock_failure/res_spin_lock_AA:OK
+#1/3     res_spin_lock_failure/res_spin_lock_cond_AA:OK
+#1/4     res_spin_lock_failure/res_spin_lock_mismatch_1:OK
+#1/5     res_spin_lock_failure/res_spin_lock_mismatch_2:OK
+#1/6     res_spin_lock_failure/res_spin_lock_irq_mismatch_1:OK
+#1/7     res_spin_lock_failure/res_spin_lock_irq_mismatch_2:OK
+#1/8     res_spin_lock_failure/res_spin_lock_ooo:OK
+#1/9     res_spin_lock_failure/res_spin_lock_ooo_irq:OK
+(..snip..)
+#1/10    res_spin_lock_failure/pin_lock_return_sign_extension:FAIL
+#1/11    res_spin_lock_failure/res_spin_lock_ooo_unlock:OK
+#1/12    res_spin_lock_failure/res_spin_lock_bad_off:OK
+#1/13    res_spin_lock_failure/res_spin_lock_var_off:OK
+#1/14    res_spin_lock_failure/res_spin_lock_no_lock_map:OK
+#1/15    res_spin_lock_failure/res_spin_lock_no_lock_kptr:OK
+
+If you confirm this is not yet covered in the selftests, I can send a
+two-commit patch (one with the previous patch, one with the selftest).
+
+Regards,
+Jérémy
