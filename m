@@ -1,163 +1,168 @@
-Received: from relay.smtp-ext.broadcom.com (relay.smtp-ext.broadcom.com [192.19.144.205])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC58635A38C;
-	Wed, 26 Aug 2026 20:15:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.19.144.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3B81371D13
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 20:15:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787775338; cv=none; b=F7C8EoixRA2bVF5gFoqmZrwfI50hnDsq6diTecGcgGAptS1SCzxz5vVfa0wTDokMD5KXgPH/5zQGsuJ/0T7uRJiihvPKxH1sSFvzereEBGbI4KP/M8/6y2Tqmlr2ApMGJ/2GTGgIdX0xjH8csDln03bAd3tmLdrCvQVIJYP5Nzc=
+	t=1787775360; cv=none; b=ZWDHCsVvcWvMyXA039BzOpBZZeyJyFEePZ1SeeOuMSkybS+dznAUHzNqq+NdYPwxQHnLFKFGWA31AsEZYlO7RMxytT00jCJt4P+nyvmd+h96P18mV6XQhWLgDXi5AtTIDKCj35uGxJOvOMwLwA5ofOMbeVG0c8+lTnXqaYJVdC4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787775338; c=relaxed/simple;
-	bh=r3xfd7rKy07m13lJEaNX7L3L+7CbfZ1B+hhmDUr+dnw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FmmYKgVrgmEvndLoUBU4G9v5JwpkOVX5oILnaxCRp7hdT41KWIf28M+KP12yoNRfz0I3+LXa1n0MjjReY7L7WfYbUtQgxq9R2vCo/FRSddFcRQWYgd4wx1DxEOg+8H0MTb4y6ATweMf/ZqHjGQBfycagjjnVIsM6iv0vJanEHn4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=tYX65OTf; arc=none smtp.client-ip=192.19.144.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1787775360; c=relaxed/simple;
+	bh=PW8N1IgTlrulZyKeLd423puC2qwQejHBLTHJOwUtobI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nvMFDu84vDGPQlxR8T0C4FFTKACStFq9AYRpkW99nHgsxPV23gL8fKwcBTWmN042X4zy2VSnpH5EA9qT0G5SBWOSnO2iO6S98J5d1Gi0G5yfYEPI9E4YuTEQWImtbf9lt4PBr55B1SmSldgIFPI7x2lg8hnJ6uNp0gOwqeOJuHc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=JBCsWFhL; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=jGKLdrvd; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="tYX65OTf"
-Received: from mail-lvn-it-01.broadcom.com (mail-lvn-it-01.lvn.broadcom.net [10.36.132.253])
-	by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id EAEACC001505;
-	Wed, 26 Aug 2026 13:15:35 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com EAEACC001505
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=broadcom.com;
-	s=dkimrelay; t=1787775336;
-	bh=r3xfd7rKy07m13lJEaNX7L3L+7CbfZ1B+hhmDUr+dnw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=tYX65OTfglmiZ/I4ArvU9G/KVHg3yh2CaN7Tptggt/1Gq2bKvYPlsNoOT8jbdJssz
-	 6WVGkm7MlxU1WW2PgsgosCkm4Rj46vdN8EJPidBefc8f9/VBjULLTbTzM+MKS1lVwA
-	 uDZeUtp42xvXG2b7DUU8wdn/sRGyhXDi+Cin1MLw=
-Received: from bse-build-07.ric.broadcom.net (unknown [10.136.28.187])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail-lvn-it-01.broadcom.com (Postfix) with ESMTPSA id 4C841A9A;
-	Wed, 26 Aug 2026 13:15:35 -0700 (PDT)
-From: Danesh Petigara <danesh.petigara@broadcom.com>
-To: mmayer@broadcom.com,
-	krzk@kernel.org,
-	florian.fainelli@broadcom.com
-Cc: bcm-kernel-feedback-list@broadcom.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Justin Chen <justin.chen@broadcom.com>,
-	stable@vger.kernel.org,
-	Danesh Petigara <danesh.petigara@broadcom.com>
-Subject: [PATCH 1/2] memory: brcmstb_dpfe: Fix out-of-bounds access due to DCPU offset
-Date: Wed, 26 Aug 2026 13:14:58 -0700
-Message-ID: <20260826201500.3000125-2-danesh.petigara@broadcom.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260826201500.3000125-1-danesh.petigara@broadcom.com>
-References: <20260826201500.3000125-1-danesh.petigara@broadcom.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="JBCsWFhL";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="jGKLdrvd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787775357;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5XOoAhfyz9xtKGJKuczZNY14PVIcWN7EMcbfAjCg3O0=;
+	b=JBCsWFhL6FmBdPcALxH0wohjcZnNNLlqRdNBKvOgUAl6XqPonr7eUgiMcBr+HLf68wVw4V
+	f7vOqNxPHZJO6NNqQqaYX97rpahkVDncWGxkPSUfTT0N8yvRO/3ql0EEPK1jMD/hiqnvCn
+	wXgGcusjnetvN1jaVR7pwE6f6yBx6GQ=
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-53-94IBQ6JlMlC5Nx3LdOO67A-1; Wed, 26 Aug 2026 16:15:56 -0400
+X-MC-Unique: 94IBQ6JlMlC5Nx3LdOO67A-1
+X-Mimecast-MFC-AGG-ID: 94IBQ6JlMlC5Nx3LdOO67A_1787775356
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93494cce712so155273685a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:15:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1787775356; x=1788380156; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5XOoAhfyz9xtKGJKuczZNY14PVIcWN7EMcbfAjCg3O0=;
+        b=jGKLdrvdS84sl5YO5wfp/iGYQua5fev9zMbo0s6pYSpp1q0ey8+aTe/gD6SASgTjG/
+         M3WN8Jx3NxAoJJ+1392ipM/zyWcDNV0F66B6WFOVcpjtpPIgloFncqb2eZ0ot6My/VpC
+         6zQAt45sus0ap3D9d+IyZbxRzavaRqODrMFjkDSvR4tyZUv6JjvW3JjkAZ39ssNrYD7W
+         r7flFOb77UoLxolD1jrTJuroKuu5dSE8sCtq60rDKZSZoiDSJZzTJr5L+/AeSI/HleQY
+         3Q/KZaeBu5w1OcTQRoguIbKa6dGm37NG+nnmiRsgPvKZAKl3CspIgbRAjJpUO2q9TrbT
+         ouaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787775356; x=1788380156;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5XOoAhfyz9xtKGJKuczZNY14PVIcWN7EMcbfAjCg3O0=;
+        b=d3ph62/Zm/HdVHFjJX1pg9ABFPCReA3B8GNMSRWtp2wKTBaNnsPL6TzyBtiSIwy3g+
+         sajnoy+oxRJYPGPxHHuvWwcdc5Fn9bLAkmJSnxXoC4Ceow8kBzZ8HIO9NkzGKE1FGMB/
+         TVRUI8yMM6NynZT9PdA9vYmmMTv11T2NXf2gj+O8qHHuMcYjuC8759vrqEOAm8Axo9Ks
+         pWbYnbXuUqDYZEqyD9p0UW8ftkHE1K+mqtQ+GLAz9hoO61r8Hs5+KyPb7PqDxsKOVATB
+         pzWjEtt0671OCHYCmpfmQVJIXXxVi68SYimJ8Tdmtvs5lvcotpwH8HyEZZxqA+ckmWE5
+         Mibg==
+X-Forwarded-Encrypted: i=1; AHgh+Rrd14L0/vdqCRIMoUPSzJsDujEJwKHJhdZ0TcDFQrSVwJ4YVuMO6I2KJgP+PaDg09j5HyZIvxVyDRga6Ss=@vger.kernel.org
+X-Gm-Message-State: AFuF++mwgfA3Lxwky7s2YRq5LRjxoOkKDXFTumoeSrPRS+KBl+aNls86
+	nxGKHQTrHpXOxSiL9QiL1Y56EhUFmTGl89Lb8BHlLxOVD3JHaqDsfYU/4JLy3Coc2iLkvSKug1U
+	Br1RIIRe9O/bUINQMqZgyFn2Wg9DpIkpfqO0K1dG2fS9RpNFJ2QUcyj2UabBvpFMlww==
+X-Gm-Gg: AR+sD13nGOtwmgmljft35RhiB45T+WonpCTXYnqhwPvAtcjzAFhmtniGCyiFkZWA5X0
+	3NrwqZXoyQ8XfmHvwLgmcygz0WvFjVlMdPoy/T7vkwHGJ37uHtp4JBzfo27g2DharDLZle01tBY
+	Ynzm/bjvx87waRe5u+iqbAZn3QyGhfYgNpijXb/4pajBAjzdz0BgXGQ0dsw81TtEKtnV7GJbJH6
+	dYA4WhzxvX7tcezy9n4V7P1ZwuF2lUYuFF2w2UXU79I5KBttaVqvMP05Os5eaDqhQKHdzwMt4Sc
+	bkLpLd+jZRgW/n6QGae+FG6zz6hfExDy0qpq/QDnuPfBX8CHIxOY6K7ZCeb8zP5FC/HMW2EUcsn
+	BYBhB5UTyCzazbYC1tkZ4hSTHglWibsSFygCvduQJoviw
+X-Received: by 2002:a05:620a:3bd0:b0:936:a407:98bb with SMTP id af79cd13be357-937800f72b0mr763367985a.9.1787775355645;
+        Wed, 26 Aug 2026 13:15:55 -0700 (PDT)
+X-Received: by 2002:a05:620a:3bd0:b0:936:a407:98bb with SMTP id af79cd13be357-937800f72b0mr763358185a.9.1787775355027;
+        Wed, 26 Aug 2026 13:15:55 -0700 (PDT)
+Received: from localhost (pool-100-17-17-231.bstnma.fios.verizon.net. [100.17.17.231])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9377e30ed19sm292126185a.8.2026.08.26.13.15.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 13:15:53 -0700 (PDT)
+Date: Wed, 26 Aug 2026 16:15:52 -0400
+From: Eric Chanudet <echanude@redhat.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Michal Hocko <mhocko@suse.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+	Shuah Khan <shuah@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	cgroups@vger.kernel.org, linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	Maxime Ripard <mripard@redhat.com>, Albert Esteve <aesteve@redhat.com>
+Subject: Re: [PATCH 00/11] mm/cma: charge cma allocation to memcg using per
+ area counters
+Message-ID: <ao89rgCB4VhNt7n0@echanude-thinkpadx1carbongen13.rmtusma.csb>
+References: <20260821-cma-memcg-regions-v1-0-d21b165b8440@redhat.com>
+ <aowHqqaqK7TeexQH@tiehlicka>
+ <ao2gA_m3BCBu2esy@echanude-thinkpadx1carbongen13.rmtusma.csb>
+ <5970a8d4-fe7c-4dde-bdc8-1c66bfb57f12@kernel.org>
+ <ao3CQicH0t-k95NA@tiehlicka>
+ <ao3gLqsF4WSeKBIa@echanude-thinkpadx1carbongen13.rmtusma.csb>
+ <7e4e9662-d876-4493-a0b3-e31640937dd1@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7e4e9662-d876-4493-a0b3-e31640937dd1@kernel.org>
 
-From: Justin Chen <justin.chen@broadcom.com>
+On Wed, Aug 26, 2026 at 10:02:08AM +0200, David Hildenbrand (Arm) wrote:
+> On 8/25/26 20:50, Eric Chanudet wrote:
+> > On Tue, Aug 25, 2026 at 06:26:42PM +0200, Michal Hocko wrote:
+> >> On Tue 25-08-26 17:45:56, David Hildenbrand wrote:
+> >>>
+> >>> How does this e.g., relate to hugetlb allocating from CMA, to then charge to a
+> >>> hugetlb cgroup?
+> >>>
+> > 
+> > AFAIU the system defines CMA areas to allocate hugepages from. For this
+> > initial series, I failed to handle it. The intend was to consider it as
+> > any other CMA area. It entirely missed that hugepages are already
+> > accounted for by their controller (cgroupfs opt
+> > memory_hugetlb_accounting) and they are charged when faulted in from
+> > their available pool.
+> > 
+> >>> I always thought of CMA being a low-level allocation mechanism with various
+> >>> different use cases, and actually the higher-level users should decide how
+> >>> to/what to charge instead.
+> >>
+> >> Exactly. There are many different users of CMA all with different
+> >> requirements. Then there is CMA reservations if an area is shared and
+> >> the overall memory consumption. That is why I am really not able to
+> >> wrap my head around this proposal.
+> > 
+> > It is nonetheless available almost directly to userspace via dmabuf
+> > heap, or as a result of drivers ioctl providing a contiguous buffer, and
+> > unaccounted for by existing controllers, with the exception of CMA
+> > hugepages with memory_hugetlb_accounting.
+> 
+> No. The charging really only makes sense for selected mechanisms that built onto
+> CMA.
+> 
+> It does not make any sense for subsystems that declare CMA for their own use only.
+> 
+> Like hugetlb. Or s390x's VMCP region. Or PPC KVM stuff. Or the crash kernel area.
 
-On API v1/v2 boards, the DCPU coprocessor can steer kernel readl_relaxed()
-and writel_relaxed() to any address within 256 MB of the ioremapped DPFE
-dmem or regs base. The DCPU firmware provides a 28-bit offset which the
-driver adds to the ioremap base without any bounds checking in
-get_msg_ptr().
+I see. The crash-kernel does not use the CMA allocator it would not be
+affected, VMCP or PPC KVM HPT use specific areas and do not have
+userspace use AFAIU. They would default to the root cgroup that does not
+get charged. Maybe it should instead be more like GFP_ACCOUNT, making
+charging opt-in when the allocation happens on behalf of userspace?
 
-This allows a compromised DCPU firmware to trick the host kernel into
-reading or writing arbitrary memory-mapped I/O registers in vmalloc
-space. When combined with a root-writable sysfs file like dpfe_refresh,
-it provides an arbitrary MMIO write primitive. Similarly, world-readable
-sysfs files can be used to leak other devices' register contents.
+From the other thread it doesn't seem like memcg is a good fit either.
 
-Fix this by recording the resource_size() of the dmem and regs ioremaps
-at probe time, and rejecting any offset that, along with the largest
-field accessed (DRAM_VENDOR_ERROR + sizeof(u32)), exceeds the recorded
-mapping size.
+> 
+> -- 
+> Cheers,
+> 
+> David
+> 
 
-Fixes: fee5f1ef6cf7 ("memory: brcmstb: dpfe: support new way of passing data from the DCPU")
-Cc: stable@vger.kernel.org
-Signed-off-by: Justin Chen <justin.chen@broadcom.com>
-Assisted-by: Gemini:gemini-3.1-pro-preview cursor
-Signed-off-by: Danesh Petigara <danesh.petigara@broadcom.com>
----
- drivers/memory/brcmstb_dpfe.c | 22 ++++++++++++++++++++--
- 1 file changed, 20 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/memory/brcmstb_dpfe.c b/drivers/memory/brcmstb_dpfe.c
-index 08d9e05b1b33..66343205f585 100644
---- a/drivers/memory/brcmstb_dpfe.c
-+++ b/drivers/memory/brcmstb_dpfe.c
-@@ -182,6 +182,8 @@ struct brcmstb_dpfe_priv {
- 	void __iomem *regs;
- 	void __iomem *dmem;
- 	void __iomem *imem;
-+	resource_size_t regs_size;
-+	resource_size_t dmem_size;
- 	struct device *dev;
- 	const struct dpfe_api *dpfe_api;
- 	struct mutex lock;
-@@ -401,9 +403,14 @@ static void __iomem *get_msg_ptr(struct brcmstb_dpfe_priv *priv, u32 response,
- 	 */
- 	switch (msg_type) {
- 	case 1:
-+		if (DCPU_MSG_RAM_START + offset + DRAM_VENDOR_ERROR +
-+		    sizeof(u32) > priv->regs_size)
-+			goto bad_offset;
- 		ptr = priv->regs + DCPU_MSG_RAM_START + offset;
- 		break;
- 	case 0:
-+		if (offset + DRAM_VENDOR_ERROR + sizeof(u32) > priv->dmem_size)
-+			goto bad_offset;
- 		ptr = priv->dmem + offset;
- 		break;
- 	default:
-@@ -415,6 +422,12 @@ static void __iomem *get_msg_ptr(struct brcmstb_dpfe_priv *priv, u32 response,
- 	}
- 
- 	return ptr;
-+
-+bad_offset:
-+	dev_err(priv->dev, "DCPU returned out-of-range offset %#x\n", offset);
-+	if (buf && size)
-+		*size = sprintf(buf, "ERROR: DCPU offset out of range\n");
-+	return NULL;
- }
- 
- static void __finalize_command(struct brcmstb_dpfe_priv *priv)
-@@ -858,6 +871,7 @@ static int brcmstb_dpfe_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
- 	struct brcmstb_dpfe_priv *priv;
-+	struct resource *res;
- 	int ret;
- 
- 	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-@@ -869,17 +883,21 @@ static int brcmstb_dpfe_probe(struct platform_device *pdev)
- 	mutex_init(&priv->lock);
- 	platform_set_drvdata(pdev, priv);
- 
--	priv->regs = devm_platform_ioremap_resource_byname(pdev, "dpfe-cpu");
-+	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "dpfe-cpu");
-+	priv->regs = devm_ioremap_resource(dev, res);
- 	if (IS_ERR(priv->regs)) {
- 		dev_err(dev, "couldn't map DCPU registers\n");
- 		return -ENODEV;
- 	}
-+	priv->regs_size = resource_size(res);
- 
--	priv->dmem = devm_platform_ioremap_resource_byname(pdev, "dpfe-dmem");
-+	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "dpfe-dmem");
-+	priv->dmem = devm_ioremap_resource(dev, res);
- 	if (IS_ERR(priv->dmem)) {
- 		dev_err(dev, "Couldn't map DCPU data memory\n");
- 		return -ENOENT;
- 	}
-+	priv->dmem_size = resource_size(res);
- 
- 	priv->imem = devm_platform_ioremap_resource_byname(pdev, "dpfe-imem");
- 	if (IS_ERR(priv->imem)) {
 -- 
-2.54.0
+Eric Chanudet
 
