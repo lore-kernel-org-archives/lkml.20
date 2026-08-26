@@ -1,118 +1,179 @@
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B876A472F71
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 18:11:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A9AF332615
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 18:11:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787767886; cv=none; b=lrSwgY55jIwTq0rajlZwDSVI6quLI18sYly3W0sy8YPWQO6OpFB/gHMDe6EPt5RSYXnO5C4VHZ2t2870qKEgDQph4yUSK2z9Re+AvnoF+QKb7eJkm1ULA5FepPkSupEksbMSV0T8Og02BMumLmODWokWZZWMlVDp3lNCdqFAzn4=
+	t=1787767897; cv=none; b=DHkeNmbScTWRnbXI9BToZExE1YKVkbxzQX3085kU/j72fEDmyltIY99gmywP1NUrPkEq6m80SxzzG4tZ1Z2UnlHPHAlGP2jioOajev1lu4MDpyGqgzacahNGUhMJan4kdQm0W10E4EIHNecLYndQ0ljw+MPnmD74Gqj0JMBvft0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787767886; c=relaxed/simple;
-	bh=hTwLH6239DZe5yRPzb2V1G2GAB6G4ulnXpvuKPufiFg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jKiClNj4lNaY19EcJS7gzJF3ziKDmixrjU9DWtaUjSCsvPbsrh3BywmvjNhatGsxvakkUeI5tuK+nDop/xSUc+qnk95n4N23evVeV1v8C6sqcZuuZmS+dzN1QLYmPubFt41axMr18VU+yR2T3wBm/fxcVhBsKSCWV+ChAujbwpc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RuAY91T2; arc=none smtp.client-ip=209.85.215.171
+	s=arc-20240116; t=1787767897; c=relaxed/simple;
+	bh=zW/jWEywlJnLpPn3iSmZGT+bzd3gQc7ctNw4LFiA03I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EkdJw5a7X84QvtNy+8yXEiHYEzg0SaUDKBLIEncayhJT1xcGSgh50aBS5o8f1q9NyoMpto6ZwLOI/lybUkcvhCSqLHfo+bHzXw6NSOU7JGNA1JiEzkh6Vtb3R5qjc/A+o9swBJmLHYldYnOxPxaHkYLbM7gcpDkTCyUQw6/Lv7Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gz9pm1Tq; arc=none smtp.client-ip=209.85.215.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RuAY91T2"
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-c9d1fff21edso831051a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 11:11:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gz9pm1Tq"
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cc1c73645a1so693779a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 11:11:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787767874; x=1788372674; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=cD3ENK5Zz4cqB8cAmknAH7JmVcmInLZ6RJTKj7LW1gE=;
-        b=RuAY91T2VT7db4CGw4AR51PDL+85j6oXkjMPaLH2/s1nxhrYPR8B/EXMR32BTrWAiv
-         15TIkfG3CpxQ0TL425qNPYlA1xVp/lY93yC/KTzu1adajr0zloMRzEeiJcs0V63QmZxb
-         53Y2F4nhZWzC5N/YRjPDS1X5IfdsA5FFJVNOJsCd8dyOtYYz4jYoEzLnpZP9rBSZ0LcF
-         RDvr4gqCw93QoJZHC82D8ksZsFBbLWm8noxekevS0Bez3Y1H34mfK/KSQ8QauLLxQ3NP
-         4hHpBWmsXDTbvb5jn7P6zLmMtL4lNbvBpixJcR1oY+1rLNaNRGEzMhHfcUOlZLBZTSvJ
-         I5Sg==
+        d=gmail.com; s=20251104; t=1787767886; x=1788372686; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=70l+pktXnkTFw9cxbeR6NIJIADP4PanSEbbcQ2ECs8I=;
+        b=gz9pm1TqJOTSncpKxrHtHR+gKXIiKaMsZl7ID8N3qnZxQ6Xv7ZGTBBTHLTHLFMMNgV
+         criaun6l6F7vfYRZX+3SvzedIPUC7uK1gLdQCE4GciVKtPtjp3R2iuPfoxTCpSRy1ivB
+         73WfmekmKQ2SgM+Poqz1aHJJ0UtjQZWDfS+4sYpHqyjNVo/dwFD8oYyZizmDGgKlNZTK
+         Ylq6dDTaq1QU3/hu5oYuqfk+GcnJEJMrspdfeuvsLP+HQIATLWEOAuPCbOEivVp1WddA
+         toUAmxBLWrPFOibEOza3iqDxEjDBA+P/c0sfhjMDv6Zc8VeUOKs/3PCg3VxZBZKV+Aqa
+         6qpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787767874; x=1788372674;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cD3ENK5Zz4cqB8cAmknAH7JmVcmInLZ6RJTKj7LW1gE=;
-        b=dyVJ2g7y7RhMDQd0nmaRpeC2lM1Yrz2vCHkOA2ZN7ad9j7h0FCqzdkF3j31/BmGrAM
-         celkYpQ3Ub56CGvh2P/QM/g96/MMOYSHvX+0yDEowXbwFx3j71DoIcfXEskzGiwoWC9B
-         sLroSi3YDUQ9Gh0HOVP7h3LLtuHLDNY+NFjk2GxkmdqHT73WpgBE2UsB29X38+QlLzjC
-         EydBXCnMyjguikD3sPRIdGi31zwg966fyyMXTq65w9yQY3pXQ1mtzy+HvCZPBFlo7DGS
-         Bh4zDL+41RdcomYZbLlnxddK19MQZmmNVXmsWGnMXt8LFDcVydXHdgVzad0c8hM6VSwd
-         0jkg==
-X-Forwarded-Encrypted: i=1; AHgh+RoLsnNvQEgRfotzph4znuHgvNqMwDaaZNxFN0wex4hMt4GTKntBtzU8VSzVdZIHZN/ZtoHo4lvTj3qwtqU=@vger.kernel.org
-X-Gm-Message-State: AFuF++niSi+tXISOc2eg2y9GIXKo57jBDH5fpixim6PZwvw4npG0ASxG
-	snJKkuY3Da9BqkwMqfvtDBbtK9jTI5BMtPcw/3lf6t6AceRnUFUi3Jj9
-X-Gm-Gg: AR+sD10DYFsqp9DJuZIZLhT1L1JZYFhKVllX9o5Hk4xdMAnFkzXQk4s+TBvB24gDp0e
-	dQ5L7S+Hu/97fntxttfyLIrBz+Qf3w1g/rJC4P56fGVAmQZ1PN7nLPGeXTh2ixG+fjto2uAwDGj
-	YfY/nCBw88/35X8lo2utqd+rgxZoturo+qcmAZUXOgRrG9S1VOu+WDeWIuSinSncaMfLMEw5kLV
-	Z/IXxyrochDe3El+EaAFxAWYh/fzFA9IPHM+/l6PRfu+RAJbMSNSeF/bKOf/H+ynJquGZ4PUU7i
-	quob8z4vFJcC7eAAorbV+YkQN87WWJpYkRCLN3tQkfQcDn1AtzN7F1EGJ5wKPx9Y8A8H9eE2wPa
-	12RarXsc27mLbHx31NPXgCmq2Eo58/gynCjENiXlsh1peko/CIHVDaugbNLPY5vj9MDth0jgYOo
-	u7Q9KjgJPJTmyuEYxtK9b0iKPA2ANR6pH2Wk1U7ymXBcGnAeFAXBQyF0zJvb2I7V+b6VdESDmfm
-	j8zwLEa443waoq5wtz+kN7zVkVLv0ll
-X-Received: by 2002:a05:6a20:6a09:b0:3cb:8810:631d with SMTP id adf61e73a8af0-3cf7596814emr15778521637.1.1787767873764;
-        Wed, 26 Aug 2026 11:11:13 -0700 (PDT)
-Received: from localhost ([2409:40c4:3158:4e86:4090:3289:19be:7446])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32854db74eesm957162eec.18.2026.08.26.11.11.12
+        d=1e100.net; s=20251104; t=1787767886; x=1788372686;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=70l+pktXnkTFw9cxbeR6NIJIADP4PanSEbbcQ2ECs8I=;
+        b=XKi1aA5isynckH1LAY7iL9dAtjR7hZqPnr59I5ttI6M2/+aVoE57lG9nAnugEybWm+
+         zsPRPr8HqXnTGn6neK1niMKP/Kiw+ZA0IbG9CzWBBCRsiXOXgX3tPOaZ9knVFSUyZoTV
+         paI3CeWiYsK0GMo3adt02CiJQ2KHzidf4vEjZXoTde70ne33dUYk8RMYIQjtjJiO0MgS
+         URg0Bltw7Ay4F1oJVXhCXgFj9ul7k7OYvG8wmYs6ZPg/L5n/uQEBwApb5mDXikrk580k
+         P0othX9tO5Bi1CZ69QgrXfy9jX4ri0uQwUgHjHELRMhjd6sLu1NRipPlNGORlU7mhDS7
+         6DmQ==
+X-Gm-Message-State: AFuF++l07OmCAx/oLNWLezL/iZjr/ez9deKtdUa9uoQ451WSUR73b353
+	mX9wFpr7U+ArLdnI9qYze0YRj0Nd6s/z+tAAjaFKUdbV2fcCEKsT8VKu/bFO7a26onY=
+X-Gm-Gg: AR+sD13wwzVUqRzF77RO/lMzjOYUqU1p9yqIM7ZxgBaPwAzaexTQRTbEHJnkKY0gQBX
+	HNfH35OE99iatF2DkgNzCEYwBrcAlWnC9JgsE3JMVsXLMd2ZYjPJI9XsbpPdc7C0P5Kkp+aK7Xj
+	bWw+ixuJox3dT86JI9TLWzP3VvPPq6Dk6LNrtGqVWpkSA70/afkC1cpyClk7eJxHl2frxuzaLkp
+	6JZjTfEtEilhchW+gTK1dWb+ExtquMH6hSVXtJkLi2A+tIVBaIR+mG7fT6Y7GSlYBoKockKfHxh
+	j1XtCstXA5MSPmKGR48v9slWbnefg6b23pBO0+TEEnjuWRknxy9m5f9YJ51naZ4HDOm18rNngVk
+	xeZUKFfazcccJGpG3xcBj6Gclih6VFiYI+MMI8Lh4OkTEGiktUN42IQkS6E6Di5b4x5W3tgACqq
+	x4xSMiHTDHEZFXRVym5gPVdavOOq4gYJB+wit8bl4kC07L72I0/ymls2qvGXuBbLXY4ZScy3O/p
+	HhVHwWfNIWssLcpIzAqyfDbW3SiaDoWeMsqw865Lm4bwW60+wLc/GfLyezNk+4y3KXmn1HIl/Dv
+	QXMbikgPJ7NS
+X-Received: by 2002:a05:6a20:94ce:b0:3c3:9df0:2d66 with SMTP id adf61e73a8af0-3cf7607a0ebmr19577158637.6.1787767886004;
+        Wed, 26 Aug 2026 11:11:26 -0700 (PDT)
+Received: from daehojeong-desktop.mtv.corp.google.com ([2a00:79e0:2e7c:8:d10e:986a:5a1c:babc])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a9036c85sm9334737c88.9.2026.08.26.11.11.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 11:11:13 -0700 (PDT)
-Date: Wed, 26 Aug 2026 23:41:09 +0530
-From: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
-To: Mathias Nyman <mathias.nyman@linux.intel.com>
-Cc: Mathieu Fluhr <mathieu.fluhr@gmail.com>, 
-	Michal Pecio <michal.pecio@gmail.com>, Thorsten Leemhuis <regressions@leemhuis.info>, 
-	linux-usb@vger.kernel.org, regressions@lists.linux.dev, stable@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Mario Limonciello <mario.limonciello@amd.com>, 
-	Forest <forestix@gaga.casa>, Slavik Dev <developer.slavik@gmail.com>
-Subject: Re: [REGRESSION] 6.12.36+: usb: hub: post-resume delayed work
- triggers > uncorrected MCE / data fabric sync flood on Threadripper 7970X >
- (bisected to aec11e5f9c45)
-Message-ID: <ao8bM2SrASNh2u84@eggarch>
-References: <CAPyJwA9P48LDcOr7u_iT1WPFBCHxh9w6cxFvyi5GS3syM6crbQ@mail.gmail.com>
- <07435e6b-ee30-4c85-8c8b-0ce3a4ead1d9@leemhuis.info>
- <aosGtkE_diwVJJtB@eggarch>
- <20260823174059.46fec036.michal.pecio@gmail.com>
- <aoser8dLytrwqBC2@eggarch>
- <CAPyJwA8m_Xd2oyV1i9k+-6f7A-j0FiC97yXL=Ci8ZAErs5W4vA@mail.gmail.com>
- <ao1ovvdPAy6n_F7I@eggarch>
- <CAPyJwA-QALkCQn8J1+=U-nuE_7WSEPhVcUEKb+MMYMaA_1AVjQ@mail.gmail.com>
- <ao7aLXk9q_v_jEyX@eggarch>
- <d5a395f7-06ad-401a-b026-e975f620f017@linux.intel.com>
+        Wed, 26 Aug 2026 11:11:25 -0700 (PDT)
+From: Daeho Jeong <daeho43@gmail.com>
+To: linux-kernel@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net,
+	kernel-team@android.com
+Cc: Daeho Jeong <daehojeong@google.com>,
+	Wenjie Qi <qiwenjie@xiaomi.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] mkfs.f2fs: enforce alias_filename to match device name
+Date: Wed, 26 Aug 2026 11:11:21 -0700
+Message-ID: <20260826181121.3825702-1-daeho43@gmail.com>
+X-Mailer: git-send-email 2.55.0.887.g758fc8c411-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d5a395f7-06ad-401a-b026-e975f620f017@linux.intel.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 26, 2026 at 04:40:14PM +0300, Mathias Nyman wrote:
-> Roothub needs some time to settle as well, but 200ms might be excessive.
-> 
-> xHC can triggers wake (PME) when a connected USB3 device starts signalling wake,
-> but port registers changes are not always visible to driver before link training
-> between roothub and device is successful.
-> 
-> My educated guess is that 120ms should always be enough for the roothub.
-> This is also the lecagy msleep() still apparently left in xhci resume
-> to detect port changes in xhci runtime resume if there are USB3 devices.
-> That msleep was supposed to be removed now that we got the hub changes.
-> 
-> This 120ms can probably be further tuned for roothub in some cases,
-> especially if resume is due to userspace action instead of xHC wake signal (PME).
-So the patch I sent above unintentionally brought the total hold from hub
-and xhci side down to 120ms, which worked.
+From: Daeho Jeong <daehojeong@google.com>
 
-And the correct fix would be to bring USB_SS_PORT_U0_WAKE_TIME down to
-120ms and clean up the msleep from xhci_resume?
+The kernel expects the device alias file in the root directory to match
+the device basename (strrchr(path, '/') + 1) to identify the target device
+both during mount in f2fs_restore_device_alias() and during reserve in
+f2fs_ioc_reserve_dev_alias().
 
-I can prepare a patch that addresses both if you'd like.
+If a custom alias filename that differs from the device name is used,
+the kernel fails to match the alias file at mount time (leaving
+FDEV(i).has_alias unset and allowing pinned files to allocate in that
+range) and subsequently fails to reserve the device range when requested.
 
-Regards,
-Lovekesh
+Enforce that if an alias filename is specified, it must match the device
+name. Also allow specifying just '-c <device>@' as a shorthand so users
+do not have to redundantly type the device basename twice.
+
+Reported-by: Wenjie Qi <qiwenjie@xiaomi.com>
+Fixes: 8cc4e257ec20 ("mkfs.f2fs: add device aliasing feature")
+Cc: stable@vger.kernel.org
+Signed-off-by: Daeho Jeong <daehojeong@google.com>
+---
+ man/mkfs.f2fs.8         |  4 +++-
+ mkfs/f2fs_format_main.c | 27 +++++++++++++++------------
+ 2 files changed, 18 insertions(+), 13 deletions(-)
+
+diff --git a/man/mkfs.f2fs.8 b/man/mkfs.f2fs.8
+index 9096646..430d180 100644
+--- a/man/mkfs.f2fs.8
++++ b/man/mkfs.f2fs.8
+@@ -121,10 +121,12 @@ Currently, the kernel is only able to mount f2fs filesystems where the
+ block size matches the page size.
+ The default value is 4096.
+ .TP
+-.BI \-c " device-list"
++.BI \-c " device_name[@alias_filename]"
+ Build f2fs with these additional devices, so that the user can
+ see all the devices as one big volume.
+ Supports up to 7 devices except meta device.
++If '@' or '@alias_filename' is given, the device is configured as a device alias.
++Note that alias_filename must match the device name.
+ .TP
+ .BI \-d " debug-level"
+ Specify the level of debugging options.
+diff --git a/mkfs/f2fs_format_main.c b/mkfs/f2fs_format_main.c
+index 8d44a9b..99d92c5 100644
+--- a/mkfs/f2fs_format_main.c
++++ b/mkfs/f2fs_format_main.c
+@@ -191,6 +191,7 @@ static void f2fs_parse_options(int argc, char *argv[])
+ 	int32_t option=0;
+ 	int val;
+ 	char *token;
++	bool is_alias;
+ 	int dev_num;
+ 
+ 	while ((option = getopt_long(argc,argv,option_string,long_opts,NULL)) != EOF) {
+@@ -218,6 +219,8 @@ static void f2fs_parse_options(int argc, char *argv[])
+ 				mkfs_usage();
+ 			}
+ 
++			is_alias = (strchr(optarg, '@') != NULL);
++
+ 			token = strtok(optarg, "@");
+ 			if (strlen(token) > MAX_PATH_LEN) {
+ 				MSG(0, "Error: device path should be equal or "
+@@ -226,21 +229,21 @@ static void f2fs_parse_options(int argc, char *argv[])
+ 				mkfs_usage();
+ 			}
+ 			c.devices[dev_num].path = strdup(token);
+-			token = strtok(NULL, "");
+-			if (token) {
+-				if (strlen(token) > MAX_PATH_LEN) {
+-					MSG(0, "Error: alias_filename should "
+-						"be equal or less than %d "
+-						"characters\n", MAX_PATH_LEN);
+-					mkfs_usage();
+-				}
+-				if (strchr(token, '/')) {
+-					MSG(0, "Error: alias_filename has "
+-						"invalid '/' character\n");
++
++			if (is_alias) {
++				char *dev_name = strrchr(token, '/');
++
++				dev_name = dev_name ? dev_name + 1 : token;
++
++				token = strtok(NULL, "");
++				if (token && strcmp(token, dev_name)) {
++					MSG(0,
++						"Error: alias_filename (\"%s\") must match device name (\"%s\")\n",
++						token, dev_name);
+ 					mkfs_usage();
+ 				}
+ 				c.devices[dev_num].alias_filename =
+-					strdup(token);
++					strdup(dev_name);
+ 				if (!c.aliased_devices)
+ 					c.feature |= F2FS_FEATURE_DEVICE_ALIAS;
+ 				c.aliased_devices++;
+-- 
+2.55.0.887.g758fc8c411-goog
+
