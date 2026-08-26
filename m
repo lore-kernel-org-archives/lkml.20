@@ -1,118 +1,120 @@
-Received: from sg-2-3.ptr.blmpb.com (sg-2-3.ptr.blmpb.com [71.18.227.3])
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E52133FE645
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 17:06:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 117BA42046F
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 17:08:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787764027; cv=none; b=OOPPwIqh5niVG5E6T4aLmNpwFywxsPdkLFUjrVoeoA5qv+Nes331gnTPPjsgGwbYGNya6wvIDZNhKyXmKqIuBhX1sfk45NaU/ue0Gf0m7NyCh5ffWkuRJTAd5OQEdp1ZTXkgi5KviKj1sXyk1wyr1L6QcTT5MUonSr2acbkCCBM=
+	t=1787764088; cv=none; b=cmzYcxAxckL2iXsdaqQGHqelMOtEDwzLEBV8786Tlw5iAPVHEByH0bd/Pg5NileBmMtw72CoblO1bw+zN2SeLM2ITIh8c6WCX6oqjvy1lg2wS677fzVSGcL8z2chqPQSSQVl2wDgJv5tKRLlX/BbXrEv4tMT2S1Ya8k5U4YarPo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787764027; c=relaxed/simple;
-	bh=dSsOoJv0Bwl7zyu91B10LIw1eowJ01jHsBJIrSpVYqA=;
-	h=Content-Type:Cc:From:Date:Mime-Version:To:Subject:Message-Id; b=Y3wcbbv4PZBRldBNh/wA+9fWNMV70x2BPKd5YoA9+Q4g6jQ68K8GLw+F+AUMEt8ebQFI81tLBJNmO8Sj4pESYsa+UeUMhUV6y04yt9iiq9g4V76up1l60ob+ctRb2EQjxemmvmrAUH0YgSLBFL/i6nt50d9NS+8s69j4cDwcKq4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=imm0nv1nhtv.is-a.dev; spf=pass smtp.mailfrom=imm0nv1nhtv.is-a.dev; dkim=pass (2048-bit key) header.d=imm0nv1nhtv.is-a.dev header.i=@imm0nv1nhtv.is-a.dev header.b=du85JHmS; arc=none smtp.client-ip=71.18.227.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=imm0nv1nhtv.is-a.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imm0nv1nhtv.is-a.dev
+	s=arc-20240116; t=1787764088; c=relaxed/simple;
+	bh=adQmRDDMdEGHtE5WpnEdo09OXdFUdHwAT/L+LntBHsI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=OHC3SlBLgrpcSTXKpXDugOMp1nzyzQxgSCStZeg/TIQ/weZXKSdUtK/63vTRW7OQYKgi1/OW2byT24GprF8jRRUfuXeRgYdldjxwAGkuftyAGYbgS+Q9HgnWrbhnJdZIT1RhUTh4hAQugtYrcV9jkLZ28YDFU+YENolqEuwMzDw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bpZyyOmn; arc=none smtp.client-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imm0nv1nhtv.is-a.dev header.i=@imm0nv1nhtv.is-a.dev header.b="du85JHmS"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=lark2602131731; d=imm0nv1nhtv.is-a.dev; t=1787764001;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=66y2Z7+kgSTbg4mCZlouNLKSz7scqmRDaXjCfMaqlng=;
- b=du85JHmSYcDkuzdzsYfgCoLmcUV3I+vqRhC2Or6t0zaEu5M2krygiJMmiaO2GBAbUNynTN
- Rz7YZwO8Upb0fjMzbDZYNowTpcBNVuWaNX6azlxD30f4JYGdaOvQxnZaPjZnChrtsfQXB1
- OFPp9Y0Kp2r57zI6/+yC36Tl+PA7db+OvBkMgIhPh15a/HP/bsGaAdB/Ifm9rCNnY7rq99
- jI8QTiie0KuHHde/QUhGErSBS6jxsd+TxdxJweqVwJo7k43TRoQ2MzHyR/012x0hQJUVws
- jHej9n0xvYIsfBf3O/NXMkksCukAFRdBxTRLJ3nRd4kFA8JQia1CvQrlxlhHwQ==
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: git-send-email 2.47.3
-X-Lms-Return-Path: <lba+26a8f1d20+9c9868+vger.kernel.org+neptune@imm0nv1nhtv.is-a.dev>
-Cc: "Rodrigo Siqueira" <siqueira@igalia.com>, 
-	"David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, 
-	<amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, 
-	<linux-kernel@vger.kernel.org>, 
-	"NepNep7601" <neptune@imm0nv1nhtv.is-a.dev>
-From: "NepNep7601" <neptune@imm0nv1nhtv.is-a.dev>
-Date: Thu, 27 Aug 2026 00:05:49 +0700
-X-Original-From: NepNep7601 <neptune@imm0nv1nhtv.is-a.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bpZyyOmn"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-39675172593so980520a91.2
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 10:08:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787764074; x=1788368874; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hZ4cvnua3/lcbY1rMV0XghgCcnC0CL+DamLLaniAE34=;
+        b=bpZyyOmnCJmgCgVZBMX3CNnP3aVVc+YYT70KgS+9inyaKNblvSQ6Gwgh128S6y+7Np
+         JLs41SiVtaQNTKtoJtAL5yFpbmTNik0O4AAXlkDWhv+1a3agO7uWcws2hVcMlcWBk3un
+         syqDlS9QjkMtrdjng6cmqDMGCt2kvOeiKybHw3OqIUVReoiTfDwSKcgZGhkamipE3362
+         BoS2A/tEvtaxlhJd55OVg92PEu5gfvuEWdcPiIPimfSZhyaFh0Wk9rCK6KZ34ygcGIzb
+         9Sye3Z1CSHriRZkZbk1VNTmihXVwf63vCJt3pw0+d1JkG5NGffvaP1nBPa34JiL5v1sQ
+         LSRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787764074; x=1788368874;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hZ4cvnua3/lcbY1rMV0XghgCcnC0CL+DamLLaniAE34=;
+        b=QoiyCkhV/NugaEC9DcUtjbUnwlAy/0Dy20JgXI+D4aDlep7kv+tWcxy7cd7nqP3V5m
+         RpYNTgC1QX2y5Yhn5PzNjbyLXgwtSjJAuWHXCWkPYxK1lu7cLfcFRLHEbrMYHWyQJKr2
+         fmNkBqRm9wMh5/7CCCnTjdF0hjMzoVJYMtS9SFS16OQwZ62GP8U4VXrJIy/faLvBdWNS
+         yVlZs+ERGuUKFpkRlkzRi9LnbjdIRyal0iap6fJeGS9mGPkJO6xNt4EiidN8YPbqMnOz
+         S+FMmhgbcWJMkRFqsEXKHIBNUhnSqAIMLPI5L0CGs9MBTZoW2x3l9DqLDwY8fTDVebeY
+         xwJQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrVbMF2KkiMtUTDd8Pr3llv7HBSofZPf66/Vyh919sy3lpVHuQ+jLI3ugLGotmcGmRNyY6IaRg2wZ9Dmq4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nK1KQXaJ/7Fy/8CSZUw91TaiazYGSOFxEc+HuNaUfW+D3NHvXE
+	cau7N60ZP9bqMlja5B3qOMOsg+FOOrIOCZ24VlD3wu/h6JLBICoYXnrE
+X-Gm-Gg: AR+sD12rnrc1A8Feqj1QSK9Qm36eOUTX+Upx1ysV8OIH0GvsPF3weRYaQ5LYp+5JcP6
+	Bd/mK2+kpu7Qlc6yEjqtdCSckK8c32mNLSKN9keG96HblRdg5HuMSRAM9hKeroJKyFWusB/pqAP
+	0H6uqNDOz1M4d6WWzq0O788LTwzrBysvW3fTFQS8NmkMWJKHtvwCaopQFhY4/GYjgZh+eEtOOcR
+	Zul5J85fi80xbw+Qc+v9FlEPM+pl/fHjQZXOJNFqhm75wMj3TJBY3UFXB5Gjnc5f0CZ74VH/FtD
+	v20M+yDxWIMEFiXWzhNXAoTh9oO3OCPO1BGaOFfm83HjQTxb7jL+8/1PVE6GH03v1vicyB7vltu
+	F0Vp2y/KU4NS1K8j3ceMLK4RlhoWWLjcZ0u04nlShvBfWiKqZykbMy2AQ8YzY+iSXaDIeCIZ6+6
+	8U3IzOCwbf3N5z6K6S3vlHA4412lE635uOAZ7jdmK8GHgUUs7Bv7GfBe+NPUE9qhkRewKBqesFP
+	CfcUucOAyFaT9CXhFkLBtTDzj5UNDebywvIochdnIvRPdFTTNuTzljCTo8=
+X-Received: by 2002:a17:90b:3c12:b0:395:4de4:92c8 with SMTP id 98e67ed59e1d1-3966d484268mr19640797a91.15.1787764074277;
+        Wed, 26 Aug 2026 10:07:54 -0700 (PDT)
+Received: from MSI.localdomain ([157.20.184.42])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a8eefd82sm8945491c88.2.2026.08.26.10.07.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 10:07:53 -0700 (PDT)
+From: Sanket Sharma <sanketsharmacsec@gmail.com>
+To: jarkko@kernel.org
+Cc: sudhakar@linux.ibm.com,
+	gregkh@linuxfoundation.org,
+	James.Bottomley@HansenPartnership.com,
+	zohar@linux.ibm.com,
+	dhowells@redhat.com,
+	linux-integrity@vger.kernel.org,
+	keyrings@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	security@kernel.org,
+	w@1wt.eu,
+	Sanket Sharma <sanketsharmacsec@gmail.com>
+Subject: [PATCH v3 1/2] keys: trusted: tpm1: add bounds check in tpm_seal() before memcpy
+Date: Wed, 26 Aug 2026 17:06:59 +0000
+Message-ID: <20260826170700.616-1-sanketsharmacsec@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260826080405.255083-1-sanketsharmacsec@gmail.com>
+References: <20260826080405.255083-1-sanketsharmacsec@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Received: from Neptune-PC.kiko-royal.ts.net ([58.186.164.158]) by smtp.larksuite.com with ESMTPS; Wed, 26 Aug 2026 17:06:40 +0000
-To: "Harry Wentland" <harry.wentland@amd.com>, "Leo Li" <sunpeng.li@amd.com>, 
-	"Alex Deucher" <alexander.deucher@amd.com>, 
-	=?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Subject: [PATCH] drm/amd/display: fall back to software I2C on hardware engine failure
-Message-Id: <20260826170549.21985-1-neptune@imm0nv1nhtv.is-a.dev>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-dce_i2c_submit_command() returns the hardware I2C engine's result
-directly, so a failed transfer is reported to the caller even though a
-bit-banging software engine is available. That engine is only reachable
-when the hardware engine cannot be acquired, never when its transfer
-fails.
+tpm_seal() computes storedsize from TPM response fields and passes
+it directly to memcpy() into a MAX_BLOB_SIZE buffer without bounds
+validation. A forged TPM response can set storedsize to 4086,
+overflowing the 512-byte blob by 3574 bytes into adjacent slab
+objects.
 
-On DCE6 the hardware engine acknowledges a slave address but fails to
-complete a 128 byte EDID block read. On an Oland-based GPU (Radeon
-R7 430, rebranded R7 240, 1002:6611) driving a monitor through a
-passive DP to HDMI to DVI chain, this leaves
-dm_helpers_read_local_edid() with EDID_NO_RESPONSE:
+Add a check that storedsize does not exceed MAX_BLOB_SIZE before
+the memcpy, returning -EINVAL on oversized responses.
 
-  [    6.684221] [drm:dm_helpers_read_local_edid [amdgpu]] *ERROR* EDID err: 2, on connector: DP-1
-  [    6.684726] amdgpu 0000:01:00.0: [drm] *ERROR* No EDID read.
-
-The connector is then left with no modes and falls back to 640x480
-instead of the display's native 1600x900. The DDC bus itself is fine:
-i2cdetect sees the EDID EEPROM acknowledge at 0x50, while a real block
-read with "i2ctransfer -y 1 w1@0x50 0x00 r128" fails with EIO. Short
-transfers work, long ones do not.
-
-dce_i2c_submit_command_hw() clears i2c_hw_buffer_in_use, releases the
-engine and closes the DDC line on every exit path, so the software
-engine can safely re-acquire it. Retry there rather than failing
-outright. Behaviour is unchanged whenever the hardware engine
-succeeds, and the fallback only runs where the transfer had already
-failed.
-
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: NepNep7601 <neptune@imm0nv1nhtv.is-a.dev>
+Signed-off-by: Sanket Sharma <sanketsharmacsec@gmail.com>
 ---
-Tested on 7.1.8 on an Oland (Radeon R7 430, rebranded R7 240, 1002:6611)
-with a passive DP to HDMI to DVI chain: with this patch the EDID reads
-256 bytes and the display comes up at its native 1600x900 instead of
-640x480. Without it, dm_helpers_read_local_edid() returns
-EDID_NO_RESPONSE.
+ security/keys/trusted-keys/trusted_tpm1.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-On amd-staging-drm-next this is compile-tested only.
- drivers/gpu/drm/amd/display/dc/dce/dce_i2c.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_i2c.c b/drivers/gpu/drm/amd/display/dc/dce/dce_i2c.c
-index f5261e8d7678..238c17e6f51d 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_i2c.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_i2c.c
-@@ -72,9 +72,16 @@ bool dce_i2c_submit_command(
+diff --git a/security/keys/trusted-keys/trusted_tpm1.c b/security/keys/trusted-keys/trusted_tpm1.c
+index 8f57c6111..d47cb7108 100644
+--- a/security/keys/trusted-keys/trusted_tpm1.c
++++ b/security/keys/trusted-keys/trusted_tpm1.c
+@@ -531,6 +531,10 @@ static int tpm_seal(struct tpm_buf *tb, uint16_t keytype,
  
- 	dce_i2c_hw = acquire_i2c_hw_engine(pool, ddc);
- 
--	if (dce_i2c_hw)
--		return dce_i2c_submit_command_hw(pool, ddc, cmd, dce_i2c_hw);
-+	if (dce_i2c_hw && dce_i2c_submit_command_hw(pool, ddc, cmd, dce_i2c_hw))
-+		return true;
- 
-+	/*
-+	 * The hardware I2C engine on DCE6 can fail to complete longer
-+	 * transfers, such as a 128 byte EDID block read, even when the slave
-+	 * acknowledges its address. dce_i2c_submit_command_hw() releases the
-+	 * engine and closes the DDC line on every exit path, so retry the
-+	 * transfer on the bit-banging software engine instead of giving up.
-+	 */
- 	dce_i2c_sw.ctx = ddc->ctx;
- 	if (dce_i2c_engine_acquire_sw(&dce_i2c_sw, ddc)) {
- 		return dce_i2c_submit_command_sw(pool, ddc, cmd, &dce_i2c_sw);
+ 	/* copy the returned blob to caller */
+ 	if (!ret) {
++		if (storedsize > MAX_BLOB_SIZE) {
++			ret = -EINVAL;
++			goto out;
++		}
+ 		memcpy(blob, tb->data + TPM_DATA_OFFSET, storedsize);
+ 		*bloblen = storedsize;
+ 	}
 -- 
-2.47.3
+2.53.0
+
