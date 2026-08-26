@@ -1,57 +1,57 @@
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F0AB48551A
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:33:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12E8B488237
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:33:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787779994; cv=none; b=hyeLqzPd31KbmO46svOzzrqZ1sxntfteQ3qNnHNw51er5JLUABRvekWoWXeYUZMAAcXqy56rH91fimlyrJBtMO2MBRYyO6Cc/D+B1xVWGmvy38coFmIvhxsax1EOCk5UW8L4rfw+vHw/l6Aqc20rk7pYVsL1GLfJok9ZnCVtKmA=
+	t=1787779994; cv=none; b=jfP3jRdTZDUEHKH1rArVgR3Cd2BJz+MAOVzVzVvVGu9vIRMFvDTrQGkCthgyrzTdTzMb/9UhXL5xXvptPlj3AM5O/GdOrMnoptQApUCPgoWGEuwa3q/WEvBjs+TYo6DNPK0uT2Hd4XXgWU0h6PiYl5FDza/9BOVeh9zaGxlIYBA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787779994; c=relaxed/simple;
-	bh=KAoJX+w+XmJqc4fTFJNWN+O9Ca9qWU4Lqdvsuqf+0RM=;
+	bh=vYwafw0yTTkax4N9kK7BxvmBePgKDiUUWhKS9VN1Mjk=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=U4AvoArjQ3cDcH7BXbkbnocmRa+KeyDDFK58GNjVErKSxwioIzKohVVt6l2hydAEuST8ktOjOn0pwYBfpg5unkuaL36fXsKn4BKqXckev11jGxo3BytTKs5PilTLQRVjuTiAvB2KQd+WIi4dEvkzF1T7ISK57H5AJihK6INPuSI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NYtiMiUm; arc=none smtp.client-ip=209.85.210.199
+	 To:Cc:Content-Type; b=jsNnIaCuTvNcEQg3J3ThDOiiRTCzm5B64aGTuGx37/rBvqo0809XNUBPp5A3MxrMP51FW8Mumxr5/6P981hv1vHfzSnYGit0ve8Of6fg9wppuFfG0INNx7xQ6iHLCdZ+ufo/GEFrVSunn+I9Pe4TJWQuFkX/R14+MAkGcF5u5cI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Z6/eiln5; arc=none smtp.client-ip=209.85.215.198
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NYtiMiUm"
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-84a67b16217so2281991b3a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:33:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Z6/eiln5"
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc1c62f0d60so1710205a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:33:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787779989; x=1788384789; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1787779992; x=1788384792; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=91h2s+bdxLI8Fb+8IZGu8PwUcENxYkecSoLgiBQY74U=;
-        b=NYtiMiUmudWyTLp8skkR+9KlrIGHJ5oLHFEYEEKCZZmT2F3mdXry9io0sh1PqUVQyY
-         UbwQzCYz655VGCbTHhWJh91h4k6fbsBYnL7gpShFpcGSoiIsBP3cx/8qBvP8Eh/0OnZL
-         ee5dwwNsji5AI6E2ngHC+0JJi+8un6IZxG3H2bV33jSgWsSi5IntiRCbmZWGct2G8R77
-         YTVZW1pshlb+OjFp8wKfyAhqU5UovfOyZOoWfPDaMjGxVx/VgfUOzve5mpTCC2z/jcPu
-         W7TWCsIvJ6zZ+/QZU/tMtErBLtqXgFIZokBgM5SA6JjQRl2SqHABxPQ9x5hD4GoU6b3l
-         F3zA==
+        bh=jQ9Xgia0qMFepkVGEti7/hov5lUDRQwCKPl494Tqn8c=;
+        b=Z6/eiln5912hQA4BryXacoNrI4CFrgJC+Ck02N4orRVqe7a7MtpaaCcrKHEtUxAT0p
+         MMNGc7nBNUk4EyzKjG/X88F6ZXVksTZoLiWeRCdGjGHreDEFfN0kwQ8UBZgjj6XbvULj
+         re50nFdc7Cu3qaMH2YvHAAXow1gxeqsN2J/yrrB9e2o20UMKTFLOq4Z8IMrU03UHefpz
+         UVsUbYu9U4PiVHBuv/iiIyzz5RMcskR8VvhNItTtvLMNyFV6sNmTRaSr8aCexiyPW4M0
+         tEfd5be9y/3tsid10Ka6c300uU/SchVpWyBZlDKqj3tfLSysSb9J6Ull+gtyAwvXWkv6
+         x3XQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787779989; x=1788384789;
+        d=1e100.net; s=20251104; t=1787779992; x=1788384792;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=91h2s+bdxLI8Fb+8IZGu8PwUcENxYkecSoLgiBQY74U=;
-        b=HUe3p8WQ+3iWHeJ42Jmpb5HlGws76rhmc3ioOtdZG9wAKsqGkcfdUpgmeaRhj2FJhi
-         pL6OFY+7lmmNSxEbQs5xFUTlhN1IcB7iUjuZ+l2soL8JBmSMRJuMkGcR0qr4Q2E5mAds
-         nuPR+ZGLRaSi+aJqK3JG5Qe1dqjlaxmJE1Pzgtuc1nWlyNp4SqMM8ubROnlpky0dA3DZ
-         1TdZTuBLTKG7eS8z3f84ezZ3QzERLDbozR5iF4MMVQrA4g0Ppy97CxA/53itb6ScNfFd
-         K/T3sYpu2ZvLenOmQ36yEfozwQ3jlghpEyI946YqGKmEQBVKsL6jqpYg5/khwQL/u1ra
-         GYZg==
-X-Forwarded-Encrypted: i=1; AHgh+RorCtKTdsoev0B8f9zBuQFVMRPQs6V+yi2k6tV25Hug4zADXpclijirpTa2XeXZtwmlpod9hkNXID+OuiE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mtYWDzL5NJGHT6QWPTT4vYmdDJyF5q2gtVXPWi8DxPgpoqxYyE
-	vSR+gsack2u1bCm1XUd76zfpycHHQVEaeuqPParI4+kW1iErLd4yb/RvXrm4fdi0GzVwOqhXQZd
-	/DizuBg==
-X-Received: from pgby7-n2.prod.google.com ([2002:a05:6a02:6507:20b0:cbe:9dc7:9ee8])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:4ac6:b0:845:e9e8:645c
- with SMTP id d2e1a72fcca58-85372ba1874mr19864472b3a.6.1787779989166; Wed, 26
- Aug 2026 14:33:09 -0700 (PDT)
+        bh=jQ9Xgia0qMFepkVGEti7/hov5lUDRQwCKPl494Tqn8c=;
+        b=Rmsb3y2OhW8dp73pfRGDVYEEg9S+PlftNB5J+N0lEs/jhD4d6KPyBJbdQkrMHlM/O/
+         7HTo8YadFKwcau3WW+vQF0g305iT9pcPPhUO8b/YMcE5WsTnkh13kjRlhbxSUi7JN2DP
+         va9H2JHGLeVkJ2E43HWUwTK+bmc3afd//MgtnN13zVC+LlsrwmNbB7DDX/Fhi/z8A9oQ
+         4pBVSMQT7wzD0IcZXvnVAToLvMjM0Sk/k+vuJaNZSeQJsvboznZ6zQhYVx5EWWvKyTtW
+         /vKEKxVNOEFGZygwEamf2/XXrVz8yjDjIhe7CIFU0RPp4doouAV2ABBPTfOgn8yKZooy
+         yrqA==
+X-Forwarded-Encrypted: i=1; AHgh+RpjxP80FO5TZv8fdHUUUWGWMJb5q8WwAm4iBx1dcWFulEfs8m2kXKzE+k4/eyr5u6Q0NgH93ob8NZMeMmU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lKB0qcphdSi1g8yDmNV9Pxb5K3tBpOFv7jkEbklMLLRQMI5qnL
+	mWikSRudgNyJhoIhcQEsPvssDG5qTYq6iRroIe4rLeYVGiROvjiJdwvsMpfK7Bkp2P+J9F0Thu1
+	+2f1nAA==
+X-Received: from pgcn25.prod.google.com ([2002:a63:7219:0:b0:cbe:b8ad:f9bf])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:2989:b0:3d0:f57d:c87a
+ with SMTP id adf61e73a8af0-3d0f57dcc1emr4505658637.0.1787779991384; Wed, 26
+ Aug 2026 14:33:11 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Wed, 26 Aug 2026 14:32:44 -0700
+Date: Wed, 26 Aug 2026 14:32:46 -0700
 In-Reply-To: <20260826213303.914988-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -61,8 +61,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260826213303.914988-1-seanjc@google.com>
 X-Mailer: git-send-email 2.55.0.887.g758fc8c411-goog
-Message-ID: <20260826213303.914988-5-seanjc@google.com>
-Subject: [PATCH v10 04/21] KVM: x86: Activate master clock immediately on vCPU creation
+Message-ID: <20260826213303.914988-7-seanjc@google.com>
+Subject: [PATCH v10 06/21] KVM: x86: Avoid NTP frequency skew for KVM clock on
+ 32-bit host
 From: Sean Christopherson <seanjc@google.com>
 To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
 Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
@@ -71,37 +72,61 @@ Content-Type: text/plain; charset="UTF-8"
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-Previously, the master clock was only activated when the first vCPU
-processed KVM_REQ_MASTERCLOCK_UPDATE during KVM_RUN. This meant that
-KVM_GET_CLOCK could not return the host_tsc field until after the
-first KVM_RUN, making it impossible for userspace to follow the
-documented TSC migration procedure without a dummy vCPU run.
+Now that 64-bit KVM doesn't consume pvclock_gtod_data when getting the
+kvmclock base, use the ktime_mono_to_any() version on 32-bit hosts so
+that they too are unaffected by NPT sync.
 
-Fix this by calling kvm_update_masterclock() directly from
-kvm_arch_vcpu_postcreate(), after kvm_synchronize_tsc() has already
-set all_vcpus_matched_freq. This ensures the master clock is active
-immediately, and KVM_GET_CLOCK returns a valid {host_tsc, realtime}
-pair as soon as a vCPU exists.
+Note, even if KVM still used pvclock_gtod_data for getting kvmclock base,
+it would still be very doable and reasonable to avoid skew on 32-bit hosts,
+it's just much simpler now that KVM uses ktime_mono_to_any().
+
+Specifically, commit 53fafdbb8b21 ("KVM: x86: switch KVMCLOCK base to
+monotonic raw clock") did so only for 64-bit hosts, by capturing the boot
+offset from within the existing clocksource notifier update_pvclock_gtod().
+
+That notifier was added in commit 16e8d74d2da9 ("KVM: x86: notifier for
+clocksource changes") but only on x86_64, because its original purpose
+was just to disable the "master clock" mode which is only supported on
+x86_64.
+
+Now that the notifier is used for more than disabling master clock mode,
+enabling it would be trivial for 32-bit builds as well, but as above,
+that's a moot point since get_kvmclock_base_ns() no longer relies on the
+notifier.
 
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+Reviewed-by: Paul Durrant <paul@xen.org>
+[sean: rebase on top of ktime_mono_to_any() usage]
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/x86/kvm/x86.c | 2 ++
- 1 file changed, 2 insertions(+)
+ arch/x86/kvm/x86.c | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
 
 diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index e18158f51103..4ab0a41eee7b 100644
+index 46c2c2ea64fe..ed7986669bdb 100644
 --- a/arch/x86/kvm/x86.c
 +++ b/arch/x86/kvm/x86.c
-@@ -9447,6 +9447,8 @@ void kvm_arch_vcpu_postcreate(struct kvm_vcpu *vcpu)
- 		return;
- 	vcpu_load(vcpu);
- 	kvm_synchronize_tsc(vcpu, NULL);
-+	if (kvm_check_request(KVM_REQ_MASTERCLOCK_UPDATE, vcpu))
-+		kvm_update_masterclock(vcpu->kvm);
- 	vcpu_put(vcpu);
+@@ -926,19 +926,13 @@ static void update_pvclock_gtod(struct timekeeper *tk)
  
- 	/* poll control enabled by default */
+ 	write_seqcount_end(&vdata->seq);
+ }
++#endif
+ 
+ static s64 get_kvmclock_base_ns(void)
+ {
+ 	/* Count up from boot time, but with the frequency of the raw clock.  */
+ 	return ktime_to_ns(ktime_mono_to_any(ktime_get_raw(), TK_OFFS_BOOT));
+ }
+-#else
+-static s64 get_kvmclock_base_ns(void)
+-{
+-	/* Master clock not used, so we can just use CLOCK_BOOTTIME.  */
+-	return ktime_get_boottime_ns();
+-}
+-#endif
+ 
+ static uint32_t div_frac(uint32_t dividend, uint32_t divisor)
+ {
 -- 
 2.55.0.887.g758fc8c411-goog
 
