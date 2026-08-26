@@ -1,75 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60BE73E3156;
-	Wed, 26 Aug 2026 13:28:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44EE33E3156
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:28:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787750891; cv=none; b=awVHs8PxnNjGWqn008kI+aoAUeiDhXCVRklitCJUgC1vWUVKDpzNCNhhmkMl8aSvGcnI0QwK5bUtl1uZEf4Y8KH/ljyazmXhHBVyNMjww2MaUconeAwBTGefirWTP/4eNVJbADULPykF/8nf8dL9D235xT7iBuS9lGkqHaTQFAQ=
+	t=1787750929; cv=none; b=mYuJQ91yQjN084uIHZVsx5FIoidk5pdlV6qWTabZD2oHw42/VHzMzAJ113jJi+W6y7Q5pieqeq3+pPWUZh5Bp9ktBqx2NFotvDX4FR5HQ5cuF0aAIkd4DNXbu5BUFREz4HDYglixgGUnmjqi0+q2UZVodO8+FpeSF7XPq4lpZjM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787750891; c=relaxed/simple;
-	bh=7iwd+ZPC4b2HIRIKNbtVUAPr0n1d5JXJQ7YzYBbrbXU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EsOtGC8xscagl5osOcTlbuNs4JvGD+KM+IFwj/y2cJwxOe8pUv2lwDTvlHHuIFnyxk+bEvBnQR5rXH67aolbDeZWzx1dN86QhtEgEPTQo1oxiksoFLaOOsf+9p9lmiGNJftDW2ak1BlHqag5mjeEmkqG5mEdeMCfT+8Q4ML2h+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n1Oho4Oe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787750929; c=relaxed/simple;
+	bh=DDv3cPZxn6rwTNgLSXqZdpcN4+TbMNK9bA08Io73id4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=M6/87YRkFa7vUCkuu0O3AZqyrJWVe/dxxp6vmsbTkoW97Mqw8hkXK0FZFLf0DSvC0BALoYHOk9n+GFpWTzQuWaEEQ63z590OxyLC/3tJGnGP+ZkNGzVXjJjz0QUDVB1nRLFtLym+QKdGZ6RDdSD8xYFYBNUYecUveuOxxVkJQRU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aJwqengn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n1Oho4Oe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDC5C1F000E9;
-	Wed, 26 Aug 2026 13:28:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aJwqengn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB6431F000E9;
+	Wed, 26 Aug 2026 13:28:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787750889;
-	bh=4e3M61ZpGllDH+Am07maUhem4TA/VM4b9rObsCDHJgk=;
-	h=From:To:Cc:Subject:Date;
-	b=n1Oho4Oe0Pg8r993pvzAPT2CMpds8pnFfBryfHLtG+GMPS/tkFaUho9rWAot8S0OQ
-	 Ri0pnmhgfKog/JijCckvCUPkGiyifMDipQ4LqaPrQemR22E6vV9gn6EUd2XZj+gNIt
-	 ZAVdF010Z8JXhCxBey2nwXNWdZqW6q/oLpR3sTgdr5nXNb11SrgImDGQ0duD/6x3mc
-	 bEmIayN2+VBD1vCVZV6k1h4xK+cUp9kJ10xM4+xYRr6TShRVOQyca+cTHXEMMqvbBo
-	 K9US9gQNVzkhDb6mQVUk7DpjblrCCjZXkV9YJbUxjaKThBIrMA4u5W7Qv6/SbFuasZ
-	 8CsnL58Xut+xA==
-From: Danilo Krummrich <dakr@kernel.org>
-To: dakr@kernel.org,
-	aliceryhl@google.com,
-	ljs@kernel.org,
-	vbabka@kernel.org,
-	liam@infradead.org,
-	urezki@gmail.com,
-	ojeda@kernel.org
-Cc: rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] MAINTAINERS: add Alice Ryhl as co-maintainer for Rust [ALLOC]
-Date: Wed, 26 Aug 2026 15:27:18 +0200
-Message-ID: <20260826132729.3281308-1-dakr@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	s=k20260515; t=1787750928;
+	bh=iQywvME1XBZPDMnvcuqkj5aII4MPfcDfKqPLaW2AAUY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aJwqengn3k3UHyYr5hk5RvhJ18sB/0kW3OMam2evX2+l3YM3LooL4w/KpI/pn1RGX
+	 gyDac3KFDpYUC+ecE74X4bfof2GSrfA6CoKJaZl4pA6Po4s1acfBGDIWAkwTr5tfKG
+	 9tGOatWmT/dLzGDVyKpcqEtM3snoZBJga9a3wkW0UxY3dajO9ivv38H0ZEoXYuaDxf
+	 /QisTFuQHiBhME7KXm7srtWNn9Lp+bNxobGkqp17F7QwvZnAUJKMVSwpy/vgyd1llL
+	 MOCEXf73PgzDm8hXdNyqQm6n6nV3yQk+owdAllZqFFUFEqU5fPvdxbMUDnpsm/srUt
+	 CIeeW6DwgIuPg==
+Date: Wed, 26 Aug 2026 14:28:42 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Lance Yang <lance.yang@linux.dev>
+Cc: akpm@linux-foundation.org, david@kernel.org, ziy@nvidia.com, 
+	baolin.wang@linux.alibaba.com, liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com, 
+	dev.jain@arm.com, baohua@kernel.org, usama.arif@linux.dev, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH] MAINTAINERS: remove myself as THP co-maintainer
+Message-ID: <ao7pIIxxpqkJ7b4Y@gremlin>
+References: <ao7Nr_FALfP7cTY5@gremlin>
+ <20260826124316.80455-1-lance.yang@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260826124316.80455-1-lance.yang@linux.dev>
 
-Add Alice as co-maintainer for the Rust alloc module to share
-maintenance responsibility. This is also a natural fit, as some of the
-alloc code overlaps with the mm subsystem.
+On Wed, Aug 26, 2026 at 08:43:16PM +0800, Lance Yang wrote:
+>
+> On Wed, Aug 26, 2026 at 12:31:09PM +0100, Lorenzo Stoakes (ARM) wrote:
+> >Since it's 2026 :) I asked Claude to look at my time as THP co-maintainer:
+> >
+> >	~107,000 words of review across 948 emails (in 279 distinct
+> >	threads), counting only prose you actually wrote — quoted text,
+> >	signatures and attribution lines stripped. That's a full novel's
+> >	worth of review commentary.
+> >
+> >	Along the way you handed out 194 Reviewed-by and 15 Acked-by tags,
+> >	and your longest single review was 2,404 words (mTHP collapse
+> >	support, v12 — the khugepaged/mTHP collapse saga accounts for most
+> >	of your top-10 longest reviews).
+> >
+> >	Estimated review time: roughly 300–500 hours, centred around ~400
+> >	(i.e. ~7 hours/week for 14 months).
+> >
+> >	1,615 THP-related emails in the window: 948 reviews of others'
+> >	work, 278 replies on your own THP-touching series threads (~31k
+> >	more words responding to review), 382 patch emails, and a handful
+> >	of MAINTAINERS bits. Busiest months: March 2026 (131 review
+> >	emails), June 2026 (113), August 2026 (111); quietest was December
+> >	2025 (5).
+> >
+> >Think I can be happy with that!
+>
+> Aw, man ... I totally get needing to step back, but we can't let you
+> disappear from THP that easily :) You've put a crazy amount of time
+> into it, and your reviews and judgment have made a massive difference.
+> We'd miss you badly.
 
-Signed-off-by: Danilo Krummrich <dakr@kernel.org>
----
- MAINTAINERS | 1 +
- 1 file changed, 1 insertion(+)
+Thanks I appreciate that :)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 24ca91ce5d86..7daacfd70197 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -23945,6 +23945,7 @@ K:	\b(?i:rust)\b
- 
- RUST [ALLOC]
- M:	Danilo Krummrich <dakr@kernel.org>
-+M:	Alice Ryhl <aliceryhl@google.com>
- R:	Lorenzo Stoakes <ljs@kernel.org>
- R:	Vlastimil Babka <vbabka@kernel.org>
- R:	Liam R. Howlett <liam@infradead.org>
+>
+> Could we talk you into staying on as a reviewer for now? Zero pressure to
+> keep up with everything or carry the maintainer load. Just hang around,
+> jump in whenever you feel like it, and come straight back as a maintainer
+> whenever life gives you the room.
+>
+> Seriously, Lorenzo, THP still needs you. Please stick around!
 
-base-commit: 45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229
--- 
-2.55.0
+I'm not going anywhere in terms of upstream kernel - and as David suggested
+- I am happy to be pinged on threads where my input would be helpful :)
 
+But in general I'm dropping the R: for now as I feel it wouldn't be quite
+correct to keep it, as I can't really give much time at all to THP, and it
+wouldn't be fair for me to be listed but remain inactive.
+
+I may very well revisit this in the future, but for the time being I think
+this is the best way forwards.
+
+Thanks again for the kind words, much appreciated! :)
+
+>
+> Thanks, Lance
+
+--
+Cheers, Lorenzo
