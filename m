@@ -1,98 +1,65 @@
-Received: from fhigh-a5-smtp.messagingengine.com (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EE13463B60
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41E7B463B7A
 	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:21:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.156
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787761274; cv=none; b=chu5gsAO+hKSAIoHHDBnOXiXu6qBVswYaUfCEc7drYayFuMxhbjyBYcWAGri9fpd6wukVgVG52yT44nIvt7N7xuWGnf9QcUoA2JLdObYvxUc+dkOrW6GBw25HeSZW9S6XfM6o9NAc1h3ReMbwA0+R3b0xbWVFQXXKO3+B/XwpRM=
+	t=1787761275; cv=none; b=Kv0UGo5FfWeL7TN0g/BWKjgN2Eu+bbgDxW/YIp4IS3P6YgaZ9geNEW0neezTjUfs5teRcpvQPFhAJuVB2mgMfx1AG5+iXCoYTHkKNUB8XKYGMGlfo2WogKyQNyGXYWmOPWoKZlyAbM5GIJYrzG2rw1B39EPmAqQowncMaVqmg9s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787761274; c=relaxed/simple;
-	bh=QQgHgspM1/eGjoz2/XWrLFkLlJAF5sIRawerbKeJyJ4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aokL7dxlFRyz7LoY+bHFiAEqjwkJU3aaBSC7BJGQBGKAcKgqdk/mCVzLsFo1vdBb9VCj97e+3WnVe5p2fhIpMuKYbZN09MS2kyCmNHokLllz8kp5TQPQxipzSqX86zOjIhc32kZBWWuVbjbgPcJftj5qBPDxQSS8hcP+E5cUbvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=bi+kc7S0; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=H4drzaP7; arc=none smtp.client-ip=103.168.172.156
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	s=arc-20240116; t=1787761275; c=relaxed/simple;
+	bh=AH8eeTsnXkB1t4KJdmMDaXScv4BIm1yCfSCPuQ1dAlg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Rye4D0fBNNJqbQJr6U0NpGgiTFiX/A9FIaEk8I7uGI7f6wm9ooAV0R2CQBBF+FxBcoaiq482drqBpzqZ0T0RklzoIfv7484d2uqCxhpRiuwE/ATGurZOk+WhNu2M5bZ9Wsz6SbJJv7SbvVFlGxgeQtXxhq/cieeoSPaa4UnbA6I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=FoakEkAa; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="bi+kc7S0";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="H4drzaP7"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 30B081400197;
-	Wed, 26 Aug 2026 12:21:09 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-02.internal (MEProxy); Wed, 26 Aug 2026 12:21:09 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1787761269; x=
-	1787847669; bh=Bv2FLl1ikHMiScnydjr4vJ1LmDfldI8n6iuNGCnTKZw=; b=b
-	i+kc7S0ld/EJOGlID7nHa2apNgtC69ZYY4g3eOsBEQl5Ce7G/p+BG70IJxyccwER
-	xIxYoj/GeOzAQ/QwNGH/A8Up7QN1YoXXZTpR1hho1ZGyVF/jDN1mUjWshGPY7Afb
-	foBsbqmBenqWmJvnug5fGv/ZXenhtW/j/vldCSqq8Ybsv97Nqk/HUibjrwrpUhCu
-	byo9JSmgzenmZW8NOmI5GwHZB3uP6wc8+Bp8XsLhtgNLME08Wu2ry24uLqMqjOL3
-	cOqfp36UHTWya5mNoJTswJ9Ah9Lguj4T/9MKcZL7iGM8Bi6XnBQnRU1PUPyURFpm
-	i+XbOv9AE+Cb06F3AfuwA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1787761269; x=1787847669; bh=B
-	v2FLl1ikHMiScnydjr4vJ1LmDfldI8n6iuNGCnTKZw=; b=H4drzaP7J4XHlzvKC
-	2h/dA0kWrlACAxqOyCDE5FwFYfxKRCivUfdy8c4skJCxNvsGKSxNFGYEK0AxU2xv
-	x191DX0yjQDTfg+WjxR3d2lnHvz87miO++1WcsadjLzKfyJ45qA0rpjpoLDpKQSK
-	d5F4IfqjBWHJcNyMmGE/0Yjsvk4S0LOff0UhUVgioZ/iBgso23ERHivlTHMmbzTM
-	O7YOBG+Yhaws0DUsh9rK3HG9RD5xBLJakLrRaYRqnFjsHRGTMK6i+xlAgFFZF6dA
-	LdrOdmHnGd34esDwjvi4rTnZdmdZCJaOfjd28Iopbr+DYRckSQ2vuuBDI8abSGtd
-	n5I2Q==
-X-ME-Sender: <xms:dBKPal7H1olP2_Gqhn2UH1s6rv8obdoEc86GuvYXsYGmLMeL8ufWrA>
-    <xme:dBKPau0Vfj-sMLpxFGSW7MIe6R31mG09j5QWYJ4bzqLfyeG2PsdQU3qo8jdkSz8gw
-    aiMNE5PdpxIkNIIVQSsKxpUZefXYmc79eTcp5D2a9SV7Cl7PRDEW5A>
-X-ME-Received: <xmr:dBKPaingv89MNTLj5awaCDVmX1_KnwL_NzO2HdV-dUA5h2cppm32IykPwbQ>
-X-ME-Proxy-Cause: dmFkZTGBpY7kNoX77sZdPDdL91xDvRNv92b/+8WOYmCGA6aQH9Q102aXniwcYcn+2R3bEj
-    uCi/l1igqxgbq+7uoWVnSfVnmmWrLGz8UPAjIXOdULdKf7WqwDtIartGLCCo68+ug+tCv7
-    Ph9+mj9AZr2Dj3uoVsu8zcjpqcESEL6Qo+qhix3q57KDkOugB1EyJGuvn3/JCvR9j1Dad7
-    o+mC30PVOUmdi3WxO4xeazK74tOpUh5phSdSI4XIlRDA8FYZNVwP9p7PMSP1kYV7SphUR1
-    NVW71rOnvC5bor+jWHffeUW4ibVwJbIPbYc8TjXE3UYxed4i2ZOZ49wwSEox1MjCbLFsSu
-    YPKLkIkQUnFzSfmoRy09Yk+6QAiQBNOL3kgRmFbcNEP+pkMk0/HwajWkkbMvDEzbG7ih8j
-    9VmjLPs0GHvU90MMBTO4IgmRP25L9euMYxF42Qnlcb5IJB4Yj4FWrmjvmydrOhYwH4txfP
-    N0sGRbfkIRMlAotV03Pf6h+qHYq5kx1wkP9qeFqLirkNozh7KFRsFG0POuQgSn7ocDa1Tr
-    TmxNd75KRYhV/7XI82QPUB5FHfaJr/hNTvoz7JcqS8jlcKPr2c1v9a5pAB6LVmnBUD8ljB
-    fRa/pR5DZ0LmzlPvoYi11c5SXpBp1O9ry12oYVB9BFPnFUKCOwYend85kwgw
-X-ME-Proxy: <xmx:dBKPakggiS7Gn5F5p9eYQauGaQnk5Vgu3a4O3IQxeIhvCJxmP091tg>
-    <xmx:dBKPanQhg0Kom7A4zV0NXiVbfFF4g2eYoyOrw2RpRj6rAXxfgIkt3A>
-    <xmx:dBKPahgS_C1KAEZCP3e_-StlPxcng4O78xp4py2uC2-BZHPL7QqL_Q>
-    <xmx:dBKParhjVNU9I2uSccGsCJ4JLXu9I0C_VM_YmV2l5w-E7wgxtadjxw>
-    <xmx:dRKPas2A7RQCxvHf1KcXejxmQ7gw1pk4PRb9bbbj6P3quHoQxDVJgXee>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 26 Aug 2026 12:21:08 -0400 (EDT)
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: akpm@linux-foundation.org,
-	david@kernel.org,
-	ljs@kernel.org,
-	hannes@cmpxchg.org,
-	usama.arif@linux.dev
-Cc: lance.yang@linux.dev,
-	ziy@nvidia.com,
-	hughd@google.com,
-	baolin.wang@linux.alibaba.com,
-	baohua@kernel.org,
-	liam@infradead.org,
-	nico.pache@linux.dev,
-	dev.jain@arm.com,
-	ryan.roberts@arm.com,
-	balbirs@nvidia.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>
-Subject: [PATCH 1/5] mm/huge_memory: do not touch frozen folios in deferred_split_isolate()
-Date: Wed, 26 Aug 2026 17:20:57 +0100
-Message-ID: <20260826162101.1314941-2-kirill@shutemov.name>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260826162101.1314941-1-kirill@shutemov.name>
-References: <20260826162101.1314941-1-kirill@shutemov.name>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="FoakEkAa"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QE1cFl3084617;
+	Wed, 26 Aug 2026 16:20:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=MTcBMEIesxM3zL+MfpgL/JhtUxSn3joUFmm5h4/d+
+	Lc=; b=FoakEkAaugzX+V0CzAWKUmvwFTY4Gvt71U3zjn4hCgB4LQBGlrTPmuU+n
+	08x9K0rNkFik2QaF0EBLKb59qJj7kJvrPeUsSNYK3ClUUMt2byOmYzEzmV2Q5Gco
+	bWDJ3CR2zVePDxJ9QGAwZb06bD9mwfiIPTUnbUFF0LPDMzdnmkHU30hAiXNKWWj+
+	ZU7/RIQzoqNQ2nNEe2JbEBLG/va+l1CnDVKaaXJMbhPLPgcmVyATOkTlAp1ERuZa
+	bPhC77VlktTj2rHEDjcADqNYjj6Jhco/021EaZIAI6Xxih7qfby66+Qv861Q+g9z
+	Wh4jS983pZl+N5RX9BTcnSB7a0DhA==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g726eqraq-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 26 Aug 2026 16:20:49 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67QGBGGC017011;
+	Wed, 26 Aug 2026 16:20:48 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4g7p3qb45f-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 26 Aug 2026 16:20:48 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
+	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67QGKiMa47317446
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 26 Aug 2026 16:20:44 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 64B9F20043;
+	Wed, 26 Aug 2026 16:20:44 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id F06B620040;
+	Wed, 26 Aug 2026 16:20:41 +0000 (GMT)
+Received: from localhost.localdomain (unknown [9.39.21.125])
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 26 Aug 2026 16:20:41 +0000 (GMT)
+From: Gautam Menghani <gautam@linux.ibm.com>
+To: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
+        chleroy@kernel.org, ritesh.list@gmail.com, sshegde@linux.ibm.com
+Cc: Gautam Menghani <gautam@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
+        linux-kernel@vger.kernel.org
+Subject: [PATCH] powerpc/configs: Add debug configs for debugging
+Date: Wed, 26 Aug 2026 21:50:34 +0530
+Message-ID: <20260826162035.27068-1-gautam@linux.ibm.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -100,78 +67,154 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=TfimcxQh c=1 sm=1 tr=0 ts=6a8f1261 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8 a=9H6hm6EcYpu-G-HrPV4A:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDEzNCBTYWx0ZWRfX64hhbhQGj2p8
+ 7ai0gU2ts+CnEj7sUoxLs6awUylEWeMIizl8q7IAIR+P5lPU3mFWnXeQbCTMDP587NQI6TrYWAY
+ W/fBqd5WlsGLvCxUJ8PfjKrcxC1Zqxg=
+X-Proofpoint-GUID: 3UCyiatnfKRy1DDXz6SpigJP9lFagNtN
+X-Proofpoint-ORIG-GUID: adf3iqlxp19pBC_XksMqsYn0rfeheCVy
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDEzNCBTYWx0ZWRfXwGXTKhsYKTut
+ 49+5JJMhZw6kuKaJl0adiicSDXMjZc9Fox1snqGUEbtlS72M399jymwA7fOqmGsjGNiwIh9iuIB
+ etOerWfiL3eC6h1B0X2a2Nerw/uvsiVNu9XqXyyQ4Kx+8GhZeDovArPa6UjM9okqlqNiIt8+z78
+ UcLH6SjWtog/yp833XNnfoOkAWtGrxaTznRqrfZt4WWnSq2hpWBVIo9OIIfuSVEZIfvSLm84zWq
+ 6pKXKI2ISW89jhKegq7HvHw/Q4EmG97xqLdpeH2Bpj4MS/iTdzZ8BT6kW4zOo53j2sORPqplsbe
+ fYD74LU08/NAmSUZTphNbHP/UMB3p2+wntyLOrf3J9jQWD9KJKP4Hg44Egh83kDYVdLKZvxMbOi
+ 75vP0b3CaEGfBbwx2h2qoaVRw83vpN/IBOQ5bAmPy3YhwYl9IMPS8MgPlvLMDRaK9vRi0mQGFy0
+ 5vZYc2ImxG5s5xwknrQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-26_04,2026-08-26_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 bulkscore=0 malwarescore=0 priorityscore=1501
+ lowpriorityscore=0 clxscore=1015 phishscore=0 impostorscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260134
 
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+Kernel has multiple config options to run extra validation checks that
+can help catch bugs. Define new configs for major subsystems to
+make it easy to enable the debug config options for a given area.
 
-deferred_split_isolate() probes each queued folio with folio_try_get().
-folio_try_get() failure is treated as a lost race with folio_put(): clear
-PG_partially_mapped, correct MTHP_STAT_NR_ANON_PARTIALLY_MAPPED, take
-the folio off the queue.
-
-The folio_put() race is the most common case for !folio_try_get(), but
-it is not the only option. Another scenario is folio_ref_freeze().
-
-A zero refcount in such cases does not mean the folio is going away.  It
-means "don't touch me" and current deferred_split_isolate() doesn't
-respect it. It can lead to unqueueing folios from the deferred list for
-no reason:
-
-    CPU 0                            CPU 1
-    ---------------------------      ------------------------------
-    freeze a mapped folio            deferred_split_scan()
-      folio_ref_freeze()               folio_try_get() fails
-                                       folio_clear_partially_mapped()
-                                       NR_ANON_PARTIALLY_MAPPED--
-                                       folio off the queue
-    give up, put it back
-      folio_ref_unfreeze()
-
-The folio is still partially mapped, but it is no longer a split candidate.
-Nothing queues it again until part of it is unmapped once more.
-
-Skip the folio instead: whoever freezes the folio, owns it and owner is
-responsible for its fate. It also covers the folio_put() case:
-__folio_put() unqueues the folio via folio_unqueue_deferred_split().
-
-Reported-by: Lance Yang <lance.yang@linux.dev>
-Link: https://lore.kernel.org/all/20260824131224.73344-1-lance.yang@linux.dev/
-Assisted-by: Claude-Code:claude-opus-5
-Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Signed-off-by: Gautam Menghani <gautam@linux.ibm.com>
 ---
- mm/huge_memory.c | 19 ++++---------------
- 1 file changed, 4 insertions(+), 15 deletions(-)
+ arch/powerpc/Makefile                    | 16 ++++++++++++++++
+ arch/powerpc/configs/common_debug.config | 11 +++++++++++
+ arch/powerpc/configs/locks_debug.config  | 13 +++++++++++++
+ arch/powerpc/configs/lockup_debug.config |  4 ++++
+ arch/powerpc/configs/mm_debug.config     | 24 ++++++++++++++++++++++++
+ 5 files changed, 68 insertions(+)
+ create mode 100644 arch/powerpc/configs/common_debug.config
+ create mode 100644 arch/powerpc/configs/locks_debug.config
+ create mode 100644 arch/powerpc/configs/lockup_debug.config
+ create mode 100644 arch/powerpc/configs/mm_debug.config
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index ced400f72d43..6281ed993243 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -4590,22 +4590,11 @@ static enum lru_status deferred_split_isolate(struct list_head *item,
- 	struct folio *folio = container_of(item, struct folio, _deferred_list);
- 	struct list_head *freeable = cb_arg;
- 
--	if (folio_try_get(folio)) {
--		list_lru_isolate_move(lru, item, freeable);
--		return LRU_REMOVED;
--	}
-+	/* Lost race to folio_put() or the folio is under folio_ref_freeze() */
-+	if (!folio_try_get(folio))
-+		return LRU_SKIP;
- 
--	/*
--	 * We lost race with folio_put(). Read folio state before the
--	 * isolate: folio_unqueue_deferred_split() checks list_empty()
--	 * locklessly, so once removed the folio can be freed any time.
--	 */
--	if (folio_test_partially_mapped(folio)) {
--		folio_clear_partially_mapped(folio);
--		mod_mthp_stat(folio_order(folio),
--			      MTHP_STAT_NR_ANON_PARTIALLY_MAPPED, -1);
--	}
--	list_lru_isolate(lru, item);
-+	list_lru_isolate_move(lru, item, freeable);
- 	return LRU_REMOVED;
- }
- 
--- 
+diff --git a/arch/powerpc/Makefile b/arch/powerpc/Makefile
+index 9385db478c59..425f36c3f471 100644
+--- a/arch/powerpc/Makefile
++++ b/arch/powerpc/Makefile
+@@ -259,6 +259,22 @@ generated_configs += ppc64le_guest_defconfig
+ ppc64le_guest_defconfig:
+ 	$(call merge_into_defconfig,ppc64_defconfig,le guest kvm_guest)
+
++generated_configs += ppc64le_common_debug_defconfig
++ppc64le_common_debug_defconfig:
++	$(call merge_into_defconfig,ppc64_defconfig,le common_debug)
++
++generated_configs += ppc64le_locks_debug_defconfig
++ppc64le_locks_debug_defconfig:
++	$(call merge_into_defconfig,ppc64_defconfig,le locks_debug)
++
++generated_configs += ppc64le_mm_debug_defconfig
++ppc64le_mm_debug_defconfig:
++	$(call merge_into_defconfig,ppc64_defconfig,le mm_debug)
++
++generated_configs += ppc64le_lockup_debug_defconfig
++ppc64le_lockup_debug_defconfig:
++	$(call merge_into_defconfig,ppc64_defconfig,le lockup_debug)
++
+ generated_configs += ppc64_guest_defconfig
+ ppc64_guest_defconfig:
+ 	$(call merge_into_defconfig,ppc64_defconfig,be guest kvm_guest)
+diff --git a/arch/powerpc/configs/common_debug.config b/arch/powerpc/configs/common_debug.config
+new file mode 100644
+index 000000000000..a341c8b41468
+--- /dev/null
++++ b/arch/powerpc/configs/common_debug.config
+@@ -0,0 +1,11 @@
++# For use in CI testing
++CONFIG_EXPERT=y
++CONFIG_PROVE_LOCKING=y
++CONFIG_PROVE_RCU=y
++CONFIG_KASAN=y
++CONFIG_UBSAN=y
++CONFIG_DEBUG_PAGEALLOC=y
++CONFIG_DEBUG_VM=y
++CONFIG_DEBUG_OBJECTS=y
++CONFIG_DEBUG_KMEMLEAK=y
++CONFIG_DEBUG_STACKOVERFLOW=y
+diff --git a/arch/powerpc/configs/locks_debug.config b/arch/powerpc/configs/locks_debug.config
+new file mode 100644
+index 000000000000..b2cb23de75db
+--- /dev/null
++++ b/arch/powerpc/configs/locks_debug.config
+@@ -0,0 +1,13 @@
++CONFIG_EXPERT=y
++CONFIG_PROVE_LOCKING=y
++CONFIG_DEBUG_LOCK_ALLOC=y
++CONFIG_DEBUG_ATOMIC_SLEEP=y
++CONFIG_DEBUG_LOCKING_API_SELFTESTS=y
++CONFIG_DEBUG_MUTEXES=y
++CONFIG_DEBUG_SPINLOCK=y
++CONFIG_DEBUG_RT_MUTEXES=y
++CONFIG_DEBUG_RWSEMS=y
++CONFIG_PROVE_RAW_LOCK_NESTING=y
++CONFIG_RCU_EXPERT=y
++CONFIG_PROVE_RCU=y
++CONFIG_RCU_TRACE=y
+diff --git a/arch/powerpc/configs/lockup_debug.config b/arch/powerpc/configs/lockup_debug.config
+new file mode 100644
+index 000000000000..ad0a79abf60f
+--- /dev/null
++++ b/arch/powerpc/configs/lockup_debug.config
+@@ -0,0 +1,4 @@
++CONFIG_EXPERT=y
++CONFIG_WQ_WATCHDOG=y
++CONFIG_DETECT_HUNG_TASK=y
++CONFIG_PANIC_ON_OOPS=y
+diff --git a/arch/powerpc/configs/mm_debug.config b/arch/powerpc/configs/mm_debug.config
+new file mode 100644
+index 000000000000..0e88eb983536
+--- /dev/null
++++ b/arch/powerpc/configs/mm_debug.config
+@@ -0,0 +1,24 @@
++CONFIG_EXPERT=y
++CONFIG_DEBUG_PAGEALLOC=y
++CONFIG_DEBUG_SLAB=y
++CONFIG_KASAN=y
++CONFIG_KFENCE=y
++CONFIG_KMSAN=y
++CONFIG_DEBUG_KMEMLEAK=y
++CONFIG_DEBUG_VM=y
++CONFIG_DEBUG_VIRTUAL=y
++CONFIG_DEBUG_OBJECTS=y
++CONFIG_DEBUG_OBJECTS_FREE=y
++CONFIG_DEBUG_OBJECTS_TIMERS=y
++CONFIG_DEBUG_OBJECTS_WORK=y
++CONFIG_DEBUG_OBJECTS_RCU_HEAD=y
++CONFIG_DEBUG_OBJECTS_PERCPU_COUNTER=y
++CONFIG_SCHED_STACK_END_CHECK=y
++CONFIG_DEBUG_VM_MAPLE_TREE=y
++CONFIG_DEBUG_VM_RB=y
++CONFIG_DEBUG_VM_PGFLAGS=y
++CONFIG_DEBUG_MEMORY_INIT=y
++CONFIG_DEBUG_PER_CPU_MAPS=y
++CONFIG_DEBUG_KMAP_LOCAL=y
++CONFIG_DEBUG_HIGHMEM=y
++CONFIG_DEBUG_STACKOVERFLOW=y
+--
 2.54.0
 
