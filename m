@@ -1,246 +1,314 @@
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010008.outbound.protection.outlook.com [40.93.198.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65E11347FCD
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 17:10:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.8
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787764270; cv=fail; b=fknmFBTRl67ympS9lZ43NaNgbuVNn7N6ffa668VvX/EJvEIPQnB2m3/KCb4o3gGzcgDDpGSN9AOoNhJB7WuyB1ByhUemIND20SKSkuoWHG+K9et3M8V+EX5zUbIyyNqVohpWGEbRJ3zlQWtC1mdlEe2wSCssKU7KMVhmod7r2oM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787764270; c=relaxed/simple;
-	bh=TTUg3b2dUFWv6keRe0FS7dbatlQOjvGHXwqulZLZp0c=;
-	h=Content-Type:Date:Message-Id:From:Subject:Cc:To:References:
-	 In-Reply-To:MIME-Version; b=nCtximgy92yDgDVwCP5lkfBmS+bhRHSmI43SlG2PHpCHkXLNJv2gK3xK8VUjuGU1wDzGxBkg2WQNHOFjTPNfVTxCPpbpJg96DTHnu5kHzH2XAIojGWjrn/2Yw549vev03olAIdZrHjFPZXQcJxxYd2e28VLBb4A9KwN3lg7Rywo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=e6e7MfX9; arc=fail smtp.client-ip=40.93.198.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF25A36492D
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 17:12:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787764379; cv=none; b=XtzP2Hmvd+G0f/G2KeCMvY+7bPca9gNJ4UnF0mtV4yclpBta7uYRyFgohsgPw8jgGpqgNBxkzuefXNJLf6MXRbwPSwNbog30NvCvydr8EcZJGgrNwbClMYnmiMSg9GPjF0As59Nk9TxXHcoolkJXmuiUCGhFNBm/qnvOqLVcD+M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787764379; c=relaxed/simple;
+	bh=+uDr5cwVaTDiUyoRvqw+6+bOi/G/sFwFQqXd7puX1sw=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=lklGqz/TeFfDBgVKHtxtsBarJiciLrluLfsdgy0r6ybUZQ1HOjOA4tipHEJHcDcWTrGhF+7zy4ca3h6+smJUrDS1cR7fn5Bqjk0cgLEmpxgLavif7D9uuuGeskYTg4RQPIiYjkc1KXWKCFQZiIjnVujeZ3j0Gmxq/CM18uru23Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=tcdvAP88; arc=none smtp.client-ip=209.85.214.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="e6e7MfX9"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qGjR/+dADmueriJydTF97LhICIofZ+UqXcpbRff2z8iMAFEEyYUb2ah0R/CaKMH0UoIM6p5d8o4jAOJf6Nw+D/Qm8y45E464fGRl4SEFnTrLauiBjqE7Tqzk539m72y7obEpZtsjdkJhIaNgWnhZCcAlzyAzA2TYOYzkAc1wClj1GZ+SmZh3n8HlXoM49m4ZKaSdVURogsaupu/Ifn16kl2zHcECg/w8b9M45JLw9be+8DHq2HqE2UlBM96OkLQ4EotKdYMSqo35DkfKl9nv54riyElaT8O4gWEmRFv4yenC3ji72ABki8fbYfoT6ySWN4Zp0c1ORuNXVOKs80ckkA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=43Lk8PzkvXPkQicdTUnj0FZpkn9+fTr1yPKKxp9ye6I=;
- b=qimOcB+jf+NsI9AiREn83shwq4A0zG+RtUumSDDvlp+3zeE40uHov3sFZoX0CY7ttFjpfZdwdTvEWJGAYDQxI9BcQRc78bfkJCtWmAuJ8NnUggc+NQf7BgWObZm4dLuoQM2zndb6xyYm8/3NWyrtM3Nfbb5pQU2ZfIQQ7Q506bVGByNv+PlqleQAgUaP5KU28JjBH1JSepTrY2MB2+ahogpGPns61HoVLliGjUe9pTY+HH7V5HYuWGcsuUrOsT/24KHMmiz0o6dSzWUUXC5W8esH7zt2C4fJI6m27js+Xa1AK+I6ILITWldQOxMTP4flEFYl6b4gpl4Ryx4D3a/yig==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=43Lk8PzkvXPkQicdTUnj0FZpkn9+fTr1yPKKxp9ye6I=;
- b=e6e7MfX9r8dillDH5PRMumQ0EjVTm2gpWCrYj0zbpVpMByWAfXJgNR80wltCIawLyPyIhDKJjSdCcowaNAMYTA1vdviWexVORfpBC0PutHJWGQpCniwoPLqqX1FvQgZMqqqfrKExCRYJhVIC/CLsmnWNFnrrBGLeahxYAF35+lhJ6E25PVB1CvCMn0uLTdxVF+bnGI/QqWlw5E6zTqudU2t5IhpApJIAkGt0Gy70zCaCAVUhQcZLmwN2CbLFvGmn703ReSDj1AQ0mKPrz31HnfM/YaHBIukt4hzqknn8hJN7fcAN3fX13yYAhRbuopo1RgO/7GNJ6DjF03im4nA1dQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.7; Wed, 26 Aug
- 2026 17:10:36 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0360.006; Wed, 26 Aug 2026
- 17:10:35 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 26 Aug 2026 13:10:33 -0400
-Message-Id: <DKZ1J2U9OT92.LM8445YM68HK@nvidia.com>
-From: "Zi Yan" <ziy@nvidia.com>
-Subject: Re: [PATCH 2/5] mm/huge_memory: dequeue the deferred split after
- the split freeze
-Cc: <lance.yang@linux.dev>, <hughd@google.com>,
- <baolin.wang@linux.alibaba.com>, <baohua@kernel.org>, <liam@infradead.org>,
- <nico.pache@linux.dev>, <dev.jain@arm.com>, <ryan.roberts@arm.com>,
- <balbirs@nvidia.com>, <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
- "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-To: "Kiryl Shutsemau" <kirill@shutemov.name>, <akpm@linux-foundation.org>,
- <david@kernel.org>, <ljs@kernel.org>, <hannes@cmpxchg.org>,
- <usama.arif@linux.dev>, "Kairui Song" <kasong@tencent.com>
-X-Mailer: aerc 0.22.0
-References: <20260826162101.1314941-1-kirill@shutemov.name>
- <20260826162101.1314941-3-kirill@shutemov.name>
-In-Reply-To: <20260826162101.1314941-3-kirill@shutemov.name>
-X-ClientProxiedBy: YQBP288CA0015.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:c01:6a::12) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="tcdvAP88"
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2ce7dff6253so909785ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 10:12:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787764370; x=1788369170; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=L6siIiM1cF+ZrS/MrgVIwhxh+wLPXtr92wLuqHkS8k0=;
+        b=tcdvAP88URuxrOV9h1bEC5nXW5zuLrceEpTlzUbIYs4XMUE/u4I/6URhyzboZs+FqH
+         IYvTUzyg+uJo5OZKKdgeUN1MG7/9aFUnj/r6z4xBbL6x+LAz16IfPXNu83GlhzTBkins
+         4calXw6ycRI18+EwnXvgvrhDQDwFnWyKCz5qYKL1ByCA54FmdDq/GRKERT7/3AUIEgkt
+         FfdXNkt5Je2mi8CsUIpJLWKxdFyKOoxhTG+RwvA/3x3ZhBvvZoPg+7ytIaj9z4TTnTzd
+         u0TX2oKsUnLMIyDjhpXmzkD6VjWMbgFE9tfPJt4sqoV1mnwSqDFZ8f92btILEBq48RSE
+         fX+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787764370; x=1788369170;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=L6siIiM1cF+ZrS/MrgVIwhxh+wLPXtr92wLuqHkS8k0=;
+        b=KjSQpoNW2I25zEonZCdH08gS49ElyMbV1NVLuzLz957nyfgpJCjQ3c2yZPsyv7WJME
+         t0gJ3TTJIdepOZZFoiORTZkDN0Iu2kZoF14zE3JkMv3RHbuXjBBu/Stz/Gb2eV1V71xZ
+         YoXH/n98xNKTxZ0QVsTBNLxgEFfbcMkCvG2PtebScGoE/7++3wvdJ1kyhKEv8Iqgr4HH
+         frtPihzfc+McaN7ZfjrG4RluQdAoZu63A/YoqNPpZlbbFoUlZDVEOHb8nw9roY9AGYG9
+         ZBFIf2Ub5Bo7tx03ldJePT6OiGIX16FNLyZaZN8kNpLGn4WAIvqG+yhYiA7Ysj4FxUpT
+         3XiQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqtIyVTAmcvKmlRW4ue3DKYiNPvyGyWs5Xfjp7geqj3kfilkvrvkoUwume5ifGM/EZ/pVdiA3xdLIZXGsY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kVY8Ea6GWhjfCVseWryNdWMDofWGF9lsfzefGc14ZGKoz1vyWI
+	sjFpFnsEvLMwfzzHOkP9vmMs99u68+DpQoBpfVYQpI5yiVgvH1GXbMUXXAZDRd13IJ17p5X3E0y
+	c64cG5A==
+X-Received: from plbke13.prod.google.com ([2002:a17:903:340d:b0:2cc:c59c:76ac])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:d491:b0:2cf:b9f9:18bb
+ with SMTP id d9443c01a7336-2d726114a0bmr5694605ad.4.1787764369805; Wed, 26
+ Aug 2026 10:12:49 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Wed, 26 Aug 2026 10:12:39 -0700
+In-Reply-To: <20260826171246.777729-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DS0PR12MB6413:EE_
-X-MS-Office365-Filtering-Correlation-Id: d92c3efa-4f51-4051-57a7-08df0394f182
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|7416014|23010399003|18002099003|22082099003|10067099003|56012099006|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	dJYddiBfczvCaF+t+o1UU1SbAxvZOYKUad+ev+fLVV4k98r0cKhXJjC0tPgwFRDgTiDObqMSH1ZLdvR3qVmRJ7IuvWayElOr7wX3oymNPl5yts+szP4Tp0C5rDUjEjrPEZALjTQLxWiidw0OGOlBDnEN5df3QutDAl6GxJCXmrmDF/FHUn7bQB1qOlt5+aqfHiiDInDTJAZ+GfM9u+EdhHgHfkvXzuCPpxAmf2MVIyIfQlmhficjsWlPGhwdRKPP86ySTrwDfst+mnjI62motl7BqDW5Zhyo67CUIS1RLZm3leScWI7/Ng1Lc0HKMJOJwME9wM3dsHtN8bvXMBkQl5o1YNEOog8BMT2FBKKHYCma5QnQYnGmalzE7d53fqfWwhzFD1R5CeC56oHLKHArwQwWDLTSxwqlZWS5Mz9QCMLLaPLjugEz95oGEm46T6NONTiFoz4VaDpS8uwBDL/Zn1CKs5GJWTCpLIbnHwPjz14mob1uwNqqKiGId+bVm55y8Cq7jn/CDqMJgdDbR2okV6RWkoCFgpbbCzVoXl3bOU4vhnP7tteYxucjGTuffRVTMS+Lxq9OZioweEkkjV7OgQneyW8EaS8L5hE6Lesyfxjk68NC/Wkzd1Ncg6/QqG4tn1ZeuT/G0LPVZEl36cdcScknZDr0CaWUiMbHeEdSMH0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(18002099003)(22082099003)(10067099003)(56012099006)(11063799006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VjRNRUtzbzgvU0R2b1VFT3MzNlBEa2tnRERBUDBJaUlFOS8veVNHNHdPczE2?=
- =?utf-8?B?RGYwNUdPSWd3V1B3RUtkYmRiVStIa1ZoZ241Y0c3UFNlOWVUZGxzN0lOcDJV?=
- =?utf-8?B?c3haVkJCVEVjRXJWSlJFR0Fia3JkeHc1TFFXamZuYkVKYytXUUVYZjV4aXNZ?=
- =?utf-8?B?cUlhSFViSXgvYkY0b3MvcWVKU3pONnpsS3Fob1lLR1BJLzNFbFZ3WWJsL29k?=
- =?utf-8?B?dEZza0dhanRENGM4Z1l6dTZUZVFiMXFOdzhYWUU0WjVscDdUZE5ubEF0NUd0?=
- =?utf-8?B?bUoxUkNnNnJqZldLSzJWSFpUbmk0SVJWdG41TlBFQ2NyNG1YRmFla0J6TVhN?=
- =?utf-8?B?b2NDWW1yMVpzVFRCN2J5b0xTUmVmazZkcnQ5VTZzWHJpV1djUEl0RStZOGhZ?=
- =?utf-8?B?M3p3R3pnN2xHeXg2d0lBdnRncUJsNzYvVGxwaExBTnUrM3I3eDA3V0RIZTkv?=
- =?utf-8?B?MDJIQktRSXUzL1ZTOGtXQWg2SlkwNVd6MllvWmR6M1NueDdhMk8yNEtsMk5F?=
- =?utf-8?B?Zm1TbWNDNVdLT2dabUZkN29QUW1IVm5sSktOejltTHpNLy9FcDJCb1g5NThN?=
- =?utf-8?B?T3RLVFBWajZtemFpWFZwNmF1VGtnNzV3T1YyTmpiRi9oS2J0QmhzNDlrbjBD?=
- =?utf-8?B?UzBkd3cyS2RxS0FaWmxJdGVHMlZvTEpXZWRqdlNNTHBFdnhLbXk5bXMyeXlQ?=
- =?utf-8?B?bFFsZHNFdVFmUkdxd0dtWk1ndlRhU2kzOFZjRlEzN05oQjgzMytmWkgvQVZF?=
- =?utf-8?B?QURLNjdsRVRBLzZXdEJueUdRV0x0ckxWanB6bkxVdFJnb01oeEZreHRScXhE?=
- =?utf-8?B?TDY5djRVNFp1V0h1UE5GS0F4Ym9oRjU2eW53Y1RmTHNMUWoyRkg2NCtMQ0xC?=
- =?utf-8?B?VUdIaHVkSnp0S3ZVME5jSXlCZWd5WTIrb1NnRTZYSTZoSVRSQVZySFNTQ1Js?=
- =?utf-8?B?TnY0aGJjNVNVdWszZGpVdFFoODNxUEc0dkhBQ0tVS0lYRWw2UjYzT2E5VTUr?=
- =?utf-8?B?VFlxdldvd054Sk1LbVF0bGRsUnZpbCs2TXlsVFZId2Zhc0NKMVRtQmF5dm0w?=
- =?utf-8?B?enAxOVV2SElZQ05VUE1VTnY2MU9YRkx2Y3pzN015Mm5nR3dqelo1aUlIbmMw?=
- =?utf-8?B?aHJtbzU1cFpNTkhoSFhDdi81OWJqM3dTdXVhL3NmRmtKOTR1bkNBZyt1SndN?=
- =?utf-8?B?V3JQMnBlcVNxRWt0TEpTSDBwbk44bVdVM05CQVVydTEyUUlLZTVFank5dS9E?=
- =?utf-8?B?bGkzR2ZxdDlaTjVhR2hSMmtPamlUUTdZUFBkTDJndnNYS2wrMEg5bFVEQUNJ?=
- =?utf-8?B?YjRFM2x6cWwra0RJUExRREgvTlVCUWpTSlVkWVhhRW92bTVLd0puaVFFRy9P?=
- =?utf-8?B?U0hxWkw2eFExR0dFVHdJSEpaZzEyWWFEdXJhQjUyU3V2dkUwbGd3ZHIrL1pl?=
- =?utf-8?B?c00wNmJNTmtmM0k2YU1VUWxJU1hvS0gvcy92czF1QldMZTJPSUN3QWJtWlRY?=
- =?utf-8?B?UlJoWEZTRXJ2UDE2M1VVMktGbDVUdU1PaWVHc3RwaEZTRzczL3AyV0RoM2Rh?=
- =?utf-8?B?SW9ZbXA0M2pReHhCUno3WjdVdUYxY3B3aHVTRUxwOWFMQlQ1RzkydkpJOE5C?=
- =?utf-8?B?T29QUUhmaE9tSElPRTBUK1RWMERZa0xicE42OFh1ZDFVUzFyOUNVUHZib2NN?=
- =?utf-8?B?L2tOVERlNE10MWJTcUV6SHViVFlPdlJFSWxiU3VqbTQzUXJPaTQzZFhIQVVM?=
- =?utf-8?B?K3ZTRjFFS2YxdlZIbm5kZjJHMEZNd3ZJSGNGd1F6UmRjUjNEbWptbURKbTEr?=
- =?utf-8?B?TjMyMGtaRjRmazh1a3NLV1lkVUtjaEk4Tk50SDJVV3puM3BRQm9uMGVJcDFr?=
- =?utf-8?B?Umw2eWlmTWp0dFdmUURDcy9uR1pVUHUzeWhHSDFzckxVN29DdFNMVWpaM0tX?=
- =?utf-8?B?RzRYSkM5dndMZFQ0aCtPS2xua1ZBU2tPcHJQN1duaG4rdXpGWUc2dDBla2xr?=
- =?utf-8?B?dEt3ZTBIbmRUc1lnVVBzYThaVjliNVJEZFBVRGdMR2tpck5DMWVYandUWmhM?=
- =?utf-8?B?TjN5N2ZlTFRzZnJ5K2d3YmpFek9vcUxMSFJSdjlCSVd1NWJuSmtodDRmL0F4?=
- =?utf-8?B?VHF5SDBNbXRxdUdmL0pNRzRPZGltbTM0S2pEcjF3UW1vVFRsV3VFVk9XN1FZ?=
- =?utf-8?B?RWliY2VMcGl0NldMSVFUV2M0YkJDVHV6QnNWYkZtc0hOemJHbnkzYlBrVTA3?=
- =?utf-8?B?ZHNNUklpV0szTC9jcklVb3g3ZUNBWWZmZVpxdjdSQXA4VnlJZUpJOUxTSnZL?=
- =?utf-8?Q?Yt0cP5yliYMTcYabGx?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d92c3efa-4f51-4051-57a7-08df0394f182
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 17:10:35.5044
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OpGpcJbelDLpJhPvehdF1q+V7baIeiABfwOXKWT/PlEMox+aMt+xu10FsMUZ6Scn
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6413
+Mime-Version: 1.0
+References: <20260826171246.777729-1-seanjc@google.com>
+X-Mailer: git-send-email 2.55.0.887.g758fc8c411-goog
+Message-ID: <20260826171246.777729-2-seanjc@google.com>
+Subject: [PATCH v2 1/8] KVM: VMX: Move the shared "IRQs off" exit handler(s)
+ to common code
+From: Sean Christopherson <seanjc@google.com>
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, Xiaoyao Li <xiaoyao.li@intel.com>, 
+	Binbin Wu <binbin.wu@linux.intel.com>, Kai Huang <kai.huang@intel.com>, 
+	Yan Zhao <yan.y.zhao@intel.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed Aug 26, 2026 at 12:20 PM EDT, Kiryl Shutsemau wrote:
-> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
->
-> __folio_freeze_and_split_unmapped() takes the deferred split list_lru loc=
-k
-> across the freeze. It is only there to stop deferred_split_scan() from
-> touching the folio under split.
->
-> With deferred_split_isolate() fixed, the workaround can be dropped.
->
-> Unqueue the folio after folio_ref_freeze(), the way
-> __folio_migrate_mapping() does: folio_unqueue_deferred_split() needs a
-> zero refcount and a memcg still set, and both hold there.
->
-> If the split is called from deferred_split_scan(), the unqueue is a
-> no-op -- the folio is already removed from the list. But
-> PG_partially_mapped is still set, so it has to be cleared here or
-> MTHP_STAT_NR_ANON_PARTIALLY_MAPPED never comes back down.
->
-> Assisted-by: Claude-Code:claude-opus-5
-> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> ---
->  mm/huge_memory.c | 44 +++++++++++++-------------------------------
->  1 file changed, 13 insertions(+), 31 deletions(-)
+Move vmx_handle_exit_irqoff() and its helpers to common.h / main.c to
+capture that it's a common handler and to allow guarding against incorrectly
+using to_vmx().
 
-+Kairui, since the change affects his cleanup series. I assume this will
-be picked up sooner than Kairui's large series.
+Opportunistically use a "vt" prefix instead of "vmx" to communicate that
+it's a shared handler.
 
->
-> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> index 6281ed993243..c84e8cbc986d 100644
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -3931,41 +3931,27 @@ static int __folio_freeze_and_split_unmapped(stru=
-ct folio *folio, unsigned int n
->  	struct folio *end_folio =3D folio_next(folio);
->  	struct folio *new_folio, *next;
->  	int old_order =3D folio_order(folio);
-> -	struct list_lru_one *lru;
-> -	bool dequeue_deferred;
->  	int ret =3D 0;
-> =20
->  	VM_WARN_ON_ONCE(!mapping && end);
-> -	/*
-> -	 * If this folio can be on the deferred split queue, lock out
-> -	 * the shrinker before freezing the ref. If the shrinker sees
-> -	 * a 0-ref folio, it assumes it beat folio_put() to the list
-> -	 * lock and must clean up the LRU state - the same dequeue we
-> -	 * will do below as part of the split.
-> -	 */
-> -	dequeue_deferred =3D folio_test_anon(folio) && old_order > 1;
-> -	if (dequeue_deferred) {
-> -		struct mem_cgroup *memcg;
-> =20
-> -		rcu_read_lock();
-> -		memcg =3D folio_memcg(folio);
-> -		lru =3D list_lru_lock(&deferred_split_lru,
-> -				    folio_nid(folio), &memcg);
-> -	}
->  	if (folio_ref_freeze(folio, folio_cache_ref_count(folio) + 1)) {
->  		struct swap_cluster_info *ci =3D NULL;
->  		struct lruvec *lruvec;
-> =20
-> -		if (dequeue_deferred) {
-> -			__list_lru_del(&deferred_split_lru, lru,
-> -				       &folio->_deferred_list, folio_nid(folio));
-> -			if (folio_test_partially_mapped(folio)) {
-> -				folio_clear_partially_mapped(folio);
-> -				mod_mthp_stat(old_order,
-> -					MTHP_STAT_NR_ANON_PARTIALLY_MAPPED, -1);
-> -			}
-> -			list_lru_unlock(lru);
-> -			rcu_read_unlock();
-> +		/* Take off the deferred split queue while frozen and memcg set */
-> +		folio_unqueue_deferred_split(folio);
-> +
-> +		/*
-> +		 * deferred_split_scan() takes the folio off the queue before it
-> +		 * splits it, so the unqueue above finds an empty list and
-> +		 * leaves PG_partially_mapped set.
-> +		 * Clear it here: the flag does not survive the split.
-> +		 */
-> +		if (folio_test_partially_mapped(folio)) {
-> +			folio_clear_partially_mapped(folio);
-> +			mod_mthp_stat(old_order,
-> +				      MTHP_STAT_NR_ANON_PARTIALLY_MAPPED, -1);
->  		}
-> =20
->  		if (mapping) {
-> @@ -4067,10 +4053,6 @@ static int __folio_freeze_and_split_unmapped(struc=
-t folio *folio, unsigned int n
->  		if (ci)
->  			swap_cluster_unlock(ci);
->  	} else {
-> -		if (dequeue_deferred) {
-> -			list_lru_unlock(lru);
-> -			rcu_read_unlock();
-> -		}
->  		return -EAGAIN;
->  	}
-> =20
+No functional change intended.
 
-This is a great cleanup. Thanks.
+Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>
+Cc: Xiaoyao Li <xiaoyao.li@intel.com>
+Cc: Binbin Wu <binbin.wu@linux.intel.com>
+Cc: Kai Huang <kai.huang@intel.com>
+Cc: Yan Zhao <yan.y.zhao@intel.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+---
+ arch/x86/kvm/vmx/common.h  |  6 ++++
+ arch/x86/kvm/vmx/main.c    | 71 +++++++++++++++++++++++++++++++++++-
+ arch/x86/kvm/vmx/vmx.c     | 74 --------------------------------------
+ arch/x86/kvm/vmx/x86_ops.h |  1 -
+ 4 files changed, 76 insertions(+), 76 deletions(-)
 
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-
---=20
-Best Regards,
-Yan, Zi
+diff --git a/arch/x86/kvm/vmx/common.h b/arch/x86/kvm/vmx/common.h
+index 08005676702c..88f637c81353 100644
+--- a/arch/x86/kvm/vmx/common.h
++++ b/arch/x86/kvm/vmx/common.h
+@@ -74,6 +74,12 @@ static __always_inline bool is_td_vcpu(struct kvm_vcpu *vcpu) { return false; }
+ 
+ #endif
+ 
++static inline bool is_xfd_nm_fault(struct kvm_vcpu *vcpu)
++{
++	return vcpu->arch.guest_fpu.fpstate->xfd &&
++	       !kvm_is_cr0_bit_set(vcpu, X86_CR0_TS);
++}
++
+ static inline bool vt_is_tdx_private_gpa(struct kvm *kvm, gpa_t gpa)
+ {
+ 	/* For TDX the direct mask is the shared mask. */
+diff --git a/arch/x86/kvm/vmx/main.c b/arch/x86/kvm/vmx/main.c
+index 4c52ab8d0786..274200b0a307 100644
+--- a/arch/x86/kvm/vmx/main.c
++++ b/arch/x86/kvm/vmx/main.c
+@@ -1,4 +1,5 @@
+ // SPDX-License-Identifier: GPL-2.0
++#include <linux/entry-common.h>
+ #include <linux/moduleparam.h>
+ 
+ #include "x86_ops.h"
+@@ -876,6 +877,74 @@ static int vt_gmem_max_mapping_level(struct kvm *kvm, kvm_pfn_t pfn,
+ #define vt_op_tdx_only(name) NULL
+ #endif /* CONFIG_KVM_INTEL_TDX */
+ 
++static void handle_nm_fault_irqoff(struct kvm_vcpu *vcpu)
++{
++	/*
++	 * Save xfd_err to guest_fpu before interrupt is enabled, so the
++	 * MSR value is not clobbered by the host activity before the guest
++	 * has chance to consume it.
++	 *
++	 * Update the guest's XFD_ERR if and only if XFD is enabled, as the #NM
++	 * interception may have been caused by L1 interception.  Per the SDM,
++	 * XFD_ERR is not modified for non-XFD #NM, i.e. if CR0.TS=1.
++	 *
++	 * Note, XFD_ERR is updated _before_ the #NM interception check, i.e.
++	 * unlike CR2 and DR6, the value is not a payload that is attached to
++	 * the #NM exception.
++	 */
++	if (is_xfd_nm_fault(vcpu))
++		rdmsrq(MSR_IA32_XFD_ERR, vcpu->arch.guest_fpu.xfd_err);
++}
++
++static void handle_exception_irqoff(struct kvm_vcpu *vcpu, u32 intr_info)
++{
++	/* if exit due to PF check for async PF */
++	if (is_page_fault(intr_info))
++		vcpu->arch.apf.host_apf_flags = kvm_read_and_reset_apf_flags();
++	/* if exit due to NM, handle before interrupts are enabled */
++	else if (is_nm_fault(intr_info))
++		handle_nm_fault_irqoff(vcpu);
++	/* Handle machine checks before interrupts are enabled */
++	else if (is_machine_check(intr_info))
++		kvm_machine_check();
++}
++
++static void handle_external_interrupt_irqoff(struct kvm_vcpu *vcpu,
++					     u32 intr_info)
++{
++	unsigned int vector = intr_info & INTR_INFO_VECTOR_MASK;
++
++	if (KVM_BUG(!is_external_intr(intr_info), vcpu->kvm,
++	    "unexpected VM-Exit interrupt info: 0x%x", intr_info))
++		return;
++
++	kvm_before_interrupt(vcpu, KVM_HANDLING_IRQ);
++	x86_entry_from_kvm(EVENT_TYPE_EXTINT, vector);
++	kvm_after_interrupt(vcpu);
++
++	vcpu->arch.at_instruction_boundary = true;
++}
++
++static void vt_handle_exit_irqoff(struct kvm_vcpu *vcpu)
++{
++	if (to_vt(vcpu)->emulation_required)
++		return;
++
++	switch (vmx_get_exit_reason(vcpu).basic) {
++	case EXIT_REASON_EXTERNAL_INTERRUPT:
++		handle_external_interrupt_irqoff(vcpu, vmx_get_intr_info(vcpu));
++		break;
++	case EXIT_REASON_EXCEPTION_NMI:
++		handle_exception_irqoff(vcpu, vmx_get_intr_info(vcpu));
++		break;
++	case EXIT_REASON_MCE_DURING_VMENTRY:
++		kvm_machine_check();
++		break;
++	default:
++		break;
++	}
++}
++
+ #define VMX_REQUIRED_APICV_INHIBITS				\
+ 	(BIT(APICV_INHIBIT_REASON_DISABLED) |			\
+ 	 BIT(APICV_INHIBIT_REASON_ABSENT) |			\
+@@ -1000,7 +1069,7 @@ struct kvm_x86_ops vt_x86_ops __initdata = {
+ 	.load_mmu_pgd = vt_op(load_mmu_pgd),
+ 
+ 	.check_intercept = vmx_check_intercept,
+-	.handle_exit_irqoff = vmx_handle_exit_irqoff,
++	.handle_exit_irqoff = vt_handle_exit_irqoff,
+ 
+ 	.update_cpu_dirty_logging = vt_op(update_cpu_dirty_logging),
+ 
+diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
+index 504630f0eb40..adf2bc13bed2 100644
+--- a/arch/x86/kvm/vmx/vmx.c
++++ b/arch/x86/kvm/vmx/vmx.c
+@@ -5379,12 +5379,6 @@ bool vmx_guest_inject_ac(struct kvm_vcpu *vcpu)
+ 	       (kvm_get_rflags(vcpu) & X86_EFLAGS_AC);
+ }
+ 
+-static bool is_xfd_nm_fault(struct kvm_vcpu *vcpu)
+-{
+-	return vcpu->arch.guest_fpu.fpstate->xfd &&
+-	       !kvm_is_cr0_bit_set(vcpu, X86_CR0_TS);
+-}
+-
+ static int vmx_handle_page_fault(struct kvm_vcpu *vcpu, u32 error_code)
+ {
+ 	unsigned long cr2 = vmx_get_exit_qual(vcpu);
+@@ -7143,74 +7137,6 @@ void vmx_load_eoi_exitmap(struct kvm_vcpu *vcpu, u64 *eoi_exit_bitmap)
+ 	vmcs_write64(EOI_EXIT_BITMAP3, eoi_exit_bitmap[3]);
+ }
+ 
+-static void handle_nm_fault_irqoff(struct kvm_vcpu *vcpu)
+-{
+-	/*
+-	 * Save xfd_err to guest_fpu before interrupt is enabled, so the
+-	 * MSR value is not clobbered by the host activity before the guest
+-	 * has chance to consume it.
+-	 *
+-	 * Update the guest's XFD_ERR if and only if XFD is enabled, as the #NM
+-	 * interception may have been caused by L1 interception.  Per the SDM,
+-	 * XFD_ERR is not modified for non-XFD #NM, i.e. if CR0.TS=1.
+-	 *
+-	 * Note, XFD_ERR is updated _before_ the #NM interception check, i.e.
+-	 * unlike CR2 and DR6, the value is not a payload that is attached to
+-	 * the #NM exception.
+-	 */
+-	if (is_xfd_nm_fault(vcpu))
+-		rdmsrq(MSR_IA32_XFD_ERR, vcpu->arch.guest_fpu.xfd_err);
+-}
+-
+-static void handle_exception_irqoff(struct kvm_vcpu *vcpu, u32 intr_info)
+-{
+-	/* if exit due to PF check for async PF */
+-	if (is_page_fault(intr_info))
+-		vcpu->arch.apf.host_apf_flags = kvm_read_and_reset_apf_flags();
+-	/* if exit due to NM, handle before interrupts are enabled */
+-	else if (is_nm_fault(intr_info))
+-		handle_nm_fault_irqoff(vcpu);
+-	/* Handle machine checks before interrupts are enabled */
+-	else if (is_machine_check(intr_info))
+-		kvm_machine_check();
+-}
+-
+-static void handle_external_interrupt_irqoff(struct kvm_vcpu *vcpu,
+-					     u32 intr_info)
+-{
+-	unsigned int vector = intr_info & INTR_INFO_VECTOR_MASK;
+-
+-	if (KVM_BUG(!is_external_intr(intr_info), vcpu->kvm,
+-	    "unexpected VM-Exit interrupt info: 0x%x", intr_info))
+-		return;
+-
+-	kvm_before_interrupt(vcpu, KVM_HANDLING_IRQ);
+-	x86_entry_from_kvm(EVENT_TYPE_EXTINT, vector);
+-	kvm_after_interrupt(vcpu);
+-
+-	vcpu->arch.at_instruction_boundary = true;
+-}
+-
+-void vmx_handle_exit_irqoff(struct kvm_vcpu *vcpu)
+-{
+-	if (to_vt(vcpu)->emulation_required)
+-		return;
+-
+-	switch (vmx_get_exit_reason(vcpu).basic) {
+-	case EXIT_REASON_EXTERNAL_INTERRUPT:
+-		handle_external_interrupt_irqoff(vcpu, vmx_get_intr_info(vcpu));
+-		break;
+-	case EXIT_REASON_EXCEPTION_NMI:
+-		handle_exception_irqoff(vcpu, vmx_get_intr_info(vcpu));
+-		break;
+-	case EXIT_REASON_MCE_DURING_VMENTRY:
+-		kvm_machine_check();
+-		break;
+-	default:
+-		break;
+-	}
+-}
+-
+ /*
+  * The kvm parameter can be NULL (module initialization, or invocation before
+  * VM creation). Be sure to check the kvm parameter before using it.
+diff --git a/arch/x86/kvm/vmx/x86_ops.h b/arch/x86/kvm/vmx/x86_ops.h
+index 054fd14bb2e1..7ac02c68457f 100644
+--- a/arch/x86/kvm/vmx/x86_ops.h
++++ b/arch/x86/kvm/vmx/x86_ops.h
+@@ -27,7 +27,6 @@ void vmx_vcpu_reset(struct kvm_vcpu *vcpu, bool init_event);
+ void vmx_vcpu_load(struct kvm_vcpu *vcpu, int cpu);
+ void vmx_vcpu_put(struct kvm_vcpu *vcpu);
+ int vmx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t exit_fastpath);
+-void vmx_handle_exit_irqoff(struct kvm_vcpu *vcpu);
+ int vmx_skip_emulated_instruction(struct kvm_vcpu *vcpu);
+ void vmx_update_emulated_instruction(struct kvm_vcpu *vcpu);
+ bool vmx_unhandleable_emulation_required(struct kvm_vcpu *vcpu);
+-- 
+2.55.0.887.g758fc8c411-goog
 
