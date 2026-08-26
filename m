@@ -1,128 +1,324 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE1993ACA60;
-	Wed, 26 Aug 2026 13:13:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB9663BBFDB
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:14:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787750003; cv=none; b=lKqgJsd7Rj3wgBh9fzEmLmDHR5MYhb2zoK58OpyLtMXcb7C8oK0LRap3NLh9aSJphP1qJUnyVeXwTLpNbolXYHROAkTe78I5e3QU1lucVESc1Ou9GU/2JIRECAAHE9YmzQHNSSBncBsCxgMTW9hNk/Pm5hEbXu/p37LZH+McMWw=
+	t=1787750074; cv=none; b=D1k8/TxxeUKLgf+wnvnlZAgzJPW34rfXftQMHvrdB7Lh5J13yUKZFFoY4WFZcUvvvrFz5jWwhryQTeNiybdUhxSnmL31Tu7ZYB06Az8rUrbeGWe4VeuQEGJrt8MrrPNwbrKbezyJlCL1oSYxZXmPF3ZXLu4uta7Wzwzudvv37Ys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787750003; c=relaxed/simple;
-	bh=1b2SVjukbKCo0X3pkEOxobw6ByY3B5DI5lbRmosxgFc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EUWFXX1UIdTVq5tqAFmj4N5r7EMd/Y0FMvZhNa5ancoz6PXVtg47MFXniCpw+vl57dy+Jm3+8qzRxWgWrv4yGOyLIfIoxDcwd/2+F6zMkNIXZRu6OTgCtlSZwHvJsTcho/FdQVFhZqfshstu1FmZ8zn4XlxQofL/sXbFrDjJbdU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ELUdfJAu; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787750074; c=relaxed/simple;
+	bh=TONygGSLK9eRUQeUSACVoCsHZVIfM7GHGYxKbUihzRg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JU3AzBYztKUzSWEYRBDy5GVJnWoiBq/ofhLdRjF41pLIJ/ahGLFJaNy64IH8Zg7vcxhio66CtvSLybID5VxTd40dLy3/713SIRX5DjJwACoo6fFi9i3ktj2czkiLdrv4RbJo7qaeN5YPW6mdMgA5amehi8wsxFbxnq1Or31f/J8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mGyuCiGG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=h/BFi3c2; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ELUdfJAu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787750002; x=1819286002;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=1b2SVjukbKCo0X3pkEOxobw6ByY3B5DI5lbRmosxgFc=;
-  b=ELUdfJAuFqQWsnPqVlU/BCHvcAGI354fjeRtfApjjTSqTk4W78NSgIb2
-   1SgOfrlZYzIDNgZODvWTafw1PjO1eU8+VaIxfqlc3hBlwxXviQ/tAUEoi
-   io+Z3sx0Ge80Ct/uvzyDSYsZQ10a0Yi6qylMlw3KG15Wpnemgk0/DyWsi
-   t5BWeGnRAXKs1hmxZsW2roIUJETuus2c0ZMLDshwfWJ0A8igV6qiPmZXq
-   lzhlraUvoNmR2gA+gSXFnszplex2fTcAQL6bdx6YYNCA0qo48/rVvfnHC
-   x778KXEQEgfUTIFWz16d0CNqUQGu+WwWU/2GFZuTYYKhltcIlWR71eXUI
-   A==;
-X-CSE-ConnectionGUID: WhevcbnHR62qJcpzFk4yPw==
-X-CSE-MsgGUID: G8R3zMOHQsSg2wMbYnHtyQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11886"; a="88286042"
-X-IronPort-AV: E=Sophos;i="6.25,244,1779174000"; 
-   d="scan'208";a="88286042"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 06:13:22 -0700
-X-CSE-ConnectionGUID: c6ACN6KzQ46Ocrvx3+W1PA==
-X-CSE-MsgGUID: /jadoocsTGSovJxJo6nrPQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,244,1779174000"; 
-   d="scan'208";a="271074998"
-Received: from rchatre-mobl4.amr.corp.intel.com (HELO [10.125.109.37]) ([10.125.109.37])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 06:13:21 -0700
-Message-ID: <1e77b1f6-0491-464b-b79f-ca756a73e7ea@intel.com>
-Date: Wed, 26 Aug 2026 06:13:21 -0700
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mGyuCiGG";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="h/BFi3c2"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QCBn5e3983363
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:14:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=9b65bGNzy50Pq14wclGP/2PS
+	9e7oVjr2Cl6312ucGxg=; b=mGyuCiGG+vlg2M5GqPw79eoVKBFrxAOoWmHjz32h
+	BLhsTETjNIsn3j3JMf8GZpYSM3sonU4I5sXSjAQ/XYsZJlooQUA0zos6VpR3cUAR
+	y674nCmmb/Nl6SXgvq4mmtaHTgkRMtb7Fgiy4NqjQWqzf2m7Xr7fBS0vRA9MF6L9
+	CswdFbefabXFGRxMnvLmFbytZyVVKdAE/fv0koUh+g5Gf79LffkEbBofjYgLTS/W
+	ttkSYmx/TY5I/BzOavnXys5p5w0uhKMc9pnE6SfSzxzK5BHj3E4EA6puRD/72iUl
+	zy7EaNLIZcVRS91JKHH8H9XUBCFICAwhv9rO0bsrukkFAg==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g9wmqru06-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:14:31 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-38ea32e57e2so2296265a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 06:14:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787750070; x=1788354870; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9b65bGNzy50Pq14wclGP/2PS9e7oVjr2Cl6312ucGxg=;
+        b=h/BFi3c2wyG6KEiXNiMMSwnlL3bYtpFkzo+5ZxfuJg6cEemWwwWDV5EnnnHEPGtQVA
+         vzlC91kRwN9NefUUw2iKbtJ6AenYwTKNzwGDCIwnCDL4g1ojJJTX/3E8ELxxiuhleYD/
+         5praHztxTq6H/qdndMAsvoL1mp+zJW06sOlz44Z+qnR628xNyP9iSgns5ztWSNrhq0fV
+         ZSUSuympFn/U/2bQWNxStqgHmuKVj7iWgQCdBj5SHTCQPQI8b1BgVDj9teCEmMD70OtJ
+         h2uU85wOovNs4jPRM3MhO742rWek2oCE2C1VOponnOZowxLy+yWNQErEBmsgJMErkBFT
+         suDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787750070; x=1788354870;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9b65bGNzy50Pq14wclGP/2PS9e7oVjr2Cl6312ucGxg=;
+        b=f4ShuTKqaZ9CvcPKH56/xRUkmoT/KjVL9OngDLLlTVTC72xd/QLEjWKwT4SUCIMdGU
+         gzaKuxILOkHxEbHmPL2JXW2+2eR4NiEhXQ6IAGxBlN4HthyDvKwRM7C7f9IHvqcCvniR
+         DverAUq5198b2oKJp/FTtz9x3CATf2bEGsLTYmbd0yjpi3MW13vru904pvH0h2fSrnW8
+         /Naiui9htHIm3Ghnzc3GzEQKOcXgGdhReIYjBW0bbqTy8PeVl+6UX1z6cb11BtlM1VX5
+         EIcRClEQV0YbjkU6Zk2W93cE/uLBAKBExp2LVqaLlI/ndlQGWC04ueQSvrli9OD7TNfU
+         T6PQ==
+X-Forwarded-Encrypted: i=1; AHgh+Ro4VfzzjWacVJfLWZeJ7/tqggzag+ic4qeqSFMFYMcD2C3CcpO8xpFhd6BcjPVH3+7/0HYtg6xkjn9eFkk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nNP3u6xDGtNrC09Xv59dttOUMfex6ULDrG/H2TEXyAgF1kg9Pj
+	hV5O05YaBf27xaXkOEcliTmvC0G+nClS0E4Vry/CRaV0Rayv7P/GduozZNL0CUri38j7qo9LlJu
+	+6eIoLs/lF6gv7RkEzr4npi4OqHInXBTzW/QEPU57UpZRWEjhTuc7OxKaG0rWShCwErw=
+X-Gm-Gg: AR+sD10QjQMg50dwzGpeUf5YeZf5Q+2HqfCLjI9WAtoqaaWN+i97s6xIKD+4pe5dQ50
+	9uM3rcdVivWPez1HdkZjSQ7XE8fG7mn/gMoiMRnJgw+F75Xy4xomIkR5TERQF76Eka4jTaHb2QR
+	CQt6Yy6+idHV71RKRm7zdKrJRORXzxu2j2YMcaVTvvBSD+1vSobn6kcVZ0t9fDMiIfENecNv7M7
+	TEpdfd2YVIVy22LvOjW48/6GVfIr+lHVBcuGhanf3zwZVWjJ6XREX27JbWDQ6BfRvzfsEByRF7h
+	tnh1n0s1eqeyp2L5g8O2BWm7LSPJAiCPc/3tw1pPdBv4RMl/SIILbQjO+kVLVbiYkchzbmw0tA2
+	OxU2fC9b5/22tfaJozp1Ucyr5l3sPztyUI8bIbIYIWfM=
+X-Received: by 2002:a17:90b:4c4a:b0:38e:ad9d:1161 with SMTP id 98e67ed59e1d1-3966d00a01amr13595726a91.0.1787750070274;
+        Wed, 26 Aug 2026 06:14:30 -0700 (PDT)
+X-Received: by 2002:a17:90b:4c4a:b0:38e:ad9d:1161 with SMTP id 98e67ed59e1d1-3966d00a01amr13595579a91.0.1787750069721;
+        Wed, 26 Aug 2026 06:14:29 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39645b07394sm8149417a91.4.2026.08.26.06.14.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 06:14:29 -0700 (PDT)
+Date: Wed, 26 Aug 2026 21:14:22 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/4] pmdomain: qcom: rpmhpd: Add NMXC power domain for
+ Nord
+Message-ID: <ao7mrrW_ob77EAIp@QCOM-aGQu4IUr3Y>
+References: <20260826102746.633076-1-shengchao.guo@oss.qualcomm.com>
+ <20260826102746.633076-3-shengchao.guo@oss.qualcomm.com>
+ <6b2f4411-9c38-4b82-b605-6b9a047ab973@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/virt/tdx: Warn on !4K level in tdh_mem_page_aug()
-To: Yan Zhao <yan.y.zhao@intel.com>, Sean Christopherson <seanjc@google.com>
-Cc: kas@kernel.org, dave.hansen@linux.intel.com, x86@kernel.org,
- linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
- linux-coco@lists.linux.dev, rick.p.edgecombe@intel.com, pbonzini@redhat.com,
- tglx@kernel.org, mingo@redhat.com, bp@alien8.de, kai.huang@intel.com,
- yilun.xu@linux.intel.com, vannapurve@google.com, ackerleytng@google.com,
- sagis@google.com, binbin.wu@linux.intel.com, xiaoyao.li@intel.com
-References: <20260825025533.25663-1-yan.y.zhao@intel.com>
- <ao2ZH8dmkPfBDnGv@google.com> <ao6UVdWNbhQaAFsm@yzhao56-desk.sh.intel.com>
-Content-Language: en-US
-From: Dave Hansen <dave.hansen@intel.com>
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <ao6UVdWNbhQaAFsm@yzhao56-desk.sh.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6b2f4411-9c38-4b82-b605-6b9a047ab973@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDEwOSBTYWx0ZWRfX1MjVZ4xZfuzK
+ sDKRt9pdIbkw67FGSBziOwrEmfSAgF8Ys15w3UaxEqNR6u16MhjWhapj2S+S95Z2CBsg6Zjakyh
+ PSoAw7qmOcGozwRDRWIr40Xbp8g02hM=
+X-Proofpoint-ORIG-GUID: AJbT9NOuMpJUH4DcsLPzbLjRyt9l87QF
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDEwOSBTYWx0ZWRfX+0UFPTT6VORY
+ 3JCl/4aQXdmo71kgmlGEjLqTtxBJYUvl+X4D8kfFiGweO6K2W68MhsxOKbPGbCF/I0pCOnDLPAV
+ Ch84nYOf1hR/Bw1UP97Dl7HL69gI1PlMKPC0LOAYltAVdWMML8OOCQaiSokB08DivuVUQTajN7u
+ VyCYFTuYiGWXG470sJWv+CdWUbBElFOqexJ3PnzJrksUxOI73dHEWqyiSfF3u3XOacx4QxdAxXG
+ gMreQQzP10abSpNVH6Z6/e970nI8Ud/fvrAp65DG/YwGTeyUSEflEFIkQVZI7shr2o9dQdKnjtu
+ /4N1GPEpU+eKhCY4h9esjYltHeX47wVlalHPltqJKTa+ru5lyaMzr0KfVOVu9b8d1NeDzN/ez58
+ ssZ5B/DhSeYjUfa/gpZ86ZLzpN0u2CLAIS8RpDl+CohgmcBZXCBZBWMA28018gENaAQAAqkeWrt
+ GUmkgC6JAu1hHC2R6+w==
+X-Authority-Analysis: v=2.4 cv=T9S8ifKQ c=1 sm=1 tr=0 ts=6a8ee6b7 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=3Qi1WCIwDasdfMXOsCAA:9 a=CjuIK1q_8ugA:10
+ a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-GUID: AJbT9NOuMpJUH4DcsLPzbLjRyt9l87QF
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-26_03,2026-08-26_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 suspectscore=0 priorityscore=1501 malwarescore=0 phishscore=0
+ lowpriorityscore=0 clxscore=1015 spamscore=0 impostorscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260109
 
-On 8/26/26 00:23, Yan Zhao wrote:
-> Do not extend the CLFLUSH coverage to make tdh_mem_page_aug() work with
-> huge pages. Not only would this scatter huge page related changes across
-> multiple series, but it also makes little sense to have tdh_mem_page_aug()
-> alone work for huge pages without implementing its counterparts in the
-> unmapping and splitting paths.
+On Wed, Aug 26, 2026 at 03:04:33PM +0200, Konrad Dybcio wrote:
+> On 8/26/26 12:27 PM, Shawn Guo wrote:
+> > From: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
+> > 
+> > Add the nmxc.lvl RPMh resource and register it in the Nord power domain
+> > table. Nord supplies the NSP memory rail from this dedicated resource
+> > rather than from the shared MX rail, so consumers need it exposed as its
+> > own power domain.
+> > 
+> > Signed-off-by: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
+> > Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> > ---
+> >  drivers/pmdomain/qcom/rpmhpd.c | 6 ++++++
+> >  1 file changed, 6 insertions(+)
+> > 
+> > diff --git a/drivers/pmdomain/qcom/rpmhpd.c b/drivers/pmdomain/qcom/rpmhpd.c
+> > index 96e4bd2f5a14..717c44d1c39a 100644
+> > --- a/drivers/pmdomain/qcom/rpmhpd.c
+> > +++ b/drivers/pmdomain/qcom/rpmhpd.c
+> > @@ -198,6 +198,11 @@ static struct rpmhpd mxc_ao = {
+> >  	.res_name = "mxc.lvl",
+> >  };
+> >  
+> > +static struct rpmhpd nmxc = {
+> > +	.pd = { .name = "nmxc", },
+> > +	.res_name = "nmxc.lvl",
+> 
+> The commandDB sources suggest this shouls be nspmxc.lvl instead..
+> 
+> Can you dump /sys/kernel/debug/cmd-db?
 
-For me, it's all about simplicity. It's bad to add *complexity* for
-future functionality because it might not ever get used. But in this
-case, the (Sean-suggested) change is pretty simple. It's more
-complicated to *not* fix the bug and *explain* why it's not being fixed
-than to just fix the dang thing.
+root@qcom-armv8a:~# cat /sys/kernel/debug/cmd-db
+Command DB DUMP
+Slave ARC (v16.0)
+-------------------------
+0x30000: cx.lvl [00 00 10 00 10 00 c0 00 00 01 80 01 a0 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+0x30004: cx.tmr
+0x30010: mx.lvl [00 00 10 00 c0 00 00 01 80 01 a0 01 b0 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+0x30014: mx.tmr
+0x30020: ebi.lvl [00 00 10 00 c0 00 00 01 80 01 a0 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+0x30024: ebi.tmr
+0x30030: gfx.lvl [00 00 01 00 c0 00 00 01 80 01 a0 01 b0 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+0x30034: gfx.tmr
+0x30040: ddr.lvl [00 00 20 00 80 00 a0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+0x30044: ddr.tmr
+0x30050: mmcx.lvl [00 00 01 00 c0 00 00 01 80 01 a0 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+0x30054: mmcx.tmr
+0x30060: nsp0.lvl [00 00 01 00 c0 00 00 01 80 01 a0 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+0x30064: nsp0.tmr
+0x30070: mxc.lvl [00 00 10 00 c0 00 00 01 80 01 a0 01 b0 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+0x30074: mxc.tmr
+0x30080: nsp1.lvl [00 00 01 00 c0 00 00 01 80 01 a0 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+0x30084: nsp1.tmr
+0x30090: nsp2.lvl [00 00 01 00 c0 00 00 01 80 01 a0 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+0x30094: nsp2.tmr
+0x300a0: nsp3.lvl [00 00 01 00 c0 00 00 01 80 01 a0 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+0x300a4: nsp3.tmr
+0x300b0: nmxc.lvl [00 00 10 00 c0 00 00 01 80 01 a0 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+0x300b4: nmxc.tmr
+0x300c0: gic.lvl [00 00 20 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+0x300c4: gic.tmr
+0x300d0: ds.lvl [00 00 20 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+0x300d4: ds.tmr
+0x300e0: gfx1.lvl [00 00 01 00 c0 00 00 01 80 01 a0 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+0x300e4: gfx1.tmr
+0x300f0: xo.lvl [00 00 20 00 50 00 80 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+0x300f4: xo.tmr
+Slave ARC (v16.0)
+-------------------------
+0x00000: cx.mol [80 00]
+0x00000: mx.mol [c0 00]
+0x00000: ebi.mol [c0 00]
+0x00000: gfx.mol [80 00]
+0x00000: ddr.mol [a0 00]
+0x00000: mmcx.mol [80 00]
+0x00000: nsp0.mol [80 00]
+0x00000: mxc.mol [c0 00]
+0x00000: nsp1.mol [80 00]
+0x00000: nsp2.mol [80 00]
+0x00000: nsp3.mol [80 00]
+0x00000: nmxc.mol [c0 00]
+0x00000: gic.mol [20 00]
+0x00000: ds.mol [20 00]
+0x00000: gfx1.mol [80 00]
+0x00000: xo.mol [80 00]
+Slave BCM (v16.0)
+-------------------------
+0x50000: MC0 [40 d0 1b 01 40 00 00 00]
+0x50094: MC1 [40 d0 1b 01 40 00 00 00]
+0x5009c: MC2 [40 d0 1b 01 40 00 00 00]
+0x50080: MC3 [40 d0 1b 01 40 00 00 00]
+0x50004: SH0 [c0 ea 21 01 00 01 01 00]
+0x50008: SH1 [c0 ea 21 01 00 01 01 00]
+0x50098: SH2 [c0 ea 21 01 00 01 01 00]
+0x50084: SH3 [c0 ea 21 01 00 01 01 00]
+0x50010: SN0 [10 e4 1f 00 40 00 03 00]
+0x50014: SN1 [10 e4 1f 00 40 00 03 00]
+0x50018: SN2 [10 e4 1f 00 10 00 03 00]
+0x5001c: SN3 [10 e4 1f 00 10 00 03 00]
+0x50024: SN4 [10 e4 1f 00 10 00 03 00]
+0x50028: MM0 [b0 db 23 00 40 00 04 00]
+0x5002c: MM1 [b0 db 23 00 40 00 04 00]
+0x50030: CN0 [e0 22 02 00 04 00 05 00]
+0x50034: CN1 [e0 22 02 00 04 00 05 00]
+0x50038: CE0 [fc 5c 00 00 08 00 06 00]
+0x50070: CE1 [fc 5c 00 00 08 00 06 00]
+0x50074: CE2 [fc 5c 00 00 08 00 06 00]
+0x5003c: IP0 [28 00 00 00 08 00 07 00]
+0x50040: QUP0 [14 00 00 00 04 00 08 00]
+0x50044: QUP1 [14 00 00 00 04 00 08 00]
+0x50048: QUP2 [14 00 00 00 04 00 08 00]
+0x50068: QUP3 [14 00 00 00 04 00 08 00]
+0x5004c: C0N0 [60 b7 47 00 40 00 09 00]
+0x50050: C1N0 [60 b7 47 00 40 00 0a 00]
+0x50054: C2N0 [60 b7 47 00 40 00 0b 00]
+0x50058: C3N0 [60 b7 47 00 40 00 0c 00]
+0x5005c: CP0 [30 75 00 00 04 00 0d 00]
+0x50060: DCP0 [30 75 00 00 04 00 0e 00]
+0x50064: DTP0 [80 38 01 00 04 00 0f 00]
+0x5006c: ALC [01 00 00 00 00 00 11 00]
+0x50088: ACV [01 00 00 00 00 00 12 00]
+Slave VRM (v1.0)
+-------------------------
+0x4d000: vrm.aoss [03 da 00 00]
+0x4d004: vrm.ds [03 da 00 00]
+0x40200: S1A_E0 [01 0b 00 00]
+0x40300: S3A_E0 [01 0d 00 00]
+0x40000: S5A_E0 [01 11 00 00]
+0x40400: S6A_E0 [01 13 00 00]
+0x40500: S8A_E0 [01 17 00 00]
+0x40500: vrm.ebi [01 17 00 00]
+0x40600: L4A_E0 [01 49 00 00]
+0x40700: L6A_E0 [01 4b 00 00]
+0x40800: L7A_E0 [01 4c 00 00]
+0x40b00: L8A_E0 [01 4d 00 00]
+0x4a000: C1A_E0 [02 69 00 00]
+0x4a000: vrm.xob [02 69 00 00]
+0x4a100: C2A_E0 [02 6a 00 00]
+0x4a100: lnbclka2 [02 6a 00 00]
+0x4a200: C3A_E0 [02 6b 00 00]
+0x4a200: lnbclka3 [02 6b 00 00]
+0x4a300: C4A_E0 [02 6c 00 00]
+0x4a300: divclka1 [02 6c 00 00]
+0x40c00: S1E_E0 [01 1b 00 00]
+0x40c00: vrm.nsp3 [01 1b 00 00]
+0x40d00: S7E_E0 [01 1d 00 00]
+0x40d00: vrm.mx [01 1d 00 00]
+0x40e00: L1E_E0 [01 4f 00 00]
+0x40f00: L2E_E0 [01 50 00 00]
+0x41600: L3E_E0 [01 51 00 00]
+0x41700: S1F_E0 [01 1f 00 00]
+0x41700: vrm.nsp1 [01 1f 00 00]
+0x40100: S7F_E0 [01 21 00 00]
+0x41800: S8F_E0 [01 23 00 00]
+0x41000: L1F_E0 [01 52 00 00]
+0x41900: L3F_E0 [01 54 00 00]
+0x41a00: S1G_E0 [01 25 00 00]
+0x41a00: vrm.nsp0 [01 25 00 00]
+0x41b00: S5G_E0 [01 27 00 00]
+0x41100: L2G_E0 [01 56 00 00]
+0x41c00: S1H_E0 [01 2b 00 00]
+0x41c00: vrm.nsp2 [01 2b 00 00]
+0x41d00: S5H_E0 [01 2d 00 00]
+0x41d00: vrm.mxc [01 2d 00 00]
+0x41200: L1H_E0 [01 58 00 00]
+0x40900: L2H_E0 [01 59 00 00]
+0x41e00: S2I_E0 [01 31 00 00]
+0x41e00: vrm.gfx [01 31 00 00]
+0x41f00: S7I_E0 [01 00 00 00]
+0x41f00: vrm.mmcx [01 00 00 00]
+0x41300: L1I_E0 [01 5b 00 00]
+0x40a00: L2I_E0 [01 5c 00 00]
+0x42000: L3I_E0 [01 5d 00 00]
+0x42100: S7J_E0 [01 00 00 00]
+0x42100: vrm.gfx1 [01 00 00 00]
+0x41400: L1K_E0 [01 61 00 00]
+0x41500: L2K_E0 [01 62 00 00]
+0x42200: L3K_E0 [01 63 00 00]
+0x42300: S1L_E0 [01 00 00 00]
+0x42300: vrm.nmxc [01 00 00 00]
+0x42400: S2L_E0 [01 45 00 00]
+0x42400: vrm.cx [01 45 00 00]
+0x42500: L3L_E0 [01 66 00 00]
+0x4a400: vrm.sail [02 67 00 00]
 
-Also, it's just generally a good idea to carry a length along with a
-pointer. <cough>strlen()<cough>
+Shawn
