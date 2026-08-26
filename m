@@ -1,221 +1,158 @@
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011066.outbound.protection.outlook.com [52.101.65.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6891347D952
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 19:44:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787773494; cv=none; b=lM+SWZ8LMeZQelWX6COYK2p8RZxO1Var9bnqE4dPlgAFvlYrllVZbWXf+Gtlg0RUgNBDrm3rmFAXjbzI5zeeKJBtj4pzouAdgjEm+prTVYoFXXwF8nRwC/iQey3ubBZ5DMMdmaHEvpTyxwvYBf6EEXsLDHZtQgJcwtulEuAi4Zk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787773494; c=relaxed/simple;
-	bh=4uZPzlY33aYdoyT/xRZbAIP4+YBkQh6pbbwV+qhDm9o=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=sQJjU59gOsPPiJQ/B1Vob5f/KjpKxTJiV7v3WkJ6xLQEclcGOp1iukxOtZ46EUh3bKS60ciVoBzFFbScyVSj3/NQ2LVBhs9A+gsULJht7+cTwqGHpaaKtCZf0cFg5KaSYrIM/zrnwRhe4OsX+fG+se5uW26Rsue6iD8gN3tvFVs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=F9fJ2oxk; arc=none smtp.client-ip=209.85.215.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D07247B438;
+	Wed, 26 Aug 2026 19:45:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.66
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787773535; cv=fail; b=CvVs9H6PLMlLvLhM2lq91JsG92b8PhplSuFJa1a6jee8Ai8R40wjNhfw6laFzIxBJEgWyDf8xYFT0oAocNybmn6dqCXqrTH84E8vs49Jauf7J4gP2ZESmjWsGFMLsJVFgSJHGlzs4T7tNOr+4gskvaYVI9HJs6mhxW5vvU9qm6E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787773535; c=relaxed/simple;
+	bh=9NSBxgJpLM1jZuDQ+Xy5bSTxw1uZNwWu6AGPDeBQxAE=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=XWG2tkDR2TE3GAh0GzeDIYv3sTq2Lyc8YLJrFKPNB8RzdK5py8Ur0bF18yGH3kHuHcuA7/xLZnacWh/fg4FwdF47d9pQJzlVxDJT89udAUpmQmI65nLoZ0l3SO/D4FJdzhczpwwL5cUZ8ye81KzYbiJJ455itYlY6b9zgUV4S1E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=tWBMg2cW; arc=fail smtp.client-ip=52.101.65.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="F9fJ2oxk"
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cbb92868263so1007395a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 12:44:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787773482; x=1788378282; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kAAUyb+BT/S16pFGAm4l7OAoO0iSt3CMmhZez+eRZtg=;
-        b=F9fJ2oxkdgl0eiteWV1ixsN6qOcIqGb+oWpZJNjNftBAzzqQi69cUHU8A49W9Ogpv3
-         tbiiWzGxOdt0zEfK+Ipt3yU+B8To3hbf0LItcX2uXJj63vWpmU7VYGRolp5RYXSTCkBO
-         vasf/F2NhQC+8YzisXODKc+uepKhB77wunWsAZtWGVHdssAR4JZdlU1+4BPWA7wsXtf/
-         fKd3a+8xXFme6yWfvA8e3BXO0klMEmAAFeFv0djfazS6KwrAYF+DF0YX0L1bfUh1cFYB
-         lZ/Mbe1ha9vEkOn8Grha7uMsL799mlM/WLXgEXzT1s+KNqCEYHNZmeaGUCGXF5syWoIv
-         lY4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787773482; x=1788378282;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kAAUyb+BT/S16pFGAm4l7OAoO0iSt3CMmhZez+eRZtg=;
-        b=jrOyIKGxnjbhcbtbbAHeL+HNcbP8Y17CDJ+XH78GDPwYsYBcSSP421VNuK8EFdCdSM
-         IHLGAUhL5LC9JngbsWUhZ6QsX1dN84gOQefXFLDjRLF7oc9Tea4jWDv4nLgWk6v8uXhv
-         bfRLaj0esnwk6yKl54fcr6IQsAU9ErP9eVPawjmJ952cOxCkJizNhMARkpN1tVxodd3h
-         0KazglASz4r/77nzYjL9Vgr/6tNDD9bY0pUNW4mEmZn8Tx9NUx/7ICBUxhDKRTwnh5VV
-         ztiBFpiOR1327S9Wrtuxer0fqVIsWdKWqzv3uZSDBkgQPZuzzk+YX/dRGPPJZHnEmtap
-         iTlg==
-X-Forwarded-Encrypted: i=1; AHgh+RoNRPlSNn1waaMwrU2Q/HK4pCmn3J5UaNyWn24AjVV8nhLXQDTehlgH1o1rXIO4KURRQuGZnw/ae1C8ybk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lqnWZHS9vwBWJ9eXTsmQS8cWTnTNtF74BrgHigeb33iO66B8Qn
-	zLe6DWceb/YeofdUXJ1muxSMw9yoXQEmfl2Qu2XWIuH62KL3VjPjwqoLGaUq+/g2rEhW5ghjERA
-	43lkwQg==
-X-Received: from pgak6.prod.google.com ([2002:a05:6a02:6746:b0:cbe:9e80:c394])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:3216:b0:3c0:b943:f984
- with SMTP id adf61e73a8af0-3cf76286193mr19120390637.3.1787773481481; Wed, 26
- Aug 2026 12:44:41 -0700 (PDT)
-Date: Wed, 26 Aug 2026 12:44:40 -0700
-In-Reply-To: <20260826-gmem-inplace-conversion-v11-15-0a15d8a799aa@google.com>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="tWBMg2cW"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pRCDWZdhfb5lPP7VOnVOyHTqxJ10Ci/EskTXUbyuFcR7tcD+6nApxHxsnODTOuhYLm/2gxG318+hcmp2t4ihqFx3kXrWuj027VOIY1CXQXQ59aUtJQT350fAM5g5+efVTwKrNBJLrWWLLG5R6Wd7nGi9sJCIDVlLBZ+X0Hpzs0yIw7/bkJHZ8DqlMY5RVil9muXpY8+ixIxBh6+J6Z1uG6AefmgNAmcfmQHehQ4TwLpGvmCr/7GgOahSrv86AinKpMDRunzbUeIH5+NE9xeE1dz5nXj4gU9PqsRay3n5kl1Fro6xSCE7kZlbHKtnz+Cb0bQdJ/P6ws9sTXLiesS3dA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ufDSClxPTlsrvhyuQ2pkjQSTA//rNJ34jHKXrrAvfTY=;
+ b=G0UZU/TjBnMuddMoc+AZoNCrL8mMcu9JfD1HZ4n8KLsezeo2MS6LDRwJ+WythtoXk1f1dZ8nZFXKCWcP0jCY2+KmHI171NPPOKhugOTWwkYlQ9Bvt5o0DCSAmy2IPs0kwbOKdkGvgM05IANVuVqRJoxaXiGAwSBtkh1x7uwiJLHfRrPNydGsNLDBCy6iy38r1Jx03/noymdbaLqXw5V4jzHQG78vHUBKZ7bnDdDilgewJr71mK9FeXyEzPEZpF6dD/aoOe8mJ15X7N3jBVxUjr+XP+DEXvBdIhwDXgICiLmfMsDX7wyRQKVrsp0Do5BhAyrxLlqUALFIq4kSzs0jSA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ufDSClxPTlsrvhyuQ2pkjQSTA//rNJ34jHKXrrAvfTY=;
+ b=tWBMg2cWOM87QtWhS4SsbK+23lY8nZZO6tRYSms0FO2s4XVIj9tXvk0DqSgapQew6y2ZCZgvAwusPEuzAB8sVRUNclY6rsMyrke4cAEBI0yhoBBWkIMkR9t1Cbq11gHFw2K1t7N2nAuGs0xAPE6cC1iNNH4DuepQ5+pTZerkIVCajLnGVXtdndwnGcsqVB/ncuLIE+1t/1UBd75GscVc2twNhq/uV2PTARBSRmibkJ1ALXVHwqHGNHaBKkbRaVXbAhgIzBTs6XfAxS8xD9FQcKpb3k3GoCRcPFapfl8qQsqCUusXIP0j6u96rc52Ml6B5swaFIFLz4TEIQr3pszAGQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by GV2PR04MB11398.eurprd04.prod.outlook.com (2603:10a6:150:2ae::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.8; Wed, 26 Aug
+ 2026 19:45:13 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.006; Wed, 26 Aug 2026
+ 19:45:12 +0000
+From: Frank.Li@oss.nxp.com
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Frank Li <Frank.Li@nxp.com>,
+	Wensheng Wang <wenswang@yeah.net>,
+	Cosmo Chou <chou.cosmo@gmail.com>,
+	Colin Huang <u8813345@gmail.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Eddie James <eajames@linux.ibm.com>,
+	Dixit Parmar <dixitparmar19@gmail.com>,
+	Antoni Pokusinski <apokusinski01@gmail.com>,
+	Thorsten Blum <thorsten.blum@linux.dev>,
+	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+	linux-kernel@vger.kernel.org (open list)
+Cc: imx@lists.linux.dev
+Subject: [PATCH 1/1] dt-bindings: trivial-devices: Add SDMC DM2016
+Date: Wed, 26 Aug 2026 15:44:44 -0400
+Message-ID: <20260826194447.3230715-1-Frank.Li@oss.nxp.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SA9P223CA0004.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:806:26::9) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260826-gmem-inplace-conversion-v11-0-0a15d8a799aa@google.com> <20260826-gmem-inplace-conversion-v11-15-0a15d8a799aa@google.com>
-Message-ID: <ao9CKMXAX-hScRSa@google.com>
-Subject: Re: [PATCH v11 15/46] KVM: guest_memfd: Call arch make_shared
- callback for to-shared conversion
-From: Sean Christopherson <seanjc@google.com>
-To: Ackerley Tng <ackerleytng@google.com>
-Cc: aik@amd.com, andrew.jones@linux.dev, binbin.wu@linux.intel.com, 
-	brauner@kernel.org, chao.p.peng@linux.intel.com, david@kernel.org, 
-	jmattson@google.com, jthoughton@google.com, michael.roth@amd.com, 
-	oupton@kernel.org, pankaj.gupta@amd.com, qperret@google.com, 
-	rick.p.edgecombe@intel.com, rientjes@google.com, shivankg@amd.com, 
-	steven.price@arm.com, willy@infradead.org, wyihan@google.com, 
-	yan.y.zhao@intel.com, forkloop@google.com, pratyush@kernel.org, 
-	suzuki.poulose@arm.com, aneesh.kumar@kernel.org, liam@infradead.org, 
-	Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
-	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Shuah Khan <shuah@kernel.org>, Vishal Annapurve <vannapurve@google.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
-	Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
-	Wei Xu <weixugc@google.com>, Youngjun Park <youngjun.park@lge.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Baoquan He <baoquan.he@linux.dev>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, tarunsahu@google.com, 
-	Fuad Tabba <fuad.tabba@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-mm@kvack.org, linux-coco@lists.linux.dev
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GV2PR04MB11398:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9049245a-3da0-4cfb-956d-08df03aa8b34
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|7416014|376014|23010399003|1800799024|366016|921020|10067099003|56012099006|18002099003|11063799006|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	yqZb/ejRh2VD5O6dEAYygTmKkixThe0ZnVrnnPUNFGyugSfc3xRZRyR/HOmuxUV9VJi+ZS3ih2HQuTMJqcbuPn/3189I3zKIaG3QxNpQ/aEnhQHqWFHM1jl2jC5rJrAbHLGXGglwUXscfIoKHVQl95gterIth2/Jge7j7y/AWUKU2O+isELMXkJaDT7+OcZYqPA5zxMdd5MMfaK2V+iETsyPSqopgYyX85NSu8fqxqv47E4Xoa6i6yKO+nfUJGRLaI34KZtCQwXEC9wr4Eqfi2RFPo2SsqcnzkWJT9veCjs/UZDzvcuzwJ76gVDRIqAbGoAgY23/SBUL9lQFpY18BWg1TKgyJ2XIADQ5JA2GMinZi1btpUEtkPtsK5/ovwK01F36V7b2Ab/BouLFlIX159kfVrNoxxYUy2RZglI/QCVQH1xFFz41dImf97LCCHC/YnSlbX8x46h48U3hpyoBRBLJYdqHgq6VXaZX4DuA/T+zqnyKiw6mPp+UNnWNpoLDOq/CRbicnyfZrDeu3vuGrPSX2maSnIFX9ppBcEgkIarl5KPlbifqcZjFPJ3TfCMcT3ubtbSEfO5DAjh9kvJxY9aAzGLUZlyZw/x8RqHL2Prchl3E4dsrBlOLyLPkMr40tV1elVcMhysApRECsC8l0jmL2vK/xGD/2/sST/fmElqa4+6tteCQW8Rt9c72rQbzRiaOLXyCRut5lOhEFKHlBA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(7416014)(376014)(23010399003)(1800799024)(366016)(921020)(10067099003)(56012099006)(18002099003)(11063799006)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?ryUy3wb18XZJgspGIAVy/Oyh2eYhphDI7+rx9MHHwWiIPIy1O+x7Gw9vq6KG?=
+ =?us-ascii?Q?WVSiVZSz/76uqVpZOZ5ccpBgxrX6Cw85wxzHTh/ialj9dySyDhVkmiiskVal?=
+ =?us-ascii?Q?cbced1NHnyIqk6OqWM8BQSCvP1W8PU6ltIMQJvsJJNPXo/KWR0xG4miT+sXm?=
+ =?us-ascii?Q?tiDSRfXWQ5VHltaKMezEtbyaBLJOIp4g1C5wZ+MoTwpSC5b1+MvI4+nm9xvW?=
+ =?us-ascii?Q?wgMu5r8i+re+f/2u68qS4BLGuDef3/NcZlLxF7LLHqFODpgzH9ZJuEvIOm1O?=
+ =?us-ascii?Q?OrOYZA1+xlptz9xCPhBACd36LWqGyu6lkLdiRGHOH8Oksc5tdiIIVYLxdzlM?=
+ =?us-ascii?Q?UtJFlzApDeHGsSaBU/XvExYaYNJNonanqwaDx+2f4oM2bpdjMelhUKA/tZqp?=
+ =?us-ascii?Q?7a+6v2JLV9zUTFOvNNlP9homyoXGq+M5ve/KWzx361PtCBfa/PI02uIk7Vq/?=
+ =?us-ascii?Q?ZQbZ134MrUmRDxDvYFErtIZEWH9fEnSfG6Ar5ZOkJGZmCHVolCqX9npAwn2v?=
+ =?us-ascii?Q?TXpm7bkh73Xv3NkaBEsM6iSC44Lx8J+zQqnnXPs/z9y1SaL838N1t9wHoaYF?=
+ =?us-ascii?Q?7FgJUETghnh56QGPI4VP4vcTsx4yh6QkmMYFTi2aaTOagCOlbQTYwCKINhpq?=
+ =?us-ascii?Q?q+PZzCL1+Q1ggGVTpgF5o8wMoz1ikX311uJCQUKgGutSpTuzKOtoA6uIHv+8?=
+ =?us-ascii?Q?mecR8hZf3ctnyNTtntGlpVsyI5uwfeYW+o3HLoQ32pUpCiV1VWnhYWSxDeJP?=
+ =?us-ascii?Q?kXW7MtPHxEyEw5w8PboN+MYl8fm9G7LmbOX7lc8x3SOag9M5FpAxtOMdmHSo?=
+ =?us-ascii?Q?TZKPNKDdZ9GS1SMgM0pkYteiXrhdpfQpXnpaKse13WzIli6E3gelYf6PIYu0?=
+ =?us-ascii?Q?bNGCGQybvwIW3AWulKY2fTYqtjrtsaz6gTS3q7i2CXNn3my0RvjT1Jhkw5PZ?=
+ =?us-ascii?Q?tz4Binox4rd4SbWgkOpP0bx/j7KY2UWQapStC6YO3EayLGtho3w3EWtp6OuJ?=
+ =?us-ascii?Q?OqPGIL5PzqScM0EDr0gZ0ufyDR82JVC9fe7H60+tjUVzRCrYhbYeLvwcY6pa?=
+ =?us-ascii?Q?HtrqSfiG4PRKkZzCH/nG8yCET/xSdadSn0LKM6/Z/4W3ZEiKwfgbOdt8GD5b?=
+ =?us-ascii?Q?fMPuh5gzRCIeltK15U5Tge26uCVPRumCIXZRzRqfqneqFuE4kpaUuxxundqb?=
+ =?us-ascii?Q?E6gVNcxejPAnPN25yYkfvIydWtrn/nH8/6JHwgQriBRXdMBmPTn1buB1PWUR?=
+ =?us-ascii?Q?jPyPctFDvB3wepIoIb4zFx7CbjepgFSUWkezUVcWKwGmpS+Y/pJn90zvLD3+?=
+ =?us-ascii?Q?XdNRXh1UY/kqGj/tue5zO3zRiVrkkSeApQVFSOhGVOmGj6SGkobNJocCx4KS?=
+ =?us-ascii?Q?d7DObQCXqo550hoHFXFm7EyECXpRP7hsUwiGUDtOPGKD9xFyadZl6uyTrH5M?=
+ =?us-ascii?Q?FxH/S8wMv4wckiIvlJL3NyEQRcgmvSbCoKQkFuKuqmzQedbHIPtOs3E/dHNO?=
+ =?us-ascii?Q?5Oo37+CoI45ns+cVEg30EwuxCpAryNlyb+yrFuRZGqF48h4T4aFNq1wvU0Yf?=
+ =?us-ascii?Q?XzKlG9Wj4pT9frMCrZlm+6UN88mrxxEBIUEXpLEaJawKFfVB76aK6/c6Bp7N?=
+ =?us-ascii?Q?oQF9+gJmv9nqq2GhCfzmKcJdc2b96TvoFZUFEuOQ8Q+ArZvZbGODVR42HZIN?=
+ =?us-ascii?Q?4zV6RHEEMVtA7ZADG+UE5dcYhwybijfS3GwxWxi9UPC29b6frNsiSrpLb9sD?=
+ =?us-ascii?Q?E983qqmhENBs1mTQhhdqhxnIOyJE/RLxgdPbiYT744I/y9Vn5rtf?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9049245a-3da0-4cfb-956d-08df03aa8b34
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 19:45:12.8359
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: msvJV9m+KtDPxkHr8QHf9R+EKAYBuYp80tCGy8VYcDVH/vQb3WHDybFlJ1+FvW+wgXnefJDTJ+gOo1FeqqlOD5MDPB1UJuO71p0qo9iOWBx5nRxzWRhm/TufTHMkj9vA
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR04MB11398
 
-On Wed, Aug 26, 2026, Ackerley Tng wrote:
-> Omit support for calling the arch hook to make private, since SNP, the only
-> implementer of the arch make-private hook today, would actually prefer
-> making private only just before faulting memory into the NPTs.
-> 
-> Calling the make-private arch hook would require iterating both bindings
-> and the filemap to find the intersection of bindings and allocated
-> folios.
+From: Frank Li <Frank.Li@nxp.com>
 
-Why would KVM need to iterate over the bindings?  Only the RMP needs to be updated,
-whether or not the RMP is currently reachable is irrelevant, no?
+Add SDMC DM2016 (1024bit EEPROM + 128bit OTP memory for key).
 
-Subsequent calls to kvm_arch_gmem_make_private() from kvm_gmem_get_pfn() would be
-superfluous, but that's already possible, e.g. if an NPT mappings is removed for
-whatever reason.
+Fix legacy imx6 platform CHECK_DTBS warnings:
+  /soc/bus@2100000/i2c@21a4000/dm2016@51: failed to match any schema with compatible: ['sdmc,dm2016']
 
-> On top of that, SNP would need to figure out whether to actually
-> make private based on whether the memory is about to be faulted, or
-> whether it is a conversion.
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+ Documentation/devicetree/bindings/trivial-devices.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-This is a non-issue, no?  As above, sev_gmem_make_private() already bails early
-if the page is already assigned in the RMP.
+diff --git a/Documentation/devicetree/bindings/trivial-devices.yaml b/Documentation/devicetree/bindings/trivial-devices.yaml
+index 2de8eb09cb7d1..05f88cf81d6c6 100644
+--- a/Documentation/devicetree/bindings/trivial-devices.yaml
++++ b/Documentation/devicetree/bindings/trivial-devices.yaml
+@@ -414,6 +414,8 @@ properties:
+           - samsung,24ad0xd1
+             # Samsung Exynos SoC SATA PHY I2C device
+           - samsung,exynos-sataphy-i2c
++            # SDMC 1024bit EEPROM + 128bit OTP memory for key
++          - sdmc,dm2016
+             # Semtech sx1301 baseband processor
+           - semtech,sx1301
+             # Sensirion multi-pixel gas sensor with I2C interface
+--
+2.43.0
 
-I don't care terribly about how SNP handles this, but I do want accurate reasoning
-and justification so that if/when we revisit any of this in the future, we can make
-informed decisions.  Because unless I'm missing something, this is an optimization
-choice (eager vs. lazy to-private conversions), not a complexity tradeoff, and it's
-not clear to me how we decided the lazy approach would provide better performance.
-
-> Calling the make-shared arch hook and not the make-private arch hook does
-> leak SNP-specific details into guest_memfd (as in, why only make-shared
-> during conversions but not make-private?), but the additional complexity is
-> not worth taking on until guest_memfd has a user actually requiring an arch
-> make-private call.
-
-...
-
-> +#ifdef CONFIG_HAVE_KVM_ARCH_GMEM_CONVERT
-> +static void kvm_gmem_make_shared(struct inode *inode, pgoff_t start, pgoff_t end)
-> +{
-> +	struct folio_batch fbatch;
-> +	pgoff_t next = start;
-> +	int i;
-> +
-> +	folio_batch_init(&fbatch);
-> +	while (filemap_get_folios(inode->i_mapping, &next, end - 1, &fbatch)) {
-> +		for (i = 0; i < folio_batch_count(&fbatch); ++i) {
-> +			struct folio *folio = fbatch.folios[i];
-> +			pgoff_t start_index, end_index;
-> +			kvm_pfn_t start_pfn;
-> +			kvm_pfn_t nr_pages;
-> +
-> +			start_index = max(start, folio->index);
-> +			end_index = min(end, folio_next_index(folio));
-> +			/*
-> +			 * end_index is either in folio or points to
-> +			 * the first page of the next folio. Hence,
-> +			 * all pages in range [start_index, end_index)
-> +			 * are contiguous.
-> +			 */
-> +			start_pfn = folio_file_pfn(folio, start_index);
-> +			nr_pages = end_index - start_index;
-> +
-> +			kvm_arch_gmem_make_shared(start_pfn, nr_pages);
-> +		}
-> +
-> +		folio_batch_release(&fbatch);
-> +		cond_resched();
-> +	}
-> +}
-> +#else
-> +static void kvm_gmem_make_shared(struct inode *inode, pgoff_t start, pgoff_t end) {}
-> +#endif
-> +
->  static int __kvm_gmem_set_attributes(struct inode *inode, pgoff_t start,
->  				     size_t nr_pages, uint64_t attrs,
->  				     pgoff_t *err_index)
-> @@ -624,7 +661,12 @@ static int __kvm_gmem_set_attributes(struct inode *inode, pgoff_t start,
->  
->  	filter = to_private ? KVM_FILTER_SHARED : KVM_FILTER_PRIVATE;
->  	kvm_gmem_invalidate_start(inode, start, end, filter);
-> +
-> +	if (!to_private && kvm_arch_has_gmem_convert())
-> +		kvm_gmem_make_shared(inode, start, end);
-> +
->  	mas_store_prealloc(&mas, xa_mk_value(attrs));
-> +
->  	kvm_gmem_invalidate_end(inode, start, end);
-
-The real reason I responded...
-
-Thinking about the Secure AVIC mess made me realize zapping NPTs for SNP VMs isn't
-strictly necessary in this path.  The PFN isn't changing, just the attributes, and
-that's (obviously) tracked in the RMP.  KVM doesn't need to zap SPTEs to induce a
-fault, because the mismatched C-bit vs. RMP status will cause an #NPF(RMP), and
-AFAICT kvm_mmu_page_fault() will do the right thing.  A misbehaving guest could
-continue to access the shared data (assuming we stick with lazy conversions), but
-that should be fine?  E.g. it's not really any different than implicit conversions.
-
-In other words, couldn't we do this (as an on-top optimization)?  The only wrinkle
-I can think of is that it could delay reconstituion of a hugepage, especially if
-we opted for eager conversion (because the guest wouldn't hit #NPFs to trigger the
-hugepage promotion).
-
-diff --git arch/x86/kvm/mmu/mmu.c arch/x86/kvm/mmu/mmu.c
-index 62f751952ad8..61f3e270ab61 100644
---- arch/x86/kvm/mmu/mmu.c
-+++ arch/x86/kvm/mmu/mmu.c
-@@ -1670,6 +1670,7 @@ static bool __kvm_rmap_zap_gfn_range(struct kvm *kvm,
- 
- bool kvm_unmap_gfn_range(struct kvm *kvm, struct kvm_gfn_range *range)
- {
-+       unsigned long shared_private =  KVM_FILTER_SHARED | KVM_FILTER_PRIVATE;
-        bool flush = false;
- 
-        /*
-@@ -1683,6 +1684,10 @@ bool kvm_unmap_gfn_range(struct kvm *kvm, struct kvm_gfn_range *range)
-        lockdep_assert_once(kvm->mmu_invalidate_in_progress ||
-                            lockdep_is_held(&kvm->slots_lock));
- 
-+       if (gmem_in_place_conversion && !kvm_has_mirrored_tdp(kvm) &&
-+           ((range->attr_filter & shared_private) != shared_private))
-+               return false;
-+
-        if (kvm_memslots_have_rmaps(kvm))
-                flush = __kvm_rmap_zap_gfn_range(kvm, range->slot,
-                                                 range->start, range->end,
