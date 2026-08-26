@@ -1,92 +1,176 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B7D344D83
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 15:50:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97018423E9D
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 15:51:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787759437; cv=none; b=gETYnrKCW14j7XR/R1vEmRo5DuS44tqjD/nwA0YOKz1KyK9wOQDBv/UAsX8Pt9cBfLxdK6BiCeX1d3b952koAq4nvwS9D+b1EF7Xf5L5yQcRJ+HO81yg7iRHgm0wOXfb2SAc+suWzHs2F9a71NniI7k8NOmHS0Rg/vKaA4VlMHE=
+	t=1787759483; cv=none; b=p+xdMNKai8g9Sie/g8LoL6SZzDBvjLEw073VP1wDUXVBwD5qb8qtVjNIJr0e9XYmffeYFYmw/xsxm3cf5tCi+YjASqGTpE3DZjEkm435LVIsXHruvJQZid7QCJnfeuiiuXbg7tMvXimmCdg2WqkfD6uGHHcXy0b1/WCoBLXSzTg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787759437; c=relaxed/simple;
-	bh=WusBKUA3t87kZV2RPaPl+39j0z7WMo4fuiWjBmL6hnw=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=JCMJffpB+8e6c2atLTAIDntAvofT6iFsA05dG5V6rStPYBnNcgxX0KUtMYjJUgWJrk/L96mqTSj8IC2w9xz1bqMzXiVa4iuoZHr3f56ajtPM1D6XAMWWJXYXR5GALAIve3gAVDCqUKEHNcqOAxyaahJ50UKtSdJ0a08mskaygl0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Y87WFY0v; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787759483; c=relaxed/simple;
+	bh=KssTm3LFacwHpJdazg/gZ1oAwfHEd+OExs8ITeP7ULk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rYghrpkFhYpHxjafXLp1UzPivW1rtYVPUCH3b9IiKNvQMUnhxU70yUztFmfQRRpEZM5vY1XHeRgSFy2Re43wrkHmg8aBsbR/WZPDpDA5/Ksac6T3wJIJm4gnPWD8Fva3LVLsBXLlLDjHiiBKJzK7V/KgwHjaNW2MZyigpMn0pas=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dkrcqIYW; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=ZFSzJFgJ; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Y87WFY0v"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787759427; x=1819295427;
-  h=date:from:to:cc:subject:message-id;
-  bh=WusBKUA3t87kZV2RPaPl+39j0z7WMo4fuiWjBmL6hnw=;
-  b=Y87WFY0v/kY0KOBmYDjPih3FlHbpc+RZ9P6ZmPJH1uHPJxalDfAXos70
-   J5KQVWs+v+XK+MrNaapyhDlCGqOG2Q8b//TF34aG01t3hTbCBV6T0CV0p
-   stsh3BQZbzutNczP/fPuEmycxp1C8NsJ0qf+CGfuxpIji+sAgUw3pVKWB
-   ajUmrfuQq+0EqT7aUdMhY2T8ECzRmjsNypisekGf1UDyCSPXfp0xjWfar
-   sRcNhoWtNG6rm6PDM6CYCHF+bdziOa1VYQrecI7bQ27zfM6csr1WQQW9s
-   uzzggzpJBLy1rDHrWcwuo7KfpYAN+qGKzUYreuyIH2EySNboizJ1mv5ME
-   g==;
-X-CSE-ConnectionGUID: +W9creAcR5ma41RhIJOjIA==
-X-CSE-MsgGUID: u19cZu39SLGmQ1ArhoWfTg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="99591170"
-X-IronPort-AV: E=Sophos;i="6.25,244,1779174000"; 
-   d="scan'208";a="99591170"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 08:50:20 -0700
-X-CSE-ConnectionGUID: npOaV18ITvezOI+m5kJrag==
-X-CSE-MsgGUID: 900Fe9J8RkekJRFHDf+geA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,244,1779174000"; 
-   d="scan'208";a="271415075"
-Received: from igk-lkp-server01.igk.intel.com (HELO b2f8001b2633) ([10.211.93.152])
-  by orviesa004.jf.intel.com with ESMTP; 26 Aug 2026 08:50:20 -0700
-Received: from kbuild by b2f8001b2633 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1wzFtI-000000000NB-3a1T;
-	Wed, 26 Aug 2026 15:50:16 +0000
-Date: Wed, 26 Aug 2026 17:49:34 +0200
-From: kernel test robot <lkp@intel.com>
-To: Caleb James DeLisle <cjd@cjdns.fr>
-Cc: Paul Gazzillo <paul@pgazz.com>,
- Necip Fazil Yildiran <fazilyildiran@gmail.com>,
- oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Subject: kismet: WARNING: unmet direct dependencies detected for
- SERIAL_8250 when selected by ECONET
-Message-ID: <202608261714.iV8EPluN-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dkrcqIYW";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="ZFSzJFgJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787759473;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4W3DLTZd9rSFQPqEL+RVc7IFyecD07CUDj7e4Cb4R2Q=;
+	b=dkrcqIYWYJX5W/qfiLe9L5guY25x7yUxZLWC801CstOZEpfpZB/utr8v+yKxo6wksBmZKQ
+	hs977HBVp3ptBUVTryAQrhmzsX/ciIJdmRHNwtCwZTD31bZ8F1dLERwK4P7t3olvZ0lPu1
+	IKPKbHJ/hLh2/0+zMHCOJzcn3lKdH0I=
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
+ [209.85.214.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-445-700d_1rBMRygQcOIyqamWA-1; Wed, 26 Aug 2026 11:51:12 -0400
+X-MC-Unique: 700d_1rBMRygQcOIyqamWA-1
+X-Mimecast-MFC-AGG-ID: 700d_1rBMRygQcOIyqamWA_1787759471
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2d70d8839f0so11110065ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 08:51:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1787759471; x=1788364271; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4W3DLTZd9rSFQPqEL+RVc7IFyecD07CUDj7e4Cb4R2Q=;
+        b=ZFSzJFgJ9o4ZGeKEQQyuNUveyyloV3PoB3tolDV0ejGKnvnu3RNTz90KMcCDXDMEzn
+         gQ98kSnNY2gAWZ+gFdlXTqPUrKX+SZqjxSyoqy3SjXk8pgoAlMDc5JlikK4re6p1clmp
+         b2PXf7u2Iz4HNCrRcfNU+AAQRG4dH62XM3h/vsi1E3kpOqY1xyCCyBGI73m+w5AkRuSU
+         HDMTgiw/F6mvyaMLpndv13e7qbCJCQ6Hfgtnt6GckXu9Rzr8FO+bmFBmQVPc+m9zxGTq
+         nmP9ke3Ki7riI3+xeorCAHBr1MlSDVPhAr/tRAXxaJu4s+xfWZbhODJsnDuSceFbAA9o
+         /MEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787759471; x=1788364271;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4W3DLTZd9rSFQPqEL+RVc7IFyecD07CUDj7e4Cb4R2Q=;
+        b=H0Mipxyr2ty8Q/irfNGYKpDOJFEAKOMC3p10R4sMfFN09/OYCeZD+bsTTwcaSksnQP
+         tcsMn6r+qB+FmBrOaHNW9s7UxludCwl7qiDF/di8C1o52AvA1WH1JKA44MSMbmZdLPlv
+         xlWLpgHeDwP7+eOCDXnBdsoUidV7f5cnGtnT9NTAXmd31+ygCLh4UXoS35vCpbNTb9TZ
+         b0dwSlC2Cn8gNU70GE63SHrv4FxLyWGeXvB/4Ir1TDGqwzF0/tdSZE5Q70Tyf8a4lvA+
+         i+RfhryfmliNZTv1hIqHpnWKZ047vN0Mnz1USbM1ilJtULlezjTEhd/vS6UI4SBbAoHZ
+         ISMw==
+X-Forwarded-Encrypted: i=1; AHgh+RpCPj9EJr79ZwcdmnS+HNoh66/k172g/nCM5V+KIUtrxcefLI/x3wejO0S79uzcaKrjwx+m9yxbXymdotE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lz4QqOCPcxXPkFy8d8ZfjdALEDhOZzgZae2mYGVrT7DzZOCZaq
+	Ca/M98smLkMJOQEltXGW4Uc6jBLNlms8uf76vgy5Ruvu3mMxob3VYq+KcDoTvoqDmwpDghOqCDr
+	QMrGr5+WRxeO5HwunftanoSp2cPVrMHvOtCe3SUHPMUfxZtATr1kTRmsClqxURRRb5Q==
+X-Gm-Gg: AR+sD103pDrZzsIbwZ7MmzlTd86ETovcCyAYTK72yE3pZU1vjsEt3uJ+Dn8pvdcdokf
+	pS9UkDktfSr1m3Qd1yYm3UmjAcgsZZveCUGDaQ1PEkI1jAwWUTAl+yFQ4PsAWN5IrAtrQmOzQYP
+	hhXTpco2D1N3VbaggHYiQTOLwA8cZxxYtqQEw859Xzm9PCl3Vxem5OSGEqt9Ws6zLGzKGKgvIJj
+	OE+JqpOh8U0wLre9wsh2p6z2Dh0OvBmyX4nnVeoBiT4yp4lLLYhBqJQrwMGKYqn3+qw5UYh0tEG
+	tZyP9Y4cQuL130891TO1OcdDzaybx+Au1bY1VUkfLtqLR7LdMdArhU+GwtO/0cJau77mHpsUPJu
+	NtuBKnbY1SvPbYXXv
+X-Received: by 2002:a17:902:fc4d:b0:2c6:9f66:d573 with SMTP id d9443c01a7336-2d7079ffd98mr155457375ad.2.1787759470985;
+        Wed, 26 Aug 2026 08:51:10 -0700 (PDT)
+X-Received: by 2002:a17:902:fc4d:b0:2c6:9f66:d573 with SMTP id d9443c01a7336-2d7079ffd98mr155456345ad.2.1787759470546;
+        Wed, 26 Aug 2026 08:51:10 -0700 (PDT)
+Received: from [192.168.1.2] ([122.171.16.35])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d704bf8978sm9118965ad.57.2026.08.26.08.51.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 26 Aug 2026 08:51:09 -0700 (PDT)
+Message-ID: <ac453410-67c6-47b4-ae79-fa682780fe49@redhat.com>
+Date: Wed, 26 Aug 2026 21:21:00 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] kexec: return -ENOEXEC from image probe functions
+ on mismatch
+To: Will Deacon <will@kernel.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+ Mark Rutland <mark.rutland@arm.com>, Huacai Chen <chenhuacai@kernel.org>,
+ WANG Xuerui <kernel@xen0n.name>, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>, Andrew Morton <akpm@linux-foundation.org>,
+ Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>, Tao Liu <ltao@redhat.com>,
+ Philipp Rudo <prudo@redhat.com>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, loongarch@lists.linux.dev,
+ linux-riscv@lists.infradead.org, kexec@lists.infradead.org,
+ Bradley Morgan <include@grrlz.net>
+References: <20260821-mpilaniy-v3-0-76b355399d2e@redhat.com>
+ <20260821-mpilaniy-v3-1-76b355399d2e@redhat.com>
+ <aoxQFxuzZ1AHmM8d@willie-the-truck>
+ <06a45c67-2642-4efa-994a-ee50cd40a697@redhat.com>
+ <ao2xc027TNYTwBA1@willie-the-truck>
+Content-Language: en-US
+From: Mukesh Pilaniya <mpilaniy@redhat.com>
+In-Reply-To: <ao2xc027TNYTwBA1@willie-the-truck>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229
-commit: 79ee1d20e37cd553cc961962fca8107e69a0c293 mips: econet: Fix incorrect Kconfig dependencies
-date:   1 year, 3 months ago
-config: mips-kismet-CONFIG_SERIAL_8250-CONFIG_ECONET-0-0 (https://download.01.org/0day-ci/archive/20260826/202608261714.iV8EPluN-lkp@intel.com/config)
-reproduce: (https://download.01.org/0day-ci/archive/20260826/202608261714.iV8EPluN-lkp@intel.com/reproduce)
+Hi Will,
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 79ee1d20e37c ("mips: econet: Fix incorrect Kconfig dependencies")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202608261714.iV8EPluN-lkp@intel.com/
+On 25/08/26 8:44 pm, Will Deacon wrote:
+> On Tue, Aug 25, 2026 at 10:43:48AM +0530, Mukesh Pilaniya wrote:
+>> On 24/08/26 7:37 pm, Will Deacon wrote:
+>>> On Fri, Aug 21, 2026 at 07:19:57PM +0530, Mukesh Pilaniya wrote:
+>>>> Several kexec_file_load() image probe functions return -EINVAL when
+>>>> they do not recognize the image format.  A probe function that rejects
+>>>> an image should return -ENOEXEC to indicate that the image is not a
+>>>> recognized executable format.  -EINVAL implies a problem with the
+>>>> syscall parameters, not with image recognition.
+>>>>
+>>>> kexec_image_probe_default() iterates through registered loaders and
+>>>> returns the last probe's error code to the caller.  That error
+>>>> propagates as the kexec_file_load() return value to userspace.
+>>>> Returning -EINVAL from a probe when no loader matches is semantically
+>>>> incorrect and misleads userspace about the nature of the failure.
+>>>>
+>>>> Return -ENOEXEC from all probe functions and their helpers when the
+>>>> image format is not recognized.
+>>>>
+>>>> Signed-off-by: Mukesh Pilaniya <mpilaniy@redhat.com>
+>>>> Reviewed-by: Philipp Rudo <prudo@redhat.com>
+>>>> Reviewed-by: Pratyush Yadav <pratyush@kernel.org>
+>>>> Reviewed-by: Bradley Morgan <include@grrlz.net>
+>>>> ---
+>>>>  arch/arm64/kernel/kexec_image.c   | 4 ++--
+>>>>  arch/loongarch/kernel/kexec_efi.c | 4 ++--
+>>>>  arch/riscv/kernel/kexec_image.c   | 4 ++--
+>>>>  kernel/kexec_elf.c                | 4 ++--
+>>>>  4 files changed, 8 insertions(+), 8 deletions(-)
+>>>
+>>> Hmm, so after this patch, are there actually any implementations of .probe()
+>>> that return anything other than 0 or -ENOEXEC? I couldn't spot any after
+>>> a quick look.
+>>>
+>>> Willkexec_elf_probe() can return -ENOMEM if memory allocation (kzalloc())
+>> fails inside elf_read_phdrs(). This behavior was previously discussed in
+>> the first patch of this series [1].
+> 
+> Fair enough, but I'd have thought it would be easier to special-case the
+> one -ENOMEM path instead of changing all the backends to return
+> -ENOEXEC all over the place (and hoping people don't start returning
+> -EINVAL again in future).
+> 
+> Will
 
-kismet warnings: (new ones prefixed by >>)
->> kismet: WARNING: unmet direct dependencies detected for SERIAL_8250 when selected by ECONET
-   WARNING: unmet direct dependencies detected for SERIAL_8250
-     Depends on [n]: TTY [=n] && HAS_IOMEM [=y] && !S390
-     Selected by [y]:
-     - ECONET [=y]
-   
-   WARNING: unmet direct dependencies detected for SERIAL_OF_PLATFORM
-     Depends on [n]: TTY [=n] && HAS_IOMEM [=y] && SERIAL_8250 [=y] && OF [=y]
-     Selected by [y]:
-     - ECONET [=y]
+Returning -EINVAL from a probe on format mismatch is semantically wrong
+on its own — independent of how kexec_image_probe_default() handles
+the return value.  x86 bzImage64_probe() and s390 s390_elf_probe()
+already return -ENOEXEC correctly; this patch just brings the remaining
+backends in line.
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Also IMHO, checking for err != -ENOEXEC in kexec_image_probe_default()
+is more robust than special-casing err == -ENOMEM.
+
+-- 
+Regards,
+Mukesh Pilaniya
+
