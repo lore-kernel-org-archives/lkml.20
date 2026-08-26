@@ -1,159 +1,167 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012058.outbound.protection.outlook.com [40.107.200.58])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE54C43D502;
-	Wed, 26 Aug 2026 14:15:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.58
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787753755; cv=fail; b=jQdsOMyGQUhSEynymZUayjlvm9ZCXR33XowSauZa4QK3AduRuwOadR2uGdrXzoxh4Nx95NRakG3Zf6T8MXob53cWlIVL7dNK4cs8e00GE+UZywvvbJHfppjtWzUd+OdT3G67ZtcXGJ4p+lLYv/cdhOo25OZwBzzwAfrP/tRM1O4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787753755; c=relaxed/simple;
-	bh=/vfy4UHD1HfsBGT+UkLfuYyqoWsCqWyBUEaUCBtcDn0=;
-	h=Content-Type:Date:Message-Id:To:Cc:Subject:From:References:
-	 In-Reply-To:MIME-Version; b=p3QVG8ASn2RQ8nY/5N+4Rx4AGM5v4tMmWtb+tkL8+TZ8j6WaWBXqxxyBbqhYu5mTa3H8Jbm2l+TdV5FyxMlTKXEzIG/gBLaoXZiE/Dh+po+X1KyoQ3pmt1PFH8RdRXwXodzNinXEEinnU9ciJRXCX77BUGgcISXRq3lFAPTljTE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=uAsbP5R9; arc=fail smtp.client-ip=40.107.200.58
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC1981862;
+	Wed, 26 Aug 2026 14:17:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787753835; cv=none; b=H0IvC9PrkhU5mtqXttqbNkR0fC3rBWmNpyG6e235mpjXOIIZePtNYvDdWNn+BJ9zJAxbIbUIRszRmu60qJBeu+CJGWhUEP/mgO5n2wHlFHPl5TIGcTqHrnPxYWrCm3LEnNZFmj4t6m7VSSNGKEmGE0CNygB2kfotBD+O+sQZsqU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787753835; c=relaxed/simple;
+	bh=IaEb10TQ5OWYQYAU3mIUhp0bBZ57wG1p8VomUDVxNfo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=S4mEb/1aNQGk50JBKw+kY4Mk+Rz9qkNNpscbCsJvY8SWyjiiDQQoLWG6tzryLZPK73FmWksFJcbAwQGanK8B1VwpklbrIR23Go0tUJvKlMai36k+Z6EEcd9XkRiqxYu6i6l9me5eqmDUdNV7kbJ38CQrhPhlUqIp0VuQ4d+txAA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=R5JA68Cc; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="uAsbP5R9"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hayDoKlR8dZtYvyuhFu1KZtZ3g3GjtVSIL/DwdNe5UZiuofK9zn4LfBmmJBZLlBeqrqRcJUvxisSHElqTVI2WfJm+jeCpIL33qMq38r4oNZMgP6uIM3tcH3/R1AZdZjJs5IJnG1xdOi86O703KsNkt1vEjWWJ2LYxai5gs4E2z8w4ujlvyDmgEPYEPyPJ5h7HpuOfgIn3jgeAqhMmfYi1xu9UNGLBCTFxXbQoxnTfJ53pcDaBMdG9mU9AbhkSbdTpeexQf90HJa/ZiqFJFiQGNOtwV1sZEVzWcgLQZI4sFSeFO0Xn1TLbc8rCYcVJmh61po7cvvzi+tHB85BpBebcw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5BGHKeQaYhzC60YfeY2GH1PqRioZ0ezKfz3uzc5RFC4=;
- b=J2FyXmHeNGuvn1qG2fLOgHKgCk/W/CnD0cws15zR6IQQY6iGqxn/Lw4rC4sV5SLdqySMnNZoN0cmM3eB7oqCDSzCVor/RAODj3mwOSzXJ9HoElFPdyL8rc545g5tQ37cPhQmGWLBXaAmx6MFKzmqq+LPYmNSxgrdESu+ySAVemDhqI0VSzoP3Ezqhh+xwBdWot6tFHs9XaU5btv4OKmIGyV675EC817y2WJEPEe6B7mDQqnHgVbELHSyBvq75in1SWHnxKj1HPvaIReQs9XmjZ77hWlJfAkpehXqIokGZsx1AoprdMhSpxLNAQv/kxBA5IWjBR0V9GWnGjpx8LvrkQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5BGHKeQaYhzC60YfeY2GH1PqRioZ0ezKfz3uzc5RFC4=;
- b=uAsbP5R9emUsj2OAMHBEni+xd1YNPJFQYlnnkFEwJmWGyYCdHdeoqYmV06+ugUsQgCOFSmMRaiisQGmbZ2f2TA2IhKz5y7CLYsouTr97moCJXqf83aca3LQO7Pm1nYjpiXTUJFAozfC7fK6zrALb8OFfFS6F3PK7bfofqlsWPl+Yt5IaQJRhuMQDmm8Di1RAPgWIUbstSYS++hMQLuN8DwQ5Se11mLnLJ7dO/4p4/kSB59DmOo0M4YHbISJ0OtgtFHDz2S3EiIuicFqgCoa6ShCxFm19yzBy3NotD3xhDsapVu8AQm+KPjPO7Bl/f/8putatCs81EwzfVUN5TxBs+g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- CYYPR12MB8991.namprd12.prod.outlook.com (2603:10b6:930:b9::15) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.7; Wed, 26 Aug 2026 14:15:33 +0000
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0360.006; Wed, 26 Aug 2026
- 14:15:33 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 26 Aug 2026 23:15:29 +0900
-Message-Id: <DKYXT1CZB5UU.3EUO3FE5TK9RW@nvidia.com>
-To: "Eliot Courtney" <ecourtney@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>
-Cc: "Lorenzo Stoakes" <ljs@kernel.org>, "Vlastimil Babka"
- <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, "Uladzislau
- Rezki" <urezki@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
- <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, "dri-devel"
- <dri-devel-bounces@lists.freedesktop.org>
-Subject: Re: [PATCH 1/6] rust: alloc: add Vec::push_init
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260817-b4-nvkv-v1-0-b84db5e84b67@nvidia.com>
- <20260817-b4-nvkv-v1-1-b84db5e84b67@nvidia.com>
- <DKSVRS7UAL9U.3RUTW74RVSEHQ@kernel.org>
- <DKXNDP39VOFP.1W7GDGA2TXSW2@nvidia.com>
-In-Reply-To: <DKXNDP39VOFP.1W7GDGA2TXSW2@nvidia.com>
-X-ClientProxiedBy: TYCP286CA0063.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:31a::12) To DS0PR12MB6413.namprd12.prod.outlook.com
- (2603:10b6:8:ce::10)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="R5JA68Cc"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QE1geJ4099748;
+	Wed, 26 Aug 2026 14:17:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=BHCyza
+	+e6EhJNQpRwxXX/D7csOEUvRFkDlHPfbyEHn8=; b=R5JA68CcwasJmK5+70ohBn
+	yDSU6OeGHyGUhHQHbRM35JuAVfHwGV78BCc+5qTH0RZxqRbjzmhWON5OFYnxrjxH
+	EJzqxyZ06AWIcIjQJZmHTwcsNQzdGj+dl2pwrtcIBYeVUF1aDtr885m8EUTTjATh
+	H5rcOtSGkjF1cNtthfFr43TyzZ0bZKM60ZGUZV++Hlv0l7hfu+tSUsITvv+iHRXQ
+	c24JSthS6hzUDPncBb520dSntmepb6wp1gcfvZ/RH19xTQzz1v6f9WRKbGWHYPLT
+	nYx2HNBXarKweyrybNkzyh9OqFfbkgTePT/vDOS8nQAVOBbw7tTxjtyQt5LznCHQ
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g716hy99b-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 26 Aug 2026 14:17:12 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67QEBKGD007597;
+	Wed, 26 Aug 2026 14:17:11 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4g7ragj7d2-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 26 Aug 2026 14:17:11 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67QEH71715991128
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 26 Aug 2026 14:17:07 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 7649C20043;
+	Wed, 26 Aug 2026 14:17:07 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 4102F20040;
+	Wed, 26 Aug 2026 14:17:07 +0000 (GMT)
+Received: from [0.0.0.0] (unknown [9.111.55.210])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 26 Aug 2026 14:17:07 +0000 (GMT)
+Message-ID: <485c5bb3-ca8a-4591-827c-09d23f4280a2@linux.ibm.com>
+Date: Wed, 26 Aug 2026 16:17:07 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|CYYPR12MB8991:EE_
-X-MS-Office365-Filtering-Correlation-Id: 17a36ab2-7c06-4a5f-ec87-08df037c7dd1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|10070799003|7416014|376014|23010399003|22082099003|18002099003|10067099003|4143699003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	IuWUdPe0TPfa3Bfy+OAOqJnNc8M+07UqEh0HoY/Mft/oyGvVP2UPzO/Cb+g5xfEtdN/UD540IPzxT7lkV6k6SV6/9CZ0HA7tYdEGPTagiqm47BbAIkxzQCWW4YNB12skvWZ+Rgu80d2QRPvcAXOcJoEAtReLR4CCycdggAK/qCEO8K0qFxuQclq8hOOn9mGg/uGK6r4KQbWiRP909WiHHPi/UHe4ioSWDSpGQ4jNEIIkG4nIih4JGSDj/TVxzJ0txFV+N8C/Qav5lbdgqK80V0nVuyWcn73u0Vh+eDGzPkagCKa01i+cFhTunRWj1fHS3iQrVL4FFOR5rDBbMUmxeP4N69C+hLPQgC18XajS6xrJaHLkMn0t1jJOaCfTTD5q6wlZvfNtFEohV84rrl3nySO5bvTHlArhNL9CcmBoYKk8b7iNnwDI+JRnAuG9DUZAB6aHRHAFo0bGbuA1KRP/dp945g4esEm4TqibOHIS9J5MvPU0D14uUWX2q1KeC6kqy/PyqFrf3viKLZUEQ/UrtI6zf/BDcZkvSVliXDGY7y2KjJlqs1wzw4UOTdX77P0HbD/KimcSnzwcllM1tSnk3M4RENu5Ey/JUFoGVj5Z9Z+1HBIFUeDptJveh450mpVk4POnLRNVhJBgpSup7DNopb/7P8Geg2t62Mjs7xpLJvQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(10070799003)(7416014)(376014)(23010399003)(22082099003)(18002099003)(10067099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MjJlU2xUMEZVb05VOTM1S3NnZ3FmZWpPRHBoWjltMTRwNyttQUpVakh4dkJ2?=
- =?utf-8?B?VWZYNWNIbS9ONTNueGt1U3FjOGVVVWxnSnpPNG4vWCs5Q2RIeThhcVNVR0No?=
- =?utf-8?B?OVlMcGgrMTdRTDhuWVArVDZZMldzV0FlN2wvYUVXbTcrSVJySnNQWGhYWGNL?=
- =?utf-8?B?NytBVFZLVjRGRFJQTkJNWkIxQ2cxNUFXTk8wNFlIVzYxeCtDZnZJUFZQM2NO?=
- =?utf-8?B?VzBSY1ppVjR0ckdqbUJmcndJSys4RnhqeUt0RVFmRnZsVVZ1MEJkK3g2MnIz?=
- =?utf-8?B?Rno0MGkvUkFsOWFUUDZxNHJWZnBHTnBJYk4zZjlXTVlYU2doU2t1TmtqbHFX?=
- =?utf-8?B?K3AxVkRlKzJIWm5NWFV2NzhBSmszVHlTb0lrRy9TcjRFZ1FuaVRWVXo2Mklz?=
- =?utf-8?B?aVpmV0UrbTJMM25hdkI1dHU0SkoyT2tVa0hPdlMwTWU5MEpUUU9RZm5uLy9P?=
- =?utf-8?B?ZTBFSERTMHVRUzhwUmlMNGl6RHhrNlRkRUhOYS83WEIvYkcxdkt3OEtHdXBl?=
- =?utf-8?B?QUJ5RnhtNTdaZW9sQUZXY3BzdGpzOGQzREhMZURsdys2eXZPRVFzclBlMHp3?=
- =?utf-8?B?L1hjdUptcEpUWW1wUTJqSE1ISnBKY1VUN0F6YlptUHRTRUoyc2Q3NTFHS3gv?=
- =?utf-8?B?VWg4bTFTOWY5aHFGMHJMZkxHYVcvK0t5MGY1UDhkRjM3L1B2ajJ0TmlwY3Mz?=
- =?utf-8?B?aGh6bjk2R1E2VWR0NmkyaWZGMmxYNFpHOHFndEZlT1dHUDNQcFgzWFVpRjVz?=
- =?utf-8?B?VzJuQ1N3U3VZQ3k3R0p3YXhHeFMrUkt2dzVmWmNydGMzYXgxRjE4SUdoUE5t?=
- =?utf-8?B?SVppSzltVjJXMXpxZDFXcmFaOXljLzhUeFg2MldtbUpraEU4aFlPZEx1ODFu?=
- =?utf-8?B?QldXUlBSakRlOEZKTlZEZ3NXc3VUeFc3ekdpRVk0RlkxY0xYcnFnNkV1a3lx?=
- =?utf-8?B?ZVVUL0dQbUkzdzhNUmgybndRWk5TNzc5V1BkK2ZQLzVLMUtLR2d5ZW9HeFJz?=
- =?utf-8?B?Smk5SHVtbVZuMHJ5bjNEWnQ5SDZLckJzeG0wRkdrWFpqSmlmU3RBVHVZaUZa?=
- =?utf-8?B?ci95VEsxcE85aFRmYzJnSUpuZmszcGdMdFhBSTBFTnlrOUgyUGxVVkljVzBp?=
- =?utf-8?B?UWlEbHpNenBDRnlzaUVoMHdib2UwSWtaemVQNkpyUElsVTdmSEVXaENxKzZS?=
- =?utf-8?B?V0VmaE9LUUJia2VZVUM3MnNiUHRMa1EvSG5kTUVhTFZVTkhITzlUMGFVOGxa?=
- =?utf-8?B?ZHdtVzM0U0thZXVoUEtrbGRIZ3JFZGxGU2xpbUdqR1pyVjB6V2E0OGNTNDdK?=
- =?utf-8?B?WW4yQmorak5RSWQzWllsd0k3UlhUU08yWGp4akpRVFl6M3hXSHp4YUpocmNE?=
- =?utf-8?B?Vm9vTWRoRytJci8yZFpZYUpSa0NyNDZHa0lmeUtnR1E2dy9kSmdXdW1jczBS?=
- =?utf-8?B?TGpmRnkzUmdNOEMrYVZtYzZuYW5Cbk1hVGJ2UzFkSXdnTktUS2xuQk11ZnhJ?=
- =?utf-8?B?aG52eStwVWRTUmRlOUFzLzNPOXFxNG02c2VDcnpPVjU5ZS9vcW5IeDVTN1FK?=
- =?utf-8?B?L0RLa3RFQVhkcE9xSktxUUNqYjI4Z0ErZ1JlNjlZNXdLTytYTHU5NGh2R1Ir?=
- =?utf-8?B?cTJ2ZjYvdkp4ZDhjNWQyK2NXM053czljTWpxbjRnbW1EbE8zbTBONWhtSG1o?=
- =?utf-8?B?VC8zZXY1SnlaWHhyN3BmWWlhR2FGaVdJT0Q3a0JEKzdMQVc0N3J5S1dmUklZ?=
- =?utf-8?B?dHNZa2lhaWJiM2Frd2hKWVZGNUFKcHA3bFRFRDQ5eVdtbEtSSHVUYVlKbW5x?=
- =?utf-8?B?ak81cEVjcmhOeHBPdVBlVVJNbjdieWpsY1dVRXdsOGQxZU8wellCdXl4ZU1Z?=
- =?utf-8?B?TjFEajBrQzlLdkFsOUt2UGhkbTh1ZHpyMWUzUy9wbkM3R092VVlCalhrdnd6?=
- =?utf-8?B?MlVsY1VZd2pLeGwrbUJwWHhrcGgzWUQxQWtLNDh5REZiZ3ZPWWszMlV3Tysx?=
- =?utf-8?B?cVRPa1FtaDRSTnQxODhkR1Z3TitEVlQyRTlmWTBmNTMwbUgzeldIQS8zQ2Qy?=
- =?utf-8?B?TlNnUVZ5T05nZXhzeGNYblZYQTBFbC9lVGEybC9RaXpjQ2NDNERJckR4dkhh?=
- =?utf-8?B?UHBKS3FYWGRGTGU3VnpSWi9UNTRqY0t3ZWw5N05SNlJuenJUaGhpeXpIbU1Z?=
- =?utf-8?B?dStCK1p5eHJUN2tWMTNBTlh1di9Vbzh4b3hqRnk2UnFnT3Y0K3NJRWgvR3kr?=
- =?utf-8?B?cDVMN2pYaGIwbE01NjlBRCs1V09nVVUyOTh5QlQvNG15aU42YVRJZFhicHht?=
- =?utf-8?B?N3dyTk51U1Y2TWE4S0ZYQlBPSlZSMVZLL0pIRDlOZFdtTVZxZmZhd1Q1TW9W?=
- =?utf-8?Q?n0ydtn1hE1vd/bvLyacMtnRQ1lDICopKtaxA8894fABxw?=
-X-MS-Exchange-AntiSpam-MessageData-1: yFC0+AZ/YCplhw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 17a36ab2-7c06-4a5f-ec87-08df037c7dd1
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 14:15:33.3408
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5kR9DLr0ZKeW2jtL9OAGQIMyBDay+4EtguofHKlSjm0HOQ9GbAEwsGgulTjCR1u6xdcvbRxjmqoTbOUFcs/gLw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8991
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] s390: Warn if kernel command line contains non-printable
+ EBCDIC characters
+To: Heiko Carstens <hca@linux.ibm.com>
+Cc: Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260825150840.537653-1-iii@linux.ibm.com>
+ <20260826092916.21444Ab3-hca@linux.ibm.com>
+Content-Language: en-US
+From: Ilya Leoshkevich <iii@linux.ibm.com>
+In-Reply-To: <20260826092916.21444Ab3-hca@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDExNiBTYWx0ZWRfX98hEewjzWKAA
+ 1Ngr2T/sqRgKewhWz3eaRcDkwt0oTab2fSnxYYiAOvTIccOESYiH6UB1ZN7LGTdXecefa4vOCI6
+ Ie1OjZ16prRo30h/t8EGVk/juqR2oBQ=
+X-Proofpoint-GUID: PituprqXM9O2sbPkbuU6m5FcJLYbinxb
+X-Proofpoint-ORIG-GUID: PituprqXM9O2sbPkbuU6m5FcJLYbinxb
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDExNiBTYWx0ZWRfX+BbX7J7+jmh3
+ ZSZ3TTEzYLhPIHFTrrj+44gDfDmvFCRZO4+omq1CvKKz9JRZYKiOzs6bgTUscB5iy793Y7hEzCD
+ s0rOB2MltY94MpmiW5P1FIFimZBUORDgD/Se7Q63TKIb2eEkhXbwXjlCuZpY7RLK8oQiZ+tcPn/
+ 1hCMGPBHLiaE6K/ykjetKOqII4tD3t97cYGC+Gnj5eQwkr12AWjrRzaERO2/iL+LMTetuZ4nxA5
+ C020a7rbokgNkJGF3QqJUaVeg+cDJCyez84v0V6bRbcL9ZYS/2qr73lxhsj4v0a67aCvhiHAJkd
+ A/QKQYXP/J/G+9yRrLwJuFoTejhOXaqkKr5UUFwBDAvG4rX4P3zrbnUCGGRCitRZrCoBOYrHf5V
+ jnQzztRArbu0H3qYRB7FdCjWwiQV+GILdOV/vMW7kJtBVkyi9vQf6gLuuYr5mOJpN5onuA4rkr4
+ k/EDzxHkoRkddlhsARQ==
+X-Authority-Analysis: v=2.4 cv=H7brBeYi c=1 sm=1 tr=0 ts=6a8ef568 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VnNF1IyMAAAA:8
+ a=A3Q8tPC8mmVFCRH0wo0A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-26_04,2026-08-26_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 malwarescore=0 lowpriorityscore=0 impostorscore=0 spamscore=0
+ bulkscore=0 adultscore=0 priorityscore=1501 clxscore=1015 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260116
 
-> So concretely, what about just:
-> - push(&mut self, init: impl Init<T>, flags: Flags) ->
->     Result<(), AllocError>
-> - try_push<I: Init<T, E>, E>(&mut self, init: I, flags: Flags) ->
->     Result<(), PushInitError<I, E>>
 
-I realised that changing push(v: T) to push(init: impl Init<T>) can
-weaken the type inference, although there doesn't appear to be any uses
-in tree that are affected currently. Anyone have any thoughts on this?
-Otherwise I guess it's push, push_init, try_push_init (but with the
-error types I suggested).
+
+On 8/26/26 11:29, Heiko Carstens wrote:
+> On Tue, Aug 25, 2026 at 05:08:08PM +0200, Ilya Leoshkevich wrote:
+>> Users may accidentally add multi-byte UTF-8 characters to zipl.conf
+>> parmline, for example, by copying snippets containing non-breaking
+>> spaces (\xC2\xA0) from web pages.
+>>
+>> The kernel will then interpret the entire command line as EBCDIC,
+>> making it unusable. Distinguish this situation from the legitimate
+>> EBCDIC conversion by looking for non-printable characters and issue
+>> a warning.
+>>
+>> Signed-off-by: Ilya Leoshkevich <iii@linux.ibm.com>
+>> ---
+>>   arch/s390/boot/ipl_parm.c | 19 ++++++++++++++++++-
+>>   1 file changed, 18 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/arch/s390/boot/ipl_parm.c b/arch/s390/boot/ipl_parm.c
+>> index 6bc950b92be76..71c0c26d56bba 100644
+>> --- a/arch/s390/boot/ipl_parm.c
+>> +++ b/arch/s390/boot/ipl_parm.c
+>> @@ -173,12 +173,29 @@ static inline int has_ebcdic_char(const char *str)
+>>   	return 0;
+>>   }
+>>   
+>> +static inline int has_nonprintable_char(const char *str)
+>> +{
+>> +	int i;
+>> +
+>> +	for (i = 0; str[i]; i++) {
+>> +		unsigned char c = (unsigned char)str[i];
+>> +
+>> +		/* isprint() is Latin-1, and we need ASCII here */
+>> +		if (c < 0x20 || c > 0x7e)
+>> +			return 1;
+> 
+> Hm, I guess the comment refers to a different implementation than the
+> kernel internal one? Since isprint() (see include/linux/ctype.h) is
+> true for exactly the range you open-coded, as far as I can tell.
+
+Unfortunately isprint() matches some extra ASCII upper-half characters,
+e.g.:
+
+   const unsigned char _ctype[] = {
+   [...]
+   _P,_P,_P,_P,_P,_P,_P,_P,_P,_P,_P,_P,_P,_P,_P,_P,        /* 176-191 */
+
+> Furthermore kernel command line parsing also allows for all sorts of
+> spaces, tabs, and line feeds (see e.g. next_arg()). So I guess the
+> above should be changed (and shortened :) ) to something like:
+
+I completely forgot about newlines, thanks!
+
+> static inline int has_nonprintable_char(const char *str)
+> {
+> 	for (int i = 0; str[i]; i++) {
+> 		if (isprint(str[i]) || isspace(str[i]))
+> 			return 1;
+> 	}
+> 	return 0;
+> }
