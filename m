@@ -1,209 +1,167 @@
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4E33438F65B;
-	Wed, 26 Aug 2026 23:01:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.38.64.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787785274; cv=none; b=tqHd5+IgSayYNaJsoBEs+VLFJP1U8RksNzTeTIzcBcvA3kO2YZyU2NkWK6yZ6gEXFJtE4rnsxyjTniEQrxJsoTGIsAWDjh6jJK+Z23f1MyDRmtagTrY/KnwHDJAE1kXoU2gF8rAMnVcF3Hy7cwCdindTu0o/ppaB7PeQuj1MKz4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787785274; c=relaxed/simple;
-	bh=Iw4i56TIUhDjddRRiabwFPLHIl+IFID7m5T8lhsAX8k=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=GkgeBA0bHVWDlzTXS3ojLQW432/tetnUWeGgIs0OPQYFy5XFeas1PeJg4+jGBUU1OBNo4OgDMenMD9TMeiBopSBxyHUzPYae/L6KGDUSeocQGTs+zcu5WNOmVyXpqgwKTHSs+WpWHio2BAztfGFHT0iYyZwrFEq6IMr+LIGuBkM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn; spf=pass smtp.mailfrom=mail.ustc.edu.cn; dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.b=PKwgYhmT; arc=none smtp.client-ip=202.38.64.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012030.outbound.protection.outlook.com [40.93.195.30])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7401164A8D
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 23:04:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.30
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787785473; cv=fail; b=SHbW2snRH7dc8Udh9U19Js2HQqZI9ovQI6NWHoqey2RnIzv4Nik8bRyisZ29dDteZEOiwjOvkO1hmIF3nvZADRlnQcVKEONnb5CF90dKDL682sKUqplqac0mLk29EQ+jLjEmd9OY7cjwao6whFirt34zKDBv2TNO37U2VilQFWg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787785473; c=relaxed/simple;
+	bh=vB+Ey3Ffh/UVQG3DhmWul7NZBy0Ac/W0CBlLfF7r87I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=ULD1c1TOJVaA02WX3RV6Wst8zMLczBsaisLmewpDFDILQyQxAuKqGNAOgezsKxsXEa6mHOtcNfLjuBRfqio8toQx5mAoO4xjI92WgVMMNcPqeiduELo5X+Yp/rHHwW01iNd5lL1vaVhL5U/qbGc46Dkf8ykx63H5sni/C2AyfR4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=uPiqRHk5; arc=fail smtp.client-ip=40.93.195.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.b="PKwgYhmT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=QrfgfmUHeY
-	l5b5B9RzrFiEdDLTdEmBUPmSntgIBZbOk=; b=PKwgYhmTbbwjDbhpTbg2swnS/h
-	zyzkzxMgq4FmGJXk7rAx/taGU9RZjMHO9MbqLSVitxp14UjO3skjIaAWFiLEBiEe
-	uUu0DRVWG2C1C6R/NmRCNCIxBjPPyRiFdnEH30oCoqXTZPIqND49Q5o1Jvel9W70
-	NxK4eIG1uTlu2y/9E=
-Received: from skw.ustc.edu.cn (unknown [211.86.152.137])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgBXWjH1b49qZj+jAA--.3696S2;
-	Thu, 27 Aug 2026 07:00:35 +0800 (CST)
-From: Kaiwen Shi <skwkevin@mail.ustc.edu.cn>
-To: Alexander Aring <alex.aring@gmail.com>,
-	Stefan Schmidt <stefan@datenfreihafen.org>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	linux-wpan@vger.kernel.org
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] mac802154: fix data race and NULL deref on local->assoc_dev
-Date: Thu, 27 Aug 2026 06:59:59 +0800
-Message-Id: <20260826225959.682483-1-skwkevin@mail.ustc.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="uPiqRHk5"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=s1rUOVEvi9rZKFYfkmSMqZhjJOkUQg44gxGue57AsuAexEOduTT9aMczP6hq5VCSZSGMLe3SBsznaanwn7ny/gGgpM8GV7Z2vAryWmGuKOWJ7q0lDU71sEC5xnadh4b1wjR4IRHXs5/lH2wRb6GVEKammDk+8TJnloQ+OO4vimXripYTRFI8Bw5hWZ3mpWX40aB2G/GxN/D/vL0ZqjwykvGXKeATaY+84nGsZp48O4a0B08kvfyFHSf6gOODz2Dv1PVqNibfNkGE5Ng/iMUEd8I2hnzJWEFgDA6Wy6mkumj/fCr/BIEjL3ktP6Fx2STi7Ij2sk3rQ4SULAveJAAfGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OAdjP0IsZHTGMNaMZ8PxwJXFTBsfZS/40Yhw1a8OW+o=;
+ b=k2XmekfBe7S5yEW283iDqwe3oZl3oyyxIa09f+FV6byBrQyXv4/zCGJyhjM5SBGZcWdfO6XqjlDrg/98aM/16AupFALySRZEVe8kyhfHbt5/YLOQTp2rrXmhHzKsC8pHx0+Aj6dlZNULgoMib/xhHHebhIqDKyNOXrLC7imMQ57yuGenlne920o1ZmTbaeASs8Un5PJ47ITuozmmaV+6pK4+N5PvO0NQWuvx/1MvwCIwk1yOyM9XAoMOc3q9T2nR6QBJkTzOKPQpT9E8Ka01NEEIi7SpkWjriZlddJakJDI9AWFxVeCz7t7vldd5F9WNKZ3J/W46XzQUDXJOjy7uMg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 149.199.90.133) smtp.rcpttodomain=kaitmazov.com smtp.mailfrom=amd.com;
+ dmarc=fail (p=quarantine sp=quarantine pct=100) action=quarantine
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OAdjP0IsZHTGMNaMZ8PxwJXFTBsfZS/40Yhw1a8OW+o=;
+ b=uPiqRHk5vHCljiEcasUgyn8vYxCYujjNFX87bYGJ4BV/nVwB+qL3P2JndkKl91DRuW2zLrCKr/BCRwd3H45cSaTSBFPmsfs9nPX9A1wQgBk9/VPsq8h57tq/i3RtLEkImaodPfduBTqan3nur7HOdV3Sjz/LIFmIVHa4EYKTbzE=
+Received: from BY1P220CA0009.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:59d::7)
+ by MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.14; Wed, 26 Aug
+ 2026 23:04:28 +0000
+Received: from SJ1PEPF0000231B.namprd03.prod.outlook.com
+ (2603:10b6:a03:59d:cafe::29) by BY1P220CA0009.outlook.office365.com
+ (2603:10b6:a03:59d::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.10 via Frontend Transport; Wed,
+ 26 Aug 2026 23:04:28 +0000
+X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
+ 149.199.90.133) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=quarantine header.from=amd.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ amd.com discourages use of 149.199.90.133 as permitted sender)
+Received: from satlexmb08.amd.com (149.199.90.133) by
+ SJ1PEPF0000231B.mail.protection.outlook.com (10.167.242.232) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.3 via Frontend Transport; Wed, 26 Aug 2026 23:04:28 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 26 Aug
+ 2026 18:04:28 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
+ Transport; Wed, 26 Aug 2026 18:04:27 -0500
+Message-ID: <4f6b5cc2-1edb-b978-2939-15aa8d09bfb1@amd.com>
+Date: Wed, 26 Aug 2026 16:04:27 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgBXWjH1b49qZj+jAA--.3696S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3WrWkXw4xuFy3XF4ktFWxtFb_yoW7try3pF
-	y2grn5KF1DXFn2vws7Jw1Fqry3ur48uw1xGw17ZFsIv3Z8WF15Z3W2grnFvF1jyr4vvayf
-	ArWDJa15AF4DC3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9lb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
-	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVAC
-	Y4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJV
-	W8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka
-	0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6FWl42xK82IYc2Ij64vIr41l4I
-	8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AK
-	xVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcV
-	AFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8I
-	cIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r
-	4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUyKZXDUUUU
-X-CM-SenderInfo: 5vnzyvxylqqzxdloh3xvwfhvlgxou0/
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH v2] accel/amdxdna: Bound the page count of a user supplied
+ buffer
+Content-Language: en-US
+To: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>, Min Ma <mamin506@gmail.com>,
+	Oded Gabbay <ogabbay@kernel.org>
+CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+References: <f1cbc1bf-2904-e0cf-8fc6-07ce41dad2a2@amd.com>
+ <20260826212825.408846-1-taimuraz@kaitmazov.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <20260826212825.408846-1-taimuraz@kaitmazov.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231B:EE_|MW4PR12MB6873:EE_
+X-MS-Office365-Filtering-Correlation-Id: f0828547-ca83-4b3a-3d98-08df03c66181
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700016|23010399003|376014|82310400026|10067099003|4143699003|11063799006|5023799004|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	lJ4yi4dpJtSIAiCLwpdTt+tk/91LUggH61bE958X6x5XMMHGD6KZXYgEdPREheehhWEKufCgUYIS7okxfabGwa4YA3+wcaZeKXkXdhcrwvSW1Tt6z2Tp5o7mgJN78wIhNKvKVkkeno8S9U5AqA8DU4wVeVwylQgl0kwYbc8gQmB1bgQvrpTg+RtQ/g8MP688pr3D3Cks8lsQHZBNqyyKuPSqh0pj8LOhpHPi1f2dtir85lQ3kbo1VQEwwlO5K6eR/7glTERmdIMqQA0aGXJmkBqeKzFHTma05SRQfOa1W+DSmza36AXpcHszeV38mrx9/NrJ/kYGWQtO2U+qOPqJTQ1J4gadeaEfUtBq5xqCyU69q1/JuExt6L1Vr920L9SKeODR1eZFVCcpxy3e+/GznVYUlVBer5jchq+56jD64M0mYsRQsIr7h/XCuvkx4QVw8AhMoSFN9lhD42nnXQOy9l3Ug6NXkOZsFLnN/IwkiOQ1sm1C5aWpbLbOn9LnyiYcX2HMs3NjzqwOREur/4ysRKHJKu8y9/Zz4Lgd6bUkb5sag4WlAttl+xkjdX+LIoF1czwTAiTqjM52B/n/nl6RmSUS6jI5yXkOP/qUD0WI7MJJLA4zUelQGH9Y0RTvZD4xx01zYjXYg19vpueAU6jbQ90+NfqW/jycrd4/e4dOxdXVs1qHfDQYWW0xBxMzQAexdCGzqzmPJtwOT+XZVnwIuQ==
+X-Forefront-Antispam-Report:
+	CIP:149.199.90.133;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:unknown-90-133.xilinx.com;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(23010399003)(376014)(82310400026)(10067099003)(4143699003)(11063799006)(5023799004)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	aqnneNQovRDHUGSRCmHa8DPWhkhev93UQjWtFijv7A6k96e5otgneeXp9JhAizjS6w0qFdFJyJ55NEVRftjThuQpwWVc7IotaqiuFO6BwWLlfO87z0Cz8cNq3pRENcyLDhcYYRNTsYxgR2uUMINBLNNZ7HnLPzZDpsTOBzzdyy6951ih4RPR2zK0dwMLrRp7xjma4yJ8ST+kUqL+qnNVAkM9vM3WTdpD1HZttofBG9W+X/B1ZDTdf1RX/Auz4lVnJ3jEPspQVaNSrTe09gyMh4NnhvFl+VWKoey/c0NwAKzANUEhyc3btHAKfTurPLs9qWt+oTwmXr5mNdxqaxz+TAtHlBBef5Oxk7LUSrx36ALIaFxxex+Px/AABjyKHiRaLI0jPJ7znrrP7YQ9AcEsnjGCrohOEaNwHw3myXz3GcE4m5ZutjqtSPywCfuZXIrC
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 23:04:28.3094
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f0828547-ca83-4b3a-3d98-08df03c66181
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[149.199.90.133];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF0000231B.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6873
 
-local->assoc_dev is shared between the association path and the
-association-response worker without common synchronization.
 
-mac802154_perform_association() stores the coordinator pointer and waits
-for a response. Its timeout and error paths clear the pointer and return
-to mac802154_associate(), which may then free the coordinator object.
-Meanwhile, mac802154_rx_mac_cmd_worker() may observe the associating bit
-and enter mac802154_process_association_resp(), which dereferences
-assoc_dev.
-
-The worker's bit test and the handler's pointer dereference are not
-atomic with respect to cleanup. Cleanup can clear assoc_dev between them,
-causing a NULL dereference, or free the coordinator while the response
-handler still uses the pointer.
-
-The response handler only needs the coordinator extended address.
-Replace assoc_dev with a cached address, removing the pointer lifetime
-dependency. Protect the cached address and the associating bit with a
-dedicated spinlock. A READ_ONCE()/WRITE_ONCE() pair would not guarantee
-an atomic __le64 access on all 32-bit architectures.
-
-Reset the completion, publish the cached address, and set the associating
-bit while holding the lock. Cleanup clears the bit under the same lock.
-The response handler takes the lock, rechecks the bit, validates the
-cached address, records the response, and completes the waiter before
-unlocking. Thus cleanup cannot pass the handler between its state check
-and completion, and the cached 64-bit value cannot tear.
-
-Both users run in process context, so a plain spinlock is sufficient.
-The lock is not held while waiting for the completion.
-
-Suggested-by: Miquel Raynal <miquel.raynal@bootlin.com>
-Fixes: fefd19807fe9 ("mac802154: Handle associating")
-Cc: stable@vger.kernel.org
-Signed-off-by: Kaiwen Shi <skwkevin@mail.ustc.edu.cn>
----
-v2:
-  - cache the coordinator extended address instead of retaining the
-    assoc_dev pointer, as suggested by Miquel;
-  - use a plain spinlock to serialize the cached address and associating
-    bit, including 64-bit address accesses on 32-bit architectures;
-  - reset the completion under the same lock, recheck the associating bit
-    in the response handler, and complete before releasing the lock;
-  - use the response payload in the debug message;
-  - add Cc: stable@vger.kernel.org.
-
-Link: https://lore.kernel.org/r/20260824175938.11143-1-skwkevin@mail.ustc.edu.cn
-
- net/mac802154/ieee802154_i.h |  3 ++-
- net/mac802154/main.c         |  1 +
- net/mac802154/scan.c         | 21 ++++++++++++++-------
- 3 files changed, 17 insertions(+), 8 deletions(-)
-
-diff --git a/net/mac802154/ieee802154_i.h b/net/mac802154/ieee802154_i.h
-index 8f2bff268392..8f92ac83f5f9 100644
---- a/net/mac802154/ieee802154_i.h
-+++ b/net/mac802154/ieee802154_i.h
-@@ -76,7 +76,8 @@ struct ieee802154_local {
- 	struct work_struct rx_mac_cmd_work;
- 
- 	/* Association */
--	struct ieee802154_pan_device *assoc_dev;
-+	spinlock_t assoc_lock; /* protects association address and active bit */
-+	__le64 assoc_dev_extended_addr;
- 	struct completion assoc_done;
- 	__le16 assoc_addr;
- 	u8 assoc_status;
-diff --git a/net/mac802154/main.c b/net/mac802154/main.c
-index ea1efef3572a..63e89bd586e3 100644
---- a/net/mac802154/main.c
-+++ b/net/mac802154/main.c
-@@ -104,6 +104,7 @@ ieee802154_alloc_hw(size_t priv_data_len, const struct ieee802154_ops *ops)
- 	INIT_WORK(&local->rx_mac_cmd_work, mac802154_rx_mac_cmd_worker);
- 
- 	init_completion(&local->assoc_done);
-+	spin_lock_init(&local->assoc_lock);
- 
- 	/* init supported flags with 802.15.4 default ranges */
- 	phy->supported.max_minbe = 8;
-diff --git a/net/mac802154/scan.c b/net/mac802154/scan.c
-index 005338f89b75..0ae11e448ccb 100644
---- a/net/mac802154/scan.c
-+++ b/net/mac802154/scan.c
-@@ -578,9 +578,11 @@ int mac802154_perform_association(struct ieee802154_sub_if_data *sdata,
- 		return ret;
- 	}
- 
--	local->assoc_dev = coord;
-+	spin_lock(&local->assoc_lock);
- 	reinit_completion(&local->assoc_done);
-+	local->assoc_dev_extended_addr = coord->extended_addr;
- 	set_bit(IEEE802154_IS_ASSOCIATING, &local->ongoing);
-+	spin_unlock(&local->assoc_lock);
- 
- 	ret = ieee802154_mlme_tx_one_locked(local, sdata, skb);
- 	if (ret) {
-@@ -616,8 +618,9 @@ int mac802154_perform_association(struct ieee802154_sub_if_data *sdata,
- 	*short_addr = local->assoc_addr;
- 
- clear_assoc:
-+	spin_lock(&local->assoc_lock);
- 	clear_bit(IEEE802154_IS_ASSOCIATING, &local->ongoing);
--	local->assoc_dev = NULL;
-+	spin_unlock(&local->assoc_lock);
- 
- 	return ret;
- }
-@@ -639,19 +642,23 @@ int mac802154_process_association_resp(struct ieee802154_sub_if_data *sdata,
- 		     dest->mode != IEEE802154_EXTENDED_ADDRESSING))
- 		return -EINVAL;
- 
--	if (unlikely(dest->extended_addr != wpan_dev->extended_addr ||
--		     src->extended_addr != local->assoc_dev->extended_addr))
-+	spin_lock(&local->assoc_lock);
-+	if (unlikely(!test_bit(IEEE802154_IS_ASSOCIATING, &local->ongoing) ||
-+		     dest->extended_addr != wpan_dev->extended_addr ||
-+		     src->extended_addr != local->assoc_dev_extended_addr)) {
-+		spin_unlock(&local->assoc_lock);
- 		return -ENODEV;
-+	}
- 
- 	memcpy(&resp_pl, skb->data, sizeof(resp_pl));
- 	local->assoc_addr = resp_pl.short_addr;
- 	local->assoc_status = resp_pl.status;
-+	complete(&local->assoc_done);
-+	spin_unlock(&local->assoc_lock);
- 
- 	dev_dbg(&skb->dev->dev,
- 		"ASSOC RESP 0x%x received from %8phC, getting short address %04x\n",
--		local->assoc_status, &deaddr, local->assoc_addr);
--
--	complete(&local->assoc_done);
-+		resp_pl.status, &deaddr, resp_pl.short_addr);
- 
- 	return 0;
- }
-
-base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
--- 
-2.34.1
-
+On 8/26/26 14:28, Taimuraz Kaitmazov wrote:
+> amdxdna_get_ubuf() puts a per-entry page count derived from a __u64
+> va_ent[i].len into a u32, then passes it to pin_user_pages_fast(), whose
+> nr_pages is an int. An entry of 2^44 bytes truncates npages to zero, so
+> nothing is pinned, the ret != npages test still passes, and ubuf->pages
+> keeps whatever kvmalloc_objs() returned while ubuf->nr_pages describes the
+> untruncated count. amdxdna_ubuf_release() then walks all of it. Reaching
+> that needs CAP_IPC_LOCK and a multi-gigabyte kvmalloc() to succeed.
+>
+> Reject a total that does not fit in an int. The lengths are page aligned
+> and summed with check_add_overflow(), so the total is at least as large as
+> any one entry and bounds the pin call, the offset accumulator and
+> sg_alloc_table_from_pages().
+>
+> Reject a zero length entry as well: it contributes nothing to the mapping
+> and a table of them leaves nr_pages at zero.
+>
+> Fixes: bd72d4acda10 ("accel/amdxdna: Support user space allocated buffer")
+> Signed-off-by: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
+> ---
+> v2:
+> - XDNA_DBG and %llu, per your comment.
+> - Reject a zero length entry in the validation loop, and lower that log to
+>    XDNA_DBG too, as you suggested.
+>
+>   drivers/accel/amdxdna/amdxdna_ubuf.c | 11 +++++++++--
+>   1 file changed, 9 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/accel/amdxdna/amdxdna_ubuf.c b/drivers/accel/amdxdna/amdxdna_ubuf.c
+> index 0e0cd69cd1fb..bf1e4dd7bbc3 100644
+> --- a/drivers/accel/amdxdna/amdxdna_ubuf.c
+> +++ b/drivers/accel/amdxdna/amdxdna_ubuf.c
+> @@ -111,8 +111,9 @@ struct dma_buf *amdxdna_get_ubuf(struct drm_device *dev,
+>   
+>   	for (i = 0, exp_info.size = 0; i < num_entries; i++) {
+>   		if (!IS_ALIGNED(va_ent[i].vaddr, PAGE_SIZE) ||
+> -		    !IS_ALIGNED(va_ent[i].len, PAGE_SIZE)) {
+> -			XDNA_ERR(xdna, "Invalid address or len %llx, %llx",
+> +		    !IS_ALIGNED(va_ent[i].len, PAGE_SIZE) ||
+> +		    !va_ent[i].len) {
+> +			XDNA_DBG(xdna, "Invalid address or len %llx, %llx",
+>   				 va_ent[i].vaddr, va_ent[i].len);
+>   			ret = -EINVAL;
+>   			goto free_ent;
+> @@ -125,6 +126,12 @@ struct dma_buf *amdxdna_get_ubuf(struct drm_device *dev,
+>   	}
+>   
+>   	ubuf->nr_pages = exp_info.size >> PAGE_SHIFT;
+> +	if (ubuf->nr_pages > INT_MAX) {
+> +		XDNA_DBG(xdna, "Too many pages %llu", ubuf->nr_pages);
+> +		ret = -EINVAL;
+> +		goto free_ent;
+> +	}
+> +
+Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
+>   	lock_limit = rlimit(RLIMIT_MEMLOCK) >> PAGE_SHIFT;
+>   	new_pinned = atomic64_add_return(ubuf->nr_pages, &ubuf->mm->pinned_vm);
+>   	if (new_pinned > lock_limit && !capable(CAP_IPC_LOCK)) {
