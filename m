@@ -1,225 +1,149 @@
-Received: from mail-10625.protonmail.ch (mail-10625.protonmail.ch [79.135.106.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com [209.85.222.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 979F635B62C;
-	Wed, 26 Aug 2026 20:34:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.25
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787776489; cv=none; b=GPTTSi6w1SYSotZDPT7iYxz3rfmRgY2SV2x7cqx0Y5cSBaeFPM6GmQOHgemxmRNFWBUD4p3uP23SaBbxLltepvj7GCP4LKOXBUXV4xPYbwk7HUrKAXBhro0gpToTBtsFQgooctPPLh7Idd+U/8Lr54+a3IdJxsRJ894FlXbUNWA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787776489; c=relaxed/simple;
-	bh=zq0sKLifmni0DSexviiQ1uu6d9+6e2RXquCxsHJWfQ0=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=rPSEUFfbWo70FUPWC4pJiA0Uq+mx6Aj8ounpNSUNiSSbKPh3o+WsevigSZj8NUeL6bZ/wQmU18B/g6wo79QO6xrGfEqmxqdlhVRFELREx3adzF/Zngmb57WM9DI/pTv7Ki+vbIsQeghkr6mW/fZk/pkIJuyuvYGhIMRVMpXfSNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pouliot.me; spf=pass smtp.mailfrom=pouliot.me; dkim=pass (2048-bit key) header.d=pouliot.me header.i=@pouliot.me header.b=A80E78jF; arc=none smtp.client-ip=79.135.106.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pouliot.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pouliot.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F09434EF04
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 20:37:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787776641; cv=pass; b=mOP3khS0EkOUSoGAJ3VK0TSJXRKP6rzVFtbfQzr8/Cwb1sh67PuVjtayHvUfNxLrcKhUOQ418PSKvP+WbcUZpiDchwRr+i85YUlr5yNrdIueNgOUkFwtpDCUwWZNHiZ1mEdQdhGMO/9+q0YSCZu85AL+fMlKMVqMcZfjUduT/io=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787776641; c=relaxed/simple;
+	bh=zGDCPZAr8rIObhQUZ6eIXhwp3IZGO3y+WOrn01qU5BY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=CUQ2f5CNHAtHrcChuKO7Km4f+Q9ZusGIWcwn3AcH+gWEsJWiVbOqRNjl43tIKkstD2Cc8kLocSn6t9OwF8R+Lei8TPbavc5RPQQ1Cx0khR6Pp/mv/+OTN+oeZnHVN0P8D4BRZrs6XW2kc1Emj675VPivG2MUA9m4fu42dG9XcvY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=BC930g/R; arc=pass smtp.client-ip=209.85.222.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pouliot.me header.i=@pouliot.me header.b="A80E78jF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pouliot.me;
-	s=protonmail; t=1787776476; x=1788035676;
-	bh=Q198YZwzrhXS/7RbDIqrvfTGNpuEuUr/N5NMCdGeJkc=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=A80E78jFehbZOTldMdqmITN3ph3bgkRBRMKd3g3h3XJrgz8g7HYkRPxIxEMjYUoKa
-	 Ag/gih610fTHPMteCVfIQo7hXQQgpaVNYiAxMt+V+DG5i8OuD3mzISJ+yUfsSr/jhk
-	 Wa2YYVgeWC+Sc83aKNtnPOecIfGmIk6C0ypm2VO7x4sk/B6SvXgbbspMB56UOtCUz7
-	 RSYScOC7QiJ4wrfX8Rfxsr9fgbiTnLfRYg8BnooFI4tClv9Xw+hYB1iNT9SF6MrXnS
-	 ZTav6r/AG7/8UYRgY1CDRUCeQXmh19uP2NO9mFTk5aC7oeL5A/VxeH9DUmG9hDfebZ
-	 lID94GamShi0g==
-Date: Wed, 26 Aug 2026 20:34:29 +0000
-To: Nicko van Someren <nicko@nicko.org>
-From: Chris Pouliot <chris@pouliot.me>
-Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-Subject: Re: [PATCH 2/3] arm64: dts: qcom: glymur: Add Asus Zenbook A14 (UX3407NA)
-Message-ID: <ao9NBCsVaKMbl25Y@a14>
-Feedback-ID: 216858851:user:proton
-X-Pm-Message-ID: 41b5b3c0d73fbf60451e6ebed01936724d3b0afe
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="BC930g/R"
+Received: by mail-ua1-f51.google.com with SMTP id a1e0cc1a2514c-97cc700fcf5so235015241.0
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:37:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787776639; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dPCBOdIBdRCLBMFUzw5MjPUngXiy1/5k22aYHsUGM282RYnU2A5InQrn6EqaQStC4y
+         bvjx8kuijlz2UQPbCtJIU6RzCCXiYqTCCtB10yW5xTsUL/eXO+s2fpbh/hJQMqSMcI9n
+         FoA5vGa54XlWRrD5g4C8Yf24ke/4xWmhQ0enqYQ9HeTW6ipuy20Fkj37HOHBFTmg1gv+
+         ZMuvCGJtBT0YxKJmXfqzrZpeulBJavv6DtEIkSiX6aCd8kEYvSmQItPIDMWMH/fRLY0G
+         +Znm3uB9GtEvDH6ce6rZbiNQSr4Ono05ZH5CGjOOIWl32bf8+6Oq1I+b4nJ2mZo3JtnS
+         9N/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=WHNWMVjvIwfjCOhWDbjhiGpUoUnFKyqrLr/E6gLJdRE=;
+        fh=KjMblDOEdVYWCzAsGfvmj3NrKfKk6MBIk7VGoBhHNCo=;
+        b=flSmD/Z1r9uf7oOkXMqxcrR5K2Z8Lrk9XOjBb0hehiJ7HT4jg7SZ5L2WMxOwEHpntI
+         2Vrh7SdgpeANHlbpadwGgjY7DGK0nnvZPavK/auW8rvTZk2OmqDSzH115Th3gZkNKRee
+         gqFZ2fpAqHAvjI/CYzkPXsEvTSxbI2tLaVNkXebfks9vinfpwSkahhusTqLcIqUCsUNt
+         1ToNa34sF18buY+k0vp61u+jqMZjolXj/Q2Shctwsh71q0EC4AchRTf0tndSSXlA5HLn
+         ua04KlvrlrOYt6H3jQlS+SECvqhD0Q5OCEHqJmhtEx0a01EZxCAVNzyQo6lPkTpNSxbX
+         D27w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787776639; x=1788381439; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WHNWMVjvIwfjCOhWDbjhiGpUoUnFKyqrLr/E6gLJdRE=;
+        b=BC930g/R8F8+FYfuh3XSluLUbmbCkt5MQhqsy8ecRhbEAVEHKY4MXXe5OFpxYc6lOX
+         RBnK07y0hvXuYST3nEQ78cBKwjwuLy0yFV0pQYFp5FnL00hCuZadDtKyiyy/G+79S3gc
+         WH9Cm6xqvnrK7PRe+lDc7z/LMWUMR0jBW+SgZtzbgimtmzTWrSfl0ItHXVF56XDC4yT7
+         Nxu9qzDgmw34YvfYwPvmFWG4MPdlp07vGGzZE1oo4UiHD40w4GbDBtr6Pfun5ImvJXhl
+         WRmUuiQm3DYxfSWUtKohwaXSrawaDLrLT/iYQdfk59+ZYa+ET2iZ2+AQQb8uWvzUledL
+         5o8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787776639; x=1788381439;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WHNWMVjvIwfjCOhWDbjhiGpUoUnFKyqrLr/E6gLJdRE=;
+        b=OK7sq3Assy6G/TwbrnelxzHmhv9PXToooOIn/FurTCZRwOLkr9F4n3BDeKWlQRVmKC
+         vTSIsfpmBwUjBZo5+ZKYIC+pzbj2XIt35MTlvfKKlFtTN13PRz4ZdhqNVaiHpnzU2Sg5
+         kriDaQuehETkgUgMID9YOM5YI2OhPe9junRGm+AKoF5rsD/iRAJJ9uhRhKjaXWwQolau
+         1HMwyE2f5blS3x/CaPbbgNf+bN1/yFkS+LPYAODJN4GsaOWm/Aun0JPno6ZJUzuxsOYZ
+         5mRPjENKIA8fDhUqNILdd8HoZ/DFS1B0pVs+SvvmVP4ncOYjpbsyfTgWBXCmpeYhHx/v
+         6a6A==
+X-Forwarded-Encrypted: i=1; AHgh+RoZzGLeCw8dEeOHkwgdBU4tnb2R4GrWOI3L6f5N9WdqpSIJzAjkglsS5cihPMK83QxI1FdvF7yOO25WvZQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++l977INOPiFZTd5LuKFodS82CA8r4pEYi8TbZXcOILMTzauQAnq
+	+0uZhXgdG7cSIQ1WoGr+Gn2LyWC1aRoyfk07LSEOrQNJ6l11fcDybfkBpbNmkwthzrztdRvHVyM
+	3EarJ+8VEu4CWgKoBEepRB0walQb7lgRUq8ukab2r0+IlA5i7U5QxZHU=
+X-Gm-Gg: AR+sD125HE022LATwOn3kmSwIhOYit2BgWFO99ySpfp4Cz5BPj/W/W5+1+mNqFPhaBD
+	zA9xihUDVgi6IrwMNnKaZWOZn+tdsA1SgU5txT8oeCQF6kB9lZW1dRUh4tmgx9uIppkef8rq8Ix
+	/Cc+G7YWMVYU/1UvAS71iEAjBCNR9LYEeLKXY9MO5O8Pzhn/xTBGijR1pfK3tAD8l0C0hR1Am4x
+	5OxDpUNr5MOjSZUOBNQKJia8eQTwsujc761G8ewewllQJ1SWu/CSKriGRaCeYzTfUlrE47ElG1N
+	2T7ZIFPJFwYLUOOTIveISUJ0eHzagAW3YIKUqoCSL537zv/qhDAXykxe70SoJoHY71NaNhGK1fD
+	C+gOke1GBpYzUgv+eOkJsNupyoy2dCga2h/ZydzzKBw==
+X-Received: by 2002:a05:6102:4189:b0:781:1ac:8242 with SMTP id
+ ada2fe7eead31-7841e499c4amr399338137.7.1787776638614; Wed, 26 Aug 2026
+ 13:37:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <20260823125155.1136740-3-morbo@google.com> <F22B12C6-D4C2-4A7D-8C81-B5FF6443DDF0@grrlz.net>
+In-Reply-To: <F22B12C6-D4C2-4A7D-8C81-B5FF6443DDF0@grrlz.net>
+From: Bill Wendling <morbo@google.com>
+Date: Wed, 26 Aug 2026 13:37:01 -0700
+X-Gm-Features: AcwNN1U2GfMiyaQAStNs4u0GCHfGLBgKVLjjqzt3ZTdw2vtbVUFLjQn8h9N2Kws
+Message-ID: <CAGG=3QXeUoxFqHO=Cs726tyubfeG5+0SdGfrbNJ7svDyejid4w@mail.gmail.com>
+Subject: Re: [PATCH 2/2] userns: Add KUnit test suite for uid_gid_map
+To: Bradley Morgan <include@grrlz.net>
+Cc: aliceryhl@google.com, brauner@kernel.org, 
+	codemender-patching+linux@google.com, cyphar@cyphar.com, 
+	dianders@chromium.org, gary@garyguo.net, gustavoars@kernel.org, jack@suse.cz, 
+	kees@kernel.org, linux-hardening@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux.amoon@gmail.com, nathan@kernel.org, 
+	nsc@kernel.org, ojeda@kernel.org, oleg@redhat.com, tglx@kernel.org, 
+	thomas.weissschuh@linutronix.de
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Nicko,
+Hi Bradley,
 
-I have an ASUS Zenbook A14 UX3407NA as well and have been investigating the=
- audio issue further.
+On Sun, Aug 23, 2026 at 6:48=E2=80=AFAM Bradley Morgan <include@grrlz.net> =
+wrote:
+>
+> Hi Bill,
+>
+> > +config USER_NAMESPACE_KUNIT_TEST
+> > + tristate "KUnit test for user namespace map insertion" if !KUNIT_ALL_=
+TESTS
+> > + depends on USER_NS && KUNIT
+>
+> The test is #include'd into user_namespace.c, which is builtin (USER_NS
+> is a bool), so =3Dm here still compiles the suite into vmlinux. With
+> KUNIT=3Dm that calls kunit symbols that live in a module, and the link
+> fails. Make it bool and depend on KUNIT=3Dy, like EXEC_KUNIT_TEST:
+>
+>  bool "KUnit test for user namespace map insertion" if !KUNIT_ALL_TESTS
+>  depends on USER_NS && KUNIT=3Dy
+>
+Okay.
 
-On my unit I see the same basic hardware layout you described: the two WSA8=
-845 devices on swr0 attach, while the two devices described on swr3 remain =
-unattached. I now have working stereo speakers and internal microphone on N=
-ixOS.
+> > + /* Verify sorting is correct */
+> > + for (i =3D 0; i < map.nr_extents; i++) {
+> > +  KUNIT_EXPECT_EQ(test, map.forward[i].count, 5);
+> > +  KUNIT_EXPECT_EQ(test, map.reverse[i].count, 5);
+> > + }
+>
+> This doesn't verify any sorting. Every extent was inserted with count
+> 5, so the loop passes even if sort_idmaps() did nothing. Either assert
+> that forward is ordered by .first and reverse by .lower_first, or drop
+> the sorting claim from the changelog.
+>
+Good call. I added in checking for actual values.
 
-The currently working setup is:
+> > + /* Clean up allocations to avoid leaks */
+> > + kfree(map.forward);
+> > + kfree(map.reverse);
+>
+> Nice.
+>
+> No tag, add me into V2, please?
+>
+Done!
 
-keep the stock 4-channel GLYMUR-CRD AudioReach topology
-remove the nonexistent WSA2/swr3 speaker path from the board/UCM configurat=
-ion
-constrain the WSA codec-DMA backend to 2 channels in the x1e80100 machine d=
-river
-map the frontend channel order so physical left/right, which land in PCM sl=
-ots 0 and 2, are exposed as normal stereo
-
-I have also started turning this into cleaner, distribution-independent pat=
-ches for the DTS, AudioReach topology, and alsa-ucm-conf here:
-
-https://github.com/chrispouliot/ux3407na-linux-audio
-
-Those exact upstream-style patches have not been tested yet; they are curre=
-ntly intended as RFC material. In particular, I am not yet sure whether the=
- correct upstream solution is a board-specific 2-channel AudioReach topolog=
-y, or whether Glymur should retain the 4-channel frontend and express the 2=
--channel speaker constraint elsewhere.
-
-I would appreciate any guidance on where that constraint is expected to liv=
-e upstream.
-
-Thanks,
-Chris
-
-On Mon, Aug 03, 2026 at 10:19:33AM -0600, Nicko van Someren wrote:
-> On Jun 22, 2026, at 19:31, Bjorn Andersson <andersson@kernel.org> wrote:
->=20
-> > From: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-> >=20
-> > UX3407NA is a variant of the Asus Zenbook A14 built on the Qualcomm
-> > Glymur platform. It comes with an 18-core X2 Elite SoC, 32GB DDR, and
-> > the other typical Glymur platform capabilities.
->=20
-> Firstly, many thanks for this. I recently acquired one of these machines
-> for some firmware work I'm doing and having a working Linux system on it
-> makes my life much easier!
->=20
-> I tested this patch set, along with the others it depends on. I have it
-> mostly working now but ran into some issues that might indicate a few
-> changes.
->=20
-> WIFI:
->=20
-> > + wifi@0 {
-> > + compatible =3D "pci17cb,1107";
-> > ...
-> > + };
->=20
-> ASUS don't specify what WiFi7 chip they use, which is fairly normal since
-> ASUS tends to swap the parts depending on supply. As a result, my machine
-> has a QCC2072 (17cb:1112) WiFi/BT module not the WCN7850 (17cb:1107) devi=
-ce
-> that you listed. Inspection of the hardware shows that the WiFi/BT module
-> is a solder-down M.2 LGA module, but electrically that's still an M.2
-> interface. Photos that I can find of the Zenbook A16 show it does the sam=
-e.
-> I think it might be more reliable to define a wlan-connector, like Konrad
-> Dybcio did in the Asus Zenbook A16 (UX3607OA) (2/3) from 2026-07-21,
-> rather than specify the chip.
->=20
->=20
-> SOUND:
->=20
-> Regarding sound definitions, the dts declares four WSA8845s -- a woofer
-> and tweeter per side, two on swr0 and two on swr3.=20
->=20
-> > +&swr0 {
-> > + status =3D "okay";
-> > +
-> > + /* WSA8845, left woofer */
-> > ...
-> > +
-> > + /* WSA8845, left tweeter */
-> > ...
-> > +};
-> > +
-> > +&swr3 {
-> > + status =3D "okay";
-> > ...
-> > + /* WSA8845, right woofer */
-> > ...
-> > +
-> > + /* WSA8845, right tweeter */
-> > ...
-> > +};
->=20
-> This machine only has two speakers (again confirmed by physical inspectio=
-n).
-> Only swr0 shows attached on /sys/bus/soundwire/devices/sdw:*/status:
->=20
->   sdw:1:0:0217:0204:00:0   Attached
->   sdw:1:0:0217:0204:00:1   Attached
->   sdw:4:0:0217:0204:00:0   UNATTACHED
->   sdw:4:0:0217:0204:00:1   UNATTACHED
->=20
-> I don't think that's a config fault either; the swr0 and swr3 reset lines=
- are
-> both claimed and in identical state of (out, 0, 2mA, no pull). It's not r=
-eally
-> a surprise that the cheaper model from ASUS would not use the full spec a=
-udio
-> offered on the Qualcomm reference designs, but without a suitable
-> UX3407NA-tplg.bin topology file I can't really tell more.
->=20
-> It appears that the audio setup is blocked further up the audio stack any=
-way.
-> I hacked some dts changes, purloined blobs from Windows and got a stereo =
-speaker
-> setup configured. SoundWire is healthy, but no audio is possible because =
-the DSP
-> does not respond. The ADSP boots and the audio PD is reported up:
->=20
->   remoteproc remoteproc1: remote processor adsp is now up
->   PDR: Indication received from msm/adsp/audio_pd, state: 0x1fffffff
->   qcom,apr ...: Adding APR/GPR dev: gprsvc:service:2:1
->=20
-> then, on every boot:
->=20
->   qcom-apm gprsvc:service:2:1: CMD timeout for [1001021] opcode
->=20
-> I'm curious as to if you tested this (or if this even known to work on th=
-e
-> Zenbook A16, Yoga Slim 7x or EliteBook X G2q with the other submissions).=
- Do
-> you know if/when the required firmware blobs will be forthcoming and
-> upstreamed?
->=20
->=20
-> HDMI:
->=20
-> The built-in HDMI cannot read EDID: the connector reports "connected" wit=
-h
-> a monitor attached but the EDID is 0 bytes and there are no modes. Less t=
-han
-> 2 seconds into every boot, before any cable is involved:
->=20
->   gcc_usb3_tert_phy_com_aux_clk status stuck at 'off'
->   Failed to enable clk 'com_aux': -16
->   phy phy-88e1000.phy.5: phy init failed --> -16
->=20
-> I have not really investigated this in detail.
->=20
->=20
-> eDP:
->=20
-> eDP link training intermittently times out on resume, leaving visible fli=
-cker
-> until another suspend/resume retrains it:
->=20
->   [drm:msm_dp_ctrl_link_train_1_2] *ERROR* link training #2 on phy 0 fail=
-ed. ret=3D-110
->=20
-> I am carrying the (unmerged) "phy: qcom: edp: update v8 power-on
-> programming sequence" series, so this may be feedback for that rather tha=
-n
-> a report against mainline.
->=20
->=20
-> Anyway, thank you again for this patch series. It got me to the point of
-> having a very usable machine for my limited needs. If you have updates th=
-e
-> need testing I'm happy to help.
->=20
-> Nicko
->=20
->=20
-
+-bw
