@@ -1,78 +1,113 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60B3F3B840B;
-	Wed, 26 Aug 2026 15:01:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59AC1445AC8
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 15:01:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787756473; cv=none; b=Xm0ok/NY2F0I85pB1BOgedC9n/db4gHgL9YAU1oUhiel3LvtM+5/ugExK1rucf/mfM1yIXBkL1ElxGaT9ssG5mF+6yAhcHWTVYNl/CIesgYx8P67YVGfXbUgZfiqSAQW/YJEalBuA7PCnkOioorRf2RO+2qBglg80WR3I42L4KM=
+	t=1787756499; cv=none; b=dz81apoG1+7EWPgRNc3ckEJUCVNyiLAp1Liir2cV0mNWnhapMnSfJgxS9kqz1FGpUlZDU5etDJJkVbxgjfm2kFU+LWIMp+zwAwYEkmTxDp6RoxYL9w+RupgM4w6kFfkwjdsr6kAHRJyqpg8E4RBWSAgvqa3P0U/PJvJ0bMCtO+E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787756473; c=relaxed/simple;
-	bh=cV2qSYdJF/ZOBOBO5dF+4nccV307TLmTsdiJrzmgaJs=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=lCeinndhOjf0Aya9+v/PODmQwh6k6LF262lV0MDUK2XYlx0cV2b92lslYHBX05+2W5hkT6J4/epX2AzWZXDZXWdXRof682a17fqo3Ve9SRnctVyh2ZqTmrD35ZNrPLz05LotyeV4Wzg43wjVOB2RR9qRwqxBXkWunH7U/rMZWQU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mx84xv5v; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787756499; c=relaxed/simple;
+	bh=yX/6RORiQ/CP1dqjgZ0/IpYBv5+6Zke4SmnXT55+r9I=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dAQajz0MVLmVPybIAKLe06Na1RBdjKT+UnyrC8ofKhRU6R+bHe7Sv5aGPZkll4GNEhKOjQYONdQe9DSvqFmPWNlHLYyjxvO5myEnvwo7T0qukK/unfaa+IjjQYQ0AjpKC4TrsvupDeiId79W4jnfittOQJAE/KsLvqDQjRWxmDk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EQRsoF9W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mx84xv5v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DC6D1F000E9;
-	Wed, 26 Aug 2026 15:01:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EQRsoF9W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16EDF1F00ACF
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 15:01:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787756472;
-	bh=+xQjAp4U4KrRZEwL5Uc8As1266cRdVbIbaMquVUVV4g=;
-	h=From:To:Cc:Subject:Date;
-	b=mx84xv5vY0IOXvoIFjeMI7nyiNnKi/XikkpIA4aIvTQWx/66HunychLaCrwRxzFa7
-	 kW1kV5jpoT+cZk4BHM5ssHyUDn4hH1T+CyUw7MjGKytOCw0GbYaWf/SvkOoYryeBN0
-	 OQOL07jgp4VeoiGvgVW0u54jfdwuT8olzxCfWr2QJgmbCtiH+LrNu1Jw9UkYuOFppv
-	 7WTpuiWguE6fd7y/o3JSYxavs1DdCX0cDuSzXnFEJyGgmPUDyatpwuHb+scLDAllev
-	 fpBGoJOpMsUrI475C3z2G5aM/ECSYPN4gku1QE4s2q72uNWy1rWQQkUOnJezOyrEwa
-	 gTq9QXsdnovGg==
-From: Namjae Jeon <linkinjeon@kernel.org>
-To: linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: metze@samba.org,
-	tom@talpey.com,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Paulo Alcantara <pc@manguebit.org>
-Subject: [PATCH] MAINTAINERS: Add Paulo Alcantara as an SMBDIRECT co-maintainer
-Date: Thu, 27 Aug 2026 00:01:06 +0900
-Message-Id: <20260826150106.15352-1-linkinjeon@kernel.org>
-X-Mailer: git-send-email 2.25.1
+	s=k20260515; t=1787756498;
+	bh=ypjuAIQb6efh/8oIGum/E6D1WtNQPSF3Rpm03VRyfM8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=EQRsoF9Wq77ic94yAQCXGeKg/yJ0vC1VWbl2fknXoOrp6OEKsBMFSqS9WtdOZ2T15
+	 s0d0bew1n2UHvQfSkDqVANQboQ/tKEyXI8QaOHz6KGNv669bYJfvYNZVvT0RIOCDzS
+	 oq+9QfwKPVZcY5CggOpwYwdvb/3oAztdzMS7Bw/xu664GFBrum9XMGpUIIjLIB6BWQ
+	 e49AVxwF8WdxSKB3mTLi32aS6zmVEFYzXPMXYs/Aq3Q0k/aDK05Y/UWRc+NvfpJP/z
+	 Ixsg6IuAe0kmdSoC/x80AIX5qLZew9iT34pAEMqAWWmLNxJkisCNje9LuGDveUOcmt
+	 XJfDpSslIFEeQ==
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c1c52d920b8so134571266b.2
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 08:01:38 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqVdZ/cKhZ7C1OdfzGqJJSCh6NLVV+lrrrw0DG4cAHQRXknHDvC3xPDbhglDeoYL2//sSLjHOm92ihgLsE=@vger.kernel.org
+X-Gm-Message-State: AFuF++klmHdxuLkGreVILCJMqec/x76CWX3zmAA/kxIA0z10gjK7i8RW
+	Y9TAOX0DHijudPbZ2clNuz0pWN6WNps5uizyRVeltg1pA74FcHRjkxYHK3RB/CiqPxJ+nElSxFU
+	jUV112a6zPI1yRQGhz0fe+ZSX+DAXVAI=
+X-Received: by 2002:a17:907:ea8e:b0:c24:d914:6d64 with SMTP id
+ a640c23a62f3a-c250c32cb23mr952867266b.23.1787756496658; Wed, 26 Aug 2026
+ 08:01:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260818123921.3600606-1-chenhuacai@loongson.cn>
+ <20260818123921.3600606-6-chenhuacai@loongson.cn> <285743d2-6b4b-44e5-a0e2-b43a5e3cda29@xry111.site>
+In-Reply-To: <285743d2-6b4b-44e5-a0e2-b43a5e3cda29@xry111.site>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Wed, 26 Aug 2026 23:01:34 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H7yNSBzGhZDSUadi--NK=0g-eL87Fxp-Roxw0wR6qVOmQ@mail.gmail.com>
+X-Gm-Features: AcwNN1WJcO27SLXPpPoCC20exyVm4-H7GL8J2q-G0zW5SFPGmUEtjYyMNe-6vKI
+Message-ID: <CAAhV-H7yNSBzGhZDSUadi--NK=0g-eL87Fxp-Roxw0wR6qVOmQ@mail.gmail.com>
+Subject: Re: [PATCH 5/5] cpufreq: loongson3: Replace IOCSR read/write with
+ MMIO ones
+To: Xi Ruoyao <xry111@xry111.site>
+Cc: Huacai Chen <chenhuacai@loongson.cn>, "Rafael J . Wysocki" <rafael@kernel.org>, 
+	Viresh Kumar <viresh.kumar@linaro.org>, loongarch@lists.linux.dev, 
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Xuerui Wang <kernel@xen0n.name>, Jiaxun Yang <jiaxun.yang@flygoat.com>, stable@vger.kernel.org, 
+	jeffbai@aosc.io
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Steve French passed away recently. He was a long-time maintainer
-of Linux's SMB support and will be greatly missed.
+Hi, Ruoyao,
 
-Add Paulo Alcantara as a co-maintainer of SMBDIRECT alongside
-Namjae Jeon.
+On Fri, Aug 21, 2026 at 1:01=E2=80=AFPM Xi Ruoyao <xry111@xry111.site> wrot=
+e:
+>
+>
+>
+> =E5=9C=A8 2026/8/18 20:39, Huacai Chen =E5=86=99=E9=81=93:
+> > Our server productions (e.g. Loongson-3D6000/3E6000) can have multiple
+> > nodes in one package and SMC mailboxes are also per-node. However, IOCS=
+R
+> > read/write can only perform on the current node, while sometimes we wan=
+t
+> > to perform on other nodes (e.g. when switch governor, the get and targe=
+t
+> > callbacks are not run on target core). So replace IOCSR read/write with
+> > MMIO ones.
+> >
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
+> > ---
+> >   drivers/cpufreq/loongson3_cpufreq.c | 31 ++++++++++++++++++++++------=
+-
+> >   1 file changed, 24 insertions(+), 7 deletions(-)
+> >
+> > diff --git a/drivers/cpufreq/loongson3_cpufreq.c b/drivers/cpufreq/loon=
+gson3_cpufreq.c
+> > index c75c0e30e881..e5062cd62390 100644
+> > --- a/drivers/cpufreq/loongson3_cpufreq.c
+> > +++ b/drivers/cpufreq/loongson3_cpufreq.c
+> > @@ -164,6 +164,12 @@ union smc_message {
+> >
+> >   #define FREQ_MAX_LEVEL                      16
+> >
+> > +#define MMIO_SMCMBX(node) \
+> > +     ((void __iomem *)(IO_BASE | (u64)(node) << NODE_ADDRSPACE_SHIFT |=
+ LOONGSON_REG_BASE | LOONGARCH_IOCSR_SMCMBX))
+>
+> NODE_ADDRSPACE_SHIFT is defined in numa.h so that file needs to be
+> included, to avoid a build failure when NUMA is disabled (if NUMA is
+> enabled, numa.h happens to be pulled in via some other headers).
+>
+> Also I'd suggest to use nid_to_addrbase(node) instead of hard coding the
+> shift for better readability.
+Yes, that's better, thank you very much.
 
-Acked-by: Paulo Alcantara <pc@manguebit.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
----
- MAINTAINERS | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index e05570c393c5..7e1d14406619 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -25105,10 +25105,9 @@ F:	Documentation/admin-guide/LSM/Smack.rst
- F:	security/smack/
- 
- SMBDIRECT (RDMA Stream Transport with Read/Write-Offload, MS-SMBD)
--M:	Steve French <smfrench@gmail.com>
--M:	Steve French <sfrench@samba.org>
- M:	Namjae Jeon <linkinjeon@kernel.org>
- M:	Namjae Jeon <linkinjeon@samba.org>
-+M:	Paulo Alcantara <pc@manguebit.org>
- R:	Stefan Metzmacher <metze@samba.org>
- R:	Tom Talpey <tom@talpey.com>
- L:	linux-cifs@vger.kernel.org
--- 
-2.25.1
-
+Huacai
+>
+> With the changes:
+>
+> Tested-by: Xi Ruoyao <xry111@xry111.site> # on XA61200
