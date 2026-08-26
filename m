@@ -1,166 +1,357 @@
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com [209.85.167.46])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 833AF411693
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:38:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787762343; cv=pass; b=pNp/MeBXSglF/TaO7oMeWVi6Gvn9/IhQYTIcZRx2KZhCE7hZLnw0hKH0azq9yFYYj3R4b/suFLTidGI6XyW1EhCeenHNCBaaYYR7ZBz9dpn2H61k5hhQJGnVKZJv/K9O1NI3UDQZREPICMFIwlyQpDgwZxXCfuOseBNG1M1QPFw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787762343; c=relaxed/simple;
-	bh=lFi74h/JZOOuFYSN0MxBQNSzJnsFIbge22WE6+smq1g=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Jy7K1F5hSFl5+c8F+Pyk/VohYUExNlVnFRYu5WLybvFuQ+T0CvbZi+qENqGkBFeZNikEu4lnRLtDvYw6EldzDX1LnxmpAvrw5tn39u6JjDmow6ml8VUtwynNMKwcZTwLz1FvzGFmYU7ABRvJfQ4QbTguy86F1XTbc3HNWRdvPns=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OzmFTLmx; arc=pass smtp.client-ip=209.85.167.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73D21353A96
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:39:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787762379; cv=none; b=gV/i7adfareNCPVAQB5Bn4F+PzH8alZNYRLsRxnuvaaOAbKOdvz+8RhtQNmqKzFBD1RczVnfjzAvmBrERNupqOaj/MDYuPGYGvRiiSmfctoOyJEsM89yW9kWDvNhEE9VaLLRobnKb4N8ltrrLxKaQNbSrUX+D4ef1ngRvW5Q3Ms=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787762379; c=relaxed/simple;
+	bh=tR8esIP1LNDqU/4n/eI3JSgsSgcrNVfWqvsyadGtjCs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=TJa7nCFzmCPyw/ljR6fwYUDGp2IUDxd0cU7tjk1A0pFxHLNB/IG4TbnsuCLFBdU3W2k1cntk1bW3oTUJ2V9dZrGvte1ADWb8Xr+f0AnwliM7nNV5ukmFLwzLZDtSkJTyV95fLemtoZ3B0DLJfiWDOs1iKtYPoT/C9K74pxCMf6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk; spf=none smtp.mailfrom=fireburn.co.uk; dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b=Tn/4Zar3; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=fireburn.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OzmFTLmx"
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5b28c91fba5so99635e87.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 09:38:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787762321; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JvMTq8DTlYuouzfrwECOJj376IkKdq8QnSB8yzj49dnPdmhrL+M2DKa0ExbLtZG35u
-         gBEl5jberAb1VQRq6Zhf0QQUJu5Cf4aWIY5XfdbTFN/ZXjoGnT+i+fnbeY1WTNU2fhFP
-         klyTPWXBt96le6HL+XsVYt0cpScDYTPV0i5FudM7DJ0ptXQ0LsnTnlj8amMYS4Rgy0eD
-         z1NCNriGNjiI/NHuXC/HKQX5Iz4mCN/2r9ZkllUQZpCXZ1+4GQzSCoNUivyibOVTLPTm
-         N2ZzNlhCbDCHo/P+W0WgY6MmhoPp7Okj4UKojQyx93TAOE8EngGnwXu1WSXT0E+Atj7H
-         58RQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=fLm3Wj46CL3RhIdYvP1hhVnQ4SPJTUELaPo4u1suXgs=;
-        fh=/FbAyqxPYdASWY1zsVMe89B+pnrmQQlG+qRCnObi0q8=;
-        b=XdMwwkilaXjH5kJ3SJc/qPsQPF4wUeKga/3rbjxmjBesxosz3Ir5b2XOI1PdPXsy5K
-         N/QcZ6pD9FHE6XzpI4hJYTQPZdgxyu2wxjQ2snMI7Z45VuGNgQs4qoSi/HN9cdI1zdiu
-         N4Cg27JhwRru0kjikLUkVPnOF4LSHCIoCsO4JQeGz1idF1kBVdmgQOI6Io1yW32cLiE0
-         DIJRNPpVuNcG3wKjcuw6UTvU/ZDsH+wcy6YT5HbMZjIkjHCozLXsuyatyEdtAFZEOLX+
-         oqXOeRKZ5S/5LBXbG7iZaQj/c18UTU5Wzk1XZrXMpcnEhhT1lPm44E/9iqkON0K3eUIk
-         antw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="Tn/4Zar3"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49b0dbfbf7bso741155e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 09:39:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787762321; x=1788367121; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fLm3Wj46CL3RhIdYvP1hhVnQ4SPJTUELaPo4u1suXgs=;
-        b=OzmFTLmxvjs+ud3CCknjOYdtjWAxcOhZ+aWZpqERkwgdte1dZIJbTNh3sKz6WyWSm6
-         VR4iZCDyLiYL3KB12I5tCsKWMzxdi+sd+rvb0ZBBYm3+SgikEOsPj0pccfa+63cX9OX+
-         ePC9kWMYRnzX+vMgqAO5j9lGhgS8cDXcWwhV3ZEj1OYXcq98mX1UbsaesllA809X33jj
-         jQoH3+iAPWfoZSWM0b149c/xLHVpLbnpZ0eSgf9JucQ7b+BbMBTbBm6S5wYqobBDmfrJ
-         t7NixMYenNbKYtL6FHR7W2fSnJQ5tfu/tUXVOumw3X+r3AWnzFyzyKQYc0TggtCr89yb
-         Rn0A==
+        d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787762367; x=1788367167; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aHwEIe3ApZAukwk8cJYOHMlUqzV23ND3olo6PKKeC74=;
+        b=Tn/4Zar3rOGbGVGOZ0aFv6jTwvAFrn7Tl+9S9oOvLHj+TBn6KfsD1vC+EDKNhzhi2r
+         SJnpZpoo7+o7XO6ZjxkiS7J0AN44O8pUXJaeV/FxVFIPxaRXy7gdfP5i8EV9j3lFIKjZ
+         uhaJyi35zcmufxvZOMBamlp56mCVwOXsl8/zGV1GUyxu4BHban7qC7g2O0T53ukWSUmT
+         8ODYMHG1Sm07RndilPMi25/9ETpBd9Ge+VMh/tbDHRrZi4SMycYpVsI3JliqkDcQ3nhN
+         qgYe74aun7vx/JsJY9Iv/KxdgB0UoA/CIqIBYha2BN+0eUVtgxqHJPzmQu7ZW/FwZ3f/
+         xvRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787762321; x=1788367121;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fLm3Wj46CL3RhIdYvP1hhVnQ4SPJTUELaPo4u1suXgs=;
-        b=knF6z8g0SPTMuOSI/wf+ivPd3t1yXvXcskR8K5PwxNsRG+wYtkWtWDY/JBUlMg0T0M
-         sptS4nWQKf1szJqmXw/74vhsIw4tAO6oVOfTRobRm8USqDW+Os8aAFRSqwx6DtmH1CJQ
-         CdqOS5g1AVnlcdv6qFZWuR6owy7BgB1/6dWAs4Eol2Ls/abiZ0fdNg2N+88bIhiEYdpD
-         2X22/WWTcNQepsEiH2Kn/pxSkNpDp1KqeiCitt6y19Ma/NJ7B94QjAQvr53A7WedNga7
-         R+ZvBDZCoSz+qsjXWLPC0eWcNe2OZUch1U2FKhWnVhbw41dCunumm+JGixxU/eqdiIgP
-         Hx8Q==
-X-Forwarded-Encrypted: i=1; AHgh+Roz3viQKDTzM07yqSSKc19Donao6l/rhJVdojdp3SyVnP1DBSBOTJBDmV0jNhX6Oh3ghYhimU8GKAER37A=@vger.kernel.org
-X-Gm-Message-State: AFuF++n+V5kphFKK4s4FVJLHRxwNSo+YMaA6Ss5bnc4xN4LACeBdHNKz
-	XdfQi+4tExOaGq8exRFZ1PM/ogTOQ1LACxP+eqmIWyQ6SdLr2EKIumaLXpTHHReCsA74wnop8rg
-	ACsT/FKPEI5Kf9sN8113NCUh0/EW25cA=
-X-Gm-Gg: AR+sD128oDb/WXYG7PDTZvkc7ngtKHYBMH7zzSGkWyE8hAZvF5SrlVr7XRANAryC5T2
-	KH4iXj8mqOihhdWU5st6T0k9+tH6sOHeCeoI/TrebucNlpd1tJmpxmHq9WqwpkdfG81ugfusSiu
-	5XgvfY6DrWO9RASrkl5kXK7ld7LftRV5xAju7VrdS9xTZC09VrV4IC4HN1VnPeqTaZ59dcFsZXR
-	b7T/T0kwLPVvkyk+M7aSoKYfU3Pdl2v3Pae9yKGy/wr/u+FgrXe9L40DRLlyxmPWQb2O/S3f4WZ
-	cc+7Z880osvQ2sJkS/FwmD5AYQ6WZ9Ez2JWi6U/j8muJUa06fptKHVyk8KxjazeywMW67C/H5Ez
-	rqgHsgvCttG8TqCIHh8sN7I7mVGwN9+ZidQ==
-X-Received: by 2002:a05:6512:3086:b0:5b4:ab0c:f606 with SMTP id
- 2adb3069b0e04-5b4afe94044mr132795e87.2.1787762320578; Wed, 26 Aug 2026
- 09:38:40 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787762367; x=1788367167;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aHwEIe3ApZAukwk8cJYOHMlUqzV23ND3olo6PKKeC74=;
+        b=e99Qj0JwrfdeB8D4Ae50MyamURmJ6YE5xwL0IdKNcTTrDjIUeHX2St1DrN98GYLmCa
+         RsS9LLp/FhU+v7ySkyRlH8O51Gipx1ophOwNVf/V+y4IhrTxaILD/6xDszPjH+gZbDRR
+         X3K2Dcg5poDgLzcYkGFeZq8I1uNz/bQDBHDkOye59gE8CZAuGYpft4JHjYuYDDhdEppF
+         yP6IXb6JCW9HcKC9oSg1Cv9d0nasH3fOzowPbrpJKZt+Av7z4Y9LD531q2TpcuXQdG0K
+         rdTWntpXcyml6ltS48aBx1WOs5J7S01uuR7Wq8rHAEscX7rfgjIcDY8svv+pQwgp6v1F
+         4n+Q==
+X-Forwarded-Encrypted: i=1; AHgh+RoE9BdRaGH8jYgIN3ctlj6cdFz78K/Fh44aQPEThQUAjD0h5BuYv5IkXSj+s29yfWUqeSSqwHb1p3M2pmY=@vger.kernel.org
+X-Gm-Message-State: AFuF++k+Oes3MA2Fxd+ZDXU2MpWY9nA9zz6FiwCFXoDGTFxxKKE6vzOQ
+	+CyPA7zUNtOhKE3E6NNjnjAgDh3FZwvqMpdmRkAOqahuOVT0fL0jYZB8km8wfp0ITQ==
+X-Gm-Gg: AR+sD11HkQYuXEWTbvzN8z3yI3Vi9e7STZGFDWfP+gyvb0WR//JSH4ilBys9fEh1CL/
+	0G+pfxODVSaTRwC/plqbIoorlWv1Eo0dozg6b9iMhr/Djcpfid1Ea5pyxw6N0Hi8e/C0yw2R5ra
+	NLFJmRragv21xp+sSvhZw6sVReSum5PBT+KfXCt0eoLc1skk7FnikZsi6nfaq4sGGwZrxurrFZ8
+	xDmTp6Fi1d+/pJq+nis1KY0koXbB0ceuz9DLi2V9SbpuLP0DFjS4/Zk+Jb/3ula0INGRxCcnlh0
+	HwkMTrZ5TSBS1BwVMP6QI557YAxw+9PhI4Qj5q08bK0V0LPS7iA90nKDc1t+mywJM43B6ApgCql
+	uj/y1EtqmyVNeUigahkuLEgaO6hoIT775y1qRrMDv3VDuAhD9OW2iDNHj48suKREQdnDGYuTFqC
+	Os7R5XwaisED/ZHGWqsGgkOy+etoa/+LgOIP97BUgFdKFnm3jOzYKGXy6QKuDOV0yJaZ4dOW3Y8
+	lZ+xDvdy1gtR6JbHyQPKjsIIp5scGTReg6J
+X-Received: by 2002:a05:600c:4505:b0:499:593b:a15b with SMTP id 5b1f17b1804b1-499dc6e9935mr70406525e9.1.1787762367315;
+        Wed, 26 Aug 2026 09:39:27 -0700 (PDT)
+Received: from axion.fireburn.co.uk ([2a01:4b00:d309:1c00:caf1:6b20:8531:818c])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499dd5721a0sm21769715e9.4.2026.08.26.09.39.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 09:39:25 -0700 (PDT)
+From: Mike Lothian <mike@fireburn.co.uk>
+To: dri-devel@lists.freedesktop.org
+Cc: Mike Lothian <mike@fireburn.co.uk>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 2/13] drm/vino: add the USB transport
+Date: Wed, 26 Aug 2026 17:37:27 +0100
+Message-ID: <20260826163913.7052-3-mike@fireburn.co.uk>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260826163913.7052-1-mike@fireburn.co.uk>
+References: <20260826163913.7052-1-mike@fireburn.co.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826134126.3729507-1-qiwenjie@xiaomi.com>
-In-Reply-To: <20260826134126.3729507-1-qiwenjie@xiaomi.com>
-From: Daeho Jeong <daeho43@gmail.com>
-Date: Wed, 26 Aug 2026 09:38:26 -0700
-X-Gm-Features: AcwNN1V5krk-Lrgjk4QJD4t7rLKQ-7dJrnID72x_erkj7QQ5LgMpyhSvR4rAvDQ
-Message-ID: <CACOAw_xpF2fBnJwXPATANo5bK0UWUEx2uNKpy2RCfZRzhOphoA@mail.gmail.com>
-Subject: Re: [f2fs-dev] [PATCH 0/2] f2fs: fix device alias state across remount
-To: Wenjie Qi <qwjhust@gmail.com>
-Cc: jaegeuk@kernel.org, chao@kernel.org, qiwenjie@xiaomi.com, 
-	daehojeong@google.com, linux-kernel@vger.kernel.org, 
-	linux-f2fs-devel@lists.sourceforge.net
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 26, 2026 at 8:42=E2=80=AFAM Wenjie Qi <qwjhust@gmail.com> wrote=
-:
->
-> Split device-alias remount handling into two changes.  The first records =
-a
-> stable device-to-inode mapping so a custom alias name can be reserved aga=
-in
-> after release and remount.  The second uses that mapping to keep released
-> alias devices out of pinned allocation, both immediately and after remoun=
-t.
->
-> The f2fs-tools layout and mkfs update will be sent separately because it
-> applies to a different repository.
->
-> Wenjie Qi (2):
->   f2fs: persist device alias inode across remount
->   f2fs: keep released alias devices out of pinned allocation
+The dock exposes control on a bulk pipe pair, video on one or two further
+bulk endpoints, and an interrupt endpoint the dock pushes on. A dock
+generation differs in how many of those it has and in whether video shares
+the control pipe, so the transport takes the endpoint numbers as data
+rather than deciding them.
 
-Hi Wenjie,
+Add the link: a bound-interface wrapper that opens those pipes, submits
+video as a queue of pipelined URBs, and reports a stall as a stall rather
+than retrying into a wedged dock.
 
-Thanks for pointing out this issue and for the patch series.
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
+---
+ drivers/gpu/drm/vino/usb_link.rs | 250 +++++++++++++++++++++++++++++++
+ 1 file changed, 250 insertions(+)
+ create mode 100644 drivers/gpu/drm/vino/usb_link.rs
 
-However, there are several concerns with the proposed approach:
-
-1. Fresh mount issue:
-Since mkfs.f2fs does not populate dev_alias_ino in the superblock, on
-the very first mount right after format with a custom alias name,
-f2fs_restore_device_alias() will still fall back to the basename
-lookup, fail to find the alias file, and leave FDEV(i).has_alias unset
-until a release ioctl is explicitly called at runtime.
-
-2. Superblock updates during runtime ioctl:
-Writing and committing the superblock (f2fs_commit_super()) during the
-runtime release ioctl path adds unnecessary complexity and overhead to
-regular filesystem operations.
-
-3. On-disk format change and kernel complexity:
-Modifying the on-disk superblock reserved area and introducing
-validation logic in the kernel adds notable complexity to resolve a
-name-mismatch issue that can be prevented at format time.
-
-The original design intent of device aliasing was to map a device to
-an alias file that shares the exact same name as the device basename
-(for example, /dev/block/by-name/userdata_exp mapped to userdata_exp).
-Rather than changing the on-disk format and kernel runtime paths, the
-cleaner and more fundamental fix is to enforce that the alias filename
-matches the device basename in mkfs.f2fs.
-In addition, we can allow the `-c <device_path>@` syntax in mkfs.f2fs
-so that users don't need to specify the filename redundantly.
-I will prepare and submit a patch for f2fs-tools to enforce this alignment.
-
-Thanks,
-
->
->  fs/f2fs/file.c          | 100 ++++++++++++++++++++++++++++++++++------
->  fs/f2fs/super.c         |  48 +++++++++++++++++++
->  include/linux/f2fs_fs.h |   3 +-
->  3 files changed, 136 insertions(+), 15 deletions(-)
->
-> --
-> 2.43.0
->
->
-> _______________________________________________
-> Linux-f2fs-devel mailing list
-> Linux-f2fs-devel@lists.sourceforge.net
-> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
+diff --git a/drivers/gpu/drm/vino/usb_link.rs b/drivers/gpu/drm/vino/usb_link.rs
+new file mode 100644
+index 000000000000..04b9131d05ed
+--- /dev/null
++++ b/drivers/gpu/drm/vino/usb_link.rs
+@@ -0,0 +1,250 @@
++// SPDX-License-Identifier: GPL-2.0
++
++//! The dock's USB endpoints, and the I/O handle every transfer goes through.
++//!
++//! [`Endpoints`] is resolved once against interface 0's descriptor and direction/type-checked, so
++//! the rest of the driver names an endpoint by what it is rather than by a bare address. A
++//! [`UsbLink`] can only exist while the device's [`usb::IoWindow`] is open, so a transfer cannot
++//! outlive the binding.
++
++use super::*;
++
++/// The dock's endpoints, resolved once against interface 0's descriptor and validated for
++/// direction and transfer type by [`usb::Interface::endpoint`].
++///
++/// Resolving up front means the rest of the driver names an endpoint by what it *is* rather than
++/// by a bare address, so a bulk-OUT transfer cannot be aimed at the interrupt-IN status endpoint.
++/// The whole set is [`Copy`] (each entry is an address plus a max-packet size), so it can be
++/// carried by value in a [`UsbLink`] rather than borrowed.
++#[derive(Clone, Copy)]
++pub(crate) struct Endpoints {
++    /// EP02: host->dock control-plane bulk writes.
++    pub(crate) ctrl_out: usb::Endpoint<usb::BulkOut>,
++    /// EP84: dock->host control-plane bulk replies.
++    pub(crate) ctrl_in: usb::Endpoint<usb::BulkIn>,
++    /// Per-connector video bulk-OUT endpoints, from [`DockProfile::video_endpoints`].
++    pub(crate) video: [usb::Endpoint<usb::BulkOut>; drm_sink::MAX_CONNECTORS],
++}
++
++impl Endpoints {
++    /// Resolves every endpoint the driver uses against `intf`'s active alternate setting, and
++    /// returns how many connectors the device actually backs.
++    ///
++    /// The control endpoints and the first video endpoint are required. The rest are not: a dock
++    /// in a known family with fewer outputs simply does not expose the later ones, and the count
++    /// that does resolve is the connector count. Taking it from the device is the difference
++    /// between supporting such a dock and refusing to bind to it, because a profile can only
++    /// describe the variants someone has tested. Navarro repeats addresses across connectors
++    /// (0/2 share `0x08`, 1/3 share `0x0a`), so this counts entries rather than distinct
++    /// endpoints, and the profile's own count remains the upper bound -- four resolvable entries
++    /// on a two-connector Ridge dock still means two connectors.
++    pub(crate) fn resolve<Ctx: device::DeviceContext>(
++        intf: &usb::Interface<Ctx>,
++        profile: &DockProfile,
++    ) -> Result<(Self, u8)> {
++        let mut video = [intf.endpoint::<usb::BulkOut>(profile.topology.video_endpoints[0])?;
++            drm_sink::MAX_CONNECTORS];
++        let mut connectors = 1u8;
++        for (slot, addr) in video
++            .iter_mut()
++            .zip(profile.topology.video_endpoints)
++            .skip(1)
++        {
++            let Ok(ep) = intf.endpoint::<usb::BulkOut>(addr) else {
++                break;
++            };
++            *slot = ep;
++            connectors += 1;
++        }
++
++        Ok((
++            Self {
++                ctrl_out: intf.endpoint::<usb::BulkOut>(EP_CTRL_OUT)?,
++                ctrl_in: intf.endpoint::<usb::BulkIn>(EP_CTRL_IN)?,
++                video,
++            },
++            connectors.min(profile.topology.connectors),
++        ))
++    }
++}
++
++/// A live USB transfer handle: an [`usb::Io`] token proving I/O is currently permitted, plus the
++/// resolved [`Endpoints`].
++///
++/// Obtaining one requires the device's [`usb::IoWindow`] to still be open, so a transfer cannot be
++/// issued after `disconnect()` has closed it. Carrying the endpoints in the handle also keeps raw
++/// endpoint addresses out of transfer call sites.
++pub(crate) struct UsbLink<'a> {
++    window: &'a Arc<usb::IoWindow>,
++    io: usb::Io<'a>,
++    pub(crate) endpoints: Endpoints,
++}
++
++impl<'a> UsbLink<'a> {
++    /// Opens a link on `window`, failing with `ENODEV` once the window has been closed.
++    pub(crate) fn open(window: &'a Arc<usb::IoWindow>, endpoints: Endpoints) -> Result<Self> {
++        Ok(Self {
++            io: window.enter()?,
++            window,
++            endpoints,
++        })
++    }
++
++    /// Opens the persistent EP84 control-plane reader.
++    pub(crate) fn ctrl_in_queue(&self, depth: usize, buf_len: usize) -> Result<usb::BulkInQueue> {
++        usb::BulkInQueue::new(
++            self.window,
++            &self.io,
++            &self.endpoints.ctrl_in,
++            depth,
++            buf_len,
++        )
++    }
++
++    /// Opens the pipelined EP02 control-plane writer.
++    pub(crate) fn ctrl_out_queue(&self, depth: usize, buf_len: usize) -> Result<usb::BulkOutQueue> {
++        usb::BulkOutQueue::new(
++            self.window,
++            &self.io,
++            &self.endpoints.ctrl_out,
++            depth,
++            buf_len,
++        )
++    }
++
++    /// Returns the canonical queue slot for `connector`'s physical video endpoint.
++    ///
++    /// A dock profile may repeat an endpoint address for multiple physical connectors (Navarro
++    /// uses EP08 for connectors 0/2 and EP0a for 1/3).  Those connectors must share one
++    /// persistent queue: separate queues could submit interleaved URBs to the same pipe.
++    pub(crate) fn video_pipe_index(&self, connector: usize) -> Result<usize> {
++        let endpoint = self.endpoints.video.get(connector).ok_or(EINVAL)?;
++        self.endpoints
++            .video
++            .iter()
++            .position(|candidate| candidate.address() == endpoint.address())
++            .ok_or(EINVAL)
++    }
++
++    /// Opens the pipelined video writer for `connector`'s physical video endpoint.
++    pub(crate) fn video_queue(
++        &self,
++        connector: usize,
++        depth: usize,
++        buf_len: usize,
++    ) -> Result<usb::BulkOutQueue> {
++        let ep = self.endpoints.video.get(connector).ok_or(EINVAL)?;
++        usb::BulkOutQueue::new(self.window, &self.io, ep, depth, buf_len)
++    }
++
++    /// The underlying I/O token, for the paths that open a persistent queue.
++    pub(crate) fn io(&self) -> &usb::Io<'a> {
++        &self.io
++    }
++
++    /// Writes a control-plane message to EP02.
++    pub(crate) fn ctrl_send(&self, data: &[u8], timeout: Delta, gfp: Flags) -> Result<usize> {
++        self.io
++            .bulk_send(&self.endpoints.ctrl_out, data, timeout, gfp)
++    }
++
++    /// Reads a control-plane reply from EP84.
++    pub(crate) fn ctrl_recv(&self, data: &mut [u8], timeout: Delta, gfp: Flags) -> Result<usize> {
++        self.io
++            .bulk_recv(&self.endpoints.ctrl_in, data, timeout, gfp)
++    }
++
++    /// Reads the standard two-byte status word for a video endpoint.
++    ///
++    /// Bit zero is `ENDPOINT_HALT`.  This is deliberately read-only: it distinguishes a dock
++    /// which has stalled the pipe from one which is merely returning NRDY without perturbing the
++    /// endpoint's host or device sequence state.
++    pub(crate) fn video_endpoint_status(&self, connector: usize) -> Result<u16> {
++        let address = self.endpoints.video.get(connector).ok_or(EINVAL)?.address();
++        let mut status = [0u8; 2];
++        self.control_recv(
++            0x00, // USB_REQ_GET_STATUS
++            0x82, // device-to-host, standard, endpoint
++            0,
++            u16::from(address),
++            &mut status,
++            timeout(),
++            GFP_KERNEL,
++        )?;
++        Ok(u16::from_le_bytes(status))
++    }
++
++    /// Sends the standard endpoint-halt clear without running Linux's host endpoint reset helper.
++    ///
++    /// Navarro uses this only during cold setup, before any video URB has touched the endpoint, so
++    /// the host sequence state is already its enumeration value. The working DLM wire transaction
++    /// is two raw `CLEAR_FEATURE(ENDPOINT_HALT)` requests 12.647 ms apart followed by its vendor
++    /// commit 143 us later. `usb_clear_halt()` adds an xHCI endpoint reset after the request; that
++    /// made each Vino operation return about 18 ms late and changed this transaction's ordering.
++    pub(crate) fn clear_video_halt_wire(&self, connector: usize) -> Result {
++        let address = self.endpoints.video.get(connector).ok_or(EINVAL)?.address();
++        self.control_send(
++            0x01, // USB_REQ_CLEAR_FEATURE
++            0x02, // host-to-device, standard, endpoint
++            0,    // USB_ENDPOINT_HALT
++            u16::from(address),
++            &[],
++            timeout(),
++            GFP_KERNEL,
++        )
++    }
++
++    /// Recover a video endpoint the dock has stalled.
++    ///
++    /// Unlike [`Self::clear_video_halt_wire`], this runs the full `usb_clear_halt()`, which resets
++    /// the host side's data toggle as well as sending `CLEAR_FEATURE`. That reset is exactly what
++    /// a real stall needs and what the cold-setup path deliberately avoids: after a stall the host
++    /// and device sequence state have diverged, and sending the bare request leaves every later
++    /// transfer failing.
++    ///
++    /// Nothing else clears a stalled pipe, so without this one stall is permanent -- and on a dock
++    /// whose video shares the control endpoint it takes the control plane down with it.
++    pub(crate) fn clear_video_halt(&self, connector: usize) -> Result {
++        let ep = self.endpoints.video.get(connector).ok_or(EINVAL)?;
++        self.io.clear_halt(ep)
++    }
++
++    /// Issues a control OUT transfer on EP0.
++    pub(crate) fn control_send(
++        &self,
++        request: u8,
++        request_type: u8,
++        value: u16,
++        index: u16,
++        data: &[u8],
++        timeout: Delta,
++        gfp: Flags,
++    ) -> Result {
++        self.io
++            .control_send(request, request_type, value, index, data, timeout, gfp)
++    }
++
++    /// Issues a control IN transfer on EP0.
++    pub(crate) fn control_recv(
++        &self,
++        request: u8,
++        request_type: u8,
++        value: u16,
++        index: u16,
++        data: &mut [u8],
++        timeout: Delta,
++        gfp: Flags,
++    ) -> Result {
++        self.io
++            .control_recv(request, request_type, value, index, data, timeout, gfp)
++    }
++
++    /// Selects an alternate setting on the driver's own interface.
++    pub(crate) fn set_alternate_setting(&self, alternate: u8) -> Result {
++        self.io.set_alternate_setting(alternate)
++    }
++}
++/// EP84 (dock-to-host) transfer size.
++///
++/// Replies larger than one transfer are delivered as consecutive fragments.
++pub(crate) const EP84_BUF: usize = 4096;
