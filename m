@@ -1,270 +1,145 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5954538425A;
-	Wed, 26 Aug 2026 12:00:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787745648; cv=none; b=Lup17zQ31oouCu159JlqXI5bHM78dCr4QnITFeMa76ZZcLLm+YkgclUrMrWnoZ0xs/7XpRKrJrimwUyXLrmlwQ5jelXxKYZ25yQGMMKCn/zQl01Yp9yYCl3m9POt6lHSe2xDFKkR6UzoqE7z1Cd6fenvGNzAQFIBvk+trG4SCj4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787745648; c=relaxed/simple;
-	bh=WqraGpwFHC+xDnLMtSI9Ud1QDSOw77bKLKL/J9DyHFg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B/xLtClakeKPdBcXkcuZ9vpBYy2/lzboHw0Nwdp9qI23RBVPGf8mGjk3bUsDPxgTtB9pdl1Vinfx5B8Uy7A6AzI4WyQFC/SFcPBiIhkEibP4QRktlPSXpyoOf1kA3DBkdw4u8UCo4nA1yS0FapEeZ874dnUigu99PdqeMHJQl64=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Pqrf08iF; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE8603F5BEF
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 12:03:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787745827; cv=pass; b=UsOEj6xF7rttJA03xY6nZdWZnaSXT2wFf7gQM63pY1xLaowvnLvhb7600w6XTNokYaHa3wCGIM+S0e8g32OZf6Bcqc8U37I0Nj/t61W8uVRu5yf2yph7JflqQTEDKsnpxpYYWUPx7c/TKVA9WbSxTjSeX+FOmbAPi/9UIy9F690=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787745827; c=relaxed/simple;
+	bh=VgpSkfkt9+IsahxI1cQp4xeSvCEjsBixCuyMoUcG8B0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=N+O6uw1P+gNjnQsq3v0FSdDOMzTTEKyxmqRuIwguAROaoLXhOa+c8DENbIQg2/iDCPHbUZzc5vNfWK5tJHGd9/SJT7oX8bNjqLWjoWWr4hgkSrEKZ5+Emp4oy/lzcvBx9ZXdVwMvw0izXIRL930upPGrqriVB37BKfiBBIl8ahI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com; spf=pass smtp.mailfrom=futuring-girl.com; dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b=aeznCf7h; arc=pass smtp.client-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=futuring-girl.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Pqrf08iF"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QAVU9d3739157;
-	Wed, 26 Aug 2026 12:00:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=9Lte/JG73+5z86dGkC+agEMMyLkjgi
-	7tuAML+5SoenU=; b=Pqrf08iFyU0Txg7bl1UXE29GGewN77RVV7ev3tDNxjVrUq
-	TtVb9E2LkCSG5npOn3JYbLByKVTHnmmGTSusnwTQjDkTcv+W93xmMtpi+2lsxXDJ
-	x7jh0hYxe/BnMiJmmBwhEc8MFxElr8PUiA7HjvdWFN61tMax+TCcLwYWQFNQgwFT
-	AFgPTZJoUGNyjWBMv+N4p8pdRU1gOEjr/3yTjI4js5EzW85LwsxsQ3JZht5gLG+e
-	HJMQEJJ30LUcWQInodopVewsnKZsmdGjWTFqcWtFspU4z2qn+141ulWIoiHGSUtJ
-	qU7WjhZ3s7x0WI1KLmvcEhA4lDUMyujzTfTUQxbw==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g73g4xech-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 26 Aug 2026 12:00:41 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67QBuMbj027452;
-	Wed, 26 Aug 2026 12:00:40 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4g7rsy9ghy-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 26 Aug 2026 12:00:40 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67QC0a4I45351204
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 26 Aug 2026 12:00:36 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C067420043;
-	Wed, 26 Aug 2026 12:00:36 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 97F2320040;
-	Wed, 26 Aug 2026 12:00:36 +0000 (GMT)
-Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown [9.224.92.206])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Wed, 26 Aug 2026 12:00:36 +0000 (GMT)
-Date: Wed, 26 Aug 2026 14:00:35 +0200
-From: Alexander Gordeev <agordeev@linux.ibm.com>
-To: Heiko Carstens <hca@linux.ibm.com>
-Cc: Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Vasily Gorbik <gor@linux.ibm.com>,
-        Claudio Imbrenda <imbrenda@linux.ibm.com>,
-        Andrey Ryabinin <ryabinin.a.a@gmail.com>, linux-s390@vger.kernel.org,
-        linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-        kasan-dev@googlegroups.com
-Subject: Re: [PATCH v7 2/4] s390/mm: Batch PTE updates in lazy MMU mode
-Message-ID: <73a0a916-b39f-4ebe-bffe-448928b13bef-agordeev@linux.ibm.com>
-References: <cover.1786956464.git.agordeev@linux.ibm.com>
- <d7fd78377a7278108ef501cf76571e80caef5968.1786956464.git.agordeev@linux.ibm.com>
- <20260824104048.11040Cdc-hca@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b="aeznCf7h"
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c250c6a6a6eso136861966b.0
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 05:03:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787745823; cv=none;
+        d=google.com; s=arc-20260327;
+        b=VbxD1+OQzHmo1dWwDmP9u4utUwGStladlA6UL5UVvt6/UUnY2sWZzbUn+7bmm8hTbF
+         ik2fwGSp+k102SyXYX9jHQcr8g+8yK0wHz0OCLhXxpwvwtuQu9Dm9m95MWdRITFE6mWC
+         QJRDaO0Lcc5iHSZs0jr/D2vfPVR4VlXyPgOE5BdrxyAJ6HLifPRy/RRgzBfE7YDqAwaU
+         fHEMMZpn14Rpv33AzxpQL2eGpvmdMO4g9USXQsQtXlbk5nW9HT0L5EO6+M8cNh4oqBg9
+         JDvukuZ1P/qndsDA80rQNk755bQtwPSpHgMzqSCdWGBF7hNkENgQmAmUKCVCTKE/qGhA
+         /lnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=KHczRSOUNQAOaPV0/pSLE0qgfPRAm7Vb+2aII/l1HUg=;
+        fh=HRk4z/CKGp2+qth5rVo3b5Lt+FiRIsoSmEihm+AmKv4=;
+        b=HCXE44sygYxN9b9PEQ1PvwuGfTxi6hR4ZL3UuAUY1OLZUG0GnSaqDaT4AEIZFWtE73
+         9hGKU9OW9ZOT1o5QHi+d20L+YNp8vD6eAykGVttU9Ro5eOhd4pDjcH4UCTC9/Q8msHls
+         Pzt2N4T8v5F2kLya6kxjJ764dmuvAnPG/cb2A1llQlyc0hRR3m3U5+GFpG2a7+midU5h
+         cVexqn3FH1Sx+sLSGH6DReYBLxeQ65ZIdbWEZ4fOQrQkingXUHyFPY4GeFLi0jrRx98R
+         jPZPu+/7qsngy0LsDqr0zygCfM9NrApGJuhgKiCp5fxPxjdvBncvUYlkGmfAhqfmDwaL
+         Ggqw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=futuring-girl.com; s=google; t=1787745823; x=1788350623; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KHczRSOUNQAOaPV0/pSLE0qgfPRAm7Vb+2aII/l1HUg=;
+        b=aeznCf7hTlqCxVFeifQu9uQE8Z60OAY04d4nwCwUqMH87dRKvGqlIcUnZdiQsdHB3C
+         PvYYFijYXBlhLEmlkA9JK6KvTJ7S3NmH4EJOROoU+FqhpVBrTvrCp39GBcdpVTaY6yiK
+         qU6J8KwvCIy4LgAIlHg4R8BwBWMOmXni4JykFIkC9Ysvk7OSHGnhkKLBVkmd8QtaCF7R
+         A23z0bPfVSSo4FWV10Oz04dALfNKbEwtpzAlFZVH1doPd3J/IZ31HcJmEunyno80a6iJ
+         DOF8LNyURbFBh7Ls3NNcq+U5zsPiD9MBJqfZPEblkVqLpVLNliKZBsip3HxZyzsQb4d8
+         b91g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787745823; x=1788350623;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KHczRSOUNQAOaPV0/pSLE0qgfPRAm7Vb+2aII/l1HUg=;
+        b=pZTzfT+/Cp+mid46xoI37miAB8BzSjcs6fm5YMqHrqvMH9cqeBVHGoVC6CwfB1jDPu
+         5BFyt2Q/41TMFQIED7EGoWOyVdUFFouhtVD2gkJT2zdl+W7qJGbU6hRJY7X5O8w/0BL9
+         eu/0AWyOtOWI7bE0Es6rCJFPGlBTrhAJt2abpdpFXxvUsYzJe035U0yXLhc1fHMUbwQX
+         vVd0FwYEdM6GccEKnUoonDn4yCQC4tl3pzeY5ZZTwgJ/LW63L+2qQMC6bbgaBTpszyyC
+         T86nAb5J7IDpoXpoS3mv12KsWbRo2XrzN15o5xHGSDSLGeMwCEsyXxUPD93ZCuvbu8IA
+         AE0g==
+X-Forwarded-Encrypted: i=1; AHgh+RpFuAtMlG39y3Iw4Oz0oZsWG6Cogg5HS7Xu+JXwbC7e1loZMgmg3SDIETH7JV7c87ExF/aR5wOsUuM1SbI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kQTtDWloTn2JvBF8TLeHX20/gEY/2oba/2cIqj7pbdh4fgRNvo
+	nAAa1G5r6Cfzck7uQsAsdxxsh5X6xslHb8EXm5yXjVbkIwfxBNmM9wgZnfmGOZbzRz4D3TJe3uv
+	CY/c+HIMNJACQ9FxjJCe/3/uV/J+xxS5/D9uQ2xvTPQ==
+X-Gm-Gg: AR+sD10Et+vN8UtD7mwbHj53eA6cRQTZDMtfp/qP+j2yUK92Rd4Fxj/wz5qcSQvrsqh
+	ou7vMYx4MMVB7q7QBOdAXcx8g6Nn+s20fqxUcjsYLrc0c7Fx5AY+7NSEkotfZ4vf+/l//4v41t8
+	62I8wSIeqBr2ebPqAAuxv4ys7xJxdd4isf9TJvG8MU7b0Z7Y2KUiogrU7k1RUz5ONwtWF1pWUuO
+	IxjhrQ3WmMx8+tXuHQBxHZz8btEPCPUQiMRmmZKTIl0y7Vg+P4vckJYnYbqGLTiWFmUA65vZ04A
+	9+Ct8LYDMDgXGlkjYeKqsOwdVH9zJlzRNY5s1oWR8KjpY0QC2fUeAIva
+X-Received: by 2002:a17:907:9616:b0:c24:457b:86fc with SMTP id
+ a640c23a62f3a-c250c329bf3mr603822266b.21.1787745777707; Wed, 26 Aug 2026
+ 05:02:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260824104048.11040Cdc-hca@linux.ibm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: EB78NUWuPZ_duP5qC6CvmhT3sdHvrnXc
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDA5NiBTYWx0ZWRfX35fYzacGE6vM
- sTpgk2sZI6d6tdheEo4xvmxLVBuvnCIkhKccnb0g7tj56Jzel3qGi1I2k5M6yk2njZcft+/ZxaV
- GPbHpAT2tbtQ6wDxCNWx5NBbfJOhAM0=
-X-Proofpoint-GUID: _e6KY_kDphJ4zMgcsekTyrnXocFdBCT1
-X-Authority-Analysis: v=2.4 cv=JZyMa0KV c=1 sm=1 tr=0 ts=6a8ed569 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=YzGQrp0F13CB_97CXrgA:9
- a=CjuIK1q_8ugA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDA5NiBTYWx0ZWRfX/JuboW12LqpG
- 8lRZgu0LqWEx/zm4VEtasa+x2DYDutyLUsRYazAygjWSJ5l7z40UNXBLDXHvxNwiaS2hiadW9RP
- Nv6gYnFneCkEuWkBAH3bj4Pji6oqj7VmHdA9zCoiGumZXP4mIT7yOflByO0FB99IGO/1IOE1RLh
- euVHFmUbiX8Q/ZXyH3wuvPyxmOsHESysiJGiqq/YD+wm2Y5VEKninQKWzO+tnvlBxq0gM8A4flp
- T+Cdu74vz08RC2epooXJNC2eGiDvYOVgP23q9Lcl7YOt89CCXgMpqnx/k6Ux2bU1OoOzdgBNA6G
- 5p5Qmr72Aux8EEAn8V3c6AWsPXAGKHi/xte2ikeXvl8Qa6xcvxUcwDKCnuUwsk8croA6iDod44b
- KtcMN97kQOxUEXrHlJk5woLlCr1OYvnBHPFI8JUUgXgiHZRH/H/gyxApriUeS+Drtj+bd01gjxV
- GF5/APlWuTDP0tkbrug==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-26_03,2026-08-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 clxscore=1015 adultscore=0 priorityscore=1501 impostorscore=0
- malwarescore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260096
+References: <20260825132541.986300899@linuxfoundation.org>
+In-Reply-To: <20260825132541.986300899@linuxfoundation.org>
+From: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
+Date: Wed, 26 Aug 2026 21:02:40 +0900
+X-Gm-Features: AcwNN1WueC4r3S8GatTaKBZIWNFDc6UcKGJRNI-BkTohTSoeo8p9V_YfbG8RAPM
+Message-ID: <CAKL4bV4730AgqL6=U3bABvedwAtA5Kr5stJfCaCHJ9ZVyvn2XA@mail.gmail.com>
+Subject: Re: [PATCH 7.1 000/101] 7.1.11-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
+	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
+	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
+	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
+	achill@achill.org, sr@sladewatkins.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Aug 24, 2026 at 12:40:48PM +0200, Heiko Carstens wrote:
-> On Mon, Aug 17, 2026 at 01:33:00PM +0200, Alexander Gordeev wrote:
-> > diff --git a/arch/s390/include/asm/lowcore.h b/arch/s390/include/asm/lowcore.h
-> > index 3b3ecc647993..dba236664da9 100644
-> > --- a/arch/s390/include/asm/lowcore.h
-> > +++ b/arch/s390/include/asm/lowcore.h
-> > @@ -163,7 +163,7 @@ struct lowcore {
-> >  	__s32	preempt_count;			/* 0x03a8 */
-> >  	__u32	spinlock_lockval;		/* 0x03ac */
-> >  	__u32	spinlock_index;			/* 0x03b0 */
-> > -	__u8	pad_0x03b4[0x03b8-0x03b4];	/* 0x03b4 */
-> > +	__s32	lazy_mmu_count;			/* 0x03b4 */
-> 
-> Why is this signed? Can it get negative?
+Hi Greg
 
-For the same reason preempt_count is signed, I guess.
+On Tue, Aug 25, 2026 at 10:40=E2=80=AFPM Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> wrote:
+>
+> This is the start of the stable review cycle for the 7.1.11 release.
+> There are 101 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Thu, 27 Aug 2026 13:25:02 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+>         https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-=
+7.1.11-rc1.gz
+> or in the git tree and branch at:
+>         git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable=
+-rc.git linux-7.1.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
+>
 
-No, it can not get negative and it is very handy to observe
-a disbalance in a crash (I did hit it indeed while debugging).
+Linux version 7.1.11-rc1 tested.
 
-> > +static __always_inline bool is_lazy_mmu_active(void)
-> > +{
-> > +	if (__is_defined(__DECOMPRESSOR))
-> > +		return false;
-> > +	if (!get_lowcore()->lazy_mmu_count)
-> > +		return false;
-> 
-> I guess there is opportunity to generate better code here using an
-> alternative and using a flag output constraint too.
+Build successfully completed.
+Boot successfully completed.
+No dmesg regressions.
+Video output normal.
+Sound output normal.
 
-Will try.
+Lenovo ThinkPad X1 Carbon Gen10(Intel i7-1260P(x86_64) arch linux)
 
-> > --- a/arch/s390/kernel/setup.c
-> > +++ b/arch/s390/kernel/setup.c
-> > @@ -77,6 +77,7 @@
-> >  #include <asm/maccess.h>
-> >  #include <asm/uv.h>
-> >  #include <asm/asm-offsets.h>
-> > +#include <asm/lazy_mmu.h>
-> >  #include "entry.h"
-> >  
-> >  /*
-> > @@ -1012,5 +1013,6 @@ void __init setup_arch(char **cmdline_p)
-> >  
-> >  void __init arch_cpu_finalize_init(void)
-> >  {
-> > +	lazy_mmu_online_boot_cpu();
-> >  	sclp_init();
-> >  }
-> 
-> What makes this code so special that an explicit call from
-> arch_cpu_finalize_init() is required? This is really the last resort if
-> everything else fails. To me it looks like the code can be changed to use a
-> new static key, and add a generic early (pre-smp) initcall to allocate
-> memory for cpu 0, and if that succeeds enable the static key.
+[    0.000000] Linux version 7.1.11-rc1rv-g822f846a60fc
+(takeshi@ThinkPadX1Gen10J0764) (gcc (GCC) 16.2.1 20260810, GNU ld (GNU
+Binutils) 2.47) #1 SMP PREEMPT_DYNAMIC Wed Aug 26 20:10:08 JST 2026
 
-I had exactly similar variant, but failed to resolve a race when a secondary
-CPU callback was called before the CPU0's one. Probably, used a wrong event.
-Will look into it again.
+Thanks
 
-> > --- a/arch/s390/kernel/smp.c
-> > +++ b/arch/s390/kernel/smp.c
-> > @@ -59,6 +59,7 @@
-> >  #include <asm/topology.h>
-> >  #include <asm/vdso.h>
-> >  #include <asm/maccess.h>
-> > +#include <asm/lazy_mmu.h>
-> >  #include "entry.h"
-> >  
-> >  enum {
-> > @@ -866,6 +867,11 @@ int __cpu_up(unsigned int cpu, struct task_struct *tidle)
-> >  	rc = pcpu_alloc_lowcore(pcpu, cpu);
-> >  	if (rc)
-> >  		return rc;
-> > +	rc = lazy_mmu_online_cpu(GFP_KERNEL, cpu);
-> > +	if (rc) {
-> > +		pcpu_free_lowcore(pcpu, cpu);
-> > +		return rc;
-> > +	}
-> >  	/*
-> >  	 * Make sure global control register contents do not change
-> >  	 * until new CPU has initialized control registers.
-> > @@ -921,6 +927,7 @@ void __cpu_die(unsigned int cpu)
-> >  	pcpu = per_cpu_ptr(&pcpu_devices, cpu);
-> >  	while (!pcpu_stopped(pcpu))
-> >  		cpu_relax();
-> > +	lazy_mmu_offline_cpu(cpu);
-> 
-> Same here: what makes this code so special that this needs to be open-coded
-> into the low level cpu hotplug code? Everybody who needs to change this
-
-This is just a follow-up of the boot CPU initialization above.
-AKA "Do not use CPU hotplug events".
-
-> code in future will wonder why the mmu code is so special that it needs to
-> be directly handled here, and then needs to understand the mmu code.
-> And the answer is: there is no reason.
-> 
-> Please use a generic cpu hotplug notifier to avoid that maintenance get's
-> more expensive.
-
-Will retry.
-
-> > +static void leave_ipte_range(void)
-> > +{
-> > +	pte_t *ptep, *start, *start_cache, *cache;
-> > +	unsigned long start_addr, addr;
-> > +	struct ipte_range *range;
-> > +	int start_idx;
-> > +
-> > +	if (!test_facility(13))
-> > +		return;
-> > +
-> > +	local_bh_disable();
-> > +
-> > +	lockdep_assert_preemption_disabled();
-> > +	range = this_cpu_read(ipte_range);
-> 
-> Why is it required to disable bottom halves? A comment would be helpful.
-> Or a hint in the commit message - this is not obvious.
-
-When an interrupt arrives in the middle of enter|leave_ipte_range()
-the chain pcpu_addr_to_page() -> vmalloc_to_page() -> ptep_get()
-decides ptep_get() is called in lazy mode, while the per-cpu state
-not yet (de-)initialized (AKA inconsistent). That led to crashes:
-
-    [    6.784258] Call Trace:
-    [    7.784260]  [<0013d8935c3fe9dc>] pcpu_free_area+0x11c/0x3f0
-    [    6.784265]  [<0013d8935c400bb6>] free_percpu.part.0+0x1b6/0xc70
-    [    6.784270]  [<0013d8935bd8931c>] sched_free_group_rcu+0x2c/0x60
-    [    6.784274]  [<0013d8935bea9196>] rcu_do_batch+0x2f6/0xdd0
-    [    6.784280]  [<0013d8935beba0d0>] rcu_core+0x270/0x4e0
-    [    6.784285]  [<0013d8935bd0a4b4>] handle_softirqs+0x294/0x800
-    [    6.784289]  [<0013d8935bd0b020>] irq_exit_rcu+0x140/0x200
-    [    6.784293]  [<0013d8935e26d994>] do_ext_irq+0xe4/0x330
-    [    6.784298]  [<0013d8935e28c25c>] ext_int_handler+0xec/0x118
-    [    6.784303]  [<0013d8935bc9764e>] enter_ipte_range+0xfe/0x1a0
-    [    6.784308] ([<0013d8935bc975f6>] enter_ipte_range+0xa6/0x1a0)
-    [    6.784313]  [<0013d8935c4432ce>] zap_pte_range+0x9ee/0xef0
-    [    6.784317]  [<0013d8935c443a44>] zap_p4d_range+0x274/0x710
-    [    6.784321]  [<0013d8935c44411c>] __zap_vma_range+0x23c/0x450
-    [    6.784325]  [<0013d8935c445078>] unmap_vmas+0x1c8/0x440
-    [    6.784329]  [<0013d8935c4a8f46>] unmap_region+0x196/0x320
-    [    6.784332]  [<0013d8935c4ac174>] vms_complete_munmap_vmas+0x734/0x990
-    [    6.784336]  [<0013d8935c4aec74>] do_vmi_align_munmap+0x2a4/0x3a0
-    [    6.784340]  [<0013d8935c46138e>] __do_sys_brk+0x5fe/0x750
-    [    6.784344]  [<0013d8935e26d3be>] __do_syscall+0x17e/0x3f0
-    [    6.784348]  [<0013d8935e28b882>] system_call+0x72/0x90
-    [    6.784352] Last Breaking-Event-Address:
-    [    6.784353]  [<0013d8935c3febea>] pcpu_free_area+0x32a/0x3f0
-    [    6.784361] Kernel panic - not syncing: Fatal exception in interrupt
-
-> Also at least for !PREEMPT_RT (which is always true for s390)
-> lockdep_assert_preemption_disabled() is quite pointless, since
-> local_bh_disable() just one line above disables preemption.
-> 
-> I guess you wanted to add that check above local_bh_disable()?
-
-Exactly.
-
-> If not you could as well remove it
-
-Thanks a lot for the review, Heiko!
+Tested-by: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
