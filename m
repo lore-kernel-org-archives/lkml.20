@@ -1,78 +1,121 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40CC543A80C;
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D627C296BD2;
 	Wed, 26 Aug 2026 14:51:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787755908; cv=none; b=K99rJysILAVQ6lIdoN+Tol8hU+Xtnk+8BYfzxhwJqCmcPhOEw3VyBsgSFDheQRSaieSdJNt8krb/nOoxGVnVRJ6S0C3u5ASdtc0c03FY+8qUjUf87JMeSfRNif+S4UwM2p0v3VsIZTGvmTyjFRTIh7UJ43MT2GhkQRovAJOR19Q=
+	t=1787755909; cv=none; b=X4WnCLnUtFWSH0EsCwE+sLLUWW8SEJuhxEcKuhCXsUd31doreyZr3ye6ticZKkm54BVPHEr2omuqYdV/mRRtCIrSgCfhDw85ukEjW+Dcj2RVlwYtuWnUAnb2KNn87AsNJMuTGQeqAVDltj+NAUkQmHfT7DCNf36u7MFnKP6yah4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787755908; c=relaxed/simple;
-	bh=iiqe+im2qEFCgys9Hjopl/eW5lbQ6V585hNj0ZbOCrE=;
+	s=arc-20240116; t=1787755909; c=relaxed/simple;
+	bh=tOodu0VszRohRtMpFFB6dYKNtMAf7OMx0ItWyxqnr/k=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WFUwYtkM/BtDd3g91hpwPFyiBDz91cwKxztjn7ammaXn9XVPbcr15LaNETK+uY9zeAKE5EUo/7dirYqiTH/SMKOGGlxyR66l5qUeDZWISCV/jx36eIBL3emdqKGvqRvCdt4OVZuWLf7HXlLdPPMzYg440m2sp42zMFQECEgBcjM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=YgdqU/S5; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=GlLpcl5b; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y240Sqs+FDLC+nWvMGMXJAVRt3rgXH1Yi95w8zFuhTNxobROkUFkB39eJxpyBBMpZDRHaNinuf+LE3czbRGnQWts+Up5L7JkSpuVxnYfDKHTM19932/9BlnHPb3JC8s31JTlx6Uk4EDc8pOb8HWMOHEECdUQ/vMi9idzf7c8pDc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=YXQ1DnZP; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="YgdqU/S5";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="GlLpcl5b"
-Date: Wed, 26 Aug 2026 16:51:44 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1787755905;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=03nZkMrd4NhyaNZKGwtdHqhils9/g9ozkpbtETK+F3k=;
-	b=YgdqU/S5nc2EMWcYu35+kUd/MFqbRh1JxnSLviU0U6NRi/iYYyqUf3t4fa4ZG5ARhd+3Jk
-	rQk58yEG2SL/Yx2MZWV4X0TSoc/7bkGRBTkg3BHSQZE7Gd2gbVw4vcamp3ouzNcCwwDSVG
-	nSg+qesO/pQoMYQHsX5Wtpi0eQAREhtrWvAXu9tBSlnOdpB+oxEa8I3A+vQpGX/F+cPAmM
-	Xk3dBYGuJ2jXLZ/EQ69FK4/tQ0UStohRaWmQbIcnBry6jINpI+MmfCDcwLk6gQ7o+XjyrN
-	nysznA4+5mxm2XqIXqa+lzIVOW9rMg0eYGnHV07YJg6Kmb67hNYEzMtBjuAziA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1787755905;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=03nZkMrd4NhyaNZKGwtdHqhils9/g9ozkpbtETK+F3k=;
-	b=GlLpcl5baYvV395gH8z9iNAgD/f6ZVzm2GWSbRJQ3LLDPIEIiblgl5a9V7gldUxWZ18oE9
-	nxGL0j0NPnLhIYDQ==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Kees Cook <kees@kernel.org>, Petr Mladek <pmladek@suse.com>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Tycho Andersen <tycho@tycho.pizza>
-Subject: Re: [PATCH v2 0/2] vsprintf: Don't leak pointers
-Message-ID: <20260826145144.vQDHb2bb@linutronix.de>
-References: <20260821152614.2202196-1-bigeasy@linutronix.de>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="YXQ1DnZP"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 15C231756;
+	Wed, 26 Aug 2026 07:51:43 -0700 (PDT)
+Received: from localhost (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 73BBD3F7D8;
+	Wed, 26 Aug 2026 07:51:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1787755906; bh=tOodu0VszRohRtMpFFB6dYKNtMAf7OMx0ItWyxqnr/k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=YXQ1DnZPOLhXEtKbwELsDp94I7KPv6NJqCCc+P/ZvoSWmJ8KCcKahNh7+sQWL3CXe
+	 Epva2iw+zUipeNYduk/uateqT+WdNJ2g8p5ZxLII6bzY6QQhqe7ssRQ+Ghq+nqNteW
+	 f98Yr+78VjADUvqwt45aWv7UK+TBbIxawOLDtO68=
+Date: Wed, 26 Aug 2026 15:51:44 +0100
+From: Leo Yan <leo.yan@arm.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Mike Leach <mike.leach@arm.com>,
+	James Clark <james.clark@linaro.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Michal Simek <michal.simek@amd.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Mirela Rabulea <mirela.rabulea@nxp.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Lee Jones <lee@kernel.org>,
+	Xiaowei Song <songxiaowei@hisilicon.com>,
+	Binghui Wang <wangbinghui@hisilicon.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Dvorkin Dmitry <dvorkin@tibbo.com>, Wells Lu <wellslutw@gmail.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Chin-Ting Kuo <chin-ting_kuo@aspeedtech.com>,
+	=?iso-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>,
+	Mark Brown <broonie@kernel.org>, Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Ryan Chen <ryan_chen@aspeedtech.com>,
+	Billy Tsai <billy_tsai@aspeedtech.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+	Boris Brezillon <bbrezillon@kernel.org>, info@mocean-labs.com,
+	Olof Johansson <olof@lixom.net>,
+	Shree Ramamoorthy <s-ramamoorthy@ti.com>,
+	coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linux-i2c@vger.kernel.org,
+	linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
+	imx@lists.linux.dev, linux-media@vger.kernel.org,
+	mfd@lists.linux.dev, linux-pci@vger.kernel.org,
+	linux-gpio@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
+	openbmc@lists.ozlabs.org, linux-spi@vger.kernel.org,
+	linux-pm@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: Drop redundant white-space around values in
+ <>
+Message-ID: <20260826145144.GH8904@e132581.arm.com>
+References: <20260826102044.142986-2-krzysztof.kozlowski@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260821152614.2202196-1-bigeasy@linutronix.de>
+In-Reply-To: <20260826102044.142986-2-krzysztof.kozlowski@oss.qualcomm.com>
 
-On 2026-08-21 17:26:12 [+0200], To linux-kernel@vger.kernel.org wrote:
-> It is possible to leak pointers via %ps without KALLSYMS enabled.
-> With KALLSYMS pointers can be leaked if they can not be resolved.
-> 
-> The tiny series has two patches, first addresses the first issue, the
-> second documents why we want to keep it that way.
+On Wed, Aug 26, 2026 at 12:20:45PM +0200, Krzysztof Kozlowski wrote:
 
-sashiko is now happy
-	https://sashiko.dev/#/patchset/20260821152614.2202196-1-bigeasy%40linutronix.de
+[...]
 
-It points out the "leaked if they can not be resolved" case but we can
-either allow it to ease port-mortem analysis or hide it and get
-complains.
+> --- a/Documentation/devicetree/bindings/arm/arm,coresight-cti.yaml
+> +++ b/Documentation/devicetree/bindings/arm/arm,coresight-cti.yaml
+> @@ -308,7 +308,7 @@ examples:
+>              arm,trig-in-sigs = <0 1>;
+>              arm,trig-in-types = <PE_DBGTRIGGER
+>                                   PE_PMUIRQ>;
+> -            arm,trig-out-sigs = <0 1 2 >;
+> +            arm,trig-out-sigs = <0 1 2>;
+>              arm,trig-out-types = <PE_EDBGREQ
+>                                    PE_DBGRESTART
+>                                    PE_CTIIRQ>;
 
-Andrew?
+For this CoreSight change:
 
-Sebastian
+Reviewed-by: Leo Yan <leo.yan@arm.com>
