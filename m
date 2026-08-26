@@ -1,49 +1,78 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 262823F8252;
-	Wed, 26 Aug 2026 11:59:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABE043F8254
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 12:00:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787745589; cv=none; b=GYmG7ZszYR18eoi6VSGAaCCzQXRWVro1eIw9cHClF3QNS0wkSZi22JqzccopIBP+WCkrO/C7E0DNR7f64UzY7zACONdqil1STtflqYzKJ1GVTZyD5CKk/l1xDmss5DAF+fnLbulsxTZ5OjrEYegEFguQ06P+O60/mihY+mvycRk=
+	t=1787745610; cv=none; b=RedBXVN0BI0Y8Jlg3CKFNOZOH5upE49ymnuunilWZbrVx/LBfCHVxq6bY4rml0xRXqhKqCIvoZ7qgIEZdg/hFHSqD2uj16qG4axYtzSJfx07yp4TyBxN06nsIwMYnh64avKingOxD/IvGJ/VGwPiWsws+Sz+DPpMFU1MEg1NI5k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787745589; c=relaxed/simple;
-	bh=V/wrOBXnzfXwO7qi8GOTgQOydrkFkmTSVS54L1hsMy0=;
+	s=arc-20240116; t=1787745610; c=relaxed/simple;
+	bh=eM+2IXPLksQPCk10H6wLTPEFYw72blRBRBIFKEqHrfA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Se8vH0pRhLff2eQL/kvqGxKoQxXvXADDoEuI7ogRQ0xStDd+UARx2kSFNfMNw18XC6mZ+1nkk2rczMMhOVgn9Gy9qWuAcMAojOvYK+e6OFrC9qSDmL2skVKFZkgMp3RvODSXhiVwLh8pxFVI5sEyv6eZRlYaT9ezdavOzLOfZ+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y2H4IMGB; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=dE3Nr0/7daW9AkA2eckRHzFNMhx2x1h1h5ePAkgIMDYUIrWeSQ/hoE4PngqQlOYNBQNpvBuHbt/k5I2T8Oignuvg3+bBDZSDKYMcMNy5MoN3lid1xh9ZRoLmZgR2qLfJ3aae1j+DKDCmot6nbQbJ5CQdiNtVnwd9kzFlsBNNIz0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BzlC2Vnw; arc=none smtp.client-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y2H4IMGB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C37221F00A3A;
-	Wed, 26 Aug 2026 11:59:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787745587;
-	bh=AkbV1zaOyzETWRzzrYrZyf5g3bogiqrirAZC/gk6t4c=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Y2H4IMGBu/szxPHdQGSXXeVxxSywaLoXM2MrMTtyfZrGWXpc2UTRe49Qs47ACdqJZ
-	 pO1TMjDRL/zEgOW5SG/n1jcNS+7otSPONdnjgEYzQqC0Idk0vUk/x8RBA+kbUrp+p+
-	 vuTvhbudVYO2exiEotTPZraDdsNhfVpBE9fEm6NdLDCBQb038x+Fo5h8QyI/w8/3qo
-	 RL/vnDuuithvGBF516uUxWSin3Pu0vvcetfV76xAehPQISUb1js/UTBF6sc6FGtv5W
-	 2aFG2JqwOHC9DvgcSZn3eaGITvuDeO8H4RrufOEFkTirn9Jtrpgb4WCUApVLyvESXh
-	 RQVT3UQuIRsRA==
-From: Simon Horman <horms@kernel.org>
-To: kartikey406@gmail.com
-Cc: Simon Horman <horms@kernel.org>,
-	3chas3@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	linux-atm-general@lists.sourceforge.net,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+6665d3db5fef15914802@syzkaller.appspotmail.com
-Subject: Re: [PATCH] net: atm: fix shift-out-of-bounds in __vcc_connect()
-Date: Wed, 26 Aug 2026 12:59:27 +0100
-Message-ID: <20260826115927.343690-1-horms@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260824024620.23485-1-kartikey406@gmail.com>
-References: <20260824024620.23485-1-kartikey406@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BzlC2Vnw"
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2cacb8416a1so8526045ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 05:00:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787745608; x=1788350408; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fKmdjRPRpgrPNsYFGU3ypH80W/86kIrxtmbI4pD7Jx0=;
+        b=BzlC2VnwCqpb4vOqNCSqc5SX006eEE4xXJQujVOhW7RSokBKbwsdr46/i0SWGeDKrK
+         gevyTDue+aBRV2RW3HR64g8yNoMOrEfVe8UXx1pCqoLDWXEdPvnGdu68SqJTWet0j0hp
+         wM5rVKMlvLhkOMR/AW0p3A9sqEYOUiU4cCUG8Njgb++i7SZO6FiHRG7DFKKTYAyXJWjS
+         o1WJnBgi1+CY2SR4DUaqEhU5hHiEJDMvMD6DkUlwApF5UiSCUhrz7KKit6Sc/pEJbcN0
+         PX8qV05I6vBkc/g26NMl5y0hb82imlqMOdxfsG5n+qkPLgp4mtX86qK1qsiuH4T8pI+N
+         r49g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787745608; x=1788350408;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fKmdjRPRpgrPNsYFGU3ypH80W/86kIrxtmbI4pD7Jx0=;
+        b=CmUt30DJPEe9jac6kNJPJSESLDhsamDTnbelbckSQ5F0wpyVXlt1tlByvTXLMt+gnS
+         2pnsJO+P5nWWdSnQuajWQquUHe+53e7+5UNvcdP5wOQUOynVVaLrlSz27Sk3GDNonpT+
+         LoI9ZPMeFKvP0xGM4TWUJtBiyJphLWvTBIip0fGBJhvX252GEkAO2G/dWC7HShNQZusW
+         G5rOFShLMaSxhAo8AABG+cZIx7W5Bx2aLb7Q8p9oG94j5yxvdVne817k60fJXmacjUqN
+         H0bw2S19ne+wXCrQy1CgorQAQdZIciXEnVw1EPIHmyuwhX06Mi4d0r/tG07b7mUfqRJh
+         MHEQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rr0acpeTlrqHv66TIpCazdudnIMagZ/YT9Ek4xcBthftbo0FwTT4rl/fxdqfrb6L1B8uq/otxc4jQ71Imc=@vger.kernel.org
+X-Gm-Message-State: AFuF++np2PVou8EkEiHVGBDExtkljb8qs34e+bV7Fn4tULhKDFgSK9hB
+	pTTy1ffu/vRJ455yuqTZGW3n7jHjsDp6IV0Kf9YdmMy+gYOs2rzh0N6/
+X-Gm-Gg: AR+sD12UHZXfeNn3YBto4uqyvkLbelvF+632sngXHotny8ILnpr6NZuiAt+UwVHZlcf
+	fPC6gosCdhOL7cCFQHU6NpJcFVU0dSNm5zer/Tu2clrHpQuHNMiBMa6A1MlEUeNzBMuC7KOMjCp
+	PpP9EYroWzFISd702elaTYmjrkom3KxBV77zCRzI3beWdibmGZt/woi6XvT7UtBa2dthgNAKGHi
+	mAZbwA2EV7PWUOR9my2t/RE8QCVF1dNZwOazLqXbleZc/k65dnIT5U1/3Ts7pRkZ2lkSQT7+r7t
+	iSiZirT1H1P3dEVzmi+MIJBYH89N1qukjo5JW6Hek/i8SEbKHH1tbGQq+Di4tCELfI3Gngyd7Wd
+	Bkh2WZIFBxoJVbiw31sgv9lLVmOHMvq72auNT+XeaamiOz0rOTVh/YbOJ/7Cea1BmR/w3j8Cwj4
+	PXrXVkOy9oWkWczafb9DwT9LtrxEavGHIetptLHwqCNX4DNkaq2Ugqy77yZvs3oIZlGNCYznHRj
+	AhRvBVhlVA=
+X-Received: by 2002:a17:902:f70f:b0:2bf:7b62:a038 with SMTP id d9443c01a7336-2d707b7f68emr112387745ad.9.1787745607765;
+        Wed, 26 Aug 2026 05:00:07 -0700 (PDT)
+Received: from volcano9f8e-host.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3283d9edd8esm7655079eec.27.2026.08.26.05.00.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 05:00:07 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: seanjc@google.com,
+	pbonzini@redhat.com,
+	shuah@kernel.org
+Cc: sashiko-reviews@lists.linux.dev,
+	kvm@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] KVM: selftests: Test the PV_UNHALT feature, not just its CPUID bit
+Date: Wed, 26 Aug 2026 17:29:44 +0530
+Message-ID: <20260826115944.2882320-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20260826101627.2873660-1-hemanth.selam@gmail.com>
+References: <20260826101627.2873660-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,160 +81,17 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
-Full review at: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260824024620.23485-1-kartikey406@gmail.com?part=1
----
-net: atm: fix shift-out-of-bounds in __vcc_connect()
+Please ignore this version, the report about the hypercall arguments is
+correct.  KVM takes the APIC ID to kick in a1, as kvm_kick_cpu() does, so
+this asked for APIC ID 0 to be kicked and only passed because the halting
+vCPU was vCPU 0.
 
-__vcc_connect() used dev->ci_range.vpi_bits and vci_bits directly as shift
-amounts, which is a negative shift when those fields still hold the
-ATM_CI_MAX (-1) sentinel.  The patch skips the VPI/VCI range check
-entirely when either field equals ATM_CI_MAX.
+v2 halts on a vCPU with a non-zero APIC ID so that a kick sent to the wrong
+vCPU can no longer pass by accident, and I confirmed that reintroducing the
+v1 argument order makes it fail:
 
-Closes: https://syzkaller.appspot.com/bug?extid=6665d3db5fef15914802
+  https://lore.kernel.org/all/20260826115900.2882139-1-hemanth.selam@gmail.com
 
-> diff --git a/net/atm/common.c b/net/atm/common.c
-> index 81195727fa18b..b38359453555b 100644
-> --- a/net/atm/common.c
-> +++ b/net/atm/common.c
-> @@ -378,8 +378,11 @@ static int __vcc_connect(struct atm_vcc *vcc, struct atm_dev *dev, short vpi,
->  	int error;
->  
->  	if ((vpi != ATM_VPI_UNSPEC && vpi != ATM_VPI_ANY &&
-> +	    dev->ci_range.vpi_bits != ATM_CI_MAX &&
->  	    vpi >> dev->ci_range.vpi_bits) || (vci != ATM_VCI_UNSPEC &&
-> -	    vci != ATM_VCI_ANY && vci >> dev->ci_range.vci_bits))
-> +	    vci != ATM_VCI_ANY &&
-> +	    dev->ci_range.vci_bits != ATM_CI_MAX &&
-> +	    vci >> dev->ci_range.vci_bits))
->  		return -EINVAL;
+Sorry for the noise.
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does the same negative shift
-remain reachable from the function being modified here?  find_ci() is
-called by __vcc_connect() a few lines below:
-
-net/atm/common.c:__vcc_connect() {
-	...
-	if (test_bit(ATM_DF_REMOVED, &dev->flags) ||
-	    (error = find_ci(vcc, &vpi, &vci))) {
-	...
-}
-
-and find_ci() shifts by the same fields with no sentinel check:
-
-net/atm/common.c:find_ci() {
-	...
-	else if (p >= 1 << vcc->dev->ci_range.vpi_bits)
-		p = 0;
-	if (*vci != ATM_VCI_ANY)
-		c = *vci;
-	else if (c < ATM_NOT_RSV_VCI || c >= 1 << vcc->dev->ci_range.vci_bits)
-			c = ATM_NOT_RSV_VCI;
-	...
-		if (*vci == ATM_VCI_ANY) {
-			c++;
-			if (c >= 1 << vcc->dev->ci_range.vci_bits)
-				c = ATM_NOT_RSV_VCI;
-		}
-	...
-			p++;
-			if (p >= 1 << vcc->dev->ci_range.vpi_bits)
-				p = 0;
-	...
-}
-
-Note the new guards in __vcc_connect() are skipped when vpi is ATM_VPI_ANY
-or vci is ATM_VCI_ANY (both -1 in include/uapi/linux/atm.h), which is
-exactly the case that then reaches find_ci().  pvc_bind() passes the
-userspace sockaddr_atmpvc values through vcc_connect() unchanged, and
-vcc_connect() only rejects !(vpi || vci):
-
-net/atm/pvc.c:pvc_bind() {
-	...
-	error = vcc_connect(sock, addr->sap_addr.itf, addr->sap_addr.vpi,
-			    addr->sap_addr.vci);
-	...
-}
-
-On a device that leaves the sentinel in place, e.g. usbatm_atm_init():
-
-drivers/usb/atm/usbatm.c:usbatm_atm_init() {
-	...
-	atm_dev->ci_range.vpi_bits = ATM_CI_MAX;
-	atm_dev->ci_range.vci_bits = ATM_CI_MAX;
-	...
-}
-
-wouldn't a bind() with sap_addr.vpi or sap_addr.vci set to -1 still produce
-the same "shift exponent -1 is negative" report, only from find_ci()
-instead of __vcc_connect()?  With panic_on_warn set, ubsan_epilogue()
-calls check_panic_on_warn("UBSAN"), so this would still be a panic.
-
-There also looks to be a secondary effect: since 1 << -1 folds to INT_MIN
-on architectures that mask the shift count, both p >= 1 << vpi_bits and
-c >= 1 << vci_bits are always true, so after the first wildcard VCC is
-allocated the do/while scan in find_ci() hits old_p == p && old_c == c on
-the first iteration and returns -EADDRINUSE.  Does that make a second
-automatically-allocated VC impossible on such a device?
-
-Would it be preferable to resolve the sentinel to a real bit width once,
-so both __vcc_connect() and find_ci() see a sane value?
-
-[Severity: Medium]
-Separately, is skipping the check the intended reading of the sentinel?
-The uAPI describes it as the maximum range rather than as unrestricted:
-
-include/uapi/linux/atmdev.h:
-#define ATM_CI_MAX      -1              /* use maximum range of VPI/VCI */
-
-struct atm_cirange {
-	signed char	vpi_bits;	/* 1..8, ATM_CI_MAX (-1) for maximum */
-	signed char	vci_bits;	/* 1..16, ATM_CI_MAX (-1) for maximum */
-};
-
-with the maxima defined in include/uapi/linux/atm.h as ATM_MAX_VPI 255 and
-ATM_MAX_VCI 65535.  The commit message says:
-
-  "Skip the range check when ci_range.vpi_bits/vci_bits is still
-  ATM_CI_MAX, since that value means "unrestricted"."
-
-Should this instead clamp to 8/16 bits (or compare against ATM_MAX_VPI /
-ATM_MAX_VCI) and keep the check?
-
-This also appears to change behaviour for negative identifiers other than
-the ANY/UNSPEC magic values.  Before the patch, vpi >> -1 folded to
-vpi >> 31 on architectures that mask the shift count, which is -1 for a
-negative vpi and therefore returned -EINVAL.  After the patch a bind() with
-sap_addr.vpi = -5 or sap_addr.vci = -65531 is accepted, since vcc_connect()
-only rejects !(vpi || vci) and check_ci() masks vci purely for hashing:
-
-net/atm/common.c:check_ci() {
-	struct hlist_head *head = &vcc_hash[vci & (VCC_HTABLE_SIZE - 1)];
-	...
-}
-
-The raw value then reaches vcc->vpi/vcc->vci and dev->ops->open().
-usbatm_atm_open() does not bound them, and usbatm_write_cells() packs them
-into the fixed-width cell header without masking:
-
-drivers/usb/atm/usbatm.c:usbatm_write_cells() {
-	...
-	ptr[0] = vcc->vpi >> 4;
-	ptr[1] = (vcc->vpi << 4) | (vcc->vci >> 12);
-	ptr[2] = vcc->vci >> 4;
-	ptr[3] = vcc->vci << 4;
-	...
-}
-
-Can this alias distinct VCCs onto the same on-the-wire VPI/VCI, for example
-vci = -65531 and vci = 65541 both transmitting on reserved VCI 5, while
-the check
-
-	if (vci > 0 && vci < ATM_NOT_RSV_VCI && !capable(CAP_NET_BIND_SERVICE))
-		return -EPERM;
-
-is evaluated on the untruncated value and so does not fire?  The duplicate
-detection in check_ci() compares the untruncated values too, so it would
-not catch the collision either.
+Hemanth
