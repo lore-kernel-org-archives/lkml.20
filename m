@@ -1,140 +1,107 @@
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A2F5352C4F
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 17:09:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 484DE4519AA
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 17:10:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787764200; cv=none; b=ebIF8yeLCS7h1+8Y6WuWOBvqFkbwn+VMcmwhrNDpfoCGj7uNsXP8nCOMWoN/UCxjECqcBpyLB7OjgX4faDsJ769POkmqmYDUx8aZVzVMIcQ3c63AFSnI0VRnqfyQaXPqMT25DI+AKBnTQxKSIpcWqmDysGam+nOyb9e5lXNZBWc=
+	t=1787764216; cv=none; b=pqKgzGSaKsmdXL9J97LUeyMLQUh/TRUzwLkvg0hAsnfElcjcsWrD86yAtOoLENpIN7r7rxSUKhOy/KA8tyTB3C99TKY/nWx+b8xnumB1P95v9zBQZTxZtwiugplG7/g9rRhoMdxSQq3P0qR2HtorB6KX23DjCcALyfc1OszBIrk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787764200; c=relaxed/simple;
-	bh=HryDV6+5qMbLhZY2KERuGiFp2ZKXAOvyWcXmP57Eq3E=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jtIr1MXwAIZhvcAxpnu/y/PCpyJQXiqa2dBnewwpBAuzg2lzBhON4Anf1RcGn06ksZ0f5WVIh4X9/65+DxAXwPFkNw4jbD4sJim/Wfw0w1T5KeKqT8XQHFBDWgGVOApFwifhqw4yNpQHymbfPc96yvoYRGFtyUgjoJhjB67hGOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kDZeQKGj; arc=none smtp.client-ip=209.85.208.45
+	s=arc-20240116; t=1787764216; c=relaxed/simple;
+	bh=4qTy9EY05MYgzjfQZXb22+wxLg8mKbw/2dfRx0/rF4c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=I8aKU9ATp7HhSZseko2ruRCNhrIFxeAAJ5m3CEKp5AI+ROKwPacSqPVIEBPZ+XRFQVGMON6wOCz2KLIiP78x4FW/6G3n11UXq3OvGnvM33UjqTndithMSpKUD1qHyN1gBieY5iB/05yua5xbRi8jmIpF+cJKiCe+ZnrIAfOIT6A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lZUSQz5p; arc=none smtp.client-ip=209.85.214.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kDZeQKGj"
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6a5e866bca0so1505327a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 10:09:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lZUSQz5p"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2d6fe26ef1cso13666105ad.2
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 10:10:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787764179; x=1788368979; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TJATd1QCK8mzBoL2c8+JxSkXmq9RldTbZrwKcwNjBmk=;
-        b=kDZeQKGjuHP6Ge59bPmUk6WLTc+NcJVo2XZ1RnDwli+aHKDJAUteHSksxGVCdR8du1
-         bAlX3fA2NcX3AnXBJU7KEwF8QJ82o0afYQ1yoEks10qxCmhjvFJyMRhxUyWrzvpO6Sj4
-         e56n85zapKxQLnEDpayB4Oo7O6hkMgnqLhzRvOI04G80GgjzotdM7u+jrApjqOUiDekE
-         Sw2qaevbutXor/bcuUNh6UvAQfGa0s64DntC/iy122R2E8qD+Bri8AsE9m8N9GCtjPlL
-         X93R02CxR8/3bjmcG4FiYQ3CDYiqIG5ZYYxovOiOxNEKcoITwgL6IdaAjbpsaqtLPPzt
-         JmUA==
+        d=gmail.com; s=20251104; t=1787764204; x=1788369004; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4qTy9EY05MYgzjfQZXb22+wxLg8mKbw/2dfRx0/rF4c=;
+        b=lZUSQz5pIWpCtPM/3VIWOv8pzCtq31uzfDWHHxdJ5F7eYyOuVz6uj9H5wEBTpDoaGo
+         vLxmjM9muE/8CEdIHiEwcJMiCDfTrJCyms817o6toH9sVPMb7oyMbz1s1CD62ZIoe8t2
+         xcwd5oZKECSSs+hhPunYro67kU6TjT+GgJ9VzMcWlPOR9JcXab2tw19TisGD3g5236GI
+         RKqYicQhgwTpCn8r60qMY6fGI2jtACQUns5pTHz5U1LIEknG/FwICn0iXPN+i4WiaA5A
+         x3voqkXYY2hhEtZ5ey4+9npz3J9ocVob/31/TGAW3ezoB9ZRazUUHq44HXl2tNpI5Z6P
+         qKvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787764179; x=1788368979;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TJATd1QCK8mzBoL2c8+JxSkXmq9RldTbZrwKcwNjBmk=;
-        b=f+3Q++qfh9jWKSooZQTYgdnx7ETQannBidBVIHckghXKUv7n5PuGs93BxhsPezi7lc
-         UH503ULyVsQGzjLlgzotNlwv+95WQlaFK8YyiyDjRlG08ePZLqYX3fwTlJgvS37EiLrd
-         JPASC25yHO1hxBys+NHv/FQdpbWN6IkxQmDs3fy/sDF3kJTehYrXcJ/g+4gPFGZK6rhV
-         LUfZhQm8jWPefUAAExWvogB3sMc+XXr3hIx+wdnlHHiXtKj8Cryt0OcCM7zvkYRcWasv
-         Kiakw5smgJEcLG/IE0b4r9CiNdyA/4m1RSogEGbGwbrBr+z9mS9oxUa9Ynf1qEe9BHEP
-         v5Mw==
-X-Forwarded-Encrypted: i=1; AHgh+RpUCsMsyaR1dHQuY+9IcIkcxH2QI4xvREI3eW6P6lF+1sGBS33+MbIUHeAKVe1SOoSTsXqs1qhSn4402zs=@vger.kernel.org
-X-Gm-Message-State: AFuF++mZKLeSiV6gQI+QaZucyTxfZzt1xMQ+vkhG60YuW0Pf0nhUumPL
-	vfulJvZh/HjvI4KcmRaLojq4K+gIZYmJqVINZ84Xur4MQBiqwi7KvFsu
-X-Gm-Gg: AR+sD10Vhkiy4smIuvqArw1mKjXT8fWmiGvDU4QtFs/EoFKAC7gfgVWzpE06iHvLzl5
-	d+IZ0o4N1rhQic7ezgyzJRYZyoOqk5tpMaO0sNWsyjYwS5nfVcmCyX/q/sUKnWVUG0KWBy3K0iy
-	dBYqvRGJgEWKyJGy8AmavGYrcURvq6BXBExmWaBSFNXYS697r6MOkWBAA7v5H9DhIRsb/kbp94P
-	U4CmDnFrZTRo7gZvMYYjA80q9MBZFmy5MMZ/iwGTw//RAOwT8sdmBIss16uBHuvKy8ONQsZV3b6
-	bApvJ0QKmKL0NjUXy5oAeNNYuh68X4dyyPFcWmQjV35Pct73A3ifp7VbWfItHWSVK+XULHRcS+l
-	swVQjTnMfYEYHiLk8hd6ZLt2B+/3cakeJvkkQ+yKOto3zal00Fzh6II5G4gyt0HC3jC/D6YaMhM
-	bKtlCe6m35Qly6fhfUfzCzKSOIWS+nc4oinoyWisAaJFTnX4b6n3e1/NhgPWlyAn/OAMo=
-X-Received: by 2002:a05:6402:a0d9:b0:6a1:f092:3c1e with SMTP id 4fb4d7f45d1cf-6a5df6410cemr9897163a12.13.1787764179194;
-        Wed, 26 Aug 2026 10:09:39 -0700 (PDT)
-Received: from foxbook (bfk5.neoplus.adsl.tpnet.pl. [83.28.48.5])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a5edef3c26sm2563163a12.17.2026.08.26.10.09.37
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Wed, 26 Aug 2026 10:09:38 -0700 (PDT)
-Date: Wed, 26 Aug 2026 19:09:34 +0200
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen
- <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, Jonathan
- Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy
- Dunlap <rdunlap@infradead.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, linux-modules@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-usb@vger.kernel.org, driver-core@lists.linux.dev,
- linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] driver core: add TAINT_FORCED_BIND for when
- userspace manually messes with devices and drivers
-Message-ID: <20260826190934.5042b344.michal.pecio@gmail.com>
-In-Reply-To: <2026082634-cloak-ambush-3861@gregkh>
-References: <20260826-bind_taint-v1-0-52b05f4a965c@linuxfoundation.org>
-	<20260826153311.6340efcd.michal.pecio@gmail.com>
-	<2026082658-statue-census-dc39@gregkh>
-	<20260826173549.18c8a89c.michal.pecio@gmail.com>
-	<2026082634-cloak-ambush-3861@gregkh>
+        d=1e100.net; s=20251104; t=1787764204; x=1788369004;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4qTy9EY05MYgzjfQZXb22+wxLg8mKbw/2dfRx0/rF4c=;
+        b=itDfNzmUls7N2qsK101T8WW/7cZl/mXzQLWM9bC4NNI2kXrVB55OdXRTd6j9SmXYRx
+         fSD9nLqEosoBF0LYa+rNg6nE9SgC5w2cVyomcIOyF/lqjIJV81MjlrXrlqiSyIdef7cb
+         CKm8sPCyGyPJV/QfQCUKJAj4vDjOTWeb8xHKO+NqjaimMEuLP90sb0oNtztWnc5ZIW5k
+         UeLEUbeJcwcnSTeUDzDlQMU+fX0+c25KrCaNAzEdduYF1q954xJnpgXLOVWQNGEwJL4I
+         jLY43SZ2rP89YWHyl8e7S1Zi3vonEz/0l5P5v04+9vDcjHE3fQ50XertIgQsWxUJXl8Z
+         yNhA==
+X-Forwarded-Encrypted: i=1; AHgh+Rolov3X3m5AsVDxiMRQGSFFjGHLBAdOusJFEaHiQOTROB6+Sg2Vhac59dtWUVUVFLo3SVfAdCET7QYFTSs=@vger.kernel.org
+X-Gm-Message-State: AFuF++l0pqzfkxRhOJZZJjwTSkQrFV+K+9Av382+aAIBRns6LbW53lx7
+	eRo4sbDup/+xv1XGPxcWeLUK+4Mbi3yW5lX4wo6+71dmTOOReQHMgJWI
+X-Gm-Gg: AR+sD13Mz05qwgaItlK1V89qfEaFNxsEGx0t8SdaFqXYpIPQuvn3A703RFtsEn5A5Nl
+	TscvE0jk3f+9vCxcXBWhE6CrNVx0gxhFLIUISMGat1aMSLOWv50Sw5Xm1bQ1ZVmbUFeqWXEIH8X
+	R7pDUckqsvxU7C/l74+AYezxAjN85L05n4XTT04QTzZmnSxWIGIZATGtlZzX1+Bo18RdsdcXOPD
+	JhQHyAbnJs44u14OvvDhY9ahO16jXsQNEqXst7AuggZ20Fu7AS9SAozK0tkd5YPZ6eFBwNzflIb
+	rhjWcc6KSZhhXtvIfzx39W+8Xp549vl2pyWALDJ1BJRnefW2ROs7L/LdHMAcH3XNjMu0XVGFrMV
+	x38K0DmOOMVXvyHmTqM36ehPMjcpp6hnlpxPFIefJCADetlVXPs8JyuEVW2+yuXLVMy+Yu6cZTG
+	yTYQ1FOkSVpTjG4L5W+g+ADjWoIvjOTDyB0fhq9YNiP9AE0oyz8eiqNQFDZJM9JSHoClH6OCcAh
+	+chFCvcPKzdg8M7kNxpPvsx
+X-Received: by 2002:a17:90a:dfd0:b0:38e:659b:f366 with SMTP id 98e67ed59e1d1-3966ce1df3fmr18948253a91.0.1787764204456;
+        Wed, 26 Aug 2026 10:10:04 -0700 (PDT)
+Received: from qiwenjie-ThinkCentre-M760t.mioffice.cn ([43.224.245.241])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39645d989cesm8866449a91.16.2026.08.26.10.10.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 10:10:03 -0700 (PDT)
+From: Wenjie Qi <qwjhust@gmail.com>
+X-Google-Original-From: Wenjie Qi <qiwenjie@xiaomi.com>
+To: daeho43@gmail.com
+Cc: daehojeong@google.com,
+	jaegeuk@kernel.org,
+	chao@kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	qiwenjie@xiaomi.com,
+	qwjhust@gmail.com
+Subject: Re: [PATCH 0/2] f2fs: fix device alias state across remount
+Date: Thu, 27 Aug 2026 01:09:54 +0800
+Message-ID: <20260826170954.3878638-1-qiwenjie@xiaomi.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <CACOAw_xpF2fBnJwXPATANo5bK0UWUEx2uNKpy2RCfZRzhOphoA@mail.gmail.com>
+References: <CACOAw_xpF2fBnJwXPATANo5bK0UWUEx2uNKpy2RCfZRzhOphoA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Wed, 26 Aug 2026 17:44:06 +0200, Greg Kroah-Hartman wrote:
-> On Wed, Aug 26, 2026 at 05:35:49PM +0200, Michal Pecio wrote:
-> > You can't bind random drivers to random devices out of the box,
-> > you need ID overrides. And then you don't need to bind manually,
-> > the kernel will happily select the wrong driver by default.
-> > 
-> > Authors of the recent xhci and thunderbolt patches admitted that
-> > 'driver_override' was involved in both cases.  
-> 
-> I'll be glad to taint if driver_override is also written to, but it's
-> bind() that triggers the actual action happening.  Or so the traces
-> show.
+Hi Daeho,
 
-Well, I suppose probe() is the first victim to crash in such cases.
+The f2fs-tools companion patch was sent separately. It populates
+dev_alias_ino[] when mkfs assigns the alias inodes, before calculating
+the superblock checksum, so a filesystem created with the updated tools
+has the mapping on its first mount.
 
-But if Syzbot is binding random drivers to random devices, the obvious
-solution is to ban 'driver_override'. Using that is just cheating.
+Current mkfs.f2fs accepts an arbitrary slash-free alias_filename.
+Enforcing basename equality will prevent new custom aliases, but it does
+not handle existing filesystems: after release and remount, reserve
+cannot identify a custom-named alias, and has_alias is not restored for
+pinned allocation.
 
-If it still manages to crash drivers by binding them to appropriate
-devices then I would say it will finally be doing its job right :)
+The added superblock commit is needed only when the mapping is first
+recorded, and the release ioctl already ends with a synchronous
+checkpoint.
 
-> > Meanwhile, Syzbot also found a stupid write to freed memory in USB
-> > core when HCs are unbound. You may say it doesn't matter, but:
-> > 
-> > * USB HCs are hotpluggable thunderbolt "gadgets" these days  
-> 
-> We support PCI devices being removed, but that falls under the PCI
-> hotplug rules/requirements, right?  Anyway, sure, we can fix those bugs
-> when found, but that's not the majority of what we are seeing at the
-> moment.  Look at all of the dumb platform drivers that are getting hit
-> with this on the syzbot reports...
-> 
-> > * there were plans to alter this code so that UAF is triggered by
-> >   hot removal of the USB device, not its parent HC  
-> 
-> I don't understand what you mean by this.
+Should existing filesystems created with custom alias filenames remain
+supported? If so, a tools-only restriction does not seem sufficient.
 
-There are ideas to change some code to use per-device data instead of
-per-HCD data. Coincidentally, Syzbot found that this use races with
-freeing the HCD and it would also race with freeing the device, making
-the UAF easier to trigger after proposed changes.
-
-I gave it as an example of Syzbot doing something useful with 'unbind'
-when it isn't wasting time on driver overrides.
-
-Regards,
-Michal
+Thanks,
+Wenjie
