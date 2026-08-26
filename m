@@ -1,88 +1,88 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22A2741D4F1
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:26:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7679F41D11F
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:26:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787750772; cv=none; b=khe6lyDsvokdZjMeZqwOlkD4lJ8wmJkxS8OajPoJXgX+mqPHuHtaZhILrpPYkA0w3OMqhcqgaL/3ss4Tw6RyJYuXCinn/39sWnP5xdnadPk+rczPRyQvzM9QiezgymJwYSb1FD4980t5PSVoSDQFUUujPSkkU8P5a0EVjJof6UU=
+	t=1787750781; cv=none; b=MIuuJaX1StN/FLcFtodoP82AL/MPwRIJ52BEUeIsL5lsWXwzyIDfbL4qLbDIiFFewAKV5k8C/pZPt2HEgzajaCaJNhO1gfcGpRNQKt6BNtLqpTrPd0q5TNRnqMIAgIvaZnDc7DY75rwZb36XqyW57ChyNUfLMPosF5Ox/q7DCTo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787750772; c=relaxed/simple;
-	bh=TPMCLTDubnlYeSj2OYg28HGBF4sYYUCTAMZ6mmfr1Y4=;
+	s=arc-20240116; t=1787750781; c=relaxed/simple;
+	bh=Zza1N3Y2FKmg1mQy2qIK8tXblDJiQpYmkV3BRv9IN/g=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=oS7OoDahk4lOYb22SO58w00RSHKSkCcJZ14bqqSqewdwwnavWozlQOmNjjcoCSvbMvaJiTubUU9rcUOp5pxmla4LLX+zXXeWclsfFLqZv1GL6SS2GWG18yw//n+R0k+cg/Z9CidDXMWSXx1/HHf1gD6e6e75H6PYnMOlnWOTbII=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UzSeb6wk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NS9dgbQW; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=gJMCO/bRXn0JYep/rh8SouMigQtpBDdzjdKUJjhf2sNskfiZY4Vel54zhiZ22FAWvzYk6HoAhzBkYmgliOuiQUvuAivzrHd0yur6tdDFz9w1vbRn7x0NqihvyIHxCnj6KZU0eRgJaBfE6/OIYoxdl06aOo7qBOKp1Ha4WcUHE7E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VBuKGqmL; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KtZyIM8r; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UzSeb6wk";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NS9dgbQW"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QCCJnN374915
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:26:09 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VBuKGqmL";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KtZyIM8r"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QCUL3Q950231
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:26:16 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	/1NtfMNjXT0T5Ju/tm8MIwOoIu61gHB1srsVawFDusc=; b=UzSeb6wkv3B55J0E
-	WQTlbIerm2ahsEtxtU2MXsOxcC09NyyqHC1vIBeWZRhT/GWVvdt2e3u5efj1Zw+y
-	Y8Ce9bLhwOEoLhnJ++SPkbcNgIOso+7wKZ3C2oizFNzZq85PvMNzwfjk7ADNvVUL
-	8hDZ+RS//lNA7hNRwGqo1AOE0mzY7nkAnDlf9HanbEIjNhm0cE7JoSQEWepP0f9T
-	5CcnIC07dCcNgpvRZSub+ZAG7FJlUr7An5UFR7sVhwjQEitWF0Sd/dQW0tpjYd5h
-	E1+dBoLlx1ZARDJmjTEWDcUT5bvOeuNKX8iHEZXojIx8CkA5aKZXHOBEZCiOo9St
-	lHXHlw==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g9smxa0ax-1
+	Ulzrg5Jgbzcu7NdvzxEDb+qFiWQRuMHzc+1iwLtcyyo=; b=VBuKGqmLiocUIwHt
+	0iPDM39Avaueimj6DQynSuQtrxeXR2hrt4lUfIu0mKH456ajW4UTxZMwiYvEZJ6t
+	Qx0AKeeVCL4Ox/EZDdLyuTCZOfe3hl7U52dY8dYvxOGn7dhb6AaFBJDZ8xSxlrkU
+	1U4bHrLMjoik9OGXK4iWtCYkqp+oVJNTb4Ys+DWyeORKWr9lr4XyIj/JLpAd/5JB
+	nDORMRVKOQv8rbvrCupunqmb932IItna0cLDS+oJvkfzkOtsPiOl44HayYT3qBew
+	mEgLgk+awdOc2IpDQ/0Y4Mkw9PC70t2BeA64JfS8G6Gxnv5q3CplY6hpP+PzbrzH
+	vB93KA==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ga07586p7-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:26:08 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-38fa7b09921so1265020a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 06:26:08 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:26:15 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3965ba1ba3eso1330693a91.2
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 06:26:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787750768; x=1788355568; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1787750775; x=1788355575; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/1NtfMNjXT0T5Ju/tm8MIwOoIu61gHB1srsVawFDusc=;
-        b=NS9dgbQWQUlXBPUkWP4Da3TOV6bV3ijxQGeUVaK7He6NX0Wxj8n3Rx9cSXDz/iCCeg
-         z4Oznqfc+iLHziUp2UgDHIudq1RyhbEyVOmjDuR4tZgtUNAZ1exFtKzCyEMAXoEmxSu9
-         217Kvu8xpUhaQOpIRm/wnrS3yjPNlp4kjmnAqtkJlKDTwrxFCx58apvrKASUQVXsUh1f
-         1x9+2Co5uLio/0hoKBxGE5awUwHI2eFbcfcjXEhACozZKeTKs/w+mhOtpgeDHjy9qhke
-         L5HzR3EqZbPEQ2gePWvOe9Vjt3IXVBgrPQOQ/A+aJqgEiq6AzrXb2sJ7T5E6P/XQftsp
-         NvYA==
+        bh=Ulzrg5Jgbzcu7NdvzxEDb+qFiWQRuMHzc+1iwLtcyyo=;
+        b=KtZyIM8ro8bdB7ncnzDC7O9ewnOyLghw0rFCp7oKmhpe31+ynaPnh0E+KyzAn1mlWK
+         QpNmsyNBnzzzVJhgK6ReKp7pgI3wJLddLEwLO/TkY+lenC4+c4yDRWKA2VnqlxMVcKrM
+         VfHRFbHcjrz3gbv6cYP8M6aFgx3s3oNMQF8Djp3i6HaFZJvCLMzuy7g09AhAb87m4YZ1
+         5CGpNsdnieG4qwakX6QzNwP6G4ldk7FA+g55Rvlf6Z7gl5ZHBlb/TbTVqDNY21Q77SGg
+         S6PygNL6ojggmgKNty9LuHzvrFMbqCeRTq/HkCAeTxxNQplBcIPyRKeP0nrRjYy25ln/
+         kAZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787750768; x=1788355568;
+        d=1e100.net; s=20251104; t=1787750775; x=1788355575;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=/1NtfMNjXT0T5Ju/tm8MIwOoIu61gHB1srsVawFDusc=;
-        b=jCqMP2XvDezgMjkt0X2a4VGciKvyXqddm3SdLYwbHDHi6tqXnfgXNhsXQXsgA6fUBM
-         AGGrhU43/oyGrom5BIyugseo8J9qGj7xaYpSiGhYVoavwLHZVEcMRvXADkCuyPELH068
-         4/2zyL5jqnpQmW8ZaNLDYjcK37K+X5O6ZKtyXsb56xedYOKo+B3oVIubjE9WzWig/1C7
-         Lgjq4PbcHkefLCcv7rwVPQV6VPnynXnNCvzH+HqJYpCVcrNfaL+iWIucpwZZuIQSaXfE
-         kYMbvy6w914qxilLIsDM+cNyaR2krUPmDuOIm/z4uyhFiKWw6w9o1p4Qz92NSyLuatNn
-         JG9g==
-X-Forwarded-Encrypted: i=1; AHgh+RohR5qnuPihRv3dgg3ztMms2N6Bw+mSeseq6VzpL3eFmsl0zGgo593ObFK4yTUHnS92yk6VriXAycLG5NI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lhoNG7XQ9Z9Vv++S75c8cTG3JiHeAI90CviW47YZ2ca1LN3Eos
-	Imb0ZaDk1vvWE7Yz+8vphn116ccBSms6GL/D20Xo/zhkipeLNtIpHaxgv7oB7Iq8sfTGayKOm6Y
-	r//p3HTk8RQvWfD4UxFoiw2YN462c4m5FzCzAbH4u108kNw/4kIrbsEsXnqs3IRPdKqw=
-X-Gm-Gg: AR+sD13P7/j26ydl36PFv/tf/XbA4LKDF4sClCUg8alut/KY0EAqb4o5m1BSQYMS6vl
-	5LrNL5eJxMdo6cvQikpd/dGdrAVpPdwhk6hRhGidVrT85zevO8hoCjisA1LPVJhvi1ClZ1JeCSr
-	BUWsPejkXZhc/1zhzbs6Mk2/5kmHLJEPKYjU5p1ZDGXG64qw52oeZXk6cJaTTmvSncOqNL9GA+6
-	EtzQ8MjF5tLy3EN89zA1LkI+yQPKX0N8HdbyrjWh7fk+Oe6n4264ppbjGde4G5Qj4qcP47UZdu2
-	Rm9tHzpY9qiC2MwUsPRUmOvCXX4DapY0M1bO2yAwSXjNWwgH4Ox3Cf14tkYgs11qp/F3nwUJPwi
-	7m/6PEnmIhTY7QrRlXcuk28vuiO6nR+g5xQ==
-X-Received: by 2002:a17:90b:4e88:b0:38e:4cb:51f with SMTP id 98e67ed59e1d1-3966d4488cbmr15782740a91.11.1787750768196;
-        Wed, 26 Aug 2026 06:26:08 -0700 (PDT)
-X-Received: by 2002:a17:90b:4e88:b0:38e:4cb:51f with SMTP id 98e67ed59e1d1-3966d4488cbmr15782610a91.11.1787750767715;
-        Wed, 26 Aug 2026 06:26:07 -0700 (PDT)
+        bh=Ulzrg5Jgbzcu7NdvzxEDb+qFiWQRuMHzc+1iwLtcyyo=;
+        b=pStTQc+LfBHOkuk24duaLYxRvV4cSBfN0SPblKgixP2o7fkICzJfmEAwGQ9QFRP/rS
+         Zf7HjDFTQrLc83aZ9PMAwWoM7LhNMUC2VdXEempA8fV5USHcgUQcSVX9d7IRzoQPb4rT
+         4qW2TRU7fbNa6FCxB+htIGKsrAfPf7HBJsm4hDPAcfFMZ6IyFnO4GfsYNhquAw/RDlkN
+         RPAQOiyk9CKlm54+c87JIyGKVMFwCCmmasFwow1T5yzec2ewkwKRboPuNI88E7yRv7a+
+         Tkm3O25DHPWHljj6YfCiHExELt83Pyc/mcPww8bMxWCtsI7Gb5frnglCUoGyxfPNd7hb
+         7Bbw==
+X-Forwarded-Encrypted: i=1; AHgh+Ro3dyVL1A5uQhgMwlWAaam2VHv/2ay0zzAur3Cc73t4ERHP8MQfISMSuKaUjysxZ6L5gsOl20tPNQBaxvk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kyFArMl1/Q4XGhRpTzpwDDJuBFop/XDf36IzwKvBHaeOBwsX7s
+	ryT21hLR+7pCD56+fGar9UtVj0/eSP0nGwYb4YcHOfse7Wi17pTwzEG8OBA9lNgPb4cmjw1C5Lt
+	Wnbcdb3/Gem7wKNtajgFVy/3DcBoXhGMXkVke2u/M1qvEmk9oPHNtfnwKXEs42E4gcEw=
+X-Gm-Gg: AR+sD104kWMVvq0y9JNNIExOuupegdLrTjwmZQw/+HX8eLKDcuTO+yyWVxDx4+JXm4I
+	SMX3iqrcdFeJ0qbi4a4rE/z8jCMTKjKtyYoMWPFSQDX/97RGXUw65iDw7QSGYMLjE4HoMTk00ZP
+	81m71LqBhESyFWXXBtw/bESlPW8XB0bQpYFGnJhLHdDxv6Joqe3y+YsQ92PIeNxUY9fNsi98RRD
+	IyuU1McvWQeTM9nni/7kPZVrmQx/tmVAFgdhECRvzhBv8yXiZhHtbciMCKkxU2rnmjw5171IDoM
+	xtd18+cF8eLvXEvZXe91/jgAZTdeY/66aG+RtC9EEITpIogkCQKWlHezmIelkGUVa2m7Vq1+vyp
+	DOAiD/444yw3qGOz9pCOEbbZhDpGn8GmnXg==
+X-Received: by 2002:a17:90b:1845:b0:395:4e0d:bc60 with SMTP id 98e67ed59e1d1-3966d85dd8dmr15798797a91.9.1787750773125;
+        Wed, 26 Aug 2026 06:26:13 -0700 (PDT)
+X-Received: by 2002:a17:90b:1845:b0:395:4e0d:bc60 with SMTP id 98e67ed59e1d1-3966d85dd8dmr15798645a91.9.1787750772646;
+        Wed, 26 Aug 2026 06:26:12 -0700 (PDT)
 Received: from hu-vkatoch-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39668767d65sm4581108a91.8.2026.08.26.06.26.03
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39668767d65sm4581108a91.8.2026.08.26.06.26.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 06:26:07 -0700 (PDT)
+        Wed, 26 Aug 2026 06:26:12 -0700 (PDT)
 From: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
-Date: Wed, 26 Aug 2026 18:55:49 +0530
-Subject: [PATCH v4 1/3] misc: fastrpc: iterate CB nodes manually instead of
- of_platform_populate
+Date: Wed, 26 Aug 2026 18:55:50 +0530
+Subject: [PATCH v4 2/3] misc: fastrpc: move ADSP duplicate session creation
+ to the driver
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -91,7 +91,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260826-dup-sessions-v4-1-35555d2bfed4@oss.qualcomm.com>
+Message-Id: <20260826-dup-sessions-v4-2-35555d2bfed4@oss.qualcomm.com>
 References: <20260826-dup-sessions-v4-0-35555d2bfed4@oss.qualcomm.com>
 In-Reply-To: <20260826-dup-sessions-v4-0-35555d2bfed4@oss.qualcomm.com>
 To: Srinivas Kandagatla <srini@kernel.org>,
@@ -108,203 +108,129 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
         devicetree@vger.kernel.org,
         Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787750757; l=5256;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787750757; l=3234;
  i=vinayak.katoch@oss.qualcomm.com; s=20260609; h=from:subject:message-id;
- bh=TPMCLTDubnlYeSj2OYg28HGBF4sYYUCTAMZ6mmfr1Y4=;
- b=rtf85DxaxIVXlZxJuVEjZMk7uqHRFjgWoi5Nd9/cmK0eGzZEnd6X/m13pe49ZFB6VAVYjN5gH
- yW2lGXF1ZscDy8DRUywyUzty+CMOmcllSM/7EsFo6G2Y3fYW1C3mQJo
+ bh=Zza1N3Y2FKmg1mQy2qIK8tXblDJiQpYmkV3BRv9IN/g=;
+ b=MvYtIoBfRHzr+9ZlxzKLLMoppQsZDe6pf/KPNN/1QMZ5lRfEuP0Dwulclq9H09nsqHriGV/ys
+ J1Twvj9xDNPBP2Fdaacm+ZxMCdQ9/9E7ncnRt/0xCCt2ksAYoackshw
 X-Developer-Key: i=vinayak.katoch@oss.qualcomm.com; a=ed25519;
  pk=UrGeKKxjIjpHZIjsbQKS/8rrVaP9KVGki69pFclCH08=
-X-Authority-Analysis: v=2.4 cv=O/oJeh9W c=1 sm=1 tr=0 ts=6a8ee971 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Proofpoint-ORIG-GUID: bDvEMj627Yrn6-0-nfgDOXVZrw9vpKjo
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDExMSBTYWx0ZWRfXxY7TABxDkDgk
+ 1f6DpWr1dy3v5njfpnBuMX22fyZuIsB3MbT7EBh3TMdBriJAciwZR2dYrjF/2dTAi5W8bJPlyON
+ uzN84bLKkYgeLy/vafEZ7luIN3fpBVeU90Q+oV7bnt3DGTmypvxDyZqBTcl78q3Kde+ctVF6I4T
+ QTzrv5gwm6hbP+TGJgwShL937rD/fhK9vI7IWCQZ0xW2BbeWRvj/4OardSnrWlWPDKHufXYex45
+ OoURA005zwRrX9dBwT3hx6OC43FvwCc9N/T/NvvwM3TM1q/VC8IyRoLvDPC6j2zQHwJaT2pEnf7
+ dM+G70Tl9Uve5c04rZVC0MTC0ljGmAF5cq0wLT3cICqJ3bw1/Plzs3hVmwWNSLIuGsdxs1xhGHN
+ UMLMDDSIBJ+B9Jo04Jdxc208BUxbxykA8Fd7Jlh53yKYFALrI3b3a4t08b3foAU/5y7gOD5jPbF
+ sSsvog3XK/iylrgPqNA==
+X-Proofpoint-GUID: bDvEMj627Yrn6-0-nfgDOXVZrw9vpKjo
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDExMSBTYWx0ZWRfXxLspn5pcVdHx
+ tvl6mRuaADT8G17UODNdr0WzJZ86wXsiVqA5lo7n9ogV79PN5k4AC+Mg25CzIWlnxH5ouVDiTyi
+ n04kRx/NgIeKFb7/0QUoAW2DuMxBIqg=
+X-Authority-Analysis: v=2.4 cv=RPiD2Yi+ c=1 sm=1 tr=0 ts=6a8ee977 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=0tPlnvf1ouYV9MwHMgkA:9 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-GUID: qwl4l0ixzXP4Q1w8JM47YmXIIl58j_z1
-X-Proofpoint-ORIG-GUID: qwl4l0ixzXP4Q1w8JM47YmXIIl58j_z1
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDExMSBTYWx0ZWRfX/glf67huWb1C
- m7dkZHWAP1lMdZ7yXc/v7NeW7mydaLKU2xXQH3CsQ2lPGkm4+h1iMj9IYBgwlvg8i4FQb2Nvnt0
- eTvVqMX5ydNU3xFvELYTgNtrhnPvb1xjXUlchaI6bv+ShZtLDVYa9yU6h6W9/swEkgL4CX09L29
- daXPgmqiZ25OnFvRlvwrQsLcuknXaxR7XEqbuGFRxfrEScMT6cdYRTdOTodorVxrWye5ragGNXT
- Pf1f0bpeAmlvXOIPNg+8o0h7mo+e/6ttIVBjGmg9EqY8o3qu15BtWW1FiY4uyJhKDcwV9+7Mmvp
- IINugYlp90kKnk/9ffzbwq3HKHMvV5+PdN3L5UHsmgEPX51rg8t5XrL2UC7r53+5F1c3VnWKfqS
- wfvsqkkyWFQYMvgkVgbewy8at/PLd9X97kMT7JTJ6Mx1IlVQkokoXhFE11CK3B3NEeQYX0jNEmp
- uWZSnISsy0YoG9gku3Q==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDExMSBTYWx0ZWRfX+bjBYOeGusCx
- zn/7vyB9Thp6quPc8DdxJMe8AiTP/D6KxbKk7GOGkgvPZlYw/Y7Lcm9ORU7kQ5lp2FEVe+xKE8F
- bJWVRTFXRZIPN2iYnMk1j+Bt4xGx4GU=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=cClR-N3A75S5OZrvWOIA:9 a=QEXdDO2ut3YA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-26_03,2026-08-26_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 spamscore=0 adultscore=0 impostorscore=0
- lowpriorityscore=0 clxscore=1015 bulkscore=0 priorityscore=1501 phishscore=0
+ adultscore=0 clxscore=1015 priorityscore=1501 spamscore=0 lowpriorityscore=0
+ malwarescore=0 phishscore=0 suspectscore=0 bulkscore=0 impostorscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260111
 
-of_platform_populate() only guarantees that child devices are registered,
-not that their probes have completed before it returns. This creates a
-window where fastrpc_cb_init() may not have run for all context bank
-nodes, leaving the channel context partially initialised.
+For ADSP, only a limited number of FastRPC context banks (CBs) are
+available. Each CB supports a single session, which means only a few
+processes can run on ADSP simultaneously. If all sessions are consumed
+by fastrpc daemons, no session remains available when a user application
+starts, causing the application to fail.
 
-Iterate over the child device tree nodes directly, initialising each
-qcom,fastrpc-compute-cb device synchronously. This ensures all context
-banks are fully initialised before fastrpc_rpmsg_probe() returns. Since
-fastrpc_cb_driver is no longer needed as an independent platform driver,
-remove it along with its match table and remove callback. Set
-OF_POPULATED_BUS on the rpmsg node so that of_platform_depopulate()
-correctly removes the manually created CB devices on teardown.
+To work around this, qcom,nsessions = <5> was set in DT to duplicate
+sessions inline during fastrpc_cb_init(). This policy does not belong
+in DT and should be handled at the driver level instead.
+
+Remove the qcom,nsessions DT property read and the per-CB duplication
+logic from fastrpc_cb_init(). After all context banks have been
+initialised in fastrpc_rpmsg_probe(), append FASTRPC_DUP_SESSIONS (4)
+copies of the last session for the ADSP domain.
 
 Signed-off-by: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
 ---
- drivers/misc/fastrpc.c | 83 ++++++++++++++++++--------------------------------
- 1 file changed, 29 insertions(+), 54 deletions(-)
+ drivers/misc/fastrpc.c | 29 +++++++++++++++++------------
+ 1 file changed, 17 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index d4fac2caca86..a153107d0085 100644
+index a153107d0085..98a61b8b9013 100644
 --- a/drivers/misc/fastrpc.c
 +++ b/drivers/misc/fastrpc.c
-@@ -2363,7 +2363,7 @@ static const struct file_operations fastrpc_fops = {
- 	.compat_ioctl = fastrpc_device_ioctl,
- };
- 
--static int fastrpc_cb_probe(struct platform_device *pdev)
-+static int fastrpc_cb_init(struct platform_device *pdev)
- {
+@@ -34,6 +34,7 @@
+ #define CDSP_DOMAIN_ID (3)
+ #define GDSP_DOMAIN_ID (4)
+ #define FASTRPC_MAX_SESSIONS	14
++#define FASTRPC_DUP_SESSIONS	4
+ #define FASTRPC_MAX_VMIDS	16
+ #define FASTRPC_ALIGN		128
+ #define FASTRPC_MAX_FDLIST	16
+@@ -2368,7 +2369,6 @@ static int fastrpc_cb_init(struct platform_device *pdev)
  	struct fastrpc_channel_ctx *cctx;
  	struct fastrpc_session_ctx *sess;
-@@ -2385,7 +2385,7 @@ static int fastrpc_cb_probe(struct platform_device *pdev)
- 	spin_lock_irqsave(&cctx->lock, flags);
- 	if (cctx->sesscount >= FASTRPC_MAX_SESSIONS) {
- 		spin_unlock_irqrestore(&cctx->lock, flags);
--		dev_err(&pdev->dev, "too many sessions\n");
-+		dev_err(dev, "too many sessions\n");
- 		return -ENOSPC;
- 	}
- 	dma_bits = cctx->soc_data->dma_addr_bits_default;
-@@ -2419,38 +2419,6 @@ static int fastrpc_cb_probe(struct platform_device *pdev)
- 	return 0;
- }
+ 	struct device *dev = &pdev->dev;
+-	int i, sessions = 0;
+ 	unsigned long flags;
+ 	u32 dma_bits;
+ 	u32 sid = 0;
+@@ -2378,7 +2378,6 @@ static int fastrpc_cb_init(struct platform_device *pdev)
+ 	if (!cctx)
+ 		return -EINVAL;
  
--static void fastrpc_cb_remove(struct platform_device *pdev)
--{
--	struct fastrpc_channel_ctx *cctx = dev_get_drvdata(pdev->dev.parent);
--	struct fastrpc_session_ctx *sess = dev_get_drvdata(&pdev->dev);
--	unsigned long flags;
--	int i;
+-	of_property_read_u32(dev->of_node, "qcom,nsessions", &sessions);
+ 	if (of_property_read_u32(dev->of_node, "reg", &sid))
+ 		dev_info(dev, "FastRPC Session ID not specified in DT\n");
+ 
+@@ -2399,16 +2398,6 @@ static int fastrpc_cb_init(struct platform_device *pdev)
+ 	if (cctx->domain_id == CDSP_DOMAIN_ID)
+ 		dma_bits = cctx->soc_data->dma_addr_bits_cdsp;
+ 
+-	if (sessions > 0) {
+-		struct fastrpc_session_ctx *dup_sess;
 -
--	spin_lock_irqsave(&cctx->lock, flags);
--	for (i = 0; i < FASTRPC_MAX_SESSIONS; i++) {
--		if (cctx->session[i].sid == sess->sid) {
--			cctx->session[i].valid = false;
--			cctx->sesscount--;
+-		for (i = 1; i < sessions; i++) {
+-			if (cctx->sesscount >= FASTRPC_MAX_SESSIONS)
+-				break;
+-			dup_sess = &cctx->session[cctx->sesscount++];
+-			memcpy(dup_sess, sess, sizeof(*dup_sess));
 -		}
 -	}
--	spin_unlock_irqrestore(&cctx->lock, flags);
--}
--
--static const struct of_device_id fastrpc_match_table[] = {
--	{ .compatible = "qcom,fastrpc-compute-cb" },
--	{ }
--};
--
--static struct platform_driver fastrpc_cb_driver = {
--	.probe = fastrpc_cb_probe,
--	.remove = fastrpc_cb_remove,
--	.driver = {
--		.name = "qcom,fastrpc-cb",
--		.of_match_table = fastrpc_match_table,
--		.suppress_bind_attrs = true,
--	},
--};
--
- static int fastrpc_device_register(struct device *dev, struct fastrpc_channel_ctx *cctx,
- 				   bool is_secured, const char *domain)
- {
-@@ -2642,12 +2610,29 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- 	data->rpdev = rpdev;
- 	dev_set_drvdata(&rpdev->dev, data);
+ 	spin_unlock_irqrestore(&cctx->lock, flags);
+ 	rc = dma_set_mask(dev, DMA_BIT_MASK(dma_bits));
+ 	if (rc) {
+@@ -2629,6 +2618,22 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+ 			goto err_depopulate;
+ 	}
  
--	err = of_platform_populate(rdev->of_node, NULL, NULL, rdev);
--	if (err)
--		goto err_deregister_fdev;
-+	of_node_set_flag(rdev->of_node, OF_POPULATED_BUS);
++	if (data->domain_id == ADSP_DOMAIN_ID && data->sesscount > 0) {
++		struct fastrpc_session_ctx *last_sess;
++		struct fastrpc_session_ctx *dup_sess;
++		unsigned long flags;
 +
-+	for_each_available_child_of_node_scoped(rdev->of_node, np) {
-+		struct platform_device *pdev;
-+
-+		if (!of_device_is_compatible(np, "qcom,fastrpc-compute-cb"))
-+			continue;
-+
-+		pdev = of_platform_device_create(np, NULL, rdev);
-+		if (!pdev) {
-+			err = -EINVAL;
-+			goto err_depopulate;
++		spin_lock_irqsave(&data->lock, flags);
++		last_sess = &data->session[data->sesscount - 1];
++		for (i = 0; i < FASTRPC_DUP_SESSIONS; i++) {
++			if (data->sesscount >= FASTRPC_MAX_SESSIONS)
++				break;
++			dup_sess = &data->session[data->sesscount++];
++			memcpy(dup_sess, last_sess, sizeof(*dup_sess));
 +		}
-+
-+		err = fastrpc_cb_init(pdev);
-+		if (err)
-+			goto err_depopulate;
++		spin_unlock_irqrestore(&data->lock, flags);
 +	}
- 
++
  	return 0;
  
-+err_depopulate:
-+	of_platform_depopulate(rdev);
- err_deregister_fdev:
- 	if (data->fdevice)
- 		misc_deregister(&data->fdevice->miscdev);
-@@ -2677,6 +2662,7 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
- 	struct fastrpc_buf *buf, *b;
- 	struct fastrpc_user *user;
- 	unsigned long flags;
-+	int i;
- 
- 	/* No invocations past this point */
- 	spin_lock_irqsave(&cctx->lock, flags);
-@@ -2697,6 +2683,11 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
- 	if (cctx->remote_heap)
- 		fastrpc_buf_free(cctx->remote_heap);
- 
-+	spin_lock_irqsave(&cctx->lock, flags);
-+	for (i = 0; i < FASTRPC_MAX_SESSIONS; i++)
-+		cctx->session[i].valid = false;
-+	spin_unlock_irqrestore(&cctx->lock, flags);
-+
- 	of_platform_depopulate(&rpdev->dev);
- 
- 	fastrpc_channel_ctx_put(cctx);
-@@ -2786,28 +2777,12 @@ static struct rpmsg_driver fastrpc_driver = {
- 
- static int fastrpc_init(void)
- {
--	int ret;
--
--	ret = platform_driver_register(&fastrpc_cb_driver);
--	if (ret < 0) {
--		pr_err("fastrpc: failed to register cb driver\n");
--		return ret;
--	}
--
--	ret = register_rpmsg_driver(&fastrpc_driver);
--	if (ret < 0) {
--		pr_err("fastrpc: failed to register rpmsg driver\n");
--		platform_driver_unregister(&fastrpc_cb_driver);
--		return ret;
--	}
--
--	return 0;
-+	return register_rpmsg_driver(&fastrpc_driver);
- }
- module_init(fastrpc_init);
- 
- static void fastrpc_exit(void)
- {
--	platform_driver_unregister(&fastrpc_cb_driver);
- 	unregister_rpmsg_driver(&fastrpc_driver);
- }
- module_exit(fastrpc_exit);
+ err_depopulate:
 
 -- 
 2.34.1
