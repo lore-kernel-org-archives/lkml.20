@@ -1,266 +1,270 @@
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012015.outbound.protection.outlook.com [40.107.200.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDBCB3B2FDB
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 22:01:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787781714; cv=none; b=YGl02kH21c3kE5xmFPqoUGmGfAyaSJsVgYXebmkxOzz1I9dsBTHINrBOpW/x3r55Jp3V8mdplvUA9BOD/0f9y0VN/+xHwBhTWGSiesfrpfzXi1vW5kpsLgm0SUAtSB05arQFS/w6JG/aEe1zxzuwfJs3s8ZvJXEwsG2gnj1dQLQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787781714; c=relaxed/simple;
-	bh=qyA52UAgvN6XlnaWZgTaKoW9C/BTluV651tNUqLWGuk=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 Cc:Content-Type; b=L0SXs3e6aMXmz9UXY56ek1bVjLuV1ziEasWTu8HbCHu2QKNdAn+tWCEToUnBVqTlm8OMgjoMo5AGRQYvG4v5lk2NkcTGEWvtH+45VjIwmVatYy7tFAR7LYia4hzJ9TYqpZKyX34gW0hRSCnGtBy0hkHETb1cTUuwFR5k1GOwqRw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=mA5XrU2f; arc=none smtp.client-ip=209.85.215.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 459FE30C179;
+	Wed, 26 Aug 2026 22:02:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787781761; cv=fail; b=cfJCuS/xrbWOv7ApvUtPHQud+FdqohLKtnJ1TaxmJFPx2UO5EKuWmqLwa42d7R808I6aqqr9CsPUpgCzWppLtlLVtDbLgDTxIqCqhGwHWoCRarUiookY/CJDuD6kmapQ7nlsrfujEzIxHREjgEeiGBS89VpFabbK2NnFqGbLBhk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787781761; c=relaxed/simple;
+	bh=BnF0AEomnI9ASTUR/AFJNm92NUMpTHEGSkDW5l7VO2o=;
+	h=Content-Type:Date:Message-Id:From:Subject:Cc:To:References:
+	 In-Reply-To:MIME-Version; b=axWyNSPHQ9fqk5e5bVnsOnYJjAG1613srckcT2464mxXDJZ7M4XiITfixs059mS0gdFLL79L0baP+9jS/OfXWPE3If5XjkJpeZpbVAlKCnalwWDRe2EyaDpxHPhbZA/K1Yq3/JxQv17JnowrlU//OAiUxMryfhtJixBod2QqiO4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=P1LGlMEy; arc=fail smtp.client-ip=40.107.200.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="mA5XrU2f"
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc1cb806660so1398364a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 15:01:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787781712; x=1788386512; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:from:subject:message-id
-         :references:mime-version:in-reply-to:date:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/uKfP9EuNi09bpZ97yR8E34CfJ3HCTaYTPb6xg/cB5w=;
-        b=mA5XrU2fGOtfOOwsK5iqlVgzLLTdvSe9CvcEXwDRtByghHpqs+8VBRUN3/lgdehqYd
-         cJ4Fbh3XGd0SCRb/6flTfYuw/FHam1rk66SKoEQuwIP7fFrMXuhyPxiLQSgeUWGHhb/k
-         5qqKF0lcrdDXWJd9PopSOOzqOYgNWlDXTEsaESJiac2nJaen2udnC0iXisSsbnkd2g2G
-         uHlBZtv2n8yqwM/T8I3eBDlDC0zk/LhoQ/rvjcF5pGn+DV3z/zvsQqiKAji2WO3/lOC/
-         LM8/Is7kra9ZdSKFZc++B3xMhxSHbNy01auF1nNDeHJKvXUGjvtMLvGbgIM9iclI8B81
-         /tMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787781712; x=1788386512;
-        h=content-transfer-encoding:content-type:cc:from:subject:message-id
-         :references:mime-version:in-reply-to:date:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=/uKfP9EuNi09bpZ97yR8E34CfJ3HCTaYTPb6xg/cB5w=;
-        b=jpSij8cmLtkWTMZoLGQiq60NS1v3Y8uDYJ2OV3ECR02IakEIvRH3y1ci0zGRgw+1io
-         xoRjUE5QabkX7UnlGfW8L6tFQlTFkkZLoDTPTJ1JTRec65CGDEU+ZfLRwRqvXdaXrUOY
-         tpTSAGjuGTRgbWBUwwb7lEfkgxCjEFe7+FiDVRBG7MNRx+ypfzF9bMa8u6GxmU1dZFvp
-         +4EmTwiGIYh56rnuGh7ZZube2T5Sr/M7mGz3q8ysgWA2r+c3xCJzDIl0GJn9J09gT2fZ
-         vg6tVATj3IQqsYt00MHDprZlo4IvEcy7poWcHBVs68e4lK7lDpOc5I8SHYpOc5IfdQtp
-         feZw==
-X-Forwarded-Encrypted: i=1; AHgh+RpujpHQKWYlYy62w/oLWVNM1KC95N7w8bQkLii3vlPNpheWmB5LqGyvSGPtexCSOtFs7Up02LUKMN6pHjY=@vger.kernel.org
-X-Gm-Message-State: AFuF++m/UF5S1+jrnI6bqlj1D1XV05MxxDUq9QQuqGkyzIulfthghK4U
-	ZH+Nuq0b/K7e8v1mu1HvNST06XcU0wtXdU4KmYSq9hNLd2TXjkpNQnJSvvXF0Sc7kUxmo9+QsB5
-	Y
-X-Received: from pgah16.prod.google.com ([2002:a05:6a02:4e90:b0:cc1:d46e:147a])
- (user=morbo job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:150d:b0:3d1:4225:9bb
- with SMTP id adf61e73a8af0-3d14225161cmr769166637.2.1787781711833; Wed, 26
- Aug 2026 15:01:51 -0700 (PDT)
-Date: Wed, 26 Aug 2026 22:00:35 +0000
-In-Reply-To: <20260826220041.4075333-1-morbo@google.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="P1LGlMEy"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=n3eENLuAw9vZ3YaW62DX0UBiaxpzNMaHAbZMG2yRoTUAz8BcLnwX6DoamRDssBBySBJVnx/rfYXlMDJUdN60uAPcSsN8Mu1ikSw5gSVAib55ry828rR164kEpFl42kp8ZFRD21g0qbIIErSKrhcGQl5vfgsoNxZWvS3z7Vyg6w0HctTrNr+diZgRXqWOBfTwWPB7nZVOn8oCWw0k5bQoKdKb7gZmvU6JsZNOvaWGSkgh2Qf/q9mjPoAkLuNQPjyQ1p+ElxpzYpVQP1p3K/NgSW0SVDxGmqTRamcdXOkC4n1pBQmNfC0xRg+IfgmLa7Zlpc60USDiFafvcM17T9F9LA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VwAvnB1W2isvSDRP8aE6X1X2isY9R7l0nl7t6WxuF94=;
+ b=eVQu7DrOJk8fSuyO83Ae76wNtzl/lTk2wUYDPjqwmUCIoUT6u/b/YmnbsXBdk4blmNt+IAWUj9oyarvKy/n4mf834xGMjY4j7z32A/VCcCrM9PFQe3zxbXvDVI/XWmQUQbYDh3Erj2tnYO+EAKAlx5dCVnzH2fkxMKIKusxNVGce1m8fuCAvlkco9NnoqO6GiGs4RiUhwwiVsh2HxrimPtaGwEm2epjAPEou6a7Y+8tKT3HxLleQZPiJI0rB1e2uMmMIPvkGliQVu8PKPoePUQ0K+yBwgTL/EDOHR3zFyFcU9HjymISQlNidWOMdI3NdIY8voZjnjxYaHnREqHdU2w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VwAvnB1W2isvSDRP8aE6X1X2isY9R7l0nl7t6WxuF94=;
+ b=P1LGlMEyPYnkp5LTr9S6yFrSTIPAIRaMAfECXhCPVgAvnFS8ZDBg5uNiGFiM5wXCOOj0FtQasQAeVV0ROTDXpNRaS+IEAuwUHIHdc6bG/eeWi0bLURzkvsieQsMkGeCzLapO9qhSUqoHG+zl9yW69Ilb7/1jIYPxt3KF83HEDhRb8TiSK5JUMPedWWqS3aJRFq64cun8W8zM7LxRExq5lOGnZ1SjrdJTwPQjgQtAto9Rn2NcfcwnZldGNBY+wJ8dkBgCGzCCt0qXbmZyeUK8doG+OCgL8bjwTYTTJh49bp3DIZu/S/kAvvXlVNdr8nwOzzk2SviAIq5QdQamEMlPpA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by SN7PR12MB7881.namprd12.prod.outlook.com (2603:10b6:806:34a::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.8; Wed, 26 Aug
+ 2026 22:02:35 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0360.006; Wed, 26 Aug 2026
+ 22:02:35 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 26 Aug 2026 18:02:31 -0400
+Message-Id: <DKZ7QMMZPL21.20QCG4B32HCYJ@nvidia.com>
+From: "Zi Yan" <ziy@nvidia.com>
+Subject: Re: [PATCH] mm/slab: reject unsupported kmalloc sizes
+Cc: "Harry Yoo" <harry@kernel.org>, "Andrew Morton"
+ <akpm@linux-foundation.org>, "Hao Li" <hao.li@linux.dev>, "Christoph
+ Lameter" <cl@gentwo.org>, "David Rientjes" <rientjes@google.com>, "Roman
+ Gushchin" <roman.gushchin@linux.dev>, "Alan Stern"
+ <stern@rowland.harvard.edu>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>, <linux-mm@kvack.org>,
+ <linux-kernel@vger.kernel.org>, <linux-usb@vger.kernel.org>,
+ <syzbot+805630f1453e490427fa@syzkaller.appspotmail.com>,
+ <stable@vger.kernel.org>
+To: "David Laight" <david.laight.linux@gmail.com>, "Vlastimil Babka (SUSE)"
+ <vbabka@kernel.org>
+X-Mailer: aerc 0.22.0
+References: <20260817-limit_kmalloc_size-v1-1-5bef487701cc@nvidia.com>
+ <82f138f5-11d4-4839-94a3-c226fd982715@kernel.org>
+ <20260826143644.5b3de07a@pumpkin>
+In-Reply-To: <20260826143644.5b3de07a@pumpkin>
+X-ClientProxiedBy: CY5PR15CA0142.namprd15.prod.outlook.com
+ (2603:10b6:930:67::8) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260823125155.1136740-1-morbo@google.com> <20260826220041.4075333-1-morbo@google.com>
-X-Mailer: git-send-email 2.55.0.897.gb25b4bd76c-goog
-Message-ID: <20260826220041.4075333-2-morbo@google.com>
-Subject: [PATCH v4 2/2] userns: Add KUnit test suite for uid_gid_map
-From: Bill Wendling <morbo@google.com>
-Cc: Bill Wendling <morbo@google.com>, Bradley Morgan <brads@mainlining.org>, 
-	"=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?=" <thomas.weissschuh@linutronix.de>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Christian Brauner <brauner@kernel.org>, 
-	Aleksa Sarai <cyphar@cyphar.com>, Jan Kara <jack@suse.cz>, Nathan Chancellor <nathan@kernel.org>, 
-	Miguel Ojeda <ojeda@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
-	Gary Guo <gary@garyguo.net>, Alice Ryhl <aliceryhl@google.com>, 
-	Douglas Anderson <dianders@chromium.org>, Anand Moon <linux.amoon@gmail.com>, 
-	Oleg Nesterov <oleg@redhat.com>, codemender-patching+linux@google.com, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|SN7PR12MB7881:EE_
+X-MS-Office365-Filtering-Correlation-Id: 87213d27-b360-4ede-fa00-08df03bdbc10
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|7416014|376014|1800799024|4143699003|11063799006|56012099006|10067099003|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	rCirTUjrsDLiRUHqnms1Uz4XylXv5JXlaOZcqbmz6E1nx4VbW6S10iiSppFiLkR+dI1PQSmk1+A8z5osXQ3Zc/Hi2nrBKiqPHM233jbInL6sWnzVu5sbf5Ok2U6p91tIFaJ7ogAsJWgP8qA//NanqO4mxkFdNrGezCZ1ptCzmivGgbiTAyZ+aL7+8YWEvAn2YqdRViDi1t1xOu+P2fiEkii8zn1sRN9pX92L/RQO3dU3+2bG3JItDWahJJjVB7KnM5KmMvlBxcVVilJcSRCuRxr1bg77f0gTZJRMLtBiR+6Xm81QBSGd47eiB268TxOQQLLuz6jxdh+PmHG1C6yBm2mkONtEJBpD7klO14RQwFmvq+NxW9lI+xfIIlBzKB1Yrh0PeuJdC9znXZa/LjrAS6fwF+BT5fj4ygYECuS3DsSCIEp7kzbw+7fmLtWXAQJCp89ZBCieHSQE4YRgTWgnPh1Q/l2AsJ+CCG1SZPtvrYWhLsoSNmtX5f2fcHPsk+2M9x7bB0cmvLoRKU/VMC3RDnAjAHH/3meLpUjctOydD5cJ7cf9AW1He6NVZAME62G58J3SF2vchYWoJiwFnBSj4ZyPg5RsApvEwmiOzEqPU+64TvL+kVQP+i77tZ57FlLgX465aF37xVwGd9V7KBorcoCYhBNWQ24XjtHKboQiqpE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(7416014)(376014)(1800799024)(4143699003)(11063799006)(56012099006)(10067099003)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?K2VxUzNPY2Q1Z0p3Uk9pdm5ERC9OK0s2RDA1NzQ1Zm9HN0VVbnExL2RDcDhS?=
+ =?utf-8?B?TjhwUnphdERXRDZqSG55eUZsdUZDU3psdnAwWDJ1bDhnUDVUb2tnTUhaeWhE?=
+ =?utf-8?B?cjhWNTczdnpNdm9uMnphTGVEZ0szelkvY3hhcXNjNFNZc0ZuNkJvSTIwS2hq?=
+ =?utf-8?B?enVUbnFxTFJzdlorWllxU1gxNXRXMmJaNmJlYzJTWG9PWmh1aUJBOXRnczNV?=
+ =?utf-8?B?WTBITnFqcVFWSFBNYm1hRHg5RjZsVC9vZ3hTcnBqeWVQTnhUZTBZNjVFQnJn?=
+ =?utf-8?B?MEJ6S2pTbmJkdk5JSktCYlZERTRyazVBMTgxWDhBcWpjNWpmU1lCVGhrdjFL?=
+ =?utf-8?B?anIwN2o0L3lrRWgvaU9odk5EK2w2Vk9lWjY3WFZ0U3c0SEtNZkNkT0hZNXk2?=
+ =?utf-8?B?dVFLeTNESHhzc1JvNWlST0ZPMW9Ba092RUkyL3RVVGxNKzNrK2hOMzVxbFZu?=
+ =?utf-8?B?d2MyNjArNk56QTJYRFlKbm9MeUhVVENlTlg5N3E5VDFkZjNLZG5tb1Y0SHFJ?=
+ =?utf-8?B?YTdQdzJMVUlQeE5DemhZVnFHdVlsbjA3ajFoSm1NSDVibEEyWnV3Wjhlalc2?=
+ =?utf-8?B?ZlZwQmIrK25SemVNS2JQalRLNW4xVHpMSk5FZVJsVk5zZUdMTmRvSERHRHBk?=
+ =?utf-8?B?Z1pWL0hxaDdFUXVVZUZwSmJZblVLU2dGVjZweDg5QUxQM282THNKL2RpSkJV?=
+ =?utf-8?B?UlUvQ3QzN0JaS1pSTzBnZ0pyc3d0aFUwS3lub2FGeDQwQ0J1Vlc1Q2FFVFJ6?=
+ =?utf-8?B?YWg5VFJ0QjZNTk93ZmtwdlIxOVNUTFl4OHhrYVdWc1NjaTc2WlozYVhDUTJw?=
+ =?utf-8?B?VVNMVHZkN3JmbmtzbCtSM1ppbFBrSmRMczJGZU1Kb09PbkdPRHh6RTFxOXA1?=
+ =?utf-8?B?YXRoWDBGRENCNGpoU3ErVVpoRk5wOHVPK1NWNVVBZWZxb0h3M2hBcDBSQlM1?=
+ =?utf-8?B?dmJFWEdrc1dpT0RTTUZPVnJ6c1dXaHFsQit5M09UMlB3Ymk0dW9nWU1hc29P?=
+ =?utf-8?B?N0FyYWFJNGlTUkVZazNsU2p6SDQ5NFNuUkNtVXpJaUNNTzJDMGluWHYzUlVu?=
+ =?utf-8?B?Um5YU29CdFlDenN1bWd4TXdHeElQRld2eFpqWFMyOTh5RW8wcE82elJzMGw5?=
+ =?utf-8?B?bHVldGxZcER3Mzc3RmVXU0hkTTVMQndhK3o5VEdVaEN6S3VRcGNsUFlaRlpX?=
+ =?utf-8?B?NXAzV0FyeDFvMGpIcG9Rd2VyUlV1QkJCdVZ0enZ1SEpZSzhRVVBoZEhYWExh?=
+ =?utf-8?B?SGtRbyszRFZvV1Q1bEZkTjl4bXJLZHZsY1RINitpd3VhQVYvUHBxdm1MR1p4?=
+ =?utf-8?B?TFc0YWhjUlBpVGZmemtPOXpCalRTOTNsYXpRMGJhYVpUbk9ValRtSXFxcnVl?=
+ =?utf-8?B?Y2t3LytxcGdYcW9vSnh1VDUvbEVuUWV5Z2NSZGZNeXdoRDNXSDB4Sk9iQWVs?=
+ =?utf-8?B?LzdDSHlVVnNhTlFFcWMvcmFwbTN2V0dmZVV2dGZJWnhSc0lWRGE0UXYydnhF?=
+ =?utf-8?B?bXVBem9IWTYySnY2Y083bU1OelB4b1ZmNjJPbDRVdmhyZzc4VUdmaHJJUUFD?=
+ =?utf-8?B?ZVNvRU5Zdk50TzBPNWk1V2ZWVFl6RHQzY3pQWENXL0FSMEl1elpVOVFmSTJn?=
+ =?utf-8?B?MHRQajFxM3FiUFdiWitJRFdTTmJrT3JJUGdaZWk0bXM3UjI1V3N0MGI0bHkw?=
+ =?utf-8?B?YmtIeGE3RkVlLzFKQ3ZmaDZ3SDBSN3dvbFBwRnRhdjBhY29yNm1CeDVFUW1w?=
+ =?utf-8?B?OEcvZjIxa1RFZjZOK28yRDVCVVVwY1YrQlVmYXhMaHhrYUMzbFhvbGNwWm91?=
+ =?utf-8?B?MXdwdDNtcDZZYXFZalkvMXpKRkpCWjNiVGpxMFFuZWhDT0RCMnJiVk4wM0pQ?=
+ =?utf-8?B?WGpnZ1ZKd2R2M2hSSjRjUnVZaVpCME5SckNZN1lqWG9OVFhMOXRxb2tSczkx?=
+ =?utf-8?B?UXZIRFNDTUpxUmNTaHlVZ3lmclVpaS9oT09DalFteTlzVFlZVmt0aDZZcEor?=
+ =?utf-8?B?YmZnNXdQVkVzU0lWSEh4MWNQdmlSUkxvNHlSRExlVnU4SW93dXNrOUVTVnBv?=
+ =?utf-8?B?cUJyZWVNci9aSlRVYXhIL04rTmROaTlqdHN4RGUvUnprelNPYTJvUml6b2pO?=
+ =?utf-8?B?a1plVjdSVVB5VFFsaVQzc1pFNzdxSmNsSVlGUW0yZ3YyaUhUZzBORUJQc2xU?=
+ =?utf-8?B?VnB4N3FqUWRDMnlnYVM1WCsrRCtmZWNobzg0aGdJdFM4MitYZG94UnVsMXA1?=
+ =?utf-8?B?U1o1SUtyMy8wNDRIZG9kTi9RNjFKSDFjeElsaGFrMWpZcFc1d01YSDVodlVR?=
+ =?utf-8?Q?fn9+c7vBESz+fyXDFe?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 87213d27-b360-4ede-fa00-08df03bdbc10
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 22:02:35.0184
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gnOtxdnyRwQFvjvsIDyQ1ZDKXVplK9Zy57yNePVo50Aj/TRTd6mESL+87kQNCIm7
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7881
 
-Add a KUnit test suite to verify the insertion and sorting of mappings
-in struct uid_gid_map. This test suite validates both base extent
-insertion (<=3D 5 mappings) and extended extent insertion (> 5 mappings,
-which triggers the allocation of the forward and reverse pointers).
+On Wed Aug 26, 2026 at 9:36 AM EDT, David Laight wrote:
+> On Wed, 26 Aug 2026 11:28:12 +0200
+> "Vlastimil Babka (SUSE)" <vbabka@kernel.org> wrote:
+>
+>> On 8/17/26 22:40, Zi Yan wrote:
+>> > kmalloc is used to allocate physically contiguous memory for kernel
+>> > allocations. For requests larger than KMALLOC_MAX_CACHE_SIZE, kmalloc =
+uses
+>> > the page allocator and can only support up to KMALLOC_MAX_SIZE. For re=
+quest
+>> > sizes bigger than KMALLOC_MAX_SIZE, the page allocator can emit a WARN
+>> > because kmalloc allocates an order greater than MAX_PAGE_ORDER. System=
+s
+>> > with panic_on_warn=3D1 crash because of this WARN. Fix it by rejecting=
+ any
+>> > kmalloc size bigger than KMALLOC_MAX_SIZE.
+>> >=20
+>> > Fixes: aadb4bc4a1f9 ("SLUB: direct pass through of page size or higher=
+ kmalloc requests")
+>> > Reported-by: syzbot+805630f1453e490427fa@syzkaller.appspotmail.com
+>> > Closes: https://lore.kernel.org/all/6a820ebc.9ebadd4d.20b15e.001b.GAE@=
+google.com/
+>> > Tested-by: syzbot+805630f1453e490427fa@syzkaller.appspotmail.com
+>> > Signed-off-by: Zi Yan <ziy@nvidia.com>
+>> > Cc: stable@vger.kernel.org
+>> > ---
+>> > It fixes a page allocator warning (order > MAX_PAGE_ORDER) when gadget=
+fs
+>> > requests excessively large memory from kmalloc. Instead of adding
+>> > __GFP_NOWARN to suppress the warning, as was done for usbfs[1], change
+>> > kmalloc to return NULL without a warning for this specific issue.
+>> >=20
+>> > [1] commit 4f2629ea67e72 ("USB: usbfs: Don't WARN about excessively la=
+rge memory allocations") =20
+>>=20
+>> So I checked and for kvmalloc() we have in __kvmalloc_node_noprof()
+>>=20
+>>         /* Don't even allow crazy sizes */
+>>         if (unlikely(size > INT_MAX)) {
+>>                 WARN_ON_ONCE(!(flags & __GFP_NOWARN));
+>>                 return NULL;
+>>         }
+>>=20
+>> This comes from Linus in commit 7661809d493b4. I'd do the same thing her=
+e
+>> then. Thus there would be a useful warning for e.g. development mistakes
+>> resulting in the size to be unexpectedly high.
 
-This is especially useful for verifying that the __counted_by_ptr
-attribute added to 'forward' and 'reverse' pointers works correctly
-without causing any runtime bounds-checking panics or traps.
+You mean kmalloc should also have this check?
 
-Assisted-by: Gemini:3.1-pro-preview
-Signed-off-by: Bill Wendling <morbo@google.com>
----
-v2 - Remove Gerrit tag.
-v3 - s/KUNIT_EXPECT_NOT_ERR_OR_NULL/KUNIT_ASSERT_NOT_ERR_OR_NULL/
-   - Fixed Kconfig tests.
-v4 - Actually test on unsorted data. Corrected the "Assisted-by" tag.
----
-Cc: Bradley Morgan <brads@mainlining.org>
-Cc: Thomas Wei=C3=9Fschuh <thomas.weissschuh@linutronix.de>
-Cc: Kees Cook <kees@kernel.org>
-Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: Aleksa Sarai <cyphar@cyphar.com>
-Cc: Jan Kara <jack@suse.cz>
-Cc: Nathan Chancellor <nathan@kernel.org>
-Cc: Miguel Ojeda <ojeda@kernel.org>
-Cc: Thomas Gleixner <tglx@kernel.org>
-Cc: Nicolas Schier <nsc@kernel.org>
-Cc: Gary Guo <gary@garyguo.net>
-Cc: "Thomas Wei=C3=9Fschuh" <thomas.weissschuh@linutronix.de>
-Cc: Alice Ryhl <aliceryhl@google.com>
-Cc: Douglas Anderson <dianders@chromium.org>
-Cc: Anand Moon <linux.amoon@gmail.com>
-Cc: Oleg Nesterov <oleg@redhat.com>
-Cc: codemender-patching+linux@google.com
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-hardening@vger.kernel.org
----
- init/Kconfig                  | 10 ++++
- kernel/.kunitconfig           |  3 ++
- kernel/user_namespace.c       |  4 ++
- kernel/user_namespace_kunit.c | 92 +++++++++++++++++++++++++++++++++++
- 4 files changed, 109 insertions(+)
- create mode 100644 kernel/.kunitconfig
- create mode 100644 kernel/user_namespace_kunit.c
+>>=20
+>> Callers passing size that comes from userspace or similar untrusted sour=
+ce
+>> can either pass __GFP_NOWARN or sanitize the size to what they expect to=
+ be
+>> sane (which is context dependent and I assume actually way lower than
+>> kmalloc limits in practice). Note that passing even sizes within but clo=
+se
+>> to/at the limit, trusting blindly some external source, can succeed the
+>> allocations but effectively DoS the system with heavy reclaim/compaction=
+. So
+>> caller sanitization should still be preferred IMHO.
+>
+> Indeed, and sanitising the values early on saves all the size_add() and
+> size_mult() operations (that are just saturating maths) but still let
+> through the 'DoS the system' sizes.
 
-diff --git a/init/Kconfig b/init/Kconfig
-index f63bf5e05e79..d460344539a5 100644
---- a/init/Kconfig
-+++ b/init/Kconfig
-@@ -1457,6 +1457,16 @@ config USER_NS
-=20
- 	  If unsure, say N.
-=20
-+config USER_NAMESPACE_KUNIT_TEST
-+	bool "Test user namespace map insertion" if !KUNIT_ALL_TESTS
-+	depends on KUNIT=3Dy
-+	default KUNIT_ALL_TESTS
-+	help
-+	  This builds the KUnit test for user namespace uid/gid map insertion.
-+	  It validates map insertion, limits, dynamic allocation of the
-+	  extended extents array, and mapping sorting functions.
-+	  If unsure, say N.
-+
- config PID_NS
- 	bool "PID Namespaces"
- 	default y
-diff --git a/kernel/.kunitconfig b/kernel/.kunitconfig
-new file mode 100644
-index 000000000000..7314dce05dc2
---- /dev/null
-+++ b/kernel/.kunitconfig
-@@ -0,0 +1,3 @@
-+CONFIG_KUNIT=3Dy
-+CONFIG_USER_NS=3Dy
-+CONFIG_USER_NAMESPACE_KUNIT_TEST=3Dy
-diff --git a/kernel/user_namespace.c b/kernel/user_namespace.c
-index 786dbf0506ca..0e7373085af9 100644
---- a/kernel/user_namespace.c
-+++ b/kernel/user_namespace.c
-@@ -1417,3 +1417,7 @@ static __init int user_namespaces_init(void)
- 	return 0;
- }
- subsys_initcall(user_namespaces_init);
-+
-+#if IS_ENABLED(CONFIG_USER_NAMESPACE_KUNIT_TEST)
-+#include "user_namespace_kunit.c"
-+#endif
-diff --git a/kernel/user_namespace_kunit.c b/kernel/user_namespace_kunit.c
-new file mode 100644
-index 000000000000..88467361efdf
---- /dev/null
-+++ b/kernel/user_namespace_kunit.c
-@@ -0,0 +1,92 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * KUnit test for user namespace map insertion and sorting.
-+ */
-+
-+#include <kunit/test.h>
-+#include <linux/user_namespace.h>
-+
-+static void test_user_ns_map_insert_base(struct kunit *test)
-+{
-+	struct uid_gid_map map;
-+	struct uid_gid_extent extent;
-+	int i, ret;
-+
-+	memset(&map, 0, sizeof(map));
-+
-+	/* Insert up to UID_GID_MAP_MAX_BASE_EXTENTS (5) elements */
-+	for (i =3D 0; i < UID_GID_MAP_MAX_BASE_EXTENTS; i++) {
-+		extent.first =3D i * 10;
-+		extent.lower_first =3D i * 100;
-+		extent.count =3D 5;
-+
-+		ret =3D insert_extent(&map, &extent);
-+		KUNIT_ASSERT_EQ(test, ret, 0);
-+		KUNIT_EXPECT_EQ(test, map.nr_extents, i + 1);
-+		KUNIT_EXPECT_EQ(test, map.extent[i].first, i * 10);
-+		KUNIT_EXPECT_EQ(test, map.extent[i].lower_first, i * 100);
-+		KUNIT_EXPECT_EQ(test, map.extent[i].count, 5);
-+	}
-+}
-+
-+static void test_user_ns_map_insert_extended(struct kunit *test)
-+{
-+	struct uid_gid_map map;
-+	struct uid_gid_extent extent;
-+	int i, ret;
-+
-+	memset(&map, 0, sizeof(map));
-+
-+	/* Insert more than UID_GID_MAP_MAX_BASE_EXTENTS (e.g., 10) elements */
-+	for (i =3D 0; i < 10; i++) {
-+		int value =3D 9 - i;
-+
-+		extent.first =3D value * 10;
-+		extent.lower_first =3D value * 100;
-+		extent.count =3D 5;
-+
-+		ret =3D insert_extent(&map, &extent);
-+		KUNIT_ASSERT_EQ(test, ret, 0);
-+		KUNIT_EXPECT_EQ(test, map.nr_extents, i + 1);
-+
-+		if (i < UID_GID_MAP_MAX_BASE_EXTENTS) {
-+			KUNIT_EXPECT_EQ(test, map.extent[i].first, value * 10);
-+		} else {
-+			KUNIT_EXPECT_EQ(test, map.forward[i].first, value * 10);
-+			KUNIT_EXPECT_EQ(test, map.forward[i].lower_first, value  * 100);
-+			KUNIT_EXPECT_EQ(test, map.forward[i].count, 5);
-+		}
-+	}
-+
-+	/* Now sort the map to set up reverse mapping */
-+	ret =3D sort_idmaps(&map);
-+	KUNIT_EXPECT_EQ(test, ret, 0);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, map.reverse);
-+
-+	/* Verify sorting is correct */
-+	for (i =3D 0; i < map.nr_extents; i++) {
-+		KUNIT_EXPECT_EQ(test, map.forward[i].first, i * 10);
-+		KUNIT_EXPECT_EQ(test, map.forward[i].lower_first, i * 100);
-+		KUNIT_EXPECT_EQ(test, map.forward[i].count, 5);
-+
-+		KUNIT_EXPECT_EQ(test, map.reverse[i].first, i * 10);
-+		KUNIT_EXPECT_EQ(test, map.reverse[i].lower_first, i * 100);
-+		KUNIT_EXPECT_EQ(test, map.reverse[i].count, 5);
-+	}
-+
-+	kfree(map.forward);
-+	kfree(map.reverse);
-+}
-+
-+static struct kunit_case user_ns_map_test_cases[] =3D {
-+	KUNIT_CASE(test_user_ns_map_insert_base),
-+	KUNIT_CASE(test_user_ns_map_insert_extended),
-+	{}
-+};
-+
-+static struct kunit_suite user_ns_map_test_suite =3D {
-+	.name =3D "user_ns_map",
-+	.test_cases =3D user_ns_map_test_cases,
-+};
-+
-+kunit_test_suite(user_ns_map_test_suite);
+Yes, I am all for santizing inputs.
+
+> Mostly the actual maximum size is actually small. I suspect limits like
+> 64k, 1M or 16M would be appropriate.
+
+I agree that the limit you suggested is better. One thing to consider is
+that Mike is converting all __get_free_pages() to kmalloc[1], so the
+limit might end up to be 2^MAX_PAGE_ORDER, matching the page allocator
+limit.
+
+[1] https://lore.kernel.org/all/aip7Y3UHmXsdX8OH@kernel.org/
+
+>
+> David
+>
+>> Some of the recent
+>> arguments from Linus [1] would apply to this too, I think.
+>>=20
+>> [1]
+>> https://lore.kernel.org/all/CAHk-=3DwiSmgwwLKCqJwGS-dVHnSLU8W+7q1UQq-G9=
+=3DTBGGZbuhQ@mail.gmail.com/
+>>=20
+>> > ---
+>> >  mm/slub.c | 7 ++++++-
+>> >  1 file changed, 6 insertions(+), 1 deletion(-)
+>> >=20
+>> > diff --git a/mm/slub.c b/mm/slub.c
+>> > index 0337e60db5ace..a3071f4ef1945 100644
+>> > --- a/mm/slub.c
+>> > +++ b/mm/slub.c
+>> > @@ -5263,7 +5263,12 @@ static void *___kmalloc_large_node(size_t size,=
+ gfp_t flags, int node)
+>> >  {
+>> >  	struct page *page;
+>> >  	void *ptr =3D NULL;
+>> > -	unsigned int order =3D get_order(size);
+>> > +	unsigned int order;
+>> > +
+>> > +	if (size > KMALLOC_MAX_SIZE)
+>> > +		return NULL;
+>> > +
+>> > +	order =3D get_order(size);
+>> > =20
+>> >  	if (unlikely(flags & GFP_SLAB_BUG_MASK))
+>> >  		flags =3D kmalloc_fix_flags(flags);
+>> >=20
+>> > ---
+>> > base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
+>> > change-id: 20260817-limit_kmalloc_size-3a4a2c73beac
+>> >=20
+>> > Best regards,
+>> > -- =20
+>> > Yan, Zi
+>> >  =20
+>>=20
+>>=20
+
+
+
+
 --=20
-2.55.0.897.gb25b4bd76c-goog
+Best Regards,
+Yan, Zi
 
