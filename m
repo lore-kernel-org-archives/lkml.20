@@ -1,57 +1,57 @@
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DBAA3C3F55
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 23:39:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 469E437B022
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 23:39:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787787569; cv=none; b=WnuSxMcLQBk2X/268NWqpOH+Z9X6Mk+pJUZusaW39y7gbYFsM0mLj2aNzptJxDxiltg9Zv7WuKrKEcBtmjjmQB27bRFSNrTzMmePJ6PnvjvJqZilDZ1IotpNBDaFBhpEFDDXEDrpIFV+AkaM+2tKyC7nT5zX4ag94tX9S8lnedA=
+	t=1787787569; cv=none; b=DBTs7ubzV/MRsq4BFg/0g0wTS0dZzLcLvucQG1YLAMrlmRJElCWXtP6CsVQ8KUEHNxiAsBeynWQ/G9IRszu4ppjypf2QYSA2tHyt+aNrxBGiKf6tc31R+KnMMMmmxCSNSRvoENU9Cbb5SwAB7q0rbecFMh3RIJ6Wn28VykeZhJQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787787569; c=relaxed/simple;
-	bh=T2cASy/A5gmcwzlkeCr8k/+0qt1+e/cVRhWTFQSgJ94=;
+	bh=CkRIS9u8AusztvWTvPzOWFGQYsyZZzKW1ZZus+mQkq4=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=B47FMXFf+4J72Jh6amrsUXWGvMhLsibiy9+8Lff9+9cWdK8xrPbJ6OrLp4q33tNazVmH4YFzJnIvtqjTOMVRAbxLl+0ljBmF/VHOzfzW/I3HfKaA0jv/I3JbdOHyd19DOU5Zrp7v2OLrvMBdly/rJz3+rU+dG+x2GIMjItxw7Og=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=JsovOSfR; arc=none smtp.client-ip=209.85.210.199
+	 To:Cc:Content-Type; b=OzXbJxQZXOzjiiahYftQx/OpJ3+nizYZfYfIaZI/CUN2lpNFyk9DC+l8iVA7FRKXS6ZWA4ToBQA5cd3l027Xan4k0EgLikuEsv8VUYz65icFNge+lbrV8865mQJKGJ7vp49tUXoEg+lcKkBlraS33mGt/bMLD+XJJXcGtlzeC7U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=TahZQetJ; arc=none smtp.client-ip=209.85.214.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="JsovOSfR"
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-84e048a801dso2205025b3a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:39:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="TahZQetJ"
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d7151120d6so2063315ad.3
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:39:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787787565; x=1788392365; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1787787566; x=1788392366; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=AWa0fIdmVto+y2WP+GJGN8aDkmGU1CjNONs+72349AE=;
-        b=JsovOSfRR6SVRX/2WRCMEBCk/mIAPIGH88bjX2Fmpan13tEZGMDAGKCOeCYkTOT6Mz
-         VqBLUxkHDwgD0mjRK2Swwlts+yr8EUqRJVrPrcG9PPyX2ZznrgeyjXEe/5PS83Kmi5yV
-         K5oAILCwxoW+EIG0n4EC7+5q/8OOuptXEjJlhlxpKRAm3rojRfpUP6Yj42PkVenw2fT/
-         8e7e4rEfFvGQStrFbWcbkDvqoy3MqkQBZNPALb4bEgaW+uC61BHavO7/V5QtjWCV/51J
-         yI9vnOsyM7e8dI+lhP2ez9qESbZ42U4trfdCa+L6V/F0uyb9LRJY3sKFPIJeFdqfw54b
-         1yWA==
+        bh=FfB1TPfB01BkpCh74isHXlJBf/gfFyIKtvCvmm75NxA=;
+        b=TahZQetJz5ZuCHjt3IPtvow3OAVijwGfi3Wse56JqfR2nG13Pi7OV2SIEzsRuUaFeQ
+         oA0YaoVlabsCqpyz7Rc84gDvR6KtNM1eYUJiFgRllEdmvwqnto6dPAxQTbY1bSE7MIhu
+         rgkRN1APdOYoIaL4kymMwZDiLoHLvS5yp9Fzoflt0bJo5cAY96TTo+1yfDFqTK7QCgck
+         kxxRJJcdwo8xg/xdeLck/4QJDKy+fAguhwSipU0tmMO9PO0Pk+kmAwoFo7O7DfWhQKMq
+         Z+fXvysodB4wl5hpPX8Q+bugOTLJnbtPvcx+0chpQ+iD1mb37TCZHsinMz2xtDEeWul0
+         xMPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787787565; x=1788392365;
+        d=1e100.net; s=20251104; t=1787787566; x=1788392366;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=AWa0fIdmVto+y2WP+GJGN8aDkmGU1CjNONs+72349AE=;
-        b=Qt2xP2hsHWJEE3Ih8jKenagNxlIAiipxedfGuH8y8Dtq4WUYFHfiDhGHAnxDnqLp20
-         N3hu9n1OCrNufLdvoRACJNDhn5nw7OtEk43VGB11L5tg+WO+eUbBQ4jFSMjq2fLHp9yf
-         jePvYxbl2NyPkFNykGTQf1iBgs7mKeY3QfrzRognEY8cMliitgk9aJ5VPKmsm0dstPhF
-         +eD9tbRnwn+RXDgWNpMYhEv/hy+R4jwJR/6waVE1nFHUbcSjuPVmHrCwijwRE6RvJ07N
-         OO5ZP76qrU5WpcrgdXJRdsxUv8W7LK7GKx5RI2XcbIi/iBSRNvTohAODxDpVMzF0VpA2
-         w3fQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpRga1uQtvwaFg616Su62Rim/LjCNWCIr851/iS7JWa60XNxjCJTU8F2WawTEqQeNEau1pRY++nHbCXmmg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kxImK7MH+RhBUozJQSw/ixeC8XDyMYp1CqSewNCYtTP7ao5Czb
-	diWNeCwRuKM/35qm2xw7PeHUUpEMOtB9mFPqDhz9wQE0GtNpwhjx2kDz+YYeJGWW+K5VajfJXyz
-	vpnICVQ==
-X-Received: from pgkp18.prod.google.com ([2002:a63:f452:0:b0:c92:11a5:bbce])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:2da3:b0:84f:5cd7:e3c6
- with SMTP id d2e1a72fcca58-853721a6aecmr16693779b3a.5.1787787564303; Wed, 26
- Aug 2026 16:39:24 -0700 (PDT)
+        bh=FfB1TPfB01BkpCh74isHXlJBf/gfFyIKtvCvmm75NxA=;
+        b=hURtj0HzzITZlf+t/WzvnSD+vwriIsoN+IPR9Di0aXLalvDoqZ2/2XGrVbKG6NiN6d
+         yI/GqZVKBrW/797C9ieYsdHtvnn7XtbaW1EhCa76SikVkBDDQ2ojiw41yflcMQm8BG7m
+         m5bwg0x2ir6b6WOWhxJ5A7Embidzrd5jH8mvueEBG2qZVdIp9NLNnpaKVDCG8gX34iNt
+         GAZnYJ+qZXjEfXmC5a7UhDJHO39nidMQgv6dTvsO1t2lc1fPIIaz+8oGABpHBkM9GRnH
+         wUGi9Mbqja0QoWNXkJZ+8Es+3g/VGocn2K8cLrBJRvNN3mmcq0SuMgT/aYi3e8f6WYpX
+         msyw==
+X-Forwarded-Encrypted: i=1; AHgh+Ro6xv4EkM4Xzdfq9S2iEJBd0/DGl0wRAKz9ht0iAz8DxLFY70oKn7HHGfvIgMkhzVs+PNOErUTPQoWoeik=@vger.kernel.org
+X-Gm-Message-State: AFuF++lTAcRJF2QKkms3N7+g9sc1EV98oe9X5pu1jJbhZU/NSg4RVImD
+	znYPFSB1JBOTbq5L8YOz1/swIuSj/eWzLFoyySPQESlUU/Yscyv5uOUgbvKI48WVrq8VPcIcSIh
+	+g8TObg==
+X-Received: from plbkn16.prod.google.com ([2002:a17:903:790:b0:2d6:e484:2160])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:324f:b0:2cc:f5b8:4c2e
+ with SMTP id d9443c01a7336-2d707b45a87mr197320385ad.9.1787787565494; Wed, 26
+ Aug 2026 16:39:25 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Wed, 26 Aug 2026 16:39:09 -0700
+Date: Wed, 26 Aug 2026 16:39:10 -0700
 In-Reply-To: <20260826233919.998904-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -61,9 +61,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260826233919.998904-1-seanjc@google.com>
 X-Mailer: git-send-email 2.55.0.887.g758fc8c411-goog
-Message-ID: <20260826233919.998904-4-seanjc@google.com>
-Subject: [PATCH v3 03/13] KVM: selftests: Don't clobber RFLAGS in happy path
- of __KVM_ASM_SAFE()
+Message-ID: <20260826233919.998904-5-seanjc@google.com>
+Subject: [PATCH v3 04/13] KVM: selftests: Adapt to the updated VMPTRST
+ behavior when eVMCS is used
 From: Sean Christopherson <seanjc@google.com>
 To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
 Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, f734222792@gmail.com, 
@@ -71,41 +71,76 @@ Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, f734222792@gmail.com,
 	Yosry Ahmed <yosry@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 
-Use a straight MOV instead of an XOR to zero R9 in the non-faulting path of
-__KVM_ASM_SAFE() so as not to clobber RFLAGS.  XOR generates smaller code,
-but optimizing performance by minimizing the code footprint is just about
-the last thing that KVM selftests care about.
+From: Vitaly Kuznetsov <vkuznets@redhat.com>
 
-The bug is relatively benign in the current code base, e.g. it marginally
-degrades the coverage in the fastops test, but otherwise does no harm.  But
-the bug will become actively problematic if/when the "safe assembly" macros
-are used for instructions that communicate results via RFLAGS, e.g. for VMX
-instructions, which signal failure via RFLAGS.CF and RFLAGS.ZF.
+Previously, VMPTRST was forbidden with eVMCS and selftests were mocking the
+correct behavior in vmptrst() by returning enlightened vmptr directly.
+Since KVM's behavior has changed to match genuine Hyper-V, adjust evmcs
+test accordingly.
 
-Opportunistically use R9D instead of the full R9, as bits 63:32 of GPRs are
-zeroed on writes to bit 31:0.
-
-Reported-by: Sashiko Bot <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260818165258.2613603-5-vkuznets@redhat.com
-Cc: Vitaly Kuznetsov <vkuznets@redhat.com>
+Signed-off-by: Vitaly Kuznetsov <vkuznets@redhat.com>
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- tools/testing/selftests/kvm/include/x86/processor.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ tools/testing/selftests/kvm/include/x86/evmcs.h | 8 --------
+ tools/testing/selftests/kvm/include/x86/vmx.h   | 3 ---
+ tools/testing/selftests/kvm/x86/hyperv_evmcs.c  | 5 ++---
+ 3 files changed, 2 insertions(+), 14 deletions(-)
 
-diff --git a/tools/testing/selftests/kvm/include/x86/processor.h b/tools/testing/selftests/kvm/include/x86/processor.h
-index 6e6f70035508..282b8aaff799 100644
---- a/tools/testing/selftests/kvm/include/x86/processor.h
-+++ b/tools/testing/selftests/kvm/include/x86/processor.h
-@@ -1318,7 +1318,7 @@ gva_t vm_alloc_stack(struct kvm_vm *vm, int nr_pages);
- 	"lea 1f(%%rip), %%r10\n\t"				\
- 	"lea 2f(%%rip), %%r11\n\t"				\
- 	fep "1: " insn "\n\t"					\
--	"xor %%r9, %%r9\n\t"					\
-+	"mov $0, %%r9d\n\t"					\
- 	"2:\n\t"						\
- 	"mov  %%r9b, %[vector]\n\t"				\
- 	"mov  %%r10, %[error_code]\n\t"
+diff --git a/tools/testing/selftests/kvm/include/x86/evmcs.h b/tools/testing/selftests/kvm/include/x86/evmcs.h
+index 82a8ea6b661f..c5b9d26f6cdb 100644
+--- a/tools/testing/selftests/kvm/include/x86/evmcs.h
++++ b/tools/testing/selftests/kvm/include/x86/evmcs.h
+@@ -265,14 +265,6 @@ static inline bool load_evmcs(struct hyperv_test_pages *hv)
+ 	return true;
+ }
+ 
+-static inline int evmcs_vmptrst(u64 *value)
+-{
+-	*value = current_vp_assist->current_nested_vmcs &
+-		~HV_X64_MSR_VP_ASSIST_PAGE_ENABLE;
+-
+-	return 0;
+-}
+-
+ static inline int evmcs_vmread(u64 encoding, u64 *value)
+ {
+ 	switch (encoding) {
+diff --git a/tools/testing/selftests/kvm/include/x86/vmx.h b/tools/testing/selftests/kvm/include/x86/vmx.h
+index 04f5e34dea3a..ac7d48d1387e 100644
+--- a/tools/testing/selftests/kvm/include/x86/vmx.h
++++ b/tools/testing/selftests/kvm/include/x86/vmx.h
+@@ -358,9 +358,6 @@ static inline int vmptrst(u64 *value)
+ 	u64 tmp;
+ 	u8 ret;
+ 
+-	if (enable_evmcs)
+-		return evmcs_vmptrst(value);
+-
+ 	__asm__ __volatile__("vmptrst %[value]; setna %[ret]"
+ 		: [value]"=m"(tmp), [ret]"=rm"(ret)
+ 		: : "cc", "memory");
+diff --git a/tools/testing/selftests/kvm/x86/hyperv_evmcs.c b/tools/testing/selftests/kvm/x86/hyperv_evmcs.c
+index 63ea1533e4ea..6224d859d7bb 100644
+--- a/tools/testing/selftests/kvm/x86/hyperv_evmcs.c
++++ b/tools/testing/selftests/kvm/x86/hyperv_evmcs.c
+@@ -92,15 +92,14 @@ void guest_code(struct vmx_pages *vmx_pages, struct hyperv_test_pages *hv_pages,
+ 	GUEST_ASSERT(prepare_for_vmx_operation(vmx_pages));
+ 	GUEST_SYNC(3);
+ 	GUEST_ASSERT(load_evmcs(hv_pages));
+-	GUEST_ASSERT(vmptrstz() == hv_pages->enlightened_vmcs_gpa);
++	/* VMPTRST returns -1 until VMLAUNCH with eVMCS ptr set */
++	GUEST_ASSERT(vmptrstz() == -1);
+ 
+ 	GUEST_SYNC(4);
+-	GUEST_ASSERT(vmptrstz() == hv_pages->enlightened_vmcs_gpa);
+ 
+ 	prepare_vmcs(vmx_pages, l2_guest_code);
+ 
+ 	GUEST_SYNC(5);
+-	GUEST_ASSERT(vmptrstz() == hv_pages->enlightened_vmcs_gpa);
+ 	current_evmcs->revision_id = -1u;
+ 	GUEST_ASSERT(vmlaunch());
+ 	current_evmcs->revision_id = EVMCS_VERSION;
 -- 
 2.55.0.887.g758fc8c411-goog
 
