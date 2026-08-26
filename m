@@ -1,107 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E80D73AE197;
-	Wed, 26 Aug 2026 21:47:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8737D301709;
+	Wed, 26 Aug 2026 21:48:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787780836; cv=none; b=hWYOFb9klitTA6voea9tCDdmiX1QhtLvw8SH2caRdHtkl1y6Jjxwx+6JI6BI7XJzasoODWF1jmht0TwRkNkQ6rnjxwglZtOJHDWc4SlttoRwb8OAHTzGmc8tu+2AgL+7RBvLO669DlJ3n6xcY/uJP5qcVP0llZLhTRIux6AwDeo=
+	t=1787780917; cv=none; b=D+ZT/DfZoc2mEfmeEV5Mockh9M+2d5z63wFjAJ+EUN5iwe7W6hYiuHbSqkt4+9b7N1D9Ota44weXgF0plVVYmi3euVX8BzKegdk+OItdjXULveL2RwzFBSgK0TVcjP6r1I8EJmbY4omf/RmFKX//uPt/093IJj0O7eYOKoH6dfY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787780836; c=relaxed/simple;
-	bh=n9jllLuuuDxc50bnEHizMpfkHWDBDTipIiHN+X+f3/Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=o34vWTjURLlZHv5MXiHvys7POTSdBhoAASARfqJNi5x+qeWNNT2cnFvcBrwJwkdEbuyeis6F/wmvFxhu7oPEZcHR9GB1woF8UX6DgUpHo6FBn+fGCCD7K1fbpFNLAc4A5kW8I+pHzHMMYK6iKDf8aDfL6EAv1gJkecVvIThK1ZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jrl06373; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787780917; c=relaxed/simple;
+	bh=S+M11efHGjlFOGyHsDkQEbKFOs2KGG1O1JcPU2U8ock=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=g7GVOdsjUmuD12qxnxPnl5323AXbuDwStSltheVffAIicMUjpI8W0niNUzF5IiL8sDQUMce5cJToFPeABHgr2Bax7LTp3NTIfplneZxgYATD6EpdYRALMjDrU21Ucum3/nxcMOw/GclYk6faaiCdHUwsghWV7UMBYqDxsqaPYxc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=W7cdHFwX; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jrl06373"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 236451F000E9;
-	Wed, 26 Aug 2026 21:47:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787780834;
-	bh=uYhBnbgaM5tsdHStoHUAOfPpl70osUN/iMiXrAYwhXo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Jrl063735GQ651Sx5tkw/WYfZg87jCVUGYR086riCa1l56MJB0L9We//V+CrSnrMo
-	 dtau/nQDtjn0s5iuzvLOk7wvZ5QjWIHMIFZC5xV26kSa0DESY7141+TMR744OqfrJq
-	 011W7EqAScOWHs9Lm7dug5xBjPpqHf5+dJqRFC9TKnM3G1yOlmsK8/mQH9HfKLs1RB
-	 GIwJKMpagaBcHmAbNBsjFSrlmxaOG67zccFondq9TsICcc8wspWwUpWAMSUKxNgE0v
-	 Dnrr0NUQUIhXciX8+og6m+OIfSKPRYyVxYHmrwxXsXXk11eVTolO0g0c6VAQm20vrn
-	 p0HDzXbjcDp6g==
-Date: Wed, 26 Aug 2026 22:47:10 +0100
-From: Harry Yoo <harry@kernel.org>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
-	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Alan Stern <stern@rowland.harvard.edu>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
-	syzbot+805630f1453e490427fa@syzkaller.appspotmail.com, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/slab: reject unsupported kmalloc sizes
-Message-ID: <ao9dPUpHxP5uOOcw@MacBook-Air.tail10959e.ts.net>
-References: <20260817-limit_kmalloc_size-v1-1-5bef487701cc@nvidia.com>
- <82f138f5-11d4-4839-94a3-c226fd982715@kernel.org>
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="W7cdHFwX"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=iXLY2MtS3chA1nqXEFiMJGuRPn1QEv7gPIPmXwsjt6c=; b=W7cdHFwXvG/Worl/kdLsbl4lot
+	c0vVVH4EiQm3qwO9Q5/peDEECq+t/V+gbzTBNFayBX44L8SMtQ1G7djErOk2osiP02ZlVFNQBEL5y
+	uLb8XyrNZsi15TpvPNFWi9zMo/5QgTtXHH14BpnIKqAMX5jNc4uO+1AOujO0lowf1WVdwo1bGAZ/Y
+	FBuKCZs5blziAGXBhGQxIXa6TVQ/kLcIkOHFXdx5cwmr9LnX8SWghMyQiQ8eMPiBfKc/GnGSAapAw
+	zdJdINEcLBnHgcvjlHUEMcEriL/ty2mMv/alJ5qetx8etDPvDiCRWYZpFsDFK28eTlfcwEwq+RtRT
+	tzvUyflA==;
+Received: from [::1] (port=34484 helo=pf-012.whm.fr-par.scw.cloud)
+	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.99.5)
+	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
+	id 1wzLU2-00000009y2J-2hlg;
+	Wed, 26 Aug 2026 23:48:34 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <82f138f5-11d4-4839-94a3-c226fd982715@kernel.org>
+Date: Wed, 26 Aug 2026 23:48:34 +0200
+From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: mhiramat@kernel.org, mathieu.desnoyers@efficios.com, include@grrlz.net,
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org
+Subject: Re: [PATCH] tracing/user_events: Clear copied tracing state before
+ fork duplication
+In-Reply-To: <20260826152312.62d5802e@gandalf.local.home>
+References: <20260824211036.3729669-2-Jeremy.Jean@oss.cyber.gouv.fr>
+ <20260826152312.62d5802e@gandalf.local.home>
+User-Agent: Roundcube Webmail/1.6.18
+Message-ID: <36329aac30d057120f95933c5ef7dec1@oss.cyber.gouv.fr>
+X-Sender: jeremy.jean@oss.cyber.gouv.fr
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On Wed, Aug 26, 2026 at 11:28:12AM +0000, Vlastimil Babka (SUSE) wrote:
-> On 8/17/26 22:40, Zi Yan wrote:
-> > kmalloc is used to allocate physically contiguous memory for kernel
-> > allocations. For requests larger than KMALLOC_MAX_CACHE_SIZE, kmalloc uses
-> > the page allocator and can only support up to KMALLOC_MAX_SIZE. For request
-> > sizes bigger than KMALLOC_MAX_SIZE, the page allocator can emit a WARN
-> > because kmalloc allocates an order greater than MAX_PAGE_ORDER. Systems
-> > with panic_on_warn=1 crash because of this WARN. Fix it by rejecting any
-> > kmalloc size bigger than KMALLOC_MAX_SIZE.
-> > 
-> > Fixes: aadb4bc4a1f9 ("SLUB: direct pass through of page size or higher kmalloc requests")
-> > Reported-by: syzbot+805630f1453e490427fa@syzkaller.appspotmail.com
-> > Closes: https://lore.kernel.org/all/6a820ebc.9ebadd4d.20b15e.001b.GAE@google.com/
-> > Tested-by: syzbot+805630f1453e490427fa@syzkaller.appspotmail.com
-> > Signed-off-by: Zi Yan <ziy@nvidia.com>
-> > Cc: stable@vger.kernel.org
-> > ---
-> > It fixes a page allocator warning (order > MAX_PAGE_ORDER) when gadgetfs
-> > requests excessively large memory from kmalloc. Instead of adding
-> > __GFP_NOWARN to suppress the warning, as was done for usbfs[1], change
-> > kmalloc to return NULL without a warning for this specific issue.
-> > 
-> > [1] commit 4f2629ea67e72 ("USB: usbfs: Don't WARN about excessively large memory allocations")
+On 2026-08-26 21:23, Steven Rostedt wrote:
+>> diff --git a/include/linux/user_events.h b/include/linux/user_events.h
+>> index 57d1ff0..2c9ac7b 100644
+>> --- a/include/linux/user_events.h
+>> +++ b/include/linux/user_events.h
+>> @@ -48,6 +48,7 @@ static inline void user_events_fork(struct 
+>> task_struct *t,
+>>  		return;
+>>  	}
+>> 
+>> +	t->user_event_mm = NULL;
 > 
-> So I checked and for kvmalloc() we have in __kvmalloc_node_noprof()
-> 
->         /* Don't even allow crazy sizes */
->         if (unlikely(size > INT_MAX)) {
->                 WARN_ON_ONCE(!(flags & __GFP_NOWARN));
->                 return NULL;
->         }
-> 
-> This comes from Linus in commit 7661809d493b4. I'd do the same thing here
-> then.
+> Honestly, that line should be in user_event_mm_dup() and not here.
 
-But the purpose of this patch is to avoid the warning in the page
-allocator. Should we fix this in the caller (gadgetfs) then? 
+Thanks for the feedback. I have just sent a v2 implementing this.
 
-> Thus there would be a useful warning for e.g. development mistakes
-> resulting in the size to be unexpectedly high.
-> 
-> Callers passing size that comes from userspace or similar untrusted source
-> can either pass __GFP_NOWARN or sanitize the size to what they expect to be
-> sane (which is context dependent and I assume actually way lower than
-> kmalloc limits in practice). Note that passing even sizes within but close
-> to/at the limit, trusting blindly some external source, can succeed the
-> allocations but effectively DoS the system with heavy reclaim/compaction. So
-> caller sanitization should still be preferred IMHO. Some of the recent
-> arguments from Linus [1] would apply to this too, I think.
-> 
-> [1]
-> https://lore.kernel.org/all/CAHk-=wiSmgwwLKCqJwGS-dVHnSLU8W+7q1UQq-G9=TBGGZbuhQ@mail.gmail.com/
-
--- 
-Cheers,
-Harry / Hyeonggon
+Regards,
+Jérémy
