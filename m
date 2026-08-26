@@ -1,87 +1,93 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB0D23F824D
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:48:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BFC4E418361
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:48:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787755701; cv=none; b=T2BHDBoSF+mcQ//VFzxH/5Fx0dPQ6OwSSo/FW1pybQ9x/uyEVVqdGJ2S4Or5DNsfo6yEAadZKlEG8viI0dISTeKP+YTxh8Q9txGv3al0hCjCUpW0B53PIYPdb8qCdhnmiUtxnyHdgjB6XapqYuNtV40rWOpVoZHPfzaQQBCXNd4=
+	t=1787755738; cv=none; b=J4CAf2eqqK/VYUiS4eNFZ1HzjL9RYitqllg5zRObXirbs6PZAwyRFvYT9LluTXmWFi2tdZYY73a5pO0dXyGSnZDGLunu98kpBph9iaCYDwGP7QoWTam/TzjUrI+k5F4NeAr6jgbZWwvLu+va1KZ74cTIjXr41u+lN0FJhk9eIug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787755701; c=relaxed/simple;
-	bh=wxNIErIkY3cbHPh5ByekYSee7DzS9pmP+VGVTwhVi+w=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=LSHYz9niV0GKN9eay72XGhYfsh9sXbsQBATW05ME3OQvWj3CyJvzDUVXnoLS4sfthXuY5z3nTYl78/4FgUabnDa+K5g84BNaar+9HSQkJhZdQEhQvctaxGGtMOkCtVq+pfVx/HTzz7WvY8MP4H3SF7DxPuV7KZRCbud/f5LG0GM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mwaMWIUH; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787755738; c=relaxed/simple;
+	bh=vLb0Om9UgS2n6FDS9rGiXGaZDVt71YmuY1679WKO2V4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=u9modQeiWLDYMRsxWw2kpe9/7CpXJf+9lKLKsVpIQSmbsu7tEH0Cm7NTr7Cs6N2mSmMAQ25MLIvQ4ODjBfrUXxN8lDjEjShXhZM/4WfujwrFol90MJ5gTD7TtfU+OQMwBViQBf7Enr+YrcorwPm/vkuFn80oUXXj69jrA92HVI4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=kTtoJaFE; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mwaMWIUH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787755700; x=1819291700;
-  h=date:from:to:cc:subject:message-id;
-  bh=wxNIErIkY3cbHPh5ByekYSee7DzS9pmP+VGVTwhVi+w=;
-  b=mwaMWIUHaUrAJm+eq3pOMm90ZWcXEvXeHs5tincPJsOvxSZlJ/jwzn0+
-   ViSGt0+Wo9TGqJ91m89Pi+66PxcdUGbevGd68PoOE28rSFzH7+WehBMbL
-   9AkK5kJg9BOxyMiUHm+VRrhuAkHyK0fUZo4BAaeRsK8EySS2WVJKn9MEX
-   wr2vvn1x1OucnHCllFeGJEqiU8LhDyOQvCb/3r1GM7TeF6T3iya5/qE0/
-   iYeobOlBImOIghbqfaaMKp7h50fkOWG3Jbdp0fkD7B9zA01IZg9wEB68G
-   on1T7cwipT6HIFh3Xxn9DNviUkAghR7iyjss8rsg+daB5F7uQbl2IH+Ze
-   g==;
-X-CSE-ConnectionGUID: qMCYEF7LSUaC30CKoxQv+A==
-X-CSE-MsgGUID: zAWiZ0w8TWu0rqoFsQt/9w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11886"; a="75780509"
-X-IronPort-AV: E=Sophos;i="6.25,244,1779174000"; 
-   d="scan'208";a="75780509"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 07:48:19 -0700
-X-CSE-ConnectionGUID: 9NCvFcGYTbabrzAkPL5g6A==
-X-CSE-MsgGUID: owmpwoZLQ364dXoVHpKBRQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,244,1779174000"; 
-   d="scan'208";a="297489720"
-Received: from igk-lkp-server01.igk.intel.com (HELO b2f8001b2633) ([10.211.93.152])
-  by orviesa002.jf.intel.com with ESMTP; 26 Aug 2026 07:48:17 -0700
-Received: from kbuild by b2f8001b2633 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1wzEvG-000000000Kf-3kfP;
-	Wed, 26 Aug 2026 14:48:14 +0000
-Date: Wed, 26 Aug 2026 16:47:43 +0200
-From: kernel test robot <lkp@intel.com>
-To: Caleb James DeLisle <cjd@cjdns.fr>
-Cc: Paul Gazzillo <paul@pgazz.com>,
- Necip Fazil Yildiran <fazilyildiran@gmail.com>,
- oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Subject: kismet: WARNING: unmet direct dependencies detected for
- EARLY_PRINTK_8250 when selected by ECONET
-Message-ID: <202608261629.bWYag5Vt-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="kTtoJaFE"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A7F1816F2;
+	Wed, 26 Aug 2026 07:48:49 -0700 (PDT)
+Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4DACB3F7D8;
+	Wed, 26 Aug 2026 07:48:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1787755733; bh=vLb0Om9UgS2n6FDS9rGiXGaZDVt71YmuY1679WKO2V4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=kTtoJaFENZIGpQGgOEM6RwVAGj0gR0mVYgCS3/4s9CcdnY+LzFxgkQM0z0AKmc1JZ
+	 v69DElMYWTGU8N5ROmOTX1FIJclhONhoSO/+IZBHodJ8iCJ/RWKOK4manc4Rxy6LdM
+	 tCjO/WW8XaWXDziSHFDGtZYjsuKmhKeZM6U+R5EM=
+Message-ID: <a491ea12-b0f6-43e4-bb5d-dba508120bfb@arm.com>
+Date: Wed, 26 Aug 2026 15:48:50 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: arm64: MPAM2_EL2 and MPAMHCR_EL2 are left UNKNOWN under
+ arm64.nompam
+To: Fuad Tabba <fuad.tabba@linux.dev>, Xi Ruoyao <xry111@xry111.site>,
+ James Morse <james.morse@arm.com>, Catalin Marinas
+ <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
+Cc: Marc Zyngier <maz@kernel.org>,
+ "moderated list:ARM64 PORT (AARCH64 ARCHITECTURE)"
+ <linux-arm-kernel@lists.infradead.org>,
+ open list <linux-kernel@vger.kernel.org>
+References: <CA+EHjTxeWxZiuSmnKLGLxTBXP4oJT7-LuffbPAyCSZZ5TW=5Ew@mail.gmail.com>
+Content-Language: en-US
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <CA+EHjTxeWxZiuSmnKLGLxTBXP4oJT7-LuffbPAyCSZZ5TW=5Ew@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229
-commit: 35fb26f94dfa1b291086b84b2421f957214824d1 mips: Add EcoNet MIPS platform support
-date:   1 year, 3 months ago
-config: mips-kismet-CONFIG_EARLY_PRINTK_8250-CONFIG_ECONET-0-0 (https://download.01.org/0day-ci/archive/20260826/202608261629.bWYag5Vt-lkp@intel.com/config)
-reproduce: (https://download.01.org/0day-ci/archive/20260826/202608261629.bWYag5Vt-lkp@intel.com/reproduce)
+Hi Fuad,
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 35fb26f94dfa ("mips: Add EcoNet MIPS platform support")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202608261629.bWYag5Vt-lkp@intel.com/
+On 25/08/2026 20:18, Fuad Tabba wrote:
+> Hi Xi, James, Catalin, Will,
+> 
+> I'm going through the features that can be disabled on the host
+> command line, checking that EL2 either traps them or leaves its own
+> controls in a defined state. That quick and easy GMID_EL1 fix came out
+> of the same pass [1] :)
+> 
+> Since 10f885d63a0e ("arm64: Add override for MPAM"), arm64.nompam
+> skips the MPAM2_EL2 and MPAMHCR_EL2 writes in finalise_el2_state, so
+> on an MPAM PE with EL3 implemented the trap controls in both keep
+> their reset values, which are architecturally UNKNOWN.
+> 
+> I was wondering whether that was deliberate. AFAICT, restoring the
+> writes would trap to EL3 wherever MPAM3_EL3.TRAPLOWER is still set, so
+> it may not be safe on the machines the override was added for. I have
+> a patch restoring them, but I learned my lesson.
 
-kismet warnings: (new ones prefixed by >>)
->> kismet: WARNING: unmet direct dependencies detected for EARLY_PRINTK_8250 when selected by ECONET
-   WARNING: unmet direct dependencies detected for EARLY_PRINTK_8250
-     Depends on [n]: EARLY_PRINTK [=n] && USE_GENERIC_EARLY_PRINTK_8250 [=y]
-     Selected by [y]:
-     - ECONET [=y]
+Yes, on a system where the firmware ignores MPAM, MPAM3_EL3.TRAPLOWER will be 1 and the traps won't
+handled and so if MPAM2_EL2 or MPAMHCR_EL2 are touched to disable the traps then the f/w will panic.
+As you say, if arm64.nompam is set on a platform where f/w has cleared MPAM3_EL3.TRAPLOWER to 0 then
+the MPAM registers may or not trap . This is different from other features because the EL2 register
+than configures the traps is MPAM specific and not in a generic register e.g. CPTR_EL2.
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+There seems to be no way round this other than documenting that you should only set arm64.nompam if
+you are sure that MPAM3_El3.TRAPLOWER is 1 as you otherwise have a side channel. What do you think?
+
+Thanks,
+
+Ben
+
+
+> 
+> Cheers,
+> /fuad
+> 
+> [1] https://lore.kernel.org/all/20260825164219.3347229-1-fuad.tabba@linux.dev/
+
