@@ -1,105 +1,94 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sg-2-5.ptr.blmpb.com (sg-2-5.ptr.blmpb.com [71.18.227.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EC643B42EF;
-	Wed, 26 Aug 2026 21:21:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00C9030B53F
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:22:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787779285; cv=none; b=BdQJFpLb7GvSXjzDqoYWwHeXKJug9nx/WIIA81ER67XsCENo51uGY5AI38EEJGDFwDB4V9tU6Hk1xFzWb3Na/0fwnkK/NTWz5GaAO5NrXTdj+qRy1518M83rz690GMZyyXfm256a2MGOya39Paay7YZhRGiXb5dPgv/wi1ZWxeE=
+	t=1787779362; cv=none; b=ohb58QUHVMgID0C+LjEZFv/E26pboTOuO/aK6xWecrb7+/He7Lob2NeTi575PCFviSZH4bBjZNAF2h6I4UAdCX4uCJypQiTcokGNPeRtxcfauluy2+BlLpo2exQ7ad7PIwfsmeOdayFb8NWnS1ErpJ5/LmSPmu1q/SOef8dUvnY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787779285; c=relaxed/simple;
-	bh=9O1SzvtacpfmXi5NaIYG4m6PymUAhyDHkxQX8rfAr00=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=WP+g/lhDMW9NxbbnksJnGnWkos7aP/HE2riLpINcx5LoegVskrSJl0QKFWF9UzBludv2H5/sl5btdRgcCFy0ptxiMp0CEkzSNrdN+oAOUvuzbgSquQL755r5qvabDncp/h+0BmBR8ZqIIzVjosvMCHFVWfkbo8byguiV7Z97O0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=BGnkMr/W; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=bRyTx2O9; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1787779362; c=relaxed/simple;
+	bh=X7jtbksA3CZPJmBAGM4XuJ8n1h4BDQWRewnDoQ44Gas=;
+	h=Content-Type:From:Date:To:Message-Id:Cc:Subject:Mime-Version; b=kojg4AE8D4Ox8LvVPQDndXy+CfYOgN7tqPWNpx5h9obRfWnfilZLV7rJiyv3JNnr38tsJyaXGBN4A6oY0l0dCc/OmWoozBLPPQY98grRgLBgzMh78ABQBmykLLavFrtmIws+bzsaUxCMPcZWLq8mxZ7Lt4moQVTE8/41ext1PpM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=zI+QHNNi; arc=none smtp.client-ip=71.18.227.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="BGnkMr/W";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="bRyTx2O9"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1787779281; bh=p//9/VE0+qjCaFLgnSL5ypF
-	LlJDetYf3uZB6tHLfay0=; b=BGnkMr/Ww91ob8uwvcVQS1JzYsVLgfBmWjwMjgdd9eZFJwEDkV
-	o1ivgsRORTRk3Uv4/gOlHldibvedUH58iW+Aab3vfgAaDd1o2vdHHwdbcV6MDM3YNC8WadchDXT
-	EksCGvlpGccP5B4xGr9Jr8c/CO+UCGg9x1bMXBxjoGFYIRz9IBxeAtAMmGminT2j5QrhtexJHCz
-	za8Di34PHdAgERQDyuKEQH+eLB7HUte/ctXsw0oxqY0/K3lgegGOTL0K6kQydHV5ZZlsaQTHRzQ
-	e0jj+YxlymWXpHfqQ58GdgeNBar7OFgvrVl+Jk9c8hnysH8YOSiQdCCIVdSJ3iKRJkw==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1787779281; bh=p//9/VE0+qjCaFLgnSL5ypF
-	LlJDetYf3uZB6tHLfay0=; b=bRyTx2O97OSThAbrvebUg9i/VBmfEmuJNjEF0Nb6dyTG1qOrXH
-	GduIlrmnnvmosvnnKRAx/da7H6Ny0wkTTXCA==;
-Date: Wed, 26 Aug 2026 22:21:22 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: Bill Wendling <morbo@google.com>
-CC: =?ISO-8859-1?Q?Thomas_Wei=DFschuh?= <thomas.weissschuh@linutronix.de>,
- Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Christian Brauner <brauner@kernel.org>, Aleksa Sarai <cyphar@cyphar.com>,
- Jan Kara <jack@suse.cz>, Nathan Chancellor <nathan@kernel.org>,
- Miguel Ojeda <ojeda@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
- Nicolas Schier <nsc@kernel.org>, Gary Guo <gary@garyguo.net>,
- Alice Ryhl <aliceryhl@google.com>, Douglas Anderson <dianders@chromium.org>,
- Anand Moon <linux.amoon@gmail.com>, Oleg Nesterov <oleg@redhat.com>,
- codemender-patching+linux@google.com, linux-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] userns: Add KUnit test suite for uid_gid_map
-In-Reply-To: <20260826204323.3974187-1-morbo@google.com>
-References: <20260823125348.1138649-1-morbo@google.com> <20260826204323.3974187-1-morbo@google.com>
-Message-ID: <E9656951-4A60-43BB-BCCD-4249F70BE10D@mainlining.org>
+	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="zI+QHNNi"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604220257; d=cherr.cc; t=1787779354; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=W9vZu2zKGaMGtvu0O3flOjnu9HCBU0WdS+0u+R/OMwA=;
+ b=zI+QHNNi+QJTN2oAebXmuwvrU3YqPYW/1HdB2MH5s//UeTCJGTzZfqv8i6b+bly2XE0zsN
+ uj6o9uId6fKLbsKujksDgO2xHHcUvyqPy7O4nr8P7yh1DECZeQbBvDmHHUquHWdkdg7rVN
+ 2rl/i0jB/Tsc07wFuAf0J1OkHgKp1dLAvCzokyJguvnTaFM8837iMp/760SeWRTyfyIHsM
+ n+HirKqV41LJDTcwjJLfd7YS0Q+kc7dD1iTVG6a3KxMKKiJ7LDVuVXYEqnmuOQHDYF3lTv
+ h03PowKF15uLSf758i70VFI8W/N06vgqiTUzqcjxV9aV9acpvflRbQb/RxYpGQ==
+Content-Type: text/plain; charset=UTF-8
+From: "Shengzhuo Wei" <me@cherr.cc>
+Date: Thu, 27 Aug 2026 05:22:29 +0800
+Received: from [192.168.9.107] ([111.42.148.146]) by smtp.feishu.cn with ESMTPS; Thu, 27 Aug 2026 05:22:31 +0800
+Content-Transfer-Encoding: 7bit
+X-Lms-Return-Path: <lba+26a8f5918+8d0954+vger.kernel.org+me@cherr.cc>
+X-Change-Id: 20260827-bq27xxx-suspend-cancel-sync-7c60fc384041
+To: =?utf-8?q?Pali_Roh=C3=A1r?= <pali@kernel.org>, 
+	"Sebastian Reichel" <sre@kernel.org>, "Hans de Goede" <hansg@kernel.org>, 
+	"Marek Vasut" <marex@denx.de>
+Message-Id: <20260827-bq27xxx-suspend-cancel-sync-v1-1-77a67711cbc3@cherr.cc>
+X-Original-From: Shengzhuo Wei <me@cherr.cc>
+X-B4-Tracking: v=1; b=H4sIABRZj2oC/yXMwQ6CMAwA0F8hPdtkTMKIv2I8QClaQiquYmYI/ +6E47u8FYyjsMGlWCHyR0yemlGeCqBHq3dG6bPBO1+7xgfsXj6klNAWm1l7pFaJJ7SvEgaq3UD npnJVCXmYIw+S9v16O2xLNzK9/yVs2w/SGAcsfwAAAA==
+Cc: "Sebastian Reichel" <sebastian.reichel@collabora.com>, 
+	<linux-pm@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<stable@vger.kernel.org>, "Shengzhuo Wei" <me@cherr.cc>
+Subject: [PATCH] power: supply: bq27xxx: synchronize work cancellation on suspend
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: b4 0.16.0
 
-> + /* Insert more than UID_GID_MAP_MAX_BASE_EXTENTS (e.g., 10) elements */
-> + for (i = 0; i < 10; i++) {
-> +   extent.first = i * 10;
-> +   extent.lower_first = i * 100;
+The poll work requeues itself via mod_delayed_work() while the device
+is not removed. cancel_delayed_work() does not wait for a callback
+that is already running, so a poll racing with suspend can keep
+issuing I2C transfers after suspend returns and requeue itself into
+early resume.
 
-Both .first and .lower_first increase monotonically with i. So
-forward[] is already sorted by .first and reverse[] is already sorted
-by .lower_first before sort_idmaps() runs. The sort is a no op on
-this input.
+Use cancel_delayed_work_sync() to quiesce polling before suspend
+completes, as the teardown path already does.
 
-> + /* Verify sorting is correct */
-> + for (i = 0; i < map.nr_extents; i++) {
-> +   KUNIT_EXPECT_EQ(test, map.forward[i].first, i * 10);
-> +   KUNIT_EXPECT_EQ(test, map.reverse[i].lower_first, i * 100);
+Fixes: dfcb264a01a9 ("power: supply: bq27xxx: Stop and start delayed work in suspend and resume")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shengzhuo Wei <me@cherr.cc>
+---
+Same class as 86a3a8a926aa ("power: supply: max17040: synchronize
+work cancellation on suspend"): suspend is the only remaining site
+using the non-synchronous cancel, the teardown path already uses
+cancel_delayed_work_sync().
+---
+ drivers/power/supply/bq27xxx_battery.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-This passes even if sort_idmaps() did nothing. The test cannot tell
-a working sort from a broken one.
+diff --git a/drivers/power/supply/bq27xxx_battery.c b/drivers/power/supply/bq27xxx_battery.c
+index 01c9ec1116fa..4d4809a70b62 100644
+--- a/drivers/power/supply/bq27xxx_battery.c
++++ b/drivers/power/supply/bq27xxx_battery.c
+@@ -2291,7 +2291,7 @@ static int bq27xxx_battery_suspend(struct device *dev)
+ {
+ 	struct bq27xxx_device_info *di = dev_get_drvdata(dev);
+ 
+-	cancel_delayed_work(&di->work);
++	cancel_delayed_work_sync(&di->work);
+ 	return 0;
+ }
+ 
 
-To actually verify sorting, insert the extents out of order so that
-sort_idmaps() has to rearrange them. For example:
+---
+base-commit: 45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229
+change-id: 20260827-bq27xxx-suspend-cancel-sync-7c60fc384041
 
-    extent.first = (9 - i) * 10;
-    extent.lower_first = (9 - i) * 100;
-
-Then after sort_idmaps(), forward[0].first should be 0, forward[1]
-should be 10, etc. That proves the sort moved things.
-
-Nits:
-
-> + KUNIT_ASSERT_NOT_ERR_OR_NULL(test, map.forward);
-
-Redundant. insert_extent() just allocated it on the 6th call, and
-the previous KUNIT_EXPECT_EQ(test, ret, 0) already confirmed success.
-If you want to keep it, at least put it after the loop where it
-protects the sort, not inside the insertion loop where it tests
-something that just succeeded.
-
-> + KUNIT_EXPECT_EQ(test, ret, 0);
-
-Should be KUNIT_ASSERT_EQ. If insert_extent() fails the test
-continues and the next assertions run on uninitialized data. Same
-for the base test.
-
-No tag yet, fix the test data and I'll tag v4.
-
-
---- Thanks!
-https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+Best regards,
+--  
+Shengzhuo Wei <me@cherr.cc>
