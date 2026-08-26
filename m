@@ -1,108 +1,183 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A35B7325701;
-	Wed, 26 Aug 2026 15:44:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B15533264D1
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 15:44:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787759052; cv=none; b=hNp663ZMF2H4FZZ0v7FGm9AfMSJbiddTF+ozqk07hslhwiTEBJlkBSN8iTNgSjsIW4ke+lAhs8IDCZoUcWmx87O1CT5YwGnPyi6NK1qXlh20QHVhz7MKkWlSFZFt2pE5EZ1JUsqN3Op6wYlHNa2PV7HEqPON5r40qZqSXLg3N/Y=
+	t=1787759102; cv=none; b=BFzJ6TVKWJT4TuWl4LrkfblsmiM+pcUkpHyFtV5Ir7jjoIDya8KbUEGTnUglyd4O8EThRtOy/74XWsfMhluj2cdTANPRiv0QsTVYG48KW0xW8fw3OhRCdoSXnoMRKDIWKtrT4BpdH57DK8CJeGp1ts2qoiWWqRIiVuMtcTUe0Cs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787759052; c=relaxed/simple;
-	bh=01OA8TapfiqREWY5qdNgocQ63a1Ng3x75mPwRkL44so=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Yf/wNQLcfOr1yRF+SP6rdWE41nOg8lbxsQG3GcAiEPWfDMtT/xikA5U9gqo68uGc6PmCtuisETMqVrOgVoh4ofZiqWcb0MXjcR5Dsa3O3vxE67FCYb/HzW4pk+5Wm+NI7IKHEddL+OOQugOo141BK9RM3q4Q0m2/iwJ+3LO88p0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Im/eGPGy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787759102; c=relaxed/simple;
+	bh=Wpda8V4mB+G1v6M4jdRqgjIHcIik2OOufAHm4b1jPHM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=vGZ1Zl6EUlMtjpXauVZqQM9yCrBOvs0yLKIuOhuSfPc0RdkIhLO9yF8QxP+WmYDV7LtsxqI7pc90yGdTBEcuWlPBL8oaCfI9a5vYvgOjOa/eFiJ0kBWkgBxu78bnqNxB6HwN/TssgHFaxUfzCamKN3SbvEd52S6Jm4chaXmKyHY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qk2CaZ9U; arc=none smtp.client-ip=74.125.224.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Im/eGPGy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACFA31F000E9;
-	Wed, 26 Aug 2026 15:44:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787759048;
-	bh=Vf2B2DdVbRkFpNGj3JOupYLPnXTY63U7LDwuZejwfww=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Im/eGPGy7JjkgYQUMVExoxSF3n4YW3PB2MUfI8/9+1cV+vpCCTB8H3OtGFOwTu/hQ
-	 6E2tKx6WyOk6VK3iKskPKX9JsJRgNgyBCt7fHO9xpany2fWE8NWK2f3hLgJlzLh47x
-	 i0UJwc7r7qChiUfmd+HjnfsSzsgCG8BAXq1TfogY=
-Date: Wed, 26 Aug 2026 17:44:06 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Michal Pecio <michal.pecio@gmail.com>
-Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
-	Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Aaron Tomlin <atomlin@atomlin.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-usb@vger.kernel.org,
-	driver-core@lists.linux.dev, linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] driver core: add TAINT_FORCED_BIND for when
- userspace manually messes with devices and drivers
-Message-ID: <2026082634-cloak-ambush-3861@gregkh>
-References: <20260826-bind_taint-v1-0-52b05f4a965c@linuxfoundation.org>
- <20260826153311.6340efcd.michal.pecio@gmail.com>
- <2026082658-statue-census-dc39@gregkh>
- <20260826173549.18c8a89c.michal.pecio@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qk2CaZ9U"
+Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-66ce5312ca6so1848302d50.0
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 08:44:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787759098; x=1788363898; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6lCs31xrtlUjQWf/CteVcVdyEY/EdqnqYRaq66tpHgs=;
+        b=qk2CaZ9U0gqkZ5PqCfbI1b58hD7WoAkTG+Hqyn5puILDvhvskYa+qQQSPrDd9RMYyz
+         gPvNbKN1tu2wdGA1bi7r2LPNIzFQEaTFQmoOH+pcqcwfVQYevTjeTBH3uI7vUj4fbWcg
+         3G9uJkaIPTY0tK0GRGPnz6z0+LXjAV/S8Lj1s0Zl8EVU61cRexoqf0QyYJ+btMD1lgty
+         i2PQU4380rdTyJk3hMtrYKkhRZCxGF3C/+02Z1LhlK3rWVy2Fpsrt2kxq91tYVCd2WxU
+         qC62FAxt+jm3uApTkR2CVdk4ZutNcXAE2q/o6YBjHZQw7fB2nMvRnC5aeiUrc/nOyxa1
+         vpwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787759098; x=1788363898;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6lCs31xrtlUjQWf/CteVcVdyEY/EdqnqYRaq66tpHgs=;
+        b=LZ9NP3ziFkh+SEP7cQ+8EeGkq76TTzK34L1SPufhJdELtU9v+h+1XbIfl+O5Zb03yP
+         XSo5LUAan7hDsc8MX+m6FuWbLg4710TzJ4oKBYBAJyxXQrHju33p7xjXB8ybG/6X4UGL
+         nNNQiWgT/T3ODzE/r/zJTJKrPRDHaIMT09vxBlgLkYiQLhAjvG0XTtkl2YJHKoCwoKLR
+         uH6WAbKcuTfzD9RcV1O4yg6HcAAVr4imTuFxV6yPpk/S516/J2+cOL4ehyuGNvfE3dXi
+         9KVkaBEry5vZFBwOQSrnVXobUyf4xL/FU0GGi1Z6YnDiFUQ1yjqbhoz4uPBTssfdAgVF
+         rh8Q==
+X-Forwarded-Encrypted: i=1; AHgh+RrV6WJoiBL+6m9StXEgizJaZkbgC4SGVf7wTtGmp2RKq+MDyizFOpM0ifedSxOF7YALiArJ7C/XrVazgM4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mWyGrvtJgoOtpWEpC3UUTJw6ChDaVQvlInLoBZyk2x+bCaUKo3
+	CcH7d1K8Bkv2TdaPniTtjMXJb1hITPxRmIbsEQeGUN7FQ5hLqEcOoxDm
+X-Gm-Gg: AR+sD12FSO45K2stdm7lrio6+5jqNz7oVHrVDMEehe7IlDHBUUz6fChZ6CGFeF6p1Xz
+	2GrvBIXTTaxsWBqbkcJWxrPX30MwLxjHnUuv+FIuWiIbk426WZAcCPAby1GahZC/Cid/g34C0Di
+	Vfdl/VXAMzNfogxmFGP5amLFQSfdN1TblyqP+L90Zng+Pljv1XX/N2ohnU4CViw5//LYyAMUKCT
+	2Q6gh69rozSi9zbYzQEOy/y3+pf/Eg564DSN/FJ8BF7JV9sekWihSMGRxdV60vnWCN2E9EPDiM6
+	vGOIFfatYHdqlyvimXYldnFAWgpXRJ9PeAfX6Z3PIK/drDJXEtsPVPpzY47KRZB65B/rEpvOJyd
+	TruKyLuQAlwMc2uk9z/lQJlRE93enu9duy4lzZA8NUiOk8WUDqBCtmzfUJX+i4oYg+3yJdQfyDE
+	6xNr3R/wpxC29TMnjwzW3+Fc7mfNGzhIkSydcM+8YYPyAXO6+p2LbWBOG+q8YFlBqZQHA=
+X-Received: by 2002:a05:690e:1b55:b0:66c:e3b6:40c7 with SMTP id 956f58d0204a3-66d2580c8aemr2153868d50.47.1787759097975;
+        Wed, 26 Aug 2026 08:44:57 -0700 (PDT)
+Received: from mac.lan ([136.55.173.105])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8570dfcf578sm18285107b3.47.2026.08.26.08.44.57
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 26 Aug 2026 08:44:57 -0700 (PDT)
+From: "Cen Zhang (Microsoft Security FORGE Labs)" <blbllhy@gmail.com>
+To: Mimi Zohar <zohar@linux.ibm.com>
+Cc: David Howells <dhowells@redhat.com>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
+	Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Roberto Sassu <roberto.sassu@polito.it>,
+	David Safford <safford@watson.ibm.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Kees Cook <kees@kernel.org>,
+	Francis Perron <francis@akrites.dev>,
+	linux-integrity@vger.kernel.org,
+	keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Akrites SIRT <sirt@akrites.dev>,
+	AutonomousCodeSecurity@microsoft.com,
+	Cen Zhang <cenzhang@microsoft.com>
+Subject: [PATCH v2] KEYS: encrypted: fix integer overflow of datablob_len
+Date: Wed, 26 Aug 2026 11:44:56 -0400
+Message-ID: <20260826154456.85974-1-blbllhy@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260826173549.18c8a89c.michal.pecio@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 26, 2026 at 05:35:49PM +0200, Michal Pecio wrote:
-> On Wed, 26 Aug 2026 16:25:42 +0200, Greg Kroah-Hartman wrote:
-> > > I think you confused 'bind' / 'unbind' with the likes of 'new_id'
-> > > and 'driver_override'. Try binding xhci_hcd to NVMe, you won't get
-> > > far.  
-> > 
-> > It seems to result in a failure report that people keep sending random
-> > patches for :(
-> 
-> It results in write() returning -ENODEV.
-> 
-> You can't bind random drivers to random devices out of the box,
-> you need ID overrides. And then you don't need to bind manually,
-> the kernel will happily select the wrong driver by default.
-> 
-> Authors of the recent xhci and thunderbolt patches admitted that
-> 'driver_override' was involved in both cases.
+From: "Cen Zhang (Microsoft Security FORGE Labs)" <cenzhang@microsoft.com>
 
-I'll be glad to taint if driver_override is also written to, but it's
-bind() that triggers the actual action happening.  Or so the traces
-show.
+The datablob_len field in struct encrypted_key_payload and the local
+variable in encrypted_key_alloc() are declared as unsigned short, which
+has a maximum value of 65535. The datablob_len is computed as:
 
-> Meanwhile, Syzbot also found a stupid write to freed memory in USB
-> core when HCs are unbound. You may say it doesn't matter, but:
-> 
-> * USB HCs are hotpluggable thunderbolt "gadgets" these days
+  format_len + 1 + strlen(master_desc) + 1 + strlen(datalen) + 1
+  + ivsize + 1 + encrypted_datalen
 
-We support PCI devices being removed, but that falls under the PCI
-hotplug rules/requirements, right?  Anyway, sure, we can fix those bugs
-when found, but that's not the majority of what we are seeing at the
-moment.  Look at all of the dumb platform drivers that are getting hit
-with this on the syzbot reports...
+An attacker can create an encrypted key with a very long datalen string
+(e.g., 32756 characters of leading zeros followed by "4096", which
+kstrtol() happily parses as 4096), and then update it with a very long
+master_desc string (~32760 characters). The combined lengths exceed
+65535, causing the unsigned short to silently wrap around. This results
+in a grossly undersized kzalloc() allocation, and the subsequent
+memcpy() in __ekey_init() writes ~32KB past the end of the buffer,
+corrupting adjacent slab objects.
 
-> * there were plans to alter this code so that UAF is triggered by
->   hot removal of the USB device, not its parent HC
+Fix this by:
+1. Using check_add_overflow() to calculate datablob_len directly into
+   its existing unsigned short destination.
+2. Checking the total payload length the same way before passing it to
+   key_payload_reserve(), since key->datalen is also unsigned short.
+3. Using kzalloc_flex() to allocate encrypted_key_payload together with
+   its trailing payload_data[] array.
 
-I don't understand what you mean by this.
+Fixes: 7e70cb497850 ("keys: add new key-type encrypted")
+Cc: stable@vger.kernel.org
+Assisted-by: GitHub-Copilot:claude-opus-4.6
+Signed-off-by: Cen Zhang (Microsoft Security FORGE Labs) <cenzhang@microsoft.com>
+Signed-off-by: Francis Perron (Akrites SIRT) <francis@akrites.dev>
+---
+Changes in v2:
+- Keep datablob_len unchanged and check both unsigned short bounds with
+  check_add_overflow().
+- Use kzalloc_flex() for the trailing payload_data[] array.
+- Correct the attribution and sign-off trailers.
 
-> IMO the actually meaningful change would be to taint driver ID
-> overrides, because that's the known risky and crash-prone madness.
-> bind/unbind taint is noise that will be ignored.
+The initial version was discussed off-list and is not publicly archived.
 
-it's not going to be ignored if panic_on_taint is enabled in syzbot,
-which the authors have said they will do :)
+ security/keys/encrypted-keys/encrypted.c | 20 ++++++++++++++------
+ 1 file changed, 14 insertions(+), 6 deletions(-)
 
-thanks,
-
-greg k-h
+diff --git a/security/keys/encrypted-keys/encrypted.c b/security/keys/encrypted-keys/encrypted.c
+index 59cb77b237b3..e07092ea301a 100644
+--- a/security/keys/encrypted-keys/encrypted.c
++++ b/security/keys/encrypted-keys/encrypted.c
+@@ -19,6 +19,7 @@
+ #include <linux/parser.h>
+ #include <linux/string.h>
+ #include <linux/err.h>
++#include <linux/overflow.h>
+ #include <keys/user-type.h>
+ #include <keys/trusted-type.h>
+ #include <keys/encrypted-type.h>
+@@ -579,6 +580,7 @@ static struct encrypted_key_payload *encrypted_key_alloc(struct key *key,
+ {
+ 	struct encrypted_key_payload *epayload = NULL;
+ 	unsigned short datablob_len;
++	unsigned short payload_totallen;
+ 	unsigned short decrypted_datalen;
+ 	unsigned short payload_datalen;
+ 	unsigned int encrypted_datalen;
+@@ -632,16 +634,22 @@ static struct encrypted_key_payload *encrypted_key_alloc(struct key *key,
+ 
+ 	encrypted_datalen = roundup(decrypted_datalen, blksize);
+ 
+-	datablob_len = format_len + 1 + strlen(master_desc) + 1
+-	    + strlen(datalen) + 1 + ivsize + 1 + encrypted_datalen;
++	if (check_add_overflow(format_len + 1 + strlen(master_desc) + 1
++			       + strlen(datalen) + 1 + ivsize + 1,
++			       encrypted_datalen, &datablob_len))
++		return ERR_PTR(-EINVAL);
++
++	if (check_add_overflow(datablob_len,
++			       payload_datalen + HASH_SIZE + 1,
++			       &payload_totallen))
++		return ERR_PTR(-EINVAL);
+ 
+-	ret = key_payload_reserve(key, payload_datalen + datablob_len
+-				  + HASH_SIZE + 1);
++	ret = key_payload_reserve(key, payload_totallen);
+ 	if (ret < 0)
+ 		return ERR_PTR(ret);
+ 
+-	epayload = kzalloc(sizeof(*epayload) + payload_datalen +
+-			   datablob_len + HASH_SIZE + 1, GFP_KERNEL);
++	epayload = kzalloc_flex(*epayload, payload_data, payload_totallen,
++				GFP_KERNEL);
+ 	if (!epayload)
+ 		return ERR_PTR(-ENOMEM);
+ 
+-- 
+2.55.0
