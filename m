@@ -1,157 +1,167 @@
-Received: from mail-ej2-f9.google.com (mail-ej2-f9.google.com [74.125.228.137])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8B443C76A2
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 18:38:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52D6C3AAF59
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 18:38:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787769508; cv=none; b=MsoKowyc/49DdMrvm0+R42A8a3JtPNdDl1UgQR+fTevAl/8TFr6n8CikF/iVGvox5cvPzl7FDCeC7ILh7AJG6RfLIn2JeUNJtut5o2x9NODp1Hab5j9QS+EegglCjmLsXLInkLhWjXpR1hIExfpNK/eREW5FFSwP7awTym/de0s=
+	t=1787769520; cv=none; b=lM3ANnZv114G3FHcI+tYTy5GPhznrD4wlgl80XbxMxbHhmAY8mf4B0LMMRdMFwPhsawqh9vkXsyrL4HOao98+mMqqjRSxrCoYxq1GvCJj3h17VXQalc8Fqn5LUvWtKmlzB16EY6OaxYDmR0I//r4TIxFM9KRQoFcteHkb5p8Oek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787769508; c=relaxed/simple;
-	bh=rvhP7RaXDz6UJcdy0LpafQ28K6Jx0UmNaixps3g6iSk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mbS1i0Bm9o58IZb9eHzEWp0+r8wLlWLg9j7sV+GXG72gkqZR/8f8Zt/o+uVSXYyNa+QgYq08dxdD7pvDN/LdnQZZrR3CWjjWTfyZjcbcTBucAEdCyj+vzLHGPoiE8sgUey7p0UoK6CcNIrZl2KdNDZ7iyWp+XpyKS7nUF7vx2xo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.228.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ej2-f9.google.com with SMTP id a640c23a62f3a-c250c696f09so41294066b.0
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 11:38:21 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787769498; x=1788374298;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uQAJ6HWMnaptEaDKWJ2YFOon5oDggMOJCWfPqpLuh7Y=;
-        b=Hn/B2p4u5/piZ56lDi1e0CJFIEYzgy6hVLlGqGLpsp16jzDw6ga54Be0cixA9gw3G1
-         BdemLxvLBAYJT9hmAEqfHSBTA1a1B/JEh+5zGhaMQcx2MjwNPlmhoeG4zJY/RHYARDtQ
-         +kp9LiwUQsPvmbWM89Wfp59j75jeDcGUo+settieR6EuXKeUS8QmBwD4ONetJZohOUgq
-         LXX/48CsFOqpfA8wiFoE7MMFUMtuewwBSYN1mDbQ4siWwakld9eltTrOj1QaoDJGoU5T
-         N3gxReyfG0PaEqmRcmj8HV+15rYBIk0iD8uwgdJRg3bIsG4DTSPlzFhul+6GGtZGO123
-         M0Mg==
-X-Forwarded-Encrypted: i=1; AHgh+RrTsuH95AtCavdPSiohipQJqebr56c5ZjSTQs27iEWs1sIL7VWYq9IiEzxXA3/dDBryMiiswfc8bBrZnAY=@vger.kernel.org
-X-Gm-Message-State: AFuF++ky85lcx7iKFPoXdbfHHY1y3RcgtG8GrDCFVdCqL2tGSAnimslt
-	9jv/L7FHdISs2JTCBDStzuKeiNR94hOeWH60vbYXLepD8xifau8Ia+QC
-X-Gm-Gg: AR+sD12aqxRm7XeAI0xWsIPy40ZrWCb96PLET67Qo1Vzp3nuNH3BvBypu+rA3YEGz7c
-	BVM2DXqML2MWx/ZiTn6zyI3fbYj7LhbYXerkeme+1hzcHOOTp4r0yuqyzwdbMIdN7rE6dDY/ds9
-	D8IltN5WR+0k8r9fnGORh3EHe87O3p1WxnNaAe9llFqG83uEZEIwYmNyXfAR000GF06Ybvh2w6q
-	8cR34tJ/D2teUNQX6O0+sHHx37I64hOhsWygV6u5Lsv9f+d66xj504QetHLgoXCF+6dsWSifeaW
-	CQDR5xxBk5hdnlUQqvUwJtc3VWSLYcRJYmi85fo7bEnVD9DZ2yIo/r7xGDlcMnNZ6qQpSos6AbX
-	GDar3c+IL/FyJ2qmq3pYSM/2KdlN5KlKN/2x18nbHRCO8Looc9nnaKgAQ0wsJWIYaJfY4RvPGhm
-	3oaWQkSYhzSU7ObSVzBF5c2PSKaclVhlk+pVgC1jFGQdzFusPKBX24cN98ntO/z4JJ2qFjr1wI+
-	h0JUsc24WSAf1U=
-X-Received: by 2002:a17:907:d07:b0:c19:5572:d234 with SMTP id a640c23a62f3a-c250bb3791amr1150758066b.1.1787769497364;
-        Wed, 26 Aug 2026 11:38:17 -0700 (PDT)
-Received: from [192.168.88.241] (37-48-53-4.nat.epc.tmcz.cz. [37.48.53.4])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a5de8ea655sm5491581a12.12.2026.08.26.11.38.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 26 Aug 2026 11:38:16 -0700 (PDT)
-Message-ID: <7b1f615f-d435-4b83-a180-67cf9a4223a0@ovn.org>
-Date: Wed, 26 Aug 2026 20:38:15 +0200
+	s=arc-20240116; t=1787769520; c=relaxed/simple;
+	bh=a0SCaZJ7sTZ0C5PezKa77Vpx+22P/KdPFjfBQCy7FF4=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=TvB3PvEft2CxOTRuk8aabxwmkPtAwyBUT6mSOvzdl+E0xrbZYDt6JvOOVtrpHKU8Y/nyXRLu8VrevOXWi+JU/ouVFcck8zB0NupW6hdyA94gKpD/PqNpyFUHV2S4LfnK4RXdwbGsGfR3+hfpIUGXwsNw3SogSGo5jKdlIsFlX/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C34g0FpJ; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C34g0FpJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F6481F00A3D
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 18:38:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787769505;
+	bh=/gCAVniLX3E0NkJo3jXJ7s6s8n++bS//gwCeoIN1iSg=;
+	h=From:Date:Subject:To:Cc;
+	b=C34g0FpJhfr7HYFayDJN/D2I6B+u0JPET+47PNcmnAELuxBCa2n1j21FL5YDu+8u3
+	 mI/5ev1RcwD4PHWA5pXk7zKC+ZzW8VkHD1qLVv95pnCW8Ij57UaoFKv2KWN47hJosc
+	 vwjMKqYQ7JcpQFViYfDk0b8/U5RQAIE7SZJYKwWdQfBYgn680/BnJDUe+LxqiUoZp/
+	 5E46STQXUJfYVEdD8OwBE3aQ22z2Mnn/I/pwoR3MDfbNkS6W39DiKL1TXz9j028fjK
+	 Pg3fqyPIHpLPwvox6RxbFV+yn/rBUObJUt4Ig9wDGjyaOlH0A5cUTx7f/uK5JDebuK
+	 phnv2iwjgHktw==
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b4ab40d839so825304e87.3
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 11:38:25 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Ro/ynWhhjYLJlEG8Kd77NJDtm96ZGzaiWTckoueeBkUOPpXzJL4TEW/loh9OM50VK+taChXhXxC5ugxyWE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kzRJOkqOD/S4/Z14zvvVLrAL3oit+FZCWj6SOJf4BkxvKHFuGd
+	iuNHIvI6hx4l5UayKjL5b83LNQSwGPqVtuaKgC+xAfz2EfrLdFVmMPjRuW1Mu6E0Uc6RGePEJZU
+	fbY/Uq1MnxqRXeLS4xc6lE8hi8FFTFbA=
+X-Received: by 2002:a05:6512:8381:b0:5b2:e95a:491d with SMTP id
+ 2adb3069b0e04-5b4a90579bbmr2382838e87.9.1787769503853; Wed, 26 Aug 2026
+ 11:38:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] netlink: specs: fix the conntrack filter type
-To: =?UTF-8?Q?Asbj=C3=B8rn_Sloth_T=C3=B8nnesen?= <ast@fiberby.net>,
- Ilya Maximets <i.maximets@ovn.org>
-Cc: "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Donald Hunter <donald.hunter@gmail.com>,
- "Remy D. Farley" <one-d-wide@protonmail.com>,
- "Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
- Florian Westphal <fw@strlen.de>, linux-kernel@vger.kernel.org,
- netfilter-devel@vger.kernel.org, stable@vger.kernel.org,
- netdev@vger.kernel.org
-References: <20260825155832.3685714-1-i.maximets@ovn.org>
- <94842eea-a296-4ab9-a026-2475757a82b8@fiberby.net>
-Content-Language: en-US
-From: Ilya Maximets <i.maximets@ovn.org>
-Autocrypt: addr=i.maximets@ovn.org; keydata=
- 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
-In-Reply-To: <94842eea-a296-4ab9-a026-2475757a82b8@fiberby.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Wed, 26 Aug 2026 20:37:39 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0jdSjMH_kYu6GQ1-AQ2TXHji2Vd1+v5YP8_CxXM3PUa6A@mail.gmail.com>
+X-Gm-Features: AcwNN1VtrMiz0zZhCTUSAvasLFrvwBziZCTREV0w_8th_19faQzUv6stuSDgShM
+Message-ID: <CAJZ5v0jdSjMH_kYu6GQ1-AQ2TXHji2Vd1+v5YP8_CxXM3PUa6A@mail.gmail.com>
+Subject: [GIT PULL] More ACPI support updates for 7.3-rc1
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: ACPI Devel Maling List <linux-acpi@vger.kernel.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Linux PM <linux-pm@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On 8/26/26 7:20 PM, Asbjørn Sloth Tønnesen wrote:
-> On 8/25/26 3:58 PM, Ilya Maximets wrote:
->> The CTA_FILTER doesn't contain nested tuple attributes, instead it
->> contains bit masks that specify which tuple attributes to filter on.
->> The values for filtering are taken from the top-level CTA_TUPLE_ORIG
->> and CTA_TUPLE_REPLY.
-> 
-> As identified by Sashiko-NIPA[1], then CTA_TUPLE_ORIG and CTA_TUPLE_REPLY
-> are both absent from the GET DUMP request attribute list.
-> 
-> However this doesn't prevent ynl CLI from sending the attributes:
-> 
-> $ sudo ./tools/net/ynl/pyynl/cli.py --family conntrack --dump get --json \
->    '{"nfgen-family": 2, "filter": {"orig-flags": 1}}'
-> Netlink error: Invalid argument
-> 
-> $ sudo ./tools/net/ynl/pyynl/cli.py --family conntrack --dump get --json \
-> '{"nfgen-family": 2, "filter": {"orig-flags": 1}, "tuple-orig": {"tuple-ip": {"ip-v4-src": "192.255.0.255", "ip-v4-dst": 
-> "192.255.255.0"}}}'
-> []
-> 
-> Otherwise, LGTM.
-> 
-> [1] https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260825155832.3685714-1-i.maximets%40ovn.org
+Hi Linus,
 
-The reported issue is preexisting and a little orthogonal to the goal of
-this patch.  I.e. missing dump attributes vs wrong type of attributes that
-are specified.
+Please pull from the tag
 
-I can add all the missing attributes: tuple-orig, tuple-reply, mark-mask
-and status-mask.  Either as a separate patch, or fold the change into this
-one, but rename it into something like:
-  "netlink: specs: fix conntrack filtering attributes and types"
+ git://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm.git \
+ acpi-7.3-rc1-2
 
-WDYT?
+with top-most commit ea10c0b334e0dca944de2b5ecf57cf7e366674f4
 
-Best regrads, Ilya Maximets.
+ Merge branches 'acpi-battery', 'acpi-button', 'acpi-soc' and 'acpi-pfrut'
+
+on top of commit 0d508f1745b57272d4d4a3d50dc35aa2a3682238
+
+ Merge tag 'acpi-7.3-rc1' of
+git://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm
+
+to receive more ACPI support updates for 7.3-rc1.
+
+These update documentation to reflect recent changes in the upstream
+ACPICA project, fix issues in the core ACPI device enumeration code
+(one of which has been introduced recently), improve the primary
+"physical" device lookup for ACPI device objects in that code, and
+update ACPI device drivers:
+
+ - Update MAINTAINERS, CREDITS and ACPI subsystem documentation to
+   reflect recent changes in the upstream ACPICA project (Rafael
+   Wysocki)
+
+ - Prevent the core ACPI enumeration code from combining device
+   resources that overlap completely in order to avoid resource
+   conflicts during platform device registration because there are
+   drivers that expect such resources to be present (Rafael Wysocki)
+
+ - Defer device power initialization during ACPI-based device
+   enumeration to the point when the given device is known to be present
+   and functional and all of its dependencies have been met (Peixin Xie)
+
+ - Fix bus ID cleanup on device_add() failures during ACPI device object
+   registration (Hongyan Xu)
+
+ - Introduce a new helper function for looking up the primary "physical"
+   device for a given ACPI device object and update the core ACPI device
+   enumeration code to use that function (Rafael Wysocki)
+
+ - Protect all battery properties with a separated mutex in the ACPI
+   battery driver to prevent race conditions from occurring and avoid
+   evaluating the _BST ACPI control method multiple times in parallel
+   for the same battery device (Rong Zhang)
+
+ - Add DMI quirk for the Razer Blade Pro 17 early 2020 lid switch to the
+   ACPI button driver (Robin Everaars)
+
+ - Convert fixed clock rates in the ACPI driver for AMD SoCs (APD) to
+   use HZ_PER_MHZ and add a clock frequency for the HJMC01 I2C
+   controller to it (Hongnan Li and Xiangyang Yu)
+
+ - Fix a stack buffer overflow in query_capability() in the ACPI
+   platform firmware runtime update driver (Anirudh Prasad)
+
+This material had a merge conflict against the driver core tree in
+linux-next as per
+
+https://lore.kernel.org/lkml/aoMvR5MHCsykmdEO@sirena.org.uk/
+
+Thanks!
+
+
+---------------
+
+Anirudh Prasad (1):
+      ACPI: pfr_update: fix stack buffer overflow in query_capability()
+
+Hongnan Li (1):
+      ACPI: APD: Convert fixed clock rates to use HZ_PER_MHZ
+
+Hongyan Xu (1):
+      ACPI: scan: fix bus ID cleanup on device_add() failures
+
+Peixin Xie (1):
+      ACPI: scan: Defer device power initialization
+
+Rafael J. Wysocki (7):
+      ACPI: bus: Introduce acpi_bus_get_primary_device()
+      ACPI: platform: Use acpi_bus_get_primary_device()
+      ACPI: scan: Use acpi_bus_get_primary_device()
+      ACPI: Add Bob Moore to CREDITS
+      ACPI: Update MAINTAINERS entry for ACPICA
+      ACPI: Update upstream ACPICA repository URL in documentation
+      ACPI: scan: Do not combine resources that overlap completely
+
+Robin Everaars (1):
+      ACPI: button: Add DMI quirk for Razer Blade Pro 17 early 2020 lid switch
+
+Rong Zhang (1):
+      ACPI: battery: Protect all properties with a separated mutex
+
+Xiangyang Yu (1):
+      ACPI: APD: Add clock frequency for HJMC01 I2C controller
+
+---------------
+
+ CREDITS                                            |   4 +
+ Documentation/driver-api/acpi/linuxized-acpica.rst |  10 +-
+ MAINTAINERS                                        |   6 +-
+ drivers/acpi/acpi_apd.c                            |  35 +++--
+ drivers/acpi/acpi_platform.c                       |  24 ++--
+ drivers/acpi/battery.c                             | 147 ++++++++++++++-------
+ drivers/acpi/bus.c                                 |  54 +++++---
+ drivers/acpi/button.c                              |  11 ++
+ drivers/acpi/pfr_update.c                          |  45 ++++---
+ drivers/acpi/power.c                               |   1 +
+ drivers/acpi/scan.c                                |  37 +++---
+ include/acpi/acpi_bus.h                            |   6 +
+ 12 files changed, 246 insertions(+), 134 deletions(-)
