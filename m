@@ -1,706 +1,452 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 381D51EFFA1
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:30:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBE0844CAE6;
+	Wed, 26 Aug 2026 16:31:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787761839; cv=none; b=ukL5YR//2FLA3T3yVfmSTJ3oyDmuEUW8QQ4N7y1TJ7wjZuAvDzz4N9lHlW3NWtLZWSz2P5xg3MDnA93KsLI7naYYb6WMOHNfUxGhqep3VHbl0j5p1QYfBhRZI5Rlqcnm8BjEilmJTbchWnbiNXBhe0cujcv4OG7do4hUXspWCYI=
+	t=1787761876; cv=none; b=E15mXzkhbKGlRpKi72hGIQxD98PZXz4Cmt+r/f7P5VFJgt57SzUnzXUwv6yKQQ2WtUemxEigiMYARAsYCSkf3zZaO0bdAotMv0m+1NNP5A2HQrWLM3/L2slA8iVhiNqLcrnpIPmPUw/jajWYjlHZ8dugoRrUdB0NNQw0BpmaIsI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787761839; c=relaxed/simple;
-	bh=GIoAORWt9IybsRqPS1GJj9HG3FLaEgU1sXlbwWBRAII=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HEvl/kGuOwMke/+1Z8RfprbgH82c4C3VYgjSp3Yp+/1okw+9PCGgaDGL1LJSTcLMb6P26n9jKDdo7+d/8852h85IuX/TuBBQi96WPFQsGAxrIXvO+jLQBYovHCrq3CzJDcfq5qZrvp+khShXqN8OWV6zV+kaaBy0aBzqs7dEbi0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk; spf=none smtp.mailfrom=fireburn.co.uk; dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b=vZWIvEc2; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=fireburn.co.uk
+	s=arc-20240116; t=1787761876; c=relaxed/simple;
+	bh=3292G1oeBAcmtbhOMVJvtlvXQkkqwPpvEl8KWeS3tJs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=nZ5MQ51CgipY58eoXdMvUQX0cLXE5FUPkWOde4SJ7NUk8u2cgwJnQzKA8c+7QSHiXCc/CvdrWamQUNZYDSvOpHQqLEX/MAktbEup9uP1GgK+Cn6Sx37d9PzuQ3t4UZrEU7X4htKDN6aBL6jabSHPY1S+zCFMQ8N4DgeUlOeJ++4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LMzLdrq8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="vZWIvEc2"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49554ebb87dso9906035e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 09:30:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787761835; x=1788366635; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZGTnLkqhLuxg5PJ2xJQMDnvv9zoYk3OzTHOb4mq4+aw=;
-        b=vZWIvEc2H+ffCCrb7sDJEcqwggS6cE2ZdssZewNVhpLQ9cVnDc/EZN61zSXa8YfWMb
-         IM+k8dvaAnkcDiHDkMvv/8GtNVBn7myuoLC9v2EgMMy8H1CoqZTrIabwGnaAM9XtpBAl
-         WLGkRSnIIDN1mrQajHZOrCXoWkSUZUGk2sR2fdpmm1El6DZUnyXXfqB/5y9yRLlVL+e4
-         jfJWbbLBa1/fYe/omsl50xLxTLkPQgsRM/EVIQ4zkDW748v9PcbyPIvmjRSKjfugKbpg
-         S1uICPjvsHPcvMQZpDRS4iDIMGExin3AXlBgItfzgj3c4yfW/ZoceRX9O3Dr3DRjBNpf
-         yoXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787761835; x=1788366635;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZGTnLkqhLuxg5PJ2xJQMDnvv9zoYk3OzTHOb4mq4+aw=;
-        b=Y3FoiVJBrAh9yMvgUtA80FtvmUGWORMzhC/ycchlmqY5w0PQRV1VCDXy7ce220aAAy
-         pp5H6R/K+GVDpiRTIvsDdWkU6D/6hvsiUTM7e6okT2zmSBhAH90X3FbwYRHARpRyptbV
-         eoMhnG42OEWhZjihBUCxKH9Ttfx0w5NgBZB4n/BiHN+tukj9MP5+RUxVpkZZNTTRXmJ1
-         /4iDLsOzBApM8c7otdagtOZ1YsOUXXuoFAcFjglMVsNnajds2voAInnz6cxi7sayTTeK
-         79EfQZmVPjUCISqcM0AwaoQXO4nwV6d2IqT2iA6z6uLk5vwfIuz7QhSV1+0ktaCxo8Sv
-         g9pA==
-X-Forwarded-Encrypted: i=1; AHgh+RpWcl2lqXaTIK9jKcMBJUtxBmXuXNZCjxiL93uIbULiI5zFFjwbPhTsVR27w+vWb+ftB27lsv6cuEzzI6E=@vger.kernel.org
-X-Gm-Message-State: AFuF++mL2qzD9I38qpl0yJgvKxyMg8MYpgA/XfELUiFa3tOUotC9LBGa
-	mkI/L1Sybc/dEcknXoJXG6sl4fBCNHkv361Rn/4WyxkSm2BqEYUGZkqNj5BQWeD/5Q==
-X-Gm-Gg: AR+sD10kAWjvYq4LRceQ+GpD2NmIXOEPF+O10McJgITEN4hyMuePPX0dEnxxwyP327L
-	/YwR0oh/n0CiCMu7/8m3debvJVdobGnU61K1TD3/Rd206FpBlgzd8cU9C9Wri3f18f7xaPAsz6O
-	2NTWSpVJVw1vYpDzhnQ0uK9PkJe4PR8+vrBKjXFjQ3WVvA/A3uLoZ5tNKpJUSxz1eHIXbv942ZU
-	G7stgVrcyR4yNTNbGyz5bAndKY8bwKsCdTHqJvNbiO/aoYyxR2qagjCoQ8/f8KdQYn5ccrR9uSJ
-	0uC9Xrjml/v8aumun7+iXXCgsjmcN8eoe3B6DD/Ago8RebxbY9zAbbptwkTHy8gZVP32pQ5rRiT
-	3psF/n6H22RS9ghKs5J8McIZimsbGgzWnEtM5/S385eyaZowCHl18gIOc+6gXw1FhUOC2Oy2Ody
-	XP3GnV7i2sFw9xob05G0pLLZjpoEp6qghSI32d6jE5AtzXj7yuug7OkTPHY8ej2eOsyevkYiACf
-	RFm7vSS9yQCdwO4GJxrEAq5Svt7ixb0c7dA
-X-Received: by 2002:a05:600c:698c:b0:493:cefc:d113 with SMTP id 5b1f17b1804b1-499dc6f5dcdmr85482585e9.5.1787761835321;
-        Wed, 26 Aug 2026 09:30:35 -0700 (PDT)
-Received: from axion.fireburn.co.uk ([2a01:4b00:d309:1c00:caf1:6b20:8531:818c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499dc981bf3sm32323615e9.8.2026.08.26.09.30.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 09:30:33 -0700 (PDT)
-From: Mike Lothian <mike@fireburn.co.uk>
-To: linux-crypto@vger.kernel.org
-Cc: Mike Lothian <mike@fireburn.co.uk>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Biggers <ebiggers@kernel.org>,
-	"Jason A. Donenfeld" <Jason@zx2c4.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	Lyude Paul <lyude@redhat.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Asahi Lina <lina+kernel@asahilina.net>,
-	Burak Emir <bqe@google.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Yury Norov <ynorov@nvidia.com>,
-	David Gow <david@davidgow.net>,
-	linux-kernel@vger.kernel.org,
-	rust-for-linux@vger.kernel.org
-Subject: [PATCH v3 2/2] rust: crypto: add synchronous RSA akcipher support
-Date: Wed, 26 Aug 2026 17:29:49 +0100
-Message-ID: <20260826163004.3365-3-mike@fireburn.co.uk>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260826163004.3365-1-mike@fireburn.co.uk>
-References: <20260826163004.3365-1-mike@fireburn.co.uk>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LMzLdrq8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FEEB1F000E9;
+	Wed, 26 Aug 2026 16:31:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787761874;
+	bh=Yg4Oy+42yCHK1QRBaG3QTdEIjLEpLNjOi4DjkygMvoU=;
+	h=From:Date:Subject:To:Cc;
+	b=LMzLdrq8QR4FUpRZXnwAJpHXQ6Tw94Cfm+MAThkmAziYB1oIowpvwmABQ8B0zr2Zm
+	 2TG3ifXjp+coCb/bBIxx6f1oX/t1K0JjQ1Y8piwePY4Wc70kyI4zmI9d5LSUB12Pbx
+	 bf2RRQiwf5geKOFPhhQKkNPYGK0Iy4b3gqzgIBSDY1tzWuMskTKaGTm9Bk19zkaJ69
+	 I5Vf0lCxRY5lf9PwXy9kr1GA91Wxx1res6eNDylDis/7H7qrMx3v1Af2LlqBKoIMo/
+	 dKlBtptnXKxA0ijV+x0OLMyOnkAp5xqNKtSRZ0ud0wTpTtfweV7gOLqAN0yMAbEURn
+	 d8Rexqj/UA4WA==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Wed, 26 Aug 2026 17:30:35 +0100
+Subject: [PATCH v3] mm/secretmem: properly account locked pages
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260826-secretmem-accounting-v3-1-94cb04399510@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAKoUj2oC/4WNQQ7CIBQFr9KwFlMQaevKexgXQH9b1IIBSjRN7
+ y7UjS6My0nem5mRB6fBo0MxIwdRe21Ngt2mQGoQpges28SIlpSXNWHYg3IQRhixUMpOJmjTY9F
+ ywRinjSQNSte7g04/Vu3p/GY/yQuokF15MWgfrHuu3Ujy7k8iEkxwS7ta8apq6lIer+AM3LbW9
+ Sg3Iv2wUPrDQpOlA8b2olIcJPmyLMvyApg1VP8RAQAA
+X-Change-ID: 20260814-secretmem-accounting-ad6a44629b19
+To: ljs@kernel.org
+Cc: Daehyeon Ko <4ncienth@gmail.com>, stable@vger.kernel.org, 
+ "Mike Rapoport (Microsoft)" <rppt@kernel.org>, 
+ "David Hildenbrand (Arm)" <david@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+ Jesper Dangaard Brouer <hawk@kernel.org>, 
+ John Fastabend <john.fastabend@gmail.com>, 
+ Stanislav Fomichev <sdf@fomichev.me>, Hagen Paul Pfeifer <hagen@jauu.net>, 
+ James Bottomley <James.Bottomley@HansenPartnership.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ "David Hildenbrand (Arm)" <david@kernel.org>, linux-kernel@vger.kernel.org, 
+ linux-mm@kvack.org, netdev@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=12430; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=3292G1oeBAcmtbhOMVJvtlvXQkkqwPpvEl8KWeS3tJs=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLL6RfZmceSIz//93ex7trK74E2zBGuJV5FPbh74ZS/4c
+ es9H64zHaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZiI21dGhqfBWZs3snfFpr3e
+ e5F5UV33mWX2ayKOra45GatZ9a3UIoThf3xxkOxLvhVTLy8IUNYMMK/qeaYabWEj+73aykQ2QO4
+ vAwA=
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-Add an RAII Rust wrapper for RSA public keys backed by the kernel
-crypto_akcipher implementation. Encode modulus and exponent components
-in the PKCS#1 DER form accepted by the existing RSA transform and
-expose synchronous public-key encryption.
+secretmem accounts folios by treating memory as if it were mlock()'d and
+thus limited by the RLIMIT_MEMLOCK limit.
 
-Provide RSAES-OAEP with SHA-256 for consumers which need that standard
-encoding, while keeping the OAEP seed explicit for use with the kernel
-CSPRNG and deterministic known-answer tests. Wipe encoded messages,
-expanded AES keys, and Secret byte strings with memzero_explicit().
+However the folios are unevictable and remain so until the inode is
+evicted, eliminating usual mlock() semantics - mapping folios then
+unmapping them does not clear their unevictable state, since it depends on
+AS_UNEVICTABLE, not PG_mlocked.
 
-Gate the AES, SHA-256, and akcipher bindings with dedicated Rust
-Kconfig symbols. Cover the DER encoder and OAEP path with a published
-Wycheproof vector.
+A user can therefore easily work around the RLIMIT_MEMLOCK limit - simply
+map then unmap and VmLck no longer counts the secretmem range. Worse,
+folios are not accounted in the process's RSS, meaning the OOM killer won't
+know to kill the process.
 
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
+Repeatedly mapping/unmapping (or forking) can then result in the
+consumption of all available system memory with unevictable folios and
+cause system instability.
+
+A secretmem fd can be passed between processes and over fork so a
+per-process limit simply does not make sense, so follow the precedent set
+by io_uring, perf, skbuff, iommufd and xdp by tracking the number of locked
+pages in user_struct->locked_vm.
+
+Since the scope tracked is actually inode lifetime, the RLIMIT_MEMLOCK
+applies per-user not per-process, so it doesn't make sense to bypass for
+users with CAP_IPC_LOCK, therefore remove this bypass.
+
+There is simply no reason to carry on marking the mapping as mlock()'d
+since it's misleading and the lifecycle is now correctly handled, so remove
+this too.
+
+Note that secretmem does not support any form of truncation (including hole
+punching) and the folios are unreclaimable, so the folios need only be
+accounted on fault and unaccounted on inode destruction.
+
+__secretmem_account_pages() is more or less a duplicate of the code that
+io_uring etc. use, but since this is a bug fix that needs backporting,
+defer any de-duplication efforts to a follow-up.
+
+test_mlock_limit() asserts mlock_future_ok() on mmap(), however this has
+been removed, so remove the test altogether for the fix. A new test will be
+sent separately for upstream.
+
+Reported-by: Daehyeon Ko <4ncienth@gmail.com>
+Closes: https://lore.kernel.org/linux-mm/20260813225328.2010303-1-4ncienth@gmail.com/
+Fixes: 1507f51255c9 ("mm: introduce memfd_secret system call to create "secret" memory areas")
+Cc: stable@vger.kernel.org
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- crypto/Kconfig                  |  10 ++
- lib/crypto/Kconfig              |  19 ++
- rust/bindings/bindings_helper.h |   1 +
- rust/helpers/crypto.c           |  27 +++
- rust/kernel/Kconfig.test        |  14 ++
- rust/kernel/crypto.rs           |  72 +++++++-
- rust/kernel/crypto/akcipher.rs  | 298 ++++++++++++++++++++++++++++++++
- 7 files changed, 435 insertions(+), 6 deletions(-)
- create mode 100644 rust/kernel/crypto/akcipher.rs
+v3:
+- Accumulated tags (thanks Mike and David!)
+- Tried to cut down commit message further as per Mike.
+- Made local vars const as per David.
+- Removed test (will send separately) as per David.
+- Added comment about hole punching and truncation as per David.
+- Some small commit message fixups.
 
-diff --git a/crypto/Kconfig b/crypto/Kconfig
-index f1e372195273..9b7cfdbef7c4 100644
---- a/crypto/Kconfig
-+++ b/crypto/Kconfig
-@@ -116,6 +116,16 @@ config CRYPTO_AKCIPHER
- 	select CRYPTO_AKCIPHER2
- 	select CRYPTO_ALGAPI
+v2:
+- Tried to put the commit message on a diet, as per Mike.
+- Moved secretmem_init_inode_[priv, destroy]() nearer their callers as per
+  Mike.
+- Removed CAP_IPC_LOCK check as per discussion with Mike.
+- Removed redundant GFP_KERNEL in kzalloc_obj() call as per Mike.
+- Updated to consistently use goto err style in secretmem_file_create() as
+  per Mike.
+- Updated test_mlock_limit() to consistently use goto cleanup style as per
+  Mike.
+- Added a comment describing why we are capping the mlock limit in the
+  secretmem tests, as per Mike.
+- Set inode->i_priv to NULL after destroy.
+https://patch.msgid.link/20260822-secretmem-accounting-v2-1-fe445a7c6eb1@kernel.org
+
+v1:
+https://patch.msgid.link/20260814-secretmem-accounting-v1-1-d2f8c677980b@kernel.org
+
+To: Andrew Morton <akpm@linux-foundation.org>
+To: Mike Rapoport <rppt@kernel.org>
+To: Alexei Starovoitov <ast@kernel.org>
+To: Daniel Borkmann <daniel@iogearbox.net>
+To: "David S. Miller" <davem@davemloft.net>
+To: Jakub Kicinski <kuba@kernel.org>
+To: Jesper Dangaard Brouer <hawk@kernel.org>
+To: John Fastabend <john.fastabend@gmail.com>
+To: Stanislav Fomichev <sdf@fomichev.me>
+To: Hagen Paul Pfeifer <hagen@jauu.net>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: "Liam R. Howlett" <liam@infradead.org>
+To: Vlastimil Babka <vbabka@kernel.org>
+To: Suren Baghdasaryan <surenb@google.com>
+To: Michal Hocko <mhocko@suse.com>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: ljs@kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-mm@kvack.org
+Cc: netdev@vger.kernel.org
+Cc: bpf@vger.kernel.org
+Cc: linux-kselftest@vger.kernel.org
+---
+ include/linux/sched/user.h                |   3 +-
+ mm/secretmem.c                            | 116 +++++++++++++++++++++++++++---
+ tools/testing/selftests/mm/memfd_secret.c |  30 +-------
+ 3 files changed, 110 insertions(+), 39 deletions(-)
+
+diff --git a/include/linux/sched/user.h b/include/linux/sched/user.h
+index 4cc52698e214..8d7e5521f7cd 100644
+--- a/include/linux/sched/user.h
++++ b/include/linux/sched/user.h
+@@ -25,7 +25,8 @@ struct user_struct {
  
-+config RUST_CRYPTO_AKCIPHER
-+	bool
-+	depends on RUST
-+	select CRYPTO_AKCIPHER
-+	help
-+	  Enable safe Rust abstractions for the public-key cipher API. The
-+	  crypto API core is built into the kernel because Rust abstractions
-+	  are part of the built-in kernel crate; individual algorithms may
-+	  remain modules.
-+
- config CRYPTO_KPP2
- 	tristate
- 	select CRYPTO_ALGAPI2
-diff --git a/lib/crypto/Kconfig b/lib/crypto/Kconfig
-index 591c1c2a7fb3..9d47fce62f54 100644
---- a/lib/crypto/Kconfig
-+++ b/lib/crypto/Kconfig
-@@ -36,6 +36,16 @@ config CRYPTO_LIB_AES_CBC_MACS
- 	  this if your module uses any of the functions from
- 	  <crypto/aes-cbc-macs.h>.
+ #if defined(CONFIG_PERF_EVENTS) || defined(CONFIG_BPF_SYSCALL) || \
+ 	defined(CONFIG_NET) || defined(CONFIG_IO_URING) || \
+-	defined(CONFIG_VFIO_PCI_ZDEV_KVM) || IS_ENABLED(CONFIG_IOMMUFD)
++	defined(CONFIG_VFIO_PCI_ZDEV_KVM) || IS_ENABLED(CONFIG_IOMMUFD) || \
++	defined(CONFIG_SECRETMEM)
+ 	atomic_long_t locked_vm;
+ #endif
+ #ifdef CONFIG_WATCH_QUEUE
+diff --git a/mm/secretmem.c b/mm/secretmem.c
+index d29865075b6e..384f5cfc457f 100644
+--- a/mm/secretmem.c
++++ b/mm/secretmem.c
+@@ -18,6 +18,8 @@
+ #include <linux/secretmem.h>
+ #include <linux/set_memory.h>
+ #include <linux/sched/signal.h>
++#include <linux/sched/user.h>
++#include <linux/cred.h>
  
-+config RUST_CRYPTO_LIB_AES
-+	bool
-+	depends on RUST
-+	select CRYPTO_LIB_AES
-+	select CRYPTO_LIB_AES_CBC_MACS
-+	help
-+	  Enable the Rust bindings for the synchronous AES library functions.
-+	  The selected C libraries are built into the kernel because Rust
-+	  abstractions are part of the built-in kernel crate.
-+
- config CRYPTO_LIB_AESGCM
- 	tristate
- 	select CRYPTO_LIB_AES
-@@ -216,6 +226,15 @@ config CRYPTO_LIB_SHA256
- 	  Select this if your module uses any of these functions from
- 	  <crypto/sha2.h>.
+ #include <uapi/linux/magic.h>
  
-+config RUST_CRYPTO_LIB_SHA256
-+	bool
-+	depends on RUST
-+	select CRYPTO_LIB_SHA256
-+	help
-+	  Enable the Rust bindings for the synchronous SHA-256 and HMAC-SHA256
-+	  library functions. The selected C library is built into the kernel
-+	  because Rust abstractions are part of the built-in kernel crate.
-+
- config CRYPTO_LIB_SHA256_ARCH
- 	bool
- 	depends on CRYPTO_LIB_SHA256 && !UML
-diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_helper.h
-index 8d7489b8cce8..bb46317898c1 100644
---- a/rust/bindings/bindings_helper.h
-+++ b/rust/bindings/bindings_helper.h
-@@ -28,6 +28,7 @@
-  */
- #include <linux/hrtimer_types.h>
- 
-+#include <crypto/akcipher.h>
- #include <crypto/aes.h>
- #include <crypto/sha2.h>
- 
-diff --git a/rust/helpers/crypto.c b/rust/helpers/crypto.c
-index a18780231ce0..f0cdf7fa8a76 100644
---- a/rust/helpers/crypto.c
-+++ b/rust/helpers/crypto.c
-@@ -1,9 +1,30 @@
- // SPDX-License-Identifier: GPL-2.0
- 
-+#include <crypto/akcipher.h>
- #include <crypto/aes.h>
- #include <crypto/aes-cbc-macs.h>
- #include <linux/string.h>
- 
-+__rust_helper void rust_helper_memzero_explicit(void *s, size_t count)
-+{
-+	memzero_explicit(s, count);
-+}
-+
-+#ifdef CONFIG_RUST_CRYPTO_AKCIPHER
-+__rust_helper void rust_helper_crypto_free_akcipher(struct crypto_akcipher *tfm)
-+{
-+	crypto_free_akcipher(tfm);
-+}
-+
-+__rust_helper int
-+rust_helper_crypto_akcipher_set_pub_key(struct crypto_akcipher *tfm,
-+					const void *key, unsigned int key_len)
-+{
-+	return crypto_akcipher_set_pub_key(tfm, key, key_len);
-+}
-+#endif
-+
-+#ifdef CONFIG_RUST_CRYPTO_LIB_AES
- /*
-  * aes_encrypt() takes a transparent union (aes_encrypt_arg) that bindgen cannot
-  * express, so the single-block encrypt step is wrapped here. The key schedule
-@@ -19,6 +40,11 @@ rust_helper_aes_enckey_encrypt_block(const struct aes_enckey *key, u8 *out,
- 	aes_encrypt(key, out, in);
+@@ -47,10 +49,69 @@ bool secretmem_active(void)
+ 	return !!atomic_read(&secretmem_users);
  }
  
-+__rust_helper void rust_helper_aes_enckey_zero(struct aes_enckey *key)
-+{
-+	memzero_explicit(key, sizeof(*key));
-+}
-+
- /*
-  * AES-CMAC one-shot over the in-tree library (crypto/aes-cbc-macs.h): prepares
-  * the 128-bit key, MACs @data and writes the 16-byte tag to @out. A helper
-@@ -35,3 +61,4 @@ rust_helper_aes_cmac(const u8 *key, const u8 *data, size_t data_len, u8 *out)
- 	aes_cmac(&cmac_key, data, data_len, out);
- 	memzero_explicit(&cmac_key, sizeof(cmac_key));
- }
-+#endif
-diff --git a/rust/kernel/Kconfig.test b/rust/kernel/Kconfig.test
-index e6a5c7a795f0..32e1a0c17d08 100644
---- a/rust/kernel/Kconfig.test
-+++ b/rust/kernel/Kconfig.test
-@@ -83,4 +83,18 @@ config RUST_BITFIELD_KUNIT_TEST
- 
- 	  If unsure, say N.
- 
-+config RUST_CRYPTO_KUNIT_TEST
-+	bool "KUnit tests for Rust crypto APIs" if !KUNIT_ALL_TESTS
-+	default KUNIT_ALL_TESTS
-+	select CRYPTO_RSA
-+	select RUST_CRYPTO_AKCIPHER
-+	select RUST_CRYPTO_LIB_SHA256
-+	help
-+	  This option enables KUnit tests for the safe Rust crypto APIs,
-+	  including public-key encoding and encryption. The tests include
-+	  published known-answer vectors and are intended for development and
-+	  testing rather than regular kernel use cases.
-+
-+	  If unsure, say N.
-+
- endif
-diff --git a/rust/kernel/crypto.rs b/rust/kernel/crypto.rs
-index 5f7c301b2bb8..0cf38541c8d1 100644
---- a/rust/kernel/crypto.rs
-+++ b/rust/kernel/crypto.rs
-@@ -9,18 +9,75 @@
- //! synchronously in the calling context with no allocation; the hashes and the
- //! MAC are infallible.
- //!
--//! C headers: [`include/crypto/aes.h`](srctree/include/crypto/aes.h),
-+//! Public-key ciphers are available through [`akcipher`] when
-+//! `CONFIG_RUST_CRYPTO_AKCIPHER` is enabled.
-+//!
-+//! C headers: [`include/crypto/akcipher.h`](srctree/include/crypto/akcipher.h),
-+//! [`include/crypto/aes.h`](srctree/include/crypto/aes.h),
- //! [`include/crypto/aes-cbc-macs.h`](srctree/include/crypto/aes-cbc-macs.h),
- //! [`include/crypto/sha2.h`](srctree/include/crypto/sha2.h).
- 
--use crate::{bindings, error::to_result, prelude::*};
-+use core::ops::{Deref, DerefMut};
-+
-+use crate::bindings;
-+#[cfg(any(
-+    CONFIG_RUST_CRYPTO_AKCIPHER,
-+    CONFIG_RUST_CRYPTO_LIB_AES,
-+    CONFIG_RUST_CRYPTO_LIB_SHA256
-+))]
-+use crate::{error::to_result, prelude::*};
-+
-+#[cfg(CONFIG_RUST_CRYPTO_AKCIPHER)]
-+pub mod akcipher;
- 
- /// Size of a SHA-256 / HMAC-SHA256 digest, in bytes.
- pub const SHA256_DIGEST_SIZE: usize = 32;
- /// AES-128 block and key size, in bytes.
- pub const AES128_BLOCK_SIZE: usize = 16;
- 
-+/// A fixed-size byte string which is wiped when dropped.
-+///
-+/// This is intended for cryptographic keys and other sensitive intermediate
-+/// values. Borrowing the contained bytes can still create copies which this
-+/// type cannot track; callers should avoid copying them unnecessarily.
-+pub struct Secret<const N: usize>([u8; N]);
-+
-+impl<const N: usize> Secret<N> {
-+    /// Wraps bytes which should be wiped when their owner is dropped.
-+    pub const fn new(bytes: [u8; N]) -> Self {
-+        Self(bytes)
-+    }
-+
-+    /// Creates an all-zero byte string.
-+    pub const fn zeroed() -> Self {
-+        Self([0; N])
-+    }
-+}
-+
-+impl<const N: usize> Deref for Secret<N> {
-+    type Target = [u8; N];
-+
-+    fn deref(&self) -> &Self::Target {
-+        &self.0
-+    }
-+}
-+
-+impl<const N: usize> DerefMut for Secret<N> {
-+    fn deref_mut(&mut self) -> &mut Self::Target {
-+        &mut self.0
-+    }
-+}
-+
-+impl<const N: usize> Drop for Secret<N> {
-+    fn drop(&mut self) {
-+        // SAFETY: `self.0` is valid for exactly `N` writable bytes. The helper
-+        // uses `memzero_explicit()`, so the wipe is not optimised away.
-+        unsafe { bindings::memzero_explicit(self.0.as_mut_ptr().cast(), N) };
-+    }
-+}
-+
- /// Returns the SHA-256 digest of `data`.
-+#[cfg(CONFIG_RUST_CRYPTO_LIB_SHA256)]
- pub fn sha256(data: &[u8]) -> [u8; SHA256_DIGEST_SIZE] {
-     let mut out = [0u8; SHA256_DIGEST_SIZE];
-     // SAFETY: `data` is valid for `data.len()` reads and `out` is a valid
-@@ -30,6 +87,7 @@
- }
- 
- /// Returns `HMAC-SHA256(key, data)`.
-+#[cfg(CONFIG_RUST_CRYPTO_LIB_SHA256)]
- pub fn hmac_sha256(key: &[u8], data: &[u8]) -> [u8; SHA256_DIGEST_SIZE] {
-     let mut out = [0u8; SHA256_DIGEST_SIZE];
-     // SAFETY: `key` and `data` are valid for their respective lengths and `out`
-@@ -51,6 +109,7 @@
- /// prepared and wiped internally; the call is infallible.
- ///
- /// [`include/crypto/aes-cbc-macs.h`]: srctree/include/crypto/aes-cbc-macs.h
-+#[cfg(CONFIG_RUST_CRYPTO_LIB_AES)]
- pub fn aes_cmac(key: &[u8; AES128_BLOCK_SIZE], data: &[u8]) -> [u8; AES128_BLOCK_SIZE] {
-     let mut out = [0u8; AES128_BLOCK_SIZE];
-     // SAFETY: `key` is a valid 16-byte key, `data` is valid for `data.len()`
-@@ -77,8 +136,10 @@
- /// let _ct = cipher.encrypt_block(&[0u8; 16]);
- /// # Ok::<(), Error>(())
- /// ```
-+#[cfg(CONFIG_RUST_CRYPTO_LIB_AES)]
- pub struct Aes128(bindings::aes_enckey);
- 
-+#[cfg(CONFIG_RUST_CRYPTO_LIB_AES)]
- impl Aes128 {
-     /// Expands an AES-128 key from 16 raw key bytes.
-     pub fn new(key: &[u8; AES128_BLOCK_SIZE]) -> Result<Self> {
-@@ -105,11 +166,10 @@ impl Aes128 {
-     }
- }
- 
-+#[cfg(CONFIG_RUST_CRYPTO_LIB_AES)]
- impl Drop for Aes128 {
-     fn drop(&mut self) {
--        // SAFETY: `self.0` is a valid, owned `aes_enckey`; overwriting it with
--        // an all-zero `aes_enckey` clears the expanded key schedule.
--        // `write_volatile` keeps the store from being optimised away.
--        unsafe { core::ptr::write_volatile(&mut self.0, core::mem::zeroed()) };
-+        // SAFETY: `self.0` is a valid, owned `aes_enckey`.
-+        unsafe { bindings::aes_enckey_zero(&mut self.0) };
-     }
- }
-diff --git a/rust/kernel/crypto/akcipher.rs b/rust/kernel/crypto/akcipher.rs
-new file mode 100644
-index 000000000000..c5fc2ca0cfbe
---- /dev/null
-+++ b/rust/kernel/crypto/akcipher.rs
-@@ -0,0 +1,298 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! Safe wrappers for the kernel public-key cipher API.
-+//!
-+//! C header: [`include/crypto/akcipher.h`](srctree/include/crypto/akcipher.h)
-+
-+use core::ptr::NonNull;
-+
-+use crate::{
-+    alloc::{Flags, KVec},
-+    bindings, c_str,
-+    crypto::{sha256, SHA256_DIGEST_SIZE},
-+    error::{from_err_ptr, to_result},
-+    prelude::*,
++struct secretmem_inode_state {
++	struct user_struct	*user;
++	atomic_long_t		nr_pages_accounted;
 +};
 +
-+/// A configured RSA public key.
-+///
-+/// The key is backed by the existing kernel `"rsa"` akcipher implementation.
-+/// Creating it converts unsigned big-endian modulus and exponent components
-+/// into the PKCS#1 DER form consumed by the crypto API.
-+pub struct RsaPublicKey {
-+    tfm: NonNull<bindings::crypto_akcipher>,
-+    size: usize,
++static bool __secretmem_account_pages(struct user_struct *user,
++		unsigned long nr_pages)
++{
++	unsigned long page_limit, cur_pages, new_pages;
++
++	if (!nr_pages)
++		return true;
++
++	page_limit = rlimit(RLIMIT_MEMLOCK) >> PAGE_SHIFT;
++
++	cur_pages = atomic_long_read(&user->locked_vm);
++	do {
++		new_pages = cur_pages + nr_pages;
++		if (new_pages > page_limit)
++			return false;
++	} while (!atomic_long_try_cmpxchg(&user->locked_vm,
++					  &cur_pages, new_pages));
++	return true;
 +}
 +
-+impl RsaPublicKey {
-+    /// Create an RSA public key from unsigned big-endian components.
-+    pub fn new(modulus: &[u8], exponent: &[u8], flags: Flags) -> Result<Self> {
-+        let modulus = trim_unsigned(modulus).ok_or(EINVAL)?;
-+        let exponent = trim_unsigned(exponent).ok_or(EINVAL)?;
-+        let der = encode_rsa_public_key(modulus, exponent, flags)?;
++static bool secretmem_account_folio(struct secretmem_inode_state *state,
++		const struct folio *folio)
++{
++	const unsigned long nr_pages = folio_nr_pages(folio);
 +
-+        // SAFETY: The name is NUL-terminated and remains live for the call.
-+        let tfm = from_err_ptr(unsafe {
-+            bindings::crypto_alloc_akcipher(c_str!("rsa").as_char_ptr(), 0, 0)
-+        })?;
-+        let tfm = NonNull::new(tfm).ok_or(ENOMEM)?;
++	if (!__secretmem_account_pages(state->user, nr_pages))
++		return false;
 +
-+        // SAFETY: `tfm` is a live akcipher transform and `der` contains
-+        // `der.len()` initialized bytes.
-+        let result = to_result(unsafe {
-+            bindings::crypto_akcipher_set_pub_key(
-+                tfm.as_ptr(),
-+                der.as_ptr().cast(),
-+                der.len().try_into()?,
-+            )
-+        });
-+        if let Err(err) = result {
-+            // SAFETY: `tfm` was returned by `crypto_alloc_akcipher()` and has
-+            // not been freed.
-+            unsafe { bindings::crypto_free_akcipher(tfm.as_ptr()) };
-+            return Err(err);
-+        }
-+
-+        Ok(Self {
-+            tfm,
-+            size: modulus.len(),
-+        })
-+    }
-+
-+    /// Return the RSA modulus size in bytes.
-+    pub fn size(&self) -> usize {
-+        self.size
-+    }
-+
-+    /// Apply the raw RSA public-key operation to one already-encoded message.
-+    ///
-+    /// Both buffers must have the modulus size. The output is fixed-width,
-+    /// unsigned, and big-endian. Prefer a padded scheme such as
-+    /// [`oaep_sha256_encrypt`](Self::oaep_sha256_encrypt).
-+    pub fn encrypt(&mut self, encoded: &[u8], out: &mut [u8]) -> Result {
-+        if encoded.len() != self.size || out.len() != self.size {
-+            return Err(EINVAL);
-+        }
-+
-+        out.fill(0);
-+        // SAFETY: `self.tfm` remains live and exclusively borrowed for the
-+        // synchronous operation; both buffers are valid for their lengths.
-+        to_result(unsafe {
-+            bindings::crypto_akcipher_sync_encrypt(
-+                self.tfm.as_ptr(),
-+                encoded.as_ptr().cast(),
-+                encoded.len().try_into()?,
-+                out.as_mut_ptr().cast(),
-+                out.len().try_into()?,
-+            )
-+        })
-+    }
-+
-+    /// Encrypt a message using RSAES-OAEP with SHA-256 and an empty label.
-+    ///
-+    /// `seed` is a caller-provided random OAEP seed. It is explicit so callers
-+    /// can use the kernel CSPRNG while tests can use published deterministic
-+    /// vectors.
-+    #[cfg(CONFIG_RUST_CRYPTO_LIB_SHA256)]
-+    pub fn oaep_sha256_encrypt(
-+        &mut self,
-+        message: &[u8],
-+        seed: &[u8; SHA256_DIGEST_SIZE],
-+        out: &mut [u8],
-+        flags: Flags,
-+    ) -> Result {
-+        let overhead = 2 * SHA256_DIGEST_SIZE + 2;
-+        if out.len() != self.size || self.size < overhead || message.len() > self.size - overhead {
-+            return Err(EINVAL);
-+        }
-+
-+        let mut encoded = KVec::from_elem(0u8, self.size, flags)?;
-+        let result = (|| {
-+            encoded[1..1 + SHA256_DIGEST_SIZE].copy_from_slice(seed);
-+            let db = &mut encoded[1 + SHA256_DIGEST_SIZE..];
-+            db[..SHA256_DIGEST_SIZE].copy_from_slice(&sha256(&[]));
-+            let separator = db.len() - message.len() - 1;
-+            db[separator] = 1;
-+            db[separator + 1..].copy_from_slice(message);
-+
-+            mgf1_sha256_xor(seed, db, flags)?;
-+            let (seed_block, masked_db) = encoded[1..].split_at_mut(SHA256_DIGEST_SIZE);
-+            mgf1_sha256_xor(masked_db, seed_block, flags)?;
-+
-+            self.encrypt(&encoded, out)
-+        })();
-+        encoded.fill(0);
-+        result
-+    }
++	atomic_long_add(nr_pages, &state->nr_pages_accounted);
++	return true;
 +}
 +
-+impl Drop for RsaPublicKey {
-+    fn drop(&mut self) {
-+        // SAFETY: `self.tfm` was returned by `crypto_alloc_akcipher()` and is
-+        // owned by this object.
-+        unsafe { bindings::crypto_free_akcipher(self.tfm.as_ptr()) };
-+    }
++static void __secretmem_unaccount_pages(struct secretmem_inode_state *state,
++		unsigned long nr_pages)
++{
++	atomic_long_sub(nr_pages, &state->user->locked_vm);
++	atomic_long_sub(nr_pages, &state->nr_pages_accounted);
 +}
 +
-+#[cfg(CONFIG_RUST_CRYPTO_LIB_SHA256)]
-+fn mgf1_sha256_xor(seed: &[u8], output: &mut [u8], flags: Flags) -> Result {
-+    let mut input = KVec::with_capacity(seed.len().checked_add(4).ok_or(EOVERFLOW)?, flags)?;
-+    let result = (|| {
-+        let mut counter = 0u32;
-+        for chunk in output.chunks_mut(SHA256_DIGEST_SIZE) {
-+            input.clear();
-+            input.extend_from_slice(seed, flags)?;
-+            input.extend_from_slice(&counter.to_be_bytes(), flags)?;
-+            let digest = sha256(&input);
-+            for (byte, mask) in chunk.iter_mut().zip(digest) {
-+                *byte ^= mask;
-+            }
-+            counter = counter.checked_add(1).ok_or(EOVERFLOW)?;
-+        }
-+        Ok(())
-+    })();
-+    input.fill(0);
-+    result
++static void secretmem_unaccount_folio(struct secretmem_inode_state *state,
++		struct folio *folio)
++{
++	__secretmem_unaccount_pages(state, folio_nr_pages(folio));
 +}
 +
-+fn trim_unsigned(value: &[u8]) -> Option<&[u8]> {
-+    let value = value
-+        .iter()
-+        .position(|byte| *byte != 0)
-+        .map(|i| &value[i..])?;
-+    Some(value)
++static void secretmem_unaccount_all_folios(struct secretmem_inode_state *state)
++{
++	const unsigned long nr_pages_accounted =
++		atomic_long_read(&state->nr_pages_accounted);
++
++	__secretmem_unaccount_pages(state, nr_pages_accounted);
 +}
 +
-+fn der_length_size(length: usize) -> Result<usize> {
-+    if length < 128 {
-+        return Ok(1);
-+    }
+ static vm_fault_t secretmem_fault(struct vm_fault *vmf)
+ {
+ 	struct address_space *mapping = vmf->vma->vm_file->f_mapping;
+ 	struct inode *inode = file_inode(vmf->vma->vm_file);
++	struct secretmem_inode_state *state = inode->i_private;
+ 	pgoff_t offset = vmf->pgoff;
+ 	gfp_t gfp = vmf->gfp_mask;
+ 	unsigned long addr;
+@@ -72,8 +133,15 @@ static vm_fault_t secretmem_fault(struct vm_fault *vmf)
+ 			goto out;
+ 		}
+ 
++		if (!secretmem_account_folio(state, folio)) {
++			folio_put(folio);
++			ret = VM_FAULT_SIGBUS;
++			goto out;
++		}
 +
-+    let bytes = (usize::BITS - length.leading_zeros()).div_ceil(8) as usize;
-+    if bytes > 126 {
-+        return Err(EOVERFLOW);
-+    }
-+    Ok(1 + bytes)
+ 		err = set_direct_map_invalid_noflush(folio_page(folio, 0));
+ 		if (err) {
++			secretmem_unaccount_folio(state, folio);
+ 			folio_put(folio);
+ 			ret = vmf_error(err);
+ 			goto out;
+@@ -82,6 +150,7 @@ static vm_fault_t secretmem_fault(struct vm_fault *vmf)
+ 		__folio_mark_uptodate(folio);
+ 		err = filemap_add_folio(mapping, folio, offset, gfp);
+ 		if (unlikely(err)) {
++			secretmem_unaccount_folio(state, folio);
+ 			/*
+ 			 * If a split of large page was required, it
+ 			 * already happened when we marked the page invalid
+@@ -112,22 +181,30 @@ static const struct vm_operations_struct secretmem_vm_ops = {
+ 	.fault = secretmem_fault,
+ };
+ 
++static void secretmem_destroy_inode_priv(struct inode *inode)
++{
++	struct secretmem_inode_state *state = inode->i_private;
++
++	secretmem_unaccount_all_folios(state);
++	free_uid(state->user);
++	kfree(state);
++	inode->i_private = NULL;
 +}
 +
-+fn push_der_length(out: &mut KVec<u8>, length: usize, flags: Flags) -> Result {
-+    if length < 128 {
-+        out.push(length as u8, flags)?;
-+        return Ok(());
-+    }
+ static int secretmem_release(struct inode *inode, struct file *file)
+ {
+ 	atomic_dec(&secretmem_users);
++	secretmem_destroy_inode_priv(inode);
 +
-+    let bytes = der_length_size(length)? - 1;
-+    out.push(0x80 | bytes as u8, flags)?;
-+    for shift in (0..bytes).rev() {
-+        out.push((length >> (shift * 8)) as u8, flags)?;
-+    }
-+    Ok(())
+ 	return 0;
+ }
+ 
+ static int secretmem_mmap_prepare(struct vm_area_desc *desc)
+ {
+-	const unsigned long len = vma_desc_size(desc);
+-
+ 	if (!vma_desc_test_any(desc, VMA_SHARED_BIT, VMA_MAYSHARE_BIT))
+ 		return -EINVAL;
+ 
+-	vma_desc_set_flags(desc, VMA_LOCKED_BIT, VMA_DONTDUMP_BIT);
+-	if (!mlock_future_ok(desc->mm, /*is_vma_locked=*/ true, len))
+-		return -EAGAIN;
++	vma_desc_set_flags(desc, VMA_DONTDUMP_BIT);
+ 	desc->vm_ops = &secretmem_vm_ops;
+ 
+ 	return 0;
+@@ -187,20 +264,40 @@ static const struct inode_operations secretmem_iops = {
+ 
+ static struct vfsmount *secretmem_mnt;
+ 
++static int secretmem_init_inode_priv(struct inode *inode)
++{
++	struct secretmem_inode_state *state;
++
++	state = kzalloc_obj(*state);
++	if (!state)
++		return -ENOMEM;
++
++	state->user = get_uid(current_user());
++	inode->i_private = state;
++	return 0;
 +}
 +
-+fn der_integer_size(value: &[u8]) -> Result<usize> {
-+    let leading_zero = usize::from(value[0] & 0x80 != 0);
-+    1usize
-+        .checked_add(der_length_size(value.len() + leading_zero)?)
-+        .and_then(|size| size.checked_add(value.len() + leading_zero))
-+        .ok_or(EOVERFLOW)
-+}
+ static struct file *secretmem_file_create(unsigned long flags)
+ {
+ 	struct file *file;
+ 	struct inode *inode;
+ 	const char *anon_name = "[secretmem]";
++	int err;
+ 
+ 	inode = anon_inode_make_secure_inode(secretmem_mnt->mnt_sb, anon_name, NULL);
+ 	if (IS_ERR(inode))
+ 		return ERR_CAST(inode);
+ 
++	err = secretmem_init_inode_priv(inode);
++	if (err)
++		goto err_free_inode;
 +
-+fn push_der_integer(out: &mut KVec<u8>, value: &[u8], flags: Flags) -> Result {
-+    let leading_zero = value[0] & 0x80 != 0;
-+    out.push(0x02, flags)?;
-+    push_der_length(out, value.len() + usize::from(leading_zero), flags)?;
-+    if leading_zero {
-+        out.push(0, flags)?;
-+    }
-+    out.extend_from_slice(value, flags)?;
-+    Ok(())
-+}
-+
-+fn encode_rsa_public_key(modulus: &[u8], exponent: &[u8], flags: Flags) -> Result<KVec<u8>> {
-+    let content_len = der_integer_size(modulus)?
-+        .checked_add(der_integer_size(exponent)?)
-+        .ok_or(EOVERFLOW)?;
-+    let total_len = 1usize
-+        .checked_add(der_length_size(content_len)?)
-+        .and_then(|size| size.checked_add(content_len))
-+        .ok_or(EOVERFLOW)?;
-+    let mut der = KVec::with_capacity(total_len, flags)?;
-+    der.push(0x30, flags)?;
-+    push_der_length(&mut der, content_len, flags)?;
-+    push_der_integer(&mut der, modulus, flags)?;
-+    push_der_integer(&mut der, exponent, flags)?;
-+    Ok(der)
-+}
-+
-+#[cfg(CONFIG_RUST_CRYPTO_KUNIT_TEST)]
-+#[crate::macros::kunit_tests(rust_kernel_crypto_akcipher)]
-+mod tests {
-+    use super::*;
-+    use crate::alloc::flags::GFP_KERNEL;
-+
-+    // Wycheproof rsa_oaep_2048_sha256_mgf1sha256_test.json, test case 3.
-+    const OAEP_MODULUS: [u8; 256] = [
-+        0xa2, 0xb4, 0x51, 0xa0, 0x7d, 0x0a, 0xa5, 0xf9, 0x6e, 0x45, 0x56, 0x71, 0x51, 0x35, 0x50,
-+        0x51, 0x4a, 0x8a, 0x5b, 0x46, 0x2e, 0xbe, 0xf7, 0x17, 0x09, 0x4f, 0xa1, 0xfe, 0xe8, 0x22,
-+        0x24, 0xe6, 0x37, 0xf9, 0x74, 0x6d, 0x3f, 0x7c, 0xaf, 0xd3, 0x18, 0x78, 0xd8, 0x03, 0x25,
-+        0xb6, 0xef, 0x5a, 0x17, 0x00, 0xf6, 0x59, 0x03, 0xb4, 0x69, 0x42, 0x9e, 0x89, 0xd6, 0xea,
-+        0xc8, 0x84, 0x50, 0x97, 0xb5, 0xab, 0x39, 0x31, 0x89, 0xdb, 0x92, 0x51, 0x2e, 0xd8, 0xa7,
-+        0x71, 0x1a, 0x12, 0x53, 0xfa, 0xcd, 0x20, 0xf7, 0x9c, 0x15, 0xe8, 0x24, 0x7f, 0x3d, 0x3e,
-+        0x42, 0xe4, 0x6e, 0x48, 0xc9, 0x8e, 0x25, 0x4a, 0x2f, 0xe9, 0x76, 0x53, 0x13, 0xa0, 0x3e,
-+        0xff, 0x8f, 0x17, 0xe1, 0xa0, 0x29, 0x39, 0x7a, 0x1f, 0xa2, 0x6a, 0x8d, 0xce, 0x26, 0xf4,
-+        0x90, 0xed, 0x81, 0x29, 0x96, 0x15, 0xd9, 0x81, 0x4c, 0x22, 0xda, 0x61, 0x04, 0x28, 0xe0,
-+        0x9c, 0x7d, 0x96, 0x58, 0x59, 0x42, 0x66, 0xf5, 0xc0, 0x21, 0xd0, 0xfc, 0xec, 0xa0, 0x8d,
-+        0x94, 0x5a, 0x12, 0xbe, 0x82, 0xde, 0x4d, 0x1e, 0xce, 0x6b, 0x4c, 0x03, 0x14, 0x5b, 0x5d,
-+        0x34, 0x95, 0xd4, 0xed, 0x54, 0x11, 0xeb, 0x87, 0x8d, 0xaf, 0x05, 0xfd, 0x7a, 0xfc, 0x3e,
-+        0x09, 0xad, 0xa0, 0xf1, 0x12, 0x64, 0x22, 0xf5, 0x90, 0x97, 0x5a, 0x19, 0x69, 0x81, 0x6f,
-+        0x48, 0x69, 0x8b, 0xcb, 0xba, 0x1b, 0x4d, 0x9c, 0xae, 0x79, 0xd4, 0x60, 0xd8, 0xf9, 0xf8,
-+        0x5e, 0x79, 0x75, 0x00, 0x5d, 0x9b, 0xc2, 0x2c, 0x4e, 0x5a, 0xc0, 0xf7, 0xc1, 0xa4, 0x5d,
-+        0x12, 0x56, 0x9a, 0x62, 0x80, 0x7d, 0x3b, 0x9a, 0x02, 0xe5, 0xa5, 0x30, 0xe7, 0x73, 0x06,
-+        0x6f, 0x45, 0x3d, 0x1f, 0x5b, 0x4c, 0x2e, 0x9c, 0xf7, 0x82, 0x02, 0x83, 0xf7, 0x42, 0xb9,
-+        0xd5,
-+    ];
-+    const OAEP_SEED: [u8; 32] = [
-+        0x70, 0x97, 0x14, 0xb0, 0x48, 0xc3, 0x69, 0x73, 0x22, 0x69, 0xa3, 0xd8, 0xf9, 0x23, 0x02,
-+        0x50, 0x87, 0x70, 0xa4, 0x43, 0x68, 0x01, 0x4b, 0x3a, 0x5c, 0xb1, 0x85, 0xc0, 0xc9, 0x1d,
-+        0x97, 0x2c,
-+    ];
-+    const OAEP_CIPHERTEXT: [u8; 256] = [
-+        0x5e, 0xab, 0x3f, 0x07, 0x41, 0xe6, 0x39, 0x86, 0xed, 0x64, 0x7d, 0x53, 0xe1, 0xcd, 0x71,
-+        0xdf, 0x04, 0x19, 0x86, 0x90, 0x08, 0x03, 0xd0, 0xf9, 0x9c, 0x68, 0x35, 0x5d, 0x24, 0x9a,
-+        0x15, 0xa4, 0x7d, 0xc5, 0xb4, 0xf7, 0x0a, 0x19, 0x14, 0x77, 0x65, 0x42, 0x99, 0xe5, 0xa2,
-+        0x73, 0x1f, 0x3b, 0x4e, 0xec, 0x76, 0xde, 0xa1, 0x82, 0x62, 0xfc, 0x69, 0x6a, 0xc7, 0x94,
-+        0xe5, 0xf6, 0x6c, 0xbf, 0xcd, 0xda, 0xc4, 0x47, 0x2c, 0x57, 0x8e, 0x24, 0x6c, 0x26, 0x70,
-+        0x75, 0x98, 0x05, 0x55, 0x84, 0x54, 0x0b, 0x83, 0x98, 0x36, 0xb1, 0x40, 0x4c, 0x56, 0x11,
-+        0xae, 0x55, 0x8a, 0x98, 0x4c, 0xee, 0x8f, 0xd0, 0x36, 0xce, 0xa9, 0x24, 0xe0, 0xbe, 0x24,
-+        0x74, 0xa9, 0x40, 0xf6, 0x1e, 0x0a, 0xcc, 0x14, 0xfc, 0xae, 0x95, 0xeb, 0xdc, 0x59, 0x94,
-+        0x2a, 0x9c, 0xe9, 0xaf, 0x9a, 0x9c, 0x81, 0x99, 0x9f, 0x7f, 0x68, 0x15, 0xf0, 0x57, 0xff,
-+        0xdc, 0x25, 0x33, 0xcb, 0x15, 0xd6, 0x39, 0x1d, 0x1e, 0x2d, 0x95, 0xf1, 0x6f, 0x9c, 0x04,
-+        0x20, 0x9c, 0x88, 0x9a, 0x4c, 0x35, 0x9c, 0x7d, 0x29, 0x26, 0xd2, 0x8a, 0x66, 0xe2, 0xb0,
-+        0x30, 0xa4, 0x16, 0xb9, 0x28, 0xd2, 0x82, 0x56, 0x27, 0x99, 0x8e, 0x51, 0x91, 0xfb, 0x49,
-+        0x83, 0xa6, 0xe6, 0x50, 0x24, 0x26, 0x2d, 0x94, 0xfc, 0x09, 0x18, 0x7a, 0x2d, 0x78, 0x16,
-+        0x21, 0x22, 0x43, 0x32, 0x51, 0xd1, 0xbf, 0xcc, 0x8e, 0x50, 0x7d, 0x06, 0xeb, 0xa2, 0xd2,
-+        0x29, 0xc1, 0x00, 0x31, 0x26, 0x1d, 0xa3, 0x2a, 0xb8, 0xcc, 0xd1, 0x5f, 0x1c, 0x5f, 0x9f,
-+        0xbf, 0x07, 0xed, 0x15, 0x84, 0x83, 0xd7, 0x36, 0xa1, 0x10, 0xaf, 0x4b, 0x44, 0xd6, 0xa4,
-+        0xda, 0x60, 0xd6, 0xcb, 0x51, 0x9b, 0x44, 0x54, 0x21, 0x3c, 0xf9, 0xf0, 0xdc, 0x56, 0x0f,
-+        0x2b,
-+    ];
-+
-+    #[test]
-+    fn rsa_der_encoding() -> Result {
-+        let der = encode_rsa_public_key(&[0x80, 0x01], &[0x01, 0x00, 0x01], GFP_KERNEL)?;
-+        assert_eq!(
-+            der.as_slice(),
-+            &[0x30, 0x0a, 0x02, 0x03, 0x00, 0x80, 0x01, 0x02, 0x03, 0x01, 0x00, 0x01]
-+        );
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn rsa_oaep_sha256_wycheproof() -> Result {
-+        let mut key = RsaPublicKey::new(&OAEP_MODULUS, &[0x01, 0x00, 0x01], GFP_KERNEL)?;
-+        let mut out = [0u8; 256];
-+        key.oaep_sha256_encrypt(b"Test", &OAEP_SEED, &mut out, GFP_KERNEL)?;
-+        assert_eq!(out, OAEP_CIPHERTEXT);
-+        Ok(())
-+    }
-+}
+ 	file = alloc_file_pseudo(inode, secretmem_mnt, "secretmem",
+ 				 O_RDWR | O_LARGEFILE, &secretmem_fops);
+-	if (IS_ERR(file))
+-		goto err_free_inode;
++	if (IS_ERR(file)) {
++		err = PTR_ERR(file);
++		goto err_free_priv;
++	}
+ 
+ 	mapping_set_gfp_mask(inode->i_mapping, GFP_USER);
+ 	mapping_set_unevictable(inode->i_mapping);
+@@ -215,10 +312,11 @@ static struct file *secretmem_file_create(unsigned long flags)
+ 	atomic_inc(&secretmem_users);
+ 
+ 	return file;
+-
++err_free_priv:
++	secretmem_destroy_inode_priv(inode);
+ err_free_inode:
+ 	iput(inode);
+-	return file;
++	return ERR_PTR(err);
+ }
+ 
+ SYSCALL_DEFINE1(memfd_secret, unsigned int, flags)
+diff --git a/tools/testing/selftests/mm/memfd_secret.c b/tools/testing/selftests/mm/memfd_secret.c
+index aac4f795c327..c55d84c5e613 100644
+--- a/tools/testing/selftests/mm/memfd_secret.c
++++ b/tools/testing/selftests/mm/memfd_secret.c
+@@ -57,33 +57,6 @@ static void test_file_apis(int fd)
+ 		pass("file IO is blocked as expected\n");
+ }
+ 
+-static void test_mlock_limit(int fd)
+-{
+-	size_t len;
+-	char *mem;
+-
+-	len = mlock_limit_cur;
+-	if (len % page_size != 0)
+-		len = (len/page_size) * page_size;
+-
+-	mem = mmap(NULL, len, prot, mode, fd, 0);
+-	if (mem == MAP_FAILED) {
+-		fail("unable to mmap secret memory\n");
+-		return;
+-	}
+-	munmap(mem, len);
+-
+-	len = mlock_limit_max * 2;
+-	mem = mmap(NULL, len, prot, mode, fd, 0);
+-	if (mem != MAP_FAILED) {
+-		fail("unexpected mlock limit violation\n");
+-		munmap(mem, len);
+-		return;
+-	}
+-
+-	pass("mlock limit is respected\n");
+-}
+-
+ static void test_vmsplice(int fd, const char *desc)
+ {
+ 	ssize_t transferred;
+@@ -297,7 +270,7 @@ static void prepare(void)
+ 				   strerror(errno));
+ }
+ 
+-#define NUM_TESTS 6
++#define NUM_TESTS 5
+ 
+ int main(int argc, char *argv[])
+ {
+@@ -319,7 +292,6 @@ int main(int argc, char *argv[])
+ 	if (ftruncate(fd, page_size))
+ 		ksft_exit_fail_msg("ftruncate failed: %s\n", strerror(errno));
+ 
+-	test_mlock_limit(fd);
+ 	test_file_apis(fd);
+ 	/*
+ 	 * We have to run the first vmsplice test before any secretmem page was
+
+---
+base-commit: e737cebb8de0d38e8f64584a8bbfbcf9176c7537
+change-id: 20260814-secretmem-accounting-ad6a44629b19
+
+Cheers,
+-- 
+Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
