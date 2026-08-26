@@ -1,190 +1,181 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 265D943CE6F;
-	Wed, 26 Aug 2026 13:57:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F32243BDD6;
+	Wed, 26 Aug 2026 13:58:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787752633; cv=none; b=vDknwred2wdlfAgUW8o2i4BHCcdANL5G4+YrpZ3y+fowReh7jYbH5AnntMY4V2Ha0wKE0Y8M8oQZK5eku56ovM6caMbded88vH9B+j7JoiaEdERhTsx0UkTxmXnIHQ9rhvwLvvhUZl//t9dEb12WrU9xp6og9fTybc7RZ1E2wNE=
+	t=1787752737; cv=none; b=VmD4Rt7kXarianV4QQB1wVtl+JxZ5WSj99axf9UsO7syzMhVHKpZGGqocDpKM35rF40of3Ze2Y2CFDwAoCcGHasCOmlPjAYFXaVqBjxEqIgAEvduoXou6i6J6FHjkhUYHZklFr1U9YWbb5MVi++cidNPKZn5V3s30oU10nn6sh4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787752633; c=relaxed/simple;
-	bh=NcRPV43rVKX/2XfHEHMdDAXWGtg+e5JV86w+pOf6Kf8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MLHTGxJHzgDCcSHkxRwoq0YK1Pjz1hio8mrnv+CwYJifkyuk+qJIT/OzqWiIRtbNBuEJSPemHbZNCIxdNWqF9WSo1+50dKn15MSDZQ6s+G5RIBQbZ97Mz9+op1C2jXYOcmsk4qj2Pq+0lJTFb39JL+yrLXY73EmLXEwhnnTz1/I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fQZYM1s9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787752737; c=relaxed/simple;
+	bh=0t7XCa8WPyE/QxBh7C/eInKBl6WqTO7dDcUNcyjT21Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=FlEyeSj7j4WcKFQTK+Pgk8XPqayFT+/Vc6NmM+pOb99QMu24Ollz3csIjSS7cQTRT7QdYX8eo/7nalLthEtWRZ54uln3Fmb+5jk7XfAdM5HyxipZR/3621MnXYXaVaNXC7hXA7TVlG0UUj+JGYUbFbestOQiycr2Qon4TlhGOgc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=YsU0NAN8; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fQZYM1s9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 195591F00A3A;
-	Wed, 26 Aug 2026 13:57:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787752631;
-	bh=Ng6UyxcJG17QHhsyPARDfyJal85V14/IeVc1pjyLAZ8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fQZYM1s9E4o7LMUGYuCBa0bLUCOAx+T5jP1cW776JNFJ7AvOmWPO/tHPrCCYqqYwG
-	 aozam6RXj2zmMKYpi8FLXOcIAg2YMWekRGVNuEBYdMCmvf995jrxdTZaGEvIN6XEaU
-	 dFkpXczvXpDsmrYQWSznX+i8iNYEQL2T8wU8gnQ3spoZYhRvH3uvzUehIeo3T6xMFi
-	 VtGx1Rdgk/MNGP7Ssr+HYgTNvQQh00Fr2K/Myy5NDRD9ugaFvg+GQyG0MsoNwsbgVG
-	 2o4VbyM8IUNRXGQs4J+dUa9V5SW+bcZ7KP2SCYQmSWQd69MfaC035yaH9mv8Uz5rtM
-	 KNV1kloDK7Oew==
-Date: Wed, 26 Aug 2026 15:57:07 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
-Cc: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] i2c: qcom-target: Add driver for Qualcomm I2C
- target controller
-Message-ID: <ao7vB8cDufnJZKAI@zenone.zhora.eu>
-References: <20260813-i2c-qcom-slave-v3-0-1d3742e2ad47@oss.qualcomm.com>
- <20260813-i2c-qcom-slave-v3-2-1d3742e2ad47@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="YsU0NAN8"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QCWEOD3894025;
+	Wed, 26 Aug 2026 13:57:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=2LiKUN
+	UJ1OiL3bYqU+s9DlRnAseVi3cKYOI6b9crRyc=; b=YsU0NAN8ubXRkP699Yyag+
+	++z/zJObPD2qbkgKdy/Y+NMGzk+v3l3MAQ53dM6POe5oMAxpiSCu/gErd+Ono45z
+	YCNS03vUkwrd7NOf3Oyym8vkP02mExnkwnVi6GvKIMQpZtyb+X/qs1FxX692cgoZ
+	dJvyRH7nE0AIP5mCbsdRrkD73Q37dcR6BO1DW1TeFZdqyhuzpaiqNf29TZlcgNDf
+	5gWpxcP0owI5YAQFvUfHBsNGZLN0UCQCWWa8nDB0zp9CxssVYgGdxrhYT5aCMfZA
+	A4DskgeC7F4VNjUM3aQzIQ4d0kGJPhXy4obYgW0mwgsNL3piwyoBXi6pizrCiFTQ
+	==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g716hy57w-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 26 Aug 2026 13:57:28 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67QDfImv014111;
+	Wed, 26 Aug 2026 13:57:27 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4g7qkha6v9-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 26 Aug 2026 13:57:27 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67QDvPxn36307332
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 26 Aug 2026 13:57:25 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 7176120043;
+	Wed, 26 Aug 2026 13:57:25 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id E4CB620040;
+	Wed, 26 Aug 2026 13:57:24 +0000 (GMT)
+Received: from p-imbrenda (unknown [9.224.75.30])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with SMTP;
+	Wed, 26 Aug 2026 13:57:24 +0000 (GMT)
+Date: Wed, 26 Aug 2026 15:57:22 +0200
+From: Claudio Imbrenda <imbrenda@linux.ibm.com>
+To: Hugh Dickins <hughd@google.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+        Ackerley Tng
+ <ackerleytng@google.com>,
+        Alexander Viro <viro@zeniv.linux.org.uk>,
+        Baolin
+ Wang <baolin.wang@linux.alibaba.com>,
+        Barry Song <baohua@kernel.org>, Binbin Wu <binbin.wu@linux.intel.com>,
+        Christian Brauner
+ <brauner@kernel.org>,
+        Christoph Hellwig <hch@lst.de>, Christoph Lameter
+ <cl@gentwo.org>,
+        David Hildenbrand <david@kernel.org>, JP Kobryn
+ <jp.kobryn@linux.dev>,
+        Jan Kara <jack@suse.cz>, Jens Axboe
+ <axboe@kernel.dk>,
+        Johannes Weiner <hannes@cmpxchg.org>, Kairui Song
+ <ryncsn@gmail.com>,
+        Kiryl Shutsemau <kas@kernel.org>, Lance Yang
+ <lance.yang@linux.dev>,
+        Leonardo Bras <leobras.c@gmail.com>, Lorenzo
+ Stoakes <ljs@kernel.org>,
+        Marcelo Tosatti <mtosatti@redhat.com>,
+        Matthew
+ Wilcox <willy@infradead.org>,
+        Mel Gorman <mgorman@techsingularity.net>,
+        Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>,
+        Minchan
+ Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+        Oscar
+ Salvador <osalvador@suse.de>,
+        Peter Zijlstra <peterz@infradead.org>, Qi
+ Zheng <qi.zheng@linux.dev>,
+        Rik van Riel <riel@surriel.com>,
+        Sebastian
+ Andrzej Siewior <bigeasy@linutronix.de>,
+        Shakeel Butt
+ <shakeel.butt@linux.dev>,
+        Suren Baghdasaryan <surenb@google.com>,
+        Vlastimil
+ Babka <vbabka@kernel.org>,
+        Yang Shi <yang@os.amperecomputing.com>, Yu Zhao
+ <yuzhao@google.com>,
+        "Zach O'Keefe" <zokeefe@google.com>, Zi Yan
+ <ziy@nvidia.com>,
+        linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH 20/25] s390/fbatch: no lru_add_drain_all() in
+ s390_wiggle_split_folio()
+Message-ID: <20260826155722.0198d3ce@p-imbrenda>
+In-Reply-To: <7bf68e7b-f88c-6ca9-39ab-e9fedab0c8be@google.com>
+References: <14a16945-529b-8bc0-ab38-3ea97e54e223@google.com>
+	<7bf68e7b-f88c-6ca9-39ab-e9fedab0c8be@google.com>
+Organization: IBM
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260813-i2c-qcom-slave-v3-2-1d3742e2ad47@oss.qualcomm.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDExMiBTYWx0ZWRfX6oBMoAXUz9b+
+ R2tF2RTZdZcuqOBhxLba2axaGWhWg2Kl07rlyQKuFHwjSqkOxhSrWknwqzByANHgzXMIgsDlaEU
+ Idl+30dokbx5c7aGM1azQMrbbL2NzlU=
+X-Proofpoint-GUID: ic4DR_A9PttbjD9aBnZ6wMO72ql0cvfP
+X-Proofpoint-ORIG-GUID: CtVKpmKXa-6fjrMbMK0sces9C8ZO455o
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDExMiBTYWx0ZWRfX7/j9vZ3raXyB
+ Me/IVg+MC4rfQk452IoupMj8YDfCrRb2aDsOD5v2ra95DbPAkxcv7e6jEP0qwG0PZO4yv1Dhl8A
+ MDor97CDbv2jWwZubFtFo71f50APNaOXyPErDM8wuF9ANlsKg4R8mN1ETfKeEs7LY/eu1rcSswR
+ ujmCkelqB5shvDHGHK7KQOqUTjGxr+/PE2dnk7Tzh0Q9LtWA/LNTZI2nOT5w+ACGn+182t/6tXK
+ bPa8WHzBebLfwFyGylResRBGUAtgIcfqoeAZhfcwRefUAXVTJ8Ojiq7mZr55C0JybbHa7HV8jvi
+ 8uJw1ELRQYwi4ziuvlfXVFScGfFjx3IZg7prbBCfBy1ZK0LLB7Ui/X3wJ8bY09SA4c4pI3mYqwv
+ qNrzli/jLZlc8rSiWLGU7lnDa8/sZ5pE5EOrVG5HVnBjdZ3HWdNB9DZb6M4ma79dfwpc/F0B57l
+ J4jca6EyH0POQCLZBWQ==
+X-Authority-Analysis: v=2.4 cv=H7brBeYi c=1 sm=1 tr=0 ts=6a8ef0c9 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=1XWaLZrsAAAA:8
+ a=67rAruxoP-Qw-q3ESxAA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-26_03,2026-08-26_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 malwarescore=0 lowpriorityscore=0 impostorscore=0 spamscore=0
+ bulkscore=0 adultscore=0 priorityscore=1501 clxscore=1011 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260112
 
-Hi Viken,
+On Mon, 24 Aug 2026 07:39:12 -0700 (PDT)
+Hugh Dickins <hughd@google.com> wrote:
 
-just a quick look here.
+> s390_wiggle_split_folio() has no good reason to lru_add_drain_all(),
+> now that the per-cpu fbatch references are gone.
+> 
+> Signed-off-by: Hugh Dickins <hughd@google.com>
+> ---
+>  arch/s390/kernel/uv.c | 1 -
+>  1 file changed, 1 deletion(-)
+> 
+> diff --git a/arch/s390/kernel/uv.c b/arch/s390/kernel/uv.c
+> index dc14ebc0105b..120a467026a5 100644
+> --- a/arch/s390/kernel/uv.c
+> +++ b/arch/s390/kernel/uv.c
+> @@ -364,7 +364,6 @@ int s390_wiggle_split_folio(struct mm_struct *mm, struct folio *folio)
+>  
+>  	lockdep_assert_not_held(&mm->mmap_lock);
+>  	folio_wait_writeback(folio);
+> -	lru_add_drain_all();
+>  
+>  	if (!folio_test_large(folio))
+>  		return 0;
 
-...
+This is black magic for me, I am not sure I fully understand all the
+details, but what's the new purpose of lru_add_drain_all() ?
 
-> +static void qcom_i2c_target_hw_reset(struct qcom_i2c_target *target)
-> +{
-> +	/* Clear error bits before SW_RESET; the reset may not be instantaneous */
-> +	writel(BIT(ERR_CONDITION) | BIT(CLOCK_LOW_TIMEOUT),
-> +	       target->base + I2C_S_IRQ_CLR);
-> +	writel(SW_RESET, target->base + I2C_S_SW_RESET_REG);
-> +	/*
-> +	 * I2C_S_SW_RESET_REG is write-only so completion cannot be polled.
-> +	 * Use a conservative delay to allow the reset to finish before
-> +	 * reconfiguring the controller.
-> +	 */
-> +	usleep_range(10, 20);
+will we have a guarantee that no stray references to mapped folios will
+ever remain?
 
-This is also called in atomic context from the irq handler.
-Please avoid using usleep_range(), perhaps you can put this in a
-thread.
-
-> +	qcom_i2c_target_hw_init(target);
-> +	writel(target->slave->addr, target->base + I2C_S_DEVICE_ADDR);
-> +	writel(I2C_S_CORE_EN, target->base + I2C_S_CONFIG);
-> +}
-> +
-> +static irqreturn_t qcom_i2c_target_handle_error(struct qcom_i2c_target *target,
-> +						u32 irq_stat)
-> +{
-> +	u8 val = 0;
-> +
-> +	if (irq_stat & BIT(ERR_CONDITION))
-> +		dev_err(target->dev, "Error condition: unexpected Start/Stop bits\n");
-> +	else
-> +		dev_err(target->dev, "Clock low timeout\n");
-> +	qcom_i2c_target_dump_regs(target);
-> +	qcom_i2c_target_hw_reset(target);
-> +	i2c_slave_event(target->slave, I2C_SLAVE_STOP, &val);
-> +	target->status = 0;
-> +	return IRQ_HANDLED;
-> +}
-
-...
-
-> +static irqreturn_t qcom_i2c_target_irq(int irq, void *dev)
-> +{
-> +	struct qcom_i2c_target *target = dev;
-> +	u32 irq_stat, rx_bits;
-> +
-> +	/*
-> +	 * Dispatch priority (highest first):
-> +	 *   ERR_CONDITION / CLOCK_LOW_TIMEOUT  — hardware error, triggers SW reset
-> +	 *   STOP_DETECTED                      — end of transaction, clears all state
-> +	 *   RESTART_DETECTED                   — repeated start, resets state before
-> +	 *                                        any data phase in the same snapshot
-> +	 *   STRCH_RD                           — read-phase data supply
-> +	 *   RX_FIFO_FULL / RX_DATA_AVAIL /
-> +	 *   STRCH_WR                           — write-phase Rx, coalesced into one drain
-> +	 */
-> +	irq_stat = readl_relaxed(target->base + I2C_S_IRQ_STATUS);
-> +	if (!irq_stat)
-> +		return IRQ_NONE;
-> +
-> +	dev_dbg(target->dev, "IRQ status: 0x%x\n", irq_stat);
-> +
-> +	/*
-> +	 * Load target->slave once. Both reg_slave() and unreg_slave() disable
-> +	 * the IRQ before writing the pointer, so it cannot change while this
-> +	 * handler runs. Sub-handlers may dereference target->slave directly.
-> +	 *
-> +	 * The core is enabled only in reg_slave() and disabled in unreg_slave(),
-> +	 * so no bus activity is expected here. Clear and discard any stale IRQ.
-> +	 */
-> +	if (!READ_ONCE(target->slave)) {
-> +		writel(irq_stat, target->base + I2C_S_IRQ_CLR);
-> +		return IRQ_HANDLED;
-> +	}
-> +
-> +	if (irq_stat & (BIT(ERR_CONDITION) | BIT(CLOCK_LOW_TIMEOUT)))
-> +		return qcom_i2c_target_handle_error(target, irq_stat);
-> +
-> +	if (irq_stat & BIT(STOP_DETECTED))
-> +		return qcom_i2c_target_handle_stop(target, irq_stat);
-
-...
-
-> +	target->xo_clk = devm_clk_get(dev, "xo");
-> +	if (IS_ERR(target->xo_clk))
-> +		return dev_err_probe(dev, PTR_ERR(target->xo_clk),
-> +				     "failed to get XO clock\n");
-> +
-> +	target->ahb_clk = devm_clk_get(dev, "ahb");
-> +	if (IS_ERR(target->ahb_clk))
-> +		return dev_err_probe(dev, PTR_ERR(target->ahb_clk),
-> +				     "failed to get AHB clock\n");
-> +
-> +	ret = clk_prepare_enable(target->xo_clk);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to enable XO clock\n");
-> +
-> +	ret = clk_prepare_enable(target->ahb_clk);
-> +	if (ret) {
-> +		clk_disable_unprepare(target->xo_clk);
-> +		return dev_err_probe(dev, ret, "failed to enable AHB clock\n");
-> +	}
-
-The problem is that these clocks are not disabled in the returns
-below.
-
-Thanks,
-Andi
-
-> +
-> +	target->irq = platform_get_irq(pdev, 0);
-> +	if (target->irq < 0)
-> +		return target->irq;
-> +
-> +	ret = qcom_i2c_target_icc_init(target);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = devm_request_irq(dev, target->irq, qcom_i2c_target_irq, 0,
-> +			       dev_name(dev), target);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "request_irq failed for IRQ %d\n",
-> +				     target->irq);
-> +
-> +	qcom_i2c_target_hw_init(target);
-> +
-> +	platform_set_drvdata(pdev, target);
-> +
-> +	ret = qcom_i2c_target_adap_init(target);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "i2c_add_adapter failed\n");
-> +
-> +	return 0;
-> +}
+Any unexpected reference (i.e. not due to mappings, see
+expected_folio_refs()) will cause a protected guest to hang.
