@@ -1,214 +1,157 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012032.outbound.protection.outlook.com [52.101.66.32])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9943D2236F2;
-	Wed, 26 Aug 2026 16:09:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.32
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787760561; cv=fail; b=ltvHU0p9UF7JsknBY0yKl2d8kLWeHb25OHKM5a27HjY3uYBCbrTgakpm6eM4l512DQfwe/wr7R808PA1kEh6Ho617dWFslNeAdd0TktFvSuqiJ14dUFYZKTS9Q5fgkCB2zH4NWIHoA6TUNdw2UZYw6FqataLHfjAnGQ3qRvUqbA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787760561; c=relaxed/simple;
-	bh=zIqIGMarSX1keYsMuIlZdGwS3xooGKzHHtP0Nb35O14=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=mZPjavDjpxdLKPKM99oMbgXOLyIjCGSoFd7230VIxPQTs7Oi8A5A9+ccdNGjkATfzhedKaHcfRqnIQ5L1ZlhbQO/gBiq0RtxSWbM3GhxDQ7IiCH3olHV5ihJ4ZcmcL6dUDmovVxPg5TgnacYAwLUKGi61QqugHYKM8mMjvox0Pk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=c2XMTExZ; arc=fail smtp.client-ip=52.101.66.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B0E43783B4
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:09:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787760570; cv=none; b=AtTGSeM7b8dFodju7r50rrLN42uz2h6cX+8plXSTaVZ86wZiOo67iOyJcctlUOwl9858Y9PMSYJl+ofYKT6pyLT+wZopnbO12nneC4Wk2wXMSpsXd3hlSxcE2ZHD3iEnlfxRpkP4uPdIv4id/dHhM+oi9avC32d/3RYUNIMxCbk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787760570; c=relaxed/simple;
+	bh=/Nkm53Of+08xjKvrZsWp24h6hO0JPSHjeNHvSTLAq2I=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=VVEuNl0JQXnCQQwksc/8xMdmsvSsgVnA+MYCoMiz7UCgD0QLUWCDyP/DhcSFz+rFHzVhkq3xjrbK+YDm+sx+wcSjcDOIj1Uo994pjXHoYfTt2qdQWGAai+ZM+uFxoRYZc6OGIZ1MFvkvlOHfiOizTtyJOHL8ADHFGqNMDhHV4LI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=XNaP0EA0; arc=none smtp.client-ip=209.85.215.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="c2XMTExZ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Hj3DzuPH7Lgf7v+V/pFVLEspTH1Wz0ILvlxiBXxgnaKHtI/64d1/EQ1XOFFUqYf2CN8qDlgUPvP8JAY4FDafhI9dfn7p6jwL0EGsMuEsh5SLof/GCcyxKr9iaO4STO6U62nvjeWx8qm7eScnL6lEkOia2z2R1fNodNXdscJgYGOPZ8VmMFHNW/F+5VTLYETED9lrxCxJMLBcp5uYgTsJJcAzj6Xb8BZYDH6YUK1KdlWbuhWWWUTOe9c1D17Hmon6Jy5/deBEmUOJYlBnQRpP9lM6aW2ge3PQCPR320slA1vcoLPsEiISPwOP+wulhec8FPGsADonGIIzOonE+lZPcw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZAFihzp58G799kmRaa8UWuOXh4vzZ+m8ClBZ7HOpGGc=;
- b=b3YMIuEW+8cWgXDTr3xrX2h5ifsUrE+DF5Pw8tpvD0cGR9EAn39rWb/q+N8cjkc5SJUKivMi5iicvmIlMWjjQxkee8eLEkdeXVit0NXZU4d5vHKeJEL3IXyu5MsZ4WcgmHEXpEUTi3V9l3Nzoa4yNc9iWfzImBQFdUWy8Ct07cLCWY/LzRdYKLBYcr3YonNOKb/TwGUuN7hUnlUERla+xTFs77TPI9jiMl5cfWiG5Nx4FJTt6iqgAorM/VuAs5zy976hKtBlG5THpCA+FHgXYwn3qtqjGie5VwtjXCrOd6HZBJW9XdpBGbwE4HP8+ecQ0v16AsnQEMY/JS7qlQrwsw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZAFihzp58G799kmRaa8UWuOXh4vzZ+m8ClBZ7HOpGGc=;
- b=c2XMTExZqxLpKrtEI7/7CIOo3+nSUKp+lf+UWrQFGx7eAthICJ839iHdFs23G79uN1oFZSVlwVZT0U55OWV8eXMwB0No5VNiOr/0gJqrCtlpmmh1kUf1nx2y0cElU3nyBoc3vQZwjWfO4qa2serNE84XMgo6JcQh+mvaLaRRmNoWARd9ERPRkvqqtNQW/2khnFucYwXLcVcrFL5FOIi02IfLXTiYUUhLYhnDmF/kYelaFk2/K0R5ipB34kWzd4N2RFarpxkwTCNSm/UApwk3GqcNgLdDjj/reoM1xXuzIyyg3+5yvl4HBWoQsyjZCKeuQycoGFe+oGEE7z05D4czdA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from VI0PR04MB11784.eurprd04.prod.outlook.com
- (2603:10a6:800:2ea::12) by DU2PR04MB8632.eurprd04.prod.outlook.com
- (2603:10a6:10:2df::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.8; Wed, 26 Aug
- 2026 16:09:15 +0000
-Received: from VI0PR04MB11784.eurprd04.prod.outlook.com
- ([fe80::d486:debf:a139:2953]) by VI0PR04MB11784.eurprd04.prod.outlook.com
- ([fe80::d486:debf:a139:2953%5]) with mapi id 15.21.0360.006; Wed, 26 Aug 2026
- 16:09:15 +0000
-Date: Wed, 26 Aug 2026 11:09:04 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	linux-media@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH 4/5] media: nxp: imx8-isi: Add i.MX952 ISI support
-Message-ID: <ao8PoOqPX7gwlm3L@SMW015318>
-References: <20260826-isi_imx952-v1-0-cbfaaa3f0000@oss.nxp.com>
- <20260826-isi_imx952-v1-4-cbfaaa3f0000@oss.nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260826-isi_imx952-v1-4-cbfaaa3f0000@oss.nxp.com>
-X-ClientProxiedBy: SN7P220CA0012.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:806:123::17) To VI0PR04MB11784.eurprd04.prod.outlook.com
- (2603:10a6:800:2ea::12)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="XNaP0EA0"
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-c89704da8c7so1951937a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 09:09:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787760568; x=1788365368; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=syqeQtFYsroplvcMq6SvXnjwYNUT8RzEumiv9GKgBTU=;
+        b=XNaP0EA0NqVTojv0BZT4L2iavxfJE4opixq3clJ+Vqt+oY7CUe2DswF35q65bKM7KH
+         9MJvZ2wrUMnhC+ZVGJtkBACoWdIh6d5CBPIPQlwe2iCBAKLJGpkanG4/orwmpcX/lUl9
+         dYdstJ40CGfpj7RSueotuo5enw4OpX21raVg2yxcu17AIW6bfbzuOsCa83AfQEcAFvND
+         dQ61zi4SdMjXCc19/ISWu1gbH7zMTAt0zIO8zaljsmpecUBS3Wb4fhHBJn8oSVXfpeLR
+         WgtiBY2oLCuIcMqzUrEyQY+LecFsZUXZnLH6OnxtT3lx3raxiExxUcRkpmWVINjTitUv
+         AD4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787760568; x=1788365368;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=syqeQtFYsroplvcMq6SvXnjwYNUT8RzEumiv9GKgBTU=;
+        b=GpxqrtlXYWkeysdkbdu/omP4WutK7z2SKIoWNhWwaGuLALjwbx5CzMDgXY9X1vt4ve
+         i7PIZMdv1q4YM9v180KMko5RBG971K3iFMTRDh3uahDDFUKsOsQuJ5KsmY4yjQmIdRod
+         cOvrJ45mc4kn/D+vJIndzWXNE++ke13u4mW5BNSe4kzwqr2YMbJXZc0fT5b7uBhL7zuJ
+         VG+guWp2UlzkaL06lk/8wUzrPpsygt1m49TaOj1EwmM5ZisuA2Druow4SL/2xJY1YtJE
+         Hf4OFAuiAfB5v1iJEgCGqqotnqBhUI2yXTBxPLCSJZxEgmZhgzyfJUZGse8fQ+6XPkFn
+         Tb4g==
+X-Forwarded-Encrypted: i=1; AHgh+RrUST1zHguzLoiyHaWFEi1a4NxiBqKAOeA8FBDxzgR3XyQzeaY4f2veh2iV/6k1KYunmOra66PKh5f5Yp4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lOipfYAHTCYuV50/z5Z6OiyxwrTCceBJhC4cV3SsbKa7J2sGHn
+	y+5AmCRYlGL5z640INvNs4dcOpFeVPxoTWDr0vfPF1ABV9yMGbXkefvz/A5+RyjlFHqibuzdZBq
+	rFSX76A==
+X-Received: from pgbfl16.prod.google.com ([2002:a05:6a02:50d0:b0:cc1:c07e:b53c])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:4308:b0:3b4:8f18:33a
+ with SMTP id adf61e73a8af0-3cf75d803f4mr14024475637.1.1787760567470; Wed, 26
+ Aug 2026 09:09:27 -0700 (PDT)
+Date: Wed, 26 Aug 2026 09:09:26 -0700
+In-Reply-To: <c0f9fdc27f3d9a1e63f2d39a40989d66b6facee3.1783490022.git.naveen@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VI0PR04MB11784:EE_|DU2PR04MB8632:EE_
-X-MS-Office365-Filtering-Correlation-Id: fbf2fc2f-c1c0-4f7a-54e5-08df038c6000
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|19092799006|366016|10067099003|56012099006|4143699003|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	WkxqPUDZ1C1jkkoQ88MpCy3JBMGNcBfdkcQxBcffz8Ss0jFlfDRJ6t5QVwso8BYlfJfq3svYNICpSP/1722EVTQVQvVnOZ2MJFjn9T2yFz91h1ks9WSG8RDnwAED4h/eOjj0dODItBla95xua4Z+dzC6/tkPPkOmbNuI58C6YUC9UjsHDxEGYj1OwvhfUXfkGsbJT4qmjYhGr2D0sWgPEPTLNaeqKP4tfEr0D3TKtbhSmONUABWos1sEu4S5viUl7WIC4Mcar92SVTXCNpHdCmJJ2FVed/ALTKjSjWrge4+PcXZAMjCuVaqVjmXXse2ieMBjr1CJINnab+7Y3GqGhrnnPUSp7ShIAthHWlBFogLRCj4hLxN4GFWqUK5sW7G8nNz6obMAaCoZ78RlH+hjNoB94U3Tl2/vTTl3iraA6KKT9iGLl090/z8D4MGM7KDzZx++tKvHTsdMCuV/Q5i0jSxKzBM7FMJ9oAiEs5uhJ+lQUHC1Dagpy+UN4cv4F8Yyzobr52gyXM63SPM2HaWbmteQ7kXRvwNMTw0xj4qGu6gLKNtGjwjL61VZpNEDZHLAMBMfD8ncQ9NqGx/WRgliI69/kl/ZpfqDhZ+T8kpWuLUr1swxca6/dk1fEXdi12xTHo1cYq3zq1P9hCuC4SAHmwOLEHiHpfwrk+WrEWt9JKw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI0PR04MB11784.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(19092799006)(366016)(10067099003)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?1dKNEHcylF/uzpraRKaoMmvTQgDEt605aptc9wg7v4ZcfrWAa97b03XW2h3F?=
- =?us-ascii?Q?PoqurdOCyJjhQ4ByxhUgUPNjJESBQ+TrtUvRvPQp2gtGToC5sa8uaaenvtmG?=
- =?us-ascii?Q?Xgdmp4i8VhsaDIGY6hy89RORcETBIOKuJrn+YU6bDkOSQH/vw2D8Bb/Ghio7?=
- =?us-ascii?Q?8ocelvtRTHBIjWrhTyEbMZZzmP+aZUR2zXJ4ax0BF4WEFv3ZGMTq1Mve1jZV?=
- =?us-ascii?Q?RMbtSQIrLbq4vLahpN01FvnnGPEEtiKs8ptWUiCiBQzF9rl5PQNXyW1x/3PM?=
- =?us-ascii?Q?H0OyXKFg7CHWsJ7y9y5ZPUAvlZ1D/iJzj1CLMj2qur022G8ssV7oyWY/kWKc?=
- =?us-ascii?Q?M33vHUKGETiu3qLgptgr0YrOnaTmDuTv8xHBhrpKaKT7OQX14UKPKY83VIvG?=
- =?us-ascii?Q?TKjJBbPh4QaDm0D6KINe55Rg3Jh4hh8HVJIwZtCyqFCxLMHvroZCkDhvKOng?=
- =?us-ascii?Q?WYFUlzwfcw6NDUPoaAFu9Lf1WIQZIujMV0GVijV6RtGvdRwZlqo+CLoV+yvO?=
- =?us-ascii?Q?jKlVlx9tIb2jRxxx0Wc4haQ7Ti7/tForFeg6HRQ1L8YRO1r7UPiErxoI3FmV?=
- =?us-ascii?Q?KYZy2edHdsqsPW7n+aSmMPV6Zf2qyyqrxhlBYa9ImgvcWSeev4PM8EFU97wf?=
- =?us-ascii?Q?7XelLPlRez/zh4B69/wTXZttfIaOecvOmRG0XskeI9um5d3cVTMi5l9rL0xf?=
- =?us-ascii?Q?qoPck8atS5BW1pVTI+7ctWikHYkn7mJlXhxg8aYXxD/xFMcZDDVqEpa+6H10?=
- =?us-ascii?Q?X6u4uVunN088Msj/BWL8mIhCQLlLN27E2Nxf6XCtsnk3jmM0XjFZmd3uPA54?=
- =?us-ascii?Q?18WgKUghd0jP4ChoOcIaHqXZGklF4Je7635zbejOkqzYMuMDFayKuoMBxLA1?=
- =?us-ascii?Q?aIAVHONgt3a5cwE4ZTj8q2iJwn0iLqXwv7Y0iaJQFqErqKU/Wjasy7eNjxqc?=
- =?us-ascii?Q?tFjB7JCDCWi0OQlEHfhVbhV42UFfel5kqWLk2NbHERRKjPfiq4CU1tffw2QX?=
- =?us-ascii?Q?7VK9GFxhwey4IRkz1omjbpGuGlVcW3Xt84wl4W7Htg5jMFv6+jOp+x1luGt6?=
- =?us-ascii?Q?jXpRqUcGXOL6cJeD1DDFEqdZvu+JrsDITCAVd2p06yjErC7LYBRSauDbcpuv?=
- =?us-ascii?Q?SC/QO6mgtbnDFF2XDH8fom8FoIylJ4pWpF1YET5+3zNOXfeTF8E6UyHnPzPk?=
- =?us-ascii?Q?aRS1Htx/a8S+sR5X3b5zPFYVgrUtViHxm6NrJMOK8jFm6J54YwmGCN9oR1r+?=
- =?us-ascii?Q?yz5UyDVI2v5QslAc36/BwhZA+1DW8pmsf3graut0/emxnP82gPdeOqb7eY2+?=
- =?us-ascii?Q?7BkDrye8K+DJ1L+FEYnkTT2/sGjCNTuRQsh4HbAsBvGcoi2TNczuLat2eKPS?=
- =?us-ascii?Q?S/WiCpWXjYI+q/ibby5F2LwCjSdw0345hFOeNobKkPXVeDOQ42yIjjQFrIkd?=
- =?us-ascii?Q?2vDsJxv5OgiNZWugLP1gCj5RVkoN9rXBezVTqi/284ftQy5j8yWv4+DVkslD?=
- =?us-ascii?Q?XWSqFWTb+PxCzkS6D+5b29SQE8MGdvcgva72yEekVWjfR6WcrwSR3FEbGCzz?=
- =?us-ascii?Q?+kZh0kZCMqIFAh+jARwuUWAg++u9qOQe1y3TbXTGn5Hj97qxG+NkR7AuOYrZ?=
- =?us-ascii?Q?dyM2Ub73qn9BoENznNeyQRyBKWs9Fh8F/Kz4fFVQtemu+0WQtxyoV5AcCRlZ?=
- =?us-ascii?Q?m+MqbONn/XwEPZilCdlY0ZQffqM2NkJG6lvZIF3i+XRPqAwLjKKM/Xv8JU5B?=
- =?us-ascii?Q?yDCeAEBY6KKTmQG6K9ic0WfKrUW4nH6nw2nJAi9HZax53r30UlhP?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fbf2fc2f-c1c0-4f7a-54e5-08df038c6000
-X-MS-Exchange-CrossTenant-AuthSource: VI0PR04MB11784.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 16:09:15.4548
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +/YnHH4rMpyxnlzynhyZjyv1BvJeCo66z7LeNzvYNuKP9f9OEyl8vJJizmSGoiUk70Up2zZa6W0E5ITXeT74hVWigKDXY58bwN9It5L9tZZFQMR8026b1XdpXUwQs9Ri
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8632
+Mime-Version: 1.0
+References: <cover.1783490022.git.naveen@kernel.org> <c0f9fdc27f3d9a1e63f2d39a40989d66b6facee3.1783490022.git.naveen@kernel.org>
+Message-ID: <ao8PtliwDo8H49sa@google.com>
+Subject: Re: [RFC PATCH v3 16/27] KVM: SVM: Add handler for VMGEXIT Secure
+ AVIC NAE event
+From: Sean Christopherson <seanjc@google.com>
+To: "Naveen N Rao (AMD)" <naveen@kernel.org>
+Cc: Borislav Petkov <bp@alien8.de>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Paolo Bonzini <pbonzini@redhat.com>, Nikunj A Dadhania <nikunj@amd.com>, 
+	Tom Lendacky <thomas.lendacky@amd.com>, Neeraj Upadhyay <neeraj.upadhyay@amd.com>, 
+	Tianyu Lan <tiala@microsoft.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	Thomas Gleixner <tglx@kernel.org>
+Content-Type: text/plain; charset="us-ascii"
 
-On Wed, Aug 26, 2026 at 12:55:45PM +0800, Guoniu Zhou wrote:
-> The i.MX952 ISI is reused from the i.MX95 ISI with a minor silicon
-> revision. It can process up to 8 image sources simultaneously and
-> obtain image data from up to 4 pixel link sources.
->
-> Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
-> ---
->  drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c | 14 ++++++++++++++
->  drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h |  1 +
->  drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h |  2 +-
->  3 files changed, 16 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
-> index c1c16dbc1539..5b19b581b38e 100644
-> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
-> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
-> @@ -392,6 +392,19 @@ static const struct mxc_isi_plat_data mxc_imx95_data = {
->  	.has_36bit_dma		= true,
->  };
->
-> +static const struct mxc_isi_plat_data mxc_imx952_data = {
-> +	.model			= MXC_ISI_IMX952,
-> +	.num_ports		= 4,
-> +	.num_channels		= 8,
-> +	.num_vc			= 8,
-> +	.reg_offset		= 0x10000,
-> +	.ier_reg		= &mxc_imx8_isi_ier_v2,
-> +	.set_thd		= &mxc_imx8_isi_thd_v1,
-> +	.format_mask		= GENMASK(30, 24),
-> +	.buf_active_reverse	= true,
-> +	.has_36bit_dma		= true,
-> +};
-> +
->  /* -----------------------------------------------------------------------------
->   * Power management
->   */
-> @@ -582,6 +595,7 @@ static const struct of_device_id mxc_isi_of_match[] = {
->  	{ .compatible = "fsl,imx91-isi", .data = &mxc_imx91_data },
->  	{ .compatible = "fsl,imx93-isi", .data = &mxc_imx93_data },
->  	{ .compatible = "fsl,imx95-isi", .data = &mxc_imx95_data },
-> +	{ .compatible = "fsl,imx952-isi", .data = &mxc_imx952_data },
+On Wed, Jul 08, 2026, Naveen N Rao (AMD) wrote:
+> From: Neeraj Upadhyay <Neeraj.Upadhyay@amd.com>
+> 
+> [DO NOT MERGE]
+> 
+> VMGEXIT Secure AVIC NAE event is used by the guest for two purposes
+> determined by VMCB->EXITINFO1:
+> 1. SVM_VMGEXIT_SAVIC_REGISTER_GPA: Used to inform the hypervisor about
+>    the GPA of the page (RBX) being used as the Secure AVIC backing page.
+>    RAX indicates APIC ID of the target vCPU (-1 for self)
+> 2. SVM_VMGEXIT_SAVIC_UNREGISTER_GPA: Used to inform the hypervisor that
+>    the GPA is no longer being used as the backing page for Secure AVIC.
+>    The previously registered GPA for the Secure AVIC backing page is
+>    returned by the hypervisor to the guest.
+> 
+> The primary motivation behind these is to ensure that Secure AVIC
+> hardware accesses to the guest APIC backing page never generate an #NPF,
+> since Secure AVIC hardware cannot recover from such faults. Quoting the
+> APM:
+>   "It is required that the guest APIC backing page for a vCPU is
+>    pinned in system memory between VMRUN and VMEXIT because some AVIC
+>    hardware acceleration sequences may not be restartable when secure
+>    AVIC is enabled. If an access to the guest's own backing page by
+>    AVIC hardware results in a nested page fault, EXITINFO1 bit 63
+>    (Not Restartable) is set (this is an Automatic Exit) and the BUSY
+>    bit in the VMSA is set."
+> 
+> A guest vCPU that has the BUSY bit set in the VMSA cannot be restarted
+> and the guest will have to be killed.
+> 
+> One of the main reasons why the SPTE for a Secure AVIC backing page may
+> be invalidated is if it is backed by a huge page in the host, and an
+> adjacent page changes state forcing the huge page to be split. Currently
+> though, KVM uses guest_memfd to back SEV-SNP guest private memory, and
+> those only use 4k pages. As such, this _may_ not be an issue today.
+> 
+> It is possible that KVM may still invalidate an SPTE for other reasons -
+> those will need to be addressed.
 
-It is the almost same as imx95 except model, I am not sure if model is
-used in code.
+As I said in PUCK, this is going to be painful to support, both now and in the
+future.  We _could_ get it working, but I'm not at all convinced that I want to
+commit to supporting Secure AVIC in its current form.
 
-why not fallback to fsl,imx95-isi.
+Though on a slightly happier note, I was wrong about KVM_X86_QUIRK_SLOT_ZAP_ALL.
+That quirk only applies to KVM_X86_DEFAULT_VM VMs, i.e. wouldn't need to be
+manually disabled for SNP.
 
-compatible = "fsl,imx952-isi", "fsl,imx952-isi";
+And if we go with my suggestion[1] to force KVM_MEMSLOT_GMEM_ONLY when binding to
+a gmem instance with in-place conversion enabled, then the fix/optimization to
+ignore mmu_notifiers for gmem-only memslots will avoids spurious zaps on that
+front[2].
 
-Frank
+However, there are still problems.  E.g. when converting memory, userspace would
+need to make sure to never do a redundant/superfluous KVM_SET_MEMORY_ATTRIBUTES2
+on a range that contains a Secure AVIC page, because __kvm_gmem_set_attributes()
+will tell the MMU to invalidate SHARED mappings for the entire range.  I.e. by
+design, guest_memfd will not chunk the invalidations based on the per-page state
+of PRIVATE vs. SHARED, because cross-referencing the current attributes would
+incur non-trivial complexity.  For TDX, this isn't a problem because the S-EPT
+is a separate paging structure, and so kvm_gfn_range_filter_to_root_types() can
+simply skip MIRROR roots to avoid over-zapping PRIVATE memory.  SNP doesn't have
+such a thing.
 
->  	{ /* sentinel */ },
->  };
->  MODULE_DEVICE_TABLE(of, mxc_isi_of_match);
-> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
-> index 05c21c448b93..a4b638508522 100644
-> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
-> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
-> @@ -164,6 +164,7 @@ enum model {
->  	MXC_ISI_IMX91,
->  	MXC_ISI_IMX93,
->  	MXC_ISI_IMX95,
-> +	MXC_ISI_IMX952,
->  };
->
->  struct mxc_isi_plat_data {
-> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h b/drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h
-> index 7c4e736f4651..35dec3a650ac 100644
-> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h
-> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h
-> @@ -22,7 +22,7 @@
->  #define CHNL_CTRL_SW_RST					BIT(24)
->  /*
->   * CHNL_CTRL_BLANK_PXL: i.MX8{QM,QXP} only
-> - * CHNL_CTRL_VC_ID_1, CHNL_CTRL_VC_ID_1_MASK: i.MX95 only
-> + * CHNL_CTRL_VC_ID_1, CHNL_CTRL_VC_ID_1_MASK: i.MX{95,952} only
->   */
->  #define CHNL_CTRL_BLANK_PXL(n)					FIELD_PREP(GENMASK(23, 16), (n))
->  #define CHNL_CTRL_VC_ID_1(n)					FIELD_PREP(BIT(16), (n))
->
-> --
-> 2.34.1
->
->
+Converting a subset of a huge PRIVATE page would also be problematic, although
+that one isn't so bad since we already need to call into the TDP MMU to pre-split
+S-EPT pages, because those too can't tolerate spurious zappings.
+
+Those are solvable problems, but I'm not exactly chomping at the bit to take on
+the complexity to support what IMO is a poorly designed feature.  There's a very
+good reason why control pages are referenced by their host PA in both the VMCS
+and VMCB.
+
+TDX's S-EPT obviously has similar restrictions, but with S-EPT the downsides are
+a direct tradeoff of the benefits.  Tracking ownership in the page tables to avoid
+the complexity and performance costs with an out-of-band table obviously requires
+preserving those page tables.  For Secure AVIC, AFAICT it's simply a bad design.
+
+Honestly, this feels a lot like Supervisor Shadow Stacks on Intel, where an EPT
+Violation in the middle of a shadow stack access would be destructive to guest
+state without a very heavy lift in the hypervisor.  And I'm pretty sure the
+feedback to Intel was "provide a better implemetnation" (wait for FRED, maybe?).
+
+[1] https://lore.kernel.org/all/ao7vwx3nMqCjCHZU@google.com
+[2] https://lore.kernel.org/kvm/20260615155244.183044-1-alexandru.elisei@arm.com
