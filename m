@@ -1,167 +1,90 @@
-Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com [209.85.217.42])
+Received: from mail-wr1-f66.google.com (mail-wr1-f66.google.com [209.85.221.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19CA748C412
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 22:04:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787781867; cv=pass; b=NXredLAJ3OIny+enHOnTeeorLNNvzg2VVGBI+UU3WJKUDiEMZeTLMeXefpcJJ98CO7RClySmOaFotWDlHFmraa5rGM/SZ4SnMNZINgPslvER+o0hhG2alaXfGs8I68oRkC1jv5uZNVsRFw7Y8y14ZxSMig7sQ+K567Atj/Zk2Xc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787781867; c=relaxed/simple;
-	bh=h6jhuvTWqLaqruIgi1i5TAYcvTriQCGzhZebRCsuWN8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=d9R+ByRpld40j/DJGLSk7mx9Tp1CVWXNX/ZkICtyTwaRiJC90PYki2twD5pZK64g//avkv8HrlptzNdawfk2PPh1/RJHdxJD5R9WXsyYn754AgK6LIyNtWup6kIUnyFeSbo7OUdSLyVAwzisW9gSe4H3RTIsxSyru6++cyoUEhc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=TLRC/vGx; arc=pass smtp.client-ip=209.85.217.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="TLRC/vGx"
-Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-783fffcfb96so399426137.0
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 15:04:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787781865; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nW8zaz/lkJuXqwrs7bD2Riv9+HB/qQGn4BP8ByrX+cmF6g9Ywtw8PD4b88ZUVLRVv2
-         pQobdwNzGL/tN1qNxkIia0kAinV+E941Zi0cwO6rCNazKXDv5dZOuJ07sJtPGxzIiDCn
-         3JQ87Km0Ck66SHhZW15/YDYZu4c1NONE01oi9SPv98TNpH8Oe5WIBBA/lV5HnNVUPh25
-         i65CiYr/tuu1zoYO8KBEuPv6OFH79kSs0iIyvGMAN+gJq0aJVI090LIK6zc7/j0J78XR
-         7L8IZnHYYphlqJluOQPXlxTP0glt0aHFvHccaROjpE8Sawg7KU72ZaeTTly+SM8e3kbJ
-         hREg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=KE+jiRIP75MXtXBIyBa6Bn84xQJeL42gUj2ODi3jyzY=;
-        fh=k56hfJxDUhSwrKNd7L2+9DVQFwLrRMBq79vXM9vhPVQ=;
-        b=AfiL1Gvb1nTGg7XluaS4Ch7EvcNG6+BohcKwCtsNOrAg5Tn9sh2aEk5lRfTyEqAMhr
-         6OrSAASfs8YXSSnpp+RPVjOgZT8CBT6gO/fJgtsY2aq+eEeZKCtSUdjLyppW8NmJrYil
-         XxHUTqiYLw8ucSWpWKW3MpZG3q2gyHhISJD8iQwEo2/37KO5dL4pv4GTDER6YdydrMbZ
-         C51S2gL30XgPGeN4mOZ22ns4lkH45lXM0ZXEEf+xN1mIL1u1C7MeYRFqmQEaW7wqON3D
-         6o8JNTBxk8eSwraIEiLCH7/XMULT16Cv0Q8gl6e0w1woI2A5moG9MWAMC/eVIqbDxNwM
-         +0cg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787781865; x=1788386665; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KE+jiRIP75MXtXBIyBa6Bn84xQJeL42gUj2ODi3jyzY=;
-        b=TLRC/vGx2LdmDMCJVSkYG9kCh7k2ds+4ihbXXihqTsbaVXiYxPHfOCZJpldPxv9lDv
-         YjjTf0N0n6pG3ZYOomnkD1wRkVB6M5uGZSb9H4YHLBNMOtrcMqc0q+sRMmv8I8p8x5El
-         assEvJhr7bYBMdL2vrS3ApD2qOVj6qX4HOYOgcgGxQhaBowqJSUrfkKznyZqAeuzBOl2
-         XTpNftoI1V+IO3O5f4pOrRamly2eg5rfpBiEhf0T/jp4L5zH/HOA+irDSlC3+mBiZZ9R
-         RRCIwz6ojhByxTtDcyFcefjY5CL5r0NI2StEEXk60f9Qu698wfbQrNcw4+J9urIh0q3b
-         xo3w==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEF8548664C
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 22:04:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.66
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787781897; cv=none; b=G83Odhu9ZTvvmqlPMkVLrCgFAW4i/sS0+h4XYR77xa1esCor+10p6mMhStv5MhHFi6EKLQtkhoK091YL0krMXOgF9VY+e423XqsTqQ7YtrNje19PAUQ9HiSVjaq5BkGwILvvFbQJhgWcAWlTSDz2uKigWFDBqcQi3n43ZYJXWO8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787781897; c=relaxed/simple;
+	bh=avWavNZj+ROQsclS9fDyynsASSegrDqu/qCZGFh8iYg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Lz64NrC4b1ZIDY2tbJ+KLIFpuajzlGO835Wed6dG/8MFsnLKBaTjcBZN44w8NofNvPmGbgGCgBSMx3VBevBfMvixxcKN4DE4AFHrERF/oIzZ3DndSRtd1IIyeppg+O+1Fn1LSrEgotq8XcsnqEJysF3QzeNG863Ugb0VLov9pic=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wr1-f66.google.com with SMTP id ffacd0b85a97d-47fde295992so300043f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 15:04:55 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787781865; x=1788386665;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KE+jiRIP75MXtXBIyBa6Bn84xQJeL42gUj2ODi3jyzY=;
-        b=nZdrBEFVTPbkWF8H60jGa7DN79RpjNkavs1cEAWTaPMnjlFwwRNvNHGJOqcDvdfDnZ
-         lFI0VQQhsE6hnmkfY8o36Q4U9srIxDUo0e09yhkSQoJ8FQN2NXqb6Es4bY4E9SUHp3gc
-         a+5Y9rHT8zMlctml0Dv9+9SatHeKATWZDAdmAC2ZmpDQMCu/t6lbbslCWCqbx3AXFjqB
-         14o9vXOjsBffC3RYdz5Awv0CTnTqzoGGsd5wC5LfDOa8aWINSwPXEta28uatpaLZQ4VP
-         zdXBMP5uyOv6lqZR63ZkVTUtnFoCwkRM0er0sZPIzIjClweIc0F4TXNqHgmLUhIKzDhv
-         f5dg==
-X-Forwarded-Encrypted: i=1; AHgh+Rr5bOJ+95B6JObgSdFwY6M2XAKVMDWCR3wqm0mLCw5GlyPHR0lZ5vA3FvCagkga83PTwWvPr+G2BlOcgTE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mCI5umhLQ/8HzMo3GF4q448dr07WMBl3HYwt6HiaXGB5PQUiTI
-	3Iog8egyC7CZ6rfqmKcuK6NWwYPA+t3La/woyv9m+o5s5Cgi/6gu11/4PCk8HzhCB17U2kC+oGo
-	zzlydDDvZxpXiB9Lyfx0e0PioBtwXXf3MgdGJn9A=
-X-Gm-Gg: AR+sD10SCV94VJrv09j9VoDoIfqmqeTYb1Ak6xheI5xiIva58EuJmnTSTE/1y+MzFYS
-	YA45WdTjfq3CSkolx/BJD1iL6nB6EWqf5YzU5plK0xCaJshxhAE8g5eg+6RruApvPx/yO3X78QX
-	m4zF7kicbz7PkTNjbv3pMGAIYfqZPwPFqPGEmRfdIuvFgTUciORzuD0h/3IROGumJWeHaFcAAQi
-	VqjiSCLTmaq01zbdNBVmlQXXNgGHNvs9AWM8faS6zOgVSKDtc/icVj6p4r6SfqyOdw1t+W+uNRK
-	MlsFCEiHFujZC6hgMudIfjNms3PSuwCHai2f5fy/f7dTfAd2yezbkIPrPHzqhtTldFtxNuCUKUS
-	a3iib3WDjUsPMsYIY/jzg9vu3KVHfCA5Fj948HCH62Q==
-X-Received: by 2002:a05:6102:162a:b0:77b:28c1:210e with SMTP id
- ada2fe7eead31-782bf9bca7cmr4121526137.1.1787781864359; Wed, 26 Aug 2026
- 15:04:24 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787781894; x=1788386694;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+OIG0D3qhm2TUglRdX6PNbg8gac3xIElAw7x8uuU1sI=;
+        b=Oo3VBcNy2MCTduP6Xqo1C7iVn+XNgej01zz8CBRqDl6Ndz1d3AvF5U55AdLvS+2wLo
+         36Vz4YPCa1oQXKUJbXm1SWIrUxx52K+bggMRyNDeUCIg4JeZToWZwwZMrZvhF6xOxIYZ
+         +6pHN1aiEqWPkHi1Lp3t5rt50FHhpgopQJ6hvSthNjdSWsneo0SduglNw0uL/le/AL4+
+         aJ7Ef7F7U3zki5HD/TLhDedzKetKzQ3/1t1R2iJSouW81L6z36Rg3NQeZ7Kofrp3iXPR
+         9gjKwB8V6nEsLHsuOQFEC73w9qekMAUTBh8kNn0EQTKVXJDzeGi1vykl1H5mdNPCZDaU
+         DXOg==
+X-Forwarded-Encrypted: i=1; AHgh+RpPMjvQQQEbQ+xSIA7/fKCIbyn6OKN+KdMNqpYInnKpPwbK+ScTs+Y9Y7g/l7ef5WRmhb/L/B9dA9Fo9og=@vger.kernel.org
+X-Gm-Message-State: AFuF++nCjJUJq9mw/fc18qX+ZUksK7C9KDLf6XR15sZehKPlzekjmTCw
+	DzZkM0izkyyU1w90J5N+YzxDBI/spo7VbbFEtBVly6QrceEdInDlT2FK
+X-Gm-Gg: AR+sD13En5Y7Egz+mTuxeV5CbXFpI+j/SScdTpQs9EUzSvmyRdlO/h09C//wpmD+P46
+	KNS6VCzn7imcId2IbxnL0kHfZ7zMthFCQxijk5qc5umxQjGUejIQHL1+3XBJgYOm2lbGiYSpZWN
+	OKmVefUrIIjrRpiBgFL/qRHkuIChsMIBdGgvkmyjD4lR6rbuSivL/OBkv0kMcuIIGgvD4APM9dY
+	jwXeA/wUogUXiu7/Lg3U9cJ3tGwLAIP0aWTkpKwuvzVmPFJUAu+zWeqynTBLK+6jH37fu0ctUOi
+	mqr7tWkdVUIU7hglm6G0YIUIz5N7ygflWKVjaK4DY7PBQZKgaldXOZN2AHuaaukmhdlNnsTco/k
+	W8vv3BFCAIWgCKd3cAqj8h3w8RzgtfYoAfMO0VSMtGoavGjCoFgGEgi7vU78KjeCKjQYSBNfUIb
+	+RL5d7ZWtMuPaWx1uLV/V7w2wmKUnAzGpDCqgqCs8TyTZF6aJbjUC9q3giBjm06ipd/6vDARuqu
+	+NHQO51bPsgVg1MyQ==
+X-Received: by 2002:a5d:5847:0:b0:482:dd86:348 with SMTP id ffacd0b85a97d-482eab6a866mr2110147f8f.4.1787781893856;
+        Wed, 26 Aug 2026 15:04:53 -0700 (PDT)
+Received: from im-t490s.redhat.com (37-48-53-4.nat.epc.tmcz.cz. [37.48.53.4])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e27a9f0esm4446370f8f.10.2026.08.26.15.04.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 15:04:53 -0700 (PDT)
+From: Ilya Maximets <i.maximets@ovn.org>
+To: netdev@vger.kernel.org
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Donald Hunter <donald.hunter@gmail.com>,
+	"Remy D. Farley" <one-d-wide@protonmail.com>,
+	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
+	Florian Westphal <fw@strlen.de>,
+	linux-kernel@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	=?UTF-8?q?Asbj=C3=B8rn=20Sloth=20T=C3=B8nnesen?= <ast@fiberby.net>,
+	Ilya Maximets <i.maximets@ovn.org>
+Subject: [PATCH net v2 0/2] netlink: specs: fixes for conntrack dump filtering
+Date: Thu, 27 Aug 2026 00:01:10 +0200
+Message-ID: <20260826220444.4054714-1-i.maximets@ovn.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260823125348.1138649-1-morbo@google.com> <20260826204323.3974187-1-morbo@google.com>
- <E9656951-4A60-43BB-BCCD-4249F70BE10D@mainlining.org>
-In-Reply-To: <E9656951-4A60-43BB-BCCD-4249F70BE10D@mainlining.org>
-From: Bill Wendling <morbo@google.com>
-Date: Wed, 26 Aug 2026 15:04:08 -0700
-X-Gm-Features: AcwNN1XZAcHYyOacS71CcIqgQvcI1d_XlJVHYav1sZyJBbPppwjsV6YVzHnhu5A
-Message-ID: <CAGG=3QWoRk8AVkuir4Ooa7ghZX9QpCU42M15F2J4SYN+zENouA@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] userns: Add KUnit test suite for uid_gid_map
-To: Bradley Morgan <brads@mainlining.org>
-Cc: =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, 
-	Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
-	Christian Brauner <brauner@kernel.org>, Aleksa Sarai <cyphar@cyphar.com>, Jan Kara <jack@suse.cz>, 
-	Nathan Chancellor <nathan@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Nicolas Schier <nsc@kernel.org>, Gary Guo <gary@garyguo.net>, Alice Ryhl <aliceryhl@google.com>, 
-	Douglas Anderson <dianders@chromium.org>, Anand Moon <linux.amoon@gmail.com>, 
-	Oleg Nesterov <oleg@redhat.com>, codemender-patching+linux@google.com, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 26, 2026 at 2:21=E2=80=AFPM Bradley Morgan <brads@mainlining.or=
-g> wrote:
->
-> > + /* Insert more than UID_GID_MAP_MAX_BASE_EXTENTS (e.g., 10) elements =
-*/
-> > + for (i =3D 0; i < 10; i++) {
-> > +   extent.first =3D i * 10;
-> > +   extent.lower_first =3D i * 100;
->
-> Both .first and .lower_first increase monotonically with i. So
-> forward[] is already sorted by .first and reverse[] is already sorted
-> by .lower_first before sort_idmaps() runs. The sort is a no op on
-> this input.
->
-> > + /* Verify sorting is correct */
-> > + for (i =3D 0; i < map.nr_extents; i++) {
-> > +   KUNIT_EXPECT_EQ(test, map.forward[i].first, i * 10);
-> > +   KUNIT_EXPECT_EQ(test, map.reverse[i].lower_first, i * 100);
->
-> This passes even if sort_idmaps() did nothing. The test cannot tell
-> a working sort from a broken one.
->
-> To actually verify sorting, insert the extents out of order so that
-> sort_idmaps() has to rearrange them. For example:
->
->     extent.first =3D (9 - i) * 10;
->     extent.lower_first =3D (9 - i) * 100;
->
-> Then after sort_idmaps(), forward[0].first should be 0, forward[1]
-> should be 10, etc. That proves the sort moved things.
->
-> Nits:
->
-> > + KUNIT_ASSERT_NOT_ERR_OR_NULL(test, map.forward);
->
-> Redundant. insert_extent() just allocated it on the 6th call, and
-> the previous KUNIT_EXPECT_EQ(test, ret, 0) already confirmed success.
-> If you want to keep it, at least put it after the loop where it
-> protects the sort, not inside the insertion loop where it tests
-> something that just succeeded.
->
-> > + KUNIT_EXPECT_EQ(test, ret, 0);
->
-> Should be KUNIT_ASSERT_EQ. If insert_extent() fails the test
-> continues and the next assertions run on uninitialized data. Same
-> for the base test.
->
-Billionth times the charm!
+Version 2:
+ - Also added missing tuple attributes for the dump request.
+ - Converted into a set by adding the patch 2.
 
-I hope I've addressed everyone's concerns. Obviously let me know if I
-didn't. :-)
+Version 1:
+ - https://lore.kernel.org/r/20260825155832.3685714-1-i.maximets@ovn.org
 
-> No tag yet, fix the test data and I'll tag v4.
+Ilya Maximets (2):
+  netlink: specs: fix the conntrack filter type
+  netlink: specs: add missing mask attributes for conntrack dump
 
-I added your "Reviewed-by" on "PATCH 1/2", but not this one.
+ Documentation/netlink/specs/conntrack.yaml | 21 ++++++++++++++++++---
+ 1 file changed, 18 insertions(+), 3 deletions(-)
 
--bw
+-- 
+2.55.0
 
->
-> --- Thanks!
-> https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.ne=
-t/
