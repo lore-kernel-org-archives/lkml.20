@@ -1,104 +1,151 @@
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com [209.85.167.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 742E13BE638
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 23:38:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C0FA390237
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 23:38:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787787503; cv=none; b=bRneIAww3YkF7tRB3ZyzY+R/L08ffwhmocsXsqoNGd3BBN7txuduup4keogTnneEaRRD7+k1MvHk88vlU7oYS4eD6LGzAbtAP66O/8pGgglybBuMUCZlsEORJBnOc7wEajWO5RI3dgskn0KLwWdIt7qY/5vcpdfziXNP96tdVsQ=
+	t=1787787512; cv=none; b=WTTWcvIhiD6bYMgrkyf1/yP+65Gc1byRuPHzE4EFSu22Pb/vloED95hxXOXi9348JnmKHjDVTSQR3CNhuWLx/S6vj/O32bc75FR5Kss9f4BAzQWEGvZSAwTVBjEyWFnRjwcOsck/ijH4lKw41r0ToXwTCkuMwJbPq583ADBtvbQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787787503; c=relaxed/simple;
-	bh=zGFbXO9+QXC16MOBpJ2H28g4HOaNc5ULMC7cLI8AD5o=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=m07P7S1JR1t1USlOtHRjIP4yuFnHOvXCu5C3RrpMVPxvGDnYO32oKUbedbk+FDliHIRbJiswBglWKj6P2EX6ubo1v1AvnmUwLVQnDwAMbR+sD8kVIdJB1p99ub1Yycr7LxLA1KW1GtGlJwlWtJJgWKt/kAfPPM9Tjt/hUExNNTY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-7eb64224fd2so138154a34.0
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:38:22 -0700 (PDT)
+	s=arc-20240116; t=1787787512; c=relaxed/simple;
+	bh=Ks97iZYDefkxuuXZdEEEwMFqACfSJ7anPx9rAcG522s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=E+xj8LvMn+FM+a0C+QlvXohBIDb7TN6XR2334/fLbrDxGETJLkhEJLwU048lGNZqNtwtxoavhtUhwagkTpTmH7Ky/jrh62acyLXIhXaAT01RMJ+PIIGjZH/taJPNrW7rhffcTI07yaqxI1hLqvjCrc74p/7DFPqz/e6TP4g9EqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aMbd5GS6; arc=none smtp.client-ip=209.85.167.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aMbd5GS6"
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5b2b92065ffso1535068e87.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:38:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787787509; x=1788392309; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Pn5cuibYSV1eGH20SoQ75z6FLNMGEndFYPOvwFpT6w4=;
+        b=aMbd5GS6znl027MTkpR9BsaCElgxZNisqvUwdWkAk8orLyOkJPsuVciMP70Bx2c453
+         +AihopAuglpwsX4wIZybx5IhND+we58KYClYTBV9zNrSBn+BF04V/BpUS/kU66SQtah9
+         eLvNC3AJ0kIYRxTSeGNPd6L+BzXCeXxl2krlbxfz04AR2p6/hwW69CJ2ayWg2oWW+uH7
+         6lW2WTbkDdjD2pDJyJMfih/JVaaSpOcHK2Bs1oljN1Oh1hYplOyphHkL2++4ogp11O9k
+         OKkSkvOLL/xRNGJGBnVwS7XWrhGSYqgHstHrhwvP/5HaWjmfwLje0Aa6EjxP9ngEctEV
+         BK2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787787501; x=1788392301;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=4CBNSg3UKfhu6eAd7jY4Z4Vzp/uyVvl1nWV/QL7p+QU=;
-        b=HuKI5+g5WrFwJD3+vYD1kaYlTKfPJ1NJhMiHsI8alKu6Uxc+nXzIqFQhv/RLwc4b3J
-         MHBA/stpl2JhbdDWWDpO+SavEAl6KNlwzhM0G4Pfm4GQAFSuD5nOp5xEqx2s6/Wk7Emb
-         WX7Gxdmz+ynWGo5VwXcQLIPd6c9CYX/FS2v+W4Fl8tbAAPxaK5GTSRHtRyPoJQw6IdWA
-         b1WYjQkBMSP9YzYuG48MrP3bPhbqsPwMm9c3hu/y8RbS4F8HMoy0corhivm0CCcNobtv
-         rXONYNmDOpJ76V2tsv4yd47KUH4oQf3VolKMT0ukszRS4AOLNaZUcdRMCClPhOaLKBNt
-         8DBQ==
-X-Gm-Message-State: AFuF++lL/cr7UwW3GoBo9nFWBF60+vcznUsxOSsX2AL8Y97XTrGOw3Ta
-	t9H26Sq3RDLduaY1cJ2RDwRsT03bxseGbJ4wOdncN2MujTQF8Q7P9mR5eePTIs/K8hkZ7k4QLDp
-	runprDl2psJP/+PvyVipayyAbFwyIChyAaSVMJOz+0CP5BOTLzZlyK/ZdKZQ=
+        d=1e100.net; s=20251104; t=1787787509; x=1788392309;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Pn5cuibYSV1eGH20SoQ75z6FLNMGEndFYPOvwFpT6w4=;
+        b=klc8AjF3xaDg0TLT5yAGUQrMio7NoN0hWFqkEHOeJlBfrEdynixFezYUMyAKELC1Ic
+         KD7AFfMaQHIQJtV7lEL5rlj3NWY0bpO5Pq5tgkzGaei4HcTo0RrXZn1yQjLi97gKuSmB
+         Ev3wuCADcbuLn95KE529crZusvGhEU0T6GYbCI9RsPhCOmpOzp6B9fwaVO2H/roBpSq4
+         cVgRVYlwudG3yS3R600GXTKsq7EjhQDPap9jECExTJ7dIa0jIZBg13WDQAWlARKVc1zJ
+         COe7aYafP0AE/5TQPQAwM4JHLhiwQVFrdjRPe0yRFtuSiMDLKKYBUrk33oO+pexkEpxD
+         gYIg==
+X-Forwarded-Encrypted: i=1; AHgh+RoC2Jmg3c5UObjY5ZEKk1ddW4jNKyLudI+pG5jDSTsm/aP2zhjwUr7WjwbSOPZVmfDiV5pvO/5nDcbMRqQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++n+uhUCYeUb/vezmz7jkeRgezqr2+N3K4J79vjxLps6aQTpVvkd
+	QcX7NhWqmAn32zpIPd3zVsc7lBgzHinfL3MW9FI/TmPggXUGyS9DGrv3
+X-Gm-Gg: AR+sD12uC7hp1Lyh3PphbsU50Yspi/ywNOi8wKG9uW5laMkbhI25CES/g7YhR0q52WU
+	zNlh47ALsy5WrYT/62+bkHAVNGhWRlUngkh1aJsYGLdFOUA56weUeQtOCLHIq4qntsJqc0FOwkg
+	KwytFKhbnMu0chL9EB5peTxiPzu8MH8AUU0YFk0zunoDtOPaVy4rl+P0vFXZdo3QwcEoLoABIUF
+	pbHjn73J/mCTqWHQ+LlbaaA84B06xWR3EtcKqH0Zb8azckZjyWI6+rvCawlc5iotGJpIHbwAlsV
+	5Zzi9RfHciX3GCQMAXf5a+OZmO14ZbDm50t99iV036XW/dcWJ2DC4loG6QH6cKZjt5fxt7mIWsX
+	FPkIuBd2Nvw8H4glbUVBXVsofScumMMsi8I9EG+gHmoCwumCeT85phhUItF8k5GLTfHuZfEgG6F
+	+H84m68mKMdX4kJkcR2Pr7xA64b2Jd0ofDWmHyZf+ea/1V5bluRfenYZTQJRam2sFh1aQYmQQE+
+	94hbkg47TdRlhBlX8kf8UwFjQWxttHFvCXuyi64
+X-Received: by 2002:a05:6512:3b83:b0:5b4:74ca:b5c4 with SMTP id 2adb3069b0e04-5b4a909b296mr3384719e87.17.1787787508779;
+        Wed, 26 Aug 2026 16:38:28 -0700 (PDT)
+Received: from notebook ([93.189.200.242])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b4a41ae602sm873550e87.56.2026.08.26.16.38.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 16:38:28 -0700 (PDT)
+From: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Caleb Connolly <caleb@connolly.tech>,
+	Frederic Laing <dev@fredfunk.tech>,
+	Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
+Subject: [PATCH] arm64: dts: qcom: sdm845-oneplus: fix fuel gauge compatible
+Date: Thu, 27 Aug 2026 02:38:18 +0300
+Message-ID: <20260826233818.124278-1-rinat.muhamedgaliev@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a4a:e849:0:b0:6aa:f0fd:3f0a with SMTP id
- 006d021491bc7-6b1a0502655mr10377429eaf.30.1787787501413; Wed, 26 Aug 2026
- 16:38:21 -0700 (PDT)
-Date: Wed, 26 Aug 2026 16:38:21 -0700
-In-Reply-To: <6a8f4e88.27659fcc.2ceef7.0008.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a8f78ed.50659fcc.60cd.000a.GAE@google.com>
-Subject: Forwarded: [PATCH] bpf: reject VAR/DATASEC as a map's BTF value type
-From: syzbot <syzbot+37b56485bbbf90ad8489@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+The fuel gauge at I2C address 0x55 on OnePlus 6T (fajita) reports
+DeviceType 0x0541, identifying it as a TI bq27541 rather than bq27411.
 
-***
+Binding it as bq27411 selects the wrong register map and produces
+invalid voltage, state-of-charge, and temperature readings. Use the
+bq27541 compatible and rename the shared label along with its fajita
+and enchilada consumers.
 
-Subject: [PATCH] bpf: reject VAR/DATASEC as a map's BTF value type
-Author: kartikey406@gmail.com
+Tested on OnePlus 6T (fajita): queried DeviceType directly over I2C,
+built the DTB, booted it once with fastboot boot, then installed a
+locally built postmarketOS kernel package. Before the change, readings
+included about 65 V, over 10000% SOC, and -273.1 C. Afterward, the
+bq27xxx driver bound as ti,bq27541 and reported 3.835 V, 42% SOC, and
+33.3 C.
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-
-
-btf_type_id_size() resolves through BTF_KIND_VAR to the size of the
-type it wraps, and BTF_KIND_DATASEC carries its own explicit size
-field. This lets map_check_btf()'s size check pass for a
-btf_value_type_id that points at a VAR or DATASEC, even though neither
-describes the memory layout of a single map value - a VAR is a named
-instance of a type (only meaningful inside a DATASEC), and a DATASEC
-is a whole ELF section of such instances.
-
-The unresolved VAR/DATASEC id is what gets stored as
-map->btf_value_type_id and later handed to
-htab_map_seq_show_elem() -> btf_type_seq_show_flags() ->
-btf_type_show(), which calls btf_type_ops(t)->show() on it directly.
-Reject both kinds explicitly in map_check_btf() instead, right after
-the existing size check, so malformed BTF is rejected at
-BPF_MAP_CREATE time with -EINVAL.
-
-Reported-by: syzbot+37b56485bbbf90ad8489@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=37b56485bbbf90ad8489
-Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+Fixes: 12dfb002ca01 ("arm64: dts: qcom: sdm845-oneplus-*: add fuel gauge")
+Closes: https://gitlab.com/sdm845-mainline/linux/-/issues/36
+Link: https://gitlab.com/sdm845-mainline/linux/-/merge_requests/148
+Signed-off-by: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
 ---
- kernel/bpf/syscall.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi   | 4 ++--
+ arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts | 2 +-
+ arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts    | 2 +-
+ 3 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/kernel/bpf/syscall.c b/kernel/bpf/syscall.c
-index 6874ba1424af..15c4fba80cec 100644
---- a/kernel/bpf/syscall.c
-+++ b/kernel/bpf/syscall.c
-@@ -1274,6 +1274,10 @@ static int map_check_btf(struct bpf_map *map, struct bpf_token *token,
- 	if (!value_type || value_size != map->value_size)
- 		return -EINVAL;
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+index 948a0dd18..0c6203fa8 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+@@ -790,8 +790,8 @@ &i2c10 {
+ 	status = "okay";
+ 	clock-frequency = <100000>;
  
-+	if (btf_type_is_var(value_type) ||
-+            BTF_INFO_KIND(value_type->info) == BTF_KIND_DATASEC )
-+		return -EINVAL;
-+
- 	map->record = btf_parse_fields(btf, value_type,
- 				       BPF_SPIN_LOCK | BPF_RES_SPIN_LOCK | BPF_TIMER | BPF_KPTR | BPF_LIST_HEAD |
- 				       BPF_RB_ROOT | BPF_REFCOUNT | BPF_WORKQUEUE | BPF_UPTR |
+-	bq27441_fg: bq27441-battery@55 {
+-		compatible = "ti,bq27411";
++	bq27541_fg: bq27541-battery@55 {
++		compatible = "ti,bq27541";
+ 		status = "okay";
+ 		reg = <0x55>;
+ 	};
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts b/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
+index 5f01115e2..21ebd3f67 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
+@@ -44,7 +44,7 @@ main_cam_ois: main-cam-ois-regulator {
+ 	};
+ };
+ 
+-&bq27441_fg {
++&bq27541_fg {
+ 	monitored-battery = <&battery>;
+ };
+ 
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts b/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
+index 7ffcad24d..d640b38b5 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
+@@ -67,7 +67,7 @@ tfa9894_codec: tfa9894@34 {
+ 
+ };
+ 
+-&bq27441_fg {
++&bq27541_fg {
+ 	monitored-battery = <&battery>;
+ };
+ 
 -- 
-2.43.0
-
+2.55.0
