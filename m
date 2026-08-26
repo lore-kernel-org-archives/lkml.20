@@ -1,68 +1,91 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012018.outbound.protection.outlook.com [40.107.200.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A717474245;
-	Wed, 26 Aug 2026 16:36:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.18
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787762222; cv=fail; b=Q8G+RVJ+TYX6RZskjvDdtCbi7KTBCIPl9Ly5qnoVhW2b+/W+DY7xWjJs868SXByg4Egpva934zxjnkok6CldVbxoWrqFcBufmk69g7xW7dzycBw1eulc9sC7Iw3xlCvnMtVPC8lpH9O7j9hb+a1vBPMID+ypDyqqExOgCpgST9s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787762222; c=relaxed/simple;
-	bh=2WRSl2ymd38RGpzY7YLErZ8ZVGUcmBBfe5CowhAvtRA=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Q1neuSwuUIgcDj+KzZfXpHLQjQfQ4odV4MLjA+5r+bg3JIhmo22mqkFXiihim3Wb9R/BHQAZpotelpecQOF5bGn9/NmWIyivUyH9wSKB3aZ7aoNpOKo55c+CvWtjD5VvsA2EifjEyRz+opcNg48+L4TsHDj7yXQpxcmrQG9fbeY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=lu9an3ld; arc=fail smtp.client-ip=40.107.200.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2015472547
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:36:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787762217; cv=none; b=KCbmhabQE7tf04oWdoidDa7Khx+wm9P5FgG8Z2PVj2BILZE+hd0qNUtctPQwwpo2GxUaFBdLm0xQ2UUogxgxINmUtKaIwGar5Zk+UIacg53t3ZSeyqItDEXjdK0n5X+T8OaCICOWkQGfNuouhx107+51jqY0tSBrlPek8C4PIs8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787762217; c=relaxed/simple;
+	bh=rEf4n1Kh8Xb93atEZT5b4Fz96nymlHxC3FqWWW6hHpI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=VWffKzhm9dHfkZ3xXP2Bcs6RSzactDRSn81Azx088I6uCJ2VPLcwzqsjma0H0wnY83To1SI6MnvHOqQW3dex1mD8umZEb2YuOnSnmD27h1BLFXB//AtLwu1DxefrYVp51eIkFOANuDzuD+q9Ir2wcvCGsz1aMzBc5zMeTEA4w0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk; spf=none smtp.mailfrom=fireburn.co.uk; dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b=OOxixpan; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=fireburn.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="lu9an3ld"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kdjAWdpc2vTyB02rbnt8ChNJnfwImWtOW38JANdcAE+0gkF17KzC1qQ0fiRGo+hsV53e0iC+7so/hqveU6zf4i5bzDD0m2pCnZd77I71gZPHhocZOtPXCK+SzeWHPu1IRDyEb64KPxhcH4z17V+r5CaQeYXs4pQfRe2y4fGdSRl4EKb/y4RCJoFbdvrFcA6ejlMSd7Q4LuE+RbihoRbPzPCaFNULaZwEVr74iRzU9hZ6pphw15nKXj7BfxMPKMf7dq4SATdjVc7IREy3cITrfgE9PhE7M0o6tcpq95U3ApQTZSprqklgfx1sBNsx55noILbscKNXYuMc/5XsL3yeRg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZfZcEzvXqlfM/r+1M0PvtR1kcBKiHfN+UkD713+CmRw=;
- b=bSZfL5v+OrxDKwwOe/NyVMZCXi6tLqQSHw874BxmWQ9pH8A2HvLTZJiXsIyfFTWqwhoKDkdJBzD9KUIAYxHCbD/4lCgdQ1Qbm5XLLWhGZ8LMqb3ROzVawVaR5NiJfsEcokzj3Pp7vtAz1fimcykvalOi0nYde6BVsfFtL9ghBJIJOvMRSgK+EAOgt7M8y18TVJSUqvtW304qbJ3emSkfXUrUWo0IIRuz3gtb3kebe/LLse0ST33i6TJestTNoLlbWERv/IXNy5zJ6wo/TjmX6azKieoVFHq0rn85+KHH78HWSQJ6iV90PKiy5akkG/4CGr6NWMZmuY2gC0rLRbGa3Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 149.199.90.133) smtp.rcpttodomain=linux.intel.com smtp.mailfrom=amd.com;
- dmarc=fail (p=quarantine sp=quarantine pct=100) action=quarantine
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZfZcEzvXqlfM/r+1M0PvtR1kcBKiHfN+UkD713+CmRw=;
- b=lu9an3ldsrgTUxB34cs+HJHph68TUZpADf1hvwDIMBtSFKB4i2rc4HqSpw6dCYM1smncJy4QLdBviByXjz/MSYj60YlUpAcGfDftE+bd6K1TlbCqiARMwk8wb77re9l8GoOEPEwk5LYKq445WzJeImqB4YnGMz8PPsz3uRR/vSs=
-Received: from CY8P222CA0001.NAMP222.PROD.OUTLOOK.COM (2603:10b6:930:6b::28)
- by PH0PR12MB7790.namprd12.prod.outlook.com (2603:10b6:510:289::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.7; Wed, 26 Aug
- 2026 16:36:46 +0000
-Received: from CY4PEPF0000EE37.namprd05.prod.outlook.com
- (2603:10b6:930:6b:cafe::79) by CY8P222CA0001.outlook.office365.com
- (2603:10b6:930:6b::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.10 via Frontend Transport; Wed,
- 26 Aug 2026 16:36:44 +0000
-X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
- 149.199.90.133) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=quarantine header.from=amd.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- amd.com discourages use of 149.199.90.133 as permitted sender)
-Received: from satlexmb07.amd.com (149.199.90.133) by
- CY4PEPF0000EE37.mail.protection.outlook.com (10.167.242.43) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Wed, 26 Aug 2026 16:36:43 +0000
-Received: from dogwood-dvt-marlim.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Wed, 26 Aug 2026 11:36:41 -0500
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-CC: Hans de Goede <hansg@kernel.org>, open list
-	<linux-kernel@vger.kernel.org>, "open list:X86 PLATFORM DRIVERS"
-	<platform-driver-x86@vger.kernel.org>, Shyam Sundar S K
-	<Shyam-sundar.S-k@amd.com>, Mario Limonciello <mario.limonciello@amd.com>
-Subject: [PATCH] platform/x86/amd/pmf: Add AMDI0112 ACPI ID
-Date: Wed, 26 Aug 2026 11:36:11 -0500
-Message-ID: <20260826163611.2268377-1-mario.limonciello@amd.com>
+	dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="OOxixpan"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-499b57cf2f3so528235e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 09:36:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787762195; x=1788366995; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=q/LkgDOv9ZSq7jkZTw2AZHwZhduIehY/kgCXnvUKoCU=;
+        b=OOxixpaneONNUjAnyKIdnL6OR07fSoy2lXrXvYUkfrCbVYoan4cWGTE20ZaclTNY9W
+         ANCnVo/csUJBelEBScG087qAfuqNUlI+W3sQRYZdG13aVx7DKI1tMINhW4gYJT289oWK
+         zGKDnVvfPbb1TrvL6Dsego2WowNJG/+mgnoFVxm8PR2jaV1F+x1uObjB2l5TlA9vPuNk
+         eBxo8ng6odNXDyJsVFQy82uKUlKA3qjY58VAS/HDwlSUe9FFGKZ9SULeLIdVp7aTtWNX
+         woxGPGizB/JSo6DMJ+d/LqKVIKhHtwtu0HL9xts+oEkCVnFHsoNxeMX1ovb5xva6f0YK
+         QSMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787762195; x=1788366995;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=q/LkgDOv9ZSq7jkZTw2AZHwZhduIehY/kgCXnvUKoCU=;
+        b=XlOtuZ3GALHqn1DuiOu+daNSU6ewcT3vNk9LbEQ7X0nikpKZuOaGoDHsKGjC57ntYm
+         DalhFgh6oHTptB1d/v99OTAqk9J7SvhCU4tslfKJOwuz27lg5+GPk3QafgDp3dqp9SeR
+         ExfTLB8EhMg2SHeoDBNIkIsdfAjYgPVQG77OJx4rsuRY4sLpib2/DSes+K2ItO7ASH1j
+         AtMOujNysl1DVyx4r/M4EqiNwhEaar+6WoQfxyYckqkmV1HThPqeCYKdUcNAFEcdI7g1
+         y7WN/4qpU7TAGiVu2ERViBrS1Ex6jGhS2FnFgv9YwKBGsv1pzTpy4eiJu3ZD5PsgXvy4
+         b5iw==
+X-Forwarded-Encrypted: i=1; AHgh+Rq5KvEMERKbNKSzci/Vfv4FN/Uu+iQjyS7QTIjdSXkOjiqFGEBx4vWaapTedxFGdSNufhq6STvl0hTGgns=@vger.kernel.org
+X-Gm-Message-State: AFuF++k9dHJExVdml8pGGxSVW89YvzL4//r+kPRxTSkA5k8/YYiLB7Yl
+	T2iYVmmDQPq90F0Oe8VzHHdcG2GQbE1RswxbL6qq8/z0e16DTUzm22Yke+ePIp5D8w==
+X-Gm-Gg: AR+sD11jCYeMMcugvHOiV2U1TMzHP8G8kOQI3eckdeZ9nlFYN1HeZXBlEp1/8zYdirb
+	jB016ILZW+bHfJcueteF3H1T6m6gXx2Y4YFy7DwMxkLWyeMMP3Q9KYwTQEs/dyhPSB0offJb/qQ
+	ifrjcm8U7Fli5SgQuYhiH0PdPsrvn8m+De9plFGz6eQhzu1MnFp4p1zEkhTpXUw5nJNeDm8rGIW
+	vGyLw8Lop5pQ9w6pb+FUbMrzHTZjTNtLMdB9AcP8E3CqtfiRegDZIbsWaLvbm8mdnaShmo6Nlwv
+	I0EYbY1HEd8SkGKNY1LP/w2ArW4ixFaBv4FiGH7v7A0IFq1woLk+FPmqcKiWCO9R3nmsNzRwRVy
+	ifMuq7DXf5d3XDhpqrGHVzRTpTg4yNPR+E07/tdwJ2xTiu6ZIj/xKpAkuREoo+Nrde4h5uuO0a0
+	wGLIgL6xYzT6l0PniL5TSsoW1eQIu4nn5P2gvdkoqqBVtItG+S7Lc/xLawL5UgFwfwWf9Xukf10
+	JmUjWvsk5CSPT2Z6i/E4MOniVo4EUSa+Zfe
+X-Received: by 2002:a05:600c:6792:b0:49a:5b84:a1a6 with SMTP id 5b1f17b1804b1-49b0dec57b6mr5628835e9.5.1787762195531;
+        Wed, 26 Aug 2026 09:36:35 -0700 (PDT)
+Received: from axion.fireburn.co.uk ([2a01:4b00:d309:1c00:caf1:6b20:8531:818c])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499dca8c75csm31227535e9.2.2026.08.26.09.36.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 09:36:34 -0700 (PDT)
+From: Mike Lothian <mike@fireburn.co.uk>
+To: dri-devel@lists.freedesktop.org
+Cc: Mike Lothian <mike@fireburn.co.uk>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Trevor Gross <tmgross@umich.edu>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	Lyude Paul <lyude@redhat.com>,
+	rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 20/23] rust: drm: kms: add synthesized CVT connector modes
+Date: Wed, 26 Aug 2026 17:31:51 +0100
+Message-ID: <20260826163359.4998-21-mike@fireburn.co.uk>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260826163359.4998-1-mike@fireburn.co.uk>
+References: <20260826163359.4998-1-mike@fireburn.co.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,60 +93,117 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE37:EE_|PH0PR12MB7790:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2770aae5-1203-4b98-1860-08df039036da
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|82310400026|36860700016|1800799024|10067099003|18002099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	wFQvpSQ5a7luO4tpbtqYY1znC+mDCET2SJJB1cr+qTZYWL5Xrq5lNWa86XIQIrrUlUOSPv4F4pm+vIvETP+FXGxPHMIvYrfwHHX/xEmtXLWg8y6rc4sorouzsMoSUChiMvQ6MvI449AKvocJFm20AqO3J+P10gmyQdoPL488Nz+AqM2f90JTa/OBMQAALFqh9M8jGWmgPIcYeSVlTPWqqjHi/BtWR/o+CeSrV4wp56RHiTkqLXxWBfmW6PiXy0lKCdnvj+ewqzuL4pihBNBE1lLd828LavE8yKrvOKPLBIEu6xeGf7KjUPj3hCsfvuPuZeasYzv71lF0sIoJyzbbZffogfb/lrif4rIv/XuZRYXUpwb0rap553mCnI0a6UpAkb5fDWxsoF+Frq0eZdLVWQvnLvJOEokCim8emVjBwA784SSErMN2bEhRGKUdOqMS9kYfWvx6T2DiHUb4if8RwkzT1c7p8NURr2TZxyDI/XkP3MNzeEL4ELJsXSERRAiRK0MmGc9cuRKp2qo3PL1DTvJ78zrReivbhDPJjkzZ2ecU2IyxEMkzYk59vxkEw4RxFfxrKj7KdbwmbUf8AXEj8a+Mx59EniOVZBcwTg60VNBDRsG8EPf8Vmhk9a/k66l1A128rKzWjwaFck9xwrRcbFcCv1aJAB2nKpIYT9GUZ7YHkzG/pdmcmaOeunwyCJMSG3M3gwnjbH5V8uWfQQ6bdg==
-X-Forefront-Antispam-Report:
-	CIP:149.199.90.133;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:unknown-90-133.xilinx.com;CAT:NONE;SFS:(13230040)(376014)(23010399003)(82310400026)(36860700016)(1800799024)(10067099003)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	yyKHazsUkGgznZk+VeeSt+4vCgjnuVm5KXWSAycr/GzsmY5I/AbUdqrWESdCrnCBPiXGCrv6mSlyjotPPKctIG8OAvpbMx5Bq1IEaJ2xHorCLzuX7fXzuRs/tRY3vQY1iAdwdZGW9D4Fkh9uY2OaYMQ6bzn3YE0JHgZAv7P/SIttVDOF8Rhl3Q35FujdLfFkASXqwzoaAQy/syqwQjja5D1dbSoVaAm0NJljBtfmzBuBD5CWlKWnfoaAwCJDeQjELOr+RrbUAfm5Hp/3qXiFb8VPy8h0FZrfJCQOuWB+4qyUBLO5MiUxoTBit0M3El+Go1mTWKugC3pJBlkkshOT4e0WhlBP7geeuBd4vkFMQSi0q/R4LOsxV+ViNcixBARHATgxsPEKwHK5keRPWbxCIlg0n2fviRJjMsEgJalROB6kREYmFuIsjIASMG0A24GD
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 16:36:43.9451
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2770aae5-1203-4b98-1860-08df039036da
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[149.199.90.133];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000EE37.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7790
 
-The AMDI0112 ID is used to bind the PMF driver to some platforms.
-It doesn't have any Linux side code changes relative to the most
-similar AMDI0105.
+Expose a lock-scoped helper for adding a driver-synthesized CVT timing
+to a connector probe result. This lets virtual and transport-backed
+displays offer valid continuous-frequency modes without reaching into
+DRM mode lists.
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
 ---
- drivers/platform/x86/amd/pmf/core.c | 1 +
- 1 file changed, 1 insertion(+)
+ rust/kernel/drm/kms/connector.rs | 84 ++++++++++++++++++++++++++++++++
+ 1 file changed, 84 insertions(+)
 
-diff --git a/drivers/platform/x86/amd/pmf/core.c b/drivers/platform/x86/amd/pmf/core.c
-index b4eae65e675b8..5966190d1496b 100644
---- a/drivers/platform/x86/amd/pmf/core.c
-+++ b/drivers/platform/x86/amd/pmf/core.c
-@@ -454,6 +454,7 @@ static const struct acpi_device_id amd_pmf_acpi_ids[] = {
- 	{"AMDI0107", 0},
- 	{"AMDI0108", 0},
- 	{"AMDI0109", 0},
-+	{"AMDI0112", 0},
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, amd_pmf_acpi_ids);
-
-base-commit: 5b05bb3f6c5716fab6911e12d60dd1f43ad9806a
--- 
-2.43.0
-
+diff --git a/rust/kernel/drm/kms/connector.rs b/rust/kernel/drm/kms/connector.rs
+index dd126469788f..952c8e02777b 100644
+--- a/rust/kernel/drm/kms/connector.rs
++++ b/rust/kernel/drm/kms/connector.rs
+@@ -495,6 +495,60 @@ pub fn attach_encoder<E>(&self, encoder: &UnregisteredEncoder<E>) -> Result
+             bindings::drm_connector_attach_encoder(self.as_raw(), encoder.as_raw())
+         })
+     }
++
++    /// Attach the HDR output metadata property to this [`Connector`].
++    ///
++    /// This property carries a blob supplied by userspace. Drivers must still validate and apply
++    /// the metadata in their atomic commit path before claiming that HDR output is supported.
++    pub fn attach_hdr_output_metadata_property(&self) {
++        // SAFETY: `self` is an initialized connector owned by this DRM device. The helper only
++        // attaches the mode-config-owned standard property to its mode object.
++        unsafe {
++            bindings::drm_connector_attach_hdr_output_metadata_property(self.as_raw());
++        }
++    }
++
++    /// Create and attach the standard DP colorspace property to this [`Connector`].
++    ///
++    /// A zero mask asks DRM to expose every colorspace defined for DisplayPort. A driver must
++    /// still reject values its sink or transport cannot actually carry in its atomic check.
++    pub fn attach_colorspace_property(&self) -> Result {
++        to_result(unsafe { bindings::drm_mode_create_dp_colorspace_property(self.as_raw(), 0) })?;
++        // SAFETY: the successful create call above initialized `colorspace_property` for this
++        // connector; the C helper only attaches that property to this connector's mode object.
++        to_result(unsafe { bindings::drm_connector_attach_colorspace_property(self.as_raw()) })
++    }
++
++    /// Attach the standard `max bpc` range property to this [`Connector`].
++    ///
++    /// `min_bpc` and `max_bpc` are validated before conversion so callers cannot wrap an invalid
++    /// range through the C `int` API. DRM requires the connector to have an atomic state before
++    /// this helper is called; newly-created Rust connectors acquire that state here.
++    pub fn attach_max_bpc_property(&self, min_bpc: u32, max_bpc: u32) -> Result {
++        if min_bpc == 0 || min_bpc > max_bpc || max_bpc > i32::MAX as u32 {
++            return Err(EINVAL);
++        }
++
++        // `drm_connector_attach_max_bpc_property()` writes the initial bpc values into the
++        // connector state. `KmsDriver::create_objects()` runs before the mode-config-wide reset,
++        // so initialize our state through the driver's Rust reset callback when necessary.
++        let state = unsafe { (*self.as_raw()).state };
++        if state.is_null() {
++            // SAFETY: `self` is a newly initialized `Connector<T>` and this unregistered typestate
++            // prevents concurrent access. The callback creates the matching `ConnectorState<T>`.
++            unsafe { connector_reset_callback::<T::State>(self.as_raw()) };
++        }
++
++        // SAFETY: `self` is initialized and now owns a connector state. The validated bounds fit
++        // the C API's signed integer parameters, and the helper only installs a DRM core property.
++        to_result(unsafe {
++            bindings::drm_connector_attach_max_bpc_property(
++                self.as_raw(),
++                min_bpc as i32,
++                max_bpc as i32,
++            )
++        })
++    }
+ }
+ 
+ /// Common methods available on any type which implements [`AsRawConnector`].
+@@ -723,6 +777,36 @@ pub fn set_preferred_mode(&self, (h_pref, w_pref): (u32, u32)) {
+         unsafe { bindings::drm_set_preferred_mode(self.as_raw(), h_pref, w_pref) }
+     }
+ 
++    /// Add a driver-synthesised CVT mode to this connector's probed mode list.
++    ///
++    /// For a display whose EDID declares continuous frequencies, a driver may legitimately offer a
++    /// timing the EDID does not itself enumerate. `reduced` selects CVT reduced blanking (CVT-RB),
++    /// which matters when the *pixel clock* rather than the pixel rate is the constrained
++    /// resource -- RB cuts the clock for the same active pixels.
++    ///
++    /// Returns `EINVAL` if the core could not build the timing.
++    pub fn add_cvt_mode(
++        &self,
++        hdisplay: i32,
++        vdisplay: i32,
++        vrefresh: i32,
++        reduced: bool,
++    ) -> Result {
++        let dev = self.drm_dev().as_raw();
++        // SAFETY: `dev` is this connector's live `drm_device`; `drm_cvt_mode` only computes a
++        // timing and allocates it, and we hold the mode-config lock via our type invariants.
++        let mode = unsafe {
++            bindings::drm_cvt_mode(dev, hdisplay, vdisplay, vrefresh, reduced, false, false)
++        };
++        if mode.is_null() {
++            return Err(EINVAL);
++        }
++        // SAFETY: `mode` was just allocated by `drm_cvt_mode` and ownership passes to the
++        // connector here; we hold the locks required to modify its mode list.
++        unsafe { bindings::drm_mode_probed_add(self.as_raw(), mode) };
++        Ok(())
++    }
++
+     /// Parse an EDID, update the connector information, and add its advertised modes.
+     ///
+     /// Returns the number of modes added.
