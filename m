@@ -1,78 +1,59 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AB0143B4AA
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 17:36:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06E76435523
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 17:37:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787765786; cv=none; b=i1yUA0yQfSezrKnh6XA1fqIPZNycj1O8rGy3FLTB/yuFD63u1d9JcMzMlwoPf0o9QY4SwXhGEPpR0KplY0NN6O/TmhQ1R/xH4H25emBCOLSHP9OB1zSpUcinafw3/w0b8ntKDlJCJW9W5QTXUGJPF+7yiz6abMcj4SVXMBPRWqY=
+	t=1787765866; cv=none; b=E6UYgLUTXlWU++79IcDRBhNMNZcqESS3NYKpQH8Xa2nS9sw8f3gW5pkDPrY0MKixN+az2qPpIAAtDhzHakEDu2+/FNDUaKqByW06PzFrqKKZIOToQKqUl0TTwHYY1y0I3zvK/sZYGdnow026GwQkZGW2kAo34ZhWuzuAg0622G8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787765786; c=relaxed/simple;
-	bh=RNr5+skCEKXH/X/aJ2huC2U3GVw9Zuh/bcGTYv6LzFw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TdoLqfGCiWx+sxJTC+siiER1Z8cD/knCw24X2qRIQMprjTZzVOGjs2FiuILT7wk9GIm2keQmYnNxdl4IW0ktxOX464NZ5f9ah/6Yh9Ds++kki6BUuzXakECPBBaP0d2gtprDRij808yofHGUbo7WagKpd7TJrxnY00qlZEWTh0Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xbow.com; spf=pass smtp.mailfrom=xbow.com; dkim=pass (2048-bit key) header.d=xbow.com header.i=@xbow.com header.b=PawsvZp8; arc=none smtp.client-ip=209.85.214.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xbow.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xbow.com
+	s=arc-20240116; t=1787765866; c=relaxed/simple;
+	bh=J56Od10YjLBfXjaRtkbFgU50yw7N6bEFMogt4hSy9o4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QbqvleU36o/7td28C5h/fnu+fTKsHSddu6Cc1FK5Nra+d5BLVEEDMTBNUdvzDrKsascwu+23bDJC9lQp6yarRvzrNayamnv1eeLp6q1PonpR3ibknhZbJ+wCtkxjr98op9irXYND98eN7+VqOQVrsbSR1f26XRErIo1jr2hzSKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ctt9Emt8; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=xbow.com header.i=@xbow.com header.b="PawsvZp8"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2d71ae3455aso8346225ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 10:36:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=xbow.com; s=google; t=1787765770; x=1788370570; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IoFkQHD73GB7NsCsZGsy+4lh7/qZ6ZC4MY2deLwJugk=;
-        b=PawsvZp8Q1LhIj7Fv5/8A6e6WQZJ3e4wMo19p3+4pRpOk73nEP30BkCnJl2RKujgNH
-         xq4/OaHyqfXBATJ86uhzYHu+Et45y2A9c7eZf1rR12lg0BIvomHhSwiYlYQ5EYwjl4f9
-         gCLQHctk1o4/fBWg9lfCPGsZVuwVX1oHyoMwWaJKzBccm3+4h5M4Ra/Fdr8Pdb536Z0d
-         5kp5lRUHVFL3rHG5TB4zcxh7rJ3KUjPbV/fPfdxW4Q95wclOHM/iwAw0fVtj7ga8N335
-         I+zwfKJ1nBSadXe2p899ULymsH1iWdPJKqlA99MOfQ0FcalUuPVoaooYlmf9ida3RbZY
-         yf5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787765770; x=1788370570;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IoFkQHD73GB7NsCsZGsy+4lh7/qZ6ZC4MY2deLwJugk=;
-        b=YUlhDQhqG7bBgQjiiKoEe+aULi2hkbPHJxHwWSB00LXkTui1oG3Tt4SFhy2pC9TW11
-         +ryVNgIw6LTYQkUP13sD3Pnmh9S9mLtteNh2uMXlOcyi9T8NRtTozBqWg1CNkJHO1yRt
-         XEaspisT35+oBLxKMwTttpV0dO3G3FCauivAR3zYPgXjXiZLXngw5xwyFzdzV3o8tUb/
-         /LU6v32szpgO5fK1vm66oeN1Rxnii+ZLFtm+00usQcqehkc0yRtnSJNKJa8DfGWI6HrT
-         63m7ezoFhFukF1EwXzF7l7eVlDBZTCBs0Bzf3FGcQp/tEKRhvROZSFbWdCrh7pklA/yC
-         pgyw==
-X-Forwarded-Encrypted: i=1; AHgh+RrYPwXnKJ6V9NspTaS37Oq6MhdaftXm3pmM6dQiPJc8y0pkhKT5jCw1oR5L5igF/ySwRgQf/nGMjmvQYV4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nXRXJYeAa0GrHGUmYXTr8KIXESfhAjX3yOMKJzRK4rT01ag/Du
-	LeNzU9bIT6T2PCmF4qbA26ZzXXKTQZxU6TaYsMfKEAmEFMI1LTnxaKL6ot7MK1BpWfY=
-X-Gm-Gg: AR+sD12rramX1ZsSWw3TNL8yhmJ9+KB2jM1UbDIwYy+tT1nBJ2itEwFCRbzJbBmqq1q
-	VPLpe4I4mhdkJ//5sYGKC+8FXATAp/Tuz6ChfuEgHisi4C++vF5xHfc4PqH81gCNRyg2ySlnomt
-	WsiNR/szHLsjCD5lJTKwPwuoXvx2aMxoYRi9IWpWN7imES5xmMZ6V5bXoBRNry9UX1gW7Nk654g
-	xDLD76ug56bZgY5OW5He6fCHIV9Vk25YfQIHtrjncWz8mNsb4SDYfSI3D72RMqfwERqczoW3ttj
-	UEaEJkyRvym/q9Ut/3Ri/hw3BHDGIPoXvrqJ8YsQcLFa+1pYet9R+VMxJ2iNWWwVHW1e+zRXViz
-	pZDvn+27las45ubvfax11TEZM8cwCa0BRmAn0YJq40t1HbZ3dDx9A+ndCB4FNIzkEIkxDwL6m+m
-	1W5f0ydrxCJ3qMcPEgAdJDlDxC7gA0OHYq6WrV28kPwEE+xQcK5LMAfQW8XxFs1yKRUL2Z0p9H5
-	E4u0igYWEABqRBq+i2uE1r8Y6Ub
-X-Received: by 2002:a17:90b:48c9:b0:36d:b424:4f17 with SMTP id 98e67ed59e1d1-3966d3690e2mr19281903a91.1.1787765770023;
-        Wed, 26 Aug 2026 10:36:10 -0700 (PDT)
-Received: from Mac.lan ([125.128.148.126])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396689efae7sm5329549a91.11.2026.08.26.10.36.07
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 26 Aug 2026 10:36:09 -0700 (PDT)
-From: Baul Lee <baul.lee@xbow.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Baul Lee <baul.lee@xbow.com>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Nikolay Aleksandrov <razor@blackwall.org>,
-	netdev@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ctt9Emt8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787765854;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=f7NGWrMVOmUns/2V3+RO3qremiV9F2t/yCezPuNANs4=;
+	b=ctt9Emt8O+0kkpxfetW2NekYvpi513xoGV0zSglcDhT0fpLVTm1wo0bC5Nj4IB8nZ0H3w8
+	edrusM5Avik70V9Kt/BRefF+JQcKtWJWVX3Rgdelbny4bypJWKD/Yb0YPXSpT654HCnKHt
+	LMHnBRlTNvxe1/tnLiUf83ay1CbjzG0=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-522-wV5FI6iTPKWlzZKe162mDw-1; Wed,
+ 26 Aug 2026 13:37:28 -0400
+X-MC-Unique: wV5FI6iTPKWlzZKe162mDw-1
+X-Mimecast-MFC-AGG-ID: wV5FI6iTPKWlzZKe162mDw_1787765846
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 296B91862D5C;
+	Wed, 26 Aug 2026 17:37:26 +0000 (UTC)
+Received: from llong-thinkpadp16vgen1.rmtusnh.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 1CB5E1800598;
+	Wed, 26 Aug 2026 17:37:23 +0000 (UTC)
+From: Waiman Long <longman@redhat.com>
+To: "K. Y. Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>,
+	Long Li <longli@microsoft.com>,
+	Saurabh Sengar <ssengar@linux.microsoft.com>,
+	Michael Kelley <mikelley@microsoft.com>
+Cc: linux-hyperv@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	federico.kirschbaum@xbow.com
-Subject: [PATCH net v2] vxlan: mdb: Fix use-after-free in vxlan_mdb_remote_src_del()
-Date: Thu, 27 Aug 2026 02:36:04 +0900
-Message-ID: <20260826173604.90158-1-baul.lee@xbow.com>
-X-Mailer: git-send-email 2.50.1
+	Waiman Long <longman@redhat.com>
+Subject: [PATCH] Drivers: hv: Avoid infinite retry loop in init_vp_index()
+Date: Wed, 26 Aug 2026 13:37:10 -0400
+Message-ID: <20260826173710.511604-1-longman@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,123 +61,103 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-vxlan_mdb_is_valid_source(), which validates MDBE_ATTR_SOURCE and every
-MDBE_ATTR_SRC_LIST member, accepts the all-zeros address.
+There is a retry loop in init_vp_index() where the CPUs from a certain
+node are stripped out if they have already been in the allocated cpumask
+or not in HK_TYPE_MANAGED_IRQ housekeeping cpumask. If there is no
+CPU left, the allocated cpumask is ignored and the process is retried
+again. However, if the HK_TYPE_MANAGED_IRQ housekeeping cpumask turns
+out not to contain any CPU in that particular node, that will become an
+infinite retry loop.  This particular problem was reported by sashiko
+[1]. This should rarely happen, but we still need to guard against this.
 
-A source list is only accepted on a (*, G) entry, whose source is the
-all-zeros address, and for each member of the list an (S, G) entry is
-derived from it by substituting the source. Entries are keyed by a plain
-memcmp() of struct vxlan_mdb_entry_key, so if MDBE_ATTR_SOURCE is present
-and holds the all-zeros address and the source list holds it as well, the
-derived (S, G) key is byte-identical to the (*, G) key and resolves to the
-same entry. Omitting MDBE_ATTR_SOURCE is not equivalent, as the key is
-then left with a zero address family.
+Fix this infinite loop problem by ignoring the HK_TYPE_MANAGED_IRQ
+housekeeping cpumask if the allocated cpumask has already been
+cleared before. Since the HK_TYPE_MANAGED_IRQ housekeeping cpumask
+is supposed to be used on a best effort basis, it is OK to ignore it
+in this particular case. Also add a check_hkcpu boolean flag in struct
+vmbus_channel to control the HK_TYPE_MANAGED_IRQ housekeeping CPU check
+in target_cpu_store() and init_vp_index().
 
-vxlan_mdb_remote_src_del() removes the forwarding entry of a source before
-freeing the source entry:
-
-	vxlan_mdb_remote_src_fwd_del(vxlan, group, remote, &ent->addr);
-	vxlan_mdb_remote_src_entry_del(ent);
-
-With the keys aliased, the first call deletes the remote of the entry that
-owns 'ent' instead of a separate (S, G) entry, and frees 'ent'. The second
-call then runs on the freed entry, and its hlist_del() reads ->pprev and
-->next out of it and writes through them.
-
-Adding the (*, G) entry with NLM_F_REPLACE and no source list marks the
-all-zeros source for deletion and reaches this from the sweep at the end
-of vxlan_mdb_remote_srcs_replace().
-
-  BUG: KASAN: slab-use-after-free in __vxlan_mdb_add+0x1cd/0xd70
-  Read of size 8 at addr ffff888102852500 by task poc/84
-   __vxlan_mdb_add+0x1cd/0xd70
-   vxlan_mdb_add+0xc0/0x140
-   rtnl_mdb_add+0x157/0x2a0
-   rtnetlink_rcv_msg+0x207/0x5a0
-  Allocated by task 84:
-   __kmalloc_cache_noprof+0x153/0x360
-   vxlan_mdb_remote_srcs_add+0x2eb/0x440
-   __vxlan_mdb_add+0x803/0xd70
-  Freed by task 84:
-   kfree+0x14c/0x3b0
-   vxlan_mdb_remote_del+0x129/0x1a0
-   __vxlan_mdb_del+0x4f/0xe0
-   vxlan_mdb_remote_src_fwd_del.isra.0+0x162/0x1b0
-   __vxlan_mdb_add+0x1c5/0xd70
-
-The MDB operations are netns-scoped, so an unprivileged user can perform
-them in a new user and network namespace.
-
-Reject the all-zeros address in vxlan_mdb_is_valid_source(), which covers
-both call sites. A (*, G) entry is expressed by omitting the source, so
-nothing legitimate is refused.
-
-Discovered by XBOW, triaged by Baul Lee <baul.lee@xbow.com>
-
-Fixes: a3a48de5eade ("vxlan: mdb: Add MDB control path support")
-Signed-off-by: Baul Lee <baul.lee@xbow.com>
+Link: https://sashiko.dev/#/message/20260422030903.E1BFCC2BCB0%40smtp.kernel.org [1]
+Fixes: 6640b5df1a38 ("Drivers: hv: vmbus: Don't assign VMbus channel interrupts to isolated CPUs")
+Signed-off-by: Waiman Long <longman@redhat.com>
 ---
-Unrelated to [1]: different subsystem, different bug class, different fix
-site. It applies independently.
+ drivers/hv/channel_mgmt.c | 14 +++++++++++---
+ drivers/hv/vmbus_drv.c    |  3 ++-
+ include/linux/hyperv.h    |  7 +++++++
+ 3 files changed, 20 insertions(+), 4 deletions(-)
 
-v2: Use ipv4_is_zeronet(). Add test cases to star_g_common() and
-    sg_common().
-
-v1: https://lore.kernel.org/netdev/20260826151542.68815-1-baul.lee@xbow.com/
-[1] https://lore.kernel.org/netdev/20260815172032.79740-1-baul.lee@xbow.com/
-
- drivers/net/vxlan/vxlan_mdb.c                 | 8 ++++++++
- tools/testing/selftests/net/test_vxlan_mdb.sh | 6 ++++++
- 2 files changed, 14 insertions(+)
-
-diff --git a/drivers/net/vxlan/vxlan_mdb.c b/drivers/net/vxlan/vxlan_mdb.c
-index d71e1925ecfd..841f42ffecb9 100644
---- a/drivers/net/vxlan/vxlan_mdb.c
-+++ b/drivers/net/vxlan/vxlan_mdb.c
-@@ -354,6 +354,10 @@ static bool vxlan_mdb_is_valid_source(const struct nlattr *attr, __be16 proto,
- 			NL_SET_ERR_MSG_MOD(extack, "IPv4 multicast source address is not allowed");
- 			return false;
- 		}
-+		if (ipv4_is_zeronet(nla_get_in_addr(attr))) {
-+			NL_SET_ERR_MSG_MOD(extack, "IPv4 all-zeros source address is not allowed");
-+			return false;
-+		}
- 		break;
- #if IS_ENABLED(CONFIG_IPV6)
- 	case htons(ETH_P_IPV6): {
-@@ -368,6 +372,10 @@ static bool vxlan_mdb_is_valid_source(const struct nlattr *attr, __be16 proto,
- 			NL_SET_ERR_MSG_MOD(extack, "IPv6 multicast source address is not allowed");
- 			return false;
- 		}
-+		if (ipv6_addr_any(&src)) {
-+			NL_SET_ERR_MSG_MOD(extack, "IPv6 all-zeros source address is not allowed");
-+			return false;
-+		}
- 		break;
+diff --git a/drivers/hv/channel_mgmt.c b/drivers/hv/channel_mgmt.c
+index 89d214dda360..30d91668e1c5 100644
+--- a/drivers/hv/channel_mgmt.c
++++ b/drivers/hv/channel_mgmt.c
+@@ -774,6 +774,7 @@ static void init_vp_index(struct vmbus_channel *channel)
  	}
- #endif
-diff --git a/tools/testing/selftests/net/test_vxlan_mdb.sh b/tools/testing/selftests/net/test_vxlan_mdb.sh
-index 58da5de99ac4..f9600aabd4a2 100755
---- a/tools/testing/selftests/net/test_vxlan_mdb.sh
-+++ b/tools/testing/selftests/net/test_vxlan_mdb.sh
-@@ -685,6 +685,9 @@ star_g_common()
- 	run_cmd "bridge -n $ns1 mdb add dev vx0 port vx0 grp $grp permanent filter_mode exclude source_list $grp dst $vtep_ip src_vni 10010"
- 	log_test $? 255 "Invalid source in source list"
  
-+	run_cmd "bridge -n $ns1 mdb add dev vx0 port vx0 grp $grp permanent filter_mode exclude source_list $all_zeros_grp dst $vtep_ip src_vni 10010"
-+	log_test $? 255 "All-zeros source in source list"
-+
- 	run_cmd "bridge -n $ns1 mdb add dev vx0 port vx0 grp $grp permanent source_list $src1 dst $vtep_ip src_vni 10010"
- 	log_test $? 255 "Source list without filter mode"
- }
-@@ -784,6 +787,9 @@ sg_common()
- 	run_cmd "bridge -n $ns1 mdb add dev vx0 port vx0 grp $grp src $grp permanent dst $vtep_ip src_vni 10010"
- 	log_test $? 255 "(S, G) with an invalid source list"
+ 	for (i = 1; i <= ncpu + 1; i++) {
++		channel->check_hkcpu = true;
+ 		while (true) {
+ 			numa_node = next_numa_node_id++;
+ 			if (numa_node == nr_node_ids) {
+@@ -788,14 +789,21 @@ static void init_vp_index(struct vmbus_channel *channel)
  
-+	run_cmd "bridge -n $ns1 mdb add dev vx0 port vx0 grp $grp src $all_zeros_grp permanent dst $vtep_ip src_vni 10010"
-+	log_test $? 255 "(S, G) with an all-zeros source"
+ retry:
+ 		cpumask_xor(available_mask, allocated_mask, cpumask_of_node(numa_node));
+-		cpumask_and(available_mask, available_mask, hk_mask);
++		if (channel->check_hkcpu)
++			cpumask_and(available_mask, available_mask, hk_mask);
+ 
+ 		if (cpumask_empty(available_mask)) {
+ 			/*
+ 			 * We have cycled through all the CPUs in the node;
+-			 * reset the allocated map.
++			 * reset the allocated map. If the allocated map has
++			 * already been cleared, we will have to ignore the
++			 * HK_TYPE_MANAGED_IRQ housekeeping cpumask as its use
++			 * is on a best effort basis, not a must.
+ 			 */
+-			cpumask_clear(allocated_mask);
++			if (!cpumask_empty(allocated_mask))
++				cpumask_clear(allocated_mask);
++			else
++				channel->check_hkcpu = false;
+ 			goto retry;
+ 		}
+ 
+diff --git a/drivers/hv/vmbus_drv.c b/drivers/hv/vmbus_drv.c
+index 6824bd7cb3c4..bea578cd0aa7 100644
+--- a/drivers/hv/vmbus_drv.c
++++ b/drivers/hv/vmbus_drv.c
+@@ -1751,7 +1751,8 @@ int vmbus_channel_set_cpu(struct vmbus_channel *channel, u32 target_cpu)
+ 	if (target_cpu >= nr_cpumask_bits)
+ 		return -EINVAL;
+ 
+-	if (!cpumask_test_cpu(target_cpu, housekeeping_cpumask(HK_TYPE_MANAGED_IRQ)))
++	if (channel->check_hkcpu &&
++	    !cpumask_test_cpu(target_cpu, housekeeping_cpumask(HK_TYPE_MANAGED_IRQ)))
+ 		return -EINVAL;
+ 
+ 	if (!cpu_online(target_cpu))
+diff --git a/include/linux/hyperv.h b/include/linux/hyperv.h
+index a2b484679eb4..0d8df79c26ca 100644
+--- a/include/linux/hyperv.h
++++ b/include/linux/hyperv.h
+@@ -831,6 +831,13 @@ struct vmbus_channel {
+ 	 */
+ 	bool out_full_flag;
+ 
++	/*
++	 * Check target_cpu in target_cpu_store() to make sure that it is in the
++	 * HK_TYPE_MANAGED_IRQ housekeeping cpumask and reject it if not when
++	 * the flag is set.
++	 */
++	bool check_hkcpu;
 +
- 	run_cmd "bridge -n $ns1 mdb add dev vx0 port vx0 grp $all_zeros_grp src $src permanent dst $vtep_ip src_vni 10010"
- 	log_test $? 255 "All-zeros group with source"
- }
+ 	/* Channel callback's invoked in softirq context */
+ 	struct tasklet_struct callback_event;
+ 	void (*onchannel_callback)(void *context);
+-- 
+2.55.0
+
