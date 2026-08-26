@@ -1,76 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB20541D239
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:34:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C32414EC73
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:35:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787751288; cv=none; b=OZfrWbA2Y1pRqJkiokRWAWBpAEQruLs3+g9Rh7v9ZQS19jOGCJDsInS3E0yNwle78SsFGRZweEwO4mk5K70Erg0+O0XD4nezhxVleQrsjAIP1eXHsGFN5uDPTkOSzeLEFxe0UcWAkjaugODzbRJnX3IDrt0JrbigTrS1jLSfU1Q=
+	t=1787751303; cv=none; b=LCs0XVb7JeGjkyWFQ7JXcbZCr5gfaHf9Q8beyEEPX8wmfMH01UwWrb2pbd2ni7bNLwIcwAG3rR9dQVu2ADbk5L2hHvgPd1+bcCY5R9LOcXI46oHvlgVVxlG5PwrnRaKT80Gfw/ycVOM6cRPMKIcbLhk+WNWgp0Vb8j6Th6G05QA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787751288; c=relaxed/simple;
-	bh=Ni4UKv87N+rABDQdMXQ0FunrjmJM6L3MVhSfhavDYkw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EWhKNPp5G8cT4e7LzOt5/x9RVrybDS8/sz1hJ7nkyV+reoBpqlsomT2UTj3EAZ4gff3gCb2ri4X/SxCc/dxrCcuWq4eAaN2kCczD86CDsqGyZgUVZ4VAn+N8692LXSraG/2NvdHQjXFsHRwTWtXjnaiZsQb+VdT1hsZeyxPihyo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RItWFqJp; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RItWFqJp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A11A1F000E9;
-	Wed, 26 Aug 2026 13:34:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787751287;
-	bh=Ni4UKv87N+rABDQdMXQ0FunrjmJM6L3MVhSfhavDYkw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RItWFqJpJPCQXBUNnZhGci9laqg0sQWjN2h0RDl24bbtmeAcLK+OdK6ONCsSpFerg
-	 Nc027chIZj++T+2cGshYdZb5Ls5giw9RPxrDrqnoV+X+cK4Z8qxwrPq3hnYBkU8Qu+
-	 A7yAFt2c70QlNOcA8XnhgZd6dUu7Rfk/WaBoLXY1cBeurGoSzNZS5zdR0qLW5JQCqM
-	 v6TE2Qynv1r+AnpT5UNmV8ZuX/QErlPZ81w85DqdmzUlJJEZtQhfyt7hlzwcvN7CbU
-	 aTfZerS0LWaqa6lNeOv9WXGI0nC0D8cF36EUgGgskfyNTPb4TJYjg5GXEq3vEdo4P6
-	 W5Yb4mkv4TY4g==
-Date: Wed, 26 Aug 2026 14:34:43 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Yang Zi <2959243019@qq.com>
-Cc: lgirdwood@gmail.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] regulator: max8649: Fix NULL pointer dereference in probe
-Message-ID: <4a9f1f3b-f6ff-4af2-8efb-83324bc1d628@sirena.org.uk>
-References: <tencent_87EA54368697A49844A89DF7CD19CD8C6C06@qq.com>
+	s=arc-20240116; t=1787751303; c=relaxed/simple;
+	bh=Dwh5UyaC80dmJ8HJpIDxJnBsgVpPoZJg6thidCMAApM=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=NA0eGAVJxft46+iR+9yzjL5lYfBPCR9tcxCSndjgHfzSbQpdVpQ57iV35vheH+sX/pkKBvjohAS5TvK20wsRtfe9M6xRjiQpswyQug3HAwzCyz/C8tAxMeUN/EI+d2aNVZ7x/pBfGaWU07SOsmX9pBMkNhCo19sLU4GGE/dlkx0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4b37620eb73so396659b6e.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 06:35:01 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787751301; x=1788356101;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=cOHhTjDPoA3JM/dhmdbGRFpW0EURGFdwbJ4eWHKwlvE=;
+        b=T9eytqR0z4Wwezwa5CIc9wLaFTLUaQYPnuo2tSSDNq5BSnY0dJEMvrRGk+OpVJfrsu
+         Rgg4Ll/mDi314L4F8u1Qhi8zG6fAxppC5yFOqaPvLaG6zHgV5ClCgFyuc1hpfr4dXJUD
+         d6AGj9o5QRRuoUb0rE6+4j3I2vu/23aVzVxSUMk8ET2hMpU3KI32uB0IVbSxllVmtO9A
+         /oWG15u58k3oDqxUrYR1szeJsUMcbg2OhP6jlJxXofqNq+hN5i66T4suvpC8E77+gkBZ
+         pebOVkk5NzQD6glze6mD+1YuyeJeoJjn4a9b7+p8XG/6V2h+9yKJW7czbYMAu65ovqHG
+         k3eg==
+X-Gm-Message-State: AFuF++kglglKoZx97DHfOiH5XZM8bpsUq+P1Hcg+KnF/J9OMd0Clbk0t
+	MbBFYr4b1YOphxr6OF1EQw9uqN1nN3TL24V0DxZmJ5uac+PJ5Bu2sO0DMngu85QKyrLje6gXDOz
+	BHcizoKYQ5F0SA5YoP97lpIfBx8IaKheEyWlJUgcUaFH2nyMYiodz58HXAmc=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="erKHgZXIYHNHD22K"
-Content-Disposition: inline
-In-Reply-To: <tencent_87EA54368697A49844A89DF7CD19CD8C6C06@qq.com>
-X-Cookie: Obey all traffic laws.
+X-Received: by 2002:a05:6808:a5cb:20b0:4b3:6967:a503 with SMTP id
+ 5614622812f47-4b36967b0bamr4651214b6e.8.1787751300765; Wed, 26 Aug 2026
+ 06:35:00 -0700 (PDT)
+Date: Wed, 26 Aug 2026 06:35:00 -0700
+In-Reply-To: <6a8ed99b.1d9ded08.62e62.00ab.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a8eeb84.1d9ded08.62e62.00af.GAE@google.com>
+Subject: Forwarded: [PATCH v2] usb: atm: usbatm: fix invalid ci_range initialization
+From: syzbot <syzbot+f6ac161ee9699270b8dd@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+
+***
+
+Subject: [PATCH v2] usb: atm: usbatm: fix invalid ci_range initialization
+Author: kartikey406@gmail.com
+
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
 
 
---erKHgZXIYHNHD22K
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+syzbot reported a shift-out-of-bounds in __vcc_connect():
 
-On Tue, Aug 25, 2026 at 05:01:15PM +0800, Yang Zi wrote:
-> max8649_regulator_probe() dereferences pdata->mode without first checking
-> that platform data is available. When the device is instantiated without
-> platform data, pdata is NULL and probe crashes with a NULL pointer
-> dereference.
+  UBSAN: shift-out-of-bounds in net/atm/common.c:382:32
+  shift exponent -1 is negative
+  CPU: 0 UID: 0 PID: 5987 Comm: syz.0.18 Not tainted syzkaller #0 PREEMPT(full)
+  Hardware name: Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+   ubsan_epilogue+0xa/0x30 lib/ubsan.c:233
+   __ubsan_handle_shift_out_of_bounds+0x36d/0x400 lib/ubsan.c:494
+   __vcc_connect+0x14b4/0x19c0 net/atm/common.c:382
+   vcc_connect+0x328/0x8f0 net/atm/common.c:498
+   pvc_bind+0x272/0x380 net/atm/pvc.c:52
+   __sys_bind+0x2e3/0x410 net/socket.c:1976
+   __x64_sys_bind+0x7a/0x90 net/socket.c:1979
+   ...
 
-This doesn't apply against curent code, please check and resend.
+ATM device ci_range fields (vpi_bits and vci_bits) represent the
+number of bits supported for VPI and VCI addressing on the device.
+net/atm/common.c directly uses these fields as bit shift counts:
+  vpi >> dev->ci_range.vpi_bits
+  vci >> dev->ci_range.vci_bits
+  1 << vcc->dev->ci_range.vpi_bits
+  1 << vcc->dev->ci_range.vci_bits
 
---erKHgZXIYHNHD22K
-Content-Type: application/pgp-signature; name="signature.asc"
+usbatm_atm_init() sets ci_range.vpi_bits and ci_range.vci_bits to
+ATM_CI_MAX (-1), which is defined in <uapi/linux/atmdev.h> as a
+sentinel value for userspace ATM_SETCIRANGE requests, not a valid bit
+count. Shifting by -1 is undefined behavior and triggers UBSAN
+warnings.
 
------BEGIN PGP SIGNATURE-----
+ATM UNI cell headers allow up to 8 bits for VPI (0..255) and 16 bits
+for VCI (0..65535). Initialize vpi_bits to 8 and vci_bits to 16, as
+done by solos-pci.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqO63MACgkQJNaLcl1U
-h9ArTwf/Vq711/CKZdEkfIK9OfOJA1SmOUZFsHcJ+ijXZev7/au58qfvG/7GB4qP
-s5jU3I1ZRGYPc3WaWnk+0AVrUABW0lSuYZBluDoF8Ignie8NRCcpLRZhiIGCdY9I
-d1O3k5q5+A2jzaVjn89nvfJGdFPkXKAyegacOTaQPLs/CJaOCvPPjtXj/gl6LPx6
-FmI3VUUx5NO/Of+4ThVYWN2+yVJE6mcA1nOCRmF8ODOeh13blCIgtf/9JU4mOTiF
-vD1qjjAi1DdeUhar4cFk5YExTu0FplVspaDbK9FfhTaJ0OzKVrdmCxDikbKQEKbb
-+zrEfCF0bISzD8twJpndDwZGjRB/rA==
-=uQDw
------END PGP SIGNATURE-----
+Fixes: c59bba75fa50 ("[PATCH] USB ATM: new usbatm core")
+Reported-by: syzbot+f6ac161ee9699270b8dd@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=f6ac161ee9699270b8dd
+Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+---
+ drivers/usb/atm/usbatm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
---erKHgZXIYHNHD22K--
+diff --git a/drivers/usb/atm/usbatm.c b/drivers/usb/atm/usbatm.c
+index 9600e1ec0993..7b0c791399ea 100644
+--- a/drivers/usb/atm/usbatm.c
++++ b/drivers/usb/atm/usbatm.c
+@@ -917,8 +917,8 @@ static int usbatm_atm_init(struct usbatm_data *instance)
+ 
+ 	instance->atm_dev = atm_dev;
+ 
+-	atm_dev->ci_range.vpi_bits = ATM_CI_MAX;
+-	atm_dev->ci_range.vci_bits = ATM_CI_MAX;
++	atm_dev->ci_range.vpi_bits = 8;
++	atm_dev->ci_range.vci_bits = 16;
+ 	atm_dev->signal = ATM_PHY_SIG_UNKNOWN;
+ 
+ 	/* temp init ATM device, set to 128kbit */
+-- 
+2.43.0
+
