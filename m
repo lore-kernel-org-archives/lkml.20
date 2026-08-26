@@ -1,91 +1,88 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEE7F404882
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:37:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45A6246D2C1
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:37:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787762249; cv=none; b=lzjIj4XvqjtjsWLq7kV6iiK4PLWmXP2SL25SDb1N1WZ2pGeJuBmSX5cmaadM1HR0XNm34q0R+fp/joJv4TujjoIeqW6ZbHKiGfU1o/11Yc+B/QYGEEsnmnJocnGR9ftbsZSOohOcnWz2654uBmBaXG9ClfshFi187sU6BXRxt1s=
+	t=1787762267; cv=none; b=clP+uEo9DsolNjst0JkWaGDNQY9Ru9MnfIuyKnIKTeHYaRNwD7U5JXbFVCqBnkMdxOtsUQT6keYHxozCJbdlggJu9t4AJZL+WDbVrXtFqIJepzShAfB0KJy1lFnO09Fs+nfX1KskfTu108HIsBKvfWGBELCyTWtQ2IsbpD7lfik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787762249; c=relaxed/simple;
-	bh=IgO/Oy8GX2mLKijlYbJqHBxo01d3pEYgrjjJjDkdEjU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=D3kAjJjzE9NgBjXykBki4dR3QCPgQwdTZ/kzeIwY83k9wjB7lnGz6LVvJSWVKA9zXYkWSinK4mfTjbdvZNZ+1iBvOyPVO6lDa3qZellp8ajgpq8EAxNEbb3hocObHx5DBso0NvjJdhLBapMl/Q/GB641quPa9zZQoLqVSwHYd/U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk; spf=none smtp.mailfrom=fireburn.co.uk; dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b=apFCPZBs; arc=none smtp.client-ip=209.85.128.51
+	s=arc-20240116; t=1787762267; c=relaxed/simple;
+	bh=8B2TFfI057wykZuicacH8tAGgEjX68YKbGd6fEx7mxA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tPt1mZ2Kd96BtqDdyDVyoMY0JgUP2mz5Wb+8SJw1fsv+LrDRo49S6RGUbaKF4lvWqZcX0gTRjtGODsOkUWlLzJnrh8L3kdSjA38lR7cmVXQ+Y+iGq1gX3uqpgKotUasr74BXXaFRYzTyyGI/d7fzoOPVX07/Ve6ddrBUkXWQch8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk; spf=none smtp.mailfrom=fireburn.co.uk; dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b=DAxDMLLL; arc=none smtp.client-ip=209.85.128.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=fireburn.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="apFCPZBs"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49b0d78a801so1163515e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 09:37:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="DAxDMLLL"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49557167508so9273065e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 09:37:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787762223; x=1788367023; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mdJB+7gpvS5WCvpUSsJAui6rgsKkc8CSJW/uARo52jk=;
-        b=apFCPZBseM2Cf6E4OLtR1kJKheX2+1ZOD0aM+9io/PwChZDujasiFysexWzB6Q6/f1
-         gqPlOszMoEZciJ74Q0MJAPutexEgRxy6g32Vf4umeNcBmUx45YklFehjmEiSCJMpyLB4
-         a6aWVlYT0z2sgzJFhZv67kGAkyOekggSnU42INK41DsyWLhf6ulDS+slBQMzHpKJIzee
-         IO9IlPJ5izw8C7ubu9ESl+tcvIVmRK3/xzlSm6/j7cE2hJNSL5DNcJhQk1GKWh3lTPez
-         69n5OqGmYT5UPGG8rF2tAOyrzX3R7KUZx6/bn46xyZUTNVe+fSgZlcyNDqUuMtA6hKxj
-         /kqA==
+        d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787762245; x=1788367045; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Y9qJ3fgTR4cimq6G1HyqzaxsMwSXV5Ik1jB7vizkJsw=;
+        b=DAxDMLLL5tovdJj19wqq4lfhlKytPJRX6PxeDWd0z/eYLg997eFAonLYIFWNKhXLpz
+         OrwKzbcjqfaiA0AE6Mcqku7+KAGMyRgqf2nihVNLUFLWBDPD7Gf2Q+sXQGVsElONSmMZ
+         SMw7sR1eIX3WROAtOKeHAX5roKQaY3/aXknEbZOtoKpGkCfLmwM1VxMJF7dTeShPtWw2
+         ydXUxfB45uily7wThpBLM/1aZ4ZLLHInA2vtqLLMADvnkuRmwnbL3rQaottHiG6vD4UA
+         d2SqaOyYS7HsSZ5e7tbD4rJAyoOB0rjqvGk6Ruz53UkYnmD/eB2GQUAouRQQ+fkdCgtm
+         n9Xw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787762223; x=1788367023;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mdJB+7gpvS5WCvpUSsJAui6rgsKkc8CSJW/uARo52jk=;
-        b=FuDeQU2CUFx22maF66sNOwt3qpdGhVGotcqu9er+ICubuyPM+mEDgFdzRLSDpae4hy
-         GIXoY/Hd4TmRwcybgIgo3tdvQDo816CEWecgF/CE1gmifoSDRpbUsrE9sGZkhEqeK458
-         4OR8sV5TjRGJSc6w2nKTQC69uLx+/8Mu5fq+fy7krgnEQOiUcBYl37cV77OEFqcVBvNY
-         u2WpeiY7MqYsMu8EmCPcbLu4pzXRSc4tDhvfufd35XCnMhfTED724j4af43nn7WKd7t9
-         mT/n4VcGS0DHU5vTaRu9oUR7IGc/txY4oWNJgVkeJi0LV7UWEcTqAe9s0kzYb6jkOOYG
-         vAUg==
-X-Forwarded-Encrypted: i=1; AHgh+Rrhd6PTEkGuhLrBhOUeW1E1PrfRGDSofQKweE9ZKu5++IBy6fmgeDhD6yBCpouLc1f3BrfdmlJVMc+deyk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lpJO4knCi7qwxyrSw+y/JqzAUPr5G0+ZDG6QrFeA+0Cgxjtk49
-	Khd/E34iX22G737mmegdyBeZTMwSO1gDVPCrCKk/exDpNSyZ7PCcLpmgA3ri+DpZLQ==
-X-Gm-Gg: AR+sD10alOcRdENUVAsfgitgC8CPQSikdOIvLL0WqhKYd2Bws+yffuno4FPk7wDlaYq
-	jebEIUfKsqOIREcNqiEYeGXzvWn/6OwfuDQy865FdaI2/P4WJMb9GGDH64lLWh7YbISLqcBth2f
-	l3mjPt1ufpWOiGCQ+QF2WKAUe1gDQIhck1yKyRFfuOsYRydshWeuHJl8MY+fWuDGc65bPiB6aiz
-	zxalmMEQb/IRUfap2ZPXfw97gOXcIq1J3GrQ/E4kMvnF9scs0+35U8oIHV/gz7/Qev8d2IUNNxw
-	FIqS3LiHBneLSNF9f/ekJbY9pmeDF7KHCfDpuvn1OqXiOnqfXLqohubY0fHMs72uC2p506rVHwr
-	mEUr8qP8b1IPM9QW4dRC+MJjT0YpdxUzWzGvas8yjOp9NbUISCC2iD8a+6X7Gf0u0KRyvH30Nwe
-	p3MsZ1tmJYnWs7oKunu+kt3cJay8bAgffUX6OK5cYRnt46UpOd8WD5TLZlN5W3JNeqjs7eMNmuU
-	Pm4WizLVVgEwffcJDpBaoCLLqMbHozT++IuPA==
-X-Received: by 2002:a05:600c:8486:b0:499:49f3:77b1 with SMTP id 5b1f17b1804b1-499dc6e1267mr91011085e9.3.1787762223039;
-        Wed, 26 Aug 2026 09:37:03 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787762245; x=1788367045;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Y9qJ3fgTR4cimq6G1HyqzaxsMwSXV5Ik1jB7vizkJsw=;
+        b=LIk6Z/EnxQlhT0AM8cSM4p+GDC1Nd4qHRQ/UT0Rc2yQM71OUmJefUNmGUhCwXsGxXX
+         5J1WTE/C3z/K7BxI/EWXJK6ck7q8EG8K66ZcYXClUHcS2tLgjCEz7pLv7YlLylh1tb+o
+         CGeA8rrSD7ooI4tnmj3+QwiyPlELZeOFn5lnhefERCvoHZlDksaSnyeKaKulZ+upuNVm
+         9LyaUUkrNN/3PY02kyGdSFHOC8CFZ4GLsFNq5X2oJtWSvmmz13r0qjt1Qv1+6hu+STT3
+         Nkypn72j1B1aXZqnbHvLQxlGCW6F7dv0Ri3YVyXP83lieR5gpZAFpxtBzRd332Nl7E14
+         YwIg==
+X-Gm-Message-State: AFuF++no5WeEjq72EECnSIESPKDc76dIQ9QYwSXrz76fLU1AST5YRf87
+	5T4/EIbgwyiQ0UFJdPDzdp5oJjAeND9xrHpqktv7Qm7+md4euo/sAijBy8j3iPD/mPbLxxbs4CV
+	sI/kXKmSa
+X-Gm-Gg: AR+sD10hDkCjWUJt+Z9c0zSm9LHv9n8LX3d0bb0f0suNkE8mXd7OaxlWivAGqvTgrf4
+	T6rq7276CCRjsH6qf4Srwe4Cy1pctPnX18exb0dCzXEKZAD7bYsDJiyDvD0iicaJOroffMIb+o8
+	zJkjUvVpb1204Ut9J0Qho1VXnSJ+arq+w4B1zacTJEbi7aaKAovEsizRwFGEm6esZv50xwIcSq1
+	PyjmpamXxIREaylt+MaACV/0oZhYUS9VxC8OX3os4L6hzK1z7qipa/Sfy0/73SMhag1VtitKe/v
+	kboV+mc2Jd3YBcp6zm6e/7aiZOFUwuy7lKVvptm/osVB3T/ef6ixP8K0QA0KRVxO2C891Htgb9w
+	q3dakwa7UO85Q7tYEIOuRKvG27pm5FZNKlcN9cz+XCh90GDtBJHpb1AFFVobuyDGPyWxwLBwWAr
+	AJl90B9Y8mGnSxiypSTpWaoZiZTkc3PHhthekUpbTOeoLzxK+KIS/EX8oM+SfH1aeTNQPeD4+Wl
+	WNsxj9bcqjvXlnXUl4U4lzvaloMJ0S5LD2op4B/VgJsWMYd
+X-Received: by 2002:a5d:4cc9:0:b0:482:a9d7:7ced with SMTP id ffacd0b85a97d-482e26f2d68mr8304486f8f.14.1787762245027;
+        Wed, 26 Aug 2026 09:37:25 -0700 (PDT)
 Received: from axion.fireburn.co.uk ([2a01:4b00:d309:1c00:caf1:6b20:8531:818c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499dca8c75csm31227535e9.2.2026.08.26.09.37.01
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e279eb11sm3350111f8f.8.2026.08.26.09.37.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 09:37:02 -0700 (PDT)
+        Wed, 26 Aug 2026 09:37:23 -0700 (PDT)
 From: Mike Lothian <mike@fireburn.co.uk>
-To: dri-devel@lists.freedesktop.org
+To: linux-kernel@vger.kernel.org
 Cc: Mike Lothian <mike@fireburn.co.uk>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
 	Miguel Ojeda <ojeda@kernel.org>,
 	Boqun Feng <boqun@kernel.org>,
 	Gary Guo <gary@garyguo.net>,
 	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
 	Benno Lossin <lossin@kernel.org>,
 	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
 	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
 	Daniel Almeida <daniel.almeida@collabora.com>,
 	Tamir Duberstein <tamird@kernel.org>,
 	Alexandre Courbot <acourbot@nvidia.com>,
 	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	Lyude Paul <lyude@redhat.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
 	rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 23/23] rust: drm: kms: expose a connector's requested link depth
-Date: Wed, 26 Aug 2026 17:31:54 +0100
-Message-ID: <20260826163359.4998-24-mike@fireburn.co.uk>
+	llvm@lists.linux.dev
+Subject: [PATCH 0/1] rust: firmware: the firmware upload abstraction
+Date: Wed, 26 Aug 2026 17:37:14 +0100
+Message-ID: <20260826163716.6274-1-mike@fireburn.co.uk>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260826163359.4998-1-mike@fireburn.co.uk>
-References: <20260826163359.4998-1-mike@fireburn.co.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -94,63 +91,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-`max bpc` is how userspace asks for the number of bits the link
-carries, and it is deliberately independent of the framebuffer's
-format: scanning out an eight-bit surface over a ten-bit link is the
-ordinary case. A driver could attach the property but had no way to
-read back what was asked for, so the request could only be ignored.
+request_firmware() covers "pull an image from /lib/firmware".
+firmware_upload_register() covers the other half: userspace hands the driver an
+image to write. It publishes /sys/class/firmware/<name>/ with the loading and
+data handshake plus status, error, remaining_size and cancel, and is what a
+driver uses when an image has to be written on demand rather than only when a
+newer one happens to be on disk
 
-Add the accessor, and make the linear format modifier nameable outside
-the crate so a driver that accepts only linear scanout can say so in
-its plane's modifier list rather than leaving userspace to infer it.
+This adds an Upload trait mirroring struct fw_upload_ops, a Registration that
+unregisters on drop, and an Error enum whose values are the fw_upload_err codes
+userspace already reads back out of the error attribute
 
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
----
- rust/kernel/drm/fourcc.rs        |  5 ++++-
- rust/kernel/drm/kms/connector.rs | 16 ++++++++++++++++
- 2 files changed, 20 insertions(+), 1 deletion(-)
+rust: firmware: add request_into_buf() reached drm-rust-next this cycle and is
+not a duplicate of this: that is the pull direction, and upstream still has no
+binding for the push one
 
-diff --git a/rust/kernel/drm/fourcc.rs b/rust/kernel/drm/fourcc.rs
-index 010823c4c86c..3a68af66f236 100644
---- a/rust/kernel/drm/fourcc.rs
-+++ b/rust/kernel/drm/fourcc.rs
-@@ -13,7 +13,10 @@ const fn fourcc_code(a: u8, b: u8, c: u8, d: u8) -> u32 {
- // function-like macros in bindgen yet.
- pub(crate) const FORMAT_MOD_INVALID: u64 = 0xffffffffffffff;
- /// Linear framebuffer layout (`DRM_FORMAT_MOD_LINEAR`).
--pub(crate) const FORMAT_MOD_LINEAR: u64 = 0;
-+///
-+/// A driver that accepts only linear scanout has to say so through the plane's format-modifier
-+/// list, or userspace sees no `IN_FORMATS` property and has to guess what the plane will take.
-+pub const FORMAT_MOD_LINEAR: u64 = 0;
- 
- /// 32 bpp RGB with unused alpha.
- pub const XRGB8888: u32 = fourcc_code(b'X', b'R', b'2', b'4');
-diff --git a/rust/kernel/drm/kms/connector.rs b/rust/kernel/drm/kms/connector.rs
-index 231857cc1f20..633f4f76a610 100644
---- a/rust/kernel/drm/kms/connector.rs
-+++ b/rust/kernel/drm/kms/connector.rs
-@@ -935,6 +935,22 @@ fn colorspace(&self) -> u32 {
-         self.as_raw().colorspace
-     }
- 
-+    /// The bits per colour channel userspace has asked the link to carry, through the `max bpc`
-+    /// property.
-+    ///
-+    /// This is a property of the *link*, not of the framebuffer: userspace routinely scans out an
-+    /// eight-bit surface over a ten-bit link, and a driver that derives its output depth from the
-+    /// framebuffer format alone silently ignores what was asked for.
-+    ///
-+    /// Meaningful only on a connector that
-+    /// [`UnregisteredConnector::attach_max_bpc_property`] was called for; everything else leaves
-+    /// it at zero.
-+    fn max_requested_bpc(&self) -> u32 {
-+        // `max_requested_bpc` is an `unsigned int` clamped by DRM to the range the driver gave
-+        // `drm_connector_attach_max_bpc_property()`, so it needs no validation here.
-+        self.as_raw().max_requested_bpc as u32
-+    }
-+
-     /// The electro-optical transfer function from the `HDR_OUTPUT_METADATA` blob, or [`None`] if
-     /// userspace has not set one.
-     ///
+The consumer is the DisplayLink driver at the end of the chain, which writes
+dock firmware over DFU. This has not been posted before, so it goes out
+unversioned even though that driver is on its third round
+
+The rest of the posting, which is one series per subsystem:
+
+  rust-core, 9 patches, rust-for-linux and linux-kernel
+  https://lore.kernel.org/r/20260826162851.2497-1-mike@fireburn.co.uk
+  rust-crypto, 2 patches, linux-crypto and rust-for-linux
+  https://lore.kernel.org/r/20260826163004.3365-1-mike@fireburn.co.uk
+  rust-usb, 5 patches, linux-usb and rust-for-linux
+  https://lore.kernel.org/r/20260826163101.4168-1-mike@fireburn.co.uk
+  rust-drm, 23 patches, dri-devel and rust-for-linux
+  https://lore.kernel.org/r/20260826163359.4998-1-mike@fireburn.co.uk
+  rust-firmware, 1 patch, this one
+  drm-vino, 13 patches, to dri-devel, not sent yet
+
+Vino is the user for all of them. The abstractions themselves are generic and
+carry no knowledge of DisplayLink
+
+The whole thing is one branch, base and prerequisites included, which is the
+quickest way to read it:
+
+  git clone -b vino-v3 https://github.com/FireBurn/linux
+  cd linux
+  make LLVM=1 rustavailable
+  make LLVM=1 -j$(nproc)
+  make LLVM=1 -j$(nproc) modules
+
+CONFIG_RUST=y and CONFIG_DRM_VINO=m are the two to set; DRM_VINO selects the
+rest of what it needs
+
+It is the exact tree these patches were generated from, at 4c9ba407018e, the
+drm-rust-next tip of 2026-08-06. drm-next has moved on since, and this follows
+drm-rust-next deliberately: the KMS layer underneath this work lives only there,
+and that tree picks up drm-next on its own schedule
+
+Two commits on the branch are not in any of the series above, because they
+enable no part of Vino: a scheduler call site that stops compiling under the
+locking-guard series, and the Kms associated type Tyr needs once the KMS
+registration trait requires one
+
+It applies to the base above on its own, with no unmerged work under it, so it
+can be taken without waiting for anything else here
+
+The reference branch also carries Boqun Feng's counted interrupt disabling
+series, which SpinLockIrq needs. One patch of it is already in tip locking/core
+as e901c1510e24
+
+These patches were written with the assistance of Claude (Anthropic), used
+through Claude Code as an interactive coding assistant, across the design, the
+implementation and the tests. Every patch it contributed to carries an
+Assisted-by trailer. The Signed-off-by is mine: I have reviewed and tested what
+is here and I stand behind it
+
+Mike Lothian (1):
+  rust: firmware: add the firmware upload abstraction
+
+ 1 file changed, 237 insertions(+), 0 deletions(-)
+
+base-commit: 4c9ba407018e8deb06dbc643112bac8f40404f95
