@@ -1,140 +1,204 @@
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3F7746D56A
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:52:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C332C404BF9;
+	Wed, 26 Aug 2026 16:55:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787763135; cv=none; b=h98Wu8GFgpuzwAiuj5wM+awaHRHVuc6oCl4ijCBTFy6vAabxqiv9MVXsB9jUX1qEV9S92J7CMux4dZ48Iuy3RySsSxNouRwww1Em3f8a7jvi93fGistpcfdma8NUeMJGPWBo67aBCl7C+SlxI/Mi1IbAfwuRVd8e8O53XOsiGOw=
+	t=1787763334; cv=none; b=h+ANiXnxZWZnq8Cn0EJKVOuGuk2Rlbw4nZWNPh23EPP8579goje3RHq/6vbGboknRpzdwm/y7tnTcVLCDnMBKbs0DN2XR3PLFsgaOJaibk1YjrihujNiHizxK8ny9ZxXTtaBWZ/qx70zgCPihYc3PbSSJcRIsNjX8Yeb81C26X4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787763135; c=relaxed/simple;
-	bh=lKL1AghctyCGhVmrYRZl2IF+lI9RwXIRk4VVRCcz1F8=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=tUhsswwuO3UXCaILaENgHCJ9LX94Bpo/4IHGI/dyFpt+GqasFjppyJ5sgbGc3bMQFBW6QA4vOL1WP/Ss6Q5a2z9K0tvKIMCU+TdfgLtJnoX7FXMKDgXcp3Wr+Aq+f3KmVpQQBX9D/x3ecjbE/b+5xsRS9/tUmo4/EwtSgp1lc8c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=dpSqoV3V; arc=none smtp.client-ip=209.85.214.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1787763334; c=relaxed/simple;
+	bh=xH0bNrp+oSSR+3EXk15d7szlJ/i/lhji1zrMK5wo9Ko=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PxUWagyyDtqkEi7m6HgGShRcBe9VMkWMa0up/XIqZMdseo6vbNf+UDuDsOSAfhj7g+maz9xxkspDVp66K8euiFPqfBHw7WUfRnK9Ems/mmWGVy5Ox6W0ubLzSfB8yHt0E0d721m/vB2zsSpAV1POPbaJcCjmYHZ+oEkJ2tWzxJo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=fxux6CNU; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=RoNmb1ei; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=gnsFsjID; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=XQnJpTVO; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="dpSqoV3V"
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2cf7dd9fd91so14550895ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 09:52:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787763118; x=1788367918; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=kih6Ze+eAUyI9b/QVGz2Gk+Uahj8e0YRoP4YxZwC+sQ=;
-        b=dpSqoV3Vw2dujGkjL4hoK2yFYxAzyLYpmodQH/zWzlhFH8nB6xZwQcvdagISuqCrV9
-         7ea8/hjlhPbZQ0z4WU+IkT+x72i0MommvziCDu+JWq1Qqzs7g7gzHKRC1y7CeL5gLI11
-         nXUNZ0rrz9CrJp9vxTmSmN/rRh4lRhQfHjtWfIJr8Y9kEQz6QVDAsZHpPHwPUQumAFG9
-         ZT55FT4JPxgjgu17ec6Fv3SOoiBm0PeN4+nx09R0zS0yxNDNP7WYpQjj6DjBbq1bqn4u
-         RPEMmChmiZcY6znaOd4yemm/5A/wd+1mCG+VHXoRHWKPrgNd6grg71syJB0pVPTKcW05
-         kONQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787763118; x=1788367918;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kih6Ze+eAUyI9b/QVGz2Gk+Uahj8e0YRoP4YxZwC+sQ=;
-        b=Jnff7210BwjE8CM5tsjHu7+A5iZgtTXMUR4TnLIiL22oxqUNNKM7JawibdEaEqJkVs
-         JbIQseoB3zwf6jVF6a1FDT7hSukqNUcPsvl5LRE+jQX5RrB3gYA0h3KYi2H7zr7ixywY
-         rWPpTYEfL20fZpbjvlXatga8XqP0xWwjwf7y/ctqviJSqRKwvlVBwzuh3k6LJiso1Wig
-         dJMogdb8MW85ky8k8hGz/lnCI4PcfHF3h699iBvzm1AXwNNVPhzKYzCo/RdipehPrdxu
-         Wa20x+cin6MgJZu14avwgQEZ4aEbPjO94DWv3ONvI5lj/NK0n0zb0O9XJINzEiKQD1fS
-         I7kA==
-X-Forwarded-Encrypted: i=1; AHgh+RoV0i7mosBehYCBVr884+GJ/Ik7QvQxnRRRTyEcMF+O4zdayXKzqFN5EgVKwZpCxlHlntMDz71LknA7fI8=@vger.kernel.org
-X-Gm-Message-State: AFuF++l6szpvSZAA/6eGpCU5mchkei0iLm5p3XQ8VA1NJpu2j2D8Tyo1
-	lGd+G01hLpseiUoes+yl6A0a/rOXgucsBuJkBdv9lJ87ryFHZmDt/Jhu72/uix8jAcyb4bLcxeA
-	WknZuWA==
-X-Received: from plgf9.prod.google.com ([2002:a17:902:ce89:b0:2ca:5a0f:d0c4])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:d4c3:b0:2b2:67ca:5ff9
- with SMTP id d9443c01a7336-2d707803e2bmr127600385ad.0.1787763117519; Wed, 26
- Aug 2026 09:51:57 -0700 (PDT)
-Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Wed, 26 Aug 2026 09:51:53 -0700
-In-Reply-To: <20260826165154.766699-1-seanjc@google.com>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="fxux6CNU";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="RoNmb1ei";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="gnsFsjID";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="XQnJpTVO"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 2F8281F80E;
+	Wed, 26 Aug 2026 16:55:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1787763313; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WsrHi5T5oUS0tTADH/XkrMBgLtWoXpF2+ghPWlgvljQ=;
+	b=fxux6CNU0gIxLL3GuhzelqQXo/cYjfMaUVGtgup93NjfHIwgzKrntMUxsQ7Ir9NdEmALpA
+	2BOKGQ5LWuXjf+HHQxQgsxi3PK36u0diQ7NPZ7x9zoreYbGf7cfITdNasQ/unlj4IVEGZA
+	i0vrxPsI14h+uC6LohHzpMeeBfyzFCw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1787763313;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WsrHi5T5oUS0tTADH/XkrMBgLtWoXpF2+ghPWlgvljQ=;
+	b=RoNmb1ein/SQEIDWZYbqNkYxTWA+zGMHkTen9HRbRnpMD3ahEnUbDtDmmVbXrPIN0cwZ68
+	AFeW5LIktOmGvuBQ==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=gnsFsjID;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=XQnJpTVO
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1787763309; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WsrHi5T5oUS0tTADH/XkrMBgLtWoXpF2+ghPWlgvljQ=;
+	b=gnsFsjIDMxPevBY7kmmrcbWrtik+uH3IPqDXzPK4OjqUTDMQ+pfVgrURYkGLUfjXaulE5r
+	lva/cGm0z3w4qD3V6EDU8e0LlmcmLGzWfrq8xG0KXrYrmi/136xwuK1TpDcVYnsQxpQ0xK
+	cv/N9+cwCYEocqzgAfXRSFPlUCHpWt4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1787763309;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WsrHi5T5oUS0tTADH/XkrMBgLtWoXpF2+ghPWlgvljQ=;
+	b=XQnJpTVOI9PFq6WPaDGrKU+X+iEAM11qJIeN9n8Li21/ylSRa6b+RujrdSVNakVlydQUB6
+	s6R7j64HUI/g9ZDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1BDCA13354;
+	Wed, 26 Aug 2026 16:55:09 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id CWxuBm0aj2onNgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 26 Aug 2026 16:55:09 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id B4939A13A7; Wed, 26 Aug 2026 18:55:04 +0200 (CEST)
+Date: Wed, 26 Aug 2026 18:55:04 +0200
+From: Jan Kara <jack@suse.cz>
+To: Daejun Park <daejun7.park@samsung.com>
+Cc: "tytso@mit.edu" <tytso@mit.edu>, 
+	"adilger.kernel@dilger.ca" <adilger.kernel@dilger.ca>, "jack@suse.cz" <jack@suse.cz>, 
+	"yi.zhang@huawei.com" <yi.zhang@huawei.com>, "ritesh.list@gmail.com" <ritesh.list@gmail.com>, 
+	"libaokun@linux.alibaba.com" <libaokun@linux.alibaba.com>, "ojaswin@linux.ibm.com" <ojaswin@linux.ibm.com>, 
+	"linux-ext4@vger.kernel.org" <linux-ext4@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"amonakov@ispras.ru" <amonakov@ispras.ru>
+Subject: Re: [PATCH] ext4: don't report delalloc data as a hole on
+ indirect-mapped inodes
+Message-ID: <wffv3oy43ss7i3dd5td4he6bqwex2d56pbyie2spxludkr5vqe@d3lrjxx4a2gk>
+References: <CGME20260826052446epcms2p5a415be5fbfe23b8a32786f0ae6d05aea@epcms2p5>
+ <20260826052446epcms2p5a415be5fbfe23b8a32786f0ae6d05aea@epcms2p5>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260826165154.766699-1-seanjc@google.com>
-X-Mailer: git-send-email 2.55.0.887.g758fc8c411-goog
-Message-ID: <20260826165154.766699-2-seanjc@google.com>
-Subject: [PATCH 1/2] KVM: guest_memfd: Gracefully handle xarray errors when
- binding a memslot
-From: Sean Christopherson <seanjc@google.com>
-To: Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>
-Cc: David Hildenbrand <david@kernel.org>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Stefan Teodorescu <fane@google.com>, Dennis Tighe <dtighe@google.com>, 
-	Sashiko Bot <sashiko-bot@kernel.org>, Yan Zhao <yan.y.zhao@intel.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260826052446epcms2p5a415be5fbfe23b8a32786f0ae6d05aea@epcms2p5>
+X-Spam-Score: -2.51
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 2F8281F80E
+X-Spamd-Result: default: False [-2.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_TLS_LAST(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,suse.cz,huawei.com,gmail.com,linux.alibaba.com,linux.ibm.com,vger.kernel.org,ispras.ru];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.com:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,samsung.com:email]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Flag: NO
 
-If inserting a memslot into a guest_memfd's bindings xarray fails,
-propagate the error back to the caller, i.e. fail memslot creation as well.
-Signalling success and continuing on with memslot creation results in
-use-after-free, as the guest_memfd instance will remain reachable via the
-memslot after the file is freed (kvm_gmem_release() won't nullify the file
-pointer due to lack of a valid binding).
+On Wed 26-08-26 14:24:46, Daejun Park wrote:
+> When a plain lookup finds no block, ext4_ind_map_blocks() sizes the hole
+> it reports by counting the empty subtrees under 'partial' in the on-disk
+> indirect tree.  That count knows nothing about delayed allocation, so a
+> range holding delalloc data that has not been written back yet is
+> reported as a plain hole.  The extent-mapped path does not have this
+> problem: ext4_ext_determine_insert_hole() trims the hole it found at the
+> first delayed extent before returning it.
+> 
+> ext4_map_blocks() consults the extent status tree before it calls into
+> the mapping layer, so a query that starts exactly on the delayed block
+> still finds it.  A query that starts earlier does not, because the hole
+> reported for the earlier block already spans the delayed one.  On a
+> 4k-block filesystem, lseek(SEEK_DATA) from offset 0 on a file whose only
+> data block is at logical block N and is still dirty returns:
+> 
+>   N = 0..11      direct blocks                 N << 12
+>   N = 12         first single-indirect block   N << 12
+>   N = 13..1035   inside that indirect block    -1 ENXIO
+>   N = 1036       first double-indirect block   N << 12
+> 
+> Blocks 12 and 1036 survive because the query lands on the delayed block
+> itself.  Blocks 13..1035 are swallowed by the 1024-block hole reported
+> for block 12.  fiemap loses the same data for the same reason.
+> 
+> An ext3 filesystem mounted as ext4 hits this during ordinary use: ext3
+> inodes stay indirect mapped, while mount -t ext4 turns on delayed
+> allocation even though mounting ext3 with -o delalloc is explicitly
+> rejected.  install(1) from coreutils uses SEEK_DATA to locate data in
+> its source file, so installing a sparse file that has not been written
+> back silently produces a destination of the right size holding none of
+> the data:
+> 
+>   truncate -s 1G img && mkfs.ext3 -F img && mount -t ext4 img mnt
+>   echo | dd of=mnt/src bs=1 count=1 seek=64K
+>   install mnt/src mnt/dst
+>   cmp mnt/src mnt/dst        # differ: char 65537
+> 
+> Trim the hole at the first delayed extent, the way the extent-mapped
+> path does.  ext4_es_find_extent_range() does not clip the extent it
+> returns to the queried range, so skip one that begins at or before
+> m_lblk and clamp the result against the hole already found.
+> 
+> With this the sweep above returns N << 12 for every N, while the
+> nodelalloc and extent-mapped controls are unchanged.  generic/225,
+> generic/285, generic/286, generic/436, generic/448 and generic/490 pass
+> on ext4 made both with and without the extent feature.
+> 
+> Fixes: facab4d9711e ("ext4: return hole from ext4_map_blocks()")
+> Reported-by: Alexander Monakov <amonakov@ispras.ru>
+> Closes: https://lore.kernel.org/linux-ext4/594c17d9-c00f-e485-96fb-cedf27ce3aa3@ispras.ru/
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Daejun Park <daejun7.park@samsung.com>
 
-Opportunistically WARN and reject binding if KVM_MEMSLOT_GMEM_ONLY is
-already set, partly to guard against goofs elsewhere, but mostly so that
-KVM doesn't need to worry about clobbering flags when unwinding on failure.
+Thanks for report and the fix! So I think a better fix here is to lift most
+of the logic of ext4_ext_determine_insert_hole() into a helper function
+like:
 
-Fixes: a7800aa80ea4 ("KVM: Add KVM_CREATE_GUEST_MEMFD ioctl() for guest-specific backing memory")
-Cc: stable@vger.kernel.org
-Reported-by: Stefan Teodorescu <fane@google.com>
-Reported-by: Dennis Tighe <dtighe@google.com>
-Reported-by: Sashiko Bot <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260823135031.4F6DC1F000E9%40smtp.kernel.org
-Signed-off-by: Sean Christopherson <seanjc@google.com>
----
- virt/kvm/guest_memfd.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+ext4_lblk_t ext4_determine_insert_hole(struct inode *inode,
+				ext4_lblk_t hole_start, ext4_lblk_t hole_len)
 
-diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
-index b596486d184c..1ef9e2916423 100644
---- a/virt/kvm/guest_memfd.c
-+++ b/virt/kvm/guest_memfd.c
-@@ -612,10 +612,14 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
- 	struct inode *inode;
- 	struct file *file;
- 	int r = -EINVAL;
-+	void *xar;
- 
- 	BUILD_BUG_ON(sizeof(gpa_t) != sizeof(offset));
- 	BUILD_BUG_ON(sizeof(gfn_t) != sizeof(slot->gmem.pgoff));
- 
-+	if (WARN_ON_ONCE(slot->flags & KVM_MEMSLOT_GMEM_ONLY))
-+		return -EINVAL;
-+
- 	file = fget(fd);
- 	if (!file)
- 		return -EBADF;
-@@ -654,7 +658,7 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
- 	if (kvm_gmem_supports_mmap(inode))
- 		slot->flags |= KVM_MEMSLOT_GMEM_ONLY;
- 
--	xa_store_range(&f->bindings, start, end - 1, slot, GFP_KERNEL);
-+	xar = xa_store_range(&f->bindings, start, end - 1, slot, GFP_KERNEL);
- 	filemap_invalidate_unlock(inode->i_mapping);
- 
- 	/*
-@@ -662,7 +666,12 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
- 	 * not the other way 'round.  Active bindings are invalidated if the
- 	 * file is closed before memslots are destroyed.
- 	 */
--	r = 0;
-+	r = xa_is_err(xar) ? xa_err(xar) : 0;
-+	if (r) {
-+		slot->gmem.file = NULL;
-+		slot->gmem.pgoff = 0;
-+		slot->flags &= ~KVM_MEMSLOT_GMEM_ONLY;
-+	}
- err:
- 	fput(file);
- 	return r;
+and then use it from both ext4_ext_map_block() and ext4_ind_map_blocks().
+That avoids the duplication and also have all the comments regarding
+various special cases (like delalloc extent covering map->m_lblk) in one
+place.
+
+								Honza
 -- 
-2.55.0.887.g758fc8c411-goog
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
