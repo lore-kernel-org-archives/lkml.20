@@ -1,71 +1,80 @@
 Received: from mail.kekto.ru (mail.kekto.ru [188.242.149.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 247AA379EE0;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2471A2E764D;
 	Wed, 26 Aug 2026 13:29:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.242.149.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787750968; cv=none; b=jltEIFdL8XzSIRTP8TzsuDlDMBCcKqiy77GDF12p1+pcBt2XMhr6/PAkGtEKNNUNnhPuqWvFJ4a8Bi62mvBfDD41lmBRY901GpEN+xVtbjMkEFirjODu5gkPgo3x2mqbvduzR4KJac3A/VjVVVgsreY/hdcGP1bbzNplGLKyOAg=
+	t=1787750968; cv=none; b=ow37lazQeo7M1dNx8j48Y5uVxu8xDd+6ybxmyb4PFss8Vhkrknkri1itei/8svO/pnBbmHwqKXQTMumYc2udmg378dz3MFTWbzQ/b/H/E1LI7bIV/Mr3+CkwvuL63DO6uCQPvsEClQwip7CQatmiYNM4hArQNDLR5VsVHrhOsII=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787750968; c=relaxed/simple;
-	bh=gKkb35nV49U5xylloF8lUYhYYD8uGzOYdwhFRrI0sfM=;
+	bh=wPg52BCKf0oQaRBqHIfc4G2wuj60BiIFAzNo4C3TV1g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Qxc//rP2ZUmY5g653fy1RRruVeyV5Z+xo98dJBiHpGBQNLX/ALNYm/dSj2YFAym9oFBdQrzRnayq2ufaPnuc073B5jiFv3nSDbRfM6Ph1hMYs1HQgaOuu6nq8JCF/dtdixTShpx0PC3hhfcCWDHgF14GuqtH8tmJW6KHGYlWGDc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kekto.ru; spf=pass smtp.mailfrom=kekto.ru; dkim=pass (2048-bit key) header.d=kekto.ru header.i=@kekto.ru header.b=nXKBtmd+; arc=none smtp.client-ip=188.242.149.39
+	 MIME-Version:Content-Type; b=Mj+wGrpwfYClbEPDpanm+w1FpwoM0RKYWDvqmKFu6W+6ZtWvBpO0Qs/pxLhFgCjNyTvcGSv+CIlb2MqwY7MWluz3ogYsa7lnxSL7xvc0gFcLRColZClXyQXJavpoenGCBCN+fKT8ZsuudftywsrtbJ2iQYCUaGrMQixk1vQGYg8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kekto.ru; spf=pass smtp.mailfrom=kekto.ru; dkim=pass (2048-bit key) header.d=kekto.ru header.i=@kekto.ru header.b=lQAnXua+; arc=none smtp.client-ip=188.242.149.39
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kekto.ru
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kekto.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kekto.ru header.i=@kekto.ru header.b="nXKBtmd+"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 78DF021664;
-	Wed, 26 Aug 2026 16:29:20 +0300 (MSK)
+	dkim=pass (2048-bit key) header.d=kekto.ru header.i=@kekto.ru header.b="lQAnXua+"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7FB42254B9;
+	Wed, 26 Aug 2026 16:29:23 +0300 (MSK)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kekto.ru; s=dkim;
-	t=1787750962; h=from:subject:date:message-id:to:cc:mime-version:
+	t=1787750963; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=dIH4SvExnP2K41dF5iMbKo9aEPZ7uZtw6qkuX9287pY=;
-	b=nXKBtmd+79B54x2H1OKyE5115bVMIfNa8J2Uk8zfMwv5u82lML2SGJ3vwy+wC0DkoBjDLl
-	/1UtdYVpOIjsfskHYEadVeApGO38DPdK0o+uksCdkA+gblbxdxDP1+XCi4NK9o35TdrXLa
-	x8krslJ6yCjwMhdo9tHkhM8o8doGmbbjkzLybn3U9GKTYz6v4KBrcvUP+oGWO3g71UD/C5
-	wrOBM7qvlNzotc5E8MHunr1dVBugRG9PZ21N4AcyswPDdCb9JS2qvxhMUVm6VW0ambYpLM
-	GzQPq1mRbX8A/XK/K6e9cX9X56D3lTSxYfh+grVDwm5odhQ/KvTM7yiAhccwxQ==
+	bh=wPg52BCKf0oQaRBqHIfc4G2wuj60BiIFAzNo4C3TV1g=;
+	b=lQAnXua+rOX7G4HyDpUhw64BdhqE3zL0DGJwQouj5Z9+CK8OKDFw56O979d5BoiZhHDnt6
+	6OVu687DePh/1yy5SiRPc+V+dGmcJsyEfIjkOlHqoZyRU1+NCg/kgvDxFPuFZELFuq3pQc
+	BibCXewH1gOPWFYSBu6+2I8CqE26u/zMxgRYvft8PfbWfYIykJ9DWj9Td6XEqiqUy0HY53
+	LXSD1tMM9l8TH2zVJXv1F7LwERK/YxfqHGM+k5E2MDH/bYUqkywyUZ1ITvBG/UbSNyc7Od
+	yf0Dz+noVU3+pZhXfvGASEOea9/Rj4oy0YJxuHOOxk142IpG9Wy5x3vi0iL/LA==
 From: KentoNion <kento@kekto.ru>
-To: platform-driver-x86@vger.kernel.org
+To: platform-driver-x86@vger.kernel.org,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
 Cc: Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
 	Armin Wolf <W_Armin@gmx.de>,
 	Mingyou Chen <qby140326@gmail.com>,
 	Gladyshev Ilya <foxido@foxido.dev>,
 	linux-kernel@vger.kernel.org,
 	Nabil Danial <nabildanial.93@gmail.com>,
-	Nika Krasnova <nika@nikableh.moe>,
-	linux-doc@vger.kernel.org,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>
-Subject: Re: [PATCH] platform/x86: bitland-mifs-wmi: add TM2424 thin-ultrabook perf-mode quirk
-Date: Wed, 26 Aug 2026 16:29:19 +0300
-Message-ID: <20260826132919.179519-1-kento@kekto.ru>
+	Nika Krasnova <nika@nikableh.moe>
+Subject: Re: [RESEND PATCH 1/5] platform/x86: bitland-mifs-wmi: validate WMAA status, never abort suspend
+Date: Wed, 26 Aug 2026 16:29:23 +0300
+Message-ID: <20260826132923.179587-1-kento@kekto.ru>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260816215825.289356-1-kento@kekto.ru>
-References: <20260816215825.289356-1-kento@kekto.ru>
+In-Reply-To: <bc7a6576-54da-1517-5d0c-adbb3d77fa78@linux.intel.com>
+References: <20260728180944.51356-1-wolf109909@outlook.com> <20260728180944.51356-2-wolf109909@outlook.com> <bc7a6576-54da-1517-5d0c-adbb3d77fa78@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-Please drop this patch.
+Hi Ilpo,
 
-Mingyou Chen's v5 ("Merge redmi-wmi into bitland-mifs-wmi") is the
-right vehicle: a per-machine ops table instead of a DMI boolean fork.
-A replacement follow-up that adds TM2424 ops on top of v5 is in:
+On Mon, Aug 24, 2026 at 18:42:43 +0300, Ilpo Järvinen wrote:
+> How about using union inside the struct and a type that annotates the
+> endianness + endianness accessor to read it here?
 
-  [PATCH] platform/x86: bitland-mifs-wmi: add TM2424 ops and hotkeys
+Agreed for a global status-word helper. I did not put that in the
+TM2424 follow-up on Mingyou v5. On this SKU SET-accepted is the
+operation byte 0x80 (XiControl OutData[1]); packed as a 16-bit word
+that is the 0x8000 success value Yuming documented. A union +
+get_unaligned_le16() belongs in 1/5 so every WMAA call can share it.
 
-That also avoids the laptop_attrs const-qualifier build error the
-robot reported against this version (v5 already uses non-const
-DEVICE_ATTR). The LKP report is therefore obsolete.
+> This code makes no sense to me. laptop_profile_get() can return error
+> codes so how come can profile be "valid" in that case?
+
+Also agreed: profile_valid as "get returned 0" is a bad name. I
+dropped that pattern from the TM2424 patch and left the v5 suspend
+hook unchanged. With the TM2424 GET mapping, cmd 0x08 bytes 0x02/03/04/
+09/0A are no longer unmapped, so the existing hook should not abort
+sleep on this machine. A never-abort change can still go in 1/5 if
+you want it globally, with an explicit ret check rather than a
+boolean named "valid".
 
 Thanks,
 Kento
