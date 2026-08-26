@@ -1,136 +1,85 @@
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4586142466A
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:22:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C5653E2AB0;
+	Wed, 26 Aug 2026 13:23:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787750567; cv=none; b=r6uxNpPu+umSrdEQ+avYSX9y2qyiTBTJCfXGsZYAYUZD2aw6GdAcwSkOcnInacnxCOEnI7mZR36y3pkyuhh7f8ISFFfPtDzg3zcbBQ2jDwJxJR5HbcMqIO+alwfntmNXEbdXm9cFia8KyDR4Z2vkzaivCZz42gakFsa1QaNjhb0=
+	t=1787750584; cv=none; b=oBALuOXdI55j6UOCTb9XO4iSuD/QCun4Eo4iNC7fFCkjZcedPZFo4GEsErgadLyC5IA6Eoxsf38T2Y7PH/O6qSeebMUpUtMlcApm9TwXSH3A2HdpmFGxHWzaZZ7Uc/8kedqJma0DDoFjiofcJOLvFKVXaVtK+On5eTJ9T8gYIMU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787750567; c=relaxed/simple;
-	bh=WkboM0OdZqhPqQ9UIgFR9YMbWDHiDEJ6qs2otdpsS4M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bNBOnCH2BJc0phqjI+pwqMRyP+yi3+rOxqZiGZWKF8MVoOjjiJwTy9IfVFgyHDUiPkEIxYJzKuXdgaSMhiwvDTxChpGcP30BvynRq7yLrr76DoQ0L+GGWYWLM5b1QjfzRjwxfYD75t7VfyI5MsI6bneMsmTVh7ppRf//qvS+ZEc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MMir70hB; arc=none smtp.client-ip=209.85.208.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787750584; c=relaxed/simple;
+	bh=dmLCNekLF7qQsx2TYXubO6nCiWrbfqtJvrZ/qU8Cp/E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iV9EWbE+uYBHHBAKQ/p3j7KEMUEpsPnM5+k3wx/qRZHv3zxxlFBAKfZaEW8KeZvyPtpLfJs2LLPSoTNkwXcXHp6i4EtOh3s/PtvMPfz3OMP0wMCa8Aww8RlTKDi955pUuMdZE71QL4lTH3yTScje0x2Z6F403rRNLy+0Qi8Mwuo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=NhFSvt74; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MMir70hB"
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-69c600f76ccso1487301a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 06:22:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787750564; x=1788355364; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1/WQNlcdBHJ1/5iDWRui/aJJ+/iUtUbCd7WBlOaLV4Y=;
-        b=MMir70hBGKtnjxlh51BO9cvasLh4CAD0bonFcqNGGVOBPOM6MDIwho6g9FZ6HAizyS
-         N5cNNJVh8JG0/Rsg/tyjKWa/HjsggT2O5RYOP59aM3XcOBPboXcNflaWmOrXIPbCVf8C
-         /KfptAq5VoQvrMtqm0WZgkAch8u13JU9Mf4GK6uKcD+tz9L9TnGKbDjGMXmFSa/UxH/0
-         z+j1/dzkC6ku+yn/kUy7G75Qq5SPovgjmk+F2CjbevEK/t87NNmyO9vKtScc4cy0Zn9L
-         +TEdxCwozwBPr8P2S6rHr0whljslIjn+QmjxUG4U+NOexAZN3DUsEX5Ge27+cryBm9Wv
-         nhRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787750564; x=1788355364;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1/WQNlcdBHJ1/5iDWRui/aJJ+/iUtUbCd7WBlOaLV4Y=;
-        b=iBO+nyDyF4+r9BknQZORdddYqPJQjbXkKrgigk3XCFvYOC2AAiQ2G9X8H4aCz+WUvQ
-         FR6R951n740V1Wrg905uyHTaRTYABq3ksh5iixTGXG8viCBDcdc0JXOv/Ayc+wFCEJkM
-         /GMmcHqb6eiUarMpkF+Z4XiW7a/VI2dsPzJDVzB64ZFzlNg2Uz2y1XWXWdou23+xgNuW
-         gykXf2LedKjYuLLZrBrUY9tuQ40E60Qtd1lUnwzZV0xwDK7S4nzBG5q8r9cpO2/EqXhz
-         fp8w9VoZ8zxVpV3l/y5iLGL3e5HPNIoDALWV68VNK11LLVh4b/1Wijr2n3At3/QLCsPo
-         QTNQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrbrewCIeL2BPGWTrGrGZFHRXNggPXLElMiZOmSilhrH4wktoSf7XJNoC7zrGLrSK6GenvD1uHyPNglI/M=@vger.kernel.org
-X-Gm-Message-State: AFuF++noxcBNaZxB2d6RaNWNrr1JVhLilRRr6zxp5Or2NBudFI1D+YU1
-	Jkq3fCsr1HHCZo2aVTSae6todDbfEPpMi5CUl81LMLBdbORfii0/RoagislWQz1R
-X-Gm-Gg: AR+sD12Th1pMmblCs/QDJJ8yADG3T++xx7MAYQ6Uiih6qs+K31FKD7peJqDPkOyPZpe
-	rnFNWV3ao76TynDud0e9GWABXLsKFTTJ4egoUHsQvQf9V2tg6z+ycaGnqflurqe9ggB+JpC4rn1
-	QPKi+WCS1yhc1haQM/yxiWdyyUQcVlG+AaqY+ItZvc46ZtisfZqXSa9wCqJnFwzfdqqpbvRoROS
-	sr3AalVQz4ce2i4Yp3GPtsFdfGIbVx7ovX7uA0dcSxAJ8d+N5c6altdAD3AWWhfjNLEMfh41aQ9
-	t798n7IHBbZ4doCRljQ8doC5jOAUlt+HYkozrA2JnPvnr9q6JsTDq+OZlnxbxviYQjXyEPqlQUo
-	NDuPRu2s6vvlJQJBJrrvw6+sEGg/1YZ4c3+J2J1i8SsM00JzZTZ6G19w7zCT6Kzitr5GB3mDa8O
-	HjOXCw7Df3KvtqKyJGkbFxAcztnLs3PklSlwCeI4ng4HG747ApYNzGM5Sv8M3thryuIerXuom/Q
-	0D/gbMR0UoqXE+nBTB5o2fM4s3yD8EFW4JlK0ff7C4=
-X-Received: by 2002:a05:6402:4025:b0:6a0:9c84:ce0e with SMTP id 4fb4d7f45d1cf-6a5df663cbfmr9972362a12.14.1787750564433;
-        Wed, 26 Aug 2026 06:22:44 -0700 (PDT)
-Received: from 1Z10 ([37.163.238.51])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a5edef3c26sm1689857a12.17.2026.08.26.06.22.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 06:22:44 -0700 (PDT)
-From: Maurizio Casciano <mauriziocasciano7@gmail.com>
-To: Hans de Goede <hansg@kernel.org>
-Cc: Ilpo Jarvinen <ilpo.jarvinen@linux.intel.com>,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Maurizio Casciano <mauriziocasciano7@gmail.com>
-Subject: [PATCH 3/3] platform/x86: x86-android-tablets: Add Yoga Book audio GPIOs
-Date: Wed, 26 Aug 2026 15:22:33 +0200
-Message-ID: <20260826132233.3342481-4-mauriziocasciano7@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260826132233.3342481-1-mauriziocasciano7@gmail.com>
-References: <20260826132233.3342481-1-mauriziocasciano7@gmail.com>
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="NhFSvt74"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=dmLCNekLF7qQsx2TYXubO6nCiWrbfqtJvrZ/qU8Cp/E=; b=NhFSvt74PQACFlP8GSOf5Lt7Ti
+	szltvFhI7h0BvYTmTRe1ax2uezAZgkX4ABuhd8rEcIM/afvLxD4ukXRiO8EkPWJHb0wSF6dIWZHwn
+	sN6ZcHsZIhMCGk0OdJGinf0VfXAuNfWPQLPMKd97R9AD4tE/8lmaubA7NLI1rAoHz9yaXI/UzN+iJ
+	hhCBruXvM/ymzYm3j1Db3kHcHnkoL1AHTgvmvzpVKg3kVNH8SjfcRx+dFzJCr8dKoFh5dhFVcUpn/
+	2AJDHC2CxpBg5/voRzPQJvybMojGy7Kn5V+KDu4pG/v9ier/jYMOVlyDWBNze5bC47/bKWwqVRV9p
+	qssB5zHw==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1wzDaL-00FF52-1C;
+	Wed, 26 Aug 2026 13:22:33 +0000
+Date: Wed, 26 Aug 2026 06:22:27 -0700
+From: Breno Leitao <leitao@debian.org>
+To: Borislav Petkov <bp@alien8.de>
+Cc: "Luck, Tony" <tony.luck@intel.com>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	"x86@kernel.org" <x86@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, "linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>, 
+	"kernel-team@meta.com" <kernel-team@meta.com>
+Subject: Re: [PATCH 2/2] x86/mce: Add mce=panic_on_ce_count to panic on a
+ corrected error flood
+Message-ID: <ao7nGM9sCQyxJvsD@gmail.com>
+References: <aowABmagul44ENde@gmail.com>
+ <aoxxxmM-xIpyAE_Z@agluck-desk3>
+ <aoynhOsTCcapwRbl@agluck-desk3>
+ <ao2eT0TWS9EaA28N@gmail.com>
+ <SJ1PR11MB60837D32B5D89336C87280A3FCAF2@SJ1PR11MB6083.namprd11.prod.outlook.com>
+ <20260825161625.GAao2_2d3U7xQFgHrw@fat_crate.local>
+ <SJ1PR11MB60839657B965AC3FDA53C186FCAF2@SJ1PR11MB6083.namprd11.prod.outlook.com>
+ <20260825191555.GCao3p63v3fXzwa7E7@fat_crate.local>
+ <SJ1PR11MB608315809B99B7194D167D8EFCAF2@SJ1PR11MB6083.namprd11.prod.outlook.com>
+ <20260825225202.GEao4ckknyv8nRc8Dh@fat_crate.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260825225202.GEao4ckknyv8nRc8Dh@fat_crate.local>
+X-Debian-User: leitao
 
-The Yoga Book YB1-X91F/L uses two GPIOs provided by the RT5677 codec
-itself. GPIO2 enables the second speaker amplifier and GPIO4 enables the
-headphone path, but ACPI does not map either signal.
+On Tue, Aug 25, 2026 at 03:52:02PM -0700, Borislav Petkov wrote:
+> On Tue, Aug 25, 2026 at 08:01:23PM +0000, Luck, Tony wrote:
+> > L3 on Intel is shared by the whole socket. So you'd lose 50% of cores for an L3 cache
+> > issue on a typical two socket system
+>
+> Would panicking the whole system be better?
 
-Add lookup entries for the codec device so the Yoga Book ASoC machine
-driver can request both controls by function name. Register and remove
-the table with the tablet description lifetime.
+That's basically the approach I was going for too (just more generic).
 
-Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
-Assisted-by: LLM sparse
----
- drivers/platform/x86/x86-android-tablets/lenovo.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+When things start to go south, panic clearly. That helps people like
+me who watch for kernel health across the fleet and know how to handle
+a clean panic caused by ETOOMANY MCI and MCEs, instead of something that
+requires deeper investigation because the host is degraded.
 
-diff --git a/drivers/platform/x86/x86-android-tablets/lenovo.c b/drivers/platform/x86/x86-android-tablets/lenovo.c
-index 36c9424c0afe..c4401b59fd1d 100644
---- a/drivers/platform/x86/x86-android-tablets/lenovo.c
-+++ b/drivers/platform/x86/x86-android-tablets/lenovo.c
-@@ -316,6 +316,16 @@ static const struct x86_i2c_client_info lenovo_yogabook_x91_i2c_clients[] __init
- 	},
- };
- 
-+static struct gpiod_lookup_table lenovo_yb1_x91_rt5677_gpios = {
-+	.dev_id = "i2c-10EC5677:00",
-+	.table = {
-+		/* GPIO2 drives the second speaker amp; GPIO4 drives headphones. */
-+		GPIO_LOOKUP("rt5677", 2, "speaker-enable2", GPIO_ACTIVE_HIGH),
-+		GPIO_LOOKUP("rt5677", 4, "headphone-enable", GPIO_ACTIVE_HIGH),
-+		{ }
-+	},
-+};
-+
- #define YB1_X91_DRV2604_0_DEVICE "i2c-DRV2604:00"
- #define YB1_X91_DRV2604_1_DEVICE "i2c-DRV2604:01"
- 
-@@ -363,6 +373,8 @@ static void lenovo_yb1_x91_remove_haptics_props(int index)
- 
- static int __init lenovo_yb1_x91_init(struct device *dev)
- {
-+	gpiod_add_lookup_table(&lenovo_yb1_x91_rt5677_gpios);
-+
- 	lenovo_yb1_x91_add_haptics_props(dev, 0, YB1_X91_DRV2604_0_DEVICE);
- 	lenovo_yb1_x91_add_haptics_props(dev, 1, YB1_X91_DRV2604_1_DEVICE);
- 
-@@ -373,6 +385,7 @@ static void lenovo_yb1_x91_exit(void)
- {
- 	lenovo_yb1_x91_remove_haptics_props(1);
- 	lenovo_yb1_x91_remove_haptics_props(0);
-+	gpiod_remove_lookup_table(&lenovo_yb1_x91_rt5677_gpios);
- }
- 
- const struct x86_dev_info lenovo_yogabook_x91_info __initconst = {
--- 
-2.53.0
-
+In other words, I'm more interested in flagging that a host is a lemon
+than in keeping it limping along half-alive, thus my approach in this
+patchset.
