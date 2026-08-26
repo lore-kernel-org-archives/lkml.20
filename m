@@ -1,117 +1,112 @@
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7BD439F160
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 18:48:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7905C3AC0EE
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 18:48:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787770094; cv=none; b=IRnoqgdIjghxZAYbVwLxBo4YmQpE/2wuJAJNKQJC9cMft3cirHKXUjTuQfF48jsNLsa9Jst/aCgnmWx9Bt2BHHF2PQ14Xy5wuvcPJLrflbXIu6ZiHNic3wGBAq1RM9+2Q8MUlhlIQi7bZB8qzj3yctxlrw1SBDqENfQ9bILi5S8=
+	t=1787770092; cv=none; b=nPSJfGnqojzyejikPRWoBCD9gpYtkXRh8hPVWlbEsV7Ih1SkArILi1t9yKQXbCPkeR8kHOZ5G8Uc3NPg4lTVnY9SkHtH4VScSIg1p2bgpFjkSQdpgKNV3PeuPOOkK37wtlTHqhDoetUqhmUlOAzi/wC9TYFFfgUMboHasoGFvLQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787770094; c=relaxed/simple;
-	bh=efJ7OzdzKldWooGfysUltqqJ5ryhNVoM0o3wKqoeieE=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=U2Dv0c7enKD1vRwmCZa1OFhdU/Uvr+19IWCF/dAltpQpZLRJK3Y5tx2vQSFTuG/fHka0PGIUia4l5MoPhw+ZvJdOo0sSi7TBMd63bjUSywsg5cr6trW+fzkefGUPg0r4YSSqbQCO8DbSnp7l+YbT97nHHxXqLzlUaX7elZO6Kvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=pyyO2f8F; arc=none smtp.client-ip=216.40.44.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1787770092; c=relaxed/simple;
+	bh=3zTrUNP97wjygcEyxUmUMs4ernWyBlapMobTCcEOsLo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cvZqdoUXORYoGmAMvQwV9CT3x+Mp2LcyQvd8+CRStlzqQINPGelSOYxD15dUD+lGnCoa+zINUCNHZMhi64bN8RMnCA7F5FUkQ//Xd6rAgY4Ie6Ni3NXHO08R1Oaov69yqINUbZcGdXnai+PiSqw8FjqqUJYZYPzTt4j4WISh3B4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h5LWND5o; arc=none smtp.client-ip=209.85.208.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="pyyO2f8F"
-Received: from omf01.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay04.hostedemail.com (Postfix) with ESMTP id D2C641A01EF;
-	Wed, 26 Aug 2026 18:47:57 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf01.hostedemail.com (Postfix) with ESMTPA id 15A7860011;
-	Wed, 26 Aug 2026 18:47:55 +0000 (UTC)
-Date: Wed, 26 Aug 2026 14:48:41 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: LKML <linux-kernel@vger.kernel.org>, Gabriele Monaco
- <gmonaco@redhat.com>, Kuan-Wei Chiu <visitorckw@gmail.com>, Nam Cao
- <namcao@linutronix.de>
-Subject: [GIT PULL] rv: Fixes for 7.3
-Message-ID: <20260826144817.7af76334@gandalf.local.home>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h5LWND5o"
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6a18840e2abso2135409a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 11:48:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787770078; x=1788374878; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yNGuRramHsyQedVrqROIzZg6iP7sI/lSPknDcuWVUUc=;
+        b=h5LWND5ouEDslBg7kR3By1Nd6rW9nS2zBCTUjBfNhU+KfI8IrzPndcYemsqZg6Q+nU
+         wN/r2nP5LILJsZeBFvHP/ZzDHCtQSmInciJeQYHkxaoBzuezuODM9lbSgn6t3/8z051P
+         QJfB6/7ZllyUYLjhBmFjAHD2+00GUSSKuexpR795IKNisRUqeYWWk+fXUDJ1520sKjDP
+         1kY4nP+Lz7whfSKEiQfozgAhRSuDWhe0m6iS0asQuqE+o0bl31G3GN9Y1ZrDtAFh199N
+         gLHwfyx71u+ecnWFqFkgFYdgXC0rIJ7TY8RD2okHKDADZdhcyYCrlN9YbPChLOjlbyfC
+         vP7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787770078; x=1788374878;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yNGuRramHsyQedVrqROIzZg6iP7sI/lSPknDcuWVUUc=;
+        b=glgdzehzjCV1PNaHrIqoN5q9o9CVh4u2lKLe598RQspbVwRz80L0JVGs77fed+6bUU
+         k85f5Lnq9jwUMm3aDCqTzjCOe7LnB/JpnGDuR7t1MBbjf/7SjixfFiVAakpJt0w8IX31
+         Mytgxn+cmVFR5GopHQw/zixlC8RFFzhL4yXTcZqTMG8WF9Nyieefy7fMSFhSNNEKYn91
+         R+6rMYHc5vNS6o9Q94XTSRy50txyvolTbpSHBE7eVjWZJjgE+8UNyiGTj4ykKNFSrKtu
+         bWNcRyE815zNX6DHvAsDhrcgDraY20sgyXEg3grAYbMvgFBVpoqreJXAAvyLpODlz0uB
+         oI4Q==
+X-Forwarded-Encrypted: i=1; AHgh+Roo9xjRaoPayAv9UgxJVyYHvlPE3ELSPKQzU0HWFEY/YGjbGxtUqchy8xeTefm7aeHgF3XrWhr1ph/8YDw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mfwPMtq6kW5wAU3KszoYXF8wmH7qaZNzAuoAWshFVjSnSeAdAq
+	FINnpEI72c0InOqM4pdamSGaPjl1RsM+j2pHoj8DuAQPACZmwVxhOrTI
+X-Gm-Gg: AR+sD10o9f6+YrTnfImVpK94EXW7ZkmSqf67vAO95Qdn4BaHkgHo7x9KJZakjCX8ifg
+	F3TmPTP7JQQ2RuxI+GLIUZt/yWm5D149v+BezLdL+k/kPgptQ2AYXnpU1t0GrD3gKRm7Ui1gz1O
+	TH5Bq8XAGHC2CVOJoZKs9xA42mR1qy/MWsgfYKxjVkWjVFo60PO6Z3w3qV7YpC+gmapEIUN6XZ5
+	yfbvd/e8z7l2wa+gsfzvZ7Qc7zyMq22T4HLX6YCxq/TEiQ7k6zSKm9QJV50iiTZ9/aYehJeAUkb
+	nvMV7Ph+2blY1a1u+cTVvteCLI73ozICCadVtMH0CZGEFpSfVzohqSk4JqEaqcDpomue5mdhT4A
+	YDrH4nbYdclQy6AjUPsnGprn9/OIEinvRZ/M81z5ZmgkjBgCNv5DnD0t+44X0wEAv/MBego4fhj
+	9qRF0ODhtyKzDhacFUuWaqAqbgdKBUiJewgsvh/ZARQgrey1dstNRaaZORefDMAqtlBh08ALsT4
+	YeDVRRcTNNkwuxWQqgobPANQ/uChvK1Zu0e5YT7q5r9c0fP
+X-Received: by 2002:a17:907:a713:b0:c21:8a0f:56dc with SMTP id a640c23a62f3a-c250c449b8fmr1129537766b.4.1787770078207;
+        Wed, 26 Aug 2026 11:47:58 -0700 (PDT)
+Received: from flaviu-Aspire-E5-572G.. ([5.15.67.216])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2533945d0esm114523366b.9.2026.08.26.11.47.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 11:47:57 -0700 (PDT)
+From: Flaviu Nistor <flaviu.nistor@gmail.com>
+To: Guenter Roeck <linux@roeck-us.net>,
+	Jean Delvare <jdelvare@suse.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Flaviu Nistor <flaviu.nistor@gmail.com>,
+	linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH v2 2/2] hwmon: (lm90) Reject channel 2 on chips with only one remote sensor
+Date: Wed, 26 Aug 2026 21:47:49 +0300
+Message-ID: <20260826184750.4798-3-flaviu.nistor@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260826184750.4798-1-flaviu.nistor@gmail.com>
+References: <20260826184750.4798-1-flaviu.nistor@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: ud4msytimxp5zjy7wd7m9octjx4zdbqe
-X-Rspamd-Server: rspamout04
-X-Rspamd-Queue-Id: 15A7860011
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX199BPvgGHMg2daSkG6mI3bgdmWjF4amp/k=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=zrsEN1+9v/Vwvujs3u/9dsl0EZPGGG9pCS6180WDFDk=; b=pyyO2f8Fzs32bsyVRwYAGoN2m/88NrR6CYKSU5dtvO2UeaFthrf+2fxRgSjyEPSrLF2pw2wgbOQIm1Id3OHGjRXpAw1jziiHImpZTuBtRuNK+RU1E+MnnChBqfIpXSzxgAsIsFZU4F0Epvd59UHm/uNwwQh9cFaIbd8jyiYmBvE=
-X-HE-Tag: 1787770075-9801
-X-HE-Meta: U2FsdGVkX1+1ufxPeW1U7kfM0X6YMfieLInfY7vgJeiP2f+HnkkEGuixqutAXTiMOgSKROBy/GqOYO59fO/nYgHYvZZQtPiN9MC3dGPBWnd3gHxtdFvJzZ8DQ7h5Wj4+gyEKv+dBsS2xLSQkgBDsAltzFvTV5T6oEJ5gYKv7Cj3ApT6BhuAvdStlbkBSOgRuCSlXQlPp/NsSyWkvOmkOgpB2rPF4L7ulK+vCGZqResBHF83T0M+iEvKkyWkdzZT7Cko5yZKyU+uqsg5dsYI5f5Ma1AvTeYsQ9iKqH8w6Iiejk4/5IS6hhEDtnKHMLPNp/IiYvg/vwZoltHmmjGnTmDBIU1Gzj892F9QtZ4WUmd4VYGgI/kafGa66zE8kwK8JV42HgYLNm+1HilIoJbf5pbT8EsuO/oqW
+Content-Transfer-Encoding: 8bit
 
+Validate firmware channel definitions against chip capabilities and return
+-EINVAL when channel 2 is configured on devices with 1 remote channel.
 
-Linus,
+Signed-off-by: Flaviu Nistor <flaviu.nistor@gmail.com>
+---
+ drivers/hwmon/lm90.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-runtime verification fix for 7.3:
-
-- Use .old instead of .bak for rvgen kunit backup files
-
-  The rvgen kunit command generates .bak backup files and these are
-  checked in for selftests as "golden" files for make check. Clean
-  make disclean removes such files, leaving the tree dirty.
-  Switch to .old to preserve a clean tree after make disclean.
-
-
-Please pull the latest trace-rv-v7.3-2 tree, which can be found at:
-
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git
-trace-rv-v7.3-2
-
-Tag SHA1: 59b4def9b53efdd6c9e83f6a32aabf8b7001652a
-Head SHA1: ab0304fd69b07605553e9f161d65ecf9ccc2e2fe
-
-
-Gabriele Monaco (1):
-      verification/rvgen: Use .old instead of .bak for kunit backup files
-
-----
- tools/verification/rvgen/rvgen/kunit.py                                 | 2 +-
- .../{test_bak_kunit_kunit.c.bak => test_bak_kunit_kunit.c.old}          | 0
- 2 files changed, 1 insertion(+), 1 deletion(-)
- rename tools/verification/rvgen/tests/golden/test_bak_kunit/{test_bak_kunit_kunit.c.bak => test_bak_kunit_kunit.c.old} (100%)
----------------------------
-commit ab0304fd69b07605553e9f161d65ecf9ccc2e2fe
-Author: Gabriele Monaco <gmonaco@redhat.com>
-Date:   Mon Aug 24 10:15:19 2026 +0200
-
-    verification/rvgen: Use .old instead of .bak for kunit backup files
-    
-    The rvgen kunit command generates .bak backup files and these can be
-    checked in for selftests (make check). Clean targets like make disclean
-    remove such files, leaving the tree dirty.
-    
-    Switch to .old to preserve a clean tree after make disclean.
-    
-    Reported-by: Kuan-Wei Chiu <visitorckw@gmail.com>
-    Closes: https://lore.kernel.org/lkml/aosuwKH5GOEo0xTN@google.com
-    Fixes: 7b6246294eb0 ("verification/rvgen: Add selftests for rvgen kunit")
-    Reviewed-by: Nam Cao <namcao@linutronix.de>
-    Tested-by: Kuan-Wei Chiu <visitorckw@gmail.com>
-    Link: https://lore.kernel.org/r/20260824081519.81103-2-gmonaco@redhat.com
-    Signed-off-by: Gabriele Monaco <gmonaco@redhat.com>
-
-diff --git a/tools/verification/rvgen/rvgen/kunit.py b/tools/verification/rvgen/rvgen/kunit.py
-index ed2082d7d3bc..85973f918c9b 100644
---- a/tools/verification/rvgen/rvgen/kunit.py
-+++ b/tools/verification/rvgen/rvgen/kunit.py
-@@ -173,7 +173,7 @@ EXPORT_SYMBOL_IF_KUNIT({struct_name});
-             for path in (header_file_path, kunit_c_file_path):
-                 if path.exists():
-                     try:
--                        path.rename(path.with_suffix(path.suffix + ".bak"))
-+                        path.rename(path.with_suffix(path.suffix + ".old"))
-                     except OSError as e:
-                         raise KUnitError(f"Error backing up file {path}: {e}") from e
+diff --git a/drivers/hwmon/lm90.c b/drivers/hwmon/lm90.c
+index 1c603272538a..3faeb2c6ab01 100644
+--- a/drivers/hwmon/lm90.c
++++ b/drivers/hwmon/lm90.c
+@@ -2712,6 +2712,11 @@ static int lm90_probe_channel(struct i2c_client *client,
+ 		return -EINVAL;
+ 	}
  
-diff --git a/tools/verification/rvgen/tests/golden/test_bak_kunit/test_bak_kunit_kunit.c.bak b/tools/verification/rvgen/tests/golden/test_bak_kunit/test_bak_kunit_kunit.c.old
-similarity index 100%
-rename from tools/verification/rvgen/tests/golden/test_bak_kunit/test_bak_kunit_kunit.c.bak
-rename to tools/verification/rvgen/tests/golden/test_bak_kunit/test_bak_kunit_kunit.c.old
++	if (id == 2 && !(data->flags & LM90_HAVE_TEMP3)) {
++		dev_err(dev, "channel %d is not supported for this chip in %pfw\n", id, child);
++		return -EINVAL;
++	}
++
+ 	err = fwnode_property_read_string(child, "label", &data->channel_label[id]);
+ 	if (err == -ENODATA || err == -EILSEQ) {
+ 		dev_err(dev, "invalid label property in %pfw\n", child);
+-- 
+2.34.1
+
