@@ -1,162 +1,412 @@
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011061.outbound.protection.outlook.com [52.101.62.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6A293F58CC
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:34:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.61
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787762104; cv=fail; b=pu0ooWJ3kPmZV0whWTPbAh2IjySJLrHvPQNG/xOpDkm4r4NXldPXmOI4alaGgJivqJRjW7W80yqjJnBxyzh7kwdDwVU8c5e0uwLEi0N0IIv0ZlecJSjNiLMdXEsRk5SiKxtu98dXGvWpQEZnTkh+Ofy3WKdkzdivvxbH0gYgpUU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787762104; c=relaxed/simple;
-	bh=d9cOD/3JN5eNS+V0OCEn+yqt8H2yUEJzY9YwgJ1cdhY=;
-	h=Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
-	 In-Reply-To:MIME-Version; b=rS20ENN+r88H8DyJnebdFruqCj10mdSf5CCtFEAyY5+iP6tXpGXSRZcojR8vbieWPocrW7UDEMNmhVd69NeNfI1mfr83UiiFK9zvivfNTWj7b2alO4OVc94AJNavCgR8M92zuxPgifz/SLRQBPIePtPiFok+oMSxN0XctahschI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=o7/lGbUy; arc=fail smtp.client-ip=52.101.62.61
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B464246AF1B
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:35:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787762117; cv=none; b=rhyYny0ccAWSx0hWcptvSlMhw1c9K06ueLIwPQpYho4O0k8Wz9nSIXY71cLUuJVz45nW9y9LTblCFNYoyt9/qFfpZGiZDMbrLKwepso6k3TMHgYq43xMIVKC+U9aZ42MbTJJTnvRCYyVJUlolOmtj+Ilr+guQ0DJAsUgZsCKsR0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787762117; c=relaxed/simple;
+	bh=HlNiQkdInaVCqaneSLwUL9h4LrAdu06ZtFAN9CJyFrs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Nl0AjLBMPRzmMA1bFX6zivqVnmWq2iZ5fHqC/e9+j9kL108enAW/IAGcDvJ4gfceVUccIIvDv7K+FnFvfQ6SonVAn+WxpLdCvlyPpTXD5MvXIEINo1LyXzPzGp1p0EF72oPzyQTssUDtauAlNmjUWFiMS7og44rWbnlrLqKoZvU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk; spf=none smtp.mailfrom=fireburn.co.uk; dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b=pfOq/9ku; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=fireburn.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="o7/lGbUy"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FPqcSi7Q3p1qP4D4xzCTo7GKXD6B4pK2G+sTZWGYlKDMlCFIOhdwXOGyz1cgbYbQKQ+oKa2UppT9KZiRH4127CJ218jy6Spp+Yl/ksMamLLG4DygrUDOtm0qqQVY6NNbFSzBRwfijS3T/X8TVbZlt7e9Rl6pdmvZqopm1u3uiSstd+a4b4rJM2KYAx7M4odVKSaxkdipkbdVYiUbRNSI1Sk2+CjjVvr5L6amX/A4jECthb8NS9IrSq6QqEar3M5o0Flnk3tM1PG2x/SK36IbY0+6f76/DZRvxa9YTJ0kMDjF2iu0YUWiAci163hEMrUaj3yWIEqM2bTtWOxPjohj2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=y3wdiYMff+zOVKYMJAs6nLjaKyXuSNz8qjUccEL5KRs=;
- b=KjNX1U7145Qw2AP5iMgXiiGsPCx8l4qYtOXrLbsHDl0xMQiBpnouYMUSiFawHpKoRF6pnHlsrSFzafNRpNQK73EY8fZ7X/Uezp8BQ++LRXEakS14g8qnA245DYSJsRo7hfsNOF8RFUh9YqBORXiqCvAq/I/PpRUKHeP8PssFrHpdCyHhSsdsxJbqYO8b5Hq10Uo1T+HX2cZR4JehJgNZb1n91C1fKg/6YSGM65gkrEkyC5HivFNgDbDIAIh5jEGOsTMMNW7sJf6sjRKinlVKzhtgMjXA9/36EiMdEHEQqKcZb3GAMMABAR+eGYXVXoAcayPObQ+LlpB0xInzjcsjpA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=y3wdiYMff+zOVKYMJAs6nLjaKyXuSNz8qjUccEL5KRs=;
- b=o7/lGbUyZRF/itNrBsd5MtRP6yPsEsPvzOxF013leL+IDeUgT48HzF5LXkNnDNBVjOI9q1szMuzJWiuEuBcI3u2Q4fd7IC64MBW6Nwd1GzgIi1EEqulgpeYwIm0K7Y0kjyclHwYop2FgXORPRcFyjxK/S5FZsTCFTdWFFT0wRAxX/gvRUKOo9PrsEYLm5u3xPou6qYSbyIUkx1DlzDCSTWmNOFY49NXUQLMPWfMn/Q8l3j22bNECG6Hgzt4bCKgNiVjQ2iwH8j8sagqm5KSqxGKSeYtS7qVqZOkykUwSAzMuJ+0qCxecWwNy+lpcrQ99otE2o/3UemwScN7al7EKBg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by PH0PR12MB7886.namprd12.prod.outlook.com (2603:10b6:510:26e::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.6; Wed, 26 Aug
- 2026 16:34:50 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0360.006; Wed, 26 Aug 2026
- 16:34:49 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 26 Aug 2026 12:34:47 -0400
-Message-Id: <DKZ0RP174ZWV.1DP8KKRE1LQ6Y@nvidia.com>
-Subject: Re: [PATCH 3/5] mm/huge_memory: reduce indent level in
- __folio_freeze_and_split_unmapped()
-Cc: <lance.yang@linux.dev>, <hughd@google.com>,
- <baolin.wang@linux.alibaba.com>, <baohua@kernel.org>, <liam@infradead.org>,
- <nico.pache@linux.dev>, <dev.jain@arm.com>, <ryan.roberts@arm.com>,
- <balbirs@nvidia.com>, <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
- "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-To: "Kiryl Shutsemau" <kirill@shutemov.name>, <akpm@linux-foundation.org>,
- <david@kernel.org>, <ljs@kernel.org>, <hannes@cmpxchg.org>,
- <usama.arif@linux.dev>, "Kairui Song" <kasong@tencent.com>
-From: "Zi Yan" <ziy@nvidia.com>
-X-Mailer: aerc 0.22.0
-References: <20260826162101.1314941-1-kirill@shutemov.name>
- <20260826162101.1314941-4-kirill@shutemov.name>
-In-Reply-To: <20260826162101.1314941-4-kirill@shutemov.name>
-X-ClientProxiedBy: YQBPR0101CA0078.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:4::11) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="pfOq/9ku"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49556f97a9dso6386125e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 09:35:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787762107; x=1788366907; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3mBUy/SWfkawc6Cd4r6cfyndlG5qS5mvs2LAdsI9qBg=;
+        b=pfOq/9ku1DmKJ2eYUDrHG9ACQYjo2gSrhedlYoORuj640Pb/l0JCpasfB/I8k6LYF5
+         1FuD1U6Zd7uYqs9lltB5nCFau/saHFWKaDVDTkjVEqB9qvAehHgcDO/vH+OieQLp5toL
+         uoWmae3AiRAXmAhf4l5xfIk5MjA52YWMq3Pu5WD7uFaQVQ3Vef3h9ngIw2/QqucatEX6
+         Y/4vVYQznfIRQIVN63NNqp3j8gbPnMo8cLx/0F5BIgoXNN3hC7ZTuge5PM8COtY6UZlf
+         vrxfzZiJ8NVK/arvncWJifoc97nroNFg6nCo7xsxQPljvLGRavi2cY1NtUUxbSzvj0pb
+         BkJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787762107; x=1788366907;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3mBUy/SWfkawc6Cd4r6cfyndlG5qS5mvs2LAdsI9qBg=;
+        b=G5tNKECfvMnwV50ZBIiFC6ACX8u0pY6Tsjz8K7Qvd1qa49zLi3FdhSJiX078VgVYaB
+         uk2jECreUpefmZ8+JAjiV+balrtC8Dxn7gT1VCDQJ9rJRCglO4rhHkwH5ZYIxzqtEttX
+         F/atHLiu2cRm4IosLC2twoiSA3n6AqBHAwmJuBU3JSgUDSbKxpcwU2RWv1Q5t9NxDsdi
+         mtxIIK+5HqIt3V4eQSnAf4zb0qrJyz0efl7+0HsMvXJxKf9rfTktcdj1IE5uFfNOgmea
+         8LIEVU+IY5S2I9LkGgor0MXbqq2MA9uFH3On7o0GyQkiNMhT5rQ+X44lJZOwObelpFdl
+         5p1A==
+X-Forwarded-Encrypted: i=1; AHgh+RqvV95wewG0rGHYK/nszrMPSqptQbZC86W+lW9GaKHvVsn73oxqz3w9WoDqSozRDAFFBg3WnmaLBQFHFS4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mTvvYmtQ7XXVcvLuCaNuG99edunjTF90CU6OSL9Tuz6vaY63Dr
+	ubPzwDiT7RixHUZAG2VmsxOJ9CMe5DHLBMRmxsnBVNSFp30Tg9Dlo0BcPDsjpW4VJw==
+X-Gm-Gg: AR+sD11gzIJIMNXbaNNTT77TwGchdqeGxabn514n9RtiabiT6krBmpNR+NEipJn1T/b
+	J5sf/Twxv3UXorP7e8UT0eOZEcL6uXdvo3MRHWt3Uzt+f9uLQfUTNdwueHO7LhSs1Cgtn5f/6XQ
+	K5Evxst9bh2O14RyDE8Y3XBAfEKYI1yBsLUci/bB3oKx+8GgXYCqBbNgF3OPIkC1Eq6yuIBqd7m
+	OaFCkk5GIQ0P1LD4LCrTGfwv1pIps1KcUc8J/ew8jkF7XmVc5hfh/UDGh7TGX807t1F0i2niJA1
+	6vsBDbiFvfxZm32uQJr0wMr2PQ0G8k/EKlVym3fiJZMr7Nl+gH7e/AT1lw0rdiY1ZO7r8Q15b41
+	+6gJwLn+A+ShyLy2x6/1q2sNEVUB1tgjzUJxHuKGYT2IzhRJKuKN1ZWWHL6RIjJcFcRJkyXAefo
+	xetoAr75ndJiynY5xTUgTIkDsksCCUdZKE14oRYcTlA6izvT3HyZx2AJvILFjixkFV1HpoQYSAX
+	TcG41kMqKYEynxAA48HbyCP8uHnKXmIYR14arzWnco9dK6G
+X-Received: by 2002:a05:600c:a43:b0:497:fecd:5b00 with SMTP id 5b1f17b1804b1-499dc717e27mr70937185e9.9.1787762107196;
+        Wed, 26 Aug 2026 09:35:07 -0700 (PDT)
+Received: from axion.fireburn.co.uk ([2a01:4b00:d309:1c00:caf1:6b20:8531:818c])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499dca8c75csm31227535e9.2.2026.08.26.09.35.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 09:35:06 -0700 (PDT)
+From: Mike Lothian <mike@fireburn.co.uk>
+To: dri-devel@lists.freedesktop.org
+Cc: Mike Lothian <mike@fireburn.co.uk>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Trevor Gross <tmgross@umich.edu>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	Lyude Paul <lyude@redhat.com>,
+	rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 5/23] rust: drm: kms: add common state and connector helpers
+Date: Wed, 26 Aug 2026 17:31:36 +0100
+Message-ID: <20260826163359.4998-6-mike@fireburn.co.uk>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260826163359.4998-1-mike@fireburn.co.uk>
+References: <20260826163359.4998-1-mike@fireburn.co.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|PH0PR12MB7886:EE_
-X-MS-Office365-Filtering-Correlation-Id: 82392067-11a9-423e-42f0-08df038ff29d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|10067099003|22082099003|18002099003|11063799006|56012099006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	42D5QiT+7C37uQOhnd2uMmVHkdiGW3B8hqKyh1u3sCu+exxfyLo2snWAUd8QDFgowIuNMe5OljafNPxHkm1PUSVBLeRrFD8Yb3A6w6t81Jhbhw0v0qxOqcaYRM78t49zCqc/K6djd71jEqJsVGTvuxYRjzi3ni43h8U6M3CCAVzg/V9i9KfN0u/CEDcNyrVvuelVzTicnWmp4KwBSBkkwxYCDKS/rqninvSTSfs9Oe2s7Cqa4iJuJQZdWhcMKHqLAmgDYfoDz82CUJj3gMuFNEJAqLuzRmX+RpUTQpvqcbOH5GP1nnulwqR7JXKz+B4iN6MTHCBplrkbl2FGHA7TM0bUYZGcSeTJtw4fFzrqwd/9Fihnquigsis/jYHSN0ImXKBuTp7RfNg2cqXcTvFpWqUEyjasysw5a14g3q3CKtzZUIKwy72KjgKxculeYdc0flCuuszBQSnY7DgJQHjURzfmys5L2TStifK6ui5rWOFvgYJaPcdygd74Vxzy4CMkXcZQKDssqSlVZgDbkqEMWjultZ7I+QOXbD1Sz6BLRE4d6P1Zom3ZEDl4HJFsVyqypUOoORWwhIzAwIcmBrXZ+nH2GOPiaMQxX5cuG4iNcU6ewrWtTRTbCh6xKEHT3uIjvGT1j0UBBLTkpY9Stjx3yXC4R05Z3/JATfJ5A+SGGTE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(10067099003)(22082099003)(18002099003)(11063799006)(56012099006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Q2xqUjJ0NHJkejJ1TjJkQUdCV3lNb1diSnF1emNkQVoyZFhBMS9HSHh4SEV4?=
- =?utf-8?B?QVlSMkJDRGYzZDB3aHNGSE9hUC9vTVY3ZWNxL21qZmtQd2ZkU3dpajJEcG5n?=
- =?utf-8?B?UkRRdythUnZHeU9hem9GVnRMNEpZNS9hOGhEK0hjcjk0Wk9haGZ2YzdQWkZh?=
- =?utf-8?B?WnlvOUkwR1k4YzJqMlF4QW5kR1V1bk9XMm9FcFNMZDdpQWcxRjlydG1PRHlJ?=
- =?utf-8?B?SC8vVnF1V0xrcjlQUzhuNGVLaXJFRHFmU2s1eXRlTXozN0h0UWJqVno2RXl5?=
- =?utf-8?B?UE1FNkp2WnBtZGlDVXMvOHo5dzdwVjhJOXdjdGRkU2wvL0dybXlGWjd5T1Ev?=
- =?utf-8?B?OUgvdjZiaVZieURaZ1pNaFU2Nm5tbVkrTmEzQ0dYV2h4UEhIbFE2Y2VpcGps?=
- =?utf-8?B?dTAyekp6THZqdDdHVkZQOFJJem1ScGlFbHd3SDhVRGp0RGhTK1pOWjNUeWkx?=
- =?utf-8?B?N0k3SHJ3Q2hFbEh2Q3ExMVpIOVFoaFErN21HWXlHbmdtS3U3eWlhRjFYUU9C?=
- =?utf-8?B?ZnNqMGpHUGJXSUx1czlPVXNWL3I0R1BzQzVvNExBRUw0dW5GSkgvWVdEcWRN?=
- =?utf-8?B?MEVQSXZPNndSTTFYUyt3blpkZHZZaEt3YVVCUzZ3WjJzVW1Ra3laY0xsV2Q1?=
- =?utf-8?B?M1M0SFpaZ0FPWnFneStIR2tuTVNHTTRSekQzMUpXSEtHdFhhQ2ptNGFCQ21I?=
- =?utf-8?B?NFA2WWFqd01SWjRNSThXYmlaTUpVSCtPU2ZvNzhzcGd1Q29NWnQ4OFRSaVc0?=
- =?utf-8?B?RUFVSjFLaXBLZEhFT29ZcjZhL0NwTk5MM0pEQ1MxcFNrWldlZGpkTG5iUjV1?=
- =?utf-8?B?ZW5MR0xURElINjBQall6MWhTNklkQjFSUWZtVzdNUkNPdEhLVmhLRXExNFNi?=
- =?utf-8?B?djF6NXRUUkxlRThMc1Y1NENXdGE0ZGk0STJ0Q2RsbXQxMC82VVpSOG1IN1po?=
- =?utf-8?B?N3hNQmdWbHlrNFlkOUlmSDZodkI2NjRUQUJDQWdjYWlVVWJWNEs4T3paQmlE?=
- =?utf-8?B?dHg4M2FhQUFWWDY0MzNwU0pTSmV2V1Z0eG5BN21KYWY1b3VYNmhac2syM0VI?=
- =?utf-8?B?bmZiMzYrcmpLU21EZndIOFVpMXpnZHJidnJsYnZlQkxzc2NXYkRQMXVKNDVT?=
- =?utf-8?B?YndiN1JmVlJ5ekVIbmlDeFdoU08vaXI0OGZKTThDdGJYZmJyc1d1V2IzUWlz?=
- =?utf-8?B?UHVlWGhuS3FxZmY1T3NnUWwvMnhhWDVHVHU5ZFlqclZuMUxpTXk0TTVkMzQx?=
- =?utf-8?B?MzVBQ1B0dnpyd0cyYmlqTEwzVGhtS1paci9VRHdkOHJzcFJQaFU3cm81b0Jk?=
- =?utf-8?B?Zm9lcG96aU9QV3pOYUFtclV4SFRFU0VkMFRGOXVmVXZoT3pmZ2dqVjRINkRD?=
- =?utf-8?B?c3Awd3VHQU9QN05aOWxzMjlJeDJzQUNoZU1QSkpjb05FdWxLQ0FzM1lIbzdE?=
- =?utf-8?B?TmQ0YTZEb2dCTk1LWGg3bitxOTVLcWZqYllMSzd4VS9ESEdzQ2Q5T05zL0t1?=
- =?utf-8?B?Q0FiOXU5WUc1ZjFpLzgxMW5xZ0NveGRyZzdtQ0NSTVYza0NMNFF0cC9rdUd3?=
- =?utf-8?B?M0FHVGJjNWhhTzdmTVdxYjl3OFoyS0J0cWJHWnh4UzlqeDBCS2ZtTFJZWmYv?=
- =?utf-8?B?a0xBUXFpTEpnS0tnSVhLdEVJdDV0N2lTbHFPOEZZZDJHMUtXQWhlNWROcTcw?=
- =?utf-8?B?cENONFF4YVpraUl3L2JmcHl2aUtQR2dhSTI3TS92M2JvcmRWVVo2ZTFhL3BY?=
- =?utf-8?B?aTEydHNjUTNKSFp1NWM5RnRlS21QYUYzVkZJa0VlTW5Ddjk0R25QbUMzUDBi?=
- =?utf-8?B?dzhLa3doZy9Jbk45SzczbG0xSlNla2hnSk5aWldmMmgvcm5UY244ek0vM2ll?=
- =?utf-8?B?YWlqZURlSFdXb1hKREZjSUFkbEFGa3J3dTBjR0NDcEYxejI5RTRaR3crVVhQ?=
- =?utf-8?B?RmpYNjkwWVh3ckhhby83ajE0c1J3ZzAxNjFMTDJRanB5R0dOVGE5dGV0TWZZ?=
- =?utf-8?B?WkZndGJmV09XTzQ0bkVlb0tvQVZ3YmcxTnR0OEpla3VEOWhMSU1rZGFsdDkw?=
- =?utf-8?B?ekpDR21qNStxSndOUUplNjFTVVY5SWdVMzRtWE16WEtqQWN3eXJncit5eW5N?=
- =?utf-8?B?M2Jyck1ZNHh1U2tkckVEMGUwYzFxYUVGcHlPYkxOVDgzNmQyU0NRazdpZytr?=
- =?utf-8?B?SmNDb0JwS2Y2SXZ6RW5YemxyUExSVXIvUkpVM2dIMktNS2g4Q2Vva3VXQUZt?=
- =?utf-8?B?YmM3UUxyQ2krNkVOVXlldk1vRStGQ1RHOXk4ajJmMGo4bHlvYVFiWlRmVHEv?=
- =?utf-8?Q?f+r9FB3hk80UNe6Cjz?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 82392067-11a9-423e-42f0-08df038ff29d
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 16:34:49.7541
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5zC9tHvKUV/J0xg98opYqcukhVw+6pdD/CpZRiKYTcw1HP0dvEx974ICRE2mHstK
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7886
+Content-Transfer-Encoding: 8bit
 
-On Wed Aug 26, 2026 at 12:20 PM EDT, Kiryl Shutsemau wrote:
-> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
->
-> Trivial cleanup: short-circuit the function if folio_ref_freeze() fails.
-> It save an indent level for the whole function.
->
-> No functional change intended.
->
-> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> ---
->  mm/huge_memory.c | 233 +++++++++++++++++++++++------------------------
->  1 file changed, 115 insertions(+), 118 deletions(-)
->
+Add safe KMS helpers for hotplug events, mode timings, CRTC modes,
+plane destination sizes, and EDID mode enumeration.
 
-Kairui has a series that cleans up __folio_split()[1]. It seems that your
-patch 3, 4, and 5 overlap with his changes (e.g., your patch 3 is the
-same as his patch 3).
+Propagate drm_edid_connector_update() failures and release the
+temporary EDID on every path.
 
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
+---
+ rust/kernel/drm/kms.rs           | 18 +++++---
+ rust/kernel/drm/kms/connector.rs | 35 ++++++++++++++-
+ rust/kernel/drm/kms/crtc.rs      | 12 ++++-
+ rust/kernel/drm/kms/encoder.rs   |  9 +---
+ rust/kernel/drm/kms/modes.rs     | 77 +++++++++++++++++++++++++++++++-
+ rust/kernel/drm/kms/plane.rs     | 14 +++++-
+ rust/kernel/drm/kms/vblank.rs    |  2 +-
+ 7 files changed, 148 insertions(+), 19 deletions(-)
 
-[1] https://lore.kernel.org/all/20260821-swap-thp-cleanup-v3-0-9b43f5163238=
-@tencent.com/
-
---=20
-Best Regards,
-Yan, Zi
-
+diff --git a/rust/kernel/drm/kms.rs b/rust/kernel/drm/kms.rs
+index 8baf9c2906f5..c10b2488af9b 100644
+--- a/rust/kernel/drm/kms.rs
++++ b/rust/kernel/drm/kms.rs
+@@ -77,7 +77,7 @@ unsafe fn setup_kms(_drm: &Device<Self::Driver>) -> Result<ModeConfigInfo> {
+ /// generate said functions for any kind of type which the original mode object driver trait can be
+ /// derived from. All conversions check the mode object's vtable. For example:
+ ///
+-/// ```compile_fail
++/// ```ignore
+ /// impl<'a, T: DriverConnectorState> ConnectorState<T> {
+ ///     impl_from_opaque_mode_obj! {
+ ///         // | An optional lifetime and param-variables to declare for each function
+@@ -245,10 +245,7 @@ pub trait KmsDriver: Driver {
+     type Encoder: encoder::DriverEncoder<Driver = Self>;
+ 
+     /// Return a [`ModeConfigInfo`] structure for this [`device::Device`].
+-    fn mode_config_info(
+-        dev: &device::Device,
+-        drm_data: &Self::Data,
+-    ) -> Result<ModeConfigInfo>;
++    fn mode_config_info(dev: &device::Device, drm_data: &Self::Data) -> Result<ModeConfigInfo>;
+ 
+     /// Create mode objects like [`crtc::Crtc`], [`plane::Plane`], etc. for this device
+     fn create_objects(drm: &UnregisteredKmsDevice<'_, Self>) -> Result
+@@ -360,6 +357,17 @@ impl<T: Driver> private::KmsImpl for PhantomData<T> {
+ 
+ impl<T: Driver> KmsImpl for PhantomData<T> {}
+ 
++impl<T: KmsDriver, C: crate::drm::device::DeviceContext> Device<T, C> {
++    /// Send a hotplug uevent to userspace, prompting it to re-probe connector state.
++    ///
++    /// This is useful for drivers which detect connector changes out of band, for example when a
++    /// dock supplies an EDID after bring-up.
++    pub fn hotplug_event(&self) {
++        // SAFETY: `self.as_raw()` is a live KMS-capable DRM device.
++        unsafe { bindings::drm_kms_helper_hotplug_event(self.as_raw()) };
++    }
++}
++
+ /// Various device-wide information for a [`Device`] that is provided during initialization.
+ #[derive(Copy, Clone)]
+ pub struct ModeConfigInfo {
+diff --git a/rust/kernel/drm/kms/connector.rs b/rust/kernel/drm/kms/connector.rs
+index b36d138ae950..793a7bb5bfef 100644
+--- a/rust/kernel/drm/kms/connector.rs
++++ b/rust/kernel/drm/kms/connector.rs
+@@ -5,7 +5,7 @@
+ //! C header: [`include/drm/drm_connector.h`](srctree/include/drm/drm_connector.h)
+ 
+ use super::{
+-    atomic::*, encoder::*, KmsDriver, ModeConfigGuard, ModeObject, ModeObjectVtable, Sealed
++    atomic::*, encoder::*, KmsDriver, ModeConfigGuard, ModeObject, ModeObjectVtable, Sealed,
+ };
+ use crate::{
+     alloc::KBox,
+@@ -587,6 +587,39 @@ pub fn set_preferred_mode(&self, (h_pref, w_pref): (u32, u32)) {
+         // SAFETY: We hold the locks required to call this via our type invariants.
+         unsafe { bindings::drm_set_preferred_mode(self.as_raw(), h_pref, w_pref) }
+     }
++
++    /// Parse an EDID, update the connector information, and add its advertised modes.
++    ///
++    /// Returns the number of modes added.
++    pub fn add_edid_modes(&self, edid: &[u8]) -> Result<i32> {
++        const EDID_BASE_BLOCK_LEN: usize = 128;
++
++        if edid.len() < EDID_BASE_BLOCK_LEN {
++            return Err(EINVAL);
++        }
++
++        // SAFETY: `edid` points to `edid.len()` initialized bytes, which the helper copies.
++        let drm_edid = unsafe { bindings::drm_edid_alloc(edid.as_ptr().cast(), edid.len()) };
++        if drm_edid.is_null() {
++            return Err(ENOMEM);
++        }
++
++        // SAFETY: The connector is live and the guard holds the mode-config lock. `drm_edid`
++        // points to an allocation returned by `drm_edid_alloc` above.
++        let ret = unsafe { bindings::drm_edid_connector_update(self.as_raw(), drm_edid) };
++        if let Err(err) = to_result(ret) {
++            // SAFETY: `drm_edid` was allocated above and has not been freed.
++            unsafe { bindings::drm_edid_free(drm_edid) };
++            return Err(err);
++        }
++
++        // SAFETY: The connector information was successfully updated from this EDID above.
++        let count = unsafe { bindings::drm_edid_connector_add_modes(self.as_raw()) };
++        // SAFETY: `drm_edid` was allocated above and is no longer needed.
++        unsafe { bindings::drm_edid_free(drm_edid) };
++
++        Ok(count)
++    }
+ }
+ 
+ /// A trait implemented by any type which can produce a reference to a
+diff --git a/rust/kernel/drm/kms/crtc.rs b/rust/kernel/drm/kms/crtc.rs
+index 683d9ee4ec25..a3217f8c55e8 100644
+--- a/rust/kernel/drm/kms/crtc.rs
++++ b/rust/kernel/drm/kms/crtc.rs
+@@ -5,8 +5,8 @@
+ //! C header: [`include/drm/drm_crtc.h`](srctree/include/drm/drm_crtc.h)
+ 
+ use super::{
+-    atomic::*, plane::*, vblank::*, KmsDriver, ModeObject, ModeObjectVtable, StaticModeObject,
+-    UnregisteredKmsDevice, Sealed,
++    atomic::*, modes::DisplayMode, plane::*, vblank::*, KmsDriver, ModeObject, ModeObjectVtable,
++    Sealed, StaticModeObject, UnregisteredKmsDevice,
+ };
+ use crate::{
+     alloc::KBox,
+@@ -644,6 +644,7 @@ pub trait AsRawCrtcState: private::AsRawCrtcState {
+ pub(crate) mod private {
+     use super::*;
+ 
++    /// The raw-pointer half of [`AsRawCrtcState`](super::AsRawCrtcState).
+     #[allow(unreachable_pub)]
+     pub trait AsRawCrtcState {
+         /// Return a raw pointer to the DRM CRTC state
+@@ -678,6 +679,13 @@ fn active(&self) -> bool {
+         // this access is serialized
+         unsafe { (*self.as_raw()).active }
+     }
++
++    /// Return the display mode programmed into this CRTC state.
++    fn mode(&self) -> &DisplayMode {
++        // SAFETY: `mode` is embedded in the CRTC state and therefore has the same lifetime. The
++        // atomic-state API serializes access while the mode can be changed.
++        unsafe { DisplayMode::as_ref(core::ptr::addr_of!((*self.as_raw()).mode)) }
++    }
+ }
+ impl<T: AsRawCrtcState> RawCrtcState for T {}
+ 
+diff --git a/rust/kernel/drm/kms/encoder.rs b/rust/kernel/drm/kms/encoder.rs
+index f90d139cdb04..8758a9459bcc 100644
+--- a/rust/kernel/drm/kms/encoder.rs
++++ b/rust/kernel/drm/kms/encoder.rs
+@@ -5,7 +5,7 @@
+ //! C header: [`include/drm/drm_encoder.h`](srctree/include/drm/drm_encoder.h)
+ 
+ use super::{
+-    KmsDriver, ModeObject, ModeObjectVtable, StaticModeObject, UnregisteredKmsDevice, Sealed
++    KmsDriver, ModeObject, ModeObjectVtable, Sealed, StaticModeObject, UnregisteredKmsDevice,
+ };
+ use crate::{
+     alloc::KBox,
+@@ -15,12 +15,7 @@
+     types::{NotThreadSafe, Opaque},
+ };
+ use bindings;
+-use core::{
+-    marker::*,
+-    mem,
+-    ops::Deref,
+-    ptr::null,
+-};
++use core::{marker::*, mem, ops::Deref, ptr::null};
+ use macros::paste;
+ 
+ /// A macro for generating our type ID enumerator.
+diff --git a/rust/kernel/drm/kms/modes.rs b/rust/kernel/drm/kms/modes.rs
+index 0f29a9c00062..cc3c486eecf1 100644
+--- a/rust/kernel/drm/kms/modes.rs
++++ b/rust/kernel/drm/kms/modes.rs
+@@ -1,7 +1,12 @@
+ // SPDX-License-Identifier: GPL-2.0
++//!
++//! DRM display modes.
++//!
++//! C header: [`include/drm/drm_modes.h`](srctree/include/drm/drm_modes.h)
++
+ use bindings;
+ 
+-use crate::{prelude::*, types::Opaque};
++use crate::types::Opaque;
+ 
+ /// DRM kernel-internal display mode structure.
+ ///
+@@ -73,4 +78,74 @@ pub fn crtc_vtotal(&self) -> u16 {
+         // SAFETY: Reading these fields is safe via our type invariants
+         unsafe { (*self.as_raw()).crtc_vtotal }
+     }
++
++    /// Return the horizontal active pixels.
++    #[inline]
++    pub fn hdisplay(&self) -> u16 {
++        // SAFETY: Reading this field is safe via the type invariants.
++        unsafe { (*self.as_raw()).hdisplay }
++    }
++
++    /// Return the start of the horizontal sync pulse.
++    #[inline]
++    pub fn hsync_start(&self) -> u16 {
++        // SAFETY: Reading this field is safe via the type invariants.
++        unsafe { (*self.as_raw()).hsync_start }
++    }
++
++    /// Return the end of the horizontal sync pulse.
++    #[inline]
++    pub fn hsync_end(&self) -> u16 {
++        // SAFETY: Reading this field is safe via the type invariants.
++        unsafe { (*self.as_raw()).hsync_end }
++    }
++
++    /// Return the total horizontal pixels including blanking.
++    #[inline]
++    pub fn htotal(&self) -> u16 {
++        // SAFETY: Reading this field is safe via the type invariants.
++        unsafe { (*self.as_raw()).htotal }
++    }
++
++    /// Return the vertical active scanlines.
++    #[inline]
++    pub fn vdisplay(&self) -> u16 {
++        // SAFETY: Reading this field is safe via the type invariants.
++        unsafe { (*self.as_raw()).vdisplay }
++    }
++
++    /// Return the start of the vertical sync pulse.
++    #[inline]
++    pub fn vsync_start(&self) -> u16 {
++        // SAFETY: Reading this field is safe via the type invariants.
++        unsafe { (*self.as_raw()).vsync_start }
++    }
++
++    /// Return the end of the vertical sync pulse.
++    #[inline]
++    pub fn vsync_end(&self) -> u16 {
++        // SAFETY: Reading this field is safe via the type invariants.
++        unsafe { (*self.as_raw()).vsync_end }
++    }
++
++    /// Return the total vertical scanlines including blanking.
++    #[inline]
++    pub fn vtotal(&self) -> u16 {
++        // SAFETY: Reading this field is safe via the type invariants.
++        unsafe { (*self.as_raw()).vtotal }
++    }
++
++    /// Return the pixel clock in kHz.
++    #[inline]
++    pub fn clock(&self) -> i32 {
++        // SAFETY: Reading this field is safe via the type invariants.
++        unsafe { (*self.as_raw()).clock }
++    }
++
++    /// Return the refresh rate in Hz as computed by DRM.
++    #[inline]
++    pub fn vrefresh(&self) -> i32 {
++        // SAFETY: `drm_mode_vrefresh` only reads this valid display mode.
++        unsafe { bindings::drm_mode_vrefresh(self.as_raw()) }
++    }
+ }
+diff --git a/rust/kernel/drm/kms/plane.rs b/rust/kernel/drm/kms/plane.rs
+index f52f9c872de3..3a95c45b6728 100644
+--- a/rust/kernel/drm/kms/plane.rs
++++ b/rust/kernel/drm/kms/plane.rs
+@@ -5,8 +5,8 @@
+ //! C header: [`include/drm/drm_plane.h`](srctree/include/drm/drm_plane.h)
+ 
+ use super::{
+-    atomic::*, crtc::*, framebuffer::*, KmsDriver, ModeObject, ModeObjectVtable, StaticModeObject,
+-    UnregisteredKmsDevice, Sealed
++    atomic::*, crtc::*, framebuffer::*, KmsDriver, ModeObject, ModeObjectVtable, Sealed,
++    StaticModeObject, UnregisteredKmsDevice,
+ };
+ use crate::{
+     alloc::KBox,
+@@ -617,6 +617,16 @@ fn plane(&self) -> &Self::Plane {
+         unsafe { Self::Plane::from_raw(self.as_raw().plane) }
+     }
+ 
++    /// Return the width of this plane's destination rectangle in CRTC pixels.
++    fn crtc_w(&self) -> u32 {
++        self.as_raw().crtc_w
++    }
++
++    /// Return the height of this plane's destination rectangle in CRTC pixels.
++    fn crtc_h(&self) -> u32 {
++        self.as_raw().crtc_h
++    }
++
+     /// Return the current [`OpaqueCrtc`] assigned to this plane, if there is one.
+     ///
+     /// The returned CRTC reference cannot outlive the plane-state borrow:
+diff --git a/rust/kernel/drm/kms/vblank.rs b/rust/kernel/drm/kms/vblank.rs
+index dc34e02e8ccb..a725a46110d8 100644
+--- a/rust/kernel/drm/kms/vblank.rs
++++ b/rust/kernel/drm/kms/vblank.rs
+@@ -4,7 +4,7 @@
+ //!
+ //! C header: [`include/drm/drm_vblank.h`](srcfree/include/drm/drm_vblank.h)
+ 
+-use super::{crtc::*, ModeObject, modes::*, Sealed};
++use super::{crtc::*, modes::*, ModeObject};
+ use bindings;
+ use core::{
+     marker::*,
