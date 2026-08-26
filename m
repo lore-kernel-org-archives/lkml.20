@@ -1,177 +1,208 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012071.outbound.protection.outlook.com [40.107.209.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AFFD424D59
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 22:22:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.71
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787782974; cv=fail; b=A6EgJUa4u4CI8K+Zn8gS6XhlbP0lN+vRA1nqtAdhakoqX74gS1nHwPp/2EtxwOslDG1OeMxHjgQwzM74dYfpwkSIBDbpzPnmUmq442tHRmC0OaVLa6l0ys9Di4K1Yt31CNPLQt5J7MVLH4sxtBEvNkvKILGHxOMIKZdDM9CrdIA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787782974; c=relaxed/simple;
-	bh=kaenUsRrtUogsG0BZ399bbbOc7y8x2qtddszExl57yA=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=m7SLV/v0yWHRYQ0854MVbhaJatnQN1WPnAxsrZarW6aL8cr9zxVNSC2CdZa4Xg1jKP4SHKTo92aaMW+svORkFZ05HXTDTRLwXkv0qoy6TmIRUc3CCtAw3bPkZ3ZTdPK+rXLCIH10lCTey5JlPevunWSfI/JMFvVX+yqYjmW1bY4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Zf5ikl0a; arc=fail smtp.client-ip=40.107.209.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3B0E478E56
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 22:23:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787783013; cv=none; b=nI39boZfBDh4aef4yKHtseds0AGFMV9CKoAYPnCFaOe6pPSODN1ptOiKa0yXwh/8eb+Ovh66CBiLz1VjTcsYR4Aom/f+n1qA7HaBFGS5/QV/93WN63PBqZLNwI+LFHE2YgpGz9e0f9hu1cDr0yPWDL9C1hUNe7XSBrZ0p4X820o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787783013; c=relaxed/simple;
+	bh=GqndFSZk8fTM4Q3z/je+OwIp0v2J7tUgj9fTETnG4Z0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=mIIY8DJqVRsWDQJlAv3lsrKUa4dLIIXfjRtO6+aRgk/iSbpKM+6mPgDuuwHjBgid8cfaDU1BdBWKblNKxp2LyeRy35N6mOJoepsfYqHQxzv4QhL3ByjQB0NQb/fzCIMOfadO9g3IGtCFyqvE8Uj7Dp2Ewb4clAT4FxSIuoUxw4I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=PeMmKu8i; arc=none smtp.client-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Zf5ikl0a"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Tu/Ij2sOuT+ItnhrDMzbiQOlU+3ysrLAZuTBZ0C33qq4uMsKi77z9Nsp3pVHbC83HXRnGQpcp3E8Us6HgrBnCueCZNoYQplYKh1+7oRtMpKtqFvFfKKkl2JYc62wnU3E2iygw5hSh30Lt2OTWISLJOm+EhtbVzOgsZxmN2wtb0P6SO2v/v6RoIueWUEDulTe+upqFEcAdur+qL/+hOkEGM+9HURSjs4v3sCgjrEdD8yupmsMJv+2Gs320zyhdDJmDoaRfzQ9hnvoAhtp00TZzcKVuWy1h1LUJEnZbE0yqfNY2JuvZVMaUteL2/Ns6qp6b48pnjcIWsttD5uD4dZ1NA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LVk5BRrbMCyJaeZbetsjOW7VCKDjNVLUxRE+CAWYHlA=;
- b=rAtIlbaE4LvxuLq496kFJsrKTYfRkFlJh0B4NwQLC4UOWDdyqzPyBkLjP0T9g5mX+arulVnf2M+mtCSn7h5xeBWurN7dGzg0UWvKbhAM9A4V6/p88k79gNHLfCYBfD48HfYm1gzeoPkmzvCvRzJ2lkPP+xcJIqO9sQCSLMd5YkXOyfq583LhnLAqN73gHv9CMoQrPpvHkWuabckTMC/G9PC8dVKocOe4PLFw4uNqrDWem0mlYbtgNmyYYsOITm9C8kR96HbtQd9MqWYPbJEbjEQWjz6cVLGHFNpzeXU2yX8L4BiQrBw4x4wVLy4BQvRY6I4utpsjcQ8MtmkcAekeug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 149.199.90.133) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
- dmarc=fail (p=quarantine sp=quarantine pct=100) action=quarantine
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LVk5BRrbMCyJaeZbetsjOW7VCKDjNVLUxRE+CAWYHlA=;
- b=Zf5ikl0aTU9M8/xa98pEnOlQk93swyHx1ZJSgECsvCSh98W1RTXecGmIGxdLHwBhlRQWCOzsXfE6+vwYzk/mkjlWDx9WYLFlgCxPL/Fxr7eCRf0J/AGwKkYcTeSJlINuzYEns9TcBwTjtDIrHYgmNJ8DsipdtfCvq8b9l8mc+/Y=
-Received: from CH0PR03CA0223.namprd03.prod.outlook.com (2603:10b6:610:e7::18)
- by LV2PR12MB5798.namprd12.prod.outlook.com (2603:10b6:408:17a::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Wed, 26 Aug
- 2026 22:22:43 +0000
-Received: from CH1PEPF0000AD7A.namprd04.prod.outlook.com
- (2603:10b6:610:e7:cafe::34) by CH0PR03CA0223.outlook.office365.com
- (2603:10b6:610:e7::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.10 via Frontend Transport; Wed,
- 26 Aug 2026 22:22:42 +0000
-X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
- 149.199.90.133) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=quarantine header.from=amd.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- amd.com discourages use of 149.199.90.133 as permitted sender)
-Received: from satlexmb07.amd.com (149.199.90.133) by
- CH1PEPF0000AD7A.mail.protection.outlook.com (10.167.244.59) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Wed, 26 Aug 2026 22:22:42 +0000
-Received: from dryer.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 26 Aug
- 2026 17:22:39 -0500
-From: Kim Phillips <kim.phillips@amd.com>
-To: <linux-kernel@vger.kernel.org>, <x86@kernel.org>
-CC: Sean Christopherson <seanjc@google.com>, Paolo Bonzini
-	<pbonzini@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, "Nikunj A
- Dadhania" <nikunj@amd.com>, Tom Lendacky <thomas.lendacky@amd.com>, "Michael
- Roth" <michael.roth@amd.com>, Borislav Petkov <borislav.petkov@amd.com>,
-	Borislav Petkov <bp@alien8.de>, Naveen Rao <naveen.rao@amd.com>, David Kaplan
-	<david.kaplan@amd.com>, Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
-	"Dave Hansen" <dave.hansen@linux.intel.com>, Kim Phillips
-	<kim.phillips@amd.com>, Nathan Fontenot <nathan.fontenot@amd.com>,
-	<stable@kernel.org>
-Subject: [PATCH] x86/bugs: Only log missing retpoline when it's actually the missing mitigation
-Date: Wed, 26 Aug 2026 17:22:28 -0500
-Message-ID: <20260826222228.3668418-1-kim.phillips@amd.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="PeMmKu8i"
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cc1c8d4a959so893438a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 15:23:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1787783008; x=1788387808; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BVnWg2iLmSAV51XI9dB+R2wGq0zBTwlXD7KgxikGiuQ=;
+        b=PeMmKu8i/JcF2I1bC1hWYPUfiQTCHdR/vEMqde+nDw45vZPIdFJwBU0njE79Xh7h3b
+         2vdYAUGstGJNxDvYcdbD7OAfBq7707SoCjPoGwbfDO0NQQq2m6jPe1WIwJV+BXkmyVjI
+         ZJLHH3U5EYrc+75Pf4mcZkd8KHXwKs7Knu3bmP26hquwaA9Rlf2919VhCFnfOyLC+4uI
+         HE3e/CYK/30YynXl8l/1CpwSjLTwpmn+pp9P1Tnq23rrfM5hmOW1uncRSPcqE8MnwX0u
+         bua1eHWZHV0CpjvW2Zo/ShMepAudFjjjot+dHzwG+VrvYn+iCt93pyaHM188S9LM5d4b
+         HZ+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787783008; x=1788387808;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BVnWg2iLmSAV51XI9dB+R2wGq0zBTwlXD7KgxikGiuQ=;
+        b=YFZ9eJKCJokSHgYWFA8ZtbtNjLdqZhFHb8buYrWVz7rm983KUPZmhFW2OApGEGmiby
+         ntPQtcVoNh0ENjnIMq7ycKtQ41OHeqALVWV9eOAJb/8gcXWylmWnH8XM+N1qIddDFI3v
+         w7oF18l2hr3YHfnRUy6K7DE6p00oJnCBMDv8W72FR8fsc1n/lYGv2+36b9lNGLyxc0y5
+         xjiRzCjvN4hDE/CxJBYO9DMkAXYGs/4iRJxTFYQpKZTe7S3IGyfel0vm9zMJia/1o9+m
+         zt5kcGzf78yvxQV7SqKDp4GlGOkUejViyZsCV8VXSxsTt1U3LMR4mcfKClbeLdVOaQ1T
+         p7gg==
+X-Gm-Message-State: AFuF++mdu/hFxNbYXKqKhG8GDpeJF2udCv8Wr/E77aa3CzWl8PFX7Hce
+	t7WQnOPkcJJIlTFy/OHJm4v0OMEnJY5NTpSfc2srytunPw/nu+ASjGbS4KPM1zbYj1E=
+X-Gm-Gg: AR+sD11NkfvXX/r+NTM2cVSzBhrgNNA5qtCXhPLD3CcVLESclTMS+LhTHtwet1gthyT
+	ePQzpUmT+CrnqnboTgj8vqUIZqOPBQv5u/QvJHiTpfzdjm5z8pvxd/5nl2mOMF77Ly014j48RcI
+	POvyQ0Oo6BRy9VvnG0pzZErHmoEXCeruTSPT0pyWdmhZ6RgoaNJuYgB4y8RdsYcgqBNJkaQKu7B
+	Uea36UfE3t6XG12gihJ6fniQQTtBOw9prFucb+COqF/rcLYMRx04ZK4NErpANtd2AUMDuWW5w1C
+	tPsnZ5rQRvuVu5n7QIfAAvD+MQroC6Tr3qr3PfCpiX/J5mhmAvI+qTX6y/L8bThPQxPh44s5TO+
+	2uCBquOOp80tDzCZZx/LYyuO6pqTdP5I2Thvyw0d6UUKBQNUb92b41n0dWUYsVLc33kkSFxxxDG
+	srpV61ZwaGi2G8UxG5HbtyaUJokSC8DaWHnP0jHIHv3eSQkM3yhdYVGMdTlf89H6rBpbs1
+X-Received: by 2002:a05:6a20:4b93:b0:3d0:c5c0:d9b3 with SMTP id adf61e73a8af0-3d0c5c0dd51mr5408104637.18.1787783007967;
+        Wed, 26 Aug 2026 15:23:27 -0700 (PDT)
+Received: from localhost ([71.212.202.210])
+        by smtp.gmail.com with UTF8SMTPSA id 41be03b00d2f7-cc1bec86171sm1469691a12.27.2026.08.26.15.23.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 15:23:27 -0700 (PDT)
+From: "Kevin Hilman (TI)" <khilman@baylibre.com>
+Date: Wed, 26 Aug 2026 15:23:21 -0700
+Subject: [PATCH v5 3/4] pmdomain: core: add genpd_for_each_child() helper
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7A:EE_|LV2PR12MB5798:EE_
-X-MS-Office365-Filtering-Correlation-Id: f1baf704-434e-469d-0083-08df03c08c07
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|82310400026|1800799024|36860700016|56012099006|10067099003|6133799003|18002099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	i6UoLyjZX5YpVu4lF39QUcl9OpBX+ApNpJ+IFTR8GzRZ+7x4v33vvwc8KnotSBiLMLnhUNHSDnCUhTT9X4Q5hPffyFDy8VH6ySAxAUjw5lDTSQhYoJXWn04JzHkT0kbV8cKrzlYDgWdMzRBlCPkqHGqH5ayhPkY0Htj0m1vuuLDmKpO+rbVYXLUR2YD/MmZk7DjtBTKcGxuylWttojp5oc9UXPfjciP4C5tIodZlB/uGW5G5Yh3tgzCnRhCMTa//DMbb88oCqQ3iLPkV3KC+yJCDSw45Jfeukl5ELM1BEsSrKh0pWeS2lCZEuBrzZuav0wr6ZZZe8oEcEMItRRP2M++Qy157gl9GhEEs3IT7nGuq2OYJLSCMedqo/MhrGJgD8bLxGSCJIopk2AASEye1g7v1H+xn5m7DaZJtXlH08SwoPYZfmg+xuvciizybMUbaEOwohhmyYs2akPc61KtfVFPzrKVSggTg65+DKsXFULMFjccZWTSUG8Ok2+ke7Nz05nNzhTVlKFfOvz5YrwUZAbc/ow8sEeBYpNWgiCSEfeZbyvub57g88ZOgnZInHAECDGQwiwKORWFfZ/cblmbfGN4Zrp1LDaec//qROs809ZxZOxk1p6TemWtv4bl13tF/81ByibTeKSiO5iVS1D07wtaZQBVSHFXDmw6zbGNQKSaLprCdDq1eaFWJ/wzb+xIs4SmUqg6OFJ4nt9QyVAThSw==
-X-Forefront-Antispam-Report:
-	CIP:149.199.90.133;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:unknown-90-133.xilinx.com;CAT:NONE;SFS:(13230040)(23010399003)(376014)(82310400026)(1800799024)(36860700016)(56012099006)(10067099003)(6133799003)(18002099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	KVEPpUDetbNHh2Ri7Fmtdp4p0Mn8V4wIvdBl59lncGimBRaKJH48bHMk07BJcM8KFaP56vcfnAAaJzrIlTl1TmvpO9dYFCVuIFZyt5/Pw9TddGinm4+f/7FXxxueFHyv32TGeDXJdviRl5IsS8WIBHZM/OxXZKOljOOncwltXYBWVRJClUXSZXCGbPF4bZdeovUFFfvhsW0PNXXCpjkESSM3YyJP7Nf6RLchjNgWnKKl3NLF6gfUBZaxPdl622sqdUhM4OhwJpcrDFbF8sSef1OT2sWYZEZj29PRlBgL9Utk6ZO+chptQaRci2eZff2CK3MjF6yXwb+FhZB0RVL56Z+PyOjFwAR0OPxDI4nw5PCfzIpIR17SznSYOWEVp95oI5YNrHC29G1qnDSx3SpC4q4JTE0cBgurqeAY9RIRX1EPyLiboZq1pKNsfuzG7mXb
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 22:22:42.6417
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f1baf704-434e-469d-0083-08df03c08c07
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[149.199.90.133];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH1PEPF0000AD7A.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5798
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260826-topic-lpm-pmdomain-device-constraints-v5-3-28cbf43f7e38@baylibre.com>
+References: <20260826-topic-lpm-pmdomain-device-constraints-v5-0-28cbf43f7e38@baylibre.com>
+In-Reply-To: <20260826-topic-lpm-pmdomain-device-constraints-v5-0-28cbf43f7e38@baylibre.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>, linux-pm@vger.kernel.org, 
+ Ulf Hansson <ulfh@kernel.org>
+Cc: linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3687; i=khilman@baylibre.com;
+ h=from:subject:message-id; bh=GqndFSZk8fTM4Q3z/je+OwIp0v2J7tUgj9fTETnG4Z0=;
+ b=owEBbQKS/ZANAwAIAVk3GJrT+8ZlAcsmYgBqj2dcl8uQBtCqpcUHycoSoVH/amfmT/xCaoO2q
+ Kye8rp/InKJAjMEAAEIAB0WIQR7h0YOFpJ/qfW/8QxZNxia0/vGZQUCao9nXAAKCRBZNxia0/vG
+ ZT4zD/sHm9vr2c33S8xj29Skq1lkfALxLbmiE+fHTAc36Oq6mxiGnMtJubFU0t4oolW0yeeqm0i
+ A1DAnoo9IZx0MGX02ixxoifbaRFsbZh9pvfUYtinnJnss5jBoLlI6WuiKpt+MXiOBpCU0OiPKP7
+ 7L6hse1JFXlYBbevqr0F5nZqJ3IzSEnSpaCNM1fjx/9SFN/tjUZUWgm7qIrTGQflXNRlOgX1Ryb
+ 2QaDQrQxTJsw2l2XLOSd7BUM2CnVKJD7xokG7gr1jMX9OU8T23PdKb9PYTTdow3mRX1Z8hvrPBM
+ u7lST5LEgv6dKLMSiEw8IIVaskj3Ky9JOWh6z2cRn6lmLQ3hKtEcKN7NsGemJU5aZB/6hmhQSRS
+ ewZjGGGudq3q3N2TA8CEuYCW5s7DSvzweVMMElRxANSeVtpn/MDm9FQfE6WdK/+OaOrpauo6rz5
+ lcJJJGZcH/jqTOT3Dw1AWze5uzSTceLPN726L+GqAq5p7wcLzNNZ792ki7boJLFcYnOQOLlCqTo
+ QMlPhQdSKmprlX22q5Nz9yKgpbqcXrpcxq/XlQumX4nszuPOE9iE8gGFkYQ+aJFBaoBtVEjOgeP
+ 2GZ+ROjiPJG2HrhKNcr2W5DMkbDR+W043nCIUvnrRbmRNbwSnufZeJ7Mo9cTi3VPPx1LiDYAp4C
+ 5lookvHC8zD36MA==
+X-Developer-Key: i=khilman@baylibre.com; a=openpgp;
+ fpr=7B87460E16927FA9F5BFF10C5937189AD3FBC665
 
-spectre_v2_select_retpoline() unconditionally emits
+Add a new internal helper function genpd_for_each_child() that recursively
+iterates over all devices in a PM domain and its child domains (subdomains).
+This helper is useful for governors and other core PM domain code that needs
+to examine or apply operations to all devices within a domain hierarchy.
 
-  "Kernel not compiled with retpoline; no mitigation available!"
+The function takes a callback that is invoked for each device, and supports
+early termination if the callback returns a non-zero value.
 
-when the kernel lacks retpoline support, before returning SPECTRE_V2_NONE
-to its callers.  SPECTRE_V2_NONE is not the final answer, though:
-spectre_v2_update_mitigation() runs afterwards and can still upgrade the
-mitigation.
+The helper is defined in a new internal header drivers/pmdomain/core.h and
+implemented in drivers/pmdomain/core.c, making it available to other PM
+domain subsystem components.
 
-On an Intel CPU affected by RETBleed, built with
-CONFIG_MITIGATION_IBRS_ENTRY=y and CONFIG_MITIGATION_RETPOLINE=n, and
-booted with spectre_v2=auto, retbleed_select_mitigation() picks
-RETBLEED_MITIGATION_IBRS, and spectre_v2_update_mitigation() then promotes
-SPECTRE_V2_NONE to SPECTRE_V2_IBRS.  The boot log claims no mitigation is
-available immediately before reporting "Spectre V2 : Mitigation: IBRS",
-and sysfs reports the machine as mitigated.  The message is alarming and
-simply wrong.
+The first user of this helper is the cpu_system_power_down_ok() governor
+function, which uses it to check device QoS latency constraints across the
+entire domain hierarchy.
 
-Drop the pr_err from the helper and emit it once from
-spectre_v2_update_mitigation(), after the final mitigation is known, so it
-only fires when the system really is left unmitigated.  Guard it on
-!IS_ENABLED(CONFIG_MITIGATION_RETPOLINE) so it fires only when retpoline
-truly cannot be built in, and restrict it to the cases where retpoline was
-the implied choice: SPECTRE_V2_CMD_FORCE, or SPECTRE_V2_CMD_AUTO when
-should_mitigate_vuln(X86_BUG_SPECTRE_V2) indicates a mitigation was
-actually intended.
-
-Fixes: 480e803dacf8 ("x86/bugs: Restructure spectre_v2 mitigation")
-Cc: stable@kernel.org
-Signed-off-by: Kim Phillips <kim.phillips@amd.com>
-Assisted-by: ClaudeCode:claude-opus-4-7
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Signed-off-by: Kevin Hilman (TI) <khilman@baylibre.com>
 ---
- arch/x86/kernel/cpu/bugs.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+ drivers/pmdomain/core.c | 45 +++++++++++++++++++++++++++++++++++++++++++++
+ drivers/pmdomain/core.h | 17 +++++++++++++++++
+ 2 files changed, 62 insertions(+)
 
-diff --git a/arch/x86/kernel/cpu/bugs.c b/arch/x86/kernel/cpu/bugs.c
-index 82436b3534fa..46c68feef339 100644
---- a/arch/x86/kernel/cpu/bugs.c
-+++ b/arch/x86/kernel/cpu/bugs.c
-@@ -1956,10 +1956,8 @@ early_param("spectre_v2", spectre_v2_parse_cmdline);
+diff --git a/drivers/pmdomain/core.c b/drivers/pmdomain/core.c
+index 842c4169e290..ff27369d9a97 100644
+--- a/drivers/pmdomain/core.c
++++ b/drivers/pmdomain/core.c
+@@ -24,6 +24,8 @@
+ #include <linux/cpu.h>
+ #include <linux/debugfs.h>
  
- static enum spectre_v2_mitigation __init spectre_v2_select_retpoline(void)
- {
--	if (!IS_ENABLED(CONFIG_MITIGATION_RETPOLINE)) {
--		pr_err("Kernel not compiled with retpoline; no mitigation available!");
-+	if (!IS_ENABLED(CONFIG_MITIGATION_RETPOLINE))
- 		return SPECTRE_V2_NONE;
--	}
- 
- 	return SPECTRE_V2_RETPOLINE;
- }
-@@ -2247,6 +2245,13 @@ static void __init spectre_v2_update_mitigation(void)
- 		}
- 	}
- 
-+	if (!IS_ENABLED(CONFIG_MITIGATION_RETPOLINE) &&
-+	    spectre_v2_enabled == SPECTRE_V2_NONE &&
-+	    (spectre_v2_cmd == SPECTRE_V2_CMD_FORCE ||
-+	     (spectre_v2_cmd == SPECTRE_V2_CMD_AUTO &&
-+	      should_mitigate_vuln(X86_BUG_SPECTRE_V2))))
-+		pr_err("Kernel not compiled with retpoline; no mitigation available!");
++#include "core.h"
 +
- 	if (boot_cpu_has_bug(X86_BUG_SPECTRE_V2))
- 		pr_info("%s\n", spectre_v2_strings[spectre_v2_enabled]);
+ /* Provides a unique ID for each genpd device */
+ static DEFINE_IDA(genpd_ida);
+ 
+@@ -276,6 +278,49 @@ static void genpd_sd_counter_inc(struct generic_pm_domain *genpd)
+ 	smp_mb__after_atomic();
  }
+ 
++/**
++ * genpd_for_each_child - Recursively iterate over all devices
++ *                        in a PM domain and its subdomains.
++ * @genpd: PM domain to iterate over.
++ * @fn: Callback function to invoke for each device.
++ * @data: Data to pass to the callback function.
++ *
++ * This function recursively walks through all devices in the given PM domain
++ * and all devices in its child PM domains (subdomains). For each device found,
++ * the callback function @fn is invoked with the device and @data as arguments.
++ *
++ * Note: this function is inteded for use by the core and governors,
++ * not for pmdomain providers.
++ *
++ * Returns: 0 on success, or the first non-zero value returned by @fn.
++ */
++int genpd_for_each_child(struct generic_pm_domain *genpd,
++			 int (*fn)(struct device *dev, void *data),
++			 void *data)
++{
++	struct pm_domain_data *pdd;
++	struct gpd_link *link;
++	int ret;
++
++	/* First, iterate over all devices in this domain */
++	list_for_each_entry(pdd, &genpd->dev_list, list_node) {
++		ret = fn(pdd->dev, data);
++		if (ret)
++			return ret;
++	}
++
++	/* Then, recursively iterate over all child domains (subdomains) */
++	list_for_each_entry(link, &genpd->parent_links, parent_node) {
++		struct generic_pm_domain *child_pd = link->child;
++
++		ret = genpd_for_each_child(child_pd, fn, data);
++		if (ret)
++			return ret;
++	}
++
++	return 0;
++}
++
+ #ifdef CONFIG_DEBUG_FS
+ static struct dentry *genpd_debugfs_dir;
+ 
+diff --git a/drivers/pmdomain/core.h b/drivers/pmdomain/core.h
+new file mode 100644
+index 000000000000..a296134d4005
+--- /dev/null
++++ b/drivers/pmdomain/core.h
+@@ -0,0 +1,17 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Internal header for PM domain core
++ *
++ * Copyright (C) 2026 Kevin Hilman <khilman@baylibre.com>, Texas Instruments
++ */
++
++#ifndef __PM_DOMAIN_CORE_H__
++#define __PM_DOMAIN_CORE_H__
++
++#include <linux/pm_domain.h>
++
++int genpd_for_each_child(struct generic_pm_domain *genpd,
++			 int (*fn)(struct device *dev, void *data),
++			 void *data);
++
++#endif /* __PM_DOMAIN_CORE_H__ */
 
-base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
 -- 
-2.43.0
+2.47.3
 
