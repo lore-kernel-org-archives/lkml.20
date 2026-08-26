@@ -1,169 +1,195 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com [209.85.210.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5D6241A4E4;
-	Wed, 26 Aug 2026 16:48:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DDE2476041
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:49:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787762938; cv=none; b=tcB8bYahBqlnBILDzkRyATlpmaCo4PyUIUIUTBfzQ6XzSLZqBoz+dB07PP70CjZ1Zn0HWa1vNE1gT1GVUL3Ut+IvBTnr5lLXuSHqeb1byHmB2qG1bidRgQvaE6VUn9B2P3oSTFIqgBHhLpICiij3mdgmm2to4kkti6SR12MoHjs=
+	t=1787762984; cv=none; b=IZnPqcDC3SiqyFsL8e3geLHZIoFzJ6YsRvlhkHaouHVLdlkjnksuULrwJ5Po5UEMV2ApeVJjt/vX17EEfq89pWf816w0olrWs5SQrHlV9EiojLuolZvu+6m2PKNkMgEbDDIkkX5MSqwpJ/8nEAbkhnynHX0omFAYSWZFDAsrdMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787762938; c=relaxed/simple;
-	bh=obc+IRsBRKyKcqGaGQ0d48PPiKl+8gfBIBrd9w4+4QU=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=QLEyN/fhXuQkwtQfGXmu3HcqgFCAEL2CzUwGqRw8MbCsbKEI+OOuJXn2XzL+px3KNV/jrkjpxx5gq28y8w/r3pmxBEmDlaeutbZTpJwOyoI2ZnovmqSePvRdYidiC1ho2RCXNbZ/nH2buK3mFE+o348VXfYIg80Yq4vNdxLrdfU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=aDCm8Gqg; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="aDCm8Gqg"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QE1X9b015968;
-	Wed, 26 Aug 2026 16:48:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=obc+IR
-	sBRKyKcqGaGQ0d48PPiKl+8gfBIBrd9w4+4QU=; b=aDCm8GqgRFpUzUVwLgXN8r
-	j/wfAFfjdmlb6TwExN3cT6CY/NI+oADQGZFvrvqPFqQkH0WcGxNPYm9SqtUZ7Ivw
-	WhQ08gvkheTpFhJh5GrIiU5YWylrAgsK3Big+xtb66+r5/WSb1RyH06zAro8eUwe
-	wSEEBsDMIqSGSMH0468F75/Etw940t/Xz0EsujrUNT7X21SfkDq+jW1DqkLLw31q
-	1CHgQRbhIjc29sbf2j4u46ZqUTyGuvAuIKKJUS2mXxfCPHRzld1yAbG36r0IksNi
-	vrJpMmrecr6cKp2QntldmtIqQJiqVhvUgZXfsOyQPGde3OveYzAcFjmf8Fqh2ICA
-	==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g73g50064-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 26 Aug 2026 16:48:10 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67QGfKPT023110;
-	Wed, 26 Aug 2026 16:48:09 GMT
-Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4g7q3k315b-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 26 Aug 2026 16:48:09 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67QGm6Rv44761472
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 26 Aug 2026 16:48:07 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E127720043;
-	Wed, 26 Aug 2026 16:48:06 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id F323120040;
-	Wed, 26 Aug 2026 16:48:03 +0000 (GMT)
-Received: from smtpclient.apple (unknown [9.124.213.3])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Wed, 26 Aug 2026 16:48:03 +0000 (GMT)
-Content-Type: text/plain;
-	charset=utf-8
+	s=arc-20240116; t=1787762984; c=relaxed/simple;
+	bh=phsbyYf7Boh6K8o1ijxZ80eQZFGXbuMPeGJ9bwUfdkY=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=MnOGz3rxUHXNFVbxxBeJExNaZiHZGjmsomz3o2aCBlA34UevNXfHeGVU04bRezZRIMXphfxVQUmpyxVgyV9w5eYQ+TXgTbfUrIszVVc3sveVkvq5qWQmYM8+BDk42tMiMl7v/y+i4bfjpmm8RMTIdD/grf7d6Qs64Hnw9r90cso=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-7eb6429750eso1883619a34.0
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 09:49:37 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787762976; x=1788367776;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=hM5n+FIa5Wh0Q3xyXi+CMf3mznCub4whjLl+zoYHlTQ=;
+        b=N7AfZGZ5ZLjoskFc2Q4R4j3MvgiiFkPbqJTfgHbueTHnHDX7nR8xbTTa259emkXsQd
+         WnUho/TA8DAh8zme4kgzb7OpatbgABlp+jWut0myjem1/b1Uo8piUIFsuOS6bBLzjSWf
+         BZZ26YfV7iC08bJKFVg/XCGwk+RaqQYsA8Tvy2BH0nY47cIRwHWwc+eFyrnIxeshenV2
+         DjyVWfw2xe9dnExPwBM72uU5/Ye4mQ4cafwOvU0KFKwPRyoKpMygUHCYCcmtKyzow3OY
+         q6mOgNBk1a9O4yBP9KJJyvUUHhs+bVhYR+PBg9HSBCFOJK8UQht9RbZduEmHHQNVk90n
+         S9fg==
+X-Forwarded-Encrypted: i=1; AHgh+RqO8ExgePGvOstMazWyH5ylZc8mAWta0pi4+FklrlULzNQs3bBeMrZya5VGR/TdAUfbsHgaHrw8CMh27G4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nI2kfBHaPOwsyUNn5sMjBqtwRy0xRdTwUBe7yuSOqQ/kG3MzXu
+	IyF7ve+nIhp28C6SpBKM3/tT4IrqDQM+rOVl3CQi+yrTFPOTjKEobZe4K5WC07+hhqj69n0Yazd
+	cPmm9vxuIKHbfEglfkRZttbSS7EA5C5n8ELFmTmTuNzpWrSBQv8BD7rx1QBk=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.1\))
-Subject: Re: [PATCH v2 2/2] keys: trusted: tpm1: reject unauthenticated
- response tag in TSS_checkhmac1/2
-From: Sudhakar Kuppusamy <sudhakar@linux.ibm.com>
-In-Reply-To: <20260826080405.255083-2-sanketsharmacsec@gmail.com>
-Date: Wed, 26 Aug 2026 22:17:51 +0530
-Cc: jarkko@kernel.org, gregkh@linuxfoundation.org,
-        "James.Bottomley@hansenpartnership.com" <James.Bottomley@HansenPartnership.com>,
-        zohar@linux.ibm.com, dhowells@redhat.com,
-        linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
-        linux-kernel@vger.kernel.org, security@kernel.org, w@1wt.eu
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <A16F8908-4440-43FE-814C-2129C2B30478@linux.ibm.com>
-References: <20260825182919.15943-1-sanketsharmacsec@gmail.com>
- <20260826080405.255083-1-sanketsharmacsec@gmail.com>
- <20260826080405.255083-2-sanketsharmacsec@gmail.com>
-To: Sanket Sharma <sanketsharmacsec@gmail.com>
-X-Mailer: Apple Mail (2.3864.700.51.1.1)
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: wmWzGIHluAZXJb3idDoRZO9sixnTeQx5
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDEzOCBTYWx0ZWRfX6fEsw9DyckDf
- xpPPMmxcUtHOYjwKDPhQiXUqRCvvoo3eEtZlpOyrtOJr3XKX2CeIyMhJdMedc+5Xpn3blQTmXCH
- 6pdt2TYrLPfkdcRikuLWt1OyWP9eoVQ=
-X-Proofpoint-GUID: BM2COZajFAbUGG38GdJR3Uzj-vDUP2oN
-X-Authority-Analysis: v=2.4 cv=JZyMa0KV c=1 sm=1 tr=0 ts=6a8f18ca cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=pGLkceISAAAA:8
- a=NrVHMxhdPDTnOdUCm4oA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDEzOCBTYWx0ZWRfXwZDTbjQ3YzDu
- 4UPOlWuO1Zj4KJsUkXGpE0tFDfhqEK0YYsYzGjRRpBx4xImi0RQx2hT/FSBPxe1/7vSbmFAjfBd
- rZFRtutCsiT4m5ArKaTYYXLYDoQq9oEzfxTjqSuSj17uPMVkYFRXD3a64pJIQpYcLACvSSFgKsR
- MomantNl3tB8SOZkgboj9FQ6caQ9fK7uAieokvGJfveGB1Z53drPMJwxbT0VE6KjPhr17I7XlMa
- +HZaf5X3lO8b6Xkc9cBRrWmtETD/FCxy0hF9RLQ3UL7MHyE0uFHFJksF0Y4+UlY6xwNbMuhJ4qf
- XY40mQg+rC2ickmiDl0Gh3o2/A2cTg77tALtvXkR4QmjPXUq7SvcF49/Ykx//zluV8lu8CnFQZQ
- z1+Sp5L2ktLjJw0O7V+Eec0fsmRL34QaCT9BUHCNbhu4n7McPTUXycfQq8Rx5zyNu+2QDhNd/r/
- U27zhU5Z1Xc/zhL8z1A==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-26_04,2026-08-26_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 clxscore=1015 adultscore=0 priorityscore=1501 impostorscore=0
- malwarescore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260138
+MIME-Version: 1.0
+X-Received: by 2002:a05:6820:4def:b0:6b1:5c1b:582f with SMTP id
+ 006d021491bc7-6b1a0388a21mr7741330eaf.5.1787762976565; Wed, 26 Aug 2026
+ 09:49:36 -0700 (PDT)
+Date: Wed, 26 Aug 2026 09:49:36 -0700
+In-Reply-To: <6a68bbd5.073198cf.94f0f.004a.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a8f1920.1d9ded08.62e62.00b7.GAE@google.com>
+Subject: Re: [syzbot] [usb?] KASAN: slab-use-after-free Read in stub_rx_loop
+From: syzbot <syzbot+06fa667a0931a3430026@syzkaller.appspotmail.com>
+To: gregkh@linuxfoundation.org, i@zenithal.me, linux-kernel@vger.kernel.org, 
+	linux-usb@vger.kernel.org, shuah@kernel.org, syzkaller-bugs@googlegroups.com, 
+	valentina.manea.m@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+
+syzbot has found a reproducer for the following issue on:
+
+HEAD commit:    818bebeb63dd drm/xe: Don't hand out the flat CCS storage a..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=151ce979580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
+dashboard link: https://syzkaller.appspot.com/bug?extid=06fa667a0931a3430026
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13a28d49580000
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+06fa667a0931a3430026@syzkaller.appspotmail.com
+
+==================================================================
+BUG: KASAN: slab-use-after-free in stub_recv_cmd_submit drivers/usb/usbip/stub_rx.c:609 [inline]
+BUG: KASAN: slab-use-after-free in stub_rx_pdu drivers/usb/usbip/stub_rx.c:688 [inline]
+BUG: KASAN: slab-use-after-free in stub_rx_loop+0x2d3b/0x31c0 drivers/usb/usbip/stub_rx.c:707
+Read of size 4 at addr ffff888034999db0 by task stub_rx/6028
+
+CPU: 0 UID: 0 PID: 6028 Comm: stub_rx Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0x13d/0x4b0 mm/kasan/report.c:482
+ kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
+ stub_recv_cmd_submit drivers/usb/usbip/stub_rx.c:609 [inline]
+ stub_rx_pdu drivers/usb/usbip/stub_rx.c:688 [inline]
+ stub_rx_loop+0x2d3b/0x31c0 drivers/usb/usbip/stub_rx.c:707
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+
+Allocated by task 6028:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ unpoison_slab_object mm/kasan/common.c:340 [inline]
+ __kasan_slab_alloc+0x89/0x90 mm/kasan/common.c:366
+ kasan_slab_alloc include/linux/kasan.h:253 [inline]
+ slab_post_alloc_hook mm/slub.c:4586 [inline]
+ slab_alloc_node mm/slub.c:4919 [inline]
+ kmem_cache_alloc_noprof+0x26b/0x6a0 mm/slub.c:4933
+ stub_priv_alloc drivers/usb/usbip/stub_rx.c:314 [inline]
+ stub_recv_cmd_submit drivers/usb/usbip/stub_rx.c:490 [inline]
+ stub_rx_pdu drivers/usb/usbip/stub_rx.c:688 [inline]
+ stub_rx_loop+0x638/0x31c0 drivers/usb/usbip/stub_rx.c:707
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+Freed by task 6029:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
+ poison_slab_object mm/kasan/common.c:253 [inline]
+ __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:285
+ kasan_slab_free include/linux/kasan.h:235 [inline]
+ slab_free_hook mm/slub.c:2678 [inline]
+ slab_free mm/slub.c:6372 [inline]
+ kmem_cache_free+0x127/0x6b0 mm/slub.c:6499
+ stub_free_priv_and_urb+0x427/0x570 drivers/usb/usbip/stub_main.c:321
+ stub_send_ret_submit+0xecf/0x1810 drivers/usb/usbip/stub_tx.c:333
+ stub_tx_loop+0xe2/0x3e0 drivers/usb/usbip/stub_tx.c:437
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+The buggy address belongs to the object at ffff888034999d80
+ which belongs to the cache stub_priv of size 64
+The buggy address is located 48 bytes inside of
+ freed 64-byte region [ffff888034999d80, ffff888034999dc0)
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff888034999e00 pfn:0x34999
+flags: 0xfff00000000200(workingset|node=0|zone=1|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 00fff00000000200 ffff8881016c7540 ffff88802aafa948 ffff88802aafa948
+raw: ffff888034999e00 000000080020001c 00000000f5000000 0000000000000000
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2820(GFP_ATOMIC|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 6028, tgid 6028 (stub_rx), ts 78215496489
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
+ prep_new_page mm/page_alloc.c:1879 [inline]
+ get_page_from_freelist+0x110d/0x35b0 mm/page_alloc.c:3943
+ __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
+ alloc_slab_page mm/slub.c:3267 [inline]
+ allocate_slab mm/slub.c:3382 [inline]
+ new_slab+0xa5/0x640 mm/slub.c:3428
+ refill_objects+0xe3/0x410 mm/slub.c:7305
+ refill_sheaf mm/slub.c:2805 [inline]
+ __pcs_replace_empty_main+0x372/0x680 mm/slub.c:4677
+ alloc_from_pcs mm/slub.c:4775 [inline]
+ slab_alloc_node mm/slub.c:4907 [inline]
+ kmem_cache_alloc_noprof+0x46e/0x6a0 mm/slub.c:4933
+ stub_priv_alloc drivers/usb/usbip/stub_rx.c:314 [inline]
+ stub_recv_cmd_submit drivers/usb/usbip/stub_rx.c:490 [inline]
+ stub_rx_pdu drivers/usb/usbip/stub_rx.c:688 [inline]
+ stub_rx_loop+0x638/0x31c0 drivers/usb/usbip/stub_rx.c:707
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+page last free pid 15 tgid 15 ts 77527058318 stack trace:
+ reset_page_owner include/linux/page_owner.h:26 [inline]
+ __free_pages_prepare mm/page_alloc.c:1418 [inline]
+ __free_frozen_pages+0x79f/0x10f0 mm/page_alloc.c:2962
+ __pagetable_free include/linux/mm.h:3745 [inline]
+ pagetable_free include/linux/mm.h:3769 [inline]
+ pagetable_dtor_free include/linux/mm.h:3868 [inline]
+ __tlb_remove_table include/asm-generic/tlb.h:221 [inline]
+ __tlb_remove_table_free mm/mmu_gather.c:228 [inline]
+ tlb_remove_table_rcu+0x2cf/0x380 mm/mmu_gather.c:291
+ rcu_do_batch kernel/rcu/tree.c:2645 [inline]
+ rcu_core+0x5a2/0x10e0 kernel/rcu/tree.c:2897
+ handle_softirqs+0x1e6/0x9d0 kernel/softirq.c:645
+ __do_softirq kernel/softirq.c:679 [inline]
+ invoke_softirq kernel/softirq.c:519 [inline]
+ __irq_exit_rcu+0x194/0x210 kernel/softirq.c:767
+ irq_exit_rcu+0x9/0x30 kernel/softirq.c:784
+ instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
+ sysvec_apic_timer_interrupt+0xa3/0xc0 arch/x86/kernel/apic/apic.c:1062
+ asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
+
+Memory state around the buggy address:
+ ffff888034999c80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+ ffff888034999d00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+>ffff888034999d80: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+                                     ^
+ ffff888034999e00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+ ffff888034999e80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+==================================================================
 
 
-
-> On 26 Aug 2026, at 1:34=E2=80=AFPM, Sanket Sharma =
-<sanketsharmacsec@gmail.com> wrote:
->=20
-> TSS_checkhmac1() and TSS_checkhmac2() silently return success when the
-> response tag is TPM_TAG_RSP_COMMAND (0x00c4), bypassing HMAC
-> verification entirely. A forged TPM response with this unauthenticated
-> tag allows an attacker to skip integrity checks on TPM responses.
->=20
-> Reject TPM_TAG_RSP_COMMAND with -EINVAL in both functions, requiring
-> all responses to carry a proper authenticated tag.
->=20
-> Signed-off-by: Sanket Sharma <sanketsharmacsec@gmail.com>
-> ---
-> security/keys/trusted-keys/trusted_tpm1.c | 4 ++--
-> 1 file changed, 2 insertions(+), 2 deletions(-)
->=20
-> diff --git a/security/keys/trusted-keys/trusted_tpm1.c =
-b/security/keys/trusted-keys/trusted_tpm1.c
-> index d47cb7108..c89fc6cfe 100644
-> --- a/security/keys/trusted-keys/trusted_tpm1.c
-> +++ b/security/keys/trusted-keys/trusted_tpm1.c
-> @@ -202,7 +202,7 @@ static int TSS_checkhmac1(unsigned char *buffer,
-> ordinal =3D command;
-> result =3D LOAD32N(buffer, TPM_RETURN_OFFSET);
-> if (tag =3D=3D TPM_TAG_RSP_COMMAND)
-> - return 0;
-> + return -EINVAL;
-
-Hi Sanket Sharma,
-
-Instead of changing the return value to -EINVAL inside the =
-TPM_TAG_RSP_COMMAND check,
-we can simplify the control flow by removing that block entirely.Since =
-TPM_TAG_RSP_COMMAND is
-inherently not equal to TPM_TAG_RSP_AUTH1_COMMAND, the subsequent =
-mismatch check will naturally
-catch it and return -EINVAL.=20
-
-Thanks,
-Sudhakar
-
-> if (tag !=3D TPM_TAG_RSP_AUTH1_COMMAND)
-> return -EINVAL;
-> authdata =3D buffer + bufsize - SHA1_DIGEST_SIZE;
-> @@ -270,7 +270,7 @@ static int TSS_checkhmac2(unsigned char *buffer,
-> result =3D LOAD32N(buffer, TPM_RETURN_OFFSET);
->=20
-> if (tag =3D=3D TPM_TAG_RSP_COMMAND)
-> - return 0;
-> + return -EINVAL;
-> if (tag !=3D TPM_TAG_RSP_AUTH2_COMMAND)
-> return -EINVAL;
-> authdata1 =3D buffer + bufsize - (SHA1_DIGEST_SIZE + 1
-> --=20
-> 2.53.0
->=20
->=20
-
+---
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
