@@ -1,204 +1,134 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C332C404BF9;
-	Wed, 26 Aug 2026 16:55:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD70C472539
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:56:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787763334; cv=none; b=h+ANiXnxZWZnq8Cn0EJKVOuGuk2Rlbw4nZWNPh23EPP8579goje3RHq/6vbGboknRpzdwm/y7tnTcVLCDnMBKbs0DN2XR3PLFsgaOJaibk1YjrihujNiHizxK8ny9ZxXTtaBWZ/qx70zgCPihYc3PbSSJcRIsNjX8Yeb81C26X4=
+	t=1787763385; cv=none; b=QChXxu+MIX2uvsI9wwXbl6/1h4OmTqT4vbUIhsOPyJfUP7bQmGmQ5MzuGeQKSGuxmQtBHhwutboUhP4FkXPSjKaP5k6Rxqbhn2MC2rWF3GiS1smv0wpjw2SDpgKKdDX2MjSFF+/ud1xFBwSBh6C9f6mRTXnmdSGzEvRdNtbiybc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787763334; c=relaxed/simple;
-	bh=xH0bNrp+oSSR+3EXk15d7szlJ/i/lhji1zrMK5wo9Ko=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PxUWagyyDtqkEi7m6HgGShRcBe9VMkWMa0up/XIqZMdseo6vbNf+UDuDsOSAfhj7g+maz9xxkspDVp66K8euiFPqfBHw7WUfRnK9Ems/mmWGVy5Ox6W0ubLzSfB8yHt0E0d721m/vB2zsSpAV1POPbaJcCjmYHZ+oEkJ2tWzxJo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=fxux6CNU; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=RoNmb1ei; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=gnsFsjID; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=XQnJpTVO; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1787763385; c=relaxed/simple;
+	bh=cw8m2BE3sjut1cXuyYV8gHEiQygxgYZBUFtc5w88RdQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jvnijaqLerZZDZ2Hhr97kXqnFso75xA6l2PeRLk6hso6WXQl7437t8s1nz9gsH6OwjOihYYV4e3/vL6S7QJKFuCx34PllIBwwdmFdYgqZZKO8+1tqX1bgavDoc1x5f/4p47f52dmjVPv6+rG+P0y34/SS3WJPWXpNrjdvkJcxlY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bF8joQd2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="fxux6CNU";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="RoNmb1ei";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="gnsFsjID";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="XQnJpTVO"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 2F8281F80E;
-	Wed, 26 Aug 2026 16:55:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1787763313; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WsrHi5T5oUS0tTADH/XkrMBgLtWoXpF2+ghPWlgvljQ=;
-	b=fxux6CNU0gIxLL3GuhzelqQXo/cYjfMaUVGtgup93NjfHIwgzKrntMUxsQ7Ir9NdEmALpA
-	2BOKGQ5LWuXjf+HHQxQgsxi3PK36u0diQ7NPZ7x9zoreYbGf7cfITdNasQ/unlj4IVEGZA
-	i0vrxPsI14h+uC6LohHzpMeeBfyzFCw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1787763313;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WsrHi5T5oUS0tTADH/XkrMBgLtWoXpF2+ghPWlgvljQ=;
-	b=RoNmb1ein/SQEIDWZYbqNkYxTWA+zGMHkTen9HRbRnpMD3ahEnUbDtDmmVbXrPIN0cwZ68
-	AFeW5LIktOmGvuBQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=gnsFsjID;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=XQnJpTVO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1787763309; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WsrHi5T5oUS0tTADH/XkrMBgLtWoXpF2+ghPWlgvljQ=;
-	b=gnsFsjIDMxPevBY7kmmrcbWrtik+uH3IPqDXzPK4OjqUTDMQ+pfVgrURYkGLUfjXaulE5r
-	lva/cGm0z3w4qD3V6EDU8e0LlmcmLGzWfrq8xG0KXrYrmi/136xwuK1TpDcVYnsQxpQ0xK
-	cv/N9+cwCYEocqzgAfXRSFPlUCHpWt4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1787763309;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WsrHi5T5oUS0tTADH/XkrMBgLtWoXpF2+ghPWlgvljQ=;
-	b=XQnJpTVOI9PFq6WPaDGrKU+X+iEAM11qJIeN9n8Li21/ylSRa6b+RujrdSVNakVlydQUB6
-	s6R7j64HUI/g9ZDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1BDCA13354;
-	Wed, 26 Aug 2026 16:55:09 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id CWxuBm0aj2onNgAAD6G6ig
-	(envelope-from <jack@suse.cz>); Wed, 26 Aug 2026 16:55:09 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id B4939A13A7; Wed, 26 Aug 2026 18:55:04 +0200 (CEST)
-Date: Wed, 26 Aug 2026 18:55:04 +0200
-From: Jan Kara <jack@suse.cz>
-To: Daejun Park <daejun7.park@samsung.com>
-Cc: "tytso@mit.edu" <tytso@mit.edu>, 
-	"adilger.kernel@dilger.ca" <adilger.kernel@dilger.ca>, "jack@suse.cz" <jack@suse.cz>, 
-	"yi.zhang@huawei.com" <yi.zhang@huawei.com>, "ritesh.list@gmail.com" <ritesh.list@gmail.com>, 
-	"libaokun@linux.alibaba.com" <libaokun@linux.alibaba.com>, "ojaswin@linux.ibm.com" <ojaswin@linux.ibm.com>, 
-	"linux-ext4@vger.kernel.org" <linux-ext4@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"amonakov@ispras.ru" <amonakov@ispras.ru>
-Subject: Re: [PATCH] ext4: don't report delalloc data as a hole on
- indirect-mapped inodes
-Message-ID: <wffv3oy43ss7i3dd5td4he6bqwex2d56pbyie2spxludkr5vqe@d3lrjxx4a2gk>
-References: <CGME20260826052446epcms2p5a415be5fbfe23b8a32786f0ae6d05aea@epcms2p5>
- <20260826052446epcms2p5a415be5fbfe23b8a32786f0ae6d05aea@epcms2p5>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bF8joQd2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75FB81F00A3A
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:56:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787763363;
+	bh=ih6zd9IyJdsKNzc7ge7Wk0lTujacAiQcltRsjQh0Wyw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=bF8joQd2AJJZatp5d+zQomHPdjojOKjNrJqAj/2efS+Obbro8cmhb50WK76lPgOo0
+	 ZcsiJnYOfjsgWMThvTjO00ia7oQi9tQE+WwLH/T+ybTky78qz7CTFM1sorsbUmKWkk
+	 zfCpywolVYDFfmnQkuq0Pg6Rh+2wwr0JjCTQbfNSB8NWbzrWYbAwMJKkknz8EOzzK1
+	 pU2X4yiRBiXioQmcSGo08c8llUvijYzCiITWPvanMXTYE8RwcMdYlIzO9git3TBvid
+	 sQLeTCQgOVfNc59wPfC6ZKLyuZcbV/G3XMMXEqtuIXb4sjgHANdY/nLdedAMN5X4MF
+	 w5kmvR8T3Y7ZA==
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c1c26d7e951so177820366b.0
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 09:56:03 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RpXya9cizRZsTK71z/NIb6LHtX/XSbdZWYwV58+2JyQbtnGeNdrFRu6++Mocq5ktgbfAJ/6uNHjBU3Myj8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lMGcGcJLaHBDDMssXtTiZd2lVYMWsFPNrm8R5UYGNIo24qg5F3
+	NA4Y+LtS0BMs/+jSLonPm87gYwF9cPtuc72KvH88lrLgqF0ISVcCM0ShO83t7YPuhQmnmRrIEli
+	J++nlUxf5G4g4Z80jmh8OAgT3CLdGJQI=
+X-Received: by 2002:a17:907:3d0f:b0:c1f:983f:d8a with SMTP id
+ a640c23a62f3a-c250c36b68emr1099051566b.24.1787763362320; Wed, 26 Aug 2026
+ 09:56:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260826052446epcms2p5a415be5fbfe23b8a32786f0ae6d05aea@epcms2p5>
-X-Spam-Score: -2.51
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 2F8281F80E
-X-Spamd-Result: default: False [-2.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,suse.cz,huawei.com,gmail.com,linux.alibaba.com,linux.ibm.com,vger.kernel.org,ispras.ru];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.com:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,samsung.com:email]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Flag: NO
+References: <20260815-shrink_zswap_entry_0815_v2-v3-0-0171bd86a667@gmail.com>
+ <20260815-shrink_zswap_entry_0815_v2-v3-2-0171bd86a667@gmail.com>
+ <CAO9r8zNFYM1bry0DwDRNtpnEL9yyXQ3h=1wcLbGsO1sFtGgvjg@mail.gmail.com> <CAJxJ_jgihBLy2mbPAN-uqup2mGq+hurKkH=W4RGo4Ad0Eki5sQ@mail.gmail.com>
+In-Reply-To: <CAJxJ_jgihBLy2mbPAN-uqup2mGq+hurKkH=W4RGo4Ad0Eki5sQ@mail.gmail.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Wed, 26 Aug 2026 09:55:48 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zP6+6jZ7qOxOy1fyd=UgR3yYP20Db9KghW1zJ3bNqoREg@mail.gmail.com>
+X-Gm-Features: AcwNN1UNzh0Vl9JsLhx4eDQZm21D0NSeeRSHB0oeT-ciJDNy9lX0jJxCgAbA73g
+Message-ID: <CAO9r8zP6+6jZ7qOxOy1fyd=UgR3yYP20Db9KghW1zJ3bNqoREg@mail.gmail.com>
+Subject: Re: [PATCH RFC v3 2/3] mm/zswap: replace the zswap_pools list with a
+ fixed pools array
+To: Jianyue Wu <wujianyue000@gmail.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Nhat Pham <nphamcs@gmail.com>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
+	Chris Li <chrisl@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed 26-08-26 14:24:46, Daejun Park wrote:
-> When a plain lookup finds no block, ext4_ind_map_blocks() sizes the hole
-> it reports by counting the empty subtrees under 'partial' in the on-disk
-> indirect tree.  That count knows nothing about delayed allocation, so a
-> range holding delalloc data that has not been written back yet is
-> reported as a plain hole.  The extent-mapped path does not have this
-> problem: ext4_ext_determine_insert_hole() trims the hole it found at the
-> first delayed extent before returning it.
-> 
-> ext4_map_blocks() consults the extent status tree before it calls into
-> the mapping layer, so a query that starts exactly on the delayed block
-> still finds it.  A query that starts earlier does not, because the hole
-> reported for the earlier block already spans the delayed one.  On a
-> 4k-block filesystem, lseek(SEEK_DATA) from offset 0 on a file whose only
-> data block is at logical block N and is still dirty returns:
-> 
->   N = 0..11      direct blocks                 N << 12
->   N = 12         first single-indirect block   N << 12
->   N = 13..1035   inside that indirect block    -1 ENXIO
->   N = 1036       first double-indirect block   N << 12
-> 
-> Blocks 12 and 1036 survive because the query lands on the delayed block
-> itself.  Blocks 13..1035 are swallowed by the 1024-block hole reported
-> for block 12.  fiemap loses the same data for the same reason.
-> 
-> An ext3 filesystem mounted as ext4 hits this during ordinary use: ext3
-> inodes stay indirect mapped, while mount -t ext4 turns on delayed
-> allocation even though mounting ext3 with -o delalloc is explicitly
-> rejected.  install(1) from coreutils uses SEEK_DATA to locate data in
-> its source file, so installing a sparse file that has not been written
-> back silently produces a destination of the right size holding none of
-> the data:
-> 
->   truncate -s 1G img && mkfs.ext3 -F img && mount -t ext4 img mnt
->   echo | dd of=mnt/src bs=1 count=1 seek=64K
->   install mnt/src mnt/dst
->   cmp mnt/src mnt/dst        # differ: char 65537
-> 
-> Trim the hole at the first delayed extent, the way the extent-mapped
-> path does.  ext4_es_find_extent_range() does not clip the extent it
-> returns to the queried range, so skip one that begins at or before
-> m_lblk and clamp the result against the hole already found.
-> 
-> With this the sweep above returns N << 12 for every N, while the
-> nodelalloc and extent-mapped controls are unchanged.  generic/225,
-> generic/285, generic/286, generic/436, generic/448 and generic/490 pass
-> on ext4 made both with and without the extent feature.
-> 
-> Fixes: facab4d9711e ("ext4: return hole from ext4_map_blocks()")
-> Reported-by: Alexander Monakov <amonakov@ispras.ru>
-> Closes: https://lore.kernel.org/linux-ext4/594c17d9-c00f-e485-96fb-cedf27ce3aa3@ispras.ru/
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+On Wed, Aug 26, 2026 at 9:08=E2=80=AFAM Jianyue Wu <wujianyue000@gmail.com>=
+ wrote:
+>
+> Thanks for the detailed review.
+>
+> > I think the reservation logic is self-explaining, the comment here is
+> > not warranted. Especially the idx part, I believe we only set
+> > pool->idx here to keep track of the reserved index, not really to do
+> > it before publishing as publishing happens later. If anything, maybe
+> > replace this with a smaller comment to the reader that we reserve the
+> > slot at pool creation but only assign it when we make it the current
+> > pool, with a small explanation of why that is needed (the actually
+> > issue Sashiko pointed out)?
+>
+> Agreed.  The important part is the race from the v2 review, where
+> zswap_pool_find_get() could observe a pool before it was committed as
+> current.  I will shorten the comment to only explain the placeholder:
+> claim the slot at creation time, publish the real pool only when it becom=
+es
+> current.
+>
+> > I think we can drop the assertion since we already have the lockdep
+> > check below, especially because it uses BUG_ON().
+>
+> Agreed, I will drop it.
+>
+> > Hmm let's read this into a variable first then compare it to
+> > ZSWAP_SLOT_RESERVED instead? It's not very readable.
+>
+> Agreed, I will read the slot into a local variable first.
+>
+> > I think this comment is unnecessary.
+>
+> Agreed, I will drop it.
+>
+> > Let's drop the assertion here as well since we're adding a lockdep chec=
+k below.
+>
+> Agreed, I will drop this one too.
+>
+> > I would align the second parameter with the first one if it stays
+> > below 100 characters.
+>
+> Sure, I will fix the alignment.
+>
+> > This doesn't really explain why. Also, does ordering really matter
+> > with the lock held?
+>
+> Yes, the ordering matters because zswap_pools_lock only serializes the
+> writers.  zswap_current_pool can be observed by RCU readers without that
+> lock.  Publishing the current pointer first would let a reader observe th=
+e
+> new current pool while its array slot is still ZSWAP_SLOT_RESERVED.
 
-Thanks for report and the fix! So I think a better fix here is to lift most
-of the logic of ext4_ext_determine_insert_hole() into a helper function
-like:
+Makes sense.
 
-ext4_lblk_t ext4_determine_insert_hole(struct inode *inode,
-				ext4_lblk_t hole_start, ext4_lblk_t hole_len)
+Actually, this led me to rethink the slots reservation mechanism we
+came up with and the issue that Sashiko brought up initially. I
+initially thought it still existed, as two racing threads setting the
+compressor could try to resurrect a newly created pool. However, I
+realized that's not possible because a module-wide mutex is held while
+any module param is set. This also covers zswap_enabled_param_set().
 
-and then use it from both ext4_ext_map_block() and ext4_ind_map_blocks().
-That avoids the duplication and also have all the comments regarding
-various special cases (like delalloc extent covering map->m_lblk) in one
-place.
+So IIUC, we cannot really have any concurrency here. Pool creation
+either happens through params setting (protected by a module-wide
+mutex) or during initialization. Does this mean that Sashiko's review
+was a false positive and we can go back to directly assigning array
+slots at pool creation? If that's the case I am happy we can avoid the
+complexity (but sorry I led you astray).
 
-								Honza
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+It also makes me wonder if we can just drop zswap_init_lock, but
+that's a separate project. Most of the zswap init code needs to be
+reworked imo.
