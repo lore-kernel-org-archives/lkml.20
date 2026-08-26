@@ -1,174 +1,204 @@
-Received: from mail-oi2-f9.google.com (mail-oi2-f9.google.com [74.125.231.201])
+Received: from mail-vs1-f47.google.com (mail-vs1-f47.google.com [209.85.217.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 534FA3B3C01
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 20:37:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787776651; cv=none; b=cgkSedB6OgfwHDMqlwsSgCYmqrs7vh8oHXoIAzL53ZZagVswmyX0yryfmQEONrJs2ppVJUuQ4oGmnvV1WOMRaEhiWBXI8uG1FLAoUUv0abKNkyBh4Q9HW1CNr73uVLfMEH6gBkkpmBOMGIB0f/Bkzx23UThI7fPGSof5R9ULQ54=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787776651; c=relaxed/simple;
-	bh=LXfrlFG99DEOIw0cRJCftUGoI0X9FJkiYZEtUZxba1A=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=raSMwbF1BPnCZjT9pOCaMwTjG96yqyZNTLP3OKOfV/m4rqP5YqeE2DFsT5xB4ClXVTP+kxDQrvaCgEKIpJUgPDl/IFvqRBsSJdk23UOLVFcBF7nVMMbhHqmkTvhZq0/7FfPtyBThwJD61MBx9QNiJaIJKtHvlIsw/7/adIuGlNw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi2-f9.google.com with SMTP id 46e09a7af769-7edccf768b0so578478a34.0
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:37:29 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5567B48550E
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 20:40:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787776825; cv=pass; b=lJioKLPov2aW7QFBYPBMGhnFPSWzIR/vnD2LRp2hhLf2D56aEn2+1i0W1+asMv5v7x2qQWT0xv4NtHDe3FVnZQSk1HLC9iUtuX1vQJTdiDQFITRojoXNylnTLd3lI0qwWBdlad8oDH0TAzwMUhu+FkxddvcqdDKdUutcWt49ymA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787776825; c=relaxed/simple;
+	bh=DLRhVFUdg+p/7Ncqbi3cT+hpMW0oIOjZT9fcaEqNBng=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=uJgx/AYZzh78Mr4TqZviQhjpbzl63MM+wvC9Hik7qXIhKdBDlkBO9NKZ7V4J3oSskn9dH/R0A6xnJVBgClrlhQh4TUB81g0f8HhLkFnXv5mVXex7/3LBpMX1W6NGMY757WNq/TjqcyUSqRnwm7N/srjquxO2fTxzuOGsEK8o5hE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=JeGcgsP/; arc=pass smtp.client-ip=209.85.217.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="JeGcgsP/"
+Received: by mail-vs1-f47.google.com with SMTP id ada2fe7eead31-7542a2ee156so956171137.0
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:40:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787776820; cv=none;
+        d=google.com; s=arc-20260327;
+        b=F8gvblZNgwgpTFo89darRbsZu3xufmF8RaqxwTu4LEZzOsYrWh5+AHwZMsJuL70dUM
+         eMoCk5qx5Hb9J3dj1+4xm8XQL70crQjHjyJdMvEaTEolS/UGzXPvVBUbTx2K3wmaYim3
+         4fQZc8Ytmkr3owDCIKpe9FgGeSfhm5tQIAzk46vDRenLkTfg+IG+jX+pOQglrBxI1/qK
+         bN8tQ4NaImeNVD0hfX0eVWoRqP/o0+B+Ic6tpvEl6t4DCCns9qfOscsTKku6NEmQIEYO
+         solTRcD9Bj0Cla1Fkd0DZDxjVDD4LFS/8GRlpd/1eLXuMMk80qoy7xJG98KLoJVsJOaN
+         imOQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=lB1QrtcktRM6zvfmeGkEq0i93fG3paSF09YYzfmPgSY=;
+        fh=WfLAfsEQmZVYXEgRnho0NXhV8LX7w+AYqKQSwkdl9Gk=;
+        b=bgkNMgK8PZ/8z0RdP7YwygE3+Oil94HKkYkdX0VTiTOFWs9wLYKzplhj9C1bttfNka
+         Tak5TKiYIkNBISnT6wmM/ay8Lm0UdaqvwARMV8koapSssKA08pYM6GrVO4/3NssGv3Aw
+         wv/vtP3aNDF4uic7On6h7XKAdvH6Mg+6ST3s2XgJNqawZxLa/CwpEEdqlZUTBxJeyRli
+         MU/Y8VhHyRnYhUhvKIKEgY1Z09RXDKqKJrrnlwnR2n3P43ZEwIaABhBbI1aQVwmaO+HG
+         okhTLbChxxDdC31+SRbvzfEoYMEw7nsxsy4ta/Ns6cBQTGq3vRMuMulDALeBN7vvD68c
+         +ekg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787776820; x=1788381620; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lB1QrtcktRM6zvfmeGkEq0i93fG3paSF09YYzfmPgSY=;
+        b=JeGcgsP/jcNsg91bIjD229nF878UYWIi5aNa1V8P0NoUPD5cRCKKSKJ3PXfRX0suMW
+         jB+LrRhIDePOIqg4iWYbLOF0UXN/okuE2gCoiY2gALKcRKOdyT9dWLJrRvgbSUaygGlM
+         yRNH74uAOHCw3DWFSCxMvvU7ecCLjWMAjYhV2ao43lLJpj8ZX+u1DQ4U0APjCJO20+1l
+         GCyz9nnB6vKBDOTdmXMwTAgNaIYiIzSlCV3cnZwImZjrS/lDEQ6U//6osG+emCvoyFDO
+         BPRinfXKG1j3LmwyL7KrgmQ3I6EBS1+imsidsvcImC8ADrG46lqB1tIERYo8tNO0ZPJP
+         WzVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787776648; x=1788381448;
-        h=content-type:to:from:subject:message-id:date:mime-version
+        d=1e100.net; s=20251104; t=1787776820; x=1788381620;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=4+jspPqcElMTjRhnOz3CLRLOL16gFXFE8Y2iqUKNCqc=;
-        b=aU8uzzrg6vB3JbaBYhC9qdVwN4XYTdM8FczCuDXEjYWr5htWg0ANQ07HB6IeyFDfGC
-         ePmyLDtPvICMfsANWZohLENPtceAQeeil1YZx4XLS3vu0X6n5XFKDqCgzcIB2wsv7gc0
-         FXr1PdhtOuyx2lAPPj/J/nJ5XyVMteG+Jtnvg338MmD++8juImHyCHl6ivyoAoum4Td3
-         AjkeljFhoS1N3O+q+9+KpQfHpdtuCHkiWkCgS09tQ2Mqjz+rDddQxeT+EBGbysHJzQWd
-         UGYrYKGZX8It8sf3dC92e3eE/q/8dIXPO6fyEwUF4qOsObKdlI31rf4EOCTi0uE95L9u
-         oMxQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrcOcRd8KOeCyqEjAuPDkecIXPT/RfbBdqBSUcMiSe+1i5WOC3G/R3hgjfzdh0o7KwtZ6qa7lU8bx56MV0=@vger.kernel.org
-X-Gm-Message-State: AFuF++m86NJ82Epz/D47CFgo1x7yJvrWeTyjBjmbj4EBRtNPU0byLWIf
-	JhkAAt8fwtm3Cb5QU6eD2CQ9UXupbcWq6SFkj3fHNIwM1r7MT9vgOv14BloSYJ7rQEnzthIP+C4
-	xNP1u93Z/LZe3/WZOvWmkex4anqJQ6UniRCBP4M0cbKmGpfmYCqGcr4ond48=
+        bh=lB1QrtcktRM6zvfmeGkEq0i93fG3paSF09YYzfmPgSY=;
+        b=f/bej7fHJqsYrQ/wtqI1XNa7FP19ZoVZ0lxwlKu91enDnggrrz7q6Hqqi4CcpbDT+S
+         Bs6Hh1sZ5RApkPdknLM/jWhDtMlFvB231ZJ1dVuPtIz/4ukIAk3e9DdUFoM8FG+pYnpJ
+         m0BzzPyMltGI9f7eanz1y2Ym0+JJbypLST5hGitDoTo1P76N7tCkl5sygiskkvElB2k6
+         Kzdq0LKkQ6eKjhZK3dm8o0hMh0uANy1Pp1JkTqTkz9Fq4y2KRK/Ah+qaA6mmt9E2qsWL
+         opIM5NlNocxTurDxHlkCzxQSn5EGsWtkzMI99CSNRttWNSS0rn82aybqjadtf08JB4uE
+         jyng==
+X-Gm-Message-State: AFuF++l4214Xz8RFEapk4De4150LDfpvbHUD5k8rojwftfZzE9cI5bQh
+	QWAWdz2TfQ2z8V/iPQX9U28huaooPvqXHxv7RWPkToczIcFCVeeYSv9Ns50jmyvcmGBfolNcaat
+	2g33ny4tntL6y47yr2vTYOHvwaQ2zOd1lzq8w5tDHIyZ0Mi/fFw4RKlUaFw==
+X-Gm-Gg: AR+sD12waVB0r0Eg5/d6CzbU74hVw1QJM5LCb5bA2RfbVxV3GE2IIhOHhZzozjCiQGc
+	yf6l1W9Qoz3kHvmdlHEB8jI8u+Dv1OI1MZLVOoq9378gfciKP26uLOxgMJztn8rPg4j3sZAkFxT
+	ZSbDJVcKpR1izUH2tpg/FGiOo7oslgzLPCYd9HSx4GtwHDsl+vkkWvTcm9e0WMserkjfa5SDkWq
+	vzjiKdwbuEePTra6lxVvy3AlnaYJIoviIFA1GI+t46La2BwmF1GsEnEYcwMwNb4n3dIZwWXJKC0
+	8C/UcIdFQ2aPaEkNHyu1PdTYqqc+hsofK9xrZWqWmzCNcReVyx0DhPUEGVjzMCYMjS5qoeK4PgV
+	ljMYR4QOGvCfdSH9XENL+t+GOo0pQ/eFGnwhct79JkQ==
+X-Received: by 2002:a05:6102:448a:b0:780:31fe:bcd0 with SMTP id
+ ada2fe7eead31-782c0bfd665mr3789233137.8.1787776819645; Wed, 26 Aug 2026
+ 13:40:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:906:b0:6b1:b31f:132e with SMTP id
- 006d021491bc7-6b1b31f134bmr780445eaf.6.1787776648316; Wed, 26 Aug 2026
- 13:37:28 -0700 (PDT)
-Date: Wed, 26 Aug 2026 13:37:28 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a8f4e88.27659fcc.2ceef7.0008.GAE@google.com>
-Subject: [syzbot] [bpf?] general protection fault in btf_type_show
-From: syzbot <syzbot+37b56485bbbf90ad8489@syzkaller.appspotmail.com>
-To: andrii@kernel.org, ast@kernel.org, bpf@vger.kernel.org, 
-	daniel@iogearbox.net, eddyz87@gmail.com, emil@etsalapatis.com, 
-	ihor.solodrai@linux.dev, jolsa@kernel.org, linux-kernel@vger.kernel.org, 
-	martin.lau@linux.dev, memxor@gmail.com, song@kernel.org, 
-	syzkaller-bugs@googlegroups.com, yonghong.song@linux.dev
+References: <20260823125155.1136740-1-morbo@google.com> <20260823125155.1136740-3-morbo@google.com>
+ <20260824080214-8b12767a-8b04-4344-b48a-cd2966ad36de@linutronix.de>
+In-Reply-To: <20260824080214-8b12767a-8b04-4344-b48a-cd2966ad36de@linutronix.de>
+From: Bill Wendling <morbo@google.com>
+Date: Wed, 26 Aug 2026 13:40:03 -0700
+X-Gm-Features: AcwNN1XcBuT8Hu0A7Z9qKDs8wo_Jfo1FVXqJxHd5jnUUUXSA_JKZFdnR9NqrXew
+Message-ID: <CAGG=3QUCowcrBT-7ZUyOOrX5fjQtFSmRyqvnYkZX0tO9+MKp+g@mail.gmail.com>
+Subject: Re: [PATCH 2/2] userns: Add KUnit test suite for uid_gid_map
+To: =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+Cc: linux-kernel@vger.kernel.org, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Christian Brauner <brauner@kernel.org>, 
+	Aleksa Sarai <cyphar@cyphar.com>, Jan Kara <jack@suse.cz>, Nathan Chancellor <nathan@kernel.org>, 
+	Miguel Ojeda <ojeda@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, Alice Ryhl <aliceryhl@google.com>, 
+	Douglas Anderson <dianders@chromium.org>, Anand Moon <linux.amoon@gmail.com>, 
+	Oleg Nesterov <oleg@redhat.com>, codemender-patching+linux@google.com, 
+	linux-hardening@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+Hi Thomas,
 
-syzbot found the following issue on:
+On Sun, Aug 23, 2026 at 11:13=E2=80=AFPM Thomas Wei=C3=9Fschuh
+<thomas.weissschuh@linutronix.de> wrote:
+>
+> On Sun, Aug 23, 2026 at 12:51:48PM +0000, Bill Wendling wrote:
+> > Add a KUnit test suite to verify the insertion and sorting of mappings
+> > in struct uid_gid_map. This test suite validates both base extent
+> > insertion (<=3D 5 mappings) and extended extent insertion (> 5 mappings=
+,
+> > which triggers the allocation of the forward and reverse pointers).
+> >
+> > This is especially useful for verifying that the __counted_by_ptr
+> > attribute added to 'forward' and 'reverse' pointers works correctly
+> > without causing any runtime bounds-checking panics or traps.
+>
+> AFAIU patch 1 is supposed to not change any behavior.
+> You could move the unit test to the front to make that clearer
+> and also validate it.
+>
+Patch 1 generates code to assert if a memory address outside of the
+bounds of a pointer is accessed. So it does change the behavior.
+Should I still move the test case?
 
-HEAD commit:    818bebeb63dd drm/xe: Don't hand out the flat CCS storage a..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=135ef179580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
-dashboard link: https://syzkaller.appspot.com/bug?extid=37b56485bbbf90ad8489
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1437a179580000
+> > Assisted-by: Gemini Next
+> > Change-Id: If0c2c197a35cd7429cf0d2d6e3b33f0d9f0be66c
+>
+> Change-Id should not be used upstream.
+> See Documentation/dev-tools/checkpatch.rst.
+>
+I had removed it in v2. :-)
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-818bebeb.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/6e4100526b12/vmlinux-818bebeb.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/723c4783ee96/bzImage-818bebeb.xz
+> > Signed-off-by: Bill Wendling <morbo@google.com>
+> > ---
+> > Cc: Kees Cook <kees@kernel.org>
+> > Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+> > Cc: Christian Brauner <brauner@kernel.org>
+> > Cc: Aleksa Sarai <cyphar@cyphar.com>
+> > Cc: Jan Kara <jack@suse.cz>
+> > Cc: Nathan Chancellor <nathan@kernel.org>
+> > Cc: Miguel Ojeda <ojeda@kernel.org>
+> > Cc: Thomas Gleixner <tglx@kernel.org>
+> > Cc: Nicolas Schier <nsc@kernel.org>
+> > Cc: Gary Guo <gary@garyguo.net>
+> > Cc: "Thomas Wei=C3=9Fschuh" <thomas.weissschuh@linutronix.de>
+> > Cc: Alice Ryhl <aliceryhl@google.com>
+> > Cc: Douglas Anderson <dianders@chromium.org>
+> > Cc: Anand Moon <linux.amoon@gmail.com>
+> > Cc: Oleg Nesterov <oleg@redhat.com>
+> > Cc: codemender-patching+linux@google.com
+> > Cc: linux-kernel@vger.kernel.org
+> > Cc: linux-hardening@vger.kernel.org
+> > ---
+> >  init/Kconfig                  | 10 ++++
+> >  kernel/.kunitconfig           |  3 ++
+> >  kernel/user_namespace.c       |  4 ++
+> >  kernel/user_namespace_kunit.c | 87 +++++++++++++++++++++++++++++++++++
+> >  4 files changed, 104 insertions(+)
+> >  create mode 100644 kernel/.kunitconfig
+> >  create mode 100644 kernel/user_namespace_kunit.c
+>
+> (...)
+>
+> > +static void test_user_ns_map_insert_extended(struct kunit *test)
+> > +{
+> > +     struct uid_gid_map map;
+> > +     struct uid_gid_extent extent;
+> > +     int i, ret;
+>
+> (...)
+>
+> > +     /* Now sort the map to set up reverse mapping */
+> > +     ret =3D sort_idmaps(&map);
+> > +     KUNIT_EXPECT_EQ(test, ret, 0);
+> > +     KUNIT_EXPECT_NOT_ERR_OR_NULL(test, map.reverse);
+>
+> KUNIT_EXPECT_*() will *not* abort the test when the assertion fails ...
+>
+> > +
+> > +     /* Verify sorting is correct */
+> > +     for (i =3D 0; i < map.nr_extents; i++) {
+> > +             KUNIT_EXPECT_EQ(test, map.forward[i].count, 5);
+> > +             KUNIT_EXPECT_EQ(test, map.reverse[i].count, 5);
+>
+> ... leading to a crash here if map.reverse is invalid.
+>
+> To also abort the test on assertion failure use KUNIT_ASSERT_*().
+>
+Roger that! I changed them to KUNIT_ASSERT_*.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+37b56485bbbf90ad8489@syzkaller.appspotmail.com
+> > +     }
+> > +
+> > +     /* Clean up allocations to avoid leaks */
+>
+> Pointless comment. This is true for every single call of kfree().
+>
+Kiboshed.
 
-Oops: general protection fault, probably for non-canonical address 0xdffffc0000000005: 0000 [#1] SMP KASAN NOPTI
-KASAN: null-ptr-deref in range [0x0000000000000028-0x000000000000002f]
-CPU: 2 UID: 0 PID: 5908 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:btf_type_show+0x223/0x2e0 kernel/bpf/btf.c:8232
-Code: c1 ea 03 80 3c 02 00 0f 85 90 00 00 00 48 8b 1c dd 40 25 fd 8b 48 b8 00 00 00 00 00 fc ff df 48 8d 7b 28 48 89 fa 48 c1 ea 03 <80> 3c 02 00 75 77 48 8b 43 28 48 8b 0c 24 48 83 c4 08 4d 89 e9 5b
-RSP: 0018:ffffc900034bf868 EFLAGS: 00010206
-RAX: dffffc0000000000 RBX: 0000000000000000 RCX: 0000000000000000
-RDX: 0000000000000005 RSI: 0000000000000000 RDI: 0000000000000028
-RBP: 0000000000000000 R08: 0000000000000001 R09: 0000000000000000
-R10: ffffc900034bf970 R11: 0000000000000001 R12: ffffffff9b96b140
-R13: ffffc900034bf8e0 R14: ffff888035e3f600 R15: 0000000000000003
-FS:  00005555665e7500(0000) GS:ffff8880d5da2000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000200000000000 CR3: 0000000027a0f000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- btf_type_seq_show_flags+0xca/0x120 kernel/bpf/btf.c:8250
- htab_map_seq_show_elem+0x12e/0x350 kernel/bpf/hashtab.c:1669
- map_seq_show+0x13d/0x1e0 kernel/bpf/inode.c:293
- traverse.part.0.constprop.0+0x107/0x650 fs/seq_file.c:112
- traverse fs/seq_file.c:99 [inline]
- seq_read_iter+0x93f/0x1270 fs/seq_file.c:196
- seq_read+0x344/0x4d0 fs/seq_file.c:163
- vfs_read+0x1e4/0xb40 fs/read_write.c:572
- ksys_pread64 fs/read_write.c:764 [inline]
- __do_sys_pread64 fs/read_write.c:772 [inline]
- __se_sys_pread64 fs/read_write.c:769 [inline]
- __x64_sys_pread64+0x1eb/0x250 fs/read_write.c:769
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fa99f79e0d9
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fff8937c6c8 EFLAGS: 00000246 ORIG_RAX: 0000000000000011
-RAX: ffffffffffffffda RBX: 00007fa99fa25fa0 RCX: 00007fa99f79e0d9
-RDX: 0000000000000083 RSI: 0000200000002240 RDI: 0000000000000007
-RBP: 00007fa99f835024 R08: 0000000000000000 R09: 0000000000000000
-R10: 000000000000e5d6 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007fa99fa25fac R14: 00007fa99fa25fa0 R15: 00007fa99fa25fa0
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:btf_type_show+0x223/0x2e0 kernel/bpf/btf.c:8232
-Code: c1 ea 03 80 3c 02 00 0f 85 90 00 00 00 48 8b 1c dd 40 25 fd 8b 48 b8 00 00 00 00 00 fc ff df 48 8d 7b 28 48 89 fa 48 c1 ea 03 <80> 3c 02 00 75 77 48 8b 43 28 48 8b 0c 24 48 83 c4 08 4d 89 e9 5b
-RSP: 0018:ffffc900034bf868 EFLAGS: 00010206
-RAX: dffffc0000000000 RBX: 0000000000000000 RCX: 0000000000000000
-RDX: 0000000000000005 RSI: 0000000000000000 RDI: 0000000000000028
-RBP: 0000000000000000 R08: 0000000000000001 R09: 0000000000000000
-R10: ffffc900034bf970 R11: 0000000000000001 R12: ffffffff9b96b140
-R13: ffffc900034bf8e0 R14: ffff888035e3f600 R15: 0000000000000003
-FS:  00005555665e7500(0000) GS:ffff8880d5da2000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000200000000000 CR3: 0000000027a0f000 CR4: 0000000000352ef0
-----------------
-Code disassembly (best guess):
-   0:	c1 ea 03             	shr    $0x3,%edx
-   3:	80 3c 02 00          	cmpb   $0x0,(%rdx,%rax,1)
-   7:	0f 85 90 00 00 00    	jne    0x9d
-   d:	48 8b 1c dd 40 25 fd 	mov    -0x7402dac0(,%rbx,8),%rbx
-  14:	8b
-  15:	48 b8 00 00 00 00 00 	movabs $0xdffffc0000000000,%rax
-  1c:	fc ff df
-  1f:	48 8d 7b 28          	lea    0x28(%rbx),%rdi
-  23:	48 89 fa             	mov    %rdi,%rdx
-  26:	48 c1 ea 03          	shr    $0x3,%rdx
-* 2a:	80 3c 02 00          	cmpb   $0x0,(%rdx,%rax,1) <-- trapping instruction
-  2e:	75 77                	jne    0xa7
-  30:	48 8b 43 28          	mov    0x28(%rbx),%rax
-  34:	48 8b 0c 24          	mov    (%rsp),%rcx
-  38:	48 83 c4 08          	add    $0x8,%rsp
-  3c:	4d 89 e9             	mov    %r13,%r9
-  3f:	5b                   	pop    %rbx
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+Thanks!
+-bw
