@@ -1,154 +1,192 @@
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60F533EB810
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:17:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C5B31FD4
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:17:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787750271; cv=none; b=tW4pAlOgtxYRJdf9QabxtLOhT12o1qXcZCnD42QtDzxVEA9tcDIIki9Zv8i8djBGnDHtFiM1t7oKSOIbYGAuG63s1Fb3pcoxWxq4obpNLkXo7LBYjqMagnDygzwA2C5gbCA5pUHbsUSOxWPP45AkEKsDQr4NkWLo5b56OzutgVw=
+	t=1787750280; cv=none; b=WkSmaJsCaUK/cwM5coD/eB7Wm1DFacaMaCXxVx3tyB1rbArFf3vTy2PUNsXjpJppigeO3eEdzQ9GD3lqu7s0dtvD77VfvhbhBqcWgqm404WAyEZioh5h8xtXNa7XhWG3uM9cEZhMqu6UQpjVK6GTU4zlOOl9uB3Rk4Lu/1jr/z0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787750271; c=relaxed/simple;
-	bh=Z0F3RblIjphRJy+WnBKtm0+lqXYRgpAkDg2u+A5e4+k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=ofygkDGRZwuFMhdH4RK64CrD2FMJBG5fSznsJI+z6pRMH2jopLt/tggMu/2DSKTDjAMzGrSGVNkharPU2NJqd6OcMqSEDzMmDuuSTEIjtuQk5Klm9w8fsiRgapxQWs3Yah8/oPoxnHUyF7f5hAZJROqn0jfwxDz1KtPeGabn9Ss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=aMMrKVlr; arc=none smtp.client-ip=210.118.77.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1787750280; c=relaxed/simple;
+	bh=BYDsTpoHZztHpVH/KB9MIt4S85CTFk7lYHBkXkgV+nA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RaBvF2fiyrEMAPwdSUIe/8z58B4H6P2PAZsfl7Cbhx/6DEza60rpQ0DyEsE9nqmLXU6oO/X9Y8jpKgWS6zCxxVYTZC5aj3IEQEgz+9UxOjq8+UpttaR9sjMv2xDNynBlWqV4XNcUCv5YGh+M5RmSV8SQA9rcLW+KJ2Jnc+2k08U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gFBmXjrd; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kwiBaWuo; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="aMMrKVlr"
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20260826131747euoutp01bb57b9a50800511314e63e933572bff9~PXWV7T2YK0263902639euoutp01e
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:17:47 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20260826131747euoutp01bb57b9a50800511314e63e933572bff9~PXWV7T2YK0263902639euoutp01e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1787750267;
-	bh=Me0VmWoWAYHkVt/MT/VZKdgMLOyOPPoKW1qhK464E4Y=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=aMMrKVlr5oXAHFFawFLnkYgSa/sThUsBpW0oq1j/1ACdrYDGqS5Tb00SUGzaTMB5E
-	 FK22rrgip4DS/1cEakMKGoLD/1kvYjSWDIJCXQQPEaIGe5PK9jNw17H/90gjr+MPWX
-	 6K/XdbuAxnUrFfS9nBwInfUfPCLsKttBh0Lb6AYo=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20260826131747eucas1p213224e419e6b00c8c84b85a0bedc84e6~PXWVl6Ksu1479414794eucas1p2P;
-	Wed, 26 Aug 2026 13:17:47 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20260826131746eusmtip12f599e284d828f3483e2e6ed3c54a55d~PXWVCb-nm1351413514eusmtip1M;
-	Wed, 26 Aug 2026 13:17:46 +0000 (GMT)
-Message-ID: <8948e46d-bcc2-47e9-84de-dd6907cf0876@samsung.com>
-Date: Wed, 26 Aug 2026 15:17:46 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gFBmXjrd";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kwiBaWuo"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QCBj1W3983079
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:17:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	DELOI9rOA6Bm04F7WLidIklLxMdtsGlI2iiw3Tgfc7I=; b=gFBmXjrd0bXAHG1r
+	R8/tATY6zngKD0xcvCkn3tiCgsi6wIGAwzpH0mjUV3GoGyhMdGGKOmfZ6XtxI9hK
+	kObU0MuJ4yFt0gUW1SGU9g1TMyxNIQ7PNBb8ZolH2tcO1LNatYFTNLJf3iOMJQNN
+	fzhmQVhxLfgWCsbBH+6trMDyDqDk68AD4aPAey98vgRG7oLGVOelxmRnwZtoK4tT
+	lmbrnuq4hasJd8uvcIcZvgwAGuQ1jsAL6/dNxrReTNxeFyQ9VmP6SUmVPr9vl9dn
+	2U0y+03fmfLeJl4D5UFfo5+Yx293EF+8KPxUQfj5iTLYOkzTJSFJtu0zNtzNtIKP
+	SqL6tA==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g9wmqrueh-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:17:56 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-7530aaa7212so39016137.3
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 06:17:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787750273; x=1788355073; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DELOI9rOA6Bm04F7WLidIklLxMdtsGlI2iiw3Tgfc7I=;
+        b=kwiBaWuoMh64vd8BN3Yn8RYp83AUevy8dz1fHV/vKJz8WhVpMS60tYrduGwhY5SI/m
+         /Ys+/UWZTuu6Z7FtsUrj706wd3QJKCDFPX59FiJUKeGF22XCCeUoCEIbAgsupvBZGgt9
+         d3l/3SLmULMtxPCSX1PjCCa6pozpy8aZ4O4l44jmUgltp2wu4CQ1EJDKQii8Jj9vWoD+
+         5KS+shjhKqAZvpYNnKfWYyy5C9gA/OAIGcx03o2wdF6v7FgPUZyOGOOGVTkUlo6W07fR
+         MlurjmcUolR1MmdGEImxMNqLI08UKorcF1f97JNZe5bQq4jSExKGxRIZRDfmUrdwY/Qq
+         /B3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787750273; x=1788355073;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DELOI9rOA6Bm04F7WLidIklLxMdtsGlI2iiw3Tgfc7I=;
+        b=CLCoIwXGNyB4y7BvxFG/owTpTHz0IIN7Kw10oVe/L4r6SFeX6Gcg25zxmP2rc9+ycN
+         ya7RbF2PAkUYIydpMeXFuGsT9GcrYqZ41xWGAnxV4h5X4Z7QNMzu14Js1qYwOJhgcyLd
+         01XaY6P8PTrNqPaBH7qrza5SoNw9Fj4ZF0p5R+Va8c+ADVzHiV0hDw3QDgkihkz5QAVr
+         IR0q++Yk9kriqRIT+yTW9CXvie45RqmyMlclXcsGV/5nSXZch2kwjkzX0sWAinBE7cU9
+         2oujajnRXRSo0nqjdPMuxcMM0WtSmwOsf/txWIrtaO3pkb/ln328gNMdD03aB3ycL7jf
+         +hYw==
+X-Forwarded-Encrypted: i=1; AHgh+RrJz+5iEyIIBflkwBSuNC9zWt0RJu99rI2/BYSY5a61GoPVqviLUJ8h8zv4c2K7vofAoGqAft4+rxK3oxk=@vger.kernel.org
+X-Gm-Message-State: AFuF++ley33sjP4hzmDKsaGgtQ/Jb0VyDJSveA6KGHh5cHP8jgYGkWoE
+	s1gDO+3P+SQ9g8FdaTJgW/N2oz0Ea3TyNqEjN3TiKCiv9EbOsGSJ7Wd1ieLY5mV2mCu0CBiUvMf
+	jnRX7v/JsvpBoGlakpJFmPO/o1wxYPIGhMJsaWPLfyDnkitEZImYz/9QfKKwLV8DMhWcDE6g+rB
+	4=
+X-Gm-Gg: AR+sD12CZ+wsCj9x4GRZqYl7FOWvUe0jcShTNJdTAyCrlI5uIDE9akY4MF3WTWwHb+y
+	hkL52OIzu9Urj2uX0TwjBLhA5W+GCWWD0zdR1Kh00QFVU2b196VlEsdovOrFWke8Ncq4Oy9YAyV
+	SX48aYCxvG8S3MdNxZmMJ8tScyV3u7VtBYeTVL3nObI0IT+LBn+3IMeZGJLGxOW9lCItqsOuep5
+	PU5EVR0WZcvAE6tAGzJhEfyMKOkXqtbyU9MHeCWkrw3snfhH6479iT4oL2TxKDgFz0PqZG9zP16
+	lL2iBBJbCWabh2uNVMRyMoiPx3B4gaL1ZezO7aPZT6kiODArdcF4C1lqrAcFfB0OToG42/NTOnI
+	bEPF8WILAImd9nHyUJpQLejya
+X-Received: by 2002:a05:6102:3166:b0:783:73ba:7df6 with SMTP id ada2fe7eead31-78373ba9fd5mr278613137.1.1787750273435;
+        Wed, 26 Aug 2026 06:17:53 -0700 (PDT)
+X-Received: by 2002:a05:6102:3166:b0:783:73ba:7df6 with SMTP id ada2fe7eead31-78373ba9fd5mr278603137.1.1787750272973;
+        Wed, 26 Aug 2026 06:17:52 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a9b235csm376838866b.44.2026.08.26.06.17.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 26 Aug 2026 06:17:51 -0700 (PDT)
+Message-ID: <0d493aed-acb5-4905-83a2-6dbd6349cb49@oss.qualcomm.com>
+Date: Wed, 26 Aug 2026 15:17:48 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH v2 4/5] of: reserved_mem: release dynamically allocated
- no-map region on init failure
-To: Wandun Chen <chenwandun1@gmail.com>, robh@kernel.org,
-	saravanak@kernel.org, rppt@kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Cc: akpm@linux-foundation.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/4] pmdomain: qcom: rpmhpd: Add NMXC power domain for
+ Nord
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Bartosz Golaszewski
+ <brgl@kernel.org>,
+        Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260826102746.633076-1-shengchao.guo@oss.qualcomm.com>
+ <20260826102746.633076-3-shengchao.guo@oss.qualcomm.com>
+ <6b2f4411-9c38-4b82-b605-6b9a047ab973@oss.qualcomm.com>
+ <ao7mrrW_ob77EAIp@QCOM-aGQu4IUr3Y>
 Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20260818092420.2859026-5-chenwandun1@gmail.com>
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <ao7mrrW_ob77EAIp@QCOM-aGQu4IUr3Y>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260826131747eucas1p213224e419e6b00c8c84b85a0bedc84e6
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260818092450eucas1p1f1d7f5ad5fc8d786580dd9dcad6ce196
-X-EPHeader: CA
-X-CMS-RootMailID: 20260818092450eucas1p1f1d7f5ad5fc8d786580dd9dcad6ce196
-References: <20260818092420.2859026-1-chenwandun1@gmail.com>
-	<CGME20260818092450eucas1p1f1d7f5ad5fc8d786580dd9dcad6ce196@eucas1p1.samsung.com>
-	<20260818092420.2859026-5-chenwandun1@gmail.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDExMCBTYWx0ZWRfX9VGf1TkO/3Ed
+ uXHQSolEg2lA0Ls7TCGnDXMrL7hZF94O/gLvQvoYHoivAJOF3E6AOGpmuNU+3pSLcskJBG/Hk+M
+ YKZ4i+F+8uhjY6qwTQEY9apU+3sbK/g=
+X-Proofpoint-ORIG-GUID: 9ASKD7GYypQsPf341erA_GCc0rbYEVuZ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDExMCBTYWx0ZWRfX5barGukpIhLK
+ dxd0fAKqFuYwRn82I3yHxQRPaU0hiA4Jjf99GJJqcYZkfo/m5/oZiYjnWhNyocJ/70Nt6tHJFPP
+ BO1c3MXGXQ9iPQK/PCsoLPSnv2UeOqDkkP+PbmpOidXGUx+0V3U10kd+hIIArw4xE7giuHk53ue
+ 8CUHYgTrqSnVh+KSsTY3DzFbEqHOODLdTlsJ9I23ss7mIKTNKICftvFh81M6u5VCE5nzKtufZ8W
+ hoTg87fsA1y+Bzcf9C9aOX7FSzkPZ+fv4Gs4hwgXX4oXgqq+U8PWsyefZqpcbygULochYEQOW9B
+ CYu5FwtDKQak6MTVH5xbGfeFve+OcpS0Tfx/14jTfMb21bla3tqa8FDvRhmN01Q0TlgcswifZBS
+ DjZxMWQ1eaJ9GvCIF20wuMJlkRs3JgwlxiOSd5/FkCmvT1NUa0n5gm83ZPWrVbt9k9CvcFgHrZa
+ 8rT6tBtrk9slr7i5yjA==
+X-Authority-Analysis: v=2.4 cv=T9S8ifKQ c=1 sm=1 tr=0 ts=6a8ee784 cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=P5qJYf1CprfF32mA9rkA:9 a=QEXdDO2ut3YA:10
+ a=-aSRE8QhW-JAV6biHavz:22
+X-Proofpoint-GUID: 9ASKD7GYypQsPf341erA_GCc0rbYEVuZ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-26_03,2026-08-26_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 suspectscore=0 priorityscore=1501 malwarescore=0 phishscore=0
+ lowpriorityscore=0 clxscore=1015 spamscore=0 impostorscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260110
 
-On 18.08.2026 11:24, Wandun Chen wrote:
-> From: Wandun Chen <chenwandun@lixiang.com>
->
-> Dynamically reserved-memory regions are added to memblock.reserved by
-> memblock_phys_alloc_range() during __reserved_mem_alloc_size(). When a
-> reserved-memory region's driver initialization fails,
-> fdt_init_reserved_mem_node() cleans up the reservation. For no-map
-> regions it only calls memblock_clear_nomap(), leaving the range in
-> memblock.reserved and unavailable for normal memory use.
->
-> Fix it by freeing the region on init failure when it was dynamically
-> allocated.
->
-> Sashiko found this issue in [1].
->
-> Fixes: 7b25995f5319 ("of: of_reserved_mem: mark nomap memory instead of removing")
-> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
-Acked-by: Marek Szyprowski <m.szyprowski@samsung.com>
-> Link: https://protect2.fireeye.com/v1/url?k=37bb3269-68033acb-37bab926-000babff88b5-00648778f1201363&q=1&e=40542077-d5ad-41ca-88fd-1cf102a816c1&u=https%3A%2F%2Fsashiko.dev%2F%23%2Fmessage%2F20260806100605.2C2C01F000E9%2540smtp.kernel.org [1]
-> ---
->  drivers/of/of_reserved_mem.c | 14 +++++++++-----
->  1 file changed, 9 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
-> index 767ef702392e..ac5db19dcc93 100644
-> --- a/drivers/of/of_reserved_mem.c
-> +++ b/drivers/of/of_reserved_mem.c
-> @@ -136,7 +136,8 @@ static int __init alloc_reserved_mem_array(void)
->  }
->  
->  static void fdt_init_reserved_mem_node(unsigned long node, const char *uname,
-> -				       phys_addr_t base, phys_addr_t size);
-> +				       phys_addr_t base, phys_addr_t size,
-> +				       bool dynamic);
->  static int fdt_validate_reserved_mem_node(unsigned long node,
->  					  phys_addr_t *align);
->  static int fdt_fixup_reserved_mem_node(unsigned long node,
-> @@ -352,7 +353,7 @@ void __init fdt_scan_reserved_mem_late(void)
->  			continue;
->  
->  		uname = fdt_get_name(fdt, child, NULL);
-> -		fdt_init_reserved_mem_node(child, uname, base, size);
-> +		fdt_init_reserved_mem_node(child, uname, base, size, false);
->  	}
->  
->  	/* check for overlapping reserved regions */
-> @@ -567,7 +568,7 @@ static int __init __reserved_mem_alloc_size(unsigned long node, const char *unam
->  	}
->  
->  	fdt_fixup_reserved_mem_node(node, base, size);
-> -	fdt_init_reserved_mem_node(node, uname, base, size);
-> +	fdt_init_reserved_mem_node(node, uname, base, size, true);
->  
->  	return 0;
->  }
-> @@ -676,13 +677,15 @@ static int __init __reserved_mem_init_node(struct reserved_mem *rmem,
->   * @uname: name of the reserved memory node
->   * @base: base address of the reserved memory region
->   * @size: size of the reserved memory region
-> + * @dynamic: whether the region was dynamically allocated
->   *
->   * This function calls the region-specific initialization function for a
->   * reserved memory region and saves all region-specific data to the
->   * reserved_mem array to allow of_reserved_mem_lookup() to find it.
->   */
->  static void __init fdt_init_reserved_mem_node(unsigned long node, const char *uname,
-> -					      phys_addr_t base, phys_addr_t size)
-> +					      phys_addr_t base, phys_addr_t size,
-> +					      bool dynamic)
->  {
->  	int err = 0;
->  	bool nomap;
-> @@ -708,7 +711,8 @@ static void __init fdt_init_reserved_mem_node(unsigned long node, const char *un
->  
->  		if (nomap)
->  			memblock_clear_nomap(rmem->base, rmem->size);
-> -		else
-> +
-> +		if (dynamic || !nomap)
->  			memblock_phys_free(rmem->base, rmem->size);
->  		return;
->  	} else {
+On 8/26/26 3:14 PM, Shawn Guo wrote:
+> On Wed, Aug 26, 2026 at 03:04:33PM +0200, Konrad Dybcio wrote:
+>> On 8/26/26 12:27 PM, Shawn Guo wrote:
+>>> From: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
+>>>
+>>> Add the nmxc.lvl RPMh resource and register it in the Nord power domain
+>>> table. Nord supplies the NSP memory rail from this dedicated resource
+>>> rather than from the shared MX rail, so consumers need it exposed as its
+>>> own power domain.
+>>>
+>>> Signed-off-by: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
+>>> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+>>> ---
+>>>  drivers/pmdomain/qcom/rpmhpd.c | 6 ++++++
+>>>  1 file changed, 6 insertions(+)
+>>>
+>>> diff --git a/drivers/pmdomain/qcom/rpmhpd.c b/drivers/pmdomain/qcom/rpmhpd.c
+>>> index 96e4bd2f5a14..717c44d1c39a 100644
+>>> --- a/drivers/pmdomain/qcom/rpmhpd.c
+>>> +++ b/drivers/pmdomain/qcom/rpmhpd.c
+>>> @@ -198,6 +198,11 @@ static struct rpmhpd mxc_ao = {
+>>>  	.res_name = "mxc.lvl",
+>>>  };
+>>>  
+>>> +static struct rpmhpd nmxc = {
+>>> +	.pd = { .name = "nmxc", },
+>>> +	.res_name = "nmxc.lvl",
+>>
+>> The commandDB sources suggest this shouls be nspmxc.lvl instead..
+>>
+>> Can you dump /sys/kernel/debug/cmd-db?
+> 
+> root@qcom-armv8a:~# cat /sys/kernel/debug/cmd-db
 
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+[...]
 
+> 0x300a0: nsp3.lvl [00 00 01 00 c0 00 00 01 80 01 a0 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+> 0x300a4: nsp3.tmr
+> 0x300b0: nmxc.lvl [00 00 10 00 c0 00 00 01 80 01 a0 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+> 0x300b4: nmxc.tmr
+
+Alright then
+
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+
+Konrad
