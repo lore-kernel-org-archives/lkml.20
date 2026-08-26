@@ -1,113 +1,118 @@
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C46A43E067
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:59:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D7B63B4EA2;
+	Wed, 26 Aug 2026 14:00:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787752797; cv=none; b=lXgkx/RJ/TF/y4tK/gwUOHFAUKYtqWvjovOVyh1qGMHBsSV46dRsYrCzx6W8dc4iLzjO3C62MZT82V/iUvCo/kSD0s3lK2jFXV7ueX5ztfDm94wIT+yD7x8Tgu7HWFfHYNIHQTxTFObkcbEnSS5+JmrhHivqM4KUBeDkYjBzHPg=
+	t=1787752810; cv=none; b=Z7XgENZikkfB4X2jCk0zl+PVxVKkQZsZAEdAZFppUdUbYevPtm3puZYPgrP5WaT0eEz3HtJQqIecVCOy96dXSsA1AfJweIfzOsmxm3oE2JDxuHZKq+y07j8IRLefQ9dUZRWKW+LEW1mS9RQBe22lce0QsgMAqLDmJR4OWbnett0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787752797; c=relaxed/simple;
-	bh=BmbalL68ZikUuh25rRQGobzDqe2QcSShbOPYwfY2XDo=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=YD7Lo6k3gLgUOLsMfqCYnw6t0nUhiO8PQ/Fj+L0iT9/nTyuuXVfbvTUyz/JBmQv9hNeMp32+0Q6U87c8RK4kN/CGM81oS/LLR6xz4CTN2yqfK6GH5H+JorXhqxK0ZiEygSRMrVAwZ1wHV4rhIUGbbrI6SNbcN6RBZr7e4p6ieBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=uYVD4LYy; arc=none smtp.client-ip=209.85.214.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1787752810; c=relaxed/simple;
+	bh=bLxfwkeFxrw5PU/8QkzWwLqnBTJiVEPNX+tTwJ7opp0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ORgM+OnR4lc0nU171TzGfI8vg7IfLjwQw7c+SP5fWpJE/14LTkRbNKKJLAJv2llhRb6k90f/XnOxOqBsziI1Qm4z+puJl9hW9Rt1s2YY0OUsQO8wLXnFRfliu+6/tcTB0OhtIQahCf/p9bJfZNdup36STIdMg+tJA0c5Kx75FOU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RoxegmDX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="uYVD4LYy"
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2d7151120d6so9379965ad.3
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 06:59:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787752786; x=1788357586; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=sJ5J4VsXiOuMp2dajzmF8XaYnCQzq6t9gwVoLisuj/k=;
-        b=uYVD4LYylAASE/IEQ6yNnKHWb7Cb8t5qcjtFl1fNefeb2pQ/vQuz8DtJfpQIGwsKAX
-         gysFIdkLGuXC9RNmvnFijMcQKL0lM52bPnjlpDpeecPr19mY2Cm9zT/gOZouzjBUYZx1
-         lT/CK9ke05J+FBHOUVc7g4fwQ2asbm35NNPL7f9xJUHWSBY0/FF9J+cPQpIUyzuOXQ4q
-         90Fhk4dNe7LirQuI5Y9PTF8dagVn2IUaRQJMtBbxZVIH/VlfMijxvPqxaqHQB/miS9VY
-         xlrklIJDzVH/fGbP5MkPGIvYSGeGOtWciiqDRAXYPfEDcsg2Th/5KrDtzlzyzvMudK80
-         J4bQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787752786; x=1788357586;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sJ5J4VsXiOuMp2dajzmF8XaYnCQzq6t9gwVoLisuj/k=;
-        b=L//ZjXV7GWpcMT5oRRzQ3h/NAYF1flslo5ZSp3l+pq28DRvTtFxaBHnYFnYuJSE1ee
-         5qwTWTAaOxs0jbtr4MUEvRcVfP5bBTrZuFjWmjWm2Z04cbR+nMAFDd5XdPPYplHmFZPX
-         p1b8gUqwFLSaXyVVtrZkiovn3obKm7NHlXnOyYfRcoiG+vEJo8w4//J/dei+ovv2HW7A
-         quzzHc/1H3crOLPFbyb+uRKituHXFn+uBFjHBUznjD7SNZLjRsCWv7WpX3fgqTgGvw4c
-         FRY9T7M0/24n+UxsXAd2F3ov2WhtD3DucnZ1DSPri7w8fGWmBWeZgIp3IoWaH6wvVRYK
-         zCQQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rq8Kc9gbNwxMXWUiBgbI1rd91dyrF5JeGK1xCRihuEeZ+cwTPQ/kUhvjZNt2K6fAEVRvDpRWi2KQzJbeOc=@vger.kernel.org
-X-Gm-Message-State: AFuF++n9CyZLYWNyANCRk91/3SmD0mt2szoNNnP+cgQMgsSGOVSTafiq
-	eS2Ky5TIs+jI7mNHikTWE4dAMRKo9Uurp+di5+7yWm/OAJTfd0xGfdYqvcil+jG4QK3iuPk3AlM
-	z9AN/WA==
-X-Received: from plht13.prod.google.com ([2002:a17:903:2f0d:b0:2c0:a516:2c2])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:1246:b0:2d1:1f73:3667
- with SMTP id d9443c01a7336-2d707a04385mr106575235ad.1.1787752785793; Wed, 26
- Aug 2026 06:59:45 -0700 (PDT)
-Date: Wed, 26 Aug 2026 06:59:45 -0700
-In-Reply-To: <d9d4264f-eb8f-4407-951b-245d144b3ec8@suse.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RoxegmDX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 411481F000E9;
+	Wed, 26 Aug 2026 14:00:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787752804;
+	bh=19tcek4HrcS7UOd5IyTT7qc0S0ouGBiyalEvCRLgbSk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=RoxegmDX7J80G3Ar4UcOhvYd01fs8k+Iw2xWda7B2Kk1VZAIZxiI4wr1ZWWzjrNnY
+	 grUVhB/RBZsWbiSIfVqzu4UH6bDgTbk2+NH/bp0VXJWpeEdTiDDJFNmAacUwYpTK6R
+	 4rmhvvt+Cx+zsLc6CiSt9a+/GTpdMLNwqiYuHvS4cbK9kiFdeBpurTxeZaIP3giDY0
+	 TXP51n6p6KRLnoXPp48irgNs0HuwUY7z2PEUjcJ0AEFsLRSMYRYN/ZixpLKwvcpcsg
+	 DrOJar2fK8AKSPQIDgZPhS4jDn/OWC0AaxMfpJVJPHY2nt5mRgnRFvSxEfxbTTq80b
+	 egMfgg+3djuLw==
+Message-ID: <b13c5ad3-ef9b-48f1-a538-64dfd958d5fb@kernel.org>
+Date: Wed, 26 Aug 2026 15:59:58 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260819094903.3060020-1-xiaoyao.li@intel.com>
- <20260819094903.3060020-10-xiaoyao.li@intel.com> <5426d2f6-3e67-45d3-85d6-d0da67edb486@suse.com>
- <34161383-a382-411b-9278-098dab6587d8@intel.com> <d9d4264f-eb8f-4407-951b-245d144b3ec8@suse.com>
-Message-ID: <ao7xUc88m1fopax7@google.com>
-Subject: Re: [PATCH v4 9/9] KVM: VMX: Consolidate the exit handler for VMX and TDX
-From: Sean Christopherson <seanjc@google.com>
-To: Nikolay Borisov <nik.borisov@suse.com>
-Cc: Xiaoyao Li <xiaoyao.li@intel.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Kiryl Shutsemau <kas@kernel.org>, Rick Edgecombe <rick.p.edgecombe@intel.com>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] MAINTAINERS: add Alice Ryhl as co-maintainer for Rust
+ [ALLOC]
+Content-Language: en-US
+To: Danilo Krummrich <dakr@kernel.org>, aliceryhl@google.com, ljs@kernel.org,
+ liam@infradead.org, urezki@gmail.com, ojeda@kernel.org
+Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260826132729.3281308-1-dakr@kernel.org>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20260826132729.3281308-1-dakr@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Aug 26, 2026, Nikolay Borisov wrote:
->=20
->=20
-> On 8/26/26 13:43, Xiaoyao Li wrote:
-> > On 8/26/2026 6:03 PM, Nikolay Borisov wrote:
-> > > > @@ -960,7 +978,7 @@ struct kvm_x86_ops vt_x86_ops __initdata =3D {
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .vcpu_needs_initialization =3D
-> > > > vt_op_tdx_only(vcpu_needs_initialization),
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .vcpu_run =3D vt_op(vcpu_run),
-> > > > -=C2=A0=C2=A0=C2=A0 .handle_exit =3D vt_op(handle_exit),
-> > > > +=C2=A0=C2=A0=C2=A0 .handle_exit =3D vt_handle_exit,
-> > >=20
-> > > nit: Why isn't this vt_op() for the sake of consistency and
-> > > introduce needless churn ?
-> >=20
-> > I didn't see how to make vt_op() still work here while dedupping the
-> > code. Do you have a better idea?
->=20
-> Indeed, I saw that vt_op is actually different for the TDX/!TDX case. I
-> guess that function is always bound to have some quirk - i.e it has an
-> #ifdef guard inside even though is_td_vcpu() is defined for the !TDX case
-> but tdx_handle_exit() isn't. It's named VT, even though it's defined  in =
-the
-> "vmx section" ...
+On 8/26/26 15:27, Danilo Krummrich wrote:
+> Add Alice as co-maintainer for the Rust alloc module to share
+> maintenance responsibility. This is also a natural fit, as some of the
+> alloc code overlaps with the mm subsystem.
+> 
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 
-Because the name and the implementation are two separate things.  The scope=
- is
-"vt_" to communicate that the operation is common to all flavors of VT, i.e=
-. to
-both VMX and TDX.  But when support for TDX is disabled, there's no need to
-trampoline through the routing code and so the vt_op() implementation wires=
- the
-hooks up directly to the VMX functions.
+Great!
 
-.handle_exit doesn't use vt_op() because the implementation of vt_handle_ex=
-it()
-itself is completely common to VMX and TDX, i.e. there is no routing code a=
-nd
-thus no need to define a wrapper via vt_op().
+Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+
+> ---
+>  MAINTAINERS | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 24ca91ce5d86..7daacfd70197 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -23945,6 +23945,7 @@ K:	\b(?i:rust)\b
+>  
+>  RUST [ALLOC]
+>  M:	Danilo Krummrich <dakr@kernel.org>
+> +M:	Alice Ryhl <aliceryhl@google.com>
+>  R:	Lorenzo Stoakes <ljs@kernel.org>
+>  R:	Vlastimil Babka <vbabka@kernel.org>
+>  R:	Liam R. Howlett <liam@infradead.org>
+> 
+> base-commit: 45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229
+
