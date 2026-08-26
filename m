@@ -1,509 +1,217 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010056.outbound.protection.outlook.com [40.93.198.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79FC3388E4E;
-	Wed, 26 Aug 2026 14:28:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787754502; cv=none; b=JRPahhE0mGIZNHJWYw3p1aS+F4uOYdERl6JBssxasZWTqi8Q8S4Wzqt9GTrEbi9MuTvvqw3TfEQFThAB4GSZnb1S6bU5YXkk6GPOUzER9EjsBfjPkyCUgudBoLSprrMthfOjoAAfohZP3rzYD/onMiECBuFOg4zUBofP0+w1Jg8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787754502; c=relaxed/simple;
-	bh=oefbwwsQLVMqvwQz9VktJBOzGvOgDcAnvZm1QKkyqoI=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=nX07Sg8+fP0SMfd33DQ4oAEO9tWDAGav3j3I5qPRijpnQ7jshvWDeoTRBBHDS/SAetj5W4BrXc0vesdqNQhJAKF57H2cBrEoBbx/+bZBoEgYNooDxBOZFs/WBolIPxMDQfNuTmuVx/SrwMdcrxQ0RzbQbArjPKsXQ8yv3VnpdL8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gOc5w8hu; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BEF81862
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:32:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.56
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787754744; cv=fail; b=tbCBMdGlTwc/Q769R6Pq4QS90UwVO2rWStVL/08YgtRWTafSDxr7wYZn2CMuLMYMfuFfdgKW2KX4iI+oSAmNZzBuBonAd0tBWRbuHntb87Ph+o/KSOTBHDhVhE3xKdIdUJj4ryPdbDUsGu73RiOvpLifxBsJjmYkTjBueGW9Ngk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787754744; c=relaxed/simple;
+	bh=2eCj4r4bsLelitVzCCTQUkd27OrEdWL61U/T6AwDEvU=;
+	h=Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
+	 In-Reply-To:MIME-Version; b=W4fXqIgtdvjUkjEpd8IP5BDPvuAiUPsarRGPhH68jYWXTR9CebX25UqJotEWRmUAPUz9fnc3SBHG/4mRgh0KgwIv5J97NcTh+EMU4dx2oyqWkjwDBuQzWIC7C48Io1P9JAqpMcT+7SbETyEtLg/6hZA27937iAt8B/xTA2D1h34=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=VoFfFAdI; arc=fail smtp.client-ip=40.93.198.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gOc5w8hu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787754498; x=1819290498;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=oefbwwsQLVMqvwQz9VktJBOzGvOgDcAnvZm1QKkyqoI=;
-  b=gOc5w8hu7e5Wj2twQwQszNRBQEkyYzyv3HQumzHGbWcPR/LgBpDY6eH/
-   f1XhOrmHtXYJIIiE8DKI2pA4W8vsI8yx4hJVPzCzY8x5hJDP0POLmZ7Ea
-   mmxhZNYbD7oxei9AUy8CadGhDLwO91+nnYaPLjMCzcWEmx71cCF5xzP+H
-   9urBsdFKlv03LIW2eN999JENbPg5QZCdpH2tCGY1C1l2rL+xjI/O5A6KM
-   wbCIyhNmTXgVSPkizd5aonrjo5O9Oe/6SwDlSCp1VrhiONdinAZUaOBak
-   RQHg3unsR+vYnRe8L3b/G1nA4D3q/3yfjZhWn/GaiNWjhA+9wt4A1ojAB
-   g==;
-X-CSE-ConnectionGUID: LtLGMULoS02TpbL60QrgRg==
-X-CSE-MsgGUID: I51H42AeRYmCBYCtEvM3xA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11886"; a="88003269"
-X-IronPort-AV: E=Sophos;i="6.25,244,1779174000"; 
-   d="scan'208";a="88003269"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 07:28:17 -0700
-X-CSE-ConnectionGUID: Em7ztitfTHyI89/6YgmhGA==
-X-CSE-MsgGUID: 2F01p6mFSCSwEstJlAtp3Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,244,1779174000"; 
-   d="scan'208";a="297484890"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.247])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 07:28:15 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Wed, 26 Aug 2026 17:28:11 +0300 (EEST)
-To: =?ISO-2022-JP?Q?JC_Chen=5B=1B$BDDqApP=1B=28J=5D?= <jc_chen@diodes.com>
-cc: Bjorn Helgaas <helgaas@kernel.org>, Nirmoy Das <nirmoyd@nvidia.com>, 
-    Bjorn Helgaas <bhelgaas@google.com>, 
-    "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>, 
-    "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [RFC PATCH] PCI: Work around Pericom PI7C9X3G606GPC Port 4 BAR
- erratum
-In-Reply-To: <TYQPR02MB90041221BDD960DDD05CF63DF3CF2@TYQPR02MB9004.apcprd02.prod.outlook.com>
-Message-ID: <b4d8e820-4cd5-7225-5078-678c4f191297@linux.intel.com>
-References: <20260723161010.2638956-1-nirmoyd@nvidia.com> <20260723205413.GA852929@bhelgaas> <TYQPR02MB90041221BDD960DDD05CF63DF3CF2@TYQPR02MB9004.apcprd02.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="VoFfFAdI"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nb0eBZvsWJg0Dz2r5LiRYUGD8i/C0AmIx9q+uQCMb8XKsRTAg4koSDvMgFgWtOdVOQcXoR0JOgGiNjg/andvspA2anmJehnQjU+EspmmeZP5M3XTQr4WLvgceb44s8ht53jybr102auPzqyURxsPpKKknXDy4jcrrGKXdbhYO9UYJruVG58/8vbnw9BGUvr9gmmPz0f1TRzJlQvNrwT8zNWqj6gnr71S3KZl+xzhIOw5dY78BuU8bm0fk1PEudxb9XJMtG1SEnYOe0qeiFW7BTRFrly26SZkFfzl0bCMKZ452pPQZFUDHUBtDEstZm3/dE+GFsfNI/kQtlRtLh3+tw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2eCj4r4bsLelitVzCCTQUkd27OrEdWL61U/T6AwDEvU=;
+ b=f6tDDM0/JPc+yd3egGmjGaRSJOiipmamHYpOCLaYKS8RTEvYRCyDXrfcx2y/HjKzEvOeeh62Z2cj0jNB8YXRoYrLg0otkQwJuWQ169wKCM6dA+mD1N3soHUQVPVKbUP287APISPkG9NowST9HkYV3LksCspems00U7BUqmiwhFldzoDYeXok8ZhJak+iGK2EtcrAWiON1lBMZfCrHADBCFiuuDFUpkGkM9i/W3QT0/Raoiltaj0WwIuOMRxoHKE35C98oyBqBN6/cwBYAy7KPjgmufkDoNupnHx4LsDXvL6/lFJKnOpOenrCRbhMg+nE6yJEolHISEAhmhEofih/UA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2eCj4r4bsLelitVzCCTQUkd27OrEdWL61U/T6AwDEvU=;
+ b=VoFfFAdI+jvLPUEclVUSqbiAjS6SPU0/eTguoUHbwNWL8iTBm9U3ZC+AAEjM57NDydJ5AB3MaxeWfIIpvLBEd3i9DzdzZba9MaeQJl+PX7cXo3DDLbBz/imi+EGIlcYAlS/byUOqMSxo/VPrHSiNVcYPJFPYTzJ2LIRYAOKcX1FRIghZR5BGezULvs1JFjP6yRrYxetLdTTZ9tQvj2n4/YPuhvbZJm/KwkchWx3L73vGe5DZm3xtIulGlz5kKPNzhCZ7vOrtxUXafbREUXOULc91qv+nRxOz/E8PfMXhuMxJBX5gYR7fc6eqOOkk2fTASEKwvsznu9coht4uFPZs6w==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by MW3PR12MB4475.namprd12.prod.outlook.com (2603:10b6:303:55::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Wed, 26 Aug
+ 2026 14:32:12 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0360.006; Wed, 26 Aug 2026
+ 14:32:12 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 26 Aug 2026 10:32:10 -0400
+Message-Id: <DKYY5T6DL56L.312FCMNEL50R5@nvidia.com>
+Subject: Re: [PATCH] MAINTAINERS: remove myself as THP co-maintainer
+Cc: "Andrew Morton" <akpm@linux-foundation.org>, "Baolin Wang"
+ <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>,
+ "Nico Pache" <nico.pache@linux.dev>, "Ryan Roberts" <ryan.roberts@arm.com>,
+ "Dev Jain" <dev.jain@arm.com>, "Barry Song" <baohua@kernel.org>, "Lance
+ Yang" <lance.yang@linux.dev>, "Usama Arif" <usama.arif@linux.dev>,
+ <linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, "David Hildenbrand (Arm)"
+ <david@kernel.org>
+From: "Zi Yan" <ziy@nvidia.com>
+X-Mailer: aerc 0.22.0
+References: <20260826-drop-thp-maintainership-v1-1-3d102748fa17@kernel.org>
+ <6293dc55-e69f-498c-8290-b85202db605e@kernel.org>
+ <ao69UWWf0awFqIXD@gremlin>
+In-Reply-To: <ao69UWWf0awFqIXD@gremlin>
+X-ClientProxiedBy: YQZPR01CA0086.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:84::15) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-1298480256-1787754491=:1168"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|MW3PR12MB4475:EE_
+X-MS-Office365-Filtering-Correlation-Id: 68f48f9c-1dd6-4456-7c75-08df037ed125
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|366016|1800799024|376014|56012099006|10067099003|22082099003|18002099003|11063799006|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	DrIdPtkVy29f0Bqha1YlX/KKA6WOGYGRox9FoQ74Rq3gbgr5ZDZPyfx2+REF47hmdwcAx8kfyM+B0IrAyJYYx+Xdiyx0kw/EWEE9o2C5amnl1GC83AXOpqQLNGMItvhF/Q2E7LGD/WnJPFa0qbe+2/R9jPFehMwKXZm8jbHR4LIZl6N1IOb0CeHdFM978VMelN6zVQ2WBCaDCZSHExqbiZqFDJGimCNm2/dKfud+JFGdKJEIGA9uYs3eSjx+FqT9TTQzQRQIMpRyybnVAVsBpM6kfGJR7C9gl6SXboHqPjHxVSt/690D5Gf+Apgkozh9nrOThbPwkXrtUMZOEw722iaiXyuzklUtRiaJ0zAMPT0QXHXf61pOjDLTRBBvlfAik1he1PsxNLnOvzoBeqHLm82VZw+Q7p4dqZdrDdffuevMRicWOqLKnIm7eAaHbgxByMXQCTzjB0jN7GuNLmgSzTU3D0EE9LcbIE9WgMmwQM6rVgnT8aWGOT1PHHBbzDMMH4htZoya1+/LU11saLfL73N2H5v+zSkxxbN1SKohh6nNo+yLdha9Z2y8By2nfGQfBsejf6yxSaAuCVEcN9U9z8ND18QunsexqXbXCtFXnxr+MGgOwlZaveJwC4JvYnozJS3c6Ujln1a3r3lQpyXuAmo40gmnBlkmpCiNaaNuq2o=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(366016)(1800799024)(376014)(56012099006)(10067099003)(22082099003)(18002099003)(11063799006)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bEZsbWJESmE4MlNTK2tZd3FUTlh0Yy9XN1F5aVFUS0lBdTZ3MHJIcTk5Q0ww?=
+ =?utf-8?B?L1orNVJDRjNNakRsYkFBWU12Z2hOb3hUOXhKR3VlMUREajJIS21hbnlnVWNT?=
+ =?utf-8?B?dGsxRU1VUWpnU2ZsMjFaaXlnTnZyUWsycEV1dldBcm1weGhXZ0tidFlPcXBB?=
+ =?utf-8?B?QUR6SDJ2ZjAvYVZNQk1kSVk3UGNTUFhpaUE3S1pVbjd0andrUCtsdE1ra2d3?=
+ =?utf-8?B?QXJNdkFJVkd1SmFaZVlzZkhFUm1LaEZwc21KWi8rMlJ1M0lhWURNUityRHdo?=
+ =?utf-8?B?S2ttVlZFY0V4cS9jZFdOWTRyRXlzMzdDYTY3UVA0U0k1MFlXR3gzanNlZ2o3?=
+ =?utf-8?B?andXazYyVXJZcHVZdU1lWU4zMUZXZDY1UGV1Z05iTS9MU3dOaVY1TXlZK2RN?=
+ =?utf-8?B?aE5kdENJbzJZZURiOU5qYThJWXNLcGtOeUNJbGJoR29pa3ZpTWNiUkxEN1Uv?=
+ =?utf-8?B?MkpSSzI3eHFNb2VRUWZwV2I4SERZekE5aU1GaXcrNDAwcmZwTWltN1ZWbk43?=
+ =?utf-8?B?eWlXdWo5UjhlWDlZZll2L2RQclF2azBaT2JwYzUxYXFmNTNmdWszeHQwOWcy?=
+ =?utf-8?B?aGh3VWxUVE5BZnlUOWVFckdCdHRIQ0F3Y0lxNGlJcGlLSjI0Y05Hc29WWHQw?=
+ =?utf-8?B?TFFuR1dENW9NVEJjemRnMlEwbHBTRmRZSVM4dlI4eGNUUTEraURHcmYyNUUv?=
+ =?utf-8?B?VUtNcDBXaVpmd0lwOGJyaXFyVmNtR0w0aWZlRGY2WFlTR1AzNHMzaDNPVjBG?=
+ =?utf-8?B?UVBuRERQbHZGRHBVUFUrRWdZZ1B5OXQ5VCswZWREM0FMRlJHVWVzMXkvdnZ3?=
+ =?utf-8?B?dW1Bb281MkhpMXZqQTZHUzBDcXVyS1plVG1SbkQvZDBlNWNiR2lHNzlCQ0hy?=
+ =?utf-8?B?SUw2ZTBaRjZjaEFPaExHS3dVcWg1VXZPZ05wU1JBTDJhMVdRQjFyS0pXMkJa?=
+ =?utf-8?B?YjhZemwxU3Q0R05PQVMzNFlSSWxqS05iOEJuaUd5TThWb1VrTnNvZ3UwZ0JP?=
+ =?utf-8?B?eS9yckV2dHBZVzg0czd1RGJ1K3E3czgxVERxWm0wamZqdU92UmdIQWlUeURQ?=
+ =?utf-8?B?b3ZsaXo1VXFjYVZCUG41aWEwVWt5ZjJoQkRjL2grRXdCYWQ2YVl3Z1lLNm1F?=
+ =?utf-8?B?eU1LblJFZEpMS1BuVDRLVzVJTnN6dFJ5TStJZm1rVjR6b3liRFE0ZlFsdzNu?=
+ =?utf-8?B?M2ZGcEZ1bWZvL1k1TmU0cEUySnhrbzdVZ29Vdk94UjFkVTB2aTNURWZ6Q24z?=
+ =?utf-8?B?VldBM0ljZjNvUEExU0RZbVNZTkVZV29yMTFvNTdPWS9XWGhUcXFhSG0rWktn?=
+ =?utf-8?B?RWJ4QXlRcWhkUE5LMWtyWFpoemtUYnJVZnl3MjFkTFRSVVJXLzhGdjR2YjE2?=
+ =?utf-8?B?UW8zYjIxakhMV0xia0JGdkxxOVN0cy9xT1NlUVNGMDBhelZ6VzlDeFBRZDQ1?=
+ =?utf-8?B?bzhYaDd5RWlkSGcxdURQdkswV2hLYVp0ckVYSTNHNmc0YytQa2Rxb3lVM1Zr?=
+ =?utf-8?B?RERNRDZhYTRnRkQ2elJuZXdaYWNmYldtK2RlanFxQjhHb2NRVFJLakdtdzE4?=
+ =?utf-8?B?MWFMVFF1d2ptc0JuWWo4WWNGR0cyTVNhOGJkeDZ4S0NqK01FN1VjWklWeSsz?=
+ =?utf-8?B?Y2d2MUJCQnlDaTRaMjVQbmxSdys4cVBUS21iZC9oTzhTQ1NwWFpaVGE0MjBw?=
+ =?utf-8?B?NnNBWnlJOC9hU1FQUFBhOVdsWG03UXZzQWtuT2cwVmtSMFVwOEowdG9WM1JF?=
+ =?utf-8?B?c285cVEyWEZMLzhDNzFIcFYwQTlZYVFYMnYwdjJpY09TMG03NXdGTFdqb0xZ?=
+ =?utf-8?B?cTY5a0Y5ZnM5bjk2WWxkNFdrenFNRmlBUmRFaHV2d0dndTliUHBYREFFU0FU?=
+ =?utf-8?B?a1gzVGJuTS9WbmYwOFRRVlg1bjdXM3lQOHlOWll1eWtTVFluR01FZ1lLRjBV?=
+ =?utf-8?B?bHhGeHRxVnhUVDNoS2tkamhsdjY5MnBSK0p4K1dWU1JFcW1KZFpCKzVnNVBZ?=
+ =?utf-8?B?OUhOemx6RzB3bWt5RUl2Y0ZRMVExQTl3c3RrbFFmYzA2ZldJSVVtTHE5YUVs?=
+ =?utf-8?B?R0x5WVBybWJpemdQWit3VVFLQ3FVaThnbFVFQ0k3Y0t3YnExWUI3NjE0bjI0?=
+ =?utf-8?B?Y1g4ejdzY2ZzMzNSU2REcXJUOE80bE1sL2VFckNYd0tmejMzQXVoMTdRZVpK?=
+ =?utf-8?B?eHB1aXBBUlJpZ3pkaGFDYkl0N2p5MTdXL3JCclhCVCtTSEk3UEY3OGFENXVm?=
+ =?utf-8?B?anJYVW9ReTdpNDhlTWdmdkMxVHJWTzA5KzhjVHRwWERUbFRqTFByUUQ2MDhu?=
+ =?utf-8?Q?kPaJsPvrgFs728Odl9?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 68f48f9c-1dd6-4456-7c75-08df037ed125
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 14:32:12.0865
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pcz161bKHW/y7tcSSdgiuNkg15H1EkJxYzFWQuqSq+OsPZTVg6AKh8GOkB/VVCuP
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4475
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323328-1298480256-1787754491=:1168
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
-
-On Fri, 24 Jul 2026, JC Chen[=E9=99=B3=E9=A5=92=E9=9D=9C] wrote:
-
->=20
-> Hi,
->=20
-> =C2=A0
->=20
-> Attached are kernel log "dmesg.log" and lspci "lspci.log" output.
->=20
-> =C2=A0
->=20
-> I guess without this patch, MSI-X from the downstream port doesn't work c=
-orrectly?
->=20
-> =3D> YES
->=20
-> =C2=A0
->=20
-> By "mirror", I guess you mean you want the same value in BAR 0 of both th=
-e switch
-> upstream port and the downstream port?
->=20
-> =3D> Yes, please use the same value in BAR 0 of both the switch upstream =
-and downstream
-> ports.
->=20
-> I don't know what that even means, because the upstream port BAR 0 can't =
-be inside
-> its memory window, so reads should never reach the downstream port.
+On Wed Aug 26, 2026 at 6:23 AM EDT, Lorenzo Stoakes (ARM) wrote:
+> On Wed, Aug 26, 2026 at 12:09:31PM +0200, David Hildenbrand (Arm) wrote:
+>> On 8/26/26 11:56, Lorenzo Stoakes (ARM) wrote:
+>> > Unfortunately my workload is such that I simply no longer have the tim=
+e to
+>> > give THP the focus that it deserves.
+>>
+>> THP is, unfortunately, one of the busiest MM components, and also the on=
+es where
+>> we have to deal with significant legacy code, many suboptimal past desig=
+n
+>> decisions ... and plenty of ideas for improvements that require constant
+>> pushback to not make the situation even worse. The time spent on discuss=
+ions
+>> alone is massive.
 >
-> =3D> Yes, you are correct that the upstream port BAR 0 can't be inside it=
-s memory
-> window, so reads should never reach the downstream port. When CDEP functi=
-on is
-> disabled, BAR0 of P4 is read as all zeros. If root complex send out memor=
-y address
-> 0x7F000 or 0x7F080 to P4, it will hit P4=E2=80=99s MSI-X Table or PBA add=
-ress range, switch
-> will response UR and then cause SOC reports timeout. To avoid this issue,=
- the patch
-> write P0=E2=80=99s BAR0 to P4=E2=80=99s BAR0.
+> Yes indeed. It was a very difficult decision, but the sheer throughput an=
+d
+> attention required has reached a point where it's become infeasible for m=
+e
+> time-wise.
+>
+> I do hate to leave you with all of that, but you can always ask me to pop
+> into a discussion or cc- me, so hopefully that'll help :)
+>
+> And as you say, we have an amazing community of reviewers who all help
+> enormously.
+>
+>>
+>> Fortunately we have a growing list of reviewers.
+>
+> Absolutely and I've really loved seeing how people have developed - Lance
+> in particular has grown wonderfully, Zi is a star, and in general every
 
-Hi,
+Thank you for the kind words. I really enjoy working with you. Since you
+are still around, I am sure we will keep working together. :)
 
-I have problem of understanding why touching that downstream BAR helps=20
-because the bridge windows on 0000:17:00.0 are disabled.
+> single person doing THP review - thank you for all of your contributions =
+:)
+>
+>>
+>> It's mostly thankless work, really; but I'd like to express my sincere g=
+ratitude
+>> for all the work you put into co-maintaing THP over (/me checks MAINTAIN=
+ERS)
+>> more than 1 year!
+>
+> Thank you that's very kind of you to say! :) Thanks for being a great
+> co-maintainer!
+>
+>> >
+>> > So, at least temporarily, step down from the role.
+>> >
+>>
+>> I'm sorry but I can't let you go entirely ;) I'll make sure to CC you on=
+ patches
+>> that need your feedback!
+>
+> Absolutely, feel free :)
+>
+>>
+>> Thanks again, Lorenzo!
+>
+> Thanks :)
+>
+>>
+>> --
+>> Cheers,
+>>
+>> David
+>
+> --
+> Cheers, Lorenzo
 
---=20
- i.
 
->=20
-> =C2=A0
->=20
-> Thanks,
->=20
-> JC
->=20
-> =C2=A0
->=20
-> -----Original Message-----
-> From: Bjorn Helgaas <helgaas@kernel.org>
-> Sent: Friday, July 24, 2026 4:54 AM
-> To: Nirmoy Das <nirmoyd@nvidia.com>
-> Cc: Bjorn Helgaas <bhelgaas@google.com>; linux-pci@vger.kernel.org;
-> linux-kernel@vger.kernel.org; JC Chen[=E9=99=B3=E9=A5=92=E9=9D=9C] <jc_ch=
-en@diodes.com>; Ilpo J=C3=A4rvinen
-> <ilpo.jarvinen@linux.intel.com>
-> Subject: Re: [RFC PATCH] PCI: Work around Pericom PI7C9X3G606GPC Port 4 B=
-AR erratum
->=20
-> =C2=A0
->=20
-> [You don't often get email from helgaas@kernel.org. Learn why this is imp=
-ortant at
-> https://aka.ms/LearnAboutSenderIdentification ]
->=20
-> =C2=A0
->=20
-> [+cc Ilpo, this sounds really weird from a resource perspective]
->=20
-> =C2=A0
->=20
-> On Thu, Jul 23, 2026 at 09:10:00AM -0700, Nirmoy Das wrote:
->=20
-> > The Pericom PI7C9X3G606GPC PCIe switch has an erratum where downstream
->=20
-> > Port 4 retains a default MSI-X table and PBA decode when BAR 0 is zero.
->=20
-> > Memory reads that match this window are dropped with an Unsupported
->=20
-> > Request completion, which may cause the SoC to report a timeout.
->=20
-> =C2=A0
->=20
-> Help me understand what's going on here.=C2=A0 Can you share the dmesg lo=
-g of enumeration
-> and resource assignment and the "lspci -v" output for the whole switch (b=
-oth upstream
-> and downstream ports) without this patch?
->=20
-> =C2=A0
->=20
-> I guess without this patch, MSI-X from the downstream port doesn't work c=
-orrectly?
->=20
-> =C2=A0
->=20
-> > The workaround is to make Port 4 BAR 0 mirror BAR 0 of the immediate
->=20
-> > upstream port. Firmware may establish this at boot, but PCI resource
->=20
-> > assignment can move upstream BAR 0 without updating Port 4.
->=20
-> =C2=A0
->=20
-> By "mirror", I guess you mean you want the same value in BAR 0 of both th=
-e switch
-> upstream port and the downstream port?=C2=A0 I don't know what that even =
-means, because
-> the upstream port BAR 0 can't be inside its memory window, so reads shoul=
-d never
-> reach the downstream port.
->=20
-> =C2=A0
->=20
-> > For a 64-bit BAR, also mirror BAR 1 while memory decoding is disabled,
->=20
-> > matching the PCI core update sequence. Port 4 BAR 0 may read back as
->=20
-> > zero after a successful write, so do not use readback to validate the u=
-pdate.
->=20
-> >=C2=A0
->=20
-> > Signed-off-by: Nirmoy Das <nirmoyd@nvidia.com>
->=20
-> > ---
->=20
-> >=C2=A0 drivers/pci/quirks.c | 92
->=20
-> > ++++++++++++++++++++++++++++++++++++++++++++
->=20
-> >=C2=A0 1 file changed, 92 insertions(+)
->=20
-> >=C2=A0
->=20
-> > diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c index
->=20
-> > b09f27f7846fc..fa8098d77adb5 100644
->=20
-> > --- a/drivers/pci/quirks.c
->=20
-> > +++ b/drivers/pci/quirks.c
->=20
-> > @@ -6264,6 +6264,98 @@ DECLARE_PCI_FIXUP_ENABLE(PCI_VENDOR_ID_PERICOM,
->=20
-> > 0xb404,=C2=A0 DECLARE_PCI_FIXUP_RESUME(PCI_VENDOR_ID_PERICOM, 0xb404,
->=20
-> >=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pci_fixu=
-p_pericom_acs_store_forward);
->=20
-> >=C2=A0
->=20
-> > +#define PCI_DEVICE_ID_PERICOM_PI7C9X3G606GPC 0xc008
->=20
-> > +
->=20
-> > +/*
->=20
-> > + * Pericom PI7C9X3G606GPC switch erratum E15 -
->=20
-> > + * Downstream Port 4 BAR 0 must mirror the immediate upstream port
->=20
-> > +BAR 0
->=20
-> > + *
->=20
-> > + * Port 4 uses BAR 0 for its MSI-X table and PBA. Firmware may
->=20
-> > +program this
->=20
-> > + * mirror at boot, but Linux resource assignment can move the
->=20
-> > +upstream BAR
->=20
-> > + * and leave Port 4 with a stale mirror.
->=20
-> > + *
->=20
-> > + * Diodes confirmed Tile0/P4 appears to Linux as device 4, function 0
->=20
-> > +on the
->=20
-> > + * bus below the upstream port. Match that downstream function and
->=20
-> > +re-apply
->=20
-> > + * the mirror after resource assignment and early resume.
->=20
-> > + */
->=20
-> > +static void pci_fixup_pericom_pi7c9x3g606gpc_bar0_mirror(struct
->=20
-> > +pci_dev *pdev) {
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 struct pci_dev *upstream;
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 bool bar0_64, disable_mem;
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 u16 cmd =3D 0;
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 u32 bar =3D 0, bar1 =3D 0, upstream_bar =3D 0=
-, upstream_bar1 =3D 0;
->=20
-> > +
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 if (pci_pcie_type(pdev) !=3D PCI_EXP_TYPE_DOW=
-NSTREAM)
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 return;
->=20
-> > +
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 if (PCI_SLOT(pdev->devfn) !=3D 4 || PCI_FUNC(=
-pdev->devfn))
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 return;
->=20
-> > +
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 upstream =3D pci_upstream_bridge(pdev);
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 if (!upstream || upstream->vendor !=3D PCI_VE=
-NDOR_ID_PERICOM ||
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 upstream->device !=3D=
- PCI_DEVICE_ID_PERICOM_PI7C9X3G606GPC ||
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pci_pcie_type(upstrea=
-m) !=3D PCI_EXP_TYPE_UPSTREAM)
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 return;
->=20
-> > +
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 pci_read_config_dword(upstream, PCI_BASE_ADDR=
-ESS_0, &upstream_bar);
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 if (upstream_bar & PCI_BASE_ADDRESS_SPACE_IO)
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 return;
->=20
-> > +
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 bar0_64 =3D (upstream_bar & PCI_BASE_ADDRESS_=
-MEM_TYPE_MASK) =3D=3D
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 PCI_BASE_ADDRESS_MEM_TYPE_64;
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 if (bar0_64)
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 pci_read_config_dword(upstream, PCI_BASE_ADDRESS_1,
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &upstream_bar1=
-);
->=20
-> > +
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 if (!(upstream_bar & PCI_BASE_ADDRESS_MEM_MAS=
-K) &&
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (!bar0_64 || !upstrea=
-m_bar1)) {
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 pci_warn(pdev, "skipping PI7C9X3G606GPC BAR 0 mirror workaround
-> because upstream BAR 0 is unassigned\n");
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 return;
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 }
->=20
-> > +
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 pci_read_config_dword(pdev, PCI_BASE_ADDRESS_=
-0, &bar);
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 if (bar0_64) {
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 pci_read_config_dword(pdev, PCI_BASE_ADDRESS_1, &bar1);
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 if (bar =3D=3D upstream_bar && bar1 =3D=3D upstream_bar1)
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return;
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 } else {
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 if (bar =3D=3D upstream_bar)
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return;
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 }
->=20
-> > +
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 /*
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * Port 4 BAR 0 may read back as zero ev=
-en after a successful write.
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * If BAR 0 is configured as 64-bit, BAR=
- 1 is the upper half.
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * Disable memory decoding while updatin=
-g both dwords, matching PCI
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * core's 64-bit BAR update sequence.
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 disable_mem =3D bar0_64 && !pdev->mmio_always=
-_on;
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 if (disable_mem) {
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 pci_read_config_word(pdev, PCI_COMMAND, &cmd);
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 pci_write_config_word(pdev, PCI_COMMAND,
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 cmd & ~PCI_COM=
-MAND_MEMORY);
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 }
->=20
-> > +
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 pci_write_config_dword(pdev, PCI_BASE_ADDRESS=
-_0, upstream_bar);
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 if (bar0_64)
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 pci_write_config_dword(pdev, PCI_BASE_ADDRESS_1, upstream_bar1);
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 if (disable_mem)
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 pci_write_config_word(pdev, PCI_COMMAND, cmd);
->=20
-> > +
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 if (bar0_64)
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 pci_info(pdev, "wrote upstream BAR 0/1 %#x/%#x to Port 4 BAR 0/1 for
-> PI7C9X3G606GPC BAR 0 mirror workaround\n",
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 upstream_bar, ups=
-tream_bar1);
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 else
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 pci_info(pdev, "wrote upstream BAR 0 %#x to Port 4 BAR 0 for
-> PI7C9X3G606GPC BAR 0 mirror workaround\n",
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 upstream_bar);
->=20
-> > +}
->=20
-> > +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_PERICOM,
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PCI_DEVICE_ID_PERICOM_P=
-I7C9X3G606GPC,
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pci_fixup_pericom_pi7c9=
-x3g606gpc_bar0_mirror);
->=20
-> > +DECLARE_PCI_FIXUP_RESUME_EARLY(PCI_VENDOR_ID_PERICOM,
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 PCI_DEVICE_ID_PERICOM_PI7C9X3G606GPC,
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0
->=20
-> > +pci_fixup_pericom_pi7c9x3g606gpc_bar0_mirror);
->=20
-> > +
->=20
-> >=C2=A0 static void nvidia_ion_ahci_fixup(struct pci_dev *pdev)=C2=A0 {
->=20
-> >=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pdev->dev_flags |=3D PCI_DEV_FLAGS_=
-HAS_MSI_MASKING;
->=20
-> >=C2=A0
->=20
-> > base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
->=20
-> > --
->=20
-> > 2.43.0
->=20
-> >=C2=A0
->=20
->=20
->=20
+
 
 --=20
- i.
+Best Regards,
+Yan, Zi
 
---8323328-1298480256-1787754491=:1168--
