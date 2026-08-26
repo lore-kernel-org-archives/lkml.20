@@ -1,265 +1,159 @@
-Received: from mail-oi2-f3.google.com (mail-oi2-f3.google.com [74.125.231.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E356D418361
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:54:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B14E446BE0
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:56:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787756081; cv=none; b=XT8Ns3hLUqyQDEJy8yMTfLy0cwXEwobQUMVb3toSi+CIEX2uFhzoNeF9eQ2Qoj6iKH/6NEEa7hNnfEzVCCtSbXMztbkYVL1vgCEHb8QA4e0RfYcykx3KnUKZbBfMemC/g4NlAs48Ezvzu07GNSEt06eh9HpD6Dp0g9pZLIdGo8I=
+	t=1787756184; cv=none; b=JbHs5A1stgFmipbwBLb3M5t+HKHId8eOxHPIq80r2tF9BPEB68sBcKyMbCISLaJb73aZYTHHJScEgo97SQ8Q8iohp1ZXubqIyNOFB1PAmDPQzQoSAmPT6rFVYXPtAf9lhzAdF4Cs+ZhHOvnCLYAUlLskQQOiap6T8971mUIssRE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787756081; c=relaxed/simple;
-	bh=h81Wf+JN2r7zw2xpnWCN10iX/UkrmlCDQtNHhSI6x0Q=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=gpmT2oPIoTW5SthWCkXisbdnTc4Llo7TD7KW7SCoeAO/gQkE+wHWJGW3VTLucruDksLxYzvLn2QimSqDkMvyeDqxIzH9bE8Dz8Mf8xgXd0BGcTnyC4l90RtONHykgur30qCOE+9vnvWMErDIXgiidCJ233qW02bHmGdn/WCHKg0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi2-f3.google.com with SMTP id 46e09a7af769-7e9f9a3167aso375668a34.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 07:54:39 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787756079; x=1788360879;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fhc5akPL+e5xaAqcDZhj/uzCSZOI1Tcd3kQrpi5gMfg=;
-        b=md7tMp/t4M9AEEQ+acNe1iyJWCFPiBJscaMhzl/mr5JCFa8zA1BV8+uUmwcj0cNAOJ
-         ZmREWv8PLbYoU1OHf0myKqq/b2KIFdcNHwTmhsucq/iKwKofjsaZ7rrMJ2SECGQrac4h
-         Dl/ZzZutNkdkhPDV0B0OO9Lwh1Oqq8nScEhiSztHx41nnhcB1k1Ph9QtHQKAewTyoa/n
-         bmij81pfHNtpW4y0vc71cXhKNXJyiZCY2aH9uPuDh7X6RDWeH5WuVo8yAnMOnNZqbvMj
-         TIvFCJiIy4E800j4/pMJiFPAyZcqv9zhkLO+IExVup0WwmuAj16skIWtgG4Nd4AtYuNl
-         wd8A==
-X-Forwarded-Encrypted: i=1; AHgh+Rr4brCul3ngAZYnU+uMDoq+OiGusH0GId4SAHaZZlHYN8nE51rN5Nv4A5tCEB1LHkDxVPr9WfzIcLWRkMs=@vger.kernel.org
-X-Gm-Message-State: AFuF++mpvFFigsVZHHGd9SfFg2jtvG2jsLiQZvbeO1LkvCkH4MXScLeO
-	6wdAhp4Hc4y/86z65AmC9PYVrCh3Igfj12Pcf9oxUPUuN5skMaZ7dU07Gwrty0KvSkPu/i40Va7
-	jk8bTDYfm+mAcZgF5K/IihiXFxbxtgZg/iX0tAg50l5uUrGiN69N+lz2AcYw=
+	s=arc-20240116; t=1787756184; c=relaxed/simple;
+	bh=IY55ctd8QpVuJxEhgpxyAs4KE3A33RMtWcMVdJveAoc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Ek9Wf7YtaqrllVF4WnFJuFoT8peNSfmzRI2GNY+5xn9LvuODCyRsEX4xpT5nxbc3t/59hfsvwrfhVE2FrX7rHuGBOZRwkT2UsgAZxq7zUvEi85CcKdEKlOJNPvnaARzJvFntNJ1tipt6al+rZxGUU2SuFMP6c+U8f+gV3ZToSLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=XnwbnByx; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="XnwbnByx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1787756180;
+	bh=IY55ctd8QpVuJxEhgpxyAs4KE3A33RMtWcMVdJveAoc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=XnwbnByxyESQk2w0NAYiBavfZh5wnSigjtC5MNIxFDJiJ/pG0Q+MU1ESGG/rGLW9A
+	 raUd1fAa167GULD43Kk8qBKmQJC0QBXMoMOlha+M1Ma3uUJDor6vsMxFzg/O1iTMTc
+	 O6TS8TwcjaYt2/QkMKyvAGLbrLO3QmmnJtuzQBhMCtly37IPoQmWKQ+ECuOA9A8LbZ
+	 WfyPeR447q85Ilt5AvQERcZlJ/Euh+BMzBihGtDeAJyS79ZDlIiR0MCtnj+kf9yPcz
+	 v8I2uMFZWw4lxwbYdOp4uAd/vhnD70gzF2FWzO7M90f/TYUh8YiJawBrEJPmys8Hd4
+	 YY53bRmACrC7A==
+Received: from fedora-32.home (unknown [100.64.0.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bbrezillon)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id AC36E17E0A4C;
+	Wed, 26 Aug 2026 16:56:19 +0200 (CEST)
+From: Boris Brezillon <boris.brezillon@collabora.com>
+Date: Wed, 26 Aug 2026 16:56:00 +0200
+Subject: [PATCH v4 01/18] drm/panthor: Disable reset work before unplug
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:709b:10b0:6aa:e13e:ba26 with SMTP id
- 006d021491bc7-6b1a052dbfamr5198298eaf.33.1787756078998; Wed, 26 Aug 2026
- 07:54:38 -0700 (PDT)
-Date: Wed, 26 Aug 2026 07:54:38 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a8efe2e.1d9ded08.62e62.00b2.GAE@google.com>
-Subject: [syzbot] [fs?] memory leak in path_openat (4)
-From: syzbot <syzbot+7666ed2c3d42196bf7e3@syzkaller.appspotmail.com>
-To: brauner@kernel.org, jack@suse.cz, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, 
-	viro@zeniv.linux.org.uk
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260826-panthor-unplug-fixes-v4-1-982cc8f4234b@collabora.com>
+References: <20260826-panthor-unplug-fixes-v4-0-982cc8f4234b@collabora.com>
+In-Reply-To: <20260826-panthor-unplug-fixes-v4-0-982cc8f4234b@collabora.com>
+To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
+Cc: Chris Diamand <chris.diamand@arm.com>, Akash Goel <akash.goel@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Boris Brezillon <boris.brezillon@collabora.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787756178; l=3456;
+ i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
+ bh=IY55ctd8QpVuJxEhgpxyAs4KE3A33RMtWcMVdJveAoc=;
+ b=rIbMfAgdsvBYVBOZ+KoWfjDLuJ85lAbb6Vwh24qLqzgMHBnJXFYPOtDgFv6dhLNXoEJO+Ug0H
+ 8vOGQ2vs1qtBkWJiapvgco6J3U14/ULZYb/1qJHnX+1jwbd6jLyYsup
+X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
+ pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 
-Hello,
+Unplug is supposed to be the end of the road, so we need to make sure
+reset works won't execute while we're cleaning up everything as part
+of the unplug, otherwise it would mess up the internal state.
 
-syzbot found the following issue on:
+In order to be able to call disable_work_sync() in the unplug
+path, we need to defer the unplug triggered by the reset logic,
+otherwise we would deadlock.
 
-HEAD commit:    26260251022f Merge tag 'livepatching-for-7.3' of git://git..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=1196a179580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=6c1b5958b2d1207f
-dashboard link: https://syzkaller.appspot.com/bug?extid=7666ed2c3d42196bf7e3
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=139f7179580000
-
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/0f75e7622b1f/disk-26260251.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/2bbff9fd7b60/vmlinux-26260251.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/95d733004907/bzImage-26260251.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+7666ed2c3d42196bf7e3@syzkaller.appspotmail.com
-
-2026/08/22 14:47:52 executed programs: 26
-2026/08/22 14:47:59 executed programs: 40
-2026/08/22 14:48:07 executed programs: 54
-2026/08/22 14:48:14 executed programs: 68
-BUG: memory leak
-unreferenced object 0xffff88812811f9c0 (size 176):
-  comm "syz.0.25", pid 6047, jiffies 4294943865
-  hex dump (first 32 bytes):
-    00 00 00 00 19 00 08 04 40 fc a8 85 ff ff ff ff  ........@.......
-    00 02 38 03 81 88 ff ff 80 cd 61 11 81 88 ff ff  ..8.......a.....
-  backtrace (crc 1214ee3a):
-    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
-    slab_post_alloc_hook mm/slub.c:4599 [inline]
-    slab_alloc_node mm/slub.c:4919 [inline]
-    kmem_cache_alloc_noprof+0x352/0x440 mm/slub.c:4933
-    alloc_empty_file+0x57/0x180 fs/file_table.c:262
-    path_openat+0x44/0x11f0 fs/namei.c:4986
-    do_file_open+0x121/0x200 fs/namei.c:5029
-    do_sys_openat2+0xa7/0x150 fs/open.c:1417
-    do_sys_open fs/open.c:1423 [inline]
-    __do_sys_openat fs/open.c:1439 [inline]
-    __se_sys_openat fs/open.c:1434 [inline]
-    __x64_sys_openat+0x82/0xf0 fs/open.c:1434
-    do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-    do_syscall_64+0xe9/0x530 arch/x86/entry/syscall_64.c:84
-    entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-BUG: memory leak
-unreferenced object 0xffff8881280ec188 (size 56):
-  comm "syz.0.25", pid 6047, jiffies 4294943865
-  hex dump (first 32 bytes):
-    ff ff 01 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-  backtrace (crc 2672a0c6):
-    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
-    slab_post_alloc_hook mm/slub.c:4599 [inline]
-    slab_alloc_node mm/slub.c:4919 [inline]
-    kmem_cache_alloc_noprof+0x352/0x440 mm/slub.c:4933
-    lsm_file_alloc security/security.c:171 [inline]
-    security_file_alloc+0x30/0x250 security/security.c:2406
-    init_file+0x3e/0x160 fs/file_table.c:184
-    alloc_empty_file+0x75/0x180 fs/file_table.c:266
-    path_openat+0x44/0x11f0 fs/namei.c:4986
-    do_file_open+0x121/0x200 fs/namei.c:5029
-    do_sys_openat2+0xa7/0x150 fs/open.c:1417
-    do_sys_open fs/open.c:1423 [inline]
-    __do_sys_openat fs/open.c:1439 [inline]
-    __se_sys_openat fs/open.c:1434 [inline]
-    __x64_sys_openat+0x82/0xf0 fs/open.c:1434
-    do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-    do_syscall_64+0xe9/0x530 arch/x86/entry/syscall_64.c:84
-    entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-BUG: memory leak
-unreferenced object 0xffff88811161cd80 (size 192):
-  comm "syz.0.25", pid 6047, jiffies 4294943865
-  hex dump (first 32 bytes):
-    c0 f9 11 28 81 88 ff ff 00 00 00 00 2c 00 00 01  ...(........,...
-    b2 6d b2 0e 81 88 ff ff 00 00 00 00 00 00 00 00  .m..............
-  backtrace (crc 6cdefeb4):
-    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
-    slab_post_alloc_hook mm/slub.c:4599 [inline]
-    slab_alloc_node mm/slub.c:4919 [inline]
-    __kmalloc_cache_noprof+0x359/0x440 mm/slub.c:5480
-    _kmalloc_noprof include/linux/slab.h:988 [inline]
-    _kzalloc_noprof include/linux/slab.h:1309 [inline]
-    iommufd_fops_open+0x24/0xe0 drivers/iommu/iommufd/main.c:319
-    misc_open+0x12a/0x1f0 drivers/char/misc.c:163
-    chrdev_open+0x108/0x310 fs/char_dev.c:411
-    do_dentry_open+0x1fc/0x850 fs/open.c:996
-    vfs_open+0x3d/0x1b0 fs/open.c:1101
-    do_open fs/namei.c:4837 [inline]
-    path_openat+0xde7/0x11f0 fs/namei.c:5000
-    do_file_open+0x121/0x200 fs/namei.c:5029
-    do_sys_openat2+0xa7/0x150 fs/open.c:1417
-    do_sys_open fs/open.c:1423 [inline]
-    __do_sys_openat fs/open.c:1439 [inline]
-    __se_sys_openat fs/open.c:1434 [inline]
-    __x64_sys_openat+0x82/0xf0 fs/open.c:1434
-    do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-    do_syscall_64+0xe9/0x530 arch/x86/entry/syscall_64.c:84
-    entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-BUG: memory leak
-unreferenced object 0xffff888127dd4000 (size 256):
-  comm "syz.0.25", pid 6047, jiffies 4294943865
-  hex dump (first 32 bytes):
-    01 00 00 00 01 00 00 00 04 00 00 00 01 00 00 00  ................
-    00 00 00 00 00 00 00 00 01 48 cf 0a 81 88 ff ff  .........H......
-  backtrace (crc 98731819):
-    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
-    slab_post_alloc_hook mm/slub.c:4599 [inline]
-    slab_alloc_node mm/slub.c:4919 [inline]
-    __do_kmalloc_node mm/slub.c:5336 [inline]
-    __kmalloc_noprof+0x3c2/0x560 mm/slub.c:5362
-    _kmalloc_noprof include/linux/slab.h:992 [inline]
-    _kzalloc_noprof include/linux/slab.h:1309 [inline]
-    _iommufd_object_alloc+0x24/0x100 drivers/iommu/iommufd/main.c:41
-    iommufd_ioas_alloc drivers/iommu/iommufd/ioas.c:28 [inline]
-    iommufd_ioas_alloc_ioctl+0x46/0x160 drivers/iommu/iommufd/ioas.c:47
-    iommufd_fops_ioctl+0x1ed/0x370 drivers/iommu/iommufd/main.c:556
-    vfs_ioctl fs/ioctl.c:51 [inline]
-    __do_sys_ioctl fs/ioctl.c:597 [inline]
-    __se_sys_ioctl fs/ioctl.c:583 [inline]
-    __x64_sys_ioctl+0xf4/0x140 fs/ioctl.c:583
-    do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-    do_syscall_64+0xe9/0x530 arch/x86/entry/syscall_64.c:84
-    entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-BUG: memory leak
-unreferenced object 0xffff88810eb26db0 (size 576):
-  comm "syz.0.25", pid 6047, jiffies 4294943865
-  hex dump (first 32 bytes):
-    00 17 02 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-    88 cd 61 11 81 88 ff ff c8 6d b2 0e 81 88 ff ff  ..a......m......
-  backtrace (crc f41786a5):
-    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
-    slab_post_alloc_hook mm/slub.c:4599 [inline]
-    slab_alloc_node mm/slub.c:4919 [inline]
-    kmem_cache_alloc_lru_noprof+0x350/0x440 mm/slub.c:4952
-    xas_alloc+0xf1/0x110 lib/xarray.c:378
-    xas_expand lib/xarray.c:590 [inline]
-    xas_create+0x105/0x8a0 lib/xarray.c:661
-    xas_store+0x7a/0xb20 lib/xarray.c:795
-    __xa_alloc+0xec/0x200 lib/xarray.c:2005
-    xa_alloc include/linux/xarray.h:878 [inline]
-    _iommufd_object_alloc+0x9d/0x100 drivers/iommu/iommufd/main.c:56
-    iommufd_ioas_alloc drivers/iommu/iommufd/ioas.c:28 [inline]
-    iommufd_ioas_alloc_ioctl+0x46/0x160 drivers/iommu/iommufd/ioas.c:47
-    iommufd_fops_ioctl+0x1ed/0x370 drivers/iommu/iommufd/main.c:556
-    vfs_ioctl fs/ioctl.c:51 [inline]
-    __do_sys_ioctl fs/ioctl.c:597 [inline]
-    __se_sys_ioctl fs/ioctl.c:583 [inline]
-    __x64_sys_ioctl+0xf4/0x140 fs/ioctl.c:583
-    do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-    do_syscall_64+0xe9/0x530 arch/x86/entry/syscall_64.c:84
-    entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-BUG: memory leak
-unreferenced object 0xffff88811161ccc0 (size 192):
-  comm "syz.0.25", pid 6047, jiffies 4294943865
-  hex dump (first 32 bytes):
-    01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-  backtrace (crc 21b0f99b):
-    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
-    slab_post_alloc_hook mm/slub.c:4599 [inline]
-    slab_alloc_node mm/slub.c:4919 [inline]
-    __kmalloc_cache_noprof+0x359/0x440 mm/slub.c:5480
-    _kmalloc_noprof include/linux/slab.h:988 [inline]
-    _kzalloc_noprof include/linux/slab.h:1309 [inline]
-    iopt_alloc_pages.part.0+0x2b/0x210 drivers/iommu/iommufd/pages.c:1375
-    iopt_alloc_pages drivers/iommu/iommufd/pages.c:1432 [inline]
-    iopt_alloc_file_pages+0x7c/0xf0 drivers/iommu/iommufd/pages.c:1425
-    iopt_map_file_pages+0x184/0x1e0 drivers/iommu/iommufd/io_pagetable.c:518
-    iommufd_ioas_map_file+0x152/0x2f0 drivers/iommu/iommufd/ioas.c:231
-    iommufd_fops_ioctl+0x1ed/0x370 drivers/iommu/iommufd/main.c:556
-    vfs_ioctl fs/ioctl.c:51 [inline]
-    __do_sys_ioctl fs/ioctl.c:597 [inline]
-    __se_sys_ioctl fs/ioctl.c:583 [inline]
-    __x64_sys_ioctl+0xf4/0x140 fs/ioctl.c:583
-    do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-    do_syscall_64+0xe9/0x530 arch/x86/entry/syscall_64.c:84
-    entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-connection error: failed to recv *flatrpc.ExecutorMessageRawT: read tcp 127.0.0.1:41845->127.0.0.1:36772: read: connection reset by peer
-
-
+Fixes: 5fe909cae118 ("drm/panthor: Add the device logical block")
+Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+ drivers/gpu/drm/panthor/panthor_device.c | 21 ++++++++++++++++++++-
+ drivers/gpu/drm/panthor/panthor_device.h |  3 +++
+ 2 files changed, 23 insertions(+), 1 deletion(-)
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
+index 0b25abebb803..7c55d0c45cfd 100644
+--- a/drivers/gpu/drm/panthor/panthor_device.c
++++ b/drivers/gpu/drm/panthor/panthor_device.c
+@@ -79,6 +79,9 @@ void panthor_device_unplug(struct panthor_device *ptdev)
+ 		return;
+ 	}
+ 
++	/* Make sure we're not interrupted by resets while we're unplugging. */
++	disable_work_sync(&ptdev->reset.work);
++
+ 	drm_WARN_ON(&ptdev->base, pm_runtime_get_sync(ptdev->base.dev) < 0);
+ 
+ 	/* Call drm_dev_unplug() so any access to HW blocks happening after
+@@ -91,6 +94,13 @@ void panthor_device_unplug(struct panthor_device *ptdev)
+ 	 */
+ 	mutex_unlock(&ptdev->unplug.lock);
+ 
++	/* Unplug triggered by a device removal might race with the deferred
++	 * one queued by the reset work. The function covers this concurrent
++	 * unplug situation, but if we can disable the work before its
++	 * execution, that's still better.
++	 */
++	disable_work(&ptdev->unplug.work);
++
+ 	/* Now, try to cleanly shutdown the GPU before the device resources
+ 	 * get reclaimed.
+ 	 */
+@@ -114,6 +124,13 @@ void panthor_device_unplug(struct panthor_device *ptdev)
+ 	complete_all(&ptdev->unplug.done);
+ }
+ 
++static void panthor_device_unplug_work(struct work_struct *work)
++{
++	struct panthor_device *ptdev = container_of(work, struct panthor_device, unplug.work);
++
++	panthor_device_unplug(ptdev);
++}
++
+ static void panthor_device_reset_cleanup(struct drm_device *ddev, void *data)
+ {
+ 	struct panthor_device *ptdev = container_of(ddev, struct panthor_device, base);
+@@ -148,8 +165,9 @@ static void panthor_device_reset_work(struct work_struct *work)
+ 	drm_dev_exit(cookie);
+ 
+ 	if (ret) {
+-		panthor_device_unplug(ptdev);
++		disable_work(&ptdev->reset.work);
+ 		drm_err(&ptdev->base, "Failed to boot MCU after reset, making device unusable.");
++		queue_work(ptdev->reset.wq, &ptdev->unplug.work);
+ 	}
+ }
+ 
+@@ -206,6 +224,7 @@ int panthor_device_init(struct panthor_device *ptdev)
+ 	 */
+ 	*dummy_page_virt = 1;
+ 
++	INIT_WORK(&ptdev->unplug.work, panthor_device_unplug_work);
+ 	INIT_WORK(&ptdev->reset.work, panthor_device_reset_work);
+ 	disable_work(&ptdev->reset.work);
+ 	ptdev->reset.wq = alloc_ordered_workqueue("panthor-reset-wq", 0);
+diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
+index b55a3f9edd41..6529e01e838d 100644
+--- a/drivers/gpu/drm/panthor/panthor_device.h
++++ b/drivers/gpu/drm/panthor/panthor_device.h
+@@ -268,6 +268,9 @@ struct panthor_device {
+ 		 * operation is done.
+ 		 */
+ 		struct completion done;
++
++		/** @work: Unplug work. */
++		struct work_struct work;
+ 	} unplug;
+ 
+ 	/** @reset: Reset related fields. */
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+-- 
+2.55.0
 
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
