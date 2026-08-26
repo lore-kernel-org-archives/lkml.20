@@ -1,51 +1,72 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-59.mta1.migadu.com [95.215.58.59])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8369B35F5F8;
-	Wed, 26 Aug 2026 13:31:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35B5C3E2AB0
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:31:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.59
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787751097; cv=none; b=cdOv1qM1jt1PCtMP9ATkTfTMz7yKnueTD03saV4nmuMW9gGNMLLZwZAdbyR+2NfmADi65MLMcmX0K7kUbDdjLXfrN4tHjw1XyvyNjAwdZbfdxRlTIgU8hvz4boAu2yhkDKu5DGxP1LNwOPTc1AiIFgRmFvFeedWjk/oaoF1A6K0=
+	t=1787751098; cv=none; b=X79Te/6qOzQDvQWhwkBUl73HPgauJBQCxTpS8rmDshLPoq/CbsNgOfqEWrHgsTADstRwMvQwDWH6XiqLIrMLsb632+QkcXCgQRme88cvLW6cypAVsHg2f6buojNtolsNETxWk3MzcEUX6qm7a3f1VyDejLT4FLwAiRC43DCvXjU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787751097; c=relaxed/simple;
-	bh=z0rT8XRMF3p2BNUf/fFNUgznNw2WeoufOjn8z+d3Vp4=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=UodnB96AZRzEQAlw8ypf3CuBxAxz6T8Z1zGdrsLM+vhaq9CIitTXCWv6wZJRZMWlL2e2E/K+UP2DFpssYx43gfrZuEEBCTGoat8tpONZYKjGce0CArEe7RC0Lhcwnn4vTJjr1AtEOAC3cXoJ5XI2K0JkafWqYxBZOrCV/MyeuXw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 6e2a6d22a15211f19a56ed5b684f684d-20260826
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:d5917d28-4881-4d77-97d9-3cbe021ce695,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:-25
-X-CID-META: VersionHash:7db8b62,CLOUDID:fad3a1795dcfca7808f1dd076da237e4,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|102|850|865|898,TC:nil,Content:0|15|50,EDM:-
-	3,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:
-	0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 6e2a6d22a15211f19a56ed5b684f684d-20260826
-X-User: huangwei@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <huangwei@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1617737421; Wed, 26 Aug 2026 21:31:23 +0800
-From: Huang Wei <huangwei@kylinos.cn>
-To: heikki.krogerus@linux.intel.com
-Cc: gregkh@linuxfoundation.org,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Huang Wei <huangwei@kylinos.cn>,
-	Alex Bartz <alex@alstergee.com>
-Subject: [PATCH v2] usb: typec: ucsi: do not register UCSI on Lenovo Legion Pro 7 16IAX10H
-Date: Wed, 26 Aug 2026 21:31:18 +0800
-Message-Id: <20260826133118.3327816-1-huangwei@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260826034658.2170407-1-huangwei@kylinos.cn>
-References: <20260826034658.2170407-1-huangwei@kylinos.cn>
+	s=arc-20240116; t=1787751098; c=relaxed/simple;
+	bh=x3tyovTSuHPSGETPwcjNdH5ZDZ4Zl6jfQyrC3+aX5GQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=guGIkPu37azczirL9R6oNh7XDi79N6X+7l9DD0xORYah5cZBNMU9uU/lFobsYlCzdx4oJNf1oDPTj9FxWQd42OV7CW2BFm2bYxDkaf3ehv1Ro2b1yfFX2UpQfAGwOFO4LCSt4gqLugo4jzG97+WQqQe0telGkM2UEJvm1Ug2YQA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=C7d7rAfs; arc=none smtp.client-ip=95.215.58.59
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="C7d7rAfs"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=x3tyovTSuHPSGETPwcjNdH5ZDZ4Zl6jfQyrC3+aX5GQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787751093; v=1; x=1788355893;
+ b=C7d7rAfscWZy0lLuMytPxF9pgrfuOaRgMYISc1/Z/1ekH7m6KwUUUVs7I/FQk5fFxanGRNr1
+ FfLjlV9SjV3Q1aosChAyoGtGq7gr9vGv5vtnBQQQozVs6nJmb825Sf4melvZFebpCsEpUyh6Y/C
+ 708zwiatiA5PHri6t9I7Twus=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: from localhost (2a03:2880:10ff:5b::)
+	by mta11.migadu.com with ESMTPS id 4f3da476f759c30b;
+	Wed, 26 Aug 2026 13:31:33 +0000
+X-Mizu-Trace-ID: 4f3da476f759c30b
+X-Migadu-Flow: FLOW_OUT
+From: Usama Arif <usama.arif@linux.dev>
+To: Alexandre Ghiti <alex@ghiti.fr>
+Cc: Usama Arif <usama.arif@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Yosry Ahmed <yosry@kernel.org>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Hugh Dickins <hughd@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Chris Li <chrisl@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Youngjun Park <youngjun.park@lge.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Joonsoo Kim <iamjoonsoo.kim@lge.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/3] mm/swap: refault on swap-in, not in the swap cache allocator
+Date: Wed, 26 Aug 2026 06:31:28 -0700
+Message-ID: <20260826133130.806177-1-usama.arif@linux.dev>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260825172604.3243589-3-alex@ghiti.fr>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,75 +75,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The EC firmware of the Lenovo Legion Pro 7 16IAX10H (DMI product name
-83F5) has a broken UCSI implementation: GET_PDOS returns no source
-capabilities, GET_CONNECTOR_STATUS reports an incomplete RDO, and any
-UCSI traffic disturbs the EC's autonomous USB-C Power Delivery
-negotiation. With ucsi_acpi bound, chargers connect only briefly and
-then drop, and voltage_now reads 0; with the driver blacklisted, the
-EC negotiates full PD contracts on its own and charging works normally.
+On Tue, 25 Aug 2026 19:24:52 +0200 Alexandre Ghiti <alex@ghiti.fr> wrote:
 
-The problem is unaffected by BIOS updates up to Q7CN78WW (2026-04).
-The AMD sibling Legion Pro 7 16AFR10H (product name 83RU) reportedly
-uses the same EC firmware, but it is left out of the quirk until the
-failure is confirmed on that model.
+> The swap cache allocator evaluates the refault of every folio it
+> allocates.  zswap writeback also allocates through it: the shrinker puts
+> a buffer folio in the swap cache to write the compressed data out, and
+> that allocation is then counted as an anon refault (and, if the eviction
+> looks recent, as an activation) even though nothing faulted the page
+> back in.  On a workload that writes back continuously this inflates
+> workingset_refault_anon and workingset_activate_anon substantially.
+> 
+> Move the refault evaluation out of the allocator and into the two
+> swap-in callers, which read the slot's shadow before the allocation
+> overwrites it.  zswap writeback keeps allocating the buffer, but no
+> longer reports a refault for it.
+> 
+> The refault is evaluated before folio_add_lru(), as it was before this
+> patch, so workingset_refault() still sets PG_workingset/PG_active while
+> the folio is off the LRU: folio_add_lru() consumes both when it picks
+> the LRU list, and under MGLRU when it picks the generation.
+> 
+> Fixes: aae466b0052e ("mm/swap: implement workingset detection for anonymous LRU")
+> Signed-off-by: Nhat Pham <nphamcs@gmail.com>
+> Signed-off-by: Alexandre Ghiti <alex@ghiti.fr>
+> ---
+>  mm/swap_state.c | 20 ++++++++++++++++++--
+>  1 file changed, 18 insertions(+), 2 deletions(-)
+> 
+> diff --git a/mm/swap_state.c b/mm/swap_state.c
+> index bf8ff2d2dbf1..8046fea015c9 100644
+> --- a/mm/swap_state.c
+> +++ b/mm/swap_state.c
+> @@ -483,8 +483,6 @@ static struct folio *__swap_cache_alloc(struct swap_cluster_info *ci,
+>  
+>  	/* memsw uncharges swap when folio is added to swap cache */
+>  	memcg1_swapin(folio);
+> -	if (shadow)
+> -		workingset_refault(folio, shadow);
+>  
+>  	node_stat_mod_folio(folio, NR_FILE_PAGES, nr_pages);
+>  	lruvec_stat_mod_folio(folio, NR_SWAPCACHE, nr_pages);
+> @@ -646,17 +644,26 @@ static struct folio *swap_cache_read_folio(struct swap_io_ctx *ctx,
+>  		pgoff_t ilx, bool readahead)
+>  {
+>  	struct folio *folio;
+> +	void *shadow = NULL;
+>  
+>  	do {
+>  		folio = swap_cache_get_folio(entry);
+>  		if (folio)
+>  			return folio;
+> +		/*
+> +		 * Capture the slot's shadow before the allocation overwrites it,
+> +		 * so a fresh swap-in can be evaluated as a refault below.
+> +		 */
+> +		shadow = swap_cache_get_shadow(entry);
+>  		folio = __swap_cache_alloc_folio(entry, gfp, BIT(0), NULL, mpol, ilx);
 
-Skip probe on this machine, which is equivalent to the blacklist
-workaround the reporter verified to restore charging.
+Can this refault against a shadow from a different cache generation?
+Another swap-in can replace this value, reclaim its folio, and install
+a newer shadow while this caller is allocating.  This caller can then
+win the locked insertion but still use the older snapshot.
 
-Reported-by: Alex Bartz <alex@alstergee.com>
-Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221142
-Tested-by: Alex Bartz <alex@alstergee.com>
-Signed-off-by: Huang Wei <huangwei@kylinos.cn>
+What I think should be done here is have an optional shadow output to
+__swap_cache_alloc_folio() and return the value captured by the successful
+__swap_cache_add_check() under ci->lock and se that output in the swap-in
+path?
 
----
-Changes in v2:
-- Add Tested-by tag from Alex Bartz, who verified the quirk on his
-  machine (out-of-tree build, runtime module swap, PD charging held
-  across the reload).
----
- drivers/usb/typec/ucsi/ucsi_acpi.c | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
-
-diff --git a/drivers/usb/typec/ucsi/ucsi_acpi.c b/drivers/usb/typec/ucsi/ucsi_acpi.c
-index 18286d3e9cc5..9f36f8cfce4a 100644
---- a/drivers/usb/typec/ucsi/ucsi_acpi.c
-+++ b/drivers/usb/typec/ucsi/ucsi_acpi.c
-@@ -173,6 +173,21 @@ static const struct dmi_system_id ucsi_acpi_quirks[] = {
- 	{ }
- };
- 
-+/*
-+ * Platforms with a completely broken UCSI implementation in firmware.
-+ * Do not register UCSI at all on these machines.
-+ */
-+static const struct dmi_system_id ucsi_acpi_ignore[] = {
-+	{
-+		/* Lenovo Legion Pro 7 16IAX10H: broken EC UCSI firmware */
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "83F5"),
-+		},
-+	},
-+	{ }
-+};
-+
- static void ucsi_acpi_notify(acpi_handle handle, u32 event, void *data)
- {
- 	struct ucsi_acpi *ua = data;
-@@ -199,6 +214,12 @@ static int ucsi_acpi_probe(struct platform_device *pdev)
- 	if (adev->dep_unmet)
- 		return -EPROBE_DEFER;
- 
-+	if (dmi_check_system(ucsi_acpi_ignore)) {
-+		dev_info(&pdev->dev,
-+			 "UCSI implementation in firmware is broken, ignoring\n");
-+		return -ENODEV;
-+	}
-+
- 	ua = devm_kzalloc(&pdev->dev, sizeof(*ua), GFP_KERNEL);
- 	if (!ua)
- 		return -ENOMEM;
--- 
-2.25.1
-
+>  	} while (PTR_ERR(folio) == -EEXIST);
+>  
+>  	if (IS_ERR_OR_NULL(folio))
+>  		return NULL;
+>  
+> +	if (shadow)
+> +		workingset_refault(folio, shadow);
+> +
+>  	folio_add_lru(folio);
+>  	swap_read_folio(ctx, folio);
+>  	if (readahead) {
+> @@ -688,17 +695,26 @@ struct folio *swapin_sync(swp_entry_t entry, gfp_t gfp, unsigned long orders,
+>  {
+>  	struct swap_io_ctx ctx = {};
+>  	struct folio *folio;
+> +	void *shadow = NULL;
+>  
+>  	do {
+>  		folio = swap_cache_get_folio(entry);
+>  		if (folio)
+>  			return folio;
+> +		/*
+> +		 * Capture the slot's shadow before the allocation overwrites it,
+> +		 * so a fresh swap-in can be evaluated as a refault below.
+> +		 */
+> +		shadow = swap_cache_get_shadow(entry);
+>  		folio = __swap_cache_alloc_folio(entry, gfp, orders, vmf, mpol, ilx);
+>  	} while (PTR_ERR(folio) == -EEXIST);
+>  
+>  	if (IS_ERR(folio))
+>  		return folio;
+>  
+> +	if (shadow)
+> +		workingset_refault(folio, shadow);
+> +
+>  	folio_add_lru(folio);
+>  	swap_read_folio(&ctx, folio);
+>  	swap_read_submit(&ctx);
+> -- 
+> 2.53.0-Meta
+> 
+> 
