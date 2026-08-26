@@ -1,312 +1,76 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A58C42589A
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:34:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB20541D239
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:34:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787751270; cv=none; b=sk9fbnezl9EFf7nXIn8M/yL4eohPV/2lYVQKvokRT7K46SIJV1g59RSEF3+hmYqg1wtN7QAAE2qqZoFmgYp8Owpre7ihIEMuVjIvuiK8K9KXizilb1cYYX/ig856+MQc4ycfxfzvqJnNJwtmTI/du8X/s1adIHLXu6TAOv6YL+U=
+	t=1787751288; cv=none; b=OZfrWbA2Y1pRqJkiokRWAWBpAEQruLs3+g9Rh7v9ZQS19jOGCJDsInS3E0yNwle78SsFGRZweEwO4mk5K70Erg0+O0XD4nezhxVleQrsjAIP1eXHsGFN5uDPTkOSzeLEFxe0UcWAkjaugODzbRJnX3IDrt0JrbigTrS1jLSfU1Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787751270; c=relaxed/simple;
-	bh=fqxYmGcL3y5Sts7HiojH11dF3PjfetZhjuTuDynnt4U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GP6TQ9x/LTyvzkqxA1ERclifYT4tYdTDQY4IE5d+o2v7XUtflkg8zXRlhMhHwQeEqDY3trp25FCisSWcVzdKwRo4CJgyZogcnqp5Rv8ymt2F82OYB5zJv4oeIgAYr09H3GYIhCZxfOdYWrZ5bsR7QL7czG7f/uQUouL1pygFeH8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=KVNT6rCb; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1787751288; c=relaxed/simple;
+	bh=Ni4UKv87N+rABDQdMXQ0FunrjmJM6L3MVhSfhavDYkw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EWhKNPp5G8cT4e7LzOt5/x9RVrybDS8/sz1hJ7nkyV+reoBpqlsomT2UTj3EAZ4gff3gCb2ri4X/SxCc/dxrCcuWq4eAaN2kCczD86CDsqGyZgUVZ4VAn+N8692LXSraG/2NvdHQjXFsHRwTWtXjnaiZsQb+VdT1hsZeyxPihyo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RItWFqJp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="KVNT6rCb"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QCVvMR3977499;
-	Wed, 26 Aug 2026 13:34:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=aUuqCM
-	/H7yKu0Fh92W3wPrQA2+UWJ+cdE2KxrWfpoHw=; b=KVNT6rCbbBFKRQtGn+RoAy
-	2opEgVMX5/jNCfvukNr3ZM1G7wAKQ72iA63QqDTEONct4ZEP8cz86APhcwsC+o/W
-	uevVa2Ojp4qjNGglaIpxGkRVvF91K21rvXe1hHe5XYochd1VmkNdifipda5O/YlR
-	Eg4n0lv6jgu/kNmWoN7GC258DKSsmkrmYnvI99GtWTzNlN1sXPO0wRJZprSmzyNy
-	7Ehw7+Dnkzy2laMRwIvBoqBG9u3WpFoq4dV9UdXuVZegbNVFLcjZMzf1EuvaQmNt
-	5YzfVpnViSSAV5kegCXaObih/ILJuKjMmky4YpchY6DKZT6f3ZByGs+5QYnSLYyw
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g73946x7h-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 26 Aug 2026 13:34:03 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67QDQKH6027453;
-	Wed, 26 Aug 2026 13:34:02 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4g7qkha3kk-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 26 Aug 2026 13:34:02 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67QDXwo845809932
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 26 Aug 2026 13:33:58 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 21A9620043;
-	Wed, 26 Aug 2026 13:33:58 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6352B20040;
-	Wed, 26 Aug 2026 13:33:54 +0000 (GMT)
-Received: from [9.123.14.142] (unknown [9.123.14.142])
-	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 26 Aug 2026 13:33:54 +0000 (GMT)
-Message-ID: <008fe00e-fd52-4010-86ca-f0ab80a65a46@linux.ibm.com>
-Date: Wed, 26 Aug 2026 19:03:53 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RItWFqJp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A11A1F000E9;
+	Wed, 26 Aug 2026 13:34:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787751287;
+	bh=Ni4UKv87N+rABDQdMXQ0FunrjmJM6L3MVhSfhavDYkw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RItWFqJpJPCQXBUNnZhGci9laqg0sQWjN2h0RDl24bbtmeAcLK+OdK6ONCsSpFerg
+	 Nc027chIZj++T+2cGshYdZb5Ls5giw9RPxrDrqnoV+X+cK4Z8qxwrPq3hnYBkU8Qu+
+	 A7yAFt2c70QlNOcA8XnhgZd6dUu7Rfk/WaBoLXY1cBeurGoSzNZS5zdR0qLW5JQCqM
+	 v6TE2Qynv1r+AnpT5UNmV8ZuX/QErlPZ81w85DqdmzUlJJEZtQhfyt7hlzwcvN7CbU
+	 aTfZerS0LWaqa6lNeOv9WXGI0nC0D8cF36EUgGgskfyNTPb4TJYjg5GXEq3vEdo4P6
+	 W5Yb4mkv4TY4g==
+Date: Wed, 26 Aug 2026 14:34:43 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Yang Zi <2959243019@qq.com>
+Cc: lgirdwood@gmail.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] regulator: max8649: Fix NULL pointer dereference in probe
+Message-ID: <4a9f1f3b-f6ff-4af2-8efb-83324bc1d628@sirena.org.uk>
+References: <tencent_87EA54368697A49844A89DF7CD19CD8C6C06@qq.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 2/3] powerpc: add support for Kexec HandOver (KHO)
-To: Pratyush Yadav <pratyush@kernel.org>
-Cc: linuxppc-dev@lists.ozlabs.org, Aditya Gupta <adityag@linux.ibm.com>,
-        Alexander Graf <graf@amazon.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Baoquan He <baoquan.he@linux.dev>,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-        Hari Bathini <hbathini@linux.ibm.com>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Mahesh Salgaonkar <mahesh@linux.ibm.com>,
-        Michael Ellerman <mpe@ellerman.id.au>, Mike Rapoport <rppt@kernel.org>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        Pasha Tatashin <pasha.tatashin@soleen.com>,
-        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-        Shivang Upadhyay <shivangu@linux.ibm.com>,
-        Shrikanth Hegde <sshegde@linux.ibm.com>, kexec@lists.infradead.org,
-        linux-kernel@vger.kernel.org
-References: <20260821105609.983622-1-sourabhjain@linux.ibm.com>
- <20260821105609.983622-3-sourabhjain@linux.ibm.com>
- <2vxza4qfznyo.fsf@kernel.org>
-Content-Language: en-US
-From: Sourabh Jain <sourabhjain@linux.ibm.com>
-In-Reply-To: <2vxza4qfznyo.fsf@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: YXY2Xiz6Hvm01ZOibYwHTzEeoO4EOAor
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDExMiBTYWx0ZWRfX6RTLr3wTAsDt
- Y7EvGdssfQuvW5+aFUqEv9T1/sToybXRDxrA53d2uueWT3FEQnhTkagTHFDQ3nw0IVRVN+2MBst
- JEktgYNY572U4ZiKBxiWnW8uRZvViyn+0jbBeE9Bgy2hdoqYQBXv936xGzcbT2htEwMSIaLEwzm
- pXZUgKGnYuGePm2A/CNMMpu0NXrA4YvbnZBWeu3c9Dc+ute5N+Gm4I/D5Z+aW32FUlL2lW2P3t0
- r1Su3Ek+9wbGoOwzqc5bhWkXva/0/PTwJeEwIstu2WonlUaDVfzvyde+EGEzXdfthx6bnLLZXwj
- 46/bqoYqY9l2R0yl48sdzCqu91YGA8wzpelSyfNQXKo1wkQQxzXuKd2c1sz+7Kfn9MNA3kdSgYz
- ug1VRzhmyE6ecYu5BHdkoltNg6li2/qrxicpEDgqgnN2oAt/LUMBEI1l3+/h/AESgDwb3lUu1RK
- wa2j44usJYNeuSnTi2g==
-X-Authority-Analysis: v=2.4 cv=Y/nIdBeN c=1 sm=1 tr=0 ts=6a8eeb4b cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=fkfyDzpKf0ij7gQ8ic8A:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=O8hF6Hzn-FEA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDExMiBTYWx0ZWRfX11I2+C4s6hHS
- fszNZDli3VtmQMLNCjv2ZgA20RenF5889I4rF76OR6u1KHiT5Y6oXSPkLHkv62B1XEycsqTscEF
- M7Ti8un3q71Q6RXvxYdnTcUNVI22DnI=
-X-Proofpoint-ORIG-GUID: aQHARQU-IMpprAFetTNIObGSUFYg229f
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-26_03,2026-08-26_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0 priorityscore=1501 adultscore=0 bulkscore=0
- suspectscore=0 malwarescore=0 clxscore=1015 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260112
-
-Hello Pratyush,
-
-After looking at the x86 crashkernel and KHO scratch memory
-allocation order, I realized that the same issue should exist on x86
-as well. I ran the same experiment on an x86 guest, and the results
-confirmed this.
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="erKHgZXIYHNHD22K"
+Content-Disposition: inline
+In-Reply-To: <tencent_87EA54368697A49844A89DF7CD19CD8C6C06@qq.com>
+X-Cookie: Obey all traffic laws.
 
 
-[root@localhost ~]# dmesg | grep -i -e kho -e crashkernel
-[    0.000000] Command line: 
-BOOT_IMAGE=(hd0,gpt3)/boot/vmlinuz-6.19.10-300.fc44.x86_64 
-no_timer_check console=tty1 console=ttyS0,115200n8 systemd.firstboot=off 
-root=UUID=15c26993-ac30-424a-9c4b-faec4434d234 rootflags=subvol=root 
-kho=on crashkernel=1G
-[    0.004615] crashkernel reserved: 0x000000007f000000 - 
-0x00000000bf000000 (1024 MB)
-[    0.034746] Kernel command line: 
-BOOT_IMAGE=(hd0,gpt3)/boot/vmlinuz-6.19.10-300.fc44.x86_64 
-no_timer_check console=tty1 console=ttyS0,115200n8 systemd.firstboot=off 
-root=UUID=15c26993-ac30-424a-9c4b-faec4434d234 rootflags=subvol=root 
-kho=on crashkernel=1G
-[    0.095761] KHO: Failed to reserve scratch area, disabling kexec handover
+--erKHgZXIYHNHD22K
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-I agree that this can be avoided by using the crashkernel=xxM,high option.
-However, I just wanted to share the same problem currently exists on x86 
-as well.
+On Tue, Aug 25, 2026 at 05:01:15PM +0800, Yang Zi wrote:
+> max8649_regulator_probe() dereferences pdata->mode without first checking
+> that platform data is available. When the device is instantiated without
+> platform data, pdata is NULL and probe crashes with a NULL pointer
+> dereference.
 
-While reading the KHO code, I came across the following commit, which 
-handles
-a somewhat similar problem with HugeTLB:
+This doesn't apply against curent code, please check and resend.
 
-fdd843f2be1a ("kho: exclude hugetlb memory from scratch size calculation")
+--erKHgZXIYHNHD22K
+Content-Type: application/pgp-signature; name="signature.asc"
 
-The approach is to first account for HugeTLB allocations as a separate 
-memblock
-reservation type and then exclude them when calculating the scratch memory
-reservation.
+-----BEGIN PGP SIGNATURE-----
 
-How about using the same approach to avoid accounting for crashkernel memory
-when calculating the scratch memory size?
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqO63MACgkQJNaLcl1U
+h9ArTwf/Vq711/CKZdEkfIK9OfOJA1SmOUZFsHcJ+ijXZev7/au58qfvG/7GB4qP
+s5jU3I1ZRGYPc3WaWnk+0AVrUABW0lSuYZBluDoF8Ignie8NRCcpLRZhiIGCdY9I
+d1O3k5q5+A2jzaVjn89nvfJGdFPkXKAyegacOTaQPLs/CJaOCvPPjtXj/gl6LPx6
+FmI3VUUx5NO/Of+4ThVYWN2+yVJE6mcA1nOCRmF8ODOeh13blCIgtf/9JU4mOTiF
+vD1qjjAi1DdeUhar4cFk5YExTu0FplVspaDbK9FfhTaJ0OzKVrdmCxDikbKQEKbb
++zrEfCF0bISzD8twJpndDwZGjRB/rA==
+=uQDw
+-----END PGP SIGNATURE-----
 
-- Sourabh Jain
-
-
-On 21/08/26 17:26, Pratyush Yadav wrote:
-> On Fri, Aug 21 2026, Sourabh Jain wrote:
->
->> Add the architecture bits needed to enable CONFIG_KEXEC_HANDOVER on
->> powerpc.
->>
->> Set ARCH_SUPPORTS_KEXEC_HANDOVER for PPC64, following the existing
->> pattern used by ARCH_SUPPORTS_KEXEC and ARCH_SUPPORTS_KEXEC_FILE.
->>
->> On the boot path, parse the "linux,kho-fdt" and "linux,kho-scratch"
->> properties from /chosen and pass them to kho_populate(). This lets a
->> kernel booted via KHO kexec recover the FDT and scratch region left
->> behind by the previous kernel. The call is placed early in
->> setup_arch(), before unflatten_device_tree().
->>
->> Open issues:
->> ============
->>
->> This patch also adds "depends on !CRASH_DUMP" to
->> ARCH_SUPPORTS_KEXEC_HANDOVER. This is needed because of an ordering
->> conflict between crashkernel reservation and KHO scratch reservation
->> on powerpc.
->>
->> Crashkernel memory is reserved very early in boot, from arch-specific
->> code: head.S -> early_setup() -> early_init_devtree() ->
->> arch_reserve_crashkernel() / fadump_reserve_mem(). KHO's scratch
->> region is reserved later, from generic code: start_kernel() ->
->> mm_core_init() -> kho_memory_init(). So on powerpc, crashkernel
->> memory is always reserved first.
->>
->> This ordering causes a real failure. In the common case, crashkernel
->> reservation on powerpc starts at a 512M offset (the exact offset can
->> vary, but 512M is typical). So with crashkernel=3G, the reservation
->> occupies memory from 512M up to 3.5G -- roughly 75% of the entire low
->> 4G area.
->>
->> Since crashkernel reservation always happens first, that 3G is
->> already committed by the time kho_memory_init() runs. It then tries
->> to reserve a low scratch region sized at 200% of whatever is already
->> reserved below 4G. With ~75% of that 4G area already taken by
->> crashkernel memory, 200% of that easily exceeds the remaining space
->> -- and since the low scratch region is itself capped at 4G, there's
->> no room left to fit it. The reservation fails.
-> crashkernel has the variant "crashkernel=size[KMG],high", which ensures
-> memory is allocated above 4G. Unless powerpc has some requirement for
-> strictly having the crashkernel below 4G, I think it will make a lot of
-> sense to enable support for this feature. So KHO users can specify this
-> to get crashkernel working with KHO.
->
-> Powerpc doesn't support this right now, but from a quick skim of the
-> code, I think it should be simple enough. From
-> arch_reserve_crashkernel() you just need to pass a bool * to
-> parse_crashkernel(), and then pass the result to
-> reserve_crashkernel_generic().
->
-> Solving the ordering of crash reservations and KHO is tricky and comes
-> with some difficult tradeoffs. Allocating crash from highmem should be a
-> lot simpler.
->
-> And on that note, I don't think you should do a depends on !CRASH_DUMP.
-> Even when CONFIG_KEXEC_HANDOVER is enabled, KHO isn't on by default
-> (well, unless KEXEC_HANDOVER_ENABLE_DEFAULT is set). You need to enable
-> it via cmdline. So it is entirely possible for people using KHO on PPC
-> to not use crash and vice versa. This decision can be made at deployment
-> time, not at compile time.
->
->> To work around this and get KHO working on powerpc, this patch:
->>
->> 1. Makes KHO usable on powerpc only when CRASH_DUMP is disabled.
->> 2. Calls kho_populate() from setup_arch(), so it runs before
->>     kho_memory_init() reserves the scratch region.
->>
->> The real fix would be to reserve the KHO scratch region before
->> crashkernel memory instead of after. But scratch reservation happens
->> in generic code (kho_memory_init(), called from mm_core_init()), so
->> this isn't something powerpc can address on its own -- it needs
->> discussion on how to influence the ordering between generic scratch
->> reservation and arch-specific crashkernel reservation. This patch
->> doesn't attempt that; it's meant as a starting point for that
->> discussion.
->>
-> [...]
->> diff --git a/arch/powerpc/Kconfig b/arch/powerpc/Kconfig
->> index 2580e27e4328..61350d3e7a19 100644
->> --- a/arch/powerpc/Kconfig
->> +++ b/arch/powerpc/Kconfig
->> @@ -716,6 +716,11 @@ config ARCH_SELECTS_CRASH_DUMP
->>   	depends on CRASH_DUMP
->>   	select RELOCATABLE if PPC64 || 44x || PPC_85xx
->>   
->> +config ARCH_SUPPORTS_KEXEC_HANDOVER
->> +	def_bool y
->> +	depends on PPC64
->> +	depends on !CRASH_DUMP
->> +
->>   config ARCH_SUPPORTS_CRASH_HOTPLUG
->>   	def_bool y
->>   	depends on PPC64
->> diff --git a/arch/powerpc/kernel/setup-common.c b/arch/powerpc/kernel/setup-common.c
->> index 4afaba19b586..1fee743abdf2 100644
->> --- a/arch/powerpc/kernel/setup-common.c
->> +++ b/arch/powerpc/kernel/setup-common.c
-> [...]
->>   }
->>   #endif
->>   
->> +#ifdef CONFIG_PPC64
->> +static void __init init_kho(const void *fdt)
->> +{
->> +	unsigned long node;
->> +	u64 fdt_start, fdt_size, scratch_start, scratch_size;
->> +
->> +	if (!IS_ENABLED(CONFIG_KEXEC_HANDOVER))
->> +		return;
->> +
->> +	/* Find and verify the /chosen node, same as early_init_dt_scan_chosen() does */
->> +	node = fdt_path_offset(fdt, "/chosen");
->> +	if ((long)node < 0)
->> +		node = fdt_path_offset(fdt, "/chosen@0");
->> +	if ((long)node < 0)
->> +		return;
->> +
->> +	if (!of_flat_dt_get_addr_size(node, "linux,kho-fdt",
->> +				      &fdt_start, &fdt_size))
->> +		return;
->> +	if (!of_flat_dt_get_addr_size(node, "linux,kho-scratch",
->> +				      &scratch_start, &scratch_size))
->> +		return;
->> +
->> +	kho_populate(fdt_start, fdt_size, scratch_start, scratch_size);
->> +}
-> This looks pretty much a duplicate of early_init_dt_check_kho(). On
-> arm64 this is called via early_init_dt_scan(). But from a quick search I
-> don't see powerpc calling it.
->
-> Would it make sense to call this function (or
-> early_init_dt_scan_nodes()) for powerpc?
->
-> If not, I think it would be a better idea to expose
-> early_init_dt_check_kho() and call it from powerpc setup_arch() instead
-> of duplicating the logic.
->
->> +#endif
->> +
->>   /*
->>    * Called into from start_kernel this initializes memblock, which is used
->>    * to manage page allocation until mem_init is called.
-> [...]
->
-
+--erKHgZXIYHNHD22K--
