@@ -1,30 +1,29 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 397C141A914
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 12:28:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B56E41D206
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 12:28:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787747295; cv=none; b=PcsQoeUB2qb507D+dnG4hCe+C6M+aA33suaW6ns4PlZeF7C6kuFCK8TE44u7HtKqJnorV1dhmmpvibNe0+szC8MM+rX3RrWoJasCwZLTCNy/IgcJUWsAKU4f/U03QURrUqj+VSGwefFjd9AQMOnUJiVn4dGLCVnaxRQKOJ9REGY=
+	t=1787747296; cv=none; b=VoEUwU4bnbb+EUHVH1UqR/JI7IDus1Kq28hsnYvlvINqqXmKXfOhBNHhsBBIOGg4kPrNfayWyP7PxhZVn4LpRef/+5RMIJa+yQMRBm1uY2auRJ1v9exCpSB3ceCC+5k/4nqLIi/XCjStkh/odWm9zN30MUaSTsYwsyc5Vq30XZA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787747295; c=relaxed/simple;
-	bh=A8j1rbFYphj6DzHGQlB3VRIzZvi3tCcteMsr1ckxQUQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hCcCktzwKGCdlknd4F3rdVDgUctSCf/LLqc9j/Ug/+VOdTZ3uIk3oYagN4sVy21/HX/G/ieKGvRaVb01251RAzve6lBGAe2b3nS+qsupQn53H9Wutqf+K+sV60kTKTafwmIL3jZ48NdE0iXyW1N7nHn6F1unKw1d3ljL9FHL6Ow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=FzpiAHai; arc=none smtp.client-ip=117.135.210.4
+	s=arc-20240116; t=1787747296; c=relaxed/simple;
+	bh=naSV8McHKnnNI2pipdH2+RdS4c3WqD8L4smiuy2wB7g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SKRcMUNjmKNlPWbiR8XCKE6JwncTPnEpX0TcD57qRK33uMVC4VkjD97vjLtjmCq4ATZPC01P151sQMixehZENZvQhMBqqJ6WwEaIQaNJbCHCqneR65EyjUkBM+EMhrJC0uC04ZC2TDP4kmVLCFdk7aYfCPHDCdzJb8gtotW2S+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=inFSt91E; arc=none smtp.client-ip=117.135.210.3
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="FzpiAHai"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="inFSt91E"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=R/
-	MI/kx96pri+tgbhY62IIlE0SKRwiUVjetW81QUqOk=; b=FzpiAHaiQ6sBKWF4Ol
-	2ayYXWYKPS15ufUJ+2ZQGkoJBTSdpsTDth4MZbXiPdKUKVBj+aBkUHsc70R/0EDr
-	FNjsz7jR0VfNRezUpfqlPKsHJhu9h393gLLdpMCmj/BlXcyfAAf3YGaJixryGvZC
-	Kq3i/QLPSgxILZ9eICKJs4t/E=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=ME
+	0r7jszVPlwvtMma8SMHdoXcLqmq0d/w7jOAp55v/I=; b=inFSt91E1f9T6p0Bcb
+	OTcBw02RLDKLJpQKiU6OJYWfKQTVGh3FTU90jpVDMf+XrH0PSMQ0PvqZO7/5We/8
+	SaGM/7BycZ5yARvW5pbpIrAkJQBPfyCbsQtPKXyL/exfswHJ3xF98Al1HGoMteZU
+	YdTsytGpKHlF+oAbC/quq+RnQ=
 Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCgvCgDHUCC4245q++wKOQ--.27428S4;
-	Wed, 26 Aug 2026 20:27:43 +0800 (CST)
+	by gzsmtp5 (Coremail) with SMTP id QCgvCgDHUCC4245q++wKOQ--.27428S2;
+	Wed, 26 Aug 2026 20:27:38 +0800 (CST)
 From: Baolin Liu <liubaolin12138@163.com>
 To: linkinjeon@kernel.org,
 	hyc.lee@gmail.com
@@ -32,12 +31,10 @@ Cc: ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	liubaolin12138@gmail.com,
 	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v1 2/2] ntfs: report forced shutdown to fsnotify
-Date: Wed, 26 Aug 2026 20:27:34 +0800
-Message-ID: <20260826122734.2129830-3-liubaolin12138@163.com>
+Subject: [PATCH v1 0/2] ntfs: report filesystem errors to fsnotify
+Date: Wed, 26 Aug 2026 20:27:32 +0800
+Message-ID: <20260826122734.2129830-1-liubaolin12138@163.com>
 X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260826122734.2129830-1-liubaolin12138@163.com>
-References: <20260826122734.2129830-1-liubaolin12138@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,70 +42,37 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:QCgvCgDHUCC4245q++wKOQ--.27428S4
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ArykGFWxZw1xtr1xCFWDXFb_yoW8Zr4rpF
-	WkZ34fJ39rJF17twsxKw43tF4ftas7u3yYyr4UWw4xWrn7Kr4UJF48K340vF4F9FWkZrWr
-	XF1Yg39xury7ZwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jg8n5UUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6h9kL2qO278RfQAA3S
+X-CM-TRANSID:QCgvCgDHUCC4245q++wKOQ--.27428S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrtr13Aw4xJw48Kr4xtw4Dtwb_yoWfCFg_ua
+	1xt3ykJ398ZF1jka43KF1j9FyDAay2gr1UtF18KF1xJrZ5Jr1DJFs8tr4fAr1fJFZ8Kr1r
+	Jr98Xa4rAw17ZjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU8SksDUUUUU==
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6RpjLmqO27q5xgAA3E
 
 From: Baolin Liu <liubaolin@kylinos.cn>
 
-Wire up fserror_report_shutdown() at NVolSetShutdown(), so that
-shutting a volume down also emits an FS_ERROR event. This covers the
-FS_IOC_SHUTDOWN ioctl as well as the ->shutdown super_operation, which
-the VFS calls when the backing device is marked dead.
+The ntfs driver reports volume errors only to dmesg. These two patches
+wire up the generic fserror infrastructure so that health monitoring
+daemons watching a mount with fanotify(FAN_FS_ERROR) also learn about
+them.
 
-Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
----
- fs/ntfs/super.c  |  7 +++++++
- fs/ntfs/volume.h | 15 ++++++++++++++-
- 2 files changed, 21 insertions(+), 1 deletion(-)
+Both hook the flag-setting helpers rather than individual call sites,
+so no callers change: NVolSetErrors() for metadata corruption, and
+NVolSetShutdown() for forced shutdown, which also covers the
+->shutdown super_operation.
 
-diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-index 5229eb27bb30..c61992506845 100644
---- a/fs/ntfs/super.c
-+++ b/fs/ntfs/super.c
-@@ -338,6 +338,13 @@ void NVolSetErrors(struct ntfs_volume *vol)
- 	fserror_report_metadata(vol->sb, -EFSCORRUPTED, GFP_ATOMIC);
- }
- 
-+/* Shut the volume down and notify fanotify(FAN_FS_ERROR) listeners. */
-+void NVolSetShutdown(struct ntfs_volume *vol)
-+{
-+	set_bit(NV_Shutdown, &vol->flags);
-+	fserror_report_shutdown(vol->sb, GFP_ATOMIC);
-+}
-+
- void ntfs_handle_error(struct super_block *sb)
- {
- 	struct ntfs_volume *vol = NTFS_SB(sb);
-diff --git a/fs/ntfs/volume.h b/fs/ntfs/volume.h
-index cf1a75066157..fac7e90dbfa6 100644
---- a/fs/ntfs/volume.h
-+++ b/fs/ntfs/volume.h
-@@ -238,7 +238,20 @@ DEFINE_NVOL_BIT_OPS(UsnJrnlStamped)
- DEFINE_NVOL_BIT_OPS(ReadOnly)
- DEFINE_NVOL_BIT_OPS(Compression)
- DEFINE_NVOL_BIT_OPS(FreeClusterKnown)
--DEFINE_NVOL_BIT_OPS(Shutdown)
-+
-+static inline int NVolShutdown(struct ntfs_volume *vol)
-+{
-+	return test_bit(NV_Shutdown, &vol->flags);
-+}
-+
-+/* Out of line, it also reports the shutdown to fsnotify. */
-+void NVolSetShutdown(struct ntfs_volume *vol);
-+
-+static inline void NVolClearShutdown(struct ntfs_volume *vol)
-+{
-+	clear_bit(NV_Shutdown, &vol->flags);
-+}
-+
- DEFINE_NVOL_BIT_OPS(SysImmutable)
- DEFINE_NVOL_BIT_OPS(ShowHiddenFiles)
- DEFINE_NVOL_BIT_OPS(HideDotFiles)
+Follow-up work, if this direction is acceptable: reporting corrupt
+inodes with fserror_report_file_metadata() so that events carry a
+useful FID.
+
+Baolin Liu (2):
+  ntfs: report volume errors to fsnotify
+  ntfs: report forced shutdown to fsnotify
+
+ fs/ntfs/super.c  | 15 +++++++++++++++
+ fs/ntfs/volume.h | 29 +++++++++++++++++++++++++++--
+ 2 files changed, 42 insertions(+), 2 deletions(-)
+
 -- 
 2.51.0
 
