@@ -1,117 +1,120 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF35142589C
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:53:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D23FB3F88A6;
+	Wed, 26 Aug 2026 13:55:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787752445; cv=none; b=N3drqU0XEDLegz46hhzODoZt1uFixJM9OQ5ql8ASs9YfCsxjTlTvnUk4ohXpOXaJndmSt2W1VTni/AKWw3V4DX3wko4HalFJq+azqT7Ur+JOruPn7VHDeCmFivnWVzhTHBpsjX5lTdJhjhgrZYUToI1W+vP3k1mOvfGSg0CIj2w=
+	t=1787752547; cv=none; b=udUa9Uj8e3C9ozRq1lmN++MSVC/vi9XYncZo/KzqZncYHZdJer6+n4oK9ke1+HesVmhih4tDcyS8Ira3SE1MhoJGfr1G8h9GLpSI0EyjGmBTR3+jXxBtQsMRqj2Hu8Amf43ZXbfNgTNLYiR9PQSVKSXlW8b/5wrt77BBxYDiNV8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787752445; c=relaxed/simple;
-	bh=8rTH+kcGVVWC4O9UYd+nHgJzRkDuUmS9WFz7klp3z7Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MDdfTBTY2gQT2X2JDeKJoSK/hQcsb9MQw6qNuejaePDqG/5G0aVhfWyJMPKrKxr6DnMttahxv7kZRLYQ8zuWUYXjqQV7bhxkqd5VJBGQPYoPbJBQQ559pkvD8UR30qgbUjHhzMzwGtQh9J0Zmsenl3JUpssibHGReLquHgQkmAw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eyNITQnS; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787752547; c=relaxed/simple;
+	bh=RUVTKw/VG54r1eefxdJR7ylBNa84J4JvSA+VIPShnd0=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=UZVwHrCPxe3Hm//q6C5yU1XiZKkiYe+xcXNxn3YmgYTYoyachqCIE0RQpHpIHZbAxABDye9R2U29D8jT4boFWWHZzY6vGEE0C0lwEyU2pYgx6ucfaq6CluzA/6eLdjQS4/9vfSZiCWVLru5fySrZLYzDfEuF8PPCbPtt6pa8x5k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GO5XP2Cm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eyNITQnS"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-482e4998d28so378706f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 06:53:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787752436; x=1788357236; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KEVG8kAFLJoKx+jDc12PPtT6k0cGqduvqfafakCoXeE=;
-        b=eyNITQnSuYoDtewnJW8wIH7JJk+f2FayOBNMqG1PV3+/nWIGobSSA5rNxl9uvAx5LC
-         8JgOH9qTe6EiDF2AnrJmUaLJtaMiBN1P+LUARybeUmvmlpyA6TWVleEnO1JyyyRNnmyi
-         yCn8j7a5eqEsepbeLOjqJkFkueJfXSEb4FkWQC/i+93z7tJGMs558yNg3ABwQ/l1T8uy
-         zEpOVMOgB82Wbm0ve/zIzBP8j9U8N0HmT7IPQoZpPt0SLiIm4wXe/QuG2I+ATEtdAtJD
-         tnaSJ+ejI1sq2GPY24YFK3nhytTTep72/mmk+SeeVTyiOPwqWV05BQlPBENIvdfPumcZ
-         yxsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787752436; x=1788357236;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KEVG8kAFLJoKx+jDc12PPtT6k0cGqduvqfafakCoXeE=;
-        b=A0GlvX38e7figfJ4QikciZrVFKYpoA4M3LAskeZYLstTXvPcPCXx6alu8xBve5AHz2
-         iWWhkT6915mmegENMJu88N4/ieX1nbex5QMDgZuWhfz5GC878sLRahp3M5mhcv2ucFYI
-         sgdGonNAUs0R7Salxir+cefCPvSuZ0R6VM7OdwvTfDzZ+5gIFMJ7yRZ0PYfBlP15Zhx4
-         Zcu0wZ605QkenJrgWzLR7yazOPe7xhUYf2lHZG8u0m5k6sA+MmFWE+F0WGvXwUdq+kRl
-         RR0gyFwSIif4QMpslfhtVwCS8Kvsb90z8p8oPw/VoRfpmii5lOuDmKmsMacyRTxiXyJR
-         r6+g==
-X-Forwarded-Encrypted: i=1; AHgh+Rr9Glsmp+xROY67OhDWs7f4U0Hxrc8i4ANT2D6mxUItKT2X35bjqv8khwzq1/+c88VA3bJ6j1ZSzIwqaWA=@vger.kernel.org
-X-Gm-Message-State: AFuF++ktpCOCIKQl/oYJlrYp3eEPFjRBiJVb2oBn0Njjr+lWKi4IYXIw
-	MZemTuh68SBd8wP7/y2LZuNylypyFfZmeZCTGDJi3Zz+kVgcJ5nrhDNrsKG/1cZywRM=
-X-Gm-Gg: AR+sD104dubmBaE11GhJ+O6fww5DfpAx/ztzHnin0MMnvTC2/P2SZwPcy4mr6ZQkD8h
-	GyV8U6vVcWK9zEjb3l2nEJf+HjPjVTSVI4RCrwxKiXGWkpFgw22uapctg38IzBmUwFIkTgp8tE8
-	/t0hkbNnhpuD4JjGyvlHMC1zQAvxg+DJEYmfZVE58nugCxJt7iUBs68UGQ+3Cu3jMhEbgGMS9S4
-	+FOpx2C3wOIuiaaY+CrPYNUxhcCPH0bBbxJb7So1VHdX/ob5XAil75Mjb6uWhpOxM0G/xtp2w5o
-	QL7T/iFvQbe723aold52Is09o9kKJNr3TaoLP11IuK/9DatPB96CuruqG3bVeUtlrxq4HIOtAo5
-	hjFRvaRwe8qhdflNghHdHn33dERnQhP6i40y5cuDv4nn5Oxkrvi6Luu3FtsAaeGc8Qbr23mu/DZ
-	CLK0ISERMoz9YcrDGpFr3RW+ka9sMgcIbczN6XXcW3rEDVnYJRGeDH+/0OqbkGvr4IGBsAj644r
-	e0wwdw9vrFcUpxW/wLD5XIby+jSJQ==
-X-Received: by 2002:a05:6000:2c09:b0:482:ea47:4488 with SMTP id ffacd0b85a97d-482ea47452dmr482725f8f.8.1787752436403;
-        Wed, 26 Aug 2026 06:53:56 -0700 (PDT)
-Received: from MacBookPro.lan ([2001:861:3dd1:ccb0:7ca4:98b:a443:98d8])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e279eef5sm2845154f8f.1.2026.08.26.06.53.55
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 26 Aug 2026 06:53:55 -0700 (PDT)
-From: Elouan Da Costa Peixoto <elouandacostapeixoto@gmail.com>
-To: mchehab@kernel.org
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Elouan Da Costa Peixoto <elouandacostapeixoto@gmail.com>
-Subject: [v2] media: ngene: Remove all unused headers in the ngene-i2c.c files.
-Date: Wed, 26 Aug 2026 15:53:51 +0200
-Message-ID: <20260826135351.7473-1-elouandacostapeixoto@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GO5XP2Cm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DE4C1F000E9;
+	Wed, 26 Aug 2026 13:55:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787752545;
+	bh=Df8kS+YpI3r0tWz7CuHdfyakM1azwA4JtMxzFyOyBMU=;
+	h=Date:From:To:Cc:Subject;
+	b=GO5XP2Cm6i+Dsw0fQq/BrOSz2GthPcX4IZnyCI3s/TKF6EeZC3dgYSmbVHMzIjk1W
+	 nLFV6JjkQdZPATXzoXs7xQLTNKVocz/Tu/AVj07PiKk0vQ4egV1T6mfVdO+xVeny4k
+	 62U7IYql386nW3eM0v56z+PdwRC3WEXfPUqxXDOFBS1ENobxcbRdUp94+kg6HBlwuF
+	 mSmjzumb9WyWF8NjdpUsAoVvILb014lN+eDTdWNNBsE8bbx+SGgy1icLuFBbXhaAxa
+	 n37lrmeHRodh1kZSoVj7zoPcBqMWGLWjf9RwV4pbfEUqi20GJPXzUInAe2vt+yAm+b
+	 IaYiNfJm+DotA==
+Date: Wed, 26 Aug 2026 14:55:42 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Linux Next Mailing List <linux-next@vger.kernel.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Subject: linux-next: Tree for Aug 26
+Message-ID: <ao7wXip7ilZWBzTM@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="znhwLp5C5vwWRAfi"
+Content-Disposition: inline
 
-Check all headers individualy to see if the driver compiled.
-Check if some symbols from those headers where used directly by the file
-using grep.
-Use the script scripts/checkincludes.pl
 
-Signed-off-by: Elouan Da Costa Peixoto <elouandacostapeixoto@gmail.com>
----
- drivers/media/pci/ngene/ngene-i2c.c | 15 ---------------
- 1 file changed, 15 deletions(-)
+--znhwLp5C5vwWRAfi
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/drivers/media/pci/ngene/ngene-i2c.c b/drivers/media/pci/ngene/ngene-i2c.c
-index 2e9e9774dc6f..038bab38db36 100644
---- a/drivers/media/pci/ngene/ngene-i2c.c
-+++ b/drivers/media/pci/ngene/ngene-i2c.c
-@@ -10,21 +10,6 @@
-  *                         support for new dual DVB-S2 card prototype
-  */
- 
--/* FIXME - some of these can probably be removed */
--#include <linux/module.h>
--#include <linux/init.h>
--#include <linux/delay.h>
--#include <linux/slab.h>
--#include <linux/poll.h>
--#include <linux/io.h>
--#include <asm/div64.h>
--#include <linux/pci.h>
--#include <linux/pci_ids.h>
--#include <linux/timer.h>
--#include <linux/byteorder/generic.h>
--#include <linux/firmware.h>
--#include <linux/vmalloc.h>
--
- #include "ngene.h"
- 
- /* Firmware command for i2c operations */
+Hi all,
 
-base-commit: 45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229
--- 
-2.55.0
+We are in the merge window, please do not add any non-fix patches to
+-next.
 
+Changes since 20260825:
+
+The mm trees were reorganised, with the akpm, slab and memblock trees
+replaced by new mm and mm-fixes trees.
+
+The sound-current tree lost it's build failure.
+
+The drm-misc tree acquired a conflict with the origin tree.
+
+The sound tree lost it's build failure.
+
+The pwrseq tree acquired a build failure, I used the version from
+next-20260825.
+
+The pagemap-headers tree was added and successfully built.
+
+Non-merge commits (relative to Linus' tree): 1785
+ 1751 files changed, 63639 insertions(+), 20180 deletions(-)
+
+----------------------------------------------------------------------------
+
+I have created today's linux-next tree at
+https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+(patches at https://www.kernel.org/pub/linux/kernel/next/ ).  If you
+are tracking the linux-next tree using git, you should not use "git pull"
+to do so as that will try to merge the new linux-next release with the
+old one.  You should use "git fetch" and checkout or reset to the new
+master.
+
+You can see which trees have been included by looking in the Next/Trees
+file in the source.  There is also the merge.log file in the Next
+directory.  Between each merge, the tree was built with a defconfig
+for arm64, an allmodconfig for x86_64, a multi_v7_defconfig for arm,
+an arm64 build of various kselftests, a KUnit build and run on arm64,
+and a native build of tools/perf.  After the final fixups (if any), I do
+an x86_64 modules_install followed by builds for x86_64 allnoconfig,
+arm64 allyesconfig, powerpc allnoconfig (32 and 64 bit),
+ppc44x_defconfig and pseries_le_defconfig and i386, s390, sparc and
+sparc64 defconfig and htmldocs.
+
+Below is a summary of the state of the merge.
+
+I am currently merging 425 trees (counting Linus' and 131 trees of bug
+fix patches pending for the current release).
+
+Stats about the size of the tree over time can be seen at
+http://neuling.org/linux-next-size.html .
+
+Thanks to Paul Gortmaker for triage and bug fixes.
+
+--znhwLp5C5vwWRAfi
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqO8F0ACgkQJNaLcl1U
+h9ANcgf/W//roNCagAiHSf4G65BC8LyCa7CV6ijpxH0xUq8gcfFJS/pD5LBIAChP
+/zbXtwKU2LSKl/B1Risa7yEviVMnQDuTv7QnerBu+PkWiOh+PwQDHtQQX4UP3gLY
+MLmdnSTNyQOlzHtpfXa0ChP117YoGxyOoPCGcS9GjgXBpYnlWSayjQeGZb8ANOtu
+R6G3Y9SmygcRpRhdxawLt89ZHQITJO8LqJJzD8JPkHhwJEddXohJB0e3y0zLtKfx
+LFhdC2VHRsxP7NKpKebDaMAyWj5BGaX4h4+4SK/0HjPHPXCdKG1J8Dgwaq7vJ3Xo
+B0GoFl53J6yEsi+GemOlnsRumBzjXw==
+=GSSX
+-----END PGP SIGNATURE-----
+
+--znhwLp5C5vwWRAfi--
