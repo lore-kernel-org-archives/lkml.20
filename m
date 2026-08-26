@@ -1,269 +1,225 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mail-10625.protonmail.ch (mail-10625.protonmail.ch [79.135.106.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 172FF3EB0F3
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 20:32:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 979F635B62C;
+	Wed, 26 Aug 2026 20:34:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787776329; cv=none; b=ddZmsgJYyON0RO+WcbGlhz7zC6TflNbBgPOXRK0tshOHJO0x/fhDZ3W0cYC8trIQdbshqCfrYSOEKZEXaBt5lq89ArpomHTpmhrGHyW11rSjaUklsi3r3bZLV4HctwXFYtGYCV2B2TgXRrpUxQiKI2n6A7ZKN53P8s7g1OrXcAk=
+	t=1787776489; cv=none; b=GPTTSi6w1SYSotZDPT7iYxz3rfmRgY2SV2x7cqx0Y5cSBaeFPM6GmQOHgemxmRNFWBUD4p3uP23SaBbxLltepvj7GCP4LKOXBUXV4xPYbwk7HUrKAXBhro0gpToTBtsFQgooctPPLh7Idd+U/8Lr54+a3IdJxsRJ894FlXbUNWA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787776329; c=relaxed/simple;
-	bh=djfsCQK+G5XbvfdJNJERVRz2CbHGho4YqI1eV0BksKI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RDRval3ikc/2YPu2VCSMQEUDHA/vmB/RsfnrAo3Wla0le6X0UKp/2F5u7E/EQVw1EybS6tER2VpoOr7sLvwUJA9LdidjvR4ThwIxyJPO/r1s2UYU0OCKUVRwrKOLCgYCc8pGJ4AVVWmFY9qDN4g0qUrgHuC8thmrhlDaeO9BthU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=CUekZBGu; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=aJ5JI8Lf; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1787776489; c=relaxed/simple;
+	bh=zq0sKLifmni0DSexviiQ1uu6d9+6e2RXquCxsHJWfQ0=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=rPSEUFfbWo70FUPWC4pJiA0Uq+mx6Aj8ounpNSUNiSSbKPh3o+WsevigSZj8NUeL6bZ/wQmU18B/g6wo79QO6xrGfEqmxqdlhVRFELREx3adzF/Zngmb57WM9DI/pTv7Ki+vbIsQeghkr6mW/fZk/pkIJuyuvYGhIMRVMpXfSNQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pouliot.me; spf=pass smtp.mailfrom=pouliot.me; dkim=pass (2048-bit key) header.d=pouliot.me header.i=@pouliot.me header.b=A80E78jF; arc=none smtp.client-ip=79.135.106.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pouliot.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pouliot.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="CUekZBGu";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="aJ5JI8Lf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787776321;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YpcUluZmeNlEB/De7gKA8OsQpvEQvUU+qqs19ZSEzKo=;
-	b=CUekZBGugW/xzLIHzYTByU9w7pos8//2S9YOMCPtpV5EPqCSwipe7CY7wREc8Q+4mHJaLq
-	mCpM21zxooUFxIeI5CEuVo74PLP/6ZHK/6ZRKMhm3mXkZcabTac87pMaALS64lbrrJfcBn
-	YI7hY/2BeAZejVseQKDZ2gPOvlOkNlQ=
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
- [209.85.219.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-187-6-QU5YFiOL6YKnZkKq-wJA-1; Wed, 26 Aug 2026 16:31:59 -0400
-X-MC-Unique: 6-QU5YFiOL6YKnZkKq-wJA-1
-X-Mimecast-MFC-AGG-ID: 6-QU5YFiOL6YKnZkKq-wJA_1787776319
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-8eec6acbe21so25078926d6.3
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:31:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1787776319; x=1788381119; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YpcUluZmeNlEB/De7gKA8OsQpvEQvUU+qqs19ZSEzKo=;
-        b=aJ5JI8LfOItjh8VPrWS9UKAnwSCTR919fPF6SNFviMfc7sjBMC5eo6Ym3RYldqBn4P
-         C97I8afUMf4gL9NJvieaPeOsloeH3peuKsGj4ys0RFid/AhUveE4adMQ6e/w5ClNwnlO
-         SB9v+u28QORPl4Ewnry7OZ3/tptDStjCUc8KSGE4UA9BgWu9kJwhaqtvcRIdCDZk4jDE
-         W7WLFmaN3s+i6YWtgComnIzSr7QBS/fpPTvEgWQyYaAmlvXPXRP+x0o7E50TRDPWWGHg
-         sVrgvFFL04ETwgKHeXoDGXNaDbAGDQXAzUWGaMbNhyFOCYrbK+BS0Eg4gvCipVTP0+P7
-         7FOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787776319; x=1788381119;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YpcUluZmeNlEB/De7gKA8OsQpvEQvUU+qqs19ZSEzKo=;
-        b=KgOIjM9OznNXHmc+eyGWDNjerl/L5TVKTluWYKU3CwcheeNnXn3YBf4LxZ4XW8D1Mv
-         KkVqXRyF138+UGfKVKcaC8VKDOq8nAEB+DRJ41tPvQjblgSdcphtMR/rhrKdgcCY59zf
-         aXBsKLx/WhNvQq39poMRDLiDAy4aDcQ7szNizLCUqRDaOve3J/WMjOADSteel2+RVPEw
-         NnEHIb8AUeP+ryHWJvLsovvXMpXzdXdew3hx1QB7QuD8DebTsznlA4vAw5cWMaOKh1xj
-         MkFIaQErsIhjqiMjKWpuTDV57V9uq+HpIRlPhYv8XuGfy1OGu8k8Clc+fU94tCsP/K3D
-         x4qw==
-X-Forwarded-Encrypted: i=1; AHgh+RrLbuUtBNi25/BuHHb+FnCeM1Hx1QTxrtgezNIkZdJ4/Tj1eeDxwQnR2g424tDVkvZlXtmXMsFiLU5hg6g=@vger.kernel.org
-X-Gm-Message-State: AFuF++mnyE67TAF0uYHL4LBHv8//pGlgfUv9kmJO3uN0i+7da6ba9IOh
-	gNkrC+WtqarWcIyZTs7iyGETEZzOvvWXfB0/9SraZpt3dZr2H+S8/5aPkv77kT0/IIo2AY2D/ST
-	gsqSlTcWCyrsOketVyh18phHlOgAwkb/YanoNSWBsNSHMB5Svvfs1i26Rd+RVVh8/ig==
-X-Gm-Gg: AR+sD12JADjN5K4aqGZrG4z4UAORdh0BptZpD2Hqn00S9u5yJ/EhIXjeZ17lUiUEN6p
-	CC0l63QEw5emuencg5gjBru1CndQykvw7KtUVR89GTWRp5YtMHZHM5RZoyfpLggopxKKyUtdFNV
-	M7R2V4rdUVxgmajoc67QXAzOCYYnc6IpDzbvw04fPAois20mb1LDNd+YsGYjNWosLRJNQfachab
-	mby1BS5aq2AAN0/YopGhs61D5ku0c9MUy+egbpzU+Nf4QQTo4UKhF0wdyghuXZEg6ApbyTb8Na6
-	v6umI8jvAIeEkjLlGmu0yCJsJ9PORPD/3JMIgben9dxeKa1chxKcZldS+0BxedwHjvlBAsRLBnU
-	SkLbKu6I/cJaEhxwGpoQ4Dmy08S7Xu04fuS+v6E1LOy4/
-X-Received: by 2002:a05:6214:1cc8:b0:908:a729:73bf with SMTP id 6a1803df08f44-90cc792fe20mr112761426d6.22.1787776319043;
-        Wed, 26 Aug 2026 13:31:59 -0700 (PDT)
-X-Received: by 2002:a05:6214:1cc8:b0:908:a729:73bf with SMTP id 6a1803df08f44-90cc792fe20mr112760516d6.22.1787776318384;
-        Wed, 26 Aug 2026 13:31:58 -0700 (PDT)
-Received: from localhost (pool-100-17-17-231.bstnma.fios.verizon.net. [100.17.17.231])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90cc63bcec2sm36143716d6.5.2026.08.26.13.31.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 13:31:57 -0700 (PDT)
-Date: Wed, 26 Aug 2026 16:31:56 -0400
-From: Eric Chanudet <echanude@redhat.com>
-To: Michal Hocko <mhocko@suse.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
-	Shuah Khan <shuah@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	cgroups@vger.kernel.org, linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	Maxime Ripard <mripard@redhat.com>, Albert Esteve <aesteve@redhat.com>
-Subject: Re: [PATCH 00/11] mm/cma: charge cma allocation to memcg using per
- area counters
-Message-ID: <ao8uZ0cNyqaAJuPB@echanude-thinkpadx1carbongen13.rmtusma.csb>
-References: <20260821-cma-memcg-regions-v1-0-d21b165b8440@redhat.com>
- <aowHqqaqK7TeexQH@tiehlicka>
- <ao2gA_m3BCBu2esy@echanude-thinkpadx1carbongen13.rmtusma.csb>
- <ao2t6HP-Zt5KDg30@tiehlicka>
- <ao3UKM5SbxBmxuR0@echanude-thinkpadx1carbongen13.rmtusma.csb>
- <ao3quaSze8YjPjxZ@tiehlicka>
- <ao3tFg4JLNlbylTR@echanude-thinkpadx1carbongen13.rmtusma.csb>
- <ao6eC2SUIGVz3Qct@tiehlicka>
+	dkim=pass (2048-bit key) header.d=pouliot.me header.i=@pouliot.me header.b="A80E78jF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pouliot.me;
+	s=protonmail; t=1787776476; x=1788035676;
+	bh=Q198YZwzrhXS/7RbDIqrvfTGNpuEuUr/N5NMCdGeJkc=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=A80E78jFehbZOTldMdqmITN3ph3bgkRBRMKd3g3h3XJrgz8g7HYkRPxIxEMjYUoKa
+	 Ag/gih610fTHPMteCVfIQo7hXQQgpaVNYiAxMt+V+DG5i8OuD3mzISJ+yUfsSr/jhk
+	 Wa2YYVgeWC+Sc83aKNtnPOecIfGmIk6C0ypm2VO7x4sk/B6SvXgbbspMB56UOtCUz7
+	 RSYScOC7QiJ4wrfX8Rfxsr9fgbiTnLfRYg8BnooFI4tClv9Xw+hYB1iNT9SF6MrXnS
+	 ZTav6r/AG7/8UYRgY1CDRUCeQXmh19uP2NO9mFTk5aC7oeL5A/VxeH9DUmG9hDfebZ
+	 lID94GamShi0g==
+Date: Wed, 26 Aug 2026 20:34:29 +0000
+To: Nicko van Someren <nicko@nicko.org>
+From: Chris Pouliot <chris@pouliot.me>
+Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+Subject: Re: [PATCH 2/3] arm64: dts: qcom: glymur: Add Asus Zenbook A14 (UX3407NA)
+Message-ID: <ao9NBCsVaKMbl25Y@a14>
+Feedback-ID: 216858851:user:proton
+X-Pm-Message-ID: 41b5b3c0d73fbf60451e6ebed01936724d3b0afe
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ao6eC2SUIGVz3Qct@tiehlicka>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Aug 26, 2026 at 10:04:27AM +0200, Michal Hocko wrote:
-> On Tue 25-08-26 16:58:51, Eric Chanudet wrote:
-> > On Tue, Aug 25, 2026 at 09:19:21PM +0200, Michal Hocko wrote:
-> > > On Tue 25-08-26 14:33:48, Eric Chanudet wrote:
-> > > > On Tue, Aug 25, 2026 at 04:59:52PM +0200, Michal Hocko wrote:
-> > > > [...]
-> > > > The administrator opts in by mounting cgroupfs with
-> > > > memory_cma_accounting. At which point the cma allocator will charge CMA
-> > > > allocations against memcg and manages a per area counter depending on
-> > > > what area the allocation was made into.
-> > > 
-> > > So each CMA area will have its own counter and limits?
-> > 
-> > Yes, in order to enforce a limit per CMA area this series add a page
-> > counter for each area. Areas are fixed and discovered early so the
-> > counters are added to struct mem_cgroup and initialized when the cgroup
-> > is created.
-> > 
-> > An admin would then use the cgroupfs entries to assign an area limit to
-> > a given cgroup, something like the following, using the reserved area
-> > for example:
-> >   mount -o remount,memory_cma_accounting /sys/fs/cgroup
-> >   echo +memory > /sys/fs/cgroup/cgroup.subtree_control
-> >   mkdir /sys/fs/cgroup/mycg
-> >   echo 16M > /sys/fs/cgroup/mycg/memory.cma.reserved.max
-> >   echo 64M > /sys/fs/cgroup/mycg/memory.max
-> 
-> OK, thanks for the clarification. This confirms my initial suspicion but
-> it is better to have it clearly articulated. I can see several problems
-> with this approach. First and formost I do not think dealing with all
-> cmas this way is manageable. This can become a mess very quickly if we
-> have one limit per cma and too coarse if there is a single one. I also
-> have my doubts about space allocation control through a simple limit for
-> something that is effectively a reserved physical space.
-> 
-> I might be proven wrong but unless cma serves objects of a uniform
-> size then this will simply not work in practice. Hitting ENOSPC without
-> hitting limits and thus impractical for shared space management.
+Hi Nicko,
 
-Isn't that an inherent limit with CMA as it is? If the area gets
-fragmented, some buffers may no longer be allocated since there is no
-remaining hole big enough to accommodate them? I do hear that putting
-arbitrary limits would make this worse, which might breach the threshold
-at which it becomes a problem.
+I have an ASUS Zenbook A14 UX3407NA as well and have been investigating the=
+ audio issue further.
 
-> 
-> [...]
-> 
-> > > > It looked consistent to use memcg since movable pages from regular
-> > > > allocations may end up in available CMA regions until a CMA allocation
-> > > > needs the space and has them moved. So in an extreme case, hogging the
-> > > > CMA space of a large enough area could trigger system memory pressure.
-> > > 
-> > > I really do not understand what you mean here. 
-> > 
-> > Non-CMA allocations can end up in CMA physical regions when necessary
-> > (ALLOC_CMA flag).
-> 
-> Correct. But those are a subject of migration so any such placement
-> should not be blocking real CMA allocations.
-> 
-> > Since both CMA allocations and other system
-> > allocations are represented the same way, with differences only in
-> > properties, and they can live in the same regions, it sounds reasonable
-> > to account for both under the same counter.
-> 
-> From the memcg POV we do account physically consumed memory. So yes,
-> it makes no difference where the memory comes from. We only care about
-> the overall capacity you can constrain or protect. Generally speaking it
-> makes sense to charge heavy memory consumers directly triggerable from
-> the userspace.
-> 
-> That is all memcg can provide you with. Specific requirements for
-> specific types of memory is a different story. We currently cannot
-> control per-numa node for example. There is an ongoing work to make
-> memcg memory tier aware. 
-> 
-> > > > > > memcg looked like a good fit to achieve this, albeit
-> > > > > > handling the areas, so a cgroup has a quota in a given CMA
-> > > > > > resource.
-> > > > > 
-> > > > > Please expand more on why do you think this fits into the memcg model.
-> > > > > AFAIU we are talking about a unreclaimable memory and reservations of
-> > > > > CMA areas.
-> > > > 
-> > > > Since memcg already accounts for some unreclaimable memory (kmem,
-> > > > hugetlb),
-> > > 
-> > > hugetlb pages have their own controller
-> > > 
-> > > > or induces failure if no reclamation is possible, I did not
-> > > > see CMA allocations being unreclaimable to be a blocker to track what is
-> > > > otherwise system memory.
-> > > 
-> > > yes, we can have unreclaimable memory charged to memcg, that is not a
-> > > real problem. We have all sorts of memory consumers that need to be
-> > > capped charged to the memcg. If dmabufs are another ones then fine, just
-> > > charge allocated pages from the cma area. It is the "make all cma users
-> > > memcg aware and have per cma limits" that I am really struggling with.
-> > 
-> > CMA is system memory independently from its usage though, and in cases
-> > with shared CMA areas multiple users can allocate from them. Yet the
-> > kernel cannot enforce usage limits.
-> 
-> Correct. Those are effectively a shared memory pools without any
-> control. I do not think memcg is a good method to enfore any usage
-> limits for that though for reasons mentioned above. Memcg is effective
-> at capping the overall memory consumption of a workload. Not really
-> great when it comes to a specific memory pool control.
+On my unit I see the same basic hardware layout you described: the two WSA8=
+845 devices on swr0 attach, while the two devices described on swr3 remain =
+unattached. I now have working stereo speakers and internal microphone on N=
+ixOS.
 
-Understood, that makes sense, and with the reclaim scenario mentioned
-earlier, it doesn't fit.
+The currently working setup is:
 
-> > > You cannot really assume usecase, requirements, lifetime etc. for an
-> > > arbitrary cma area. I do not think this is a viable way forward. Focus
-> > > on your real usecase, which seems to be dmabufs.
-> > 
-> > While dmabufs are indeed my main use case, they are quite generic and
-> > may not always have system memory backing them (device memory). Working
-> > at the CMA allocator alleviated these disparities.
-> > 
-> > > Explain what do you want to achieve and then we can think whether memcg
-> > > is the right model for that usecase
-> > 
-> > Hopefully I expressed this in a better way by now. In short, enforce
-> > usage limits for concurrent CMA users using shared CMA resources.
-> 
-> Thanks. Yes this is more clear now. And it resembles hugetlb situation
-> more than memcg. You simply need a memory pool specific access and usage
-> control. Dispersing that to a global memcg limit seems rather coarse and 
-> I would say impractical. So it really calls for a per pool control with
-> an understanding of how the specific pool really works.
+keep the stock 4-channel GLYMUR-CRD AudioReach topology
+remove the nonexistent WSA2/swr3 speaker path from the board/UCM configurat=
+ion
+constrain the WSA codec-DMA backend to 2 channels in the x1e80100 machine d=
+river
+map the frontend channel order so physical left/right, which land in PCM sl=
+ots 0 and 2, are exposed as normal stereo
 
-Thank you for the feedback. It looks like this won't work. It also
-excludes the attempt through double charging dmem[1] as it would have
-similar issues trying to use memcg.
+I have also started turning this into cleaner, distribution-independent pat=
+ches for the DTS, AudioReach topology, and alsa-ucm-conf here:
 
-From your last sentence, would this rather call for a different
-controller entirely that would handle CMA semantics? Referencing the
-other thread[2] it would also make the charging separate from the
-allocator, but simplify making it opt-in at the user's implementation,
-e.g, the dmabuf heap would call some cma_cgroup_try_charge() and
-cma_cgroup_uncharge() around cma_alloc()/cma_release().
+https://github.com/chrispouliot/ux3407na-linux-audio
 
-[1] https://lore.kernel.org/all/20260519-cgroup-dmem-memcg-double-charge-v2-0-db4d1407062b@redhat.com/
-[2] https://lore.kernel.org/all/7e4e9662-d876-4493-a0b3-e31640937dd1@kernel.org/
+Those exact upstream-style patches have not been tested yet; they are curre=
+ntly intended as RFC material. In particular, I am not yet sure whether the=
+ correct upstream solution is a board-specific 2-channel AudioReach topolog=
+y, or whether Glymur should retain the 4-channel frontend and express the 2=
+-channel speaker constraint elsewhere.
 
-> -- 
-> Michal Hocko
-> SUSE Labs
-> 
+I would appreciate any guidance on where that constraint is expected to liv=
+e upstream.
 
--- 
-Eric Chanudet
+Thanks,
+Chris
+
+On Mon, Aug 03, 2026 at 10:19:33AM -0600, Nicko van Someren wrote:
+> On Jun 22, 2026, at 19:31, Bjorn Andersson <andersson@kernel.org> wrote:
+>=20
+> > From: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+> >=20
+> > UX3407NA is a variant of the Asus Zenbook A14 built on the Qualcomm
+> > Glymur platform. It comes with an 18-core X2 Elite SoC, 32GB DDR, and
+> > the other typical Glymur platform capabilities.
+>=20
+> Firstly, many thanks for this. I recently acquired one of these machines
+> for some firmware work I'm doing and having a working Linux system on it
+> makes my life much easier!
+>=20
+> I tested this patch set, along with the others it depends on. I have it
+> mostly working now but ran into some issues that might indicate a few
+> changes.
+>=20
+> WIFI:
+>=20
+> > + wifi@0 {
+> > + compatible =3D "pci17cb,1107";
+> > ...
+> > + };
+>=20
+> ASUS don't specify what WiFi7 chip they use, which is fairly normal since
+> ASUS tends to swap the parts depending on supply. As a result, my machine
+> has a QCC2072 (17cb:1112) WiFi/BT module not the WCN7850 (17cb:1107) devi=
+ce
+> that you listed. Inspection of the hardware shows that the WiFi/BT module
+> is a solder-down M.2 LGA module, but electrically that's still an M.2
+> interface. Photos that I can find of the Zenbook A16 show it does the sam=
+e.
+> I think it might be more reliable to define a wlan-connector, like Konrad
+> Dybcio did in the Asus Zenbook A16 (UX3607OA) (2/3) from 2026-07-21,
+> rather than specify the chip.
+>=20
+>=20
+> SOUND:
+>=20
+> Regarding sound definitions, the dts declares four WSA8845s -- a woofer
+> and tweeter per side, two on swr0 and two on swr3.=20
+>=20
+> > +&swr0 {
+> > + status =3D "okay";
+> > +
+> > + /* WSA8845, left woofer */
+> > ...
+> > +
+> > + /* WSA8845, left tweeter */
+> > ...
+> > +};
+> > +
+> > +&swr3 {
+> > + status =3D "okay";
+> > ...
+> > + /* WSA8845, right woofer */
+> > ...
+> > +
+> > + /* WSA8845, right tweeter */
+> > ...
+> > +};
+>=20
+> This machine only has two speakers (again confirmed by physical inspectio=
+n).
+> Only swr0 shows attached on /sys/bus/soundwire/devices/sdw:*/status:
+>=20
+>   sdw:1:0:0217:0204:00:0   Attached
+>   sdw:1:0:0217:0204:00:1   Attached
+>   sdw:4:0:0217:0204:00:0   UNATTACHED
+>   sdw:4:0:0217:0204:00:1   UNATTACHED
+>=20
+> I don't think that's a config fault either; the swr0 and swr3 reset lines=
+ are
+> both claimed and in identical state of (out, 0, 2mA, no pull). It's not r=
+eally
+> a surprise that the cheaper model from ASUS would not use the full spec a=
+udio
+> offered on the Qualcomm reference designs, but without a suitable
+> UX3407NA-tplg.bin topology file I can't really tell more.
+>=20
+> It appears that the audio setup is blocked further up the audio stack any=
+way.
+> I hacked some dts changes, purloined blobs from Windows and got a stereo =
+speaker
+> setup configured. SoundWire is healthy, but no audio is possible because =
+the DSP
+> does not respond. The ADSP boots and the audio PD is reported up:
+>=20
+>   remoteproc remoteproc1: remote processor adsp is now up
+>   PDR: Indication received from msm/adsp/audio_pd, state: 0x1fffffff
+>   qcom,apr ...: Adding APR/GPR dev: gprsvc:service:2:1
+>=20
+> then, on every boot:
+>=20
+>   qcom-apm gprsvc:service:2:1: CMD timeout for [1001021] opcode
+>=20
+> I'm curious as to if you tested this (or if this even known to work on th=
+e
+> Zenbook A16, Yoga Slim 7x or EliteBook X G2q with the other submissions).=
+ Do
+> you know if/when the required firmware blobs will be forthcoming and
+> upstreamed?
+>=20
+>=20
+> HDMI:
+>=20
+> The built-in HDMI cannot read EDID: the connector reports "connected" wit=
+h
+> a monitor attached but the EDID is 0 bytes and there are no modes. Less t=
+han
+> 2 seconds into every boot, before any cable is involved:
+>=20
+>   gcc_usb3_tert_phy_com_aux_clk status stuck at 'off'
+>   Failed to enable clk 'com_aux': -16
+>   phy phy-88e1000.phy.5: phy init failed --> -16
+>=20
+> I have not really investigated this in detail.
+>=20
+>=20
+> eDP:
+>=20
+> eDP link training intermittently times out on resume, leaving visible fli=
+cker
+> until another suspend/resume retrains it:
+>=20
+>   [drm:msm_dp_ctrl_link_train_1_2] *ERROR* link training #2 on phy 0 fail=
+ed. ret=3D-110
+>=20
+> I am carrying the (unmerged) "phy: qcom: edp: update v8 power-on
+> programming sequence" series, so this may be feedback for that rather tha=
+n
+> a report against mainline.
+>=20
+>=20
+> Anyway, thank you again for this patch series. It got me to the point of
+> having a very usable machine for my limited needs. If you have updates th=
+e
+> need testing I'm happy to help.
+>=20
+> Nicko
+>=20
+>=20
 
