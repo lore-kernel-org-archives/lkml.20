@@ -1,82 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29D473E8C77;
-	Wed, 26 Aug 2026 12:32:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 254A741D239
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 12:32:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787747536; cv=none; b=bsYMVrkeIEtO2jl8xSzkrrnvGPWV7YfvE6PX1Lw3+bVCgXmVwSE3n7WCn3jgRNXZTpfRX+2o133IMPw4DZnFPsZ01yxADUIwBjye2HlPh/nX3hmTNVWSdoxnuJvDYjlRQORZoEMgD5IH4LDstI9ECMrib1h07ZisbNGykj34YDI=
+	t=1787747557; cv=none; b=mUdLw7iRFPD9jkPRV/W3fyQoLGCtkrA/bmadYnN12/6hw00Hr0qp93lzYowxeBSGIfCxRo3s+U4NDwyO+khUEN6ZUk9QGBFjyvfLmqIZwHDjB6KXPSgsTxhohTWCLgOAomgOE84sYLg8kpbQV69mv+lLNmDPIBNIHQAB67qXZbM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787747536; c=relaxed/simple;
-	bh=YBfQhWr3hGAdYxy1pQcxhGEO0oadaJmUJbTPa6EIUkI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FU+XHT4+6gcyXnwG4GCCe9NZQn4xcfqRcxxRnIXWuI0oPaP43BaSc9G9as4pd6Hksp3Bov29tabUmnkZm46v8PTiQj0zxkw17CbVQOol1w5C3WR3f756/EFCr+x9d81Wf4xMkBl5M42sprUObTZto0Wk1HoHtcD5n0KXs9WijdU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HjQHKwML; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HjQHKwML"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C9791F000E9;
-	Wed, 26 Aug 2026 12:32:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787747534;
-	bh=YqwwWf+vCPr5nOmUOVOahzY+I5cvuPJzT4QMqWM82tU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HjQHKwMLORNV78ltW457mY3gcGa6vCCkfV/yO8DKl64vzn8PlNt/aij3AVFeJoSWK
-	 BW48SKc0OVsxVCbOLp/8osNWQS4wXy2o8GUXuY6l5F+SIY9uWXxZa7SC5dtdDtlnbb
-	 YTuPdIUI5tmGCZ4z9sRMphTGBDRB9SpUNrJci+Y4fRDpT5Sah8ok/IFEpW3JVNLbJ+
-	 eA8mF4qJs78iDYMbOxTrRqgOCCwm7M2LbetiWpk5o55Kmf1yw1bVOhOqQv5KhPi1YN
-	 BNPWf0lSZhRzywlZlIe0cpgSL1eT6X7HUzKXbfRj5fEWhtwebEM5vrBvm1FnVKbWx4
-	 BY7ZOx+mL+R/g==
-From: Miguel Ojeda <ojeda@kernel.org>
-To: gregkh@linuxfoundation.org
-Cc: achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
-	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
-	shuah@kernel.org,
-	sr@sladewatkins.com,
-	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Miguel Ojeda <ojeda@kernel.org>
-Subject: Re: [PATCH 7.2 00/82] 7.2.1-rc1 review
-Date: Wed, 26 Aug 2026 14:32:06 +0200
-Message-ID: <20260826123206.34789-1-ojeda@kernel.org>
-In-Reply-To: <20260825132541.560541185@linuxfoundation.org>
-References: <20260825132541.560541185@linuxfoundation.org>
+	s=arc-20240116; t=1787747557; c=relaxed/simple;
+	bh=xsV6torJwF63vYq4ZKLz/x/GmMTNGTBCrkvh4CcMnlM=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=rZ4nfKxtaa1H3iobEyMd/mikZouiIX042CILBeno5CPeBvK2WeaPulZimTfnWcG6feO8NSFrIPPE89CHebvlDyVMOEc4qOk7scluBWcyGrp6SW3mhnzLqX8jrLsMIx25anyCyrjPBcuCv5jJkKkNExg6uJAAf/sObRtYCb+wmxU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-49d4cb3ca23so1175907b6e.3
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 05:32:35 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787747555; x=1788352355;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=M2fDqMNNXV6oBALACz+Y8HnOrgfoz7/0j+jJpIWCaVM=;
+        b=ZJYL9aqfDwmS3nFtBCJPYK713D44jDMTtS7JrjuN2jGJwZFetQcYWLq3koeCMYEMOd
+         Rk8cX3uldfxUIgDXvthgRFV7vW5Nu3soIWHW4qARh+TGmaIzptvKJhswhhAg0LbKfj5l
+         +QrCUmCfhs0OLecU1bAESMVicmUoWf04EGvqnQ33l4t42cObi04m37nPDetUYoPawx/R
+         RJf12NA5uqPpAorqQnJG03lwgIaY1uK7YJR7Ot1eakJfReRMBNehEPWzrrrbciW6qh/3
+         nE3I+kbx2/rREtZLiVJUfcXv7X5+YoT7GUTyL8zGi39zgzkggs9+Yc1mm8a9pts93XZC
+         M9CA==
+X-Forwarded-Encrypted: i=1; AHgh+RptezczW5CWpUv9UutSg8FYIT1ZwgxOidTXyc9afKyrEd9NbEYjJGlJEOF6jFV3gPDt3aQ9t2HXGEYe1Jo=@vger.kernel.org
+X-Gm-Message-State: AFuF++k9ar4XGQWjMJ5/lrANHrgaKAqdcU52Kti0Y9uQPkLSgBEXr8X7
+	Zs9YD1jxCHM21v6e1YwfrfC7oq30kupyfbInOwLCpkxArK7s0F06FuE6Y2lProFxwqaXJ2EQJjV
+	JwDbl1qwMMAU/UVVOzj8QkLW1F7O8j+8gVeeO4qDSRnPieVGkf7V/6Gf84Cc=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:15a7:b0:4a3:26e5:cc02 with SMTP id
+ 5614622812f47-4b366a06abfmr6864766b6e.10.1787747554970; Wed, 26 Aug 2026
+ 05:32:34 -0700 (PDT)
+Date: Wed, 26 Aug 2026 05:32:34 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a8edce2.27659fcc.2ceef7.0002.GAE@google.com>
+Subject: [syzbot] Monthly nfc report (Aug 2026)
+From: syzbot <syzbot+list08f4ccf74cf255717dfe@syzkaller.appspotmail.com>
+To: krzk@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 25 Aug 2026 15:24:47 +0200 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
->
-> This is the start of the stable review cycle for the 7.2.1 release.
-> There are 82 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Thu, 27 Aug 2026 13:25:02 +0000.
-> Anything received after that time might be too late.
+Hello nfc maintainers/developers,
 
-Boot-tested under QEMU for Rust x86_64, arm64 and riscv64; built-tested
-for loongarch64 and arm32:
+This is a 31-day syzbot report for the nfc subsystem.
+All related reports/information can be found at:
+https://syzkaller.appspot.com/upstream/s/nfc
 
-Tested-by: Miguel Ojeda <ojeda@kernel.org>
+During the period, 4 new issues were detected and 0 were fixed.
+In total, 9 issues are still open and 32 have already been fixed.
+There is also 1 low-priority issue.
 
-Thanks!
+Some of the still happening issues:
 
-Cheers,
-Miguel
+Ref Crashes Repro Title
+<1> 318     Yes   WARNING in port100_send_cmd_async/usb_submit_urb (3)
+                  https://syzkaller.appspot.com/bug?extid=89f5f8143d8e62af2b61
+<2> 20      Yes   KASAN: slab-out-of-bounds Read in __dynamic_pr_debug
+                  https://syzkaller.appspot.com/bug?extid=1e3df0852e82c21ca418
+<3> 3       Yes   general protection fault in nfcmrvl_bulk_complete
+                  https://syzkaller.appspot.com/bug?extid=59d5e6a8ed04e6a000c8
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+To disable reminders for individual bugs, reply with the following command:
+#syz set <Ref> no-reminders
+
+To change bug's subsystems, reply with:
+#syz set <Ref> subsystems: new-subsystem
+
+You may send multiple commands in a single email message.
