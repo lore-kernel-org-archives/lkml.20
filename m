@@ -1,64 +1,64 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB506471268
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:41:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CC844766AF
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:41:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787762525; cv=none; b=JWL2IWe9Q1JsOvUUBmsIz9ultIyezUTDvaTSe8gdVJEWvZUhH/l9FbvoLVYLHhriWiPVtW2dxsCCgGCxLw/fwNpB4e8bMNR+iEAF5B4PQmuYjSm6wir/VIO4mxKWMx+SQ6/ylVLSXFoDrp5b8dOcd+WpHnE913+JyrgjXUZcmaE=
+	t=1787762530; cv=none; b=Hligq+bIislJ1G2COXB4jNSInpWdlSyT+pHfxK99XE9ct6eNhgR7d4pWw91K8QqxN8qrBNHJ6+OWWNmEes13yzdF0Le75eWvWk4qIT3OfRRu1XCeAdE/dBpSHsYHilAqbIt7L6Mub9PVrSbwIlEzSC0WJAKhYEXnE3RBdw88YH4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787762525; c=relaxed/simple;
-	bh=GRh+ADm59DlQaArvAetjOKX+4NgwRUV/PdzCMvPtp1U=;
+	s=arc-20240116; t=1787762530; c=relaxed/simple;
+	bh=hxwU9iVyxpGSAAhg2LMrI2wFBmgWHb6UAnI9L1baLjQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CvrZd9HqIFNmHLsigwpBRs+sg5fxU2FoAYKnURXixZ++zTBHbesITsQLFDd2SEq7o9INONnVp95fy4rd1bc9qDW7RWGAof3D77PjITO/Txf0oQBZ8YYSJN6gBqzfPLFOqQJNC8rUp4seymR+WhuD6j582o5Poj6xZ8wt74Ajbr8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk; spf=none smtp.mailfrom=fireburn.co.uk; dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b=WBJCX7eA; arc=none smtp.client-ip=209.85.128.52
+	 MIME-Version; b=p5VNaArhSzoaI6wltjb/EIS/rH20ewC5fCfL3Ciwh8f1/3O34YTqaz7b/zcIA0ApGuH+8r2lZaNCFMJauSwf3cSUWjMeA5VYUaw+djvTts2v5Lh4FqXpw5MDe2A1nL9V5lena4QNAFjzsS2lz0+2vAFRM7MvLtEq/Y8sA5TqQEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk; spf=none smtp.mailfrom=fireburn.co.uk; dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b=KqnjQgks; arc=none smtp.client-ip=209.85.128.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=fireburn.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="WBJCX7eA"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-499b57cf2f3so555285e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 09:41:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="KqnjQgks"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-499ac87c92bso9451085e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 09:41:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787762484; x=1788367284; darn=vger.kernel.org;
+        d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787762488; x=1788367288; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=64TYoztfjTxz6bZJgz8b/VUNCXdb2tzD8EdoWyK7qS4=;
-        b=WBJCX7eAAePY+eZapTgVaP2/NcUE8/pA8Y1B7pl+Z9Hgoh+ai14AWliO0hNzL3QUVm
-         cyExmL4elYyL2xIRPUhGR34/ckbWEq4i6PkWf4LixWwxneug2XGPx4ZWGDeBxINNxz6t
-         NQotb2o3Noxf8XwuIpRGIE3bUm4VU62BfpVpOeNMHBCMNyDifW4MM1XjLcuxqv6fh7wd
-         HRi9RvwCRykLAf1egczIWRc1SY59NZ/c1CUbKJ/LfREmD5RBYoQYc/q32XUx4fDtgSqc
-         povBkIsKCVUdR16PfuqMdxfuwH/hB8tjyQWq1ohRXXyWnPZ2q+kOaEeJ3A2EnNf8mfQ/
-         HxBA==
+        bh=4V2qWTIy9upPrwYp43xXrz2kFXEg2TQMUb90MextArg=;
+        b=KqnjQgksDL9ctur6p/NDvBXGUqSVjjhcNrgsHvp/PnlYAogx2xsZNEXxClC4hCpGUd
+         tB6AviICsPT5D5NNU8sp1NKeP0OP8Tulc++51XfW4uuQfruT3NgeBBewqObAX8tYmNws
+         V5r6MJQdGUOILBSzidPRPPIiaekTAJylw7GBAeoMrT6y6ngqxjHLVFfEY2mlip0sHvZX
+         Lm4Ipi6ZtGBdTG0clBepCpu6EIBZzVlw4xse8uSawmAOmyftHxby9W9/9f8u4tJjh3Lj
+         bJj5Zsul8TxMCOTSIN1LtLWHAUMXx92TiWsSYuesbDqIwDKMiNSWi539fweHp4WXps/L
+         U1ow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787762484; x=1788367284;
+        d=1e100.net; s=20251104; t=1787762488; x=1788367288;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=64TYoztfjTxz6bZJgz8b/VUNCXdb2tzD8EdoWyK7qS4=;
-        b=RD3Nx0YgGml3pjmjTIT8z9a0zCGlsgflLxHsgrVSO4t+Gc3eqriRAeYyXZGms/0XB/
-         xZ5j49sxeE8xTbWwF5HGtA3V/Vp1mRblA7XSC4lyDjoRLy55MsOnX6dCWc48bmihLtUO
-         YrnOKNt3tjCOpQ4T1W8qyjEutwpdJCLaWxSgTDhFrHnSO0HqoLX8Ns1rVEtucGDhUU5a
-         CHsnHtvylCC+dP3OWy7+AjPoTuCNjB3+NV8jcwop+ZXGAWBVfspwlBppid4IohrbM2lf
-         JcVE+mgpg2uprXC4D5RMFv8uDM50uIQ7LZK8xT8axBA9WOciSUUq3syFgw4DVJn3Ssmw
-         xvdw==
-X-Forwarded-Encrypted: i=1; AHgh+RqpW9jfgPBxAq0ZRiex4dfvXjrK3pEgaRa27UxrR8PT1EHzYnW4exV+bhmBrYxMuh1QKP6Ry9qy61l3gdI=@vger.kernel.org
-X-Gm-Message-State: AFuF++klwlhD7dHm4U5YfqBLd1ylkcFyVHlzG+IucVr7YXjFkikbrLGo
-	JbfjMMoUPrzgNMLi8AnMkLcUUT7M4w5DVojAC7JkfWhFv5As4ypT636+00ETPKJvlg==
-X-Gm-Gg: AR+sD13w3A/hWIOC6p9lPNVaBXgVhKGDafamzsE9ZWvhyoOmDA6vcE3set4Vx2ehPnN
-	QboRKx0n0YRTFVirYMbY9UB5eDik07bTvc277EipywPxDuQ+lET6Dgtzl1bSxTCGnAxWYPyzUyC
-	KpbE13RsQcVshrBZTQTL09sPiuztXtDdX3QbuIXl2sMCxfJ1Lu48LB3iFYpNGR47Ce+FJDz3l/K
-	/+Ig8QXR+FUxVQbDI+PtTyppT3shb2VYL6+2WfD874njpUcrVo0ahRjEhDNkjCKyGHbIRS0/8KM
-	zqZlDEEcj1bjFmsZ+M7xO1EpbV/JptEw5MJ9IHTX63ZosmRn2vKvMadtAIoZen7ynBXfrUISyEk
-	edlfhKX3Nis/z718nUX/6Q4ujrVpDWNmdHVvTPxQz9XRH5+tjPbQPYJFooCGy4+U5YlN5JHP4L0
-	suSWCQL8GXQfnElhhj1dVtTlORoqogjUzxZ4FJGlW26whJ+6bXsYNJp3sn8SfP0frA7mYZvNhu/
-	22jDZDIxt8myl+036oWc45Gg5hcWlIbp7bPyPrV4EmBreU=
-X-Received: by 2002:a05:600c:3e8e:b0:499:5f80:83ac with SMTP id 5b1f17b1804b1-49b0dfd7d2cmr5041365e9.7.1787762484634;
-        Wed, 26 Aug 2026 09:41:24 -0700 (PDT)
+        bh=4V2qWTIy9upPrwYp43xXrz2kFXEg2TQMUb90MextArg=;
+        b=TsvGQAlNqiIWg8iU/ellQC12A7TDhQ1QFKcuLBsCJ/1mZ6XWSbnFw8GylKmFpVh4EK
+         76T4J6SVktpOMrXgl3EtNo9wmP6QyMCb15dbeCQ8TdMaWbH2MRaga8KDKN2OZ8sXqDkU
+         h7WFFcNsJaV8nYxqIXSzyUr3Hbo2kNhHadS46HgUITGCXuWC/j4SiqhNVeB+A4mwGKyR
+         IfFeXp2IKZsvQnV8afWzDDLOQ4FCYIbiwVtYGsfoYxpmbJJgyySpwL/fNg3vLaX+nUgS
+         Pf+TwGET9mWs15UBUhd4RGM9a0FxfDXN0h0J6FWxo65Zka2vZE01VeXsTotZ0zAW+zzZ
+         WF1A==
+X-Forwarded-Encrypted: i=1; AHgh+RpCuwpSsObhskqjyLlhhCnHJSFybFXWjIQKmQvopiaeYTIzo3Oj0c2SWpQI0Y3KOnk5W0nxWyvolQSAwdA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nWWWeWWoPNalPIoRI4iEtLH7cxkvVX6qdhhsRvBYgByMZsTOZ6
+	vE+b7gdAoUzGgCxlXr6iTNs65rLeo9+TAHnhhzdrNPNkBYRX2ffOH8igFQJZqP8TEw==
+X-Gm-Gg: AR+sD13aqRMCQPkjKHhy4HV9fytYNpBSP+64V6B+MB7tfhyYQ4LkvOiE6GHrc+pXbRx
+	UB6o5cCleqw2z6TmiloVVZznYzOXxtQimZ2G9sV9iI0Y0osVIqZs2cEpdeemQTYW0kFEsoNrpSF
+	++38beW6D1Z908anbF+S9B+GaEbqYo3yQqjVuqlZ6KJqJADz6gqLj919FIGvg0jfhoGZmHeQ73o
+	Ruru29H/nQYB2FvRpl6mhRvm02mw1qtfrp+n6hDJpBbwnSYR7dMAa2IA/cfyVqbsbjhGhcbtB+s
+	rtUIyLnyIC231TkCdxndX64lsgFxsw9OYvEaihZdTRi+rnPVr49f+Vv4QHmgGv98uwNudCwrvCn
+	TzjHGqANFUIVqEj8woFuFy8eA0XrpMBNAI8bydYEJwcTlvzVup4cYabJJg1lrpuNiitg2JlkNwd
+	bj3w4z1ivurUSz8R9rh0zLXMaGb/9afAWfPFWpMmIdWI6l1GZg6PL5O3O00I+KfrpLgFO0QbXnS
+	zmjg7z6vx9h3+h5PxZXPYu6UvHBDR5GHx5zkFA7gs0Kx18=
+X-Received: by 2002:a05:600c:34c3:b0:495:4d88:e630 with SMTP id 5b1f17b1804b1-499dc720bd2mr92288185e9.10.1787762487943;
+        Wed, 26 Aug 2026 09:41:27 -0700 (PDT)
 Received: from axion.fireburn.co.uk ([2a01:4b00:d309:1c00:caf1:6b20:8531:818c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499dd5721a0sm21769715e9.4.2026.08.26.09.41.21
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499dd5721a0sm21769715e9.4.2026.08.26.09.41.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 09:41:22 -0700 (PDT)
+        Wed, 26 Aug 2026 09:41:26 -0700 (PDT)
 From: Mike Lothian <mike@fireburn.co.uk>
 To: dri-devel@lists.freedesktop.org
 Cc: Mike Lothian <mike@fireburn.co.uk>,
@@ -67,6 +67,8 @@ Cc: Mike Lothian <mike@fireburn.co.uk>,
 	Thomas Zimmermann <tzimmermann@suse.de>,
 	David Airlie <airlied@gmail.com>,
 	Simona Vetter <simona@ffwll.ch>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
 	Miguel Ojeda <ojeda@kernel.org>,
 	Boqun Feng <boqun@kernel.org>,
 	Gary Guo <gary@garyguo.net>,
@@ -80,11 +82,17 @@ Cc: Mike Lothian <mike@fireburn.co.uk>,
 	Tamir Duberstein <tamird@kernel.org>,
 	Alexandre Courbot <acourbot@nvidia.com>,
 	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	rust-for-linux@vger.kernel.org
-Subject: [PATCH v3 12/13] drm/vino: allow the driver to be built
-Date: Wed, 26 Aug 2026 17:37:37 +0100
-Message-ID: <20260826163913.7052-13-mike@fireburn.co.uk>
+	rust-for-linux@vger.kernel.org,
+	llvm@lists.linux.dev
+Subject: [PATCH v3 13/13] Documentation/gpu: document the Vino driver
+Date: Wed, 26 Aug 2026 17:37:38 +0100
+Message-ID: <20260826163913.7052-14-mike@fireburn.co.uk>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260826163913.7052-1-mike@fireburn.co.uk>
 References: <20260826163913.7052-1-mike@fireburn.co.uk>
@@ -96,115 +104,301 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add the Kconfig entry, the Makefile rule and the MAINTAINERS record, so the
-preceding commits become a module.
+Describe how a dock is identified and placed by family rather than by
+product ID, what the driver implements in-kernel in place of EVDI and
+DisplayLinkManager, and the module parameters an unfamiliar dock or a
+converter with broken DDC may need.
 
 Assisted-by: Claude:claude-opus-5
 Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
 ---
- MAINTAINERS                   |  6 +++++
- drivers/gpu/drm/Kconfig       |  1 +
- drivers/gpu/drm/Makefile      |  1 +
- drivers/gpu/drm/vino/Kconfig  | 42 +++++++++++++++++++++++++++++++++++
- drivers/gpu/drm/vino/Makefile |  2 ++
- 5 files changed, 52 insertions(+)
- create mode 100644 drivers/gpu/drm/vino/Kconfig
- create mode 100644 drivers/gpu/drm/vino/Makefile
+ Documentation/gpu/drivers.rst |   1 +
+ Documentation/gpu/vino.rst    | 254 ++++++++++++++++++++++++++++++++++
+ MAINTAINERS                   |   1 +
+ 3 files changed, 256 insertions(+)
+ create mode 100644 Documentation/gpu/vino.rst
 
+diff --git a/Documentation/gpu/drivers.rst b/Documentation/gpu/drivers.rst
+index 20d2c454aa1d..4b524d6980c4 100644
+--- a/Documentation/gpu/drivers.rst
++++ b/Documentation/gpu/drivers.rst
+@@ -17,6 +17,7 @@ GPU Driver Documentation
+    tve200
+    v3d
+    vc4
++   vino
+    vkms
+    bridge/dw-hdmi
+    xen-front
+diff --git a/Documentation/gpu/vino.rst b/Documentation/gpu/vino.rst
+new file mode 100644
+index 000000000000..98e82297a82a
+--- /dev/null
++++ b/Documentation/gpu/vino.rst
+@@ -0,0 +1,254 @@
++.. SPDX-License-Identifier: GPL-2.0-only
++
++==========================
++Vino DisplayLink DL3 driver
++==========================
++
++Vino is a Rust DRM/KMS driver for DisplayLink DL3 USB display devices. Three
++hardware families are supported: Ella (DL-3x00 silicon, e.g. the HP 3005pr),
++Ridge (DL-6xxx silicon, e.g. the Dell Universal Dock D6000) and Navarro
++(DL-7000 silicon, e.g. the DL-7400 quad-display docks). Each family has a
++profile carrying the endpoints, strip geometry, connector count, link limits
++and pacing of its hardware; the rest of the driver reads those values rather
++than branching on the model.
++
++Device identification
++=====================
++
++The driver binds to a DisplayLink *function*, not to a list of product IDs: any
++device with vendor ``17e9`` exposing an interface of class ``0xff``, subclass
++``0``, protocol ``0x03`` (a DL3 display function; ``0x00`` is the older ``udl``
++hardware), plus that device's USB DFU interface. This matches what the vendor's
++own udev rules key on, and means a dock nobody has tested is offered to the
++driver rather than ignored.
++
++Which family a device belongs to is then read from the device itself. Every
++DisplayLink dock carries a sixteen-byte vendor descriptor, type ``0x40``, in
++its ordinary configuration descriptor, holding the running firmware version and
++an eight-character platform name -- ``NavaDock``, ``RidgeDoc`` and so on. It is
++read with a standard ``GET_DESCRIPTOR``, needing no session and no crypto, so
++identification happens at probe.
++
++A device whose identity names a family the driver cannot drive is declined by
++name, so its owner gets a log line and something worth reporting instead of a
++driver guessing at an unknown wire format. A device whose identity cannot be
++*read* falls back to a small product-ID quirk table, so a transient descriptor
++failure does not cost a known dock its displays.
++
++The number of connectors comes from how many of the family's video endpoints
++the device actually exposes, bounded by the profile. A dock in a known family
++with fewer outputs is therefore driven with the outputs it has.
++
++The driver owns the USB device and implements the dock's initialization,
++HDCP 2.2 authentication, encrypted control protocol, downstream monitor
++management, mode programming, cursor updates, video compression, and USB
++submission in the kernel. It does not use EVDI or a userspace display daemon.
++
++Configuration
++=============
++
++The driver is selected by ``CONFIG_DRM_VINO``. It requires Rust, USB, DRM,
++MMU support, the Rust DRM shmem helper, and the kernel crypto primitives used
++by HDCP 2.2.
++
++``CONFIG_DRM_VINO=m`` builds ``vino.ko``.
++
++Verbose protocol and scanout diagnostics are disabled by default. Pass
++``debug=1`` when loading the module to enable them::
++
++    modprobe vino debug=1
++
++Errors, connection changes, and session state remain visible without this
++parameter.
++
++The remaining module parameters are for recovery and diagnosis:
++
++``edid_override``
++  Bitmask of connectors whose EDID the dock cannot read -- typically a monitor
++  behind a DP-to-HDMI converter that mangles DDC -- and which are described by
++  DRM's own EDID override instead.
++
++``force_flash``
++  Write the packaged dock firmware even when the dock already runs that version
++  or newer. See `Firmware updates`_.
++
++``rtc_utc_offset_minutes``
++  Local offset from UTC, in minutes east, used when synchronizing a Navarro
++  dock's real-time clock.
++
++``trace_crypto``
++  Discloses the ephemeral control and video keys of one session so that a
++  ``usbmon`` capture can be decrypted. For protocol work only.
++
++The optional ``CONFIG_DRM_VINO_KUNIT_TEST`` setting builds the driver's KUnit
++suite. It is intended for development kernels and is disabled by default.
++
++KMS model
++=========
++
++A dock exposes independent display connectors: two on the D6000, four on the
++DL-7400, where they are multiplexed over two video endpoints. Each has:
++
++* one primary plane using ``DRM_FORMAT_XRGB8888``, and ``DRM_FORMAT_XRGB2101010``
++  as well where the dock's link carries ten bits per channel;
++* one cursor plane using ``DRM_FORMAT_ARGB8888``;
++* one CRTC, encoder, and connector;
++* a downstream EDID channel; and
++* a bulk-OUT video endpoint, which two connectors may share.
++
++Atomic commits record the latest desired state and wake an ordered,
++device-owned control queue. Blocking USB transactions are never issued from
++the atomic callback. A transient control failure retains the desired
++generation and retries it; a newer atomic state always supersedes an older
++retry.
++
++The primary plane supports the four DRM rotations and both reflection axes in
++all valid combinations. Rotated and reflected frames are conservatively sent
++as full updates. Their independent codec strips are still encoded in parallel;
++identity scanout additionally supports damage updates and encoded-strip reuse.
++
++Mode validation
++===============
++
++A mode reaches the dock as a timing plus two control words describing its sync
++polarity and its CTA video identification code. Those words are taken verbatim
++from decrypted vendor captures for the timings a capture covers -- 1920x1080 at
++60 and 120 Hz, and 2560x1440 CVT-RB at 60 and 120 Hz -- and derived from the
++mode's own sync flags and VIC otherwise, so a monitor's native timing is driven
++rather than approximated.
++
++A mode is refused when it exceeds the ceilings its dock's profile names: the
++highest pixel clock a single connector may carry, an optional refresh-rate cap
++where the vendor driver is known to clamp, and the dock-wide pixel budget. The
++budget is shared, so the atomic check enforces the combined rate of the
++connectors a commit leaves enabled, while mode validation refuses only a single
++mode too large for the whole dock.
++
++Framebuffer ownership and damage
++================================
++
++The dock cannot scan out a GEM object directly. Vino therefore copies changed
++strips from the shmem framebuffer into driver-owned snapshots before the
++atomic commit completes. The compositor may reuse its source buffer after
++that snapshot without racing the encoder.
++
++Each head retains at most four validated, owned shmem mappings, matching a
++typical compositor swapchain. Repeated flips reuse those prepared mappings;
++round-robin eviction and DPMS teardown keep pinned memory bounded. This is the
++USB-display equivalent of preparing buffers before submission and requires no
++driver-specific userspace API.
++
++Encoding and USB submission run asynchronously on per-head workers. Damage is
++tracked against the last frame successfully submitted to the dock, not merely
++against the previous atomic commit. This preserves changes when commits are
++coalesced or a transfer fails.
++
++A strip whose content changes is charged one transmission for each buffer the
++dock rotates through, plus one, and remains selected until that debt is paid.
++One presentation reaches exactly one of those buffers, so a strip delivered to
++only some of them would leave the panel alternating between old and new
++content. A surface with no change and no debt outstanding sends nothing.
++
++The video path keeps a bounded, persistent USB request ring. The first
++presentation after a mode change carries the decoder arm sequence and the
++opening frame in one USB request, as required by the receiver.
++
++Control and authentication
++==========================
++
++One per-device session owns the HDCP and encrypted-control counters, keys,
++nonces, EP02 submissions, and EP84 replies. The control queue serializes
++transactions so a KMS update cannot interleave with a heartbeat or monitor
++operation.
++
++Initial transport, authentication, and encrypted-control setup is retried after
++transient failures. Once authentication has succeeded, a timeout while
++discovering one downstream monitor does not discard the live session. That
++head remains disconnected until the bounded runtime re-engagement path
++obtains a valid EDID.
++
++HDCP message identifiers and HDMI mode matching use the DRM display helpers.
++AES, AES-CMAC, SHA-256, HMAC-SHA256, and RSA operations use kernel crypto
++interfaces. Session material is stored per device and is not exposed through
++a driver-specific userspace API.
++
++Colour management
++=================
++
++The CRTC advertises ``CTM`` and a 256-entry ``GAMMA_LUT``, and both are applied
++in software during encoding. A dock has no colour hardware to program, so a
++compositor correcting through those properties -- as GNOME's Night Light and
++KDE's Night Colour do -- would otherwise have nowhere to put the correction on
++this output while native outputs are corrected normally.
++
++Colour depth and HDR
++====================
++
++On a dock whose silicon carries ten bits per channel, each connector also
++advertises ``max bpc``, ``Colorspace`` and ``HDR_OUTPUT_METADATA``. The wire
++format is one codec parameterised by sample depth rather than two: an HDR
++frame differs from an SDR one only in how deep its samples are, in the escape
++ceilings the entropy coder is allowed to reach, and in the transfer function
++and colorimetry stated in the mode set.
++
++The link's depth is taken from ``max bpc`` together with the PQ transfer
++function the compositor attached, not from the committed framebuffer's format:
++driving a ten-bit link from an eight-bit surface is ordinary, and a sample is
++widened into the deeper link after it is decoded. A ten-bit connector costs the
++dock a third more bandwidth per pixel, so the shared budget is priced at the
++deepest connector in use, and where a pair of modes does not fit at ten bits
++the depth gives way rather than the mode -- a compositor handed ``EINVAL``
++disables the output instead of asking for a shallower link.
++
++Firmware updates
++================
++
++A dock reports the firmware it is running in a vendor descriptor, and the
++vendor's ``*-release.spkg`` packages state the version they carry. If the
++kernel firmware loader can supply a package that is newer than what the dock
++is running, vino writes it over USB DFU before opening a control session.
++
++Two deliberate paths exist alongside that. ``force_flash=1`` writes the
++packaged image even when the dock already runs that version or a newer one,
++which is how a dock left in a bad state is recovered. The
++``/sys/class/firmware/vino-<dock>/`` upload interface takes an image from
++userspace and writes whatever version it is, which is the only way to re-flash
++the running version or to go back to an older one. Both refuse an image that is
++not a DisplayLink package or is for another dock family: the DFU interface
++supports no upload, so the running image cannot be read back and there is
++nothing to restore from.
++
++Monitor handling
++================
++
++EDID reads are tunneled through the dock's encrypted control protocol. An
++unsolicited downstream event schedules a fresh presence probe. Removal,
++reattachment, and a connector powered down by userspace are tracked separately
++so a deliberate power transition is not reported as a physical unplug.
++
++The initial driver does not register a virtual I2C adapter for DDC/CI monitor
++controls.
++
++Disconnect
++==========
++
++USB I/O is guarded by a revocable I/O window. Disconnect closes that window
++before workers and request queues are drained, preventing new transfers from
++starting during teardown. The owned DRM registration, timers, work queues,
++frame snapshots, and USB queues are then released by their Rust owners.
++
++Testing and validation
++======================
++
++With ``CONFIG_DRM_VINO_KUNIT_TEST=y``, the protocol and codec have KUnit
++coverage for cryptographic known-answer tests, captured control-message
++vectors, mode profiles, decoder-arm framing, codec boundaries, damage
++selection, USB record construction, and serial-versus-parallel output for all
++rotation and reflection combinations.
++
++A focused compile check is::
++
++    make LLVM=1 rust/kernel.o drivers/gpu/drm/vino/vino.o
++
++External-module ``modpost`` also needs a completed kernel build with a
++matching ``Module.symvers``.
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 2b548bba6525..79ccf112fabd 100644
+index 79ccf112fabd..1b0d496897ea 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -8537,6 +8537,12 @@ S:	Supported
- T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
- F:	drivers/gpu/drm/udl/
+@@ -8541,6 +8541,7 @@ DRM DRIVER FOR VINO DISPLAYLINK DL3 DEVICES
+ M:	Mike Lothian <mike@fireburn.co.uk>
+ L:	dri-devel@lists.freedesktop.org
+ S:	Maintained
++F:	Documentation/gpu/vino.rst
+ F:	drivers/gpu/drm/vino/
  
-+DRM DRIVER FOR VINO DISPLAYLINK DL3 DEVICES
-+M:	Mike Lothian <mike@fireburn.co.uk>
-+L:	dri-devel@lists.freedesktop.org
-+S:	Maintained
-+F:	drivers/gpu/drm/vino/
-+
  DRM DRIVER FOR VIRTUAL KERNEL MODESETTING (VKMS)
- M:	Louis Chauvet <louis.chauvet@bootlin.com>
- R:	Haneen Mohammed <hamohammed.sa@gmail.com>
-diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-index 323422861e8f..ac73fc425c59 100644
---- a/drivers/gpu/drm/Kconfig
-+++ b/drivers/gpu/drm/Kconfig
-@@ -358,6 +358,7 @@ source "drivers/gpu/drm/vboxvideo/Kconfig"
- source "drivers/gpu/drm/vc4/Kconfig"
- source "drivers/gpu/drm/verisilicon/Kconfig"
- source "drivers/gpu/drm/vgem/Kconfig"
-+source "drivers/gpu/drm/vino/Kconfig"
- source "drivers/gpu/drm/virtio/Kconfig"
- source "drivers/gpu/drm/vkms/Kconfig"
- source "drivers/gpu/drm/vmwgfx/Kconfig"
-diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-index e635fcffd379..29ab96f6e8de 100644
---- a/drivers/gpu/drm/Makefile
-+++ b/drivers/gpu/drm/Makefile
-@@ -185,6 +185,7 @@ obj-$(CONFIG_DRM_VC4)  += vc4/
- obj-$(CONFIG_DRM_VMWGFX)+= vmwgfx/
- obj-$(CONFIG_DRM_VGEM)	+= vgem/
- obj-$(CONFIG_DRM_VKMS)	+= vkms/
-+obj-$(CONFIG_DRM_VINO)	+= vino/
- obj-$(CONFIG_DRM_NOUVEAU) +=nouveau/
- # nova-drm is built from drivers/gpu/Makefile together with nova-core.
- obj-$(CONFIG_DRM_EXYNOS) +=exynos/
-diff --git a/drivers/gpu/drm/vino/Kconfig b/drivers/gpu/drm/vino/Kconfig
-new file mode 100644
-index 000000000000..fcc761b4654b
---- /dev/null
-+++ b/drivers/gpu/drm/vino/Kconfig
-@@ -0,0 +1,42 @@
-+# SPDX-License-Identifier: GPL-2.0
-+config DRM_VINO
-+	tristate "DisplayLink DL3 (Vino) open driver"
-+	depends on USB
-+	depends on DRM
-+	depends on RUST
-+	# RUST_DRM_GEM_SHMEM_HELPER depends on MMU; inherit that dependency here so the
-+	# select below cannot generate an unmet-direct-dependency warning on nommu.
-+	depends on MMU
-+	select DRM_KMS_HELPER
-+	select RUST_DRM_GEM_SHMEM_HELPER
-+	select CRYPTO_RSA
-+	select RUST_CRYPTO_AKCIPHER
-+	select RUST_CRYPTO_LIB_AES
-+	select RUST_CRYPTO_LIB_SHA256
-+	select FW_LOADER
-+	select RUST_FW_LOADER_ABSTRACTIONS
-+	select FW_UPLOAD
-+	help
-+	  Open in-kernel Rust driver for DisplayLink DL3 docks: the DL-3x00
-+	  port replicators, the Dell Universal Dock D6000 and other DL-6xxx
-+	  docks, and the DL-7400 quad-display docks. A dock is matched on its
-+	  USB function rather than on a product id, and identified from the
-+	  vendor descriptor it carries.
-+
-+	  It binds the dock over USB, runs the HDCP 2.2 control plane, mode-set
-+	  and the Vino codec, and registers a DRM/KMS sink that scans out to the
-+	  dock's video endpoints.
-+
-+	  To compile this as a module, choose M here: the module is called vino.
-+
-+	  If unsure, say N.
-+
-+config DRM_VINO_KUNIT_TEST
-+	bool "KUnit tests for the Vino driver"
-+	depends on DRM_VINO && KUNIT
-+	help
-+	  Build Vino's protocol, crypto and codec unit tests into the driver.
-+	  The tests run when the driver is loaded, so this option is intended
-+	  for driver development and test kernels rather than normal use.
-+
-+	  If in doubt, say N.
-diff --git a/drivers/gpu/drm/vino/Makefile b/drivers/gpu/drm/vino/Makefile
-new file mode 100644
-index 000000000000..6e39668040f3
---- /dev/null
-+++ b/drivers/gpu/drm/vino/Makefile
-@@ -0,0 +1,2 @@
-+# SPDX-License-Identifier: GPL-2.0
-+obj-$(CONFIG_DRM_VINO) += vino.o
