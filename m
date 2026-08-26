@@ -1,44 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DF5A48820D;
-	Wed, 26 Aug 2026 21:44:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A20231619C;
+	Wed, 26 Aug 2026 21:45:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787780700; cv=none; b=qYLYdY15bw9w4TDSpQLg/33SGRP4gsvHtEitrgcE83FEjUjAL4jEvqN+Zwe2qpn4yO+S/GRZGdqy1fCR+ijCa0v6Y6M/yViLEDaZzmIvXuHcixhRwh2ZBs4iyu1CGmeqIIU6pRM5ZkfiPTnwO0qlxDXji3Ckb6owBUI6n5S86Nc=
+	t=1787780705; cv=none; b=QgTz9n0H0twPHPJUUeiiV+Yw/CeUNlktTjfjVDPprFN9whd25MH04IhQCfWUrlL6mKZpi565ZumPVp+WODp3FQVYv0Y7dy6/YqvNXANXnBmvyWS6qP1xCACyAKE29CzhUTRxFtkm6oUPXPq7SUxpuFZqQlva6bD3gYtCBovMfdo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787780700; c=relaxed/simple;
-	bh=afJ4/Z8pMALxEC1OH4/6gJjxyKeHCIuspoLLRdhnh6Q=;
+	s=arc-20240116; t=1787780705; c=relaxed/simple;
+	bh=OzgBvhDz0sPmjbMmy58pYHT5dyWZeKD27g9GUdsrY20=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=EOoQShIWkj17Zs0/ULsH3NDeti4lmMXmlpGYygafYxiXBEPlotc7zDhJTSRjBngUfQrrr4Z1LcuXA4WGfOoiQ4BxdrsOVkyTKh2Y8/1btzQ1nlnhZGH5HZcz4oUl4sKv3h1pWoIiXiAvPLm4tHHk3Sq+Nrmhx4Dgmhc2xBSajOo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UYQmihYU; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=ukFbYcZ3DpOEiOsNk/KlCZNWyLoclPDDAdICX8KwDSKxE3nO/bcPO+iQhZn6tFOvVjVmmU9xBPEjyNzRE02GnP9gn3m8gnlmGlQ/N/XGuzY167Fm2TngaQrWEPnezNW6Jkw+QLdCcN8hb+N7lWLWD1pCeyX5gz7R3r26FuSA9xw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P4RpCUV1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UYQmihYU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1BC01F000E9;
-	Wed, 26 Aug 2026 21:44:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P4RpCUV1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AAF71F000E9;
+	Wed, 26 Aug 2026 21:45:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787780699;
-	bh=mox2A2+G3ierWSL5WOIsEOc3ij3GJJ+HJ///At8iuHA=;
+	s=k20260515; t=1787780704;
+	bh=2IeDyvgxihq/bAKZRy6GVVy86r3ij2i7we7pLMRw0XY=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=UYQmihYU3c7weCQUHQJHbg24vzhQ9HILHbTRQpQIX1XFHXLp5wsQJBgTMdbR4EB28
-	 2xI1lBerc+PxyoAP30xIbxE7eFSL8VQTjibCHAUD21sYVpRLCzNpExyFS/ybTcc0nM
-	 QoXd5uFR1SrOLT4nf1L/oN9sXXTaFtf/cgzRSi5bfHjtHPBFFsCuUBF9oDPHHaqOoA
-	 53dNF/P+8FfOeI4RG2Yp+PeG60PBZXvqQqz+uecqDgUS1B2F3AyMXGHG2e1mltD+Tu
-	 5l/m2ECUTYocBZ2jcCE35yP82fdI6tjr6RPuFcAVyjA90KtjKrN0eYazdmRTquymlY
-	 XgLvNl+e0mnbQ==
+	b=P4RpCUV1NydSHFBF4gJzxe8Wi9yyBD8r0JsFwUBDjuMw/phfTiE6aYUovb1xo+zra
+	 5h8rJsnft27sgpjGku8Yi1MEVsmNHEgLUUjShjTrO4b+NnWYExrj8+KInTXMgoZcid
+	 sjZWnjxLUXQ9g8+T3EFl4ADVADp0+ruzD0lfdK2SJiQ7UmoXXVufquMW5ac7OoKelH
+	 b0sDFFdu01K6cQcC5ksBCiP6FL3tAti+RCLMttfN0WhH25zn+RW89I+wzmUzdK9PXk
+	 1J9CSJPG8F8e9irjL1ez1ZnYICcOLkaoMf2rrvvSpCgsTBInU3wZaykJaMeFOZDCt2
+	 rYJhx9ZR021Yg==
 From: Mark Brown <broonie@kernel.org>
-To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, 
- Sehat Mahde <hskmahde@gmail.com>
-Cc: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260825224640.13662-1-hskmahde@gmail.com>
-References: <20260825224640.13662-1-hskmahde@gmail.com>
-Subject: Re: [PATCH] ASoC: amd: acp-config: force SoundWire probe on HP
- OmniBook X Flip 16
-Message-Id: <178775542282.88371.4820386326566315467.b4-ty@b4>
-Date: Wed, 26 Aug 2026 15:43:42 +0100
+To: lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com, lars@metafoo.de, 
+ HyeongJun An <sammiee5311@gmail.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260825125745.932832-1-sammiee5311@gmail.com>
+References: <20260825125745.932832-1-sammiee5311@gmail.com>
+Subject: Re: [PATCH] ASoC: dapm: Fix off-by-one check on the second enum
+ channel
+Message-Id: <178775623949.88371.15561120678567071292.b4-ty@b4>
+Date: Wed, 26 Aug 2026 15:57:19 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,20 +45,20 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1155; i=broonie@kernel.org;
- h=from:subject:message-id; bh=afJ4/Z8pMALxEC1OH4/6gJjxyKeHCIuspoLLRdhnh6Q=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqj15XDZsmG+zA0okO9TjCDdtIx7kveiiG447eV
- 2QxmfP1vq+JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCao9eVwAKCRAk1otyXVSH
- 0BwkB/4oh2VtJREuM/MWeng91onbXzLU6RYYNPV41TE59DBvabI3mE6BBhwxTi2XkaMCSy7q5ob
- 36bArwtLRJZU2AI7uFqcSEqEkFBmeIG64z8kPiJ244paP4cIm3DP6qzDiCjvvJFXRrsLLoHkGHG
- 8ihcOEhed/JhB0ahCoJUKQclD0i7uOgR3/VzpPa1BXq3zZjapYZ0Z9S7MDLgPcKStMR0FMH1lTn
- Y2aM+SB7eycayGjgNKA+KOoUfoyrhBrg0DKgzybG4uLNVm5axewYiyT/4JwpptPBdvp2iAjTIe8
- boKjkiK8mKUTTiu4wz62zHAORFaDPA+QttnviDio7mkdKDM/
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1136; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=OzgBvhDz0sPmjbMmy58pYHT5dyWZeKD27g9GUdsrY20=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqj15ch7w66JUZLUY1EU3XlWEfRtVgHHfwnAijW
+ ZmvkP2TvqaJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCao9eXAAKCRAk1otyXVSH
+ 0N1bB/98DDehXBCtcj+Y24SYiqdk4sRCq0bi3X4hon5YwWXHtW5WEu/VibhB7OYxWFQLk7MTZke
+ NhElkKoxriLFg7j9uL2V9OEnlJhi9vhb2JHPqTzM6h07Q6RA86PjUqArlm2CmAj5UDw9d+Ndhm6
+ 6YPUbQSlr03JfDKUFQM+mML2r3y/SB7I/jkSwz2mHWi5urrsAQo6GB/sdQgznZIwPRcR0Lti9P6
+ LFLHFYi+zCrcCjCj/ct/6QGnQQdVhF8YzBh/pmoF7MRJxEDAcEqbfTlONc1q5Rk8SuZAAmAP17m
+ DEzUiF61bxpI/27DlHh1kFiZB9qBFs/Djb77WcpjeT1Ahf5O
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Tue, 25 Aug 2026 17:46:40 -0500, Sehat Mahde wrote:
-> ASoC: amd: acp-config: force SoundWire probe on HP OmniBook X Flip 16
+On Tue, 25 Aug 2026 21:57:45 +0900, HyeongJun An wrote:
+> ASoC: dapm: Fix off-by-one check on the second enum channel
 
 Applied to
 
@@ -69,8 +66,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: amd: acp-config: force SoundWire probe on HP OmniBook X Flip 16
-      https://git.kernel.org/broonie/sound/c/4d6642d64cd0
+[1/1] ASoC: dapm: Fix off-by-one check on the second enum channel
+      https://git.kernel.org/broonie/sound/c/14511c9b54ce
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
