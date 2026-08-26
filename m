@@ -1,640 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90AA62E62B3;
-	Wed, 26 Aug 2026 16:06:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787760412; cv=none; b=Pwra+idkjfd9BZmgRBfy2JLZ9wOUyJ8LvrYrPZjVRTeB4YRLGdn4miZebCD382fGjnslCwbpz3VWlpiaYNdBNK88uWOl5HMSfhUZZbuo6BmclzprWfYekuNwAnCKy0T8xcEF+x95wg/EaxgkaFxCkUsrHQlqVMswWWlIFFJM+pI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787760412; c=relaxed/simple;
-	bh=FafsT4csUaf4RxadGRpATHhYJWC0KXpYpHPv3XQsMss=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lCxmuH2JoNkN5lH9y+1kvHdI3XV+nHp3nt/5kRIvchvWy/zFlT3U7v9EX9fgSSNHEVgRJco4K7qTjOLHYWjtlaSkctu3y5uOmCVmDfh5xFG9b91tjYVGBsDTMrY9d4/KUTM+N0unF3jYw8Q2DCe3LsTlOVI27AOTctg6zRIOLzw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nO2pplol; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4A3D38A70C
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:07:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787760429; cv=pass; b=DVDHrEtFnt15Yt2kD+PxrUcbdKEbOS4PnARkSok92jv4780kxroLTetTjYUh85HYM9QzubBVzpm3sD2SOQDhDZAVV1XFOOSQq/wXWxuAYNgElzfqn0SFsIGtnIxPZIWHsJtvhRCDbzKfW9fuj9lRMmbMerWdMCOzvGOZnnseFnY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787760429; c=relaxed/simple;
+	bh=aFuIk6AbhdcNiE1bV56o6X7K9fMz1Hx6enV/8s/aroE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DXvQFM7G4xRFJq7BZrUCUFYiEV6ZH8s82eZ2nJ1vU4Yyo+aayksz+F4Na0Im5YsxaZlzoJQ1F2iPgSZAt5X/fzRue78aRdGS07U7MRJChrDTSPWzb8gTWSXurYUHGShS2lMCtttIC+dbCa/4aiQaw64WRgcxQ0qLwaVWzDOagZ4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZAyksSd5; arc=pass smtp.client-ip=74.125.224.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nO2pplol"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 157AF1F00A3A;
-	Wed, 26 Aug 2026 16:06:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787760410;
-	bh=EJdDIyy+4lOGAChPUAxt3Ar9H8Z+4DOnnp8qXsWz7tI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=nO2pplolF+QUbDqj2B7pDD8qzcQC4ECFNXA3xKqfgIw5omJwRcDiwDX8qmMQXX+2X
-	 8HNuW6MDAL5f5vYzcsSy7sVnBlwRA8LdwUeQKQElISeRtURSAsv8/ZMoU9T1bF39yf
-	 nG5WfqrypfDmJlZbZEOyj1uY/YUPxdbGARlg9B1TxGcwjn3OyT55MDjOZzUebcTqkb
-	 CREXpRJHaKbKfrzdYMdMHk8XIa3MR8DZAVIfdUj2DcA7T0s5gYg8f3Izetn4enVVjK
-	 QGEnt7KbM7QbK4XA/xumyvcXB8cDc0Tbof2dYSOMNzYj3gx59jZXYnfbUdkmOVWeRb
-	 xYJAF+CUCGSSA==
-From: Christian Brauner <brauner@kernel.org>
-Date: Wed, 26 Aug 2026 18:06:40 +0200
-Subject: [PATCH 1/2] powerpc: remove coredump support
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZAyksSd5"
+Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-66ce4a63e17so1438773d50.3
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 09:07:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787760426; cv=none;
+        d=google.com; s=arc-20260327;
+        b=lkW3TJQjw++N0nOOoDOd1lphyLcFIaojA2bXW5gcIhB3fmLlFXKfDPFoV97tCYYTTb
+         JaDLmVVXVqDA8KnuevJdOh9dlUMC/74d0+tJ2IiKwqfyAH9oYZXedWd7LdJa7L5GZ/cI
+         dhEuMCOo6n/VysoCTZlo26m9ulKHs5oIWgLhatD9vFp1iUaMDvYMOCS/kgJlmrn6zzCB
+         flxcIosTbquEGukMQWuGKyyh5P6azRY7TfqeHDxQm3iY54lzPFmIA8BSFSfFm++GVFSD
+         Zvkvb+WzBc7EluzeBS+LhSczrOsDGriQ4buk3JHRW95QoYF4IwZNNEXfwBPzpowRQH5c
+         QABw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=NZlZQ8Rhh1qyGK3bhrJ6S37zPY0GD0Zfh5+8vycnKN4=;
+        fh=qd5Gk9Er1RNRs7NeGXStoRSfv74PuaOuR8WlE9kch4c=;
+        b=Vf531HWmXnur6l1QJ/H9eeKDW6O0FPc5q4j3tu7juf5Sn+Uu/xYiKKF11R1a0n9rI2
+         afAwn2NlS9WBnE3LZBCf/SJw4LwarJyVMjNYKgtCybmRGkYfL2JVplfQN8PpMUZaQt6b
+         nN+9yZHpt6VLzM7Tu+hsNdrsarKadvKBih4VAqZeiX42beKQMrB5t7gnhG98T0emWZ1A
+         8VowBFDBvdsT+BRfwT61l/g7ukoeMKld+uhmTEnOxNxYN/nKpxj5kres3hqesmaDSCfr
+         5E/6xQd4bLxa4ftvGotN9KvnDn6PQnhhjV4DmqnzLPHuWjzhjB4CGSoWt8Xn8Mm02nft
+         F78g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787760426; x=1788365226; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NZlZQ8Rhh1qyGK3bhrJ6S37zPY0GD0Zfh5+8vycnKN4=;
+        b=ZAyksSd5/Dm7wmw2SqPibtg79xKHT9liPdYXA2k50TFiw+nnuXd/lKkFvtdANK0909
+         FJvA2gFPQEIjsOANZN+yjVwQJyvtEWjVy6WMkSjg2Ubp/Ekl6LouEXhnOU2RHNXfBxDY
+         0ErbnX/z095WYMmHOAbxsQ5DwNTVad3zkNJT0v8C1PfmrXbKvjg5t98zgy4i20beBA7P
+         s8gBsnn7oUUACZUsKHiHYi76VcaRgh+M9StIZcoLsRyOUWtAKLv9bLRqkyN3nVyaq2Mv
+         B6v+WiP1bG5CMduItYtUD+7crr8Wy1lQAmw0vaDvjq7XmC0a5BG3kikhvjBL6GGD4HIS
+         wXkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787760426; x=1788365226;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NZlZQ8Rhh1qyGK3bhrJ6S37zPY0GD0Zfh5+8vycnKN4=;
+        b=h54x90pLACCZBtxXM7EXEB6tzJbom3Yxyfis+zlxBgg7rA/t/sP4K1ESHP7I6Cyf3b
+         p4ResNKLHGKUumMQ9lwaqw3+/DzEf6QJEQ5gWkV9FCIQEq/C+5NWb2RmR7yznlBo0uaX
+         8X+JLO5LuuCrshT7/aCCAvk++e47BKUVjJRjh55tlQN7sJ7/BHDD/cl9AieMD2oa9iUl
+         qLXxCP3NzKfANaGr+5u41Kh3p/7s5IgrvbKwP16m2+yc8TSF/NPjGs2Re7DC+zDLSv1N
+         yW/UYFyNaCnAapow1JJNXzo2elx0AxPOBt+tjXEdZzEiIrmZTOU/n8ESaoNwJ7BMb+Vd
+         q24g==
+X-Forwarded-Encrypted: i=1; AHgh+RpZeKdbx9r1ccrs5NCwDdlJgoWqpgpAPUTOv7c8hSARq7LU6OvawfyEZ9GJJT1b6fWi6jeNQFtlEWNiQJU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nTS10tJlf9reWvNO9E+coDmk7BYhvJ/g3ExDQrp+RJT6vcfMq/
+	QLxqvwdUXyUI2cjoD0rCvHQJrX6Q2vMVS7e5inKh4+LboK4FPX9qqBYgtAhndQ6PusNfoIPPu8u
+	UcqrvibnB9xWVMGtugzeFQVgC+JvblFo=
+X-Gm-Gg: AR+sD13fa/mdNMoWgP5X8jGo7ZBXBVo0rb683N3/c6LxHnkDqGh/t3gNvtfcDqyY5j5
+	dbe+DHGWSp7H0yBoaj7yXFfkRBu64fMkl+u1hZtg54NRjJT9nFVDy15trCYFOPJG8PV1JlumnYO
+	sBx3MLsIizHFxKxXcPdE4+KR3RjHKjNT7fUB8UQ3tOlLfEabi6Bl1VP8VvXlf7BfbO3czR8hrfl
+	Oh6u5vUDzJoVmgz/TlE5/oNHQBzzkIr6LG+pKlmvuGfkU3hoDvrQrtNkdMWNgO9zX6aT5a6m3O6
+	hueBAtGf3kcb9JGXRF3097m0CguxNNHa0PF8ciGHupoDtVWYSIbSCu1TiYW3KafdKnRc2NtlSRg
+	SOHcgbjatHxxCHFo8NFPwae24JlOqWg==
+X-Received: by 2002:a05:690e:d53:b0:66d:2469:2518 with SMTP id
+ 956f58d0204a3-66d256eece7mr2798681d50.13.1787760426443; Wed, 26 Aug 2026
+ 09:07:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260826-work-spufs-coredump-v1-1-579e72a7ab66@kernel.org>
-References: <20260826-work-spufs-coredump-v1-0-579e72a7ab66@kernel.org>
-In-Reply-To: <20260826-work-spufs-coredump-v1-0-579e72a7ab66@kernel.org>
-To: linux-fsdevel@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>, 
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>, 
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
- Kees Cook <kees@kernel.org>, linuxppc-dev@lists.ozlabs.org, 
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
- Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>
-X-Mailer: b4 0.17-dev-362b8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=18282; i=brauner@kernel.org;
- h=from:subject:message-id; bh=FafsT4csUaf4RxadGRpATHhYJWC0KXpYpHPv3XQsMss=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWT18ws7PWR4/tzryMTZ9rMli+Vai/rm804M8lR3tbLUt
- ojoZM/qKGVhEONikBVTZHFoNwmXW85TsdkoUwNmDisTyBAGLk4BmMgXX0aG15I2+w4dTOEtU5OT
- C92bGvHr2I+2iT26tq8+X3D043m5l+F/QKsU70dDrQIPyY/F21/4K2fvr0t6cEtqVtMaw1TFmc2
- cAA==
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+References: <20260820-rp-qcs8550-v2-0-d4ce78fe9385@gmail.com>
+ <20260820-rp-qcs8550-v2-4-d4ce78fe9385@gmail.com> <a518f6c8-7880-4854-8dc3-ac90f0eb93c3@oss.qualcomm.com>
+In-Reply-To: <a518f6c8-7880-4854-8dc3-ac90f0eb93c3@oss.qualcomm.com>
+From: Aaron Kling <webgeek1234@gmail.com>
+Date: Wed, 26 Aug 2026 11:06:52 -0500
+X-Gm-Features: AcwNN1XibUJOXyNOa2k-QB-afByCcBkGNudzVWR4SXKPlPfS0zWVsrdForCs6cY
+Message-ID: <CALHNRZ8rqcDYcBJY0+Y_ioJroWsns_BFggMpuwZy9tiPavvBaA@mail.gmail.com>
+Subject: Re: [PATCH v2 4/4] arm64: dts: qcom: Add Retroid Pocket Nova
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-A task that dumps open spufs context adds a bunch of extra elf notes
-describing the SPU state. It is the only reason do_coredump() unshares
-the file descriptor table. We could make this conditional on spufs but
-eh.
+On Tue, Aug 25, 2026 at 5:26=E2=80=AFAM Konrad Dybcio
+<konrad.dybcio@oss.qualcomm.com> wrote:
+>
+> On 8/21/26 5:30 AM, Aaron Kling via B4 Relay wrote:
+> > From: Aaron Kling <webgeek1234@gmail.com>
+> >
+> > The Retroid Pocket Nova is a high-performance Android-based handheld
+> > gaming console powered by the Qualcomm Snapdragon 8 Gen 2 processor
+> > featuring a 4.5-inch 4:3 AMOLED touchscreen.
+> >
+> > Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+> > ---
+> >  arch/arm64/boot/dts/qcom/Makefile                  |   1 +
+> >  .../boot/dts/qcom/qcs8550-retroidpocket-nova.dts   | 118 +++++++++++++=
+++++++++
+> >  2 files changed, 119 insertions(+)
+> >
+> > diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qc=
+om/Makefile
+> > index 09b3c5b2d9dab..582805e89f4cb 100644
+> > --- a/arch/arm64/boot/dts/qcom/Makefile
+> > +++ b/arch/arm64/boot/dts/qcom/Makefile
+> > @@ -196,6 +196,7 @@ dtb-$(CONFIG_ARCH_QCOM)   +=3D qcs8550-aim300-aiot.=
+dtb
+> >  dtb-$(CONFIG_ARCH_QCOM)      +=3D qcs8550-ayntec-odin2mini.dtb
+> >  dtb-$(CONFIG_ARCH_QCOM)      +=3D qcs8550-ayntec-odin2portal.dtb
+> >  dtb-$(CONFIG_ARCH_QCOM)      +=3D qcs8550-ayntec-thor.dtb
+> > +dtb-$(CONFIG_ARCH_QCOM)      +=3D qcs8550-retroidpocket-nova.dtb
+> >  dtb-$(CONFIG_ARCH_QCOM)      +=3D qcs8550-retroidpocket-rp6.dtb
+> >  dtb-$(CONFIG_ARCH_QCOM)      +=3D qcs8550-rb5gen2.dtb
+> >  dtb-$(CONFIG_ARCH_QCOM)      +=3D qcs9100-ride.dtb
+> > diff --git a/arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-nova.dts b/=
+arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-nova.dts
+> > new file mode 100644
+> > index 0000000000000..2422be63f0f13
+> > --- /dev/null
+> > +++ b/arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-nova.dts
+> > @@ -0,0 +1,118 @@
+> > +// SPDX-License-Identifier: BSD-3-Clause
+> > +
+> > +/dts-v1/;
+> > +
+> > +#include <dt-bindings/gpio/gpio.h>
+> > +#include <dt-bindings/interrupt-controller/irq.h>
+> > +#include "qcs8550-ayntec-common.dtsi"
+> > +
+> > +&{/} {
+> > +     model =3D "Retroid Pocket Nova";
+> > +     compatible =3D "retroidpocket,nova", "qcom,qcs8550", "qcom,sm8550=
+";
+>
+> Do these actually have any common lineage with the AYNTEC devices, the
+> common DT for which you include above?
 
-Nothing can consume those notes anymore. gdb dropped Cell Broadband
-Engine debugging in 9.1 and binutils removed it in 2.34. That's about 6
-years ago. So no program can actually read an SPU note out of a core
-file and probably never did in recent history.
+Please see the cover letter to this series.
 
-Note that the IBM Cell blades that shipped the Cell processor were
-removed in commit 05bf59fbeef3 ("powerpc/cell: Remove support for IBM
-Cell Blades"). The PlayStation 3 is the only platform left and nothing
-there produces or reads these notes.
-
-So remove it.
-
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- arch/powerpc/Kconfig                         |   1 -
- arch/powerpc/include/asm/elf.h               |   6 -
- arch/powerpc/include/asm/spu.h               |   3 -
- arch/powerpc/platforms/cell/Kconfig          |   1 -
- arch/powerpc/platforms/cell/spu_syscalls.c   |  20 ---
- arch/powerpc/platforms/cell/spufs/Makefile   |   1 -
- arch/powerpc/platforms/cell/spufs/coredump.c | 183 ---------------------------
- arch/powerpc/platforms/cell/spufs/file.c     | 114 -----------------
- arch/powerpc/platforms/cell/spufs/spufs.h    |  12 --
- arch/powerpc/platforms/cell/spufs/syscalls.c |   4 -
- 10 files changed, 345 deletions(-)
-
-diff --git a/arch/powerpc/Kconfig b/arch/powerpc/Kconfig
-index 2580e27e4328..40c874fe2f53 100644
---- a/arch/powerpc/Kconfig
-+++ b/arch/powerpc/Kconfig
-@@ -160,7 +160,6 @@ config PPC
- 	select ARCH_HAS_UBSAN
- 	select ARCH_HAS_VDSO_ARCH_DATA
- 	select ARCH_HAVE_NMI_SAFE_CMPXCHG
--	select ARCH_HAVE_EXTRA_ELF_NOTES        if SPU_BASE
- 	select ARCH_KEEP_MEMBLOCK
- 	select ARCH_MHP_MEMMAP_ON_MEMORY_ENABLE	if PPC_RADIX_MMU
- 	select ARCH_MIGHT_HAVE_PC_PARPORT
-diff --git a/arch/powerpc/include/asm/elf.h b/arch/powerpc/include/asm/elf.h
-index bb4b94444d3e..5dc8c4923eb1 100644
---- a/arch/powerpc/include/asm/elf.h
-+++ b/arch/powerpc/include/asm/elf.h
-@@ -123,12 +123,6 @@ extern int arch_setup_additional_pages(struct linux_binprm *bprm,
- 	(0x7ff >> (PAGE_SHIFT - 12)) : \
- 	(0x3ffff >> (PAGE_SHIFT - 12)))
- 
--#ifdef CONFIG_SPU_BASE
--/* Notes used in ET_CORE. Note name is "SPU/<fd>/<filename>". */
--#define NT_SPU		1
--
--#endif /* CONFIG_SPU_BASE */
--
- #ifdef CONFIG_PPC64
- 
- #define get_cache_geometry(level) \
-diff --git a/arch/powerpc/include/asm/spu.h b/arch/powerpc/include/asm/spu.h
-index 96ad4510c895..7152285b6268 100644
---- a/arch/powerpc/include/asm/spu.h
-+++ b/arch/powerpc/include/asm/spu.h
-@@ -210,15 +210,12 @@ extern long spu_sys_callback(struct spu_syscall_block *s);
- 
- /* syscalls implemented in spufs */
- struct file;
--struct coredump_params;
- struct spufs_calls {
- 	long (*create_thread)(const char __user *name,
- 					unsigned int flags, umode_t mode,
- 					struct file *neighbor);
- 	long (*spu_run)(struct file *filp, __u32 __user *unpc,
- 						__u32 __user *ustatus);
--	int (*coredump_extra_notes_size)(void);
--	int (*coredump_extra_notes_write)(struct coredump_params *cprm);
- 	void (*notify_spus_active)(void);
- 	struct module *owner;
- };
-diff --git a/arch/powerpc/platforms/cell/Kconfig b/arch/powerpc/platforms/cell/Kconfig
-index db65bfcd1e74..6bd26815c331 100644
---- a/arch/powerpc/platforms/cell/Kconfig
-+++ b/arch/powerpc/platforms/cell/Kconfig
-@@ -10,7 +10,6 @@ config SPU_FS
- 	tristate "SPU file system"
- 	default m
- 	depends on PPC_CELL
--	depends on COREDUMP
- 	select SPU_BASE
- 	help
- 	  The SPU file system is used to access Synergistic Processing
-diff --git a/arch/powerpc/platforms/cell/spu_syscalls.c b/arch/powerpc/platforms/cell/spu_syscalls.c
-index 000894e07b02..8be81207e886 100644
---- a/arch/powerpc/platforms/cell/spu_syscalls.c
-+++ b/arch/powerpc/platforms/cell/spu_syscalls.c
-@@ -88,26 +88,6 @@ SYSCALL_DEFINE3(spu_run,int, fd, __u32 __user *, unpc, __u32 __user *, ustatus)
- 	return calls->spu_run(fd_file(arg), unpc, ustatus);
- }
- 
--#ifdef CONFIG_COREDUMP
--int elf_coredump_extra_notes_size(void)
--{
--	CLASS(spufs_calls, calls)();
--	if (!calls)
--		return 0;
--
--	return calls->coredump_extra_notes_size();
--}
--
--int elf_coredump_extra_notes_write(struct coredump_params *cprm)
--{
--	CLASS(spufs_calls, calls)();
--	if (!calls)
--		return 0;
--
--	return calls->coredump_extra_notes_write(cprm);
--}
--#endif
--
- void notify_spus_active(void)
- {
- 	struct spufs_calls *calls;
-diff --git a/arch/powerpc/platforms/cell/spufs/Makefile b/arch/powerpc/platforms/cell/spufs/Makefile
-index 52e4c80ec8d0..60319d4ff25a 100644
---- a/arch/powerpc/platforms/cell/spufs/Makefile
-+++ b/arch/powerpc/platforms/cell/spufs/Makefile
-@@ -4,7 +4,6 @@ obj-$(CONFIG_SPU_FS) += spufs.o
- spufs-y += inode.o file.o context.o syscalls.o
- spufs-y += sched.o backing_ops.o hw_ops.o run.o gang.o
- spufs-y += switch.o fault.o lscsa_alloc.o
--spufs-$(CONFIG_COREDUMP) += coredump.o
- 
- # magic for the trace events
- CFLAGS_sched.o := -I$(src)
-diff --git a/arch/powerpc/platforms/cell/spufs/coredump.c b/arch/powerpc/platforms/cell/spufs/coredump.c
-deleted file mode 100644
-index 301ee7d8b7df..000000000000
---- a/arch/powerpc/platforms/cell/spufs/coredump.c
-+++ /dev/null
-@@ -1,183 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-or-later
--/*
-- * SPU core dump code
-- *
-- * (C) Copyright 2006 IBM Corp.
-- *
-- * Author: Dwayne Grant McConnell <decimal@us.ibm.com>
-- */
--
--#include <linux/elf.h>
--#include <linux/file.h>
--#include <linux/fdtable.h>
--#include <linux/fs.h>
--#include <linux/gfp.h>
--#include <linux/list.h>
--#include <linux/syscalls.h>
--#include <linux/coredump.h>
--#include <linux/binfmts.h>
--
--#include <linux/uaccess.h>
--
--#include "spufs.h"
--
--static int spufs_ctx_note_size(struct spu_context *ctx, int dfd)
--{
--	int i, sz, total = 0;
--	char *name;
--	char fullname[80];
--
--	for (i = 0; spufs_coredump_read[i].name != NULL; i++) {
--		name = spufs_coredump_read[i].name;
--		sz = spufs_coredump_read[i].size;
--
--		sprintf(fullname, "SPU/%d/%s", dfd, name);
--
--		total += sizeof(struct elf_note);
--		total += roundup(strlen(fullname) + 1, 4);
--		total += roundup(sz, 4);
--	}
--
--	return total;
--}
--
--static int match_context(const void *v, struct file *file, unsigned fd)
--{
--	struct spu_context *ctx;
--	if (file->f_op != &spufs_context_fops)
--		return 0;
--	ctx = SPUFS_I(file_inode(file))->i_ctx;
--	if (ctx->flags & SPU_CREATE_NOSCHED)
--		return 0;
--	return fd + 1;
--}
--
--/*
-- * The additional architecture-specific notes for Cell are various
-- * context files in the spu context.
-- *
-- * This function iterates over all open file descriptors and sees
-- * if they are a directory in spufs.  In that case we use spufs
-- * internal functionality to dump them without needing to actually
-- * open the files.
-- */
--/*
-- * descriptor table is not shared, so files can't change or go away.
-- */
--static struct spu_context *coredump_next_context(int *fd)
--{
--	struct spu_context *ctx = NULL;
--	struct file *file;
--	int n = iterate_fd(current->files, *fd, match_context, NULL);
--	if (!n)
--		return NULL;
--	*fd = n - 1;
--
--	file = fget_raw(*fd);
--	if (file) {
--		ctx = SPUFS_I(file_inode(file))->i_ctx;
--		get_spu_context(ctx);
--		fput(file);
--	}
--
--	return ctx;
--}
--
--int spufs_coredump_extra_notes_size(void)
--{
--	struct spu_context *ctx;
--	int size = 0, rc, fd;
--
--	fd = 0;
--	while ((ctx = coredump_next_context(&fd)) != NULL) {
--		rc = spu_acquire_saved(ctx);
--		if (rc) {
--			put_spu_context(ctx);
--			break;
--		}
--
--		rc = spufs_ctx_note_size(ctx, fd);
--		spu_release_saved(ctx);
--		if (rc < 0) {
--			put_spu_context(ctx);
--			break;
--		}
--
--		size += rc;
--
--		/* start searching the next fd next time */
--		fd++;
--		put_spu_context(ctx);
--	}
--
--	return size;
--}
--
--static int spufs_arch_write_note(struct spu_context *ctx, int i,
--				  struct coredump_params *cprm, int dfd)
--{
--	size_t sz = spufs_coredump_read[i].size;
--	char fullname[80];
--	struct elf_note en;
--	int ret;
--
--	sprintf(fullname, "SPU/%d/%s", dfd, spufs_coredump_read[i].name);
--	en.n_namesz = strlen(fullname) + 1;
--	en.n_descsz = sz;
--	en.n_type = NT_SPU;
--
--	if (!dump_emit(cprm, &en, sizeof(en)))
--		return -EIO;
--	if (!dump_emit(cprm, fullname, en.n_namesz))
--		return -EIO;
--	if (!dump_align(cprm, 4))
--		return -EIO;
--
--	if (spufs_coredump_read[i].dump) {
--		ret = spufs_coredump_read[i].dump(ctx, cprm);
--		if (ret < 0)
--			return ret;
--	} else {
--		char buf[32];
--
--		ret = snprintf(buf, sizeof(buf), "0x%.16llx",
--			       spufs_coredump_read[i].get(ctx));
--		if (ret >= sizeof(buf))
--			return sizeof(buf);
--
--		/* count trailing the NULL: */
--		if (!dump_emit(cprm, buf, ret + 1))
--			return -EIO;
--	}
--
--	dump_skip_to(cprm, roundup(cprm->pos - ret + sz, 4));
--	return 0;
--}
--
--int spufs_coredump_extra_notes_write(struct coredump_params *cprm)
--{
--	struct spu_context *ctx;
--	int fd, j, rc;
--
--	fd = 0;
--	while ((ctx = coredump_next_context(&fd)) != NULL) {
--		rc = spu_acquire_saved(ctx);
--		if (rc)
--			return rc;
--
--		for (j = 0; spufs_coredump_read[j].name != NULL; j++) {
--			rc = spufs_arch_write_note(ctx, j, cprm, fd);
--			if (rc) {
--				spu_release_saved(ctx);
--				return rc;
--			}
--		}
--
--		spu_release_saved(ctx);
--
--		/* start searching the next fd next time */
--		fd++;
--	}
--
--	return 0;
--}
-diff --git a/arch/powerpc/platforms/cell/spufs/file.c b/arch/powerpc/platforms/cell/spufs/file.c
-index de7494748fec..98c47bafaf67 100644
---- a/arch/powerpc/platforms/cell/spufs/file.c
-+++ b/arch/powerpc/platforms/cell/spufs/file.c
-@@ -9,7 +9,6 @@
- 
- #undef DEBUG
- 
--#include <linux/coredump.h>
- #include <linux/fs.h>
- #include <linux/ioctl.h>
- #include <linux/export.h>
-@@ -130,14 +129,6 @@ static ssize_t spufs_attr_write(struct file *file, const char __user *buf,
- 	return ret;
- }
- 
--static ssize_t spufs_dump_emit(struct coredump_params *cprm, void *buf,
--		size_t size)
--{
--	if (!dump_emit(cprm, buf, size))
--		return -EIO;
--	return size;
--}
--
- #define DEFINE_SPUFS_SIMPLE_ATTRIBUTE(__fops, __get, __set, __fmt)	\
- static int __fops ## _open(struct inode *inode, struct file *file)	\
- {									\
-@@ -180,12 +171,6 @@ spufs_mem_release(struct inode *inode, struct file *file)
- 	return 0;
- }
- 
--static ssize_t
--spufs_mem_dump(struct spu_context *ctx, struct coredump_params *cprm)
--{
--	return spufs_dump_emit(cprm, ctx->ops->get_ls(ctx), LS_SIZE);
--}
--
- static ssize_t
- spufs_mem_read(struct file *file, char __user *buffer,
- 				size_t size, loff_t *pos)
-@@ -466,13 +451,6 @@ spufs_regs_open(struct inode *inode, struct file *file)
- 	return 0;
- }
- 
--static ssize_t
--spufs_regs_dump(struct spu_context *ctx, struct coredump_params *cprm)
--{
--	return spufs_dump_emit(cprm, ctx->csa.lscsa->gprs,
--			       sizeof(ctx->csa.lscsa->gprs));
--}
--
- static ssize_t
- spufs_regs_read(struct file *file, char __user *buffer,
- 		size_t size, loff_t *pos)
-@@ -523,13 +501,6 @@ static const struct file_operations spufs_regs_fops = {
- 	.llseek  = generic_file_llseek,
- };
- 
--static ssize_t
--spufs_fpcr_dump(struct spu_context *ctx, struct coredump_params *cprm)
--{
--	return spufs_dump_emit(cprm, &ctx->csa.lscsa->fpcr,
--			       sizeof(ctx->csa.lscsa->fpcr));
--}
--
- static ssize_t
- spufs_fpcr_read(struct file *file, char __user * buffer,
- 		size_t size, loff_t * pos)
-@@ -953,15 +924,6 @@ spufs_signal1_release(struct inode *inode, struct file *file)
- 	return 0;
- }
- 
--static ssize_t spufs_signal1_dump(struct spu_context *ctx,
--		struct coredump_params *cprm)
--{
--	if (!ctx->csa.spu_chnlcnt_RW[3])
--		return 0;
--	return spufs_dump_emit(cprm, &ctx->csa.spu_chnldata_RW[3],
--			       sizeof(ctx->csa.spu_chnldata_RW[3]));
--}
--
- static ssize_t __spufs_signal1_read(struct spu_context *ctx, char __user *buf,
- 			size_t len)
- {
-@@ -1086,15 +1048,6 @@ spufs_signal2_release(struct inode *inode, struct file *file)
- 	return 0;
- }
- 
--static ssize_t spufs_signal2_dump(struct spu_context *ctx,
--		struct coredump_params *cprm)
--{
--	if (!ctx->csa.spu_chnlcnt_RW[4])
--		return 0;
--	return spufs_dump_emit(cprm, &ctx->csa.spu_chnldata_RW[4],
--			       sizeof(ctx->csa.spu_chnldata_RW[4]));
--}
--
- static ssize_t __spufs_signal2_read(struct spu_context *ctx, char __user *buf,
- 			size_t len)
- {
-@@ -1924,15 +1877,6 @@ static const struct file_operations spufs_caps_fops = {
- 	.release	= single_release,
- };
- 
--static ssize_t spufs_mbox_info_dump(struct spu_context *ctx,
--		struct coredump_params *cprm)
--{
--	if (!(ctx->csa.prob.mb_stat_R & 0x0000ff))
--		return 0;
--	return spufs_dump_emit(cprm, &ctx->csa.prob.pu_mb_R,
--			       sizeof(ctx->csa.prob.pu_mb_R));
--}
--
- static ssize_t spufs_mbox_info_read(struct file *file, char __user *buf,
- 				   size_t len, loff_t *pos)
- {
-@@ -1962,15 +1906,6 @@ static const struct file_operations spufs_mbox_info_fops = {
- 	.llseek  = generic_file_llseek,
- };
- 
--static ssize_t spufs_ibox_info_dump(struct spu_context *ctx,
--		struct coredump_params *cprm)
--{
--	if (!(ctx->csa.prob.mb_stat_R & 0xff0000))
--		return 0;
--	return spufs_dump_emit(cprm, &ctx->csa.priv2.puint_mb_R,
--			       sizeof(ctx->csa.priv2.puint_mb_R));
--}
--
- static ssize_t spufs_ibox_info_read(struct file *file, char __user *buf,
- 				   size_t len, loff_t *pos)
- {
-@@ -2005,13 +1940,6 @@ static size_t spufs_wbox_info_cnt(struct spu_context *ctx)
- 	return (4 - ((ctx->csa.prob.mb_stat_R & 0x00ff00) >> 8)) * sizeof(u32);
- }
- 
--static ssize_t spufs_wbox_info_dump(struct spu_context *ctx,
--		struct coredump_params *cprm)
--{
--	return spufs_dump_emit(cprm, &ctx->csa.spu_mailbox_data,
--			spufs_wbox_info_cnt(ctx));
--}
--
- static ssize_t spufs_wbox_info_read(struct file *file, char __user *buf,
- 				   size_t len, loff_t *pos)
- {
-@@ -2059,15 +1987,6 @@ static void spufs_get_dma_info(struct spu_context *ctx,
- 	}
- }
- 
--static ssize_t spufs_dma_info_dump(struct spu_context *ctx,
--		struct coredump_params *cprm)
--{
--	struct spu_dma_info info;
--
--	spufs_get_dma_info(ctx, &info);
--	return spufs_dump_emit(cprm, &info, sizeof(info));
--}
--
- static ssize_t spufs_dma_info_read(struct file *file, char __user *buf,
- 			      size_t len, loff_t *pos)
- {
-@@ -2112,15 +2031,6 @@ static void spufs_get_proxydma_info(struct spu_context *ctx,
- 	}
- }
- 
--static ssize_t spufs_proxydma_info_dump(struct spu_context *ctx,
--		struct coredump_params *cprm)
--{
--	struct spu_proxydma_info info;
--
--	spufs_get_proxydma_info(ctx, &info);
--	return spufs_dump_emit(cprm, &info, sizeof(info));
--}
--
- static ssize_t spufs_proxydma_info_read(struct file *file, char __user *buf,
- 				   size_t len, loff_t *pos)
- {
-@@ -2580,27 +2490,3 @@ const struct spufs_tree_descr spufs_dir_debug_contents[] = {
- 	{ ".ctx", &spufs_ctx_fops, 0444, },
- 	{},
- };
--
--const struct spufs_coredump_reader spufs_coredump_read[] = {
--	{ "regs", spufs_regs_dump, NULL, sizeof(struct spu_reg128[128])},
--	{ "fpcr", spufs_fpcr_dump, NULL, sizeof(struct spu_reg128) },
--	{ "lslr", NULL, spufs_lslr_get, 19 },
--	{ "decr", NULL, spufs_decr_get, 19 },
--	{ "decr_status", NULL, spufs_decr_status_get, 19 },
--	{ "mem", spufs_mem_dump, NULL, LS_SIZE, },
--	{ "signal1", spufs_signal1_dump, NULL, sizeof(u32) },
--	{ "signal1_type", NULL, spufs_signal1_type_get, 19 },
--	{ "signal2", spufs_signal2_dump, NULL, sizeof(u32) },
--	{ "signal2_type", NULL, spufs_signal2_type_get, 19 },
--	{ "event_mask", NULL, spufs_event_mask_get, 19 },
--	{ "event_status", NULL, spufs_event_status_get, 19 },
--	{ "mbox_info", spufs_mbox_info_dump, NULL, sizeof(u32) },
--	{ "ibox_info", spufs_ibox_info_dump, NULL, sizeof(u32) },
--	{ "wbox_info", spufs_wbox_info_dump, NULL, 4 * sizeof(u32)},
--	{ "dma_info", spufs_dma_info_dump, NULL, sizeof(struct spu_dma_info)},
--	{ "proxydma_info", spufs_proxydma_info_dump,
--			   NULL, sizeof(struct spu_proxydma_info)},
--	{ "object-id", NULL, spufs_object_id_get, 19 },
--	{ "npc", NULL, spufs_npc_get, 19 },
--	{ NULL },
--};
-diff --git a/arch/powerpc/platforms/cell/spufs/spufs.h b/arch/powerpc/platforms/cell/spufs/spufs.h
-index d33787c57c39..612b5075d0ec 100644
---- a/arch/powerpc/platforms/cell/spufs/spufs.h
-+++ b/arch/powerpc/platforms/cell/spufs/spufs.h
-@@ -232,13 +232,9 @@ extern const struct spufs_tree_descr spufs_dir_debug_contents[];
- 
- /* system call implementation */
- extern struct spufs_calls spufs_calls;
--struct coredump_params;
- long spufs_run_spu(struct spu_context *ctx, u32 *npc, u32 *status);
- long spufs_create(const struct path *nd, struct dentry *dentry, unsigned int flags,
- 			umode_t mode, struct file *filp);
--/* ELF coredump callbacks for writing SPU ELF notes */
--extern int spufs_coredump_extra_notes_size(void);
--extern int spufs_coredump_extra_notes_write(struct coredump_params *cprm);
- 
- extern const struct file_operations spufs_context_fops;
- 
-@@ -335,14 +331,6 @@ void spufs_stop_callback(struct spu *spu, int irq);
- void spufs_mfc_callback(struct spu *spu);
- void spufs_dma_callback(struct spu *spu, int type);
- 
--struct spufs_coredump_reader {
--	char *name;
--	ssize_t (*dump)(struct spu_context *ctx, struct coredump_params *cprm);
--	u64 (*get)(struct spu_context *ctx);
--	size_t size;
--};
--extern const struct spufs_coredump_reader spufs_coredump_read[];
--
- extern int spu_init_csa(struct spu_state *csa);
- extern void spu_fini_csa(struct spu_state *csa);
- extern int spu_save(struct spu_state *prev, struct spu *spu);
-diff --git a/arch/powerpc/platforms/cell/spufs/syscalls.c b/arch/powerpc/platforms/cell/spufs/syscalls.c
-index ea4ba1b6ce6a..b6de37150e73 100644
---- a/arch/powerpc/platforms/cell/spufs/syscalls.c
-+++ b/arch/powerpc/platforms/cell/spufs/syscalls.c
-@@ -82,8 +82,4 @@ struct spufs_calls spufs_calls = {
- 	.spu_run = do_spu_run,
- 	.notify_spus_active = do_notify_spus_active,
- 	.owner = THIS_MODULE,
--#ifdef CONFIG_COREDUMP
--	.coredump_extra_notes_size = spufs_coredump_extra_notes_size,
--	.coredump_extra_notes_write = spufs_coredump_extra_notes_write,
--#endif
- };
-
--- 
-2.53.0
-
+Aaron
