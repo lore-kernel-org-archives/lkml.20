@@ -1,59 +1,59 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012000.outbound.protection.outlook.com [52.101.43.0])
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010034.outbound.protection.outlook.com [52.101.85.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 570E647ACF8;
-	Wed, 26 Aug 2026 19:35:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9865472F8D;
+	Wed, 26 Aug 2026 19:35:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.34
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787772933; cv=fail; b=XNuLHRT1x6fihWqqDL17xTa5byrIWEw1kZrYJyPfEi9jA4LcMSAhffmp1VZ1CvzjkSgIm7E/yK4SVshethQYBM6m9vwlGzGL/37O3nELVZ2UnfYhAX/gQmyGq8n6jc+FHE6fuY8uZcws4GB8TPAt4ZTfvUSdh3SJH02ZZGGj0dY=
+	t=1787772947; cv=fail; b=J7xp1lvXZv0P2K7erKusJkrgy/ZFbOVjh26jfkObzt5N9Kv9odrKwy7y/JGCWc1aY6RiZpaNpXL/1bpjIR2FU6HBbkg8f/H2QfENBA8NjJbXwKpu15MT9cUVuCYMoGD0m+gmRF/OgBP1aWOw3YJKZ08rzD7u8FlLk/YaQ7odXGI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787772933; c=relaxed/simple;
-	bh=/nuJITvRbOT0xK+R0Y0y2+WafE0hY8HspD9cUW703Nw=;
+	s=arc-20240116; t=1787772947; c=relaxed/simple;
+	bh=i+yIrO53tHseHw9bZykhUTj50L6GPOpWpmgKYvAs33E=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YMIY4URpBLJzMlgCeAlVNTi3z9T0ViNH+53jS55v+Lf+ljxkkOfB6qQsBTf9aI8Ve16evlTQJxDDbBZQCSf9v2rocjmcggjqOPSmooSrPidGa/2wXdHpFhtch0fP4pkWlDiRwW7763mdxHC+L5tt6SuaL+h8QSA2KkMd+RgeKes=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=ATyQMZIg; arc=fail smtp.client-ip=52.101.43.0
+	 MIME-Version:Content-Type; b=hJ0GTBllH5TAAvh3kGKe17/iW1aSyTHckYlieNIt4RuR9EV/cKbraKarnX5ZBeQ9S7GHyhDxCiJpGtN4S1pCA73wLYGT7qqeDsn5gz808lkkCuX9EMDFARG2iS1RS6GWKg+RRENHhjsMjkHFkXLDyv0ghvWtVHUGYm6SFS5S2Fg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=1FzvCsuS; arc=fail smtp.client-ip=52.101.85.34
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="ATyQMZIg"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="1FzvCsuS"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=k9uwM5gD+d5OPVCEl95wxGxgSI2g3UPXuJ7VqSXrYWyTzjF1yZM3+G5Zz6WIYNBCmb4tGyBfB6pN3VD5YFMzz/xZrn93SrutFDsgVU1siYt+GeQzK4faAU117yfel33t5Suwv/G01urKbQVjSY3gGB4COOJXUF70fu+MWHyvCcQrE4E2r5qZu9E1dfT/YovyWfLWOiPFXmAiYCkModuAaaETor7JzK4JDTUVCjn651zIcqXTh2Nhcfa3WgRFo/0b73XywwdWQpVeZqTww8IvV31mjWt58fnRw9KRdtgVl9JxPATrEyOcGidXqnl2ayR1LJrE08+JDZ9SB7EvuHtV2w==
+ b=Vic6TSQkm9IQi2c4lBzMCfy8LuqVsaYuGJEiYHo4UU/sk02CTwRy0IPwMPaXFrsMuD6CI1/d8pCyykrJHCrW31oaTyiTGfmKyaL3RGwpdWntDjrlv+3DtMEZGzknuN11RPGAIOMUY/9Cnsg7A4Nk3zYWz2edblG3akcXvjjNuYxoN/bTk8M76aQKH568evC3MbXYTaIVCwqhEZ+Oeh5I2/+iAt8ZtlXmjwIOnSQLDBMrJFtMW/tvgZKr9nbwYbSuFeeN0o4PMnIDC3l+0M1frL8q9gTdrtgvbyouwtTgTpCUL1WWdm4ngbwGoBIhScn4JSTVkI2pV/CvO2umYzyEYA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6r6D1vMHM6pNMliXES6E79ih+n2A4XdfBlVXKORC/6A=;
- b=KGg7F2fKwRw1lnRCF2Y1kVLX+86EAzPdYW/d757IY+K333EEo59sf9i7YwT8nIqm5oQ5pXnjo7F1Iwl8e1ZGLQLPhVLX2YwOVRKaH/9LbsYNHLHMpkdvsppGlnJJoHNEbMgZUpuIWLjRnwziiFQ9cb02Lc6OQzgmUojzJL1ySvLQIFHR3K5uU/b+DkSnPbZt9TVPeulKn6a4RllkdAZ3N9ALmlrpiTvN+BwBy4ZMguAwcg39K8V5X/3YCBouzD4mKK+bNEvisCJW8csufzWVLNT/rU/UyaCYzz5thTSmRZbdX7USLDp88yLUmq0E0p5PDEilLBpeAlzIdiFnBEkSdQ==
+ bh=zPW+EdREAOg7ZDMiKvho4Kf5DS340PLtPzHyycllClA=;
+ b=jfpqgPMUHL/E3VofXDkFyyhRs0YUjzFbQcZPmv+qtaCQIIXba+NpYwVXQmIkMZh48lTyMFvjY+0dsmZt1keHsJUQbyFXJOu62F7fJn6SrMYP1z2VpmGAZ8TwsGfN08ETBwTKvf1N63MgKCoon9bQdZueRulpfl8eBztFlpzbeXcK1z0cnv3pt3ZcB9MlxbCtJv1XJF3licAOU2QUzXt9Pyn/U/V2z1GEPX6D9pL6EMvXTj99bhHy4/Vn7C8vqKRF25YZ65cOpwr8qSUlff36BUBexnGxc+XqhKNCQdsgb1+wxYacOnBL0Dq887/YJTtWWshxOQgMuti+ZNZJrB7Nzw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
  is 149.199.90.133) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com;
  dmarc=fail (p=quarantine sp=quarantine pct=100) action=quarantine
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6r6D1vMHM6pNMliXES6E79ih+n2A4XdfBlVXKORC/6A=;
- b=ATyQMZIglnKXFCO4JbaDuM0MmGe3v3VT7bG/Z59jOPlc/OvprG0utUx/sMxU0HZnwDdPGYwM9ZdWzro62nHeR4sWJNbz/SjLODYmdrvL8bdr3rbAv3ARar4CgC2JUjz25CcIbKumVkc6cjevpqoirqRuFJy/TsIicWwTlRUGKOs=
-Received: from CH0PR13CA0056.namprd13.prod.outlook.com (2603:10b6:610:b2::31)
- by DM4PR12MB7744.namprd12.prod.outlook.com (2603:10b6:8:100::14) with
+ bh=zPW+EdREAOg7ZDMiKvho4Kf5DS340PLtPzHyycllClA=;
+ b=1FzvCsuSOUH+hUUF8xJVL+CmZ7pAxZBmxShObQBynxrm3xtyNwksHcicp/BUEckiUP5MLA9HuqS0tA64MqRVxC1K5HaS/XUtO1UAY41JJ3DT4MmIWWtvoqAFEQdfOta+WsaYvlO10eGqVTy/TO2m2S7v/qSulokhyHJ/TfDcKhY=
+Received: from CH2PR18CA0001.namprd18.prod.outlook.com (2603:10b6:610:4f::11)
+ by IA1PR12MB6555.namprd12.prod.outlook.com (2603:10b6:208:3a1::20) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.6; Wed, 26 Aug
- 2026 19:35:17 +0000
-Received: from CH1PEPF0000AD7A.namprd04.prod.outlook.com
- (2603:10b6:610:b2:cafe::46) by CH0PR13CA0056.outlook.office365.com
- (2603:10b6:610:b2::31) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.7 via Frontend Transport; Wed, 26
- Aug 2026 19:35:17 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Wed, 26 Aug
+ 2026 19:35:26 +0000
+Received: from CH1PEPF0000AD79.namprd04.prod.outlook.com
+ (2603:10b6:610:4f:cafe::af) by CH2PR18CA0001.outlook.office365.com
+ (2603:10b6:610:4f::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.9 via Frontend Transport; Wed, 26
+ Aug 2026 19:35:25 +0000
 X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
  149.199.90.133) smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=fail action=quarantine header.from=amd.com;
 Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
  amd.com discourages use of 149.199.90.133 as permitted sender)
 Received: from satlexmb07.amd.com (149.199.90.133) by
- CH1PEPF0000AD7A.mail.protection.outlook.com (10.167.244.59) with Microsoft
+ CH1PEPF0000AD79.mail.protection.outlook.com (10.167.244.57) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Wed, 26 Aug 2026 19:35:17 +0000
+ 15.21.360.3 via Frontend Transport; Wed, 26 Aug 2026 19:35:25 +0000
 Received: from bmoger-ubuntu.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 26 Aug
- 2026 14:35:15 -0500
+ 2026 14:35:23 -0500
 From: Babu Moger <babu.moger@amd.com>
 To: <tony.luck@intel.com>, <reinette.chatre@intel.com>, <Dave.Martin@arm.com>,
 	<james.morse@arm.com>, <bp@alien8.de>, <ben.horgan@arm.com>
@@ -69,9 +69,9 @@ CC: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <rdunlap@infradead.org>,
 	<prathyushi.nangia@amd.com>, <kim.phillips@amd.com>,
 	<elena.reshetova@intel.com>, <darwi@linutronix.de>,
 	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>, <x86@kernel.org>
-Subject: [PATCH v5 14/16] fs/resctrl: Add interface to modify kernel mode via info/kernel_mode
-Date: Wed, 26 Aug 2026 14:32:28 -0500
-Message-ID: <d50aaf18d60787e960b600494d7f33926fb0b51a.1787772750.git.babu.moger@amd.com>
+Subject: [PATCH v5 15/16] fs/resctrl: Allow user space to write kmode_cpus/kmode_cpus_list
+Date: Wed, 26 Aug 2026 14:32:29 -0500
+Message-ID: <dd3646805ff9e0478cee882da7cb0e5cf11bc7d4.1787772750.git.babu.moger@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1787772750.git.babu.moger@amd.com>
 References: <cover.1787772750.git.babu.moger@amd.com>
@@ -87,478 +87,259 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7A:EE_|DM4PR12MB7744:EE_
-X-MS-Office365-Filtering-Correlation-Id: 54d491a1-a9f6-4cf1-c46f-08df03a9288b
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD79:EE_|IA1PR12MB6555:EE_
+X-MS-Office365-Filtering-Correlation-Id: cff4c179-d543-4b25-85e0-08df03a92d85
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|36860700016|82310400026|23010399003|7416014|18002099003|22082099003|3023799007|10067099003|56012099006|11063799006|5023799004|6133799003;
+	BCL:0;ARA:13230040|7416014|376014|36860700016|23010399003|1800799024|82310400026|10067099003|56012099006|5023799004|11063799006|3023799007|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	ts27h0ElKlB6MWHo6RUL55iezJxVlxJGrUNIzK9lnFGu5JI49RUFwHVa6mcD/o6vK0g+bLbQ2O9jzqTiDfToT9ZtNPeY4xlq4zgebMrI/EfH8CTr3BdE1Bijpzh4juQuw43DAZbBomdLd/Gb6prbJY+6Q67fMotyYC5pzQp7xVXGIYy+HMFwvkf6pjuJFAJyCObg9p5U597r6qYBoGGFmHMA1es4hSQskeHgWPkOej1iDjNY27jUy1oqBokNVbyxWDypxl8QDmkHw5piNCUv27k2zihLkVwIxU6QhXbkfBaTpG6wnyn62Qspj+9/jX/stmRF4hrm1pCb0mH820fphU1zNjojkjLdGB+YNrK/rMNW8mZdWpbM+zsaOEw4EIT4TKS+kUmIn5hYB06JnHXLQWpt3y6oeDp9g+xLRn9A05DBP0VBCvywvxhPrfF1KgryMqACukZE2f9iO92OKxoCOTiRkajru5qqACpNA2wnyIuhCJ5opwjDeUvHkosIw+vZ6E8A/DeirN1JmArTpDRxH6JA4voAj4P51vOx8bj2Aqh+xriHqhf4WtaopcW7T185vIbdV/yp+Aiod5ydeF0MIamGfSitKptXAWFCOf46jaD8ZlITlto/cDkVT4ToV/iget7EWs8MudK8PmSA7tVB9bg+kEV4302Bw3LW5z40eWBaBj2mStvWKsNcbZPRMqpmnaA4lbIWCtRqTZwzBib8Jg==
+	hAr8gugmBKNiBwCup8Ol9uKKKXyzsCMcfXjaDdubEkJ6rUBL+4DVB1yld2cLnnDwqj2B+F33eH32jfAGkVUPUJdFZor00DszGtWLjy94CHtFU+OagjxsoJBOYG1PIYSaDUiP+P7DdQyt/4RDPSEQntwxTJUKHcsbjyVn0cWUmBVgzZQnhR6kUPkWDVm2WYJ5LfwA9bn7aakq82n1sbO1EjFGeci9ky8T+JS3YEbynb0SZrmvyZBHzL2YFcSjuBEr30n5xk/jcGRG0WHHlrOCg4U8Pr4Cq7eAHR3KfgUVOjaYWt4KQps82OqmmWQ5hf2ACA85/to7x1j0pukN6cFMXlSDHyF1M3a5DUDO7w3/dp+5Z0OCQ8Vchu0HT8wsz2d4CoDv/kay0oUHvw0INTVJ9AYYXf8VW8d8DoRuFMiosvSaq/cds8bxYtu5eC9osPZdJwKoaFdC6h66YaCoyst/StUL7gmwO3gaOf1vXRPpu7oZuUqRM7vBOFsmuGg8YwFVwAddg3DTxPVzKFWh/QO9hcxVkXIq0fQSsTyxbiZ9QfcMTeLFUWawCrTLKNxh6BqTZCmbJfiFGLXOcSvRvEkMsUKwUTn2jVvbavpgbHj4dI3Y4yr2KRKX48jgmwEjnh88OcnRjtVDUv7aJeVhuo/NHMixVip4kYEhBvtgjnYJws94CjfqD215mEVNS1HUvnyHiwZmCexOvZo/1VNoGpG4Jw==
 X-Forefront-Antispam-Report:
-	CIP:149.199.90.133;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:unknown-90-133.xilinx.com;CAT:NONE;SFS:(13230040)(1800799024)(376014)(36860700016)(82310400026)(23010399003)(7416014)(18002099003)(22082099003)(3023799007)(10067099003)(56012099006)(11063799006)(5023799004)(6133799003);DIR:OUT;SFP:1101;
+	CIP:149.199.90.133;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:unknown-90-133.xilinx.com;CAT:NONE;SFS:(13230040)(7416014)(376014)(36860700016)(23010399003)(1800799024)(82310400026)(10067099003)(56012099006)(5023799004)(11063799006)(3023799007)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	vyUivBSu40hJzTub7H0SG9vwBGl/4xUc05Fyq5pbVHgzFD1ccdL9Nnr4r0aJzhFPnG9oOXtJaII291I0Ru2XR7oN+SUwEL6zlsi1w4/byTeOCiaQWPvTYfmbisrmgs45uOE6fFUNZuDa5rbS1Tulr7YUhrZm1N1Ky3kGTM0Mdop5liGHdR0uOgXHg4RAjTRKiH0fGKbrAlMgTZPRFztKHyF5dSlyEYq1v1cPu8uJALHgaNDGPDdexQL/mvOoTAEU8AcqF1sbb2ljL79uw9KwDov7ZtEcTXBFO0Hak5H5c7/TgUf96wRnBgOfBA26T69zPM2T+7QaKTzaQBtqbFQ48K/+oZ7vn0Nf8eFXeJw4W3Ls4L7qL2cA8ZeC0tD9Xq5dGVI3aY2zXvsK0zRRpcX+841qhtDFgBUc4sutOBmGyh5PKwgyYFRZDOVXXTiqE0QP
+	zz8bhMqWBKGMWay527Z7J4kA9USU0Z3S2Ke1aUwrio4n+KCZ6cwpclfXp2/tNZYuw0umks60ofwTFUq4YCIekgEYu4Fz5phIf9qw+HA1CHkaH8LxcCJSHYDl2xl6aPl4SwxfUqJkh+HEXimoMX9AW24cK5dT0Xap1nVO2bPJGxDYKHW/HkBYB5fzAisBWNvW/Idn57kXBuUkcSFO6eKjyzPW6lbZ1GVI0SweSvzi2Zb8fmBeN3DEGpjfdYUB3feq4BnNTBZGWqtbKlsnPnfBFGx9Yje07YNTcoX123KW09ywbWlZXns+1nM3wNbANxl2eur2aGOrRfvwV6c5gE//IJ3d0kGWYImKIn+jjpoJnRdjfCv7r/VLbjcgVcX5gHYAuJ05bAsa+1a1C5Z5ARB0nm5jDNGeUyTz2ShnGLExk6ms0kyFliCg8CaDgLO+rtE+
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 19:35:17.3650
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 19:35:25.6860
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 54d491a1-a9f6-4cf1-c46f-08df03a9288b
+X-MS-Exchange-CrossTenant-Network-Message-Id: cff4c179-d543-4b25-85e0-08df03a92d85
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[149.199.90.133];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CH1PEPF0000AD7A.namprd04.prod.outlook.com
+	CH1PEPF0000AD79.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7744
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6555
 
-info/kernel_mode reports supported and active kernel modes, but it is
-read-only. User space cannot select a policy, associate a resource group,
-or configure independent control and monitoring assignment for
-assign_global_enable_per_cpu.
+Per-CPU kernel mode associates a resource group with kernel-mode allocation
+and monitoring and records its CPU scope in kmode_cpus and
+kmode_cpus_list. Administrators may need to add, remove, or clear CPUs
+after activation without changing the active mode.
 
-Add resctrl_kernel_mode_write() to accept the same line format as
-resctrl_kernel_mode_show(). Parse optional ctrl=, mon=, and group= options,
-validate the request before changing state, and program the association
-through rdtgroup_kmode_activate() and rdtgroup_kmode_deactivate().
+The files are read-only, so the CPU mask cannot be changed without
+deactivating kernel mode.
 
-Document the write interface in Documentation/filesystems/resctrl.rst.
+Make kmode_cpus and kmode_cpus_list writable for the associated group.
+Validate input, update kmode_cpu_mask, and reprogram kernel-mode
+association only on CPUs whose assignment changes. Document the interface
+in Documentation/filesystems/resctrl.rst.
 
 Signed-off-by: Babu Moger <babu.moger@amd.com>
 ---
-v5: Adapt to the resctrl_kcfg caps and active split. Accept
-    assign_global_enable_per_cpu:ctrl=;mon=;group=<ctrl>/<mon>/ writes.
-    Treat both ctrl=inherit and mon=inherit as a no-op. Use group=// for
-    the default control group. Show associated kmode files through
-    resctrl_hidden_files_set_visible().
-    Added kmode check in rdtgroup_locksetup_enter(), rdtgroup_mode_write()
-    and rdtgroup_rename().
-    Simplify kernel-doc for write and activate helpers.
+v5: Adapt to the resctrl_kcfg caps and active split. Use
+    resctrl_kcfg.active.ctrl_mode and mon_mode in kmode_cpus_write().
+    Use full ctrl=/mon= syntax in the kmode_cpus example.
 
-v4: Validate input before tearing down the active association so failures
-    retain the previous association. Allow assign_mon on CTRL_MON and MON
-    groups; require a control group when control assignment is inherit.
+v4: Empty masks are now allowed and updated masks are in rdtgroup->kmode_cpu_mask.
+    Updated the changelog.
 
-v3: New patch to make info/kernel_mode writable.
+v3: New patch to add "kmode_cpus" and "kmode_cpus_list" to support
+    kernel_modes.
 ---
- Documentation/filesystems/resctrl.rst |  33 +++
- fs/resctrl/pseudo_lock.c              |   5 +
- fs/resctrl/rdtgroup.c                 | 319 +++++++++++++++++++++++++-
- 3 files changed, 356 insertions(+), 1 deletion(-)
+ Documentation/filesystems/resctrl.rst |  30 ++++++
+ fs/resctrl/rdtgroup.c                 | 131 +++++++++++++++++++++++++-
+ 2 files changed, 159 insertions(+), 2 deletions(-)
 
 diff --git a/Documentation/filesystems/resctrl.rst b/Documentation/filesystems/resctrl.rst
-index c6e8cf828e18..490e8f534d37 100644
+index 490e8f534d37..3e886f84315b 100644
 --- a/Documentation/filesystems/resctrl.rst
 +++ b/Documentation/filesystems/resctrl.rst
-@@ -557,6 +557,39 @@ conveyed in the error returns from file operations. E.g.
- 	  [inherit_user]
- 	  assign_global_enable_per_cpu:ctrl=assign;mon=assign;group=//
+@@ -658,6 +658,36 @@ All groups contain the following files:
+ "cpus_list":
+ 	Just like "cpus", only using ranges of CPUs instead of bitmasks.
  
-+	Writes use the same line format as read, without square brackets and
-+	with a trailing newline. To select inherit_user, write that mode name
-+	alone.
++"kmode_cpus":
++	Accessible only within the resource group currently associated with
++	the active kernel mode (see "info/kernel_mode").
 +
-+	For assign_global_enable_per_cpu:
++	Bitmask of the logical CPUs associated with the group's kernel mode.
++	When kernel mode is activated through info/kernel_mode, every currently
++	online CPU is included. CPUs that come online later are automatically
++	added to the association.
 +
-+	- Writing the mode name alone selects ctrl=assign, mon=assign, and the
-+	  default CTRL_MON group.
-+	- ctrl=, mon=, and group= are optional, use the same syntax as on read,
-+	  and may appear in any order. ctrl= and mon= default to assign;
-+	  group= defaults to the default CTRL_MON group.
-+	- Empty ctrl=, mon=, or group= values are rejected.
-+	- A write with both ctrl=inherit and mon=inherit is a no-op.
-+
-+	Selecting a new mode, assignment state, or group tears down any active
-+	assign_global_enable_per_cpu association before programming the new
-+	one. Writing inherit_user clears the active kernel mode association.
-+	The mode name must match a supported value exactly. Errors are
-+	reported in "info/last_cmd_status". Example::
++	Writing a mask reprograms the association: it enables on the CPUs newly
++	added by the write and disables on the CPUs dropped from the previous
++	mask. An empty mask disables the association on all currently online
++	CPUs, but CPUs that come online later are still automatically
++	associated. The mask must contain only online CPUs; masks naming offline
++	CPUs are rejected. Errors are reported in "info/last_cmd_status".
++	Example::
 +
 +	  # mkdir ctrl1
 +	  # echo "assign_global_enable_per_cpu:ctrl=assign;mon=assign;group=ctrl1//" \
-+	         > info/kernel_mode
++	        > info/kernel_mode
++	  # echo 0-3 > ctrl1/kmode_cpus_list
++	  # cat ctrl1/kmode_cpus
++	  f
++	  # cat ctrl1/kmode_cpus_list
++	  0-3
 +
-+	  # cat info/kernel_mode
-+	  inherit_user
-+	  [assign_global_enable_per_cpu:ctrl=assign;mon=assign;group=ctrl1//]
++"kmode_cpus_list":
++	Just like "kmode_cpus", only using ranges of CPUs instead of bitmasks.
++	Writable with the same semantics and restrictions as "kmode_cpus".
 +
-+	  # echo "inherit_user" > info/kernel_mode
-+	  # cat info/kernel_mode
-+	  [inherit_user]
-+	  assign_global_enable_per_cpu:ctrl=assign;mon=assign;group=//
-+
- Resource alloc and monitor groups
- =================================
  
-diff --git a/fs/resctrl/pseudo_lock.c b/fs/resctrl/pseudo_lock.c
-index dea2b4bf966f..a0b22b95fc08 100644
---- a/fs/resctrl/pseudo_lock.c
-+++ b/fs/resctrl/pseudo_lock.c
-@@ -536,6 +536,11 @@ int rdtgroup_locksetup_enter(struct rdtgroup *rdtgrp)
- 		return -EINVAL;
- 	}
+ When control is enabled all CTRL_MON groups will also contain:
  
-+	if (rdtgrp->kmode) {
-+		rdt_last_cmd_puts("Group has an active kernel-mode association\n");
-+		return -EINVAL;
-+	}
-+
- 	if (rdtgroup_locksetup_user_restrict(rdtgrp)) {
- 		rdt_last_cmd_puts("Unable to modify resctrl permissions\n");
- 		return -EIO;
 diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
-index ed4fedbf2193..10d936710899 100644
+index 10d936710899..576f19a9baa6 100644
 --- a/fs/resctrl/rdtgroup.c
 +++ b/fs/resctrl/rdtgroup.c
-@@ -1198,6 +1198,309 @@ static void rdtgroup_kmode_detach(struct rdtgroup *rdtgrp)
- 	resctrl_kcfg.active.mon_mode = KMODE_INHERIT;
+@@ -415,6 +415,131 @@ static int rdtgroup_kmode_cpus_show(struct kernfs_open_file *of,
+ 	return ret;
  }
  
 +/**
-+ * rdtgroup_kmode_activate() - Program kernel mode for @rdtgrp
-+ * @rdtgrp:	Resctrl group whose CLOSID/RMID should be programmed.
++ * kmode_cpus_write() - Update @rdtgrp's kmode_cpu_mask from @newmask
++ * @rdtgrp:	Resctrl group whose kmode_cpu_mask is being updated.
++ * @newmask:	New CPUs for @rdtgrp's kernel mode association.
++ * @tmpmask:	Caller-allocated scratch cpumask used to compute the
++ *		incremental enable/disable deltas; contents on entry are
++ *		ignored and on return are unspecified.
 + *
-+ * @rdtgrp carries the CLOSID/RMID to program. For monitor groups, the CLOSID
-+ * matches the parent control group while the RMID belongs to the monitor group.
-+ *
-+ * Use resctrl_kcfg.active ctrl_mode and mon_mode, initialize
-+ * @rdtgrp->kmode_cpu_mask from online CPUs, program the association, and
-+ * show hidden kmode_cpus files.
++ * Reprogram kernel-mode association only on CPUs added to or removed from
++ * @rdtgrp->kmode_cpu_mask, then update the mask to @newmask.
 + */
-+static void rdtgroup_kmode_activate(struct rdtgroup *rdtgrp)
++static void kmode_cpus_write(struct rdtgroup *rdtgrp,
++			     cpumask_var_t newmask, cpumask_var_t tmpmask)
 +{
 +	bool assign_ctrl = (resctrl_kcfg.active.ctrl_mode == KMODE_ASSIGN);
 +	bool assign_mon = (resctrl_kcfg.active.mon_mode == KMODE_ASSIGN);
++	u32 closid, rmid;
 +
-+	cpumask_copy(&rdtgrp->kmode_cpu_mask, cpu_online_mask);
++	closid = rdtgrp->closid;
++	rmid = rdtgrp->mon.rmid;
 +
-+	resctrl_arch_configure_kmode(&rdtgrp->kmode_cpu_mask, rdtgrp->closid,
-+				     assign_ctrl, rdtgrp->mon.rmid, assign_mon,
-+				     true);
++	/* CPUs dropped from this group: old & ~newmask. */
++	cpumask_andnot(tmpmask, &rdtgrp->kmode_cpu_mask, newmask);
++	if (!cpumask_empty(tmpmask))
++		resctrl_arch_configure_kmode(tmpmask, closid, assign_ctrl, rmid,
++					     assign_mon, false);
 +
-+	rdtgrp->kmode = true;
-+	resctrl_hidden_files_set_visible(rdtgrp->kn, true);
++	/* CPUs newly added: newmask & ~old. */
++	cpumask_andnot(tmpmask, newmask, &rdtgrp->kmode_cpu_mask);
++	if (!cpumask_empty(tmpmask))
++		resctrl_arch_configure_kmode(tmpmask, closid, assign_ctrl, rmid,
++					     assign_mon, true);
++
++	cpumask_copy(&rdtgrp->kmode_cpu_mask, newmask);
 +}
 +
 +/**
-+ * rdtgroup_by_kmode_path() - Resolve a "<ctrl>/<mon>/" path to an rdtgroup
-+ * @ctrl_name:	Control-group name, or "" for the default control group.
-+ * @mon_name:	Monitor-group name, or "" to select the control group itself.
-+ *
-+ * Matches the path syntax emitted by resctrl_kernel_mode_show():
-+ *   "//"            - the default control group
-+ *   "<ctrl>//"      - control group @ctrl_name
-+ *   "/<mon>/"       - monitor group @mon_name under the default control group
-+ *   "<ctrl>/<mon>/" - monitor group @mon_name under control group @ctrl_name
-+ *
-+ * Return: Pointer to the matching rdtgroup, or NULL if no such group exists.
-+ */
-+static struct rdtgroup *rdtgroup_by_kmode_path(const char *ctrl_name,
-+					       const char *mon_name)
-+{
-+	struct rdtgroup *rdtg, *parent = &rdtgroup_default;
-+
-+	if (*ctrl_name) {
-+		parent = NULL;
-+		list_for_each_entry(rdtg, &rdt_all_groups, rdtgroup_list) {
-+			if (rdtg->type != RDTCTRL_GROUP)
-+				continue;
-+			if (!strcmp(rdt_kn_name(rdtg->kn), ctrl_name)) {
-+				parent = rdtg;
-+				break;
-+			}
-+		}
-+	}
-+	if (!parent)
-+		return NULL;
-+
-+	if (!*mon_name)
-+		return parent;
-+
-+	list_for_each_entry(rdtg, &parent->mon.crdtgrp_list, mon.crdtgrp_list)
-+		if (!strcmp(rdt_kn_name(rdtg->kn), mon_name))
-+			return rdtg;
-+	return NULL;
-+}
-+
-+static int resctrl_kmode_parse_option(char *val, enum kmode_state *state)
-+{
-+	val = strim(val);
-+
-+	if (!*val)
-+		return -EINVAL;
-+	if (!strcmp(val, "assign")) {
-+		*state = KMODE_ASSIGN;
-+		return 0;
-+	}
-+	if (!strcmp(val, "inherit")) {
-+		*state = KMODE_INHERIT;
-+		return 0;
-+	}
-+	return -EINVAL;
-+}
-+
-+static int resctrl_kmode_parse_ctrl_mon(char *options, const char *field,
-+				    enum kmode_state *state)
-+{
-+	char *opt, *val, *end;
-+	int ret = 0;
-+
-+	opt = strstr(options, field);
-+	if (!opt)
-+		return 0;
-+
-+	val = opt + strlen(field);
-+	end = strchr(val, ';');
-+	if (end)
-+		*end = '\0';
-+	if (resctrl_kmode_parse_option(val, state))
-+		ret = -EINVAL;
-+
-+	if (end)
-+		*end = ';';
-+	return ret;
-+}
-+
-+static int resctrl_kmode_parse_group(char *options, struct rdtgroup **rdtgrp)
-+{
-+	const char *ctrl_name, *mon_name;
-+	char *group_str, *end, *slash;
-+	struct rdtgroup *grp;
-+	int ret = 0;
-+
-+	/* Skip parsing when group= is not present. */
-+	group_str = strstr(options, "group=");
-+	if (!group_str)
-+		return 0;
-+
-+	/* Isolate the group= value from any following options. */
-+	group_str += strlen("group=");
-+	end = strchr(group_str, ';');
-+	if (end)
-+		*end = '\0';
-+	group_str = strim(group_str);
-+	if (!*group_str) {
-+		rdt_last_cmd_puts("group= requires <CTRL_MON>/<MON>/\n");
-+		ret = -EINVAL;
-+		goto out_parse;
-+	}
-+	/* Split <CTRL_MON>/<MON>/ at the first slash. */
-+	slash = strchr(group_str, '/');
-+	if (!slash) {
-+		rdt_last_cmd_puts("Group must be <CTRL_MON>/<MON>/\n");
-+		ret = -EINVAL;
-+		goto out_parse;
-+	}
-+	*slash = '\0';
-+	ctrl_name = group_str;
-+	mon_name = slash + 1;
-+	/* Require a trailing slash after the monitor group name. */
-+	slash = strchr(mon_name, '/');
-+	if (!slash || slash[1] != '\0') {
-+		rdt_last_cmd_puts("Group must be <CTRL_MON>/<MON>/\n");
-+		ret = -EINVAL;
-+		goto out_parse;
-+	}
-+	*slash = '\0';
-+	/* Resolve the path to an existing rdtgroup. */
-+	grp = rdtgroup_by_kmode_path(ctrl_name, mon_name);
-+	if (!grp) {
-+		rdt_last_cmd_puts("Group not found\n");
-+		ret = -EINVAL;
-+		goto out_parse;
-+	}
-+	*rdtgrp = grp;
-+
-+out_parse:
-+	/* Restore the option string after temporary null termination. */
-+	if (end)
-+		*end = ';';
-+	return ret;
-+}
-+
-+/**
-+ * resctrl_kernel_mode_write() - Set the active kernel mode policy
++ * rdtgroup_kmode_cpus_write() - Write kmode_cpus or kmode_cpus_list
 + * @of: kernfs open file
-+ * @buf: Write buffer; use the resctrl_kernel_mode_show() line format without
-+ *	 brackets and with a trailing newline
++ * @buf: CPU bitmask or list from userspace
 + * @nbytes: length of @buf
 + * @off: unused
 + *
-+ * Parse and validate the request, then update the active kernel mode
-+ * association.
++ * Parse and validate @buf for the group associated through info/kernel_mode,
++ * then update kernel-mode association via kmode_cpus_write().
 + *
 + * Return: @nbytes on success, negative errno on error.
 + */
-+static ssize_t resctrl_kernel_mode_write(struct kernfs_open_file *of,
++static ssize_t rdtgroup_kmode_cpus_write(struct kernfs_open_file *of,
 +					 char *buf, size_t nbytes, loff_t off)
 +{
-+	enum kmode_state ctrl_mode = KMODE_ASSIGN, mon_mode = KMODE_ASSIGN;
-+	char *mode_str, *options;
-+	enum resctrl_kernel_mode mode;
++	cpumask_var_t tmpmask, newmask;
 +	struct rdtgroup *rdtgrp;
-+	int ret = 0;
++	int ret;
 +
-+	if (!info_kn_lock(of->kn))
-+		return -ENOENT;
-+
-+	rdt_last_cmd_clear();
-+
-+	if (nbytes == 0 || buf[nbytes - 1] != '\n') {
-+		rdt_last_cmd_puts("kernel_mode_write: Invalid input\n");
-+		ret = -EINVAL;
++	rdtgrp = rdtgroup_kn_lock_live(of->kn);
++	if (!rdtgrp) {
++		ret = -ENOENT;
 +		goto out_unlock;
 +	}
-+	buf[nbytes - 1] = '\0';
 +
-+	buf = strim(buf);
-+	options = strchr(buf, ':');
-+	if (options) {
-+		*options = '\0';
-+		options++;
-+	}
-+	mode_str = strim(buf);
-+
-+	for (mode = 0; mode < RESCTRL_NUM_KERNEL_MODES; mode++)
-+		if (!strcmp(mode_str, resctrl_mode_str[mode]))
-+			break;
-+
-+	if (mode == RESCTRL_NUM_KERNEL_MODES) {
-+		rdt_last_cmd_puts("Unknown kernel mode\n");
++	if (!buf) {
++		rdt_last_cmd_printf("%s: Invalid input\n",
++				    is_cpu_list(of) ? "kmode_cpus_list" :
++						      "kmode_cpus");
 +		ret = -EINVAL;
 +		goto out_unlock;
 +	}
 +
-+	if (!test_bit(mode, resctrl_kcfg.caps.kmode_sup)) {
-+		rdt_last_cmd_puts("Kernel mode not available\n");
-+		ret = -EINVAL;
-+		goto out_unlock;
++	if (!zalloc_cpumask_var(&tmpmask, GFP_KERNEL) ||
++	    !zalloc_cpumask_var(&newmask, GFP_KERNEL)) {
++		rdt_last_cmd_printf("%s: Kernel allocation failure\n",
++				    is_cpu_list(of) ? "kmode_cpus_list" :
++						      "kmode_cpus");
++		ret = -ENOMEM;
++		goto out_free;
 +	}
 +
-+	if (mode == RESCTRL_INHERIT_USER) {
-+		rdtgrp = NULL;
-+		goto update_mode;
++	if (resctrl_kcfg.active.kmode_cur == RESCTRL_INHERIT_USER) {
++		rdt_last_cmd_puts("No active kernel-mode association\n");
++		ret = -EBUSY;
++		goto out_free;
 +	}
 +
-+	rdtgrp = &rdtgroup_default;
++	if (resctrl_kcfg.active.k_rdtgrp != rdtgrp) {
++		rdt_last_cmd_puts("Group is not associated with kernel mode\n");
++		ret = -EBUSY;
++		goto out_free;
++	}
 +
-+	if (!options)
-+		goto validate_kmode;
++	if (!rdtgrp->kmode) {
++		rdt_last_cmd_puts("Kernel mode is not active on this group\n");
++		ret = -EBUSY;
++		goto out_free;
++	}
 +
-+	ret = resctrl_kmode_parse_ctrl_mon(options, "ctrl=", &ctrl_mode);
++	if (is_cpu_list(of))
++		ret = cpulist_parse(buf, newmask);
++	else
++		ret = cpumask_parse(buf, newmask);
++
 +	if (ret) {
-+		rdt_last_cmd_puts("Invalid ctrl= option\n");
-+		goto out_unlock;
-+	}
-+	ret = resctrl_kmode_parse_ctrl_mon(options, "mon=", &mon_mode);
-+	if (ret) {
-+		rdt_last_cmd_puts("Invalid mon= option\n");
-+		goto out_unlock;
++		rdt_last_cmd_puts("Bad CPU list/mask\n");
++		goto out_free;
 +	}
 +
-+	ret = resctrl_kmode_parse_group(options, &rdtgrp);
-+	if (ret)
-+		goto out_unlock;
-+
-+	if (ctrl_mode == KMODE_INHERIT && mon_mode == KMODE_INHERIT)
-+		goto out_unlock;
-+
-+validate_kmode:
-+	if (ctrl_mode == KMODE_ASSIGN && !resctrl_kcfg.caps.ctrl_en) {
-+		rdt_last_cmd_puts("Control assignment not supported\n");
++	/* kernel-mode association is only programmed on online CPUs. */
++	cpumask_andnot(tmpmask, newmask, cpu_online_mask);
++	if (!cpumask_empty(tmpmask)) {
++		rdt_last_cmd_puts("Can only assign online CPUs\n");
 +		ret = -EINVAL;
-+		goto out_unlock;
++		goto out_free;
 +	}
 +
-+	if (mon_mode == KMODE_ASSIGN && !resctrl_kcfg.caps.mon_en) {
-+		rdt_last_cmd_puts("Monitoring assignment not supported\n");
-+		ret = -EINVAL;
-+		goto out_unlock;
-+	}
++	kmode_cpus_write(rdtgrp, newmask, tmpmask);
 +
-+	/* Applying mon=inherit on monitor group is no-op. Reject it */
-+	if (mon_mode == KMODE_INHERIT && rdtgrp->type == RDTMON_GROUP) {
-+		rdt_last_cmd_puts("Monitoring inherit on mon group is no-op\n");
-+		ret = -EINVAL;
-+		goto out_unlock;
-+	}
-+
-+	if (rdtgrp->mode != RDT_MODE_SHAREABLE) {
-+		rdt_last_cmd_puts("The group is not in shareable mode\n");
-+		ret = -EINVAL;
-+		goto out_unlock;
-+	}
-+
-+update_mode:
-+	if (resctrl_kcfg.active.kmode_cur == mode &&
-+	    resctrl_kcfg.active.k_rdtgrp == rdtgrp &&
-+	    resctrl_kcfg.active.ctrl_mode == ctrl_mode &&
-+	    resctrl_kcfg.active.mon_mode == mon_mode)
-+		goto out_unlock;
-+
-+	if (resctrl_kcfg.active.kmode_cur != RESCTRL_INHERIT_USER &&
-+	    resctrl_kcfg.active.k_rdtgrp)
-+		rdtgroup_kmode_deactivate(resctrl_kcfg.active.k_rdtgrp);
-+
-+	if (mode == RESCTRL_ASSIGN_GLOBAL_ENABLE_PER_CPU) {
-+		resctrl_kcfg.active.ctrl_mode = ctrl_mode;
-+		resctrl_kcfg.active.mon_mode = mon_mode;
-+		rdtgroup_kmode_activate(rdtgrp);
-+		resctrl_kcfg.active.k_rdtgrp = rdtgrp;
-+	} else {
-+		resctrl_kcfg.active.k_rdtgrp = NULL;
-+		resctrl_kcfg.active.ctrl_mode = KMODE_INHERIT;
-+		resctrl_kcfg.active.mon_mode = KMODE_INHERIT;
-+	}
-+	resctrl_kcfg.active.kmode_cur = mode;
-+
++out_free:
++	free_cpumask_var(tmpmask);
++	free_cpumask_var(newmask);
 +out_unlock:
-+	info_kn_unlock(of->kn);
++	rdtgroup_kn_unlock(of->kn);
++
 +	return ret ?: nbytes;
 +}
 +
- void *rdt_kn_parent_priv(struct kernfs_node *kn)
- {
- 	/*
-@@ -1745,6 +2048,12 @@ static ssize_t rdtgroup_mode_write(struct kernfs_open_file *of,
- 
- 	buf[nbytes - 1] = '\0';
- 
-+	if (rdtgrp->kmode) {
-+		rdt_last_cmd_puts("Cannot change mode of a kernel-mode associated group\n");
-+		ret = -EINVAL;
-+		goto out;
-+	}
-+
- 	mode = rdtgrp->mode;
- 
- 	if ((!strcmp(buf, "shareable") && mode == RDT_MODE_SHAREABLE) ||
-@@ -2185,9 +2494,10 @@ static struct rftype res_common_files[] = {
+ /*
+  * Update the PGR_ASSOC MSR on all cpus in @cpu_mask,
+  *
+@@ -2677,17 +2802,19 @@ static struct rftype res_common_files[] = {
  	},
  	{
- 		.name		= "kernel_mode",
+ 		.name		= "kmode_cpus",
 -		.mode		= 0444,
 +		.mode		= 0644,
+ 		.hidden		= true,
  		.kf_ops		= &rdtgroup_kf_single_ops,
- 		.seq_show	= resctrl_kernel_mode_show,
-+		.write		= resctrl_kernel_mode_write,
- 		.fflags		= RFTYPE_TOP_INFO,
++		.write		= rdtgroup_kmode_cpus_write,
+ 		.seq_show	= rdtgroup_kmode_cpus_show,
+ 		.fflags		= RFTYPE_BASE,
  	},
  	{
-@@ -4699,6 +5009,13 @@ static int rdtgroup_rename(struct kernfs_node *kn,
- 		goto out;
- 	}
- 
-+	/* Check for kernel mode association */
-+	if (rdtgrp->kmode) {
-+		rdt_last_cmd_puts("Cannot move a kernel-mode associated group\n");
-+		ret = -EPERM;
-+		goto out;
-+	}
-+
- 	/*
- 	 * Allocate the cpumask for use in mongrp_reparent() to avoid the
- 	 * possibility of failing to allocate it after kernfs_rename() has
+ 		.name		= "kmode_cpus_list",
+-		.mode		= 0444,
++		.mode		= 0644,
+ 		.hidden		= true,
+ 		.kf_ops		= &rdtgroup_kf_single_ops,
++		.write		= rdtgroup_kmode_cpus_write,
+ 		.seq_show	= rdtgroup_kmode_cpus_show,
+ 		.flags		= RFTYPE_FLAGS_CPUS_LIST,
+ 		.fflags		= RFTYPE_BASE,
 -- 
 2.43.0
 
