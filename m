@@ -1,125 +1,94 @@
-Received: from mta1.migadu.com (out-120.mta1.migadu.com [95.215.58.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8C1A30F526
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:00:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.120
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31EBC33DED9
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:03:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787778061; cv=none; b=FkvLK72fCrkl/pfJbfv2TqO/tKVYeFovgj2uYr6/TrXAiXgd9qZ+MOwEJLrqmUE+vv3oyTNLpdCgrAUlKIfDQFoScpNZNajv3uLiYZk59P8zFSSNKDYMuYNA2/AhoX/Szh6tOGoL76ZxRgeT5lZ/VxSSBh8aQs1xrIdKA5x9cGs=
+	t=1787778185; cv=none; b=HybmbUoDqd7A4ag62dngKEjLiIg5+GAWiCK7nTHxygLTanlAMFI6Yg2UwhHTWZKX5YFlNVXeUHMXUPglKX8mMLlyLlwuuMmtzcAJczRBGK9WlDCUXQ6z5aIbM5SZk/bAXSiNWaF6yI/olo0+OW8GEg8SG7NisO5QamDEKaXHLak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787778061; c=relaxed/simple;
-	bh=7n6s+Yu8RUQVuDDLlym79SKRXys59UCrPxq5zh3wReo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=m+V5I5WVr6CzbKxMuMeVktLcNgn5nvs9qiEeZKh6joidQC2ylLdp0sw5PurbU8CcB8JBknltl1ZFt308uXOa6IKU8CoXSLzsfD9JPupJXDBF0Pv9P6Srn8PByOZwkU+bkIW2IcDl7hPOsd8MRlmgZGvf981hzZJ+AI9MHmjod8A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=g1LcjcqV; arc=none smtp.client-ip=95.215.58.120
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787778185; c=relaxed/simple;
+	bh=5KQzDgyiIPz88ZmSk3EZ6LlItPMqpc2RARdCySgObbg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QaEmrDrYrJYnRFBB3Bu714V/mL8wxAN64XhaPpSfXcmBS3RL7Lc5Y1Gs8O2Lz4lLtC2pCNITuj9cGFm8nXsrzYSQdbCeX/VDH+Zf1S93KUpIn89NdcHmNO9ewgXwlcJnYtKanrK97TTaY5ytY7Ie5MUmC0qYLWzVQXzkbvRrzpE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=foIPooo9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="g1LcjcqV"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=7n6s+Yu8RUQVuDDLlym79SKRXys59UCrPxq5zh3wReo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787778056; v=1; x=1788382856;
- b=g1LcjcqVKDRTvigQJRSBHUfdI6VjvTEDAQxMwO9mw7i62kIRExEXE7RMCKx78VCwexDmGCJf
- bCm6bVYguEn/ZFj5ywMF2K4wsZozYFzyTE+7uZ5fcGuxaIocpdLacI8IArgwxHvB2gv23SO1aOS
- 22kkThpnttIn6HTfqxOcdgOY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: from [IPV6:2620:10d:c085:21c1::1576] (2620:10d:c090:400::5:7641)
-	by smtp.migadu.com with ESMTPS id 07b12f03698456bd;
-	Wed, 26 Aug 2026 21:00:56 +0000
-X-Mizu-Trace-ID: 07b12f03698456bd
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <1c34603a-9170-4074-b826-e98d9871e2d8@linux.dev>
-Date: Wed, 26 Aug 2026 14:00:49 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="foIPooo9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDCD81F00A3A
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:03:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787778183;
+	bh=5KQzDgyiIPz88ZmSk3EZ6LlItPMqpc2RARdCySgObbg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=foIPooo9AEpRxj35k7f/KTmciK8rtt6Te/B0afzdBDkp4WP1Xkpnq4nkiVXf1vfdG
+	 q23EIJQmetVlzQraAdWGlbAofPVf7aqzHPdYcDawHUkQeDZqSSGgEORTHpcc6ueDNk
+	 nc5dDLk9OFh97Jt/uqHe7fto/2+eaA6A3/4nfR4zhrGDZYXD9B7Lmire9hFKRLzJtF
+	 8wpeQju7aiA6mwNzjK7TX2oldJujslmzVclhw9pwg1Ni3jrn0VX2t8PNfFtLH5fazQ
+	 4f5QeZmboTwkvTh/njkGgRNbztn9ZTAHHcjrz8yyN6ITDJ4hjA7fCmAJ2GqWd/FmKN
+	 8URnEoPQh18Ig==
+Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-9061a795d76so17125106d6.3
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:03:03 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RrPelO2E8ESosQmUlq9zjSBH4n+aWiC7fDqcFWn2sqdq0i1oukyrqsbSvXeamn6LtSXdN2zOJrthBTuUns=@vger.kernel.org
+X-Gm-Message-State: AFuF++nU13TprTrcuPLCSQ6+cjPzLidx+3jNl0y2V+7KcEDln8dyURWm
+	Cbv1VeARiaPrt7YguNmsBImgyH5rdF4b9uRb5VCujcaWsJU6r/mf9i+oTwDm+rDbbwg0837ttx/
+	rjFu9YPjk81MWfZETDVghlHfwDeK5UTI=
+X-Received: by 2002:a05:620a:9142:b0:936:7967:7955 with SMTP id
+ af79cd13be357-937803e7e75mr815574385a.21.1787778182927; Wed, 26 Aug 2026
+ 14:03:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next v7 0/9] bpf: add support for KASAN checks in
- JITed programs
-To: Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- =?UTF-8?Q?Alexis_Lothor=C3=A9_=28eBPF_Foundation=29?=
- <alexis.lothore@bootlin.com>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- John Fastabend <john.fastabend@gmail.com>,
- Andrii Nakryiko <andrii@kernel.org>, Martin KaFai Lau
- <martin.lau@linux.dev>, Eduard Zingerman <eddyz87@gmail.com>,
- Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>,
- Jiri Olsa <jolsa@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
- Shuah Khan <shuah@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Andrey Konovalov <andreyknvl@gmail.com>,
- Emil Tsalapatis <emil@etsalapatis.com>, Yafang Shao <laoar.shao@gmail.com>
-Cc: ebpf@linuxfoundation.org,
- Bastien Curutchet <bastien.curutchet@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, bpf@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-References: <20260822-kasan-v7-0-99afee6ef7fd@bootlin.com>
- <DKWOY12R4ZJJ.A8KDS1DU1PHS@gmail.com>
-Content-Language: en-US
-From: Ihor Solodrai <ihor.solodrai@linux.dev>
-In-Reply-To: <DKWOY12R4ZJJ.A8KDS1DU1PHS@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260826-drop-thp-maintainership-v1-1-3d102748fa17@kernel.org>
+In-Reply-To: <20260826-drop-thp-maintainership-v1-1-3d102748fa17@kernel.org>
+From: Barry Song <baohua@kernel.org>
+Date: Thu, 27 Aug 2026 05:02:50 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4wH_-2NPV2j6wxN_EfAeXvDe_eUnkj0KVUu0nn+ANfohQ@mail.gmail.com>
+X-Gm-Features: AcwNN1UCklyIxHoStaDuT-E1MIb2LN1kaFlTLTeei_p2HLyAvWl8ZP496MYtr6Q
+Message-ID: <CAGsJ_4wH_-2NPV2j6wxN_EfAeXvDe_eUnkj0KVUu0nn+ANfohQ@mail.gmail.com>
+Subject: Re: [PATCH] MAINTAINERS: remove myself as THP co-maintainer
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2026-08-23 3:53 p.m., Kumar Kartikeya Dwivedi wrote:
-> On Sat Aug 22, 2026 at 12:39 AM CEST, Alexis Lothoré (eBPF Foundation) wrote:
->> Hello,
->> this is v7 of the series aiming to bring basic support for KASAN checks
->> to BPF JITed programs. This new revision just makes the series rebased
->> on top of current bpf-next_base.
->>
->> Please note that with the recent kernel splat detector introduced in
->> kernel-patches/vmtest through commit 8109e5928cd0 ("ci: own the kernel
->> splat matching (#509)"), CI runs on this series will fail with the
->> following error.
->>
->>     Error: kernel splat detected: [  100.689549] BUG: KASAN: \
->>     slab-use-after-free in \
->>     bpf_prog_eba69524d1d949b1_st_not_on_stack+0x12f/0x17a \
->>
->> which is pretty normal, as the new selftests introduced by this series
->> are expected to trigger KASAN splats (the test_progs part will pass,
->> only the kernel_splats part will trigger errors). The right fix may be
->> to just put a list of regex matching all the kasan subtests progs in the
->> relevant SPLAT_ALLOWLIST file; something like:
->>
->> BUG: KASAN: slab-(out-of-bounds|use-after-free) in bpf_prog_([a-f0-9]){16}_(st|ld)(x)?(_not)?_on_stack\+
->> BUG: KASAN: slab-(out-of-bounds|use-after-free) in bpf_prog_([a-f0-9]){16}_simple_atomic(_fetch)?(_not)_on_stack\+
->> BUG: KASAN: slab-(out-of-bounds|use-after-free) in bpf_prog_([a-f0-9]){16}_ldx_patched(_not)?_on_stack\+
->> BUG: KASAN: slab-(out-of-bounds|use-after-free) in bpf_prog_([a-f0-9]){16}_verifier_paths_stack_and_non_stack\+
->> BUG: KASAN: slab-(out-of-bounds|use-after-free) in bpf_prog_([a-f0-9]){16}_ldx_oob\+
->> BUG: KASAN: slab-(out-of-bounds|use-after-free) in bpf_prog_([a-f0-9]){16}_st_blinded\+
->> BUG: KASAN: slab-(out-of-bounds|use-after-free) in bpf_prog_([a-f0-9]){16}_(load_acquire|store_release)(_not)?_on_stack\+
->>
->> I can take care of opening the relevant PR in kernel-patches/vmtest with
->> this if it ends up being the correct solution, but it will make sense to
->> do so only once the selftests list is validated (but before merging the
->> series).
-> 
-> We need to resolve this before landing the set. To me it looks inevitable, esp.
-> if we exercise the support and produce such warnings. That said I'll let Ihor
-> respond and provide guidance for this. We should probably land the vmtest PR
-> before v8 is posted, so that v8 can go through CI and be processed without
-> failures.
+On Wed, Aug 26, 2026 at 5:56=E2=80=AFPM Lorenzo Stoakes (ARM) <ljs@kernel.o=
+rg> wrote:
+>
+> Unfortunately my workload is such that I simply no longer have the time t=
+o
+> give THP the focus that it deserves.
+>
+> So, at least temporarily, step down from the role.
+>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
 
-This is a tricky one.
+Thanks very much for all your hard work, Lorenzo. I can really appreciate
+how busy you are, especially while you=E2=80=99re still developing so many =
+things
+at the same time as doing reviews.
 
-IIUC the suggested allowlist regex will also mask the real splats, which
-the whole KASAN-in-JIT project was supposed to catch.
+Personally, I also feel a bit bad that I haven't been able to contribute
+anywhere near as much as you have. I still have a lot of catching up to do.
 
-I think a good way to resolve this is to teach the kasan splat
-detection script about these tests, and drop/skip them from the dmesg
-log it inspects. For example, match begin / end of the test set.
-Might require special log anchors printed by the test itself, but
-you get the idea.
+Right now, as David probably knows well, my colleagues and I are working
+on both FS large folios[1] and mTHP[2]. I really feel that I=E2=80=99ll be =
+able
+to spend more time on THP-related work and reviews.
 
-Alexis, do you mind trying this?
-> 
->> [...]
+Lorenzo, you have my deepest respect.
 
+[1] https://lore.kernel.org/lkml/20260826082641.2007658-1-zhaonanzhe@xiaomi=
+.com/
+[2] https://lore.kernel.org/lkml/20260825043833.2659350-1-zhangbo56@xiaomi.=
+com/
+
+Best Regards
+Barry
