@@ -1,86 +1,182 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC95C3BFAF7;
-	Wed, 26 Aug 2026 13:36:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF1CA427F93
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:36:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787751408; cv=none; b=hh/xXgmUF2q+6S2V0Fhy8hSsQWgnc9op2ajh2rLJBCFko7D4AoUUsy171Rv3koxeKfcshN8Ql3H+DT/6G30NeS3tlIEccgi93OttWWnY5P1CJl/7PKC+pm1ucM8HTcRrcZD2dZdpEUUHe2JW7x89GS9zJB6DoTTUW91iLnGcswg=
+	t=1787751412; cv=none; b=r2vA19uOhmv2OrHrnwDYawQhNqwfQ8h5sHG6UCFAulJlwCQcRcSqBx4fk8UWzcL8WF79QxMeABBLPL0JlpRKeAMFGQCBMYxGWSdr4L3LL06YQWNxMlHwCkbWwiQ6pBWPF261QBBxpl5N8Yvg5KqS4zOfgKI2fblKhgWN4JZHsUo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787751408; c=relaxed/simple;
-	bh=LGdQE3w3Su+6AhS4rSsO6oxAfJaCNxLcbs1v56edTSo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=T72CqJ/vkSrQfRA43S0bfwbrjh9juOdJcX3UHlu6ssAIXHpzaoQCRHN91LE2uvSyF9LXCL0fnUK6ndsNOoWQgRB2B254l8tok5jLzRTQME/x7sdSd4Ys8e+A3czqKilSiGdOz3qjKih0ziRj+uCGvetUNuOCNEShvO9j5v3Wg3w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ji6pQOIq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787751412; c=relaxed/simple;
+	bh=jqpOnMHgbbqDbuHS/I7m/d6Hc9Shph1tNa+wCHuPmCM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pbSP7sdqsvtvWCoucHlaI9lq5W8SxtYLhdc2Le6RdoRyi6IQkv3o9sAC5hvKo9TIh+VnMck8TED/fC9olEZ/bgJLE3iC65TnQ9uYOLtm9qZeGiRTjWRv/D8qqudCcN98gp+SlfNg11SlalafO3iw9ao/z+NQU3CqN4ABSG6KoVI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T0X27YGa; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ji6pQOIq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 925071F00A3A;
-	Wed, 26 Aug 2026 13:36:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787751407;
-	bh=GoivgHWl0nAbJ8Rd3khgmMTPfBfs8SBJuAsY8mZ9MN8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ji6pQOIqfxmCeXxJTETds3U/3MCqho89sJGdk6guNc7ZGv31EB/EJKhW2rzwHEBlE
-	 gbXYMZt2UCX89mD5WLS3AHuLwzjV4DYNAZxlHT7j0d9AgVWmX98+XXRQay/RfKLwiH
-	 csFli6OMEM0vR/36dZF1Q8USeoDVhhAWSOpT5IQDHHf4aB6TJMHj+seTppHNdmA0vf
-	 E/UKZOoCsmXaPFt9MGIyX9zIDT4/XA5modAyUK+MWB3LJYXkJ1sq/91gByGKAARlSp
-	 S5NIx3ro5G+l2GmepXHeCH69UXs1eyF9/K3ezO5IpqrP4cHy78/jfyCU7dtjf+4q5v
-	 Nca8eyziR+7Yg==
-Date: Wed, 26 Aug 2026 14:36:41 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: aliceryhl@google.com, vbabka@kernel.org, liam@infradead.org, 
-	urezki@gmail.com, ojeda@kernel.org, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] MAINTAINERS: add Alice Ryhl as co-maintainer for Rust
- [ALLOC]
-Message-ID: <ao7rwdeDRaFTC0cv@gremlin>
-References: <20260826132729.3281308-1-dakr@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T0X27YGa"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4980dc26022so7668065e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 06:36:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787751408; x=1788356208; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=iac2l5x1G2euKklhoCcR1PZsgghWHKyc8OBHeXTFnfU=;
+        b=T0X27YGax8RU3tu9hj0Mc1HCf2lCtyvyZ9eZ6xCMpXPRYo3Ju6EgoaJaLpopJ5ACc/
+         sPCKvvBg9mxYdwODcSWe6+uUFSg6XLjZe7xSK9SCcDsszdC9GPFHvAPXeh4bFmhnyBmr
+         QhTzoU4GMOPwgO+ocXG+oUBhrVs+KmUMQ0kSJB7JculCooPGHYIGTq/hDHgUq8r10VwB
+         id9ep8zzvGpkWMfYKI5cF16ASCZCijRGYDoSsJTFWOcqn6hHd1mfXAkpFPdfEE+OliG5
+         cwP+LK03V/glWmkAPZJ1aVLMN/hFvfk5GZ1wK2VZCmioyR3lgic2NwOnSIF0XayOqK8c
+         EfAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787751408; x=1788356208;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iac2l5x1G2euKklhoCcR1PZsgghWHKyc8OBHeXTFnfU=;
+        b=N/XpKv33uhFUJYV6syBXvidVmY0MrNNm01NqYJiiSsTjhTK4XZJob48j2qKXRp0Mgi
+         OhwMD5b4ttIhtcMwdLfYNE1jrfvqMUytM5jFUfqZ43/vxoTEIMdnFELZbm3kkd/4RJ0K
+         qfQr5R2gYyHdG38+jP2ILgtcZl0f0Qyo/ZV/qpomsoT73fNooNBMfpXmNUt44hPdsqma
+         k+XOp5iiXTejvKjc/l3sTwwQ7ew+4BEFK9HyGMilqxoAq6S4QwzAP/k5CqG90ojQfEcb
+         SlTWRuVbxMNFKyTDXbJiW0MfmorZMXPwpQR1Z91mjJE1UMRhAvWgJ/5RRmD6u5fdv9yO
+         lYJA==
+X-Forwarded-Encrypted: i=1; AHgh+Rr63+qbAhbgIr6Dw6QxfgGtyZCTEBvvujM17bcOn5tev6Ovl+fi7OVXTevNJ6rPXfVXnyiVY+IcS8jLjYE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nuDXSy/aGSUB6LqH7fYBBS+nCgrNRStTlVat6WcvEojSQmekCP
+	ZKyQcNtb+yk0/If22Ea0LaggeHWj8wB8R3S1ETuXMVbZO5Y/8uDk5ZGB
+X-Gm-Gg: AR+sD11VvNu4xik5k1bfXdgDzdGvz02MintRSXqNZ+2GNIrp1S2CNJexuIyvnGYnc6a
+	U4xVgqauunSHbTFdWutDR7CC8Lt+tIJrcltF1TmrL5FqvfF5W4t+4gFq5tinO6x/5hxWdeefwfe
+	0kxp5kW2/ClBxrWx3Re7c3+CdGW8Njooir6LCo23ZFZ4xXliGJXDhf7Cr8nKI2bZQftKLI8xnwD
+	+3mJtmByvjg6d3U7tHX17+JvmgfopRU54lgiRZ3LqRwG9iSpg6CCyevmCZeXiId7qxju+guBPXp
+	IAaqvg+Ap/A+TsjWASpq9apnTsT9DD5RMM65gALJHGEqw0nC0d72rqoRdkE9XW+F/TVz/DLCedA
+	eCLl8m9LN8Ycvllk6YmzY1434gWT5Wb9qWkVd86RwaNMZKvGxOx/nOsllWGpyyKI3X07QvE8EhU
+	JQa8+E9uUp6q6+PhyrJVlf+8SFs/U8W9BywyBaIUtJrruHZ0dhW16PmHIKQzOaOafOERjMpyPEX
+	XG2I5TsU0cQ8N+UUtz9voUSZA==
+X-Received: by 2002:a05:600c:a0d:b0:499:bdf1:7578 with SMTP id 5b1f17b1804b1-499dc6e9b00mr69476415e9.3.1787751407615;
+        Wed, 26 Aug 2026 06:36:47 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499dcad0cbasm26303825e9.10.2026.08.26.06.36.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 06:36:47 -0700 (PDT)
+Date: Wed, 26 Aug 2026 14:36:44 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>, Harry Yoo <harry@kernel.org>, Andrew Morton
+ <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter
+ <cl@gentwo.org>, David Rientjes <rientjes@google.com>, Roman Gushchin
+ <roman.gushchin@linux.dev>, Alan Stern <stern@rowland.harvard.edu>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+ syzbot+805630f1453e490427fa@syzkaller.appspotmail.com,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] mm/slab: reject unsupported kmalloc sizes
+Message-ID: <20260826143644.5b3de07a@pumpkin>
+In-Reply-To: <82f138f5-11d4-4839-94a3-c226fd982715@kernel.org>
+References: <20260817-limit_kmalloc_size-v1-1-5bef487701cc@nvidia.com>
+	<82f138f5-11d4-4839-94a3-c226fd982715@kernel.org>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260826132729.3281308-1-dakr@kernel.org>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Wed, Aug 26, 2026 at 03:27:18PM +0200, Danilo Krummrich wrote:
-> Add Alice as co-maintainer for the Rust alloc module to share
-> maintenance responsibility. This is also a natural fit, as some of the
-> alloc code overlaps with the mm subsystem.
->
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+On Wed, 26 Aug 2026 11:28:12 +0200
+"Vlastimil Babka (SUSE)" <vbabka@kernel.org> wrote:
 
-Alice is very smart and has always been great to work with, so I'm sure
-she'll do a fantastic job :)
+> On 8/17/26 22:40, Zi Yan wrote:
+> > kmalloc is used to allocate physically contiguous memory for kernel
+> > allocations. For requests larger than KMALLOC_MAX_CACHE_SIZE, kmalloc uses
+> > the page allocator and can only support up to KMALLOC_MAX_SIZE. For request
+> > sizes bigger than KMALLOC_MAX_SIZE, the page allocator can emit a WARN
+> > because kmalloc allocates an order greater than MAX_PAGE_ORDER. Systems
+> > with panic_on_warn=1 crash because of this WARN. Fix it by rejecting any
+> > kmalloc size bigger than KMALLOC_MAX_SIZE.
+> > 
+> > Fixes: aadb4bc4a1f9 ("SLUB: direct pass through of page size or higher kmalloc requests")
+> > Reported-by: syzbot+805630f1453e490427fa@syzkaller.appspotmail.com
+> > Closes: https://lore.kernel.org/all/6a820ebc.9ebadd4d.20b15e.001b.GAE@google.com/
+> > Tested-by: syzbot+805630f1453e490427fa@syzkaller.appspotmail.com
+> > Signed-off-by: Zi Yan <ziy@nvidia.com>
+> > Cc: stable@vger.kernel.org
+> > ---
+> > It fixes a page allocator warning (order > MAX_PAGE_ORDER) when gadgetfs
+> > requests excessively large memory from kmalloc. Instead of adding
+> > __GFP_NOWARN to suppress the warning, as was done for usbfs[1], change
+> > kmalloc to return NULL without a warning for this specific issue.
+> > 
+> > [1] commit 4f2629ea67e72 ("USB: usbfs: Don't WARN about excessively large memory allocations")  
+> 
+> So I checked and for kvmalloc() we have in __kvmalloc_node_noprof()
+> 
+>         /* Don't even allow crazy sizes */
+>         if (unlikely(size > INT_MAX)) {
+>                 WARN_ON_ONCE(!(flags & __GFP_NOWARN));
+>                 return NULL;
+>         }
+> 
+> This comes from Linus in commit 7661809d493b4. I'd do the same thing here
+> then. Thus there would be a useful warning for e.g. development mistakes
+> resulting in the size to be unexpectedly high.
+> 
+> Callers passing size that comes from userspace or similar untrusted source
+> can either pass __GFP_NOWARN or sanitize the size to what they expect to be
+> sane (which is context dependent and I assume actually way lower than
+> kmalloc limits in practice). Note that passing even sizes within but close
+> to/at the limit, trusting blindly some external source, can succeed the
+> allocations but effectively DoS the system with heavy reclaim/compaction. So
+> caller sanitization should still be preferred IMHO.
 
-Obviously:
+Indeed, and sanitising the values early on saves all the size_add() and
+size_mult() operations (that are just saturating maths) but still let
+through the 'DoS the system' sizes.
+Mostly the actual maximum size is actually small. I suspect limits like
+64k, 1M or 16M would be appropriate.
 
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+David
 
-> ---
->  MAINTAINERS | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 24ca91ce5d86..7daacfd70197 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -23945,6 +23945,7 @@ K:	\b(?i:rust)\b
->
->  RUST [ALLOC]
->  M:	Danilo Krummrich <dakr@kernel.org>
-> +M:	Alice Ryhl <aliceryhl@google.com>
->  R:	Lorenzo Stoakes <ljs@kernel.org>
->  R:	Vlastimil Babka <vbabka@kernel.org>
->  R:	Liam R. Howlett <liam@infradead.org>
->
-> base-commit: 45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229
-> --
-> 2.55.0
->
+> Some of the recent
+> arguments from Linus [1] would apply to this too, I think.
+> 
+> [1]
+> https://lore.kernel.org/all/CAHk-=wiSmgwwLKCqJwGS-dVHnSLU8W+7q1UQq-G9=TBGGZbuhQ@mail.gmail.com/
+> 
+> > ---
+> >  mm/slub.c | 7 ++++++-
+> >  1 file changed, 6 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/mm/slub.c b/mm/slub.c
+> > index 0337e60db5ace..a3071f4ef1945 100644
+> > --- a/mm/slub.c
+> > +++ b/mm/slub.c
+> > @@ -5263,7 +5263,12 @@ static void *___kmalloc_large_node(size_t size, gfp_t flags, int node)
+> >  {
+> >  	struct page *page;
+> >  	void *ptr = NULL;
+> > -	unsigned int order = get_order(size);
+> > +	unsigned int order;
+> > +
+> > +	if (size > KMALLOC_MAX_SIZE)
+> > +		return NULL;
+> > +
+> > +	order = get_order(size);
+> >  
+> >  	if (unlikely(flags & GFP_SLAB_BUG_MASK))
+> >  		flags = kmalloc_fix_flags(flags);
+> > 
+> > ---
+> > base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
+> > change-id: 20260817-limit_kmalloc_size-3a4a2c73beac
+> > 
+> > Best regards,
+> > --  
+> > Yan, Zi
+> >   
+> 
+> 
 
---
-Cheers, Lorenzo
