@@ -1,201 +1,110 @@
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CEFC353A86
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 15:53:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.178
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787759586; cv=pass; b=NNu/dsjwaU6IV0PI/t9ZQtUOBmLRF73eM5Cs6EpcXKrZfD0hTzL1CEyPugmL5PNgjv6guYYejyUHiZL7zt80yeoW+aXHHMBrTK3OeRHRQNQaLG3TytzKGToFaNeatid1zv1Bnn8quIiOpTRnDslLfmBjToLJDVXX/DCF9J25+Uk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787759586; c=relaxed/simple;
-	bh=nhzcmQbfSdSCC3/voOcltTc6ecAvxBkF++UsUwC1yIA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=EOwKoLAiw429F8/fSMCRVuLporWE0om5UqZ3qdO0pShEQd+KNKN+pJcZ0ZFvoDtSH/9mmkTOzinHnBUwHTLK3NH0hlOJQgdq5k+57CVpwOqq/9Pcc14lJ1sDwTxH6VOiKYkmCsBbZMBJLUULSK7EOYvXPWBS85QHoWlCZ7xaqXk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=wkXFL+8j; arc=pass smtp.client-ip=209.85.160.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95C153FBB5A
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 15:55:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.47
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787759757; cv=none; b=P/RN7hK+ZszJ2TeDpjZFKK3qLrPX6FyiQKOaNyrgruFOUdMSxAZQ9SowjjI9M511NOzrJt0+PrmnDeZ9fu8ZpcS/VS549zsUxr/ZnFL+ihKflVV3gKJqlLMO5iv3LBCQ6Sd9bRxdQ7lfHbX3CaS4VQ+ztwbRUd1BMNEmZQ1YJJk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787759757; c=relaxed/simple;
+	bh=9oaiX63GtUT1PIJRby/zgJFxpdh3yK9f51Y3hyqry+s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RKOjyM3Bp9VO8onXiI7gCkdUDTHTKXKAPU0VmT6kl0ZsGUgIEqFHdd/ic0SZoZ1/JTG1XPgLept5VRexevvdTSZNTN7OnS2ksQZgRYDdFhbOrePdW5jHio76CynJ+SlEMlwO5Y2+uMPtJuBGDUoeXZU3k4DNFijwp/3av4IUY9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=ShwSFVqv; arc=none smtp.client-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="wkXFL+8j"
-Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-52f83889a93so2835941cf.2
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 08:53:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787759583; cv=none;
-        d=google.com; s=arc-20260327;
-        b=dzKS5Gl5cdxoBXqStbSRl4RNBgE3GxnyQxNh1yRB/mVGg9HxOJ/LGC4fDcFqE53RuA
-         stBDPTYOzmF9I4hNMaqBJPTRY7vySxjzFWK+Ir4hEase2i16g2N42SspGFYSDL2UT7zb
-         XOfcKl8hrUq1quZCPgEqbQqNK/pzGsPofplCkMEnJL9jqPelRE0XAn8o7dFmal+qwTQN
-         cUNGwWsWWvw88eWHfURxkHWGsCX88ZyGGpKyzvM4kvK+qQHgBA2mVrENfohJU/7mvYys
-         FSQ/Sd3nWcFhN97eKyuKsbtjCtCbKplvYryFO42Cgx6FjQ0VE+kZ0oA4d+ii0fOYwpcX
-         Vq9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=/A1U78CmUVxnpdrZlvgInM8HciZ9zbDyKtBI4yHBqq8=;
-        fh=73cj374x3mzgb+ay06jbw+CHl5h0FwZ/huOfuN9pCQk=;
-        b=WZ2WK7iYVN4KFXeUHD+sNYCOSS+sHokrjq6RuHzRO34h5TGhM3sv/JYoeEifyTHuZZ
-         ikqliSsWoM20uq+Yv3TJ1tDIeTC554HSOT813GX6uqI5Ja8+ZHuZsa+kxwrAZfA4di9O
-         Tm9XmbVLWSW8t7sLA9GSJxwLKLetvdAPc8B0dAzuue3KO6k5RTbp/LB5CS7T9YZRlMFC
-         TZR3QVet9+b6Py/1VHTo1A70Xf+ZTuf6Ud72DbGYY4i+gS0KU71UBLuSgW0O8l/lXjzh
-         S4mOfYpms+rg6KA4pFwgjMq7l1dQ2hWV5stpYsJnrXFBAKbnQbwgvmAyFFChmtVFTd9k
-         4wLQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="ShwSFVqv"
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c15e2dab83eso173473666b.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 08:55:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787759583; x=1788364383; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/A1U78CmUVxnpdrZlvgInM8HciZ9zbDyKtBI4yHBqq8=;
-        b=wkXFL+8jVVLQMfdobSGanytS1RBg4CdFQzvlALUAfrMJi/BOtQyuc0szzf78+vW+4p
-         /HECmtwNvfcYXTEMByQQD014I91DwSHoa6CLwODjWUNoH7Fa+E2bDZNYOSU//wC9gVTU
-         65EhvxE3JOxdc4DvGCP1VLMpjcFkPBtKxzKxFt8Tr4/Q3sFPiZZCUTrXGL/iwPiN8HWn
-         Mq8QAUuwEiHGbesY0Nyk7iGsAP3o4Kq6D4AxG36f94U6Ssm4Np1y6KSNs99HhGFsposO
-         8GXPxD9R1uBQhGaI6L+PFGm/V3ZfcVLAiOBgbnDuWOz8EU4gslKDxOsRRLeWcWMXdS4i
-         vmLA==
+        d=googlemail.com; s=20251104; t=1787759754; x=1788364554; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pDADV2/or4TSZWEIXH4l4CffO3MwLk2ZaPPDWt6sblI=;
+        b=ShwSFVqvH4P8qCWLos9cmxyCwIWOASjNxR6l0BoWaRuPMYD9lw+3c80d+2NBoB2sj+
+         MWcgjqWLn1wXdx+bPcX4FGd9NVOZSMKPUgHL756SAVcXOkp+caW8dGCMuxTkq8u1p4mj
+         FCwTZxV8htQiUVZAwu/0PHBUvZhvrFm5OC5qCtfrKovJzwKlhkh+z9UEkoj9klaMH6kQ
+         11AusgyLTqkLfJD74lWSMTF13X619VjELI+lcL3lbfGCHgOy3XFP6L08XbEVJn2W+A6K
+         GHLgz7Gmf06GC7SBKLvbwIJ2GfDHUaGFgbG8ef7Gfo8aIhbusKhBFI6zlveKTNDIQ5jC
+         hUKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787759583; x=1788364383;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/A1U78CmUVxnpdrZlvgInM8HciZ9zbDyKtBI4yHBqq8=;
-        b=dnuVg+QjDDLvZ3uiqdxPFpjkAeBlQh3xcrhH1VBnQl+CCpO0/ykUX3IbRRAhBETpod
-         4GapA+vTARU6Gjse1A5UpUZL6WlLXjeQ3c0sucMn7q/Ru1tbMOyyWb4sV3h/pWvQINSK
-         rSP3f/dDJ0bypEkVvZZe0ze4XaHMDveHXgsDNReqS0psFdcS3aVUlHsOXmMUOIJmcrS0
-         IZSkGtBxSbYupGYQc3WOzy1E3sav7tv1JDRgbNN3pYtpyRK8LIXyHiD7YLTnGt4nP1Kt
-         n454vujt3JZQg0TlWJzmo6xyQIHeP29ZUFySAwiaXwhjRbRamJKqtNfRS+eL5Wv+1Ccs
-         2ddg==
-X-Forwarded-Encrypted: i=1; AHgh+Rootzt638qA4Dw/Ffrav+HWc5MSdSMA93+Z9DdqHRGIgsrRD6p5QrP9T1uz1YRukZ4ZrPMaHwCoA5ygMTc=@vger.kernel.org
-X-Gm-Message-State: AFuF++ldgr0RGc2n3VR8F6KlJ79GGt8xfrMXhbfJJ0mzjSSN6sev2CGm
-	m5r0hwOPBQGdPnIwYaJF+DcU1fj1raHD6apLRuVhQ33jj12OvWKj2JSLh1WFvWSpvF1uiBT3Qs7
-	8wUYQBHOW2npN8BhJQBdPzXWjFfH06jPKb8Ky3cFE
-X-Gm-Gg: AR+sD12sIZtVdN/Y13l/Lq7EbqfNIMAqCWpOsDuuf93GhK22HWB4ZgDcabyrEUqd/JW
-	SmgGrgQ75p0BuDLf9NfBp4mSda0ov3tQIfBnDauw0Fy7AKSlbYYQlQDGE1CUykWUAK2fUVOuL1i
-	542e0VKZ+Y2MfHDy62NF3552uSYlyHWHSERPSiDzc4p7TgGWJJMSkSl1AZrsw1Uk2cLN99xWblb
-	lm3ug+Ve8IqT59KKRE1+mp1r7T3ouFZFSIbaOdnNlRj6Qe05cB+1iM0fkD1e5fT0kC9sM96gejF
-	8cYO5iVkm2OtHBjYsO42yHovo79egz7TrkKg8FHLLuoMRuVzmr9/Vn+zbHMPoXpJagio+QcdODF
-	/kjXxsqWcjxt0srQhVAq8gELHQFYSThIXgup3dT5tsEhAAMumkN0JcWKwjd4=
-X-Received: by 2002:a05:622a:a905:b0:52f:9e5c:3402 with SMTP id
- d75a77b69052e-52f9e5c3d24mr21245771cf.23.1787759582224; Wed, 26 Aug 2026
- 08:53:02 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787759754; x=1788364554;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pDADV2/or4TSZWEIXH4l4CffO3MwLk2ZaPPDWt6sblI=;
+        b=pVEMQK13ejrdhJ0sY44SRaNIkzgWF5PScXBkDac6DfJcmrf5Am+4eyiCxsH9DCuQVM
+         LzpNHdEIxyNICmo6J4KcyMKZ98JkHyJD79dQAaldqUX18VBYHvh7SQfzzfbU2n/RC8mq
+         NlNrAj0f+Gbnth2AdOWSVBszhjaHgRSvH3rZvAKcwNbdDqKMFEEXwCGSIMl57wrF6iUu
+         9Abp4gFBsP4U1nMN8CTu+SGH3GFYKNtjhLtpO8pNBhRDHAcH4t2Vyb6YF5B8W5qTO5AV
+         xZ90Snaxs2aQI2ZPozhIOGer0QHt0KZ5FASiuTPbWhypBRTc1LMyAyN0soAPaxUHGdG0
+         46vg==
+X-Forwarded-Encrypted: i=1; AHgh+RoumWZMl0ayDazWGxKIB8vWLJcYAuqOxMWGHZLojYmpM5l2thp/JOEsouRiFl1m3X3MVp2HgFEoA3uN8Lg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lFdWnIN+vyyCPGbkdPBJFVRj+Qx0UrNxioIwHd0e58osT2XLDb
+	krcUZoHdn+OIVjtcvyFhsjK8j8/MRkNvWNfjRM8B0YhlWGBEuG5G8Ok=
+X-Gm-Gg: AR+sD11Q+pIh7IKj/zNtYxTyMAbhCqkz8irlKGHtD0ccO6Wzfi9PptDC1Ju4V7tgRyA
+	/syfcGX/CtPkZBaOywvTqXL7LpALLuz9RAZ5b19Q/OkUE5RyYVSLcDGAItdctQocuIpH+fOZdjM
+	ZI0Tgko/BpzqjYorDp3ddTiN9KGn2TIOTRih6UCGl+/Yk3lnfyUmqXeWvBIT0IMlGLWtdL3aGf8
+	K24IbWsieDHxumeGidXZov7aFQUI2B7rjwnLdE1MgG+3R3mCjIs66m7u/DLln7rtgz9F9mfV6Ft
+	/qa5o5yE/TT2Z2NnVQe7EMUON3YWQ05Brrvi9cDC3UdPjvjio3oZ9PhGhRqZzpSwnFlLNhJaq+j
+	+N7tp2+j4nt4T2PSb5Wdh+0OOrC2Jh13284lqW28E5s+2yOwgiq5lDpD0F58mawyIxcBd1H9jhZ
+	whMtA5kpN1kCRYK7xj8ycDHpGHxu04CJwOFBAIIshcLHtmGektjaHTZmcJCFcfD+NwzzbRvNJLe
+	sEm4Pmy1XN/35SRbZdqYhwnM6oNKVVay8MFXI0=
+X-Received: by 2002:a17:906:fd88:b0:c25:437:3dcf with SMTP id a640c23a62f3a-c250c3c07fcmr998270766b.21.1787759753471;
+        Wed, 26 Aug 2026 08:55:53 -0700 (PDT)
+Received: from [192.168.1.3] (p5b2ace5e.dip0.t-ipconnect.de. [91.42.206.94])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a5d62easm572120366b.6.2026.08.26.08.55.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 26 Aug 2026 08:55:53 -0700 (PDT)
+Message-ID: <1e8ce437-3f87-4963-8f36-ed629bb9a984@googlemail.com>
+Date: Wed, 26 Aug 2026 17:55:52 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826141145.67823-1-jiayuan.chen@linux.dev> <20260826141145.67823-2-jiayuan.chen@linux.dev>
-In-Reply-To: <20260826141145.67823-2-jiayuan.chen@linux.dev>
-From: Eric Dumazet <edumazet@google.com>
-Date: Wed, 26 Aug 2026 17:52:51 +0200
-X-Gm-Features: AcwNN1Udvbdfj1DbWjOiCAJ8x73rQxJ0GSWWRifRu8ry20zOWq2VrfeuYmkOmP4
-Message-ID: <CANn89iLAZMNspMM_cf+Y6-JVY5gO3sB98sjWQx-BLQhGWySE7g@mail.gmail.com>
-Subject: Re: [PATCH net 2/2] selftests/net: packetdrill: add tcp_urg_ptr_retransmit
-To: Jiayuan Chen <jiayuan.chen@linux.dev>
-Cc: netdev@vger.kernel.org, Neal Cardwell <ncardwell@google.com>, 
-	Kuniyuki Iwashima <kuniyu@google.com>, "David S. Miller" <davem@davemloft.net>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Shuah Khan <shuah@kernel.org>, Yuchung Cheng <ycheng@google.com>, linux-kernel@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 7.1 000/101] 7.1.11-rc1 review
+Content-Language: de-DE
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260825132541.986300899@linuxfoundation.org>
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20260825132541.986300899@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 26, 2026 at 4:12=E2=80=AFPM Jiayuan Chen <jiayuan.chen@linux.de=
-v> wrote:
->
-> Drive a connection into urgent mode and force a multi-segment retransmit,
-> checking that each retransmitted segment keeps its own urg_ptr.
->
-> The test asserts the fixed behaviour: the hole is retransmitted as two
-> independent skbs, each with its own urg_ptr (5001 and 4001) and no PSH.
-> An unpatched kernel instead sends one super-skb whose GSO split copies
-> urg_ptr onto the second segment and also sets PSH there, so on an unpatch=
-ed
-> kernel the mismatch shows up on the PSH bit (actual P.U ... urg 5001) bef=
-ore
-> the urg_ptr:
->
->         tcp_urg_ptr_retransmit.pkt:63: live packet field tcp_psh:
->                 expected: 0 (0x0) vs actual: 1 (0x1)
->         script packet:  .U 1001:2001(1000) ack 1
->         actual packet:  P.U 1001:2001(1000) ack 1 win 1050
->
-> After the fix the retransmit carries a per-segment urg_ptr and the test
-> passes.
->
-> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-> ---
->  .../packetdrill/tcp_urg_ptr_retransmit.pkt    | 65 +++++++++++++++++++
->  1 file changed, 65 insertions(+)
->  create mode 100644 tools/testing/selftests/net/packetdrill/tcp_urg_ptr_r=
-etransmit.pkt
->
-> diff --git a/tools/testing/selftests/net/packetdrill/tcp_urg_ptr_retransm=
-it.pkt b/tools/testing/selftests/net/packetdrill/tcp_urg_ptr_retransmit.pkt
-> new file mode 100644
-> index 000000000000..22f750ce09c1
-> --- /dev/null
-> +++ b/tools/testing/selftests/net/packetdrill/tcp_urg_ptr_retransmit.pkt
-> @@ -0,0 +1,65 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +--ip_version=3Dipv4
-> +//
-> +// Reproduce urg_ptr being copied across segments on a multi-segment ret=
-ransmit
-> +// in urgent mode (regression since 10d3be569243).
-> +//
-> +//   server (kernel, under test)                 client (packetdrill)
-> +//     |  write(5000): 1:1001 .. 4001:5001            |     mss 1000 fro=
-m
-> +//     | -------------------------------------------> |     the client S=
-YN
-> +//     |  send(MSG_OOB): 5001:5002 urg 1              |     snd_up =3D 5=
-002
-> +//     | -------------------------------------------> |
-> +//     |            SACK 2001:5002, leaving hole 1:2001|
-> +//     | <------------------------------------------- |
-> +//     |  retransmit hole 1:2001 as ONE skb:          |
-> +//     |    seq=3D1, 2 segments, urg_ptr =3D 5002-1 =3D 5001|
-> +//     |  tun tso off -> software GSO splits it:      |
-> +//     |    seg A  1:1001    urg_ptr 5001  (correct)  |
-> +//     |    seg B  1001:2001 urg_ptr ?                |
-> +//     |        want 5002-1001 =3D 4001                 |
-> +//     |        bug  inherits 5001  <- caught here    |
-> +//     | -------------------------------------------> |
-> +//
-> +
-> +`./defaults.sh`
-> +
-> +    0 socket(..., SOCK_STREAM, IPPROTO_TCP) =3D 3
-> +   +0 setsockopt(3, SOL_SOCKET, SO_REUSEADDR, [1], 4) =3D 0
-> +   +0 bind(3, ..., ...) =3D 0
-> +   +0 listen(3, 1) =3D 0
-> +
-> +// 1. client force mss=3D1000
-> +  +.1 < S 0:0(0) win 32792 <mss 1000,sackOK,nop,nop,nop,wscale 7>
-> +   +0 > S. 0:0(0) ack 1 <mss 1460,nop,nop,sackOK,nop,wscale 8>
-> +  +.1 < . 1:1(0) ack 1 win 320
-> +   +0 accept(3, ..., ...) =3D 4
-> +
-> +// 2. server sends 5000 bytes; TSO on, so packetdrill sees whole super-s=
-kbs
-> +   +0 write(4, ..., 5000) =3D 5000
-> +   +0 > P. 1:5001(5000) ack 1
-> +
-> +// 3. server send OOB
-> +   +0 send(4, ..., 1, MSG_OOB) =3D 1
-> +   +0 > PU. 5001:5002(1) ack 1 urg 1
-> +
-> +// We could disable GSO at the start of the script, but then the PSH fla=
-g on
-> +// the 5 initial server segments is not deterministic and hard to match.=
- Keep
-> +// TSO on for the initial send (one super-skb, stable PSH) and disable i=
-t only
-> +// here, so software GSO splits the retransmit and each segment's urg_pt=
-r is
-> +// checked on the wire.
-> +   +0 `ethtool -K tun0 tso off gso off gro off lro off 2>/dev/null`
+Am 25.08.2026 um 15:24 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 7.1.11 release.
+> There are 101 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-nit: I suspect "ethtool -K tun0 tso off" is enough.
+Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697 v2 server. No dmesg oddities or regressions found.
 
-Reviewed-by: Eric Dumazet <edumazet@google.com>
+Tested-by: Peter Schneider <pschneider1968@googlemail.com>
+
+
+Beste Grüße,
+Peter Schneider
+
+-- 
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
+
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
