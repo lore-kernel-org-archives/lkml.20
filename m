@@ -1,143 +1,153 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C465A3F20F9
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:51:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 310203F7AB7
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:51:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787752295; cv=none; b=bfkdESXQCvEfhUoH5UUI0OtKZsU7xQXSZnrRRKNHtAKtL4OyycY0z5RhJd1vMx+BlCtxfyucwmft3nR94IrggB1iHwpW1LbCa4bSQGt5ZHmudm0dCL/VnwoWDG1HOew/EqwzBviG+ue/tFoFOCeeHdnSqTflNKADXZw9z3xT5KE=
+	t=1787752301; cv=none; b=JvBT/gVQOFOv0ujo8ruCsPHbADVh/SdPOSQ+31OpipgQk2qfbAgm2mYeb5qHFo1cR9EFtjpeAe870YLjR8AZHTfqcRBIm/lvWas2Yz69+J8O+yXSOgLuTfX9c9Scmg0AAe7F+OOumvykufGmaVWphoX/QzYR23P621lwhsYr7So=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787752295; c=relaxed/simple;
-	bh=GOJBK4KjmDRwrsZszZM/3pZrl7B4ObB4TfR03fGbO7U=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kREpSnHIUEP+j8tNUdTA8DXDbNK7QpoXNGoBtte1GSl1sGVOnbohRQ2G5CUAC8kvcDTnla7GVp5fM+oOEh7SBdRP05NsOmo23QwTYEvhWCLsPfjdpo2DpU1RpHGK4+Ntd7uA0Lz8Stiim0Z8nU0O1KE7gnlOYqoTBJ3ks+QWN4g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=APu2NWh4; arc=none smtp.client-ip=209.85.221.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787752301; c=relaxed/simple;
+	bh=6cJLbxmwrbnOZzvacudiX7h+5irz8rWOFyxkz+s+TBQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PRnhzpzBCRIZGnYPk5yOz6a350V24scsBqVdhh7vzAH4XFm/ZII8dJ3oCBM4m+wBNIpqmE6JvFNQeO59tds1w3iXhT/Fo759gDyUvG6KtK/smtHMSzdPD0OHJ+H9fGX0NOInHPHCzkEYGSeBv1rirJG+9lYvIBS+wxtkE3MO9eQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=F2LVoGrw; arc=none smtp.client-ip=209.85.208.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="APu2NWh4"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-482e29049adso283515f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 06:51:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="F2LVoGrw"
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6a0a4aa99bdso1644390a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 06:51:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787752292; x=1788357092; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=suse.com; s=google; t=1787752297; x=1788357097; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=e97wIfCHFlP2bmONNa4TZ5S7wpl5GPpCFNecvYTBfXo=;
-        b=APu2NWh4mHpt6KNmVKwwmRnsbsJBSiF7cXKivxIku1ucmTvKqvJ0edCIE6tz4mvVq3
-         icAXfowzBhws6K/m6eHo4jMHkgLXrx9o49z1N54tcmp2oRmzAWzbXIzzdObwl195J3GK
-         Zi7Ig2gDXnZVufDXCwD7zVZc5BfEveOoy9oaA786Ka9kbuLwlf8CKnwPuCLdPEM1yo+C
-         FqKsH+icCPLTHxfQnGb9FvdDYk4sLuPNrH+8TV+OJb0/pweZCRt6FLAdE0vwT30icjWv
-         5YbNDz4610Fy9mT2pySNeCbOSaAE9oBRYtLJRlTC/sMpYod2sh6E3QkljoTdz0v6Lra3
-         iixA==
+        bh=AbPejUodpTpH54o/OlTk5uSnDzYs9pRHjviJEkIAHGI=;
+        b=F2LVoGrwdrNuskXbD00mAsi4boQFqiZZ296Q/X1gk/GVXL2kVWas/e0f+lLvMPUJxG
+         7kSaTve9wN5lxuhcgzt63c1wd5RCFMJYwjI7FYI1CbJyjzNDKFkbZScdHaRwmMtxAy1O
+         SAgI9i7wWZZc9s2W9mxJP/21OnRcUBlv3az1vaSvXqQNqVHypoSRk7to7lyoXI5hdxHS
+         tmFYAG7VdYM4iqWOaR2QtbQukyaIbo4ozFZxoyym5b2PfJexyqxoTbG2IeFGZ+cVGy6H
+         ld3shcmGzQeKrmg6lsYE9G6R8mFPpUYJfTXfJtgEPhNlknmU9sEp1kFXc6GwXJN3KmM1
+         //Cg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787752292; x=1788357092;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1787752297; x=1788357097;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=e97wIfCHFlP2bmONNa4TZ5S7wpl5GPpCFNecvYTBfXo=;
-        b=j0RFWWeU/ajcDSupb4CkXYdm2PKJJzBU8xraxi2nSO197UyO1BOcEqpfe7bxYjPy2l
-         3MxJkFwspMLRKEMT1UttCGVbc10pHzRmGCR63Z0Cz7WWUCMix4mquJGtBacRzpswduay
-         vBpUu/IILro6nMZuuA7SJyFi5rbg5zb3xUb8ELzeQCoZ140b9LZZpGLExtiuH88MlIa6
-         DCt7b/OyVLQSRT9D1QzSSC/ZO5O1bM0/bVsk+QKLoLR3STDCYB6Qjm/lgiMYnsY55BUD
-         xsY1vUH67CWTboW9dxglriBafLlnVFQ3KeqI6XlWlbRnJySHkZoj8qcRAHOLvZdcBJ3A
-         JqOw==
-X-Forwarded-Encrypted: i=1; AHgh+Rr+FQZQwvbzq42/PIR/GIRA/gC+CcNTq+KddZ+P+zniGvPX86L8BBUheeGVh6NWW4fgAcZNkTQzgGKCGWc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mDrC3ppTdpqt/bRls4JF6bRwsmiuwMiJR+6NeCuhNwlit09/R6
-	slJm4DK3hb+EhSEI8/uoCU4fL2eDJSsH/OWzi2dUagBTbnbGjl6n88tA
-X-Gm-Gg: AR+sD12OLz8fr2IjMVd6szT+c6QRFr/1zh09b8llj18To9gKi9KbCJh/EKCHuZMaMnU
-	8bE+oF7Ky4fkvHpZURjhCw6Fs8ZsbiuWtbmvLkoo7HvKgS74xNLjJAyIF8mkuc2pjP0b0y41GYc
-	BR+QbNXT1Oea447SCSZvuwjWTynU+rC3TVyXn5ZtlJgweXHn+f9TQoLmK1XbIsmVkBLu7CZT+7I
-	LUSEcckWVGdIjwfaUzLf0V+tAFcibjgIw4hLuupRCRnqS8EmzUYj8RJQ49PoFFTsMjjC+yXpZ7T
-	KesyRHYpBB0gUq984cTAuwPKQ5R8KtrBA/bRthPfevV3R4Zmq1xMhvbhpE2mlYd156jmkV0AGAg
-	1k5Fx5J+mLPqGpwizS7Lgq7vmAR5Tcej3H5XiVafofZbFKTm0DU4rXWecw4bKcvHoNQK67HiyFB
-	mweyQi66TOW7rh/FRfWPaDWtP9Mh1MdiDEG3Hhju9GL/S0jyFO1b3Zf+7pV5JHui8mO7r1WYg6q
-	5gz9/mfdAcKedIdrgF+DB+70ZY=
-X-Received: by 2002:a05:6000:4690:b0:482:ea08:8c97 with SMTP id ffacd0b85a97d-482ea088f62mr942737f8f.2.1787752291706;
-        Wed, 26 Aug 2026 06:51:31 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e27a9f0esm2851620f8f.10.2026.08.26.06.51.31
+        bh=AbPejUodpTpH54o/OlTk5uSnDzYs9pRHjviJEkIAHGI=;
+        b=Jc8ZLFaWvAmpMqtA5gtUQgVQ2l/JbJzATqyueh8KJm6K0t7wJZGb3WNGs+ZarwXgzf
+         h0TLJilt6dpPm6y+qo2tBhI8YdWqLD5o7lKESN2HyPXft1yHrTiztVA3Cg8NbvmBJ/tI
+         /odzt96vcBtR5B2QU1hEPXIwv57XvChNWVswhZNDGx3T3yDxZT+z2EY9d3gA5/ICirSC
+         HguLs7GAxX6Hx1HN3ZLKHbNWBofs7XeFUo2TVxMG4hmBDX0LQDcDC0rj0vRjuzi3Y/fy
+         i1uOLNS8g1+UiGse8EizOo8DXlzf03Mv0XAnXz+SYsLjUM0Dr7DbkXfHXLMWssbst9S8
+         bvgQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqdjhD3PVCjal/6K8XByiW0rD7dGxHCADZMmahfQxMjoGo/EqmfJWwvjbcsILW4J23xyRV53R2sIEhF7R8=@vger.kernel.org
+X-Gm-Message-State: AFuF++n2bQGKOf/YTAWANypxQbLBls1eDthPJo+giXT/rqqh/NTLGR/l
+	MsHeV0g7NExWQD4yA/8nwsyM1+kLQ2p6dEZ68YETzHjrRF3DSzJV8arg04YL/eQZqnc=
+X-Gm-Gg: AR+sD10RjwmpxE4KSETTHq6vk7WxW8UDnERegNp5Jfx8T7tnUbsNfIs4KsOyiRkIQj+
+	aeR/+igyo3YT696hdr4JNS355DkY2Yky5jArQUxqTogZ6vv57lhmFWCqNcT7Ze2erNW/sijlyB4
+	jmCd8jeduT1LS5brXqiVEzNQ4qxYJQy+DwXZENcfa6evj7EnzF5ixeyJX/0L4Z4VxnG+bu8k/4t
+	XzNunh4pgsVfiLCoqW7yBLjrgwYBrCerUF79rtWHjKOvWl4+M9NQpJO6nrEdfgKsq/vUxrT0Aki
+	BWNNW+SWlyrYd2QkVz213HMcPtRXNj+9F8v6o0jiNbpmeq6hqkkGaI0M1GNypHML0jkmo9zntH6
+	/kJKNGT5xS5ycF7DRA4TyEdHXPIfLIySQRaxpBJRlYekNBnKdontwSZAM/EX/6t0sJVJJ2uTOzn
+	N+RMwXH+EwFwkR4cfPdyTBirh5UmNcyyxbeJR8ukMe9FdHBwqYuyQtjlqd2f94Sp/qShNGAZTQ
+X-Received: by 2002:a05:6402:2108:b0:6a1:fd14:8832 with SMTP id 4fb4d7f45d1cf-6a5df64107fmr9294664a12.12.1787752297409;
+        Wed, 26 Aug 2026 06:51:37 -0700 (PDT)
+Received: from localhost (109-81-80-32.rct.o2.cz. [109.81.80.32])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a5de8d1c80sm3494104a12.10.2026.08.26.06.51.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 06:51:31 -0700 (PDT)
-Date: Wed, 26 Aug 2026 14:51:29 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Ilya Leoshkevich <iii@linux.ibm.com>
-Cc: Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>, linux-s390@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] s390: Warn if kernel command line contains
- non-printable EBCDIC characters
-Message-ID: <20260826145129.204b6517@pumpkin>
-In-Reply-To: <20260825150840.537653-1-iii@linux.ibm.com>
-References: <20260825150840.537653-1-iii@linux.ibm.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        Wed, 26 Aug 2026 06:51:36 -0700 (PDT)
+Date: Wed, 26 Aug 2026 15:51:35 +0200
+From: Michal Hocko <mhocko@suse.com>
+To: Ridong Chen <ridong.chen@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	David Hildenbrand <david@kernel.org>, Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Roman Gushchin <roman.gushchin@linux.dev>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, Ridong Chen <chenridong@xiaomi.com>
+Subject: Re: [PATCH] mm/vmscan: drop the combined limit gate in
+ __node_reclaim()
+Message-ID: <ao7vZ8EBHgU_CRpQ@tiehlicka>
+References: <20260826124409.35569-1-ridong.chen@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260826124409.35569-1-ridong.chen@linux.dev>
 
-On Tue, 25 Aug 2026 17:08:08 +0200
-Ilya Leoshkevich <iii@linux.ibm.com> wrote:
-
-> Users may accidentally add multi-byte UTF-8 characters to zipl.conf
-> parmline, for example, by copying snippets containing non-breaking
-> spaces (\xC2\xA0) from web pages.
+On Wed 26-08-26 20:44:09, Ridong Chen wrote:
+> From: Ridong Chen <chenridong@xiaomi.com>
 > 
-> The kernel will then interpret the entire command line as EBCDIC,
-> making it unusable. Distinguish this situation from the legitimate
-> EBCDIC conversion by looking for non-printable characters and issue
-> a warning.
-
-Would it be better to check for the entire line being printable ebcdic?
-All of EBCDIC a-zA-Z0-9 have the 0x80 bit set and most of 0x20..0x7f
-are invalid or control characters (or punctuation).
-
-David
-
+> __node_reclaim() is called from two paths: node_reclaim() and
+> user_proactive_reclaim().
 > 
-> Signed-off-by: Ilya Leoshkevich <iii@linux.ibm.com>
+> node_reclaim() already bails out early unless node_pagecache_reclaimable()
+> is over pgdat->min_unmapped_pages or the reclaimable slab is over
+> pgdat->min_slab_pages.  The identical check inside __node_reclaim() that
+> guards the shrink_node() loop is therefore redundant for this path.
+> 
+> user_proactive_reclaim() is proactive reclaim driven by userspace and
+> should not be gated by the per-node min_unmapped_pages / min_slab_pages
+> limits at all [1].  With the gate in place, a proactive request is silently
+> turned into a no-op whenever the node happens to sit below both
+> thresholds.
+> 
+> Drop the gate in __node_reclaim() and always run the shrink_node() loop.
+> The node_reclaim() path is unchanged, since its caller has already applied
+> the same test; the proactive path is no longer wrongly gated.
+> 
+> [1] https://sashiko.dev/#/patchset/20260723045718.2052070-1-ridong.chen@linux.dev
+> Fixes: b980077899ea ("mm: introduce per-node proactive reclaim interface")
+> Assisted-by: Claude:claude-opus-4-8
+> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+> Acked-by: Johannes Weiner <hannes@cmpxchg.org>
+
+Acked-by: Michal Hocko <mhocko@suse.com>
+Thanks!
+
 > ---
->  arch/s390/boot/ipl_parm.c | 19 ++++++++++++++++++-
->  1 file changed, 18 insertions(+), 1 deletion(-)
+>  mm/vmscan.c | 13 +++----------
+>  1 file changed, 3 insertions(+), 10 deletions(-)
 > 
-> diff --git a/arch/s390/boot/ipl_parm.c b/arch/s390/boot/ipl_parm.c
-> index 6bc950b92be76..71c0c26d56bba 100644
-> --- a/arch/s390/boot/ipl_parm.c
-> +++ b/arch/s390/boot/ipl_parm.c
-> @@ -173,12 +173,29 @@ static inline int has_ebcdic_char(const char *str)
->  	return 0;
->  }
+> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> index f11491ee9ed5..6dff207ad8c6 100644
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -7851,16 +7851,9 @@ static unsigned long __node_reclaim(struct pglist_data *pgdat,
+>  	noreclaim_flag = memalloc_noreclaim_save();
+>  	set_task_reclaim_state(p, &sc->reclaim_state);
 >  
-> +static inline int has_nonprintable_char(const char *str)
-> +{
-> +	int i;
-> +
-> +	for (i = 0; str[i]; i++) {
-> +		unsigned char c = (unsigned char)str[i];
-> +
-> +		/* isprint() is Latin-1, and we need ASCII here */
-> +		if (c < 0x20 || c > 0x7e)
-> +			return 1;
-> +	}
-> +	return 0;
-> +}
-> +
->  void setup_boot_command_line(void)
->  {
->  	parmarea.command_line[COMMAND_LINE_SIZE - 1] = 0;
->  	/* convert arch command line to ascii if necessary */
-> -	if (has_ebcdic_char(parmarea.command_line))
-> +	if (has_ebcdic_char(parmarea.command_line)) {
->  		EBCASC(parmarea.command_line, COMMAND_LINE_SIZE);
-> +		if (has_nonprintable_char(parmarea.command_line))
-> +			boot_warn("Kernel command line was treated as EBCDIC, but contains non-printable characters\n");
-> +	}
->  	/* copy arch command line */
->  	strscpy(early_command_line, strim(parmarea.command_line));
+> -	if (node_pagecache_reclaimable(pgdat) > pgdat->min_unmapped_pages ||
+> -	    node_page_state_pages(pgdat, NR_SLAB_RECLAIMABLE_B) > pgdat->min_slab_pages) {
+> -		/*
+> -		 * Free memory by calling shrink node with increasing
+> -		 * priorities until we have enough memory freed.
+> -		 */
+> -		do {
+> -			shrink_node(pgdat, sc);
+> -		} while (sc->nr_reclaimed < nr_pages && --sc->priority >= 0);
+> -	}
+> +	do {
+> +		shrink_node(pgdat, sc);
+> +	} while (sc->nr_reclaimed < nr_pages && --sc->priority >= 0);
 >  
+>  	set_task_reclaim_state(p, NULL);
+>  	memalloc_noreclaim_restore(noreclaim_flag);
+> -- 
+> 2.34.1
 
+-- 
+Michal Hocko
+SUSE Labs
