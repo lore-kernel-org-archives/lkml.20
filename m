@@ -1,97 +1,107 @@
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49B693D891D
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 18:44:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21230398902
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 18:44:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787769888; cv=none; b=oIglbDqLu5ZMd3KTCl/Hd3RNOjYknIVnV8JqOK2tCqDZpKbRTR0XpeO05+P36jmuuGodaUdSo9qVnmUD2v/bXATqmjg7dAp3ckK0mm/QBLFrsS8ma+RoxFJhgMce8c5BvB11LyB016/CK4FiehkxjWYFVUipV0HkFHC/6QWwVjo=
+	t=1787769907; cv=none; b=kfVeuSPV65Zftx2dUMqQawiNt8nXHgigoHh3yW+N1SGTrJK8YgWQXH3HTYr+CZqSIwIEjCxBcXBhD49WUiOhAcPL2TisPvedUhyqVA2t/hQe8X+BEh1tcO9KcfQiwEYMjFKA+He9BYkegYFvi7DaEVoXzUKyVXe9JXaYIePfavA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787769888; c=relaxed/simple;
-	bh=o0kVe7JlFi7gzakUf0MOGw4UB/o3OZf313s3MQZXBnc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aIshLmgjBAjiM7ouHi2Cp4JBeSTagYioG4MdAYabb4YbHstcNquXXrVsRv8zDyh7/g404kpboEyaL1AXhNYRsYH/GfEE74z9mYEnE4fCxO4C5yB9qQXHIftu8I2H+kqzdSdcDq1PBcGVJ6W3jQHy28NYX0zk/b92qErkho14Euk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d1DBsUNB; arc=none smtp.client-ip=209.85.218.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787769907; c=relaxed/simple;
+	bh=1b8Qr855KYUK73BAwj+crcS6Ne53L5zvJVEQY+vroN0=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=qOEhhOvL7KfSAD3OxysXwipbJl5cW7z329q2/ZE/kYfucfdP48Yp0t54m4u+8oOCkJznC+hrjqcOoHUmnYa29gwkGMoD+v4YByvUXpUggNBHfM++fhSwqt0+hRcPhW2OfjxHTl4XI9ibwBy1YRDOIOu1j0oLRvpJwCjAgT7E6/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=P/uMkde3; arc=none smtp.client-ip=209.85.214.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d1DBsUNB"
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c15b51ba80dso19742066b.2
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 11:44:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="P/uMkde3"
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2d52734fc41so26273395ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 11:44:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787769876; x=1788374676; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BW0yqpxwrxQ/SfbZ5SsmgOBwBnQNnQshpDL68C/c/1c=;
-        b=d1DBsUNBFgXsxMUPgZ5beYhy+WT5j4o5cxSq4AHRqO51Wy6x89VAZtwrjgyey+yWUf
-         s6RSZGdeJNOhUuay5EsDGEQFoPjLzeH9uGRPCGhgCLlInN/uXtDQxiYMUl8X4U4cb5gu
-         pYw8MpuG0TJoNXtQnP18+nNu8kZWmbr4cXCXPoMhW05IeHCAJ3CZon4FIRJ8LvUoDiFe
-         IuITCsTrpeH8wFV44nctD6NbGp/CEDkteshsMVckBHQOPTPPx6rw8Z1R1a59Jq2jP1nU
-         hbhZHeYu8mZpLHuSmu2KUsAvYZVDv3rto4yys4o0SsYG/CPOgmaYT4FiOYgbUIiNGo8i
-         wg+Q==
+        d=google.com; s=20251104; t=1787769891; x=1788374691; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=loiXTTHQz/zpU95R8TVM392sAaOQqoIrCXBsU2v94TM=;
+        b=P/uMkde37bpsG2Yg3XbYKHdh41VtYUBlahR/9S6TXIlCLXlrxln+lnQh1aRAXX5H3p
+         yq7hTtbOqTFg4NToUq/rUb/0y9BKo3Uu9UYSd4ZHLv8HrgPAOKXNWUoSWunUu3uU2aUN
+         AqUebaC9i5zBM3QgHpq9DGrQ73UhDgi2ykLxUSHmk1a/WjELAyHhJgPlqFV/wkju3WfS
+         GLuChxI4eiZFxaHPvYo4QvAWnYbSEKAUrLFKmUNY5ZO/RCfR9sqwfHvAdtfcrjVGGAAW
+         HdcLWZaslYUfbAmwfA9Cg4tGhvVK0ZHxmNM2z6r9cogGg9VUP1ljrQpUdENxKqyMpyCn
+         RCLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787769876; x=1788374676;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BW0yqpxwrxQ/SfbZ5SsmgOBwBnQNnQshpDL68C/c/1c=;
-        b=QK+G7jizBcdFAs30fxsgXV/kwE2iPJBMlaMP7wONV+xnISSQOW9krD1P1f0j0rVUQ8
-         0R967B2MKhALO6jLFmA0VwYqZaKyiD4YznxqVNRncmFPXvAlD4/NpkCTbDjRSJ8uzoYC
-         0uwpPiZ73OWBrI69Lp2/twD16DC9fsN+/0TZCKCmbRgsIEXzy/5y6ummuVrnG7WmlIF4
-         eZhlLPJ/fnjZXnZAk/B2QuCf6Yo5UdGK5E+kY42g0CJSFzK1YgYRgG+JlbpYCeXFtHxB
-         V42GgxwOWjAhyBsJCXP5QLIMCOabRSg7hA1qpxoJQHrgfYcsh4YhmApeO6yTe5Jq8sCj
-         SPSA==
-X-Forwarded-Encrypted: i=1; AHgh+RruruauoqmdxxWNBs+TNA3lf5lTY2Nj/NzaRHm0HHiZ27MKj6GVlEVhylKBpZ9dGRckkkWMTQ71KSXu98g=@vger.kernel.org
-X-Gm-Message-State: AFuF++kqFILAy+A2V8csx0IOC0ylMXbuxjI3V3Gu9dAHwTF4XLtMfi7w
-	rPenM+xf4Oe4mZG08gVTubxIBD4PZnCLLjWPGe6SvfmNuYRIbP2+1lUN0queI6pM
-X-Gm-Gg: AR+sD11xhjn6fZGxsPuP9cIs1w61zrTi+/Q/dzkbFWBGoqd58sVEyxokhXV//3N1+4V
-	bKpk9j3Rhlqc/qQ/qB8ZA7x9D5avne6S6eVsGwcopKypN3fgrlK9h+Q/hewgQ6nUMhL632to0JR
-	fueyO4jcmSgNVEKoAg0U1/QuO3roCZXD+iF7pFMoOhRqulGRjkLvU2ZaJLRSaKOEkwostImeSAs
-	wImtS3EpOxZYGLmUpmB2xIWdguFTtSxD/NF9KuXbpPXsTI0zhGOHKu3boibvQJ9R1c7NUzcmdkI
-	aZY1p21+IO0BDcfoTkSPGqw8B3Mu29qc7xgnoSsdLg6OYOehOqK8DqcjucL7c+BhKUw868N8RA2
-	nuoKZTSDc6/XtU7hUUxMDdf/jfKzSEZPHwCDr3pWQRv42e4HVuL7/07D5mEAjhCETnjJgJTZ5ms
-	1kmoNhDJZM3Fr2f2dC44gzFWwKiRxOX5weqOpxaRdKMQ+gN91j5X/Wb/iGH0HfhoWXzfpd1Q9dN
-	2aXQK4Yyhonte2lyu/20w==
-X-Received: by 2002:a17:907:961a:b0:c21:764c:9417 with SMTP id a640c23a62f3a-c253312339emr164901766b.1.1787769875455;
-        Wed, 26 Aug 2026 11:44:35 -0700 (PDT)
-Received: from lima-kdev.local ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a73038asm546998266b.26.2026.08.26.11.44.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 11:44:34 -0700 (PDT)
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: kprateek.nayak@amd.com
-Cc: bsegall@google.com,
-	dietmar.eggemann@arm.com,
-	juri.lelli@redhat.com,
-	kayracizmeci@gmail.com,
-	linux-kernel@vger.kernel.org,
-	mgorman@suse.de,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	rostedt@goodmis.org,
-	vincent.guittot@linaro.org,
-	vschneid@redhat.com
-Subject: Re: [PATCH v2 1/2] sched/fair: reuse the ENQUEUE_DELAYED calculation in enqueue_task_fair()
-Date: Wed, 26 Aug 2026 21:44:32 +0300
-Message-ID: <20260826184432.911321-1-kayracizmeci@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <3ae49b35-2188-4b29-af4a-6fff500098d3@amd.com>
-References: <3ae49b35-2188-4b29-af4a-6fff500098d3@amd.com>
+        d=1e100.net; s=20251104; t=1787769891; x=1788374691;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=loiXTTHQz/zpU95R8TVM392sAaOQqoIrCXBsU2v94TM=;
+        b=MXn7sGXc8VktuDQ5fw0OxUFhVpZgWr/VsYGSYNknR8hIwu9G0wD9Ms2DgKqQcpHzY5
+         IjzbfrJD+T2UMjib4jur0bwwaTEI0HH3UcBlgkoB3qvzCFvH+PS/TkJs28F7XBIfHLHJ
+         22wrqkFtYLT1csQOr0Nrs2hd1pKl+gNgvLvjhT6Ph1IOzv+IeH27/JnXYiK7oIyoAYIE
+         fwElAtio/K+7y7tyw8G+b8RAnq3K/EUhjChEhfkyIi+MYQixH5qNKv1CuxrThVCD1VIS
+         aeHVxrfI/z9wkS2gprbi+j92fl7vS1Qp4AHTMpvrNpqwa1uG/OCfmXxJd/EMBeazwP2u
+         CUmw==
+X-Forwarded-Encrypted: i=1; AHgh+RrbfS2y+j6xPGJoU8EY02HrpWaAd8Q2zpDPV5hUqgFNj4IizsYHTfIEB+W0tyE30YUUMmCVGHyGHoBRJwE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mCgvQaVDFBj50asDTOh7P/IkebKoKeXhrMm02ZWSDmDjd0cI/T
+	pGgxDY68UWdyMaL2es/3zKx0vyChxHDtyuJjLsuFcTwuB7PzEYvNslQKNhZuxgWqT4rO3INEGCk
+	z1QR46g==
+X-Received: from plho15.prod.google.com ([2002:a17:903:23cf:b0:2cc:2c68:b71b])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:40c9:b0:2ce:9c48:22d3
+ with SMTP id d9443c01a7336-2d707af8432mr169786675ad.11.1787769891000; Wed, 26
+ Aug 2026 11:44:51 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Wed, 26 Aug 2026 11:44:49 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.887.g758fc8c411-goog
+Message-ID: <20260826184449.814130-1-seanjc@google.com>
+Subject: [PATCH] KVM: x86: Zero reserved synic flags when delivering message
+ to avoid stack leak
+From: Sean Christopherson <seanjc@google.com>
+To: Vitaly Kuznetsov <vkuznets@redhat.com>, Sean Christopherson <seanjc@google.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Stefan Teodorescu <fane@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-> Maybe wakeup_delayed but all of this should be optimized by compiler
-> at the end and a big ENQUEUE_DELAYED is better for humans who are
-> reading the code no?
+Ensure all reserved flags are zeroed when setting the msg_pending flag as
+part of SynIC message delivery, as setting only msg_pending can leak seven
+bits of kernel stack data to the guest.  E.g. gcc typically uses a
+bitwise-OR to set the msg_pending flag, without initializing the on-stack
+variable.
 
-Can't we rename it and use it in both places? If not then using ENQUEUE_DELAYED 
-is better since the approach remains the same in both places, no?
+Precisely zero the flags, e.g. as opposed to zeroing the entire structure,
+to make it somewhat more obvious that the flags *need* to be zeroed.  E.g.
+it would be quite easy to misread the initial read of guest memory and
+think that zeroing the entire structure is completely superfluous.
 
-Thanks,
-Kayra
+Fixes: 3a0e7731724f ("x86: kvm: hyperv: simplify SynIC message delivery")
+Cc: stable@vger.kernel.org
+Reported-by: Stefan Teodorescu <fane@google.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+---
+ arch/x86/kvm/hyperv.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/arch/x86/kvm/hyperv.c b/arch/x86/kvm/hyperv.c
+index 604651cb2739..8d2669d8ef34 100644
+--- a/arch/x86/kvm/hyperv.c
++++ b/arch/x86/kvm/hyperv.c
+@@ -802,7 +802,9 @@ static int synic_deliver_msg(struct kvm_vcpu_hv_synic *synic, u32 sint,
+ 		if (no_retry)
+ 			return 0;
+ 
++		hv_hdr.message_flags.asu8 = 0;
+ 		hv_hdr.message_flags.msg_pending = 1;
++
+ 		r = kvm_vcpu_write_guest_page(vcpu, msg_page_gfn,
+ 					      &hv_hdr.message_flags,
+ 					      msg_off +
+
+base-commit: 76671054f9a1ff6abb976583cd8da37650acdc97
+-- 
+2.55.0.887.g758fc8c411-goog
+
