@@ -1,77 +1,49 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98AC03F822F
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 11:59:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 262823F8252;
+	Wed, 26 Aug 2026 11:59:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787745587; cv=none; b=flLj03otggxDjekerZ+HzTPhGTDPgXisnWqbufmEGh+0lkE8I8Yc7RFP52prF9d1p9XNRKSnEANQr2gwNAzb68UtZjI8uMFsZOV049kY7RtI8psFdUoWOSmhPJiZdfRGjjsK1xle9H6JmRKkGBTyyB1FkWg0Tglvf9/gHa+iuBA=
+	t=1787745589; cv=none; b=GYmG7ZszYR18eoi6VSGAaCCzQXRWVro1eIw9cHClF3QNS0wkSZi22JqzccopIBP+WCkrO/C7E0DNR7f64UzY7zACONdqil1STtflqYzKJ1GVTZyD5CKk/l1xDmss5DAF+fnLbulsxTZ5OjrEYegEFguQ06P+O60/mihY+mvycRk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787745587; c=relaxed/simple;
-	bh=h7J/RvhiciDfKZ1jOUjzZ+MzCgM78+0aQDx6a2MtWZk=;
+	s=arc-20240116; t=1787745589; c=relaxed/simple;
+	bh=V/wrOBXnzfXwO7qi8GOTgQOydrkFkmTSVS54L1hsMy0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KIU7MQDaHyOM1w/Vu19gG4wrj/DH9DCJqrrJShmU7C4vnPLHzcbbvnftOhU2KWTJZAp8OOoNi7HmRt4C7Rd1tuiTEinpAnjRS1cXA+SCZt7l6k/OnyUFTt7+jqS7Q453aMwFl+6DVsaBozlGji1Xk/Kst0JYAo/b+RJPzNcki2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MF9USS49; arc=none smtp.client-ip=209.85.215.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=Se8vH0pRhLff2eQL/kvqGxKoQxXvXADDoEuI7ogRQ0xStDd+UARx2kSFNfMNw18XC6mZ+1nkk2rczMMhOVgn9Gy9qWuAcMAojOvYK+e6OFrC9qSDmL2skVKFZkgMp3RvODSXhiVwLh8pxFVI5sEyv6eZRlYaT9ezdavOzLOfZ+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y2H4IMGB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MF9USS49"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc1cf287ef8so83575a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 04:59:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787745585; x=1788350385; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RVWnW3XTZgLAyxYR/1hSOMx1kfYP5ttpGeKsRvGDajg=;
-        b=MF9USS49aExD2Sr1D0cEP6BgcQJUA6OOdO97tT5iTi5Y3sTZgTV/aLNFptQLoyTEHY
-         Dy1e5go8qqEo8sXUCz2QYHoPBsosB2hgFI8bhfEHBuTULLXOddtq5WJkKAwmcTf8Lcjp
-         CVVnWWhmea9P0x0KkWjQXOQiuPPmuseDWqv+qyEUTXZ0dnp+FyxZzJvCawr6w7fUDnfz
-         I7hzsuFnYsayT5t/wZ6tLVbb7tk3/Uyf+Gy7sCUhf68pFR2yO77gPGTqITswTW3ybVaf
-         IOOtLXTnAaD1hbwsCDG1d3DEbqhvEtfQODtKPI2XvFlSTPxxCzQc04WaaTKxl85TUQsm
-         8Viw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787745585; x=1788350385;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RVWnW3XTZgLAyxYR/1hSOMx1kfYP5ttpGeKsRvGDajg=;
-        b=G917i3TcgmiDvol8KWzmTq/6WfvI80L0MGF4it53broziWxiD1QQQwtSgwsAua6f3s
-         uaeRDIi3RZUTcuQDBSu18qIuIaezMk5hngjyk9txPxCH3IWF/P85IPMRg5r1/gfFgLMD
-         WEkxjzUgKm56SSMK10uXh3lSZlWoMJUA0QN+i2YWxgck6Ki8ZYB1ZjWhJD9beFZf9+0n
-         JkoJwDBo0sS+QYT3HUWfOYU51CnhZpkyzC9JeLH3QioVcJxmpj4GO4x3f6SW7R1eAHkP
-         RBm14y5KgUPp+1NMab0+f+mDS42vGJ7ydi0dnV8l1FmB2udnYmxLX+8OnJeRoD+h3POV
-         cPVw==
-X-Forwarded-Encrypted: i=1; AHgh+Ro3fsoe2j7o+W6sXxAlPlwkXDEk9lKIXMpAw/nefwDyw/bPfhNsT2erkuEloxDjOa+4mxQqb8YmRUlIRHw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kg9K+G77dWnt6Ma6QFX4EKGGkD+UrgCSRKfhgo+FwFKoUPymNR
-	CWynw8laepzfaQZeKVmcATyFQHD1FB2/hDo3VYvJ/Ck4UY1rBBB8Ntzd
-X-Gm-Gg: AR+sD12rT5geBOzr8qX4DyZBKX0c5C/T+uZS4k5w6/HgIP3f6aUTCzKUK0TsJljRF4t
-	OltV7qyPECUEBDUvvWlLSFOj+J4h7GSQxwIeRhiDMZl84E++c5u1KkObbJFIjqaS9xIUGQJvu2G
-	j2fAhTw9s4ix6IamSCExlRdqZUF9IB+BWyc4qHwRNZF3CJCha8Se6k48GQIF3J11R58WOdg7997
-	fHlGpN/EhYWz8gBjnWZGe1yJKUVaFrtGt1A2x2qqaLfc2YyHcAR9SVbHehZKSoFbkxq4NlJg8HV
-	j+dO83FKiCrnTDa/rqvg+kMi1eFVWHpj3WDXNhkLr5INJ9RMBkcZl0N07pEXBUynbZJjsSyO180
-	Z4JhXnkrrLLMGasklJHw/H0LJIT/bVLmn+zafBnwyAjqLYGqgkdrtQxVmh82l+hEgxFUyLHPXgj
-	jZEnrdOEN1hh7Swsah5Vp/8o7PZHWm7GT+a2KPoRRXQ/0dNS0WNpqB579Py3vMrPHMS93QFIQc2
-	YZz233wWP4=
-X-Received: by 2002:a17:90b:3fc4:b0:38f:dec8:f7e9 with SMTP id 98e67ed59e1d1-3966d443146mr14053031a91.12.1787745584436;
-        Wed, 26 Aug 2026 04:59:44 -0700 (PDT)
-Received: from volcano9f8e-host.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a8eefd98sm14607883c88.3.2026.08.26.04.59.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 04:59:44 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: seanjc@google.com,
-	pbonzini@redhat.com,
-	shuah@kernel.org
-Cc: kvm@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/2] KVM: selftests: Test the PV_UNHALT feature, not just its CPUID bit
-Date: Wed, 26 Aug 2026 17:29:15 +0530
-Message-ID: <20260826115915.2882221-3-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20260826115915.2882221-1-hemanth.selam@gmail.com>
-References: <20260826115915.2882221-1-hemanth.selam@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y2H4IMGB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C37221F00A3A;
+	Wed, 26 Aug 2026 11:59:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787745587;
+	bh=AkbV1zaOyzETWRzzrYrZyf5g3bogiqrirAZC/gk6t4c=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Y2H4IMGBu/szxPHdQGSXXeVxxSywaLoXM2MrMTtyfZrGWXpc2UTRe49Qs47ACdqJZ
+	 pO1TMjDRL/zEgOW5SG/n1jcNS+7otSPONdnjgEYzQqC0Idk0vUk/x8RBA+kbUrp+p+
+	 vuTvhbudVYO2exiEotTPZraDdsNhfVpBE9fEm6NdLDCBQb038x+Fo5h8QyI/w8/3qo
+	 RL/vnDuuithvGBF516uUxWSin3Pu0vvcetfV76xAehPQISUb1js/UTBF6sc6FGtv5W
+	 2aFG2JqwOHC9DvgcSZn3eaGITvuDeO8H4RrufOEFkTirn9Jtrpgb4WCUApVLyvESXh
+	 RQVT3UQuIRsRA==
+From: Simon Horman <horms@kernel.org>
+To: kartikey406@gmail.com
+Cc: Simon Horman <horms@kernel.org>,
+	3chas3@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	linux-atm-general@lists.sourceforge.net,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+6665d3db5fef15914802@syzkaller.appspotmail.com
+Subject: Re: [PATCH] net: atm: fix shift-out-of-bounds in __vcc_connect()
+Date: Wed, 26 Aug 2026 12:59:27 +0100
+Message-ID: <20260826115927.343690-1-horms@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260824024620.23485-1-kartikey406@gmail.com>
+References: <20260824024620.23485-1-kartikey406@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,157 +52,160 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-test_pv_unhalt() only checks that KVM clears KVM_FEATURE_PV_UNHALT from
-guest CPUID when HLT-exiting is disabled.  The feature itself has never
-been exercised, hence the FIXME.
-
-Add a two vCPU test for it.  The first vCPU halts with interrupts
-disabled, so nothing except the KVM_HC_KICK_CPU issued by the second can
-resume it: KVM delivers the kick as APIC_DM_REMRD, which sets pv_unhalted
-and makes the vCPU runnable without injecting an interrupt.  Reaching the
-instruction after HLT is therefore proof that the kick arrived.
-
-Give the halting vCPU a non-zero APIC ID, so that a kick aimed at the
-wrong vCPU fails the test instead of hitting the halter by chance, and
-enable its APIC as a guest using PV spinlocks would, since KVM only routes
-the kick once the vCPU's APIC is in the map.
-
-Wait for the halter's halt_exits to tick before kicking so that the kick
-lands on a vCPU that has actually halted, and bound the wait so a vCPU
-that never halts fails the test instead of hanging it.
-
-The kicking vCPU runs with KVM_CAP_ENFORCE_PV_FEATURE_CPUID enabled and
-PV_UNHALT advertised, so that KVM services the hypercall because the
-feature is exposed rather than because enforcement is off.
-
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+Full review at: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260824024620.23485-1-kartikey406@gmail.com?part=1
 ---
- tools/testing/selftests/kvm/x86/kvm_pv_test.c | 97 ++++++++++++++++++-
- 1 file changed, 96 insertions(+), 1 deletion(-)
+net: atm: fix shift-out-of-bounds in __vcc_connect()
 
-diff --git a/tools/testing/selftests/kvm/x86/kvm_pv_test.c b/tools/testing/selftests/kvm/x86/kvm_pv_test.c
-index 8ed5fa635021..120d08ac25ce 100644
---- a/tools/testing/selftests/kvm/x86/kvm_pv_test.c
-+++ b/tools/testing/selftests/kvm/x86/kvm_pv_test.c
-@@ -6,8 +6,10 @@
-  */
- #include <asm/kvm_para.h>
- #include <linux/kvm_para.h>
-+#include <pthread.h>
- #include <stdint.h>
- 
-+#include "apic.h"
- #include "test_util.h"
- #include "kvm_util.h"
- #include "processor.h"
-@@ -193,7 +195,99 @@ static void test_pv_unhalt(void)
- 	TEST_ASSERT(!vcpu_cpuid_has(vcpu, X86_FEATURE_KVM_PV_UNHALT),
- 		    "PV_UNHALT set in guest CPUID when HLT-exiting is disabled");
- 
--	/* FIXME: actually test KVM_FEATURE_PV_UNHALT feature */
-+	kvm_vm_free(vm);
-+}
-+
-+static void pv_unhalt_halter_guest_code(void)
-+{
-+	/*
-+	 * Enable the local APIC, as a guest that uses PV spinlocks would.  KVM
-+	 * only routes the kick to this vCPU once its APIC is in the map.
-+	 */
-+	xapic_enable();
-+
-+	/*
-+	 * Interrupts are disabled, so nothing except the KVM_HC_KICK_CPU from
-+	 * the other vCPU can end the halt, i.e. reaching GUEST_DONE() proves
-+	 * the kick was delivered.
-+	 */
-+	asm volatile("cli; hlt");
-+
-+	GUEST_DONE();
-+}
-+
-+static void pv_unhalt_kicker_guest_code(u32 halter_apic_id)
-+{
-+	/* KVM takes flags in a0 and the APIC ID to kick in a1. */
-+	GUEST_ASSERT_EQ(kvm_hypercall(KVM_HC_KICK_CPU, 0, halter_apic_id, 0, 0), 0);
-+	GUEST_DONE();
-+}
-+
-+static void run_guest_to_done(struct kvm_vcpu *vcpu)
-+{
-+	struct ucall uc;
-+	u64 cmd;
-+
-+	vcpu_run(vcpu);
-+	TEST_ASSERT_KVM_EXIT_REASON(vcpu, KVM_EXIT_IO);
-+
-+	cmd = get_ucall(vcpu, &uc);
-+	if (cmd == UCALL_ABORT)
-+		REPORT_GUEST_ASSERT(uc);
-+	TEST_ASSERT_EQ(cmd, UCALL_DONE);
-+}
-+
-+static void *pv_unhalt_halter_thread(void *vcpu)
-+{
-+	run_guest_to_done(vcpu);
-+	return NULL;
-+}
-+
-+static void test_pv_unhalt_kick(void)
-+{
-+	struct kvm_vcpu *halter, *kicker;
-+	struct timespec start;
-+	struct kvm_vm *vm;
-+	pthread_t thread;
-+	int r;
-+
-+	pr_info("testing KVM_HC_KICK_CPU\n");
-+
-+	/*
-+	 * Give the halter a non-zero APIC ID, so that a kick sent to the wrong
-+	 * vCPU fails the test instead of hitting the halter by chance.
-+	 */
-+	vm = vm_create_with_one_vcpu(&kicker, pv_unhalt_kicker_guest_code);
-+	halter = vm_vcpu_add(vm, 1, pv_unhalt_halter_guest_code);
-+	virt_pg_map(vm, APIC_DEFAULT_GPA, APIC_DEFAULT_GPA);
-+
-+	/*
-+	 * Enforce the PV CPUID so that KVM services the hypercall because
-+	 * PV_UNHALT is advertised to the kicker, and not because enforcement
-+	 * is off.  KVM advertises PV_UNHALT by default while HLT-exiting is
-+	 * enabled; set it explicitly so that the test keeps testing the
-+	 * feature if that ever changes.
-+	 */
-+	vcpu_enable_cap(kicker, KVM_CAP_ENFORCE_PV_FEATURE_CPUID, 1);
-+	vcpu_set_cpuid_feature(kicker, X86_FEATURE_KVM_PV_UNHALT);
-+	vcpu_args_set(kicker, 1, vcpu_get_apic_id(halter));
-+
-+	r = pthread_create(&thread, NULL, pv_unhalt_halter_thread, halter);
-+	TEST_ASSERT(!r, "pthread_create halter failed, error=%d", r);
-+
-+	/* Kick only once the halter has taken its HLT exit. */
-+	clock_gettime(CLOCK_MONOTONIC, &start);
-+	while (!vcpu_get_stat(halter, halt_exits)) {
-+		TEST_ASSERT(timespec_elapsed(start).tv_sec < 10,
-+			    "vCPU never halted");
-+		usleep(100);
-+	}
-+
-+	run_guest_to_done(kicker);
-+
-+	/* Nothing except the kick can get the halter to GUEST_DONE(). */
-+	r = pthread_join(thread, NULL);
-+	TEST_ASSERT(!r, "pthread_join halter failed, error=%d", r);
- 
- 	kvm_vm_free(vm);
- }
-@@ -215,4 +309,5 @@ int main(void)
- 	kvm_vm_free(vm);
- 
- 	test_pv_unhalt();
-+	test_pv_unhalt_kick();
- }
--- 
-2.43.7
+__vcc_connect() used dev->ci_range.vpi_bits and vci_bits directly as shift
+amounts, which is a negative shift when those fields still hold the
+ATM_CI_MAX (-1) sentinel.  The patch skips the VPI/VCI range check
+entirely when either field equals ATM_CI_MAX.
 
+Closes: https://syzkaller.appspot.com/bug?extid=6665d3db5fef15914802
+
+> diff --git a/net/atm/common.c b/net/atm/common.c
+> index 81195727fa18b..b38359453555b 100644
+> --- a/net/atm/common.c
+> +++ b/net/atm/common.c
+> @@ -378,8 +378,11 @@ static int __vcc_connect(struct atm_vcc *vcc, struct atm_dev *dev, short vpi,
+>  	int error;
+>  
+>  	if ((vpi != ATM_VPI_UNSPEC && vpi != ATM_VPI_ANY &&
+> +	    dev->ci_range.vpi_bits != ATM_CI_MAX &&
+>  	    vpi >> dev->ci_range.vpi_bits) || (vci != ATM_VCI_UNSPEC &&
+> -	    vci != ATM_VCI_ANY && vci >> dev->ci_range.vci_bits))
+> +	    vci != ATM_VCI_ANY &&
+> +	    dev->ci_range.vci_bits != ATM_CI_MAX &&
+> +	    vci >> dev->ci_range.vci_bits))
+>  		return -EINVAL;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the same negative shift
+remain reachable from the function being modified here?  find_ci() is
+called by __vcc_connect() a few lines below:
+
+net/atm/common.c:__vcc_connect() {
+	...
+	if (test_bit(ATM_DF_REMOVED, &dev->flags) ||
+	    (error = find_ci(vcc, &vpi, &vci))) {
+	...
+}
+
+and find_ci() shifts by the same fields with no sentinel check:
+
+net/atm/common.c:find_ci() {
+	...
+	else if (p >= 1 << vcc->dev->ci_range.vpi_bits)
+		p = 0;
+	if (*vci != ATM_VCI_ANY)
+		c = *vci;
+	else if (c < ATM_NOT_RSV_VCI || c >= 1 << vcc->dev->ci_range.vci_bits)
+			c = ATM_NOT_RSV_VCI;
+	...
+		if (*vci == ATM_VCI_ANY) {
+			c++;
+			if (c >= 1 << vcc->dev->ci_range.vci_bits)
+				c = ATM_NOT_RSV_VCI;
+		}
+	...
+			p++;
+			if (p >= 1 << vcc->dev->ci_range.vpi_bits)
+				p = 0;
+	...
+}
+
+Note the new guards in __vcc_connect() are skipped when vpi is ATM_VPI_ANY
+or vci is ATM_VCI_ANY (both -1 in include/uapi/linux/atm.h), which is
+exactly the case that then reaches find_ci().  pvc_bind() passes the
+userspace sockaddr_atmpvc values through vcc_connect() unchanged, and
+vcc_connect() only rejects !(vpi || vci):
+
+net/atm/pvc.c:pvc_bind() {
+	...
+	error = vcc_connect(sock, addr->sap_addr.itf, addr->sap_addr.vpi,
+			    addr->sap_addr.vci);
+	...
+}
+
+On a device that leaves the sentinel in place, e.g. usbatm_atm_init():
+
+drivers/usb/atm/usbatm.c:usbatm_atm_init() {
+	...
+	atm_dev->ci_range.vpi_bits = ATM_CI_MAX;
+	atm_dev->ci_range.vci_bits = ATM_CI_MAX;
+	...
+}
+
+wouldn't a bind() with sap_addr.vpi or sap_addr.vci set to -1 still produce
+the same "shift exponent -1 is negative" report, only from find_ci()
+instead of __vcc_connect()?  With panic_on_warn set, ubsan_epilogue()
+calls check_panic_on_warn("UBSAN"), so this would still be a panic.
+
+There also looks to be a secondary effect: since 1 << -1 folds to INT_MIN
+on architectures that mask the shift count, both p >= 1 << vpi_bits and
+c >= 1 << vci_bits are always true, so after the first wildcard VCC is
+allocated the do/while scan in find_ci() hits old_p == p && old_c == c on
+the first iteration and returns -EADDRINUSE.  Does that make a second
+automatically-allocated VC impossible on such a device?
+
+Would it be preferable to resolve the sentinel to a real bit width once,
+so both __vcc_connect() and find_ci() see a sane value?
+
+[Severity: Medium]
+Separately, is skipping the check the intended reading of the sentinel?
+The uAPI describes it as the maximum range rather than as unrestricted:
+
+include/uapi/linux/atmdev.h:
+#define ATM_CI_MAX      -1              /* use maximum range of VPI/VCI */
+
+struct atm_cirange {
+	signed char	vpi_bits;	/* 1..8, ATM_CI_MAX (-1) for maximum */
+	signed char	vci_bits;	/* 1..16, ATM_CI_MAX (-1) for maximum */
+};
+
+with the maxima defined in include/uapi/linux/atm.h as ATM_MAX_VPI 255 and
+ATM_MAX_VCI 65535.  The commit message says:
+
+  "Skip the range check when ci_range.vpi_bits/vci_bits is still
+  ATM_CI_MAX, since that value means "unrestricted"."
+
+Should this instead clamp to 8/16 bits (or compare against ATM_MAX_VPI /
+ATM_MAX_VCI) and keep the check?
+
+This also appears to change behaviour for negative identifiers other than
+the ANY/UNSPEC magic values.  Before the patch, vpi >> -1 folded to
+vpi >> 31 on architectures that mask the shift count, which is -1 for a
+negative vpi and therefore returned -EINVAL.  After the patch a bind() with
+sap_addr.vpi = -5 or sap_addr.vci = -65531 is accepted, since vcc_connect()
+only rejects !(vpi || vci) and check_ci() masks vci purely for hashing:
+
+net/atm/common.c:check_ci() {
+	struct hlist_head *head = &vcc_hash[vci & (VCC_HTABLE_SIZE - 1)];
+	...
+}
+
+The raw value then reaches vcc->vpi/vcc->vci and dev->ops->open().
+usbatm_atm_open() does not bound them, and usbatm_write_cells() packs them
+into the fixed-width cell header without masking:
+
+drivers/usb/atm/usbatm.c:usbatm_write_cells() {
+	...
+	ptr[0] = vcc->vpi >> 4;
+	ptr[1] = (vcc->vpi << 4) | (vcc->vci >> 12);
+	ptr[2] = vcc->vci >> 4;
+	ptr[3] = vcc->vci << 4;
+	...
+}
+
+Can this alias distinct VCCs onto the same on-the-wire VPI/VCI, for example
+vci = -65531 and vci = 65541 both transmitting on reserved VCI 5, while
+the check
+
+	if (vci > 0 && vci < ATM_NOT_RSV_VCI && !capable(CAP_NET_BIND_SERVICE))
+		return -EPERM;
+
+is evaluated on the untruncated value and so does not fire?  The duplicate
+detection in check_ci() compares the untruncated values too, so it would
+not catch the collision either.
