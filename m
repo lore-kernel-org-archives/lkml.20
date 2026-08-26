@@ -1,115 +1,103 @@
-Received: from mta1.migadu.com (out-223.mta1.migadu.com [95.215.58.223])
+Received: from out-2z4y-a134.jellyfish.systems (out-2z4y-a134.jellyfish.systems [198.54.127.134])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 385C3466AEF
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 17:53:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.223
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2FD3407CF4
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 17:54:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.134
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787766823; cv=none; b=D7Q6Gjsln9cah4BjBiGCcaOSFqpZ6p6TAG1Xrp18jhWcjZaJ6etN1j1x0Rj2/DJlW9fKpFXLCBSdNZGfmPqCTFyi0gI3wHRmA7QFlWruEP9OyBnKpUNTD5XpsJVU/kSjzXsPvqkLwtQfFOVMNfGd9UkT9lxvwDSi6flJ9Z4wfHs=
+	t=1787766888; cv=none; b=s8qsgcSVQvR/qJr2K0KEbsVqP6SFR4XDrskj1gjLt2odhLW6i1KUocaShRDcv3zUtsF0pQ4NBa+FdMAI1lRFQeQfsgUal8ofqHGVVk4BxhiLE55MJyhd/kFcJRiqxItWUX9nZSKLab5dQie0XAyJp2bE+yNwet/x+cOs3I7OMM8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787766823; c=relaxed/simple;
-	bh=yk9ODX3xceydNwru1FVFIR8KFbH4LpdJgnjt0y/eGJ4=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=GOZoqwlp34DM+QEldghx+KOmr9iVNudMUB64DH+PVTGJL9zGGwHyooBo/cxdvNqSHSUW2eMHWuQr4jUQgxxnxVehxCy6fZI+A7OhPgntkUvBbDEhDwCIJy4pWIJJ0bIIDuUdrw0Mi0GBKZE+hPFDaV4aH5Bd75Z8Xtb7K2OmhQM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=fNdpxxDT; arc=none smtp.client-ip=95.215.58.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="fNdpxxDT"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=yk9ODX3xceydNwru1FVFIR8KFbH4LpdJgnjt0y/eGJ4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787766807; v=1; x=1788371607;
- b=fNdpxxDT9rzGVzb67wsUKSKz3RX47h5P5G5HH6UmuxBeDCRzRDTZ6jmfBpcHQrCJUT23Hy3T
- EOp1/+izplrkbNNauSEQz5Ayl+/O03s9yhpfJfL8yH9uvoIIvVb6K1t//ulmaJFQD/XISoNA6vG
- oR5iCVlXBPuOS+O3yTdjjeRk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: from ehlo.thunderbird.net (31.223.131.117)
-	by smtp.migadu.com with ESMTPS id ab6d525f6dd6ddbd;
-	Wed, 26 Aug 2026 17:53:27 +0000
-X-Mizu-Trace-ID: ab6d525f6dd6ddbd
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 26 Aug 2026 19:53:22 +0200
-From: Luka Gejak <luka.gejak@linux.dev>
-To: Ping-Ke Shih <pkshih@realtek.com>, linux-wireless@vger.kernel.org
-CC: linux-kernel@vger.kernel.org, Michael Straube <straube.linux@gmail.com>,
- Bitterblue Smith <rtl8821cerfe2@gmail.com>,
- Peter Robinson <pbrobinson@gmail.com>,
- Hans de Goede <johannes.goede@oss.qualcomm.com>, luka.gejak@linux.dev
-Subject: Re: [PATCH v8 0/6] wifi: rtw88: preparations for RTL8723B/RTL8723BS
-User-Agent: Thunderbird for Android
-In-Reply-To: <20260825163314.1590-1-luka.gejak@linux.dev>
-References: <20260825163314.1590-1-luka.gejak@linux.dev>
-Message-ID: <4866D935-FCC8-4F24-9C05-8678DCB22533@linux.dev>
+	s=arc-20240116; t=1787766888; c=relaxed/simple;
+	bh=VPUFYZdlVAElE2+W6elbLSSYV2hb0wdMXIzDEaxaPHY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=BrP/d3bdMUE6yoowilMi9adbzPXbuMXjMc4rp2GblYnfMh+i+FGJvj0FwDCl7NHFlanPHrZbW+r0ws6DxKBCGQPZqWV0hdtNTYQymOHtxeNR6MCDkYrgvh7hfNVKkkYZhur+hf4YgfgwizyKBin2QUM8GnXZCa1mCXomgaCoGnY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net; spf=pass smtp.mailfrom=catcrafts.net; arc=none smtp.client-ip=198.54.127.134
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=catcrafts.net
+Received: from mail.privateemail.com (unknown [87.215.145.39])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.privateemail.com (Postfix) with ESMTPSA id 4hVXMv4jwzz8sWS;
+	Wed, 26 Aug 2026 17:54:19 +0000 (UTC)
+From: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+To: Jonathan Cameron <jic23@kernel.org>,
+	linux-iio@vger.kernel.org
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A . R . Silva" <gustavoars@kernel.org>,
+	linux-hardening@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Luca Weiss <luca.weiss@fairphone.com>,
+	Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>
+Subject: [PATCH v2 1/5] iio: light: stk3310: lower-case the i2c device ID names
+Date: Wed, 26 Aug 2026 19:54:05 +0200
+Message-ID: <20260826175409.326131-2-jorijnvdgraaf@catcrafts.net>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260826175409.326131-1-jorijnvdgraaf@catcrafts.net>
+References: <20260826175409.326131-1-jorijnvdgraaf@catcrafts.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Envelope-From: jorijnvdgraaf@catcrafts.net
 
-On August 25, 2026 6:33:08 PM GMT+02:00, luka=2Egejak@linux=2Edev wrote:
->From: Luka Gejak <luka=2Egejak@linux=2Edev>
->
->This is the first of two series adding support for the Realtek RTL8723B
->802=2E11n chipset and its RTL8723BS SDIO variant to rtw88=2E It contains
->only the changes to the shared rtw88 core that the chip driver depends
->on=2E The chip itself, the build glue and the MAINTAINERS entry are a
->second series=2E
->
+The i2c device IDs were introduced in capitals, mirroring the ACPI
+_HID entries added by the same commit be9e6229d676 ("iio: light: Add
+support for Sensortek STK3310"); at that point the driver enumerated
+through ACPI only, with no OF table and no i2c module alias export.
+ACPI _HIDs have their own naming rules; i2c device names
+conventionally use the lower-case part name, matching the devicetree
+compatible suffix.
 
-=2E=2E=2E
+The spelling is visible: a client instantiated through the i2c sysfs
+interface under the lower-case name taken from a compatible string
+binds through the OF table's name fallback, but has no firmware node,
+so i2c_match_id() is the only way for it to reach driver match data,
+and its string comparison is case-sensitive, so the capitals can never
+match. Lower-case the names so such clients match the id table, and
+receive the per-chip match data a subsequent change attaches to it.
 
-Hi Ping-Ke,
+The module aliases follow the rename (i2c:STK3310 becomes
+i2c:stk3310), and a sysfs client instantiated under a capitals name no
+longer binds.
 
-A tester has been running v8 on a slow ARM SDIO board=2E In a good signal
-environment it passes a thousand iterations of his stress test with
-nothing in the log=2E In a poor one he still gets "failed to get tx report
-from firmware", and a reconnection along with it=2E Power save was off for
-both=2E
+Suggested-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Assisted-by: Claude:claude-fable-5
+Signed-off-by: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+---
+ drivers/iio/light/stk3310.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-Looking at why, the two ends of the tx report path are not symmetric:
+diff --git a/drivers/iio/light/stk3310.c b/drivers/iio/light/stk3310.c
+index 7c8a1d2b2ed0..5b5b6812edc7 100644
+--- a/drivers/iio/light/stk3310.c
++++ b/drivers/iio/light/stk3310.c
+@@ -766,10 +766,10 @@ static DEFINE_SIMPLE_DEV_PM_OPS(stk3310_pm_ops, stk3310_suspend,
+ 				stk3310_resume);
+ 
+ static const struct i2c_device_id stk3310_i2c_id[] = {
+-	{ .name = "STK3013" },
+-	{ .name = "STK3310" },
+-	{ .name = "STK3311" },
+-	{ .name = "STK3335" },
++	{ .name = "stk3013" },
++	{ .name = "stk3310" },
++	{ .name = "stk3311" },
++	{ .name = "stk3335" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, stk3310_i2c_id);
+-- 
+2.55.0
 
-  rtw_tx_report_handle() -> rtw_tx_report_tx_status()
-                         -> ieee80211_tx_status_irqsafe()
-
-  rtw_tx_report_purge_timer() -> skb_queue_purge()
-
-When the report arrives mac80211 gets a verdict=2E When it does not, the
-frames are freed with kfree_skb() and mac80211 is told nothing at all=2E
-rtw_tx_report_enqueue() also re-arms the timer on every frame, so it
-fires once, 500 ms after the last enqueue, and purges everything
-outstanding, including frames queued a moment earlier=2E
-
-One of the frames that asks for a report is the nullfunc mac80211 sends
-to poll a link it suspects is dead=2E If no status comes back,
-ieee80211_sta_tx_notify() is never called, the poll counts as
-unanswered, and mac80211 tears the connection down=2E That fits what the
-tester sees: the warning and the reconnection arriving together, and
-only when the signal is poor enough for reports to go missing=2E
-
-Raising the timeout further does not look like the answer=2E Patch 3 of
-this series already takes it to 2500 ms for the RTL8723BS, five times
-the default, and he still reaches it=2E A longer wait only delays the
-status=2E
-
-What looks right to me is to report the frames instead of dropping
-them: walk the queue on timeout and hand each one back with
-rtw_tx_report_tx_status(rtwdev, cur, false)=2E That tells mac80211 the
-frame was not acknowledged, which is true, and lets it act rather than
-wait for a status that will never come=2E It would also stop mac80211 TX
-skbs being freed with kfree_skb() instead of being returned through
-ieee80211_tx_status()=2E
-
-That is core behaviour for every chip, not just this one, so I would
-rather ask than send it=2E Would you want it as a separate patch outside
-this series? And is reporting "not acked" what you would want on the
-other parts, or would you rather the timeout stayed silent for them and
-only this chip changed?
-
-Best regards,
-Luka Gejak
