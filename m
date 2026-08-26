@@ -1,94 +1,115 @@
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18A79361963
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:18:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37A4F394793
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:18:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787779128; cv=none; b=CfRmvVv6AC3WC7wB1MbHzpFkjxOEvXMM1Fi6YXZSMLg6/G0xr7Emfwain6cqX5QBBt0wAtl5BqdHBV7o4BLJWCGC4zoQrynJ4a5X0KI43jBE5saICEopIRZmP8z8ZdupjdIv/0ncjYChMTYSmrXR6ASDlzXO2FWaHyUQbjDFoR4=
+	t=1787779129; cv=none; b=RCM+46G0C6J/14/AR+iK9DkuV+rkkNZ5ClRIr3JIbPEWA6ZrCTvIhkWjWHalD7JTC8CN6B9o5NCtFIOs9iRGMatb2HsDsidgNZKC7i0d10MyCcA2hHYwUSeWu1gpxAwUrZXRL5qw5yDboWKEKAqr+XvOY34YqYwzGXXD1b0WFDo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787779128; c=relaxed/simple;
-	bh=Yh4sPDW9kk5y3uW53S1YAoXUxoviKmWXeWPpfZ4iwlY=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=TV68TLoD4DROUhtqSHCNq4O96kIUVfFqWJF2YVxc67CUpo6tJzaw9AhdD7oA+XOyFwiqRbgnCa5qa3lrasLjz3ZEX/lFme4xDDklknvJ8dTYut6LLyREs8qTgAydE8ZPi4T5s7jv2A9umjC6PojQUssW7aqZ+mtwW9zc/Q0Gbt4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=lieirZr0; arc=none smtp.client-ip=209.85.214.197
+	s=arc-20240116; t=1787779129; c=relaxed/simple;
+	bh=6sCSVbTksTpzUfz2Vygg/QdEYlpQa3FDKHZ/LkAuyec=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=NJ98OH/irGB2OOlJhkV7tROunbFcnOAJ3QSgkPc/IqtTE+vLZYB4rUUEUtalLyFybTG/rF6wG5Z2S2kwlAhOxsAziljGUksC490VRztMGF+VSQ/29/8+YAjzLEi/oJSX+3NE442mQRnFIm9JivDrbYVenMiajlqo9ab7VF0ODXk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=RWgn+1rS; arc=none smtp.client-ip=209.85.215.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="lieirZr0"
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2d52734fc41so29314625ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:18:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="RWgn+1rS"
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc1b80835d5so1602524a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:18:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787779126; x=1788383926; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7g4idZin41ZUz3z+kuvFwKs/iT9PIFB0LkzvVo5mWgE=;
-        b=lieirZr0eioAR72GZ2aocagcsVwyY5ZXJYy2nop01bfj5yX/1ta4AJyAd0L9ig7Xxh
-         XTwnDmt1aV1RNfXlVj4kKHyLRRrZyRSwwxdg/93Q4dbwkdoUqdNUQATyN2/mpWUIAfrR
-         Ae7yiWUL9VzDiqgjWTTUlUIXJw87BzjwVwBfrMEx799ZHCtJHLmzw2h1v/kZx2LF7LrX
-         /v8ZrkdfL+ePfRV80O3xbp/YqhFDs341ItOrO2Z0jbWTk/nvz8zqqj469UNWQ5OYFHpq
-         lffN0HIyb7xdNAsQh+fLCgIktSU0ffWowYrixeWrT10SYsxI7GTMhlPiZ9cE63W1ICqC
-         ZSMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787779126; x=1788383926;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=google.com; s=20251104; t=1787779127; x=1788383927; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=7g4idZin41ZUz3z+kuvFwKs/iT9PIFB0LkzvVo5mWgE=;
-        b=byJvJh9PMBxetP8GLhcsQ1r+XgUq0yE77BqtrYkz36cJbncn19so8MQjM2dEWGIPqv
-         /xsDczm36TpG3X5ZflbSAF8/BrVJ1+UJovyDt285iSrUu7xqhIjd7RBqKtspflSo36EO
-         bFTNaXgCsiHig5sN+XrHiAsUYa4SHvThCuMLNr1HknUJ2Gb0PQNx8VyP6/uI3BANtpNA
-         jKVOkmndxAwEZHf1+kzOlZbhgr1XBpxvC47aFjEuWAng6wXP89Qx3F1IJdrR1AS/7JNL
-         KHIymGNgTSTqLuh/bRMFRYfdJDMEMNGbZkGB8C8U4QnfYFd2SH1by2DQDpx+6aq0qlcv
-         gnSA==
-X-Forwarded-Encrypted: i=1; AHgh+RoTsY3jjx1b3Aw3CQEehvauViEdQ9ixv9NkhzDYP3l1gIoVa+MYTpBS4CYfdKVzBp4tUDgenLOTUKxaj7I=@vger.kernel.org
-X-Gm-Message-State: AFuF++meMLI0X5RnoEg3EevrX68Xerzg3gxLxFI9Ez0QUR+bNlQUUG/Y
-	WkMVSLPgO2hGBtG5saVFsScxsXtgHXlIaoEvpf/qZw/dH2S/zt3wmoJR7zgwITwJ63EUMvK5ttA
-	iK/sBuA==
-X-Received: from plkq13.prod.google.com ([2002:a17:902:edcd:b0:2cb:6ca0:1248])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:fda3:b0:2c9:aae1:a61a
- with SMTP id d9443c01a7336-2d707b7262cmr51037285ad.14.1787779126039; Wed, 26
- Aug 2026 14:18:46 -0700 (PDT)
+        bh=YdQOf/sgj3pcH0YMGOZwkO4ah2h30JX4XXRsNdNb4bg=;
+        b=RWgn+1rSikEO9GnIR/AX1nK2tZrovo9tfMf6ZDoIs8qerRCqfo/EXy1RQEXGmU8PHb
+         dTY1MFqE0sURmihsk1FAPTF/eCdD//OMYC9u0BS/XYoBxR/ikz6AKqcJ2glxIzw9DIPT
+         +ftLJWwAQSwyyv9bX+d9SP4skgy01vYzyYFXdktPP6IFThBb6QqCv1uTO60F65XYKRpI
+         +YTMkm8eGKmcaNpzA9aWdQDf1+lYArvitNS+9aFiTurdq0/KU0UybehZCXnJqt1y0nGO
+         yC72aTe818PM3NpPRz24C0SmguduDYsV0cQsp10ya1D5YlfRg0IiqJO4ilsgIaUMnlJo
+         /KvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787779127; x=1788383927;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YdQOf/sgj3pcH0YMGOZwkO4ah2h30JX4XXRsNdNb4bg=;
+        b=S0YO/KumYLFIImi9xyTkzs770cHpYEiaor2xPwTcQLH2/AXIlGxd4aqeRZYTBq9+xG
+         Ey0HVgQrZtoL7L+JfrdmJPIbuSqHRTmW9bXox9O9UEql52VdyjxqSzREQvFiwV5MxZxW
+         zmyIKtxPpk8WQACw88B3CuIbIlk4l6MONLYW2WFImOfM1Uvpug4Bfx1O+YtSdvhpmsr+
+         k03hhwzVKjb3cvmBRvf7mUMPMudE/kJfMv9bzJvvE3ivVIBcdfr4DCTXPtRHTP084jSo
+         BblizM565/NddCkrn4oor1KMVxLVK5iYNaz6uzL7cZLKNHFSfapdQolvx84QFc8YEmEi
+         4SXw==
+X-Forwarded-Encrypted: i=1; AHgh+RpENc7FwVVKHDHLbJFGvvwsWXxAruTBKCsKNu/h8JHgZPirTgeQwzUcCiOiDeVs42dW9EbBT7Z4DDYOk7o=@vger.kernel.org
+X-Gm-Message-State: AFuF++mEiQoy39SkDNpM3Q27Ag+WGXMoGbdWwsy3Yc0hMnJ1++f9cQOY
+	W2QoI3RY55RdVFHOIpzuo/UXN8Yx17suu1ZjNu166/DqDek6zfrSjAwesE8K0+kTf1i0glUXo4x
+	b4aw6eg==
+X-Received: from pgab135.prod.google.com ([2002:a63:348d:0:b0:cc1:522f:464c])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:a95:b0:3c1:fbf:1e2e
+ with SMTP id adf61e73a8af0-3cf83b22768mr20870291637.10.1787779127361; Wed, 26
+ Aug 2026 14:18:47 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Wed, 26 Aug 2026 14:18:40 -0700
+Date: Wed, 26 Aug 2026 14:18:41 -0700
+In-Reply-To: <20260826211844.884951-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
+References: <20260826211844.884951-1-seanjc@google.com>
 X-Mailer: git-send-email 2.55.0.887.g758fc8c411-goog
-Message-ID: <20260826211844.884951-1-seanjc@google.com>
-Subject: [PATCH 0/4] KVM: nSVM: Disallow bad L1 EFER for KVM_SET_NESTED_STATE
+Message-ID: <20260826211844.884951-2-seanjc@google.com>
+Subject: [PATCH 1/4] KVM: nSVM: Reject KVM_SET_NESTED_STATE if L1 has
+ EFER.LMA=1 && EFER.LME=0
 From: Sean Christopherson <seanjc@google.com>
 To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
 Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	Yosry Ahmed <yosry@kernel.org>, Stefan Teodorescu <fane@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Fix a bug where KVM allows userspace to set an impossible EFER for L1 via
-KVM_SET_NESTED_STATE, which ultimately can lead to KVM misconfiguring L2's
-MMU (yay, NPT!) and overflowing the guest_walker arrays.  Then, harden the
-MMU against similar bugs (hopefully it works this time; nVMX also had a
-similar bug, but the "NPT uses L1's EFER/CR4" wrinkle rendered the existing
-hardening useless).
+Reject KVM_SET_NESTED_STATE if the incoming L1 host state has what is
+effectively an impossible EFER combination of LMA=1 but LME=0, i.e. if the
+state says long mode is active but not enabled.  Unlike VMX, SVM doesn't
+have an explicit consistent check for the illegal combination; presumably
+hardware simply ignores EFER.LMA if EFER.LME=0.
 
-Sean Christopherson (4):
-  KVM: nSVM: Reject KVM_SET_NESTED_STATE if L1 has EFER.LMA=1 &&
-    EFER.LME=0
-  KVM: x86/mmu: Bug the VM if KVM attempts to walk more levels than the
-    MMU has
-  KVM: x86/mmu: Bug the VM if KVM calcs a CPU role with EFER.LMA=1 &&
-    CR4.PAE=0
-  KVM: x86/mmu: Convert MMU walker's bounds check from BUG_ON() to
-    KVM_BUG_ON()
+Unfortunately, KVM doesn't ignore EFER.LMA in this case and consumes the
+illegal state when constructing the shadow MMU for L2.  E.g. if userspace
+also clears CR4.PAE, then kvm_calc_cpu_role() will compute a role with 4 or
+5 levels of paging, but shadow_mmu_init_context() will wire up the MMU to
+use the paging32 template, which maxes out its levels at 2.
 
- arch/x86/kvm/mmu/mmu.c         |  3 +++
- arch/x86/kvm/mmu/paging_tmpl.h | 17 ++++++++++-------
- arch/x86/kvm/svm/nested.c      |  1 +
- 3 files changed, 14 insertions(+), 7 deletions(-)
+Note, the "real badness" is effectively the same as what happened with the
+nVMX bug fixed by commit 112e66017bff ("KVM: nVMX: add missing consistency
+checks for CR0 and CR4").  Unfortunately, the sanity check added by commit
+72e2fb24a0b0 ("KVM: x86/mmu: Bug the VM if a vCPU ends up in long mode
+without PAE enabled") doesn't work for this case, since L2 state is active
+at the time of the page fault, but it's L1 that has the bad state.
 
+Fixes: cc440cdad5b7 ("KVM: nSVM: implement KVM_GET_NESTED_STATE and KVM_SET_NESTED_STATE")
+Cc: stable@vger.kernel.org
+Cc: Yosry Ahmed <yosry@kernel.org>
+Reported-by: Stefan Teodorescu <fane@google.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+---
+ arch/x86/kvm/svm/nested.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-base-commit: 76671054f9a1ff6abb976583cd8da37650acdc97
+diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
+index 73f37b050d0a..49fb10ad1f9f 100644
+--- a/arch/x86/kvm/svm/nested.c
++++ b/arch/x86/kvm/svm/nested.c
+@@ -2028,6 +2028,7 @@ static int svm_set_nested_state(struct kvm_vcpu *vcpu,
+ 	if (!(save->cr0 & X86_CR0_PG) ||
+ 	    !(save->cr0 & X86_CR0_PE) ||
+ 	    (save->rflags & X86_EFLAGS_VM) ||
++	    ((save->efer & EFER_LMA) && !(save->efer & EFER_LME)) ||
+ 	    !nested_vmcb_check_save(vcpu, &save_cached, false))
+ 		goto out_free;
+ 
 -- 
 2.55.0.887.g758fc8c411-goog
 
