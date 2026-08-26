@@ -1,277 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C3923C09EE;
-	Wed, 26 Aug 2026 12:30:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89F0841D22E
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 12:30:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787747447; cv=none; b=dUKhUBuDyyEbn8k5adbQ/AwH8Un6NJxl5EW1tt4RcZVi3w0B7wpHLtDP6YsVF848HsHjqhivLAIBW5AwGJwG8Jhm3MXJ9LWeT3inBXmke6GkWIWTc/4j/AJjERZ3ewhO3ULFYXM3MOJ9+RlSuLc+oCqZhdCYAH2dhdH5bqej6Oc=
+	t=1787747451; cv=none; b=FjtFiZEn9kQ5dpHVeenF+eQT5FP37SgC6yuXljSTsJNImwwb0gVk+B0w2hHx8qmYnQiS/EagQ1uzfdTXy+p7d9Esizwt0qr995DXx2t0y8VZJSjFfTduuCJf8fyTQFLHpp9o+6jgezT+lMlfQ0T3La4heAi29DMYYw+72J4OWa0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787747447; c=relaxed/simple;
-	bh=wvGhE+52Fql6i98sI1Gtbj/7nD33gWCEHoRGgVHUvy8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nMwAdF9XXvS4xjJtdTekrue+g+XXLfSGO5706zvAvH3dzeOWevO2lNlsclyisfsi7UCMrkJGTh34DMc3Kn9hXVB07zLdEl7JCteC2UYQrniRCQkLQsx6uq4RqsqQE8/ebPPiV8CxVZj4UTda/st9eD7EA89xa3oZ0Wsbf5Ea5es=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TjaoQAB9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787747451; c=relaxed/simple;
+	bh=8dVVSO4XdHCx4KOZSduD/f39KYIfwpqzYrSSt2RuZ4c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=myTI17oBvh0fZxbxBnrb4aokF4nDV8NLkF1pv9oIZxVHVSnFHOETGUpP0akFizeLvZWD4JSZa5/CqnCeqa4lj4+jeQZu0GoRCJRmMFoEk0w7WwWzaqpuzwiJhITEjlo3dupNlMErwcm5qPLTGBZpPasoaQLMhdF5FDiFBkGVY4E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=P5zl/SXc; arc=none smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TjaoQAB9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 424BF1F000E9;
-	Wed, 26 Aug 2026 12:30:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787747445;
-	bh=J95OHvb8T6GMaxZirBttOr2b123nqWN9/H4w2WykBjY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TjaoQAB9T65MooQbhS8IufcTfowrnRayQVG8SNodQ9zzib2qRhQuXNp2VkmWSgvZ7
-	 k72B2IpRX98QUx7V39OjZXfc5XJZ7rvI0sIg5KhFaWF5sYXeklaMACFggPOU3KE08d
-	 cpbq5/uZXcD74R/ZBhijGfmsWrQkj6r5ltFBYDQTkOm7yV/RG11tIPYKpjMnkjAzQV
-	 tkeCe6cE+S40lxF7+yN+5iirb2pcLvpVpU+d6YDZzECQTP9pDfANp7oklEDKKmsDPX
-	 wyfT84cb7ipWH9+Etsy2HqlOcOnjujLJlrB3Ozsq/Syd9qjgQTIRZmCUSYXiIJAi9T
-	 qVl5KbVu09amQ==
-From: Simon Horman <horms@kernel.org>
-To: vikas.gupta@broadcom.com
-Cc: Simon Horman <horms@kernel.org>,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	andrew+netdev@lunn.ch,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	bhargava.marreddy@broadcom.com,
-	rahul-rg.gupta@broadcom.com,
-	vsrama-krishna.nemani@broadcom.com,
-	rajashekar.hudumula@broadcom.com,
-	dharmender.garg@broadcom.com,
-	ajit.khaparde@broadcom.com
-Subject: Re: [PATCH net] bnge: add missing ndo_set_features
-Date: Wed, 26 Aug 2026 13:30:20 +0100
-Message-ID: <20260826123020.350008-1-horms@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260824085028.1174150-1-vikas.gupta@broadcom.com>
-References: <20260824085028.1174150-1-vikas.gupta@broadcom.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="P5zl/SXc"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2d3b445a84fso88505ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 05:30:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787747449; x=1788352249; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=OtDyfAId4c9pmXSo6AkYFWKqGY/dpqg4gomEyUaZ1rc=;
+        b=P5zl/SXcD8sz+TC4+hyuwZkqaZPHNXvywNGiQevr461CMvJNkvqiM7hrcaqs2G3gve
+         XAHjRZiNo9XhOiIbDbhtU0OcSHa2HAOIC4Vsmpa5Vy0dxB2C1LrK96yLPgwHzIb2id/5
+         W+3d2EzQ6cIhg/I9ZLzxXb+jutIfQbHBUNAZwboqtgNxkE4s6qEQWz98RkdFhormfg9z
+         QIHP/+0Sjhk6iJKJXOrSEk0XCfu7C2yw/jL3L8uZHWR0MVJozxfj8gJLSHV7HtV3eT/t
+         E15xeyzDIHD41GALpjxUOY3BHkBslYo5TLgZO0RanQEKYe47kjNwW8pElk05X5e1YgOr
+         dqsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787747449; x=1788352249;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OtDyfAId4c9pmXSo6AkYFWKqGY/dpqg4gomEyUaZ1rc=;
+        b=Renftq4BzZHGVNKfYgoUKJh+AdCqsDrcFMKSpNDmN4GHlAY3F139sv+CXl9HZ/BQln
+         x+dsTVobxlOhRShYOVrhZmdUfkNkTPZ5jrcfyz9aWZWpziuTA7QcGh99AIowoolsX9gg
+         0TApJzyqK9R5dWLDHopP2EkvA+sWoxIJcOwjHz+3WyCaMpGbbuF0M/hAL+p5h9IM3Emj
+         XkBwJA1XYx6QXKCdeW7BDJ4SVb2ws0n1qjzDvKd0ic46MEN15BUb8YOeSnIN9zxL7gN7
+         KtqnLyiXEh9if9kP5JZ3pPYIwv0Aw2jkPu1vyeRqEDkastt4mRYYsHFTa8s77vAQTuKX
+         Bk0g==
+X-Forwarded-Encrypted: i=1; AHgh+RptO+dxBP4KJB/+n55/7EyMANkLiLVwNHbbskb6trik/6aaQgaA/5pLzOQuaX3GQC5b6bueN7dcrgFwfO0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nXt7Ub+7kI92Q8pgk9qJ9fOqaJg7FT5oMXySdbdur2T7L76RDK
+	Cwkh9s2loh/I2nQVpShQ5gFSNPlNxXJDinUp/4F0avVX2mvNi73qUFzQtLN8jwvcISJ0+M2TFmn
+	Rz5/kgw==
+X-Gm-Gg: AR+sD13PBVYDjv04QX6qJzO54UOrzrsWf9/j/AwFK212rvoYVyBXRjrPDR0+bserEKF
+	YjmLVE0K0/kdas8yjj5E0+vHJKmT/pFCcJzG8A/s2T0QdxFIZjLhR7wjkRPym4PNLgEhspxpVks
+	KLIi8RCtFBBot80lWAJ+HIuTCgAYd6Ja/zvNa9SM4NZ/5wb62r5mT0fzm3py25Twb/9VFkVuY5W
+	FXJGozhA9UjGxlYY+Tfco0Ak2WnOo6YtLYgmpHAFZebHiymw+pJbvSb4XWluoF+X3jSNjNwYRez
+	S3zmyhc8yD07PVMAI3iTuz8mHDgj5owU8uYqqlWFtrrEq+yZ938jqruOMb8eA+TT470vKlTSc1c
+	a3YGK1lW8089ev05Z+RHg2XWJukqDuQpEz/22RWYYwI+EgzolLa0daYvKDKIkzDWhqt1nCvX0sX
+	QTAZ1skkRJnC92N75hb6PVz6cmOMH/GvI2OUQFdWAX98zZLpThaWQ2Z8H9+2hquop54SYFY5yYw
+	jCTXSYpjslliWiHCUKjZ9JjgA==
+X-Received: by 2002:a17:903:22cc:b0:2bd:3bfd:74f1 with SMTP id d9443c01a7336-2d70baa90a8mr5053075ad.2.1787747448020;
+        Wed, 26 Aug 2026 05:30:48 -0700 (PDT)
+Received: from google.com (164.210.142.34.bc.googleusercontent.com. [34.142.210.164])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39645b07394sm7933816a91.4.2026.08.26.05.30.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 05:30:47 -0700 (PDT)
+Date: Wed, 26 Aug 2026 12:30:40 +0000
+From: Pranjal Shrivastava <praan@google.com>
+To: Baolu Lu <baolu.lu@linux.intel.com>
+Cc: Samiullah Khawaja <skhawaja@google.com>,
+	David Woodhouse <dwmw2@infradead.org>,
+	Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>, Robin Murphy <robin.murphy@arm.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>,
+	iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org, Pratyush Yadav <pratyush@kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	David Matlack <dmatlack@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Vipin Sharma <vipinsh@google.com>
+Subject: Re: [PATCH v4 08/18] iommu/vt-d: Clear unpreserved context entries
+ during shutdown
+Message-ID: <ao7ccBlV9_RXT6Fe@google.com>
+References: <20260808022723.3893618-1-skhawaja@google.com>
+ <20260808022723.3893618-9-skhawaja@google.com>
+ <446684d8-44d0-47c5-9301-172c55efd950@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <446684d8-44d0-47c5-9301-172c55efd950@linux.intel.com>
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
-Full review at: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260824085028.1174150-1-vikas.gupta@broadcom.com?part=1
----
-bnge: add missing ndo_set_features
+On Wed, Aug 26, 2026 at 04:05:51PM +0800, Baolu Lu wrote:
+> On 8/8/26 10:27, Samiullah Khawaja wrote:
+> > During normal shutdown the iommu translation is disabled. Since the root
+> > table is preserved during live update, it needs to be cleaned up and the
+> > context entries of the unpreserved devices and root entries for the
+> > unpreserved context tables need to be cleared.
+> 
+> The key assumption here seems to be that, during a live-update kexec,
+> most devices do not go through the normal iommu release path. Otherwise,
+> their context entries should already be torn down in the
+> iommu_release_device path.
+> 
+> Could you please confirm this assumption and add some short note in the
+> comments or commit message?
+> 
 
-This adds a bnge_set_features() callback so that toggling LRO/GRO_HW via
-ethtool -K actually reprograms the TPA engine. On a running interface it
-recomputes bn->priv_flags, then tears down and re-opens the datapath with
-bnge_close_core() followed by bnge_set_ring_params() and bnge_open_core().
+Yes, that's correct
 
-A few questions about the reconfiguration sequence below.
+During the normal shutdown paths (i.e power-off, normal reboot, & kexec),
+the kernel only calls device_shutdown(). This path bypasses driver 
+unbinding, as a result, devres_release_all() and iommu_release_device()
+are never called. Those devres teardown paths are only triggered when a
+driver is explicitly unloaded / device is unplugged.
 
-> diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
-> index a4288f0258f87..0973cc25a3ec4 100644
-> --- a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
-> +++ b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
-> @@ -3267,6 +3267,33 @@ static const struct netdev_stat_ops bnge_stat_ops = {
->  	.get_base_stats		= bnge_get_base_stats,
->  };
->  
-> +static int bnge_set_features(struct net_device *dev, netdev_features_t features)
-> +{
-> +	struct bnge_net *bn = netdev_priv(dev);
-> +	struct bnge_dev *bd = bn->bd;
-> +	u32 flags = bn->priv_flags;
-> +
-> +	flags &= ~BNGE_NET_EN_TPA;
-> +	if (features & NETIF_F_GRO_HW)
-> +		flags |= BNGE_NET_EN_GRO;
-> +	else if (features & NETIF_F_LRO)
-> +		flags |= BNGE_NET_EN_LRO;
-> +
-> +	if (flags == bn->priv_flags)
-> +		return 0;
-> +
-> +	bn->priv_flags = flags;
-        ^^^^^^^^^^^^^^^^^^^^^
+Since live-update piggybacks on the kexec/shutdown path the unpreserved
+devices never have their context entries naturally torn down by the core
+driver's devres model, necessitating this explicit cleanup.
 
-[Severity: Medium]
-Is it safe to publish the new TPA mode here, before the datapath has been
-quiesced?  At this point NAPI is still running; bnge_disable_napi() is only
-reached later, inside bnge_close_core().
+I think we can add a line in the commit msg for this because comments
+might create confusion if similar comments don't exist in other drivers
+performing Live Update. What do you think, Sami?
 
-The RX completion path reads the same word from softirq context with no
-lock:
-
-drivers/net/ethernet/broadcom/bnge/bnge_txrx.c:bnge_tpa_end() {
-	...
-#ifdef CONFIG_INET
-	if (bn->priv_flags & BNGE_NET_EN_GRO)
-		skb = bnge_gro_skb(bn, tpa_info, tpa_end, tpa_end1, skb);
-#endif
-	...
-}
-
-So an aggregation that was started (TPA_START) while the VNIC was still
-programmed for the old mode can be completed using the new flag value, and
-bnge_gro_func() will then derive skb_set_network_header()/
-skb_set_transport_header() offsets from TPA_START metadata that was produced
-under the previous configuration.
-
-bnxt_reinit_features() orders this the other way round - it closes first and
-publishes afterwards:
-
-drivers/net/ethernet/broadcom/bnxt/bnxt.c:bnxt_reinit_features() {
-	bnxt_close_nic(bp, irq_re_init, link_re_init);
-	bp->flags = flags;
-	if (update_tpa)
-		bnxt_set_ring_params(bp);
-	return bnxt_open_nic(bp, irq_re_init, link_re_init);
-}
-
-Would moving the bn->priv_flags store below bnge_close_core() be preferable?
-
-> +
-> +	if (!netif_running(dev)) {
-> +		bnge_set_ring_params(bd);
-> +		return 0;
-> +	}
-> +
-> +	bnge_close_core(bn);
-> +	bnge_set_ring_params(bd);
-> +	return bnge_open_core(bn);
-          ^^^^^^^^^^^^^^^^^^^^^^^
-
-[Severity: High]
-Can a failing bnge_open_core() here leave the netdev running over a freed
-datapath?
-
-Every error exit in bnge_open_core() frees the core and tells firmware the
-interface went down:
-
-drivers/net/ethernet/broadcom/bnge/bnge_netdev.c:bnge_open_core() {
-	...
-err_free_irq:
-	bnge_free_irq(bn);
-err_del_napi:
-	bnge_del_napi(bn);
-	bnge_free_core(bn);
-err_if_change:
-	bnge_hwrm_if_change(bd, false);
-	return rc;
-}
-
-bnge_free_core() NULLs bn->vnic_info (via bnge_free_vnics()), bn->grp_info,
-bn->tx_ring, bn->rx_ring and bn->bnapi.
-
-The core does not close the device when ndo_set_features returns an error:
-
-net/core/dev.c:__netdev_update_features() {
-	...
-	if (unlikely(err < 0)) {
-		netdev_err(dev,
-			"set_features() failed (%d); wanted %pNF, left %pNF\n",
-			err, &features, &dev->features);
-		return -1;
-	}
-	...
-}
-
-So netif_running() stays true, and the next teardown re-enters
-bnge_close_core() on that freed state.  bnge_close_core() has no guard, and
-bnge_shutdown_nic()->bnge_hwrm_resource_free()->bnge_clear_vnic()->
-bnge_hwrm_clear_vnic_filter() starts with:
-
-	struct bnge_vnic_info *vnic = &bn->vnic_info[BNGE_VNIC_DEFAULT];
-	int i;
-
-	for (i = 0; i < vnic->uc_filter_count; i++) {
-
-which reads through a NULL bn->vnic_info.  bnge_save_ring_stats()
-(bn->bnapi[i]), bnge_del_napi() (bn->bnapi[i]) and bnge_free_tx_skbs()
-(&bn->tx_ring[i], then txr->tx_buf_ring, unlike
-bnge_free_rx_ring_pair_bufs()/bnge_tx_disable() which do test for NULL) are
-on the same path.
-
-Two easy second-teardown triggers: ip link set ethX down -> bnge_close(),
-which calls bnge_close_core() unconditionally, and simply repeating
-ethtool -K, since bnge_set_features() only gates on netif_running().
-
-bnxt_open_nic() forces the device closed in this situation:
-
-drivers/net/ethernet/broadcom/bnxt/bnxt.c:bnxt_open_nic() {
-	...
-	if (rc) {
-		netdev_err(bp->dev, "nic open fail (rc: %x)\n", rc);
-		netif_close(bp->dev);
-	}
-	...
-}
-
-Should bnge_set_features() do the same on a failed re-open?
-
-[Severity: Medium]
-Related to the above: on that failure bn->priv_flags keeps the new value and
-bnge_set_ring_params() has already recomputed rx_agg_ring_size /
-rx_buf_size / cp_ring_size for it, while __netdev_update_features() leaves
-dev->features at the old value.
-
-If the user then repeats the same ethtool -K command, the recomputed flags
-now equal bn->priv_flags, so:
-
-	if (flags == bn->priv_flags)
-		return 0;
-
-returns success without touching hardware, and the core commits
-dev->features.  Isn't that the same "dev->features no longer reflects the
-actual hardware state" mismatch the commit message sets out to fix?
-
-bnxt_set_features() restores the private flag word when the hardware step
-fails:
-
-drivers/net/ethernet/broadcom/bnxt/bnxt.c:bnxt_set_features() {
-	...
-			rc = bnxt_set_tpa(bp, (flags & BNXT_FLAG_TPA) ? true : false);
-			if (rc)
-				bp->flags = old_flags;
-	...
-}
-
-[Severity: Medium]
-Does this pairing produce an unbalanced FUNC_DRV_IF_CHANGE handshake?
-
-bnge_open_core() starts with bnge_hwrm_if_change(bd, true), but the matching
-DOWN notification lives only in ndo_stop:
-
-drivers/net/ethernet/broadcom/bnge/bnge_netdev.c:bnge_close() {
-	bnge_close_core(bn);
-	bnge_hwrm_shutdown_link(bn->bd);
-	bnge_hwrm_if_change(bn->bd, false);
-}
-
-bnge_close_core() does not issue it, so every ethtool -K toggle on a running
-interface sends a second UP with no intervening DOWN.
-
-bnge_hwrm_if_change() also discards the response:
-
-	if (up)
-		req->flags = cpu_to_le32(FUNC_DRV_IF_CHANGE_REQ_FLAGS_UP);
-
-	return bnge_hwrm_req_send(bd, req);
-
-so any resource-change or hot-FW-reset indication firmware returns on that
-extra UP is lost, and bnge_reserve_rings() runs immediately afterwards on
-the driver's existing reservation bookkeeping.
-
-bnxt keeps the handshake at the ndo_open/ndo_stop level only -
-bnxt_reinit_features() calls bnxt_close_nic()/bnxt_open_nic() and never
-bnxt_hwrm_if_change().  Would it make sense to keep bnge_hwrm_if_change()
-out of the reinit path here as well?
-
-> +}
-> +
->  static const struct net_device_ops bnge_netdev_ops = {
->  	.ndo_open		= bnge_open,
->  	.ndo_stop		= bnge_close,
-
-[ ... ]
+Thanks,
+Praan
