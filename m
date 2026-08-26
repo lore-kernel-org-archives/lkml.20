@@ -1,164 +1,207 @@
-Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com [209.85.208.174])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 899464252D1
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:20:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.174
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787750417; cv=pass; b=hfo8XULvmmGeiXfCT9jnJv90ttSyXoEwz+JRYdIJU7PHjWzzRtaQV2fjLbrKnpd6FiOYpV2bRnWPXrcJtJ6duGMisKjiAfUnTZVfiwQ5/GW8u/RoeAxAkg/7vuReUn1g27/BCleRm80CfPYhOYaTNa9AG/9Qnmd/4SIk5JDTwkQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787750417; c=relaxed/simple;
-	bh=QNKIrN2lFifU3ViEQu+FhMTw527yCyM+xc+9C4IKjvM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=FgtgTXutNy/66Sw0R6Muwp4Ry83XolXJuVILnxAtKnB7ptLeo3ZWl1zMBsUCgaRNwpWwCiU5yYLm/jx7KngVhbD0nDbvqBPslat8sRm1oTaePdctOcXQKCKbKsOm2EKkfnoJS7XOZemgYAtpsbbUhOX6hgixwOgnfFvfwY3RXcQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T27VMRxD; arc=pass smtp.client-ip=209.85.208.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4861122423A;
+	Wed, 26 Aug 2026 13:21:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787750494; cv=none; b=hgW0Mor0Ns2AllPZzNCKQziq7/Tkn10oTpACvY6eX2XdwfcA/2EJSI+PTeSNjFbamnn+QeSpdie8Y9cZJ+cdoXdkKY+RZLhfQ6ghlFyyj1S12G6hAVKhGXHP9D4vkHaAVT8xh4MaZ0xu4iHcmfsuhGdEZ9kvWhPB3E5NZSpWhxc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787750494; c=relaxed/simple;
+	bh=w9gjMzfzXESoZDc+O5MLNBX7rWTXEetHFla3VTul7oA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ocod95fCLZji/hxrtbUkLfhN7E40fcKe4BzdV33GhUsYr4q4lZ9oHPCRmhQ/up+o+1lHJDOanHT9rzue83BLSS9IxycolS2xZeiKe+WWGnMEm7mvE4P5EwhMEKHZ3sK7RU9DBejx+IRywguI956+5qjRm3ab2x+S4TfMEqDtGkM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=j5L5G/Dm; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=L/7hwvG4; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=J2QUpWCq; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=yNOnDIGh; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T27VMRxD"
-Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-3a1e9f55e03so8444671fa.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 06:20:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787750410; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NHzffkrGcQR8PQqg//3F68aFKrIaXWE0LKsDrnPhTkd8nidO1agyk4Ng4KxmJdGsYq
-         sCAM74woZVygp4Pr20jdVD6EuydquZYie9bcPniFoBruS/QR78deXArLTAs4eCtRuSIX
-         GoxEKZXeRK7zhqY8o56pd9IAaN9kNdFcdjgsiVbZKGzEhPSiwSImBT/nsnUGFoSrx5Qb
-         wfnDa1j94eBAFQXy5kta5W4YHQ12PMsR2t8WqtDOxjWkfA3t3Y28IKB1CSJUSJf4yEPD
-         iJu0GF6EocEFGw4iYJCshTOkYtASmAVSd7Srv6zhrw0yh4qazTIfyJu1hEazYpZo4N0A
-         YDSg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=pH+dFL7dSS05A0t4Ra0NluTyTZw6F8KQqawmeG8hNcA=;
-        fh=/8TYP0AG957NSExKqyZMwN21KvHZGgsgZoyCaZow2r0=;
-        b=J1B61qv/hp/kQPvZbfBnez6bchPXEZL/VJgs7jR40lJ/kyErsi9JBYyPrS5FqbJT0U
-         y67ECg/BY78xR2A7aEICiKRMJbA74kPnCbsLeIIWmFLOiZQMv6bdLuL+UWhT1R3PIi/p
-         BxTZFhaQ8DIVFumKk3pAt6m4EX8o/Mr1bVYerfSJI/wYpCrnYSpA7wF49XAXNTnwWg4i
-         scxAFEFgbfKVQjy/sjyVXK8DN4Z5eIumHVXc6uQLjm5msu9YG9AjuwSU0DBaRrsvSVJR
-         4TD00qs3k3OHklRIcil3vXJ2lglESWuCUyDUCXo6oLnW1za66w5RWidxI2bLqRw5Mczx
-         A7og==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787750410; x=1788355210; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pH+dFL7dSS05A0t4Ra0NluTyTZw6F8KQqawmeG8hNcA=;
-        b=T27VMRxDp6KHlcAVyfHlF+VJ6Qj/4bMbdXy3tNzLP089HcmxUEN2k2k77q79sJFc89
-         bAvMw3bj5sSc+j+rVfh6wakexdvTo1+ysxcXiGPoeNX4mRbcXsewsKaqH/IA95HtlM4a
-         VPsEd06cCv5BXBzmLpZ1da+y+lBhyZYWn9QX9w3R2P2KeHQlEArp6BaDK3PLXeKiO2pM
-         uCxfj7JS0pI9HKNh45bU3PxvocNqHA47gj2qZ9AxTchMPKanTToiDjbvfQsAe16bq7h8
-         HIsjLmyApQIsUrqR+HLzAg1dFJQf1mcUsl2Y5C61lyV99Sm53oAlnLpekkW/JUP9DddK
-         0F/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787750410; x=1788355210;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pH+dFL7dSS05A0t4Ra0NluTyTZw6F8KQqawmeG8hNcA=;
-        b=JIItn+W+bbpiw7atxvk9DaTQSuLRG1fvUtLmdVNrb4KGP0Ev21ve2jG+cZ3yLeTdm8
-         cnAYCyKjJP5ICwII1OOcLnFpk87LA3HE9QcHlkLhv9tmNyRV842r1TaFtlrNvIxTEkm8
-         UGhmo9FIgJrtNotlWefP37NyEGTOtF9w8Wh2W2V2FMHEan8UQaZJSDoJYqglki0+Oryo
-         P5lcw4BhvCvGTDEJPq36GCNZkD/deJKutjdys0d1VL1YaC9Y59xuj1+Pyrt0g4UtfF0l
-         tJY3NpTxzrPpQtdJi0DhBztleE8CKvPePnIKsXGw/srWijqeVOZIR4uffzZEUBXGR5A7
-         /XPA==
-X-Forwarded-Encrypted: i=1; AHgh+RqMPCdXf0/sTGn1MLkxlgKu8DT7uGFSstFenC0Qeh4uXQNtANbCRKAPUoT9XT+Ug6Fp6USijIgpyqqWhO8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lKW7d7bCl2ZO8YKDIwfn8q/J7dCZxdnyQKqBnK1OmT52EUtpdW
-	bUgXZZ5Jz2teBftRs3pFwi5t+nG5OS8KXsygSVVIuuRUd1NNkdJLsfTrDe/xcr0WmK5A8yeH2jR
-	3Ir80vQlYYut4HcHMEAaZvaLVAf2MxyU=
-X-Gm-Gg: AR+sD10LUDrIIB6Xp7ossdAqLCD5zeC3xRto/8rYn0R71WbB1YzKm94rWV1QLsbTavy
-	IXAHDF6UQfLkwUWdsx0MqShqhWbG3OYR2lvmYzlZjxtnRyYVt3AEAqAQ0V8Ds86SmTi2AoZ01JQ
-	ByEeLEUjfuVakLL4D7RTGGZyV5NNhXgQGEQBwUXIZMoKz5lziJ6b6n/WGD+u8o4FT7yMWeIw9hl
-	KXO36PI34D3eVcaHUwuglI8TMyAKpyIUZ7NQ+ZIhm5lRWG0Pn9GJbDV6/l7Wdj2SLtsvu7kxD66
-	4oyeHb2mXvJgsUSF/x+tGwshTkVTZyjQN7dYim0kFktYS/yYI1ZLGiI+YgxumWiJnM/wDfFHA2W
-	xr+/LpLaZB5ng7JvCU3bcbF2F6nFikv6us7GJIrUJXAxhFEJNa60XCmpoCWZHyQyyarCQX0z+
-X-Received: by 2002:a05:651c:31c4:b0:3a1:8dd6:aaf9 with SMTP id
- 38308e7fff4ca-3a1fd65bda3mr15964281fa.8.1787750409060; Wed, 26 Aug 2026
- 06:20:09 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="j5L5G/Dm";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="L/7hwvG4";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="J2QUpWCq";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="yNOnDIGh"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 7153A1F824;
+	Wed, 26 Aug 2026 13:20:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1787750444; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NtOMcAkC/wFiCmb+t5R+SPLSf2pQDgdcS3a/21hM1rA=;
+	b=j5L5G/DmhARQar/MO5dwxZVNiUBZHATRSUupUk/9AjgzovCSIwN2TrblMEd9uEZdz3hXQO
+	K87geSXYoWwTfivlU9CO4ikRD3cf2pjPvpXIhIhHxajKyf4xmoeIwA658Ou5/4zDuqhgWD
+	ENu++hkohnlhEJuisnDnAKYDq89MGzM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1787750444;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NtOMcAkC/wFiCmb+t5R+SPLSf2pQDgdcS3a/21hM1rA=;
+	b=L/7hwvG4hA5KQZr0VhyyV3sDgomaWgPSaw8uXoF2v8g4VmaXq/gtPp4brIonaJFfDsq7xw
+	aL4RPvW1clO4ccBA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=J2QUpWCq;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=yNOnDIGh
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1787750440; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NtOMcAkC/wFiCmb+t5R+SPLSf2pQDgdcS3a/21hM1rA=;
+	b=J2QUpWCqmIasVjcoidhRXinY1NSAiX2qjHgRgK3VvJ+HsbYIYlrsmaufcXiDV80GllTejv
+	wTy5IGrX6wgVoFSPACaaKnuG1jiYDyQQStTuFm6EtfikrpMMs8DfOj8SkmObSemEmxag0x
+	/UhknyYYcWrH1E9z772fFPA1jRY3y3A=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1787750440;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NtOMcAkC/wFiCmb+t5R+SPLSf2pQDgdcS3a/21hM1rA=;
+	b=yNOnDIGhEOBQTGoq0oHTFIEYxki18FDg8E31x6oiWJkeaLtj0kxxd3OKI3NvAj7MzWtWoy
+	hnpwfdZol/lI1cDg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 66B3613533;
+	Wed, 26 Aug 2026 13:20:40 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id itsNGSjojmqxXgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 26 Aug 2026 13:20:40 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id F369EA13A7; Wed, 26 Aug 2026 15:20:31 +0200 (CEST)
+Date: Wed, 26 Aug 2026 15:20:31 +0200
+From: Jan Kara <jack@suse.cz>
+To: Hemanth Selam <hemanth.selam@gmail.com>
+Cc: tytso@mit.edu, adilger.kernel@dilger.ca, jack@suse.cz, 
+	libaokun@linux.alibaba.com, ojaswin@linux.ibm.com, ritesh.list@gmail.com, 
+	yi.zhang@huawei.com, jun.nie@linaro.org, linux-ext4@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, syzbot+4b03894b6ec5753ddf24@syzkaller.appspotmail.com
+Subject: Re: [PATCH] ext4: skip extra isize expansion while unmounting
+Message-ID: <vwmniaakkojdwzcrk44itvpsipystvdbdgbolk63cmmh6qmjk4@fb3wrihl6y4l>
+References: <20260824094512.2436628-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826070004.8100-1-sarunkod@amd.com> <20260826070004.8100-2-sarunkod@amd.com>
- <e32c1437-44ab-45d9-9534-124a9e09f029@intel.com>
-In-Reply-To: <e32c1437-44ab-45d9-9534-124a9e09f029@intel.com>
-From: Uros Bizjak <ubizjak@gmail.com>
-Date: Wed, 26 Aug 2026 15:19:57 +0200
-X-Gm-Features: AcwNN1WbGq5_aFrBjMF8bc11mRGfw3k1WkpRjRJRN2DetDqB2igsmNpygDTr4cc
-Message-ID: <CAFULd4YFphkN4M0a_gC=vxN8Xgh4WWBGPo8dO-o6A3v9RGX4_g@mail.gmail.com>
-Subject: Re: [PATCH v3 1/2] x86/uaccess: Extend CMPXCHG user helpers to
- 128-bit operands
-To: Dave Hansen <dave.hansen@intel.com>
-Cc: Sairaj Kodilkar <sarunkod@amd.com>, "H. Peter Anvin" <hpa@zytor.com>, 
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, Ingo Molnar <mingo@redhat.com>, 
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Sean Christopherson <seanjc@google.com>, Thomas Gleixner <tglx@kernel.org>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, x86@kernel.org, vasant.hegde@amd.com, 
-	suravee.suthikulpanit@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260824094512.2436628-1-hemanth.selam@gmail.com>
+X-Spamd-Result: default: False [-2.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	FREEMAIL_TO(0.00)[gmail.com];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	TAGGED_RCPT(0.00)[4b03894b6ec5753ddf24];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,suse.cz,linux.alibaba.com,linux.ibm.com,gmail.com,huawei.com,linaro.org,vger.kernel.org,syzkaller.appspotmail.com];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email,suse.cz:email,suse.cz:dkim]
+X-Spam-Flag: NO
+X-Spam-Score: -2.51
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 7153A1F824
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
 
-On Wed, Aug 26, 2026 at 2:30=E2=80=AFPM Dave Hansen <dave.hansen@intel.com>=
- wrote:
->
-> On 8/26/26 00:00, Sairaj Kodilkar wrote:
-> > Extend the existing user CMPXCHG helpers to support 16-byte operands on
-> > x86-64, using LOCK_PREFIX "cmpxchg16b".  This mirrors the existing
-> > __try_cmpxchg64_user_asm() / cmpxchg8b path provided for 32-bit kernels=
-,
-> > where KVM needs an atomic compare-exchange wider than the generic
-> > cmpxchg helper can provide.
->
-> Please take a good look at the Sashiko review:
->
-> https://sashiko.dev/#/patchset/20260826070004.8100-2-sarunkod%40amd.com
->
-> It looks like the "A" constraint isn't one that you can cleanly mirror
-> from cmpxchg8b =3D> cmpxchg16b.
+On Mon 24-08-26 15:15:12, Hemanth Selam wrote:
+> syzbot reports a WARN from ext4_xattr_inode_create() reached through the
+> unmount path:
+> 
+>   EXT4-fs warning (device loop0): ext4_xattr_inode_create:1485: refuse to
+>   create EA inode when umounting
+>   WARNING: fs/ext4/xattr.c:1486 at ext4_xattr_inode_lookup_create
+>    ext4_xattr_block_set
+>    ext4_expand_extra_isize_ea
+>    __ext4_expand_extra_isize
+>    __ext4_mark_inode_dirty
+>    ext4_dirty_inode
+>    __mark_inode_dirty
+>    sync_lazytime
+>    iput
+>    dentry_kill
+>    shrink_dentry_list
+>    shrink_dcache_for_umount
+>    generic_shutdown_super
+>    kill_block_super
+>    ext4_kill_sb
+> 
+> shrink_dcache_for_umount() clears s_root before generic_shutdown_super()
+> clears SB_ACTIVE, so during the dcache shrink the last iput() of a
+> lazytime inode still redirties it and reaches the isize expansion.  The
+> expansion can move xattrs out to a block, and creating the EA inode for
+> them needs s_root, which ext4_xattr_inode_create() refuses without.
+> 
+> ext4_try_to_expand_extra_isize() already declines to expand when the
+> superblock is not active, but that test does not cover this window.
+> Decline while s_root is gone as well.  The expansion is best effort and
+> __ext4_mark_inode_dirty() ignores its return value, so nothing else
+> changes; the inode can be expanded on a later mount.
+> 
+> Running the syzbot reproducer for 60 seconds produced 3583 splats before
+> this change and none after it, with the same number of mount cycles.
+> 
+> Reported-by: syzbot+4b03894b6ec5753ddf24@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=4b03894b6ec5753ddf24
+> Fixes: f31173c19901 ("ext4: refuse to create ea block when umounted")
+> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 
-Actually, "+A" will work for 64bit targets, as long as the variable is
-128-bit. The comment in asm.h applies to 64-bit values, where on
-32-bit targets they fit in eax *and* edx, while on 64-bit targets, the
-64-bit values fit into rax *or* rdx.
+Looks good. Feel free to add:
 
-This is documented in GCC documentation:
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-     =E2=80=98A=E2=80=99
-          The =E2=80=98a=E2=80=99 and =E2=80=98d=E2=80=99 registers.  This =
-class is used for
-          instructions that return double word results in the =E2=80=98ax:d=
-x=E2=80=99
-          register pair.  Single word values will be allocated either in
-          =E2=80=98ax=E2=80=99 or =E2=80=98dx=E2=80=99.
+								Honza
 
-And can be confirmed with e.g.:
-
-__int128 val;
-
-void foo (void)
-{
-  __int128 _v =3D val;
-  asm volatile ("" : "+A" (_v));
-  val =3D _v;
-}
-
-which will fail compilation with -ffixed-rax or -ffixed-rdx.
-
-That said, the approach with union of two 64-bit halves can lead to
-slightly better code, because the compiler splits the value earlier in
-the compilation pipeline.
-
-> Uros, any chance you can give these a good once-over? This seems to be
-> just the kind of thing you've been fixing up lately. It would be nice to
-> get them right the first time.
-
-Based on the above explanation, these *can* be copied from 32-bit asm
-patterns. Even "q" constraint will include all integer registers on
-64-bit targets.
-
-Uros.
+> ---
+>  fs/ext4/inode.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+> index bd4b778df9eb..6e523a5c8230 100644
+> --- a/fs/ext4/inode.c
+> +++ b/fs/ext4/inode.c
+> @@ -6598,8 +6598,14 @@ static int ext4_try_to_expand_extra_isize(struct inode *inode,
+>  	 * When !SB_ACTIVE, iput triggers write_inode_now() which acquires
+>  	 * s_writepages_rwsem, causing a deadlock with the caller's active
+>  	 * jbd2 handle (lock order: s_writepages_rwsem -> jbd2_handle).
+> +	 *
+> +	 * Skip it while unmounting as well.  shrink_dcache_for_umount()
+> +	 * clears s_root before generic_shutdown_super() clears SB_ACTIVE, and
+> +	 * the last iput() of a lazytime inode in that window redirties it and
+> +	 * lands here.  Moving xattrs out to a block then needs a new EA inode,
+> +	 * which ext4_xattr_inode_create() refuses without s_root.
+>  	 */
+> -	if (unlikely(!(inode->i_sb->s_flags & SB_ACTIVE)))
+> +	if (unlikely(!(inode->i_sb->s_flags & SB_ACTIVE) || !inode->i_sb->s_root))
+>  		return -EBUSY;
+>  
+>  	/*
+> -- 
+> 2.43.7
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
