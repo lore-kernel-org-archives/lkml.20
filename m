@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E356D47F78C;
-	Wed, 26 Aug 2026 19:44:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39C13480960;
+	Wed, 26 Aug 2026 19:44:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787773467; cv=none; b=luomKb/tWyxEYobC1agJBUoAVLdkcmCzn3Kt1RtIHQVWahjXtyRIg/XY33xlkcrnhNw2PuRSuSU/w3m1cJmXUDUpEkOS/j/2bYZyOttyEpYmQliWSX7FnGtDS8CCmuObSIQD9KNsCpWaTyOg3oiwlR9nc/mGe9JD74uf9LZqoAE=
+	t=1787773480; cv=none; b=lslmwM6qFkNkSjgtz5AkPpRr8zgvdwi/DzCJqlPgiHNpkd/VycZrL133Ype9vjyR2W95AcApHW0/MFiPNqWofEsOuUD/wYD8sFVC83Opwf8Wr9P1IUlp9G83MlsNF5jDRi/mHqj2rK6xa06yl5D2yG0Dzx+9vTyfsIk9owF7T8E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787773467; c=relaxed/simple;
-	bh=+G0N8gxtGfNxoEqDMjsjg5i3bgeBQMZv8vnZtnrkkIk=;
+	s=arc-20240116; t=1787773480; c=relaxed/simple;
+	bh=1uO7R8vQ4NXChie3cI9o7w5dyXnQ6FdEw8W8/ZvKBKI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=L50jrbP7PJlUKmDUzdO61Ls/roF07WwNZ4JV7/IsEiwl5Zb0CjGF8ygLRejqJ/fb+evwMqiXUmznbHtY8YlAw+kZmQck9OhBEYokwpU34h0WDaVLRHgqZqGRaj57Xw/7IztThg8lFNUVIHQh1UX/W1FCkxaDWd9MuImmHwfzaCA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k4Z6wtOf; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=EYsB9eQyq5Fo6ZgCHxptD1PonudDHQwgYoW8on9Xchcx3N4GYgzdyonC+HJxMKQqjN/5AvKAXUKzaHVJYKjCGK/26XG6EUVeF5BznS9hiUtycVyYJ1SGgaAw7hGF4mdcqGzOu9chFa1OQKVs/XBQOVt1ET/icrmDPT+XNyLeArI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fyaE0LD4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k4Z6wtOf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAC8C1F00AC4;
-	Wed, 26 Aug 2026 19:44:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fyaE0LD4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6497E1F00A3D;
+	Wed, 26 Aug 2026 19:44:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787773448;
-	bh=3MfDszGBIPAp/GXxgUuPpfpih9wSgrGqjjUqdzTJxNU=;
+	s=k20260515; t=1787773453;
+	bh=sz2i8Jxz+uYgq/eqQx8893HCcIiUPIUWQomhwjuhu5M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=k4Z6wtOfol19WxEE+MEuJfJYM22V7+xQH7WbBzz3K60oy1HG/XPEz1+8A/Gq16S2V
-	 Id0VJ5ooqTy9bB1IGcKoaoIoKEU99vvpXWpVbYa+uLfh5kveKBjppxVivLyzn3F9Jh
-	 mopDgtYHt2ppRx1OazZgVzMpGtAlwbeVHMB7ux12mCms2jPTUCXag0GqpRBZgoS8at
-	 S4YoSFrS57THnTRwuZSq3lR7h2xyJQQ0/W30jvBiqJ1KMKYF30jSv8YmIgZpSo/TjQ
-	 FUOa+VG6BZxxVfL0J27HdWXRFmNh/J2aJHAeZ77oftUILZzX3ZGpUfE3tH7c3SMSBm
-	 Lzb3CN+etllNA==
+	b=fyaE0LD45L+AAzYvb5wH6fj+2OLSgzjzwbCCJ4jPLLff4SVtYoNPwamvLRXWEsJO6
+	 cmjf7zy7hjTCum/wGk1MHjTkL1BBhPzZoet0GnK2Ha/78qS1G8SFiyN7P6c28Qw57B
+	 xaRCwEshVHlQwieZWICWD9QRAYuy1Ika5lBdXrcvHQmOXC/RHPqB/sTexUvxk7IqnT
+	 glvmZLWGNgvG0dyuxKSfgvrwIIDdo+ETlMnKN9vc5iMsFxkMPUJEedTE2lKQRax66j
+	 L9nCMd3ENqPtmOQOjEG2835aGPyvcB+i7bkhFPH4mgd8O/Rty/4iydqbvVK4NaTGg3
+	 gACoDjnRUeyyg==
 From: Alexey Gladkov <legion@kernel.org>
 To: Linus Torvalds <torvalds@linux-foundation.org>,
 	"Eric W . Biederman" <ebiederm@xmission.com>,
@@ -33,9 +33,9 @@ To: Linus Torvalds <torvalds@linux-foundation.org>,
 	Joel Granados <joel.granados@kernel.org>
 Cc: LKML <linux-kernel@vger.kernel.org>,
 	linux-fsdevel@vger.kernel.org
-Subject: [RFC PATCH v1 28/30] sysctl: net: use sysctl_field in IPv6 devconf sysctls
-Date: Wed, 26 Aug 2026 21:42:32 +0200
-Message-ID: <d9eccfb2bc575ed0ae81e5a5354ede799f46605e.1787771905.git.legion@kernel.org>
+Subject: [RFC PATCH v1 30/30] sysctl: parport: use sysctl_field for dynamic sysctls
+Date: Wed, 26 Aug 2026 21:42:34 +0200
+Message-ID: <f121c4391e022fb9c11cecede06dbf187e86264c.1787771905.git.legion@kernel.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1787771905.git.legion@kernel.org>
 References: <cover.1787771905.git.legion@kernel.org>
@@ -47,820 +47,526 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-IPv6 devconf allocates a private sysctl table for each registered
-devconf only so registration can rewrite data pointers and attach the
-matching inet6_dev and net namespace through extra1 and extra2.
+parport builds per-port and per-device sysctl tables by cloning template
+ctl_table arrays and then patching the data and extra pointers at fixed
+indexes. That keeps the static table definitions writable in practice
+and makes the registration path depend on the exact order of the table
+entries.
 
-Use sysctl_field with an IPv6 devconf registration context instead. The
-table descriptors can stay static and const, while custom handlers still
-see the same data, extra1 and extra2 values they used before.
-
-This removes the per-devconf sysctl table clone and the matching
-unregister side free.
+Use sysctl_field for those tables instead. The per-object state is
+supplied through the registration context, so the table layout can stay
+static and the data pointers are resolved when proc_sysctl builds the
+effective ctl_table. This removes the need to duplicate the tables for
+every parport object and keeps the per-entry state binding next to the
+entry definition.
 
 Signed-off-by: Alexey Gladkov <legion@kernel.org>
 ---
- net/ipv6/addrconf.c | 746 +++++++++++++++-----------------------------
- 1 file changed, 252 insertions(+), 494 deletions(-)
+ drivers/parport/procfs.c | 317 ++++++++++++++++++---------------------
+ fs/proc/proc_sysctl.c    |  11 ++
+ include/linux/parport.h  |   6 +-
+ include/linux/sysctl.h   |  12 ++
+ 4 files changed, 171 insertions(+), 175 deletions(-)
 
-diff --git a/net/ipv6/addrconf.c b/net/ipv6/addrconf.c
-index 5476b6536eb7..a3bac460e7bd 100644
---- a/net/ipv6/addrconf.c
-+++ b/net/ipv6/addrconf.c
-@@ -6826,516 +6826,280 @@ static int addrconf_sysctl_force_forwarding(const struct ctl_table *ctl, int wri
+diff --git a/drivers/parport/procfs.c b/drivers/parport/procfs.c
+index 3880460e67f2..6348d1342069 100644
+--- a/drivers/parport/procfs.c
++++ b/drivers/parport/procfs.c
+@@ -236,147 +236,134 @@ do {									\
+ 	return 0;
  }
  
- static int minus_one = -1;
--static const int two_five_five = 255;
-+static int two_five_five = 255;
- static u32 ioam6_if_id_max = U16_MAX;
+-static const unsigned long parport_min_timeslice_value =
++static unsigned long parport_min_timeslice_value =
+ PARPORT_MIN_TIMESLICE_VALUE;
  
--static const struct ctl_table addrconf_sysctl[] = {
--	{
--		.procname	= "forwarding",
--		.data		= &ipv6_devconf.forwarding,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= addrconf_sysctl_forward,
--	},
--	{
--		.procname	= "hop_limit",
--		.data		= &ipv6_devconf.hop_limit,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec_minmax,
--		.extra1		= (void *)SYSCTL_ONE,
--		.extra2		= (void *)&two_five_five,
--	},
--	{
--		.procname	= "mtu",
--		.data		= &ipv6_devconf.mtu6,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= addrconf_sysctl_mtu,
--	},
--	{
--		.procname	= "accept_ra",
--		.data		= &ipv6_devconf.accept_ra,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec,
--	},
--	{
--		.procname	= "accept_redirects",
--		.data		= &ipv6_devconf.accept_redirects,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec,
--	},
--	{
--		.procname	= "autoconf",
--		.data		= &ipv6_devconf.autoconf,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec,
--	},
--	{
--		.procname	= "dad_transmits",
--		.data		= &ipv6_devconf.dad_transmits,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec,
--	},
--	{
--		.procname	= "router_solicitations",
--		.data		= &ipv6_devconf.rtr_solicits,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec_minmax,
--		.extra1		= &minus_one,
--	},
--	{
--		.procname	= "router_solicitation_interval",
--		.data		= &ipv6_devconf.rtr_solicit_interval,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec_jiffies,
--	},
--	{
--		.procname	= "router_solicitation_max_interval",
--		.data		= &ipv6_devconf.rtr_solicit_max_interval,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec_jiffies,
--	},
--	{
--		.procname	= "router_solicitation_delay",
--		.data		= &ipv6_devconf.rtr_solicit_delay,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec_jiffies,
--	},
--	{
--		.procname	= "force_mld_version",
--		.data		= &ipv6_devconf.force_mld_version,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec,
--	},
--	{
--		.procname	= "mldv1_unsolicited_report_interval",
--		.data		=
--			&ipv6_devconf.mldv1_unsolicited_report_interval,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec_ms_jiffies,
--	},
--	{
--		.procname	= "mldv2_unsolicited_report_interval",
--		.data		=
--			&ipv6_devconf.mldv2_unsolicited_report_interval,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec_ms_jiffies,
--	},
--	{
--		.procname	= "use_tempaddr",
--		.data		= &ipv6_devconf.use_tempaddr,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec,
--	},
--	{
--		.procname	= "temp_valid_lft",
--		.data		= &ipv6_devconf.temp_valid_lft,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec,
--	},
--	{
--		.procname	= "temp_prefered_lft",
--		.data		= &ipv6_devconf.temp_prefered_lft,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec,
--	},
--	{
--		.procname       = "regen_min_advance",
--		.data           = &ipv6_devconf.regen_min_advance,
--		.maxlen         = sizeof(int),
--		.mode           = 0644,
--		.proc_handler   = proc_dointvec,
--	},
--	{
--		.procname	= "regen_max_retry",
--		.data		= &ipv6_devconf.regen_max_retry,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec,
--	},
--	{
--		.procname	= "max_desync_factor",
--		.data		= &ipv6_devconf.max_desync_factor,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec,
--	},
--	{
--		.procname	= "max_addresses",
--		.data		= &ipv6_devconf.max_addresses,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec,
--	},
--	{
--		.procname	= "accept_ra_defrtr",
--		.data		= &ipv6_devconf.accept_ra_defrtr,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec,
--	},
--	{
--		.procname	= "ra_defrtr_metric",
--		.data		= &ipv6_devconf.ra_defrtr_metric,
--		.maxlen		= sizeof(u32),
--		.mode		= 0644,
--		.proc_handler	= proc_douintvec_minmax,
--		.extra1		= (void *)SYSCTL_ONE,
--	},
--	{
--		.procname	= "accept_ra_min_hop_limit",
--		.data		= &ipv6_devconf.accept_ra_min_hop_limit,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec,
--	},
--	{
--		.procname	= "accept_ra_min_lft",
--		.data		= &ipv6_devconf.accept_ra_min_lft,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec,
--	},
--	{
--		.procname	= "accept_ra_pinfo",
--		.data		= &ipv6_devconf.accept_ra_pinfo,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec,
--	},
--	{
--		.procname	= "ra_honor_pio_life",
--		.data		= &ipv6_devconf.ra_honor_pio_life,
--		.maxlen		= sizeof(u8),
--		.mode		= 0644,
--		.proc_handler	= proc_dou8vec_minmax,
--		.extra1		= SYSCTL_ZERO,
--		.extra2		= SYSCTL_ONE,
--	},
--	{
--		.procname	= "ra_honor_pio_pflag",
--		.data		= &ipv6_devconf.ra_honor_pio_pflag,
--		.maxlen		= sizeof(u8),
--		.mode		= 0644,
--		.proc_handler	= proc_dou8vec_minmax,
--		.extra1		= SYSCTL_ZERO,
--		.extra2		= SYSCTL_ONE,
--	},
-+struct addrconf_ctl_context {
+-static const unsigned long parport_max_timeslice_value =
++static unsigned long parport_max_timeslice_value =
+ PARPORT_MAX_TIMESLICE_VALUE;
+ 
+-static const  int parport_min_spintime_value =
++static int parport_min_spintime_value =
+ PARPORT_MIN_SPINTIME_VALUE;
+ 
+-static const int parport_max_spintime_value =
++static int parport_max_spintime_value =
+ PARPORT_MAX_SPINTIME_VALUE;
+ 
++struct parport_ctl_context {
 +	struct sysctl_context context;
-+	struct ipv6_devconf *devconf;
++	struct parport *port;
 +};
-+
-+#define ADDRCONF_DATA(type, field)						\
-+static type *addrconf_ ## field ## _data(const struct sysctl_context *ctx)	\
-+{										\
-+	const struct addrconf_ctl_context *addrconf_ctx =			\
-+		container_of(ctx, struct addrconf_ctl_context, context);	\
-+	return &addrconf_ctx->devconf->field;					\
-+}
-+
-+static void *addrconf_idev_data(const struct sysctl_context *ctx)
+ 
+-struct parport_sysctl_table {
+-	struct ctl_table_header *port_header;
+-	struct ctl_table_header *devices_header;
+-#ifdef CONFIG_PARPORT_1284
+-	struct ctl_table vars[10];
+-#else
+-	struct ctl_table vars[5];
+-#endif /* IEEE 1284 support */
+-	struct ctl_table device_dir[1];
++struct pardevice_ctl_context {
++	struct sysctl_context context;
++	struct pardevice *device;
+ };
+ 
+-static const struct parport_sysctl_table parport_sysctl_template = {
+-	.port_header = NULL,
+-	.devices_header = NULL,
+-	{
+-		{
+-			.procname	= "spintime",
+-			.data		= NULL,
+-			.maxlen		= sizeof(int),
+-			.mode		= 0644,
+-			.proc_handler	= proc_dointvec_minmax,
+-			.extra1		= (void*) &parport_min_spintime_value,
+-			.extra2		= (void*) &parport_max_spintime_value
+-		},
+-		{
+-			.procname	= "base-addr",
+-			.data		= NULL,
+-			.maxlen		= 0,
+-			.mode		= 0444,
+-			.proc_handler	= do_hardware_base_addr
+-		},
+-		{
+-			.procname	= "irq",
+-			.data		= NULL,
+-			.maxlen		= 0,
+-			.mode		= 0444,
+-			.proc_handler	= do_hardware_irq
+-		},
+-		{
+-			.procname	= "dma",
+-			.data		= NULL,
+-			.maxlen		= 0,
+-			.mode		= 0444,
+-			.proc_handler	= do_hardware_dma
+-		},
+-		{
+-			.procname	= "modes",
+-			.data		= NULL,
+-			.maxlen		= 0,
+-			.mode		= 0444,
+-			.proc_handler	= do_hardware_modes
+-		},
++static int *parport_spintime_data(const struct sysctl_context *ctx)
 +{
-+	const struct addrconf_ctl_context *addrconf_ctx =
-+		container_of(ctx, struct addrconf_ctl_context, context);
-+	struct ipv6_devconf *cnf = addrconf_ctx->devconf;
-+	struct net *net = ctx->ns.net_ns;
++	const struct parport_ctl_context *parport_ctx =
++		container_of(ctx, struct parport_ctl_context, context);
 +
-+	if (cnf == net->ipv6.devconf_all || cnf == net->ipv6.devconf_dflt)
-+		return NULL;
-+
-+	return container_of(cnf, struct inet6_dev, cnf);
++	return &parport_ctx->port->spintime;
 +}
 +
-+static void *addrconf_net_data(const struct sysctl_context *ctx)
++static void *pardevice_timeslice_data(const struct sysctl_context *ctx)
 +{
-+	return ctx->ns.net_ns;
++	const struct pardevice_ctl_context *pardevice_ctx =
++		container_of(ctx, struct pardevice_ctl_context, context);
++
++	return &pardevice_ctx->device->timeslice;
 +}
 +
-+#define ADDRCONF_CUSTOM_ENTRY(field, name, mval, len, proc)		\
++static void *parport_data(const struct sysctl_context *ctx)
++{
++	const struct parport_ctl_context *parport_ctx =
++		container_of(ctx, struct parport_ctl_context, context);
++
++	return parport_ctx->port;
++}
++
++static void *parport_min_timeslice_data(const struct sysctl_context *ctx)
++{
++	return &parport_min_timeslice_value;
++}
++
++static void *parport_max_timeslice_data(const struct sysctl_context *ctx)
++{
++	return &parport_max_timeslice_value;
++}
++
+ #ifdef CONFIG_PARPORT_1284
+-		{
+-			.procname	= "autoprobe",
+-			.data		= NULL,
+-			.maxlen		= 0,
+-			.mode		= 0444,
+-			.proc_handler	= do_autoprobe
+-		},
+-		{
+-			.procname	= "autoprobe0",
+-			.data		= NULL,
+-			.maxlen		= 0,
+-			.mode		= 0444,
+-			.proc_handler	= do_autoprobe
+-		},
+-		{
+-			.procname	= "autoprobe1",
+-			.data		= NULL,
+-			.maxlen		= 0,
+-			.mode		= 0444,
+-			.proc_handler	= do_autoprobe
+-		},
+-		{
+-			.procname	= "autoprobe2",
+-			.data		= NULL,
+-			.maxlen		= 0,
+-			.mode		= 0444,
+-			.proc_handler	= do_autoprobe
+-		},
+-		{
+-			.procname	= "autoprobe3",
+-			.data		= NULL,
+-			.maxlen		= 0,
+-			.mode		= 0444,
+-			.proc_handler	= do_autoprobe
+-		},
+-#endif /* IEEE 1284 support */
+-	},
+-	{
+-		{
+-			.procname	= "active",
+-			.data		= NULL,
+-			.maxlen		= 0,
+-			.mode		= 0444,
+-			.proc_handler	= do_active_device
+-		},
+-	},
++#define PARPORT_PROBE_DATA(index)							\
++static void *parport_probe_info_ ## index ## _data(const struct sysctl_context *ctx)	\
++{											\
++	const struct parport_ctl_context *parport_ctx =					\
++		container_of(ctx, struct parport_ctl_context, context);			\
++	return &parport_ctx->port->probe_info[index];					\
++}
++
++PARPORT_PROBE_DATA(0)
++PARPORT_PROBE_DATA(1)
++PARPORT_PROBE_DATA(2)
++PARPORT_PROBE_DATA(3)
++PARPORT_PROBE_DATA(4)
++#endif
++
++#define PARPORT_PORT_ENTRY(name, proc)					\
 +	{								\
 +		.procname	= name,					\
-+		.mode		= mval,					\
++		.mode		= 0444,					\
 +		.type		= SYSCTL_FIELD_CUSTOM,			\
 +		.ctl_custom	= {					\
 +			.proc_handler	= proc,				\
-+			.data		= addrconf_ ## field ## _data,	\
-+			.extra1		= addrconf_idev_data,		\
-+			.extra2		= addrconf_net_data,		\
-+			.maxlen		= len,				\
++			.extra1		= parport_data,			\
++			.maxlen		= 0,				\
 +		},							\
 +	}
 +
-+#define ADDRCONF_INT_ENTRY(field, name) \
-+	SYSCTL_FIELD_INT(name, 0644, addrconf_ ## field ## _data)
++#define PARPORT_PROBE_ENTRY(name, index)				\
++	{								\
++		.procname	= name,					\
++		.mode		= 0444,					\
++		.type		= SYSCTL_FIELD_CUSTOM,			\
++		.ctl_custom	= {					\
++			.proc_handler	= do_autoprobe,			\
++			.extra2		= parport_probe_info_ ## index ## _data, \
++			.maxlen		= 0,				\
++		},							\
++	}
 +
-+#define ADDRCONF_INT_RO_ENTRY(field, name) \
-+	SYSCTL_FIELD_INT(name, 0444, addrconf_ ## field ## _data)
-+
-+#define ADDRCONF_INT_MINMAX_ENTRY(field, name, min, max) \
-+	SYSCTL_FIELD_STATIC_INT_MINMAX(name, 0644, \
-+				       addrconf_ ## field ## _data, min, max)
-+
-+#define ADDRCONF_UINT_ENTRY(field, name) \
-+	SYSCTL_FIELD_UINT(name, 0644, addrconf_ ## field ## _data)
-+
-+#define ADDRCONF_UINT_MINMAX_ENTRY(field, name, min, max) \
-+	SYSCTL_FIELD_STATIC_UINT_MINMAX(name, 0644, \
-+				        addrconf_ ## field ## _data, min, max)
-+
-+#define ADDRCONF_U8_MINMAX_ENTRY(field, name, min, max) \
-+	SYSCTL_FIELD_STATIC_U8_MINMAX(name, 0644, \
-+				      addrconf_ ## field ## _data, min, max)
-+
-+ADDRCONF_DATA(void, forwarding)
-+ADDRCONF_DATA(int, hop_limit)
-+ADDRCONF_DATA(void, mtu6)
-+ADDRCONF_DATA(int, accept_ra)
-+ADDRCONF_DATA(int, accept_redirects)
-+ADDRCONF_DATA(int, autoconf)
-+ADDRCONF_DATA(int, dad_transmits)
-+ADDRCONF_DATA(int, rtr_solicits)
-+ADDRCONF_DATA(void, rtr_solicit_interval)
-+ADDRCONF_DATA(void, rtr_solicit_max_interval)
-+ADDRCONF_DATA(void, rtr_solicit_delay)
-+ADDRCONF_DATA(int, force_mld_version)
-+ADDRCONF_DATA(void, mldv1_unsolicited_report_interval)
-+ADDRCONF_DATA(void, mldv2_unsolicited_report_interval)
-+ADDRCONF_DATA(int, use_tempaddr)
-+ADDRCONF_DATA(int, temp_valid_lft)
-+ADDRCONF_DATA(int, temp_prefered_lft)
-+ADDRCONF_DATA(int, regen_min_advance)
-+ADDRCONF_DATA(int, regen_max_retry)
-+ADDRCONF_DATA(int, max_desync_factor)
-+ADDRCONF_DATA(int, max_addresses)
-+ADDRCONF_DATA(int, accept_ra_defrtr)
-+ADDRCONF_DATA(unsigned int, ra_defrtr_metric)
-+ADDRCONF_DATA(int, accept_ra_min_hop_limit)
-+ADDRCONF_DATA(int, accept_ra_min_lft)
-+ADDRCONF_DATA(int, accept_ra_pinfo)
-+ADDRCONF_DATA(u8, ra_honor_pio_life)
-+ADDRCONF_DATA(u8, ra_honor_pio_pflag)
- #ifdef CONFIG_IPV6_ROUTER_PREF
--	{
--		.procname	= "accept_ra_rtr_pref",
--		.data		= &ipv6_devconf.accept_ra_rtr_pref,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec,
--	},
--	{
--		.procname	= "router_probe_interval",
--		.data		= &ipv6_devconf.rtr_probe_interval,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec_jiffies,
--	},
-+ADDRCONF_DATA(int, accept_ra_rtr_pref)
-+ADDRCONF_DATA(void, rtr_probe_interval)
- #ifdef CONFIG_IPV6_ROUTE_INFO
--	{
--		.procname	= "accept_ra_rt_info_min_plen",
--		.data		= &ipv6_devconf.accept_ra_rt_info_min_plen,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec,
--	},
--	{
--		.procname	= "accept_ra_rt_info_max_plen",
--		.data		= &ipv6_devconf.accept_ra_rt_info_max_plen,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec,
--	},
-+ADDRCONF_DATA(int, accept_ra_rt_info_min_plen)
-+ADDRCONF_DATA(int, accept_ra_rt_info_max_plen)
- #endif
- #endif
--	{
--		.procname	= "proxy_ndp",
--		.data		= &ipv6_devconf.proxy_ndp,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= addrconf_sysctl_proxy_ndp,
--	},
--	{
--		.procname	= "accept_source_route",
--		.data		= &ipv6_devconf.accept_source_route,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec,
--	},
-+ADDRCONF_DATA(void, proxy_ndp)
-+ADDRCONF_DATA(int, accept_source_route)
- #ifdef CONFIG_IPV6_OPTIMISTIC_DAD
--	{
--		.procname	= "optimistic_dad",
--		.data		= &ipv6_devconf.optimistic_dad,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler   = proc_dointvec,
--	},
--	{
--		.procname	= "use_optimistic",
--		.data		= &ipv6_devconf.use_optimistic,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec,
--	},
-+ADDRCONF_DATA(int, optimistic_dad)
-+ADDRCONF_DATA(int, use_optimistic)
- #endif
- #ifdef CONFIG_IPV6_MROUTE
--	{
--		.procname	= "mc_forwarding",
--		.data		= &ipv6_devconf.mc_forwarding,
--		.maxlen		= sizeof(int),
--		.mode		= 0444,
--		.proc_handler	= proc_dointvec,
--	},
-+ADDRCONF_DATA(void, mc_forwarding)
- #endif
--	{
--		.procname	= "disable_ipv6",
--		.data		= &ipv6_devconf.disable_ipv6,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= addrconf_sysctl_disable,
--	},
--	{
--		.procname	= "accept_dad",
--		.data		= &ipv6_devconf.accept_dad,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec,
--	},
--	{
--		.procname	= "force_tllao",
--		.data		= &ipv6_devconf.force_tllao,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec
--	},
--	{
--		.procname	= "ndisc_notify",
--		.data		= &ipv6_devconf.ndisc_notify,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec
--	},
--	{
--		.procname	= "suppress_frag_ndisc",
--		.data		= &ipv6_devconf.suppress_frag_ndisc,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec
--	},
--	{
--		.procname	= "accept_ra_from_local",
--		.data		= &ipv6_devconf.accept_ra_from_local,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec,
--	},
--	{
--		.procname	= "accept_ra_mtu",
--		.data		= &ipv6_devconf.accept_ra_mtu,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec,
--	},
--	{
--		.procname	= "stable_secret",
--		.data		= &ipv6_devconf.stable_secret,
--		.maxlen		= IPV6_MAX_STRLEN,
--		.mode		= 0600,
--		.proc_handler	= addrconf_sysctl_stable_secret,
--	},
--	{
--		.procname	= "use_oif_addrs_only",
--		.data		= &ipv6_devconf.use_oif_addrs_only,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec,
--	},
--	{
--		.procname	= "ignore_routes_with_linkdown",
--		.data		= &ipv6_devconf.ignore_routes_with_linkdown,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= addrconf_sysctl_ignore_routes_with_linkdown,
--	},
--	{
--		.procname	= "drop_unicast_in_l2_multicast",
--		.data		= &ipv6_devconf.drop_unicast_in_l2_multicast,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec,
--	},
--	{
--		.procname	= "drop_unsolicited_na",
--		.data		= &ipv6_devconf.drop_unsolicited_na,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec,
--	},
--	{
--		.procname	= "keep_addr_on_down",
--		.data		= &ipv6_devconf.keep_addr_on_down,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec,
--
--	},
--	{
--		.procname	= "seg6_enabled",
--		.data		= &ipv6_devconf.seg6_enabled,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec,
--	},
-+ADDRCONF_DATA(void, disable_ipv6)
-+ADDRCONF_DATA(int, accept_dad)
-+ADDRCONF_DATA(int, force_tllao)
-+ADDRCONF_DATA(int, ndisc_notify)
-+ADDRCONF_DATA(int, suppress_frag_ndisc)
-+ADDRCONF_DATA(int, accept_ra_from_local)
-+ADDRCONF_DATA(int, accept_ra_mtu)
-+ADDRCONF_DATA(void, stable_secret)
-+ADDRCONF_DATA(int, use_oif_addrs_only)
-+ADDRCONF_DATA(void, ignore_routes_with_linkdown)
-+ADDRCONF_DATA(int, drop_unicast_in_l2_multicast)
-+ADDRCONF_DATA(int, drop_unsolicited_na)
-+ADDRCONF_DATA(int, keep_addr_on_down)
-+ADDRCONF_DATA(int, seg6_enabled)
- #ifdef CONFIG_IPV6_SEG6_HMAC
--	{
--		.procname	= "seg6_require_hmac",
--		.data		= &ipv6_devconf.seg6_require_hmac,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec,
--	},
-+ADDRCONF_DATA(int, seg6_require_hmac)
- #endif
--	{
--		.procname       = "enhanced_dad",
--		.data           = &ipv6_devconf.enhanced_dad,
--		.maxlen         = sizeof(int),
--		.mode           = 0644,
--		.proc_handler   = proc_dointvec,
--	},
--	{
--		.procname	= "addr_gen_mode",
--		.data		= &ipv6_devconf.addr_gen_mode,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= addrconf_sysctl_addr_gen_mode,
--	},
--	{
--		.procname       = "disable_policy",
--		.data           = &ipv6_devconf.disable_policy,
--		.maxlen         = sizeof(int),
--		.mode           = 0644,
--		.proc_handler   = addrconf_sysctl_disable_policy,
--	},
--	{
--		.procname	= "ndisc_tclass",
--		.data		= &ipv6_devconf.ndisc_tclass,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec_minmax,
--		.extra1		= (void *)SYSCTL_ZERO,
--		.extra2		= (void *)&two_five_five,
--	},
--	{
--		.procname	= "rpl_seg_enabled",
--		.data		= &ipv6_devconf.rpl_seg_enabled,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler   = proc_dointvec_minmax,
--		.extra1         = SYSCTL_ZERO,
--		.extra2         = SYSCTL_ONE,
--	},
--	{
--		.procname	= "ioam6_enabled",
--		.data		= &ipv6_devconf.ioam6_enabled,
--		.maxlen		= sizeof(u8),
--		.mode		= 0644,
--		.proc_handler	= proc_dou8vec_minmax,
--		.extra1		= (void *)SYSCTL_ZERO,
--		.extra2		= (void *)SYSCTL_ONE,
--	},
--	{
--		.procname	= "ioam6_id",
--		.data		= &ipv6_devconf.ioam6_id,
--		.maxlen		= sizeof(u32),
--		.mode		= 0644,
--		.proc_handler	= proc_douintvec_minmax,
--		.extra1		= (void *)SYSCTL_ZERO,
--		.extra2		= (void *)&ioam6_if_id_max,
--	},
--	{
--		.procname	= "ioam6_id_wide",
--		.data		= &ipv6_devconf.ioam6_id_wide,
--		.maxlen		= sizeof(u32),
--		.mode		= 0644,
--		.proc_handler	= proc_douintvec,
--	},
--	{
--		.procname	= "ndisc_evict_nocarrier",
--		.data		= &ipv6_devconf.ndisc_evict_nocarrier,
--		.maxlen		= sizeof(u8),
--		.mode		= 0644,
--		.proc_handler	= proc_dou8vec_minmax,
--		.extra1		= (void *)SYSCTL_ZERO,
--		.extra2		= (void *)SYSCTL_ONE,
--	},
--	{
--		.procname	= "accept_untracked_na",
--		.data		= &ipv6_devconf.accept_untracked_na,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec_minmax,
--		.extra1		= SYSCTL_ZERO,
--		.extra2		= SYSCTL_TWO,
--	},
--	{
--		.procname	= "force_forwarding",
--		.data		= &ipv6_devconf.force_forwarding,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= addrconf_sysctl_force_forwarding,
--	},
-+ADDRCONF_DATA(void, enhanced_dad)
-+ADDRCONF_DATA(void, addr_gen_mode)
-+ADDRCONF_DATA(void, disable_policy)
-+ADDRCONF_DATA(int, ndisc_tclass)
-+ADDRCONF_DATA(int, rpl_seg_enabled)
-+ADDRCONF_DATA(u8, ioam6_enabled)
-+ADDRCONF_DATA(unsigned int, ioam6_id)
-+ADDRCONF_DATA(unsigned int, ioam6_id_wide)
-+ADDRCONF_DATA(u8, ndisc_evict_nocarrier)
-+ADDRCONF_DATA(int, accept_untracked_na)
-+ADDRCONF_DATA(void, force_forwarding)
-+
-+static const struct sysctl_field addrconf_sysctl[] = {
-+	ADDRCONF_CUSTOM_ENTRY(forwarding, "forwarding", 0644, sizeof(int),
-+			      addrconf_sysctl_forward),
-+	ADDRCONF_INT_MINMAX_ENTRY(hop_limit, "hop_limit", SYSCTL_ONE,
-+				  &two_five_five),
-+	ADDRCONF_CUSTOM_ENTRY(mtu6, "mtu", 0644, sizeof(int),
-+			      addrconf_sysctl_mtu),
-+	ADDRCONF_INT_ENTRY(accept_ra, "accept_ra"),
-+	ADDRCONF_INT_ENTRY(accept_redirects, "accept_redirects"),
-+	ADDRCONF_INT_ENTRY(autoconf, "autoconf"),
-+	ADDRCONF_INT_ENTRY(dad_transmits, "dad_transmits"),
-+	ADDRCONF_INT_MINMAX_ENTRY(rtr_solicits, "router_solicitations",
-+				  &minus_one, NULL),
-+	ADDRCONF_CUSTOM_ENTRY(rtr_solicit_interval,
-+			      "router_solicitation_interval", 0644,
-+			      sizeof(int), proc_dointvec_jiffies),
-+	ADDRCONF_CUSTOM_ENTRY(rtr_solicit_max_interval,
-+			      "router_solicitation_max_interval", 0644,
-+			      sizeof(int), proc_dointvec_jiffies),
-+	ADDRCONF_CUSTOM_ENTRY(rtr_solicit_delay,
-+			      "router_solicitation_delay", 0644,
-+			      sizeof(int), proc_dointvec_jiffies),
-+	ADDRCONF_INT_ENTRY(force_mld_version, "force_mld_version"),
-+	ADDRCONF_CUSTOM_ENTRY(mldv1_unsolicited_report_interval,
-+			      "mldv1_unsolicited_report_interval", 0644,
-+			      sizeof(int), proc_dointvec_ms_jiffies),
-+	ADDRCONF_CUSTOM_ENTRY(mldv2_unsolicited_report_interval,
-+			      "mldv2_unsolicited_report_interval", 0644,
-+			      sizeof(int), proc_dointvec_ms_jiffies),
-+	ADDRCONF_INT_ENTRY(use_tempaddr, "use_tempaddr"),
-+	ADDRCONF_INT_ENTRY(temp_valid_lft, "temp_valid_lft"),
-+	ADDRCONF_INT_ENTRY(temp_prefered_lft, "temp_prefered_lft"),
-+	ADDRCONF_INT_ENTRY(regen_min_advance, "regen_min_advance"),
-+	ADDRCONF_INT_ENTRY(regen_max_retry, "regen_max_retry"),
-+	ADDRCONF_INT_ENTRY(max_desync_factor, "max_desync_factor"),
-+	ADDRCONF_INT_ENTRY(max_addresses, "max_addresses"),
-+	ADDRCONF_INT_ENTRY(accept_ra_defrtr, "accept_ra_defrtr"),
-+	ADDRCONF_UINT_MINMAX_ENTRY(ra_defrtr_metric, "ra_defrtr_metric",
-+				   SYSCTL_UINT_ONE, NULL),
-+	ADDRCONF_INT_ENTRY(accept_ra_min_hop_limit,
-+			 "accept_ra_min_hop_limit"),
-+	ADDRCONF_INT_ENTRY(accept_ra_min_lft, "accept_ra_min_lft"),
-+	ADDRCONF_INT_ENTRY(accept_ra_pinfo, "accept_ra_pinfo"),
-+	ADDRCONF_U8_MINMAX_ENTRY(ra_honor_pio_life, "ra_honor_pio_life",
-+				 SYSCTL_UINT_ZERO, SYSCTL_UINT_ONE),
-+	ADDRCONF_U8_MINMAX_ENTRY(ra_honor_pio_pflag, "ra_honor_pio_pflag",
-+				 SYSCTL_UINT_ZERO, SYSCTL_UINT_ONE),
-+#ifdef CONFIG_IPV6_ROUTER_PREF
-+	ADDRCONF_INT_ENTRY(accept_ra_rtr_pref, "accept_ra_rtr_pref"),
-+	ADDRCONF_CUSTOM_ENTRY(rtr_probe_interval, "router_probe_interval",
-+			      0644, sizeof(int), proc_dointvec_jiffies),
-+#ifdef CONFIG_IPV6_ROUTE_INFO
-+	ADDRCONF_INT_ENTRY(accept_ra_rt_info_min_plen,
-+			 "accept_ra_rt_info_min_plen"),
-+	ADDRCONF_INT_ENTRY(accept_ra_rt_info_max_plen,
-+			 "accept_ra_rt_info_max_plen"),
++static const struct sysctl_field parport_sysctl_table[] = {
++	SYSCTL_FIELD_STATIC_INT_MINMAX("spintime", 0644, parport_spintime_data,
++				       &parport_min_spintime_value,
++				       &parport_max_spintime_value),
++	PARPORT_PORT_ENTRY("base-addr", do_hardware_base_addr),
++	PARPORT_PORT_ENTRY("irq", do_hardware_irq),
++	PARPORT_PORT_ENTRY("dma", do_hardware_dma),
++	PARPORT_PORT_ENTRY("modes", do_hardware_modes),
++#ifdef CONFIG_PARPORT_1284
++	PARPORT_PROBE_ENTRY("autoprobe", 0),
++	PARPORT_PROBE_ENTRY("autoprobe0", 1),
++	PARPORT_PROBE_ENTRY("autoprobe1", 2),
++	PARPORT_PROBE_ENTRY("autoprobe2", 3),
++	PARPORT_PROBE_ENTRY("autoprobe3", 4),
 +#endif
-+#endif
-+	ADDRCONF_CUSTOM_ENTRY(proxy_ndp, "proxy_ndp", 0644, sizeof(int),
-+			      addrconf_sysctl_proxy_ndp),
-+	ADDRCONF_INT_ENTRY(accept_source_route, "accept_source_route"),
-+#ifdef CONFIG_IPV6_OPTIMISTIC_DAD
-+	ADDRCONF_INT_ENTRY(optimistic_dad, "optimistic_dad"),
-+	ADDRCONF_INT_ENTRY(use_optimistic, "use_optimistic"),
-+#endif
-+#ifdef CONFIG_IPV6_MROUTE
-+	ADDRCONF_CUSTOM_ENTRY(mc_forwarding, "mc_forwarding", 0444,
-+			      sizeof(int), proc_dointvec),
-+#endif
-+	ADDRCONF_CUSTOM_ENTRY(disable_ipv6, "disable_ipv6", 0644,
-+			      sizeof(int), addrconf_sysctl_disable),
-+	ADDRCONF_INT_ENTRY(accept_dad, "accept_dad"),
-+	ADDRCONF_INT_ENTRY(force_tllao, "force_tllao"),
-+	ADDRCONF_INT_ENTRY(ndisc_notify, "ndisc_notify"),
-+	ADDRCONF_INT_ENTRY(suppress_frag_ndisc, "suppress_frag_ndisc"),
-+	ADDRCONF_INT_ENTRY(accept_ra_from_local, "accept_ra_from_local"),
-+	ADDRCONF_INT_ENTRY(accept_ra_mtu, "accept_ra_mtu"),
-+	ADDRCONF_CUSTOM_ENTRY(stable_secret, "stable_secret", 0600,
-+			      IPV6_MAX_STRLEN, addrconf_sysctl_stable_secret),
-+	ADDRCONF_INT_ENTRY(use_oif_addrs_only, "use_oif_addrs_only"),
-+	ADDRCONF_CUSTOM_ENTRY(ignore_routes_with_linkdown,
-+			      "ignore_routes_with_linkdown", 0644, sizeof(int),
-+			      addrconf_sysctl_ignore_routes_with_linkdown),
-+	ADDRCONF_INT_ENTRY(drop_unicast_in_l2_multicast,
-+			 "drop_unicast_in_l2_multicast"),
-+	ADDRCONF_INT_ENTRY(drop_unsolicited_na, "drop_unsolicited_na"),
-+	ADDRCONF_INT_ENTRY(keep_addr_on_down, "keep_addr_on_down"),
-+	ADDRCONF_INT_ENTRY(seg6_enabled, "seg6_enabled"),
-+#ifdef CONFIG_IPV6_SEG6_HMAC
-+	ADDRCONF_INT_ENTRY(seg6_require_hmac, "seg6_require_hmac"),
-+#endif
-+	ADDRCONF_CUSTOM_ENTRY(enhanced_dad, "enhanced_dad", 0644,
-+			      sizeof(int), proc_dointvec),
-+	ADDRCONF_CUSTOM_ENTRY(addr_gen_mode, "addr_gen_mode", 0644,
-+			      sizeof(int), addrconf_sysctl_addr_gen_mode),
-+	ADDRCONF_CUSTOM_ENTRY(disable_policy, "disable_policy", 0644,
-+			      sizeof(int), addrconf_sysctl_disable_policy),
-+	ADDRCONF_INT_MINMAX_ENTRY(ndisc_tclass, "ndisc_tclass",
-+				  SYSCTL_ZERO, &two_five_five),
-+	ADDRCONF_INT_MINMAX_ENTRY(rpl_seg_enabled, "rpl_seg_enabled",
-+				  SYSCTL_ZERO, SYSCTL_ONE),
-+	ADDRCONF_U8_MINMAX_ENTRY(ioam6_enabled, "ioam6_enabled",
-+				 SYSCTL_UINT_ZERO, SYSCTL_UINT_ONE),
-+	ADDRCONF_UINT_MINMAX_ENTRY(ioam6_id, "ioam6_id",
-+				   SYSCTL_UINT_ZERO, &ioam6_if_id_max),
-+	ADDRCONF_UINT_ENTRY(ioam6_id_wide, "ioam6_id_wide"),
-+	ADDRCONF_U8_MINMAX_ENTRY(ndisc_evict_nocarrier,
-+				 "ndisc_evict_nocarrier", SYSCTL_UINT_ZERO,
-+				 SYSCTL_UINT_ONE),
-+	ADDRCONF_INT_MINMAX_ENTRY(accept_untracked_na, "accept_untracked_na",
-+				  SYSCTL_ZERO, SYSCTL_TWO),
-+	ADDRCONF_CUSTOM_ENTRY(force_forwarding, "force_forwarding", 0644,
-+			      sizeof(int), addrconf_sysctl_force_forwarding),
  };
  
- static int __addrconf_sysctl_register(struct net *net, char *dev_name,
- 		struct inet6_dev *idev, struct ipv6_devconf *p)
+-struct parport_device_sysctl_table
+-{
+-	struct ctl_table_header *sysctl_header;
+-	struct ctl_table vars[1];
+-	struct ctl_table device_dir[1];
++static const struct sysctl_field parport_device_dir_table[] = {
++	PARPORT_PORT_ENTRY("active", do_active_device),
+ };
+ 
+-static const struct parport_device_sysctl_table
+-parport_device_sysctl_template = {
+-	.sysctl_header = NULL,
++static const struct sysctl_field parport_device_sysctl_table[] = {
+ 	{
+-		{
+-			.procname 	= "timeslice",
+-			.data		= NULL,
+-			.maxlen		= sizeof(unsigned long),
+-			.mode		= 0644,
++		.procname	= "timeslice",
++		.mode		= 0644,
++		.type		= SYSCTL_FIELD_CUSTOM,
++		.ctl_custom	= {
+ 			.proc_handler	= proc_doulongvec_ms_jiffies_minmax,
+-			.extra1		= (void*) &parport_min_timeslice_value,
+-			.extra2		= (void*) &parport_max_timeslice_value
+-		},
+-	},
+-	{
+-		{
+-			.procname	= NULL,
+-			.data		= NULL,
+-			.maxlen		= 0,
+-			.mode		= 0555,
++			.data		= pardevice_timeslice_data,
++			.extra1		= parport_min_timeslice_data,
++			.extra2		= parport_max_timeslice_data,
++			.maxlen		= sizeof(unsigned long),
+ 		},
+ 	}
+ };
+@@ -414,35 +401,27 @@ parport_default_sysctl_table = {
+ 
+ int parport_proc_register(struct parport *port)
  {
--	size_t table_size = ARRAY_SIZE(addrconf_sysctl);
--	int i, ifindex;
--	struct ctl_table *table;
-+	struct addrconf_ctl_context ctx = {
-+		.context.ns.net_ns = net,
-+		.devconf = p,
+-	struct parport_sysctl_table *t;
++	struct parport_ctl_context ctx = {
++		.port = port,
 +	};
-+	int ifindex;
- 	char path[sizeof("net/ipv6/conf/") + IFNAMSIZ];
- 
--	table = kmemdup(addrconf_sysctl, sizeof(addrconf_sysctl), GFP_KERNEL_ACCOUNT);
--	if (!table)
--		goto out;
++	struct ctl_table_header *hdr;
+ 	char *tmp_dir_path;
+-	int i, err = 0;
 -
--	for (i = 0; i < table_size; i++) {
--		table[i].data += (char *)p - (char *)&ipv6_devconf;
--		/* If one of these is already set, then it is not safe to
--		 * overwrite either of them: this makes proc_dointvec_minmax
--		 * usable.
--		 */
--		if (!table[i].extra1 && !table[i].extra2) {
--			table[i].extra1 = idev; /* embedded; no ref */
--			table[i].extra2 = net;
--		}
+-	t = kmemdup(&parport_sysctl_template, sizeof(*t), GFP_KERNEL);
+-	if (t == NULL)
+-		return -ENOMEM;
+-
+-	t->device_dir[0].extra1 = port;
+-
+-	t->vars[0].data = &port->spintime;
+-	for (i = 0; i < 5; i++) {
+-		t->vars[i].extra1 = port;
+-#ifdef CONFIG_PARPORT_1284
+-		t->vars[5 + i].extra2 = &port->probe_info[i];
+-#endif /* IEEE 1284 support */
 -	}
--
- 	snprintf(path, sizeof(path), "net/ipv6/conf/%s", dev_name);
++	int err = 0;
  
--	p->sysctl_header = register_net_sysctl_sz(net, path, table,
--						  table_size);
-+	p->sysctl_header = register_sysctl_fields_ctx(&net->sysctls, path,
-+						      addrconf_sysctl, &ctx);
- 	if (!p->sysctl_header)
--		goto free;
+ 	tmp_dir_path = kasprintf(GFP_KERNEL, "dev/parport/%s/devices", port->name);
+ 	if (!tmp_dir_path) {
+ 		err = -ENOMEM;
+-		goto exit_free_t;
 +		goto out;
+ 	}
  
- 	if (!strcmp(dev_name, "all"))
- 		ifindex = NETCONFA_IFINDEX_ALL;
-@@ -7347,8 +7111,6 @@ static int __addrconf_sysctl_register(struct net *net, char *dev_name,
- 				     ifindex, p);
+-	t->devices_header = register_sysctl(tmp_dir_path, t->device_dir);
+-	if (t->devices_header == NULL) {
++	hdr = register_sysctl_fields_sz(tmp_dir_path, parport_device_dir_table,
++					ARRAY_SIZE(parport_device_dir_table),
++					&ctx.context, sizeof(ctx));
++	if (hdr == NULL) {
+ 		err = -ENOENT;
+ 		goto  exit_free_tmp_dir_path;
+ 	}
++	port->sysctl_devices_header = hdr;
+ 
+ 	kfree(tmp_dir_path);
+ 
+@@ -452,83 +431,75 @@ int parport_proc_register(struct parport *port)
+ 		goto unregister_devices_h;
+ 	}
+ 
+-	t->port_header = register_sysctl(tmp_dir_path, t->vars);
+-	if (t->port_header == NULL) {
++	hdr = register_sysctl_fields_sz(tmp_dir_path, parport_sysctl_table,
++					ARRAY_SIZE(parport_sysctl_table),
++					&ctx.context, sizeof(ctx));
++	if (hdr == NULL) {
+ 		err = -ENOENT;
+ 		goto unregister_devices_h;
+ 	}
+-
+-	port->sysctl_table = t;
++	port->sysctl_table = hdr;
+ 
+ 	kfree(tmp_dir_path);
  	return 0;
  
--free:
--	kfree(table);
- out:
- 	return -ENOBUFS;
+ unregister_devices_h:
+-	unregister_sysctl_table(t->devices_header);
++	unregister_sysctl_table(port->sysctl_devices_header);
++	port->sysctl_devices_header = NULL;
+ 
+ exit_free_tmp_dir_path:
+ 	kfree(tmp_dir_path);
+ 
+-exit_free_t:
+-	kfree(t);
++out:
+ 	return err;
  }
-@@ -7356,15 +7118,11 @@ static int __addrconf_sysctl_register(struct net *net, char *dev_name,
- static void __addrconf_sysctl_unregister(struct net *net,
- 					 struct ipv6_devconf *p, int ifindex)
+ 
+ int parport_proc_unregister(struct parport *port)
  {
--	const struct ctl_table *table;
--
- 	if (!p->sysctl_header)
- 		return;
- 
--	table = p->sysctl_header->ctl_table_arg;
- 	unregister_net_sysctl_table(p->sysctl_header);
- 	p->sysctl_header = NULL;
--	kfree(table);
- 
- 	inet6_netconf_notify_devconf(net, RTM_DELNETCONF, 0, ifindex, NULL);
++	if (port->sysctl_devices_header) {
++		unregister_sysctl_table(port->sysctl_devices_header);
++		port->sysctl_devices_header = NULL;
++	}
+ 	if (port->sysctl_table) {
+-		struct parport_sysctl_table *t = port->sysctl_table;
++		unregister_sysctl_table(port->sysctl_table);
+ 		port->sysctl_table = NULL;
+-		unregister_sysctl_table(t->devices_header);
+-		unregister_sysctl_table(t->port_header);
+-		kfree(t);
+ 	}
+ 	return 0;
  }
+ 
+ int parport_device_proc_register(struct pardevice *device)
+ {
+-	struct parport_device_sysctl_table *t;
++	struct pardevice_ctl_context ctx = {
++		.device = device,
++	};
+ 	struct parport * port = device->port;
+ 	char *tmp_dir_path;
+ 	int err = 0;
+-	
+-	t = kmemdup(&parport_device_sysctl_template, sizeof(*t), GFP_KERNEL);
+-	if (t == NULL)
+-		return -ENOMEM;
+ 
+ 	/* Allocate a buffer for two paths: dev/parport/PORT/devices/DEVICE. */
+ 	tmp_dir_path = kasprintf(GFP_KERNEL, "dev/parport/%s/devices/%s", port->name, device->name);
+ 	if (!tmp_dir_path) {
+ 		err = -ENOMEM;
+-		goto exit_free_t;
++		goto out;
+ 	}
+ 
+-	t->vars[0].data = &device->timeslice;
+-
+-	t->sysctl_header = register_sysctl(tmp_dir_path, t->vars);
+-	if (t->sysctl_header == NULL) {
+-		kfree(t);
+-		t = NULL;
+-	}
+-	device->sysctl_table = t;
++	device->sysctl_table =
++		register_sysctl_fields_sz(tmp_dir_path, parport_device_sysctl_table,
++				       ARRAY_SIZE(parport_device_sysctl_table),
++				       &ctx.context, sizeof(ctx));
+ 
+ 	kfree(tmp_dir_path);
+ 	return 0;
+ 
+-exit_free_t:
+-	kfree(t);
+-
++out:
+ 	return err;
+ }
+ 
+ int parport_device_proc_unregister(struct pardevice *device)
+ {
+ 	if (device->sysctl_table) {
+-		struct parport_device_sysctl_table *t = device->sysctl_table;
++		unregister_sysctl_table(device->sysctl_table);
+ 		device->sysctl_table = NULL;
+-		unregister_sysctl_table(t->sysctl_header);
+-		kfree(t);
+ 	}
+ 	return 0;
+ }
+diff --git a/fs/proc/proc_sysctl.c b/fs/proc/proc_sysctl.c
+index 88d3cc79fc33..c715f625a410 100644
+--- a/fs/proc/proc_sysctl.c
++++ b/fs/proc/proc_sysctl.c
+@@ -1714,6 +1714,17 @@ struct ctl_table_header *register_sysctl_sz(const char *path, const struct ctl_t
+ }
+ EXPORT_SYMBOL(register_sysctl_sz);
+ 
++struct ctl_table_header *register_sysctl_fields_sz(const char *path,
++						   const struct sysctl_field *fields,
++						   size_t field_count,
++						   const struct sysctl_context *ctx,
++						   size_t ctx_size)
++{
++	return __register_sysctl_fields(&sysctl_table_root.default_set, path,
++					fields, field_count, ctx, ctx_size);
++}
++EXPORT_SYMBOL(register_sysctl_fields_sz);
++
+ /**
+  * __register_sysctl_init() - register sysctl table to path
+  * @path: path name for sysctl base. If that path doesn't exist we will create
+diff --git a/include/linux/parport.h b/include/linux/parport.h
+index 464c2ad28039..ea3dd405ea3c 100644
+--- a/include/linux/parport.h
++++ b/include/linux/parport.h
+@@ -20,6 +20,7 @@
+ /* Define this later. */
+ struct parport;
+ struct pardevice;
++struct ctl_table_header;
+ 
+ struct pc_parport_state {
+ 	unsigned int ctr;
+@@ -151,7 +152,7 @@ struct pardevice {
+ 	unsigned long waiting;		 /* long req'd for set_bit --RR */
+ 	struct pardevice *waitprev;
+ 	struct pardevice *waitnext;
+-	void * sysctl_table;
++	struct ctl_table_header *sysctl_table;
+ };
+ 
+ #define to_pardevice(n) container_of(n, struct pardevice, dev)
+@@ -223,7 +224,8 @@ struct parport {
+ 	struct timer_list timer;
+ 	unsigned int flags;
+ 
+-	void *sysctl_table;
++	struct ctl_table_header *sysctl_table;
++	struct ctl_table_header *sysctl_devices_header;
+ 	struct parport_device_info probe_info[5]; /* 0-3 + non-IEEE1284.3 */
+ 	struct ieee1284_info ieee1284;
+ 
+diff --git a/include/linux/sysctl.h b/include/linux/sysctl.h
+index 6cf2ef4f13e8..b98f1ee94df2 100644
+--- a/include/linux/sysctl.h
++++ b/include/linux/sysctl.h
+@@ -506,6 +506,10 @@ struct ctl_table_header *
+ __register_sysctl_fields(struct ctl_table_set *set, const char *path,
+ 			 const struct sysctl_field *fields, size_t field_count,
+ 			 const struct sysctl_context *ctx, size_t ctx_size);
++struct ctl_table_header *
++register_sysctl_fields_sz(const char *path,
++			  const struct sysctl_field *fields, size_t field_count,
++			  const struct sysctl_context *ctx, size_t ctx_size);
+ struct ctl_table_header *register_sysctl_sz(const char *path, const struct ctl_table *table,
+ 					    size_t table_size);
+ void unregister_sysctl_table(struct ctl_table_header * table);
+@@ -541,6 +545,14 @@ static inline struct ctl_table_header *register_sysctl_sz(const char *path,
+ 	return NULL;
+ }
+ 
++static inline struct ctl_table_header *
++register_sysctl_fields_sz(const char *path,
++			  const struct ctl_field *fields, size_t field_count,
++			  const struct ctl_context *ctx, size_t ctx_size)
++{
++	return NULL;
++}
++
+ static inline struct ctl_table_header *
+ __register_sysctl_fields(struct ctl_table_set *set, const char *path,
+ 			 const struct sysctl_field *fields, size_t field_count,
 -- 
 2.55.0
 
