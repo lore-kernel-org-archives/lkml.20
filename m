@@ -1,257 +1,408 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013007.outbound.protection.outlook.com [40.107.162.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABA1D1E1024;
-	Wed, 26 Aug 2026 15:36:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.7
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787758602; cv=fail; b=MOdGoKkHAUqqq4AmMAauhLoTClXMtjASkrnOsJNN7LNCx7UHPU4nWJ5xEkostcHuni+MrpA9MgtQujwZ2XxBna5o9E/N8IhWNom08wAm+GkqNWh/7sQLPAS5NUv65vqQ0NHyHkp0SJiJkn/2/yabx1sQIRn0X69qyiK/RqGXZWQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787758602; c=relaxed/simple;
-	bh=7abUyT1rDfs539GT1KlXu08VIH+iWDL0e7hcYQ+XTAw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=m3jy+++ej3HZ0yW3m5j8YNTW6Z8Vr+oVnKYUpehOxrPMXGNv3dzRM8DRGffsuHxkym+1IgsZoHxDBcQPtNjPitc3MVPGEMw0o0xow2VG+hDZ4aFtU/Jh12Tqac5N8lQq+ZZhiK9Ql+s9+Y1VNzO28gq+T8uKG7fBMk8ilRHHO8U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=P1aOhFFm; arc=fail smtp.client-ip=40.107.162.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 524C030EF91
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 15:36:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787758612; cv=none; b=RPunEaR/uAb6yS/GScbNhrut3COaad4V5R/MJz7dgiYcGAwbJGRMLviV+BXIhiJA1M5/isna+4i4VlUcL8u7+OedK9sSGo15XtuoFVWfsoElsn/2lHcBwBc2H3W2MZCijXbXMO3BKLXed+3CLiFLGprCdN1dEoJf+qu7kzRATI4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787758612; c=relaxed/simple;
+	bh=33dTBAmNGt3MyjIA3xeemglEU7rhcQRQtM9Tf3ECgFg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IfKJng05uyLFqkfpHsFziFznswJRNY0ToIj+eIiE6+elBgvkPmlzCsrdIu/q2VcyrRWx7yClPv4J9NJZA46XWyzpJl9RnN3VlwOUmRvguvJJaZxUBGRdr7J3MeSKEqZx3ai3v5G+jbB78k0rThA1JNNSMTXdEb+VMCmWU1ZJ6VE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mo4vvyn+; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="P1aOhFFm"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=koAM1nhFCfopoYIG0rpsRtld+oU79wZmRayV7qNNzSt/662aLCEztzjwtEgdHaeTKd9kVupT7GP/fvVrzpEyq4EL6IxKkdzYyDRWdds0qNkIwpF+edjn58MHnzOfElehVYglbCB5EelJsgft/8erl+L1C39/Pe+F4Tw2c/CYjXtjE0X+eecg7BihuXo3weLA/SqDftZwe6flVIRj6A8SAxSu7iI28KoEwtSsZjNuUAwqFQDRvXDSLmvCukkZ+jZfJIc2D2e4TX0q+RcPMx8lK6UKkZDm8i1uQQS3Mh3YUeMMWFOEWt1Pwz7FuQqbn14S+i9K8lgZhfgj3CKbVyl66A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eX6t+gg3XjE5Mx+xQO4mqcoJGfJOCEOsXTqp6DS6j/c=;
- b=O0RYdPMI19GVDHwTkOq/pPX3wDsdf4nSimmlflU9QqsZAFv6RxzjiJT6YFa+ZF+TyPraFDShL+RVouccSa64mkmi4u5p5Ys0wS0NkWKBg5syaVM/NW9Sw/7FPEfhEO6+9e9nVPA2m2djUvzWfePptX3Ldnsm17gPMDo0YkRxC6Shq2E4UXwknqaUsmaP5oK9vPV2D/pSieoLB/H+hGL6rcWvvGT+bbmjiykRUAmIyGkr9N1pwmeTiqub2QHoGqO4PDAtgiZ8yePr56oRFAfpvQAA+Lp2RTtdTokOTOQL9YalHeGBLf8LOMzWS0qTSgwUoKDg2r8n22L+mqzaP3Ql2g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eX6t+gg3XjE5Mx+xQO4mqcoJGfJOCEOsXTqp6DS6j/c=;
- b=P1aOhFFmjc6cp23Q1nvAjwkZ2fV/LZzmvicH80qauFxPOu/64X2gCaiCd6yMIjW63bl8htlZJlNcWfCLe3ieph+Ax7u2BrG8Z09/XNyydudLOqbD96irPIyRPTJUBfItnEmqIVxTn9reQPDqnuu4L81mvhBJuANhyAWA/NkHxgNWl1uyqFznrya7998RWEdyQgL4EwQyoQgD5aPwRLlr8Tcux2KrReEr6Q2JEQ2ax+ul+X8bEaV6BpEmkyN4exQnJ1e1pJ1v9WwbHuqlc5tHmxsHQoFCRvl/F0xnP0wxTl/6JtOkuNNl4MXJV0Azu4NWMcKQDg4PRdxNWHdgU7KXEg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM0PR04MB6900.eurprd04.prod.outlook.com (2603:10a6:208:17d::10)
- by AMBPR04MB11761.eurprd04.prod.outlook.com (2603:10a6:20b:6f5::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.8; Wed, 26 Aug
- 2026 15:36:37 +0000
-Received: from AM0PR04MB6900.eurprd04.prod.outlook.com
- ([fe80::7fda:8431:ca1b:b023]) by AM0PR04MB6900.eurprd04.prod.outlook.com
- ([fe80::7fda:8431:ca1b:b023%4]) with mapi id 15.21.0360.006; Wed, 26 Aug 2026
- 15:36:37 +0000
-Date: Wed, 26 Aug 2026 18:36:34 +0300
-From: Vladimir Oltean <vladimir.oltean@nxp.com>
-To: Patryk Biel <pbiel7@gmail.com>
-Cc: Vladimir Oltean <olteanv@gmail.com>,
-	Ioana Ciornei <ioana.ciornei@nxp.com>, Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2] net: pcs: enable autonegotiation for 10g-usxgmii
-Message-ID: <20260826153634.ygcvnsbtc4ibpp7f@skbuf>
-References: <20260824-b4-fix-pcs-lynx-an-v2-1-9bb1dec96f0b@gmail.com>
- <20260825214928.rz52tysloa5yxq2y@skbuf>
- <CA+DkFDaHQVE8g2iDUrSbRcY6-xihJQpRNommh57B8wRnePZa1A@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CA+DkFDaHQVE8g2iDUrSbRcY6-xihJQpRNommh57B8wRnePZa1A@mail.gmail.com>
-X-ClientProxiedBy: VIUP296CA0049.AUTP296.PROD.OUTLOOK.COM
- (2603:10a6:800:34b::8) To AM0PR04MB6900.eurprd04.prod.outlook.com
- (2603:10a6:208:17d::10)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mo4vvyn+"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3964e76d0f4so1410465a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 08:36:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787758609; x=1788363409; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mRMb7/mGwLP34fLJtfMaGqpTh24hDTQbJ1slGxBXJ5c=;
+        b=mo4vvyn+DnYSZ5kYELeSQS30v9RQ47HI6T5y92dBXc14HP11M4VqOfPxzuwOZxUci4
+         sHBeb+j6BoWN2sf9sPOQ0KTSzJqO3rSkn0C9Lyhs/T2nijfCFxlk0AGqgr3rf8JsKV2W
+         FlsaP9rm4fKzQNve7wQ5G9KZVixYh0+cZPv8pL+tMSQM46ImUAh5W9SdgCOkeci/TV2X
+         rMsQ6vwYndjBg92Wt7FdqnZu5GptLUhVGe9gkHFFDBZRUFLdAtM5SzaUjjzR+4eNTKDx
+         nzJ3XQQq5DkzHLiNBKAnLtt2bxq3yd+fulFg1imEi4Mb0qhTF3WTZhiBSmxwGK5bmQaW
+         0Q7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787758609; x=1788363409;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mRMb7/mGwLP34fLJtfMaGqpTh24hDTQbJ1slGxBXJ5c=;
+        b=AufvrVP8MXaoijmc+Ke56TIELM02jbmn57LG057CDiX9Nvmitv2ElFCp0Xakgtsn67
+         ijTlcB6AfZ4sKWMC2mAhTx3rTlTeC9Z6ub+KvCh4vW82jY+Y+VCYdOWbuud2rm/J8lDp
+         v8txllo78MdtrTQbXrF4kcqX5E+yoLxAjz3pnmfoAIKjy9ie7FZEItz+sTtQBl+M4ALU
+         +of236VbOEe3nVilQOAzITLd3i57lWFMraIKofbr7D2EhVajW0eOk1wjsFNExdmR7KqX
+         QXaqNND5VhZXIt3fiDDJezoOAfWPonJ3YXVhoOzFhPcq824C1eAOWmfA2VqjOjAxeu5H
+         Uevw==
+X-Gm-Message-State: AFuF++mctoGVbJIkEz1cx9aR2ms/DWxm+QyZcX6Rd0zfsc5T7FTrxvVq
+	W1sENEJwuL9c8ejhw5LHP+KHSjY0fltYTZ8dq8IFCsXAn7DyfVdu7iPIQg9AvA==
+X-Gm-Gg: AR+sD13N8vgN0DtmfygRhpMkfEXXEsqDgD2J/ITghpaLmcVW387gO6nQbIpaVxiFhGy
+	5jWxaGL44LI4oDFYnvHSLjN6JreGvqVuhu+7QMV7TaAg8zY+DI6SA+JM4rKab7FS6EfdVfy6uow
+	a+WsxP58UjLc40it17oLwTm4rC8Zyk0uELeTd9LXh397/lY5P1ub3PxP3Whnx2VZPWUn3hCpRS0
+	ZAUaqWvKQHJ1frVqFhZLLnlaRuice9xhbNjuyyM1UzJhy704L/c/fpqTiB8CGUh8V4b8I8y659U
+	iHfWUlbq1msQW5ePDZVEy0E00GrGZhuYeDrXHsAoQBM5qimLhCT4rdmkDlVg9veHsj8RH14/mUv
+	rwJ9cVVO1rowcMNp2u5F+ul9zX++6C0mz5zedpu86lxZDy6XU+68J3XMEDhQUyF2JYjpK4fuFuk
+	IDy7Xf5GHUGYlHfLSScph3WINkaMfPGKlGx05ygGeKnxq7/33F6DfkVQtN6LYcl7jZHwAE3bYDf
+	8Gn2US8sGQuuFFd2RJ9rll1K34srsaA9Va/lEaWRBktW4Yu1icnOW+srhq7qNb4tAUsVS7Wbfse
+	cCUhAabbt1L/kB9UxihasHk=
+X-Received: by 2002:a17:90b:440e:b0:38d:dfd1:7a8 with SMTP id 98e67ed59e1d1-3966d161355mr14873945a91.2.1787758609216;
+        Wed, 26 Aug 2026 08:36:49 -0700 (PDT)
+Received: from daehojeong-desktop.mtv.corp.google.com ([2a00:79e0:2e7c:8:d10e:986a:5a1c:babc])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3283d60c2b4sm14703567eec.5.2026.08.26.08.36.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 08:36:48 -0700 (PDT)
+From: Daeho Jeong <daeho43@gmail.com>
+To: linux-kernel@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net,
+	kernel-team@android.com
+Cc: Daeho Jeong <daehojeong@google.com>,
+	Sunmin Jeong <s_min.jeong@samsung.com>
+Subject: [PATCH v2] f2fs: support resizable tail section and unify pinned allocation
+Date: Wed, 26 Aug 2026 08:36:44 -0700
+Message-ID: <20260826153644.3726384-1-daeho43@gmail.com>
+X-Mailer: git-send-email 2.55.0.860.g4b6b3295ed-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM0PR04MB6900:EE_|AMBPR04MB11761:EE_
-X-MS-Office365-Filtering-Correlation-Id: c121aa70-2c9b-42a8-62e8-08df0387d0e1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|10070799003|23010399003|366016|19092799006|56012099006|10067099003|11063799006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	LFGihmGxWGSzdaEaq8zH72b9tkPRwIhO/FpWmw3uyMyu6/Cqml87R75By5Wss1PaYZbuyggRcosfP1OycDQKpqvAdJANweBdVJI6depvs0XAFVNBi0JkFfaWp4l3lDlc0Ue5KKAqJxpJBGzBtABvhzB51udvYUpCQWdO93ETTrUdnxBHE1aPyK1/4c38XnjX6r5AgrbQeO7Q6ckS79KAz+SfN+3g/sDBnc/SgMipZGfo1HeWQ4czch+iE0ZJ4sPkl8gWjXcq0qb+gJw9MFKIKs7Xn/Wv+xUxeKxr/rSfUKBpwcjKqzVK6ozLW3/L3SBWYc2w79el3HeeilDnwXxH1unmMfYUSPzmkeEV+HOqB9dbcSibVtmME4D8AsqC4auy8fTV+RQ4n3rqB+TyMSOjXa4eojICj3wsQ6FzKCZTHiRV63duvOzX1TiR36QLQGZFS236pX+lGtrZJbxxlhuBH0QljGe+QAEBgPcD0L8cqRcOQotSdGomXSzlL3aNjF7qEF3z5b7LZz9kqNrKXCXCg1LxmzpLn5+TAe4V/g2YZFRFZDGZWz7D1vO2rlUUdW7xor09WdfwuBo/VwmQHpd1O07/mF56hwkKEELePCExvYmex3/RmsgsOKqkwBDA9HbFOSHKWuv6BBjy8SLHWoHjsfYVLYikTK4/NmJiboQ8/pI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB6900.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(10070799003)(23010399003)(366016)(19092799006)(56012099006)(10067099003)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TlFHY002VElvemloM1lxTlN6dUtzZlo3NlNXUUVVcnRweENmT1FGTUd2eHIx?=
- =?utf-8?B?YjZlclVETjBnVUJjNzcxOFcxakFiNEhnR1pFR01KYmVYMVZmYnpkUTRHTDB2?=
- =?utf-8?B?N05raHRBR2luRW5jSDY4ZjB5UFhVM2VIQ2w2MW0vSVJDWDBSdGo3cjhBL3Rv?=
- =?utf-8?B?SWFsMmZ3TGdOOFAxenlVbnNwWmNhdjZoY0ZlY0Y2S0ZkTlk3eHl5ZHpSKyta?=
- =?utf-8?B?akdkVllOTlFYbGpCMk4zYTExSUNLMU9sR0Q3ckJ2NmhVUVl0TUNmeGNwZFVU?=
- =?utf-8?B?ZGo4TnlwaDVQUHpUMHM2b3d5ZHZBbDFJRTVmdXdIbERvMjNPTnBTN3VGQWFJ?=
- =?utf-8?B?R1hhNFg2QmZ2aFc1RkFzSkg0dTBrbXRzS2FxT3BndFVmUHZrdUpmN3AxSFhR?=
- =?utf-8?B?ZnRQMVlXcGxmU2RDMUtjS1lUdVI0RThvcHFmbnh6dWVGQ2h1VTlHZmxxZnNF?=
- =?utf-8?B?dzBMd3pHaVV5cXQ1VkU1QkZVbkUzNW9IMUpZWFRQVHpJNEtQaStVWjREUzQx?=
- =?utf-8?B?bUphcy81RmNrNWFvM0hkNmRYZDVWUTI2U001aWsvSUh1VW4xUlRWb1lDaXFp?=
- =?utf-8?B?RkJybmNRVVdCY1I5NkNpV3JCaWg3clVjWTNSemtHbVNrZEVNT05xb2ordlh4?=
- =?utf-8?B?UUN3bGdkSHA1MWtwOE1rNUI4TkRSZGNhY3QydVM2aUxYa1ByOCs4V2FjM05G?=
- =?utf-8?B?bk1reTFOMjZPUEZKRFh2emxjMk83a2cvWFZFSTlUMVdlVHQ2ZzNpbC9LRnp6?=
- =?utf-8?B?TllvWWRnaEl0aFh2dVJKU3l1UEJLNWVHM2tRd1ppbDkyZTFVbUJwdmlUL3RG?=
- =?utf-8?B?R21UMmZ2MEY3alhmUXJMcHVyZ1hOU1k0TFg3aTRBZUZGUlg2L1ozU1VQbjBB?=
- =?utf-8?B?emRPWEsyRUwyVStTdEYrQmxTL1hneGQ0YUVBSlNRSEdzR3ZtSFdtSXltZlgx?=
- =?utf-8?B?cE1yb2M5Rk9DZjZUVm4raFBpaVpGbkxHKzJUMnN5aENMZUFHQVoxWnRmNjVR?=
- =?utf-8?B?ZUxGamRTRVJVMXpLV24zd0orT0UySUhxSmdHeG9OSXVUOTA3cjJBMythMFhL?=
- =?utf-8?B?cWYyU0pkUklFdG95SEhaZ3N3V1J2MWt3clFwcjRVcnJTVGRWaVFwRjBGNFdr?=
- =?utf-8?B?WGIveXUrZWRrQmRYWGliOGsxNlFheDlZQllFb2FMbG1kOFExa3hCZ0Q2K3Vh?=
- =?utf-8?B?d1dxaVpQMFlRV3N1UkxaaTFRRC83dzUyRkNzR241WFYxRHlEWjRCUlExSG9C?=
- =?utf-8?B?TmhqUnVkbXJ0SHFKeUdxWHNQMGhpN3lOamVhWmlGUXU3VjFsenIvR0FIQko5?=
- =?utf-8?B?MGRqNkFZc0JOMTdBOWUrMUora1UzSVA2cUpBUktlVG5NTWppN2tDUU5lL2I3?=
- =?utf-8?B?NlU3eEZMMURRNVBhbmRhWlBnQzg5RDhpbTJ4SnU4eDgzVG9KUW5UdWo2U2Yw?=
- =?utf-8?B?SXJia3Z3cUJ0d3EvSFNGQisyYWZXZCtEaURaR0ZLbHJrMDA2ZVZRUWVxZ2x6?=
- =?utf-8?B?U1UzT1gwZ3FYcDB2dEdqWEgra0VwS09kNU4ydzRsRWdzdDNTK3lLM3o4OUdT?=
- =?utf-8?B?U0tFOWV4SU5OK2QyMXBhTU0rZUxUMHVMajhvNit4WnI1eFduUmFLV0prNXZQ?=
- =?utf-8?B?NC9wTzhPSE9UMmRZeEY4NTVpRXRXODRZU09mNG9IM2JTRHRvSUZZYUtQSkRa?=
- =?utf-8?B?MWMzemxxcE9pVGpEUlkxZ2Z0cG9Ndko1bm5iUU9sWkVaWnhUK295dmU1M3cy?=
- =?utf-8?B?RFBCbEMvZEJQQk14dTIySVg0S09GaVBjd2RFT1lNNzhvTmljbStiU1ZFTDAr?=
- =?utf-8?B?bU5GN2lwdkRCNU15TzNCVzBHRDZPVFJhY0d4S0U2dmhsLzRuWExaM3pURkd5?=
- =?utf-8?B?N0YyOGF0SFNxcVMwaEY0cVQyL1E1amlvbTUzbktuQUZGUUg2SVJYWk5pSXZx?=
- =?utf-8?B?SHYvT1ExUldmcDhzbVR4N1NESitMOWI5VjhMN1BFVjVsbktPRDBOdXFwZHdN?=
- =?utf-8?B?UkJ1Y3c3TGhMT0w2dG5kVHF3czdKY2hQSVBhTjUveHhTbnpDNFJxclZCNVdh?=
- =?utf-8?B?TWo5cVNKcWJIR09PRWxuZUE1Wmh5TG43L2tRMFdaSmtuYm0zU1RzKzVEa25m?=
- =?utf-8?B?Nng2UjcySG5MRGhneHFQbGtJb0w2aWdIUHVXcDExR3FwMFl2V3NvZXNEanlG?=
- =?utf-8?B?ODBUR1FnUHVUU1Z3RjdvRHh0MG9TdjhJVWx0ZU4raEd1czRBbzdzZWgreVVN?=
- =?utf-8?B?dEptS01VTlIvbjJ5M0JMWEZWcEJ2T0dwUlBjVnBHK0s4NDI3MlNSTUNad2hq?=
- =?utf-8?B?RTEwTXVzMGJkZ1c3UkpmbTB1NFZWN1RwV3RQL3ZNc3ZUOFlYUmVYSWxTMjM0?=
- =?utf-8?Q?nrJyfMEfuTPcvedWscDdKHixEFu3M2zE7wWP0nyavdSOS?=
-X-MS-Exchange-AntiSpam-MessageData-1: xEkws8/Ctmwp8g==
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c121aa70-2c9b-42a8-62e8-08df0387d0e1
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB6900.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 15:36:37.1501
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oUX13AKW8TqkpfXhJLpDiCoZIv8hv7F+o+kssPhOhlXM8Xei8lrDLZ10Wu3RNdNP/DCDVs3rCoCVVsNbE4T8qg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMBPR04MB11761
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 26, 2026 at 09:37:45AM +0200, Patryk Biel wrote:
-> Hi Vladimir,
-> 
-> On Tue, Aug 25, 2026 at 11:49â€¯PM Vladimir Oltean <olteanv@gmail.com> wrote:
-> > There are multiple differences compared to U-Boot does. I haven't yet
-> > been able to definitively determine the cause for regression. I'll debug
-> > more tomorrow. Preliminary testing shows that any link timer values > 0.84 ms
-> > will cause in-band autoneg to not complete with this combination.
-> >
-> > To be clear, does your board work with this patch?
-> 
-> Yes I tested it, I can provide you any logs you would find useful.
-> Below is just a short log from interface bring up and simple iperf3
-> test:
-> 
-> root@tru-:~# ip link set up swp0
-> [   60.159618] mscc_felix 0000:00:00.5 swp0: configuring for
-> inband/10g-qxgmii link mode
-> [   63.308354] mscc_felix 0000:00:00.5 swp0: Link is Up - 1Gbps/Full -
-> flow control off
-> root@tru-:~# ip addr add 192.168.10.2/24 dev swp0
-> root@tru-:~# iperf3 -s 192.168.10.2
-> -----------------------------------------------------------
-> Server listening on 5201 (test #1)
-> -----------------------------------------------------------
-> Accepted connection from 192.168.10.1, port 44470
-> [  5] local 192.168.10.2 port 5201 connected to 192.168.10.1 port 44484
-> [ ID] Interval           Transfer     Bitrate
-> [  5]   0.00-1.00   sec   111 MBytes   933 Mbits/sec
-> [  5]   1.00-2.00   sec   111 MBytes   934 Mbits/sec
-> [  5]   2.00-3.00   sec   112 MBytes   935 Mbits/sec
-> [  5]   3.00-4.00   sec   111 MBytes   934 Mbits/sec
-> [  5]   4.00-5.00   sec   111 MBytes   934 Mbits/sec
-> [  5]   5.00-6.00   sec   111 MBytes   934 Mbits/sec
-> [  5]   6.00-7.00   sec   111 MBytes   934 Mbits/sec
-> [  5]   7.00-8.00   sec   111 MBytes   934 Mbits/sec
-> [  5]   8.00-9.00   sec   111 MBytes   934 Mbits/sec
-> [  5]   9.00-10.00  sec   111 MBytes   934 Mbits/sec
-> [  5]  10.00-10.24  sec  2.25 MBytes  77.7 Mbits/sec
-> - - - - - - - - - - - - - - - - - - - - - - - - -
-> [ ID] Interval           Transfer     Bitrate
-> [  5]   0.00-10.24  sec  1.09 GBytes   914 Mbits/sec                  receiver
-> 
-> Will also try to find out what could possibly go wrong.
-> 
-> Best regards
-> Patryk
+From: Daeho Jeong <daehojeong@google.com>
 
-Thanks for confirming.
+Currently, zoned block devices restrict pinned file allocations to
+conventional zones at the beginning of the storage (before
+first_seq_zone_segno), triggering range GC when conventional space is
+exhausted.
 
-I suspect our documentation is wrong, in that both for USXGMII and for
-10G-QXGMII, we have the same text:
+On regular block devices, when preparing for future online filesystem
+resizing (e.g. partition shrinking), pinned files must not be allocated
+in the tail area that will be truncated, as pinned files cannot be
+relocated by GC. Specifying the resizable tail area size (in sections)
+allows uniform mount configuration across devices of different storage
+capacities.
 
-  Set the Link Timer value from 0 to 6.4ms in 3.2ns steps (312.5MHz clock
-  periods or 312.5 million XGMII columns per second). The reset value sets
-  the Link Timer to 1ms (312500).
+To support this, introduce a unified `pinned_area_max_secno` boundary
+abstraction in `f2fs_sb_info`:
+1. Add `-o resizable_tail_secno=%u` mount option to specify the number
+   of sections at the tail of the filesystem reserved for resizing.
+2. In `f2fs_fill_super()`, initialize `sbi->pinned_area_max_secno` as:
+   min(MAIN_SECS(sbi) - resizable_tail_sec, zoned_max_sec).
+3. In `get_new_segment()`, restrict segment allocation for pinned files
+   (`pinning == true`) to `0 .. sbi->pinned_area_max_secno - 1`. If no
+   free section is available in the pinned area, return -EAGAIN.
+4. In `f2fs_allocate_pinning_section()`, unify the range GC trigger to
+   run `f2fs_gc_range()` up to `sbi->pinned_area_max_secno` whenever
+   `sbi->pinned_area_max_secno < MAIN_SECS(sbi)` and allocation
+   returns -EAGAIN.
+5. Expose `/sys/fs/f2fs/<dev>/pinned_area_max_secno` as a read-only
+   sysfs node.
 
-But when you think about it, 10G-QXGMII multiplexes 4 ports over the
-same lane. So each XGMII receives one block at 1/4 the rate of the lane,
-because of the time slicing. Consequently, by my logic, the PCS link
-timer, which uses the rate of those columns to keep track of time,
-*can't* have the same link timer tick for both the single-port as for
-the multi-port mode.
+Signed-off-by: Daeho Jeong <daehojeong@google.com>
+Signed-off-by: Sunmin Jeong <s_min.jeong@samsung.com>
+---
+v2: rename has_pinned_area() to has_unpinned_area().
+    merge resizable_tail_secno sanity check into f2fs_sanity_check_options().
+    fix missing F2FS_SPEC_resizable_tail_secno in fs_context mount parsing
+    and apply logic, reported by Wenjie Qi <qiwenjie@xiaomi.com>.
+---
+ Documentation/ABI/testing/sysfs-fs-f2fs |  7 +++++
+ Documentation/filesystems/f2fs.rst      |  8 +++++-
+ fs/f2fs/f2fs.h                          |  2 ++
+ fs/f2fs/segment.c                       | 33 ++++++++++++-----------
+ fs/f2fs/segment.h                       |  1 +
+ fs/f2fs/super.c                         | 36 +++++++++++++++++++++++++
+ fs/f2fs/sysfs.c                         |  2 ++
+ 7 files changed, 72 insertions(+), 17 deletions(-)
 
-I was suspicious of the link timer limit I obtained (263050 ticks,
-corresponding to the ~0.84 ms I was talking about yesterday). Higher
-than that, and the AQR412C system side autoneg would restart (and a PHY
-counter would continuously increase, indicating this). Furthermore, the
-AQR412C system side PCS would never lose block lock.
-
-So I wanted to see whether an ENETC, using the single-port USXGMII mode,
-could also make its AQR112 PHY to fail in-band autoneg in the same way.
-And surprise, I could, by increasing the link timer to 1037500 ticks.
-Surprisingly (or not), the maximum # of link timer ticks for USXGMII is
-3.94x the maximum # of link timer ticks for 10G-QXGMII.
-
-So actually, I suspect that when we program a link_timer of
-LINK_TIMER_VAL(1600000 ns) on 10G-QXGMII, in reality this results in a
-link timer of 6.4 ms. And my AQR412C doesn't like a value this large.
-
-The above is pure speculation/intuition, but it's the only thing that
-seems to be consistent with all data so far. The only unknown is - why
-does your PHY tolerate a link timer value that the AQR412C doesn't, and
-will it work when we set the link timer to 1/4 that value?
-
-Could you please test the diff below, which should give us the info to
-the second question?
-
-diff --git a/drivers/net/pcs/pcs-lynx.c b/drivers/net/pcs/pcs-lynx.c
-index 305740b577fc..735ef4069a7f 100644
---- a/drivers/net/pcs/pcs-lynx.c
-+++ b/drivers/net/pcs/pcs-lynx.c
-@@ -24,8 +24,11 @@
- #define IF_MODE_SPEED_MSK		GENMASK(3, 2)
- #define IF_MODE_HALF_DUPLEX		BIT(4)
-
--/* USXGMII replicator link timer step is 3.2 ns (312.5 MHz clock) */
--#define USXGMII_LINK_TIMER_VAL(ns)	((u32)((ns) * 10 / 32))
-+/* USXGMII replicator link timer step is 3.2 ns (312.5M XGMII columns per sec)
-+ * for single port mode. For quad port mode, it is 1/4 of that.
-+ */
-+#define LINK_TIMER_VAL_USXGMII(ns)	((u32)((ns) * 10 / 32))
-+#define LINK_TIMER_VAL_10G_QXGMII(ns)	((u32)((ns) * 10 / 128))
-
- struct lynx_pcs {
- 	struct phylink_pcs pcs;
-@@ -187,7 +190,10 @@ static int lynx_pcs_config_usxgmii(struct mdio_device *pcs,
-
- 	link_timer_ns = phylink_get_link_timer_ns(interface);
- 	if (link_timer_ns > 0) {
--		link_timer = USXGMII_LINK_TIMER_VAL(link_timer_ns);
-+		if (interface == PHY_INTERFACE_MODE_10G_QXGMII)
-+			link_timer = LINK_TIMER_VAL_10G_QXGMII(link_timer_ns);
-+		else
-+			link_timer = LINK_TIMER_VAL_USXGMII(link_timer_ns);
-
- 		ret = mdiobus_c45_write(bus, addr, MDIO_MMD_VEND2,
- 					LINK_TIMER_LO, link_timer & 0xffff);
+diff --git a/Documentation/ABI/testing/sysfs-fs-f2fs b/Documentation/ABI/testing/sysfs-fs-f2fs
+index 85194e4c7f01..0cebc89799dd 100644
+--- a/Documentation/ABI/testing/sysfs-fs-f2fs
++++ b/Documentation/ABI/testing/sysfs-fs-f2fs
+@@ -1013,3 +1013,10 @@ Description:	Every time a write operation completes f2fs_write_end_io() is
+ 		the maximum size of a write bio that is completed in atomic
+ 		(atc) context. The default value for this attribute is UINT_MAX
+ 		which means that this functionality is disabled by default.
++
++What:		/sys/fs/f2fs/<disk>/pinned_area_max_secno
++Date:		August 2026
++Contact:	"Daeho Jeong" <daehojeong@google.com>
++Description:	This is a read-only entry to show the upper bound section number
++		for pinned files. Pinned files will only be allocated within
++		sections 0 to pinned_area_max_secno - 1.
+diff --git a/Documentation/filesystems/f2fs.rst b/Documentation/filesystems/f2fs.rst
+index 1a5fd4afe609..a3c3b6948734 100644
+--- a/Documentation/filesystems/f2fs.rst
++++ b/Documentation/filesystems/f2fs.rst
+@@ -417,7 +417,13 @@ lookup_mode=%s		 Control the directory lookup behavior for casefolded
+ 			     auto               F2FS determines the mode based on the
+ 					        on-disk `SB_ENC_NO_COMPAT_FALLBACK_FL`
+ 					        flag.
+-			     ================== ========================================
++resizable_tail_secno=%u  Control the number of sections at the tail of the
++			 filesystem reserved for online resizing. Pinned files
++			 will only be allocated within sections 0 to
++			 (MAIN_SECS - resizable_tail_secno) - 1. If set to 0
++			 (default), there is no tail restriction unless running
++			 on a zoned block device where conventional zones are
++			 used.
+ ======================== ============================================================
+ 
+ Debugfs Entries
+diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+index b0a9c14de595..16720f1f0a9c 100644
+--- a/fs/f2fs/f2fs.h
++++ b/fs/f2fs/f2fs.h
+@@ -255,6 +255,7 @@ struct f2fs_mount_info {
+ 	block_t unusable_cap;		/* Amount of space allowed to be
+ 					 * unusable when disabling checkpoint
+ 					 */
++	unsigned int resizable_tail_secno;	/* number of resizable tail sections */
+ 
+ 	/* For compression */
+ 	unsigned char compress_algorithm;	/* algorithm type */
+@@ -2005,6 +2006,7 @@ struct f2fs_sb_info {
+ 	spinlock_t dev_lock;			/* protect dirty_device */
+ 	bool aligned_blksize;			/* all devices has the same logical blksize */
+ 	unsigned int first_seq_zone_segno;	/* first segno in sequential zone */
++	unsigned int pinned_area_max_secno;	/* upper bound section for pinned files */
+ 	unsigned int bggc_io_aware;		/* For adjust the BG_GC priority when pending IO */
+ 	unsigned int allocate_section_hint;	/* the boundary position between devices */
+ 	unsigned int allocate_section_policy;	/* determine the section writing priority */
+diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+index 56decf9c691c..1e7e745be71d 100644
+--- a/fs/f2fs/segment.c
++++ b/fs/f2fs/segment.c
+@@ -2877,6 +2877,7 @@ static int get_new_segment(struct f2fs_sb_info *sbi,
+ 	unsigned int old_zoneno = GET_ZONE_FROM_SEG(sbi, *newseg);
+ 	unsigned int alloc_policy = sbi->allocate_section_policy;
+ 	unsigned int alloc_hint = sbi->allocate_section_hint;
++	unsigned int max_secno = MAIN_SECS(sbi);
+ 	bool init = true;
+ 	bool looped = false;
+ 	int i, devi;
+@@ -2908,7 +2909,7 @@ static int get_new_segment(struct f2fs_sb_info *sbi,
+ 	 */
+ 	if (f2fs_sb_has_blkzoned(sbi)) {
+ 		/* Prioritize writing to conventional zones */
+-		if (sbi->blkzone_alloc_policy == BLKZONE_ALLOC_PRIOR_CONV || pinning)
++		if (sbi->blkzone_alloc_policy == BLKZONE_ALLOC_PRIOR_CONV)
+ 			segno = 0;
+ 		else
+ 			segno = max(sbi->first_seq_zone_segno, *newseg);
+@@ -2924,19 +2925,24 @@ static int get_new_segment(struct f2fs_sb_info *sbi,
+ 		alloc_hint > MAIN_SECS(sbi))
+ 		alloc_hint = MAIN_SECS(sbi);
+ 
+-	if (alloc_policy == ALLOCATE_FORWARD_FROM_HINT &&
+-		hint < alloc_hint)
++	if (pinning) {
++		max_secno = sbi->pinned_area_max_secno;
++		hint = 0;
++	} else if (alloc_policy == ALLOCATE_FORWARD_FROM_HINT &&
++		hint < alloc_hint) {
+ 		hint = alloc_hint;
+-	else if (alloc_policy == ALLOCATE_FORWARD_WITHIN_HINT &&
+-			hint >= alloc_hint)
++	} else if (alloc_policy == ALLOCATE_FORWARD_WITHIN_HINT &&
++			hint >= alloc_hint) {
+ 		hint = 0;
++	}
+ 
+ find_other_zone:
+-	secno = find_next_zero_bit(free_i->free_secmap, MAIN_SECS(sbi), hint);
++	secno = find_next_zero_bit(free_i->free_secmap, max_secno, hint);
+ 
+-	if (secno >= MAIN_SECS(sbi)) {
++	if (secno >= max_secno) {
+ 		if (looped) {
+-			ret = -ENOSPC;
++			ret = (pinning && has_unpinned_area(sbi)) ?
++					-EAGAIN : -ENOSPC;
+ 			f2fs_bug_on(sbi, !pinning);
+ 			goto out_unlock;
+ 		}
+@@ -3001,12 +3007,6 @@ static int get_new_segment(struct f2fs_sb_info *sbi,
+ 		goto out_unlock;
+ 	}
+ 
+-	/* no free section in conventional device or conventional zone */
+-	if (new_sec && pinning &&
+-		f2fs_is_sequential_zone_area(sbi, START_BLOCK(sbi, segno))) {
+-		ret = -EAGAIN;
+-		goto out_unlock;
+-	}
+ 	__set_inuse(sbi, segno);
+ 	*newseg = segno;
+ out_unlock:
+@@ -3472,8 +3472,9 @@ int f2fs_allocate_pinning_section(struct f2fs_sb_info *sbi)
+ 	err = f2fs_allocate_new_section(sbi, CURSEG_COLD_DATA_PINNED, false);
+ 	f2fs_unlock_op(sbi, &lc);
+ 
+-	if (f2fs_sb_has_blkzoned(sbi) && err == -EAGAIN && gc_required) {
+-		err = f2fs_gc_range(sbi, 0, sbi->first_seq_zone_segno - 1,
++	if (has_unpinned_area(sbi) && err == -EAGAIN && gc_required) {
++		err = f2fs_gc_range(sbi, 0,
++				sbi->pinned_area_max_secno * SEGS_PER_SEC(sbi) - 1,
+ 				true, ZONED_PIN_SEC_REQUIRED_COUNT, true);
+ 		if (err)
+ 			return err;
+diff --git a/fs/f2fs/segment.h b/fs/f2fs/segment.h
+index db1079169a23..5949aa5200ac 100644
+--- a/fs/f2fs/segment.h
++++ b/fs/f2fs/segment.h
+@@ -43,6 +43,7 @@ static inline void sanity_check_seg_type(struct f2fs_sb_info *sbi,
+ 
+ #define MAIN_SEGS(sbi)	(SM_I(sbi)->main_segments)
+ #define MAIN_SECS(sbi)	((sbi)->total_sections)
++#define has_unpinned_area(sbi)	((sbi)->pinned_area_max_secno < MAIN_SECS(sbi))
+ 
+ #define TOTAL_SEGS(sbi)							\
+ 	(SM_I(sbi) ? SM_I(sbi)->segment_count : 				\
+diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+index 3bdb0f891c35..253a579e9d5b 100644
+--- a/fs/f2fs/super.c
++++ b/fs/f2fs/super.c
+@@ -235,6 +235,7 @@ enum {
+ 	Opt_jqfmt,
+ 	Opt_checkpoint,
+ 	Opt_lookup_mode,
++	Opt_resizable_tail_secno,
+ 	Opt_err,
+ };
+ 
+@@ -366,6 +367,7 @@ static const struct fs_parameter_spec f2fs_param_specs[] = {
+ 	fsparam_flag("age_extent_cache", Opt_age_extent_cache),
+ 	fsparam_enum("errors", Opt_errors, f2fs_param_errors),
+ 	fsparam_enum("lookup_mode", Opt_lookup_mode, f2fs_param_lookup_mode),
++	fsparam_u32("resizable_tail_secno", Opt_resizable_tail_secno),
+ 	{}
+ };
+ 
+@@ -404,6 +406,7 @@ static match_table_t f2fs_checkpoint_tokens = {
+ #define F2FS_SPEC_errors			(1 << 23)
+ #define F2FS_SPEC_lookup_mode			(1 << 24)
+ #define F2FS_SPEC_reserve_node			(1 << 25)
++#define F2FS_SPEC_resizable_tail_secno		(1 << 26)
+ 
+ struct f2fs_fs_context {
+ 	struct f2fs_mount_info info;
+@@ -551,6 +554,17 @@ static inline void adjust_unusable_cap_perc(struct f2fs_sb_info *sbi)
+ 			F2FS_OPTION(sbi).unusable_cap_perc);
+ }
+ 
++static inline void adjust_pinned_area_boundary(struct f2fs_sb_info *sbi)
++{
++	sbi->pinned_area_max_secno = MAIN_SECS(sbi);
++	if (f2fs_sb_has_blkzoned(sbi) && sbi->first_seq_zone_segno != NULL_SEGNO)
++		sbi->pinned_area_max_secno = min(sbi->pinned_area_max_secno,
++				GET_SEC_FROM_SEG(sbi, sbi->first_seq_zone_segno));
++	if (F2FS_OPTION(sbi).resizable_tail_secno)
++		sbi->pinned_area_max_secno = min(sbi->pinned_area_max_secno,
++				MAIN_SECS(sbi) - F2FS_OPTION(sbi).resizable_tail_secno);
++}
++
+ static void init_once(void *foo)
+ {
+ 	struct f2fs_inode_info *fi = (struct f2fs_inode_info *) foo;
+@@ -1235,6 +1249,10 @@ static int f2fs_parse_param(struct fs_context *fc, struct fs_parameter *param)
+ 		F2FS_CTX_INFO(ctx).lookup_mode = result.uint_32;
+ 		ctx->spec_mask |= F2FS_SPEC_lookup_mode;
+ 		break;
++	case Opt_resizable_tail_secno:
++		F2FS_CTX_INFO(ctx).resizable_tail_secno = result.uint_32;
++		ctx->spec_mask |= F2FS_SPEC_resizable_tail_secno;
++		break;
+ 	}
+ 	return 0;
+ }
+@@ -1763,6 +1781,9 @@ static void f2fs_apply_options(struct fs_context *fc, struct super_block *sb)
+ 		F2FS_OPTION(sbi).errors = F2FS_CTX_INFO(ctx).errors;
+ 	if (ctx->spec_mask & F2FS_SPEC_lookup_mode)
+ 		F2FS_OPTION(sbi).lookup_mode = F2FS_CTX_INFO(ctx).lookup_mode;
++	if (ctx->spec_mask & F2FS_SPEC_resizable_tail_secno)
++		F2FS_OPTION(sbi).resizable_tail_secno =
++					F2FS_CTX_INFO(ctx).resizable_tail_secno;
+ 
+ 	f2fs_apply_compression(fc, sb);
+ 	f2fs_apply_test_dummy_encryption(fc, sb);
+@@ -1771,6 +1792,13 @@ static void f2fs_apply_options(struct fs_context *fc, struct super_block *sb)
+ 
+ static int f2fs_sanity_check_options(struct f2fs_sb_info *sbi, bool remount)
+ {
++	unsigned int total_sections = le32_to_cpu(sbi->raw_super->section_count);
++
++	if (F2FS_OPTION(sbi).resizable_tail_secno >= total_sections) {
++		f2fs_err(sbi, "Option resizable_tail_secno is larger than or equal to total sections (%u >= %u)",
++				F2FS_OPTION(sbi).resizable_tail_secno, total_sections);
++		return -EINVAL;
++	}
+ 	if (f2fs_sb_has_device_alias(sbi) &&
+ 	    !test_opt(sbi, READ_EXTENT_CACHE)) {
+ 		f2fs_err(sbi, "device aliasing requires extent cache");
+@@ -2544,6 +2572,10 @@ static int f2fs_show_options(struct seq_file *seq, struct dentry *root)
+ 	else if (F2FS_OPTION(sbi).lookup_mode == LOOKUP_AUTO)
+ 		seq_show_option(seq, "lookup_mode", "auto");
+ 
++	if (F2FS_OPTION(sbi).resizable_tail_secno)
++		seq_printf(seq, ",resizable_tail_secno=%u",
++				F2FS_OPTION(sbi).resizable_tail_secno);
++
+ 	return 0;
+ }
+ 
+@@ -2586,6 +2618,7 @@ static void default_options(struct f2fs_sb_info *sbi, bool remount)
+ 	F2FS_OPTION(sbi).bggc_mode = BGGC_MODE_ON;
+ 	F2FS_OPTION(sbi).memory_mode = MEMORY_MODE_NORMAL;
+ 	F2FS_OPTION(sbi).errors = MOUNT_ERRORS_CONTINUE;
++	F2FS_OPTION(sbi).resizable_tail_secno = 0;
+ 
+ 	set_opt(sbi, INLINE_XATTR);
+ 	set_opt(sbi, INLINE_DATA);
+@@ -3045,6 +3078,7 @@ static int __f2fs_remount(struct fs_context *fc, struct super_block *sb)
+ 	sb->s_flags = (sb->s_flags & ~SB_POSIXACL) |
+ 		(test_opt(sbi, POSIX_ACL) ? SB_POSIXACL : 0);
+ 
++	adjust_pinned_area_boundary(sbi);
+ 	limit_reserve_root(sbi);
+ 	fc->sb_flags = (flags & ~SB_LAZYTIME) | (sb->s_flags & SB_LAZYTIME);
+ 
+@@ -5287,6 +5321,8 @@ static int f2fs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	/* get segno of first zoned block device */
+ 	sbi->first_seq_zone_segno = get_first_seq_zone_segno(sbi);
+ 
++	adjust_pinned_area_boundary(sbi);
++
+ 	sbi->reserved_pin_section = f2fs_sb_has_blkzoned(sbi) ?
+ 			ZONED_PIN_SEC_REQUIRED_COUNT :
+ 			GET_SEC_FROM_SEG(sbi, overprovision_segments(sbi));
+diff --git a/fs/f2fs/sysfs.c b/fs/f2fs/sysfs.c
+index 3201e2185fea..811e350a1430 100644
+--- a/fs/f2fs/sysfs.c
++++ b/fs/f2fs/sysfs.c
+@@ -1313,6 +1313,7 @@ F2FS_SBI_GENERAL_RW_ATTR(blkzone_alloc_policy);
+ #endif
+ F2FS_SBI_GENERAL_RW_ATTR(carve_out);
+ F2FS_SBI_GENERAL_RW_ATTR(reserved_pin_section);
++F2FS_SBI_GENERAL_RO_ATTR(pinned_area_max_secno);
+ F2FS_SBI_GENERAL_RW_ATTR(bggc_io_aware);
+ F2FS_SBI_GENERAL_RW_ATTR(max_lock_elapsed_time);
+ F2FS_SBI_GENERAL_RW_ATTR(lock_duration_priority);
+@@ -1525,6 +1526,7 @@ static struct attribute *f2fs_attrs[] = {
+ 	ATTR_LIST(max_read_extent_count),
+ 	ATTR_LIST(carve_out),
+ 	ATTR_LIST(reserved_pin_section),
++	ATTR_LIST(pinned_area_max_secno),
+ 	ATTR_LIST(allocate_section_hint),
+ 	ATTR_LIST(allocate_section_policy),
+ 	ATTR_LIST(max_lock_elapsed_time),
+-- 
+2.55.0.860.g4b6b3295ed-goog
 
