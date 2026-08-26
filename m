@@ -1,169 +1,120 @@
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-a6-smtp.messagingengine.com (fout-a6-smtp.messagingengine.com [103.168.172.149])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0168039FCB4
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 18:48:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B952D3B3BE5;
+	Wed, 26 Aug 2026 18:48:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.149
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787770095; cv=none; b=TIChPmTYw2IiBAEyrdEmgIA32MR++cJEBbvnRXAbfrXOc75lKe1c88rELeftJhxAzhzcJPXaJW2KPWSfBln/Lmgnt1Ke4hMa00nnItJeKAvqOryM26a+OtGKT8pQfroWA0VT/Ry/c2Ra+ziZVb3HKZOHeb8J6BYwDWnvN7K3gQI=
+	t=1787770132; cv=none; b=WAGkTzPnukujFRnUBdWe5hV22/eSvB6S9TLm2+T04oyerCMIsr8KtjeK6Sm1ow8YeiYNvB2buZ+F/1N1M3+cnWmUZN3U2YH8yuq+OUYwEXbGZxlMnZ6XxvFTp8a7Ee1z5fOIUICYWXTH0xj3rhY3V0PQNuEboErbsJ2jCThxw+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787770095; c=relaxed/simple;
-	bh=OctojdIU8m+qvpily36Kzj0/g3R7pymJgNJ0NOynGkA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Lr2Elfi/jsS6LHUGFCBq8VQwonRA7u+Ihc8w7HI9Jt4CIKHNn/6sV99mG3oeundUuA8EVZGHqcOOlAQSjXpPFABS5KrbZAr6pJYvIQJFWWJ1IUvUM33HibDpdDik+E+B58qQZEhrcVpuRkmElGkIGdlh6zXNQ8s2neWoUP4p4qw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CSFy9KAF; arc=none smtp.client-ip=209.85.218.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787770132; c=relaxed/simple;
+	bh=csYV35gfNnZy1wVtgRrBVTAE//ewButmIKYDtBRh/pY=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=GspfIliHap7/rXkLq+SpGSNt9Nq6egBVZJTKc9BTsjE1hub5JMt9xQywR1TBVT1wvpy1O2BdB0J3LrzRs4qJXE1ywauNn6qzqD3EBOHZBVLtf9LgSIxfdOVzdqpCXIKDkIwtgDmcdxxk66USNlUTjF/8KieWSeRad4PxW+YFphc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=IhVrX5yT; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=hRmcu/I7; arc=none smtp.client-ip=103.168.172.149
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CSFy9KAF"
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c15e2dab83eso207017766b.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 11:48:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787770076; x=1788374876; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eFyM3Fwec1jl9XCBpJd4z0243DKYa3L7/AD6Vvzau7o=;
-        b=CSFy9KAFNMMDVxB7yo3QE4dFidASejrwM9iW2XMa9gcPajEsuEW1WZV982eF1p9duF
-         CCTVni/vuKwHLLhlARoz8bW9acM7HG3UJe68ZjoDV+yXE6Yya6I6p3jbovd38wS65/q/
-         iE5Qgq/4/npsm37d9HZcS2P1VIwiSuaMazsdk9brEPvLHWpR32Ejd6uOxUCdQOA2bOlz
-         YcLb5PF6AmZlhgIoZTa2N09x+1K9q9XOdPH+xp+YBNejBvkTnyzXlM9k9BmXHCQAGQDY
-         BRGrXsZDkDj/h/FOChgKEykwI8K4l2VSoxT+8au+UnZtPQbHmJ3hCHBAB83Y/PRW3AV2
-         2/5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787770076; x=1788374876;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eFyM3Fwec1jl9XCBpJd4z0243DKYa3L7/AD6Vvzau7o=;
-        b=hYEjYyGbJc/zKsE5K/kmdZCUXWGrPfLdardYszcty2a4xH9nWTiwo279bdJKlw3UZ6
-         Nvkk8crizRMnCo5X69ktR55WqEEbZD9Ve9NbePJ8ylnUoHBlNaNJaT0h2Rk/9aVaPwD5
-         V1fSkOD4gzyCShkvCLFS28i885l5ysSZdM/Kjhi6+EKP7TeI/7Czn7EduvkeW2e9mgCP
-         rPs8w5SUYvtEh0y7j6dmBmfEnGkigY6Gprgj2DZ5FsrJVgnMy0ATOia8BiVwPomGI9yB
-         O8BDUhyRjeU0NLl00+lj3sNC6smwy9VzLdsGvOL9uKcca0VQ5cc5ad1L+jfZXwdOg/Sr
-         6Mdw==
-X-Forwarded-Encrypted: i=1; AHgh+Ro7HH2/CeL3UuDLNZby85CrF+jq3xvlebhvBduqcdPljZ6NamhRoPohiRniSUu63Z+7J2hvrOD2W+4VZo4=@vger.kernel.org
-X-Gm-Message-State: AFuF++ktq0cMFlcvVJq48enMSqm4xJ5rwF/zONz60MyLAGrDUK+Rw9oI
-	vAaEUvHQUCAdBYTCRDx9KYqOSyjIvrWnHRCOBZgdPIERAEvFLVxvL44r
-X-Gm-Gg: AR+sD11dJzsGAdSh4Q4gDudAYDKq7dTbuaTlpPt+tprYq3+IqTLfHInhxSLA9nIpx+x
-	YwyrhUmDDkCRGYkiyRPwe8ICWUp+11HFFaE70ie8SJ5c7hcNG0ak341Facq+vSafHoB2PEzfhL4
-	rJAN+vENmmMkgkwysg9fLcerw3OsAp/8LvZeqW4gkdNcHB25T5WT12NjLTsHj25l7vY7BG4Nrt2
-	Uwgv1OLEEi3RM4B1remDXiuhB/92LgcWqIHCVq8ZoHuQAZ1An/yStE0ZBQ4jJsl1GkIPZLmnnzI
-	et1JH+pg0YB81U3kVt8rfNJ56gPhPNmv3A+2zTUTN/0jGXWAm19feL8blOL3/PDWGFnf0s7LY8T
-	CPEyPnJZ2yirypNRM+tBIb6+G+HEfbCB/f7Vbvq1tlxe2/oYYArU6qLYme4isifsT5HBeldxyTc
-	InddUv1q8+i0h657sccJl1b3v7LOzQFRZ9FA3xKLvajtbXbM5lfMWO9YGmALP/5ZnV2U/2DjdGb
-	TWDfjvqbT4yJNegIasMdWXKTZUMrasPK5rvxg==
-X-Received: by 2002:a17:907:e915:b0:c21:6f8c:2335 with SMTP id a640c23a62f3a-c250c391e16mr1061278566b.16.1787770075996;
-        Wed, 26 Aug 2026 11:47:55 -0700 (PDT)
-Received: from flaviu-Aspire-E5-572G.. ([5.15.67.216])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2533945d0esm114523366b.9.2026.08.26.11.47.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 11:47:55 -0700 (PDT)
-From: Flaviu Nistor <flaviu.nistor@gmail.com>
-To: Guenter Roeck <linux@roeck-us.net>,
-	Jean Delvare <jdelvare@suse.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Flaviu Nistor <flaviu.nistor@gmail.com>,
-	linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: [PATCH v2 1/2] dt-bindings: hwmon: national,lm90: Fix channel constraints for temperature offset
-Date: Wed, 26 Aug 2026 21:47:48 +0300
-Message-ID: <20260826184750.4798-2-flaviu.nistor@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260826184750.4798-1-flaviu.nistor@gmail.com>
-References: <20260826184750.4798-1-flaviu.nistor@gmail.com>
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="IhVrX5yT";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="hRmcu/I7"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.phl.internal (Postfix) with ESMTP id 2D8CCEC0201;
+	Wed, 26 Aug 2026 14:48:32 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Wed, 26 Aug 2026 14:48:33 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1787770111;
+	 x=1787856511; bh=f4zU9c/JNdk5KJC+Sd8nuCSHq/+ymmDGSesrVV8zzl8=; b=
+	IhVrX5yTPt8Xnhzy/yUIwFjv+jVH4XuIrxY9SfvWNmpw1wW9FEt8cwMlEznP/f1d
+	xxOcnqxcTRWu8VQSXNeRDIjJobmvJQG068Lnyn7Qrazy/1ui5/4Qb8obE6lv0/09
+	k+AxjIPqhHjpqqZkKOkR93McV3gonWbbmV80D6S1zheqTht+/o3ic9BjkuTZZOPq
+	dGBcunqrKVBsbBS5vFicSnOh0Z8knC5u/X5rqvFbnOop7VhDe+v+idG3ns68Dj6W
+	RJDSK3YSLJeT1jNyALPDM87VOmuBZRMfihtmmpmOQ/XcaUevF6mo6LmDsFD3XZjs
+	P5irH8Ki/PIEoImd5ZKJ2g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1787770111; x=
+	1787856511; bh=f4zU9c/JNdk5KJC+Sd8nuCSHq/+ymmDGSesrVV8zzl8=; b=h
+	Rmcu/I7pLUKE/vxGJDdCqzNcwYS5BrWQ3XaYWeuGxJTvo/7ZE9wKNDfmofR5+oRz
+	WNBHv7zl4qU0LI+ypEYVRxmZQ7Da7fopLHmEMQ0C8RkDaBnKEGiODxsqB2/gKLQ3
+	1mq+8IOYQH/n/FUNZ5litlyjumTCYKtOlsbpz2VWFcArklef20fGp0xCtHK5By+j
+	7YDrTvO6gWXgfFV+qNrHyRRvEdGdYI59z9dzXp40WsUvEJEiXVEcVS5/RVQRhlAN
+	Dfzk5f2aR74xhlvKig5hPY675SOhW2787Jbf3e3vACy00f2FBQWPXBZlUI0oU8fU
+	JdUzRQu7Yz65mwxTsBZow==
+X-ME-Sender: <xms:9zSPajgupCG8BY4ZyIMGUe_bkjrCt5qybhm0IqtRiFptc1StepAveQ>
+    <xme:9zSPaq3RnNtNDc2dr_2ZCNjAqqjHIhTHJP5Pni7KDB8vRUJFOkHbKf4XdSwCGbDFe
+    irtWZ_FO9wsngl6dbmqzDBU-T4yO7LP2RePW6coMqtU1rX3lPKoKT0>
+X-ME-Proxy-Cause: dmFkZTEpJFbkILkdbnjJPhhmIqMU7frV80/nt9hFZsQu4PZ9qgJjoHJyPUWOrwrcASJLCi
+    abBYNRANM9ymUYLu4eDv6nLUvz3u+yuAbvEC800+m2hdGgGEDc9Q5Kn4vPfteqbrTFlH9u
+    IiI2rNBGoS4iM8Up8wSEqKfxSF60yTHji+aKM680VRZkwna5Sd7/qZXalPIoE2NrQDP9g5
+    azVWcv5jzsjf0M/3+Mq361J+OOHmuHQB0kx0ps2KHxXXbhAPlPQyZEO+PuqUmWE4P1ZmY3
+    9Pl93zfQ5JvJpAxAU73uHu4r7yTAwEMig1jH0pqBZIX9BUGFqPrfJjXgFnk9+yofRnGWJ4
+    a7Kp7JQCrM8mNfMODBVDAvhmfX4nMrhdnbRlpL7bKUc3eHzFP6/PWYVzwAKBsRJlL0zeM6
+    3dkKSs0EAISwGAqfeV11ajXrj6JxloHFs6bXR9qcpJ5Fk8yxWBFhSZg0KdZ/950y+ZsnlM
+    snrhuXa2E7YR4/XqwcZTUXqNXo4ILdyKyj1vccPJvzA6BVQ3k15S/GSgUwQxJEPVnI0yo7
+    yEbG5nhte6DRa+U5nufffKmXyP5iEWJuP6dOk2gAxHMZ0eJcd7aJMCRhf928g6k4ut+CXn
+    0GCtyN2e8TdoHrVjTsB7TpS02zk4ojw1CbCLQBXhGFqpl+uJOMFFa3fvHt/g
+X-ME-Proxy: <xmx:-jSPavw-Z6GFgrl-O215TTEgOmon29324qhtnwq77LVYoVcOXt3y6w>
+    <xmx:-jSPahpOEZvHqHBsoM0u1LaUtCrTwLSMUL9sCVsRgX4ytDqKGpBiLg>
+    <xmx:-jSPavc8SMvZagtYUGWzdqX3SqRBKgVL3bg3GOLmG5p5kHHLeHEAPw>
+    <xmx:-jSPakoDo_Xe_EHu5zD7CYC-Y5PtxRT9GOeN9eDvdYyxsECDUxgePw>
+    <xmx:_zSPakqSMyvGK_Wf9cZPt0W3GU45cUc1tUt6hb7oLSuolHLWWxHELk4u>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id E2A3E32A007C; Wed, 26 Aug 2026 14:48:22 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ThreadId: A-UguAUR6dUN
+Date: Wed, 26 Aug 2026 20:47:42 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Christian Brauner" <brauner@kernel.org>, linux-fsdevel@vger.kernel.org,
+ "Michael Ellerman" <mpe@ellerman.id.au>,
+ "Nicholas Piggin" <npiggin@gmail.com>
+Cc: "Madhavan Srinivasan" <maddy@linux.ibm.com>,
+ "Christophe Leroy" <chleroy@kernel.org>, "Kees Cook" <kees@kernel.org>,
+ linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, "Alexander Viro" <viro@zeniv.linux.org.uk>,
+ "Jan Kara" <jack@suse.cz>, "Geoff Levand" <geoff@infradead.org>
+Message-Id: <8ddf7d95-05b1-4758-9b5b-9360db77f904@app.fastmail.com>
+In-Reply-To: <20260826-work-spufs-coredump-v1-0-579e72a7ab66@kernel.org>
+References: <20260826-work-spufs-coredump-v1-0-579e72a7ab66@kernel.org>
+Subject: Re: [PATCH 0/2] powerpc: remove spufs coredump support
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Limit temperature-offset-millicelsius to remote channels only, since
-channel 0 is local and this property does not apply to it.
-Channel 2 is only valid on devices with two remote sensors, so reject
-channel 2 for compatibles that do not support a second remote channel.
+On Wed, Aug 26, 2026, at 18:06, Christian Brauner wrote:
+> Note that the IBM Cell blades that shipped the Cell processor were
+> removed in commit 05bf59fbeef3 ("powerpc/cell: Remove support for IBM
+> Cell Blades"). The PlayStation 3 is the only platform left and nothing
+> there produces or reads these notes.
 
-Signed-off-by: Flaviu Nistor <flaviu.nistor@gmail.com>
----
-Changes in v2:
-- Use else statement in if/then block as suggested by Conor Dooley. 
-- Link to v1: https://lore.kernel.org/all/20260824183900.8983-2-flaviu.nistor@gmail.com/
+I don't see how you concluded the PS3 does not produce these
+notes: as far as I can tell, spufs on PS3 should still be able to do
+this if a process using an SPU crashes, and old gdb binaries should
+still be able to read them.
 
- .../bindings/hwmon/national,lm90.yaml         | 28 +++++++++++++++++--
- 1 file changed, 25 insertions(+), 3 deletions(-)
+Whether anyone is still developing SPU programs on new kernels and
+would benefit from the information in the dump I don't know.
 
-diff --git a/Documentation/devicetree/bindings/hwmon/national,lm90.yaml b/Documentation/devicetree/bindings/hwmon/national,lm90.yaml
-index 164068ba069d..a8b2a24501b3 100644
---- a/Documentation/devicetree/bindings/hwmon/national,lm90.yaml
-+++ b/Documentation/devicetree/bindings/hwmon/national,lm90.yaml
-@@ -113,6 +113,23 @@ allOf:
-       properties:
-         ti,extended-range-enable: false
- 
-+  - if:
-+      not:
-+        properties:
-+          compatible:
-+            contains:
-+              enum:
-+                - adi,adt7481
-+                - dallas,max6695
-+                - dallas,max6696
-+    then:
-+      patternProperties:
-+        "^channel@[0-1]$":
-+          properties:
-+            reg:
-+              enum: [0, 1]
-+        "channel@2": false
-+
-   - if:
-       properties:
-         compatible:
-@@ -134,6 +151,11 @@ allOf:
-         "^channel@([0-2])$":
-           properties:
-             temperature-offset-millicelsius: false
-+    else:
-+      patternProperties:
-+        "channel@0":
-+          properties:
-+            temperature-offset-millicelsius: false
- 
-   - if:
-       properties:
-@@ -149,7 +171,7 @@ allOf:
-               - onnn,nct1008
-     then:
-       patternProperties:
--        "^channel@([0-2])$":
-+        "^channel@([1-2])$":
-           properties:
-             temperature-offset-millicelsius:
-               maximum: 127750
-@@ -172,7 +194,7 @@ allOf:
-               - winbond,w83l771
-     then:
-       patternProperties:
--        "^channel@([0-2])$":
-+        "^channel@([1-2])$":
-           properties:
-             temperature-offset-millicelsius:
-               maximum: 127875
-@@ -186,7 +208,7 @@ allOf:
-               - ti,tmp461
-     then:
-       patternProperties:
--        "^channel@([0-2])$":
-+        "^channel@([1-2])$":
-           properties:
-             temperature-offset-millicelsius:
-               maximum: 127937
--- 
-2.34.1
+> So remove it.
+>
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
+With clarifications in the changelog:
+
+Acked-by: Arnd Bergmann <arnd@arndb.de>
+
+I have no objection to removing the spufs coredump. If anyone still
+cares, Geoff Levand would know, so I've added him to Cc.
+
+       Arnd
