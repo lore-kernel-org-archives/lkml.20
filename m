@@ -1,91 +1,68 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012018.outbound.protection.outlook.com [40.107.200.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6412A471271
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:36:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787762202; cv=none; b=FBCiPAu0Xoz7Y/KhKa4Y7F8fAuFZEDJ+noE1tTNE5Tfe9mSkBVpLbFOkEbRDvEgjv5vv3Zz/lE5BSXfZlnuEfGpNWb7VyN7sxf35jLAn8jpAq7QebxzoKY4+LQATeWqkLusy7mu4dMtXQJoF59NURVjyvaTPmoup0U0preh4E3M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787762202; c=relaxed/simple;
-	bh=zFWeP+8ct14G8fPYPF7YLoOKazDhFZn/d/KC/UovZy4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=c6cRtstGeVEpVjlH+N5CyM82rpkf6m1uJGN6n9l06X2dPOPkulIusmAI89UDs1g/etSj/Yl7AHfFmA7tzuSIS0gPN7Z25WI0Pn4L/H92r2ODiLZWudYgOtCqcCCBMaZg6CiIEjuAn1Rd9lvFPOjKOV0fULJo0j/0KLYP/Zbngyg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk; spf=none smtp.mailfrom=fireburn.co.uk; dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b=xqMP83/W; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=fireburn.co.uk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A717474245;
+	Wed, 26 Aug 2026 16:36:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.18
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787762222; cv=fail; b=Q8G+RVJ+TYX6RZskjvDdtCbi7KTBCIPl9Ly5qnoVhW2b+/W+DY7xWjJs868SXByg4Egpva934zxjnkok6CldVbxoWrqFcBufmk69g7xW7dzycBw1eulc9sC7Iw3xlCvnMtVPC8lpH9O7j9hb+a1vBPMID+ypDyqqExOgCpgST9s=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787762222; c=relaxed/simple;
+	bh=2WRSl2ymd38RGpzY7YLErZ8ZVGUcmBBfe5CowhAvtRA=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Q1neuSwuUIgcDj+KzZfXpHLQjQfQ4odV4MLjA+5r+bg3JIhmo22mqkFXiihim3Wb9R/BHQAZpotelpecQOF5bGn9/NmWIyivUyH9wSKB3aZ7aoNpOKo55c+CvWtjD5VvsA2EifjEyRz+opcNg48+L4TsHDj7yXQpxcmrQG9fbeY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=lu9an3ld; arc=fail smtp.client-ip=40.107.200.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="xqMP83/W"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49b0d78a801so1157135e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 09:36:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787762183; x=1788366983; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Vl+DiUajk5iNhGqiCsP7kWZwbRynvLhcntFNkKHXw/s=;
-        b=xqMP83/WRtagVxmisvrO0nc4wRR8Ba1UTH+8dlWUWXLe+zO0aWBb2zZJDeuefl5Vzh
-         meSfgqGH1yVcAqjWsbnb+XNBgaqyanuZsZYQVFiAZGqWi984JbM92r5J5g6X3jYZWFKn
-         f4FYN5NOq0Bw0VjHs5IJLEpYtLbjONRSP6S0dv228sZv6fmraGulpkRhg6JUtRyoRobA
-         bz7e0/wFRTHD+WWwuSd7UcDbuXJjCh2So6FljgdQkd6yeWzfdouIMcnPouC1LOyIx3uY
-         Ug9TknsgmZ/UB+apLdOHXfRSNhchRHfHimncMzQYrpfrX7gZi8Td6Ct7c7438g6K2IU+
-         vugA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787762183; x=1788366983;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Vl+DiUajk5iNhGqiCsP7kWZwbRynvLhcntFNkKHXw/s=;
-        b=o5qfgDsnKNcswD1qNh7dRPh7QGASEbpdWOtFrtggEj+rp1axLZBy8AtFQW3FuxWowb
-         nR63X5YCW2rvNYAO+7wSMY0JfIcIZyMCcqz9LmVS38imBs2pZcgLlRcO1HnigE8pHmsU
-         xuBNoTNGdqwgrYY8UbVycoitpBZero43d+DCSX3CeJVGVu9Le9RqtBGmqibWS4AFueje
-         6Fe6WsQYhzIWLyT0N9GQbbYp3pV9x/dgjr6PARY6lZmeZWYMg3+nGW9Bq/UoH8gG/ZCe
-         c72Ey/Rv+H85+NldFWMGb39YA9YTflZd7hT7P2/jxi503wdhsTHWtKVbOGQC6ZtcFSpn
-         daRg==
-X-Forwarded-Encrypted: i=1; AHgh+Rqi8MPqKg2qnn6n6WcFdUX00wbyQ81cuYizzvsgXP/6zkGxEQfq2O8OGK40Q7mqaOQ9glvQlBFbVeBBsUw=@vger.kernel.org
-X-Gm-Message-State: AFuF++ntpRf+Ta0+h1XNn5D4rX304ltPZ2lUps0SzQeJRpACJ4IewLpE
-	LJC+giUHl3/pt/uKBNViqzh7PFrGwH/P3HN7Id4REO110INnhsdqSCFut7SARrdJAw==
-X-Gm-Gg: AR+sD12tppaXTj+nXGL7gzX6j1V38kphrX9GVcbwDeZcEaQYFzfvYdQJhbAOAcqk18u
-	l8idLdo3r1weZQirh7ZvywC7tF9MpxabgtygVNrSN7kDkX3TFcY5kMr2Do7klqprGb73n5FziyC
-	pX9v+9BgIRLrO7AKx+TXj3kDRfoGVXjz8eujVCOs3L9Ka/4sgUdtuo0XlgICc0MtEcrzRFXA3Bs
-	C2zq1QjayIpsv5ANtljvJ/kpCA9vk91h2k2YVtVxgpYVfxLVE6ECpyiFQDtP66rFy62HVjTutSL
-	Ju/84VHHWeDbub4xzRcxyJqX9UYHsARJcL1ARzkl4RXqNXIONapqbAr1is/hpldE6gsmumyd+CJ
-	vBGnlsEq/WiK4V1frbpzSg8SZ7r71xLPvrDWlOWBBkdu8NXwrmHoG6zPPyIO0buf+ujvWcZ0PcG
-	I+mVMN0co7yUm4rhTTbcjeOwC82mv9kXPYA3FgoY/K0nG6hV2wHlsgnJSmu4bkDX6gWGEpOjwJh
-	SiMy4aSgIw2A/BSMvgtPe/QmtRIwnpMLf/p
-X-Received: by 2002:a05:600c:a086:b0:499:b000:b828 with SMTP id 5b1f17b1804b1-499dc6e9a9dmr93091925e9.4.1787762183517;
-        Wed, 26 Aug 2026 09:36:23 -0700 (PDT)
-Received: from axion.fireburn.co.uk ([2a01:4b00:d309:1c00:caf1:6b20:8531:818c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499dca8c75csm31227535e9.2.2026.08.26.09.36.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 09:36:21 -0700 (PDT)
-From: Mike Lothian <mike@fireburn.co.uk>
-To: dri-devel@lists.freedesktop.org
-Cc: Mike Lothian <mike@fireburn.co.uk>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	Lyude Paul <lyude@redhat.com>,
-	rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 18/23] rust: drm: expose mode flags and CTA VIC matching
-Date: Wed, 26 Aug 2026 17:31:49 +0100
-Message-ID: <20260826163359.4998-19-mike@fireburn.co.uk>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="lu9an3ld"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kdjAWdpc2vTyB02rbnt8ChNJnfwImWtOW38JANdcAE+0gkF17KzC1qQ0fiRGo+hsV53e0iC+7so/hqveU6zf4i5bzDD0m2pCnZd77I71gZPHhocZOtPXCK+SzeWHPu1IRDyEb64KPxhcH4z17V+r5CaQeYXs4pQfRe2y4fGdSRl4EKb/y4RCJoFbdvrFcA6ejlMSd7Q4LuE+RbihoRbPzPCaFNULaZwEVr74iRzU9hZ6pphw15nKXj7BfxMPKMf7dq4SATdjVc7IREy3cITrfgE9PhE7M0o6tcpq95U3ApQTZSprqklgfx1sBNsx55noILbscKNXYuMc/5XsL3yeRg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZfZcEzvXqlfM/r+1M0PvtR1kcBKiHfN+UkD713+CmRw=;
+ b=bSZfL5v+OrxDKwwOe/NyVMZCXi6tLqQSHw874BxmWQ9pH8A2HvLTZJiXsIyfFTWqwhoKDkdJBzD9KUIAYxHCbD/4lCgdQ1Qbm5XLLWhGZ8LMqb3ROzVawVaR5NiJfsEcokzj3Pp7vtAz1fimcykvalOi0nYde6BVsfFtL9ghBJIJOvMRSgK+EAOgt7M8y18TVJSUqvtW304qbJ3emSkfXUrUWo0IIRuz3gtb3kebe/LLse0ST33i6TJestTNoLlbWERv/IXNy5zJ6wo/TjmX6azKieoVFHq0rn85+KHH78HWSQJ6iV90PKiy5akkG/4CGr6NWMZmuY2gC0rLRbGa3Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 149.199.90.133) smtp.rcpttodomain=linux.intel.com smtp.mailfrom=amd.com;
+ dmarc=fail (p=quarantine sp=quarantine pct=100) action=quarantine
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZfZcEzvXqlfM/r+1M0PvtR1kcBKiHfN+UkD713+CmRw=;
+ b=lu9an3ldsrgTUxB34cs+HJHph68TUZpADf1hvwDIMBtSFKB4i2rc4HqSpw6dCYM1smncJy4QLdBviByXjz/MSYj60YlUpAcGfDftE+bd6K1TlbCqiARMwk8wb77re9l8GoOEPEwk5LYKq445WzJeImqB4YnGMz8PPsz3uRR/vSs=
+Received: from CY8P222CA0001.NAMP222.PROD.OUTLOOK.COM (2603:10b6:930:6b::28)
+ by PH0PR12MB7790.namprd12.prod.outlook.com (2603:10b6:510:289::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.7; Wed, 26 Aug
+ 2026 16:36:46 +0000
+Received: from CY4PEPF0000EE37.namprd05.prod.outlook.com
+ (2603:10b6:930:6b:cafe::79) by CY8P222CA0001.outlook.office365.com
+ (2603:10b6:930:6b::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.10 via Frontend Transport; Wed,
+ 26 Aug 2026 16:36:44 +0000
+X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
+ 149.199.90.133) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=quarantine header.from=amd.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ amd.com discourages use of 149.199.90.133 as permitted sender)
+Received: from satlexmb07.amd.com (149.199.90.133) by
+ CY4PEPF0000EE37.mail.protection.outlook.com (10.167.242.43) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.3 via Frontend Transport; Wed, 26 Aug 2026 16:36:43 +0000
+Received: from dogwood-dvt-marlim.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Wed, 26 Aug 2026 11:36:41 -0500
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+CC: Hans de Goede <hansg@kernel.org>, open list
+	<linux-kernel@vger.kernel.org>, "open list:X86 PLATFORM DRIVERS"
+	<platform-driver-x86@vger.kernel.org>, Shyam Sundar S K
+	<Shyam-sundar.S-k@amd.com>, Mario Limonciello <mario.limonciello@amd.com>
+Subject: [PATCH] platform/x86/amd/pmf: Add AMDI0112 ACPI ID
+Date: Wed, 26 Aug 2026 11:36:11 -0500
+Message-ID: <20260826163611.2268377-1-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260826163359.4998-1-mike@fireburn.co.uk>
-References: <20260826163359.4998-1-mike@fireburn.co.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -93,124 +70,60 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE37:EE_|PH0PR12MB7790:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2770aae5-1203-4b98-1860-08df039036da
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|82310400026|36860700016|1800799024|10067099003|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	wFQvpSQ5a7luO4tpbtqYY1znC+mDCET2SJJB1cr+qTZYWL5Xrq5lNWa86XIQIrrUlUOSPv4F4pm+vIvETP+FXGxPHMIvYrfwHHX/xEmtXLWg8y6rc4sorouzsMoSUChiMvQ6MvI449AKvocJFm20AqO3J+P10gmyQdoPL488Nz+AqM2f90JTa/OBMQAALFqh9M8jGWmgPIcYeSVlTPWqqjHi/BtWR/o+CeSrV4wp56RHiTkqLXxWBfmW6PiXy0lKCdnvj+ewqzuL4pihBNBE1lLd828LavE8yKrvOKPLBIEu6xeGf7KjUPj3hCsfvuPuZeasYzv71lF0sIoJyzbbZffogfb/lrif4rIv/XuZRYXUpwb0rap553mCnI0a6UpAkb5fDWxsoF+Frq0eZdLVWQvnLvJOEokCim8emVjBwA784SSErMN2bEhRGKUdOqMS9kYfWvx6T2DiHUb4if8RwkzT1c7p8NURr2TZxyDI/XkP3MNzeEL4ELJsXSERRAiRK0MmGc9cuRKp2qo3PL1DTvJ78zrReivbhDPJjkzZ2ecU2IyxEMkzYk59vxkEw4RxFfxrKj7KdbwmbUf8AXEj8a+Mx59EniOVZBcwTg60VNBDRsG8EPf8Vmhk9a/k66l1A128rKzWjwaFck9xwrRcbFcCv1aJAB2nKpIYT9GUZ7YHkzG/pdmcmaOeunwyCJMSG3M3gwnjbH5V8uWfQQ6bdg==
+X-Forefront-Antispam-Report:
+	CIP:149.199.90.133;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:unknown-90-133.xilinx.com;CAT:NONE;SFS:(13230040)(376014)(23010399003)(82310400026)(36860700016)(1800799024)(10067099003)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	yyKHazsUkGgznZk+VeeSt+4vCgjnuVm5KXWSAycr/GzsmY5I/AbUdqrWESdCrnCBPiXGCrv6mSlyjotPPKctIG8OAvpbMx5Bq1IEaJ2xHorCLzuX7fXzuRs/tRY3vQY1iAdwdZGW9D4Fkh9uY2OaYMQ6bzn3YE0JHgZAv7P/SIttVDOF8Rhl3Q35FujdLfFkASXqwzoaAQy/syqwQjja5D1dbSoVaAm0NJljBtfmzBuBD5CWlKWnfoaAwCJDeQjELOr+RrbUAfm5Hp/3qXiFb8VPy8h0FZrfJCQOuWB+4qyUBLO5MiUxoTBit0M3El+Go1mTWKugC3pJBlkkshOT4e0WhlBP7geeuBd4vkFMQSi0q/R4LOsxV+ViNcixBARHATgxsPEKwHK5keRPWbxCIlg0n2fviRJjMsEgJalROB6kREYmFuIsjIASMG0A24GD
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 16:36:43.9451
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2770aae5-1203-4b98-1860-08df039036da
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[149.199.90.133];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000EE37.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7790
 
-Let Rust DRM drivers construct modes with signal flags, inspect those
-flags, and use the DRM EDID helper to identify the matching CTA-861
-Video Identification Code. This keeps drivers from duplicating the
-canonical HDMI mode table.
+The AMDI0112 ID is used to bind the PMF driver to some platforms.
+It doesn't have any Linux side code changes relative to the most
+similar AMDI0105.
 
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
+Cc: stable@vger.kernel.org
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- rust/kernel/drm/kms/modes.rs | 73 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 73 insertions(+)
+ drivers/platform/x86/amd/pmf/core.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/rust/kernel/drm/kms/modes.rs b/rust/kernel/drm/kms/modes.rs
-index b48a02edfc13..584f20456c07 100644
---- a/rust/kernel/drm/kms/modes.rs
-+++ b/rust/kernel/drm/kms/modes.rs
-@@ -11,6 +11,60 @@
-     types::Opaque,
+diff --git a/drivers/platform/x86/amd/pmf/core.c b/drivers/platform/x86/amd/pmf/core.c
+index b4eae65e675b8..5966190d1496b 100644
+--- a/drivers/platform/x86/amd/pmf/core.c
++++ b/drivers/platform/x86/amd/pmf/core.c
+@@ -454,6 +454,7 @@ static const struct acpi_device_id amd_pmf_acpi_ids[] = {
+ 	{"AMDI0107", 0},
+ 	{"AMDI0108", 0},
+ 	{"AMDI0109", 0},
++	{"AMDI0112", 0},
+ 	{ }
  };
- 
-+/// Flags describing signal polarity and scan format for a display mode.
-+///
-+/// These correspond to the `DRM_MODE_FLAG_*` values accepted by the DRM mode helpers.
-+#[derive(Clone, Copy, Default, PartialEq, Eq)]
-+pub struct ModeFlags(u32);
-+
-+impl ModeFlags {
-+    /// Horizontal sync is active high.
-+    pub const PHSYNC: Self = Self(bindings::DRM_MODE_FLAG_PHSYNC);
-+    /// Horizontal sync is active low.
-+    pub const NHSYNC: Self = Self(bindings::DRM_MODE_FLAG_NHSYNC);
-+    /// Vertical sync is active high.
-+    pub const PVSYNC: Self = Self(bindings::DRM_MODE_FLAG_PVSYNC);
-+    /// Vertical sync is active low.
-+    pub const NVSYNC: Self = Self(bindings::DRM_MODE_FLAG_NVSYNC);
-+    /// The mode is interlaced.
-+    pub const INTERLACE: Self = Self(bindings::DRM_MODE_FLAG_INTERLACE);
-+    /// The mode uses doublescan.
-+    pub const DBLSCAN: Self = Self(bindings::DRM_MODE_FLAG_DBLSCAN);
-+    /// The mode uses composite sync.
-+    pub const CSYNC: Self = Self(bindings::DRM_MODE_FLAG_CSYNC);
-+    /// Composite sync is active high.
-+    pub const PCSYNC: Self = Self(bindings::DRM_MODE_FLAG_PCSYNC);
-+    /// Composite sync is active low.
-+    pub const NCSYNC: Self = Self(bindings::DRM_MODE_FLAG_NCSYNC);
-+    /// The mode carries a horizontal skew value.
-+    pub const HSKEW: Self = Self(bindings::DRM_MODE_FLAG_HSKEW);
-+    /// The mode is double-clocked.
-+    pub const DBLCLK: Self = Self(bindings::DRM_MODE_FLAG_DBLCLK);
-+    /// The mode uses a half-rate clock.
-+    pub const CLKDIV2: Self = Self(bindings::DRM_MODE_FLAG_CLKDIV2);
-+
-+    /// Return whether all flags in `other` are set.
-+    pub fn contains(self, other: Self) -> bool {
-+        self & other == other
-+    }
-+}
-+
-+impl core::ops::BitOr for ModeFlags {
-+    type Output = Self;
-+
-+    fn bitor(self, rhs: Self) -> Self::Output {
-+        Self(self.0 | rhs.0)
-+    }
-+}
-+
-+impl core::ops::BitAnd for ModeFlags {
-+    type Output = Self;
-+
-+    fn bitand(self, rhs: Self) -> Self::Output {
-+        Self(self.0 & rhs.0)
-+    }
-+}
-+
- /// The essential timing fields of a display mode.
- #[derive(Clone, Copy)]
- pub struct ModeTimings {
-@@ -32,6 +86,8 @@ pub struct ModeTimings {
-     pub vsync_end: u16,
-     /// Total vertical lines including blanking.
-     pub vtotal: u16,
-+    /// Signal polarity and scan-format flags.
-+    pub flags: ModeFlags,
- }
- 
- /// DRM kernel-internal display mode structure.
-@@ -84,6 +140,7 @@ pub fn from_timings(t: ModeTimings) -> Result<Self> {
-         mode.vsync_start = t.vsync_start;
-         mode.vsync_end = t.vsync_end;
-         mode.vtotal = t.vtotal;
-+        mode.flags = t.flags.0;
- 
-         Ok(Self {
-             inner: Opaque::new(mode),
-@@ -202,10 +259,26 @@ pub fn clock(&self) -> i32 {
-         unsafe { (*self.as_raw()).clock }
-     }
- 
-+    /// Return the mode's signal-polarity and scan-format flags.
-+    #[inline]
-+    pub fn flags(&self) -> ModeFlags {
-+        // SAFETY: Reading this field is safe via the type invariants.
-+        ModeFlags(unsafe { (*self.as_raw()).flags })
-+    }
-+
-     /// Return the refresh rate in Hz as computed by DRM.
-     #[inline]
-     pub fn vrefresh(&self) -> i32 {
-         // SAFETY: `drm_mode_vrefresh` only reads this valid display mode.
-         unsafe { bindings::drm_mode_vrefresh(self.as_raw()) }
-     }
-+
-+    /// Return the CTA-861 Video Identification Code matching this mode.
-+    ///
-+    /// A return value of zero means the mode is not one of the CTA-861 modes known to DRM.
-+    #[inline]
-+    pub fn cea_vic(&self) -> u8 {
-+        // SAFETY: `drm_match_cea_mode` only reads this valid display mode.
-+        unsafe { bindings::drm_match_cea_mode(self.as_raw()) }
-+    }
- }
+ MODULE_DEVICE_TABLE(acpi, amd_pmf_acpi_ids);
+
+base-commit: 5b05bb3f6c5716fab6911e12d60dd1f43ad9806a
+-- 
+2.43.0
+
