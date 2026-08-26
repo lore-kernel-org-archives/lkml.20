@@ -1,73 +1,189 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DB0D438034;
-	Wed, 26 Aug 2026 15:02:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D10AB44A3EF
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 15:02:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787756530; cv=none; b=c19qoo8eCAAuPOp41P1Hmtml4pwdE5/8m5Xufha6+3TY+Yen4v4N0Ep6JCuOQylP4oZ6iq+LtpuzcFf4AkcJAMpbHic29UKsXFmY2jZ1efRWen1H9X5k98aFFzldOcTVdakFFA8mn10r+hKcTA/zeCwv7C0HCwq6M1UqUi8XWQM=
+	t=1787756539; cv=none; b=QAWcQmBCeXd3AGSPYgeGpdOyabzjdNTgo4eSEmVok3uRfkX1/TO6qaQRL66VQ2Omx77WFq+C7AToWogwnc/R6swgXsjeCsrs89FyyzPAYpIdow0xfdtD0Yq9ynUCzU6gGdHgf0x3kw+5sh0AGXulfP2/vW/ait0C7dO/xNnP4XQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787756530; c=relaxed/simple;
-	bh=rvGocql+kmzXD8Ly1mab0YXmEnG2Ew/GvfG0OFCzYzc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ZJaITS0penQ1YbTE6KrOVXQ/P8OrE/GkDXUn744DszyGrb0TtUwUANkW4+GDFwNh/kFFzCqzu+hSLl5iaKYYwJIJs+v890XlCEf8QoKb3h08E33gJ18zV0PILjlCCPPUPF9KKQY0dk99AOLP9VJCQAIwrAzJqrdeMGxpytGwF/o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=axfe6CAN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787756539; c=relaxed/simple;
+	bh=KqurwhfkeWH92vR01UEowYKyYippJ5kwR9uR9c31nvE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=W8WHSVi0L7tsWNKNohSNKN8rzm91sSLipXtjaQ7rMW+5tjnWHeAkdla7ekNrLE+13ePuwW2YjmShzPaVR39N/zmbsyIpou2CYy9yqk3OZXocakfELU3WP2ccTGtjykzFy6EDt3l+SFWu//rkV2JvoV4vqu1tDTGdoWPSjL+3v20=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MkHe2AHx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="axfe6CAN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE5751F000E9;
-	Wed, 26 Aug 2026 15:02:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MkHe2AHx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BF411F000E9
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 15:02:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787756529;
-	bh=uUOiyLJwv81xsj8gaUchVZEo9LZ2IJAod5LbF/RC+Wg=;
-	h=From:To:Cc:Subject:Date;
-	b=axfe6CANPqJLG5Hq3hCOlZUp4AOImUcjbkUsXo+xYOqZJEBmS/aJGRNqODfKWpXJX
-	 cD2XbiTkjPjBY01Pr/p+e3N5xpmt0GRCSvPGelNrfX5cwVEvIlYr15I30s57l6P8Re
-	 PO6TjrOGPjxBF59uAr7mdVhlvcxfTfBdOqTL0c20qytU/P12t4iRzjGMLkGc5vXQIP
-	 OPXlg32rh1qqYUIJipMH9Pk9ZfO5RMzLJDC7gVRcezQjzP2hypdlgw+o1PYhCSEFcd
-	 BwiWHnAGiJ7ER1uiJDweOlSpDST5HLcrhP0U2QgvCD3R8ICczXHgiYfRUYvMy6STdq
-	 24wj1yj1Udfuw==
-From: Namjae Jeon <linkinjeon@kernel.org>
-To: linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	Namjae Jeon <linkinjeon@kernel.org>
-Subject: [PATCH] MAINTAINERS: Update the KSMBD entry
-Date: Thu, 27 Aug 2026 00:01:59 +0900
-Message-Id: <20260826150159.15412-1-linkinjeon@kernel.org>
-X-Mailer: git-send-email 2.25.1
+	s=k20260515; t=1787756537;
+	bh=NVcCvLmnWBybIlOyguyyeisqqYoOCyTYR0wcFtpqJQ4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=MkHe2AHxO4V2zC4q0ERqf4eKxoo1q5sNINN8mE0EZmFSgEzq29D/VmAfRQxdS1JIl
+	 ZNpYNHojVJ/hTT8RCIHrC12yQgZXqKBYfbOGZDi2Xi8Y95d0Uj0a4ygnyMqobWpM/s
+	 uHw1jXQ7hbFqnv5jni1qHq1+Er64dddEYvBLiWEP35Zftpi7x0NUDZ/EPn1AFwa62j
+	 kDKxHiBOS5/+PMq2bIPPU7JIUJaaIeLt5w9W+l1rL2iHvHNdlREXQb73stom9t515S
+	 6e2HZfq73TjQ9z3qizuXWG2KN8METmoqJ7OCxlBZDyH1oqzUNhRmWxFk5hoZfC550n
+	 f5V52cNv43bDQ==
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c169ae1cb26so441404066b.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 08:02:17 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqBI0ZX1EAM/+nLAK8DOjtXz9E2cNHvqWVljNMX3bUsZQI0J6RHh8isyX72nckaa23GB9YGFhTmSx/7pdE=@vger.kernel.org
+X-Gm-Message-State: AFuF++ml93k+GNB7Kq3bP0mqwHbJGKCz4MtYx1h95goDxYLBCs2uEDXj
+	10Jo/NYcmM66eP8HApdrzUIh5FQ5eXJ6HrsuZazJDw3JQqRpIktm8bWmT8vc9NnA15Q5bEJA9Fu
+	7YyzEkbkptpYbeTmO1LCNR0p83V7diUU=
+X-Received: by 2002:a17:906:a352:20b0:c25:32b0:e56d with SMTP id
+ a640c23a62f3a-c2532b0ef44mr124311666b.7.1787756536214; Wed, 26 Aug 2026
+ 08:02:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260818123921.3600606-1-chenhuacai@loongson.cn>
+ <20260818123921.3600606-5-chenhuacai@loongson.cn> <fed97fbc-7d78-4509-86c2-cb302d3957db@oss.qualcomm.com>
+In-Reply-To: <fed97fbc-7d78-4509-86c2-cb302d3957db@oss.qualcomm.com>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Wed, 26 Aug 2026 23:02:13 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H4BRGeZ48PMJcYNR_Nn2-=Emec=pXsD041ZwWzJ5vo8nQ@mail.gmail.com>
+X-Gm-Features: AcwNN1XnWCZ_j5s24EXBjPnXvoyo6XOOKag1dVhQo6JOF7SB5LvAgfDgqDzhSps
+Message-ID: <CAAhV-H4BRGeZ48PMJcYNR_Nn2-=Emec=pXsD041ZwWzJ5vo8nQ@mail.gmail.com>
+Subject: Re: [PATCH 4/5] cpufreq: loongson3: Use global physical CPU ID in
+ get/target callbacks
+To: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+Cc: Huacai Chen <chenhuacai@loongson.cn>, "Rafael J . Wysocki" <rafael@kernel.org>, 
+	Viresh Kumar <viresh.kumar@linaro.org>, loongarch@lists.linux.dev, 
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Xuerui Wang <kernel@xen0n.name>, Jiaxun Yang <jiaxun.yang@flygoat.com>, stable@vger.kernel.org, 
+	Hongliang Wang <wanghongliang@loongson.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Steve French passed away recently. He was a long-time maintainer
-of Linux's SMB support and will be greatly missed.
+Hi, Zhongqiu,
 
-Update the KSMBD entry to no longer list Steve French as a
-maintainer.
+On Thu, Aug 20, 2026 at 8:24=E2=80=AFPM Zhongqiu Han
+<zhongqiu.han@oss.qualcomm.com> wrote:
+>
+> On 8/18/2026 8:39 PM, Huacai Chen wrote:
+> > Our server productions (e.g. Loongson-3D6000/3E6000) can have discrete
+> > global physical CPU IDs while the core ID inside the packages are alway=
+s
+> > continuous. In these cases we should use global physical CPU IDs to get
+> > and set frequencies.
+> >
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Hongliang Wang <wanghongliang@loongson.cn>
+> > Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
+> > ---
+> >   drivers/cpufreq/loongson3_cpufreq.c | 20 +++++++++++---------
+> >   1 file changed, 11 insertions(+), 9 deletions(-)
+> >
+> > diff --git a/drivers/cpufreq/loongson3_cpufreq.c b/drivers/cpufreq/loon=
+gson3_cpufreq.c
+> > index e3cd78a5ab18..c75c0e30e881 100644
+> > --- a/drivers/cpufreq/loongson3_cpufreq.c
+> > +++ b/drivers/cpufreq/loongson3_cpufreq.c
+> > @@ -219,38 +219,40 @@ static inline int do_service_request(u32 id, u32 =
+info, u32 cmd, u32 val, u32 ext
+> >
+> >   static unsigned int loongson3_cpufreq_get(unsigned int cpu)
+> >   {
+> > -     int ret;
+> > +     int ret, core =3D cpu_logical_map(cpu);
+> >
+> > -     ret =3D do_service_request(cpu, FREQ_INFO_TYPE_FREQ, CMD_GET_FREQ=
+_INFO, 0, 0);
+> > +     ret =3D do_service_request(core, FREQ_INFO_TYPE_FREQ, CMD_GET_FRE=
+Q_INFO, 0, 0);
+>
+> As patch 5/5 changelog:
+>
+> "However, IOCSR read/write can only perform on the current node, while
+> sometimes we want to perform on other nodes"
+>
+> However, patch 4/5 starts passing the global CPU number without updating
+> do_service_request(), which is only changed in patch 5/5. Doesn't that
+> mean patch 4/5 is broken on its own?
+Cross-node accesses need the whole of this series. So:
 
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
----
- MAINTAINERS | 2 --
- 1 file changed, 2 deletions(-)
+For single node machines, with or without this patch are both correct.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 7e1d14406619..2a81760e697b 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -14194,8 +14194,6 @@ F:	tools/testing/selftests/
- KERNEL SMB3 SERVER (KSMBD)
- M:	Namjae Jeon <linkinjeon@kernel.org>
- M:	Namjae Jeon <linkinjeon@samba.org>
--M:	Steve French <smfrench@gmail.com>
--M:	Steve French <sfrench@samba.org>
- R:	Sergey Senozhatsky <senozhatsky@chromium.org>
- R:	Tom Talpey <tom@talpey.com>
- R:	ChenXiaoSong <chenxiaosong@chenxiaosong.com>
--- 
-2.25.1
+For multi-nodes machines, this patch cannot solve all problems, but
+doesn't make things worse.
 
+>
+> >
+> >       return ret * KILO;
+> >   }
+> >
+>
+> A separate issue=EF=BC=8C do_service_request() can return errno such as -=
+EPERM,
+> it will cause .get() func return a large unsigned integer value.
+Yes, we need "return (ret < 0) ? 0 : ret * KILO" here.
+
+
+Huacai
+
+>
+>
+> >   static int loongson3_cpufreq_target(struct cpufreq_policy *policy, un=
+signed int index)
+> >   {
+> > -     int ret;
+> > +     int ret, core =3D cpu_logical_map(policy->cpu);
+> >
+> > -     ret =3D do_service_request(cpu_data[policy->cpu].core,
+> > -                              FREQ_INFO_TYPE_LEVEL, CMD_SET_FREQ_INFO,=
+ index, 0);
+> > +     ret =3D do_service_request(core, FREQ_INFO_TYPE_LEVEL, CMD_SET_FR=
+EQ_INFO,
+> > +                              index, 0);
+> >
+> >       return (ret >=3D 0) ? 0 : ret;
+> >   }
+> >
+> >   static int configure_freq_table(int cpu)
+> >   {
+> > -     int i, ret, boost_level, max_level, freq_level;
+> > +     int i, ret, core, boost_level, max_level, freq_level;
+> >       struct platform_device *pdev =3D cpufreq_get_driver_data();
+> >       struct loongson3_freq_data *data;
+> >
+> >       if (per_cpu(freq_data, cpu))
+> >               return 0;
+> >
+> > -     ret =3D do_service_request(cpu, 0, CMD_GET_FREQ_LEVEL_NUM, 0, 0);
+> > +     core =3D cpu_logical_map(cpu);
+> > +
+> > +     ret =3D do_service_request(core, 0, CMD_GET_FREQ_LEVEL_NUM, 0, 0)=
+;
+> >       if (ret < 0)
+> >               return ret;
+> >       max_level =3D ret;
+> >
+> > -     ret =3D do_service_request(cpu, 0, CMD_GET_FREQ_BOOST_LEVEL, 0, 0=
+);
+> > +     ret =3D do_service_request(core, 0, CMD_GET_FREQ_BOOST_LEVEL, 0, =
+0);
+> >       if (ret < 0)
+> >               return ret;
+> >       boost_level =3D ret;
+> > @@ -263,7 +265,7 @@ static int configure_freq_table(int cpu)
+> >       data->def_freq_level =3D boost_level - 1;
+> >
+> >       for (i =3D 0; i < freq_level; i++) {
+> > -             ret =3D do_service_request(cpu, FREQ_INFO_TYPE_FREQ, CMD_=
+GET_FREQ_LEVEL_INFO, i, 0);
+> > +             ret =3D do_service_request(core, FREQ_INFO_TYPE_FREQ, CMD=
+_GET_FREQ_LEVEL_INFO, i, 0);
+> >               if (ret < 0) {
+> >                       devm_kfree(&pdev->dev, data);
+> >                       return ret;
+>
+>
+> --
+> Thx and BRs,
+> Zhongqiu Han
+>
