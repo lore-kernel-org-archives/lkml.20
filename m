@@ -1,114 +1,111 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+Received: from mta0.migadu.com (out-161.mta0.migadu.com [91.218.175.161])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2391E424D46
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:22:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACAB922423A
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:22:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787750524; cv=none; b=aTHgiltaME3XwHHauk0NuxwMXPJAlerNJ67+ajd/L2hgJF7QSInrvpQVSqd6K4OW+uK1Jp4PBAm5VYhxVzj/qb+PV4Q76LON6IZbA1Fw+BaoQbPxPZ/U3G7/hyJpY+qsmKmE92SoVWWG+jZA0UvEmeLx2WbygZi0vM+Zo+cVeUY=
+	t=1787750530; cv=none; b=iWUZrUU1UL+AYcSkS3t8qLjzWJSzNdk7HnXT+P8y8XMx+jw05YnKXRQbUibzLJBNNulYD8v2U1627CSBWR2Ec6XzLtPXDAnpJjKLINBjCLoGzN36idS3YSnCRBbNL2Oj5YXDRC1mq4ua6RDZAZPAtz2FmAHsw07Sni2vIExQ14A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787750524; c=relaxed/simple;
-	bh=YfYeCCwljxs5fzIjYTOd0pysB6MB+g6pIQzXMIkWylw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=H9dqDr7OenSwWPfhg1LXb7TtRTqZutnJq4eaWgsq4npIA/gMzDy00Qj7Bz6kfL1d+hAbAbnquSvm9miVfWssTaonfF0kSdWr5AqclVOJVtPMIZS69XU9E1xn4rTZ23VD9Ve5cNNb8I9yen2N43gfcM9GSzVrKqnJKzjITr0ZmbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J4VZaFhq; arc=none smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787750530; c=relaxed/simple;
+	bh=MbqC4/3XY2Q8MsrJW7NGpu6sTdEBe8KkMt4dCMJF8g4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Uhv+hNwxPZwac9tHjGwJtZEx8FaWQemhTPoNQ2zVPtK2tAPZU1qGem+zvdZO5CQW90qZT+w0p5qobbUWJAaIg6Fal4nnE/grwZpPFj5U9Gdrui9U0L2LgKHGaoMUJx6ZpQCAbOUiZbt3zMSTrZGBQo244tkVcbxiXbhgSC9v1bw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=CVvqQQM1; arc=none smtp.client-ip=91.218.175.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J4VZaFhq"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-482e2904915so497668f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 06:22:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787750521; x=1788355321; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7Q4gA+nOdeWZSwsSNe0w4DOU8QZDN/9GWMD7TfqVftY=;
-        b=J4VZaFhqNFNWUduzpYwKCKbL7ZQH7z0wsgUNDhD6qD7SbNs96/5fvt7wG8LFqfucyj
-         qte1hUlArFn94Vwkz889qENs+jHM1T3C7qQS7j6EAnwa1m2PV4eyzaCgHJO0LVZ5E6Pp
-         2AQw7tAsNELS6Z0TdkyJ2YZ+8WhLg+LDMiwDAFbcK7FcVWyGB23Rx3BfoEJEmAYwAa6s
-         X+VYmynU7EKfvfl2mngumaHN/3QylAKLX57JWi4GRYySHjBaWKcHkzsKvivpHjrk/0hm
-         fWK/XdnG76OFS78N0/2nTu/5387AXo2SJAQ2VrY6EP4NkeAp6NPLuokPsC5X1HmM187p
-         xINQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787750521; x=1788355321;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7Q4gA+nOdeWZSwsSNe0w4DOU8QZDN/9GWMD7TfqVftY=;
-        b=sIqk9LuNdU2O8TmYr367bc4RbLlwKRlHncUPlsNIp6RaAINaKPryWFNUg3UQEKrOf2
-         cwZNHAqy+f/IoGarxzPNYwA80hoUJQAUoHg30KeLmew6FKMLIqs0THJKF15rlB5/UVTn
-         tbNXoYpIlERJbcFaY79MD5ksHCydzKVGgaCbo7/lKG4qPNMhd8D6AJlninJqMYT5qbEK
-         6HKIUTVohFZ8r96J0ZJ3GaAbhn+E37EeUUIst/5PMZTWBe73YSpDN49+eUjwBemUxBlh
-         InAYRXC6DZj2y0smajv18T/0/agHy3zmUCCR2UJHFP8YjrQlh8cPHliUTBT+yGacwyE6
-         wUaw==
-X-Forwarded-Encrypted: i=1; AHgh+RqJ7VFgS09dacOeEYHfK7F1YN2aDtqydnM8b3pxRiWNxhR4bTGTtqiM/bLV6DrjHnyDI+ZAnnYu4dgdU4I=@vger.kernel.org
-X-Gm-Message-State: AFuF++lKwgVez0Te6TAF2b6cPLFIfIB5eZRZ3BpuQxHvWkFFF/o8WeT6
-	apJyFcYyj0loEg7WdsWBhJHzDYshYqQC6xyupgzxZky6auEY7hIIolrZ
-X-Gm-Gg: AR+sD12rerHrMUzxPeySRq5tC+VW9PEFIIpzo+eAhSw+FN4TReFdTfY4IP+yC4R7ryN
-	LdBGr31jJGB2btrxv5EDa1mSEeg0tmY8RuySV/9M+Nb1ArwkMoTbdqlCkbie1+ZiSPdTfFRupLu
-	cKu7PTlOsYMAEHYP5dNflyexRlL0kt1sxcSQC+Yz3WncrfEkI4dYaK0wG9Oj1/bZHQsOSE3KMVW
-	BhlUuxy3X5kbZl5VpHBKo9qumP6hjlQEv0XMfQ0m/aWJMIBdpX3RcrvwQlNmJPzU162CdQMwrtG
-	VR0NT5F9LAxtgN8blAXkHKuZO/unbbaRDUcRS8djDjaZ4aWeNbQTegeExKrXoX6HMsczInE+LJR
-	sl3e2cobsHCv/NZySNHDg7EcNx3rYh5IOp0rqlnS+9T5lVC57g4JSFvDlLiG6EUPtjhStleiTrn
-	l754Cu+vtxO6+8iwuCm0VXEeQ6/4jglAlecFgevTLLki4TFhEHmT9BPfJRCdA=
-X-Received: by 2002:a5d:5e01:0:b0:482:e173:9949 with SMTP id ffacd0b85a97d-482e26d9657mr8019447f8f.14.1787750521087;
-        Wed, 26 Aug 2026 06:22:01 -0700 (PDT)
-Received: from localhost ([5.83.201.220])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e4f0c8f7sm2036957f8f.27.2026.08.26.06.21.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 06:21:57 -0700 (PDT)
-From: Colin Ian King <colin.i.king@gmail.com>
-To: Viresh Kumar <vireshk@kernel.org>,
-	Nishanth Menon <nm@ti.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Rob Herring <rob.herring@calxeda.com>,
-	Shawn Guo <shawn.guo@linaro.org>,
-	"Rafael J . Wysocki" <rjw@rjwysocki.net>,
-	linux-pm@vger.kernel.org
-Cc: kernel-janitors@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Eli Gurvitz <egurvitz@nvidia.com>
-Subject: [PATCH] OPP: of: Fix potential multiplication overflow when calculating freq
-Date: Wed, 26 Aug 2026 14:19:57 +0100
-Message-ID: <20260826131957.1063765-1-colin.i.king@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="CVvqQQM1"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=MbqC4/3XY2Q8MsrJW7NGpu6sTdEBe8KkMt4dCMJF8g4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787750526; v=1; x=1788355326;
+ b=CVvqQQM184Jm75RDtC4a1OO4/F7nTy91v4NJKILsAAfjDf7M+JdN0EoD4RkwoK4jJsR6HVbO
+ gy/aYQ9o+uksKAvOLOQ8kBPluU7m7BtlvRg/I2cuMJFO6W5nvjlC5c6fE8wMd05ep0I+a8cZzW0
+ mbjh4aiJtP0Ixz0Bcde12QLU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: from localhost (2a03:2880:10ff:19::)
+	by mta10.migadu.com with ESMTPS id ee22d32ad11dbb84;
+	Wed, 26 Aug 2026 13:22:06 +0000
+X-Mizu-Trace-ID: ee22d32ad11dbb84
+X-Migadu-Flow: FLOW_OUT
+From: Usama Arif <usama.arif@linux.dev>
+To: Alexandre Ghiti <alex@ghiti.fr>
+Cc: Usama Arif <usama.arif@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Yosry Ahmed <yosry@kernel.org>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Hugh Dickins <hughd@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Chris Li <chrisl@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Youngjun Park <youngjun.park@lge.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Joonsoo Kim <iamjoonsoo.kim@lge.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/3] mm/swap: move LRU insertion out of the swap cache allocator
+Date: Wed, 26 Aug 2026 06:21:58 -0700
+Message-ID: <20260826132159.433469-1-usama.arif@linux.dev>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260825172604.3243589-2-alex@ghiti.fr>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-The multiplication be32_to_cpup(val++) * 1000 is performed using 32 bit
-unsigned integers and hence uses a 32 bit multiplication; this will
-overflow if be32_to_cpup(val++) is greater than 4294967 (which is
-very unlikely at present). The result is assigned to an unsigned long
-(which is a 64 bit value on 64 bit systems), so fix this potential
-overflow by casting the first operand of the multiplication to
-an unsigned int.
+On Tue, 25 Aug 2026 19:24:51 +0200 Alexandre Ghiti <alex@ghiti.fr> wrote:
 
-Fixes: b496dfbc94ab ("PM / OPP: Initialize OPP table from device tree")
+> This is a preparatory patch.
+> 
+> __swap_cache_alloc_folio() adds the new folio to the LRU itself, which
+> leaves its callers no way to act on the folio before it becomes visible
+> to reclaim.  Two users need exactly that:
+> 
+>  - the next patch moves the refault evaluation out of the swap cache
+>    folio allocation, and it has to happen before folio_add_lru(): that
+>    consumes PG_active to file the folio on the inactive or the active
+>    list, and under MGLRU it also reads PG_workingset to pick the
+>    generation.  Setting either flag afterwards does not move the folio;
+> 
+>  - the upcoming zswap writeback dropbehind implementation needs the
+>    buffer folio to stay off the LRU entirely, as the per-CPU LRU batch
+>    would hold a reference on it and keep remove_mapping() from freeing
+>    it once writeback completes.
+> 
 
-Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
----
- drivers/opp/of.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I think the kernel convention is to not say "next patch" and "upcoming.."
 
-diff --git a/drivers/opp/of.c b/drivers/opp/of.c
-index c02e20632fa6..9c4fd1f0e944 100644
---- a/drivers/opp/of.c
-+++ b/drivers/opp/of.c
-@@ -1039,7 +1039,7 @@ static int _of_add_opp_table_v1(struct device *dev, struct opp_table *opp_table)
- 
- 	val = prop->value;
- 	while (nr) {
--		unsigned long freq = be32_to_cpup(val++) * 1000;
-+		unsigned long freq = (unsigned long)be32_to_cpup(val++) * 1000;
- 		unsigned long volt = be32_to_cpup(val++);
- 		struct dev_pm_opp_data data = {
- 			.freq = freq,
--- 
-2.55.0
+Especially as this patch is in 2 series, so you don't know where it will land.
 
+> Defer the LRU insertion to the callers of __swap_cache_alloc_folio():
+> each of them adds the folio right after the allocation, so there is no
+> functional change intended.
+> 
+> Suggested-by: Kairui Song <kasong@tencent.com>
+> Signed-off-by: Alexandre Ghiti <alex@ghiti.fr>
+
+
+The code change itself looks good to me, so once the commit message is fixed:
+Acked-by: Usama Arif <usama.arif@linux.dev>
