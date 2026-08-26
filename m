@@ -1,105 +1,121 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4997B3F8243;
-	Wed, 26 Aug 2026 12:09:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A9933F7872
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 12:14:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787746192; cv=none; b=McGoRfpnebxmJAZB8hsihR4Ns62V4EUheA4eNNoBQn9KTiEd6LFtrcYVy/coxR7X+GXSA5VpQnK7Cj8MnxhKtIsgvIQ2ejN8bCHShmm0ESJ54sbZaC09y81agrDCGmlVadQgMTWy2lBkJSPrUzwthcq0Tvg5mUHp/kSCip82y6k=
+	t=1787746445; cv=none; b=K3kfQxcF2d9tWgzoJeHZHoQ4ywRROyrOEaODWm945OBcBR2OtIVsHk607ZVMLW5TDWO14jA8PnwpmSZD7BXGOgPuDKnPXIlsN753p3mm4vQnB3E59TL26e1wbvj1wMrs4b7ww5mzcRR+6ecfZPE3C3zBCtj+c5Sl4hqJvsReGSM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787746192; c=relaxed/simple;
-	bh=tVESxrkysASDZtz8u5tIVzEav1NZ7JHJDUehOyzURc0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VSI24187p4/2BM8lI+DEEBrWXdUc5MLEktUJV6krxWNO33A60LRuPHORxoSSj0x3HhSEFdyv0wfD8NpMzW/wrPj6fQgg0ua8vMLBMYjLCuqPBunAF3HYgtNM1tQ0Js8IeNAT+lRlkAibGpVIobbaKfW/qVBo4ZRVV1rRUvHNx1k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=WezzRXDS; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1787746445; c=relaxed/simple;
+	bh=Ij08AF/uUNQD0SjuYvWUHV6gWDNDc1VQNaoScfXxwmk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SJh6rbxgAqjUtkmMtaK8EvssFDIhfV38kE5uGWIqrppt763H43nZ/hEefEA1gZ4Ej0vM6dktlubjdt8xgubVDkdX024DFYTRfiesSpfhqRXFjAqdafCj+ZF80HjHubg2Iii8cB30vb0Z4ssm0ssBVAG3PZwWkeaVOwugNyo3qAU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=breiti.cc; spf=pass smtp.mailfrom=breiti.cc; dkim=temperror (0-bit key) header.d=breiti.cc header.i=@breiti.cc header.b=CTUAWBSY; arc=none smtp.client-ip=209.85.218.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=breiti.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=breiti.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="WezzRXDS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=OR27lAMvT0wF9I/E939+cWjWXgTuo5inFEVMKcGCh9s=;
-	b=WezzRXDSeSh2wfN+BaAktVBWAV8ueUi3u4Yx6PxD0fKKEV1GC8MOisuie2BxR4
-	onplNV34E0svtUPrFZprnyJZA5MozC3aA6JjyEVwOGIoPChP7/LGQVHXl6oRzdU9
-	6GlUdMiittci76FFpjSY0EkFn7XHdm7LqTE4WpTnyS5Mk=
-Received: from [IPV6:2409:8900:1ef9:dee:fd7d:3170:e603:8258] (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wCnD5Ri145qRTSASA--.60674S2;
-	Wed, 26 Aug 2026 20:09:08 +0800 (CST)
-Message-ID: <28cce6b3-60ea-4ff5-b5bd-ff5c11516b08@163.com>
-Date: Wed, 26 Aug 2026 20:09:03 +0800
+	dkim=temperror (0-bit key) header.d=breiti.cc header.i=@breiti.cc header.b="CTUAWBSY"
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c252c7270faso58832066b.3
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 05:14:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=breiti.cc; s=google; t=1787746442; x=1788351242; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=e31qJYeAbxR584eu4jjxUYEy/aZxuhgj5H27N/W3IXI=;
+        b=CTUAWBSYUO7GJavjId7HEQ/H9lLHfGbqS20HOFNSmHpmHNT4jQtOl0rEzE9yqHpqPF
+         ikejV/8B/n2dC/ZD0+6re9c3/8LiTCOZAzaWYahMylIoxRnOvNPIB3nWEFklLC4pE15/
+         Qck542K0HmNAnG52SeThuvWr2BHedyQBVct58=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787746442; x=1788351242;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=e31qJYeAbxR584eu4jjxUYEy/aZxuhgj5H27N/W3IXI=;
+        b=dYY3+8M/jqEMluUi6iqliaXnImL19SJxiXim4UgsoSVL0IF7RoaJUE7wnXdaW1+xMc
+         4GWAjMaOuJWjkZgczef+LWnK1grfShymVu+ywMuPA3MDg/xq8Tm/w9WalTUdBu7AVZhX
+         fQQaHTkQUSELlgExy0wyOguyCbeU84BeU49+/2oh6JJmboGcHBmT//gnC63dq9GcAiUK
+         STeewyNYHfAckz5vqpRHATrcoVPyKd5810EHo7M1ql3aXX4RKgv3FdgVxEVJ3/Joqd3h
+         Bwi+gxCzTmol4o+OiWloCjOVQCDQVQV8tS3phbbZPK3uv93i9NzXpjf06I/oPef84ZcO
+         h3Hw==
+X-Forwarded-Encrypted: i=1; AHgh+RpE+W4nvcakQE8axjk/L/ugkryS67h37gfpPZOblO6goAjrKSPv43KD6g7m2e2oBFadBQ6/TOgeW6qm/ww=@vger.kernel.org
+X-Gm-Message-State: AFuF++kbYBxYVIktclUwjNUj6bZJlXT3+xuitKRnk9nuy8N/HV0jUlMC
+	SJZ0zEVwuYduzY6/ZUL+Ucmz1dzvDPzpVZvkkPO/OFthHQC8U6hYhnM1kLhiz3HixATMIeBC3nr
+	DyniM7xVvDac=
+X-Gm-Gg: AR+sD11ExdrE006OkN2PLELC4hlVdhg+01dpFQ67tdsyoC9J+lDtoYUv82s7RVVjWQJ
+	J3k4eM2jEfRpg+2UgYGRcGEFQ/xAOhu7ttVzLPrWD9nzHEs1kSns0Lq5vYCbi/6bCAYh+7b6tPl
+	sK9PnPGz2wwJsg2no7aZitC4EMN3m0JeftvruyDyPLKG7qNCC2mfec2YF6Jh1r9iMxzYmuaSp2t
+	jX3+Dxzc1iloxuSLqdo/FLhL9oachE7XaVg/isTs9CwvPJjhe3j4UX19f0XGLLRmzt20JyzaV9D
+	qjf6orP8Ci/eteau6QEJT/3hAM6UljQpzRckRjcHn1bVA1UsP28AXYuwqMa0HX5Jaki+DDnkGRl
+	3ZvzhcnrS9HjJqWsQeV8lrPG0OCpaU7K1Ixue+p+LA/9pndVpOiUbCXRv1O5SVkvoNWjoecG4ez
+	H7itVZ+PGRCc5V2XGsaHermTQSP8i2MoVxGu+eFr4yMVl5FZHVH746apxcD95vuSUeJqBSXntKz
+	/sH
+X-Received: by 2002:a17:907:998d:b0:c1a:5d49:f99d with SMTP id a640c23a62f3a-c250baffb5bmr889064566b.7.1787746441892;
+        Wed, 26 Aug 2026 05:14:01 -0700 (PDT)
+Received: from framework ([2.57.48.190])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25185b4d97sm319801666b.34.2026.08.26.05.13.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 05:14:00 -0700 (PDT)
+From: Markus Breitenberger <bre@breiti.cc>
+To: srini@kernel.org
+Cc: alexander.sverdlin@siemens.com,
+	gregkh@linuxfoundation.org,
+	linux-kernel@vger.kernel.org,
+	Markus Breitenberger <bre@keba.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] eeprom: at25: fix read_poll_timeout argument order
+Date: Wed, 26 Aug 2026 14:13:34 +0200
+Message-ID: <20260826121334.122881-1-bre@breiti.cc>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ntfs: fix race between fallocate and mmap reads
-To: Hongling Zeng <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
- hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
- zhongling0719@126.com, stable@vger.kernel.org
-References: <20260826054204.1364589-1-zenghongling@kylinos.cn>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <20260826054204.1364589-1-zenghongling@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wCnD5Ri145qRTSASA--.60674S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7CF15Wr17uF1kAw4DWrykZrb_yoW8ZF1xpr
-	ZIgF1rK34fXryjqF1kKw48uF1rWw4kW3y5Wr4Fq3WxuFn3tFn7Kw4jkrn5WFyxKF98Xr45
-	Xr12qrZrua42vaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UTCJQUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6gRNGGqO12TEVgAA3+
 
+From: Markus Breitenberger <bre@keba.com>
 
+Commit 8ad6249c51d0 ("eeprom: at25: convert to spi-mem API") passes
+the arguments to read_poll_timeout() in the wrong order. It supplies false
+as sleep_us, USEC_PER_MSEC as timeout_us, and USEC_PER_MSEC * EE_TIMEOUT
+as sleep_before_read.
 
-在 2026/8/26 13:42, Hongling Zeng 写道:
-> The fallocate implementation only takes invalidate_lock for punch hole,
-> collapse range, and insert range operations. For standard allocation modes
-> (mode == 0, FALLOC_FL_KEEP_SIZE), the lock is not held.
-> 
-> During ntfs_attr_fallocate(), new clusters are mapped to the runlist via
-> ntfs_attr_map_cluster() before being zeroed by ntfs_dio_zero_range(). This
-> creates a window where concurrent mmap page faults can read uninitialized
-> disk data.
-> 
-> Since mmap uses filemap_fault() which takes invalidate_lock in shared mode,
-> it can fault in pages during this window and expose old disk contents to
-> userspace. This is an information leak and data integrity issue.
-> 
-> Fix by taking invalidate_lock for all fallocate operations, not just for
-> punch/collapse/insert modes. This prevents concurrent page faults from
-> accessing unzeroed clusters during the allocation window.
-> 
-> Fixes: 495e90fa3348 ("ntfs: update attrib operations")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
-> ---
->   fs/ntfs/file.c | 8 +++-----
->   1 file changed, 3 insertions(+), 5 deletions(-)
-> 
-> diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
-> index 88747217ba61..6958a1469fb0 100644
-> --- a/fs/ntfs/file.c
-> +++ b/fs/ntfs/file.c
-> @@ -1153,11 +1153,9 @@ static long ntfs_fallocate(struct file *file, int mode, loff_t offset, loff_t le
->   	}
->   
->   	inode_dio_wait(vi);
-> -	if (mode & (FALLOC_FL_PUNCH_HOLE | FALLOC_FL_COLLAPSE_RANGE |
-> -		    FALLOC_FL_INSERT_RANGE)) {
-> -		filemap_invalidate_lock(vi->i_mapping);
-> -		map_locked = true;
-> -	}
-> +	/* Take invalidate_lock for all fallocate operations to prevent races */
-> +	filemap_invalidate_lock(vi->i_mapping);
-> +	map_locked = true;
->   
->   	switch (mode & FALLOC_FL_MODE_MASK) {
->   	case FALLOC_FL_ALLOCATE_RANGE:
+Consequently, at25_wait_ready() busy-polls with a timeout of only 1 ms
+instead of sleeping between polls and timing out after 25 ms. EEPROMs which
+keep the write-in-progress bit set for longer than 1 ms are reported as
+timed out, although the page may still be programmed after the driver
+returns. A multi-page write is then aborted after the first page, leaving a
+partial write.
 
-I verified the race window exists and the fix looks correct.
+This was reproduced with a 25LC080: a 32-byte write spanning two 16-byte
+pages returned -ETIMEDOUT after programming only the first page.
 
-Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+Pass the polling interval, timeout, and sleep_before_read argument in their
+proper positions.
+
+Fixes: 8ad6249c51d0 ("eeprom: at25: convert to spi-mem API")
+Cc: stable@vger.kernel.org
+Signed-off-by: Markus Breitenberger <bre@keba.com>
+---
+ drivers/nvmem/at25.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/nvmem/at25.c b/drivers/nvmem/at25.c
+index bc2cfb75d9bb4..9e71c6a859471 100644
+--- a/drivers/nvmem/at25.c
++++ b/drivers/nvmem/at25.c
+@@ -224,8 +224,8 @@ static int at25_wait_ready(struct at25_data *at25)
+ 					   SPI_MEM_OP_DATA_IN(1, bounce, 1));
+ 
+ 	read_poll_timeout(spi_mem_exec_op, status,
+-			  status || !(bounce[0] & AT25_SR_nRDY), false,
+-			  USEC_PER_MSEC, USEC_PER_MSEC * EE_TIMEOUT,
++			  status || !(bounce[0] & AT25_SR_nRDY),
++			  USEC_PER_MSEC, USEC_PER_MSEC * EE_TIMEOUT, false,
+ 			  at25->spimem, &op);
+ 	if (status < 0)
+ 		return status;
+-- 
+2.47.3
 
