@@ -1,220 +1,245 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012026.outbound.protection.outlook.com [52.101.53.26])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C4E6282F17;
-	Wed, 26 Aug 2026 21:53:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.26
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787781181; cv=fail; b=EjtRslzoyBTl4sWxzP+95xe9Bw3/hrUV901y17HBq3HJAkDN8AyhvZQKQxGPNQjlYrKYl9sUi5heEEaMUSbJOtAYfjLAlXrMRStgtULcGA3/I9NCFaYQ+QZ6BgLfrm4fkoB9cHROnTCoEecGJgybR8DemkWizOCNUDDzumgS5uE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787781181; c=relaxed/simple;
-	bh=XXM4WdDOXwr0ze1bR9U/uH5F4u6AlTLN13q8EL8lQHo=;
-	h=Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
-	 In-Reply-To:MIME-Version; b=VUxhofbMPhM+0+JfiYrm3kw4XubzfDEVfmgSsSHKUmEQAD15hDhx5r3rkA1orMr1OMzhShM56i0O2vsPD7barHoAMSVGPtpCR2KsR2ncM/LT61fzkCCxrwlKnWBFd4cq+SBqRkfeuXWXlw9ZZ1z3896dU5ppE8JO2NavKKPyD9U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=K9R8BdaV; arc=fail smtp.client-ip=52.101.53.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38F7A47AF63
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:53:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.199
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787781183; cv=none; b=kFhO9DcEyMgWtNfvvVR+QaXf5CyHvh2+r/LYYRsZHkkxQ56RIK2ASIpHeoQmykdMi69Nhz3Zs+yy2gTIxnyg94Y3/GgP/KrEInirV0N18oQxpnpe7sPflOYgf5obj0VFnMuDQ8tdPbYl335Atdb/vJI8au2tVtX+Io4PQKdkX3o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787781183; c=relaxed/simple;
+	bh=feEJpgtivJVJP7w5kGre4uQSFBFA3H1qatw9lf3fB78=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=R53xp4lylgoJmN9mV6TqBLF5rgff/645ue8Cc5clGCOTd8QXvvatDFamTMae4wIyuOPBgLKj817K9SrjNelUp7W/DjF82hd/ECaUwt3BpuoKZ381PPsVzMFxE2WhJmF5GAVJ5hap8robX97F+hdSQtSsh1RD2XLO8adxHhaiUd8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NG29VLwr; arc=none smtp.client-ip=209.85.210.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="K9R8BdaV"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PZn3K3yDUX6icViZfrQZtGsjBBQgfedp66FIe4xyQpDZ8sMacUhCCvfFq6fcgcwqyHTOmOHuCYEbAwqdK27eZoAxQuf2kuioGHTVGsarDUw8QVGY4IAf+pD3lfxd39UwWgitE+nFjrwLgRSE9nITWeE9Zy7OOV6IzHuGdUZaaV8V3THs+STo+qGkJDpVA71SuADz36Rw83pkHLLZQ9C6fRxZD8S8nlAF/fl/uwuYh2BWKmcnUKyLSl08qaTrrh19YyOPx9kT/VUAhLOMnJb84kKNMtQZ0z0KyfrzhLxryNRxXnj3LMBKMGM16/6YblWhzL1w9+1tI1yVsrH2KHcRxg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4dL9TGz9RNXdnSlrzLw++iAOljeErhQDaXkFmcoUCkI=;
- b=NwHYrO70FkvV4D0NsOzwhjGHJmF+tBNnagYEs6Eo4wnbafSykSwNvFH4nBkPHWCfsplsxcjxiuUdaw/zMv6tjJrqeG5WHqt8qfuhNr889TRp+6Kl2z2scyEw62ODkFRQ9CVW1LuUFpFzzvB0GfjLxZhU5f/IXIzKfYjLzMBOft6VUXceSOLP10Bj/xfznDq0BqLexqnuOvupr84uozV8dOjeTqYpsK7VrZa7REvVWSDyYeWis+475KsYB5VY1z8eEtAUCmdQ6A0xX+iPFuK8rSwq7B/PBkNiZLz15xxU5ucLjBiDQPdhmzX0POauy6lghzCKXyXImYAH8NUE0NEIDw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4dL9TGz9RNXdnSlrzLw++iAOljeErhQDaXkFmcoUCkI=;
- b=K9R8BdaVE3EIpxzjgJ3iE/T2EdLqPfNnOCGgglFsNUC+IyPQpEV3+kAJLUDuPlbkVOsmlYRbVYoXo2jlEJP9VjFokiC9kfx50MASlu2GfBwg1dcI4MdolBDLgo0jX2Uautn/ezt5znqCTs2jTcciwLBF3hwGIxWf2ESwIGsv98sM24ZphPHfMVXUFWJ1p1ZDant9Y/ZR8DvARmgfYyYVE5czLIIBLlBMYxWbjoXG5fymPxkrmjhleXK/yMKdVOhqtfMaXesKkp0Eb8dorQV/YqcigA5K+dvTCjLCzGw3ACfsjQlRmIEhCvQPA1WcUnr+r+QtBY5fORf3rKAGNalp3A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by DS7PR12MB5911.namprd12.prod.outlook.com (2603:10b6:8:7c::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.7; Wed, 26 Aug
- 2026 21:52:55 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0360.006; Wed, 26 Aug 2026
- 21:52:55 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 26 Aug 2026 17:52:54 -0400
-Message-Id: <DKZ7J9HNUDR6.BP9KG5Q7HYMJ@nvidia.com>
-Subject: Re: [PATCH] mm/slab: reject unsupported kmalloc sizes
-Cc: "Andrew Morton" <akpm@linux-foundation.org>, "Hao Li"
- <hao.li@linux.dev>, "Christoph Lameter" <cl@gentwo.org>, "David Rientjes"
- <rientjes@google.com>, "Roman Gushchin" <roman.gushchin@linux.dev>, "Alan
- Stern" <stern@rowland.harvard.edu>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, <linux-mm@kvack.org>,
- <linux-kernel@vger.kernel.org>, <linux-usb@vger.kernel.org>,
- <syzbot+805630f1453e490427fa@syzkaller.appspotmail.com>,
- <stable@vger.kernel.org>
-To: "Harry Yoo" <harry@kernel.org>, "Vlastimil Babka (SUSE)"
- <vbabka@kernel.org>
-From: "Zi Yan" <ziy@nvidia.com>
-X-Mailer: aerc 0.22.0
-References: <20260817-limit_kmalloc_size-v1-1-5bef487701cc@nvidia.com>
- <82f138f5-11d4-4839-94a3-c226fd982715@kernel.org>
- <ao9dPUpHxP5uOOcw@MacBook-Air.tail10959e.ts.net>
-In-Reply-To: <ao9dPUpHxP5uOOcw@MacBook-Air.tail10959e.ts.net>
-X-ClientProxiedBy: MN0PR05CA0021.namprd05.prod.outlook.com
- (2603:10b6:208:52c::16) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NG29VLwr"
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-84e048a801dso2096654b3a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:53:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787781181; x=1788385981; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=zLQgP73u/ANeEtWX1eOrwdDr4xmZAhbySiv3X7r8Dew=;
+        b=NG29VLwrBTgImWDtgsA8j7a5mjDudN65N6WWavFYRlG9HQPw1MO9ofSFzeawNZsNYV
+         UejiAxZQlpAyuoQ5LY5Wu6XbAD78cgX0/3FYN9qzxQp3Wj55PE8LdRSKb2ZU6cVSz1kB
+         0/d4E6uCiFBxNL2vhU/J+4p83JUTaQ1WDF+21rKfON5ei24QwuudcOhNyVNRweyzyu7u
+         hyyOZ/jUG0kZb5AOGvfVTeUfdomuPlKqdf5zrLY1SPoTyulWxceV97Tx8kqRb/PE/ZGl
+         pzU8IuSqtEFmilNY6+mBCjJtbd0NLsKkomd+No3P5uHYXNqfweVRPA+N3Id/STkEHYW8
+         WSbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787781181; x=1788385981;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zLQgP73u/ANeEtWX1eOrwdDr4xmZAhbySiv3X7r8Dew=;
+        b=Kw306522ZnjLq+f2sNFu04g0jTvGrFrvKylcWKPJ4gDaPy7WayGtEoA9TmFm+IMvkS
+         nzxVOt1aWCV1pcSZjYhVl0TEp25WAu89o9rl6c7QqyHWeebVLI7XdcRxtZhtu7dRRdMc
+         KiYsaL4649FOKPVtvZJ7W60/NhyB+mZtXDfv9bdg3mn7+JgMI09lUsgjHpMvNQ5zwpjt
+         6ZRSAfmBvqj/VBYgBVkh8T/K6gD0Fg3PnuDctR+HYGJTI+YVG7V8qD7TtDBMy5UpXDNV
+         tUqlWsB17gF1s6YvPZvmUIvlqa4SkAvG8guoC5V7lhMl/k+TAWZ8UT6EuDpnWiVARO9/
+         6tSA==
+X-Forwarded-Encrypted: i=1; AHgh+Rq8LSyi97VaXNo9GKB6PgApoUCKeSXxX6xfJ4SJuUnzjgCzYm4xbIP3mCdbe1AZeAKgioc9uQs4UsZqtw8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nGJVObQ7mAP1voRfLRYGIp2eUWq+cJcv+KG+9ljkkvSnr33jkU
+	zQzIElUkoxMHgz8F02ztTu8/BAcdR8/PfIe/bFSYz3Q3vHA+54rfSKYvLUcRcsMEHC9W9GSW2o/
+	GTjf11A==
+X-Received: from pfaq15.prod.google.com ([2002:a05:6a00:a88f:b0:853:6b02:51a1])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:3496:b0:848:77b3:579a
+ with SMTP id d2e1a72fcca58-853755c49b3mr19127323b3a.17.1787781181194; Wed, 26
+ Aug 2026 14:53:01 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Wed, 26 Aug 2026 14:52:57 -0700
+In-Reply-To: <20260826215258.937210-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DS7PR12MB5911:EE_
-X-MS-Office365-Filtering-Correlation-Id: dc1c2555-c5cf-41f1-dcda-08df03bc628c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|6133799003|10067099003|11063799006|4143699003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	5EqWLt4tLfvopH9+qJ9R7GLRBEm78NfDyGThcH0E5ZhiJA/mD2tvTJTrIBrVIl5w1R+QUBlCYhpa5StnC5POtzbp2QwS6NzzRc33jrc/Qg+/uP0fJW9zd3gRMpkjdW2KyKEQfaPTGtaxl1ONhxv3eglr/YPZom7zwLJ3OqoYoO4Eu2GPZEZD9PGQt6/hrn+H2Kg1jqttG6Ek82PfS2GBioEm68lY2CUnjq7hP+5+actzExXzQaBn4SxHNGZvrvB6kEPazzPHj/wZOP5o57QzNVemdfvvUW7Y3giibvsbjNzJi/T6ZdpahvTKtSLVTCp5OzqtOboU/UB+plgZyGFYfyHlIaF/L1vD0QkFOxa8C8F4sDJUbCpW/6Pw6Ikoa9f3phGUgpQqC3RN8UScfWhuTm+V5tfNQRIxkWN/TgsnEivdzU+sxM8zLNvcxannSe3x+c4/e8ClM32GQIXGUWRDInG0uALABunZtUbEQ6Qy03SjDqRXqglEl8Kacksvs1j6z2zoM5WIOA0IYyrm3NbjlwDZ5fJ595UpjIyJD0o4sgNuCjDt4llGgFtRQprXzipD31kDtVxLRwCeDYyjFL7FZQT4lyJtOb09oSjhTc+Wcyp0XI8lZXMY1BaDBC6WhF6tQaAVD8wW/43CmrWGn0+Fe6KnkG/zXG4gE+tV+k1UbeA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(6133799003)(10067099003)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dHMxM0UzQnNYRW9EVE5mSmdTd0FVY2YrWVdTZFBhbWFPQUYrUWtMS1dEOFg0?=
- =?utf-8?B?MnNGa0toOGJQRzBHZ2VZZGt5UFFMUUphUGc5eXlCNlJORGdseUphK1pwL3ha?=
- =?utf-8?B?dXh1MTZnZWpxUFoyTDkwRWZmUUpScmRsdVV4am03TXhIM3VXM1ZEck9tQlla?=
- =?utf-8?B?bzlRcUhZbXduSUwyZzlEaEJraFlWdklRelhnRmN4OUI5VjlBQXZzOFljTkZL?=
- =?utf-8?B?Nkh3emhRSWx3MXRFUG40M2Z3cm1uaVBYTGd1QWtYVTZtakxxdUwwOUhPZEF6?=
- =?utf-8?B?TWQwd0VJR1B5Z25TSFZmR3R4VHBZY3lWRjR2YlltZXFYTWFXRmFyVFQ0YXpj?=
- =?utf-8?B?czZDOE16QVlzUUNqdlNXQkpEUlQ4VXRlUk8vcExpL3dwVjU4b0pkSE9Gb3kx?=
- =?utf-8?B?ZUJKZmVValdlRHY1ZHNTS0IvaitwdkVHc0g1c3BOK2RzNEdBN3J4eEdKUld3?=
- =?utf-8?B?bVQ0WXVDZWJUNUZOeVBveWJLTDFnbVVEdlR2Uy9qK2dsdWNpTzRraUxTaDA2?=
- =?utf-8?B?ZTVLSlNGOUllYk1PSXI4NHR3enFWaitFaVdUV2lIOEhteFl6VmI5bVVpNFpI?=
- =?utf-8?B?MFJ5UUw2Q2Vaa3c5TnJIaktsMWN2VVdhVFZNV1RpKzZycHV3cmFBckNlNmRa?=
- =?utf-8?B?b3dKM1p1VmlWTDhWdE5IaHorcFlOUU1Cd0VwZTdxaCsrdHBWbjVIK041UHdL?=
- =?utf-8?B?MVRVanJKdjVuTnVlaHQ5cTBWZlV2TWpIbVZJUkYxdWV2VmtXaGUwdTdGSE1l?=
- =?utf-8?B?MVYxVTRaV1p2TjYxZmg0b0dzM2pNdldIb1o4WTJWTFBQZmhsMTVNWkZhWnZ6?=
- =?utf-8?B?WDlqdVBrWThXb1c3UmI0NFNsVmwyM09JVkNVOHBhNnR2dDR6T1g1d2FHbDhX?=
- =?utf-8?B?eDhXdll5bEhaQkZ6R3E4clJERWlkSkhUVHpvQUdUeklWYzQxZy9PS1lucnRW?=
- =?utf-8?B?OVVhb3Q3M3hZWEFpcWROb2tDQlIrek9QT1lPaHh0OEo3NjlNa3ZFb2pzakU0?=
- =?utf-8?B?dUdvUy9RcytPWHNTRjF1a2VvSVFOenlRMGlrNGpadk9kVURGS3dNSDFjUStW?=
- =?utf-8?B?dDdwSnhrNThjbE1jMWRONm5KcDJQZlhqdVZSUDFlRGhpb3c4YURuUng2OWZG?=
- =?utf-8?B?VWxjYWtNMWdlblJWR1V0bXZ5enJXdDlqcVNOZ0VxeC9TWWdUYjRwUHp2d000?=
- =?utf-8?B?ZFRtMUE1ODJ6cjIzRXdFZzA2M1ZFYUI0R1dtNFZuSzNkWTVmQzduZlVsalJl?=
- =?utf-8?B?b2N3Ym1lM08vMTh2citRTng4aGovaHljVFRnY3BHWklHRE0vM0F1VC93b2NL?=
- =?utf-8?B?cDArRlA3M1dMWWVSb1VuMlhIZVFtSWlaYndKaUhrdjQzamFuYzU0MVEzYWlG?=
- =?utf-8?B?Z3gyOHgwZlNCaGNCbXM0aXdnTytFeW5MS0hXVndvcWJpVDNEelB2N2RsaVNh?=
- =?utf-8?B?WDBQVlhkUWp6MzBvNmRsZUg2WVZzNjErc0lySnVDZ01qQjErTWZzVFFpZUR5?=
- =?utf-8?B?aElxaE9xeE1VK3Q5dDUzYTVJTTNsYnM1Q2Z5ZmlVREdUaGZUWlB5aVBkODdv?=
- =?utf-8?B?azMzOGttUjRZOVFnK2l2dDhUNVhBWVluY1haMmxPQ2dRRVRZcithZG5tVjV5?=
- =?utf-8?B?amtydngxQnpXbS9zbnBVdGhZeWhMNmJMVFphWGJueWcxQzNQUi93WkN0Q1ht?=
- =?utf-8?B?VUloQVg2Q3ZSUzVpKzIzTjBxYTcwaVV5Z2pvZUpjLzhNOVp4bmNZZ2ptM3E4?=
- =?utf-8?B?NFNJS3puMzFxd2tLUHl1MXVRMFN1R3ZkRmJxUDJBd3RhZ1I1T2RMYmJEL1g3?=
- =?utf-8?B?QTdmZ0srOTJyN1I3eW0rb3RVUG9CL1dIV3pvelJFRDNuUzZVNUlLVys5S1pJ?=
- =?utf-8?B?SWN2N3hkSy9qZm55RXYzaDlGU012Z0RjUjNXc2ZBQmxXY0NqdjRVc2t5akF1?=
- =?utf-8?B?ZDNGYTJWV1F6ZStPcHpiN3Y4NWtCSHRYUnFoNFY1c1JjUG03Z1l4SFMybWFj?=
- =?utf-8?B?dWQ2ZmFFS0Y2ME1sMGYxMzl0YUQrbUNMNjFpRXAyaTJZbk1QZlArSVZTdXl6?=
- =?utf-8?B?Z2p4ZnJBSUc0M0VtS1Q1QmFkaFRicDJkdURTelJwV2NPM2Y4S29DS1V5ckdq?=
- =?utf-8?B?ZEZUNmRtQ09KRC85ZFlFLzRBQmdJWHJNWG83c09QblMrWlhDZ01PSHhnMFpO?=
- =?utf-8?B?ckYvaGMxcXNXdHhETFpLSTdyTDJMV2lCaVRCc0Q4bGttOXpvL3NUdGxaVlNo?=
- =?utf-8?B?eGF6ZHQ4K3VTZW9KSjZOb3ZIOGZQeW00b2NiZlhReFgzSExQSE1zcHNSOENr?=
- =?utf-8?Q?hI+LKtgj2R37t+D0nt?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dc1c2555-c5cf-41f1-dcda-08df03bc628c
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 21:52:55.4424
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 626j+LZxo+RESBI9g/e+5uq3rG9wOuJi3e5Lr76xMIjGL0LZMfzjXAtJ+vCmNpkO
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5911
+Mime-Version: 1.0
+References: <20260826215258.937210-1-seanjc@google.com>
+X-Mailer: git-send-email 2.55.0.887.g758fc8c411-goog
+Message-ID: <20260826215258.937210-2-seanjc@google.com>
+Subject: [PATCH v2 1/2] KVM: VMX: Explicitly track TDX VMs' root level instead
+ of guessing it from CPUID
+From: Sean Christopherson <seanjc@google.com>
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, Xiaoyao Li <xiaoyao.li@intel.com>, 
+	Kai Huang <kai.huang@intel.com>, Yan Zhao <yan.y.zhao@intel.com>, 
+	Binbin Wu <binbin.wu@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed Aug 26, 2026 at 5:47 PM EDT, Harry Yoo wrote:
-> On Wed, Aug 26, 2026 at 11:28:12AM +0000, Vlastimil Babka (SUSE) wrote:
->> On 8/17/26 22:40, Zi Yan wrote:
->> > kmalloc is used to allocate physically contiguous memory for kernel
->> > allocations. For requests larger than KMALLOC_MAX_CACHE_SIZE, kmalloc =
-uses
->> > the page allocator and can only support up to KMALLOC_MAX_SIZE. For re=
-quest
->> > sizes bigger than KMALLOC_MAX_SIZE, the page allocator can emit a WARN
->> > because kmalloc allocates an order greater than MAX_PAGE_ORDER. System=
-s
->> > with panic_on_warn=3D1 crash because of this WARN. Fix it by rejecting=
- any
->> > kmalloc size bigger than KMALLOC_MAX_SIZE.
->> >=20
->> > Fixes: aadb4bc4a1f9 ("SLUB: direct pass through of page size or higher=
- kmalloc requests")
->> > Reported-by: syzbot+805630f1453e490427fa@syzkaller.appspotmail.com
->> > Closes: https://lore.kernel.org/all/6a820ebc.9ebadd4d.20b15e.001b.GAE@=
-google.com/
->> > Tested-by: syzbot+805630f1453e490427fa@syzkaller.appspotmail.com
->> > Signed-off-by: Zi Yan <ziy@nvidia.com>
->> > Cc: stable@vger.kernel.org
->> > ---
->> > It fixes a page allocator warning (order > MAX_PAGE_ORDER) when gadget=
-fs
->> > requests excessively large memory from kmalloc. Instead of adding
->> > __GFP_NOWARN to suppress the warning, as was done for usbfs[1], change
->> > kmalloc to return NULL without a warning for this specific issue.
->> >=20
->> > [1] commit 4f2629ea67e72 ("USB: usbfs: Don't WARN about excessively la=
-rge memory allocations")
->>=20
->> So I checked and for kvmalloc() we have in __kvmalloc_node_noprof()
->>=20
->>         /* Don't even allow crazy sizes */
->>         if (unlikely(size > INT_MAX)) {
->>                 WARN_ON_ONCE(!(flags & __GFP_NOWARN));
->>                 return NULL;
->>         }
->>=20
->> This comes from Linus in commit 7661809d493b4. I'd do the same thing her=
-e
->> then.
->
-> But the purpose of this patch is to avoid the warning in the page
-> allocator. Should we fix this in the caller (gadgetfs) then?=20
+Explicitly track the root level for TDX VMs instead of trying to infer the
+depth of the paging tree based on an individual vCPU's CPUID information.
+Applying KVM's existing logic to select the root level to TDX is flawed as
+nothing *requires* userspace to fill in the correct guest.MAXPHYADDR for a
+vCPU's CPUID.  Guessing at the correct root level is also ridiculous given
+that userspace has already told KVM the root level during TD initialization.
 
-It is fixed by: https://lore.kernel.org/all/20260820223719.A4A3C1F000E9@smt=
-p.kernel.org/
+Relying on userspace to set the expected/correct CPUID lets a misbehaving
+userspace trip the KVM_BUG_ON() in tdx_load_mmu_pgd() by configuring guest
+CPUID to use an "incorrect" guest.MAXPHYADDR.
 
-Please disregard this patch, but we can keep the discussion going.
+Don't use kvm_gfn_direct_bits() to infer the mirror root level, as the
+connection between TDX's one and only "direct" bit and the predetermined
+root level is a TDX implementation detail.  I.e. avoid baking in the
+assumption that there is exactly one "direct bits", that the one bit is a
+pivot between normal and mirror roots, and that the pivot bit is the most
+significant bit of the effective GPA space.  For the same reason, set the
+root level and direct bits in TDX code, i.e. don't provide a helper in the
+MMU, because from the MMU's perspective, they are two separate concepts.
 
+Keep gfn_direct_bits even though it can be trivially derived from
+mirror_root_level as saving a whole eight bytes per VM is meaningless,
+keeping the TDX details buried in TDX would require a kvm_x86_ops hook, and
+the value is queried fairly often and in hot paths.
 
->
->> Thus there would be a useful warning for e.g. development mistakes
->> resulting in the size to be unexpectedly high.
->>=20
->> Callers passing size that comes from userspace or similar untrusted sour=
-ce
->> can either pass __GFP_NOWARN or sanitize the size to what they expect to=
- be
->> sane (which is context dependent and I assume actually way lower than
->> kmalloc limits in practice). Note that passing even sizes within but clo=
-se
->> to/at the limit, trusting blindly some external source, can succeed the
->> allocations but effectively DoS the system with heavy reclaim/compaction=
-. So
->> caller sanitization should still be preferred IMHO. Some of the recent
->> arguments from Linus [1] would apply to this too, I think.
->>=20
->> [1]
->> https://lore.kernel.org/all/CAHk-=3DwiSmgwwLKCqJwGS-dVHnSLU8W+7q1UQq-G9=
-=3DTBGGZbuhQ@mail.gmail.com/
+And for the moment, keep the S-bit sanity check in tdx_load_mmu_pgd(), even
+though it really only needs to ensure the incoming level matches the
+preconfigured mirror root level.  Because KVM manually configures the
+S-bit location, there's technically a risk that the S-bit location and
+mirror root level could get out of sync.  That can be addressed by more
+programmatically computing the S-bit, but that doesn't need to be done now.
 
+Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>
+Cc: Xiaoyao Li <xiaoyao.li@intel.com>
+Cc: Kai Huang <kai.huang@intel.com>
+Cc: Yan Zhao <yan.y.zhao@intel.com>
+Fixes: 20d913729c11 ("KVM: x86/mmu: Taking guest pa into consideration when calculate tdp level")
+Reviewed-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
+Tested-by: Yan Zhao <yan.y.zhao@intel.com>
+Tested-by: Binbin Wu <binbin.wu@linux.intel.com>
+Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+---
+ arch/x86/include/asm/kvm_host.h |  1 +
+ arch/x86/kvm/cpuid.c            | 14 --------------
+ arch/x86/kvm/cpuid.h            |  1 -
+ arch/x86/kvm/mmu/mmu.c          | 19 +++++++++++--------
+ arch/x86/kvm/vmx/tdx.c          | 14 ++++++++++++--
+ 5 files changed, 24 insertions(+), 25 deletions(-)
 
-
-
---=20
-Best Regards,
-Yan, Zi
+diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
+index 683bb8bf43a9..edd5ad2e5b52 100644
+--- a/arch/x86/include/asm/kvm_host.h
++++ b/arch/x86/include/asm/kvm_host.h
+@@ -1406,6 +1406,7 @@ struct kvm_arch {
+ 	struct kvm_mmu_memory_cache split_desc_cache;
+ 
+ 	gfn_t gfn_direct_bits;
++	int mirror_root_level;
+ 
+ 	/*
+ 	 * Size of the CPU's dirty log buffer, i.e. VMX's PML buffer. A Zero
+diff --git a/arch/x86/kvm/cpuid.c b/arch/x86/kvm/cpuid.c
+index ddb022cb203a..34c609a60eef 100644
+--- a/arch/x86/kvm/cpuid.c
++++ b/arch/x86/kvm/cpuid.c
+@@ -483,20 +483,6 @@ int cpuid_query_maxphyaddr(struct kvm_vcpu *vcpu)
+ 	return 36;
+ }
+ 
+-int cpuid_query_maxguestphyaddr(struct kvm_vcpu *vcpu)
+-{
+-	struct kvm_cpuid_entry2 *best;
+-
+-	best = kvm_find_cpuid_entry(vcpu, 0x80000000);
+-	if (!best || best->eax < 0x80000008)
+-		goto not_found;
+-	best = kvm_find_cpuid_entry(vcpu, 0x80000008);
+-	if (best)
+-		return (best->eax >> 16) & 0xff;
+-not_found:
+-	return 0;
+-}
+-
+ /*
+  * This "raw" version returns the reserved GPA bits without any adjustments for
+  * encryption technologies that usurp bits.  The raw mask should be used if and
+diff --git a/arch/x86/kvm/cpuid.h b/arch/x86/kvm/cpuid.h
+index 8d863f45585d..46bfe8699e67 100644
+--- a/arch/x86/kvm/cpuid.h
++++ b/arch/x86/kvm/cpuid.h
+@@ -68,7 +68,6 @@ void __init kvm_init_xstate_sizes(void);
+ u32 xstate_required_size(u64 xstate_bv, bool compacted);
+ 
+ int cpuid_query_maxphyaddr(struct kvm_vcpu *vcpu);
+-int cpuid_query_maxguestphyaddr(struct kvm_vcpu *vcpu);
+ u64 kvm_vcpu_reserved_gpa_bits_raw(struct kvm_vcpu *vcpu);
+ 
+ static inline int cpuid_maxphyaddr(struct kvm_vcpu *vcpu)
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index 064ecc33b926..611c78be8b41 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -5953,19 +5953,22 @@ void __kvm_mmu_refresh_passthrough_bits(struct kvm_vcpu *vcpu,
+ 
+ static inline int kvm_mmu_get_tdp_level(struct kvm_vcpu *vcpu)
+ {
+-	int maxpa;
+-
+-	if (vcpu->kvm->arch.vm_type == KVM_X86_TDX_VM)
+-		maxpa = cpuid_query_maxguestphyaddr(vcpu);
+-	else
+-		maxpa = cpuid_maxphyaddr(vcpu);
+-
+ 	/* tdp_root_level is architecture forced level, use it if nonzero */
+ 	if (tdp_root_level)
+ 		return tdp_root_level;
+ 
++	/*
++	 * If the VM has mirror roots, then the root level is predefined as the
++	 * mirror root (and by extension the normal root) needs to match the
++	 * root level that was configured for the external page tables that are
++	 * being mirrored by KVM.
++	 */
++	if (kvm_has_mirrored_tdp(vcpu->kvm) &&
++	    !WARN_ON_ONCE(!vcpu->kvm->arch.mirror_root_level))
++		return vcpu->kvm->arch.mirror_root_level;
++
+ 	/* Use 5-level TDP if and only if it's useful/necessary. */
+-	if (max_tdp_level == 5 && maxpa <= 48)
++	if (max_tdp_level == 5 && cpuid_maxphyaddr(vcpu) <= 48)
+ 		return 4;
+ 
+ 	return max_tdp_level;
+diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
+index b272c20586a7..e6b7da616817 100644
+--- a/arch/x86/kvm/vmx/tdx.c
++++ b/arch/x86/kvm/vmx/tdx.c
+@@ -2760,6 +2760,13 @@ DEFINE_CLASS(tdx_vm_state_guard, tdx_vm_state_guard_t,
+ 	     if (!IS_ERR(_T)) tdx_release_vm_state_locks(_T),
+ 	     tdx_acquire_vm_state_locks(kvm), struct kvm *kvm);
+ 
++static __always_inline void tdx_set_mirror_root_level(struct kvm *kvm, int level)
++{
++	BUILD_BUG_ON(level != 4 && level != 5);
++
++	kvm->arch.mirror_root_level = level;
++}
++
+ static int tdx_td_init(struct kvm *kvm, struct kvm_tdx_cmd *cmd)
+ {
+ 	struct kvm_tdx_init_vm __user *user_data = u64_to_user_ptr(cmd->data);
+@@ -2822,10 +2829,13 @@ static int tdx_td_init(struct kvm *kvm, struct kvm_tdx_cmd *cmd)
+ 	kvm_tdx->attributes = td_params->attributes;
+ 	kvm_tdx->xfam = td_params->xfam;
+ 
+-	if (td_params->config_flags & TDX_CONFIG_FLAGS_MAX_GPAW)
++	if (td_params->config_flags & TDX_CONFIG_FLAGS_MAX_GPAW) {
+ 		kvm->arch.gfn_direct_bits = TDX_SHARED_BIT_PWL_5;
+-	else
++		tdx_set_mirror_root_level(kvm, 5);
++	} else {
+ 		kvm->arch.gfn_direct_bits = TDX_SHARED_BIT_PWL_4;
++		tdx_set_mirror_root_level(kvm, 4);
++	}
+ 
+ 	kvm_tdx->state = TD_STATE_INITIALIZED;
+ out:
+-- 
+2.55.0.887.g758fc8c411-goog
 
