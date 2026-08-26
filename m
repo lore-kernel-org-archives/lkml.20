@@ -1,64 +1,64 @@
 Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A27246F4AF
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:36:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6412A471271
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:36:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787762194; cv=none; b=dyX705w9hwVYgC4AEdl2CXkkvxBuXBUe4FuZSxeTgyOs58+SK0YykhmPmuKJDNrfq8pwDQQsGUGbpQq6VjL6UtxkSdxz83ffAFyy6Ko70EGl4OdZLgLab3+Zm/iCe+iVmIZqanvP2z9mvX6w+ljomB1fnNiaJL/wm5rJe5E/8Qo=
+	t=1787762202; cv=none; b=FBCiPAu0Xoz7Y/KhKa4Y7F8fAuFZEDJ+noE1tTNE5Tfe9mSkBVpLbFOkEbRDvEgjv5vv3Zz/lE5BSXfZlnuEfGpNWb7VyN7sxf35jLAn8jpAq7QebxzoKY4+LQATeWqkLusy7mu4dMtXQJoF59NURVjyvaTPmoup0U0preh4E3M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787762194; c=relaxed/simple;
-	bh=uxy81Zi5nQv9TZNXSqJV9XlHTuBekJSMAz2Em3fQbA0=;
+	s=arc-20240116; t=1787762202; c=relaxed/simple;
+	bh=zFWeP+8ct14G8fPYPF7YLoOKazDhFZn/d/KC/UovZy4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VRSX1YaMk0NDWhgI2sQFzjJfZZkkjMq55/QHV2jQX50YYSji+cSJVSUAL/sn8PS/oAlcG6YxGDtsLcGoSO4Jbxa325FecZYh81byNWFe7J4iuT9vuI91Hv3FhfU9WVxXxohStCtNLdUEmoY9JZC21IsjkPOus++rDWTmIVLn3TI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk; spf=none smtp.mailfrom=fireburn.co.uk; dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b=wRGSrY3h; arc=none smtp.client-ip=209.85.128.53
+	 MIME-Version; b=c6cRtstGeVEpVjlH+N5CyM82rpkf6m1uJGN6n9l06X2dPOPkulIusmAI89UDs1g/etSj/Yl7AHfFmA7tzuSIS0gPN7Z25WI0Pn4L/H92r2ODiLZWudYgOtCqcCCBMaZg6CiIEjuAn1Rd9lvFPOjKOV0fULJo0j/0KLYP/Zbngyg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk; spf=none smtp.mailfrom=fireburn.co.uk; dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b=xqMP83/W; arc=none smtp.client-ip=209.85.128.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=fireburn.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="wRGSrY3h"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-495590dde14so8733135e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 09:36:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="xqMP83/W"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49b0d78a801so1157135e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 09:36:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787762179; x=1788366979; darn=vger.kernel.org;
+        d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787762183; x=1788366983; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=suzR7ASY40M8VgE4lgqLDHANl8DdGYCBb6jwppDWyAA=;
-        b=wRGSrY3hcOzYffPlYKDhiVzQpXHElhT1xfAVaiNO14EHtSgbfrMmtJtSwZGNsD8o2G
-         Rvtf9sh2Uy/Q2QsQVyH5dLzGhT29FQbKAjR51Vq+wqR3/APJPPEop+Dhh+6gAPhuX1Pw
-         DmFLjdhARJZe/wg65VZLZvg/KjwAj27pdUZDqxhPgow98YQ2a2uegc3TjpgnPhpJhcoM
-         WlB+IC3BM3F2OCyodlBVO90xUv7ThTL8dYu90AmI7bu4pW7AqSqPCfPCUaVWHsLv369c
-         lK8Rj0quao7WASyQqZfgihJtCuDPKuW++MSicxy3Exhr78FtZwLYURPxBBUQJvdv5xj1
-         21Mg==
+        bh=Vl+DiUajk5iNhGqiCsP7kWZwbRynvLhcntFNkKHXw/s=;
+        b=xqMP83/WRtagVxmisvrO0nc4wRR8Ba1UTH+8dlWUWXLe+zO0aWBb2zZJDeuefl5Vzh
+         meSfgqGH1yVcAqjWsbnb+XNBgaqyanuZsZYQVFiAZGqWi984JbM92r5J5g6X3jYZWFKn
+         f4FYN5NOq0Bw0VjHs5IJLEpYtLbjONRSP6S0dv228sZv6fmraGulpkRhg6JUtRyoRobA
+         bz7e0/wFRTHD+WWwuSd7UcDbuXJjCh2So6FljgdQkd6yeWzfdouIMcnPouC1LOyIx3uY
+         Ug9TknsgmZ/UB+apLdOHXfRSNhchRHfHimncMzQYrpfrX7gZi8Td6Ct7c7438g6K2IU+
+         vugA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787762179; x=1788366979;
+        d=1e100.net; s=20251104; t=1787762183; x=1788366983;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=suzR7ASY40M8VgE4lgqLDHANl8DdGYCBb6jwppDWyAA=;
-        b=fv+6rvo9ywyMTCjuKVEl1kzZRXguShH500nTo1K0U4Jsgzx+AuHCkyDT5aZ//e0AV4
-         TpJsFv5fffgUD3fp2JCv7WQRKzIBoRdFcD1F/q+BLxBpDnf0Gv1pBPC3JwGB8WFVGfyd
-         LCMfGOz6jfYdPozaqcTwPCYU5rzm3t4jeEdODv+7iSCu0tNXqlafBtRYuVxTyOzKxbeX
-         Q5yYn12S0eOHvphpbwaqwZS+oklUcz9CExP/ofoD1LYLYTg7g9RKmmP13/rBKJalBKqq
-         Uk90FxS64SDI9Q5kv6gubHDGFmH8Iglm/wQ2Yus4CIozrich9Rs5gwMdWtfQ+fBiGyNZ
-         92HA==
-X-Forwarded-Encrypted: i=1; AHgh+RrizW0mAj1J4GFS8d5MhJPpJiJn1lXdjDYSJRwW8/tAQ0IxblHlC3n4Av421DGqp9TirC7qjgCdOSWTN/o=@vger.kernel.org
-X-Gm-Message-State: AFuF++lrA038L9VtJLQe51ngQz5yr33l6RCYwxo2IZYKN/RR7IzDTSsM
-	858eiZQYdAt3SOUI94zNPgWD0KqIk8YME1GTH7OeMfDr4s2B43K2KXkZXBDzxE1agw==
-X-Gm-Gg: AR+sD10rYk1d04idYOf1RHwvV0zkwlKsoar2S7PXUfz8kF23DOnhAh0fSwYnZJJwHRr
-	vTpnxPpF/GwZC1xghYfDpjng1TZdy5WyqK97vwPmHJ3w0HBdS43ENBtPOtMM/D4VAMP2mRW/K+R
-	Fre8ETST2YHLM/7lgcopWYFH2FIekrMlCdzPdMcX9zJxqCV78xM/pIuXU0B/lgXIuthlRCydLTw
-	zHNyiUJ3/WWBg/eXMmiyH8vxREyCPZAXTzQLs2pFtUlR9PdhPblUxbvmzLUovEoGKPNNuLBwfXk
-	DIzvjX+DJpVBjmW63sCOGKMOUAVb37ps+CRlKWhE+Yq+D7O8uRO6NYHxG9k69AXz0BgFG72DmU0
-	dp+xVrjNOFJl2OEr/TLw4B6JTSPAsLLngAggRW6B7tds9J56I1/8SRomRa2JhNpu2Izwsx1EXiD
-	hOw51zn8luM27F2P24mESu4QvFieq7GebMrbShiBidlcprxK9q74InU5FGuEKT4rBaVsVuJbrHq
-	yUkgcsO01nK0yvzxvvjnJRHCMD1IVkqjAbBlWCubRRTfYo=
-X-Received: by 2002:a05:600c:c8f:b0:499:cd34:f7c with SMTP id 5b1f17b1804b1-499dc6f68b5mr69481545e9.5.1787762178738;
-        Wed, 26 Aug 2026 09:36:18 -0700 (PDT)
+        bh=Vl+DiUajk5iNhGqiCsP7kWZwbRynvLhcntFNkKHXw/s=;
+        b=o5qfgDsnKNcswD1qNh7dRPh7QGASEbpdWOtFrtggEj+rp1axLZBy8AtFQW3FuxWowb
+         nR63X5YCW2rvNYAO+7wSMY0JfIcIZyMCcqz9LmVS38imBs2pZcgLlRcO1HnigE8pHmsU
+         xuBNoTNGdqwgrYY8UbVycoitpBZero43d+DCSX3CeJVGVu9Le9RqtBGmqibWS4AFueje
+         6Fe6WsQYhzIWLyT0N9GQbbYp3pV9x/dgjr6PARY6lZmeZWYMg3+nGW9Bq/UoH8gG/ZCe
+         c72Ey/Rv+H85+NldFWMGb39YA9YTflZd7hT7P2/jxi503wdhsTHWtKVbOGQC6ZtcFSpn
+         daRg==
+X-Forwarded-Encrypted: i=1; AHgh+Rqi8MPqKg2qnn6n6WcFdUX00wbyQ81cuYizzvsgXP/6zkGxEQfq2O8OGK40Q7mqaOQ9glvQlBFbVeBBsUw=@vger.kernel.org
+X-Gm-Message-State: AFuF++ntpRf+Ta0+h1XNn5D4rX304ltPZ2lUps0SzQeJRpACJ4IewLpE
+	LJC+giUHl3/pt/uKBNViqzh7PFrGwH/P3HN7Id4REO110INnhsdqSCFut7SARrdJAw==
+X-Gm-Gg: AR+sD12tppaXTj+nXGL7gzX6j1V38kphrX9GVcbwDeZcEaQYFzfvYdQJhbAOAcqk18u
+	l8idLdo3r1weZQirh7ZvywC7tF9MpxabgtygVNrSN7kDkX3TFcY5kMr2Do7klqprGb73n5FziyC
+	pX9v+9BgIRLrO7AKx+TXj3kDRfoGVXjz8eujVCOs3L9Ka/4sgUdtuo0XlgICc0MtEcrzRFXA3Bs
+	C2zq1QjayIpsv5ANtljvJ/kpCA9vk91h2k2YVtVxgpYVfxLVE6ECpyiFQDtP66rFy62HVjTutSL
+	Ju/84VHHWeDbub4xzRcxyJqX9UYHsARJcL1ARzkl4RXqNXIONapqbAr1is/hpldE6gsmumyd+CJ
+	vBGnlsEq/WiK4V1frbpzSg8SZ7r71xLPvrDWlOWBBkdu8NXwrmHoG6zPPyIO0buf+ujvWcZ0PcG
+	I+mVMN0co7yUm4rhTTbcjeOwC82mv9kXPYA3FgoY/K0nG6hV2wHlsgnJSmu4bkDX6gWGEpOjwJh
+	SiMy4aSgIw2A/BSMvgtPe/QmtRIwnpMLf/p
+X-Received: by 2002:a05:600c:a086:b0:499:b000:b828 with SMTP id 5b1f17b1804b1-499dc6e9a9dmr93091925e9.4.1787762183517;
+        Wed, 26 Aug 2026 09:36:23 -0700 (PDT)
 Received: from axion.fireburn.co.uk ([2a01:4b00:d309:1c00:caf1:6b20:8531:818c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499dca8c75csm31227535e9.2.2026.08.26.09.36.16
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499dca8c75csm31227535e9.2.2026.08.26.09.36.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 09:36:17 -0700 (PDT)
+        Wed, 26 Aug 2026 09:36:21 -0700 (PDT)
 From: Mike Lothian <mike@fireburn.co.uk>
 To: dri-devel@lists.freedesktop.org
 Cc: Mike Lothian <mike@fireburn.co.uk>,
@@ -80,9 +80,9 @@ Cc: Mike Lothian <mike@fireburn.co.uk>,
 	Lyude Paul <lyude@redhat.com>,
 	rust-for-linux@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 17/23] rust: drm: add an owned display mode constructor
-Date: Wed, 26 Aug 2026 17:31:48 +0100
-Message-ID: <20260826163359.4998-18-mike@fireburn.co.uk>
+Subject: [PATCH v3 18/23] rust: drm: expose mode flags and CTA VIC matching
+Date: Wed, 26 Aug 2026 17:31:49 +0100
+Message-ID: <20260826163359.4998-19-mike@fireburn.co.uk>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260826163359.4998-1-mike@fireburn.co.uk>
 References: <20260826163359.4998-1-mike@fireburn.co.uk>
@@ -94,95 +94,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a safe constructor for standalone display modes used by drivers
-and tests.
-
-Accept the essential timing fields and reject invalid active, sync,
-and total ordering before exposing the owned mode.
+Let Rust DRM drivers construct modes with signal flags, inspect those
+flags, and use the DRM EDID helper to identify the matching CTA-861
+Video Identification Code. This keeps drivers from duplicating the
+canonical HDMI mode table.
 
 Assisted-by: Claude:claude-opus-5
 Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
 ---
- rust/kernel/drm/kms/modes.rs | 62 +++++++++++++++++++++++++++++++++++-
- 1 file changed, 61 insertions(+), 1 deletion(-)
+ rust/kernel/drm/kms/modes.rs | 73 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 73 insertions(+)
 
 diff --git a/rust/kernel/drm/kms/modes.rs b/rust/kernel/drm/kms/modes.rs
-index cc3c486eecf1..b48a02edfc13 100644
+index b48a02edfc13..584f20456c07 100644
 --- a/rust/kernel/drm/kms/modes.rs
 +++ b/rust/kernel/drm/kms/modes.rs
-@@ -6,7 +6,33 @@
+@@ -11,6 +11,60 @@
+     types::Opaque,
+ };
  
- use bindings;
- 
--use crate::types::Opaque;
-+use crate::{
-+    error::{code::EINVAL, Result},
-+    types::Opaque,
-+};
++/// Flags describing signal polarity and scan format for a display mode.
++///
++/// These correspond to the `DRM_MODE_FLAG_*` values accepted by the DRM mode helpers.
++#[derive(Clone, Copy, Default, PartialEq, Eq)]
++pub struct ModeFlags(u32);
 +
-+/// The essential timing fields of a display mode.
-+#[derive(Clone, Copy)]
-+pub struct ModeTimings {
-+    /// Pixel clock in kHz.
-+    pub clock_khz: i32,
-+    /// Horizontal active pixels.
-+    pub hdisplay: u16,
-+    /// Start of the horizontal sync pulse.
-+    pub hsync_start: u16,
-+    /// End of the horizontal sync pulse.
-+    pub hsync_end: u16,
-+    /// Total horizontal pixels including blanking.
-+    pub htotal: u16,
-+    /// Vertical active lines.
-+    pub vdisplay: u16,
-+    /// Start of the vertical sync pulse.
-+    pub vsync_start: u16,
-+    /// End of the vertical sync pulse.
-+    pub vsync_end: u16,
-+    /// Total vertical lines including blanking.
-+    pub vtotal: u16,
++impl ModeFlags {
++    /// Horizontal sync is active high.
++    pub const PHSYNC: Self = Self(bindings::DRM_MODE_FLAG_PHSYNC);
++    /// Horizontal sync is active low.
++    pub const NHSYNC: Self = Self(bindings::DRM_MODE_FLAG_NHSYNC);
++    /// Vertical sync is active high.
++    pub const PVSYNC: Self = Self(bindings::DRM_MODE_FLAG_PVSYNC);
++    /// Vertical sync is active low.
++    pub const NVSYNC: Self = Self(bindings::DRM_MODE_FLAG_NVSYNC);
++    /// The mode is interlaced.
++    pub const INTERLACE: Self = Self(bindings::DRM_MODE_FLAG_INTERLACE);
++    /// The mode uses doublescan.
++    pub const DBLSCAN: Self = Self(bindings::DRM_MODE_FLAG_DBLSCAN);
++    /// The mode uses composite sync.
++    pub const CSYNC: Self = Self(bindings::DRM_MODE_FLAG_CSYNC);
++    /// Composite sync is active high.
++    pub const PCSYNC: Self = Self(bindings::DRM_MODE_FLAG_PCSYNC);
++    /// Composite sync is active low.
++    pub const NCSYNC: Self = Self(bindings::DRM_MODE_FLAG_NCSYNC);
++    /// The mode carries a horizontal skew value.
++    pub const HSKEW: Self = Self(bindings::DRM_MODE_FLAG_HSKEW);
++    /// The mode is double-clocked.
++    pub const DBLCLK: Self = Self(bindings::DRM_MODE_FLAG_DBLCLK);
++    /// The mode uses a half-rate clock.
++    pub const CLKDIV2: Self = Self(bindings::DRM_MODE_FLAG_CLKDIV2);
++
++    /// Return whether all flags in `other` are set.
++    pub fn contains(self, other: Self) -> bool {
++        self & other == other
++    }
 +}
++
++impl core::ops::BitOr for ModeFlags {
++    type Output = Self;
++
++    fn bitor(self, rhs: Self) -> Self::Output {
++        Self(self.0 | rhs.0)
++    }
++}
++
++impl core::ops::BitAnd for ModeFlags {
++    type Output = Self;
++
++    fn bitand(self, rhs: Self) -> Self::Output {
++        Self(self.0 & rhs.0)
++    }
++}
++
+ /// The essential timing fields of a display mode.
+ #[derive(Clone, Copy)]
+ pub struct ModeTimings {
+@@ -32,6 +86,8 @@ pub struct ModeTimings {
+     pub vsync_end: u16,
+     /// Total vertical lines including blanking.
+     pub vtotal: u16,
++    /// Signal polarity and scan-format flags.
++    pub flags: ModeFlags,
+ }
  
  /// DRM kernel-internal display mode structure.
- ///
-@@ -30,6 +56,40 @@ unsafe impl Send for DisplayMode {}
- unsafe impl Sync for DisplayMode {}
+@@ -84,6 +140,7 @@ pub fn from_timings(t: ModeTimings) -> Result<Self> {
+         mode.vsync_start = t.vsync_start;
+         mode.vsync_end = t.vsync_end;
+         mode.vtotal = t.vtotal;
++        mode.flags = t.flags.0;
  
- impl DisplayMode {
-+    /// Creates a standalone display mode from validated timings.
-+    ///
-+    /// This is useful when a driver needs an owned mode for validation or tests rather than a
-+    /// reference to a mode owned by the DRM core.
-+    pub fn from_timings(t: ModeTimings) -> Result<Self> {
-+        if t.clock_khz <= 0
-+            || t.hdisplay == 0
-+            || t.hdisplay > t.hsync_start
-+            || t.hsync_start > t.hsync_end
-+            || t.hsync_end > t.htotal
-+            || t.vdisplay == 0
-+            || t.vdisplay > t.vsync_start
-+            || t.vsync_start > t.vsync_end
-+            || t.vsync_end > t.vtotal
-+        {
-+            return Err(EINVAL);
-+        }
-+
-+        let mut mode = bindings::drm_display_mode::default();
-+        mode.clock = t.clock_khz;
-+        mode.hdisplay = t.hdisplay;
-+        mode.hsync_start = t.hsync_start;
-+        mode.hsync_end = t.hsync_end;
-+        mode.htotal = t.htotal;
-+        mode.vdisplay = t.vdisplay;
-+        mode.vsync_start = t.vsync_start;
-+        mode.vsync_end = t.vsync_end;
-+        mode.vtotal = t.vtotal;
-+
-+        Ok(Self {
-+            inner: Opaque::new(mode),
-+        })
+         Ok(Self {
+             inner: Opaque::new(mode),
+@@ -202,10 +259,26 @@ pub fn clock(&self) -> i32 {
+         unsafe { (*self.as_raw()).clock }
+     }
+ 
++    /// Return the mode's signal-polarity and scan-format flags.
++    #[inline]
++    pub fn flags(&self) -> ModeFlags {
++        // SAFETY: Reading this field is safe via the type invariants.
++        ModeFlags(unsafe { (*self.as_raw()).flags })
 +    }
 +
-     /// Convert a raw pointer to a `struct drm_display_mode` into an immutable [`DisplayMode`] ref.
-     ///
-     /// # SAFETY
+     /// Return the refresh rate in Hz as computed by DRM.
+     #[inline]
+     pub fn vrefresh(&self) -> i32 {
+         // SAFETY: `drm_mode_vrefresh` only reads this valid display mode.
+         unsafe { bindings::drm_mode_vrefresh(self.as_raw()) }
+     }
++
++    /// Return the CTA-861 Video Identification Code matching this mode.
++    ///
++    /// A return value of zero means the mode is not one of the CTA-861 modes known to DRM.
++    #[inline]
++    pub fn cea_vic(&self) -> u8 {
++        // SAFETY: `drm_match_cea_mode` only reads this valid display mode.
++        unsafe { bindings::drm_match_cea_mode(self.as_raw()) }
++    }
+ }
