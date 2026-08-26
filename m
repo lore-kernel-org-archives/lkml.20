@@ -1,447 +1,312 @@
-Received: from mail.kekto.ru (mail.kekto.ru [188.242.149.39])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 258EF426687;
-	Wed, 26 Aug 2026 13:34:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.242.149.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A58C42589A
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:34:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787751258; cv=none; b=E6WUBu5Ipu9KblSlafAuIBSeC+2l5IKZKo7Hz+SWSLdla/+EGfeAwLhNv6z9el0AG/kCC+1bnNURv20XIKc5pwkrLLURTxTwqF8GRFgCspalHH5hEttdP2e/ISvaquynNZ9/gB2fXOV4HzUui/UMHZ5x5NTxBWli0FMbI4PR1cc=
+	t=1787751270; cv=none; b=sk9fbnezl9EFf7nXIn8M/yL4eohPV/2lYVQKvokRT7K46SIJV1g59RSEF3+hmYqg1wtN7QAAE2qqZoFmgYp8Owpre7ihIEMuVjIvuiK8K9KXizilb1cYYX/ig856+MQc4ycfxfzvqJnNJwtmTI/du8X/s1adIHLXu6TAOv6YL+U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787751258; c=relaxed/simple;
-	bh=w57QnjDHpzExAFmVk48MeLjOazGYLxPrDSZVlF5qCUA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pNYwhxe1BBeWc8myX1Cg9YD5M+qAGvvIrXWR6LHg0SsMLUDlgQ+wDRjI6T43eqcRabd2iyNGNOINOn2aA9kKj/MCz6CEG4k6I8IoSotV0QxXOSwEsMbXh1nlqKOzZk0KhXFgCQwkSK1xXPm9ubeGsMzJTHaEL+K3FrfzUoDrKkA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kekto.ru; spf=pass smtp.mailfrom=kekto.ru; dkim=pass (2048-bit key) header.d=kekto.ru header.i=@kekto.ru header.b=Zu2a/rBK; arc=none smtp.client-ip=188.242.149.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kekto.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kekto.ru
+	s=arc-20240116; t=1787751270; c=relaxed/simple;
+	bh=fqxYmGcL3y5Sts7HiojH11dF3PjfetZhjuTuDynnt4U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GP6TQ9x/LTyvzkqxA1ERclifYT4tYdTDQY4IE5d+o2v7XUtflkg8zXRlhMhHwQeEqDY3trp25FCisSWcVzdKwRo4CJgyZogcnqp5Rv8ymt2F82OYB5zJv4oeIgAYr09H3GYIhCZxfOdYWrZ5bsR7QL7czG7f/uQUouL1pygFeH8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=KVNT6rCb; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kekto.ru header.i=@kekto.ru header.b="Zu2a/rBK"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 93D27254A2;
-	Wed, 26 Aug 2026 16:26:38 +0300 (MSK)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kekto.ru; s=dkim;
-	t=1787750798; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=wRphR+98q9mATkUDyP5hjp+KBrOVIz8eprnDaAFhOo8=;
-	b=Zu2a/rBKfIo2F/Ui4Louu0mzDv2qZFXjQGp0rc2VbrjLNlrcO3E56JxS+MIunF0g/1KqwP
-	3wmYlmOi3wRHAteHzhJFGgD/Rc3HIx9rpJrIxOt+3dLp1h5RYyamwflDa+Ebn4fT/ndcyA
-	g15tYZz7rjL36DDc5iNETHn2XWcJcpbfcYqUIzpP7NMkhDn6vGhuJU+nzGpx5VdnY5D7Gd
-	AyZpAtzCZfqAzckG40gKXF2LL5bhQ7n5CmuoPTs+NOR8dJuP2a3YiUygXpN4o/5yonoVyC
-	WyQLIA6Kx6lJXyVeEjNLrkXewuOuLp7E66ApEjjW8SR95ED5D1M8VG2vpuyr/w==
-From: KentoNion <kento@kekto.ru>
-To: platform-driver-x86@vger.kernel.org,
-	Mingyou Chen <qby140326@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Armin Wolf <W_Armin@gmx.de>,
-	Gladyshev Ilya <foxido@foxido.dev>,
-	linux-kernel@vger.kernel.org,
-	Yuming Sun <wolf109909@outlook.com>,
-	Nabil Danial <nabildanial.93@gmail.com>,
-	Nika Krasnova <nika@ableh.moe>,
-	linux-doc@vger.kernel.org,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>
-Subject: [PATCH] platform/x86: bitland-mifs-wmi: add TM2424 ops and hotkeys
-Date: Wed, 26 Aug 2026 16:26:39 +0300
-Message-ID: <20260826132639.177830-1-kento@kekto.ru>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260816100813.300450-1-qby140326@gmail.com>
-References: <20260816100813.300450-1-qby140326@gmail.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="KVNT6rCb"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QCVvMR3977499;
+	Wed, 26 Aug 2026 13:34:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=aUuqCM
+	/H7yKu0Fh92W3wPrQA2+UWJ+cdE2KxrWfpoHw=; b=KVNT6rCbbBFKRQtGn+RoAy
+	2opEgVMX5/jNCfvukNr3ZM1G7wAKQ72iA63QqDTEONct4ZEP8cz86APhcwsC+o/W
+	uevVa2Ojp4qjNGglaIpxGkRVvF91K21rvXe1hHe5XYochd1VmkNdifipda5O/YlR
+	Eg4n0lv6jgu/kNmWoN7GC258DKSsmkrmYnvI99GtWTzNlN1sXPO0wRJZprSmzyNy
+	7Ehw7+Dnkzy2laMRwIvBoqBG9u3WpFoq4dV9UdXuVZegbNVFLcjZMzf1EuvaQmNt
+	5YzfVpnViSSAV5kegCXaObih/ILJuKjMmky4YpchY6DKZT6f3ZByGs+5QYnSLYyw
+	==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g73946x7h-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 26 Aug 2026 13:34:03 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67QDQKH6027453;
+	Wed, 26 Aug 2026 13:34:02 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4g7qkha3kk-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 26 Aug 2026 13:34:02 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67QDXwo845809932
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 26 Aug 2026 13:33:58 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 21A9620043;
+	Wed, 26 Aug 2026 13:33:58 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6352B20040;
+	Wed, 26 Aug 2026 13:33:54 +0000 (GMT)
+Received: from [9.123.14.142] (unknown [9.123.14.142])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 26 Aug 2026 13:33:54 +0000 (GMT)
+Message-ID: <008fe00e-fd52-4010-86ca-f0ab80a65a46@linux.ibm.com>
+Date: Wed, 26 Aug 2026 19:03:53 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 2/3] powerpc: add support for Kexec HandOver (KHO)
+To: Pratyush Yadav <pratyush@kernel.org>
+Cc: linuxppc-dev@lists.ozlabs.org, Aditya Gupta <adityag@linux.ibm.com>,
+        Alexander Graf <graf@amazon.com>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Baoquan He <baoquan.he@linux.dev>,
+        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+        Hari Bathini <hbathini@linux.ibm.com>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Mahesh Salgaonkar <mahesh@linux.ibm.com>,
+        Michael Ellerman <mpe@ellerman.id.au>, Mike Rapoport <rppt@kernel.org>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        Pasha Tatashin <pasha.tatashin@soleen.com>,
+        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+        Shivang Upadhyay <shivangu@linux.ibm.com>,
+        Shrikanth Hegde <sshegde@linux.ibm.com>, kexec@lists.infradead.org,
+        linux-kernel@vger.kernel.org
+References: <20260821105609.983622-1-sourabhjain@linux.ibm.com>
+ <20260821105609.983622-3-sourabhjain@linux.ibm.com>
+ <2vxza4qfznyo.fsf@kernel.org>
+Content-Language: en-US
+From: Sourabh Jain <sourabhjain@linux.ibm.com>
+In-Reply-To: <2vxza4qfznyo.fsf@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: YXY2Xiz6Hvm01ZOibYwHTzEeoO4EOAor
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDExMiBTYWx0ZWRfX6RTLr3wTAsDt
+ Y7EvGdssfQuvW5+aFUqEv9T1/sToybXRDxrA53d2uueWT3FEQnhTkagTHFDQ3nw0IVRVN+2MBst
+ JEktgYNY572U4ZiKBxiWnW8uRZvViyn+0jbBeE9Bgy2hdoqYQBXv936xGzcbT2htEwMSIaLEwzm
+ pXZUgKGnYuGePm2A/CNMMpu0NXrA4YvbnZBWeu3c9Dc+ute5N+Gm4I/D5Z+aW32FUlL2lW2P3t0
+ r1Su3Ek+9wbGoOwzqc5bhWkXva/0/PTwJeEwIstu2WonlUaDVfzvyde+EGEzXdfthx6bnLLZXwj
+ 46/bqoYqY9l2R0yl48sdzCqu91YGA8wzpelSyfNQXKo1wkQQxzXuKd2c1sz+7Kfn9MNA3kdSgYz
+ ug1VRzhmyE6ecYu5BHdkoltNg6li2/qrxicpEDgqgnN2oAt/LUMBEI1l3+/h/AESgDwb3lUu1RK
+ wa2j44usJYNeuSnTi2g==
+X-Authority-Analysis: v=2.4 cv=Y/nIdBeN c=1 sm=1 tr=0 ts=6a8eeb4b cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=fkfyDzpKf0ij7gQ8ic8A:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=O8hF6Hzn-FEA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDExMiBTYWx0ZWRfX11I2+C4s6hHS
+ fszNZDli3VtmQMLNCjv2ZgA20RenF5889I4rF76OR6u1KHiT5Y6oXSPkLHkv62B1XEycsqTscEF
+ M7Ti8un3q71Q6RXvxYdnTcUNVI22DnI=
+X-Proofpoint-ORIG-GUID: aQHARQU-IMpprAFetTNIObGSUFYg229f
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-26_03,2026-08-26_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 impostorscore=0 priorityscore=1501 adultscore=0 bulkscore=0
+ suspectscore=0 malwarescore=0 clxscore=1015 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260112
 
-Xiaomi Book Pro 14 2026 (DMI sys_vendor=XIAOMI, board_name=TM2424)
-uses five cmd 0x08 bytes that do not fit the four-field mode_map:
+Hello Pratyush,
 
-  Quiet=0x02, Turbo=0x03, Full-speed=0x04, Auto=0x09, Eco=0x0A
+After looking at the x86 crashkernel and KHO scratch memory
+allocation order, I realized that the same issue should exist on x86
+as well. I ran the same experiment on an x86 guest, and the results
+confirmed this.
 
-Add a TM2424 entry to the per-machine ops table. SET maps the three
-platform_profile choices to Eco / Auto / Full-speed; GET aliases Quiet
-and Turbo. Full-speed falls back to Turbo when firmware NACKs.
 
-The reduced firmware does not implement hwmon, keyboard LED or the
-gpu_mode/kb_mode/fan_boost attributes.
+[root@localhost ~]# dmesg | grep -i -e kho -e crashkernel
+[    0.000000] Command line: 
+BOOT_IMAGE=(hd0,gpt3)/boot/vmlinuz-6.19.10-300.fc44.x86_64 
+no_timer_check console=tty1 console=ttyS0,115200n8 systemd.firstboot=off 
+root=UUID=15c26993-ac30-424a-9c4b-faec4434d234 rootflags=subvol=root 
+kho=on crashkernel=1G
+[    0.004615] crashkernel reserved: 0x000000007f000000 - 
+0x00000000bf000000 (1024 MB)
+[    0.034746] Kernel command line: 
+BOOT_IMAGE=(hd0,gpt3)/boot/vmlinuz-6.19.10-300.fc44.x86_64 
+no_timer_check console=tty1 console=ttyS0,115200n8 systemd.firstboot=off 
+root=UUID=15c26993-ac30-424a-9c4b-faec4434d234 rootflags=subvol=root 
+kho=on crashkernel=1G
+[    0.095761] KHO: Failed to reserve scratch area, disabling kexec handover
 
-Map remaining TM2424 HID_EVENT20 keys (projection value 0, AI break
-0x24, Mi button 0x25/0x26). Mic-mute 0x21 and settings 0x1B are
-already in the merged keymap.
+I agree that this can be avoided by using the crashkernel=xxM,high option.
+However, I just wanted to share the same problem currently exists on x86 
+as well.
 
-This supersedes the standalone TM2424 quirk
-<20260816215825.289356-1-kento@kekto.ru>.
+While reading the KHO code, I came across the following commit, which 
+handles
+a somewhat similar problem with HugeTLB:
 
-Tested on TM2424-77080: performance on AC holds ~50W package power.
-acpi_listen shows HID_EVENT20 as wmi PNP0C14:00 notify 0x20 for the
-mic, AI, projection, settings and Mi keys (see cover letter).
+fdd843f2be1a ("kho: exclude hugetlb memory from scratch size calculation")
 
-Signed-off-by: KentoNion <kento@kekto.ru>
----
+The approach is to first account for HugeTLB allocations as a separate 
+memblock
+reservation type and then exclude them when calculating the scratch memory
+reservation.
 
-This is a follow-up to Mingyou's v5, not a competing rewrite.
+How about using the same approach to avoid accounting for crashkernel memory
+when calculating the scratch memory size?
 
-v5's four-field mode_map cannot express TM2424: five firmware bytes
-(Quiet/Turbo/Full-speed/Auto/Eco) collapse to three platform_profile
-choices, GET has aliases, and SET of performance must try Full-speed
-then Turbo when firmware NACKs. The new ops callbacks stay NULL on
-the Bitland/Redmi paths.
+- Sourabh Jain
 
-DMI is XIAOMI + TM2424. Mingyou's Xiaomi Book match is TIMI, so this
-SKU would otherwise keep the Bitland 0..3 defaults and stay broken.
 
-Yuming's 2/5 names on this machine are inverted (0x03 is Turbo, 0x09
-is Auto, 0x0A is Eco). Please do not take that SET mapping for TM2424.
+On 21/08/26 17:26, Pratyush Yadav wrote:
+> On Fri, Aug 21 2026, Sourabh Jain wrote:
+>
+>> Add the architecture bits needed to enable CONFIG_KEXEC_HANDOVER on
+>> powerpc.
+>>
+>> Set ARCH_SUPPORTS_KEXEC_HANDOVER for PPC64, following the existing
+>> pattern used by ARCH_SUPPORTS_KEXEC and ARCH_SUPPORTS_KEXEC_FILE.
+>>
+>> On the boot path, parse the "linux,kho-fdt" and "linux,kho-scratch"
+>> properties from /chosen and pass them to kho_populate(). This lets a
+>> kernel booted via KHO kexec recover the FDT and scratch region left
+>> behind by the previous kernel. The call is placed early in
+>> setup_arch(), before unflatten_device_tree().
+>>
+>> Open issues:
+>> ============
+>>
+>> This patch also adds "depends on !CRASH_DUMP" to
+>> ARCH_SUPPORTS_KEXEC_HANDOVER. This is needed because of an ordering
+>> conflict between crashkernel reservation and KHO scratch reservation
+>> on powerpc.
+>>
+>> Crashkernel memory is reserved very early in boot, from arch-specific
+>> code: head.S -> early_setup() -> early_init_devtree() ->
+>> arch_reserve_crashkernel() / fadump_reserve_mem(). KHO's scratch
+>> region is reserved later, from generic code: start_kernel() ->
+>> mm_core_init() -> kho_memory_init(). So on powerpc, crashkernel
+>> memory is always reserved first.
+>>
+>> This ordering causes a real failure. In the common case, crashkernel
+>> reservation on powerpc starts at a 512M offset (the exact offset can
+>> vary, but 512M is typical). So with crashkernel=3G, the reservation
+>> occupies memory from 512M up to 3.5G -- roughly 75% of the entire low
+>> 4G area.
+>>
+>> Since crashkernel reservation always happens first, that 3G is
+>> already committed by the time kho_memory_init() runs. It then tries
+>> to reserve a low scratch region sized at 200% of whatever is already
+>> reserved below 4G. With ~75% of that 4G area already taken by
+>> crashkernel memory, 200% of that easily exceeds the remaining space
+>> -- and since the low scratch region is itself capped at 4G, there's
+>> no room left to fit it. The reservation fails.
+> crashkernel has the variant "crashkernel=size[KMG],high", which ensures
+> memory is allocated above 4G. Unless powerpc has some requirement for
+> strictly having the crashkernel below 4G, I think it will make a lot of
+> sense to enable support for this feature. So KHO users can specify this
+> to get crashkernel working with KHO.
+>
+> Powerpc doesn't support this right now, but from a quick skim of the
+> code, I think it should be simple enough. From
+> arch_reserve_crashkernel() you just need to pass a bool * to
+> parse_crashkernel(), and then pass the result to
+> reserve_crashkernel_generic().
+>
+> Solving the ordering of crash reservations and KHO is tricky and comes
+> with some difficult tradeoffs. Allocating crash from highmem should be a
+> lot simpler.
+>
+> And on that note, I don't think you should do a depends on !CRASH_DUMP.
+> Even when CONFIG_KEXEC_HANDOVER is enabled, KHO isn't on by default
+> (well, unless KEXEC_HANDOVER_ENABLE_DEFAULT is set). You need to enable
+> it via cmdline. So it is entirely possible for people using KHO on PPC
+> to not use crash and vice versa. This decision can be made at deployment
+> time, not at compile time.
+>
+>> To work around this and get KHO working on powerpc, this patch:
+>>
+>> 1. Makes KHO usable on powerpc only when CRASH_DUMP is disabled.
+>> 2. Calls kho_populate() from setup_arch(), so it runs before
+>>     kho_memory_init() reserves the scratch region.
+>>
+>> The real fix would be to reserve the KHO scratch region before
+>> crashkernel memory instead of after. But scratch reservation happens
+>> in generic code (kho_memory_init(), called from mm_core_init()), so
+>> this isn't something powerpc can address on its own -- it needs
+>> discussion on how to influence the ordering between generic scratch
+>> reservation and arch-specific crashkernel reservation. This patch
+>> doesn't attempt that; it's meant as a starting point for that
+>> discussion.
+>>
+> [...]
+>> diff --git a/arch/powerpc/Kconfig b/arch/powerpc/Kconfig
+>> index 2580e27e4328..61350d3e7a19 100644
+>> --- a/arch/powerpc/Kconfig
+>> +++ b/arch/powerpc/Kconfig
+>> @@ -716,6 +716,11 @@ config ARCH_SELECTS_CRASH_DUMP
+>>   	depends on CRASH_DUMP
+>>   	select RELOCATABLE if PPC64 || 44x || PPC_85xx
+>>   
+>> +config ARCH_SUPPORTS_KEXEC_HANDOVER
+>> +	def_bool y
+>> +	depends on PPC64
+>> +	depends on !CRASH_DUMP
+>> +
+>>   config ARCH_SUPPORTS_CRASH_HOTPLUG
+>>   	def_bool y
+>>   	depends on PPC64
+>> diff --git a/arch/powerpc/kernel/setup-common.c b/arch/powerpc/kernel/setup-common.c
+>> index 4afaba19b586..1fee743abdf2 100644
+>> --- a/arch/powerpc/kernel/setup-common.c
+>> +++ b/arch/powerpc/kernel/setup-common.c
+> [...]
+>>   }
+>>   #endif
+>>   
+>> +#ifdef CONFIG_PPC64
+>> +static void __init init_kho(const void *fdt)
+>> +{
+>> +	unsigned long node;
+>> +	u64 fdt_start, fdt_size, scratch_start, scratch_size;
+>> +
+>> +	if (!IS_ENABLED(CONFIG_KEXEC_HANDOVER))
+>> +		return;
+>> +
+>> +	/* Find and verify the /chosen node, same as early_init_dt_scan_chosen() does */
+>> +	node = fdt_path_offset(fdt, "/chosen");
+>> +	if ((long)node < 0)
+>> +		node = fdt_path_offset(fdt, "/chosen@0");
+>> +	if ((long)node < 0)
+>> +		return;
+>> +
+>> +	if (!of_flat_dt_get_addr_size(node, "linux,kho-fdt",
+>> +				      &fdt_start, &fdt_size))
+>> +		return;
+>> +	if (!of_flat_dt_get_addr_size(node, "linux,kho-scratch",
+>> +				      &scratch_start, &scratch_size))
+>> +		return;
+>> +
+>> +	kho_populate(fdt_start, fdt_size, scratch_start, scratch_size);
+>> +}
+> This looks pretty much a duplicate of early_init_dt_check_kho(). On
+> arm64 this is called via early_init_dt_scan(). But from a quick search I
+> don't see powerpc calling it.
+>
+> Would it make sense to call this function (or
+> early_init_dt_scan_nodes()) for powerpc?
+>
+> If not, I think it would be a better idea to expose
+> early_init_dt_check_kho() and call it from powerpc setup_arch() instead
+> of duplicating the logic.
+>
+>> +#endif
+>> +
+>>   /*
+>>    * Called into from start_kernel this initializes memblock, which is used
+>>    * to manage page allocation until mem_init is called.
+> [...]
+>
 
-I did not include lid polling or EC fan tachs. On this BIOS the ACPI
-EC still starts and Lid Switch already binds; ECON is an unresolved
-External used only by _STA (not defined in DSDT or any SSDT). That
-is an ACPI firmware bug, not a WMI one. Decoded excerpts and dmesg
-are a reply on Yuming's 0/5, In-Reply-To Armin.
-
-I also left the v5 suspend hook alone. Ilpo already nacked the
-profile_valid pattern on Yuming 1/5. With this mapping GET no longer
-returns unmapped cmd 0x08 bytes on TM2424, so the existing hook
-should not abort sleep here. A global never-abort plus a status-word
-check still belongs in a separate patch; please take Ilpo's union +
-endianness nits there. This patch only looks at output.operation ==
-0x80 on TM2424 SET (the accepted byte; same field Yuming packs as
-0x8000) so Full-speed can fall back to Turbo.
-
-One regression to watch when v5 is rebased: e0d6312578e1 turned some
-redmi-wmi KE_IGNORE entries into KEY_KBDILLUMTOGGLE / KEY_PERFORMANCE
-/ KEY_FN_ESC. v5 2/6 still KE_IGNOREs those; please carry Musaev's
-mappings into the merged keymap in v6.
-
-The LKP const-qualifier error on the old standalone quirk is obsolete
-once v5's non-const DEVICE_ATTR is the base.
-
-Tested on Xiaomi Book Pro 14 2026, SKU TM2424-77080, BIOS XMAPT4B0P0707.
-
-acpi_listen on that machine (HID_EVENT20 is notify 0x20 on PNP0C14:00).
-Volume and panel brightness are standard ACPI and do not go through
-this driver. The WMI-backed keys with this keymap:
-
-  FN+F4 mic:
-    wmi PNP0C14:00 00000020 00000000
-    button/micmute MICMUTE 00000080 00000000 K
-
-  FN+F7 AI (make KEY_PROG1; break is KE_IGNORE):
-    wmi PNP0C14:00 00000020 00000000
-    button/prog1 PROG1 00000080 00000000 K
-    wmi PNP0C14:00 00000020 00000000
-
-  FN+F8 projection:
-    wmi PNP0C14:00 00000020 00000000
-    video/switchmode VMOD 00000080 00000000 K
-
-  FN+F9 settings (KEY_CONFIG, evdev only):
-    wmi PNP0C14:00 00000020 00000000
-
-  Mi button (make KEY_VENDOR; break is KE_IGNORE):
-    wmi PNP0C14:00 00000020 00000000
-    button/vendor VNDR 00000080 00000000 K
-    wmi PNP0C14:00 00000020 00000000
-
-Raw session (including power/mute/volume/brightness):
-
-  button/power PBTN 00000080 00000000
-  button/power LNXPWRBN:00 00000080 00000001
-  button/mute MUTE 00000080 00000000 K
-  button/volumeup VOLUP 00000080 00000000 K
-  button/volumeup VOLUP 00000080 00000000 K
-  button/volumedown VOLDN 00000080 00000000 K
-  wmi PNP0C14:00 00000020 00000000
-  button/micmute MICMUTE 00000080 00000000 K
-  wmi PNP0C14:00 00000020 00000000
-  button/micmute MICMUTE 00000080 00000000 K
-  video/brightnessdown BRTDN 00000087 00000000
-  video/brightnessup BRTUP 00000086 00000000
-  wmi PNP0C14:00 00000020 00000000
-  button/prog1 PROG1 00000080 00000000 K
-  wmi PNP0C14:00 00000020 00000000
-  wmi PNP0C14:00 00000020 00000000
-  video/switchmode VMOD 00000080 00000000 K
-  wmi PNP0C14:00 00000020 00000000
-  wmi PNP0C14:00 00000020 00000000
-  wmi PNP0C14:00 00000020 00000000
-  wmi PNP0C14:00 00000020 00000000
-  button/vendor VNDR 00000080 00000000 K
-  wmi PNP0C14:00 00000020 00000000
-
-diff --git a/Documentation/wmi/devices/bitland-mifs-wmi.rst b/Documentation/wmi/devices/bitland-mifs-wmi.rst
-index 9e86ecc..a89f872 100644
---- a/Documentation/wmi/devices/bitland-mifs-wmi.rst
-+++ b/Documentation/wmi/devices/bitland-mifs-wmi.rst
-@@ -93,8 +93,13 @@ The following Command IDs are used in the third byte of the buffer:
- +----------+-----------------------+------------------------------------------+
- | ID       | Name                  | Values / Description                     |
- +==========+=======================+==========================================+
--| 8        | SystemPerMode         | 0: Balance, 1: Performance, 2: Quiet,    |
--|          |                       | 3: Full-speed                            |
-+| 8        | SystemPerMode         | Bitland gaming: 0 Balance, 1             |
-+|          |                       | Performance, 2 Quiet, 3 Full-speed.      |
-+|          |                       | Redmi: 0 Performance, 1 Balanced, 2      |
-+|          |                       | Quiet, 4 Full-speed.                     |
-+|          |                       | TM2424 (Xiaomi Book Pro 14): 0x02        |
-+|          |                       | Quiet, 0x03 Turbo, 0x04 Full-speed,      |
-+|          |                       | 0x09 Auto, 0x0A Eco.                     |
- +----------+-----------------------+------------------------------------------+
- | 9        | GPUMode               | 0: Hybrid, 1: Discrete, 2: UMA           |
- +----------+-----------------------+------------------------------------------+
-@@ -188,11 +193,8 @@ Performance Modes
- -----------------
- Changing the performance mode via Command ID 0x08 (SystemPerMode) affects the
- power limits (PL1/PL2) and fan curves managed by the Embedded Controller (EC).
--Note that the "Full-speed" and "Performance" mode (1, 3) is typically only
--available when the system is connected to a DC power source (not USB-C/PD).
--
--In the driver implementation, switch to performance/full-speed mode without
--DC power connected will throw the EOPNOTSUPP error.
-+The value encoding and the AC-power requirement are machine-specific (see
-+Command ID 8 and the driver ops table).
- 
- Graphics Switching
- ------------------
-diff --git a/drivers/platform/x86/bitland-mifs-wmi.c b/drivers/platform/x86/bitland-mifs-wmi.c
-index 6031b1c..b49a6fb 100644
---- a/drivers/platform/x86/bitland-mifs-wmi.c
-+++ b/drivers/platform/x86/bitland-mifs-wmi.c
-@@ -44,6 +44,9 @@
- #define BITLAND_MIFS_GUID	"B60BFB48-3E5B-49E4-A0E9-8CFFE1B3434B"
- #define BITLAND_EVENT_GUID	"46C93E13-EE9B-4262-8488-563BCA757FEF"
- 
-+/* Firmware status in output.operation (wire OutData[1]): request accepted. */
-+#define MIFS_STATUS_OK		0x80
-+
- enum bitland_mifs_operation {
- 	WMI_METHOD_GET	= 250,
- 	WMI_METHOD_SET	= 251,
-@@ -110,8 +113,21 @@ static const struct bitland_profile_mode_map redmi_mode_map = {
- 	.full_speed	= 4,
- };
- 
-+/* TM2424 SystemPerMode bytes (Eco/Auto/Full-speed; Quiet/Turbo are GET aliases). */
-+enum bitland_mifs_tm2424_perf_mode {
-+	WMI_TM2424_QUIET	= 0x02,
-+	WMI_TM2424_TURBO	= 0x03,
-+	WMI_TM2424_FULL_SPEED	= 0x04,
-+	WMI_TM2424_AUTO		= 0x09,
-+	WMI_TM2424_ECO		= 0x0A,
-+};
-+
- static int bitland_pp_check_capability(struct bitland_mifs_wmi_data *data);
- static int redmi_pp_check_capability(struct bitland_mifs_wmi_data *data);
-+static int tm2424_profile_get(struct bitland_mifs_wmi_data *data,
-+			      enum platform_profile_option *profile);
-+static int tm2424_profile_set(struct bitland_mifs_wmi_data *data,
-+			      enum platform_profile_option profile);
- 
- /*
-  * Machine-specific operations. The MIFS WMI interface is shared by
-@@ -122,9 +138,15 @@ struct bitland_mifs_ops {
- 	const char *name;
- 	const struct bitland_profile_mode_map *mode_map;
- 	int (*check_performance_capability)(struct bitland_mifs_wmi_data *data);
-+	int (*profile_get)(struct bitland_mifs_wmi_data *data,
-+			   enum platform_profile_option *profile);
-+	int (*profile_set)(struct bitland_mifs_wmi_data *data,
-+			   enum platform_profile_option profile);
- 	bool has_full_speed;
- 	bool has_cpu_power;
- 	bool quirk_refresh_rate_toggle;
-+	/* hwmon, keyboard LED and gpu/kb/fan sysfs are unimplemented */
-+	bool reduced_fw;
- };
- 
- static const struct bitland_mifs_ops bitland_ops = {
-@@ -151,7 +173,22 @@ static const struct bitland_mifs_ops redmi_g_ops = {
- 	.quirk_refresh_rate_toggle = true,
- };
- 
-+static const struct bitland_mifs_ops tm2424_ops = {
-+	.name = "Xiaomi Book Pro 14",
-+	.profile_get = tm2424_profile_get,
-+	.profile_set = tm2424_profile_set,
-+	.reduced_fw = true,
-+};
-+
- static const struct dmi_system_id bitland_mifs_dmi_table[] = {
-+	{
-+		/* Xiaomi Book Pro 14. Vendor is XIAOMI, not TIMI. */
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "XIAOMI"),
-+			DMI_MATCH(DMI_BOARD_NAME, "TM2424"),
-+		},
-+		.driver_data = (void *)&tm2424_ops,
-+	},
- 	{
- 		/* Redmi G */
- 		.matches = {
-@@ -296,11 +333,89 @@ static int bitland_mifs_wmi_call(struct bitland_mifs_wmi_data *data,
- 	return 0;
- }
- 
-+static int tm2424_wmi_perf_set(struct bitland_mifs_wmi_data *data, u8 val)
-+{
-+	struct bitland_mifs_input input = {
-+		.operation = WMI_METHOD_SET,
-+		.function = WMI_FN_SYSTEM_PER_MODE,
-+	};
-+	struct bitland_mifs_output output;
-+	int ret;
-+
-+	input.payload[0] = val;
-+
-+	ret = bitland_mifs_wmi_call(data, &input, &output);
-+	if (ret)
-+		return ret;
-+
-+	if (output.operation != MIFS_STATUS_OK) {
-+		dev_dbg(&data->wdev->dev,
-+			"perf mode %#x rejected by firmware (status=%#x)\n",
-+			val, output.operation);
-+		return -EOPNOTSUPP;
-+	}
-+
-+	return 0;
-+}
-+
-+static int tm2424_profile_get(struct bitland_mifs_wmi_data *data,
-+			      enum platform_profile_option *profile)
-+{
-+	struct bitland_mifs_input input = {
-+		.operation = WMI_METHOD_GET,
-+		.function = WMI_FN_SYSTEM_PER_MODE,
-+	};
-+	struct bitland_mifs_output output;
-+	int ret;
-+
-+	ret = bitland_mifs_wmi_call(data, &input, &output);
-+	if (ret)
-+		return ret;
-+
-+	switch (output.data[0]) {
-+	case WMI_TM2424_ECO:
-+	case WMI_TM2424_QUIET:
-+		*profile = PLATFORM_PROFILE_LOW_POWER;
-+		break;
-+	case WMI_TM2424_AUTO:
-+		*profile = PLATFORM_PROFILE_BALANCED;
-+		break;
-+	case WMI_TM2424_FULL_SPEED:
-+	case WMI_TM2424_TURBO:
-+		*profile = PLATFORM_PROFILE_PERFORMANCE;
-+		break;
-+	default:
-+		dev_dbg(&data->wdev->dev,
-+			"unrecognized TM2424 perf mode %#x\n", output.data[0]);
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static int tm2424_profile_set(struct bitland_mifs_wmi_data *data,
-+			      enum platform_profile_option profile)
-+{
-+	switch (profile) {
-+	case PLATFORM_PROFILE_LOW_POWER:
-+		return tm2424_wmi_perf_set(data, WMI_TM2424_ECO);
-+	case PLATFORM_PROFILE_BALANCED:
-+		return tm2424_wmi_perf_set(data, WMI_TM2424_AUTO);
-+	case PLATFORM_PROFILE_PERFORMANCE:
-+		/* Full-speed is rejected on battery; fall back to Turbo. */
-+		if (tm2424_wmi_perf_set(data, WMI_TM2424_FULL_SPEED) == 0)
-+			return 0;
-+		return tm2424_wmi_perf_set(data, WMI_TM2424_TURBO);
-+	default:
-+		return -EOPNOTSUPP;
-+	}
-+}
-+
- static int laptop_profile_get(struct device *dev,
- 			      enum platform_profile_option *profile)
- {
- 	struct bitland_mifs_wmi_data *data = dev_get_drvdata(dev);
--	const struct bitland_profile_mode_map *map = data->ops->mode_map;
-+	const struct bitland_profile_mode_map *map;
- 	struct bitland_mifs_input input = {
- 		.reserved1 = 0,
- 		.operation = WMI_METHOD_GET,
-@@ -311,6 +426,10 @@ static int laptop_profile_get(struct device *dev,
- 	u8 mode;
- 	int ret;
- 
-+	if (data->ops->profile_get)
-+		return data->ops->profile_get(data, profile);
-+
-+	map = data->ops->mode_map;
- 	ret = bitland_mifs_wmi_call(data, &input, &result);
- 	if (ret)
- 		return ret;
-@@ -369,7 +488,7 @@ static int laptop_profile_set(struct device *dev,
- 			      enum platform_profile_option profile)
- {
- 	struct bitland_mifs_wmi_data *data = dev_get_drvdata(dev);
--	const struct bitland_profile_mode_map *map = data->ops->mode_map;
-+	const struct bitland_profile_mode_map *map;
- 	struct bitland_mifs_input input = {
- 		.reserved1 = 0,
- 		.operation = WMI_METHOD_SET,
-@@ -379,6 +498,11 @@ static int laptop_profile_set(struct device *dev,
- 	int ret;
- 	u8 mode;
- 
-+	if (data->ops->profile_set)
-+		return data->ops->profile_set(data, profile);
-+
-+	map = data->ops->mode_map;
-+
- 	switch (profile) {
- 	case PLATFORM_PROFILE_LOW_POWER:
- 		mode = map->quiet;
-@@ -897,6 +1021,7 @@ static const struct key_entry bitland_mifs_wmi_keymap[] = {
- 	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_RESERVED_3, 0, 0), { KEY_ALL_APPLICATIONS } },
- 	{ KE_KEY, BI_HOTKEY_CODE(0x1b, 0, 0), { KEY_CONFIG } },
- 	{ KE_KEY, BI_HOTKEY_CODE(0x1b, 1, 0), { KEY_CONFIG } },
-+	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_RESERVED_1, 0, 0), { KEY_SWITCHVIDEOMODE } },
- 	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_RESERVED_1, 1, 0), { KEY_SWITCHVIDEOMODE } },
- 	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_REFRESH_RATE, 0, 0), { KEY_REFRESH_RATE_TOGGLE } },
- 
-@@ -908,6 +1033,12 @@ static const struct key_entry bitland_mifs_wmi_keymap[] = {
- 	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_FN_5, 1, 0), { KEY_ASSISTANT } },
- 
- 	{ KE_KEY, BI_HOTKEY_CODE(0x19, 1, 0), { KEY_ASSISTANT } },
-+	/* TM2424 AI break event (make is 0x23 / WMI_EVENT_OPEN_APP) */
-+	{ KE_IGNORE, BI_HOTKEY_CODE(0x24, 1, 0), {} },
-+
-+	/* TM2424 Mi button: make/break pair */
-+	{ KE_KEY, BI_HOTKEY_CODE(0x25, 1, 0), { KEY_VENDOR } },
-+	{ KE_IGNORE, BI_HOTKEY_CODE(0x26, 1, 0), {} },
- 
- 	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_KBD_BRIGHTNESS, 0, 0), {} },
- 	{ KE_IGNORE, BI_HOTKEY_CODE(WMI_EVENT_KBD_BRIGHTNESS, 0, 0x80), {} },
-@@ -1085,6 +1216,9 @@ static int bitland_mifs_wmi_probe(struct wmi_device *wdev, const void *context)
- 	if (IS_ERR(drv_data->pp_dev))
- 		return PTR_ERR(drv_data->pp_dev);
- 
-+	if (drv_data->ops->reduced_fw)
-+		return 0;
-+
- 	/* Detect the keyboard type */
- 	ret = bitland_detect_kbd_type(drv_data);
- 	if (ret)
-@@ -1243,5 +1377,6 @@ static struct wmi_driver bitland_mifs_wmi_driver = {
- module_wmi_driver(bitland_mifs_wmi_driver);
- 
- MODULE_AUTHOR("Mingyou Chen <qby140326@gmail.com>");
-+MODULE_AUTHOR("KentoNion <kento@kekto.ru>");
- MODULE_DESCRIPTION("Bitland MIFS (MiInterface) WMI driver");
- MODULE_LICENSE("GPL");
--- 
-2.55.0
