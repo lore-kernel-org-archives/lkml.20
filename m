@@ -1,269 +1,277 @@
-Received: from mail-pj1-f100.google.com (mail-pj1-f100.google.com [209.85.216.100])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC49341D204
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 12:30:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C3923C09EE;
+	Wed, 26 Aug 2026 12:30:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787747428; cv=none; b=ZxzMMOZaaZwp1US1ZBnMaJmHB1Vl5RaCUpWBcxS0EO9rfzFYv6euTOTngdMcnJDcOGo1Av4gaL9BAm1jqQtxsv6jiaOMhEqOPGNQtNrVQBg/cTA1vWdcgmznG9EDQz7WqiuXbMcPxLLVYmLDaCn3RFVCdlDujQDnFhnEw8BGisE=
+	t=1787747447; cv=none; b=dUKhUBuDyyEbn8k5adbQ/AwH8Un6NJxl5EW1tt4RcZVi3w0B7wpHLtDP6YsVF848HsHjqhivLAIBW5AwGJwG8Jhm3MXJ9LWeT3inBXmke6GkWIWTc/4j/AJjERZ3ewhO3ULFYXM3MOJ9+RlSuLc+oCqZhdCYAH2dhdH5bqej6Oc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787747428; c=relaxed/simple;
-	bh=SBHBs+xC01gXcU0QqelCAGQ2JpfZjVrxNcgJku3imGk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=btMyFlgdmXsQw2yIF/b3KUmDRSUwh+KWCm00uVqamtWNoSUlSVCWG9kaNhwdJZ5pqMHUie27gwjqs5AIirkGPS58f626krFKf/C1EQfU2R0yghi/8KVWxl8DZa3xVSMT0OLZpoXFC/gpKNaB7ilOhNxh2mH3j0mJtUXb38wteNE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=I++K9lnx; arc=none smtp.client-ip=209.85.216.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1787747447; c=relaxed/simple;
+	bh=wvGhE+52Fql6i98sI1Gtbj/7nD33gWCEHoRGgVHUvy8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=nMwAdF9XXvS4xjJtdTekrue+g+XXLfSGO5706zvAvH3dzeOWevO2lNlsclyisfsi7UCMrkJGTh34DMc3Kn9hXVB07zLdEl7JCteC2UYQrniRCQkLQsx6uq4RqsqQE8/ebPPiV8CxVZj4UTda/st9eD7EA89xa3oZ0Wsbf5Ea5es=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TjaoQAB9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="I++K9lnx"
-Received: by mail-pj1-f100.google.com with SMTP id 98e67ed59e1d1-38511175ad3so976066a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 05:30:26 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787747426; x=1788352226;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SBHBs+xC01gXcU0QqelCAGQ2JpfZjVrxNcgJku3imGk=;
-        b=HXUr58Jp9HrvASk3XDCfzIok47SGaQjm2zPI4CbLS89TUoQKDGHhHLYSEx0lacTRde
-         bsa+0gwnK2Cxa3k/+XTDxbBeddLK1kQX9ANWpATQbfGK/zi0Ws1baDqQERFWpwsqQYcC
-         OEL/d9j9d56NpTxDDoPzkvtkix2plQjtEV3zSgmmGYUr2MHIJ+cTZlIsNKiPIu4VP62L
-         AS949p5FXBNFWg27zbb6JetjL5Her9L6RJOYk+zGDNZ7t800HWius0gE6rmEWFVHbwV5
-         R5fCN10tUQNaYEn+bxOxJRO3T1LT0GCoPpSfMzF1itfEUC/UMfHcYsTtJlqX1/MF47Bd
-         tmgg==
-X-Forwarded-Encrypted: i=1; AHgh+Ro2tc0iJqxa12weyFESBebs/kIfx8uR2RA7Bx+BQ3jd6eCQ6r09OWZtA/HvkUcOB+RDTqygbr8h2pKPfj0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nCCD16sQb0TUXdGaIZuyESR0v0HN5B07Gj7luiJ/7WRmbS6cga
-	Z4udgpDMJG9ynLhVRucz6Vu07Lxqd4NExMJse35FHFmUDoA30YOCxucM31dMvoBYEjptR8T1avG
-	ozvKRvU+0JxbyIesJogyk+cyXr2oDLfZONMnoRz5tqaHSfzUyCSALFmF1YXlEA8OyzCL+wT/eBW
-	D492YP0vp84ojW++Oqr1cdveOCDLgEFQbaOwxoR6DwwIp2QXXkhF05+tQBg5uXgnNgBMXnhjxr0
-	KT732e9wguO49H/J7QLXAyCeQ==
-X-Gm-Gg: AR+sD122ZJliYF2+LsflNbb0KZTVMvs8SMbgIokhE09CwxGc9RFnAk5lDlbb+qlDLvz
-	0KiHyTsrVWLrNLcYnZgtKy4lXe2oIkQFWknXS3BPU61DSyJEMi2vykFrWCLA3UaD0N2Zt4QAvL1
-	eB5H1KOWTfY8O5SW0NkWSBiTINPAdcOifoTHmyzfAGLHSEY1uf/o1jzkfb6Kv/O8fJEQGk/fWKi
-	EVjs50HnCb9abaHhJEEribmHQn8ljbdEDrETnPZbm2u6G9qlgce38Djgis7cNd3sXUZ7H3NCWbH
-	/yIR4Qxu91xg9UcPyWhnoZxHQcKOikAvruQm6g2um5ojnexjAyX3i0wT4HdJV1SQbCTX+z5IEOf
-	gWnIrnRVX6zNrlSFlAg/Cvcx4hSrhOs63IL30lks2a+FK4/bjkrg1gMZ6WLcIs2bVlDiWm5XgEV
-	/g+PglXg+stghDsxdHLSUn6uVIbjv7VqePX2aB/PIlKqf5
-X-Received: by 2002:a17:90b:530c:b0:396:635a:9b10 with SMTP id 98e67ed59e1d1-3966d3dc393mr11968079a91.11.1787747426193;
-        Wed, 26 Aug 2026 05:30:26 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-121.dlp.protect.broadcom.com. [144.49.247.121])
-        by smtp-relay.gmail.com with ESMTPS id 41be03b00d2f7-cc1bfd65849sm633864a12.4.2026.08.26.05.30.25
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 26 Aug 2026 05:30:26 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-47f753a0aa0so395546f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 05:30:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1787747424; x=1788352224; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SBHBs+xC01gXcU0QqelCAGQ2JpfZjVrxNcgJku3imGk=;
-        b=I++K9lnxTML/VFzCvJB7JiKY8gwbpLxcajkzl+OF23btytP5g2/H9sKlzKQFnEz4Qm
-         s0zQd1o7D+4YAc4b0egHx+mwXb4wp5DsZVzaZ9nsSAWFPXM2bEVZEt8ZzW6DA2Hzj3D9
-         0xG/2rgwIwucypWhlQ+LqhRqaJWvFvClIYKbU=
-X-Forwarded-Encrypted: i=1; AHgh+RrnavOuP4A7yJdODSzIvLNpnPOwLVGwfZRaBVtreOMzGmQ/e7MNRZBRYPi6fwGnUybtCSzB7gBm4J7oZ3M=@vger.kernel.org
-X-Received: by 2002:a05:6000:4a14:b0:47f:9096:3ef1 with SMTP id ffacd0b85a97d-482e26899efmr7531867f8f.9.1787747423887;
-        Wed, 26 Aug 2026 05:30:23 -0700 (PDT)
-X-Received: by 2002:a05:6000:4a14:b0:47f:9096:3ef1 with SMTP id
- ffacd0b85a97d-482e26899efmr7531799f8f.9.1787747423437; Wed, 26 Aug 2026
- 05:30:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TjaoQAB9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 424BF1F000E9;
+	Wed, 26 Aug 2026 12:30:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787747445;
+	bh=J95OHvb8T6GMaxZirBttOr2b123nqWN9/H4w2WykBjY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=TjaoQAB9T65MooQbhS8IufcTfowrnRayQVG8SNodQ9zzib2qRhQuXNp2VkmWSgvZ7
+	 k72B2IpRX98QUx7V39OjZXfc5XJZ7rvI0sIg5KhFaWF5sYXeklaMACFggPOU3KE08d
+	 cpbq5/uZXcD74R/ZBhijGfmsWrQkj6r5ltFBYDQTkOm7yV/RG11tIPYKpjMnkjAzQV
+	 tkeCe6cE+S40lxF7+yN+5iirb2pcLvpVpU+d6YDZzECQTP9pDfANp7oklEDKKmsDPX
+	 wyfT84cb7ipWH9+Etsy2HqlOcOnjujLJlrB3Ozsq/Syd9qjgQTIRZmCUSYXiIJAi9T
+	 qVl5KbVu09amQ==
+From: Simon Horman <horms@kernel.org>
+To: vikas.gupta@broadcom.com
+Cc: Simon Horman <horms@kernel.org>,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	andrew+netdev@lunn.ch,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bhargava.marreddy@broadcom.com,
+	rahul-rg.gupta@broadcom.com,
+	vsrama-krishna.nemani@broadcom.com,
+	rajashekar.hudumula@broadcom.com,
+	dharmender.garg@broadcom.com,
+	ajit.khaparde@broadcom.com
+Subject: Re: [PATCH net] bnge: add missing ndo_set_features
+Date: Wed, 26 Aug 2026 13:30:20 +0100
+Message-ID: <20260826123020.350008-1-horms@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260824085028.1174150-1-vikas.gupta@broadcom.com>
+References: <20260824085028.1174150-1-vikas.gupta@broadcom.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826000234.2031564-1-joe@dama.to> <CACKFLi=gFqMz2nu_6gf_pX0JBXxsygcuzUwXAdqL=8XR0Jogng@mail.gmail.com>
-In-Reply-To: <CACKFLi=gFqMz2nu_6gf_pX0JBXxsygcuzUwXAdqL=8XR0Jogng@mail.gmail.com>
-From: Andy Gospodarek <andrew.gospodarek@broadcom.com>
-Date: Wed, 26 Aug 2026 08:30:11 -0400
-X-Gm-Features: AcwNN1XkZ2TeVi02ehUP9iKyMms2IsgfGsNkChcO8ZQtYv2Be7FwbhxsMjxfah0
-Message-ID: <CACDg6nWtE+0tcHqEgd_+=kHKpFGf-78Rc3ALyzJO9ZZkV2g=uA@mail.gmail.com>
-Subject: Re: [PATCH net] bnxt_en: Write doorbell when linearizing skb fails
-To: Michael Chan <michael.chan@broadcom.com>
-Cc: Joe Damato <joe@dama.to>, netdev@vger.kernel.org, 
-	Pavan Chebbi <pavan.chebbi@broadcom.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Somnath Kotur <somnath.kotur@broadcom.com>, Simon Horman <horms@kernel.org>, 
-	kalesh-anakkur.purayil@broadcom.com, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="0000000000002c50cc0659f26266"
+Content-Transfer-Encoding: 8bit
 
---0000000000002c50cc0659f26266
-Content-Type: multipart/alternative; boundary="0000000000001f6f520659f262e3"
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+Full review at: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260824085028.1174150-1-vikas.gupta@broadcom.com?part=1
+---
+bnge: add missing ndo_set_features
 
---0000000000001f6f520659f262e3
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This adds a bnge_set_features() callback so that toggling LRO/GRO_HW via
+ethtool -K actually reprograms the TPA engine. On a running interface it
+recomputes bn->priv_flags, then tears down and re-opens the datapath with
+bnge_close_core() followed by bnge_set_ring_params() and bnge_open_core().
 
-On Wed, Aug 26, 2026 at 2:00=E2=80=AFAM Michael Chan <michael.chan@broadcom=
-.com>
-wrote:
->
-> On Tue, Aug 25, 2026 at 5:02=E2=80=AFPM Joe Damato <joe@dama.to> wrote:
-> >
-> > When the driver is handed a burst of packets, the doorbell is deferred
-> > until the end. If the last packet has a huge number of frags, but fails
-> > to linearize, the doorbell will not be written adding latency on TX for
-> > any packets in the ring and holding their DMA mappings until the next
-> > TX. Note that the queue is not stopped, so this issue would delay
-> > pending BDs until the next TX.
-> >
-> > This issue was discovered by Sashiko and reading the code verifies that=
-,
-> > while unlikely, it is possible.
-> >
-> > Fix this by jumping to tx_free, which replicates the same pre-existing
-> > logic but also writes the doorbell.
-> >
-> > Fixes: b91e82129400 ("bnxt_en: Linearize TX SKB if the fragments exceed
-the max")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Joe Damato <joe@dama.to>
->
-> Thanks.
-> Reviewed-by: Michael Chan <michael.chan@broadcom.com>
+A few questions about the reconfiguration sequence below.
 
-Looks good to me, too.
+> diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
+> index a4288f0258f87..0973cc25a3ec4 100644
+> --- a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
+> +++ b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
+> @@ -3267,6 +3267,33 @@ static const struct netdev_stat_ops bnge_stat_ops = {
+>  	.get_base_stats		= bnge_get_base_stats,
+>  };
+>  
+> +static int bnge_set_features(struct net_device *dev, netdev_features_t features)
+> +{
+> +	struct bnge_net *bn = netdev_priv(dev);
+> +	struct bnge_dev *bd = bn->bd;
+> +	u32 flags = bn->priv_flags;
+> +
+> +	flags &= ~BNGE_NET_EN_TPA;
+> +	if (features & NETIF_F_GRO_HW)
+> +		flags |= BNGE_NET_EN_GRO;
+> +	else if (features & NETIF_F_LRO)
+> +		flags |= BNGE_NET_EN_LRO;
+> +
+> +	if (flags == bn->priv_flags)
+> +		return 0;
+> +
+> +	bn->priv_flags = flags;
+        ^^^^^^^^^^^^^^^^^^^^^
 
-Reviewed-by: Andy Gospodarek <gospo@broadcom.com>
+[Severity: Medium]
+Is it safe to publish the new TPA mode here, before the datapath has been
+quiesced?  At this point NAPI is still running; bnge_disable_napi() is only
+reached later, inside bnge_close_core().
 
---0000000000001f6f520659f262e3
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+The RX completion path reads the same word from softirq context with no
+lock:
 
-<div dir=3D"ltr">On Wed, Aug 26, 2026 at 2:00=E2=80=AFAM Michael Chan &lt;<=
-a href=3D"mailto:michael.chan@broadcom.com">michael.chan@broadcom.com</a>&g=
-t; wrote:<br>&gt;<br>&gt; On Tue, Aug 25, 2026 at 5:02=E2=80=AFPM Joe Damat=
-o &lt;<a href=3D"mailto:joe@dama.to">joe@dama.to</a>&gt; wrote:<br>&gt; &gt=
-;<br>&gt; &gt; When the driver is handed a burst of packets, the doorbell i=
-s deferred<br>&gt; &gt; until the end. If the last packet has a huge number=
- of frags, but fails<br>&gt; &gt; to linearize, the doorbell will not be wr=
-itten adding latency on TX for<br>&gt; &gt; any packets in the ring and hol=
-ding their DMA mappings until the next<br>&gt; &gt; TX. Note that the queue=
- is not stopped, so this issue would delay<br>&gt; &gt; pending BDs until t=
-he next TX.<br>&gt; &gt;<br>&gt; &gt; This issue was discovered by Sashiko =
-and reading the code verifies that,<br>&gt; &gt; while unlikely, it is poss=
-ible.<br>&gt; &gt;<br>&gt; &gt; Fix this by jumping to tx_free, which repli=
-cates the same pre-existing<br>&gt; &gt; logic but also writes the doorbell=
-.<br>&gt; &gt;<br>&gt; &gt; Fixes: b91e82129400 (&quot;bnxt_en: Linearize T=
-X SKB if the fragments exceed the max&quot;)<br>&gt; &gt; Cc: <a href=3D"ma=
-ilto:stable@vger.kernel.org">stable@vger.kernel.org</a><br>&gt; &gt; Signed=
--off-by: Joe Damato &lt;<a href=3D"mailto:joe@dama.to">joe@dama.to</a>&gt;<=
-br>&gt;<br>&gt; Thanks.<br>&gt; Reviewed-by: Michael Chan &lt;<a href=3D"ma=
-ilto:michael.chan@broadcom.com">michael.chan@broadcom.com</a>&gt;<div><br><=
-/div><div>Looks good to me, too.</div><div><br></div><div>Reviewed-by: Andy=
- Gospodarek &lt;<a href=3D"mailto:gospo@broadcom.com">gospo@broadcom.com</a=
->&gt;</div><div><br></div></div>
+drivers/net/ethernet/broadcom/bnge/bnge_txrx.c:bnge_tpa_end() {
+	...
+#ifdef CONFIG_INET
+	if (bn->priv_flags & BNGE_NET_EN_GRO)
+		skb = bnge_gro_skb(bn, tpa_info, tpa_end, tpa_end1, skb);
+#endif
+	...
+}
 
---0000000000001f6f520659f262e3--
+So an aggregation that was started (TPA_START) while the VNIC was still
+programmed for the old mode can be completed using the new flag value, and
+bnge_gro_func() will then derive skb_set_network_header()/
+skb_set_transport_header() offsets from TPA_START metadata that was produced
+under the previous configuration.
 
---0000000000002c50cc0659f26266
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
+bnxt_reinit_features() orders this the other way round - it closes first and
+publishes afterwards:
 
-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
-tJVewHuOmXgWQxNWV7Oiszu1d9xAcqyj65s1PrEIIaHnxEM3eTK+teecLEy8QymZjjDTrCHg4x36
-2AczdlQAIiq5TSAucGja5VP8g1zTnfL/RAxEZvLS471GABptArolXY2hMVHdVEYcTduZlu8aHARc
-phXveOB5/l3bPqpMVf2aFalv4ab733Aw6cPuQkbtwpMFifp9Y3s/0HGBfADomK4OeDTDJfuvCp8g
-a907E48SjOJBGkh6c6B3ace2XH+CyB7+WBsoK6hsrV5twAXSe7frgP4lN/4Cm2isQl3D7vXM3PBQ
-ddI2aZzmewTfbgZptt4KCUhZh+t7FGB6ZKppQ++Rx0zsGN1s71MtjJnhXvJyPs9UyL1n7KQPTEX/
-07kwIwdMjxC/hpbZmVq0mVccpMy7FYlTuiwFD+TEnhmxGDTVTJ267fcfrySVBHioA7vugeXaX3yL
-SqGQdCWnsz5LyCxWvcfI7zjiXJLwefechLp0LWEBIH5+0fJPB1lfiy1DUutGDJTh9WZHeXfVVFsf
-rSQ3y0VaTqBESMjYsJnFFYQJ9tZJScBluOYacW6gqPGC6EU+bNYC1wpngwVayaQQMIIGozCCBIug
-AwIBAgIMLAiVyur+1MRjdDgxMA0GCSqGSIb3DQEBCwUAMFIxCzAJBgNVBAYTAkJFMRkwFwYDVQQK
-ExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBDQSAy
-MDIzMB4XDTI1MDYyMDEzNDMwNVoXDTI3MDYyMTEzNDMwNVowgeYxCzAJBgNVBAYTAlVTMRMwEQYD
-VQQIEwpDYWxpZm9ybmlhMREwDwYDVQQHEwhTYW4gSm9zZTEZMBcGA1UEYRMQTlRSVVMrREUtNjYx
-MDExNzETMBEGA1UEBBMKR29zcG9kYXJlazEPMA0GA1UEKhMGQW5kcmV3MRYwFAYDVQQKEw1CUk9B
-RENPTSBJTkMuMScwJQYDVQQDDB5hbmRyZXcuZ29zcG9kYXJla0Bicm9hZGNvbS5jb20xLTArBgkq
-hkiG9w0BCQEWHmFuZHJldy5nb3Nwb2RhcmVrQGJyb2FkY29tLmNvbTCCASIwDQYJKoZIhvcNAQEB
-BQADggEPADCCAQoCggEBAOP/A/G3pTTF6D8/BCAHpxJpQjOueWirQLqbjFWJTHsh6ADFdvKs+izD
-0snfZopX+ZSMfR+NKl12zoJaZy/HTGiXvyeLACXBAP5i8J+smf3H0UZo+ztl9s/CLIxDfjquoQYV
-UHAKWXC5euJvZ4N4/n2E35/OV6VV3JeKQHAiSOXhljrejDS6Wk96WYaQKawDm0jYH6OoXDnR/CMn
-3bcNBRgaGW5VtJUP5jpTLrsQFC25kFf6fA5/HWLsVdOwkBWic80s6HCG0ROnFWnbLPL49NGItRmc
-Cndhx/wUdeIk/qDpB3NiaC0IsvVNnZLIIbEl5kBojwkZV0jD/VicntRDJ78CAwEAAaOCAeIwggHe
-MA4GA1UdDwEB/wQEAwIFoDAMBgNVHRMBAf8EAjAAMIGTBggrBgEFBQcBAQSBhjCBgzBGBggrBgEF
-BQcwAoY6aHR0cDovL3NlY3VyZS5nbG9iYWxzaWduLmNvbS9jYWNlcnQvZ3NnY2NyNnNtaW1lY2Ey
-MDIzLmNydDA5BggrBgEFBQcwAYYtaHR0cDovL29jc3AuZ2xvYmFsc2lnbi5jb20vZ3NnY2NyNnNt
-aW1lY2EyMDIzMGUGA1UdIAReMFwwCQYHZ4EMAQUDAzALBgkrBgEEAaAyASgwQgYKKwYBBAGgMgoD
-AjA0MDIGCCsGAQUFBwIBFiZodHRwczovL3d3dy5nbG9iYWxzaWduLmNvbS9yZXBvc2l0b3J5LzBB
-BgNVHR8EOjA4MDagNKAyhjBodHRwOi8vY3JsLmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWltZWNh
-MjAyMy5jcmwwKQYDVR0RBCIwIIEeYW5kcmV3Lmdvc3BvZGFyZWtAYnJvYWRjb20uY29tMBMGA1Ud
-JQQMMAoGCCsGAQUFBwMEMB8GA1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQW
-BBTQMVctYYJaUBLeJgZz6cT67l9WmjANBgkqhkiG9w0BAQsFAAOCAgEARE5k774M2TzT1K6LUDrm
-HBHxHxe8rQpJrB59lyOANT2BjSITyUXPC/Up9ExGhYbioibOJALdaBhATnMgqw03EJLpr7Sy/mY9
-g/LlaPMSHU0vcuhuU15DAwQfJ9Liw4K9AmTo0MnPKgiSDLWT8yuphPFiXATg1x8+K1b/KEt8t3Cx
-3pY6cGPUH4iJXz801q7ka38emkBlMKS4i7eWgwCSHR/9c7JvlrVYT5+wqYCbmPasbv3jNS0MfEdY
-qNLhtJABTy1ePhWmAzFMlbexVyN3FeWCOtxrnnD6tFhYt9dMX2kSvti9voE1cPJfyHj7IhvHVlUc
-aBR5GY5F9netDgPvbqg1YpqYZwxblN6i91QhywTGSydHpbgJAmVEEp9rKvGJirwRjORPt0wXb3b6
-6BzJD4dFfmqoXVKRl6WHOOICEKWVcD0OnPRdCJEXiSW6y1xobGpElvWmB7lGIE+W9V/Efv17PdJa
-/u6hPkFWZBhzmFzEWDSaWvsfJpk3Jb+8oHhOk0IERLc4VLhPNhyMOQq+aL30GjEej1lqr79p5a70
-/+WaRxxlypFBMj2V0384P2ACDsYAayPdKSx5aoEJWmW2cc/xR0LxENIsNWeqUBvEjcA6Qud56l66
-dGBNtVCEGdHfKttDlWel93rPRa77UmnqEt+6YNFCXnuhaSUJGOA0yxQxggJXMIICUwIBATBiMFIx
-CzAJBgNVBAYTAkJFMRkwFwYDVQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxT
-aWduIEdDQyBSNiBTTUlNRSBDQSAyMDIzAgwsCJXK6v7UxGN0ODEwDQYJYIZIAWUDBAIBBQCggccw
-LwYJKoZIhvcNAQkEMSIEIP/GfMYdSFfOvro2wLfibX5OVZyuw2VekzDiBMjw5O7HMBgGCSqGSIb3
-DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI2MDgyNjEyMzAyNFowXAYJKoZIhvcN
-AQkPMU8wTTALBglghkgBZQMEASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0D
-BzALBgkqhkiG9w0BAQcwCwYJYIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAL2jPtcRDa6ohKYQ
-xqaUsbE7JXJw16nK160EYpjLkdB1s88T33oMEBxxCcq2aKqFVmG5kEeW8jY1r5btV3FWICd/hCil
-R2FjqceyDyHOiI6EXt57f1PgVWMU9ge2hpgD41KQ0YTBm7uMJE1k/Okh5UsXfZVAsiGYG4YPQnve
-SNJf6PlZaL9kdssPQDExo1p1FgnR+S/qEhiq4isXBUkFd+ddghQJORu5Kreva9tY5JYXK7tfJBBA
-MpGqrVs+iKefppRf8Hjlilpm5BYKqnKG8M3mkm/pPzr2RjP/RkzmXEyUrPjC+yXHCP0oCSkjph02
-HgerUADjJUYAfg8dFdZULYQ=
---0000000000002c50cc0659f26266--
+drivers/net/ethernet/broadcom/bnxt/bnxt.c:bnxt_reinit_features() {
+	bnxt_close_nic(bp, irq_re_init, link_re_init);
+	bp->flags = flags;
+	if (update_tpa)
+		bnxt_set_ring_params(bp);
+	return bnxt_open_nic(bp, irq_re_init, link_re_init);
+}
+
+Would moving the bn->priv_flags store below bnge_close_core() be preferable?
+
+> +
+> +	if (!netif_running(dev)) {
+> +		bnge_set_ring_params(bd);
+> +		return 0;
+> +	}
+> +
+> +	bnge_close_core(bn);
+> +	bnge_set_ring_params(bd);
+> +	return bnge_open_core(bn);
+          ^^^^^^^^^^^^^^^^^^^^^^^
+
+[Severity: High]
+Can a failing bnge_open_core() here leave the netdev running over a freed
+datapath?
+
+Every error exit in bnge_open_core() frees the core and tells firmware the
+interface went down:
+
+drivers/net/ethernet/broadcom/bnge/bnge_netdev.c:bnge_open_core() {
+	...
+err_free_irq:
+	bnge_free_irq(bn);
+err_del_napi:
+	bnge_del_napi(bn);
+	bnge_free_core(bn);
+err_if_change:
+	bnge_hwrm_if_change(bd, false);
+	return rc;
+}
+
+bnge_free_core() NULLs bn->vnic_info (via bnge_free_vnics()), bn->grp_info,
+bn->tx_ring, bn->rx_ring and bn->bnapi.
+
+The core does not close the device when ndo_set_features returns an error:
+
+net/core/dev.c:__netdev_update_features() {
+	...
+	if (unlikely(err < 0)) {
+		netdev_err(dev,
+			"set_features() failed (%d); wanted %pNF, left %pNF\n",
+			err, &features, &dev->features);
+		return -1;
+	}
+	...
+}
+
+So netif_running() stays true, and the next teardown re-enters
+bnge_close_core() on that freed state.  bnge_close_core() has no guard, and
+bnge_shutdown_nic()->bnge_hwrm_resource_free()->bnge_clear_vnic()->
+bnge_hwrm_clear_vnic_filter() starts with:
+
+	struct bnge_vnic_info *vnic = &bn->vnic_info[BNGE_VNIC_DEFAULT];
+	int i;
+
+	for (i = 0; i < vnic->uc_filter_count; i++) {
+
+which reads through a NULL bn->vnic_info.  bnge_save_ring_stats()
+(bn->bnapi[i]), bnge_del_napi() (bn->bnapi[i]) and bnge_free_tx_skbs()
+(&bn->tx_ring[i], then txr->tx_buf_ring, unlike
+bnge_free_rx_ring_pair_bufs()/bnge_tx_disable() which do test for NULL) are
+on the same path.
+
+Two easy second-teardown triggers: ip link set ethX down -> bnge_close(),
+which calls bnge_close_core() unconditionally, and simply repeating
+ethtool -K, since bnge_set_features() only gates on netif_running().
+
+bnxt_open_nic() forces the device closed in this situation:
+
+drivers/net/ethernet/broadcom/bnxt/bnxt.c:bnxt_open_nic() {
+	...
+	if (rc) {
+		netdev_err(bp->dev, "nic open fail (rc: %x)\n", rc);
+		netif_close(bp->dev);
+	}
+	...
+}
+
+Should bnge_set_features() do the same on a failed re-open?
+
+[Severity: Medium]
+Related to the above: on that failure bn->priv_flags keeps the new value and
+bnge_set_ring_params() has already recomputed rx_agg_ring_size /
+rx_buf_size / cp_ring_size for it, while __netdev_update_features() leaves
+dev->features at the old value.
+
+If the user then repeats the same ethtool -K command, the recomputed flags
+now equal bn->priv_flags, so:
+
+	if (flags == bn->priv_flags)
+		return 0;
+
+returns success without touching hardware, and the core commits
+dev->features.  Isn't that the same "dev->features no longer reflects the
+actual hardware state" mismatch the commit message sets out to fix?
+
+bnxt_set_features() restores the private flag word when the hardware step
+fails:
+
+drivers/net/ethernet/broadcom/bnxt/bnxt.c:bnxt_set_features() {
+	...
+			rc = bnxt_set_tpa(bp, (flags & BNXT_FLAG_TPA) ? true : false);
+			if (rc)
+				bp->flags = old_flags;
+	...
+}
+
+[Severity: Medium]
+Does this pairing produce an unbalanced FUNC_DRV_IF_CHANGE handshake?
+
+bnge_open_core() starts with bnge_hwrm_if_change(bd, true), but the matching
+DOWN notification lives only in ndo_stop:
+
+drivers/net/ethernet/broadcom/bnge/bnge_netdev.c:bnge_close() {
+	bnge_close_core(bn);
+	bnge_hwrm_shutdown_link(bn->bd);
+	bnge_hwrm_if_change(bn->bd, false);
+}
+
+bnge_close_core() does not issue it, so every ethtool -K toggle on a running
+interface sends a second UP with no intervening DOWN.
+
+bnge_hwrm_if_change() also discards the response:
+
+	if (up)
+		req->flags = cpu_to_le32(FUNC_DRV_IF_CHANGE_REQ_FLAGS_UP);
+
+	return bnge_hwrm_req_send(bd, req);
+
+so any resource-change or hot-FW-reset indication firmware returns on that
+extra UP is lost, and bnge_reserve_rings() runs immediately afterwards on
+the driver's existing reservation bookkeeping.
+
+bnxt keeps the handshake at the ndo_open/ndo_stop level only -
+bnxt_reinit_features() calls bnxt_close_nic()/bnxt_open_nic() and never
+bnxt_hwrm_if_change().  Would it make sense to keep bnge_hwrm_if_change()
+out of the reinit path here as well?
+
+> +}
+> +
+>  static const struct net_device_ops bnge_netdev_ops = {
+>  	.ndo_open		= bnge_open,
+>  	.ndo_stop		= bnge_close,
+
+[ ... ]
