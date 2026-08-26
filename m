@@ -1,87 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 042B33F1AD7;
-	Wed, 26 Aug 2026 13:10:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E233F1AD7
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:10:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.235.229.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787749817; cv=none; b=FJ9xKeC76LKXI19gQTOB4tPgRLCnjfL3d0gBuChjCS4hEz7a6EimV7vZY7an0/3LHi7mTFpwSKlJ02xy5QGRgSv6+TtKB4WXVRsD0GTInFvwFy4AmbcNpkXZUyWv1MYBibZBqAyW9mr/43u7Pv9TwBaEi7DHamSdxW/ugLK8m34=
+	t=1787749862; cv=none; b=rMFFLgxfxn0MRxZY5LC2qAmoR/jYH8R3kHEJnKsIDI0FYvGrtksG16iRhPDfn7ALk/6l1lo+Fy+Jpydu37V4IlQLkMxja26jRw+ZB/mV37l9i4JXyUwbmqH4WmXouIZ+mRcI/SGOOxmsIR5CeqEkteRdMPRjqM/Mzt2X0R1y77E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787749817; c=relaxed/simple;
-	bh=DikMXrn6dNejgfcuxe4iWYRZZU6hw6FARPjRMsrHE9s=;
+	s=arc-20240116; t=1787749862; c=relaxed/simple;
+	bh=1mWVz+TVSBJQNvVh4DzDRuzy6jS3kY2TxBr7kkMO/Bs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DHoTRX6xPmNu2NgjXptf45r9EUVgQ6Ujsaz3kYjXNkVjTLSYH9yJUUTc3Y2ioR+JZiv45W+k9KS9qRBXd5Vsxxyj/vEAw5ChYzqUQ2qXmuJRJCMyPerAk8bPLxJKql1ED4sv3lwxgyxVNd0EkO0C8mOQ2/+f6tUZqHql0lodvHc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hnoUkDCR; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ReD57vmgnEXZJ79t31/Bqd5ZEbGR1qvyiqd7iEnubYiGCQQ/VhIViVjWH9qgP8cIbGEbd2g7zWXqj5opaKvrK8LCN0z2WFeoM2gWNK+H2uptj4B0ONpVSPlshIjy0vHRNDyn6mgjzMz5hHwpiOd6d3y+3+UhMn6bwvs2GFJ6LbI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=treblig.org; spf=pass smtp.mailfrom=treblig.org; dkim=pass (2048-bit key) header.d=treblig.org header.i=@treblig.org header.b=p/e1CLPZ; arc=none smtp.client-ip=46.235.229.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=treblig.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=treblig.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hnoUkDCR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB1241F000E9;
-	Wed, 26 Aug 2026 13:10:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787749815;
-	bh=z29EKC1TEcpdEn0ZbUlK5fEa15VDOjDwmxfz9RTXdqI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hnoUkDCRtz++B5hNmtoD1jlGKWqCfoTBsaIX+dYjA6/zxajl3xysiiFoMU3DCy9PD
-	 1t+59qGAuFl+SkbrXocFqBvCOoCHOPNEsmX6w5WIiCw/4vKSeM1upiPIXw0oL5yz9I
-	 RbIHKYtyPOcZPbsDbH4Z0wvkwRZ88oApiOKqptmY=
-Date: Wed, 26 Aug 2026 15:10:14 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Bradley Morgan <brads@mainlining.org>
-Cc: atomlin@atomlin.com, corbet@lwn.net, da.gomez@kernel.org,
-	dakr@kernel.org, driver-core@lists.linux.dev,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-modules@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org, mathieu.desnoyers@efficios.com,
-	mcgrof@kernel.org, mhiramat@kernel.org, petr.pavlu@suse.com,
-	rafael@kernel.org, rdunlap@infradead.org, rostedt@goodmis.org,
-	samitolvanen@google.com, skhan@linuxfoundation.org
-Subject: Re: [PATCH 2/2] driver core: add TAINT_FORCED_BIND for when
- userspace manually messes with devices and drivers
-Message-ID: <2026082604-freewill-pretzel-0057@gregkh>
-References: <20260826-bind_taint-v1-2-52b05f4a965c@linuxfoundation.org>
- <C35F2CF9-9CD7-482F-8F30-2D152AB42D0B@mainlining.org>
+	dkim=pass (2048-bit key) header.d=treblig.org header.i=@treblig.org header.b="p/e1CLPZ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
+	; s=bytemarkmx; h=Content-Type:MIME-Version:Message-ID:Subject:From:Date:From
+	:Subject; bh=tRnztHud4pjjk8xSOgMv8kVQN9nuJzUsR1szd+RCmic=; b=p/e1CLPZX9o3k1P+
+	vckKD1ZJhqBOSmfW0/1GFIWjf5DJrkOFurKOQ5VkZ7OV5EdOYGZY0yH79B0b1lSVNOUcb3l6VRkxT
+	hVxSgLzzVm3qxLBXqGOXJhBwYvzUG9alhZZrWQVIStf9ZGscCjP8IJWzprf/Y7MhFDNP6hPStlItc
+	E5RC/Dxtz5ehw1XAFYh7vc0YarTE+pW8QtaGhCcc1BJEURCq/Ko8Tx46WoCXMbt7naSuANlFoGyTY
+	/Tz/TwgevCaFgxiQ/4fg/631cCInRm5apHWtRyPZUGvujYL1Xn8WbMxr2X8dQcv48bqalkhiuGwOW
+	/XrwFQxHndyOr98rTg==;
+Received: from dg by mx.treblig.org with local (Exim 4.98.2)
+	(envelope-from <dg@treblig.org>)
+	id 1wzDP1-00000000Asb-0ABM;
+	Wed, 26 Aug 2026 13:10:51 +0000
+Date: Wed, 26 Aug 2026 13:10:50 +0000
+From: "Dr. David Alan Gilbert" <linux@treblig.org>
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: Alex Deucher <alexdeucher@gmail.com>, alexander.deucher@amd.com,
+	christian.koenig@amd.com, harry.wentland@amd.com,
+	sunpeng.li@amd.com, amd-gfx@lists.freedesktop.org,
+	airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/4] drm/amdgpu: Remove is_idle method
+Message-ID: <ao7l2qRUJpomS6Bw@gallifrey>
+References: <20260815180033.8958-1-linux@treblig.org>
+ <CADnq5_PgZx7aDGFD5pPQ=1MvF9_N_omVojNiDQFHjs0Tqasv+A@mail.gmail.com>
+ <2026082644-monetize-tingling-0abd@gregkh>
+ <CADnq5_N0AxaDZswgEQ7BEcKw8mF2hnSbAQp-w9U2Fy-MaEw8Rg@mail.gmail.com>
+ <2026082654-gangrene-support-8541@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <C35F2CF9-9CD7-482F-8F30-2D152AB42D0B@mainlining.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <2026082654-gangrene-support-8541@gregkh>
+X-Chocolate: 70 percent or better cocoa solids preferably
+X-Operating-System: Linux/6.12.105+deb13-amd64 (x86_64)
+X-Uptime: 13:10:19 up 16:13,  3 users,  load average: 0.10, 0.04, 0.01
+User-Agent: Mutt/2.2.13 (2024-03-09)
 
-On Wed, Aug 26, 2026 at 12:58:00PM +0100, Bradley Morgan wrote:
-> On 26 August 2026 10:19:33 BST, Greg Kroah-Hartman
-> <gregkh@linuxfoundation.org> wrote:
-> >The ability to add and remove devices from a driver through the sysfs
-> >"bind" and "unbind" files was created all those decades ago as a way
-> >that kernel developers can iterate faster, and provide a debugging way
-> >for users to attempt to add a new device to a driver without having to
-> >rebuild their kernel.
-> >
-> >This api over the years has been abused and recently come under a major
-> >fuzzing "attack" through tools like syzbot which decided that it would
-> >attempt to just randomly bind any driver to any type of device, causing
-> >loads of unneeded errors and pointless kernel patches to be generated by
-> >unsuspecting new developers.
-> >
-> >Handle all of this by adding a new taint flag, TAINT_FORCED_BIND, which
-> >will be set on the driver if the bind/unbind sysfs files are ever
-> >successfully written to.  This lets kernel developers "know" that a user
-> >is attempting to do something that is not normal, and as such, if the
-> >kernel breaks they get to keep the shiny pieces laying around on the
-> >floor.
-> >
-> >Note, the taint flag gets set _BEFORE_ the bind/unbind callback happens,
-> >as many times crashes/oops/warnings/failures happen within the callback,
-> >and the taint flag needs to be there to show what was being attempted.
-> >If it were to be set after the callback happens, the oops report would
-> >not properly reflect what foolishness was being attempted.
-> >
+* Greg KH (gregkh@linuxfoundation.org) wrote:
+> On Wed, Aug 26, 2026 at 08:45:29AM -0400, Alex Deucher wrote:
+> > On Wed, Aug 26, 2026 at 6:21 AM Greg KH <gregkh@linuxfoundation.org> wrote:
+> > >
+> > > On Mon, Aug 17, 2026 at 11:27:41AM -0400, Alex Deucher wrote:
+> > > > Applied.  Thanks.
+> > >
+> > > Any hints on where this was applied and if it will get to Linus "soon"?
+> > 
+> > It will show up in drm-next after the merge window closes. 7.4 material.
 > 
-> sashiko found a couple valid concerns for 2/2
+> Sorry, but this is hitting me now, pre 7.3-rc1.  Booting and getting a
+> zillion kernel warnings isn't ok, that's a regression.  Please get this
+> merged sooner than that.
 
-Yes, will fix that for v2.
+Hey? This patch doesn't fix anything - it's purely dead code.
+My comment about the log errors I saw were about the head of drm-next
+I tested on, not about this patch.
 
-thanks,
+Dave
 
-greg k-h
+> greg k-h
+-- 
+ -----Open up your eyes, open up your mind, open up your code -------   
+/ Dr. David Alan Gilbert    |       Running GNU/Linux       | Happy  \ 
+\        dave @ treblig.org |                               | In Hex /
+ \ _________________________|_____ http://www.treblig.org   |_______/
