@@ -1,189 +1,139 @@
-Received: from mta1.migadu.com (out-11.mta1.migadu.com [95.215.58.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A88E36492A
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 20:45:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D355C3B7753
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 20:46:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787777154; cv=none; b=gqLA85ylxtlxYgTDW5ZJ4zqXZWJxSx9cAUoKaqNDngSrdglA+OSXcGz8UimTMgH6QAeasDV+OtWhnnehiDuvrhnlGseQXG5HBxutcx3CMhlDVBNuVkADWLKlZuCVkzP3TA8iCcRNB22vhPsszHeJgnNAB/vqtBX95x/Hp9lJXI0=
+	t=1787777205; cv=none; b=Bh57sbq4xowCFJOF8l+AScqoI/odNexD7Ssjw9AXB0iozeozh3y5uSYvlQsLG+jq7tM2N2iETBhaRE4/OVJ0xs4DGYNM6bEhwJps7mSM/ER8rVWtXUGdr7Jb70JkEpqxfTkfxX83to5JioAn7jSzpP0EuML7k5eceJizilB7KK4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787777154; c=relaxed/simple;
-	bh=opkMbCowtGRJIKWDtznrnAR6Udb84HiEcQuLn82R/UA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=imfWCRoFYuQgPtR9ZK/WcAXMMvDGZjvAMlXn0dZYEdf4bec+/CIonrrTj/TFaoxCDvjFExvpPS0Vc+i5KXUvwmp1tISwtvzr162OnV7mRDgTB1Z+1PloYqg2EIGPVRtwvrJoQBYpshnFNhaNY3E1Zu+/hCs6B5fm6X78u86czvo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Y/G4xRB7; arc=none smtp.client-ip=95.215.58.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787777205; c=relaxed/simple;
+	bh=XBdVrMHjTyolReC0N1fxKCCDSR8DwSAH1sCPMJHVaL8=;
+	h=From:In-Reply-To:References:To:Cc:Subject:MIME-Version:
+	 Content-Type:Date:Message-ID; b=WvkLZuVl1XH1WkjZr3kxXeJQacPGI1imBaS1DIxHJNUY8t7MNwO9WUpf9eS7hVUEqBMPiYZQm58BMM6G9mb/3pSUdubTQYaK9qI+U2+qkrz/PSG3PKEvDJM+SETaq+nlK2sHmvHIgU1c/oUpEMb2QrdYDe89TYKPc0XYkB8GyqQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Y6mapRp5; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Y/G4xRB7"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=opkMbCowtGRJIKWDtznrnAR6Udb84HiEcQuLn82R/UA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787777149; v=1; x=1788381949;
- b=Y/G4xRB7IkCzS7XR1ecG7QQWRrIPL1cYlor+ob5D+GqtKvmtLfoBF3B83p/Ij/ZB7dQerCO/
- 2itai4IFh8PhBiVIBn1KQP6deBc+XegQKyvXR0tM5T8LxPynoSU8ai0w03tN7GTnWqH1AQme+NT
- 4HRUy1zxMz8qZHyK2uC/cALE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: from [10.8.1.6] (107.189.15.163)
-	by smtp.migadu.com with ESMTPS id 544a8b63d04562fd;
-	Wed, 26 Aug 2026 20:45:49 +0000
-X-Mizu-Trace-ID: 544a8b63d04562fd
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <bb3bc2e6-c27d-4660-82b8-b22557cc8101@linux.dev>
-Date: Wed, 26 Aug 2026 23:45:41 +0300
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Y6mapRp5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787777202;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/jP0UKtPxmEhy6HDyIj1plfhDhBBfaCkZLlo/sEgyzw=;
+	b=Y6mapRp5hDo0pZU8xIoxoIiqK4LlnppKZMk0bn5dHymVkEYoixH4ZImMy7GLxgUCnTX6ey
+	oRWEHQRYFtggNYIkSQo3cWChFrlWikAdf6nAWTa1su+41ypR/tofpsX7LMO0TM0xHcswp1
+	EWJ3R7mAIOhosEvWvF3dW2Sr4gwi2vw=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-412-xNS7lx1SPmKIlckEKETYBg-1; Wed,
+ 26 Aug 2026 16:46:38 -0400
+X-MC-Unique: xNS7lx1SPmKIlckEKETYBg-1
+X-Mimecast-MFC-AGG-ID: xNS7lx1SPmKIlckEKETYBg_1787777196
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 696B41955BDD;
+	Wed, 26 Aug 2026 20:46:36 +0000 (UTC)
+Received: from warthog.procyon.org.uk (unknown [10.22.88.47])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id DC8681955F0B;
+	Wed, 26 Aug 2026 20:46:33 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+	Kingdom.
+	Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+In-Reply-To: <1819786.1787768317@warthog.procyon.org.uk>
+References: <1819786.1787768317@warthog.procyon.org.uk>
+To: Jens Axboe <axboe@kernel.dk>
+Cc: dhowells@redhat.com, Keith Busch <kbusch@kernel.org>,
+    Hannes Reinecke <hare@kernel.org>, Christoph Hellwig <hch@lst.de>,
+    Alexander Viro <viro@zeniv.linux.org.uk>,
+    Paulo Alcantara <pc@manguebit.org>, netfs@lists.linux.dev,
+    linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+    linux-kernel@vger.kernel.org
+Subject: [PATCH v2] block: Fix start and length check added to iov_iter_extract_bvecs()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/6] platform/x86: bitland-mifs-wmi: Merge the function
- of redmi-wmi into the bitland driver
-To: Mingyou Chen <qby140326@gmail.com>
-Cc: W_Armin@gmx.de, hansg@kernel.org, ilpo.jarvinen@linux.intel.com,
- linux-kernel@vger.kernel.org, nika@nikableh.moe,
- platform-driver-x86@vger.kernel.org, vlku.milos.fun@gmail.com, i@rsplwe.com,
- wolf109909@outlook.com, rahulbheda131313@gmail.com
-References: <20260816100813.300450-1-qby140326@gmail.com>
- <20260816100813.300450-3-qby140326@gmail.com>
-Content-Language: en-US
-From: Ilya Gladyshev <ilya.gladyshev@linux.dev>
-In-Reply-To: <20260816100813.300450-3-qby140326@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <1895549.1787777192.1@warthog.procyon.org.uk>
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 26 Aug 2026 21:46:32 +0100
+Message-ID: <1895550.1787777192@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-Thank you for your patch. I have tested it on my Redmi Book Pro 15 2022, 
-and everything works as expected, so
+Commit 14b007e17881 added an address check using iter_iov_addr() and a
+length check using iter_iov_len() to iov_iter_extract_bvecs(), but these
+cannot be used so and are unsafe in this circumstance as the functions hav=
+e
+hardwired assumptions about the iterator type.  They should only be used
+with ITER_UBUF or ITER_IOVEC-type iterators and work with ITER_KVEC; they
+should not be used with ITER_BVEC, ITER_FOLIOQ, ITER_XARRAY or ITER_DISCAR=
+D
+iterators.
 
-Tested-by: Ilya Gladyshev <ilya.gladyshev@linux.dev>
+This change proved to be a problem for cachefiles as an iterator of type
+ITER_FOLIOQ is passed and iter_iov_addr() and iter_iov_len() both
+malfunction because iter->__iov in iter_iov() is not pointing to an iovec
+array.
 
-On 8/16/26 13:08, Mingyou Chen wrote:
-> The bitland-mifs-wmi and legacy redmi-wmi drivers both attempt to bind
-> to the same WMI GUID (46C93E13-EE9B-4262-8488-563BCA757FEF). This
-> overlap causes a device registration conflict, preventing one of the
-> drivers from loading properly depending on the module initialization
-> order.
-> 
-> Merge the event handling logic from redmi-wmi into bitland-mifs-wmi. By
-> handling both device layouts within a single driver, we eliminate the
-> GUID ownership conflict.
-> 
-> Tested-by: Nika Krasnova <nika@nikableh.moe>
-> Signed-off-by: Mingyou Chen <qby140326@gmail.com>
-> ---
->   drivers/platform/x86/bitland-mifs-wmi.c | 139 ++++++++++++++++--------
->   1 file changed, 96 insertions(+), 43 deletions(-)
-> 
-> diff --git a/drivers/platform/x86/bitland-mifs-wmi.c b/drivers/platform/x86/bitland-mifs-wmi.c
-> index b0d06a80e89e..8b6476881de6 100644
-> --- a/drivers/platform/x86/bitland-mifs-wmi.c
-> +++ b/drivers/platform/x86/bitland-mifs-wmi.c
-> @@ -34,6 +34,11 @@
->   #include <linux/units.h>
->   #include <linux/wmi.h>
->   
-> +#define BI_HOTKEY_CODE(id, low, high) \
-> +	(((u32)(high) << 24) | ((u32)(low) << 16) | ((u32)(id) << 8) | WMI_EVENT_TYPE_HOTKEY)
-> +
- > ...> +
-> +	/* AI button has code for each position */
-> +	{ KE_KEY, BI_HOTKEY_CODE(WMI_EVENT_FN_5, 1, 0), { KEY_ASSISTANT } },
-> +
-> +	{ KE_KEY, BI_HOTKEY_CODE(0x19, 1, 0), { KEY_ASSISTANT } },
+Fix this by using iov_iter_alignment() instead for anything other than
+ITER_UBUF, ITER_IOVEC or ITER_KVEC.
 
-Why empty line between two KEY_ASSISTANT mappings?
-
->   static void bitland_mifs_wmi_notify(struct wmi_device *wdev,
->   				    const struct wmi_buffer *buffer)
->   {
-> -	struct bitland_mifs_wmi_data *data = dev_get_drvdata(&wdev->dev);
->   	const struct bitland_mifs_event *event = buffer->data;
->   	struct bitland_fan_notify_data fan_data;
-> +	u32 payload;
->   	u8 brightness;
->   
->   	/* Validate event type */
-> @@ -752,24 +821,13 @@ static void bitland_mifs_wmi_notify(struct wmi_device *wdev,
->   		blocking_notifier_call_chain(&bitland_notifier_list,
->   					     BITLAND_NOTIFY_KBD_BRIGHTNESS,
->   					     &brightness);
-> -		break;
-> +		return;
->   
->   	case WMI_EVENT_PERFORMANCE_PLAN:
->   		blocking_notifier_call_chain(&bitland_notifier_list,
->   					     BITLAND_NOTIFY_PLATFORM_PROFILE,
->   					     NULL);
-> -		break;
-> -
-> -	case WMI_EVENT_OPEN_APP:
-> -	case WMI_EVENT_CALCULATOR_START:
-> -	case WMI_EVENT_BROWSER_START: {
-> -		guard(mutex)(&data->lock);
-> -		if (!sparse_keymap_report_event(data->input_dev,
-> -						event->event_id, 1, true))
-> -			dev_warn(&wdev->dev, "Unknown key pressed: 0x%02x\n",
-> -				 event->event_id);
-> -		break;
-> -	}
-> +		return;
->   
->   	/*
->   	 * The device has 3 fans (CPU, GPU, SYS),
-> @@ -777,6 +835,14 @@ static void bitland_mifs_wmi_notify(struct wmi_device *wdev,
->   	 */
->   	case WMI_EVENT_CPU_FAN_SPEED:
->   	case WMI_EVENT_GPU_FAN_SPEED:
-> +		/* Redmi refresh rate toggle quirk */
-> +		if (event->event_id == WMI_EVENT_CPU_FAN_SPEED &&
-> +		    event->value_low == 0 && event->value_high == 0) {
-> +			payload = BI_HOTKEY_CODE(WMI_EVENT_REFRESH_RATE, 0, 0);
-> +			bitland_mifs_wmi_report_key(wdev, payload);
-> +			return;
-> +		}
-> +
->   		if (event->event_id == WMI_EVENT_CPU_FAN_SPEED)
->   			fan_data.channel = 0;
->   		else
-> @@ -787,27 +853,14 @@ static void bitland_mifs_wmi_notify(struct wmi_device *wdev,
->   		blocking_notifier_call_chain(&bitland_notifier_list,
->   					     BITLAND_NOTIFY_HWMON,
->   					     &fan_data);
-> -		break;
-> -
-> -	case WMI_EVENT_AIRPLANE_MODE:
-> -	case WMI_EVENT_TOUCHPAD_STATE:
-> -	case WMI_EVENT_FNLOCK_STATE:
-> -	case WMI_EVENT_KBD_MODE:
-> -	case WMI_EVENT_CAPSLOCK_STATE:
-> -	case WMI_EVENT_NUMLOCK_STATE:
-> -	case WMI_EVENT_SCROLLLOCK_STATE:
-> -	case WMI_EVENT_REFRESH_RATE:
-> -	case WMI_EVENT_WIN_KEY_LOCK:
-> -		/* These events are informational or handled by firmware */
-> -		dev_dbg(&wdev->dev, "State change event: id=%d value=%d\n",
-> -			event->event_id, event->value_low);
-> -		break;
-> +		return;
->   
->   	default:
-> -		dev_dbg(&wdev->dev, "Unknown event: id=0x%02x value=0x%02x\n",
-> -			event->event_id, event->value_low);
->   		break;
->   	}
-> +
-> +	payload = get_unaligned_le32(buffer->data);
-> +	bitland_mifs_wmi_report_key(wdev, payload);
->   }
-
-[nitpick]
-Would it make sense to place this inside the `default` case? That might 
-make the control flow simpler (no break->return changes, everything 
-still happens in the switch).
-
->   static const struct wmi_device_id bitland_mifs_wmi_id_table[] = {
-
+Fixes: 14b007e17881 ("block: validate user space vectors during extraction=
+")
+Suggested-by: Keith Busch <kbusch@kernel.org>
+cc: Keith Busch <kbusch@kernel.org>
+cc: Jens Axboe <axboe@kernel.dk>
+cc: Hannes Reinecke <hare@kernel.org>
+cc: Christoph Hellwig <hch@lst.de>
+cc: Alexander Viro <viro@zeniv.linux.org.uk>
+cc: Paulo Alcantara <pc@manguebit.org>
+cc: netfs@lists.linux.dev
+cc: linux-block@vger.kernel.org
+cc: linux-fsdevel@vger.kernel.org
 ---
-Ilya Gladyshev // foxido.dev
+ lib/iov_iter.c |   11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/lib/iov_iter.c b/lib/iov_iter.c
+index 6665372ecf71..c489569a5815 100644
+--- a/lib/iov_iter.c
++++ b/lib/iov_iter.c
+@@ -1921,15 +1921,22 @@ ssize_t iov_iter_extract_bvecs(struct iov_iter *it=
+er, struct bio_vec *bv,
+ 		unsigned short max_vecs, unsigned mem_align_mask,
+ 		iov_iter_extraction_t extraction_flags)
+ {
+-	unsigned long start =3D (unsigned long)iter_iov_addr(iter);
+ 	unsigned short entries_left =3D max_vecs - *nr_vecs;
+ 	unsigned short nr_pages, i =3D 0;
+ 	size_t left, offset, len;
+ 	struct page **pages;
+ 	ssize_t size;
+ =
+
+-	if ((start | iter_iov_len(iter)) & mem_align_mask)
++	if (likely(iter_is_ubuf(iter) ||
++		   iter_is_iovec(iter) ||
++		   iov_iter_is_kvec(iter))) {
++		unsigned long start =3D (unsigned long)iter_iov_addr(iter);
++
++		if ((start | iter_iov_len(iter)) & mem_align_mask)
++			return -EINVAL;
++	} else if (iov_iter_alignment(iter) & mem_align_mask) {
+ 		return -EINVAL;
++	}
+ =
+
+ 	/*
+ 	 * Move page array up in the allocated memory for the bio vecs as far as
+
