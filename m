@@ -1,130 +1,88 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9297441F379;
-	Wed, 26 Aug 2026 15:28:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6284448B8E
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 15:30:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787758093; cv=none; b=Of/gGMKXm3Lw0NgLGy02DQqmZv93nK0BZ8ZQTjbtweHBSqj4qqOlHVT7h0CTUZVAg7PUsW2QG/1AlU01dm6L90qdjn7IUcEmYajPxwVkNsg4eIn+dEZEF95aw+wzPvWf2OqMtiUOIK9YIE3CvIRW3mROVtQqyz7Qyls6rNs7ZaI=
+	t=1787758206; cv=none; b=Ur5RusIAxcbWA5ccMeKfIjoX0jDfTHzvf5lov727HjqMarEEp48/k9Vd1C0WWHlzi/pOKBk+y4dYGf1qtz3cPyJ51uVy1TfhzAIALKkFclkAY1r7vRk/Ey/Oej35B9VHwJMRj1EgEEZ9IP3zlf2fjLpk5iBQ/Dpd1GW4O5iowzs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787758093; c=relaxed/simple;
-	bh=ql5L1X5B1xrSd16oOT3rkSXC0D1nE7eZWCoMpLA82IU=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=IHvvtxHZ9oOGuUl/j3+rhXme6VB5ESIuxeQPs2s33z9O4FbWhsZzqCs1hN0U3YCInoWywOdMw7Vl2ChcfeLOX8VH/VgYPI2ls4m4NAI+ONmkaTnplaXaakJ9tWh/9mKUwYNxaCa/skApQshBh21PhYZJwmMT2gPAST+3FGKOYQE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=EDX+cuYO; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=7vSRRno0; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Fg6Usnuk; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Oe0xy4MX; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1787758206; c=relaxed/simple;
+	bh=/pUFy2bN0U1mx8574mk29IWEVuQVMmm+/XhoJVim9Uo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gMOGyEz8VsGRiAGu9AeP4ILiPPrC2ZmhUSLDOuIWObTDgUAmCFHfce5etaLVXCTSfuFivl5QQnjJzykELI9FSv38UsYRAbv+1RgEmsqXDDhe6AOLo+yLnns2XPycZwu3IoCe3ka6w++xqw/spmYMDpNdqobEf+j0WJmFRMMgZ5k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Ly3iIjF8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="EDX+cuYO";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="7vSRRno0";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Fg6Usnuk";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Oe0xy4MX"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id AC08721166;
-	Wed, 26 Aug 2026 15:27:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1787758082; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DMwM+wkM9+AtG95FmkryQYWLFycbhavz/ozUdsBzMJI=;
-	b=EDX+cuYOAcCiVfuz74SmQtep5L5GNxtBUDrwCcrF57JXON57toHtU9QCs1ys01ReWLQ/XP
-	RUuT6DBXz0WwsYmN8VqKMj/TJ2O0V6J5QCA/Jy5M1qmRI1udYafn8VkMwYH2amVbSf897S
-	7ZzvI7pfOim4B6OF2lQrH376IYBrmPc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1787758082;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DMwM+wkM9+AtG95FmkryQYWLFycbhavz/ozUdsBzMJI=;
-	b=7vSRRno0hvB1ANZroc6KqQdjf5wF2Vvb9RZprus+ZEu36zVZZ4K0CkpCP4VrAp3cALAfp/
-	w0dMjMvLJhRoMOBw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1787758078; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DMwM+wkM9+AtG95FmkryQYWLFycbhavz/ozUdsBzMJI=;
-	b=Fg6UsnukFAp106JOlRCCEpskvIF5AVzYyvhAuHRCAlCTmF9ZCMW4MiZa4tqS2vS2vKUKNg
-	Of5SN4GuLx+yAW3bV9sNA8V2kSrf4SYMJRnSYXgOmUkgc04Z+XN/b4ih5TjPS/4pwfyDIE
-	KZv3ObC19L68+bEVmoCU3CuhKu8AXEs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1787758078;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DMwM+wkM9+AtG95FmkryQYWLFycbhavz/ozUdsBzMJI=;
-	b=Oe0xy4MXEJnF8uM1X1ZvQhB4eK8L3FThm5OjGK8/Fu0pmtFjp7olaH+jyjdX2GaZFL8jVg
-	9xMk5l9jdbaW8TCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 834151361C;
-	Wed, 26 Aug 2026 15:27:58 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Bfo2Hv4Fj2qJXwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Wed, 26 Aug 2026 15:27:58 +0000
-Date: Wed, 26 Aug 2026 17:27:58 +0200
-Message-ID: <87wltcgav5.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: songxiebing <songxiebing@kylinos.cn>
-Cc: tiwai@suse.com,
-	perex@perex.cz,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] ALSA: hda/conexant: Always enable the headset-mic pin on plugin
-In-Reply-To: <20260826115344.2128835-1-songxiebing@kylinos.cn>
-References: <20260825023855.394959-1-songxiebing@kylinos.cn>
-	<20260826115344.2128835-1-songxiebing@kylinos.cn>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Ly3iIjF8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 867E61F00A3A;
+	Wed, 26 Aug 2026 15:30:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1787758203;
+	bh=k6tE54JsOXGWnymkbDWNSeh5+QlIjTDp3evyuDhduM4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ly3iIjF8vrPg3jrQLF/nF767ivHea1dAnKQAiWc6jNbw2fkWYpMi6kaMbQSA3phH3
+	 IB5WpUHi8We7f1pibZJ8JVU5dO4LNUH2m5Kr9pUUVoLNWPAseaZIlelvsQUGlVr7tm
+	 6BEFKNA1Ohr/rPyoxOKNVf0MUFVfrq4jT/d4PPeo=
+Date: Wed, 26 Aug 2026 17:30:00 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: 3237174131@qq.com
+Cc: linux-kernel@vger.kernel.org, tglx@kernel.org
+Subject: Re: [PATCH] scripts/spdxcheck: fix file descriptor leak in
+ read_spdxdata()
+Message-ID: <2026082634-diner-thyself-0378@gregkh>
+References: <tencent_0D1CF77320A0C199EB46300A4E82DADEA209@qq.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Score: -3.30
-X-Spam-Level: 
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.982];
-	MIME_GOOD(-0.10)[text/plain];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo]
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <tencent_0D1CF77320A0C199EB46300A4E82DADEA209@qq.com>
 
-On Wed, 26 Aug 2026 13:53:44 +0200,
-songxiebing wrote:
+On Wed, Aug 26, 2026 at 07:53:25AM -0700, 3237174131@qq.com wrote:
+> Hi all,
 > 
-> From: Bob Song <songxiebing@kylinos.cn>
+> This is my first kernel patch. Please let me know if anything is wrong.
 > 
-> Rename the function to cx_process_headset_detect_plug_type() to reflect
-> that it only reports the detected plug type, and move the pin control
-> write into cx_update_headset_mic_vref() so that node 0x19 is always set
-> to enable the headset mic with the 80% VREF whenever the mic is
-> present, regardless of the type detection result.
-> 
-> Signed-off-by: Bob Song <songxiebing@kylinos.cn>
-
-Applied now.  Thanks.
+> Signed-off-by: Xia Zhoxin <3237174131@qq.com>
 
 
-Takashi
+Hi,
+
+This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
+a patch that has triggered this response.  He used to manually respond
+to these common problems, but in order to save his sanity (he kept
+writing the same thing over and over, yet to different people), I was
+created.  Hopefully you will not take offence and will fix the problem
+in your patch and resubmit it so that it can be accepted into the Linux
+kernel tree.
+
+You are receiving this message because of the following common error(s)
+as indicated below:
+
+- Your patch was attached, please place it inline so that it can be
+  applied directly from the email message itself.
+
+- You did not specify a description of why the patch is needed, or
+  possibly, any description at all, in the email body.  Please read the
+  section entitled "The canonical patch format" in the kernel file,
+  Documentation/process/submitting-patches.rst for what is needed in
+  order to properly describe the change.
+
+- You did not write a descriptive Subject: for the patch, allowing Greg,
+  and everyone else, to know what this patch is all about.  Please read
+  the section entitled "The canonical patch format" in the kernel file,
+  Documentation/process/submitting-patches.rst for what a proper
+  Subject: line should look like.
+
+
+If you wish to discuss this problem further, or you have questions about
+how to resolve this issue, please feel free to respond to this email and
+Greg will reply once he has dug out from the pending patches received
+from other developers.
+
+thanks,
+
+greg k-h's patch email bot
