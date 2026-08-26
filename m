@@ -1,84 +1,130 @@
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09EB947142D;
-	Wed, 26 Aug 2026 21:43:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787780614; cv=pass; b=eZ3vnPeQXb1CQmFObB4RvfnQu/W1yEGdGr62x1VKE1agwoof7c7nSfXNZlQvP1R3lcPFsnxCr5rceyAgRD3MZ3cTht18quNsOh7zzLr2KPEvtBJBeTwqAIgB7mm9KcguSciwBawqNJhI3C53b2dBpQglg9NZFWRzfA1w0A7rCuQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787780614; c=relaxed/simple;
-	bh=aTrG2U3nnsahZNHEmxNMi33V9p9IP53O5HAC6ElbmRA=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=HJYyPMa81G1R3j0qUPi3AQgk1oqjfUxDWnEszpGywZYh50bgeEFpD+N2V3U+B9qEGtl3l+whYObvbXE/0WgSQzVDPmg2zYs1F5BRENBlXLJFUbDX1JCJe+6VVjNO3U0Cof8VbD5iUqNn9OqKUt9bN/nDHjgP8lpB0ASvFZN7nsk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b=TLIrC9qN; arc=pass smtp.client-ip=165.173.182.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5153F3B14B3;
+	Wed, 26 Aug 2026 21:43:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787780625; cv=none; b=hJ2ED4S/YCNm0WQzrwDdkAhzd8YrXRFb3mLLQqXv4Sv/04PFyu9E1QF47OiZraZA5cvlNNgHL1zwbEn6NVHw5GJPV0Z2ZRWunGDmZ6TW8rsopia+cVVZygnm1UpKgIjQVE7u1HcjkA9Is70fPe5wT75QHVBiXw/lu/CasXhEujQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787780625; c=relaxed/simple;
+	bh=KodbtscHuhyT4e9uaCejK1SwHL6vJcWIU4ma3ia0xtI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LFKNZlNEnsfYDMQKu6+u1VvN5G4u37RZb5CLffOzEX74P2xlhv86BvgKwtFq6PIbT4Eu1YJQXbv5djfb6mAZG7b1uOKFomDCSoDMZc8P3eUveeLnZhQ/NqxpyJ6ciUQ3+vW6ch95M66Mioii1BZIvVfsdMG1LTmJDcApF2LXTyw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ChqqMJa3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="TLIrC9qN"
-ARC-Seal: i=1; a=rsa-sha256; t=1787780568; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=FNVd718H131dLQmwNYsgt3Kj1GXZpHMizVGMwUuAlEZPK9tMtEBASFejMOkY4SknwfAe0dJCxqdlO/qsceWKfqG8sciKvier/AfthmoBoUPyHrGnIfQ6k9JW1YQCAW7FKTJeCC1dbcvGsRvN+ed2s4N/6raLPXJBcfq7wMU4M+4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1787780568; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=aTrG2U3nnsahZNHEmxNMi33V9p9IP53O5HAC6ElbmRA=; 
-	b=U6D5Udi58fpwJpCnVxaAEgPdrrAR5NRTshGe/SziK92GoILdh/GZl/PgsPalPMVUq8CsczCzEEd6JafZkaq2EQ/BjZu0zU68l21P75VEVp8swg2KnRYqnre0pdg3lz9yR5hLMpyrQK3nH0/cZzFTtYCKLDcdXJ4JhIE82MsSGTY=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
-	dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787780568;
-	s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
-	h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
-	bh=aTrG2U3nnsahZNHEmxNMi33V9p9IP53O5HAC6ElbmRA=;
-	b=TLIrC9qNZ15On1ncutqU1nUvypenOamHL0MbURxjZNUZlNsJQTwm5BNdM0f1/oru
-	CNJqqVRCI+EJ2jImt38la+g0FvtJ/jHY+pcdBCxbdm9jyLjs811RP1aoxsM3oJoYf1Q
-	M0PQ0oyvIatFJnb3jMhE+JEjt9wDSgfj3h5zokUA=
-Received: by mx.zohomail.com with SMTPS id 1787780566270342.6469272564714;
-	Wed, 26 Aug 2026 14:42:46 -0700 (PDT)
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ChqqMJa3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2D011F000E9;
+	Wed, 26 Aug 2026 21:43:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787780623;
+	bh=PSSo4bsAC2cEjTDtAnRZIQ9NfAW3QdjZrYCnvuLAkE4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ChqqMJa3vxAiQad8g3dw8iasniT73h2asuuBLUzmnNANnaUP31o+KyDZuOY0hQQnl
+	 zLsEAHlr8uMYX3p4oSKLfjQocnhfkDYH/F6ZyJRg8KM05kmGKdEyiaIPPoMPieiB4j
+	 L4dXQO7wnmoNHCJCrEoQtICccHRvv0ix+og7ZY+w7eFblO2IZXSzL3poAsP8kEQt+v
+	 jHCKPMZMYXhBFNsQyCoUbJCEIAMipli3CTwlvrV50S0JF/9WW1sjl4ahjBEmHHHilX
+	 pZE3mp3iCJBd0iYDyqbt6mlLXWULkkl5JsyDsgNpP2076JFQ4gm73DXIbD+p1CdFtd
+	 YLUD5MdlyMjnA==
+Date: Wed, 26 Aug 2026 22:43:38 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Santhosh Kumar K <s-k6@ti.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com,
+	pratyush@kernel.org, mwalle@kernel.org,
+	takahiro.kuwano@infineon.com, linux-spi@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-mtd@lists.infradead.org, praneeth@ti.com,
+	sebin.francis@ti.com, u-kumar1@ti.com, a-dutta@ti.com
+Subject: Re: [PATCH v9 08/18] spi: cadence-quadspi: add PHY tuning support
+Message-ID: <8aac0c42-fad5-4146-a2a3-b60bdab71a20@sirena.org.uk>
+References: <20260825171737.776052-1-s-k6@ti.com>
+ <20260825171737.776052-9-s-k6@ti.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
-Subject: Re: [PATCH v4 01/11] rust: xarray: minor formatting fixes
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <20260604-xarray-entry-send-v4-1-965f6028790e@kernel.org>
-Date: Wed, 26 Aug 2026 18:42:22 -0300
-Cc: Miguel Ojeda <ojeda@kernel.org>,
- Alex Gaynor <alex.gaynor@gmail.com>,
- Gary Guo <gary@garyguo.net>,
- =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Christoph Lameter <cl@gentwo.org>,
- David Rientjes <rientjes@google.com>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Tamir Duberstein <tamird@kernel.org>,
- Boqun Feng <boqun@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>,
- Harry Yoo <harry@kernel.org>,
- Hao Li <hao.li@linux.dev>,
- Daniel Gomez <da.gomez@kernel.org>,
- rust-for-linux@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- linux-mm@kvack.org,
- Daniel Gomez <da.gomez@samsung.com>,
- "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>
-Content-Transfer-Encoding: 7bit
-Message-Id: <509646C4-8225-41C3-8A32-96CD105EA302@collabora.com>
-References: <20260604-xarray-entry-send-v4-0-965f6028790e@kernel.org>
- <20260604-xarray-entry-send-v4-1-965f6028790e@kernel.org>
-To: Andreas Hindborg <a.hindborg@kernel.org>
-X-Mailer: Apple Mail (2.3826.700.81)
-X-ZohoMailClient: External
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="nryroxhrKHKI4MVn"
+Content-Disposition: inline
+In-Reply-To: <20260825171737.776052-9-s-k6@ti.com>
+X-Cookie: Obey all traffic laws.
 
-Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+
+--nryroxhrKHKI4MVn
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, Aug 25, 2026 at 10:47:27PM +0530, Santhosh Kumar K wrote:
+> The Cadence QSPI controller supports a delay-line PHY for high-speed
+> operation. Without calibration the PHY is unused and read capture relies
+> on a fixed delay, limiting throughput at frequencies above the base
+> operating speed.
+
+> Add an execute_tuning callback that performs delay-line calibration using
+> a known data pattern written to a dedicated flash region. The pattern is
+> either read from a NOR partition identified by the DT property
+> spi-phy-pattern-partition, or written to the NAND page cache before
+> each calibration read.
+
+>  struct cqspi_flash_pdata {
+
+> +	bool			use_dqs;
+> +	bool			use_tuned_phy;
+
+The AM65x has a fun erratum i2189 which mentions that it requires=20
+disabling DQS for writes:
+
+   https://www.ti.com.cn/lit/er/sprz452i/sprz452i.pdf
+
+which suggests we might need separate controls for read and write
+operation.
+
+> +static int cqspi_write_pattern_to_cache(struct cqspi_flash_pdata *f_pdat=
+a,
+> +					struct spi_mem *mem,
+> +					const struct spi_mem_op *write_op)
+> +{
+> +	struct spi_controller *ctlr =3D mem->spi->controller;
+> +	struct device *dev =3D &f_pdata->cqspi->pdev->dev;
+> +	struct spi_mem_op op =3D *write_op;
+> +	int ret;
+> +
+> +	op.max_freq =3D mem->spi->max_speed_hz;
+> +	op.data.nbytes =3D sizeof(phy_tuning_pattern);
+> +	op.data.buf.out =3D phy_tuning_pattern;
+> +
+> +	ret =3D ctlr->mem_ops->exec_op(mem, &op);
+> +	if (ret) {
+> +		dev_err(dev, "Failed to write PHY pattern to cache: %d\n", ret);
+> +		return ret;
+> +	}
+> +	dev_dbg(dev, "PHY pattern (%zu bytes) written to cache\n",
+> +		sizeof(phy_tuning_pattern));
+> +
+> +	return 0;
+> +}
+
+spinand_write_page() has a multi-operation sequence, I've not checked if
+any fancy flashes with DQS support actually need that.  _read_page()
+looks more straightforward.
+
+--nryroxhrKHKI4MVn
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqPXgkACgkQJNaLcl1U
+h9CVpgf+IEFBtsEfC8voVsHpmOfwjvGr+ozW/f+mGll/kPgYXkUFR5UgVC+QMaF6
+3S6zPGMFpJNRm4DAo3iIaiXXgiZ7DMkjr7Q7ougvDy7JVJWv3csUMu/RKZIy++Dx
+o2K1Da6/W4AzDrQExhVklMLQpa0wTaMav8FeEv23oOvFqPmwPBIryDzQRUB5Xz4Z
+MCPmMvgG8wCXG3bPk/Ueigap6FXN3Xh7dVR9PEFEnYVrxj6DD4ladF9bc6GGd25x
+4e/rMV2ra6P84FeUryMHBpbXwAv6/tq2UZS3Tijf6bF17giPvx2EAelgwdpA9OCg
+a/Fbtj+DnJpFaO8EnzNiYorzzawsQg==
+=f6hj
+-----END PGP SIGNATURE-----
+
+--nryroxhrKHKI4MVn--
