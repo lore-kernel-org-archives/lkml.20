@@ -1,110 +1,119 @@
-Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9955243E07C
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:10:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 881FE439F91;
+	Wed, 26 Aug 2026 14:11:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787753438; cv=none; b=l8/C2Lpk2Q97AV8xv2Lcpfha9tr9xIWC8LwaRveDGeFCtIFHyuAkbd9iRrWTpYd8XlI2BsnItDTn/cqfL/ju9XrgS/DZVn6EpCiU3sjrISYSbBHIXr84jQ/uV4oMRq0VWpAzj7kInc/6d2StrAZOa6fEhLKdi/Tvz9maAPGmW0s=
+	t=1787753478; cv=none; b=qbDPhRG+LvSWD2QgqGzBT7jjHFgoeC4z13IeHrlsdSSMh5AjJ/5Fqfx6CY1jOFdeDnE8Ui7qp7VbWax5gQR61/SN3tBuHO6MaWMsOs4v6bDGXencz5FKiUBRKBhyCtVecYzJW6lLwV1sNZ9T6ML44vTsIOa8hXUZHDipp6De5Kc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787753438; c=relaxed/simple;
-	bh=16ZIh5Vuq12569adw5f4BoHxYyjKSZpBEJ6cgXbeKG0=;
+	s=arc-20240116; t=1787753478; c=relaxed/simple;
+	bh=C2wFX4a7JH+wAsDrmBFi2nJ+gTPgJlOiAawjFmE9MPo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=r4YOqZm2uXSn1+YdWduzFq3TpsoxPWVU+aOjKWzStAAu6POzceT0Rqap00SxcysS3yvbPNkKJIqo3nxqfi0DEUIotgCnGBTPIgifTbNsNljN/i8qGVk6RbugXaLtdt6yOB4wViS6X2m+QjrXMVJfhPWoQkj2x5C7KvG7hh9YtmE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=ZFb/vrHA; arc=none smtp.client-ip=209.85.222.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	 Content-Type:Content-Disposition:In-Reply-To; b=QxtYJMUC3czFOhCAmwWt0oQWRNhDBV6QWTp8ZvgurwzgMIWNdw4RwRP+EEzMB+eCxZYRaM1elTBiY7S2yb9cD9obc+HZhnR9rpIp/qQqKFl5A2tbt5HpTGs91KwyElRRsPYOpP6u9JvPdqamCc7ufdMAF5nJR6WHt6zgEvPT9qo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=2IecTteg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="ZFb/vrHA"
-Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-9382fbb1208so32100785a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 07:10:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1787753434; x=1788358234; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/foZ+M7MX7oIG5rAsNJns1XV1eb4qctVVygdk5kNIxs=;
-        b=ZFb/vrHA6PlNOGI1GvKUvTPjYhRcdt/jKt72EjxqS1Gvn30Gg+uHY06yrlEFO7C+x2
-         JGjShyo7754OTCZn4RI2PF5ojWeodgL8JRQTiPKb7227r35rdgBMJm852R/+qp9Dp65f
-         ZJqpEYNqEodYubYcA76ILWKZELbrt5+sXSgTNCbMe19mpiRybioW0ycdxc9YD6YTTwIf
-         GRJ37/1aNt5FwAuEx9wnhrXqlWrU/k2OMeJ8gRPisCeWeTbv/dtrwugrarmCN5NiaeRd
-         9uW2Ezr/RrCeTEEKEYRBFmwgpJeO04Xts6ZD/2xdzRHHVubmtpLNBk8F5JMZLtM4J+e3
-         VERw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787753434; x=1788358234;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/foZ+M7MX7oIG5rAsNJns1XV1eb4qctVVygdk5kNIxs=;
-        b=EgFVUa56fVlpVEgCVGgkUSFbttHHlzffil+87xZ78+wSGzl/+avc50Sn/bq1X/zImo
-         CATqAUQ2LldslaZ5WkH58u9G28Ig6VAx5StmcOiPeKdBZ44/2Rp6z9NnuCDD5YszQaIE
-         6So/UiAAF3VVnZODgzgGFhc6A33ro07OGyKyVGau6OXD4MzoT4gwdJlFdSWNKNglCsni
-         OEqMIFAVvrduBsXV1/WKzVS7LIAEF0EK+ZVH0+XTXRldy7uoy4Mu+kYEZveUEXHnyZf+
-         Dt4G2m8uCimGhg7FhUrLRkl68OcrCLLn3wHE23D9RAIDSiGFYoFFEdjYle1U4yfnJ+Hr
-         NA+g==
-X-Forwarded-Encrypted: i=1; AHgh+RqgiZWcJqPTe3nqKsLg0k5OnBN6nGf7+oRYNArzmIQwnsR7/+iq+oTwrAmMbeCJuboJw0BWyN3fwrewulQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lmslURFGnxwjJ++AsGHqjXQlehQOblByh09eoOI7jww8nszoQT
-	rQjnPXVwJV5CN+C9WzJDiAM/WY1f88y7PccdW4covQZdCu294rGqFbdexGUael/gdoXjpuj08pZ
-	cclvN
-X-Gm-Gg: AR+sD11eXeW2Ny+Ijsp1qoQvaFcwcnQjGkStwIYmvdswQjuspClmZI0GbgZFUJj1NvB
-	F/dGRcw0Xe7qAwJeRUr5fRo/PnNXHjmSlrId3tscPK2GwdYGcSUTGGtJI/1UPdf8yvxnbK8QgA9
-	NYBbvTIvGAyhe/HYrjkpy7L36MvlewdxsNFOa4CHha3SUEZ7IJsN6rTCC6XruIe2vd2JS1chH6a
-	l6dT05TafgsBibyIWoHI47RJ13mrBa484G1D+zDApX0Apm/IvgRJysh6tUaUxNsfn2KLTjskk2c
-	3f39S26LETUGqFVx34QyZYD4yUosyCMGZwIHdrii+vHW8hrTHCAs2kyivZ05dJhKS18VFuz16+e
-	9m8vzdZC0t1P4fjFAILqApAfCj4xBX5Y4cI0YhQTotR8Uj0foaD7D9n6w/0pqcr012QAH/78ZGm
-	WL8BdmoUblWj1witPVkWJpBpk5pElGYpF0e0S7tVK/igrLIw==
-X-Received: by 2002:a05:620a:240c:10b0:936:e192:e394 with SMTP id af79cd13be357-9378047c277mr498130485a.31.1787753433893;
-        Wed, 26 Aug 2026 07:10:33 -0700 (PDT)
-Received: from ziepe.ca ([130.41.10.202])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9377e658a3asm218414285a.36.2026.08.26.07.10.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 07:10:33 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1wzEKm-0000000FQfM-2V2G;
-	Wed, 26 Aug 2026 11:10:32 -0300
-Date: Wed, 26 Aug 2026 11:10:32 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Liu Dalin <liudalin@kylinsec.com.cn>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	Liu Dalin <liudalin@kylinsec.com>,
-	Deng yingchao <dengyingchao@kylinsec.com.cn>,
-	Qin yungao <qinyungao@kylinsec.com.cn>,
-	Luo Qiu <luoqiu@kylinsec.com.cn>
-Subject: Re: [PATCH] mm/gup: add NULL check for unlocked parameter in
- fixup_user_fault()
-Message-ID: <20260826141032.GE1449020@ziepe.ca>
-References: <D1CF78FF9DD1C630+20260826062943.3255351-1-liudalin@kylinsec.com.cn>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2IecTteg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A89C31F000E9;
+	Wed, 26 Aug 2026 14:11:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1787753475;
+	bh=CrzOdB/wPEZMMB6aZYaBXZVWcP1Br6WDZGYvIB/24Ik=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=2IecTtegQL4jO7bnZ4BG17uFcbFjqVTY+aUCBHHmVCvIYgVmNLXtA69pnYufrrMn6
+	 gSja34YePJxcZ50PEINz1/plmIZCgpjoKZBnueDfFFnWjQ7lc2RVo9mR7pj68TAmAM
+	 GOTZrOqZnhHMo+tW8UDagy2n5N7SPxjf1ExGITls=
+Date: Wed, 26 Aug 2026 16:11:12 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Aleksandr Nogikh <nogikh@google.com>
+Cc: syzbot <syzbot+1a01783ea233350598b5@syzkaller.appspotmail.com>,
+	heikki.krogerus@linux.intel.com, jeffinphilip14@gmail.com,
+	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+	mika.westerberg@linux.intel.com, stable@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com,
+	syzkaller <syzkaller@googlegroups.com>
+Subject: Re: [syzbot] [usb?] general protection fault in wcove_typec_probe
+Message-ID: <2026082602-compile-bogged-877d@gregkh>
+References: <6a88012e.dbb3a75c.13dd47.0007.GAE@google.com>
+ <6a8d0f6c.dbb3a75c.7844.001d.GAE@google.com>
+ <2026082540-tarantula-gigantic-b786@gregkh>
+ <CANp29Y5YH=O35brw55HFo_hVmFDz5Y4Yw7buBc-rOjETU2DNjg@mail.gmail.com>
+ <2026082507-ecosystem-giant-0b79@gregkh>
+ <CANp29Y5hnOWaqGw8BbPu1TCr00TbvNRciYvs_VCd6Jtk=8kSPg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <D1CF78FF9DD1C630+20260826062943.3255351-1-liudalin@kylinsec.com.cn>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CANp29Y5hnOWaqGw8BbPu1TCr00TbvNRciYvs_VCd6Jtk=8kSPg@mail.gmail.com>
 
-On Wed, Aug 26, 2026 at 02:29:43PM +0800, Liu Dalin wrote:
-> While the current callers either pass a valid pointer or explicitly
-> pass NULL (indicating they don't need the unlock notification), it is
-> safer to add a defensive NULL check before dereferencing. This prevents
-> a kernel crash if any caller passes NULL and handle_mm_fault() returns
-> VM_FAULT_COMPLETED or VM_FAULT_RETRY.
+On Wed, Aug 26, 2026 at 03:26:23PM +0200, Aleksandr Nogikh wrote:
+> On Tue, Aug 25, 2026 at 11:07 AM Greg KH <gregkh@linuxfoundation.org> wrote:
+> >
+> > On Tue, Aug 25, 2026 at 11:04:54AM +0200, Aleksandr Nogikh wrote:
+> > > Hi Greg,
+> > >
+> > > On Tue, Aug 25, 2026 at 7:12 AM Greg KH <gregkh@linuxfoundation.org> wrote:
+> > > >
+> < .. >
+> > > >
+> > > > Please do not think that this is a valid path for syzbot to be
+> > > > fuzzing...
+> > > >
+> > >
+> > > Can you please elaborate on this?
+> > > Do you mean driver binding sysfs interface in general or something
+> > > more specific?
+> >
+> > That is the specific thing, don't have syzbot do random bind/unbind
+> > calls, having it attempt to bind any random driver to any random
+> > hardware device.  That's not how bind/unbind is supposed to work at all,
+> > it's for developers who "know what they are doing" and you get to keep
+> > the broken system if you mess it up.
+> >
+> > Same for unbind.
+> >
+> > This is a root-only api for that reason.
 > 
-> Fixes smatch warnings:
-> - mm/gup.c:1597 fixup_user_fault() error: we previously assumed 'unlocked' could be null (see line 1573)
+> Thanks for clarifying!
+> 
+> Some context from the syzkaller side:
+> Restricting the fuzzer is always tricky, especially when the
+> problematic operation is just opening a file and writing to it.
+> 
+> We normally constrain openat to:
+> 1) An allowlist of safe absolute paths (so it won't open /dev/mem,
+> etc.), blocking any other path starting with '/'.
+> 2) Relative paths under CWD (so we can still fuzz normal file operations).
+> 
+> Here the problem is that one can mount sysfs under CWD, which leaves
+> syzkaller full access to everything inside it.
+> 
+> Tightening the access to /bind, /unbind, /driver_override sounds
+> reasonable, but trying to catch all workarounds purely in userspace
+> (e.g., creating symlinks to these paths before opening them) will
+> easily turn into a whack-a-mole.
+> 
+> Would you be open to adding some kernel config option or a boot
+> parameter to disable manual sysfs driver bind/unbind and
+> driver_override? We had a similar problem with writing to a block
+> device while a filesystem was being mounted, which was perfectly
+> solved by CONFIG_BLK_DEV_WRITE_MOUNTED.
 
-It would be better to remove the previous check:
+I've submitted a patch to taint the kernel if these files are written
+to, so that should "catch" syzbot and let you know to ignore these
+reports if it runs into them:
+	https://lore.kernel.org/r/20260826-bind_taint-v1-0-52b05f4a965c@linuxfoundation.org
 
-        if (unlocked)
-                fault_flags |= FAULT_FLAG_ALLOW_RETRY | FAULT_FLAG_KILLABLE;
+Is that sufficient?
 
-And update the kdoc if it is now true that the unlocked parameter
-cannot be null
+If not, no, I really don't want to make a kernel config option just for
+this type of thing.
 
-Jason
+thanks,
+
+greg k-h
