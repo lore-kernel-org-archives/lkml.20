@@ -1,32 +1,32 @@
 Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A5B448422E;
-	Wed, 26 Aug 2026 20:21:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 273CF483BDB;
+	Wed, 26 Aug 2026 20:21:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787775697; cv=none; b=WmUHObRpbucqbyspL9QuLS+vyDBDpDGsv/sF4OUyrU2W83UAC+BgZ5MlTR356rn7wzP4NFdFRU/lR5ddzb3xAcFgJB8DiIwbhoLtpwyDR90zmK7CUfsPvo9KN9+Gf5Bkm0V16RRxNXT+IZzI7pyunkQv5NCmMrsAbXTUCgkxErc=
+	t=1787775702; cv=none; b=KzVV6+Amva2COj4arA877/g6pL3p2SFZGBo7d+i9Nu5TXZK2YuzoapUYzRHWpoxSqGj8EzRmH68lvLz1yoTkpSdAfsfvNIFs+56wcgpq+MkvEqGaefpK8bb9IFNIgRokWTCTJTt2p0Dwsd5JFnCl6WJIlsaCWjKhIEK8tMK99Xc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787775697; c=relaxed/simple;
-	bh=hgkwBrcNAmukIJp1g3nP4FWF3r1RkmnhKRnGSTtRkIA=;
+	s=arc-20240116; t=1787775702; c=relaxed/simple;
+	bh=J8yQWW2BKG+qm0ijnHyOV89UXzDavOQcqaqZUt0eK44=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=kAQakgjs5Btm7+lePLvMe1EzAixk2+b9vHOZ/rBYLgYgetKrFoKQPFXMg4FDOkT4WfmjNmIzLFqFC2GNKmzUJ8VD5fOhmOQ4bfjqUD66ubjH4bkKqHOtUu9s8HlbJsjgnr6L7L9jn3nu1AvDbNzM3TxdbiwtbvUnB+eeI3fq5NM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=KZxUu3jW; arc=none smtp.client-ip=5.135.140.105
+	 MIME-Version; b=hFehOOZgVl+7lVSq+L3rvf8x1TXowtMAC0LW/2zxbHc/tIWsFqOHclTkrWzjEzAV5A5vfRrR17bDPL1EROe06qCAVr3ZgWtkJOwvgk9krhxps5MT2vi8oktN9ZDR9zw+X/yLU6dFSbgdL618J6YM2wuZ91NYw64bA8YMyJItN1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=Fn8w0joD; arc=none smtp.client-ip=5.135.140.105
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="KZxUu3jW"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B10561E5FE7;
-	Wed, 26 Aug 2026 22:21:26 +0200 (CEST)
+	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="Fn8w0joD"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 721E81E61AB;
+	Wed, 26 Aug 2026 22:21:23 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1787775691; h=from:subject:date:message-id:to:cc:mime-version:
+	t=1787775685; h=from:subject:date:message-id:to:cc:mime-version:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=L+noM1/lXpgZGKBt7eeuTmKa1QPtazBxdbF1xRLnPiQ=;
-	b=KZxUu3jWcB8Wj04YuIEiD0AAWCmahX7viJ71lqem/xNvtW0AiTWYNlQ//LtOv8JsALeHnD
-	jtlKwDSIrZAtVBdibarlqmSJLDy+6cYad3oFGkNs3MZBx1g/+JNkMfb5ULrVPT6txpqXy+
-	DyNlQs8QHfxQ6WVBfCqOflhUZDHcjwFEFMz4jGeReJ9lffFMrt7z4OQGfNLXExGBXpGG3l
-	48yeuRcCGEZnBS1wN2eGcV1DYCIM/uIpWlSzxuHFgEERgyfB5l8mNswtqJ8+OsPDIflNuz
-	tAVufbo6DcscQzrqVJK4WX26QN+PcaLDe02PTTZ66r7wjwi87S2rIodkoCr8vw==
+	bh=TZU8WCosT2iwViMPwgQE9ZFQQYyK49GXxTstdTLYAqs=;
+	b=Fn8w0joDiDH2KVpPN9KCUzwsBfU6XnB4LQVYOb2yFyPjsLy2QKd8Zj+haCpLdmLurBaFa1
+	+azFeEdVPqzNoBMkrDlrDQ+FjXoshgwpQyg6mlI0SZwf77KEFuZj+OeWthXs2pFC5Z/dHc
+	5kuAnyMyRxi57S8YsQhRFk/R6DSiiupQYWtxXoWPD9UzQiAHu2ZGNVpVwyznkViGDViqbW
+	Nuxyn9y70+WQq2mt6+y9X+5h72NmI4dqkbSUdgc/IZgto9FFwwF+jk5wuQj1dMJbjxyxte
+	yizGwV6jKAhPyzLGWEAVZlgJltyniw9x3cvw7dNhbWA8TYXKN5xDozckN19B4Q==
 From: Caleb James DeLisle <cjd@cjdns.fr>
 To: netdev@vger.kernel.org,
 	ansuelsmth@gmail.com
@@ -46,9 +46,9 @@ Cc: andrew@lunn.ch,
 	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-mediatek@lists.infradead.org
-Subject: [PATCH v2 net-next 2/3] net: phy: mediatek: bug fixes to airoha-ge-soc.c
-Date: Wed, 26 Aug 2026 20:21:02 +0000
-Message-Id: <20260826202103.2280645-3-cjd@cjdns.fr>
+Subject: [PATCH v2 net-next 1/3] net: phy: mediatek: move mtk_cal_cycle_wait to mtk-phy-lib
+Date: Wed, 26 Aug 2026 20:21:01 +0000
+Message-Id: <20260826202103.2280645-2-cjd@cjdns.fr>
 In-Reply-To: <20260826202103.2280645-1-cjd@cjdns.fr>
 References: <20260826202103.2280645-1-cjd@cjdns.fr>
 Precedence: bulk
@@ -60,113 +60,129 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-Fix crash bug from unconfigured shared, potential namespace collision
-in devm_phy_package_join() and typo in Kconfig.
-Also make calibration tables const.
+mtk_cal_cycle_wait() is shared between mtk-ge-soc.c and airoha-ge-soc.c
+making airoha-ge-soc fail to build unless mtk-ge-soc is built too.
+
+Move it to mtk-phy-lib.c which is for this purpose.
 
 Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
 ---
- drivers/net/phy/mediatek/Kconfig         |  2 +-
- drivers/net/phy/mediatek/airoha-ge-soc.c | 21 ++++++++++++---------
- 2 files changed, 13 insertions(+), 10 deletions(-)
+ drivers/net/phy/mediatek/mtk-ge-soc.c  | 27 ------------------------
+ drivers/net/phy/mediatek/mtk-ge-soc.h  |  3 ---
+ drivers/net/phy/mediatek/mtk-phy-lib.c | 29 ++++++++++++++++++++++++++
+ drivers/net/phy/mediatek/mtk.h         |  2 ++
+ 4 files changed, 31 insertions(+), 30 deletions(-)
 
-diff --git a/drivers/net/phy/mediatek/Kconfig b/drivers/net/phy/mediatek/Kconfig
-index fe51f4616c54..b8df1a8016c6 100644
---- a/drivers/net/phy/mediatek/Kconfig
-+++ b/drivers/net/phy/mediatek/Kconfig
-@@ -9,7 +9,7 @@ config AIROHA_GE_SOC_PHY
- 	  Supports Airoha SoC built-in Gigabit Ethernet PHYs.
- 
- 	  Include support for built-in Ethernet PHYs which are present in
--	  the AN7581 and AN7583 SoCs. These PHYs d will dynamically
-+	  the AN7581 and AN7583 SoCs. These PHYs will dynamically
- 	  calibrate during startup.
- 
- config MEDIATEK_2P5GE_PHY
-diff --git a/drivers/net/phy/mediatek/airoha-ge-soc.c b/drivers/net/phy/mediatek/airoha-ge-soc.c
-index 601a64d83365..5a8838a47184 100644
---- a/drivers/net/phy/mediatek/airoha-ge-soc.c
-+++ b/drivers/net/phy/mediatek/airoha-ge-soc.c
-@@ -50,8 +50,8 @@ struct airoha_socphy_shared {
- 	enum airoha_transformer_type transformer_type[4];
- 	enum airoha_mdi_resister_type mdi_resister_type;
- 	bool rext_sw_calib_done;
--	int (*tx_amp_compensation_tbl)[TRANSFORMER_TYPE_MAX][MDI_TYPE_MAX][CALIB_CONST_TYPE_MAX][4];
--	u8 *r50_cal_tbl;
-+	const int (*tx_amp_compensation_tbl)[TRANSFORMER_TYPE_MAX][MDI_TYPE_MAX][CALIB_CONST_TYPE_MAX][4];
-+	const u8 *r50_cal_tbl;
+diff --git a/drivers/net/phy/mediatek/mtk-ge-soc.c b/drivers/net/phy/mediatek/mtk-ge-soc.c
+index 868ae089013d..614901a8b7f7 100644
+--- a/drivers/net/phy/mediatek/mtk-ge-soc.c
++++ b/drivers/net/phy/mediatek/mtk-ge-soc.c
+@@ -39,33 +39,6 @@ struct mtk_socphy_shared {
+ 	struct mtk_socphy_priv	priv[4];
  };
  
- /*
-@@ -61,7 +61,7 @@ struct airoha_socphy_shared {
-  * TX AMP test/TX AMP 1G/TX AMP 100M/TX AMP 10M/R50
-  * 4 PHY
-  */
--static int an7581_tx_amp_compensation_tbl[2][TRANSFORMER_TYPE_MAX][MDI_TYPE_MAX][CALIB_CONST_TYPE_MAX][4] = {
-+static const int an7581_tx_amp_compensation_tbl[2][TRANSFORMER_TYPE_MAX][MDI_TYPE_MAX][CALIB_CONST_TYPE_MAX][4] = {
- 	{ /* IC version 1 */
- 		[TXMR] = {
- 			{ },
-@@ -152,7 +152,7 @@ static int an7581_tx_amp_compensation_tbl[2][TRANSFORMER_TYPE_MAX][MDI_TYPE_MAX]
- 	},
+-int mtk_cal_cycle_wait(struct phy_device *phydev)
+-{
+-	int reg_val;
+-	int ret;
+-
+-	phy_set_bits_mmd(phydev, MDIO_MMD_VEND1, MTK_PHY_RG_AD_CALIN,
+-			 MTK_PHY_DA_CALIN_FLAG);
+-
+-	ret = phy_read_mmd_poll_timeout(phydev, MDIO_MMD_VEND1,
+-					MTK_PHY_RG_AD_CAL_CLK, reg_val,
+-					reg_val & MTK_PHY_DA_CAL_CLK, 500,
+-					ANALOG_INTERNAL_OPERATION_MAX_US,
+-					false);
+-	if (ret) {
+-		phydev_err(phydev, "Calibration cycle timeout\n");
+-		return ret;
+-	}
+-
+-	phy_clear_bits_mmd(phydev, MDIO_MMD_VEND1, MTK_PHY_RG_AD_CALIN,
+-			   MTK_PHY_DA_CALIN_FLAG);
+-	ret = phy_read_mmd(phydev, MDIO_MMD_VEND1, MTK_PHY_RG_AD_CAL_COMP);
+-	if (ret < 0)
+-		return ret;
+-
+-	return FIELD_GET(MTK_PHY_AD_CAL_COMP_OUT_MASK, ret);
+-}
+-
+ /* One calibration cycle consists of:
+  * 1.Set DA_CALIN_FLAG high to start calibration. Keep it high
+  *   until AD_CAL_COMP is ready to output calibration result.
+diff --git a/drivers/net/phy/mediatek/mtk-ge-soc.h b/drivers/net/phy/mediatek/mtk-ge-soc.h
+index 5e9d24a9833c..834b61dbc690 100644
+--- a/drivers/net/phy/mediatek/mtk-ge-soc.h
++++ b/drivers/net/phy/mediatek/mtk-ge-soc.h
+@@ -358,7 +358,4 @@ enum CAL_MODE {
+ 	SW_M
  };
  
--static u8 an7581_zcal_to_r45ohm[64] = {
-+static const u8 an7581_zcal_to_r45ohm[64] = {
- 	127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127,
- 	127, 127, 127, 127, 127, 127, 127, 127, 123, 119, 115, 112, 108, 104, 100,  96,
- 	 94,  92,  88,  85,  82,  80,  76,  74,  72,  68,  66,  64,  62,  60,  56,  55,
-@@ -166,7 +166,7 @@ static u8 an7581_zcal_to_r45ohm[64] = {
-  * TX AMP test/TX AMP 1G/TX AMP 100M/TX AMP 10M/R50
-  * 4 PHY
-  */
--static int an7583_tx_amp_compensation_tbl[TRANSFORMER_TYPE_MAX][MDI_TYPE_MAX][CALIB_CONST_TYPE_MAX][4] = {
-+static const int an7583_tx_amp_compensation_tbl[TRANSFORMER_TYPE_MAX][MDI_TYPE_MAX][CALIB_CONST_TYPE_MAX][4] = {
- 	[TXMR] = {
- 		[MDI_0R] = {
- 			[TX_AMP_TEST_A] = { -3, -3, -3, -3 },
-@@ -245,14 +245,14 @@ static int an7583_tx_amp_compensation_tbl[TRANSFORMER_TYPE_MAX][MDI_TYPE_MAX][CA
- 	},
+-/* MTK GE SoC common functions */
+-int mtk_cal_cycle_wait(struct phy_device *phydev);
+-
+ #endif /* _MTK_GE_SOC_H_ */
+diff --git a/drivers/net/phy/mediatek/mtk-phy-lib.c b/drivers/net/phy/mediatek/mtk-phy-lib.c
+index 8c2b26f9b840..e78dcc15f4e8 100644
+--- a/drivers/net/phy/mediatek/mtk-phy-lib.c
++++ b/drivers/net/phy/mediatek/mtk-phy-lib.c
+@@ -5,6 +5,7 @@
+ #include <linux/netdevice.h>
+ 
+ #include "mtk.h"
++#include "mtk-ge-soc.h"
+ 
+ /* Difference between functions with mtk_tr* and __mtk_tr* prefixes is
+  * mtk_tr* functions: wrapped by page switching operations
+@@ -414,6 +415,34 @@ int mt798x_phy_led_hw_control_set(struct phy_device *phydev, u8 index,
  };
+ EXPORT_SYMBOL_GPL(mt798x_phy_led_hw_control_set);
  
--static u8 an7583_zcal_to_r50ohm_0R[64] = {
-+static const u8 an7583_zcal_to_r50ohm_0R[64] = {
- 	127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127,
- 	127, 127, 127, 122, 118, 114, 110, 106, 102,  98,  96,  92,  88,  85,  82,  80,
- 	 76,  72,  70,  68,  64,  62,  60,  57,  55,  52,  50,  48,  46,  44,  41,  40,
- 	 38,  36,  33,  32,  30,  28,  26,  24,  24,  22,  20,  18,  16,  16,  14,  12,
- };
- 
--static u8 an7583_zcal_to_r50ohm_5R[64] = {
-+static const u8 an7583_zcal_to_r50ohm_5R[64] = {
- 	127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127,
- 	127, 127, 127, 127, 127, 127, 127, 127, 127, 124, 120, 116, 112, 110, 106, 102,
- 	 99,  96,  93,  90,  88,  84,  81,  79,  76,  73,  71,  68,  66,  64,  61,  59,
-@@ -1142,7 +1142,7 @@ static int airoha_phy_tx_amp_compensation(struct phy_device *phydev)
- 	int r50_high_limit = 0x88;
- 
- 	bool overflow;
--	int (*tx_amp_table)[CALIB_CONST_TYPE_MAX][4];
-+	const int (*tx_amp_table)[CALIB_CONST_TYPE_MAX][4];
- 	int transformer_type, mdi_resister_type;
- 
- 	phydev_p0 = shared->phydev_p0;
-@@ -1596,11 +1596,14 @@ static int an7581_phy_probe(struct phy_device *phydev)
- 		dev_err(&phydev->mdio.bus->dev,
- 			"Failed to setup PHY LED pinctrl\n");
- 
--	ret = devm_phy_package_join(&phydev->mdio.dev, phydev, 0,
-+	ret = devm_phy_package_join(&phydev->mdio.dev, phydev,
-+				    AIROHA_DEFAULT_PORT0_ADDR,
- 				    sizeof(struct airoha_socphy_shared));
- 	if (ret)
- 		return ret;
- 
-+	shared = phy_package_get_priv(phydev);
++int mtk_cal_cycle_wait(struct phy_device *phydev)
++{
++	int reg_val;
++	int ret;
 +
- 	priv = devm_kzalloc(&phydev->mdio.dev, sizeof(*priv), GFP_KERNEL);
- 	if (!priv)
- 		return -ENOMEM;
++	phy_set_bits_mmd(phydev, MDIO_MMD_VEND1, MTK_PHY_RG_AD_CALIN,
++			 MTK_PHY_DA_CALIN_FLAG);
++
++	ret = phy_read_mmd_poll_timeout(phydev, MDIO_MMD_VEND1,
++					MTK_PHY_RG_AD_CAL_CLK, reg_val,
++					reg_val & MTK_PHY_DA_CAL_CLK, 500,
++					ANALOG_INTERNAL_OPERATION_MAX_US,
++					false);
++	if (ret) {
++		phydev_err(phydev, "Calibration cycle timeout\n");
++		return ret;
++	}
++
++	phy_clear_bits_mmd(phydev, MDIO_MMD_VEND1, MTK_PHY_RG_AD_CALIN,
++			   MTK_PHY_DA_CALIN_FLAG);
++	ret = phy_read_mmd(phydev, MDIO_MMD_VEND1, MTK_PHY_RG_AD_CAL_COMP);
++	if (ret < 0)
++		return ret;
++
++	return FIELD_GET(MTK_PHY_AD_CAL_COMP_OUT_MASK, ret);
++}
++EXPORT_SYMBOL_GPL(mtk_cal_cycle_wait);
++
+ MODULE_DESCRIPTION("MediaTek Ethernet PHY driver common");
+ MODULE_AUTHOR("Sky Huang <SkyLake.Huang@mediatek.com>");
+ MODULE_AUTHOR("Daniel Golle <daniel@makrotopia.org>");
+diff --git a/drivers/net/phy/mediatek/mtk.h b/drivers/net/phy/mediatek/mtk.h
+index cd9d4c5550c3..950bc89d3c74 100644
+--- a/drivers/net/phy/mediatek/mtk.h
++++ b/drivers/net/phy/mediatek/mtk.h
+@@ -87,6 +87,8 @@ void __mtk_tr_clr_bits(struct phy_device *phydev, u8 ch_addr, u8 node_addr,
+ int mtk_phy_read_page(struct phy_device *phydev);
+ int mtk_phy_write_page(struct phy_device *phydev, int page);
+ 
++int mtk_cal_cycle_wait(struct phy_device *phydev);
++
+ int mtk_phy_led_hw_is_supported(struct phy_device *phydev, u8 index,
+ 				unsigned long rules,
+ 				unsigned long supported_triggers);
 -- 
 2.39.5
 
