@@ -1,199 +1,145 @@
-Received: from mout.web.de (mout.web.de [212.227.15.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f69.google.com (mail-yx1-f69.google.com [74.125.224.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C346B305699;
-	Wed, 26 Aug 2026 17:01:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7DB8352C4F
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 17:01:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787763694; cv=none; b=W5fqC8m4OUShDtN8SdC9jTWtmaX5qAd3AQYH/MtEIlLkn6UZGYlH2k60N5LHEZMgFv38gUbuGM8D8AAascqzO0X//3yUZwgSMj++PqEqC99r58+959iXDPUB+nak0EVpBRDxoaPpRkF8poaTRqcgaFH6oT3Qr0QtARix4p8wS9o=
+	t=1787763721; cv=none; b=XIN7E7ToXa5/olKi9qPXsS23nICKYf7ANWItx5UBQ0GMASvjMCkKwt5IA/5sDp5grkVYw0Mw8IIUq2j2TUK6OK25FN2l3d45HpJQt2jb8rNBbQTslbm39BrO8i5AvZ32ZoQxI9zsV4eqTcpTXHKnEikGo62tkBTP6IKvZnA1FwE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787763694; c=relaxed/simple;
-	bh=lXaGdjNs5+G9yfx4rhEAta1uG9rT7QUpPERL0mnNyC4=;
-	h=Message-ID:Date:MIME-Version:To:Cc:References:Subject:From:
-	 In-Reply-To:Content-Type; b=L5ivEH2PEBm95H8CKclxlKRTM7+M0LlnyhzzjKnV+hnN55b+cOKDE7mfpTc0d8sbNuppOjqpSP/M/WBg7UPNl8gNeCR5ZzDmRtz88OashxNiPk4K2QA22DJDgEeQa1PRVfq7OZpXrTNwtonDjREDIAgl64RzDn1A+DaT96M4Xss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b=t8h+pkH7; arc=none smtp.client-ip=212.227.15.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b="t8h+pkH7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1787763617; x=1788368417; i=markus.elfring@web.de;
-	bh=RIboMSTk0n75LOidtDXp+0aJmxZ5809SXh3wEQLUEVw=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
-	 Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 cc:content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=t8h+pkH7PgqaYDZYFI5SApGWxY0HCkSNHTF1UWcgyR+RSvPXwL3bzvXoWUR7mRNT
-	 YXkkj6Z/ghZNUtmZNPfdnXN/e83yPhz+bMemkfUjX/CFyEaDE8dJPYi3JoJY7UQ4Z
-	 BYh3fVkbM6OQCOjM0K8XsN/khzQHBcfQH4DqyouVskwfpNMmhybD+/yuMpfj1fSO+
-	 u2Z+ph4/5frcTPxZc8gA4Ajg9oOarfb4T9y6BK0GRQMApTrdz804lQbP355Xa5fRY
-	 93KBwuZkuduMEM46eGfW4eRfXppL5iikbFLdM7H71eoYIxFLHgp+u9EK6s8snFHXS
-	 DebfyP4YTkESQBIPRw==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb006
- [213.165.67.108]) with ESMTPSA (Nemesis) id 1MHVaf-1xCDHF2YBF-00H2UG; Wed, 26
- Aug 2026 19:00:16 +0200
-Message-ID: <0d6bb2d4-5f6b-4fd6-9b9f-5f5f0f687625@web.de>
-Date: Wed, 26 Aug 2026 19:00:10 +0200
+	s=arc-20240116; t=1787763721; c=relaxed/simple;
+	bh=w15suKsWFvnl/SbNHI/YWs/B61oJZUiIks8mIiL/ciw=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=JVQtFC1CCKmZvTylVqQDh/gMJt276g2b0wlJHLHRPfmQ1pYwyJbSKCRSRHzTAfBTA5SgAc2oFADTLfYrKvBwMavlhxdhBELJBfkgEcA+L9x841DCjYIZZ77Z9Hll6eImH+sv5xLowbCyV8AThpumwmqM0LRTU/ATPzT2YgAqyYw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.224.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-yx1-f69.google.com with SMTP id 956f58d0204a3-66c70f5abc2so1916958d50.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 10:01:45 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787763702; x=1788368502;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=zpkb59MZ3xKKGRCh9R6EynX+Nh2apKlX3tYGFftwGAo=;
+        b=JCL/Y7dIs3Pam2onPgsE7GEuAk6LKyp7REqXonsm+a3zMttXUOAhDzIwQgNyaRICXU
+         4zvefzrR3B7ytYuJ9wd1LkhWwmbmZRyrIeUYzPmU0k0pb/ZDYk6PH40EGvpGUrvi8yL4
+         PF/6vybLp0hhRfWyH/th2UVHMXQDUWyYYWKVQA1Pa+ZBjdOWc8mJIkSkbnpU98hdowmt
+         h9QOqn2okVzDmn3yJ0+d5qC6Xf82ue49VSaHXYtxGWPMJypm0MQ7Zko4AirpcL6u8w3J
+         Lny6DpeEG21Cqhg46vNRRJwDkav2agXoOqvg1qVNibsAF7wHU1bhvlySvHj+UOBY9duu
+         cdtw==
+X-Forwarded-Encrypted: i=1; AHgh+RqqHjSPwDYfg9HVGaOEdUGr1FZVPTcdI6JoX/9JzjSC3z6X0s3tEiRZqb8L3d9Mm3oixocKwlOMW61saYA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mVdRfwNxmwGr60QG2yGPUmhUzUb0RlFRup8pptrVqM6vyljw8m
+	axSdMyFNgcvhZ/lQ0Ou3/G9nYUH5cvdH3BGbBry74lOEd4C2dsSU2AokB4NrzdUgoEL56UmEZ5s
+	qqJRv/A9g5b8XR9kVdZtGRMxdKuVwXuQRkoYcwacGu3IDTPCJmCmRIc9WGGM=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
- dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
- llvm@lists.linux.dev, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- Bill Wendling <morbo@google.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>,
- Jonathan Corbet <corbet@lwn.net>, =?UTF-8?B?SsO2cmcgUsO2ZGVs?=
- <joro@8bytes.org>, Justin Stitt <justinstitt@google.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Oded Gabbay
- <ogabbay@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
- Robin Murphy <robin.murphy@arm.com>, Shuah Khan <skhan@linuxfoundation.org>,
- Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Will Deacon <will@kernel.org>
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Bharath Kumar <quic_bkumar@quicinc.com>,
- Chenna Kesava Raju <quic_chennak@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
- =?UTF-8?B?SsO2cmcgUsO2ZGVs?= <joro@8bytes.org>
-References: <20260817-qda-v2-v2-9-69a02e9090d4@oss.qualcomm.com>
-Subject: Re: [PATCH v2 09/15] accel/qda: Add DMA-backed GEM objects and memory
- manager integration
-Content-Language: en-GB, de-DE
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <20260817-qda-v2-v2-9-69a02e9090d4@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:6jOP/lI1Ra5far4mgM9KTH4mvwnSgFP6QW6ZdjBSvuF6bHxgwjL
- pZB8Rx/0lYq7VNsG+Tg+MYcrE0FXO3QyKoQ3Ccc8rdTpfyoD1batg86gMmAYa/Cw3/1zYHn
- IDs6vojxDfmdzvIf8xyd5xpg3AqTPeqanhIrwFIM0pYe50PJgGUIHmBGGxldX3/ydENKyNu
- udx+pNQW30rbT+n3QT/GA==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:ifj0B9Xdpjw=;HK1VqLd3h57EG5ErrUGya6d+KqK
- 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
- QJJbDTbhZC7C1aXSM6LH5iIyZ7Hr51Sz
+X-Received: by 2002:a53:e849:0:b0:66d:112b:769 with SMTP id
+ 956f58d0204a3-66d25663260mr2084976d50.1.1787763702629; Wed, 26 Aug 2026
+ 10:01:42 -0700 (PDT)
+Date: Wed, 26 Aug 2026 10:01:42 -0700
+In-Reply-To: <6a653bcf.073198cf.94f0f.001c.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a8f1bf6.50659fcc.60cd.0004.GAE@google.com>
+Subject: Re: [syzbot] [kernel?] WARNING: proc registration bug in
+ unregister_irq_proc (2)
+From: syzbot <syzbot+690d666eb12fca6e1e61@syzkaller.appspotmail.com>
+To: abbotti@mev.co.uk, bhelgaas@google.com, dakr@kernel.org, 
+	driver-core@lists.linux.dev, gregkh@linuxfoundation.org, 
+	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, rafael@kernel.org, 
+	syzkaller-bugs@googlegroups.com, tglx@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-=E2=80=A6
-> +++ b/drivers/accel/qda/qda_memory_manager.c
-=E2=80=A6
-> +int qda_memory_manager_assign_device(struct qda_memory_manager *mem_mgr=
-,
-> +				     struct drm_file *file_priv)
-> +{
-=E2=80=A6
-> +	current_pid =3D qda_priv->pid;
-> 	+
-> +	mutex_lock(&mem_mgr->process_assignment_lock);
-=E2=80=A6
-> +unlock_and_return:
-> +	mutex_unlock(&mem_mgr->process_assignment_lock);
-> +
-> +	return ret;
-> +}
-=E2=80=A6
+syzbot has found a reproducer for the following issue on:
 
-Under which circumstances would you become interested to apply a statement
-like =E2=80=9Cguard(mutex)(&mem_mgr->process_assignment_lock);=E2=80=9D?
-https://elixir.bootlin.com/linux/v7.2/source/include/linux/mutex.h#L253
+HEAD commit:    818bebeb63dd drm/xe: Don't hand out the flat CCS storage a..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=17569625580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
+dashboard link: https://syzkaller.appspot.com/bug?extid=690d666eb12fca6e1e61
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=157ce979580000
 
-Regards,
-Markus
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+690d666eb12fca6e1e61@syzkaller.appspotmail.com
+
+------------[ cut here ]------------
+remove_proc_entry: removing non-empty directory 'irq/17', leaking at least 'comedi_parport'
+WARNING: fs/proc/generic.c:747 at remove_proc_entry+0x4e7/0x610 fs/proc/generic.c:747, CPU#0: syz-executor143/6008
+Modules linked in:
+CPU: 0 UID: 0 PID: 6008 Comm: syz-executor143 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:remove_proc_entry+0x4f5/0x610 fs/proc/generic.c:747
+Code: 00 fc ff df 48 89 fa 48 c1 ea 03 80 3c 02 00 0f 85 c7 00 00 00 48 8d 3d 39 b7 88 0e 49 8b 95 d0 00 00 00 48 c7 c6 80 39 0b 8c <67> 48 0f b9 3a e9 2a fe ff ff e8 4c 2b 4a ff 48 8d 7d 18 48 b8 00
+RSP: 0018:ffffc900032af7b8 EFLAGS: 00010246
+RAX: dffffc0000000000 RBX: dffffc0000000000 RCX: ffff88803dac74dc
+RDX: ffff88801cb025dc RSI: ffffffff8c0b3980 RDI: ffffffff91498da0
+RBP: ffff88803dac74b8 R08: ffff88802b20f75c R09: ffffed1007b58e83
+R10: ffff88803dac741b R11: 0000000000000000 R12: ffff88803dac7400
+R13: ffff88801cb02500 R14: ffff88802b20f738 R15: dffffc0000000000
+FS:  000055558ac37400(0000) GS:ffff8880d5ba2000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007efe6b5a6130 CR3: 000000002bb43000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ unregister_irq_proc+0x206/0x2a0 kernel/irq/proc.c:406
+ free_desc+0x89/0x330 kernel/irq/irqdesc.c:482
+ irq_free_descs kernel/irq/irqdesc.c:874 [inline]
+ irq_free_descs+0x84/0xc0 kernel/irq/irqdesc.c:865
+ irq_domain_free_irqs+0x46a/0x5c0 kernel/irq/irqdomain.c:1919
+ mp_unmap_irq+0xf8/0x130 arch/x86/kernel/apic/io_apic.c:1061
+ acpi_unregister_gsi_ioapic+0x40/0x60 arch/x86/kernel/acpi/boot.c:722
+ acpi_unregister_gsi+0x25/0x40 arch/x86/kernel/acpi/boot.c:751
+ acpi_pci_irq_disable+0x275/0x360 drivers/acpi/pci_irq.c:517
+ pcibios_disable_device arch/x86/pci/common.c:706 [inline]
+ pcibios_disable_device+0x89/0xb0 arch/x86/pci/common.c:703
+ do_pci_disable_device+0x9f/0x100 drivers/pci/pci.c:2192
+ pci_disable_device+0x130/0x270 drivers/pci/pci.c:2228
+ enable_store+0x219/0x260 drivers/pci/pci-sysfs.c:342
+ dev_attr_store+0x58/0x80 drivers/base/core.c:2509
+ sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
+ kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x6af/0x1050 fs/read_write.c:687
+ ksys_write+0x12a/0x250 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f8d19fda9f7
+Code: 48 89 fa 4c 89 df e8 98 1d 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
+RSP: 002b:00007ffff688d7b0 EFLAGS: 00000202 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 000055558ac37400 RCX: 00007f8d19fda9f7
+RDX: 0000000000000002 RSI: 00007f8d1a0120f4 RDI: 0000000000000004
+RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000202 R12: 00007f8d1a012129
+R13: 00007f8d1a014458 R14: 00007f8d1a0120f4 R15: 0000000000000015
+ </TASK>
+----------------
+Code disassembly (best guess):
+   0:	00 fc                	add    %bh,%ah
+   2:	ff                   	lcall  (bad)
+   3:	df 48 89             	fisttps -0x77(%rax)
+   6:	fa                   	cli
+   7:	48 c1 ea 03          	shr    $0x3,%rdx
+   b:	80 3c 02 00          	cmpb   $0x0,(%rdx,%rax,1)
+   f:	0f 85 c7 00 00 00    	jne    0xdc
+  15:	48 8d 3d 39 b7 88 0e 	lea    0xe88b739(%rip),%rdi        # 0xe88b755
+  1c:	49 8b 95 d0 00 00 00 	mov    0xd0(%r13),%rdx
+  23:	48 c7 c6 80 39 0b 8c 	mov    $0xffffffff8c0b3980,%rsi
+* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
+  2f:	e9 2a fe ff ff       	jmp    0xfffffe5e
+  34:	e8 4c 2b 4a ff       	call   0xff4a2b85
+  39:	48 8d 7d 18          	lea    0x18(%rbp),%rdi
+  3d:	48                   	rex.W
+  3e:	b8                   	.byte 0xb8
+
+
+---
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
