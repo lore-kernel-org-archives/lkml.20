@@ -1,77 +1,63 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0B3848BD35;
-	Wed, 26 Aug 2026 22:09:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D861B407CEF
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 22:10:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787782163; cv=none; b=JvC6cIFwrE10XIbfGEIgm4YshKFCxIuRFUwweT1MlKbCCVPvqolgle62LhAM0D/vzqzwjP9NdP/9ifLQrVPVuOfUQfDShtRIzmU7QZMcubbDy88v3rv0NJD620lGKEZHSuP27N4ZwUj9VjVJZ2kJXwW0rx3EtyAISZR98/DiMLo=
+	t=1787782225; cv=none; b=t1w7nK0sCjuL0XWRVo39kEPCrDugcQ17Mx9HtIXnGWggj2zd2Pny6JPelGKrHzTSCvuFJyrBG4BhEiIlkH5HgdGJnWd8xRB8ozeNRnEuS9LGKeRvMnTd6iElNnFW9c/CRhv80HyJdjZEraT8nK839TmNhMrWT2fVtB27v3mIJVk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787782163; c=relaxed/simple;
-	bh=iTKpZVVyrvHn2/PCIjerZLBtqXbA9duX7JUWfnO/5NE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rtDm7elu+E9WEw/tU/lD/su0A215azU4GMZThpZzq3jb0YIB/+Zk7jU3Yu2JG4/9ST4uchXLFnj1ajUaD8kbC68pBlZuD7SJJ1sQcpNfi/e6y4nr8RcUIlNJM0ZcXGdnwn88hKsncvs0DyY8eiAvXdmr8HPtTb0MoPeiElmN1nM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GBvqK8f7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787782225; c=relaxed/simple;
+	bh=oAgcoj6nTg1ztoFz08igmLxovEIXr3rPZLhMZflgdFc=;
+	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=Boba767dhruW5AQ423kHuyxxN2Bifg5k76uLVI7On6RSs7TogW0QiqiP3edXcnn1cn5HgNEFlPqGoTcy/VGR6WsFD2TIbmiIbGgm3ScxAfVaJpoh84ySVJOxI3Ad8/nzdQvvFDwArwz97UbbTTc3HYU9VSzPnQc6sKj9nSLPyrA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cTdEHeGS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GBvqK8f7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D2B21F00A3A;
-	Wed, 26 Aug 2026 22:09:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cTdEHeGS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CCE11F000E9;
+	Wed, 26 Aug 2026 22:10:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787782161;
-	bh=iTKpZVVyrvHn2/PCIjerZLBtqXbA9duX7JUWfnO/5NE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GBvqK8f7dmrEM3THcISrY5CFpwfXtdnbipD8dTJfvVdDzqi20tOgSMQdvz/DJdClv
-	 ws1N9lD8PnzoRzjeIctFqjbLxC21dT52HibPghILC/tqnr7+ENb1lJgeYJziR+1Mol
-	 OurMhexqppTX+v7OwZdkweKsBzZqrjmiMyazkm9dR8A8oSeR3roSmVwRyJYCscsNzR
-	 t9WqgduXFUoS8cH/X1Y+YFGUFe3H4Zb84oTEOGDgmOKJvBXv9BQ//MYD8PSesVo1aX
-	 s6nUcf2AUpZiSMg+46EvNPzx8EBRzIwC86T9kkCd10tvxWfcFtC+DWqtxpQ55Clh1K
-	 BjI80kTzyfgkA==
-Date: Wed, 26 Aug 2026 22:09:18 +0000
-From: Eric Biggers <ebiggers@kernel.org>
-To: Mike Lothian <mike@fireburn.co.uk>
-Cc: linux-crypto@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Lyude Paul <lyude@redhat.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Asahi Lina <lina+kernel@asahilina.net>,
-	Matthew Maurer <mmaurer@google.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>, Burak Emir <bqe@google.com>,
-	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] rust: crypto: add AES-128, AES-CMAC, SHA-256, and
- HMAC bindings
-Message-ID: <20260826220918.GB3382628@google.com>
-References: <20260826163004.3365-1-mike@fireburn.co.uk>
- <20260826163004.3365-2-mike@fireburn.co.uk>
+	s=k20260515; t=1787782224;
+	bh=k/Ynk0x5vQf6O6bWyoQGvR+kmpQnM0kC5uwqun1Viuk=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc;
+	b=cTdEHeGSbfrSmgROsp3PuIwDceMhbUjH7CwpCjT68uBV/jZlFy3qYt7Zatb5W5n2a
+	 r8ebcTjwHuJ2IU8nEknxAGk/fRcDe8t0PdGYp34PWVqSvKaYxnuRGmEyJIAszIJPJ0
+	 HVcLxcAwkedCxAq/mNcgqHhepnIeNbIGUO3GFzDvWqo/13rJP0rA+mgDa+tA34btcG
+	 rCyFaWv+AOe0toHd9NjHev782bhdkISZlbefW5fbujvRMoI0Bkh51yiqW6rUaa4cZm
+	 3pe/7Affb5pOPKLF4rwBpKyH13+EA7a494XM5O0/BJ4zx5fKH2RK0XC/7n/AWmv++z
+	 XkagQ451eeJ5w==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0C183809A08;
+	Wed, 26 Aug 2026 22:09:31 +0000 (UTC)
+Subject: Re: [GIT PULL] rv: Fixes for 7.3
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <20260826144817.7af76334@gandalf.local.home>
+References: <20260826144817.7af76334@gandalf.local.home>
+X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <20260826144817.7af76334@gandalf.local.home>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git trace-rv-v7.3-2
+X-PR-Tracked-Commit-Id: ab0304fd69b07605553e9f161d65ecf9ccc2e2fe
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: b035a8be20ddfb932205beb9a1cbd80ea42e6cfb
+Message-Id: <178778217029.915814.9411755440883091768.pr-tracker-bot@kernel.org>
+Date: Wed, 26 Aug 2026 22:09:30 +0000
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, LKML <linux-kernel@vger.kernel.org>, Gabriele Monaco <gmonaco@redhat.com>, Kuan-Wei Chiu <visitorckw@gmail.com>, Nam Cao <namcao@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260826163004.3365-2-mike@fireburn.co.uk>
 
-On Wed, Aug 26, 2026 at 05:29:48PM +0100, Mike Lothian wrote:
-> +//! Safe wrappers over the kernel's synchronous library crypto.
-> +//!
-> +//! Exposes the one-shot `lib/crypto` primitives — AES-128 (an [`Aes128`] key
-> +//! prepared once for single-block encryption, the building block for modes the
-> +//! library does not yet provide such as AES-CTR)
+The pull request you sent on Wed, 26 Aug 2026 14:48:41 -0400:
 
-There's an aes_ctr() function now.
+> git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git trace-rv-v7.3-2
 
-With that, is bare AES still needed?
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/b035a8be20ddfb932205beb9a1cbd80ea42e6cfb
 
-- Eric
+Thank you!
+
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
