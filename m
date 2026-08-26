@@ -1,184 +1,115 @@
-Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.165])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 689B41862
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:32:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 978712D94BA;
+	Wed, 26 Aug 2026 14:33:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.165
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787754764; cv=pass; b=sYg3Y5gtW7DmnYHZSPadlgzpsDHvZXBkbY+GnFqjumrMZ98JWjM3OT5mZTAWZ3QQmQ35D6ekDvDYKne5kuxyE/VFiSAwXPQAo93CHq6rZkvn7+W9dETtb6z+f7YrJ+JUmwbKfJNb6H8Pc316HAKLrXy4j6EHAPhtFs5hJFRnqeQ=
+	t=1787754797; cv=pass; b=JmvTdAVgMQocmfOHZtN/a46Djsav8TF95bkSNrSMYypplUZof/rRAkBnQpVbKyC9E5I62uXNJwdL8cLtnPNHM0bo5IkE5GpGzwzCQbQwPA72u3yNX+P6BEm7i63GLzDNipoUzRNeLMvhGzOExsxh/Xgt0nrv77nOOv/MVCuh09g=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787754764; c=relaxed/simple;
-	bh=uGuMG/KM6SBJAW6r5VuXsRS227UH4wUcYvkOdg0cQyQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OMWV0bW1fWyDEHEGwqg/bV2V2TWepV6SWYT5mbJMQ36umxZ+9RPJZCvIokTX2QtF3/3fJBbpLOEA7XqbmxfPpYkVlXO0F6ilH0WGWgHlrJxYhLRRm6twWQkk/DEIPN+nIlKsmSdLIwerzGyknGD5GaovQWOi6MrtOGzqKtm8OL0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ClTpXhXM; arc=pass smtp.client-ip=209.85.210.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1787754797; c=relaxed/simple;
+	bh=QvKF5mld8eVJdis1fhEPFCmryqDF0T0VDaffLARmBjw=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=U3pbRTKhi3PyR/OKrsb1qzacE41PT8/vLKBAonAyrUvRXiDhi3F2ORZ8EqX8wgzHRvGuyqOV9G1YCQ15Adk8ezj+w9T5ad5C8ADmChD1MzAvelqy/gY8+7gMAdtiv8/am5C8tzTAGnUzF/Q0WeaA/oKIZBI8PPgq0i9MT9bVupA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de; spf=none smtp.mailfrom=iokpp.de; dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=tTMgJUKQ; dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=+YO4xrWf; arc=pass smtp.client-ip=81.169.146.165
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ClTpXhXM"
-Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-7f432ac553fso796481a34.3
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 07:32:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787754761; cv=none;
-        d=google.com; s=arc-20260327;
-        b=qOSF0D1welRZRJQabZ5W4ifTikb7/iD9s9LYWZ5RPd1KsHn+J4ZPzhC6ypN+nFXseG
-         uU8jXVn2g33oeZMLJ4UF16wRpdOuJQKX4JPJfcFDy8Xe5eDhzVD/KT0Dn7OB4MrBRE+P
-         vRMTcY5wvZAq/CDISnTftkNN3OhD0F9JXW7x5Q6GEUTrs6fS/odPJ9h+l0zaHsvXubtQ
-         /xz5CcVBW36OO9lFJnptQj/z4Kdm2RRutUVLpZ3hhCQ1Owq7ufUfcuN7rj2WU+py+0xC
-         Wq9VYWj6RBl0pCQGopQ1dhwG3XgT0Bhjond9pbV8IM3sKgHiPcvfCbIVLftjQKLMRxpd
-         MFvg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=x1g4ctzEFpC9hS1eVfp5ZBV87NdsbdBID9p8ekLhrAY=;
-        fh=agUbW3bRw0fr21TuhtYLp/ddB9xhls2PZzTCPECq/ms=;
-        b=a8xF+Q9DZEkmPn+aI/Sh7U+68jm+8aN62H05zjOFFxJBNgtNdrs+ePh9KVrnGmBvkf
-         //im10VSRk3tvCDlDL/GHSzAmw8ROE/ieB+akZOGNgEBTRUN/rTrkObPCo6aaDMtwU1u
-         wkOxsfhZVPZwE5Hq8ooiUFmVB62+x3XUpEQpAeTqsOsRyasaz7aHeSl4bVsjBiz0aqYK
-         uY7AUojJrRmKUFoLiK3Q/9bYCAGzNrqrayl5O6eX45as1dRgbl32tK6s/K9iTB+4YR30
-         l17NwU1RRJeiXbQ4GhgFw4PZ+OjxqZhrvYTUqeTcMVJkl+K1AP+j/PeIwXFfvvOO8v3V
-         1axA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787754761; x=1788359561; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=x1g4ctzEFpC9hS1eVfp5ZBV87NdsbdBID9p8ekLhrAY=;
-        b=ClTpXhXM+uOrobfj90WP2yjdefO3X9gIPragRCzKJ+oH6FqsevrVBFi+MOMrJnT5xR
-         ZGfvCqxA4/CSyQ578oeOsuVHUuj2uj+GZdCN2PnY0Ttm84UR16EbiWH4/rPyYZTvDKWh
-         YStRL3BQ2poPflKdnZ9NDEaslV78sLIqZ5k+hp68RuIFRxvFOrGDPyo07YICfSkrXSwZ
-         fIetlBBshd5qSn+e2owXUooXTpT6MBlyESB5PYbWr19NaYst/ItjsEUNrggbL9AqnjPw
-         ZIL6biAo7riFR/h9yHd40N64JpcfDDtTWa47joW6SkHC/kyWCOHFPFRauovvQnuoQBxy
-         shyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787754761; x=1788359561;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=x1g4ctzEFpC9hS1eVfp5ZBV87NdsbdBID9p8ekLhrAY=;
-        b=WhWaQcYlGJv3AXhkRyCLVFwLagACPLBSkTtwzp2wmrbBZHWrsjT6KeKvPhhHNTT8B/
-         hIvX9qrRqZUJA6vXXeM1h2ZAT5ciobSG9K9vpfXOfJAUJX/cpSzR29B+9Oc1faZZgIaQ
-         Cqi2r5ZvpldiuU+pChJ05BhK4IfvsBoVkOxe9G+wINqUL1xEFT78G+5oGGrD/I2uS5RF
-         ufxhDmNv1EMxQ88CJjT8HHPFfcAXmoRiFT/RTJ2qrQeD7qh34sAqKeLxEjIXjKFjqPdl
-         VdE0WPGds/RzsbDDBDPUcSbLoNP3XbgGfEVzuYtqna/I4a49gZOQlJAcfV8vtkC3AxyC
-         Er9g==
-X-Forwarded-Encrypted: i=1; AHgh+RqNvkI+F6dYy/F6WpN8r0FxfHnSEZVb8jquyKW/QLdbukV4ILZYQFmmS4xewemLTNbvR5rzq+phkbY6nfM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lU2oHKGCOAsU4HtBO3zuNa+1iOF2y+cBiixl8rmAY7Jgntt/Rh
-	XqUoLLmhtS8JZu64GV0ehnix+YiC+5FOodJ9YaWQQWohShpVF38i3E3JBuKMfiJDEOKksa3S8GX
-	Qx3gZbKV7pomW839M6oihDZtj43FCD/VjFoPJ2AunjHxGtwgBnt+E37lH7MZLmQ==
-X-Gm-Gg: AR+sD10ui11aZL259q+HC2gdC6bAb4bovk0SXPMN4ho2c2SR87Ilaj6q8sTNOYZ/MZQ
-	XIQLfs1iIhYTwaMaCRL+hGS+qWi0EwpL4+77VXmqe9kVT4sGtZW+eqlNoEUlvod98E89ZtQ1t2y
-	Y5bsaktR5MXzMSPHP6G0zvSQ+BjCdxhgN8rm8n1d5YFhNmVnn8aBqDit8wxWcoi+GTIeT+JsL/4
-	rFIUiAkBQaR5BHX/ul/2d0ZKnGxnXtjKhM4VRcLAd7/8jRcSJcgkwFzkQo2M3byLgP6uuoKGiq3
-	Vk/T8vK6ZPiQA4lXP2yTCMOm1sT/D3PQDi+k7iMJkUSmPJwT8nNzvbR9oy2LRCgU+IyltwjKcQh
-	I1UMc/1EQERZu/MpH2Fd+vRRdROIT/rpZJ5IqHVzQoLpsjpFu8BRQbIu7HOFKwOKvqAQsksV1nK
-	cLCfJQm3IM/KOh
-X-Received: by 2002:a05:6830:3708:b0:7e6:fa37:9797 with SMTP id
- 46e09a7af769-7f4c4dfee34mr7818437a34.6.1787754760603; Wed, 26 Aug 2026
- 07:32:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="tTMgJUKQ";
+	dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="+YO4xrWf"
+ARC-Seal: i=1; a=rsa-sha256; t=1787754768; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=Ky1y4V0NfpLFynWYs67/Djxdkm5nTyMlj0s7/yBT3SOzuF5WTYi/EFbPq3EBH6vQQC
+    NXRrGfOrV/1I7vvG1ObQPCMiCcrps9v/UW4noSQUc1oPZu9zM4xkU3vf6fPhIJ5qsDrb
+    Jtu1qjyDRWhwd9Rb0E5D9VYGXaU1jJ3PZv3wiEf4MkNO4xul0oROoYsB5Q6wZfNEeoeq
+    oCURF3zbDa6V0xiM5fssHnhITnzJcZyKcRvsYVOAiZN+SjmLfs4k3gnJqS5DYlHbfZzA
+    W1FltzORwFYYT3vw1ZCjSk10OElFVNEhWxcLX4Ntf76r62+DjoiLvPQiVrU2FL5zDyI7
+    ao9Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1787754768;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=QvKF5mld8eVJdis1fhEPFCmryqDF0T0VDaffLARmBjw=;
+    b=VvqsIGpYqpQ041FuNDsXxBh/2dXbWvS+ZlDnxvRZgxbMM+BRTocQzafSwmf2anVoJn
+    q/pzxMcGrRKFBRag8gLFTBB++Q7oRznk+eFQRcfDu82XvauV5rGLwa7ZhToXr9NdIO8U
+    1BcxIa3AE27SFac9ErqLgWfgGwWnPiuUhvGJaTk2rPLQNs53hjF88NNwxx0FMKl9Qaxk
+    rFvOx19BX/b3ZKi0sYPLExNzQVlG+igaBI2P5AqX1QCRBiRpPDNFURIP5g4dB/u+3hQ8
+    wKRPa0rJNCDuq2wvI01oTqfkn1yLv/qgHKdHf7oW0FbXpM1+FNcX+BootVYa/gUe88lv
+    w71A==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1787754768;
+    s=strato-dkim-0002; d=iokpp.de;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=QvKF5mld8eVJdis1fhEPFCmryqDF0T0VDaffLARmBjw=;
+    b=tTMgJUKQMTabq/YW6iUeiy67UqhVu90ul6VTIjklRDxwnKpznqgbxiWAcL4VrfDfPa
+    MBR288o/340q5MCgkUMIbd0h3rDAw4ZeZ/dnjHZF72Olp+CvO1bQyTt51cfCBnqYXSt/
+    rlvKOS+Gj+3A4TOu4HSj7kNslbJkhojspnsIn1upLRq+9Yn0PTAhPpBiXc/PelohTEhJ
+    WBQHIoCUgqQ0WHsKw8hvXPhZjwygRt4FWVLai3ZLAb13b/qM6VZWEO/m3MvHV1gKE6gU
+    wka8GS5V719k4ND/yn+BTo9Y96Z8KPBOoSMV0xypk5nHh0adxfzagtB8k48fgUAwhzSE
+    cPUQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1787754768;
+    s=strato-dkim-0003; d=iokpp.de;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=QvKF5mld8eVJdis1fhEPFCmryqDF0T0VDaffLARmBjw=;
+    b=+YO4xrWfR9DJIxYw+svCkXeofq+oz1c4fE/TUsLok6uCfAC4zGctyxwNuvadARirOH
+    o4biC6lVsnETeAqoH4BA==
+X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0DBslXBtZUxPOub3IZik"
+Received: from [10.176.237.62]
+    by smtp.strato.de (RZmta 55.6.2 AUTH)
+    with ESMTPSA id ze37e127QEWlUSo
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Wed, 26 Aug 2026 16:32:47 +0200 (CEST)
+Message-ID: <c041d409bf6f564c6743a0d03e0c851ce3afa6d5.camel@iokpp.de>
+Subject: Re: [PATCH v3 2/2] ufs: rpmb: use a fixed-length RPMB dev_id
+From: Bean Huo <beanhuo@iokpp.de>
+To: Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>, 
+	James.Bottomley@HansenPartnership.com, martin.petersen@oracle.com, 
+	alim.akhtar@samsung.com, avri.altman@wdc.com, bvanassche@acm.org, 
+	beanhuo@micron.com, can.guo@oss.qualcomm.com
+Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ op-tee@lists.trustedfirmware.org, jenswi@kernel.org,
+ sumit.garg@oss.qualcomm.com
+Date: Wed, 26 Aug 2026 16:32:45 +0200
+In-Reply-To: <20260821150612.3944782-3-jorge.ramirez@oss.qualcomm.com>
+References: <20260821150612.3944782-1-jorge.ramirez@oss.qualcomm.com>
+	 <20260821150612.3944782-3-jorge.ramirez@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4-0ubuntu2.1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <6a88012e.dbb3a75c.13dd47.0007.GAE@google.com> <6a8d0f6c.dbb3a75c.7844.001d.GAE@google.com>
- <2026082540-tarantula-gigantic-b786@gregkh> <CANp29Y5YH=O35brw55HFo_hVmFDz5Y4Yw7buBc-rOjETU2DNjg@mail.gmail.com>
- <2026082507-ecosystem-giant-0b79@gregkh> <CANp29Y5hnOWaqGw8BbPu1TCr00TbvNRciYvs_VCd6Jtk=8kSPg@mail.gmail.com>
- <2026082602-compile-bogged-877d@gregkh>
-In-Reply-To: <2026082602-compile-bogged-877d@gregkh>
-From: Aleksandr Nogikh <nogikh@google.com>
-Date: Wed, 26 Aug 2026 16:32:28 +0200
-X-Gm-Features: AcwNN1U8xGoi4BJvKqmFyT1BTT2HHIMJbt0Q1AHIDird_ONv_FDVdlZesHwWpx0
-Message-ID: <CANp29Y486UwGwRJpqzQ4aU2eN4Xu3A+zw_zDUJuFR5hKQ+Knrw@mail.gmail.com>
-Subject: Re: [syzbot] [usb?] general protection fault in wcove_typec_probe
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: syzbot <syzbot+1a01783ea233350598b5@syzkaller.appspotmail.com>, 
-	heikki.krogerus@linux.intel.com, jeffinphilip14@gmail.com, 
-	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
-	mika.westerberg@linux.intel.com, stable@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com, syzkaller <syzkaller@googlegroups.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Aug 26, 2026 at 4:11=E2=80=AFPM Greg KH <gregkh@linuxfoundation.org=
-> wrote:
->
-> On Wed, Aug 26, 2026 at 03:26:23PM +0200, Aleksandr Nogikh wrote:
-> > On Tue, Aug 25, 2026 at 11:07=E2=80=AFAM Greg KH <gregkh@linuxfoundatio=
-n.org> wrote:
-> > >
-> > > On Tue, Aug 25, 2026 at 11:04:54AM +0200, Aleksandr Nogikh wrote:
-> > > > Hi Greg,
-> > > >
-> > > > On Tue, Aug 25, 2026 at 7:12=E2=80=AFAM Greg KH <gregkh@linuxfounda=
-tion.org> wrote:
-> > > > >
-> > < .. >
-> > > > >
-> > > > > Please do not think that this is a valid path for syzbot to be
-> > > > > fuzzing...
-> > > > >
-> > > >
-> > > > Can you please elaborate on this?
-> > > > Do you mean driver binding sysfs interface in general or something
-> > > > more specific?
-> > >
-> > > That is the specific thing, don't have syzbot do random bind/unbind
-> > > calls, having it attempt to bind any random driver to any random
-> > > hardware device.  That's not how bind/unbind is supposed to work at a=
-ll,
-> > > it's for developers who "know what they are doing" and you get to kee=
-p
-> > > the broken system if you mess it up.
-> > >
-> > > Same for unbind.
-> > >
-> > > This is a root-only api for that reason.
-> >
-> > Thanks for clarifying!
-> >
-> > Some context from the syzkaller side:
-> > Restricting the fuzzer is always tricky, especially when the
-> > problematic operation is just opening a file and writing to it.
-> >
-> > We normally constrain openat to:
-> > 1) An allowlist of safe absolute paths (so it won't open /dev/mem,
-> > etc.), blocking any other path starting with '/'.
-> > 2) Relative paths under CWD (so we can still fuzz normal file operation=
-s).
-> >
-> > Here the problem is that one can mount sysfs under CWD, which leaves
-> > syzkaller full access to everything inside it.
-> >
-> > Tightening the access to /bind, /unbind, /driver_override sounds
-> > reasonable, but trying to catch all workarounds purely in userspace
-> > (e.g., creating symlinks to these paths before opening them) will
-> > easily turn into a whack-a-mole.
-> >
-> > Would you be open to adding some kernel config option or a boot
-> > parameter to disable manual sysfs driver bind/unbind and
-> > driver_override? We had a similar problem with writing to a block
-> > device while a filesystem was being mounted, which was perfectly
-> > solved by CONFIG_BLK_DEV_WRITE_MOUNTED.
->
-> I've submitted a patch to taint the kernel if these files are written
-> to, so that should "catch" syzbot and let you know to ignore these
-> reports if it runs into them:
->         https://lore.kernel.org/r/20260826-bind_taint-v1-0-52b05f4a965c@l=
-inuxfoundation.org
->
-> Is that sufficient?
+On Fri, 2026-08-21 at 17:06 +0200, Jorge Ramirez-Ortiz wrote:
+> The RPMB authentication key is derived from the dev_id handed to the
+> RPMB subsystem. OP-TEE implements the eMMC RPMB flow, where the dev_id
+> is the eMMC CID, a fixed 16-byte value, and it derives the key on that
+> assumption.
+>=20
+> The UFS RPMB id built here is "<device_id>-R<region>", which is variable
+> length and longer than 16 bytes. Passing it verbatim would tie the
+> derived key to a length OP-TEE does not expect and diverge from the
+> fixed-CID eMMC ABI, requiring OP-TEE to be taught about variable-length
+> UFS ids.
+>=20
+> Hash the UFS id into a fixed 16-byte dev_id with blake2b instead. This
+> keeps the derived key stable and unique per region while matching the
+> eMMC CID layout OP-TEE relies on, so the key-derivation ABI stays
+> identical and no OP-TEE change is needed. blake2b is used because it is
+> already available in bootloaders such as U-Boot that must derive the
+> same dev_id, avoiding the need to add a blake2s implementation there.
+>=20
+> Signed-off-by: Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>
 
-Hmm, if we set `panic_on_taint=3D` with TAINT_FORCED_BIND and ignore
-such crashes, I think it could work, yes.
+Looks good to me!
 
->
-> If not, no, I really don't want to make a kernel config option just for
-> this type of thing.
->
-> thanks,
->
-> greg k-h
+Reviewed-by: Bean Huo <beanhuo@micron.com>
