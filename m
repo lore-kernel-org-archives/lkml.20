@@ -1,78 +1,99 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C9DE396567;
-	Wed, 26 Aug 2026 18:21:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44ED144AB8A
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 18:22:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787768487; cv=none; b=qycp8nHRReFGhXYA2un+hrWT+jVXiqRTbSn/35VzqRhARmqhkz/hfdg/7R76hS55hQ/b8YQV9RPKm2spOA+KgVKym4OICg5qlGjnJVMTqhQCi7cLDsV5eiIajjWQWBLIdqvX0pcHkOA82QoiEU6KxBfm7QWHJ1x0m59c5C58obA=
+	t=1787768554; cv=none; b=gxsubevb1Ph7Ak0WjLBRVxYD3Xelil6sF5BphjD/CBAqQ7f6yorI7GMHqvWBin9yNLSYV1WnjXtqIMOShVZ6bSlFvNMsp+4s9chJUK70loL2L7W6LY+URA3Ll/ZBgVL8ckOTUgCTglwDmZpmRlbIxkOwoxMS+2dCedm0uuxEHDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787768487; c=relaxed/simple;
-	bh=JgD2d7SIptm6DFoVcl9RCSGcBv1v8yNovnJe+tuCm2E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SWbKKdremAXA1GEjRu1jTpw9uX64j2H3qMiQpaPHU2/YPtf88wB1DDpjLPvIDQJnBQxO2p5dZlrYevpNeXPJ1pB+zjhHRvC3q5GtkLaZo0pybVGtM+FBsMG0IeEYjm2FOP/6mTGZRX1Tx+xB6sHQgDjsjgWqRf9e1fqMAmgA7ig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=GBr9mD6w; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1787768554; c=relaxed/simple;
+	bh=jTmlZ1wXvKzIljpCaUXSV4XW6lKPvt9wsBPqLa/JBsY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=c3Mn8sYBdzejSKeGvx/T4yYt7n/8gJR0K3ec0Ou1tzEU0ajRv/y0W6Ku89LurSQugTWfZUEoqT5JvHNx10FwMWfN7ZyTP4zS1sR9UQyu7Bq2cWE2hn1moXmfHqtJXZ0SS2pURqprrGPu4XsYRot3KbGXm5BNDuzo2u7FOrkiFio=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=iDZoe7Z3; arc=none smtp.client-ip=209.85.208.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="GBr9mD6w"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=bvjnU/RvNADb0e9qLUeiWXcrPjao4d1WYghYICkJhk0=; b=GBr9mD6wUCO5gtan9XqkSdHu7Q
-	zX0uovq9pQeL8KVS513UKS4UFXKp9aEEsFp2zBmpa8DhJtD87i6IqlHdJpJbaiaFnLE0Q8oZBERJc
-	KCbL4EQvODDrg+0Dxqk5y0pUVFg6T42lcB1Suy6Pp/cYxq5RSVP/DvosEA/CaEcsBsxM=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wzIFB-001Yhh-Fo; Wed, 26 Aug 2026 20:21:01 +0200
-Date: Wed, 26 Aug 2026 20:21:01 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Alexis =?iso-8859-1?Q?Lothor=E9?= <alexis.lothore@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Emil Renner Berthing <kernel@esmil.dk>,
-	Minda Chen <minda.chen@starfivetech.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Jan Petrous <jan.petrous@oss.nxp.com>,
-	Ovidiu Panait <ovidiu.panait.rb@renesas.com>,
-	Jose.Abreu@synopsys.com, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, thomas.petazzoni@bootlin.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [PATCH net 4/6] net: stmmac: dwxgmac: Account for the primary
- MAC address for UC filtering
-Message-ID: <a8174fa4-4c10-4b45-972b-76f353c87f9b@lunn.ch>
-References: <20260826140500.616466-1-maxime.chevallier@bootlin.com>
- <20260826140500.616466-5-maxime.chevallier@bootlin.com>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="iDZoe7Z3"
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6a0de062db5so2273888a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 11:22:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1787768543; x=1788373343; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oYcEtx+4FYWxMZlHfWugGZUKPIp0WScwtuxkWCMrWJ4=;
+        b=iDZoe7Z33UKMLMiMsCzMeCS/oeGYv4ChCvfY5CiJhowWP5UAQoekkL5v2GYUaneztZ
+         Pa0euqhAHPjuQyXqdR9dUg+W3wt2ZtrpEEBhKlZFlfPXhC/zcDtSHi8rQHr2D4nUt84C
+         9OZ141r9GVjfnvnuOKKn/LHS3e1VaQzTrgjMg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787768543; x=1788373343;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=oYcEtx+4FYWxMZlHfWugGZUKPIp0WScwtuxkWCMrWJ4=;
+        b=fkfcZfrGk5NpoCilpBHw3+2KVAkFkWzM31V8nfZ7MJsKZBtQo6Y7pj1WQTdZk5V9F2
+         IEL7fim5r+E/fTtlll41ft1aKI2eb6iU4v3oKrWYvNHUglMi9zZqm/BL4GjbSSChgZMD
+         Pz0lGEq69WEbXewajnik1D2RrJjb7A/XxuLNhxKDHHCLWmlBkNSh+zQlE5xSCn06uJAs
+         YQc08A+qjgxOfQSCFx8tcQI6iTJaAT2TUhgzp4Fkg4e4Z/UVm5c/XWOVOKLVOYtRy9lZ
+         ll5oXzu73DENbG4PA/1yVpf6LcmE+HSLZr62Os1MCGzW7eX8T9NrBghEMLRIPSifrK2l
+         Bc1w==
+X-Forwarded-Encrypted: i=1; AHgh+Rp3MbBZQqIkYb1lRNgCS1NhNue0TE2U2p/lhRw9ZRcErLO2DYrfCMBb+nCD217pp4ayueZUuUCaNfwrnAs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nJPC0HGCe+dR0dq4jY1Bx5+OytEmd+Lee/W2DmqKxjRfZ0lvAB
+	WLwa0Sf70WWJcXHUeB0iY4dgwpdKwokvGkBWWM/QytIshPd4wcYoP7fS6jCuvyXUDELvqGzDEsV
+	3bi2HS8g=
+X-Gm-Gg: AR+sD12rhNxWQwvnUJw3JFMY4MFh+dUF6pkdZ6Qkn5psIT8KXT4rlqJybA6I9Or0V2W
+	jj/aSkxvdY2zazhQvo+swM4r51c5s1n3VlGQvPn5v4BsNNAAWtawTGI+YBktUjY3KNFaAnIi6te
+	hrTCSrW9ldd17X4m0S988tyToKGovteLWfiH7au2+MbI8dBYxhpY5G/RZPAvXs9RDUZ3offjh0U
+	D7/Xt0D82+02ZFYrUcdOPTIrRgU12aAM+GspoOhTFtoqxrRXF1n305EbsThtZ0YWhRSX6WVS8Do
+	lNvlapBlLmQGHXnkaZUEjRpN18OkFyT2/LIaIb0WML1pL0RzfdTh37uZ+P7WVZLxk1zp0JeMFrh
+	03R53SmKKYwT0US93ATUQQqHtlwXsa9kjSwZcLkq/LLjcT0BmkosGYZx+1byy4hOopm0c9NZAwa
+	/2Bi0HSdsEXqH5zF2COhvvIm/IYMXfpUV1Wteexb5eWfx5+z6GCzl4aqxFCJQlCiFW5iU4LLfN+
+	bXRjixrNmTatBVgXf0JpZq5CfA86pHy+JW7qA==
+X-Received: by 2002:a17:907:d0f:b0:c16:8adf:f183 with SMTP id a640c23a62f3a-c250c363717mr1259872566b.14.1787768543344;
+        Wed, 26 Aug 2026 11:22:23 -0700 (PDT)
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com. [209.85.208.43])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a5d671csm562838666b.3.2026.08.26.11.22.22
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 26 Aug 2026 11:22:22 -0700 (PDT)
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6a3efa2b38aso2386925a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 11:22:22 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RojKL/bz3FqLrWSUJbmtew8VN3MAapsSWyFFy6CD9nspTqDqlkqAj72W/hawFqev5iKFUDk+w7XfsbXfo4=@vger.kernel.org
+X-Received: by 2002:a05:6402:a518:10b0:6a5:ed9e:b490 with SMTP id
+ 4fb4d7f45d1cf-6a5ed9eb54bmr5775087a12.14.1787768541885; Wed, 26 Aug 2026
+ 11:22:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260826140500.616466-5-maxime.chevallier@bootlin.com>
+References: <20260826165611.236321-1-sboyd@kernel.org>
+In-Reply-To: <20260826165611.236321-1-sboyd@kernel.org>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Wed, 26 Aug 2026 11:22:05 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wj4E36NECbZBm0aesRX8mhatYXUEaMB14qkBshppBsdPg@mail.gmail.com>
+X-Gm-Features: AcwNN1UA7xTkHiRv6GsJ45N4NAts0TsSm1q4h6B3rGFnD1QjSWWqH6dShkE_8dI
+Message-ID: <CAHk-=wj4E36NECbZBm0aesRX8mhatYXUEaMB14qkBshppBsdPg@mail.gmail.com>
+Subject: Re: [GIT PULL] clk changes for the merge window
+To: Stephen Boyd <sboyd@kernel.org>
+Cc: Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Michael Turquette <mturquette@baylibre.com>, linux-clk@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Aug 26, 2026 at 04:04:56PM +0200, Maxime Chevallier wrote:
-> The same filter slots are used to store the main MAC address as well as
-> the address for the unicast filter. Let's account for that when deciding
-> whether or not to use promisc when programming the UC list in hardware.
-> 
-> Fixes: 0efedbf11f07 ("net: stmmac: xgmac: Fix XGMAC selftests")
-> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+On Wed, 26 Aug 2026 at 09:56, Stephen Boyd <sboyd@kernel.org> wrote:
+>
+> Finally, I kinda buried the lead,
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Nitpicky grammar / spelling nazi time: you bury the lede.
 
-    Andrew
+I'd say it's pronounced the same way, but considering that "lead"
+pronounciation depends on context, that's not actually necessarily
+true.
+
+We now return you to your regularly scheduled technical discussion.
+
+              Linus
