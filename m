@@ -1,572 +1,221 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39C13480960;
-	Wed, 26 Aug 2026 19:44:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6891347D952
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 19:44:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787773480; cv=none; b=lslmwM6qFkNkSjgtz5AkPpRr8zgvdwi/DzCJqlPgiHNpkd/VycZrL133Ype9vjyR2W95AcApHW0/MFiPNqWofEsOuUD/wYD8sFVC83Opwf8Wr9P1IUlp9G83MlsNF5jDRi/mHqj2rK6xa06yl5D2yG0Dzx+9vTyfsIk9owF7T8E=
+	t=1787773494; cv=none; b=lM+SWZ8LMeZQelWX6COYK2p8RZxO1Var9bnqE4dPlgAFvlYrllVZbWXf+Gtlg0RUgNBDrm3rmFAXjbzI5zeeKJBtj4pzouAdgjEm+prTVYoFXXwF8nRwC/iQey3ubBZ5DMMdmaHEvpTyxwvYBf6EEXsLDHZtQgJcwtulEuAi4Zk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787773480; c=relaxed/simple;
-	bh=1uO7R8vQ4NXChie3cI9o7w5dyXnQ6FdEw8W8/ZvKBKI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EYsB9eQyq5Fo6ZgCHxptD1PonudDHQwgYoW8on9Xchcx3N4GYgzdyonC+HJxMKQqjN/5AvKAXUKzaHVJYKjCGK/26XG6EUVeF5BznS9hiUtycVyYJ1SGgaAw7hGF4mdcqGzOu9chFa1OQKVs/XBQOVt1ET/icrmDPT+XNyLeArI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fyaE0LD4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787773494; c=relaxed/simple;
+	bh=4uZPzlY33aYdoyT/xRZbAIP4+YBkQh6pbbwV+qhDm9o=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=sQJjU59gOsPPiJQ/B1Vob5f/KjpKxTJiV7v3WkJ6xLQEclcGOp1iukxOtZ46EUh3bKS60ciVoBzFFbScyVSj3/NQ2LVBhs9A+gsULJht7+cTwqGHpaaKtCZf0cFg5KaSYrIM/zrnwRhe4OsX+fG+se5uW26Rsue6iD8gN3tvFVs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=F9fJ2oxk; arc=none smtp.client-ip=209.85.215.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fyaE0LD4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6497E1F00A3D;
-	Wed, 26 Aug 2026 19:44:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787773453;
-	bh=sz2i8Jxz+uYgq/eqQx8893HCcIiUPIUWQomhwjuhu5M=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fyaE0LD45L+AAzYvb5wH6fj+2OLSgzjzwbCCJ4jPLLff4SVtYoNPwamvLRXWEsJO6
-	 cmjf7zy7hjTCum/wGk1MHjTkL1BBhPzZoet0GnK2Ha/78qS1G8SFiyN7P6c28Qw57B
-	 xaRCwEshVHlQwieZWICWD9QRAYuy1Ika5lBdXrcvHQmOXC/RHPqB/sTexUvxk7IqnT
-	 glvmZLWGNgvG0dyuxKSfgvrwIIDdo+ETlMnKN9vc5iMsFxkMPUJEedTE2lKQRax66j
-	 L9nCMd3ENqPtmOQOjEG2835aGPyvcB+i7bkhFPH4mgd8O/Rty/4iydqbvVK4NaTGg3
-	 gACoDjnRUeyyg==
-From: Alexey Gladkov <legion@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>,
-	"Eric W . Biederman" <ebiederm@xmission.com>,
-	Kees Cook <kees@kernel.org>,
-	Joel Granados <joel.granados@kernel.org>
-Cc: LKML <linux-kernel@vger.kernel.org>,
-	linux-fsdevel@vger.kernel.org
-Subject: [RFC PATCH v1 30/30] sysctl: parport: use sysctl_field for dynamic sysctls
-Date: Wed, 26 Aug 2026 21:42:34 +0200
-Message-ID: <f121c4391e022fb9c11cecede06dbf187e86264c.1787771905.git.legion@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1787771905.git.legion@kernel.org>
-References: <cover.1787771905.git.legion@kernel.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="F9fJ2oxk"
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cbb92868263so1007395a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 12:44:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787773482; x=1788378282; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kAAUyb+BT/S16pFGAm4l7OAoO0iSt3CMmhZez+eRZtg=;
+        b=F9fJ2oxkdgl0eiteWV1ixsN6qOcIqGb+oWpZJNjNftBAzzqQi69cUHU8A49W9Ogpv3
+         tbiiWzGxOdt0zEfK+Ipt3yU+B8To3hbf0LItcX2uXJj63vWpmU7VYGRolp5RYXSTCkBO
+         vasf/F2NhQC+8YzisXODKc+uepKhB77wunWsAZtWGVHdssAR4JZdlU1+4BPWA7wsXtf/
+         fKd3a+8xXFme6yWfvA8e3BXO0klMEmAAFeFv0djfazS6KwrAYF+DF0YX0L1bfUh1cFYB
+         lZ/Mbe1ha9vEkOn8Grha7uMsL799mlM/WLXgEXzT1s+KNqCEYHNZmeaGUCGXF5syWoIv
+         lY4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787773482; x=1788378282;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kAAUyb+BT/S16pFGAm4l7OAoO0iSt3CMmhZez+eRZtg=;
+        b=jrOyIKGxnjbhcbtbbAHeL+HNcbP8Y17CDJ+XH78GDPwYsYBcSSP421VNuK8EFdCdSM
+         IHLGAUhL5LC9JngbsWUhZ6QsX1dN84gOQefXFLDjRLF7oc9Tea4jWDv4nLgWk6v8uXhv
+         bfRLaj0esnwk6yKl54fcr6IQsAU9ErP9eVPawjmJ952cOxCkJizNhMARkpN1tVxodd3h
+         0KazglASz4r/77nzYjL9Vgr/6tNDD9bY0pUNW4mEmZn8Tx9NUx/7ICBUxhDKRTwnh5VV
+         ztiBFpiOR1327S9Wrtuxer0fqVIsWdKWqzv3uZSDBkgQPZuzzk+YX/dRGPPJZHnEmtap
+         iTlg==
+X-Forwarded-Encrypted: i=1; AHgh+RoNRPlSNn1waaMwrU2Q/HK4pCmn3J5UaNyWn24AjVV8nhLXQDTehlgH1o1rXIO4KURRQuGZnw/ae1C8ybk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lqnWZHS9vwBWJ9eXTsmQS8cWTnTNtF74BrgHigeb33iO66B8Qn
+	zLe6DWceb/YeofdUXJ1muxSMw9yoXQEmfl2Qu2XWIuH62KL3VjPjwqoLGaUq+/g2rEhW5ghjERA
+	43lkwQg==
+X-Received: from pgak6.prod.google.com ([2002:a05:6a02:6746:b0:cbe:9e80:c394])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:3216:b0:3c0:b943:f984
+ with SMTP id adf61e73a8af0-3cf76286193mr19120390637.3.1787773481481; Wed, 26
+ Aug 2026 12:44:41 -0700 (PDT)
+Date: Wed, 26 Aug 2026 12:44:40 -0700
+In-Reply-To: <20260826-gmem-inplace-conversion-v11-15-0a15d8a799aa@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260826-gmem-inplace-conversion-v11-0-0a15d8a799aa@google.com> <20260826-gmem-inplace-conversion-v11-15-0a15d8a799aa@google.com>
+Message-ID: <ao9CKMXAX-hScRSa@google.com>
+Subject: Re: [PATCH v11 15/46] KVM: guest_memfd: Call arch make_shared
+ callback for to-shared conversion
+From: Sean Christopherson <seanjc@google.com>
+To: Ackerley Tng <ackerleytng@google.com>
+Cc: aik@amd.com, andrew.jones@linux.dev, binbin.wu@linux.intel.com, 
+	brauner@kernel.org, chao.p.peng@linux.intel.com, david@kernel.org, 
+	jmattson@google.com, jthoughton@google.com, michael.roth@amd.com, 
+	oupton@kernel.org, pankaj.gupta@amd.com, qperret@google.com, 
+	rick.p.edgecombe@intel.com, rientjes@google.com, shivankg@amd.com, 
+	steven.price@arm.com, willy@infradead.org, wyihan@google.com, 
+	yan.y.zhao@intel.com, forkloop@google.com, pratyush@kernel.org, 
+	suzuki.poulose@arm.com, aneesh.kumar@kernel.org, liam@infradead.org, 
+	Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Shuah Khan <shuah@kernel.org>, Vishal Annapurve <vannapurve@google.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, Youngjun Park <youngjun.park@lge.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Baoquan He <baoquan.he@linux.dev>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, tarunsahu@google.com, 
+	Fuad Tabba <fuad.tabba@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-mm@kvack.org, linux-coco@lists.linux.dev
+Content-Type: text/plain; charset="us-ascii"
 
-parport builds per-port and per-device sysctl tables by cloning template
-ctl_table arrays and then patching the data and extra pointers at fixed
-indexes. That keeps the static table definitions writable in practice
-and makes the registration path depend on the exact order of the table
-entries.
+On Wed, Aug 26, 2026, Ackerley Tng wrote:
+> Omit support for calling the arch hook to make private, since SNP, the only
+> implementer of the arch make-private hook today, would actually prefer
+> making private only just before faulting memory into the NPTs.
+> 
+> Calling the make-private arch hook would require iterating both bindings
+> and the filemap to find the intersection of bindings and allocated
+> folios.
 
-Use sysctl_field for those tables instead. The per-object state is
-supplied through the registration context, so the table layout can stay
-static and the data pointers are resolved when proc_sysctl builds the
-effective ctl_table. This removes the need to duplicate the tables for
-every parport object and keeps the per-entry state binding next to the
-entry definition.
+Why would KVM need to iterate over the bindings?  Only the RMP needs to be updated,
+whether or not the RMP is currently reachable is irrelevant, no?
 
-Signed-off-by: Alexey Gladkov <legion@kernel.org>
----
- drivers/parport/procfs.c | 317 ++++++++++++++++++---------------------
- fs/proc/proc_sysctl.c    |  11 ++
- include/linux/parport.h  |   6 +-
- include/linux/sysctl.h   |  12 ++
- 4 files changed, 171 insertions(+), 175 deletions(-)
+Subsequent calls to kvm_arch_gmem_make_private() from kvm_gmem_get_pfn() would be
+superfluous, but that's already possible, e.g. if an NPT mappings is removed for
+whatever reason.
 
-diff --git a/drivers/parport/procfs.c b/drivers/parport/procfs.c
-index 3880460e67f2..6348d1342069 100644
---- a/drivers/parport/procfs.c
-+++ b/drivers/parport/procfs.c
-@@ -236,147 +236,134 @@ do {									\
- 	return 0;
- }
+> On top of that, SNP would need to figure out whether to actually
+> make private based on whether the memory is about to be faulted, or
+> whether it is a conversion.
+
+This is a non-issue, no?  As above, sev_gmem_make_private() already bails early
+if the page is already assigned in the RMP.
+
+I don't care terribly about how SNP handles this, but I do want accurate reasoning
+and justification so that if/when we revisit any of this in the future, we can make
+informed decisions.  Because unless I'm missing something, this is an optimization
+choice (eager vs. lazy to-private conversions), not a complexity tradeoff, and it's
+not clear to me how we decided the lazy approach would provide better performance.
+
+> Calling the make-shared arch hook and not the make-private arch hook does
+> leak SNP-specific details into guest_memfd (as in, why only make-shared
+> during conversions but not make-private?), but the additional complexity is
+> not worth taking on until guest_memfd has a user actually requiring an arch
+> make-private call.
+
+...
+
+> +#ifdef CONFIG_HAVE_KVM_ARCH_GMEM_CONVERT
+> +static void kvm_gmem_make_shared(struct inode *inode, pgoff_t start, pgoff_t end)
+> +{
+> +	struct folio_batch fbatch;
+> +	pgoff_t next = start;
+> +	int i;
+> +
+> +	folio_batch_init(&fbatch);
+> +	while (filemap_get_folios(inode->i_mapping, &next, end - 1, &fbatch)) {
+> +		for (i = 0; i < folio_batch_count(&fbatch); ++i) {
+> +			struct folio *folio = fbatch.folios[i];
+> +			pgoff_t start_index, end_index;
+> +			kvm_pfn_t start_pfn;
+> +			kvm_pfn_t nr_pages;
+> +
+> +			start_index = max(start, folio->index);
+> +			end_index = min(end, folio_next_index(folio));
+> +			/*
+> +			 * end_index is either in folio or points to
+> +			 * the first page of the next folio. Hence,
+> +			 * all pages in range [start_index, end_index)
+> +			 * are contiguous.
+> +			 */
+> +			start_pfn = folio_file_pfn(folio, start_index);
+> +			nr_pages = end_index - start_index;
+> +
+> +			kvm_arch_gmem_make_shared(start_pfn, nr_pages);
+> +		}
+> +
+> +		folio_batch_release(&fbatch);
+> +		cond_resched();
+> +	}
+> +}
+> +#else
+> +static void kvm_gmem_make_shared(struct inode *inode, pgoff_t start, pgoff_t end) {}
+> +#endif
+> +
+>  static int __kvm_gmem_set_attributes(struct inode *inode, pgoff_t start,
+>  				     size_t nr_pages, uint64_t attrs,
+>  				     pgoff_t *err_index)
+> @@ -624,7 +661,12 @@ static int __kvm_gmem_set_attributes(struct inode *inode, pgoff_t start,
+>  
+>  	filter = to_private ? KVM_FILTER_SHARED : KVM_FILTER_PRIVATE;
+>  	kvm_gmem_invalidate_start(inode, start, end, filter);
+> +
+> +	if (!to_private && kvm_arch_has_gmem_convert())
+> +		kvm_gmem_make_shared(inode, start, end);
+> +
+>  	mas_store_prealloc(&mas, xa_mk_value(attrs));
+> +
+>  	kvm_gmem_invalidate_end(inode, start, end);
+
+The real reason I responded...
+
+Thinking about the Secure AVIC mess made me realize zapping NPTs for SNP VMs isn't
+strictly necessary in this path.  The PFN isn't changing, just the attributes, and
+that's (obviously) tracked in the RMP.  KVM doesn't need to zap SPTEs to induce a
+fault, because the mismatched C-bit vs. RMP status will cause an #NPF(RMP), and
+AFAICT kvm_mmu_page_fault() will do the right thing.  A misbehaving guest could
+continue to access the shared data (assuming we stick with lazy conversions), but
+that should be fine?  E.g. it's not really any different than implicit conversions.
+
+In other words, couldn't we do this (as an on-top optimization)?  The only wrinkle
+I can think of is that it could delay reconstituion of a hugepage, especially if
+we opted for eager conversion (because the guest wouldn't hit #NPFs to trigger the
+hugepage promotion).
+
+diff --git arch/x86/kvm/mmu/mmu.c arch/x86/kvm/mmu/mmu.c
+index 62f751952ad8..61f3e270ab61 100644
+--- arch/x86/kvm/mmu/mmu.c
++++ arch/x86/kvm/mmu/mmu.c
+@@ -1670,6 +1670,7 @@ static bool __kvm_rmap_zap_gfn_range(struct kvm *kvm,
  
--static const unsigned long parport_min_timeslice_value =
-+static unsigned long parport_min_timeslice_value =
- PARPORT_MIN_TIMESLICE_VALUE;
- 
--static const unsigned long parport_max_timeslice_value =
-+static unsigned long parport_max_timeslice_value =
- PARPORT_MAX_TIMESLICE_VALUE;
- 
--static const  int parport_min_spintime_value =
-+static int parport_min_spintime_value =
- PARPORT_MIN_SPINTIME_VALUE;
- 
--static const int parport_max_spintime_value =
-+static int parport_max_spintime_value =
- PARPORT_MAX_SPINTIME_VALUE;
- 
-+struct parport_ctl_context {
-+	struct sysctl_context context;
-+	struct parport *port;
-+};
- 
--struct parport_sysctl_table {
--	struct ctl_table_header *port_header;
--	struct ctl_table_header *devices_header;
--#ifdef CONFIG_PARPORT_1284
--	struct ctl_table vars[10];
--#else
--	struct ctl_table vars[5];
--#endif /* IEEE 1284 support */
--	struct ctl_table device_dir[1];
-+struct pardevice_ctl_context {
-+	struct sysctl_context context;
-+	struct pardevice *device;
- };
- 
--static const struct parport_sysctl_table parport_sysctl_template = {
--	.port_header = NULL,
--	.devices_header = NULL,
--	{
--		{
--			.procname	= "spintime",
--			.data		= NULL,
--			.maxlen		= sizeof(int),
--			.mode		= 0644,
--			.proc_handler	= proc_dointvec_minmax,
--			.extra1		= (void*) &parport_min_spintime_value,
--			.extra2		= (void*) &parport_max_spintime_value
--		},
--		{
--			.procname	= "base-addr",
--			.data		= NULL,
--			.maxlen		= 0,
--			.mode		= 0444,
--			.proc_handler	= do_hardware_base_addr
--		},
--		{
--			.procname	= "irq",
--			.data		= NULL,
--			.maxlen		= 0,
--			.mode		= 0444,
--			.proc_handler	= do_hardware_irq
--		},
--		{
--			.procname	= "dma",
--			.data		= NULL,
--			.maxlen		= 0,
--			.mode		= 0444,
--			.proc_handler	= do_hardware_dma
--		},
--		{
--			.procname	= "modes",
--			.data		= NULL,
--			.maxlen		= 0,
--			.mode		= 0444,
--			.proc_handler	= do_hardware_modes
--		},
-+static int *parport_spintime_data(const struct sysctl_context *ctx)
-+{
-+	const struct parport_ctl_context *parport_ctx =
-+		container_of(ctx, struct parport_ctl_context, context);
-+
-+	return &parport_ctx->port->spintime;
-+}
-+
-+static void *pardevice_timeslice_data(const struct sysctl_context *ctx)
-+{
-+	const struct pardevice_ctl_context *pardevice_ctx =
-+		container_of(ctx, struct pardevice_ctl_context, context);
-+
-+	return &pardevice_ctx->device->timeslice;
-+}
-+
-+static void *parport_data(const struct sysctl_context *ctx)
-+{
-+	const struct parport_ctl_context *parport_ctx =
-+		container_of(ctx, struct parport_ctl_context, context);
-+
-+	return parport_ctx->port;
-+}
-+
-+static void *parport_min_timeslice_data(const struct sysctl_context *ctx)
-+{
-+	return &parport_min_timeslice_value;
-+}
-+
-+static void *parport_max_timeslice_data(const struct sysctl_context *ctx)
-+{
-+	return &parport_max_timeslice_value;
-+}
-+
- #ifdef CONFIG_PARPORT_1284
--		{
--			.procname	= "autoprobe",
--			.data		= NULL,
--			.maxlen		= 0,
--			.mode		= 0444,
--			.proc_handler	= do_autoprobe
--		},
--		{
--			.procname	= "autoprobe0",
--			.data		= NULL,
--			.maxlen		= 0,
--			.mode		= 0444,
--			.proc_handler	= do_autoprobe
--		},
--		{
--			.procname	= "autoprobe1",
--			.data		= NULL,
--			.maxlen		= 0,
--			.mode		= 0444,
--			.proc_handler	= do_autoprobe
--		},
--		{
--			.procname	= "autoprobe2",
--			.data		= NULL,
--			.maxlen		= 0,
--			.mode		= 0444,
--			.proc_handler	= do_autoprobe
--		},
--		{
--			.procname	= "autoprobe3",
--			.data		= NULL,
--			.maxlen		= 0,
--			.mode		= 0444,
--			.proc_handler	= do_autoprobe
--		},
--#endif /* IEEE 1284 support */
--	},
--	{
--		{
--			.procname	= "active",
--			.data		= NULL,
--			.maxlen		= 0,
--			.mode		= 0444,
--			.proc_handler	= do_active_device
--		},
--	},
-+#define PARPORT_PROBE_DATA(index)							\
-+static void *parport_probe_info_ ## index ## _data(const struct sysctl_context *ctx)	\
-+{											\
-+	const struct parport_ctl_context *parport_ctx =					\
-+		container_of(ctx, struct parport_ctl_context, context);			\
-+	return &parport_ctx->port->probe_info[index];					\
-+}
-+
-+PARPORT_PROBE_DATA(0)
-+PARPORT_PROBE_DATA(1)
-+PARPORT_PROBE_DATA(2)
-+PARPORT_PROBE_DATA(3)
-+PARPORT_PROBE_DATA(4)
-+#endif
-+
-+#define PARPORT_PORT_ENTRY(name, proc)					\
-+	{								\
-+		.procname	= name,					\
-+		.mode		= 0444,					\
-+		.type		= SYSCTL_FIELD_CUSTOM,			\
-+		.ctl_custom	= {					\
-+			.proc_handler	= proc,				\
-+			.extra1		= parport_data,			\
-+			.maxlen		= 0,				\
-+		},							\
-+	}
-+
-+#define PARPORT_PROBE_ENTRY(name, index)				\
-+	{								\
-+		.procname	= name,					\
-+		.mode		= 0444,					\
-+		.type		= SYSCTL_FIELD_CUSTOM,			\
-+		.ctl_custom	= {					\
-+			.proc_handler	= do_autoprobe,			\
-+			.extra2		= parport_probe_info_ ## index ## _data, \
-+			.maxlen		= 0,				\
-+		},							\
-+	}
-+
-+static const struct sysctl_field parport_sysctl_table[] = {
-+	SYSCTL_FIELD_STATIC_INT_MINMAX("spintime", 0644, parport_spintime_data,
-+				       &parport_min_spintime_value,
-+				       &parport_max_spintime_value),
-+	PARPORT_PORT_ENTRY("base-addr", do_hardware_base_addr),
-+	PARPORT_PORT_ENTRY("irq", do_hardware_irq),
-+	PARPORT_PORT_ENTRY("dma", do_hardware_dma),
-+	PARPORT_PORT_ENTRY("modes", do_hardware_modes),
-+#ifdef CONFIG_PARPORT_1284
-+	PARPORT_PROBE_ENTRY("autoprobe", 0),
-+	PARPORT_PROBE_ENTRY("autoprobe0", 1),
-+	PARPORT_PROBE_ENTRY("autoprobe1", 2),
-+	PARPORT_PROBE_ENTRY("autoprobe2", 3),
-+	PARPORT_PROBE_ENTRY("autoprobe3", 4),
-+#endif
- };
- 
--struct parport_device_sysctl_table
--{
--	struct ctl_table_header *sysctl_header;
--	struct ctl_table vars[1];
--	struct ctl_table device_dir[1];
-+static const struct sysctl_field parport_device_dir_table[] = {
-+	PARPORT_PORT_ENTRY("active", do_active_device),
- };
- 
--static const struct parport_device_sysctl_table
--parport_device_sysctl_template = {
--	.sysctl_header = NULL,
-+static const struct sysctl_field parport_device_sysctl_table[] = {
- 	{
--		{
--			.procname 	= "timeslice",
--			.data		= NULL,
--			.maxlen		= sizeof(unsigned long),
--			.mode		= 0644,
-+		.procname	= "timeslice",
-+		.mode		= 0644,
-+		.type		= SYSCTL_FIELD_CUSTOM,
-+		.ctl_custom	= {
- 			.proc_handler	= proc_doulongvec_ms_jiffies_minmax,
--			.extra1		= (void*) &parport_min_timeslice_value,
--			.extra2		= (void*) &parport_max_timeslice_value
--		},
--	},
--	{
--		{
--			.procname	= NULL,
--			.data		= NULL,
--			.maxlen		= 0,
--			.mode		= 0555,
-+			.data		= pardevice_timeslice_data,
-+			.extra1		= parport_min_timeslice_data,
-+			.extra2		= parport_max_timeslice_data,
-+			.maxlen		= sizeof(unsigned long),
- 		},
- 	}
- };
-@@ -414,35 +401,27 @@ parport_default_sysctl_table = {
- 
- int parport_proc_register(struct parport *port)
+ bool kvm_unmap_gfn_range(struct kvm *kvm, struct kvm_gfn_range *range)
  {
--	struct parport_sysctl_table *t;
-+	struct parport_ctl_context ctx = {
-+		.port = port,
-+	};
-+	struct ctl_table_header *hdr;
- 	char *tmp_dir_path;
--	int i, err = 0;
--
--	t = kmemdup(&parport_sysctl_template, sizeof(*t), GFP_KERNEL);
--	if (t == NULL)
--		return -ENOMEM;
--
--	t->device_dir[0].extra1 = port;
--
--	t->vars[0].data = &port->spintime;
--	for (i = 0; i < 5; i++) {
--		t->vars[i].extra1 = port;
--#ifdef CONFIG_PARPORT_1284
--		t->vars[5 + i].extra2 = &port->probe_info[i];
--#endif /* IEEE 1284 support */
--	}
-+	int err = 0;
++       unsigned long shared_private =  KVM_FILTER_SHARED | KVM_FILTER_PRIVATE;
+        bool flush = false;
  
- 	tmp_dir_path = kasprintf(GFP_KERNEL, "dev/parport/%s/devices", port->name);
- 	if (!tmp_dir_path) {
- 		err = -ENOMEM;
--		goto exit_free_t;
-+		goto out;
- 	}
+        /*
+@@ -1683,6 +1684,10 @@ bool kvm_unmap_gfn_range(struct kvm *kvm, struct kvm_gfn_range *range)
+        lockdep_assert_once(kvm->mmu_invalidate_in_progress ||
+                            lockdep_is_held(&kvm->slots_lock));
  
--	t->devices_header = register_sysctl(tmp_dir_path, t->device_dir);
--	if (t->devices_header == NULL) {
-+	hdr = register_sysctl_fields_sz(tmp_dir_path, parport_device_dir_table,
-+					ARRAY_SIZE(parport_device_dir_table),
-+					&ctx.context, sizeof(ctx));
-+	if (hdr == NULL) {
- 		err = -ENOENT;
- 		goto  exit_free_tmp_dir_path;
- 	}
-+	port->sysctl_devices_header = hdr;
- 
- 	kfree(tmp_dir_path);
- 
-@@ -452,83 +431,75 @@ int parport_proc_register(struct parport *port)
- 		goto unregister_devices_h;
- 	}
- 
--	t->port_header = register_sysctl(tmp_dir_path, t->vars);
--	if (t->port_header == NULL) {
-+	hdr = register_sysctl_fields_sz(tmp_dir_path, parport_sysctl_table,
-+					ARRAY_SIZE(parport_sysctl_table),
-+					&ctx.context, sizeof(ctx));
-+	if (hdr == NULL) {
- 		err = -ENOENT;
- 		goto unregister_devices_h;
- 	}
--
--	port->sysctl_table = t;
-+	port->sysctl_table = hdr;
- 
- 	kfree(tmp_dir_path);
- 	return 0;
- 
- unregister_devices_h:
--	unregister_sysctl_table(t->devices_header);
-+	unregister_sysctl_table(port->sysctl_devices_header);
-+	port->sysctl_devices_header = NULL;
- 
- exit_free_tmp_dir_path:
- 	kfree(tmp_dir_path);
- 
--exit_free_t:
--	kfree(t);
-+out:
- 	return err;
- }
- 
- int parport_proc_unregister(struct parport *port)
- {
-+	if (port->sysctl_devices_header) {
-+		unregister_sysctl_table(port->sysctl_devices_header);
-+		port->sysctl_devices_header = NULL;
-+	}
- 	if (port->sysctl_table) {
--		struct parport_sysctl_table *t = port->sysctl_table;
-+		unregister_sysctl_table(port->sysctl_table);
- 		port->sysctl_table = NULL;
--		unregister_sysctl_table(t->devices_header);
--		unregister_sysctl_table(t->port_header);
--		kfree(t);
- 	}
- 	return 0;
- }
- 
- int parport_device_proc_register(struct pardevice *device)
- {
--	struct parport_device_sysctl_table *t;
-+	struct pardevice_ctl_context ctx = {
-+		.device = device,
-+	};
- 	struct parport * port = device->port;
- 	char *tmp_dir_path;
- 	int err = 0;
--	
--	t = kmemdup(&parport_device_sysctl_template, sizeof(*t), GFP_KERNEL);
--	if (t == NULL)
--		return -ENOMEM;
- 
- 	/* Allocate a buffer for two paths: dev/parport/PORT/devices/DEVICE. */
- 	tmp_dir_path = kasprintf(GFP_KERNEL, "dev/parport/%s/devices/%s", port->name, device->name);
- 	if (!tmp_dir_path) {
- 		err = -ENOMEM;
--		goto exit_free_t;
-+		goto out;
- 	}
- 
--	t->vars[0].data = &device->timeslice;
--
--	t->sysctl_header = register_sysctl(tmp_dir_path, t->vars);
--	if (t->sysctl_header == NULL) {
--		kfree(t);
--		t = NULL;
--	}
--	device->sysctl_table = t;
-+	device->sysctl_table =
-+		register_sysctl_fields_sz(tmp_dir_path, parport_device_sysctl_table,
-+				       ARRAY_SIZE(parport_device_sysctl_table),
-+				       &ctx.context, sizeof(ctx));
- 
- 	kfree(tmp_dir_path);
- 	return 0;
- 
--exit_free_t:
--	kfree(t);
--
-+out:
- 	return err;
- }
- 
- int parport_device_proc_unregister(struct pardevice *device)
- {
- 	if (device->sysctl_table) {
--		struct parport_device_sysctl_table *t = device->sysctl_table;
-+		unregister_sysctl_table(device->sysctl_table);
- 		device->sysctl_table = NULL;
--		unregister_sysctl_table(t->sysctl_header);
--		kfree(t);
- 	}
- 	return 0;
- }
-diff --git a/fs/proc/proc_sysctl.c b/fs/proc/proc_sysctl.c
-index 88d3cc79fc33..c715f625a410 100644
---- a/fs/proc/proc_sysctl.c
-+++ b/fs/proc/proc_sysctl.c
-@@ -1714,6 +1714,17 @@ struct ctl_table_header *register_sysctl_sz(const char *path, const struct ctl_t
- }
- EXPORT_SYMBOL(register_sysctl_sz);
- 
-+struct ctl_table_header *register_sysctl_fields_sz(const char *path,
-+						   const struct sysctl_field *fields,
-+						   size_t field_count,
-+						   const struct sysctl_context *ctx,
-+						   size_t ctx_size)
-+{
-+	return __register_sysctl_fields(&sysctl_table_root.default_set, path,
-+					fields, field_count, ctx, ctx_size);
-+}
-+EXPORT_SYMBOL(register_sysctl_fields_sz);
++       if (gmem_in_place_conversion && !kvm_has_mirrored_tdp(kvm) &&
++           ((range->attr_filter & shared_private) != shared_private))
++               return false;
 +
- /**
-  * __register_sysctl_init() - register sysctl table to path
-  * @path: path name for sysctl base. If that path doesn't exist we will create
-diff --git a/include/linux/parport.h b/include/linux/parport.h
-index 464c2ad28039..ea3dd405ea3c 100644
---- a/include/linux/parport.h
-+++ b/include/linux/parport.h
-@@ -20,6 +20,7 @@
- /* Define this later. */
- struct parport;
- struct pardevice;
-+struct ctl_table_header;
- 
- struct pc_parport_state {
- 	unsigned int ctr;
-@@ -151,7 +152,7 @@ struct pardevice {
- 	unsigned long waiting;		 /* long req'd for set_bit --RR */
- 	struct pardevice *waitprev;
- 	struct pardevice *waitnext;
--	void * sysctl_table;
-+	struct ctl_table_header *sysctl_table;
- };
- 
- #define to_pardevice(n) container_of(n, struct pardevice, dev)
-@@ -223,7 +224,8 @@ struct parport {
- 	struct timer_list timer;
- 	unsigned int flags;
- 
--	void *sysctl_table;
-+	struct ctl_table_header *sysctl_table;
-+	struct ctl_table_header *sysctl_devices_header;
- 	struct parport_device_info probe_info[5]; /* 0-3 + non-IEEE1284.3 */
- 	struct ieee1284_info ieee1284;
- 
-diff --git a/include/linux/sysctl.h b/include/linux/sysctl.h
-index 6cf2ef4f13e8..b98f1ee94df2 100644
---- a/include/linux/sysctl.h
-+++ b/include/linux/sysctl.h
-@@ -506,6 +506,10 @@ struct ctl_table_header *
- __register_sysctl_fields(struct ctl_table_set *set, const char *path,
- 			 const struct sysctl_field *fields, size_t field_count,
- 			 const struct sysctl_context *ctx, size_t ctx_size);
-+struct ctl_table_header *
-+register_sysctl_fields_sz(const char *path,
-+			  const struct sysctl_field *fields, size_t field_count,
-+			  const struct sysctl_context *ctx, size_t ctx_size);
- struct ctl_table_header *register_sysctl_sz(const char *path, const struct ctl_table *table,
- 					    size_t table_size);
- void unregister_sysctl_table(struct ctl_table_header * table);
-@@ -541,6 +545,14 @@ static inline struct ctl_table_header *register_sysctl_sz(const char *path,
- 	return NULL;
- }
- 
-+static inline struct ctl_table_header *
-+register_sysctl_fields_sz(const char *path,
-+			  const struct ctl_field *fields, size_t field_count,
-+			  const struct ctl_context *ctx, size_t ctx_size)
-+{
-+	return NULL;
-+}
-+
- static inline struct ctl_table_header *
- __register_sysctl_fields(struct ctl_table_set *set, const char *path,
- 			 const struct sysctl_field *fields, size_t field_count,
--- 
-2.55.0
-
+        if (kvm_memslots_have_rmaps(kvm))
+                flush = __kvm_rmap_zap_gfn_range(kvm, range->slot,
+                                                 range->start, range->end,
