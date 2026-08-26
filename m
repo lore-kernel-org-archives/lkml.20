@@ -1,65 +1,226 @@
-Received: from mta0.migadu.com (out-172.mta0.migadu.com [91.218.175.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011064.outbound.protection.outlook.com [52.101.57.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A70D73B6C05
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE4EE3B27F5
 	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 23:16:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787786193; cv=none; b=PXEY7vRX43F/v7b74OqRjtm57A+QLM5sM9q9Pef+uMwC9iqlp70WeHHr0pqA1nc+/TE9eMp0JI3IOMVu86hoVBDUH5Up6QUNzosF/l2Dea60S17Ydsaj+3VY/pUteqTGW3tfCekKvOqo/oX7nFil3xeDGedoiZEYUoihpKfHxyo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787786193; c=relaxed/simple;
-	bh=7GB9LDGc/ehsf2MrGh51/UolbCmkcOrybX27TcwbBiM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tjGBRzbnKv0jmnHzywF3MMQEfUhxr2LGRk0bkLPjP/f1hRX+2bsQOweRDO5AvOZwcxs3IYmgsr7euVB6TNvIUNt4HnNLSINCQNlXz1tRd/8BdcA8nhe38j+H1rEC8DK3a/SgV0PiYq8N57pU477FmYe4zvpboff9cmvTbpAhggk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=B+mMWDpf; arc=none smtp.client-ip=91.218.175.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.64
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787786195; cv=fail; b=Yv/hk1tvKCNudlXEXmx0sOZPWlCf4W7UNSp3BbC2u568CYCOQjrCQdM6uR5KD0rh04oi1WWrNsb/8hzAwpAOcdq/De/P8PFKyL4ax838VL057ZvIRFU83LR7fJNPW/swxF+CReBqqnkpI+WrJ9xqAEF0scylsZYligYhNP03Ryc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787786195; c=relaxed/simple;
+	bh=6dNuBdzFRFC4cVJ2h86XWSGqN8RaYXtkI7wvX+C8ufQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=kXL+qZU5J1/Ma2oTlppcHq+yrRWNfvcwV4pWg77aI15Wly5I6YJWVBHVDHiAgRyLc3kuVBtd6rf9ennNe20sfWjzTK3M7P1pfXQ8978BexTY6tFG3EAjABK3hr6b9TeLK1LllSpxawL1X+rbqYfAtbHwOOBiFX98PofJJQF2yiY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=AkkgA3QM; arc=fail smtp.client-ip=52.101.57.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="B+mMWDpf"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=7GB9LDGc/ehsf2MrGh51/UolbCmkcOrybX27TcwbBiM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787786187; v=1; x=1788390987;
- b=B+mMWDpfye8MXWiJqFkip5HSbBBs6Z++TQ+Ia3t4UqA62aNsRoZsE8ToiGuL6VCrwoqfIX35
- fy6xHdiLiiHZ2ErpKmoVqEIU60+UYn07aWvKaJLKYhAQbbNwMcp0xoojO+DPm4QmTZ1K1L/CAIW
- RGNmPXb3aTuTgMu2dUJFRleU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: from localhost (2a03:2880:10ff:45::)
-	by smtp.migadu.com with ESMTPS id c343a924b13046c4;
-	Wed, 26 Aug 2026 23:16:27 +0000
-X-Mizu-Trace-ID: c343a924b13046c4
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 26 Aug 2026 16:16:26 -0700
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Ye Liu <ye.liu@linux.dev>
-Cc: Michal Hocko <mhocko@suse.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Ye Liu <liuye@kylinos.cn>, David Rientjes <rientjes@google.com>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] mm/oom_kill: remove unreachable __GFP_THISNODE check
- in constrained_alloc()
-Message-ID: <ao9zZMgwva6nMXxN@linux.dev>
-References: <20260813093810.573302-1-ye.liu@linux.dev>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="AkkgA3QM"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=M+YOAcbUQSivnbI+Al+kRn+2OfwmBx6bQbGjaquLf2mMVGmbbHW7we6/cE3Sv7+3oCgqYVEXm2H6YaA8KawucQ3rgN8SA45dd4gngwh0PgkWhKL5EV6UDd+73MShzQv9WUcWLfZdk6BgCGEmrV2NuLmhdQCoqY2b4dV438WYR66f6xFl1fuCeG9S8ralJTvkYSQ8wEAesMjyBs1aCinsZlwZLlgHz307ybalQMz4SI0HB+S2MBWvvXv4vF3NdcCTsNMMD88kt+ufmR4lVcusClcZcpZcr5qHjnrk+zkklhFtuPZGh7p4Op8UJbF5KOQPE65Mvx7c8iljsaENjXkx0A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BvSj62IHuZtWVFuDBf6N0tRRj/dt873Jc2o6CWSM4Ko=;
+ b=AI6m0CAAMm8q8Kvu6f81f441dTILOl//lBIKMJ3+12IMMu+KykkU7bQfeiAZ57rsETcKiUD53KVbeAiHgNXAbROFz81VOn0jHY8RSI3JzCZzRVeGVUSEAUAX9UXGkYq/Oz4Oq3kcCKD0Bw3xfQnEehQZrtjJmUD2Vig/HxcB5w5MWsBvVIBjXwt9cWZEhDYyIp9mDhMfhhtoVD2OS8Hn9YzAMu6e8hfQwEwfBy89dqPdi5WvM+U1F/o9Vsl7QCy8vit/TZvQ4HjVUyCAu4cJWKVe8dBeX9VcMgYv041rcYkmL4dMO0+YXXad2pfKKSF+qtw+IxKhnAuxve36ipoIvg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 149.199.90.133) smtp.rcpttodomain=kaitmazov.com smtp.mailfrom=amd.com;
+ dmarc=fail (p=quarantine sp=quarantine pct=100) action=quarantine
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BvSj62IHuZtWVFuDBf6N0tRRj/dt873Jc2o6CWSM4Ko=;
+ b=AkkgA3QM/0DlsUEnttTYqtP514ptsL/yo497FWgwn0k5/8MueVS5sjhalPTWl3W7jJ7KcPtnEoL5eEhHUTzw4bcThbLNKywoP0m4JcHPP7jmH3SSBjOEQKsf8ZPFn268e/nnwazC0LeUnlnUfSTdGRDD2nb+N4Q4faEeR+wCg2o=
+Received: from DM6PR02CA0145.namprd02.prod.outlook.com (2603:10b6:5:332::12)
+ by DS0PR12MB7970.namprd12.prod.outlook.com (2603:10b6:8:149::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Wed, 26 Aug
+ 2026 23:16:23 +0000
+Received: from DS1PEPF0001708F.namprd03.prod.outlook.com
+ (2603:10b6:5:332:cafe::58) by DM6PR02CA0145.outlook.office365.com
+ (2603:10b6:5:332::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.8 via Frontend Transport; Wed, 26
+ Aug 2026 23:16:23 +0000
+X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
+ 149.199.90.133) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=quarantine header.from=amd.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ amd.com discourages use of 149.199.90.133 as permitted sender)
+Received: from satlexmb08.amd.com (149.199.90.133) by
+ DS1PEPF0001708F.mail.protection.outlook.com (10.167.17.139) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.3 via Frontend Transport; Wed, 26 Aug 2026 23:16:23 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 26 Aug
+ 2026 18:16:22 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 26 Aug
+ 2026 18:16:22 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
+ Transport; Wed, 26 Aug 2026 18:16:21 -0500
+Message-ID: <e67eebfc-9b32-115b-e605-09db03b06119@amd.com>
+Date: Wed, 26 Aug 2026 16:16:16 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260813093810.573302-1-ye.liu@linux.dev>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH v2 2/2] accel/amdxdna: use READ_ONCE/WRITE_ONCE on the
+ command header
+Content-Language: en-US
+To: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>, Min Ma <mamin506@gmail.com>,
+	Oded Gabbay <ogabbay@kernel.org>
+CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+References: <20260826143036.100089-1-taimuraz@kaitmazov.com>
+ <20260826153121.133507-1-taimuraz@kaitmazov.com>
+ <20260826153121.133507-3-taimuraz@kaitmazov.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <20260826153121.133507-3-taimuraz@kaitmazov.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF0001708F:EE_|DS0PR12MB7970:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9ee21c61-06de-4737-df9d-08df03c80b84
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|82310400026|1800799024|36860700016|23010399003|10067099003|56012099006|11063799006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	1u92Z7ou+SogNEdlUk5AdHh3ATLQRbGRQeusM9qzfNHJ/Kpy0+Zbbh99EhOCPPLRZHNULr/B7XrBJZ5/ebTot2oKobUFif/ABVBKm40siy3EMh2MVoxsdFs8SEPzPrkp7HSI4IjZ3624PrbH0oV7Qp0RsYvsAvnlbUy8ztobXVeeEOekMJSklOqYc1yiGXGpKMc6YluRdCHK9H0Mb2Q2dSzxTKAT8kWLFB0tS/7Q8CAU/CmjKxi6+ya46IcEyLrapWSMGKeKqizHeOLSDAs0vrAzkKOn7eJYWoD0f9lJplxX+DocAU01AwzgUECwNkXzz7PKovbffivbHgH3sCEaDGoSKK7b3WcqfjqvH0UuTX8zDki3rqFKp0k2491pgO+DJyTKue5DzxMAhs0P6d1r6A1f27S+RH6IdqEGzlj2mfGaRPXbyqKd+h67YfCwDHfP7mZ3afnY87las6UTz7Vv7PlydtcOihXTUokr7Wi1bCyo1XCrJsb1BKvsQYsO09Vr07U87geeSwmvibM5wOY4k8SoXYIE7hcXFbgeKZaRlPABk/f1jy6Hs2dPwM/PglAsEZ76lOjIiqSgaSdPLje/Epmmy915jb+bwunReOniIx6IHQ+PmOpuR9r05y29EQLHwT53HcAtHU8ikW+fqteUknf5Kekak2BWpm+0PQd40tnmSJWm8JX6OsStZgM3bfj1ZKcekmD3HVHX1YwE0XHzzA==
+X-Forefront-Antispam-Report:
+	CIP:149.199.90.133;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:unknown-90-133.xilinx.com;CAT:NONE;SFS:(13230040)(376014)(82310400026)(1800799024)(36860700016)(23010399003)(10067099003)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	1Xreh010D+CovrCj3w2o+QInlR9ToZFr425yVlxR6OqAPeMfe3bq/wRcX/mDcfrX/gnY39P82qHdRn7Dn9xEtt+P3DHu6EcY7qvf78jy1DCO/9iBNtvYSHsMkWW9PRC8/gxknjnEJSFo+XrFj+L36izyCqv34xAZQk91JNg5HeyXyJ5JNipv6KI/vi47aW1JwO950LnWxJ1k0nof1lkcuRzMwYuNmiT+Q8mMsCJSevyEJZZHZfyLD/YihQCQm6I6aTIaP7KjcnrI/umgMb8TQUpWaaipxTKxtnSN1aW/Ndm6GK9riQteQt/nINzV9xxIMHLT10UG3WQMZQVfdIA4tmi7VDetLkkaZJ9VLK4PmReWVojWh72g/Lfn380U8I+OHR8rsw7inzSvkhyAK+KmqcoDIAvdkhtew87KmcAh3+/ajlN+Y0vZfMvrNbAkABPp
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 23:16:23.0357
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ee21c61-06de-4737-df9d-08df03c80b84
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[149.199.90.133];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS1PEPF0001708F.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7970
 
-On Thu, Aug 13, 2026 at 05:38:09PM +0800, Ye Liu wrote:
-> From: Ye Liu <liuye@kylinos.cn>
-> 
-> The __GFP_THISNODE check in constrained_alloc() is dead code: global
-> OOM is never triggered with __GFP_THISNODE (blocked in
-> __alloc_pages_may_oom before out_of_memory() is called), and memcg OOM
-> returns CONSTRAINT_MEMCG at the top of the function before reaching
-> this point. Remove the check, its stale comment, and update the
-> following comment that referenced __GFP_THISNODE.
-> 
-> Signed-off-by: Ye Liu <liuye@kylinos.cn>
 
-Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
+On 8/26/26 08:31, Taimuraz Kaitmazov wrote:
+> struct amdxdna_cmd::header packs STATE, OPCODE, COUNT and EXTRA_CU_MASK
+> into one u32 that lives in a BO user space keeps mapped. The driver
+> re-reads it on every accessor call and read-modify-writes STATE in place,
+> with plain accesses that let the compiler split or refetch either side.
+>
+> Annotate them, as the UMQ ring indices already are. This does not make
+> the update atomic against user space, it only stops the compiler from
+> making it worse.
+
+The user space should not change the BO content after the command is 
+submitted. Otherwise, the command could fail.
+
+In another word, driver/hardware treat this as invalid command. It is ok 
+as long as kernel/firmware does not crash. So the bad user application 
+only messes up itself.
+
+
+Thanks,
+
+Lizhi
+
+>
+> Signed-off-by: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
+> ---
+>   drivers/accel/amdxdna/amdxdna_ctx.c | 14 +++++++++-----
+>   drivers/accel/amdxdna/amdxdna_ctx.h | 11 +++++++----
+>   2 files changed, 16 insertions(+), 9 deletions(-)
+>
+> diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/amdxdna/amdxdna_ctx.c
+> index 9f44e3918bc1..148ae51db0f1 100644
+> --- a/drivers/accel/amdxdna/amdxdna_ctx.c
+> +++ b/drivers/accel/amdxdna/amdxdna_ctx.c
+> @@ -123,9 +123,10 @@ void *amdxdna_cmd_get_payload(struct amdxdna_gem_obj *abo, u32 *size)
+>   	if (amdxdna_cmd_get_op(abo) == ERT_CMD_CHAIN)
+>   		num_masks = 0;
+>   	else
+> -		num_masks = 1 + FIELD_GET(AMDXDNA_CMD_EXTRA_CU_MASK, cmd->header);
+> +		num_masks = 1 + FIELD_GET(AMDXDNA_CMD_EXTRA_CU_MASK,
+> +					  READ_ONCE(cmd->header));
+>   
+> -	count = FIELD_GET(AMDXDNA_CMD_COUNT, cmd->header);
+> +	count = FIELD_GET(AMDXDNA_CMD_COUNT, READ_ONCE(cmd->header));
+>   	if (unlikely(count <= num_masks ||
+>   		     count * sizeof(u32) +
+>   		     offsetof(struct amdxdna_cmd, data[0]) >
+> @@ -173,7 +174,7 @@ u32 amdxdna_cmd_get_cu_idx(struct amdxdna_gem_obj *abo)
+>   	if (amdxdna_cmd_get_op(abo) == ERT_CMD_CHAIN)
+>   		return INVALID_CU_IDX;
+>   
+> -	num_masks = 1 + FIELD_GET(AMDXDNA_CMD_EXTRA_CU_MASK, cmd->header);
+> +	num_masks = 1 + FIELD_GET(AMDXDNA_CMD_EXTRA_CU_MASK, READ_ONCE(cmd->header));
+>   	cu_mask = cmd->data;
+>   	for (i = 0; i < num_masks; i++) {
+>   		if (cu_mask[i])
+> @@ -191,12 +192,15 @@ int amdxdna_cmd_set_error(struct amdxdna_gem_obj *abo,
+>   	struct amdxdna_client *client = job->hwctx->client;
+>   	struct amdxdna_cmd *cmd = amdxdna_gem_vmap(abo);
+>   	struct amdxdna_cmd_chain *cc = NULL;
+> +	u32 header;
+>   
+>   	if (!cmd)
+>   		return -ENOMEM;
+>   
+> -	cmd->header &= ~AMDXDNA_CMD_STATE;
+> -	cmd->header |= FIELD_PREP(AMDXDNA_CMD_STATE, error_state);
+> +	header = READ_ONCE(cmd->header);
+> +	header &= ~AMDXDNA_CMD_STATE;
+> +	header |= FIELD_PREP(AMDXDNA_CMD_STATE, error_state);
+> +	WRITE_ONCE(cmd->header, header);
+>   
+>   	if (amdxdna_cmd_get_op(abo) == ERT_CMD_CHAIN) {
+>   		u32 ccnt;
+> diff --git a/drivers/accel/amdxdna/amdxdna_ctx.h b/drivers/accel/amdxdna/amdxdna_ctx.h
+> index f6529d512217..48e1fcfd818f 100644
+> --- a/drivers/accel/amdxdna/amdxdna_ctx.h
+> +++ b/drivers/accel/amdxdna/amdxdna_ctx.h
+> @@ -169,19 +169,22 @@ amdxdna_cmd_get_op(struct amdxdna_gem_obj *abo)
+>   	if (!cmd)
+>   		return ERT_INVALID_CMD;
+>   
+> -	return FIELD_GET(AMDXDNA_CMD_OPCODE, cmd->header);
+> +	return FIELD_GET(AMDXDNA_CMD_OPCODE, READ_ONCE(cmd->header));
+>   }
+>   
+>   static inline void
+>   amdxdna_cmd_set_state(struct amdxdna_gem_obj *abo, enum ert_cmd_state s)
+>   {
+>   	struct amdxdna_cmd *cmd = amdxdna_gem_vmap(abo);
+> +	u32 header;
+>   
+>   	if (!cmd)
+>   		return;
+>   
+> -	cmd->header &= ~AMDXDNA_CMD_STATE;
+> -	cmd->header |= FIELD_PREP(AMDXDNA_CMD_STATE, s);
+> +	header = READ_ONCE(cmd->header);
+> +	header &= ~AMDXDNA_CMD_STATE;
+> +	header |= FIELD_PREP(AMDXDNA_CMD_STATE, s);
+> +	WRITE_ONCE(cmd->header, header);
+>   }
+>   
+>   static inline enum ert_cmd_state
+> @@ -192,7 +195,7 @@ amdxdna_cmd_get_state(struct amdxdna_gem_obj *abo)
+>   	if (!cmd)
+>   		return ERT_CMD_STATE_INVALID;
+>   
+> -	return FIELD_GET(AMDXDNA_CMD_STATE, cmd->header);
+> +	return FIELD_GET(AMDXDNA_CMD_STATE, READ_ONCE(cmd->header));
+>   }
+>   
+>   void *amdxdna_cmd_get_payload(struct amdxdna_gem_obj *abo, u32 *size);
