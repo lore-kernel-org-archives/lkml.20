@@ -1,115 +1,113 @@
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D4F43F8709
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:20:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787779228; cv=pass; b=JjyFxQ047FoXd7XxAhuGYeGFuiKZBOKpw34ed7di+447N+FDrRPqrjtZo9mCGfLwWsS/8v0kcdlbGJeFEYT4UdRtb2vnQqeEIRJy9Mm/jwBUKJIwqfaft1uEFDfC7rD+sM8/NxcG+4NNwlw28IStlnh6EWzKd6FQZBP/v8V4Zg0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787779228; c=relaxed/simple;
-	bh=AypLoSBm1KPHQD9f+Zcdy3AMlNPgjcCvidkbs8KFBCQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MEFMKL+m9oehwdp/COxIyHPwMEAGLhC8rKPp4gT97AToUBwSa5CKXlMKjPmf5KiI75xkHDwYvixqaBAHu14NpxveS6Whyc/sm/IhTbrM7coW+AbYQ0mrqIMSVUDyHg8lGb8hRGVjoQpu7DUH45v2CiKhcwDER3kTuZGo0SRFe1k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=Xzkb3XtS; arc=pass smtp.client-ip=136.143.188.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A1F13B635B;
+	Wed, 26 Aug 2026 21:21:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787779269; cv=none; b=MsouFBI8uph+yK0RUL61Xr7O0Xx6cEgWq053zs4UkV4iK02NZKl9TptrgYZVDJF/ldMRaFrB8FGVVTSAYwd6JRl57u1pT4qvCJynFgcA33ahP6UibGjmwPT5+Xfp7OBSsavrKUw/dorRKFfALkaYSARqrMquI/l/sL12vuNjzh4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787779269; c=relaxed/simple;
+	bh=rk4nNQNngRg9zsPWkJ/A0kxKyRXt2KgJJQ8gyfnsRnY=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=fPVWkBev3TmgNtTGLZaMvITLjxw49wW14/CzMcoiWUISPf0mv1PdGsI0kMrb6FvTBoWVGvfSmH7LR8u4PmWj6FgkxLLOtHTCPRKISTVklfT6ZcOaex99iXrqdd1wgcvhT1hgJghmi1Jxi9lON+or8Ywg2FNyLps3YwsyWK2/cxA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wrqe2ed8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="Xzkb3XtS"
-ARC-Seal: i=1; a=rsa-sha256; t=1787779190; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=AKA9xQ9CJtIsZVZMH6i4jKRzRMenFaIJ0PUxVfH79UIDSJYPPHkUyiGHaq093Sf9twK3687q5uUJjuXAcUGSXeVdeO80ksCmwXguTf1HAlgSSE/JMcCYq1KZOHOSjpbsLAn8zY0VCBQW/UwML2qRcMRncQ841CV8Tuf0JEgwnro=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1787779190; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=1Tq6zEmNykIv8XKjKfzLV2GzV9wqZVjqsPfLMZwAlS4=; 
-	b=MyaxlOIE73LwzFcGWb6YSnV/Lpz8zJspArqF/Djs7PgUBxmTdeJQVRf0bbIrDC0MjpKk5JGLErEgJRTxYv6tocTIJM8buF+gkSdaYzc3AJowoCjt3VZR7UrRRW/G8rm9a7ns0Pe1EuSALB4ktLeOe0ph9QIDfnO97W0KA0ksuLU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
-	dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787779190;
-	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
-	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=1Tq6zEmNykIv8XKjKfzLV2GzV9wqZVjqsPfLMZwAlS4=;
-	b=Xzkb3XtSyixC92/aYtNRcWEVQx/v0OsVL2WF+f0l3ZoEL/IdcCNOUTCAAiBYyO4S
-	WrEHj+RMQdBi1LUe3x+RsEX2ZePA1BfbYmf14XKF/Idg/4gYFyFlMWSiR9BGeVwIxvM
-	oV73ViyCWFCP5nyz48a2JkFMqxHvpamFgVlugim0=
-Received: by mx.zohomail.com with SMTPS id 178777918924975.85137957340908;
-	Wed, 26 Aug 2026 14:19:49 -0700 (PDT)
-From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Date: Wed, 26 Aug 2026 22:18:18 +0100
-Subject: [PATCH v6 16/16] drm/panfrost: Bump driver minor to reflect new
- DUMP IOCTL req field
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wrqe2ed8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC0861F000E9;
+	Wed, 26 Aug 2026 21:21:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787779267;
+	bh=+n/uGXf2baQNUm9FbO3aJnaCFXxvka7jc7HMY6dMGBM=;
+	h=Date:From:To:Cc:Subject;
+	b=Wrqe2ed8IzncQ8KwBzMwcgKRVwpnhiz2npRYEPV+Ou9hBmR+afeoC48iZT5/eiY+N
+	 /6YaZTx4aRGJXoLIb/t7nC7dirRToWJA8k3mus0JpTePF71WV9EMjAf1Bhn9ZtbA3q
+	 fji7IR4TSLtKIVaqjQmB1ffsNAEoKFjNx4z2BdqUa2BeOQFaYiYQ3/eJfZPNQ3s/3X
+	 lpY+6gENKkPoQ34iR2npGyFKalp8/9bj1pMcd6h5JCvAm3j3DHfbOUiZ/ma0lobz3z
+	 iRarwx/600qxuAnTzBrhEj8fWrhrDBonhhK5GTjsDu98tLAq8Uih58emdJyR8GrLSU
+	 +uoXhkor01CPQ==
+Date: Wed, 26 Aug 2026 14:21:06 -0700
+From: Wei Liu <wei.liu@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Wei Liu <wei.liu@kernel.org>,
+	Linux on Hyper-V List <linux-hyperv@vger.kernel.org>,
+	Linux Kernel List <linux-kernel@vger.kernel.org>,
+	haiyangz@microsoft.com, decui@microsoft.com, longli@microsoft.com,
+	kys@microsoft.com
+Subject: [GIT PULL] Hyper-V next for v7.3
+Message-ID: <20260826212106.GA693916@liuwe-devbox-debian-v2.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260826-claude-fixes-v6-16-78119af409e7@collabora.com>
-References: <20260826-claude-fixes-v6-0-78119af409e7@collabora.com>
-In-Reply-To: <20260826-claude-fixes-v6-0-78119af409e7@collabora.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>, 
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Faith Ekstrand <faith.ekstrand@collabora.com>, 
- "Marty E. Plummer" <hanetzer@startmail.com>, 
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
- Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Collabora Kernel Team <kernel@collabora.com>, 
- =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1178;
- i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=AypLoSBm1KPHQD9f+Zcdy3AMlNPgjcCvidkbs8KFBCQ=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqj1gMibENL+ADu9l6qy8i4kf0mTXvcmYulYanA
- 4rmOf4qBiSJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCao9YDAAKCRAOJn5M7lND
- PQDQC/wL8bPyMAh/l2rE1HXrX7y/H5MnG9jBK2q/BRhOOvnthtbf32RTdeERX4tBNt/bnb7Qy8e
- KsGn3eJZs62Np0NVGueUxR3f4GvTJSi39HtfUzg+pspWQVf+LijmOGgq9WV/y0lGSgtUKrs43v0
- UDROs2bAvSuefG5qXZWTLZT8IpPKc7Mjh1WNj0Qkjvl7S+4rq+Y31nQrnB6hr+S2Wmn5Pd5YI/g
- CwMaWh6riJYkYwTSmoXo3KKhX7pxZvU8y8gaEedsVNKYBcEZZ1JkQnzTtE/EAf7FmjWEBylQHRW
- H5hbQCIuIJgpWUCFN5VPNHWesFFyWBdsBWfEih18DoGOJh/lbLWXQXCVgFwgRCFPbOKtFoF4JR4
- Zl5UvHfqCdKqd0oHhbaHPkHal7DvkFeUlPbzK7IFvYM0t5Qzw0jvx0ylEuVG6sesruWS655cMR/
- CRicWi1QNbPpGIMWwYc4fMSnFfTQ7tcvj1Pk8gc5YyqPo+fKCr+sJnEgC/49JJjKRLrWI=
-X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
- fpr=324030E8C005175DF93707A40E267E4CEE53433D
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Expose expanded PERFCNT_DUMP IOCTL interface to user mode.
+Hi Linus,
 
-Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
----
- drivers/gpu/drm/panfrost/panfrost_drv.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+The following changes since commit 8d3ae59288f1e7d58d76558a6ee96d533bc5019f:
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-index 571a26b84126..7869a0cfc4c3 100644
---- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-@@ -808,6 +808,7 @@ static const struct file_operations panfrost_drm_driver_fops = {
-  * - 1.6 - adds PANFROST_BO_MAP_WB, PANFROST_IOCTL_SYNC_BO,
-  *	   PANFROST_IOCTL_QUERY_BO_INFO and
-  *	   DRM_PANFROST_PARAM_SELECTED_COHERENCY
-+ * - 1.7 - adds PERFCNT_DUMP req hw_reset field
-  */
- static const struct drm_driver panfrost_drm_driver = {
- 	.driver_features	= DRIVER_RENDER | DRIVER_GEM | DRIVER_SYNCOBJ,
-@@ -820,7 +821,7 @@ static const struct drm_driver panfrost_drm_driver = {
- 	.name			= "panfrost",
- 	.desc			= "panfrost DRM",
- 	.major			= 1,
--	.minor			= 6,
-+	.minor			= 7,
- 
- 	.gem_create_object	= panfrost_gem_create_object,
- 	.gem_prime_import	= panfrost_gem_prime_import,
+  Linux 7.2 (2026-08-16 14:32:26 -0700)
 
--- 
-2.55.0
+are available in the Git repository at:
 
+  ssh://git@gitolite.kernel.org/pub/scm/linux/kernel/git/hyperv/linux.git tags/hyperv-next-signed-20260826
+
+for you to fetch changes up to be0cfab740e58b70047ef6e7e3d578f00ed5d258:
+
+  clocksource: hyper-v: Remove support for stimer interrupts in message mode (2026-08-24 00:36:14 +0000)
+
+----------------------------------------------------------------
+hyperv-next for v7.3-rc1
+ - Decrypt netvsc buffer on contiguous direct-map addresses (Kameron
+   Carr)
+ - Drop WS2012/2012R2 & Win8/8.1 Hyper-V support (Michael Kelley)
+ - Use more meaningful errnos for hypercall status code (Hardik Garg)
+ - Fix lost interrupts on CPU hot-unplug for Hyper-V PCI/MSI (Naman
+   Jain)
+ - Reserve more MSHV vectors for Linux root partition (Wei Liu)
+----------------------------------------------------------------
+Hardik Garg (1):
+      Drivers: hv: Use meaningful errnos for hypercall status codes
+
+Kameron Carr (3):
+      Drivers: hv: vmbus: add vmbus_establish_gpadl_caller_decrypted()
+      Drivers: hv: vmbus: Add vmbus_alloc_buffer()/vmbus_free_buffer() for CoCo VMs
+      hv_netvsc: Allocate send/receive buffers using vmbus_alloc_buffer()
+
+Michael Kelley (6):
+      Drivers: hv: vmbus: Skip VMBus module cleanup for non-nested root partition
+      Drivers: hv: Remove support for WS2012/2012R2 & Win8/8.1 version of Hyper-V
+      hv_sock: Remove check for old Hyper-V hosts
+      hv_netvsc: Remove GPADL teardown special case for old Hyper-V hosts
+      scsi: storvsc: Remove support for storvsc protocol of old Hyper-V hosts
+      clocksource: hyper-v: Remove support for stimer interrupts in message mode
+
+Naman Jain (1):
+      PCI: hv: Set irq_retrigger callback for the Hyper-V PCI MSI irqchip
+
+Wei Liu (1):
+      x86/hyperv: reserve more vectors
+
+ arch/x86/hyperv/hv_init.c           |  23 ++---
+ arch/x86/kernel/cpu/mshyperv.c      |  25 +++--
+ drivers/clocksource/hyperv_timer.c  | 150 ++++-------------------------
+ drivers/hv/channel.c                | 182 +++++++++++++++++++++++++++++++++++-
+ drivers/hv/channel_mgmt.c           |   8 +-
+ drivers/hv/connection.c             |  11 ++-
+ drivers/hv/hv.c                     |   4 -
+ drivers/hv/hv_balloon.c             |  36 +++----
+ drivers/hv/hv_common.c              |  12 +--
+ drivers/hv/hv_snapshot.c            |   5 -
+ drivers/hv/vmbus_drv.c              |  25 +++--
+ drivers/net/hyperv/hyperv_net.h     |   8 +-
+ drivers/net/hyperv/netvsc.c         | 123 ++++++++++++++----------
+ drivers/net/hyperv/netvsc_drv.c     |   6 ++
+ drivers/pci/controller/pci-hyperv.c |   1 +
+ drivers/scsi/storvsc_drv.c          |  53 ++---------
+ include/clocksource/hyperv_timer.h  |   6 --
+ include/linux/hyperv.h              |  20 +++-
+ net/vmw_vsock/hyperv_transport.c    |   3 -
+ 19 files changed, 391 insertions(+), 310 deletions(-)
