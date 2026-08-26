@@ -1,82 +1,98 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DB5146983B
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:21:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D564145D19F
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:21:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787761286; cv=none; b=q64/lGe8bEzpZPbWY7UoTk+IICFsoozswMOivU5IJRdQyzb29y/hLC3aIQ+jODZXJZw4LImG5AnrsKNVOJ/QgiGp7qyRct1ISjZ9kTCJ5n4+ttVtgH3HZUVM7kK960EfItc1wyz4NOROTLpiDlbbKCj5kySuatkuOlnznTMbdEo=
+	t=1787761283; cv=none; b=ZFIOwIdSvqmzgcYex3d+NJcIzQ23x/ftMaa9/N1Q7FQ6cTxRF2sKXbuyLPvql9DNO1eIfoi5IXGkDWRWPWmsFQHVIH+fPik/ef7dKwI+5fgToWXLbCVBthSb9bs6ZIQ+henE9hZJ/o68OuSwDP0dRYyw0LDfCXDFRhzpQ0FkXGc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787761286; c=relaxed/simple;
-	bh=pvjWpnlTdBZKx5UqOCq9/dEYrGv5OCu+9mtstfD1pFA=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version; b=JKeFIWz0wFkURr6B3SNjtsH/h9fcsmtoAgLuzUfBuCu3c+iH9bM7EVsWVIl1daTo75kiOvv8MNvbBDlCCf6kvH+NeowqdrBOYDKVMlN+WM2gUO6NnFfs3oU6jDR4OVinECj0KlwEdBb5Ka/0OdKiUAs1qr5ztIvMzAWNW+Ha/NA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NVQ7iyD2; arc=none smtp.client-ip=209.85.214.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787761283; c=relaxed/simple;
+	bh=8zCsW+61D8x1V2jS30iFv0IIshOjw1HA3xm/0E5TtDs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Sl1ox6D1d2HeX3LbjlAP5uNzUEDbwCMZlw/ekG8W9faPGVY4eXVeDA0IUL99cuckPXd3TsVHs/wXfus24FTsN7pGDK3IpBBR5SZCMKlGuat29ENRXrNJWChwcfJM6P5F5uxfqYSeKKcwJ4uoXdQpvzhl6yFjDL22qP4RgYISC9U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=BP8PYztG; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=OZkFPany; arc=none smtp.client-ip=103.168.172.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NVQ7iyD2"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2ceaf8a1265so16131545ad.2
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 09:21:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787761280; x=1788366080; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9/VxaBSyrAp2V1JuGfOC1NLa01pzB3ApfCB2gfxG+kg=;
-        b=NVQ7iyD2jeGIpRsm1FJtEPzmfezADQch930PPya/IK6VEsIO2zl4I82W6ul6Xb6nXo
-         EtFF4tTiyIi/jNTZdVYCE+uh0SxdBxJY2Zb8z4mWzZAzGXxGzr1qHOwNDDJ8Ctx9rwWj
-         K3eXFRM7tjiTS6yliz0EwwOcuvmhaKdepaUx6m99H36KUqNQdlRMuXImCRZNvp8S6VZC
-         zQMUbWBvP6f/JfUCdAWcHkr21bM9doH+rFqrV6mMUfav4/kbT8BizPdQWotpd+9TZnCr
-         C2BqPgT5rf9wNyOyuDHH0u0YbWd944ZD+O83dnRqgOVxDyOHi9svquv+JxIzYEbbD6vX
-         SC2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787761280; x=1788366080;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=9/VxaBSyrAp2V1JuGfOC1NLa01pzB3ApfCB2gfxG+kg=;
-        b=Ut7MmkKT1t0YKbrtOJRZ0MZ2sZ/NfABWLDPsu+hHzw2JjRiCzLvHFS9O3mfd5Lh6g5
-         Ot9Jfo2JfjWTWLImCPXyv49ZwfK/NP+m0FkpSdU+I7ZKUejIF+Z4Oh2M3F88sMDDfD8S
-         fYMycPsoAd2ZUnE15CinkUfeBmZaDjEiqY3J9ZcszdcC3nNGTHaiWPHYQFIm+IcVOzj9
-         nRaXHEQCFfckq6LMYiu4QvmIpqwa9ZrAIuF7NDq3KN+Bk9se5RqyYiZOjjY+33+EZrzv
-         kK+tXBeI4r+E2nwngnq688fhHGrdBOQL2ujIe1X3diK8rPLP/8qDnxXNLPtf+2z5mpl5
-         MGHQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rp1JK8EdvJ7auJiJy1/ZopuzMAxyF5ggXLUaFbzvb9m6yXSKJGFKNZmzlFV3SDAxKzB88yOnkucE04dmus=@vger.kernel.org
-X-Gm-Message-State: AFuF++kqUirFnxIsKnHUmZMKJJeubymNTbq36R1jEyF4sMJUSNIAjmKY
-	CuRfEgv5tgPNEbQbVhMuzq/OZ9kxfMtEpUFUol7JqjfV86/JRRBH1vLu
-X-Gm-Gg: AR+sD12fa47zfoqmP2ALqfvO8cR56WAeILfitBZpzt1qnvB2tTOZ3CLhJlCIWNYv1d9
-	cFPT0FfRDjhQs//T8dL+RVdj5nMiPPnVdi3nrKVxaL8/QMyHIiP2R+XFMXamh6B+EXzBQdAu8Gv
-	3hL2Hm9IUibcZg5pOsrD4cFjllt//hlNYWyrVFeLxetY8JTUryVUxt3jJnh26XB9vc/8aCveOKS
-	VPAjtd861PsEfmUF5l0GvxvnZIJO0Kh2dDwDLelNz+4otK47ETeOvNiY+cXvQ8vnJcELWCKzYoZ
-	cqVbbsk+tu6bE4Ybg7VUcFHkYOQ+T6gypKNuVulgtj+VtXCErDhrj5xnvhsAoFQYK+AX9LVoRzJ
-	oejA/xAnC6YG1DNM2mb0ttk4a81Kaod0h3SBDtr1Qsp/zjrCK5/6kAP2+fXV7uuYC4KL2IIdvD+
-	DdPTxiRJxhVF2vxSXLiKy87H8+5sUD+T6yVWr8qxHboUx87FBwXUCctReyEf3Pwrufc3LI6SjBJ
-	fkO+O1w54Fn6/TXCIiWncw=
-X-Received: by 2002:a17:90b:554c:b0:38e:1497:af5b with SMTP id 98e67ed59e1d1-3966d1396famr18305322a91.1.1787761279828;
-        Wed, 26 Aug 2026 09:21:19 -0700 (PDT)
-Received: from localhost.localdomain ([103.210.91.42])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396689f1419sm4660649a91.9.2026.08.26.09.21.13
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 26 Aug 2026 09:21:18 -0700 (PDT)
-From: Khawar Ahemad <ahemadkhawar123@gmail.com>
-To: bpf@vger.kernel.org,
-	netdev@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="BP8PYztG";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="OZkFPany"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.phl.internal (Postfix) with ESMTP id 1949CEC01B8;
+	Wed, 26 Aug 2026 12:21:17 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Wed, 26 Aug 2026 12:21:17 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm2; t=1787761277; x=
+	1787847677; bh=5mSjV0I5LbWvQ9sczjJL6C6KyVdbqTRz8cyjnim/Edo=; b=B
+	P8PYztGw2WCo+TvJSt+P6YuyWjwWc6g3OnhflMvlOKY73JNJqQZAS8rWpIkxa7jS
+	5sy6kSLTNR6ZXg7Ye3++lUvIyDTBwJxL30+fyxiy8aWJ9Qs29R9VAsAP51Fq+dVi
+	TORC/TNINXsILdoMIPh1jA/L6ujS/OddMjvAzebYyDDz9x6F5iEW/t9ulpIAamRl
+	E+9VniKxIojwVi9x1hzFV8j2bVbrmhe3a3oytIexxkiCjpAM9t1z5tVm9uEicNF+
+	TdMVh97zYqfBKWb8qK/G7fO9UKHp+DJg2/O9wTVyX60e0vx55u4hiwMd9gOfrHq4
+	WFmzBNonn6CLm/ONCxPbA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm3; t=1787761277; x=1787847677; bh=5
+	mSjV0I5LbWvQ9sczjJL6C6KyVdbqTRz8cyjnim/Edo=; b=OZkFPanygMXeDszE7
+	n2A4Y4veWU+G9z5j3qcLApIpDZxDsfy/clS/lf3LKvFGzEQpIhjq0CLjDJ/LY4iU
+	wJXNO/TFbHOHNsVa6hVWL9BI8vGauPInF2P44IMTVQji1L7XvJ2KMJpUJMTWAyf2
+	4iSVkSvGu7Ri/5EWzwtjPZCNSPMEV9jqn8z4vIDbqqdPu4MTYtWBplRcSLQS14zj
+	tIk5ZcFrKYMRWOa0bxyLEjqOuGIkHp7nasSHI5yGXrW5GTUI0vuOF/zN2VWFMCuw
+	3Q5ZwLeKtXZbMBBmzhx7boygrk7vUcVle72ejnI4G5A/XG6RxL1WEzSeYpFOdkK5
+	Cstgg==
+X-ME-Sender: <xms:fBKPahdMo_r-egmMubW0YSx4uVn2zMI4o5rv9VFZ_FBOKC53_aKwUQ>
+    <xme:fBKParLOXM5IfIbKlCkKNJqm5GBFtOJgZ5z_I11Tf8L9oBZ5WjBU2kBwm4oWwpVHX
+    Zfj18SGQSjDuVKfim38cl_O2VlTbQI6sKZEILdF4BU5jCwc7HXCJP0>
+X-ME-Received: <xmr:fBKPagqKMeqTEU-qnIAXX1h0vNCmaMRAXq0Ee0QFbd8w8KkAQ1kSuvDI0IA>
+X-ME-Proxy-Cause: dmFkZTEpX8HBQysEAMlAbdyKFX4BLzWtS7+Qo1RjxAJeMJnS381384CQaxM92QA8W5J6jo
+    7r0RHbsPcTs1IpTXqcOu2ofgimA8w2hMK3OeOMvPUWs2NDJNBlDL/23E29uU3eWq90a8Ny
+    uayj7GqONoh0NEQ91mQ/H+TE3rTPuVZ+wfrdHbeyaEyRe40ZIUYJyXTHqnubEDskXnqfPu
+    FIQsvLmT+4mxeisAsg0TmWv4Y7l9NdKef8tTMihpDmjKvNxij8lw310+ofBfGEkzSLqnuN
+    AyozbfZUQr702Kz+RkXguKuGQfBCnKcQhC5EFdpLjS6L6jWqh1sGvO+4Vl+gX27JPRP8Ht
+    szkLAhJPkmHmsMuK+YkYr9yTyscVe3c0bf17pnNuHqUsHycYFqkLlrF5TB5u7lUu8OB/wM
+    DV5bI0v3NOIPdRF9o4laEl7rxuvns0/4qf6WByMLMYQby4xvvTzd619MkHG7vrfgrIajil
+    9xrS+oFmBCtWr0VBzXNyMXnf0FwgHZ5PK75YysAf2sIgyHUj7LJL1q92xLX6X1MBq4U7uW
+    lhwF/3qJ1OK36392uADRBMFSzHu8Lqs4TMnvmDfirdJRnCCZGu0TGiK789fROlpmrPHxnW
+    Q4Y5yNtbL6/Q5184MpQJ3sa7GKBP7KWtEmd2SUmUnu6UiB8GFfT1xjDdsnxA
+X-ME-Proxy: <xmx:fBKPahWb-khyZOPyd2mpwNTBm5DFuvm2hVRrFRXRGCoMONke2zaejA>
+    <xmx:fBKPar2YJHTRWMC3O3NWgvWKqA_HdYXs-4yn96wkxcgP96sJ3pYwaw>
+    <xmx:fBKPai1yM6aMG0txUqE83j0j7xPiDWqodfWHy7cDugfuT6yvGXePCQ>
+    <xmx:fBKPaqkql46GyvS23W_LXsuMmZH7j7jVT6wzjhAE1n9y02NStBKAUQ>
+    <xmx:fRKPasmzk5pUV6uaz6rpLCWKy1FmrQapYrUNAazabmPEbKOmUXwurJTE>
+Feedback-ID: ie3994620:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 26 Aug 2026 12:21:16 -0400 (EDT)
+From: Kiryl Shutsemau <kirill@shutemov.name>
+To: akpm@linux-foundation.org,
+	david@kernel.org,
+	ljs@kernel.org,
+	hannes@cmpxchg.org,
+	usama.arif@linux.dev
+Cc: lance.yang@linux.dev,
+	ziy@nvidia.com,
+	hughd@google.com,
+	baolin.wang@linux.alibaba.com,
+	baohua@kernel.org,
+	liam@infradead.org,
+	nico.pache@linux.dev,
+	dev.jain@arm.com,
+	ryan.roberts@arm.com,
+	balbirs@nvidia.com,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	magnus.karlsson@intel.com,
-	maciej.fijalkowski@intel.com,
-	sdf@fomichev.me,
-	ast@kernel.org,
-	daniel@iogearbox.net,
-	hawk@kernel.org,
-	john.fastabend@gmail.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	edumazet@google.com,
-	horms@kernel.org,
-	syzbot+aa48b5fe7bfda62d1682@syzkaller.appspotmail.com
-Subject: [PATCH bpf-next v2] xsk: Fix circular locking dependency in xsk_notifier
-Date: Wed, 26 Aug 2026 21:51:10 +0530
-Message-ID: <20260826162110.99879-1-ahemadkhawar123@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	"Kiryl Shutsemau (Meta)" <kas@kernel.org>
+Subject: [PATCH 5/5] mm/huge_memory: turn the swapcache-with-mapping error case into an assert
+Date: Wed, 26 Aug 2026 17:21:01 +0100
+Message-ID: <20260826162101.1314941-6-kirill@shutemov.name>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260826162101.1314941-1-kirill@shutemov.name>
+References: <20260826162101.1314941-1-kirill@shutemov.name>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -85,80 +101,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-syzbot reported a circular locking dependency involving &net->xdp.lock,
-&xs->mutex, and netdev_lock_ops():
+From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
 
--> #2 (&net->xdp.lock):
-       xsk_notifier
-       unregister_netdevice_many_notify
+A folio in the swapcache has no mapping.
 
--> #1 (&xs->mutex):
-       xsk_diag_dump
+__folio_freeze_and_split_unmapped() tests the combination after the freeze
+and returns -EINVAL. It leaves the folio frozen. It is not a real
+recovery.
 
--> #0 (netdev_lock_ops):
-       xsk_bind
+Assert the condition with VM_WARN_ON_ONCE_FOLIO() upfront, and do not
+pretend to recover from an impossible state.
 
-In xsk_notifier(), xp_clear_dev() was called while holding &xs->mutex.
-Because xp_clear_dev() acquires netdev_lock_ops(netdev), this created a
-nested dependency of &xs->mutex -> netdev_lock_ops. Combined with
-xsk_diag_dump() (&net->xdp.lock -> &xs->mutex) and device unregistration
-(netdev_lock_ops -> &net->xdp.lock), this formed a circular locking cycle.
+PG_swapcache is protected by the folio lock and stable from the start of
+the function.
 
-xp_clear_dev() operates strictly on the buffer pool and net_device, and
-does not require &xs->mutex once the socket is unbound by xsk_unbind_dev().
-Both xsk_notifier() and deferred pool release are serialized by rtnl_lock.
-
-Fix this by capturing the pool pointer under &xs->mutex and calling
-xp_clear_dev(pool) after releasing &xs->mutex in xsk_notifier().
-
-Fixes: 975b11ae9077 ("xsk: add socket allocate, create and bind")
-Reported-by: syzbot+aa48b5fe7bfda62d1682@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=aa48b5fe7bfda62d1682
-Signed-off-by: Khawar Ahemad <ahemadkhawar123@gmail.com>
+Assisted-by: Claude-Code:claude-opus-5
+Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 ---
-v1 -> v2:
-- Resolve the circular locking dependency in xsk_notifier() instead of
-  reordering locks in xsk_bind(), avoiding ABBA lock inversion with
-  xp_clear_dev().
-- Preserve user-space errno precedence in xsk_bind().
-- Reference the correct Fixes commit 2495b430e382.
-- Link to v1: https://lore.kernel.org/bpf/20260825152152.86092-1-ahemadkhawar123@gmail.com/
+ mm/huge_memory.c | 9 ++-------
+ 1 file changed, 2 insertions(+), 7 deletions(-)
 
- net/xdp/xsk.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
-
-diff --git a/net/xdp/xsk.c b/net/xdp/xsk.c
-index 7855ee09c4..c2f47182dc 100644
---- a/net/xdp/xsk.c
-+++ b/net/xdp/xsk.c
-@@ -2106,6 +2106,7 @@ static int xsk_notifier(struct notifier_block *this,
- 		mutex_lock(&net->xdp.lock);
- 		sk_for_each(sk, &net->xdp.list) {
- 			struct xdp_sock *xs = xdp_sk(sk);
-+			struct xsk_buff_pool *pool = NULL;
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 001d89c57fa2..8fc844ba67a1 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -3936,6 +3936,7 @@ static int __folio_freeze_and_split_unmapped(struct folio *folio, unsigned int n
+ 	int ret = 0;
  
- 			mutex_lock(&xs->mutex);
- 			if (xs->dev == dev) {
-@@ -2113,12 +2114,16 @@ static int xsk_notifier(struct notifier_block *this,
- 				if (!sock_flag(sk, SOCK_DEAD))
- 					sk_error_report(sk);
+ 	VM_WARN_ON_ONCE(!mapping && end);
++	VM_WARN_ON_ONCE_FOLIO(mapping && folio_test_swapcache(folio), folio);
  
-+				pool = xs->pool;
- 				xsk_unbind_dev(xs);
+ 	if (!folio_ref_freeze(folio, folio_cache_ref_count(folio) + 1))
+ 		return -EAGAIN;
+@@ -3965,14 +3966,8 @@ static int __folio_freeze_and_split_unmapped(struct folio *folio, unsigned int n
+ 			lruvec_stat_mod_folio(folio, NR_FILE_THPS, -nr);
+ 	}
+ 
+-	if (folio_test_swapcache(folio)) {
+-		if (mapping) {
+-			VM_WARN_ON_ONCE_FOLIO(mapping, folio);
+-			return -EINVAL;
+-		}
 -
--				/* Clear device references. */
--				xp_clear_dev(xs->pool);
- 			}
- 			mutex_unlock(&xs->mutex);
-+
-+			/* Clear device references outside xs->mutex to avoid
-+			 * lock inversion with netdev_lock_ops().
-+			 */
-+			if (pool)
-+				xp_clear_dev(pool);
- 		}
- 		mutex_unlock(&net->xdp.lock);
- 		break;
++	if (folio_test_swapcache(folio))
+ 		ci = swap_cluster_get_and_lock(folio);
+-	}
+ 
+ 	/* lock lru list/PageCompound, ref frozen by page_ref_freeze */
+ 	if (do_lru)
 -- 
-2.54.0 (Apple Git-157)
+2.54.0
 
