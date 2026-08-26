@@ -1,68 +1,151 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41CF8377ED9;
-	Wed, 26 Aug 2026 14:49:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FAE443B6E2
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:49:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787755747; cv=none; b=t5ZzPYP16IWzy/cQiMmxxuM6RiLbOcrYFY/pC8G5iAy9pyv1RDmmezo3Vv9ZBK/kEtYf5htx4hOCO0LUCodcX8+FKKMfefiOEBN1jmnFrJVPNtFGXM1YYwIYvqIXjC05Qvu9z+zuIwnTrGdOF5koH1Ey/FBLYR8KQG8zcpt6I1U=
+	t=1787755761; cv=none; b=XeOakprDn/CnA3I1+Jl9AdauHG/omS+mhNEUlwSBjHIlQMr5yAfYUMdxf1NFFiwMkx9Q3mZtTxBBfe3IdIBla4oGUnnZDGymTGIxoYBXsMO9ceQu73tDNXtjdxDKfJzwyvqYytRyJRD4mzIsWquXDvlgsfGpUrtQR9n8Nxr2VzY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787755747; c=relaxed/simple;
-	bh=pq1uyl1v+k4qE6uBBYUWdHz18VQRCk1WOUyHFXUlBjE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uaJXzRedDC8FYyvDnBe+tNczhOaHwih2lWOmLs/49q20MJEZ71nZl49kamQukvwiPDCHETwu2eIxw2qxBjqpLVvDJnYvDLlhjetWBzW5S+o0L0B8xUhXkuJyl5oKtGiCOJ4O378BcZjZRlhUkK85dFnLb9Exb0zPirYpyCrjXxA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FbKo0FtO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787755761; c=relaxed/simple;
+	bh=MpOTDdeT3bZaQiGndCvq/Va6CUct8aokUQORS0TMbLY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mjxUaQvbTU8Iaf7odPKyd3qOvLRSeXdH50YF6N+9RYvaDHDRFHnXf4zQ8Rudu5rurru4tdMrif28ngiOy9pLewHo3vKPk0aiT248euNhqQsbXDIwws35pxaZ+Mv6vgV3jvc6ucniULy0r+JvwjPN4gjyN+J816aJcousgPYeGek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UIDUneYj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FbKo0FtO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2C1C1F00A3A;
-	Wed, 26 Aug 2026 14:49:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UIDUneYj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40D971F00A3E
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:49:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787755746;
-	bh=gx+m2uC3EeSfGyZmweriuIShOVJ4wyd2IcbeT4yeSG4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FbKo0FtOUar6RqZYPv4kqPXOjD7d1CH/zhuQOo075JXSKaXzGc6BKfkrSi+g47bgg
-	 xYvL0AEkeSXso0mkcOTd97eqX67/x1fsqp3m0xhhiidwxGYJ2GCnuY13cIRqBmnXRP
-	 uzGdwEFIqkK6ic6a5Bs1vMs3hHZrra+c6YDE/srF9WZf2ZpeUPClyZfe1oz+aOslka
-	 iwJPtAW9m4zXEgyuxpQ3lYbJ3AlArlD76+a1vQOGV/KANepi2Ry14QC/9MzP91S1UT
-	 wLgWn9Fdya0bfZYM+SKefTs2gd0OMJkUw/ES0JlzxHtDG2PTZECcMFE6w7u7KYFACD
-	 IfNz5uiveCwjg==
-Date: Wed, 26 Aug 2026 09:49:05 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: devicetree@vger.kernel.org, Saravana Kannan <saravanak@kernel.org>,
-	Will Deacon <will@kernel.org>, Fuad Tabba <tabba@google.com>,
-	Marc Zyngier <maz@kernel.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] of/irq: Fix device node refcount leak in
- of_irq_get_affinity()
-Message-ID: <178775574382.1671000.5038505419473588527.robh@kernel.org>
-References: <20260826112234.1033974-1-fuad.tabba@linux.dev>
+	s=k20260515; t=1787755758;
+	bh=rud/Q9HeSKhNKPTtAJCWQV5WiQ/mLprflA5WGwiU49E=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=UIDUneYj2xnutD2YIM6X6HmUbmPJJpE+W9eQ0yNjGrsGSY0lted3lMvY4Q5qnDlRg
+	 PldyYwb5/M8+7Gfo6BqFQJCnCBYqP+4bkcxL5odA7ujiommtGehGh+SEbAWq/TqlEv
+	 fy5jIilPzNsWYLneca20MPsTKGc2pOTeRCedTPwNOC0Ggq5SJ4DIvFM3jBr7DDaZhd
+	 SiK9rBvCf0oFAgs7GIsiTV4cKIQMoWRFxSJzhUfnFWaQhBPVt5bSr8Y1WczbcZN7AP
+	 tVD+Bw+1HZ9VI3x3+eCNXvjB/0A3iVTplj/sZWubqD5qGQb/79U1JYi1ooGHDw8acl
+	 1juYRnaNRd+dg==
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c2531f453eeso41570266b.3
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 07:49:18 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Ro62hakVt5nkvk8qEOtSQN+uYFfkK0rJ/QGfx8F92IElpJiAXr7Du/tvTyMSQP2FmkrL0o+trG3EEQ6d+A=@vger.kernel.org
+X-Gm-Message-State: AFuF++n3dMm57zqW9HGOeDASFBQRkW6y86GxKh8OZdS+i/dAX7YSvFWq
+	xPB/7YDcCtYN23iS2D12Yx9zrn4FEAJlPt6PjQqNgv9g1io6rA8acfzuv/6dkTRLmuwOxUmmXjD
+	2/1rA7StKccsCYUREQaHd97lVXAlsTFc=
+X-Received: by 2002:a17:907:1907:b0:c20:23f8:99a5 with SMTP id
+ a640c23a62f3a-c250c2e9dd9mr941189066b.15.1787755756855; Wed, 26 Aug 2026
+ 07:49:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260826112234.1033974-1-fuad.tabba@linux.dev>
+References: <20260818123921.3600606-1-chenhuacai@loongson.cn>
+ <20260818123921.3600606-4-chenhuacai@loongson.cn> <3f352680-7090-456a-ab08-2d3367641783@oss.qualcomm.com>
+In-Reply-To: <3f352680-7090-456a-ab08-2d3367641783@oss.qualcomm.com>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Wed, 26 Aug 2026 22:49:12 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H6bq7R_0YiAQwFeveZEW7xenEceixJDuZDmOKCihCTbXg@mail.gmail.com>
+X-Gm-Features: AcwNN1XxNLvNZ4RDduvU0vO2hQJFT7eFm5aoCSIOk7FzLkC_iTiaUlOcaa7vqJY
+Message-ID: <CAAhV-H6bq7R_0YiAQwFeveZEW7xenEceixJDuZDmOKCihCTbXg@mail.gmail.com>
+Subject: Re: [PATCH 3/5] cpufreq: loongson3: Replace per-package mutex with per-node
+To: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+Cc: Huacai Chen <chenhuacai@loongson.cn>, "Rafael J . Wysocki" <rafael@kernel.org>, 
+	Viresh Kumar <viresh.kumar@linaro.org>, loongarch@lists.linux.dev, 
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Xuerui Wang <kernel@xen0n.name>, Jiaxun Yang <jiaxun.yang@flygoat.com>, stable@vger.kernel.org, 
+	Hongliang Wang <wanghongliang@loongson.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Hi, Zhongqiu,
 
-On Wed, 26 Aug 2026 12:22:34 +0100, Fuad Tabba wrote:
-> of_irq_parse_one() raises the refcount of the interrupt controller node
-> on success, and of_irq_get_affinity() returns without putting it, so
-> every call past the parse leaks one reference. It is reached from
-> platform_get_irq_affinity(), used by arm_pmu, arm_spe_pmu and
-> coresight-trbe.
-> 
-> Put it once irq_populate_fwspec_info() has run: no in-tree
-> ->get_fwspec_info() returns a mask that lives in the node.
-> 
-> Fixes: 5404f5c06dd4 ("of/irq: Add interrupt affinity reporting interface")
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-> ---
->  drivers/of/irq.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
+On Thu, Aug 20, 2026 at 7:35=E2=80=AFPM Zhongqiu Han
+<zhongqiu.han@oss.qualcomm.com> wrote:
+>
+> On 8/18/2026 8:39 PM, Huacai Chen wrote:
+> > Our server productions (e.g. Loongson-3D6000/3E6000) can have multiple
+> > nodes in one package and SMC mailboxes are also per-node. So replace th=
+e
+> > per-package mutex with per-node one.
+> >
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Hongliang Wang <wanghongliang@loongson.cn>
+> > Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
+> > ---
+> >   drivers/cpufreq/loongson3_cpufreq.c | 14 +++++++-------
+> >   1 file changed, 7 insertions(+), 7 deletions(-)
+> >
+> > diff --git a/drivers/cpufreq/loongson3_cpufreq.c b/drivers/cpufreq/loon=
+gson3_cpufreq.c
+> > index 630f679aa739..e3cd78a5ab18 100644
+> > --- a/drivers/cpufreq/loongson3_cpufreq.c
+> > +++ b/drivers/cpufreq/loongson3_cpufreq.c
+> > @@ -169,7 +169,7 @@ struct loongson3_freq_data {
+> >       struct cpufreq_frequency_table table[];
+> >   };
+> >
+> > -static struct mutex cpufreq_mutex[MAX_PACKAGES];
+> > +static struct mutex cpufreq_mutex[MAX_NUMNODES];
+> >   static struct cpufreq_driver loongson3_cpufreq_driver;
+> >   static DEFINE_PER_CPU(struct loongson3_freq_data *, freq_data);
+> >
+> > @@ -177,14 +177,14 @@ static inline int do_service_request(u32 id, u32 =
+info, u32 cmd, u32 val, u32 ext
+> >   {
+> >       int retries;
+> >       unsigned int cpu =3D raw_smp_processor_id();
+> > -     unsigned int package =3D cpu_data[cpu].package;
+> > +     unsigned int nid =3D cpu_to_node(cpu);
+> >       union smc_message msg, last;
+> >
+> > -     mutex_lock(&cpufreq_mutex[package]);
+> > +     mutex_lock(&cpufreq_mutex[nid]);
+> >
+> >       last.value =3D iocsr_read32(LOONGARCH_IOCSR_SMCMBX);
+> >       if (!last.complete) {
+> > -             mutex_unlock(&cpufreq_mutex[package]);
+> > +             mutex_unlock(&cpufreq_mutex[nid]);
+> >               return -EPERM;
+> >       }
+> >
+> > @@ -208,11 +208,11 @@ static inline int do_service_request(u32 id, u32 =
+info, u32 cmd, u32 val, u32 ext
+> >       }
+> >
+> >       if (!msg.complete || msg.cmd !=3D CMD_OK) {
+> > -             mutex_unlock(&cpufreq_mutex[package]);
+> > +             mutex_unlock(&cpufreq_mutex[nid]);
+> >               return -EPERM;
+> >       }
+> >
+> > -     mutex_unlock(&cpufreq_mutex[package]);
+> > +     mutex_unlock(&cpufreq_mutex[nid]);
+>
+> An optimization independent of this patch: considering to use
+> guard(mutex)(xxx.lock)
+This can be improved in the future, but not suitable in the bug fix patches=
+.
 
-Applied, thanks!
+Huacai
 
+>
+> >
+> >       return msg.val;
+> >   }
+> > @@ -337,7 +337,7 @@ static int loongson3_cpufreq_probe(struct platform_=
+device *pdev)
+> >   {
+> >       int i, ret;
+> >
+> > -     for (i =3D 0; i < MAX_PACKAGES; i++) {
+> > +     for (i =3D 0; i < MAX_NUMNODES; i++) {
+> >               ret =3D devm_mutex_init(&pdev->dev, &cpufreq_mutex[i]);
+> >               if (ret)
+> >                       return ret;
+>
+>
+> --
+> Thx and BRs,
+> Zhongqiu Han
