@@ -1,156 +1,103 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A1E73546ED
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:22:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2821F42376E
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:22:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787750530; cv=none; b=BwAezQyu4qDjBcY2aZRzatwcxlNLMtykZ/Ir5Z88BPtk2MpoWLE3lK4nx5cp+ZVWUu4Vtv1MPO5KjrEMbPqq3kib2sZZBcl66Zsvvhz3pw8PDFzwdGOCTQs8fsQCgRFZq977XCosHCBdTBJLRcksvTH5ftK9nmJYGVwbl6AcrtA=
+	t=1787750545; cv=none; b=tsbPkb4Lw6Vy5FWBrmOFNATlKopuglLdHhZrRGt3J0c4jeIv5kC3MHRLNd1dsAvwmb9h+7RvjTy5xSVna3FNFYQNc39BeQCWrQhBuvNPWM60WOkzkM4Bl8T4NeZsIeqYY8WpZOyuojbUob2iJWx9g7R0bnqiN/N4hrisKQNVaac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787750530; c=relaxed/simple;
-	bh=jM/haCiOpfA9FknTZ1fDNwWJnszfe2QUJZzOmWp2QEk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pfRXJ0JjffUjaAgPDEC3A/Y9U8U45Z4lyAJXhXlJYwm6CB9v5NwZCWfzM8J7uva9R6CQ0YBXmdLofTxSIkSItNGCAWjozwHkYZO5wMYj7GVesh8uAubK4iU8zEhTS4bnWSnXuFfkRMJcu35GeAgJ7k6ot/dCpe3hk8u4/Kh+nxA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TuOTTuJ7; arc=none smtp.client-ip=209.85.128.48
+	s=arc-20240116; t=1787750545; c=relaxed/simple;
+	bh=nvrucR+AkADZ4+yG4rq9BJde654t4Sf6aZRf6pLCLLs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=acHjc38NKxkJZF5YY5OL8ktxgnCrzoBkL+f/G9LRKdLgJI5V2l7urSJqt9EkuZQIayTxDBwnWPlcvQNGfrXIwaLLS+9lQRvuB9qyoKwiNv86/scD4WrkEfhlranc9cIBihZWfZ5JZ1ZrLXTVqgX9WNAjahWLzx+jxlAnpaXrZlI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S1yVas+C; arc=none smtp.client-ip=209.85.218.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TuOTTuJ7"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49556f97a9dso4913185e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 06:22:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S1yVas+C"
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c1600d040e4so150658066b.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 06:22:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787750527; x=1788355327; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yCybwoH2BHkmxPF2zNCOC0wwFEJW00Hw7Im1uIu4w4Q=;
-        b=TuOTTuJ73ZUX6EF1di5nFZjMO07ZUeNnYf2Ll1xUI7r+nP8OSFWRY3Rc5eyBRSZLAj
-         f9BdGtrRL5lzjTUHNGNlk3J1tWrlsGZtUrgH6Z/Kk65oU1C1jEBShyJy+y3DbPV4I5in
-         hXHz5lhD65bJ0Fj6BqYCbf0kS5XqeRjl2JaVObFQeQK4pTHR6eyT/h1RrgDB8DXNrke7
-         j6S4cHP4rrMceE13ZzOLa+FKxSClXwRFuvHsljAp/BUkHni3yD+aupIzcaoxp3cS+84J
-         Izu4qMaiEyhfyzUxI4bMB31xAhdOY+HlqORpTIr7GvqeVAZ6Vm1If+EC3Ci1cZ1L4o8y
-         DqqQ==
+        d=gmail.com; s=20251104; t=1787750540; x=1788355340; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Qvp7s9Z0ISxqdwUp6/xNiXsA+oD1adl5c2ELLa5CjIk=;
+        b=S1yVas+CS0t5rZ0AkYJnyS+7W5wq5zQioLEtMhe7e8BT2hic++oIj5MoY2sCOD1ZeB
+         SghL4QXySyQEk36nNxbDbl1VksmNFiEXrbnCgKB4vb5++L61jbmbHJg6eZf04WA/Djq2
+         tHmVRDtHd/y0srgKlAHqL1ZZGnCTVkGkZuoOmJn6jWghiEl1Op73HEyaXI5KsIo7FlMH
+         pxtZbg+P+9TGu8ixTD47flSDzXXkye8Z+RX1QWZxV17EciYhd2u6owFwHHh9SB2//vhY
+         9tkBzN0JooxrmO/fP7QKkeaGkUNd7NcxNCJh+koAFdD0NDB2vOQpA1ke9I3Dv4iQN1In
+         xaHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787750527; x=1788355327;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yCybwoH2BHkmxPF2zNCOC0wwFEJW00Hw7Im1uIu4w4Q=;
-        b=izLppmwahGs2TIT4Qyupsbe0nLjMr8yW/gD9qKJv8cZqLsYIQVoOVEM6RRrYo2AMfM
-         ruSvr7nLgCoCz3Oo2+nzCIY6wvreTlUCg8AXHf5D97mDQ1xofXG0op/w61iqQSHptcIY
-         cePapOhwZq29drBhtgLGnsvomIcTCLL5d47ykExI7rzewS3dnJwFG64MDTyu/ShgNdAG
-         FnrT2A+IQTD27tbHCF+KtH4NCzZY5vHJNxW2WrL62AGDudzWrw3g9tGK9rrvJG97ohzX
-         Pj2VrtNvIR0JcB7Wwwtd3uUyKngjBt/sDHKZy3SkPPFTUHiNmkkpz0tH6UqWwBcQOerk
-         072Q==
-X-Forwarded-Encrypted: i=1; AHgh+Rouq9wmdkiybDfI+VzsFwH2LfxzEZ8yUrIlhWXM8NCbSTJ0FU6arBLUnFkH8F9BF997Ici3j8SBO3JATLI=@vger.kernel.org
-X-Gm-Message-State: AFuF++n0uPH842v+C86/ese4np27xheNIBiYTqZnwO0Nj9un07RSamjV
-	GvMx0qYbRjNXj+XdJvK765uZ30L+/0KoZywffCE77sZnuqDPRqTfKsja
-X-Gm-Gg: AR+sD12070JMAr3emRxNJ3XbClWVagQes/+OEgJ2nkOZ9XJvXUMKy9pnFOHCjHhaPPg
-	xsLNHRanqslicT3yQLfV4I2xRP8MRfDQw/S2xqX0m89erMV+SOPBE68LS0+Fye4uORmp9TCh02o
-	oDpQowwYSL95MM3wLgMHs2udWAl4BLb8+GEtMQ8Hx5aVVigNKZW5f2xWmlYaxY1QWzYeB7BGwdL
-	Xvyqq68k86mggQeT9060IBT8oLxPH4/D1N+3tiSPIzmM9ThW9IwbLcz1ukqxA4dzvsf4Gjb0t/w
-	vh8mouoHyD8iUzsOg8shIvWqJOSM2eoP85WNIIF6mIKTUDigTNgXfgDbEwBatjXNWSyv3yidQ/c
-	72I+rqtePs+qtiq1jo4ENIGVQ2geqMfwfiJ0JZa1gkUf59FPdaJH7o35mgjL3zfR4xO+5O2/+Cd
-	GqXJ+YprPCsXPO363FBP8iDggQ8JHXZdITwteha/ylz3uMzBHuYG8ust8xGm4gINHpv7gmJlQsi
-	srXuV/7sonX6o0vlBY/WaQJCA==
-X-Received: by 2002:a05:600c:4585:b0:498:952:e276 with SMTP id 5b1f17b1804b1-499dc6f7ec9mr54471045e9.8.1787750527096;
-        Wed, 26 Aug 2026 06:22:07 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499dca9fc48sm25667895e9.8.2026.08.26.06.22.05
+        d=1e100.net; s=20251104; t=1787750540; x=1788355340;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Qvp7s9Z0ISxqdwUp6/xNiXsA+oD1adl5c2ELLa5CjIk=;
+        b=PjsA7UGKnbruLc0kiY0TBp/KqByG+Y+/5ttdCMZb0uN5ScCfKZAuSEy19z5ZmwT2Hi
+         eQaGJaeRsZE01k9bKqJR+B0W2+4+TdPJXbHfXsm7/X6hhWz9eCR2Ek0m03/KxG3WSBSc
+         VcFGQvpdjn+gWR6q6Iz0V9RbZvYJkpOs/HiiN3DoCNTZh4Nsowa5inKxl9lvN+xs7CyC
+         gE9kXTQF7ywXB4m5B3Qc8COvtbxkSsvXSQFjbeuabtQHfdXJooFrtq3LYSPtbamJykBf
+         yg5tAD3FHFf37VMxSpeCvXkadrspOy81egK5QJFrKu5ljZDzSayFIi8+2euN700WC/z2
+         2cBQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpqVulwRTMraoV8M6yLBSvBZq+QzkW6tzM/aDbfz0/HhqWRI57nMxfAvOAQ52trpE2nigXESi3nXzbZ1Po=@vger.kernel.org
+X-Gm-Message-State: AFuF++m2TgzEQzh8sBMObtqflWuyO7g2iZcsQk2jLgsli07QaHkjbk76
+	jka9rhBYyaRHqE9RYPIQcc+w2j1qp0CeYLAPpHpTprRHEnb69ix2Vnm/
+X-Gm-Gg: AR+sD11Xvz4kpgRCqacFTMjobOwWBGJGvR1fWDpiCo2p+Gm5/3b9oBRe+QaXc6e6f0j
+	Edv6mn2uApQ7nA/Z6WAdlc/7pLcW1Moitvjva8AROimVPrExNtR7J5VrtYETALVfp2lA0Zx3qz5
+	vhQ9/wiuy4QmwMmk+EJjO9I/KQKYqxfCFahs3puppqlISURsEGqx857qp+cZEF2QNugoCfO4D7y
+	Z4aartaWL5mb4vy0YfZIHtZrUjv2FleZ6icbhKI/etpgXTg3mTi9RegA0dcT41v+GP/GzTpsl5u
+	HoKf5jZ44KEF4kWpvUdqzp2jTKE1wFwwhA7gHZpsRpDqA6amBds3/hi2IvEys4u4uBQyvmQ8gtZ
+	id8nxFix4xkAinFsSHIj2/gahPR998RYzk0Qyb6iphbgx/BTCMElFd2F5wSeYKs0zz/DjuWyEru
+	8DAVO61F7u8zrM69t2ZhwYkEx8GKAVgf8KH0/9ZGLs8y9Zdf/Sl824mOj/kQCpEmDogL9G9jpxC
+	CVMLs3FoFNCRDh2cMAF1qUe9JgleFxXGWkjLJs7F3Y=
+X-Received: by 2002:a17:906:ee85:b0:c20:fd32:d9f5 with SMTP id a640c23a62f3a-c24e2e41c3dmr1619891466b.13.1787750539767;
+        Wed, 26 Aug 2026 06:22:19 -0700 (PDT)
+Received: from 1Z10 ([37.163.238.51])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a72d6dbsm435905466b.24.2026.08.26.06.22.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 06:22:06 -0700 (PDT)
-Date: Wed, 26 Aug 2026 14:22:04 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Ricardo Ribalda <ribalda@chromium.org>
-Cc: "Paul E. McKenney" <paulmck@kernel.org>, Frederic Weisbecker
- <frederic@kernel.org>, Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, Joel
- Fernandes <joelagnelf@nvidia.com>, Josh Triplett <josh@joshtriplett.org>,
- Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>, Steven
- Rostedt <rostedt@goodmis.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Lai Jiangshan <jiangshanlai@gmail.com>,
- Zqiang <qiang.zhang@linux.dev>, Thomas Gleixner <tglx@kernel.org>, Ingo
- Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
- <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin"
- <hpa@zytor.com>, Dan Carpenter <error27@gmail.com>, rcu@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] rcu: Fix casting while dereferencing rcu pointers
-Message-ID: <20260826142204.7269edf7@pumpkin>
-In-Reply-To: <CANiDSCtKVT9fnkx=-d2-aOd=uqODERFw-fAm6bg2eX=RXGMaXw@mail.gmail.com>
-References: <20260825-unqual-v1-0-7024fb81b4f9@chromium.org>
-	<20260825-unqual-v1-1-7024fb81b4f9@chromium.org>
-	<20260826105527.7ebbb4b1@pumpkin>
-	<CANiDSCtKVT9fnkx=-d2-aOd=uqODERFw-fAm6bg2eX=RXGMaXw@mail.gmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        Wed, 26 Aug 2026 06:22:19 -0700 (PDT)
+From: Maurizio Casciano <mauriziocasciano7@gmail.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: linux-input@vger.kernel.org,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	David Heidelberg <david@ixit.cz>,
+	linux-kernel@vger.kernel.org,
+	Maurizio Casciano <mauriziocasciano7@gmail.com>
+Subject: [PATCH 0/2] Input: Add ACPI support needed by Yoga Book DRV2604
+Date: Wed, 26 Aug 2026 15:22:09 +0200
+Message-ID: <20260826132211.3341936-1-mauriziocasciano7@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Wed, 26 Aug 2026 13:28:42 +0200
-Ricardo Ribalda <ribalda@chromium.org> wrote:
+The Lenovo Yoga Book YB1-X91F/L contains two ACPI-enumerated DRV2604
+haptic controllers.  ACPI does not describe a controllable vbat supply
+or provide a _DSD function mapping for the enable GPIO, so the existing
+driver cannot initialize the devices reliably.
 
-> Hi David
-> 
-> On Wed, 26 Aug 2026 at 11:55, David Laight <david.laight.linux@gmail.com> wrote:
-> >
-> > On Tue, 25 Aug 2026 20:02:10 +0000
-> > Ricardo Ribalda <ribalda@chromium.org> wrote:  
-> > >
-> > > diff --git a/include/linux/rcupdate.h b/include/linux/rcupdate.h
-> > > index 44c07a66edff..80276cedda80 100644
-> > > --- a/include/linux/rcupdate.h
-> > > +++ b/include/linux/rcupdate.h
-> > > @@ -488,7 +488,7 @@ static __always_inline bool lockdep_assert_rcu_helper(bool c, const struct __ctx
-> > >  context_unsafe(                                                              \
-> > >       typeof(*p) *local = (typeof(*p) *__force)(p);                   \
-> > >       rcu_check_sparse(p, __rcu);                                     \
-> > > -     ((typeof(*p) __force __kernel *)(local))                        \
-> > > +     ((TYPEOF_UNQUAL(*p) __force __kernel *)(local))                 \  
-> >
-> > Ugg... TYPEOF_UNQUAL() is absolutely horrid...
-> > When __CHECKER__ is undefined the whole thing is just (p).  
-> 
-> About using __CHECKER__: Are you suggesting using #ifdef __CHECKER__
-> to use TYPEOF_UNQUAL or the current code?
-> 
-> I am open to doing that, but I would like to hear from Paul if he
-> favors adding the (also horrid) #ifdef to save some CPU cycles on
-> older compilers.
-> 
-> >
-> > I suspect reducing all the definitions would measurably improve
-> > kernel compile time (even before these changes).  
-> 
-> When I checked earlier in the other patch in this patchset, with my
-> compiler I can hardly see any difference in compilation times [1].
-> This is probably because GCC15 direclty maps TYPEOF_UNQUAL to the
-> built-in __typeof_unqual__.
+Make the vbat regulator optional while preserving the existing behavior
+when a supply is described, then map the first ACPI GPIO resource as the
+enable line before requesting it.
 
-I was thinking of the _Generic() version.
+Tested on a Lenovo Yoga Book YB1-X91L with both controllers probing and
+direct per-device force-feedback playback.  A separately posted
+platform/x86 series supplies the device mode and waveform properties.
 
-But here you only want to remove the (I think) __user marker.
-I don't think you want to get rid of 'const'.
-So you don't really want gcc to remove any qualifiers.
+Maurizio Casciano (2):
+  Input: drv260x: Make vbat supply optional
+  Input: drv260x: Map ACPI enable GPIO
 
-There is an similar(ish) issue when an __force cast is used to
-remove one of the extra qualifiers.
-You really want the compiler to ignore the cast - so it checks
-the actual types match.
+ drivers/input/misc/drv260x.c | 72 ++++++++++++++++++++++++------------
+ 1 file changed, 48 insertions(+), 24 deletions(-)
 
-David
 
-> 
-> 
-> Thanks!
-> 
-> 
-> [1] https://lore.kernel.org/all/CANiDSCsMrULsrGQg76x28GRXLg+HSKFWhhA14Zcn8hdm4KyOVw@mail.gmail.com/
-> 
-> >
-> > David  
-
+base-commit: 9a29ee801f525bcad71fea021bfe2a030885c8df
+-- 
+2.53.0
