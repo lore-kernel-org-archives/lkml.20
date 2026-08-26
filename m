@@ -1,25 +1,25 @@
-Received: from LO2P265CU024.outbound.protection.outlook.com (mail-uksouthazon11021095.outbound.protection.outlook.com [52.101.95.95])
+Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022122.outbound.protection.outlook.com [52.101.96.122])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7760748665E
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 22:42:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.95.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27751459AE1
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 22:42:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.96.122
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787784173; cv=fail; b=lpvAI0EeN/WowZg0ZoDM+xjUAkFotF5zaRHLtv5Y9YgmrysAw41KS0ATvYrB52NuhL6XyZ6pJty5aNIq12sNeQU4XQsqzEbGCQd3lToxJ1G7EYmt3uMzfk5xiLrJ7Jnaz1Zw8PQEwnve0+0GgGsYTid7EYhpvSb1ljiLzwehA2Y=
+	t=1787784169; cv=fail; b=tlBqkRTjGOHIW56uCZT7TsGdtwa4Gv8AydZSDMsw/LplbSsIJ/UOAAWwxtRbaahfU5p09JstgavfVH29T7M3h9Mp8Fvk17t3mwgVSxXWLFrMXO/OxotA4EN7ovhJsgp2Alhp0OUVm5+/3zfcYY2QGVUY83YvKX+o2pE2TQYj3Vw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787784173; c=relaxed/simple;
-	bh=pOVjgZBI1z8zyimcPx4zMQ72mVP1m6ofs9ETwo4CIiA=;
+	s=arc-20240116; t=1787784169; c=relaxed/simple;
+	bh=T5mU4uD6h1p6dl5GqAjz+tftNyrh3UfZ0jd3WSVbOyo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=s5r9tST8fC7+4TFFm7/78C20RQT8I7XPPew7wMikMdvYdobwqnt9T7m3b6NmL8QkqPsYOmG6S547KtOThsf2IBhtwx1dQwgNXECFRH/N5UmoLV64P7VX5uWR8tycqLv6LosKe+pNX3LjW/26pa9m4q8V7bWj8vpHLeld5lXS7as=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.95.95
+	 Content-Type:MIME-Version; b=GIzSg6YcF323TPDrpUU2jWG398vrDDeTFNYJwh38KNqbAof1NNp2xrJq0M4CZKodxJ5V/gOYds5q0qP9zfgPoL6EDwmaQIcW2ah1jrvz8tweCqR2W31MBKIffck4xC9NHRq8btBrmNjCOFcb062xvNQccax+Svp8pe8NRmy/P9s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.96.122
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=F+yMrgU8kpozZtbVPOrZoTsJKXA+Uz2BQHifgf7fBU07aIjo0sh7+w8QP3tJh9ZtfcWRuGgeTUxfXsQVDgeRpyunq/1RwK6NuPR8WFPDiFm2ir7HqnW9sqpJWkiZ74BY8Tz92z4unclWO+mp/MKAwbuZ3Arxz5HC0WySqpN6VrJzpRYHu4OU2uuAxtc3VbYD/PqwHdyNY408I56Mb8OYS3pLrVTBGlFMbuGhbq3QUO+I9VKvWNPdnV5D7keuEfFVqtjVxss6zpz5J/DkKxyTDo4Cu6CeVZM1mnJs/2uIieBkD/m7IpbGL8/x/OzPAfk61scJBfswEI5YXiq8F11ZMw==
+ b=lvJVnYegWMgpUo8yEDVgEArd5M9xy9w1BMqTh3oXRdgeXZtVv5LtvmNrh4smEfTmXsRrRyHRpiFWZHhpJYW+gnQ+fTFyqZP7ttmMr5jlE43URtqVK3oQjNgdpalkHSnvkVvX4xElzFQPNygvOtXuUm4Nn7pKjPgc7ILPNvJerFYskHkmg7kDjrDeRL6j7hfgsEdnfalE9aieG+AoQPXs69F5quPMhb2JBEcWF6xjDmg/w1R6H+2MgGoPnKmES/Pz9pTwo7cm8A1DZT3A3yZ3FQ0t4X2UbuUuO3ldf0r90fogm13pkps2qjwe660AFIwhes1dQ8GgFPADG55NWzJcfQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=INdQEcvl0W6reZMGjAQCYepzHjWHXFCBp/QRt0ISEl8=;
- b=l+j9ghIhn0ZsCjnPxjXNRwowhWVQux+NC3lp9rgyzsCjcKpoS5Jm91QAhz1YeXgC5Zxil8ovUmHjWx/HDEHJqvEWAdExNVBgyIY51kYx9OitX29T7sIyFbvj1DDdV6z79leXBADWefZMAzTTh/GZzpx2UA2qzVp7J/GtsvBvSLtn2oOc6IXm4amNwfKtd0mxFRKE/sknfkMTFddFCYQF6sVnhMW2TzkBvkrqm3kCNO4mCzoNki16OAatv1rTSDbMf46TO/Iv/rWlPmIBNUdG+T38p07CWzD6azCdgWEE1nsQe6Mcb2kO41wfkdG5SVo0/iHBUt0YNJdWjIJf/lOvIA==
+ bh=3hqE9uCCg6F0z99n3VeUrwxIPq8/aRODZGNR6HsNKOk=;
+ b=pakbuNKGRFVK4HZK6x2jmW8p9LcE0OYvzqiFD/PJfn4ahZgKPvAvArmhqmCmgRtwzlDvo7iJx9xrpVgG4k0qKOonpwQOuJNuvvFvS2vPfTu5Yv4GS3Ie0czeRRRcBdtaHAh5hK4BvKan6faA2Pzh7ZLLoUaP3SQjKllR3yMuiXx4l5no1TqWavT37A+6AUlIKDxmvasAlonb/SSAVSqImb0CbtMNRM3n+L7y0aCJZ9K6U3Un3GY30UHvjiUnHgB9VjhVrQCrVbkU0zRhQJiy66OI0VM2Y/7/Fjn3x7aont/94+zI6t+/4t2SYni3KVdOXd/GJX150iZe2KfryftYag==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
  dkim=pass header.d=atomlin.com; arc=none
@@ -29,11 +29,11 @@ Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
  by LOYP123MB2896.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:e8::11) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.9; Wed, 26 Aug
- 2026 22:42:43 +0000
+ 2026 22:42:42 +0000
 Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0360.008; Wed, 26 Aug 2026
- 22:42:43 +0000
+ 22:42:41 +0000
 From: Aaron Tomlin <atomlin@atomlin.com>
 To: mingo@redhat.com,
 	peterz@infradead.org,
@@ -55,16 +55,16 @@ Cc: paulmck@kernel.org,
 	steve@abita.co,
 	rishil1999@outlook.com,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v7 2/6] sched/debug: Protect lockless rq->rd access in print_dl_rq()
-Date: Wed, 26 Aug 2026 18:42:34 -0400
-Message-ID: <20260826224238.936456-3-atomlin@atomlin.com>
+Subject: [PATCH v7 1/6] sched: Annotate rq->rd with __rcu and update lockless readers
+Date: Wed, 26 Aug 2026 18:42:33 -0400
+Message-ID: <20260826224238.936456-2-atomlin@atomlin.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260826224238.936456-1-atomlin@atomlin.com>
 References: <20260826224238.936456-1-atomlin@atomlin.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: LO4P123CA0195.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1a4::20) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-ClientProxiedBy: LO4P265CA0316.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:390::20) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  (2603:10a6:400:183::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -74,119 +74,722 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LOYP123MB2896:EE_
-X-MS-Office365-Filtering-Correlation-Id: 61664f65-06ae-41a9-cfe7-08df03c3576f
+X-MS-Office365-Filtering-Correlation-Id: 2620b666-1ab7-429b-6092-08df03c356ad
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|366016|7416014|376014|56012099006|10067099003|6133799003|18002099003|22082099003;
+	BCL:0;ARA:13230040|23010399003|1800799024|366016|7416014|376014|56012099006|10067099003|18002099003|22082099003|5023799004;
 X-Microsoft-Antispam-Message-Info:
-	XJeijT6GPykQ8o6/RMmWahIe44FpY+2Rg/NiiCBYZQPhmVdUV6PvHcnNuFI5q58gCszl16HOi2Hs2M7k0TQjpW1t9hPQ9yj3PI0NSpvppHrwEi+4F9ikm8BFV4uL7q3v2uOCMg681ZImaU6KZBO/yFfuZthMjYhI1thRC9zeqc8SnHFgM9X3sKeBgaNV8uaPVScXFkN4TffY5UKzzdtda4PVgumBC1uZtpi21PZZwzpX2iEGabIq0uNdtIyT6stJEut+WeLiyxbFWjUVj1Jw1tzw7tlG7fpZ9Guev+6aLWkCfY3ao8KJmYnMdc/MN/ncuIonqsN9cxX3ZAPrHtuVLfxP3sb6wvaqiHsAHorUzHfyN6hlVYFvrd4vcLBvUSrokuwM/mCkAos1qbeijf9YvEEd25F8soW0wa0+CM2Os96kYq33P/Cp90b1dHMswhzSfc5uvMYfS1CXDbzDGFkdNqap37m11Tl8u5rKGvL71vQUAM9GNWgfvrl6iA7sZoRccyyMfilPyDDPOO2P9TQvWkxPXoJ4OqmcP5vY2f2UyDn7NPpRhlnkKc9nfB4wbWoxwjHvXLM7aQKE6dgXMW1hvR2xYdGcCkuqNVVLGDRdiodiDKaXlK9yBNGqd5vo+rhQXuLytnmXGuatcDVkZ0kx0vHDv4/dFBUANk+sdljP2yo=
+	Q0/9ma0izG91bG3eljjhjUhv9bLFiFzzV85cSJ1dB4PFkvaSKL/8yiJwBmugitV79m+JwEn/1y3pwFzkW+j43fDt39awKZWlvDLiqgZ+fUdbvuwzojBSnyIJKRKplAMDvc4979oAJyhkqhcnlkubSFAOfEi+3Tkrc04SO1t+Ym8NfjcdQfOiZCB60Bal23Zk/oLGiQnpB78AlVkN9dPVv8XXXxqFnZXSiMzxffKxVxn3LEyhQ9JUb6+ZXREkxGXxj8F8BAAF5M0RJVWK8rai8J+m3tOdCEMhwMFXXGLchteCbNPBIvnxhdkEllRZSI3Gzi9G8maGElUzbhN/ztOPf44AURbhqIKQdqdNhJTITV+Ox3qvSAVpz547Zskns1WJ4UKopsX7DBDIdBkS7L7ngpzGQWpjhXtPEzzKX/CPrv8uuhsi22vn0Q2CQsHRSGyx+eMvhWYuhm6oJd7DNzowO0MYLCmS8N3vUsGQ7wapZrTd2P8l1v9Wt5EIQmW+ZBX2f45xacMmTI6ZBGaOqZOy2W5HAmXxBBqRh5vogXEc3FriapL1jv/ZPzrGSV3xzl+wRp4LvdII1Di/7CAGv6T16UQNrJmj8felVn4mYn1cksNTrxH7Ao/gTmg5bKCrEFAZAs8J/llB1jDfKwD0a7x8fSB344ss+9C8wP1CVSf4EEI=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(7416014)(376014)(56012099006)(10067099003)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(7416014)(376014)(56012099006)(10067099003)(18002099003)(22082099003)(5023799004);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?SzqSrcB6QHoWVl40rD2AXvGOIVJ/3GO9DFIigb/6+H1CQlAWkImeerG+/Cau?=
- =?us-ascii?Q?d40tdNm3wLrNRZTjN2ZWf6Oi+tTwrrEXwUosKUkJF4m5mIsyPXdN82jw0RJD?=
- =?us-ascii?Q?FXDaRRMsNJ+41j9kILFHo++VBrXhBMy10chbrHGbj/l7aJ0V+sLNRpeuDAPI?=
- =?us-ascii?Q?iFcp+M+GtAfFWtxEVFmN49uvABrGOW9Uz6UgqZj0CRpOW0S3srTVg46ByKLP?=
- =?us-ascii?Q?JE0X6XCY9FZSp2xnkljPs1Bfq41GVIK8UWXoMm7xuYtNTVd5fnDE3V5CcSKh?=
- =?us-ascii?Q?80lPXUeiU1/oJH6DVZR47n3bBH/WvxIppmdOBBB7SBRgK9U3ta/C80om1mli?=
- =?us-ascii?Q?D+DQSHYj1e4s+K0gVPn76iHiZa554pDIsNThwfugf0C2FRRWmRHChJlNowix?=
- =?us-ascii?Q?Nyagt8TFrYMkOF6J7xAGxynMdzZlYoYBvPwCAajsyLhMHiHlVigwwIstcW6P?=
- =?us-ascii?Q?EOB8GXAm2oM4PPw8Tp3HnG36obOZaXBw447rd7Cwdimhi6fq4mYnpJvn6HAI?=
- =?us-ascii?Q?SZ6LWHAk6BScDzlKWItHmEsZKHy+aRZfttX/Zm5vnVTZSkCuA4e33wF0j+6z?=
- =?us-ascii?Q?WUnrn4hhD/ss4kICrWoaGzkhHkqkBL1DBRx0FA5DImwP2A1piqIHg08tLmgt?=
- =?us-ascii?Q?8raVYG5IQlD3B12OBJai3VaxOdzb2XFLXMaGqNy/lO7rNXMnFnrV5m9996rm?=
- =?us-ascii?Q?RRQHW4zg5jn7sKN7mNJ/q3Mn8h8gLI/eEtDGPPIwdyXcaF1D4NgLHU6RAQI9?=
- =?us-ascii?Q?qJdd1No90Tm3yoKGwjItPd0P7kD5c8vYy0u+yO7/+BoTrwMCGvoamGgCw4R/?=
- =?us-ascii?Q?00VCJdEvkC39ArOMfbpgoJ+/H0qO9EzqGpaHG7ceBVHPGXtmXtqG/WFn1Hmb?=
- =?us-ascii?Q?y0eqiPFPIme3IFp2Ls7l+EJylYddmMZIZ8wDEKffrxviSiJ1zQwTPLERRZBF?=
- =?us-ascii?Q?bGIDtzcEgAy03n/JQBNChXcscZ0HSlFu9sQCQGkVdwQ974HOAPVIPmJWCmiL?=
- =?us-ascii?Q?Qq8jq5LVZIoxXWvUEtgQhMN+c/H6iWbSJ7AWttCO8igPuOYfTzMlv0BSEAb5?=
- =?us-ascii?Q?h+0cWOZX45yuFdj+mxJbpjPNmBFv2y93Ia6D/YX1mXx9ucjpAFfiFoWKOhQY?=
- =?us-ascii?Q?lmv76nVC55V93nIQBWHmSIz+60vpzImGEZrshWvOExI0h8aCZMzfVUYCFyBY?=
- =?us-ascii?Q?jAuhd5qwkRDjhpTTJfhEham+4gsCj8Lp4AuOW1Z0qMAbojTo+GFHWq4O/ZNO?=
- =?us-ascii?Q?fE0Wz5TAJwNma9AJ//9tzVuGYbmJMqDAEeueR9IhvJPlwxFfUdH9M1eSH4TV?=
- =?us-ascii?Q?U5BUMEbC2vO9KFxcVrkHt2MQWWSyHA2Pgc4BdUzCXA79cdZ2BCfOBtSulQl2?=
- =?us-ascii?Q?Q78af+1wdtE9JVSYriGEIKFmg429HAhyzorU2bx7HmGwG1OjpnzRq2NEsVO2?=
- =?us-ascii?Q?4Q6t/Go/PUpK++nvXt1VrS2taWzw+Bwp346s3P/2JuI95YJSE2/gyhUsi63U?=
- =?us-ascii?Q?IYeehOcK0YJU3bhC0ymk8zqWo2Mc1MMUbfYaZalp9phGXCl1uOw6XdAilumQ?=
- =?us-ascii?Q?W5hUZJKPFYGT9ttC8iK5wuCwvAGdFkV5FkfUPoeSIIethBoO2ASwn9hHHSyz?=
- =?us-ascii?Q?Q6iAv1FKi0R1HuLxiDjocVlwENJ4dDFZNOOhqhqGyXt9ZKxYO2Fdc/r5cQnP?=
- =?us-ascii?Q?d0tn7bv54YNVfitjHD7Gt0PL3UaXP+kTtV0xAuf2GysYJNYg?=
+	=?us-ascii?Q?h7OgEgaCYpRM53n6p2ULTZ0+6h2c1J6n8UxkrM5CAahQsnSFP6rjVcCoRBAW?=
+ =?us-ascii?Q?Av/h32aZWnNweQpD12mi9BOlQKswy26LBW7tX0PeWJuINFhbR0MJQ8XFSWB9?=
+ =?us-ascii?Q?SP1/TUzhqLKUSo8MziYaKmfvU9HD43/wcQW7JPKXqKhzgcq8oTwqk18+riSa?=
+ =?us-ascii?Q?DWPQAyDEVoHt1HBrNMcRXokV5mLdsL8hHS2U8kTOHvBQksbwZfrDkec/vEQ9?=
+ =?us-ascii?Q?ca5Bs+GMMsegdVwltHksHiabEzvd/a7208wO2q+gxO9JO8543ur4mYMEsaas?=
+ =?us-ascii?Q?kBtUCdrwyZaX9dXIL8W9V9PAJuvh1T9pjA+T/luG+gokC+jFjISA9WHTo+Wh?=
+ =?us-ascii?Q?kuhScgbA3cmew3v+04NQjxiXrG9UlEVJkO/ibl1Y/SqsPv3fic40iS6wBu/g?=
+ =?us-ascii?Q?yrDdyvAcAUx0407KusI/9yVq6TUkajZtOIQaxE6lu67ktBMA2M+gTAQ3zX+w?=
+ =?us-ascii?Q?6F3a+v+otnFCvRRpnYAkPdoLBfwX0arWgF4I6Gtw5sj6kXarqGkdon/s2Odj?=
+ =?us-ascii?Q?Na32lyyjvcYq6mWYsQV8wv7CSHoLBpzi0vewprFTrx7U0kFgxxBMdXbJCvnm?=
+ =?us-ascii?Q?/zQftIRg3wTDvuGnm4y8HqH00P576pcMKB3UGj1GcmTUul1zeyrpDz69Vz2Q?=
+ =?us-ascii?Q?dOqKdQ7JdPFjHSW/H/wLh4u3NcHcalqiyYMpZNs7h1iwjtBlVSo5q7YOmlrv?=
+ =?us-ascii?Q?NkjJSgebHHIwbdpUFdrzz17tunSbz0CV9+xvHTu7bxna1kR3v4MavMuf/NI8?=
+ =?us-ascii?Q?mSyU4T9Rx6A5Rb5w6BBiGSfa47SzFQYz3Kr8j4kwoS8duQNBEIaNovTBbvGl?=
+ =?us-ascii?Q?Vcsc0TKA5djxotIAFCCG0EUZ9rRrsFKyapfI3j7rELcZDvkDXMG6ZIGxonjC?=
+ =?us-ascii?Q?mvp3BBhOmA0LoZcteE03QnaAnjDgayLoVEOmLnhHAheLrN35dUqjCE4sMThf?=
+ =?us-ascii?Q?jTlAoH/x2Eafka9EmtuSU4gTKSton+KRMPb4f8LfGNWZikqM1orZNrbCkEoC?=
+ =?us-ascii?Q?eiTBXj/iRbmJ6w16Wjxbf9j0ejW95sGQJd8nbpSY5PRU4oPxFNr5Zq3LoGzc?=
+ =?us-ascii?Q?aRidLGK/lofamSTpgTOiZj/Rtvg0uvm7Di335mmNaZs+sF3aT8BSNLuRxpcB?=
+ =?us-ascii?Q?wdCnSSJCw28GHMtlZcMDVcLlzg2e3Iz2NqQ2ubWEHUnAepE7n/GWFCsN8+9T?=
+ =?us-ascii?Q?kneFze9yvpGvKPCpDGD170BDwMTB3jWtqrNKKdC6A2gARClhlnTDtRsmarp2?=
+ =?us-ascii?Q?3lzwSkjZlebBWmhqa5RQXN6CQrmAAdCD02wT8Y8zehcvKhTh2nAWaVhP6Azp?=
+ =?us-ascii?Q?33FqzTuRD9AAy7o2DaulLWt5y4870WdVKb50Se9Wll9sfYJNnNznCk0oX4m1?=
+ =?us-ascii?Q?jHX/UWYrUfTK+gQt7CCCii0rTh9JQFlveja+8JqDWej7YWUUMtNtlVVaNNc/?=
+ =?us-ascii?Q?jqPCfcw9Hk1dJoeiEX08UCnrCzsRLU/PHYcEOsE/5tNeAP7yvmIfyhS8z0TN?=
+ =?us-ascii?Q?sJ3FftHHCsCBEujmbDfgfFKp7GSXKlGRLzPM0ZSdz8J6BxZxKYrNCEzYvcVJ?=
+ =?us-ascii?Q?bwHZ202stHaa+cGYq4bT41w72+zOq2c2DSUZ80uJubiX+XPpwZOcEBLskIMv?=
+ =?us-ascii?Q?Ckcd705iDrXG9WTNkDnpEmKrLtn7HfYJKRwQDHjga0p7KFGrRkjAtnLZhJUw?=
+ =?us-ascii?Q?DyXfLZCTBx9NzO9TqGuwTjBbZNOII7a1DRFxb+m0UHoGq6yf?=
 X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 61664f65-06ae-41a9-cfe7-08df03c3576f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2620b666-1ab7-429b-6092-08df03c356ad
 X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 22:42:43.1289
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 22:42:41.9049
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: K+fpsMwgraBSEQLHX92j5rf5uGL8ba0zEV350eUG/IiY3v9T97TL5IDDHjSq/PLuL2B7iAkfZMycpSAavwuUXA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: wVxykdo94jOOfROajtXeHyo8j7Zrz97Oqpi94luRXZnVSvRmNslsBxEazHFxy0kY8WrBdC74GNkQBlyXEwlq+g==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOYP123MB2896
 
-In print_dl_rq(), cpu_rq(cpu)->rd is dereferenced locklessly to display
-deadline bandwidth statistics.
+The root_domain pointer rd field in struct rq is updated dynamically
+using RCU, and its memory reclamation is deferred via call_rcu() in
+rq_attach_root(). However, struct rq's rd field was missing the __rcu
+compiler annotation, and several lockless readers across the scheduler
+subsystem accessed rq->rd directly without using RCU dereference
+primitives.
 
-During CPU hot-unplug or cgroup cpuset repartitioning events,
-partition_sched_domains() calls cpu_attach_domain(), which executes
-rq_attach_root() to detach the CPU from its root_domain. When the
-reference count of the detached root_domain drops to zero,
-rq_attach_root() calls call_rcu(&old_rd->rcu, free_rootdomain) to
-schedule memory teardown after an RCU grace period.
+Add the __rcu annotation to struct rq's rd field in kernel/sched/sched.h.
+Update lockless readers across kernel/sched/ to use rcu_dereference(),
+rcu_dereference_sched() or rcu_access_pointer() appropriately. This
+ensures proper data-dependency barriers on all architectures, enables
+Sparse static analysis validation, and documents RCU read-side ownership
+contracts.
 
-However, rq_attach_root() previously updated rq->rd using a plain C store
-without an RCU publication barrier (i.e., rcu_assign_pointer()). Without a
-release memory barrier on the writer side, CPU or compiler reordering could
-allow the new rq->rd pointer store to become visible to other CPUs before
-the initialization writes to rd->dl_bw are committed.
-
-Furthermore, because print_dl_rq() did not hold an RCU read lock while
-dereferencing cpu_rq(cpu)->rd, an RCU grace period could elapse
-concurrently while debugfs is reading the file, allowing
-free_rootdomain() to execute kfree(old_rd) and causing a use-after-free
-race condition when print_dl_rq() reads dl_bw->bw.
-
-Resolve this by using rcu_assign_pointer(rq->rd, rd) in rq_attach_root() to
-guarantee a release memory barrier when publishing a root_domain.
-Finally, fetch rq->rd using guard(rcu)() and rcu_dereference() in print_dl_rq().
-
-Fixes: 02968ccf7b80 ("sched: add /proc/sched_debug file")
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
 Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
 ---
- kernel/sched/debug.c    | 3 ++-
- kernel/sched/topology.c | 2 +-
- 2 files changed, 3 insertions(+), 2 deletions(-)
+ kernel/sched/core.c     | 24 ++++++++++-----
+ kernel/sched/deadline.c | 67 +++++++++++++++++++++++------------------
+ kernel/sched/fair.c     | 29 +++++++++---------
+ kernel/sched/rt.c       | 64 ++++++++++++++++++++++-----------------
+ kernel/sched/sched.h    |  2 +-
+ kernel/sched/topology.c | 11 ++++---
+ 6 files changed, 113 insertions(+), 84 deletions(-)
 
-diff --git a/kernel/sched/debug.c b/kernel/sched/debug.c
-index 72236db67983..b8be86bf8849 100644
---- a/kernel/sched/debug.c
-+++ b/kernel/sched/debug.c
-@@ -1172,7 +1172,8 @@ void print_dl_rq(struct seq_file *m, int cpu, struct dl_rq *dl_rq)
- 	SEQ_printf(m, "  .%-30s: %lu\n", #x, (unsigned long)(dl_rq->x))
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 2e7cde033a31..86de58f5825b 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -8547,8 +8547,10 @@ void set_rq_online(struct rq *rq)
+ {
+ 	if (!rq->online) {
+ 		const struct sched_class *class;
++		struct root_domain *rd;
  
- 	PU(dl_nr_running);
--	dl_bw = &cpu_rq(cpu)->rd->dl_bw;
-+	guard(rcu)();
-+	dl_bw = &rcu_dereference(cpu_rq(cpu)->rd)->dl_bw;
- 	SEQ_printf(m, "  .%-30s: %lld\n", "dl_bw->bw", dl_bw->bw);
- 	SEQ_printf(m, "  .%-30s: %lld\n", "dl_bw->total_bw", dl_bw->total_bw);
+-		cpumask_set_cpu(rq->cpu, rq->rd->online);
++		rd = rcu_dereference_protected(rq->rd, lockdep_is_held(&rq->__lock));
++		cpumask_set_cpu(rq->cpu, rd->online);
+ 		rq->online = 1;
  
-diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
-index e6038effdf12..e9307b475cb5 100644
---- a/kernel/sched/topology.c
-+++ b/kernel/sched/topology.c
-@@ -496,7 +496,7 @@ void rq_attach_root(struct rq *rq, struct root_domain *rd)
+ 		for_each_class(class) {
+@@ -8562,6 +8564,7 @@ void set_rq_offline(struct rq *rq)
+ {
+ 	if (rq->online) {
+ 		const struct sched_class *class;
++		struct root_domain *rd;
+ 
+ 		update_rq_clock(rq);
+ 		for_each_class(class) {
+@@ -8569,7 +8572,8 @@ void set_rq_offline(struct rq *rq)
+ 				class->rq_offline(rq);
+ 		}
+ 
+-		cpumask_clear_cpu(rq->cpu, rq->rd->online);
++		rd = rcu_dereference_protected(rq->rd, lockdep_is_held(&rq->__lock));
++		cpumask_clear_cpu(rq->cpu, rd->online);
+ 		rq->online = 0;
+ 	}
+ }
+@@ -8577,10 +8581,12 @@ void set_rq_offline(struct rq *rq)
+ static inline void sched_set_rq_online(struct rq *rq, int cpu)
+ {
+ 	struct rq_flags rf;
++	struct root_domain *rd;
+ 
+ 	rq_lock_irqsave(rq, &rf);
+-	if (rq->rd) {
+-		BUG_ON(!cpumask_test_cpu(cpu, rq->rd->span));
++	rd = rcu_dereference_protected(rq->rd, lockdep_is_held(&rq->__lock));
++	if (rd) {
++		BUG_ON(!cpumask_test_cpu(cpu, rd->span));
+ 		set_rq_online(rq);
+ 	}
+ 	rq_unlock_irqrestore(rq, &rf);
+@@ -8589,10 +8595,12 @@ static inline void sched_set_rq_online(struct rq *rq, int cpu)
+ static inline void sched_set_rq_offline(struct rq *rq, int cpu)
+ {
+ 	struct rq_flags rf;
++	struct root_domain *rd;
+ 
+ 	rq_lock_irqsave(rq, &rf);
+-	if (rq->rd) {
+-		BUG_ON(!cpumask_test_cpu(cpu, rq->rd->span));
++	rd = rcu_dereference_protected(rq->rd, lockdep_is_held(&rq->__lock));
++	if (rd) {
++		BUG_ON(!cpumask_test_cpu(cpu, rd->span));
+ 		set_rq_offline(rq);
+ 	}
+ 	rq_unlock_irqrestore(rq, &rf);
+@@ -9009,8 +9017,8 @@ void __init sched_init(void)
+ #endif
+ 		rq->next_class = &idle_sched_class;
+ 
+-		rq->sd = NULL;
+-		rq->rd = NULL;
++		RCU_INIT_POINTER(rq->sd, NULL);
++		RCU_INIT_POINTER(rq->rd, NULL);
+ 		rq->cpu_capacity = SCHED_CAPACITY_SCALE;
+ 		rq->balance_callback = &balance_push_callback;
+ 		rq->active_balance = 0;
+diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+index 857dbe3519a8..026d8b499dcf 100644
+--- a/kernel/sched/deadline.c
++++ b/kernel/sched/deadline.c
+@@ -122,12 +122,12 @@ static inline struct dl_bw *dl_bw_of(int i)
+ {
+ 	RCU_LOCKDEP_WARN(!rcu_read_lock_sched_held(),
+ 			 "sched RCU must be held");
+-	return &cpu_rq(i)->rd->dl_bw;
++	return &rcu_dereference_sched(cpu_rq(i)->rd)->dl_bw;
+ }
+ 
+ static inline int dl_bw_cpus(int i)
+ {
+-	struct root_domain *rd = cpu_rq(i)->rd;
++	struct root_domain *rd = rcu_dereference_sched(cpu_rq(i)->rd);
+ 
+ 	RCU_LOCKDEP_WARN(!rcu_read_lock_sched_held(),
+ 			 "sched RCU must be held");
+@@ -159,13 +159,13 @@ static inline unsigned long dl_bw_capacity(int i)
+ 		RCU_LOCKDEP_WARN(!rcu_read_lock_sched_held(),
+ 				 "sched RCU must be held");
+ 
+-		return __dl_bw_capacity(cpu_rq(i)->rd->span);
++		return __dl_bw_capacity(rcu_dereference_sched(cpu_rq(i)->rd)->span);
+ 	}
+ }
+ 
+ bool dl_bw_visited(int cpu, u64 cookie)
+ {
+-	struct root_domain *rd = cpu_rq(cpu)->rd;
++	struct root_domain *rd = rcu_dereference_sched(cpu_rq(cpu)->rd);
+ 
+ 	if (rd->visit_cookie == cookie)
+ 		return true;
+@@ -533,15 +533,18 @@ void init_dl_rq(struct dl_rq *dl_rq)
+ 
+ static inline int dl_overloaded(struct rq *rq)
+ {
+-	return atomic_read(&rq->rd->dlo_count);
++	return atomic_read(&rcu_dereference_sched(rq->rd)->dlo_count);
+ }
+ 
+ static inline void dl_set_overload(struct rq *rq)
+ {
++	struct root_domain *rd;
++
+ 	if (!rq->online)
+ 		return;
+ 
+-	cpumask_set_cpu(rq->cpu, rq->rd->dlo_mask);
++	rd = rcu_dereference_sched(rq->rd);
++	cpumask_set_cpu(rq->cpu, rd->dlo_mask);
+ 	/*
+ 	 * Must be visible before the overload count is
+ 	 * set (as in sched_rt.c).
+@@ -549,16 +552,19 @@ static inline void dl_set_overload(struct rq *rq)
+ 	 * Matched by the barrier in pull_dl_task().
+ 	 */
+ 	smp_wmb();
+-	atomic_inc(&rq->rd->dlo_count);
++	atomic_inc(&rd->dlo_count);
+ }
+ 
+ static inline void dl_clear_overload(struct rq *rq)
+ {
++	struct root_domain *rd;
++
+ 	if (!rq->online)
+ 		return;
+ 
+-	atomic_dec(&rq->rd->dlo_count);
+-	cpumask_clear_cpu(rq->cpu, rq->rd->dlo_mask);
++	rd = rcu_dereference_sched(rq->rd);
++	atomic_dec(&rd->dlo_count);
++	cpumask_clear_cpu(rq->cpu, rd->dlo_mask);
+ }
+ 
+ #define __node_2_pdl(node) \
+@@ -699,14 +705,14 @@ static struct rq *dl_task_offline_migration(struct rq *rq, struct task_struct *p
+ 	 * since p is still hanging out in the old (now moved to default) root
+ 	 * domain.
+ 	 */
+-	dl_b = &rq->rd->dl_bw;
++	dl_b = &rcu_dereference_sched(rq->rd)->dl_bw;
+ 	raw_spin_lock(&dl_b->lock);
+-	__dl_sub(dl_b, p->dl.dl_bw, cpumask_weight(rq->rd->span));
++	__dl_sub(dl_b, p->dl.dl_bw, cpumask_weight(rcu_dereference_sched(rq->rd)->span));
+ 	raw_spin_unlock(&dl_b->lock);
+ 
+-	dl_b = &later_rq->rd->dl_bw;
++	dl_b = &rcu_dereference_sched(later_rq->rd)->dl_bw;
+ 	raw_spin_lock(&dl_b->lock);
+-	__dl_add(dl_b, p->dl.dl_bw, cpumask_weight(later_rq->rd->span));
++	__dl_add(dl_b, p->dl.dl_bw, cpumask_weight(rcu_dereference_sched(later_rq->rd)->span));
+ 	raw_spin_unlock(&dl_b->lock);
+ 
+ 	set_task_cpu(p, later_rq->cpu);
+@@ -2222,9 +2228,9 @@ static void inc_dl_deadline(struct dl_rq *dl_rq, u64 deadline)
+ 	if (dl_rq->earliest_dl.curr == 0 ||
+ 	    dl_time_before(deadline, dl_rq->earliest_dl.curr)) {
+ 		if (dl_rq->earliest_dl.curr == 0)
+-			cpupri_set(&rq->rd->cpupri, rq->cpu, CPUPRI_HIGHER);
++			cpupri_set(&rcu_dereference_sched(rq->rd)->cpupri, rq->cpu, CPUPRI_HIGHER);
+ 		dl_rq->earliest_dl.curr = deadline;
+-		cpudl_set(&rq->rd->cpudl, rq->cpu, deadline);
++		cpudl_set(&rcu_dereference_sched(rq->rd)->cpudl, rq->cpu, deadline);
+ 	}
+ }
+ 
+@@ -2239,14 +2245,15 @@ static void dec_dl_deadline(struct dl_rq *dl_rq, u64 deadline)
+ 	if (!dl_rq->dl_nr_running) {
+ 		dl_rq->earliest_dl.curr = 0;
+ 		dl_rq->earliest_dl.next = 0;
+-		cpudl_clear(&rq->rd->cpudl, rq->cpu, rq->online);
+-		cpupri_set(&rq->rd->cpupri, rq->cpu, rq->rt.highest_prio.curr);
++		cpudl_clear(&rcu_dereference_sched(rq->rd)->cpudl, rq->cpu, rq->online);
++		cpupri_set(&rcu_dereference_sched(rq->rd)->cpupri, rq->cpu,
++			   rq->rt.highest_prio.curr);
+ 	} else {
+ 		struct rb_node *leftmost = rb_first_cached(&dl_rq->root);
+ 		struct sched_dl_entity *entry = __node_2_dle(leftmost);
+ 
+ 		dl_rq->earliest_dl.curr = entry->deadline;
+-		cpudl_set(&rq->rd->cpudl, rq->cpu, entry->deadline);
++		cpudl_set(&rcu_dereference_sched(rq->rd)->cpudl, rq->cpu, entry->deadline);
+ 	}
+ }
+ 
+@@ -2686,12 +2693,14 @@ static void migrate_task_rq_dl(struct task_struct *p, int new_cpu __maybe_unused
+ 
+ static void check_preempt_equal_dl(struct rq *rq, struct task_struct *p)
+ {
++	struct root_domain *rd = rcu_dereference_sched(rq->rd);
++
+ 	/*
+ 	 * Current can't be migrated, useless to reschedule,
+ 	 * let's hope p can move out.
+ 	 */
+ 	if (rq->curr->nr_cpus_allowed == 1 ||
+-	    !cpudl_find(&rq->rd->cpudl, rq->donor, NULL))
++	    !cpudl_find(&rd->cpudl, rq->donor, NULL))
+ 		return;
+ 
+ 	/*
+@@ -2699,7 +2708,7 @@ static void check_preempt_equal_dl(struct rq *rq, struct task_struct *p)
+ 	 * see if it is pushed or pulled somewhere else.
+ 	 */
+ 	if (p->nr_cpus_allowed != 1 &&
+-	    cpudl_find(&rq->rd->cpudl, p, NULL))
++	    cpudl_find(&rd->cpudl, p, NULL))
+ 		return;
+ 
+ 	resched_curr(rq);
+@@ -2948,7 +2957,7 @@ static int find_later_rq(struct task_struct *task)
+ 	 * We have to consider system topology and task affinity
+ 	 * first, then we can look for a suitable CPU.
+ 	 */
+-	if (!cpudl_find(&task_rq(task)->rd->cpudl, task, later_mask))
++	if (!cpudl_find(&rcu_dereference_sched(task_rq(task)->rd)->cpudl, task, later_mask))
+ 		return -1;
+ 
+ 	/*
+@@ -3232,7 +3241,7 @@ static void pull_dl_task(struct rq *this_rq)
+ 	 */
+ 	smp_rmb();
+ 
+-	for_each_cpu(cpu, this_rq->rd->dlo_mask) {
++	for_each_cpu(cpu, rcu_dereference_sched(this_rq->rd)->dlo_mask) {
+ 		if (this_cpu == cpu)
+ 			continue;
+ 
+@@ -3358,7 +3367,7 @@ bool dl_task_needs_bw_move(struct task_struct *p,
+ 	if (!dl_task(p))
+ 		return false;
+ 
+-	return !cpumask_intersects(task_rq(p)->rd->span, new_mask);
++	return !cpumask_intersects(rcu_dereference_sched(task_rq(p)->rd)->span, new_mask);
+ }
+ 
+ /* Assumes rq->lock is held */
+@@ -3368,9 +3377,9 @@ static void rq_online_dl(struct rq *rq)
+ 		dl_set_overload(rq);
+ 
+ 	if (rq->dl.dl_nr_running > 0)
+-		cpudl_set(&rq->rd->cpudl, rq->cpu, rq->dl.earliest_dl.curr);
++		cpudl_set(&rcu_dereference_sched(rq->rd)->cpudl, rq->cpu, rq->dl.earliest_dl.curr);
+ 	else
+-		cpudl_clear(&rq->rd->cpudl, rq->cpu, true);
++		cpudl_clear(&rcu_dereference_sched(rq->rd)->cpudl, rq->cpu, true);
+ }
+ 
+ /* Assumes rq->lock is held */
+@@ -3379,7 +3388,7 @@ static void rq_offline_dl(struct rq *rq)
+ 	if (rq->dl.overloaded)
+ 		dl_clear_overload(rq);
+ 
+-	cpudl_clear(&rq->rd->cpudl, rq->cpu, false);
++	cpudl_clear(&rcu_dereference_sched(rq->rd)->cpudl, rq->cpu, false);
+ }
+ 
+ void __init init_sched_dl_class(void)
+@@ -3440,10 +3449,10 @@ void dl_add_task_root_domain(struct task_struct *p)
+ 	cpu = cpumask_first_and(cpu_active_mask, msk);
+ 	BUG_ON(cpu >= nr_cpu_ids);
+ 	rq = cpu_rq(cpu);
+-	dl_b = &rq->rd->dl_bw;
++	dl_b = &rcu_dereference_sched(rq->rd)->dl_bw;
+ 
+ 	raw_spin_lock(&dl_b->lock);
+-	__dl_add(dl_b, p->dl.dl_bw, cpumask_weight(rq->rd->span));
++	__dl_add(dl_b, p->dl.dl_bw, cpumask_weight(rcu_dereference_sched(rq->rd)->span));
+ 	raw_spin_unlock(&dl_b->lock);
+ 	raw_spin_unlock_irqrestore(&p->pi_lock, rf.flags);
+ }
+@@ -3504,7 +3513,7 @@ void dl_clear_root_domain(struct root_domain *rd)
+ 
+ void dl_clear_root_domain_cpu(int cpu)
+ {
+-	dl_clear_root_domain(cpu_rq(cpu)->rd);
++	dl_clear_root_domain(rcu_dereference_sched(cpu_rq(cpu)->rd));
+ }
+ 
+ static void switched_from_dl(struct rq *rq, struct task_struct *p)
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index f79fcba4afec..51b28440d05d 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -7865,13 +7865,10 @@ static inline void set_rd_overutilized(struct root_domain *rd, bool flag)
+ 
+ static inline void check_update_overutilized_status(struct rq *rq)
+ {
+-	/*
+-	 * overutilized field is used for load balancing decisions only
+-	 * if energy aware scheduler is being used
+-	 */
++	struct root_domain *rd = rcu_dereference_sched(rq->rd);
+ 
+-	if (!is_rd_overutilized(rq->rd) && cpu_overutilized(rq->cpu))
+-		set_rd_overutilized(rq->rd, 1);
++	if (rd && !is_rd_overutilized(rd) && cpu_overutilized(rq->cpu))
++		set_rd_overutilized(rd, 1);
+ }
+ 
+ /* Runqueue only has SCHED_IDLE tasks enqueued */
+@@ -9500,7 +9497,7 @@ static int find_energy_efficient_cpu(struct task_struct *p, int prev_cpu)
+ 	unsigned long prev_delta = ULONG_MAX, best_delta = ULONG_MAX;
+ 	unsigned long p_util_min = uclamp_is_used() ? uclamp_eff_value(p, UCLAMP_MIN) : 0;
+ 	unsigned long p_util_max = uclamp_is_used() ? uclamp_eff_value(p, UCLAMP_MAX) : 1024;
+-	struct root_domain *rd = this_rq()->rd;
++	struct root_domain *rd = rcu_dereference_sched(this_rq()->rd);
+ 	int cpu, best_energy_cpu, target = -1;
+ 	int prev_fits = -1, best_fits = -1;
+ 	unsigned long best_actual_cap = 0;
+@@ -9704,7 +9701,7 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int wake_flags)
+ 		    cpumask_test_cpu(cpu, p->cpus_ptr))
+ 			return cpu;
+ 
+-		if (!is_rd_overutilized(this_rq()->rd)) {
++		if (!is_rd_overutilized(rcu_dereference_sched(this_rq()->rd))) {
+ 			new_cpu = find_energy_efficient_cpu(p, prev_cpu);
+ 			if (new_cpu >= 0)
+ 				return new_cpu;
+@@ -12690,13 +12687,15 @@ static inline void update_sd_lb_stats(struct lb_env *env, struct sd_lb_stats *sd
+ 		env->fbq_type = fbq_classify_group(&sds->busiest_stat);
+ 
+ 	if (!env->sd->parent) {
++		struct root_domain *rd = rcu_dereference_sched(env->dst_rq->rd);
++
+ 		/* update overload indicator if we are at root domain */
+-		set_rd_overloaded(env->dst_rq->rd, sg_overloaded);
++		set_rd_overloaded(rd, sg_overloaded);
+ 
+ 		/* Update over-utilization (tipping point, U >= 0) indicator */
+-		set_rd_overutilized(env->dst_rq->rd, sg_overutilized);
++		set_rd_overutilized(rd, sg_overutilized);
+ 	} else if (sg_overutilized) {
+-		set_rd_overutilized(env->dst_rq->rd, sg_overutilized);
++		set_rd_overutilized(rcu_dereference_sched(env->dst_rq->rd), sg_overutilized);
  	}
  
- 	atomic_inc(&rd->refcount);
--	rq->rd = rd;
-+	rcu_assign_pointer(rq->rd, rd);
+ 	update_idle_cpu_scan(env, sum_util);
+@@ -12942,8 +12941,10 @@ static struct sched_group *sched_balance_find_src_group(struct lb_env *env)
+ 	if (busiest->group_type == group_misfit_task)
+ 		goto force_balance;
  
- 	cpumask_set_cpu(rq->cpu, rd->span);
- 	if (cpumask_test_cpu(rq->cpu, cpu_active_mask))
+-	if (!is_rd_overutilized(env->dst_rq->rd) &&
+-	    rcu_dereference_all(env->dst_rq->rd->pd))
++	struct root_domain *rd = rcu_dereference_sched(env->dst_rq->rd);
++
++	if (rd && !is_rd_overutilized(rd) &&
++	    rcu_dereference_all(rd->pd))
+ 		goto out_balanced;
+ 
+ 	/* ASYM feature bypasses nice load balance check */
+@@ -14573,7 +14574,7 @@ static int sched_balance_newidle(struct rq *this_rq, struct rq_flags *rf)
+ 	if (!sd)
+ 		goto out;
+ 
+-	if (!get_rd_overloaded(this_rq->rd) ||
++	if (!get_rd_overloaded(rcu_dereference_sched(this_rq->rd)) ||
+ 	    this_rq->avg_idle < sd->max_newidle_lb_cost) {
+ 
+ 		update_next_balance(sd, &next_balance);
+diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
+index e6e5f8a2caaf..cb87741420b7 100644
+--- a/kernel/sched/rt.c
++++ b/kernel/sched/rt.c
+@@ -338,15 +338,18 @@ static inline bool need_pull_rt_task(struct rq *rq, struct task_struct *prev)
+ 
+ static inline int rt_overloaded(struct rq *rq)
+ {
+-	return atomic_read(&rq->rd->rto_count);
++	return atomic_read(&rcu_dereference_sched(rq->rd)->rto_count);
+ }
+ 
+ static inline void rt_set_overload(struct rq *rq)
+ {
++	struct root_domain *rd;
++
+ 	if (!rq->online)
+ 		return;
+ 
+-	cpumask_set_cpu(rq->cpu, rq->rd->rto_mask);
++	rd = rcu_dereference_sched(rq->rd);
++	cpumask_set_cpu(rq->cpu, rd->rto_mask);
+ 	/*
+ 	 * Make sure the mask is visible before we set
+ 	 * the overload count. That is checked to determine
+@@ -357,17 +360,20 @@ static inline void rt_set_overload(struct rq *rq)
+ 	 * Matched by the barrier in pull_rt_task().
+ 	 */
+ 	smp_wmb();
+-	atomic_inc(&rq->rd->rto_count);
++	atomic_inc(&rd->rto_count);
+ }
+ 
+ static inline void rt_clear_overload(struct rq *rq)
+ {
++	struct root_domain *rd;
++
+ 	if (!rq->online)
+ 		return;
+ 
++	rd = rcu_dereference_sched(rq->rd);
+ 	/* the order here really doesn't matter */
+-	atomic_dec(&rq->rd->rto_count);
+-	cpumask_clear_cpu(rq->cpu, rq->rd->rto_mask);
++	atomic_dec(&rd->rto_count);
++	cpumask_clear_cpu(rq->cpu, rd->rto_mask);
+ }
+ 
+ static inline int has_pushable_tasks(struct rq *rq)
+@@ -580,7 +586,7 @@ static int rt_se_boosted(struct sched_rt_entity *rt_se)
+ 
+ static inline const struct cpumask *sched_rt_period_mask(void)
+ {
+-	return this_rq()->rd->span;
++	return rcu_dereference_sched(this_rq()->rd)->span;
+ }
+ 
+ static inline
+@@ -608,7 +614,7 @@ bool sched_rt_bandwidth_account(struct rt_rq *rt_rq)
+ static void do_balance_runtime(struct rt_rq *rt_rq)
+ {
+ 	struct rt_bandwidth *rt_b = sched_rt_bandwidth(rt_rq);
+-	struct root_domain *rd = rq_of_rt_rq(rt_rq)->rd;
++	struct root_domain *rd = rcu_dereference_sched(rq_of_rt_rq(rt_rq)->rd);
+ 	int i, weight;
+ 	u64 rt_period;
+ 
+@@ -659,7 +665,7 @@ static void do_balance_runtime(struct rt_rq *rt_rq)
+  */
+ static void __disable_runtime(struct rq *rq)
+ {
+-	struct root_domain *rd = rq->rd;
++	struct root_domain *rd = rcu_dereference_sched(rq->rd);
+ 	rt_rq_iter_t iter;
+ 	struct rt_rq *rt_rq;
+ 
+@@ -1058,7 +1064,7 @@ inc_rt_prio_smp(struct rt_rq *rt_rq, int prio, int prev_prio)
+ 		return;
+ 
+ 	if (rq->online && prio < prev_prio)
+-		cpupri_set(&rq->rd->cpupri, rq->cpu, prio);
++		cpupri_set(&rcu_dereference_sched(rq->rd)->cpupri, rq->cpu, prio);
+ }
+ 
+ static void
+@@ -1073,7 +1079,8 @@ dec_rt_prio_smp(struct rt_rq *rt_rq, int prio, int prev_prio)
+ 		return;
+ 
+ 	if (rq->online && rt_rq->highest_prio.curr != prev_prio)
+-		cpupri_set(&rq->rd->cpupri, rq->cpu, rt_rq->highest_prio.curr);
++		cpupri_set(&rcu_dereference_sched(rq->rd)->cpupri, rq->cpu,
++			   rt_rq->highest_prio.curr);
+ }
+ 
+ static void
+@@ -1575,8 +1582,10 @@ select_task_rq_rt(struct task_struct *p, int cpu, int flags)
+ 
+ static void check_preempt_equal_prio(struct rq *rq, struct task_struct *p)
+ {
++	struct root_domain *rd = rcu_dereference_sched(rq->rd);
++
+ 	if (rq->curr->nr_cpus_allowed == 1 ||
+-	    !cpupri_find(&rq->rd->cpupri, rq->donor, NULL))
++	    !cpupri_find(&rd->cpupri, rq->donor, NULL))
+ 		return;
+ 
+ 	/*
+@@ -1584,7 +1593,7 @@ static void check_preempt_equal_prio(struct rq *rq, struct task_struct *p)
+ 	 * see if it is pushed or pulled somewhere else.
+ 	 */
+ 	if (p->nr_cpus_allowed != 1 &&
+-	    cpupri_find(&rq->rd->cpupri, p, NULL))
++	    cpupri_find(&rd->cpupri, p, NULL))
+ 		return;
+ 
+ 	/*
+@@ -1793,12 +1802,12 @@ static int find_lowest_rq(struct task_struct *task)
+ 	 */
+ 	if (sched_asym_cpucap_active()) {
+ 
+-		ret = cpupri_find_fitness(&task_rq(task)->rd->cpupri,
++		ret = cpupri_find_fitness(&rcu_dereference_sched(task_rq(task)->rd)->cpupri,
+ 					  task, lowest_mask,
+ 					  rt_task_fits_capacity);
+ 	} else {
+ 
+-		ret = cpupri_find(&task_rq(task)->rd->cpupri,
++		ret = cpupri_find(&rcu_dereference_sched(task_rq(task)->rd)->cpupri,
+ 				  task, lowest_mask);
+ 	}
+ 
+@@ -2189,16 +2198,17 @@ static inline void rto_start_unlock(atomic_t *v)
+ 
+ static void tell_cpu_to_push(struct rq *rq)
+ {
++	struct root_domain *rd = rcu_dereference_sched(rq->rd);
+ 	int cpu = -1;
+ 
+ 	/* Keep the loop going if the IPI is currently active */
+-	atomic_inc(&rq->rd->rto_loop_next);
++	atomic_inc(&rd->rto_loop_next);
+ 
+ 	/* Only one CPU can initiate a loop at a time */
+-	if (!rto_start_trylock(&rq->rd->rto_loop_start))
++	if (!rto_start_trylock(&rd->rto_loop_start))
+ 		return;
+ 
+-	raw_spin_lock(&rq->rd->rto_lock);
++	raw_spin_lock(&rd->rto_lock);
+ 
+ 	/*
+ 	 * The rto_cpu is updated under the lock, if it has a valid CPU
+@@ -2206,17 +2216,17 @@ static void tell_cpu_to_push(struct rq *rq)
+ 	 * update to loop_next, and nothing needs to be done here.
+ 	 * Otherwise it is finishing up and an IPI needs to be sent.
+ 	 */
+-	if (rq->rd->rto_cpu < 0)
+-		cpu = rto_next_cpu(rq->rd);
++	if (rd->rto_cpu < 0)
++		cpu = rto_next_cpu(rd);
+ 
+-	raw_spin_unlock(&rq->rd->rto_lock);
++	raw_spin_unlock(&rd->rto_lock);
+ 
+-	rto_start_unlock(&rq->rd->rto_loop_start);
++	rto_start_unlock(&rd->rto_loop_start);
+ 
+ 	if (cpu >= 0) {
+ 		/* Make sure the rd does not get freed while pushing */
+-		sched_get_rd(rq->rd);
+-		irq_work_queue_on(&rq->rd->rto_push_work, cpu);
++		sched_get_rd(rd);
++		irq_work_queue_on(&rd->rto_push_work, cpu);
+ 	}
+ }
+ 
+@@ -2277,7 +2287,7 @@ static void pull_rt_task(struct rq *this_rq)
+ 
+ 	/* If we are the only overloaded CPU do nothing */
+ 	if (rt_overload_count == 1 &&
+-	    cpumask_test_cpu(this_rq->cpu, this_rq->rd->rto_mask))
++	    cpumask_test_cpu(this_rq->cpu, rcu_dereference_sched(this_rq->rd)->rto_mask))
+ 		return;
+ 
+ #ifdef HAVE_RT_PUSH_IPI
+@@ -2287,7 +2297,7 @@ static void pull_rt_task(struct rq *this_rq)
+ 	}
+ #endif
+ 
+-	for_each_cpu(cpu, this_rq->rd->rto_mask) {
++	for_each_cpu(cpu, rcu_dereference_sched(this_rq->rd)->rto_mask) {
+ 		if (this_cpu == cpu)
+ 			continue;
+ 
+@@ -2392,7 +2402,7 @@ static void rq_online_rt(struct rq *rq)
+ 
+ 	__enable_runtime(rq);
+ 
+-	cpupri_set(&rq->rd->cpupri, rq->cpu, rq->rt.highest_prio.curr);
++	cpupri_set(&rcu_dereference_sched(rq->rd)->cpupri, rq->cpu, rq->rt.highest_prio.curr);
+ }
+ 
+ /* Assumes rq->lock is held */
+@@ -2403,7 +2413,7 @@ static void rq_offline_rt(struct rq *rq)
+ 
+ 	__disable_runtime(rq);
+ 
+-	cpupri_set(&rq->rd->cpupri, rq->cpu, CPUPRI_INVALID);
++	cpupri_set(&rcu_dereference_sched(rq->rd)->cpupri, rq->cpu, CPUPRI_INVALID);
+ }
+ 
+ /*
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index 26ae13c86b69..13a437032855 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -1256,7 +1256,7 @@ struct rq {
+ 	int membarrier_state;
+ #endif
+ 
+-	struct root_domain		*rd;
++	struct root_domain __rcu	*rd;
+ 	struct sched_domain __rcu	*sd;
+ 
+ 	struct balance_callback *balance_callback;
+diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
+index 21e816ad23ee..e6038effdf12 100644
+--- a/kernel/sched/topology.c
++++ b/kernel/sched/topology.c
+@@ -413,7 +413,8 @@ static bool build_perf_domains(const struct cpumask *cpu_map)
+ 	int i;
+ 	struct perf_domain *pd = NULL, *tmp;
+ 	int cpu = cpumask_first(cpu_map);
+-	struct root_domain *rd = cpu_rq(cpu)->rd;
++	struct root_domain *rd = rcu_dereference_protected(cpu_rq(cpu)->rd,
++							    lockdep_is_held(&sched_domains_mutex));
+ 
+ 	if (!sysctl_sched_energy_aware)
+ 		goto free;
+@@ -478,9 +479,8 @@ void rq_attach_root(struct rq *rq, struct root_domain *rd)
+ 
+ 	rq_lock_irqsave(rq, &rf);
+ 
+-	if (rq->rd) {
+-		old_rd = rq->rd;
+-
++	old_rd = rcu_dereference_protected(rq->rd, lockdep_is_held(&rq->__lock));
++	if (old_rd) {
+ 		if (cpumask_test_cpu(rq->cpu, old_rd->online))
+ 			set_rq_offline(rq);
+ 
+@@ -3462,7 +3462,8 @@ static void partition_sched_domains_locked(int ndoms_new, cpumask_var_t doms_new
+ 	for (i = 0; i < ndoms_new; i++) {
+ 		for (j = 0; j < n && !sched_energy_update; j++) {
+ 			if (cpumask_equal(doms_new[i], doms_cur[j]) &&
+-			    cpu_rq(cpumask_first(doms_cur[j]))->rd->pd) {
++			    rcu_dereference_protected(cpu_rq(cpumask_first(doms_cur[j]))->rd,
++						      lockdep_is_held(&sched_domains_mutex))->pd) {
+ 				has_eas = true;
+ 				goto match3;
+ 			}
 -- 
 2.55.0
 
