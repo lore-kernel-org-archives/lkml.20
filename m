@@ -1,57 +1,57 @@
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BE8A3A785A
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:33:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2248848C412
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:33:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787779996; cv=none; b=T6rUmZIq5MHIQn2XGure8fX2oxwsON8DURF+hgpP0Au0aQ69oSBIGolOhS52p0e2Yle/L+sGwT53SuuLs3yScpF/FUoGVRxzXMiAvOtoEyqQIEsCyV/txEqyihbqN41mHEPulGpiOGnvgVIRqOXuJ7wWTfCmELPa7vH/fJGnQhQ=
+	t=1787779999; cv=none; b=Nh6ne2h2MvlqBJJFKg6TLEyfRkgcf9UuM0oNC7H7TqWbQ5xazRcbzyP/OZgtwc69ECriOKMs/NLFtuniFZ9d5ZmbG7hdrEzktz3AZQO6SIa6KMF8YrOzyjXjZjSen3nUZVRQxnsEkUqZQbM5Z55bwiUOGIFV40qfyRn0Bytamqc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787779996; c=relaxed/simple;
-	bh=dsaCIkuhvZqCjTZVeCEPOV45bBjnIf2n5TfEJj18Yb0=;
+	s=arc-20240116; t=1787779999; c=relaxed/simple;
+	bh=1dubEWiH+wDpaRTr6xDH5FSSCgfhV3tA2a7yb409fro=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=Djp0Vp/6kEB5PbZAuHoElvkRljefB2gJOP+eH8HTLVQIlzk3ayTgy/9SWf0E8F8vBaxcMqelCk9BDZd2fIF+Yv2x0f6kZGx19zKh6ZUtgVnstSRTz9IhqVK5kwC5lOkNqQAZUYZgdyb+c9utwxwE/69KiXNnc47bb9XW1zGTllk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Ixan4xUQ; arc=none smtp.client-ip=209.85.215.200
+	 To:Cc:Content-Type; b=EasHG/SAbrIIu5AaQL+3hr/ASFohP4psyIPeVFA0MNgIuoiIPWm9QZmWAigfKofGbcQyl+14GrFYycscFHqlFAYQsfVENkinRpZF+W1OSugrLFAIID7EphkeFHfs0PBbhoul6D8MLNKk3p4WKtbvQ5xw4TtaE3YA6ltfI/vR2KE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=rvp5AY2S; arc=none smtp.client-ip=209.85.214.200
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Ixan4xUQ"
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc12e8e22b7so2978512a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:33:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="rvp5AY2S"
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2d55d8cd938so4620945ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:33:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787779994; x=1788384794; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1787779995; x=1788384795; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=l1eygQedJKM5ekEKsn/E9bXYihX3nGywRp8RfIbS/YY=;
-        b=Ixan4xUQea9JGSo9sfaaaA5G2Afb1fK8nv24uSr3maw5mEo6dbYrGj2QiLVFRcmtKj
-         kr1oA0MR+nnSx7+KpfUacFC6GNd8u4aoNOTZSReu2AR3ExvkdeRru2szuYnzO01iQOJE
-         3NkOstxS+tJ3wSv2zoWqSzyVkpdSCQ9c/qCiKU2JsiLQKLSsjS7orfxB5yqIfIKUK20d
-         It8qSa31O4TotRd+CA5SMr82oTyGWKEngZjf/z7Y26ID/Ej+mvs3Pp0G7YyMApJMgWEv
-         GHOSNoN3cNWP7oqBbyOl1gA03IgrIqHU5JOfXNUYmHYLDNIJ/lumpUPZoVHf1V6SLKG0
-         oIqA==
+        bh=iaeGWHwlG+AWk9QHVwY9V6qXxKpEzxckDrOJKqWFOA8=;
+        b=rvp5AY2SqLRucYy7MFVva3mw9Zl9G3aLWfuJouawTo1NwwhJLPALb4wkkOnClPIYT0
+         FRl8ihJQmHzjKHcR7limoh7n6Ql7snRhviz6Afz5/zGeMBao6ZuSJ1EPaVsMWFBUMtGP
+         iXaLICt8ucwFsEKfVuj25AUQCJ19e9MXnAvZKQ5h1d+Xe0NfiuKwcaFd7Qc0azlfBrQH
+         HJgxtl+wuDwvPROgsFPZmgFeexyTCQjWzdaysgRqJmWso3VMyXz1h1mo4YmD/gEmCi97
+         MtlXp7Hip17f5cicXEV76DT5ZbzeEhwkj5Mu8r+GhSkg/5q0C74NdOHjhwFu5m0oa0uz
+         YVoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787779994; x=1788384794;
+        d=1e100.net; s=20251104; t=1787779995; x=1788384795;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=l1eygQedJKM5ekEKsn/E9bXYihX3nGywRp8RfIbS/YY=;
-        b=GGDYdq3COQNBYFlsHokdzZ8KZeaALEFqG8qi5BjiY5hyVoWeb5FpHa5NnFtU1h7YPQ
-         xjugEUZUp9p8fqL3dMMpfRU3QlSIpI/HKOS/Wqmq2mVNywr3IXZJcw1UZ4Fr39WZUEZw
-         VvurIjqMX8YS7o3kuBozt7aX3qIMAkzc7UATcHrqLTc3Qfq1un7eMR+/2kxY4RRVC9+l
-         NC2k3Vz8uXt28GuPCM8czioaeJ4yzkeLKuCu1V77vSXXHl0NTt5mtp9qMAJdpUoM5sdx
-         Waaf6FEB7lnHnULzC2xZUw2slF+Nwr0oioNwEHKZo+gCeM4ITZsHjI67NuAvtBGD9aUd
-         UxRw==
-X-Forwarded-Encrypted: i=1; AHgh+RpNLfAx7Y9eEy6c3yo7yQg/xIIhLB7R9T2lfbD/8QrPzUUYIx5m0l13jPKffa95lhcWRYxTSyrJg2v6PH8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kZ00KYK228M9Ti62mwzjTInevMo8cDFFhon+Bgy9yylTniLCVi
-	WRikQ83YVJkfSqkDuoOScAmvT38xVLDEsoU9zaS/frLCoeDdhzzdccuauq/O9BC8/5eUoIJX4h1
-	L1BIXSg==
-X-Received: from pgbs63.prod.google.com ([2002:a63:5e42:0:b0:cbe:947d:d145])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:9c86:b0:3c3:bbe6:95c7
- with SMTP id adf61e73a8af0-3cf84e4b0f8mr20727681637.17.1787779994090; Wed, 26
- Aug 2026 14:33:14 -0700 (PDT)
+        bh=iaeGWHwlG+AWk9QHVwY9V6qXxKpEzxckDrOJKqWFOA8=;
+        b=gigkagZefi40UWP9+1DUq0TUQEuqdYbd3V2jIGhDG8CWYdJ3MisYoV4pBZOga2XBRT
+         XpzrF+4C1g1ERdzOE8Kg3nMvLsiyZe7tTqwNh9+NGS5239WY8hEvX8yioOKeim2sE82U
+         +Y8rnKLZs3VMWSy5vocynqswH0+0fStO1GHWSTyLBFDMzv5tcPimP22Ouzvdg8gE4xd+
+         fTUjQm3Y8+3ZR511jLuZ52aKngE2dSl1nly+XEI0UOpXCc6+DmmR6n5aT2EFznxera/u
+         rTkwcg/e1/PzBmg6Bg6WFIskZY5GIKCcTmOkoZjK//32vHcdR4zpUv6XZ/+PsY3gbk3g
+         6juw==
+X-Forwarded-Encrypted: i=1; AHgh+RpKfVo6v0WXP7flnNYHeLfpdb4agIxKDDXCXXN0edjfwb4kCc1w9iJVSlIUj27m08UXAVhYxkZlik33zLQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mG7p1zwDL3nKChzK46ygPcsJZNAe3Li4WAYLtkT2QCXxmo1IPQ
+	nKofeIeYR18R7aVGytJjYMvvBUBDqvi3s6q4nsDaUgPUPDMuj1cR0N8x+ksqgTK7GuOCDM/ZT2x
+	TmXdTpg==
+X-Received: from plbmq13.prod.google.com ([2002:a17:902:fd4d:b0:2ca:cf09:91ca])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:120c:b0:2c6:90ec:f601
+ with SMTP id d9443c01a7336-2d707aaad36mr147369515ad.8.1787779995135; Wed, 26
+ Aug 2026 14:33:15 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Wed, 26 Aug 2026 14:32:48 -0700
+Date: Wed, 26 Aug 2026 14:32:49 -0700
 In-Reply-To: <20260826213303.914988-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -61,87 +61,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260826213303.914988-1-seanjc@google.com>
 X-Mailer: git-send-email 2.55.0.887.g758fc8c411-goog
-Message-ID: <20260826213303.914988-9-seanjc@google.com>
-Subject: [PATCH v10 08/21] KVM: x86: Move "no master clock" fallback from
- __get_kvmclock() to get_kvmclock()
+Message-ID: <20260826213303.914988-10-seanjc@google.com>
+Subject: [PATCH v10 09/21] KVM: x86: Wrap all of __get_kvmclock_master_clock()
+ with CONFIG_X86_64=y
 From: Sean Christopherson <seanjc@google.com>
 To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
 Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	Paul Durrant <paul@xen.org>, David Woodhouse <dwmw@amazon.co.uk>, Dongli Zhang <dongli.zhang@oracle.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Move the fallback logic for getting the current kvmclock when not in master
-clock mode out of __get_kvmclock() and into its sole caller, get_kvmclock().
-This will allow using early-return logic in the master clock code, without
-having to resort to a do-while() loop and/or gotos.
+From: David Woodhouse <dwmw@amazon.co.uk>
 
-No functional change intended.
+Wrap the entire use_master_clock block in #ifdef CONFIG_X86_64, since
+use_master_clock is never true on 32-bit (host_tsc_clocksource is only
+set under CONFIG_X86_64), and declare hv_clock inside the block so it is
+not left as an unused variable on 32-bit.
 
+Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+[sean: keep only the CONFIG_X86_64 ifdef, update changelog accordingly]
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/x86/kvm/x86.c | 21 +++++++++++++++------
- 1 file changed, 15 insertions(+), 6 deletions(-)
+ arch/x86/kvm/x86.c | 33 ++++++++++++++++-----------------
+ 1 file changed, 16 insertions(+), 17 deletions(-)
 
 diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index 75b689ec074d..4f98cc71a671 100644
+index 4f98cc71a671..64df8da3aad4 100644
 --- a/arch/x86/kvm/x86.c
 +++ b/arch/x86/kvm/x86.c
-@@ -1653,12 +1653,16 @@ static unsigned long get_cpu_tsc_khz(void)
- }
- 
- /* Called within read_seqcount_begin/retry for kvm->pvclock_sc.  */
--static void __get_kvmclock(struct kvm *kvm, struct kvm_clock_data *data)
-+static bool __get_kvmclock_master_clock(struct kvm *kvm,
-+					struct kvm_clock_data *data)
+@@ -1656,8 +1656,10 @@ static unsigned long get_cpu_tsc_khz(void)
+ static bool __get_kvmclock_master_clock(struct kvm *kvm,
+ 					struct kvm_clock_data *data)
  {
++#ifdef CONFIG_X86_64
  	struct kvm_arch *ka = &kvm->arch;
  	struct pvclock_vcpu_time_info hv_clock;
++	struct timespec64 ts;
  	u64 tsc_hz;
  
-+	if (!ka->use_master_clock)
-+		return false;
-+
- 	/*
- 	 * Snapshot and validate the TSC frequency as kvmclock_cpu_down_prep()
- 	 * zeros the per-CPU value when a CPU is going offline.
-@@ -1667,8 +1671,10 @@ static void __get_kvmclock(struct kvm *kvm, struct kvm_clock_data *data)
- 	tsc_hz = (u64)get_cpu_tsc_khz() * HZ_PER_KHZ;
- 	put_cpu();
+ 	if (!ka->use_master_clock)
+@@ -1674,27 +1676,24 @@ static bool __get_kvmclock_master_clock(struct kvm *kvm,
+ 	if (!tsc_hz)
+ 		return false;
  
--	data->flags = 0;
--	if (ka->use_master_clock && tsc_hz) {
-+	if (!tsc_hz)
-+		return false;
-+
-+	{
- #ifdef CONFIG_X86_64
- 		struct timespec64 ts;
- 
-@@ -1686,9 +1692,9 @@ static void __get_kvmclock(struct kvm *kvm, struct kvm_clock_data *data)
- 				   &hv_clock.tsc_shift,
- 				   &hv_clock.tsc_to_system_mul);
- 		data->clock = __pvclock_read_cycles(&hv_clock, data->host_tsc);
--	} else {
--		data->clock = get_kvmclock_base_ns() + ka->kvmclock_offset;
+-	{
+-#ifdef CONFIG_X86_64
+-		struct timespec64 ts;
+-
+-		if (kvm_get_walltime_and_clockread(&ts, &data->host_tsc)) {
+-			data->realtime = ts.tv_nsec + NSEC_PER_SEC * ts.tv_sec;
+-			data->flags |= KVM_CLOCK_REALTIME | KVM_CLOCK_HOST_TSC;
+-		} else
+-#endif
++	if (kvm_get_walltime_and_clockread(&ts, &data->host_tsc)) {
++		data->realtime = ts.tv_nsec + NSEC_PER_SEC * ts.tv_sec;
++		data->flags |= KVM_CLOCK_REALTIME | KVM_CLOCK_HOST_TSC;
++	} else {
+ 		data->host_tsc = rdtsc();
+-
+-		data->flags |= KVM_CLOCK_TSC_STABLE;
+-		hv_clock.tsc_timestamp = ka->master_cycle_now;
+-		hv_clock.system_time = ka->master_kernel_ns + ka->kvmclock_offset;
+-		kvm_get_time_scale(NSEC_PER_SEC,  tsc_hz,
+-				   &hv_clock.tsc_shift,
+-				   &hv_clock.tsc_to_system_mul);
+-		data->clock = __pvclock_read_cycles(&hv_clock, data->host_tsc);
  	}
-+
-+	return true;
+ 
++	data->flags |= KVM_CLOCK_TSC_STABLE;
++	hv_clock.tsc_timestamp = ka->master_cycle_now;
++	hv_clock.system_time = ka->master_kernel_ns + ka->kvmclock_offset;
++	kvm_get_time_scale(NSEC_PER_SEC,  tsc_hz,
++				&hv_clock.tsc_shift,
++				&hv_clock.tsc_to_system_mul);
++	data->clock = __pvclock_read_cycles(&hv_clock, data->host_tsc);
+ 	return true;
++#else
++	return false;
++#endif
  }
  
  static void get_kvmclock(struct kvm *kvm, struct kvm_clock_data *data)
-@@ -1697,8 +1703,11 @@ static void get_kvmclock(struct kvm *kvm, struct kvm_clock_data *data)
- 	unsigned seq;
- 
- 	do {
-+		data->flags = 0;
-+
- 		seq = read_seqcount_begin(&ka->pvclock_sc);
--		__get_kvmclock(kvm, data);
-+		if (!__get_kvmclock_master_clock(kvm, data))
-+			data->clock = get_kvmclock_base_ns() + ka->kvmclock_offset;
- 	} while (read_seqcount_retry(&ka->pvclock_sc, seq));
- }
- 
 -- 
 2.55.0.887.g758fc8c411-goog
 
