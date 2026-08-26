@@ -1,44 +1,45 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-181.mta1.migadu.com [95.215.58.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A19193B19CF;
-	Wed, 26 Aug 2026 18:34:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97FDF3AD50B
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 18:35:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787769274; cv=none; b=HjncrzSwAACXqnfJWuoLHqvLj89g0O+TIQwCEAEtV8YkAufoqFEVIXtUUzKhWOp3OH4+eZQZWhmoznYubJNNPVr4DOSCZZfHqU94EdGeqZuiD2WSL+eDFLlWkem23WGY1VLZXqgl3Qe29xNwoB0y/SlZEVMh8GSAVhdY3RFjb2k=
+	t=1787769357; cv=none; b=VvDUpyHkuIOBfSwHN7NpPS1oY2Ch5OcRq/7Jc2PLD4b0z0m58LMa1QrW4xjDm518awmXDYdrDcvcpMpIQFe3GP8YB6dHEZHjDoVh46wMl5zU1pbbCaPY9teaZ4fQwtSMmONfgr2TbbuXWhcP4hxlpDn2Yf9+ojyzH+0Ol5F7vBU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787769274; c=relaxed/simple;
-	bh=WoKEstAxHN2E8coeOmacYjFPwFjlhZ4GC5UqV0xV+ec=;
+	s=arc-20240116; t=1787769357; c=relaxed/simple;
+	bh=ZyrhrAm7j38NGOmipO+o+kjkSYfh0FE7Hm9WXO5o6LA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=adXW2CZGU/d5Fr+VOlP+WmHtgKhx/32jDwlmMzTH0PJBu4aWkTc0FnorAYbvrqMcijPQmarddG/sSK9wCBUWM/snMtMmzBvuBlIRnlp16DaPrr1YUXqs5D7JXsHxMPZeJO+WIF0m/buGQScsnaI7d0T9uEPVVQzzbD92Kht9MZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KkUTzNSF; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=MNaZZJG2CmLef2FIIbuS3Fqk+WqADyrFNifrSLif02raVaN3P9kJ7hE3cz7yzEo7o0P8RUHRal3tMkI0jpVCciVF/T526ue7mvpAQMQ+qsoK1KMylaSBIU/lYv7LMwZK1LZnxLv7oJU/ZRFvj86phHBXRzMf4OCblNr7jmhRtsI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=hhDrfRDY; arc=none smtp.client-ip=95.215.58.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KkUTzNSF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05F381F00A3D;
-	Wed, 26 Aug 2026 18:34:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787769258;
-	bh=hMvR2B7tAETH9ilflu7XXJD3qyRuNdLa73zRpfKhV1k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KkUTzNSFhAoWXKwQXA6M4TTtSaBpxTjpepIYzOXcRqCXxrjBXhmQ3VlBTQR1NYZur
-	 pLHslNH6g/a3iZ6Qi4YmBJgi50O55x+Eah1L6a9Mx/0vV942vnx4X9td8LglXlxlLt
-	 uAxJQ6hX1M+OUhcgfBEiHj2GIHaz2Tp5+9pJU8YWvO1MbcM79oOeK3BNRV96fQueCU
-	 puU17gPiypEbLjmBn57hUwJjE4JAyOSF8gCvEi5JwT9BmgCts/LC1X1MHL06+k2v1v
-	 HOzqBNYJkBDtQd6msCNejJK5gfZdp6A5RU5R2ExhYRe5/LE5HgxheX/U0lJMJNr79i
-	 HcajBbbvtKWqQ==
-Date: Wed, 26 Aug 2026 12:34:16 -0600
-From: Keith Busch <kbusch@kernel.org>
-To: David Howells <dhowells@redhat.com>
-Cc: Jens Axboe <axboe@kernel.dk>, Hannes Reinecke <hare@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Paulo Alcantara <pc@manguebit.org>, netfs@lists.linux.dev,
-	linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] block: Fix start and length check added to
- iov_iter_extract_bvecs()
-Message-ID: <ao8xqMXoCfj4AWUw@kbusch-mbp>
-References: <1819786.1787768317@warthog.procyon.org.uk>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="hhDrfRDY"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ZyrhrAm7j38NGOmipO+o+kjkSYfh0FE7Hm9WXO5o6LA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787769346; v=1; x=1788374146;
+ b=hhDrfRDYhKkfpSwP9PNCv6Uakdp4iyxNRK9IYGEw6fc0T9fBe+6KkcbdIto8F+rvWFfzIL2a
+ LzucZZv8LnyK9Ou0J+wMdvcIkyok/GhLLfVtAgBN6AhAg53uFvt6UiJsUkgSqWFSwHMACzX9dPr
+ txGaB6Xr/bs9Cb9Y0gytDlJI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: from localhost (2a03:2880:10ff:b::)
+	by smtp.migadu.com with ESMTPS id eb79b8ec4e60aea3;
+	Wed, 26 Aug 2026 18:35:45 +0000
+X-Mizu-Trace-ID: eb79b8ec4e60aea3
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 26 Aug 2026 11:35:44 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Hongfu Li <hongfu.li@linux.dev>
+Cc: hannes@cmpxchg.org, mhocko@kernel.org, roman.gushchin@linux.dev, 
+	muchun.song@linux.dev, akpm@linux-foundation.org, cgroups@vger.kernel.org, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, Hongfu Li <lihongfu@kylinos.cn>
+Subject: Re: [PATCH] mm/memcontrol: remove unused memcg parameter in
+ calculate_high_delay()
+Message-ID: <ao8x787ZgJvUvhbr@linux.dev>
+References: <20260825120153.1405-1-hongfu.li@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,28 +48,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1819786.1787768317@warthog.procyon.org.uk>
+In-Reply-To: <20260825120153.1405-1-hongfu.li@linux.dev>
 
-On Wed, Aug 26, 2026 at 07:18:37PM +0100, David Howells wrote:
-> @@ -1921,15 +1921,19 @@ ssize_t iov_iter_extract_bvecs(struct iov_iter *iter, struct bio_vec *bv,
->  		unsigned short max_vecs, unsigned mem_align_mask,
->  		iov_iter_extraction_t extraction_flags)
->  {
-> -	unsigned long start = (unsigned long)iter_iov_addr(iter);
->  	unsigned short entries_left = max_vecs - *nr_vecs;
->  	unsigned short nr_pages, i = 0;
->  	size_t left, offset, len;
->  	struct page **pages;
->  	ssize_t size;
->  
-> -	if ((start | iter_iov_len(iter)) & mem_align_mask)
-> +	if (iov_iter_alignment(iter) & mem_align_mask) {
-> +		pr_warn("%u %zx %x\n",
-> +			iter->iter_type,
-> +			iov_iter_alignment(iter),
-> +			mem_align_mask);
->  		return -EINVAL;
-> +	}
+On Tue, Aug 25, 2026 at 08:01:53PM +0800, Hongfu Li wrote:
+> From: Hongfu Li <lihongfu@kylinos.cn>
+> 
+> The memcg argument of calculate_high_delay() is never referenced in
+> its function body. The delay calculation only depends on nr_pages
+> and max_overage, and both callers have already obtained max_overage
+> from the same memcg.
+> 
+> Drop this unused parameter and update the two call sites inside
+> __mem_cgroup_handle_over_high().
+> 
+> Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
 
-iov_iter_alignment loops over all the vectors when we only need to
-examine the current one here.
+Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
+
