@@ -1,153 +1,186 @@
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 310203F7AB7
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:51:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79EBE4302E1
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:53:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787752301; cv=none; b=JvBT/gVQOFOv0ujo8ruCsPHbADVh/SdPOSQ+31OpipgQk2qfbAgm2mYeb5qHFo1cR9EFtjpeAe870YLjR8AZHTfqcRBIm/lvWas2Yz69+J8O+yXSOgLuTfX9c9Scmg0AAe7F+OOumvykufGmaVWphoX/QzYR23P621lwhsYr7So=
+	t=1787752401; cv=none; b=Ob98WjPQLEB/eVM7Rp6ZvAFMg4nfXHxTiA8RzRUNhvz6AJkgnr0gye0ld+y22klf8gFRyNhCpGjJvW4JpJO4RDXvxSP5rHCbTK/LZUW64321lDw4vDMNNv2E9P5Dr+Qq9dfdYi3Yy5rkx9e6N/+n379MP67+Le771t1fje2I69Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787752301; c=relaxed/simple;
-	bh=6cJLbxmwrbnOZzvacudiX7h+5irz8rWOFyxkz+s+TBQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PRnhzpzBCRIZGnYPk5yOz6a350V24scsBqVdhh7vzAH4XFm/ZII8dJ3oCBM4m+wBNIpqmE6JvFNQeO59tds1w3iXhT/Fo759gDyUvG6KtK/smtHMSzdPD0OHJ+H9fGX0NOInHPHCzkEYGSeBv1rirJG+9lYvIBS+wxtkE3MO9eQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=F2LVoGrw; arc=none smtp.client-ip=209.85.208.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1787752401; c=relaxed/simple;
+	bh=aKI/UKGte84OVTfWfIAvvMaWsDxT45eGHGOViohEC78=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=pzIQiH64FSwGG0oMp+2frnag/bNEu4DXEfo95q5S7chHY3k+ZGKBm+gVkJfcqTaZaXYCUmPu4NfU9QotAAYjq6tFNmUQfHc5xz7JRDnJvrvFUJtZwd5unWTHIM6yMpuIZC04RMYHcmQTaiipnB7Lp712h2MYhLlBCbjqjyhRSVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Fw9M22+/; arc=none smtp.client-ip=209.85.214.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="F2LVoGrw"
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6a0a4aa99bdso1644390a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 06:51:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Fw9M22+/"
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d6df0a1e18so14071105ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 06:53:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1787752297; x=1788357097; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=AbPejUodpTpH54o/OlTk5uSnDzYs9pRHjviJEkIAHGI=;
-        b=F2LVoGrwdrNuskXbD00mAsi4boQFqiZZ296Q/X1gk/GVXL2kVWas/e0f+lLvMPUJxG
-         7kSaTve9wN5lxuhcgzt63c1wd5RCFMJYwjI7FYI1CbJyjzNDKFkbZScdHaRwmMtxAy1O
-         SAgI9i7wWZZc9s2W9mxJP/21OnRcUBlv3az1vaSvXqQNqVHypoSRk7to7lyoXI5hdxHS
-         tmFYAG7VdYM4iqWOaR2QtbQukyaIbo4ozFZxoyym5b2PfJexyqxoTbG2IeFGZ+cVGy6H
-         ld3shcmGzQeKrmg6lsYE9G6R8mFPpUYJfTXfJtgEPhNlknmU9sEp1kFXc6GwXJN3KmM1
-         //Cg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787752297; x=1788357097;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1787752391; x=1788357191; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=AbPejUodpTpH54o/OlTk5uSnDzYs9pRHjviJEkIAHGI=;
-        b=Jc8ZLFaWvAmpMqtA5gtUQgVQ2l/JbJzATqyueh8KJm6K0t7wJZGb3WNGs+ZarwXgzf
-         h0TLJilt6dpPm6y+qo2tBhI8YdWqLD5o7lKESN2HyPXft1yHrTiztVA3Cg8NbvmBJ/tI
-         /odzt96vcBtR5B2QU1hEPXIwv57XvChNWVswhZNDGx3T3yDxZT+z2EY9d3gA5/ICirSC
-         HguLs7GAxX6Hx1HN3ZLKHbNWBofs7XeFUo2TVxMG4hmBDX0LQDcDC0rj0vRjuzi3Y/fy
-         i1uOLNS8g1+UiGse8EizOo8DXlzf03Mv0XAnXz+SYsLjUM0Dr7DbkXfHXLMWssbst9S8
-         bvgQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqdjhD3PVCjal/6K8XByiW0rD7dGxHCADZMmahfQxMjoGo/EqmfJWwvjbcsILW4J23xyRV53R2sIEhF7R8=@vger.kernel.org
-X-Gm-Message-State: AFuF++n2bQGKOf/YTAWANypxQbLBls1eDthPJo+giXT/rqqh/NTLGR/l
-	MsHeV0g7NExWQD4yA/8nwsyM1+kLQ2p6dEZ68YETzHjrRF3DSzJV8arg04YL/eQZqnc=
-X-Gm-Gg: AR+sD10RjwmpxE4KSETTHq6vk7WxW8UDnERegNp5Jfx8T7tnUbsNfIs4KsOyiRkIQj+
-	aeR/+igyo3YT696hdr4JNS355DkY2Yky5jArQUxqTogZ6vv57lhmFWCqNcT7Ze2erNW/sijlyB4
-	jmCd8jeduT1LS5brXqiVEzNQ4qxYJQy+DwXZENcfa6evj7EnzF5ixeyJX/0L4Z4VxnG+bu8k/4t
-	XzNunh4pgsVfiLCoqW7yBLjrgwYBrCerUF79rtWHjKOvWl4+M9NQpJO6nrEdfgKsq/vUxrT0Aki
-	BWNNW+SWlyrYd2QkVz213HMcPtRXNj+9F8v6o0jiNbpmeq6hqkkGaI0M1GNypHML0jkmo9zntH6
-	/kJKNGT5xS5ycF7DRA4TyEdHXPIfLIySQRaxpBJRlYekNBnKdontwSZAM/EX/6t0sJVJJ2uTOzn
-	N+RMwXH+EwFwkR4cfPdyTBirh5UmNcyyxbeJR8ukMe9FdHBwqYuyQtjlqd2f94Sp/qShNGAZTQ
-X-Received: by 2002:a05:6402:2108:b0:6a1:fd14:8832 with SMTP id 4fb4d7f45d1cf-6a5df64107fmr9294664a12.12.1787752297409;
-        Wed, 26 Aug 2026 06:51:37 -0700 (PDT)
-Received: from localhost (109-81-80-32.rct.o2.cz. [109.81.80.32])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a5de8d1c80sm3494104a12.10.2026.08.26.06.51.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 06:51:36 -0700 (PDT)
-Date: Wed, 26 Aug 2026 15:51:35 +0200
-From: Michal Hocko <mhocko@suse.com>
-To: Ridong Chen <ridong.chen@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	David Hildenbrand <david@kernel.org>, Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Roman Gushchin <roman.gushchin@linux.dev>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, Ridong Chen <chenridong@xiaomi.com>
-Subject: Re: [PATCH] mm/vmscan: drop the combined limit gate in
- __node_reclaim()
-Message-ID: <ao7vZ8EBHgU_CRpQ@tiehlicka>
-References: <20260826124409.35569-1-ridong.chen@linux.dev>
+        bh=njsQrhr1Rw86G3MMqhXpdm0dYelYnqk43kJ0tkWzOHc=;
+        b=Fw9M22+/3+Tuh6ZV/JJEkAFj+RlBK2Q9Is5LYK1aJGSvAYYPdH8byGaD9gmmbxiezq
+         Pws3Ue36HCIptbD8j+oui5RPC+ySOg8GWSwO11fCaJQ++8OhIgiyozKW0Jwj4/bR5ad8
+         15VmAThVs+G8fUQ8R8c/4a4RIqKteUfeRkW1pChn7iLi4mIjVIPbrFZ03L89l+8rNdbF
+         U+sVGh++kCaYC0e0vCVvSoCRsYBYAIEd4Z0mu+N89q/NYltvTvhPE3T7Audf8zSnNxeP
+         7D22SHuL+0zRKUoYVrojsO/83fUXSG5UXu+PgNEFV0uKGVQ8aaEqbMs2mH8eojYT2Dle
+         j6Sw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787752391; x=1788357191;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=njsQrhr1Rw86G3MMqhXpdm0dYelYnqk43kJ0tkWzOHc=;
+        b=Ty9pE50B76Y2vxEW/1PeSOPiJ2S7/Sx78/QQNAUSc1yftmdtPG1ucMXesedvzQFUgg
+         LfjXx485jTKEKB0ct0CuVZ2MqicUW6BCMWr7iIN+oCF6TdiarTC1Go0xzLTeuDCxzDlu
+         n6k/zf550NthyZdZ58CqBQdSlyj0cilhqUGDeQJhZdtZsNCi1xPCKC94sstjeEu5nbnd
+         kB6Ozgyb7eUduhjsZmj3VoPV2+NEqYxwMi9xvxt+YrIEUCggUCr7rRbgH0bQk31sxReE
+         GuxxnMCPHeZHaTsfijPzgejXrvenkKjUYnF6gknm6dgG0mXbfgFDw2DbmPUmc4dV90uT
+         eBeA==
+X-Forwarded-Encrypted: i=1; AHgh+RpuY0iIICMX6geYEY7lNHBBL/UgSXa0zX2PhQ/pD7o4MVNjS/qcFzo+Pe+ISO//Y67maoetDSUaFOFNyDU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mOpIf6zAJ7VLxrpojZpEM2emL/SW6AB115T3UUCAngVTCeEUeS
+	fDRnDtasn2XenRDlNEs87KkZyW9oRJrDJV5fFxrSi1IBXYHSzKGebvdrY20njW99Bp8XDXe56Sa
+	q82osog==
+X-Received: from plnn1.prod.google.com ([2002:a17:902:d0c1:b0:2c8:1ded:d061])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:c40a:b0:2d7:1bfd:b240
+ with SMTP id d9443c01a7336-2d71bfdb766mr27401015ad.4.1787752388141; Wed, 26
+ Aug 2026 06:53:08 -0700 (PDT)
+Date: Wed, 26 Aug 2026 06:53:07 -0700
+In-Reply-To: <CAEvNRgFXJbV78ktsg=b4srFp1OFjtQWQGuNPjr_MmWD-wOvjgw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260826124409.35569-1-ridong.chen@linux.dev>
+Mime-Version: 1.0
+References: <20260807-gmem-inplace-conversion-v10-9-2fc18ee6d3ba@google.com>
+ <13ca60c6-e154-4397-8092-09f861e90fe0@kernel.org> <cbf5f7ca-a960-4fb8-a760-2d2794eb6864@arm.com>
+ <CAEvNRgGOyQHnF_b8dk8E0d7_=CcwXtYUdU3ko7Qbep+_O7UC0Q@mail.gmail.com>
+ <aoZZMQ3Uc8yQWPNA@google.com> <7eba513d-cdae-4832-abac-038dcdd88517@intel.com>
+ <meww2a2uf3yeevsfpicyrlg3hch2x4bsdqv2lsv3vfjxg4qzes@co5eogmhkxrk>
+ <ao3lOu8-wpGTs2wd@google.com> <ba8d0441-b52f-4357-b2e7-1e352aa385a2@intel.com>
+ <CAEvNRgFXJbV78ktsg=b4srFp1OFjtQWQGuNPjr_MmWD-wOvjgw@mail.gmail.com>
+Message-ID: <ao7vwx3nMqCjCHZU@google.com>
+Subject: Re: [PATCH v10 09/41] KVM: guest_memfd: Filter both shared and
+ private when invalidating
+From: Sean Christopherson <seanjc@google.com>
+To: Ackerley Tng <ackerleytng@google.com>
+Cc: Xiaoyao Li <xiaoyao.li@intel.com>, Michael Roth <michael.roth@amd.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, "David Hildenbrand (Arm)" <david@kernel.org>, aik@amd.com, 
+	andrew.jones@linux.dev, binbin.wu@linux.intel.com, brauner@kernel.org, 
+	chao.p.peng@linux.intel.com, jmattson@google.com, jthoughton@google.com, 
+	oupton@kernel.org, pankaj.gupta@amd.com, qperret@google.com, 
+	rick.p.edgecombe@intel.com, rientjes@google.com, shivankg@amd.com, 
+	steven.price@arm.com, tabba@google.com, willy@infradead.org, 
+	wyihan@google.com, yan.y.zhao@intel.com, forkloop@google.com, 
+	pratyush@kernel.org, aneesh.kumar@kernel.org, liam@infradead.org, 
+	Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Shuah Khan <shuah@kernel.org>, Vishal Annapurve <vannapurve@google.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, Youngjun Park <youngjun.park@lge.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Baoquan He <baoquan.he@linux.dev>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, tarunsahu@google.com, 
+	Vlastimil Babka <vbabka@kernel.org>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-mm@kvack.org, 
+	linux-coco@lists.linux.dev
+Content-Type: text/plain; charset="us-ascii"
 
-On Wed 26-08-26 20:44:09, Ridong Chen wrote:
-> From: Ridong Chen <chenridong@xiaomi.com>
+On Wed, Aug 26, 2026, Ackerley Tng wrote:
+> Xiaoyao Li <xiaoyao.li@intel.com> writes:
 > 
-> __node_reclaim() is called from two paths: node_reclaim() and
-> user_proactive_reclaim().
-> 
-> node_reclaim() already bails out early unless node_pagecache_reclaimable()
-> is over pgdat->min_unmapped_pages or the reclaimable slab is over
-> pgdat->min_slab_pages.  The identical check inside __node_reclaim() that
-> guards the shrink_node() loop is therefore redundant for this path.
-> 
-> user_proactive_reclaim() is proactive reclaim driven by userspace and
-> should not be gated by the per-node min_unmapped_pages / min_slab_pages
-> limits at all [1].  With the gate in place, a proactive request is silently
-> turned into a no-op whenever the node happens to sit below both
-> thresholds.
-> 
-> Drop the gate in __node_reclaim() and always run the shrink_node() loop.
-> The node_reclaim() path is unchanged, since its caller has already applied
-> the same test; the proactive path is no longer wrongly gated.
-> 
-> [1] https://sashiko.dev/#/patchset/20260723045718.2052070-1-ridong.chen@linux.dev
-> Fixes: b980077899ea ("mm: introduce per-node proactive reclaim interface")
-> Assisted-by: Claude:claude-opus-4-8
-> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
-> Acked-by: Johannes Weiner <hannes@cmpxchg.org>
+> > On 8/26/2026 2:55 AM, Sean Christopherson wrote:
+> >> On Tue, Aug 25, 2026, Michael Roth wrote:
+> >>> On Wed, Aug 26, 2026 at 12:13:47AM +0800, Xiaoyao Li wrote:
+> >>>> On 8/20/2026 9:32 AM, Sean Christopherson wrote:
+> >>>>> And vice versa, a PUNCH_HOLE on a SHARED gmem (if userspace is
+> >>>>> using an INIT_SHARED gmem for the shared branch of a memslot) could invalidate the
+> >>>>> PRIVATE mappings (of a different gmem instance).
+> >>>>
+> >>>> I'm wondering now how this could happen.
+> >>>>
+> >>>> the requirement for PUNCH_HOLE on gmem to trigger mapping invalidation is
+> >>>> the gmem is bound with the memslot. But how can a memslot bound with two
+> >>>> gmem instances?
+> >>>
+> >>> I think this is for when userspace uses an mmap'able guest_memfd instance
+> >>> to handle shared memory, and a 'normal' guest_memfd instance for private
+> >>> memory. Each instance is bound to the same memslot/GPA range, and
+> >>> KVM_SET_MEMORY_ATTRIBUTES handles switching between the 2.
+> >
+> > What I didn't figure out is exactly how the two gmem instances are bound
+> > to the same memslot.
+> >
+> > The case I can imagine is
+> >
+> > 1. create gmem1 with GUEST_MEMFD_FLAG_MMAP and
+> > GUEST_MEMFD_FLAG_INIT_SHARED, and get fd1. mmap the returned fd1 to get
+> > a hva.
+> >
+> > 2. create gmem2 to get a fd2.
+> >
+> > 3. call KVM_SET_USER_MEMORY_REGION2 with KVM_MEM_GUEST_MEMFD flag. Pass
+> > the @hva from 1) to 'userspace_addr' field and pass the gmem fd2 to
+> > 'guest_memfd' field.
+> >
+> > However, with this case, only gmem2 is bound to the memslot while gmem1
+> > is not. Following PUNCH_HOLE on gmem1 doesn't invalidate any mappings
+> > because the f->bindings of it is empty.
+> >
+> > Do I miss anything?
 
-Acked-by: Michal Hocko <mhocko@suse.com>
-Thanks!
+Oh, I misread your question.  You were specifically asking about a PUNCH_HOLE in
+a SHARED gmem instance over-invalidating PRIVATE mappings.  You're right, that
+wouldn't happen because the invalidations would come in via mmu_notifiers, not
+from KVM.
 
-> ---
->  mm/vmscan.c | 13 +++----------
->  1 file changed, 3 insertions(+), 10 deletions(-)
-> 
-> diff --git a/mm/vmscan.c b/mm/vmscan.c
-> index f11491ee9ed5..6dff207ad8c6 100644
-> --- a/mm/vmscan.c
-> +++ b/mm/vmscan.c
-> @@ -7851,16 +7851,9 @@ static unsigned long __node_reclaim(struct pglist_data *pgdat,
->  	noreclaim_flag = memalloc_noreclaim_save();
->  	set_task_reclaim_state(p, &sc->reclaim_state);
->  
-> -	if (node_pagecache_reclaimable(pgdat) > pgdat->min_unmapped_pages ||
-> -	    node_page_state_pages(pgdat, NR_SLAB_RECLAIMABLE_B) > pgdat->min_slab_pages) {
-> -		/*
-> -		 * Free memory by calling shrink node with increasing
-> -		 * priorities until we have enough memory freed.
-> -		 */
-> -		do {
-> -			shrink_node(pgdat, sc);
-> -		} while (sc->nr_reclaimed < nr_pages && --sc->priority >= 0);
-> -	}
-> +	do {
-> +		shrink_node(pgdat, sc);
-> +	} while (sc->nr_reclaimed < nr_pages && --sc->priority >= 0);
->  
->  	set_task_reclaim_state(p, NULL);
->  	memalloc_noreclaim_restore(noreclaim_flag);
-> -- 
-> 2.34.1
+> I think Xiaoyao is right about this, the "vice versa" part is wrong,
 
--- 
-Michal Hocko
-SUSE Labs
+Ya.
+
+> Is this just a case of user error? That with gmem_in_place_conversion,
+> userspace should not use userspace_addr from something other than the
+> gmem for the same memslot?
+
+Yes.  It's not just invalidations that will go sideways, KVM accesses to guest
+memory won't hit the same physical page as actual guest accesses.
+
+Huh.  But that isn't strictly guaranteed, because userspace could bind to a
+memslot that isn't configured with GUEST_MEMFD_FLAG_MMAP, in which case SHARED
+faults will go through the VMA, not kvm_mmu_faultin_pfn_gmem().  It's a bit early
+in the morning, but off the top of my head, I can't think of any reason we need
+to support such a setup.  If userspace really, really wants to use a separate
+mapping, they could DELETE+CREATE an equivalent memslot without the guest_memfd
+file descriptor.
+
+So I think we should do this?
+
+diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
+index 9c2d52bdf25e..86f53e53a136 100644
+--- a/virt/kvm/guest_memfd.c
++++ b/virt/kvm/guest_memfd.c
+@@ -1013,7 +1013,7 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
+ 	 */
+ 	WRITE_ONCE(slot->gmem.file, file);
+ 	slot->gmem.pgoff = start;
+-	if (kvm_gmem_supports_mmap(inode))
++	if (gmem_in_place_conversion || kvm_gmem_supports_mmap(inode))
+ 		slot->flags |= KVM_MEMSLOT_GMEM_ONLY;
+ 
+ 	xa_store_range(&f->bindings, start, end - 1, slot, GFP_KERNEL);
+
+Regardless, the key aspect of all this is that in-place conversion is brand new
+functionality, so we don't have to ensure backwards compatibility.
