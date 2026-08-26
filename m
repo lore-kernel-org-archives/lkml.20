@@ -1,125 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC8813F7867
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:43:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787780638; cv=none; b=bq7BvQN4IkP2fjJmC1QkraEMWuL32TTLz8quX42KCyt1mBKuhip75xsK2tlM6V4oyO6YbiF/UhO/rw/xRssXvVIdCTP8f/hm1P7jpQTuURbsfrcVmKNb7J68R/gRdS7TO+outQJh+ks5whzaoKCCCWI7Kch4FUO7wYvDlt+OlI4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787780638; c=relaxed/simple;
-	bh=/TAa+RnwwziTNpbtJqoZnNQP9qDPbPPmreJwAQHZM3o=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KN/tJoyCjWTS+5Zb/b/7rdqRXL7Z1T6IppJpvmr7RhwoVb7Dh1UsnUt2j+yt0NI6u4t5goveT6wMkQ3mRQc4O9+L+CMYtyOfBSLN/SduAszwIxaI9E7l6dPEJN5dogYIi2VF/BcU6S0h/qaLOuxh9NKlWd4SZd9HoGemVlQag4E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=or2rPFmW; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E57048165C;
+	Wed, 26 Aug 2026 21:44:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787780645; cv=pass; b=JC7aoRhXqFrP1jyrSZryur0Awuc4PnmMOX7aBUIxYxRO47/HD1ai3gKIEDb3A9w4g6MhaefLAx1Aen0BJp4TmysMx/GbunPz3vcpzYIhvp9kEgzx0bozbrEl6SEkXXZJlpgiuw7961THkgO65yK+M2o+/IthLKfTZvYSoE66SbM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787780645; c=relaxed/simple;
+	bh=aTrG2U3nnsahZNHEmxNMi33V9p9IP53O5HAC6ElbmRA=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=ZeU97FK8GKZd1/cDAic9ULS6s7bxJQTDdSchIT8ftS17XKkB0FrRaqIj9TVdW9nT/O9pOmyZjRs62egDP24n7I8XRm1MXqV8lDi7wQNXMN/4l7+AzJi/+e9lzoJHbRP31PthnJjdwQ1nM27VBnp/DecVu/+zMhrnmeKUBQCXTFA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b=S4k+Uqxq; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="or2rPFmW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B73671F0155E
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:43:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787780637;
-	bh=2roDRA2Ocj9k8psJYEvUg6GITDjk4l3VJCYd3f7li1k=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=or2rPFmWUworOzOd0pxbnRMZfNe9k4jfeGb1aD3IjVSuKPlG1lHPQJItjRDwVeaYV
-	 VVhBTG8BYODz4KjJnOFsUMPxUnCWSTNbC1pgwiKJuYCGECGE6pna0jwrS5joo+BU6C
-	 VyZULLEtJhIy+rGIiq0vwkVW1NwH5AxRl842FRFmnGYIujs6nGBXZVqR93wFqggpEk
-	 3s1rB/+AwlxalZjrWeLwP7BDNs1UAq7eZo13FmMWJthdAZS0HhSDJrjAXVFwQKa+lg
-	 eKtq4Np76Efi8A+zdhDE4tDWjAITguCqLT8ukGi12ryYBhrPPid2hRAL8O3imGgLDK
-	 BEZnPim2KiXmQ==
-Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-93695893ac1so4940185a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:43:57 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqkudZVNEW+w5d4hWY5fegXVbZwGszQr27AuQCfcqaVzGhP/pdcl6cMFHvFD8/l64dSiWGEAk2uwSTkba4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mPa6mfD5WkLj+K9wbVNV/rjuduPEN3dIUpwT5iXeqiXCC6u9yg
-	1ENQjkvOLGpKzwW8uy0YEEFTjlhAMUZ6fH9f6e8fTUUDq9lqPl6L7eYyIqx+IpEqK3ay2EpBu8p
-	GQar/Vv2VmkJd41AlvGJRVVvYh/le7w8=
-X-Received: by 2002:a05:620a:46a0:b0:939:3c0:7520 with SMTP id
- af79cd13be357-93903c077a9mr41198885a.18.1787780636906; Wed, 26 Aug 2026
- 14:43:56 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="S4k+Uqxq"
+ARC-Seal: i=1; a=rsa-sha256; t=1787780612; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=ImLF6WJxhHCEKi6DC3cgYoFwZ3htXW2z8+AwftB0gi9uyvy3jN5JjCjSv0DOnNa2G1BHgzkGlqoYuLkh+TjSVNcK3bJl5Kh2ojx3Hc54RzUoFNDEsblpqYJj1MTLGNCNghETp1NOFx/bCv4grh7eC8Ba2hhlcbziXBhizTICeCQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1787780612; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=aTrG2U3nnsahZNHEmxNMi33V9p9IP53O5HAC6ElbmRA=; 
+	b=Wg7yr/Uc8G2+qqaZlduUCSdiXFNCiBUi+bC68K/qmPOHo8zh1EEne9PYdiAcIOUUTCY+xUmk34QeHp1XDb9oScfZBGvTgsBb8pg5XAMXRTVha9hHTTEd2EZgq4P4sNjK2OAOKwq1VdsFq+P7TsFfJSH7Iq/068Ek4FRL2rBLjDw=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+	dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787780612;
+	s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+	h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
+	bh=aTrG2U3nnsahZNHEmxNMi33V9p9IP53O5HAC6ElbmRA=;
+	b=S4k+UqxqIE38lJBWtOe3BkHacuLzdAD4MGUvl9SOtl986XKi+he8Iodm2japEnEQ
+	uvL7wSFSqGhdPPvTLWxKCtRdMvzkzjFFwa8lC5fbQ7j+F6huKI+B3/YpqQewHLakbl9
+	8knYZO0mPliW9VllLQHYD7J5nT3zy2Ho8gnTiCwA=
+Received: by mx.zohomail.com with SMTPS id 1787780610742503.2520550080949;
+	Wed, 26 Aug 2026 14:43:30 -0700 (PDT)
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260821102538.22642-1-baohua@kernel.org> <20260821102538.22642-4-baohua@kernel.org>
- <ao6qTTtk2xkkeKob@fedora>
-In-Reply-To: <ao6qTTtk2xkkeKob@fedora>
-From: Barry Song <baohua@kernel.org>
-Date: Thu, 27 Aug 2026 05:43:45 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4ywk7mA1xfk=emtqby1UAwFsaH9PChmk2TuZoDKrMzuXw@mail.gmail.com>
-X-Gm-Features: AcwNN1U1hcI0Vzy6pZR5m6oVpQepLjO3IAPExcgcrEvv2QP6yu7Rc87cN4jKPoQ
-Message-ID: <CAGsJ_4ywk7mA1xfk=emtqby1UAwFsaH9PChmk2TuZoDKrMzuXw@mail.gmail.com>
-Subject: Re: [PATCH 3/6] mm/mglru: enhance cold/hot inversion handling in inc_min_seq()
-To: Baoquan He <baoquan.he@linux.dev>
-Cc: akpm@linux-foundation.org, linux-mm@kvack.org, axelrasmussen@google.com, 
-	baolin.wang@linux.alibaba.com, chenridong@xiaomi.com, david@kernel.org, 
-	hannes@cmpxchg.org, kasong@tencent.com, lianux.mm@gmail.com, 
-	linux-kernel@vger.kernel.org, ljs@kernel.org, lyugaofei@xiaomi.com, 
-	mhocko@kernel.org, qi.zheng@linux.dev, shakeel.butt@linux.dev, 
-	stevensd@chromium.org, wangzicheng@honor.com, weixugc@google.com, 
-	yuanchu@google.com, zhangbo56@xiaomi.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
+Subject: Re: [PATCH v4 02/11] rust: xarray: add debug format for `StoreError`
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <20260604-xarray-entry-send-v4-2-965f6028790e@kernel.org>
+Date: Wed, 26 Aug 2026 18:43:07 -0300
+Cc: Miguel Ojeda <ojeda@kernel.org>,
+ Alex Gaynor <alex.gaynor@gmail.com>,
+ Gary Guo <gary@garyguo.net>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Christoph Lameter <cl@gentwo.org>,
+ David Rientjes <rientjes@google.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Boqun Feng <boqun@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>,
+ Harry Yoo <harry@kernel.org>,
+ Hao Li <hao.li@linux.dev>,
+ Daniel Gomez <da.gomez@kernel.org>,
+ rust-for-linux@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org,
+ Daniel Gomez <da.gomez@samsung.com>
+Content-Transfer-Encoding: 7bit
+Message-Id: <FC83565E-5574-43F9-AB5A-BA1C34191DEB@collabora.com>
+References: <20260604-xarray-entry-send-v4-0-965f6028790e@kernel.org>
+ <20260604-xarray-entry-send-v4-2-965f6028790e@kernel.org>
+To: Andreas Hindborg <a.hindborg@kernel.org>
+X-Mailer: Apple Mail (2.3826.700.81)
+X-ZohoMailClient: External
 
-On Wed, Aug 26, 2026 at 4:56=E2=80=AFPM Baoquan He <baoquan.he@linux.dev> w=
-rote:
->
-> On 08/21/26 at 06:25pm, Barry Song (Xiaomi) wrote:
-> > During aging, a folio's generation may already have been updated by
-> > folio_update_gen(), even though it has not yet been moved to the
-> > corresponding generation list. Such folios are hotter than those
-> > already in that generation.
-> >
-> > It makes sense for inc_min_seq() to increment the generation of
-> > folios that were never promoted during aging and move them to the
-> > tail of the new oldest generation. However, folios that were already
-> > promoted should instead be moved to the head of their updated
-> > generation, just as sort_folio() does in scan_folios().
->
-> While sort_folio() move protected folio to the head of next gen too.
-> It only moves ineligible folios to the tail of next gen.
->
-
-Hi Baoquan,
-
-Thanks for the review! I=E2=80=99m not quite sure I understand what you mea=
-n :-)
-Could you please clarify what you=E2=80=99re suggesting?
-
-I can explain the design in more detail.
-
-Yes. For both promoted and protected folios, `sort_folio()` moves them
-to the head of the corresponding generation.
-
-Here, `inc_min_seq()` is a bit different. We are overlapping `max_seq`
-and `min_seq`, so the `min_seq` generation should be moved to the
-second-oldest generation. Therefore, I think non-promoted folios should
-be placed at the tail.
-They are genuinely not promoted, so they shouldn't be at the head.
-
-For example, suppose we have the following folios:
-
-Second-oldest gen: f1, f2, f3, f4
-
-Oldest gen:        f5 (promoted), f6 (not promoted),
-f7 (promoted), f8 (not promoted)
-
-Without my patchset, the result is:
-
-Second-oldest:
-
-f1, f2, f3, f4, f8 (promoted), f7 (not promoted),
-f6 (not promoted), f5 (promoted)
-
-So you can see that both promoted and non-promoted folios are at the tail
-of the second-oldest generation?
-
-With my patchset, the result is:
-
-Second-oldest:
-
-f5 (promoted), f8 (promoted), f1, f2, f3, f4,
-f7 (not promoted), f6 (not promoted)
-
-Best Regards
-Barry
+Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
