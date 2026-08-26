@@ -1,179 +1,161 @@
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20FD939D3C0
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 23:12:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEBDC3955CA;
+	Wed, 26 Aug 2026 23:14:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787785980; cv=none; b=H9YMInzJit6eHSw345mbdR9WE/RaiXZURyYIOJdemDfQqfn7nUcdAeh9q97/F8FvPu1bGUqHCDtSvKo9vhdhTnzinf+LS9kQPnxmegMqf11bzl7EiOZav/u6Q1GCWzUkbaftN4qVUvASYmJ/Yk1LuCW0QnjFfuuyu3y6I+sT5ZY=
+	t=1787786071; cv=none; b=u5bfTsn8yMih8qo9DKHI8ty7r8uBpqzacIBWkDjk78qbg6uFbmhujFGIzJwoLmGiHBEn+vLr91LuUHcLKqzf1Ffz6nQEe/5FqEktpNwSrN9DKHK1cVBvvLFPAOrwUtHBmpd8tUjVaum9h4NUOCSbSGvy5QMInvSdQWsgKKtY2i8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787785980; c=relaxed/simple;
-	bh=qbGr9VktsBaf+vy8z6z3s9vDcM1MW8seVhk+V9t54a8=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=N0eNulUptxrWrhVUV8ELOmTftB9JHtrHYOD/n1FuF7IxzSK0AnpmYqVuuzL5ORR48WptZQBUb9Q1kMRNLHfPCXRJn9Qv/VlbSSCGpzchBhwNdfGE0V6u20UvuCXqbJHbgu3L6Bhjb/CY4FtNEBVTOx0RXiIWrQEFQ6qdqlLZTLw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=KkJ0DvJQ; arc=none smtp.client-ip=209.85.210.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1787786071; c=relaxed/simple;
+	bh=r4Q+9FRjTXyHrCbuzgzJZEne8FbiCn4ajw263KnS9Xw=;
+	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
+	 Date:MIME-Version; b=Qo32aHRJb4BVn9StPieIg8NY68Iu6t1fig6mqXr/SS51MyOqSPv0APozyyC/DvGPUF2Sn/HVd/NlIuWaV+ElZozUH6IYll8qv2bWK/VnDd6bSG4EJN+Xm37H79ygIf9o06gnpCU0ybDhrAmBfq6IjQRj5kIpIw1Ai+J/PNFZjVQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Z9pptXh6; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="KkJ0DvJQ"
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-84e048a801dso2182038b3a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:12:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787785978; x=1788390778; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8Vao/sFoJOVIbWTYUWR6l3TJZJPEpgeX1jEPgOktw9I=;
-        b=KkJ0DvJQM7RLIel38kZyWI2PH+Zg9HiX3wPyHpK7NEx5LHBlwLlVEPTlb2pckkdij4
-         KQHtmNAK+RrylFgKVlf/B4qkLc2W9/fRBZ1BB/1CRT/wn2BRnVc5R0EaB5I2iLmFFAVu
-         tKkO/Al1T8GkltHNicrxgqt7cqStRtj/HHKuexxx+tQKa0bKyuU1eEibB+ne769lq/oL
-         gVfITgsyI1bVDlN5Yr55TFciajMRnGaRydAwngWdYDaO65wpBvldF3oUa+T1gXpA4Xtq
-         DT6aP/tl2CdRKO46Hibzy6uv7T3065OlDHXPRhOlCb23Q1Z5mrX36QayaclnEBOvldJZ
-         f3Fw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787785978; x=1788390778;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8Vao/sFoJOVIbWTYUWR6l3TJZJPEpgeX1jEPgOktw9I=;
-        b=a/44jirtsGmDZx/Ntkmsyfr3N5FmOqIRDB6LEs76KAbOsXiSpHRNMjmzLtYK9SuhXB
-         iWaHS0cwUD37+oC1aNvRPmuZhT17qJVKui6gt6yPYEtBRYOR19YEdu9L8IT9R8rjP5e3
-         IYg/Ef3MuOwkQ7B85wZXRiaMAwyI3bm1TA7uVCP7m8qt9gtx/qPlwIwfAxx4fNaInMMz
-         kQ2kdy2xYkf9HXu3BB4R8btSQFOxnp+8bvTd0Dsd3h7d+OCPk6hGZGobgRxak4Mk/0L8
-         Lgmrtx36UZIHVlyHx23on/aBuj7HDc4nKFYArZYfWwrXgxEDGLcRvRzobpazgwP1hB7H
-         CEIA==
-X-Forwarded-Encrypted: i=1; AHgh+RoNcohiPN4FbcXgb0AwRDQDBUssTqgcXoJvRHlLAI27ruZb7DOTK53gQiNVO9pYUarsq70owiJgolcl+To=@vger.kernel.org
-X-Gm-Message-State: AFuF++nvGNRAXzC13O/ikG7oaqbbX/pSu0Au6bZ8ZHmpJtWFrlLw1JY+
-	HLyjJUfPwnOx7pmxKzQSxv9qfAHtNrU3AQpYgL0zKxqGH5O5oEFJx20g16AtCnW1/d7hMErWp4e
-	qw1KeaQ==
-X-Received: from pfmu26.prod.google.com ([2002:aa7:839a:0:b0:853:30cf:bad9])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:330e:b0:845:cdc1:a803
- with SMTP id d2e1a72fcca58-85373eb6f22mr19900529b3a.11.1787785978156; Wed, 26
- Aug 2026 16:12:58 -0700 (PDT)
-Date: Wed, 26 Aug 2026 23:12:57 +0000
-In-Reply-To: <CAL1mVc0W0oirnpd-im6r+Vewo6yfsWuXQB7UecEenYnE4BOJ4A@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Z9pptXh6"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QL1Ynk3280523;
+	Wed, 26 Aug 2026 23:14:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=lcAJfX
+	iOPQp6Qh0jISwkxyBYW5KhBfvBU3njyOUt4q4=; b=Z9pptXh6tzy8hqEhXoJG64
+	JM5DKPclJ0roBJIcwpfDKGXiWdxMY+nSpjo8xMhgB7FymI5e6I2qeYbne+dsZFXk
+	MjRFacsJq2cCHTPkWXwanzgD4x1hiaksHeXkvf+vJo7Z6imBSGdmj83MbfQlCmJ0
+	94eBRnh3jmCisKyCaEmAnAEaKskptAOp6sx1JU1U78WhT4XMjxBgxBtnmBcZe5OY
+	YYZUD1QybmI3iCvmBh//G8xfxmu6v20UaiYe3+vEm5Cg9l9ABHUWqVsxk3NuDKKr
+	gyqLVBswloPepVqihOil3jEVj6btyTrIMtyDYk1o/lRPl8VDOkOpVFMTQYoIuBwA
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g73er1nes-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 26 Aug 2026 23:14:20 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67QNBFKE021876;
+	Wed, 26 Aug 2026 23:14:19 GMT
+Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4g7ragmj06-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 26 Aug 2026 23:14:19 +0000 (GMT)
+Received: from smtpav02.dal12v.mail.ibm.com (smtpav02.dal12v.mail.ibm.com [10.241.53.101])
+	by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67QNEJMc19399202
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 26 Aug 2026 23:14:19 GMT
+Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 0F4885805E;
+	Wed, 26 Aug 2026 23:14:19 +0000 (GMT)
+Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 70D3F58051;
+	Wed, 26 Aug 2026 23:14:18 +0000 (GMT)
+Received: from li-43857255-d5e6-4659-90f1-fc5cee4750ad.ibm.com (unknown [9.61.80.63])
+	by smtpav02.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 26 Aug 2026 23:14:18 +0000 (GMT)
+Message-ID: <21bf74a181df485f9daf47f9740972443e31471d.camel@linux.ibm.com>
+Subject: Re: [PATCH] ima: select the SHA384 PCR bank for the boot aggregate
+From: Mimi Zohar <zohar@linux.ibm.com>
+To: "Singh, Jashandeep" <jashandeep.singh@hpe.com>,
+        Roberto Sassu
+	 <roberto.sassu@huawei.com>,
+        Dmitry Kasatkin <dmitry.kasatkin@gmail.com>
+Cc: Eric Snowberg <eric.snowberg@oracle.com>,
+        "linux-integrity@vger.kernel.org"
+	 <linux-integrity@vger.kernel.org>,
+        "linux-security-module@vger.kernel.org"
+	 <linux-security-module@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org"
+	 <linux-kernel@vger.kernel.org>,
+        Jashandeep Singh <jdsw@juniper.net>
+In-Reply-To: <PH7PR84MB16549E7A6AC842D358493B0F96AE2@PH7PR84MB1654.NAMPRD84.PROD.OUTLOOK.COM>
+References: <20260826191051.219090-1-jashandeep.singh@hpe.com>
+	 <4ea0433a82c219d6efdb83ad0bf267045c91a374.camel@linux.ibm.com>
+	 <PH7PR84MB16549E7A6AC842D358493B0F96AE2@PH7PR84MB1654.NAMPRD84.PROD.OUTLOOK.COM>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 26 Aug 2026 19:14:17 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <CAL1mVc0W0oirnpd-im6r+Vewo6yfsWuXQB7UecEenYnE4BOJ4A@mail.gmail.com>
-Message-ID: <ao9y-cJfL-F9K4gV@google.com>
-Subject: Re: x86/KVM: host reads guest IDT gates after VMexit on Cascade Lake
-From: Sean Christopherson <seanjc@google.com>
-To: Yaohui Hu <yhu@digitalocean.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, x86@kernel.org, 
-	Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, Thomas Gleixner <tglx@linutronix.de>, 
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Chao Gao <chao.gao@intel.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: wNikh9eYVxmC-4eVOCiDDOryJYocVdrX
+X-Proofpoint-ORIG-GUID: StecVo8jO5gnhUsJ4qYZWkyE-TgWwa0b
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDE5NCBTYWx0ZWRfX4VThMTaynoE8
+ rtrMk3wyOQ6pY1uiO9RikrB42l88rFQ7+PY7aMXOepUngS2OakpU7onk91tr0jLEYfcEhHxVTdu
+ ThQ075TA+p3Og/gV0DsLPF6oA1M3JNwUb8Yts41rKyLk+IxMAitelQtklSNNrpO/WgorvaPxlUp
+ XY2kQcJLIRT29qULZ8kOmUAovoUWasgH+mnHQ4cVT/uW4XXhxg3uI2ytEPLZiNIx07pLLDYDrrK
+ HmV9o232M2H322tWqwcTnui/7vgFHJZqpmxROMjadv333XceOcibJf4TuzaAPulCs6d4g9lGksW
+ X775EnZBW4tP1ZSXI0cwCfJQEZ9K/Db0jV9Y/bnv1BGZjlFsZVmhLfksst9HiP0g9+wtPNKa5In
+ 7jtpuspiNwLrd79HzrxqFn/OVhuCP+O5xl/JSgD+BRaSXDoKadlFhMxlbOwFUr9JzXhmFzfsx6G
+ DIgCqVvzTCChn7z5+Jw==
+X-Authority-Analysis: v=2.4 cv=QsRuG1yd c=1 sm=1 tr=0 ts=6a8f734c cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
+ a=tfP5eB9Pq6O3CzWxs5kA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDE5NCBTYWx0ZWRfX80Pc8yKdOK/b
+ Vn7ppxk8VfhNKMU/UKe6CskKvyLUJnUvQvz6dPCsTBfwdJfQXTniAQGtzLl8JVrAl+KX8vt4R9/
+ Xivtx+jWWTPEuDrjAdtcs946UkeLjH8=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-26_06,2026-08-26_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 suspectscore=0 priorityscore=1501 impostorscore=0
+ spamscore=0 lowpriorityscore=0 clxscore=1015 bulkscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260194
 
-+Chao, who has helped with errata in the past
+Hi Jashan,
 
-On Wed, Aug 26, 2026, Yaohui Hu wrote:
-> Hi,
-> 
-> We are chasing a host crash on Intel Cascade Lake that we believe is a
-> CPU defect, but the exposure changed sharply across a kernel upgrade
-> and we would like input on the kernel side.
-> 
-> Symptom: nine hypervisor crashes over ~120 days, all the same shape.
-> On a KVM vCPU thread, shortly after a VM-exit, the host faults at an
-> address unmapped in the host, then faults again on every subsequent
-> exception delivery, recursing until the #DF stack is exhausted.
-> 
-> The phantom handler addresses are not random. In one dump we located
-> the IDT they came from: it lives in the tmpfs-backed guest RAM of the
-> VM running on that CPU. The host read gate descriptors out of the
-> *guest's* IDT and tried to deliver host exceptions to guest handler
-> addresses. A second dump shows this in software rather than by
-> inference, with the oops registers caught in vmx_do_interrupt_irqoff()
-> having read a garbage gate from host_idt_base.
-> 
-> Linux maps the IDT through the CPU-entry-area alias at a fixed
-> virtual address (0xfffffe0000000000) that KASLR never relocates, so a
-> Linux guest and a Linux host use the same address for their own IDTs.
-> With VPID enabled the guest's translation survives the VM-exit, and a
-> host access tagged VPID 0000H must not match the guest-tagged entry.
-> On these parts it appears to.
-> 
-> Environment:
-> 
->   - Xeon, family 6 model 85 stepping 7 (Cascade Lake-SP), microcode
->     0x05003901 (latest public for this stepping) on all nine hosts.
->   - Two server vendors, three datacenters, VPID enabled.
->   - 6.1.51 ran this fleet without such a crash; 6.12.51 produces
->     them. Microcode and hardware are unchanged across the upgrade.
-> 
-> There is a documented precedent for the failure class on a different
-> part: Arrow Lake erratum ARL029, "Incorrect Core TLB Entry May be
-> Retrieved Following VM Exit". Cascade Lake has no public equivalent.
-> 
-> We diffed the relevant paths between the two versions. The gate read
-> in handle_external_interrupt_irqoff() is functionally identical, and
-> the TLB/VPID/EPT invalidation layer is byte-identical
-> (vmx_flush_tlb_*, allocate_vpid, vmx_vcpu_load_vmcs, and the
-> INVVPID/INVEPT sites), so we do not believe KVM changed its
-> invalidation behaviour. The one change we found that plausibly alters
-> exposure is 97e3d26b5e5f ("x86/mm: Randomize per-cpu entry area",
-> v6.2), which changes the paging topology of exactly this region. We
-> can see the effect in our builds, but we have no mechanism that
-> predicts its sign.
-> 
-> Questions:
-> 
-> 1. Has anyone seen this signature? A host faulting after VM-exit at
->    an address that turns out to belong to a guest seems distinctive
->    enough to be memorable.
+Mail to the kernel mailing lists are in plain text. Please refer to
+https://docs.kernel.org/process/submitting-patches.html#no-mime-no-links-no=
+-compression-no-attachments-just-plain-text
 
-I don't recall seeing anything like this in our fleet, but I don't think we have
-much exposure to v6.7+ kernels running VMs.  I.e. we may not be seeing anything
-purely because we haven't picked up the "bad" kernel, yet...
+On Wed, 2026-08-26 at 22:35 +0000, Singh, Jashandeep wrote:
+> Thanks Mimi.
+>=20
+>=20
+> Agreed that all allocated banks are extended via tpm_pcr_extend() - but t=
+hat's
+> the PCR-extend (write) path. The failure is in ima_calc_boot_aggregate(),=
+ which
+> reads PCRs 0-9 from a *single* selected bank.
+>=20
+>=20
+> The issue is that a TPM can be provisioned with *only* the SHA-384 bank e=
+nabled,
+> while the default IMA hash algorithm is SHA-256. In this configuration, t=
+he
+> current selection logic only matches the configured IMA default, then SHA=
+-256,
+> and then SHA-1 - it never considers SHA-384.
 
-> 2. Is CEA randomization a plausible amplifier, or is there a better
->    candidate in the 6.1..6.12 window that we have missed? We think
->    this is a hardware defect either way; we are trying to explain why
->    the same silicon and microcode behaved differently.
-> 
-> 3. Would moving the host IDT off the fixed CEA address, or
->    randomizing it per boot, be acceptable upstream as defence in
->    depth? It removes the guest/host virtual-address collision the
->    failure depends on, and unlike the KVM-side change below it also
->    covers hardware event delivery, not just the software read.
+It's walking the list of allocated TPM banks and, if allocated, sets bank_i=
+dx.
 
-Without knowing what's going wrong, hacking around something like this probably
-isn't going to be a viable option.  :-/
+        for (i =3D 0; i < ima_tpm_chip->nr_allocated_banks; i++) {
+                crypto_id =3D ima_tpm_chip->allocated_banks[i].crypto_id;
+                if (crypto_id =3D=3D hash->algo) {
+                        bank_idx =3D i;
+                        break;
+                }
 
-> 4. Suggestions for making this reproducible? We have a rig: a
->    kvm-unit-tests guest that maps a recognizable IDT at the CEA
->    address and drives ~7e7 VM-exits/s on one host, plus a host module
+The question is why isn't the sha384 bank found in the list of
+nr_allocated_banks?
 
-What types of exits, and what is the guest doing?  If this is more or less the
-same thing as ARL029, my read of the erratum is that it requires the CPU to be
-reading the IDT at the time of exit, so that the TLB fill completes after VM-Exit
-(and presumably gets tagged with VPID=0).
+Mimi
 
-And given that at least one splat specifically traces to vmx_do_interrupt_irqoff(),
-and that generally speaking KVM will only be forwarding events to the host via the
-IDT when handling IRQs, I think it's a safe bet that the VM-Exits need to be IRQ
-exits.
-
-So, maybe try having the guest generate a horde of faults that along with INVLPG
-opreations (or full TLB flushes?) to purge the IDT translation from the TLB, and
-then spam the guest with IRQs?
-
->    that validates the gate KVM reads on every exit. It sustains
->    ~4.2e9 validated checks per minute and has not yet produced a
->    mismatch. Our own estimate puts the target near one event per
->    host-day, so this may only need runtime, but advice on which
->    conditions to stress would help.
-> 
-> We are aware of 28d11e4548b7 ("x86/fred: KVM: VMX: Always use FRED for
-> IRQs when CONFIG_X86_FRED=y"), which removes the software IDT read for
-> external interrupts and which we are backporting. As it was motivated
-> by CFI and does not stop hardware from reading the IDT at the same
-> address, we treat it as hardening rather than a fix.
-> 
-> Thanks,
-> Yaohui Hu
+>=20
+> Adding a SHA-384 match allows the boot aggregate to be computed correctly
+> (sha384:...) instead of returning 0 and logging "No suitable TPM algorith=
+m for
+> boot aggregate". The fact that the SHA-384 bank can be selected and the b=
+oot
+> aggregate computed also confirms that the SHA-384 bank is recognized and
+> allocated, rather than being missing.
