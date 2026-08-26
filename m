@@ -1,113 +1,215 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61663353A7C
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 19:42:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1C5C47D947;
+	Wed, 26 Aug 2026 19:43:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787773351; cv=none; b=IFEvQT6VTHOuDxWEIptYh6mSOexQ9tOg6e2AQUhl28SnWRp1w1QdsXqNFh7FFHZnXHS+OYztEefnZS+L+Y7aPjqNak/7ZU0Aw/XwgiMWz6nr24nIavooASwqckv/lGgkffoRyKath7mNu793au+BhoA4Rdbvaz01EOSohOCBaBU=
+	t=1787773393; cv=none; b=YoVpAm7V46gV47K7VH00YKQF0OtcpgDVPfqyYj4KLNR76lURD4i2ze5VLfMo2DGjJA8IDdOi4lK1Abp/2jTlG1Ht50f6rm0YDZhsS19Z2wgxFj4v9n8/JqBc0ekM/8kforYVHRJEEkusL+FviMO6dWazSH2DqAEYSklVSz+Egsc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787773351; c=relaxed/simple;
-	bh=b/iOc0VADcQUCvPs+ALENYYXlH6jAvA8EeEOqy6VYzw=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=ZuhC1eh3jChJMVwB+BFW0ddGALBSmLDKARM8XHXrUWarYKV3j686PMvEJbJgdZcvijGgE7q1jCZRHX4yX5/PfYe4W0c+sAZqnHXqkLu0pdZ/uhYTZF8b9lJvzFQmC8xMEv7nvRbobDJfitjaZFxig1jFSRDN8sjo9JU7aaL2W2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BWFX1sDA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787773393; c=relaxed/simple;
+	bh=bWzGvaX3SZYFolq7qkLCxsmhPthWPmFVyUCOFWplHw8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rbAkWBTaCHDSWbhHxuegVk+6mTB8SCGCKiIX2n6FTxtGLbD+Iyl/OXTIwQyq1yzkrQziY8Do765XdmWy70DE2xVGxyXq74dAHepC344QxAxW6pKPYBaHqn9xDaCg3XcCnAVT23c7QJ6X9mbYIJURYnEag2Q5vc3YIUXGp2cBhvs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V2j2F5J+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BWFX1sDA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE19C1F000E9;
-	Wed, 26 Aug 2026 19:42:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V2j2F5J+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45B051F000E9;
+	Wed, 26 Aug 2026 19:42:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787773338;
-	bh=YR+YZ9wjwVV1E4RGGSJhY2Zry69pNRcovb4gZje1bwc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=BWFX1sDAVz+MBlU9+X5JmD5F5AaApeomXst0w1ucUGPs7zNeFohwwlxS7aWZpcbxQ
-	 W2gTAgrMtvrJ29X6SUJAnGXvDEeD4/XcifP1DcEOIZSrvhdAJz8rIZRJ7LQmiqNxl7
-	 9q+Fh0xfveT4x9MAzFcJta7RN8KZAIPodWdrWN/SPKbDQJztcra1L1Qkx3R+kPPu9b
-	 rfGobKWJU809iIl/YLk1PVr13Wm/XIFADRqXBoPr69T925zbuRJlCnGtorClupF096
-	 S+1U90HpkL7NMoTJ1TVMxPAlw6PoprmlHFZywbU5cw3U+eEmO9+PoDJzT+B4wINC6a
-	 nZsuCIcAsI1aA==
-Date: Wed, 26 Aug 2026 14:42:17 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>
-Cc: drj19981414013@gmail.com,
-	DAI RENJIE via B4 Relay <devnull+drj19981414013.gmail.com@kernel.org>,
-	Mark Brown <broonie@kernel.org>, Kees Cook <kees@kernel.org>,
-	linux-kernel@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
-	Bradley Morgan <include@grrlz.net>
-Subject: Re: [PATCH] resource: fix lost wakeup when waiting for a muxed region
-Message-ID: <20260826194217.GA1552174@bhelgaas>
+	s=k20260515; t=1787773379;
+	bh=kv7Awx2z94x0IGIpPwxYc/jiRFav1UCf39sBeKTilF4=;
+	h=From:To:Cc:Subject:Date;
+	b=V2j2F5J+ObzXRsdK8wgnLTEg9/nQqPLktbo/lgGF9baeLVxkeZh9cGvX+yKLFXvBK
+	 AQi0sBRglnKlMHGKs3Rp2h5e3KaBlbbbyTNjlAN9SdXfmVM3zBgV9iCIy+XDO9UD2F
+	 N/AmZGXzmxXpC47Yw7cuxY7A4rSUILiHfdQcLvWGe1WJ/FYQ0qMYxIKxtyPwkX4h6X
+	 PkBTvqguPGYIvD0Xdk/SGXCD7ZDZAquztdEVqp+at/Uis6fbDUJN0rQSeRaLqPUqlZ
+	 qTN/DGU3Th5A9g0FhNupLZLtKHoGQ3ssdBK+XY4F6vfiUhsxO5UU9Js3aelmNwEE4t
+	 pp8Mb1JOMziMQ==
+From: Alexey Gladkov <legion@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>,
+	"Eric W . Biederman" <ebiederm@xmission.com>,
+	Kees Cook <kees@kernel.org>,
+	Joel Granados <joel.granados@kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>,
+	linux-fsdevel@vger.kernel.org
+Subject: [RFC PATCH v1 00/30] sysctl: add context-bound field descriptors
+Date: Wed, 26 Aug 2026 21:42:04 +0200
+Message-ID: <cover.1787770053.git.legion@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260821113457.8622c5d35c9aec838490b013@linux-foundation.org>
+Content-Transfer-Encoding: 8bit
 
-[+to Ilpo]
-On Fri, Aug 21, 2026 at 11:34:57AM -0700, Andrew Morton wrote:
-> On Fri, 21 Aug 2026 14:08:17 +0000 DAI RENJIE via B4 Relay <devnull+drj19981414013.gmail.com@kernel.org> wrote:
-> 
-> > From: DAI RENJIE <drj19981414013@gmail.com>
-> > 
-> > A task waiting for a muxed region can sleep forever in TASK_UNINTERRUPTIBLE
-> > even though the region it waits for is already free.
-> > __request_region_locked() queues itself on muxed_resource_wait and drops
-> > resource_lock before setting TASK_UNINTERRUPTIBLE, while __release_region()
-> > wakes the queue after dropping the same lock.  A wakeup landing in between
-> > finds TASK_RUNNING, does not match TASK_NORMAL and is discarded; callers
-> > hold a muxed region only across a bounded transaction, so no further
-> > release is coming.  The task is unkillable and its caller never returns.
-> > 
-> > The window is one store wide, but an interrupt is enough to hold the waiter
-> > in it, and the machine this was seen on runs PREEMPT_DYNAMIC in its
-> > voluntary default.  Since v6.11 spd5118 exports the DDR5 sensors of AMD
-> > boards through i2c-piix4, which takes a muxed region per SMBus transaction;
-> > a third of the in-tree users of request_muxed_region() are hwmon drivers,
-> > so reading a world-readable attribute is all an unprivileged user needs to
-> > drive the contention.  The blocked task sleeps holding the i2c adapter bus
-> > lock, and 27 more piled up behind it.
-> > 
-> > Fix it by setting the task state before dropping resource_lock, as
-> > prepare_to_wait() does: the releasing side needs resource_lock to unlink
-> > the resource, so it cannot reach the wakeup before the state is published.
-> > 
-> > Fixes: 8b6d043b7ee2 ("resource: shared I/O region support")
-> 
-> 16 years ago.
-> 
-> > Cc: stable@vger.kernel.org
-> > Assisted-by: Claude:claude-opus-5
-> > Signed-off-by: DAI RENJIE <drj19981414013@gmail.com>
-> > ---
-> > Reproduced by building a kernel with the two orderings selectable at
-> > runtime and a 2ms delay inside the window.  Switching only that knob, a
-> > two-thread barriered reproducer loses the wakeup 200 times out of 200
-> > before the fix and 0 out of 200 after it; without the delay it goes 20000
-> > times through the wait path and loses none.
-> > ---
-> >  kernel/resource.c | 2 +-
-> 
-> Bjorn, please consider a MAINTAINERS entry?
+Hi,
 
-Maybe you'd be interested, Ilpo, since you're doing so much PCI
-resource work?
+A few years ago Linus didn't like an IPC sysctl conversion which copied each
+table and rewrote its entries for every IPC namespace [1]. I remembered that :)
 
-> > --- a/kernel/resource.c
-> > +++ b/kernel/resource.c
-> > @@ -1350,8 +1350,8 @@ static int __request_region_locked(struct resource *res, struct resource *parent
-> >  		}
-> >  		if (conflict->flags & flags & IORESOURCE_MUXED) {
-> >  			add_wait_queue(&muxed_resource_wait, &wait);
-> > -			write_unlock(&resource_lock);
-> >  			set_current_state(TASK_UNINTERRUPTIBLE);
-> > +			write_unlock(&resource_lock);
-> >  			schedule();
-> >  			remove_wait_queue(&muxed_resource_wait, &wait);
-> >  			write_lock(&resource_lock);
-> 
-> Yup, that's a basic waitqueue usage bug.  
-> 
+After that, I tried creating a different API to avoid allocating tables [2], but
+nobody really liked that interface either.  The discussion also pointed out that
+a new interface should use self-describing, properly typed pointers rather than
+adding more void pointer conventions to ctl_table.
+
+This series is another attempt to address the underlying problem.
+
+ctl_table works well when one static entry contains all the pointers consumed by
+its proc handler.  It cannot describe a static set of sysctls whose data or
+limits belong to a namespace, device, or another object selected at registration
+time.  Such users commonly duplicate an otherwise static table and patch data,
+extra1, extra2, mode, or proc_handler before registering it.  Some do so by
+table index, making the fixup code depend on the exact ordering of a separate
+descriptor array.  A table edit which misses the corresponding fixup can
+silently bind a sysctl to the wrong value or limits.
+
+The new API separates an immutable sysctl description from two levels of object
+binding.  One struct sysctl_context belongs to the registration as a whole and
+holds the namespace or other objects shared by the entire field array.  Each
+struct sysctl_field then has accessors which derive the data and limits for that
+particular entry from the shared context.  Resolved pointers therefore do not
+have to be stored in a private copy of the descriptor array.  The typed field
+variants also tie accessor return types to the standard proc handler selected by
+the core, allowing the compiler to catch mismatches before a compatible
+ctl_table entry is constructed.
+
+The base context contains a union of typed namespace pointers.  It can also be
+the first member of a subsystem-specific context, for example:
+
+  struct mpls_dev_ctl_context {
+          struct sysctl_context context;
+          struct mpls_dev *mdev;
+  };
+
+The whole object is copied into the ctl_table_header allocation at registration.
+An accessor which needs mdev recovers the enclosing object with container_of(),
+while ordinary per-net accessors use ctx->ns.net_ns directly.  This keeps
+subsystem-specific pointers out of the generic context, avoids an untyped
+catch-all pointer, and gives the copied context the same lifetime as the
+registered sysctls.
+
+sysctl_field is analogous to ctl_table, not a replacement for it.  Existing
+users are unchanged.  The sysctl core stores either descriptor type in
+ctl_table_header and materializes a temporary ctl_table when entering the
+existing proc handler, permission, or BPF interfaces.  This preserves those
+interfaces while allowing converted users to share one static const field array
+across all instances.
+
+The remaining patches convert the dynamic users which motivated the API,
+including ucounts, IPC, PID, networking, neighbour tables, and parport.  The
+conversions remove per-instance table clones, offset and index fixups, and the
+matching lifetime bookkeeping.  The series deliberately leaves ordinary static
+ctl_table users alone.
+
+Reducing memory use is a secondary result rather than the main reason for the
+change.  I measured active kmalloc slab usage after creating N namespaces with:
+
+  for i in `seq 1 N`; do
+    unshare --ipc --mount --net --uts --user --cgroup --time --pid \
+      --fork --kill-child --map-root-user /pause &
+  done
+
+N           Unpatched     Patched       Saving           Per namespace
+100           8.51 MiB      4.80 MiB      3.71 MiB       38.00 KiB
+500          73.78 MiB     55.13 MiB     18.64 MiB       38.18 KiB
+1000        167.15 MiB    128.53 MiB     38.62 MiB       39.55 KiB
+2000        358.81 MiB    284.55 MiB     74.27 MiB       38.02 KiB
+5000        942.12 MiB    754.10 MiB    188.01 MiB       38.50 KiB
+
+At 5000 namespaces this reduced the measured active slab footprint by
+188.01 MiB, or about 38.5 KiB per namespace.
+
+[1] https://lore.kernel.org/all/877d8kfmdp.fsf@email.froward.int.ebiederm.org/
+[1] https://lore.kernel.org/all/cover.1654086665.git.legion@kernel.org/
+
+
+Alexey Gladkov (30):
+  proc: sysctl: address table entries by index
+  sysctl: add unsigned int limit constants
+  sysctl: add typed field descriptors
+
+The first three patches introduce a new interface, while the rest convert all
+dynamic ctl_table allocations to the new interface. Without them, it was hard to
+understand what was needed from the new API.
+
+  sysctl: use sysctl_field in ucounts
+  sysctl: ipc: use sysctl_field in mq_sysctl
+  sysctl: ipc: use sysctl_field in ipc_sysctl
+  sysctl: use sysctl_field in pid sysctls
+  sysctl: net: use sysctl_field in unix sysctl
+  sysctl: net: use sysctl_field in xfrm sysctls
+  sysctl: net: use sysctl_field for simple IPv4 per-net sysctls
+  sysctl: net: use sysctl_field in IPv4 sysctls
+  sysctl: net: use sysctl_field in IPv6 xfrm sysctls
+  sysctl: net: use sysctl_field in IPv6 fragment sysctls
+  sysctl: net: use sysctl_field in 6lowpan fragment sysctls
+  sysctl: net: use sysctl_field in vsock sysctls
+  sysctl: net: use sysctl_field in MPTCP sysctls
+  sysctl: net: use sysctl_field in SCTP sysctls
+  sysctl: net: use sysctl_field in core IPv6 sysctls
+  sysctl: net: use sysctl_field in net core per-net sysctls
+  sysctl: net: use sysctl_field in SMC sysctls
+  sysctl: net: use sysctl_field in VRF sysctls
+  sysctl: net: use sysctl_field in RDS sysctls
+  sysctl: netfilter: use sysctl_field for per-net sysctls
+  sysctl: ipvs: use sysctl_field for per-net sysctls
+  sysctl: bridge: use sysctl_field for br_netfilter sysctls
+  sysctl: net: use sysctl_field for MPLS sysctls
+  sysctl: net: use sysctl_field in IPv4 devconf sysctls
+  sysctl: net: use sysctl_field in IPv6 devconf sysctls
+  sysctl: net: use sysctl_field in neighbour sysctls
+  sysctl: parport: use sysctl_field for dynamic sysctls
+
+ drivers/net/vrf.c                       |   43 +-
+ drivers/parport/procfs.c                |  317 ++---
+ fs/proc/inode.c                         |    2 +-
+ fs/proc/internal.h                      |    2 +-
+ fs/proc/proc_sysctl.c                   |  603 ++++++---
+ include/linux/parport.h                 |    6 +-
+ include/linux/sysctl.h                  |  283 +++-
+ include/net/ip_vs.h                     |    3 -
+ include/net/ipv6.h                      |    6 +-
+ include/net/neighbour.h                 |    1 +
+ ipc/ipc_sysctl.c                        |  256 ++--
+ ipc/mq_sysctl.c                         |  100 +-
+ kernel/pid.c                            |   41 +-
+ kernel/sysctl.c                         |    3 +
+ kernel/ucount.c                         |   83 +-
+ net/bridge/br_netfilter_hooks.c         |   99 +-
+ net/core/neighbour.c                    |  329 +++--
+ net/core/sysctl_net_core.c              |  241 ++--
+ net/ieee802154/6lowpan/reassembly.c     |   84 +-
+ net/ipv4/devinet.c                      |  258 ++--
+ net/ipv4/ip_fragment.c                  |   96 +-
+ net/ipv4/route.c                        |  102 +-
+ net/ipv4/sysctl_net_ipv4.c              | 1622 ++++++++---------------
+ net/ipv4/xfrm4_policy.c                 |   52 +-
+ net/ipv6/addrconf.c                     |  746 ++++-------
+ net/ipv6/icmp.c                         |  127 +-
+ net/ipv6/netfilter/nf_conntrack_reasm.c |   77 +-
+ net/ipv6/reassembly.c                   |   77 +-
+ net/ipv6/route.c                        |  173 +--
+ net/ipv6/sysctl_net_ipv6.c              |  322 ++---
+ net/ipv6/xfrm6_policy.c                 |   48 +-
+ net/mpls/af_mpls.c                      |  154 +--
+ net/mptcp/ctrl.c                        |  205 ++-
+ net/netfilter/ipvs/ip_vs_ctl.c          |  533 ++++----
+ net/netfilter/ipvs/ip_vs_lblc.c         |   49 +-
+ net/netfilter/ipvs/ip_vs_lblcr.c        |   50 +-
+ net/netfilter/nf_conntrack_standalone.c |  743 +++++------
+ net/netfilter/nf_hooks_lwtunnel.c       |   40 +-
+ net/netfilter/nf_log.c                  |   90 +-
+ net/rds/tcp.c                           |  129 +-
+ net/rds/tcp.h                           |    1 -
+ net/sctp/sysctl.c                       |  505 +++----
+ net/smc/smc_sysctl.c                    |  208 ++-
+ net/unix/sysctl_net_unix.c              |   48 +-
+ net/vmw_vsock/af_vsock.c                |   91 +-
+ net/xfrm/xfrm_sysctl.c                  |   77 +-
+ 46 files changed, 3964 insertions(+), 5161 deletions(-)
+
+-- 
+2.55.0
+
