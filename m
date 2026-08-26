@@ -1,128 +1,196 @@
-Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4D6247D93A
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:58:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12C903F9F2F
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:59:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787781513; cv=none; b=KA1AV0X+fHxQlmLIY7rfif44PaK2A3qOWq25q1nnvmC1jIxv+vaovveea6U27XzAFyLStw5bhobyvl4YO4fuRpGQMrrTTkkJ1metyV8PqQ9rAsLn1OTRzh62C4U5S3BdsHWlNaI7ZKtNSwIIuleY1bIb5kEuXfYXk7G+v//Wmyc=
+	t=1787781547; cv=none; b=Ld/N2dd2bFZNUh+PGfROYvNRsi8RC5SmrBywpkCvzA8DqTtfLozcWSYqMOpwkkQ9XjtFxJ9SWuaxwYzHyQKMCZSvVGai9/O5g4/14zbpjGQotNtuwYqehHcQr4ZfAOsiRn/jNxUxh4DmIqW28eTOqoX4BcshONPPvwXQOpgb41U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787781513; c=relaxed/simple;
-	bh=s7vJsB8p4ex7LHEOlDRqznCRHidLUdiJOoJPTz/qS6E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SjKXhjVx8vigkACpNewWcgyGEQf7e/2+77IAkCcoxVKeBA9jw4Sq4YEKDo7pQ6JrTU8Y2J2QesXxSCvLdFMukNO0RTDSM1Qri6umJceo7VylMNZim4Pa6NUDLA8UCoYYK9Zdms0krm7VIkpD3ZPo1Q7DptwKiX1CnEx6ZQXagNM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=fVcTXNW2; arc=none smtp.client-ip=209.85.222.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1787781547; c=relaxed/simple;
+	bh=qB2XYjGj60iW7URffgCn7dX+4S/gyULRetO7qyDA24s=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=POlQYWfDFXmIBr0tsebd0mmIdF8nQ0GPPYbRYSYewskOJZIc9bTkYUrnXut994Z3lRdT1tQl8An6C5eH5uCn6E4zezT2w48x/iSpQUU6+1DoiRRMBPMgbwKbUEubyVrRRFxvimov1lu1GHYt66fo012Hhz05DvjvrAuT/TTWPPI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=NgZQHoJY; arc=none smtp.client-ip=209.85.215.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="fVcTXNW2"
-Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-934944f2d22so84104085a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:58:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="NgZQHoJY"
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cc1c73645a1so860377a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:59:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1787781510; x=1788386310; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jG2VK8J2UsrKsgRFCrwZAYzLNxJ4QRVgAReN+n24iAs=;
-        b=fVcTXNW2I1m++poFekaMNjcBSgR2I/chpJR7DHNZmW1c8tFr4bEDY2mB282zjVet/8
-         Pnc/7nSfouQcFiG4rNPa6DLPhMPiSL5SFPbfj6EbtLsB9ixu6Uo3iP2z1EYHZDyML8V6
-         nE4dlIj9JpIQEt+/oPQfivBEXn8vud6fQAVAriovZdugRs9YYpbl07buu/U6qByxHEGQ
-         DRRt63tZeRwQqO403a+xCQWB31Bu9lHhbkKU1+nOQ+Nh3ahNWoQlbLDknm8/Oyb5cKaP
-         A2S5PjEy9aJzYoaCh+w8ycLrFnSdpLlDM3nFk0rU2ua7GFB7+6A3g/AcKsBIvAM8vD5Q
-         f4uA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787781510; x=1788386310;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=baylibre.com; s=google; t=1787781543; x=1788386343; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=jG2VK8J2UsrKsgRFCrwZAYzLNxJ4QRVgAReN+n24iAs=;
-        b=RhaRuKw+OAaSS4xLcC9cxCDoRCye/5TUxG1Sfk5ArKp+Ix8tuITDp3JXzJjSaghJJJ
-         QBdUERAh4b2EmtkaCjfHeGTGDTsOjjNPdaxYvIeoKhb1Hlwe0GWM4UaCQX8asNQGbCZl
-         opqfxpeDg//Vb4wEt/1p1PLb1r6F+n+mVr3fWKpDtG7ONrOfQylfBZH3OSsJevCbn8zT
-         x2jvw7oSDWIRRu3toS6JhFHpUYDwHoKDPVdo2Z7CNQBgWXu7iuDczCG9P5neSR3B7W9k
-         DN2PIVqZ+SgTl7HICKAwJ82rxnb38moQ/oJS5+qmZvMUavnoFqlwDus5GaPmZEcS6crL
-         9Jlw==
-X-Forwarded-Encrypted: i=1; AHgh+RpWOGR1RqobhQkbQQ1hWjR8MLqLNSCipcoje9hOh2CCjdXeEiETyF0+xzSuCO+U+2yJTiEx+63aWY42v94=@vger.kernel.org
-X-Gm-Message-State: AFuF++kDNAlS1vi0teRiiQ2LoG1gKjaAE+cB5vE1G+yH1bZduHHlJxKC
-	wC+o3QIkR+/xqwuU4tVHzFDokuhQ6rtgqNQkwWFge/g0yR8Ln295MeuznoHA3kM8nwc=
-X-Gm-Gg: AR+sD13GXAgxHMs3Dc1BGB64LOQBE8+X8s0HMmbpuwT9J2BJCaH1l4CtZwut9i5CsrH
-	P7F7hDtZMoHfiSmqf5JfaXYtSOJi119kHOmYv8JKBLicFQohpYuOQenBUNw38VfEbr3r+ZLjSZc
-	Af79GpoRqUZfbbw9CztvTVKzURYZEzVpFA7UWKzVOrJvVhkgXD6SraV0TYjPOFoZdU1PM62LiYK
-	ZKaf9vM2MPOFmo/xrLaj8y3OinbqhfNKul/q14X5MVY/eCppLHwZLCjb52agU9YIj9AFj0ushqR
-	DCdHBnCXmKK+vhY47P9FuNuwPuUj4mth5VPYvFNJN/fMCRMLa/Exd0lCcuiIbLwBX9QZH7a5AMD
-	DXrx+J1y8IxUETkOlUVCH3hj2AmuGcvrc65ay8wbwQ/QtM/Bsp9V/85bKaSZckNMvuCC0sVCFec
-	gxIuxeNc4FmDFGyIC8Vxm6Z7P5ZA8+Fis0Ftbl9Hks+IuIfES1QjImzktGJjdUj2zv9qAaEUaEw
-	IWDJHJioSyQip78IhSRA6Cv1VAYPOmghPIJlkUF3FZa
-X-Received: by 2002:a05:620a:142:b0:938:fd60:4f9 with SMTP id af79cd13be357-938fd600d20mr393765785a.27.1787781510374;
-        Wed, 26 Aug 2026 14:58:30 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90cd73e3261sm701776d6.32.2026.08.26.14.58.29
+        bh=ZWfPZEMYmXjEOVTtuUiqR7EFAvZfcV1y1MLY6LFEEyw=;
+        b=NgZQHoJYJmN7FLqCxvtgqLR56drY6tQXAy1XwQEAdz9zqtnDKo54vA/epd/VFz1iK4
+         jop7fRHwTYOGMQOUHyt2VXsYvvMnoi0dN3zKBzOXcDuXk94wFL9ifm0dGXBSV7khQckR
+         ZHST1VpnCp8sVKnGlkkPvSiJIzsym0iREo8zrHeF6u/eQHMQZOsK1uWctQYIMnfM8Pgw
+         GMcKip/raFqr7aYiwzxpFRDEFkUekn7cSGOb6qnCv9PufzSz1m/DmKp8IrIHgFCXe9Y3
+         3FCjNIfJtwFJVoamFIZ7j9oB9JWZ09KF9nkwTEoTd7Pwo/ZibXE4gbh46D/rCTP8AKeM
+         HiYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787781543; x=1788386343;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZWfPZEMYmXjEOVTtuUiqR7EFAvZfcV1y1MLY6LFEEyw=;
+        b=kyIuDDDMZbT6I4bJ5b7pUpi1txWPNkSmG1JAkQ+ryE3GgRlhz80j0uNzr5e+MYzIIt
+         zEDGLNBcv19ctKvp/wzTyPzIzdouXEaxABM4R+nSIRIgjK2BRTGATeoQsGU2RBCkVkNi
+         OLehcpZkFDGRWE3c/SQbiJIlPuH8TOhYFvKV/45+/3k/zUT8JOi+NZRcrk1YlkepvZuQ
+         o//AcqGLeV+igx3dUk+s7f8f0mY2e8YcXYY2EsZgeSg1GKYjDDQTwGWH1dM9c7L0xQHk
+         tfT1RV93R3AV4UgKs8/2DY0Z8cZ0Bj4EWTNGSJPpjBcMHRrf7qOmSHMvf5t+iYmHvB+I
+         BagQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrLuLEEny6cfEB73ZWFUCm1zAwKYzyYe7Bi4lky9jjiWhbU5vJY+NxWaEDe0NYZCtPYkaIO+fvCCYFuiCc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lTX5kUkRXJi9JhSFTx7SUqqdTt89bTXkqkdLc9RLOq5aIATW/F
+	kYuuXDo0c+FaCqI9DUDN3CG9YYOqIAdh+6yOVO0XofkWEUherbh0hNUeIK+t6MxCUsY=
+X-Gm-Gg: AR+sD11hPiprY+e/p0UGh6pdRwF9fXctk5ihnaZ9tzPsgTcjnn+oWcuBnc3EHvtI7z4
+	2SuO0XjRmV4kGme+y71NWdT6ECRlMVobFyuvgeG5xB7SsLntUqISVANLygNQP+S5/NN2OjZn3Tf
+	TT5fJUiuIQgLF6NRw90DdkvEc7zBEmoS+HVCJljuBPbpc9ZmyoKy2rq+FwG5QmFv3BSuLL6pOOy
+	avFXOxkVZMleGqvsnurERoywMCR9xTiEsfnst0ikGAQAj5egyExcixzMINCMroohAutc5a6APns
+	iMDsXoB9mvXXRn4LoDn+bbfWiKBpSbWrR+FFW04mi0lvk+9PZu9gNw3XUj82BSBledhMdXJRKXU
+	SNLNQMU3EvQFA3RIriNWfS3I3ff1hCr4m1mUK9fxHh81nJS/diiUXz+w9bs5TaW0Il+mNPtiqkh
+	bICFleJqS2VnUftZ6PuEd9ACpR5fgR6njIX3qnQOTmWYzgSXxZYAnrrbfYL86LJH4M2q0d
+X-Received: by 2002:a17:90b:1d47:b0:38e:2e86:ed02 with SMTP id 98e67ed59e1d1-3966d458714mr20922013a91.14.1787781543124;
+        Wed, 26 Aug 2026 14:59:03 -0700 (PDT)
+Received: from localhost ([71.212.202.210])
+        by smtp.gmail.com with UTF8SMTPSA id 98e67ed59e1d1-3965547159asm8327576a91.12.2026.08.26.14.59.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 14:58:30 -0700 (PDT)
-Date: Wed, 26 Aug 2026 17:58:28 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Christian Loehle <christian.loehle@arm.com>
-Cc: Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org, 
-	Rama Krishna Katta <ramakrishna.katta@arm.com>, Thomas Gleixner <tglx@kernel.org>, 
-	Gregory Price <gourry.memverge@gmail.com>, Kees Cook <kees@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Andy Lutomirski <luto@kernel.org>, 
-	Gabriel Krisman Bertazi <krisman@collabora.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] selftests/ptrace: Skip get_set_sud if SUD is
- unsupported
-Message-ID: <ao9hHvfw1bGVYDAS@gourry-fedora-PF4VCD3F>
-References: <cover.1786965107.git.christian.loehle@arm.com>
- <1f16bf30aebbbf44ffc598359e0d474887162e7e.1786965107.git.christian.loehle@arm.com>
+        Wed, 26 Aug 2026 14:59:02 -0700 (PDT)
+From: Kevin Hilman <khilman@baylibre.com>
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, linux-pm@vger.kernel.org, Ulf
+ Hansson <ulfh@kernel.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 3/4] pmdomain: core: add genpd_for_each_child() helper
+In-Reply-To: <ii3gxwilznalii332hlaztbevzyegoeqfq4nugpuzs6gqyq3ms@rv4x3qdlj6i7>
+References: <20260819-topic-lpm-pmdomain-device-constraints-v4-0-7ceb095f5474@baylibre.com>
+ <20260819-topic-lpm-pmdomain-device-constraints-v4-3-7ceb095f5474@baylibre.com>
+ <ii3gxwilznalii332hlaztbevzyegoeqfq4nugpuzs6gqyq3ms@rv4x3qdlj6i7>
+Date: Wed, 26 Aug 2026 14:59:02 -0700
+Message-ID: <7h33w08rx5.fsf@baylibre.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1f16bf30aebbbf44ffc598359e0d474887162e7e.1786965107.git.christian.loehle@arm.com>
+Content-Type: text/plain
 
-On Mon, Aug 17, 2026 at 12:16:09PM +0100, Christian Loehle wrote:
-> Syscall User Dispatch is unavailable on architectures without generic
-> syscall entry. Such architectures return -EINVAL for otherwise valid SUD
-> ptrace requests.
-> 
-> The test currently treats this as a failure even though the feature is
-> not supported. Probe SUD with a valid disabled configuration before
-> creating the tracee and skip the test when the kernel returns EINVAL.
-> Other errors remain test failures, and kernels that support SUD continue
-> to exercise the ptrace GET/SET requests.
-> 
-> Fixes: 8c8fa605f7b8 ("selftest, ptrace: Add selftest for syscall user dispatch config api")
-> Reported-by: Rama Krishna Katta <ramakrishna.katta@arm.com>
-> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+Abel Vesa <abel.vesa@oss.qualcomm.com> writes:
 
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+> On 26-08-19 10:08:38, Kevin Hilman (TI) wrote:
+>> Add a new internal helper function genpd_for_each_child() that recursively
+>> iterates over all devices in a PM domain and its child domains (subdomains).
+>> This helper is useful for governors and other core PM domain code that needs
+>> to examine or apply operations to all devices within a domain hierarchy.
+>> 
+>> The function takes a callback that is invoked for each device, and supports
+>> early termination if the callback returns a non-zero value.
+>> 
+>> The helper is defined in a new internal header drivers/pmdomain/core.h and
+>> implemented in drivers/pmdomain/core.c, making it available to other PM
+>> domain subsystem components.
+>> 
+>> The first user of this helper is the cpu_system_power_down_ok() governor
+>> function, which uses it to check device QoS latency constraints across the
+>> entire domain hierarchy.
+>> 
+>> Signed-off-by: Kevin Hilman (TI) <khilman@baylibre.com>
+>> ---
+>>  drivers/pmdomain/core.c | 45 +++++++++++++++++++++++++++++++++++++++++++++
+>>  drivers/pmdomain/core.h | 17 +++++++++++++++++
+>>  2 files changed, 62 insertions(+)
+>> 
+>> diff --git a/drivers/pmdomain/core.c b/drivers/pmdomain/core.c
+>> index 842c4169e290..ff27369d9a97 100644
+>> --- a/drivers/pmdomain/core.c
+>> +++ b/drivers/pmdomain/core.c
+>> @@ -24,6 +24,8 @@
+>>  #include <linux/cpu.h>
+>>  #include <linux/debugfs.h>
+>>  
+>> +#include "core.h"
+>> +
+>>  /* Provides a unique ID for each genpd device */
+>>  static DEFINE_IDA(genpd_ida);
+>>  
+>> @@ -276,6 +278,49 @@ static void genpd_sd_counter_inc(struct generic_pm_domain *genpd)
+>>  	smp_mb__after_atomic();
+>>  }
+>>  
+>> +/**
+>> + * genpd_for_each_child - Recursively iterate over all devices
+>> + *                        in a PM domain and its subdomains.
+>> + * @genpd: PM domain to iterate over.
+>> + * @fn: Callback function to invoke for each device.
+>> + * @data: Data to pass to the callback function.
+>> + *
+>> + * This function recursively walks through all devices in the given PM domain
+>> + * and all devices in its child PM domains (subdomains). For each device found,
+>> + * the callback function @fn is invoked with the device and @data as arguments.
+>> + *
+>> + * Note: this function is inteded for use by the core and governors,
+>> + * not for pmdomain providers.
+>> + *
+>> + * Returns: 0 on success, or the first non-zero value returned by @fn.
+>> + */
+>> +int genpd_for_each_child(struct generic_pm_domain *genpd,
+>> +			 int (*fn)(struct device *dev, void *data),
+>> +			 void *data)
+>> +{
+>> +	struct pm_domain_data *pdd;
+>> +	struct gpd_link *link;
+>> +	int ret;
+>> +
+>> +	/* First, iterate over all devices in this domain */
+>> +	list_for_each_entry(pdd, &genpd->dev_list, list_node) {
+>> +		ret = fn(pdd->dev, data);
+>> +		if (ret)
+>> +			return ret;
+>> +	}
+>> +
+>> +	/* Then, recursively iterate over all child domains (subdomains) */
+>> +	list_for_each_entry(link, &genpd->parent_links, parent_node) {
+>> +		struct generic_pm_domain *child_pd = link->child;
+>> +
+>> +		ret = genpd_for_each_child(child_pd, fn, data);
+>> +		if (ret)
+>> +			return ret;
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+>
+> This is usefull, I like it.
 
-> ---
->  tools/testing/selftests/ptrace/get_set_sud.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
-> diff --git a/tools/testing/selftests/ptrace/get_set_sud.c b/tools/testing/selftests/ptrace/get_set_sud.c
-> index 2e619c7599bb..395674f85964 100644
-> --- a/tools/testing/selftests/ptrace/get_set_sud.c
-> +++ b/tools/testing/selftests/ptrace/get_set_sud.c
-> @@ -22,6 +22,14 @@ TEST(get_set_sud)
->  	int ret = 0;
->  	int status;
->  
-> +	ret = prctl(PR_SET_SYSCALL_USER_DISPATCH, PR_SYS_DISPATCH_OFF,
-> +		    0UL, 0UL, 0UL);
-> +	if (ret == -1 && errno == EINVAL)
-> +		SKIP(return, "Syscall User Dispatch is not supported");
-> +	ASSERT_EQ(0, ret) {
-> +		TH_LOG("PR_SET_SYSCALL_USER_DISPATCH: %m");
-> +	}
-> +
->  	child = fork();
->  	ASSERT_GE(child, 0);
->  	if (child == 0) {
-> -- 
-> 2.34.1
-> 
+Thanks for the review & feedback.
+
+>> +
+>>  #ifdef CONFIG_DEBUG_FS
+>>  static struct dentry *genpd_debugfs_dir;
+>>  
+>> diff --git a/drivers/pmdomain/core.h b/drivers/pmdomain/core.h
+>> new file mode 100644
+>> index 000000000000..7061891d31fb
+>> --- /dev/null
+>> +++ b/drivers/pmdomain/core.h
+>> @@ -0,0 +1,17 @@
+>> +/* SPDX-License-Identifier: GPL-2.0 */
+>> +/*
+>> + * Internal header for PM domain core
+>> + *
+>> + * Copyright (C) 2011 Rafael J. Wysocki <rjw@sisk.pl>, Renesas Electronics Corp.
+>> + */
+>
+> Year and author are wrong.
+
+Oops, copy/paste.
+
+> With this addressed:
+>
+> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+
+Thanks,
+
+Kevin
