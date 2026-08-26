@@ -1,73 +1,72 @@
 Received: from mail.kekto.ru (mail.kekto.ru [188.242.149.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21D15424D5A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7A96425872;
 	Wed, 26 Aug 2026 13:34:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.242.149.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787751257; cv=none; b=ll3Ug5gCwDnCOQL6FC23qmflxaCx54J347LEUapJVrMXrIYrFCRJz2sLrh34X4I66oH0gZ0M/uLWv6db2Lsvx+c4+dq8PWzOBCtE/Q4v/z7g77yBow+Xf/k4zOCmies5dYUqBgUz4W39Fr3ln30RUiuQoRVqB4aK1Wpcv4//JGU=
+	t=1787751257; cv=none; b=eQX/UFauOz70WcRc24s4ixctkJVYiCOaTcwq7e5og9YNYcSwbS4tyGHk8iujkQnHXCl8MquciYCON4II2jePR4QErWqg7++ml/z4o/nOZasAYqQ7bxbdZ0upRS5DHOO0Mfi141nGkDyLQys3TLcPmSoMHmxxnqdv0F69Mjs78Ag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787751257; c=relaxed/simple;
-	bh=WUyJtCaUz3480v9zbrYiJ2cuiMTgivpXlxdbCeF/fCQ=;
+	bh=gKkb35nV49U5xylloF8lUYhYYD8uGzOYdwhFRrI0sfM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=E//g02UH+ewd1E6/gqTg77c9w5hy1mrm9ZuVfZhcvLoP576TfpEmm4gQVQeT4ABD0/zZ6SokQjUC4QphN982cuV5jzTeR2gmTmF/N7prgxS96AW2wtAQ8EkcPR1GHqR7W0MZxl5O5zVnhgSGnOFisvu8587ya42rNN+nAup/iH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kekto.ru; spf=pass smtp.mailfrom=kekto.ru; dkim=pass (2048-bit key) header.d=kekto.ru header.i=@kekto.ru header.b=R9yyngWG; arc=none smtp.client-ip=188.242.149.39
+	 MIME-Version; b=OWyaza2gSK4u+6BRPQv14ecyTotaipIZXI/5RltDnyI3wvNjr2jT30/bn0AyA2syeR6HW7My7rN4q/GDrupyKZATveg4qzbknBu/uKX8VWXGccR5Hd3T2IsWr5iM78sws6aP9ZyyuJywPRyfW6VX3NTzhGMyMhcWfnAX6p/ZMtA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kekto.ru; spf=pass smtp.mailfrom=kekto.ru; dkim=pass (2048-bit key) header.d=kekto.ru header.i=@kekto.ru header.b=KFzbe2/A; arc=none smtp.client-ip=188.242.149.39
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kekto.ru
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kekto.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kekto.ru header.i=@kekto.ru header.b="R9yyngWG"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E86E0254A0;
-	Wed, 26 Aug 2026 16:26:37 +0300 (MSK)
+	dkim=pass (2048-bit key) header.d=kekto.ru header.i=@kekto.ru header.b="KFzbe2/A"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AF9DF251B7;
+	Wed, 26 Aug 2026 16:26:31 +0300 (MSK)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kekto.ru; s=dkim;
-	t=1787750798; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1787750796; h=from:subject:date:message-id:to:cc:mime-version:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=WUyJtCaUz3480v9zbrYiJ2cuiMTgivpXlxdbCeF/fCQ=;
-	b=R9yyngWGCFPPuVPmPRuq622hyXBx9zWVx/eXHN4JDjcD/9lSrHW7nTHKvTwH6QZA6py8YB
-	LstvVlAU5+RI/1wsGa7SqreaBmDrReUkxdRZuzD7wVjAMVhND96GRCBlNkI9j1Y6/ijpEu
-	G0CnfzDelZZon0VZ5SfDpBpcUGUpW7hkZTO4u/+u2EhWQH00whc0OAR1WPdzSNh9fgqTYG
-	lalmqIBfcwrbO/sJ8oIy8e97/KV7nLqda7FmOYualTi/e33xYjdDmxyc57D6Wylm5IunFU
-	EBAovP63JXBcjwalS5f9or9+/aAvM+0lbBDUoq3EqRM/trbIwn9m8pDQ7Ubilw==
+	bh=dIH4SvExnP2K41dF5iMbKo9aEPZ7uZtw6qkuX9287pY=;
+	b=KFzbe2/AJwOAXbi/Sw87LGyijifgdILHDHmPiLvYZMuB/u1duETSQj1TWNCvcxDkshmhyu
+	zUwCMmRmkpA/GTxK0ns73jWS3uE6fuZ/4HmEypyxAaw9nXadlkM+KDZOCNdIZ6SsWzAUG6
+	zq97t5HheqTQZNJl29Aaq2TEFG26nAElSpgtE0TSs5xE9HhSpyrvkeLRfUtOCVGgWw+I29
+	ibPbF8dBYElkv4MSgtoWqEIOvNjPkKGMlrcov0FW/1IiVSurTyzrT+TIDkCbN3gzmKpIRF
+	v8mnG6g9usswge+zfmcKhjB8NPYHuQ+bVU1kAcKplbuSQloxOKJH4dAZ5rndDQ==
 From: KentoNion <kento@kekto.ru>
-To: platform-driver-x86@vger.kernel.org,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Yuming Sun <wolf109909@outlook.com>
+To: platform-driver-x86@vger.kernel.org
 Cc: Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
 	Armin Wolf <W_Armin@gmx.de>,
 	Mingyou Chen <qby140326@gmail.com>,
 	Gladyshev Ilya <foxido@foxido.dev>,
 	linux-kernel@vger.kernel.org,
+	Yuming Sun <wolf109909@outlook.com>,
 	Nabil Danial <nabildanial.93@gmail.com>,
-	Nika Krasnova <nika@ableh.moe>
-Subject: Re: [RESEND PATCH 4/5] platform/x86: bitland-mifs-wmi: drive lid switch via EC poll on Xiaomi Book Pro 14
-Date: Wed, 26 Aug 2026 16:26:39 +0300
-Message-ID: <20260826132639.177809-1-kento@kekto.ru>
+	Nika Krasnova <nika@ableh.moe>,
+	linux-doc@vger.kernel.org,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>
+Subject: Re: [PATCH] platform/x86: bitland-mifs-wmi: add TM2424 thin-ultrabook perf-mode quirk
+Date: Wed, 26 Aug 2026 16:26:32 +0300
+Message-ID: <20260826132632.177694-1-kento@kekto.ru>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <349da64e-fe09-0778-3b09-3f5edb0eebe4@linux.intel.com>
-References: <20260728180944.51356-1-wolf109909@outlook.com> <20260728180944.51356-5-wolf109909@outlook.com> <349da64e-fe09-0778-3b09-3f5edb0eebe4@linux.intel.com>
+In-Reply-To: <20260816215825.289356-1-kento@kekto.ru>
+References: <20260816215825.289356-1-kento@kekto.ru>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Ilpo,
+Please drop this patch.
 
-On Mon, Aug 24, 2026 at 19:00:50 +0300, Ilpo Järvinen wrote:
-> So does this mean it polls it while the machine is supposed to be
-> suspended?
+Mingyou Chen's v5 ("Merge redmi-wmi into bitland-mifs-wmi") is the
+right vehicle: a per-machine ops table instead of a DMI boolean fork.
+A replacement follow-up that adds TM2424 ops on top of v5 is in:
 
-I am not carrying 4/5. Same machine class (TM2424, BIOS XMAPT4B0P0707):
-the boot DSDT EC still starts, events are unblocked, and Lid Switch
-already binds as PNP0C0D LID0 / input event0. ECON is missing from
-_STA, which is the ACPI bug Armin asked to see in an acpidump.
+  [PATCH] platform/x86: bitland-mifs-wmi: add TM2424 ops and hotkeys
 
-Polling LSTE from a WMI driver and evaluating _Q0C/_Q0D is the wrong
-layer even if some BIOS revision really has no SW_LID. Details and
-dmesg are in the reply to Armin on 0/5.
+That also avoids the laptop_attrs const-qualifier build error the
+robot reported against this version (v5 already uses non-const
+DEVICE_ATTR). The LKP report is therefore obsolete.
 
 Thanks,
 Kento
