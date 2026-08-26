@@ -1,324 +1,219 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11012024.outbound.protection.outlook.com [40.107.75.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB9663BBFDB
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:14:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787750074; cv=none; b=D1k8/TxxeUKLgf+wnvnlZAgzJPW34rfXftQMHvrdB7Lh5J13yUKZFFoY4WFZcUvvvrFz5jWwhryQTeNiybdUhxSnmL31Tu7ZYB06Az8rUrbeGWe4VeuQEGJrt8MrrPNwbrKbezyJlCL1oSYxZXmPF3ZXLu4uta7Wzwzudvv37Ys=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787750074; c=relaxed/simple;
-	bh=TONygGSLK9eRUQeUSACVoCsHZVIfM7GHGYxKbUihzRg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JU3AzBYztKUzSWEYRBDy5GVJnWoiBq/ofhLdRjF41pLIJ/ahGLFJaNy64IH8Zg7vcxhio66CtvSLybID5VxTd40dLy3/713SIRX5DjJwACoo6fFi9i3ktj2czkiLdrv4RbJo7qaeN5YPW6mdMgA5amehi8wsxFbxnq1Or31f/J8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mGyuCiGG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=h/BFi3c2; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4534235C693;
+	Wed, 26 Aug 2026 13:14:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.75.24
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787750089; cv=fail; b=P93JXcsZrIJFgstcsuCu0bz1ORdhoZulYaBTMWLvgbp0aomSv4pQcFekkf9BlcBzlOHNEgjV+s1HcUE//YBCmXPSVp4EOzBRgpJ1voazI5AAsvOMFhCbGornejfEGDLQo/Gjs9m92TF0RNYBNFXNHcTMH2ZRL8/BaL3dNGmeY/Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787750089; c=relaxed/simple;
+	bh=7evAdjT1GxeOkSUZY+VQiCfnrX5A8IPLM2QENvDxoKk=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=gVMmhrbf9a1HA5m2VnO3a8Qp9+pgXv6VarOZK9mG3l6qFuVjEfEJ9cCldDKX0YJPLGHy3OFOx9+EYF0AL12oNGJlzvDlS1daZHhSs+Zx4hjjc7Td5EZBr174Flg/TKombJVzP5l8t3zDYjvc43LXFzRoQQhX73s+lr2y8Z9LQvI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vivo.com; spf=pass smtp.mailfrom=vivo.com; dkim=pass (2048-bit key) header.d=vivo.com header.i=@vivo.com header.b=QYWLBieb; arc=fail smtp.client-ip=40.107.75.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vivo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vivo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mGyuCiGG";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="h/BFi3c2"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QCBn5e3983363
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:14:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=9b65bGNzy50Pq14wclGP/2PS
-	9e7oVjr2Cl6312ucGxg=; b=mGyuCiGG+vlg2M5GqPw79eoVKBFrxAOoWmHjz32h
-	BLhsTETjNIsn3j3JMf8GZpYSM3sonU4I5sXSjAQ/XYsZJlooQUA0zos6VpR3cUAR
-	y674nCmmb/Nl6SXgvq4mmtaHTgkRMtb7Fgiy4NqjQWqzf2m7Xr7fBS0vRA9MF6L9
-	CswdFbefabXFGRxMnvLmFbytZyVVKdAE/fv0koUh+g5Gf79LffkEbBofjYgLTS/W
-	ttkSYmx/TY5I/BzOavnXys5p5w0uhKMc9pnE6SfSzxzK5BHj3E4EA6puRD/72iUl
-	zy7EaNLIZcVRS91JKHH8H9XUBCFICAwhv9rO0bsrukkFAg==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g9wmqru06-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:14:31 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-38ea32e57e2so2296265a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 06:14:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787750070; x=1788354870; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=9b65bGNzy50Pq14wclGP/2PS9e7oVjr2Cl6312ucGxg=;
-        b=h/BFi3c2wyG6KEiXNiMMSwnlL3bYtpFkzo+5ZxfuJg6cEemWwwWDV5EnnnHEPGtQVA
-         vzlC91kRwN9NefUUw2iKbtJ6AenYwTKNzwGDCIwnCDL4g1ojJJTX/3E8ELxxiuhleYD/
-         5praHztxTq6H/qdndMAsvoL1mp+zJW06sOlz44Z+qnR628xNyP9iSgns5ztWSNrhq0fV
-         ZSUSuympFn/U/2bQWNxStqgHmuKVj7iWgQCdBj5SHTCQPQI8b1BgVDj9teCEmMD70OtJ
-         h2uU85wOovNs4jPRM3MhO742rWek2oCE2C1VOponnOZowxLy+yWNQErEBmsgJMErkBFT
-         suDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787750070; x=1788354870;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9b65bGNzy50Pq14wclGP/2PS9e7oVjr2Cl6312ucGxg=;
-        b=f4ShuTKqaZ9CvcPKH56/xRUkmoT/KjVL9OngDLLlTVTC72xd/QLEjWKwT4SUCIMdGU
-         gzaKuxILOkHxEbHmPL2JXW2+2eR4NiEhXQ6IAGxBlN4HthyDvKwRM7C7f9IHvqcCvniR
-         DverAUq5198b2oKJp/FTtz9x3CATf2bEGsLTYmbd0yjpi3MW13vru904pvH0h2fSrnW8
-         /Naiui9htHIm3Ghnzc3GzEQKOcXgGdhReIYjBW0bbqTy8PeVl+6UX1z6cb11BtlM1VX5
-         EIcRClEQV0YbjkU6Zk2W93cE/uLBAKBExp2LVqaLlI/ndlQGWC04ueQSvrli9OD7TNfU
-         T6PQ==
-X-Forwarded-Encrypted: i=1; AHgh+Ro4VfzzjWacVJfLWZeJ7/tqggzag+ic4qeqSFMFYMcD2C3CcpO8xpFhd6BcjPVH3+7/0HYtg6xkjn9eFkk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nNP3u6xDGtNrC09Xv59dttOUMfex6ULDrG/H2TEXyAgF1kg9Pj
-	hV5O05YaBf27xaXkOEcliTmvC0G+nClS0E4Vry/CRaV0Rayv7P/GduozZNL0CUri38j7qo9LlJu
-	+6eIoLs/lF6gv7RkEzr4npi4OqHInXBTzW/QEPU57UpZRWEjhTuc7OxKaG0rWShCwErw=
-X-Gm-Gg: AR+sD10QjQMg50dwzGpeUf5YeZf5Q+2HqfCLjI9WAtoqaaWN+i97s6xIKD+4pe5dQ50
-	9uM3rcdVivWPez1HdkZjSQ7XE8fG7mn/gMoiMRnJgw+F75Xy4xomIkR5TERQF76Eka4jTaHb2QR
-	CQt6Yy6+idHV71RKRm7zdKrJRORXzxu2j2YMcaVTvvBSD+1vSobn6kcVZ0t9fDMiIfENecNv7M7
-	TEpdfd2YVIVy22LvOjW48/6GVfIr+lHVBcuGhanf3zwZVWjJ6XREX27JbWDQ6BfRvzfsEByRF7h
-	tnh1n0s1eqeyp2L5g8O2BWm7LSPJAiCPc/3tw1pPdBv4RMl/SIILbQjO+kVLVbiYkchzbmw0tA2
-	OxU2fC9b5/22tfaJozp1Ucyr5l3sPztyUI8bIbIYIWfM=
-X-Received: by 2002:a17:90b:4c4a:b0:38e:ad9d:1161 with SMTP id 98e67ed59e1d1-3966d00a01amr13595726a91.0.1787750070274;
-        Wed, 26 Aug 2026 06:14:30 -0700 (PDT)
-X-Received: by 2002:a17:90b:4c4a:b0:38e:ad9d:1161 with SMTP id 98e67ed59e1d1-3966d00a01amr13595579a91.0.1787750069721;
-        Wed, 26 Aug 2026 06:14:29 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39645b07394sm8149417a91.4.2026.08.26.06.14.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 06:14:29 -0700 (PDT)
-Date: Wed, 26 Aug 2026 21:14:22 +0800
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/4] pmdomain: qcom: rpmhpd: Add NMXC power domain for
- Nord
-Message-ID: <ao7mrrW_ob77EAIp@QCOM-aGQu4IUr3Y>
-References: <20260826102746.633076-1-shengchao.guo@oss.qualcomm.com>
- <20260826102746.633076-3-shengchao.guo@oss.qualcomm.com>
- <6b2f4411-9c38-4b82-b605-6b9a047ab973@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=vivo.com header.i=@vivo.com header.b="QYWLBieb"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Qrtu2IikldjYHLJW9R0s/1IPG6xMu5d4s+4l/3svM+IqmfudSErHFUdMOgVZAQbZ9vpuDJwSiJWyL7ANwrGpOdhfmpcxqE6vMiPgYxqf23XexreI7NjgpTPHWrxz6c4zsicOFp2EQi/8Cnu0CJFt8fKSAfQ+FYXpZa6QXV/fTJZTFCkiwFibpu/QRaEl5J/vHT1NN182R0ERrrNTiANil8lewMuw9ESZtiyy10tYKwHPOaTD2DHS6T+wrocTN+0GVLjsy8+FT2LYpDz18tscw5UDC7LBzbZ/rMRsa6P9ucJNUNrxIbS3rurlT/iYa6IR63EzHCTslOdUTfF61yLnNw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=i5CPSj9haAR3DM+8c+2f+xKUdNIj1FaRK3ToRkjYMn8=;
+ b=qB1H6D7J97Z5sVzb2dqdjnNSRFd4b45SvEZXGmMqhN8FJt9eLvp8MKm4n6t+LjVqu4k8paIE7xIckTlydJ9kPiaBxe8qj5CUIgH2Dcvfbx/rAr3ptO+clIkPvixELXyGqn3ukDihM6zazsypeKrUVKfI84g/EtbI8eb6W0C5IAT8IfGkgtFdHqQySOo2qfJiqkpQrRalL6Pjwalkz1NVLZDnCNqrqd3M5HzUsjiYSTiZzZP3K77kAbFlvFXPQuoVzW9B9nxYSKYzrAfAIg8xtV4yq/uSgKVGcpeWUUN/uiH7/pgJbP+0h7f5JvjdjQIfYH/lhIEBE9DWquA2OuW3mQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
+ dkim=pass header.d=vivo.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=i5CPSj9haAR3DM+8c+2f+xKUdNIj1FaRK3ToRkjYMn8=;
+ b=QYWLBiebkChFzHaul/SwaSOhapRlmEBNBEavv5DI7m+wFjHR1yOoIndIPT0uaON9e62kz3ve79IR5p7cfa33uiqMycq+yXtY4KKGyUhDL6nRpSKlUyMsl4594Ns1Oh95oFnYRuDNkKNtpGa3ImIReRIEyO/WmBZ5/GcMZ9bMDUn+fUCggddR9z0zJK0qYKWx7QvdfshMDDp+Y1gB798j/1jyU1/NqhS3VDKAgwnU19rGAiTXy27LDXCwS3QMpbbuj8ZMm9C16nCbFxCo7EdrCbaDQMzvn8sRlBVWswntaGy4ypPIOZrU4ypNuENItr6O5D3EztMT9GQV6IQXjbCY/Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vivo.com;
+Received: from PUZPR06MB4742.apcprd06.prod.outlook.com (2603:1096:301:b5::13)
+ by SEYPR06MB5866.apcprd06.prod.outlook.com (2603:1096:101:c6::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.8; Wed, 26 Aug
+ 2026 13:14:42 +0000
+Received: from PUZPR06MB4742.apcprd06.prod.outlook.com
+ ([fe80::206c:c661:9838:5571]) by PUZPR06MB4742.apcprd06.prod.outlook.com
+ ([fe80::206c:c661:9838:5571%6]) with mapi id 15.21.0360.008; Wed, 26 Aug 2026
+ 13:14:42 +0000
+From: Fuyu Zhao <zhaofuyu@vivo.com>
+To: bpf@vger.kernel.org,
+	eddyz87@gmail.com,
+	andrii.nakryiko@gmail.com,
+	alan.maguire@oracle.com
+Cc: andrii@kernel.org,
+	ast@kernel.org,
+	daniel@iogearbox.net,
+	memxor@gmail.com,
+	martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev,
+	shuah@kernel.org,
+	yatsenko@meta.com,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Fuyu Zhao <zhaofuyu@vivo.com>
+Subject: [PATCH bpf-next v5 0/2] libbpf: Improve BPF load performance by selectively loading kmod BTFs
+Date: Wed, 26 Aug 2026 21:14:26 +0800
+Message-Id: <20260826131428.302-1-zhaofuyu@vivo.com>
+X-Mailer: git-send-email 2.34.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SG2P153CA0024.APCP153.PROD.OUTLOOK.COM (2603:1096:4:c7::11)
+ To PUZPR06MB4742.apcprd06.prod.outlook.com (2603:1096:301:b5::13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6b2f4411-9c38-4b82-b605-6b9a047ab973@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDEwOSBTYWx0ZWRfX1MjVZ4xZfuzK
- sDKRt9pdIbkw67FGSBziOwrEmfSAgF8Ys15w3UaxEqNR6u16MhjWhapj2S+S95Z2CBsg6Zjakyh
- PSoAw7qmOcGozwRDRWIr40Xbp8g02hM=
-X-Proofpoint-ORIG-GUID: AJbT9NOuMpJUH4DcsLPzbLjRyt9l87QF
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDEwOSBTYWx0ZWRfX+0UFPTT6VORY
- 3JCl/4aQXdmo71kgmlGEjLqTtxBJYUvl+X4D8kfFiGweO6K2W68MhsxOKbPGbCF/I0pCOnDLPAV
- Ch84nYOf1hR/Bw1UP97Dl7HL69gI1PlMKPC0LOAYltAVdWMML8OOCQaiSokB08DivuVUQTajN7u
- VyCYFTuYiGWXG470sJWv+CdWUbBElFOqexJ3PnzJrksUxOI73dHEWqyiSfF3u3XOacx4QxdAxXG
- gMreQQzP10abSpNVH6Z6/e970nI8Ud/fvrAp65DG/YwGTeyUSEflEFIkQVZI7shr2o9dQdKnjtu
- /4N1GPEpU+eKhCY4h9esjYltHeX47wVlalHPltqJKTa+ru5lyaMzr0KfVOVu9b8d1NeDzN/ez58
- ssZ5B/DhSeYjUfa/gpZ86ZLzpN0u2CLAIS8RpDl+CohgmcBZXCBZBWMA28018gENaAQAAqkeWrt
- GUmkgC6JAu1hHC2R6+w==
-X-Authority-Analysis: v=2.4 cv=T9S8ifKQ c=1 sm=1 tr=0 ts=6a8ee6b7 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=3Qi1WCIwDasdfMXOsCAA:9 a=CjuIK1q_8ugA:10
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-GUID: AJbT9NOuMpJUH4DcsLPzbLjRyt9l87QF
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-26_03,2026-08-26_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 suspectscore=0 priorityscore=1501 malwarescore=0 phishscore=0
- lowpriorityscore=0 clxscore=1015 spamscore=0 impostorscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260109
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PUZPR06MB4742:EE_|SEYPR06MB5866:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5af8d91c-0783-4143-ee19-08df0373fd39
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|52116014|7416014|23010399003|366016|1800799024|18002099003|56012099006|11063799006|10067099003|6133799003|38350700014;
+X-Microsoft-Antispam-Message-Info:
+	GehPpO6EVqO5iw72b1LicOOkFVXlHLmDMNBr4szuRwYMsxetrbg0PNaOwBoglc/8249r0y8e8lIUFCpCILDL+bsHvP4bWoppWvqMZdhBqMi4n9bP39OFy6z/gmq9P8l8pJiPQR9ZjN+JFUDNC3eC7r5ZUTdzvxgGZCCqFI/HR5l3qk+IlST0JSVm9ad91dv6DxYtK3axW1aUGoKnJUQX8MqFE/VSN/HxAX8AmfiQmGfFn6VW5ulQECfNsGRRi7lUer4E3EuFrOTCrnFBYIprg2hUACu0M3n7Sv/tV4eT7k1Xj1kFD7vokm+M9ndV8Mg9xQf/0gSG4XWxvBL6kGncbH2V0brDbYAVzwpDN2rlWGEosyhRc6czUr1vUtBf4MA0ECsms5WmwQ0SLgXIE7vXU2npcGedIbVZGhV9TN82o/PjSAIxOvLypUKoPBIbE8+aeMpsziRwEiE3SMJ+hk3IBydmqBRTlRX7vQ2WPfVcGFRL17wuwsUEqh4Dv3DqWcx6K+Z0fOR+iZJY1zP/KEZiLpRdm1T7mNtx4E2J+a9y6mJzii9C7zJ3adUbBsoFzVnYA/zZHDfOaEJBkknhlBpYMieXksafKlXFbxyAyn+ZoC7zmL25XgyKjRXfL+DRq68lAlQXG9xvaxJtRtzwXY1aPGC1F6QGkOb5Ko9n9yS/urW799Lke8TQI4qgjqRwSGHTm2C5RGOyXfj1pIxlIxU6rgEy6cjQv3L6sM3AK7Y9ucM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PUZPR06MB4742.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(52116014)(7416014)(23010399003)(366016)(1800799024)(18002099003)(56012099006)(11063799006)(10067099003)(6133799003)(38350700014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?z+cZdvEWDWOazJbdTZBPF6Uo63VgHUtrHwgkmmy9gDQi3ms11jwlcOQOPcQE?=
+ =?us-ascii?Q?yPCCP5qr83SJFG40ZpZGrVMp/3Y1q/Hoa6/+ihBEklsRV15jqFnVrWBmv4jx?=
+ =?us-ascii?Q?DG8NNSY/rBLPAKGqiwgeGDWrkamXczSInQH0YSBu94SBH1RD1wH3yRzADvyz?=
+ =?us-ascii?Q?ReKGXWoIRWZpwV15s1S1QWnt07c8Yn/aUI6jwMU10gxA1Y8IluLFlr6zUuxO?=
+ =?us-ascii?Q?kb8Uy9JOX0F4ucIpjvijtO/uIwa1w+N/nLpusP+Bxhkhx5End59LR6ioUzye?=
+ =?us-ascii?Q?0YoLlZ4D+dZXfIFndcyYRnHrbMXPMeFTqVvDuRSTYqfqhXcq6mPsxzYYvPF+?=
+ =?us-ascii?Q?zMMnWApLTZ42OEkun/GkBTlVhdKnz04MFtXWhUNkKZjpy/cP4WF0PTDBUtDe?=
+ =?us-ascii?Q?o5troDmlXRPipf/9dkRgV+7zUvvqlxIVtExW9TiN9nh1OZ5p7+U6GHeZP3vU?=
+ =?us-ascii?Q?dpDbGh4T93VPep1nzNsEqg3Nqr7PIGYRkcdHsyo6mIQoFQxx1IQqsjWLbgTB?=
+ =?us-ascii?Q?qXks+qdI863KeNC5o61KoolbyxRtw/yIGSJjrd1nHrozjeanS7seTaHWVdgv?=
+ =?us-ascii?Q?n6ndWwPnpJuVM3eaaQ7yZVOUmlO8L6vJHr0iE+vf0Jb3VuD4rWMEMGnjZoq9?=
+ =?us-ascii?Q?3Smb4GJEstnaTdHx4eeyFBJVA8Ft07S6tLeSbBmGjyig7WGZ5GrxX28sUoEv?=
+ =?us-ascii?Q?9HS0zJ6xJD0qW4wrhfvBz7AYOH7R50rXn3FoaK53lB7uVFRPkJuqeWQlo8we?=
+ =?us-ascii?Q?w8/vRPTd0d1N2JVWScDfn0DioxB7hwNe5AKxjeR1krEqi9Jyx/S96k/d2iIg?=
+ =?us-ascii?Q?1JRIoSUFtb0CCErCiYhqiFQNw+zIecvxBtVELsRyrLy8B6l2VOGThVtM3SF1?=
+ =?us-ascii?Q?H2o7z/zaVpXWe2sAXquW1Y/iinYk/aX2+z2yL4nKVpvCgxfJyKwcnPKUVh96?=
+ =?us-ascii?Q?h4FVF/xb/+tIOyCB/UDEzx/byN9fPXo/1VyZALPWFXJHRSLKzkOLyJChK8ba?=
+ =?us-ascii?Q?GcZU2szKJLRd3pJAVnpbF+WVUYehXljEstzwhuxhWf6w7bqPMPqT47UchPUh?=
+ =?us-ascii?Q?OI2+5Hhw6vWRTiBQ2khs5F0rHjPmCKVpE1e88QHk41vluT14jJ1LTrqRKomy?=
+ =?us-ascii?Q?gmGT54w5KLz78XKV7I2RCYeVTqfJ4rLGxa/vfEI+Sg7NffcHZwvv70fbditM?=
+ =?us-ascii?Q?V1a2RWaeD4jjbDENoJYy5gzb/73le9DV0vE/d4iS3aaThIOWtCNX6GGt0gEh?=
+ =?us-ascii?Q?WrCZDQTZ69XHjCjPow40viWFrstE3CgykDfTcx9maE0h52/ZV8Q/fhexZSJ2?=
+ =?us-ascii?Q?Ec10jHPFJ5IZdNi3IX8UW+J/qshe6s4OucxKeUPePmqlQLCycKUQ0Ema642J?=
+ =?us-ascii?Q?4nyt5iR5C1te+ft5fEXLP7nLrVqEFI3XorqhHhJ5P5aLlPyNsE+wQNNHSBHz?=
+ =?us-ascii?Q?67aTtj/hxz04l7R2CHOn26ts8oaCL95s4xga78JR+N49PgEV0vbFi0HpuRQt?=
+ =?us-ascii?Q?SGeJ6U7+QHJR8zXqhO2tPfLnJsv2OznMxIqIQygy89zVn7scGEPUHeydi6sC?=
+ =?us-ascii?Q?3vKiw00ZL5TMwFjPL0DPR7lFsdOE8/+qSiTWtTQaNoBQxqXVfrqXBXwgs/ke?=
+ =?us-ascii?Q?3vRCbD9p8sV51mduAQPU0qpJiRXCQpEgNtU89YjFAdzDTBkJqR+jiery3AOV?=
+ =?us-ascii?Q?PzOOkgnGg7TNUyt6jL64gtoGisg6t9rKYu2jtjBKGX5IZzmo3wjSftdAuKpR?=
+ =?us-ascii?Q?rNKZCwLzCg=3D=3D?=
+X-OriginatorOrg: vivo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5af8d91c-0783-4143-ee19-08df0373fd39
+X-MS-Exchange-CrossTenant-AuthSource: PUZPR06MB4742.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 13:14:42.1595
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PhpUYQrHYkQS3qcOlSu93mYr/terJ5H/N6TMFOh6FkI5OL9B+t7kx6DmwummhmAcVSLMVxZBhhSZ56Mapu+Zug==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR06MB5866
 
-On Wed, Aug 26, 2026 at 03:04:33PM +0200, Konrad Dybcio wrote:
-> On 8/26/26 12:27 PM, Shawn Guo wrote:
-> > From: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
-> > 
-> > Add the nmxc.lvl RPMh resource and register it in the Nord power domain
-> > table. Nord supplies the NSP memory rail from this dedicated resource
-> > rather than from the shared MX rail, so consumers need it exposed as its
-> > own power domain.
-> > 
-> > Signed-off-by: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
-> > Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> > ---
-> >  drivers/pmdomain/qcom/rpmhpd.c | 6 ++++++
-> >  1 file changed, 6 insertions(+)
-> > 
-> > diff --git a/drivers/pmdomain/qcom/rpmhpd.c b/drivers/pmdomain/qcom/rpmhpd.c
-> > index 96e4bd2f5a14..717c44d1c39a 100644
-> > --- a/drivers/pmdomain/qcom/rpmhpd.c
-> > +++ b/drivers/pmdomain/qcom/rpmhpd.c
-> > @@ -198,6 +198,11 @@ static struct rpmhpd mxc_ao = {
-> >  	.res_name = "mxc.lvl",
-> >  };
-> >  
-> > +static struct rpmhpd nmxc = {
-> > +	.pd = { .name = "nmxc", },
-> > +	.res_name = "nmxc.lvl",
-> 
-> The commandDB sources suggest this shouls be nspmxc.lvl instead..
-> 
-> Can you dump /sys/kernel/debug/cmd-db?
+Currently, during BPF object loading, load_module_btfs() unconditionally
+iterates over all kernel module BTFs and loads each one. This introduces
+unnecessary overhead when a BPF program only needs BTFs from a specific,
+small subset of modules. In environments with hundreds of modules,
+loading all module BTFs can measurably increase the loading time.
 
-root@qcom-armv8a:~# cat /sys/kernel/debug/cmd-db
-Command DB DUMP
-Slave ARC (v16.0)
--------------------------
-0x30000: cx.lvl [00 00 10 00 10 00 c0 00 00 01 80 01 a0 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
-0x30004: cx.tmr
-0x30010: mx.lvl [00 00 10 00 c0 00 00 01 80 01 a0 01 b0 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
-0x30014: mx.tmr
-0x30020: ebi.lvl [00 00 10 00 c0 00 00 01 80 01 a0 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
-0x30024: ebi.tmr
-0x30030: gfx.lvl [00 00 01 00 c0 00 00 01 80 01 a0 01 b0 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
-0x30034: gfx.tmr
-0x30040: ddr.lvl [00 00 20 00 80 00 a0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
-0x30044: ddr.tmr
-0x30050: mmcx.lvl [00 00 01 00 c0 00 00 01 80 01 a0 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
-0x30054: mmcx.tmr
-0x30060: nsp0.lvl [00 00 01 00 c0 00 00 01 80 01 a0 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
-0x30064: nsp0.tmr
-0x30070: mxc.lvl [00 00 10 00 c0 00 00 01 80 01 a0 01 b0 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
-0x30074: mxc.tmr
-0x30080: nsp1.lvl [00 00 01 00 c0 00 00 01 80 01 a0 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
-0x30084: nsp1.tmr
-0x30090: nsp2.lvl [00 00 01 00 c0 00 00 01 80 01 a0 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
-0x30094: nsp2.tmr
-0x300a0: nsp3.lvl [00 00 01 00 c0 00 00 01 80 01 a0 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
-0x300a4: nsp3.tmr
-0x300b0: nmxc.lvl [00 00 10 00 c0 00 00 01 80 01 a0 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
-0x300b4: nmxc.tmr
-0x300c0: gic.lvl [00 00 20 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
-0x300c4: gic.tmr
-0x300d0: ds.lvl [00 00 20 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
-0x300d4: ds.tmr
-0x300e0: gfx1.lvl [00 00 01 00 c0 00 00 01 80 01 a0 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
-0x300e4: gfx1.tmr
-0x300f0: xo.lvl [00 00 20 00 50 00 80 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
-0x300f4: xo.tmr
-Slave ARC (v16.0)
--------------------------
-0x00000: cx.mol [80 00]
-0x00000: mx.mol [c0 00]
-0x00000: ebi.mol [c0 00]
-0x00000: gfx.mol [80 00]
-0x00000: ddr.mol [a0 00]
-0x00000: mmcx.mol [80 00]
-0x00000: nsp0.mol [80 00]
-0x00000: mxc.mol [c0 00]
-0x00000: nsp1.mol [80 00]
-0x00000: nsp2.mol [80 00]
-0x00000: nsp3.mol [80 00]
-0x00000: nmxc.mol [c0 00]
-0x00000: gic.mol [20 00]
-0x00000: ds.mol [20 00]
-0x00000: gfx1.mol [80 00]
-0x00000: xo.mol [80 00]
-Slave BCM (v16.0)
--------------------------
-0x50000: MC0 [40 d0 1b 01 40 00 00 00]
-0x50094: MC1 [40 d0 1b 01 40 00 00 00]
-0x5009c: MC2 [40 d0 1b 01 40 00 00 00]
-0x50080: MC3 [40 d0 1b 01 40 00 00 00]
-0x50004: SH0 [c0 ea 21 01 00 01 01 00]
-0x50008: SH1 [c0 ea 21 01 00 01 01 00]
-0x50098: SH2 [c0 ea 21 01 00 01 01 00]
-0x50084: SH3 [c0 ea 21 01 00 01 01 00]
-0x50010: SN0 [10 e4 1f 00 40 00 03 00]
-0x50014: SN1 [10 e4 1f 00 40 00 03 00]
-0x50018: SN2 [10 e4 1f 00 10 00 03 00]
-0x5001c: SN3 [10 e4 1f 00 10 00 03 00]
-0x50024: SN4 [10 e4 1f 00 10 00 03 00]
-0x50028: MM0 [b0 db 23 00 40 00 04 00]
-0x5002c: MM1 [b0 db 23 00 40 00 04 00]
-0x50030: CN0 [e0 22 02 00 04 00 05 00]
-0x50034: CN1 [e0 22 02 00 04 00 05 00]
-0x50038: CE0 [fc 5c 00 00 08 00 06 00]
-0x50070: CE1 [fc 5c 00 00 08 00 06 00]
-0x50074: CE2 [fc 5c 00 00 08 00 06 00]
-0x5003c: IP0 [28 00 00 00 08 00 07 00]
-0x50040: QUP0 [14 00 00 00 04 00 08 00]
-0x50044: QUP1 [14 00 00 00 04 00 08 00]
-0x50048: QUP2 [14 00 00 00 04 00 08 00]
-0x50068: QUP3 [14 00 00 00 04 00 08 00]
-0x5004c: C0N0 [60 b7 47 00 40 00 09 00]
-0x50050: C1N0 [60 b7 47 00 40 00 0a 00]
-0x50054: C2N0 [60 b7 47 00 40 00 0b 00]
-0x50058: C3N0 [60 b7 47 00 40 00 0c 00]
-0x5005c: CP0 [30 75 00 00 04 00 0d 00]
-0x50060: DCP0 [30 75 00 00 04 00 0e 00]
-0x50064: DTP0 [80 38 01 00 04 00 0f 00]
-0x5006c: ALC [01 00 00 00 00 00 11 00]
-0x50088: ACV [01 00 00 00 00 00 12 00]
-Slave VRM (v1.0)
--------------------------
-0x4d000: vrm.aoss [03 da 00 00]
-0x4d004: vrm.ds [03 da 00 00]
-0x40200: S1A_E0 [01 0b 00 00]
-0x40300: S3A_E0 [01 0d 00 00]
-0x40000: S5A_E0 [01 11 00 00]
-0x40400: S6A_E0 [01 13 00 00]
-0x40500: S8A_E0 [01 17 00 00]
-0x40500: vrm.ebi [01 17 00 00]
-0x40600: L4A_E0 [01 49 00 00]
-0x40700: L6A_E0 [01 4b 00 00]
-0x40800: L7A_E0 [01 4c 00 00]
-0x40b00: L8A_E0 [01 4d 00 00]
-0x4a000: C1A_E0 [02 69 00 00]
-0x4a000: vrm.xob [02 69 00 00]
-0x4a100: C2A_E0 [02 6a 00 00]
-0x4a100: lnbclka2 [02 6a 00 00]
-0x4a200: C3A_E0 [02 6b 00 00]
-0x4a200: lnbclka3 [02 6b 00 00]
-0x4a300: C4A_E0 [02 6c 00 00]
-0x4a300: divclka1 [02 6c 00 00]
-0x40c00: S1E_E0 [01 1b 00 00]
-0x40c00: vrm.nsp3 [01 1b 00 00]
-0x40d00: S7E_E0 [01 1d 00 00]
-0x40d00: vrm.mx [01 1d 00 00]
-0x40e00: L1E_E0 [01 4f 00 00]
-0x40f00: L2E_E0 [01 50 00 00]
-0x41600: L3E_E0 [01 51 00 00]
-0x41700: S1F_E0 [01 1f 00 00]
-0x41700: vrm.nsp1 [01 1f 00 00]
-0x40100: S7F_E0 [01 21 00 00]
-0x41800: S8F_E0 [01 23 00 00]
-0x41000: L1F_E0 [01 52 00 00]
-0x41900: L3F_E0 [01 54 00 00]
-0x41a00: S1G_E0 [01 25 00 00]
-0x41a00: vrm.nsp0 [01 25 00 00]
-0x41b00: S5G_E0 [01 27 00 00]
-0x41100: L2G_E0 [01 56 00 00]
-0x41c00: S1H_E0 [01 2b 00 00]
-0x41c00: vrm.nsp2 [01 2b 00 00]
-0x41d00: S5H_E0 [01 2d 00 00]
-0x41d00: vrm.mxc [01 2d 00 00]
-0x41200: L1H_E0 [01 58 00 00]
-0x40900: L2H_E0 [01 59 00 00]
-0x41e00: S2I_E0 [01 31 00 00]
-0x41e00: vrm.gfx [01 31 00 00]
-0x41f00: S7I_E0 [01 00 00 00]
-0x41f00: vrm.mmcx [01 00 00 00]
-0x41300: L1I_E0 [01 5b 00 00]
-0x40a00: L2I_E0 [01 5c 00 00]
-0x42000: L3I_E0 [01 5d 00 00]
-0x42100: S7J_E0 [01 00 00 00]
-0x42100: vrm.gfx1 [01 00 00 00]
-0x41400: L1K_E0 [01 61 00 00]
-0x41500: L2K_E0 [01 62 00 00]
-0x42200: L3K_E0 [01 63 00 00]
-0x42300: S1L_E0 [01 00 00 00]
-0x42300: vrm.nmxc [01 00 00 00]
-0x42400: S2L_E0 [01 45 00 00]
-0x42400: vrm.cx [01 45 00 00]
-0x42500: L3L_E0 [01 66 00 00]
-0x4a400: vrm.sail [02 67 00 00]
+In our Android testing, BPF programs are loaded on demand rather than
+preloaded to avoid unnecessary memory usage from unused programs. With
+93 module BTFs present, the total BPF loading time exceeds 300 ms, with
+module BTF loading accounting for around 69% of the total loading time.
 
-Shawn
+The existing module qualification in SEC(), such as
+SEC("fentry/mymod:foo"), does not address this issue. It only affects
+BTF ID lookup after module BTFs have already been loaded by
+load_module_btfs(), and does not reduce the number of module BTFs loaded.
+
+This series adds btf_module_names and nr_btf_module_names fields to
+bpf_object_open_opts, allowing users to specify a list of kernel modules
+whose BTFs should be loaded. libbpf uses this information to skip
+unrelated module BTFs during iteration and stops iterating once all
+requested module BTFs have been loaded. Without these options, the
+existing behavior remains unchanged.
+
+Performance impact (BPF skeleton open and load time):
+
+  Modules loaded | Default (load all) | With btf_module_names | Speedup
+  ---------------|--------------------|-----------------------|--------
+  1              | 35.6 ms            | 35.6 ms               | Baseline
+  10             | 37.2 ms            | 35.7 ms               | +4.0%
+  100            | 46.7 ms            | 36.5 ms               | +21.8%
+  300            | 65.2 ms            | 38.5 ms               | +40.9%
+
+Changelog:
+v5:	
+- Add no_module_btfs_needed() to skip loading module BTFs early when the
+  module BTF name list is empty. (sashiko-bot)
+- Document struct_ops as an affected use case for btf_module_names.
+  (bot+bpf-ci)
+- Add invalid input tests and assert expected error codes for negative
+  cases. (bot+bpf-ci)
+
+v4:
+- Link: https://lore.kernel.org/bpf/20260824125310.1384-1-zhaofuyu@vivo.com/
+- Simplify and rename newly added struct members and their documentation.
+  (Eduard)
+- Use array search instead of a hashmap for module name matching to
+  simplify the code. (Eduard)
+- Allow an empty module name list to skip loading all module BTFs.
+  (Eduard, sashiko-bot)
+- Move btf_module_names option handling before bpf_object__elf_init().
+  (Eduard)
+- Rename internal helpers to follow libbpf naming conventions. (Andrii)
+- Reject duplicate module names and document the rejection rule. (Andrii)
+- Replace log interception with functional tests and simplify selftests.
+  (Andrii)
+
+v3:
+- Link: https://lore.kernel.org/bpf/20260819090426.267-1-zhaofuyu@vivo.com/
+- Use bpf_object_open_opts to specify kernel module BTFs to load rather
+  than introducing a new .kmod_btfs ELF section, as suggested by Andrii.
+
+v2:
+- Link: https://lore.kernel.org/bpf/20260813032613.2755-1-zhaofuyu@vivo.com/
+- Addressed issues with allocation error handling, multiple .kmod_btfs
+  sections, the transient stack pointer in is_kmod_btf_needed(), and
+  selftest dependency and comment formatting. (sashiko-bot)
+- Removed KMODS_BTF_LOADED and KMODS_BTF_UNLOADED and simplified the
+  related logic.
+
+v1:
+- Link: https://lore.kernel.org/bpf/20260806042042.3239428-1-zhaofuyu@vivo.com/
+
+Fuyu Zhao (2):
+  libbpf: support selective kernel module BTF loading via
+    bpf_object_open_opts
+  selftests/bpf: add tests for selective module BTF loading
+
+ tools/lib/bpf/libbpf.c                        | 113 ++++++++++++++
+ tools/lib/bpf/libbpf.h                        |  24 ++-
+ .../bpf/prog_tests/btf_module_names.c         | 139 ++++++++++++++++++
+ .../selftests/bpf/progs/btf_module_names.c    |  13 ++
+ 4 files changed, 288 insertions(+), 1 deletion(-)
+ create mode 100644 tools/testing/selftests/bpf/prog_tests/btf_module_names.c
+ create mode 100644 tools/testing/selftests/bpf/progs/btf_module_names.c
+
+-- 
+2.34.1
+
