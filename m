@@ -1,42 +1,42 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1A1D44607C
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:56:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F768442392
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:56:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787756185; cv=none; b=CyJQ9YyAz2sicPpiaiEkmhGmDYmTXkLwm1lgUSeOnqw6K+hgmjhyDptO/9ZLdqa6GnzpT+Ptu232TWjZT3enG9MDc8t+2IKR4EQI10pMYxjIVKA++x26x7HBm07p5RUFQVEBfUOcmzRdLHn+/kVF8QjhuK63/ufPdoM+0q+p408=
+	t=1787756185; cv=none; b=g7MLnB+JwgHCQDXAqlhOYnu/6T1ZVreWVbwP6mi97CAY+yWZH22efIogbhGJ40ODFhN6CmB4bjxcpIy4XDl4ZuUZ04gTRA+QLjCixbkqDhv4QDLryg456aILdWbg5ECaFVMfXdn9ap4h33AiIwE97FVIRXsCw72Xjcl0OVQdioU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787756185; c=relaxed/simple;
-	bh=uptKXCpjgRj0Ud46HcaI4A0OYDF8I2rwFQqa96c4pXk=;
+	bh=6nxPERHTdccMCsUoEfsZmeKNNYtONGLjFoRsi9B3dEE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=uCcOkHC5j+snc1P//zCYxOgq0wU82D6Hwd3pVqsjOulEiZu6ApTZSTOPAEjAtifc0F+Yu9SiiPBZfrBuy+4wALwAwB2I/yxsrWEb2afAFC3OZpLT5hvRn3ZM3KAV14IzIG5nObt5avXOhOGmcdOtdzd7yJ0xBjptJyP6lQJdrNc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=RAgeVG3A; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=JkSOkfsLkdx6y5OQ6vc1HderMYpehZvNtNOMjeb/qNdkb++DjMnXL0xzzzOmsoggS+A7NohPbTAQpZCg2k+vzky55MnWJkF+kIvyhM9s3J5lG2tQsZyuL7+RWyvZkl+ObkFWEEEaXeLzUDdpMr1RGVloXj6xI8MAxUA8S8TTsdk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Cbo4w4jX; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="RAgeVG3A"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Cbo4w4jX"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1787756180;
-	bh=uptKXCpjgRj0Ud46HcaI4A0OYDF8I2rwFQqa96c4pXk=;
+	s=mail; t=1787756181;
+	bh=6nxPERHTdccMCsUoEfsZmeKNNYtONGLjFoRsi9B3dEE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=RAgeVG3AAKENnoIYwHgHjjtdfnVb45CtxuMhQHxRBztjoT0vu4efXsKyks3FBYjVW
-	 d849wvUwX6eNW4iQwrlNZBC1Ij5ObSmE8p1AYoD5EM2WjA57vM8e+aibGV90HOUSz4
-	 3dgfFCq0xGN+YZMxCKHH592gLTeilhAcMi0UUb3Gq7KwnhCO+OCBHYRw+piEmBwQRY
-	 7UO3hx+0LF475JugVLj/ByRxpQ8GSkQVtUFr/JgXaV6OTlZHK+wwKPgKOufQ4ql66E
-	 wIl+P+3T+oykEvyXjtjatNhIDIG9qKq2DhAYEDAb1pMpBN2tiGq2sNAR8B4Vc49QvY
-	 c0jT1xAIz8irw==
+	b=Cbo4w4jXJVRKz4bMB7skMEpKBMp7IJw0hY2r6dgcZxyjV88Ikj2KdYBTNgR0mkqSw
+	 yygKThmkqQ06tjC4CHnBGigAcnf6YJricnXJdyWnUlIoFTAGHQjhtI5LGgF+FkSO/n
+	 sEndbTTp3lvlmAU1PX1DBUnxYd7IJoM7xmvjE5BvxTvJbHro18BqgBTZLXzUH949Wc
+	 wWlwbSQRLDHSiI2WnMTVwbwCa9UaSZ99/6QpB/dFdrm92V/1nHGEbrrPz0sVZoU7G2
+	 RRGMGNfd43/KT10KS21TtJjNm3MfwO0HX68pyNuufpGHPK73OhF5GOYZMBefwFE3hb
+	 zwpyuN9dHpIxA==
 Received: from fedora-32.home (unknown [100.64.0.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: bbrezillon)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 475BB17E0BDC;
-	Wed, 26 Aug 2026 16:56:20 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 75ADD17E0FCD;
+	Wed, 26 Aug 2026 16:56:21 +0200 (CEST)
 From: Boris Brezillon <boris.brezillon@collabora.com>
-Date: Wed, 26 Aug 2026 16:56:01 +0200
-Subject: [PATCH v4 02/18] drm/panthor: Revisit the reset logic to avoid
- reset request loss
+Date: Wed, 26 Aug 2026 16:56:03 +0200
+Subject: [PATCH v4 04/18] drm/panthor: Flush the cleanup_wq in the unplug
+ path
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,7 +45,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260826-panthor-unplug-fixes-v4-2-982cc8f4234b@collabora.com>
+Message-Id: <20260826-panthor-unplug-fixes-v4-4-982cc8f4234b@collabora.com>
 References: <20260826-panthor-unplug-fixes-v4-0-982cc8f4234b@collabora.com>
 In-Reply-To: <20260826-panthor-unplug-fixes-v4-0-982cc8f4234b@collabora.com>
 To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
@@ -54,135 +54,70 @@ Cc: Chris Diamand <chris.diamand@arm.com>, Akash Goel <akash.goel@arm.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Boris Brezillon <boris.brezillon@collabora.com>
+ Boris Brezillon <boris.brezillon@collabora.com>, sashiko-bot@kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787756178; l=4527;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787756178; l=2353;
  i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
- bh=uptKXCpjgRj0Ud46HcaI4A0OYDF8I2rwFQqa96c4pXk=;
- b=KqZmmhSBhgGQnoG9uAVgDGOaGFTFzd4DbmDVtB2HTk/jc/TD5DDbSJAC8mMphPAh5iVnjerAP
- Nk8VhR6/vjeBMXGAbU7Ep5moIys9Cih8kvYm4SWuwWD3IHjczgvbAXZ
+ bh=6nxPERHTdccMCsUoEfsZmeKNNYtONGLjFoRsi9B3dEE=;
+ b=CgdbnJRU4yas3cvXvvl1yUZyMgH7GHimBh0NhFw+ZyQKgeLM9WBLjr+nMIghHChruz447fojK
+ MIid5SwU0UHB79h9oG6e1rhOTuVxPf7AubhOSlume011Z9o3LGt7t/4
 X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
  pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 
-disable/enable_work() provide a ready to use mechanism to temporarily
-disable a work item, so use that instead of the complex state machinery
-based on the PM state.
+If we don't do that, we might face various UAFs, because the resource
+referenced by these work items might be gone by the time they get
+executed.
 
-This also allows us to automate the reset resubmission in case a reset
-was received while the work item was disabled.
+In each subcomponent making use of the panthor_cleanup_wq, we add a
+flush_workqueue() at the end of the _unplug() function. Note that this
+assumes no more work items from this subcomponent gets queued after
+that point, which is not yet guaranteed, but this will be fixed in
+upcoming changes.
 
+Fixes: de8548813824 ("drm/panthor: Add the scheduler logical block")
+Fixes: 647810ec2476 ("drm/panthor: Add the MMU/VM logical block")
+Reported-by: sashiko-bot@kernel.org
+Closes: https://sashiko.dev/#/patchset/20260625-panthor-signal-from-irq-v5-0-8836a74e0ef9@collabora.com?part=2
 Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 ---
- drivers/gpu/drm/panthor/panthor_device.c | 36 +++++++++++++++++++++++++-------
- drivers/gpu/drm/panthor/panthor_device.h |  3 +--
- 2 files changed, 29 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/panthor/panthor_mmu.c   | 6 ++++++
+ drivers/gpu/drm/panthor/panthor_sched.c | 6 ++++++
+ 2 files changed, 12 insertions(+)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
-index 7c55d0c45cfd..2974f4bc0bb1 100644
---- a/drivers/gpu/drm/panthor/panthor_device.c
-+++ b/drivers/gpu/drm/panthor/panthor_device.c
-@@ -181,6 +181,15 @@ static void panthor_device_free_page(struct drm_device *ddev, void *data)
- 	__free_page(data);
+diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+index d43ba1c7cd2a..1385ee28bee5 100644
+--- a/drivers/gpu/drm/panthor/panthor_mmu.c
++++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+@@ -3367,6 +3367,12 @@ void panthor_mmu_unplug(struct panthor_device *ptdev)
+ 		}
+ 	}
+ 	mutex_unlock(&ptdev->mmu->as.slots_lock);
++
++	/* Ensure any pending job cleanup work are executed before returning,
++	 * otherwise those might access objects that are gone if the work is
++	 * executed after other components are unplugged.
++	 */
++	flush_workqueue(panthor_cleanup_wq);
  }
  
-+static void enable_resets(struct panthor_device *ptdev)
-+{
-+	/* If a reset has been queued while the work was
-+	 * disabled, reschedule it.
+ static void panthor_mmu_release_wq(struct drm_device *ddev, void *res)
+diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+index 42adfc76b9e1..a6d57dc1b43e 100644
+--- a/drivers/gpu/drm/panthor/panthor_sched.c
++++ b/drivers/gpu/drm/panthor/panthor_sched.c
+@@ -4049,6 +4049,12 @@ void panthor_sched_unplug(struct panthor_device *ptdev)
+ 		sched->pm.has_ref = false;
+ 	}
+ 	mutex_unlock(&sched->lock);
++
++	/* Ensure any pending group release work are executed before returning,
++	 * otherwise those might access objects that are gone if the work is
++	 * executed after other components are unplugged.
 +	 */
-+	if (enable_work(&ptdev->reset.work) && atomic_read(&ptdev->reset.pending))
-+		queue_work(ptdev->reset.wq, &ptdev->reset.work);
-+}
-+
- int panthor_device_init(struct panthor_device *ptdev)
- {
- 	u32 *dummy_page_virt;
-@@ -256,6 +265,13 @@ int panthor_device_init(struct panthor_device *ptdev)
- 
- 	ptdev->phys_addr = res->start;
- 
-+	/* panthor_device_resume() calls enable_resets(), so we need to disable
-+	 * the reset.work manually before this gets called to keep things
-+	 * balanced. We don't bother re-enabling the work if the resume fails,
-+	 * because the whole initialization will fail in that case, and the work
-+	 * will vanish.
-+	 */
-+	disable_work(&ptdev->reset.work);
- 	ret = devm_pm_runtime_enable(ptdev->base.dev);
- 	if (ret)
- 		return ret;
-@@ -305,9 +321,6 @@ int panthor_device_init(struct panthor_device *ptdev)
- 
- 	panthor_gem_init(ptdev);
- 
--	/* Now that everything is initialized, we can enable the reset work. */
--	enable_work(&ptdev->reset.work);
--
- 	/* ~3 frames */
- 	pm_runtime_set_autosuspend_delay(ptdev->base.dev, 50);
- 	pm_runtime_use_autosuspend(ptdev->base.dev);
-@@ -316,6 +329,9 @@ int panthor_device_init(struct panthor_device *ptdev)
- 	if (ret)
- 		goto err_disable_autosuspend;
- 
-+	/* Now that everything is initialized, we can enable the reset work. */
-+	enable_resets(ptdev);
-+
- 	pm_runtime_put_autosuspend(ptdev->base.dev);
- 	return 0;
- 
-@@ -534,10 +550,8 @@ int panthor_device_resume(struct device *dev)
- 		/* If there was a reset pending at the time we suspended the
- 		 * device, we force a slow reset.
- 		 */
--		if (atomic_read(&ptdev->reset.pending)) {
-+		if (atomic_cmpxchg(&ptdev->reset.pending, 1, 0))
- 			ptdev->reset.fast = false;
--			atomic_set(&ptdev->reset.pending, 0);
--		}
- 
- 		ret = panthor_device_resume_hw_components(ptdev);
- 		if (ret && ptdev->reset.fast) {
-@@ -565,6 +579,9 @@ int panthor_device_resume(struct device *dev)
- 			    DRM_PANTHOR_USER_MMIO_OFFSET, 0, 1);
- 	atomic_set(&ptdev->pm.state, PANTHOR_DEVICE_PM_STATE_ACTIVE);
- 	mutex_unlock(&ptdev->pm.mmio_lock);
-+
-+	/* Now that everything is resumed, we can re-enable the reset work. */
-+	enable_resets(ptdev);
- 	return 0;
- 
- err_suspend_devfreq:
-@@ -604,10 +621,13 @@ int panthor_device_suspend(struct device *dev)
- 			    DRM_PANTHOR_USER_MMIO_OFFSET, 0, 1);
- 	mutex_unlock(&ptdev->pm.mmio_lock);
- 
-+	/* Make sure we're not interrupted by resets after that point
-+	 * until the GPU is resumed.
-+	 */
-+	disable_work_sync(&ptdev->reset.work);
-+
- 	if (panthor_device_is_initialized(ptdev) &&
- 	    drm_dev_enter(&ptdev->base, &cookie)) {
--		cancel_work_sync(&ptdev->reset.work);
--
- 		/* We prepare everything as if we were resetting the GPU.
- 		 * The end of the reset will happen in the resume path though.
- 		 */
-diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-index 6529e01e838d..f55baa21b25e 100644
---- a/drivers/gpu/drm/panthor/panthor_device.h
-+++ b/drivers/gpu/drm/panthor/panthor_device.h
-@@ -389,8 +389,7 @@ void panthor_device_unplug(struct panthor_device *ptdev);
-  */
- static inline void panthor_device_schedule_reset(struct panthor_device *ptdev)
- {
--	if (!atomic_cmpxchg(&ptdev->reset.pending, 0, 1) &&
--	    atomic_read(&ptdev->pm.state) == PANTHOR_DEVICE_PM_STATE_ACTIVE)
-+	if (!atomic_cmpxchg(&ptdev->reset.pending, 0, 1))
- 		queue_work(ptdev->reset.wq, &ptdev->reset.work);
++	flush_workqueue(panthor_cleanup_wq);
  }
  
+ static void panthor_sched_fini(struct drm_device *ddev, void *res)
 
 -- 
 2.55.0
