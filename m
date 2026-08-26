@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDC57479861;
-	Wed, 26 Aug 2026 19:44:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7329B47CA6E;
+	Wed, 26 Aug 2026 19:43:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787773466; cv=none; b=eNB70cOfLx5a1H9RVHCmEN3n4YhMo9GB25rMPVsjn060rHn5XQZVai0asygGEdxWL3xQT8io9B1gZzCzFvR9PbIuDaUxAm0bI4KBpbwyj3isfsN0lG1haDxmHPdAQIHKEUBgu23lPyyte/tuys4Fzuoe6LX7iv20x7J+ssvV4sE=
+	t=1787773468; cv=none; b=ckS1Il4z8efX0DETGhMVl+s4GzNEWswxykTtX6rh73NO61S83CohotRX48AuzWVkedhoT+kDxWLQivqzimlWBUN38bNSOW+Kt+9h2Wow30zpF43Tf9wBG/2iZLq0/YUUnxFwOTE5+cf8uTtPSS5gK8kM73o1z8OqW++PYArSpas=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787773466; c=relaxed/simple;
-	bh=VOU67u7mEDsxx2aOB55kk3MnNKDJP7BakR1snktUOKo=;
+	s=arc-20240116; t=1787773468; c=relaxed/simple;
+	bh=2rrXCuW6NuSKqMYac/0DKvr3I/mtMZGxeah+pXkt8TI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Flhfq1xCIYuuGnzfvuTjND7I5kS0bec4ZmDdA0k0sGDsnKgpoqhPbfEGHyYDo7LDDjbuZo/1EqxLJ65ArGExy0AAS0mswryeiCFYb0JfrVOH/gZr6yrJTCpVjeKW3uo/UDD4wOR7GLEiQsJqfCsRnwgIzfgcaYQOXf60MkUpJdk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TNNeR9Ic; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=eO9nYWdzY4wNcfJt4n0iLj0W8P8afGXtWvbpe8KWUAzeQYkcuIKZK3YOiS//CmBBMzIxLyCWVMlVjAwrFYUWm2U11b0Nn2YwxCbUqP234UZGeEHweZEeIMYLLEzY7hWbxCqGHMS0WtIftSXSFaGqxdQ7wphQbU6FEtLPhuHbW9U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JZ28nj/9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TNNeR9Ic"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51ADC1F01558;
-	Wed, 26 Aug 2026 19:44:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JZ28nj/9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B119A1F00ACF;
+	Wed, 26 Aug 2026 19:43:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787773445;
-	bh=fkdr6fVtQEltHyj6bFsRkPXhH4VQAzMSlpUVMgjeGLk=;
+	s=k20260515; t=1787773426;
+	bh=Tcs+C8F57TEgo9uadC/oL5HEXBs30NuN7wUPsR31MRo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TNNeR9Icn0j3qZDDTTambabAsdK+mXB/mUGIO2NC8gL0tQLi/2/uLh8TL4vAYY5sz
-	 +nZddlZGnZaVGf+MCamFXgqHF2/6gblSzVRLHGKwJ+TM0fqs6JraUPLmTrHH3C54jX
-	 p6kvu9OVGtDfwvTu8Qzo5nncdVhCl6VP4UPJnW476TzZP3+NFuFOMGDDItnVtttQnU
-	 uwio1xCzGctvzyAYOPVLGueCE2ihAMxklR5m6PKYI2Q/XBBOoHkQHhxOZMZzUqDLyb
-	 PAtXj8YKF6l88CF2ptZc5gjjKVi57Iiuv+TJpk1qZxcbIOr8grX8oAMtDVfIdNHDcU
-	 DB7ZubWpjtNKw==
+	b=JZ28nj/9+TiQYpPf+wrum0Cy9AWiMiX3xj14z14Cxgujw2ks2nAyEMl87pQYKgUVP
+	 +wEQSOJATk1Sn1n7ETDtvWf95wIExb0ZFVobsTgxZYWNsQyOq4nWbO9aOT/+Fi2gVf
+	 YisRZXbYrdP+8/bLmFC3Txs3rpf7zDMqjqQp32FrVhsqxpk1hUjYDaIQZq8a2Q4UCr
+	 nX3ps7nlEg2yAUvvFK0EadJyS5OsixKRF7Ckpdwf+4IRME4nZYfZd7lg6IWOh8E5/J
+	 wQrN6paVHiLzg1E0yreuIAIO/3ff0wluzqWM01F6RgapmZDyYB/bWgljqAyP7ft4ia
+	 ExwOFvUYQJUGg==
 From: Alexey Gladkov <legion@kernel.org>
 To: Linus Torvalds <torvalds@linux-foundation.org>,
 	"Eric W . Biederman" <ebiederm@xmission.com>,
@@ -33,9 +33,9 @@ To: Linus Torvalds <torvalds@linux-foundation.org>,
 	Joel Granados <joel.granados@kernel.org>
 Cc: LKML <linux-kernel@vger.kernel.org>,
 	linux-fsdevel@vger.kernel.org
-Subject: [RFC PATCH v1 27/30] sysctl: net: use sysctl_field in IPv4 devconf sysctls
-Date: Wed, 26 Aug 2026 21:42:31 +0200
-Message-ID: <f09f0dec4c6958a9e9806040bbe07968c1a54adf.1787771905.git.legion@kernel.org>
+Subject: [RFC PATCH v1 19/30] sysctl: net: use sysctl_field in net core per-net sysctls
+Date: Wed, 26 Aug 2026 21:42:23 +0200
+Message-ID: <b73d88fa166b9b582f9c335133eb78dc2a6e5f1b.1787771905.git.legion@kernel.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1787771905.git.legion@kernel.org>
 References: <cover.1787771905.git.legion@kernel.org>
@@ -47,373 +47,296 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-IPv4 devconf clones its sysctl tables for each registered devconf so the
-registration path can rewrite data pointers and attach the matching
-network namespace through extra2. The copied tables then have to stay
-alive until unregistration only so they can be freed.
+The net core per-net sysctl table is cloned for every non-init network
+namespace so that the per-net entries can be patched to point at the
+current struct net and the global buffer limit entries can be made
+read-only.
 
-Allow sysctl_field custom entries to derive extra1 and extra2 from the
-registration context, and use that in devinet. This keeps the devconf
-sysctl descriptors static and const while preserving the existing
-handlers' view of data, extra1 and extra2.
+Describe the table with sysctl_field instead. The per-net entries now
+derive their storage from the registration context, and the global
+buffer limit entries keep their init-net-only write permission through
+a mode callback.
 
-The per-net ip_forward entry uses the same context path, so it no longer
-needs a one-entry table copy either.
+This keeps the table static and const while preserving the existing
+permission model.
 
 Signed-off-by: Alexey Gladkov <legion@kernel.org>
 ---
- net/ipv4/devinet.c | 258 ++++++++++++++++++++++++---------------------
- 1 file changed, 140 insertions(+), 118 deletions(-)
+ net/core/sysctl_net_core.c | 241 ++++++++++++++++++-------------------
+ 1 file changed, 116 insertions(+), 125 deletions(-)
 
-diff --git a/net/ipv4/devinet.c b/net/ipv4/devinet.c
-index 58fe7cb69545..69b4b720a0e2 100644
---- a/net/ipv4/devinet.c
-+++ b/net/ipv4/devinet.c
-@@ -2613,15 +2613,44 @@ static int ipv4_doint_and_flush(const struct ctl_table *ctl, int write,
- 	return ret;
- }
+diff --git a/net/core/sysctl_net_core.c b/net/core/sysctl_net_core.c
+index b508618bfc12..39b112a302c2 100644
+--- a/net/core/sysctl_net_core.c
++++ b/net/core/sysctl_net_core.c
+@@ -678,100 +678,118 @@ static struct ctl_table net_core_table[] = {
+ 	},
+ };
  
--#define DEVINET_SYSCTL_ENTRY(attr, name, mval, proc) \
--	{ \
--		.procname	= name, \
--		.data		= ipv4_devconf.data + \
--				  IPV4_DEVCONF_ ## attr - 1, \
--		.maxlen		= sizeof(int), \
--		.mode		= mval, \
--		.proc_handler	= proc, \
--		.extra1		= &ipv4_devconf, \
-+struct devinet_ctl_context {
-+	struct sysctl_context context;
-+	struct ipv4_devconf *devconf;
-+};
-+
-+#define DEVINET_DATA(attr)						\
-+static void *devinet_ ## attr ## _data(const struct sysctl_context *ctx)	\
-+{									\
-+	const struct devinet_ctl_context *devinet_ctx =                 \
-+		container_of(ctx, struct devinet_ctl_context, context); \
-+	return &devinet_ctx->devconf->data[IPV4_DEVCONF_ ## attr - 1];  \
-+}
-+
-+static void *devinet_conf_data(const struct sysctl_context *ctx)
+-static struct ctl_table netns_core_table[] = {
++static umode_t netns_core_init_net_writable_mode(const struct sysctl_context *ctx)
 +{
-+	const struct devinet_ctl_context *devinet_ctx =
-+		container_of(ctx, struct devinet_ctl_context, context);
-+
-+	return devinet_ctx->devconf;
++	return net_eq(ctx->ns.net_ns, &init_net) ? 0644 : 0444;
 +}
 +
-+static void *devinet_net_data(const struct sysctl_context *ctx)
++#define NETNS_CORE_SYSCTL_DATA(type, name)				\
++static type *netns_core_##name##_data(const struct sysctl_context *ctx)	\
++{									\
++	return &ctx->ns.net_ns->core.sysctl_##name;			\
++}
++
++#define NETNS_CORE_SYSCTL_CUSTOM_DATA(name)				\
++static void *netns_core_##name##_data(const struct sysctl_context *ctx)	\
++{									\
++	return &ctx->ns.net_ns->core.sysctl_##name;			\
++}
++
++NETNS_CORE_SYSCTL_DATA(int, somaxconn)
++NETNS_CORE_SYSCTL_DATA(int, optmem_max)
++NETNS_CORE_SYSCTL_DATA(u8, txrehash)
++NETNS_CORE_SYSCTL_CUSTOM_DATA(txq_reselection)
++NETNS_CORE_SYSCTL_DATA(u8, bypass_prot_mem)
++
++static u8 *netns_core_tstamp_allow_data_value(const struct sysctl_context *ctx)
++{
++	return &ctx->ns.net_ns->core.sysctl_tstamp_allow_data;
++}
++
+ #if IS_ENABLED(CONFIG_RPS)
+-	{
+-		.procname	= "rps_default_mask",
+-		.data		= &init_net,
+-		.mode		= 0644,
+-		.proc_handler	= rps_default_mask_sysctl
+-	},
++static void *netns_core_rps_default_mask_data(const struct sysctl_context *ctx)
 +{
 +	return ctx->ns.net_ns;
 +}
-+
-+#define DEVINET_SYSCTL_ENTRY(attr, name, mval, proc)			\
-+	{								\
-+		.procname	= name,					\
-+		.mode		= mval,					\
-+		.type		= SYSCTL_FIELD_CUSTOM,			\
-+		.ctl_custom	= {					\
-+			.proc_handler	= proc,				\
-+			.data		= devinet_ ## attr ## _data,	\
-+			.extra1		= devinet_conf_data,		\
-+			.extra2		= devinet_net_data,		\
-+			.maxlen		= sizeof(int),			\
-+		},							\
- 	}
- 
- #define DEVINET_SYSCTL_RW_ENTRY(attr, name) \
-@@ -2636,104 +2665,118 @@ static int ipv4_doint_and_flush(const struct ctl_table *ctl, int write,
- #define DEVINET_SYSCTL_FLUSHING_ENTRY(attr, name) \
- 	DEVINET_SYSCTL_COMPLEX_ENTRY(attr, name, ipv4_doint_and_flush)
- 
--static struct devinet_sysctl_table {
--	struct ctl_table_header *sysctl_header;
--	struct ctl_table devinet_vars[IPV4_DEVCONF_MAX];
--} devinet_sysctl = {
--	.devinet_vars = {
--		DEVINET_SYSCTL_COMPLEX_ENTRY(FORWARDING, "forwarding",
--					     devinet_sysctl_forward),
--		DEVINET_SYSCTL_RO_ENTRY(MC_FORWARDING, "mc_forwarding"),
--		DEVINET_SYSCTL_RW_ENTRY(BC_FORWARDING, "bc_forwarding"),
--
--		DEVINET_SYSCTL_RW_ENTRY(ACCEPT_REDIRECTS, "accept_redirects"),
--		DEVINET_SYSCTL_RW_ENTRY(SECURE_REDIRECTS, "secure_redirects"),
--		DEVINET_SYSCTL_RW_ENTRY(SHARED_MEDIA, "shared_media"),
--		DEVINET_SYSCTL_RW_ENTRY(RP_FILTER, "rp_filter"),
--		DEVINET_SYSCTL_RW_ENTRY(SEND_REDIRECTS, "send_redirects"),
--		DEVINET_SYSCTL_RW_ENTRY(ACCEPT_SOURCE_ROUTE,
--					"accept_source_route"),
--		DEVINET_SYSCTL_RW_ENTRY(ACCEPT_LOCAL, "accept_local"),
--		DEVINET_SYSCTL_RW_ENTRY(SRC_VMARK, "src_valid_mark"),
--		DEVINET_SYSCTL_RW_ENTRY(PROXY_ARP, "proxy_arp"),
--		DEVINET_SYSCTL_RW_ENTRY(MEDIUM_ID, "medium_id"),
--		DEVINET_SYSCTL_RW_ENTRY(BOOTP_RELAY, "bootp_relay"),
--		DEVINET_SYSCTL_RW_ENTRY(LOG_MARTIANS, "log_martians"),
--		DEVINET_SYSCTL_RW_ENTRY(TAG, "tag"),
--		DEVINET_SYSCTL_RW_ENTRY(ARPFILTER, "arp_filter"),
--		DEVINET_SYSCTL_RW_ENTRY(ARP_ANNOUNCE, "arp_announce"),
--		DEVINET_SYSCTL_RW_ENTRY(ARP_IGNORE, "arp_ignore"),
--		DEVINET_SYSCTL_RW_ENTRY(ARP_ACCEPT, "arp_accept"),
--		DEVINET_SYSCTL_RW_ENTRY(ARP_NOTIFY, "arp_notify"),
--		DEVINET_SYSCTL_RW_ENTRY(ARP_EVICT_NOCARRIER,
--					"arp_evict_nocarrier"),
--		DEVINET_SYSCTL_RW_ENTRY(PROXY_ARP_PVLAN, "proxy_arp_pvlan"),
--		DEVINET_SYSCTL_RW_ENTRY(FORCE_IGMP_VERSION,
--					"force_igmp_version"),
--		DEVINET_SYSCTL_RW_ENTRY(IGMPV2_UNSOLICITED_REPORT_INTERVAL,
--					"igmpv2_unsolicited_report_interval"),
--		DEVINET_SYSCTL_RW_ENTRY(IGMPV3_UNSOLICITED_REPORT_INTERVAL,
--					"igmpv3_unsolicited_report_interval"),
--		DEVINET_SYSCTL_RW_ENTRY(IGNORE_ROUTES_WITH_LINKDOWN,
--					"ignore_routes_with_linkdown"),
--		DEVINET_SYSCTL_RW_ENTRY(DROP_GRATUITOUS_ARP,
--					"drop_gratuitous_arp"),
--
--		DEVINET_SYSCTL_FLUSHING_ENTRY(NOXFRM, "disable_xfrm"),
--		DEVINET_SYSCTL_FLUSHING_ENTRY(NOPOLICY, "disable_policy"),
--		DEVINET_SYSCTL_FLUSHING_ENTRY(PROMOTE_SECONDARIES,
--					      "promote_secondaries"),
--		DEVINET_SYSCTL_FLUSHING_ENTRY(ROUTE_LOCALNET,
--					      "route_localnet"),
--		DEVINET_SYSCTL_FLUSHING_ENTRY(DROP_UNICAST_IN_L2_MULTICAST,
--					      "drop_unicast_in_l2_multicast"),
+ #endif
+-	{
+-		.procname	= "somaxconn",
+-		.data		= &init_net.core.sysctl_somaxconn,
+-		.maxlen		= sizeof(int),
+-		.mode		= 0644,
+-		.extra1		= SYSCTL_ZERO,
+-		.proc_handler	= proc_dointvec_minmax
 -	},
-+DEVINET_DATA(FORWARDING)
-+DEVINET_DATA(MC_FORWARDING)
-+DEVINET_DATA(BC_FORWARDING)
-+DEVINET_DATA(ACCEPT_REDIRECTS)
-+DEVINET_DATA(SECURE_REDIRECTS)
-+DEVINET_DATA(SHARED_MEDIA)
-+DEVINET_DATA(RP_FILTER)
-+DEVINET_DATA(SEND_REDIRECTS)
-+DEVINET_DATA(ACCEPT_SOURCE_ROUTE)
-+DEVINET_DATA(ACCEPT_LOCAL)
-+DEVINET_DATA(SRC_VMARK)
-+DEVINET_DATA(PROXY_ARP)
-+DEVINET_DATA(MEDIUM_ID)
-+DEVINET_DATA(BOOTP_RELAY)
-+DEVINET_DATA(LOG_MARTIANS)
-+DEVINET_DATA(TAG)
-+DEVINET_DATA(ARPFILTER)
-+DEVINET_DATA(ARP_ANNOUNCE)
-+DEVINET_DATA(ARP_IGNORE)
-+DEVINET_DATA(ARP_ACCEPT)
-+DEVINET_DATA(ARP_NOTIFY)
-+DEVINET_DATA(ARP_EVICT_NOCARRIER)
-+DEVINET_DATA(PROXY_ARP_PVLAN)
-+DEVINET_DATA(FORCE_IGMP_VERSION)
-+DEVINET_DATA(IGMPV2_UNSOLICITED_REPORT_INTERVAL)
-+DEVINET_DATA(IGMPV3_UNSOLICITED_REPORT_INTERVAL)
-+DEVINET_DATA(IGNORE_ROUTES_WITH_LINKDOWN)
-+DEVINET_DATA(DROP_GRATUITOUS_ARP)
-+DEVINET_DATA(NOXFRM)
-+DEVINET_DATA(NOPOLICY)
-+DEVINET_DATA(PROMOTE_SECONDARIES)
-+DEVINET_DATA(ROUTE_LOCALNET)
-+DEVINET_DATA(DROP_UNICAST_IN_L2_MULTICAST)
+-	{
+-		.procname	= "optmem_max",
+-		.data		= &init_net.core.sysctl_optmem_max,
+-		.maxlen		= sizeof(int),
+-		.mode		= 0644,
+-		.extra1		= SYSCTL_ZERO,
+-		.proc_handler	= proc_dointvec_minmax
+-	},
+-	{
+-		.procname	= "txrehash",
+-		.data		= &init_net.core.sysctl_txrehash,
+-		.maxlen		= sizeof(u8),
+-		.mode		= 0644,
+-		.extra1		= SYSCTL_ZERO,
+-		.extra2		= SYSCTL_ONE,
+-		.proc_handler	= proc_dou8vec_minmax,
+-	},
+-	{
+-		.procname	= "txq_reselection_ms",
+-		.data		= &init_net.core.sysctl_txq_reselection,
+-		.maxlen		= sizeof(int),
+-		.mode		= 0644,
+-		.proc_handler	= proc_dointvec_ms_jiffies,
+-	},
+-	{
+-		.procname	= "tstamp_allow_data",
+-		.data		= &init_net.core.sysctl_tstamp_allow_data,
+-		.maxlen		= sizeof(u8),
+-		.mode		= 0644,
+-		.proc_handler	= proc_dou8vec_minmax,
+-		.extra1		= SYSCTL_ZERO,
+-		.extra2		= SYSCTL_ONE
+-	},
+-	{
+-		.procname	= "bypass_prot_mem",
+-		.data		= &init_net.core.sysctl_bypass_prot_mem,
+-		.maxlen		= sizeof(u8),
+-		.mode		= 0644,
+-		.proc_handler	= proc_dou8vec_minmax,
+-		.extra1		= SYSCTL_ZERO,
+-		.extra2		= SYSCTL_ONE
+-	},
+-	/* sysctl_core_net_init() will set the values after this
+-	 * to readonly in network namespaces
+-	 */
+-	{
+-		.procname	= "wmem_max",
+-		.data		= &sysctl_wmem_max,
+-		.maxlen		= sizeof(int),
+-		.mode		= 0644,
+-		.proc_handler	= proc_dointvec_minmax,
+-		.extra1		= &min_sndbuf,
+-	},
+-	{
+-		.procname	= "rmem_max",
+-		.data		= &sysctl_rmem_max,
+-		.maxlen		= sizeof(int),
+-		.mode		= 0644,
+-		.proc_handler	= proc_dointvec_minmax,
+-		.extra1		= &min_rcvbuf,
+-	},
+-	{
+-		.procname	= "wmem_default",
+-		.data		= &sysctl_wmem_default,
+-		.maxlen		= sizeof(int),
+-		.mode		= 0644,
+-		.proc_handler	= proc_dointvec_minmax,
+-		.extra1		= &min_sndbuf,
+-	},
+-	{
+-		.procname	= "rmem_default",
+-		.data		= &sysctl_rmem_default,
+-		.maxlen		= sizeof(int),
+-		.mode		= 0644,
+-		.proc_handler	= proc_dointvec_minmax,
+-		.extra1		= &min_rcvbuf,
+-	},
 +
-+static const struct sysctl_field devinet_sysctls[] = {
-+	DEVINET_SYSCTL_COMPLEX_ENTRY(FORWARDING, "forwarding",
-+				     devinet_sysctl_forward),
-+	DEVINET_SYSCTL_RO_ENTRY(MC_FORWARDING, "mc_forwarding"),
-+	DEVINET_SYSCTL_RW_ENTRY(BC_FORWARDING, "bc_forwarding"),
-+	DEVINET_SYSCTL_RW_ENTRY(ACCEPT_REDIRECTS, "accept_redirects"),
-+	DEVINET_SYSCTL_RW_ENTRY(SECURE_REDIRECTS, "secure_redirects"),
-+	DEVINET_SYSCTL_RW_ENTRY(SHARED_MEDIA, "shared_media"),
-+	DEVINET_SYSCTL_RW_ENTRY(RP_FILTER, "rp_filter"),
-+	DEVINET_SYSCTL_RW_ENTRY(SEND_REDIRECTS, "send_redirects"),
-+	DEVINET_SYSCTL_RW_ENTRY(ACCEPT_SOURCE_ROUTE,
-+				"accept_source_route"),
-+	DEVINET_SYSCTL_RW_ENTRY(ACCEPT_LOCAL, "accept_local"),
-+	DEVINET_SYSCTL_RW_ENTRY(SRC_VMARK, "src_valid_mark"),
-+	DEVINET_SYSCTL_RW_ENTRY(PROXY_ARP, "proxy_arp"),
-+	DEVINET_SYSCTL_RW_ENTRY(MEDIUM_ID, "medium_id"),
-+	DEVINET_SYSCTL_RW_ENTRY(BOOTP_RELAY, "bootp_relay"),
-+	DEVINET_SYSCTL_RW_ENTRY(LOG_MARTIANS, "log_martians"),
-+	DEVINET_SYSCTL_RW_ENTRY(TAG, "tag"),
-+	DEVINET_SYSCTL_RW_ENTRY(ARPFILTER, "arp_filter"),
-+	DEVINET_SYSCTL_RW_ENTRY(ARP_ANNOUNCE, "arp_announce"),
-+	DEVINET_SYSCTL_RW_ENTRY(ARP_IGNORE, "arp_ignore"),
-+	DEVINET_SYSCTL_RW_ENTRY(ARP_ACCEPT, "arp_accept"),
-+	DEVINET_SYSCTL_RW_ENTRY(ARP_NOTIFY, "arp_notify"),
-+	DEVINET_SYSCTL_RW_ENTRY(ARP_EVICT_NOCARRIER,
-+				"arp_evict_nocarrier"),
-+	DEVINET_SYSCTL_RW_ENTRY(PROXY_ARP_PVLAN, "proxy_arp_pvlan"),
-+	DEVINET_SYSCTL_RW_ENTRY(FORCE_IGMP_VERSION,
-+				"force_igmp_version"),
-+	DEVINET_SYSCTL_RW_ENTRY(IGMPV2_UNSOLICITED_REPORT_INTERVAL,
-+				"igmpv2_unsolicited_report_interval"),
-+	DEVINET_SYSCTL_RW_ENTRY(IGMPV3_UNSOLICITED_REPORT_INTERVAL,
-+				"igmpv3_unsolicited_report_interval"),
-+	DEVINET_SYSCTL_RW_ENTRY(IGNORE_ROUTES_WITH_LINKDOWN,
-+				"ignore_routes_with_linkdown"),
-+	DEVINET_SYSCTL_RW_ENTRY(DROP_GRATUITOUS_ARP,
-+				"drop_gratuitous_arp"),
-+	DEVINET_SYSCTL_FLUSHING_ENTRY(NOXFRM, "disable_xfrm"),
-+	DEVINET_SYSCTL_FLUSHING_ENTRY(NOPOLICY, "disable_policy"),
-+	DEVINET_SYSCTL_FLUSHING_ENTRY(PROMOTE_SECONDARIES,
-+				      "promote_secondaries"),
-+	DEVINET_SYSCTL_FLUSHING_ENTRY(ROUTE_LOCALNET,
-+				      "route_localnet"),
-+	DEVINET_SYSCTL_FLUSHING_ENTRY(DROP_UNICAST_IN_L2_MULTICAST,
-+				      "drop_unicast_in_l2_multicast"),
++static void *netns_core_sysctl_wmem_max_data(const struct sysctl_context *ctx)
++{
++	return &sysctl_wmem_max;
++}
++
++static void *netns_core_sysctl_rmem_max_data(const struct sysctl_context *ctx)
++{
++	return &sysctl_rmem_max;
++}
++
++static void *netns_core_sysctl_wmem_default_data(const struct sysctl_context *ctx)
++{
++	return &sysctl_wmem_default;
++}
++
++static void *netns_core_sysctl_rmem_default_data(const struct sysctl_context *ctx)
++{
++	return &sysctl_rmem_default;
++}
++
++static int proc_dointvec_minmax_sndbuf(const struct ctl_table *table, int write,
++				       void *buffer, size_t *lenp, loff_t *ppos)
++{
++	struct ctl_table tmp = *table;
++
++	tmp.extra1 = &min_sndbuf;
++	return proc_dointvec_minmax(&tmp, write, buffer, lenp, ppos);
++}
++
++static int proc_dointvec_minmax_rcvbuf(const struct ctl_table *table, int write,
++				       void *buffer, size_t *lenp, loff_t *ppos)
++{
++	struct ctl_table tmp = *table;
++
++	tmp.extra1 = &min_rcvbuf;
++	return proc_dointvec_minmax(&tmp, write, buffer, lenp, ppos);
++}
++
++static const struct sysctl_field netns_core_table[] = {
++#if IS_ENABLED(CONFIG_RPS)
++	SYSCTL_FIELD_CUSTOM("rps_default_mask", 0644, 0,
++			 netns_core_rps_default_mask_data,
++			 rps_default_mask_sysctl),
++#endif
++	SYSCTL_FIELD_STATIC_INT_MINMAX("somaxconn", 0644,
++				    netns_core_somaxconn_data,
++				    SYSCTL_ZERO, NULL),
++	SYSCTL_FIELD_STATIC_INT_MINMAX("optmem_max", 0644,
++				    netns_core_optmem_max_data,
++				    SYSCTL_ZERO, NULL),
++	SYSCTL_FIELD_STATIC_U8_MINMAX("txrehash", 0644,
++				   netns_core_txrehash_data,
++				   SYSCTL_UINT_ZERO, SYSCTL_UINT_ONE),
++	SYSCTL_FIELD_CUSTOM("txq_reselection_ms", 0644, sizeof(int),
++			 netns_core_txq_reselection_data, proc_dointvec_ms_jiffies),
++	SYSCTL_FIELD_STATIC_U8_MINMAX("tstamp_allow_data", 0644,
++				   netns_core_tstamp_allow_data_value,
++				   SYSCTL_UINT_ZERO, SYSCTL_UINT_ONE),
++	SYSCTL_FIELD_STATIC_U8_MINMAX("bypass_prot_mem", 0644,
++				   netns_core_bypass_prot_mem_data,
++				   SYSCTL_UINT_ZERO, SYSCTL_UINT_ONE),
++	SYSCTL_FIELD_CUSTOM_MODE("wmem_max", 0644,
++			      netns_core_init_net_writable_mode, sizeof(int),
++			      netns_core_sysctl_wmem_max_data,
++			      proc_dointvec_minmax_sndbuf),
++	SYSCTL_FIELD_CUSTOM_MODE("rmem_max", 0644,
++			      netns_core_init_net_writable_mode, sizeof(int),
++			      netns_core_sysctl_rmem_max_data,
++			      proc_dointvec_minmax_rcvbuf),
++	SYSCTL_FIELD_CUSTOM_MODE("wmem_default", 0644,
++			      netns_core_init_net_writable_mode, sizeof(int),
++			      netns_core_sysctl_wmem_default_data,
++			      proc_dointvec_minmax_sndbuf),
++	SYSCTL_FIELD_CUSTOM_MODE("rmem_default", 0644,
++			      netns_core_init_net_writable_mode, sizeof(int),
++			      netns_core_sysctl_rmem_default_data,
++			      proc_dointvec_minmax_rcvbuf),
  };
  
- static int __devinet_sysctl_register(struct net *net, char *dev_name,
- 				     int ifindex, struct ipv4_devconf *p)
- {
--	int i;
--	struct devinet_sysctl_table *t;
-+	struct ctl_table_header *hdr;
-+	struct devinet_ctl_context ctx = {
-+		.context.ns.net_ns = net,
-+		.devconf = p,
-+	};
- 	char path[sizeof("net/ipv4/conf/") + IFNAMSIZ];
+ static int __init fb_tunnels_only_for_init_net_sysctl_setup(char *str)
+@@ -789,50 +807,23 @@ __setup("fb_tunnels=", fb_tunnels_only_for_init_net_sysctl_setup);
  
--	t = kmemdup(&devinet_sysctl, sizeof(*t), GFP_KERNEL_ACCOUNT);
--	if (!t)
--		goto out;
+ static __net_init int sysctl_core_net_init(struct net *net)
+ {
+-	size_t table_size = ARRAY_SIZE(netns_core_table);
+-	struct ctl_table *tbl;
 -
--	for (i = 0; i < ARRAY_SIZE(t->devinet_vars); i++) {
--		t->devinet_vars[i].data += (char *)p - (char *)&ipv4_devconf;
--		t->devinet_vars[i].extra1 = p;
--		t->devinet_vars[i].extra2 = net;
+-	tbl = netns_core_table;
+-	if (!net_eq(net, &init_net)) {
+-		int i;
+-		tbl = kmemdup(tbl, sizeof(netns_core_table), GFP_KERNEL);
+-		if (tbl == NULL)
+-			goto err_dup;
+-
+-		for (i = 0; i < table_size; ++i) {
+-			if (tbl[i].data == &sysctl_wmem_max)
+-				break;
+-
+-			tbl[i].data += (char *)net - (char *)&init_net;
+-		}
+-		for (; i < table_size; ++i)
+-			tbl[i].mode &= ~0222;
 -	}
 -
- 	snprintf(path, sizeof(path), "net/ipv4/conf/%s", dev_name);
- 
--	t->sysctl_header = register_net_sysctl(net, path, t->devinet_vars);
--	if (!t->sysctl_header)
--		goto free;
-+	hdr = register_sysctl_fields_ctx(&net->sysctls, path, devinet_sysctls, &ctx);
-+	if (!hdr)
+-	net->core.sysctl_hdr = register_net_sysctl_sz(net, "net/core", tbl, table_size);
++	struct sysctl_context ctx = {
++		.ns.net_ns = net,
++	};
++	net->core.sysctl_hdr = register_sysctl_fields(&net->sysctls, "net/core",
++						      netns_core_table, &ctx);
+ 	if (net->core.sysctl_hdr == NULL)
+-		goto err_reg;
 +		return -ENOMEM;
  
--	p->sysctl = t;
-+	p->sysctl = hdr;
- 
- 	inet_netconf_notify_devconf(net, RTM_NEWNETCONF, NETCONFA_ALL,
- 				    ifindex, p);
  	return 0;
 -
--free:
--	kfree(t);
--out:
+-err_reg:
+-	if (tbl != netns_core_table)
+-		kfree(tbl);
+-err_dup:
 -	return -ENOMEM;
  }
  
- static void __devinet_sysctl_unregister(struct net *net,
- 					struct ipv4_devconf *cnf, int ifindex)
+ static __net_exit void sysctl_core_net_exit(struct net *net)
  {
--	struct devinet_sysctl_table *t = cnf->sysctl;
-+	struct ctl_table_header *hdr = cnf->sysctl;
- 
--	if (t) {
-+	if (hdr) {
- 		cnf->sysctl = NULL;
--		unregister_net_sysctl_table(t->sysctl_header);
--		kfree(t);
-+		unregister_net_sysctl_table(hdr);
- 	}
- 
- 	inet_netconf_notify_devconf(net, RTM_DELNETCONF, 0, ifindex, NULL);
-@@ -2764,17 +2807,9 @@ static void devinet_sysctl_unregister(struct in_device *idev)
- 	neigh_sysctl_unregister(idev->arp_parms);
+-	const struct ctl_table *tbl;
+-
+-	tbl = net->core.sysctl_hdr->ctl_table_arg;
+ 	unregister_net_sysctl_table(net->core.sysctl_hdr);
+-	BUG_ON(tbl == netns_core_table);
+ #if IS_ENABLED(CONFIG_RPS)
+ 	kfree(net->core.rps_default_mask);
+ #endif
+-	kfree(tbl);
  }
  
--static struct ctl_table ctl_forward_entry[] = {
--	{
--		.procname	= "ip_forward",
--		.data		= &ipv4_devconf.data[
--					IPV4_DEVCONF_FORWARDING - 1],
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= devinet_sysctl_forward,
--		.extra1		= &ipv4_devconf,
--		.extra2		= &init_net,
--	},
-+static const struct sysctl_field ctl_forward_entry[] = {
-+	DEVINET_SYSCTL_COMPLEX_ENTRY(FORWARDING, "ip_forward",
-+				     devinet_sysctl_forward),
- };
- #endif
- 
-@@ -2782,7 +2817,7 @@ static __net_init int devinet_init_net(struct net *net)
- {
- #ifdef CONFIG_SYSCTL
- 	struct ctl_table_header *forw_hdr;
--	struct ctl_table *tbl;
-+	struct devinet_ctl_context forw_ctx;
- #endif
- 	struct ipv4_devconf *all, *dflt;
- 	int err;
-@@ -2802,16 +2837,6 @@ static __net_init int devinet_init_net(struct net *net)
- 	if (!dflt)
- 		goto err_alloc_dflt;
- 
--#ifdef CONFIG_SYSCTL
--	tbl = kmemdup(ctl_forward_entry, sizeof(ctl_forward_entry), GFP_KERNEL);
--	if (!tbl)
--		goto err_alloc_ctl;
--
--	tbl[0].data = &all->data[IPV4_DEVCONF_FORWARDING - 1];
--	tbl[0].extra1 = all;
--	tbl[0].extra2 = net;
--#endif
--
- 	if (!net_eq(net, &init_net)) {
- 		switch (net_inherit_devconf()) {
- 		case 3:
-@@ -2847,10 +2872,15 @@ static __net_init int devinet_init_net(struct net *net)
- 		goto err_reg_dflt;
- 
- 	err = -ENOMEM;
--	forw_hdr = register_net_sysctl_sz(net, "net/ipv4", tbl,
--					  ARRAY_SIZE(ctl_forward_entry));
-+	forw_ctx = (struct devinet_ctl_context) {
-+		.context.ns.net_ns = net,
-+		.devconf = all,
-+	};
-+	forw_hdr = register_sysctl_fields_ctx(&net->sysctls, "net/ipv4",
-+					      ctl_forward_entry, &forw_ctx);
- 	if (!forw_hdr)
- 		goto err_reg_ctl;
-+
- 	net->ipv4.forw_hdr = forw_hdr;
- #endif
- 
-@@ -2869,8 +2899,6 @@ static __net_init int devinet_init_net(struct net *net)
- err_reg_dflt:
- 	__devinet_sysctl_unregister(net, all, NETCONFA_IFINDEX_ALL);
- err_reg_all:
--	kfree(tbl);
--err_alloc_ctl:
- #endif
- 	kfree(dflt);
- err_alloc_dflt:
-@@ -2883,20 +2911,14 @@ static __net_init int devinet_init_net(struct net *net)
- 
- static __net_exit void devinet_exit_net(struct net *net)
- {
--#ifdef CONFIG_SYSCTL
--	const struct ctl_table *tbl;
--#endif
--
- 	cancel_delayed_work_sync(&net->ipv4.addr_chk_work);
- 
- #ifdef CONFIG_SYSCTL
--	tbl = net->ipv4.forw_hdr->ctl_table_arg;
- 	unregister_net_sysctl_table(net->ipv4.forw_hdr);
- 	__devinet_sysctl_unregister(net, net->ipv4.devconf_dflt,
- 				    NETCONFA_IFINDEX_DEFAULT);
- 	__devinet_sysctl_unregister(net, net->ipv4.devconf_all,
- 				    NETCONFA_IFINDEX_ALL);
--	kfree(tbl);
- #endif
- 	kfree(net->ipv4.devconf_dflt);
- 	kfree(net->ipv4.devconf_all);
+ static __net_initdata struct pernet_operations sysctl_core_ops = {
 -- 
 2.55.0
 
