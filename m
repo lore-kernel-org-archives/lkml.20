@@ -1,107 +1,63 @@
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56C143FE362
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:18:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5F4541DEE5
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:18:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787750313; cv=none; b=EM2YOY/01O2PQw37JY05ucyi9Z9/0vC+2qskfyPCAMAW3tGI6RK73TsxbrkOQeMtT5GkvlW1zWRdqBd5glTlWe1GWuZbeTkAKhysD6TUXOPsnSkRQPDO011qI0823rqT8XgsJGNuqGpNdhfnDUyqVfqWb/YGughg7FtLZoOXNRo=
+	t=1787750324; cv=none; b=Dkrqaj6IkwEv4pRiR5BDIe8lac1Hd49LlgQpJHP1wdownt7OrZfC3u0HaoKoYlYwOlBy/x6gsHuUFMHXzNIetkuJAItDULjVumoW++6zwyIHiw3g/kcLhJkj2AGvO8E0oFDPeMetpG/7IImY/DVRPDrQiXdb+zgR3pHqWp+TkVQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787750313; c=relaxed/simple;
-	bh=5sCwFpjIBiNcXEVcGqgEH4ryR9b1QDnywMhMWNFCidM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=HueCT45prChAYa++K62gKz+SjZorxdU7Hf52czauBTRmt6z+/W124CqEmE+Y+BecojhvCVmu3RVZSXZV337t666rbhwvio09EGbjgRAP+5FPR2ORYJE0HbQtlWkO5l8Fb+9m6k+RXBcigg+gjjZuKItjBraqmRgj+Y0LK4Wv5RU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=cptM55Wd; arc=none smtp.client-ip=210.118.77.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="cptM55Wd"
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20260826131826euoutp0151f99cce5092d93092da408eba99814f~PXW6gyKbC0216802168euoutp016
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:18:26 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20260826131826euoutp0151f99cce5092d93092da408eba99814f~PXW6gyKbC0216802168euoutp016
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1787750306;
-	bh=rw0+g5eoKmahgtE3CqR+4VOpRqHEDZMoAaxPRmz5Fvs=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=cptM55Wdq3sMeNOoEAR2ynQcJThhoMnGBKRBzr9uCY0ycpNq/GnjNrsGnTMeYDWFQ
-	 zFKq+MdvUuB9EaQ2BLvBkgHviwBbs0TsvFFM0TYIKIKWk0aD3nWdFpWcMbXRdLdQ35
-	 XayFhH7ICIF7Ax4Yrd8o5ZmBRvwcdYLu0NR0+nsA=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20260826131826eucas1p21156d47d87f5b0f5206e81457ae63092~PXW6KCuYl2176621766eucas1p2g;
-	Wed, 26 Aug 2026 13:18:26 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20260826131826eusmtip2a69d2b2f4487d00ec98febb8fe8a669a~PXW5wXy-E0873808738eusmtip2V;
-	Wed, 26 Aug 2026 13:18:25 +0000 (GMT)
-Message-ID: <cb8a910d-a1e8-46a3-bd3a-bf56b2a2848b@samsung.com>
-Date: Wed, 26 Aug 2026 15:18:25 +0200
+	s=arc-20240116; t=1787750324; c=relaxed/simple;
+	bh=MTB7pJBlmUsv7tYzQMCJhEGiVaG53YcUDLdn/t+4bQo=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=BOR38iPzvYFRZhZte91x3DEVBtZ/+oxyo6KfOs2QgQ+xk8EtIvXDyEAC8ZnLroTnm6+MOd86r8ku9CrDM4OeCANAxuXBzYw3UdCPqREsvCmoBM2RNY75nfEGng2ynTscNa9UkJvlKNe3Vp2pma02cvJoO3nTbkoRgM2imNy0Ea8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-48e5de5a23cso1658926b6e.0
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 06:18:40 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787750319; x=1788355119;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=MTB7pJBlmUsv7tYzQMCJhEGiVaG53YcUDLdn/t+4bQo=;
+        b=OBr5lQ0yycQMB2gBW5/OlZeJaNa66/deFrhEnHk6LlNk/x1Py+P8l5ek3BlI3x1SNq
+         OyqhuVHfPm32g0z7yUm5RXEiRLiIes51O+d2be8F7YJfdgXEJsq1l+nOXv17Nk4pnf0M
+         0ee2lYQEh0PblnjnsZfYhYHBKzcmHJYSpitbcCpYln14A7jIVBLL4rJOf/nb13ZYxvYQ
+         zT5A4v1SNisLySEdqYKveI9bxfaecspLjHisvvdc03mceQO2PbWsSAVifYt0oo3/0TPp
+         fssOOxYNMszvx6EnMV4JRwOE7eyGaM3ooqpmZzwnk2gF1M4CFcuPwiOU/qshXu8QNgO5
+         npWQ==
+X-Gm-Message-State: AFuF++nrPBKp/q6q2rCx7YS0pVd7BDZKAStRiu8u0OkIoaYF01nMx4F8
+	lkKInV4JznPiYTnNInS9urCZOMDxGMDWWbAq+zjMQZ6iGkLlP9nAWPqbpQGCadFLMEkTrV+zT7U
+	dn6VvF2bEepyC9MxF8XTJoA2YwDA9g+ScxpdK63D5A2IGA0KwpV6RXyoQtlc=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH v2 5/5] of: reserved_mem: retain static no-map memory on
- init failure
-To: Wandun Chen <chenwandun1@gmail.com>, robh@kernel.org,
-	saravanak@kernel.org, rppt@kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Cc: akpm@linux-foundation.org
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20260818092420.2859026-6-chenwandun1@gmail.com>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260826131826eucas1p21156d47d87f5b0f5206e81457ae63092
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260818092456eucas1p14bc953974fe7bb755d530829af4060cc
-X-EPHeader: CA
-X-CMS-RootMailID: 20260818092456eucas1p14bc953974fe7bb755d530829af4060cc
-References: <20260818092420.2859026-1-chenwandun1@gmail.com>
-	<CGME20260818092456eucas1p14bc953974fe7bb755d530829af4060cc@eucas1p1.samsung.com>
-	<20260818092420.2859026-6-chenwandun1@gmail.com>
+X-Received: by 2002:a05:6808:3209:b0:495:fb79:7712 with SMTP id
+ 5614622812f47-4b3663697a9mr7786830b6e.0.1787750319029; Wed, 26 Aug 2026
+ 06:18:39 -0700 (PDT)
+Date: Wed, 26 Aug 2026 06:18:39 -0700
+In-Reply-To: <6a42da14.b42ede87.8e801.0000.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a8ee7af.1d9ded08.62e62.00ae.GAE@google.com>
+Subject: Forwarded: Re: [syzbot] [gfs2?] general protection fault in _find_first_zero_bit
+From: syzbot <syzbot+cb79de2cc8b76fbf474f@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 18.08.2026 11:24, Wandun Chen wrote:
-> From: Wandun Chen <chenwandun@lixiang.com>
->
-> Static no-map reserved-memory regions are initialized after paging_init().
-> If initialization fails, MEMBLOCK_NOMAP would be cleared, and the memory
-> is available to the buddy allocator even though it was excluded from the
-> kernel linear mapping.
->
-> Clear MEMBLOCK_NOMAP only for dynamically allocated regions, which are
-> initialized before paging_init() and can safely be made available to the
-> kernel linear mapping.
->
-> Sashiko found this issue in [1].
->
-> Fixes: 8a6e02d0c00e ("of: reserved_mem: Restructure how the reserved memory regions are processed")
-> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
-Acked-by: Marek Szyprowski <m.szyprowski@samsung.com>
-> Link: https://protect2.fireeye.com/v1/url?k=b169dca9-d0f63c99-b16857e6-000babe403ab-705f8403a3aaee16&q=1&e=a8dd8ad7-74ca-479d-8b2d-d49b0225734b&u=https%3A%2F%2Fsashiko.dev%2F%23%2Fmessage%2F20260814090305.4C8741F00A3D%2540smtp.kernel.org [1]
-> ---
->  drivers/of/of_reserved_mem.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
-> index ac5db19dcc93..0090fa86dd10 100644
-> --- a/drivers/of/of_reserved_mem.c
-> +++ b/drivers/of/of_reserved_mem.c
-> @@ -709,7 +709,7 @@ static void __init fdt_init_reserved_mem_node(unsigned long node, const char *un
->  		pr_info("node %s compatible matching fail\n", rmem->name);
->  		rmem->name = NULL;
->  
-> -		if (nomap)
-> +		if (dynamic && nomap)
->  			memblock_clear_nomap(rmem->base, rmem->size);
->  
->  		if (dynamic || !nomap)
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+***
+
+Subject: Re: [syzbot] [gfs2?] general protection fault in _find_first_zero_bit
+Author: agruenba@redhat.com
+
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git
+8ea0df125ae60482ca908512b180002fdb210cee
 
