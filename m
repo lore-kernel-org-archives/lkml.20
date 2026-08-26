@@ -1,239 +1,106 @@
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D82D146EF60
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 17:49:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DF0246A61C
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 17:49:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787766569; cv=none; b=e+83/aBWr404OH9vWlITi6Dm3Vn959i8qiILw5aoyoxhNv3s/IDOXXT6qd6zjOXGqZ5qsxyU+zVb+2ZD07UtfmBpwTC9qLKS8FwG0zhjrUQMQRGQADeiOQpNsHGEDlS0NbA/TfVULBdz4qm6/dyRUE2XamhIJ/sqn37qk5Lb5vw=
+	t=1787766582; cv=none; b=XAi4O+YKEZNkSml5+gTZHGTn5ZCm27L2R+w3z9K896eWISGxtdhvIZOpp7QHg/iTcenqw9k8JE4NMiWoqt9cMOzxIuw86QdGQKx7futuYAUZxNAMBxSUVkIOJr1/K3wdeaTMgofsxURBYP8Ba4TAr9vkLBxitgOKQ00kkewoMFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787766569; c=relaxed/simple;
-	bh=NEQELcWLrh6lyQ3u3x7gFjM/nDh5lCBM/682xmbNGeQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jCSM+eUl3tXIO+x5ae3/0rIXicaW5gl949w+Q1chyRtfrqvkziSkEg+0eSg5ZwXKke4eKoqjH3L6pINvBp2x5bk8gT8ayiPC/U9M1W2S3w9dsbTYIQVGlKTnA4i0KJgFq6dRlwh1QCj2xt/U5Caf5dn2NtvxkkkoAi0yiE9SVkY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bjTfOaBs; arc=none smtp.client-ip=209.85.218.51
+	s=arc-20240116; t=1787766582; c=relaxed/simple;
+	bh=8o8c4IAe8U75qnpSJQagYzi56CmZ3s7yR+zEHSeQMv4=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=s5QrqkTgs9SEk9mu0JjW5YItnpweHOoi2YsWo45DzN3YsL7g5MMOcMQkWLvFty2zWrrYRim7WgCJj5L+Zudg+XqGQEU8F9glP65OCFW4my5A7TfpHbk+6Xb2Y6QkEVSwq6e7WqnYfxvlzIz4m4waDQb+lacbsGQz6SXrqnJSd+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C1H9l2hJ; arc=none smtp.client-ip=209.85.216.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bjTfOaBs"
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c20e70a0962so189756866b.2
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 10:49:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C1H9l2hJ"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-38f620399a0so793729a91.2
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 10:49:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787766551; x=1788371351; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1787766574; x=1788371374; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=RKiyzRh3KPaW1CCmMsZdFblYmNZk7dBeoJ+HxLixX+M=;
-        b=bjTfOaBsB2PJEPKAxKdeiHr+sYHvwdqe1kaxiis2AIw8poJEFAxM5W+94wbf3I75co
-         VmhHwwRXU/tQ6u/3TWVXow0Z9o38wld6cZ3yJdN6cwhdx1TDLdrrRxk779YZP0BbcJ9u
-         NUNM5A0RJcfHpycGAbQtqQ/nBJd1Y/s1Ya82g1Lknn0d2h2Qi9pnqZ6iIeSyqNrA1c5A
-         YOQbqaGirqYU1TMx1z5BBzB2FygNHfDJNCSWTa47leUOzlvpe9cu/gKbTHtjT/TQK+Wb
-         HDZh4v3iwQGsVrcR/n3TZqILX19mHJW7AACdtuaJHT0fk9xxf47RfgTLxzttzkQN8oeY
-         ncXA==
+        bh=8o8c4IAe8U75qnpSJQagYzi56CmZ3s7yR+zEHSeQMv4=;
+        b=C1H9l2hJBtw4weAQ/oKw+cjQHWqeQsUlUAow8SQpk84X54abaaybOUQinHu7eqHUFJ
+         mCUfB4yEfT3dZ6hqIp4k31CWDdFiz61mVLYUeGlKXHNEXD4bvRuCfcyDdZTbOCMwmKUg
+         dhe152XPxRUB8dRlZ4JAQ4m7FheCqTxqpezXuYhl2y7I7kMtCsupOEqRIZAEpl35GLlH
+         SslYZWnE0LdEYfOJCwpB6TWSUstJKZq9kDnFXaXVlsfvYi2xCaUkcSQ5Rj+MqUnNXFwg
+         B4xk/0/sO3CSAtlyEiCYIuQpNMr3W9AH9LoPMxTFZBn5eAADeProfvRM6z3RmwtzoWR7
+         5uHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787766551; x=1788371351;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RKiyzRh3KPaW1CCmMsZdFblYmNZk7dBeoJ+HxLixX+M=;
-        b=es0HWv8PfGWwyGc9E2rET4osCfZBeBHgqmAbKm087xI5SKO8ymeCM+K9zIxBO4tBoq
-         C7NHggTHs13APHd51jDuGdlvUH1785bBOhmiA1nYSHyGSDQGX6+j7NQU2QTubgU4RvFQ
-         eHGu33t087KIDZpLmqjEnxehIGo5I68B4xmtDqzarQq4pPC0px3evraMwz16ITB+TVCz
-         qRXF1YKJXEvLixS/L1DRFR51WjNUs8IpmH95aGFWbQBbFtUq+rBtQztq7eMtu1vVypIg
-         TgAygEk1Y+kB7hz+UQ921MyNo4/wCvz9ZrSE60QWXcY4eaSwaPbMXfZMC8H9AXHOr7tX
-         yByg==
-X-Forwarded-Encrypted: i=1; AHgh+RrjItd/MfQa1p+QRfCJdpHIfpJwwKo1ejCizVE4u7knKvUHRss0V7KIAKtv4EGfnqR4t22V0r0Cba0JK/Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++mPSGcpNq5gzXR6gBsrQC/hggsJ8aTC0E3AWeSWGRDmtp+OtZA4
-	RlH3f4JDnUKGruIoZBjfp03pvlwCjoJaPj9myg2kO2KMof2Lf6B/hIV+
-X-Gm-Gg: AR+sD131oTgKL8pJsOueeOGYAUSn3VMD9LJwopqqqZYQY+4ndh6JKEgG9RHGA2YmcH6
-	FIeFsTJVDaK1ZMOrx+8BotrcHkojfDRzD//uPgz95mf65aw1T3BYYRJSCQkOb/7wmcVhLlaJZ1K
-	A70yd6o/V6D+6UwEPMMqGiToKNTzEvZG/wOnPBqbHS028agb+ybmN6KiKH6Tizgfl9+G1wODRSB
-	nv2be4eF2CqmmWlazU553XDNMaPQo5MH+vY1Uo0KRCabXRnKEcgCyDH3N5o45PzxhEMpAcAREnc
-	i/cAzPzkDvEV6fJrrPICOCs6mZUQaHcASTvyJ65TEO0jSkUDI9LiTmxuh4GrgEcOhVTEFfYVObl
-	VX6Da/TtQoSv69jlrdVf22DXLDjvpQvf6d1GYKGGSB0dCER65Gk8z9iBIBOlcFLBuavSbC+w3+r
-	RetbjLlkpf9ciTruDmRhYVfdaqhtK9wBGYhbbyEPniBjKrC/FHbQZ+0G7e81yTjRfOiES97J32E
-	SIDOxmZ3G9GQArzTwraVS13Ew==
-X-Received: by 2002:a17:907:d642:b0:c20:74db:50c7 with SMTP id a640c23a62f3a-c250c2ef6b0mr1308054266b.13.1787766550737;
-        Wed, 26 Aug 2026 10:49:10 -0700 (PDT)
-Received: from localhost.localdomain ([2a00:23c4:a702:d301:aa64:3da0:a259:ecd5])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a88ac7fsm777752766b.30.2026.08.26.10.49.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 10:49:10 -0700 (PDT)
-From: Biju <biju.das.au@gmail.com>
-X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>,
-	linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
+        d=1e100.net; s=20251104; t=1787766574; x=1788371374;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8o8c4IAe8U75qnpSJQagYzi56CmZ3s7yR+zEHSeQMv4=;
+        b=TRjgvDA70Id07QZjxhz+CPjKhlTQndsEXmEQ9KIwIcEobqCpeBrUE3eFsL9M96wtUN
+         OYUeHLaoBs3rSfB4vVMXG9bu5p1iHe77K6Rjmd8PKiPQX8GP0UzvC1RxF6LHMDUfn81M
+         m7k6fh16mAzKd5Ely1BAcmkFc0MgVtzrjZCTH72Au6TxqPfMBgfycu8rUMTRKTU+YSlO
+         5u87pj71EvOuh5tOuu6LRPwzbHaFcfJpf5DvAJEz+OYYvdQ58wOOubSBmCf3JEyVgouS
+         esW194RRxgtMUFf46B3USFpO98K9XoApf6m95sGlomIyvY8rBUi2uoQ+iN/otzVzpYV4
+         iRxg==
+X-Forwarded-Encrypted: i=1; AHgh+RqPAFI0b86P1fIJ0lXbWZ4MOcZFWNtB4Z2sO4yCAbTZ8XOuOh5RRC2MAR4Kivh2QNhaF02Oe3GdYqhxmu4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nYaLBMZ/t6xz5oYi29SVYrrfsIIST1ngP8n5NC6VtsZBh+0mZ9
+	dd9xtMl7jIde04UA7+xFjafPFXrNWgK4lnccdlbZ+fU22CSFraNQjE0u
+X-Gm-Gg: AR+sD105FZijO0sc5SxxFH3JoCVz1YudD9jDqr27Vwm7u43mku0QGO3P8BQOnd8vE08
+	K6c2Pv5K9uYG1bOHpU6aQG065G/1v9EyswxcKGfk+GgAbS2DVx8UxBpot9PVXpWkikeYpw2QlPx
+	vTJLyFmbFFLcToBcOkbgFRII70utv0bgEPuzntXgHxC0EZaLWisYPp10uxBHRwyjEPSEQydohvi
+	sk3qNgACEGcBdzGVjJL+c0Fypc1wv84lMnr85G1Tcyskz92wJzPfIMWoCfeLntIEPq5Z7mFH6lB
+	a5jTSo0lE/DYuG12/YsZUM8K+54AFuAk7+EAkaZ7Vy+2xUrCRr+7uKWf330MQX6Aj62v6eqg73L
+	9dV7jPaM4NQGqd9RfnbRpZdx/iGD2NjW+cUfGND1UmXDlCFb9p133O5DWRz79STUjPBFJZCcTmg
+	0rffFGlQXIVQRDeBj+n23fmlDEMwpMOn3mNPSRwxFgteH4j1OzHIMdUs2id6ojraXxd+U74lMs/
+	cgqTz1C/YEJvHYFvrugpIE=
+X-Received: by 2002:a17:90b:280a:b0:380:9f17:6df3 with SMTP id 98e67ed59e1d1-3966d1e226bmr18902135a91.4.1787766573836;
+        Wed, 26 Aug 2026 10:49:33 -0700 (PDT)
+Received: from localhost.localdomain ([103.210.91.38])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3966875e5c3sm5093511a91.7.2026.08.26.10.49.28
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 26 Aug 2026 10:49:33 -0700 (PDT)
+From: Khawar Ahemad <ahemadkhawar123@gmail.com>
+To: bpf@vger.kernel.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Biju Das <biju.das.au@gmail.com>
-Subject: [PATCH v3 13/13] arm64: dts: renesas: Add LVDS overlay for RZ/G3L SMARC EVK with ITE6263
-Date: Wed, 26 Aug 2026 18:48:47 +0100
-Message-ID: <20260826174854.199139-14-biju.das.jz@bp.renesas.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260826174854.199139-1-biju.das.jz@bp.renesas.com>
-References: <20260826174854.199139-1-biju.das.jz@bp.renesas.com>
+	magnus.karlsson@intel.com,
+	maciej.fijalkowski@intel.com,
+	sdf@fomichev.me,
+	ast@kernel.org,
+	daniel@iogearbox.net,
+	hawk@kernel.org,
+	john.fastabend@gmail.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	edumazet@google.com,
+	horms@kernel.org,
+	syzbot+aa48b5fe7bfda62d1682@syzkaller.appspotmail.com
+Subject: Re: [PATCH bpf-next v3] xsk: Fix circular locking dependency between &net->xdp.lock, &xs->mutex, and netdev_lock_ops
+Date: Wed, 26 Aug 2026 23:19:25 +0530
+Message-ID: <20260826174925.3425-1-ahemadkhawar123@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260826173019.2917-1-ahemadkhawar123@gmail.com>
+References: <20260826173019.2917-1-ahemadkhawar123@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Biju Das <biju.das.jz@bp.renesas.com>
+Hi,
 
-Add a Device Tree overlay (r9a08g046l48-smarc-lvds-ite6263.dtso) for the
-RZ/G3L (R9A08G046) SMARC EVK board to support LVDS-to-HDMI output via the
-ITE 6263 HDMI transmitter.
+I sincerely apologize for the noise and mailing list churn. You are completely
+right—I made a mistake in rebasing against v2 rather than upstream master,
+and I should have respected the mandatory 24-hour waiting window.
 
-The overlay enables the LVDS controller and the display unit (DU/LCDC),
-and configures the ITE6263 on I2C2.
+I will pause here, stop sending revisions, and ensure future submissions
+strictly adhere to the 24-hour rule after thorough local validation.
 
-Update the Makefile to build the overlay as both a standalone .dtbo and
-a composite .dtb (base DTB + overlay).
+Thank you for the correction, and apologies again for the inconvenience.
 
-Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
----
-v2->v3:
- * No change.
-v1->v2:
- * No change.
----
- arch/arm64/boot/dts/renesas/Makefile          |   3 +
- .../r9a08g046l48-smarc-lvds-ite6263.dtso      | 104 ++++++++++++++++++
- 2 files changed, 107 insertions(+)
- create mode 100644 arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-lvds-ite6263.dtso
-
-diff --git a/arch/arm64/boot/dts/renesas/Makefile b/arch/arm64/boot/dts/renesas/Makefile
-index 8c6a44890715..3cecc40204e9 100644
---- a/arch/arm64/boot/dts/renesas/Makefile
-+++ b/arch/arm64/boot/dts/renesas/Makefile
-@@ -190,6 +190,9 @@ dtb-$(CONFIG_ARCH_R9A08G046) += r9a08g046l48-smarc.dtb
- dtb-$(CONFIG_ARCH_R9A08G046) += r9a08g046l48-smarc-dsi-adv7535.dtbo
- r9a08g046l48-smarc-dsi-adv7535-dtbs := r9a08g046l48-smarc.dtb r9a08g046l48-smarc-dsi-adv7535.dtbo
- dtb-$(CONFIG_ARCH_R9A08G046) += r9a08g046l48-smarc-dsi-adv7535.dtb
-+dtb-$(CONFIG_ARCH_R9A08G046) += r9a08g046l48-smarc-lvds-ite6263.dtbo
-+r9a08g046l48-smarc-lvds-ite6263-dtbs := r9a08g046l48-smarc.dtb r9a08g046l48-smarc-lvds-ite6263.dtbo
-+dtb-$(CONFIG_ARCH_R9A08G046) += r9a08g046l48-smarc-lvds-ite6263.dtb
- 
- dtb-$(CONFIG_ARCH_R9A09G011) += r9a09g011-v2mevk2.dtb
- 
-diff --git a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-lvds-ite6263.dtso b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-lvds-ite6263.dtso
-new file mode 100644
-index 000000000000..95e1f411fa04
---- /dev/null
-+++ b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-lvds-ite6263.dtso
-@@ -0,0 +1,104 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Device Tree overlay for the RZ/G3L SMARC EVK with ITE6263
-+ * connected to LVDS and LCDC enabled.
-+ *
-+ * Copyright (C) 2026 Renesas Electronics Corp.
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/interrupt-controller/arm-gic.h>
-+#include <dt-bindings/pinctrl/renesas,r9a08g046-pinctrl.h>
-+
-+&{/} {
-+	lvds-to-hdmi-out {
-+		compatible = "hdmi-connector";
-+		type = "d";
-+
-+		port {
-+			lvds_to_hdmi_con_out: endpoint {
-+				remote-endpoint = <&it6263_out>;
-+			};
-+		};
-+	};
-+
-+	reg_1v8: regulator-1v8 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "fixed-1.8V";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+		regulator-boot-on;
-+		regulator-always-on;
-+	};
-+
-+	reg_3v3: regulator-3v3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "fixed-3.3V";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		regulator-boot-on;
-+		regulator-always-on;
-+	};
-+};
-+
-+&du {
-+	status = "okay";
-+};
-+
-+&i2c2 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	it6263: it6263@4c {
-+		compatible = "ite,it6263";
-+		reg = <0x4c>;
-+		data-mapping = "vesa-24";
-+		ivdd-supply = <&reg_1v8>;
-+		ovdd-supply = <&reg_3v3>;
-+		txavcc18-supply = <&reg_1v8>;
-+		txavcc33-supply = <&reg_3v3>;
-+		pvcc1-supply = <&reg_1v8>;
-+		pvcc2-supply = <&reg_1v8>;
-+		avcc-supply = <&reg_3v3>;
-+		anvdd-supply = <&reg_1v8>;
-+		apvdd-supply = <&reg_1v8>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+				bridge_in: endpoint {
-+					remote-endpoint = <&lvds_out>;
-+				};
-+			};
-+
-+			port@2 {
-+				reg = <2>;
-+				it6263_out: endpoint {
-+					remote-endpoint = <&lvds_to_hdmi_con_out>;
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&lvds {
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@1 {
-+			reg = <1>;
-+			lvds_out: endpoint {
-+				remote-endpoint = <&bridge_in>;
-+			};
-+		};
-+	};
-+};
--- 
-2.43.0
-
+Best regards,
+Khawar
