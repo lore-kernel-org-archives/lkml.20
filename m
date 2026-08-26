@@ -1,94 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com [209.85.222.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5739448665E;
-	Wed, 26 Aug 2026 22:47:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91C7A495028
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 22:47:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787784451; cv=none; b=t7+rpWjQH3uUE9a7wv09SjJrHB6KP1qFn3fJwSYRBKFaWzCCg6Oul0wEykygZ08RTYmpNwWNor8zGe684KExPQJBzrrXqdmemJB5qfAcjvKryGifzYj5+IofUmHajfORUeBq4W2WSACYDymV+qm5AZTdQjQSU8S+qAR6XZMb0fs=
+	t=1787784454; cv=none; b=j90XeL3YRZ+qQpPwc5xPBEqeZV5UrJRP1CiEGxzXI849FFvg3fbp8tFsHw5KbT/atCQW2wAR3i3pBGkIrWi3vgtti0TCBpNbPDYiSZrBma1HaXiKLcDc3WLdMMteAd/IrmcpRL53XiMDQNIgrE8Br0peW43JrpaIrd6SypbbwJA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787784451; c=relaxed/simple;
-	bh=FRwQPG9DE7JxfoQ3ufmKEg/UDWvmWPSLdquxMxfgp+k=;
+	s=arc-20240116; t=1787784454; c=relaxed/simple;
+	bh=2EcuMs66WwABTo276zaU8YY0oG0+APm8TfsrfqLZRKU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HXY5o9o0rsRkC8eU3TM3lNq+DIMAI5g2G10iK5HEHbyz2S0H+Z4KO58abcqUu8MweCtpTbrKW3M72z71PUW17T2tmfm9szbAecO4fiFs+qTHqY/XffX/PHGnt9CMskyff/+JtVKSq5iRfgy2JiPa+c9hJfLQrr3i3CM3YeiRbbk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cicfke3W; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=PBGFHi3w5SfiGMVC2yihJ9+yNqVPxMoShikRTAI/mV/Vcp0GpEmCi7c6846HOoi24VrkRfgtJFIC4qzVs6eqC9OrQpP1k89WUeMoaoMCkUCHmE1EdRELFLJHO1VnWsJr8cf1yb+0AijRW3GdKDa9sgDMwLp7Sp8BqrsAQ9kJhCM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XOp6ccNo; arc=none smtp.client-ip=209.85.222.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cicfke3W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB87D1F000E9;
-	Wed, 26 Aug 2026 22:47:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787784448;
-	bh=FRwQPG9DE7JxfoQ3ufmKEg/UDWvmWPSLdquxMxfgp+k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cicfke3WmAqQJ8y+V2HyotTup8sFctk1CxQcgHVnzbNpVUsHsUsqNdFLKOxrByERK
-	 5rajg32WABXUJwNv5c+y/RPal+qbjWe+Wq9cBlIL8JGQBBooDxIWOs9DXaG9hotELY
-	 qZbYTRoaEDmxEzMeD/9pLmbSzX22hkFaGfRbi7JKNc0Ms+xmWER36xQehRE/jOjZLZ
-	 80QTAkln6bAqL8OfmthzqjkroUvbTVLKHgip4alVu2P1ESJPy1nSrvEUdj2m0+ZbkP
-	 ly+JAsd5j+FkX97E+Gi2FHOi7FGXKkjkgMZt7+oTtYXRplbGne+fkDDSs9KzbkSS64
-	 YZeaEaVj4sF3g==
-Date: Wed, 26 Aug 2026 23:47:24 +0100
-From: Conor Dooley <conor@kernel.org>
-To: =?utf-8?B?UsOzYmVydCBCb8W+aWs=?= <robertbozik@gmail.com>
-Cc: linux-media@vger.kernel.org,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: media: i2c: Add OmniVision OV32C4
-Message-ID: <20260826-prowling-jimmy-61f30fb50d03@spud>
-References: <20260826072002.14357-1-robertbozik@gmail.com>
- <20260826072002.14357-2-robertbozik@gmail.com>
- <20260826-copy-arise-bb7e9eb5e908@spud>
- <CALSBEvTvrhniBrM29Y7sery15W-onz7t_8ZQhg1TW8nBDgYKxg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XOp6ccNo"
+Received: by mail-qk1-f177.google.com with SMTP id af79cd13be357-930f72317a6so81768685a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 15:47:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787784451; x=1788389251; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TGmlfvg3E3qxAvzs/3LCBaMCVhVs8joJvhg37L20skQ=;
+        b=XOp6ccNoKtBXhzBtOMC5L+FG3S5LlEBkp9kGcirJ6sZdn/oTW0HG+1ewWJEB0SSwJu
+         +6VLqv2G/fhm4yhapmqFp1qH136c2o9KcTYnI0Z3u3/FjaU1Gh+pMRFi9HS6u69+G/3w
+         MBBgz1ccBMbG2dDctM5XdYvRq/s8mBsnkLWbouHtW31pm7fKIfefh2G+Dg/OAHgo0AoM
+         LWzD/yRcrc+YVQ8zceH1dB/eUwxd0/F/FhFw8AoZgclnCFxgvzGn8O8rrwgKbhyynjhu
+         Zv0nXyJxJPn7k9wcp/6ISfi83dlEypLSqmg4jy2NWyyhF3oHlB42ltoz8iHF6jijDqWW
+         m0Yg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787784451; x=1788389251;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TGmlfvg3E3qxAvzs/3LCBaMCVhVs8joJvhg37L20skQ=;
+        b=B52Z7d9Amh3KiwR8PVZxQkq9fj4Tca0sxdUM5claRgt97Xs4j0BClIYv1XX/NVpzYa
+         bokIdb4XvCtIlXGCAUpwItXzAE3pXoCatwYbj2ENL+yt3nEu2Od97oaTvfaGryd1cCp9
+         s7ThV6cmPRu0I/FgPZyTDRl+IPRGfLdONi/oIPSKBieMzhx61cORnPeRkGPw9iwFQkZp
+         xsu8VHCIUMRNhgXgLc9UMXInImkf/L8B9tgrb7oVjbxlSQu0kfe3q2/ecf1NIc0FjH8K
+         USEQ7cU7Y+5hjWkvPCsqqHxyncYQ/ncEuDVmxwnTt40qRj9Zini6DneaoRvR1QtdOvuf
+         CSvA==
+X-Forwarded-Encrypted: i=1; AHgh+RoyIpvMQc9QF9K+EIaU3+EILgGsBI5nZ0wzU6vAL0x0djzQ4tSRYKiP1QkQXhDRGw1WDqvfXpukZH7oobY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kierguetcoKIa4CHC2CO9iMd1XWhBfcraJHlgKFRCZ60witTtW
+	ML5KOu0jloZy5pws37PAzGwVbE+7HBMmcvk0e706UDV1itXJDk4biyqA04m+jMSf
+X-Gm-Gg: AR+sD11N8Hk9Pv4eZEd+PniFWs5XaWLvjoiWfP9KivcHd9ym3yf7qOZKliXE/MxPb+B
+	7HyYzBfsF2OLJcjbo6c2AdA8WxL7JBsXRN+R35+woCH8LfhJgV0HCxMFbBaxf9BdnEPXSOzH4fe
+	+cVvcEyGxQCQ5CW2iu8rr33+1VQA0ZPjjbB7cMoLyn1DYEEfubdAmL5wwU+grO6t4bj0hQrZdRN
+	zgdWmHuaX6OWYRvaIniARrR8uSZ4ci7Fqe4jpVb1IY5ztV00P/py/u7MBanMydOdnoGDHJzocqe
+	JX/E1WN0XyfhVFYbbIvBSuZXDk7wvC//WAphDkIaO77j4+cN69PIcKXuDfvjPtB3/ZvYvtDowmv
+	8Eimu8Uo4KLzAuflC/CHkr9U1H2Rj5o1WywLKgW5ylpNIrdE76J2JYguiKRc7qyhXDp4g7AqdwA
+	sGu5IBzLj+1d0CZTZ/KfZbaRuC7y9vOokhLvUk3oBOhPXSGO4F8DCXkjaCuGErbiwSL7VRkxdYn
+	0JNhbkO8jyC5yJVDIh9J6I=
+X-Received: by 2002:a05:620a:7085:b0:914:b9a2:f29d with SMTP id af79cd13be357-9378041f08dmr1088154485a.37.1787784450800;
+        Wed, 26 Aug 2026 15:47:30 -0700 (PDT)
+Received: from CW-D0XG2Q16P7-L ([2600:4041:5d54:8900:dd0a:e212:7941:39d5])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9377e30cd96sm317290185a.6.2026.08.26.15.47.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 15:47:30 -0700 (PDT)
+Date: Wed, 26 Aug 2026 18:47:11 -0400
+From: Maxi Saparov <maxi.saparov@gmail.com>
+To: Sudeep Holla <sudeep.holla@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Seth Forshee <sforshee@nvidia.com>, Serapheim Dimitropoulos <sdimitropoulos@coreweave.com>, 
+	Maxi Saparov <masaparov@coreweave.com>
+Subject: Re: [PATCH] firmware: arm_ffa: Unmap RxTx buffers on device shutdown
+Message-ID: <ao9sWrszkXwj5-PK@CW-D0XG2Q16P7-L>
+References: <20260826222337.73480-1-maxi.saparov@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="erYPw3LhD8tke5dL"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CALSBEvTvrhniBrM29Y7sery15W-onz7t_8ZQhg1TW8nBDgYKxg@mail.gmail.com>
+In-Reply-To: <20260826222337.73480-1-maxi.saparov@gmail.com>
 
---erYPw3LhD8tke5dL
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Apologies, I failed to spot Carol's earlier patch for the same
+problem before sending this:
 
-On Wed, Aug 26, 2026 at 08:34:01PM +0200, R=C3=B3bert Bo=C5=BEik wrote:
-> Hi Conor,
->=20
-> > Where do this name and frequency come from? pin name I presume for the
-> > former? Is 19.2 MHz a mandatory frequency?
+  https://lore.kernel.org/all/20260818224404.3694580-1-csoto@nvidia.com/
 
-Please do normal inline replies, instead of this which removes some
-context.
+Please disregard my patch in favor of that one. It covers more than
+mine does.
 
-> The name is the sensor's input clock pin (XVCLK), as in the other
-> OmniVision bindings. 19.2 MHz is not a requirement of the sensor but of
-> the driver: it comes from the platform (the ACPI SSDB of the laptop this
-> was developed on provides 19.2 MHz) and the register tables in the
-> driver are computed for it (the internal 96 MHz clock the timing
-> registers count in is 5 x 19.2 MHz). The driver refuses other rates
-> because I have no verified PLL settings for them. I'll drop the
-> frequency from the description and keep it only in the example and in
-> the driver. I've also dropped the sentence about what the driver
-> supports from the description, that doesn't describe the hardware.
+Some corroborating data from our side, in case it helps that patch
+along. We hit this on NVIDIA GB200 systems in production diagnostics:
+after a kexec from a kernel with FF-A active, the next kernel's
+FFA_RXTX_MAP is denied and the driver fails to probe until a full
+system reset. I can also confirm Carol's observation that unmapping
+the buffers alone is not enough. The notification bitmap is retained
+by the SPMC in the same way, so the cleanup has to cover both.
 
-Great, sounds good to me. Thanks.
+Happy to provide Tested-by on the next revision of Carol's patch.
 
---erYPw3LhD8tke5dL
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCao9s/AAKCRB4tDGHoIJi
-0n7/AQCW3Wl/KiqLkWSHU0BIKI58DZpmLW0ujhTry4N3PJy/5wD/clr9823jQ9mN
-+/jvrNrd9wwdGl/RlmxnIQorECGmNww=
-=9zyL
------END PGP SIGNATURE-----
-
---erYPw3LhD8tke5dL--
+Maxi
