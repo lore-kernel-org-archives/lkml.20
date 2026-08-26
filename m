@@ -1,59 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E0B83AFAE4;
-	Wed, 26 Aug 2026 19:48:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BE473B05BB
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 19:49:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787773704; cv=none; b=S+5S0b8Lgj9FtT1OLomMO/fO3ZVipd2nGGzgSSwkbX2e8fbqr8yh7pu1w9XSeCRRYdI1WdbeUQ5AL/+RfmPSAHXDk2ts0oyys0eZ/T7rCUCYMdHmMC0LOx3P/OVa8fe9XNjN2MHa3K4yiAQGmQqm3OMxWV1wijrVSOpKHGIsk/I=
+	t=1787773760; cv=none; b=UmqhZjW64EhhEQIxy7EQ+KQJnjtlMAmPK+PRtIST/9ZnISiMgIY2La7tmPzBsJ+jwZZJPm9UH+zy7iEHZL0lOP7nlTJeHFS1gv36sm/njo0bIvspcp2gGoWCzm/zJhXkttBpwu54rN82/RuoFkZyLgAx4HMRRpBKkLnllTFrXo8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787773704; c=relaxed/simple;
-	bh=74eB3GEsVqj3DQKZsA7h4bS9Ik66uUQNjOf+t0SJ0w8=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=URd5o6ZxI9uYW1ke4UTwoj5/XR6e/stvjC9+CofUvrXYUbmz3vqIhcTGYhXROJUiPNjpBeGI/5q+S7FG4lFU85ZKntegQRK+qkbC5J3lkd50OzzBxfWFRKrTbO4jmKxmkJmS0SFXOlMJXz+hH/HAvyYIxPP6B6CxlnApvjACB/0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dRTO1PEc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787773760; c=relaxed/simple;
+	bh=y9g2ualI/bK6M+PISVPgksBz/q7GbK0yHm3ggAbxYGc=;
+	h=From:In-Reply-To:References:To:Cc:Subject:MIME-Version:
+	 Content-Type:Date:Message-ID; b=DrXJpEXFLmgdGXSQrEzAAlamLG2p6jMbSB1fCuG8nFHgm0BYZfshiI8D8Lnx775v2S3jMHCnL/3J0uL4V4Kk3S+R2Ds3gIoXCY6yR1lQaPX0yenZp/BN1/VDdK51+rCJpG8plo9WcekJP7ueOK+keJzf8YOattTX5QuRjRQj40U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=avUJyrpM; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dRTO1PEc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FC721F000E9;
-	Wed, 26 Aug 2026 19:48:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787773696;
-	bh=OewvCC8oO08yq61LfenP9V/BWhvohcjMvW6JsBT8qs0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=dRTO1PEclw8cMgyeiFgppusSKZw2uEdKHcgsOsslDMsMGxFArM0f7x0KBQvSRYjuW
-	 2+O3jfxZLRsE5s02H7BGq7MUiTcDZpC0N+Ks7ObziYjp3rUgSN8zDid0Lx2U03PAEt
-	 uww81pn29rC2/3JU0G+TW4OS0cxisV5ImtMmm7KSqICuetBFcDfgQChnc23PLfX2V/
-	 sXefEwodDxGMulGNiubMqtwA9UmJHFfgFOE1UrMh9q1Jpse+9bQ4CuEbUTm6cA7B3D
-	 sYF1IgmtRq4cFNFiX83KT7L0lh9LcVjOUh+AAhdlOMFkkSgSKxxXUC1ZWlpnG3pUxA
-	 WKeEKOeHbQGFQ==
-Date: Wed, 26 Aug 2026 14:48:15 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Abhin Parekadan Jose <abhinjoses@gmail.com>
-Cc: lukas@wunner.de, mst@redhat.com, virtualization@lists.linux.dev,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	bhelgaas@google.com, kbusch@kernel.org, stefanha@redhat.com,
-	parav@nvidia.com, axboe@kernel.dk, kees@kernel.org,
-	ilpo.jarvinen@linux.intel.com, xueshuai@linux.alibaba.com
-Subject: Re: [PATCH RFC 0/3] pci_hp: fix surprise removal hang during safe
- removal
-Message-ID: <20260826194815.GA1552818@bhelgaas>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="avUJyrpM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787773751;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tuNSEaT3GKGdOWYWz+Vtzv8wtmbE7GwqDneMzbaR/Ys=;
+	b=avUJyrpMZ+HYcv+v7DiW6C9LvEbRJBR1LnkT/71/WiUPQF2P/7MzIUl6X373oCyZGJvYcn
+	91Zrqpi6tHTn9k59jWg3WTBSJvqX4FsPkv/tR7Mo3mTr/K/ybNMfck4zMHItKYpwmoUfEy
+	XRCnSG5RvOR1kdLhSHXewl/G4K3ZyZk=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-518-NVaS2IIWMbGp8zxC6NffEg-1; Wed,
+ 26 Aug 2026 15:49:08 -0400
+X-MC-Unique: NVaS2IIWMbGp8zxC6NffEg-1
+X-Mimecast-MFC-AGG-ID: NVaS2IIWMbGp8zxC6NffEg_1787773745
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1840B1954B13;
+	Wed, 26 Aug 2026 19:49:05 +0000 (UTC)
+Received: from warthog.procyon.org.uk (unknown [10.22.88.47])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id E75D11955F43;
+	Wed, 26 Aug 2026 19:49:01 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+	Kingdom.
+	Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+In-Reply-To: <ao8xqMXoCfj4AWUw@kbusch-mbp>
+References: <ao8xqMXoCfj4AWUw@kbusch-mbp> <1819786.1787768317@warthog.procyon.org.uk>
+To: Keith Busch <kbusch@kernel.org>
+Cc: dhowells@redhat.com, Jens Axboe <axboe@kernel.dk>,
+    Hannes Reinecke <hare@kernel.org>, Christoph Hellwig <hch@lst.de>,
+    Alexander Viro <viro@zeniv.linux.org.uk>,
+    Paulo Alcantara <pc@manguebit.org>, netfs@lists.linux.dev,
+    linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+    linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] block: Fix start and length check added to iov_iter_extract_bvecs()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260823183458.982699-1-abhinjoses@gmail.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <1864927.1787773740.1@warthog.procyon.org.uk>
+Date: Wed, 26 Aug 2026 20:49:00 +0100
+Message-ID: <1864928.1787773740@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-On Sun, Aug 23, 2026 at 06:34:52PM +0000, Abhin Parekadan Jose wrote:
-> This series is based on top of MST's RFC v5
-> (cover.1752094439.git.mst@redhat.com) and tries to address the architectural
-> gap identified by Lukas Wunner in that thread.
+Keith Busch <kbusch@kernel.org> wrote:
 
-This is going to get lost because it's buried in the middle of a
-virtio thread that's been dormant for a while.  Can this be pulled out
-along with any dependencies from Michael's series, so it's purely PCI
-and posted separately?  Also please observe the drivers/pci commit log
-and subject line conventions.
+> iov_iter_alignment loops over all the vectors when we only need to
+> examine the current one here.
+
+Actually, I don't think that's true.  iov_iter_extract_pages() is allowed to
+pull from multiple bio_vecs in an ITER_BVEC, for example - and if, say, the
+page in the second bio_vec is contiguous with the first, then
+iov_iter_extract_bvecs() will use it - so you still need to check bv_len on
+it.
+
+David
+
