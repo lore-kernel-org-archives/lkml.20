@@ -1,129 +1,81 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D5B9348C77
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:31:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B420C348C77;
+	Wed, 26 Aug 2026 21:32:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787779917; cv=none; b=s/UtsBA9IDqOk85Q9OpSZK0q2fz1dAUb8MROjQ7Co9+m/Uoh+OO85F/di9GAiXMrZITTHxvcCrYqLpnPqp+JRS43UBDoNpLGn3JHciyrr42FsmD75VgkQvfStm0nQPcL42/9uI+xGBBs2QmnSPduTTVd2uznKWVgoL93V1uRuWA=
+	t=1787779922; cv=none; b=ROTaiHSvT2VQ7fX51CHCKaCf07qVwhxspemlZ+F+1Cxoc7Xwiu6ESsXrC1OUQbgqSZNaemEhDN7R20qeP5b6S3sSKSrjpNp1pzaC8URQBimiKQyl/GqJklYqIPaO/3CAJcKpE3REPTCc+iXCAzdeg7t2ST6RO4cCfS/YZsRDZpg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787779917; c=relaxed/simple;
-	bh=SNPzm5JdOhbwwM8EqeYbuS4iFwsKT5z6aGCH26wH+Bs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pB+cDCCPyKqb9NFRpZjbNKuryxZoznJPImuPlz7MeBz0yZU5PS5cb797jhjw+dsijo1CeMdM3kU+Qb5KhB/F+YQAzGVOp1UOlDToeHFHwtfWYBO91drnX4nvZP7an8tXFSEXKUGnfDFMI4wzHxZqNFCxFJOePVBSrP2vzxkvYrA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CL6DNxxP; arc=none smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787779922; c=relaxed/simple;
+	bh=4r94Q+SUGqGb9kCXjqRUxC+etohQDsFIfSdMtkKPMP4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mD3uURsYnWfPI5lgHpDzYCDiIxhlzouNDSo7LQwAVMrsAO67lWbUFtlIyUcdMHJtZhGgInbNTBHa34DmycYWBbPq8NZcWjfpK6NuUDZRFX92R4tK6JjxKF1phmh6IdL7L4V6QpR2UwnOogWMCxrZpEacn5au3IoTAItPCO8GpsY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IOn2J7FR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CL6DNxxP"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-382ef647e20so1863823a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:31:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787779915; x=1788384715; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Vo+9nPRwdIVHjPr+RVsyNENB5+Bs0JcZeloNo7tg6D8=;
-        b=CL6DNxxP5yZJ7d+DLAizHLHLRz4RlCJMIwGxlKZwG4Sa2IJ949jD8rychNJiQ3XlIf
-         jtUkB+Y54jEQN8N9A/gU9X2H34SfaZ7GWA7M1oWhV9CfxpkbRTFJVhX0V8vD0ormaokN
-         U5zeorSnpeRmRbytKYo73/b1s0u8k4bVaxERC4FGmQMopNxf/oBiso37MvipqdKxzxdz
-         cGEeLJVQ4xgHCtcapoleYJd2kILT8Jl2+W/ixGFAUz+2yoTGFyM+m/CYHDF2jjlpXOgd
-         /FfHPe3sIZaaALMxrYtkIAEazy1eN8HHl+/TVITAVFbKnZbxyuBs5YaN/JZXaHhQ0Ygt
-         erAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787779915; x=1788384715;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Vo+9nPRwdIVHjPr+RVsyNENB5+Bs0JcZeloNo7tg6D8=;
-        b=Ib6c7dNh1XyM6odtzMP17IDQNhR0kKW0DGOhB8dwbmEveQUQxDYRK+QHLBziXH2yD7
-         y2ZTE64vr/YIBGwMyYaPxkbIe1rpFicqFGa72K0/oli+r394jFgAAbNPx67mVGLUyO7N
-         hq4E9eCwcdsLhtkpy1iFggv9MyM5VvwgxjgOf7jNKJHj+c9zWvyrxGHiTB2f7fDUolYg
-         4yqGZgxABgeLL4/Zdsct3ZIrDpJ0hb346J4IHTQz3vQ5caHTLSGj2x+acJPNn62ozJG4
-         vZlYRKFyrpy7AMUcYx5Mlt0fqqLafwJHi80lkdztPZjeWMh7gSoHsfwv3KecoAgAho8a
-         Kvfw==
-X-Forwarded-Encrypted: i=1; AHgh+Rq0yoTgBvDvCNDaM14sHGtB1sWSzuvVS5xkGVIhBrho6Op9Vm2nz1cOeePXEt6WXEabyvAfoyMQOi1Ro9I=@vger.kernel.org
-X-Gm-Message-State: AFuF++lFxd+6m8rAicbuQJgkxbE9a922BFF3nL2qnSm2w7EXyCGUG25l
-	DpK4e9ZvMXZG4miEUmtVlEqIx5U0ZaOo4nWEGbk8eWMex0LNpel9zCL/
-X-Gm-Gg: AR+sD11Bv84uIdB6I/WnEhjUO256mMAJOERuovGSticWTl2S1aeMCFCiZv78EICkOu0
-	7wcwd6R7oUSL5etWWmFKdl+fkgfedE1TQhDZhiPai1DkINF65yFYoeSYPUbRjqMXPjgU1met+nk
-	4t/EEVMFd/qS9YXZtmPsJ6faspwwyG3Q7QMi7Cu2rE9P86/SQom/mtid+yBuVwLe8NNtfiVeX4I
-	KSxOiHgBbr53FuqM1fADBehfuQ9QUfgJtsW5HN2r47b/LemhIUrDEKLctqIz3ALTar/zwuoDenc
-	LHy3X8hTl2vnML0tHFxZeneljHI1NeFyWSu0flCpWi0XvXnJ6i33RAQCJUvZnOSgHdaUocXm4iv
-	i1i8OqePTkh2d8+5+0j5mmkPT6AuCLoG+CEW3xPr6BtUmbI8X8ME9oD7grZNKnYdVmNthIreVBN
-	wmmvtf4VFFrFFh/hD/O5QanCm/Tj0H0ib5m27c5p1E3jWYRn0ar5Zu2fA6tC/PQFeKzpbSMKuoA
-	5eXHk/0EQ8ldphq+08B4Z3V4cN4T7RLsUudGtneIF0Yfg==
-X-Received: by 2002:a17:90b:1e46:b0:38e:5964:97a8 with SMTP id 98e67ed59e1d1-3966d8d6220mr17244323a91.16.1787779914570;
-        Wed, 26 Aug 2026 14:31:54 -0700 (PDT)
-Received: from ubuntu-vm.. (c-73-189-122-63.hsd1.ca.comcast.net. [73.189.122.63])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a905b959sm10291147c88.13.2026.08.26.14.31.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 14:31:54 -0700 (PDT)
-From: Rishab Madhugiri <rishab.madhugiri@gmail.com>
-To: jic23@kernel.org
-Cc: dlechner@baylibre.com,
-	nuno.sa@analog.com,
-	andy@kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Rishab Madhugiri <rishab.madhugiri@gmail.com>
-Subject: [PATCH v2] iio: core: Replace BUG() with WARN_ON_ONCE() and error return
-Date: Wed, 26 Aug 2026 21:31:40 +0000
-Message-ID: <20260826213140.37437-1-rishab.madhugiri@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IOn2J7FR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0203D1F000E9;
+	Wed, 26 Aug 2026 21:32:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787779921;
+	bh=TMAUIOPCEoNGFW/VYMcMOyRCFLYO6uDIOAx7yhMyKuc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IOn2J7FRnlQRmR7sDQh1Zw1xd2UfVJLwE7vS+8+Tn1aRojEbDWrhe2T0QHMBbpKjz
+	 tCyvuHMwNPXBDCkeUgmzN4fv5t0OmPYdorY7020Q5ev7MbOTJl+9jPtgcWK9dlVd2/
+	 O387a+KF4rvW1UZcIqYIH7u1jKMpRemN7IaNip2WSlSTX3mSYk9g5eWHMll8/7Jjpl
+	 I91yuPoazkPGD6/7G59c6JR6MXp4mdjoecpXrIv5aV0w221wn8Ql5dJG7Sv3MvM6vr
+	 mOttew0dr+CAwwlHz7f6Vw1fu9xiP2FqEHYIObRJ0fTq74XrZIQuSw09SivPsGtWMW
+	 vlxtfMSRCD8aA==
+Date: Wed, 26 Aug 2026 14:31:59 -0700
+From: Wei Liu <wei.liu@kernel.org>
+To: Long Li <longli@microsoft.com>
+Cc: "wei.liu@kernel.org" <wei.liu@kernel.org>,
+	Linux on Hyper-V List <linux-hyperv@vger.kernel.org>,
+	"mukeshrathor@linux.microsoft.com" <mukeshrathor@linux.microsoft.com>,
+	"anirudh@anirudhrb.com" <anirudh@anirudhrb.com>,
+	"schakrabarti@linux.microsoft.com" <schakrabarti@linux.microsoft.com>,
+	KY Srinivasan <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Dexuan Cui <DECUI@microsoft.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	"open list:PCI NATIVE HOST BRIDGE AND ENDPOINT DRIVERS" <linux-pci@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [EXTERNAL] [PATCH 2/3] PCI: hv: unmap MSI interrupt on the
+ nested root partition teardown path
+Message-ID: <20260826213159.GA698442@liuwe-devbox-debian-v2.local>
+References: <20260822003623.2925128-1-wei.liu@kernel.org>
+ <20260822003623.2925128-3-wei.liu@kernel.org>
+ <SA1PR21MB6683F98FD2FF83D39F93B473CEAF2@SA1PR21MB6683.namprd21.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <SA1PR21MB6683F98FD2FF83D39F93B473CEAF2@SA1PR21MB6683.namprd21.prod.outlook.com>
 
-As documented in Documentation/process/deprecated.rst, the
-use of BUG() and BUG_ON() should be avoided as they could
-cause a complete system crash, preventing further debugging.
+On Tue, Aug 25, 2026 at 08:12:33PM +0000, Long Li wrote:
+[...]
+> > +static void hv_vmbus_unmap_msi_interrupt(struct pci_dev *pdev
+> > __maybe_unused,
+> > +					 void *chip_data)
+> > +{
+> > +	struct hv_msi_int_entry *ie = chip_data;
+> > +
+> > +	if (!ie || !ie->hv_entry.source)
+> > +		return;
+> > +#ifdef CONFIG_X86
+> > +	hv_unmap_msi_interrupt(pdev, &ie->hv_entry); #endif
+> 
+> Since you don't want to check the return value from
+> hv_unmap_msi_interrupt(), add a (void) to the front to prevent some
+> tools from giving warnings.
 
-In iio_get_time_ns() and current_timestamp_clock_show(), the
-clock type is already validated against supported clock
-types prior to these calls, making the default switch
-branches expected to be unreachable. Replace these with
-WARN_ON_ONCE(1) followed by an error return to avoid a
-crash and to log the highly unexpected condition.
+No problem. Thanks for your review.
 
-Signed-off-by: Rishab Madhugiri <rishab.madhugiri@gmail.com>
----
-v2:
- - Use WARN_ON_ONCE(1) instead of WARN_ONCE() with string message as suggested
-   by Jonathan Cameron.
- - Reference Documentation/process/deprecated.rst and clarify unreachability
-   of default branches and reasoning for using WARN family over BUG family 
-   in commit message as per Andy Shevchenko's feedback.
-
- drivers/iio/industrialio-core.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/iio/industrialio-core.c b/drivers/iio/industrialio-core.c
-index 767a7794624a..819a864d1136 100644
---- a/drivers/iio/industrialio-core.c
-+++ b/drivers/iio/industrialio-core.c
-@@ -341,7 +341,8 @@ s64 iio_get_time_ns(const struct iio_dev *indio_dev)
- 	case CLOCK_TAI:
- 		return ktime_get_clocktai_ns();
- 	default:
--		BUG();
-+		WARN_ON_ONCE(1);
-+		return 0;
- 	}
- }
- EXPORT_SYMBOL(iio_get_time_ns);
-@@ -1518,7 +1519,8 @@ static ssize_t current_timestamp_clock_show(struct device *dev,
- 	case CLOCK_TAI:
- 		break;
- 	default:
--		BUG();
-+		WARN_ON_ONCE(1);
-+		return -EINVAL;
- 	}
- 
- 	return sysfs_emit(buf, "%s\n", clock_names[clk]);
--- 
-2.43.0
-
+Wei
