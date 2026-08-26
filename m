@@ -1,64 +1,64 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8942246C4BE
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:35:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCA79322B8F
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:35:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787762121; cv=none; b=SainFHQMyzqKjShRHy+1KYLaiff7YtfBwNEXgK/uZBF5x/wKKrocAszRbzbtBIKDaWMPq7bENWCjbo0/fRsGKBSQtP97I9c2/ssXiMT4NHO7Y7HVTd2fHKwMui+8684pyI62aGNO78vzV6NqlS6YtOcYRHzteIf2JceSAS/4raQ=
+	t=1787762132; cv=none; b=SL+Qtw7AIW0gE2gVzp3mSrxUJkjBgNBV747PdTKuGhBF2H/IfqSiEZTD8sgKAlpiQq/lZoKzaatvO7wT9ymV8+FWSs/55PspLw+YQiLQU/0RnB+pv5J6IvJETqApYeCtzQ7wJ8SntQuoqYYjded4fm3vkkrFFRr3FZtTqGhedlA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787762121; c=relaxed/simple;
-	bh=92yr8L0aqnkp1k6eWlb3Q2WrL4gH76bLBNkW8QA1IVs=;
+	s=arc-20240116; t=1787762132; c=relaxed/simple;
+	bh=YKymVUUyZ7UGeMDYKgVog3jhblqeyIsPz5g/YyB6uyU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bt2JF4lUFWFP4zJyX7iShpkcQfcJvW+JiGjZxnxMiRNroaT0E4q+ob/osbfa3s0N6JnFdjbwS1MUBgUScx1RmGyi1nhnl88T/45QVxZDevrU0QEZa7PFg+l6NYhRLyhfIM2YkuRSVSZBGepUItO92XRvkD2QEG/UIn1fGNjGIqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk; spf=none smtp.mailfrom=fireburn.co.uk; dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b=edRvC7ME; arc=none smtp.client-ip=209.85.128.47
+	 MIME-Version; b=rnRJdZnr75yc6buv/IkP7VATpbC4B86k4MUgWmE3LAOSl0aZHUYLbRxo2KTrMlBT7jYiLpY99udBMUPfjaM6+g111Vpy462syX0XboI7Wb4B8FdopoQjtXJW8f8zDIJZ0n5NXUxkvPdQkSlx4BM+UulfJVwXEXQ47ODomx+/yGk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk; spf=none smtp.mailfrom=fireburn.co.uk; dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b=mPyZdEQU; arc=none smtp.client-ip=209.85.128.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=fireburn.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="edRvC7ME"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4980dc26022so9650595e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 09:35:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="mPyZdEQU"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49557167508so9258135e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 09:35:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787762112; x=1788366912; darn=vger.kernel.org;
+        d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787762121; x=1788366921; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Fib2m4ECpynx9J+amS0YrKz2SnFl+TEiiRaglDGDZis=;
-        b=edRvC7MEn/V2GG17xj1feL9Ljavpp4Esgiu7NJXViWqDv9bpNTrbt6mtmomEhRIrmf
-         ianxrDCWQcbGp06i5P77+PYoIoI1R7qgRZSzm+HM6wqLjKXVwJLtabsPHIg4PYoRg1GX
-         h4ueAJE3on8GBvQ0VdN6+jo8FRCbiAzbub2ObEZon58aBcXmOedd6b49xb0vb/tLWm/2
-         oen3bKnuMoIzrbfuiI7HVf/mwfJ+c+FTuGODPocAb8hDSnSHebRSO30QkzuHwYaV7E5M
-         pXWXVeh3b0kETAMsBZkbHPQY40uEqaVDQlvJqePomgB5LESD6tioVaOd6nZ9dgloimfC
-         M2WA==
+        bh=9SXEytlmX0vpXu3DnyTVijLx/cmaB8yZkZdcl8MvS/s=;
+        b=mPyZdEQU4z7uFeUF0tVohpUDPgK/R8NyK+HYMBW5/xEyJyZKyb7K/4YUmt09k4vzL5
+         3FA8CSzU6wgWGYHlAQB0Nf/GpO0QbeKad9G4yXLNTQR0Bq6gUyvksBKJfBbathOVDv0H
+         XbHmQjRez/eqnRqB+sMq97Svj9IZ82aswIiiyYfoT9geu9e0lUnhLzxglKldx3R9+MlM
+         aRmUqQlbXL8o59RgfkIbE9aBIhYtPnZjimRR80vC9PuIea3hQ0KxTNJQTsO5jCE9oHP3
+         oIuhJji0qXeSRee0lqw9uA2Q8OXgdDA7kv46OjtOqwSzQQWan/i5XFh4GloYUuu4TiKB
+         7K7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787762112; x=1788366912;
+        d=1e100.net; s=20251104; t=1787762121; x=1788366921;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Fib2m4ECpynx9J+amS0YrKz2SnFl+TEiiRaglDGDZis=;
-        b=Ljn5SWwSfTQol9MogtlHzufNqtikWv//xBLPoZKFVD722ydhnLqjJdpxg5BFIGbRI6
-         uDZYxncNJ5atS6WwBqiQiqwNgfnSe7tBhiBnp72qzQDQRWb9P8qUNUMUi3qSKJeNy4FR
-         mSWkn9IH+fd3lL+fjodC1DH7mDn9lyYmdkr+5j9oQdLGG29vWV4EdjSMRcnRVGMusoVH
-         kTeZBO29saQDbkgXt2Y80w7l/lP5eaWz2OJ8KuLM7nXjfdeNaLNURC1GAQYzwPNi19c8
-         +GL2Sibq9HLhOaErt5W1UGtxzvXbYaTI+wpUFYb6t6uN3lWkw5mBBaH3sOE83zXFdc59
-         /0zg==
-X-Forwarded-Encrypted: i=1; AHgh+RqST2ZFAIkrJ9ix/EUhs7f6lGxCJYIjMcf7hLurxap9B+DuX9tq0jS9DkoPsDasYTSUThy4AS4LPkoW+wQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++l2WrOifQVBvjvngFRLKmAjQSQ66QxMWKGQA5pUskZcBfWb6NDv
-	dDLQ2KzZOSc3LoMtkoZAkjujwUSd7C1hHzImTdjGMtSfz8WMirbwaVZ0/qWdOAMhWQ==
-X-Gm-Gg: AR+sD13YGAfTWgn26phiKJn7ASSThldx/yU20fyZC91At1pMBdAsz2tJvHWIyuVDo4/
-	rX9E1gcU3eytffBtWPytw3I7jQsZcBS+hwV93EkPrUkKYn2XLXfNHRI5pd5sMAg528WdFzrI2o/
-	tWd2/dBtUoMgcQMgQQG4FE10wLU0p9UlUSf7U2gaJuSqtZ+ZLj2VLChh+cO4etGIVK2PNk6Np0E
-	IibJ8SGjR6Y5QdgUmRDLx8Tx67YXHopGrfk8w4U8RqnE3uvLLkCx8X7BbH5GGuJPvZz57MlB/NX
-	+U1T4PKoC3859UKEFr/TNabEfmbc02mVbGJ2+Ws1lpW9f1nqLNzwuaU5HY1pcWkw18Tq2ptX0IK
-	yC9W3zX5pkgRpXqTtCCIIFLh4uzZBpiDDp6CNJZdCZ6lFntzbwdteGshuM31L0ASxxvN+7Zru0v
-	VdLMU4QJJpXSCIKeUI2AQuYYOd2CKtalVpMvE2cbqGgTJK5iCXU6F3CGmbeZ2ymFAdj9BxfhbKx
-	FCigh9PfcoauK9YmRLM+k7smFFXlkw0XrgI
-X-Received: by 2002:a05:600c:4e55:b0:499:484a:81d0 with SMTP id 5b1f17b1804b1-499dc723fadmr86510025e9.9.1787762112006;
-        Wed, 26 Aug 2026 09:35:12 -0700 (PDT)
+        bh=9SXEytlmX0vpXu3DnyTVijLx/cmaB8yZkZdcl8MvS/s=;
+        b=nX3hLQHxKtyvE7VQoFrdGNjnHLRyI++FvZOk+TLZX03YgLZgkn04Xc0AZOZMZzQRWQ
+         GO1iJ+gcJB63ArOIgKR0PjFgW0qQAliBDoYyPAwA1ChQ7vzQ3nmQoHgJIqfnRU320Nlc
+         9frIA/BsVpa2tl5Ti8Tv/OOFDhXMlVUc3jDptCxbwxcYPR5Agtg2731qZhQg5qjTgofC
+         SCkBxYHSyO+sdPJQ8D+9kNfo8gxPcLrUOT2mPe9VUdrtuVFItIL09bkUjE3qHgQBIxmV
+         Gh5QQ4YDWtBG6pxc/qp9Y97yehaiWRHwQCc3r7K/4uAKp50jtusL/FgY5MA+F0gxvEw3
+         HHTA==
+X-Forwarded-Encrypted: i=1; AHgh+Rq/pdajLLIOgFMddKcYIuqYNhMpr4Ii1dypU5CZsspJKM4sHkSBRI8WReZWvId17It2DO1fLcLs2tlUJnI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nlpe7DyJTt8FfFubiATO2cKWebQ+mHlxpogAlHH8LptxxLZL6q
+	i0u8ccA/9UWz4Tm7vhgkowOvvHSPJ9dTd6UJBCVnB9D1Zr+yLLadjanwvHFlr9DVug==
+X-Gm-Gg: AR+sD12dAuajgOAO6x+LLjkpw3lvYpQ5YLHkxMifdvvzbRMoW4i0CMFsv5VIcZJmpKe
+	ONc7MTCMpV0GuHawTqEmMdOPXEulR4qnGmUhcaeRsEStC+7x4cs/crM1skt82+vf3Ax0HYov4Gi
+	CxdFV/1c6/ko3oJ9fTcZehqQt3abxQXDzgmZSfbdxwsHyaOwF+ERUeoJyP/mtuI4kGRi9IlCyYu
+	S7KgXS3We9dHfRgMa+BPUI5BMXqjRkxl6ubBBwEJ+PF1WtFPWCDM1X3tvkSV85zEpKNb45wW+Yp
+	Q1UGlwpTOy0n3LV/GgB+FwFNl1EU7btZSYqCr90B3Y67z1/DCRLzQ0oyvTcV9V0xBFwmYmlh8P7
+	OI57j/jUw2Q/eEBrbSaBBteywnB8OSif9A/QxFgtSTJzjQ08Og/q6U4hiTBJcYd2Kldd8Q6RKu4
+	U6f4sJWccIR6QeeGhbpUZs5EvMP20OXVjVpcS4x1Bcoz2eeqtTfpIcsAm+v6qF6ooDsF4eGc4aC
+	VG0iXEmYWrNZbGK6L95kQTR5280rpCsT6kH
+X-Received: by 2002:a05:600c:4585:b0:499:db6c:6abd with SMTP id 5b1f17b1804b1-499dc6f3200mr70550645e9.2.1787762121399;
+        Wed, 26 Aug 2026 09:35:21 -0700 (PDT)
 Received: from axion.fireburn.co.uk ([2a01:4b00:d309:1c00:caf1:6b20:8531:818c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499dca8c75csm31227535e9.2.2026.08.26.09.35.10
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499dca8c75csm31227535e9.2.2026.08.26.09.35.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 09:35:11 -0700 (PDT)
+        Wed, 26 Aug 2026 09:35:20 -0700 (PDT)
 From: Mike Lothian <mike@fireburn.co.uk>
 To: dri-devel@lists.freedesktop.org
 Cc: Mike Lothian <mike@fireburn.co.uk>,
@@ -80,13 +80,14 @@ Cc: Mike Lothian <mike@fireburn.co.uk>,
 	Lyude Paul <lyude@redhat.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Asahi Lina <lina+kernel@asahilina.net>,
+	Burak Emir <bqe@google.com>,
 	Lorenzo Stoakes <ljs@kernel.org>,
 	Joel Fernandes <joelagnelf@nvidia.com>,
-	linux-kernel@vger.kernel.org,
-	rust-for-linux@vger.kernel.org
-Subject: [PATCH v3 6/23] rust: drm: expose HDCP 2.2 message identifiers
-Date: Wed, 26 Aug 2026 17:31:37 +0100
-Message-ID: <20260826163359.4998-7-mike@fireburn.co.uk>
+	rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 7/23] rust: drm: kms: add typed color and rotation properties
+Date: Wed, 26 Aug 2026 17:31:38 +0100
+Message-ID: <20260826163359.4998-8-mike@fireburn.co.uk>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260826163359.4998-1-mike@fireburn.co.uk>
 References: <20260826163359.4998-1-mike@fireburn.co.uk>
@@ -98,136 +99,230 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a DRM display module with typed identifiers for the standard
-HDCP 2.2 protocol messages. Transport drivers can use the canonical
-drm_hdcp.h values without reaching into generated bindings.
+Add typed KMS property support for CRTC gamma lookup tables and
+plane rotation.
+
+ColorLut exposes validated drm_color_lut entries without generated
+bindings. Rotation represents only combinations accepted by the DRM
+rotation property, while the plane state accessors expose placement
+and cursor-hotspot coordinates needed by software and transport
+scanout drivers.
 
 Assisted-by: Claude:claude-opus-5
 Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
 ---
  rust/bindings/bindings_helper.h |  1 +
- rust/kernel/drm/display.rs      |  5 +++
- rust/kernel/drm/display/hdcp.rs | 77 +++++++++++++++++++++++++++++++++
- rust/kernel/drm/mod.rs          |  1 +
- 4 files changed, 84 insertions(+)
- create mode 100644 rust/kernel/drm/display.rs
- create mode 100644 rust/kernel/drm/display/hdcp.rs
+ rust/kernel/drm/kms/crtc.rs     | 53 ++++++++++++++++++
+ rust/kernel/drm/kms/plane.rs    | 95 +++++++++++++++++++++++++++++++++
+ 3 files changed, 149 insertions(+)
 
 diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_helper.h
-index 8db7fe00fa1b..ae3017539767 100644
+index ae3017539767..38ad80fae0ed 100644
 --- a/rust/bindings/bindings_helper.h
 +++ b/rust/bindings/bindings_helper.h
-@@ -34,6 +34,7 @@
- 
- #include <linux/acpi.h>
- #include <linux/gpu_buddy.h>
-+#include <drm/display/drm_hdcp.h>
+@@ -37,6 +37,7 @@
+ #include <drm/display/drm_hdcp.h>
  #include <drm/drm_atomic.h>
  #include <drm/drm_atomic_helper.h>
++#include <drm/drm_blend.h>
  #include <drm/clients/drm_client_setup.h>
-diff --git a/rust/kernel/drm/display.rs b/rust/kernel/drm/display.rs
-new file mode 100644
-index 000000000000..007ed284c551
---- /dev/null
-+++ b/rust/kernel/drm/display.rs
-@@ -0,0 +1,5 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
+ #include <drm/drm_connector.h>
+ #include <drm/drm_crtc.h>
+diff --git a/rust/kernel/drm/kms/crtc.rs b/rust/kernel/drm/kms/crtc.rs
+index a3217f8c55e8..a7024d8921ca 100644
+--- a/rust/kernel/drm/kms/crtc.rs
++++ b/rust/kernel/drm/kms/crtc.rs
+@@ -25,6 +25,27 @@
+ };
+ use macros::vtable;
+ 
++/// One entry in a DRM gamma or degamma lookup table.
++#[repr(transparent)]
++pub struct ColorLut(bindings::drm_color_lut);
 +
-+//! DRM display-helper abstractions.
++impl ColorLut {
++    /// Red channel value.
++    pub fn red(&self) -> u16 {
++        self.0.red
++    }
 +
-+pub mod hdcp;
-diff --git a/rust/kernel/drm/display/hdcp.rs b/rust/kernel/drm/display/hdcp.rs
-new file mode 100644
-index 000000000000..966fb67c6f31
---- /dev/null
-+++ b/rust/kernel/drm/display/hdcp.rs
-@@ -0,0 +1,77 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
++    /// Green channel value.
++    pub fn green(&self) -> u16 {
++        self.0.green
++    }
 +
-+//! High-bandwidth Digital Content Protection definitions.
-+//!
-+//! C header: [`include/drm/display/drm_hdcp.h`](srctree/include/drm/display/drm_hdcp.h)
++    /// Blue channel value.
++    pub fn blue(&self) -> u16 {
++        self.0.blue
++    }
++}
 +
-+use crate::bindings;
+ /// The main trait for implementing the [`struct drm_crtc`] API for [`Crtc`].
+ ///
+ /// Any KMS driver should have at least one implementation of this type, which allows them to create
+@@ -357,6 +378,17 @@ pub fn new<'a, PrimaryData, CursorData>(
+         // SAFETY: We just allocated the crtc above, so this pointer must be valid
+         Ok(unsafe { &*this })
+     }
 +
-+/// Transmitter nonce length.
-+pub const RTX_LEN: usize = bindings::HDCP_2_2_RTX_LEN as usize;
-+/// Receiver nonce length.
-+pub const RRX_LEN: usize = bindings::HDCP_2_2_RRX_LEN as usize;
-+/// Receiver RSA modulus length.
-+pub const RSA_MODULUS_LEN: usize = bindings::HDCP_2_2_K_PUB_RX_MOD_N_LEN as usize;
-+/// Receiver RSA public exponent length.
-+pub const RSA_EXPONENT_LEN: usize = bindings::HDCP_2_2_K_PUB_RX_EXP_E_LEN as usize;
-+/// Encrypted master-key length.
-+pub const ENCRYPTED_MASTER_KEY_LEN: usize = bindings::HDCP_2_2_E_KPUB_KM_LEN as usize;
-+/// H-prime verifier length.
-+pub const H_PRIME_LEN: usize = bindings::HDCP_2_2_H_PRIME_LEN as usize;
-+/// Locality-check nonce length.
-+pub const RN_LEN: usize = bindings::HDCP_2_2_RN_LEN as usize;
-+/// L-prime verifier length.
-+pub const L_PRIME_LEN: usize = bindings::HDCP_2_2_L_PRIME_LEN as usize;
-+/// Encrypted session-key length.
-+pub const ENCRYPTED_SESSION_KEY_LEN: usize = bindings::HDCP_2_2_E_DKEY_KS_LEN as usize;
-+/// Session-key nonce length.
-+pub const RIV_LEN: usize = bindings::HDCP_2_2_RIV_LEN as usize;
-+/// One half of the repeater V-prime verifier.
-+pub const V_PRIME_HALF_LEN: usize = bindings::HDCP_2_2_V_PRIME_HALF_LEN as usize;
++    /// Enable colour management on this CRTC, creating a `GAMMA_LUT` property of `gamma_size`
++    /// entries that userspace can program (no degamma LUT, no CTM). The set LUT is then readable
++    /// from the CRTC state via [`RawCrtcState::gamma_lut`].
++    ///
++    /// Call this during [`KmsDriver::probe`](crate::drm::kms::KmsDriver::probe), before the device
++    /// is registered.
++    pub fn enable_gamma(&self, gamma_size: u32) {
++        // SAFETY: `as_raw()` is a valid, not-yet-registered CRTC.
++        unsafe { bindings::drm_crtc_enable_color_mgmt(self.as_raw(), 0, false, gamma_size) };
++    }
+ }
+ 
+ // SAFETY: We inherit all relevant invariants of `Crtc`
+@@ -686,6 +718,27 @@ fn mode(&self) -> &DisplayMode {
+         // atomic-state API serializes access while the mode can be changed.
+         unsafe { DisplayMode::as_ref(core::ptr::addr_of!((*self.as_raw()).mode)) }
+     }
 +
-+/// An HDCP 2.2 protocol message identifier.
-+#[derive(Copy, Clone, Debug, Eq, PartialEq)]
-+pub struct MessageId(u8);
++    /// Returns the CRTC's gamma LUT for this state as an array of [`ColorLut`] entries, or
++    /// [`None`] if no gamma LUT is programmed. Requires gamma to have been enabled on the CRTC
++    /// (see [`UnregisteredCrtc::enable_gamma`]).
++    ///
++    fn gamma_lut(&self) -> Option<&[ColorLut]> {
++        // SAFETY: `as_raw()` is a valid `drm_crtc_state`.
++        let blob = unsafe { (*self.as_raw()).gamma_lut };
++        if blob.is_null() {
++            return None;
++        }
++        // SAFETY: a non-null gamma_lut blob is valid for the state's lifetime.
++        let (data, length) = unsafe { ((*blob).data, (*blob).length) };
++        let n = length / core::mem::size_of::<ColorLut>();
++        if data.is_null() || n == 0 {
++            return None;
++        }
++        // SAFETY: `ColorLut` is transparent over `drm_color_lut`; the blob holds `n` contiguous
++        // entries valid for the state's lifetime.
++        Some(unsafe { core::slice::from_raw_parts(data.cast::<ColorLut>(), n) })
++    }
+ }
+ impl<T: AsRawCrtcState> RawCrtcState for T {}
+ 
+diff --git a/rust/kernel/drm/kms/plane.rs b/rust/kernel/drm/kms/plane.rs
+index 3a95c45b6728..8e3f711b0767 100644
+--- a/rust/kernel/drm/kms/plane.rs
++++ b/rust/kernel/drm/kms/plane.rs
+@@ -25,6 +25,72 @@
+     ptr::{null, null_mut, NonNull},
+ };
+ 
++/// Plane rotation and reflection properties.
++#[derive(Copy, Clone, Debug, PartialEq, Eq)]
++pub struct Rotation(u32);
 +
-+impl MessageId {
-+    /// No message.
-+    pub const NULL: Self = Self(bindings::HDCP_2_2_NULL_MSG as u8);
-+    /// Authentication and Key Exchange initialization.
-+    pub const AKE_INIT: Self = Self(bindings::HDCP_2_2_AKE_INIT as u8);
-+    /// Receiver certificate.
-+    pub const AKE_SEND_CERT: Self = Self(bindings::HDCP_2_2_AKE_SEND_CERT as u8);
-+    /// Encrypted master key for a receiver without stored pairing information.
-+    pub const AKE_NO_STORED_KM: Self = Self(bindings::HDCP_2_2_AKE_NO_STORED_KM as u8);
-+    /// Encrypted master key and pairing nonce for a paired receiver.
-+    pub const AKE_STORED_KM: Self = Self(bindings::HDCP_2_2_AKE_STORED_KM as u8);
-+    /// Receiver's H-prime authentication value.
-+    pub const AKE_SEND_H_PRIME: Self = Self(bindings::HDCP_2_2_AKE_SEND_HPRIME as u8);
-+    /// Receiver pairing information.
-+    pub const AKE_SEND_PAIRING_INFO: Self = Self(bindings::HDCP_2_2_AKE_SEND_PAIRING_INFO as u8);
-+    /// Locality-check initialization.
-+    pub const LC_INIT: Self = Self(bindings::HDCP_2_2_LC_INIT as u8);
-+    /// Receiver's L-prime locality-check value.
-+    pub const LC_SEND_L_PRIME: Self = Self(bindings::HDCP_2_2_LC_SEND_LPRIME as u8);
-+    /// Session-key exchange.
-+    pub const SKE_SEND_EKS: Self = Self(bindings::HDCP_2_2_SKE_SEND_EKS as u8);
-+    /// Repeater receiver-ID list.
-+    pub const REPEATERAUTH_SEND_RECEIVERID_LIST: Self =
-+        Self(bindings::HDCP_2_2_REP_SEND_RECVID_LIST as u8);
-+    /// Repeater receiver-ID-list acknowledgment.
-+    pub const REPEATERAUTH_SEND_ACK: Self = Self(bindings::HDCP_2_2_REP_SEND_ACK as u8);
-+    /// Repeater stream-management request.
-+    pub const REPEATERAUTH_STREAM_MANAGE: Self = Self(bindings::HDCP_2_2_REP_STREAM_MANAGE as u8);
-+    /// Repeater stream-ready response.
-+    pub const REPEATERAUTH_STREAM_READY: Self = Self(bindings::HDCP_2_2_REP_STREAM_READY as u8);
++impl Rotation {
++    /// No rotation.
++    pub const ROTATE_0: Self = Self(bindings::DRM_MODE_ROTATE_0);
++    /// Rotate clockwise by 90 degrees.
++    pub const ROTATE_90: Self = Self(bindings::DRM_MODE_ROTATE_90);
++    /// Rotate clockwise by 180 degrees.
++    pub const ROTATE_180: Self = Self(bindings::DRM_MODE_ROTATE_180);
++    /// Rotate clockwise by 270 degrees.
++    pub const ROTATE_270: Self = Self(bindings::DRM_MODE_ROTATE_270);
++    /// Reflect across the X axis after rotation.
++    pub const REFLECT_X: Self = Self(bindings::DRM_MODE_REFLECT_X);
++    /// Reflect across the Y axis after rotation.
++    pub const REFLECT_Y: Self = Self(bindings::DRM_MODE_REFLECT_Y);
 +
-+    /// Return the wire value.
-+    pub const fn as_u8(self) -> u8 {
++    /// Return whether every bit in `other` is set.
++    pub const fn contains(self, other: Self) -> bool {
++        self.0 & other.0 == other.0
++    }
++
++    /// Return the selected rotation without reflection bits.
++    pub const fn angle(self) -> Self {
++        Self(self.0 & bindings::DRM_MODE_ROTATE_MASK)
++    }
++
++    fn bits(self) -> u32 {
 +        self.0
 +    }
 +}
 +
-+impl From<MessageId> for u8 {
-+    fn from(value: MessageId) -> Self {
-+        value.as_u8()
++impl BitOr for Rotation {
++    type Output = Self;
++
++    fn bitor(self, rhs: Self) -> Self::Output {
++        Self(self.0 | rhs.0)
 +    }
 +}
-diff --git a/rust/kernel/drm/mod.rs b/rust/kernel/drm/mod.rs
-index 786cd9c1ec07..4576d66a6bb6 100644
---- a/rust/kernel/drm/mod.rs
-+++ b/rust/kernel/drm/mod.rs
-@@ -3,6 +3,7 @@
- //! DRM subsystem abstractions.
++
++/// Supported plane pixel-blend modes.
++#[derive(Copy, Clone, Debug, PartialEq, Eq)]
++pub struct BlendModes(u32);
++
++impl BlendModes {
++    /// Source pixels are premultiplied by alpha.
++    pub const PREMULTIPLIED: Self = Self(1 << bindings::DRM_MODE_BLEND_PREMULTI);
++    /// Source pixels provide straight alpha coverage.
++    pub const COVERAGE: Self = Self(1 << bindings::DRM_MODE_BLEND_COVERAGE);
++    /// Ignore per-pixel alpha.
++    pub const PIXEL_NONE: Self = Self(1 << bindings::DRM_MODE_BLEND_PIXEL_NONE);
++
++    fn bits(self) -> u32 {
++        self.0
++    }
++}
++
++impl BitOr for BlendModes {
++    type Output = Self;
++
++    fn bitor(self, rhs: Self) -> Self::Output {
++        Self(self.0 | rhs.0)
++    }
++}
++
+ /// The main trait for implementing the [`struct drm_plane`] API for [`Plane`].
+ ///
+ /// Any KMS driver should have at least one implementation of this type, which allows them to create
+@@ -350,6 +416,28 @@ pub fn new<'a>(
+         // SAFETY: We just allocated the plane above, so this pointer must be valid
+         Ok(unsafe { &*this })
+     }
++
++    /// Attach a rotation property to this plane, advertising `supported_rotations` (a bitmask of
++    /// `DRM_MODE_ROTATE_*` | `DRM_MODE_REFLECT_*`) with initial value `default_rotation`. The
++    /// selected value is then readable from the plane state via
++    /// [`RawPlaneState::rotation`](crate::drm::kms::plane::RawPlaneState::rotation).
++    ///
++    /// Call this during [`KmsDriver::probe`](crate::drm::kms::KmsDriver::probe), before the device
++    /// is registered.
++    pub fn create_rotation_property(
++        &self,
++        default_rotation: Rotation,
++        supported_rotations: Rotation,
++    ) -> Result {
++        // SAFETY: `as_raw()` is a valid, not-yet-registered plane.
++        to_result(unsafe {
++            bindings::drm_plane_create_rotation_property(
++                self.as_raw(),
++                default_rotation.bits(),
++                supported_rotations.bits(),
++            )
++        })
++    }
+ }
  
- pub mod device;
-+pub mod display;
- pub mod driver;
- pub mod file;
- pub mod fourcc;
+ /// A trait implemented by any type that acts as a [`struct drm_plane`] interface.
+@@ -627,6 +715,13 @@ fn crtc_h(&self) -> u32 {
+         self.as_raw().crtc_h
+     }
+ 
++    /// The plane's rotation/reflection (`DRM_MODE_ROTATE_*` | `DRM_MODE_REFLECT_*` bitmask), for a
++    /// plane with a rotation property (see
++    /// [`UnregisteredPlane::create_rotation_property`]). Defaults to `DRM_MODE_ROTATE_0`.
++    fn rotation(&self) -> Rotation {
++        Rotation(self.as_raw().rotation)
++    }
++
+     /// Return the current [`OpaqueCrtc`] assigned to this plane, if there is one.
+     ///
+     /// The returned CRTC reference cannot outlive the plane-state borrow:
