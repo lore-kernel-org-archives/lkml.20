@@ -1,151 +1,143 @@
-Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
+Received: from mta1.migadu.com (out-124.mta1.migadu.com [95.215.58.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D18073955CA
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 23:07:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 267DD388394
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 23:08:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787785642; cv=none; b=PVtuHRPfBToFfmkJZXdeEZcaEERbO+gTr+vufB+bIDMru5pSFcMtzj5OXOAyyfe3YiBzZhXYl98J9r5TjrMC6VmC812bSDgo55jfzl5xM/+jwcw2/D/oaoo+oCK8mGzhUlCmmJmkk1Z+b8hKXuvrYT1gnAvMSP1+G3e/qFSIX8E=
+	t=1787785702; cv=none; b=fkK/FkGGQmfPS0YuOd2GT9Vqf09qHY7w0b+gAVo7qT+fbvn1x7oW6qEAUW+8LPuz4Rdii+Dc2B4R2USifH4X7MTYddOmRJOE3L+ihKAhA3zx5X475taPbln3l49OZEjO0InF3qwP8UOcf9uQHfA+mpB4tXhtJw8iyNz1RylFBN4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787785642; c=relaxed/simple;
-	bh=MwjEzSqLh7q5IHjLoAKUjHJweEm0MW6iCRPkIfebgvs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VeVbSEFqSvyY1ZPPrlj1DvCrOZmNpKsGM+pHnSFXJ917tUfmguHU39IPHqbucnTFh0JRuB50gf6XyM8VrVaTn6NCaeTN7fSnG5KqnptVj+N/VfFDJaPrCX0SM59HWsd0DUYz7vj8e1te65MWW9wcTDtN2q9SBID5L1InOabjWOY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=QYQf0Nnp; arc=none smtp.client-ip=209.85.216.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1787785702; c=relaxed/simple;
+	bh=noRPLNdLIahOGuFurijMFn6y8l/0FZg7N9AF61uRmC8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VW4b5XOIYHBHBVYqhS/VaDHgkuUSLBTgKiW/YJUhW5M2CNI25Nx2KvPRVVUVK5dQSj9li2a5LJ/psOgc1t7IejRVOMga9f8+pxw35zAe3NHg9DKTQUzTSlROqzNHsp0NhgqAD1j/iaS7+1tjCCUfIpY8mDdj6H8n6eAG7bF6GMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=DT5vIEV/; arc=none smtp.client-ip=95.215.58.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="QYQf0Nnp"
-Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3965d3d9ab8so1562534a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:07:20 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787785640; x=1788390440;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=w+Ksm9mowr5e76oy9bv/8McEmzTkr4pMHatHJvGkvcI=;
-        b=QNGid5mALnkD17yu8sllznbA8kyAiQbDczS0Fnyf8ACKWZzzeR2zINJ7UQT50VsR1i
-         qVaAauXBmdkegIPEDqAcfEeQnXyWyGwZgAnHZ1uFKtXNnemCrzhy7Rnsgq+6CbEFsYP3
-         qO9NQEobpnvx9IpBHA/1LAoa9LbVyhkLW/O5OZQpmpD8IdKkHdfl91m2PzfbsZURMnjk
-         bR9Lqoo0KUYBHxny8FH/X8JbyIKYD3DP4HOH9luHwpoS3oNkZcpgdhQZc/ZBHkr4Fx8v
-         TEw65V+Y636WaDjjCXhSCA1GIyi8HO/bx5IinBFMIuEw7skeNIP+knN+UZ8xwb5EF18d
-         jPrw==
-X-Forwarded-Encrypted: i=1; AHgh+Rp+p/5DE9FZpQbnU7wJXYekLBlWv68khnbHLb1Cu2kYmK58V4cOUrshTll0oQ+W7iYyMCSgkoN+UNgtghg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nEDQqQES0GJPmdLGIeMg6Blbyk5R44+CZCPHbPq8Ge2QMZXAWD
-	OxYqdPqwNOLr+tuHGOOVTUk63N5AfMkLZ5rQp5bMGJGtuhGv9CJGFpkpWX6L2HtT98mJT/b0gR/
-	Fdfhmn/P+33KSyf6HwhAV6VXXSQ4GmxAb3KhLgxl8mtdXQx2qcTvKELQ23n3vUShR+Cd4h+bTvr
-	Lgv/dcjqICTi+JhfWRdfEiTgqNU555p8pBxNJmxbHX+/kWP6eYQ4IDS5pLEZe2gMvR3Q4dssPhK
-	fLVu/Cd0X+zliIIe0apUCBl
-X-Gm-Gg: AR+sD11rVSUsW5N+2R1cf3eSs4h2cg/1YVT2ACwntYAfTg9UWTXwP8SWjGPmPBQqAI8
-	CqxobQMODaWjLGFzzQbMUZZuCyfBN2672zVXV8ZhSTRBgui5lvQH1ocRyzSWjFaI6+YjlRaXk7+
-	+F90Rm5ioQuXUfHvhG5WoBikKEBS7hEceLoeSXHL3Wk70exBjNJBncYMFEe+0qLHbWgobebp/ww
-	S9E9/9s29M6tfIb5ikoo6AnF1glcIqiVQ9MuwSvBoy1KRzxN9GxWSo1OVCLPzPkxghMnckZS7Bq
-	QM0WmCamfGxhX4ONHe2e98/+usgYCQj3DxzBshVgGUsam4WUL8+ViJyKw8PVAsTZL4h3h59nk6A
-	+EPWFG3aapI+C+iFhPK75Xs2gcj5BJwgzhc+MAoCCYjLCf2LlnqUptk4oG49IEtCKWrPbzH1A+E
-	jQJj95vV2H//Xh+dGWMChCEWnPW7DvjloKgpZ4UvXIdm8=
-X-Received: by 2002:a17:90b:524a:b0:380:540:d499 with SMTP id 98e67ed59e1d1-3966d1ba7bbmr22471561a91.6.1787785639942;
-        Wed, 26 Aug 2026 16:07:19 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-121.dlp.protect.broadcom.com. [144.49.247.121])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-39670936531sm524556a91.1.2026.08.26.16.07.19
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 26 Aug 2026 16:07:19 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38e25e4b41cso2836494a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:07:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1787785638; x=1788390438; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=w+Ksm9mowr5e76oy9bv/8McEmzTkr4pMHatHJvGkvcI=;
-        b=QYQf0Nnp5eGKf+gRS5jK9yRXQMVh5KP3nIBm/RwBMR95ycu2+bcr+yQ4hifcK0IN7Y
-         s+XQuphPodkqfogInUYh8gY9vcI9zbXVXt54DSv3BwuOwtThwgFr6KLbI/Rw0tFjKUfQ
-         qDn1v/BsmHiocTzcoGHl14l6Gnye8EESSmc0c=
-X-Forwarded-Encrypted: i=1; AHgh+RqnvhM4GFY8GLv2A5rjFELe1IJeyQv6un3Ydhcr8o1CAN6lFvYndRRmA/3CGmBI0vQnFOo/EK3nhKlZU6U=@vger.kernel.org
-X-Received: by 2002:a17:90a:dfd0:b0:38f:bbc:6a0f with SMTP id 98e67ed59e1d1-3966d144247mr22371183a91.1.1787785638357;
-        Wed, 26 Aug 2026 16:07:18 -0700 (PDT)
-X-Received: by 2002:a17:90a:dfd0:b0:38f:bbc:6a0f with SMTP id 98e67ed59e1d1-3966d144247mr22371084a91.1.1787785637871;
-        Wed, 26 Aug 2026 16:07:17 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3283d769d81sm12061409eec.13.2026.08.26.16.07.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 26 Aug 2026 16:07:17 -0700 (PDT)
-Message-ID: <3e5ec697-8f8b-426d-ac11-4c851aa5204a@broadcom.com>
-Date: Wed, 26 Aug 2026 16:07:16 -0700
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="DT5vIEV/"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=noRPLNdLIahOGuFurijMFn6y8l/0FZg7N9AF61uRmC8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787785697; v=1; x=1788390497;
+ b=DT5vIEV/bquOIInj1H3LekDV3nFXNIgsOzU4ZlUHzMk50FLqFYYu1WEo3c5t/WRLgZNgHex1
+ W/xPHXt2Zh1DKABImooRkPof02s4LEX6iGntwOBzLa4gxZc+1X7JhnM2JgruUHL1zAe2jdvfQ8J
+ 7WRtR60m6JS8CDXeo/Tumsgg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: from localhost (2a03:2880:10ff:1d::)
+	by smtp.migadu.com with ESMTPS id 8f2a058e7e3a482c;
+	Wed, 26 Aug 2026 23:08:07 +0000
+X-Mizu-Trace-ID: 8f2a058e7e3a482c
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 26 Aug 2026 16:08:06 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Joanne Koong <joannelkoong@gmail.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Song Hu <husong@kylinos.cn>, akpm@linux-foundation.org, 
+	linux-mm@kvack.org, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	nphamcs@gmail.com, chengming.zhou@linux.dev, yunzhao@cloudflare.com
+Subject: Re: [PATCH] mm: memcg: use ratelimited stats flush in
+ obj_cgroup_may_zswap()
+Message-ID: <ao9q-m9k-NMxDvA1@linux.dev>
+References: <1787017182353556.21.seg@mailgw.kylinos.cn>
+ <0689d805-45c6-4bb2-8eb2-f065457c45bf@kylinos.cn>
+ <CAO9r8zNxnVYpwrsuB1Ofcwf-Lks2e+DL1Ys9CXZ5jozBug_ybQ@mail.gmail.com>
+ <CAJnrk1bFq7J7K0=X67voeZVkAb0dmiLkqomuQ+VcXBLyP5hMVg@mail.gmail.com>
+ <aoiQPrudvYZ76ZSD@cmpxchg.org>
+ <CAO9r8zM+w-wb44G+GXev+eHVEOty5GNcmRkui4PxgeF=Hqv_DQ@mail.gmail.com>
+ <CAJnrk1bOdTE+YQRQqzfKUkOGR67a28t3p1r1zeBNzwz9xHEYdw@mail.gmail.com>
+ <CAO9r8zNQzqwVeOoZr71juX3xV06LUTntBp+7bmGdwK_s6FoT6w@mail.gmail.com>
+ <ao9YFgBQJEy-85iB@linux.dev>
+ <CAO9r8zO6VWRGh3CbqyymSkEaw6gFd6AKYQgZE_rTQP7svWEMfw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] memory: brcmstb_dpfe: Bounds check DCPU-supplied
- MSG_ARG_COUNT
-To: Danesh Petigara <danesh.petigara@broadcom.com>, mmayer@broadcom.com,
- krzk@kernel.org
-Cc: bcm-kernel-feedback-list@broadcom.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Justin Chen <justin.chen@broadcom.com>, stable@vger.kernel.org
-References: <20260826201500.3000125-1-danesh.petigara@broadcom.com>
- <20260826201500.3000125-3-danesh.petigara@broadcom.com>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <20260826201500.3000125-3-danesh.petigara@broadcom.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAO9r8zO6VWRGh3CbqyymSkEaw6gFd6AKYQgZE_rTQP7svWEMfw@mail.gmail.com>
 
-On 8/26/26 13:14, Danesh Petigara wrote:
-> From: Justin Chen <justin.chen@broadcom.com>
+On Wed, Aug 26, 2026 at 02:55:57PM -0700, Yosry Ahmed wrote:
+> > >
+[...]
+> > > If (c) is holding up for writeback and vmscan, I would question a more
+> > > radical approach of tearing apart the rstat framework and using it
+> > > across the board. That is obviously a heavier lift and more
+> > > controversial,
+> >
+> > Yes controversial because we used to have similar mechanism which did not work
+> > and we had to move to rstat. Check the commit 42a300353577 and fixes to it.
 > 
-> A compromised or buggy DCPU coprocessor can make any user who reads
-> world-readable /sys/devices/.../dpfe_info|dpfe_dram trigger a kernel
-> stack out-of-bounds read of arbitrary extent. This bounds checks
-> chksum_idx against MSG_FIELD_MAX after reading the response from DCPU
-> message RAM.
+> IIUC, in that commit, the update side modifies one per-CPU per-cgroup
+> counters, and when those counters exceed a threshold atomic updates
+> are performed on all parents, which I think is the slow side. Then,
+> the read side just reads the potentially stale atomic. That was
+> problematic because:
+> (1) The update side can end up performing atomic updates on all parents.
+> (2) The read side can be inaccurate by up to MEMCG_CHARGE_BATCH *
+> nr_cpus * nr_children
 > 
-> Fixes: 5d06f53d9509 ("memory: brcmstb: dpfe: Compute checksum at __send_command() time")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Justin Chen <justin.chen@broadcom.com>
-> Assisted-by: Gemini:gemini-3.1-pro-preview cursor
-> Signed-off-by: Danesh Petigara <danesh.petigara@broadcom.com>
+> What I am proposing in (c) is different:
+> 
+> (1) The update side always updates per-CPU per-cgroup counters in all
+> the parents. It never does atomic operations. The parent iteration is
+> not cheap, but it is cheaper than atomics for sure and we already do
+> parent iteration today in some cases in memcg_rstat_updated().So the
+> "slow" path should be the same as today.
 
-Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
--- 
-Florian
+Yes but that parent traversal is short circuited when we hit the flush
+threshold. At Meta scale, we have observed significant cpus being spent on
+memcg_rstat_updated before that.
+
+> (2) The read side always iterates per-CPU counters in this cgroup, so
+> it's always accurate. This might be more expensive on an rstat flush
+> on average (e.g. if memcg_vmstats_needs_flush() skips the flush), but
+> it is much more consistent and the tail latency is much better.
+> 
+
+It might be or not. Usually such things are more clear at scale in production
+instead of benchmarks.
+
+> >
+> > This worked for zswap stats because their update and consumption are not on
+> > performance critical code paths i.e. these are on the way to compress or
+> > decompress or in reclaim context.
+> 
+> Well, decompression is in the fault path, that's performance critical
+> to some extent (although not like other stats updated by networking).
+> Anyway, I think the update path shouldn't regress much with the
+> approach described in (c).
+
+Decompression is on the scale of micro-seconds (and I suspect the simple minor
+page faults are on nano-seconds scale) and the upward traversal is definitely
+much cheaper and will be a noise there.
+
+> 
+> >
+> > > but if we can get away with it, I think it will
+> > > simplify things greatly and honestly rstat has been causing a lot of
+> > > trouble in the last few years.
+> > >
+> > > But this can be done incrementally too, we can start by separating out
+> > > the problematic stats to use the new update/flushing scheme,
+> >
+> > This I think we do need but for specific stats. I think the stats which have
+> > in-kernel consumers need this. However not all such stats might be fine with
+> > slow update side like zswap. So, we need to evaluate thoroughly.
+> 
+> I think in the proposed approach (c) the main concern is actually read
+> latency, not update latency. So if it works for in-kernel consumers it
+> should definitely work for userspace consumers as well?
+
+Here I was mainly talking about consumers which has more strict staleness
+requirements and those are mainly kernel consumers. Rstat flushing is definitely
+more expensive than this for-each-cpu traversal and most of the time they just
+need it for one or very small set of stats.
+
+I am imagining once we have this special mechanism for selected stats, we can
+potentially remove ratelimited flush and stats update threshold code.
+
+
