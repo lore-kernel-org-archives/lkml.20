@@ -1,100 +1,282 @@
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012021.outbound.protection.outlook.com [52.101.66.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D17DA3F482C
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:35:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787754912; cv=none; b=fM3LQY9dQjVyncnzVLhnZIdSGiWPHjayB2kjWeQHQu4pTnpyLA30I/UtMoxPmF2J8lSBWwqqrlH05Cvm4mKo8cM0gZlXCM7S6ZacTekhme+pYxeQCckLyGyD6M8gJA8TgG4hTBA9MXNzCsfyG9jeW2iG7sA4bvQzHsVmSQGTb3g=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787754912; c=relaxed/simple;
-	bh=jqfkF0e6vWxKSKLw11Mg207qPvtAzL2cGYddUhr5jCA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aNYjiUq5OuFFvZWj5uYxx+/6i11KWb+R6jI6Dus+jdZramHQqsInCi9tPhWsL98CaasK6I7bpqUOIonOnQKtjRspYJNNLEufm5bgSZDoubzMCHgX5pEbA0DSlXLMg8RZCg9Ltu3ZInOn1MBeGcsYNCvYUEoinbd41xmY0or7UuQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jC+zifce; arc=none smtp.client-ip=209.85.218.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84F0E435523;
+	Wed, 26 Aug 2026 14:35:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.21
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787754922; cv=fail; b=hAc/ygWon0gClKfB6at77IzvC02G+98sy3qH3qieRAJQIynue4v5yl0Fa3cUwBCZzA5Z5SxVfIbnKcQoCLHzQDcoMRTkhb8aVYxixBmhZd7ALliC0YifhJcz4enSgM7txEHJ2Ytp7HTNgGaWq19ffujnnz77OLnEhnH8GvRI3Rg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787754922; c=relaxed/simple;
+	bh=wwtjQ4woDWouqvioENlkL6Bt00qVMK/KCg/7CeKiajM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=NrZKi1X3wBw+XHJcgUs0QDR/Dv5b5DF/SXm98IIQrTe6Tjr0UkrcX/4V1F7g3VmyR9v4OMnZX8Ip5MZOwoBZ3S/dfVgFBbz86DQoe6nHfwGdlcHaRMu0IaPeLzpiHYVlr5ts8N96cB2VJioC1HzzgAcwUH2wNu31RI3FNjPHCsc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=MDhswKGD; arc=fail smtp.client-ip=52.101.66.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jC+zifce"
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c15e2dab83eso157323666b.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 07:35:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787754909; x=1788359709; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=puj5sHCWZ6EX0dZBwVaC94xWO8GxrdTzFIHs0oZ7wjc=;
-        b=jC+zifcexQNx9mY5GKIVks3WRwnLtgFv6EssjnQwxcJ3Oic3mGhw32ry9APPPvEatk
-         g/Z9yaOkum4K0CR+YTdqUhQr8L7BS0wdlodWjwPsxb42pQrGnS5kLxzQDWtnYZKGi+oX
-         7yZmRBiHo8QDGBYldsX4Rq72LtXY4OMsIVddEcm6JZwCiGhNuwj2PCuilZaGXkwMLa/N
-         Dlx4tvxIeQJ8RxmlKl4WcrFBeyl8z8nWzmtpm/OQ6HEnIc4NtbQZrS1TcKXw71mnIDvV
-         LE9XFwmqfjt+KVgF5Dke4ZkfQK4sg/QmYeL5SQWEDVrLdbqYbmHW4oel3hDWe5MTxBYX
-         uKMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787754909; x=1788359709;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=puj5sHCWZ6EX0dZBwVaC94xWO8GxrdTzFIHs0oZ7wjc=;
-        b=KgmNJs9W0MnAUoYxBOGfO2FGSBonfV9CJ6nshVlBvr6H8RsL47nkjospyoCIM1lWfJ
-         Etq1Lc+cbPPXLr7McxWYU/zOgYc1oiGWd4IypdmAW2BENQQHA81nFworx/HxSuaDEm1v
-         ow37EpUPFMKvsL4CP9NretIedsPD/6WX/BDNp/N//2XRcch+eKxH8gH/jiBhfiEoq6Pj
-         85+bmsXrsJYMT3pJsK6DlI9YKqzeQwIXA/uL/uY+OLkTavL6jTf/5GzEBbApWPkeGBtq
-         neUYgAqUX3zoXxjBofnitynkM4JfKRxeCCVquOqGpt+I9Pt1E6L7mVZHZTu5xvr46gk8
-         8U1w==
-X-Forwarded-Encrypted: i=1; AHgh+RqrgJQ5VE3Amq65ZilZoLUAxZrIZG9n8erJn4+nYx60YKPm6/PG0YxzrrcJ2MEz7hTWcdS9+oNpgaOeMC0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kTX6foP++6I/6z+MBE9xKceijxWWl//JY7f7nuXY0PWla5rQuD
-	XeSDz254cdIkcVHdsAgvpPTaR8UWiUCVVbRt0T+iW/yau5Hq4PQHqx99
-X-Gm-Gg: AR+sD11Q/vBADjy4zJ/FW6rczsAaL/U27A4EUGqpxjAcvTQDv+pYxRlahI/6OPYy/Ge
-	hpgKsv3xuvP3pG/A3MQGwPZL9bNWaFR4NWxUbyE9rimKzjfmjyRHV6Hd/9l7oTfM43Ia1AcLKO9
-	pH4ibkgDBPzqMYGbHyvpMTUS5f9q+NfO+F21A3P8L6mbhU4Vrxjj5W3FU+6GTsk3SUqPRG2V9VG
-	1AXjGFvP1WishCbitpZ81CxFpMsDia35oiCOoRVZv2VJMOzxi6mavLyQf3abXopmoFJCau8+Qqa
-	2+JXrNCCoMOk89AxmJhpWXhQRdK8tMnxrDkmpP6jSEUd6y+8ki2G2CRE1jFjxd+Aq4PMc+a6T7g
-	zBVopiUgadv1vwrd3H8v0gdEnRbnWPPFQ441Avt1eRlUJqI1nNdfRBxyC2gFf2/XnSwQ7eGaONB
-	ETFKP3EbbssQ8JBorZCJFJ3e8YtA1eairnyQ3YC0jdJJs6RiZJeJiyz0urpRgDRPJJMsAASAbt3
-	jT4pA==
-X-Received: by 2002:a17:907:1c87:b0:c21:180c:d82d with SMTP id a640c23a62f3a-c250c3bfa5dmr900955166b.20.1787754908848;
-        Wed, 26 Aug 2026 07:35:08 -0700 (PDT)
-Received: from localhost.localdomain ([94.240.188.176])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a9ef92csm531690966b.63.2026.08.26.07.35.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 07:35:08 -0700 (PDT)
-From: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
-Subject: [PATCH] staging: rtl8723bs: use strscpy() for ifname copy
-Date: Wed, 26 Aug 2026 17:34:18 +0300
-Message-ID: <20260826143418.5713-1-nsvatoslav515@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="MDhswKGD"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RRXCvyKUMielM4AbG1yGq3uaZbDb7WcixKklN84F7iNRdmBff6UzCV8uaf6IREJ5FrlwiWIHDYg886hkAmHa1r/INCufzCRiAbEvb7PiNDSR4anpAcdkVmOlmwxUi+AcKnDV8rPOcPYKyRPwv3Cxgjrd+wszaH2kIJ+KnK6T8l8mzSkV3EL4T9NHLCIjy7McNHTYassYbfKOM5L5FhHK6KKmGfZwQ8thq9McUYBexUXijIKvShNSpECBWWbr9ptWMSQaE3rNzlezH3W9IqTw8EH/e26BOvaOduBe+55jc1s8E8yB/4QzFwMapsk21PxsnqnSufobKtwIDi/Q4zpJZw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1JtqDX/iIjI+Yod3O8jj8tCrxWMNRyZgjyNMEDzhwLw=;
+ b=G9zqBQd32Mnz3WJ4b7COwwObg/lnuKjvmkEjP5xAQ53/wAUw/idgcsJhzgM78Wkm+cVKUG1hlfI94D4KM329CSeNWJj5cH8nP//k4n647JkN1gXVRf9CX56+Tw6ER4A/fLHSfB3l4Xm8kI+/3+v36N3hZmbv1g6VDqoiE3gNgqDlodxsUhbXkD/u4+tadf2zeR48Tw8KvtCkp1G9EQ761VAjOdpZAc6pCx0gkhMgcEQQcp/WMlOecz6qw0jR+TWBHUm4NwH/yNp8i1WgrIL86WuM2ER+lJ0vz2lOZrEepjArvV+2cdQ1nVXUGUTH0fCdjfMqLFLEa0GrYk5CXhL5VQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1JtqDX/iIjI+Yod3O8jj8tCrxWMNRyZgjyNMEDzhwLw=;
+ b=MDhswKGDExFbwV5lJ9+BwYMwulJNisZlK37AIPBCM96XIjcyBePYMSmAuGUiE5GMEAMKFRAK8tks7Lieb9B1abxMdQ7uPp+tXJq+yjouQn0Roeqq3UJ21r3uioErXtU48tv+lEjYyTsdrp5Vf7e8qTE8Pw+mlcZvJTH/9TUtNpJd3tHawjDmpnLRRSAjjxDfwkpg96ENcWqnu88xADr3J8aSdJVuoJnEyX8L9O497o1ObkPHjhgy5sLwZ1QRMHcVSjL02bP/+vn58s735XTIKMxvQXIiqxpudMpzWmPoyAGQSGMPNUqqFDiKogz+/hOZXY4E3nRblgJdQA6g4ySAHg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by GVXPR04MB10406.eurprd04.prod.outlook.com (2603:10a6:150:1e3::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.8; Wed, 26 Aug
+ 2026 14:35:14 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0339.012; Wed, 26 Aug 2026
+ 14:35:13 +0000
+Date: Wed, 26 Aug 2026 09:35:01 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Larisa Grigore <larisa.grigore@oss.nxp.com>
+Cc: NXP S32 Linux Team <s32@nxp.com>, Alim Akhtar <alim.akhtar@samsung.com>,
+	Avri Altman <avri.altman@sandisk.com>,
+	Bart Van Assche <bvanassche@acm.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	"James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
+	"Martin K . Petersen" <martin.petersen@oracle.com>,
+	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
+	Ajay Neeli <ajay.neeli@amd.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Pedro Sousa <pedrom.sousa@synopsys.com>, clizzi@redhat.com,
+	aruizrui@redhat.com, eballetb@redhat.com, echanude@redhat.com,
+	linux-scsi@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH 06/10] dt-bindings: ufs: Add compatibles for S32N79 Host
+ Controller platform driver
+Message-ID: <ao75lU2zYDeOZi2f@SMW015318>
+References: <20260826134048.854748-1-larisa.grigore@oss.nxp.com>
+ <20260826134048.854748-7-larisa.grigore@oss.nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260826134048.854748-7-larisa.grigore@oss.nxp.com>
+X-ClientProxiedBy: SN7PR04CA0080.namprd04.prod.outlook.com
+ (2603:10b6:806:121::25) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GVXPR04MB10406:EE_
+X-MS-Office365-Filtering-Correlation-Id: da76c66b-813f-4c01-35db-08df037f3d32
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|1800799024|366016|7416014|19092799006|376014|23010399003|22082099003|18002099003|3023799007|10067099003|11063799006|56012099006|4143699003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+ K4j2R2EkjKVuDzq4iZs0BciSoWQrvjjlJUdBC/fjPYPWCgQMY6M/CuBXAyx3O/3/ODQ/6aCsdM4nvzxLykAYKj6EOzbdaet1ZmcLfid9BdfqlnCPjwkK/ePi8NlWEQn6JPys1wZ+kWJZ254MmEpj3dg+QHFZlbRyhwo5UDO3aKmAaI8IRbkX/dlnAgSmjmR3AFHHIlFoD7G2pBvzcOiyrrYiDrjyH9msePFpiQMNcVSfJWPC1RZwT9p5sib4WjWwob2lFf3wnP63dfoJEU8HeS2TR9veYw24wTAbgN2ADN59C1OVuaGy/3oGGO/nntKL3gXUTqJiamL5+Bxj3kvm7BIihA7aDiWLYSakBTM+EeNdywnkKYakikmOdtLztkUm0lEoCl42Ua+HxBjjDLqssuSEV9FxPugf/MNbfoflWMDUp/29ItWBC2HLbEYkqiFkOc4+HXNtVdqIABKBTo6J2sjR05kpSrfTDSiXT8ivCx4gpBRfNBO/IC1ApAK4s3C+Uh5acStXR7qbyWUUksmQkpcPwJRcTNsR/XbppBMI+lynvscPIMzNuYqYhghGxX9wJK7GGbOFqRYZKlTyTrkSYslCwqW5fj1fD3/T2XhE9p57z1VVAd1rBqkPh62u7FO2
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(19092799006)(376014)(23010399003)(22082099003)(18002099003)(3023799007)(10067099003)(11063799006)(56012099006)(4143699003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?us-ascii?Q?ynp2eP/ukFO6NQaYlcyc23U7Rk/PeN9aoMHbfhfV1yHaTmgG1GsxuJOFENQ3?=
+ =?us-ascii?Q?13e3cK+yGSCT3/nP5qkDh5Vba9Qeu4Wtt3eZnbGFed5H58WfV794m5yLz0ts?=
+ =?us-ascii?Q?GtlbHn+G1YW5vbufu7FZjKeSfjepX1oUQDEdayV0mR1KJbDTW4iaLBYGFxNy?=
+ =?us-ascii?Q?p+EKStFLR1j3tx2z1QWplRBHXHOK6nijIEqk5KoYqCpinuiWkfL/qEh7oSjS?=
+ =?us-ascii?Q?cG8pO1ygvvQi7KtGJ0BhPQ9x+DKXwZiL6lb0HSbn/xTnm5dHcTXdZg2ve7qk?=
+ =?us-ascii?Q?tqkYKPPgr/RLzZIKvwVa2wZo1d7ehdgh7zwvSi4oKjbzhmzZoPKZ2NmBuUAS?=
+ =?us-ascii?Q?HOngDdv7A1KkQhMGXG/DsOfbl8PR8UGxYoO0MGMTmfJ8+MMQYvaHNLaT441y?=
+ =?us-ascii?Q?tu3kdV22jFtIPnjWAhOFE3eUiWyxNTbDH+V+/kXBgajdJG8cXv2qXNSKDorw?=
+ =?us-ascii?Q?Co1MJOScB3RJ6+7Pg1f3STLv2wA8Q5ZKtt5X7kxFRWaTVViaFnoL0QRaQda2?=
+ =?us-ascii?Q?WcoY8lFL8PrD6Dz3PCRD8HF7whCPF9EVnhDbyrFGWwhrGEh6tHzQZscmhJdI?=
+ =?us-ascii?Q?YLfRn+Qhw0jdHUna59IwIavZSN424tueAyTj9OjDG8mtDb1XgSHn45iNc0QZ?=
+ =?us-ascii?Q?WSx3mxJWTyCNfDGM7ZHA35SfZVqxjkh4lCqeTgDEQTlPCaEY4J/P/W9zBnc6?=
+ =?us-ascii?Q?CyZGp8Q2u44DTOsdpSUZKk4gjT3pxaiK3WRMekXFsY5fL64bO3tKjVk8fPJe?=
+ =?us-ascii?Q?PMOARntEJxvlmqvjq/MTsHSrD6TkqvzYwlc0ZICjjY24/ScjclLv4v8dIZ1N?=
+ =?us-ascii?Q?8YS36ZFOyS/o6lHxIATWAg/URf2QjNqG2xS9gmzU3DRZHMOHKiJfpcW9JqRC?=
+ =?us-ascii?Q?Dz84hNJxDGwmjsmtgwGnQkVD61qJ7aohfxwRR1pVRy831aJaA2/z/ZJiOB9j?=
+ =?us-ascii?Q?ZIaMyg72Gt5jfIeSzN0tt0pAWtAcnGlMOm6uZZaUlyy8tVJv3CLOtHxUipqm?=
+ =?us-ascii?Q?9MXMM77V/TZJLjZ8/j5fBXme/aYlKiSKAS8t3Z9hfECWzZrUdGsVBr1Q1wcs?=
+ =?us-ascii?Q?ICWo1+SQI9Rt9+6CVQynOSlA0B5ECR150AJ1Bn+6tddihqPVhkaL+F7O+tUh?=
+ =?us-ascii?Q?8XudWx9SLHAKBdOzqDro5Xp+ipVLLn523V3prP/VbOEVcAK6ZMri0sN/i1G3?=
+ =?us-ascii?Q?vfnXKz6I+/CRkU5o6VHdHlgnDy/86kMJ8G1Qp9x3MQHPmeNrU6EHN8LFigJH?=
+ =?us-ascii?Q?SSpAXpPjd0TZrvTsoj4j9TPxgz8hNZ/CS8xs/We2U+3IJMVCTGrPvXgBARbK?=
+ =?us-ascii?Q?la/NhoocuWLetiyJRWZVWQH4BvGvsK9C+IqqqAabP99fATb3xOS7VDZyP/O9?=
+ =?us-ascii?Q?KU3lmKkn/QmEn3N2dodhVqQwGC/ZWpOBsepZnkJAfsJMbshaqyluPwrhJJHV?=
+ =?us-ascii?Q?G/mfw4H6Bpz4QjpaIo27hnQv2T7sAhamDKL7T8jap2z2gDv6YWK0/8GoYOHD?=
+ =?us-ascii?Q?tZbyib8wqq7/mYkcHlsFNGHmuOut/de1NwE/ZBgjXaHGJbKBU9M2qJ3VpXPp?=
+ =?us-ascii?Q?+AtCT7PSV6ua3z+MshN/rBiay6XzdoWoRKkbBlPRpXAei+hUnh2AsbN4Ieaw?=
+ =?us-ascii?Q?YWmWIP2pHmZ2cKg+GKiHBeJ15IEMLob7VR2l7ytA3Vfxxt9Hj1HNeSIfdsip?=
+ =?us-ascii?Q?SKtx5sSphIf/Q5A0BOhezg7q++X3tvrOjx9zdhwqzSSRIhUrRmL4bFC7J6Zo?=
+ =?us-ascii?Q?ctYHQ8w52YHVgjpiWLnBt4Z6ARew0EPxtBw8pLIrIkcj83Vfl7km?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: da76c66b-813f-4c01-35db-08df037f3d32
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 14:35:13.5048
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2TmTykJpMuJDwYrcsEaV+3Yo/c7O/OtluvwwgUavcdAdI33cqeG7DNDV5jCwg+EB2Rc3czu9Yyphtp/7i7aD5dZPI9DXwfZrr4ltQm+FMfd1MwUrTxtqa/kxzfSFAl6o
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10406
 
-Replace snprintf() with strscpy() when copying ifname into registry_par
-to avoid unnecessary format specifier parsing.
+On Wed, Aug 26, 2026 at 03:40:44PM +0200, Larisa Grigore wrote:
+> [You don't often get email from larisa.grigore@oss.nxp.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+>
+> Document the device tree binding for the NXP S32N79 DWC-based UFS host
+> controller which is compliant with JESD-223D "Universal Flash Storage Host
+> Controller Interface" v3.0.
+>
+> The controller requires access to the SCM register block and the core
+> clock rate when M-PHY initialization is performed. Add the optional
+> nxp,mphy-boot-mode property to select the M-PHY firmware execution
+> environment.
+> Currently, the M-PHY firmware can only run from ROM. If the property is
+> omitted, M-PHY initialization is assumed to be handled externally.
+>
+> Signed-off-by: Larisa Grigore <larisa.grigore@oss.nxp.com>
+> ---
+>  .../bindings/ufs/nxp,s32n7-ufshc.yaml         | 99 +++++++++++++++++++
+>  1 file changed, 99 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/ufs/nxp,s32n7-ufshc.yaml
+>
+> diff --git a/Documentation/devicetree/bindings/ufs/nxp,s32n7-ufshc.yaml b/Documentation/devicetree/bindings/ufs/nxp,s32n7-ufshc.yaml
+> new file mode 100644
+> index 000000000000..d9d5669be313
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/ufs/nxp,s32n7-ufshc.yaml
+> @@ -0,0 +1,99 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/ufs/nxp,s32n7-ufshc.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: NXP S32N79 Universal Flash Storage (UFS) Controller
+> +
+> +maintainers:
+> +  - Larisa Grigore <larisa.grigore@oss.nxp.com>
+> +
+> +# Select only our matches, not all jedec,ufs
+> +select:
+> +  properties:
+> +    compatible:
+> +      contains:
+> +        const: nxp,s32n79-ufshc
+> +  required:
+> +    - compatible
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - const: nxp,s32n79-ufshc
+> +      - const: jedec,ufs-3.0
 
-Signed-off-by: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
----
- drivers/staging/rtl8723bs/os_dep/os_intfs.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Any place actually use this fallback?
 
-diff --git a/drivers/staging/rtl8723bs/os_dep/os_intfs.c b/drivers/staging/rtl8723bs/os_dep/os_intfs.c
-index f31196f54b3e..dd0c5fc813c8 100644
---- a/drivers/staging/rtl8723bs/os_dep/os_intfs.c
-+++ b/drivers/staging/rtl8723bs/os_dep/os_intfs.c
-@@ -256,7 +256,7 @@ static void loadparam(struct adapter *padapter, struct net_device *pnetdev)
- 
- 	registry_par->enable80211d = (u8)rtw_80211d;
- 
--	snprintf(registry_par->ifname, 16, "%s", ifname);
-+	strscpy(registry_par->ifname, ifname, sizeof(registry_par->ifname));
- 
- 	registry_par->notch_filter = (u8)rtw_notch_filter;
- 
--- 
-2.47.3
+> +
+> +  reg:
+> +    minItems: 1
+> +    items:
+> +      - description: UFS Host Controller registers
+> +      - description: System Control Module registers
+> +
+> +  reg-names:
+> +    description: |
+> +      Names for the register regions. The first entry must be "ufshc".
+> +      The second entry "scm" is mandatory only when nxp,mphy-boot-mode
+> +      property is present.
 
+you already us if - else branch to restrict this limition, needn't
+description here.
+
+> +    minItems: 1
+> +    items:
+> +      - const: ufshc
+> +      - const: scm
+> +
+> +  clocks:
+> +    maxItems: 1
+> +    description: UFS core clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: core_clk
+
+Needn't suffix _clk, just "core", generally needn't clock-names if only
+one clocks.
+
+> +
+> +  nxp,mphy-boot-mode:
+> +    description: |
+> +      MPHY initialization mode. Defines how the MPHY firmware should be
+> +      initialized and executed during UFS controller startup.
+> +      If this property is not specified, MPHY initialization will be skipped.
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    enum:
+> +      - rom
+
+why not use standard "phy" property, if no "phy" means ROM init it.
+
+Frank
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +
+> +allOf:
+> +  - $ref: ufs-common.yaml
+> +  - if:
+> +      required:
+> +        - nxp,mphy-boot-mode
+> +    then:
+> +      properties:
+> +        reg:
+> +          minItems: 2
+> +        reg-names:
+> +          minItems: 2
+> +      required:
+> +        - reg-names
+> +        - clocks
+> +        - clock-names
+> +    else:
+> +      properties:
+> +        reg:
+> +          maxItems: 1
+> +        reg-names:
+> +          maxItems: 1
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    ufshc@4ac80000 {
+> +        compatible = "nxp,s32n79-ufshc", "jedec,ufs-3.0";
+> +        reg = <0x4ac80000 0x1000>, <0x4ac40000 0x1000>;
+> +        reg-names = "ufshc", "scm";
+> +        interrupt-parent = <&irqsteer_coss>;
+> +        interrupts = <211>;
+> +        clocks = <&sys_clk>;
+> +        clock-names = "core_clk";
+> +        nxp,mphy-boot-mode = "rom";
+> +    };
+> --
+> 2.43.0
+>
+>
