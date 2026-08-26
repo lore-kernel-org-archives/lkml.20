@@ -1,220 +1,263 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-104.mta1.migadu.com [95.215.58.104])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 876473B52FA;
-	Wed, 26 Aug 2026 21:37:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22783488225
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:38:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.104
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787780226; cv=none; b=PySoXJNZxV9Ew0qzveYoFzE/FzE2ppJRRVFQUeELlJwbHwDVjIiu8gb/6Ofc8XLynONhzoexx8AJYuAiloxmjKE6GIxDDmZkeYmVhFOFDlLRsd5mS4xGwnPKlqFdovhG9k817CWJ8w+z1UvHzqxu5dc9l4Il8Hw0naBjqC8lPhc=
+	t=1787780332; cv=none; b=eI2BkRouE9ZktUs96ElJUhe6xC8hqBRzbS0lE5W3dNpcxq3x/7i6JWy0bD+IQwfTIQZqviMzZrokEEIk03l2802DqVtYO8dVv4JsL1Vcz4/bv1UQxO5qpVPftRUbuHqWfBgzjk8dG6CdbIc+4DuwjbigOdVwREWbXuOoSkHY/xw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787780226; c=relaxed/simple;
-	bh=obqfey1aknL9rsnhuCI9BNDHEoRnq4gU4BSsBtVOYgc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=I/QTQ5zKXEu3JwWY/SDKdLm+CY+ZSKdBw5LwAVB9OxcPYG79stGip17YzCif8ypEQMJWYjr+oY/ShAt0CEgCnauiqewuYL3i1MJ529WMmlzroxzHAcaY98XoUOtYWJjSldr6uRLqap3CdyBPIYSKs8Rggh6hfiCstJuuH0E6k7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=w_armin@gmx.de header.b=QF2lLHIy; arc=none smtp.client-ip=212.227.15.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+	s=arc-20240116; t=1787780332; c=relaxed/simple;
+	bh=rr1XuPrkOX8eKQzmG/WT1cO+LdHsUfL+FjKLXbliwxo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Bws7Y1U1VRg+CLyIR4YKbT+FDjBPxEBUG/ec5L49ZU7RCkYBTxF8A+NKsG98VPF8qxpdcT4pc1/jlNe21I8/MVjJnvbDtZ0YvldgzyjfZSH9Fa0BLYrKM0mvriOZsP7zkCd0af92i2iq6ewLGUL7UCswNeDeBREY+obp5feNJyM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=tD2zcJU4; arc=none smtp.client-ip=95.215.58.104
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=w_armin@gmx.de header.b="QF2lLHIy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1787780222; x=1788385022; i=w_armin@gmx.de;
-	bh=UYav0N0Z8F2rjIVOSs349HlZgDEKevgsVCUldU2oEHs=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=QF2lLHIyXoU0tRnsnrlcOC9cHUB1HvlCmm1otjLW4x9RaGQ05Q6YCCJd1qD2BMZw
-	 nizP4Imb8douMVy/RWIsjkYtZokDBIc0dtwHngdBHn6kJH+th9mn3nX9/9KTEn9a5
-	 MMPAJwjpJo5yk5qSx97gdez6YlxKu+WygMDi/X5JGEPIkkKj7kcXk7kAR5E+s691j
-	 c5hMSUWfnHKSRpaIFlhTjF0F1VlyG0WRYkNgpAf274KKBsATUhmR0coXvRfiEChX4
-	 mT2Gro7+aJi1QyArQH85UsW9rYlG2XuEYnFClqPjSlFKmJ6zyV9CZdAXjcKv5lHjn
-	 MlNrLk0TW9JRV9D+xQ==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MNt0M-1xJ2wQ13ge-00IoD5; Wed, 26
- Aug 2026 23:37:02 +0200
-Message-ID: <c84328eb-0126-4558-8241-a41e641f9681@gmx.de>
-Date: Wed, 26 Aug 2026 23:37:01 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="tD2zcJU4"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=rr1XuPrkOX8eKQzmG/WT1cO+LdHsUfL+FjKLXbliwxo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787780328; v=1; x=1788385128;
+ b=tD2zcJU4HCyfSvqPaGkV33klUusGfk/E2tY3+RCUiAFW5imdP9t+H5Eq6h1DHqR5CJ4PHZ4Q
+ 8zNQbp+1kvvw6MI5vMl7BYfBqY1ctJQ2sNav24eqHW/atMcyYcyw5ajfn6LfXFFkOcnBll6giUz
+ hHRqsYkLe74Bnh8o4rgeRza8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: from localhost (2a03:2880:10ff:7::)
+	by smtp.migadu.com with ESMTPS id c5bf447cd533342a;
+	Wed, 26 Aug 2026 21:38:47 +0000
+X-Mizu-Trace-ID: c5bf447cd533342a
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 26 Aug 2026 14:38:46 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Joanne Koong <joannelkoong@gmail.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Song Hu <husong@kylinos.cn>, akpm@linux-foundation.org, 
+	linux-mm@kvack.org, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	nphamcs@gmail.com, chengming.zhou@linux.dev, yunzhao@cloudflare.com
+Subject: Re: [PATCH] mm: memcg: use ratelimited stats flush in
+ obj_cgroup_may_zswap()
+Message-ID: <ao9YFgBQJEy-85iB@linux.dev>
+References: <20260817131843.45121-1-husong@kylinos.cn>
+ <1787017182353556.21.seg@mailgw.kylinos.cn>
+ <0689d805-45c6-4bb2-8eb2-f065457c45bf@kylinos.cn>
+ <CAO9r8zNxnVYpwrsuB1Ofcwf-Lks2e+DL1Ys9CXZ5jozBug_ybQ@mail.gmail.com>
+ <CAJnrk1bFq7J7K0=X67voeZVkAb0dmiLkqomuQ+VcXBLyP5hMVg@mail.gmail.com>
+ <aoiQPrudvYZ76ZSD@cmpxchg.org>
+ <CAO9r8zM+w-wb44G+GXev+eHVEOty5GNcmRkui4PxgeF=Hqv_DQ@mail.gmail.com>
+ <CAJnrk1bOdTE+YQRQqzfKUkOGR67a28t3p1r1zeBNzwz9xHEYdw@mail.gmail.com>
+ <CAO9r8zNQzqwVeOoZr71juX3xV06LUTntBp+7bmGdwK_s6FoT6w@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] platform/x86: uniwill-laptop: Fix brightness
- notify for 3 level keyboards
-To: Werner Sembach <wse@tuxedocomputers.com>, Hans de Goede
- <hansg@kernel.org>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?=
- <ilpo.jarvinen@linux.intel.com>
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260822003012.851574-1-wse@tuxedocomputers.com>
-Content-Language: en-US
-From: Armin Wolf <W_Armin@gmx.de>
-In-Reply-To: <20260822003012.851574-1-wse@tuxedocomputers.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:OB5XnmgN54LjRVFZ5v99xeETKXGsqUx31LAO31ewK7oZto/EFoj
- AjfbLuoEO9djQ/Jaur8Rv/7TzjS4x1oHDITS9y554STGOTcsVwM2CSwoay4WGQimqo1aDuq
- dhRh7H91n8M55Q2435sagZdn72OQYqIL2Af4pkVsv/9Yc43XaH7oThicpq/p960QZjuTXzl
- tAtVwn8GdxcFNQ+mFYTtA==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:qn4KluXYq5E=;hNakuJxArdD0hHmU/X3mHs60ivW
- kvWid8Vg7sbkIrZYhZOQAvpcmVSXjh1o8yET8t9BbudeL+wxPDo0Rmq3FPIYd2jyjmLKG03s0
- uMc6hzrF1gn6T5QbPsLDNvvrb+iTkZ0CqKr/08sOnTBFXnEoJ+LXoDr0Z8pBw88x6lJTIBkZO
- BGmyi59pUcoeBwqMazUBD1Kj8BgA+C2u3tJKn0/9P5IO4QZBq86trVSwupZHJynqzoGp3krlN
- veR04ySDt5xJJ9XYHTI2Oqpx+uDcLixSzlew0EoVZ6mc9LP7hqTxed9K4NnK7FLTF/mdc96Rj
- v5F17i1oPBd+AfV5zZ7ar6pMO4j2btb/7aqm8quqKrsHkrLiBznjpSajIuK4lzH+wMKlxzWkW
- mK1k7KFgDXDes5X2C5zond/EAMzCZsWgzSH9kDYkovTwdsc7qiPgGptq5KnDLeZXEYpotGXeu
- Cx7qXV05gYDwNVSiYehzMNfQTGKztfFzbqKly7H6nYTprtsgCnJbeW2X2fqSYUyh7KibTJdUX
- bwjb/c6e7yJk/NhnJOb8QB46hkd9baMa5KAoFGCJ7anqnBOt3JLZGpMrl3rsiyMqFlj8V2C02
- wjRvzIdVwM8ecs782H9SN7wTbul9hSB488htSpLHmlBKtbDq6a+Ua2q6cPcHs6NFYBiA4/T8C
- 0bGHu607BX+eDFUrEKlzYpTEhuIrnsxQRQgXaSxWXHALrYVYmRS8IBbKZXw6yyMhIvMFUsyFm
- NP7n4T8CuXkMgy/OrcYuffd+X+uHhi9NFjVqqnJkH5etcmLp4PpVh+LRhr1QVUODSaGoPzqb8
- b2v6VlvWy42A9nGW/Io1f0sXsLKJ9zfuDsuysyuSCgnVYCsdE9hj5rfhXZsCcjtDVQ0lQF4oV
- GtJ1PZJeqd+7itFWxeA1gwi297jty29mJtHEV/lJQuX2R68cMt3IhAh1JKlMuQPiltjynxN4Z
- v2eYglGRvn3xVPI+FXuylofqQbFxfZytDAIADi0SQ9zrmT7gF5uDtOcblTA1bfIV0PPHV9iAo
- 9/PzLMipwwWGC+7yYZOMVEeRr3zHPPZF6PVSQG617ZrDRfnvMWyXu3GHOvOl/AX68dlyD4foS
- Np52D/x5yedqP8T8lV6eVtQNPqg8QoGscdKY5sXaKOQyy5X0DbIDSmAw88kchQevi6QK5U43/
- 0JWmvNOKLEZU96Xjx2B+J16kEkcg1gz6f/fMZLFlFOlY8f5rWDpLBSZkVC1ZcWWBLFUeLww+s
- R4CXjl0bO6r4VK4i/JWIuzHVOmSnUp4R9T9UI7le6bwsDFEV8WVIdRKaPxbt0ALu00z+4igAj
- CTcFawcaBtT5GHrPCkcdMJxY9zt7GmbCik2kxBbgxqmJQjHteM4XaEJslNi3dfdme1yrzNaOp
- 5Q3pv4TC8hipqJyCNG9Eh3gVkJO27KrftKqqesDIvRk+HrtXIA8QxEaA/QdM5DlSSX6usULF2
- cI7Vk6o/jyv/aTePneBhWX6dvmsWuk4eAtWUFA8bJg3TvKv/fRPcOEqnFO/xHuX7bH8eon5y4
- 9GYxCyRa+G3x8vb7LbzIFq+XpqYr/Sg6yKxksn+9+bKYifpZN4N3qdlBua9ufZuPcOjIH0yGq
- sLgqKXi5oklX/XTM500O9/iT/QfsgO0t+mWHYzhReBu5vYvKrE4GFhoeueziqIfkqiONWotkp
- 9pXkGfSgX4+KRq2xqnCDS+6t0sYKvcwZfj5Dr/F0k3c89RHMXQmyKg/Mz24oruri4Eok2fihx
- 7jOJayDdCu1qhY/ei2n0jUv9KUTaX02udc0QU6dQCDbufXqrCPtJpPYLvtcwSu44ZRhyUZmOm
- CLGpbYx8G24pPeiCSLZkXrJsUEAvrs1WpzNNN4RBlI//hxfU97MYGrcDbea29M01M7hqj/VeK
- YlRjluCrVkCdMM2HRuKL1lWS8RReJFc8/dS2hi6/E8O3eIF41OGrIOLmLDvlMtdbj3FWiCTLu
- 0PI0wery7R99mX26k7ayYykFsgW+JZztlCNOsCzmP3F3tfu3doghB/RQgt4Qc9xT4sUZWQvXT
- BbDqODUUrNMOurVavC97H5UPRl225apHqIul+rCFZkLpmEaUuL/35G+8Fu0f8Y0BssB79uRpR
- PqaBZuOOqczLqnV8t/hcSd15pBH6je1i+mzL5OVg47iO8Pc0yWJCrQmPx2DdSWcgTqaq51qek
- Z92nsbo117DiyINCXrC08StARdj+/Ih1D43mtkTUt+WnWWPUiNy95ste4o6JjuCuE7xrXy2Bp
- azBjJh7uuLVvEkSOMEg3k2wTgswck28H+WrrGRRfn6/qCJg6MIN5g8n5yt3rPJdWuNq5nMcJi
- A5XW0fPtL5NxX9KRPtViA2br91YezeApJxq2wBKEahF64VMSxjy3WCmlkyB1DiNNMS7o1eikW
- GzS37YInfA7HCXe0i0M2U6POZvYy4P1FA+d4iZV/1qlINu4ViKd3x2gy4rJmW4FUbIJp2Xv7K
- MEheh4zZSSHSDAfcPEUbjYl1U919bk/4M7DvVBR+2KF8hyWKVoAVSCbwmu1jlOSrvSqs7OiMo
- V3hwVBcsYu1dgpUPgurHzP+mUQzz/N4ubke6wAU2k9LSDCzfp0kPqTYCuYxPPvUBEazczSd/g
- FizaiDfHDRd68O2GXSdlHZrwSmYhWXW3aARVDaofrI5e9M87eYxsXCjHemWHww4rSCKFaGaAp
- cOsh3Pni+xX1t1dMMZag3np1oTWqNdLmixOC5k+V/PV4W/n6DRBI9dMIlLm0gRzr/+ZtDf+5A
- svjTziofDCKeaX3kfkJiCf03nWJ7xOkftab0b8/l/B8xjejQpUeMf8SY/fhRJ3k4juxtRSmj6
- rUD/RKhHENdV4vzx24vsQJgnSFMKCVbYKMrnd0ioMO9NAGGGpnq43ewx1tiXL6R7/8jrl9WCF
- MtZK600CCHqrvN3/h9q4bQq3yt/1cv3H7CC2CnXS78QgwgcyASx6bbjhCJ1t3lklM6hqCuqAH
- 4zb+ChSuvaACI6RCkXk1hwsDUkzSpRPjhCm2p3WkrwEgRvdq0czO27ulAk6pSZdJCw4HPpoFB
- DM6Wfm8T/d6QG/kwCDaPMoqVsEoTSHd5EGKeXN42Ndq8Ztz0X1rya3im8Wc1eOn612J8Xojuc
- Bqd3lWTlc/I1dAz69X8IDrT61cr7+8DA8YwGvdVQFJJgT69akP2P7XcNl80FMVInCQzaGG4TR
- c67FtoYU+zVTS9WcA2H1NLsRuAGVVhLK7zj6bmUHXzOy3aFqfpp0iCNES2cVP1EYVdQmipwEI
- 5UB8zLNhHTKVKDQYFwnTaFvfCime/SXFPCduCJyPCKEJ1UUPdgvy+Mcg5tJpSW8QWTlM6WWGL
- y2re0a7MNfNDMKfZ8a6bgzC9JSAK5q8DwFWd48QwXUjBBOcgc+30WyAHhiygfEivgWOgueck7
- 6Vd35WGek2DtIODIEC5OSGaJuejDgph72Cxvskt+hkXWTaNynamzD/v28zMkDlqxpKRLSgbrw
- 4W/d6uGVy3sOEh9Mnuo3XUg+8rlZcZ2EORL2UUPfWiMasLELgViKQOzvosK7ug+WKIrWGXGX+
- sGanwE75F5tMjGJfXcBIzJm6UOGTRpdwLEZQ9BSv6cF2yIlgl1gjVVciIKgBjh88/kHb0EZcB
- /JuxDtgi6Ni7nKRQ5hLVc1kzSoG/NSXcbDJfDVWTsVjTkSjrtQ9HDgxzG6U6n61dJd29+GYw2
- 7eHJJdNhXRz5s9uj5QvDA8ePzXw3EK/f71sKZPTV0s+f3b+6vDVAlOkAWLN0s4psnAp5N1tgu
- H5VJYsbRou1cmnqdPGJ8lSw6QVt17M4UEmI/Ml0ROz1RkWJ+TIBlBxEM9vaCYwgMwcZI/16a/
- vx/Zpb7pSSGqLlwY6YTalicyx9kaVzBJoAf3e8n6mdSmUeSWCiGsTq7LCQPnCRobzz/UVB1qr
- Oqes2kMYrHq89WtGA+HsWyq1Jn7N4LUj8X6lnmCnLNX9eyJKkgAeEiYpWuVzTLePD/AIge2WN
- Awfsz9zLw2HYZXKH63njzCSeiLyZVUYaoq1P3Rie3/Leai6G4rnkE0jjohHCkpM2bm5lulnX/
- z/TeaOuGEgvP4FW7nGrsi3shZ0N0Zz0TCcqxTKIg5tqs/pXL52Z/SdUxuzY42/oSmB2Fymydj
- X8ZCwOJSbsgovHzz5NL/h+cU8kMGQz8N/DEyxqlDETsPZV8vpVzQXP62H1w5j5g4S9j4yBtNG
- 9xY9yLF89EYXKBnDKprJbEFuGAOiOI4j911hvtHxSuFreytG7zGBLNkQc3uwx2ARlcZTjsk3f
- /52xZdWq2Q+sGyfmGPbbhVK45qNRepBwMpWhZDCTuK8bmZBcLKW+UW1MpGbsZM90xKU1x8R0t
- a0zy4BYhJ59SLYCdZ2E5wBvPufqiFcXql+u7vj/1GBnSHtqg2tuY8FRdphsUexWVhclf/jXEG
- r158cXg59Tx1DOPISiYKAQrvDoC53uc/gjwfwqNETnVZugGJsa4X7cy6NDEk65oH5azanDi2m
- 7pxtEDV1C8BkzCoQd9c+zau3x9QerqCN+3guAHy47iW+Rgc+JUqP0kRZyQrye6nrA0dRNG6w5
- 6Pn58iXr4vkyF59SIglEi7kS7QTvJvZ/bRkMPn/UFEpP1Iy2GRElM5oOeeinbVM2LNTAtvMMl
- OEvZ8TyBEnwuB+g70oazigSpocH14SLAvkK9UBeN9Vc/820LZYozZCoKQS1PplheVP6JI3PMw
- +eVBHQ+zuBTP5U4FOrAnOV+1b4Yiy3mvUu2YiVe0rc6XNYz3Iwmd0BSkslHyrGVJ5nAWVkUbt
- IS6wY6/xBlt0hMtj5UHypRCcEy4eX+7tElFyuQxn8yn906HBi1Rx7h3yXde2Q3jAX7lfOAxud
- Tz0xct6umIxg5CKnV708eAH/rUZBAU9/zCJ9+PHFUES2dVSh0rgKH0fe9RAsh9syaM1Z28u90
- ZII0bFSOPl5TLiqfnNQEUm5r4ErWraxeFyUBI7YIvWEI/WiHIf7uX2zFMwRnNi25tV6ovxf9L
- iqkZbod8iSlHisFSlm/c2s14ot29c9QL8zstmjMWMS2wkgSubx5EvCX3JOv9osBOYgpsY4qZG
- 3OPNvkfPolE4zWqkOw1jesIyeBEj2OeEqdmRa6iYxCE6UixlRqmV0ywVSJM4SXVC8G9+IVTwO
- bXoCoy3jslOVEAOd0oZocKEI8vN//twM2tc7yQEbSIHsIz7dXBNy8Em4SaCkKNvbllYhBMNp7
- OOQ2bkvWtFmVcG3wohnrA+hn7B6n5nzpD5mtkcQzypjkHWHcqKkGnCAELiYhUKU3RHAnjlp5J
- wwZxWI2HypczCZmC6wD8aD9b4dBNvQqG89QfO6LzIrszRC/UV2h80OJEqS8NuLCcmeI/BSw7C
- TFMwifJdTBJKi8c1MnxiRC8QeSIs6C0/MJV0JNaTKkPubzc1IVfNaKJnkCJB+uUeuovkXkdS3
- kITKabKNdC7cHg5uXkkFiF+Ynd7gSjbHjbePWQjxHU6VelrVIGvgQDkYzDPgjNhRRfGSX/ND7
- 9+sFAIIFOJ6yN/+gMd9F6nDorALziS5qa0FfjGYdooojHKm3rxc1YXF5dkq1pCVsuXCY3WSgH
- eL2NF0K7lWr0wt7ByvEM4VkUMH0ndZIvHeVYyojJCyb6tH5WOccA93xrjln8o7ciGB04Hocq2
- 4SqLj01jcK9ljYNjWxFGtzA9/0raSC1TYE3slpXyLEunVuu/bZ/4pJcoPxSdE5sC7CFUuJm9A
- V48PWNHBkw3bujullEvu3d2LG9UgAQcbuq9fo45aIDt//kAfwLlIMCAOT2gMxtY4EtbnOlf06
- QEK6DjzEg0OR7iIrZguZ++miIeYWH9V3H9rDfWCCXTOhtFjL779n0OfPTqv8r37Qw9IcDoYj3
- 9Khei8cRWwgo431F12Xc3ke8Uz/VqBmyq4ZUtRMyp4zkCHTGH2OwZKoTfnoDlWgcnypE4vtff
- t/Z6lwWKqE2Octa06srWMGueYAH+bTvwUReH9FZew4kYFYReB/dXXyC/5GhyrWzXaUyEqDc9r
- nVr3PZbiekbpZ/doZKa2WoYNO8Jv4tvcHxs9tX2XIDFhSzFobKFVYn7zL1KX9WElRIEpCWKBF
- dPYx4r4u/S+0XkKdmq0rG0wBn0fQ5Hq+FdwhC2Hb2P+PJ0dia+YcOxcxguriKfEgM/071Gzx7
- q88SIjjmb4sQSPogoNN6oIlZG+WcmwIHDq1MlvSgaOabXVLbmJfhvVF9CZHiWxIOZvNlfpUyT
- M7e40JRgIWWa5JWGo21O1PNpfQgw3WWAvS7qVPegkTupyqaz28wCzKWVBPIDImAI28gzS8QC2
- OtwUCsRTpB5TL2TkfRRELublF1b346lXi3pc+Hdnzv3ve2i1XR6jXVVE/fzhZPtZqdymnlKB4
- JPMJio2tHR2ftc7qtBA0eSZwr03IuDFpC9OtOcccHbs9JJjwMEcJ7SiwUAoHSeE/YlddYHtHg
- t6em4F+y13PoGF6lJyuH0vbu1vn8zczq5DwDdp8V5Qufoc4v8IRB+z+yW9BI3s8KMKH4SNr9S
- GVWGwUIhiFBbBAXaU4bi3tUt7xT+TcPOfu3RoRk03y7yMj+2QJ0/o7/bR4fxlmo10uiVEueiJ
- xuRvU8VkJYpYzrHKOQiuLfjnQPMtxuuKjAXpyE4frkoEXMIMOoXBh5DG16NvolmN6/m7M1Aq+
- njMGe2OJxtr2CwVVF7sazfdUK+g7mp8ijKwJy1QXpf0X8H/CanifTkC+lIzGPaQIRfRCkfYFV
- QF4Nwvdfb32wvvGx20X9XPz40d3AMCbwlrgDSyJw1KumjvFizcaJ+w==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAO9r8zNQzqwVeOoZr71juX3xV06LUTntBp+7bmGdwK_s6FoT6w@mail.gmail.com>
 
-Am 22.08.26 um 02:28 schrieb Werner Sembach:
+On Mon, Aug 24, 2026 at 02:16:40PM -0700, Yosry Ahmed wrote:
+> > > > > For this zswap stat, I ran some benchmarks comparing 4 approaches
+> > > > > (switchable behind a runtime knob [1]):
+> > > > > a) rstat + forced flush       (baseline aka what the tree does today)
+> > > > > b) rstat + ratelimited         (Song's proposal)
+> > > > > c) hierarchical per-CPU   (Yosry's idea from [2])
+> > > > > d) page counters              (following what all the other memcg limits do)
+> > >
+> > > Thanks for trying this. I actually thought about page counters but
+> > > quickly dismissed it because zswap needs sub-page charging. I see you
+> > > are using the page counters here as byte counters tho :)
+> > >
+> > > It's probably fine, I think the risk of overflow is low (at least on 64-bit).
+> > >
+> > > > >
+> > > > > For the setup, the benchmark creates a cgroup chain at depth X with
+> > > > > memory.max set to 1G on the leaf and memory.zswap.max set to 512M on
+> > > > > every level, and spins up 20 processes there that each allocate 100
+> > > > > MiB, fault it in, and touch every page four more times. With that 2000
+> > > > > MiB against the 1 GiB memory.max, it triggers reclaim continuously and
+> > > > > makes the swap traffic go through zswap. The machine I ran this on had
+> > > > > 80 CPUs.
+> > > > >
+> > > > > I also ran it with no memory.zswap.max set (ie no reads triggered,
+> > > > > only update path runs) - as I understand it, this is the configuration
+> > > > > that is more often used in practice.
+> > > > >
+> > > > > These are the results I saw:
+> > > > >
+> > > > > kernel cpu time (in ns) per zswap store, zswap.max set
+> > > > >                       a)                     b)            c)                d)
+> > > > > depth 1        567,116          35,604     35,841     34,995
+> > > > > depth 2      1,082,007          35,507     37,803     36,209
+> > > > > depth 4      2,153,329          37,591     40,117     39,893
+> > > > > depth 8      4,211,692          34,963     41,070     44,211
+> > > > > depth 32    15,728,220       53,575     94,685     65,946
+> > > > >
+> > > > > kernel cpu time (in ns) per zswap store, no zswap.max (update path only):
+> > > > >                         a)                  b)              c)            d)
+> > > > > depth 1         34,787          34,062     34,930     35,630
+> > > > > depth 2         34,913          35,061     36,404     36,360
+> > > > > depth 4         36,422          36,809     36,922     37,483
+> > > > > depth 8         42,177          34,440     36,679     40,793
+> > > > > depth 32        55,309          55,321     57,671     59,190
+> > > > >
+> > > > > c) and d) are for the most part pretty comparable to b) without
+> > > > > introducing the staleness problem of b). Between c) and d), I think d)
+> > > > > ends up outperforming c) as the # of cpus and depth gets larger.
+> > >
+> > > The main advantage of (c) to me is that we can probably update ~all
+> > > memcg stats to use this scheme, or at least the problematic ones, it
+> > > should be generic enough. Also, I have a concern about (d), see below.
+> > >
+> > > > >
+> > > > > I'm seeing that all the other memory limits (eg memory.swap.max,
+> > > > > memory.max, etc) are already using page counters. Is there a reason
+> > > > > the zswap stat can't? If not, does it make sense for the zswap stat to
+> > > > > switch over to using page counters?
+> > > >
+> > > > Thanks for running these.
+> > > >
+> > > > I used the vmstat counter on the assumption that setting zswap.max is
+> > > > rare and the counter is maintained anyway for memory.stat.
+> > > >
+> > > > But I never actually tested it. The assumption was that surely walking
+> > > > ancestors on a quick if (max == PAGE_COUNTER_MAX) continue would be
+> > > > much cheaper than page counter atomics at every level. And so I'm
+> > > > surprised by your results.
+> >
+> > I think your assumptions are correct. In that second table above (no
+> > zswap.max set, only update path runs), d) has worse performance than
+> > the baseline a) (except for depth=8, which was a noisy fluke). Rerun
+> > with 20 reps, I saw similiar-ish results:
+> >
+> > depth       a)                       d)                       diff
+> >      1  35051 +/- 116   35635 +/- 149    +584 +/- 189   (+1.7%)
+> >      2  35603 +/- 142   35859 +/- 179    +256 +/- 229   (+0.7%)
+> >      4  36358 +/- 115   37761 +/- 167   +1403 +/- 203   (+3.9%)
+> >      8  39537 +/- 178   41225 +/- 240   +1688 +/- 299   (+4.3%)
+> >    32  52181 +/- 210   59042 +/- 161   +6861 +/- 265  (+13.2%)
+> >
+> > I think the atomics do cost roughly what you assumed, but compared to
+> > the overall latency of the zswap path, it's adding hundreds of
+> > nanoseconds to a path that takes tens of microseconds.
+> >
+> > >
+> > > +1.
+> > >
+> > > I previously did an experiment with per-cgroup atomics (should be the
+> > > same as page counters), and it scaled more poorly than the numbers you
+> > > have here. I was running tests in a VM on an AMD Turin CPU, and I
+> > > think I tried 10, 20, and 50 processes, so maybe I pushed it to the
+> > > limit. I remember seeing a large regression with 50 processes. I used
+> > > bpftrace to measure the latency of zswap loads and zswap stores.
+> > >
+> > > Would you be able to also collect numbers with >20 processes and with
+> >
+> > Beyond 20 workers, I'm seeing that the additional workers basically
+> > just queue, without improving throughput much. I don't think this
+> > bottleneck is related to the accounting method used though. a), c) and
+> > d) all are within 1% of each other at 40 and 80 workers, so all 3
+> > approaches are bottlenecked by this.
+> >
+> > > zswap loads? I think latency of zswap loads is more critical because
+> > > it's usually in the fault path. One other thing is, you need to be
+> > > careful with zswap loads because a miss will be really fast, so they
+> > > will pull the average latency down. Ideally you'd only measure zswap
+> > > load hits. It would also be useful to see the latency at the tail
+> > > (e.g. p90, p95, p99), as people usually care a lot about page fault
+> > > latency at the tail, not just the average.
+> > >
+> > > Sorry if I am asking too much :)
+> > >
+> > > Honestly, I am not sure if >20 processes is a practical concern, but
+> > > zswap load latency is.
+> >
+> > Ah, thanks for pointing out the zswap load path and its relation to
+> > faults. These are the results I'm seeing:
+> >
+> > zswap_load() latency, (hits only (retval == 0), no zswap.max set, 20
+> > workers on 80 cpus, 5 runs, ns):
+> >                   a)              c)       d)
+> >   depth 2
+> >     p50        6,850      6,700    6,850
+> >     p90       10,000    9,750   10,000
+> >     p95       11,050   10,800   11,000
+> >     p99       13,600   13,350   13,500
+> >     avg       7,269    7,128    7,297
+> >   depth 4
+> >     p50        6,600    6,500    6,700
+> >     p90        9,700    9,650    9,950
+> >     p95       10,800   10,750   11,000
+> >     p99       13,350   13,250   13,550
+> >     avg       7,034    7,029    7,266
+> >   depth 8
+> >     p50        6,000    6,150    6,750
+> >     p90        9,000    9,250    9,900
+> >     p95       10,050   10,300   11,050
+> >     p99       12,500   12,800   13,650
+> >     avg       6,508    6,652    7,273
+> >   depth 32
+> >     p50        5,250    5,400    9,100
+> >     p90        7,900    8,050   12,550
+> >     p95        9,000    9,150   13,800
+> >     p99       11,550   11,700   16,450
+> >     avg       5,786    5,958    9,469
+> >
+> > For depths 2 and 4, there's no real difference for d), but depth 8+
+> > shows worse performance. In Meta's fleet, hierarchies of depth 8+ are
+> > common.
+> >
+> > >
+> > > That being said, I generally prefer (c) better because it should scale
+> >
+> > I now prefer (c) as well. I hadn't realized setting zswap.max is a
+> > rare path until Johannes mentioned it, and with your mention of
+> > zswap_load() sitting in the fault-critical path, I think the benchmark
+> > results show a clear improvement for c) over d) at higher depths.
+> >
+> > I was uneasy about the cost of c)'s reads scaling linearly with the #
+> > of cpus on a system (ie for_each_possible_cpu per level), but given
+> > the uncommonness of the zswap.max path, I think that's the right thing
+> > to trade away. Either way, it's a big improvement over the baseline a)
+> > path that currently exists anyways.
+> >
+> > > with more concurrency/CPUs and should generalize better to other
+> > > stats. But I am obviously biased :P
+> >
+> > I'm still investigating the writeback and vmscan cases. For writeback,
+> > using (c) is more complicated since NR_FILE_DIRTY and NR_WRITEBACK are
+> > node stats. I'm planning to spend time this week running benchmarks
+> > for it.
+> >
+> > If for those cases, (c) is viable, then I'll send a patch that adds
+> > (c) as general infrastructure. Otherwise, I'll send out (c) as a zswap
+> > specific patch.
+> >
+> > Does this sound good to everyone? If there are any objections, please
+> > let me know.
+> 
+> If (c) is holding up for writeback and vmscan, I would question a more
+> radical approach of tearing apart the rstat framework and using it
+> across the board. That is obviously a heavier lift and more
+> controversial,
 
-> The devices with 3 brightness level keyboards send
-> UNIWILL_OSD_KB_LED_LEVEL0, UNIWILL_OSD_KB_LED_LEVEL2, and
-> UNIWILL_OSD_KB_LED_LEVEL4 and not UNIWILL_OSD_KB_LED_LEVEL0,
-> UNIWILL_OSD_KB_LED_LEVEL1, and UNIWILL_OSD_KB_LED_LEVEL2.
->
-> This patch maps the events correctly to brightness levels 0, 1, and 2.
+Yes controversial because we used to have similar mechanism which did not work
+and we had to move to rstat. Check the commit 42a300353577 and fixes to it.
 
-Reviewed-by: Armin Wolf <W_Armin@gmx.de>
+This worked for zswap stats because their update and consumption are not on
+performance critical code paths i.e. these are on the way to compress or
+decompress or in reclaim context.
 
-> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
-> ---
-> V1->V2: Use the events as source of truth for brightness_hw_changed valu=
-e
->          again to avoid a race condition as Armin had pointed out.
-> V2->V3: Return error for unexpected brightness level count.
->
->   drivers/platform/x86/uniwill/uniwill-acpi.c | 26 +++++++++++++++++++++
->   1 file changed, 26 insertions(+)
->
-> diff --git a/drivers/platform/x86/uniwill/uniwill-acpi.c b/drivers/platf=
-orm/x86/uniwill/uniwill-acpi.c
-> index 7a2eeaec4c961..5df3611919ce3 100644
-> --- a/drivers/platform/x86/uniwill/uniwill-acpi.c
-> +++ b/drivers/platform/x86/uniwill/uniwill-acpi.c
-> @@ -1631,6 +1631,32 @@ static int uniwill_notify_kbd_led(struct uniwill_=
-data *data, int brightness)
->   	struct led_classdev *led_cdev;
->   	int ret;
->  =20
-> +	/*
-> +	 * The devices with 3 brightness level keyboards send
-> +	 * UNIWILL_OSD_KB_LED_LEVEL0, UNIWILL_OSD_KB_LED_LEVEL2, and
-> +	 * UNIWILL_OSD_KB_LED_LEVEL4 which need to be mapped to 0, 1, and 2.
-> +	 */
-> +	switch (data->kbd_led_max_brightness) {
-> +	case 4:
-> +		break;
-> +	case 2:
-> +		switch (brightness) {
-> +		case 0:
-> +			break;
-> +		case 2:
-> +			brightness =3D 1;
-> +			break;
-> +		case 4:
-> +			brightness =3D 2;
-> +			break;
-> +		default:
-> +			return -EINVAL;
-> +		}
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +
->   	if (data->kbd_led_single_color)
->   		led_cdev =3D &data->kbd_led_cdev;
->   	else
->
-> base-commit: 54745d563114b74f6fecebce68cd020d06c1772b
+> but if we can get away with it, I think it will
+> simplify things greatly and honestly rstat has been causing a lot of
+> trouble in the last few years.
+> 
+> But this can be done incrementally too, we can start by separating out
+> the problematic stats to use the new update/flushing scheme,
+
+This I think we do need but for specific stats. I think the stats which have
+in-kernel consumers need this. However not all such stats might be fine with
+slow update side like zswap. So, we need to evaluate thoroughly.
