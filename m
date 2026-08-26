@@ -1,145 +1,353 @@
-Received: from mail-yx1-f69.google.com (mail-yx1-f69.google.com [74.125.224.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7DB8352C4F
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 17:01:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 313CD347FCD;
+	Wed, 26 Aug 2026 17:02:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787763721; cv=none; b=XIN7E7ToXa5/olKi9qPXsS23nICKYf7ANWItx5UBQ0GMASvjMCkKwt5IA/5sDp5grkVYw0Mw8IIUq2j2TUK6OK25FN2l3d45HpJQt2jb8rNBbQTslbm39BrO8i5AvZ32ZoQxI9zsV4eqTcpTXHKnEikGo62tkBTP6IKvZnA1FwE=
+	t=1787763755; cv=none; b=gMqDaYM00Q9bt3/3n9Bjz/UPJFCIOOuNnWrFUZTyW12adq6SpCm/nR+qlx3vjLH4Dv+gPIuT4ChKCzkrb4bLjBWIxQjq+oRBXbqOfJIpwSLGfjqlHoL9lLrbpNc5IlKn7KfnocwdFnel55lOwQOJhxEkInN0ycCAbJHjWllB6sQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787763721; c=relaxed/simple;
-	bh=w15suKsWFvnl/SbNHI/YWs/B61oJZUiIks8mIiL/ciw=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=JVQtFC1CCKmZvTylVqQDh/gMJt276g2b0wlJHLHRPfmQ1pYwyJbSKCRSRHzTAfBTA5SgAc2oFADTLfYrKvBwMavlhxdhBELJBfkgEcA+L9x841DCjYIZZ77Z9Hll6eImH+sv5xLowbCyV8AThpumwmqM0LRTU/ATPzT2YgAqyYw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.224.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-yx1-f69.google.com with SMTP id 956f58d0204a3-66c70f5abc2so1916958d50.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 10:01:45 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787763702; x=1788368502;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=zpkb59MZ3xKKGRCh9R6EynX+Nh2apKlX3tYGFftwGAo=;
-        b=JCL/Y7dIs3Pam2onPgsE7GEuAk6LKyp7REqXonsm+a3zMttXUOAhDzIwQgNyaRICXU
-         4zvefzrR3B7ytYuJ9wd1LkhWwmbmZRyrIeUYzPmU0k0pb/ZDYk6PH40EGvpGUrvi8yL4
-         PF/6vybLp0hhRfWyH/th2UVHMXQDUWyYYWKVQA1Pa+ZBjdOWc8mJIkSkbnpU98hdowmt
-         h9QOqn2okVzDmn3yJ0+d5qC6Xf82ue49VSaHXYtxGWPMJypm0MQ7Zko4AirpcL6u8w3J
-         Lny6DpeEG21Cqhg46vNRRJwDkav2agXoOqvg1qVNibsAF7wHU1bhvlySvHj+UOBY9duu
-         cdtw==
-X-Forwarded-Encrypted: i=1; AHgh+RqqHjSPwDYfg9HVGaOEdUGr1FZVPTcdI6JoX/9JzjSC3z6X0s3tEiRZqb8L3d9Mm3oixocKwlOMW61saYA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mVdRfwNxmwGr60QG2yGPUmhUzUb0RlFRup8pptrVqM6vyljw8m
-	axSdMyFNgcvhZ/lQ0Ou3/G9nYUH5cvdH3BGbBry74lOEd4C2dsSU2AokB4NrzdUgoEL56UmEZ5s
-	qqJRv/A9g5b8XR9kVdZtGRMxdKuVwXuQRkoYcwacGu3IDTPCJmCmRIc9WGGM=
+	s=arc-20240116; t=1787763755; c=relaxed/simple;
+	bh=u0RKM02wOzuvhntRLoFKu9oNmuIfFheu6cW7Dr4jCJQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iEcEt6X6aK0VV/mHNisM6hNSIkGmvbQ+biu3WYJhuJlWOL2EzZvrtqISjw5gHSTTmvHEOqmBCtJ9qysG3DNFprQnn6GCh8ZWqniYA1CTjBxhAcA3kR+7K9pMxTzJxPmYAbDD6VjzQ7eQKPE8/WjOk2UNWGlcoOPgXFQYv2EYHkw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bn/DiV/G; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bn/DiV/G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2EBA1F000E9;
+	Wed, 26 Aug 2026 17:02:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787763743;
+	bh=PvMhOpMtgahb/2g6h4rPwkBMlykF3l7pKxLhOb+mM+E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Bn/DiV/GuREkqk9gLaLx9oQOgG/zG/4wjB0MvEVME582wC2HbgYlUE3fOR/KD8sYK
+	 oCBf2UdqvnKJ9wytcgrqwQVTkbinysLZ0yZz5oPZlMo9pSqLwYCsXEQhrrzYoxBA0R
+	 wEnMTcMArz+ogjjsExgFwpAwuLvyJovUy67/4qFCwoMeD++JRnmcm4KbH+lKP2QajX
+	 C+XapE8uFFYdvM+bW+q8IsgbwPhHCO9diw1dha1JdZgQBacL8KU9dtB/xdES3J1ndv
+	 vC0o3AN8uuJla0rAs/LFvDPR/bq6bkALmlomtA/wkxeSOibPN2luyhIryddfiEse/P
+	 ilQneArTa5cxg==
+Date: Wed, 26 Aug 2026 18:02:16 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Alex Ousherovitch <aousherovitch@rambus.com>
+Cc: Albert Ou <aou@eecs.berkeley.edu>, Conor Dooley <conor+dt@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>,
+	Shuah Khan <shuah@kernel.org>, Alexandre Ghiti <alex@ghiti.fr>,
+	devicetree@vger.kernel.org,
+	Joel Wittenauer <Joel.Wittenauer@cryptography.com>,
+	linux-api@vger.kernel.org, linux-crypto@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, linux-riscv@lists.infradead.org,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Thi Nguyen <thin@rambus.com>
+Subject: Re: [PATCH v4 01/19] dt-bindings: crypto: add Rambus CryptoManager
+ Hub
+Message-ID: <20260826-unwritten-marshland-47cdf3c17cad@spud>
+References: <20260825221539.255951-1-aousherovitch@rambus.com>
+ <20260825221539.255951-2-aousherovitch@rambus.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a53:e849:0:b0:66d:112b:769 with SMTP id
- 956f58d0204a3-66d25663260mr2084976d50.1.1787763702629; Wed, 26 Aug 2026
- 10:01:42 -0700 (PDT)
-Date: Wed, 26 Aug 2026 10:01:42 -0700
-In-Reply-To: <6a653bcf.073198cf.94f0f.001c.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a8f1bf6.50659fcc.60cd.0004.GAE@google.com>
-Subject: Re: [syzbot] [kernel?] WARNING: proc registration bug in
- unregister_irq_proc (2)
-From: syzbot <syzbot+690d666eb12fca6e1e61@syzkaller.appspotmail.com>
-To: abbotti@mev.co.uk, bhelgaas@google.com, dakr@kernel.org, 
-	driver-core@lists.linux.dev, gregkh@linuxfoundation.org, 
-	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, rafael@kernel.org, 
-	syzkaller-bugs@googlegroups.com, tglx@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ijLsa67cbXpBs7zp"
+Content-Disposition: inline
+In-Reply-To: <20260825221539.255951-2-aousherovitch@rambus.com>
 
-syzbot has found a reproducer for the following issue on:
+--ijLsa67cbXpBs7zp
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-HEAD commit:    818bebeb63dd drm/xe: Don't hand out the flat CCS storage a..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=17569625580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
-dashboard link: https://syzkaller.appspot.com/bug?extid=690d666eb12fca6e1e61
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=157ce979580000
+On Tue, Aug 25, 2026 at 03:15:20PM -0700, Alex Ousherovitch wrote:
+> Add device tree binding schema for the Rambus CryptoManager Hub (CMH)
+> hardware crypto accelerator.  The binding describes the parent
+> SoC-level node with its SIC register region and one queue@N child
+> node per mailbox the host owns, each carrying a reg (mailbox instance
+> index), an optional interrupt, VCQ ring geometry (rambus,num-slots /
+> rambus,slot-stride-bytes) and a rambus,cores affinity list.  Which crypto=
+ cores
+> are present is discovered from the SIC CORE_ENABLE register at probe,
+> not described in the device tree.
+>=20
+> Register the 'rambus' vendor prefix for Rambus Inc.
+>=20
+> Signed-off-by: Alex Ousherovitch <aousherovitch@rambus.com>
+> Co-developed-by: Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.=
+com>
+> Signed-off-by: Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.co=
+m>
+> ---
+>  .../bindings/crypto/rambus,cmh-v1030.yaml     | 194 ++++++++++++++++++
+>  .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+>  2 files changed, 196 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/crypto/rambus,cmh-v=
+1030.yaml
+>=20
+> diff --git a/Documentation/devicetree/bindings/crypto/rambus,cmh-v1030.ya=
+ml b/Documentation/devicetree/bindings/crypto/rambus,cmh-v1030.yaml
+> new file mode 100644
+> index 000000000000..d9598b0f3bbc
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/crypto/rambus,cmh-v1030.yaml
+> @@ -0,0 +1,194 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/crypto/rambus,cmh-v1030.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Rambus CryptoManager Hub (CMH) Hardware Crypto Accelerator
+> +
+> +maintainers:
+> +  - Alex Ousherovitch <aousherovitch@rambus.com>
+> +  - Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>
+> +  - Joel Wittenauer <Joel.Wittenauer@cryptography.com>
+> +
+> +description: |
+> +  The Rambus CryptoManager Hub (CMH) is a hardware cryptographic acceler=
+ator
+> +  accessed via a mailbox-based VCQ (Virtual Command Queue) interface.  T=
+he
+> +  host writes VCQ command sequences into per-mailbox DMA queue buffers a=
+nd
+> +  rings a doorbell; the CMH eSW processes them and signals completion via
+> +  interrupt.
+> +
+> +  The management host statically partitions the hardware mailboxes across
+> +  the SoC's host interfaces at integration time; the set of mailboxes a
+> +  given host owns is therefore fixed and not runtime-discoverable (a
+> +  mailbox locked to a host reads as unavailable in the SIC availability
+> +  register).  Each owned mailbox is described by a child node.  Which
+> +  crypto cores are present is a fixed silicon-build property indicated by
+> +  the SIC CORE_ENABLE register, so cores are not described in the device
+> +  tree.
+> +
+> +  CMH gates access to a locked mailbox by a hardware HOST ID presented on
+> +  the bus with every access, permitting only the owning host's ID.  An
+> +  integration must present a single, stable HOST ID for all accesses to a
+> +  given mailbox, independent of the issuing CPU (relevant on SMP hosts
+> +  whose interconnect encodes the issuing CPU in the HOST ID).
+> +
+> +properties:
+> +  compatible:
+> +    const: rambus,cmh-v1030
+> +    description:
+> +      Identifies the CryptoManager Hub v1.030 IP revision (register map =
+and
+> +      command ABI).  A specific SoC integration should list its own
+> +      "<vendor>,<soc>-cmh" compatible first with "rambus,cmh-v1030" as a
+> +      fallback; that extended form will be added when such a platform is
+> +      upstreamed.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+690d666eb12fca6e1e61@syzkaller.appspotmail.com
+This commentary should just not be here.
+Instead, do what's been done in sifive,clint.yaml for the clint2. I
+don't feel great about suggesting that, and it feels like it's becoming
+more common - although maybe that's a good thing because it means IP
+vendors are being more proactive about upstreaming.
 
-------------[ cut here ]------------
-remove_proc_entry: removing non-empty directory 'irq/17', leaking at least 'comedi_parport'
-WARNING: fs/proc/generic.c:747 at remove_proc_entry+0x4e7/0x610 fs/proc/generic.c:747, CPU#0: syz-executor143/6008
-Modules linked in:
-CPU: 0 UID: 0 PID: 6008 Comm: syz-executor143 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:remove_proc_entry+0x4f5/0x610 fs/proc/generic.c:747
-Code: 00 fc ff df 48 89 fa 48 c1 ea 03 80 3c 02 00 0f 85 c7 00 00 00 48 8d 3d 39 b7 88 0e 49 8b 95 d0 00 00 00 48 c7 c6 80 39 0b 8c <67> 48 0f b9 3a e9 2a fe ff ff e8 4c 2b 4a ff 48 8d 7d 18 48 b8 00
-RSP: 0018:ffffc900032af7b8 EFLAGS: 00010246
-RAX: dffffc0000000000 RBX: dffffc0000000000 RCX: ffff88803dac74dc
-RDX: ffff88801cb025dc RSI: ffffffff8c0b3980 RDI: ffffffff91498da0
-RBP: ffff88803dac74b8 R08: ffff88802b20f75c R09: ffffed1007b58e83
-R10: ffff88803dac741b R11: 0000000000000000 R12: ffff88803dac7400
-R13: ffff88801cb02500 R14: ffff88802b20f738 R15: dffffc0000000000
-FS:  000055558ac37400(0000) GS:ffff8880d5ba2000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007efe6b5a6130 CR3: 000000002bb43000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- unregister_irq_proc+0x206/0x2a0 kernel/irq/proc.c:406
- free_desc+0x89/0x330 kernel/irq/irqdesc.c:482
- irq_free_descs kernel/irq/irqdesc.c:874 [inline]
- irq_free_descs+0x84/0xc0 kernel/irq/irqdesc.c:865
- irq_domain_free_irqs+0x46a/0x5c0 kernel/irq/irqdomain.c:1919
- mp_unmap_irq+0xf8/0x130 arch/x86/kernel/apic/io_apic.c:1061
- acpi_unregister_gsi_ioapic+0x40/0x60 arch/x86/kernel/acpi/boot.c:722
- acpi_unregister_gsi+0x25/0x40 arch/x86/kernel/acpi/boot.c:751
- acpi_pci_irq_disable+0x275/0x360 drivers/acpi/pci_irq.c:517
- pcibios_disable_device arch/x86/pci/common.c:706 [inline]
- pcibios_disable_device+0x89/0xb0 arch/x86/pci/common.c:703
- do_pci_disable_device+0x9f/0x100 drivers/pci/pci.c:2192
- pci_disable_device+0x130/0x270 drivers/pci/pci.c:2228
- enable_store+0x219/0x260 drivers/pci/pci-sysfs.c:342
- dev_attr_store+0x58/0x80 drivers/base/core.c:2509
- sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
- kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x6af/0x1050 fs/read_write.c:687
- ksys_write+0x12a/0x250 fs/read_write.c:739
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f8d19fda9f7
-Code: 48 89 fa 4c 89 df e8 98 1d 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
-RSP: 002b:00007ffff688d7b0 EFLAGS: 00000202 ORIG_RAX: 0000000000000001
-RAX: ffffffffffffffda RBX: 000055558ac37400 RCX: 00007f8d19fda9f7
-RDX: 0000000000000002 RSI: 00007f8d1a0120f4 RDI: 0000000000000004
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000202 R12: 00007f8d1a012129
-R13: 00007f8d1a014458 R14: 00007f8d1a0120f4 R15: 0000000000000015
- </TASK>
-----------------
-Code disassembly (best guess):
-   0:	00 fc                	add    %bh,%ah
-   2:	ff                   	lcall  (bad)
-   3:	df 48 89             	fisttps -0x77(%rax)
-   6:	fa                   	cli
-   7:	48 c1 ea 03          	shr    $0x3,%rdx
-   b:	80 3c 02 00          	cmpb   $0x0,(%rdx,%rax,1)
-   f:	0f 85 c7 00 00 00    	jne    0xdc
-  15:	48 8d 3d 39 b7 88 0e 	lea    0xe88b739(%rip),%rdi        # 0xe88b755
-  1c:	49 8b 95 d0 00 00 00 	mov    0xd0(%r13),%rdx
-  23:	48 c7 c6 80 39 0b 8c 	mov    $0xffffffff8c0b3980,%rsi
-* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
-  2f:	e9 2a fe ff ff       	jmp    0xfffffe5e
-  34:	e8 4c 2b 4a ff       	call   0xff4a2b85
-  39:	48 8d 7d 18          	lea    0x18(%rbp),%rdi
-  3d:	48                   	rex.W
-  3e:	b8                   	.byte 0xb8
+> +
+> +  reg:
+> +    maxItems: 1
+> +    description:
+> +      SIC (System Interface Controller) MMIO region.  The registers of
+> +      mailbox instance N are at offset N * 0x1000 within this region.
+> +
+> +  clocks:
+> +    minItems: 1
+> +    items:
+> +      - description: Main functional clock ("core").
+> +      - description:
+> +          Half-rate "core-div2" clock (present only on configurations wi=
+th
+> +          side-channel-protected cores) or the "rt" real-time tick clock.
+> +      - description: Real-time tick clock ("rt") for the internal timer.
+> +
+> +  clock-names:
+> +    oneOf:
+> +      - items:
+> +          - const: core
+> +      - items:
+> +          - const: core
+> +          - const: core-div2
+> +      - items:
+> +          - const: core
+> +          - const: rt
+> +      - items:
+> +          - const: core
+> +          - const: core-div2
+> +          - const: rt
+> +
+> +  reset-gpios:
+> +    maxItems: 1
+> +    description:
+> +      Host-controlled reset for the CryptoManager Hub.  The hub has two
+> +      external, active-low reset inputs -- a power-on reset and a hard
+> +      reset; where a board routes one of them to a host GPIO, that line =
+is
+> +      described here.
+> +
+> +  "#address-cells":
+> +    const: 1
+> +
+> +  "#size-cells":
+> +    const: 0
+> +
+> +patternProperties:
+> +  "^queue@[0-9a-f]+$":
+> +    type: object
+> +    description:
+> +      One node per hardware mailbox (VCQ command queue) this host owns.
+> +      The set of owned mailboxes is fixed by the management host at
+> +      integration time and enumerated here.
+> +    properties:
+> +      reg:
+> +        maxItems: 1
+> +        description:
+> +          0-based mailbox instance index.  The instance's registers are
+> +          at reg * 0x1000 within the SIC region.
+> +
+> +      interrupts:
+> +        maxItems: 1
+> +        description: Completion/error interrupt for this mailbox.
+> +
+> +      rambus,num-slots:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        enum: [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 819=
+2,
+> +               16384, 32768]
+> +        default: 64
+> +        description:
+> +          Number of VCQ ring slots for this mailbox's command queue in
+> +          host DMA memory.  This is a per-board, per-mailbox host-memory
+> +          ring geometry -- boards built around the same SoC (hence the
+> +          same compatible) may use different ring sizes, so it is
+> +          described per mailbox rather than derived from the compatible.
+> +
+> +      rambus,slot-stride-bytes:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        enum: [128, 256, 512, 1024]
+> +        default: 512
+> +        description:
+> +          Stride in bytes between consecutive VCQ ring slots for this
+> +          mailbox's command queue.  Like rambus,num-slots this is a
+> +          per-board host-memory ring geometry, not derived from the
+> +          compatible.
+> +
+> +      rambus,cores:
+> +        $ref: /schemas/types.yaml#/definitions/uint32-array
+> +        items:
+> +          enum: [0x02, 0x03, 0x04, 0x05, 0x08, 0x09, 0x0a, 0x18]
+> +        description: |
+> +          Core-affinity list: the hardware core IDs whose work is
+> +          dispatched to this mailbox.  A core ID may appear on at most o=
+ne
+> +          mailbox.  Cores not listed on any mailbox are load-balanced
+> +          across all mailboxes.  Optional (default: none -- the mailbox
+> +          only serves the load-balanced pool).
+> +
+> +          Because each core instance has a distinct ID, separate
+> +          instances of the same core type can be pinned to different
+> +          mailboxes.
+> +
+> +          Core IDs:
+> +            0x02 HC, 0x03 AES, 0x04 SM4, 0x05 SM3,
+> +            0x08 HCQ, 0x09 QSE, 0x0a PKE, 0x18 CCP.
 
+You could just make this a string array, and then you'd not need this
+mapping of unintelligible hex values. Of course then your driver has to
+do it, but I'd rather see understandable (and portable, since a new
+revision could change the IDs) values in DT.
 
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+> +
+> +    required:
+> +      - reg
+> +
+> +    additionalProperties: false
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - "#address-cells"
+> +  - "#size-cells"
+
+Surely clocks are also mandatory?
+
+pw-bot: changes-requested
+
+Cheers,
+Conor.
+
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    soc {
+> +        #address-cells =3D <2>;
+> +        #size-cells =3D <2>;
+> +
+> +        crypto@a4800000 {
+> +            compatible =3D "rambus,cmh-v1030";
+> +            reg =3D <0x0 0xa4800000 0x0 0x41000>;
+> +            clocks =3D <&cmh_core_clk>;
+> +            clock-names =3D "core";
+> +            #address-cells =3D <1>;
+> +            #size-cells =3D <0>;
+> +
+> +            /* Fast symmetric cores dedicated to mailbox 0:
+> +             * HC 0x02, AES 0x03, SM4 0x04, SM3 0x05, CCP 0x18 */
+> +            queue@0 {
+> +                reg =3D <0>;
+> +                interrupts =3D <1>;
+> +                rambus,cores =3D <0x02 0x03 0x04 0x05 0x18>;
+> +            };
+> +
+> +            /* Slow asymmetric/PQC cores dedicated to mailbox 1:
+> +             * HCQ 0x08, QSE 0x09, PKE 0x0a */
+> +            queue@1 {
+> +                reg =3D <1>;
+> +                interrupts =3D <2>;
+> +                rambus,cores =3D <0x08 0x09 0x0a>;
+> +                rambus,num-slots =3D <64>;
+> +                rambus,slot-stride-bytes =3D <512>;
+> +            };
+> +        };
+> +    };
+> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Doc=
+umentation/devicetree/bindings/vendor-prefixes.yaml
+> index 396044f368e7..8b1a8f0a673d 100644
+> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> @@ -1371,6 +1371,8 @@ patternProperties:
+>      description: RaidSonic Technology GmbH
+>    "^ralink,.*":
+>      description: Mediatek/Ralink Technology Corp.
+> +  "^rambus,.*":
+> +    description: Rambus Inc.
+>    "^ramtron,.*":
+>      description: Ramtron International
+>    "^raspberrypi,.*":
+> --=20
+> 2.43.7
+>=20
+
+--ijLsa67cbXpBs7zp
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCao8cGAAKCRB4tDGHoIJi
+0sjsAQCs5O4ETXRJy6kouRnk1/OQzmyoUsRPrpeb9rM/21hfJAD9EpAJQfU5xwoJ
+RERZNwRIPTsmZQlDVlrThF4+t3HV5wM=
+=dVOj
+-----END PGP SIGNATURE-----
+
+--ijLsa67cbXpBs7zp--
