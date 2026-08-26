@@ -1,97 +1,137 @@
-Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FC2C47B425
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:42:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A26F479890
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:42:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787762582; cv=none; b=pBBJIOJww6kn4AKzr06cXpD8qdFAM7MDAD0eeYLJC1XXmRDG2d71EkKtCRy44dVWXkxUuwFHe4CBpjQu4EbZ0YObTlnMaNr8AvuliY1Hbo+3jMxZLyChnVPuy2mnZ/aaTpqEXpy76FBzvPpdfhl8z1Rxn47dO4GhSCCXFRPRqFI=
+	t=1787762590; cv=none; b=NgIAm5kM4Xik3bXP5IZfvhUwD82ngjnI63Cy/j8p1LM5pJNE6SY5rFyDKxctSJ7D7+kLXII1WAYCDLAp/yCJhR3vRnUfJ4BCkchqIKlqQz/P7suSQV7qvOQEnpObzwRLWYoN9WwDEC9PqvxuqxoHjXAduvD5+SDp/B00/cA2Hc8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787762582; c=relaxed/simple;
-	bh=tMlVS7ez27AAedNuZYlkXqOdikY1kuZl+Wcz3Klh/LM=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=PtaHs9wcPzX3dNxwCuSJcNzSxG0KJbBLbsi6z+2RQdTlnHV0FwCK6UNN1tk5DgpB/ctjv6M2zzFKoj93khWOV8K8UacNVvIy/hSwWmUAnUdSihWizr2ci9L7LqtVIIV5UzWiNRKs/xGS+SeWw3SW+hHPDKeHH7odO3RF+exiZDM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=fu9mhz0a; arc=none smtp.client-ip=45.79.88.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
+	s=arc-20240116; t=1787762590; c=relaxed/simple;
+	bh=BEhe2r+8iU4EkJKKeUDkD+GqT9e+NS4i1MkXdRfLIgA=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=asNs/fMSKXw6hAA6ZBXkHnW92vGPUuxzhq01EEOwFFrfxyBOtTsST+AQzUqDlJbGIaq8G+XODpeMiZgMfAO6S9Y0HqKwr08cuiDcN02dvbMdpnqaEKpVTxm4bXZEUm5+qSYWNTM9Y3J8fh96KsQDJJiI5aOnnfHq38pqpeqOY9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=rd1EuFxO; arc=none smtp.client-ip=209.85.214.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="fu9mhz0a"
-DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 40E10408DA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
-	t=1787762549; bh=ZW3u/OmKgF5WTbfyZWzZlgBKqLhI67M0YrULxqFtpK0=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=fu9mhz0a6R9c3SDC8sLuroCY9eGc1CoybfzsRZwI5nfd9B+6pUlAwfpF4RPvXl9tE
-	 NOSwfqJuRVuHErcjO7LcpjpKApDZBV1y/KWyDpOUOKODNC62ZkQPauwnA3kNssYhJE
-	 uQXNTnNqyaSIV7w5MSTzWO94HUUTowYhVVJV+EGw7fjGY2/f+kgQc2/jd2InoAh1F3
-	 FEL24BdlVi8jB5oxiyQ15wTJcJhEjoe1ok1qXOzbYzZ2i7lEHjfHXVPRJZ8r8PCnAg
-	 S6EQEM/pVIA5y1uj2QYOQIKCC0ijlZNHIV+UgYbKfqAhKLifOuAnHPyF0rkzydk0AQ
-	 PdS5ShKMYCU7w==
-Received: from localhost (unknown [IPv6:2601:280:4600:814::1fe])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by ms.lwn.net (Postfix) with ESMTPSA id 40E10408DA;
-	Wed, 26 Aug 2026 16:42:29 +0000 (UTC)
-From: Jonathan Corbet <corbet@lwn.net>
-To: 3237174131@qq.com, linux-kernel@vger.kernel.org
-Cc: tglx@kernel.org, gregkh@linuxfoundation.org
-Subject: Re: [PATCH] scripts/spdxcheck: fix file descriptor leak in
- read_spdxdata()
-In-Reply-To: <tencent_0D1CF77320A0C199EB46300A4E82DADEA209@qq.com>
-References: <tencent_0D1CF77320A0C199EB46300A4E82DADEA209@qq.com>
-Date: Wed, 26 Aug 2026 10:42:28 -0600
-Message-ID: <8733w0suiz.fsf@trenco.lwn.net>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="rd1EuFxO"
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2cfca8558d2so16871025ad.2
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 09:42:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787762539; x=1788367339; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Ji0mUaDNfVUZXzbmrEerFV372UGViNyfEX1CgVwEdcw=;
+        b=rd1EuFxOE7fMErYv4lq06VO33Ck9hx3jzPxEOU4a4g1wpaCn/h3V73xoT4FzV+PMpP
+         JT2o0Vs2RtD3koE9JX/XUqqby8I7fmHOAXVj1TCwGq9qK3F+lnlcktZv+3llkJIdZ92h
+         2CXp92hb1WOsBwUitGcl0LYdnV65oklSH8GrsVttaT/V5+UqSX4rjLAk8HE3ehoWeFmL
+         j5fwgqeTv113BEOsmVZhTiul5Yqtcra7ieAe/i56gyVTN3fEENxvcpFhvXrcjQv3ISdv
+         K1PB8fQV16r/6I8zrmgVnycc7XEyiLl/svCQGe8VLwdeQC2SrT2mSXJ8V+CeHkEI7BY8
+         heUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787762539; x=1788367339;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Ji0mUaDNfVUZXzbmrEerFV372UGViNyfEX1CgVwEdcw=;
+        b=UZIcRoNs47kxlixBFpfSTQYK+v0ONcKF+Yi4QCzFP1GBwzvFiEk7oqpVw2ozA9ABOU
+         t1Do7JQkfA60Sow8dbAbZ80nbuRQC20asdDMdOqVeI+b28FpIr+uoKqsAX23q3P2OplN
+         4fEAG5mMr1HmQiuEPgZaGn3iY/DYOGJ3fwrIhH1uctKiTbpy0ZFUrb4tli3bDrHYfCna
+         HxzgwfqKHtEaOirhPYuxu6d3PF+OWYUzoLprNLnc7p5SswODCgJctEnV6bbAdJHlZtld
+         h1xTcXowzn465SnLOtRE3GRs96OKflycNlelIA42oUC4Q57kcwGhuRfh2xmXepbLfuKs
+         v/cQ==
+X-Forwarded-Encrypted: i=1; AHgh+Ro+HMlgPiEQHbGxbCfHNjx5hTTmquXDIdvsbdhO0p/86N+6tqbVFCxWNiZxFFt8G1pjoqDoQZ8w0GMuVPM=@vger.kernel.org
+X-Gm-Message-State: AFuF++m3MRnRDxJumNLztIV6nLlrddOdSHirrMpqE1QJyEI4NdLwVvD8
+	SyDo0/0gz1Y16lI9pS9IRDhkacGBPMh71T1Lthei0EHmfcH0lpFepz4UMjJKFKOO0yKFTolRedt
+	NYsWQKw==
+X-Received: from plef20.prod.google.com ([2002:a17:902:f394:b0:2cc:79e2:e717])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:ef50:b0:2d7:1aeb:739
+ with SMTP id d9443c01a7336-2d71aeb1484mr67465065ad.13.1787762538425; Wed, 26
+ Aug 2026 09:42:18 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Wed, 26 Aug 2026 09:42:12 -0700
+In-Reply-To: <20260826164214.756512-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain
+Mime-Version: 1.0
+References: <20260826164214.756512-1-seanjc@google.com>
+X-Mailer: git-send-email 2.55.0.860.g4b6b3295ed-goog
+Message-ID: <20260826164214.756512-3-seanjc@google.com>
+Subject: [PATCH v2 2/4] KVM: x86/mmu: Harden "map private PFN" against
+ unexpected root invalidation
+From: Sean Christopherson <seanjc@google.com>
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, Kai Huang <kai.huang@intel.com>, 
+	Yan Zhao <yan.y.zhao@intel.com>, Sashiko Bot <sashiko-bot@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-3237174131@qq.com writes:
+Move kvm_tdp_mmu_map_private_pfn()'s reload of the MMU into its tight loop
+so that an unexpected root invalidation has a better chance of being
+handled gracefully, even though it should be impossible for the vCPU's root
+to be invalidated after the initial reload.  As is, encountering an invalid
+root is *guaranteed* to put the task into an infinite loop (albeit a
+breakable loop that honors NEED_RESCHED).
 
-> Hi all,
->
-> This is my first kernel patch. Please let me know if anything is wrong.
+Add a WARN to try and detect bugs that break KVM's expectations, along with
+a comment to explain why it should be impossible for the root to be
+invalidated.
 
-Sending the patch as an attachment and the lack of a useful changelog
-are both problems; please see
-Documentation/process/submitting-patches.rst for information on how to
-do this properly.
+Note, the loop in question doesn't actually check for a stale page fault,
+i.e. likely won't detect an invalid loop in the first place.  That bug will
+be addressed shortly.
 
-But, beyond that:
+Cc: Kai Huang <kai.huang@intel.com>
+Cc: Yan Zhao <yan.y.zhao@intel.com>
+Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+---
+ arch/x86/kvm/mmu/mmu.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
-> Signed-off-by: Xia Zhoxin <3237174131@qq.com>
-> From: Xia Zhoxin <3237174131@qq.com>
-> Subject: [PATCH] scripts/spdxcheck: fix file descriptor leak in read_spdxdata()
-> To: linux-kernel@vger.kernel.org
-> Cc: tglx@kernel.org, gregkh@linuxfoundation.org
->
-> Hi all,
->
-> This is my first kernel patch. Please let me know if anything is wrong.
->
-> Signed-off-by: Xia Zhoxin <3237174131@qq.com>
-> ---
->  scripts/spdxcheck.py | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/scripts/spdxcheck.py b/scripts/spdxcheck.py
-> --- a/scripts/spdxcheck.py
-> +++ b/scripts/spdxcheck.py
-> @@ -72,7 +72,8 @@ def read_spdxdata(repo):
->              exception = None
-> -            for l in open(el.path, encoding="utf-8").readlines():
-> +            with open(el.path, encoding="utf-8") as f:
-> +                for l in f:
->                      if l.startswith('Valid-License-Identifier:'):
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index 3220f05387b5..1969c26861e5 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -5209,10 +5209,6 @@ int kvm_tdp_mmu_map_private_pfn(struct kvm_vcpu *vcpu, gfn_t gfn, kvm_pfn_t pfn)
+ 	if (kvm_gfn_is_write_tracked(kvm, fault.slot, fault.gfn))
+ 		return -EPERM;
+ 
+-	r = kvm_mmu_reload(vcpu);
+-	if (r)
+-		return r;
+-
+ 	r = mmu_topup_memory_caches(vcpu, false);
+ 	if (r)
+ 		return r;
+@@ -5224,10 +5220,22 @@ int kvm_tdp_mmu_map_private_pfn(struct kvm_vcpu *vcpu, gfn_t gfn, kvm_pfn_t pfn)
+ 		if (kvm_test_request(KVM_REQ_VM_DEAD, vcpu))
+ 			return -EIO;
+ 
++		r = kvm_mmu_reload(vcpu);
++		if (r)
++			return r;
++
+ 		cond_resched();
+ 
+ 		guard(read_lock)(&kvm->mmu_lock);
+ 
++		/*
++		 * Because slots_lock is held, it should be impossible for *any*
++		 * roots to be invalidated after the initial MMU reload.  WARN,
++		 * but continue on; the above MMU reload will do the right thing
++		 * if the current root is actually invalid.
++		 */
++		WARN_ON_ONCE(kvm_test_request(KVM_REQ_MMU_FREE_OBSOLETE_ROOTS, vcpu));
++
+ 		r = kvm_tdp_mmu_map(vcpu, &fault);
+ 	} while (r == RET_PF_RETRY);
+ 
+-- 
+2.55.0.860.g4b6b3295ed-goog
 
-open() returns a file object (*not* a file descriptor) that will
-immediately go to a reference count of zero once .readlines() completes.
-Garbage collection will then clean it up.  So there is no actual leak
-here.
-
-Thanks,
-
-jon
