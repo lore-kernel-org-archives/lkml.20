@@ -1,268 +1,142 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B36653F660D;
-	Wed, 26 Aug 2026 11:58:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FF203F58F7
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 11:59:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787745519; cv=none; b=DqCwAv+zmc8tvCjG3vSTdwRY7SYpcI0LSc6X1hGUjBJuvYLrTPdCtZTG0kLstMzu43666nK8wXeLKspnX2J70buxNLMEMkmMQxvsdR4N6FZxzG9q2RIPkmOlHHvAMnrVPXWdq8+0bKlfAB165NisulYVtLM8uZCLbfPO+la4gBA=
+	t=1787745580; cv=none; b=IncyodeIkWLgdEbmMlCo1o0NS1rVx6iXhEetRdtebEX+VGoHQl6010+HBhG29I5CLuWx8CSmNFW8Wrwp0NbUWu5CK4gIgMugnljF/YFJ8grNgQWuJSc+swBZGFNi19J2sAdMDWT+OlUuE5yqNXFe6oOlM6Lxy9OExCJ65BFsE9c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787745519; c=relaxed/simple;
-	bh=pouOubpzeE/eS4e+NhDcKnaQ6GcMPvRq1umrSysyCF0=;
-	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
-	 Content-Type; b=GFMZukEsyrI7aZrmDEmN+dCsuH00iimavJJgaGnwQ5ve1V9yZQAoxuzEciIImGKPiuSxx3O3Uf+OufT+TgxLfr8YUmCj4sQ6eMvb78PYJY1izrvHPwdDlj+UnCWlx8sWSQqG3BuGDJtFgwvmCuI4wkAiDRbkMwICr09gZcUhSoY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=WjxOkzSj; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=DGByaH1F; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1787745580; c=relaxed/simple;
+	bh=gMaVgfPNUsxe2suAiFliez055qKOvUgJIR9Bqte105A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hs6EnUlyA2BUjq237uig/XMqMwrVEqLRfKhZEpAqN3Y3IiN70iNyFDKJa5uA0g20wHSHbcK9EytT/DbTdddRvPFMEwfMeEbQBKXgbyOjBRyyzdvwJ/tMrEZys3pGthvz38zCZ3M9cl47DzISF7XFh8kXUu7GK0XtK9KrSM4mvm0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zeo/Y6Ac; arc=none smtp.client-ip=209.85.215.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="WjxOkzSj";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="DGByaH1F"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1787745480; bh=81HuOHkJZ/6XeH/5mgBHH0G
-	O6RDqXAynRuVEOzIkn/I=; b=WjxOkzSjnF1zBJoljGrh1GdoR3dxF/UL0gQeN3ud1DqydsotOX
-	DBZTiQiZwRfS9FnzGYbIVwxMbYSl/KyS3cZwEPMlK73mu4oNwVsVgpRZY3XZMshdts+hWsZLREL
-	pWRdJOQkjzvXOuf0r7aD8vHD/r1UYmSD/KyK+yfQjhsN2XFUNSHDB6J+rcDbvMO9o2yxw4R4C2t
-	fWXPmBL2C3MZGBvIaq0+BiigXDRwhUn9aLYW0GDvEx8ZfsnWF5GaMU61mOjxNGxwD4jJb+Jbg/P
-	GB+9PspPXZbKTQ75W0tQFq0bTYk3yMHIgaJh+sC5HxFLNDP8/5y7aiyoPLdAj6sn+HA==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1787745480; bh=81HuOHkJZ/6XeH/5mgBHH0G
-	O6RDqXAynRuVEOzIkn/I=; b=DGByaH1FxTnjtyUBTvcnIcEI69Ke674msqKlOH9rJCPrxyqo6j
-	+XozhIcBWI5yM1GOkqBgVKEsRgyIgDI9AhBA==;
-Date: Wed, 26 Aug 2026 12:58:00 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: gregkh@linuxfoundation.org
-CC: atomlin@atomlin.com, corbet@lwn.net, da.gomez@kernel.org, dakr@kernel.org,
- driver-core@lists.linux.dev, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-modules@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
- mathieu.desnoyers@efficios.com, mcgrof@kernel.org, mhiramat@kernel.org,
- petr.pavlu@suse.com, rafael@kernel.org, rdunlap@infradead.org,
- rostedt@goodmis.org, samitolvanen@google.com, skhan@linuxfoundation.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_2/2=5D_driver_core?=
- =?US-ASCII?Q?=3A_add_TAINT=5FFORCED=5FBIND_for_?=
- =?US-ASCII?Q?when_userspace_manually_messes_with_devices_and_drivers?=
-In-Reply-To: <20260826-bind_taint-v1-2-52b05f4a965c@linuxfoundation.org>
-Message-ID: <C35F2CF9-9CD7-482F-8F30-2D152AB42D0B@mainlining.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zeo/Y6Ac"
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cbe6295f05bso1479472a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 04:59:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787745579; x=1788350379; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bc8my8FbiDqjxCZcE9P0+mYGbrSku1wnrvIHI1ZOYos=;
+        b=Zeo/Y6AcMExyqFo+LPlJ80uhXawjYFjKMHPFkElDVfveh7tAmRoDclznnOvFR5DrHB
+         JgX20MATZM74In7MGvP1FRKxbZh2NGLHrnAduiemj+q4nMaqOs17ds/DvwGULibJD+lE
+         AXkxJFY6Eja5MM/9KDze5UdkPR94WAORFm2d6sGFaqwdpOoUFNklukx3OPSyovyJXGOb
+         gG9lOsoMpYahNBCu3sGcl9a40CnCzW/zhYkMy68NtnShNS8cTwMFhRyXCfa4V6Po1GKl
+         pfBRiBuAslbs2NQKSvn+xANYSXOAFefhGgeUXZP3hKNXqCAwqHPCL2yYod3aGL4GvpHO
+         2+yQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787745579; x=1788350379;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bc8my8FbiDqjxCZcE9P0+mYGbrSku1wnrvIHI1ZOYos=;
+        b=Le8HXnrfSSRT9hTz+nZewqxAQtDXetdB5FkMicef0Y097fquXWFdKDC1IvA8dte+o9
+         hwbmRCiB26EksbCOYJ58cvNXIPOGLy00Ub1MYPwVLzX81An+inhhK2R8A2b9C0ulFtwt
+         bwzaDl8rgAn05fuvWqXPi1pe7XX2fUCzwoQwdXZrpwp1akX6UXG+4sr3R/s4YVVy6b7H
+         woSIaFGH85ulcgeYSnFt+GbJxrXm36P+SFGLBJSdOlVS3KPZT52cGbq2DO3C7pWTvmBU
+         cPPQ0PsiQH/Aze1H1QSxAz11SK6LbNAlzDZ5uMV4YDeBHPKxKCXVG9oRCEHGINABun4u
+         XpPQ==
+X-Forwarded-Encrypted: i=1; AHgh+RopvzmZ0c7xdznqmdJ465e0+BY6rMmeMCVYpmUZ1FtlKNczlaC53AKLG34fnS5uEUCl+ZB62+GJLIZRmRM=@vger.kernel.org
+X-Gm-Message-State: AFuF++n/MLI/XbuyXzLn5utJuyhwENYUjkKspm/MMbPLuWsSwyqmFk08
+	5NypwTqJbsHES+D6UzBoY06uh48I0Y23XnZGJflpoqBSYIQekyWxPAjo
+X-Gm-Gg: AR+sD12OrrlzbMc8LTvrjpLFnmvq8QAMuau5c/qTGpD2ol59L6cRiaSfmKR0naWJEcN
+	YxFCM8t+8J8lWNrg215E0nuaMu7lhG71n4ZswxUmGWIKRTx4EpCyPF7sJ2wKQgWG65OcKj+tfj0
+	wTCLDmvEuklSqBsPvj6l3dCkJsBy6q7JoEWr8SGCQdkZ6jo6pF8VIx0tb7+ZHHG7zLHjGSydSj4
+	QFAfqHwOYpBXPojMMI2wMFNp99h58z9GbGZWikZQspl7IvqAmjuezKG1FFcgYH/BIt7GtgZZKz/
+	2OeLXCMcq609UHcdnsZX1refOYOh1e3FRL8TAEha52TezL/eRjwJvQ6dUS557og+T76OsNCChLd
+	2vo1cTtKDRNg0SJ26IcIiNWG7hNtS5IOd1qGSYQFQ3ecuREqwwrlcvzECM75aj9aGyyy/MSdA8O
+	GEP4rjLYepvP+yZlawHgTt9ADFOguB1r/NeYHYsmPi7qpohwEyrGy0raeHgUMT4HwEdcu0PuxC4
+	dwSJPwbPns=
+X-Received: by 2002:a17:90b:1a86:b0:38e:9784:dd47 with SMTP id 98e67ed59e1d1-39645829233mr18130835a91.1.1787745578549;
+        Wed, 26 Aug 2026 04:59:38 -0700 (PDT)
+Received: from volcano9f8e-host.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a8eefd98sm14607883c88.3.2026.08.26.04.59.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 04:59:38 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: seanjc@google.com,
+	pbonzini@redhat.com,
+	shuah@kernel.org
+Cc: kvm@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] KVM: selftests: Actually test PV_UNHALT
+Date: Wed, 26 Aug 2026 17:29:13 +0530
+Message-ID: <20260826115915.2882221-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-On 26 August 2026 10:19:33 BST, Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
->The ability to add and remove devices from a driver through the sysfs
->"bind" and "unbind" files was created all those decades ago as a way
->that kernel developers can iterate faster, and provide a debugging way
->for users to attempt to add a new device to a driver without having to
->rebuild their kernel.
->
->This api over the years has been abused and recently come under a major
->fuzzing "attack" through tools like syzbot which decided that it would
->attempt to just randomly bind any driver to any type of device, causing
->loads of unneeded errors and pointless kernel patches to be generated by
->unsuspecting new developers.
->
->Handle all of this by adding a new taint flag, TAINT_FORCED_BIND, which
->will be set on the driver if the bind/unbind sysfs files are ever
->successfully written to.  This lets kernel developers "know" that a user
->is attempting to do something that is not normal, and as such, if the
->kernel breaks they get to keep the shiny pieces laying around on the
->floor.
->
->Note, the taint flag gets set _BEFORE_ the bind/unbind callback happens,
->as many times crashes/oops/warnings/failures happen within the callback,
->and the taint flag needs to be there to show what was being attempted.
->If it were to be set after the callback happens, the oops report would
->not properly reflect what foolishness was being attempted.
->
+test_pv_unhalt() only checks that KVM clears KVM_FEATURE_PV_UNHALT from
+guest CPUID when HLT-exiting is disabled; the feature itself has never
+been exercised, hence the FIXME.  Patch 2 tests it by halting one vCPU
+with interrupts disabled and kicking it from another, so that reaching the
+instruction after HLT is proof that KVM_HC_KICK_CPU was delivered.
 
-sashiko found a couple valid concerns for 2/2
+Patch 1 adds the helper that patch 2 needs to learn a vCPU's APIC ID from
+the host, rather than open coding KVM_GET_LAPIC as a few tests already do.
 
+Changes in v2:
+ - Pass the APIC ID to kick in a1, not a0.  KVM reads it from a1, as the
+   in-kernel guest does in kvm_kick_cpu(), so v1 asked KVM to kick APIC ID
+   0 and only passed because the halting vCPU happened to be vCPU 0.
+   Spotted by the Sashiko AI reviewer.
+ - Halt on a vCPU with a non-zero APIC ID, so that a kick sent to the wrong
+   vCPU can no longer pass by accident, and enable that vCPU's APIC, as a
+   guest using PV spinlocks would: KVM only routes the kick once the vCPU
+   is in the APIC map, which is also why xapic_ipi_test enables it.
+ - Move the APIC ID helper into apic.h instead of keeping it private to
+   the test (new patch 1).
+ - Report the return value of pthread_create()/pthread_join() rather than
+   errno; they return the error directly and do not set errno.
 
->Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
->---
-> Documentation/admin-guide/tainted-kernels.rst | 52
-> ++++++++++++++-------------
-> drivers/base/bus.c                            |  3 ++
-> include/linux/panic.h                         |  3 +-
-> include/trace/events/module.h                 |  3 +-
-> kernel/panic.c                                |  5 +--
-> tools/debugging/kernel-chktaint               |  8 +++++
-> 6 files changed, 46 insertions(+), 28 deletions(-)
->
->diff --git a/Documentation/admin-guide/tainted-kernels.rst b/Documentation/admin-guide/tainted-kernels.rst
->index 9ead927a37c0..d4ca8b9e3819 100644
->--- a/Documentation/admin-guide/tainted-kernels.rst
->+++ b/Documentation/admin-guide/tainted-kernels.rst
->@@ -79,30 +79,31 @@ which bits are set::
-> Table for decoding tainted state
-> ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> 
->-===  ===  ======  ========================================================
->-Bit  Log  Number  Reason that got the kernel tainted
->-===  ===  ======  ========================================================
->-  0  G/P       1  proprietary module was loaded
->-  1  _/F       2  module was force loaded
->-  2  _/S       4  kernel running on an out of specification system
->-  3  _/R       8  module was force unloaded
->-  4  _/M      16  processor reported a Machine Check Exception (MCE)
->-  5  _/B      32  bad page referenced or some unexpected page flags
->-  6  _/U      64  taint requested by userspace application
->-  7  _/D     128  kernel died recently, i.e. there was an OOPS or BUG
->-  8  _/A     256  ACPI table overridden by user
->-  9  _/W     512  kernel issued warning
->- 10  _/C    1024  staging driver was loaded
->- 11  _/I    2048  workaround for bug in platform firmware applied
->- 12  _/O    4096  externally-built ("out-of-tree") module was loaded
->- 13  _/E    8192  unsigned module was loaded
->- 14  _/L   16384  soft lockup occurred
->- 15  _/K   32768  kernel has been live patched
->- 16  _/X   65536  auxiliary taint, defined for and used by distros
->- 17  _/T  131072  kernel was built with the struct randomization plugin
->- 18  _/N  262144  an in-kernel test has been run
->- 19  _/J  524288  userspace used a mutating debug operation in fwctl
->-===  ===  ======  ========================================================
->+===  ===   ======  ========================================================
->+Bit  Log   Number  Reason that got the kernel tainted
->+===  ===   ======  ========================================================
->+  0  G/P        1  proprietary module was loaded
->+  1  _/F        2  module was force loaded
->+  2  _/S        4  kernel running on an out of specification system
->+  3  _/R        8  module was force unloaded
->+  4  _/M       16  processor reported a Machine Check Exception (MCE)
->+  5  _/B       32  bad page referenced or some unexpected page flags
->+  6  _/U       64  taint requested by userspace application
->+  7  _/D      128  kernel died recently, i.e. there was an OOPS or BUG
->+  8  _/A      256  ACPI table overridden by user
->+  9  _/W      512  kernel issued warning
->+ 10  _/C     1024  staging driver was loaded
->+ 11  _/I     2048  workaround for bug in platform firmware applied
->+ 12  _/O     4096  externally-built ("out-of-tree") module was loaded
->+ 13  _/E     8192  unsigned module was loaded
->+ 14  _/L    16384  soft lockup occurred
->+ 15  _/K    32768  kernel has been live patched
->+ 16  _/X    65536  auxiliary taint, defined for and used by distros
->+ 17  _/T   131072  kernel was built with the struct randomization plugin
->+ 18  _/N   262144  an in-kernel test has been run
->+ 19  _/J   524288  userspace used a mutating debug operation in fwctl
->+ 20  _/Y  1048576  device was manually bound or unbound from a driver
->+===  ===  =======  ========================================================
-> 
-> Note: The character ``_`` is representing a blank in this table to make reading
-> easier.
->@@ -189,3 +190,6 @@ More detailed explanation for tainting
->  19) ``J`` if userspace opened /dev/fwctl/* and performed a FWTCL_RPC_DEBUG_WRITE
->      to use the devices debugging features. Device debugging features could
->      cause the device to malfunction in undefined ways.
->+
->+ 20) ``Y`` If userspace wrote to the `bind` or `unbind` sysfs files and
->+     successfully bound or removed a device from a driver.
->diff --git a/drivers/base/bus.c b/drivers/base/bus.c
->index d17bd91490ee..c51ad96d4de4 100644
->--- a/drivers/base/bus.c
->+++ b/drivers/base/bus.c
->@@ -19,6 +19,7 @@
-> #include <linux/string.h>
-> #include <linux/mutex.h>
-> #include <linux/sysfs.h>
->+#include <linux/panic.h>
-> #include "base.h"
-> #include "power/power.h"
-> 
->@@ -241,6 +242,7 @@ static ssize_t unbind_store(struct device_driver *drv, const char *buf,
-> 
-> 	dev = bus_find_device_by_name(bus, NULL, buf);
-> 	if (dev && dev->driver == drv) {
->+		add_taint_module(drv->owner, TAINT_FORCED_BIND, LOCKDEP_STILL_OK);
-> 		device_driver_detach(dev);
-> 		err = count;
-> 	}
->@@ -264,6 +266,7 @@ static ssize_t bind_store(struct device_driver *drv, const char *buf,
-> 
-> 	dev = bus_find_device_by_name(bus, NULL, buf);
-> 	if (dev && driver_match_device(drv, dev)) {
->+		add_taint_module(drv->owner, TAINT_FORCED_BIND, LOCKDEP_STILL_OK);
-> 		err = device_driver_attach(drv, dev);
-> 		if (!err) {
-> 			/* success */
->diff --git a/include/linux/panic.h b/include/linux/panic.h
->index f1dd417e54b2..8e7250b0e913 100644
->--- a/include/linux/panic.h
->+++ b/include/linux/panic.h
->@@ -88,7 +88,8 @@ static inline void set_arch_panic_timeout(int timeout, int arch_default_timeout)
-> #define TAINT_RANDSTRUCT		17
-> #define TAINT_TEST			18
-> #define TAINT_FWCTL			19
->-#define TAINT_FLAGS_COUNT		20
->+#define TAINT_FORCED_BIND		20
->+#define TAINT_FLAGS_COUNT		21
-> #define TAINT_FLAGS_MAX			((1UL << TAINT_FLAGS_COUNT) - 1)
-> 
-> struct taint_flag {
->diff --git a/include/trace/events/module.h b/include/trace/events/module.h
->index e5a006be9dc6..19df3e39bba4 100644
->--- a/include/trace/events/module.h
->+++ b/include/trace/events/module.h
->@@ -26,7 +26,8 @@ struct module;
-> 	{ (1UL << TAINT_OOT_MODULE),		"O" },		\
-> 	{ (1UL << TAINT_FORCED_MODULE),		"F" },		\
-> 	{ (1UL << TAINT_CRAP),			"C" },		\
->-	{ (1UL << TAINT_UNSIGNED_MODULE),	"E" })
->+	{ (1UL << TAINT_UNSIGNED_MODULE),	"E" },		\
->+	{ (1UL << TAINT_FORCED_BIND),		"Y" })
-> 
-> TRACE_EVENT(module_load,
-> 
->diff --git a/kernel/panic.c b/kernel/panic.c
->index 213725b612aa..6bf60f9dd120 100644
->--- a/kernel/panic.c
->+++ b/kernel/panic.c
->@@ -826,6 +826,7 @@ const struct taint_flag taint_flags[TAINT_FLAGS_COUNT] = {
-> 	TAINT_FLAG(RANDSTRUCT,			'T', ' '),
-> 	TAINT_FLAG(TEST,			'N', ' '),
-> 	TAINT_FLAG(FWCTL,			'J', ' '),
->+	TAINT_FLAG(FORCED_BIND,			'Y', ' '),
-> };
-> 
-> #undef TAINT_FLAG
->@@ -862,9 +863,9 @@ static void print_tainted_seq(struct seq_buf *s, bool verbose)
->  * exact size is allocated dynamically; the initial buffer remains
->  * as a fallback if allocation fails.
->  *
->- * The verbose taint string currently requires up to 327 characters.
->+ * The verbose taint string currently requires up to 344 characters.
->  */
->-#define INIT_TAINT_BUF_MAX 350
->+#define INIT_TAINT_BUF_MAX 370
-> 
-> static char init_taint_buf[INIT_TAINT_BUF_MAX] __initdata;
-> static char *taint_buf __refdata = init_taint_buf;
->diff --git a/tools/debugging/kernel-chktaint b/tools/debugging/kernel-chktaint
->index e1571c04afb5..d8628be37214 100755
->--- a/tools/debugging/kernel-chktaint
->+++ b/tools/debugging/kernel-chktaint
->@@ -211,6 +211,14 @@ else
-> 	addout "J"
-> 	echo " * fwctl's mutating debug interface was used (#19)"
-> fi
->+
->+T=`expr $T / 2`
->+if [ `expr $T % 2` -eq 0 ]; then
->+	addout " "
->+else
->+	addout "Y"
->+	echo " * device was manually bound or unbound from a driver (#20)"
->+fi
-> echo "Raw taint value as int/string: $taint/'$out'"
-> 
-> # report on any tainted loadable modules
->
->
+Built and run on x86_64 (AMD).  Untested on Intel, though the kick is
+handled in common code and delivered through the generic LAPIC path.
 
---- Thanks!
-https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+ - On kvm-x86/next, the whole selftest suite builds warning-free and
+   kvm_pv_test passed 10 of 10 runs.
+
+ - Also run inside a VM booted on a kernel built from kvm-x86/next, i.e.
+   against the KVM this targets rather than the host's.
+
+ - Whole x86 suite with the series applied: 61 passed, 24 skipped, and
+   set_sregs_test failed with "KVM allowed invalid efer bit (0x100)".  That
+   one fails identically without the series, i.e. it is the host kernel.
+
+The test was checked against four deliberate breakages, to make sure it
+can only pass when the kick really works:
+
+ - pass the APIC ID in a0, i.e. the v1 bug: the kick goes to the wrong
+   vCPU and the test times out, so this version does catch it;
+
+ - drop the KVM_HC_KICK_CPU call: the halted vCPU is never resumed and the
+   test times out;
+
+ - clear PV_UNHALT from the kicking vCPU's CPUID while enforcement is on:
+   the hypercall returns -KVM_ENOSYS and the test fails with
+
+     0xfffffffffffffc18 != 0x0 (kvm_hypercall(KVM_HC_KICK_CPU, ...) != 0)
+
+ - remove the halt: the bounded wait trips and the test fails with
+   "vCPU never halted" rather than hanging.
+
+Hemanth Selam (2):
+  KVM: selftests: Add a helper to read a vCPU's APIC ID
+  KVM: selftests: Test the PV_UNHALT feature, not just its CPUID bit
+
+ tools/testing/selftests/kvm/include/x86/apic.h |  9 ++
+ tools/testing/selftests/kvm/x86/kvm_pv_test.c  | 97 +++++++++++++++++++++-
+ 2 files changed, 105 insertions(+), 1 deletion(-)
+
+-- 
+2.43.7
+
