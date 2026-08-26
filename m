@@ -1,158 +1,215 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-52.mta1.migadu.com [95.215.58.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D0EA41D22E
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:31:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C12CA3DA7C0
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:31:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787751082; cv=none; b=s4dpnnyNHDcOav1BLzVUY/jQreZd6iXtVXAoZWlm8+WfCxZm02GQX+08TuQGkNyWS2OcYu8bQeKQosWf6rUOnYGEMbXZzJtL0uCMiSSw6e17jN9EWm7AWMfP2yYzGbQezZEoM9QE7ceilazAKqJtR87NFwm/cr5erqQGkkHRbfU=
+	t=1787751093; cv=none; b=NduyFsoYkBSf/grzkPh4VH/pM6+VSCmgMlmYQoPnAMDN5ZCyyf1MaDp5Vs9DyFjBSBoqUmaRmZ2+VXq887ZoVzEWsfJkScuP51vXwnr+CvhWdgnZ4LXD91gEGrh/ecDwuOyH2qKYhDPAQakH7M4dMRSZVoz0VoXcLfKvjSmOiI8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787751082; c=relaxed/simple;
-	bh=fdaPCKAt3wQcUSqM0QgVlhzUnC27158ftVMq1DkSTBA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PjXl9VFqeDHqdmldPLrqd+cRIkURldc8+F3aAy2FnUu48GhfrEU+4CQm/elU1Hmt+oi+z/+u5yi4StbbX4OEAkjEU8KrInm/aVw1zF1BM095j8NdCSLHFgCoRW9uOWCBuijmlSkDQLwxW27umN1ozry4d6IdMH+VGV27Dmm+qM8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=M7o5vFKK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DCitXS9d; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787751093; c=relaxed/simple;
+	bh=lR4mZ8qczUfYMvA6XHhKi70YkLbB/IMG+ilRAttzYlY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=QmnO/hvF/bp8yaQZN9WKsS1Pg9hik9Myi296yRjdgkXKrCmaDjlH9COfR1becpCXoj9J+cnR9hUDccWOevAcMv8ZVn/ntoR1VvlpXoHA1DJyV0WOadgK0htNcu+xUX2BJOtMTcc7TuCmQRT6D3iXXed9UXBqR59TYlta6pJQZGs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=vDeC/xKS; arc=none smtp.client-ip=95.215.58.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="M7o5vFKK";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DCitXS9d"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QCBq8X3898934
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:31:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=9eTNwTlaNSB9i/d76Sx2Ndi9
-	H4zgRZykgqMeSejjZHA=; b=M7o5vFKKjAxGQ9K0jJbauY5hrNX07jlEWQ84WMRl
-	umbHE1yIVt+FY6YYs3O9KPx/+pLHRQ5Jx1sPc5ZR98cQjPEMIwjy0mvuh6pcMpd7
-	r2ALhEmuNUbbV8ymgPKX7PlIC7SONI9Ucc42lmhAiIbe2CLwBnTJ+ctk392rI9Ne
-	Hrs3SAtKkLWq6jVwR63nzdE0yXXCR+HbvsWEs1gbPqQ7Lq1QWP9Amk1OFxG+FNzq
-	73xnGOXZp7Av/YwX1sgM9vUHcXNbEiCZVhpItxHcinAv1Saklq0Wo9qF7yxNwqGK
-	KI+aHNzPir35XDF2IQn4zIH60ARyVfx1DTORjybO15pWkA==
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g9uthsbg1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:31:19 +0000 (GMT)
-Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-7f1da5e5b06so1867594a34.2
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 06:31:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787751079; x=1788355879; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=9eTNwTlaNSB9i/d76Sx2Ndi9H4zgRZykgqMeSejjZHA=;
-        b=DCitXS9dbekcrayrriX1eWNBdc/U+cOkyH6/mE74Qwsdj/ktJ3JJ5x88NWxhNgP6HB
-         b3KpPbQq8yhB2/HmtKrGXxckhQUarrT0JhJt+Hu7irUZhvdCH3Tk5YAvz2cvy3aAiQmC
-         bCZEW7UWF18XnI47ofvdNA+esjhbIVGVxjMneckzWssyFNUa4DhCjfr1fb6bK3Y+Zlc+
-         SKxFU3eFq5r8lt7wcBYs+ts3rDo2uhzGdO+EKlNs6LfFVRxRcD0AJBb41qTmLM3lNqxo
-         MgXi2fENmIW4J7hsCL5huUrZS3HkECzuaejyGyhai3zEAz5D6mqojKSIhM35ic1mGmwj
-         UGiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787751079; x=1788355879;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9eTNwTlaNSB9i/d76Sx2Ndi9H4zgRZykgqMeSejjZHA=;
-        b=djaWE1zDv2KqjNwScRBofOcxIwvJ1atYYFuD/+ua/q3tglnJwuYjV9+P8kVtxR5Mka
-         DvQS+PPDAsSXMLsJmon1R90qFkU6D/qaVngrETx8ko6a2tgivMfv8FkPmm/G7I9IZo3f
-         P/oz/zF8b7zfecZ3tx7NxQ8nK+9SrmC/a4CusoWMjedg2p0okuBAly/ubTuMIsw9/pLS
-         zYbgkJRhEOcCzOiKbGb6jPb7eKpW3RWCRW6BAw0jcD6hEY2NwxGvZ39L0EGlgfJRZ6jC
-         IqzPLc/6jLmiSZNYfL/KgrxR18YYIRGSB8g139Vge6mkmfP0bvRCocMHT6kch5YXUcuv
-         ukag==
-X-Forwarded-Encrypted: i=1; AHgh+RqIzMUaxvcfAKsafbTgUK51nXUJx38yIDZ+nKmkSWS2InsKFkKjvcYZX5QYO6aA+xhKbZ7tOFAudPs87OY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nrUUPKzw4VbuvEgyvqQUddfn7AEuhDApMCGNwIgGWkeb7My3WS
-	MmCQZPL1V1mwwfX2AqkLunwo74gkF2qkitIPvk+0qxCRPRr+q+VM2so9gDj4Sun9hhPdUdJi8IK
-	+s+GSYolCwpdLs8OkYjLoirKMqWXzzthS9ScFxtG6pBXpm65i729DJnIeH4WwtflSz9k=
-X-Gm-Gg: AR+sD12KEYIFDjIgiuDcUyI1EnVpCxMio3nsh4fTUMuGvP7Ak/hokRrW6ZH50X8RCw6
-	fVKrNDSa8igSbLNIbVr1tIdFg5y3oYltPYlGRjDzSexlFJB1iDy4xZ9TJtpZKeSb4xscogh0mUg
-	+hLM3jDVRPZl35KckBrYPC+5s9JrWvr+7PcWVqYDZePZn8VDEcx9uLX0dBNof5BOije/6DJvNK6
-	/+34EkSdoEUKRp2S/XMgxQeRzHzo+USYS46xWVKCWnrLba926NvXLdB0BsO3MfDRskC8XPuRLBv
-	6WEyqRyIC7dDrqrHzGAtkIvunmxEzb7nd1TD+TQ8T97rcmOEFtNf1JF+hn0Q2+DL8HEeri/crqQ
-	PqAWt2/qI5ECmTUVCDIIk2oUGEErz4sCZOHkV9kIavv8=
-X-Received: by 2002:a05:6820:c8d:b0:6b1:5637:e10b with SMTP id 006d021491bc7-6b1a035e489mr7181722eaf.7.1787751079269;
-        Wed, 26 Aug 2026 06:31:19 -0700 (PDT)
-X-Received: by 2002:a05:6820:c8d:b0:6b1:5637:e10b with SMTP id 006d021491bc7-6b1a035e489mr7181616eaf.7.1787751078689;
-        Wed, 26 Aug 2026 06:31:18 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6b1a2501bc1sm1722462eaf.4.2026.08.26.06.31.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 06:31:18 -0700 (PDT)
-Date: Wed, 26 Aug 2026 21:31:10 +0800
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/4] dt-bindings: remoteproc: qcom,nord-pas: Switch CDSPs
- to NMXC rail
-Message-ID: <ao7qnvBaHEGNz0Hs@QCOM-aGQu4IUr3Y>
-References: <20260826102746.633076-1-shengchao.guo@oss.qualcomm.com>
- <20260826102746.633076-4-shengchao.guo@oss.qualcomm.com>
- <a986fdf1-4acf-44e9-8abd-46dc6928eb34@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="vDeC/xKS"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=lR4mZ8qczUfYMvA6XHhKi70YkLbB/IMG+ilRAttzYlY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787751089; v=1; x=1788355889;
+ b=vDeC/xKS72xq6on1IBD9TTHTMWdk482q+EU/+ACiO/M1dr7lUIMai1G8Bhsrez5QIgKhag9f
+ gtNSnxpXN9jvCsgFxCcRYyXrA8TjjHBM8auipJWn5hs8dbIOw6Fmcw5fqTNeKA4kd5zK3OSa/Vk
+ G7kAHbDoGPTUToGcY43B8xvc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: from mi-ThinkCentre-M760t.mioffice.cn (14.29.108.92)
+	by smtp.migadu.com with ESMTPS id 57b289fe451a8707;
+	Wed, 26 Aug 2026 13:31:19 +0000
+X-Mizu-Trace-ID: 57b289fe451a8707
+X-Migadu-Flow: FLOW_OUT
+From: Ridong Chen <ridong.chen@linux.dev>
+To: Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: Muchun Song <muchun.song@linux.dev>,
+	David Hildenbrand <david@kernel.org>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Yu Zhao <yuzhao@google.com>,
+	cgroups@vger.kernel.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
+	linux-mm@kvack.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
+	linux-kernel@vger.kernel.org,
+	Ridong Chen <ridong.chen@linux.dev>,
+	Ridong Chen <chenridong@xiaomi.com>,
+	stable@vger.kernel.org
+Subject: [RFC PATCH] mm/mglru: fix ineffective memory protection for non-kswapd reclaim
+Date: Wed, 26 Aug 2026 21:30:54 +0800
+Message-Id: <20260826133054.88529-1-ridong.chen@linux.dev>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a986fdf1-4acf-44e9-8abd-46dc6928eb34@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=EMA2FVZC c=1 sm=1 tr=0 ts=6a8eeaa7 cx=c_pps
- a=OI0sxtj7PyCX9F1bxD/puw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=PG6VhwoxSfHQhqF9RBgA:9 a=CjuIK1q_8ugA:10
- a=Z1Yy7GAxqfX1iEi80vsk:22
-X-Proofpoint-ORIG-GUID: GrhBEQ3Xl3NVosHsw3MAXMEQDr8l5fxl
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDExMSBTYWx0ZWRfX2z0RASNtb+nY
- 2i4h5GosF9ojdt8hDtiTeZTEqIIO9OWHV2hk0iF+Y/BnM3sEzXatis4FbCld6E3PAkk1puV8EHZ
- pHBGadSVv29t2/ys1+Wy1P7ZIa8QDfqQfhMal0tfw+p0OLy9VO4tnpsocQ/acJ/WvGc197MUQnX
- bygmkK6cmVyxVbtNOcG0YsTbdx01jiMzM7yQ0vholXARF1Jc7W9F55ZlA7TrtjbL5+1UfC+QjDT
- s9vAeeTLTISpZXEhQbLAtTp9FjIm26P7VwEXaCnnvHo883V/VHiPaW558Tcl4zguQ3P/MqyDefg
- s4/0/My05J988QdOSWU99aIASwOXqw9HjrZ1q089mYajtvlRHnvIRjlZgiCwf83wSAVY9qe8Vbg
- YVMuDoPMpojzVXOOaw7l3vRv2G7XLAnX7kbdhVewd1BllxWzTtDhWgLVrLg0rDV7xVSXVvVF9Xj
- LvbTt7SrnDwMz8i7GvA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDExMSBTYWx0ZWRfX78z1YRmQI1gN
- BbShJkYN8STCQnlqgZ28X5RGgMMEkmbWqle/mfJLsUh8FZ4EAR7XOqPagUyObfNj7DEO7UNdryo
- MUVKMXha5O0CQUOY+wyma+C10MlJNyE=
-X-Proofpoint-GUID: GrhBEQ3Xl3NVosHsw3MAXMEQDr8l5fxl
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-26_03,2026-08-26_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 spamscore=0 adultscore=0 malwarescore=0
- clxscore=1015 phishscore=0 priorityscore=1501 suspectscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260111
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 26, 2026 at 02:52:55PM +0200, Konrad Dybcio wrote:
-> On 8/26/26 12:27 PM, Shawn Guo wrote:
-> > Nord supplies the CDSP memory rail from a dedicated NMXC RPMh resource
-> > instead of the shared MX rail, so the CDSPs have to reference "nmxc"
-> > rather than "mx" as their second proxy power domain.
-> > 
-> > That makes the ADSP and CDSP name lists diverge at the second entry, so a
-> > single top-level 'items' list can no longer describe both. Keep only the
-> > item count at the top level and move the per-domain descriptions into the
-> > respective branches of the existing conditional.
-> > 
-> > Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> > ---
-> 
-> Is the name of the input not "mx" at the rproc anyway?
+From: Ridong Chen <chenridong@xiaomi.com>
 
-Ah, good point! We only need to wire RPMHPD_NMXC up to "mx" in DT.
-Thank you for the comment, Konrad!
+memory.min/low is silently bypassed for MGLRU during global proactive
+reclaim (writing to the root memory.reclaim) and global direct reclaim.
+It can be reproduced as follows:
 
-Shawn
+  # echo 7 > /sys/kernel/mm/lru_gen/enabled
+  # cd /sys/fs/cgroup
+  # mkdir -p a/b
+  # echo 100M > a/memory.min
+  # echo +memory > a/cgroup.subtree_control
+  # echo 100M > a/b/memory.min
+  # echo $$ > a/b/cgroup.procs
+  # dd if=/dev/zero of=/tmp/testfile bs=1M count=200
+  # cat a/b/memory.current
+  222650368
+  # echo 500M > memory.reclaim
+  -bash: echo: write error: Resource temporarily unavailable
+  # cat a/b/memory.current
+  6070272
+
+memory.min is 100M, yet reclaim drops a/b down to 6M, breaking the
+protection.  The traditional LRU path is not affected because
+shrink_node() calls mem_cgroup_calculate_protection() for each memcg it
+visits during a top-down tree walk.
+
+Commit 30d77b7eef01 ("mm/mglru: fix ineffective protection calculation")
+moved the protection computation into lru_gen_age_node(), which only
+runs for kswapd.  Non-kswapd global reclaim reaches shrink_one() through
+lru_gen_shrink_node() -> shrink_many() without any protection
+computation, so emin/elow remain stale or zero.
+
+Introduce mem_cgroup_protection_path() which computes emin/elow along
+the root-to-target path only by iterating through the cgroup ancestors
+array top-down.  This avoids the full tree traversal that would be
+needed with mem_cgroup_calculate_protection(), limiting the cost to
+O(depth) per memcg - typically 3-5 levels.
+
+Call it from shrink_one() for the non-kswapd path so that each memcg
+about to be shrunk has correct protection values.
+
+Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+---
+ include/linux/memcontrol.h |  7 +++++++
+ mm/memcontrol.c            | 42 ++++++++++++++++++++++++++++++++++++++
+ mm/vmscan.c                |  8 +++++++-
+ 3 files changed, 56 insertions(+), 1 deletion(-)
+
+diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
+index 7d1c0ce189a8..26be8277d64b 100644
+--- a/include/linux/memcontrol.h
++++ b/include/linux/memcontrol.h
+@@ -605,6 +605,8 @@ static inline void mem_cgroup_protection(struct mem_cgroup *root,
+ 
+ void mem_cgroup_calculate_protection(struct mem_cgroup *root,
+ 				     struct mem_cgroup *memcg);
++void mem_cgroup_protection_path(struct mem_cgroup *root,
++				struct mem_cgroup *memcg);
+ 
+ static inline bool mem_cgroup_unprotected(struct mem_cgroup *target,
+ 					  struct mem_cgroup *memcg)
+@@ -1133,6 +1135,11 @@ static inline void mem_cgroup_calculate_protection(struct mem_cgroup *root,
+ {
+ }
+ 
++static inline void mem_cgroup_protection_path(struct mem_cgroup *root,
++					      struct mem_cgroup *memcg)
++{
++}
++
+ static inline bool mem_cgroup_unprotected(struct mem_cgroup *target,
+ 					  struct mem_cgroup *memcg)
+ {
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index 1271d390b617..c739db33b917 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -5198,6 +5198,48 @@ void mem_cgroup_calculate_protection(struct mem_cgroup *root,
+ 	page_counter_calculate_protection(&root->memory, &memcg->memory, recursive_protection);
+ }
+ 
++/**
++ * mem_cgroup_protection_path - compute protection along root->memcg path
++ * @root: the top ancestor of the sub-tree being checked (NULL for root_mem_cgroup)
++ * @memcg: the target memory cgroup
++ *
++ * Walk the ancestor path from @root down to @memcg and compute the effective
++ * protection at each level.  This is safe for isolated queries because it
++ * ensures parents are computed before children.
++ */
++void mem_cgroup_protection_path(struct mem_cgroup *root,
++				struct mem_cgroup *memcg)
++{
++	bool recursive_protection =
++		cgrp_dfl_root.flags & CGRP_ROOT_MEMORY_RECURSIVE_PROT;
++	struct cgroup *cg;
++	int root_level, i;
++
++	if (mem_cgroup_disabled())
++		return;
++
++	if (!root)
++		root = root_mem_cgroup;
++
++	if (memcg == root)
++		return;
++
++	root_level = root->css.cgroup->level;
++	cg = memcg->css.cgroup;
++
++	rcu_read_lock();
++	for (i = root_level + 1; i <= cg->level; i++) {
++		struct mem_cgroup *cur;
++
++		cur = mem_cgroup_from_css(cgroup_css(cg->ancestors[i],
++						    &memory_cgrp_subsys));
++		if (cur)
++			page_counter_calculate_protection(&root->memory,
++					&cur->memory, recursive_protection);
++	}
++	rcu_read_unlock();
++}
++
+ static int charge_memcg(struct folio *folio, struct mem_cgroup *memcg,
+ 			gfp_t gfp)
+ {
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 6dff207ad8c6..e572d2742c8c 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -5102,7 +5102,13 @@ static int shrink_one(struct lruvec *lruvec, struct scan_control *sc)
+ 	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
+ 	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
+ 
+-	/* lru_gen_age_node() called mem_cgroup_calculate_protection() */
++	/*
++	 * For kswapd, lru_gen_age_node() has already called
++	 * mem_cgroup_calculate_protection()
++	 */
++	if (!current_is_kswapd())
++		mem_cgroup_protection_path(NULL, memcg);
++
+ 	if (mem_cgroup_below_min(NULL, memcg))
+ 		return MEMCG_LRU_YOUNG;
+ 
+-- 
+2.34.1
+
