@@ -1,161 +1,318 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BD6F3B813C;
-	Wed, 26 Aug 2026 15:57:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D78C03F5BFA
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 15:58:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.122
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787759877; cv=none; b=FQ5LACc2ECamsFga94cn+2rlIbXGIHBTSOMUhJA8SiIgi6EEdexeUqvQsJdMZ5BVjdwGhOXI+Ft252fgBZMmNbTd5B8o+Sn0Mzj9Z81vpGtExishKoD8hSyQV4JlLL0iBB/iIX1/WtiL2jqzlio57YU5CDxetZelZ/p7RdTcI9w=
+	t=1787759910; cv=none; b=jG+Pgv2I8JnLnHfZOUBKsUnpQlEmUTJcUwbCnWSnZC+KZYQjE/0s+tXBx6+91uLriKNKEg18o1HZKXpNAWNVLRzYMQfbsoGsrLi9cweInHcfj3jM76SGEX7T0o7ZhWPByXWLy05RACxAQTv3n0NftfxlYTJTwqR6qLqwAzr5bps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787759877; c=relaxed/simple;
-	bh=aeZmqlIwyJK4VPxm1g1mfmdGUHum1lBwQU5+McRqTso=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tNsSip2IAIVGD9ni3Hj4eCRmmzztz+fpAZqH6R3w1PHSUBY5Chd10FABe6S42hds7n0W+VnhAik7X+i4n2HMq2+7i1x56T34+wcTYagjvEUjs61Jyp3OWXdet9TA5SjtouAiv5IjlDfdanBu3C84yvg+bnuI8C2Vf/dXll04iEs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hn4sEiod; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787759910; c=relaxed/simple;
+	bh=bS4x73RKHJ+Ng/B9e79yFhTtNAXSxivKGC1Rgp2q+e4=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:Content-Type; b=mWZq75qrf+xEk8DK2wWEbx+jkGpjRIMxCesOJf58LObBPj6zttRDoM6CBtsb2bwGn2pfCE9DNwSSJuWrmKgo1LLCkbnEIV5NZsMzyVXf1H/L3hvYMIx6tdHnclkJ3rtVjW7eoTW4TDqPVzeqpQrxqua0RPMblMMaMotroCS82F4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=Z3Np0fIS; arc=none smtp.client-ip=185.125.188.122
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hn4sEiod"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42F901F000E9;
-	Wed, 26 Aug 2026 15:57:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787759876;
-	bh=+zvkuLBS5kN0dE2ru9sc83bhYR6xAZIN/lkuUx7s1rk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hn4sEiodCLZJ6ZQ4HtQf22da+N6rNnUyB+5+xzJU+csx7ycH8p6d9BiHjOMdi/CdO
-	 aX7WNzaI1zz9FRJSowxDpeEzuc+WdOHT/cuQuUduOYShwxYhmJGVioiegtF15vm3QH
-	 FTJzdpNtNdIXUm2DjbYbVCHdtcupa+o7RwF6uhaWN1idh91718mQL+NFj4D4zEJc5W
-	 1/ZrzZXFPuuHA+px+Hp8WOHMNeFC9nA1xir8YHWrGr9tBXvDG1uN40pau7foz6sukk
-	 enGhajoAXdqyZyKY/skV6wGSw3WBuI4Bf+LRCClf635JvWc9Rs91no5hrEUkgcriAK
-	 2gpvrHcSNl2ag==
-Date: Wed, 26 Aug 2026 16:57:49 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Larisa Grigore <larisa.grigore@oss.nxp.com>,
-	NXP S32 Linux Team <s32@nxp.com>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Avri Altman <avri.altman@sandisk.com>,
-	Bart Van Assche <bvanassche@acm.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	"James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
-	"Martin K . Petersen" <martin.petersen@oracle.com>,
-	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
-	Ajay Neeli <ajay.neeli@amd.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Pedro Sousa <pedrom.sousa@synopsys.com>, clizzi@redhat.com,
-	aruizrui@redhat.com, eballetb@redhat.com, echanude@redhat.com,
-	linux-scsi@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH 06/10] dt-bindings: ufs: Add compatibles for S32N79 Host
- Controller platform driver
-Message-ID: <20260826-surely-sandal-64ca2d2c4481@spud>
-References: <20260826134048.854748-1-larisa.grigore@oss.nxp.com>
- <20260826134048.854748-7-larisa.grigore@oss.nxp.com>
- <ao75lU2zYDeOZi2f@SMW015318>
+	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="Z3Np0fIS"
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id EB8613FC9A
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 15:58:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1787759905;
+	bh=RU+b0EgUdr8YZp0QJv4qyFI+odtfNC7/mQjbnNP14uk=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:Content-Type;
+	b=Z3Np0fISosOcfUNMswDKA0IeGgFnRDX8zfV5IDJa/NC+Ongt2uvHXQcFyy/KfX5cY
+	 vP91Q7Qi1MK7F8FK94jps8I3+iz5H8jq0ztsma6bNsv8ubOPdkDTtGQqpLNvTe7GE0
+	 zoqARa0h+Toa1TG6VLXO+NuXlem1b4Adhk95vh6PbuIxYf/uNwCWzHG0xXjWtZkXS6
+	 FDUg8PxnnTil9bsPexApROodyfHULp6SNrYWGo8jXcDD0etBuWbSzM6vv4CPBe+MjW
+	 uIfy/VnO8dLU4iB+IR2BeeLw8vB1nV3y3F1St9qt2ZTB9/VMqSPcqT+FTirWYjQDTT
+	 b+sTSZd/i4wGf/jbNmuUWFG2pcOFvAjM0MtYDyvML7OQ0/IxPWHV3GGRi0IRuSobmc
+	 t/v7gS6A2citf7hwe3OZs5Ct+XYWNITtgjHq74R0zbnrnjdxTXFxe+7idOETvnfniM
+	 PqZUFntrvcLxq9JfnSuZ0wgvaJgo81w3C3qnB67Alw3XMMHsAquKdT4LWM2qJ/xk5c
+	 yzS5McjAewjPj6tFybIByXctSTQLmGIqZNV2ESLP1h6QqeQg4Fz9DdrWEps/3QCHeP
+	 PlXTTuacB0FjKs3QZlnjUDe/g0MKpWFK9MARIxYSrYuiSlVfDLAJ4bf37wbJuS4HVo
+	 x4bxVzIRrH6tNWX8+uMaTyqQ=
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-38e7ff7b375so1952510a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 08:58:24 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787759903; x=1788364703;
+        h=content-transfer-encoding:content-type:organization:autocrypt
+         :content-language:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RU+b0EgUdr8YZp0QJv4qyFI+odtfNC7/mQjbnNP14uk=;
+        b=UC5Qy1HidUHJVALuShnT9IGSbbXrZYPErPOOZoLxzvQBN6dC6qKO9a/zT7dvdmi+Tt
+         YGTH6mNQmJtlH9rA4JwOqX10KmN/YKQC8tEdeE78xwezjnFOdA4xZO4jLYdE4uYKX72e
+         1v6TCsWfn2UM+zni41yZ2qcjApwmkPPd+0h+U4lFpLvN1lYVDMPOfF1hcOwSOHYh7pYt
+         s7G6JdVue/if2NtUFJm2hZ3rh1VgDzWqzdzhePdq33FtSVWvgQgBXWOyUPPAdaCEikwn
+         0JP6GXaWrCviV3gc5ltzIe3qA6fU8c+lg/RhbKcipQ/F9P6J4qVgMs+4nAQBfsVGNr/s
+         6nZg==
+X-Gm-Message-State: AFuF++mV0Mk8BogVNLG9hzNdLNkzTO1qTz2y7rH25yy0BjvE/I+GngBc
+	aQWAAHM8bt4WKfi7KW6123ruuhQdvAs4jZn11yrIN3/gwL4vvHW7AEBTPK/x4aZmO9X30wpPwqk
+	kbMkfgdXb57rxQN9IJ2Kuj+9lgK68lzGGDleJ+Gs7950hcI6qMpjINeRcV+J/9Qtn2xxyrX0iay
+	3osvtylI86ul3vfw==
+X-Gm-Gg: AR+sD123XCj24W+h/drHQz0WuraNuJuA2EusjmWr8YqEwjkuPRxEiq9z00v1VneFyRd
+	L6wHjblYCDNOdrQB60EIZcI89qS8U8QJiQIFTvnMcKAMRhVMTNcgJZgmn6IeMN4LsKsNQ2Y/YW4
+	vT/A4jejJZOE3RHPufMPESN10xspVGShlKJyIh6B8g2e91RzLSCMSzH2CV6cDRvXHKqIehe7jDv
+	z2AF/UZDWFhmHoaEg+H3ModkeOmQSjFRlTF9TFJ75vTnKfIxvLODJsqR6ZVXpKZ1BdgJPzAqDnt
+	RmK4poB0mgeEZt2zAEvCIHnFeCpSGI7z4z+XV0W6sy1D1JwLaKq6sY6uWlvCyrivfR/9bEFKJgN
+	AX6v+utvbeCHYXJ8=
+X-Received: by 2002:a17:90b:560c:b0:396:67ed:da2d with SMTP id 98e67ed59e1d1-3966d4931a0mr17176868a91.15.1787759902279;
+        Wed, 26 Aug 2026 08:58:22 -0700 (PDT)
+X-Received: by 2002:a17:90b:560c:b0:396:67ed:da2d with SMTP id 98e67ed59e1d1-3966d4931a0mr17176753a91.15.1787759901747;
+        Wed, 26 Aug 2026 08:58:21 -0700 (PDT)
+Received: from [192.168.192.72] ([50.47.147.90])
+        by smtp.googlemail.com with ESMTPSA id 98e67ed59e1d1-39645b07394sm8589234a91.4.2026.08.26.08.58.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 26 Aug 2026 08:58:20 -0700 (PDT)
+Message-ID: <997f83d3-18ef-4ca6-a1d6-39491b7a4c95@canonical.com>
+Date: Wed, 26 Aug 2026 08:58:20 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5vEWqBk1JjVncxTQ"
-Content-Disposition: inline
-In-Reply-To: <ao75lU2zYDeOZi2f@SMW015318>
+User-Agent: Mozilla Thunderbird
+From: John Johansen <john.johansen@canonical.com>
+Subject: [GIT PULL] AppArmor updates for v7.3
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: LKLM <linux-kernel@vger.kernel.org>,
+ "open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
+Content-Language: en-US
+Autocrypt: addr=john.johansen@canonical.com; keydata=
+ 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 lT9Q
+Organization: Canonical
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
---5vEWqBk1JjVncxTQ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi Linus,
 
-On Wed, Aug 26, 2026 at 09:35:01AM -0500, Frank Li wrote:
-> On Wed, Aug 26, 2026 at 03:40:44PM +0200, Larisa Grigore wrote:
-> > [You don't often get email from larisa.grigore@oss.nxp.com. Learn why t=
-his is important at https://aka.ms/LearnAboutSenderIdentification ]
-> >
-> > Document the device tree binding for the NXP S32N79 DWC-based UFS host
-> > controller which is compliant with JESD-223D "Universal Flash Storage H=
-ost
-> > Controller Interface" v3.0.
-> >
-> > The controller requires access to the SCM register block and the core
-> > clock rate when M-PHY initialization is performed. Add the optional
-> > nxp,mphy-boot-mode property to select the M-PHY firmware execution
-> > environment.
-> > Currently, the M-PHY firmware can only run from ROM. If the property is
-> > omitted, M-PHY initialization is assumed to be handled externally.
-> >
-> > Signed-off-by: Larisa Grigore <larisa.grigore@oss.nxp.com>
-> > ---
-> >  .../bindings/ufs/nxp,s32n7-ufshc.yaml         | 99 +++++++++++++++++++
-> >  1 file changed, 99 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/ufs/nxp,s32n7-ufs=
-hc.yaml
-> >
-> > diff --git a/Documentation/devicetree/bindings/ufs/nxp,s32n7-ufshc.yaml=
- b/Documentation/devicetree/bindings/ufs/nxp,s32n7-ufshc.yaml
-> > new file mode 100644
-> > index 000000000000..d9d5669be313
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/ufs/nxp,s32n7-ufshc.yaml
-> > @@ -0,0 +1,99 @@
-> > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/ufs/nxp,s32n7-ufshc.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: NXP S32N79 Universal Flash Storage (UFS) Controller
-> > +
-> > +maintainers:
-> > +  - Larisa Grigore <larisa.grigore@oss.nxp.com>
-> > +
-> > +# Select only our matches, not all jedec,ufs
-> > +select:
-> > +  properties:
-> > +    compatible:
-> > +      contains:
-> > +        const: nxp,s32n79-ufshc
-> > +  required:
-> > +    - compatible
-> > +
-> > +properties:
-> > +  compatible:
-> > +    items:
-> > +      - const: nxp,s32n79-ufshc
-> > +      - const: jedec,ufs-3.0
->=20
-> Any place actually use this fallback?
+I know this is running late, I have an alternate PR with just the bug
+fixes if you prefer. I ended up having to drop a couple of patch sets,
+and pulled in a couple of the simpler bug fixes late. I have a few
+more bug fixes coming but they will have to wait a week or two.
 
-I don't think that this exists anywhere already:
-https://lore.kernel.org/all/?q=3D%22jedec%2Cufs-3.0%22
-$ git checkout korg-next/master=20
-Previous HEAD position was 2697ef8943c9 Add linux-next specific files for 2=
-0260813
-HEAD is now at f82a5da2f049 Add linux-next specific files for 20260826
-$ rg jedec,ufs-3.0
-$=20
+These patches have all been merge, build, and regression tested
+against your tree as of yesterday. The majority of the code has had
+several weeks of testing, both in linux-next and the Ubuntu kernels.
 
-So not entirely sure what the point of this actually is, if the driver
-doesn't use the fallback.
+The biggest functional change is Jann Horn's fix for how aparmor is
+doing stale cred updates after a policy replacement.
+    apparmor: fix cred UAF caused by begin_current_label_crit_section()
+It moves the update to be done during task_work at the end of the
+syscall.
 
-pw-bot: changes-requested
+The current patch set has one major feature which is allowing policy
+to be compressed in userspace instead of after the fact (in kernel) if
+we need to hold onto it for CRIU/introspection.  This is responsible
+for the majority of the diffstat in apparmorfs.c
 
-Thanks,
-Conor.
+The other major change is to do with network mediation. It is a lot of
+code churn but does not do any functional changes to mediation. It
+moves the code around, and refactors it to use newer patterns for
+consistency, and in preparation for some improvements in mediation in
+a future patchset. This change is responsible for the majority of the
+diffstat in lsm.c and af_inet.c
 
---5vEWqBk1JjVncxTQ
-Content-Type: application/pgp-signature; name=signature.asc
+The cleanup of the mount mediation to the newer patterns and macros is
+responsible for the majority of the mount.c diffstat.
 
------BEGIN PGP SIGNATURE-----
+With the constification of code being the next largest contributor to
+the diffstat.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCao8M+QAKCRB4tDGHoIJi
-0g41AQCGpkSGcoAvf+CzvNuvNHv3yKhESnto+t6iakbMYinbeQD+KGZ2lO97yx4I
-pYak7Fs9jzkDftZfbefu6CGhyBZr/AM=
-=7Ege
------END PGP SIGNATURE-----
 
---5vEWqBk1JjVncxTQ--
+thanks
+- john
+
+
+The following changes since commit dc59e4fea9d83f03bad6bddf3fa2e52491777482:
+
+   Linux 7.2-rc1 (2026-06-28 12:01:31 -0700)
+
+are available in the Git repository at:
+
+   git://git.kernel.org/pub/scm/linux/kernel/git/jj/linux-apparmor tags/apparmor-pr-2026-08-26
+
+for you to fetch changes up to 3daad923a8685adb66087e0d819559b7eb6ba975:
+
+   apparmor: policy_int make sure list heads are initialized before fail path (2026-08-26 00:03:13 -0700)
+
+----------------------------------------------------------------
++ Features
+   - support loading compressed policies
+   - add audit mode to provide a mechanism to silence complain messages
+   - refactor network mediation to use new patterns, and prepare
+     to for extended inet mediation (no functional change)
+
++ Cleanups
+   - switch website link to https
+   - make include headers self-contained, and fix circular include
+   - constify aa_label, aa_dfa, aa_profile, and aa_perms paraneters
+   - mark static tables and structs as read only
+   - drop use of _confined variant for iteration
+   - refactory mount to use check_perms
+   - refactor network mediation code to be together
+   - refactor xattr attachment, to take the file path
+   - optimize current_label_crit_section()
+   - leverage audit_log_n_untrustedstring() when possible
+
++ Bug Fies
+   - initialized policy lists heads before fail path
+   - fix deadlock in complain-mode change_hat
+   - auditing of mount binary data
+   - fix error debug output in fn_label_build
+   - fix race condition in label replacement
+   - fix unconfined user namespace restriction forced stack
+   - fix error handling for copy_from_user in policy_update
+   - fix out-of-bounds write when null terminating a label vec
+   - fix integer overflow in verify_tags() bounds check
+   - fix cred UAF caused by begin_current_label_crit_section()
+   - use SEND_SIG_NOINFO instead of NULL in aa_audit()
+
+----------------------------------------------------------------
+Baruch Siach (1):
+       apparmor: switch website link to https
+
+Fabrice Derepas (1):
+       apparmor: fix integer overflow in verify_tags() bounds check
+
+Hyunwoo Kim (1):
+       apparmor: fix out-of-bounds write when null terminating a label vec
+
+Jann Horn (1):
+       apparmor: fix cred UAF caused by begin_current_label_crit_section()
+
+John Johansen (30):
+       apparmor: fix alternate loaders ability to load compressed policy
+       apparmor: compressed_data not described in aa_get_data_from_compressed
+       apparmor: Fix build failure when ZSTD_DECOMPRESS is not enabled
+       apparmor: fix implicit declaration of function 'decompress_zstd'
+       apparmor: Fix warning: 'decompress_zstd' defined but not used
+       apparmor: optimize current_label_crit_section() with needput
+       apparmor: fix error handling for copy_from_user in policy_update
+       apparmor: make MEDIATES_AF_UNIX its own fn
+       apparmor: refactor network sock mediation in preparation for inet mediation
+       apparmor: push inet mediation into profile callbacks, and improve auditing
+       apparmor: refactor network socket mediation to support compatibility
+       apparmor: move netfilter functions next to the LSM network operations
+       apparmor: move sock_rcv_skb() next to inet_conn_request
+       apparmor: reserve mediation class for packet mediation
+       apparmor: fix unconfined user namespace restriction forced stack
+       apparmor: refactor xattr attachment, to take the file path
+       apparmor: fix race condition in label replacement
+       apparmor: make table entry count last enum for static tables
+       apparmor: fix error debug output in fn_label_build
+       apparmor: mark static tables and structs as read only
+       apparmor: add audit mode to provide a mechanism to silence complain messages
+       apparmor: fix auditing of mount binary data
+       apparmor: refactory mount to use check_perms
+       apparmor: drop use of _confined variant for iteration
+       apparmor: constify aa_perms parameters that are read-only
+       apparmor: constify aa_profile parameters on read-only compute paths
+       apparmor: constify aa_dfa parameters on read-only compute paths
+       apparmor: constify aa_label parameters on read-only query helpers
+       apparmor: fix deadlock in complain-mode change_hat
+       apparmor: policy_int make sure list heads are initialized before fail path
+
+Maxime Bélair (1):
+       apparmor: Initial support for compressed policies
+
+Oleg Nesterov (1):
+       apparmor: use SEND_SIG_NOINFO instead of NULL in aa_audit()
+
+Paul Moore (1):
+       apparmor: leverage audit_log_n_untrustedstring() when possible
+
+Ryan Lee (2):
+       apparmor: fix net.h and policy.h circular include pattern
+       apparmor: make include headers self-contained
+
+Tetsuo Handa (1):
+       apparmor: replace decompress_zstd() prototype with its entity
+
+  security/apparmor/Kconfig                 |  14 +-
+  security/apparmor/Makefile                |   2 +-
+  security/apparmor/af_inet.c               | 565 ++++++++++++++++++++++++++++++
+  security/apparmor/af_unix.c               |  44 ++-
+  security/apparmor/apparmorfs.c            | 281 +++++++++++----
+  security/apparmor/audit.c                 |  40 ++-
+  security/apparmor/capability.c            |   2 +-
+  security/apparmor/domain.c                | 157 ++++++---
+  security/apparmor/file.c                  |  15 +-
+  security/apparmor/include/af_inet.h       |  36 ++
+  security/apparmor/include/apparmor.h      |   1 +
+  security/apparmor/include/apparmorfs.h    |   3 +
+  security/apparmor/include/audit.h         |  10 +-
+  security/apparmor/include/capability.h    |   3 +-
+  security/apparmor/include/cred.h          |  22 +-
+  security/apparmor/include/file.h          |   2 +-
+  security/apparmor/include/label.h         |  31 +-
+  security/apparmor/include/lib.h           |   6 +-
+  security/apparmor/include/match.h         |  18 +-
+  security/apparmor/include/net.h           |   9 +-
+  security/apparmor/include/path.h          |   3 +
+  security/apparmor/include/perms.h         |  19 +-
+  security/apparmor/include/policy.h        |  17 +-
+  security/apparmor/include/policy_unpack.h |   4 +-
+  security/apparmor/include/procattr.h      |   2 +
+  security/apparmor/include/task.h          |  20 +-
+  security/apparmor/label.c                 |  95 +++--
+  security/apparmor/lib.c                   |  57 ++-
+  security/apparmor/lsm.c                   | 282 +++++++++------
+  security/apparmor/match.c                 |  35 +-
+  security/apparmor/mount.c                 | 279 ++++++---------
+  security/apparmor/net.c                   |  47 +--
+  security/apparmor/policy.c                |  30 +-
+  security/apparmor/policy_compat.c         |  14 +-
+  security/apparmor/policy_unpack.c         |  30 +-
+  security/apparmor/task.c                  |  27 ++
+  36 files changed, 1609 insertions(+), 613 deletions(-)
+  create mode 100644 security/apparmor/af_inet.c
+  create mode 100644 security/apparmor/include/af_inet.h
+
+
