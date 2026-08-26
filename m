@@ -1,94 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31EBC33DED9
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:03:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13C1B33DED9
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:03:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787778185; cv=none; b=HybmbUoDqd7A4ag62dngKEjLiIg5+GAWiCK7nTHxygLTanlAMFI6Yg2UwhHTWZKX5YFlNVXeUHMXUPglKX8mMLlyLlwuuMmtzcAJczRBGK9WlDCUXQ6z5aIbM5SZk/bAXSiNWaF6yI/olo0+OW8GEg8SG7NisO5QamDEKaXHLak=
+	t=1787778191; cv=none; b=SE9TtNRm2aFlfyOGpB6n7zvJKcFxna0SYM/MSgDg1gtOjW0VboHTgJpAFDsWtl34IWYAumd+9JKtmYwp4r/u5hXNP67EWc3DXb2RKX4h/26B8VtBjVdEsOckeT1bay1ceBNieWB94G9vGiMpjxuIIShBvb1GbOh04SeNbo/RVAo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787778185; c=relaxed/simple;
-	bh=5KQzDgyiIPz88ZmSk3EZ6LlItPMqpc2RARdCySgObbg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QaEmrDrYrJYnRFBB3Bu714V/mL8wxAN64XhaPpSfXcmBS3RL7Lc5Y1Gs8O2Lz4lLtC2pCNITuj9cGFm8nXsrzYSQdbCeX/VDH+Zf1S93KUpIn89NdcHmNO9ewgXwlcJnYtKanrK97TTaY5ytY7Ie5MUmC0qYLWzVQXzkbvRrzpE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=foIPooo9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787778191; c=relaxed/simple;
+	bh=G95DSJvyvHD4TuyBwIEBp3aTZlrEO0waUgZ97+t02SE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dxqHvMAwlfPVIymwgkPRgp/4QeLEruyVU4SspYYD4s3znt4X2WPoNxDGDJmFKI/ASC3+PS5//JRKnPAXeqFoZ/r0yhypkJ3aFxgZGHc1kxTumNDS1Ti0hPUwBmF/uuImXWsWWIS9y/oPeYyKwRnFXknoPeLTQJcitqMb9wi2Obg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ey0ti1W8; arc=none smtp.client-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="foIPooo9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDCD81F00A3A
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:03:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787778183;
-	bh=5KQzDgyiIPz88ZmSk3EZ6LlItPMqpc2RARdCySgObbg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=foIPooo9AEpRxj35k7f/KTmciK8rtt6Te/B0afzdBDkp4WP1Xkpnq4nkiVXf1vfdG
-	 q23EIJQmetVlzQraAdWGlbAofPVf7aqzHPdYcDawHUkQeDZqSSGgEORTHpcc6ueDNk
-	 nc5dDLk9OFh97Jt/uqHe7fto/2+eaA6A3/4nfR4zhrGDZYXD9B7Lmire9hFKRLzJtF
-	 8wpeQju7aiA6mwNzjK7TX2oldJujslmzVclhw9pwg1Ni3jrn0VX2t8PNfFtLH5fazQ
-	 4f5QeZmboTwkvTh/njkGgRNbztn9ZTAHHcjrz8yyN6ITDJ4hjA7fCmAJ2GqWd/FmKN
-	 8URnEoPQh18Ig==
-Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-9061a795d76so17125106d6.3
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:03:03 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RrPelO2E8ESosQmUlq9zjSBH4n+aWiC7fDqcFWn2sqdq0i1oukyrqsbSvXeamn6LtSXdN2zOJrthBTuUns=@vger.kernel.org
-X-Gm-Message-State: AFuF++nU13TprTrcuPLCSQ6+cjPzLidx+3jNl0y2V+7KcEDln8dyURWm
-	Cbv1VeARiaPrt7YguNmsBImgyH5rdF4b9uRb5VCujcaWsJU6r/mf9i+oTwDm+rDbbwg0837ttx/
-	rjFu9YPjk81MWfZETDVghlHfwDeK5UTI=
-X-Received: by 2002:a05:620a:9142:b0:936:7967:7955 with SMTP id
- af79cd13be357-937803e7e75mr815574385a.21.1787778182927; Wed, 26 Aug 2026
- 14:03:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ey0ti1W8"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2caea3f742bso365985ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:03:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787778189; x=1788382989; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LjM9GmdvyoqfoPm8mJ1pDYW08lI1V210DwwMkEe2Ph0=;
+        b=ey0ti1W8Fqt6eYwkxHe8/9accoG/aNgjIXYvmPZwZjWWkgpJae8DwtBvi5ko7Xz7JY
+         jCFCA3GqejcgkHhAAfWj64jyUAtjGpU/giFdlpGuHR/gLjM41wMggL0crZm/azQjq0WG
+         LdzzzViCUwgVwSITo8N+t20jIlaGLnAs/9je5Pke4ogFvE4rBrrfXWDWu9W4hQ44mf5z
+         RlsviL9MMd8QSjFYokQ8y3Vt3xnJTUoSZoZAEDTCkn9o83gdSQAo2fJh0JiMUCezOKfs
+         xyUU7HExsE9ur9Vi5IxcS/x6Vy0eqdQHGTs8FxtHNt5yDlK7hVP38mfZiM7w8vFDjsX7
+         Aw+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787778189; x=1788382989;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LjM9GmdvyoqfoPm8mJ1pDYW08lI1V210DwwMkEe2Ph0=;
+        b=qjc6ivLf8cXBxEBrPEHcsx05QJs6ZCkBZV4/a5JlHIiuqLiPDWuG8dXlMImrvcrEuH
+         0VwMgvbwUJ2dV4TYV9VjruPziGV6U/IVtmWK6cdVrWJiEVdzff7ZB7Bfxo8RAHHrF56C
+         CqG9edGBbxVhirD1MjJBu3mvohkGbP11QKDTDM0sz/0vGVvVwIU4ep6HFnYg+g3baOmC
+         NM/4hI+ImSNkIolp8swqNRasX8c/x0t/finXU3hVq7OPJ9T11yB5A0JmMhgHg0fJBFlJ
+         fe7a5GK3w5Mui/Q53wkG2Aorhm+HTPc7CYie8BGIHL6ErPslDPAxKLZn8e2jHRUXbYQT
+         L0EA==
+X-Forwarded-Encrypted: i=1; AHgh+RohYSEkdXuCyjonMwcsZjVbQWkBdoEWTI4wW04NgqLIAy9am4aSoDHtctjVjjqq6FwevpPdM0zLP7gPv7s=@vger.kernel.org
+X-Gm-Message-State: AFuF++kOoeb4anWrs6XdW77tagZJX/8mdYMw+fzuXWVR8lKoi7k/AbL3
+	OpIY/cc9Z9byHyIb1QWrErQSSm5Xv2POKpMFdhUgb4xYOYjKUsR2bABIg4l8FeSIcw==
+X-Gm-Gg: AR+sD12J23S24xwCKVY9GvbGyWtZdAn96xRGtRZ7D8jldckeY5ksryeGVEAdeWAVlBA
+	fQYXepNW3pNBzYyMgJqY6K+OQm5fJo3cnw+4owktFYNQPXg7uF1P0qAcMNNhiJtYfc9My2kVWDL
+	lu/6KQ7XWRNcTMb55a1UO4LZThQrDyg2bcvGej/YDEXuTAH9F9e7ufwUVRXC9nXdoFtkbjckolJ
+	n8yJUwyjtAV+K+pITYDW+xjf07zjiLVMeTMpOS8yTAtX0nSIBrtcM9hoQhYBk6uWZArC+YDwOM8
+	4HqB1ArCfCG47WveCGS+IyuhwaSZWBoct4Ihk04BUmmg2SZ37i0XZKGps2flhST39PggjbYMbZq
+	dAKCDq99BuTdrtbwbPy8A/HZVdk2UxIM0hFbwCE+gASp4suymbbPkWfpaTzVprc1whs/G+mrTMh
+	DmJliNay0vmMN9Cu1piPTWhZb9P/WtqoKSmHxjBAjIIS88SwM6lMzVXoMUr0KLSuYYHIpduAeJP
+	ai/TBOE5L1vAE+ZdcqEPQ==
+X-Received: by 2002:a17:902:f549:b0:2ca:481:de45 with SMTP id d9443c01a7336-2d707a501e5mr124136705ad.6.1787778188443;
+        Wed, 26 Aug 2026 14:03:08 -0700 (PDT)
+Received: from google.com (51.86.127.34.bc.googleusercontent.com. [34.127.86.51])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d704c1a0a2sm10897065ad.66.2026.08.26.14.03.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 14:03:06 -0700 (PDT)
+Date: Wed, 26 Aug 2026 21:03:04 +0000
+From: Benson Leung <bleung@google.com>
+To: Jameson Thies <jthies@google.com>
+Cc: heikki.krogerus@linux.intel.com, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org, bleung@chromium.org,
+	gregkh@linuxfoundation.org, akuchynski@chromium.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v1] usb: typec: ucsi: displayport: Fix OOB altmode array
+ index
+Message-ID: <ao9UiKAEtsyEt7ZZ@google.com>
+References: <20260825234545.2076049-1-jthies@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826-drop-thp-maintainership-v1-1-3d102748fa17@kernel.org>
-In-Reply-To: <20260826-drop-thp-maintainership-v1-1-3d102748fa17@kernel.org>
-From: Barry Song <baohua@kernel.org>
-Date: Thu, 27 Aug 2026 05:02:50 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4wH_-2NPV2j6wxN_EfAeXvDe_eUnkj0KVUu0nn+ANfohQ@mail.gmail.com>
-X-Gm-Features: AcwNN1UCklyIxHoStaDuT-E1MIb2LN1kaFlTLTeei_p2HLyAvWl8ZP496MYtr6Q
-Message-ID: <CAGsJ_4wH_-2NPV2j6wxN_EfAeXvDe_eUnkj0KVUu0nn+ANfohQ@mail.gmail.com>
-Subject: Re: [PATCH] MAINTAINERS: remove myself as THP co-maintainer
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="gz09TSVTsWtWbuFW"
+Content-Disposition: inline
+In-Reply-To: <20260825234545.2076049-1-jthies@google.com>
+
+
+--gz09TSVTsWtWbuFW
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Aug 26, 2026 at 5:56=E2=80=AFPM Lorenzo Stoakes (ARM) <ljs@kernel.o=
-rg> wrote:
->
-> Unfortunately my workload is such that I simply no longer have the time t=
-o
-> give THP the focus that it deserves.
->
-> So, at least temporarily, step down from the role.
->
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+On Tue, Aug 25, 2026 at 11:45:45PM +0000, Jameson Thies wrote:
+> The UCSI displayport driver indexes the connector's port altmode array
+> with the GET_CURRENT_CAM response after checking it is not 0xff. The
+> port altmode array is UCSI_MAX_ALTMODES elements long. If the PPM
+> returns an invalid GET_CURRENT_CAM response above UCSI_MAX_ALTMODES and
+> not equal to 0xff, the kernel may crash with an array index OOB error.
+>=20
+> Update the UCSI displayport driver to verify the current cam is less
+> than UCSI_MAX_ALTMODES before accessing the port altmode array.
+>=20
+> Fixes: af8622f6a585 ("usb: typec: ucsi: Support for DisplayPort alt mode")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jameson Thies <jthies@google.com>
+
+Reviewed-by: Benson Leung <bleung@chromium.org>
+
+
 > ---
+>  drivers/usb/typec/ucsi/displayport.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/usb/typec/ucsi/displayport.c b/drivers/usb/typec/ucs=
+i/displayport.c
+> index 7067f2561b84..8d2032d0762c 100644
+> --- a/drivers/usb/typec/ucsi/displayport.c
+> +++ b/drivers/usb/typec/ucsi/displayport.c
+> @@ -74,7 +74,7 @@ static int ucsi_displayport_enter(struct typec_altmode =
+*alt, u32 *vdo)
+>  		cur =3D 0xff;
+>  	}
+> =20
+> -	if (cur !=3D 0xff) {
+> +	if (cur < UCSI_MAX_ALTMODES) {
+>  		ret =3D dp->con->port_altmode[cur] =3D=3D alt ? 0 : -EBUSY;
+>  		goto err_unlock;
+>  	}
+>=20
+> base-commit: e1e6e541c5c9cf548e9fdc35fc26808c82074440
+> --=20
+> 2.55.0.860.g4b6b3295ed-goog
+>=20
 
-Thanks very much for all your hard work, Lorenzo. I can really appreciate
-how busy you are, especially while you=E2=80=99re still developing so many =
-things
-at the same time as doing reviews.
+--gz09TSVTsWtWbuFW
+Content-Type: application/pgp-signature; name=signature.asc
 
-Personally, I also feel a bit bad that I haven't been able to contribute
-anywhere near as much as you have. I still have a lot of catching up to do.
+-----BEGIN PGP SIGNATURE-----
 
-Right now, as David probably knows well, my colleagues and I are working
-on both FS large folios[1] and mTHP[2]. I really feel that I=E2=80=99ll be =
-able
-to spend more time on THP-related work and reviews.
+iHUEABYKAB0WIQQCtZK6p/AktxXfkOlzbaomhzOwwgUCao9UiAAKCRBzbaomhzOw
+wgCoAP4vqDkDyluInYvf3CtI7ierjfnXdyn9lyg3gLa1LpKzLAEAg29Lc21QUG3O
+a/cl6MGV6xYVAH0zkyRyP62oiHFrmgA=
+=CSC7
+-----END PGP SIGNATURE-----
 
-Lorenzo, you have my deepest respect.
-
-[1] https://lore.kernel.org/lkml/20260826082641.2007658-1-zhaonanzhe@xiaomi=
-.com/
-[2] https://lore.kernel.org/lkml/20260825043833.2659350-1-zhangbo56@xiaomi.=
-com/
-
-Best Regards
-Barry
+--gz09TSVTsWtWbuFW--
