@@ -1,217 +1,368 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010067.outbound.protection.outlook.com [52.101.56.67])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31A953A9612;
-	Wed, 26 Aug 2026 19:33:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.67
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787772822; cv=fail; b=JLlTwhsTyFnDCbb3RfbQ1BB0zyzPZgMfALjzgX2RYObp7jSP0aNIjv0UzeBpkenPzr/B4hq92ShdNq39+Lsn2uG5fbLK8EWFyzIfG2TCYtsHistUDdkJNOM+J+l3HH106sDo8xdJkmKXMsl2Z6oICLib5I0S0vjelRSunSAEQHg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0239B47ACC7
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 19:33:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787772822; cv=none; b=PVwQhT14VMOkJuychwAWEqWa9lVGiSPtilXkkEiYu0GEBt3X+AnY8FBTPBn3+x1BoU1nF7ty4Yi/lJ98dX87ZO3vItt+uTh3e0emOyEfNpag3paYzxs2UiLPdFoGS3p1ZB+OAtpHIW9XCkFAfmj7dRlMxWpOV7oQi3uefK2STZk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787772822; c=relaxed/simple;
-	bh=ABscrGai/cn+ApWaCx5YutR5SPVeww8u8o/dmH8++zM=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HI3+7tVqVK7SLk5MXNMP0vhO4T/Z+lQQNowWyDP6nQz5zLSAL29Q7oMNrT0bxmxRmzsBSDqrdg91ZoDuOYNOOPnK/WqWDdR1shq8l2whXBaQg3ngeQpI78/boKFPyOOdFUpNRHe06ZvlQfeZdE+L+7rEjI9k0d1pVCd+ahBP/f8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Msj3qpad; arc=fail smtp.client-ip=52.101.56.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Msj3qpad"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ipSGX4Y+GwA3Du6CSfHXIi3QNWmH4a5e70gAG6GNziKbOn1bDhIFTTtNh57X2RrGgocHvhAS0looR92plCsriLRmofNppXwRjs2Q8kQf9jTbCS5aDUprEtrOb6BU+W7+526LRIA6ffXRbDB/3nWZqI67fxcCRna2Ztf+S36N/wApmHuZOrDCQD92avAbwUWb++m7nluhRLWCLFaLlI6Eh1tlZ6WyrMO4f1hqZP1Ji1Bv5C42jTFabVMRJ6WHLHi3NDrnLSbBOAJwuySKK4i3kwzPdyVtlB4saxITCtqZREiYC65wn8/TWjNLP8QI2oQBjZ+0wN9lsEcvLVdKs6zOpQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wjEfq/zJrkiKZybZvMBHiwYR5bBPFYiwaTI3xC0La68=;
- b=wjgL73cWwHJL9rtJk8nWcSyFvWWFULIuF+7QbWOFwYte4lrRCUDcI985PWfW94i2CUd9JhLm6h0s7JB49O8eI2Ii4lHF2RN8iV3L3kpQEaTjAaNouF5b0gry1JxkXd8ce/R3aAbUQGNqAcyYTFSe/T3E20jcE6iIUF4B8EgYudhPiUwEsyCFUSSrZSD9fC3LUO3VLITSYQFqphDDh+76MUdI6/q1oZGRJ5dnepAzzELfRHWbcg5BZs3Ah68GozBLxLeymMf+QvvTwqYG8BmghgaQqHeyGmAfab/KBh4Q+eBSh1CgmdcPaNqtwGC2mQb6RquOfGrUXDjVHA4S03UCfg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 149.199.90.133) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com;
- dmarc=fail (p=quarantine sp=quarantine pct=100) action=quarantine
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wjEfq/zJrkiKZybZvMBHiwYR5bBPFYiwaTI3xC0La68=;
- b=Msj3qpadveJM5oz1JlCsDkfpALOd1jf/6Xv3fJgrA36qzjmAd44SnvgP5HJgM8ffaFWxsRL3Kd0+RYvh7TIE8KerYviGXWr/OUVk6X2Kh4XhGDnoOtWGA9P0+pnNBKzNoDjPB8avtutsYSpyhrYWoMuJJbup6HsRCtBM8/zxBo8=
-Received: from SJ0PR05CA0150.namprd05.prod.outlook.com (2603:10b6:a03:33d::35)
- by MN2PR12MB4343.namprd12.prod.outlook.com (2603:10b6:208:26f::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Wed, 26 Aug
- 2026 19:33:16 +0000
-Received: from MWH0EPF000C6187.namprd02.prod.outlook.com
- (2603:10b6:a03:33d:cafe::40) by SJ0PR05CA0150.outlook.office365.com
- (2603:10b6:a03:33d::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.8 via Frontend Transport; Wed, 26
- Aug 2026 19:33:15 +0000
-X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
- 149.199.90.133) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=quarantine header.from=amd.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- amd.com discourages use of 149.199.90.133 as permitted sender)
-Received: from satlexmb07.amd.com (149.199.90.133) by
- MWH0EPF000C6187.mail.protection.outlook.com (10.167.249.119) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Wed, 26 Aug 2026 19:33:15 +0000
-Received: from bmoger-ubuntu.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 26 Aug
- 2026 14:33:13 -0500
-From: Babu Moger <babu.moger@amd.com>
-To: <tony.luck@intel.com>, <reinette.chatre@intel.com>, <Dave.Martin@arm.com>,
-	<james.morse@arm.com>, <bp@alien8.de>, <ben.horgan@arm.com>
-CC: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <rdunlap@infradead.org>,
-	<babu.moger@amd.com>, <tglx@kernel.org>, <mingo@redhat.com>,
-	<dave.hansen@linux.intel.com>, <hpa@zytor.com>, <fenghuay@nvidia.com>,
-	<akpm@linux-foundation.org>, <rppt@kernel.org>, <dapeng1.mi@linux.intel.com>,
-	<elver@google.com>, <jlayton@kernel.org>, <enelsonmoore@gmail.com>,
-	<kuba@kernel.org>, <ebiggers@kernel.org>, <seanjc@google.com>,
-	<peterz@infradead.org>, <chao.gao@intel.com>, <jmattson@google.com>,
-	<naveen@kernel.org>, <ricardo.neri-calderon@linux.intel.com>,
-	<tiala@microsoft.com>, <chang.seok.bae@intel.com>,
-	<prathyushi.nangia@amd.com>, <kim.phillips@amd.com>,
-	<elena.reshetova@intel.com>, <darwi@linutronix.de>,
-	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>, <x86@kernel.org>
-Subject: [PATCH v5 03/16] x86/resctrl: Add PLZA configuration definitions and data structures
-Date: Wed, 26 Aug 2026 14:32:17 -0500
-Message-ID: <702b88901bc62f07829144a96cc887471b427da8.1787772750.git.babu.moger@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1787772750.git.babu.moger@amd.com>
-References: <cover.1787772750.git.babu.moger@amd.com>
+	bh=dwJ0Km8xFyUmUJZL1t4W2V0vZXyzbB64Kq7a31wFHx0=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=iInUOqLp773cBUkSb8U31tK8agQlrkXaFxm17zZLh09MvvfWPyudNxneS4YSWg7xlPdq15jxg0jexXoWviuOst/S5npcpPnnGd3/pc6mADc5SbVCLLYspfQPSDSnOiwEz9IpyV3s6zPSwdMgsQEGPBb1UERQR1gt/wg3t1oZqu8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b28d7ffab1so472382b6e.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 12:33:36 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787772812; x=1788377612;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=EpN6HCY3VuL0wQB5DTOsumBmLAJvh/dVzyOQe0oWPQg=;
+        b=Fi8SbyXyRatmgaehc8Sg6q4K2qtmXszsdYl+o8v6O0nRMKOBLcbARUzGbZ9FC8xBoB
+         RAj1Nsm2RW6c6JvX0zPYqAMlRqpX+C2+qo04v+alH0onn6Y9UDxLOohtxfzKhqWR+EPI
+         3IcMrWo27n7yKhP3Ji25yjrPArfwyGHpMon96QjNAuzYL/HaVkN4oTsbf5qeW/qjvzFc
+         mUvdAFO7gVm9ALI31O61CKSGzGQVtDQzBx8um6OjnY/HEiAXm9AM5mhWIiSQSK3J/CZY
+         P0cFd00NySQgtUYXcsXnXkv5qqe76lQxS+NE3CcvZQwujSxKxGE1Jof0xjoSpW0a4TsD
+         5lRw==
+X-Forwarded-Encrypted: i=1; AHgh+RozElyA07v8/xE92EARPzlQIAlNle4p82KNxnQWZSxKdvGct3Pf5ZT0syecNVgZOeW+7RzwT2KFES3b6xE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lg0UQa1btNWaQHhqetqC0qjs0qTZO7TPHL1lORfEWIfJ69kBTY
+	cU8K70hIoMGgJXSkya9g4g2RrvHRMi51PreLezf97JaeYv7BO+H8/ySfYAfQQXlQPG6US7FgOe4
+	Dis/0l4sWiGjxZx10aP5Jh0H8qcd2ohX0MBI4SH5Zk/ivS2gG+HOZ8H3Ds/k=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000C6187:EE_|MN2PR12MB4343:EE_
-X-MS-Office365-Filtering-Correlation-Id: 118b442f-9425-44a5-446b-08df03a8dffc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|7416014|36860700016|23010399003|1800799024|13003099007|6133799003|10067099003|11063799006|18002099003|22082099003|56012099006|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	PLlHu6JPQ2LIo3d7nxkxLG1rkeiagoslkzdzOa/T8JSBBZj0F20UOTaz9Smu8Vn6YXGKG9ZHVJa9KnI5T09wD77amRdRckv1f2it6HnnOua3JvyOUiEF3Ed/Gan683shRwLKwCyiwDRj1+WUJL+AsDmT4otTqxpaHBRGU3/m3ufoLllMAFbMOgEmhU2c2zcKC3doooopSpRZ1Qz9/tgVDpfj4QnFeYB4bY9RLjUFfVD/UK+JRRJ1cRrjRAV5f/fMmyb5WsOHaoqCu+X/ChPiHKyXZCgP+aR9rGt9EpLTGFjLQpfOsUETdkecV/lXXZlhs5PzVQ8+ORavFpvA0M2FGZTIxnf6vsdo+9ApwFAiWOsxnePM2/bRZZLRJG5ecUT8shKy0mu6C0MXBDRrpXLFMd97cVhVXPNG8LRdNrNxZHnOl9pANzl5rD4XgM0rommQoLwiwyhiZnACK5EunCRtvDF1coZ5uZ4RHQakAOSrlamXzWeSAn8WYizEMuwUTp6/00BRBMmQqdWqIRiMLa5Ri6OWVPmPHHcn+PiI9yVOqWAU9wsHbFFM/LsAdWnKp+I9F5uBpVczfXxW+eF8dK1z5NYWdNO49IyxK1ujkyPSKLx0gJO7EiOXDsFRlgUPafeIUpfEYqhkuAf/myF+tBBxvg==
-X-Forefront-Antispam-Report:
-	CIP:149.199.90.133;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:unknown-90-133.xilinx.com;CAT:NONE;SFS:(13230040)(82310400026)(376014)(7416014)(36860700016)(23010399003)(1800799024)(13003099007)(6133799003)(10067099003)(11063799006)(18002099003)(22082099003)(56012099006)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	RWxpd/62JAq3dgvWNEnLlM7ZjSHc1ZABjJegIZguhs50z7ORsdyUIVIihUNP6kY2wT5o0cCy4Gwgcr/uZ0xCZAgsSxtHpenAnSxTatdEkubdnk9MdPnKm6/7G0XvkRMDd0vroDN5plD5wUJQegxGp7XWvEylvLzIxeMSsarnlnHggsfTD/X/XyE3+i5hFiirtilRWxiQ8gy6EHzcQf85wNeEp8dpN7uxHnKvTz12vt1nKQMg7Dcq90A50q722i1YfvME3mZREQa8hy0N5X+cYoJpUhoUQFSvpl1G/IyYy/3iSmbATqN5D6+hEW0Yy3Id8rEFL1sjwwYJvzRZ78+0Vp97txu5JqzxuqNJBPH1hV0NXq0CQIAnsvCNNVxzNm7LiZeceliX7a3nkA2pysCMfGgZmSdgbZI/zauObWG8kwnJsC92N4mIvARRDsXm6MF3
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 19:33:15.6080
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 118b442f-9425-44a5-446b-08df03a8dffc
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[149.199.90.133];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000C6187.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4343
+X-Received: by 2002:a05:6808:c173:b0:492:c9a4:2104 with SMTP id
+ 5614622812f47-4b37c999474mr1509133b6e.10.1787772811771; Wed, 26 Aug 2026
+ 12:33:31 -0700 (PDT)
+Date: Wed, 26 Aug 2026 12:33:31 -0700
+In-Reply-To: <69b99065.050a0220.248e02.0130.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a8f3f8b.50659fcc.60cd.0005.GAE@google.com>
+Subject: Re: [syzbot] [kernfs?] possible deadlock in kernfs_link_sibling (2)
+From: syzbot <syzbot+dd764a450d93885d847f@syzkaller.appspotmail.com>
+To: bugs@syzkaller.appspotmail.com, davidkrehwinkel@gmail.com, 
+	discussions@syzkaller.appspotmail.com, driver-core@lists.linux.dev, 
+	gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org, 
+	lore@syzkaller.appspotmail.com, mail@syzkaller.appspotmail.com, 
+	syzkaller-bugs@googlegroups.com, tj@kernel.org, 
+	vrp-test@vrp-mailer.hetzner-cloud.de
+Content-Type: text/plain; charset="UTF-8"
 
-Privilege Level Zero Association (PLZA) enables the kernel to switch to
-different CLOSID and/or RMID than those used in user mode when entering
-kernel mode. CLOSID and RMID selection are independent and can be
-configured separately.
+syzbot has found a reproducer for the following issue on:
 
-PLZA associations are programmed on a per-CPU basis through
-MSR_IA32_PQR_PLZA_ASSOC (0xc00003fc), which contains the kernel RMID and
-CLOSID values along with their corresponding enable bits.
+HEAD commit:    818bebeb63dd drm/xe: Don't hand out the flat CCS storage a..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=10059625580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
+dashboard link: https://syzkaller.appspot.com/bug?extid=dd764a450d93885d847f
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13de8d49580000
 
-Add the MSR definition and the msr_pqr_plza_assoc union to describe the
-register bitfield layout required for PLZA configuration and subsequent
-programming support.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+dd764a450d93885d847f@syzkaller.appspotmail.com
 
-Signed-off-by: Babu Moger <babu.moger@amd.com>
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Not tainted
+------------------------------------------------------
+kworker/3:0/34 is trying to acquire lock:
+ffff88801d6a5a10 (&root->kernfs_iattr_rwsem){++++}-{4:4}, at: kernfs_link_sibling+0x555/0x850 fs/kernfs/dir.c:411
+
+but task is already holding lock:
+ffff88801d6a5980 (&root->kernfs_rwsem){++++}-{4:4}, at: kernfs_add_one+0x38/0xaa0 fs/kernfs/dir.c:825
+
+which lock already depends on the new lock.
+
+
+the existing dependency chain (in reverse order) is:
+
+-> #9 (&root->kernfs_rwsem){++++}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5886 [inline]
+       lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5843
+       down_write+0x8b/0x1f0 kernel/locking/rwsem.c:1631
+       kernfs_add_one+0x38/0xaa0 fs/kernfs/dir.c:825
+       kernfs_create_dir_ns+0x157/0x2b0 fs/kernfs/dir.c:1130
+       internal_create_group+0x36f/0xfb0 fs/sysfs/group.c:176
+       cpuhp_invoke_callback+0x3b4/0x9a0 kernel/cpu.c:194
+       cpuhp_issue_call+0x1b8/0x970 kernel/cpu.c:2354
+       __cpuhp_setup_state_cpuslocked+0x431/0x880 kernel/cpu.c:2507
+       __cpuhp_setup_state+0xf7/0x2f0 kernel/cpu.c:2536
+       do_one_initcall+0x11c/0x6f0 init/main.c:1353
+       do_initcall_level init/main.c:1415 [inline]
+       do_initcalls init/main.c:1431 [inline]
+       do_basic_setup init/main.c:1451 [inline]
+       kernel_init_freeable+0x6ea/0x7b0 init/main.c:1666
+       kernel_init+0x21/0x1e0 init/main.c:1556
+       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #8 (cpuhp_state_mutex){+.+.}-{4:4}:
+
+-> #7 (cpu_hotplug_lock){++++}-{0:0}:
+       lock_acquire kernel/locking/lockdep.c:5886 [inline]
+       lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5843
+       percpu_down_read_internal include/linux/percpu-rwsem.h:53 [inline]
+       percpu_down_read include/linux/percpu-rwsem.h:77 [inline]
+       cpus_read_lock+0x42/0x170 kernel/cpu.c:490
+       static_key_slow_inc+0x12/0x30 kernel/jump_label.c:190
+       nbd_genl_reconnect_sock_cb+0x39f/0x990 drivers/block/nbd.c:1377
+       nbd_genl_foreach_sock+0x2ab/0x3e0 drivers/block/nbd.c:2152
+       nbd_genl_reconfigure+0x861/0xde0 drivers/block/nbd.c:2477
+       genl_family_rcv_msg_doit+0x214/0x300 net/netlink/genetlink.c:1114
+       genl_family_rcv_msg net/netlink/genetlink.c:1194 [inline]
+       genl_rcv_msg+0x560/0x800 net/netlink/genetlink.c:1209
+       netlink_rcv_skb+0x159/0x420 net/netlink/af_netlink.c:2556
+       genl_rcv+0x28/0x40 net/netlink/genetlink.c:1218
+       netlink_unicast_kernel net/netlink/af_netlink.c:1319 [inline]
+       netlink_unicast+0x585/0x850 net/netlink/af_netlink.c:1345
+       netlink_sendmsg+0x8b0/0xda0 net/netlink/af_netlink.c:1900
+       sock_sendmsg_nosec net/socket.c:800 [inline]
+       __sock_sendmsg net/socket.c:815 [inline]
+       __sys_sendto+0x48b/0x4e0 net/socket.c:2281
+       __do_sys_sendto net/socket.c:2288 [inline]
+       __se_sys_sendto net/socket.c:2284 [inline]
+       __x64_sys_sendto+0xe0/0x1c0 net/socket.c:2284
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #6 (&nsock->tx_lock){+.+.}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5886 [inline]
+       lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5843
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x1a4/0x1bc0 kernel/locking/mutex.c:821
+       nbd_handle_cmd drivers/block/nbd.c:1143 [inline]
+       nbd_queue_rq+0x42d/0xfa0 drivers/block/nbd.c:1207
+       blk_mq_dispatch_rq_list+0x428/0x1e60 block/blk-mq.c:2117
+       __blk_mq_do_dispatch_sched block/blk-mq-sched.c:168 [inline]
+       blk_mq_do_dispatch_sched block/blk-mq-sched.c:182 [inline]
+       __blk_mq_sched_dispatch_requests+0xcea/0x1620 block/blk-mq-sched.c:307
+       blk_mq_sched_dispatch_requests+0xd7/0x1c0 block/blk-mq-sched.c:329
+       blk_mq_run_work_fn+0x135/0x380 block/blk-mq.c:2531
+       process_one_work+0xac7/0x1b10 kernel/workqueue.c:3387
+       process_scheduled_works kernel/workqueue.c:3470 [inline]
+       worker_thread+0x5ef/0xe50 kernel/workqueue.c:3551
+       kthread+0x373/0x450 kernel/kthread.c:436
+       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #5 (&cmd->lock){+.+.}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5886 [inline]
+       lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5843
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x1a4/0x1bc0 kernel/locking/mutex.c:821
+       nbd_queue_rq+0xba/0xfa0 drivers/block/nbd.c:1199
+       blk_mq_dispatch_rq_list+0x428/0x1e60 block/blk-mq.c:2117
+       __blk_mq_do_dispatch_sched block/blk-mq-sched.c:168 [inline]
+       blk_mq_do_dispatch_sched block/blk-mq-sched.c:182 [inline]
+       __blk_mq_sched_dispatch_requests+0xcea/0x1620 block/blk-mq-sched.c:307
+       blk_mq_sched_dispatch_requests+0xd7/0x1c0 block/blk-mq-sched.c:329
+       blk_mq_run_work_fn+0x135/0x380 block/blk-mq.c:2531
+       process_one_work+0xac7/0x1b10 kernel/workqueue.c:3387
+       process_scheduled_works kernel/workqueue.c:3470 [inline]
+       worker_thread+0x5ef/0xe50 kernel/workqueue.c:3551
+       kthread+0x373/0x450 kernel/kthread.c:436
+       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #4 (set->srcu){.+.+}-{0:0}:
+       lock_sync kernel/locking/lockdep.c:5934 [inline]
+       lock_sync+0x9d/0x110 kernel/locking/lockdep.c:5922
+       srcu_lock_sync include/linux/srcu.h:199 [inline]
+       __synchronize_srcu+0xa2/0x300 kernel/rcu/srcutree.c:1481
+       blk_mq_wait_quiesce_done block/blk-mq.c:284 [inline]
+       blk_mq_wait_quiesce_done block/blk-mq.c:281 [inline]
+       blk_mq_quiesce_queue block/blk-mq.c:304 [inline]
+       blk_mq_quiesce_queue+0x149/0x1c0 block/blk-mq.c:299
+       elevator_switch+0x17b/0x7e0 block/elevator.c:576
+       elevator_change+0x352/0x530 block/elevator.c:681
+       elevator_set_default+0x29e/0x360 block/elevator.c:754
+       blk_register_queue+0x48e/0x630 block/blk-sysfs.c:992
+       __add_disk+0x73f/0xe40 block/genhd.c:524
+       add_disk_fwnode+0x118/0x480 block/genhd.c:593
+       add_disk include/linux/blkdev.h:798 [inline]
+       nbd_dev_add+0x779/0xb10 drivers/block/nbd.c:2026
+       nbd_init+0x2c5/0x2e0 drivers/block/nbd.c:2743
+       do_one_initcall+0x11c/0x6f0 init/main.c:1353
+       do_initcall_level init/main.c:1415 [inline]
+       do_initcalls init/main.c:1431 [inline]
+       do_basic_setup init/main.c:1451 [inline]
+       kernel_init_freeable+0x6ea/0x7b0 init/main.c:1666
+       kernel_init+0x21/0x1e0 init/main.c:1556
+       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #3 (&q->elevator_lock){+.+.}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5886 [inline]
+       lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5843
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x1a4/0x1bc0 kernel/locking/mutex.c:821
+       elevator_change+0x1bc/0x530 block/elevator.c:679
+       elevator_set_none+0x92/0xf0 block/elevator.c:769
+       blk_mq_elv_switch_none block/blk-mq.c:5102 [inline]
+       __blk_mq_update_nr_hw_queues block/blk-mq.c:5147 [inline]
+       blk_mq_update_nr_hw_queues+0x4c1/0x15f0 block/blk-mq.c:5212
+       nbd_start_device+0x1a6/0xbd0 drivers/block/nbd.c:1530
+       nbd_genl_connect+0xfc2/0x1760 drivers/block/nbd.c:2310
+       genl_family_rcv_msg_doit+0x214/0x300 net/netlink/genetlink.c:1114
+       genl_family_rcv_msg net/netlink/genetlink.c:1194 [inline]
+       genl_rcv_msg+0x560/0x800 net/netlink/genetlink.c:1209
+       netlink_rcv_skb+0x159/0x420 net/netlink/af_netlink.c:2556
+       genl_rcv+0x28/0x40 net/netlink/genetlink.c:1218
+       netlink_unicast_kernel net/netlink/af_netlink.c:1319 [inline]
+       netlink_unicast+0x585/0x850 net/netlink/af_netlink.c:1345
+       netlink_sendmsg+0x8b0/0xda0 net/netlink/af_netlink.c:1900
+       sock_sendmsg_nosec net/socket.c:800 [inline]
+       __sock_sendmsg net/socket.c:815 [inline]
+       __sys_sendto+0x48b/0x4e0 net/socket.c:2281
+       __do_sys_sendto net/socket.c:2288 [inline]
+       __se_sys_sendto net/socket.c:2284 [inline]
+       __x64_sys_sendto+0xe0/0x1c0 net/socket.c:2284
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #2 (&q->q_usage_counter(io)#49){++++}-{0:0}:
+       lock_acquire kernel/locking/lockdep.c:5886 [inline]
+       lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5843
+       blk_alloc_queue+0x610/0x790 block/blk-core.c:504
+       blk_mq_alloc_queue+0x174/0x290 block/blk-mq.c:4420
+       __blk_mq_alloc_disk+0x29/0x120 block/blk-mq.c:4467
+       nbd_dev_add+0x491/0xb10 drivers/block/nbd.c:1996
+       nbd_init+0x2c5/0x2e0 drivers/block/nbd.c:2743
+       do_one_initcall+0x11c/0x6f0 init/main.c:1353
+       do_initcall_level init/main.c:1415 [inline]
+       do_initcalls init/main.c:1431 [inline]
+       do_basic_setup init/main.c:1451 [inline]
+       kernel_init_freeable+0x6ea/0x7b0 init/main.c:1666
+       kernel_init+0x21/0x1e0 init/main.c:1556
+       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #1 (fs_reclaim){+.+.}-{0:0}:
+       lock_acquire kernel/locking/lockdep.c:5886 [inline]
+       lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5843
+       __fs_reclaim_acquire mm/page_alloc.c:4375 [inline]
+       fs_reclaim_acquire+0xc4/0x100 mm/page_alloc.c:4389
+       might_alloc include/linux/sched/mm.h:314 [inline]
+       slab_pre_alloc_hook mm/slub.c:4539 [inline]
+       slab_alloc_node mm/slub.c:4899 [inline]
+       kmem_cache_alloc_noprof+0x63/0x6a0 mm/slub.c:4933
+       __kernfs_iattrs+0x126/0x450 fs/kernfs/inode.c:36
+       kernfs_iattrs fs/kernfs/inode.c:60 [inline]
+       __kernfs_setattr+0x4d/0x3c0 fs/kernfs/inode.c:73
+       kernfs_iop_setattr+0xda/0x130 fs/kernfs/inode.c:127
+       notify_change+0xb25/0x1330 fs/attr.c:556
+       do_truncate+0x1df/0x240 fs/open.c:68
+       handle_truncate fs/namei.c:4300 [inline]
+       do_open fs/namei.c:4841 [inline]
+       path_openat+0x1e6d/0x2440 fs/namei.c:5000
+       do_file_open+0x20e/0x430 fs/namei.c:5029
+       do_sys_openat2+0x10f/0x1e0 fs/open.c:1417
+       do_sys_open fs/open.c:1423 [inline]
+       __do_sys_openat fs/open.c:1439 [inline]
+       __se_sys_openat fs/open.c:1434 [inline]
+       __x64_sys_openat+0x12d/0x210 fs/open.c:1434
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #0 (&root->kernfs_iattr_rwsem){++++}-{4:4}:
+       check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3181
+       check_prevs_add kernel/locking/lockdep.c:3300 [inline]
+       validate_chain kernel/locking/lockdep.c:3924 [inline]
+       __lock_acquire+0x1492/0x1ec0 kernel/locking/lockdep.c:5253
+       lock_acquire kernel/locking/lockdep.c:5886 [inline]
+       lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5843
+       down_write+0x8b/0x1f0 kernel/locking/rwsem.c:1631
+       kernfs_link_sibling+0x555/0x850 fs/kernfs/dir.c:411
+       kernfs_add_one+0x1e7/0xaa0 fs/kernfs/dir.c:844
+       kernfs_create_dir_ns+0x157/0x2b0 fs/kernfs/dir.c:1130
+       sysfs_create_dir_ns+0x13a/0x2b0 fs/sysfs/dir.c:59
+       create_dir lib/kobject.c:73 [inline]
+       kobject_add_internal+0x2c8/0x930 lib/kobject.c:240
+       kobject_add_varg lib/kobject.c:374 [inline]
+       kobject_add+0x16a/0x1e0 lib/kobject.c:426
+       device_add+0x294/0x1970 drivers/base/core.c:3699
+       hid_add_device+0x2bf/0x440 drivers/hid/hid-core.c:3065
+       uhid_device_add_worker+0x3a/0x70 drivers/hid/uhid.c:73
+       process_one_work+0xac7/0x1b10 kernel/workqueue.c:3387
+       process_scheduled_works kernel/workqueue.c:3470 [inline]
+       worker_thread+0x5ef/0xe50 kernel/workqueue.c:3551
+       kthread+0x373/0x450 kernel/kthread.c:436
+       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+other info that might help us debug this:
+
+Chain exists of:
+  &root->kernfs_iattr_rwsem --> cpuhp_state_mutex --> &root->kernfs_rwsem
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  lock(&root->kernfs_rwsem);
+                               lock(cpuhp_state_mutex);
+                               lock(&root->kernfs_rwsem);
+  lock(&root->kernfs_iattr_rwsem);
+
+ *** DEADLOCK ***
+
+locks held by kworker/3:0/34: 3, last CPU#3:
+ #0: ffff88801c0aa940 ((wq_completion)events){+.+.}-{0:0}, at: process_one_work+0x1466/0x1b10 kernel/workqueue.c:3362
+ #1: ffffc900006dfd08 ((work_completion)(&uhid->worker)){+.+.}-{0:0}, at: process_one_work+0xa2c/0x1b10 kernel/workqueue.c:3363
+ #2: ffff88801d6a5980 (&root->kernfs_rwsem){++++}-{4:4}, at: kernfs_add_one+0x38/0xaa0 fs/kernfs/dir.c:825
+
+stack backtrace:
+CPU: 3 UID: 0 PID: 34 Comm: kworker/3:0 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Workqueue: events uhid_device_add_worker
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_circular_bug.cold+0x178/0x1be kernel/locking/lockdep.c:2059
+ check_noncircular+0x146/0x160 kernel/locking/lockdep.c:2191
+ check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3181
+ check_prevs_add kernel/locking/lockdep.c:3300 [inline]
+ validate_chain kernel/locking/lockdep.c:3924 [inline]
+ __lock_acquire+0x1492/0x1ec0 kernel/locking/lockdep.c:5253
+ lock_acquire kernel/locking/lockdep.c:5886 [inline]
+ lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5843
+ down_write+0x8b/0x1f0 kernel/locking/rwsem.c:1631
+ kernfs_link_sibling+0x555/0x850 fs/kernfs/dir.c:411
+ kernfs_add_one+0x1e7/0xaa0 fs/kernfs/dir.c:844
+ kernfs_create_dir_ns+0x157/0x2b0 fs/kernfs/dir.c:1130
+ sysfs_create_dir_ns+0x13a/0x2b0 fs/sysfs/dir.c:59
+ create_dir lib/kobject.c:73 [inline]
+ kobject_add_internal+0x2c8/0x930 lib/kobject.c:240
+ kobject_add_varg lib/kobject.c:374 [inline]
+ kobject_add+0x16a/0x1e0 lib/kobject.c:426
+ device_add+0x294/0x1970 drivers/base/core.c:3699
+ hid_add_device+0x2bf/0x440 drivers/hid/hid-core.c:3065
+ uhid_device_add_worker+0x3a/0x70 drivers/hid/uhid.c:73
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3387
+ process_scheduled_works kernel/workqueue.c:3470 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3551
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+input: shield Haptics as /devices/virtual/input/input5
+shield 0003:0955:7214.0002: Registered Thunderstrike controller
+shield 0003:0955:7214.0002: : USB HID v0.00 Gamepad [shield] on 
+
+
 ---
-v5: Sashiko reported:
-    https://sashiko.dev/#/patchset/cover.1783461016.git.babu.moger%40amd.com?part=3
-    Fix the union truncate issue on 32 bit systems by using u64.
-    Updated the changelog and code comments.
-
-v4: Re-wrote the changelog and code comment.
-
-v3: No code changes. Patch order changed. Improved changelog.
-
-v2: No changes. Just rebasing on top of the latest tip branch.
----
- arch/x86/include/asm/msr-index.h       |  1 +
- arch/x86/kernel/cpu/resctrl/internal.h | 47 ++++++++++++++++++++++++++
- 2 files changed, 48 insertions(+)
-
-diff --git a/arch/x86/include/asm/msr-index.h b/arch/x86/include/asm/msr-index.h
-index 3a8e51a0c9e8..849e8587631c 100644
---- a/arch/x86/include/asm/msr-index.h
-+++ b/arch/x86/include/asm/msr-index.h
-@@ -1294,6 +1294,7 @@
- /* - AMD: */
- #define MSR_IA32_MBA_BW_BASE		0xc0000200
- #define MSR_IA32_SMBA_BW_BASE		0xc0000280
-+#define MSR_IA32_PQR_PLZA_ASSOC		0xc00003fc
- #define MSR_IA32_L3_QOS_ABMC_CFG	0xc00003fd
- #define MSR_IA32_L3_QOS_EXT_CFG		0xc00003ff
- #define MSR_IA32_EVT_CFG_BASE		0xc0000400
-diff --git a/arch/x86/kernel/cpu/resctrl/internal.h b/arch/x86/kernel/cpu/resctrl/internal.h
-index e3cfa0c10e92..2f4c60487a5d 100644
---- a/arch/x86/kernel/cpu/resctrl/internal.h
-+++ b/arch/x86/kernel/cpu/resctrl/internal.h
-@@ -222,6 +222,53 @@ union l3_qos_abmc_cfg {
- 	unsigned long full;
- };
- 
-+/*
-+ * Privilege Level Zero Association (PLZA) is configured via
-+ * MSR_IA32_PQR_PLZA_ASSOC. This MSR must be programmed on every CPU in
-+ * a QoS domain. Each domain supports a single PLZA CLOSID and/or RMID
-+ * association, and all fields except PLZA_EN must be programmed
-+ * identically across the domain to ensure consistent behavior.
-+ *
-+ * RMID and CLOSID selection are controlled independently. When PLZA is
-+ * enabled (plza_en = 1), CPL0 uses CLOSID and RMID values from
-+ * MSR_IA32_PQR_PLZA_ASSOC depending on the corresponding enable bits.
-+ * When PLZA is disabled (plza_en = 0), the CLOSID and RMID are always
-+ * taken from MSR_IA32_PQR_ASSOC regardless of privilege level.
-+ *
-+ *   - rmid_en = 1: use the RMID programmed in this MSR.
-+ *   - rmid_en = 0: use the RMID from MSR_IA32_PQR_ASSOC.
-+ *   - closid_en = 1: use the CLOSID programmed in this MSR.
-+ *   - closid_en = 0: use the CLOSID from MSR_IA32_PQR_ASSOC.
-+ *
-+ * This allows PLZA to override only RMID, only CLOSID, or both. If both
-+ * rmid_en and closid_en are clear, the effective behavior is the same as
-+ * when PLZA is disabled, with RMID and CLOSID derived from
-+ * MSR_IA32_PQR_ASSOC irrespective of privilege level.
-+ *
-+ * @rmid		: RMID programmed for PLZA.
-+ * @reserved1		: Reserved.
-+ * @rmid_en		: Enable RMID for PLZA.
-+ * @closid		: CLOSID programmed for PLZA.
-+ * @reserved2		: Reserved.
-+ * @closid_en		: Enable CLOSID for PLZA.
-+ * @reserved3		: Reserved.
-+ * @plza_en		: Enable PLZA. When enabled, PLZA applies to the
-+ *			  given CPU.
-+ */
-+union msr_pqr_plza_assoc {
-+	struct {
-+		u64	rmid		:12,
-+			reserved1	:19,
-+			rmid_en		: 1,
-+			closid		: 4,
-+			reserved2	:11,
-+			closid_en	: 1,
-+			reserved3	:15,
-+			plza_en		: 1;
-+	} split;
-+	u64	full;
-+};
-+
- void rdt_ctrl_update(void *arg);
- 
- int rdt_get_l3_mon_config(struct rdt_resource *r);
--- 
-2.43.0
-
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
