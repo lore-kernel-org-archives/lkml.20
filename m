@@ -1,173 +1,98 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F48A35C689
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 19:29:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93A344779BB
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 19:30:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787772579; cv=none; b=dErX0ennB73HdYb2m4YnYmr8X/8hXS1JGCMIdq8VxLVkgTg8Glhr1JL05ffxixZpjl8QnEbsOhbU9HewvWt53n0igmAjnIBA5wvcbRLxOgB+OdBZGj8fmwEjUlxbEFKQ1AjvTsOQO3TjFXlEEFSZ7ntOyf2TlOuuSByr9eaML38=
+	t=1787772608; cv=none; b=gHQNV9n60oh1NLG8hHhC/fFWrgm34ndZpI8Oeml3nylBfnFcBkb1NpWT3qAVWbnke/iu3T3EATmEeJ6mMYizGEEp+zHaRPduwoKtjLVv5QjvkU+44gDzKgxTPWaJf210MrogKP7Zp7f/YcuhrniaGtMXa5njFiQuh+WuhugndFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787772579; c=relaxed/simple;
-	bh=BwmH5+EufW2tmnUEqr7iR0pcI/z95V1nvz0GEgk8vqs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pQ1WwDQisOjBaWI26sADQFz0BknrsUJm5sN0rT0HL+KSgYvtrX7nU6kddGKwVnPRWGN7/Vogzcr65sbooeE3bTqdaaVu+pHWqWuywXV5U7z87QfK/rcDxRrfwkoH6lPNUViPJwT15MKbgY0XXGhjBk0dsIl3YzCLxEc+oyuDupI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=FupO/iAD; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1787772608; c=relaxed/simple;
+	bh=1dBSEPFbG3i1TEybvcJA+2NU0Tdz+t86sHKmRjb7naE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=MNBtPeYAfy9ymY19fYkUCKyW8FiKNHCBduwqkx9s98czg7x+BR1IFvUap0oz9LIf3PkbR70ItX+XaxK/ydd7h2++O+APWixYuB+PtZ8R/OidaOXk2GK7BBJhlxfVbgVa94sNO99mxXpxQ8R4IgvveRnImh1Ex0oP6j9P1idpo5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WTTUbWKn; arc=none smtp.client-ip=209.85.128.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="FupO/iAD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787772570;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YLyREznywaOE+N4zM+ApHYxB+VOgGN2n2yAufzkc88I=;
-	b=FupO/iADacZrZEOM81n7XJbC0mVYuNmdUQf3Z1HJffO/8H8x4euY7aqQncxd74BS7xIFO7
-	6JZRVbFKaHVMkQtdE/C4HWdMzYlWFyXY0RD7jV4QHm5Yck3NFTWIVfSqlvttY0ypObwllV
-	b9yM850WQUAXZUiwMzVyDlAfxJzqeCs=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-208-gqp4ytOHPVuP40scZezXxA-1; Wed,
- 26 Aug 2026 15:28:20 -0400
-X-MC-Unique: gqp4ytOHPVuP40scZezXxA-1
-X-Mimecast-MFC-AGG-ID: gqp4ytOHPVuP40scZezXxA_1787772498
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 68C081956080;
-	Wed, 26 Aug 2026 19:28:18 +0000 (UTC)
-Received: from [100.91.18.181] (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id DF5FE18005BC;
-	Wed, 26 Aug 2026 19:28:16 +0000 (UTC)
-Message-ID: <bf0490ef-157f-42a2-858c-0d8b33e75cf8@redhat.com>
-Date: Wed, 26 Aug 2026 15:28:16 -0400
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WTTUbWKn"
+Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-836ce5d6e85so21869327b3.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 12:30:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787772596; x=1788377396; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1dBSEPFbG3i1TEybvcJA+2NU0Tdz+t86sHKmRjb7naE=;
+        b=WTTUbWKnif8MeCy7Dynx6X3LRBG0tL6yD/6rwAcy7pFVPFigrl3PLLkBAGrAu/tHm3
+         hSGHZqOnzyVeaw6W/9AfnEld+BN5xTvImVor2a2/ehshmk+wrfBIz2fNKdray4wku4II
+         tsCp2r9pUqZSwINpeqQGG3BPn0Za7/lYD2PXB3e/wY25E/836yG0MFaLB6/iEkV3rDS1
+         Mo7IZNWlgDpOdhvXWo7GS9dfPlSOVeHxwPLpX347zMSZol1aTnDzZFx3XDxpRsezSCuN
+         kdtAVB6sbV6u0386Wr9k4oF8IPb1977gEvbyvKlCbTymZvBFamelC4eLtiRA8aOiF2fT
+         VcLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787772596; x=1788377396;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1dBSEPFbG3i1TEybvcJA+2NU0Tdz+t86sHKmRjb7naE=;
+        b=oo0LmudAW/BX6WcxAKUNJt+k10LIzOHq5mmz9OY/FhrWXkXPurRUIRSqKTuqoSS59g
+         YKPjv7bMmAVWza9FjgRpB6Z8f4hjrdxUcKhx9kq6eg1kNXv1XgtGI5YWeMzI20zOPL0a
+         tAATgA9jzN/XvstpyQKYQ3Bf2kcn8eYOKe9BSpfGHLTYAEhpcoeEDb8eg9w17mPjiRZ7
+         quG/hI4P7OZLt+ndFCb3e8Aj8uCKjW52fkBLPkIzTNo5ZawY7MEVaP2xOdTxu2dz3EFU
+         /qi37/KY7qdKEbw7Wn2Xxhkh538vBI3Y1PpiujTzptaFfv43/6tSmcda7WnLx+QK6whR
+         VlMA==
+X-Forwarded-Encrypted: i=1; AHgh+RroDbYhQWlTQ/GiMQHJ41wjWzAQQhGXBwpua4m0BDuknmu6FVa7O+ABZ1BTFM6mvJW43KGB8xrnYSx28J0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mwm4j9RwC4NKIZoH0D3NoKJqVNZ1IqxqLYhZqCuqBEF9lTIxYz
+	WCu4nvq4N9Bp+5UDTEJYZoV+Ya+SZErK6yR95V+OhoE/QP5BxOHouYAe
+X-Gm-Gg: AR+sD12XPXCbTeDtftF965LBFY30N1u1V0txwsyTD+fh3CO6NIgA7A1K6mxsPTl94sf
+	pBytJ4SMzMACVPhF1IsCxygAendwreWxgcgsqIx/keyirWgVmfhJP0glj2WBLAcVSMEmHTCV1uI
+	zbkfkLEFRsqVUDnXbw0BYcmdkVh5HCmGvXW6EEDmXzptrRsnpt6DcU1Qg6p0HKbQFFxlzJX72t8
+	dnNIgd11qhlEJxlkXk/YkLykW+XQnddD3kQnZ2WIqdIwZJjUCWOTfDvm0iEar/0j7hzMn/WiIMz
+	StWjQTVjXK5Y36sNZBPm4PhVbBtwFthZ0lwrR4fNO63Xwf++amA+tAx8IQFG/X/Y9mDNUk0IUrL
+	lB6u0KMbJtfA2KgFfBTkYmHgiot/dN322PHo8NOoC2nvXkgnhle+tor1+0VEBiYuhUxszrO6zQ2
+	0fE4NHLNhOvhgmzgxI2Epfey5o7q7jwB4SGkp3wGA/wy5ywuHNMg0p4krSxuMbvo8rMZs=
+X-Received: by 2002:a05:690c:a5cd:b0:81e:d792:a019 with SMTP id 00721157ae682-8573b451362mr39369637b3.6.1787772596387;
+        Wed, 26 Aug 2026 12:29:56 -0700 (PDT)
+Received: from mac.lan ([136.55.173.105])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-85a7d6cbf12sm4423317b3.30.2026.08.26.12.29.55
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 26 Aug 2026 12:29:55 -0700 (PDT)
+From: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>
+To: steffen.klassert@secunet.com
+Cc: AutonomousCodeSecurity@microsoft.com,
+	blbllhy@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	herbert@gondor.apana.org.au,
+	horms@kernel.org,
+	kuba@kernel.org,
+	kys@microsoft.com,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	tgopinath@linux.microsoft.com,
+	xmei5@asu.edu
+Subject: Re: [PATCH net] xfrm: hold net_device reference under RCU in bundle creation
+Date: Wed, 26 Aug 2026 15:29:48 -0400
+Message-ID: <20260826192949.32706-1-blbllhy@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <aov1hEK0BjxGe4xg@secunet.com>
+References: <aov1hEK0BjxGe4xg@secunet.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Drivers: hv: Avoid infinite retry loop in init_vp_index()
-To: "K. Y. Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
- Saurabh Sengar <ssengar@linux.microsoft.com>,
- Michael Kelley <mikelley@microsoft.com>
-Cc: linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260826173710.511604-1-longman@redhat.com>
-Content-Language: en-US
-From: Waiman Long <longman@redhat.com>
-In-Reply-To: <20260826173710.511604-1-longman@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Content-Transfer-Encoding: 8bit
 
-
-On 8/26/26 1:37 PM, Waiman Long wrote:
-> There is a retry loop in init_vp_index() where the CPUs from a certain
-> node are stripped out if they have already been in the allocated cpumask
-> or not in HK_TYPE_MANAGED_IRQ housekeeping cpumask. If there is no
-> CPU left, the allocated cpumask is ignored and the process is retried
-> again. However, if the HK_TYPE_MANAGED_IRQ housekeeping cpumask turns
-> out not to contain any CPU in that particular node, that will become an
-> infinite retry loop.  This particular problem was reported by sashiko
-> [1]. This should rarely happen, but we still need to guard against this.
+On Mon, Aug 24, 2026 at 09:40:52AM +0200, Steffen Klassert wrote:
+> Can't we move the rcu_read_unlock() to the end of the function and
+> avoid the additional refcount?
 >
-> Fix this infinite loop problem by ignoring the HK_TYPE_MANAGED_IRQ
-> housekeeping cpumask if the allocated cpumask has already been
-> cleared before. Since the HK_TYPE_MANAGED_IRQ housekeeping cpumask
-> is supposed to be used on a best effort basis, it is OK to ignore it
-> in this particular case. Also add a check_hkcpu boolean flag in struct
-> vmbus_channel to control the HK_TYPE_MANAGED_IRQ housekeeping CPU check
-> in target_cpu_store() and init_vp_index().
->
-> Link: https://sashiko.dev/#/message/20260422030903.E1BFCC2BCB0%40smtp.kernel.org [1]
-> Fixes: 6640b5df1a38 ("Drivers: hv: vmbus: Don't assign VMbus channel interrupts to isolated CPUs")
-> Signed-off-by: Waiman Long <longman@redhat.com>
+> Same here.
 
-Please ignore this patch. I have sent out a v2 after reviewing feedback 
-from sashiko.
+Thanks for pointing out, will resend as v2 soon.
 
-Cheers,
-Longman
-
-> ---
->   drivers/hv/channel_mgmt.c | 14 +++++++++++---
->   drivers/hv/vmbus_drv.c    |  3 ++-
->   include/linux/hyperv.h    |  7 +++++++
->   3 files changed, 20 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/hv/channel_mgmt.c b/drivers/hv/channel_mgmt.c
-> index 89d214dda360..30d91668e1c5 100644
-> --- a/drivers/hv/channel_mgmt.c
-> +++ b/drivers/hv/channel_mgmt.c
-> @@ -774,6 +774,7 @@ static void init_vp_index(struct vmbus_channel *channel)
->   	}
->   
->   	for (i = 1; i <= ncpu + 1; i++) {
-> +		channel->check_hkcpu = true;
->   		while (true) {
->   			numa_node = next_numa_node_id++;
->   			if (numa_node == nr_node_ids) {
-> @@ -788,14 +789,21 @@ static void init_vp_index(struct vmbus_channel *channel)
->   
->   retry:
->   		cpumask_xor(available_mask, allocated_mask, cpumask_of_node(numa_node));
-> -		cpumask_and(available_mask, available_mask, hk_mask);
-> +		if (channel->check_hkcpu)
-> +			cpumask_and(available_mask, available_mask, hk_mask);
->   
->   		if (cpumask_empty(available_mask)) {
->   			/*
->   			 * We have cycled through all the CPUs in the node;
-> -			 * reset the allocated map.
-> +			 * reset the allocated map. If the allocated map has
-> +			 * already been cleared, we will have to ignore the
-> +			 * HK_TYPE_MANAGED_IRQ housekeeping cpumask as its use
-> +			 * is on a best effort basis, not a must.
->   			 */
-> -			cpumask_clear(allocated_mask);
-> +			if (!cpumask_empty(allocated_mask))
-> +				cpumask_clear(allocated_mask);
-> +			else
-> +				channel->check_hkcpu = false;
->   			goto retry;
->   		}
->   
-> diff --git a/drivers/hv/vmbus_drv.c b/drivers/hv/vmbus_drv.c
-> index 6824bd7cb3c4..bea578cd0aa7 100644
-> --- a/drivers/hv/vmbus_drv.c
-> +++ b/drivers/hv/vmbus_drv.c
-> @@ -1751,7 +1751,8 @@ int vmbus_channel_set_cpu(struct vmbus_channel *channel, u32 target_cpu)
->   	if (target_cpu >= nr_cpumask_bits)
->   		return -EINVAL;
->   
-> -	if (!cpumask_test_cpu(target_cpu, housekeeping_cpumask(HK_TYPE_MANAGED_IRQ)))
-> +	if (channel->check_hkcpu &&
-> +	    !cpumask_test_cpu(target_cpu, housekeeping_cpumask(HK_TYPE_MANAGED_IRQ)))
->   		return -EINVAL;
->   
->   	if (!cpu_online(target_cpu))
-> diff --git a/include/linux/hyperv.h b/include/linux/hyperv.h
-> index a2b484679eb4..0d8df79c26ca 100644
-> --- a/include/linux/hyperv.h
-> +++ b/include/linux/hyperv.h
-> @@ -831,6 +831,13 @@ struct vmbus_channel {
->   	 */
->   	bool out_full_flag;
->   
-> +	/*
-> +	 * Check target_cpu in target_cpu_store() to make sure that it is in the
-> +	 * HK_TYPE_MANAGED_IRQ housekeeping cpumask and reject it if not when
-> +	 * the flag is set.
-> +	 */
-> +	bool check_hkcpu;
-> +
->   	/* Channel callback's invoked in softirq context */
->   	struct tasklet_struct callback_event;
->   	void (*onchannel_callback)(void *context);
-
+Cen
