@@ -1,59 +1,59 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011042.outbound.protection.outlook.com [52.101.57.42])
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013053.outbound.protection.outlook.com [40.107.201.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 007A747B40D;
-	Wed, 26 Aug 2026 19:35:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3E1147ACC4;
+	Wed, 26 Aug 2026 19:35:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.53
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787772925; cv=fail; b=S/e6+yR89U5jUA8XThRA1u1ocGV+EM+OyUQOT/R5pQIdilYSD+NbQlEz3RRXat8we6iIrSKmBoGRPsKNReDwP8ndzDdGZYLaDRJef96FJ+XJPjbWfBcHWH+hlg7fbawG56NYnmP8FM89CGNzC4im46E4LPM8mdlDyjPxlHa3MT0=
+	t=1787772933; cv=fail; b=cO7lvyE3gL2e4JYj3cxWOnwZvJDtrUzuEt34oSbm+9kqME42ZDh8QYIiNw/VJS12i9nzZuE5tiKiVH4i3FFty3hn6Jr5BHC4LvDn/ZvltZJ+w5vlF6D3VKz8hH0kUWV3nY4oRveeTg33j9XA3CFNW/qyM2ofdrL8wvTIDpUlNI4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787772925; c=relaxed/simple;
-	bh=zJN0Fh5QzWlebD7SU4LMHsTIMrbt5tO2l6y4fZakqG8=;
+	s=arc-20240116; t=1787772933; c=relaxed/simple;
+	bh=27PJOFNynHZu84NHZHhlCqxHWnHmXgHVMCBuBWzk55w=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mMKtczOnylcJnjJTSyHNOQMVRf1zGkoBPMRNeO+gz60eSigN3OdFpj1jRl/pb3C2cUqRLpG58zAbFAHRuRUw2irvT4kW5WOy5rpvwFFVwc+NP/GiIT4AFXXxyggSpZoIr40cGY+wsVgTG4MKaDairhZuB+Cg3UI4o7cp3Xb+HUQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=yB/sGSI5; arc=fail smtp.client-ip=52.101.57.42
+	 MIME-Version:Content-Type; b=JohQsqvf/i+DIXnjEQiX62FDzASL3CsC1Xsn2Kvn8NFm+J/AveFqNVMo0VvUs+0LgyiHA3raELKSipCMF4rcp4OP3KviGFSkjbtuY2OkegWta3QdeFJg8d9VN1z2o91dea/ArC8R+739hekDnPbMD8ac4JeTYkEy4YO0X2OpMXk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=0JsI85Rl; arc=fail smtp.client-ip=40.107.201.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="yB/sGSI5"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="0JsI85Rl"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xazFkTNERdNjecMnEsWGcQBDe30Y16VT0Z8x+wspY336OZk2mIwVJXuulMz+7NgRESyHhYdoSJyNS/2AiyOV8yR2kcVhKKZ063rQ01vz5VqEQQ4iOuaziBDRk0/4pApLuYGqAdf+8DkFaFLd1Sw0WHhsQn19omHHfmZqnRXEuGFrNeiVZnMreFWLUWnW4vndJGvB9PTbULuzXo9ffPJR9+JPOMJx0risTHJjh7PsyzrWFe71iIGuwUJLnBJhedzVu2oyJyk//FpAYo0nyBwVnvL+01xnKLm4tzAwp8hUQ+qx5ZM8GFlBzGQEtW2rACpPdrmOUJSuGcT4G7FRBgjprA==
+ b=Zo5/0qu0aiuFXqk1E2n3YeX57HGjL6jKWqtsPpo2JmuPvvWBVJ96u0f7h2+JqD2+N/SjHORFXdr0DtA7mD2Fjjsh56zxMuRJzhHxabKOzziU5XH4eJ+Oe0CBgo1YxQ76wHOoon/sVsfcoENezzAWA2mucTP/GOlq+dsBLm8KeE4d4Ju4Tho6CT3M6K1XvGmVOJCm8EfabCMFr/3dlEH+xyVehIQ2qOYGMRiAJIZeZraMPgEsjeMwEo3OdhW/9OX7UPFGzJIriP/bDxzSX/8E3IhPfA6q6kBz9G5nVxgZN4WTIm6W+KWHcSM/JJB8kcCK3hIE5j3fryelF2ruATsEUA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MgVq9c5JS1QlNqA1yzXJrn1ljX1LWKrbWw5JgBSKqYc=;
- b=Qt5CDFSVkmRYe5aLoBhb74YkpfINJnlUpaRXKDkyG53o3W4+Ot0ZTKXY8Y+GDkEbXbAa2p+0nqAqsIrzqUMnBkyKvRcCTg1WtAGQfS+8JiPtF6QPkvQgzybr4u/ghuPhU7tzbXwLVdxdzqLupV+jHez9QAsn4Qy6f11h7AOIkYNVLItznLtJlNU8a/NyxIVpNSbgQOa2dA1wSaItZVTg5PHetHK+PxAT5Bgpv8OW1nqcO13wkAGpyPMJofdKu9wgZXtmtCcqTQAZX1iTMnA9QM8Ki9tVd1ajYt2+HFnv8mCJWz2T3Danfke0oR7hBUg6ymGWQHIMtL2QmZ6KnVKXLw==
+ bh=qnL9MHZfY7YLdjBz/MevVIWGRNTF0JXFoY8Cfm09Rtw=;
+ b=oRtHOuGMQ5g+wEbIFLNrXiOhhugEDPpha91Tb7IgDTiQk3ZyeFDOIPalwvJlEKuhfO6o0aaNtzfoRVn/WqWL2qiONXTd4PeJRSSNsGeAmhdEJPduS8vys/HW0vrLTNeww1utAGwR9di1m7IpKo705I6szBM5mi+Xoa+RZwhPPN/xvglFYFlxC8vhBHIM86vlkvl5bh1wgymoQ+kG5N2dYo+av/QEw42qCz4sFsZlu690W8nb6qe0rnvzHuyi7sU9qnoQ/V8RO7G0O4cLE+p/UeqdvAWCED7d1AtzV9Y1vd7SWKc9vBzIiW+RmU1d/GkWokBUBGG5MrCoarGfDZXrvg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
  is 149.199.90.133) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com;
  dmarc=fail (p=quarantine sp=quarantine pct=100) action=quarantine
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MgVq9c5JS1QlNqA1yzXJrn1ljX1LWKrbWw5JgBSKqYc=;
- b=yB/sGSI5vC/OyCFCLZtsiex4cEj8MKSmiEyRr6zLhv6rmYWJp0WT7RDqCyj9d9BuNeG1JnAHqqns/OzfrADZ09QWK4/PPH5e8IcfxG8lufxghqjWetXFjY3NMYLtL5xTXq0AhBgAMPP+FqZj09iGPI42OweJ4ovjCv8kD1Eqx6Q=
-Received: from SJ0PR13CA0150.namprd13.prod.outlook.com (2603:10b6:a03:2c6::35)
- by DM3PR12MB9286.namprd12.prod.outlook.com (2603:10b6:8:1ae::6) with
+ bh=qnL9MHZfY7YLdjBz/MevVIWGRNTF0JXFoY8Cfm09Rtw=;
+ b=0JsI85RlKdgJh14d6CjAqet1MnIZeKWZYBWhgXlsO67tsRQ43/a3HZD4w/cEUkGNLL58rzqBVhXdHqMh5Ab5RfL1xaEX5oshtYyDpD+A4AHE7fv0qUBauWBFpWzzk4TMIzUcfmRraeO/bpmV4EF6Or168DKFj837xQEWQHFNxzY=
+Received: from CH2PR08CA0013.namprd08.prod.outlook.com (2603:10b6:610:5a::23)
+ by SN7PR12MB8436.namprd12.prod.outlook.com (2603:10b6:806:2e3::10) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Wed, 26 Aug
- 2026 19:34:59 +0000
-Received: from MWH0EPF000C6184.namprd02.prod.outlook.com
- (2603:10b6:a03:2c6:cafe::b8) by SJ0PR13CA0150.outlook.office365.com
- (2603:10b6:a03:2c6::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.8 via Frontend Transport; Wed, 26
- Aug 2026 19:34:56 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.7; Wed, 26 Aug
+ 2026 19:35:15 +0000
+Received: from CH1PEPF0000AD74.namprd04.prod.outlook.com
+ (2603:10b6:610:5a:cafe::2) by CH2PR08CA0013.outlook.office365.com
+ (2603:10b6:610:5a::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.12 via Frontend Transport; Wed,
+ 26 Aug 2026 19:35:15 +0000
 X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
  149.199.90.133) smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=fail action=quarantine header.from=amd.com;
 Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
  amd.com discourages use of 149.199.90.133 as permitted sender)
 Received: from satlexmb07.amd.com (149.199.90.133) by
- MWH0EPF000C6184.mail.protection.outlook.com (10.167.249.116) with Microsoft
+ CH1PEPF0000AD74.mail.protection.outlook.com (10.167.244.52) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Wed, 26 Aug 2026 19:34:55 +0000
+ 15.21.360.3 via Frontend Transport; Wed, 26 Aug 2026 19:35:14 +0000
 Received: from bmoger-ubuntu.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 26 Aug
- 2026 14:34:53 -0500
+ 2026 14:35:02 -0500
 From: Babu Moger <babu.moger@amd.com>
 To: <tony.luck@intel.com>, <reinette.chatre@intel.com>, <Dave.Martin@arm.com>,
 	<james.morse@arm.com>, <bp@alien8.de>, <ben.horgan@arm.com>
@@ -69,9 +69,9 @@ CC: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <rdunlap@infradead.org>,
 	<prathyushi.nangia@amd.com>, <kim.phillips@amd.com>,
 	<elena.reshetova@intel.com>, <darwi@linutronix.de>,
 	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>, <x86@kernel.org>
-Subject: [PATCH v5 12/16] fs/resctrl: Program kernel mode assignments on CPU hotplug
-Date: Wed, 26 Aug 2026 14:32:26 -0500
-Message-ID: <16b8b0e9d91c9224722691009317464c4d585178.1787772750.git.babu.moger@amd.com>
+Subject: [PATCH v5 13/16] fs/resctrl: Deactivate the kernel mode association when a group is removed
+Date: Wed, 26 Aug 2026 14:32:27 -0500
+Message-ID: <432f0cbfb811aee3c8c51bbc42faf66174375d8b.1787772750.git.babu.moger@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1787772750.git.babu.moger@amd.com>
 References: <cover.1787772750.git.babu.moger@amd.com>
@@ -87,146 +87,161 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000C6184:EE_|DM3PR12MB9286:EE_
-X-MS-Office365-Filtering-Correlation-Id: 715c6949-b09e-4de7-5f6f-08df03a91baf
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD74:EE_|SN7PR12MB8436:EE_
+X-MS-Office365-Filtering-Correlation-Id: 652b0edc-4aca-419b-d290-08df03a926e0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|23010399003|36860700016|7416014|376014|1800799024|10067099003|6133799003|22082099003|18002099003|5023799004|11063799006|56012099006|13003099007;
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|82310400026|36860700016|56012099006|10067099003|6133799003|22082099003|18002099003|11063799006|5023799004;
 X-Microsoft-Antispam-Message-Info:
-	jUkOQI+Cix2pS2evBN1qCS3WrjtvdmjI9uV3ZgrTBkjLb1g6QyTF5veiwjL6BFgeMazuCWGlbLYRxVGhVQugPgk9MUcRDjD3m1pkUdsoggcKszqRJf6T6C75G473vzfOLW5YwTKiRVfnPyqmwbuuMDGNzY6QjeTbp1vCqNa40jUtqf+xbgpAwWuteSjFM562StNCRq+ooAAFFokt/cd0QcB20Eo9S427mznQdVR5mB/KdQfn+RU5JwQJM3uFW5Wqg45ZQDLrq+Bwm4wIxPS4/uBuXd+Rrz8zmPW7zIzAWgAwiRgfst2/qxxWUOv+Jh2dtNx3OhMdcc63SGcbkMaJUPaOev0M0ZTgRPqz8RT8ATrdQzeUvBvGNyAyEYyHp7i5bpJ1UThArh+rG2eJSRcxEWChn+8IjBmSIyI2bZ7Ji4gKbEvTHDDOOOU3+p0k8/gdT0/UUATXGn9gGjqNl3ylDLlHUh1Duzw0ZHriu1YIJg9top0Iy6clHRyXLyxfaBTSxhW0AcS6UaT7j+Kd8hPO+gkNxaVCr7GWcxZQ39NzSNjmSjxfxGIsSmuew+CBHmxA65tsAJtOIxvAh/YOgx5HHQqtowbHqhd7jIUaZrgTYUkGk/JkZddPsmof7ckJJ/sQm+iYGTAq5Pba09E/RodAnA==
+	YRfnha/nNpnD8clQ2P+sUAiYBQ5t5m2M/Rlayv9vG3beG2LK0NJ5eB+uYH1JNxbjv7Mpt/mAZCfSqHI54QIq6t9M/oYz66BSw5I0lpV4boSf6Si+ywJeEgpKrh9464wuYnnjpfeO+8J0qxCjErb+E62xCjhq8xNmwwWnKirPlcOiyFo9QPwuLKH91piN+YxLa8Vz+/6fPaDBW9MQwbe8fS3nOK2EW5w3Y4nnXZPUfWKuF1gN4ZRdwhWSl4yqnA8uZl3D2ATFDiUHcP2BjULHlc0LcYTAGxHYfrneju1blVHEaXycEDteRIRuOJ7f5sNjFfqJWah2vm071397HQoXzdq+qXI/6wG1LNkrCWi9MQBlbV5VWRXxUSQ1z5J6k4akym978LJwqVtemv43Bjjz1lY34QEXerQnKDme+SGLUVkDe/Z7WBu5Ze19a2SW3Ie3bBDDpex8mlz5SwkXf5PqCKcqM5H2KPWkcRUzNmbQ8lFUlEu4n4p1eqHfjYDVFR5pF9XfbP0gGiBMaJJEDhWTSL/loNckn0KoCKXLwLAle3NEM6y5PrAPzb2hijzvfRo1kx3G1ipYsenKfvMn/0lIjRu+DLtWZCBUfV/3S3NME3jTfJCTzcDXqdHnGkOGwT7GN/nbLTDeI0pigo6YJ3u3Gw==
 X-Forefront-Antispam-Report:
-	CIP:149.199.90.133;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:unknown-90-133.xilinx.com;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(36860700016)(7416014)(376014)(1800799024)(10067099003)(6133799003)(22082099003)(18002099003)(5023799004)(11063799006)(56012099006)(13003099007);DIR:OUT;SFP:1101;
+	CIP:149.199.90.133;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:unknown-90-133.xilinx.com;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(82310400026)(36860700016)(56012099006)(10067099003)(6133799003)(22082099003)(18002099003)(11063799006)(5023799004);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	sDD9QQfJ2PWkJFtyYHNzybfPIgQhFyje88iidy0bEiE1coXLz7RlDBzinwLMm3NaP7TXSYKvIGSc+sI91ny5s7RalMjVoCyK6iXeokr5jPDqOY1O9hU0T2GnPvd/w5hfQFQ+gr4XCWm0Z5kX2fnjXBbdFW6joZlkzkrX+EUpipVGguMAMsFDBZIbnlO6Knh7SO65CRPJwytW7vVJPvWoUjDJb3httIOVYcIH7iaWj3MZCGZGAYKlRoH/3AChM7I23d/5Fmd6evr4xzAExIu+7gYxvoDjt+RGGv0BfQqEdoBFRRF4QNU5ZMt2g+Hh0WQ/qqSBE0lFzSgbN2SqM6AM8z2zEyuRIdJZY6s3k7ngob6AYpy8Hee2m5FXHTIJ6QNECwD21kbgY1Bg2lpUlXE9TyEpZH0RGlY6Zzuky25cGg4uQoFAgqr9f6U5Nd5BzptP
+	C3bv4OdhnBqjFrP8dtH1U8rESwQHRgTTT8WYHXlgzyapDuJaLtJ3vzWjKtPu33sUpxvJcqnf7VnLv4FypzhetvooWTo3nF47Me5yqQkehMTG/AY5c93m7J9tiYSAqw68vZWvOz7d6eeEnxFXWhd3CnSzuvAUP8sBTHBBJC8aV6USuJH8/EwP62LxRZnjZR5EC6/pk7Fjm/WpWWEVNcM0akN069l5s3KrGCT4mSXk3LYJ0rbACRRjO9k8Peo8VLk3IRsIEh6HOxO81/LxFMQA8IrgFsausQ2HC0mHJrtau7khuT08QM9xmyMXpxQhw84LZ3diIxsfDmWBZT055V3MVMkBCbTRu5fe2ycGQk+zJXEhjLEQtYJ7filMnLIL7it0SP6ApWEEVJQh67AvbjmMuSewJzJCdO6nBQxw28qvkYxpFbPIb8HCNh+G9Adpg/Z7
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 19:34:55.7658
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 19:35:14.5674
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 715c6949-b09e-4de7-5f6f-08df03a91baf
+X-MS-Exchange-CrossTenant-Network-Message-Id: 652b0edc-4aca-419b-d290-08df03a926e0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[149.199.90.133];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000C6184.namprd02.prod.outlook.com
+	CH1PEPF0000AD74.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9286
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8436
 
-Kernel mode resctrl associations are programmed on a per-CPU basis. When
-assign_global_enable_per_cpu is selected, the active kernel mode
-association is applied only to CPUs that are online at the time of
-configuration. CPUs that come online later are not automatically updated.
+Resctrl tracks the rdtgroup associated with the active kernel mode,
+including the CPU mask used to program kernel mode associations.
 
-As a result, hotplugged CPUs, or CPUs that were offline when the kernel
-mode was activated, may run without the intended kernel mode association
-even though the mode remains active system-wide.
+When the associated rdtgroup is removed or the filesystem is unmounted,
+the hardware configuration programmed for its kmode_cpu_mask must be
+torn down and global kernel-mode state restored to the default.
 
-Add resctrl_kmode_online_cpu() and resctrl_kmode_offline_cpu() and call
-them from the existing resctrl_online_cpu() and resctrl_offline_cpu()
-paths to maintain kmode_cpu_mask and update kernel mode associations as
-CPUs enter or leave the online state.
+Call rdtgroup_kmode_detach() from group removal and filesystem teardown
+paths to disable the active association, hide kmode_cpus files, clear
+per-group state, and restore RESCTRL_INHERIT_USER.
 
 Signed-off-by: Babu Moger <babu.moger@amd.com>
 ---
-v5: Added resctrl_kmode_offline_cpu() to disable the kernel mode
-    association and update kmode_cpu_mask when an associated CPU goes
-    offline.
-    This addresses sashiko comments:
-    https://sashiko.dev/#/patchset/cover.1783461016.git.babu.moger%40amd.com?part=11
+v5: Took care of couple of Sashiko comments on previous patch.
     https://sashiko.dev/#/patchset/cover.1783461016.git.babu.moger%40amd.com?part=10
-    Also moved the patch earlier than patch 10.
-    [RESEND PATCH v4 10/15] fs/resctrl: Reset the kernel mode binding when an rdtgroup is removed
-    That seemed much more clear.
+    Re-wrote the changelog.
+    Renamed rdtgroup_config_kmode_reset() to rdtgroup_kmode_deactivate().
 
-v4: New patch in the series. Patch taken from:
-    https://lore.kernel.org/lkml/20260611111706.1981788-5-qinyuntan@linux.alibaba.com/
-    Updated the code to enable kernel mode by default whenever a CPU comes
-    online when one of global-assign mode is enabled.
+v4: Re-wrote the changelog.
+    Added the call free_all_child_rdtgrp() and rmdir_all_sub()
+    Simplified the code comments.
+
+v3: New patch to handle the kernel_mode clean up.
 ---
- fs/resctrl/rdtgroup.c | 59 +++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 59 insertions(+)
+ fs/resctrl/rdtgroup.c | 58 +++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 58 insertions(+)
 
 diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
-index 06e74b027044..97e4176669e5 100644
+index 97e4176669e5..ed4fedbf2193 100644
 --- a/fs/resctrl/rdtgroup.c
 +++ b/fs/resctrl/rdtgroup.c
-@@ -4951,11 +4951,67 @@ int resctrl_online_mon_domain(struct rdt_resource *r, struct rdt_domain_hdr *hdr
- 	return err;
+@@ -1147,6 +1147,57 @@ static int resctrl_kernel_mode_show(struct kernfs_open_file *of,
+ 	return ret;
  }
  
-+/*
-+ * resctrl_kmode_online_cpu() - Program kernel mode association for @cpu
-+ * @cpu: CPU that has just been brought online
++/**
++ * rdtgroup_kmode_deactivate() - Tear down the active kernel mode on @rdtgrp
++ * @rdtgrp:	Resctrl group whose active kernel mode is being released.
 + *
-+ * If assign_global_enable_per_cpu is active and the rdtgroup has an active
-+ * kernel-mode association, add @cpu to kmode_cpu_mask and program the
-+ * corresponding kernel mode association.
++ * Deactivate the kernel mode association on the CPUs in @rdtgrp's
++ * @kmode_cpu_mask, hide kmode_cpus files, and clear the group's kernel-mode
++ * state.
 + */
-+static void resctrl_kmode_online_cpu(unsigned int cpu)
++static void rdtgroup_kmode_deactivate(struct rdtgroup *rdtgrp)
 +{
-+	struct rdtgroup *rdtgrp = resctrl_kcfg.active.k_rdtgrp;
 +	bool assign_ctrl, assign_mon;
-+
-+	if (resctrl_kcfg.active.kmode_cur != RESCTRL_ASSIGN_GLOBAL_ENABLE_PER_CPU ||
-+	    !rdtgrp || !rdtgrp->kmode)
-+		return;
 +
 +	assign_ctrl = (resctrl_kcfg.active.ctrl_mode == KMODE_ASSIGN);
 +	assign_mon = (resctrl_kcfg.active.mon_mode == KMODE_ASSIGN);
 +
-+	cpumask_set_cpu(cpu, &rdtgrp->kmode_cpu_mask);
++	resctrl_arch_configure_kmode(&rdtgrp->kmode_cpu_mask, rdtgrp->closid,
++				     assign_ctrl, rdtgrp->mon.rmid, assign_mon,
++				     false);
 +
-+	resctrl_arch_configure_kmode(cpumask_of(cpu), rdtgrp->closid, assign_ctrl,
-+				     rdtgrp->mon.rmid, assign_mon, true);
++	resctrl_hidden_files_set_visible(rdtgrp->kn, false);
++	cpumask_clear(&rdtgrp->kmode_cpu_mask);
++	rdtgrp->kmode = false;
 +}
 +
-+/*
-+ * resctrl_kmode_offline_cpu() - Clear kernel mode association for @cpu
-+ * @cpu: CPU being taken offline.
++/**
++ * rdtgroup_kmode_detach() - Detach @rdtgrp from a kernel mode association
++ * @rdtgrp: Resctrl group being removed or torn down.
 + *
-+ * If assign_global_enable_per_cpu is active, disable the kernel mode
-+ * association for @cpu and remove it from kmode_cpu_mask.
++ * If @rdtgrp backs the active kernel mode association, disable the
++ * hardware association programmed for the group's kmode_cpu_mask,
++ * clear the associated kernel mode state, and restore
++ * RESCTRL_INHERIT_USER as the active mode.
 + */
-+static void resctrl_kmode_offline_cpu(unsigned int cpu)
++static void rdtgroup_kmode_detach(struct rdtgroup *rdtgrp)
 +{
-+	struct rdtgroup *rdtgrp = resctrl_kcfg.active.k_rdtgrp;
-+	bool assign_ctrl, assign_mon;
-+
-+	if (resctrl_kcfg.active.kmode_cur != RESCTRL_ASSIGN_GLOBAL_ENABLE_PER_CPU ||
-+	    !rdtgrp || !rdtgrp->kmode)
++	if (!rdtgrp || !rdtgrp->kmode)
 +		return;
 +
-+	if (!cpumask_test_cpu(cpu, &rdtgrp->kmode_cpu_mask))
++	if (resctrl_kcfg.active.k_rdtgrp != rdtgrp) {
++		pr_warn("resctrl: kernel mode group not valid\n");
 +		return;
++	}
 +
-+	assign_ctrl = (resctrl_kcfg.active.ctrl_mode == KMODE_ASSIGN);
-+	assign_mon = (resctrl_kcfg.active.mon_mode == KMODE_ASSIGN);
++	rdtgroup_kmode_deactivate(rdtgrp);
 +
-+	cpumask_clear_cpu(cpu, &rdtgrp->kmode_cpu_mask);
-+
-+	resctrl_arch_configure_kmode(cpumask_of(cpu), rdtgrp->closid, assign_ctrl,
-+				     rdtgrp->mon.rmid, assign_mon, false);
++	resctrl_kcfg.active.k_rdtgrp = NULL;
++	resctrl_kcfg.active.kmode_cur = RESCTRL_INHERIT_USER;
++	resctrl_kcfg.active.ctrl_mode = KMODE_INHERIT;
++	resctrl_kcfg.active.mon_mode = KMODE_INHERIT;
 +}
 +
- void resctrl_online_cpu(unsigned int cpu)
+ void *rdt_kn_parent_priv(struct kernfs_node *kn)
  {
- 	mutex_lock(&rdtgroup_mutex);
- 	/* The CPU is set in default rdtgroup after online. */
- 	cpumask_set_cpu(cpu, &rdtgroup_default.cpu_mask);
-+	/* Program any active kernel mode association on this CPU. */
-+	resctrl_kmode_online_cpu(cpu);
- 	mutex_unlock(&rdtgroup_mutex);
- }
+ 	/*
+@@ -3235,6 +3286,7 @@ static void free_all_child_rdtgrp(struct rdtgroup *rdtgrp)
  
-@@ -4999,6 +5055,9 @@ void resctrl_offline_cpu(unsigned int cpu)
- 		}
- 	}
+ 	head = &rdtgrp->mon.crdtgrp_list;
+ 	list_for_each_entry_safe(sentry, stmp, head, mon.crdtgrp_list) {
++		rdtgroup_kmode_detach(sentry);
+ 		rdtgroup_unassign_cntrs(sentry);
+ 		free_rmid(sentry->closid, sentry->mon.rmid);
+ 		list_del(&sentry->mon.crdtgrp_list);
+@@ -3272,6 +3324,7 @@ static void rmdir_all_sub(void)
+ 		cpumask_or(&rdtgroup_default.cpu_mask,
+ 			   &rdtgroup_default.cpu_mask, &rdtgrp->cpu_mask);
  
-+	/* Clear any active kernel mode association on this CPU. */
-+	resctrl_kmode_offline_cpu(cpu);
++		rdtgroup_kmode_detach(rdtgrp);
+ 		rdtgroup_unassign_cntrs(rdtgrp);
+ 
+ 		if (rdtgrp->mode == RDT_MODE_PSEUDO_LOCKSETUP ||
+@@ -3367,6 +3420,7 @@ static void resctrl_fs_teardown(void)
+ 		return;
+ 
+ 	rmdir_all_sub();
++	rdtgroup_kmode_detach(&rdtgroup_default);
+ 	rdtgroup_unassign_cntrs(&rdtgroup_default);
+ 	mon_put_kn_priv();
+ 	rdt_pseudo_lock_release();
+@@ -4402,6 +4456,8 @@ static int rdtgroup_rmdir_mon(struct rdtgroup *rdtgrp, cpumask_var_t tmpmask)
+ 	u32 closid, rmid;
+ 	int cpu;
+ 
++	rdtgroup_kmode_detach(rdtgrp);
 +
- 	if (!l3->mon_capable)
- 		goto out_unlock;
+ 	/* Give any tasks back to the parent group */
+ 	rdt_move_group_tasks(rdtgrp, prdtgrp, tmpmask);
+ 
+@@ -4452,6 +4508,8 @@ static int rdtgroup_rmdir_ctrl(struct rdtgroup *rdtgrp, cpumask_var_t tmpmask)
+ 	u32 closid, rmid;
+ 	int cpu;
+ 
++	rdtgroup_kmode_detach(rdtgrp);
++
+ 	/* Give any tasks back to the default group */
+ 	rdt_move_group_tasks(rdtgrp, &rdtgroup_default, tmpmask);
  
 -- 
 2.43.0
