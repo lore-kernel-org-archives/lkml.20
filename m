@@ -1,80 +1,103 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0771A339847;
-	Wed, 26 Aug 2026 16:50:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F4954766BE
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:52:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787763076; cv=none; b=LzAn/qm2omtecj9KAuwh2WFvKKsDmlRap8+6PFdf1JojsXGPng6JGsr9UHa8iz6sTrOIgV8AxPg9gAroEsU8phrvQ4kZ+YyT+Gr5/mJ1IQ9h4G8wS89Z3n1uIso1JrMn5j1oqA7GGSy1rWEzdTdIyGzZ+dwTxwNiMSoQ2cvJmVA=
+	t=1787763125; cv=none; b=uXQrixd7OMWJ5rjxZiT7vZsjpQAlkkBuwFUNNmPpg3IBkhjqVdDvcGJhb3pIsDxk4BvLC2tnzWq7qehWgUQ6xuQGkTbTQuLs8N/6ycOlAJyuXmBBiTiZMbIhlG+U0pYJeBZidp3e/p+qxPGXo6h04rkk1lHDFGRcBy7OdXKHLFQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787763076; c=relaxed/simple;
-	bh=PkiUrc1zLTqcAMj7Mx3+LDo5b9c1jlMAnBWG3Cp1VVc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XK8ZU4Qj3Gx0a5R3DvKZ9kVU/74jzEypxU2R/TKrIbKAv1mrv3f7/SNpAqEoKWFjsgZQ9sk8M6e8Kk55GfSAzBAicXQVQWdEjqvm7DyFO30FZTTkubLru9ipYoXCNOV+uk8Sm9rO6yKBMLhDPmG0PQ4KglZj46K9M/nXE2XsdRQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=E04OWKcA; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1787763125; c=relaxed/simple;
+	bh=iqbnxW81PVZ4JrYasvYkpNsH6AAm6QU/fKSXBKEPVe0=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=BT/eyynMx2i20+kpZ4SIQsDq7ae3HIV7UUwicXwsW1fUlrvB3GuzTVkNVsyIlPdV2eME0TtNvNJ3M27rGHj9RCT9uI/47277NZZmgYw3MemnTDFhL0XeNNtc53P90xe0emxSAAHLp8RDfVBylXj580Tfe5H74QZ76+1lfmzvxnU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=KNOy833R; arc=none smtp.client-ip=209.85.215.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="E04OWKcA"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=9aTlTrAcUgjj4hArEoKoTq6w3fM8/pT6nYXJB7j/pgw=; b=E04OWKcAdDOgNDJui/H80dCuBh
-	YhIoevjc504XTOm2Vuj2a+wFt8AJ13fsca/VQ9N4Q23f14ScvB9noVZrb8A4nq3pKTXmKWo1CrhbJ
-	SV4tF7XcHM9v3lbkJ6IkecOfjn+gnscIDKHa8aHSkqNFw8SyvkladDBdF+jGUba32blc=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wzGpT-001Xv5-Fy; Wed, 26 Aug 2026 18:50:23 +0200
-Date: Wed, 26 Aug 2026 18:50:23 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Caleb James DeLisle <cjd@cjdns.fr>
-Cc: ansuelsmth@gmail.com, netdev@vger.kernel.org, hkallweit1@gmail.com,
-	linux@armlinux.org.uk, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, daniel@makrotopia.org,
-	dqfext@gmail.com, SkyLake.Huang@mediatek.com,
-	matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH net-next 3/3] net: phy: mediatek: support EcoNet EN751221
- gbit SoC PHY
-Message-ID: <25195db9-c15e-449d-b792-8f5a7c0aa371@lunn.ch>
-References: <20260825193456.1823985-1-cjd@cjdns.fr>
- <20260825193456.1823985-4-cjd@cjdns.fr>
- <d7d86078-8a29-4e7f-a62e-91f6b266bea1@lunn.ch>
- <a75b6b15-f86b-4cb2-934c-87583b5bb02c@cjdns.fr>
- <4d594c62-2ceb-43c1-a3d2-731b80493787@lunn.ch>
- <cd7e6b13-a712-43ce-aae6-f45da2f77ba9@cjdns.fr>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="KNOy833R"
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc1ca15334cso1028008a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 09:51:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787763119; x=1788367919; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=3KxgdA9C3Q2gUzH0EONwpXAO6HVPxwiye0akeJiAgZM=;
+        b=KNOy833Rl39bZ5UcNb2FEd8yrlC7sivTNJXlFgwDBN70iodGd/QBWp7OtJvxbPuJdS
+         TT6dKdYUxR/ta3Ahvi6KaCUikuAoxNSmg+ECDXT8tNfw03AAGgWOcEsDizBrNMW4Zwel
+         tAQs/+6aGUGVUOUxRfkjtJA1TZP55bNGsgVF4F9Lw53hgwjSj4q4JBzlJaGG+a4TE2ud
+         Nb8pXdvRlkikVY55fIqkzSrf2PG2zOywP7KPmsN/3eGwptzh5Vz62lzkzbnwYXrKOgFN
+         X7Jt6RmDpa3PZlNsbX3ZU5OKwDQ9cgG4wDRNtCWhqJthMu7vi365IYe3x9BpfdJBQ/Sz
+         ShIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787763119; x=1788367919;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3KxgdA9C3Q2gUzH0EONwpXAO6HVPxwiye0akeJiAgZM=;
+        b=tENkLXCwd8coDkjX96f+zEQO1MG3jy3WPoEwbNAptMRvuuF385MjYHAW+HVOhwYkG4
+         kSUU42Cg4YjmtPSPeQeJrJyyZGL5DXlZMd9AcPl0C/XvnSQKSMwrT5WxnVxq4IpWfR0D
+         gBZvgL7r0iWFUNq/zRVNp9kNTZJ1DhpwNJS8kKAYTHAe0a6MUcrLyiuqbnN6SXzoxfxn
+         AfyuDr1g03OBIlCup4HOTc/vgETrhczyICO5p8IMosuoncRsjDIfAFzc+F5xTg07qNjG
+         2gxSQRF04hSor68m1QJa/pvmyvHN0BgP7ObvdmEOAl1Dc2rW8vMXuP3dN+Sxo6M0vbX2
+         eeJw==
+X-Forwarded-Encrypted: i=1; AHgh+RqyaO3HopqM8HE6XEQGLjkXgkNq7hDIpLSl6eiYI+yeHJABzWQomIImtQTStYQnWakKLa4cfz5+b+4sl1k=@vger.kernel.org
+X-Gm-Message-State: AFuF++m+u61nel+yv6hrtE0uLYOpo5y40bLyPFiKKdxAhsPG4CKE9I7V
+	m2zRz+RXcFIXIsz9eclGEYZbhzUXDdNC4Pouhhwy+FB4wNsuBKe3AuZsIido74y6KkavaoCUC9r
+	attQCKA==
+X-Received: from pfbfw4.prod.google.com ([2002:a05:6a00:61c4:b0:848:487e:d23c])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:2e08:b0:853:6571:9567
+ with SMTP id d2e1a72fcca58-853720af96dmr14899043b3a.4.1787763118618; Wed, 26
+ Aug 2026 09:51:58 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Wed, 26 Aug 2026 09:51:54 -0700
+In-Reply-To: <20260826165154.766699-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cd7e6b13-a712-43ce-aae6-f45da2f77ba9@cjdns.fr>
+Mime-Version: 1.0
+References: <20260826165154.766699-1-seanjc@google.com>
+X-Mailer: git-send-email 2.55.0.887.g758fc8c411-goog
+Message-ID: <20260826165154.766699-3-seanjc@google.com>
+Subject: [PATCH 2/2] KVM: guest_memfd: Drop superfluous WRITE_ONCE() when
+ binding a memslot
+From: Sean Christopherson <seanjc@google.com>
+To: Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>
+Cc: David Hildenbrand <david@kernel.org>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Stefan Teodorescu <fane@google.com>, Dennis Tighe <dtighe@google.com>, 
+	Sashiko Bot <sashiko-bot@kernel.org>, Yan Zhao <yan.y.zhao@intel.com>
+Content-Type: text/plain; charset="UTF-8"
 
-> I tested my board removing the EEE disable and the MASTER line, and it seems
-> to work. I can't get any CRC errors flooding the link, and MII_STAT1000
-> reads LPA_1000LOCALRXOK | LPA_1000REMRXOK | LPA_1000FULL which suggests to
-> me that it's able to operate happily in slave mode.
-> 
-> 
-> So unless you or someone else thinks it's inadvisable, I'm inclined to just
-> enable these things and then wait to see if anybody finds a board that has
-> problems.
+Drop the superfluous WRITE_ONCE() when setting a memslot's guest_memfd file
+during initial binding, as the memslot *must* be inactive and unreachable.
+The superfluous WRITE_ONCE() was added by commit 67b43038ce14 ("KVM:
+guest_memfd: Remove RCU-protected attribute from slot->gmem.file") to
+maintain rough "parity" with the existing rcu_assign_pointer(), not
+realizing that the only reason rcu_assign_pointer() was used was to make
+sparse and other checkers happy.
 
-Master/slave should sort itself out, maybe taking a little longer if
-there is an initial conflict. Where it can go wrong is when the random
-number generator in the PHY always returns 42. Put the same PHY on the
-other end and the election always fails.
+Cc: Yan Zhao <yan.y.zhao@intel.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+---
+ virt/kvm/guest_memfd.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-EEE issues can be more subtle, it depends on what the link partner is.
+diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
+index 1ef9e2916423..1d2de9a1bc3f 100644
+--- a/virt/kvm/guest_memfd.c
++++ b/virt/kvm/guest_memfd.c
+@@ -653,7 +653,7 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
+ 	 * kvm_gmem_bind() must occur on a new memslot.  Because the memslot
+ 	 * is not visible yet, kvm_gmem_get_pfn() is guaranteed to see the file.
+ 	 */
+-	WRITE_ONCE(slot->gmem.file, file);
++	slot->gmem.file = file;
+ 	slot->gmem.pgoff = start;
+ 	if (kvm_gmem_supports_mmap(inode))
+ 		slot->flags |= KVM_MEMSLOT_GMEM_ONLY;
+-- 
+2.55.0.887.g758fc8c411-goog
 
-But yes, we can start without these. But please mention this in the
-commit message, just to give a hint to anybody who ends up trying to
-debug in these areas.
-
-      Andrew
