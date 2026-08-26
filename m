@@ -1,189 +1,288 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-56.mta0.migadu.com [91.218.175.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E49D13B637C;
-	Wed, 26 Aug 2026 20:49:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B772C11FA
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 20:50:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787777378; cv=none; b=kH2wv/eiVa7dUx3GcjkzwX4jf7dt/IqHV13U8EaaNXXRclSV7lNaYrMvGKKK8BP2xw8mwPmjB6zUmfQ0HfSVIWeaGr/wH2j1FL/cRJKVi+gfdSr3rCHwmhwv3iog49So9G3iI69iwC9tBP1P0rFNxqHDdb3gM0+VWtz0/dzMEwo=
+	t=1787777452; cv=none; b=mCV7aZ8YNcY0JcBaVuWB8raSZoioKTnKxE3Z8re88oiw7b8mlA7N6Pl2ThegAsk71Kuy+Uw1yif+hYHLm2xVp6TXCaJ3E+DtNZitXidUJE2MnoqGx9Wbr2UJ7CFez1XdNKPF+51/OsYtbt+1GertdyG8HQUP5otiLfAFhOP+hJo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787777378; c=relaxed/simple;
-	bh=eZXlyzYTvhpYQX0vYnsJvhLcp+1JvXo9isLsDoJSzb0=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=bBVvXmvTqIvou6zUSetHIZX1FWskK+E0f1u2WOB6k1GXxf6rtaQMXGaeGVHkD8W+naZv60yvd4pWC7JzVUYLTyqqN6n0B+uIW7o2rr2vTU8z22S4mGEaKHP6Dfw28VChyakKnsrF4/ktxJWHJDxPtjlau7dKVKjUrPHIjRy8E3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lGk3CVrC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787777452; c=relaxed/simple;
+	bh=tlRBaNd4c7LdUEnL8a3fY9ST53hUWPR5pngNeUIicIQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Gpdd/K8BKO7cd9GPSBA8i2qzUfmOi4J/4GOf76RuIl2oUcfO43nLXAfyD5JKTDwS6HqYQYdA7C5+vY/Myuldm/J+LwnHmEFSCNH3zLLzGZLppHm3HQtuR4Nz9BbFDBc+k41q/zWsPSQc+4mfd6SNW8pclE0s1WyOYKw++1KUlpA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=OxPkf+ns; arc=none smtp.client-ip=91.218.175.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lGk3CVrC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 555881F000E9;
-	Wed, 26 Aug 2026 20:49:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787777376;
-	bh=MXs0Xyjs6nbD9KqJTACrQAKLPmolu5C3YoQkbeWEKLg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=lGk3CVrCzwfeUEpV3JcH3T3kCLcDqaus+C3yFjlKUdHGv3KFS4HLQn6Nog7UlOLel
-	 1d5Hi6bzqbXoGFFDVPexk1MwHlqSEogOCiXT47ZqiqXPTbr9e9R/fq8WA98h7cdESH
-	 0KIBh+L5uwg+6ecoDoISbq0QMzuR4QvIbi4c3dRuxpx2osjP3nVyqG0o/ju4MyggQf
-	 +n5YY/3fPDL8xI7MZXqla+K3uXTEIh1mlHOIgta8BVM/ckrWAOCuptZ898wA1FzC4L
-	 OZSeipvssJNwNG3iVfDy7XnHqQyvo+G5n/mdz9TQQltKR1hsn9xnJ8IR4Ge3DrIpKQ
-	 tBwOeYr0xpEdw==
-Date: Wed, 26 Aug 2026 15:49:35 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org, joelsmith@tenstorrent.com,
-	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>
-Subject: Re: [PATCH 2/2] PCI: quirks: Drop unassignable 32 GiB BAR 4 on
- Tenstorrent Blackhole
-Message-ID: <20260826204935.GA1557819@bhelgaas>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="OxPkf+ns"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=tlRBaNd4c7LdUEnL8a3fY9ST53hUWPR5pngNeUIicIQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787777446; v=1; x=1788382246;
+ b=OxPkf+nsRvy8358caGwxRlpy9AcvIOFrjeNjKrmYVwyFcDSIKDCZ9RZ13hm8GTYp/2KR7owW
+ EpFbuBT7PUHpXeeGIEmruJApOONGW8HCGOquhvn2Q6kNK4S5/pjgpUKXw5UMWMSgo+2cMepjLr3
+ mcJu+Yj0vAYi5oPnIlXKze1Q=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: from [10.8.1.6] (107.189.15.163)
+	by smtp.migadu.com with ESMTPS id bdfe0f7ab2abe926;
+	Wed, 26 Aug 2026 20:50:46 +0000
+X-Mizu-Trace-ID: bdfe0f7ab2abe926
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <c20571fe-8747-4256-86f2-0bfb4656be56@linux.dev>
+Date: Wed, 26 Aug 2026 23:50:38 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAEev2e9HzMt27wWchsQGKuLELVW5hqL4-XK4DuP6XSwS6zmouQ@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 4/6] platform/x86: redmi-wmi: Drop redmi-wmi driver
+To: Mingyou Chen <qby140326@gmail.com>
+Cc: W_Armin@gmx.de, hansg@kernel.org, ilpo.jarvinen@linux.intel.com,
+ linux-kernel@vger.kernel.org, nika@nikableh.moe,
+ platform-driver-x86@vger.kernel.org, vlku.milos.fun@gmail.com, i@rsplwe.com,
+ wolf109909@outlook.com, rahulbheda131313@gmail.com
+References: <20260816100813.300450-1-qby140326@gmail.com>
+ <20260816100813.300450-5-qby140326@gmail.com>
+Content-Language: en-US
+From: Ilya Gladyshev <ilya.gladyshev@linux.dev>
+In-Reply-To: <20260816100813.300450-5-qby140326@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Aug 26, 2026 at 03:16:29PM -0500, Anirudh Srinivasan wrote:
-> On Wed, Aug 26, 2026 at 2:55 PM Bjorn Helgaas <helgaas@kernel.org> wrote:
-> > On Mon, Aug 24, 2026 at 11:57:07AM -0500, Anirudh Srinivasan wrote:
-> > > Tenstorrent Blackhole cards expose a 32 GiB BAR 4 that is unused by most
-> > > software talking to the card. This BAR cannot be assigned on hosts whose
-> > > PCI aperture is smaller than 32 GiB (e.g some ARM/RISC-V systems). This
-> > > failure also results in BAR 0 (256 MiB) and 2 (2 MiB) being unassigned
-> > > because bridge windows are sized as the sum of all enabled child BARs.
-> > > This makes the card completely unusable on such systems.
-> > >
-> > >     spacemit-k1-pcie 80000000.pcie: PCI host bridge to bus 0000:00
-> > >     pci_bus 0000:00: root bus resource [bus 00-ff]
-> > >     pci_bus 0000:00: root bus resource [io  0x100000-0x1fffff] (bus address [0x10000-0x10ffff])
-> > >     pci_bus 0000:00: root bus resource [mem 0x1100110000-0x117fffffff] (bus address [0x00110000-0x7fffffff])
-> > >     pci_bus 0000:00: root bus resource [mem 0x1800000000-0x18ffffffff pref]
-> > >
-> > >     <snip>
-> > >
-> > >     pci 0000:01:00.0: [1e52:b140] type 00 class 0x120000 PCIe Endpoint
-> > >     pci 0000:01:00.0: BAR 0 [mem 0x00000000-0x1fffffff 64bit pref]
-> > >     pci 0000:01:00.0: BAR 2 [mem 0x1120000000-0x11200fffff 64bit pref]
-> > >     pci 0000:01:00.0: BAR 4 [mem 0xfffffff800000000-0xffffffffffffffff 64bit pref]
-> > >
-> > >     <snip>
-> > >
-> > >     pci 0000:00:00.0: bridge window [mem size 0x820100000 64bit pref]: can't assign; no space
-> > >     pci 0000:00:00.0: bridge window [mem size 0x820100000 64bit pref]: failed to assign
-> > >     pci 0000:00:00.0: BAR 0 [mem 0x1108000000-0x110fffffff]: assigned
-> > >     pci 0000:00:00.0: BAR 1 [mem 0x1110000000-0x1117ffffff]: assigned
-> > >     pci 0000:00:00.0: BAR 0 [mem 0x1108000000-0x110fffffff]: releasing
-> > >     pci 0000:00:00.0: BAR 1 [mem 0x1110000000-0x1117ffffff]: releasing
-> > >     pci 0000:00:00.0: bridge window [mem size 0x820100000 64bit pref]: can't assign; no space
-> > >     pci 0000:00:00.0: bridge window [mem size 0x820100000 64bit pref]: failed to assign
-> > >     pci 0000:00:00.0: BAR 0 [mem 0x1108000000-0x110fffffff]: assigned
-> > >     pci 0000:00:00.0: BAR 1 [mem 0x1110000000-0x1117ffffff]: assigned
-> > >     pci 0000:01:00.0: BAR 4 [mem size 0x800000000 64bit pref]: can't assign; no space
-> > >     pci 0000:01:00.0: BAR 4 [mem size 0x800000000 64bit pref]: failed to assign
-> > >     pci 0000:01:00.0: BAR 0 [mem size 0x20000000 64bit pref]: can't assign; no space
-> > >     pci 0000:01:00.0: BAR 0 [mem size 0x20000000 64bit pref]: failed to assign
-> > >     pci 0000:01:00.0: BAR 2 [mem size 0x00100000 64bit pref]: can't assign; no space
-> > >     pci 0000:01:00.0: BAR 2 [mem size 0x00100000 64bit pref]: failed to assign
-> > >     pci 0000:01:00.0: BAR 4 [mem size 0x800000000 64bit pref]: can't assign; no space
-> > >     pci 0000:01:00.0: BAR 4 [mem size 0x800000000 64bit pref]: failed to assign
-> > >     pci 0000:01:00.0: BAR 0 [mem size 0x20000000 64bit pref]: can't assign; no space
-> > >     pci 0000:01:00.0: BAR 0 [mem size 0x20000000 64bit pref]: failed to assign
-> > >     pci 0000:01:00.0: BAR 2 [mem size 0x00100000 64bit pref]: can't assign; no space
-> > >     pci 0000:01:00.0: BAR 2 [mem size 0x00100000 64bit pref]: failed to assign
-> > >
-> > > Add a header fixup that walks the root-bus apertures and drops BAR 4
-> > > when it is larger than every root-bus aperture. Resource assignment
-> > > skips resources with zero flags (pdev_resource_assignable()), so the
-> > > bridge window then sizes to BARs 0/2 and succeeds. This was tested on a
-> > > Spacemit-K3 RISC-V board that has only 4GiB of BAR space. tt-smi and
-> > > tt-bh-linux are able to run on the card.
-> > >
-> > > Signed-off-by: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
-> > > ---
-> > >  drivers/pci/quirks.c | 32 ++++++++++++++++++++++++++++++++
-> > >  1 file changed, 32 insertions(+)
-> > >
-> > > diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-> > > index b09f27f7846fc..df54e379c116b 100644
-> > > --- a/drivers/pci/quirks.c
-> > > +++ b/drivers/pci/quirks.c
-> > > @@ -6415,3 +6415,35 @@ static void pci_mask_replay_timer_timeout(struct pci_dev *pdev)
-> > >  DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_GLI, 0x9750, pci_mask_replay_timer_timeout);
-> > >  DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_GLI, 0x9755, pci_mask_replay_timer_timeout);
-> > >  #endif
-> > > +
-> > > +/*
-> > > + * Drop unused 32 GiB BAR 4 on Tenstorrent Blackhole cards so the card is
-> > > + * usable on systems with smaller host bridge apertures.
-> > > + */
-> > > +static void quirk_tenstorrent_blackhole_bar4(struct pci_dev *pdev)
-> > > +{
-> > > +     struct resource *res = &pdev->resource[4];
-> > > +     struct pci_bus *bus = pdev->bus;
-> > > +     struct resource *win;
-> > > +
-> > > +     if (!(res->flags & IORESOURCE_MEM))
-> > > +             return;
-> > > +
-> > > +     /* Find the root bus; its resource list holds the host apertures */
-> > > +     while (bus->parent)
-> > > +             bus = bus->parent;
-> > > +
-> > > +     pci_bus_for_each_resource(bus, win) {
-> > > +             if (!win || !(win->flags & IORESOURCE_MEM))
-> > > +                     continue;
-> > > +             if (resource_size(res) <= resource_size(win))
-> > > +                     return;
-> > > +     }
-> > > +
-> > > +     pci_info(pdev, "BAR 4 %pR larger than every host bridge aperture, dropping it\n",
-> > > +              res);
-> > > +     res->start = 0;
-> > > +     res->end = 0;
-> > > +     res->flags = 0;
-> >
-> > This seems problematic because the hardware BAR still exists even if
-> > we zero out res->flags.
-> >
-> > This is a problem because pci_enable_device() will successfully enable
-> > a device and turn on PCI_COMMAND_MEMORY even though the hardware BAR
-> > may contain junk.  And if a driver ioremaps this BAR, it is
-> > ioremapping physical address 0, which doesn't end well.
-> >
-> > I know this from bitter experience :)
-> >
-> > If you have some device-specific way to actually disable the BAR in
-> > the hardware, that could work.
+Reviewed-by: Ilya Gladyshev <ilya.gladyshev@linux.dev>
+
+On 8/16/26 13:08, Mingyou Chen wrote:
+> The redmi-wmi driver is no longer needed because its functionality
+> has been superseded by the new generic bitland platform driver.
+> All supported Redmi laptop models are now handled properly via the
+> updated WMI interfaces in bitland-mifs-wmi.
 > 
-> lspci for this device doesn't show this BAR region. Are you saying
-> that BAR4 still exists (but points to 0) ? Our driver doesn't seem to
-> have any issues with this, but some other driver may not play well
-> with this.
+> Remove the obsolete code, Kconfig entries, and Makefile references
+> to clean up the platform directory.
 > 
-> $ lspci -d 1e52: -vvv
-> 0000:01:00.0 Processing accelerators: Tenstorrent Inc Blackhole
->         Subsystem: Tenstorrent Inc p150a
->         Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop-
-> ParErr- Stepping- SERR- FastB2B- DisINTx+
->         Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort-
-> <TAbort- <MAbort- >SERR- <PERR- INTx-
->         Latency: 0
->         Interrupt: pin A routed to IRQ 27
->         Region 0: Memory at 1800000000 (64-bit, prefetchable) [size=512M]
->         Region 2: Memory at 1820000000 (64-bit, prefetchable) [size=1M]
->         Capabilities: <access denied>
->         Kernel driver in use: tenstorrent
+> Signed-off-by: Mingyou Chen <qby140326@gmail.com>
+> ---
+>   MAINTAINERS                      |   6 --
+>   drivers/platform/x86/Kconfig     |  12 ---
+>   drivers/platform/x86/Makefile    |   1 -
+>   drivers/platform/x86/redmi-wmi.c | 154 -------------------------------
+>   4 files changed, 173 deletions(-)
+>   delete mode 100644 drivers/platform/x86/redmi-wmi.c
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index af86b1df1a94..b92bc4816fa6 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -22768,12 +22768,6 @@ S:	Maintained
+>   T:	git https://github.com/pkshih/rtw.git
+>   F:	drivers/net/wireless/realtek/rtw89/
+>   
+> -REDMIBOOK WMI DRIVERS
+> -M:	Gladyshev Ilya <foxido@foxido.dev>
+> -L:	platform-driver-x86@vger.kernel.org
+> -S:	Maintained
+> -F:	drivers/platform/x86/redmi-wmi.c
+> -
+>   BITLAND LAPTOP DRIVER
+>   M:	Mingyou Chen <qby140326@gmail.com>
+>   M:	Gladyshev Ilya <foxido@foxido.dev>
+> diff --git a/drivers/platform/x86/Kconfig b/drivers/platform/x86/Kconfig
+> index b54b5212b204..036fc76f62df 100644
+> --- a/drivers/platform/x86/Kconfig
+> +++ b/drivers/platform/x86/Kconfig
+> @@ -90,18 +90,6 @@ config XIAOMI_WMI
+>   	  To compile this driver as a module, choose M here: the module will
+>   	  be called xiaomi-wmi.
+>   
+> -config REDMI_WMI
+> -	tristate "Redmibook WMI key driver"
+> -	depends on ACPI_WMI
+> -	depends on INPUT
+> -	select INPUT_SPARSEKMAP
+> -	help
+> -	  Say Y here if you want support for WMI-based hotkey events on
+> -	  Xiaomi Redmibook devices.
+> -
+> -	  To compile this driver as a module, choose M here: the module will
+> -	  be called redmi-wmi.
+> -
+>   config GIGABYTE_WMI
+>   	tristate "Gigabyte WMI temperature driver"
+>   	depends on ACPI_WMI
+> diff --git a/drivers/platform/x86/Makefile b/drivers/platform/x86/Makefile
+> index 872ac3842391..0da4876f766e 100644
+> --- a/drivers/platform/x86/Makefile
+> +++ b/drivers/platform/x86/Makefile
+> @@ -12,7 +12,6 @@ obj-$(CONFIG_HUAWEI_WMI)		+= huawei-wmi.o
+>   obj-$(CONFIG_MXM_WMI)			+= mxm-wmi.o
+>   obj-$(CONFIG_NVIDIA_WMI_EC_BACKLIGHT)	+= nvidia-wmi-ec-backlight.o
+>   obj-$(CONFIG_XIAOMI_WMI)		+= xiaomi-wmi.o
+> -obj-$(CONFIG_REDMI_WMI)			+= redmi-wmi.o
+>   obj-$(CONFIG_GIGABYTE_WMI)		+= gigabyte-wmi.o
+>   obj-$(CONFIG_BITLAND_MIFS_WMI)		+= bitland-mifs-wmi.o
+>   
+> diff --git a/drivers/platform/x86/redmi-wmi.c b/drivers/platform/x86/redmi-wmi.c
+> deleted file mode 100644
+> index 58898630eda6..000000000000
+> --- a/drivers/platform/x86/redmi-wmi.c
+> +++ /dev/null
+> @@ -1,154 +0,0 @@
+> -// SPDX-License-Identifier: GPL-2.0
+> -/* WMI driver for Xiaomi Redmibooks */
+> -
+> -#include <linux/acpi.h>
+> -#include <linux/bits.h>
+> -#include <linux/device.h>
+> -#include <linux/input.h>
+> -#include <linux/input/sparse-keymap.h>
+> -#include <linux/module.h>
+> -#include <linux/mutex.h>
+> -#include <linux/unaligned.h>
+> -#include <linux/wmi.h>
+> -
+> -#include <uapi/linux/input-event-codes.h>
+> -
+> -#define WMI_REDMIBOOK_KEYBOARD_EVENT_GUID "46C93E13-EE9B-4262-8488-563BCA757FEF"
+> -
+> -#define AI_KEY_VALUE_MASK BIT(8)
+> -
+> -static const struct key_entry redmi_wmi_keymap[] = {
+> -	{KE_KEY, 0x00000201,	{KEY_SELECTIVE_SCREENSHOT}},
+> -	{KE_KEY, 0x00000301,	{KEY_ALL_APPLICATIONS}},
+> -	{KE_KEY, 0x00001b01,	{KEY_CONFIG}},
+> -	{KE_KEY, 0x00011b01,	{KEY_CONFIG}},
+> -	{KE_KEY, 0x00010101,	{KEY_SWITCHVIDEOMODE}},
+> -	{KE_KEY, 0x00001a01,	{KEY_REFRESH_RATE_TOGGLE}},
+> -
+> -	/* AI button has code for each position */
+> -	{KE_KEY, 0x00011801,	{KEY_ASSISTANT}},
+> -	{KE_KEY, 0x00011901,	{KEY_ASSISTANT}},
+> -
+> -	/* Keyboard backlight */
+> -	{KE_IGNORE, 0x00000501, {}},
+> -	{KE_IGNORE, 0x00800501, {}},
+> -	{KE_IGNORE, 0x00050501, {}},
+> -	{KE_IGNORE, 0x000a0501, {}},
+> -
+> -	/* Xiaomi G Command Center */
+> -	{KE_KEY, 0x00010a01,	{KEY_VENDOR}},
+> -
+> -	/* OEM preset power mode */
+> -	{KE_IGNORE, 0x00011601, {}},
+> -	{KE_IGNORE, 0x00021601, {}},
+> -	{KE_IGNORE, 0x00031601, {}},
+> -	{KE_IGNORE, 0x00041601, {}},
+> -
+> -	/* Fn Lock state */
+> -	{KE_IGNORE, 0x00000701, {}},
+> -	{KE_IGNORE, 0x00010701, {}},
+> -
+> -	/* Fn+`/1/2/3/4 */
+> -	{KE_KEY, 0x00011101, {KEY_F13}},
+> -	{KE_KEY, 0x00011201, {KEY_F14}},
+> -	{KE_KEY, 0x00011301, {KEY_F15}},
+> -	{KE_KEY, 0x00011401, {KEY_F16}},
+> -	{KE_KEY, 0x00011501, {KEY_F17}},
+> -
+> -	{KE_END}
+> -};
+> -
+> -struct redmi_wmi {
+> -	struct input_dev *input_dev;
+> -	/* Protects the key event sequence */
+> -	struct mutex key_lock;
+> -};
+> -
+> -static int redmi_wmi_probe(struct wmi_device *wdev, const void *context)
+> -{
+> -	struct redmi_wmi *data;
+> -	int err;
+> -
+> -	/* Init dev */
+> -	data = devm_kzalloc(&wdev->dev, sizeof(*data), GFP_KERNEL);
+> -	if (!data)
+> -		return -ENOMEM;
+> -
+> -	dev_set_drvdata(&wdev->dev, data);
+> -
+> -	err = devm_mutex_init(&wdev->dev, &data->key_lock);
+> -	if (err)
+> -		return err;
+> -
+> -	data->input_dev = devm_input_allocate_device(&wdev->dev);
+> -	if (!data->input_dev)
+> -		return -ENOMEM;
+> -
+> -	data->input_dev->name = "Redmibook WMI keys";
+> -	data->input_dev->phys = "wmi/input0";
+> -
+> -	err = sparse_keymap_setup(data->input_dev, redmi_wmi_keymap, NULL);
+> -	if (err)
+> -		return err;
+> -
+> -	return input_register_device(data->input_dev);
+> -}
+> -
+> -static void redmi_wmi_notify(struct wmi_device *wdev, union acpi_object *obj)
+> -{
+> -	struct key_entry *entry;
+> -	struct redmi_wmi *data = dev_get_drvdata(&wdev->dev);
+> -	bool autorelease = true;
+> -	u32 payload;
+> -	int value = 1;
+> -
+> -	if (obj->type != ACPI_TYPE_BUFFER) {
+> -		dev_err(&wdev->dev, "Bad response type %u\n", obj->type);
+> -		return;
+> -	}
+> -
+> -	if (obj->buffer.length < 32) {
+> -		dev_err(&wdev->dev, "Invalid buffer length %u\n", obj->buffer.length);
+> -		return;
+> -	}
+> -
+> -	payload = get_unaligned_le32(obj->buffer.pointer);
+> -	entry = sparse_keymap_entry_from_scancode(data->input_dev, payload);
+> -
+> -	if (!entry) {
+> -		dev_dbg(&wdev->dev, "Unknown WMI event with payload %u", payload);
+> -		return;
+> -	}
+> -
+> -	/* AI key quirk */
+> -	if (entry->keycode == KEY_ASSISTANT) {
+> -		value = !(payload & AI_KEY_VALUE_MASK);
+> -		autorelease = false;
+> -	}
+> -
+> -	guard(mutex)(&data->key_lock);
+> -	sparse_keymap_report_entry(data->input_dev, entry, value, autorelease);
+> -}
+> -
+> -static const struct wmi_device_id redmi_wmi_id_table[] = {
+> -	{ WMI_REDMIBOOK_KEYBOARD_EVENT_GUID, NULL },
+> -	{ }
+> -};
+> -
+> -static struct wmi_driver redmi_wmi_driver = {
+> -	.driver = {
+> -		.name = "redmi-wmi",
+> -		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
+> -	},
+> -	.id_table = redmi_wmi_id_table,
+> -	.min_event_size = 32,
+> -	.probe = redmi_wmi_probe,
+> -	.notify = redmi_wmi_notify,
+> -	.no_singleton = true,
+> -};
+> -module_wmi_driver(redmi_wmi_driver);
+> -
+> -MODULE_DEVICE_TABLE(wmi, redmi_wmi_id_table);
+> -MODULE_AUTHOR("Gladyshev Ilya <foxido@foxido.dev>");
+> -MODULE_DESCRIPTION("Redmibook WMI driver");
+> -MODULE_LICENSE("GPL");
 
-I think by default lspci will show you what the kernel knows about the
-device, i.e., what's in the dev->resource[] array.  If res->flags is
-zeroed out, the kernel doesn't know anything about the BAR, so it
-probably won't appear in lspci output.
-
-But of course that doesn't change anything from the device's
-perspective.  If you ioremap BAR 4 and read a word from it, I think it
-might not work.  Based on your dmesg log, it doesn't look like
-physical address 0 would be routed to PCI, so it probably causes some
-kind of exception unless you happen to have RAM at physical address 0.
