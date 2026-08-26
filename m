@@ -1,100 +1,115 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from out-2z4y-a133.jellyfish.systems (out-2z4y-a133.jellyfish.systems [198.54.127.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF82D36826E
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 18:06:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B046442FB3
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 18:07:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787767599; cv=none; b=FxrnJRIFMLP2cuDWyZ4fwAbsgoNRWg5S7KVmoQSi6DwswUpyf2T7ckGTA1UdJViqRWK8VMoFzM/19QS4tC/K8NCqeCBAZ+deSY8rXjnAuDSp4B1mCgJKQTojDmRVDJ6dWh+vYJIUcPendS4Ms4vzGuJYnUDvxLMTSW60YgH76zk=
+	t=1787767675; cv=none; b=J7XxFskDu9GcD9E5IJdUyKPYT5EE2aDLevdYObukYLAi3xddZU1XC8+9ds2cQ7xrDH76ctLb9yGQMlzyIW1pr2k1+ajlgzf39fPEn3Cb4tdGmp8JDaZxkpP/42npuTMhmnABKtsUBSFMQA2RQzhLTBEiMU6nvWGQs6kH3lF4n6s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787767599; c=relaxed/simple;
-	bh=eF4qIAlDrNUzM2llACH/B1bkaij6S96IPRwZ4TtPt9Q=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=HVTPvk+SnNlnYcID0/UcYxI+almvH3pbfWtY6jIk0AUnshVTVeSqFNusDfZ8G/B7zDOKAQXVFDMtLTtycuxfg0V7l6ooNRQPTk9VWSFlflhi+y6I/r/ohhoz7KvkVxlHCW6U02SFRh6p3v6aQzm3ZVwcJQI6A5aiePW/eQPn8LQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=F6ACq34Y; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=HJXSY0HJ; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="F6ACq34Y";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="HJXSY0HJ"
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1787767573;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xZUYNgBpfLev2IxR+h4Q4qgxto/B2GAUiR1FXHEPgC4=;
-	b=F6ACq34YQTjn3A4gizM/OnqEUsK1UBadoFYWzZqsWyz8Jd/TMewV0HAoXyWfnTXKQFQm3s
-	fipDX8gYXqBLKDVarnyL4wt48jm/cbPL4xt5uEEw7RoGz3ABC5WqXr5bCOg7SCZ4ljRMgu
-	smQbRAEpz4Qm6Tx6LW3AN4xo4Zsw4XcvC7P5N/5vqAUtVziXIcJC/5fKSL5I11g3bKdJ+j
-	4xbeLcBAabFg6oQUMbJTP0vy04s/9uJAVRXHoJYfFINu6qBNgi3W3ofsoJbarsraAHZ8GY
-	yst+OjIJP85UP0Npu6waJ8KqmFueqOvbOTXkCoY8E2f89uPI3fhPUa1XC4O4sQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1787767573;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xZUYNgBpfLev2IxR+h4Q4qgxto/B2GAUiR1FXHEPgC4=;
-	b=HJXSY0HJurw5Xz1Wc6s4RfdONzBjaymDf4ZfCMJugaljo9cHyXnBNTwRAeJaUdPMmt0uGX
-	RMmxemEYLMA4nIAA==
-To: Peter Zijlstra <peterz@infradead.org>, Sebastian Andrzej Siewior
- <bigeasy@linutronix.de>
-Cc: linux-kernel@vger.kernel.org, =?utf-8?Q?Andr=C3=A9?= Almeida
- <andrealmeid@igalia.com>,
- Darren Hart <dvhart@infradead.org>, Davidlohr Bueso <dave@stgolabs.net>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Yao Kai
- <yaokai34@huawei.com>
-Subject: Re: [PATCH v3 1/2] futex: Add missing rt_mutex_.*_schedule() around
- rt_mutex_wait_proxy_lock()
-In-Reply-To: <20260824132334.GI687043@noisy.programming.kicks-ass.net>
-References: <20260824125544.2353006-1-bigeasy@linutronix.de>
- <20260824125544.2353006-2-bigeasy@linutronix.de>
- <20260824132334.GI687043@noisy.programming.kicks-ass.net>
-Date: Wed, 26 Aug 2026 20:06:11 +0200
-Message-ID: <874igghi3w.ffs@fw13>
+	s=arc-20240116; t=1787767675; c=relaxed/simple;
+	bh=5MUS+jSLenmtWtQm3/CNTEcXFg2KOODI/Ydn6oNWr4Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=E8bkqUyxMzMhdObG2uV3VfMU9KyRt1a/AT3Qorlwcjz7j/P2AGIMBVW8sIlVcypBk9KMnIKw5x8jGpDC2hcv5d7cF4TKvkS/Ru7m6I1tqoiXw0DJ+8312oMx/NPMeDFeP5X03jU8byvUYWJP2mlsWYr3h9lO/zYU9V8JAeSTBRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net; spf=pass smtp.mailfrom=catcrafts.net; arc=none smtp.client-ip=198.54.127.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=catcrafts.net
+Received: from mail.privateemail.com (unknown [87.215.145.39])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.privateemail.com (Postfix) with ESMTPSA id 4hVXN41gRtz8sWX;
+	Wed, 26 Aug 2026 17:54:28 +0000 (UTC)
+From: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+To: Jonathan Cameron <jic23@kernel.org>,
+	linux-iio@vger.kernel.org
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A . R . Silva" <gustavoars@kernel.org>,
+	linux-hardening@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Luca Weiss <luca.weiss@fairphone.com>,
+	Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+Subject: [PATCH v2 3/5] iio: light: stk3310: move the data registers into the channel address
+Date: Wed, 26 Aug 2026 19:54:07 +0200
+Message-ID: <20260826175409.326131-4-jorijnvdgraaf@catcrafts.net>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260826175409.326131-1-jorijnvdgraaf@catcrafts.net>
+References: <20260826175409.326131-1-jorijnvdgraaf@catcrafts.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+X-Envelope-From: jorijnvdgraaf@catcrafts.net
 
-On Mon, Aug 24 2026 at 15:23, Peter Zijlstra wrote:
-> On Mon, Aug 24, 2026 at 02:55:42PM +0200, Sebastian Andrzej Siewior wrote:
->>  #include "futex.h"
->> @@ -865,7 +866,10 @@ int futex_wait_requeue_pi(u32 __user *uaddr, unsigned int flags,
->>  	case Q_REQUEUE_PI_DONE:
->>  		/* Requeue completed. Current is 'pi_blocked_on' the rtmutex */
->>  		pi_mutex = &q.pi_state->pi_mutex;
->> +
->
-> 		/*
-> 		 * Since current is doing the requeue, it cannot also be
-> 		 * a waiter on the same futex.
-> 		 */
+The RAW read selects its data register with a per-channel-type branch.
+Record each channel's data register in its .address field and read
+from there, so adding a channel does not grow the branch.
 
-Current is not the task doing the requeue. Current is the requeued waiter which is
-blocked on the rtmutex.
+Suggested-by: Jonathan Cameron <jic23@kernel.org>
+Assisted-by: Claude:claude-fable-5
+Signed-off-by: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+---
+ drivers/iio/light/stk3310.c | 11 ++++-------
+ 1 file changed, 4 insertions(+), 7 deletions(-)
 
-Though the change log is confusing at best. The whole requeue explanation
-is not really helpful IMO.
+diff --git a/drivers/iio/light/stk3310.c b/drivers/iio/light/stk3310.c
+index 5b5b6812edc7..156888969366 100644
+--- a/drivers/iio/light/stk3310.c
++++ b/drivers/iio/light/stk3310.c
+@@ -184,6 +184,7 @@ static const struct iio_chan_spec_ext_info stk3310_ext_info[] = {
+ static const struct iio_chan_spec stk3310_channels[] = {
+ 	{
+ 		.type = IIO_LIGHT,
++		.address = STK3310_REG_ALS_DATA_MSB,
+ 		.info_mask_separate =
+ 			BIT(IIO_CHAN_INFO_RAW) |
+ 			BIT(IIO_CHAN_INFO_SCALE) |
+@@ -191,6 +192,7 @@ static const struct iio_chan_spec stk3310_channels[] = {
+ 	},
+ 	{
+ 		.type = IIO_PROXIMITY,
++		.address = STK3310_REG_PS_DATA_MSB,
+ 		.info_mask_separate =
+ 			BIT(IIO_CHAN_INFO_RAW) |
+ 			BIT(IIO_CHAN_INFO_SCALE) |
+@@ -370,25 +372,20 @@ static int stk3310_read_raw(struct iio_dev *indio_dev,
+ 			    struct iio_chan_spec const *chan,
+ 			    int *val, int *val2, long mask)
+ {
+-	u8 reg;
+ 	__be16 buf;
+ 	int ret;
+ 	unsigned int index;
+ 	struct stk3310_data *data = iio_priv(indio_dev);
+ 	struct i2c_client *client = data->client;
++	struct regmap *map = data->regmap;
+ 
+ 	if (chan->type != IIO_LIGHT && chan->type != IIO_PROXIMITY)
+ 		return -EINVAL;
+ 
+ 	switch (mask) {
+ 	case IIO_CHAN_INFO_RAW:
+-		if (chan->type == IIO_LIGHT)
+-			reg = STK3310_REG_ALS_DATA_MSB;
+-		else
+-			reg = STK3310_REG_PS_DATA_MSB;
+-
+ 		mutex_lock(&data->lock);
+-		ret = regmap_bulk_read(data->regmap, reg, &buf, sizeof(buf));
++		ret = regmap_bulk_read(map, chan->address, &buf, sizeof(buf));
+ 		if (ret < 0) {
+ 			dev_err(&client->dev, "register read failed\n");
+ 			mutex_unlock(&data->lock);
+-- 
+2.55.0
 
-The point is that _all_ invocations of rt_mutex_schedule() must be
-preceeded by a call to rt_mutex_pre_schedule() and followed by a call to
-rt_mutex_post_schedule().
-
-So this code simply failed to do that, which triggers the
-lockdep_assert() in rt_mutex_schedule().
-
-And it's obvious from the surrounding comments how this task got there, no?
-
->> +		rt_mutex_pre_schedule();
->>  		ret = rt_mutex_wait_proxy_lock(pi_mutex, to, &rt_waiter);
->> +		rt_mutex_post_schedule();
->>  
->>  		/*
->>  		 * See futex_unlock_pi()'s cleanup: comment.
->> -- 
->> 2.55.0
->> 
