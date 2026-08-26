@@ -1,107 +1,117 @@
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16E433A0B05
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 18:47:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7BD439F160
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 18:48:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787770086; cv=none; b=rMqT6Kc/0F5qhgrfCvvOuEX2HkdAHoeBZm4Ypd12IccvH2z6zJXtJmNYMG2Q1ZfOpihJ3iZ4hzm1X1/i5YH6QkUxf2QDOJDn291jvSDfp2VoATmh76xOzJNLLvd9lLVfQ60HU1JxCKf7DHpqZOxZynFeNag5dBXG+UOhpzY91tM=
+	t=1787770094; cv=none; b=IRnoqgdIjghxZAYbVwLxBo4YmQpE/2wuJAJNKQJC9cMft3cirHKXUjTuQfF48jsNLsa9Jst/aCgnmWx9Bt2BHHF2PQ14Xy5wuvcPJLrflbXIu6ZiHNic3wGBAq1RM9+2Q8MUlhlIQi7bZB8qzj3yctxlrw1SBDqENfQ9bILi5S8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787770086; c=relaxed/simple;
-	bh=1Hm5k9fnEVwBaXvX+rrl1XNH/vHieND2jPcZRb7RxS0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QiyfMmr4TZr+KhPDfFvNRtK7f1rNWNc2pRnOoIUgR9YMnABa/1XtM8Xo18rrViaXldJ1r8jSveIOVeKVvgqgfaO89hlIcNsRox5M6cZKIHMWVy4zh7cikf5eSzH+h6kZfo5cNEypnPb4P+Lus+/y4IZyNPAOlVbbSybGplt+j+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JncePQQh; arc=none smtp.client-ip=209.85.218.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787770094; c=relaxed/simple;
+	bh=efJ7OzdzKldWooGfysUltqqJ5ryhNVoM0o3wKqoeieE=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=U2Dv0c7enKD1vRwmCZa1OFhdU/Uvr+19IWCF/dAltpQpZLRJK3Y5tx2vQSFTuG/fHka0PGIUia4l5MoPhw+ZvJdOo0sSi7TBMd63bjUSywsg5cr6trW+fzkefGUPg0r4YSSqbQCO8DbSnp7l+YbT97nHHxXqLzlUaX7elZO6Kvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=pyyO2f8F; arc=none smtp.client-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JncePQQh"
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c15cf78d1a2so169032066b.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 11:47:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787770074; x=1788374874; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CYxeX5UfuTCRGRCYmJDrUw0DxeZXUagnvzMWA/KuGYY=;
-        b=JncePQQhLnU98nB52uDJUobQC5sHIuc92Y1gCh4fG8qwE3NuabHpwM4nDrrjEmXP7u
-         9cI8OW9W0o2nzSAe6ZcHqf48DEouhOZUXyxarbYoeECxRj75ouOar20IHcKY+NwVi7CO
-         f3U18RysXhA7TAwQjEL5sUccXRk31q1eg9s0LxPMOUqsLURaFKmQG8EvFsXUo+mMTsmC
-         GUeJbbZ5bubwXBqxEV9cZaFMkKnWLQlb7RpkNuafzYVdCJJVpg6Qmaxgam9SsM+/lA9D
-         fKJMZRfc8t8hvD6WIZkRORofevUuwEf6pOC471URppWksLctWplmsRCsUGYWeNBuzhg9
-         hGWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787770074; x=1788374874;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CYxeX5UfuTCRGRCYmJDrUw0DxeZXUagnvzMWA/KuGYY=;
-        b=kdL80ZucxK9C3vuTScDHFEQX4MBr/F6JoGa/QmM3u2HWVutu2/FXz1qM1eRpivG9IJ
-         SImxbGZjVpF5sxyfTVu60JBKjdlfwDkrx4KDw1v4YsWHhqpyPQRscfgEMr56k+Z0puOB
-         WRK6CTck2dFOMJfLL9JuEfE52jEcIC8z9VeOwGOl7W6i3bXxtWt99DqbbIxwmOTz5xxy
-         p9R66MH/5zUu3WGeUIdG18L3nUvczZmzp4PaxIFzKm1y9w9EQofTt/w4YMjKE0LyYorM
-         SyarGFvOKWYWAq30/uxNtUGKsUD7Dbvno7aH/1tw4SBuN+6CTUBg6sXNNsJvv2eB1syn
-         3nNw==
-X-Forwarded-Encrypted: i=1; AHgh+RqcOu12NwGPz/e+UBhaw4lCXrtwLm57Hy1Lf8NCApxLQsz8SbgIgnHL0bZoa5RPPvzrcyL65naBzuECnpw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kH+FSuSZ8s3vPy43aJdik7q/9WuaI+6aWNchgXvBj8cCYQDoGx
-	zx20M9xnpvpvlKef/kG/GS4zne94KcytD8V7ZfIb5i6y766QxBTTQLlT
-X-Gm-Gg: AR+sD13spAox15VRv+2CpgOTOUObIp8F+TwvF32CinO4IZRf22hZIX3pmE1NmvZ2Low
-	C2mxnwYhs7bkZmoxUg6KywVJumATdTRasgIcDFDlBX20RUCfbqW3wnBZKWkMiU4nGh46CtQdByU
-	e7DbeMRDMxAN/+cvfj/JoyaQYL8uxBAL8P9e2Eqoc6oYAgRnioR8T/+t/XPgxsAiaqFM86HWx+T
-	cdWDttMtLtntupASM93Z2OS6MIlpTa23fHv8EX5TL2JO44k7SwDSime6o5ToFF71FnKzMTyx1M+
-	R/lul2JLI0ARREwmOMspqfZ0gBNRAjHqb1nH59SecxmCRS+gBJ578Tky4ZM4s68ymR93b4vdc4g
-	mLVWRJputSzdOoD/Qh1ol7lkeEsT9JnrJoJAcJtyU3iXAXn+NWYEdAXAfWZwuS+tdAtMYUxNDx0
-	gQIj1WNQ5wmsLvkT5MMO2/zlVIWU+1bcjGJT/v62uL4pnoB71+fnwCGoN4EFGni4EegNZJJ6f17
-	EWUFsdI0ZusT+iXd7VrXKmNTrxT1U20CWKt8g==
-X-Received: by 2002:a17:907:7249:b0:c21:792:8257 with SMTP id a640c23a62f3a-c250bc37bb2mr1060199866b.15.1787770073799;
-        Wed, 26 Aug 2026 11:47:53 -0700 (PDT)
-Received: from flaviu-Aspire-E5-572G.. ([5.15.67.216])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2533945d0esm114523366b.9.2026.08.26.11.47.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 11:47:53 -0700 (PDT)
-From: Flaviu Nistor <flaviu.nistor@gmail.com>
-To: Guenter Roeck <linux@roeck-us.net>,
-	Jean Delvare <jdelvare@suse.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Flaviu Nistor <flaviu.nistor@gmail.com>,
-	linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: [PATCH v2 0/2] hwmon: lm90: Fix DT channel constraints and reject unsupported channel 2
-Date: Wed, 26 Aug 2026 21:47:47 +0300
-Message-ID: <20260826184750.4798-1-flaviu.nistor@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="pyyO2f8F"
+Received: from omf01.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay04.hostedemail.com (Postfix) with ESMTP id D2C641A01EF;
+	Wed, 26 Aug 2026 18:47:57 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf01.hostedemail.com (Postfix) with ESMTPA id 15A7860011;
+	Wed, 26 Aug 2026 18:47:55 +0000 (UTC)
+Date: Wed, 26 Aug 2026 14:48:41 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: LKML <linux-kernel@vger.kernel.org>, Gabriele Monaco
+ <gmonaco@redhat.com>, Kuan-Wei Chiu <visitorckw@gmail.com>, Nam Cao
+ <namcao@linutronix.de>
+Subject: [GIT PULL] rv: Fixes for 7.3
+Message-ID: <20260826144817.7af76334@gandalf.local.home>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: ud4msytimxp5zjy7wd7m9octjx4zdbqe
+X-Rspamd-Server: rspamout04
+X-Rspamd-Queue-Id: 15A7860011
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX199BPvgGHMg2daSkG6mI3bgdmWjF4amp/k=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=zrsEN1+9v/Vwvujs3u/9dsl0EZPGGG9pCS6180WDFDk=; b=pyyO2f8Fzs32bsyVRwYAGoN2m/88NrR6CYKSU5dtvO2UeaFthrf+2fxRgSjyEPSrLF2pw2wgbOQIm1Id3OHGjRXpAw1jziiHImpZTuBtRuNK+RU1E+MnnChBqfIpXSzxgAsIsFZU4F0Epvd59UHm/uNwwQh9cFaIbd8jyiYmBvE=
+X-HE-Tag: 1787770075-9801
+X-HE-Meta: U2FsdGVkX1+1ufxPeW1U7kfM0X6YMfieLInfY7vgJeiP2f+HnkkEGuixqutAXTiMOgSKROBy/GqOYO59fO/nYgHYvZZQtPiN9MC3dGPBWnd3gHxtdFvJzZ8DQ7h5Wj4+gyEKv+dBsS2xLSQkgBDsAltzFvTV5T6oEJ5gYKv7Cj3ApT6BhuAvdStlbkBSOgRuCSlXQlPp/NsSyWkvOmkOgpB2rPF4L7ulK+vCGZqResBHF83T0M+iEvKkyWkdzZT7Cko5yZKyU+uqsg5dsYI5f5Ma1AvTeYsQ9iKqH8w6Iiejk4/5IS6hhEDtnKHMLPNp/IiYvg/vwZoltHmmjGnTmDBIU1Gzj892F9QtZ4WUmd4VYGgI/kafGa66zE8kwK8JV42HgYLNm+1HilIoJbf5pbT8EsuO/oqW
 
-The intention of this patch series is to fix DT channel constrains in the
-dt-bindings and inprove the driver to reject unsupported channel 2.
 
-dt-bindings:
-Forbid temperature-offset-millicelsius on channel@0 (local sensor).
-Rejecting of assigning temperature-offset-millicelsius for channel@0 is
-already implemented in the driver.
-Reject channel@2 for compatibles that have only one remote sensor.
+Linus,
 
-driver:
-If the sensor have only one remote channel, reject a possible unsupported
-channel 2 and return an error, similar to miss-assigment of temperature
--offset-millicelsius property to channel@0.
+runtime verification fix for 7.3:
 
-Flaviu Nistor (2):
-  dt-bindings: hwmon: national,lm90: Fix channel constraints for
-    temperature offset
-  hwmon: (lm90) Reject channel 2 on chips with only one remote sensor
+- Use .old instead of .bak for rvgen kunit backup files
 
- .../bindings/hwmon/national,lm90.yaml         | 28 +++++++++++++++++--
- drivers/hwmon/lm90.c                          |  5 ++++
- 2 files changed, 30 insertions(+), 3 deletions(-)
+  The rvgen kunit command generates .bak backup files and these are
+  checked in for selftests as "golden" files for make check. Clean
+  make disclean removes such files, leaving the tree dirty.
+  Switch to .old to preserve a clean tree after make disclean.
 
--- 
-2.34.1
 
+Please pull the latest trace-rv-v7.3-2 tree, which can be found at:
+
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git
+trace-rv-v7.3-2
+
+Tag SHA1: 59b4def9b53efdd6c9e83f6a32aabf8b7001652a
+Head SHA1: ab0304fd69b07605553e9f161d65ecf9ccc2e2fe
+
+
+Gabriele Monaco (1):
+      verification/rvgen: Use .old instead of .bak for kunit backup files
+
+----
+ tools/verification/rvgen/rvgen/kunit.py                                 | 2 +-
+ .../{test_bak_kunit_kunit.c.bak => test_bak_kunit_kunit.c.old}          | 0
+ 2 files changed, 1 insertion(+), 1 deletion(-)
+ rename tools/verification/rvgen/tests/golden/test_bak_kunit/{test_bak_kunit_kunit.c.bak => test_bak_kunit_kunit.c.old} (100%)
+---------------------------
+commit ab0304fd69b07605553e9f161d65ecf9ccc2e2fe
+Author: Gabriele Monaco <gmonaco@redhat.com>
+Date:   Mon Aug 24 10:15:19 2026 +0200
+
+    verification/rvgen: Use .old instead of .bak for kunit backup files
+    
+    The rvgen kunit command generates .bak backup files and these can be
+    checked in for selftests (make check). Clean targets like make disclean
+    remove such files, leaving the tree dirty.
+    
+    Switch to .old to preserve a clean tree after make disclean.
+    
+    Reported-by: Kuan-Wei Chiu <visitorckw@gmail.com>
+    Closes: https://lore.kernel.org/lkml/aosuwKH5GOEo0xTN@google.com
+    Fixes: 7b6246294eb0 ("verification/rvgen: Add selftests for rvgen kunit")
+    Reviewed-by: Nam Cao <namcao@linutronix.de>
+    Tested-by: Kuan-Wei Chiu <visitorckw@gmail.com>
+    Link: https://lore.kernel.org/r/20260824081519.81103-2-gmonaco@redhat.com
+    Signed-off-by: Gabriele Monaco <gmonaco@redhat.com>
+
+diff --git a/tools/verification/rvgen/rvgen/kunit.py b/tools/verification/rvgen/rvgen/kunit.py
+index ed2082d7d3bc..85973f918c9b 100644
+--- a/tools/verification/rvgen/rvgen/kunit.py
++++ b/tools/verification/rvgen/rvgen/kunit.py
+@@ -173,7 +173,7 @@ EXPORT_SYMBOL_IF_KUNIT({struct_name});
+             for path in (header_file_path, kunit_c_file_path):
+                 if path.exists():
+                     try:
+-                        path.rename(path.with_suffix(path.suffix + ".bak"))
++                        path.rename(path.with_suffix(path.suffix + ".old"))
+                     except OSError as e:
+                         raise KUnitError(f"Error backing up file {path}: {e}") from e
+ 
+diff --git a/tools/verification/rvgen/tests/golden/test_bak_kunit/test_bak_kunit_kunit.c.bak b/tools/verification/rvgen/tests/golden/test_bak_kunit/test_bak_kunit_kunit.c.old
+similarity index 100%
+rename from tools/verification/rvgen/tests/golden/test_bak_kunit/test_bak_kunit_kunit.c.bak
+rename to tools/verification/rvgen/tests/golden/test_bak_kunit/test_bak_kunit_kunit.c.old
