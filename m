@@ -1,88 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com [209.85.221.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98941431E49;
-	Wed, 26 Aug 2026 13:47:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D5563F5BEF
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:47:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787752060; cv=none; b=VcdPf07ubQODwnarpX7QeXyaxD/wMoRBcUWHdanKpIUvv+6ToqeY/4SgXzIgNJFZwiIT5KO5PkqJT7h0cThRfDfd9cRe7wlZ/V9GBIYJ73edoBfF3DFfaLGUR9t18KAvlrrH2TAWdTjl4WYUXP8duVsSoy/TsGNq1MYma45rX7E=
+	t=1787752080; cv=none; b=LZQY9nsdT39w3MmA2ghfXHNgYweZAvR1Hp0HsJwk8QiK/tmy4KRoDRm2n1QWvyY8hHWVKpJteyfrwX60WzOch7kHJ1EDr5kG3SZXqQ3vdLXUUexYDtfWOz0GI0S+DR6g9qcKPD/QNCS+xFtki2RDkriH/KypMVFLxXhOCdIBtHo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787752060; c=relaxed/simple;
-	bh=QAcMff6+pKvsn1QdVpc5Po0o1qq52QVmOL5jB5kjrFA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JOitfYWvC7W9wqySgDzOoLi00g2Gl7vc4YeQLCJv5MGMshVoSy2lRRuSoNaBndqZw4jn62jjvQnNUuSXul6UBKpoMGLzgOX2/NHQ1wHgTl7G++mYIVZFD94LXz83gz5iGF1Oma+r4jC5a7NmKxTnrcZp562mrCMHaLnEivwkO+c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YqdPUmFb; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YqdPUmFb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 826D71F00A3A;
-	Wed, 26 Aug 2026 13:47:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787752059;
-	bh=rfiA2xY/1sxbBHxLTAs/jukO23zJ7xtO0RNk//A1ie8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YqdPUmFb1EZ9U3xlWQKZ2HdeCQh1QiL13tn9Gab7NhuvBJMbrC/vJY24b7Gy7zqTy
-	 9fYqocqiKX02E4fWAPLOzoVySQSMtr/PlQnvPqtLs3u0OOmNBnIJecX3o4qy8oJ1ik
-	 gOnj9roFtnMQoh6W4nkBTTg1pUiUvDVFUHQUnxaABkALwtt16gqFs/MpH7/Q/qgUSG
-	 IpAwVjap2TKunLnoloXuTUp/V4J048ke20sqnfK+SFMvzOJzWVi1CwJOuLxUgWssFQ
-	 8Z/ZvuIo84YlyrbrbUoQ8vcXKfWdmwg6IphiPqqUpVNFZ86kh5XAmDqEIsQPWY1/N5
-	 PQePBL1rZVekg==
-Date: Wed, 26 Aug 2026 14:47:35 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Matthew Wilcox <willy@infradead.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
-Subject: Re: Please include pagemap header cleanup in -next
-Message-ID: <3d9f98a8-1df3-4b06-b1bf-42baba10d3a5@sirena.org.uk>
-References: <aox4v6paR4IbJr8j@casper.infradead.org>
- <29f8f296-e49c-4960-aadb-f27d863ba773@sirena.org.uk>
- <ao3zvOo2nkMxaDY5@casper.infradead.org>
+	s=arc-20240116; t=1787752080; c=relaxed/simple;
+	bh=4R80M2uSqG8aB/kf7mO/4PkvyywvIIAoS2BoNshLVNc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ixjZA0+WZ9q9Gg0vmfpNPMshLoPtfIj7An8/bgtqoRaKzn4VmjqOgh9kSSI8DTSnudvLl554OmfgBsc6mj1ZdI1txmcNujoUzIXD5RzmWJbLSo7j0xVjfJjw81rmpYvNzc+PUiEjuLB/t7IqNgSzbmP1YWfr6zfpBU9/3+k/oSc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f178.google.com with SMTP id 71dfb90a1353d-5bf9466867cso403713e0c.2
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 06:47:57 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787752077; x=1788356877;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=J5AEkQkjMT9TtrBnAvVUmmFOsLJwXzQTGULTsLF/WhM=;
+        b=h7N+t8fxgc5CHkQsB0hcNaxcVGacYPGgjShi7rzELay+0h+9urTqa5ZLvhvIKZTpn1
+         OR3Y3iIuIAWrmAcW3N/nxhkCOWQ8n4z5ev2lGS2KehcMYpmHCA7XQyYEAVrbQv52pISa
+         BZdSs12F32t60Kzq9CzpEzzz8PmqfNj9fWpm7R0MWXmU2K8QrYK2EdxEZjPdik6oaQqX
+         w4K9rrBP/XenWQCXQwJsIM8K75nEdjdSfyRBkWC3lKjcbfeo/tgMuSk6y00ya2c6VsuE
+         ioQbaxjgd1zxP4XK7qyXQb1RLDJSvRa0/HHzlRQNcc96mTMRgn7xYwiEje/zd/n3w80D
+         lS4g==
+X-Forwarded-Encrypted: i=1; AHgh+Rqqi0hjRB5GqvVQApCUSXwGFpKOxLXMO0q1nqKwn9qYB+t1AgKskbZPlPpg/+CtRCWJO+27NR4aFTJUS7E=@vger.kernel.org
+X-Gm-Message-State: AFuF++kHTDELC37r1gA0agO0PGEYoG+2hDmC+qDkuUc+26SAhFB+GHNx
+	4f2w+uP9ho1bsnzOTg9qptNGOFQ8bgz/DvkkPXbFxlMJXv2uvJrCcsf7AwZMdxZW3YM=
+X-Gm-Gg: AR+sD11EFSKWEpC3twqZj10Rg7ZNGVpvIjCJwmnUy0YnCWQjA4lg+yYeGktVLsTjPfN
+	IaCkCqm0vbJKQt2Xwt2QgTWJqEVe0mB2UGrH/D4urledF5pSyFRhOL9GZY9VweL82RSMVPckfpy
+	pPNS+Fslz/ivLz7BKRo+dPjm/s7JsL+i46oPlbWjb6lhNmpY2g2ZdDMnJ6HhGmovsn6UVCSz6GE
+	zqxpwMUqXoKiyfMfCUAWmE/YMSwjn5TMJfqaT7qIECu5l6+5x96Ydft/ULsGwjwiZz132cp+i3Q
+	0vfnMcZZmq9Pvh62MWlMDLhweLi97j6WkbfjSTXDOFiMJmvECwlYO2zit0Bli+fkuVCqlZgLxpu
+	rgSpLXy177M2qPnK/VVtZmfc1IbjRE7vU8tVc75onJr9lpqiUWmPC602wjQHr6M+ZxTHNCLXOrq
+	EH9V9q8XQcpsK+KbX3roS2jN7suB7B6Cbz+FLZhujRJ+Fwa5sKzFiaUXGwlctnv7aGTXnmymkby
+	SxD8FO8AEk0wyVmLbf+Lb3u3g==
+X-Received: by 2002:a05:6122:3112:b0:5bf:7f98:9657 with SMTP id 71dfb90a1353d-5c65c5d0c7fmr2348277e0c.6.1787752076828;
+        Wed, 26 Aug 2026 06:47:56 -0700 (PDT)
+Received: from mail-ua1-f41.google.com (mail-ua1-f41.google.com. [209.85.222.41])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c66006086bsm1490703e0c.15.2026.08.26.06.47.54
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 26 Aug 2026 06:47:55 -0700 (PDT)
+Received: by mail-ua1-f41.google.com with SMTP id a1e0cc1a2514c-9770fffa5a6so351138241.3
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 06:47:54 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Roj2VySPgelGogGDX7KIE0B+Gk7QR0ZLi99gwZoOsDuN01vWJQ6h4mzDvB5n+GAANVTNInqvsLi4Y7OCrQ=@vger.kernel.org
+X-Received: by 2002:a05:6102:c91:b0:778:721:53db with SMTP id
+ ada2fe7eead31-782bca45c59mr1975967137.0.1787752074443; Wed, 26 Aug 2026
+ 06:47:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="JNTAy7y/B3qulzbT"
-Content-Disposition: inline
-In-Reply-To: <ao3zvOo2nkMxaDY5@casper.infradead.org>
-X-Cookie: Obey all traffic laws.
+References: <20260826112821.194877-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20260826112821.194877-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 26 Aug 2026 15:47:43 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWWxLXA+Y1sK-AFrx6Z0DkZ0xvrZbqCU_wcrfFyaKArAg@mail.gmail.com>
+X-Gm-Features: AcwNN1WNtag92uCqJjbPhiZSsO7JkAmcuVOcn1wehvKzSdLbU4TwbVG4gtD6TYg
+Message-ID: <CAMuHMdWWxLXA+Y1sK-AFrx6Z0DkZ0xvrZbqCU_wcrfFyaKArAg@mail.gmail.com>
+Subject: Re: [PATCH] arm64: dts: renesas: rzt2h-n2h-evk: Mark XSPI1 boot
+ partitions read-only
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Prabhakar <prabhakar.csengg+renesas@gmail.com>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
+Hi Prabhakar,
 
---JNTAy7y/B3qulzbT
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On Wed, 26 Aug 2026 at 13:28, Prabhakar <prabhakar.csengg@gmail.com> wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>
+> Mark the BL2 and FIP partitions on XSPI1 as read-only to prevent them
+> from being modified through the MTD partition interface.
+>
+> The corresponding boot partitions on XSPI0 are already marked
+> read-only.
+>
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-On Tue, Aug 25, 2026 at 08:57:48PM +0100, Matthew Wilcox wrote:
-> On Tue, Aug 25, 2026 at 02:44:54PM +0100, Mark Brown wrote:
+Thanks for your patch!
 
-> > As I noted in the regular build error mail it hit a build fail on an arm
-> > multi_v7_defconfig so I didn't merge this today.  It's pretty surprising
-> > that the build bot didn't hit that one TBH since the file that broke
-> > hasn't changed since v7.2 AFAICT, I would guess that there's some other
-> > implicit include cleanup work that's interacting badly with this effort
-> > but I haven't investigated at all.
+> --- a/arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-common.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-common.dtsi
+> @@ -825,11 +825,13 @@ partitions {
+>                         partition@0 {
+>                                 label = "bl2-1";
+>                                 reg = <0x00000000 0x00060000>;
+> +                               read-only;
+>                         };
+>
+>                         partition@60000 {
+>                                 label = "fip-1";
+>                                 reg = <0x00060000 0x007a0000>;
+> +                               read-only;
+>                         };
+>
+>                         partition@800000 {
 
-> I fixed up the one you mentioned   Then I installed an arm32
-> crosscompiler and built arm allmodconfig.  And then Intel's test robot
-> found another.  So in total, three more fixes:
+Makes sense. However, what is the recommended interface to update
+the bootloader in these partitions?
 
-Looks like that did the trick for the build tests I do as part of -next
-at least.
+Gr{oetje,eeting}s,
 
---JNTAy7y/B3qulzbT
-Content-Type: application/pgp-signature; name="signature.asc"
+                        Geert
 
------BEGIN PGP SIGNATURE-----
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqO7ncACgkQJNaLcl1U
-h9DELAf/YJVgHLNnyJD8LI2DzhHyjym8bYSEdzH/K6jZ1vjWAZGwnvlvkYgkMKXM
-QoZIBh4KpvcG4Dvt4qNtczqiInNAt/tda8+ovsY9i0Rl0UKYYVJY7PrXkMv3g84z
-qp93LGxe+kw0xaYMq90DUONAOZjY2yVZZy2Sg3zx6MilU54fX/kx/Aw7z5YgKPvl
-AHB59JFRmRuiqhLKX0YoKPCTj8spjsV5Q43DxUezexPzvjm0v9nfzf4Giv0l2dlk
-bCI8lb7G4HtchdFeQ/A1QVuhdVTBPhHCIMozpBwRqx7Y27eUg80O6bWlQnSUmFfF
-uhAtLNVfFIR0kh37oW6eqQoD8tMDXw==
-=4+qH
------END PGP SIGNATURE-----
-
---JNTAy7y/B3qulzbT--
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
