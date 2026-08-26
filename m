@@ -1,30 +1,30 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23AD541A914
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 12:28:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 397C141A914
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 12:28:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787747289; cv=none; b=f+Tfn8TCqyw1QuJ+eRmGCPYnlrU8v/kY8CxpMiWVzfPsKvRmN5ybp0CAyVukfNCgmMdXWFejOE3j+D5hvmUwqVS19wHzzfVXRKHXazU1iLIO40cPO5GrSZLi3HCTP84lOVYn+fIRJhMqIvIBMEEF0WDE0PG6us291AOyesbSXjo=
+	t=1787747295; cv=none; b=PcsQoeUB2qb507D+dnG4hCe+C6M+aA33suaW6ns4PlZeF7C6kuFCK8TE44u7HtKqJnorV1dhmmpvibNe0+szC8MM+rX3RrWoJasCwZLTCNy/IgcJUWsAKU4f/U03QURrUqj+VSGwefFjd9AQMOnUJiVn4dGLCVnaxRQKOJ9REGY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787747289; c=relaxed/simple;
-	bh=3q2rBVs86aGWdbyOrfsqHgDn+UlAr2tm2kY4ZHHDgRo=;
+	s=arc-20240116; t=1787747295; c=relaxed/simple;
+	bh=A8j1rbFYphj6DzHGQlB3VRIzZvi3tCcteMsr1ckxQUQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=csP17EJLndq/TQaVEWBkfiEC+TxXHduw8I2rMXirzCrpRFfAniUfGZ8ntReJbL+iZt5ZywIIiGTQZmFWG397Ih74chKWfqpQ3TEGEW9xAug1xdmHsVhez7/cYEZvn/sJhCCQKsYKGcj00fcW8HSWKwfljHyMMCAhHt18qNG3Dxk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Wf7oOgXn; arc=none smtp.client-ip=117.135.210.2
+	 MIME-Version; b=hCcCktzwKGCdlknd4F3rdVDgUctSCf/LLqc9j/Ug/+VOdTZ3uIk3oYagN4sVy21/HX/G/ieKGvRaVb01251RAzve6lBGAe2b3nS+qsupQn53H9Wutqf+K+sV60kTKTafwmIL3jZ48NdE0iXyW1N7nHn6F1unKw1d3ljL9FHL6Ow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=FzpiAHai; arc=none smtp.client-ip=117.135.210.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Wf7oOgXn"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="FzpiAHai"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=kt
-	2kK9yQ4Wc1wTrmIy0zAfLAF65ecf5YAnNursAAmz8=; b=Wf7oOgXn8IKP9we+fX
-	i59H+IdavZWOpbkNxeGJ5IEy9CH9940bNnGr2Rt9t3DFEiHUCwA1CO9W+44Fh+Td
-	8l/XfJY8uQ1dZVQfn+NdnTyXdeHBDI62IdOZPaDVnC8cdon1Y/2G35XOc1DoDVpL
-	d8JWTpKb5Wpp4jXj0bqv//wTY=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=R/
+	MI/kx96pri+tgbhY62IIlE0SKRwiUVjetW81QUqOk=; b=FzpiAHaiQ6sBKWF4Ol
+	2ayYXWYKPS15ufUJ+2ZQGkoJBTSdpsTDth4MZbXiPdKUKVBj+aBkUHsc70R/0EDr
+	FNjsz7jR0VfNRezUpfqlPKsHJhu9h393gLLdpMCmj/BlXcyfAAf3YGaJixryGvZC
+	Kq3i/QLPSgxILZ9eICKJs4t/E=
 Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCgvCgDHUCC4245q++wKOQ--.27428S3;
-	Wed, 26 Aug 2026 20:27:40 +0800 (CST)
+	by gzsmtp5 (Coremail) with SMTP id QCgvCgDHUCC4245q++wKOQ--.27428S4;
+	Wed, 26 Aug 2026 20:27:43 +0800 (CST)
 From: Baolin Liu <liubaolin12138@163.com>
 To: linkinjeon@kernel.org,
 	hyc.lee@gmail.com
@@ -32,9 +32,9 @@ Cc: ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	liubaolin12138@gmail.com,
 	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v1 1/2] ntfs: report volume errors to fsnotify
-Date: Wed, 26 Aug 2026 20:27:33 +0800
-Message-ID: <20260826122734.2129830-2-liubaolin12138@163.com>
+Subject: [PATCH v1 2/2] ntfs: report forced shutdown to fsnotify
+Date: Wed, 26 Aug 2026 20:27:34 +0800
+Message-ID: <20260826122734.2129830-3-liubaolin12138@163.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260826122734.2129830-1-liubaolin12138@163.com>
 References: <20260826122734.2129830-1-liubaolin12138@163.com>
@@ -45,79 +45,70 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:QCgvCgDHUCC4245q++wKOQ--.27428S3
-X-Coremail-Antispam: 1Uf129KBjvJXoW7uw1xXryrtrW5WF17CFyrXrb_yoW8uw1xpF
-	WkCwn3KrWkJ3W7KwsIk3ySyF4Sga4kWr4jyr47Jw1Sqrn3tw1UtFs2y34F9F1I9rW8Zw4x
-	XF1Yq393urWUZrUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j7pnPUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6R1kL2qO27259wAA3z
+X-CM-TRANSID:QCgvCgDHUCC4245q++wKOQ--.27428S4
+X-Coremail-Antispam: 1Uf129KBjvJXoW7ArykGFWxZw1xtr1xCFWDXFb_yoW8Zr4rpF
+	WkZ34fJ39rJF17twsxKw43tF4ftas7u3yYyr4UWw4xWrn7Kr4UJF48K340vF4F9FWkZrWr
+	XF1Yg39xury7ZwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jg8n5UUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6h9kL2qO278RfQAA3S
 
 From: Baolin Liu <liubaolin@kylinos.cn>
 
-The ntfs driver reports volume corruption only to dmesg. Wire up the
-generic fserror infrastructure at NVolSetErrors(), the point where the
-driver concludes the volume metadata is inconsistent, so that an
-FS_ERROR event is emitted as well. This lets health monitoring daemons
-watching the mount with fanotify(FAN_FS_ERROR) learn about corruption
-without scraping kernel logs.
+Wire up fserror_report_shutdown() at NVolSetShutdown(), so that
+shutting a volume down also emits an FS_ERROR event. This covers the
+FS_IOC_SHUTDOWN ioctl as well as the ->shutdown super_operation, which
+the VFS calls when the backing device is marked dead.
 
 Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
 ---
- fs/ntfs/super.c  |  8 ++++++++
- fs/ntfs/volume.h | 14 +++++++++++++-
+ fs/ntfs/super.c  |  7 +++++++
+ fs/ntfs/volume.h | 15 ++++++++++++++-
  2 files changed, 21 insertions(+), 1 deletion(-)
 
 diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-index cd8fa2c13370..5229eb27bb30 100644
+index 5229eb27bb30..c61992506845 100644
 --- a/fs/ntfs/super.c
 +++ b/fs/ntfs/super.c
-@@ -14,6 +14,7 @@
- #include <linux/sched/mm.h>
- #include <linux/fs_context.h>
- #include <linux/fs_parser.h>
-+#include <linux/fserror.h>
+@@ -338,6 +338,13 @@ void NVolSetErrors(struct ntfs_volume *vol)
+ 	fserror_report_metadata(vol->sb, -EFSCORRUPTED, GFP_ATOMIC);
+ }
  
- #include "sysctl.h"
- #include "logfile.h"
-@@ -330,6 +331,13 @@ const struct option_t on_errors_arr[] = {
- 	{ 0,			NULL }
- };
- 
-+/* Mark the volume as corrupt and notify fanotify(FAN_FS_ERROR) listeners. */
-+void NVolSetErrors(struct ntfs_volume *vol)
++/* Shut the volume down and notify fanotify(FAN_FS_ERROR) listeners. */
++void NVolSetShutdown(struct ntfs_volume *vol)
 +{
-+	set_bit(NV_Errors, &vol->flags);
-+	fserror_report_metadata(vol->sb, -EFSCORRUPTED, GFP_ATOMIC);
++	set_bit(NV_Shutdown, &vol->flags);
++	fserror_report_shutdown(vol->sb, GFP_ATOMIC);
 +}
 +
  void ntfs_handle_error(struct super_block *sb)
  {
  	struct ntfs_volume *vol = NTFS_SB(sb);
 diff --git a/fs/ntfs/volume.h b/fs/ntfs/volume.h
-index 65fd3908af26..cf1a75066157 100644
+index cf1a75066157..fac7e90dbfa6 100644
 --- a/fs/ntfs/volume.h
 +++ b/fs/ntfs/volume.h
-@@ -218,7 +218,19 @@ static inline void NVolClear##flag(struct ntfs_volume *vol)	\
- }
- 
- /* Emit the ntfs volume bitops functions. */
--DEFINE_NVOL_BIT_OPS(Errors)
-+static inline int NVolErrors(struct ntfs_volume *vol)
+@@ -238,7 +238,20 @@ DEFINE_NVOL_BIT_OPS(UsnJrnlStamped)
+ DEFINE_NVOL_BIT_OPS(ReadOnly)
+ DEFINE_NVOL_BIT_OPS(Compression)
+ DEFINE_NVOL_BIT_OPS(FreeClusterKnown)
+-DEFINE_NVOL_BIT_OPS(Shutdown)
++
++static inline int NVolShutdown(struct ntfs_volume *vol)
 +{
-+	return test_bit(NV_Errors, &vol->flags);
++	return test_bit(NV_Shutdown, &vol->flags);
 +}
 +
-+/* Out of line, it also reports the corruption to fsnotify. */
-+void NVolSetErrors(struct ntfs_volume *vol);
++/* Out of line, it also reports the shutdown to fsnotify. */
++void NVolSetShutdown(struct ntfs_volume *vol);
 +
-+static inline void NVolClearErrors(struct ntfs_volume *vol)
++static inline void NVolClearShutdown(struct ntfs_volume *vol)
 +{
-+	clear_bit(NV_Errors, &vol->flags);
++	clear_bit(NV_Shutdown, &vol->flags);
 +}
 +
- DEFINE_NVOL_BIT_OPS(ShowSystemFiles)
- DEFINE_NVOL_BIT_OPS(CaseSensitive)
- DEFINE_NVOL_BIT_OPS(LogFileEmpty)
+ DEFINE_NVOL_BIT_OPS(SysImmutable)
+ DEFINE_NVOL_BIT_OPS(ShowHiddenFiles)
+ DEFINE_NVOL_BIT_OPS(HideDotFiles)
 -- 
 2.51.0
 
