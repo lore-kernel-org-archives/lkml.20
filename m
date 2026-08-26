@@ -1,189 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D10AB44A3EF
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 15:02:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787756539; cv=none; b=QAWcQmBCeXd3AGSPYgeGpdOyabzjdNTgo4eSEmVok3uRfkX1/TO6qaQRL66VQ2Omx77WFq+C7AToWogwnc/R6swgXsjeCsrs89FyyzPAYpIdow0xfdtD0Yq9ynUCzU6gGdHgf0x3kw+5sh0AGXulfP2/vW/ait0C7dO/xNnP4XQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787756539; c=relaxed/simple;
-	bh=KqurwhfkeWH92vR01UEowYKyYippJ5kwR9uR9c31nvE=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6DDF4252B1
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 15:02:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.182
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787756563; cv=pass; b=JTXK+9EItkV0p2UBZlIiIoL/SOGK7Y/1Mj2DM7HuMoq6IKAxYUZTPYqPvz0DapT5ISa0Jiq4THF0s1+/HiUEHWuVxYpgpiWGSjppeKIiAmP8/kegYNCfzjheB+itOnbKauLMa1TtfHWXVAn5CIqRcRNXf1Vw21iS10rFz2sFvRg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787756563; c=relaxed/simple;
+	bh=/5GEC9MtQECsj84A2/9ukz67BZyUeqSD9PsiFzlZiTg=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=W8WHSVi0L7tsWNKNohSNKN8rzm91sSLipXtjaQ7rMW+5tjnWHeAkdla7ekNrLE+13ePuwW2YjmShzPaVR39N/zmbsyIpou2CYy9yqk3OZXocakfELU3WP2ccTGtjykzFy6EDt3l+SFWu//rkV2JvoV4vqu1tDTGdoWPSjL+3v20=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MkHe2AHx; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=MRs+Gs7T3wkYdYRFsb+An+uXI9JtgpKcFo36r0Ju18jtq0WSPdiWdaBGQZM2HunB3Eb22KACjhhslcc6iprqvT9Amm69jB+Bnvq5qcmHcCqfBHUB5Dsqn8gD0krSNZ+wvhhWOB6s/fqSMbZR8VpbeCrMuciW2roJRuZkQq+2ZFQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m8Pupy+C; arc=pass smtp.client-ip=209.85.215.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MkHe2AHx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BF411F000E9
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 15:02:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787756537;
-	bh=NVcCvLmnWBybIlOyguyyeisqqYoOCyTYR0wcFtpqJQ4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=MkHe2AHxO4V2zC4q0ERqf4eKxoo1q5sNINN8mE0EZmFSgEzq29D/VmAfRQxdS1JIl
-	 ZNpYNHojVJ/hTT8RCIHrC12yQgZXqKBYfbOGZDi2Xi8Y95d0Uj0a4ygnyMqobWpM/s
-	 uHw1jXQ7hbFqnv5jni1qHq1+Er64dddEYvBLiWEP35Zftpi7x0NUDZ/EPn1AFwa62j
-	 kDKxHiBOS5/+PMq2bIPPU7JIUJaaIeLt5w9W+l1rL2iHvHNdlREXQb73stom9t515S
-	 6e2HZfq73TjQ9z3qizuXWG2KN8METmoqJ7OCxlBZDyH1oqzUNhRmWxFk5hoZfC550n
-	 f5V52cNv43bDQ==
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c169ae1cb26so441404066b.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 08:02:17 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqBI0ZX1EAM/+nLAK8DOjtXz9E2cNHvqWVljNMX3bUsZQI0J6RHh8isyX72nckaa23GB9YGFhTmSx/7pdE=@vger.kernel.org
-X-Gm-Message-State: AFuF++ml93k+GNB7Kq3bP0mqwHbJGKCz4MtYx1h95goDxYLBCs2uEDXj
-	10Jo/NYcmM66eP8HApdrzUIh5FQ5eXJ6HrsuZazJDw3JQqRpIktm8bWmT8vc9NnA15Q5bEJA9Fu
-	7YyzEkbkptpYbeTmO1LCNR0p83V7diUU=
-X-Received: by 2002:a17:906:a352:20b0:c25:32b0:e56d with SMTP id
- a640c23a62f3a-c2532b0ef44mr124311666b.7.1787756536214; Wed, 26 Aug 2026
- 08:02:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m8Pupy+C"
+Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-ca5b707b78aso90987a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 08:02:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787756562; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LJxog20d1oGS6P/S5sklAYimDzsGk5LFvhAa6suR2cNxh9v4sUAcgDZZupWRn1BEST
+         gBpEcL4hAStPK8nYifYb2KBfvX4HcFX4tdKTOEl44VU7dsy0Cup/4cqlajcUd50kzcms
+         GNxibkdXLAppEf/dxwNy+C4IjfF7vf330sXvK5LsulSBwby4ENhUTnJu5KbDgxifEEq6
+         EdFDSHTYOU/RT+MYdFTXiLrpejsotWGSCEv4blyJju2phSAL1hPYdXNpudfHZJU3Mu/I
+         UgArlM+usrIdazNUdzxnjE7ENvq6D4eqN5UD70JcgSpYxbMl29aTnsXKLfmwRV9KKL0d
+         olDQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=fKjFrILSlKMtCa7HCHUu+Qbu0uL60HZCrihH3ZGerxk=;
+        fh=yPjN4Xiwudd0QQ317RcfGGlthKukRJNq2116XmivhLw=;
+        b=OaAksKeHg5aCuU8i439hT917gsF9oVBzs7LA0dcQfQHzPZlcKrg9ry1GGJHZGXwzY+
+         1/UjBm8H2bCqbHOrQpkQQ1H3cBiRBJhxEdjNmWIrIpantqIUdX1Q2vpF7MXkkgELME3L
+         SWtme7OfGVeI5MjxFoig8vGXzBcsPchYNnfxWy8OCEAgfPoEUcrUyBAzWdovdEVORDH6
+         ojp/+J9u+O4nnRW0m8BoMjwI0xBt8+idGwIQUSDnwMsOQNu/xzewDl0vZHSvbbo8Kffj
+         OyGg87qGIcr4GvZsD8fLFWDm8gKaYjxaJkLs9AMB8ubpZ+hg/GkCDHWtFovCR3rb2/B+
+         VZ1g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787756562; x=1788361362; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=fKjFrILSlKMtCa7HCHUu+Qbu0uL60HZCrihH3ZGerxk=;
+        b=m8Pupy+CuZdnIMUlQqvnvg3oS4cQb73XGz0bfGWvZT3QL1Gkq5gfSRajc6P19gDG83
+         MH0nJCIRCt1tZWaeTygLEgmGNJ8mXKA8g8yv+0JrngS+qQx7VCh3R/IlSwORnjRpUQlP
+         /Qu93BjfgW76s8GzLFYRwquyjDtWHP1vSUHvpE7W4w7Vsh3lU0IRn/tWpof58BOWT9qP
+         OLycJJnweLFSU+l4eN5ud0RCcoVV5QQ7NQXr0Pbw4HFlKtMR0ZKNlEf6klXj6ACysBQx
+         vhNXc6T2jM4CbB+px1TLwOBIEfQFBiXPT1RJ5y6qiifL4kWdhiYewLtmD07HlyCaqnKi
+         t8sQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787756562; x=1788361362;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fKjFrILSlKMtCa7HCHUu+Qbu0uL60HZCrihH3ZGerxk=;
+        b=dPsndCC+mEazvPKcpyk7h77oplKqxcfudIhHBdkjchk45MVQC/2ziul+lfoxZ0WlgZ
+         Nd8Kbv7OV+S1J/qDFjkAjUD8PKWhpwTqKtwIhTkbQRrX2kL24yZWcWAgvoKU+e+47EQf
+         c19xiXruofpTgQme/2RvJT81ltuIjZ7Flx2rbYxmhm+dgE0pK3l4+hTZ2y55yg3rNiEz
+         UxgC8VqgjNgoq7B7q7vyv6Se7UsEo479tpfNkDPY8XFBe54ymGam5ZnYaLi5Ikd2GSpA
+         83Bd8pOBXBADRecsebMoD0DZv1nrfPbEPL1nKpiaaOhtNBoINyCf1UpC17wAnAOMznVJ
+         0+jw==
+X-Forwarded-Encrypted: i=1; AHgh+RpOkDCRMP6QWC+wUkhtkPGSI01MmyEunttdw2e5+GxLcsSeQuXO9ZTX8+og3YGJElaX4VMnFRpqHEo0dCw=@vger.kernel.org
+X-Gm-Message-State: AFuF++ndmkJa58og9aTfWK9Xozu1vqsP4SM9MlwJNrUDtej/UFy0H1Fw
+	L83TfsduE8VHlQpiVMAOVRDV6OlXCWesO3xfrAADjzkYuRbHZ144urXQh+4Qk66Z/LihIE6F/mV
+	b7CqIUN3znpFS1HI6HykKRNyn4+XyAZ8=
+X-Gm-Gg: AR+sD10Psjd4jL048RZN0eyEoNfsNo4ilCEZbKY0Xz8qpOmwQbeUc476FmsyDjmiHZp
+	ra9Ir9zSQRWGDhv4ermKH5DfEU95QBOelVMWmrFcJzuBFCDSg+58UOIy0MAvk++dxK5OytKsXEy
+	38wdueKg3rWXAYQWROgQpJ1eeguhgeLeswCL2dWxm8hsIfzdFiBzPKDxqROnLDwwZMXMv6FEPAJ
+	II2pMBL7WP2WMJ7L0UmKLZjZzlzt1TaZU4RJYlXYV1VwiNcurPm5Ynrk4YOTpGrJgBjNd2FNLld
+	4d38k6/iVVL97uuBqpvJQkeh4KLWmDVdABg+qA2Ni85cUZmPBaluGbCCrvvYkc+AP7LOKhei1D4
+	hVDO8rLRB8wef9rzY12ILTGm3bovZ2iLQKxza+LK7N1SNdA/lZb41q18oLR8mAg6ZyBKrSMnt
+X-Received: by 2002:a17:902:f691:b0:2cc:f4d4:29a0 with SMTP id
+ d9443c01a7336-2d71e4cabcamr9458015ad.3.1787756561747; Wed, 26 Aug 2026
+ 08:02:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260818123921.3600606-1-chenhuacai@loongson.cn>
- <20260818123921.3600606-5-chenhuacai@loongson.cn> <fed97fbc-7d78-4509-86c2-cb302d3957db@oss.qualcomm.com>
-In-Reply-To: <fed97fbc-7d78-4509-86c2-cb302d3957db@oss.qualcomm.com>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Wed, 26 Aug 2026 23:02:13 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H4BRGeZ48PMJcYNR_Nn2-=Emec=pXsD041ZwWzJ5vo8nQ@mail.gmail.com>
-X-Gm-Features: AcwNN1XnWCZ_j5s24EXBjPnXvoyo6XOOKag1dVhQo6JOF7SB5LvAgfDgqDzhSps
-Message-ID: <CAAhV-H4BRGeZ48PMJcYNR_Nn2-=Emec=pXsD041ZwWzJ5vo8nQ@mail.gmail.com>
-Subject: Re: [PATCH 4/5] cpufreq: loongson3: Use global physical CPU ID in
- get/target callbacks
-To: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-Cc: Huacai Chen <chenhuacai@loongson.cn>, "Rafael J . Wysocki" <rafael@kernel.org>, 
-	Viresh Kumar <viresh.kumar@linaro.org>, loongarch@lists.linux.dev, 
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Xuerui Wang <kernel@xen0n.name>, Jiaxun Yang <jiaxun.yang@flygoat.com>, stable@vger.kernel.org, 
-	Hongliang Wang <wanghongliang@loongson.cn>
+References: <20260826145832.42387-1-elouandacostapeixoto@gmail.com>
+In-Reply-To: <20260826145832.42387-1-elouandacostapeixoto@gmail.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Wed, 26 Aug 2026 17:02:29 +0200
+X-Gm-Features: AcwNN1VA-WD92RaG1JazLgbFi5wl6plkGePCcziqBYAfDtSGbu5lTLJre33ux2s
+Message-ID: <CANiq72=NtS=YHkCbB3ui1vVkHoVpHh2S12XAC=0vqHcurJFX+Q@mail.gmail.com>
+Subject: Re: [PATCH] rust: zerocopy-derive: Remove the BoolExt trait
+To: Elouan Da Costa Peixoto <elouandacostapeixoto@gmail.com>
+Cc: ojeda@kernel.org, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, boqun@kernel.org, gary@garyguo.net, 
+	bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org, 
+	aliceryhl@google.com, tmgross@umich.edu
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi, Zhongqiu,
+On Wed, Aug 26, 2026 at 4:58=E2=80=AFPM Elouan Da Costa Peixoto
+<elouandacostapeixoto@gmail.com> wrote:
+>
+> FIXME comment was saying that this needed to
+> be removed once the MSRV >=3D 1.62.
+> The current MSRV is 1.85.0 obtained by using:
+> `scripts/min-tool-version.sh rustc` command.
+>
+> Signed-off-by: Elouan Da Costa Peixoto <elouandacostapeixoto@gmail.com>
 
-On Thu, Aug 20, 2026 at 8:24=E2=80=AFPM Zhongqiu Han
-<zhongqiu.han@oss.qualcomm.com> wrote:
->
-> On 8/18/2026 8:39 PM, Huacai Chen wrote:
-> > Our server productions (e.g. Loongson-3D6000/3E6000) can have discrete
-> > global physical CPU IDs while the core ID inside the packages are alway=
-s
-> > continuous. In these cases we should use global physical CPU IDs to get
-> > and set frequencies.
-> >
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Hongliang Wang <wanghongliang@loongson.cn>
-> > Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
-> > ---
-> >   drivers/cpufreq/loongson3_cpufreq.c | 20 +++++++++++---------
-> >   1 file changed, 11 insertions(+), 9 deletions(-)
-> >
-> > diff --git a/drivers/cpufreq/loongson3_cpufreq.c b/drivers/cpufreq/loon=
-gson3_cpufreq.c
-> > index e3cd78a5ab18..c75c0e30e881 100644
-> > --- a/drivers/cpufreq/loongson3_cpufreq.c
-> > +++ b/drivers/cpufreq/loongson3_cpufreq.c
-> > @@ -219,38 +219,40 @@ static inline int do_service_request(u32 id, u32 =
-info, u32 cmd, u32 val, u32 ext
-> >
-> >   static unsigned int loongson3_cpufreq_get(unsigned int cpu)
-> >   {
-> > -     int ret;
-> > +     int ret, core =3D cpu_logical_map(cpu);
-> >
-> > -     ret =3D do_service_request(cpu, FREQ_INFO_TYPE_FREQ, CMD_GET_FREQ=
-_INFO, 0, 0);
-> > +     ret =3D do_service_request(core, FREQ_INFO_TYPE_FREQ, CMD_GET_FRE=
-Q_INFO, 0, 0);
->
-> As patch 5/5 changelog:
->
-> "However, IOCSR read/write can only perform on the current node, while
-> sometimes we want to perform on other nodes"
->
-> However, patch 4/5 starts passing the global CPU number without updating
-> do_service_request(), which is only changed in patch 5/5. Doesn't that
-> mean patch 4/5 is broken on its own?
-Cross-node accesses need the whole of this series. So:
+Thanks for the patch!
 
-For single node machines, with or without this patch are both correct.
+This code comes from upstream, i.e. it is intended to be vendored
+as-is, so if this were to be taken, then it should be submitted
+upstream instead.
 
-For multi-nodes machines, this patch cannot solve all problems, but
-doesn't make things worse.
+Having said that, their MSRV is different than ours:
 
->
-> >
-> >       return ret * KILO;
-> >   }
-> >
->
-> A separate issue=EF=BC=8C do_service_request() can return errno such as -=
-EPERM,
-> it will cause .get() func return a large unsigned integer value.
-Yes, we need "return (ret < 0) ? 0 : ret * KILO" here.
+  https://github.com/google/zerocopy/blob/main/zerocopy/POLICIES.md#msrv
 
-
-Huacai
-
->
->
-> >   static int loongson3_cpufreq_target(struct cpufreq_policy *policy, un=
-signed int index)
-> >   {
-> > -     int ret;
-> > +     int ret, core =3D cpu_logical_map(policy->cpu);
-> >
-> > -     ret =3D do_service_request(cpu_data[policy->cpu].core,
-> > -                              FREQ_INFO_TYPE_LEVEL, CMD_SET_FREQ_INFO,=
- index, 0);
-> > +     ret =3D do_service_request(core, FREQ_INFO_TYPE_LEVEL, CMD_SET_FR=
-EQ_INFO,
-> > +                              index, 0);
-> >
-> >       return (ret >=3D 0) ? 0 : ret;
-> >   }
-> >
-> >   static int configure_freq_table(int cpu)
-> >   {
-> > -     int i, ret, boost_level, max_level, freq_level;
-> > +     int i, ret, core, boost_level, max_level, freq_level;
-> >       struct platform_device *pdev =3D cpufreq_get_driver_data();
-> >       struct loongson3_freq_data *data;
-> >
-> >       if (per_cpu(freq_data, cpu))
-> >               return 0;
-> >
-> > -     ret =3D do_service_request(cpu, 0, CMD_GET_FREQ_LEVEL_NUM, 0, 0);
-> > +     core =3D cpu_logical_map(cpu);
-> > +
-> > +     ret =3D do_service_request(core, 0, CMD_GET_FREQ_LEVEL_NUM, 0, 0)=
-;
-> >       if (ret < 0)
-> >               return ret;
-> >       max_level =3D ret;
-> >
-> > -     ret =3D do_service_request(cpu, 0, CMD_GET_FREQ_BOOST_LEVEL, 0, 0=
-);
-> > +     ret =3D do_service_request(core, 0, CMD_GET_FREQ_BOOST_LEVEL, 0, =
-0);
-> >       if (ret < 0)
-> >               return ret;
-> >       boost_level =3D ret;
-> > @@ -263,7 +265,7 @@ static int configure_freq_table(int cpu)
-> >       data->def_freq_level =3D boost_level - 1;
-> >
-> >       for (i =3D 0; i < freq_level; i++) {
-> > -             ret =3D do_service_request(cpu, FREQ_INFO_TYPE_FREQ, CMD_=
-GET_FREQ_LEVEL_INFO, i, 0);
-> > +             ret =3D do_service_request(core, FREQ_INFO_TYPE_FREQ, CMD=
-_GET_FREQ_LEVEL_INFO, i, 0);
-> >               if (ret < 0) {
-> >                       devm_kfree(&pdev->dev, data);
-> >                       return ret;
->
->
-> --
-> Thx and BRs,
-> Zhongqiu Han
->
+Cheers,
+Miguel
