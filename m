@@ -1,131 +1,231 @@
-Received: from mail-oa2-f0.google.com (mail-oa2-f0.google.com [74.125.231.64])
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2DFB3B774B
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 12:18:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.64
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787746718; cv=none; b=FexO3CozeUvU/6sCfD1uxrJ6IssdCN+3a3EJsQa8yq/s2qENhi2/LoX+HuTCNagtJxXO+HUC9YBdv6Ss0SazT5m9bJPvts1cMJevigyB/3S17tUjAVNg4IbERzJE0kMXqbhvR4anYbnIahHIWvzMK+LgIsl7ZW1gWNGdCNJLp/I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787746718; c=relaxed/simple;
-	bh=+4+M6dZAUhASDX1TdfrYD3AYj4jHa/a2eMfo72zu5Lk=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=uvBp075HoiCivJpSRGcFeg5wKM136I88DmUIYAlvE2IZ8sW/3saX3807xA2rHBV6cG14qQGmW1/3HqsTWkgJoVEjs4E05ECFcN+UGuxsL25d0dbabEoDzpGDrT7UPgNY6AwQlBumyXJIQ7WRyvDHuwpOF+tadPCUDz7xAlxT3u0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa2-f0.google.com with SMTP id 586e51a60fabf-451e8472960so540328fac.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 05:18:36 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D71BC3BCD0B
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 12:19:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787746777; cv=pass; b=D12DPEj268+fDQb7PJ15BdwiAC3tvxMU3N6yL8Xf27SJtMPcPnWeIUja/hu1/nhaCiMSBnQDQ8PrUv8uVuQdMFuWR6spcycqON2mqFYnFC/gp5DwAFzHqJiNUIGjw3PHEzfKBFi5aMBuMcCpjUpgr+AQl2v43dwoI/e7tqECBog=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787746777; c=relaxed/simple;
+	bh=o7xvS6vu5OfNmcyf3X9Q5ZXWPtTTnUcALYoMtd/7lH4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QeEfS6uZZxm3d9eDKq87u/IZF7WmMWMRwrc0Pmb3bRxzCtjMYeR6LAFeRMqULc2XLYyrmrr9FBKAZjMTNj4Sizita0a33O7AUexoEcMStY4b1RyRf2t1Lfk8qTWP4x3aAnv5OYiZP9NjvEBWopHmgaGpQkPWlK4oyZRXXlGq7po=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XgBQa2GH; arc=pass smtp.client-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XgBQa2GH"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-47f5d5dbf80so75328f8f.2
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 05:19:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787746774; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cHecu55sKY8jJKgR4K95xPCMfdDUhyRxoqCadAf6aeqBzXS3SAhIwH3o2UYxoHkI6W
+         VfV7dQ+amh+C62QjdRd4agx3slJIGRvksoQQjN8gZyRktQyKTxqyJpndj/h6dRpU4815
+         jAETkLlR6B80p4tlpoa1JjSCzI/XYx+a7NG+97F0X5g/9m2qYD3NtWvd4+LboJOQwG8u
+         YhSVSyzapvm74zPgvOJUNga0XnmpSQjtDkLFbcj/n13oBBvEyzjSW6jrIAxdb9iaklj1
+         A1wb+d2OREJhKzt2ZWZ18jVxrTDGAuoocdY6xxsxdreA8eynHSQQmb5a6c8rJwd6yRno
+         VjIw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=HWTItkLdaNcYG8wfYq3YekuPNOywaSYtZm4aiNMSYwU=;
+        fh=oMfYHrAotHjKjge5nPYxNFG5+w1/O0OPYEO//pn1TvI=;
+        b=goeAW+brT9sRLv5lK4w4xax6TmarF3BdVGfbIcSSATWmB/J1nan68ts/k98mGGYL1n
+         cqkdfBnOOeos3Rt4wdKEujWSuoFJpxU81hauTOus6UQeN4EoWrlXKbNWYeAjkVOfkGiw
+         DR5tqT+SPI3kLdMGR8/kPtzdT82Mv9AEAvMEIjv94Wsnl3W/ZhwtwyiApruUnCX8AgHp
+         9u/Wie7/8RGC9pp6+RqmJhKofWJoZ/N52r1Ax9ep0TQW0tAjs1TgWEt2AksR/5UnYLhY
+         gAedykU188UVUqClYX/gJTvvOqUCwNUwi/KUA00ntOkesAqGVF3+WhL2toM6soGKjrTT
+         e7fg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787746774; x=1788351574; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=HWTItkLdaNcYG8wfYq3YekuPNOywaSYtZm4aiNMSYwU=;
+        b=XgBQa2GHcjIP1YiRpjqdAH6b9DONVQYF7Pc7BKLsrMvl1iQyqZfMGwn8US5OF19c+6
+         SR52hTzw9JixrT9jLi30/ruczlyLd9/vVZxmqpPHY5XiEUeliHGM7jS9sj45TScSF+Kt
+         cAuXjiJzgqjMu0tqkGZ8tjSHjbgZ2tou9X1oSjFscg5TgS7EPhZ0/kHtcXyYHr70ZFqH
+         iNOk0yPg+Z8veGPiecri2Hc1wfq1uMJnHf2O5Pr3WK9LgA8r5msli7U3J0s74VeiyOAX
+         lAh4CosiTwnvOLLjQu1GMMDUYUeuX0/TChh/N5151OaQzFUEz3dhNnOQf5JkjKxxk7nu
+         Dj/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787746715; x=1788351515;
-        h=content-type:to:from:subject:message-id:date:mime-version
+        d=1e100.net; s=20251104; t=1787746774; x=1788351574;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6O+Yx3dqixsBvupZN/KGdiqVoNV2KtYYbYkmAMAGd9Y=;
-        b=SvaOYd5IhACZWBuhSIDj8O87QnVfb5HNDTTZxJ5pQ4Tdk3IhfgpkMxok7NHPNHwLnb
-         r9c2Loa4pngYhRbLpVHcWh16g+wTUkfAQB3ssuPvyJCHDouTbVml8ekFP5RhMEY2gWGN
-         Da+dZgrV5/zpeJY5VZGB92Kc11CLg2kYcKUvcqerNRJ4LJSUUCYiciKzOvPhNRJHqpAZ
-         1xRDNya9iwaofu9KMonrKYqMn1lPfpKnkndd4OsjRZXiTAHiI7LHkWreny6j+n3/bv59
-         vjM8ib0lOJAKDo7bCEFFg+L+Ldb2l7OR3+HsXHRnHNdyYX5+zaU5vkOzuWBwChTKl88X
-         Ts4g==
-X-Forwarded-Encrypted: i=1; AHgh+Ro6Gkll+rHbsPXWP8RgmfJuohTW5Y0Bxw5nEtyoiqF0WZRO2eglNfhp7i1Cx52B4d0263dJGmS2Vcvvcb8=@vger.kernel.org
-X-Gm-Message-State: AFuF++k9AS6XfgHaZNO9y7i+7nep/yigjI6WHBFO60PcHe79orhL4C/B
-	zp28Wji1sGdKu70hpmR77ZnNT/x4cmb94as0KgINB73Nsgn7hQj5RTcQuwlGu3l901fHkncFySO
-	HHOUQssBB/nHamRmSp9kWVRTJRluDb4Uy/+SQP2gMGsrLKGAX9+SLW/3xNiU=
+        bh=HWTItkLdaNcYG8wfYq3YekuPNOywaSYtZm4aiNMSYwU=;
+        b=SaxUZqseuR7mSsTYZIKD4y386inz+TLpcmUFnjXxsExq5l1HcjNwEzpz044ZHOJHXK
+         gUf6ljooYHpCMNXu830TZOu2aUdVZV6eNncY+w3TyrZeg6+euUtZz4B6mnP4+twkJK5w
+         SrM9oRbm4gbOkhKl/U+xdu25FoPzG/5mo0S8yFGlFO/wMwRJjPtHEO9KOh22HGfXyELN
+         aqeY9Smp5J3EN6zWhAMFUuCvMrOcyAQTBLli+D70bPxJrmhyDrW0LSQqRmZmewqW06Vh
+         9dN+1gemSw1VNPIxfNEB6dxm6cxckWmQv0zKm3C0u0jmwMp1CawxuoERXWid8NWTTHa3
+         hJxA==
+X-Forwarded-Encrypted: i=1; AHgh+RqUtl190E/7ORl5rvhQ5f4sn0+hTrROhrYuN2oTkaeQ3vr1Lb8WSfc21mAfUkal9p8AbQEl3a/JHsku31Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++lRGuaQuIZrH9lZHBnY5x+YqnXK0c2hv7RUhDzJoF9oAiNLasH5
+	M3vqW5Y01ZXwxPWgHUkATbEfrXJRiVzraWU4mJrQNrBYVW7DVF13L13NBuexUPPu4NR9yWiBe7K
+	Um2NqnBJeAAMR66UB0o1PVaM1euoUiMY=
+X-Gm-Gg: AR+sD11/qYc4Rl1cVNOWpbBiXRJSh0+brEPiMWAIbNC2xVis5WZGIWxgn5C/nBfRf+d
+	MJYPOLAUy3zbd5h+ju6I6eUD/Idj7dRgT8LofZzlC7Izw3eIARO8XDkohKCBJe+PJI9ku75VH/i
+	bNxSiDmnXU4whlgLLVp+IwN+WUxbsq7m5hi35DEVxwwHEJKXxkMzEDGl6TViZ8zvKBU8HVwIiXV
+	7hGDBJEqSe7AHnBUDsn4OKiD2s2YilF8waV8Qibf3r/kisCSOpNM50b3om6kGs/Yc41t7x33RKm
+	BhBEN4wyo7ywxSGfjbLKpr1PVq1qucgYi9ys9QpK27xsWu0sjMU9B39roGvnHqJG3RkMa3FJ7Ap
+	brMRNI84VpdF0LTf10qmhwEqE+CYw1sZuY4rvkdER
+X-Received: by 2002:a05:6000:4711:b0:47f:8e4c:8a4c with SMTP id
+ ffacd0b85a97d-482e27403cfmr3428181f8f.4.1787746773692; Wed, 26 Aug 2026
+ 05:19:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:c2cc:10b0:6b1:8ebb:7efd with SMTP id
- 006d021491bc7-6b1a03672a4mr4766496eaf.4.1787746715710; Wed, 26 Aug 2026
- 05:18:35 -0700 (PDT)
-Date: Wed, 26 Aug 2026 05:18:35 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a8ed99b.1d9ded08.62e62.00ab.GAE@google.com>
-Subject: [syzbot] [net?] [usb?] UBSAN: shift-out-of-bounds in __vcc_connect
-From: syzbot <syzbot+f6ac161ee9699270b8dd@syzkaller.appspotmail.com>
-To: 3chas3@gmail.com, davem@davemloft.net, edumazet@google.com, 
-	horms@kernel.org, kuba@kernel.org, linux-atm-general@lists.sourceforge.net, 
-	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
-	netdev@vger.kernel.org, pabeni@redhat.com, syzkaller-bugs@googlegroups.com
+References: <20260730090647.2401252-1-xueyuan.chen21@gmail.com>
+ <20260730090647.2401252-4-xueyuan.chen21@gmail.com> <2931f8a6-3780-4d6a-b19d-61cbbdad1a3a@intel.com>
+ <1e04196a-7079-4a8d-a1b7-844e60d08728@kernel.org> <687afc72-5b6a-4138-8d33-fe5b6b7aef00@intel.com>
+ <26e6340e-9551-4d18-b6d7-86cd400a5b88@kernel.org>
+In-Reply-To: <26e6340e-9551-4d18-b6d7-86cd400a5b88@kernel.org>
+From: Xueyuan Chen <xueyuan.chen21@gmail.com>
+Date: Wed, 26 Aug 2026 20:19:22 +0800
+X-Gm-Features: AcwNN1VU5Mbc85A7hVGohdOOFmdIUTao66TRdBDCw720fDhJHgSyn-6YsLEVidU
+Message-ID: <CA+qSx6wyvivrp5P-vLSmXeEK8GCs00ThKLSq4C8q7bLLLXUPwA@mail.gmail.com>
+Subject: Re: [PATCH v6 3/3] x86/mm: add set_direct_map_ro_noflush()
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Dave Hansen <dave.hansen@intel.com>, akpm@linux-foundation.org, ljs@kernel.org, 
+	usama.arif@linux.dev, catalin.marinas@arm.com, will@kernel.org, 
+	linux-arm-kernel@lists.infradead.org, tglx@kernel.org, mingo@redhat.com, 
+	bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, 
+	rppt@kernel.org, ryan.roberts@arm.com, ziy@nvidia.com, baohua@kernel.org, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Lance Yang <lance.yang@linux.dev>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+Hi David, Dave,
 
-syzbot found the following issue on:
+Thanks for the review and the discussion.
 
-HEAD commit:    26260251022f Merge tag 'livepatching-for-7.3' of git://git..
-git tree:       upstream
-console+strace: https://syzkaller.appspot.com/x/log.txt?x=14fa5179580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=a70bec3546180b6
-dashboard link: https://syzkaller.appspot.com/bug?extid=f6ac161ee9699270b8dd
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12698625580000
+I'll switch the helper to a page-based signature and do the flush
+internally:
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/858149e586b7/disk-26260251.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/8c4a5ad34e66/vmlinux-26260251.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/fa4efe98315e/bzImage-26260251.xz
+    int set_direct_map_ro(struct page *page, unsigned long nr_pages)
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+f6ac161ee9699270b8dd@syzkaller.appspotmail.com
+I originally chose the address-based signature to prepare for the
+interface conversion, but since that work stalled, I'll keep the
+helper consistent with the other set_direct_map*() helpers.
 
-------------[ cut here ]------------
-UBSAN: shift-out-of-bounds in net/atm/common.c:382:32
-shift exponent -1 is negative
-CPU: 0 UID: 0 PID: 5987 Comm: syz.0.18 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- ubsan_epilogue+0xa/0x30 lib/ubsan.c:233
- __ubsan_handle_shift_out_of_bounds+0x36d/0x400 lib/ubsan.c:494
- __vcc_connect+0x14b4/0x19c0 net/atm/common.c:382
- vcc_connect+0x328/0x8f0 net/atm/common.c:498
- pvc_bind+0x272/0x380 net/atm/pvc.c:52
- __sys_bind_socket net/socket.c:1945 [inline]
- __sys_bind+0x2e3/0x410 net/socket.c:1976
- __do_sys_bind net/socket.c:1981 [inline]
- __se_sys_bind net/socket.c:1979 [inline]
- __x64_sys_bind+0x7a/0x90 net/socket.c:1979
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fc16739e0d9
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fff0c105ee8 EFLAGS: 00000246 ORIG_RAX: 0000000000000031
-RAX: ffffffffffffffda RBX: 00007fc167625fa0 RCX: 00007fc16739e0d9
-RDX: 000000000000000c RSI: 0000200000000300 RDI: 0000000000000004
-RBP: 00007fc167435024 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007fc167625fac R14: 00007fc167625fa0 R15: 00007fc167625fa0
- </TASK>
----[ end trace ]---
+The remaining comments will be addressed in v7, which
+will be based on the latest mm-unstable.
 
+Thanks,
+Xueyuan
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+On Wed, Aug 26, 2026 at 1:31=E2=80=AFAM David Hildenbrand (Arm)
+<david@kernel.org> wrote:
+>
+> On 8/25/26 18:57, Dave Hansen wrote:
+> > On 8/25/26 09:43, David Hildenbrand (Arm) wrote:
+> >>> int set_direct_map_invalid_noflush(struct page *page)
+> >>> int set_direct_map_default_noflush(struct page *page)
+> >>> int set_direct_map_valid_noflush(struct page *page, unsigned nr, ...
+> >>> int set_direct_map_ro_noflush(const void *addr, unsigned long nr_page=
+s)
+> >>>
+> >>> Which one of these things is not like the other, despite being named
+> >>> just like them?
+> >>>
+> >> That's called out in the cover letter:
+> >>
+> >> "
+> >> This series adds set_direct_map_ro_noflush() so mm code can make a
+> >> direct-map range read-only, then uses it for the persistent huge zero
+> >> folio. The helper is direct-map specific, takes an address-based range=
+ as
+> >> discussed for set_direct_map* helpers[2], and leaves TLB invalidation =
+to
+> >> the caller.
+> >> "
+> >
+> > My concern is not so much what the function is doing or whether or how
+> > the specific function is documented. It's more about whether the new
+> > function is consistent across all functions with a similar purpose and
+> > name. Also, if it is _not_ consistent there needs to be reasoning behin=
+d
+> > the inconsistency. I think that is missing here.
+>
+> Yes, the intend from the submitter was to prepare for the interface chang=
+e to
+> keep them consistent.
+>
+> I agree that for now it should just consume pages instead of an address a=
+nd keep
+> the interface consistent in this series.
+>
+> >
+> > In this case, look at the call site:
+> >
+> >       addr =3D (unsigned long)folio_address(huge_zero_folio);
+> >       set_direct_map_ro_noflush((void *)addr, HPAGE_PMD_NR);
+> >
+> > It *has* a folio. But it does a folio_address() and two casts to massag=
+e
+> > it into the type for set_direct_map_ro_noflush().
+> >
+> > If set_direct_map_ro_noflush() just took a 'struct page *', there would
+> > be one folio=3D>page conversion, no casting, and complete consistency w=
+ith
+> > the other set_direct_map*() functions.
+>
+> Again, I agree with that, and the idea was to keep the interface consiste=
+nt as
+> it gets converted; it's just that the series that does the conversion sta=
+lled.
+>
+> >
+> > I'd also be OK with set_direct_map_ro_noflush() taking a folio, with th=
+e
+> > implication being that it might eventually make sense to convert the
+> > other set_direct_map*() functions to folios. But page vs. folio
+> > confusion is much less likely to cause bugs than a void* versus another
+> > pointer.
+> >
+> > IOW, what I think I want is:
+> >
+> > int set_direct_map_ro_noflush(struct page *page, unsigned long nr_pages=
+)
+>
+> Yes, or as will said
+>
+>         int set_direct_map_ro(struct page *page, unsigned long nr_pages)
+>
+> performing the flush internally.
+>
+> >
+> > Or _maybe_:
+> >
+> > int set_direct_map_ro_noflush(struct folio *folio)
+>
+> I think I raised it before, but using folios on this interface is not a g=
+ood
+> idea. Primarily because
+>
+> a) Once we decouple struct folio from struct page this interface would on=
+ly be
+> available for folios and ...
+>
+> b) ... the huge zero page (currently huge zero folio) is on of the exampl=
+es that
+> *currently* is a folio but very likely won't be a folio in the future. On=
+ly
+> anon+pagecache that really need mapcounts and all that will be folios.
+>
+> c) I don't expect any further real folio users (IOW, anonymous folios or
+> pagecache folios), but could imagine non-folio users.
+>
+> --
+> Cheers,
+>
+> David
