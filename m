@@ -1,199 +1,193 @@
-Received: from fhigh-a3-smtp.messagingengine.com (fhigh-a3-smtp.messagingengine.com [103.168.172.154])
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010003.outbound.protection.outlook.com [52.101.69.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 775CE175A8A;
-	Wed, 26 Aug 2026 21:12:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.154
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787778723; cv=none; b=Utm6RTtAaBY4JT+wgGgPQUSVShUHD/w8REXcOvhGMCn63fJlX8bnCq6J40PwenqRl10nJG4sgc0QLaLqVEe6OHuYOZrSFdFRXY0Q4g7aWwN9MQQtCoNlbcr/+g7dhqK0gnu46DCpfHx4EyLS9JPPd0jZtiqlkz++ltuUnjwD8oQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787778723; c=relaxed/simple;
-	bh=uDpCg2NUdgNPB8vVggZUtXIvlUFPLoHhHi6zPWg7eks=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZCmwwACdEhYn01pM09cQE3JamCzi2/xOeijVz3lVqR55hg75peoOdPrAePWrNEoiKwTqO+V6jNZ2rYRW7N8oGEJbPCUzTiFzE8n4CMMrk9WKnvVWxDQ3UGCrTMAr1PpcMN96eY9ZXUJ9io0uPWPH+/RJ4+M1d6sczCqUWrXFVqA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org; spf=pass smtp.mailfrom=shazbot.org; dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b=Wle+fMPp; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=jtpsDMzZ; arc=none smtp.client-ip=103.168.172.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF88D3B0AC6;
+	Wed, 26 Aug 2026 21:14:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.3
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787778876; cv=fail; b=fgVnY0aErN5wkEhhVohlZ4Q5dYi3GTmC1CUfd6P27H30iIaVcBjokTL0k0QPjA8l+VIQSMv8ECor93kFOnYBc909KAjFon9ODhtpqw0X3TrmWr3hdpcx9+kbyWx5Az8T8FKPZw5McIv9ShPf/ME2TqqF6wdTBKwsHejI73J7kyM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787778876; c=relaxed/simple;
+	bh=pfudL1JWE2EThEv588V74xT41wkXqOaybZySAl/QAKo=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=G1bQ5Srae4j5xornOlv7wG6HXlFtdINrh9/KZgqBP2t9TyJaLJ0O+BAhJUwMYcWlmAKTuoKAvpY0rqgAEcLFoYgzQcJQY7/No/DivvS10a7bN8t7TGPovRkFb6RjUodE7n8tMRoYdbRI/MNFRSXrOZ5ye2B8yG1GIINQU3e0x5I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=fF1px9r6; arc=fail smtp.client-ip=52.101.69.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b="Wle+fMPp";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="jtpsDMzZ"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 6F33814000D7;
-	Wed, 26 Aug 2026 17:11:59 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Wed, 26 Aug 2026 17:11:59 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1787778719;
-	 x=1787865119; bh=XBtTfHY+WDdkLyh0K0L+xi9uGC1gMRbwPFuNWOJMBXw=; b=
-	Wle+fMPpazMDVaQ9O6e0HHe9V925gAr59VZq3viP6AxzJ8JGNtiZeEkSJ7WYNWvM
-	H9mpchL11d7/J8jWZ9qK92UR78WVrEQ0TT9xKBXagxJQAAlQCooWx+dlEgnuWbIw
-	xiTEcSTpgxR2gj9v6b7z5QQaIdRnVPN/cuUqfraw0gj4o9nxcZz1JJhj7Lky0gW5
-	fgs7nfGzK+Nwyit82tjBb8I1MlOXTu48k3J4dqZbluPTlvbwav9JcCgW0xYAu4tv
-	d70mrJeTiqtkrrc0U38zv3ZpARP+foK//e2scmbwmkoXo1goPjfWHZgm05W8JWMS
-	jMpmgMp5yBnSKESYl/r3SQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1787778719; x=
-	1787865119; bh=XBtTfHY+WDdkLyh0K0L+xi9uGC1gMRbwPFuNWOJMBXw=; b=j
-	tpsDMzZ1MNXp4PaxoO0GHqoB703Tqzs78CU1MQROde3JpIwwVHwJ0dgKQ3tSwXZm
-	D3JKr+GZIwdOzVOJ7GA0ihCJcgPnrR8zMNsdtJIGLOYfaW7Fb1wdGMgGW3fa3kSA
-	/JrXxiim5OxWtGr/KfpgQvrhsquTzbuATqk2hRRV2QZJvV+E3JVDmDPLFim7HJi5
-	yubb/q9ZYlJL9ImdWT6/l5oEEgUDJ63QjB09Dyznw1F2iDUNa2/bYEEcVGiIhrWE
-	zTlWng8wm0p4YYouSrPFCq+S5gBm2b6202dwKgL8SLMqysDr8jkpX3ksqUdlQtDy
-	QzI6NBfRsKFTph3xDuhKQ==
-X-ME-Sender: <xms:nlaPapR909DTYcpbfmu_jfu88i5IvPinrTNzswCnOz3MfMT_LjdaEg>
-    <xme:nlaPagYr71aYDkoF96nVdYCiwVmpFhbUg4QMcz6i52mV6quSodqByMDkh3kTqYjFv
-    -IWItd9AoLR_0R0R0DRisv_JklFDDEIIYp24xD8-uq8kdUc0FK8i2A>
-X-ME-Received: <xmr:nlaPamNHPZGQ0v-gixsoGMbKPk6hI5sV9V4abqGugTOsOzXFgPRHb4EIYCwcTA>
-X-ME-Proxy-Cause: dmFkZTEXGJSF0uJGejRe3ioHj/n4Wpef56fXiylaceh+6G7pUZPBVN+LeXmG2tRpI5AMO6
-    0TXJ/tcBYEQg7FjgK1JdTPhiduFRunWkZ9aTN0LMeVrJcLkLARNGqlOTbstprIfK3BOcBH
-    dKwhXjWL26ish5Qap4mvjQO7JVwB7dpLo0iU0B+/GT+LOyGimcRDg4jH/53EZFGOPZkz7t
-    i0EUtLTMy6Sr09by1VooXpOjqqvYf0ahP5HdwEcn8uuvHKJCUa2Lug03KOrNfkEvaBsz/z
-    Gghz1To5woz7Keoiy4nJK0fPY44FpJvSBI/9zfJ2mTmEzBgF2XWZoFJOkAKv0mGZYMRYtf
-    Qru0r/bPxGzepRCJGo4CUvXPxpt9Sdf3YWRO3V9agIYbH/Kj1s3/tmyo7l5wrFUPG8rTuw
-    2mP96umyaMt5h6L8UcDTDDMWp7NZo6li7Hx8zaIWyulK3vbmOFQKaquQgQokqPN4mXcs7h
-    PF2j+/aKNQK1anw0ZvMDb2rkfbomw16zYBT8wvVo4XAytixQLtUeYmoaCmPJFUK8ArLkkE
-    Gs/CtxdSlXDmFMQAyk0BzINzaRmZ59F+dTB2+f94EY7TISdLTLDovmoWHeK8EmUA5wL8GI
-    1/5bVYxtbPxeZJWg2lAzPnga+Wwx7ZE58CZGeRvY7tuagJ96N4EqKhvMHkdw
-X-ME-Proxy: <xmx:nlaPapMjpmCjPUqgsRSylJRG-tB6AUCgD1mGJqeuqllWT5cPrsshrg>
-    <xmx:nlaPaqPvHrrH6Rb0ZxPUTwn2HLeg8appwl54_k9EWevCS1B4nxhm8A>
-    <xmx:nlaPalb7SzKDLrm9JmH11Qie1FbqVg4m6Qu63aer23eG1IUPG-UHqQ>
-    <xmx:nlaPaoiSTwBHAZXPyoUE9gkwjC4Nq3vADfmlN3ue4M48wdY0CvIEag>
-    <xmx:n1aParMtagkqRIMVTzEg7gGMNZ49iaLrQ1TmJTDCUgSI-9KIR0svszrg>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 26 Aug 2026 17:11:56 -0400 (EDT)
-Date: Wed, 26 Aug 2026 15:11:54 -0600
-From: Alex Williamson <alex@shazbot.org>
-To: <mhonap@nvidia.com>
-Cc: <jgg@ziepe.ca>, <ankita@nvidia.com>, <jic23@kernel.org>,
- <dave.jiang@intel.com>, <alejandro.lucero-palau@amd.com>,
- <smadhavan@nvidia.com>, <corbet@lwn.net>, <skhan@linuxfoundation.org>,
- <dave@stgolabs.net>, <alison.schofield@intel.com>,
- <vishal.l.verma@intel.com>, <iweiny@kernel.org>, <ming.li@zohomail.com>,
- <yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
- <bhelgaas@google.com>, <dmatlack@google.com>, <kees@kernel.org>,
- <gustavoars@kernel.org>, <cjia@nvidia.com>, <kjaju@nvidia.com>,
- <vsethi@nvidia.com>, <zhiw@nvidia.com>, <linux-doc@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>,
- <linux-cxl@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <linux-kselftest@vger.kernel.org>, <linux-hardening@vger.kernel.org>,
- alex@shazbot.org
-Subject: Re: [PATCH v4 06/27] vfio/pci: Add CXL ops registration interface
-Message-ID: <20260826151154.19486297@shazbot.org>
-In-Reply-To: <20260813093631.2288172-7-mhonap@nvidia.com>
-References: <20260813093631.2288172-1-mhonap@nvidia.com>
-	<20260813093631.2288172-7-mhonap@nvidia.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="fF1px9r6"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Rj+LL5MeL3r1EtsxiLRZilju/f9knI5Ivnsrw3Et1yKkvfXGpOm29/WisXLoJp+NsqzZPLvdzbKw3YXpERkagCGodZo4ubcDiRFWUOvaUZrBGuNalrfmTXTyAl+F2QUTJ0JSnp221DGgSSJukBdVwssGrJ7ma95ugu+Ep1Ry8t+69wZqMnZOZ1J6zmxxERB/AeHRVe5vjVT1LyXdRjKQ5/fMs4zaZfH8YY/8+SHJmvZ0epOpnD9fmur7E67kFh151HS8ef+F9oAwuyRfsdG86ZfOE0AsuJk6u0eI16C4oohJcebN9bkNfw40mmDyneLbXDrH8KOX/vnIWHFbPQML6w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yYxkXxEWzy95RL8icTOl/YKNFxm2ttCEukpPG4bvwPU=;
+ b=D3YVYB9NAVfYMv06VWAQ4HIKoyJf7vgJqgy1Hahnx1Aj0p64V822PmWhudk4RN8RxBufpbBSdrmbtgw5X/yGAAf7kPoZQqJoXXTNk60bm8mmEDOnhV6di4MlQHTpyDLHfSh6s2HW3xyJUjZ1GtooOINZ2QB1/H0l4SaqIBl9zFA3PIf7s5ljA2tODyMODmmHPTIQIqmKJcQec3rru0aYHd22OritewbnfhgfBfTQt0LlUVl/6erOkvLuPRbR1tRN89EzS30zFBbMNYXoFUMiPdDM+4p1EK8OFKzx99IRcu8PjLWgWsNKzzeK+VHUVEXBo3mBNDktB06Tu9ZTGipFLA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yYxkXxEWzy95RL8icTOl/YKNFxm2ttCEukpPG4bvwPU=;
+ b=fF1px9r6AD7y7DW/Kjttn4TmEsFGaLfs4NHBLXocN30VYIdxXqipDYvUCv4bBUhVtmLQM1FATK4bGuS+fbNDDdfYmgHCNk1fcH4lfR8V//+VcHWCoG72eBEqVtyrEsV2gZFbquJOeDRJp/Q3OSs6eILP/MOc15AQScWxn1JFzKJIU9a84kEz6kpSA9vjAHLA1WQ+51tgRX8JHs8hu50syeQbKGk1fbohF9nQwVLGqzdL2EH48ciZNwIRB5HwvIE3JBV1gagZMifUNYdUK70IHfypyX/woEYgNmTH5DQpg6RCJI2zeUV7kQX3QDb6pDbE7q6oXJCK3TUnEu+85mm1Qw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by VI0PR04MB12188.eurprd04.prod.outlook.com (2603:10a6:800:332::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.6; Wed, 26 Aug
+ 2026 21:14:31 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.006; Wed, 26 Aug 2026
+ 21:14:29 +0000
+From: Frank.Li@oss.nxp.com
+To: Guenter Roeck <linux@roeck-us.net>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Wensheng Wang <wenswang@yeah.net>,
+	Cosmo Chou <chou.cosmo@gmail.com>,
+	Colin Huang <u8813345@gmail.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Dixit Parmar <dixitparmar19@gmail.com>,
+	Antoni Pokusinski <apokusinski01@gmail.com>,
+	Eddie James <eajames@linux.ibm.com>,
+	Thorsten Blum <thorsten.blum@linux.dev>,
+	linux-hwmon@vger.kernel.org (open list:HARDWARE MONITORING),
+	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+	linux-kernel@vger.kernel.org (open list)
+Cc: imx@lists.linux.dev
+Subject: [PATCH 1/1] dt-bindings: hwmon: tmp102: move ti,tmp103 out of trivial-devices.yaml
+Date: Wed, 26 Aug 2026 17:14:19 -0400
+Message-ID: <20260826211422.3299728-1-Frank.Li@oss.nxp.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SA9PR10CA0008.namprd10.prod.outlook.com
+ (2603:10b6:806:a7::13) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI0PR04MB12188:EE_
+X-MS-Office365-Filtering-Correlation-Id: 497dab8a-54f4-4329-f667-08df03b7042e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|19092799006|921020|10067099003|3023799007|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	7tkGchPxFgDvJnnXkLT0sDIJyTEe6V5w0px7MzUrryD16NWy53nGbZWBv60Reh2EYHvOdcdptQfWPB2JJMUo1oqEWED6pax9H7aSY7qYwPM4PvxHfPp6pWTAsLpt+FX6RbLv6XPkwklDK0K2DMNeeKLgqMgXToKxa7/a8/dB5cS45meCscuPJS0hXAyyB0ku9GHUpE33WpvnbDa4+HJrYUxC8OvbMwnPqDtIs86ABGfXrTUUQa6PP/554OVhYqkDCunSmgbMMWN+KTnMT2AOJCqcD1lRWa40DVYLw5uD51OoOVbsv+A5nsqJslSkiT5dHGwdmWvhWIEtjhovCfJuE1qdDY3opsztCD2h+FWbvnc80qBGq9gCNR0rrvrJZJtUt3wFR49sV9CJ9D8EkGPUqiyn1MJiEXL2Oe2nfCcO6RCmQE14gxHdr38L7JK9WsjEJ1Gh9pV2/qGNU6yfwuBlZtpk5LOs5d3jUzK5YSrvoS5Sj9x4KTr4w54+UED+V6tO+zkf/09Gxgt0PDfspUBfa/gvdroHEM54HyAfl+0ufUhooyCpY/RLQ8x4yivSOXr4D7CLtDYus55nITkVNrFbsrVvLgcQMmz3WUZPBuBD/4taRbMcso3D6n8G73HbBhQhHNLgeWp38lVOvDKd7z6JAoVIBGsVIPDHc91OVIkFIz8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(19092799006)(921020)(10067099003)(3023799007)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?p5qd1bCGbWmDfMP5XbRd5HnEXeX2ZuwkefxOgBJlSmzR2hF89dQQIjRnMWsx?=
+ =?us-ascii?Q?1U6jw/gj45dIdYJ7868N9VLKi4Te81gjY1TkKMJEBt+BNm2K3bH07nnWlV7V?=
+ =?us-ascii?Q?6BKnXcIJd+g6nh59MENfcbz7eHDq/Kh3diX59nFptq2KyKKjJm1Imex9G7Xl?=
+ =?us-ascii?Q?GymYwyXSW1PaUF/astgfpQwAQOA7+kIhcfzbpGUAXxYFMOS+P0D9e33bBEDw?=
+ =?us-ascii?Q?QHrGj8BGBXw6zrkld2S43x3YR46MeoCpNF6Wimce/bB7Pjv+0FZbm5FD+M0N?=
+ =?us-ascii?Q?4PCyFBOqHNPshOaJ0ODMJSCEZ/8aSf8ctz0s79foa7Qs8BX/7KAyJLFvqPCU?=
+ =?us-ascii?Q?yEATfXi5hyiMrabzjUueGIc5Vf9rM1ElSeazopsLKdoRAEcWwdvPeP/xIuVp?=
+ =?us-ascii?Q?jBytamdz2ZXPR9/UPgUcxKvUMZe5NXK4zHyl1eQuTuMo+RgRKsiTsLwFwDSD?=
+ =?us-ascii?Q?jQQ5ICCZUb9YdXkPdcrfIcnXoCobEoep0r6Axl8F693YdcMez1kVEKrx5EDl?=
+ =?us-ascii?Q?qx8chjS/QDhZZ26TF7kvu5O1TA/1zOpKN4ym33zBP0yNPm6Gzg8wxHtLNPX1?=
+ =?us-ascii?Q?k96GNuG4ijOwVx8A9AnDaPbkYntRf0C3qwW4eSwYE90qROeUizxbHLfHHQbM?=
+ =?us-ascii?Q?pYuGQ8UTzcAtD74te84Snd/gcqZ6kjNUbUGVz+EsTcORxQi7XlXBDZgC4y2a?=
+ =?us-ascii?Q?KtXish1x5U+/tT0ZQjs603In06IwQWuxOrOnCmXNDQoXWDTO/RonyutJXAW7?=
+ =?us-ascii?Q?kn36m7b0t4USDMyTyfjfTWGT/FqCnzZztlPd/+XZ2cvBuMEYjiKq+j3h5m42?=
+ =?us-ascii?Q?tjBlcVLN/E6L3ki6IUclavmr7ajzUgQ6AJc7q5olNCD6yjs/BxDcJI0CAqoZ?=
+ =?us-ascii?Q?TbDuB2ypv+XG8I8Vy7uSINZ6eLprIdEM56V4N8LYWByiTJX1uEXU8cjj8z2o?=
+ =?us-ascii?Q?dgL0UwpiTDIQee+sdvbXFIseIg4JoSgOgT6K7qVYwfjpagRV5z6B+0wF+yMP?=
+ =?us-ascii?Q?t44L1O30Xngeo+SK4zdd0lauH0rPCrsq7s1L4FlsXL59nDI7yjUh1d/V5zz/?=
+ =?us-ascii?Q?lW5YGKRG6XrtqYTlJdLrd+XBj4TbdAECL9WRjvgxKjmQcTMwrEwX12VRVBVk?=
+ =?us-ascii?Q?jMJsMcA9vRV7UK3wfr75G+ib8KP4EzO3RvE+YXyfED/YR3NEHcrUSJHhpNI9?=
+ =?us-ascii?Q?fIUs2S3N6bKmcrtke7UiwEYVBSz7CTDQBgZNZxw9gKwkKtRUkn8RW6cwMeWU?=
+ =?us-ascii?Q?Cmy5iWlsMFX59sRV3Oawd6ZbFBocqqsknd7lmzhaHXQECmwEQt9PSEwu+yxb?=
+ =?us-ascii?Q?0YVxHWO8r8pGWlvWeSaYhC+9zoc3VwU83BqrpTq/91xI2cKW1tyklWz89XS+?=
+ =?us-ascii?Q?ABimG5uNismLiQqoeheTDUyc4/1mKZeGxDHnVhFuXGuwRkCZvJ2vlU3eeR4/?=
+ =?us-ascii?Q?gOscdqZgqHJbRNdkFCInf7K/bpo4OIjmQjdfYge794pHogP8EX5IAowUAH0f?=
+ =?us-ascii?Q?H0F0fmFLiN05PhxBko8aqmbO8CDfOkFrgqMZ/nao7/qktG8HaizIFtKx2MzD?=
+ =?us-ascii?Q?GYMXneSGq4NKyXJ3RAhIs1Gwuk2NoYU2SgpeyoYU03u9SGbSsDkjdUjX8ykH?=
+ =?us-ascii?Q?Ac9Vuh0KQiccmleQX3VkDb6DL/9/noVq4K7b20h+oTfu5gpJVjtRsYQx6R28?=
+ =?us-ascii?Q?Upa0Sl3kMlDr3JZWEoJmboX3GHin9SvckGq4FTo0B9GoY5dvcHG27N4kGe+/?=
+ =?us-ascii?Q?cfaFT+3sPxNY1RgYcrRiEo6A192WJOIK6ausypUNt9E6uaP0pXbA?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 497dab8a-54f4-4329-f667-08df03b7042e
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 21:14:29.7507
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: BUZ7jfQZ2V7RnLk5cUFZsoi45b/GumQzu9WnQiHahuPgN8GF+KwB3szbC+hdNnzodZSCCwIJqgLtH22yQYae+h4SFyTipOoUlJpOAHKWGg44U5gZ4+8l0z1vHWTcfaQq
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB12188
 
-On Thu, 13 Aug 2026 15:06:10 +0530
-<mhonap@nvidia.com> wrote:
+From: Frank Li <Frank.Li@nxp.com>
 
-> From: Manish Honap <mhonap@nvidia.com>
-> 
-> vfio-pci-core must stay free of any CXL header dependency, so CXL
-> Type-2 handling lives in a separate vfio-cxl module that plugs in a set
-> of callbacks. Add the registration interface: vfio-cxl registers a
-> single struct vfio_cxl_ops at module_init, and vfio-pci-core stores it
-> under a mutex.
-> 
-> The owner field lets a later patch pin vfio-cxl for the lifetime of each
-> bound CXL device. No caller yet; the detection path is added next.
-> 
-> Signed-off-by: Manish Honap <mhonap@nvidia.com>
-> ---
->  drivers/vfio/pci/vfio_pci_core.c | 27 +++++++++++++++++++++++++++
->  include/linux/vfio_pci_core.h    | 10 ++++++++++
->  2 files changed, 37 insertions(+)
-> 
-> diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-> index 3f11a9624b9c..88e68d43af9a 100644
-> --- a/drivers/vfio/pci/vfio_pci_core.c
-> +++ b/drivers/vfio/pci/vfio_pci_core.c
-> @@ -2670,6 +2670,33 @@ static void vfio_pci_dev_set_try_reset(struct vfio_device_set *dev_set)
->  	}
->  }
->  
-> +static const struct vfio_cxl_ops *vfio_pci_cxl_ops;
-> +static DEFINE_MUTEX(vfio_pci_cxl_ops_lock);
-> +
-> +int vfio_pci_core_register_cxl_ops(const struct vfio_cxl_ops *ops)
-> +{
-> +	int ret = 0;
-> +
-> +	mutex_lock(&vfio_pci_cxl_ops_lock);
-> +	if (vfio_pci_cxl_ops)
-> +		ret = -EBUSY;
-> +	else
-> +		vfio_pci_cxl_ops = ops;
-> +	mutex_unlock(&vfio_pci_cxl_ops_lock);
-> +
-> +	return ret;
-> +}
-> +EXPORT_SYMBOL_GPL(vfio_pci_core_register_cxl_ops);
-> +
-> +void vfio_pci_core_unregister_cxl_ops(const struct vfio_cxl_ops *ops)
-> +{
-> +	mutex_lock(&vfio_pci_cxl_ops_lock);
-> +	if (vfio_pci_cxl_ops == ops)
-> +		vfio_pci_cxl_ops = NULL;
-> +	mutex_unlock(&vfio_pci_cxl_ops_lock);
-> +}
-> +EXPORT_SYMBOL_GPL(vfio_pci_core_unregister_cxl_ops);
-> +
+Move ti,tmp103 binding from trivial-devices.yaml to ti,tmp102.yaml. Both
+devices are single temperature sensors and update "#thermal-sensor-cells"
+property to accept values 0 and 1 (passing no argument is equivalent to
+passing 0 as the first argument)
 
-Use guards to simplify these, especially the registration path where we
-can then just return -EBUSY.
+Fix below CHECK_DTBS warnings:
+arch/arm/boot/dts/nxp/imx/imx6dl-plym2m.dtb: temperature-sensor@70 (ti,tmp103): '#thermal-sensor-cells' does not match any of the regexes: '^pinctrl-[0-9]+$'
 
-I see the get function stores a per-vdev cxl_ops pointer with module
-reference held for the life of the device, so the serialization on the
-mutex is only per-device at probe time, but it might still be
-worthwhile to preempt that with a rwsem here where both these paths are
-writers and the get is a reader.
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+ Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml | 5 +++--
+ Documentation/devicetree/bindings/trivial-devices.yaml | 2 --
+ 2 files changed, 3 insertions(+), 4 deletions(-)
 
->  static void vfio_pci_core_cleanup(void)
->  {
->  	vfio_pci_uninit_perm_bits();
-> diff --git a/include/linux/vfio_pci_core.h b/include/linux/vfio_pci_core.h
-> index 9a1674c152aa..14753972e714 100644
-> --- a/include/linux/vfio_pci_core.h
-> +++ b/include/linux/vfio_pci_core.h
-> @@ -66,6 +66,16 @@ struct vfio_pci_device_ops {
->  			       size_t nr_ranges);
->  };
->  
-> +struct vfio_cxl_ops {
-> +	int	(*init_device)(struct vfio_pci_core_device *vdev);
-> +	void	(*release_device)(struct vfio_pci_core_device *vdev);
-> +	/* Pinned per bound CXL device so vfio-cxl cannot unload under usage */
-> +	struct module *owner;
-> +};
-
-To mirror vfio_device_ops, should these drop _device and just become
-.init and .release?  I think that better reflects their actual usage
-while the eventual .open_device and .close_device already reflect the
-mapping into vfio_device_ops sequencing.  Thanks,
-
-Alex
-
-> +
-> +int vfio_pci_core_register_cxl_ops(const struct vfio_cxl_ops *ops);
-> +void vfio_pci_core_unregister_cxl_ops(const struct vfio_cxl_ops *ops);
-> +
->  #if IS_ENABLED(CONFIG_VFIO_PCI_DMABUF)
->  int vfio_pci_core_fill_phys_vec(struct phys_vec *phys_vec,
->  				struct vfio_region_dma_range *dma_ranges,
+diff --git a/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml b/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml
+index 96b2e4969f78a..cd96b1d8a2d5e 100644
+--- a/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml
++++ b/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml
+@@ -4,7 +4,7 @@
+ $id: http://devicetree.org/schemas/hwmon/ti,tmp102.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+-title: TMP102 temperature sensor
++title: TMP102/TMP103 temperature sensor
+ 
+ maintainers:
+   - Krzysztof Kozlowski <krzk@kernel.org>
+@@ -13,6 +13,7 @@ properties:
+   compatible:
+     enum:
+       - ti,tmp102
++      - ti,tmp103
+ 
+   interrupts:
+     maxItems: 1
+@@ -25,7 +26,7 @@ properties:
+       A descriptive name for this channel, like "ambient" or "psu".
+ 
+   "#thermal-sensor-cells":
+-    const: 1
++    enum: [0, 1]
+ 
+   vcc-supply:
+     description: Power supply for tmp102
+diff --git a/Documentation/devicetree/bindings/trivial-devices.yaml b/Documentation/devicetree/bindings/trivial-devices.yaml
+index 05f88cf81d6c6..3cdf9e0d8322d 100644
+--- a/Documentation/devicetree/bindings/trivial-devices.yaml
++++ b/Documentation/devicetree/bindings/trivial-devices.yaml
+@@ -506,8 +506,6 @@ properties:
+           - ti,lm74
+             # Temperature sensor with integrated fan control
+           - ti,lm96000
+-            # Low Power Digital Temperature Sensor with SMBUS/Two Wire Serial Interface
+-          - ti,tmp103
+             # Thermometer with SPI interface
+           - ti,tmp121
+           - ti,tmp122
+-- 
+2.43.0
 
