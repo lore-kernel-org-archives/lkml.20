@@ -1,329 +1,234 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012009.outbound.protection.outlook.com [52.101.48.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B03F423E9D
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 20:04:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787774696; cv=none; b=ouYuK+yfKHFoQOX7UAyAI4NCD1z4nRYeTgu+tD2x/8pc+FeDQMvb4NgiJTbtXPo56HsxOnEg+KeDIsuLtIwHk0W9MwJV5tXCF5qW9X5qBH6vFBbkpCTiP1HIeGKUfR2J8V2l+JleQ3CO7N/w6ljr03UKNMepd70er+xdqFWyMr4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787774696; c=relaxed/simple;
-	bh=lwElOIU6l9yhRCfYIK0BHfaPZ3F3WCrmTBLyvrsXJck=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IqR6TYEOFEBFA4nmlCHpbTlx4yI3/C7BZs+43Q/JrGDG9pdH8eaPRAx+TC4xN45mtklnUlyRZnf0qcVL4T2WyCmRBT/NwCPY9GNvdnRUskIEdNd8Nx+FGxwBSbsSCrltiS/bn5HvUJsAT+NOI+/CCo5pFCfPs3h4E6k+oKaCVCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4980dc26022so11553255e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:04:50 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787774688; x=1788379488;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aqltKglBedGMune1iOvieoStWiRDAaU03/Ap5YDSFbs=;
-        b=m8Uctnp85srnfqWz9uhqoXhIIste/vPdL56WWotLaKxKTA2noxX56w91YG1DjU5H/1
-         dCuxUHqlXF0xM0x88K+zl9+jbwC251s5uZcXKAL+ipYVZ/2gcXc5EbrwvsCLzFuFQqSh
-         oydUS4zSFk/G/0eTnqC/h5eX56WB3mv+x9KYfvLXktXH4MGrkSkFNABj/4Nmwd3SQUig
-         pLdeAeCiXH3daAyXhoy4KztaodbiS2xpEsntC+BMAFNnNzeWJEMQf6/o4OuNngoxbPJq
-         LVn13Ssg4/LWvXqFFj5RXTRHXHE+oOOP+pHg1zPG7BLCbrSSCx2dqrUtzloOftvPZGCQ
-         N1qQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqWk6KgAN8637PedPRs4cyzfejUaZNwYaMwwdG9LFrjrvNbvU5WxQkNNXp7Zwzdyx+/JSch0HhHqOVvayU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lBfd6bimGCVYJbLjY5DchqCHDYmPxYHAwm4W0D0/fS39wq02IX
-	fLD0O5RxxDYJazFzZPq8b9I8w0kemily9kvV6qjqNIOrKK7fzuzNo0Mx
-X-Gm-Gg: AR+sD12jKS9s3W7kPoQL5lMAZ1xw8A2jbsjMJr9TDFdXcIrLBtyIiDP29HLA4yh9bob
-	XCcdsl4PhCr+XW2sBoQ1cux9uQZaF/Ha7YbFmMVZGTrtxDRLDbw64rjjcRsDZgX4p1LBuoA725J
-	l+Ap93Af+T0lQ//egbQR0X4k3fwLVKmRAdXBg+PyyRa6SjqrU2SXqKnChsgZEInIhUH3pHDyRZF
-	ss89NslLHGd4MALlIfJBLeHG7xw+xyJ2AfJ/jLxCwLqas8jB+INoMu8nTtvTnnDgpmf0ypFFpW4
-	c9IlpBcSZpSE9lv91+6uOQ++nBABkE7rxqT/m71He8xokWSpxYOvEMON0xrwbsPU02kKZ15VNG3
-	gUri/0bIjghLAkwe6j1vqxHNF5yk/xa2ZTb4C1ypq3wKLxnVxiA7Yc7aviWb810mvj1odlB1HpX
-	z0b0S84DZntk2X09tJ2HoaxGzQ3KWAUpXPjwcqitfZ8baspYRfg+aixH3lk+06lHyo6hPY5ZtUV
-	PwMH7Dcr/+VEOXZtd0n/Q==
-X-Received: by 2002:a05:600c:3112:b0:499:db6e:40a5 with SMTP id 5b1f17b1804b1-499dc6fba17mr83121845e9.4.1787774687928;
-        Wed, 26 Aug 2026 13:04:47 -0700 (PDT)
-Received: from [192.168.1.135] ([83.106.158.114])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499e7170b72sm22537845e9.0.2026.08.26.13.04.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 26 Aug 2026 13:04:47 -0700 (PDT)
-Message-ID: <5ac071a6-8013-4143-9f59-7d0c6cad5c00@linux.com>
-Date: Wed, 26 Aug 2026 21:04:44 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85F3F3B5E01
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 20:04:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.9
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787774703; cv=fail; b=piApG+FL8lUXmjOXNi2AevhBonW6LXLQlLcCVZuLBcVTPQ6mIz6i4U8MsMOZhTHunEGshlGQjWbBPJZFgjpDArd9gSo7wgznYFczLwfAxBR0POS3a/MpYKmd52dBNopQghgexQs3k1sVkW9YsamMEJQZc7SSySgnwEwOgUS33xE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787774703; c=relaxed/simple;
+	bh=nExdIQ+HhOygWUFtlwhtfIRZQK1TERCD4thZtUBZR5U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=k44NSGu3EMmYqEvyo4d2CkauLSD+ODYNWDMDWQftsmRGfjWa69fgRLHnwZOZhxo7uNx7DhNp8czrtwp6/9/LYTjOB28JaTp/zeSJs9LmF7uyJX0bdKCLBKCWAO0exnT6vUAd8mlRNu5lA41iAeoTKDk5lAHU0i59E7B3ZcuP6Sg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=XayR9xPw; arc=fail smtp.client-ip=52.101.48.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="XayR9xPw"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YxtASuBkQp6OIsloy1xyNMSf+Fz+HhP0yqZxtWoBxabn/AZibn1Ecpag4/LslYKxVVCRhvCsah6f+qTbrHug6yKfHfWF5n4UbCTgQOa9IDX1H5+5SUlLGYRxxdfVxRjZi5dpxhjjz25/OeiWQcwMEgltph2/BsT3LjalNicD7lLaIr/KWqD28I/+wrgp1LfrZn006//+Vu6JG+ZDU/MPSHBFqmtw/SFuQsxTcCGOxsWnr4ZdVpO0fSPqabEfcwPf6T28jurfRXvTBCUZnW+nGxLPdA146LLgB/808aW3k4ojg0aA/mWctnbHroY4PvI9Z5LjdIdhg5lCshzNR54pgA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xCQfqjzttg40eCX74zvbJBobQ6rD0ksaKQz0slEjfhw=;
+ b=mx9rGS61APcRAydDtsyS+uuvjnOd5Z4sgFRJS27biZBnZSYPex+O+MndrQ1G8MwDFdQXZ/9JgN5E3mUUIEG55/zj4brYNjyNYbTF9wrzJIuzURmCyCwhj476S/l8bZhADJemGXI89vJgWnYh4V+cuZcDenSo5tSaddo22cMBYu59RbbF+RUNv9YjP45nwshXdgKXtyYQh7KYQlpr2VMrL+tZlCNk2H26DScVLz6r8ks3+4HVGBDbKZ5u8ce7mE5whuZ3+1hsTQBDJktVW7Un+avU0W8aDBf8zyCa3ABrg5foumtihX7Hj6at02qUjdblnr9yIRNYT6dIZ0EIYLq54g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 149.199.90.133) smtp.rcpttodomain=kaitmazov.com smtp.mailfrom=amd.com;
+ dmarc=fail (p=quarantine sp=quarantine pct=100) action=quarantine
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xCQfqjzttg40eCX74zvbJBobQ6rD0ksaKQz0slEjfhw=;
+ b=XayR9xPw9P+hHN6GN2fTLCagjJxKVra4vK6bqdbhTVNtT5QFs+LO4AiWJ+NosiPHjzk8ytvSPWNKLpx3wRsQedl3QRx9iUctd85freFj1lqGDrKhD0HL9uKsdNXl4qaOgy3Acz28iiS8Icf4Q8hRjMp3C4814KKRvRPw2GT0JgM=
+Received: from IA4P221CA0007.NAMP221.PROD.OUTLOOK.COM (2603:10b6:208:559::17)
+ by PH7PR12MB6763.namprd12.prod.outlook.com (2603:10b6:510:1ad::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.7; Wed, 26 Aug
+ 2026 20:04:46 +0000
+Received: from BN1PEPF0000468C.namprd05.prod.outlook.com
+ (2603:10b6:208:559:cafe::54) by IA4P221CA0007.outlook.office365.com
+ (2603:10b6:208:559::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.10 via Frontend Transport; Wed,
+ 26 Aug 2026 20:04:45 +0000
+X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
+ 149.199.90.133) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=quarantine header.from=amd.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ amd.com discourages use of 149.199.90.133 as permitted sender)
+Received: from satlexmb07.amd.com (149.199.90.133) by
+ BN1PEPF0000468C.mail.protection.outlook.com (10.167.243.137) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.3 via Frontend Transport; Wed, 26 Aug 2026 20:04:45 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 26 Aug
+ 2026 15:04:45 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 26 Aug
+ 2026 15:04:45 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
+ Transport; Wed, 26 Aug 2026 15:04:44 -0500
+Message-ID: <fffd0a2c-9cc8-247e-578c-7ddbdf4ee881@amd.com>
+Date: Wed, 26 Aug 2026 13:04:44 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC] clk: meson: t7: Intermittent boot instability and memory
- corruption on VIM4
-To: Brian Masney <bmasney@redhat.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
- Jian Hu <jian.hu@amlogic.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <3930906f-783b-4d72-9260-ba25cc8081cb@linux.com>
- <aoxjX3HabY0brgXk@redhat.com>
- <57d796bd-7a3c-46b9-bd65-d6860adbd355@linux.com>
- <72db2062-e0ac-4c33-b1d1-d1fa5ae4bec8@linux.com>
- <ao8fqstEs01hd3--@redhat.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH v2] accel/amdxdna: make the debug BO command wait
+ interruptible
 Content-Language: en-US
-From: Lucas Tanure <tanure@linux.com>
-In-Reply-To: <ao8fqstEs01hd3--@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>, Min Ma <mamin506@gmail.com>,
+	Oded Gabbay <ogabbay@kernel.org>
+CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+References: <b7e8caf7-18de-fcbb-ee42-1b49b67b5eef@amd.com>
+ <20260826184503.282106-1-taimuraz@kaitmazov.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <20260826184503.282106-1-taimuraz@kaitmazov.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF0000468C:EE_|PH7PR12MB6763:EE_
+X-MS-Office365-Filtering-Correlation-Id: cbd8c8ef-958f-4565-0a8a-08df03ad4671
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|1800799024|23010399003|82310400026|376014|7136999003|10067099003|18002099003|22082099003|4143699003|56012099006|11063799006|5023799004;
+X-Microsoft-Antispam-Message-Info:
+	lFME0PyFaubRnc5YLz/jBHAdqSXHEQfOHNzeWCdPthF4hqCgChUy7TO+b4TGzfJVkKQqFiNxjbsiTp9CyaVZyi7N3jqKnhiJzdevwIIlHW/jFrtMwDF6OOWROiVFc0l7yhbRxE2PVOr5KRTgrZjbWj+iDAg+xXcUMxVSV/S+noxXR0U+ys2na5r/z/2XHzN2GYASw+N/FvRTUyC28USlfhnCTXud6TUyN00bZyAyNGKq0uuKhCOycONKM3FvwOWM7dDvdWoIRNebyBjGFbEXfl9jmxzOak/eWznzi+QX3QZkmKCKJRBLzCvcYpYqTN7iWU8Frj+qckAb9e+Eh6kGuRlTvKnOE+0uydcGrEpUuYC0PpeySs3NPxkhweEMiFN0IM2a4Cc4vaJzTvttFgB/2Da0WwkF63JeUtp/Fku3bPHfeN6XgqfJFhJoZjUChvLkhe64BkXKqfWQ/+rmSGATQwzv5mZoNhIgzoHzSySAE6r1t4edNqniqaF8JtB8x8zi+50vhO0OUJ2vHzw2ff7VbZY5ihcJhoyd6LeKEv9WuVva+ysb9wGA2aaTs5eRB62TnT1cfg4WlIiF2VyYWukztOd67011V0FeTdO6vGQmlHvC3MN4gFivh2yUrtxgmuqZELNGODrUmVvwMDn+6MhmQ27CG4AxWlozVGQ69Vs1Ovw4NkeTWWteQkkQaxStPJZR4sh2Rb2BRh4B3GrGIi5FAA==
+X-Forefront-Antispam-Report:
+	CIP:149.199.90.133;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:unknown-90-133.xilinx.com;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(23010399003)(82310400026)(376014)(7136999003)(10067099003)(18002099003)(22082099003)(4143699003)(56012099006)(11063799006)(5023799004);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	napxcwg1vgRFv5lPnLodoFsiHvyypTBs2+aFynFcxOhObe6c5VeS200WXXLsbPKkQhsPsSBXcge5Z5j+/XzqtpwhrYZ10nwAvdmsUpaos8Yn/QdVTrvI4L/zM0mVv9vP2+yBSYJlkgHRi8WQv0FckwZIX4se4X7lRRNwtPsb7fSVJpMwJ2BArq8Vr8DEGxKvA1RflaGjI0R2rR4FbU8Lk9vB+GJKf6DJ3gxGpjFRtscU3h8lAsj2zmQVclWxHbgm679DY2ODJYkDIBolS0skVxWV3sFolt/MjcbaDtYhvd3UmM9JeIJEGZzuHrUsmH/ZyepVfUuZNPv3APN0LlFV4UvAUkUVx4TYUHcvvVfh7WypKI+WJMHCuwzi1O7q8yPtSbEFS6ncgrsTgf1keIJwBhWcL7hkAcwiitZ6eeC6wNWDqNkH70fLus5ePirXzmgi
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 20:04:45.4178
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cbd8c8ef-958f-4565-0a8a-08df03ad4671
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[149.199.90.133];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN1PEPF0000468C.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6763
 
-On 26/08/2026 18:17, Brian Masney wrote:
-> Hi Lucas,
-> 
-> On Wed, Aug 26, 2026 at 05:42:01PM +0100, Lucas Tanure wrote:
->> With Brian's patches, VIM4 does not turn off 4 clocks:
->>
->> t7_sys_sd_emmc_b
->> t7_sys_sd_emmc_c
->> sd_emmc_b
->> sd_emmc_c
->>
->> This is expected since I'm trying to run from an SD card. However, even with
->> these four clocks kept enabled, the board still hangs.
->>
->> Complete list with all clocks being disabled after Brians patches:
->> [    1.002247] clk: Disabled unused clock: t7_sys_pwm_ao_gh
->> [    1.002898] clk: Disabled unused clock: t7_sys_pwm_ao_ef
->> [    1.003560] clk: Disabled unused clock: t7_sys_pwm_ao_cd
->> [    1.004220] clk: Disabled unused clock: t7_sys_pwm_ao_ab
->> [    1.004972] clk: Disabled unused clock: t7_sys_pwm_ef
->> [    1.005509] clk: Disabled unused clock: t7_sys_pwm_cd
->> [    1.006211] clk: Disabled unused clock: t7_sys_pwm_ab
->> [    1.006766] clk: Disabled unused clock: t7_sys_ts_hevc
->> [    1.007434] clk: Disabled unused clock: t7_sys_ts_vpu
->> [    1.008033] clk: Disabled unused clock: t7_sys_ts_nna
->> [    1.008741] clk: Disabled unused clock: t7_sys_ts_gpu
->> [    1.009294] clk: Disabled unused clock: t7_sys_sar_adc
->> [    1.009929] clk: Disabled unused clock: t7_sys_vpu_intr
->> [    1.010609] clk: Disabled unused clock: t7_sys_dspb
->> [    1.011186] clk: Disabled unused clock: t7_sys_dspa
->> [    1.011792] clk: Disabled unused clock: t7_sys_a73pclk_apb
->> [    1.012554] clk: Disabled unused clock: t7_sys_pclk_sys_apb
->> [    1.013213] clk: Disabled unused clock: t7_sys_rsa
->> [    1.013811] clk: Disabled unused clock: t7_sys_mipi_isp_pclk
->> [    1.014529] clk: Disabled unused clock: t7_sys_mmc_apb
->> [    1.015107] clk: Disabled unused clock: t7_sys_hdmirx_pclk
->> [    1.015819] clk: Disabled unused clock: t7_sys_i2c_s_a
->> [    1.016429] clk: Disabled unused clock: t7_sys_hdmitx_apb
->> [    1.017109] clk: Disabled unused clock: t7_sys_i2c_m_f
->> [    1.017740] clk: Disabled unused clock: t7_sys_i2c_m_e
->> [    1.018379] clk: Disabled unused clock: t7_sys_i2c_m_d
->> [    1.019018] clk: Disabled unused clock: t7_sys_i2c_m_c
->> [    1.019657] clk: Disabled unused clock: t7_sys_i2c_m_b
->> [    1.020296] clk: Disabled unused clock: t7_sys_i2c_m_a
->> [    1.020940] clk: Disabled unused clock: t7_sys_i2c_ao_b
->> [    1.021585] clk: Disabled unused clock: t7_sys_i2c_ao_a
->> [    1.022236] clk: Disabled unused clock: t7_sys_pcie_phy
->> [    1.022885] clk: Disabled unused clock: t7_sys_usb
->> [    1.023482] clk: Disabled unused clock: t7_sys_pcie
->> [    1.024088] clk: Disabled unused clock: t7_sys_spicc1
->> [    1.024723] clk: Disabled unused clock: t7_sys_spicc0
->> [    1.025345] clk: Disabled unused clock: t7_sys_g2d
->> [    1.025940] clk: Disabled unused clock: t7_sys_spicc5
->> [    1.026569] clk: Disabled unused clock: t7_sys_ts_a53
->> [    1.027197] clk: Disabled unused clock: t7_sys_ts_a73
->> [    1.027825] clk: Disabled unused clock: t7_sys_spicc4
->> [    1.028454] clk: Disabled unused clock: t7_sys_spicc3
->> [    1.029085] clk: Disabled unused clock: t7_sys_spicc2
->> [    1.029710] clk: Disabled unused clock: t7_sys_aififo
->> [    1.030339] clk: Disabled unused clock: t7_sys_uart_f
->> [    1.030967] clk: Disabled unused clock: t7_sys_uart_e
->> [    1.031595] clk: Disabled unused clock: t7_sys_uart_d
->> [    1.032224] clk: Disabled unused clock: t7_sys_uart_c
->> [    1.032857] clk: Disabled unused clock: t7_sys_uart_b
->> [    1.033482] clk: Disabled unused clock: t7_sys_eth
->> [    1.034077] clk: Disabled unused clock: t7_sys_audio
->> [    1.034694] clk: Disabled unused clock: t7_sys_ir_ctrl
->> [    1.035333] clk: Disabled unused clock: t7_sys_msr_clk
->> [    1.035972] clk: Disabled unused clock: t7_sys_spifc
->> [    1.036596] clk: Disabled unused clock: t7_sys_acodec
->> [    1.037218] clk: Disabled unused clock: t7_sys_smartcard
->> [    1.037880] clk: Disabled unused clock: t7_sys_am2axi2
->> [    1.038518] clk: Disabled unused clock: t7_sys_am2axi1
->> [    1.039157] clk: Disabled unused clock: t7_sys_am2axi0
->> [    1.039796] clk: Disabled unused clock: t7_sys_ampipe_eth
->> [    1.040468] clk: Disabled unused clock: t7_sys_ampipe_nand
->> [    1.041155] clk: Disabled unused clock: t7_sys_deswarp
->> [    1.041790] clk: Disabled unused clock: t7_sys_gdc
->> [    1.042385] clk: Disabled unused clock: t7_sys_cec
->> [    1.042981] clk: Disabled unused clock: t7_sys_aucpu
->> [    1.043600] clk: Disabled unused clock: t7_sys_aocpu
->> [    1.044217] clk: Disabled unused clock: t7_sys_mali
->> [    1.044830] clk: Disabled unused clock: t7_sys_ethphy
->> [    1.045451] clk: Disabled unused clock: t7_sys_mipi_dsi_b
->> [    1.046123] clk: Disabled unused clock: t7_sys_mipi_dsi_a
->> [    1.046795] clk: Disabled unused clock: t7_sys_dos
->> [    1.047390] clk: Disabled unused clock: t7_sys_ddr
->> [    1.047991] clk: Disabled unused clock: pwm_ao_g
->> [    1.048565] clk: Disabled unused clock: pwm_ao_f
->> [    1.049135] clk: Disabled unused clock: pwm_ao_e
->> [    1.049709] clk: Disabled unused clock: pwm_ao_d
->> [    1.050283] clk: Disabled unused clock: pwm_ao_b
->> [    1.050857] clk: Disabled unused clock: pwm_ao_a
->> [    1.051454] clk: Disabled unused clock: rtc_dualdiv
->> [    1.052038] clk: Disabled unused clock: rtc_duandiv_in
->>
->> Also with the patches the disable happens 0.5 second later, from 0.5 seconds
->> after the boot to 1 second after the boot.
->>
->> I am still investigating what is missing a consumer or what should be
->> labeled critical.
-> 
-> I've seen cases where a clock is modeled in Linux, but isn't actually
-> used by Linux, so it gets caught in the disable unused clocks sweep.
-> 
-> Does the board immediately crash after the disable unused clock sweep?
-yes> If so, you could add a log statement, then 1 second sleep in
-> clk_disable_unused_subtree() and wait for the board to crash.
-good idea , thanks
-> 
-> If you can't get timely help from the vendor, then you can add
-> CLK_IGNORE_UNUSED to all of those clocks, and slowly start taking them
-> off in batches and wait for the crash.
-That's what I've been doing for the past few weeks, but I'm probably 
-hunting down a set of clock issues, as support for this board is still 
-in its early stages. It's a combination of clocks, which makes it way 
-more time-consuming.
 
-I went with a more localized approach:
+On 8/26/26 11:45, Taimuraz Kaitmazov wrote:
+> aie2_cmd_wait() waits uninterruptibly and without a timeout. Commit
+> c8d2530791cb ("accel/amdxdna: Fix deadlock on debug BO command timeout")
+> drops dev_lock around that wait, but the callers still hold client_lock,
+> and that one is device wide. So while a debug BO command is outstanding,
+> nobody can open the device, nobody can close their DRM file and exit, and
+> the module cannot be unloaded.
 
-diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
-index 2b6fae54702a..3358f4dc871f 100644
---- a/drivers/clk/clk.c
-+++ b/drivers/clk/clk.c
-@@ -1489,14 +1489,95 @@ static void clk_unprepare_unused_subtree(struct 
-clk_core *core,
-                 else if (core->ops->unprepare)
-                         core->ops->unprepare(core->hw);
-                 trace_clk_unprepare_complete(core);
-+               pr_info("clk: V Unprepared unused clock: %s\n", core->name);
-         }
-  }
+That is expected. It relies on the 2 seconds timeout to remove the 
+context, kill the job and return. Exiting earlier and allowing other 
+operations like open/close/remove module while firmware is dealing with 
+command may cause other issues. And It should never happen that the 
+command runs more than 2 seconds unless a firmware/hardware issue.
 
-+static const char * const disable_clocks[] = {
-+       "t7_sys_pwm_ao_gh",
-+       "t7_sys_pwm_ao_ef",
-+       "t7_sys_pwm_ef",
-+       "t7_sys_pwm_cd",
-+       "t7_sys_pwm_ab",
-+       "t7_sys_ts_hevc",
-+       "t7_sys_ts_vpu",
-+       "t7_sys_ts_nna",
-+       "t7_sys_ts_gpu",
-+       "t7_sys_sar_adc",
-+       "t7_sys_vpu_intr",
-+       "t7_sys_dspb",
-+       "t7_sys_dspa",
-+       "t7_sys_a73pclk_apb",
-+       "t7_sys_pclk_sys_apb",
-+       "t7_sys_rsa",
-+       "t7_sys_mipi_isp_pclk",
-+       "t7_sys_mmc_apb",
-+       "t7_sys_hdmirx_pclk",
-+       "t7_sys_i2c_s_a",
-+       "t7_sys_hdmitx_apb",
-+       "t7_sys_i2c_m_f",
-+       "t7_sys_i2c_m_e",
-+       "t7_sys_i2c_m_d",
-+       "t7_sys_i2c_m_c",
-+       "t7_sys_i2c_m_b",
-+       "t7_sys_i2c_m_a",
-+       "t7_sys_i2c_ao_b",
-+       "t7_sys_i2c_ao_a",
-+       "t7_sys_pcie_phy",
-+       "t7_sys_usb",
-+       "t7_sys_pcie",
-+       "t7_sys_spicc1",
-+       "t7_sys_spicc0",
-+       "t7_sys_g2d",
-+       "t7_sys_spicc5",
-+       "t7_sys_ts_a53",
-+       "t7_sys_ts_a73",
-+       "t7_sys_spicc4",
-+       "t7_sys_spicc3",
-+       "t7_sys_spicc2",
-+       "t7_sys_aififo",
-+       "t7_sys_uart_f",
-+       "t7_sys_uart_e",
-+       "t7_sys_uart_d",
-+       "t7_sys_uart_c",
-+       "t7_sys_uart_b",
-+       "t7_sys_eth",
-+       "t7_sys_audio",
-+       "t7_sys_ir_ctrl",
-+       "t7_sys_msr_clk",
-+       "t7_sys_spifc",
-+       "t7_sys_acodec",
-+       "t7_sys_smartcard",
-+       "t7_sys_am2axi2",
-+       "t7_sys_am2axi1",
-+       "t7_sys_am2axi0",
-+       "t7_sys_ampipe_eth",
-+       "t7_sys_ampipe_nand",
-+       "t7_sys_deswarp",
-+       "t7_sys_gdc",
-+       "t7_sys_cec",
-+       "t7_sys_aucpu",
-+       "t7_sys_aocpu",
-+       "t7_sys_mali",
-+       "t7_sys_ethphy",
-+       "t7_sys_mipi_dsi_b",
-+       "t7_sys_mipi_dsi_a",
-+       "t7_sys_dos",
-+       "t7_sys_ddr",
-+       "pwm_ao_g",
-+       "pwm_ao_e",
-+       "pwm_ao_a",
-+       "rtc_dualdiv",
-+       "rtc_duandiv_in",
-+};
-+
-+
-  static void clk_disable_unused_subtree(struct clk_core *core,
-                                        struct device *dev)
-  {
-         struct clk_core *child;
-         unsigned long flags;
-+       int i;
+>
+> Normally the scheduler timeout ends it: tdr_timeout_ms defaults to 2000.
+> But with tdr_timeout_ms=0 there is no scheduler timeout at all, the wait
+> never ends, and since it is uninterruptible you cannot even kill the
+> stuck task to get client_lock back.
 
-         lockdep_assert_held(&prepare_lock);
+tdr_timeout_ms is used for debugging. User should never change it.
 
-@@ -1517,6 +1598,11 @@ static void clk_disable_unused_subtree(struct 
-clk_core *core,
-         if (core->flags & CLK_IGNORE_UNUSED)
-                 goto unlock_out;
+Lizhi
 
-+       for (i = 0; i < ARRAY_SIZE(disable_clocks); i++) {
-+               if (strcmp(core->name, disable_clocks[i]) == 0)
-+                       goto unlock_out;
-+       }
-+
-         /*
-          * some gate clocks have special needs during the disable-unused
-          * sequence.  call .disable_unused if available, otherwise fall
-@@ -1529,6 +1615,7 @@ static void clk_disable_unused_subtree(struct 
-clk_core *core,
-                 else if (core->ops->disable)
-                         core->ops->disable(core->hw);
-                 trace_clk_disable_complete(core);
-+               pr_info("clk: V Disabled unused clock: %s\n", core->name);
-         }
-
-This makes it easier to let the sweep disable clocks for testing.
-
-> 
-> Brian
-> 
-Thanks
-Lucas
-
+>
+> So wait interruptibly and pass the result up. I return -EINTR and not
+> -ERESTARTSYS on purpose: the command is still in flight, and a restarted
+> ioctl would just submit a second one.
+>
+> If the wait is interrupted we do not know what firmware did, so
+> aie2_hwctx_cfg_debug_bo() cannot tell whether the BO got attached. It
+> records it as attached, because DETACH is refused for a BO that is not
+> assigned to the context, and the other way round would leave a BO
+> attached in firmware with no way to detach it. aie2_hwctx_sync_debug_bo()
+> does not touch that state, so it needs nothing here.
+>
+> Signed-off-by: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
+> ---
+> v2:
+> - Rebased onto drm-misc-fixes, as you asked. v1 was against
+>    drm-misc-next, which does not carry that commit, so the deadlock
+>    reasoning in its message is gone. Please also disregard my follow-up
+>    question on the v1 thread: it asked which of two shapes you would
+>    prefer, and one of them was what you had already done.
+> - Return -EINTR instead of -ERESTARTSYS.
+> - Record the debug BO as attached when the wait is interrupted.
+> - Leave the !out_fence path returning success as before, so this patch
+>    changes only the wait.
+>
+>   drivers/accel/amdxdna/aie2_ctx.c | 33 +++++++++++++++++++++++++++-----
+>   1 file changed, 28 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
+> index b713a57b3a3b..175fceea5c8f 100644
+> --- a/drivers/accel/amdxdna/aie2_ctx.c
+> +++ b/drivers/accel/amdxdna/aie2_ctx.c
+> @@ -908,20 +908,30 @@ static int aie2_hwctx_cu_config(struct amdxdna_hwctx *hwctx, void *buf, u32 size
+>   	return ret;
+>   }
+>   
+> -static void aie2_cmd_wait(struct amdxdna_hwctx *hwctx, u64 seq)
+> +static int aie2_cmd_wait(struct amdxdna_hwctx *hwctx, u64 seq)
+>   {
+>   	struct dma_fence *out_fence = aie2_cmd_get_out_fence(hwctx, seq);
+>   	struct amdxdna_dev *xdna = hwctx->client->xdna;
+> +	long ret;
+>   
+>   	if (!out_fence) {
+>   		XDNA_ERR(xdna, "Failed to get fence");
+> -		return;
+> +		return 0;
+>   	}
+>   
+>   	mutex_unlock(&xdna->dev_lock);
+> -	dma_fence_wait_timeout(out_fence, false, MAX_SCHEDULE_TIMEOUT);
+> +	ret = dma_fence_wait_timeout(out_fence, true, MAX_SCHEDULE_TIMEOUT);
+>   	mutex_lock(&xdna->dev_lock);
+>   	dma_fence_put(out_fence);
+> +
+> +	/*
+> +	 * The command is still in flight. If the ioctl were restarted it
+> +	 * would submit a second one.
+> +	 */
+> +	if (ret == -ERESTARTSYS)
+> +		return -EINTR;
+> +
+> +	return ret < 0 ? ret : 0;
+>   }
+>   
+>   static int aie2_hwctx_cfg_debug_bo(struct amdxdna_hwctx *hwctx, u32 bo_hdl,
+> @@ -968,7 +978,17 @@ static int aie2_hwctx_cfg_debug_bo(struct amdxdna_hwctx *hwctx, u32 bo_hdl,
+>   		goto put_cmd;
+>   	}
+>   
+> -	aie2_cmd_wait(hwctx, seq);
+> +	ret = aie2_cmd_wait(hwctx, seq);
+> +	if (ret) {
+> +		/*
+> +		 * The command may still attach the BO. Record it as attached,
+> +		 * or DETACH will refuse it and there is no way back.
+> +		 */
+> +		if (attach)
+> +			abo->assigned_hwctx = hwctx->id;
+> +		goto put_cmd;
+> +	}
+> +
+>   	if (cmd->result) {
+>   		XDNA_ERR(xdna, "Response failure 0x%x", cmd->result);
+>   		ret = -EINVAL;
+> @@ -1028,7 +1048,10 @@ int aie2_hwctx_sync_debug_bo(struct amdxdna_hwctx *hwctx, u32 debug_bo_hdl)
+>   		goto put_cmd;
+>   	}
+>   
+> -	aie2_cmd_wait(hwctx, seq);
+> +	ret = aie2_cmd_wait(hwctx, seq);
+> +	if (ret)
+> +		goto put_cmd;
+> +
+>   	if (cmd->result) {
+>   		XDNA_ERR(xdna, "Response failure 0x%x", cmd->result);
+>   		ret = -EINVAL;
