@@ -1,57 +1,57 @@
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D0A937EFF3
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 17:12:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A4503AAF41
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 17:13:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787764393; cv=none; b=tftJaOdmo02DnuDRVdcMGzMZQAy//G5FhAJIP7KA2O+Rd5iPeU0pgObl0djrTivAPUfJ6JDJfBd8z49sehE4HNMRllW8yYrHSFTfMPO7dq4rLxLxTuIwm5N41C6h4mKAuUUH3Pf/yyGx90b1mbk/cLpnZxMys7nt86EGAGWnfUI=
+	t=1787764398; cv=none; b=AHp9mkiM9Mdt/yFJ5EmBxRH8r76NLt+NIvYcgWV14zRsjlX272JNh8j2hWVizODFZGq3IqCeaWsC9Q7kgjl8bEVei6I7TKVsBEqdomYpgiNaE4p0+zPApZizSoLr/y0MinJjnodNrrMdH3uff/UaZH7j7SbHwUJs1uRfP9X7OEY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787764393; c=relaxed/simple;
-	bh=Xy9bUPMo10wPx+hGK64PejVqPjCe+tnmlzShZBrttKE=;
+	s=arc-20240116; t=1787764398; c=relaxed/simple;
+	bh=ETYszkt+PpDnzyBQpct9QDXpj2i+G42vlOEci4TgHog=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=oHoeZEUwnJB76EQspI0wqOvyk66rkhNPNtPPRxfXkY/2Qfnk3bUz2f4DzCCDzr5UWvwsuzGPQDDxkG9l2ofg5VVj3uxZAsHXnERRml09YIQOLL1lFeq4xF6xt75gr7033fX/7QoIv+zypA3RSUnisZ5nZQIjlLw3pLB6olaVT5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=EVOa9PuD; arc=none smtp.client-ip=209.85.215.200
+	 To:Cc:Content-Type; b=tR7PFJi5H7u6n1NjUkGT0F7kzVeQ9375N6wF+/X4Pbp6d1XCfWO0DUCFaFR1KIvMQzZmbxcwKDT2gtJzaS8/LE36Pdw8f88I4rjUTsAMMN4qAL0+H8cdwxfskaroxSJ/UWp6qTOgiGFhdtoS2t70/nLGS7RnNjzEOCqnyjwq6Y0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=qiEJrrzj; arc=none smtp.client-ip=209.85.210.198
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="EVOa9PuD"
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cb11535e6a1so1552141a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 10:12:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="qiEJrrzj"
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-84859a64079so1495567b3a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 10:13:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787764371; x=1788369171; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1787764383; x=1788369183; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=Df0A62BBX5SuQrh9wZqWxjT6F0PSRl8xPi6joM+3RXg=;
-        b=EVOa9PuDXIcKd8pWFzPPRfhwscpTp5J5uV0C9i6uDlTIsNNgp9mkp86qgsSHpnP7bn
-         sQV5+/L2nu5sk3r0Q+NIVXDsvnwtB3htXkfdEKvIDX59bq9nEvASBhFFPNsq8vLVimBL
-         uELfI3JKLHeMkaoiWEzZxf0aE8t9HwUcwHP3Ywfx4v1vKEXBoem/OdS3BACsiUtJMvzK
-         s4tIKYplTOGhgOX1sT/FVrnQcYm7J9U7A4Yc2UJRysqu+tIgUpVueX0VW1KH3diiXLEj
-         Dsi9Mxn/tHLxrgBwdsX83PfdRxCgtpnhuV0y0yp12z/eRdvNUS/oOYC9/+0lxHDV7SOg
-         wQkg==
+        bh=IvVQPd56KlHv5ygDzHuD2XaX2Xb0ULf5ZrzcKWCrS+0=;
+        b=qiEJrrzj7giOEAQHh4YK38G6DixPccjNYBIZ9MjWvskSU8Gd0WdemrxnHS+7m334eL
+         x/ZLXxsvFqtkhuhVMwikGdOQ7oa7DlF3NrKolzV7CFBttYQB/kTpRoyFCO+TzwQJ0B62
+         bXiohEhsVVl01c6nkVBflPgTWv/+I7ZQk3pf1LlmuVt3zoM9/vICrph6a0QBdTaeO26L
+         nqANtPiboJvq8gJgpPrc8IKql/5SyJS1N4wgKCAnCOdbr0i43sGM6qaWbDf7ugqs4r3I
+         yP2PbHTpBaJIr5FYJvimrVapUN5o5PBlW+cIWU0NnjKfHF1LqbrzHO1mwDjGnh3JJMmO
+         MJuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787764371; x=1788369171;
+        d=1e100.net; s=20251104; t=1787764383; x=1788369183;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Df0A62BBX5SuQrh9wZqWxjT6F0PSRl8xPi6joM+3RXg=;
-        b=jHUfhyRbZh2uqdOv05SUXIHW95uN+woJmjgsjf5XfXvkHnWZVNwDUnT6ZoXLH6Ywb+
-         Z0XnCGcDzy/rH6Ne3QsgFdW+91nC4SB95j8tdfD7Rd4z7vRHs9n5NLgBtINj8vTMWpGl
-         DHjrBvoKVnDVab08yHM/qybPXZD/EHtPXqcM06J0f0iv+7Ndp80t2n4Ybsu1Htt4ljvq
-         S7ahjZww/C1WFE8jCkRqo41y8KO2uNI6h7Q85ipgcp9RHcqjRLM62nj+5aiSLXiMsCfn
-         mQ/niQ3UMLGwvbhur7c2j5+chs42y1Ge0O5FMVcmluUQdfz1AvtNIbX4X0s+cA56BoS4
-         7C6w==
-X-Forwarded-Encrypted: i=1; AHgh+RrZvlyrdTt96YyxjUlkNpeXA9u9johhPV+qRAqyIvqHtT0cSfzm7gKcR1kOVlriPtPmzYaznnDwB3+giek=@vger.kernel.org
-X-Gm-Message-State: AFuF++kH/+HkaklgYPwuRuNpblw8b5qCAMMoez72X97yM6w9h4n4WRpP
-	9LRqNy2FnpZZdr0cH3oWXmAlPTa7OfMLepoqTSckkZm+jsAzyuXOakDVYRdgEP3hRGmQTofCE+F
-	ltqqzWw==
-X-Received: from pgby7-n2.prod.google.com ([2002:a05:6a02:6507:20b0:cbe:948f:d640])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:3926:b0:848:46a0:3d74
- with SMTP id d2e1a72fcca58-8537499bb90mr14451563b3a.9.1787764370966; Wed, 26
- Aug 2026 10:12:50 -0700 (PDT)
+        bh=IvVQPd56KlHv5ygDzHuD2XaX2Xb0ULf5ZrzcKWCrS+0=;
+        b=Rv0Fb6970x+Zvbm4Uwz0l5XXuVXHQMpFwMxHAdU+l6CYAPbS7lMC3MhYN9WjED2YQv
+         Xy1Fda1s+po0lOwKrgecgPyrKSne04zpjExQ/XYLjdYtadlUKsyFp7ByNFwsWNO0Jvbz
+         Xcx/XnRtmZtoyjg0xNaMrfTcrnTWAsI0xCoesdu4PcIbGUSspYcTEwvcf+n8nMHCVGL4
+         uE5CslzpIB8t5q2dkw1ZmzX9HWVml+T2t/KZuFqa6gId8OBHLRDIEzPmijYu+pP0r3iw
+         +X4X13AGU3mSTKJeQ9CbghQ7biT8bI7DItoSaqHVz3Awy7eZAj69Gy5JesQKVTX80kSu
+         TUlg==
+X-Forwarded-Encrypted: i=1; AHgh+RrrqJiid4Yxmm3K2Sakq/G7dkhyT66w3qYYkfmGA5XYmIB5riVv1+QDCNIs+VfcXUUG8v71k0rkhArAOv0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kyvXjBmW29nvFgxyJJhnY/OWI4QLn4EJ5VfELvQh/27QF+Tscn
+	4Yf/+RRp7XeiaUgnTQsWfh1WhMLsUxRt/bzlkSpI9iM9JjqXEYELkQe9jmq7SMutNiC21Q3PUOq
+	+1DLW8w==
+X-Received: from pgcp11.prod.google.com ([2002:a63:740b:0:b0:cbe:9dc7:9eec])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:21d2:b0:851:c1ba:7aa6
+ with SMTP id d2e1a72fcca58-85373eb1adcmr14442590b3a.11.1787764382313; Wed, 26
+ Aug 2026 10:13:02 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Wed, 26 Aug 2026 10:12:40 -0700
+Date: Wed, 26 Aug 2026 10:12:43 -0700
 In-Reply-To: <20260826171246.777729-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -61,9 +61,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260826171246.777729-1-seanjc@google.com>
 X-Mailer: git-send-email 2.55.0.887.g758fc8c411-goog
-Message-ID: <20260826171246.777729-3-seanjc@google.com>
-Subject: [PATCH v2 2/8] KVM: VMX: Move the shared NMI handler/trampoline to
- common code
+Message-ID: <20260826171246.777729-6-seanjc@google.com>
+Subject: [PATCH v2 5/8] KVM: VMX: Rename EPT violation handler prefix from
+ "vmx" to "vt"
 From: Sean Christopherson <seanjc@google.com>
 To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
 Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
@@ -72,100 +72,59 @@ Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
 	Yan Zhao <yan.y.zhao@intel.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Move vmx_handle_nmi() to main.c to capture that it's a common handler and
-to allow guarding against incorrectly using to_vmx().
-
-Opportunistically use a "vt" prefix instead of "vmx" to communicate that
-it's a shared handler.
+Rename __vmx_handle_ept_violation() to __vt_handle_ept_violation to capture
+that it is shared between VMX and TDX.
 
 No functional change intended.
 
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/x86/kvm/vmx/common.h |  2 +-
- arch/x86/kvm/vmx/main.c   | 11 +++++++++++
- arch/x86/kvm/vmx/tdx.c    |  2 +-
- arch/x86/kvm/vmx/vmx.c    | 13 +------------
- 4 files changed, 14 insertions(+), 14 deletions(-)
+ arch/x86/kvm/vmx/common.h | 4 ++--
+ arch/x86/kvm/vmx/tdx.c    | 2 +-
+ arch/x86/kvm/vmx/vmx.c    | 2 +-
+ 3 files changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/arch/x86/kvm/vmx/common.h b/arch/x86/kvm/vmx/common.h
-index 88f637c81353..4b1d46eafd0f 100644
+index ff4f6a2b6402..35b54938a5f5 100644
 --- a/arch/x86/kvm/vmx/common.h
 +++ b/arch/x86/kvm/vmx/common.h
-@@ -189,6 +189,6 @@ static inline void __vmx_deliver_posted_interrupt(struct kvm_vcpu *vcpu,
- 	kvm_vcpu_trigger_posted_interrupt(vcpu, POSTED_INTR_VECTOR);
+@@ -86,8 +86,8 @@ static inline bool vt_is_tdx_private_gpa(struct kvm *kvm, gpa_t gpa)
+ 	return !kvm_is_addr_direct(kvm, gpa);
  }
  
--noinstr void vmx_handle_nmi(struct kvm_vcpu *vcpu);
-+noinstr void vt_handle_nmi(struct kvm_vcpu *vcpu);
+-static inline int __vmx_handle_ept_violation(struct kvm_vcpu *vcpu, gpa_t gpa,
+-					     unsigned long exit_qualification)
++static inline int __vt_handle_ept_violation(struct kvm_vcpu *vcpu, gpa_t gpa,
++					    unsigned long exit_qualification)
+ {
+ 	u64 error_code;
  
- #endif /* __KVM_X86_VMX_COMMON_H */
-diff --git a/arch/x86/kvm/vmx/main.c b/arch/x86/kvm/vmx/main.c
-index 274200b0a307..684b87692864 100644
---- a/arch/x86/kvm/vmx/main.c
-+++ b/arch/x86/kvm/vmx/main.c
-@@ -945,6 +945,17 @@ static void vt_handle_exit_irqoff(struct kvm_vcpu *vcpu)
- 	}
- }
- 
-+noinstr void vt_handle_nmi(struct kvm_vcpu *vcpu)
-+{
-+	if ((u16)vmx_get_exit_reason(vcpu).basic != EXIT_REASON_EXCEPTION_NMI ||
-+	    !is_nmi(vmx_get_intr_info(vcpu)))
-+		return;
-+
-+	kvm_before_interrupt(vcpu, KVM_HANDLING_NMI);
-+	x86_entry_from_kvm(EVENT_TYPE_NMI, NMI_VECTOR);
-+	kvm_after_interrupt(vcpu);
-+}
-+
- #define VMX_REQUIRED_APICV_INHIBITS				\
- 	(BIT(APICV_INHIBIT_REASON_DISABLED) |			\
- 	 BIT(APICV_INHIBIT_REASON_ABSENT) |			\
 diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
-index b272c20586a7..46b0e798f8b9 100644
+index 36578d4c00ff..a3d6f0fb5951 100644
 --- a/arch/x86/kvm/vmx/tdx.c
 +++ b/arch/x86/kvm/vmx/tdx.c
-@@ -974,7 +974,7 @@ static noinstr void tdx_vcpu_enter_exit(struct kvm_vcpu *vcpu)
- 	tdx->exit_gpa = tdx->vp_enter_args.r8;
- 	vt->exit_intr_info = tdx->vp_enter_args.r9;
+@@ -1987,7 +1987,7 @@ static int tdx_handle_ept_violation(struct kvm_vcpu *vcpu)
+ 	while (1) {
+ 		struct kvm_memory_slot *slot;
  
--	vmx_handle_nmi(vcpu);
-+	vt_handle_nmi(vcpu);
+-		ret = __vmx_handle_ept_violation(vcpu, gpa, exit_qual);
++		ret = __vt_handle_ept_violation(vcpu, gpa, exit_qual);
  
- 	guest_state_exit_irqoff();
- }
+ 		if (ret != RET_PF_RETRY || !local_retry)
+ 			break;
 diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
-index adf2bc13bed2..a06dd2d77f10 100644
+index 506be74e3e0f..2532a9b8e92e 100644
 --- a/arch/x86/kvm/vmx/vmx.c
 +++ b/arch/x86/kvm/vmx/vmx.c
-@@ -7363,17 +7363,6 @@ static fastpath_t vmx_exit_handlers_fastpath(struct kvm_vcpu *vcpu,
- 	}
+@@ -5991,7 +5991,7 @@ static int handle_ept_violation(struct kvm_vcpu *vcpu)
+ 	if (unlikely(allow_smaller_maxphyaddr && !kvm_vcpu_is_legal_gpa(vcpu, gpa)))
+ 		return kvm_emulate_instruction(vcpu, 0);
+ 
+-	return __vmx_handle_ept_violation(vcpu, gpa, exit_qualification);
++	return __vt_handle_ept_violation(vcpu, gpa, exit_qualification);
  }
  
--noinstr void vmx_handle_nmi(struct kvm_vcpu *vcpu)
--{
--	if ((u16)vmx_get_exit_reason(vcpu).basic != EXIT_REASON_EXCEPTION_NMI ||
--	    !is_nmi(vmx_get_intr_info(vcpu)))
--		return;
--
--	kvm_before_interrupt(vcpu, KVM_HANDLING_NMI);
--	x86_entry_from_kvm(EVENT_TYPE_NMI, NMI_VECTOR);
--	kvm_after_interrupt(vcpu);
--}
--
- static noinstr void vmx_vcpu_enter_exit(struct kvm_vcpu *vcpu,
- 					unsigned int flags)
- {
-@@ -7406,7 +7395,7 @@ static noinstr void vmx_vcpu_enter_exit(struct kvm_vcpu *vcpu,
- 	if (likely(!vmx_get_exit_reason(vcpu).failed_vmentry))
- 		vmx->idt_vectoring_info = vmcs_read32(IDT_VECTORING_INFO_FIELD);
- 
--	vmx_handle_nmi(vcpu);
-+	vt_handle_nmi(vcpu);
- 
- out:
- 	guest_state_exit_irqoff();
+ static int handle_ept_misconfig(struct kvm_vcpu *vcpu)
 -- 
 2.55.0.887.g758fc8c411-goog
 
