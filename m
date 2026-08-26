@@ -1,148 +1,173 @@
-Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F205B3FBB4E
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 12:56:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787749010; cv=pass; b=BhXKpF2oWP1pKeaOw3TGadpcfw46hbY6iTdi/7cLKhSNaa6SFHJEUp3+xPxTIzaDP5yCwhb9mWmDEHVkulC2mmcNWKUkWbGFiDGSNrBI9b9gFPBA+FUgjKFZ03G9VN2eZYXZMbuBtSsJWBKfzjuKbLcUrNizmhZw39IdYwsVqeY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787749010; c=relaxed/simple;
-	bh=T3EdywQ0FnSZ9/V9O/5TdzWtrn0QpysuhP3PC+q6xFQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IkRzz5ly9sWdTowJaIHgLP3qx7M/3IRG014EEZD/oqBkl1VAiKvGORosbYFMncgER8FDnalvqeE9Aw5seJVLawV6Ij5JYNNVjsrIg+q1PxIUhNhaXhpukQBS4M4e1owuaeVcS3mIDzZKJs22XX2bDQN5nLJY2nIECVcaqzsOIps=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=es6ZK+x/; arc=pass smtp.client-ip=209.85.210.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A64B5C613
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 12:56:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787749017; cv=none; b=KmqWKcnfJP2BbKp7dlAgDGBWdFSYB8wu+D5xxzCl6XpYysmCgRIKUNaD7Hx2Y4D34hpwBES+Jh6mJJLe1bKSGEwWWMYUAuJjhcWlwXiJZ9hMoUue98zjOMJ1Vxldbrgf0znjESZA370uvGFSHkZjnbT5gvao8eo78I0H6lECtaA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787749017; c=relaxed/simple;
+	bh=CMY/7w5emi6L9PDMmt5+Ic2zxHHsQvErXHyoQkm65RI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=d6HVBDvdhxxyyho2Rfg0ETjJdAtGtbIWQNLhorAoCZMwGuuU2+mH/GFDdJo100vMPY9+cyD6J7cmXu/fqAQRezIXIHhySMbsBAJXuOQVJvez02YhlCiAiZhic2/wlP3nbs68E8QtEWCewa3SB0uwtomUu+zdcZwOMi4KNs6m4uY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=nCCM/lD7; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="es6ZK+x/"
-Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-7f18c0e03e3so647777a34.2
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 05:56:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787749008; cv=none;
-        d=google.com; s=arc-20260327;
-        b=oPwIvQxRMAg0pipArME+d38jakrc/57nCiM1n5rBo7RX4n9ESuVraJjh0zOrwrydwH
-         e9XqeLWGtUQk0SyYlrB8Ree+6d8ec6lhiIu3ZIf/I64XzWjg3tdEfvCp489jTvk4cVgi
-         ZeG6HPridmlOuVdt1ljSITCa7e2dXlxHUkyCM2iH3ydxlFerx3KjfwHBh/9BoXpn06kP
-         ar7quo0YZPRWITA25sYb8L17Fmdwc0sigC9hKoaSK63RqA4RN4UWafDRSCcj/URWAD62
-         MePGsAYVX4mp57Z5GctKIvCpaafH+/6u9NJeeSEi8bKoGDQr5a2x3xb+DIAMcllnW1aT
-         8drg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=oJ4O5COMcliAWQ6BYpejpwUZKPJeoT5vCsuDXQei4XU=;
-        fh=mbK00KMXLkr3/U5M7ZCc6UP8U+7UnwD9Fd/j6Hsg3Ts=;
-        b=GiL3JzPpjMyIl82/N5GbrE492fSKulE2kZ6bKgQgrJMS2edZEkMWh+eSIS2CUQDbCs
-         Ov0tcY4z8Z0rSgVl7LzPx5CAR76mp6DthR4n5AYSvNAJj2Repo8hy/vtnMi3xDBLE0i9
-         PwOkG6RcVDMEvaa2L3VKUZh8BYPgh+7uh3V1hdX30wRqOgIeKAabs/yJ4tvAdVtLoAMn
-         inOaLMsURDeZo3SPsY/KYVVcRag+nChVpYxV921er/d1F04ePl4URRccVCUrG2wkl4xS
-         2pgoYcoolYaVroiDiYBJd88aLI8LejkTzr/tL1+z5AVkOyJJiTuekzYk61ii6Epgwgug
-         FWVQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787749008; x=1788353808; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=oJ4O5COMcliAWQ6BYpejpwUZKPJeoT5vCsuDXQei4XU=;
-        b=es6ZK+x/1VQKZ9vTmvzd42wZdUSpPXt5rXm8aaY7fNOFb3HZMmKRxpfLQLSgQloXTM
-         /HVulg4ZrTb8oH7WemXhWfw0Nc0ozccc6hgQcA7RNG3KOXjb2KCgLIBqPV6iJzzPz7A2
-         oOO2Yq97bQDKrq+HVNpqj2sRWpMPywXOpIJfw4mx329mSJmLNbUqkM80mYit3d/pbUo1
-         RysSVSuGNZAaKhOXZtU8QSjYxqFn0VO0QaEJydWdOYfXCekadCLP+5O8cQTX7PkWVNep
-         GAYP3gkOA32Hbryrl8azxflkyK5KVKHjigUiAfqFlgvkVfTntT+r/xyM6ftuXnmm6QLn
-         b86g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787749008; x=1788353808;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oJ4O5COMcliAWQ6BYpejpwUZKPJeoT5vCsuDXQei4XU=;
-        b=dcZOSDlX/5AMGX6YE4qQxDSpmLtZfP1dOPmNBksSETEWYPYoB6Feqj6Kdd1t3ygVg5
-         wWaK8puYw42VHYbANREPk/ChWIMkbuA26MjLGgcSTSWxY1Bt0xFBWPu2yvin3fLn2utW
-         xOGh7Al/AYHFmLyZuue/ca7Kb2LSNV9D+lTxUvRcFpk/nkSICkcMLlJ/apl+zgkHr0Rh
-         Tnw9pwI+MN1v/WfG9xckW7w9STfTlIJmbKrrl+LluffVHXG0aCBw7vgLgW+WFjhuiSwy
-         f77nl8Mrcj4bcpW8t1PBSI6S0F/h+hfj6QxScVqanh7uYBzmVCsIV0NunqG/n815hhr6
-         zCtg==
-X-Forwarded-Encrypted: i=1; AHgh+RpATpVwzcoSKMOZ4OjDAtsUzfXfQ/y38QGkOn4v3g0Hb+gtXI706bdXgYQxGJeRcKvzCSx02sCpmt6b/dg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kDPCMm9O+iflbzZ68kRLIpUPvBo2SNG5dYTctTuV7DLp6kEvAc
-	VwvcOR4FyFWjUNK+fnq79vnl2bGIaSiiGLIQU+Vt0EiYrfHGR/V2KsEHKmyTXGyzbfgB+h2NyyZ
-	WOpXmRaaHNaLsFbIu7jkGqAByNouP+9E=
-X-Gm-Gg: AR+sD11+2c66DydzTeKtzGunnJjuAFcqMCXHOEZIINGrOUdideUnUn+o2CIW3MqvfBP
-	0ius4ipIqoSp0VpyUodud3+GpAZCO+woiAhcWJdaEIH5mO5+o5L7Xokj5uw4k/L7Lkvt1b0U7G9
-	5vKRQLFmKFJOI3i/p+JT4WbBVgauXouog7IGesCv9gVQDkrSjV+LqS+1xcjyAFo0Ok6LqNCtsqE
-	jrK0+RDfe0DuWwfYIPn3Ls68cT2fkUUwL+6sAnwXFqXaqhuQGpD5HeRhBoHv5gAwx0r4Mxj0wkz
-	HlzL+b2OAVa/yoyvZ+VgIz2HwRIVDqlziB4BQ0+poT2QYg==
-X-Received: by 2002:a05:6820:83c2:10b0:6b0:fa2c:f0ea with SMTP id
- 006d021491bc7-6b1a04c6f3fmr4670154eaf.24.1787749007328; Wed, 26 Aug 2026
- 05:56:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="nCCM/lD7"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QCW6lb2127948;
+	Wed, 26 Aug 2026 12:56:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=Iz89pwSV01xjarVMqMNJ+t/TWvCJtm1QXWL7i9kgB
+	qQ=; b=nCCM/lD7X50RT0ht/3Q89c0Swi/RIABmbsep9wT20o50SfyiDM5JnhieR
+	AMzacwnUklTA8sKB5FyBeoqg8V8PNkTvKwsad/fwLPeNLi20bKKVBs7kf/69qyaX
+	SOEearAINSHyOMz+FPRJTi1bTOzRpqsvU7GhanVBfUk/OnvYwMvNZcOep332CTsU
+	liSRykZ3enky3unvqN9G4QCi1v5zsujLVcQ5nGoOzS5k82g8WjLgqebVi7mtKqQG
+	FOsIR7mzNXfpgV6uhFCKlzkMj0p3KeVfX+L7n5b0/ulmA3zUyNEcezFhVTA8RqET
+	GAiY2YXXP3260xKwV+cjTD8wyiLHA==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g73eqxmxk-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 26 Aug 2026 12:56:36 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67QCuItS018822;
+	Wed, 26 Aug 2026 12:56:35 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4g7qkh9wcc-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 26 Aug 2026 12:56:35 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67QCuVUH39846300
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 26 Aug 2026 12:56:31 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 616AC2004D;
+	Wed, 26 Aug 2026 12:56:31 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D8DA920043;
+	Wed, 26 Aug 2026 12:56:28 +0000 (GMT)
+Received: from shivang.bl1-in.ibm.com (unknown [9.123.12.247])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 26 Aug 2026 12:56:28 +0000 (GMT)
+From: Shivang Upadhyay <shivangu@linux.ibm.com>
+To: linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
+Cc: sourabhjain@linux.ibm.com, adityag@linux.ibm.com, adri.vero.dev@gmail.com,
+        anushree.mathur@linux.vnet.ibm.com, chleroy@kernel.org,
+        maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
+        shivangu@linux.ibm.com
+Subject: [PATCH v2] ppc/fadump: collect dump if the collected size is lesser than reserved
+Date: Wed, 26 Aug 2026 18:26:26 +0530
+Message-ID: <20260826125626.2108771-1-shivangu@linux.ibm.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAMArcTUmACRn_h2sthPwsi3jYjKWRM6+Pnhg=tN4jn4VZThHCA@mail.gmail.com>
- <20260826041529.46139-1-blbllhy@gmail.com>
-In-Reply-To: <20260826041529.46139-1-blbllhy@gmail.com>
-From: Taehee Yoo <ap420073@gmail.com>
-Date: Wed, 26 Aug 2026 21:56:35 +0900
-X-Gm-Features: AcwNN1Vi8H79S0z29kMqK7_R4gmv5xxfbnqc8ycUo2O9t8HNIzqq-v9TctzLfhw
-Message-ID: <CAMArcTV=zbS=XAPsBAEP7j9yzHiAjri44XmDK-a78JrOX1yv=A@mail.gmail.com>
-Subject: Re: [PATCH net] amt: do not store tunnel pointer in skb control block
-To: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>
-Cc: AutonomousCodeSecurity@microsoft.com, andrew+netdev@lunn.ch, 
-	davem@davemloft.net, edumazet@google.com, horms@kernel.org, kuba@kernel.org, 
-	kys@microsoft.com, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
-	pabeni@redhat.com, tgopinath@linux.microsoft.com, xmei5@asu.edu
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: bKV3ttUB_ujWYOfitf5hcb0B1a8vk348
+X-Proofpoint-ORIG-GUID: BBhvg5KCKp4UQaQrX9a1pp8zgIMTFlYJ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDEwNCBTYWx0ZWRfX54rqtNVKW9LI
+ aeOa1nI0rX2IAw3vfNTNNUkR4xJ+6SKToP5kBz1t91UkvzDOZyeRu2+ZucbgMaawTNAN47lfGce
+ Bbbx+723RcGzslrUVMXjBevXknQIWFJxmp5uhAwvgK2mCctGIvWZmn22iwyojChWLa8SDtRvYTQ
+ jdlSY0fFqI33Oon9vdg0j6a6D3Z2B4O05vB0ebEtcpIW6f+LKA1/ErPQhGy3Rf2b7wuwBP7+jRg
+ XjSCCBFpOds0rEwEOGVAIsk94hfARYvnH4gVr57YS4FLAsMqkinY9UTsLgeYcGXdc2p6tgPzOIR
+ 0FS4gBLK7cpX9olrw8RCW+7CFiAmkgy+oyKBK/juUAQPC6oc0XcUY7pMZQZW7SHxWABlS2gb1XI
+ kqQOEVwVm977Nqs5psBOlSgK5M7gzclEW8qyrfmjBT2Tz2crGHKKhgzn1BIAigrl+LS5b3bMjl9
+ 9n1L5oKqk6gFT+YZPPg==
+X-Authority-Analysis: v=2.4 cv=QsRuG1yd c=1 sm=1 tr=0 ts=6a8ee285 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=5S_kJhIZ7htqtmZwQG4A:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDEwNCBTYWx0ZWRfXxFrycj/w9doj
+ dwCQ+M8UIk5oFyIf5Qj+eHApX1sXrTTh6D/rOPWNwGJwPAzy4UJQL3fr+zR2nXKMBpcCqLhztj7
+ loAm8d6ukPmfBZ0Kt8odHafz+mADazc=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-26_03,2026-08-26_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 suspectscore=0 priorityscore=1501 impostorscore=0
+ spamscore=0 lowpriorityscore=0 clxscore=1011 bulkscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260104
 
-On Wed, Aug 26, 2026 at 1:15=E2=80=AFPM Cen Zhang (Microsoft) <blbllhy@gmai=
-l.com> wrote:
->
-> Thanks for the feedback. Just getting back to this thread.
->
-> On Thu, Aug 20, 2026 at 10:18:43PM +0900, Taehee Yoo wrote:
-> > This looks like it adds a per-packet linear scan over all tunnels,
-> > so I'm concerned about performance when there are many tunnels.
-> > Do you have any idea how to avoid this regression?
->
-> I see two possible approaches:
->
-> 1. Keep the v1 implementation. It is the simplest fix, but changes the
->    Query dequeue path from an O(1) pointer access to an O(n) lookup. I am
->    not sure whether that cost is significant in practice for two reasons:
->    this handles IGMP/MLD Query control packets rather than multicast data
->    packets [1], while the hotter multicast data path already walks
->    tunnel_list for each skb [2]; and max_tunnels defaults to 128. However=
-,
->    max_tunnels is configurable, so users can set it much higher.
->
-> 2. Add a small per-device bucket hash keyed by (ip4, source_port) to [1],
->    while keeping tunnel_list for multicast fan-out in [2]. This avoids
->    a new linear lookup cost, but adds a second index that must be
->    maintained during tunnel creation, expiry, and device teardown.
->    I am not sure whether that is overkill for this fix.
->
-> I would appreciate your further feedback here and will prepare v2 after
-> settling on the approach.
+During Fadump in Qemu VM, when maxcpus value is set to more than current
+cpus, following failure is observed.
 
-Thanks for the investigation.
+    [0.000000] rtas: Dump taken by platform is incomplete (-1)
 
-How about protecting amt_tunnel_list with a refcount?
-Currently amt_tunnel_expire() frees the tunnel immediately, but with a
-refcount we could just drop the reference there and let the memory be
-freed once it reaches 0.
+This is because the CPU_STATE_DATA is allocated for maxcpus, while the
+data is only filled for current cpus. As per current implementation
+of Fadump, dumped_bytes and source_len for a region have to match,
+Which is failing for qemu's case, Even tough the dumped bytes are
+reported correctly for only the current cpus. After this /proc/vmcore
+generatition also fails.
 
-What do you think?
+Allowing dumped_bytes to be lesser than or equal to allocated length, for
+CPU_STATE_DATA Fadump region.
 
->
-> > I think this comment is not necessary. Please remove it.
->
-> Agreed. I will remove it in v2.
->
-> [1] https://github.com/torvalds/linux/blob/0f23d56f17fdfc7db69d51f64c8b91=
-bbab947aa9/drivers/net/amt.c#L1261
-> [2] https://github.com/torvalds/linux/blob/0f23d56f17fdfc7db69d51f64c8b91=
-bbab947aa9/drivers/net/amt.c#L1276
+Reported-by: Anushree Mathur <anushree.mathur@linux.vnet.ibm.com>
+Signed-off-by: Shivang Upadhyay <shivangu@linux.ibm.com>
+---
+ChangeLog:
+
+v2: Only allowing lesser size for CPU_STATE_DATE Fadump region.
+
+v1: https://lore.kernel.org/qemu-devel/20260429065127.366813-1-shivangu@linux.ibm.com/
+---
+ arch/powerpc/platforms/pseries/rtas-fadump.c | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
+
+diff --git a/arch/powerpc/platforms/pseries/rtas-fadump.c b/arch/powerpc/platforms/pseries/rtas-fadump.c
+index 3bb4ac2ab6cc..ea1a0a8ac9eb 100644
+--- a/arch/powerpc/platforms/pseries/rtas-fadump.c
++++ b/arch/powerpc/platforms/pseries/rtas-fadump.c
+@@ -459,7 +459,10 @@ static int __init rtas_fadump_process(struct fw_dump *fadump_conf)
+ 	/* Check if the dump data is valid. */
+ 	for (int i = 0; i < be16_to_cpu(fdm_active->header.dump_num_sections); i++) {
+ 		int type = be16_to_cpu(fdm_active->rgn[i].source_data_type);
++		uint64_t bytes_dumped = be64_to_cpu(fdm_active->rgn[i].bytes_dumped);
++		uint64_t source_len = be64_to_cpu(fdm_active->rgn[i].source_len);
+ 		int rc = 0;
++		int region_collected;
+ 
+ 		switch (type) {
+ 		case RTAS_FADUMP_CPU_STATE_DATA:
+@@ -469,8 +472,18 @@ static int __init rtas_fadump_process(struct fw_dump *fadump_conf)
+ 				pr_err("Dump taken by platform is not valid (%d)\n", i);
+ 				rc = -EINVAL;
+ 			}
+-			if (fdm_active->rgn[i].bytes_dumped != fdm_active->rgn[i].source_len) {
++			/*
++			 * Make sure that dump is collected for entire region.
++			 * CPU_STATE_DATA region is allowed to dump less than allocated space.
++			 */
++			region_collected = (bytes_dumped == source_len ||
++	                         (type == RTAS_FADUMP_CPU_STATE_DATA && bytes_dumped <= source_len));
++
++
++			if (! region_collected) {
+ 				pr_err("Dump taken by platform is incomplete (%d)\n", i);
++				pr_debug("type -> %d, bytes_dumped -> %llx, source_len -> %llx\n",
++				         type, bytes_dumped, source_len);
+ 				rc = -EINVAL;
+ 			}
+ 			if (rc) {
+@@ -482,7 +495,7 @@ static int __init rtas_fadump_process(struct fw_dump *fadump_conf)
+ 			}
+ 			break;
+ 		case RTAS_FADUMP_PARAM_AREA:
+-			if (fdm_active->rgn[i].bytes_dumped != fdm_active->rgn[i].source_len ||
++			if (bytes_dumped != source_len ||
+ 			    fdm_active->rgn[i].error_flags != 0) {
+ 				pr_warn("Failed to process additional parameters! Proceeding anyway..\n");
+ 				fadump_conf->param_area = 0;
+-- 
+2.54.0
+
