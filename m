@@ -1,98 +1,82 @@
-Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF6AE448D03
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:21:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DB5146983B
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:21:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787761278; cv=none; b=thoJ4Sa7Pkmzzp0ZNimCDcqUQsJuJcACHKbkXHtbnJ/c0Xb3FIN5B5HHg9FtJ23JZBTog2kz7e6IZdmzLLZzlx60SUpVpoP2ZU/Eq3WpQDxRZfOpzB2Dn3TZD0PCTZomDRwwF6k/LIjZI37fElLokPPLOtNboPIpOguCDvknMfg=
+	t=1787761286; cv=none; b=q64/lGe8bEzpZPbWY7UoTk+IICFsoozswMOivU5IJRdQyzb29y/hLC3aIQ+jODZXJZw4LImG5AnrsKNVOJ/QgiGp7qyRct1ISjZ9kTCJ5n4+ttVtgH3HZUVM7kK960EfItc1wyz4NOROTLpiDlbbKCj5kySuatkuOlnznTMbdEo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787761278; c=relaxed/simple;
-	bh=UxtP3UPza9uNecaw1yFqAlFi2i84AUvFpnDYRucvx+c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=K4StO5sshbzf3BQqakhMqCJ1gd9Ishk6ljElUyi7RRWzE5nw8KdD9tPvZvtM0dRR2NUD7q07Y/U4P2vRJdJVedZlltGTD6h1r+ov81jY+TuHD0d3u3NrHOi0s5POUbzpdOswBahNryoQ+iuXL2qV8d93KALj/A7V/jJJ/tLHceQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=hX5xXl7b; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=e4I4TC4D; arc=none smtp.client-ip=103.168.172.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	s=arc-20240116; t=1787761286; c=relaxed/simple;
+	bh=pvjWpnlTdBZKx5UqOCq9/dEYrGv5OCu+9mtstfD1pFA=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=JKeFIWz0wFkURr6B3SNjtsH/h9fcsmtoAgLuzUfBuCu3c+iH9bM7EVsWVIl1daTo75kiOvv8MNvbBDlCCf6kvH+NeowqdrBOYDKVMlN+WM2gUO6NnFfs3oU6jDR4OVinECj0KlwEdBb5Ka/0OdKiUAs1qr5ztIvMzAWNW+Ha/NA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NVQ7iyD2; arc=none smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="hX5xXl7b";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="e4I4TC4D"
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfout.phl.internal (Postfix) with ESMTP id 09DA3EC0038;
-	Wed, 26 Aug 2026 12:21:13 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-01.internal (MEProxy); Wed, 26 Aug 2026 12:21:13 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1787761273; x=
-	1787847673; bh=HbFogDQUqiCSfuewrPmwAWRl8NqcTYitqpsCtwQzicU=; b=h
-	X5xXl7beBITHeeUvkfehphJkJjs7Eu+u9g3iPbV43qXhJ98ZN9gCFY8KSCXktfc4
-	YVl3E312cabApWB/k/A9YPY+1tcNBEoqqfrPcR7xl5CT5pp/JADjncWSXhV3WE1r
-	OlE8o8/+/dbsWyz8rLJXIe8c3qTH9qTVfg78J8re22Tp3bbTeAGhrY0ZNO0lMEmJ
-	G2Nd12jg64ooxJ3FTDIAHKJESPsuwvWjrdm45M+NBmpR7Q7sjooKWeYowPWp85hb
-	1/ZM1CfhNlYfOg8TkSJ0IAtEwudugAoxQb53rvJczdOHNeQjN02pIDF7w2Mz7K8w
-	2qX+eCL0UPAtjarrIs/Yw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1787761273; x=1787847673; bh=H
-	bFogDQUqiCSfuewrPmwAWRl8NqcTYitqpsCtwQzicU=; b=e4I4TC4Dg6vSUTOON
-	pIYNd3s5ogbZDyJ74DSfdMmNgsgwY6iIbcOvaIoQhFu/yueD+qa+WgjHvg8wlJJe
-	zfiT/1TMFNDt+qiYxx7PcTs7X3hdWALAqvdgGkqdgOBhRQX0jtZV0UtmBcX55+AT
-	g2+05U014BubHX4wCuM89F5o56EMLcE0BtuS4WU4l/xMy11fN5jkXR79aUTpLXuA
-	K0XAOKiuqWqN85OaP5FGvkscMXqhUDZf6X7zsQgqL+aJCac9Mze1Im7gW/VINhAP
-	cqL+BdqsTX5iBibZLLw/F/VGYxxeqbjceIlzPzfmE6oKWvwvJTWBBMS1ZXTSg7z1
-	406UQ==
-X-ME-Sender: <xms:eBKPahxzo5jPb1QBsfxOTLa4IxBkJau__lnZFaYR3ZInZi2ZOPMI0A>
-    <xme:eBKPatPpF4YBocktvvNX323GTsEFnRvQkpGW673-TPZTx15ZSP3OJ_m2wue4XcW4v
-    QWFTO6T_FcG3rQg2vH-MyUHq-8hKkzcqa8a6dS79Yk7wXFfsMckDw>
-X-ME-Received: <xmr:eBKPahe9p9_mSA3PIoQbVTOoq9THPYkoeksPNIg8taLWYOsCAXTe-NvinYc>
-X-ME-Proxy-Cause: dmFkZTEpX8HBQysEAMlAbdyKFX4BLzWtS7+Qo1RjxAJeMJnS381384CQaxM92QA8W5J6jo
-    7r0RHbsPcTs1IpTXqcOu2ofgimA8w2hMK3OeOMvPUWs2NDJNBlDL/23E29uU3eWq90a8Ny
-    uayj7GqONoh0NEQ91mQ/H+TE3rTPuVZ+wfrdHbeyaEyRe40ZIUYJyXTHqnubEDskXnqfPu
-    FIQsvLmT+4mxeisAsg0TmWv4Y7l9NdKef8tTMihpDmjKvNxij8lw310+ofBfGEkzSLqnuN
-    AyozbfZUQr702Kz+RkXguKuGQfBCnKcQhC5EFdpLjS6L6jWqh1sGvO+4Vl+gX27JPRP8CC
-    ZugFusXp6cdUu6aFxt4ihsFEeQsHpfMqFD2WIyBRpBjs6vrkwLZjumNr704QfNAegyDXmb
-    bgnCWGCyShfc6lI47NAlmD6PpdSizmJYpB5q0a47cWEcF3kilhPKSlsjtHoo9AJr3IDvFd
-    1sCkNxb2bff5/nwxJwcRaywBnBLxIAIZ81NuUz38JVQtnxO4LoZvAAok+FmHFucDeP8dIy
-    N6NNUe64csqK7I4cW7OnfmkW0SdkkRFZdnZAMaUGoxKcPHERVQ9iQyylfckgeVEPUG7KYi
-    wzTYPjg7q9hDjaxJEJ2uw1hx6/Lk+6DXyOhwd0C+szYvJz2/t8qGBrLU4rZw
-X-ME-Proxy: <xmx:eBKPap4FKFRGN3qCZV980bFsDhYj16t6A2r4kKXsa7IaQga_DDiGmA>
-    <xmx:eBKPahILfgj2l3sleaQGacwaTbq4c6kLY-tuYJz09OrexjK5hWskuQ>
-    <xmx:eBKPal5-XUmvaJQwU8uKzXJtA9BP-iXBBpsdwL_QPUvjP8bOci5Zhg>
-    <xmx:eBKPaoZhnonbcfHxPCCUrwJAfO6iJmfZC3v0qGJ0nLPEnUlf0zsoyw>
-    <xmx:eRKPapYYnbV28KYkcKas-4UpW908Qo0ubyXNK3SyH_AhtbsNtRzt1DLh>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 26 Aug 2026 12:21:11 -0400 (EDT)
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: akpm@linux-foundation.org,
-	david@kernel.org,
-	ljs@kernel.org,
-	hannes@cmpxchg.org,
-	usama.arif@linux.dev
-Cc: lance.yang@linux.dev,
-	ziy@nvidia.com,
-	hughd@google.com,
-	baolin.wang@linux.alibaba.com,
-	baohua@kernel.org,
-	liam@infradead.org,
-	nico.pache@linux.dev,
-	dev.jain@arm.com,
-	ryan.roberts@arm.com,
-	balbirs@nvidia.com,
-	linux-mm@kvack.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NVQ7iyD2"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2ceaf8a1265so16131545ad.2
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 09:21:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787761280; x=1788366080; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9/VxaBSyrAp2V1JuGfOC1NLa01pzB3ApfCB2gfxG+kg=;
+        b=NVQ7iyD2jeGIpRsm1FJtEPzmfezADQch930PPya/IK6VEsIO2zl4I82W6ul6Xb6nXo
+         EtFF4tTiyIi/jNTZdVYCE+uh0SxdBxJY2Zb8z4mWzZAzGXxGzr1qHOwNDDJ8Ctx9rwWj
+         K3eXFRM7tjiTS6yliz0EwwOcuvmhaKdepaUx6m99H36KUqNQdlRMuXImCRZNvp8S6VZC
+         zQMUbWBvP6f/JfUCdAWcHkr21bM9doH+rFqrV6mMUfav4/kbT8BizPdQWotpd+9TZnCr
+         C2BqPgT5rf9wNyOyuDHH0u0YbWd944ZD+O83dnRqgOVxDyOHi9svquv+JxIzYEbbD6vX
+         SC2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787761280; x=1788366080;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=9/VxaBSyrAp2V1JuGfOC1NLa01pzB3ApfCB2gfxG+kg=;
+        b=Ut7MmkKT1t0YKbrtOJRZ0MZ2sZ/NfABWLDPsu+hHzw2JjRiCzLvHFS9O3mfd5Lh6g5
+         Ot9Jfo2JfjWTWLImCPXyv49ZwfK/NP+m0FkpSdU+I7ZKUejIF+Z4Oh2M3F88sMDDfD8S
+         fYMycPsoAd2ZUnE15CinkUfeBmZaDjEiqY3J9ZcszdcC3nNGTHaiWPHYQFIm+IcVOzj9
+         nRaXHEQCFfckq6LMYiu4QvmIpqwa9ZrAIuF7NDq3KN+Bk9se5RqyYiZOjjY+33+EZrzv
+         kK+tXBeI4r+E2nwngnq688fhHGrdBOQL2ujIe1X3diK8rPLP/8qDnxXNLPtf+2z5mpl5
+         MGHQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rp1JK8EdvJ7auJiJy1/ZopuzMAxyF5ggXLUaFbzvb9m6yXSKJGFKNZmzlFV3SDAxKzB88yOnkucE04dmus=@vger.kernel.org
+X-Gm-Message-State: AFuF++kqUirFnxIsKnHUmZMKJJeubymNTbq36R1jEyF4sMJUSNIAjmKY
+	CuRfEgv5tgPNEbQbVhMuzq/OZ9kxfMtEpUFUol7JqjfV86/JRRBH1vLu
+X-Gm-Gg: AR+sD12fa47zfoqmP2ALqfvO8cR56WAeILfitBZpzt1qnvB2tTOZ3CLhJlCIWNYv1d9
+	cFPT0FfRDjhQs//T8dL+RVdj5nMiPPnVdi3nrKVxaL8/QMyHIiP2R+XFMXamh6B+EXzBQdAu8Gv
+	3hL2Hm9IUibcZg5pOsrD4cFjllt//hlNYWyrVFeLxetY8JTUryVUxt3jJnh26XB9vc/8aCveOKS
+	VPAjtd861PsEfmUF5l0GvxvnZIJO0Kh2dDwDLelNz+4otK47ETeOvNiY+cXvQ8vnJcELWCKzYoZ
+	cqVbbsk+tu6bE4Ybg7VUcFHkYOQ+T6gypKNuVulgtj+VtXCErDhrj5xnvhsAoFQYK+AX9LVoRzJ
+	oejA/xAnC6YG1DNM2mb0ttk4a81Kaod0h3SBDtr1Qsp/zjrCK5/6kAP2+fXV7uuYC4KL2IIdvD+
+	DdPTxiRJxhVF2vxSXLiKy87H8+5sUD+T6yVWr8qxHboUx87FBwXUCctReyEf3Pwrufc3LI6SjBJ
+	fkO+O1w54Fn6/TXCIiWncw=
+X-Received: by 2002:a17:90b:554c:b0:38e:1497:af5b with SMTP id 98e67ed59e1d1-3966d1396famr18305322a91.1.1787761279828;
+        Wed, 26 Aug 2026 09:21:19 -0700 (PDT)
+Received: from localhost.localdomain ([103.210.91.42])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396689f1419sm4660649a91.9.2026.08.26.09.21.13
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 26 Aug 2026 09:21:18 -0700 (PDT)
+From: Khawar Ahemad <ahemadkhawar123@gmail.com>
+To: bpf@vger.kernel.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>
-Subject: [PATCH 3/5] mm/huge_memory: reduce indent level in __folio_freeze_and_split_unmapped()
-Date: Wed, 26 Aug 2026 17:20:59 +0100
-Message-ID: <20260826162101.1314941-4-kirill@shutemov.name>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260826162101.1314941-1-kirill@shutemov.name>
-References: <20260826162101.1314941-1-kirill@shutemov.name>
+	magnus.karlsson@intel.com,
+	maciej.fijalkowski@intel.com,
+	sdf@fomichev.me,
+	ast@kernel.org,
+	daniel@iogearbox.net,
+	hawk@kernel.org,
+	john.fastabend@gmail.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	edumazet@google.com,
+	horms@kernel.org,
+	syzbot+aa48b5fe7bfda62d1682@syzkaller.appspotmail.com
+Subject: [PATCH bpf-next v2] xsk: Fix circular locking dependency in xsk_notifier
+Date: Wed, 26 Aug 2026 21:51:10 +0530
+Message-ID: <20260826162110.99879-1-ahemadkhawar123@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -101,270 +85,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+syzbot reported a circular locking dependency involving &net->xdp.lock,
+&xs->mutex, and netdev_lock_ops():
 
-Trivial cleanup: short-circuit the function if folio_ref_freeze() fails.
-It save an indent level for the whole function.
+-> #2 (&net->xdp.lock):
+       xsk_notifier
+       unregister_netdevice_many_notify
 
-No functional change intended.
+-> #1 (&xs->mutex):
+       xsk_diag_dump
 
-Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+-> #0 (netdev_lock_ops):
+       xsk_bind
+
+In xsk_notifier(), xp_clear_dev() was called while holding &xs->mutex.
+Because xp_clear_dev() acquires netdev_lock_ops(netdev), this created a
+nested dependency of &xs->mutex -> netdev_lock_ops. Combined with
+xsk_diag_dump() (&net->xdp.lock -> &xs->mutex) and device unregistration
+(netdev_lock_ops -> &net->xdp.lock), this formed a circular locking cycle.
+
+xp_clear_dev() operates strictly on the buffer pool and net_device, and
+does not require &xs->mutex once the socket is unbound by xsk_unbind_dev().
+Both xsk_notifier() and deferred pool release are serialized by rtnl_lock.
+
+Fix this by capturing the pool pointer under &xs->mutex and calling
+xp_clear_dev(pool) after releasing &xs->mutex in xsk_notifier().
+
+Fixes: 975b11ae9077 ("xsk: add socket allocate, create and bind")
+Reported-by: syzbot+aa48b5fe7bfda62d1682@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=aa48b5fe7bfda62d1682
+Signed-off-by: Khawar Ahemad <ahemadkhawar123@gmail.com>
 ---
- mm/huge_memory.c | 233 +++++++++++++++++++++++------------------------
- 1 file changed, 115 insertions(+), 118 deletions(-)
+v1 -> v2:
+- Resolve the circular locking dependency in xsk_notifier() instead of
+  reordering locks in xsk_bind(), avoiding ABBA lock inversion with
+  xp_clear_dev().
+- Preserve user-space errno precedence in xsk_bind().
+- Reference the correct Fixes commit 2495b430e382.
+- Link to v1: https://lore.kernel.org/bpf/20260825152152.86092-1-ahemadkhawar123@gmail.com/
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index c84e8cbc986d..36e90756e83b 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -3930,132 +3930,129 @@ static int __folio_freeze_and_split_unmapped(struct folio *folio, unsigned int n
- {
- 	struct folio *end_folio = folio_next(folio);
- 	struct folio *new_folio, *next;
-+	struct swap_cluster_info *ci = NULL;
- 	int old_order = folio_order(folio);
-+	struct lruvec *lruvec;
- 	int ret = 0;
+ net/xdp/xsk.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
+
+diff --git a/net/xdp/xsk.c b/net/xdp/xsk.c
+index 7855ee09c4..c2f47182dc 100644
+--- a/net/xdp/xsk.c
++++ b/net/xdp/xsk.c
+@@ -2106,6 +2106,7 @@ static int xsk_notifier(struct notifier_block *this,
+ 		mutex_lock(&net->xdp.lock);
+ 		sk_for_each(sk, &net->xdp.list) {
+ 			struct xdp_sock *xs = xdp_sk(sk);
++			struct xsk_buff_pool *pool = NULL;
  
- 	VM_WARN_ON_ONCE(!mapping && end);
+ 			mutex_lock(&xs->mutex);
+ 			if (xs->dev == dev) {
+@@ -2113,12 +2114,16 @@ static int xsk_notifier(struct notifier_block *this,
+ 				if (!sock_flag(sk, SOCK_DEAD))
+ 					sk_error_report(sk);
  
--	if (folio_ref_freeze(folio, folio_cache_ref_count(folio) + 1)) {
--		struct swap_cluster_info *ci = NULL;
--		struct lruvec *lruvec;
++				pool = xs->pool;
+ 				xsk_unbind_dev(xs);
 -
--		/* Take off the deferred split queue while frozen and memcg set */
--		folio_unqueue_deferred_split(folio);
--
--		/*
--		 * deferred_split_scan() takes the folio off the queue before it
--		 * splits it, so the unqueue above finds an empty list and
--		 * leaves PG_partially_mapped set.
--		 * Clear it here: the flag does not survive the split.
--		 */
--		if (folio_test_partially_mapped(folio)) {
--			folio_clear_partially_mapped(folio);
--			mod_mthp_stat(old_order,
--				      MTHP_STAT_NR_ANON_PARTIALLY_MAPPED, -1);
--		}
--
--		if (mapping) {
--			int nr = folio_nr_pages(folio);
--
--			if (folio_test_pmd_mappable(folio) &&
--			    new_order < HPAGE_PMD_ORDER) {
--				if (folio_test_swapbacked(folio)) {
--					lruvec_stat_mod_folio(folio,
--							NR_SHMEM_THPS, -nr);
--				} else {
--					lruvec_stat_mod_folio(folio,
--							NR_FILE_THPS, -nr);
--				}
--			}
--		}
--
--		if (folio_test_swapcache(folio)) {
--			if (mapping) {
--				VM_WARN_ON_ONCE_FOLIO(mapping, folio);
--				return -EINVAL;
--			}
--
--			ci = swap_cluster_get_and_lock(folio);
--		}
--
--		/* lock lru list/PageCompound, ref frozen by page_ref_freeze */
--		if (do_lru)
--			lruvec = folio_lruvec_lock(folio);
--
--		ret = __split_unmapped_folio(folio, new_order, split_at, xas,
--					     mapping, split_type);
--
--		/*
--		 * Unfreeze after-split folios and put them back to the right
--		 * list. @folio should be kept frozon until page cache
--		 * entries are updated with all the other after-split folios
--		 * to prevent others seeing stale page cache entries.
--		 * As a result, new_folio starts from the next folio of
--		 * @folio.
--		 */
--		for (new_folio = folio_next(folio); new_folio != end_folio;
--		     new_folio = next) {
--			unsigned long nr_pages = folio_nr_pages(new_folio);
--
--			next = folio_next(new_folio);
--
--			zone_device_private_split_cb(folio, new_folio);
--
--			folio_ref_unfreeze(new_folio,
--					   folio_cache_ref_count(new_folio) + 1);
--
--			if (do_lru)
--				lru_add_split_folio(folio, new_folio, lruvec, list);
--
--			/*
--			 * Anonymous folio with swap cache.
--			 * NOTE: shmem in swap cache is not supported yet.
--			 */
--			if (ci) {
--				__swap_cache_replace_folio(ci, folio, new_folio);
--				continue;
--			}
--
--			/* Anonymous folio without swap cache */
--			if (!mapping)
--				continue;
--
--			/* Add the new folio to the page cache. */
--			if (new_folio->index < end) {
--				__xa_store(&mapping->i_pages, new_folio->index,
--					   new_folio, 0);
--				continue;
--			}
--
--			VM_WARN_ON_ONCE(!nr_shmem_dropped);
--			/* Drop folio beyond EOF: ->index >= end */
--			if (shmem_mapping(mapping) && nr_shmem_dropped)
--				*nr_shmem_dropped += nr_pages;
--			else if (folio_test_clear_dirty(new_folio))
--				folio_account_cleaned(
--					new_folio, inode_to_wb(mapping->host));
--			__filemap_remove_folio(new_folio, NULL);
--			folio_put_refs(new_folio, nr_pages);
--		}
--
--		zone_device_private_split_cb(folio, NULL);
--		/*
--		 * Unfreeze @folio only after all page cache entries, which
--		 * used to point to it, have been updated with new folios.
--		 * Otherwise, a parallel folio_try_get() can grab @folio
--		 * and its caller can see stale page cache entries.
--		 */
--		folio_ref_unfreeze(folio, folio_cache_ref_count(folio) + 1);
--
--		if (do_lru)
--			lruvec_unlock(lruvec);
--
--		if (ci)
--			swap_cluster_unlock(ci);
--	} else {
-+	if (!folio_ref_freeze(folio, folio_cache_ref_count(folio) + 1))
- 		return -EAGAIN;
+-				/* Clear device references. */
+-				xp_clear_dev(xs->pool);
+ 			}
+ 			mutex_unlock(&xs->mutex);
 +
-+	/* Take off the deferred split queue while frozen and memcg set */
-+	folio_unqueue_deferred_split(folio);
-+
-+	/*
-+	 * deferred_split_scan() takes the folio off the queue before it
-+	 * splits it, so the unqueue above finds an empty list and
-+	 * leaves PG_partially_mapped set.
-+	 * Clear it here: the flag does not survive the split.
-+	 */
-+	if (folio_test_partially_mapped(folio)) {
-+		folio_clear_partially_mapped(folio);
-+		mod_mthp_stat(old_order,
-+			      MTHP_STAT_NR_ANON_PARTIALLY_MAPPED, -1);
- 	}
- 
-+	if (mapping) {
-+		int nr = folio_nr_pages(folio);
-+
-+		if (folio_test_pmd_mappable(folio) &&
-+		    new_order < HPAGE_PMD_ORDER) {
-+			if (folio_test_swapbacked(folio)) {
-+				lruvec_stat_mod_folio(folio,
-+						      NR_SHMEM_THPS, -nr);
-+			} else {
-+				lruvec_stat_mod_folio(folio,
-+						      NR_FILE_THPS, -nr);
-+			}
-+		}
-+	}
-+
-+	if (folio_test_swapcache(folio)) {
-+		if (mapping) {
-+			VM_WARN_ON_ONCE_FOLIO(mapping, folio);
-+			return -EINVAL;
-+		}
-+
-+		ci = swap_cluster_get_and_lock(folio);
-+	}
-+
-+	/* lock lru list/PageCompound, ref frozen by page_ref_freeze */
-+	if (do_lru)
-+		lruvec = folio_lruvec_lock(folio);
-+
-+	ret = __split_unmapped_folio(folio, new_order, split_at, xas,
-+				     mapping, split_type);
-+
-+	/*
-+	 * Unfreeze after-split folios and put them back to the right
-+	 * list. @folio should be kept frozon until page cache
-+	 * entries are updated with all the other after-split folios
-+	 * to prevent others seeing stale page cache entries.
-+	 * As a result, new_folio starts from the next folio of
-+	 * @folio.
-+	 */
-+	for (new_folio = folio_next(folio); new_folio != end_folio;
-+	     new_folio = next) {
-+		unsigned long nr_pages = folio_nr_pages(new_folio);
-+
-+		next = folio_next(new_folio);
-+
-+		zone_device_private_split_cb(folio, new_folio);
-+
-+		folio_ref_unfreeze(new_folio,
-+				   folio_cache_ref_count(new_folio) + 1);
-+
-+		if (do_lru)
-+			lru_add_split_folio(folio, new_folio, lruvec, list);
-+
-+		/*
-+		 * Anonymous folio with swap cache.
-+		 * NOTE: shmem in swap cache is not supported yet.
-+		 */
-+		if (ci) {
-+			__swap_cache_replace_folio(ci, folio, new_folio);
-+			continue;
-+		}
-+
-+		/* Anonymous folio without swap cache */
-+		if (!mapping)
-+			continue;
-+
-+		/* Add the new folio to the page cache. */
-+		if (new_folio->index < end) {
-+			__xa_store(&mapping->i_pages, new_folio->index,
-+				   new_folio, 0);
-+			continue;
-+		}
-+
-+		VM_WARN_ON_ONCE(!nr_shmem_dropped);
-+		/* Drop folio beyond EOF: ->index >= end */
-+		if (shmem_mapping(mapping) && nr_shmem_dropped)
-+			*nr_shmem_dropped += nr_pages;
-+		else if (folio_test_clear_dirty(new_folio))
-+			folio_account_cleaned(new_folio, inode_to_wb(mapping->host));
-+		__filemap_remove_folio(new_folio, NULL);
-+		folio_put_refs(new_folio, nr_pages);
-+	}
-+
-+	zone_device_private_split_cb(folio, NULL);
-+	/*
-+	 * Unfreeze @folio only after all page cache entries, which
-+	 * used to point to it, have been updated with new folios.
-+	 * Otherwise, a parallel folio_try_get() can grab @folio
-+	 * and its caller can see stale page cache entries.
-+	 */
-+	folio_ref_unfreeze(folio, folio_cache_ref_count(folio) + 1);
-+
-+	if (do_lru)
-+		lruvec_unlock(lruvec);
-+
-+	if (ci)
-+		swap_cluster_unlock(ci);
-+
- 	return ret;
- }
- 
++			/* Clear device references outside xs->mutex to avoid
++			 * lock inversion with netdev_lock_ops().
++			 */
++			if (pool)
++				xp_clear_dev(pool);
+ 		}
+ 		mutex_unlock(&net->xdp.lock);
+ 		break;
 -- 
-2.54.0
+2.54.0 (Apple Git-157)
 
