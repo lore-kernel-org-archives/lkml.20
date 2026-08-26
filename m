@@ -1,60 +1,62 @@
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA3792E764D
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:42:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B394C488DBA
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:42:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787780524; cv=none; b=QSgih3BlzeHBljjcshwpnEMe3BhRv9zVbAXaBcWkfTTFlQnxM/rYL9ud3G9uk0sFrbPe5t/xPbc9MlglL9MlUbnr+tfIR0kzbhx2lZJMJq5QANuNvJ/8HAILbY6QB3SKlFoChf+pCvUIw50nhZkkRKqu86lv1E92mCOGqsrHTPk=
+	t=1787780526; cv=none; b=k78NTRzFh0y3fVMJInrOXoN4AP7AmIwWXl/EoveJPMYkFIX9tXPp02XXSu7c8K2/e6RUQZ70xaKlak8ysw3elwez2vl5RwRBbvru7rqHEPd7uUHkufVm9oYrAsoWd7XlqzklBvQdVu01mWc1TzVkadwWAlE6sfUGgI+xnxCIV8Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787780524; c=relaxed/simple;
-	bh=qdbl4tS4znqtOBvivmpB37EDpPTAMeJAibHhx8BIKJY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SrYsY+iP9sz7gOBl9pcPFJBQO9BAklswTud1lWOlG5A8XDroxYgFEcHIZFD+uDVAXBxlon0aIdFNfHL7ixu2i6oVsYGb8IGQjogbAHk78D8yOuFgTAw5XSCQthR0AWGlctjg+8xL4v6VGx+JIqMNkXmenWH2+dodUYADS9crDpo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MKpbw7Kb; arc=none smtp.client-ip=209.85.215.170
+	s=arc-20240116; t=1787780526; c=relaxed/simple;
+	bh=ov0ZxImQEsYJcJvX8xdhNnzUus7UhmOk1kD3vKbinrE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=J0B6jbHJmIrwlZB/1ALOBuA1gEK08KvoCsIi0X8MWtNH/tNqvuaGpF4+dyZWI982rRxAuLuix/ppeiKjK+8ViQEWEYpOC6ejmt+2OQVQFQAezarjaTAk7lCOrALDg6n4U0KOS8lXAPb4jVe1Vx8EuafTkz4uF1K6FzWpnRpqZuI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eElqbU+y; arc=none smtp.client-ip=209.85.216.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MKpbw7Kb"
-Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-ca7c1176317so1319841a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:42:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eElqbU+y"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3964dfb5a69so1420398a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:42:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787780522; x=1788385322; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5Zk7VlugDyGzxLjlwXgl2ZR+4w7uWEBNa3fcCWQx67Y=;
-        b=MKpbw7KbpHU9jMnlazA3rX1HqdJuvI+yDtSIQ9vkd3uSTy4Wv1QUjKyiLlo7rqgr+U
-         nSZcQ2o3UlImOPhrn6e7CY6DK707eSveRtXbe3GdTO4wri9gbQYvzOxelGP0vZEfszDR
-         OYMNFOUmfxtsZAGMmA9JMHL8TEB4M8A2Mr5Gai8E4UwvTh6mWiMB2iYISNgf1ylDgQXG
-         mTRtl3tiW/9q7UVrVDm+EjGk9vj9x+g3DuU7zyZDgxXl0+QTcLLDSwVRlC49tHF1bl+1
-         KaVJvmyJUtDRiWYQJyTytJfoKbDW9UkfudNxCIPHE6vl9dxK5xdcRANsh+yOu1p8i7Ax
-         1TzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787780522; x=1788385322;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1787780524; x=1788385324; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5Zk7VlugDyGzxLjlwXgl2ZR+4w7uWEBNa3fcCWQx67Y=;
-        b=VfrfpJ9kYH/d6UcSw+wA84QKJTcitEu8XweZZ4WKezYWY5MZKvE9kwdH5ZwG677ueD
-         /3sJDPZKAlqZpW6rh60PSZbuWd6qNli5N/GMUmwazc60VfP1C7EaImDHShFAJRsX9d2n
-         cElUSiJjJYL8jD1yl6VzOp62Re5Ss8f5F0PvIUrWANbUUEOhd5faJWdSDiWq7sZrs3ze
-         4GvF4pCdLCVJ5jWBNVUgntxuBzHGt3JQ9ClWoY2p26J+d/+YwV+PAYTeBQNiihTL/IrK
-         00xEHQ5JAbuHY8lAgR1FEBAiau8n1tPphwVfyV9dwd3kL2A8Xi1mGxwK0EM7+23/AL7X
-         BFAw==
-X-Gm-Message-State: AFuF++lY01w+62tvda6z237s6x0VSD5UTj0zVdEhw31FkL8tz8eVTJFP
-	hMZo85rc190Ls07X+ZaGWxTSRwAHzkXIYsbXDBn7/yxGwNbi7c2/CTuJ
-X-Gm-Gg: AR+sD13Dmi74zbx8TYmFPxpCGpr88z3Du3pTmq+NQ6XAOPabbVKyLqdqrojqz6C1jMk
-	hWD0LkEOMZ87whSaBCkCTQu94BdTw5JHfIt4dV0PufRKe86vTAAbk2RIXCPQHOMfyTI0siQh75p
-	WAGQXa21ovF9io+4ccj1AyQ6JFy0XvfqZdX1iGjr7AmCjikR+irCHH4NVF/hw0uqGEf62by86IP
-	vitXrdH3NT31LuqdU8zcOA/E/A7/G//kaysKjlisjDhjJeIkQiKf7cxWe9X8+TNni0oi2hYHIY7
-	r1wgUMjDKKV5laxqZowRlL1paoJ0JyePr4T2TbwY+35sUp13l/pGve0T2X6rBRjujBxEibADCq4
-	f0/+5wGphMR8AcxMtgCKpbBqJNHJvF4e2nq8iYifq+3TZOVzhM3ueRjr0yZIAIxl+/CkEmtUQbR
-	8UcADNcqUXXbWQL/RYVrePpVbJANGnZ3TTQoE=
-X-Received: by 2002:a17:90b:2e83:b0:38e:bfe:81e9 with SMTP id 98e67ed59e1d1-3966d160e93mr21873375a91.1.1787780522159;
-        Wed, 26 Aug 2026 14:42:02 -0700 (PDT)
+        bh=Kv3c9GC/khtykDvIth2imKR6x9vvbRKSQGnD75nijyQ=;
+        b=eElqbU+yJC6UGX0OMP80ODLsjdxq25NdFB8V5krsRrqGHnuI2MvagBsVxfx0lPcoKC
+         KDwin3e4OPP9H31wuvKRnhAGXa+ORRAySRTlMwW9OoyW/9U4LI8OMluyHYxjf5uPj3Lj
+         8W3osyi+JgbVpaGupBnxGatYc79fxgKA1r9TxT7zDjZSS7hN20ASygjEcXu0BlQR6lpx
+         MhOX9YSl5fEnm7MsFQtC/WNoPM6BSP3qlnPwqhamr7lf9fd8IX2soCneFzKLZN7Y1MSB
+         D5tvwdfz4Zbxt8X7Clwyc1T1mya8QKb4pBhzXcKttxhuVGouQ20VyYgHXKgRUednuUfS
+         QSVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787780524; x=1788385324;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Kv3c9GC/khtykDvIth2imKR6x9vvbRKSQGnD75nijyQ=;
+        b=B+FuCHUM3F4SwZpBcgGRtYCiHAoechjio0//iZLtQ1KXVTcsWomiwoem8jzpBpt3ug
+         1sd5xJLgE1+T48dubSxDY1mPBVQkTWVd4x4/uJwckxORDNZ3UPFGxvakvyy4vEPH6x+q
+         adsO8mR+I5JMo9hc6BlsVvDKt/8mYeRFj6pnk1uVV4DeRKUHrZlNlZuQ3dZrsoxPis+x
+         grXaLbRXPygzE2aXhCZx6QeKZyTPoDkN1Z2D407mvTdzyElSSWSmgvWpRC5soQgrkqRM
+         TUgjI4SK0bajj/jtTua4zhhVtapyM8bP8GGsloN+f5EDld1HIFycKEMQYaJHYbVydZel
+         Cwew==
+X-Gm-Message-State: AFuF++mK50T9YOAy+BtyAq1dR9mKIBcBINF5rn76L0RDSzHDGy2CPrMh
+	iVgJnzLyBD/Of0MbAd5u3G1q9agNu7piV2IBDw8QpJDV/6T/huhum+OL
+X-Gm-Gg: AR+sD13g95qxHTPb3BbU/F05zAwYS3FiOkiBBs6pKakwjEHt65FYMeUYVKySHczoWOu
+	eJGIOBzQJ6oHgRXq6cAJDZGyAK4Qk2VxvLZ4lMefSF1b6Vn1DdJ2dAW/lqmfc0c56Iedh7TS1O6
+	TSj9tfTwY8IhmGdXfK3XOib/Ni2pxwa0XVuRts4QIuqxd/nHmZrer/esI9toUJSvO50UFgvy1Q7
+	vkeR5w7Y0/8qvZIxHe1+muhskZQ0b95+pHMde4wacdbwBnLuDB4e/AnJUVy2g+pN2JYjqVbpn+M
+	oIEF4CxwRKXTOMYsafn7TQy8ed3W5EvDEw3vqnHDLBGiFyjJL+b3YDKbSmScqxPNjkVQ1SEtxJz
+	J6k6clPpfrVyA/iWi/U3BJanK7J+xv5khOkoF/iAwpQn373cnst8swMgzfbRYiIfbSsg1LgjG5D
+	tMhI33XCpl1s9koKrFzoTOOFOjB7scbEnYo4c=
+X-Received: by 2002:a17:90b:3d4f:b0:396:635a:9b12 with SMTP id 98e67ed59e1d1-3966d48beb5mr20657270a91.12.1787780523937;
+        Wed, 26 Aug 2026 14:42:03 -0700 (PDT)
 Received: from nineveh.sos.local ([131.191.24.68])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396689f1419sm5628673a91.9.2026.08.26.14.42.01
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396689f1419sm5628673a91.9.2026.08.26.14.42.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 14:42:01 -0700 (PDT)
+        Wed, 26 Aug 2026 14:42:03 -0700 (PDT)
 From: Jeremy Bingham <jbingham@gmail.com>
 To: linux-fsdevel@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
@@ -65,10 +67,12 @@ Cc: linux-kernel@vger.kernel.org,
 	viro@zeniv.linux.org.uk,
 	hch@infradead.org,
 	Jeremy Bingham <jbingham@gmail.com>
-Subject: [PATCH v4 0/3] minix: convert to iomap
-Date: Wed, 26 Aug 2026 14:41:54 -0700
-Message-ID: <cover.1787770110.git.jbingham@gmail.com>
+Subject: [PATCH v4 2/3] minix: add iomap functions and definitions
+Date: Wed, 26 Aug 2026 14:41:56 -0700
+Message-ID: <e7ab836149f814b04017905dca2e07a4c94078db.1787770110.git.jbingham@gmail.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1787770110.git.jbingham@gmail.com>
+References: <cover.1787770110.git.jbingham@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,139 +81,300 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This is version 4 of the minix iomap conversion patch series. Versions 1
-and 2 had issues uncovered by syzbot. Version 3 fixed those and
-addressed some critiques given by Darrick J. Wong, while in turn having
-issues pointed out by Christoph Hellwig and Darrick J. Wong including 
-having direct I/O in the patch series and proper testing. This version
-addresses those criticisms.
+Adds a new file, iomap.c, to fs/minix. This provides minix_iomap_begin,
+which is the iomap-based version of get_block in itree_common.c. It also
+provides minix_iomap_end, which is a no-op function required by the
+iomap_ops struct. The minix_iomap_begin function also uses helper
+functions to undo the nest of gotos inherited from get_block.
 
-The rationale for converting minix to use iomap instead of buffer heads
-is pretty simple: it both provides a very basic example of a filesystem
-using iomap, and it makes it easier to keep the minix filesystem in the
-kernel in the future. It is a rarely used bit of computer history, but
-it's one that's significant to Linux's early history. Plus, filesystems
-are a hard subject to approach. Having a very simple filesystem in the
-mainline kernel tree as an example for aspiring kernel filesystem
-hackers would be good to help them learn.
+This patch also wires iomap.c into itree_v1.c and itree_v2.c, similarly
+to how itree_common.c is included in those files, and exports version
+specific versions of minix_iomap_begin and iomap_ops.
 
-Per Christoph Hellwig's remarks in the previous version of this patch
-series, the direct I/O support has been removed. The iomap_symlink_write
-function has also been reworked to be more useful for symlinks. The
-original implementation of that function was proposed by Darrick J. Wong
-as an alternative to the custom buffer head implementation symlink
-function I had previously that sidestepped iomap for symlinks entirely.
+Also updates 'unsigned' to 'unsigned int' a few places that got picked
+up by checkpatch.pl.
 
-One thing reviewers may find in here that seems very odd is the way that
-iomap.c is included in itree_v1.c and itree_v2.c. This is in common with
-how itree_common.c is included in those files and minix has been like
-this at least as far back as the git history goes, and probably back
-into the 90s. Not including iomap.c in itree_v1.c and itree_v2.c is
-technically possible, but ended up being a massive headache to make
-iomap.c stand by itself while itree_common.c is included in itree_v1.c
-and itree_v2.c. Re-architecting minix to not require these separate
-itree files with different versions of basic functions depending on the
-version of the filesystem in question is possible, but definitely out of
-scope for this patch series. If there is interest I could pick up a
-patch series I made a little while back, dust it off, and give it
-another go, but it's a pretty big change for a rarely touched
-filesystem. I will defer to the collective wiser heads on that.
+Suggested-by: Darrick J. Wong <djwong@kernel.org>
 
-It is not possible to run xfstests against the minix filesystems with a
-vanilla xfstests-dev repository because mkfs.minix and fsck.minix do not
-support the proper options. There were some changes required in
-'common/rc' to sidestep that issue, which fortunately did not require
-any changes to mkfs.minix or fsck.minix. Once the tests were able to
-run, there are also many tests that fail miserably because of inherent
-limitations in all versions of the minix filesystems. Since these
-failures aren't "bugs" as such, I then updated xfstests to skip the
-tests that would never pass so I could focus on actual potential
-failures and regressions.
-
-Across all versions of the minix filesystems, there are 81 tests
-skipped. Sixty-eight of them are unique to the minix V1 filesystem,
-while an additional 13 are common to all versions. The exact breakdown
-of skipped tests will be given at the end of this cover letter. I have
-created a git repository forked from the main xfstests-dev repository to
-share these changes for running minix tests. The minix branch can be
-found at https://github.com/ctdk/xfstests-dev/tree/minix.
-
-Leaving the skipped tests out, the iomap patch does not introduce any
-new failures compared to the baseline in the master linux branch. The
-iomap patches do fix a test that fails on v1 and v3 (but not v2):
-generic/472, which tests swapfiles. After the patch, v1 and v3 will
-properly report that swapfiles are not supported and the test is
-skipped. Other than that, everything is the same and there are no
-regressions.
-
-This patch series has also been verified to build between each patch
-being applied. Additionally, the minix module continues to function
-between each patch.
-
-======
-
-The breakdown of the skipped xfstests:
-
-13 tests skipped for all minix versions:
-
-003, 075, 112, 127, 169, 249, 338, 347, 363, 563, 616, 676, 759
-
-These failures relate to atime/ctime semantics, fallocate not being
-supported, copy_file_range not being supported, sendfile not being
-supported, FS_IOC_GETXATTR not being supported, not supporting dm-thin
-cleanup properly, not supporting cgroup2 writeback accounting, not
-handling I/O errors while unmounting, and not supporting filenames long
-enough to be able to run the test.
-
-These tests test features that no version of minix supports.
-
-68 skipped only for minix v1. Of those, 52 are skipped because the 64MB
-minix v1 filesystem fills up while the test is running:
-
-013, 035, 074, 080, 087, 089, 100, 126, 131, 215, 245, 246, 248, 257,
-309, 310, 313, 346, 394, 409, 410, 411, 430, 431, 432, 433, 434, 438,
-443, 464, 471, 564, 565, 585, 589, 632, 633, 637, 638, 639, 650, 696,
-712, 713, 715, 718, 719, 723, 724, 725, 732, 736, 741, 742, 754, 763
-
-2 are skipped because minix v1 does not support fallocate at all.
-
-749, 758
-
-4 fail because fallocate is unsupported and the 64MB filesystem limit.
-
-340, 344, 345, 354
-
-Another 6 tests fail for their own reasons:
-
-124: An aligned vector rw pattern test. Fails with output mismatch.
-132: Another aligned vector rw test. Fails because the v1 fs is too
-small for large writes.
-192: An atime persistence test. Fails because v1 atime/ctime is wonky.
-428: DAX mmap test. Minix does not support DAX.
-706: A seek sanity check. Fails for v1.
-707: Testing directory modification race condition during rename. The v1
-directory link limit is too small to run the test.
-
-======
-
-Jeremy Bingham (3):
-  iomap: add iomap_symlink_write
-  minix: add iomap functions and definitions
-  minix: finish wiring in iomap functions
-
- fs/iomap/buffered-io.c  |  34 +++++++++++
- fs/minix/file.c         |  30 +++++++++-
- fs/minix/inode.c        |  85 ++++++++++++++++++++++++----
- fs/minix/iomap.c        | 122 ++++++++++++++++++++++++++++++++++++++++
- fs/minix/itree_common.c |  10 +++-
- fs/minix/itree_v1.c     |  25 +++++++-
- fs/minix/itree_v2.c     |  17 +++++-
- fs/minix/minix.h        |  23 +++++++-
- fs/minix/namei.c        |   7 ++-
- include/linux/iomap.h   |   3 +
- 10 files changed, 336 insertions(+), 20 deletions(-)
+Signed-off-by: Jeremy Bingham <jbingham@gmail.com>
+---
+ fs/minix/iomap.c    | 122 ++++++++++++++++++++++++++++++++++++++++++++
+ fs/minix/itree_v1.c |  25 ++++++++-
+ fs/minix/itree_v2.c |  17 +++++-
+ fs/minix/minix.h    |  21 +++++++-
+ 4 files changed, 181 insertions(+), 4 deletions(-)
  create mode 100644 fs/minix/iomap.c
 
+diff --git a/fs/minix/iomap.c b/fs/minix/iomap.c
+new file mode 100644
+index 000000000000..90e016aaa01e
+--- /dev/null
++++ b/fs/minix/iomap.c
+@@ -0,0 +1,122 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * iomap functions for minix.
++ */
++
++static inline void minix_chain_cleanup(Indirect *chain, Indirect *partial)
++{
++	while (partial > chain) {
++		brelse(partial->bh);
++		partial--;
++	}
++}
++
++static inline void minix_iomap_set_mapped(struct iomap *iomap, sector_t phys,
++		unsigned int blkbits, sector_t iblock)
++{
++	iomap->type = IOMAP_MAPPED;
++	iomap->addr = (u64)phys << blkbits;
++	iomap->length = 1 << blkbits;
++	iomap->offset = (u64)iblock << blkbits;
++}
++
++static inline void minix_iomap_set_hole(struct iomap *iomap,
++		unsigned int blkbits, sector_t iblock)
++{
++	iomap->type = IOMAP_HOLE;
++	iomap->addr = IOMAP_NULL_ADDR;
++	iomap->length = 1 << blkbits;
++	iomap->offset = (u64)iblock << blkbits;
++}
++
++/*
++ * minix_iomap_begin - map a file range to disk blocks. It acts as a replacement
++ * for get_block in itree_common.c, at least in the important ways, and is
++ * adapted from it, but it uses iomap instead of buffer_head.
++ */
++static int minix_iomap_begin(struct inode *inode, loff_t offset, loff_t length,
++	unsigned int flags, struct iomap *iomap, struct iomap *srcmap)
++{
++	struct super_block *sb = inode->i_sb;
++	unsigned int blkbits = sb->s_blocksize_bits;
++	sector_t iblock = offset >> blkbits;
++	int create = flags & IOMAP_WRITE;
++
++	int offsets[DEPTH];
++	Indirect chain[DEPTH];
++	Indirect *partial;
++	int depth = block_to_path(inode, iblock, offsets);
++	int left;
++	int err = -EIO;
++
++	sector_t phys;
++
++	/* block is beyond max file size */
++	if (depth == 0)
++		return -EINVAL;
++
++	iomap->bdev = inode->i_sb->s_bdev;
++
++reread:
++	partial = get_branch(inode, depth, offsets, chain, &err);
++
++	/* Simplest case - block found, no allocation needed */
++	if (!partial) {
++		iomap->flags = 0;
++		phys = block_to_cpu(chain[depth - 1].key);
++		partial = chain+depth-1;
++		minix_iomap_set_mapped(iomap, phys, blkbits, iblock);
++		minix_chain_cleanup(chain, partial);
++		return err;
++	}
++
++	/* Next simple case - plain lookup or failed read of indirect block */
++	if (!create || err == -EIO) {
++		minix_iomap_set_hole(iomap, blkbits, iblock);
++		minix_chain_cleanup(chain, partial);
++		return err;
++	}
++
++	/*
++	 * This is held over from the original get_block logic, where it
++	 * acted as a guard in case truncate() deleted blocks from under that
++	 * function. There should not be a race with iomap operations, but
++	 * we're retaining the defensive coding here to be extra safe just in
++	 * case.
++	 */
++	if (err == -EAGAIN) {
++		minix_chain_cleanup(chain, partial);
++		goto reread;
++	}
++
++	left = (chain + depth) - partial;
++	err = alloc_branch(inode, left, offsets + (partial - chain), partial);
++	if (err) {
++		minix_chain_cleanup(chain, partial);
++		return err;
++	}
++
++	if (splice_branch(inode, chain, partial, left) < 0) {
++		minix_chain_cleanup(chain, partial);
++		goto reread;
++	}
++
++	/* Successful allocation, mapping it. */
++	iomap->flags = IOMAP_F_NEW;
++	phys = block_to_cpu(chain[depth - 1].key);
++	minix_iomap_set_mapped(iomap, phys, blkbits, iblock);
++	minix_chain_cleanup(chain, partial);
++
++	return err;
++}
++
++/*
++ * minix_iomap_end ends up being a nop; since minix doesn't have any extents or
++ * transactions to worry about, there isn't anything to update here. The on-disk
++ * indirect blocks get dirtied in minix_iomap_begin.
++ */
++static int minix_iomap_end(struct inode *inode, loff_t offset, loff_t length,
++	ssize_t written, unsigned int flags, struct iomap *iomap)
++{
++	return 0;
++}
+diff --git a/fs/minix/itree_v1.c b/fs/minix/itree_v1.c
+index 1fed906042aa..58c29f4443d3 100644
+--- a/fs/minix/itree_v1.c
++++ b/fs/minix/itree_v1.c
+@@ -49,6 +49,18 @@ static int block_to_path(struct inode * inode, long block, int offsets[DEPTH])
+ }
+ 
+ #include "itree_common.c"
++/* NOTA BENE:
++ *
++ * This is icky to me, but at the same time having it be a standalone C file
++ * that's compiled to object form and linked separately like it is in xiafs is
++ * much nastier in minix because of the different versions of the minix fs that
++ * have some very, very different aspects, like the size of block_t. I don't
++ * like it, but since minix already has this pattern where a common itree file
++ * is included in the itree_v1 and itree_v2(and v3) files, I'm including iomap.c
++ * in these files as well. It does at least avoid exporting some currently
++ * static functions that aren't needed anywhere but itree_common.c and iomap.c.
++ */
++#include "iomap.c"
+ 
+ int V1_minix_get_block(struct inode * inode, long block,
+ 			struct buffer_head *bh_result, int create)
+@@ -61,7 +73,18 @@ void V1_minix_truncate(struct inode * inode)
+ 	truncate(inode);
+ }
+ 
+-unsigned V1_minix_blocks(loff_t size, struct super_block *sb)
++unsigned int V1_minix_blocks(loff_t size, struct super_block *sb)
+ {
+ 	return nblocks(size, sb);
+ }
++
++int V1_minix_iomap_begin(struct inode *inode, loff_t offset, loff_t length,
++	unsigned int flags, struct iomap *iomap, struct iomap *srcmap)
++{
++	return minix_iomap_begin(inode, offset, length, flags, iomap, srcmap);
++}
++
++const struct iomap_ops V1_minix_iomap_ops = {
++	.iomap_begin = V1_minix_iomap_begin,
++	.iomap_end   = minix_iomap_end,
++};
+diff --git a/fs/minix/itree_v2.c b/fs/minix/itree_v2.c
+index 9d00f31a2d9d..fc7a5ae8fa1c 100644
+--- a/fs/minix/itree_v2.c
++++ b/fs/minix/itree_v2.c
+@@ -57,6 +57,10 @@ static int block_to_path(struct inode * inode, long block, int offsets[DEPTH])
+ }
+ 
+ #include "itree_common.c"
++/* See the note in itree_v1 in a comment that starts "NOTA BENE" for an
++ * explanation for why iomap.c is included here.
++ */
++#include "iomap.c"
+ 
+ int V2_minix_get_block(struct inode * inode, long block,
+ 			struct buffer_head *bh_result, int create)
+@@ -69,7 +73,18 @@ void V2_minix_truncate(struct inode * inode)
+ 	truncate(inode);
+ }
+ 
+-unsigned V2_minix_blocks(loff_t size, struct super_block *sb)
++unsigned int V2_minix_blocks(loff_t size, struct super_block *sb)
+ {
+ 	return nblocks(size, sb);
+ }
++
++int V2_minix_iomap_begin(struct inode *inode, loff_t offset, loff_t length,
++	unsigned int flags, struct iomap *iomap, struct iomap *srcmap)
++{
++	return minix_iomap_begin(inode, offset, length, flags, iomap, srcmap);
++}
++
++const struct iomap_ops V2_minix_iomap_ops = {
++	.iomap_begin = V2_minix_iomap_begin,
++	.iomap_end   = minix_iomap_end,
++};
+diff --git a/fs/minix/minix.h b/fs/minix/minix.h
+index 78722ce22e1e..f1141d36e3d5 100644
+--- a/fs/minix/minix.h
++++ b/fs/minix/minix.h
+@@ -5,6 +5,7 @@
+ #include <linux/fs.h>
+ #include <linux/pagemap.h>
+ #include <linux/minix_fs.h>
++#include <linux/iomap.h>
+ 
+ #define INODE_VERSION(inode)	minix_sb(inode->i_sb)->s_version
+ #define MINIX_V1		0x0001		/* original minix fs */
+@@ -76,13 +77,23 @@ int minix_make_empty(struct inode*, struct inode*);
+ int minix_empty_dir(struct inode*);
+ int minix_set_link(struct minix_dir_entry *de, struct folio *folio,
+ 		struct inode *inode);
++
+ struct minix_dir_entry *minix_dotdot(struct inode*, struct folio **);
+ ino_t minix_inode_by_name(struct dentry*);
+ 
++int V1_minix_iomap_begin(struct inode *inode, loff_t offset,
++	loff_t length, unsigned int flags, struct iomap *iomap,
++	struct iomap *srcmap);
++int V2_minix_iomap_begin(struct inode *inode, loff_t offset,
++	loff_t length, unsigned int flags, struct iomap *iomap,
++	struct iomap *srcmap);
++
+ extern const struct inode_operations minix_file_inode_operations;
+ extern const struct inode_operations minix_dir_inode_operations;
+ extern const struct file_operations minix_file_operations;
+ extern const struct file_operations minix_dir_operations;
++extern const struct iomap_ops V1_minix_iomap_ops;
++extern const struct iomap_ops V2_minix_iomap_ops;
+ 
+ static inline struct minix_sb_info *minix_sb(struct super_block *sb)
+ {
+@@ -94,11 +105,17 @@ static inline struct minix_inode_info *minix_i(struct inode *inode)
+ 	return container_of(inode, struct minix_inode_info, vfs_inode);
+ }
+ 
+-static inline unsigned minix_blocks_needed(unsigned bits, unsigned blocksize)
++static inline unsigned int minix_blocks_needed(unsigned int bits, unsigned int blocksize)
+ {
+ 	return DIV_ROUND_UP_POW2(bits, blocksize * 8);
+ }
+ 
++static inline const struct iomap_ops *minix_iomap_ops_ver(struct inode *inode)
++{
++	return (INODE_VERSION(inode) == MINIX_V1) ?
++		&V1_minix_iomap_ops : &V2_minix_iomap_ops;
++}
++
+ #if defined(CONFIG_MINIX_FS_NATIVE_ENDIAN) && \
+ 	defined(CONFIG_MINIX_FS_BIG_ENDIAN_16BIT_INDEXED)
+ 
+@@ -128,7 +145,7 @@ static inline unsigned minix_blocks_needed(unsigned bits, unsigned blocksize)
+  * big-endian 16bit indexed bitmaps
+  */
+ 
+-static inline int minix_find_first_zero_bit(const void *vaddr, unsigned size)
++static inline int minix_find_first_zero_bit(const void *vaddr, unsigned int size)
+ {
+ 	const unsigned short *p = vaddr, *addr = vaddr;
+ 	unsigned short num;
 -- 
 2.47.3
 
