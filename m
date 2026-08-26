@@ -1,64 +1,69 @@
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57D484746AB
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:52:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3F7746D56A
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:52:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787763133; cv=none; b=RMD/bj99bUjTd9M3jDOqPqO3JjuyJjuFcLF/eC0UUJJSKxsrohHQKvtOdJNIOzrBuWjVPyNTq9WhRJ6y6fWvxlVwCgfNMlGsDV00t6bS5E0offLmowVK1aNENxLFRwZe2fAjkvSypZBY0ouu2DrO3l2eRze44zkegbqW6uLENuY=
+	t=1787763135; cv=none; b=h98Wu8GFgpuzwAiuj5wM+awaHRHVuc6oCl4ijCBTFy6vAabxqiv9MVXsB9jUX1qEV9S92J7CMux4dZ48Iuy3RySsSxNouRwww1Em3f8a7jvi93fGistpcfdma8NUeMJGPWBo67aBCl7C+SlxI/Mi1IbAfwuRVd8e8O53XOsiGOw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787763133; c=relaxed/simple;
-	bh=lkREA2G11nmz7SRzyOBJcWNNVt/g5f2pdE4DPPDUZEo=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=ray9SufBaAxYt35a4o1rVbsAb0hT6xCu5VSglqbjyQ8tHjTfHgVvV2q86PgbmSiv6iS2rJL9OmX6yrSTS+9nDsJ8uYUClCfewRjKtYdhztK1myUE4C4SqBz19KWi/08NrJZ5vVd1I0DPQgRklfH+kvGs0kqJ2jmV9zQ3G2USoCw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=vo4FJ53o; arc=none smtp.client-ip=209.85.215.199
+	s=arc-20240116; t=1787763135; c=relaxed/simple;
+	bh=lKL1AghctyCGhVmrYRZl2IF+lI9RwXIRk4VVRCcz1F8=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=tUhsswwuO3UXCaILaENgHCJ9LX94Bpo/4IHGI/dyFpt+GqasFjppyJ5sgbGc3bMQFBW6QA4vOL1WP/Ss6Q5a2z9K0tvKIMCU+TdfgLtJnoX7FXMKDgXcp3Wr+Aq+f3KmVpQQBX9D/x3ecjbE/b+5xsRS9/tUmo4/EwtSgp1lc8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=dpSqoV3V; arc=none smtp.client-ip=209.85.214.198
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="vo4FJ53o"
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc1ca15334cso1027946a12.1
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="dpSqoV3V"
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2cf7dd9fd91so14550895ad.1
         for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 09:52:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787763117; x=1788367917; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ujy1nVQKuNPW+jM2C9zxuyxo4JdDQzwfltAGwj8ml3w=;
-        b=vo4FJ53o3OdED7nWPwpUFc3sSIM6FYPxzjUQthZd9zl3TG9PwM/rxiyfRTopWs1IeD
-         IP+1Pmk96Ia0E1+pGinbGOXHwtOpo9XnFagecW+Ar9NS5sOm+R/JC6WzThAAe4BiL3BH
-         7nZm3zFrv3NCijHB/rXCeq+8AUmlQ03YkRjru0Y1L+gXKGmFf3azMM4GVUbLHxgGfjqK
-         CcuXEIiKheRn7ZLzjfoX0bGz2TbSZC5spJ0RW+PJx+pIrO7Aa1+JeD18kz3qY5Gs9Rb/
-         arDWN+bjAl4nE1ayxGGlYvKWQO4Vyo7WIV4oK+Bpe/n/q/Lbhgh7LY6MIL5kg64bsc4J
-         g5UA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787763117; x=1788367917;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=google.com; s=20251104; t=1787763118; x=1788367918; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=ujy1nVQKuNPW+jM2C9zxuyxo4JdDQzwfltAGwj8ml3w=;
-        b=ZO0xLgAzw+cLA0QhuIjiVkVY4EFK25qRg5VzxT5REY75393eJX3G1urefDmKWV20fb
-         sX+9VtfIYm9gNMCYEE2bnzec0z5aOcWIDsx3cJrsf05ConeP4RqkHTp0pcHyYfa1miK2
-         QVFY1Gpa/hQ2JxVzRnFNeabCxF1pDDJ8U/AV08Gn1MwTbNdlGevfBaecXrIK/3PxUw3f
-         SIVUHmdXOtOo0zrYy7tPlNbMEeLfSlZivIAruDs/AQQ27nziSOr3wU0vJPotZFRiVuQC
-         lhRWP7szm2smrQIahYAbK8dgHpGhfE/dIjY6n7B+7CQ/9+nm+dqmBmeFgTIXX+78HhWJ
-         9W/A==
-X-Forwarded-Encrypted: i=1; AHgh+RqS/QQweo1Sd01gGlsCGnK3h6wEatQ+An5asAtukHHduKOVkm+8WOErbqT4hirvk7z9jdxgM3kjPrStqzw=@vger.kernel.org
-X-Gm-Message-State: AFuF++m+cWVrYUmHZDnhoJzWynR/cB4cws8rIgreeFXiQBeFHPXdBAJ0
-	dcp9PiQ85bE8A1mBlSpjJbiZeAf3718Av4LTu7qRqiCouF0zIaat+iIZiCSQa2w5VPnnuWCJj3S
-	DlgjfWA==
-X-Received: from pfiu22.prod.google.com ([2002:a05:6a00:1256:b0:84e:a25:1e6b])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:2e08:b0:853:6571:9567
- with SMTP id d2e1a72fcca58-853720af96dmr14898598b3a.4.1787763116351; Wed, 26
- Aug 2026 09:51:56 -0700 (PDT)
+        bh=kih6Ze+eAUyI9b/QVGz2Gk+Uahj8e0YRoP4YxZwC+sQ=;
+        b=dpSqoV3Vw2dujGkjL4hoK2yFYxAzyLYpmodQH/zWzlhFH8nB6xZwQcvdagISuqCrV9
+         7ea8/hjlhPbZQ0z4WU+IkT+x72i0MommvziCDu+JWq1Qqzs7g7gzHKRC1y7CeL5gLI11
+         nXUNZ0rrz9CrJp9vxTmSmN/rRh4lRhQfHjtWfIJr8Y9kEQz6QVDAsZHpPHwPUQumAFG9
+         ZT55FT4JPxgjgu17ec6Fv3SOoiBm0PeN4+nx09R0zS0yxNDNP7WYpQjj6DjBbq1bqn4u
+         RPEMmChmiZcY6znaOd4yemm/5A/wd+1mCG+VHXoRHWKPrgNd6grg71syJB0pVPTKcW05
+         kONQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787763118; x=1788367918;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kih6Ze+eAUyI9b/QVGz2Gk+Uahj8e0YRoP4YxZwC+sQ=;
+        b=Jnff7210BwjE8CM5tsjHu7+A5iZgtTXMUR4TnLIiL22oxqUNNKM7JawibdEaEqJkVs
+         JbIQseoB3zwf6jVF6a1FDT7hSukqNUcPsvl5LRE+jQX5RrB3gYA0h3KYi2H7zr7ixywY
+         rWPpTYEfL20fZpbjvlXatga8XqP0xWwjwf7y/ctqviJSqRKwvlVBwzuh3k6LJiso1Wig
+         dJMogdb8MW85ky8k8hGz/lnCI4PcfHF3h699iBvzm1AXwNNVPhzKYzCo/RdipehPrdxu
+         Wa20x+cin6MgJZu14avwgQEZ4aEbPjO94DWv3ONvI5lj/NK0n0zb0O9XJINzEiKQD1fS
+         I7kA==
+X-Forwarded-Encrypted: i=1; AHgh+RoV0i7mosBehYCBVr884+GJ/Ik7QvQxnRRRTyEcMF+O4zdayXKzqFN5EgVKwZpCxlHlntMDz71LknA7fI8=@vger.kernel.org
+X-Gm-Message-State: AFuF++l6szpvSZAA/6eGpCU5mchkei0iLm5p3XQ8VA1NJpu2j2D8Tyo1
+	lGd+G01hLpseiUoes+yl6A0a/rOXgucsBuJkBdv9lJ87ryFHZmDt/Jhu72/uix8jAcyb4bLcxeA
+	WknZuWA==
+X-Received: from plgf9.prod.google.com ([2002:a17:902:ce89:b0:2ca:5a0f:d0c4])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:d4c3:b0:2b2:67ca:5ff9
+ with SMTP id d9443c01a7336-2d707803e2bmr127600385ad.0.1787763117519; Wed, 26
+ Aug 2026 09:51:57 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Wed, 26 Aug 2026 09:51:52 -0700
+Date: Wed, 26 Aug 2026 09:51:53 -0700
+In-Reply-To: <20260826165154.766699-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
+References: <20260826165154.766699-1-seanjc@google.com>
 X-Mailer: git-send-email 2.55.0.887.g758fc8c411-goog
-Message-ID: <20260826165154.766699-1-seanjc@google.com>
-Subject: [PATCH 0/2] KVM: guest_memfd: Handle xarray binding errors
+Message-ID: <20260826165154.766699-2-seanjc@google.com>
+Subject: [PATCH 1/2] KVM: guest_memfd: Gracefully handle xarray errors when
+ binding a memslot
 From: Sean Christopherson <seanjc@google.com>
 To: Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>
 Cc: David Hildenbrand <david@kernel.org>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
@@ -66,23 +71,70 @@ Cc: David Hildenbrand <david@kernel.org>, kvm@vger.kernel.org, linux-kernel@vger
 	Sashiko Bot <sashiko-bot@kernel.org>, Yan Zhao <yan.y.zhao@intel.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Handle errors when inserting into guest_memfd's binding xarray, e.g. to
-do the right thing on ENOMEM.
+If inserting a memslot into a guest_memfd's bindings xarray fails,
+propagate the error back to the caller, i.e. fail memslot creation as well.
+Signalling success and continuing on with memslot creation results in
+use-after-free, as the guest_memfd instance will remain reachable via the
+memslot after the file is freed (kvm_gmem_release() won't nullify the file
+pointer due to lack of a valid binding).
 
-Patch 2 is a related cleanup to remove a superflous WRITE_ONCE() (unwinding
-the slot update on insertion failure isn't an option if the slot is observable,
-i.e. if the WRITE_ONCE() is actually necessary).
+Opportunistically WARN and reject binding if KVM_MEMSLOT_GMEM_ONLY is
+already set, partly to guard against goofs elsewhere, but mostly so that
+KVM doesn't need to worry about clobbering flags when unwinding on failure.
 
-Sean Christopherson (2):
-  KVM: guest_memfd: Gracefully handle xarray errors when binding a
-    memslot
-  KVM: guest_memfd: Drop superfluous WRITE_ONCE() when binding a memslot
+Fixes: a7800aa80ea4 ("KVM: Add KVM_CREATE_GUEST_MEMFD ioctl() for guest-specific backing memory")
+Cc: stable@vger.kernel.org
+Reported-by: Stefan Teodorescu <fane@google.com>
+Reported-by: Dennis Tighe <dtighe@google.com>
+Reported-by: Sashiko Bot <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260823135031.4F6DC1F000E9%40smtp.kernel.org
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+---
+ virt/kvm/guest_memfd.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
- virt/kvm/guest_memfd.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
-
-
-base-commit: 76671054f9a1ff6abb976583cd8da37650acdc97
+diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
+index b596486d184c..1ef9e2916423 100644
+--- a/virt/kvm/guest_memfd.c
++++ b/virt/kvm/guest_memfd.c
+@@ -612,10 +612,14 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
+ 	struct inode *inode;
+ 	struct file *file;
+ 	int r = -EINVAL;
++	void *xar;
+ 
+ 	BUILD_BUG_ON(sizeof(gpa_t) != sizeof(offset));
+ 	BUILD_BUG_ON(sizeof(gfn_t) != sizeof(slot->gmem.pgoff));
+ 
++	if (WARN_ON_ONCE(slot->flags & KVM_MEMSLOT_GMEM_ONLY))
++		return -EINVAL;
++
+ 	file = fget(fd);
+ 	if (!file)
+ 		return -EBADF;
+@@ -654,7 +658,7 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
+ 	if (kvm_gmem_supports_mmap(inode))
+ 		slot->flags |= KVM_MEMSLOT_GMEM_ONLY;
+ 
+-	xa_store_range(&f->bindings, start, end - 1, slot, GFP_KERNEL);
++	xar = xa_store_range(&f->bindings, start, end - 1, slot, GFP_KERNEL);
+ 	filemap_invalidate_unlock(inode->i_mapping);
+ 
+ 	/*
+@@ -662,7 +666,12 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
+ 	 * not the other way 'round.  Active bindings are invalidated if the
+ 	 * file is closed before memslots are destroyed.
+ 	 */
+-	r = 0;
++	r = xa_is_err(xar) ? xa_err(xar) : 0;
++	if (r) {
++		slot->gmem.file = NULL;
++		slot->gmem.pgoff = 0;
++		slot->flags &= ~KVM_MEMSLOT_GMEM_ONLY;
++	}
+ err:
+ 	fput(file);
+ 	return r;
 -- 
 2.55.0.887.g758fc8c411-goog
 
