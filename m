@@ -1,110 +1,113 @@
-Received: from mail1.fiberby.net (mail1.fiberby.net [193.104.135.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D641847CC8E;
-	Wed, 26 Aug 2026 19:42:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.104.135.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61663353A7C
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 19:42:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787773332; cv=none; b=tQQXSFjz/e1BPN2xn3Ll8npDXCUzi7mK8xobqeGHoXoIbo9rtQy+VpiK5UVqIHBDbhSFXMHihdJYzTROmWiTDCQkhLRWVFURB8W1r2t42Nscu3JTafZjg3SpMsRtY6dloVut8nWn9F0g9+sKVwdjrUPYspg/IHhXI2plO/cqZGM=
+	t=1787773351; cv=none; b=IFEvQT6VTHOuDxWEIptYh6mSOexQ9tOg6e2AQUhl28SnWRp1w1QdsXqNFh7FFHZnXHS+OYztEefnZS+L+Y7aPjqNak/7ZU0Aw/XwgiMWz6nr24nIavooASwqckv/lGgkffoRyKath7mNu793au+BhoA4Rdbvaz01EOSohOCBaBU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787773332; c=relaxed/simple;
-	bh=n5+zW/sLXcx1YtKY8np6uGvCc7Muo5pDQvEIJAesLos=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RvMA4Nj7C7RUVmpXOYkYMdyH29Gtpas6EdDiYKjZceGgBGH9FrcQq+gTVoc3Lh6QpHuB71b0/7ABVHKyZHv2IA45dVv4d0hNuNBq6IcQ1Vc09hmvJ1vUSjGXXTkUpJUkdLTukOy28/PPj24n3GAw5NtT8FTvcoCye0RtDCiDFV8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fiberby.net; spf=pass smtp.mailfrom=fiberby.net; dkim=pass (2048-bit key) header.d=fiberby.net header.i=@fiberby.net header.b=ET8CBYu+; arc=none smtp.client-ip=193.104.135.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fiberby.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fiberby.net
+	s=arc-20240116; t=1787773351; c=relaxed/simple;
+	bh=b/iOc0VADcQUCvPs+ALENYYXlH6jAvA8EeEOqy6VYzw=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=ZuhC1eh3jChJMVwB+BFW0ddGALBSmLDKARM8XHXrUWarYKV3j686PMvEJbJgdZcvijGgE7q1jCZRHX4yX5/PfYe4W0c+sAZqnHXqkLu0pdZ/uhYTZF8b9lJvzFQmC8xMEv7nvRbobDJfitjaZFxig1jFSRDN8sjo9JU7aaL2W2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BWFX1sDA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fiberby.net header.i=@fiberby.net header.b="ET8CBYu+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fiberby.net;
-	s=202008; t=1787773316;
-	bh=n5+zW/sLXcx1YtKY8np6uGvCc7Muo5pDQvEIJAesLos=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ET8CBYu+Q7E+A8tRwIXw4hZxzpB2sJWVTf+2MNuxXBaQqArP+IhNrnuUyluPP2LWB
-	 AwfTiWPjzemIeRrxpIfocAKolIq15Ou5SG198lf6FmiagknC80bNkhOICQylpykH9D
-	 RrA586cpC4LRyARW/6JWCvgxgtHJtKlmWaExWH+71uQe7QkGuPuEwM2qTu/cLujix2
-	 E8xOWGyMvB1jd3iE5/QKkZ26Zwh1YXD2blO1R12zNGD13/Rta/BeZAnJJk45eEz17q
-	 lMj1+MNS5A/X66cknx2NQNQGME2qFPfJCiruJoWOF7z+bIR7wE1Tg0M0By8PppuO33
-	 tbHHfpIuB13Gg==
-Received: from x201s (193-104-135-243.ip4.fiberby.net [193.104.135.243])
-	by mail1.fiberby.net (Postfix) with ESMTPSA id CBB6D60075;
-	Wed, 26 Aug 2026 19:41:55 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1])
-	by x201s (Postfix) with ESMTP id 6C1EB20079C;
-	Wed, 26 Aug 2026 19:40:35 +0000 (UTC)
-Message-ID: <2e89120d-c18d-4d0b-9e7c-149611475271@fiberby.net>
-Date: Wed, 26 Aug 2026 19:40:35 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BWFX1sDA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE19C1F000E9;
+	Wed, 26 Aug 2026 19:42:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787773338;
+	bh=YR+YZ9wjwVV1E4RGGSJhY2Zry69pNRcovb4gZje1bwc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=BWFX1sDAVz+MBlU9+X5JmD5F5AaApeomXst0w1ucUGPs7zNeFohwwlxS7aWZpcbxQ
+	 W2gTAgrMtvrJ29X6SUJAnGXvDEeD4/XcifP1DcEOIZSrvhdAJz8rIZRJ7LQmiqNxl7
+	 9q+Fh0xfveT4x9MAzFcJta7RN8KZAIPodWdrWN/SPKbDQJztcra1L1Qkx3R+kPPu9b
+	 rfGobKWJU809iIl/YLk1PVr13Wm/XIFADRqXBoPr69T925zbuRJlCnGtorClupF096
+	 S+1U90HpkL7NMoTJ1TVMxPAlw6PoprmlHFZywbU5cw3U+eEmO9+PoDJzT+B4wINC6a
+	 nZsuCIcAsI1aA==
+Date: Wed, 26 Aug 2026 14:42:17 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>
+Cc: drj19981414013@gmail.com,
+	DAI RENJIE via B4 Relay <devnull+drj19981414013.gmail.com@kernel.org>,
+	Mark Brown <broonie@kernel.org>, Kees Cook <kees@kernel.org>,
+	linux-kernel@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
+	Bradley Morgan <include@grrlz.net>
+Subject: Re: [PATCH] resource: fix lost wakeup when waiting for a muxed region
+Message-ID: <20260826194217.GA1552174@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] netlink: specs: fix the conntrack filter type
-To: Ilya Maximets <i.maximets@ovn.org>
-Cc: "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Donald Hunter <donald.hunter@gmail.com>,
- "Remy D. Farley" <one-d-wide@protonmail.com>,
- "Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
- Florian Westphal <fw@strlen.de>, linux-kernel@vger.kernel.org,
- netfilter-devel@vger.kernel.org, stable@vger.kernel.org,
- netdev@vger.kernel.org
-References: <20260825155832.3685714-1-i.maximets@ovn.org>
- <94842eea-a296-4ab9-a026-2475757a82b8@fiberby.net>
- <7b1f615f-d435-4b83-a180-67cf9a4223a0@ovn.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Asbj=C3=B8rn_Sloth_T=C3=B8nnesen?= <ast@fiberby.net>
-In-Reply-To: <7b1f615f-d435-4b83-a180-67cf9a4223a0@ovn.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260821113457.8622c5d35c9aec838490b013@linux-foundation.org>
 
-On 8/26/26 6:38 PM, Ilya Maximets wrote:
-> On 8/26/26 7:20 PM, Asbjørn Sloth Tønnesen wrote:
->> On 8/25/26 3:58 PM, Ilya Maximets wrote:
->>> The CTA_FILTER doesn't contain nested tuple attributes, instead it
->>> contains bit masks that specify which tuple attributes to filter on.
->>> The values for filtering are taken from the top-level CTA_TUPLE_ORIG
->>> and CTA_TUPLE_REPLY.
->>
->> As identified by Sashiko-NIPA[1], then CTA_TUPLE_ORIG and CTA_TUPLE_REPLY
->> are both absent from the GET DUMP request attribute list.
->>
->> However this doesn't prevent ynl CLI from sending the attributes:
->>
->> $ sudo ./tools/net/ynl/pyynl/cli.py --family conntrack --dump get --json \
->>     '{"nfgen-family": 2, "filter": {"orig-flags": 1}}'
->> Netlink error: Invalid argument
->>
->> $ sudo ./tools/net/ynl/pyynl/cli.py --family conntrack --dump get --json \
->> '{"nfgen-family": 2, "filter": {"orig-flags": 1}, "tuple-orig": {"tuple-ip": {"ip-v4-src": "192.255.0.255", "ip-v4-dst":
->> "192.255.255.0"}}}'
->> []
->>
->> Otherwise, LGTM.
->>
->> [1] https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260825155832.3685714-1-i.maximets%40ovn.org
+[+to Ilpo]
+On Fri, Aug 21, 2026 at 11:34:57AM -0700, Andrew Morton wrote:
+> On Fri, 21 Aug 2026 14:08:17 +0000 DAI RENJIE via B4 Relay <devnull+drj19981414013.gmail.com@kernel.org> wrote:
 > 
-> The reported issue is preexisting and a little orthogonal to the goal of
-> this patch.  I.e. missing dump attributes vs wrong type of attributes that
-> are specified.
+> > From: DAI RENJIE <drj19981414013@gmail.com>
+> > 
+> > A task waiting for a muxed region can sleep forever in TASK_UNINTERRUPTIBLE
+> > even though the region it waits for is already free.
+> > __request_region_locked() queues itself on muxed_resource_wait and drops
+> > resource_lock before setting TASK_UNINTERRUPTIBLE, while __release_region()
+> > wakes the queue after dropping the same lock.  A wakeup landing in between
+> > finds TASK_RUNNING, does not match TASK_NORMAL and is discarded; callers
+> > hold a muxed region only across a bounded transaction, so no further
+> > release is coming.  The task is unkillable and its caller never returns.
+> > 
+> > The window is one store wide, but an interrupt is enough to hold the waiter
+> > in it, and the machine this was seen on runs PREEMPT_DYNAMIC in its
+> > voluntary default.  Since v6.11 spd5118 exports the DDR5 sensors of AMD
+> > boards through i2c-piix4, which takes a muxed region per SMBus transaction;
+> > a third of the in-tree users of request_muxed_region() are hwmon drivers,
+> > so reading a world-readable attribute is all an unprivileged user needs to
+> > drive the contention.  The blocked task sleeps holding the i2c adapter bus
+> > lock, and 27 more piled up behind it.
+> > 
+> > Fix it by setting the task state before dropping resource_lock, as
+> > prepare_to_wait() does: the releasing side needs resource_lock to unlink
+> > the resource, so it cannot reach the wakeup before the state is published.
+> > 
+> > Fixes: 8b6d043b7ee2 ("resource: shared I/O region support")
 > 
-> I can add all the missing attributes: tuple-orig, tuple-reply, mark-mask
-> and status-mask.  Either as a separate patch, or fold the change into this
-> one, but rename it into something like:
->    "netlink: specs: fix conntrack filtering attributes and types"
+> 16 years ago.
 > 
-> WDYT?
+> > Cc: stable@vger.kernel.org
+> > Assisted-by: Claude:claude-opus-5
+> > Signed-off-by: DAI RENJIE <drj19981414013@gmail.com>
+> > ---
+> > Reproduced by building a kernel with the two orderings selectable at
+> > runtime and a 2ms delay inside the window.  Switching only that knob, a
+> > two-thread barriered reproducer loses the wakeup 200 times out of 200
+> > before the fix and 0 out of 200 after it; without the delay it goes 20000
+> > times through the wait path and loses none.
+> > ---
+> >  kernel/resource.c | 2 +-
+> 
+> Bjorn, please consider a MAINTAINERS entry?
 
-I agree that it is a little orthogonal, but OTOH the patch doesn't really fix
-anything meaningful when the YNL spec doesn't allow actually making the request.
-The commit message directly refers to attributes not allowed in the YNL spec,
-without declaring it as intentionally deferred (like the filter bitmasks).
+Maybe you'd be interested, Ilpo, since you're doing so much PCI
+resource work?
 
-I see mark-mask and status-mask as a fully orthogonal issue, as they don't
-clash with the commit message.
-
-I would just fold tuple-orig and tuple-reply into this patch, and leave
-mark-mask and status-mask for another patch.  Alternatively make it a series.
+> > --- a/kernel/resource.c
+> > +++ b/kernel/resource.c
+> > @@ -1350,8 +1350,8 @@ static int __request_region_locked(struct resource *res, struct resource *parent
+> >  		}
+> >  		if (conflict->flags & flags & IORESOURCE_MUXED) {
+> >  			add_wait_queue(&muxed_resource_wait, &wait);
+> > -			write_unlock(&resource_lock);
+> >  			set_current_state(TASK_UNINTERRUPTIBLE);
+> > +			write_unlock(&resource_lock);
+> >  			schedule();
+> >  			remove_wait_queue(&muxed_resource_wait, &wait);
+> >  			write_lock(&resource_lock);
+> 
+> Yup, that's a basic waitqueue usage bug.  
+> 
