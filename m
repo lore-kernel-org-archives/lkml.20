@@ -1,112 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 625B3361DA7;
-	Wed, 26 Aug 2026 14:09:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 525EF43C05E;
+	Wed, 26 Aug 2026 14:09:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787753352; cv=none; b=PYEOwPUAL9qvF3sU6OpLXHSC8a7+SjYUE2NZXpJM9XbPfwnq9cqmyRDj2YfJpEyAb206rUizmVgUvweJoPgQtaMGpF3JrOD5LZ06J5L4uMYDi0+B+P8W0joVzTPSTKRI1ObS7DMQQbBD9+EZD179bAHhmINYzBKSMvD6PLkDgjk=
+	t=1787753398; cv=none; b=sjub0UGpbS/CsvI4iostv0Oq3kCX5wB+dTv0jHCa9ARP0RepsjQCiwvxTiHeeMuuRWIdzhSDin/NthcvT0eUqeA6uZHsotjN/qT7lCXqmxkm8XCmNZ2G4jCQorVWA3maYv2v0FDKpd5ml4LQsasIGftBKGriEqlSZN3wXSP1GCs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787753352; c=relaxed/simple;
-	bh=qd/k45PDOeaWIMY7RY7wAaBtaQcu3Q+5gYHbfIRt0AM=;
+	s=arc-20240116; t=1787753398; c=relaxed/simple;
+	bh=TsgdAh1ZW5mboVObCKU7OCe5ya/rsFkTdST1Fg8G1Mc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OKOAcpcsi5A3E744uwoIu9c+t8ZEjwZlmSLcGUZEw3q3rkL7x/anjWyp40epHfVLVa5iczyvwntW3hMhS1n5VeI0SgnDM1ryZ0VmIb7Xvf94PlbVCdXGgIX+db+JrlwiRXjkgX9FFTjnrqHEJM5dSRfEOo9G2F6DolJZP6BxWNU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lCejeG0v; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Se9TclKiwJpW0MUlCYKct5TDzLFuic5nyQQM39mr1hmGWHf9y0T5ZEhWsqgNpa0oN1IBWwkVZNN6jxJ2I9+GUFRvjqTJNRsL/A+X+kMJelSKYmJGa9q7P7EW5SiEzjaACFmSXDRw5EQLFSaYP6M6jG1FLOzxGT9OGk82ynUceKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XLkPyoTn; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lCejeG0v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCBD81F000E9;
-	Wed, 26 Aug 2026 14:09:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787753349;
-	bh=TNBvO+ky0/3VWJnTsxbu78ogNLbMq/8VlOuUXVeNmoc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lCejeG0vCtFknqu4WX0iSTUrFlrVK2jfDvpCHnR9lMB4LXEg1eq6ylerAkO8BiKDs
-	 C9bgbPHtQq166hmFzaEwE+ziBevHgmdnvYK96Y5uBC6gGIQsnpYXSq1hDUSsNcRabY
-	 BNXtRy01rbxODxp07uDiOVBVpLS3MZUQmvh/RbxXZvfn0QKoOwNyRHz9t5Q1CLR8m/
-	 W6mtgsRkCvCYgYWDIQWMlRTV7j7AObZg9qox5M5uuenaK/ezA1Kjufquki4p6cd/aX
-	 8m8GnZ60d14RrDpxPA/A13+mB1dZPkjhn8USGisHyJkoC3ZT+db7ojyREIDYhJNkkv
-	 sQ09IFTmcllMA==
-Date: Wed, 26 Aug 2026 16:09:05 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: YuXin Xiao <xiaoyueyoqwq@gmail.com>
-Cc: westeri@kernel.org, linux-i2c@vger.kernel.org, 
-	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4] i2c: acpi: Add DELL0A86 to
- i2c_acpi_force_100khz_device_ids
-Message-ID: <ao7yggBh5-MiEIDm@zenone.zhora.eu>
-References: <20260824111814.75242-1-xiaoyueyoqwq@gmail.com>
- <20260824181559.146133-1-xiaoyueyoqwq@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XLkPyoTn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787753396; x=1819289396;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=TsgdAh1ZW5mboVObCKU7OCe5ya/rsFkTdST1Fg8G1Mc=;
+  b=XLkPyoTnSrURo87Omw3Bu7xxPgTs70lXF0w1603akSc1R78XGkuxs5rh
+   a+5bzEhrZ5yj0bbCWI5mNC75+i4V5lmfEqgi4OJk4T4NYS37RSrLkWMaM
+   pebnmRr56xAMdJqnMBpGAn/8Xv2yvhV+8rUhhJs6aAopu+6dHgOpUdG1g
+   a9Xzgp3QowbO2FKO0D8AUYWzEn7tOYE5rAARpuh1a4PYMPkJKJfs4veoA
+   hqkyG8RSMqEnRF0bgtQcoSer0Q8uzOuJxL0vGS7+IHibIph88/GuYUZoe
+   Kq1TQtvOM2ZlsS6z0jA4yvGo6mwkn9clMXghKToFt/3JVW19FNNPHCHgD
+   Q==;
+X-CSE-ConnectionGUID: qIMddGDgTZi5yugrwr8tKQ==
+X-CSE-MsgGUID: DO6iMzBCRianmShJ47rAAA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11886"; a="88001484"
+X-IronPort-AV: E=Sophos;i="6.25,244,1779174000"; 
+   d="scan'208";a="88001484"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 07:09:55 -0700
+X-CSE-ConnectionGUID: 0nxUi951Tzeqh1SQ7A1dJA==
+X-CSE-MsgGUID: tdDgCYNxTbanasoCRHAZ5A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,244,1779174000"; 
+   d="scan'208";a="271391214"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.235])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 07:09:52 -0700
+Date: Wed, 26 Aug 2026 17:09:49 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Yang Zi <2959243019@qq.com>
+Cc: lorenzo@kernel.org, jic23@kernel.org, linux-iio@vger.kernel.org,
+	dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: humidity: hts221: fix division by zero in
+ calibration data parsing
+Message-ID: <ao7zrbXG6f-pPxIB@ashevche-desk.local>
+References: <tencent_0F43B1BC41CE4066DA52B7B25FBC04C41A09@qq.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20260824181559.146133-1-xiaoyueyoqwq@gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <tencent_0F43B1BC41CE4066DA52B7B25FBC04C41A09@qq.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi YuXin,
-
-Please, next time don't send successive versions as in reply-to.
-
-On Tue, Aug 25, 2026 at 02:15:59AM +0800, YuXin Xiao wrote:
-> The ELAN 04F3:3185 touchpad exposed as DELL0A86 on the Dell Inspiron
-> 13 5310 intermittently exhibits excessive smoothing when the I2C bus
-> runs at 400 kHz. During an affected period pointer movement becomes
-> severely sluggish and sticky for tens of seconds.
+On Tue, Aug 25, 2026 at 05:21:10PM +0800, Yang Zi wrote:
+> hts221_parse_temp_caldata() and hts221_parse_rh_caldata() compute the
+> sensor slope as ((cal_y1 - cal_y0) * 8000) / (cal_x1 - cal_x0). If the
+> device reports cal_x1 == cal_x0 the division causes a divide-by-zero
+> error.
 > 
-> The ACPI firmware configures the touchpad bus for 400 kHz. Add DELL0A86
-> to i2c_acpi_force_100khz_device_ids so that the bus runs at 100 kHz, as
-> is already done for other touchpads exhibiting the same excessive
-> smoothing problem.
-> 
-> With the quirk applied, the kernel reports that the firmware requested
-> 400 kHz and that the bus is forced to 100 kHz. The problem did not recur
-> during extended heavy use, including an S4 hibernate/resume cycle.
-> 
-> An independent 2021 report from another Dell Inspiron 13 5310 user
-> describes the same intermittent sticky behavior and identifies the same
-> DELL0A86 / 04F3:3185 touchpad.
-> 
-> Link: https://www.reddit.com/r/linuxquestions/comments/nsso5b/help_needed_with_sticky_touchpad_spoiling_brand/
-> 
-> Assisted-by: Codex:ChatGPT-5.6-Sol
-> Assisted-by: OpenCode:Ox Alpha (x-preview-f-free)
-> 
+> Return -EINVAL when cal_x1 == cal_x0 in both functions before performing
+> the division.
 
-Please don't leave a blank line in between tags.
+Do you have HW to test? Any fault injection perhaps?
+The problem with div-by-0 is that it's implementation defined, meaning
+that it's how compiler decides. Now, the question is, what will compiler
+do in the current code (no patch applied)?
 
-> Acked-by: Mika Westerberg <mika.westerberg@linux.intel.com>
-> Signed-off-by: YuXin Xiao <xiaoyueyoqwq@gmail.com>
-> ---
-> Changes in v4:
-> - Add an independent public report for the same model, device, and symptom.
-> - No code changes.
+...
 
-Please, don't omit the rest of the changelog. I want to see v2,
-v3 and v4.
+>          return err;
 
-Anyway, I merged your patch in i2c/i2c.
+>      cal_x1 = le16_to_cpu(val);
 
-Thanks,
-Andi
+>  
 
->  drivers/i2c/i2c-core-acpi.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/i2c/i2c-core-acpi.c b/drivers/i2c/i2c-core-acpi.c
-> index 8f3bdd5..3af0e05 100644
-> --- a/drivers/i2c/i2c-core-acpi.c
-> +++ b/drivers/i2c/i2c-core-acpi.c
-> @@ -371,6 +371,7 @@ static const struct acpi_device_id i2c_acpi_force_100khz_device_ids[] = {
->  	 * the device works without issues on Windows at what is expected to be
->  	 * a 400KHz frequency. The root cause of the issue is not known.
->  	 */
-> +	{ "DELL0A86", 0 },
->  	{ "DLL0945", 0 },
->  	{ "ELAN0678", 0 },
->  	{ "ELAN06FA", 0 },
-> -- 
-> 2.53.0
-> 
+I would remove this blank line as it's coupled with the above.
+
+> +    if (cal_x1 == cal_x0)
+> +        return -EINVAL;
+> +
+
+>      slope = &hw->sensors[HTS221_SENSOR_T].slope;
+>      b_gen = &hw->sensors[HTS221_SENSOR_T].b_gen;
+
+Ditto for the rest.
+
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
