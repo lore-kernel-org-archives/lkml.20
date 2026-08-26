@@ -1,357 +1,131 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF0DE46E006
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:37:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7962547127C;
+	Wed, 26 Aug 2026 16:38:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787762275; cv=none; b=kua7KONqpykIcbIKCsOnY2FkzpHKk2KvqYLODxF/uuRvXYY3MvM6P9sLkPrkswOKLkscXMyaB1FwR5LSYX7xUEZYvgUVYAtLcMb6oiQ04/Bl9keXX8RrxAi+j8tdHwxpijO+dxGyhPgPYlRsh+b+0dwyTEXhJFEZq65ECYL+dSA=
+	t=1787762307; cv=none; b=RqIEZbIAg/JSb7TxEmHE1NvGT7+p51IWUjZ2VmNbcTAzatt6k0OOchTrv+KO4jitrVK+CwStti4Eo9n6IjNvmH4T9vkNjIs4A5Tf1dpeMCOpaVunjmuJwu7UmLrOacGPRm6JDj4nze4nd1sxiLqR7ezvZ4n0JcO2kpqfvzHEH+0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787762275; c=relaxed/simple;
-	bh=qIcM5y3Hb6kSUN2B7nsjh8Y4Ancfrv4Lu71gNXejc54=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SmH/MDezGP7+sSXqC7ZOktGDi1+3MT8erR1LXkW/KUA9/S37MC4qGAt2hsvnZJlOzPYCFvmxeJtxIiggMVLczCnvf/oXOnPBqdP3gGSJbQvaYaVz5V2yPXoj+9TO9Xu0GOJKKb23xnR48fKK6kq9JDG2y6l9d6zz0W1v3+NJ3o8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk; spf=none smtp.mailfrom=fireburn.co.uk; dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b=ynKI5xRl; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=fireburn.co.uk
+	s=arc-20240116; t=1787762307; c=relaxed/simple;
+	bh=k1dcHYKsEab09wozqZN5BR/ltPN5cma1VRF0Rw9C7sM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=C0NgdTQB4KyopiMOM5FhU9ByWHMDHvfsdfWnpCWCihAhN7knzzHZIwmLa5emVzwqLkK9be+TUY8IMM2GXWGjvn1vkJ/GU0RPwTplOkCrnoiankMBB7HmThpU83nxgsTpC6pO281T9DmT/3kJXOhhluwo6fj9sPpbUzZ8HTV+q5Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=pass smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=fMZ9KW/g; arc=none smtp.client-ip=5.135.140.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="ynKI5xRl"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49954b88fffso9808775e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 09:37:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787762248; x=1788367048; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=A1HpPd4ylLTuKYL4oCpnHBVRKXPxKbcynFiK+teZyII=;
-        b=ynKI5xRlcNR7pmyDAv8VTP7Wg0eWJwJa336tr03j1EPUxIYrurhlkUM3LT6VKTC6sk
-         37oFUKEnetaRU65SXjrcia5F5SrNPoh/rQLaNDP8W33QmDJn/Cp7Y0zf6882NRt3beV1
-         Xdq5xa0EpfLW9zaH9GC5BKpdNPtnBEJXF8FNPnolDc4O00JTpWtrY+3NKyNFDypYVSoc
-         gjupH8UtBAclbksCiKlq0u4K0MkASsWLf7RfPo3PzhvUAD5nfk8dpV4PayXV/ESSCZYq
-         Vc1rTXbpX4U00eKnASBXcoCvnMnQY2UaAof/nEYaWvREVxf2bQp4s1zjXvuEgTYbixVj
-         HmUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787762248; x=1788367048;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=A1HpPd4ylLTuKYL4oCpnHBVRKXPxKbcynFiK+teZyII=;
-        b=MHAsiUpoyFR9vRT1HGUqLwtJPI2mfUiHVVSB0zR/oG9FqdMFep5C/YuSchddDdSQUk
-         669VjvuebZGBvlEs5sIFjzOmVK05Iu7jTaV5A8T0F/gLjwL8MfeNhuZ0XFQQtiqc2nhT
-         s/Fiu963c+aVIxmjUfOkpMQpVFh64BhbtngIsNRyKGoWtBdFojwg50R/yzOMJOk1bFyN
-         3NoKv8MrJj5pQgH2urRTxIqkQS/1FWfjfhJLKcxyXPhx2iNYjj2+lEyj2tU+uiotmFdN
-         BCPinHbNHhhbFqwoUDsb/UUmK0KbvXtJ0WoGh9q0SNQsaUr5XLnFj9W26XDf2MRhn5K+
-         Wv3Q==
-X-Gm-Message-State: AFuF++nTH/FaJlz/qJ6rYE3ryO+5wFNjf97uZkqh4t1HPOXKywD4AcP2
-	i90srzLyDwCzyICrwYCQPSGVVLV1YOU1L6s1foIiF8i0/7bJkb5Y+BtSNYeJvvfxctGI7uIAvfr
-	ChZ791lJk
-X-Gm-Gg: AR+sD13h4d8CTVRFGLOQI6Hm5aCjtLD6THaa/Djz4ORmjbvKsdx1t1awDdY1Axc+Gdj
-	NM0HGKasZcqHAaS7/8mSpKkuxP4IFUj8AZdvIC5iRCkqewVhR5qBB46LxiUAU6R4wTg0j6g1JgL
-	vkhPw77Tx3PEck7dy0DhJftYzDTU5vcI3GD0GjIAXSjw9nBWwdvnwzMqS97ir7y/b/osG7ysYyG
-	3v21MWFzUtlpwn2fxzdw5HXfTQY8j64AInonvwkuhtF/3+SIo8o9fBLrlahCUx7Gyw8B+8GU5zI
-	xNxX/EfOUXRV/Z1JUZCHR56yIU6nIpmU9h9Ui5NULta99LhUlnWRBJo0QPkqGl3LLgI05mptEG9
-	gmObbM2QK7djGZx799US7LGX3AGe8oT4Em0xi47zl6v3S3IFzmJOApIiv5RM6DlUA0eOE5RU45H
-	ltFD39NhsQnaJz3FgPtyqNEqbE5FFak3tP0gQcLhRa7hTwu2CV9pYOX509Nc8gT1YmjOCyuyok3
-	wOLORalcJt3pdIpaQBskxH7IOOTGfsQc7553LCV6d2URVE=
-X-Received: by 2002:a05:600c:5491:b0:499:a4d1:d7d9 with SMTP id 5b1f17b1804b1-499dc717e32mr74023185e9.9.1787762247721;
-        Wed, 26 Aug 2026 09:37:27 -0700 (PDT)
-Received: from axion.fireburn.co.uk ([2a01:4b00:d309:1c00:caf1:6b20:8531:818c])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e279eb11sm3350111f8f.8.2026.08.26.09.37.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 09:37:26 -0700 (PDT)
-From: Mike Lothian <mike@fireburn.co.uk>
-To: linux-kernel@vger.kernel.org
-Cc: Mike Lothian <mike@fireburn.co.uk>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Russ Weight <russ.weight@linux.dev>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	driver-core@lists.linux.dev,
-	rust-for-linux@vger.kernel.org
-Subject: [PATCH 1/1] rust: firmware: add the firmware upload abstraction
-Date: Wed, 26 Aug 2026 17:37:15 +0100
-Message-ID: <20260826163716.6274-2-mike@fireburn.co.uk>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260826163716.6274-1-mike@fireburn.co.uk>
-References: <20260826163716.6274-1-mike@fireburn.co.uk>
+	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="fMZ9KW/g"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 26C3B1DF2C6;
+	Wed, 26 Aug 2026 18:37:55 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1787762283; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=M+7SgzsZ1Y/K6TQ/aEsfofbJUDWnBL25FhcOxsOV1E8=;
+	b=fMZ9KW/gnShK5/dxniHckjV8LE+yT7flsBZYhJEr4A3advuFY/ISy6puIFFIxicqzwg9hO
+	Mq3IP2Fq5FmqRlUG7fLM2o14sNVHoiznwqg/LgfbnjEIEixvNtgLllNQIHTtPFLIoMQFPv
+	VqFQRKb+eKJcdtrJ1tTPMqeKKvs2yT6kaYBSM/HZBgmjnyjy7awj0D1LWdS9vX+t8eu1Hn
+	cvU70qZ9/8obpYNFgVcHhc0vuPX7aAfKaMpkxZbdfB0Rv4jNq8EGPCxs4NH9GrzH0G+nzZ
+	1AfrTubP4RYdGM5OEtap0NA6546cYQBFv0M9L5bEuFzwsABmpcai9sKzmq1nDw==
+Message-ID: <cd7e6b13-a712-43ce-aae6-f45da2f77ba9@cjdns.fr>
+Date: Wed, 26 Aug 2026 18:37:53 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH net-next 3/3] net: phy: mediatek: support EcoNet EN751221
+ gbit SoC PHY
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: ansuelsmth@gmail.com, netdev@vger.kernel.org, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, daniel@makrotopia.org, dqfext@gmail.com,
+ SkyLake.Huang@mediatek.com, matthias.bgg@gmail.com,
+ angelogioacchino.delregno@collabora.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+References: <20260825193456.1823985-1-cjd@cjdns.fr>
+ <20260825193456.1823985-4-cjd@cjdns.fr>
+ <d7d86078-8a29-4e7f-a62e-91f6b266bea1@lunn.ch>
+ <a75b6b15-f86b-4cb2-934c-87583b5bb02c@cjdns.fr>
+ <4d594c62-2ceb-43c1-a3d2-731b80493787@lunn.ch>
+Content-Language: en-US
+From: Caleb James DeLisle <cjd@cjdns.fr>
+In-Reply-To: <4d594c62-2ceb-43c1-a3d2-731b80493787@lunn.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-request_firmware() covers "pull an image from /lib/firmware"; the other
-half of the firmware loader, firmware_upload_register(), covers "userspace
-hands the driver an image to write". It publishes
-/sys/class/firmware/<name>/ with the loading/data handshake plus status,
-error, remaining_size and cancel, and is what a driver uses when an image
-has to be written on demand rather than only when a newer one appears.
 
-Add an Upload trait mirroring struct fw_upload_ops, a Registration that
-unregisters on drop, and an Error enum whose values are the fw_upload_err
-codes userspace already reads back out of the error attribute.
+On 26/08/2026 04:21, Andrew Lunn wrote:
+>>> Does this need a change to the binding document?
+>>
+>> Not as far as I know. econet,en751221-chip-scu is defined in mfd/syscon.yaml
+>> because it's a catch-all for configuration that the engineers didn't know
+>> what to do with.
+> Do you need a property in the PHY node to make this work?
 
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
----
- rust/kernel/firmware.rs | 237 ++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 237 insertions(+)
 
-diff --git a/rust/kernel/firmware.rs b/rust/kernel/firmware.rs
-index 6a6b392ffc4e..a6fa565421d7 100644
---- a/rust/kernel/firmware.rs
-+++ b/rust/kernel/firmware.rs
-@@ -385,3 +385,240 @@ pub const fn build_length(self) -> usize {
-         self.n + 1
-     }
- }
-+
-+/// Firmware upload: let userspace hand a driver an image to write to its device.
-+///
-+/// Registering creates `/sys/class/firmware/<name>/` with the `loading`/`data` handshake plus
-+/// `status`, `error`, `remaining_size` and `cancel`, which is the counterpart to [`Firmware`]:
-+/// the same image works either way, but this one is pushed by userspace rather than pulled from
-+/// `/lib/firmware`. Drivers use it when an image has to be written on demand -- a re-flash, or a
-+/// deliberate downgrade -- rather than only when a newer version appears.
-+pub mod upload {
-+    use super::*;
-+    use crate::types::ForeignOwnable;
-+
-+    /// Why an upload step failed. `None` means success.
-+    ///
-+    /// The values are the `enum fw_upload_err` the core reports back through `sysfs`, so a driver
-+    /// says what went wrong in the vocabulary userspace already reads out of `error`.
-+    #[derive(Clone, Copy, PartialEq, Eq)]
-+    #[repr(u32)]
-+    pub enum Error {
-+        /// The device reported a failure; see the kernel log.
-+        Hardware = bindings::fw_upload_err_FW_UPLOAD_ERR_HW_ERROR,
-+        /// A handshake with the device timed out.
-+        Timeout = bindings::fw_upload_err_FW_UPLOAD_ERR_TIMEOUT,
-+        /// Userspace wrote `cancel`.
-+        Canceled = bindings::fw_upload_err_FW_UPLOAD_ERR_CANCELED,
-+        /// Another upload is already running.
-+        Busy = bindings::fw_upload_err_FW_UPLOAD_ERR_BUSY,
-+        /// The image is not a size this device can take.
-+        InvalidSize = bindings::fw_upload_err_FW_UPLOAD_ERR_INVALID_SIZE,
-+        /// A read or write to the device failed; see the kernel log.
-+        ReadWrite = bindings::fw_upload_err_FW_UPLOAD_ERR_RW_ERROR,
-+        /// The flash is wearing out; wait and retry.
-+        WearOut = bindings::fw_upload_err_FW_UPLOAD_ERR_WEAROUT,
-+        /// The image is not one this device accepts.
-+        InvalidFirmware = bindings::fw_upload_err_FW_UPLOAD_ERR_FW_INVALID,
-+    }
-+
-+    /// A driver's side of an upload.
-+    ///
-+    /// `prepare` runs once with the whole image, which is where a driver rejects one that is not
-+    /// for this device; `write` is then called repeatedly until every byte is written.
-+    pub trait Upload: Sized {
-+        /// Shared driver state, handed back to every callback.
-+        type Data: ForeignOwnable + Send + Sync;
-+
-+        /// Validate the image and get the device ready. Runs before any write.
-+        fn prepare(
-+            data: <Self::Data as ForeignOwnable>::Borrowed<'_>,
-+            image: &[u8],
-+        ) -> Result<(), Error>;
-+
-+        /// Write `chunk`, which starts at `offset` in the image, returning how much was written.
-+        ///
-+        /// Called repeatedly until the image is consumed, so a driver may write less than it was
-+        /// offered and be called again with the remainder.
-+        fn write(
-+            data: <Self::Data as ForeignOwnable>::Borrowed<'_>,
-+            image: &[u8],
-+            offset: u32,
-+            chunk: &[u8],
-+        ) -> Result<u32, Error>;
-+
-+        /// Report whether the device has finished programming what it was sent.
-+        fn poll_complete(data: <Self::Data as ForeignOwnable>::Borrowed<'_>) -> Result<(), Error>;
-+
-+        /// Asked to stop, from another thread: set a flag the other callbacks observe.
-+        fn cancel(data: <Self::Data as ForeignOwnable>::Borrowed<'_>);
-+
-+        /// Undo whatever `prepare` set up. Runs on success and on failure alike.
-+        fn cleanup(_data: <Self::Data as ForeignOwnable>::Borrowed<'_>) {}
-+    }
-+
-+    /// The C vtable for `U`, built once at compile time.
-+    struct Vtable<U: Upload>(core::marker::PhantomData<U>);
-+
-+    impl<U: Upload> Vtable<U> {
-+        /// Turn a driver result into the `enum fw_upload_err` the core expects.
-+        fn err(r: Result<(), Error>) -> bindings::fw_upload_err {
-+            match r {
-+                Ok(()) => bindings::fw_upload_err_FW_UPLOAD_ERR_NONE,
-+                Err(e) => e as bindings::fw_upload_err,
-+            }
-+        }
-+
-+        /// # Safety
-+        ///
-+        /// Called by the firmware core with a valid `fw_upload` whose `dd_handle` is the pointer
-+        /// [`Registration::new`] passed it, and `data` valid for `size` bytes.
-+        unsafe extern "C" fn prepare(
-+            fw: *mut bindings::fw_upload,
-+            data: *const u8,
-+            size: u32,
-+        ) -> bindings::fw_upload_err {
-+            // SAFETY: the core owns `fw` for the duration of the call.
-+            let handle = unsafe { (*fw).dd_handle };
-+            // SAFETY: `handle` came from `into_foreign()` in `Registration::new` and outlives the
-+            // registration; `data`/`size` describe the image the core is holding.
-+            let (d, image) = unsafe {
-+                (
-+                    <U::Data as ForeignOwnable>::borrow(handle.cast()),
-+                    core::slice::from_raw_parts(data, size as usize),
-+                )
-+            };
-+            Self::err(U::prepare(d, image))
-+        }
-+
-+        /// # Safety
-+        ///
-+        /// As [`Self::prepare`]; `written` is a valid out-parameter.
-+        unsafe extern "C" fn write(
-+            fw: *mut bindings::fw_upload,
-+            data: *const u8,
-+            offset: u32,
-+            size: u32,
-+            written: *mut u32,
-+        ) -> bindings::fw_upload_err {
-+            // SAFETY: as above.
-+            let handle = unsafe { (*fw).dd_handle };
-+            // SAFETY: as above; `data + offset` is within the image the core holds.
-+            let (d, image, chunk) = unsafe {
-+                (
-+                    <U::Data as ForeignOwnable>::borrow(handle.cast()),
-+                    core::slice::from_raw_parts(data, (offset + size) as usize),
-+                    core::slice::from_raw_parts(data.add(offset as usize), size as usize),
-+                )
-+            };
-+            match U::write(d, image, offset, chunk) {
-+                Ok(n) => {
-+                    // SAFETY: the core passes a valid pointer for the result.
-+                    unsafe { *written = n };
-+                    bindings::fw_upload_err_FW_UPLOAD_ERR_NONE
-+                }
-+                Err(e) => e as bindings::fw_upload_err,
-+            }
-+        }
-+
-+        /// # Safety
-+        ///
-+        /// As [`Self::prepare`].
-+        unsafe extern "C" fn poll_complete(
-+            fw: *mut bindings::fw_upload,
-+        ) -> bindings::fw_upload_err {
-+            // SAFETY: as above.
-+            let handle = unsafe { (*fw).dd_handle };
-+            // SAFETY: as above.
-+            let d = unsafe { <U::Data as ForeignOwnable>::borrow(handle.cast()) };
-+            Self::err(U::poll_complete(d))
-+        }
-+
-+        /// # Safety
-+        ///
-+        /// As [`Self::prepare`]. Runs on a different thread from the rest.
-+        unsafe extern "C" fn cancel(fw: *mut bindings::fw_upload) {
-+            // SAFETY: as above.
-+            let handle = unsafe { (*fw).dd_handle };
-+            // SAFETY: as above.
-+            let d = unsafe { <U::Data as ForeignOwnable>::borrow(handle.cast()) };
-+            U::cancel(d)
-+        }
-+
-+        /// # Safety
-+        ///
-+        /// As [`Self::prepare`].
-+        unsafe extern "C" fn cleanup(fw: *mut bindings::fw_upload) {
-+            // SAFETY: as above.
-+            let handle = unsafe { (*fw).dd_handle };
-+            // SAFETY: as above.
-+            let d = unsafe { <U::Data as ForeignOwnable>::borrow(handle.cast()) };
-+            U::cleanup(d)
-+        }
-+
-+        const VTABLE: bindings::fw_upload_ops = bindings::fw_upload_ops {
-+            prepare: Some(Self::prepare),
-+            write: Some(Self::write),
-+            poll_complete: Some(Self::poll_complete),
-+            cancel: Some(Self::cancel),
-+            cleanup: Some(Self::cleanup),
-+        };
-+    }
-+
-+    /// A live `/sys/class/firmware/<name>/` upload interface, unregistered when dropped.
-+    pub struct Registration<U: Upload> {
-+        fw: *mut bindings::fw_upload,
-+        data: *mut core::ffi::c_void,
-+        _p: core::marker::PhantomData<U>,
-+    }
-+
-+    // SAFETY: the C side is internally locked, and `U::Data` is `Send + Sync`.
-+    unsafe impl<U: Upload> Send for Registration<U> {}
-+    // SAFETY: as above.
-+    unsafe impl<U: Upload> Sync for Registration<U> {}
-+
-+    impl<U: Upload> Registration<U> {
-+        /// Publish an upload interface named `name` under `parent`.
-+        pub fn new(
-+            module: &'static crate::ThisModule,
-+            parent: &Device,
-+            name: &CStr,
-+            data: U::Data,
-+        ) -> Result<Self> {
-+            let handle = data.into_foreign();
-+            // SAFETY: `parent` and `name` are valid for the call; the vtable is 'static; `handle`
-+            // is kept alive by this registration and released in `drop`.
-+            let fw = unsafe {
-+                bindings::firmware_upload_register(
-+                    module.as_ptr(),
-+                    parent.as_raw(),
-+                    name.as_char_ptr(),
-+                    &Vtable::<U>::VTABLE,
-+                    handle.cast(),
-+                )
-+            };
-+            let fw = match crate::error::from_err_ptr(fw) {
-+                Ok(fw) => fw,
-+                Err(e) => {
-+                    // SAFETY: registration failed, so nothing else observes `handle`.
-+                    drop(unsafe { <U::Data as ForeignOwnable>::from_foreign(handle) });
-+                    return Err(e);
-+                }
-+            };
-+            Ok(Self {
-+                fw,
-+                data: handle.cast(),
-+                _p: core::marker::PhantomData,
-+            })
-+        }
-+    }
-+
-+    impl<U: Upload> Drop for Registration<U> {
-+        fn drop(&mut self) {
-+            // SAFETY: `self.fw` came from `firmware_upload_register` and is unregistered once.
-+            unsafe { bindings::firmware_upload_unregister(self.fw) };
-+            // SAFETY: the core no longer holds `dd_handle` after unregistering.
-+            drop(unsafe { <U::Data as ForeignOwnable>::from_foreign(self.data.cast()) });
-+        }
-+    }
-+}
+No it's not requiring anything in the PHY node, instead it fishes for 
+econet,en751221-chip-scu in the DT. I'm not much a fan of this pattern 
+because of the magic, but this way of accessing is fairly common and in 
+this case it is how Airoha likes to access the chip-scu thingy when they 
+need it. 
+https://lore.kernel.org/all/20241112-clk-en7581-syscon-v2-4-8ada5e394ae4@kernel.org/
+
+
+>
+>>>> +static int en751221_gphy_config_init(struct phy_device *phydev)
+>>>> +{
+>>>> +	phy_write_mmd(phydev, MDIO_MMD_AN, MDIO_AN_EEE_ADV, 0);
+>>> Why is the EEE register being cleared?
+>>
+>>  From reading the reference implementation, I get the impression that this
+>> hardware is something of a basket case. There was a certain amount of "write
+>> three times and then read back" type magic that I just omitted because it
+>> really looks like they were actively debugging and as soon as it started
+>> working they shipped the code exactly as it was.
+>>
+>>
+>> In the case of disabling EEE, I thought it more prudent to follow them
+>> because I don't have every SoC that this PHY ever appeared on and I would
+>> rather not diverge too greatly and risk it being unreliable on some devices.
+> Is EEE broken? If it is, this is not the correct way to disable
+> it. You should call phy_disable_eee(phydev); This will also prevent
+> user space enabling it again.
+
+
+I tested my board removing the EEE disable and the MASTER line, and it 
+seems to work. I can't get any CRC errors flooding the link, and 
+MII_STAT1000 reads LPA_1000LOCALRXOK | LPA_1000REMRXOK | LPA_1000FULL 
+which suggests to me that it's able to operate happily in slave mode.
+
+
+So unless you or someone else thinks it's inadvisable, I'm inclined to 
+just enable these things and then wait to see if anybody finds a board 
+that has problems.
+
+
+Thanks,
+
+Caleb
+
+
+>
+>>>> +	phy_select_page(phydev, MTK_PHY_PAGE_EXTENDED_52B5);
+>>>> +	__mtk_tr_write(phydev, 0x1, 0xf, 0x00, 0x00002b);
+>>>> +	__mtk_tr_write(phydev, 0x1, 0xf, 0x03, 0x082422);
+>>>> +	phy_restore_page(phydev, MTK_PHY_PAGE_STANDARD, 0);
+>>>> +
+>>>> +	ret = phy_write(phydev, MII_CTRL1000,
+>>>> +			ADVERTISE_1000FULL | CTL1000_PREFER_MASTER |
+>>>> +			CTL1000_AS_MASTER | CTL1000_ENABLE_MASTER);
+>>> What does this default to?
+>> It starts with only ADVERTISE_1000FULL. I don't know why the engineers
+>> wanted to set it to master, but its definitely intentional.
+> Generally, switches take the master role, and client take the slave
+> role. So this does make sense for a PHY used in a switch.
+>
+> 	Andrew
+>
