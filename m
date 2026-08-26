@@ -1,157 +1,142 @@
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sg-2-1.ptr.blmpb.com (sg-2-1.ptr.blmpb.com [71.18.227.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B3B246EF77
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:19:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787779200; cv=pass; b=cKrs4z/zGzzZyHxFGW9/hmZRkEYQQZKO7HcCp4L3dyVPGVKffFvP8EtXKm780mMXZBAxwCaksMBF5vtfdP0hrVnI6o9aGKxjDLYFt6n5LRE0tncxn8DRyQWwmRXHROg07xHUfuygNua0DmZRVqvKvIeHDRXea0uEGOFevchhpcI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787779200; c=relaxed/simple;
-	bh=1NC6JbP9YeSjejJ7XZFftPMwKC3c1jXoMn6zNAHeTm0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=u5C0mdXyEqEGOGoO8DDQgw4JRyvFwR95szHH0Tv5t7V7UjFoac0+WeDlArAVS3j5aYz7iK+lx2eLa5ZxDN2R0JXd414VCrU54MpkspYkweq4nTFzPpru/0wTojiNYe7T4BP+8E+/ocnR4nBfSazyDIM/8VzM6lYUn5zauXmvmfI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=ZSm+2DS+; arc=pass smtp.client-ip=136.143.188.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D75C0483BC5
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:20:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.1
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787779205; cv=none; b=f/cf7HY1ZgfoiEg+dzPWBdEa6632DkHOy+Qp7xSSw1VieSsVfKxJ/7tQMoY32DRq4s31ndjcXW8zMsSwxl3nQnoJPoRCRxw9+yqSLIeB4psPMgdv6bIvk1Hs/2x7i0LTjB5iUd+lgBypPoMS0lOL+85tcniA79SRJLwDJCBdlE0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787779205; c=relaxed/simple;
+	bh=PlY/IwlxoPLKIeXOhG+KaL1+BexmzdmpRVPxFH8QRtM=;
+	h=From:Subject:Mime-Version:Content-Type:To:Cc:Date:Message-Id; b=FNwpGYvguhHotUs9NpHMsuIZTg6rgNbsURQ+o3DJ/ULVtEg8iXzOS/sjZm5a/BTmLmz7LqMh1IbCvqRKfDLS/iNP3BDUCMTHmfFTivb1PRwRvEKCAcAGd38jQc76f8KU2Wc5esSsPLVfF+lJgpgn3CrpmMk2ZRV8ll8tbgCs0pE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=sCLIQJ6f; arc=none smtp.client-ip=71.18.227.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="ZSm+2DS+"
-ARC-Seal: i=1; a=rsa-sha256; t=1787779162; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Ft0CFpNXm0AEVlEx7ttyqqIOBJuo3ENpATHlB5Nwc4aWUnowyHpp09T23c6ZNNjJQ10nfjPMhVS49yX/BYMXQArBaieJgocZK841LWEu/Newmy82uE82/Ikg4lZdldEKxIMGW2cx1miVCzNtf38yE6gzI0c2ngsmzHEueJO7I3c=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1787779162; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=3zLgjT3JfLXHkpzJh4PbWNTcLr4FUqsFF57+vQ+BFbA=; 
-	b=EvXF8zht69wXNekn4uJIELhYDMWC8Axxp2s21cqiGpYIxeLq3pTDiPV+b600mJDiDgEVHO0wLZL2FZrnk5UFV293QK/jpnQi0oBMHxe/09CBHjiyppSSCuD+Nq/Gdc7nZwFqN1gEJeigFFk8AnUhbdTJb/8fTCNui02TIEQ6JEk=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
-	dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787779162;
-	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
-	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=3zLgjT3JfLXHkpzJh4PbWNTcLr4FUqsFF57+vQ+BFbA=;
-	b=ZSm+2DS+S1RKBZQObx+ub7Mc5ckMEukc956nrVw1aKYPu1Ke+hngTOS9YJNp1xyu
-	dTyzWrb0oc737OuUAdip0/LE9gN+0MNSPhV+Ced/zPvisWWAHf1vXj8aSPm0SvCXSEy
-	Rzq0NPApdWZW2NXDUIOqR8pBWsUui/hKCMGOj8kk=
-Received: by mx.zohomail.com with SMTPS id 1787779161566577.4919440356412;
-	Wed, 26 Aug 2026 14:19:21 -0700 (PDT)
-From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Date: Wed, 26 Aug 2026 22:18:13 +0100
-Subject: [PATCH v6 11/16] drm/panfrost: Move perfcnt GPU disable sequence
- into a helper
+	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="sCLIQJ6f"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604220257; d=cherr.cc; t=1787779196; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=r7BKRwXvzFtHb2KAPCA0wNa9kxnwbggrfjVXuEj0jRY=;
+ b=sCLIQJ6fbmDBicsC7ZpTdqVtJkE6lxys2I7TuV/qMJet2sWWnSaVK24TAooNpTzUQ1a6re
+ s4Q8UexI9yT/YOTb9APtRbSZ5nS8MRH7ExwKMG6itoq7vNueoGdzaVI/9lUtoB1tINSYpQ
+ 0+0D07C2lUt64eXpMWkM29AjZ3iCiBO7ZPLsTrwWhY41zHwqzm27R6q+wlEaXpxWKpPG0O
+ 7SrMQmpOTn0ycduosRucS3+TZ8P3HErgE94V0OJEN+6ccRHVu1VO9f6oxj6FJlS2oUvbTk
+ ntxCE9Kjak1XE065ylP8F9P3fwVY3lu+kUQmAjcrq85jIcCb7DJwQiiw669X5g==
+From: "Shengzhuo Wei" <me@cherr.cc>
+X-B4-Tracking: v=1; b=H4sIAHJYj2oC/yXMQQ6CMBBA0auQWTtJaZGiVyEsSpnqGENNR4GEc HeKLN/i/xWEEpPAvVgh0cTCccwoLwX4pxsfhDxkg1a6Vo226KRUGsOMcaIU3nHGytvrcLNGNcZ B7j6JAi//Z9udll//Iv89RrBtO4Wz5V91AAAA
+Subject: [PATCH] media: as102: bound firmware hex-line parsing by buffer and data sizes
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260826-claude-fixes-v6-11-78119af409e7@collabora.com>
-References: <20260826-claude-fixes-v6-0-78119af409e7@collabora.com>
-In-Reply-To: <20260826-claude-fixes-v6-0-78119af409e7@collabora.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>, 
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Faith Ekstrand <faith.ekstrand@collabora.com>, 
- "Marty E. Plummer" <hanetzer@startmail.com>, 
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
- Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Collabora Kernel Team <kernel@collabora.com>, 
- =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2775;
- i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=1NC6JbP9YeSjejJ7XZFftPMwKC3c1jXoMn6zNAHeTm0=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqj1gM7M5bnObycS35/fZqM2OZT+mSTvtK9IK2o
- LmYCMwY4WOJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCao9YDAAKCRAOJn5M7lND
- PfgCC/9XbaiaGpYK+7fcJxGuKnhNnsc8UBBf9YED4m76oIxsea0hbBT+RCMEvDwQOlRlNN3lAuQ
- 6wXHzhFHiWg2GLBNKXhmCLZdx2sLRPIprNkNnCcr45zNTrvfohI1HQDuJcyi1MeLlat+SWMXZHa
- MCziRtGg0ce53UjgeVwOodiauQAKLyRu6Xvi/WcfHTMDFRULVWENHt+AvjRulalA2Bb+OMVTFWV
- BNxM8ZyuX+mtqcxy2S1JsMRlhPOYasT+YuVOUVvih7IScHSTWFl4i/Ga71Vzk5zGDQwf1NmSeme
- B3ATgfQIkKacjzvnU9AisZD/G+9SMAzAJDO4au2SXRNt3HTBiSfraN3L8/h6H9G+0JFGx2R9m4O
- k1WZQ4ozkwnYJkc8D+xOP7Q5MiDGz+2WU9sr84ddftdc961IUMqP7pj27m4Ew34hyeh7Uhq8iLu
- i+Rslv7N6T1wYqp02oYwNyonDgzRgzq78tXLrMfgkb8PgFnWABQl4QiPW79192o8CvMuA=
-X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
- fpr=324030E8C005175DF93707A40E267E4CEE53433D
+Mime-Version: 1.0
+X-Lms-Return-Path: <lba+26a8f587b+d913b0+vger.kernel.org+me@cherr.cc>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Received: from [192.168.9.107] ([111.42.148.52]) by smtp.feishu.cn with ESMTPS; Thu, 27 Aug 2026 05:19:54 +0800
+X-Mailer: b4 0.16.0
+X-Original-From: Shengzhuo Wei <me@cherr.cc>
+X-Change-Id: 20260827-as102-fw-overflow-4c75d973083a
+To: "Mauro Carvalho Chehab" <mchehab@kernel.org>, 
+	"Sylwester Nawrocki" <snjw23@gmail.com>, 
+	"Piotr Chmura" <chmooreck@poczta.onet.pl>, 
+	"Pierrick Hascoet" <pierrick.hascoet@abilis.com>, 
+	"Devin Heitmueller" <dheitmueller@kernellabs.com>
+Cc: "Kees Cook" <kees@kernel.org>, <linux-media@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
+	"Shengzhuo Wei" <me@cherr.cc>
+Date: Thu, 27 Aug 2026 05:19:47 +0800
+Message-Id: <20260827-as102-fw-overflow-v1-1-ff28890fec02@cherr.cc>
 
-Just for the sake of avoiding repetition.
+parse_hex_line() walks the Intel HEX firmware image two characters at a
+time until the next '\n', writing every decoded byte past the sixth pair
+into fw_pkt->raw.data[], a 58-byte array inside a 64-byte heap object.
+Nothing bounds the line length: a firmware file with a hex line longer
+than 64 data bytes writes past the end of the kmalloc-64 object, byte by
+byte, with fully controlled contents. A file without a trailing newline
+additionally makes the walk run past the end of the firmware buffer
+itself. A malformed or replaced firmware file can thus corrupt adjacent
+heap memory during device probe.
 
-Reviewed-by: Steven Price <steven.price@arm.com>
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+Bound the walk by the remaining firmware size and reject lines whose
+payload does not fit in data[]. Verified with a KASAN reproducer of the
+loop: the overflow disappears and the oversized line is rejected with
+-EFAULT.
+
+Fixes: 41b44e041811 ("[media] staging: as102: Initial import from Abilis")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shengzhuo Wei <me@cherr.cc>
+Assisted-by: GLM:5.3
 ---
- drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 31 ++++++++++++-----------------
- 1 file changed, 13 insertions(+), 18 deletions(-)
+parse_hex_line() has no bound on the hex-line length it walks in the
+firmware image: every decoded byte pair past the sixth is written into
+fw_pkt->raw.data[], a 58-byte array in a 64-byte heap object. An
+oversized line (or a firmware file with no trailing newline) writes
+past the object / reads past the firmware buffer during probe.
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-index 7020c0192e18..f71534e741b6 100644
---- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-@@ -35,6 +35,16 @@ struct panfrost_perfcnt {
- 	struct completion dump_comp;
- };
- 
-+static void panfrost_perfcnt_hw_disable(struct panfrost_device *pfdev)
+Verified with a KASAN reproducer of the loop (write of size 1,
+slab-out-of-bounds on kmalloc-64); silenced by the fix.
+---
+ drivers/media/usb/as102/as102_fw.c | 19 ++++++++++++++-----
+ 1 file changed, 14 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/media/usb/as102/as102_fw.c b/drivers/media/usb/as102/as102_fw.c
+index d2d432789f55..0cba1ac7fb05 100644
+--- a/drivers/media/usb/as102/as102_fw.c
++++ b/drivers/media/usb/as102/as102_fw.c
+@@ -37,20 +37,28 @@ static unsigned char atohx(unsigned char *dst, char *src)
+ /*
+  * Parse INTEL HEX firmware file to extract address and data.
+  */
+-static int parse_hex_line(unsigned char *fw_data, unsigned char *addr,
+-			  unsigned char *data, int *dataLength,
+-			  unsigned char *addr_has_changed) {
++static int parse_hex_line(unsigned char *fw_data, size_t fw_size,
++			  unsigned char *addr, unsigned char *data,
++			  size_t data_size, int *dataLength,
++			  unsigned char *addr_has_changed)
 +{
-+	gpu_write(pfdev, GPU_PERFCNT_CFG,
-+		  GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_OFF));
-+	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0x0);
-+	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0x0);
-+	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0x0);
-+	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
-+}
-+
- void panfrost_perfcnt_clean_cache_done(struct panfrost_device *pfdev)
- {
- 	complete(&pfdev->perfcnt->dump_comp);
-@@ -193,12 +203,7 @@ static int panfrost_perfcnt_disable_locked(struct panfrost_device *pfdev,
- 	if (user != perfcnt->user)
- 		return -EINVAL;
  
--	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0x0);
--	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0x0);
--	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0x0);
--	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
--	gpu_write(pfdev, GPU_PERFCNT_CFG,
--		  GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_OFF));
-+	panfrost_perfcnt_hw_disable(pfdev);
+ 	int count = 0;
+ 	unsigned char *src, dst;
  
- 	perfcnt->user = NULL;
- 	drm_gem_vunmap(&perfcnt->mapping->obj->base.base, &map);
-@@ -327,12 +332,7 @@ int panfrost_perfcnt_init(struct panfrost_device *pfdev)
- 	perfcnt->bosize = size;
+-	if (*fw_data++ != ':') {
++	if (fw_size < 1 || *fw_data++ != ':') {
+ 		pr_err("invalid firmware file\n");
+ 		return -EFAULT;
+ 	}
++	fw_size--;
  
- 	/* Start with everything disabled. */
--	gpu_write(pfdev, GPU_PERFCNT_CFG,
--		  GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_OFF));
--	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0);
--	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0);
--	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0);
--	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
-+	panfrost_perfcnt_hw_disable(pfdev);
+ 	/* locate end of line */
+ 	for (src = fw_data; *src != '\n'; src += 2) {
++		if (src + 1 >= fw_data + fw_size ||
++		    count >= 4 + (int)data_size) {
++			pr_err("invalid firmware file\n");
++			return -EFAULT;
++		}
+ 		atohx(&dst, src);
+ 		/* parse line to split addr / data */
+ 		switch (count) {
+@@ -107,8 +115,9 @@ static int as102_firmware_upload(struct as10x_bus_adapter_t *bus_adap,
+ 		/* parse intel hex line */
+ 		read_bytes = parse_hex_line(
+ 				(u8 *) (firmware->data + total_read_bytes),
++				firmware->size - total_read_bytes,
+ 				fw_pkt->raw.address,
+-				fw_pkt->raw.data,
++				fw_pkt->raw.data, sizeof(fw_pkt->raw.data),
+ 				&data_len,
+ 				&addr_has_changed);
  
- 	init_completion(&perfcnt->dump_comp);
- 	mutex_init(&perfcnt->lock);
-@@ -344,10 +344,5 @@ int panfrost_perfcnt_init(struct panfrost_device *pfdev)
- void panfrost_perfcnt_fini(struct panfrost_device *pfdev)
- {
- 	/* Disable everything before leaving. */
--	gpu_write(pfdev, GPU_PERFCNT_CFG,
--		  GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_OFF));
--	gpu_write(pfdev, GPU_PRFCNT_JM_EN, 0);
--	gpu_write(pfdev, GPU_PRFCNT_SHADER_EN, 0);
--	gpu_write(pfdev, GPU_PRFCNT_MMU_L2_EN, 0);
--	gpu_write(pfdev, GPU_PRFCNT_TILER_EN, 0);
-+	panfrost_perfcnt_hw_disable(pfdev);
- }
 
--- 
-2.55.0
+---
+base-commit: 45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229
+change-id: 20260827-as102-fw-overflow-4c75d973083a
 
+Best regards,
+--  
+Shengzhuo Wei <me@cherr.cc>
