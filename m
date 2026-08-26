@@ -1,135 +1,101 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E2523C1D4B;
-	Wed, 26 Aug 2026 13:37:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BB9640A958
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:38:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787751462; cv=none; b=CqVwQcwr01P3A3Odnwi7Ore8zxjslwA58zU1Lxop85FJe0Y3eyQ+LFvAeMqBkpyWyfzT3mdhyDzoilefFXJtio+3plNRdLCXtk1liO+Dm+Ut9o5bVonTTw9Yv8+j0zwfrzCO85DnfjL3Q1RxcxKSCloSJfRcyOO1ARqYgp2tvQY=
+	t=1787751501; cv=none; b=j3hzsmdlHqmZOknzkFeRKPJH4Do1C9O4kifqWGTO4KjTEMhQe+R0JmmBALm+CVIdwzt3LFCLMIjIK1cBQ8vwYO8PSHPTR10YuA+dk3FmWfiWcIDs1ncrv9udakzRTpY2wMsJZgGebbB1BbDDoyeUqqHxGJ1IzLVIvllLPoRTyiI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787751462; c=relaxed/simple;
-	bh=edcuadEQQZoJqhB/CJLlSfSPaw6Yh4H+GVgSCAzV/g0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=AbxBIE73i6oDFSoDRrZ1bgzhzTMhd8NdKoo+GuuCPyVzRRK80whHq0Hfk3x9zENFpTl5RGCScn1p92N4Bne/lU1EQx4mAA1n4DPjzB1uf2TH9z24cd8Xjef0oOJLd+tTUGJD7CNsYdge4o0F4oq6c6AqBTWaNgpDgcSPTLyxH9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 4a82742ca15311f19a56ed5b684f684d-20260826
-X-CID-CACHE: Type:Local,Time:202608262137+08,HitQuantity:1
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:74ffe434-2bee-4b98-a7a3-e6aeac6117ed,IP:0,U
-	RL:25,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:50
-X-CID-META: VersionHash:7db8b62,CLOUDID:ed915de6e1983984ef9bbabfbe3989ca,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50,EDM:5,IP:ni
-	l,URL:11|85|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV
-	:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULN
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 4a82742ca15311f19a56ed5b684f684d-20260826
-X-User: lihaofeng@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <lihaofeng@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 409515827; Wed, 26 Aug 2026 21:37:32 +0800
-From: Haofeng Li <lihaofeng@kylinos.cn>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Haofeng Li <13266079573@163.com>
-Subject: [PATCH] usb: gadget: uac1/uac2: reject more than UAC_MAX_RATES sample rates
-Date: Wed, 26 Aug 2026 21:37:30 +0800
-Message-Id: <20260826133730.3798793-1-lihaofeng@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1787751501; c=relaxed/simple;
+	bh=WiFLA9yIsaSjQGO65uy6XMFgjvqF6C0O48KGPGR5IAg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=O9Xj5LpFFOSPzU8dWun3AtOLzcpMgLAy4af+eScNKu1+bYajTpcxQPgCLLD3JF/i5OF16EknE7McqbizPOP6NamYkk9i2BX96eQ91GeOxuVJOTK2V8HoXCH9fTqeouTt4Qbp2eddQLtUJoSHt+WirQ1iQIUMII0tBzNilHG+ILo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FRj+pyzO; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FRj+pyzO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEC4F1F000E9
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:38:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787751499;
+	bh=HfM5lr2mL1q2WkP1E6zRu0ypWHQyXIJSTRAPogksnNA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=FRj+pyzOdWz50U+YouP9GmUDlZvJJz+FgLpyjThjuQWjtQBb7Sra2hdnih6Cc3az6
+	 gi5ZwjBQBk8l7LX8Wb4L69ZOHlJ35q2spINLOYQkiFC+9FsQeUGffEcw/EiF+c50hu
+	 reaft2BNafxxgm/UETpsOXvueWvq3xteVDEW83UVuFZURD0OOdjftZcoZqe/ffUmwe
+	 2EtzYmbzZ7AjNYvmJjxvwSLakpHE/qogggnxdcGVD4bxkKORtjHXKIrPASZsZ6E6Wd
+	 wh8ybkWwerxijQhgRzDkynw26ZLTLCbXtF5B8YoytUtjoO8I2mnIWuNrVk3P7NRtVm
+	 b3n9hw0Hwv5Ww==
+Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5b4ae3e201cso342668e87.2
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 06:38:19 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqLxouWg9xkmGdj0RHkPQ874bvo2iNXSEz10LThzftPp5XqzlHPGdVHRj3XkMnI5sQD1eoFlqmRtNv+qIU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mI+K2uSOSv85bN8/KUvvCAYGc5GjLRr0tk2zADFTSk4T5N1oge
+	1doU4s5OVwOfmITCOxDo+tc8lD3oVPcY/3nFbAO+Nw6KpwXxUFItGP4gkOADkhK8VeiYZYDBPcJ
+	PVAIOgcFX+mT9oE5n27yR+CavVBD7Sttt/upll8SY8g==
+X-Received: by 2002:a19:5507:0:b0:5ae:bbd3:27e3 with SMTP id
+ 2adb3069b0e04-5b4a900a129mr1469735e87.5.1787751498522; Wed, 26 Aug 2026
+ 06:38:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260819152356.904023-1-shengchao.guo@oss.qualcomm.com>
+ <000076bd-b3fd-42dc-bd43-96ee9492a638@oss.qualcomm.com> <aoZVKWTtdCQSSvaH@QCOM-aGQu4IUr3Y>
+ <06acd175-0078-43ce-ae58-567005f62562@oss.qualcomm.com>
+In-Reply-To: <06acd175-0078-43ce-ae58-567005f62562@oss.qualcomm.com>
+From: Bartosz Golaszewski <brgl@kernel.org>
+Date: Wed, 26 Aug 2026 15:38:05 +0200
+X-Gmail-Original-Message-ID: <CAMRc=Meb72v3wJ+BB8ujjD-bxaCLuqWC+JFgmrz09BY5LZSuXg@mail.gmail.com>
+X-Gm-Features: AcwNN1UiDy7IM184TnRcFe0sRHIgizvqFCHfyw15xidHEhJx8LfFXXFO4tCjMnU
+Message-ID: <CAMRc=Meb72v3wJ+BB8ujjD-bxaCLuqWC+JFgmrz09BY5LZSuXg@mail.gmail.com>
+Subject: Re: [PATCH] pinctrl: qcom: nord: Split QUP1 SE2/SE3 into lane-pair functions
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Shawn Guo <shengchao.guo@oss.qualcomm.com>, Bjorn Andersson <andersson@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The UAC1_RATE_ATTRIBUTE / UAC2_RATE_ATTRIBUTE configfs store loops parse
-a comma-separated sample-rate list with
+On Mon, Aug 24, 2026 at 10:44=E2=80=AFAM Konrad Dybcio
+<konrad.dybcio@oss.qualcomm.com> wrote:
+>
+> On 8/20/26 3:15 AM, Shawn Guo wrote:
+> > On Wed, Aug 19, 2026 at 05:27:34PM +0200, Konrad Dybcio wrote:
+> >> On 8/19/26 5:23 PM, Shawn Guo wrote:
+> >>> QUP1 SE2 and SE3 pack all four of their lanes pair-wise onto only two
+> >>> pins each: lanes 0/1 (I2C SDA/SCL) at mux value 2 and lanes 2/3 (UART
+> >>> TX/RX) at mux value 1, on gpio127/gpio128 and gpio129/gpio130
+> >>> respectively.
+> >>
+> >> [...]
+> >>
+> >>> +   msm_mux_qup1_se2_01,
+> >>
+> >> other drivers where this is necessary stick an 'l' before the
+> >> lane indices, e.g. se2_l2, let's keep this
+> >
+> > I can see that for single lane function. But for lane-pair function,
+> > it's not a new thing with nord, and the naming convention seems to be
+> > without 'l', based on what I see from shikra, eliza, hawi and maili
+> > drivers.
+>
+> Hm, seems like that happened by oversight, but yeah let's stick to it
+> now.
+>
+> >> The bindings change must be separate
+> >
+> > I understand that's mandatory for new feature changes, but for such
+> > a bug fix where both binding and driver changes are closely coupled,
+> > it seems more reasonable to not split.
+>
+> Up to brgl
+>
 
-    while ((token = strsep(&split_page, ",")) != NULL) {
-        ...
-        opts->name##s[i++] = num;
-    }
+I'm fine with this. Krzyszof, Rob, Conor: any objections?
 
-without checking the running index against UAC_MAX_RATES (10).  The
-storing arrays (c_srates / p_srates in struct f_uac1_opts /
-struct f_uac2_opts) have exactly UAC_MAX_RATES entries, so an 11th
-token already writes past the array, and feeding more tokens (the
-configfs write limit is 4096 bytes, i.e. up to ~2000 rates) walks past
-the whole opts object into the surrounding kernel heap.
-
-Attack chain (no USB host/device involved; the caller only needs
-configfs write access to the gadget function, e.g. for the kernel to
-issue the echo):
-
-    echo 1,1,1,1,1,1,1,1,1,1,2,... > .../functions/uac1.NAME/c_srate
-      -> f_uac1_opts_c_srate_store()
-      -> opts->c_srates[i++] = num for i = 10, 11, ...  (unbounded)
-      -> out-of-bounds heap write (index into a 10-element int array)
-
-Reproduced on kernel 7.2.0+ (KASAN + UBSAN + slub_debug=Z).  An
-1801-token write to uac1/c_srate yields
-
-    BUG: KASAN: slab-out-of-bounds in f_uac1_opts_c_srate_store
-    Write of size 4 ... f_uac1_opts_c_srate_store -> configfs_write_iter
-
-and the exact array boundary is caught for the three remaining
-attributes with 11 tokens:
-
-    UBSAN: array-index-out-of-bounds ... index 10 is out of range for
-           type 'int [10]'
-      in f_uac1_opts_p_srate_store / f_uac2_opts_c_srate_store /
-         f_uac2_opts_p_srate_store
-
-plus: the 1800+ token variant plows through several slab objects, and
-the kfree() of the duplicated token buffer afterwards enters a
-pathological spin under slub_debug=Z, demonstrating live corruption of
-the downstream heap.
-
-Signed-off-by: Haofeng Li <lihaofeng@kylinos.cn>
-Assisted-by: opencode:deepseek-v4-flash-free
----
- drivers/usb/gadget/function/f_uac1.c | 4 ++++
- drivers/usb/gadget/function/f_uac2.c | 4 ++++
- 2 files changed, 8 insertions(+)
-
-diff --git a/drivers/usb/gadget/function/f_uac1.c b/drivers/usb/gadget/function/f_uac1.c
-index 85c502e98f57..de34891163ef 100644
---- a/drivers/usb/gadget/function/f_uac1.c
-+++ b/drivers/usb/gadget/function/f_uac1.c
-@@ -1614,6 +1614,10 @@ static ssize_t f_uac1_opts_##name##_store(struct config_item *item,	\
- 		if (ret)						\
- 			goto end;					\
- 									\
-+		if (i >= UAC_MAX_RATES) {				\
-+			ret = -E2BIG;					\
-+			goto end;					\
-+		}							\
- 		opts->name##s[i++] = num;				\
- 		ret = len;						\
- 	};								\
-diff --git a/drivers/usb/gadget/function/f_uac2.c b/drivers/usb/gadget/function/f_uac2.c
-index 897787d0803c..02fb27daf04a 100644
---- a/drivers/usb/gadget/function/f_uac2.c
-+++ b/drivers/usb/gadget/function/f_uac2.c
-@@ -2032,6 +2032,10 @@ static ssize_t f_uac2_opts_##name##_store(struct config_item *item,	\
- 		if (ret)						\
- 			goto end;					\
- 									\
-+		if (i >= UAC_MAX_RATES) {				\
-+			ret = -E2BIG;					\
-+			goto end;					\
-+		}							\
- 		opts->name##s[i++] = num;				\
- 		ret = len;						\
- 	};								\
--- 
-2.25.1
-
+Thanks,
+Bartosz
