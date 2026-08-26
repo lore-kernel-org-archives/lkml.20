@@ -1,71 +1,71 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E83B241D23D
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:36:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A27246F4AF
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:36:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787762182; cv=none; b=DD9sXLreUBLj+XEz0gPkTQMlJmccyBzpMlTuxR2QWEv9rQOuqQa/CzNPIsmGHCWqYwG9ORcjTt3UN3nqi4LbTW+312ez45zQ1DXThQSnZRdsgFx8oIWsKWqMBFxn5rHvUYkpCQPi3cr80E7C5QcLgvYMTSDYzbuhe45G0SZZOps=
+	t=1787762194; cv=none; b=dyX705w9hwVYgC4AEdl2CXkkvxBuXBUe4FuZSxeTgyOs58+SK0YykhmPmuKJDNrfq8pwDQQsGUGbpQq6VjL6UtxkSdxz83ffAFyy6Ko70EGl4OdZLgLab3+Zm/iCe+iVmIZqanvP2z9mvX6w+ljomB1fnNiaJL/wm5rJe5E/8Qo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787762182; c=relaxed/simple;
-	bh=DIRCM2vMm7i3ZVyuxGIELlK0tOle5gnrlFzbg0DGhDo=;
+	s=arc-20240116; t=1787762194; c=relaxed/simple;
+	bh=uxy81Zi5nQv9TZNXSqJV9XlHTuBekJSMAz2Em3fQbA0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dpFIGOX7BnkN153H+SQTNSbilTXHfTQjNiHFbMp1SuHp8ABWZr2bfK00QTH3qZ5U0FkpdYzExgs/nq+rufyS1ho87qQXDdVBv5j+WGP3Nmw9nUc6mvNrmkL3fmMSPM92q0qcXAsoMVs1DNV1wx87mgcFhSZfs/YO7IxDWAa89zY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk; spf=none smtp.mailfrom=fireburn.co.uk; dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b=tAijGIgG; arc=none smtp.client-ip=209.85.128.52
+	 MIME-Version; b=VRSX1YaMk0NDWhgI2sQFzjJfZZkkjMq55/QHV2jQX50YYSji+cSJVSUAL/sn8PS/oAlcG6YxGDtsLcGoSO4Jbxa325FecZYh81byNWFe7J4iuT9vuI91Hv3FhfU9WVxXxohStCtNLdUEmoY9JZC21IsjkPOus++rDWTmIVLn3TI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk; spf=none smtp.mailfrom=fireburn.co.uk; dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b=wRGSrY3h; arc=none smtp.client-ip=209.85.128.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=fireburn.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="tAijGIgG"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-499b57cf2f3so525005e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 09:36:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="wRGSrY3h"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-495590dde14so8733135e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 09:36:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787762168; x=1788366968; darn=vger.kernel.org;
+        d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787762179; x=1788366979; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=etS7dDlMuCWd3+VoKkG/reluEY3jsEXWbjkOvSEBEgk=;
-        b=tAijGIgGPna1S2V++eRqVnXVqXsqTZiy1phKGaiHqJ9ATXWQF36C5UM5v8of+W1exS
-         qwUJ17ynNl63COp9VjHOWSWddLrMosXOXa7+WPczqGnx6czdT8/9+ayf9H/mSCc7ww0q
-         Np0ddMeWTJnvJu+H7ssdgSMCVwae9NtA0N+ZCOfK9gq7E/bW+0Bf7GnM2oSwkpcVjj02
-         XJ++i4VmPxxHXdpvJQ3+JM70ZeVep/lGC22mpsYqDn0V/+dV2ZWGSalodj/E7LI9/Yv0
-         o+5SPVyijDReXI64xznQlMqTsqy+advhv1gY2eZwvzLxPbxA5Km6O5KzFSe9hc6f67Cs
-         ZMBw==
+        bh=suzR7ASY40M8VgE4lgqLDHANl8DdGYCBb6jwppDWyAA=;
+        b=wRGSrY3hcOzYffPlYKDhiVzQpXHElhT1xfAVaiNO14EHtSgbfrMmtJtSwZGNsD8o2G
+         Rvtf9sh2Uy/Q2QsQVyH5dLzGhT29FQbKAjR51Vq+wqR3/APJPPEop+Dhh+6gAPhuX1Pw
+         DmFLjdhARJZe/wg65VZLZvg/KjwAj27pdUZDqxhPgow98YQ2a2uegc3TjpgnPhpJhcoM
+         WlB+IC3BM3F2OCyodlBVO90xUv7ThTL8dYu90AmI7bu4pW7AqSqPCfPCUaVWHsLv369c
+         lK8Rj0quao7WASyQqZfgihJtCuDPKuW++MSicxy3Exhr78FtZwLYURPxBBUQJvdv5xj1
+         21Mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787762168; x=1788366968;
+        d=1e100.net; s=20251104; t=1787762179; x=1788366979;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=etS7dDlMuCWd3+VoKkG/reluEY3jsEXWbjkOvSEBEgk=;
-        b=k3S9HTQkQNAKVT/C3qw3OXrF15PBTySfeVdoLLIcdQ7FH80jTSbR5wAesxP4uvjBwP
-         abIt9Q3bev9Jcqdhh87iP3LiAgbCzZAkVhh1nBbKb/dHDvexxCgzqykrDHzUpdFlJLmY
-         xVRLySKenIr8A8K7Tp/+fRN4ci/6Tw0aIHO0P+yilHpavkut/SYjfKHKU73mIsKLYRK/
-         pavboFVO9QRO7Mu4vYXJQl4kninJbQXHpoQzLJ2ijlmbUzwmUYkUOGrvY4wPEMhKgDzL
-         0szpw8VIwl19YDJ7/7LXLBE9bVIOVw9bLMyg7UozILxC0/76Oq5FSySbtPwg3PMEkE39
-         OFDA==
-X-Forwarded-Encrypted: i=1; AHgh+RoS1ozrBjfTziNWqGkEMgZ3XSKIFuqdN+E/xJ1XQsfX2coZaxxLMQFRzIhZPf6DHaLaoP7vGjXB4whbIfA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kZFlsXYDAYIVQyvkfH/KACc9irFbaEWjO7aJm8ApMpZ4krCWWF
-	pVEeEGrs8RtE4WBmvLrsGh09KJs6/AeS0OgZ0uu2a93Fs70pisWUXr4oNrezBDMc4w==
-X-Gm-Gg: AR+sD13HN9Ryn4JGFAUP4Usyyp4pDQU7cKklWjMt/kQvgKTNj17NXdIbYViRdLlhMhV
-	wk+VGwVi4TXKwcmWddDrEzwHVz+PYxEg5ZX8NK4hcj3eQO0Y/WlHAhpVNRamZgwCWr9dSze365W
-	uhlP+l6gowj3e6BsvwQEyIyGxoIxLcGlcDtRxqFw9nJDAR3J1v1G7EsLooZLjprT2T6PBRf6FVd
-	ivwOtX2AGkdAcIzdPckaV1Zdbfwrc/Lvqd77/ggFrIA0Bxk6lfm4B58qC0HlINuX8rSEVfDNDF3
-	BDGtd1LUuo/5izdV+1zpjj5MIriU1i1DcLtwkAlEF30K2L2rgY68XEiJsnhb2gki7apjPndqjSW
-	5KuEl9oEHgzJ5Mtr5ojza5ggr1y+ZCfh0WRh91lcE/fLQdPFyKlWQrsypDdXAKWLSNxjFmbNn+U
-	24UX4za7Oy7nZQNGyX+Si/7I7cFfpCsNBejpYBAzNjGtzosbDl4FRo5RPbIVslVuS8YUwjsgmWX
-	b8soab55AF0uEOnDyjSmMnOwFQVzlCsezEOx2ZkwKSHfiQ=
-X-Received: by 2002:a05:600c:3151:b0:499:a5cb:b7c0 with SMTP id 5b1f17b1804b1-49b0deb14d0mr4919895e9.3.1787762168128;
-        Wed, 26 Aug 2026 09:36:08 -0700 (PDT)
+        bh=suzR7ASY40M8VgE4lgqLDHANl8DdGYCBb6jwppDWyAA=;
+        b=fv+6rvo9ywyMTCjuKVEl1kzZRXguShH500nTo1K0U4Jsgzx+AuHCkyDT5aZ//e0AV4
+         TpJsFv5fffgUD3fp2JCv7WQRKzIBoRdFcD1F/q+BLxBpDnf0Gv1pBPC3JwGB8WFVGfyd
+         LCMfGOz6jfYdPozaqcTwPCYU5rzm3t4jeEdODv+7iSCu0tNXqlafBtRYuVxTyOzKxbeX
+         Q5yYn12S0eOHvphpbwaqwZS+oklUcz9CExP/ofoD1LYLYTg7g9RKmmP13/rBKJalBKqq
+         Uk90FxS64SDI9Q5kv6gubHDGFmH8Iglm/wQ2Yus4CIozrich9Rs5gwMdWtfQ+fBiGyNZ
+         92HA==
+X-Forwarded-Encrypted: i=1; AHgh+RrizW0mAj1J4GFS8d5MhJPpJiJn1lXdjDYSJRwW8/tAQ0IxblHlC3n4Av421DGqp9TirC7qjgCdOSWTN/o=@vger.kernel.org
+X-Gm-Message-State: AFuF++lrA038L9VtJLQe51ngQz5yr33l6RCYwxo2IZYKN/RR7IzDTSsM
+	858eiZQYdAt3SOUI94zNPgWD0KqIk8YME1GTH7OeMfDr4s2B43K2KXkZXBDzxE1agw==
+X-Gm-Gg: AR+sD10rYk1d04idYOf1RHwvV0zkwlKsoar2S7PXUfz8kF23DOnhAh0fSwYnZJJwHRr
+	vTpnxPpF/GwZC1xghYfDpjng1TZdy5WyqK97vwPmHJ3w0HBdS43ENBtPOtMM/D4VAMP2mRW/K+R
+	Fre8ETST2YHLM/7lgcopWYFH2FIekrMlCdzPdMcX9zJxqCV78xM/pIuXU0B/lgXIuthlRCydLTw
+	zHNyiUJ3/WWBg/eXMmiyH8vxREyCPZAXTzQLs2pFtUlR9PdhPblUxbvmzLUovEoGKPNNuLBwfXk
+	DIzvjX+DJpVBjmW63sCOGKMOUAVb37ps+CRlKWhE+Yq+D7O8uRO6NYHxG9k69AXz0BgFG72DmU0
+	dp+xVrjNOFJl2OEr/TLw4B6JTSPAsLLngAggRW6B7tds9J56I1/8SRomRa2JhNpu2Izwsx1EXiD
+	hOw51zn8luM27F2P24mESu4QvFieq7GebMrbShiBidlcprxK9q74InU5FGuEKT4rBaVsVuJbrHq
+	yUkgcsO01nK0yvzxvvjnJRHCMD1IVkqjAbBlWCubRRTfYo=
+X-Received: by 2002:a05:600c:c8f:b0:499:cd34:f7c with SMTP id 5b1f17b1804b1-499dc6f68b5mr69481545e9.5.1787762178738;
+        Wed, 26 Aug 2026 09:36:18 -0700 (PDT)
 Received: from axion.fireburn.co.uk ([2a01:4b00:d309:1c00:caf1:6b20:8531:818c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499dca8c75csm31227535e9.2.2026.08.26.09.36.05
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499dca8c75csm31227535e9.2.2026.08.26.09.36.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 09:36:06 -0700 (PDT)
+        Wed, 26 Aug 2026 09:36:17 -0700 (PDT)
 From: Mike Lothian <mike@fireburn.co.uk>
 To: dri-devel@lists.freedesktop.org
 Cc: Mike Lothian <mike@fireburn.co.uk>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
 	David Airlie <airlied@gmail.com>,
 	Simona Vetter <simona@ffwll.ch>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
 	Miguel Ojeda <ojeda@kernel.org>,
 	Boqun Feng <boqun@kernel.org>,
 	Gary Guo <gary@garyguo.net>,
@@ -78,13 +78,11 @@ Cc: Mike Lothian <mike@fireburn.co.uk>,
 	Alexandre Courbot <acourbot@nvidia.com>,
 	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
 	Lyude Paul <lyude@redhat.com>,
-	"Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>,
-	Asahi Lina <lina+kernel@asahilina.net>,
 	rust-for-linux@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 15/23] rust: drm: pin the owner while DRM files remain open
-Date: Wed, 26 Aug 2026 17:31:46 +0100
-Message-ID: <20260826163359.4998-16-mike@fireburn.co.uk>
+Subject: [PATCH v3 17/23] rust: drm: add an owned display mode constructor
+Date: Wed, 26 Aug 2026 17:31:48 +0100
+Message-ID: <20260826163359.4998-18-mike@fireburn.co.uk>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260826163359.4998-1-mike@fireburn.co.uk>
 References: <20260826163359.4998-1-mike@fireburn.co.uk>
@@ -96,122 +94,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Give each Rust DRM device its own driver and file-operations tables
-so file_operations::owner can identify the module that owns the
-implementation. Open DRM file descriptors then hold the same module
-reference that C DRM drivers receive through DEFINE_DRM_GEM_*_FOPS().
+Add a safe constructor for standalone display modes used by drivers
+and tests.
 
-Pass the owning module to UnregisteredDevice::new() and use the
-built-in null module for the shmem KUnit device.
+Accept the essential timing fields and reject invalid active, sync,
+and total ordering before exposing the owned mode.
 
 Assisted-by: Claude:claude-opus-5
 Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
 ---
- rust/kernel/drm/device.rs    | 46 ++++++++++++++++++++++++++++++++++--
- rust/kernel/drm/gem/shmem.rs |  8 ++++++-
- 2 files changed, 51 insertions(+), 3 deletions(-)
+ rust/kernel/drm/kms/modes.rs | 62 +++++++++++++++++++++++++++++++++++-
+ 1 file changed, 61 insertions(+), 1 deletion(-)
 
-diff --git a/rust/kernel/drm/device.rs b/rust/kernel/drm/device.rs
-index bc2cdcd2b695..efbec3f42bda 100644
---- a/rust/kernel/drm/device.rs
-+++ b/rust/kernel/drm/device.rs
-@@ -208,9 +208,14 @@ const fn compute_features() -> u32 {
-     /// Create a new `UnregisteredDevice` for a `drm::Driver`.
-     ///
-     /// This can be used to create a [`Registration`](kernel::drm::Registration).
-+    ///
-+    /// `module` must be the module that owns the driver implementation, i.e. `&THIS_MODULE`. It is
-+    /// stamped into this device's `file_operations::owner` so that an open `/dev/dri/cardN` file
-+    /// descriptor pins the module, exactly as `DEFINE_DRM_GEM_*_FOPS()` does in C.
-     pub fn new(
-         dev: &T::ParentDevice<device::Bound>,
-         data: impl PinInit<T::Data, Error>,
-+        module: &'static ThisModule,
-     ) -> Result<Self> {
-         // `__drm_dev_alloc` uses `kmalloc()` to allocate memory, hence ensure a `kmalloc()`
-         // compatible `Layout`.
-@@ -253,8 +258,37 @@ pub fn new(
-             unsafe { bindings::drm_dev_put(drm_dev) };
-         })?;
+diff --git a/rust/kernel/drm/kms/modes.rs b/rust/kernel/drm/kms/modes.rs
+index cc3c486eecf1..b48a02edfc13 100644
+--- a/rust/kernel/drm/kms/modes.rs
++++ b/rust/kernel/drm/kms/modes.rs
+@@ -6,7 +6,33 @@
  
--        // SAFETY: `drm_dev` is still private to this function.
--        unsafe { (*drm_dev).driver = const { &Self::VTABLE } };
-+        // Give this device its own `file_operations`/`drm_driver` pair so that the owning module
-+        // can be stamped into the fops. `fops->owner` is what makes `fops_get()` in
-+        // `drm_stub_open()` take a module reference for every open DRM file: without it nothing
-+        // pins the module, and unloading the driver while a compositor still has
-+        // `/dev/dri/cardN` in a poll set frees the `file_operations` out from under
-+        // `do_sys_poll()`, which then faults on `f_op->poll`.
-+        //
-+        // SAFETY: `raw_drm` is a valid pointer to `Self`, still private to this function, and
-+        // both fields are plain data that need no drop.
-+        let raw_fops = unsafe { Opaque::cast_into(ptr::addr_of!((*raw_drm.as_ptr()).fops)) };
-+        // SAFETY: `raw_fops` is valid, aligned and points at uninitialized memory we own.
-+        unsafe {
-+            raw_fops.write(bindings::file_operations {
-+                owner: module.as_ptr(),
-+                ..Self::GEM_FOPS
-+            })
-+        };
-+
-+        // SAFETY: as above, for the per-device `drm_driver` copy.
-+        let raw_vtable = unsafe { Opaque::cast_into(ptr::addr_of!((*raw_drm.as_ptr()).vtable)) };
-+        // SAFETY: `raw_vtable` is valid, aligned and points at uninitialized memory we own.
-+        unsafe {
-+            raw_vtable.write(bindings::drm_driver {
-+                fops: raw_fops,
-+                ..Self::VTABLE
-+            })
-+        };
-+
-+        // SAFETY: `drm_dev` is still private to this function; `raw_vtable` lives inside the DRM
-+        // device allocation and so outlives every use of `drm_device::driver`.
-+        unsafe { (*drm_dev).driver = raw_vtable };
+ use bindings;
  
-         // SAFETY: `raw_drm` is valid; no concurrent access before registration.
-         unsafe { (*raw_drm.as_ptr()).registration_data = UnsafeCell::new(NonNull::dangling()) };
-@@ -277,12 +311,20 @@ pub fn new(
+-use crate::types::Opaque;
++use crate::{
++    error::{code::EINVAL, Result},
++    types::Opaque,
++};
++
++/// The essential timing fields of a display mode.
++#[derive(Clone, Copy)]
++pub struct ModeTimings {
++    /// Pixel clock in kHz.
++    pub clock_khz: i32,
++    /// Horizontal active pixels.
++    pub hdisplay: u16,
++    /// Start of the horizontal sync pulse.
++    pub hsync_start: u16,
++    /// End of the horizontal sync pulse.
++    pub hsync_end: u16,
++    /// Total horizontal pixels including blanking.
++    pub htotal: u16,
++    /// Vertical active lines.
++    pub vdisplay: u16,
++    /// Start of the vertical sync pulse.
++    pub vsync_start: u16,
++    /// End of the vertical sync pulse.
++    pub vsync_end: u16,
++    /// Total vertical lines including blanking.
++    pub vtotal: u16,
++}
+ 
+ /// DRM kernel-internal display mode structure.
  ///
- /// * `self.dev` is a valid instance of a `struct device`.
- /// * The data layout of `Self` remains the same across all implementations of `C`.
-+/// * `self.vtable` and `self.fops` are initialized before the device is registered and are never
-+///   mutated afterwards; `self.dev.driver` points at `self.vtable`, whose `fops` points at
-+///   `self.fops`.
- /// * Any invariants for `C` also apply.
- #[repr(C)]
- pub struct Device<T: drm::Driver, C: DeviceContext = Normal> {
-     dev: Opaque<bindings::drm_device>,
-     data: T::Data,
-     pub(super) registration_data: UnsafeCell<NonNull<T::RegistrationData<'static>>>,
-+    /// Per-device copy of the driver vtable, so that `fops` below can be referenced from it.
-+    vtable: Opaque<bindings::drm_driver>,
-+    /// Per-device copy of the DRM file operations, carrying the owning module in `owner` so that
-+    /// an open DRM file descriptor pins the module.
-+    fops: Opaque<bindings::file_operations>,
-     _ctx: PhantomData<C>,
- }
+@@ -30,6 +56,40 @@ unsafe impl Send for DisplayMode {}
+ unsafe impl Sync for DisplayMode {}
  
-diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
-index 86797ab39ffd..8751000c92bb 100644
---- a/rust/kernel/drm/gem/shmem.rs
-+++ b/rust/kernel/drm/gem/shmem.rs
-@@ -642,12 +642,18 @@ impl drm::Driver for KunitDriver {
-         const IOCTLS: &'static [drm::ioctl::DrmIoctlDescriptor] = &[];
-     }
- 
-+    // These tests only ever build into the kernel image, so there is no module to pin. A null
-+    // `file_operations::owner` is exactly what a built-in driver uses.
-+    //
-+    // SAFETY: `NULL` is the correct `THIS_MODULE` for built-in code.
-+    static KUNIT_MODULE: ThisModule = unsafe { ThisModule::from_ptr(ptr::null_mut()) };
+ impl DisplayMode {
++    /// Creates a standalone display mode from validated timings.
++    ///
++    /// This is useful when a driver needs an owned mode for validation or tests rather than a
++    /// reference to a mode owned by the DRM core.
++    pub fn from_timings(t: ModeTimings) -> Result<Self> {
++        if t.clock_khz <= 0
++            || t.hdisplay == 0
++            || t.hdisplay > t.hsync_start
++            || t.hsync_start > t.hsync_end
++            || t.hsync_end > t.htotal
++            || t.vdisplay == 0
++            || t.vdisplay > t.vsync_start
++            || t.vsync_start > t.vsync_end
++            || t.vsync_end > t.vtotal
++        {
++            return Err(EINVAL);
++        }
 +
-     fn create_drm_dev() -> Result<(faux::Registration, UnregisteredDevice<KunitDriver>)> {
-         // Create a faux DRM device so we can test gem object creation.
-         let data = try_pin_init!(KunitData {});
-         let reg = faux::Registration::new(c"Kunit", None)?;
-         let fdev = reg.as_ref();
--        let drm = UnregisteredDevice::new(fdev, data)?;
-+        let drm = UnregisteredDevice::new(fdev, data, &KUNIT_MODULE)?;
- 
-         Ok((reg, drm))
-     }
++        let mut mode = bindings::drm_display_mode::default();
++        mode.clock = t.clock_khz;
++        mode.hdisplay = t.hdisplay;
++        mode.hsync_start = t.hsync_start;
++        mode.hsync_end = t.hsync_end;
++        mode.htotal = t.htotal;
++        mode.vdisplay = t.vdisplay;
++        mode.vsync_start = t.vsync_start;
++        mode.vsync_end = t.vsync_end;
++        mode.vtotal = t.vtotal;
++
++        Ok(Self {
++            inner: Opaque::new(mode),
++        })
++    }
++
+     /// Convert a raw pointer to a `struct drm_display_mode` into an immutable [`DisplayMode`] ref.
+     ///
+     /// # SAFETY
