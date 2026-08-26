@@ -1,167 +1,83 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52D6C3AAF59
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 18:38:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC73847607A;
+	Wed, 26 Aug 2026 18:39:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787769520; cv=none; b=lM3ANnZv114G3FHcI+tYTy5GPhznrD4wlgl80XbxMxbHhmAY8mf4B0LMMRdMFwPhsawqh9vkXsyrL4HOao98+mMqqjRSxrCoYxq1GvCJj3h17VXQalc8Fqn5LUvWtKmlzB16EY6OaxYDmR0I//r4TIxFM9KRQoFcteHkb5p8Oek=
+	t=1787769593; cv=none; b=ajmFRFSXQfZBDToaiSopgumAjRNsxzPNmspY7p2xfMVUG798Mf+A5lyEGQrpVR/BXdG566x9VkD4TOIW5EmHt6UzyU9qk9i5AegkUt0WDAOE4S/fwL4nqIj9FsRXvxoPQVFtZ6l7fqS4t7EIkF7C5JnNxdrTvHDBdaYq2jpkM9Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787769520; c=relaxed/simple;
-	bh=a0SCaZJ7sTZ0C5PezKa77Vpx+22P/KdPFjfBQCy7FF4=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=TvB3PvEft2CxOTRuk8aabxwmkPtAwyBUT6mSOvzdl+E0xrbZYDt6JvOOVtrpHKU8Y/nyXRLu8VrevOXWi+JU/ouVFcck8zB0NupW6hdyA94gKpD/PqNpyFUHV2S4LfnK4RXdwbGsGfR3+hfpIUGXwsNw3SogSGo5jKdlIsFlX/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C34g0FpJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787769593; c=relaxed/simple;
+	bh=RXdCSlZlIXBpMj/AlfHkeBGm7h6CKN25XnLG6yDy0fk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=q6XevVXHAma3VT/5Pctp6q3j/isL4PoOeAVstPMO/Fjop7kmsKf/BrbOrX/tiLAHDvy+u7acYSyyXv22b4qxofeD7g6WSU0ANbeZ2aEx+7O7xNr1jT1CQKS2mIBH73Qdp0g5qIurzRUymeb2dujlKo3QgzDyX90sOQ1t7bgRtFc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RN2tDEKl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C34g0FpJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F6481F00A3D
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 18:38:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RN2tDEKl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E54B1F01804;
+	Wed, 26 Aug 2026 18:39:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787769505;
-	bh=/gCAVniLX3E0NkJo3jXJ7s6s8n++bS//gwCeoIN1iSg=;
-	h=From:Date:Subject:To:Cc;
-	b=C34g0FpJhfr7HYFayDJN/D2I6B+u0JPET+47PNcmnAELuxBCa2n1j21FL5YDu+8u3
-	 mI/5ev1RcwD4PHWA5pXk7zKC+ZzW8VkHD1qLVv95pnCW8Ij57UaoFKv2KWN47hJosc
-	 vwjMKqYQ7JcpQFViYfDk0b8/U5RQAIE7SZJYKwWdQfBYgn680/BnJDUe+LxqiUoZp/
-	 5E46STQXUJfYVEdD8OwBE3aQ22z2Mnn/I/pwoR3MDfbNkS6W39DiKL1TXz9j028fjK
-	 Pg3fqyPIHpLPwvox6RxbFV+yn/rBUObJUt4Ig9wDGjyaOlH0A5cUTx7f/uK5JDebuK
-	 phnv2iwjgHktw==
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b4ab40d839so825304e87.3
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 11:38:25 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Ro/ynWhhjYLJlEG8Kd77NJDtm96ZGzaiWTckoueeBkUOPpXzJL4TEW/loh9OM50VK+taChXhXxC5ugxyWE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kzRJOkqOD/S4/Z14zvvVLrAL3oit+FZCWj6SOJf4BkxvKHFuGd
-	iuNHIvI6hx4l5UayKjL5b83LNQSwGPqVtuaKgC+xAfz2EfrLdFVmMPjRuW1Mu6E0Uc6RGePEJZU
-	fbY/Uq1MnxqRXeLS4xc6lE8hi8FFTFbA=
-X-Received: by 2002:a05:6512:8381:b0:5b2:e95a:491d with SMTP id
- 2adb3069b0e04-5b4a90579bbmr2382838e87.9.1787769503853; Wed, 26 Aug 2026
- 11:38:23 -0700 (PDT)
+	s=k20260515; t=1787769570;
+	bh=RXdCSlZlIXBpMj/AlfHkeBGm7h6CKN25XnLG6yDy0fk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RN2tDEKlNXDhjzjBEuzotwQJmaqn0lyfcspcQG3x9oHrZ+FSmHSniaMZ4EBGMiHS+
+	 IMtUPmjmRXnAeEfdC9TzMC72BKQ1IuXjCf4ZIiXM6LQaQ6etQMG75twB3Yc2SFrOSq
+	 ey5uRjFeNe/YVBK12fBEF/Z0fDYWgodjSXQNund7BSKW2ib4UyJLLZmi7DKX987VvA
+	 cUKcm65Pko9wc9iFnfo2BK7tdgpZWDjLGU4NnOZf0ATR4uC3oOleeuQqQuCIyXs+oY
+	 qtn9c7nDZgrD9nuWQOawlYmoC0tasmxs/2o7DnZqeqobyzeBsu35rcf0M6Yku4BCf4
+	 W93Y33q6FOBjg==
+Date: Wed, 26 Aug 2026 19:39:26 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Markus Elfring <Markus.Elfring@web.de>
+Cc: Yang Zi <2959243019@qq.com>, kernel-janitors@vger.kernel.org,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] regulator: max8649: Fix NULL pointer dereference in probe
+Message-ID: <0f550622-5a14-47d5-976e-44a20495d751@sirena.org.uk>
+References: <tencent_87EA54368697A49844A89DF7CD19CD8C6C06@qq.com>
+ <29d4c995-4194-49b6-8994-eba662b73b56@web.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Wed, 26 Aug 2026 20:37:39 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0jdSjMH_kYu6GQ1-AQ2TXHji2Vd1+v5YP8_CxXM3PUa6A@mail.gmail.com>
-X-Gm-Features: AcwNN1VtrMiz0zZhCTUSAvasLFrvwBziZCTREV0w_8th_19faQzUv6stuSDgShM
-Message-ID: <CAJZ5v0jdSjMH_kYu6GQ1-AQ2TXHji2Vd1+v5YP8_CxXM3PUa6A@mail.gmail.com>
-Subject: [GIT PULL] More ACPI support updates for 7.3-rc1
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: ACPI Devel Maling List <linux-acpi@vger.kernel.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Linux PM <linux-pm@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-
-Hi Linus,
-
-Please pull from the tag
-
- git://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm.git \
- acpi-7.3-rc1-2
-
-with top-most commit ea10c0b334e0dca944de2b5ecf57cf7e366674f4
-
- Merge branches 'acpi-battery', 'acpi-button', 'acpi-soc' and 'acpi-pfrut'
-
-on top of commit 0d508f1745b57272d4d4a3d50dc35aa2a3682238
-
- Merge tag 'acpi-7.3-rc1' of
-git://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm
-
-to receive more ACPI support updates for 7.3-rc1.
-
-These update documentation to reflect recent changes in the upstream
-ACPICA project, fix issues in the core ACPI device enumeration code
-(one of which has been introduced recently), improve the primary
-"physical" device lookup for ACPI device objects in that code, and
-update ACPI device drivers:
-
- - Update MAINTAINERS, CREDITS and ACPI subsystem documentation to
-   reflect recent changes in the upstream ACPICA project (Rafael
-   Wysocki)
-
- - Prevent the core ACPI enumeration code from combining device
-   resources that overlap completely in order to avoid resource
-   conflicts during platform device registration because there are
-   drivers that expect such resources to be present (Rafael Wysocki)
-
- - Defer device power initialization during ACPI-based device
-   enumeration to the point when the given device is known to be present
-   and functional and all of its dependencies have been met (Peixin Xie)
-
- - Fix bus ID cleanup on device_add() failures during ACPI device object
-   registration (Hongyan Xu)
-
- - Introduce a new helper function for looking up the primary "physical"
-   device for a given ACPI device object and update the core ACPI device
-   enumeration code to use that function (Rafael Wysocki)
-
- - Protect all battery properties with a separated mutex in the ACPI
-   battery driver to prevent race conditions from occurring and avoid
-   evaluating the _BST ACPI control method multiple times in parallel
-   for the same battery device (Rong Zhang)
-
- - Add DMI quirk for the Razer Blade Pro 17 early 2020 lid switch to the
-   ACPI button driver (Robin Everaars)
-
- - Convert fixed clock rates in the ACPI driver for AMD SoCs (APD) to
-   use HZ_PER_MHZ and add a clock frequency for the HJMC01 I2C
-   controller to it (Hongnan Li and Xiangyang Yu)
-
- - Fix a stack buffer overflow in query_capability() in the ACPI
-   platform firmware runtime update driver (Anirudh Prasad)
-
-This material had a merge conflict against the driver core tree in
-linux-next as per
-
-https://lore.kernel.org/lkml/aoMvR5MHCsykmdEO@sirena.org.uk/
-
-Thanks!
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="K03hu2cMtzAtW5Fp"
+Content-Disposition: inline
+In-Reply-To: <29d4c995-4194-49b6-8994-eba662b73b56@web.de>
+X-Cookie: Obey all traffic laws.
 
 
----------------
+--K03hu2cMtzAtW5Fp
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Anirudh Prasad (1):
-      ACPI: pfr_update: fix stack buffer overflow in query_capability()
+On Wed, Aug 26, 2026 at 08:36:29PM +0200, Markus Elfring wrote:
+> =E2=80=A6
+> > Add a check and return -EINVAL when pdata is NULL.
 
-Hongnan Li (1):
-      ACPI: APD: Convert fixed clock rates to use HZ_PER_MHZ
+> How do you think about to perform this data processing
+> directly after the variable assignment?
 
-Hongyan Xu (1):
-      ACPI: scan: fix bus ID cleanup on device_add() failures
+Feel free to ignore Markus, he has a long history of sending
+unhelpful review comments and continues to ignore repeated requests
+to stop.
 
-Peixin Xie (1):
-      ACPI: scan: Defer device power initialization
+--K03hu2cMtzAtW5Fp
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Rafael J. Wysocki (7):
-      ACPI: bus: Introduce acpi_bus_get_primary_device()
-      ACPI: platform: Use acpi_bus_get_primary_device()
-      ACPI: scan: Use acpi_bus_get_primary_device()
-      ACPI: Add Bob Moore to CREDITS
-      ACPI: Update MAINTAINERS entry for ACPICA
-      ACPI: Update upstream ACPICA repository URL in documentation
-      ACPI: scan: Do not combine resources that overlap completely
+-----BEGIN PGP SIGNATURE-----
 
-Robin Everaars (1):
-      ACPI: button: Add DMI quirk for Razer Blade Pro 17 early 2020 lid switch
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqPMt0ACgkQJNaLcl1U
+h9Dcogf/WZfBc8qxjiBbVaujXGbwMRJX0V6OX4DMqCCnS+AR0EHTbfR+MBJI1dTh
+2ibiM8+9FBNOJYaN45ff6QLYcoqcTIGwReMS28bFDk1foPs9KE+GhHdeiqo7gmpS
+3pHBGJO2ATnrsG/KnGpJWwbRh/+xpf3zy4koVKyj/9sos2kAehV8BZ7RVCwLjCLk
+paO7d1BUUF23qptYOTQW2qUg0aYja74nyrEzz01NPZNSnZ7Q/cK8FmECkbBaDijk
+M8OjmZikpYbfOli/Cs5h+z9+EMEgtkAGkQbsJ2ZC/sHSKi/GYnzPKKVqs/RqnVKI
+aUO2UokUvJ5LvcVgQvAoWfbx4p1w+w==
+=BwUU
+-----END PGP SIGNATURE-----
 
-Rong Zhang (1):
-      ACPI: battery: Protect all properties with a separated mutex
-
-Xiangyang Yu (1):
-      ACPI: APD: Add clock frequency for HJMC01 I2C controller
-
----------------
-
- CREDITS                                            |   4 +
- Documentation/driver-api/acpi/linuxized-acpica.rst |  10 +-
- MAINTAINERS                                        |   6 +-
- drivers/acpi/acpi_apd.c                            |  35 +++--
- drivers/acpi/acpi_platform.c                       |  24 ++--
- drivers/acpi/battery.c                             | 147 ++++++++++++++-------
- drivers/acpi/bus.c                                 |  54 +++++---
- drivers/acpi/button.c                              |  11 ++
- drivers/acpi/pfr_update.c                          |  45 ++++---
- drivers/acpi/power.c                               |   1 +
- drivers/acpi/scan.c                                |  37 +++---
- include/acpi/acpi_bus.h                            |   6 +
- 12 files changed, 246 insertions(+), 134 deletions(-)
+--K03hu2cMtzAtW5Fp--
