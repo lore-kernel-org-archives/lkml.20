@@ -1,157 +1,126 @@
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B0E43783B4
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:09:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19655451984;
+	Wed, 26 Aug 2026 16:10:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787760570; cv=none; b=AtTGSeM7b8dFodju7r50rrLN42uz2h6cX+8plXSTaVZ86wZiOo67iOyJcctlUOwl9858Y9PMSYJl+ofYKT6pyLT+wZopnbO12nneC4Wk2wXMSpsXd3hlSxcE2ZHD3iEnlfxRpkP4uPdIv4id/dHhM+oi9avC32d/3RYUNIMxCbk=
+	t=1787760609; cv=none; b=Ebs8Kw+VqSlDTwqQNX7QrhwMdRvZTm/ys0Kh3+SKpLAKc2dwZDNJEEeVO5gOM3yhL0kaykVlcz6eHUu6t9x99/llLDX7LXcJYqc50GQYPJcN3gk8lwWq50HavG34KgH8l45FfTn6xaJwMlzUSS3x25js8QOBhD22BTyryy0olb4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787760570; c=relaxed/simple;
-	bh=/Nkm53Of+08xjKvrZsWp24h6hO0JPSHjeNHvSTLAq2I=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=VVEuNl0JQXnCQQwksc/8xMdmsvSsgVnA+MYCoMiz7UCgD0QLUWCDyP/DhcSFz+rFHzVhkq3xjrbK+YDm+sx+wcSjcDOIj1Uo994pjXHoYfTt2qdQWGAai+ZM+uFxoRYZc6OGIZ1MFvkvlOHfiOizTtyJOHL8ADHFGqNMDhHV4LI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=XNaP0EA0; arc=none smtp.client-ip=209.85.215.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1787760609; c=relaxed/simple;
+	bh=TP9qkrRDB0qUqwmZfvlYztv1Z+2k10k5weAcLNcIR64=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=j6KfVb70UzfeQaIHQLT82TVOzWm0ef/bKqednHCWGezUnec7Kq0YJGQAgR2TF+TkzDyq7uN0e1VLsL2x3HtQ1FGrEkEu2gzEoStUx0thLp8eN1umbwm46BcF5Jy0E06EBvSOBthPCCgOZZuHPwcirLbQmGkjDaA8LjawxpHQ78I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=JWRzC/GQ; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="XNaP0EA0"
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-c89704da8c7so1951937a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 09:09:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787760568; x=1788365368; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=syqeQtFYsroplvcMq6SvXnjwYNUT8RzEumiv9GKgBTU=;
-        b=XNaP0EA0NqVTojv0BZT4L2iavxfJE4opixq3clJ+Vqt+oY7CUe2DswF35q65bKM7KH
-         9MJvZ2wrUMnhC+ZVGJtkBACoWdIh6d5CBPIPQlwe2iCBAKLJGpkanG4/orwmpcX/lUl9
-         dYdstJ40CGfpj7RSueotuo5enw4OpX21raVg2yxcu17AIW6bfbzuOsCa83AfQEcAFvND
-         dQ61zi4SdMjXCc19/ISWu1gbH7zMTAt0zIO8zaljsmpecUBS3Wb4fhHBJn8oSVXfpeLR
-         WgtiBY2oLCuIcMqzUrEyQY+LecFsZUXZnLH6OnxtT3lx3raxiExxUcRkpmWVINjTitUv
-         AD4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787760568; x=1788365368;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=syqeQtFYsroplvcMq6SvXnjwYNUT8RzEumiv9GKgBTU=;
-        b=GpxqrtlXYWkeysdkbdu/omP4WutK7z2SKIoWNhWwaGuLALjwbx5CzMDgXY9X1vt4ve
-         i7PIZMdv1q4YM9v180KMko5RBG971K3iFMTRDh3uahDDFUKsOsQuJ5KsmY4yjQmIdRod
-         cOvrJ45mc4kn/D+vJIndzWXNE++ke13u4mW5BNSe4kzwqr2YMbJXZc0fT5b7uBhL7zuJ
-         VG+guWp2UlzkaL06lk/8wUzrPpsygt1m49TaOj1EwmM5ZisuA2Druow4SL/2xJY1YtJE
-         Hf4OFAuiAfB5v1iJEgCGqqotnqBhUI2yXTBxPLCSJZxEgmZhgzyfJUZGse8fQ+6XPkFn
-         Tb4g==
-X-Forwarded-Encrypted: i=1; AHgh+RrUST1zHguzLoiyHaWFEi1a4NxiBqKAOeA8FBDxzgR3XyQzeaY4f2veh2iV/6k1KYunmOra66PKh5f5Yp4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lOipfYAHTCYuV50/z5Z6OiyxwrTCceBJhC4cV3SsbKa7J2sGHn
-	y+5AmCRYlGL5z640INvNs4dcOpFeVPxoTWDr0vfPF1ABV9yMGbXkefvz/A5+RyjlFHqibuzdZBq
-	rFSX76A==
-X-Received: from pgbfl16.prod.google.com ([2002:a05:6a02:50d0:b0:cc1:c07e:b53c])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:4308:b0:3b4:8f18:33a
- with SMTP id adf61e73a8af0-3cf75d803f4mr14024475637.1.1787760567470; Wed, 26
- Aug 2026 09:09:27 -0700 (PDT)
-Date: Wed, 26 Aug 2026 09:09:26 -0700
-In-Reply-To: <c0f9fdc27f3d9a1e63f2d39a40989d66b6facee3.1783490022.git.naveen@kernel.org>
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="JWRzC/GQ"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id A624440E020E;
+	Wed, 26 Aug 2026 16:10:01 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id 4LqSw-YMp4RX; Wed, 26 Aug 2026 16:09:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1787760591; bh=acgUmIjwUp37f9C6UHtd1NXCPV3P5eB/7427Zs1hn9A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=JWRzC/GQffUPUCy04EN2xyNjhAYs+YSkVGv/DAUHHF5WGl90vBXA6dJeQSwNLQx4s
+	 s5Z4kLDiyrUbrUVYfvhXSBQaFfKAUav0m4sIvsVN+NAKi/fzcSmZKAnJjkQh1IE1fy
+	 Kc5+Lr1pQtT2V8Cp8zpBUPwToYpAZ/N8AbebkUI37DJJs6LnZV9QEeuYfzE0GNo0+2
+	 bKB7VqMTvTtBfiXq1YoPYcCgPr3kLMh5zsfV3KTpXJaMbiQo5uzaKKMTTFJtMIVF63
+	 PhMXt8pMeRwLywwpgsHGQIcE3Om1k/Z/P5G78xY2a4YTL1NAI5zC5E7IUsCXD1VBy1
+	 S+mG5uJqKAQW4fJUv7pRsAZ821bCPb3VJvajDZytEnloIGxGa0jW4+z0FZD8prXhsk
+	 aP7gOb3FKBba0EOxA2nOCITpdadr+ddQVK4VveZLanJe/NmHBtnl1jmSaCv5+daRol
+	 l9VA6yNPv15nGAyERzeATaYgbi7oKXT1hOZgTPRz+tnnDw7AMI9qwwyJg7XhAaq0Qv
+	 tG3wERE5zEK237cJw/AnUp2+QpQYWn6pkFiI46l76KSKH5FGPFApRlv147tr4juOra
+	 tkv2E78Wtx2t2xIkBUaEVhrjtVbAOEIzDN8DS2WRmPlkyXpFT4a/tVs2rBSQ4lKP1O
+	 4oB6LcRRacK8moiotCn7Ay1E=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::1a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 2B4BC40E020F;
+	Wed, 26 Aug 2026 16:09:36 +0000 (UTC)
+Date: Wed, 26 Aug 2026 09:09:34 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Breno Leitao <leitao@debian.org>
+Cc: "Luck, Tony" <tony.luck@intel.com>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"x86@kernel.org" <x86@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+	"kernel-team@meta.com" <kernel-team@meta.com>
+Subject: Re: [PATCH 2/2] x86/mce: Add mce=panic_on_ce_count to panic on a
+ corrected error flood
+Message-ID: <20260826160934.GBao8PvsM8M-U7XuFR@fat_crate.local>
+References: <aoxxxmM-xIpyAE_Z@agluck-desk3>
+ <aoynhOsTCcapwRbl@agluck-desk3>
+ <ao2eT0TWS9EaA28N@gmail.com>
+ <SJ1PR11MB60837D32B5D89336C87280A3FCAF2@SJ1PR11MB6083.namprd11.prod.outlook.com>
+ <20260825161625.GAao2_2d3U7xQFgHrw@fat_crate.local>
+ <SJ1PR11MB60839657B965AC3FDA53C186FCAF2@SJ1PR11MB6083.namprd11.prod.outlook.com>
+ <20260825191555.GCao3p63v3fXzwa7E7@fat_crate.local>
+ <SJ1PR11MB608315809B99B7194D167D8EFCAF2@SJ1PR11MB6083.namprd11.prod.outlook.com>
+ <20260825225202.GEao4ckknyv8nRc8Dh@fat_crate.local>
+ <ao7nGM9sCQyxJvsD@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <cover.1783490022.git.naveen@kernel.org> <c0f9fdc27f3d9a1e63f2d39a40989d66b6facee3.1783490022.git.naveen@kernel.org>
-Message-ID: <ao8PtliwDo8H49sa@google.com>
-Subject: Re: [RFC PATCH v3 16/27] KVM: SVM: Add handler for VMGEXIT Secure
- AVIC NAE event
-From: Sean Christopherson <seanjc@google.com>
-To: "Naveen N Rao (AMD)" <naveen@kernel.org>
-Cc: Borislav Petkov <bp@alien8.de>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Paolo Bonzini <pbonzini@redhat.com>, Nikunj A Dadhania <nikunj@amd.com>, 
-	Tom Lendacky <thomas.lendacky@amd.com>, Neeraj Upadhyay <neeraj.upadhyay@amd.com>, 
-	Tianyu Lan <tiala@microsoft.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	Thomas Gleixner <tglx@kernel.org>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <ao7nGM9sCQyxJvsD@gmail.com>
 
-On Wed, Jul 08, 2026, Naveen N Rao (AMD) wrote:
-> From: Neeraj Upadhyay <Neeraj.Upadhyay@amd.com>
-> 
-> [DO NOT MERGE]
-> 
-> VMGEXIT Secure AVIC NAE event is used by the guest for two purposes
-> determined by VMCB->EXITINFO1:
-> 1. SVM_VMGEXIT_SAVIC_REGISTER_GPA: Used to inform the hypervisor about
->    the GPA of the page (RBX) being used as the Secure AVIC backing page.
->    RAX indicates APIC ID of the target vCPU (-1 for self)
-> 2. SVM_VMGEXIT_SAVIC_UNREGISTER_GPA: Used to inform the hypervisor that
->    the GPA is no longer being used as the backing page for Secure AVIC.
->    The previously registered GPA for the Secure AVIC backing page is
->    returned by the hypervisor to the guest.
-> 
-> The primary motivation behind these is to ensure that Secure AVIC
-> hardware accesses to the guest APIC backing page never generate an #NPF,
-> since Secure AVIC hardware cannot recover from such faults. Quoting the
-> APM:
->   "It is required that the guest APIC backing page for a vCPU is
->    pinned in system memory between VMRUN and VMEXIT because some AVIC
->    hardware acceleration sequences may not be restartable when secure
->    AVIC is enabled. If an access to the guest's own backing page by
->    AVIC hardware results in a nested page fault, EXITINFO1 bit 63
->    (Not Restartable) is set (this is an Automatic Exit) and the BUSY
->    bit in the VMSA is set."
-> 
-> A guest vCPU that has the BUSY bit set in the VMSA cannot be restarted
-> and the guest will have to be killed.
-> 
-> One of the main reasons why the SPTE for a Secure AVIC backing page may
-> be invalidated is if it is backed by a huge page in the host, and an
-> adjacent page changes state forcing the huge page to be split. Currently
-> though, KVM uses guest_memfd to back SEV-SNP guest private memory, and
-> those only use 4k pages. As such, this _may_ not be an issue today.
-> 
-> It is possible that KVM may still invalidate an SPTE for other reasons -
-> those will need to be addressed.
+On Wed, Aug 26, 2026 at 06:22:27AM -0700, Breno Leitao wrote:
+> In other words, I'm more interested in flagging that a host is a lemon
+> than in keeping it limping along half-alive, thus my approach in this
+> patchset.
 
-As I said in PUCK, this is going to be painful to support, both now and in the
-future.  We _could_ get it working, but I'm not at all convinced that I want to
-commit to supporting Secure AVIC in its current form.
+This is your use case but I'm sure others would prefer the limping and
+gracefully saving work the system has done until now...
 
-Though on a slightly happier note, I was wrong about KVM_X86_QUIRK_SLOT_ZAP_ALL.
-That quirk only applies to KVM_X86_DEFAULT_VM VMs, i.e. wouldn't need to be
-manually disabled for SNP.
+Putting my user hat on:
 
-And if we go with my suggestion[1] to force KVM_MEMSLOT_GMEM_ONLY when binding to
-a gmem instance with in-place conversion enabled, then the fix/optimization to
-ignore mmu_notifiers for gmem-only memslots will avoids spurious zaps on that
-front[2].
++               Panic once a machine check bank has logged this many corrected
++               errors. 0, the default, disables it.
++
++               The setting is global rather than per-CPU, and it is compared
++               against a running total kept per CPU and per bank. Lowering it
++               below a total a bank has already reached takes the machine
++               down on that bank's next corrected error.
 
-However, there are still problems.  E.g. when converting memory, userspace would
-need to make sure to never do a redundant/superfluous KVM_SET_MEMORY_ATTRIBUTES2
-on a range that contains a Secure AVIC page, because __kvm_gmem_set_attributes()
-will tell the MMU to invalidate SHARED mappings for the entire range.  I.e. by
-design, guest_memfd will not chunk the invalidations based on the per-page state
-of PRIVATE vs. SHARED, because cross-referencing the current attributes would
-incur non-trivial complexity.  For TDX, this isn't a problem because the S-EPT
-is a separate paging structure, and so kvm_gfn_range_filter_to_root_types() can
-simply skip MIRROR roots to avoid over-zapping PRIVATE memory.  SNP doesn't have
-such a thing.
+Ah, so how many CEs is "many"?
 
-Converting a subset of a huge PRIVATE page would also be problematic, although
-that one isn't so bad since we already need to call into the TDP MMU to pre-split
-S-EPT pages, because those too can't tolerate spurious zappings.
+I have read that correctable errors do not have any effect on the system and
+they can keep happening and do not influence execution.
 
-Those are solvable problems, but I'm not exactly chomping at the bit to take on
-the complexity to support what IMO is a poorly designed feature.  There's a very
-good reason why control pages are referenced by their host PA in both the VMCS
-and VMCB.
+So what do I put there? I don't know... hmm.
 
-TDX's S-EPT obviously has similar restrictions, but with S-EPT the downsides are
-a direct tradeoff of the benefits.  Tracking ownership in the page tables to avoid
-the complexity and performance costs with an out-of-band table obviously requires
-preserving those page tables.  For Secure AVIC, AFAICT it's simply a bad design.
+... Dropping user hat. Putting devil's advocate hat...
 
-Honestly, this feels a lot like Supervisor Shadow Stacks on Intel, where an EPT
-Violation in the middle of a shadow stack access would be destructive to guest
-state without a very heavy lift in the hypervisor.  And I'm pretty sure the
-feedback to Intel was "provide a better implemetnation" (wait for FRED, maybe?).
+How many CEs do you put in your kernels?
 
-[1] https://lore.kernel.org/all/ao7vwx3nMqCjCHZU@google.com
-[2] https://lore.kernel.org/kvm/20260615155244.183044-1-alexandru.elisei@arm.com
+Does the same number fit any machine and platform?
+
+Or you simply say, after X CEs, we simply panic the machine - instead of
+gracefully powering it off after leaving a helpful message in dmesg - and have
+lab technicians inspect it?
+
+Hmmm.
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
