@@ -1,118 +1,88 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CDD96439909
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:47:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98941431E49;
+	Wed, 26 Aug 2026 13:47:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787752045; cv=none; b=PiwkV11/PpIqyIDy2tv7F0fCZ1bwWxTovqtX7fX/ut46qrZHmVr10gZOOaF7NlpS5BTl+XjoEBq54dUIN5FykgazduigfL5sKTmWTMAHtsPl22UWxuB5BBPKMcrdhAA21bMbkZgf2LnFVM7VSPXUbtH3GIsVQcHQwfmiXy2if/E=
+	t=1787752060; cv=none; b=VcdPf07ubQODwnarpX7QeXyaxD/wMoRBcUWHdanKpIUvv+6ToqeY/4SgXzIgNJFZwiIT5KO5PkqJT7h0cThRfDfd9cRe7wlZ/V9GBIYJ73edoBfF3DFfaLGUR9t18KAvlrrH2TAWdTjl4WYUXP8duVsSoy/TsGNq1MYma45rX7E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787752045; c=relaxed/simple;
-	bh=0MnDj5WVVF2UqScVMHonzHxzntwHpQhPH6FsUHivT6M=;
+	s=arc-20240116; t=1787752060; c=relaxed/simple;
+	bh=QAcMff6+pKvsn1QdVpc5Po0o1qq52QVmOL5jB5kjrFA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MPbsiuE0RAbB5R3SJcqxQNQjwZnEu0NmuIsJ/nrDhPod6iNeMqz+3nUd0DASwF+U0gUSajw/tGwU9AFdg/wM8WKb41RQgLLpXaC8Aa07s8tl3Wz5hFC5PxQHNRqYcHvXDHODz18GyCxomu+4wh9fPQby8P3QsKIUc68mZBedaXY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=tC5bvxId; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=JOitfYWvC7W9wqySgDzOoLi00g2Gl7vc4YeQLCJv5MGMshVoSy2lRRuSoNaBndqZw4jn62jjvQnNUuSXul6UBKpoMGLzgOX2/NHQ1wHgTl7G++mYIVZFD94LXz83gz5iGF1Oma+r4jC5a7NmKxTnrcZp562mrCMHaLnEivwkO+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YqdPUmFb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="tC5bvxId"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C390C165C;
-	Wed, 26 Aug 2026 06:47:17 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 342213F66F;
-	Wed, 26 Aug 2026 06:47:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1787752041; bh=0MnDj5WVVF2UqScVMHonzHxzntwHpQhPH6FsUHivT6M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=tC5bvxIdWvmRxIuRkRf6JLXg+FELB2OCTOgsxM5Q51LLmhDrWY0Dr9VUL5cQGf+Ea
-	 LeK7MLeBD3kLs0MS2zzgrPNINKHEr7YtJs/S2+Lr2nSaODBYCdla5qy1jvkMNJzDtg
-	 H/+O7uJjLYi/4ZhCvCYI86lWe9UMKxnFvS6gSnUA=
-Date: Wed, 26 Aug 2026 14:47:15 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Will Deacon <will@kernel.org>, linux-arm-kernel@lists.infradead.org,
-	Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Mark Brown <broonie@kernel.org>, kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Fuad Tabba <tabba@google.com>
-Subject: Re: [PATCH v4 1/2] arm64: Apply overrides to CPU local capabilities
-Message-ID: <ao7uY-dpJocX6ety@arm.com>
-References: <20260825164219.3347229-1-fuad.tabba@linux.dev>
- <20260825164219.3347229-2-fuad.tabba@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YqdPUmFb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 826D71F00A3A;
+	Wed, 26 Aug 2026 13:47:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787752059;
+	bh=rfiA2xY/1sxbBHxLTAs/jukO23zJ7xtO0RNk//A1ie8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YqdPUmFb1EZ9U3xlWQKZ2HdeCQh1QiL13tn9Gab7NhuvBJMbrC/vJY24b7Gy7zqTy
+	 9fYqocqiKX02E4fWAPLOzoVySQSMtr/PlQnvPqtLs3u0OOmNBnIJecX3o4qy8oJ1ik
+	 gOnj9roFtnMQoh6W4nkBTTg1pUiUvDVFUHQUnxaABkALwtt16gqFs/MpH7/Q/qgUSG
+	 IpAwVjap2TKunLnoloXuTUp/V4J048ke20sqnfK+SFMvzOJzWVi1CwJOuLxUgWssFQ
+	 8Z/ZvuIo84YlyrbrbUoQ8vcXKfWdmwg6IphiPqqUpVNFZ86kh5XAmDqEIsQPWY1/N5
+	 PQePBL1rZVekg==
+Date: Wed, 26 Aug 2026 14:47:35 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Matthew Wilcox <willy@infradead.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
+Subject: Re: Please include pagemap header cleanup in -next
+Message-ID: <3d9f98a8-1df3-4b06-b1bf-42baba10d3a5@sirena.org.uk>
+References: <aox4v6paR4IbJr8j@casper.infradead.org>
+ <29f8f296-e49c-4960-aadb-f27d863ba773@sirena.org.uk>
+ <ao3zvOo2nkMxaDY5@casper.infradead.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="JNTAy7y/B3qulzbT"
+Content-Disposition: inline
+In-Reply-To: <ao3zvOo2nkMxaDY5@casper.infradead.org>
+X-Cookie: Obey all traffic laws.
+
+
+--JNTAy7y/B3qulzbT
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260825164219.3347229-2-fuad.tabba@linux.dev>
 
-On Tue, Aug 25, 2026 at 05:42:18PM +0100, Fuad Tabba wrote:
-> From: Suzuki K Poulose <suzuki.poulose@arm.com>
-> 
-> If an override has been applied, make sure we apply that for the
-> secondary CPUs too, to limit the features.
-> 
-> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> Link: https://lore.kernel.org/all/afc5bd00-28ca-413b-b047-ee53589c285d@arm.com/
-> Cc: stable@vger.kernel.org
-> [Fuad: whitespace and comment fixes]
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+On Tue, Aug 25, 2026 at 08:57:48PM +0100, Matthew Wilcox wrote:
+> On Tue, Aug 25, 2026 at 02:44:54PM +0100, Mark Brown wrote:
 
-For completeness, we should add:
+> > As I noted in the regular build error mail it hit a build fail on an arm
+> > multi_v7_defconfig so I didn't merge this today.  It's pretty surprising
+> > that the build bot didn't hit that one TBH since the file that broke
+> > hasn't changed since v7.2 AFAICT, I would guess that there's some other
+> > implicit include cleanup work that's interacting badly with this effort
+> > but I haven't investigated at all.
 
-Fixes: b3341ae0efa2  ("arm64: cpufeature: Use IDreg override in __read_sysreg_by_encoding()")
+> I fixed up the one you mentioned   Then I installed an arm32
+> crosscompiler and built arm allmodconfig.  And then Intel's test robot
+> found another.  So in total, three more fixes:
 
-> diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
-> index 9a22df0c5120f..88b15b5ef2f7f 100644
-> --- a/arch/arm64/kernel/cpufeature.c
-> +++ b/arch/arm64/kernel/cpufeature.c
-> @@ -1232,10 +1232,43 @@ void __init init_cpu_features(struct cpuinfo_arm64 *info)
->  		init_cpu_ftr_reg(SYS_GMID_EL1, info->reg_gmid);
->  }
->  
-> +/*
-> + * Sanitise the register fields to clamp the values to the overrides that
-> + * have been applied.
-> + */
-> +static u64 override_cpu_ftr_reg(struct arm64_ftr_reg *reg, u64 val)
-> +{
-> +	const struct arm64_ftr_bits *ftrp;
-> +
-> +	if (!reg || !reg->override->mask)
-> +		return val;
-> +
-> +	for (ftrp = reg->ftr_bits; ftrp->width; ftrp++) {
-> +		u64 ftr_mask = arm64_ftr_mask(ftrp);
-> +		s64 ftr_val, ftr_ovr, ftr_safe;
-> +
-> +		/* Skip the fields not overridden */
-> +		if ((ftr_mask & reg->override->mask) != ftr_mask)
-> +			continue;
-> +
-> +		ftr_val = arm64_ftr_value(ftrp, val);
-> +		ftr_ovr = arm64_ftr_value(ftrp, reg->override->val);
-> +		ftr_safe = arm64_ftr_safe_value(ftrp, ftr_ovr, ftr_val);
-> +
-> +		if (ftr_safe != ftr_val)
-> +			val = arm64_ftr_set_value(ftrp, val, ftr_safe);
-> +	}
-> +
-> +	return val;
-> +}
-> +
->  static void update_cpu_ftr_reg(struct arm64_ftr_reg *reg, u64 new)
->  {
->  	const struct arm64_ftr_bits *ftrp;
->  
-> +	/* Apply the overrides */
-> +	new = override_cpu_ftr_reg(reg, new);
+Looks like that did the trick for the build tests I do as part of -next
+at least.
 
-Not sure we need this. The init value has already been clamped, made
-safe, so it won't change the result.
+--JNTAy7y/B3qulzbT
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Otherwise:
+-----BEGIN PGP SIGNATURE-----
 
-Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqO7ncACgkQJNaLcl1U
+h9DELAf/YJVgHLNnyJD8LI2DzhHyjym8bYSEdzH/K6jZ1vjWAZGwnvlvkYgkMKXM
+QoZIBh4KpvcG4Dvt4qNtczqiInNAt/tda8+ovsY9i0Rl0UKYYVJY7PrXkMv3g84z
+qp93LGxe+kw0xaYMq90DUONAOZjY2yVZZy2Sg3zx6MilU54fX/kx/Aw7z5YgKPvl
+AHB59JFRmRuiqhLKX0YoKPCTj8spjsV5Q43DxUezexPzvjm0v9nfzf4Giv0l2dlk
+bCI8lb7G4HtchdFeQ/A1QVuhdVTBPhHCIMozpBwRqx7Y27eUg80O6bWlQnSUmFfF
+uhAtLNVfFIR0kh37oW6eqQoD8tMDXw==
+=4+qH
+-----END PGP SIGNATURE-----
+
+--JNTAy7y/B3qulzbT--
