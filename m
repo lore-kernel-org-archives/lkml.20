@@ -1,126 +1,294 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013064.outbound.protection.outlook.com [40.93.196.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F44142BC43
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:29:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787750972; cv=none; b=qJJT79CyuhdqCjsdaYY+7nfhXTgH8Hvt1xexv/spc+SUcTkwatgSkabQdJLsFjhZmrXTg4iPGPNS36+UkuvPX6m4Svtp3aG/DOnsVbApDcjlCCkLC/YflqsCFVCVWU4TpcuW6Q5o8F4e4ssphMEo+Usa9PBfH+zjqQEqUPV8UM0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787750972; c=relaxed/simple;
-	bh=NTBDsd7W8rqFMzsv0C8Igm3E34cVJOj3/zvqlQP38Fg=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version; b=d9LpdKi2+mFC0eWzghRazQyil2MPBkkqdiQmvFCbvfyMKHOHX/mSZCSdTAQQMHXE4MXTSeSDhPMZF9+g7sRb2kfpQ1MgU2WE66o5uRACaU6oG7VsDvDFEZowzRuEPuHlX0GeIQIj6vcg0tTqLkyiJ3fFjWLHtVZ+0ogZ9ZqEAAg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Qgnisj4z; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=M/stY/VL; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57A453F7AA8;
+	Wed, 26 Aug 2026 13:30:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.64
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787751013; cv=fail; b=PBBfqVDunY25XTT25wZOSSrB5OwUCsVtO2Lc7xW08JuJkg/RIH5dAwnk8Co5yJSexPSTz1LhUSWlXJbIydgI6EAyFQNN+8tDgeGmoNaetaLcCQlepf+D0WyIYn7fLPN7V8Co3rOxIIXPJ+kxNEWZtakWb6Xivyu9gEJ8sE21nEA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787751013; c=relaxed/simple;
+	bh=fz+KKPk825LYDy9WJl7YSkwgXIOovRgwVKWHfOgWsbs=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=kmpPcxQfPPVUBkD9zbsAVs/0x313NaB57pUXv8LhMnJHUHkolE/V6qny20hDQQgFejicmBdX6naKOv1BOXG1x5Q5dWnjNbUuBvfDlZdkYj88WSw5v+RRaAQCwlbbgzu5EJK+BZ+lw/btXgdm3SIYd+UoHHELxDVB8iyMD1YjA/g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=MaldfReF; arc=fail smtp.client-ip=40.93.196.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Qgnisj4z";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="M/stY/VL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787750970;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=xSCrXzn8CAowsJ0tGBnOBBbCvQKgrZGEllzSa8e6M34=;
-	b=Qgnisj4zsH/4u1zn70RWhyuDFnNoOY1CzFSNGiVwldNfHm8FJWwkFMFeowRv3McH7oPeEo
-	ZivlelMUPS0A+YLVvXo5+rTeuBlEjEQFZXDi7N1EVNjU4rfs+48bRh/k+1Vba30j/ZqPJe
-	aYL2UAhI/3kxLFSDF8Jxa+fE73SrCh4=
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
- [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-612-OuLGCmD4NpqwsHPmluCWmw-1; Wed, 26 Aug 2026 09:29:28 -0400
-X-MC-Unique: OuLGCmD4NpqwsHPmluCWmw-1
-X-Mimecast-MFC-AGG-ID: OuLGCmD4NpqwsHPmluCWmw_1787750968
-Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c213d5fb55aso115377666b.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 06:29:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1787750968; x=1788355768; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xSCrXzn8CAowsJ0tGBnOBBbCvQKgrZGEllzSa8e6M34=;
-        b=M/stY/VL8TE8mR6oVmJyf6ymn1K2BuI3dlonMC5tSg78lJVRtOti82jHQaN8Q//gIJ
-         Vzvkt1C3DXIan7Lo9pPonXAiLrnDybfHxYN3QWZz/Hd4XAy260PkAt+ewADDq1almhOJ
-         G1gofdIcgrTj+WKZ/fsUrO5ArUI8/Kqywpmxn3XBOUU1oxZMOiXIjT/2/I2EXmDTpH5y
-         rBTniyHSt9xRFaDGWt9xH5gThjNAQOZJt3cyWRBdCW9QX8Bb8rB9JvXn+FqxE+3dR6j8
-         tC6nIsvMpsblA5AQkM/QeUmH3CzPrSxwvvu9ownQyUL3lGb96fUlSw0aRgEBdi9OQ7Vm
-         2nww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787750968; x=1788355768;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=xSCrXzn8CAowsJ0tGBnOBBbCvQKgrZGEllzSa8e6M34=;
-        b=mvHNOrdo656xj/nJGYIiF6utG8ovOhyA5jebISAM29cWPIKheNktKPLoKZW0FD7xlG
-         Ig96oMGKUxHFUFHu4aTovj5dIZtC+WB0aD3VN+SXakW0+SE0MDMS9XN6IC5teDb2kXUn
-         B8joHXU3AsPe1HobAFl6RxrgQVmlYx53j9NjbUwTSwpOGFG083k/7Q8xb0pOOwyLIOS6
-         yNiSFCRiTo6LNdv0QH/jZnfCHA84IwNNR6G/iVWgVq32peFgj1x683le1CYx3X2v2Epx
-         qeRfWXeV19t5kqDU900sbyvn0D7pin9AvgGR3I/lcLlIebKnoiXUxAzDEbuiFjRqhKQN
-         WCaw==
-X-Forwarded-Encrypted: i=1; AHgh+RpLDy9MqHEPkxwIqeuTUGGaseSpGHGCBDsYnuCqtpP9lLk+4rFBp66TUx48lBMHKMDK6sIAwyBgr0+Ah0s=@vger.kernel.org
-X-Gm-Message-State: AFuF++mw+JPtu1JUSk1VVnGbV77TpKqaRM/rTaNnl92R/q3JzIsuF91H
-	YV+ecasDJBENIgkxsPPA+bTC/I4YOWzMTyeUYDxAxpjTtTffV11L98Ab3e+yJghNJMzviQoxTNA
-	UeaVULgUkU8XSDieSLlZ89P8c0wsY910hUmdMW9HuLtaOwudOrs01TxCDUrKXi2BulA==
-X-Gm-Gg: AR+sD13FP++87bfVIDzIb0HdPZvaheew4M1xbtEbm6/Fc/zkzn/Ru4ECjpzhuBO8JoW
-	5WFpE+UmktNdT4EJ2TZl24fkWmdXA01lDFBfH9c3PgZyIGZ39BN4YMFvfnhuk3j+G1zLsVzjjN6
-	34mIR0jlPN0FErX6uq76WaUdpOJiPt2Bv0ktw++tNG8yY6H34Q3B5pI1CYrwCh7gEfes9YiUpYS
-	IZWra595UIR7Od8rTtZ7O9Gr0DCFUNCXMNlr01xvOOmcWOibEtyPJR8C17dKvoH+R4m/DKleTOZ
-	gfvS+TW6Iz3rnxE5B+gwKjK+2+1/DkGUMXlwklKM+hwPMRS90IQhlA+M5flVaZxuWiTpQ7sEV+P
-	g2subn0piWP0idjpX
-X-Received: by 2002:a17:907:1c17:b0:c24:4128:c19f with SMTP id a640c23a62f3a-c250c596866mr850284966b.11.1787750967716;
-        Wed, 26 Aug 2026 06:29:27 -0700 (PDT)
-X-Received: by 2002:a17:907:1c17:b0:c24:4128:c19f with SMTP id a640c23a62f3a-c250c596866mr850275766b.11.1787750967177;
-        Wed, 26 Aug 2026 06:29:27 -0700 (PDT)
-Received: from cshulyup.raanaii.csb ([2a00:a041:e223:1b00:cde9:6812:f4a4:646])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250dfd6e6asm387535066b.19.2026.08.26.06.29.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 06:29:26 -0700 (PDT)
-From: Costa Shulyupin <costa.shul@redhat.com>
-To: Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v1] docs: sysctl: timer_migration is for hrtimer only
-Date: Wed, 26 Aug 2026 16:29:19 +0300
-Message-ID: <20260826132921.294142-1-costa.shul@redhat.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="MaldfReF"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XUb/43Yl7ReuCz51O5pTVOiE+ZAbZJyRG9YyQd9GtyQ77u3dlkWribUisFHcUtDyc0Xw2MkZTHjWhtebsCTId9Z5J2ZSBORfdcIHWv3pKJtxeLavGSHW1XZJfwJgw+SwpkY2/etmTvZGzpJFTh4vfaIodhSI0cS2QNljUreWNt8GTCdGaIqbz5Hnnw9tMvBRXu1OsM1bELzXdJOPvvWpAcycVCDBdbr9XsVhPN84RczlxCc7kkVK8epvgObSLJtE4xHbY0iwaFSgM7bip3DWbPRDpFY+HSj5c2/DCHIu7/zj2Gv5AVAqUSN3VG+jV//yR58cS7LpbYYjSY2PR7+WBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Z3MfCcZ06Tn4gwJcH1Zmnl24LZFdTsB0TajklI6PReY=;
+ b=nFS6cljpXeLD0wlTDBz5hYocMb1UlkDFfWcKShJQbEHQLyc2LjTEWjuWKof74S4sWLnQjmhKEASnYLACyvEgtrglK18IuinmcGE3o4qC65fo8gtBL6zXiQhzg0+j6qlK7vuW1OS8+96V/mxmXlVCQ+u2X0lfhsqxqBFY90sElqFKqWw411YuUrq2sYSp9H1+0y1L3lHnh96TvlOZURVTqRhhVMIB7eViQxXQtHOszTA1koHUGlsTtarfiqxHO6BfdG5avg6kbv8EBGqWxQXByxjIq06fCLNuNVJSrguN54m2NIDWlpBO7B+c2Ip2RrE+CoW0EY6xW3YxPtB6t8dvpQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Z3MfCcZ06Tn4gwJcH1Zmnl24LZFdTsB0TajklI6PReY=;
+ b=MaldfReFMbEdgDjixR+IZ8e3Na8lnbCp8NLbe7B8XL1OaotszhVi9zKNnpCSx4FelcLe5nJF4wibEoB3rhc/D6Ex8DOCrVxtIjY6SFE3MkDgx7lOf+2Fcf4l2QJExNUb3jeJ9YJ1oKZEbLLb+jGCZ5vBcsWQo001Ej5Iqklr5nX6Pux0npbs1ueVMJtHr63RID862MUUMntetqZNNa/OZ2Ib8aqQQmrYHR+C1Cug3NjYD3PHzKizO2NwfCRxQHOdz9DDq8/dRzqR56xfinTO3vUkm10yiT1Dh93AOQ7gOl/2tghBsxZveAsb/1d+KQ+Q8Ocr3DpBvaOS0Cu4CQyv8Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by PH7PR12MB6468.namprd12.prod.outlook.com (2603:10b6:510:1f4::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.7; Wed, 26 Aug
+ 2026 13:30:05 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0315.014; Wed, 26 Aug 2026
+ 13:30:05 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 26 Aug 2026 22:30:02 +0900
+Message-Id: <DKYWU8JOCKM6.3K5820I4MLPKR@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
+ <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, <driver-core@lists.linux.dev>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pci@vger.kernel.org>
+Subject: Re: [PATCH v3 03/16] rust: mem: add `AsRepr` and `AsReprMut`
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Gary Guo" <gary@garyguo.net>
+Content-Transfer-Encoding: quoted-printable
+References: <20260819-typed_register-v3-0-3699a75fadf1@garyguo.net>
+ <20260819-typed_register-v3-3-3699a75fadf1@garyguo.net>
+ <DKYU6RA4PD45.J2EMZIOB0BBF@nvidia.com>
+ <DKYUQ9CWIXKJ.3FSWLPWHXIBK@garyguo.net>
+In-Reply-To: <DKYUQ9CWIXKJ.3FSWLPWHXIBK@garyguo.net>
+X-ClientProxiedBy: TY4PR01CA0054.jpnprd01.prod.outlook.com
+ (2603:1096:405:372::8) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|PH7PR12MB6468:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4f578214-e052-4cb4-a0de-08df037623b2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|10070799003|23010399003|376014|7416014|1800799024|366016|6133799003|10067099003|4143699003|11063799006|56012099006|5023799004|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	+cLw1MGFa96By3RoSOE5AaXZEro0oOUjTY45aw1j3mopRl/IusOIyLCu+LjeVmi/B06BYL5esEjnH3vSZI7sWwojgItyEPktNUz0gzQ3UMUGBx2YwpvruMcWJJv6kjWirYB3e0oBxnikCv3kixIx8hvryeAT/WxcCGGQVfarwrpNan2doQiN8+p00bTewvbL1pNIHN5H92Jlco9E0QtivqkGSaCbiJp7sH5xRbP3TwoTwD5/chGgugRwsyNa1egg4PyUNglVBmnUWVEZzJFKLlY0E2PxS2BO1JVHKv9m5EIY78AARapgH/sc1CJnmo5uZkcfLWnAKDKkFAEH5PFc4uYl5OCM9JZiq4LNJnc8aQa025GVFoRrpbLJ7xATkwn4YLFKpACO6UkjKAOGqrKvMlF+3so1zpMBg0uedWd66K3loAlOCoprE7AildrU1/KAB/GTSnw/2q/KY7ysyq82J8n+JpUhP+LJ8GbV34PVb1VAMfR2rhzhYZjCXBSCs8I7Zlw5Xz9qhF9cj7A2NDpewUAP0cM7nf9DUox14ho0c+CGHWBQwe9qYoapaewNHRMNiTFiWkPI1yLqASQzzr5z4jVGuP5t88b40f7FLs24dYj0VE4R6cCLuu4intwcOOemmMFAfam2QfvBe/KkrkAgw5YjbfVsY9Xe27u/c+r9ans=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(23010399003)(376014)(7416014)(1800799024)(366016)(6133799003)(10067099003)(4143699003)(11063799006)(56012099006)(5023799004)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NkJBSHhGeFJGVHRGeE9iMnZldjFpSkI1T29ISEFHK1U2ai9vMlhhcVNvZXhp?=
+ =?utf-8?B?WTd0S2lrSDZIWFptT2tSY1prL0xtVEd5b1lpUitQLy9zd0ZXdWsxdExtbXMr?=
+ =?utf-8?B?WUhVUUZ0Tk5hQ1ZwdUVqWHhoeEM1NEdRS1Z1VDJZRzNBOENWWU80cW1zc2k2?=
+ =?utf-8?B?N3E4TlZ3ekdHRzlsSm0rd1J6LzNIbG91U1FNOFZGVmRBbFRzaTlKcnlRNFNr?=
+ =?utf-8?B?bDNZZ2pXaGo4bDFWWXJlTmNPNGNmdDVYSnppS2VCMWd4d0R3eCtQNTd5QU9Q?=
+ =?utf-8?B?NlowL1hLcytGck9xQ0VNYzgzRzZ0b3UxalBiK0lTdng0NENKaHYvSHhsSGh0?=
+ =?utf-8?B?TUkzMjhGSHVxZUpCRDRQMGt0TFpwUWtRK0lnSlhzRit3KzByYkNKTmhmSVk2?=
+ =?utf-8?B?Vk5kQ29idXVGemhCczRXKzYwVnhVUFozMGtRRUlnTldwbWJGMVRKd0duTVo4?=
+ =?utf-8?B?SmZLbW5xME9GV3JmTDJRYUhnWVBIVmg5bERYUEZTVDlUZ2VpdFBVWU5YdEcw?=
+ =?utf-8?B?SGhXMnFIOVZDaEVuNDJUSG1VZnE5T1hWNWFlMG1TTFFyU3o3TVF2dGFqRDFQ?=
+ =?utf-8?B?c0hhaVJIYXY2MjJzdDFHNTB5ZitBdUc2NXc3ejNrQXFISTZNWHVYM0Z5TjYr?=
+ =?utf-8?B?T0RTbXREeGswOVE4RjMzMzhzanpDYWcxT01ZU25kYVk4cFVIYWNqWWlmSTVI?=
+ =?utf-8?B?cllJSEhWaXZid04ySFlwczY1eUlOR3phVk5yMG0xSzlnRUdWMWd1R0RraHps?=
+ =?utf-8?B?bnp5bWpXT214REhwcnIrd0xFRThzUWNuNXR0YWZWZlowL0pSUXIxb2hoMlNO?=
+ =?utf-8?B?azFaR1NienBQN1l5MG9jQmpJc0NJSW1OcVVXTGdZekY0djh4Mmx6MTFuZDk4?=
+ =?utf-8?B?VWhodEg5eTlDR1RiSStncW8vazA5UXhmR2Vwc3p3ZG4zOFl1RWwrSDFPYVpI?=
+ =?utf-8?B?dGg1RDdETWVWU251NEVLZVNpdHMxNHVpbUg3dGtaRGo0VSs0b1hLS3YrTmQ5?=
+ =?utf-8?B?UWQrVCsyeElOaEY0TkpTSkx2RkNxc3pEbU05cXkrbGRNRW1IOUhMNWRVVEd3?=
+ =?utf-8?B?cGNuamJqb3RXTWdKbXNJY3FVMzczd3pkTFhTeU9DYy9rUGZPTkNzVkQweXg1?=
+ =?utf-8?B?T1F6RXBHSFFNQVNUcUx3eHRIREdHWXAvbHA0L1dtRGVkS2RHQ1A3YjYxK2xB?=
+ =?utf-8?B?WGYxWW1NRzZyRmUybXNaMHdic1dCSFlHY2pXSGYvU3NwUHpqVlJqT1U2eERW?=
+ =?utf-8?B?VnEzQklaK3RiaWlic1BJSUpRUHh0K1Z4eEtCcnQ1TUZEVVlGNW1pa0ZuTVJz?=
+ =?utf-8?B?encrb0V6YjV1UWx1Y1JFS0c2c050QlBRdzRlZTM1VHBQcUt1UW00ZUltMWlS?=
+ =?utf-8?B?SktHUTkrUW81QkVMNUhOejUyUVRFV1pmZW5pTTBlWlVzTWxCdnJMNno2RGN4?=
+ =?utf-8?B?ejUzTjNjZ0F2eHFjTW1UankzOWZwSlByeWpIOFZrRXBCS3RLTm4xMVZCaTRR?=
+ =?utf-8?B?SnpVaEtpVGlsZldYK0lGdDV2bURUOVhqb3R3c2dOU0dscUZZd2M2TmRabkFr?=
+ =?utf-8?B?SkoyZDQybmE1MVVoNzVKWTZyME1UWGtldVNEU0E2Zkh4Qlh3SVdyKzA1MWVa?=
+ =?utf-8?B?Rk9IdWpqclZ2Ny9lenBVNG5jeWVjYWlqakpzNDFEaE5tTjJnT29TMEtYMkhG?=
+ =?utf-8?B?K0tCRkFZV2JNMFQrR0RqUXdUMWpuRGNuTm5DMTBmejBIa3p0N1BsdWNaS2Zw?=
+ =?utf-8?B?VmlrZVZtS3RoNmR1U29XTmdEcUF6QUVaVlNMMTVpcmU5Y3FUZlluUmRTTVJ0?=
+ =?utf-8?B?U3c5ZXgySTdQalBhbENrUkNJdG00QkxkdEtkUnhSdklyZys3dyswUEdGTGQ4?=
+ =?utf-8?B?YmVoNEMzTVFNVUtSTGhTUE5udWNaYVMzZ2k1NzcvL1d3L3lFT0pkZG9KeC9R?=
+ =?utf-8?B?UWloTUVJYWZON3czQlJIbERXMHZyRzM0dk1BRU91ZVh4c3VwRTMxaUFxR2hP?=
+ =?utf-8?B?Z0VBUlZOSTlKRWduTlQ3YkpVWXd0UFVVUWM3by9jbjBxUTdoV0FveFltSktT?=
+ =?utf-8?B?Y3pRNTZuMUhvMHg0SkhqblEycEQxT01oQjJaRHlqSmkvUkNUcEJ4TzhSY0Ro?=
+ =?utf-8?B?cG5ONThzYThrMnhLSTFibE9ZdDlkeVhvTXpmU0s4aXNrZFYzTHJsWXFLa1NO?=
+ =?utf-8?B?N1BXTlFtMUNxZWlEbHhIOFFiN3ZDcUxkenN2WkNxdzFaWHYxZ2xnZDdHMzRQ?=
+ =?utf-8?B?MEdHTUFseit6TUhBL3k4ZWxvemV1Rk5rN1dHandYZ1dMeU43YW1EdDg2elpv?=
+ =?utf-8?B?NTNUMnZwRTAzQSt6RWdwcmNneGNwR0VhbDJkRlJLd0FYYU9rNHhWd0VDQjlS?=
+ =?utf-8?Q?L/XtljO+aO4QWMvSdCLpkzU6KiizblFlJ/dUV8ofApbM0?=
+X-MS-Exchange-AntiSpam-MessageData-1: EdCvjT78uS+oxQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4f578214-e052-4cb4-a0de-08df037623b2
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 13:30:05.1294
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: KYR6mkzJl+J7bcvopnLsL167yatIW8vXtn1mOSeFN5ixc87u99X6IToCUetuGobIDte5ihTfX/Xcmum+M5dsuQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6468
 
-Since commit b2cf7507e1864 ("timers: Always queue timers on the local
-CPU") __mod_timer() no longer depends on timers_migration_enabled.  Only
-high-resolution timer migration from isolated to housekeeping CPUs
-depends on it.
+On Wed Aug 26, 2026 at 8:50 PM JST, Gary Guo wrote:
+> On Wed Aug 26, 2026 at 12:25 PM BST, Alexandre Courbot wrote:
+>> On Wed Aug 19, 2026 at 8:09 PM JST, Gary Guo wrote:
+>>> Some API like atomics and I/O operate on primitives only; therefore oth=
+er
+>>> types would need to converted to these primitive first. Add two traits
+>>> `AsRepr` and `AsReprMut` to indicate that the type can be turned into a
+>>> primitive for these operations.
+>>>
+>>> Conceptually, `T: AsRepr` means that `&T` can be viewed as `&T::Repr` a=
+nd
+>>> thus it has only a round-trip transmutability requirement. `T: AsReprMu=
+t`
+>>> means that `&mut T` can be viewed as `&mut T::Repr` and thus it needs t=
+o
+>>> support bi-directional transmutability.
+>>>
+>>> To avoid duplicating implementation, all repr types are normalized to
+>>> unsigned integers.
+>>>
+>>> Signed-off-by: Gary Guo <gary@garyguo.net>
+>>> ---
+>>>  rust/kernel/mem.rs | 148 +++++++++++++++++++++++++++++++++++++++++++++=
+++++++++
+>>>  1 file changed, 148 insertions(+)
+>>>
+>>> diff --git a/rust/kernel/mem.rs b/rust/kernel/mem.rs
+>>> index a0901cbe1b2d..5bce381d8895 100644
+>>> --- a/rust/kernel/mem.rs
+>>> +++ b/rust/kernel/mem.rs
+>>> @@ -35,3 +35,151 @@ pub const fn transmute<Src: IntoBytes, Dst: FromByt=
+es>(val: Src) -> Dst {
+>>>      // SAFETY: transmute is safe with `IntoBytes` and `FromBytes` boun=
+ds.
+>>>      unsafe { transmute_unchecked(val) }
+>>>  }
+>>> +
+>>> +/// Type that is layout-compatible with a primitive representation.
+>>> +///
+>>> +/// # Round-trip transmutability
+>>> +///
+>>> +/// `T` is round-trip transmutable to `U` if and only if both of these=
+ properties hold:
+>>> +///
+>>> +/// - Any valid bit pattern for `T` is also a valid bit pattern for `U=
+`.
+>>> +/// - Transmuting a value of type `T` to `U` and then to `T` again
+>>> +///   yields a value that is in all aspects equivalent to the original=
+ value.
+>>> +///
+>>> +/// # Safety
+>>> +///
+>>> +/// - [`Self`] must have the same size and alignment as [`Self::Repr`]=
+.
+>>> +/// - [`Self`] must be [round-trip transmutable] to  [`Self::Repr`].
+>>> +///
+>>> +/// [round-trip transmutable]: AsRepr#round-trip-transmutability
+>>> +pub unsafe trait AsRepr: Sized {
+>>
+>> I'm a bit confused by the naming of this trait - the commit message
+>> mentions that it means that "`&T` can be viewed as `&T::Repr`", but such
+>> a method doesn't exist. Instead we have an `AsRepr` trait with an
+>> `into_repr` method that makes a copy.
+>>
+>> Can we either rename this to `IntoRepr` (and `AsReprMut` into `FromRepr`
+>> I guess?), or maybe better, have `fn as_repr(this: &Self) ->
+>> &Self::Repr` (on top of which `into_repr` could be implemented if
+>> useful) so the names of the trait and provided method align, while also
+>> making the commit message match the actual API? I haven't tried but
+>> since all the representations we are working with are primitives that
+>> implement `Copy`, I intuitively think it should work just as well.
+>>
+>> Same would apply to `AsReprMut`.
+>>
+>> Since this is becoming core infrastructure, I guess `as_repr` will also
+>> become valuable when we want to do in-place access (with e.g. atomics)
+>> or use it with larger types that we don't want to copy.
+>
+> Good point. I'll add a `Repr: Copy` bound and switch impl of `as_repr`.
+>
+> `AsRepr` is meant as "have a primitive representation", which I imagine t=
+o be
+> most likely just integers. I didn't say "integers" specifically because w=
+e
+> cannot lose provenance on pointers so pointers are not integer represente=
+d.
+>
+> So I do think we might also want to make `Copy` a supertrait of `AsRepr`?
+> `AtomicType` current requires it.
 
-Update and clarify the documentation accordingly.
+Yes, unless we have a use for move-only register values or something of
+the sort, I guess requiring `Copy` would be pretty harmless here.
 
-Signed-off-by: Costa Shulyupin <costa.shul@redhat.com>
----
- Documentation/admin-guide/sysctl/kernel.rst | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+<...>
+>>> +#[cfg(target_pointer_width =3D "32")]
+>>> +const _: () =3D {
+>>> +    // SAFETY: usize has the same size and alignment with u32, and is =
+round-trip transmutable to it.
+>>> +    unsafe impl AsRepr for usize {
+>>> +        type Repr =3D u32;
+>>> +    }
+>>> +
+>>> +    // SAFETY: isize has the same size and alignment with u32, and is =
+round-trip transmutable to it.
+>>> +    unsafe impl AsRepr for isize {
+>>> +        type Repr =3D u32;
+>>> +    }
+>>> +
+>>> +    // SAFETY: usize is transmutable from u32.
+>>> +    unsafe impl AsReprMut for usize {}
+>>> +    // SAFETY: isize is transmutable from u32.
+>>> +    unsafe impl AsReprMut for isize {}
+>>> +};
+>>> +
+>>> +#[cfg(target_pointer_width =3D "64")]
+>>> +const _: () =3D {
+>>> +    // SAFETY: usize has the same size and alignment with u64, and is =
+round-trip transmutable to it.
+>>> +    unsafe impl AsRepr for usize {
+>>> +        type Repr =3D u64;
+>>> +    }
+>>> +
+>>> +    // SAFETY: isize has the same size and alignment with u64, and is =
+round-trip transmutable to it.
+>>> +    unsafe impl AsRepr for isize {
+>>> +        type Repr =3D u64;
+>>> +    }
+>>> +
+>>> +    // SAFETY: usize is transmutable from u64.
+>>> +    unsafe impl AsReprMut for usize {}
+>>> +    // SAFETY: isize is transmutable from u64.
+>>> +    unsafe impl AsReprMut for isize {}
+>>> +};
+>>
+>> By making these available, aren't we running into the same
+>> non-portability issue [1] that we discussed on the `casts` module?
+>>
+>> [1] https://lore.kernel.org/all/DK9A6KGK5JQD.3U23MBEMSAXBK@garyguo.net/
+>
+> I added it because `Atomic` would require it. However, it does make it po=
+ssible
+> to create non-portable if `usize` is used on a `I/O` type that does not
+> implement `IoCapable<u64>` on 64-bit platforms.
+>
+> I guess an option is to have `usize` stay as `usize` and we add a forward=
+ing
+> `usize` impl in atomic module instead.
 
-diff --git a/Documentation/admin-guide/sysctl/kernel.rst b/Documentation/admin-guide/sysctl/kernel.rst
-index b6328cd0f43e..fb38d654846d 100644
---- a/Documentation/admin-guide/sysctl/kernel.rst
-+++ b/Documentation/admin-guide/sysctl/kernel.rst
-@@ -1609,8 +1609,10 @@ If a value outside of this range is written to ``threads-max`` an
- timer_migration
- ===============
- 
--When set to a non-zero value, attempt to migrate timers away from idle cpus to
--allow them to remain in low power states longer.
-+When set to a non-zero value, attempt to migrate high-resolution timers from
-+nohz isolated (nohz_full) to housekeeping CPUs.
-+See Documentation/admin-guide/cpu-isolation.rst
-+and Documentation/admin-guide/kernel-parameters.rst.
- 
- Default is set (1).
- 
--- 
-2.55.0
-
+That sounds like a good way to work around the problem - it's basically
+how we address it with casts if I understand your intent correctly.
