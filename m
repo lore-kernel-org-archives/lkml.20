@@ -1,86 +1,98 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 458CD37F303
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 23:29:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C81B396D28;
+	Wed, 26 Aug 2026 23:32:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787786975; cv=none; b=K+JWQLRrtU6GCxrf6Df4QO92PQWnIoNzZXqbjF3uimjsdxfUBbgqs7L/3WBnK20cHxUt28QghNcSI+OkYj87GNoxlIxzg0J0EiMOrzlboo5GR4EGf097x4AkcjN5/ceZA5tc78/3TZmedSGVbF0+EvvYQ1ieUsFN/woRhfv2ND0=
+	t=1787787175; cv=none; b=AHwLybR9WtJHSkhkIzRO2ph2VE4Kwc9QZVZgyF6vm4D6++0RFe1isjPGDWxjm+pUzQHGZhUnGrSyVXR6tdY0YpnJNU1Rj+dM+Yl6ndFQ3t/MgSvGly68YiZGhf46HJHv3vXPPBPo/9iMbZMrkUtv3fBwZkzbl89PQOnj6yOzNAg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787786975; c=relaxed/simple;
-	bh=0snrzMdqYr62sAMeE+FrKxLntR1ewCJyKkWvQG+60jw=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=CY5rc/zSwfiLmZDGqW5KUevOfrT+6WlwpWH58WFaISk1qIesFj+SjJGcRrCkizYSVELA9a6DpZg1kXTUEZX7XVty8SYNC31lNK8h+NTKcmVL0h36+kzHJyvmXpbx4j4uL2YmAM+pCuQPHPSgXNaR7DODjth96rRFgLxvrSv3Ibw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fssNqqCA; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787787175; c=relaxed/simple;
+	bh=QGAKNpqilNv4syG/BG3ldOkWpfQTkD8Rgp/ahyxg3JE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DbiSQQ7XgLq0oXrdlc85vVne4+zT+mz0Rr4yCBZwIRGgqTQSCeXKuKLcXd5KUroZVS+l07RCi0LcISCEjcL13lELxe8hoCjP4AOBhWOFVOjtJtDkNQOSeY5Q4HCYV1lUVIXtk3UrwEZsf3axKHc386kqlUgxG5iEP39HYavzTTM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l82nydLK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fssNqqCA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787786973; x=1819322973;
-  h=date:from:to:cc:subject:message-id;
-  bh=0snrzMdqYr62sAMeE+FrKxLntR1ewCJyKkWvQG+60jw=;
-  b=fssNqqCAaBVsvD2DVbhaDrPv+bq2m2j7i9hYwM1m1272TIMrQ4bfauMK
-   QBrnYJBOUCx4gz9+bai2qfkKstEZJVBoRZd/LY/2qxYrKEx/KVYSp6hAb
-   CptlW1Cd4fupSONSUIgyQL0lsDY58e6XFdW/fR87kjttsIESWoTxKhHvW
-   AGzxjadNzpf6Pwp6sdJjeLHrt15FI/oJw3/bbKHblfJ31E704DDKehWVQ
-   TcF63cDxkUmFJoAaOpYObpSirJRKMwpysOaN9dqgnnuTTrJKGCYRIXuvh
-   M2wcArq2ogxxqVZv9BGTw9lVAYNpC3agD0RfCR4BZ20RELkIWQUhqAc54
-   Q==;
-X-CSE-ConnectionGUID: PgbZWXhDRX2I0wYP//nYHA==
-X-CSE-MsgGUID: e81XQRmRS3SHWz7PN3wMgA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="88311039"
-X-IronPort-AV: E=Sophos;i="6.25,245,1779174000"; 
-   d="scan'208";a="88311039"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 16:29:33 -0700
-X-CSE-ConnectionGUID: qNpw/caiTbit32vl0PPj7g==
-X-CSE-MsgGUID: Ogx2zHNjTH2IGK5LmK5EWw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,245,1779174000"; 
-   d="scan'208";a="264444032"
-Received: from igk-lkp-server01.igk.intel.com (HELO b2f8001b2633) ([10.211.93.152])
-  by fmviesa007.fm.intel.com with ESMTP; 26 Aug 2026 16:29:30 -0700
-Received: from kbuild by b2f8001b2633 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1wzN3g-000000000c1-0q0W;
-	Wed, 26 Aug 2026 23:29:28 +0000
-Date: Thu, 27 Aug 2026 01:29:24 +0200
-From: kernel test robot <lkp@intel.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Paul Gazzillo <paul@pgazz.com>,
- Necip Fazil Yildiran <fazilyildiran@gmail.com>,
- oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: kismet: WARNING: unmet direct dependencies detected for
- SND_SOC_WM8731_I2C when selected by SND_SOC_DB1200
-Message-ID: <202608270107.XE1EBSGY-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l82nydLK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1E7F1F000E9;
+	Wed, 26 Aug 2026 23:32:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787787173;
+	bh=w++uE1hbu24F3aiE2gO1EvdP5Mu8DsKn4/cJzh33mQk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=l82nydLKDpF2VxdZvEbPkxofMC9e0MnGeJNdrCl73pdFhRc2nsNH6plbAfRlVo3Fn
+	 q5Fgzbdt0VCG3lY+nzwn0xuEPuCmA9bwtsy+5nGVHhKbpdimJbSZb5nnM5unplezrP
+	 00YC0TfE2M+pT1VAqHxUXW1OjS8a+v01jWLJGLwPPE4LBldRpyRI7zLdMqc+WirBnU
+	 uF9gcwI+0bm+ftaMsiFIGY/9z2U9HDff5e8FTKcBV7SJhHRNCmjV1L4TB08xy7oQGT
+	 Hlj+hOD2WdY+/e1N4gxHl+UJxgGdGU0NsSS2cn415p4ITJzMXhGfg1b6PpyjsJVIPv
+	 2e3pOseUgSQBw==
+Date: Thu, 27 Aug 2026 00:32:47 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Cc: Harendra Gautam <harendra.gautam@oss.qualcomm.com>,
+	Srinivas Kandagatla <srini@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
+	Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>
+Subject: Re: [PATCH v3 1/9] ASoC: dt-bindings: qcom,qaif-cpu: Add binding
+Message-ID: <d59bd8cc-8b88-4529-8a3c-45358f9ba6c1@sirena.org.uk>
+References: <20260824063627.3595610-1-harendra.gautam@oss.qualcomm.com>
+ <20260824063627.3595610-2-harendra.gautam@oss.qualcomm.com>
+ <bf6e42b4-ff21-4b6c-a7d5-024e5b9a7da4@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="OlcSBZzqcGkzr3xy"
+Content-Disposition: inline
+In-Reply-To: <bf6e42b4-ff21-4b6c-a7d5-024e5b9a7da4@oss.qualcomm.com>
+X-Cookie: Obey all traffic laws.
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   b035a8be20ddfb932205beb9a1cbd80ea42e6cfb
-commit: 9dc15f81baf273b5aaaa3302ee8faacd78f361fd ASoC: wm8731: Factor out the I2C and SPI bus code into separate modules
-date:   4 years, 5 months ago
-config: mips-kismet-CONFIG_SND_SOC_WM8731_I2C-CONFIG_SND_SOC_DB1200-0-0 (https://download.01.org/0day-ci/archive/20260827/202608270107.XE1EBSGY-lkp@intel.com/config)
-reproduce: (https://download.01.org/0day-ci/archive/20260827/202608270107.XE1EBSGY-lkp@intel.com/reproduce)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 9dc15f81baf2 ("ASoC: wm8731: Factor out the I2C and SPI bus code into separate modules")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202608270107.XE1EBSGY-lkp@intel.com/
+--OlcSBZzqcGkzr3xy
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-kismet warnings: (new ones prefixed by >>)
->> kismet: WARNING: unmet direct dependencies detected for SND_SOC_WM8731_I2C when selected by SND_SOC_DB1200
-   WARNING: unmet direct dependencies detected for SND_SOC_WM8731_I2C
-     Depends on [n]: SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && I2C [=n]
-     Selected by [y]:
-     - SND_SOC_DB1200 [=y] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && SND_SOC_AU1XPSC [=y]
+On Wed, Aug 26, 2026 at 02:01:52PM +0530, Mohammad Rafi Shaik wrote:
+>=20
+>=20
+> On 8/24/2026 12:06 PM, Harendra Gautam wrote:
+> > QAIF routes audio between system memory, external PCM/TDM/MI2S serial
+> > interfaces and the internal Bolero/WCD codec. Platform Devicetree files
+> > need a binding to describe the controller resources, DAI cells and per-
+> > interface AIF configuration, and named constants to avoid raw numeric I=
+Ds
+> > in sound-dai references and child-node reg values.
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Please delete unneeded context from mails when replying.  Doing this
+makes it much easier to find your reply in the message, helping ensure
+it won't be missed by people scrolling through the irrelevant quoted
+material.
+
+--OlcSBZzqcGkzr3xy
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqPd54ACgkQJNaLcl1U
+h9Avxwf/Wguq/Ho9ljE0UDWZisjdl0Th051ywArm/+8Ij9ov/Ch5+CVn1h55nLSI
+CuXqgjZ7fBlhiSoNMpmeD6KBdAAY3YEI8G/iIiXZ8T+YVpxR8ScVzif8t9OiZ2Xt
+LT0/1tEhNvo3S2krpWJA3BRaBcXJC1QLTJpQ0Go14SpoYRizhCvniIDbIqmqf6sI
+lTosNdBlwiAVx0m63O8qvFWmYi/vjthOcWbwX/Omixf51BHYGLOIIRs9DK3auslM
+zhKHU0CP54Iggw+wsKEucQTpWNkWxTbhwll3Fdicg890LoI5a4LWhjO00ObNgyG3
+sDMjsDrr7D9KFaxwcdfoSa1Ir60pQw==
+=vAdf
+-----END PGP SIGNATURE-----
+
+--OlcSBZzqcGkzr3xy--
