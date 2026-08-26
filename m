@@ -1,132 +1,258 @@
-Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com [209.85.222.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A2CA418361
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 22:24:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C951C31E844;
+	Wed, 26 Aug 2026 22:28:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787783059; cv=none; b=kYJaiKhw4nFZUmOMxLvgsfGMFKgncx1GZ7/0Dz7xWhoiGPdWtAlacmpSU9A9h2nXIBOlaylnz7YoRlzJeLuWKMteYmD4qhtBkpjesr+jSH3euSdZGuZ0yTRSNQ8Zo4Bf3AX5y5yE6e8/f/Z5oG5ofH5jE/tRMc1rC2JaBJUh5D4=
+	t=1787783309; cv=none; b=jJD0tXek3MyWtuDpklAwIcHPxXtvoYhIZDlkQcPVJuyIXkpYcTu6APom0i0BgaLyNLFcwj5mHhwxwu6fuFZdMtLYQQtxCIlEqNWvy/XymXSBtwppzuAExsTclecwthSPoL3v3ob3rLzGimfrPpIhIZ/k57aPnVyfuzvA1Gu8dgw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787783059; c=relaxed/simple;
-	bh=Sudgi87Ng+/iVYfglJLZCBwjpLT4QthXbDGfIIpB7IY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IIzy11jxNuaiv+g6ziSpSzKxRylR1lF/M8OwbymrfcCdvj0ovXRvBtMFypILE0r5QYKsAmXp/2YYFPw86CKAwz6Ekf8tTZijK0WSiJOqM7v8Q2kIpcR8As39zsQOJA2Zo2XqEHRCIb9MUYeWUjaa7Ga6mJssXw1XwvGqbhkV+QA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rD4dA1OZ; arc=none smtp.client-ip=209.85.222.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787783309; c=relaxed/simple;
+	bh=yAt7chsuQ3yUj0A8Qb5ZD6FDTelm93GvYP2mnoEnyOA=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=rb5t1EAYpiv92nAVzeOW+pVeeth196foMvC4sK0yxbBFqjT66haZ1ZHb/uovMNCItSnAvejb7YXs7Yq3ovPr2XIA3dTNubeERLs3AvsfjOVzfCdFD5qlalFMbsHmJnaejlIxxZoRgTn6wbF2vzeN62JPYH5Vaa1EvMvqgk2fMmY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=aJ2cc0Cj; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=9EFDm23S; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rD4dA1OZ"
-Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-92e50a650a0so4397785a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 15:24:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787783054; x=1788387854; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cyDuDliEUJAtG1xZJlTNQXvCHyisGFvDjeXiDoJw63M=;
-        b=rD4dA1OZiBd9fuVd9FiuKZ99euRhAd8637JhF7+QEXE0FnN9POc8LSPFN5SICdQvmD
-         A0tQIZAiwUAVjy27KTx/2jCHV3oAvW0prL6QQhyxA7MV/WJ5Uz8gBMvFRkOwVoUBQV7E
-         ZlZHAxdor/h/7NOd1Bk64jNLHEDk5gQhJDD7oRX35/0CtC+AcWLL6+FUkKT0SbYhM7qC
-         S0FE2FC5x209/CUkhXDPeDEj+ASzA+1ldNNkKilou/9pKzXQrN4gtyDLD/+/veV/NLXM
-         HcQIbnxGdludWTXIzObXNx6rxY2Nk4ky5DmCy1VZPsMDmTMAQ2hrLME+xb65o77ITDhm
-         3Tug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787783054; x=1788387854;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cyDuDliEUJAtG1xZJlTNQXvCHyisGFvDjeXiDoJw63M=;
-        b=OLnfanAWSaaEJyrUD75WIGgwbtZ0lJ1KcxbkaRI/40oNAj0xfhAPikZtD/SPxcQY5h
-         G7RuREcEsm3LzoWtxaduBF4758o6W1/Pk/OOgmyMY0uKtFSRIX+2DBSRFjkZj6WH054g
-         Xk7BmK3CahTAsb1Beu1hE75okttcnjvfgxhg1+n/8cl0PPvqpLgTTGL3P4XhedgWVOmV
-         vVZgtdGgVKpz2FUjoblKysefwVMUg3h8Wcyv3DfU0yF/B5fyI0G2dgW1jiA2w8CXgmko
-         hlX+YYH3KZ4VOlce/n5QKjbLFPcUiiTeV/ekVaiu4z9vBnzDdj85UvpPrZMeUHDwKupi
-         0/8w==
-X-Forwarded-Encrypted: i=1; AHgh+RruRMveXN6ApW3SkEtL2KA/CbCYNeR8G66Yj1cP4y3o3HXVUCHhU4/jSb3JvnLVuoBL6sB3I8rHsLBonfA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mpQuax5a5BfHygN1JNXh68Lna4TyleL1D16rNfroEu1bP/5+ne
-	nix0W0G66xDa35LmRtDsSkAAvrRFt556kohRF7Ap33nul0+i7Y0vi/dj
-X-Gm-Gg: AR+sD105AT2DXCBmfVSNT3F0tntnMOSfTGEcKs9jHYI+BC1D7UESBBMMRifAmt0VDM9
-	v0MwO2UD1d2mZU0IxxzZ22hwOVXd/fNKrEvbBypUGXAC2Z55wTLCkL7ppBLzQr9UkWcHnfCp3Qj
-	QWAs/sYGPW3njTJ9b8YRN2rfPrrWQT+1MuWi4Iy7KHlIjKq8Q6lKuzqBdNgl1pUi9+8p7keHn9P
-	7GDEXa6aoUXjyIUuMcmuteHIyhpptDqT8PHNnleRpItBbQ4e1TtL+gyNHW3tY4NOttLFoqfdQ3y
-	2OH8EEb5N2LPWE76LvZMdycN4fENNxRL/TjNgJ84KCl6lsKtiwjrvQpz/JUue5rPL+y3n0n9+K4
-	zKkOuZiRVBAekxvDvx1m/yhWyCCKs22epN1VvRg6BWxxkjiTAls2vgv/5MNRbzLS+DK25XKxujv
-	zxK3MRfnPimW8lnm7vP/A+ecXy+1UOWgog+0OYp5yE/fSurzcKJvfOKnc6UjGimk2CMs6wUhdd+
-	t4nTsOh6JUKMYk6EtJ3OjKAZHvTe6Oh8RBqsVtianHzBILRMAx8
-X-Received: by 2002:a05:620a:1265:b0:938:8ddb:5e9b with SMTP id af79cd13be357-9388ddb60famr568460985a.8.1787783054367;
-        Wed, 26 Aug 2026 15:24:14 -0700 (PDT)
-Received: from CW-D0XG2Q16P7-L.mynetworksettings.com ([2600:4041:5d54:8900:dd0a:e212:7941:39d5])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9377e379d8csm310292185a.20.2026.08.26.15.24.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 15:24:13 -0700 (PDT)
-From: Maxi Saparov <maxi.saparov@gmail.com>
-To: Sudeep Holla <sudeep.holla@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Seth Forshee <sforshee@nvidia.com>,
-	Serapheim Dimitropoulos <sdimitropoulos@coreweave.com>,
-	Maxi Saparov <masaparov@coreweave.com>
-Subject: [PATCH] firmware: arm_ffa: Unmap RxTx buffers on device shutdown
-Date: Wed, 26 Aug 2026 18:23:37 -0400
-Message-ID: <20260826222337.73480-1-maxi.saparov@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="aJ2cc0Cj";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="9EFDm23S"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1787783268; bh=AlE42pFzaC8xw8talHPrPGM
+	qxNrKTSb1xbJj5kQD+h4=; b=aJ2cc0CjqpjGIKPb7Lw8z8zf9a3mopKgSLssowxHM86ewIp3Nr
+	DXWD5xjuFDWFTRboxdOHKVlcvnyYb13YHx/M1XMUvPT26JeS/6mbNANlEALyuM4oowC0huJcG5R
+	3ekYPNYyHFn8USJ3sL5EvQfp8URocjQ9w9nC0tWqhoCR9pVLXZTLYnJs285lLhw+u2eLyeZPtxl
+	RmIWg3/LDvCfRRTaDu/ossD27ajR5vTAGsXJk+W6FmrzClfDVE/eRizTFojXdVYoOSAxXWEcHes
+	85T5pqik1uSgC0h2JmbI964YqRnJlULqkxk3p/1XguUHeGTi/9N9hT+/ePEe2hVBIFQ==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1787783268; bh=AlE42pFzaC8xw8talHPrPGM
+	qxNrKTSb1xbJj5kQD+h4=; b=9EFDm23SxGTvafSh7JjL9abzKSuJmJllEyVAHU6GIk54DZV3Pw
+	pvQ3XBy+MU40j8Cx56AyCLR2i7dp0GB4zTAA==;
+Date: Wed, 26 Aug 2026 23:27:49 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: Bill Wendling <morbo@google.com>
+CC: =?ISO-8859-1?Q?Thomas_Wei=DFschuh?= <thomas.weissschuh@linutronix.de>,
+ Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Christian Brauner <brauner@kernel.org>, Aleksa Sarai <cyphar@cyphar.com>,
+ Jan Kara <jack@suse.cz>, Nathan Chancellor <nathan@kernel.org>,
+ Miguel Ojeda <ojeda@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+ Nicolas Schier <nsc@kernel.org>, Gary Guo <gary@garyguo.net>,
+ Alice Ryhl <aliceryhl@google.com>, Douglas Anderson <dianders@chromium.org>,
+ Anand Moon <linux.amoon@gmail.com>, Oleg Nesterov <oleg@redhat.com>,
+ codemender-patching+linux@google.com, linux-kernel@vger.kernel.org,
+ linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] userns: Add KUnit test suite for uid_gid_map
+In-Reply-To: <20260826220041.4075333-2-morbo@google.com>
+References: <20260823125155.1136740-1-morbo@google.com> <20260826220041.4075333-1-morbo@google.com> <20260826220041.4075333-2-morbo@google.com>
+Message-ID: <21ED2927-4536-432C-B1E5-B446A04ED230@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-From: Maxi Saparov <masaparov@coreweave.com>
+On 26 August 2026 23:00:35 BST, Bill Wendling <morbo@google.com> wrote:
+>Add a KUnit test suite to verify the insertion and sorting of mappings
+>in struct uid_gid_map. This test suite validates both base extent
+>insertion (<= 5 mappings) and extended extent insertion (> 5 mappings,
+>which triggers the allocation of the forward and reverse pointers).
+>
+>This is especially useful for verifying that the __counted_by_ptr
+>attribute added to 'forward' and 'reverse' pointers works correctly
+>without causing any runtime bounds-checking panics or traps.
+>
+>Assisted-by: Gemini:3.1-pro-preview
 
-The SPMC retains the RxTx buffer registration of the current kernel
-across kexec. FFA_RXTX_MAP from the kexec'ed kernel is then denied
-because the buffers of the previous kernel are still registered, and
-the driver fails to probe:
+Now for all the work s/you/your AI done, I've done the tests and they
+passed, and they LGTM
 
-  ARM FF-A: Driver version 1.2
-  ARM FF-A: Firmware version 1.1 found
-  ARM FF-A: failed to register FFA RxTx buffers
+Tested-by: Bradley Morgan <brads@mainlining.org>
 
-The notification bitmap, when one was created, is retained in the
-same way and a later FFA_NOTIFICATION_BITMAP_CREATE is denied.
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
 
-Add a shutdown callback that releases the notification resources and
-unmaps the RxTx buffers. device_shutdown() runs on the kexec path, so
-the next kernel finds the SPMC in a clean state and can register its
-own buffers. On a regular reboot or power off the extra teardown is
-harmless.
+Thanks for your patch mate, (pls slow down tho, we can review oh so quick)
 
-Observed on NVIDIA GB200 systems when kexec'ing between kernels with
-the FF-A driver active.
+>Signed-off-by: Bill Wendling <morbo@google.com>
+>---
+>v2 - Remove Gerrit tag.
+>v3 - s/KUNIT_EXPECT_NOT_ERR_OR_NULL/KUNIT_ASSERT_NOT_ERR_OR_NULL/
+>   - Fixed Kconfig tests.
+>v4 - Actually test on unsorted data. Corrected the "Assisted-by" tag.
+>---
+>Cc: Bradley Morgan <brads@mainlining.org>
+>Cc: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
+>Cc: Kees Cook <kees@kernel.org>
+>Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+>Cc: Christian Brauner <brauner@kernel.org>
+>Cc: Aleksa Sarai <cyphar@cyphar.com>
+>Cc: Jan Kara <jack@suse.cz>
+>Cc: Nathan Chancellor <nathan@kernel.org>
+>Cc: Miguel Ojeda <ojeda@kernel.org>
+>Cc: Thomas Gleixner <tglx@kernel.org>
+>Cc: Nicolas Schier <nsc@kernel.org>
+>Cc: Gary Guo <gary@garyguo.net>
+>Cc: "Thomas Weißschuh" <thomas.weissschuh@linutronix.de>
+>Cc: Alice Ryhl <aliceryhl@google.com>
+>Cc: Douglas Anderson <dianders@chromium.org>
+>Cc: Anand Moon <linux.amoon@gmail.com>
+>Cc: Oleg Nesterov <oleg@redhat.com>
+>Cc: codemender-patching+linux@google.com
+>Cc: linux-kernel@vger.kernel.org
+>Cc: linux-hardening@vger.kernel.org
+>---
+> init/Kconfig                  | 10 ++++
+> kernel/.kunitconfig           |  3 ++
+> kernel/user_namespace.c       |  4 ++
+> kernel/user_namespace_kunit.c | 92 +++++++++++++++++++++++++++++++++++
+> 4 files changed, 109 insertions(+)
+> create mode 100644 kernel/.kunitconfig
+> create mode 100644 kernel/user_namespace_kunit.c
+>
+>diff --git a/init/Kconfig b/init/Kconfig
+>index f63bf5e05e79..d460344539a5 100644
+>--- a/init/Kconfig
+>+++ b/init/Kconfig
+>@@ -1457,6 +1457,16 @@ config USER_NS
+> 
+> 	  If unsure, say N.
+> 
+>+config USER_NAMESPACE_KUNIT_TEST
+>+	bool "Test user namespace map insertion" if !KUNIT_ALL_TESTS
+>+	depends on KUNIT=y
+>+	default KUNIT_ALL_TESTS
+>+	help
+>+	  This builds the KUnit test for user namespace uid/gid map insertion.
+>+	  It validates map insertion, limits, dynamic allocation of the
+>+	  extended extents array, and mapping sorting functions.
+>+	  If unsure, say N.
+>+
+> config PID_NS
+> 	bool "PID Namespaces"
+> 	default y
+>diff --git a/kernel/.kunitconfig b/kernel/.kunitconfig
+>new file mode 100644
+>index 000000000000..7314dce05dc2
+>--- /dev/null
+>+++ b/kernel/.kunitconfig
+>@@ -0,0 +1,3 @@
+>+CONFIG_KUNIT=y
+>+CONFIG_USER_NS=y
+>+CONFIG_USER_NAMESPACE_KUNIT_TEST=y
+>diff --git a/kernel/user_namespace.c b/kernel/user_namespace.c
+>index 786dbf0506ca..0e7373085af9 100644
+>--- a/kernel/user_namespace.c
+>+++ b/kernel/user_namespace.c
+>@@ -1417,3 +1417,7 @@ static __init int user_namespaces_init(void)
+> 	return 0;
+> }
+> subsys_initcall(user_namespaces_init);
+>+
+>+#if IS_ENABLED(CONFIG_USER_NAMESPACE_KUNIT_TEST)
+>+#include "user_namespace_kunit.c"
+>+#endif
+>diff --git a/kernel/user_namespace_kunit.c b/kernel/user_namespace_kunit.c
+>new file mode 100644
+>index 000000000000..88467361efdf
+>--- /dev/null
+>+++ b/kernel/user_namespace_kunit.c
+>@@ -0,0 +1,92 @@
+>+// SPDX-License-Identifier: GPL-2.0
+>+/*
+>+ * KUnit test for user namespace map insertion and sorting.
+>+ */
+>+
+>+#include <kunit/test.h>
+>+#include <linux/user_namespace.h>
+>+
+>+static void test_user_ns_map_insert_base(struct kunit *test)
+>+{
+>+	struct uid_gid_map map;
+>+	struct uid_gid_extent extent;
+>+	int i, ret;
+>+
+>+	memset(&map, 0, sizeof(map));
+>+
+>+	/* Insert up to UID_GID_MAP_MAX_BASE_EXTENTS (5) elements */
+>+	for (i = 0; i < UID_GID_MAP_MAX_BASE_EXTENTS; i++) {
+>+		extent.first = i * 10;
+>+		extent.lower_first = i * 100;
+>+		extent.count = 5;
+>+
+>+		ret = insert_extent(&map, &extent);
+>+		KUNIT_ASSERT_EQ(test, ret, 0);
+>+		KUNIT_EXPECT_EQ(test, map.nr_extents, i + 1);
+>+		KUNIT_EXPECT_EQ(test, map.extent[i].first, i * 10);
+>+		KUNIT_EXPECT_EQ(test, map.extent[i].lower_first, i * 100);
+>+		KUNIT_EXPECT_EQ(test, map.extent[i].count, 5);
+>+	}
+>+}
+>+
+>+static void test_user_ns_map_insert_extended(struct kunit *test)
+>+{
+>+	struct uid_gid_map map;
+>+	struct uid_gid_extent extent;
+>+	int i, ret;
+>+
+>+	memset(&map, 0, sizeof(map));
+>+
+>+	/* Insert more than UID_GID_MAP_MAX_BASE_EXTENTS (e.g., 10) elements */
+>+	for (i = 0; i < 10; i++) {
+>+		int value = 9 - i;
+>+
+>+		extent.first = value * 10;
+>+		extent.lower_first = value * 100;
+>+		extent.count = 5;
+>+
+>+		ret = insert_extent(&map, &extent);
+>+		KUNIT_ASSERT_EQ(test, ret, 0);
+>+		KUNIT_EXPECT_EQ(test, map.nr_extents, i + 1);
+>+
+>+		if (i < UID_GID_MAP_MAX_BASE_EXTENTS) {
+>+			KUNIT_EXPECT_EQ(test, map.extent[i].first, value * 10);
+>+		} else {
+>+			KUNIT_EXPECT_EQ(test, map.forward[i].first, value * 10);
+>+			KUNIT_EXPECT_EQ(test, map.forward[i].lower_first, value  * 100);
+>+			KUNIT_EXPECT_EQ(test, map.forward[i].count, 5);
+>+		}
+>+	}
+>+
+>+	/* Now sort the map to set up reverse mapping */
+>+	ret = sort_idmaps(&map);
+>+	KUNIT_EXPECT_EQ(test, ret, 0);
+>+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, map.reverse);
+>+
+>+	/* Verify sorting is correct */
+>+	for (i = 0; i < map.nr_extents; i++) {
+>+		KUNIT_EXPECT_EQ(test, map.forward[i].first, i * 10);
+>+		KUNIT_EXPECT_EQ(test, map.forward[i].lower_first, i * 100);
+>+		KUNIT_EXPECT_EQ(test, map.forward[i].count, 5);
+>+
+>+		KUNIT_EXPECT_EQ(test, map.reverse[i].first, i * 10);
+>+		KUNIT_EXPECT_EQ(test, map.reverse[i].lower_first, i * 100);
+>+		KUNIT_EXPECT_EQ(test, map.reverse[i].count, 5);
+>+	}
+>+
+>+	kfree(map.forward);
+>+	kfree(map.reverse);
+>+}
+>+
+>+static struct kunit_case user_ns_map_test_cases[] = {
+>+	KUNIT_CASE(test_user_ns_map_insert_base),
+>+	KUNIT_CASE(test_user_ns_map_insert_extended),
+>+	{}
+>+};
+>+
+>+static struct kunit_suite user_ns_map_test_suite = {
+>+	.name = "user_ns_map",
+>+	.test_cases = user_ns_map_test_cases,
+>+};
+>+
+>+kunit_test_suite(user_ns_map_test_suite);
+>
 
-Signed-off-by: Maxi Saparov <masaparov@coreweave.com>
----
- drivers/firmware/arm_ffa/driver.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/firmware/arm_ffa/driver.c b/drivers/firmware/arm_ffa/driver.c
-index 8654b3365c9b..04948be13b08 100644
---- a/drivers/firmware/arm_ffa/driver.c
-+++ b/drivers/firmware/arm_ffa/driver.c
-@@ -2222,9 +2222,16 @@ static void ffa_remove(struct platform_device *pdev)
- 	drv_info = NULL;
- }
- 
-+static void ffa_shutdown(struct platform_device *pdev)
-+{
-+	ffa_notifications_cleanup();
-+	ffa_rxtx_unmap();
-+}
-+
- static struct platform_driver ffa_driver = {
- 	.probe = ffa_probe,
- 	.remove = ffa_remove,
-+	.shutdown = ffa_shutdown,
- 	.driver = {
- 		.name = FFA_PLATFORM_NAME,
- 	},
-
-base-commit: 3b5f4b83c4abc0c9b0a7b9e2b44e816611b7f2ec
--- 
-2.55.0
-
+--- Thanks!
+https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
