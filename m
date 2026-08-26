@@ -1,173 +1,165 @@
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC77F3B05BA
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 19:51:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=121.127.44.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 409403B6360;
+	Wed, 26 Aug 2026 19:55:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787773887; cv=none; b=uhaIK8BfUxgyEfQczwKltmIBgy9LPrDpHQfcnXGO5sxJcNYPUm7N5YIKZPebgI5L7fRI8dHm3nQCjGJtLQ/qrghlxLyzkcILuIPkmslUhYRDmbn+mF5eCRzt4CBzyupNNMzgS70Ax4Bj5LkEOoExYUL5pFOwAnbCNqFi7eViFBc=
+	t=1787774108; cv=none; b=KYMYpsBid7KbXxWT7Wmz3BhGpsB5i/DNepJ3X7n3tRdiAE9B5wRQUBeLAZTyt0j4MUcpAXft0Tq0H1yy96XSMtChq8O7ruZljyfVu6c5HCIcEKLwlGYp+MIMvgtm5daE+xITU2Bv96LUZxOfQBLqyJpHLBS75q0BedYik2WLpok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787773887; c=relaxed/simple;
-	bh=ciMaZJFcjYFc+Da0mP+Le2loRZABOtV5XJdSvpXhzgg=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=LyyjQdTyvoFTmzP1SKCNWy+Owp2tUxISelE3+cC0KKeou4nPR4D9G9dj6/UV0LycnMT7AK7D2pzeVfILwWUDo/f1Td3pCkxn93ragYiavwjI8fgGo8/WEI3z/0g+UJhKhjlG0ZMxJerO67oC0TcSAJoqcCpgvarxXIISMXp60VU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lineageos.org; spf=pass smtp.mailfrom=fe-bounces.lineageos.org; dkim=pass (1024-bit key) header.d=lineageos.org header.i=@lineageos.org header.b=YHrpEeFw; arc=none smtp.client-ip=121.127.44.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lineageos.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.lineageos.org
+	s=arc-20240116; t=1787774108; c=relaxed/simple;
+	bh=dimVdknLV3jIQPYZtWaDjFFj6jBOJbD7A711cvrdhpg=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=FtT2oQ5ikX6e6nIKJQxM7q42dobC+NpQdocGLMUEjITrkm7VB/P26zcknvbCBFvnhPxgj5lMPoDDgk7R4OvGns+xQtTDLV+KYbCjUywIt4A5c11LyQp2h38ccF3Gb6T4Wx4/xdUZVo0HTzU9bVp034d4Pr+1Rgbqi/WTyeQYeos=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q3Zaicrf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lineageos.org header.i=@lineageos.org header.b="YHrpEeFw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lineageos.org;
- h=Content-Transfer-Encoding: Content-Type: In-Reply-To: References: Cc:
- To: From: Subject: MIME-Version: Date: Message-ID; q=dns/txt;
- s=fe-2eefaa527c; t=1787773882;
- bh=ciMaZJFcjYFc+Da0mP+Le2loRZABOtV5XJdSvpXhzgg=;
- b=YHrpEeFwo7vUc9Mqu1HT3QdqSEf9gXgiRstNlQ7wZULDnh7Xs4rP9GBWurAWDgkd0Yh2kcD8G
- /6bGwICOK3lBKzd4Vu4DjXqB6tGcAum/Y3sboNpbBRFPLyZXan2lT/Oad8A7pmcm7BVyXhTWals
- FSeZt3RJ+ciFVLqED04SLfY=
-X-Forward-Email-ID: 6a8f43b9a86b7caee499143c
-X-Forward-Email-Sender: rfc822; tturner@lineageos.org,
- smtp.forwardemail.net, 121.127.44.66
-X-Forward-Email-Version: 2.13.16
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
-Message-ID: <2731b56e-0559-4395-ae92-6940054a053b@lineageos.org>
-Date: Wed, 26 Aug 2026 20:51:15 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q3Zaicrf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A1091F000E9;
+	Wed, 26 Aug 2026 19:55:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787774105;
+	bh=CpBGG32F3hkSEfDX8eOBQ2X3zREZIWoBTR0ZK60FFlk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=Q3Zaicrf8DvZVmYv2tghrgT57tO+zCw1TwRiGeAY2wd2Trcu3EEptie0r95kg1rRd
+	 EmU7NAX3O2SYk9f7kjxhcvFKmXE6xoCZaRRvW+lhF+naFZwALkTuTttrK+DJimVq2Y
+	 BES80/DTXx+bz6GhO5SSa2owDhD72cPkbCZCOHCWBIIH0ZKC4L/cUk9jILJdulIPoe
+	 76xn5XxEmOD3WVLg5DFoqR2iEvclYd9j3kkjwil8aflS5hWBcqm9j6mP1rE7u3h9Hq
+	 yfIAxlz+JC2lhk48SKGfL3M671Fk2vTAuJ8AYE0yxAYrLmTP+0AoXQufLlG9Ty+iAd
+	 WCdYWJkA4vgJQ==
+Date: Wed, 26 Aug 2026 14:55:03 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org, joelsmith@tenstorrent.com,
+	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>
+Subject: Re: [PATCH 2/2] PCI: quirks: Drop unassignable 32 GiB BAR 4 on
+ Tenstorrent Blackhole
+Message-ID: <20260826195503.GA1554946@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/2] Exynos850 GPU support
-From: Thomas Turner <tturner@lineageos.org>
-To: Alexey Klimov <alexey.klimov@linaro.org>,
- Sam Protsenko <semen.protsenko@linaro.org>
-Cc: "robh@kernel.org" <robh@kernel.org>,
- "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>,
- krzysztof.kozlowski@oss.qualcomm.com, peter.griffin@linaro.org,
- alim.akhtar@samsung.com, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-samsung-soc@vger.kernel.org
-References: <GVYP280MB12139AB976CA7ACF49FEB768A1A52@GVYP280MB1213.SWEP280.PROD.OUTLOOK.COM>
- <CAPLW+4kQTUX8QhKnAP7bg=iCw5hhNQZoW7cuOpTdvvAUpGaicg@mail.gmail.com>
- <135d48e7-58ac-48b8-8fa5-c2548e2f3ae9@lineageos.org>
- <DKZ3X5VUHJSK.1KSJR6K8FATGV@linaro.org>
- <5e8698db-974c-4f8b-8939-bcdf8a47743d@lineageos.org>
-Content-Language: en-GB
-In-Reply-To: <5e8698db-974c-4f8b-8939-bcdf8a47743d@lineageos.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260824-blackhole_quirk-v1-2-fc004672cdbd@oss.tenstorrent.com>
 
-Hi,
+[+cc Ilpo]
 
-Forgot to attach the eglinfo -B logs I get in the previous email so here it is:
-This is using wayland on phosh UI from [1]
+On Mon, Aug 24, 2026 at 11:57:07AM -0500, Anirudh Srinivasan wrote:
+> Tenstorrent Blackhole cards expose a 32 GiB BAR 4 that is unused by most
+> software talking to the card. This BAR cannot be assigned on hosts whose
+> PCI aperture is smaller than 32 GiB (e.g some ARM/RISC-V systems). This
+> failure also results in BAR 0 (256 MiB) and 2 (2 MiB) being unassigned
+> because bridge windows are sized as the sum of all enabled child BARs.
+> This makes the card completely unusable on such systems.
+> 
+>     spacemit-k1-pcie 80000000.pcie: PCI host bridge to bus 0000:00
+>     pci_bus 0000:00: root bus resource [bus 00-ff]
+>     pci_bus 0000:00: root bus resource [io  0x100000-0x1fffff] (bus address [0x10000-0x10ffff])
+>     pci_bus 0000:00: root bus resource [mem 0x1100110000-0x117fffffff] (bus address [0x00110000-0x7fffffff])
+>     pci_bus 0000:00: root bus resource [mem 0x1800000000-0x18ffffffff pref]
+> 
+>     <snip>
+> 
+>     pci 0000:01:00.0: [1e52:b140] type 00 class 0x120000 PCIe Endpoint
+>     pci 0000:01:00.0: BAR 0 [mem 0x00000000-0x1fffffff 64bit pref]
+>     pci 0000:01:00.0: BAR 2 [mem 0x1120000000-0x11200fffff 64bit pref]
+>     pci 0000:01:00.0: BAR 4 [mem 0xfffffff800000000-0xffffffffffffffff 64bit pref]
+> 
+>     <snip>
+> 
+>     pci 0000:00:00.0: bridge window [mem size 0x820100000 64bit pref]: can't assign; no space
+>     pci 0000:00:00.0: bridge window [mem size 0x820100000 64bit pref]: failed to assign
+>     pci 0000:00:00.0: BAR 0 [mem 0x1108000000-0x110fffffff]: assigned
+>     pci 0000:00:00.0: BAR 1 [mem 0x1110000000-0x1117ffffff]: assigned
+>     pci 0000:00:00.0: BAR 0 [mem 0x1108000000-0x110fffffff]: releasing
+>     pci 0000:00:00.0: BAR 1 [mem 0x1110000000-0x1117ffffff]: releasing
+>     pci 0000:00:00.0: bridge window [mem size 0x820100000 64bit pref]: can't assign; no space
+>     pci 0000:00:00.0: bridge window [mem size 0x820100000 64bit pref]: failed to assign
+>     pci 0000:00:00.0: BAR 0 [mem 0x1108000000-0x110fffffff]: assigned
+>     pci 0000:00:00.0: BAR 1 [mem 0x1110000000-0x1117ffffff]: assigned
+>     pci 0000:01:00.0: BAR 4 [mem size 0x800000000 64bit pref]: can't assign; no space
+>     pci 0000:01:00.0: BAR 4 [mem size 0x800000000 64bit pref]: failed to assign
+>     pci 0000:01:00.0: BAR 0 [mem size 0x20000000 64bit pref]: can't assign; no space
+>     pci 0000:01:00.0: BAR 0 [mem size 0x20000000 64bit pref]: failed to assign
+>     pci 0000:01:00.0: BAR 2 [mem size 0x00100000 64bit pref]: can't assign; no space
+>     pci 0000:01:00.0: BAR 2 [mem size 0x00100000 64bit pref]: failed to assign
+>     pci 0000:01:00.0: BAR 4 [mem size 0x800000000 64bit pref]: can't assign; no space
+>     pci 0000:01:00.0: BAR 4 [mem size 0x800000000 64bit pref]: failed to assign
+>     pci 0000:01:00.0: BAR 0 [mem size 0x20000000 64bit pref]: can't assign; no space
+>     pci 0000:01:00.0: BAR 0 [mem size 0x20000000 64bit pref]: failed to assign
+>     pci 0000:01:00.0: BAR 2 [mem size 0x00100000 64bit pref]: can't assign; no space
+>     pci 0000:01:00.0: BAR 2 [mem size 0x00100000 64bit pref]: failed to assign
+> 
+> Add a header fixup that walks the root-bus apertures and drops BAR 4
+> when it is larger than every root-bus aperture. Resource assignment
+> skips resources with zero flags (pdev_resource_assignable()), so the
+> bridge window then sizes to BARs 0/2 and succeeds. This was tested on a
+> Spacemit-K3 RISC-V board that has only 4GiB of BAR space. tt-smi and
+> tt-bh-linux are able to run on the card.
+> 
+> Signed-off-by: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
+> ---
+>  drivers/pci/quirks.c | 32 ++++++++++++++++++++++++++++++++
+>  1 file changed, 32 insertions(+)
+> 
+> diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+> index b09f27f7846fc..df54e379c116b 100644
+> --- a/drivers/pci/quirks.c
+> +++ b/drivers/pci/quirks.c
+> @@ -6415,3 +6415,35 @@ static void pci_mask_replay_timer_timeout(struct pci_dev *pdev)
+>  DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_GLI, 0x9750, pci_mask_replay_timer_timeout);
+>  DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_GLI, 0x9755, pci_mask_replay_timer_timeout);
+>  #endif
+> +
+> +/*
+> + * Drop unused 32 GiB BAR 4 on Tenstorrent Blackhole cards so the card is
+> + * usable on systems with smaller host bridge apertures.
+> + */
+> +static void quirk_tenstorrent_blackhole_bar4(struct pci_dev *pdev)
+> +{
+> +	struct resource *res = &pdev->resource[4];
+> +	struct pci_bus *bus = pdev->bus;
+> +	struct resource *win;
+> +
+> +	if (!(res->flags & IORESOURCE_MEM))
+> +		return;
+> +
+> +	/* Find the root bus; its resource list holds the host apertures */
+> +	while (bus->parent)
+> +		bus = bus->parent;
+> +
+> +	pci_bus_for_each_resource(bus, win) {
+> +		if (!win || !(win->flags & IORESOURCE_MEM))
+> +			continue;
+> +		if (resource_size(res) <= resource_size(win))
+> +			return;
+> +	}
+> +
+> +	pci_info(pdev, "BAR 4 %pR larger than every host bridge aperture, dropping it\n",
+> +		 res);
+> +	res->start = 0;
+> +	res->end = 0;
+> +	res->flags = 0;
 
+This seems problematic because the hardware BAR still exists even if
+we zero out res->flags.
 
-samsung-a21s:~$ eglinfo -B
-GBM platform:
-EGL API version: 1.5
-EGL vendor string: Mesa Project
-EGL version string: 1.5
-EGL client APIs: OpenGL OpenGL_ES
-OpenGL core profile vendor: Mesa
-OpenGL core profile renderer: Mali-G52 MC1 (Panfrost)
-OpenGL core profile version: 3.1 (Core Profile) Mesa 26.1.6
-OpenGL core profile shading language version: 1.40
-OpenGL compatibility profile vendor: Mesa
-OpenGL compatibility profile renderer: Mali-G52 MC1 (Panfrost)
-OpenGL compatibility profile version: 3.1 (Core Profile) Mesa 26.1.6
-OpenGL compatibility profile shading language version: 1.40
-OpenGL ES profile vendor: Mesa
-OpenGL ES profile renderer: Mali-G52 MC1 (Panfrost)
-OpenGL ES profile version: OpenGL ES 3.1 Mesa 26.1.6
-OpenGL ES profile shading language version: OpenGL ES GLSL ES 3.10
+This is a problem because pci_enable_device() will successfully enable
+a device and turn on PCI_COMMAND_MEMORY even though the hardware BAR
+may contain junk.  And if a driver ioremaps this BAR, it is
+ioremapping physical address 0, which doesn't end well.
 
-Wayland platform:
-EGL API version: 1.5
-EGL vendor string: Mesa Project
-EGL version string: 1.5
-EGL client APIs: OpenGL OpenGL_ES
-OpenGL core profile vendor: Mesa
-OpenGL core profile renderer: Mali-G52 MC1 (Panfrost)
-OpenGL core profile version: 3.1 (Core Profile) Mesa 26.1.6
-OpenGL core profile shading language version: 1.40
-OpenGL compatibility profile vendor: Mesa
-OpenGL compatibility profile renderer: Mali-G52 MC1 (Panfrost)
-OpenGL compatibility profile version: 3.1 (Core Profile) Mesa 26.1.6
-OpenGL compatibility profile shading language version: 1.40
-OpenGL ES profile vendor: Mesa
-OpenGL ES profile renderer: Mali-G52 MC1 (Panfrost)
-OpenGL ES profile version: OpenGL ES 3.1 Mesa 26.1.6
-OpenGL ES profile shading language version: OpenGL ES GLSL ES 3.10
+I know this from bitter experience :)
 
-X11 platform:
-eglinfo: eglInitialize failed
+If you have some device-specific way to actually disable the BAR in
+the hardware, that could work.
 
-Surfaceless platform:
-EGL API version: 1.5
-EGL vendor string: Mesa Project
-EGL version string: 1.5
-EGL client APIs: OpenGL OpenGL_ES
-OpenGL core profile vendor: Mesa
-OpenGL core profile renderer: Mali-G52 MC1 (Panfrost)
-OpenGL core profile version: 3.1 (Core Profile) Mesa 26.1.6
-OpenGL core profile shading language version: 1.40
-OpenGL compatibility profile vendor: Mesa
-OpenGL compatibility profile renderer: Mali-G52 MC1 (Panfrost)
-OpenGL compatibility profile version: 3.1 (Core Profile) Mesa 26.1.6
-OpenGL compatibility profile shading language version: 1.40
-OpenGL ES profile vendor: Mesa
-OpenGL ES profile renderer: Mali-G52 MC1 (Panfrost)
-OpenGL ES profile version: OpenGL ES 3.1 Mesa 26.1.6
-OpenGL ES profile shading language version: OpenGL ES GLSL ES 3.10
-
-Device platform:
-Device #0:
-
-Platform Device platform:
-EGL API version: 1.5
-EGL vendor string: Mesa Project
-EGL version string: 1.5
-EGL client APIs: OpenGL OpenGL_ES
-OpenGL core profile vendor: Mesa
-OpenGL core profile renderer: Mali-G52 MC1 (Panfrost)
-OpenGL core profile version: 3.1 (Core Profile) Mesa 26.1.6
-OpenGL core profile shading language version: 1.40
-OpenGL compatibility profile vendor: Mesa
-OpenGL compatibility profile renderer: Mali-G52 MC1 (Panfrost)
-OpenGL compatibility profile version: 3.1 (Core Profile) Mesa 26.1.6
-OpenGL compatibility profile shading language version: 1.40
-OpenGL ES profile vendor: Mesa
-OpenGL ES profile renderer: Mali-G52 MC1 (Panfrost)
-OpenGL ES profile version: OpenGL ES 3.1 Mesa 26.1.6
-OpenGL ES profile shading language version: OpenGL ES GLSL ES 3.10
-
-Device #1:
-
-Platform Device platform:
-EGL API version: 1.5
-EGL vendor string: Mesa Project
-EGL version string: 1.5
-EGL client APIs: OpenGL OpenGL_ES
-OpenGL core profile vendor: Mesa
-OpenGL core profile renderer: llvmpipe (LLVM 22.1.8, 128 bits)
-OpenGL core profile version: 4.6 (Core Profile) Mesa 26.1.6
-OpenGL core profile shading language version: 4.60
-OpenGL compatibility profile vendor: Mesa
-OpenGL compatibility profile renderer: llvmpipe (LLVM 22.1.8, 128 bits)
-OpenGL compatibility profile version: 4.6 (Compatibility Profile) Mesa 26.1.6
-OpenGL compatibility profile shading language version: 4.60
-OpenGL ES profile vendor: Mesa
-OpenGL ES profile renderer: llvmpipe (LLVM 22.1.8, 128 bits)
-OpenGL ES profile version: OpenGL ES 3.2 Mesa 26.1.6
-OpenGL ES profile shading language version: OpenGL ES GLSL ES 3.20
-
-Regards,
-Tom
-
-[1] https://wiki.postmarketos.org/wiki/Phosh
+> +}
+> +DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_TENSTORRENT, 0xb140, quirk_tenstorrent_blackhole_bar4);
+> 
+> -- 
+> 2.43.0
+> 
