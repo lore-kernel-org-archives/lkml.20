@@ -1,116 +1,125 @@
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.165])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-120.mta1.migadu.com [95.215.58.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FE3A45A287;
-	Wed, 26 Aug 2026 20:59:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.165
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787777966; cv=pass; b=jBo5BwF8WHkFU0kpsuV6tNGx1xmHBrvq8JPsO22JExcJW160O666TM6gWKDV9WA6QT4fELNz7kG7MGRUWeKUnl8axd3mrBaBj9CwF59DhZhiNosm/IxMpfIu7BcIV+rLrpcFfjBmlZp0t3HnbcIwsyCsrWo5BBxhKvmI3dcgHS0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787777966; c=relaxed/simple;
-	bh=7TimULhYK4Q/vDyDhA4QIg1dUsow0FpgWnuFD1qPrvw=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=JULe+ns4z0pmKoFMEO4sKOldZkMSyWbzj/tH2EXaAuowRfIaEmKvWtULN2sjVqvQhOnHpe5DXXftgBowCBA/wYoUS5y6QVbw3auZrL/k3GRsHm+xwbiuO/EP+2Wsd2WiS/F26afConxJWCPKQwseF6USPZ9PApnpO4ME900UD3w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de; spf=none smtp.mailfrom=iokpp.de; dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=ouKJtkks; dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=RNA4YzA0; arc=pass smtp.client-ip=81.169.146.165
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8C1A30F526
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:00:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.120
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787778061; cv=none; b=FkvLK72fCrkl/pfJbfv2TqO/tKVYeFovgj2uYr6/TrXAiXgd9qZ+MOwEJLrqmUE+vv3oyTNLpdCgrAUlKIfDQFoScpNZNajv3uLiYZk59P8zFSSNKDYMuYNA2/AhoX/Szh6tOGoL76ZxRgeT5lZ/VxSSBh8aQs1xrIdKA5x9cGs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787778061; c=relaxed/simple;
+	bh=7n6s+Yu8RUQVuDDLlym79SKRXys59UCrPxq5zh3wReo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=m+V5I5WVr6CzbKxMuMeVktLcNgn5nvs9qiEeZKh6joidQC2ylLdp0sw5PurbU8CcB8JBknltl1ZFt308uXOa6IKU8CoXSLzsfD9JPupJXDBF0Pv9P6Srn8PByOZwkU+bkIW2IcDl7hPOsd8MRlmgZGvf981hzZJ+AI9MHmjod8A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=g1LcjcqV; arc=none smtp.client-ip=95.215.58.120
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="ouKJtkks";
-	dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="RNA4YzA0"
-ARC-Seal: i=1; a=rsa-sha256; t=1787777948; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=Hx3gHhNe5JnoZ0oHLDRpkwvyukEAbWIoeYD/SyWTo/QdJrO8/MuZh1uv5ucMzXBHxM
-    K3z7odOPnQIiofYoRdyc1gmHHicN+2HQMBrJ8dTZwkJJ73BkNUeuBv/Qsy3auDo6cyrI
-    YpAblI/IfcUlqI3sSA0Ny4dlYNIaPRQNeCCSj8aWC5JQVzyTCtK+Au1Apl422upIfCZQ
-    S9txYWTruma3rCJ++IWMzDDEKyhDhdHHBbICWjVsmtAiYnzDHwZGgVCNDrLcALzMpsUA
-    jOP8GiVdgL28c7XLjwbiP4xv84av3BuzvKBAn6QvAOFlIFd04ZrqPs+rSFuzwgIdYTUT
-    gCEg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1787777948;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=7TimULhYK4Q/vDyDhA4QIg1dUsow0FpgWnuFD1qPrvw=;
-    b=ZKSLZN9BQWb8uRB8WGYbyRj6DctuOAP9/ZUdzttfxgHxN03OhnXpR8OsoRdw1keQpi
-    TZR3UCEo6awPzy6nxjNx2BHKY6Q0TO2p2CJFO6r9QYLz5SBbQbGuA5sW3GcrHrOOvek9
-    lGTrIqOxKRHsQGEGInUfr3wEm0jcOnv627zYpTFqTpMJcu7MaBnFxvq3A1gMt/ePGS/2
-    MU5AEoyDUjf4658UB6FSHsn+bYf7U/eRPZTHQnsOgg0yUsopwmAHvvKuQKybcqFP57jO
-    y1qDcNWxqqNrowtDrTRZF8d5oUZw4Z3HCKfv5OIibGzMmyhWBJrzWJpeaYsoHCtFnwDW
-    DdqQ==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1787777948;
-    s=strato-dkim-0002; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=7TimULhYK4Q/vDyDhA4QIg1dUsow0FpgWnuFD1qPrvw=;
-    b=ouKJtkksG0W0UQN0fNCa/0uOUQXYyTnzO9+AWSDsBwa5z616OxNcAZluBGyq+0W9Ew
-    ++MI7G//EAJYArAOZ7i1mtjS9V9Y11P70ZTXGXcpfbEzPzZJSYNAd2QDc/PxYJYI3WYg
-    rjvFmS36XxjIZZvrXXMZ4Tmp1tbHBD6sHa7euUnokom55Bm5qQ2J7iWyBHX8o8C7KB6Y
-    bDsC/OctzG1IfgUXPfkHphPfPIygU4a7OzQEXtXqKOQz4JLRg40gLemXXM2zipqNHPvO
-    LkWAYUrBqmGSPlA281thprv+rVc+0/eI2j+jXq0yJzkg5g4xXcz3OSU9H38IK3tZrUKB
-    LX9A==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1787777948;
-    s=strato-dkim-0003; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=7TimULhYK4Q/vDyDhA4QIg1dUsow0FpgWnuFD1qPrvw=;
-    b=RNA4YzA0zmSJkdGF7xUN6nGBxQMMSklmB5HcVyP3ateEoLZh7DQOU+kRlAADOJK17p
-    JZO9h7KgDr5R9pym0hBQ==
-X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0zNriHg+YfT0rGaZpI+/4nexcz3kdO/c/hqkiDQr7/41mCC1SnA="
-Received: from p200300c58729688cd608b20553b67495.dip0.t-ipconnect.de
-    by smtp.strato.de (RZmta 55.6.2 AUTH)
-    with ESMTPSA id ze37e127QKx7VEc
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Wed, 26 Aug 2026 22:59:07 +0200 (CEST)
-Message-ID: <6ae9f526476cfce73c118c946f005753dd2d00b0.camel@iokpp.de>
-Subject: Re: [PATCH v3 1/2] ufs: rpmb: retry power-on UNIT ATTENTION on the
- RPMB WLUN
-From: Bean Huo <beanhuo@iokpp.de>
-To: Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>, 
-	James.Bottomley@HansenPartnership.com, martin.petersen@oracle.com, 
-	alim.akhtar@samsung.com, avri.altman@wdc.com, bvanassche@acm.org, 
-	beanhuo@micron.com, can.guo@oss.qualcomm.com
-Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
- op-tee@lists.trustedfirmware.org, jenswi@kernel.org,
- sumit.garg@oss.qualcomm.com
-Date: Wed, 26 Aug 2026 22:59:07 +0200
-In-Reply-To: <20260821150612.3944782-2-jorge.ramirez@oss.qualcomm.com>
-References: <20260821150612.3944782-1-jorge.ramirez@oss.qualcomm.com>
-	 <20260821150612.3944782-2-jorge.ramirez@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="g1LcjcqV"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=7n6s+Yu8RUQVuDDLlym79SKRXys59UCrPxq5zh3wReo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787778056; v=1; x=1788382856;
+ b=g1LcjcqVKDRTvigQJRSBHUfdI6VjvTEDAQxMwO9mw7i62kIRExEXE7RMCKx78VCwexDmGCJf
+ bCm6bVYguEn/ZFj5ywMF2K4wsZozYFzyTE+7uZ5fcGuxaIocpdLacI8IArgwxHvB2gv23SO1aOS
+ 22kkThpnttIn6HTfqxOcdgOY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: from [IPV6:2620:10d:c085:21c1::1576] (2620:10d:c090:400::5:7641)
+	by smtp.migadu.com with ESMTPS id 07b12f03698456bd;
+	Wed, 26 Aug 2026 21:00:56 +0000
+X-Mizu-Trace-ID: 07b12f03698456bd
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <1c34603a-9170-4074-b826-e98d9871e2d8@linux.dev>
+Date: Wed, 26 Aug 2026 14:00:49 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf-next v7 0/9] bpf: add support for KASAN checks in
+ JITed programs
+To: Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ =?UTF-8?Q?Alexis_Lothor=C3=A9_=28eBPF_Foundation=29?=
+ <alexis.lothore@bootlin.com>, Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ John Fastabend <john.fastabend@gmail.com>,
+ Andrii Nakryiko <andrii@kernel.org>, Martin KaFai Lau
+ <martin.lau@linux.dev>, Eduard Zingerman <eddyz87@gmail.com>,
+ Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>,
+ Jiri Olsa <jolsa@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
+ Shuah Khan <shuah@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Andrey Konovalov <andreyknvl@gmail.com>,
+ Emil Tsalapatis <emil@etsalapatis.com>, Yafang Shao <laoar.shao@gmail.com>
+Cc: ebpf@linuxfoundation.org,
+ Bastien Curutchet <bastien.curutchet@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, bpf@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+References: <20260822-kasan-v7-0-99afee6ef7fd@bootlin.com>
+ <DKWOY12R4ZJJ.A8KDS1DU1PHS@gmail.com>
+Content-Language: en-US
+From: Ihor Solodrai <ihor.solodrai@linux.dev>
+In-Reply-To: <DKWOY12R4ZJJ.A8KDS1DU1PHS@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-T24gRnJpLCAyMDI2LTA4LTIxIGF0IDE3OjA2ICswMjAwLCBKb3JnZSBSYW1pcmV6LU9ydGl6IHdy
-b3RlOgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3Vmcy9jb3JlL3Vmcy1ycG1iLmMgYi9kcml2ZXJz
-L3Vmcy9jb3JlL3Vmcy1ycG1iLmMKPiBpbmRleCBmZmFkMDQ5ODcyYjkuLmQwYzdlYTdhMzZmNCAx
-MDA2NDQKPiAtLS0gYS9kcml2ZXJzL3Vmcy9jb3JlL3Vmcy1ycG1iLmMKPiArKysgYi9kcml2ZXJz
-L3Vmcy9jb3JlL3Vmcy1ycG1iLmMKPiBAQCAtNDAsNiArNDAsMjMgQEAgc3RydWN0IHVmc19ycG1i
-X2RldiB7Cj4gwqBzdGF0aWMgaW50IHVmc19zZWNfc3VibWl0KHN0cnVjdCB1ZnNfaGJhICpoYmEs
-IHUxNiBzcHNwLCB2b2lkICpidWZmZXIsIHNpemVfdAo+IGxlbiwgYm9vbCBzZW5kKQo+IMKgewo+
-IMKgwqDCoMKgwqDCoMKgwqBzdHJ1Y3Qgc2NzaV9kZXZpY2UgKnNkZXYgPSBoYmEtPnVmc19ycG1i
-X3dsdW47Cj4gK8KgwqDCoMKgwqDCoMKgLyogUmV0cnkgdGhlIHBvd2VyLW9uIFVOSVQgQVRURU5U
-SU9OIChBU0MgMHgyOSk7IHRoZSBTQ1NJIGNvcmUgZG9lcwo+IG5vdC4gKi8KPiArwqDCoMKgwqDC
-oMKgwqBzdHJ1Y3Qgc2NzaV9mYWlsdXJlIGZhaWx1cmVfZGVmc1tdID0gewo+ICvCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqB7Cj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqAuc2Vuc2UgPSBVTklUX0FUVEVOVElPTiwKPiArwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoC5hc2MgPSAweDI5LAo+ICvCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgLmFzY3EgPSBTQ01EX0ZBSUxVUkVf
-QVNDUV9BTlksCj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAuYWxsb3dlZCA9IDMsCgoKLmFsbG93ZWQgPSAzIGlzIGEgZmluZSB2YWx1ZSwgSSBjaGVja2Vk
-IGNoLmMgKzE5NyB1c2VzIDMsIGFuZCBzZC5jIHVzZXMgNSwgc28gbm8KY29tcGxhaW50IGFib3V0
-IHRoZSBudW1iZXIgaXRzZWxmLiBCdXQgdGhlIG90aGVyIGFzYyA9IDB4MjkgdXNlcnMgZ2l2ZSBp
-dCBhCm1lYW5pbmdmdWwgbmFtZToKCmZvciBleGFtcGxlLCBzZXMuYyBoYXMgU0VTX1JFVFJJRVMg
-YW5kIHNkLmMgaGFzIFJFQURfQ0FQQUNJVFlfUkVUUklFU19PTl9SRVNFVC4KYSBVRlNfUlBNQl9V
-QV9SRVRSSUVTIChvciBvdGhlcikgd291bGQgbWF0Y2ggdGhhdCBtZWFuaW5nZnVsLgoKCm90aGVy
-cyBsb29rIGdvb2QgdG8gbWUuCgpLaW5kIHJlZ2FyZHMsCkJlYW4KCg==
+On 2026-08-23 3:53 p.m., Kumar Kartikeya Dwivedi wrote:
+> On Sat Aug 22, 2026 at 12:39 AM CEST, Alexis Lothoré (eBPF Foundation) wrote:
+>> Hello,
+>> this is v7 of the series aiming to bring basic support for KASAN checks
+>> to BPF JITed programs. This new revision just makes the series rebased
+>> on top of current bpf-next_base.
+>>
+>> Please note that with the recent kernel splat detector introduced in
+>> kernel-patches/vmtest through commit 8109e5928cd0 ("ci: own the kernel
+>> splat matching (#509)"), CI runs on this series will fail with the
+>> following error.
+>>
+>>     Error: kernel splat detected: [  100.689549] BUG: KASAN: \
+>>     slab-use-after-free in \
+>>     bpf_prog_eba69524d1d949b1_st_not_on_stack+0x12f/0x17a \
+>>
+>> which is pretty normal, as the new selftests introduced by this series
+>> are expected to trigger KASAN splats (the test_progs part will pass,
+>> only the kernel_splats part will trigger errors). The right fix may be
+>> to just put a list of regex matching all the kasan subtests progs in the
+>> relevant SPLAT_ALLOWLIST file; something like:
+>>
+>> BUG: KASAN: slab-(out-of-bounds|use-after-free) in bpf_prog_([a-f0-9]){16}_(st|ld)(x)?(_not)?_on_stack\+
+>> BUG: KASAN: slab-(out-of-bounds|use-after-free) in bpf_prog_([a-f0-9]){16}_simple_atomic(_fetch)?(_not)_on_stack\+
+>> BUG: KASAN: slab-(out-of-bounds|use-after-free) in bpf_prog_([a-f0-9]){16}_ldx_patched(_not)?_on_stack\+
+>> BUG: KASAN: slab-(out-of-bounds|use-after-free) in bpf_prog_([a-f0-9]){16}_verifier_paths_stack_and_non_stack\+
+>> BUG: KASAN: slab-(out-of-bounds|use-after-free) in bpf_prog_([a-f0-9]){16}_ldx_oob\+
+>> BUG: KASAN: slab-(out-of-bounds|use-after-free) in bpf_prog_([a-f0-9]){16}_st_blinded\+
+>> BUG: KASAN: slab-(out-of-bounds|use-after-free) in bpf_prog_([a-f0-9]){16}_(load_acquire|store_release)(_not)?_on_stack\+
+>>
+>> I can take care of opening the relevant PR in kernel-patches/vmtest with
+>> this if it ends up being the correct solution, but it will make sense to
+>> do so only once the selftests list is validated (but before merging the
+>> series).
+> 
+> We need to resolve this before landing the set. To me it looks inevitable, esp.
+> if we exercise the support and produce such warnings. That said I'll let Ihor
+> respond and provide guidance for this. We should probably land the vmtest PR
+> before v8 is posted, so that v8 can go through CI and be processed without
+> failures.
+
+This is a tricky one.
+
+IIUC the suggested allowlist regex will also mask the real splats, which
+the whole KASAN-in-JIT project was supposed to catch.
+
+I think a good way to resolve this is to teach the kasan splat
+detection script about these tests, and drop/skip them from the dmesg
+log it inspects. For example, match begin / end of the test set.
+Might require special log anchors printed by the test itself, but
+you get the idea.
+
+Alexis, do you mind trying this?
+> 
+>> [...]
 
