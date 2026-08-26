@@ -1,62 +1,64 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E911C35A38C
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 20:17:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1565483832
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 20:17:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787775433; cv=none; b=TpLtN3IZyMKoLNJU+tQNSgAuDfYHM0hTtleRem10WZR0CZQCYb2oT+ITBazyxupWLDELrsabGQ3e9YoILdcV2NBZLkCH9SJUEHHkbSiEIz6LLZ4BLH2vLqKGbc2S4RMjyko9bNr8p3XAXEnZ1BtXCQOeaa0k9ps0ubX3b8+ILUE=
+	t=1787775435; cv=none; b=Po5gGqyFPwLGrJaL8jVaDx0i+uacaMQiL6kwWaT12Q2hkpeMQc1rvTX9gwshq4gegx3hAs+ltHdFY3tG9KDovnHKwRBzpN1AnCHL4eFNkjyQhfFPZx3duBfWA+/sX45xjjFL3P93D3HWcXOcSTYC7YZXFzm/nb3jMOByB+3lVec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787775433; c=relaxed/simple;
-	bh=3Pduo1gHVDIUUt5sDBfU654xzH3NpDT0jtFbBzAYHKE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GzEh9kqi7wvfxW9wUQnQANXFilqR62yVSrW3Xgf5kxbxnUnG7Co2cM50uLNMiO5EdGmUORqP7/Z45KVGD+HTC0IiS9YG3y3hChpuDsy18raBFEqXZdAY42Rd73igmv34fa0iNXwcUKFigo/5MZs3n34t34r31r+VhIppwGEunlo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=VPWOFY/N; arc=none smtp.client-ip=209.85.214.174
+	s=arc-20240116; t=1787775435; c=relaxed/simple;
+	bh=VNoz2VDnlGL7nf6vtZBQ505wury0ZhGaC6JD4dMDDxY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ldH41R4KdvRiMhav7+Y3FTfftwvIT7HDEg4mVd/NdyAXCAfxMy1S6PZQfN6gWjFP7KBToGyAB+6O2VJl7og0cPcBdBrpQCb8Ki2f3/wdh7TSklQJPhWomLcYU/vpK9dtlddOgRp9qkYkL02wHw+K8cDc5xFj/GAnzCpgYt7zBR0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=PS+X2c/g; arc=none smtp.client-ip=209.85.214.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="VPWOFY/N"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2cedda2ce6fso9206905ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:17:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="PS+X2c/g"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2d715f4a587so11590385ad.2
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:17:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1787775431; x=1788380231; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QhjGgYTatBrHOcQxWsDxDksd7v3LZqmlD+U/i4Av3LE=;
-        b=VPWOFY/Nj1NZ4RktRY0Z3H6xTeuxBcS3n54MAU71fZUSZmwH56ciowhwLmjn9I55W3
-         pKQIwGww7siRGWLsc/y68bd442NQC/KYfF6sPTWKffHodsWjz+RQvuPAj1Pchp8HbxgS
-         bDs7yzVJVO5Z/ncipvOwZB2EFZMTqqYi+jYeklcevgQzkt6QHCnNBUWxN/9XYrr0kyWj
-         cVaDGVU1X/cmC5QP+FmR5zVrHHlPb3IcvgwPmNv1gd2dXCxjf6P+Wb/4I+37IzYhBzQP
-         qFyVewDMDgq7h7pWn0TF/5H5OCXC0C/lMM57s1zsHSzOHZ09nBZ4lTNdXcgdV/egR94y
-         XNuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787775431; x=1788380231;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=trailofbits.com; s=google; t=1787775433; x=1788380233; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=QhjGgYTatBrHOcQxWsDxDksd7v3LZqmlD+U/i4Av3LE=;
-        b=Zey2XDSFiobMYxPx5Xj91FpnVyEFeJNFhQ+rrR7OXqCXEqBm1AT5vqGcx+2p45//vy
-         eRdBpIJ/xJDj7k8md5WXOG3eR+142DQcjzxDsek0yRU+obDPDVNIVCmJtvblq2eV0SSD
-         h/cjJC4OyNZdUPtlWhotNzhuTbedNTUvabXqaHkLB46gGPWbw9XAclhHKm3LG2n64owT
-         2cYGHPeGUZOujAc+CWK0c5+Cq85TfZynmbk52kFyNTLKhpRvxOLA3301czPg54s8Ttgj
-         dPghg5XigRMhy6tzsgy2AJgY8vVWtcdzljuRAmFesO+6eo+EN2MaIbIVF1DCP2x+44ZP
-         sCfQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqT2IuccS2YHA5e96tSaWOst0ckCajQCmgoUAcvwjADcFff+OgJ8kG9IkAW4B5xXC39GGBEeom/BXqa+7M=@vger.kernel.org
-X-Gm-Message-State: AFuF++l6Wo5zBDEizT+6xUJRSoc4JRJUEuhD9QnR9nposekv4LSGaKdw
-	yp6zhK84DrR+v1DqjX2dSbkWWbOfnh+WbbNvdbJMlTh1qqAAFQ0zrgyBjhV0ZGvfz6Q=
-X-Gm-Gg: AR+sD10a5ocIYewyqRTYhkYM7Ca44M5Osq0J8J8O8QmMJWWyDr49u8RQed84arV86tE
-	en4/PE6t3uYArOAew+RdzPYlBf4nGnElREBw6Q12/wawvoFCO2cge2OoczdWSWNx/EJy10wZRgZ
-	P2vjx8jdWuxblLSBSogqirBfbqUQkPXyNg1I/A3tAD+3HqFWcr5gBrJPXImUK9Fw0ITk98wEg5j
-	KAw2cJw5aPFtIwOBGKIseVJZdCg+qXRaaknWWfrBnlNzKmyJ8oMqdCcrOL7UwUwqQVssjtTcKyJ
-	23Y5ROiWKKGc4Egt2KWHTBBMs0WRu4juyvMwK3/c5DVMDeYKtcT6Mec+H9+1UqbWJQTu+po0Pj9
-	0tbHRADEWpknunud9tEQFwfeFWGMO43v/LmwlWwzXqcHjBbeWYU5LkUpOYUEAFlRirnodrNWW0G
-	G6yrEAp2wAe3QE9jM+KQUD4GHbwxqZ51XCICYXFZ+qBTdQnI+pragn0QICV4bdTWMddSLCDz8B6
-	dyBvR9PQETb/s2k0d5IAaPOTCEr0yGG36dnwg16dRs+ARIoASZn355drog=
-X-Received: by 2002:a17:903:1104:b0:2d6:e401:9676 with SMTP id d9443c01a7336-2d707955aa3mr161833925ad.1.1787775431276;
-        Wed, 26 Aug 2026 13:17:11 -0700 (PDT)
+        bh=ZP/Zh7VL0NP5ZL/ftf+0Og5kx5+Zk04Hdc0Eb7ielXU=;
+        b=PS+X2c/gGSSLtN3Y1TtsZADJvG5rkhVZRFeOtm6SHUWnRuKdtfsYn+4yCL4gyRNHsm
+         o+8H8sN88sKpNVwb2izvd535/luNvDJecc9or7CZDiXQRZ+HBdHn/JJgkg38ZeQfwkLB
+         QCciHSNj+cLVrP0CDYBsOU8pGQ6lOGESjV+9nF7vjuq6K2muF8GejNL4lUzO7l8sUPC9
+         chBx7shd1D8OVUe07xH9TvHb4fDiyZNHF1UzbA00SVN20o/9cN5gZTVAVgwKs4B11nkf
+         QVeX4MVrjzkMWEM441Ry/efiEtnzRu78yueam1hfONmK2UbJrZtHdMPpJipHl/u5BGVd
+         Kpxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787775433; x=1788380233;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZP/Zh7VL0NP5ZL/ftf+0Og5kx5+Zk04Hdc0Eb7ielXU=;
+        b=mJdXs2r2FPxnvxcoQB8Z2jzjJCi9G/mS0JDXJVtCyYgb+lnpBxfKLwyNhfG1ij8gbG
+         D5qAuj+I/bgFnmDHqmNiiS0WA9Tp79DWTi5rqWzV+5zdQlxrQaLscBDN3DWE5+2dO0UK
+         8AKXN4WPuNMPUdpKHaDh8L+e3tz/+ieFLuOxs0Uy0sANYpRKY6NZTqOilobCfShenzEr
+         QW/Ps3kP2rAG/tPtB4bM45CXcEPQ+CS1kVYEd1DlDou4eJ/eVedx34a9Oy2Twf7SAm+a
+         VJYP+m6vhkXR+r0w1twWC866QQMuy2/c9sVZ61GSmCgRpJiRow1bsBp6K7u2wEtgAKdF
+         ue5A==
+X-Forwarded-Encrypted: i=1; AHgh+RpqYsXpW7Kmqh5CJguYRe/aJVRGW6OcNo52pfEH0U481/cwsfbNOhcP+DpEBfyOxaMRUhnUeHvOm9NnqHI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mNxD6r+C1UU6LfKoKnH/UHBx6JNYmKIWFNb/iaiRcpA25JmhEp
+	UiM5pmSA6gpx50Rtwr5E4Sv/pH/cOS/DRwiVuLTO/jlsJP6bnR+aPf2A8dDt2JnyH4Q=
+X-Gm-Gg: AR+sD13zJ71JwoJ/NIlzgebQsMAhJs7zJWAAmH5e9VeGg0qG1eoxw9NqgWrosgYsLNY
+	w6f0wnjFOKc4ZtkuMUXct8xDhbh5E0r3sU1lbbRbxZlnzRkrY4AfzEnksdc9PRXLdYHYAH5R2Gu
+	pWFahAUa0EItJ1Re3MzA6rRG59cH6TSJV3gIGp8bnOwljvhqgtraBnIQL8JXe+9VhZZy5UDNn+f
+	bMSrpsnUTnixFvGYiQRmtsgueT5RUwNiI8OaIHrWY8HulhbyYZxfyxjLFKAq4zljEybFmmsniBn
+	371RYUlWs3vBdrVtefI7KzkqwU6JxVjGlqP87j8HeGRCGeYPWLwe+i2kor6BGlTqNMEXkiG3fuM
+	NJJP3QtWgU8GPOI4qtAfJbrfg2hKs6wMNWJBcUYVIivm0s7JOrI+2ZFpxRP4+hTLVr8nn812oWT
+	Tdf6SBU2Itx8KB4FV1oH1k1OlGcSyAGdBDjP3os5PHI+qUdp5ry0NUqGmMuVy/+Q+xdRuNYMt2I
+	U1Szca0rDLkPvBF1SqceoVgefbAfPHkOeSd8a4xuaMtHT/Ke71en94z8UE=
+X-Received: by 2002:a17:902:f546:b0:2ca:61bc:317c with SMTP id d9443c01a7336-2d707b60764mr156912635ad.13.1787775433400;
+        Wed, 26 Aug 2026 13:17:13 -0700 (PDT)
 Received: from localhost.localdomain ([2603:8001:5f01:8bab:957:eb3d:7323:2ed])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3283d60b59dsm11179738eec.3.2026.08.26.13.17.10
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3283d60b59dsm11179738eec.3.2026.08.26.13.17.12
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 26 Aug 2026 13:17:10 -0700 (PDT)
+        Wed, 26 Aug 2026 13:17:13 -0700 (PDT)
 From: Artem Dinaburg <artem@trailofbits.com>
 To: stable@vger.kernel.org
 Cc: kvm@vger.kernel.org,
@@ -65,10 +67,12 @@ Cc: kvm@vger.kernel.org,
 	pbonzini@redhat.com,
 	kimjw04271234@gmail.com,
 	Artem Dinaburg <artem@trailofbits.com>
-Subject: [PATCH 6.6.y+6.1.y 0/2] KVM: x86/mmu: Check write tracking in all address spaces
-Date: Wed, 26 Aug 2026 16:16:53 -0400
-Message-ID: <20260826201655.9198-1-artem@trailofbits.com>
+Subject: [PATCH 6.6.y 1/2] KVM: x86/mmu: Check write tracking in all address spaces
+Date: Wed, 26 Aug 2026 16:16:54 -0400
+Message-ID: <20260826201655.9198-2-artem@trailofbits.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260826201655.9198-1-artem@trailofbits.com>
+References: <20260826201655.9198-1-artem@trailofbits.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,36 +81,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Please queue upstream commit 0f38453cdb2e17566ccb7c0f3dabd5bd21caca26
-("KVM: x86/mmu: Check write tracking in all address spaces") for the
-stable trees. It is in mainline as of v7.2-rc6.
+From: Jinu Kim <kimjw04271234@gmail.com>
 
-The fix is absent by code state from 7.1.10, 6.18.46, 6.12.105, 6.6.153
-and 6.1.184.
+commit 0f38453cdb2e17566ccb7c0f3dabd5bd21caca26 upstream.
 
-7.1.y, 6.18.y, 6.12.y: please cherry-pick the upstream commit directly.
-No patch is included for these trees. Commit 0f38453cdb2e applies and
-compiles unmodified on all three, so there is nothing to adapt:
+kvm_gfn_is_write_tracked() checks only the supplied memslot, but page
+tracking is per-address-space and shadow pages are shared across all
+address spaces.  With SMM, a GFN can therefore be write-tracked in one
+address space and appear untracked through the other.
 
-  git cherry-pick -x 0f38453cdb2e17566ccb7c0f3dabd5bd21caca26
+Check the supplied slot first, then the slot for the other address space.
+This ensures all callers honor write tracking regardless of the active
+address space.  In particular, it prevents mmu_try_to_unsync_pages() from
+marking an upper-level shadow page unsync and eventually triggering the
+BUG in pte_list_remove().
 
-6.6.y and 6.1.y need adapted backports; they are patches 1/2 and 2/2 of
-this series. On 6.6 the upstream commit applies but does not build,
-because KVM_MAX_NR_ADDRESS_SPACES and kvm_arch_nr_memslot_as_ids() do
-not exist there. On 6.1 the upstream commit conflicts: the function is
-still kvm_slot_page_track_is_active() and the tracking array is
-mode-indexed gfn_track[].
+Fixes: 699023e23965 ("KVM: x86: add SMM to the MMU role, support SMRAM address space")
+Assisted-by: Codex:GPT-5
+Signed-off-by: Jinu Kim <kimjw04271234@gmail.com>
+Message-ID: <20260721103512.2136240-2-kimjw04271234@gmail.com>
+[invert direction of the conditional. - Paolo]
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+[ artem: adapt to 6.6, which has neither KVM_MAX_NR_ADDRESS_SPACES nor
+  kvm_arch_nr_memslot_as_ids(); use KVM_ADDRESS_SPACE_NUM instead. That
+  macro is CONFIG_KVM_SMM-conditional in 6.6, so the guard on
+  KVM_ADDRESS_SPACE_NUM > 1 around the peer-slot lookup is retained ]
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+---
+Target tree: linux-6.6.y (stable).
 
-5.15.y and 5.10.y are not covered by this submission. Those trees were
-not assessed.
+Verified: applies to v6.6.153; arch/x86/kvm/mmu/page_track.o builds clean
+with CONFIG_KVM_SMM=y and with CONFIG_KVM_SMM=n.
 
-Jinu Kim (2):
-  [6.6.y] KVM: x86/mmu: Check write tracking in all address spaces
-  [6.1.y] KVM: x86/mmu: Check write tracking in all address spaces
+ arch/x86/kvm/mmu/page_track.c | 32 ++++++++++++++++++++++++++------
+ 1 file changed, 26 insertions(+), 6 deletions(-)
 
-Each patch touches only arch/x86/kvm/mmu/page_track.c:
-  1/2 (6.6.y): 26 insertions(+), 6 deletions(-)
-  2/2 (6.1.y): 22 insertions(+), 6 deletions(-)
-
+diff --git a/arch/x86/kvm/mmu/page_track.c b/arch/x86/kvm/mmu/page_track.c
+index c87da11f3a04..2615074a4bff 100644
+--- a/arch/x86/kvm/mmu/page_track.c
++++ b/arch/x86/kvm/mmu/page_track.c
+@@ -117,13 +117,23 @@ void __kvm_write_track_remove_gfn(struct kvm *kvm,
+ 	kvm_mmu_gfn_allow_lpage(slot, gfn);
+ }
+ 
+-/*
+- * check if the corresponding access on the specified guest page is tracked.
+- */
++static bool __kvm_gfn_is_write_tracked(const struct kvm_memory_slot *slot,
++				       gfn_t gfn)
++{
++	int index;
++
++	if (!slot)
++		return false;
++
++	index = gfn_to_index(gfn, slot->base_gfn, PG_LEVEL_4K);
++	return !!READ_ONCE(slot->arch.gfn_write_track[index]);
++}
++
++/* check if write access is tracked on the specified guest page.  */
+ bool kvm_gfn_is_write_tracked(struct kvm *kvm,
+ 			      const struct kvm_memory_slot *slot, gfn_t gfn)
+ {
+-	int index;
++	const struct kvm_memory_slot *other_slot;
+ 
+ 	if (!slot)
+ 		return false;
+@@ -131,8 +141,18 @@ bool kvm_gfn_is_write_tracked(struct kvm *kvm,
+ 	if (!kvm_page_track_write_tracking_enabled(kvm))
+ 		return false;
+ 
+-	index = gfn_to_index(gfn, slot->base_gfn, PG_LEVEL_4K);
+-	return !!READ_ONCE(slot->arch.gfn_write_track[index]);
++	BUILD_BUG_ON(KVM_ADDRESS_SPACE_NUM > 2);
++
++	if (__kvm_gfn_is_write_tracked(slot, gfn))
++		return true;
++
++	if (KVM_ADDRESS_SPACE_NUM > 1) {
++		other_slot = __gfn_to_memslot(__kvm_memslots(kvm, slot->as_id ^ 1), gfn);
++		if (__kvm_gfn_is_write_tracked(other_slot, gfn))
++			return true;
++	}
++
++	return false;
+ }
+ 
+ #ifdef CONFIG_KVM_EXTERNAL_WRITE_TRACKING
 -- 
 2.43.0
+
