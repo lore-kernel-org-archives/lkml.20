@@ -1,80 +1,87 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A2BE352034;
-	Wed, 26 Aug 2026 16:18:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 884EF357CF8;
+	Wed, 26 Aug 2026 16:18:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787761115; cv=none; b=G9oASGBHgO3TS/CwZgP3Qd0OY5QiOQHoffua8YrtHirmLnIJ/Wrx+vtELoAnaWJjxeQTkcu1oUCNn/Vgql9KyKpSBvQ+HoABr3m1Xm/EtLtPPznMDMEwAqlKwFJtpVB9IuUZe6UArV7sRTYMmEO2sLA87yvYQHWm2+qWOc+CSHA=
+	t=1787761130; cv=none; b=T3NrUpSD2D9qqYLyG3YBvNacrVLtIv9PTldxGKkYy4QlTmc+vbhpPNCsQx2rAmZxnZH/xKmwbFaqUXj3ReZFtGxdYA8RUK1pt6EdAFgr7AP6W1p8PKek5Qn5O0akFlz0yqJV1fnLaYq/a4yRQYDNg7Mk9DxYqj9zHUzxD5S/hk8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787761115; c=relaxed/simple;
-	bh=/KVGzZ6bCLrBPb8pvmrm7J/N+QzEWznI/LjnFx/3QBs=;
+	s=arc-20240116; t=1787761130; c=relaxed/simple;
+	bh=UkQzmfhiFZsMxRF9Cb3MCLGs1cVtJ4PnTkFGQmnTaxw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Icut5tiY9YtQn4nmdoBnint4vmZlyD47KtL5JSCswZMiP5BuoUksfl8251ENnh/+AmnUxA2eLSmN933EGyziXmaSe0Ct85tUPhc3R0L3hHweu28zhocKyzeDo4RYsPUwNyzp0N13qkehmQq8iflRYKV2tguyeAnF8x1dgjnzRAI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=liCtOcA7; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ORrLg4ZCXYa59UqqtmVvJYxkAVIlsY2hu5Xe82ra7HZR2C0/nmLg7rF3QZg07y1SEIgXmeUDES8hZte4klLVOz5YWnoUjSGXYk7GPR8cP6aayvb94XtveFB+9VBy9JtlDj+M8J8tQ7nnxdR8+R7NSDdWaOQsugC117J7HcdbUuE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A5dWDGww; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="liCtOcA7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C448C1F00A3A;
-	Wed, 26 Aug 2026 16:18:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A5dWDGww"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4811B1F000E9;
+	Wed, 26 Aug 2026 16:18:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787761113;
-	bh=/KVGzZ6bCLrBPb8pvmrm7J/N+QzEWznI/LjnFx/3QBs=;
+	s=k20260515; t=1787761129;
+	bh=UkQzmfhiFZsMxRF9Cb3MCLGs1cVtJ4PnTkFGQmnTaxw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=liCtOcA7GvslOr4ZLCnpb/gbXm10r40SAE/IlDbpIizwyH71smht55fHnWjKYhN8e
-	 DVErh52p2FPnyNEh/p3RHjzKaykWRfWcfHF9YB7/z//SG6LtNiETuirVB3kIv3hIJG
-	 zvhn7k/ZRxCKpBy98geSWMsDDitu+68LhCFmrVGZBl8VTeFzBVFZWv5+qq0Qdm3FJR
-	 qqk5XMCDng15tEmU6xIwR3xKLhrEET/nizgl5g/q+NWZSjP0D4A9zYMtvqJQDVLn/f
-	 ZrnWnLzPmL/qqvrIfBYid4aQWbW+9M+DmPKOYQxRArALupgUkmG9x1W0OvQKd0IdZL
-	 gAjKjRWz8nZgg==
-Date: Wed, 26 Aug 2026 17:18:25 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Daehyeon Ko <4ncienth@gmail.com>, stable@vger.kernel.org, 
-	Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>, 
-	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
-	Jesper Dangaard Brouer <hawk@kernel.org>, John Fastabend <john.fastabend@gmail.com>, 
-	Stanislav Fomichev <sdf@fomichev.me>, James Bottomley <James.Bottomley@hansenpartnership.com>, 
-	Hagen Paul Pfeifer <hagen@jauu.net>, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kselftest@vger.kernel.org, netdev@vger.kernel.org, bpf@vger.kernel.org
-Subject: Re: [PATCH v2] mm/secretmem: properly account locked pages
-Message-ID: <ao8RZlK6mBa-oNGh@gremlin>
-References: <20260822-secretmem-accounting-v2-1-fe445a7c6eb1@kernel.org>
- <17e9f7d6-d095-44ee-9997-8dc10646f3f8@kernel.org>
- <ao13TmFVVpsv0zO4@gremlin>
+	b=A5dWDGwwf4wzryBtm8finbJPqUfCar3ieVla0jpTFxCO16gNA4V8BjMkBHF/V6wb8
+	 vDTIHka7cxtkCoUlLDyhjcxWiCTJmeBQhvYhsehYPfX4ETZBdhhxTrm22G08t7BNxJ
+	 dgWrhB15FXa0pxJbSegP5FBO/RrJHx9zznjqLhqLEIqA+kffD9mwwMfg+Bwv7cWrnz
+	 sTZX5zZJaCpMhYAgOzhow7hFkmBViSMKpAxGITd0YM9eE0X4C8UoeH6lb4lKO0R4lC
+	 xsC01ncV+yc2+zauQfL4fyhkSVa/UsBZvUel6JR7i+vxNIaPJ/90+3gItD9Ctd1FcQ
+	 TgEhpeUSZwqgw==
+Date: Wed, 26 Aug 2026 17:18:44 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	linux-media@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH 3/5] media: dt-bindings: nxp,imx8-isi: Add i.MX952 ISI
+ compatible string
+Message-ID: <20260826-chief-constant-cac08f294cb0@spud>
+References: <20260826-isi_imx952-v1-0-cbfaaa3f0000@oss.nxp.com>
+ <20260826-isi_imx952-v1-3-cbfaaa3f0000@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="NoOQJ3UMHdED26Zq"
+Content-Disposition: inline
+In-Reply-To: <20260826-isi_imx952-v1-3-cbfaaa3f0000@oss.nxp.com>
+
+--NoOQJ3UMHdED26Zq
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ao13TmFVVpsv0zO4@gremlin>
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Aug 25, 2026 at 12:18:20PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > Can we split off the selftest changes? This stable patch is already pretty big.
->
-> Yeah I can do! I seem to recall people wanting tests backported too hence
-> the change.
->
-> >
-> > I'd assume the changes to the selftests are not required just to get if fixed,
-> > because the changes should not be breaking existing user space (and cosnequently
-> > existing selftests).
->
-> Yup confirmed locally that the changes don't break the tests.
+On Wed, Aug 26, 2026 at 12:55:44PM +0800, Guoniu Zhou wrote:
+> The i.MX952 ISI is a minor silicon revision of the i.MX95 ISI,
+> primarily addressing RAW data alignment. The core functionality
+> remains identical, so the i.MX952 ISI shares the same DT binding
+> constraints as the i.MX95 ISI.
+>=20
+> Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
 
-Correction - somehow I was working with an incorrect version of the test
-file or kernel locally, but the tests do fail with this patch, that's
-because it only seems to be asserting the mlock_future_ok() check which the
-patch removes.
+pw-bot: changes-requested
+(See driver re fallback)
 
-I think the easiest resolution is just to remove the test for the purposes
-of the backports and reintroduce the improved test as a separate patch,
-will do this.
+--NoOQJ3UMHdED26Zq
+Content-Type: application/pgp-signature; name=signature.asc
 
---
-Cheers, Lorenzo
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCao8R5AAKCRB4tDGHoIJi
+0kLWAQCiCZUrIRfhrpLA0m+ZMq608jz7v48VMGIeNjfPdnKWBQD/cSfuQwfSySEo
+MfhBPakmQDsiMCK+tW2gZmqy0zgJdwc=
+=rnvV
+-----END PGP SIGNATURE-----
+
+--NoOQJ3UMHdED26Zq--
