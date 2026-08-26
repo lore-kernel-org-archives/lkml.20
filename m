@@ -1,108 +1,130 @@
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 127F9282F17
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:56:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68E3F39D3C0
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:58:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787781395; cv=none; b=Imj8syLhfB4OevmidUbqYGXoQXZpftM4WrCaRgvZ23D1TuddSENI0dJnVZznoWZiHAd8LTkrAUI+keJ1Z9hBx1u7Wy2w7+L+U/TDEg2v81uA5zeK0mgo9Y5RyUZl9/qHPGt8kV0Mac0GI2Pon8/EsrLD2BFx+WjuV5rbkdGH0ik=
+	t=1787781493; cv=none; b=aZ4bFUKPXpurT1P6uzHHr5FNRTXhP5wasIoVfBLH5hSuH8U4WfoIbl1aKdqy+jiiQR8m/8Azc0Bb9Sns+PaI7blJccIi4iYmYe7v9OQJrGlDrb8sNrnxPrpPLIQL73begIE79WKuPgISSmT76HuQQTupm9dFpCG5I4ov3LV2fho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787781395; c=relaxed/simple;
-	bh=7nRGKXiCvIhNg2iK1eq2i1DAWBNYbtZPQzQwxqfRZ1c=;
+	s=arc-20240116; t=1787781493; c=relaxed/simple;
+	bh=LJuPTV66Z0j+Lypq0Ur4SxL/XaKpV98C2bS/f305Mys=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=n0UEUETBejK/T3hrLL9PQ6nO+qFEfztzAUZ+kMYfdEldlO2l9dU840Nt+vajnZuRifJD37g0NKjIBhTpDDm8KTpo3r9HT8O0R/yoybqPW1BKAJ1IzCcU5Eoj9/eKcqfWEOiTJJplkOUggx8N0u38iR54+yhPOlxlkYvTZruTuHQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=cku6h6eE; arc=none smtp.client-ip=209.85.208.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	 To:Cc:Content-Type; b=QFPAcJh2vmNcQfiR34l6sgv+MOsNe7mh5NcI0aGl6AjO8elCgFvHFDkYPoR+MG39cHbRYEkvIpxua2OJr3uUlX45ZgtJHfOypqO8Urx0SSj589b2yERR4xNsSU8xk9QzAX3TxHcBaGaySPPrA/ZTrXMR7eqgwcRz/zjBRObKeUo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TD8Z5bif; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="cku6h6eE"
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-69c600f76ccso2321197a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:56:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1787781391; x=1788386191; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CKClJmLtzZB0u0KiPgmjI6hyhyhnwh+zpC3wetBduH8=;
-        b=cku6h6eEvVGmpu0TYxGRHZmiCxreduApEXq09qvkx/uV8hiieh+hRkisn2z8/Vfv0S
-         VwTJtaXysARgyZg6KdvHaN5l2kqaqQHHRViLfRGhJ+3DXC2vZpEIVRPwuuPM/BFJ1IbI
-         EnIM7v1RFaK7kQzWa1IfxwI0wbCDnnNJIBZNQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787781391; x=1788386191;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=CKClJmLtzZB0u0KiPgmjI6hyhyhnwh+zpC3wetBduH8=;
-        b=bnZSUNiJ2vH/ItqKJHELJ8RKkCLZ+Mh0JrrfYQV7OBDE5f/rm3DDDtl4mtYJTCfA/o
-         VNc4moEVJLXBx/+fNmsklUxuTBiEfIvM9YP6F6D+Q1amTv+Q9I7TSTmDOxU6XoXVFywX
-         Fzg1C5CEQ0CzSXt2IRx5pDzF8UGAtI9kiwWOJ0vj7+5mxB05PSxXR34ep1ctvXgdMctX
-         Z/tpNYsg0A/0cv7G3/7KbO81UKWUEKPgrO7d0+ea3NmBcqbZt3/9FwlEWjxCBtEeSYxN
-         4/EFWY5njApAMLxbhc7DXL3xEROVbVTSKCh7YUV/wi/F4wZYW6lB/0qLBDB+QhgiOViM
-         XvdA==
-X-Gm-Message-State: AFuF++mmI+5P4dOmM7EKTAb3i//lSMnHEm5l7xpn2okjT7zhtjMeoP1W
-	hQM3uN/y4LHjkmQlXBKpeWORgVYv6O7WZEcD6zHmzLaXLzZNluGc8igkf/GjxaI9JUWAcwJJyhF
-	XCTSQby4=
-X-Gm-Gg: AR+sD12tP7cz94l0S56vP6npAsD72p7xtLsRFZEp6Ey1Laq0/ABDHBJwjWEtr1Q/+Qw
-	IrOX/Zalr34nzHFP8SAMM1RDZn0WM9aJgFdPT3wFr6HCQSqM0ckXAp386brApX4hPucQFrm5JEX
-	x/lHyvULWiBCLVnE1dTLlwQXH2Yf5AcEQWQAGvyXAVDkqbkfctfb2iwHAWazysx0tTrDRcbiSg3
-	0x4thAUjU9q4yMMJNKQWrj4dBxxET80A+fvR1GVCdZYM5R7GViglPRaSsbxkB3YO7SIPm0r/hET
-	t50oYcvPu7f/Ts+mBnwV1Acrt9rY8PZ0wt/de5JLK3HLH1ey3++BeLYRaTqKboNIHvMbvMcL/Zk
-	ibucHbi8ws3W7PcZ/Fuk87qd6YuRbhuOnOid5VC9e8KRaMFdcuHt8iHPQ2WzTVYw9XKjCl0H/LV
-	XcAaDkqptPCN4Nsx+TJXt6VPHBC5XLJipU7nD/sxtKZSVdqYqa4kdQu+aekBbyZwGRjXm1nyvZt
-	OXP7LnGaeL69Mfu11uvW7t+e2Buzpm/aia+KA==
-X-Received: by 2002:a05:6402:538a:b0:698:663d:d7bd with SMTP id 4fb4d7f45d1cf-6a5df64d1f8mr14447719a12.11.1787781391116;
-        Wed, 26 Aug 2026 14:56:31 -0700 (PDT)
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com. [209.85.208.53])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a5dea83a25sm5704003a12.18.2026.08.26.14.56.30
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 26 Aug 2026 14:56:30 -0700 (PDT)
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6a20319d030so2196584a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:56:30 -0700 (PDT)
-X-Received: by 2002:a05:6402:44d1:b0:6a3:eb58:dcfb with SMTP id
- 4fb4d7f45d1cf-6a5df64cb78mr10711361a12.10.1787781390292; Wed, 26 Aug 2026
- 14:56:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TD8Z5bif"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 025F31F00ADE
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:58:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787781492;
+	bh=W48obZE6+PHj9qZ1VUibazAltzOy+cKkoC0weBFuEaA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=TD8Z5bifPIXitj05rARbt7HWazn6f32cyF/TyWMKB/CBMV8rUWbzqZx/U44Ug3CEz
+	 TSlbq9yxOIO/UNHno7SSBsZ/OFLwhCeCkaaThYHbQMuMybpRbDzjQx5vezVVPIzpIx
+	 mw70vkNBMoAekWUkSLg18IIWVZ3pAstOKlF+LgGRMCvbEJmjnPTk4CbZGFZ0fdTvxM
+	 LpwuT9XxQsz3BXLj8XxrhxGxfPIIbnInyAEO3afuPpbcrRdOE9T0WgQq6VBWDKyDOp
+	 oc86pURq8/yobPY9awjaOUtKx40YC1xXFzdCOxPKFcnIThKGhbvBm/gLOU3j25MOU2
+	 tQ2LGZTbxP2xA==
+Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-92edb12cdf2so99839685a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:58:11 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RpnIkC9xEU3hA/k/WEk6es67CyILZfKgrChP/4TG6MoXJ3HASFBiSmMd4jHlvx9Q8meWX+FOz99ByNeYd0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nRmSHBL1kjprn3hYYqKKc3O/Ac9G1C+HJtkClp0n2c1U+iuyVA
+	04sR20f9uF+KBrtYgQhyRPvMPLyU5VBCp5T8PezN02DCtMNK7PWPWS3uHOlIuLHDZHGzOo52ihZ
+	hRzfDLVj+tfoSYA2MQ3TbME1QxRf0WVA=
+X-Received: by 2002:a05:620a:4553:b0:939:200:32be with SMTP id
+ af79cd13be357-93902004728mr135515285a.41.1787781491298; Wed, 26 Aug 2026
+ 14:58:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826144817.7af76334@gandalf.local.home>
-In-Reply-To: <20260826144817.7af76334@gandalf.local.home>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Wed, 26 Aug 2026 14:56:13 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wj9O9CajaEKFuHJ7q1TgNm+5n0WgOWcspDXjxVaWq3HFg@mail.gmail.com>
-X-Gm-Features: AcwNN1XQVGxbcaVovuTVnyvMr6nUyiYHR51JbbjRA1oampIPINirb8qhyIfQbik
-Message-ID: <CAHk-=wj9O9CajaEKFuHJ7q1TgNm+5n0WgOWcspDXjxVaWq3HFg@mail.gmail.com>
-Subject: Re: [GIT PULL] rv: Fixes for 7.3
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: LKML <linux-kernel@vger.kernel.org>, Gabriele Monaco <gmonaco@redhat.com>, 
-	Kuan-Wei Chiu <visitorckw@gmail.com>, Nam Cao <namcao@linutronix.de>
+References: <20260826075133.751049-1-zhaoyang.huang@unisoc.com>
+In-Reply-To: <20260826075133.751049-1-zhaoyang.huang@unisoc.com>
+From: Barry Song <baohua@kernel.org>
+Date: Thu, 27 Aug 2026 05:58:00 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4x0Q3D9A_-aR9mdNLw53O9Os5SihhyaqFnSTtN-3v9Gow@mail.gmail.com>
+X-Gm-Features: AcwNN1V8L5hw_vaE7IeQCKYBKYaXTeVpzFEpk6tsaOy4dEE_rMgI20fIJoaVXd0
+Message-ID: <CAGsJ_4x0Q3D9A_-aR9mdNLw53O9Os5SihhyaqFnSTtN-3v9Gow@mail.gmail.com>
+Subject: Re: [PATCH] mm: workingset: judge cross-memcg refaults by generation age
+To: "zhaoyang.huang" <zhaoyang.huang@unisoc.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Michal Hocko <mhocko@kernel.org>, Qi Zheng <zhengqi.arch@bytedance.com>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Zhaoyang Huang <huangzhaoyang@gmail.com>, 
+	steve.kang@unisoc.com
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 26 Aug 2026 at 11:48, Steven Rostedt <rostedt@goodmis.org> wrote:
+On Wed, Aug 26, 2026 at 3:52=E2=80=AFPM zhaoyang.huang
+<zhaoyang.huang@unisoc.com> wrote:
 >
->   The rvgen kunit command generates .bak backup files and these are
->   checked in for selftests as "golden" files for make check.
+> From: Zhaoyang Huang <zhaoyang.huang@unisoc.com>
+>
+> Unexpected anon folio scan rate is observed in a per-pid topology
+> memcgv2's hierarchy even with swappiness=3D150, which is believed as
+> the concequences of belowing rule which discarded all feedback for
+> the destination cgroup: no WORKINGSET_REFAULT accounting, no
+> activation hint, and no tier or workingset restoration. Shared
+> mappings faulted back into another memcg could not signal recent
+> usefulness to MGLRU in that cgroup, weakening thrashing detection
+> and protection for cross-cgroup file cache and folios that moved
+> between memcgs.
+>
+>         if (lruvec !=3D folio_lruvec(folio))
+>                 goto unlock;
+>
+> The failure mode is structural: min_seq and max_seq are per-lruvec
+> generation counters with independent sequences, so their numeric
+> gap is meaningless across lruvecs.
+>
+> Store a truncated eviction timestamp (jiffies) in the shadow token
+> next to min_seq, reserving at least 16 bits for min_seq so the
+> same-lruvec sequence test does not wrap at the shorter LRU_GEN_WIDTH
+> interval. Same-lruvec refaults keep the existing sequence-based
+> recency check.
+>
+> For cross-lruvec refaults, compare elapsed time since eviction with
+> the age of the middle generation in the destination lruvec's
+> MAX_NR_GENS window. Refaults inside that window are treated as
+> recent and workingset feedback is attributed to the destination
+> lruvec.
+>
+> This restores refault-driven reclaim hints for shared cache without
+> comparing unrelated generation numbers, while leaving the common
+> same-lruvec path unchanged.
+>
+> With this commit, we can observe the anon scan rate raises under same
+> enviroment.
 
-What?
+Hi Zhaoyang,
 
-What broken tool checks in generated files?
+I feel really bad reading these AI-generated changelogs. Could we explain
+it in more human terms?
 
-I've pulled this, but it sounds entirely insane to have checked in
-that garbage file in
+* What is the current problem?
+* What is the performance impact?
+* What is our approach?
+* How does the approach improve performance?
 
-    tools/verification/rvgen/tests/golden/test_bak_kunit/test_bak_kunit_kunit.c.old
+My gut feeling is that you are making workingset refault aware of
+cross-lruvec refaults. But I still don't really understand the actual
+performance impact or how to reproduce the problem you reported.
 
-and you should stop doing that.
+What is the user scenario? What kinds of folios can end up on a
+different lruvec after being evicted?
 
-I'm very tempted to just do "git rm -rf
-tools/verification/rvgen/tests/golden/" sicne these all seem to be
-generated.
+Yet you don't provide any performance data, such as anon/file refaults,
+sys/user time, or other relevant metrics.
 
-Having generated files around is *so* not what the kernel source tree is for.
+>
+> Co-authored-by: Cursor <cursoragent@cursor.com>
 
-Maybe the whole rvgen tree needs to be taken out of the kernel tree.
+Do we really allow AI to be listed as a co-author?
 
-           Linus
+Best Regards
+Barry
