@@ -1,151 +1,98 @@
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E5623F7A84;
-	Wed, 26 Aug 2026 12:39:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787747952; cv=pass; b=ivpgCo1NRdXS2LTJ/14MRYH241vxcgQh2cnMTFIsIl2cGxoKbC+JeKQU3ifq3beY/0QBVP/RmendRgLxcDvL5gRK0RP1TVLvIgb0ZXcydo09cq93+MV8pvQ7pm/UqtLP8REAuSwa7zTebCPA+PnJWKTRJKI1ygn2govy3WbQnQc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787747952; c=relaxed/simple;
-	bh=/nCqDhPJaJGK68g1Z14wVj81hJNQzyCXzAX4lDy5cg8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ONtV9CNSPgwb+zVAWY76HZGdW1EEA6H6gd95y0RALrCjTrvWCpb4lO6HJntmLkFRtH4xDIvaLJFyIskCP+MvXXze8mhlNi0HUhA6S6W6/gIomwKLKvhtOtFkjMPkf91GyoO0biO+FkADQ3RmlJ7LvSOIDDRRFyBYygoxRWUciOI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=julien.massot@collabora.com header.b=AIQJqf4Q; arc=pass smtp.client-ip=136.143.188.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D0083BBA03;
+	Wed, 26 Aug 2026 12:40:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787748046; cv=none; b=ok0eHbfSDb/ruZGk19v3s0kvUrfzUCAbQeWGn+Gy5rEHpBQZHeH7kCsF+CwqnRwJXHaXdZT77qUBi8EYyI28p9VVSvi2Tbey8CtXXWNwjsFcTj38JI0Bnpi1mSLIOpsWWMxVaTxRo4P36TPLSjMVJXgBg4KRRYLqov+OdkDRGRc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787748046; c=relaxed/simple;
+	bh=dRBxpPPRSE7spEVVW2w697q79bkolnfQL+y7K0AfSY0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WPRx4lrtuoP/zmeOrI9TP2nbX78rVaOWbGGX8Z1poa8PbB7H70Eo1enruxw/ruBKVSmJ3tODcxrcpEg9sqwBmKAgxdgnxSjixHqPLn+fQ0b1Xdiqz7QspRFjOWmSLN4NIxpAmEz+MA1QsawRZMgZ30qTJXMr+x0mIl/+u2V+k2g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DMTKjAp5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=julien.massot@collabora.com header.b="AIQJqf4Q"
-ARC-Seal: i=1; a=rsa-sha256; t=1787747932; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=ByEOzvJz0+cY+J20QOmb+TXXI3p1JDkHAuyk6U63St+/IL0L4JmfEZ4ziNwY3bBxfaSQ3uY2KrGI1DwQuDAGf1Ou/pU6Sshh95+rT8RJl/3nlRZk/8yRh2RYtH0hQjroVa2d+WpIbEn+aRhmieZxxUxEYZ/RYCOEufhqnb8QwvU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1787747932; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=gQkt+AxOVU6u5IygNkiSEdsCB3ba9YtCG7UYdDpFwmo=; 
-	b=mu1RdgmmWcl5SdrjkPkpLApKyZpv4FPZV+mpfgN9tsg036tVLfy+frZfYo179wpdUWGk9qWgONTfiPzsE50Fb0fpSbHAAA8YHvljA2JYCWddK6syyE5KtXLb8Bsur3MmFijuTxr1WBvZFj0Nvc00xMS6+NFq+5+bhDFHFl5BE88=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=julien.massot@collabora.com;
-	dmarc=pass header.from=<julien.massot@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787747932;
-	s=zohomail; d=collabora.com; i=julien.massot@collabora.com;
-	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=gQkt+AxOVU6u5IygNkiSEdsCB3ba9YtCG7UYdDpFwmo=;
-	b=AIQJqf4QPRH0VCACXg9NC/nXpzAmws5B/UVx65Z6w2Hq4E6/+hEAkgIJgilYMh90
-	F1/o+3vvXlWAGz8JMbYS7yZo3BQHBwmnR2//+efZfxWDfABiZCcL3GKTZTs3VhkHdVp
-	YEE2cKDcAXrrBnp2RqFqwFu+7VU8uGsvADBnDBOU=
-Received: by mx.zohomail.com with SMTPS id 1787747930692813.6414076114834;
-	Wed, 26 Aug 2026 05:38:50 -0700 (PDT)
-From: Julien Massot <julien.massot@collabora.com>
-Date: Wed, 26 Aug 2026 14:38:36 +0200
-Subject: [PATCH 2/2] phy: mediatek: xsphy: add optional repeater support
- for USB2 ports
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DMTKjAp5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D55AB1F000E9;
+	Wed, 26 Aug 2026 12:40:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787748044;
+	bh=FNoOq3oz5G+s13+NhOO66qzBqD+uiNVHdmgLhxAzmMA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DMTKjAp54I08Bqf5A3Lr7YslbctXtPO/Ulyvinh7GpVblr2FOMfaDdCyN9j97PSIV
+	 jdbBEp7dHXBivzQMA3tvVmwp9voJ7k2WaiGgmGnYwsJZmIK0A31kvBmjy2YUH70VFP
+	 dvPiwkUiA+7GDpH823QMSQ55ynQSJLfhHllUU9r5U580h3LEHfKfhrIsgPnQhzJbT4
+	 9acNl/vwM31cC4qkUEEvsFb0bkhVPz+DM2JxnoeoeWLS8d5sliVBZbrb0+ky+O7u70
+	 o5/m4aM1pXnh8pg/JqKh7JEoalD6fmBg1/mAbn1lPj6W5VTx8O5Ju8C5U68aIIdPWE
+	 amQnBZEQHY72A==
+Date: Wed, 26 Aug 2026 13:40:40 +0100
+From: Simon Horman <horms@kernel.org>
+To: phucduc.bui@gmail.com
+Cc: Marcin Wojtas <marcin.s.wojtas@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Thomas Petazzoni <thomas.petazzoni@free-electrons.com>,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org
+Subject: Re: [PATCH net] net: mvpp2: Fix IRQ error handling
+Message-ID: <20260826124040.GB22033@horms.kernel.org>
+References: <20260824100758.31622-1-phucduc.bui@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260826-mtk-usb2-repeater-usb2-v1-2-e8e48e2fd6d8@collabora.com>
-References: <20260826-mtk-usb2-repeater-usb2-v1-0-e8e48e2fd6d8@collabora.com>
-In-Reply-To: <20260826-mtk-usb2-repeater-usb2-v1-0-e8e48e2fd6d8@collabora.com>
-To: kernel@collabora.com, Chunfeng Yun <chunfeng.yun@mediatek.com>, 
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, linux-phy@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Julien Massot <julien.massot@collabora.com>
-X-Mailer: b4 0.14.3
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260824100758.31622-1-phucduc.bui@gmail.com>
 
-USB2 PHY port sub-nodes may carry an optional phys property referencing
-an external eUSB2 repeater.
+On Mon, Aug 24, 2026 at 05:07:58PM +0700, phucduc.bui@gmail.com wrote:
+> From: bui duc phuc <phucduc.bui@gmail.com>
+> 
+> irq_of_parse_and_map() returns 0 when parsing or mapping an IRQ fails.
+> The current code does not handle this return value correctly.
+> 
+> Check for a zero return value and return -EINVAL when the IRQ lookup
+> fails.
+> 
+> Fixes: 591f4cfab38a ("net: mvpp2: introduce queue_vector concept")
+> Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+> ---
+>  drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c b/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c
+> index ccc24a1301f2..1c50174c9f1e 100644
+> --- a/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c
+> +++ b/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c
+> @@ -5874,7 +5874,7 @@ static int mvpp2_simple_queue_vectors_init(struct mvpp2_port *port,
+>  	v->sw_thread_mask = *cpumask_bits(cpu_online_mask);
+>  	v->port = port;
+>  	v->irq = irq_of_parse_and_map(port_node, 0);
+> -	if (v->irq <= 0)
+> +	if (!v->irq)
+>  		return -EINVAL;
+>  	netif_napi_add(port->dev, &v->napi, mvpp2_poll);
 
-Fetch the repeater during probe using devm_of_phy_optional_get(),
-initialize and exit it alongside the USB2 PHY, and propagate USB mode
-changes to it.
+Hi,
 
-This follows the same pattern used by the Synopsys eUSB2 PHY driver.
+Thanks for your patch.
 
-Signed-off-by: Julien Massot <julien.massot@collabora.com>
----
- drivers/phy/mediatek/phy-mtk-xsphy.c | 26 ++++++++++++++++++++++++--
- 1 file changed, 24 insertions(+), 2 deletions(-)
+As pointed out by an AI-generated review [1], although the current
+condition is unnecessarily wide, it does correctly catch the v->irq == 0
+case.
 
-diff --git a/drivers/phy/mediatek/phy-mtk-xsphy.c b/drivers/phy/mediatek/phy-mtk-xsphy.c
-index cc1d66954212..7bc3d6794d7b 100644
---- a/drivers/phy/mediatek/phy-mtk-xsphy.c
-+++ b/drivers/phy/mediatek/phy-mtk-xsphy.c
-@@ -94,6 +94,7 @@ struct xsphy_instance {
- 	struct phy *phy;
- 	void __iomem *port_base;
- 	struct clk *ref_clk;	/* reference clock of anolog phy */
-+	struct phy *repeater;
- 	u32 index;
- 	u32 type;
- 	struct regmap *type_sw;
-@@ -391,6 +392,11 @@ static int mtk_phy_init(struct phy *phy)
- 
- 	switch (inst->type) {
- 	case PHY_TYPE_USB2:
-+		ret = phy_init(inst->repeater);
-+		if (ret) {
-+			clk_disable_unprepare(inst->ref_clk);
-+			return ret;
-+		}
- 		u2_phy_instance_init(xsphy, inst);
- 		u2_phy_props_set(xsphy, inst);
- 		break;
-@@ -438,7 +444,11 @@ static int mtk_phy_exit(struct phy *phy)
- {
- 	struct xsphy_instance *inst = phy_get_drvdata(phy);
- 
-+	if (inst->type == PHY_TYPE_USB2)
-+		phy_exit(inst->repeater);
-+
- 	clk_disable_unprepare(inst->ref_clk);
-+
- 	return 0;
- }
- 
-@@ -446,9 +456,16 @@ static int mtk_phy_set_mode(struct phy *phy, enum phy_mode mode, int submode)
- {
- 	struct xsphy_instance *inst = phy_get_drvdata(phy);
- 	struct mtk_xsphy *xsphy = dev_get_drvdata(phy->dev.parent);
-+	int ret;
- 
--	if (inst->type == PHY_TYPE_USB2)
--		u2_phy_instance_set_mode(xsphy, inst, mode);
-+	if (inst->type != PHY_TYPE_USB2)
-+		return 0;
-+
-+	ret = phy_set_mode_ext(inst->repeater, mode, submode);
-+	if (ret)
-+		return ret;
-+
-+	u2_phy_instance_set_mode(xsphy, inst, mode);
- 
- 	return 0;
- }
-@@ -590,6 +607,11 @@ static int mtk_xsphy_probe(struct platform_device *pdev)
- 		retval = phy_type_syscon_get(inst, child_np);
- 		if (retval)
- 			return retval;
-+
-+		inst->repeater = devm_of_phy_optional_get(dev, child_np, NULL);
-+		if (IS_ERR(inst->repeater))
-+			return dev_err_probe(dev, PTR_ERR(inst->repeater),
-+					 "failed to get repeater\n");
- 	}
- 
- 	provider = devm_of_phy_provider_register(dev, mtk_phy_xlate);
+So this is a clean-up rather than a bug fix.
+And should be for net-next, without a Fixes tag, rather than net.
+
+Please also note that net-next is closed for the merge window.
+I expect it to reopen in early September. Please don't post
+patches for net-next until it reopens.
+
+[1] https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260824100758.31622-1-phucduc.bui%40gmail.com
 
 -- 
-2.55.0
-
+pw-bot: changes-requested
