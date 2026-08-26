@@ -1,130 +1,125 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5153F3B14B3;
-	Wed, 26 Aug 2026 21:43:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC8813F7867
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:43:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787780625; cv=none; b=hJ2ED4S/YCNm0WQzrwDdkAhzd8YrXRFb3mLLQqXv4Sv/04PFyu9E1QF47OiZraZA5cvlNNgHL1zwbEn6NVHw5GJPV0Z2ZRWunGDmZ6TW8rsopia+cVVZygnm1UpKgIjQVE7u1HcjkA9Is70fPe5wT75QHVBiXw/lu/CasXhEujQ=
+	t=1787780638; cv=none; b=bq7BvQN4IkP2fjJmC1QkraEMWuL32TTLz8quX42KCyt1mBKuhip75xsK2tlM6V4oyO6YbiF/UhO/rw/xRssXvVIdCTP8f/hm1P7jpQTuURbsfrcVmKNb7J68R/gRdS7TO+outQJh+ks5whzaoKCCCWI7Kch4FUO7wYvDlt+OlI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787780625; c=relaxed/simple;
-	bh=KodbtscHuhyT4e9uaCejK1SwHL6vJcWIU4ma3ia0xtI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LFKNZlNEnsfYDMQKu6+u1VvN5G4u37RZb5CLffOzEX74P2xlhv86BvgKwtFq6PIbT4Eu1YJQXbv5djfb6mAZG7b1uOKFomDCSoDMZc8P3eUveeLnZhQ/NqxpyJ6ciUQ3+vW6ch95M66Mioii1BZIvVfsdMG1LTmJDcApF2LXTyw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ChqqMJa3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787780638; c=relaxed/simple;
+	bh=/TAa+RnwwziTNpbtJqoZnNQP9qDPbPPmreJwAQHZM3o=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KN/tJoyCjWTS+5Zb/b/7rdqRXL7Z1T6IppJpvmr7RhwoVb7Dh1UsnUt2j+yt0NI6u4t5goveT6wMkQ3mRQc4O9+L+CMYtyOfBSLN/SduAszwIxaI9E7l6dPEJN5dogYIi2VF/BcU6S0h/qaLOuxh9NKlWd4SZd9HoGemVlQag4E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=or2rPFmW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ChqqMJa3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2D011F000E9;
-	Wed, 26 Aug 2026 21:43:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="or2rPFmW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B73671F0155E
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:43:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787780623;
-	bh=PSSo4bsAC2cEjTDtAnRZIQ9NfAW3QdjZrYCnvuLAkE4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ChqqMJa3vxAiQad8g3dw8iasniT73h2asuuBLUzmnNANnaUP31o+KyDZuOY0hQQnl
-	 zLsEAHlr8uMYX3p4oSKLfjQocnhfkDYH/F6ZyJRg8KM05kmGKdEyiaIPPoMPieiB4j
-	 L4dXQO7wnmoNHCJCrEoQtICccHRvv0ix+og7ZY+w7eFblO2IZXSzL3poAsP8kEQt+v
-	 jHCKPMZMYXhBFNsQyCoUbJCEIAMipli3CTwlvrV50S0JF/9WW1sjl4ahjBEmHHHilX
-	 pZE3mp3iCJBd0iYDyqbt6mlLXWULkkl5JsyDsgNpP2076JFQ4gm73DXIbD+p1CdFtd
-	 YLUD5MdlyMjnA==
-Date: Wed, 26 Aug 2026 22:43:38 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Santhosh Kumar K <s-k6@ti.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com,
-	pratyush@kernel.org, mwalle@kernel.org,
-	takahiro.kuwano@infineon.com, linux-spi@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-mtd@lists.infradead.org, praneeth@ti.com,
-	sebin.francis@ti.com, u-kumar1@ti.com, a-dutta@ti.com
-Subject: Re: [PATCH v9 08/18] spi: cadence-quadspi: add PHY tuning support
-Message-ID: <8aac0c42-fad5-4146-a2a3-b60bdab71a20@sirena.org.uk>
-References: <20260825171737.776052-1-s-k6@ti.com>
- <20260825171737.776052-9-s-k6@ti.com>
+	s=k20260515; t=1787780637;
+	bh=2roDRA2Ocj9k8psJYEvUg6GITDjk4l3VJCYd3f7li1k=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=or2rPFmWUworOzOd0pxbnRMZfNe9k4jfeGb1aD3IjVSuKPlG1lHPQJItjRDwVeaYV
+	 VVhBTG8BYODz4KjJnOFsUMPxUnCWSTNbC1pgwiKJuYCGECGE6pna0jwrS5joo+BU6C
+	 VyZULLEtJhIy+rGIiq0vwkVW1NwH5AxRl842FRFmnGYIujs6nGBXZVqR93wFqggpEk
+	 3s1rB/+AwlxalZjrWeLwP7BDNs1UAq7eZo13FmMWJthdAZS0HhSDJrjAXVFwQKa+lg
+	 eKtq4Np76Efi8A+zdhDE4tDWjAITguCqLT8ukGi12ryYBhrPPid2hRAL8O3imGgLDK
+	 BEZnPim2KiXmQ==
+Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-93695893ac1so4940185a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:43:57 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqkudZVNEW+w5d4hWY5fegXVbZwGszQr27AuQCfcqaVzGhP/pdcl6cMFHvFD8/l64dSiWGEAk2uwSTkba4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mPa6mfD5WkLj+K9wbVNV/rjuduPEN3dIUpwT5iXeqiXCC6u9yg
+	1ENQjkvOLGpKzwW8uy0YEEFTjlhAMUZ6fH9f6e8fTUUDq9lqPl6L7eYyIqx+IpEqK3ay2EpBu8p
+	GQar/Vv2VmkJd41AlvGJRVVvYh/le7w8=
+X-Received: by 2002:a05:620a:46a0:b0:939:3c0:7520 with SMTP id
+ af79cd13be357-93903c077a9mr41198885a.18.1787780636906; Wed, 26 Aug 2026
+ 14:43:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="nryroxhrKHKI4MVn"
-Content-Disposition: inline
-In-Reply-To: <20260825171737.776052-9-s-k6@ti.com>
-X-Cookie: Obey all traffic laws.
-
-
---nryroxhrKHKI4MVn
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20260821102538.22642-1-baohua@kernel.org> <20260821102538.22642-4-baohua@kernel.org>
+ <ao6qTTtk2xkkeKob@fedora>
+In-Reply-To: <ao6qTTtk2xkkeKob@fedora>
+From: Barry Song <baohua@kernel.org>
+Date: Thu, 27 Aug 2026 05:43:45 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4ywk7mA1xfk=emtqby1UAwFsaH9PChmk2TuZoDKrMzuXw@mail.gmail.com>
+X-Gm-Features: AcwNN1U1hcI0Vzy6pZR5m6oVpQepLjO3IAPExcgcrEvv2QP6yu7Rc87cN4jKPoQ
+Message-ID: <CAGsJ_4ywk7mA1xfk=emtqby1UAwFsaH9PChmk2TuZoDKrMzuXw@mail.gmail.com>
+Subject: Re: [PATCH 3/6] mm/mglru: enhance cold/hot inversion handling in inc_min_seq()
+To: Baoquan He <baoquan.he@linux.dev>
+Cc: akpm@linux-foundation.org, linux-mm@kvack.org, axelrasmussen@google.com, 
+	baolin.wang@linux.alibaba.com, chenridong@xiaomi.com, david@kernel.org, 
+	hannes@cmpxchg.org, kasong@tencent.com, lianux.mm@gmail.com, 
+	linux-kernel@vger.kernel.org, ljs@kernel.org, lyugaofei@xiaomi.com, 
+	mhocko@kernel.org, qi.zheng@linux.dev, shakeel.butt@linux.dev, 
+	stevensd@chromium.org, wangzicheng@honor.com, weixugc@google.com, 
+	yuanchu@google.com, zhangbo56@xiaomi.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Aug 25, 2026 at 10:47:27PM +0530, Santhosh Kumar K wrote:
-> The Cadence QSPI controller supports a delay-line PHY for high-speed
-> operation. Without calibration the PHY is unused and read capture relies
-> on a fixed delay, limiting throughput at frequencies above the base
-> operating speed.
+On Wed, Aug 26, 2026 at 4:56=E2=80=AFPM Baoquan He <baoquan.he@linux.dev> w=
+rote:
+>
+> On 08/21/26 at 06:25pm, Barry Song (Xiaomi) wrote:
+> > During aging, a folio's generation may already have been updated by
+> > folio_update_gen(), even though it has not yet been moved to the
+> > corresponding generation list. Such folios are hotter than those
+> > already in that generation.
+> >
+> > It makes sense for inc_min_seq() to increment the generation of
+> > folios that were never promoted during aging and move them to the
+> > tail of the new oldest generation. However, folios that were already
+> > promoted should instead be moved to the head of their updated
+> > generation, just as sort_folio() does in scan_folios().
+>
+> While sort_folio() move protected folio to the head of next gen too.
+> It only moves ineligible folios to the tail of next gen.
+>
 
-> Add an execute_tuning callback that performs delay-line calibration using
-> a known data pattern written to a dedicated flash region. The pattern is
-> either read from a NOR partition identified by the DT property
-> spi-phy-pattern-partition, or written to the NAND page cache before
-> each calibration read.
+Hi Baoquan,
 
->  struct cqspi_flash_pdata {
+Thanks for the review! I=E2=80=99m not quite sure I understand what you mea=
+n :-)
+Could you please clarify what you=E2=80=99re suggesting?
 
-> +	bool			use_dqs;
-> +	bool			use_tuned_phy;
+I can explain the design in more detail.
 
-The AM65x has a fun erratum i2189 which mentions that it requires=20
-disabling DQS for writes:
+Yes. For both promoted and protected folios, `sort_folio()` moves them
+to the head of the corresponding generation.
 
-   https://www.ti.com.cn/lit/er/sprz452i/sprz452i.pdf
+Here, `inc_min_seq()` is a bit different. We are overlapping `max_seq`
+and `min_seq`, so the `min_seq` generation should be moved to the
+second-oldest generation. Therefore, I think non-promoted folios should
+be placed at the tail.
+They are genuinely not promoted, so they shouldn't be at the head.
 
-which suggests we might need separate controls for read and write
-operation.
+For example, suppose we have the following folios:
 
-> +static int cqspi_write_pattern_to_cache(struct cqspi_flash_pdata *f_pdat=
-a,
-> +					struct spi_mem *mem,
-> +					const struct spi_mem_op *write_op)
-> +{
-> +	struct spi_controller *ctlr =3D mem->spi->controller;
-> +	struct device *dev =3D &f_pdata->cqspi->pdev->dev;
-> +	struct spi_mem_op op =3D *write_op;
-> +	int ret;
-> +
-> +	op.max_freq =3D mem->spi->max_speed_hz;
-> +	op.data.nbytes =3D sizeof(phy_tuning_pattern);
-> +	op.data.buf.out =3D phy_tuning_pattern;
-> +
-> +	ret =3D ctlr->mem_ops->exec_op(mem, &op);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to write PHY pattern to cache: %d\n", ret);
-> +		return ret;
-> +	}
-> +	dev_dbg(dev, "PHY pattern (%zu bytes) written to cache\n",
-> +		sizeof(phy_tuning_pattern));
-> +
-> +	return 0;
-> +}
+Second-oldest gen: f1, f2, f3, f4
 
-spinand_write_page() has a multi-operation sequence, I've not checked if
-any fancy flashes with DQS support actually need that.  _read_page()
-looks more straightforward.
+Oldest gen:        f5 (promoted), f6 (not promoted),
+f7 (promoted), f8 (not promoted)
 
---nryroxhrKHKI4MVn
-Content-Type: application/pgp-signature; name="signature.asc"
+Without my patchset, the result is:
 
------BEGIN PGP SIGNATURE-----
+Second-oldest:
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqPXgkACgkQJNaLcl1U
-h9CVpgf+IEFBtsEfC8voVsHpmOfwjvGr+ozW/f+mGll/kPgYXkUFR5UgVC+QMaF6
-3S6zPGMFpJNRm4DAo3iIaiXXgiZ7DMkjr7Q7ougvDy7JVJWv3csUMu/RKZIy++Dx
-o2K1Da6/W4AzDrQExhVklMLQpa0wTaMav8FeEv23oOvFqPmwPBIryDzQRUB5Xz4Z
-MCPmMvgG8wCXG3bPk/Ueigap6FXN3Xh7dVR9PEFEnYVrxj6DD4ladF9bc6GGd25x
-4e/rMV2ra6P84FeUryMHBpbXwAv6/tq2UZS3Tijf6bF17giPvx2EAelgwdpA9OCg
-a/Fbtj+DnJpFaO8EnzNiYorzzawsQg==
-=f6hj
------END PGP SIGNATURE-----
+f1, f2, f3, f4, f8 (promoted), f7 (not promoted),
+f6 (not promoted), f5 (promoted)
 
---nryroxhrKHKI4MVn--
+So you can see that both promoted and non-promoted folios are at the tail
+of the second-oldest generation?
+
+With my patchset, the result is:
+
+Second-oldest:
+
+f5 (promoted), f8 (promoted), f1, f2, f3, f4,
+f7 (not promoted), f6 (not promoted)
+
+Best Regards
+Barry
