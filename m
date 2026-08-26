@@ -1,444 +1,120 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C301353A9E
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:13:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CA713A7F51
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:14:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787760831; cv=none; b=ola76Jnk1ZKafFa3ZWODdWlN37qfeAXQQhI4NLT6dk31KSnfyPk2CrOBd6q8H8qzZtyMakxHJN+eyRuxYwn7Fz3qTOVGwqP2Vzgvs0Eiuw5SsiZJOfkZIjT/IkmFX7RB9SrNAMKHxkwmiOHqNDKdRA8vGOnU4XO3icQmgm8cm2c=
+	t=1787760873; cv=none; b=cMUoxP8A7SZm16pKmdeUnu854hWO+F4/ufeSBCRbge2kb8rkFXEPCZznYiMVPEO/e63u64TAECP5+0wRSuJqRxABFogC74P2Lgl3sXSUV80gtSXLyh+F5vSb1GJ1eyE16wZn1tsB4nso3eScpMD9HYe9sZbZXiCXFM4PXqwtzIQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787760831; c=relaxed/simple;
-	bh=GUeaUdNlt9Mk6a6oEqsYeIYD5gD/etxQfDQLMiKIubk=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
-	 Content-Type; b=Qcgb7NnzKtKZxEhbrEeIGOJGNb4S6Z4W3frSTzSwc+FNLzeQvPqelCZwaaOuukBTqFXUAiwkEF1UTsDP5sO8fIn11rk02DmGghuha4AZdzydfPzZSfUjpUqFd3riAzziCdx1ATJZlrn4sS7nNQd2cZMGES7p7omaZ/eIGJ6tsdY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4b28dbf4197so2209041b6e.2
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 09:13:48 -0700 (PDT)
+	s=arc-20240116; t=1787760873; c=relaxed/simple;
+	bh=OjPQ87o/XYbSSJ8z7vq2Jx8w6lGwVsiHZH0tK9rImKQ=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=lNW9781okFhvjEOJeNJWkVEKUvuPUbrzk70/TwS7jKV+ZCxiqscP/qJzO3yQ6dLrXaiB4bjhN1+1Yfhoh/leCsQ2gjWRt2jFpXqK/yJ7MQ1g1KivRaRU2Zly0kKmJIy3CjZZDrVO7UblwvmmGarpu826Uj47uNfFulFH5r4JhWI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=r8GL/XjS; arc=none smtp.client-ip=209.85.214.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="r8GL/XjS"
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2d5d00fd19bso22971515ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 09:14:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787760872; x=1788365672; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5ShZteLuPmn0uTVSi15FkovctN2TksdELrCXWrc7DUg=;
+        b=r8GL/XjSpBkCEak8vG6HuMppuFhSJz4/q7TYWlAg//CyjY4JWlJIzhswoW/Ebee7Ev
+         tHkWg4rDKQDQ4wt4aOiQAFFxGJDmtVtygICSxsAcGA1hK5pqbwxzgVB49whHyN2uK7pR
+         OHkqSEbM+fTdGWb5jpVgA3As39l3Z47ks6yqgQ4K38IIA5UfR4MpdNmHYkOK81l/LSt2
+         qKIX77uf8Z4VYmJxpHHjsOCtIzTq2XAwKKzzn0290fixwpFyriQ6mzCB2HQFywiZ1B6i
+         8/AVMoaOHxjXQFPrbbJ3+4vQIgTEOBKyD9KbuXiM+rys7OHIk/o5PCWz4TOgQ64/77N4
+         +igg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787760828; x=1788365628;
-        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20251104; t=1787760872; x=1788365672;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=Jc6duxK3VcTw6r3Pg9YUxORcR1Rv5YtSKNORRK1bu2w=;
-        b=Or8z+b9A0trumniw1A1XhXqiipmhXiqnji/PlzViHPG+tlOHfdIv+QjtSI/0dCO9eF
-         PLQOe0ACc6DTKBJ/q5DkyzXm/o3pXadx5n/2WtiyfLpMieSzZ7MQw1aj+LUetRlTVqsb
-         VSHnxQJmxmhJ5qvRsFoNN4KCn8x8oyB0S5XVFxpB9vrdyQYF9ooXXOt12OgNWUqHu4ey
-         cj1E5YXzyRZrG0v0jzpn3WfgE5Qm+Uqvq/G/fqnwciT7GbSsGxKPZxaBMjliot4LPmbW
-         c51wtYYlSmj2xED9JVYmp0nBxCEnWWkZ8ZYK5RCDfqqp5nk6GjH7v48GP9Je9hQm1fTH
-         HiKA==
-X-Forwarded-Encrypted: i=1; AHgh+RqDx4kkD4NR5GG1omuphiEQiPapX5gNe/TXobhgedqUNtvoHSyU6n6vaQVqpz+Q8w6D5Der3HrsJJDAgb4=@vger.kernel.org
-X-Gm-Message-State: AFuF++k2JpiWdOrLPD65NSTMQ6kJm+dmXQkljH550EdcLnLDufrcZLRd
-	/faXNawI6i4iNbFac4jngELymw1zHB+9g3aFOl/2+0rXBGpS/Q6n1ONDSdEilwxr6EHSNMCaNgl
-	tCs/bXOU6wAOJ6vqfeOOi1CaMdRmy39YBHgX9DB2u5D/CfreR8+JSYm5gMHw=
+        bh=5ShZteLuPmn0uTVSi15FkovctN2TksdELrCXWrc7DUg=;
+        b=cXI0P2BkgmLagzAodoEO1Dr/2pQVfmC6YiAAS4Ev2Hrf1JwQLeBDw8RM/hFzPDjAYY
+         AVNS6r2Dx4m0VID5+bV/MjQ5bTX3VCFzMJoQo8c6NxV5zc89MY6n1ZLPaaYQWAjeXyWl
+         N6pmQ1TWgs7Z+fxJ7mc54ihD6s8/oe1GZ2WUG3pFG92fWy6LHhdMeofoOEOEy1NTwbJH
+         oqiuLgJYR3aZ+CEj+73zEufN081TXK3oK869p09ZybI2VtIOc8KLvNuGwpFhCWLWWn6H
+         L9P5BtkCXAaKhLqnCK3F6o+wM+zwbwcbJ6hsuzZsNSOVdh0/uaqN0bpL4HWW6h188Coe
+         jRgw==
+X-Forwarded-Encrypted: i=1; AHgh+Rrgug0E0rqPHO7yEWxYevvrhvAzXggtbApRtOVexIbB89dSAkOKCTD/NzeTuEuaNIi9yaS71rF7agxWhXI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lDU+3kZ1zVxOblS+4JsGJd1at41ja28dC7s8Mic/H9nv6RNfrY
+	sIXx1QhVyUgg9t9PBsXKz7rC5ydY8jSAol/rMX0OTgWHKZL6Uf7RKU4o2nhnyQHVos797zea4iv
+	ibvJ2TQ==
+X-Received: from plht16.prod.google.com ([2002:a17:903:2f10:b0:2cc:e88e:423c])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:2f8f:b0:2d6:fb95:59f0
+ with SMTP id d9443c01a7336-2d707a032a0mr130691815ad.3.1787760871467; Wed, 26
+ Aug 2026 09:14:31 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Wed, 26 Aug 2026 09:14:30 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Received: by 2002:a05:6808:50a1:b0:4a4:ed9a:e793 with SMTP id
- 5614622812f47-4b366a66cf5mr7344592b6e.16.1787760828091; Wed, 26 Aug 2026
- 09:13:48 -0700 (PDT)
-Date: Wed, 26 Aug 2026 09:13:48 -0700
-In-Reply-To: <20260826103615.932094-1-pulehui@huaweicloud.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a8f10bc.50659fcc.60cd.0002.GAE@google.com>
-Subject: [syzbot ci] Re: bpf: Fix UAF due to concurrent consumption of waiting_for_gp_ttrace
-From: syzbot ci <syzbot+ci24e276239a9170a6@syzkaller.appspotmail.com>
-To: andrii@kernel.org, ast@kernel.org, bpf@vger.kernel.org, 
-	daniel@iogearbox.net, eddyz87@gmail.com, emil@etsalapatis.com, 
-	ihor.solodrai@linux.dev, jolsa@kernel.org, linux-kernel@vger.kernel.org, 
-	martin.lau@linux.dev, memxor@gmail.com, pulehui@huawei.com, 
-	pulehui@huaweicloud.com, song@kernel.org, yonghong.song@linux.dev
-Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.860.g4b6b3295ed-goog
+Message-ID: <20260826161430.714316-1-seanjc@google.com>
+Subject: [PATCH] KVM: selftests: Use __GLIBC__, not _GNU_SOURCE, to detect
+ actual glibc
+From: Sean Christopherson <seanjc@google.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: Sean Christopherson <seanjc@google.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Sashiko Bot <sashiko-bot@kernel.org>, Hisam Mehboob <hisamshar@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 
-syzbot ci has tested the following series
+Use __GLIBC__ in the hardware disable test to detect when selftests are
+being built/linked against glibc and thus pthread_attr_setaffinity_np() is
+(hopefully) available.  As pointed out by Sashiko and Hisam, _GNU_SOURCE is
+effectively a "request" macro to enable functionality, whereas __GLIBC__ is
+an announcement of support and selftests' idiomatic way of guarding code
+that's specific to glibc.
 
-[v1] bpf: Fix UAF due to concurrent consumption of waiting_for_gp_ttrace
-https://lore.kernel.org/all/20260826103615.932094-1-pulehui@huaweicloud.com
-* [PATCH bpf] bpf: Fix UAF due to concurrent consumption of waiting_for_gp_ttrace
-
-and found the following issues:
-* BUG: unable to handle kernel NULL pointer dereference in rcu_core
-* BUG: unable to handle kernel paging request in corrupted
-* WARNING in mntput_no_expire_slowpath
-* kernel BUG in free_percpu
-
-Full report is available here:
-https://ci.syzbot.org/series/cfb01d47-3cc7-43a6-99e6-c4a0c6e6ce89
-
-***
-
-BUG: unable to handle kernel NULL pointer dereference in rcu_core
-
-tree:      bpf
-URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/bpf/bpf.git
-base:      75b0a6db4300e4c2c9e97a0848deaa7acfb42fb7
-arch:      amd64
-compiler:  Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-config:    https://ci.syzbot.org/builds/187f4142-010e-469f-b2d4-8ce60c1dd2c5/config
-syz repro: https://ci.syzbot.org/findings/5ac25989-0260-4506-a08a-25fa6e4957e7/syz_repro
-
-BUG: kernel NULL pointer dereference, address: 0000000000000000
-#PF: supervisor instruction fetch in kernel mode
-#PF: error_code(0x0010) - not-present page
-PGD 800000016a651067 P4D 800000016a651067 PUD 0 
-Oops: Oops: 0010 [#1] SMP KASAN PTI
-CPU: 1 UID: 0 PID: 5776 Comm: syz.0.18 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
-RIP: 0010:0x0
-Code: Unable to access opcode bytes at 0xffffffffffffffd6.
-RSP: 0018:ffffc90000a08db8 EFLAGS: 00010246
-RAX: dffffc0000000000 RBX: 0000000000000000 RCX: 0000000000000028
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffffe8ffffc2c5d0
-RBP: ffffc90000a08f20 R08: ffffffff81ad5526 R09: 0000000000000000
-R10: ffffc90000a08c70 R11: 0000000000000000 R12: ffffe8ffffc2c5d0
-R13: dffffc0000000000 R14: ffffffff81ad5526 R15: ffffe8ffffc2c5d8
-FS:  00005555813d0500(0000) GS:ffff8882a8f2d000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: ffffffffffffffd6 CR3: 0000000105338000 CR4: 00000000000006f0
-Call Trace:
- <IRQ>
- rcu_do_batch kernel/rcu/tree.c:2645 [inline]
- rcu_core+0x794/0x10b0 kernel/rcu/tree.c:2897
- handle_softirqs+0x226/0x860 kernel/softirq.c:645
- __do_softirq kernel/softirq.c:679 [inline]
- invoke_softirq kernel/softirq.c:519 [inline]
- __irq_exit_rcu+0xcb/0x220 kernel/softirq.c:767
- irq_exit_rcu+0x9/0x30 kernel/softirq.c:784
- instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
- sysvec_apic_timer_interrupt+0xa6/0xc0 arch/x86/kernel/apic/apic.c:1062
- </IRQ>
- <TASK>
- asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
-RIP: 0010:lock_release+0x2d7/0x3c0 kernel/locking/lockdep.c:5911
-Code: a2 cc 11 00 00 00 00 eb b5 e8 55 12 34 0a f7 c3 00 02 00 00 74 b9 65 48 8b 05 ad 5d cc 11 48 3b 44 24 28 75 44 fb 48 83 c4 30 <5b> 41 5c 41 5d 41 5e 41 5f 5d e9 8a 17 37 0a cc 48 8d 3d b2 b3 b8
-RSP: 0018:ffffc900039dfa68 EFLAGS: 00000282
-RAX: 4b32b4bcbbad6400 RBX: 0000000000000287 RCX: 0000000000000046
-RDX: 0000000000000000 RSI: ffffffff8e4d8901 RDI: ffffffff8c4cd780
-RBP: ffff88810b5d29a8 R08: ffffffff821d972f R09: 0000000000000000
-R10: 0000000000000000 R11: ffff8881162fe9b8 R12: 0000000000000000
-R13: 0000000000000000 R14: ffff8881162fe9b8 R15: ffff88810b5d1e00
- _inline_copy_from_user include/linux/uaccess.h:169 [inline]
- _copy_from_user+0x28/0xb0 lib/usercopy.c:18
- copy_from_user include/linux/uaccess.h:222 [inline]
- generic_map_update_batch+0x668/0xae0 kernel/bpf/syscall.c:2101
- bpf_map_do_batch+0x391/0x630 kernel/bpf/syscall.c:5781
- __sys_bpf+0xbe5/0xd90 kernel/bpf/syscall.c:-1
- __do_sys_bpf kernel/bpf/syscall.c:6486 [inline]
- __se_sys_bpf kernel/bpf/syscall.c:6483 [inline]
- __x64_sys_bpf+0xba/0xd0 kernel/bpf/syscall.c:6483
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7febdab9e0d9
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007ffc5722f5a8 EFLAGS: 00000246 ORIG_RAX: 0000000000000141
-RAX: ffffffffffffffda RBX: 00007febdae25fa0 RCX: 00007febdab9e0d9
-RDX: 0000000000000038 RSI: 00002000000003c0 RDI: 000000000000001a
-RBP: 00007febdac35024 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007febdae25fac R14: 00007febdae25fa0 R15: 00007febdae25fa0
- </TASK>
-Modules linked in:
-CR2: 0000000000000000
----[ end trace 0000000000000000 ]---
-RIP: 0010:0x0
-Code: Unable to access opcode bytes at 0xffffffffffffffd6.
-RSP: 0018:ffffc90000a08db8 EFLAGS: 00010246
-
-RAX: dffffc0000000000 RBX: 0000000000000000 RCX: 0000000000000028
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffffe8ffffc2c5d0
-RBP: ffffc90000a08f20 R08: ffffffff81ad5526 R09: 0000000000000000
-R10: ffffc90000a08c70 R11: 0000000000000000 R12: ffffe8ffffc2c5d0
-R13: dffffc0000000000 R14: ffffffff81ad5526 R15: ffffe8ffffc2c5d8
-FS:  00005555813d0500(0000) GS:ffff8882a8f2d000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: ffffffffffffffd6 CR3: 0000000105338000 CR4: 00000000000006f0
-----------------
-Code disassembly (best guess):
-   0:	a2 cc 11 00 00 00 00 	movabs %al,0xb5eb0000000011cc
-   7:	eb b5
-   9:	e8 55 12 34 0a       	call   0xa341263
-   e:	f7 c3 00 02 00 00    	test   $0x200,%ebx
-  14:	74 b9                	je     0xffffffcf
-  16:	65 48 8b 05 ad 5d cc 	mov    %gs:0x11cc5dad(%rip),%rax        # 0x11cc5dcb
-  1d:	11
-  1e:	48 3b 44 24 28       	cmp    0x28(%rsp),%rax
-  23:	75 44                	jne    0x69
-  25:	fb                   	sti
-  26:	48 83 c4 30          	add    $0x30,%rsp
-* 2a:	5b                   	pop    %rbx <-- trapping instruction
-  2b:	41 5c                	pop    %r12
-  2d:	41 5d                	pop    %r13
-  2f:	41 5e                	pop    %r14
-  31:	41 5f                	pop    %r15
-  33:	5d                   	pop    %rbp
-  34:	e9 8a 17 37 0a       	jmp    0xa3717c3
-  39:	cc                   	int3
-  3a:	48                   	rex.W
-  3b:	8d                   	.byte 0x8d
-  3c:	3d                   	.byte 0x3d
-  3d:	b2 b3                	mov    $0xb3,%dl
-  3f:	b8                   	.byte 0xb8
-
-
-***
-
-BUG: unable to handle kernel paging request in corrupted
-
-tree:      bpf
-URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/bpf/bpf.git
-base:      75b0a6db4300e4c2c9e97a0848deaa7acfb42fb7
-arch:      amd64
-compiler:  Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-config:    https://ci.syzbot.org/builds/187f4142-010e-469f-b2d4-8ce60c1dd2c5/config
-syz repro: https://ci.syzbot.org/findings/d4bc6f3a-dacb-412b-ac9d-51a5c1dbc4a4/syz_repro
-
-kernel tried to execute NX-protected page - exploit attempt? (uid: 0)
-BUG: unable to handle page fault for address: ffff888173315c00
-#PF: supervisor instruction fetch in kernel mode
-#PF: error_code(0x0011) - permissions violation
-PGD 1acd0067 P4D 1acd0067 PUD 1acd5067 PMD 80000001732000e3 
-Oops: Oops: 0011 [#1] SMP KASAN PTI
-CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
-RIP: 0010:0xffff888173315c00
-Code: ff ff 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 <80> 5b 31 73 81 88 ff ff 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-RSP: 0018:ffffc90000007d60 EFLAGS: 00010246
-RAX: 1ffffd1ffff8f783 RBX: ffffe8ffffc7bc18 RCX: ffffffff8e88ef80
-RDX: 0000000000000100 RSI: ffff888174548380 RDI: ffffffff81f86ab8
-RBP: ffffe8ffffc7bc10 R08: 0000000000000100 R09: 0000000000000000
-R10: 0000000000000000 R11: ffff888173315c00 R12: e5894855fa1e0ff3
-R13: ffff888173315c00 R14: ffffffff81f86ab0 R15: ffffe8ffffc7bc18
-FS:  0000000000000000(0000) GS:ffff88818d92d000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: ffff888173315c00 CR3: 000000010b9a2000 CR4: 00000000000006f0
-Call Trace:
- <IRQ>
- </IRQ>
- <TASK>
- </TASK>
-Modules linked in:
-CR2: ffff888173315c00
----[ end trace 0000000000000000 ]---
-RIP: 0010:0xffff888173315c00
-Code: ff ff 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 <80> 5b 31 73 81 88 ff ff 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-RSP: 0018:ffffc90000007d60 EFLAGS: 00010246
-RAX: 1ffffd1ffff8f783 RBX: ffffe8ffffc7bc18 RCX: ffffffff8e88ef80
-RDX: 0000000000000100 RSI: ffff888174548380 RDI: ffffffff81f86ab8
-RBP: ffffe8ffffc7bc10 R08: 0000000000000100 R09: 0000000000000000
-R10: 0000000000000000 R11: ffff888173315c00 R12: e5894855fa1e0ff3
-R13: ffff888173315c00 R14: ffffffff81f86ab0 R15: ffffe8ffffc7bc18
-FS:  0000000000000000(0000) GS:ffff88818d92d000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: ffff888173315c00 CR3: 000000010b9a2000 CR4: 00000000000006f0
-----------------
-Code disassembly (best guess), 2 bytes skipped:
-* 28:	80 5b 31 73          	sbbb   $0x73,0x31(%rbx) <-- trapping instruction
-  2c:	81 88 ff ff 00 00 00 	orl    $0x0,0xffff(%rax)
-  33:	00 00 00
-
-
-***
-
-WARNING in mntput_no_expire_slowpath
-
-tree:      bpf
-URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/bpf/bpf.git
-base:      75b0a6db4300e4c2c9e97a0848deaa7acfb42fb7
-arch:      amd64
-compiler:  Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-config:    https://ci.syzbot.org/builds/187f4142-010e-469f-b2d4-8ce60c1dd2c5/config
-syz repro: https://ci.syzbot.org/findings/f322b4d1-7f66-454a-80ff-6ed13eb274aa/syz_repro
-
-------------[ cut here ]------------
-count < 0
-WARNING: fs/namespace.c:1353 at mntput_no_expire_slowpath+0x845/0xbf0 fs/namespace.c:1353, CPU#1: syz.0.20/5861
-Modules linked in:
-CPU: 1 UID: 0 PID: 5861 Comm: syz.0.20 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
-RIP: 0010:mntput_no_expire_slowpath+0x845/0xbf0 fs/namespace.c:1353
-Code: 01 00 00 00 bf 08 00 00 00 48 c7 c2 c0 48 ce 8e e8 a0 18 39 ff e9 47 fc ff ff e8 36 4e 72 ff e9 4a fa ff ff e8 2c 4e 72 ff 90 <0f> 0b 90 e9 68 fa ff ff e8 1e 4e 72 ff e8 69 83 fe ff e8 64 f7 ff
-RSP: 0018:ffffc90003cdfba0 EFLAGS: 00010293
-RAX: ffffffff8254bf34 RBX: dffffc0000000000 RCX: ffff888113571e00
-RDX: 0000000000000000 RSI: 00000000ffffffff RDI: 0000000000000000
-RBP: ffffc90003cdfc88 R08: ffffffff8254cacc R09: 0000000000000000
-R10: 0000000000000000 R11: ffffffff8e814988 R12: ffff8881016c3600
-R13: 0000000000000003 R14: 00000000ffffffff R15: 0000000000000002
-FS:  00007fa12e5946c0(0000) GS:ffff8882a8f2d000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000555579145a28 CR3: 0000000176282000 CR4: 00000000000006f0
-Call Trace:
- <TASK>
- mntput fs/namespace.c:1421 [inline]
- cleanup_mnt+0x30c/0x460 fs/namespace.c:1313
- task_work_run+0x1d9/0x270 kernel/task_work.c:233
- exit_task_work include/linux/task_work.h:40 [inline]
- do_exit+0x73a/0x2360 kernel/exit.c:1009
- __do_sys_exit kernel/exit.c:1119 [inline]
- __se_sys_exit kernel/exit.c:1117 [inline]
- __x64_sys_exit+0x40/0x40 kernel/exit.c:1117
- x64_sys_call+0x18b4/0x18d0 arch/x86/include/generated/asm/syscalls_64.h:61
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fa12d79e0d9
-Code: Unable to access opcode bytes at 0x7fa12d79e0af.
-RSP: 002b:00007fa12e593fd8 EFLAGS: 00000246 ORIG_RAX: 000000000000003c
-RAX: ffffffffffffffda RBX: 00007fa12da25fa0 RCX: 00007fa12d79e0d9
-RDX: 00007fa12e5949c8 RSI: 0000000000000000 RDI: 0000000000000000
-RBP: 00007fa12d835024 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007fa12da26038 R14: 00007fa12da25fa0 R15: 00007ffe0f572ca8
- </TASK>
-
-
-***
-
-kernel BUG in free_percpu
-
-tree:      bpf
-URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/bpf/bpf.git
-base:      75b0a6db4300e4c2c9e97a0848deaa7acfb42fb7
-arch:      amd64
-compiler:  Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-config:    https://ci.syzbot.org/builds/187f4142-010e-469f-b2d4-8ce60c1dd2c5/config
-syz repro: https://ci.syzbot.org/findings/40ff44c7-989e-4e59-a57c-7d669c0abd76/syz_repro
-
-------------[ cut here ]------------
-kernel BUG at mm/vmalloc.c:835!
-Oops: invalid opcode: 0000 [#1] SMP KASAN PTI
-CPU: 0 UID: 0 PID: 3326 Comm: kworker/u9:4 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
-Workqueue: events_unbound bpf_map_free_deferred
-RIP: 0010:vmalloc_to_page+0x67c/0x6b0 mm/vmalloc.c:835
-Code: 51 fb ff ff e8 b5 a8 a2 ff 42 80 7c 2d 00 00 0f 85 5c fb ff ff e9 5f fb ff ff e8 9f a8 a2 ff e9 ae fb ff ff e8 95 a8 a2 ff 90 <0f> 0b e8 8d a8 a2 ff e9 64 fa ff ff e8 83 a8 a2 ff 48 b8 00 00 00
-RSP: 0018:ffffc90000007cc0 EFLAGS: 00010246
-RAX: ffffffff822464cb RBX: 5440ddc2e3d42741 RCX: ffff888110ad5a00
-RDX: 0000000000000100 RSI: 0000000000000100 RDI: ffffc90000000000
-RBP: ffffe8fee467b538 R08: 0000000000000100 R09: 0000000000000000
-R10: 0000000000000000 R11: ffffffff81f86890 R12: 0000000000a881bb
-R13: dffffc0000000000 R14: ffffc90000000000 R15: ffffffff8e946000
-FS:  0000000000000000(0000) GS:ffff88818d92d000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000000100000000 CR3: 000000001c4e4000 CR4: 00000000000006f0
-Call Trace:
- <IRQ>
- pcpu_addr_to_page mm/percpu-vm.c:373 [inline]
- pcpu_chunk_addr_search mm/percpu.c:1612 [inline]
- free_percpu+0x1fa/0xfe0 mm/percpu.c:2246
- free_one kernel/bpf/memalloc.c:262 [inline]
- free_all kernel/bpf/memalloc.c:275 [inline]
- __free_final_rcu+0x151/0x210 kernel/bpf/memalloc.c:287
- rcu_do_batch kernel/rcu/tree.c:2645 [inline]
- rcu_core+0x794/0x10b0 kernel/rcu/tree.c:2897
- handle_softirqs+0x226/0x860 kernel/softirq.c:645
- __do_softirq kernel/softirq.c:679 [inline]
- invoke_softirq kernel/softirq.c:519 [inline]
- __irq_exit_rcu+0xcb/0x220 kernel/softirq.c:767
- irq_exit_rcu+0x9/0x30 kernel/softirq.c:784
- instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
- sysvec_apic_timer_interrupt+0xa6/0xc0 arch/x86/kernel/apic/apic.c:1062
- </IRQ>
- <TASK>
- asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
-RIP: 0010:lock_acquire+0x222/0x350 kernel/locking/lockdep.c:5890
-Code: ff ff ff e8 f0 43 34 0a f7 44 24 08 00 02 00 00 0f 84 39 ff ff ff 65 48 8b 05 42 8f cc 11 48 3b 44 24 58 75 33 fb 48 83 c4 60 <5b> 41 5c 41 5d 41 5e 41 5f 5d c3 cc cc cc cc cc 48 8d 3d d7 e1 b8
-RSP: 0018:ffffc90006dc77e8 EFLAGS: 00000286
-RAX: b973d41dfa964800 RBX: 0000000000000000 RCX: 8000000000000001
-RDX: 00000000fa315d19 RSI: ffffffff8e4d8901 RDI: ffffffff8c4cd780
-RBP: ffffffff823e19a8 R08: ffffffff823e19a8 R09: 0000000000000000
-R10: 0000000000000000 R11: ffffffff8eb5a1e0 R12: 0000000000000002
-R13: ffffffff8eb5a1e0 R14: 0000000000000000 R15: 0000000000000246
- rcu_lock_acquire include/linux/rcupdate.h:300 [inline]
- rcu_read_lock include/linux/rcupdate.h:840 [inline]
- get_non_dying_memcg_start mm/memcontrol.c:817 [inline]
- mod_memcg_state+0x64/0x190 mm/memcontrol.c:879
- account_kmem_nmi_safe mm/memcontrol.c:3057 [inline]
- obj_cgroup_uncharge_pages mm/memcontrol.c:3073 [inline]
- __refill_obj_stock+0x559/0x6c0 mm/memcontrol.c:3459
- __memcg_slab_free_hook+0x2bc/0x470 mm/memcontrol.c:3649
- memcg_slab_free_hook mm/slub.c:2475 [inline]
- slab_free mm/slub.c:6374 [inline]
- kfree+0x3d6/0x640 mm/slub.c:6692
- free_one kernel/bpf/memalloc.c:264 [inline]
- free_all kernel/bpf/memalloc.c:275 [inline]
- drain_mem_cache+0x643/0x8e0 kernel/bpf/memalloc.c:653
- bpf_mem_alloc_destroy+0x142/0x550 kernel/bpf/memalloc.c:766
- trie_free+0x134/0x160 kernel/bpf/lpm_trie.c:652
- bpf_map_free+0x19d/0x3f0 kernel/bpf/syscall.c:896
- process_one_work kernel/workqueue.c:3322 [inline]
- process_scheduled_works+0xa88/0x14c0 kernel/workqueue.c:3405
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3486
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:vmalloc_to_page+0x67c/0x6b0 mm/vmalloc.c:835
-Code: 51 fb ff ff e8 b5 a8 a2 ff 42 80 7c 2d 00 00 0f 85 5c fb ff ff e9 5f fb ff ff e8 9f a8 a2 ff e9 ae fb ff ff e8 95 a8 a2 ff 90 <0f> 0b e8 8d a8 a2 ff e9 64 fa ff ff e8 83 a8 a2 ff 48 b8 00 00 00
-RSP: 0018:ffffc90000007cc0 EFLAGS: 00010246
-RAX: ffffffff822464cb RBX: 5440ddc2e3d42741 RCX: ffff888110ad5a00
-RDX: 0000000000000100 RSI: 0000000000000100 RDI: ffffc90000000000
-RBP: ffffe8fee467b538 R08: 0000000000000100 R09: 0000000000000000
-R10: 0000000000000000 R11: ffffffff81f86890 R12: 0000000000a881bb
-R13: dffffc0000000000 R14: ffffc90000000000 R15: ffffffff8e946000
-FS:  0000000000000000(0000) GS:ffff88818d92d000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000000100000000 CR3: 000000000e946000 CR4: 00000000000006f0
-----------------
-Code disassembly (best guess), 3 bytes skipped:
-   0:	e8 f0 43 34 0a       	call   0xa3443f5
-   5:	f7 44 24 08 00 02 00 	testl  $0x200,0x8(%rsp)
-   c:	00
-   d:	0f 84 39 ff ff ff    	je     0xffffff4c
-  13:	65 48 8b 05 42 8f cc 	mov    %gs:0x11cc8f42(%rip),%rax        # 0x11cc8f5d
-  1a:	11
-  1b:	48 3b 44 24 58       	cmp    0x58(%rsp),%rax
-  20:	75 33                	jne    0x55
-  22:	fb                   	sti
-  23:	48 83 c4 60          	add    $0x60,%rsp
-* 27:	5b                   	pop    %rbx <-- trapping instruction
-  28:	41 5c                	pop    %r12
-  2a:	41 5d                	pop    %r13
-  2c:	41 5e                	pop    %r14
-  2e:	41 5f                	pop    %r15
-  30:	5d                   	pop    %rbp
-  31:	c3                   	ret
-  32:	cc                   	int3
-  33:	cc                   	int3
-  34:	cc                   	int3
-  35:	cc                   	int3
-  36:	cc                   	int3
-  37:	48                   	rex.W
-  38:	8d                   	.byte 0x8d
-  39:	3d                   	.byte 0x3d
-  3a:	d7                   	xlat   %ds:(%rbx)
-  3b:	e1 b8                	loope  0xfffffff5
-
-
-***
-
-If these findings have caused you to resend the series or submit a
-separate fix, please add the following tag to your commit message:
-  Tested-by: syzbot@syzkaller.appspotmail.com
-
+Fixes: 496779b54943 ("KVM: selftests: Pre-set threads affinity in hardware disable test when possible")
+Reported-by: Sashiko Bot <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260731201140.5AF0C1F00AC4@smtp.kernel.org
+Suggested-by: Hisam Mehboob <hisamshar@gmail.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
-This report is generated by a bot. It may contain errors.
-syzbot ci engineers can be reached at syzkaller@googlegroups.com.
+ tools/testing/selftests/kvm/hardware_disable_test.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-To test a fix for this bug, please reply with `#syz test`
-(on a separate line) and attach the patch to the email.
+diff --git a/tools/testing/selftests/kvm/hardware_disable_test.c b/tools/testing/selftests/kvm/hardware_disable_test.c
+index 43a36ef3ead8..1c20892d6782 100644
+--- a/tools/testing/selftests/kvm/hardware_disable_test.c
++++ b/tools/testing/selftests/kvm/hardware_disable_test.c
+@@ -37,7 +37,7 @@ static void *run_vcpu(void *arg)
+ 	struct kvm_vcpu *vcpu = arg;
+ 	struct kvm_run *run = vcpu->run;
+ 
+-#ifndef _GNU_SOURCE
++#ifndef __GLIBC__
+ 	kvm_sched_setaffinity(0, sizeof(cpu_set_t), &threads_cpu_set);
+ #endif
+ 
+@@ -51,7 +51,7 @@ static void *sleeping_thread(void *arg)
+ {
+ 	int fd;
+ 
+-#ifndef _GNU_SOURCE
++#ifndef __GLIBC__
+ 	kvm_sched_setaffinity(0, sizeof(cpu_set_t), &threads_cpu_set);
+ #endif
+ 
+@@ -71,7 +71,7 @@ static void run_test(u32 run)
+ 	u32 i, j;
+ 
+ 	TEST_ASSERT_EQ(pthread_attr_init(&attr), 0);
+-#ifdef _GNU_SOURCE
++#ifdef __GLIBC__
+ 	TEST_ASSERT_EQ(pthread_attr_setaffinity_np(&attr, sizeof(cpu_set_t), &threads_cpu_set), 0);
+ #endif
+ 
 
-Notes:
-- The patch will be applied on top of the tested series (as an
-  incremental fix).
-- To test a new version of the whole series, please send it directly
-  to syzbot@lists.linux.dev.
-- Arguments like custom git repos and branches are not supported.
+base-commit: 76671054f9a1ff6abb976583cd8da37650acdc97
+-- 
+2.55.0.860.g4b6b3295ed-goog
+
