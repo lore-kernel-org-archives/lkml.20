@@ -1,124 +1,108 @@
-Received: from mail.hofmaniac.de (v2202607385953487451.hotsrv.de [45.157.178.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5285B396D14;
-	Wed, 26 Aug 2026 15:41:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.157.178.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A35B7325701;
+	Wed, 26 Aug 2026 15:44:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787758913; cv=none; b=LohDZUJ3WKEJxLzsphityLvEmcDgSTRwkxTSLM8EJebSCBSwUrkV7wruChy5xLbKYmWfx7mRnEiWrZ1Z0g2JoE5icCq2LoMrskEK8vW6GQokju77gimSj1xsDOgPxpeFOWJeNMW0TRCNzFEDP6JuajlaaLpq2W5PnHKAIGE+C54=
+	t=1787759052; cv=none; b=hNp663ZMF2H4FZZ0v7FGm9AfMSJbiddTF+ozqk07hslhwiTEBJlkBSN8iTNgSjsIW4ke+lAhs8IDCZoUcWmx87O1CT5YwGnPyi6NK1qXlh20QHVhz7MKkWlSFZFt2pE5EZ1JUsqN3Op6wYlHNa2PV7HEqPON5r40qZqSXLg3N/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787758913; c=relaxed/simple;
-	bh=qKPPPkz5siCBjspASYaxLH6P2L1euL45uQz99Fdqlds=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=I3ko9fRTNt43T1QJLQch7II6PVXZ/xB6bGnvjMTBmj+Uhew+Ca8HTsFMq5OgWMGuSUrAfEUcMG4LZzE07SEhLJXuJ+YBgNvImbmF9rTEJVKzhz2L3npwnSiLHGsdNKGCe5Zx/5FZKPfKQzNRwG9IXCkvfHl/7gPLngUE1P3fVBw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hofmania.de; spf=pass smtp.mailfrom=hofmania.de; dkim=permerror (0-bit key) header.d=hofmania.de header.i=@hofmania.de header.b=Ll6Sfhf5; dkim=temperror (0-bit key) header.d=hofmania.de header.i=@hofmania.de header.b=OTCxRjVY; arc=none smtp.client-ip=45.157.178.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hofmania.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hofmania.de
+	s=arc-20240116; t=1787759052; c=relaxed/simple;
+	bh=01OA8TapfiqREWY5qdNgocQ63a1Ng3x75mPwRkL44so=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Yf/wNQLcfOr1yRF+SP6rdWE41nOg8lbxsQG3GcAiEPWfDMtT/xikA5U9gqo68uGc6PmCtuisETMqVrOgVoh4ofZiqWcb0MXjcR5Dsa3O3vxE67FCYb/HzW4pk+5Wm+NI7IKHEddL+OOQugOo141BK9RM3q4Q0m2/iwJ+3LO88p0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Im/eGPGy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=permerror (0-bit key) header.d=hofmania.de header.i=@hofmania.de header.b="Ll6Sfhf5";
-	dkim=temperror (0-bit key) header.d=hofmania.de header.i=@hofmania.de header.b="OTCxRjVY"
-DKIM-Signature: v=1; a=ed25519-sha256; s=v1-ed25519-20260822; d=hofmania.de; c=relaxed/relaxed; r=y;
-	h=Message-ID:Date:Subject:To:From; t=1787758689; bh=zER04bhdBkHM9l1rq7hXQnK
-	z0Gxo8A6dY7QEZEIuBNk=; b=Ll6Sfhf5cCt/Wxyl/vrJYEt+2K9AI8FnatY72Y9sBXIT/rDDIU
-	6/kUYS7VGnd50RnMrqtTVDACpqJDM/1y3EAA==;
-DKIM-Signature: v=1; a=rsa-sha256; s=v1-rsa-20260822; d=hofmania.de; c=relaxed/relaxed; r=y;
-	h=Message-ID:Date:Subject:To:From; t=1787758689; bh=zER04bhdBkHM9l1rq7hXQnK
-	z0Gxo8A6dY7QEZEIuBNk=; b=OTCxRjVYL+MEwe+atjWE2a53m2pwGYkQGl34h3k/VLO242QVPs
-	fgUmo08UgYxo+YJStcphY1nTRJcUTLT78wq+oKmyg8ShVr8EOVVRcM8FHMA7uspNb9PFMr921r6
-	2COnuBOobGf9zCAjnKTQXHpEYUJbQbYAPFSLOlwdX35ZBmTp2xFjTBd6MQly0FFiLV3ST7LdHbD
-	klGUGsKPPtEMa6TvbHWnoPDPIs3U6VuVK0w54pDrEfh36xDp3XBOdEKIVx7z3wr7BXo8yjoQE/t
-	LlvpC2razII6jPKWBD7qafoEp0fKML+cLSJ0Iab/BCK/dBf75IXqtSoQyMLKL+h9sEw==;
-From: Marcel Hofmann <marcel@hofmania.de>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
-	linux-remoteproc@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Marcel Hofmann <marcel.hofmann@ingenics-digital.com>
-Subject: [PATCH] remoteproc: imx_rproc: allow mappings ending at region boundary
-Date: Wed, 26 Aug 2026 17:38:38 +0200
-Message-ID: <20260826153838.19018-1-marcel@hofmania.de>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Im/eGPGy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACFA31F000E9;
+	Wed, 26 Aug 2026 15:44:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1787759048;
+	bh=Vf2B2DdVbRkFpNGj3JOupYLPnXTY63U7LDwuZejwfww=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Im/eGPGy7JjkgYQUMVExoxSF3n4YW3PB2MUfI8/9+1cV+vpCCTB8H3OtGFOwTu/hQ
+	 6E2tKx6WyOk6VK3iKskPKX9JsJRgNgyBCt7fHO9xpany2fWE8NWK2f3hLgJlzLh47x
+	 i0UJwc7r7qChiUfmd+HjnfsSzsgCG8BAXq1TfogY=
+Date: Wed, 26 Aug 2026 17:44:06 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Michal Pecio <michal.pecio@gmail.com>
+Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
+	Daniel Gomez <da.gomez@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-usb@vger.kernel.org,
+	driver-core@lists.linux.dev, linux-trace-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] driver core: add TAINT_FORCED_BIND for when
+ userspace manually messes with devices and drivers
+Message-ID: <2026082634-cloak-ambush-3861@gregkh>
+References: <20260826-bind_taint-v1-0-52b05f4a965c@linuxfoundation.org>
+ <20260826153311.6340efcd.michal.pecio@gmail.com>
+ <2026082658-statue-census-dc39@gregkh>
+ <20260826173549.18c8a89c.michal.pecio@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260826173549.18c8a89c.michal.pecio@gmail.com>
 
-From: Marcel Hofmann <marcel.hofmann@ingenics-digital.com>
+On Wed, Aug 26, 2026 at 05:35:49PM +0200, Michal Pecio wrote:
+> On Wed, 26 Aug 2026 16:25:42 +0200, Greg Kroah-Hartman wrote:
+> > > I think you confused 'bind' / 'unbind' with the likes of 'new_id'
+> > > and 'driver_override'. Try binding xhci_hcd to NVMe, you won't get
+> > > far.  
+> > 
+> > It seems to result in a failure report that people keep sending random
+> > patches for :(
+> 
+> It results in write() returning -ENODEV.
+> 
+> You can't bind random drivers to random devices out of the box,
+> you need ID overrides. And then you don't need to bind manually,
+> the kernel will happily select the wrong driver by default.
+> 
+> Authors of the recent xhci and thunderbolt patches admitted that
+> 'driver_override' was involved in both cases.
 
-The address range checks in imx_rproc_da_to_sys() and
-imx_rproc_da_to_va() use a strict comparison for the exclusive end
-address of the requested range.
+I'll be glad to taint if driver_override is also written to, but it's
+bind() that triggers the actual action happening.  Or so the traces
+show.
 
-As a result, a valid request that ends exactly at the end of an address
-translation or mapped memory region is rejected. For a region
-[start, start + size), a request [addr, addr + len) is contained when:
+> Meanwhile, Syzbot also found a stupid write to freed memory in USB
+> core when HCs are unbound. You may say it doesn't matter, but:
+> 
+> * USB HCs are hotpluggable thunderbolt "gadgets" these days
 
-    addr >= start && addr + len <= start + size
+We support PCI devices being removed, but that falls under the PCI
+hotplug rules/requirements, right?  Anyway, sure, we can fix those bugs
+when found, but that's not the majority of what we are seeing at the
+moment.  Look at all of the dumb platform drivers that are getting hit
+with this on the syzbot reports...
 
-This occurs when a loadable ELF segment fills an entire mapped memory
-region. This can be produced by a linker script that extends the
-resource table section to the end of its designated region:
+> * there were plans to alter this code so that UAF is triggered by
+>   hot removal of the USB device, not its parent HC
 
-    .resource_table :
-    {
-      . = ALIGN(8);
-      KEEP(*(.resource_table)) /* Resource table */
-      . = ALIGN(8);
-      . = ORIGIN(m_rsc_tbl) + LENGTH(m_rsc_tbl);
-    } > m_rsc_tbl =0x00
+I don't understand what you mean by this.
 
-This produces a ELF program header like:
+> IMO the actually meaningful change would be to taint driver ID
+> overrides, because that's the known risky and crash-prone madness.
+> bind/unbind taint is noise that will be ignored.
 
-    LOAD  0x010000 0xa4220000 0xa4220000 0x01000 0x01000 R   0x1000
+it's not going to be ignored if panic_on_taint is enabled in syzbot,
+which the authors have said they will do :)
 
-In this case, the segment size matches the mapped region size exactly,
-causing the address translation to fail with:
+thanks,
 
-    bad phdr da 0xa4220000 mem 0x1000
-
-Use <= for the upper-bound checks so that ranges ending exactly at the
-region boundary are accepted.
-
-Fixes: a0ff4aa6f010 ("remoteproc: imx_rproc: add a NXP/Freescale imx_rproc driver")
-Signed-off-by: Marcel Hofmann <marcel.hofmann@ingenics-digital.com>
----
- drivers/remoteproc/imx_rproc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/remoteproc/imx_rproc.c b/drivers/remoteproc/imx_rproc.c
-index 745ce52cd822..f3c7c2ff6713 100644
---- a/drivers/remoteproc/imx_rproc.c
-+++ b/drivers/remoteproc/imx_rproc.c
-@@ -552,7 +552,7 @@ static int imx_rproc_da_to_sys(struct imx_rproc *priv, u64 da,
- 				continue;
- 		}
- 
--		if (da >= att->da && da + len < att->da + att->size) {
-+		if (da >= att->da && da + len <= att->da + att->size) {
- 			unsigned int offset = da - att->da;
- 
- 			*sys = att->sa + offset;
-@@ -585,7 +585,7 @@ static void *imx_rproc_da_to_va(struct rproc *rproc, u64 da, size_t len, bool *i
- 		return NULL;
- 
- 	for (i = 0; i < IMX_RPROC_MEM_MAX; i++) {
--		if (sys >= priv->mem[i].sys_addr && sys + len <
-+		if (sys >= priv->mem[i].sys_addr && sys + len <=
- 		    priv->mem[i].sys_addr +  priv->mem[i].size) {
- 			unsigned int offset = sys - priv->mem[i].sys_addr;
- 			/* __force to make sparse happy with type conversion */
-
-base-commit: bb840ea69347aff7bde5a208e7b5b180669a7656
--- 
-2.43.0
-
-
+greg k-h
