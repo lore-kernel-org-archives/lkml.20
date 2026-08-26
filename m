@@ -1,144 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63D7A381E9C
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:56:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 127F9282F17
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:56:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787781372; cv=none; b=lgLj+gnpRFlFoQrV1UIQ3qsR1yEBoiR2+EONKLqxnboL3ZFLlmtFzjke/F0gB8lNYkg3sSe/kNAathjIGgPEB45Ra23Q3pXtrS0lTjQXeb10vsrnIl2E8g7kAhvMCH05GVcksA7lEQj0C1tv7XEKlhdimZSF40c42/qNElukTFY=
+	t=1787781395; cv=none; b=Imj8syLhfB4OevmidUbqYGXoQXZpftM4WrCaRgvZ23D1TuddSENI0dJnVZznoWZiHAd8LTkrAUI+keJ1Z9hBx1u7Wy2w7+L+U/TDEg2v81uA5zeK0mgo9Y5RyUZl9/qHPGt8kV0Mac0GI2Pon8/EsrLD2BFx+WjuV5rbkdGH0ik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787781372; c=relaxed/simple;
-	bh=KAkYXAYnfeM7EWZPb0UU2vxX96nlclIp0nAmWXUJyIA=;
+	s=arc-20240116; t=1787781395; c=relaxed/simple;
+	bh=7nRGKXiCvIhNg2iK1eq2i1DAWBNYbtZPQzQwxqfRZ1c=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QbClSrzBHbojL4Oy3ECTq1OVAjQ4a074ifS1vtyWSJkbg1sfskMyQ1+OUL96ZJE61Rcw3kb7wFmVD4rGPYUf3I9vfM/jK/1M0grircZZfCF3L0Cl4zIAdNRi3bNcyqQrVLT2Qi77/CpBqrNNtSjs7nH7dhRSzDTIz4wfyoSxNQw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nh5AToR+; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=n0UEUETBejK/T3hrLL9PQ6nO+qFEfztzAUZ+kMYfdEldlO2l9dU840Nt+vajnZuRifJD37g0NKjIBhTpDDm8KTpo3r9HT8O0R/yoybqPW1BKAJ1IzCcU5Eoj9/eKcqfWEOiTJJplkOUggx8N0u38iR54+yhPOlxlkYvTZruTuHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=cku6h6eE; arc=none smtp.client-ip=209.85.208.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nh5AToR+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BD861F000E9
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:56:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787781371;
-	bh=KAkYXAYnfeM7EWZPb0UU2vxX96nlclIp0nAmWXUJyIA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=nh5AToR+8+Hy4JwDQLkAQn8JX3nCyjf2TXZmf8hTWyRrvNiP4emkuq3ejwqhcSTdH
-	 DszsCD25k42ll/3FlOorkTiVJttraFnX9zOHO+jGxgbohoypS7CAw0DGKXWUdFlmpO
-	 80St1R6mG3vurizq/YaEuZnl218kTVqVfw1pPKxKb8oyrCWoojUxFT7hv6Xjbj8jAN
-	 QkWLZzjvn0oJSDjBkjHHTIiamGHHdcJLDb5Qj51AdhxG+8oYNbtnuTErj17fBUehNM
-	 lBXRlggcv/NNz7Xozb9hddNlKABSZqyDedCnu7O4A6hFVcd93XOnx/u+sqlrQkj5M6
-	 88/QGrEhrsi+g==
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c1670dad7a8so250734866b.3
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:56:11 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RrfcuNH09XBMOaOGav5QRHJXpnNQFYKNlemKPHTwrHb3PqSBelvNF7eJdmku9yxKQhbO0Or77TV7YzB13Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++nC2O2KuMAnm15SLPOlbJ4dlC/k6eN/Z8n4+l0mkMMyOUsisUkq
-	qggSApcEO/oMK+3GrThafYbZwJQrOl6OqoDLPo/O9Un5agfHN+jLXG5xCGX2y2HNZI4bFjVKohu
-	zx/4tI3MKefBq7kpNX1/qOeJurMwCeTs=
-X-Received: by 2002:a17:906:fd88:b0:c25:437:3dcf with SMTP id
- a640c23a62f3a-c250c3c07fcmr1219596066b.21.1787781370065; Wed, 26 Aug 2026
- 14:56:10 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="cku6h6eE"
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-69c600f76ccso2321197a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:56:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1787781391; x=1788386191; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CKClJmLtzZB0u0KiPgmjI6hyhyhnwh+zpC3wetBduH8=;
+        b=cku6h6eEvVGmpu0TYxGRHZmiCxreduApEXq09qvkx/uV8hiieh+hRkisn2z8/Vfv0S
+         VwTJtaXysARgyZg6KdvHaN5l2kqaqQHHRViLfRGhJ+3DXC2vZpEIVRPwuuPM/BFJ1IbI
+         EnIM7v1RFaK7kQzWa1IfxwI0wbCDnnNJIBZNQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787781391; x=1788386191;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=CKClJmLtzZB0u0KiPgmjI6hyhyhnwh+zpC3wetBduH8=;
+        b=bnZSUNiJ2vH/ItqKJHELJ8RKkCLZ+Mh0JrrfYQV7OBDE5f/rm3DDDtl4mtYJTCfA/o
+         VNc4moEVJLXBx/+fNmsklUxuTBiEfIvM9YP6F6D+Q1amTv+Q9I7TSTmDOxU6XoXVFywX
+         Fzg1C5CEQ0CzSXt2IRx5pDzF8UGAtI9kiwWOJ0vj7+5mxB05PSxXR34ep1ctvXgdMctX
+         Z/tpNYsg0A/0cv7G3/7KbO81UKWUEKPgrO7d0+ea3NmBcqbZt3/9FwlEWjxCBtEeSYxN
+         4/EFWY5njApAMLxbhc7DXL3xEROVbVTSKCh7YUV/wi/F4wZYW6lB/0qLBDB+QhgiOViM
+         XvdA==
+X-Gm-Message-State: AFuF++mmI+5P4dOmM7EKTAb3i//lSMnHEm5l7xpn2okjT7zhtjMeoP1W
+	hQM3uN/y4LHjkmQlXBKpeWORgVYv6O7WZEcD6zHmzLaXLzZNluGc8igkf/GjxaI9JUWAcwJJyhF
+	XCTSQby4=
+X-Gm-Gg: AR+sD12tP7cz94l0S56vP6npAsD72p7xtLsRFZEp6Ey1Laq0/ABDHBJwjWEtr1Q/+Qw
+	IrOX/Zalr34nzHFP8SAMM1RDZn0WM9aJgFdPT3wFr6HCQSqM0ckXAp386brApX4hPucQFrm5JEX
+	x/lHyvULWiBCLVnE1dTLlwQXH2Yf5AcEQWQAGvyXAVDkqbkfctfb2iwHAWazysx0tTrDRcbiSg3
+	0x4thAUjU9q4yMMJNKQWrj4dBxxET80A+fvR1GVCdZYM5R7GViglPRaSsbxkB3YO7SIPm0r/hET
+	t50oYcvPu7f/Ts+mBnwV1Acrt9rY8PZ0wt/de5JLK3HLH1ey3++BeLYRaTqKboNIHvMbvMcL/Zk
+	ibucHbi8ws3W7PcZ/Fuk87qd6YuRbhuOnOid5VC9e8KRaMFdcuHt8iHPQ2WzTVYw9XKjCl0H/LV
+	XcAaDkqptPCN4Nsx+TJXt6VPHBC5XLJipU7nD/sxtKZSVdqYqa4kdQu+aekBbyZwGRjXm1nyvZt
+	OXP7LnGaeL69Mfu11uvW7t+e2Buzpm/aia+KA==
+X-Received: by 2002:a05:6402:538a:b0:698:663d:d7bd with SMTP id 4fb4d7f45d1cf-6a5df64d1f8mr14447719a12.11.1787781391116;
+        Wed, 26 Aug 2026 14:56:31 -0700 (PDT)
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com. [209.85.208.53])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a5dea83a25sm5704003a12.18.2026.08.26.14.56.30
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 26 Aug 2026 14:56:30 -0700 (PDT)
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6a20319d030so2196584a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 14:56:30 -0700 (PDT)
+X-Received: by 2002:a05:6402:44d1:b0:6a3:eb58:dcfb with SMTP id
+ 4fb4d7f45d1cf-6a5df64cb78mr10711361a12.10.1787781390292; Wed, 26 Aug 2026
+ 14:56:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260817131843.45121-1-husong@kylinos.cn> <1787017182353556.21.seg@mailgw.kylinos.cn>
- <0689d805-45c6-4bb2-8eb2-f065457c45bf@kylinos.cn> <CAO9r8zNxnVYpwrsuB1Ofcwf-Lks2e+DL1Ys9CXZ5jozBug_ybQ@mail.gmail.com>
- <CAJnrk1bFq7J7K0=X67voeZVkAb0dmiLkqomuQ+VcXBLyP5hMVg@mail.gmail.com>
- <aoiQPrudvYZ76ZSD@cmpxchg.org> <CAO9r8zM+w-wb44G+GXev+eHVEOty5GNcmRkui4PxgeF=Hqv_DQ@mail.gmail.com>
- <CAJnrk1bOdTE+YQRQqzfKUkOGR67a28t3p1r1zeBNzwz9xHEYdw@mail.gmail.com>
- <CAO9r8zNQzqwVeOoZr71juX3xV06LUTntBp+7bmGdwK_s6FoT6w@mail.gmail.com> <ao9YFgBQJEy-85iB@linux.dev>
-In-Reply-To: <ao9YFgBQJEy-85iB@linux.dev>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Wed, 26 Aug 2026 14:55:57 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zO6VWRGh3CbqyymSkEaw6gFd6AKYQgZE_rTQP7svWEMfw@mail.gmail.com>
-X-Gm-Features: AcwNN1XUi59_7wlRX-aPfKbk6cG14-Ur0Kp10Fes9lEailhZFHURR2vWvYp7IrI
-Message-ID: <CAO9r8zO6VWRGh3CbqyymSkEaw6gFd6AKYQgZE_rTQP7svWEMfw@mail.gmail.com>
-Subject: Re: [PATCH] mm: memcg: use ratelimited stats flush in obj_cgroup_may_zswap()
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Joanne Koong <joannelkoong@gmail.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Song Hu <husong@kylinos.cn>, akpm@linux-foundation.org, linux-mm@kvack.org, 
-	cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, nphamcs@gmail.com, 
-	chengming.zhou@linux.dev, yunzhao@cloudflare.com
+References: <20260826144817.7af76334@gandalf.local.home>
+In-Reply-To: <20260826144817.7af76334@gandalf.local.home>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Wed, 26 Aug 2026 14:56:13 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wj9O9CajaEKFuHJ7q1TgNm+5n0WgOWcspDXjxVaWq3HFg@mail.gmail.com>
+X-Gm-Features: AcwNN1XQVGxbcaVovuTVnyvMr6nUyiYHR51JbbjRA1oampIPINirb8qhyIfQbik
+Message-ID: <CAHk-=wj9O9CajaEKFuHJ7q1TgNm+5n0WgOWcspDXjxVaWq3HFg@mail.gmail.com>
+Subject: Re: [GIT PULL] rv: Fixes for 7.3
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: LKML <linux-kernel@vger.kernel.org>, Gabriele Monaco <gmonaco@redhat.com>, 
+	Kuan-Wei Chiu <visitorckw@gmail.com>, Nam Cao <namcao@linutronix.de>
 Content-Type: text/plain; charset="UTF-8"
 
-[..]
-> > > I now prefer (c) as well. I hadn't realized setting zswap.max is a
-> > > rare path until Johannes mentioned it, and with your mention of
-> > > zswap_load() sitting in the fault-critical path, I think the benchmark
-> > > results show a clear improvement for c) over d) at higher depths.
-> > >
-> > > I was uneasy about the cost of c)'s reads scaling linearly with the #
-> > > of cpus on a system (ie for_each_possible_cpu per level), but given
-> > > the uncommonness of the zswap.max path, I think that's the right thing
-> > > to trade away. Either way, it's a big improvement over the baseline a)
-> > > path that currently exists anyways.
-> > >
-> > > > with more concurrency/CPUs and should generalize better to other
-> > > > stats. But I am obviously biased :P
-> > >
-> > > I'm still investigating the writeback and vmscan cases. For writeback,
-> > > using (c) is more complicated since NR_FILE_DIRTY and NR_WRITEBACK are
-> > > node stats. I'm planning to spend time this week running benchmarks
-> > > for it.
-> > >
-> > > If for those cases, (c) is viable, then I'll send a patch that adds
-> > > (c) as general infrastructure. Otherwise, I'll send out (c) as a zswap
-> > > specific patch.
-> > >
-> > > Does this sound good to everyone? If there are any objections, please
-> > > let me know.
-> >
-> > If (c) is holding up for writeback and vmscan, I would question a more
-> > radical approach of tearing apart the rstat framework and using it
-> > across the board. That is obviously a heavier lift and more
-> > controversial,
+On Wed, 26 Aug 2026 at 11:48, Steven Rostedt <rostedt@goodmis.org> wrote:
 >
-> Yes controversial because we used to have similar mechanism which did not work
-> and we had to move to rstat. Check the commit 42a300353577 and fixes to it.
+>   The rvgen kunit command generates .bak backup files and these are
+>   checked in for selftests as "golden" files for make check.
 
-IIUC, in that commit, the update side modifies one per-CPU per-cgroup
-counters, and when those counters exceed a threshold atomic updates
-are performed on all parents, which I think is the slow side. Then,
-the read side just reads the potentially stale atomic. That was
-problematic because:
-(1) The update side can end up performing atomic updates on all parents.
-(2) The read side can be inaccurate by up to MEMCG_CHARGE_BATCH *
-nr_cpus * nr_children
+What?
 
-What I am proposing in (c) is different:
+What broken tool checks in generated files?
 
-(1) The update side always updates per-CPU per-cgroup counters in all
-the parents. It never does atomic operations. The parent iteration is
-not cheap, but it is cheaper than atomics for sure and we already do
-parent iteration today in some cases in memcg_rstat_updated(). So the
-"slow" path should be the same as today.
-(2) The read side always iterates per-CPU counters in this cgroup, so
-it's always accurate. This might be more expensive on an rstat flush
-on average (e.g. if memcg_vmstats_needs_flush() skips the flush), but
-it is much more consistent and the tail latency is much better.
+I've pulled this, but it sounds entirely insane to have checked in
+that garbage file in
 
->
-> This worked for zswap stats because their update and consumption are not on
-> performance critical code paths i.e. these are on the way to compress or
-> decompress or in reclaim context.
+    tools/verification/rvgen/tests/golden/test_bak_kunit/test_bak_kunit_kunit.c.old
 
-Well, decompression is in the fault path, that's performance critical
-to some extent (although not like other stats updated by networking).
-Anyway, I think the update path shouldn't regress much with the
-approach described in (c).
+and you should stop doing that.
 
->
-> > but if we can get away with it, I think it will
-> > simplify things greatly and honestly rstat has been causing a lot of
-> > trouble in the last few years.
-> >
-> > But this can be done incrementally too, we can start by separating out
-> > the problematic stats to use the new update/flushing scheme,
->
-> This I think we do need but for specific stats. I think the stats which have
-> in-kernel consumers need this. However not all such stats might be fine with
-> slow update side like zswap. So, we need to evaluate thoroughly.
+I'm very tempted to just do "git rm -rf
+tools/verification/rvgen/tests/golden/" sicne these all seem to be
+generated.
 
-I think in the proposed approach (c) the main concern is actually read
-latency, not update latency. So if it works for in-kernel consumers it
-should definitely work for userspace consumers as well?
+Having generated files around is *so* not what the kernel source tree is for.
+
+Maybe the whole rvgen tree needs to be taken out of the kernel tree.
+
+           Linus
