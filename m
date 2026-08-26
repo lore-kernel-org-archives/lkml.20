@@ -1,113 +1,78 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59AC1445AC8
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 15:01:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6716C4252B1;
+	Wed, 26 Aug 2026 15:01:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787756499; cv=none; b=dz81apoG1+7EWPgRNc3ckEJUCVNyiLAp1Liir2cV0mNWnhapMnSfJgxS9kqz1FGpUlZDU5etDJJkVbxgjfm2kFU+LWIMp+zwAwYEkmTxDp6RoxYL9w+RupgM4w6kFfkwjdsr6kAHRJyqpg8E4RBWSAgvqa3P0U/PJvJ0bMCtO+E=
+	t=1787756517; cv=none; b=HI1AgQsHh5X/CGkSSTAUAvcPOOJ8lvZUuIU4Y2dddmSz12frsxr6AB7K0KB5UX2o8qm1pBSElx/fzYLDiWGmk9orE7nqsvKoECqVtdI7xjmxFuXNv6S9aeDEsY4z5vf9ifqWrYqYgaYgcAk/whR6evgI4OKC28M6Fh4aPF5iN0s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787756499; c=relaxed/simple;
-	bh=yX/6RORiQ/CP1dqjgZ0/IpYBv5+6Zke4SmnXT55+r9I=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=dAQajz0MVLmVPybIAKLe06Na1RBdjKT+UnyrC8ofKhRU6R+bHe7Sv5aGPZkll4GNEhKOjQYONdQe9DSvqFmPWNlHLYyjxvO5myEnvwo7T0qukK/unfaa+IjjQYQ0AjpKC4TrsvupDeiId79W4jnfittOQJAE/KsLvqDQjRWxmDk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EQRsoF9W; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787756517; c=relaxed/simple;
+	bh=ephLTZo60aLchZTC8JPArjDYj9cSMJNs4QXwAT0nfNA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Mew6xnRiFJ038buC+56O2azWBju0hFcJLiU7PKviVJIf26lBSFmuGnLLVUI8/fR9wLw2X/7xn6Jh4JuQua1NSdQx0LDrZxqfFrtuU0E/EVsMIKxHX8JTcUAAZjecmWQ1oIH5TQLC3DjOfLtUKK+UcbPD9RO/cWWzveatfcjEod8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ciRmwxR6; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EQRsoF9W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16EDF1F00ACF
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 15:01:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787756498;
-	bh=ypjuAIQb6efh/8oIGum/E6D1WtNQPSF3Rpm03VRyfM8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=EQRsoF9Wq77ic94yAQCXGeKg/yJ0vC1VWbl2fknXoOrp6OEKsBMFSqS9WtdOZ2T15
-	 s0d0bew1n2UHvQfSkDqVANQboQ/tKEyXI8QaOHz6KGNv669bYJfvYNZVvT0RIOCDzS
-	 oq+9QfwKPVZcY5CggOpwYwdvb/3oAztdzMS7Bw/xu664GFBrum9XMGpUIIjLIB6BWQ
-	 e49AVxwF8WdxSKB3mTLi32aS6zmVEFYzXPMXYs/Aq3Q0k/aDK05Y/UWRc+NvfpJP/z
-	 Ixsg6IuAe0kmdSoC/x80AIX5qLZew9iT34pAEMqAWWmLNxJkisCNje9LuGDveUOcmt
-	 XJfDpSslIFEeQ==
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c1c52d920b8so134571266b.2
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 08:01:38 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqVdZ/cKhZ7C1OdfzGqJJSCh6NLVV+lrrrw0DG4cAHQRXknHDvC3xPDbhglDeoYL2//sSLjHOm92ihgLsE=@vger.kernel.org
-X-Gm-Message-State: AFuF++klmHdxuLkGreVILCJMqec/x76CWX3zmAA/kxIA0z10gjK7i8RW
-	Y9TAOX0DHijudPbZ2clNuz0pWN6WNps5uizyRVeltg1pA74FcHRjkxYHK3RB/CiqPxJ+nElSxFU
-	jUV112a6zPI1yRQGhz0fe+ZSX+DAXVAI=
-X-Received: by 2002:a17:907:ea8e:b0:c24:d914:6d64 with SMTP id
- a640c23a62f3a-c250c32cb23mr952867266b.23.1787756496658; Wed, 26 Aug 2026
- 08:01:36 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ciRmwxR6"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C379416F2;
+	Wed, 26 Aug 2026 08:01:50 -0700 (PDT)
+Received: from localhost (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3FA4D3F7D8;
+	Wed, 26 Aug 2026 08:01:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1787756514; bh=ephLTZo60aLchZTC8JPArjDYj9cSMJNs4QXwAT0nfNA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ciRmwxR6vL9yxxc3rqvSD2GqOFqzd/uI7aq0IG1hiF3ZglJ1qmbnq0zxSpjZ3wMQa
+	 m2SSYM6vz5esS/0h7GRlM0pXdnOomYldR6p+iIhZ9rqoZG+ZdYzGOhDM1aquXZMSba
+	 Mb5wdUXppYVGufJ0Dz+i8tf2m9oRewaqwSKKZqkw=
+Date: Wed, 26 Aug 2026 16:01:52 +0100
+From: Leo Yan <leo.yan@arm.com>
+To: James Clark <james.clark@linaro.org>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Mike Leach <mike.leach@arm.com>,
+	John Garry <john.g.garry@oracle.com>, Will Deacon <will@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>,
+	Leo Yan <leo.yan@linux.dev>, linux-arm-kernel@lists.infradead.org,
+	coresight@lists.linaro.org, linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@redhat.com>,
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH v2 01/14] perf cs-etm: Fix nVHE per-thread decoding
+Message-ID: <20260826150152.GI8904@e132581.arm.com>
+References: <20260821-james-cs-unformatted-per-thread-fix-v2-0-00c4fd0701b4@linaro.org>
+ <20260821-james-cs-unformatted-per-thread-fix-v2-1-00c4fd0701b4@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260818123921.3600606-1-chenhuacai@loongson.cn>
- <20260818123921.3600606-6-chenhuacai@loongson.cn> <285743d2-6b4b-44e5-a0e2-b43a5e3cda29@xry111.site>
-In-Reply-To: <285743d2-6b4b-44e5-a0e2-b43a5e3cda29@xry111.site>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Wed, 26 Aug 2026 23:01:34 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H7yNSBzGhZDSUadi--NK=0g-eL87Fxp-Roxw0wR6qVOmQ@mail.gmail.com>
-X-Gm-Features: AcwNN1WJcO27SLXPpPoCC20exyVm4-H7GL8J2q-G0zW5SFPGmUEtjYyMNe-6vKI
-Message-ID: <CAAhV-H7yNSBzGhZDSUadi--NK=0g-eL87Fxp-Roxw0wR6qVOmQ@mail.gmail.com>
-Subject: Re: [PATCH 5/5] cpufreq: loongson3: Replace IOCSR read/write with
- MMIO ones
-To: Xi Ruoyao <xry111@xry111.site>
-Cc: Huacai Chen <chenhuacai@loongson.cn>, "Rafael J . Wysocki" <rafael@kernel.org>, 
-	Viresh Kumar <viresh.kumar@linaro.org>, loongarch@lists.linux.dev, 
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Xuerui Wang <kernel@xen0n.name>, Jiaxun Yang <jiaxun.yang@flygoat.com>, stable@vger.kernel.org, 
-	jeffbai@aosc.io
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260821-james-cs-unformatted-per-thread-fix-v2-1-00c4fd0701b4@linaro.org>
 
-Hi, Ruoyao,
+On Fri, Aug 21, 2026 at 10:48:59AM +0100, James Clark wrote:
+> pid_fmt is unset in per-thread mode because we don't need PIDs, so we
+> can't use it as a hint to determine which EL the host is running at.
+> That results in falling though to the next part where EL1 is treated as
+> guest, which is wrong for nVHE.
+> 
+> Fix it by only returning a guest machine when run from perf kvm where a
+> guest image would be provided, which matches existing behavior in other
+> parts of Perf.
+> 
+> Signed-off-by: James Clark <james.clark@linaro.org>
 
-On Fri, Aug 21, 2026 at 1:01=E2=80=AFPM Xi Ruoyao <xry111@xry111.site> wrot=
-e:
->
->
->
-> =E5=9C=A8 2026/8/18 20:39, Huacai Chen =E5=86=99=E9=81=93:
-> > Our server productions (e.g. Loongson-3D6000/3E6000) can have multiple
-> > nodes in one package and SMC mailboxes are also per-node. However, IOCS=
-R
-> > read/write can only perform on the current node, while sometimes we wan=
-t
-> > to perform on other nodes (e.g. when switch governor, the get and targe=
-t
-> > callbacks are not run on target core). So replace IOCSR read/write with
-> > MMIO ones.
-> >
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
-> > ---
-> >   drivers/cpufreq/loongson3_cpufreq.c | 31 ++++++++++++++++++++++------=
--
-> >   1 file changed, 24 insertions(+), 7 deletions(-)
-> >
-> > diff --git a/drivers/cpufreq/loongson3_cpufreq.c b/drivers/cpufreq/loon=
-gson3_cpufreq.c
-> > index c75c0e30e881..e5062cd62390 100644
-> > --- a/drivers/cpufreq/loongson3_cpufreq.c
-> > +++ b/drivers/cpufreq/loongson3_cpufreq.c
-> > @@ -164,6 +164,12 @@ union smc_message {
-> >
-> >   #define FREQ_MAX_LEVEL                      16
-> >
-> > +#define MMIO_SMCMBX(node) \
-> > +     ((void __iomem *)(IO_BASE | (u64)(node) << NODE_ADDRSPACE_SHIFT |=
- LOONGSON_REG_BASE | LOONGARCH_IOCSR_SMCMBX))
->
-> NODE_ADDRSPACE_SHIFT is defined in numa.h so that file needs to be
-> included, to avoid a build failure when NUMA is disabled (if NUMA is
-> enabled, numa.h happens to be pulled in via some other headers).
->
-> Also I'd suggest to use nid_to_addrbase(node) instead of hard coding the
-> shift for better readability.
-Yes, that's better, thank you very much.
-
-Huacai
->
-> With the changes:
->
-> Tested-by: Xi Ruoyao <xry111@xry111.site> # on XA61200
+Reviewed-by: Leo Yan <leo.yan@arm.com>
