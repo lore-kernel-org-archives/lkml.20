@@ -1,115 +1,100 @@
-Received: from mail-oa1-f48.google.com (mail-oa1-f48.google.com [209.85.160.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp153-163.sina.com.cn (smtp153-163.sina.com.cn [61.135.153.163])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB98C3F86FE
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 12:35:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B1E63D9DAA
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 12:35:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=61.135.153.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787747741; cv=none; b=QOmPBim+8LrZMC2DpapzFPekosl2YU5+P52qnWmgIr3Wt40q8tzq6ic2sINzOgYnRpjWAVTOmPg6MFWtLj5Q2i2O6heaIkGNJf4Hb+xmMULHY5g4MRgClxQVTG05Tl6R6nQNIABUO+BL3FjTS2v2ZWjqV6td8K2iVNEHpzq4DXY=
+	t=1787747749; cv=none; b=fMD6lwvb43yylZrY03S9mECwsQHkBfTJrA3A9woUJqyT+t2P9dYwqqalNhvdxfwi81LFh98PGjXD5DZ8SSl5aoemaQvFG1dd3cBUio7F1rpAY0AiWfNOwMG2buToMQW6cGAdFlXQjQwZPuR5hHbZNt0NGEbkI0TR+ScDw9GITbo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787747741; c=relaxed/simple;
-	bh=VjrLxq41uw4BiWdFbGzXauFX3ga0sq0gdX7yYyoSq50=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sG++9s7QWLdFwnCxqMBlXRBhybXy8b8g2Zonw+sxjusi9YQUsZCFJYm9XNYGVB2a5lFjnoMFem8JBrqwFhjWgS6yot+xzSYn6HO1KBGtieWdj+iK0EZKtvTPaPLzrStnqbs7imnP4yI5af7mszA7CC+kOVgR90VKI0CthqbyAZs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dhesQrLX; arc=none smtp.client-ip=209.85.160.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787747749; c=relaxed/simple;
+	bh=b1XP2EZBzAusaBaT0wsqTEKyyPDxmInZ1zEKysjFqU4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ePias21APRWIlUjw6WSmUXQiycRZ+7W2yKk/8cn/BM1Yq3rGFprt+PaP/zX4RBcTNYbR8Pdukjqd4zUucbSWL8kLTEbV2OfN3BxpMtrQpWIeb0b7YcEK8iCu1MohNvKWoX2No9gdG0H9+sGoNVg3RSQdZZ2nJ1y143Z5x1cmSlY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=zjiJNM+i; arc=none smtp.client-ip=61.135.153.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dhesQrLX"
-Received: by mail-oa1-f48.google.com with SMTP id 586e51a60fabf-451a49abd8aso957119fac.3
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 05:35:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787747739; x=1788352539; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VjrLxq41uw4BiWdFbGzXauFX3ga0sq0gdX7yYyoSq50=;
-        b=dhesQrLXb9fihi+n8MxxbAcAs/a1aOnOA32/+Jp7NuKM4v+DuVroRc/w6fM05YuwSL
-         fdRCHXS78CeY5qKCRky9pgKtm8YcqUzGaHxac2Hn0i34BZL0Rvj8M+FBBlxGHwjBQbQ5
-         wnbfisQtWC1cz2xWD8uwjlEkC3e0+7PQOsDStaeNeDLHEet0qejvndPH/obYvukGETOE
-         53vdn0/OT26EKUuzBRavr/6ON4ivOrzVFLAIkMmdmPDVPyKQPyyqVDw6RnDFZmZ2z7ds
-         C/peSkruINVEjpaU8VlvEgFgwHxB7iB2L76E829+iXIEVLlKtRiNg1n1DLfe7PavkmJi
-         Vyvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787747739; x=1788352539;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VjrLxq41uw4BiWdFbGzXauFX3ga0sq0gdX7yYyoSq50=;
-        b=NushwSVe45MZLH0lG32605tdMbnt9F5OUoSukTsg6LPjgmbZOpHHd4rkKrfW14GW8t
-         czGESu/nHxq5yPPTdoG4vOlpIE20tlUd6GTI4GHxEch972u1KvkxVgyv/3u/zyAaBGMC
-         WKmf2KaCZb1A+Dno0wEN7fkjy3rDxmERGT3uzrWI6p/uqzAG5mWRxKYKeouFTH3DedPq
-         XW0EGafA8Eph7Ikqx9ya+xgGKp6qynfZUUq2DOfQ09BfAbpsvrynPol26iwvD0b/rqp1
-         q2ZGou3HZ2hUv6I/S02gjIdkWcdxcUQyXoYReO/l6WdOOZQffBJ0bImmZ0DS3GakbYeR
-         T7oQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoVgJG/C/YO5uU0Svz9sapbtMLvL6TuV24bgueszCAq/LWg0wj1ARD0FQ4hWNl5vc6S4DdX4ioY9f9rNIw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lWZ2V8UD2Rw8mqfsA5cwW1NPSwINouEo0v4VCsflEFQcTCJ8W5
-	GPy+47frefbTPxawBZdC/Y6R4rkcPlAVW0gDB6C4T4WOC6H5qWwksEqd
-X-Gm-Gg: AR+sD13CAkFpWrEE4RTwuEjULeLCcXgLsJEI4nUib1YJGvyAy88IEIV32fl7cdGOp04
-	kW1MuB2HE12V1vTUGzeeydBtRHh0DHT9mAox5FBRs2gaEZfxbdcJixv2nsgbWkBpVGQXL+lZcaG
-	DmZ3IYUMtXGKdZF+8gzoTflgzzxLMjOk0/U5HU/3RWJcBvyNk0zsvatm0N8jSA8gi6EyOaoB+Wz
-	jPk1qJH8TwHXQKBeR4K7FuiWZ+s4b0F5Z6JUY2MCUUQRex+dNulWquMyKLt+9zld6cEY4f3QmjK
-	bEQKklG0/2LYIKK4v3A3sNfmgHNYh/AVAFQbCXC+bP40c0tC4YCY16k4Mf96+gbvIwp0I2QRWib
-	wxOEuSDP4l0u4UgNrA2XrJ9ettbcbp36W9mewG3Kl6lTHQMXScoyuIRxi9BPnEqLt2jLlpejFcA
-	f1h+NSUph7q7rv3ZppUUtQhF2wLtb7hTxdBnshUKGCVbqMtxHOFBwtyB92HLfb9KopkD4+pkf8I
-	xCFIXaV7tp8dYOk9mh+kPb/SMs9/A==
-X-Received: by 2002:a4a:ee0e:0:b0:6b0:4170:59ae with SMTP id 006d021491bc7-6b1a04ffdd4mr5407369eaf.27.1787747738713;
-        Wed, 26 Aug 2026 05:35:38 -0700 (PDT)
-Received: from localhost ([2409:40c4:3158:4e86:efde:1f4:fc9e:35b6])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a8eefd98sm14998290c88.3.2026.08.26.05.35.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 05:35:37 -0700 (PDT)
-Date: Wed, 26 Aug 2026 18:05:34 +0530
-From: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
-To: Mathieu Fluhr <mathieu.fluhr@gmail.com>
-Cc: Michal Pecio <michal.pecio@gmail.com>, 
-	Thorsten Leemhuis <regressions@leemhuis.info>, Mathias Nyman <mathias.nyman@linux.intel.com>, 
-	linux-usb@vger.kernel.org, regressions@lists.linux.dev, stable@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Mario Limonciello <mario.limonciello@amd.com>, 
-	Forest <forestix@gaga.casa>, Slavik Dev <developer.slavik@gmail.com>
-Subject: Re: [REGRESSION] 6.12.36+: usb: hub: post-resume delayed work
- triggers > uncorrected MCE / data fabric sync flood on Threadripper 7970X >
- (bisected to aec11e5f9c45)
-Message-ID: <ao7aLXk9q_v_jEyX@eggarch>
-References: <CAPyJwA_D9qw0T72f8zwM1yKjP+To=maVANbcdsWM7yRmbBxYvw@mail.gmail.com>
- <CAPyJwA9R=p8_uxyYODb00g_nUq26SRsWHBGgAAJnR0YMTRRo4A@mail.gmail.com>
- <CAPyJwA9P48LDcOr7u_iT1WPFBCHxh9w6cxFvyi5GS3syM6crbQ@mail.gmail.com>
- <07435e6b-ee30-4c85-8c8b-0ce3a4ead1d9@leemhuis.info>
- <aosGtkE_diwVJJtB@eggarch>
- <20260823174059.46fec036.michal.pecio@gmail.com>
- <aoser8dLytrwqBC2@eggarch>
- <CAPyJwA8m_Xd2oyV1i9k+-6f7A-j0FiC97yXL=Ci8ZAErs5W4vA@mail.gmail.com>
- <ao1ovvdPAy6n_F7I@eggarch>
- <CAPyJwA-QALkCQn8J1+=U-nuE_7WSEPhVcUEKb+MMYMaA_1AVjQ@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="zjiJNM+i"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1787747742;
+	bh=0axnn9YrfmP9AeRoje/6NvDFokNlTRUJMzjcBecfSiY=;
+	h=From:Subject:Date:Message-ID;
+	b=zjiJNM+iS+X6ljZjNHsq9PU+7lx8+oeZaRRzsNiVQnobrVjtlQqBvJlIG/vuhx7bA
+	 TfUDYSnNrBWL0Hkl604TgETjJFNCB6GCWJG9RyqM8YtyIQEp3NY7yLgbVPbCrpOQgl
+	 KmIede11tj7Jo7lQHaDrAU4cnuyRJlCrbmCu1Xjw=
+X-SMAIL-HELO: lxu-ped-host..
+Received: from unknown (HELO lxu-ped-host..)([111.198.231.89])
+	by sina.com (10.54.253.32) with ESMTP
+	id 6A8EDD9100002662; Wed, 26 Aug 2026 20:35:32 +0800 (CST)
+X-Sender: eadavis@sina.com
+X-Auth-ID: eadavis@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=eadavis@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=eadavis@sina.com
+X-SMAIL-MID: 5720124456962
+X-SMAIL-UIID: F620E76BCE574A8599E3A305723D3EC4-20260826-203532-1
+From: Edward Adam Davis <eadavis@sina.com>
+To: syzbot+c35f34092a4bc9855be6@syzkaller.appspotmail.com
+Cc: linux-kernel@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com
+Subject: Re: [syzbot] [usb?] KASAN: stack-out-of-bounds Write in append_midi1_out_jack
+Date: Wed, 26 Aug 2026 20:35:29 +0800
+Message-ID: <20260826123529.120359-1-eadavis@sina.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <6a8ed2cd.1d9ded08.62e62.00a8.GAE@google.com>
+References: <6a8ed2cd.1d9ded08.62e62.00a8.GAE@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAPyJwA-QALkCQn8J1+=U-nuE_7WSEPhVcUEKb+MMYMaA_1AVjQ@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Aug 25, 2026 at 11:43:22PM +0200, Mathieu Fluhr wrote:
-> The patch you sent makes the issue go away. I am now running the exact same
-> scenario for 2 hours, without any crash.
-That's good, thanks for confirming.
+From: Edward Aadm Davis <eadavis@sina.com>
 
-> However, I am not sure if this can qualify for a proper fix, since I
-> do not have any
-> external hub connected to my motherboard: All my USB devices are directly
-> plugged into root hubs (and at the moment, there is only a keyboard and a
-> mouse).
-Yeah that's the point it only skips the 200ms hold for root hubs. The
-external hubs still get their fair hold since a parent exists for them.
-So external hubs are completely unaffected by this patch.
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 818bebeb63dd
 
-On 'proper fix', I think it is, even if we keep this bug seperate for a
-moment, it makes sense to not give root hubs hold they don't need.
-
-I'd love to hear more thoughts on the patch.
-
-Regards,
-Lovekesh
+diff --git a/drivers/usb/gadget/function/f_midi2.c b/drivers/usb/gadget/function/f_midi2.c
+index 19fdac024343..06a3add05447 100644
+--- a/drivers/usb/gadget/function/f_midi2.c
++++ b/drivers/usb/gadget/function/f_midi2.c
+@@ -1675,11 +1675,15 @@ static int append_midi1_in_jack(struct f_midi2 *midi2,
+ 				struct midi1_cable_mapping *map,
+ 				unsigned int type)
+ {
+-	struct usb_midi_in_jack_descriptor *jack =
+-		&config->jack_ins[config->jack_in++];
+-	int id = ++config->jack_id;
++	struct usb_midi_in_jack_descriptor *jack;
++	int id;
+ 	int err;
+ 
++	if (config->jack_in >= MAX_CABLES)
++		return -EINVAL;
++
++	id = ++config->jack_id;
++	jack = &config->jack_ins[config->jack_in++];
+ 	jack->bLength = 0x06;
+ 	jack->bDescriptorType = USB_DT_CS_INTERFACE;
+ 	jack->bDescriptorSubtype = USB_MS_MIDI_IN_JACK;
+@@ -1700,11 +1704,15 @@ static int append_midi1_out_jack(struct f_midi2 *midi2,
+ 				 struct midi1_cable_mapping *map,
+ 				 unsigned int type, unsigned int source)
+ {
+-	struct usb_midi_out_jack_descriptor_1 *jack =
+-		&config->jack_outs[config->jack_out++];
+-	int id = ++config->jack_id;
++	struct usb_midi_out_jack_descriptor_1 *jack;
++	int id;
+ 	int err;
+ 
++	if (config->jack_out >= MAX_CABLES)
++		return -EINVAL;
++
++	id = ++config->jack_id;
++	jack = &config->jack_outs[config->jack_out++];
+ 	jack->bLength = 0x09;
+ 	jack->bDescriptorType = USB_DT_CS_INTERFACE;
+ 	jack->bDescriptorSubtype = USB_MS_MIDI_OUT_JACK;
