@@ -1,221 +1,206 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012036.outbound.protection.outlook.com [40.93.195.36])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC84138F633
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 17:17:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787764666; cv=none; b=urGtDaYzBh3insW+A6B90r4UIwI3DLEQBfumdWkulISTjbfKs/vlB3SXqIVfQrI8xASi1P4GTNvze+DB2Snccd3sifL4svhBta1OHXJ3uDx25jaTEjA422z6lW3GBK8lLfp5UmO6vagJck1mXtN38rNdR4pkQi69q9zY0+qdW7w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787764666; c=relaxed/simple;
-	bh=Vg+UFuV5m2015dxEcjnkurcF+hU9S27hy2MjwD4PGHc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bI2mpGtXaIlAi053pF+GSa76ieIyN8JFzeo1o1WU27n5TIejw0VPzEPBi65JvgufCQZrZFTVexdijZE4d5oAsUcPhFE2+6SMwBDJIAADZMrTpRNGVoz4H+w/I/W9roj4RWIKDHqknm3xJ4qFQ8NpzZF/2z+x4FtuuVRToazcGds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ddrJ/ESd; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=cQQLicZS; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79A6112F585;
+	Wed, 26 Aug 2026 17:18:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.36
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787764725; cv=fail; b=useoDX+C9FXkxypDuzHDw/I4lJoYqf/zf2I0YqEun/J/yJ8eElW9KwIRccnt1kwy/Qlk1RzTYcBLwUxaTYH+hS5PLWre97GhpES74UGg+qc91LrGsy5g+oGsLLdlWeRx2AmO0QrzFAYvK8MY/pay3lY4E0YCD8HT3TfpFO2xJmM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787764725; c=relaxed/simple;
+	bh=I1VeSAfAQzzz5SzcTybci/ecs059GrfGwHkUy3F1YFM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=ZtIJc1r/XwUM2Gi5eSmUT2fmXmnAkUct6ffa6P5PtyFxa2D1w6fuTKhjwKiTZPCt8DFVIF5fwYLPDXPw/jknJ/PmVOYrK+DlsRBVl9NdVpojdLIU2KnAMijytSCrdveeCB7+wjsneBSgfl4GmQF1wNkSyyB0B0jZyaYOZpBpgF4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=4kNUYo6Z; arc=fail smtp.client-ip=40.93.195.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ddrJ/ESd";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="cQQLicZS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787764655;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6yYb0HNz5KGftss5YJcVkpZccia/QhI7Av14y4QDURk=;
-	b=ddrJ/ESdufzcOfRrhRK3PKTCiiDZprGyL4EB+lGux19Zktsjqwv75Frqd57KkoC4R4KLcS
-	jyLrPc2BQis79/F0etPJDlA0oNR1bEmsbagUfxrx0K6ytOH4LseoaE/l5W76lW5Yyocqyv
-	RUmfxlWopqIGdmrBl5GIc+X1GSBB4J0=
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-182-EzgDI0QwMKKGGTJ1y_9okA-1; Wed, 26 Aug 2026 13:17:34 -0400
-X-MC-Unique: EzgDI0QwMKKGGTJ1y_9okA-1
-X-Mimecast-MFC-AGG-ID: EzgDI0QwMKKGGTJ1y_9okA_1787764654
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-9372b9db132so108026485a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 10:17:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1787764654; x=1788369454; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=6yYb0HNz5KGftss5YJcVkpZccia/QhI7Av14y4QDURk=;
-        b=cQQLicZSxoTv0JUcI+VgSN+d0N5hjpF8m1Z0kDVPDtFXXhyd+bXCaIV3jxwLSYpXP9
-         jyuOzPxpTkz8Yk1pIxek04hjaRV+B3n9/lWIO7b4n6bcePtj4Nrb0hac3bWqFL8N8MQG
-         vVkmzMAx3a0NMCPRWUI3IwSFhu4vh5/F/XbiCk8BiY/KIOwM4wsWwSzp+wjVM0EUxREW
-         qks9DkAF5+pe3qiqDzl+uMr9x+UX7M/Sh1B/8rYaNNT+U+jCBsfEcNSsezEfbyvnYN+L
-         /ACpLSPGyfAmLS6zGMnmpR/kmkks0C4wtLwDk3D4pfeZDAApvtQYfNsRd/6XPF8cN/9e
-         O+OA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787764654; x=1788369454;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6yYb0HNz5KGftss5YJcVkpZccia/QhI7Av14y4QDURk=;
-        b=py34KeVTNCd4rJwB/rlKsfIAFoSKVH+XUPmlRGJXhaPYRg4KMLUU+PnXzpIS2Zb1qS
-         sMcF312RhIR6h4TBr2h1fqp677aaXRFW/VnLj5qfK1Cu5Ct54FSlX0Lr/JWoweO/zEFL
-         l4JlRf/s12iXqmB/FzNwUhaVHz3EjzGdf5RbMlkV1bdjouAftL0WRwQMmR1gq/I2qfHH
-         2sYBMStVp+GhvhoURePvb4Wx9yYYbyA+Dlx9GSxH5RnFSGgqENszQXMDUOAa3AyxJYmB
-         +1rmnp3AuH0IRYbYDdH/IHx1GZE/IXWHEs1o4jo85az/jOpCEy5bWqT07VCC8ItYJQTP
-         Xvmw==
-X-Forwarded-Encrypted: i=1; AHgh+RoP1b0eA9DDzhf3WtNVpTo9mWhEuoMWukZgmQjsXTn2CD+BUnBZx2k8QQ5lrK/1LAp2enaNugYSBTXQbXY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nlEVhFjuKzoFWnj6guWAIbBEJegDR4Q2YVmNpuqvdiVLi5WReH
-	vs1ELD09oiQ+iwv91dFMo4TEsOkPuI2TYFQg5jQH+coRaHgrLq+Yww3q8bn3qPyrvUuFetJ0xDR
-	d70UzF0kFVMAY5YFQAwaIVFwcEtFs+hCpg1gV+rJ3h3Wmr/890ebRhGrESt3EJMKgXw==
-X-Gm-Gg: AR+sD11FRyTsCxr+k65Vq21I867jrN/7ESttRW8BbaNqchUclNPJGXbtJmS8F+7bXLC
-	+kPwWOqZR8OoptGjX3B/PZRF8WeB5lii+4LWnZ+epScX0aHjVuJr0ur9cMjLUf21d+dtgGcVf9+
-	sRDY55C31tijjv03ZZWBX6qQ/N/PMVC4ZBvud+EfmpLsxXQCC3WnXozrew3l2a9rqsg3X+ou7ba
-	70kjNc4OTIGfQeDz37DJLXwfNf6b894Up+s1KyrMmSt2pvs98BthDMho+64BcYWrvU93ejBtNAx
-	G/xUNVADJ31KLbMq/FRybfK5eoh8pdJQgswe0EkwYqipMLnKMvGDF5au6/SqXTnXvsWK6A==
-X-Received: by 2002:a05:620a:a4a:b0:936:ce17:dac3 with SMTP id af79cd13be357-93780433529mr609194685a.40.1787764653937;
-        Wed, 26 Aug 2026 10:17:33 -0700 (PDT)
-X-Received: by 2002:a05:620a:a4a:b0:936:ce17:dac3 with SMTP id af79cd13be357-93780433529mr609188785a.40.1787764653394;
-        Wed, 26 Aug 2026 10:17:33 -0700 (PDT)
-Received: from redhat.com ([23.25.77.22])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9377e36954asm255124385a.18.2026.08.26.10.17.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 10:17:32 -0700 (PDT)
-Date: Wed, 26 Aug 2026 13:17:30 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Lucas Tanure <tanure@linux.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Kevin Hilman <khilman@baylibre.com>, Jian Hu <jian.hu@amlogic.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC] clk: meson: t7: Intermittent boot instability and memory
- corruption on VIM4
-Message-ID: <ao8fqstEs01hd3--@redhat.com>
-References: <3930906f-783b-4d72-9260-ba25cc8081cb@linux.com>
- <aoxjX3HabY0brgXk@redhat.com>
- <57d796bd-7a3c-46b9-bd65-d6860adbd355@linux.com>
- <72db2062-e0ac-4c33-b1d1-d1fa5ae4bec8@linux.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="4kNUYo6Z"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AXkdGpjXffq250Haur7gfZBaZUcbUA6PRkSwwz3WPTleiZfgzzH94lMQCHggwxpD+LI0LNSHRUodtBew5OuU0ZSSO7xtXtieSxk4+46JzsfAa9nFBO0iwm0Zd6GQagvpmRVr9uwFfJ+Nr4dQEKtezwjjZfEWxoq/m4MiGgUg+D9UKNeRTdXvTL0dqRXcTpsqMVwGZJOQW83RvbwZf/MmFU3ouYcWWfylud12pTUfbm3Z0daC1Tr+cK76fLJIvBcFPjJe6Mw84CzHZ6TiU7jHXr2uy4Z+PBjbxfnxxVd2IljliQ2c8z9fmu1DcnYLkw+4u4kXz0T2MBKU21D4syzAUA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+JX/uuB1G0D4nsos9oSWb6QkVq1JWxKOzzKHnBC94oU=;
+ b=TjO8Mg5hQu47gnFYU5R8e49aV1t4vnqqOHb/jq2xJlZRNCAE7Jnfstvpmors3g0qErWBln+fGc1eajgpzhNu8GT19j0Y4E2GGDub9L6G/RbU/QIwApDUUJv/Rnu80T5cV4Hs10WP8flNsRpgDBBkMsgimAxmrCxtYqNK/Wt4mkeTRfgtGiM/Igk1lNevx8cyIuVYDGLahpgr9OXjgmHETA4nbD1/aing9l53273TToRmyZjEM+QIeNu+fCB6SgMb2mJ5fEo008ss8bJ42kZoo3YEGXqrG0o93gCd9z2/TFcZOaIAi8Bea4Cr1ZOgC8C9DTwg6zLoUuldy37gvo3jTA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 149.199.90.133) smtp.rcpttodomain=kaitmazov.com smtp.mailfrom=amd.com;
+ dmarc=fail (p=quarantine sp=quarantine pct=100) action=quarantine
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+JX/uuB1G0D4nsos9oSWb6QkVq1JWxKOzzKHnBC94oU=;
+ b=4kNUYo6ZfJ4q6q3+TUJcSRKvbufHfyImH/vFP0mWXgeF3JQ++FBdQ7FgIQUdThTWQBeMeFBBfp1XouNYW3rq+y40TkDpDAZainGbGOg4WEZcacgy6x5itJwsvzndYtJudf/J5tQnj1plTmcjicoNjGSYTn3sTXXfURyMeA4s/Xs=
+Received: from MW4PR03CA0002.namprd03.prod.outlook.com (2603:10b6:303:8f::7)
+ by DS7PR12MB5959.namprd12.prod.outlook.com (2603:10b6:8:7e::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Wed, 26 Aug
+ 2026 17:18:22 +0000
+Received: from CO1PEPF000066EC.namprd05.prod.outlook.com
+ (2603:10b6:303:8f:cafe::26) by MW4PR03CA0002.outlook.office365.com
+ (2603:10b6:303:8f::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.8 via Frontend Transport; Wed, 26
+ Aug 2026 17:18:22 +0000
+X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
+ 149.199.90.133) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=quarantine header.from=amd.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ amd.com discourages use of 149.199.90.133 as permitted sender)
+Received: from satlexmb07.amd.com (149.199.90.133) by
+ CO1PEPF000066EC.mail.protection.outlook.com (10.167.249.8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.3 via Frontend Transport; Wed, 26 Aug 2026 17:18:21 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 26 Aug
+ 2026 12:18:21 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
+ Transport; Wed, 26 Aug 2026 12:18:20 -0500
+Message-ID: <61586ab4-bbc4-2795-c4c0-1a0299aeea66@amd.com>
+Date: Wed, 26 Aug 2026 10:18:20 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <72db2062-e0ac-4c33-b1d1-d1fa5ae4bec8@linux.com>
-User-Agent: Mutt/2.4.0 (2026-06-19)
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH v3 1/3] accel/amdxdna: refuse an I/O memory mapping of an
+ imported BO
+Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, "Taimuraz
+ Kaitmazov" <taimuraz@kaitmazov.com>, Min Ma <mamin506@gmail.com>, Oded Gabbay
+	<ogabbay@kernel.org>
+CC: Sumit Semwal <sumit.semwal@linaro.org>, Max Zhen <max.zhen@amd.com>,
+	"Sonal Santan" <sonal.santan@amd.com>, <dri-devel@lists.freedesktop.org>,
+	<linux-kernel@vger.kernel.org>, <linux-media@vger.kernel.org>,
+	<linaro-mm-sig@lists.linaro.org>, "Liang, Wendy" <Wendy.Liang@amd.com>
+References: <20260813164700.43960-1-taimuraz@kaitmazov.com>
+ <20260813164700.43960-2-taimuraz@kaitmazov.com>
+ <5933effe-ef28-9838-1dd5-dc904be0a3bd@amd.com>
+ <87c9bb85-2514-44ac-a976-e24526c7f76e@amd.com>
+ <a782e2ad-d12a-66c8-447c-725d8e66593d@amd.com>
+ <4aaae413-ea6d-4865-be67-f352ee23aa4b@amd.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <4aaae413-ea6d-4865-be67-f352ee23aa4b@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000066EC:EE_|DS7PR12MB5959:EE_
+X-MS-Office365-Filtering-Correlation-Id: 50702b05-150e-4cfb-aa14-08df039607c2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|82310400026|36860700016|1800799024|10067099003|56012099006|4143699003|5023799004|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	MO2VTC9M3E5fof+mfkhHFhOLPzyeUZ7JV4nPFpzggpshcRAg0Tfg6UhT13NMKGssY3CqU+h0h+VPKQPLpczA9Si7N4sopH2DCufRXwd9v1eRDdoHj5zu4QZyoysrwLRvjl9VMchzptq69CX24NHBn2kyFfoK3XY0k7nksSZNw67qLYCGrwHWcH//hTmU50S1MZL1ZGGhixipdBKm4ZwFwygaaRSj2gQ5fCVRKafU8rELeo/e4EkKnRF+NKHx6zW5u/XxzPCXpeRPXAFbcKadgiYr66QIgTFWtV63fVPfAw8smgHT4dRdmkWT8CXJh4fe4Y4oFSvtyA8V6eOzH47jFwKPVgrCwc/h8qvjo67A/RWaoqZDfexvR7c8Ce7C7yHw+VNTuHMIcY9SJbF0wB3kzCZnuCUIGdq4VtcYRxMxKVLH01fcgjnU1+XHKGxCMm6FfJwqEvew0TtPEGLQR9tjV9uimi071vNeXB6TSiGIaGLOHsW2Plxr5ET58nJSHPGvT7ZFr2js4ozBAa1hcoLuGsp40JRho1Qi1gHcyZbTDGQENc550luXHCk1DbBwo9+dXpP5PFubyMfUL+LGrXVLIHO2DcEEvw+7iEy5qUJuZ3WUvpJ89rVyprpM8Tl2OYS4+o2fsXoQJjeI7WW2pD0H8VLlPFf8mc1wnbSTGbRsh0b4uV3RqgdblYGn2fQw71jTgZTNeD+acTVgzQmlCHtPAg==
+X-Forefront-Antispam-Report:
+	CIP:149.199.90.133;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:unknown-90-133.xilinx.com;CAT:NONE;SFS:(13230040)(376014)(23010399003)(82310400026)(36860700016)(1800799024)(10067099003)(56012099006)(4143699003)(5023799004)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	DInbD85+WRZO2r7WQ+BGbO+IXWXlH+L+6VNPqfg5joo7FU/1zNwWxVByO60SWdvZDfmME1cdkETZXvuDbl5Ic3ukHlS4KjYJzm5T07nkdq8b0Is0E2sVp2bIw1eOBxtMGJopWERFH9/+hdaLmvWXVcdvhPaOQITBUGf7jEGulFuEWTXHHTTws29+g4WmitqtG/XTpWM7b9gAEvCJn5IEHjzjwAjKPU6P09xwEjyiV3sVm913SIQ+BlDL4N6rhF3qsyAzx2PBOfTGiM6feDGAzt0brYg1v+ifObslnfIO+nzNVFnmH7LwPrvHwHnOkcEjrP4LhjpWc8CJugzuwx7wWAKKq61K4+CQfDYB/4+lsM8RFkYuGmXjZvr+LMkKTGdUfwRhvJ0+VZhVu0ltLvNaKAUSeNEPE23BIWFe4BQM4AJbULV1U0NP1uhGe9gyoVuV
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 17:18:21.9390
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 50702b05-150e-4cfb-aa14-08df039607c2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[149.199.90.133];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF000066EC.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5959
 
-Hi Lucas,
 
-On Wed, Aug 26, 2026 at 05:42:01PM +0100, Lucas Tanure wrote:
-> With Brian's patches, VIM4 does not turn off 4 clocks:
-> 
-> t7_sys_sd_emmc_b
-> t7_sys_sd_emmc_c
-> sd_emmc_b
-> sd_emmc_c
-> 
-> This is expected since I'm trying to run from an SD card. However, even with
-> these four clocks kept enabled, the board still hangs.
-> 
-> Complete list with all clocks being disabled after Brians patches:
-> [    1.002247] clk: Disabled unused clock: t7_sys_pwm_ao_gh
-> [    1.002898] clk: Disabled unused clock: t7_sys_pwm_ao_ef
-> [    1.003560] clk: Disabled unused clock: t7_sys_pwm_ao_cd
-> [    1.004220] clk: Disabled unused clock: t7_sys_pwm_ao_ab
-> [    1.004972] clk: Disabled unused clock: t7_sys_pwm_ef
-> [    1.005509] clk: Disabled unused clock: t7_sys_pwm_cd
-> [    1.006211] clk: Disabled unused clock: t7_sys_pwm_ab
-> [    1.006766] clk: Disabled unused clock: t7_sys_ts_hevc
-> [    1.007434] clk: Disabled unused clock: t7_sys_ts_vpu
-> [    1.008033] clk: Disabled unused clock: t7_sys_ts_nna
-> [    1.008741] clk: Disabled unused clock: t7_sys_ts_gpu
-> [    1.009294] clk: Disabled unused clock: t7_sys_sar_adc
-> [    1.009929] clk: Disabled unused clock: t7_sys_vpu_intr
-> [    1.010609] clk: Disabled unused clock: t7_sys_dspb
-> [    1.011186] clk: Disabled unused clock: t7_sys_dspa
-> [    1.011792] clk: Disabled unused clock: t7_sys_a73pclk_apb
-> [    1.012554] clk: Disabled unused clock: t7_sys_pclk_sys_apb
-> [    1.013213] clk: Disabled unused clock: t7_sys_rsa
-> [    1.013811] clk: Disabled unused clock: t7_sys_mipi_isp_pclk
-> [    1.014529] clk: Disabled unused clock: t7_sys_mmc_apb
-> [    1.015107] clk: Disabled unused clock: t7_sys_hdmirx_pclk
-> [    1.015819] clk: Disabled unused clock: t7_sys_i2c_s_a
-> [    1.016429] clk: Disabled unused clock: t7_sys_hdmitx_apb
-> [    1.017109] clk: Disabled unused clock: t7_sys_i2c_m_f
-> [    1.017740] clk: Disabled unused clock: t7_sys_i2c_m_e
-> [    1.018379] clk: Disabled unused clock: t7_sys_i2c_m_d
-> [    1.019018] clk: Disabled unused clock: t7_sys_i2c_m_c
-> [    1.019657] clk: Disabled unused clock: t7_sys_i2c_m_b
-> [    1.020296] clk: Disabled unused clock: t7_sys_i2c_m_a
-> [    1.020940] clk: Disabled unused clock: t7_sys_i2c_ao_b
-> [    1.021585] clk: Disabled unused clock: t7_sys_i2c_ao_a
-> [    1.022236] clk: Disabled unused clock: t7_sys_pcie_phy
-> [    1.022885] clk: Disabled unused clock: t7_sys_usb
-> [    1.023482] clk: Disabled unused clock: t7_sys_pcie
-> [    1.024088] clk: Disabled unused clock: t7_sys_spicc1
-> [    1.024723] clk: Disabled unused clock: t7_sys_spicc0
-> [    1.025345] clk: Disabled unused clock: t7_sys_g2d
-> [    1.025940] clk: Disabled unused clock: t7_sys_spicc5
-> [    1.026569] clk: Disabled unused clock: t7_sys_ts_a53
-> [    1.027197] clk: Disabled unused clock: t7_sys_ts_a73
-> [    1.027825] clk: Disabled unused clock: t7_sys_spicc4
-> [    1.028454] clk: Disabled unused clock: t7_sys_spicc3
-> [    1.029085] clk: Disabled unused clock: t7_sys_spicc2
-> [    1.029710] clk: Disabled unused clock: t7_sys_aififo
-> [    1.030339] clk: Disabled unused clock: t7_sys_uart_f
-> [    1.030967] clk: Disabled unused clock: t7_sys_uart_e
-> [    1.031595] clk: Disabled unused clock: t7_sys_uart_d
-> [    1.032224] clk: Disabled unused clock: t7_sys_uart_c
-> [    1.032857] clk: Disabled unused clock: t7_sys_uart_b
-> [    1.033482] clk: Disabled unused clock: t7_sys_eth
-> [    1.034077] clk: Disabled unused clock: t7_sys_audio
-> [    1.034694] clk: Disabled unused clock: t7_sys_ir_ctrl
-> [    1.035333] clk: Disabled unused clock: t7_sys_msr_clk
-> [    1.035972] clk: Disabled unused clock: t7_sys_spifc
-> [    1.036596] clk: Disabled unused clock: t7_sys_acodec
-> [    1.037218] clk: Disabled unused clock: t7_sys_smartcard
-> [    1.037880] clk: Disabled unused clock: t7_sys_am2axi2
-> [    1.038518] clk: Disabled unused clock: t7_sys_am2axi1
-> [    1.039157] clk: Disabled unused clock: t7_sys_am2axi0
-> [    1.039796] clk: Disabled unused clock: t7_sys_ampipe_eth
-> [    1.040468] clk: Disabled unused clock: t7_sys_ampipe_nand
-> [    1.041155] clk: Disabled unused clock: t7_sys_deswarp
-> [    1.041790] clk: Disabled unused clock: t7_sys_gdc
-> [    1.042385] clk: Disabled unused clock: t7_sys_cec
-> [    1.042981] clk: Disabled unused clock: t7_sys_aucpu
-> [    1.043600] clk: Disabled unused clock: t7_sys_aocpu
-> [    1.044217] clk: Disabled unused clock: t7_sys_mali
-> [    1.044830] clk: Disabled unused clock: t7_sys_ethphy
-> [    1.045451] clk: Disabled unused clock: t7_sys_mipi_dsi_b
-> [    1.046123] clk: Disabled unused clock: t7_sys_mipi_dsi_a
-> [    1.046795] clk: Disabled unused clock: t7_sys_dos
-> [    1.047390] clk: Disabled unused clock: t7_sys_ddr
-> [    1.047991] clk: Disabled unused clock: pwm_ao_g
-> [    1.048565] clk: Disabled unused clock: pwm_ao_f
-> [    1.049135] clk: Disabled unused clock: pwm_ao_e
-> [    1.049709] clk: Disabled unused clock: pwm_ao_d
-> [    1.050283] clk: Disabled unused clock: pwm_ao_b
-> [    1.050857] clk: Disabled unused clock: pwm_ao_a
-> [    1.051454] clk: Disabled unused clock: rtc_dualdiv
-> [    1.052038] clk: Disabled unused clock: rtc_duandiv_in
-> 
-> Also with the patches the disable happens 0.5 second later, from 0.5 seconds
-> after the boot to 1 second after the boot.
-> 
-> I am still investigating what is missing a consumer or what should be
-> labeled critical.
+On 8/26/26 01:37, Christian König wrote:
+> On 8/24/26 18:08, Lizhi Hou wrote:
+>> On 8/24/26 07:06, Christian König wrote:
+>>> On 8/17/26 19:53, Lizhi Hou wrote:
+>>>> On 8/13/26 09:46, Taimuraz Kaitmazov wrote:
+>>>>> amdxdna_gem_obj_vmap() takes whatever dma_buf_vmap() returns and only
+>>>>> rejects a NULL vaddr. iosys_map is discriminated by is_iomem, so an
+>>>>> exporter answering with an I/O mapping leaves a void __iomem pointer in
+>>>>> abo->mem.kva, which amdxdna_cmd_set_error() memsets and memcpys through.
+>>>>>
+>>>>> amdxdna_drm_va_tbl takes a dmabuf_fd, so such a BO can be any exporter's
+>>>>> buffer. amdgpu cannot reach this: its .pin forces GTT for a non peer to
+>>>>> peer attachment like ours. An exporter on drm_gem_prime_dmabuf_ops has
+>>>>> no .pin, and drm_gem_ttm_vmap() answers iomem for a VRAM resident
+>>>>> object, so an NPU paired with nouveau or radeon does.
+>>>>>
+>>>>> Refuse the mapping. vmw_gem_vmap() does the same; unlike that one this
+>>>>> path is reachable from an unprivileged ioctl, so it does not warn.
+>>>>>
+>>>>> Signed-off-by: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
+>>>>> ---
+>>>>>     drivers/accel/amdxdna/amdxdna_gem.c | 10 ++++++++--
+>>>>>     1 file changed, 8 insertions(+), 2 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+>>>>> index 1f190b319bb..b66ec9e4828 100644
+>>>>> --- a/drivers/accel/amdxdna/amdxdna_gem.c
+>>>>> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
+>>>>> @@ -683,10 +683,16 @@ static int amdxdna_gem_obj_vmap(struct drm_gem_object *obj, struct iosys_map *ma
+>>>>>           dma_resv_assert_held(obj->resv);
+>>>>>     -    if (is_import_bo(abo))
+>>>>> +    if (is_import_bo(abo)) {
+>>>>>             ret = dma_buf_vmap(abo->dma_buf, map);
+>>> Mhm, why does amdxdna a vmap in the first place? For some workaround?
+>> This is used for flushing the imported BO before. Based on our discussion before, the driver should not flush imported BO, so this becomes a invalid case.
+>>
+>> On the other hand, vmap on a io_mem should not happen. So I suggested to move the check to amdxdna_gem_vmap() for an extra check.
+> Oh my, you should not use a vmap to flush CPU caches even if you own that GEM buffer! That is as buggy as it can be and most likely doesn't work 100% reliable.
 
-I've seen cases where a clock is modeled in Linux, but isn't actually
-used by Linux, so it gets caught in the disable unused clocks sweep.
+We know that it would be problem on non-x86 architectures. And currently 
+the device is X86 only. Is flushing through vmap buggy on x86 as well?
 
-Does the board immediately crash after the disable unused clock sweep?
-If so, you could add a log statement, then 1 second sleep in
-clk_disable_unused_subtree() and wait for the board to crash.
+To make the flush running on all architectures,  I can remove the vmap 
+completely here and only use drm_clflush_pages. Does this sound right?
 
-If you can't get timely help from the vendor, then you can add
-CLK_IGNORE_UNUSED to all of those clocks, and slowly start taking them
-off in batches and wait for the crash.
+>
+> What is the complete command submission flow here?
 
-Brian
+So the submission flow is roughly:  alloc bo -> mmap BO -> write BO 
+content (and flush CPU cache by user space runtime) -> submit/wait io 
+command.
 
+
+Thanks,
+
+Lizhi
+
+>
+> Regards,
+> Christian.
+>
+>>
+>> Thanks,
+>>
+>> Lizhi
+>>
+>>> Usually DMA-buf only provides that framebuffer emulation scanout inside the kernel.
+>>>
+>>> On the other hand as far as I can see that here should work correctly.
+>>>
+>>> Regards,
+>>> Christian.
+>>>
+>>>>> -    else
+>>>>> +        /* Callers use mem.kva as an ordinary kernel address. */
+>>>>> +        if (!ret && map->is_iomem) {
+>>>>> +            dma_buf_vunmap(abo->dma_buf, map);
+>>>>> +            return -EOPNOTSUPP;
+>>>>> +        }
+>>>> Thanks for the fix. The 'is_iomem' check should be moved to amdxdna_gem_vmap() to cover all the cases.
+>>>>
+>>>> Lizhi
+>>>>
+>>>>> +    } else {
+>>>>>             ret = drm_gem_shmem_object_vmap(obj, map);
+>>>>> +    }
+>>>>>         if (ret)
+>>>>>             return ret;
+>>>>>         if (!map->vaddr)
