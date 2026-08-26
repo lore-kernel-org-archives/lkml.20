@@ -1,79 +1,104 @@
-Received: from smtp153-165.sina.com.cn (smtp153-165.sina.com.cn [61.135.153.165])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 564B93BD638
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 23:33:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=61.135.153.165
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 742E13BE638
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 23:38:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787787188; cv=none; b=Dr0QECDrlvB9hUbhxPlemEl9Wg9i7Z3r7NAx+DemEbeqECJi7lZh7VjHws4ao+Oz3fNJMZP+a7ePVhVTEjqyENfoQTXgcIagynrc0EseQyG2lt8i4jQwpoSrl5E1nFystB3YWsgfkvBH2VLrSvNxkUlJHyccFu0N3c9C5pOcJ2U=
+	t=1787787503; cv=none; b=bRneIAww3YkF7tRB3ZyzY+R/L08ffwhmocsXsqoNGd3BBN7txuduup4keogTnneEaRRD7+k1MvHk88vlU7oYS4eD6LGzAbtAP66O/8pGgglybBuMUCZlsEORJBnOc7wEajWO5RI3dgskn0KLwWdIt7qY/5vcpdfziXNP96tdVsQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787787188; c=relaxed/simple;
-	bh=OJktJtV+qX+sW+kSWNcCMSD90w9QyiiiWtK2uPO4cDw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KnJGSdMjbizO9PkTpUO5baUQUrVt0E33PLiYmzEju84QzfoSgFPShIEMMc2pIPxnmHQbVKgKKQKiQQPr1xcmXYGHt+MSsTOZ+nICDvHya2NJu0fQ4nwYbf/7PJxYNDDA4BIeuXXVdlMIrtclVaIW/tbSNUxe5UeYNYTsRhs1umU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=WA2MCVtU; arc=none smtp.client-ip=61.135.153.165
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="WA2MCVtU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1787787181;
-	bh=z7NVLUeT3IXpcruB8yDuSQR7CeXHHzX3nh/b3su/gdY=;
-	h=From:Subject:Date:Message-ID;
-	b=WA2MCVtUiv5cr07m1HeQ2o+XeTc3NBC9EaGQkhP9j6MKgQZJcfabRFu65HuJn8Px9
-	 Kew6Q5JzdBbfn1li8bX9CWOFLkORk0TNgfyRs5o6GtcuXdAsUFXUS3KiNYUnLVT8XS
-	 K4VuPxHNWSggb+Yv2bH0pbFiCS/vFTBI2cMiz+5I=
-X-SMAIL-HELO: localhost.localdomain
-Received: from unknown (HELO localhost.localdomain)([114.249.62.194])
-	by sina.com (10.54.253.32) with ESMTP
-	id 6A8F77A700007DC3; Wed, 27 Aug 2026 07:32:58 +0800 (CST)
-X-Sender: hdanton@sina.com
-X-Auth-ID: hdanton@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=hdanton@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=hdanton@sina.com
-X-SMAIL-MID: 1565314456623
-X-SMAIL-UIID: 44313303416740568BDE82687C768323-20260827-073258-1
-From: Hillf Danton <hdanton@sina.com>
-To: syzbot <syzbot+06fa667a0931a3430026@syzkaller.appspotmail.com>
-Cc: linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [syzbot] [usb?] KASAN: slab-use-after-free Read in stub_rx_loop
-Date: Thu, 27 Aug 2026 07:32:44 +0800
-Message-ID: <20260826233245.1621-1-hdanton@sina.com>
-In-Reply-To: <6a8f1920.1d9ded08.62e62.00b7.GAE@google.com>
-References: 
+	s=arc-20240116; t=1787787503; c=relaxed/simple;
+	bh=zGFbXO9+QXC16MOBpJ2H28g4HOaNc5ULMC7cLI8AD5o=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=m07P7S1JR1t1USlOtHRjIP4yuFnHOvXCu5C3RrpMVPxvGDnYO32oKUbedbk+FDliHIRbJiswBglWKj6P2EX6ubo1v1AvnmUwLVQnDwAMbR+sD8kVIdJB1p99ub1Yycr7LxLA1KW1GtGlJwlWtJJgWKt/kAfPPM9Tjt/hUExNNTY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-7eb64224fd2so138154a34.0
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:38:22 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787787501; x=1788392301;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=4CBNSg3UKfhu6eAd7jY4Z4Vzp/uyVvl1nWV/QL7p+QU=;
+        b=HuKI5+g5WrFwJD3+vYD1kaYlTKfPJ1NJhMiHsI8alKu6Uxc+nXzIqFQhv/RLwc4b3J
+         MHBA/stpl2JhbdDWWDpO+SavEAl6KNlwzhM0G4Pfm4GQAFSuD5nOp5xEqx2s6/Wk7Emb
+         WX7Gxdmz+ynWGo5VwXcQLIPd6c9CYX/FS2v+W4Fl8tbAAPxaK5GTSRHtRyPoJQw6IdWA
+         b1WYjQkBMSP9YzYuG48MrP3bPhbqsPwMm9c3hu/y8RbS4F8HMoy0corhivm0CCcNobtv
+         rXONYNmDOpJ76V2tsv4yd47KUH4oQf3VolKMT0ukszRS4AOLNaZUcdRMCClPhOaLKBNt
+         8DBQ==
+X-Gm-Message-State: AFuF++lL/cr7UwW3GoBo9nFWBF60+vcznUsxOSsX2AL8Y97XTrGOw3Ta
+	t9H26Sq3RDLduaY1cJ2RDwRsT03bxseGbJ4wOdncN2MujTQF8Q7P9mR5eePTIs/K8hkZ7k4QLDp
+	runprDl2psJP/+PvyVipayyAbFwyIChyAaSVMJOz+0CP5BOTLzZlyK/ZdKZQ=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a4a:e849:0:b0:6aa:f0fd:3f0a with SMTP id
+ 006d021491bc7-6b1a0502655mr10377429eaf.30.1787787501413; Wed, 26 Aug 2026
+ 16:38:21 -0700 (PDT)
+Date: Wed, 26 Aug 2026 16:38:21 -0700
+In-Reply-To: <6a8f4e88.27659fcc.2ceef7.0008.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a8f78ed.50659fcc.60cd.000a.GAE@google.com>
+Subject: Forwarded: [PATCH] bpf: reject VAR/DATASEC as a map's BTF value type
+From: syzbot <syzbot+37b56485bbbf90ad8489@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-> Date: Wed, 26 Aug 2026 09:49:36 -0700	[thread overview]
-> syzbot has found a reproducer for the following issue on:
-> 
-> HEAD commit:    818bebeb63dd drm/xe: Don't hand out the flat CCS storage a..
-> git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-> console output: https://syzkaller.appspot.com/x/log.txt?x=151ce979580000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
-> dashboard link: https://syzkaller.appspot.com/bug?extid=06fa667a0931a3430026
-> compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13a28d49580000
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-#syz test
+***
 
---- x/drivers/usb/usbip/stub_rx.c
-+++ y/drivers/usb/usbip/stub_rx.c
-@@ -606,7 +606,8 @@ static void stub_recv_cmd_submit(struct
- 		return;
+Subject: [PATCH] bpf: reject VAR/DATASEC as a map's BTF value type
+Author: kartikey406@gmail.com
+
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+
+
+btf_type_id_size() resolves through BTF_KIND_VAR to the size of the
+type it wraps, and BTF_KIND_DATASEC carries its own explicit size
+field. This lets map_check_btf()'s size check pass for a
+btf_value_type_id that points at a VAR or DATASEC, even though neither
+describes the memory layout of a single map value - a VAR is a named
+instance of a type (only meaningful inside a DATASEC), and a DATASEC
+is a whole ELF section of such instances.
+
+The unresolved VAR/DATASEC id is what gets stored as
+map->btf_value_type_id and later handed to
+htab_map_seq_show_elem() -> btf_type_seq_show_flags() ->
+btf_type_show(), which calls btf_type_ops(t)->show() on it directly.
+Reject both kinds explicitly in map_check_btf() instead, right after
+the existing size check, so malformed BTF is rejected at
+BPF_MAP_CREATE time with -EINVAL.
+
+Reported-by: syzbot+37b56485bbbf90ad8489@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=37b56485bbbf90ad8489
+Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+---
+ kernel/bpf/syscall.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/kernel/bpf/syscall.c b/kernel/bpf/syscall.c
+index 6874ba1424af..15c4fba80cec 100644
+--- a/kernel/bpf/syscall.c
++++ b/kernel/bpf/syscall.c
+@@ -1274,6 +1274,10 @@ static int map_check_btf(struct bpf_map *map, struct bpf_token *token,
+ 	if (!value_type || value_size != map->value_size)
+ 		return -EINVAL;
  
- 	/* urb is now ready to submit */
--	for (i = 0; i < priv->num_urbs; i++) {
-+	num_urbs = priv->num_urbs;
-+	for (i = 0; i < num_urbs; i++) {
- 		if (!is_tweaked) {
- 			ret = usb_submit_urb(priv->urbs[i], GFP_KERNEL);
- 
---
++	if (btf_type_is_var(value_type) ||
++            BTF_INFO_KIND(value_type->info) == BTF_KIND_DATASEC )
++		return -EINVAL;
++
+ 	map->record = btf_parse_fields(btf, value_type,
+ 				       BPF_SPIN_LOCK | BPF_RES_SPIN_LOCK | BPF_TIMER | BPF_KPTR | BPF_LIST_HEAD |
+ 				       BPF_RB_ROOT | BPF_REFCOUNT | BPF_WORKQUEUE | BPF_UPTR |
+-- 
+2.43.0
+
