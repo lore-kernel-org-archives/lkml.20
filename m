@@ -1,71 +1,71 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA8BF46D541
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:36:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68F7D471259
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:36:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787762174; cv=none; b=r5xQYhWGoVuwgCeYEJd9Eh2xHogN6Zryd1pvCgnwWKZe3cshssDNct0jJz6KDQvgqshBlDvLwB3A4WzMLfh4cANd868Qck+TQPDeUJ6JWnsq8IVnZ/ou7mZ5qRf3X2OoFdZ/5sqxBx9xUyT56SdOS9kkl07T2CpkPU1wn2yCiKI=
+	t=1787762187; cv=none; b=sevz2xvyRJxGv/w9klDM4k68fFQToC11rotmqDG4gc1WxaDdz8Q9t+h7+Vh4Sybr9LfSxLtTIsdbKtj/PZBMPmvSI9i5GDUTGwr9tIy9nPg4oEFM99dE0mzj+BtcVmRID74OKTQOseEVjSkDJe/81phXeDkVKcGmGiecW/sMKfw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787762174; c=relaxed/simple;
-	bh=Vs381P+yDLBEfeWg9LKiEiD4QqJMYspL8zkTd4AUo3E=;
+	s=arc-20240116; t=1787762187; c=relaxed/simple;
+	bh=Y7VjXlDQgp/aKeZnfRWcQRiSV5T5cNHT60JqrhFIbK0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jIMhA2TbyfK3nn05gF0CWWf0IfoBvKYcYRwhMe89/Ksc3A1+UkAKdEMelyN4djVAiafRNtnnW1xFeQZnL9lpaZntVj42YKALSnKc24cpEmJKlNPoPDgky0qE/uoWq42ndxBfOM93PICyJSykwCrJ+xWLzoLj5LfP0qwlwCyhqwY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk; spf=none smtp.mailfrom=fireburn.co.uk; dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b=06haMXJ8; arc=none smtp.client-ip=209.85.128.47
+	 MIME-Version; b=TWaaoBpf3FaOQIMFY+qGPSTfu2aB6NwC9MYuX+r9hYyugObykEVj24pzJEXtpEsqYT58ozM25hRaIySsMzHuYogWP72GmVdJ5Epibj06vs75DPVYwZw7WumZYObp6KNN6bQxTViETGsYdXvBCT9wxu2hXKaIvkmB1sSMixA3Jos=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk; spf=none smtp.mailfrom=fireburn.co.uk; dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b=z5hMej3Y; arc=none smtp.client-ip=209.85.128.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=fireburn.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="06haMXJ8"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-499b57cf2f3so524415e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 09:36:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="z5hMej3Y"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-49557167508so9264425e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 09:36:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787762163; x=1788366963; darn=vger.kernel.org;
+        d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787762174; x=1788366974; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=3EL6Jw26lW1z9BDf8CloPoJWlkDCbIL/77zIh+v+UO4=;
-        b=06haMXJ8gW4Z9s9lZ165sObzthnmwgaDG4cJTOQ29Ybpu44+eMFBbGMSds4ZD25yfF
-         7bv3Xh+E4bnByWP5UT+3M9QBTaX5GjHvudjhSWy9hhQ/dpb7G6wKKSlhHUMFLQKDjRMc
-         7I5KBEVRIDI3F/6I7xcria/OLykGtisLQO8zbmNAH9MM+sB6xeuM26lSKygJdbe6JdhG
-         idvrGFhlUmOVVsAAX/lVeqihcHnZNcTv3ipy4WEfcRphCNHTxabCLnB3MuXzcsRix7TJ
-         sWLESginLUNNVaRhXmp2qT0QyHNvxSjGVk26L5lOsHNBiPxsQDVemY4gZlJSuJPTqN6W
-         KMqA==
+        bh=lg0T4eac/Y9rCRkDaKLkO7bKQ8WziroJWF3w/38eu1A=;
+        b=z5hMej3YNIG1eTuTCIN0Nf1XT1p5IqA0IOSE+MGJJdN9q7HpIbUymC1yGw+r+AzCM2
+         Uq9HbGV1zt88HfAnlORzptCTkQSCzGm0/MOjDKbSKfZksgGGRMgnlu1NAI7emitzGQTC
+         C6Hshcdsj2tkWgVRXSi/1IR4iIOL/RNAaEJv6/aH05tlFOB+cdHaCSVQEzYS+WxNH0cf
+         u/IgXwuy90EjBHZvtuvLmeCgsXq4XkbalA+46aKtMufVbCrrR6BAQrxJtYJPH3Wt6uzs
+         gHRoSxPsj/4spWZvMK9iNX5s5TrZX4RToEUVqs8Sy3uXOFrRbvX2nLEvgtEZxTqqYXhB
+         I0gA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787762163; x=1788366963;
+        d=1e100.net; s=20251104; t=1787762174; x=1788366974;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3EL6Jw26lW1z9BDf8CloPoJWlkDCbIL/77zIh+v+UO4=;
-        b=dW9kWuirKb4xN0A3vDZ1Mtn6w5tfb7nSU6zztjwjOhhvB2Epw1s0NA5j5Z4Gx/MAbp
-         S2BIkSpN0xhS4lY7dhp82zjPiWc1t2OCgmtDzOnnNLodPpBXjOjwTmZdQs7l6CEqR3r5
-         jRgRGbqtBnZUhAJYSk8t73sJowlXsiU1ksqhBVUc7GEjvkn71gOZlZI5cj+yNSXyBwxZ
-         w76741vQshrykYD+7zLuJIYTLZGp8LYCUQxPXMcEunHe7fQ5aCBqI1WbROlvn3OcoQg/
-         iyMInaahXrm39DFl2CZeicuttiufAmhNr2yM7UAebpWK3ZwHkQ3VSQbPkx0zOO2S1cE+
-         7YxA==
-X-Forwarded-Encrypted: i=1; AHgh+RqkXn/dPoVVFm9e2VI88jl3sgD7Fm7OK0IqLlMOxASqG1I8z0oiGEsWJafBLTMns2mM21g00drhZuyc6Ic=@vger.kernel.org
-X-Gm-Message-State: AFuF++mh/jri4AegIRWQs+3+KrF05AGINV2CbNtDhddeByu3osRBSfTU
-	fmTA0Gbsb8TAO9WRvjzjrQp3cpUFjmDeE6rt9K77Xjrhk3MCLYSOnj0yMwzPzSBZeg==
-X-Gm-Gg: AR+sD12yd2XUJWwWmkDIUu89xXyDEoAF//OzK9KEDGoT27MvfdaebbNG21wb8X1f6/q
-	1HY1xkVVJUf8DybePE7isvAVnlI9rgwFkzNjGV0zna42SxDhbvYclsT7Q1S4c9I87F4uiqEOaDL
-	ewxzmyW2IXZwgIzIfkq+Dm1ccNhyQBVrRnMdMegpl8P+4uzxHBqlc+3uecllKEH5NoEc7UUBYRr
-	F6YDyl9mZOe4SxAVKZjfmKf7M8zpwIROUPADefVj8N2uo2n3qYSv8airSTWBFWZ2fyrME9WzzN4
-	1jYVmaCQwX+VnQ+VXMa+Gdv+mJNswJCAccfcihoPCRS3ruHElZkJF7Ch7XLwfANj2/pSOrYFeyh
-	0LpCOxftX1H2lR3IzAn19nk32tD0QIj+cfC0e1R73dwvaaY6GvKEbOXfp6BGWOKDK3EeIsWi9tI
-	OW2sboWKVDTHZUPqvPsrjqqE+qQWkHOzxjMqsEVDiJ2Mx3ng7PNROycjrQLc2RlPMPniiEapF+L
-	rPIxNoR6JHMrPBXF9j9DtczKL7Fr5Kvtocs
-X-Received: by 2002:a05:600c:800f:b0:499:59fd:dbfc with SMTP id 5b1f17b1804b1-49b0dea9491mr4564165e9.1.1787762162730;
-        Wed, 26 Aug 2026 09:36:02 -0700 (PDT)
+        bh=lg0T4eac/Y9rCRkDaKLkO7bKQ8WziroJWF3w/38eu1A=;
+        b=ksmGv+PoVmO+LDleHIp3BV/XIphFmSjmuJo/6h/ycwmKlECe1rGTyMLveKl2aTXCfz
+         Oz2RYfTWSgLmPyXm3s/0J8QABDNNOmzzKx09uGU8s6Z4RCtoehEXWBmJ2wXM4owZCaDG
+         SHkmCwJQI8alsro6zNAEMuk5I8GquF7lEpcmRG0Ehzmw5xdA9SWQBOsIR+pdf2MDo3lJ
+         jYUZTXQrhVkj/ADSaVhAHXwA+NCvbUsl55cJMrXJrWd/DlV00V0wTw9KIiY8a3NK0j4v
+         vhyLz1S1Ad4yf9BiZtCR0Pz7+DrILu9Zi+8nt1MkPJGnfDd4LPXt+3DDAXearIFVdFBG
+         sQTQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqBgdt5Dtx3dlsPyhmTSkbOS0yyP+SK5tw9xoezsRKzvlLnLfkY0W3BadxfNl8ArNyJbsda27pY1vGAWes=@vger.kernel.org
+X-Gm-Message-State: AFuF++n1x3iqe2huX3LxQPhahXfY/btQe6sX4UE1JrABO4epyRgjOAiF
+	jeJJTs5rPLW1UQXQYprf0X8PtOTnEmXUIb3GIjh7Sq2XhSGYEntl3YidAfQqS5LbwA==
+X-Gm-Gg: AR+sD10BIQWf+D8js4QTGxdlvz5TRFRj9RlwtCXY/r6Vxsie2E4ekIvHQ2tW7e6ZzU2
+	yuQKro5gX4ArT/hydSn/370sxGqd/RKvItLc25WBZojK0Uo1rRFf+NoqAdP1p9VkdE4VWm5eL0R
+	0pV0IdgAsF8DvRT0AJUWFUQ7DCXVzmw4j8aPEOZMRcI+REL7Sv0Qtk0TGbRLyUXv8qAGXx9IFJB
+	g41XfKPx46PA1FgUxDlQbeIXRT+w/OShsx1gUu3G68YDxUB3bI5rzyr/CbiuMqM13AGPXiVh2ej
+	IB4U/OWfW/YTjj8VLXTjYO85XaPuqU7MnK4S72lDrl8DCNuuswe4dy2IWTVy1RbxKh1pCilj+Z1
+	W88r+2yHFv0WLBxRpVLq5R2SjGFqtAlc63wv7PXx/3UKz69oo+Myv390rQBWEdpZw+h24gQgZR7
+	yjg5z9Wk1nZB2JJ2exhZ6R0IyiTCUnM53REIOaoEKBPh8QfGvLKueGS0D+mZZpsuQE8H9hSDqas
+	zR1gQed0enumDGsGeW1eUWps9FYLJa78R6C
+X-Received: by 2002:a05:600c:3105:b0:49a:5b88:f54f with SMTP id 5b1f17b1804b1-49a5b890381mr45490455e9.15.1787762174080;
+        Wed, 26 Aug 2026 09:36:14 -0700 (PDT)
 Received: from axion.fireburn.co.uk ([2a01:4b00:d309:1c00:caf1:6b20:8531:818c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499dca8c75csm31227535e9.2.2026.08.26.09.36.00
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499dca8c75csm31227535e9.2.2026.08.26.09.36.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 09:36:01 -0700 (PDT)
+        Wed, 26 Aug 2026 09:36:12 -0700 (PDT)
 From: Mike Lothian <mike@fireburn.co.uk>
 To: dri-devel@lists.freedesktop.org
 Cc: Mike Lothian <mike@fireburn.co.uk>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
 	Danilo Krummrich <dakr@kernel.org>,
 	Alice Ryhl <aliceryhl@google.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
 	Miguel Ojeda <ojeda@kernel.org>,
 	Boqun Feng <boqun@kernel.org>,
 	Gary Guo <gary@garyguo.net>,
@@ -77,11 +77,12 @@ Cc: Mike Lothian <mike@fireburn.co.uk>,
 	Tamir Duberstein <tamird@kernel.org>,
 	Alexandre Courbot <acourbot@nvidia.com>,
 	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	Lyude Paul <lyude@redhat.com>,
 	rust-for-linux@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 14/23] rust: drm: add a safe constructor for owned registration data
-Date: Wed, 26 Aug 2026 17:31:45 +0100
-Message-ID: <20260826163359.4998-15-mike@fireburn.co.uk>
+Subject: [PATCH v3 16/23] rust: drm: kms: add the plane blend-mode property
+Date: Wed, 26 Aug 2026 17:31:47 +0100
+Message-ID: <20260826163359.4998-17-mike@fireburn.co.uk>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260826163359.4998-1-mike@fireburn.co.uk>
 References: <20260826163359.4998-1-mike@fireburn.co.uk>
@@ -93,70 +94,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A DRM registration whose associated data is 'static cannot outlive any
-references held by that data. Add a safe constructor for this common
-case so drivers do not have to promise manually that their registration
-will never be forgotten.
-
-Keep the existing unsafe constructor for registration data which
-genuinely borrows from the bus binding.
+Expose drm_plane_create_blend_mode_property() so Rust KMS drivers
+advertising alpha formats can declare how userspace should interpret
+the alpha channel.
 
 Assisted-by: Claude:claude-opus-5
 Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
 ---
- rust/kernel/drm/driver.rs | 28 ++++++++++++++++++++++++++--
- 1 file changed, 26 insertions(+), 2 deletions(-)
+ rust/kernel/drm/kms/plane.rs | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/rust/kernel/drm/driver.rs b/rust/kernel/drm/driver.rs
-index 356be329a2b6..2e7987a71a7a 100644
---- a/rust/kernel/drm/driver.rs
-+++ b/rust/kernel/drm/driver.rs
-@@ -169,7 +169,8 @@ pub struct Registration<'a, T: Driver> {
- }
- 
- impl<'a, T: Driver> Registration<'a, T> {
--    /// Register a new [`UnregisteredDevice`](drm::UnregisteredDevice) with userspace.
-+    /// Registers a new [`UnregisteredDevice`](drm::UnregisteredDevice) with borrowed
-+    /// registration data.
-     ///
-     /// # Safety
-     ///
-@@ -177,7 +178,7 @@ impl<'a, T: Driver> Registration<'a, T> {
-     /// [`Drop`] implementation from running, since the registration data may contain borrowed
-     /// references that become invalid after `'a` ends.
-     pub unsafe fn new<E>(
--        dev: &'a device::Device<device::Bound>,
-+        dev: &device::Device<device::Bound>,
-         drm: drm::UnregisteredDevice<T>,
-         reg_data: impl PinInit<T::RegistrationData<'a>, E>,
-         flags: usize,
-@@ -243,6 +244,29 @@ pub fn device(&self) -> &drm::Device<T> {
+diff --git a/rust/kernel/drm/kms/plane.rs b/rust/kernel/drm/kms/plane.rs
+index 62de8a1dad19..f148aed812f2 100644
+--- a/rust/kernel/drm/kms/plane.rs
++++ b/rust/kernel/drm/kms/plane.rs
+@@ -459,6 +459,22 @@ pub fn enable_fb_damage_clips(&self) {
+         // registration is exactly what this helper is for.
+         unsafe { bindings::drm_plane_enable_fb_damage_clips(self.as_raw()) }
      }
++
++    /// Attaches the `pixel blend mode` property to this plane.
++    ///
++    /// `supported_modes` is a bitmask of `BIT(DRM_MODE_BLEND_*)`; `DRM_MODE_BLEND_PREMULTI` must
++    /// always be included. Any plane that advertises a pixel format with an alpha channel is
++    /// required to have this property -- `drm_mode_config_validate()` `WARN`s at registration
++    /// otherwise, because userspace has no way to know how the alpha will be interpreted.
++    ///
++    /// Call this during [`KmsDriver::create_objects`](crate::drm::kms::KmsDriver::create_objects),
++    /// before the device is registered.
++    pub fn create_blend_mode_property(&self, supported_modes: BlendModes) -> Result {
++        // SAFETY: `as_raw()` is a valid, not-yet-registered plane.
++        to_result(unsafe {
++            bindings::drm_plane_create_blend_mode_property(self.as_raw(), supported_modes.bits())
++        })
++    }
  }
  
-+impl<T: Driver> Registration<'static, T> {
-+    /// Registers a new [`UnregisteredDevice`](drm::UnregisteredDevice) with owned registration
-+    /// data.
-+    ///
-+    /// Unlike [`Registration::new`], this constructor is safe because its registration
-+    /// data cannot contain non-static references. Forgetting the returned registration can leak
-+    /// the DRM device and its parent reference, but cannot leave a live registration referring to
-+    /// expired data.
-+    pub fn new_static<E>(
-+        dev: &device::Device<device::Bound>,
-+        drm: drm::UnregisteredDevice<T>,
-+        reg_data: impl PinInit<T::RegistrationData<'static>, E>,
-+        flags: usize,
-+    ) -> Result<Self>
-+    where
-+        Error: From<E>,
-+    {
-+        // SAFETY: `RegistrationData<'static>` cannot borrow data that expires while a forgotten
-+        // registration remains accessible.
-+        unsafe { Self::new(dev, drm, reg_data, flags) }
-+    }
-+}
-+
- // SAFETY: `Registration` doesn't offer any methods or access to fields when shared between
- // threads, hence it's safe to share it.
- unsafe impl<T: Driver> Sync for Registration<'_, T> {}
+ /// A trait implemented by any type that acts as a [`struct drm_plane`] interface.
