@@ -1,82 +1,77 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8522B3D75D1
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 11:30:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2293E3B6C16
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 11:31:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787743812; cv=none; b=MBrpGpiJ6L6xZDaC3jRiS8fwr8Cv9nrmtyV/1VB1szTN2Cd5ytvCGh8z5OkVDuWw2W4tKv16ehuuGjTNUxKcu50UuKBE5NgewPf4hjBlAr5u5a88UlJj7SJU/Yt6d++2WzzNS8ZWouz5GTbTta6jPu0TnmlhqIdlxI2LXo5ngag=
+	t=1787743877; cv=none; b=tULbWa8mSzACmQu88IJSd5t7r4wUNLQkXVFGzs4VfqgyGUcHgwD7MH4vBTxnsXE+KES8GiYtGvSt9vGfOnfhZDCbQrZDfl3b2rACjc1WFqyox4L+Jt2X1momdOzGSrRV2ZHgqOqng/nK/l85zyAcy7GVme/KAu/LkP+iNiAEofQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787743812; c=relaxed/simple;
-	bh=5cJffYrbzvlLTLs/MGEVbZcRNd+BMA0Y9cIfNr/ZVHU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Fus8bFdzWZdV0JBcOECfyD35eA8ZPzA1OIUx0GH25CpKXQTPzd7nTB07gZYZvX5gFT+gc4xFLyIQq28XsEv0fuHojFlXKvIG5NFJhS5/kEogU6k8ULrSJyvMShJK3d7A9uClkdBMOY92MI2eUQj0MpiBho8VUzuzaRizS3o1jmk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Url3wdI9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787743877; c=relaxed/simple;
+	bh=yRKGEdmSCqT8eqCxlO+o3wuXtVa3okmerdtAPmey2Wk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qS4q6S0IP6WDtT/MV6eliJDTe2SXvPnMMaksmnQ7RZ82hR6Vyesq0UwnBUjr+avQF8Icvo8MLHuOlvT2oz3ip/brIB0XJq7fPUT40K4si4mIFtYWItYHDCPP1VoVKY0eu5JIogLTJF1q96IsZ6beZu/L1XbYN/S3GuYD32/EdyY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TIbpn6RK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Url3wdI9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DA781F00AC4
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 11:30:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TIbpn6RK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E1811F000E9;
+	Wed, 26 Aug 2026 11:31:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787743811;
-	bh=5cJffYrbzvlLTLs/MGEVbZcRNd+BMA0Y9cIfNr/ZVHU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Url3wdI9jGBf11dykA+qqN+TfAZTqfEF/iD2ASdB/sBdHT1Wity+DNZAO+Vi+/Fh1
-	 P6L8zIB7a+86vWF4R+WjBMyLtCws24e/mVQvZWYIS2raGbUT7fseEkcmnosvVGHwHX
-	 akpJSZtI4n0eD4oxy0CKk6yOdhwmyx/VZ3Gc4t4WL/ILpDySd3vHihqIztASn6ZdBx
-	 9qMgitsTxSXHuypr9WGRt6gEHtoLZkJQhCRKQd85lKBJtggExcQynAKILwYHMOSV2C
-	 jqtO/Iyeck8HzXxpQ7OXAfociHvJ4FRuZHJ2DF4NVGY/cckcweRZ8bC5sa3eNtmB6H
-	 ATeDxQRabd+3g==
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-69f7fa1c548so1547460a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 04:30:11 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpULtzZ4K0z0S2hnJJmxcXAfGSp0ty/GCIh048kkKq7aLAxA402Mcq6TqWa+UiqlJWaYJjVUenQLnx1PsI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mm7gNNs86RhxeBJVQgk0AGEDpKINwViE4YvQQO1gyEmoYliMLM
-	/XDUzNHM6Tg7tOL5aG2krqYISr7ND5UasjAd2In5Nt/DewXa/lzIPBCz0Tg4LbjiVSRrWKLiUn3
-	yr0EiOLN1ElSoOyVISSeH7+7QW12cYh0=
-X-Received: by 2002:a17:906:fe0c:b0:c21:382e:9a38 with SMTP id
- a640c23a62f3a-c250c449b9fmr764484466b.2.1787743810078; Wed, 26 Aug 2026
- 04:30:10 -0700 (PDT)
+	s=k20260515; t=1787743875;
+	bh=/Bd2roISMg/MEEHMt1PrIQbAqlMT3O5loRi1WuUYSWo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TIbpn6RKj5Jg7PWffs8l9yuqXdFBY2Y/dHc8eHBedV1zBP+UpJsC3CakCTxRQ6J/N
+	 WW7zuiHQJ06zB75p3npsyMm92D6BsW047WhhsopZCt/Ud2YhIDyRR0sCbo58f1Ycnb
+	 0mslxCfOLJclfW/eBh43B/I86rYYQARbNv4eVOQ50nLK2AJxk0B0zaL6527yLAkON+
+	 AmfdzmqLS63ivRxzZsmn955lj9muWNjCNjYf+VXy4dAApDkxJUymdbwEXn8PUGAYDM
+	 l4kcCZiHpz9YTrwEAopE2WwnuhpduwKmXueQ1IdIzvrpWzKgynEWN1ZBrw2j/opMm0
+	 JAI8zmSyaeb3w==
+Date: Wed, 26 Aug 2026 12:31:09 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH] MAINTAINERS: remove myself as THP co-maintainer
+Message-ID: <ao7Nr_FALfP7cTY5@gremlin>
+References: <20260826-drop-thp-maintainership-v1-1-3d102748fa17@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260825095405.858623-1-zenghongling@kylinos.cn>
-In-Reply-To: <20260825095405.858623-1-zenghongling@kylinos.cn>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Wed, 26 Aug 2026 20:29:57 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd8Vso+9+w2Dr7+vCSvRiHs0YPFz=Gk0Er1U6SJVG84H7A@mail.gmail.com>
-X-Gm-Features: AcwNN1WrBSfwzM2PN0UKTrEZYMyN8MA4TywdX16d31u7gFDR-wvU_LF3q0CbisE
-Message-ID: <CAKYAXd8Vso+9+w2Dr7+vCSvRiHs0YPFz=Gk0Er1U6SJVG84H7A@mail.gmail.com>
-Subject: Re: [PATCH] ntfs: fix undefined behavior in mft/index record size calculation
-To: Hongling Zeng <zenghongling@kylinos.cn>
-Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	zhongling0719@126.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260826-drop-thp-maintainership-v1-1-3d102748fa17@kernel.org>
 
-On Tue, Aug 25, 2026 at 6:54=E2=80=AFPM Hongling Zeng <zenghongling@kylinos=
-.cn> wrote:
->
-> The boot sector validation allows clusters_per_mft_record and
-> clusters_per_index_record to range from 0xE1 (-31) to 0xF7 (-9) when
-> interpreted as signed values. When these are used as negative shift
-> counts in expressions like `1 << -clusters_per_mft_record`, values
-> like 0xE1 cause `1 << 31`, which shifts into the sign bit of a 32-bit
-> signed integer, resulting in undefined behavior.
->
-> Fix by using unsigned shift (1U << ...) instead of signed shift.
-> This prevents undefined behavior while preserving the full valid
-> range of negative values (-31 to -9) that may appear in NTFS boot
-> sectors.
->
-> The encoding scheme uses negative values to represent record sizes
-> smaller than cluster_size: -log2(record_size). Common values include
-> -10 (1024 bytes) for mft_record_size and -12 (4096 bytes) for
-> index_record_size.
->
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
-Applied it to #ntfs-next with Baolin's reviewed-by tag.
-Thanks!
+Since it's 2026 :) I asked Claude to look at my time as THP co-maintainer:
+
+	~107,000 words of review across 948 emails (in 279 distinct
+	threads), counting only prose you actually wrote — quoted text,
+	signatures and attribution lines stripped. That's a full novel's
+	worth of review commentary.
+
+	Along the way you handed out 194 Reviewed-by and 15 Acked-by tags,
+	and your longest single review was 2,404 words (mTHP collapse
+	support, v12 — the khugepaged/mTHP collapse saga accounts for most
+	of your top-10 longest reviews).
+
+	Estimated review time: roughly 300–500 hours, centred around ~400
+	(i.e. ~7 hours/week for 14 months).
+
+	1,615 THP-related emails in the window: 948 reviews of others'
+	work, 278 replies on your own THP-touching series threads (~31k
+	more words responding to review), 382 patch emails, and a handful
+	of MAINTAINERS bits. Busiest months: March 2026 (131 review
+	emails), June 2026 (113), August 2026 (111); quietest was December
+	2025 (5).
+
+Think I can be happy with that!
+
+--
+Cheers, Lorenzo
