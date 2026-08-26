@@ -1,139 +1,224 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D355C3B7753
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 20:46:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DFC73B059C
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 20:47:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787777205; cv=none; b=Bh57sbq4xowCFJOF8l+AScqoI/odNexD7Ssjw9AXB0iozeozh3y5uSYvlQsLG+jq7tM2N2iETBhaRE4/OVJ0xs4DGYNM6bEhwJps7mSM/ER8rVWtXUGdr7Jb70JkEpqxfTkfxX83to5JioAn7jSzpP0EuML7k5eceJizilB7KK4=
+	t=1787777226; cv=none; b=kvzlzgDsNX5RZRd+W3q9aYSHtl811YrQPkYfwRyfYuRSWy5AENaHRxrTqikeqrorb8ysZ3BoSVqpH51BDo0ByoO4G3K1b0dsJNjDybEe4DOmnOPPBL2VsJbmBS5lbQsp8dYt2QESJgTJkKF90axE0rXAxSrbQ84RJZRqg7IQH1M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787777205; c=relaxed/simple;
-	bh=XBdVrMHjTyolReC0N1fxKCCDSR8DwSAH1sCPMJHVaL8=;
-	h=From:In-Reply-To:References:To:Cc:Subject:MIME-Version:
-	 Content-Type:Date:Message-ID; b=WvkLZuVl1XH1WkjZr3kxXeJQacPGI1imBaS1DIxHJNUY8t7MNwO9WUpf9eS7hVUEqBMPiYZQm58BMM6G9mb/3pSUdubTQYaK9qI+U2+qkrz/PSG3PKEvDJM+SETaq+nlK2sHmvHIgU1c/oUpEMb2QrdYDe89TYKPc0XYkB8GyqQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Y6mapRp5; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1787777226; c=relaxed/simple;
+	bh=8W+6nm1p92cnpBRrsTxdlV28jcWT30IBrjF2fyWBd6Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=A9JuK1OvXa3VwZsrO4xhIVg6iERA49aqTZjfgbt+wJ105Sn/DK8S89CR1MML/TsCmTqOPC1blZqHLR3gerTDZKKtkHjyKIo3oTD+rmOFY3aw0NsXo2tINR4t6J/iWh3mzUryZheOAxiz619Ink2KhjdMKUzicRMt/AcU0eaPgs4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=bbImQpF0; arc=none smtp.client-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Y6mapRp5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787777202;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/jP0UKtPxmEhy6HDyIj1plfhDhBBfaCkZLlo/sEgyzw=;
-	b=Y6mapRp5hDo0pZU8xIoxoIiqK4LlnppKZMk0bn5dHymVkEYoixH4ZImMy7GLxgUCnTX6ey
-	oRWEHQRYFtggNYIkSQo3cWChFrlWikAdf6nAWTa1su+41ypR/tofpsX7LMO0TM0xHcswp1
-	EWJ3R7mAIOhosEvWvF3dW2Sr4gwi2vw=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-412-xNS7lx1SPmKIlckEKETYBg-1; Wed,
- 26 Aug 2026 16:46:38 -0400
-X-MC-Unique: xNS7lx1SPmKIlckEKETYBg-1
-X-Mimecast-MFC-AGG-ID: xNS7lx1SPmKIlckEKETYBg_1787777196
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 696B41955BDD;
-	Wed, 26 Aug 2026 20:46:36 +0000 (UTC)
-Received: from warthog.procyon.org.uk (unknown [10.22.88.47])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id DC8681955F0B;
-	Wed, 26 Aug 2026 20:46:33 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-In-Reply-To: <1819786.1787768317@warthog.procyon.org.uk>
-References: <1819786.1787768317@warthog.procyon.org.uk>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: dhowells@redhat.com, Keith Busch <kbusch@kernel.org>,
-    Hannes Reinecke <hare@kernel.org>, Christoph Hellwig <hch@lst.de>,
-    Alexander Viro <viro@zeniv.linux.org.uk>,
-    Paulo Alcantara <pc@manguebit.org>, netfs@lists.linux.dev,
-    linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-    linux-kernel@vger.kernel.org
-Subject: [PATCH v2] block: Fix start and length check added to iov_iter_extract_bvecs()
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="bbImQpF0"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2cede6375caso32635ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:47:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787777225; x=1788382025; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tVpNY9AYqp69vRQbsKPPtkBeX+dXdwmZPC7oJAGryqk=;
+        b=bbImQpF0VfDWrpfE1FdkzaYXAS5XZ2DsAzNMm/yEpmVqyoBCOaDtTsdyIUiroo3nRn
+         hft4W7bQ4QQMTZA0dAqPUOfTFXEyIITQ+1VjG+u34mqNcODDLkec7KcbPVLz5N37Evm4
+         mV5seE4sYB0v4dDr1Z5U23ozPQK5MUxfGoB2QWNVb7bKh7uTLaiLOrxlZkeKp7Ihp1os
+         evpuqyvCxIqhD14CHFR5nENjw/iR3kh38kUmObthW9DIyE37pmjoHi2+nk/HhTHhwTMU
+         9yfvQgy+OMZjYWP/mIGid3jYdKa2qnBPwoUVb+g//ncRuilNjch+WyjERQJgXcotC32Z
+         hTjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787777225; x=1788382025;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tVpNY9AYqp69vRQbsKPPtkBeX+dXdwmZPC7oJAGryqk=;
+        b=WieysgDflW6+CTfDC8Wl34mW6+GlTTfnJ4tFLLuGP4TQMjpR7BXQI4dJ+QtOW/0h4d
+         olYKaNfkJR9PP0jJ8xwAe/3zpe9/hO49CSeyD5cQA5itwCItzxw7gJFTwNYB27eTDAhc
+         BzgTIP8gmwzzXDX0yuVh6SeGCk9Pj2zqnkZMTx+Sq+N0QHOWgHWDiCWZ3EL9RESGMzCw
+         EZG+sPN4BJgbbWOlo5/OfIRbTwDmj9onAtiiIoC3JdFOAv+L7xvmpiJf6zS8mpEy5E3b
+         KsKiRT8X0bzmGwJQAsZjHnNP2F4ANbGb7DhKdJ401Cx3aPyssKeLxdhF6HC8OmXmu1cU
+         0xKw==
+X-Forwarded-Encrypted: i=1; AHgh+RqXp+3MWv2JDV+E1RU8oPgELvb9p5kLGE6hLwUvbTbFjdoyFoM/L2Qt+q1UldOFxyv0E4zMsxg6o3dRgWs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nmWuXgg/KKIsso1mXIIc37Y/tmD2FNIjLMo8fhNI5I00OjMeK5
+	tuaFD3LiTaYIaFWQ8CagcbvJCWaLRVIxxCqN3eyNUf68OrkmLEk8GtGLljWarUrN4g==
+X-Gm-Gg: AR+sD12sVKhC/e5YI/QFI81v7hoCLSo/48PJdxxTm/5peUYDfy5K1EZfenryuyY5gN2
+	dR3HEGILpYz7WVERrQOXo63kvUB4uSAh0AnSP3V8PswQgPBd8M+C7E1mu8AoYukrau+6ISX4XuW
+	cOANMvTC3RYf5ZYdK+25YcntdwK+ZgWydml/WN6HTRchd2uoWxOPoNbhRqX68ud9jiCmFCs1OA6
+	V5tCI2gSxeyOd+PjmP1JRHzgcBOjOJWu2TV5ur1O8eIv2Gol0dgeM66n2DWEjsleQtuCuVEf3Ts
+	AaLuJxMlGlbxvdKyQGD8KOJj7gVzFRCfnLjBDbghcFOTpT/9FbG33/pkytoLFKOA8hKW3I/iKf9
+	UDmun/EyBpR9dhfCb1aIPJy7Kw7uilAOlQndZvXnvjByOGMbjNgHlixEfsui4QdbKsZQYQTf1T0
+	DQNTXC2B0xdHAZGjEZOxWJh+7hlcj3cfwZcKJrX2QAKcQzqTtA/DYug6j+IyZO5soVLnBT2j666
+	7oFnzlfaH99AVZd3zr90EsroP0HRtourjM1t0fzmO2Kvfy0Hs4xQ3pL7mEMRvTJsPwJgw==
+X-Received: by 2002:a17:902:e94f:b0:2d5:db3d:1a44 with SMTP id d9443c01a7336-2d73365a24amr151945ad.17.1787777213391;
+        Wed, 26 Aug 2026 13:46:53 -0700 (PDT)
+Received: from google.com (210.87.127.34.bc.googleusercontent.com. [34.127.87.210])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1befce3b8sm1396240a12.5.2026.08.26.13.46.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 13:46:51 -0700 (PDT)
+Date: Wed, 26 Aug 2026 20:46:47 +0000
+From: Samiullah Khawaja <skhawaja@google.com>
+To: Baolu Lu <baolu.lu@linux.intel.com>
+Cc: David Woodhouse <dwmw2@infradead.org>, Joerg Roedel <joro@8bytes.org>, 
+	Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	Robin Murphy <robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>, 
+	Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, kvm@vger.kernel.org, Pratyush Yadav <pratyush@kernel.org>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, David Matlack <dmatlack@google.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Pranjal Shrivastava <praan@google.com>, 
+	Vipin Sharma <vipinsh@google.com>
+Subject: Re: [PATCH v4 07/18] iommu/vt-d: Implement device and iommu
+ preserve/unpreserve ops
+Message-ID: <ao9PE9gdOh3DXNvP@google.com>
+References: <20260808022723.3893618-1-skhawaja@google.com>
+ <20260808022723.3893618-8-skhawaja@google.com>
+ <065b2be2-2ff1-42a0-99b1-ed81e783dca1@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <1895549.1787777192.1@warthog.procyon.org.uk>
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 26 Aug 2026 21:46:32 +0100
-Message-ID: <1895550.1787777192@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <065b2be2-2ff1-42a0-99b1-ed81e783dca1@linux.intel.com>
 
-Commit 14b007e17881 added an address check using iter_iov_addr() and a
-length check using iter_iov_len() to iov_iter_extract_bvecs(), but these
-cannot be used so and are unsafe in this circumstance as the functions hav=
-e
-hardwired assumptions about the iterator type.  They should only be used
-with ITER_UBUF or ITER_IOVEC-type iterators and work with ITER_KVEC; they
-should not be used with ITER_BVEC, ITER_FOLIOQ, ITER_XARRAY or ITER_DISCAR=
-D
-iterators.
+On Wed, Aug 26, 2026 at 03:10:31PM +0800, Baolu Lu wrote:
+>On 8/8/26 10:27, Samiullah Khawaja wrote:
+>>Add implementation of the device and iommu presevation in a separate
+>>file. Also set the device and iommu preserve/unpreserve ops in the
+>>struct iommu_ops.
+>
+>This patch, on its own, does not fully implement the preserve operation.
+>At this point, the callback preserves all root/context entries used for
+>live update, but it does not yet clear non-preserved entries and
+>invalidate the related caches; that cleanup is supposed to be done in
+>the next patch.
+>
+>So I think we should either:
+>
+>- add a brief note here to make this dependency explicit, or
+>- merge these two patches into a single patch for completeness.
+>
+>?
 
-This change proved to be a problem for cachefiles as an iterator of type
-ITER_FOLIOQ is passed and iter_iov_addr() and iter_iov_len() both
-malfunction because iter->__iov in iter_iov() is not pointing to an iovec
-array.
+That is a good point. I kept the cleanup patch separate as it has to do
+with shutdown and basically getting ready to go into kexec. This patch
+mostly focuses on the "preservation of the memory" being used by various
+IOMMU data structures.
 
-Fix this by using iov_iter_alignment() instead for anything other than
-ITER_UBUF, ITER_IOVEC or ITER_KVEC.
+But I agree, we should add a note about the cleanup here. I will do that
+in the next revision.
+>
+>>
+>>Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
+>>---
 
-Fixes: 14b007e17881 ("block: validate user space vectors during extraction=
-")
-Suggested-by: Keith Busch <kbusch@kernel.org>
-cc: Keith Busch <kbusch@kernel.org>
-cc: Jens Axboe <axboe@kernel.dk>
-cc: Hannes Reinecke <hare@kernel.org>
-cc: Christoph Hellwig <hch@lst.de>
-cc: Alexander Viro <viro@zeniv.linux.org.uk>
-cc: Paulo Alcantara <pc@manguebit.org>
-cc: netfs@lists.linux.dev
-cc: linux-block@vger.kernel.org
-cc: linux-fsdevel@vger.kernel.org
----
- lib/iov_iter.c |   11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+[snip]
 
-diff --git a/lib/iov_iter.c b/lib/iov_iter.c
-index 6665372ecf71..c489569a5815 100644
---- a/lib/iov_iter.c
-+++ b/lib/iov_iter.c
-@@ -1921,15 +1921,22 @@ ssize_t iov_iter_extract_bvecs(struct iov_iter *it=
-er, struct bio_vec *bv,
- 		unsigned short max_vecs, unsigned mem_align_mask,
- 		iov_iter_extraction_t extraction_flags)
- {
--	unsigned long start =3D (unsigned long)iter_iov_addr(iter);
- 	unsigned short entries_left =3D max_vecs - *nr_vecs;
- 	unsigned short nr_pages, i =3D 0;
- 	size_t left, offset, len;
- 	struct page **pages;
- 	ssize_t size;
- =
+>>+#else
+>>+static inline int intel_iommu_preserve_device(struct device *dev,
+>>+					      struct iommu_device_ser *device_ser)
+>>+{
+>>+	return -EOPNOTSUPP;
+>>+}
+>>+
+>>+static inline void intel_iommu_unpreserve_device(struct device *dev,
+>>+						 struct iommu_device_ser *device_ser)
+>>+{
+>>+}
+>>+
+>>+static inline int intel_iommu_preserve(struct iommu_device *iommu,
+>>+				       struct iommu_hw_ser *iommu_ser)
+>>+{
+>>+	return -EOPNOTSUPP;
+>>+}
+>>+
+>>+static inline void intel_iommu_unpreserve(struct iommu_device *iommu,
+>>+					  struct iommu_hw_ser *iommu_ser)
+>>+{
+>>+}
+>>+#endif
+>
+>I believe the #else ... #endif stubs are unnecessary and can be removed.
+>
+>Specially iommu core checks driver support via callback pointer
+>presence:
+>
+>        if (!iommu->iommu_dev->ops->preserve_device ||
+>            !iommu->iommu_dev->ops->unpreserve_device ||
+>            !iommu->iommu_dev->ops->preserve ||
+>            !iommu->iommu_dev->ops->unpreserve)
+>                return -EOPNOTSUPP
+>
+>So when CONFIG_IOMMU_LIVEUPDATE is disabled, simply not wiring these
+>callbacks is sufficient.
 
--	if ((start | iter_iov_len(iter)) & mem_align_mask)
-+	if (likely(iter_is_ubuf(iter) ||
-+		   iter_is_iovec(iter) ||
-+		   iov_iter_is_kvec(iter))) {
-+		unsigned long start =3D (unsigned long)iter_iov_addr(iter);
-+
-+		if ((start | iter_iov_len(iter)) & mem_align_mask)
-+			return -EINVAL;
-+	} else if (iov_iter_alignment(iter) & mem_align_mask) {
- 		return -EINVAL;
-+	}
- =
+Agreed. Will remove these.
+>
+>>+
+>>  #ifdef CONFIG_INTEL_IOMMU_SVM
+>>  void intel_svm_check(struct intel_iommu *iommu);
+>>  struct iommu_domain *intel_svm_domain_alloc(struct device *dev,
+>>+
 
- 	/*
- 	 * Move page array up in the allocated memory for the bio vecs as far as
+[snip]
 
+>>+/**
+>>+ * intel_iommu_unpreserve_device() - Intel IOMMU callback to unpreserve device state
+>>+ * @dev: Target device
+>>+ * @device_ser: Struct containing serialized device state
+>>+ */
+>>+void intel_iommu_unpreserve_device(struct device *dev,
+>>+				   struct iommu_device_ser *device_ser)
+>>+{
+>>+}
+>
+>Please add a comment explaining why this callback is intentionally
+>empty.
+
+Agreed. Will add in the next revision.
+>
+>>+
+>>+/**
+>>+ * intel_iommu_preserve() - Intel IOMMU callback to preserve hardware state
+>>+ * @iommu_dev: Generic IOMMU device handle
+>>+ * @ser: Struct to populate with serialized hardware state
+>>+ *
+>>+ * Return: 0 on success, or negative error code.
+>>+ */
+>>+int intel_iommu_preserve(struct iommu_device *iommu_dev,
+>>+			 struct iommu_hw_ser *ser)
+>>+{
+>>+	struct intel_iommu *iommu;
+>>+	int ret;
+>>+
+
+[snip]
+
+>>  /**
+>>   * struct iommu_hw_ser - Serialized state of an IOMMU instance
+>>   * @hdr: Common object header
+>>   * @token: Unique token for the IOMMU
+>>   * @type: IOMMU type serialized state belongs to
+>>+ * @intel: Intel specific serialization data
+>>   */
+>>  struct iommu_hw_ser {
+>>  	struct iommu_hdr_ser hdr;
+>>  	u64 token;
+>>  	u64 type;
+>>+	union {
+>>+		struct iommu_intel_ser intel;
+>>+	};
+>>  } __packed;
+>>  /**
+>
+>Thanks,
+>baolu
+
+Thanks,
+Sami
