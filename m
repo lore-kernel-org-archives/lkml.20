@@ -1,67 +1,68 @@
-Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com [209.85.210.48])
+Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com [209.85.210.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2F5A48425C
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 20:20:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0058C485505
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 20:20:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787775621; cv=none; b=A5fwuRqQ5ck018mp52EGY8UZ31BqDR0I5ioPuFqQASWHo3yN+zMmky7FouvirqtIuELthX0Tni9qMQHJUoBw9zRfN9N0De7LRaV8OYR6nuglePxjFrFKRCyYsE1m5Lnu1tovpnzpaLuwh+lRj/xeosDJeNK4cXhac2ZnNBlXuwo=
+	t=1787775623; cv=none; b=F2goQKSpCgeNDYjzN2Whom8+xnrEfsNWOvhYu2GTeSDQm83I0wXf3W0qpYXEG2IuPR7b1xMn3t+ombdqJXksQgHkem39Wg4/rkQ+SSJFAb1lu8lcYeSZHCcIxcAWSbClDspcXKjCE6rQIX5+FlkOCoVmlcaDjhJDikF3/wVym7s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787775621; c=relaxed/simple;
-	bh=Ycvuca/qp3Jv+cw0T4z1WMw/vrj1a9F1QllZFmg6U5U=;
+	s=arc-20240116; t=1787775623; c=relaxed/simple;
+	bh=8WdFP1v7/Oa+dKIJynboqHB29B7wDjj6AhOsc16jvtI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=RG1JKTF3YZHcnDmmcJco5/MB5BV3b2Yd6Nndej1thaI6SMAgJ/XfbQ03CoyTXQ4UrWS+gX2hZiP5UCJIhElNk4G5acM47Pz8RYiL61FZCMExogIDr9U3KMv1cY875e6mANGgS6W+xWD2GTPSj39p7S8G7NR7lIzySb39eIxCS1I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com; spf=pass smtp.mailfrom=cloudflare.com; dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b=cNzrwwVD; arc=none smtp.client-ip=209.85.210.48
+	 In-Reply-To:To:Cc; b=hPZbmYgoTIGVMHp1kYz5HoDPh5CyRWqg5PqW+6O0Nz/2VgxlAOKjQi2cs92Yr7d0GKRXXMxM97elCU3dlq0hQ7IIdigKqBnTvVBpESDNHxocI3goz00Tzi5oRXDR+Yq9MQ4Uj8pEYusFFo54YCr0YRuhF71761oMGoEoB8yoQSY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com; spf=pass smtp.mailfrom=cloudflare.com; dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b=ec9LLDQs; arc=none smtp.client-ip=209.85.210.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudflare.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b="cNzrwwVD"
-Received: by mail-ot1-f48.google.com with SMTP id 46e09a7af769-7f18c0e03e3so1061116a34.2
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:20:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b="ec9LLDQs"
+Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-7ee125ec926so1276568a34.2
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:20:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloudflare.com; s=google09082023; t=1787775619; x=1788380419; darn=vger.kernel.org;
+        d=cloudflare.com; s=google09082023; t=1787775620; x=1788380420; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=T/AoKIWVfZg9PcVSVrRIUhVB2ooggyxSF0Nn+JpI7Mo=;
-        b=cNzrwwVDw+NQH4WpqHsArK9bysKTe4z9cA3rN6QPGozhsXbkB5weWwd4L0R/zvQSjo
-         dCtRNpS2nIbTA6zO7kSkRYbwy1YkQg9wmY7INaQc8aBRfa9koZFqLxIvX3cLCHe04X2r
-         JyNdbpHEMytERiKikue447ZqqLoHaTyARWhKINBEzZaQ8hqp25YNZ4TjHRP8hW+A5JvQ
-         2MvYAkwr13DQ2RwlLZMwazx/RPs4webXy1Imv9qiynau1O4mmIetOUYOw104Z2LaQ9eC
-         1MgS7uvA/U5D4H4CUpw6A0EsLaVv2+jhptw32ZDvYbSFvZeXjwM0jwRznStuelpQmU39
-         u3Kw==
+        bh=63GI428HLg6svgdiqmZ8ZkijlWs39+VHkT3kxwHKcMM=;
+        b=ec9LLDQsdvQwS7eLdzA7HtVEZqiWovHJEL4vgHgGRwPZntkB0ct5XDmOBqO7Vo4hnP
+         d68aBHmGvGCEVB2iaWeSYyO4QiOuJl8yNhTy979bSGHvV4ipftFPSgKVxaLYgJfNluk6
+         FIHrkgOFs3iKhaenOXQacAqv5pZKwN7C70JiIrvWrytg4qnDIljIBeELgrREib93jXFX
+         /Zyb1Q8VDKhQf+3gXaZOIbr3OTslCqGEVVjD6jz5mCPggO3EChgT/YELw1j2Oy7ie/d0
+         R7KJObgKC4ia0TV0NEVHoCZGmxu/ecEcM1nKA/uCFVvIs/EsBNnacVIsg4Z6DLXOoCrs
+         +crA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787775619; x=1788380419;
+        d=1e100.net; s=20251104; t=1787775620; x=1788380420;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=T/AoKIWVfZg9PcVSVrRIUhVB2ooggyxSF0Nn+JpI7Mo=;
-        b=WgdPYctqmvTFDwizy1lzXkAkB6ubiySApFUIQPfDyQUMp3UwyS71XI3E//40EsLPDb
-         7Iqrr6WRl3MjPa6jc5+8oQZ+Q3Sx/AD1DknQMUXXTGG91iXr3Wd+BCIogaxhYv2ad5zH
-         geu8PzctygmCuEEgtwOu4AVBhph32qgqLFzg+inXeIb8EbNXrEhZxUvUZ4Zq9qFGhz+/
-         Zqp3S1VtJNt0qk5sE+A+CQRgGNau87M0px9iEaxlfS7ZMTp2bMutRIMUSjA70Cn1W4T2
-         fEzmAoV0QLnYquiE90tORPPZ5920xyN5jhy3giwL06SLFD08cCG/YYhm3sDOUer2TgfI
-         ZTXQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqRT6C7jRJ4rH47Qsiu6bLYhlTQ6EBheL7j7f5XXgXqhMCKOcbuXFaybKyY39+v56urf/6HAsFJ5T2ZR40=@vger.kernel.org
-X-Gm-Message-State: AFuF++lJ5uxw4vFhHSwgVAmZ0pIYSaxnbGVzHVMSX4ov6uFKwnCeOzI9
-	IE329C1XvwBAQ9dGYCDufLozW2XiTjODZCOKstPeulA/lWGoSm+6b06RgRqn6kh5xBk=
-X-Gm-Gg: AR+sD119kyx/4NPd0D/sUqCKbD6ALLmFXutazQEj4XRV9PFA0qJqGd0FkpmsNe89/7h
-	7Rh3nGBxmEoMffrBqRdr+S7v4gByqfddcb0jgSQ6pE5cwBBbYyKkhVFAqCG/MrCtT3URvHmDbkU
-	GV4Rz4+MHR5wx3y6ZHPdg6EeUZC4W/Ri9pxXHs8Mtd01UYr4RiMe4xfXp3t+vV8gjMOM1rNmC2o
-	yGof9NTSz8ftRAlWO2pWsAezsfOuaOeaMzNSp+NHeju3d2suLaOF1jtwoVuPoL3Tfz8EGeo3cjK
-	s+T6Du8SC0CuyC3tVN6Z7aXPTAc5iKHPcIGodMZ+nztv3LoRFPRCobeqjqfDhMDpPcaCJzG/erh
-	5sJpxvTb28vZ9QHBjQYVn+INuxEweXn1o6C3Iz8jOCpzRJS2u0VFWXg7hsX8z30ltEWN5Bez3/K
-	U3xV1N0E6hEkVATfqftMtM+1m6VnbgL5pUC6gzfP7x88FLeamAqQ==
-X-Received: by 2002:a05:6830:3111:b0:7f3:7686:3f7 with SMTP id 46e09a7af769-7f4c5244732mr9914547a34.13.1787775618689;
-        Wed, 26 Aug 2026 13:20:18 -0700 (PDT)
+        bh=63GI428HLg6svgdiqmZ8ZkijlWs39+VHkT3kxwHKcMM=;
+        b=dSSf4o9zr2uOEKm7qqzLzayHD+Lu1X8HfWc9MlZnGmF3X/ejPfZd5c0XNHEuA/Vz6n
+         3cbqdy2DPXAGf7KlS4MmsnxWBF4UUbew2gMLLso15bOJc1LXaPL9Hb7zp8T3lwUe/EgL
+         oHbe04BXpwcOjvlVcPHTnTjNP4rPQKSPXSz/122HMu32eIjdPAoU1dVSbogr9UJJAvSh
+         fdgRRvxSkd3IceqFWy9+AXjgsWGoIVwJka2T1l328Df5hcfOHrv3J+u953/sWjVKmtnY
+         L9OnoOLeS8Z/v05L7skPYl6nbPPzXqImCbPS1t2+lR7iwcfza1mU93O1KxmIXnTslV0w
+         BwUA==
+X-Forwarded-Encrypted: i=1; AHgh+Ro35ZEDtTuN/tVpSglGO2eMcgsffi4WKHSIe6NhnxXL3TgOKX3crdJONbioaQvDadZfvdhAtQLgUNR4ryQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lf54R7bstfFm4r8oJKKdva6kzN5ddpdCmKnSeV8HEIG1y7wtzJ
+	F92dMjUBFZ1lxnfrkcHNUhlnRvjfpmPKZd6a6YokWF7tThgS+eLYXZR2qHDrO5Yge8A=
+X-Gm-Gg: AR+sD10fPsFc1bAy6qTJHQdi3Z7F/5m6UQ40A5JfrSzu7M+iCIRcDH4UpRZIipquEPG
+	DK1rwT8xEZRsbDNChVHNnzumsfDaVugbe64KggQCkClCija8418OirPRK10JLiJViuQtbgIzlVL
+	6qXQA0PkbaNUXVIZUctGWPPbg9PRhqnwEr92Y6QroJS2wiQAKkcsm8YKyWerSxCEoeEEWFSxJUd
+	BrsYHyWg0aRpKZy7PGCgp9pT/YZ7pqovzgjG/2KqO3FKdpNxXckMhutae3L0oFHPdQQb2/OMcOl
+	nF/sS39X4WoIZ2AhWNmRGXrzHqOZYZRVm5AZGCYR1v4m9fUJ+Cg/0skzk14De1U7qeclhWo5Rgt
+	7/Q5sgvK1xAjFSYrUVQ3alRu5HMoX0eW5zh/kfdqIfLMsjEqGZQQg6/xTHmrwawyyKqwcXn69xF
+	ij3086upuB3nyzvfhuEeQTEcur3qyfLJe6J4F870/cBT8o7lJpwA==
+X-Received: by 2002:a05:6830:67d5:b0:7dc:d967:63de with SMTP id 46e09a7af769-7f4c4d64368mr11216740a34.3.1787775619738;
+        Wed, 26 Aug 2026 13:20:19 -0700 (PDT)
 Received: from [127.0.1.1] ([2a09:bac6:bf21:2e46::49c:30])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f4c83d09d1sm2474928a34.14.2026.08.26.13.20.15
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f4c83d09d1sm2474928a34.14.2026.08.26.13.20.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 13:20:17 -0700 (PDT)
+        Wed, 26 Aug 2026 13:20:19 -0700 (PDT)
 From: Chris J Arges <carges@cloudflare.com>
-Date: Wed, 26 Aug 2026 15:20:08 -0500
-Subject: [PATCH RFC net-next 2/3] ipv6: hash uncached routes by device
+Date: Wed, 26 Aug 2026 15:20:09 -0500
+Subject: [PATCH RFC net-next 3/3] selftests: net: cover IPv6 uncached route
+ device mismatch
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,7 +71,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260826-hash-bucket-route-lists-v1-2-fa9b9f30eb74@cloudflare.com>
+Message-Id: <20260826-hash-bucket-route-lists-v1-3-fa9b9f30eb74@cloudflare.com>
 References: <20260826-hash-bucket-route-lists-v1-0-fa9b9f30eb74@cloudflare.com>
 In-Reply-To: <20260826-hash-bucket-route-lists-v1-0-fa9b9f30eb74@cloudflare.com>
 To: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
@@ -81,178 +82,81 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-kselftest@vger.kernel.org, kernel-team@cloudflare.com, 
  Chris J Arges <carges@cloudflare.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1787775612; l=4996;
+X-Developer-Signature: v=1; a=openssh-sha256; t=1787775612; l=2338;
  i=carges@cloudflare.com; h=from:subject:message-id;
- bh=Ycvuca/qp3Jv+cw0T4z1WMw/vrj1a9F1QllZFmg6U5U=;
+ bh=8WdFP1v7/Oa+dKIJynboqHB29B7wDjj6AhOsc16jvtI=;
  b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgaxY1IIT5oTohBZJmhnVgJo2HsM7Sv
  9I0LdJCgpeGX6gAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QF34rvo7rUcHSQNt2dHD8bfcs7GM0mf/XWPc6V5F34eGF1EzGBVZExS241sVdibDonYOVBzgAtX
- Np7nYj2tguwc=
+ QIN/ELnOoxeg3+ypsLXddMhmAW91TdCKXJwHgzCyP1kl2GOWkz6QMyXAwWtaHLzwI55mrKqtQn2
+ 8VfSQkCxyXg8=
 X-Developer-Key: i=carges@cloudflare.com; a=openssh;
  fpr=SHA256:Cun99EBiH0EV7wvmfTBF9eDrld2NJx+aD4ScWZ45Q5M
 
-rt6_uncached_list_flush_dev() currently walks every per-CPU uncached route
-list for each device being removed. Hash uncached routes by their inet6
-device so ordinary device teardown only visits the matching bucket on each
-CPU.
+Local IPv6 routes through a VRF can use the VRF as dst.dev while
+retaining the VRF member interface in rt6i_idev. Exercise device
+teardown while such uncached routes are retained by a delayed qdisc.
 
-ip6_rt_get_dev_rcu() can return loopback or an L3 master while rt6i_idev
-still refers to the original interface, so such a route must be reachable
-from either device. Place those routes on a separate per-CPU list that is
-always visited in addition to the keyed bucket.
-
-This avoids growing struct rt6_info while filtering most unrelated routes
-from ordinary device teardown.
+Reuse the existing VRF topology and msg_zerocopy raw-header sender, and
+verify route creation, qdisc retention, and prompt interface deletion.
 
 Signed-off-by: Chris J Arges <carges@cloudflare.com>
 ---
- net/ipv6/route.c | 102 +++++++++++++++++++++++++++++++++++++------------------
- 1 file changed, 69 insertions(+), 33 deletions(-)
+ tools/testing/selftests/net/vrf-xfrm-tests.sh | 35 +++++++++++++++++++++++++++
+ 1 file changed, 35 insertions(+)
 
-diff --git a/net/ipv6/route.c b/net/ipv6/route.c
-index 16dfac54a259..860530074027 100644
---- a/net/ipv6/route.c
-+++ b/net/ipv6/route.c
-@@ -40,6 +40,7 @@
- #include <linux/seq_file.h>
- #include <linux/nsproxy.h>
- #include <linux/slab.h>
-+#include <linux/hash.h>
- #include <linux/jhash.h>
- #include <linux/siphash.h>
- #include <net/net_namespace.h>
-@@ -133,11 +134,28 @@ struct uncached_list {
- 	struct list_head	head;
- };
- 
--static DEFINE_PER_CPU_ALIGNED(struct uncached_list, rt6_uncached_list);
-+#define RT6_UNCACHED_HASH_BITS	6
-+#define RT6_UNCACHED_HASH_SIZE	BIT(RT6_UNCACHED_HASH_BITS)
-+
-+struct rt6_uncached_table {
-+	struct uncached_list buckets[RT6_UNCACHED_HASH_SIZE];
-+	/* Routes that must be discoverable through two different devices. */
-+	struct uncached_list mismatch;
-+};
-+
-+static DEFINE_PER_CPU_ALIGNED(struct rt6_uncached_table, rt6_uncached_table);
- 
- void rt6_uncached_list_add(struct rt6_info *rt)
- {
--	struct uncached_list *ul = raw_cpu_ptr(&rt6_uncached_list);
-+	struct rt6_uncached_table *table = raw_cpu_ptr(&rt6_uncached_table);
-+	struct net_device *rt_dev = dst_dev(&rt->dst);
-+	struct uncached_list *ul;
-+
-+	if (rt->rt6i_idev && rt->rt6i_idev->dev != rt_dev)
-+		ul = &table->mismatch;
-+	else
-+		ul = &table->buckets[hash_ptr(rt_dev,
-+					      RT6_UNCACHED_HASH_BITS)];
- 
- 	rt->dst.rt_uncached_list = ul;
- 
-@@ -157,40 +175,50 @@ void rt6_uncached_list_del(struct rt6_info *rt)
- 	}
+diff --git a/tools/testing/selftests/net/vrf-xfrm-tests.sh b/tools/testing/selftests/net/vrf-xfrm-tests.sh
+index b64dd891699d..4f409d135a99 100755
+--- a/tools/testing/selftests/net/vrf-xfrm-tests.sh
++++ b/tools/testing/selftests/net/vrf-xfrm-tests.sh
+@@ -385,6 +385,37 @@ run_tests()
+ 	cleanup_xfrm_dev
  }
  
-+static void rt6_uncached_list_flush(struct uncached_list *ul,
-+				    struct net_device *dev)
++test_ipv6_uncached_mismatch()
 +{
-+	struct rt6_info *rt, *safe;
++	local sender_pid
++	local backlog
++	local rc
 +
-+	if (list_empty(&ul->head))
-+		return;
++	# A local route through a VRF uses the VRF as dst.dev while retaining
++	# the VRF member interface in rt6i_idev. Raw header sends create uncached
++	# routes, and netem keeps them referenced while the interface is deleted.
++	run_cmd_host1 tc qdisc replace dev ${VRF} root netem limit 1 delay 10s
++	ip -6 -netns "$host1" route add local ${HOST1_6}/128 dev eth0
++	ip netns exec "$host1" ./msg_zerocopy -6 \
++		-S ${HOST1_6} -D ${HOST1_6} -s 1200 -t 0 raw_hdrincl \
++		>/dev/null 2>&1 &
++	sender_pid=$!
++	wait "$sender_pid"
++	rc=$?
++	log_test $rc 0 "Create uncached IPv6 routes with mismatched devices"
++	[ $rc -ne 0 ] && return
 +
-+	spin_lock_bh(&ul->lock);
-+	list_for_each_entry_safe(rt, safe, &ul->head, dst.rt_uncached) {
-+		struct inet6_dev *rt_idev = rt->rt6i_idev;
-+		struct net_device *rt_dev = dst_dev(&rt->dst);
-+		bool handled = false;
++	backlog=$(ip netns exec "$host1" tc -s qdisc show dev ${VRF})
++	if ! echo "$backlog" | grep -Eq 'backlog .* [1-9][0-9]*p'; then
++		log_test 1 0 "Retain uncached IPv6 routes in VRF qdisc"
++		return
++	fi
++	log_test 0 0 "Retain uncached IPv6 routes in VRF qdisc"
 +
-+		if (rt_idev && rt_idev->dev == dev) {
-+			rt->rt6i_idev = in6_dev_get(blackhole_netdev);
-+			in6_dev_put(rt_idev);
-+			handled = true;
-+		}
-+
-+		if (rt_dev == dev) {
-+			rt->dst.dev = blackhole_netdev;
-+			netdev_ref_replace(rt_dev, blackhole_netdev,
-+					   &rt->dst.dev_tracker, GFP_ATOMIC);
-+			handled = true;
-+		}
-+		if (handled)
-+			list_del_init(&rt->dst.rt_uncached);
-+	}
-+	spin_unlock_bh(&ul->lock);
++	run_cmd_host1 timeout 2 ip link del eth0
++	log_test $? 0 "Flush uncached IPv6 routes with mismatched devices"
 +}
 +
- static void rt6_uncached_list_flush_dev(struct net_device *dev)
- {
- 	int cpu;
+ ################################################################################
+ # usage
  
- 	for_each_possible_cpu(cpu) {
--		struct uncached_list *ul = per_cpu_ptr(&rt6_uncached_list, cpu);
--		struct rt6_info *rt, *safe;
-+		struct rt6_uncached_table *table;
-+		struct uncached_list *ul;
+@@ -425,6 +456,10 @@ echo
+ echo "netem qdisc on VRF device"
+ run_tests
  
--		if (list_empty(&ul->head))
--			continue;
--
--		spin_lock_bh(&ul->lock);
--		list_for_each_entry_safe(rt, safe, &ul->head, dst.rt_uncached) {
--			struct inet6_dev *rt_idev = rt->rt6i_idev;
--			struct net_device *rt_dev = rt->dst.dev;
--			bool handled = false;
--
--			if (rt_idev && rt_idev->dev == dev) {
--				rt->rt6i_idev = in6_dev_get(blackhole_netdev);
--				in6_dev_put(rt_idev);
--				handled = true;
--			}
--
--			if (rt_dev == dev) {
--				rt->dst.dev = blackhole_netdev;
--				netdev_ref_replace(rt_dev, blackhole_netdev,
--						   &rt->dst.dev_tracker,
--						   GFP_ATOMIC);
--				handled = true;
--			}
--			if (handled)
--				list_del_init(&rt->dst.rt_uncached);
--		}
--		spin_unlock_bh(&ul->lock);
-+		table = per_cpu_ptr(&rt6_uncached_table, cpu);
-+		ul = &table->buckets[hash_ptr(dev, RT6_UNCACHED_HASH_BITS)];
-+		rt6_uncached_list_flush(ul, dev);
-+		rt6_uncached_list_flush(&table->mismatch, dev);
- 	}
- }
- 
-@@ -6982,10 +7010,18 @@ int __init ip6_route_init(void)
- #endif
- 
- 	for_each_possible_cpu(cpu) {
--		struct uncached_list *ul = per_cpu_ptr(&rt6_uncached_list, cpu);
-+		struct rt6_uncached_table *table;
-+		int bucket;
++echo
++echo "Uncached IPv6 route with mismatched devices"
++test_ipv6_uncached_mismatch
 +
-+		table = per_cpu_ptr(&rt6_uncached_table, cpu);
-+		for (bucket = 0; bucket < RT6_UNCACHED_HASH_SIZE; bucket++) {
-+			struct uncached_list *ul = &table->buckets[bucket];
+ printf "\nTests passed: %3d\n" ${nsuccess}
+ printf "Tests failed: %3d\n"   ${nfail}
  
--		INIT_LIST_HEAD(&ul->head);
--		spin_lock_init(&ul->lock);
-+			INIT_LIST_HEAD(&ul->head);
-+			spin_lock_init(&ul->lock);
-+		}
-+		INIT_LIST_HEAD(&table->mismatch.head);
-+		spin_lock_init(&table->mismatch.lock);
- 	}
- 
- out:
 
 -- 
 2.43.0
