@@ -1,203 +1,165 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013068.outbound.protection.outlook.com [40.107.162.68])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 830FB41DEE5;
-	Wed, 26 Aug 2026 15:22:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.68
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787757744; cv=fail; b=mv5vzQ8V/nMul6I0GJc9/lNUWo8ulZw2DGnwulalAPWeIEYcCcWtLSJ60R4wmjGJRsIqBXHeFsyNlUAif4zrDYHGH9XiBW4kgG3rgzoZQRh7KNi/ipEo9lffXj2nfkAx+gB4xiKmuLni1JwsGeagkaVoCTvPE8QT1q253YnOXaI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787757744; c=relaxed/simple;
-	bh=5qQaWXWwlar9luz41tUx3v66TuX8Ks8OxpaXFFS7FKQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=etz7DY2Er02bu7VfhlDtaTcpyP8ksrDeEI1uDvJOoa/2mGRmbcuSL/SYKEtYHhTaKyG6XRV9wlwcz2Z1Fl5XAYU6YtbwvRvA3QUshKgjunkHJx51OBOR0JsrkFQRJ5XqfAj5NU8/PoELMKnHH5caoRChkEdL18mUvDi1uaVv9Qs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=hNyUx8Gi; arc=fail smtp.client-ip=40.107.162.68
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E556F41B8EB
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 15:22:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.175
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787757767; cv=none; b=qxXriAaGHSPl5/NpYe3Kaq8bH6bx3q1mY647mgrTjx7gEF0HKX3IPDvMD7XMhd9jfYbBwnfPSNZp3V65m0e6mCPzeSjb8sRfvh0Zncuji/KrhBm2AJAbjbjJFOqeYujSX7Ux+yUk9Et124CkkU22PUR2AdfQjs8biTjx2PVTM8k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787757767; c=relaxed/simple;
+	bh=e0qrP02HWq5ayDKQG/MRP2B78qTQA/oS5HKaOLjhL/k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ICLkwir/4BqBnOA/PAzGv7nmzliEZhpqS3gS1FA2tSgsHay9mvHHet/JYvhdIzCFbbLqWf1fxaVAsvQScuZY5cJ3IE6ql26oyZF+iQU8zbtIdzReZ8kG5bJmVwnmsL66AUF8oXNqSCCn2wUHG6XflvoPDX5hZ7TppJtYA6U4bZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=bD5xIJfA; arc=none smtp.client-ip=209.85.222.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="hNyUx8Gi"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pA7nEfFXpBM1UxIe+NDTmvwgaU1mTqsbhF1KMa+XTE+HDmstUZwcIyEWwPn9nITY2+m8V/bCzjCAVaTBarBL0NmPJWBB4r7jGesp2SG75l8vGLNYvn1+Z1uIk/Fdi2BBY7ehNZbpEDxguHKl+gse4yXgn8n0JKlrttNbOpYITs8SKVb9mOJ51+i6oUDxSFPaDTb5oePY1o2Gs6r+6ZvOz59gNlfRBAxc8L14mY+1Rxtzf+ACf8Wue/J4BtKDpAP3ygOrGYOxliV+IBRZNlcJRkVASQF4pgfCUb4JVHd2u43UDSyzVnvilc7eapgMScA+uzUZjCRpjm55ewYfDy0Dvg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=J7EhHsbAr8XiPbwlEanL8OLWNtNo3puW7/e3JmdAKcU=;
- b=m4FUDeKQIpP/l8v/NHRqskJzPoqh4NexX4hm3E1FK+X+I7iDqDBflvgnShbB9YEKSbBAat/AFquSZitFHMJcBj8AyydqMfD2lRxOVgpDh4h3A/KOoFyqPvfgUDLbG+tHz899gg06pqvAPKOlVtNs1k+naPqNJua06cu7ZKAR6gXJeobSB8rgtkdcXEm/uNCSaxy/Q/gnACLDkdiLwwF2G+I2mGNdm5vLTnQwz7v/PRELTb4TkiHuiF6uQXPgxmkXJgcIVZuaeXNqVH1CG9DuPplwjICkGE8geEholxkpdY1ZS9/l7GoWucqJrupgbUHaIoo8+TbZKVL8ey8NHAGezA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=J7EhHsbAr8XiPbwlEanL8OLWNtNo3puW7/e3JmdAKcU=;
- b=hNyUx8GivXmT6cUm6B5vfbjOS16gnrPIYzFXGAc2bsBqhers5SogJMc0VAqKbl+pxD/AmPpSeRH/cv5EGytFw878HD+QCk5LkfyS210LPN/XepLuCyTKw8Q9MjEhyAP3RTj7Hxlno5WIkcIEKtQX+qQ5Semq9mBBLH8Yf9hl5Yk7R8+qAPhLkfKaXd43N+9INfDvAVRAG0ykner8JsO5TdQsSeWVXfNVFYrsRVwzKhEKdHTaxCPlW9LaN0tzXzCQUJl3LE0a9bybmH/pQVDxePOFK+2W2y3BOgHKUbym5dsFZS6GG8h1GmKdWRqpJGa8Ip4rzGFgdfM6rn+RkW0hYA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by DB8PR04MB6825.eurprd04.prod.outlook.com (2603:10a6:10:112::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.6; Wed, 26 Aug
- 2026 15:22:20 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0339.012; Wed, 26 Aug 2026
- 15:22:20 +0000
-Date: Wed, 26 Aug 2026 10:22:07 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Larisa Grigore <larisa.grigore@oss.nxp.com>
-Cc: NXP S32 Linux Team <s32@nxp.com>, Alim Akhtar <alim.akhtar@samsung.com>,
-	Avri Altman <avri.altman@sandisk.com>,
-	Bart Van Assche <bvanassche@acm.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	"James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
-	"Martin K . Petersen" <martin.petersen@oracle.com>,
-	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
-	Ajay Neeli <ajay.neeli@amd.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Pedro Sousa <pedrom.sousa@synopsys.com>, clizzi@redhat.com,
-	aruizrui@redhat.com, eballetb@redhat.com, echanude@redhat.com,
-	linux-scsi@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH 05/10] scsi: ufs: dwc: Export common clock divider and
- link status helpers
-Message-ID: <ao8En1LWAsgY6wzX@SMW015318>
-References: <20260826134048.854748-1-larisa.grigore@oss.nxp.com>
- <20260826134048.854748-6-larisa.grigore@oss.nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260826134048.854748-6-larisa.grigore@oss.nxp.com>
-X-ClientProxiedBy: SN7PR04CA0208.namprd04.prod.outlook.com
- (2603:10b6:806:126::33) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="bD5xIJfA"
+Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-92e5c9211d2so88584085a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 08:22:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1787757765; x=1788362565; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EIGCRHpHq9Elhl6132Jj4t93Tdvctmky+c/yA/nh+pA=;
+        b=bD5xIJfABN3Rn1D/5ItM9N2z97Fuzxc3VomL2iXBPMGW5JbC4kxqyexAEZBGwkE9Yv
+         0BYaLXzxt+gFe2+Iv92cuUeSTBTdhHq1MXfaTvQwTtDTh5K6SYqX7gaSuKjh+yp8bCX+
+         juVEhd20hU1RaD44ZCHPjrc8YuLckp5BucFZ8zYGcVB3A4AippBbDNt5xFagXPwl5Nbw
+         Xhh8peJNSMraiNv4nmEmEOnXRze1YnXPyPJMSE28E8JOBK1A8w/iFIxnT6ndUD49XDzh
+         mAsPoVO/rYT5Oc2vTq+wpKdeSnceQsTPfu1pey/l66Faafq+GjU4uHwzNOdgEK76vjE9
+         ZN9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787757765; x=1788362565;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EIGCRHpHq9Elhl6132Jj4t93Tdvctmky+c/yA/nh+pA=;
+        b=kxlih9EDGdQ6FSIHH4PoCfAHQ/Ci8EqBRx3hsEKLwltmeokMpjb2iQ2v07WO9aHDWa
+         ArzZt7jkK4V892UaQeTU/0F/qD9z6zkRRnCcZgtjCAxFTTsDKxXp8ofv9qi4u6K1XbE3
+         OFxHAn7bvMRq1fWjhCTiYIIvfEnbM9hBWIp5Y22S8a5YO5Sc/uETbJdF3a3PY/HYr0v6
+         MM37apB77w5Nqs1RYklOZNtkgITnieJIapoVdAQHS6eKSArG37bCLXlBURlSS0+uAKEK
+         xhJKJi6p/CntubPeJJkY7WPIxlhQyPBMKhZzq7EOgPwU94WjBf7NMeZWcnpCySv462fh
+         GF0w==
+X-Forwarded-Encrypted: i=1; AHgh+RpP07shv4NB2I2YLbDCQZ7po12TFkhCX/YM7+hUHRkEeLBAX8fyLadhLQwx3gUGwX+z0xuKlSd7FXChMdw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kAERYxTjV52vDLoEiyoaX2Dt1AUSdwisjo9qHKH8jUtq/V5Gka
+	nSh7Mhvo52FnZ0OuJxE7TKI83/cFscVeYvtmAX2z9Uz2OO58fwbNK6jCTSo1fCKz/Q==
+X-Gm-Gg: AR+sD1174UnlUiIXvG2+L4P4Qq8XEv+eMvE+SgC1rpDf13vO8NP0oz4HFm4ObZjN9DK
+	+gjiVkAxNMB/3qyb3RFizH6699QPG5f7G7cQYzQv6FYhS9KZcfirjwsDPWhzhkHPsRvE0rMsARE
+	PwUuiAPZoRiFytNeJrrpvkMK8Sgq5CtwXiq4HCwbwbLRRlcDPu7vcS2t0ft5CDBA0nPd1KfTNXM
+	y5uhzT1ZRPNlKDc3IV7Ces0NK2tJzoh9tRae4JWtzUl3dvnSeUdUyLwzxiDrau3sjtnoBg4giVi
+	CURZMzDa7lD7IMvziz14YTCOxz14j1j5OkZoU6VZMtwIvVKixrVLK6d2OxgYMazqjQKvYkQYr0i
+	ausqA+y/QNeXYoyTaZCxbcQ1WnWazDYNl6XjZZxjIL1cQChccbTS8iYo1kx9jKJa9jGpteCRkkG
+	IqqZkZ+e/vPY3F7Z5Ly9aGKs636ni4SufCqgMfjRLl8rCB+YHOjjToqDClMBsTqPaB2zSymmyct
+	zVQd18=
+X-Received: by 2002:a05:620a:240c:10b0:936:e192:e394 with SMTP id af79cd13be357-9378047c277mr558847485a.31.1787757764680;
+        Wed, 26 Aug 2026 08:22:44 -0700 (PDT)
+Received: from rowland.harvard.edu ([140.247.181.15])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90cc652b60fsm28158926d6.40.2026.08.26.08.22.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 08:22:43 -0700 (PDT)
+Date: Wed, 26 Aug 2026 11:22:41 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Mathias Nyman <mathias.nyman@linux.intel.com>
+Cc: Michal Pecio <michal.pecio@gmail.com>,
+	Mathias Nyman <mathias.nyman@intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] usb: xhci: Fix isochronous scheduling regression
+Message-ID: <810c87ff-7403-4820-b699-c3133620fd81@rowland.harvard.edu>
+References: <20260821114706.34b095b1.michal.pecio@gmail.com>
+ <327f6412-5d07-4bee-a51c-06f1ce5823e6@rowland.harvard.edu>
+ <20260821180350.3648f011.michal.pecio@gmail.com>
+ <de41d8f4-e8d2-47d6-8be2-f191b28aecd9@rowland.harvard.edu>
+ <5aa2f501-6980-44c8-b7fd-77f6b3b98bd5@linux.intel.com>
+ <25b021ba-338d-496b-81c3-0dc0a8777faf@rowland.harvard.edu>
+ <8f84f6a0-02fb-4ba0-8da9-63433f91a542@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DB8PR04MB6825:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8ee424a4-383f-4d70-6b7e-08df0385d1d7
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|366016|19092799006|1800799024|23010399003|376014|7416014|10067099003|6133799003|18002099003|22082099003|11063799006|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info:
- +eZjSerIJD6UmEVjJ2i46rlQg+hEuLnJ4ELRzH/KptrxoitADHlw2ATgjFUQE7XaEnZqTUZC2bcx2Vmbu9PDkwuRny8Wpow6VNpjz3kaRDLocIC4NZ17HkNPRUe4jOHylfkix570rFXMrG1S5nB28DNSc1lLSjRFvSAkmVj+L6BbcZ57G2a94iAuhgzv+A8GJq/K8dV7uLcFAZUCCoOgvUmYShr8J2LbTq4pjUx5cxAUIbTPWhDhpBUNvidS+QgYGGf8UreLzrlSbHCaZlKg2VDq100eozJGByn/JdFu6YoIb2wUgGR5K8XWenGWZKS1cGlCiy5eYKdsFW73QaOkB1yxBJADyi0K8wSmMedShjyGKtXqz+Qx9cHtGtQKNOY4dPlTCMWgn02HJKfEVoeiOqwQnp/mS84uZgkn2wOwQ+HLPDagwIlsGdYGU60+pNh1p98JJrng/DMkdujQwlAHn6cQGKbvPac0QZQJ5EN61tum0MfFwjjvc6O4YnF6bDMHNZGU4AnKPP8JFFhmiM6ekH7hoN5kW7L5OgcXyAwlAWoeh0ilgMbUed2+QRQu1QKnqMIKKfLm4Fpt7w9NEzB10oKMoTGaznLIGAV3OvJWQungPG90MaVV/Y4DTQ87K5t5BNgRN3EmnbtMjAUDhl2PDH6EtAGB04uPR2Dwc7ZlUMk=
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(1800799024)(23010399003)(376014)(7416014)(10067099003)(6133799003)(18002099003)(22082099003)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?us-ascii?Q?7/sNYD8eZzP9q37kBq3FUVUbblLnh/wWsh+Jk0XNZqTfs2mRcRxfEMkG0SPj?=
- =?us-ascii?Q?tUKAKLpxzvv8bOvfci13vWD9TbKPSwwEBplC4occFGG7FwZnbj2MvO6w7fdU?=
- =?us-ascii?Q?4G4ZcZgvX4023rkFZup47p6CUWy9mFVNnSQd/C2aT04N0i7MKbFWzcUxR1xe?=
- =?us-ascii?Q?gMfoghxoW36jAMXKU3CesadZR3N+5U8y7rPBXwoBkq58G9dpMWAuM/m+Ula9?=
- =?us-ascii?Q?6r4vEoE/wMLmdV9+Ba3opCeHshym54NcMkXukra6da6pQfjtcX5siYugUj3X?=
- =?us-ascii?Q?9eD05YulockqrIlsAwJRhR/YQ19T9tJFgZz3+TLIOkJRDdqIgdMCKszo4W0g?=
- =?us-ascii?Q?z2zCo9ADIT5I099/vXvAFR8ICma2A0GFTBzK/kKCsMUXEfzvVIvtWR8ME9c5?=
- =?us-ascii?Q?qxBJ82B5cYAb3GXkjr2N1v/swi86Xez2yHrCjZXHTJnGIRNjniya5j06QV1Q?=
- =?us-ascii?Q?gfoQhSzuf6EWja9kwGDFNyzBkIDXwD7q4HhUEVwIZDFky5lKzdCmMAofQU8u?=
- =?us-ascii?Q?JnPL1baN6NXGLibKrdpAVD9XP2whr5HWpsWmaAkW9x2KRcaHTmk6BvMbWJX/?=
- =?us-ascii?Q?818aAl/tlJRlHKlxGgibYx/f+Kj8IVUjpMm/0xRxuWBa/1beJ61hBynn2Mow?=
- =?us-ascii?Q?wu0+vlu9xgAAtM0r4JToQ+Prdj2MbneOtmVf3jEGRbJ0JKtMT1L/DrT0wllI?=
- =?us-ascii?Q?DsskPFeG9iSyltJkbVJq5wxmwL2Q8W/xWgbfAPwghf0UCSHA3IsB8sj3hFw+?=
- =?us-ascii?Q?LYI6H+56TA9RI6mHE+o96+qLCytrCf/ptBY3SIVK6irrx9M57ibashy9ZONa?=
- =?us-ascii?Q?Tv7rlhqTMe94cDGJvaJJT8JMmOVjmAT1VA1iILBXmQw6sVzoA70YTM/43Xw0?=
- =?us-ascii?Q?rEVYEaY3dbvZx1MOT8khJcwEgXXW91fcwEu/y77KodqbbXwoyVolwSzWbJxZ?=
- =?us-ascii?Q?dRipdBYVNbopnzeMrg8L6sGwnqj9//xn2D0YbQ5P0L8OiiH+ECOtHs1WXiVG?=
- =?us-ascii?Q?fFdh+6dx0z+cY/CaW7HRwXfxmnXp90nOpRrgpGNQ7lVwJXTIthl1kQROMsvd?=
- =?us-ascii?Q?HFRMNDPbGL5ftQd4OZj2G3RGme1vL3zRuMts9vjRgEuHSeyfDSLfZLl/MF0J?=
- =?us-ascii?Q?kl5/f4N6z6WcZ20Y2LfGaf8BIwxasU5ps7dzIBRp7dRfJOCcZisxOlsx/mWV?=
- =?us-ascii?Q?8V3rbbPrlePqpy3vYFYE6PSQ3LqnrNmlnedLvxSTPkRtTjZ+5+fN70nsrmGj?=
- =?us-ascii?Q?brABtXqb/hzuhxDDTAkNqTvpWTKsoEnwm+SGVeEkvUI/pMjNSQJ5G+b4PoSG?=
- =?us-ascii?Q?J7o9gpjxeoiXLrPgC2K8UPM4Ra7lr15a1+4/srT4Be69J8EbIJz/gXUVIoIc?=
- =?us-ascii?Q?Re9uNzHOOxU1WNq4UFdvY5yB4YCt/OiZficrGAY9VrYNB1EsEwTbKjj0mRWM?=
- =?us-ascii?Q?bHfp4pfIBDQmsKrMu9h1ulHTOzOsnmdYxdB3gp0+3V3ajJ2oNxFDL28iXtSK?=
- =?us-ascii?Q?2bQpitrSdE2MjyQRkCDvw2aKi6neWbrFlb1TF52F9SGEgr6ZsV1vCBqbliqV?=
- =?us-ascii?Q?5bkE81zJ2kC0oOK3PEWdILTQ1aFL5gttYcPui3LNnCiaZjAGGITqPXzYmu3X?=
- =?us-ascii?Q?6WdQovbWew3ywBLRs0BYeBwA7zjQSlQPaPXhfNuEkbqOxC2gW2t8HVmQqRSG?=
- =?us-ascii?Q?LcMZXxXIqw6jtNjTeqQTSx290L+iOfH068Z8CKHts+xbHO197ze5/dv1nS9K?=
- =?us-ascii?Q?DOMx3OJRB3EAlwZi0muyggnWR1rBPK9Xwkmd515PSQ2q0EZu3lqz?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8ee424a4-383f-4d70-6b7e-08df0385d1d7
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 15:22:19.9369
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: k3wQkYBC7dHVDWLopAlxQ856g9prn3ELzwO2WBSP+EFY+To5XfSmoHnJEsjlVW7UZxWco/m+xomkX6RZWw22qW/Nk5M46oYVqPGy4Wnzhv5nG5mrNnM2UB9VD+YPmVQp
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR04MB6825
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <8f84f6a0-02fb-4ba0-8da9-63433f91a542@linux.intel.com>
 
-On Wed, Aug 26, 2026 at 03:40:43PM +0200, Larisa Grigore wrote:
->
-> Make ufshcd_dwc_program_clk_div() and ufshcd_dwc_link_is_up() available to
-> DWC-based platform glue drivers. These helpers are needed by platform
-> drivers that must program the controller HCLK divider and verify link state
-> during their vendor-specific initialization flows.
->
-> Signed-off-by: Larisa Grigore <larisa.grigore@oss.nxp.com>
-> ---
+On Wed, Aug 26, 2026 at 11:34:15AM +0300, Mathias Nyman wrote:
+> On 8/24/26 18:51, Alan Stern wrote:
+> > On Mon, Aug 24, 2026 at 06:21:22PM +0300, Mathias Nyman wrote:
+> > > On 8/22/26 05:38, Alan Stern wrote:
+> > > > On Fri, Aug 21, 2026 at 06:03:50PM +0200, Michal Pecio wrote:
+> > > > > On Fri, 21 Aug 2026 10:44:07 -0400, Alan Stern wrote:
+> > 
+> > > > Possible alternative: Make the URB_ISO_ASAP flag take precedence over
+> > > > the "queue is non-empty" condition.
+> > > 
+> > > xhci driver does this. If URB_ISO_ASAP is set then xhci driver always sets
+> > > the SIA "Start Isoch ASAP" flag for the transfer blocks.
+> > 
+> > I wasn't very precise before.  I meant URB_ISO_ASAP should take
+> > precedence when there are no active URBs but there may still be some
+> > URBs being given back.  In other words, when the list_empty test
+> > succeeds.  If the list of queued URBs is not empty then new URBs should
+> > always be assigned to the next available slot -- unless we decide to
+> > support a new URB_USE_FRAME flag and the flag is set.
+> > 
+> 
+> URB_ISO_ASAP always takes precedence in xHC case.
+> 
+> xHC controller has a "SIA" flag that we set for each TD (URB frame)
+> in the URB when USR_ISO_ASAP is set.
+> If there are no active URBs mid stream, and ring underruns, then xHC will process
+> the next TD with SIA flag at its earliest possible slot.
+> So URBs with URB_ISO_ASAP flag will be out of sync and laggy, but not lose data
+> in underrun cases.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Well, that's kind of the point.
 
->  drivers/ufs/host/ufshcd-dwc.c | 6 ++++--
->  drivers/ufs/host/ufshcd-dwc.h | 2 ++
->  2 files changed, 6 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/ufs/host/ufshcd-dwc.c b/drivers/ufs/host/ufshcd-dwc.c
-> index 45920793d1a8..4a689d211e81 100644
-> --- a/drivers/ufs/host/ufshcd-dwc.c
-> +++ b/drivers/ufs/host/ufshcd-dwc.c
-> @@ -39,10 +39,11 @@ EXPORT_SYMBOL(ufshcd_dwc_dme_set_attrs);
->   * @divider_val: clock divider value to be programmed
->   *
->   */
-> -static void ufshcd_dwc_program_clk_div(struct ufs_hba *hba, u32 divider_val)
-> +void ufshcd_dwc_program_clk_div(struct ufs_hba *hba, u32 divider_val)
->  {
->         ufshcd_writel(hba, divider_val, DWC_UFS_REG_HCLKDIV);
->  }
-> +EXPORT_SYMBOL(ufshcd_dwc_program_clk_div);
->
->  /**
->   * ufshcd_dwc_link_is_up() - check if link is up.
-> @@ -50,7 +51,7 @@ static void ufshcd_dwc_program_clk_div(struct ufs_hba *hba, u32 divider_val)
->   *
->   * Return: 0 on success, non-zero value on failure.
->   */
-> -static int ufshcd_dwc_link_is_up(struct ufs_hba *hba)
-> +int ufshcd_dwc_link_is_up(struct ufs_hba *hba)
->  {
->         int dme_result = 0;
->
-> @@ -63,6 +64,7 @@ static int ufshcd_dwc_link_is_up(struct ufs_hba *hba)
->
->         return 1;
->  }
-> +EXPORT_SYMBOL(ufshcd_dwc_link_is_up);
->
->  /**
->   * ufshcd_dwc_connection_setup() - configure unipro attributes.
-> diff --git a/drivers/ufs/host/ufshcd-dwc.h b/drivers/ufs/host/ufshcd-dwc.h
-> index d8673cd54d4c..53b523ef59df 100644
-> --- a/drivers/ufs/host/ufshcd-dwc.h
-> +++ b/drivers/ufs/host/ufshcd-dwc.h
-> @@ -47,4 +47,6 @@ int ufshcd_dwc_dme_set_attrs(struct ufs_hba *hba,
->                                 const struct ufshcd_dme_attr_val *v, int n);
->  int ufshcd_dwc_phy_reg_write(struct ufs_hba *hba, u32 addr, u32 val);
->  int ufshcd_dwc_phy_reg_read(struct ufs_hba *hba, u32 addr, u32 *val);
-> +int ufshcd_dwc_link_is_up(struct ufs_hba *hba);
-> +void ufshcd_dwc_program_clk_div(struct ufs_hba *hba, u32 divider_val);
->  #endif /* End of Header */
-> --
-> 2.43.0
->
->
+The USB spec explicitly allows -- and expects! -- isochronous transfers 
+to lose data from time to time.  That's why these transfers don't use 
+ACK/NAK handshakes and don't do retransmissions.
+
+Given this attitude, it seems very likely that the USBIF would recommend 
+losing data rather than losing synchronization.  I don't know what the 
+attitude is of the various drivers in the kernel, but it wouldn't be 
+surprising if they also take this point of view.  (Consider trying to 
+keep an audio stream in sync with a video stream, for example.)
+
+> A frame is only dropped in SIA case if xHC fails for internal reasons to
+> process that transfer in time. This triggers a Missed Service Error, and xHC
+> moves to process the next TD (frame).
+
+But as you said, the hardware will try to transfer the packet even if it 
+chooses to use a time slot later than the one the class driver wanted.  
+This is the wrong approach; the packet should be dropped, and the later 
+time slot should contain the packet that the class driver intended.
+
+Perhaps you will say this merely shows that these class drivers 
+shouldn't set URB_ISO_ASAP.  Or to put it another way, URB_ISO_ASAP 
+indicates that the driver prefers losing synchronization over losing 
+data.
+
+> Class driver can then detect lagging out of sync URB_ISO_ASAP transfers based on
+> the unexpected large gaps between urb->start_frame numbers
+
+The class driver should realize that URB_ISO_ASAP generally _will_ incur 
+lag and loss of synchronization occasionally.  It should set that flag 
+only when it doesn't mind these things.  In which case it probably 
+doesn't need to check the gaps between start_frame numbers.
+
+The real problem we are trying to solve here is what should happen when 
+a class driver starts falling behind, submitting URBs too late.  If it 
+gets _very_ far behind, there's really no choice but to restart the 
+stream, losing synchronization.  But if the driver is only a little 
+behind (and has a chance of catching up again), there is a choice 
+between losing synchronization and losing data.  URB_ISO_ASAP allows the 
+driver to tell us how it wants that choice to be made.
+
+Furthermore, as long as the class driver is doing the best it can -- by 
+resubmitting from within its completion handler -- we should try to 
+support it by putting in the "only a little behind" category.
+
+Alan Stern
