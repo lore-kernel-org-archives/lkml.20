@@ -1,250 +1,97 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9F5546983B
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:42:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FC2C47B425
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:42:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787762580; cv=none; b=YoxHWDpeycinqOoeHxn7La41aWA+vK/kEdkbk+tw63Hx4ZkOlzXB13fWZEZNKVoqcx9ZWXnYGmnN15T1buxm9/zECeew4eyGDcFPNVYYBVdD56J52iQeQ7sLLNvxVbB0vzKNw5CyCTp8rhXb8wKEdImIHdtwCtTrxnVUvyQckK0=
+	t=1787762582; cv=none; b=pBBJIOJww6kn4AKzr06cXpD8qdFAM7MDAD0eeYLJC1XXmRDG2d71EkKtCRy44dVWXkxUuwFHe4CBpjQu4EbZ0YObTlnMaNr8AvuliY1Hbo+3jMxZLyChnVPuy2mnZ/aaTpqEXpy76FBzvPpdfhl8z1Rxn47dO4GhSCCXFRPRqFI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787762580; c=relaxed/simple;
-	bh=5IPxS8CBupw5Dqtvh6q9DL3RVvk8rwKM7LO3JB3810U=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=Y+UQpoIeYHryCRVHsnFR6Vkh7dA9sA3Wyd27iFQvahILD0BB73Ru6SH7cn6E1XYA2eL05jsyuK7mgwjLkJo6M+LZW2r/aaX62cQ9RPZ/1Zjb80ge+p49KOrFzFaIdvcUyRg9h3AaK36y1+kx1+p9xZfPOpKvbAxpbUM/mGvgDOM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49800c6a846so9457165e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 09:42:15 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787762525; x=1788367325;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VLLt3K4z1vfGu/cyXpEk3vTTq8ZeQdIakdo5vqeP+RE=;
-        b=Dkbyl/nFE27uVoWRoWNl5++9m8woBhvRKS59scjYKyVZ/i7vs0sI175UK+8l6mCQ5g
-         YBe6jzTXMTbphyxo4ioAOoWliWZ1sasb/nawRLcAGOPuyFRxMZyOQSwcOraAtr5trH58
-         bRGXyFyKu5XyY7LNCdf12YFXilvcIN1yJvFMHyhBxZdobayUpOriQDECjf8tD8PF+66O
-         7MDM+BGWpDcBZWJkpZzLNK2wnohS+9rcKtf5Un5btH1o/xTki4SoK1QOJvMYbteVEznx
-         MkSKUiPW+tZfrL2uTJTwpzmWDU4T6YsYI63JpYpKcjaUkkLhHKYr1a9isvSmuBmhKq0P
-         QXvA==
-X-Forwarded-Encrypted: i=1; AHgh+RrCNR8hIv8q41YnEecL4tYwRW4xRVi2MqgkQOftT5ak7KGOA2qge6SmiavR4V6jBdiLuN0UFxbC0jUdLdY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kqP5p/LsPaR+wsFMexQQEZiWgwWlER+d3uDuV0DMtNz2ldNt8n
-	9MgEl8Lf07+KYJgj+WYv/g7HCYL28WIwzjsAsk5rGqZoxyqFMVoAIrNz
-X-Gm-Gg: AR+sD12IncvSAyFB9jyyWrJmMCt5dnePq0KOvGbKd+FuOM1by4cQaWVuYQezzPBEPPP
-	FJorsl/QhETaDj8b1RLfFLhzulENe5eVybxleoJl2u3a4fh5YGYllsEa7N0HTeDgXZ5zcFZYPIH
-	DD0I2KtYX4ubEJSmtfuQad0f+oaDAwldvFw3LoJOPJ7/NrRmhY8m4ClMB9HUnvQCIpCuT9K9QRV
-	kflYqD4SHEpH6c6NqXPovxFZVHKdwrxebkK0tTf2nnI71F3xP0/Bd6AVr6ojVQ8oMTp+O6lBnPv
-	VJnLcKaltDdezBmV2lt/spXTKwZzgTpCCvrD37WM7feVBjnccWLvnjvSvfp9BS0eT86KeXcTltG
-	ajilJjhov5JR5Svqohbhgp2D7dp3jaQmKX2aDw/l72kNTld+NabCMHzyQGjrjmYZmJnOk4dJzt5
-	MkrIIQ1oL84L6stSyRw98YBxotKSUvmTKQganQHURmtEjTbuY66WXkXE3Krd2GYrLTmXJRZGJUU
-	CC5U9AkRVuw2t8JChpAcQ==
-X-Received: by 2002:a05:600c:c10f:b0:49a:54a2:4b38 with SMTP id 5b1f17b1804b1-49a54a24b54mr43496915e9.7.1787762524764;
-        Wed, 26 Aug 2026 09:42:04 -0700 (PDT)
-Received: from [192.168.1.135] ([83.106.158.114])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499dcad9ddasm30366375e9.12.2026.08.26.09.42.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 26 Aug 2026 09:42:04 -0700 (PDT)
-Message-ID: <72db2062-e0ac-4c33-b1d1-d1fa5ae4bec8@linux.com>
-Date: Wed, 26 Aug 2026 17:42:01 +0100
+	s=arc-20240116; t=1787762582; c=relaxed/simple;
+	bh=tMlVS7ez27AAedNuZYlkXqOdikY1kuZl+Wcz3Klh/LM=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=PtaHs9wcPzX3dNxwCuSJcNzSxG0KJbBLbsi6z+2RQdTlnHV0FwCK6UNN1tk5DgpB/ctjv6M2zzFKoj93khWOV8K8UacNVvIy/hSwWmUAnUdSihWizr2ci9L7LqtVIIV5UzWiNRKs/xGS+SeWw3SW+hHPDKeHH7odO3RF+exiZDM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=fu9mhz0a; arc=none smtp.client-ip=45.79.88.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="fu9mhz0a"
+DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 40E10408DA
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
+	t=1787762549; bh=ZW3u/OmKgF5WTbfyZWzZlgBKqLhI67M0YrULxqFtpK0=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+	b=fu9mhz0a6R9c3SDC8sLuroCY9eGc1CoybfzsRZwI5nfd9B+6pUlAwfpF4RPvXl9tE
+	 NOSwfqJuRVuHErcjO7LcpjpKApDZBV1y/KWyDpOUOKODNC62ZkQPauwnA3kNssYhJE
+	 uQXNTnNqyaSIV7w5MSTzWO94HUUTowYhVVJV+EGw7fjGY2/f+kgQc2/jd2InoAh1F3
+	 FEL24BdlVi8jB5oxiyQ15wTJcJhEjoe1ok1qXOzbYzZ2i7lEHjfHXVPRJZ8r8PCnAg
+	 S6EQEM/pVIA5y1uj2QYOQIKCC0ijlZNHIV+UgYbKfqAhKLifOuAnHPyF0rkzydk0AQ
+	 PdS5ShKMYCU7w==
+Received: from localhost (unknown [IPv6:2601:280:4600:814::1fe])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by ms.lwn.net (Postfix) with ESMTPSA id 40E10408DA;
+	Wed, 26 Aug 2026 16:42:29 +0000 (UTC)
+From: Jonathan Corbet <corbet@lwn.net>
+To: 3237174131@qq.com, linux-kernel@vger.kernel.org
+Cc: tglx@kernel.org, gregkh@linuxfoundation.org
+Subject: Re: [PATCH] scripts/spdxcheck: fix file descriptor leak in
+ read_spdxdata()
+In-Reply-To: <tencent_0D1CF77320A0C199EB46300A4E82DADEA209@qq.com>
+References: <tencent_0D1CF77320A0C199EB46300A4E82DADEA209@qq.com>
+Date: Wed, 26 Aug 2026 10:42:28 -0600
+Message-ID: <8733w0suiz.fsf@trenco.lwn.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC] clk: meson: t7: Intermittent boot instability and memory
- corruption on VIM4
-From: Lucas Tanure <tanure@linux.com>
-To: Brian Masney <bmasney@redhat.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
- Jian Hu <jian.hu@amlogic.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <3930906f-783b-4d72-9260-ba25cc8081cb@linux.com>
- <aoxjX3HabY0brgXk@redhat.com>
- <57d796bd-7a3c-46b9-bd65-d6860adbd355@linux.com>
-Content-Language: en-US
-In-Reply-To: <57d796bd-7a3c-46b9-bd65-d6860adbd355@linux.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-On 26/08/2026 10:55, Lucas Tanure wrote:
-> On 24/08/2026 16:29, Brian Masney wrote:
->> Hi Lucas,
->>
->> On Sun, Aug 23, 2026 at 04:40:42PM +0100, Lucas Tanure wrote:
->>> While testing mainline Linux on the Khadas VIM4 (Amlogic A311D2 / 
->>> T7), I am
->>> hitting intermittent system instability, storage loss, and memory 
->>> corruption
->>> during boot, unless I append clk_ignore_unused to the kernel command 
->>> line.
->>>
->>> Because the failure is intermittent, I am running 100-reboot test 
->>> campaigns
->>> to bisect the remaining clocks and isolate which clocks are critical and
->>> cannot be safely disabled.
->>>
->>> As testing takes significant time over serial console, I wanted to 
->>> check if
->>> Amlogic or the maintainers could shed light on this:
->>>
->>> Are there specific T7 clocks or hardware domains that must remain
->>> critical/protected even without an explicit in-kernel consumer?
->>>
->>> Current clocks being disabled that don't kill the board on a test run:
->>>
->>> [    0.380313] clk: Disabling unused clocks
->>> [    0.380413] clk: Disabled unused clock: rtc_dualdiv
->>> [    0.380718] clk: Disabled unused clock: rtc_duandiv_in
->>> [    0.381377] clk: Unprepared unused clock: a73_div16
->>> [    0.381972] clk: Unprepared unused clock: cpu_div16
->>> [    0.382605] clk: Unprepared unused clock: f50m
->>> [    0.383174] clk: Unprepared unused clock: fixed_pll_dco
->>> [    0.383786] clk: Unprepared unused clock: hdmi_pll_osc
->>> [    0.384416] clk: Unprepared unused clock: sys1_pll_osc
->>> [    0.385056] clk: Unprepared unused clock: earc_osc
->>> [    0.385652] clk: Unprepared unused clock: pcie_refclk_osc
->>> [    0.386323] clk: Unprepared unused clock: eth_pll_osc
->>> [    0.386961] clk: Unprepared unused clock: pcie_osc
->>> [    0.387548] clk: Unprepared unused clock: mclk_pll_osc
->>> [    0.388187] clk: Unprepared unused clock: usb_pll1_osc
->>> [    0.388826] clk: Unprepared unused clock: usb_pll0_osc
->>> [    0.389465] clk: Unprepared unused clock: tcon_pll_osc
->>> [    0.390105] clk: Unprepared unused clock: top_pll_osc
->>> [    0.390738] clk: Unprepared unused clock: aud_pll_osc
->>> [    0.391361] clk: Unprepared unused clock: ddr_pll_osc
->>>
->>> I am not forcing any clock to be disabled; I am forcing all clocks to 
->>> stay
->>> on and letting them be disabled if unused one by one.
->>>
->>> Any guidance or hints on required platform clocks would be greatly
->>> appreciated.
->>
->> I have an outstanding series that disables unused clocks via the
->> sync_state callback:
->>
->> https://lore.kernel.org/linux-clk/20260626-clk-sync-state- 
->> v1-0-4156d8196dc8@redhat.com/
->>
->> Be sure to not have clk_ignore_unused in your kernel command line.
->>
->> I suggest comparing the list of which clocks are disabled with that
->> series against your list of clocks above.
-> Thanks for the input, it did not solve the issue. I am going to produce 
-> the list with a diff in disabled clocks with and without our change, but
-> it did not solve the issue.
->>
->> Brian
->>
-> 
-With Brian's patches, VIM4 does not turn off 4 clocks:
+3237174131@qq.com writes:
 
-t7_sys_sd_emmc_b
-t7_sys_sd_emmc_c
-sd_emmc_b
-sd_emmc_c
+> Hi all,
+>
+> This is my first kernel patch. Please let me know if anything is wrong.
 
-This is expected since I'm trying to run from an SD card. However, even 
-with these four clocks kept enabled, the board still hangs.
+Sending the patch as an attachment and the lack of a useful changelog
+are both problems; please see
+Documentation/process/submitting-patches.rst for information on how to
+do this properly.
 
-Complete list with all clocks being disabled after Brians patches:
-[    1.002247] clk: Disabled unused clock: t7_sys_pwm_ao_gh
-[    1.002898] clk: Disabled unused clock: t7_sys_pwm_ao_ef
-[    1.003560] clk: Disabled unused clock: t7_sys_pwm_ao_cd
-[    1.004220] clk: Disabled unused clock: t7_sys_pwm_ao_ab
-[    1.004972] clk: Disabled unused clock: t7_sys_pwm_ef
-[    1.005509] clk: Disabled unused clock: t7_sys_pwm_cd
-[    1.006211] clk: Disabled unused clock: t7_sys_pwm_ab
-[    1.006766] clk: Disabled unused clock: t7_sys_ts_hevc
-[    1.007434] clk: Disabled unused clock: t7_sys_ts_vpu
-[    1.008033] clk: Disabled unused clock: t7_sys_ts_nna
-[    1.008741] clk: Disabled unused clock: t7_sys_ts_gpu
-[    1.009294] clk: Disabled unused clock: t7_sys_sar_adc
-[    1.009929] clk: Disabled unused clock: t7_sys_vpu_intr
-[    1.010609] clk: Disabled unused clock: t7_sys_dspb
-[    1.011186] clk: Disabled unused clock: t7_sys_dspa
-[    1.011792] clk: Disabled unused clock: t7_sys_a73pclk_apb
-[    1.012554] clk: Disabled unused clock: t7_sys_pclk_sys_apb
-[    1.013213] clk: Disabled unused clock: t7_sys_rsa
-[    1.013811] clk: Disabled unused clock: t7_sys_mipi_isp_pclk
-[    1.014529] clk: Disabled unused clock: t7_sys_mmc_apb
-[    1.015107] clk: Disabled unused clock: t7_sys_hdmirx_pclk
-[    1.015819] clk: Disabled unused clock: t7_sys_i2c_s_a
-[    1.016429] clk: Disabled unused clock: t7_sys_hdmitx_apb
-[    1.017109] clk: Disabled unused clock: t7_sys_i2c_m_f
-[    1.017740] clk: Disabled unused clock: t7_sys_i2c_m_e
-[    1.018379] clk: Disabled unused clock: t7_sys_i2c_m_d
-[    1.019018] clk: Disabled unused clock: t7_sys_i2c_m_c
-[    1.019657] clk: Disabled unused clock: t7_sys_i2c_m_b
-[    1.020296] clk: Disabled unused clock: t7_sys_i2c_m_a
-[    1.020940] clk: Disabled unused clock: t7_sys_i2c_ao_b
-[    1.021585] clk: Disabled unused clock: t7_sys_i2c_ao_a
-[    1.022236] clk: Disabled unused clock: t7_sys_pcie_phy
-[    1.022885] clk: Disabled unused clock: t7_sys_usb
-[    1.023482] clk: Disabled unused clock: t7_sys_pcie
-[    1.024088] clk: Disabled unused clock: t7_sys_spicc1
-[    1.024723] clk: Disabled unused clock: t7_sys_spicc0
-[    1.025345] clk: Disabled unused clock: t7_sys_g2d
-[    1.025940] clk: Disabled unused clock: t7_sys_spicc5
-[    1.026569] clk: Disabled unused clock: t7_sys_ts_a53
-[    1.027197] clk: Disabled unused clock: t7_sys_ts_a73
-[    1.027825] clk: Disabled unused clock: t7_sys_spicc4
-[    1.028454] clk: Disabled unused clock: t7_sys_spicc3
-[    1.029085] clk: Disabled unused clock: t7_sys_spicc2
-[    1.029710] clk: Disabled unused clock: t7_sys_aififo
-[    1.030339] clk: Disabled unused clock: t7_sys_uart_f
-[    1.030967] clk: Disabled unused clock: t7_sys_uart_e
-[    1.031595] clk: Disabled unused clock: t7_sys_uart_d
-[    1.032224] clk: Disabled unused clock: t7_sys_uart_c
-[    1.032857] clk: Disabled unused clock: t7_sys_uart_b
-[    1.033482] clk: Disabled unused clock: t7_sys_eth
-[    1.034077] clk: Disabled unused clock: t7_sys_audio
-[    1.034694] clk: Disabled unused clock: t7_sys_ir_ctrl
-[    1.035333] clk: Disabled unused clock: t7_sys_msr_clk
-[    1.035972] clk: Disabled unused clock: t7_sys_spifc
-[    1.036596] clk: Disabled unused clock: t7_sys_acodec
-[    1.037218] clk: Disabled unused clock: t7_sys_smartcard
-[    1.037880] clk: Disabled unused clock: t7_sys_am2axi2
-[    1.038518] clk: Disabled unused clock: t7_sys_am2axi1
-[    1.039157] clk: Disabled unused clock: t7_sys_am2axi0
-[    1.039796] clk: Disabled unused clock: t7_sys_ampipe_eth
-[    1.040468] clk: Disabled unused clock: t7_sys_ampipe_nand
-[    1.041155] clk: Disabled unused clock: t7_sys_deswarp
-[    1.041790] clk: Disabled unused clock: t7_sys_gdc
-[    1.042385] clk: Disabled unused clock: t7_sys_cec
-[    1.042981] clk: Disabled unused clock: t7_sys_aucpu
-[    1.043600] clk: Disabled unused clock: t7_sys_aocpu
-[    1.044217] clk: Disabled unused clock: t7_sys_mali
-[    1.044830] clk: Disabled unused clock: t7_sys_ethphy
-[    1.045451] clk: Disabled unused clock: t7_sys_mipi_dsi_b
-[    1.046123] clk: Disabled unused clock: t7_sys_mipi_dsi_a
-[    1.046795] clk: Disabled unused clock: t7_sys_dos
-[    1.047390] clk: Disabled unused clock: t7_sys_ddr
-[    1.047991] clk: Disabled unused clock: pwm_ao_g
-[    1.048565] clk: Disabled unused clock: pwm_ao_f
-[    1.049135] clk: Disabled unused clock: pwm_ao_e
-[    1.049709] clk: Disabled unused clock: pwm_ao_d
-[    1.050283] clk: Disabled unused clock: pwm_ao_b
-[    1.050857] clk: Disabled unused clock: pwm_ao_a
-[    1.051454] clk: Disabled unused clock: rtc_dualdiv
-[    1.052038] clk: Disabled unused clock: rtc_duandiv_in
+But, beyond that:
 
-Also with the patches the disable happens 0.5 second later, from 0.5 
-seconds after the boot to 1 second after the boot.
+> Signed-off-by: Xia Zhoxin <3237174131@qq.com>
+> From: Xia Zhoxin <3237174131@qq.com>
+> Subject: [PATCH] scripts/spdxcheck: fix file descriptor leak in read_spdxdata()
+> To: linux-kernel@vger.kernel.org
+> Cc: tglx@kernel.org, gregkh@linuxfoundation.org
+>
+> Hi all,
+>
+> This is my first kernel patch. Please let me know if anything is wrong.
+>
+> Signed-off-by: Xia Zhoxin <3237174131@qq.com>
+> ---
+>  scripts/spdxcheck.py | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/scripts/spdxcheck.py b/scripts/spdxcheck.py
+> --- a/scripts/spdxcheck.py
+> +++ b/scripts/spdxcheck.py
+> @@ -72,7 +72,8 @@ def read_spdxdata(repo):
+>              exception = None
+> -            for l in open(el.path, encoding="utf-8").readlines():
+> +            with open(el.path, encoding="utf-8") as f:
+> +                for l in f:
+>                      if l.startswith('Valid-License-Identifier:'):
 
-I am still investigating what is missing a consumer or what should be 
-labeled critical.
+open() returns a file object (*not* a file descriptor) that will
+immediately go to a reference count of zero once .readlines() completes.
+Garbage collection will then clean it up.  So there is no actual leak
+here.
 
-thanks
-Lucas Tanure
+Thanks,
 
-
+jon
