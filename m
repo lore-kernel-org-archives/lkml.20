@@ -1,65 +1,98 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41E7B463B7A
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:21:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86F8345DF43
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:21:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787761275; cv=none; b=Kv0UGo5FfWeL7TN0g/BWKjgN2Eu+bbgDxW/YIp4IS3P6YgaZ9geNEW0neezTjUfs5teRcpvQPFhAJuVB2mgMfx1AG5+iXCoYTHkKNUB8XKYGMGlfo2WogKyQNyGXYWmOPWoKZlyAbM5GIJYrzG2rw1B39EPmAqQowncMaVqmg9s=
+	t=1787761277; cv=none; b=Wp0cW+3qoWj5Qshu6gFH3UDbNWkqGDYdBopWJSJw5MQkkc6WqZv9bFlppiqdaWoq1fbm811IVXBENyVOURHi0XlkJkIhvBo3IxhH/CXpKkkSsriCYtrlrcSt/IbYvzlYMEA5v5iZIL1L1dqplyfHv1NUcEF21kuck3lq7OK4MlY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787761275; c=relaxed/simple;
-	bh=AH8eeTsnXkB1t4KJdmMDaXScv4BIm1yCfSCPuQ1dAlg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Rye4D0fBNNJqbQJr6U0NpGgiTFiX/A9FIaEk8I7uGI7f6wm9ooAV0R2CQBBF+FxBcoaiq482drqBpzqZ0T0RklzoIfv7484d2uqCxhpRiuwE/ATGurZOk+WhNu2M5bZ9Wsz6SbJJv7SbvVFlGxgeQtXxhq/cieeoSPaa4UnbA6I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=FoakEkAa; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1787761277; c=relaxed/simple;
+	bh=8l+SG+0GSoAWxIK2FePeoZd140FIivvIxWQd8CZzXR8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=HWhur/7aULN99YDb1B5vmhFmnJNNQr42dfJa1rAQkXVZ+L4YMVswLYxUlNvxkcdl7IHn96NWKzmKE9cFiPJMBth7XfPrqDGgUzjQRXpvLeha2EEiJ01st3mLbYHc0R0zsamklmCf8yjONizK3Dh8q0u/xGK3nK3+mO8Xy+6vqAU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=JJCT6qtw; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=gBuq2dbD; arc=none smtp.client-ip=103.168.172.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="FoakEkAa"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QE1cFl3084617;
-	Wed, 26 Aug 2026 16:20:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=MTcBMEIesxM3zL+MfpgL/JhtUxSn3joUFmm5h4/d+
-	Lc=; b=FoakEkAaugzX+V0CzAWKUmvwFTY4Gvt71U3zjn4hCgB4LQBGlrTPmuU+n
-	08x9K0rNkFik2QaF0EBLKb59qJj7kJvrPeUsSNYK3ClUUMt2byOmYzEzmV2Q5Gco
-	bWDJ3CR2zVePDxJ9QGAwZb06bD9mwfiIPTUnbUFF0LPDMzdnmkHU30hAiXNKWWj+
-	ZU7/RIQzoqNQ2nNEe2JbEBLG/va+l1CnDVKaaXJMbhPLPgcmVyATOkTlAp1ERuZa
-	bPhC77VlktTj2rHEDjcADqNYjj6Jhco/021EaZIAI6Xxih7qfby66+Qv861Q+g9z
-	Wh4jS983pZl+N5RX9BTcnSB7a0DhA==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g726eqraq-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 26 Aug 2026 16:20:49 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67QGBGGC017011;
-	Wed, 26 Aug 2026 16:20:48 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4g7p3qb45f-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 26 Aug 2026 16:20:48 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67QGKiMa47317446
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 26 Aug 2026 16:20:44 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 64B9F20043;
-	Wed, 26 Aug 2026 16:20:44 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id F06B620040;
-	Wed, 26 Aug 2026 16:20:41 +0000 (GMT)
-Received: from localhost.localdomain (unknown [9.39.21.125])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 26 Aug 2026 16:20:41 +0000 (GMT)
-From: Gautam Menghani <gautam@linux.ibm.com>
-To: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
-        chleroy@kernel.org, ritesh.list@gmail.com, sshegde@linux.ibm.com
-Cc: Gautam Menghani <gautam@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
-        linux-kernel@vger.kernel.org
-Subject: [PATCH] powerpc/configs: Add debug configs for debugging
-Date: Wed, 26 Aug 2026 21:50:34 +0530
-Message-ID: <20260826162035.27068-1-gautam@linux.ibm.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="JJCT6qtw";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="gBuq2dbD"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfout.phl.internal (Postfix) with ESMTP id 0774BEC0113;
+	Wed, 26 Aug 2026 12:21:11 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Wed, 26 Aug 2026 12:21:11 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm2; t=1787761271; x=
+	1787847671; bh=PZqn9LaepqaNPDOa8Shpk8ydDkhLYpgCWjChGLGqhJo=; b=J
+	JCT6qtw1TNo+6ZXJEUgoeGsTvCjHGxQqp1NcbZMgFYTLMf/Ryj5Hz7icUY3Pr/sc
+	+7xVeds8ASJjsQjE9FcSIIboIFBK1fcUH+ztxFTpVN+WGMclCAPu9EgPhAZk04Nn
+	QyJD7Pdma5BReYyxUOCmG8y/TrFz4uo9oOP2M5M50rTYdLS2eJEdkmrrJVq6N4jj
+	HpBp6dZnxXI2PSe19rDVa530BLt4FlGOZukEfNJWOQoj5KWg4ySCC5bBQd7BOgad
+	z4O8phZsYRu+e4eqsFYBMDOqVVJ39gXLG6vNJjd+L2KfMxLmkyOEKIdAhboQkPM/
+	t2RI71aBc3lvc7Trz8omA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm3; t=1787761271; x=1787847671; bh=P
+	Zqn9LaepqaNPDOa8Shpk8ydDkhLYpgCWjChGLGqhJo=; b=gBuq2dbDYWOj+PqoS
+	5YnH1V7B2iONpL3uJRh34zzuEmsIeJ3nN5s96n7f4n7t03BhgGANMlpwuOyzLCUd
+	BWUPg7cQdp65S5pDGR5moiuMNQbI8lvDyLQvizWzPtuV4yxQJzPYCUYNGXwMatCz
+	6PC0g4/c/iUVwIw9UrosYun0yt3dTs05mfNnH7L5l/mDKSv5NBUU9YB2cP9ENbhy
+	86/U+d0uUq86s9v/FiiiIHUVPSFSPmFBZYU0u7qVIZBxiWahCG66G3aOdtG2xpIp
+	brIyM39rjo9oXv6C5QZuKg+ggJuXmUm/etuV08zKxNR7FPvwdzkxXG2E2zc+aYam
+	2eA5Q==
+X-ME-Sender: <xms:dhKPaiHzC0Z3IsWLOD-tzLBL7oICTxPjbjzxmEo9V_E50h8UQkY2Cg>
+    <xme:dhKPavTpNplNagd-JgowgUm1vB5WglLQXxafq6fNfun3eIW_afPWVNj35uMtVG_GK
+    kHohqxqkFVtKs7IRRPu16MDZt0ihi6ph5iaBJYmpEYAsmQT_-57u2YX>
+X-ME-Received: <xmr:dhKPaiRxZJoMFLYqiemS62JDvIzKWxVlVNGmsPJT8nx_qQrI2R9jFGWO3fc>
+X-ME-Proxy-Cause: dmFkZTEpX8HBQysEAMlAbdyKFX4BLzWtS7+Qo1RjxAJeMJnS381384CQaxM92QA8W5J6jo
+    7r0RHbsPcTs1IpTXqcOu2ofgimA8w2hMK3OeOMvPUWs2NDJNBlDL/23E29uU3eWq90a8Ny
+    uayj7GqONoh0NEQ91mQ/H+TE3rTPuVZ+wfrdHbeyaEyRe40ZIUYJyXTHqnubEDskXnqfPu
+    FIQsvLmT+4mxeisAsg0TmWv4Y7l9NdKef8tTMihpDmjKvNxij8lw310+ofBfGEkzSLqnuN
+    AyozbfZUQr702Kz+RkXguKuGQfBCnKcQhC5EFdpLjS6L6jWqh1sGvO+4Vl+gX27JPRP8s5
+    lSLckIYbxH/PtXTLtZPr2I496n1Z+5615svwkDFxhaNmgGpzGejMidUwbOUxLRdGuc2rZg
+    w7EVq4D+yvMbxQ0bVxFYShdTuEeXaZWypH5RocS+FySPsN9RG8ZDbzvlUocKn67qn9YbT5
+    m67TyzmbU49Yi0FJGi35Qm+jJUodzTwAIvcGJ25Find/PYmX3P1CefFAlt3ZqvUQWexH84
+    GlGmeFWqYBMh43kqHoCd/fKRbITSkrbofIDfxV6HWHoS9gj+zSqQXSaqCKI329GRnYyGjV
+    uuBti6l727veyF9VwljNVqtrv0A+Lea3+P/SoIQNmbyiZYUvBbW0UmRyQ0sw
+X-ME-Proxy: <xmx:dhKPaiddQKIj37r_RakJb_-6ElPjFy0OR-u-ArK74qG17tMTafJS9g>
+    <xmx:dhKPamdmzKedlfm6rrLJEChFZc-HJZPw0SYE4vlNZkOFTX1uq5fhew>
+    <xmx:dhKPao-_JGxzGUylsIv3T4VYrdJ7I52r51lN-TdJ3AtTpPItm_Ddkw>
+    <xmx:dhKPamMpM_ThHrwvuNcTpXjsCsubtDpaWzPa2MPdbH0wGQ3RanJxcw>
+    <xmx:dxKPamO-VYWwj7r7ldMJSWsuH7fx-Zbo9LskAzojuJzBfZ7KXrKiCQl->
+Feedback-ID: ie3994620:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 26 Aug 2026 12:21:10 -0400 (EDT)
+From: Kiryl Shutsemau <kirill@shutemov.name>
+To: akpm@linux-foundation.org,
+	david@kernel.org,
+	ljs@kernel.org,
+	hannes@cmpxchg.org,
+	usama.arif@linux.dev
+Cc: lance.yang@linux.dev,
+	ziy@nvidia.com,
+	hughd@google.com,
+	baolin.wang@linux.alibaba.com,
+	baohua@kernel.org,
+	liam@infradead.org,
+	nico.pache@linux.dev,
+	dev.jain@arm.com,
+	ryan.roberts@arm.com,
+	balbirs@nvidia.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	"Kiryl Shutsemau (Meta)" <kas@kernel.org>
+Subject: [PATCH 2/5] mm/huge_memory: dequeue the deferred split after the split freeze
+Date: Wed, 26 Aug 2026 17:20:58 +0100
+Message-ID: <20260826162101.1314941-3-kirill@shutemov.name>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260826162101.1314941-1-kirill@shutemov.name>
+References: <20260826162101.1314941-1-kirill@shutemov.name>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -67,154 +100,100 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=TfimcxQh c=1 sm=1 tr=0 ts=6a8f1261 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8 a=9H6hm6EcYpu-G-HrPV4A:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDEzNCBTYWx0ZWRfX64hhbhQGj2p8
- 7ai0gU2ts+CnEj7sUoxLs6awUylEWeMIizl8q7IAIR+P5lPU3mFWnXeQbCTMDP587NQI6TrYWAY
- W/fBqd5WlsGLvCxUJ8PfjKrcxC1Zqxg=
-X-Proofpoint-GUID: 3UCyiatnfKRy1DDXz6SpigJP9lFagNtN
-X-Proofpoint-ORIG-GUID: adf3iqlxp19pBC_XksMqsYn0rfeheCVy
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDEzNCBTYWx0ZWRfXwGXTKhsYKTut
- 49+5JJMhZw6kuKaJl0adiicSDXMjZc9Fox1snqGUEbtlS72M399jymwA7fOqmGsjGNiwIh9iuIB
- etOerWfiL3eC6h1B0X2a2Nerw/uvsiVNu9XqXyyQ4Kx+8GhZeDovArPa6UjM9okqlqNiIt8+z78
- UcLH6SjWtog/yp833XNnfoOkAWtGrxaTznRqrfZt4WWnSq2hpWBVIo9OIIfuSVEZIfvSLm84zWq
- 6pKXKI2ISW89jhKegq7HvHw/Q4EmG97xqLdpeH2Bpj4MS/iTdzZ8BT6kW4zOo53j2sORPqplsbe
- fYD74LU08/NAmSUZTphNbHP/UMB3p2+wntyLOrf3J9jQWD9KJKP4Hg44Egh83kDYVdLKZvxMbOi
- 75vP0b3CaEGfBbwx2h2qoaVRw83vpN/IBOQ5bAmPy3YhwYl9IMPS8MgPlvLMDRaK9vRi0mQGFy0
- 5vZYc2ImxG5s5xwknrQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-26_04,2026-08-26_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 bulkscore=0 malwarescore=0 priorityscore=1501
- lowpriorityscore=0 clxscore=1015 phishscore=0 impostorscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260134
 
-Kernel has multiple config options to run extra validation checks that
-can help catch bugs. Define new configs for major subsystems to
-make it easy to enable the debug config options for a given area.
+From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
 
-Signed-off-by: Gautam Menghani <gautam@linux.ibm.com>
+__folio_freeze_and_split_unmapped() takes the deferred split list_lru lock
+across the freeze. It is only there to stop deferred_split_scan() from
+touching the folio under split.
+
+With deferred_split_isolate() fixed, the workaround can be dropped.
+
+Unqueue the folio after folio_ref_freeze(), the way
+__folio_migrate_mapping() does: folio_unqueue_deferred_split() needs a
+zero refcount and a memcg still set, and both hold there.
+
+If the split is called from deferred_split_scan(), the unqueue is a
+no-op -- the folio is already removed from the list. But
+PG_partially_mapped is still set, so it has to be cleared here or
+MTHP_STAT_NR_ANON_PARTIALLY_MAPPED never comes back down.
+
+Assisted-by: Claude-Code:claude-opus-5
+Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 ---
- arch/powerpc/Makefile                    | 16 ++++++++++++++++
- arch/powerpc/configs/common_debug.config | 11 +++++++++++
- arch/powerpc/configs/locks_debug.config  | 13 +++++++++++++
- arch/powerpc/configs/lockup_debug.config |  4 ++++
- arch/powerpc/configs/mm_debug.config     | 24 ++++++++++++++++++++++++
- 5 files changed, 68 insertions(+)
- create mode 100644 arch/powerpc/configs/common_debug.config
- create mode 100644 arch/powerpc/configs/locks_debug.config
- create mode 100644 arch/powerpc/configs/lockup_debug.config
- create mode 100644 arch/powerpc/configs/mm_debug.config
+ mm/huge_memory.c | 44 +++++++++++++-------------------------------
+ 1 file changed, 13 insertions(+), 31 deletions(-)
 
-diff --git a/arch/powerpc/Makefile b/arch/powerpc/Makefile
-index 9385db478c59..425f36c3f471 100644
---- a/arch/powerpc/Makefile
-+++ b/arch/powerpc/Makefile
-@@ -259,6 +259,22 @@ generated_configs += ppc64le_guest_defconfig
- ppc64le_guest_defconfig:
- 	$(call merge_into_defconfig,ppc64_defconfig,le guest kvm_guest)
-
-+generated_configs += ppc64le_common_debug_defconfig
-+ppc64le_common_debug_defconfig:
-+	$(call merge_into_defconfig,ppc64_defconfig,le common_debug)
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 6281ed993243..c84e8cbc986d 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -3931,41 +3931,27 @@ static int __folio_freeze_and_split_unmapped(struct folio *folio, unsigned int n
+ 	struct folio *end_folio = folio_next(folio);
+ 	struct folio *new_folio, *next;
+ 	int old_order = folio_order(folio);
+-	struct list_lru_one *lru;
+-	bool dequeue_deferred;
+ 	int ret = 0;
+ 
+ 	VM_WARN_ON_ONCE(!mapping && end);
+-	/*
+-	 * If this folio can be on the deferred split queue, lock out
+-	 * the shrinker before freezing the ref. If the shrinker sees
+-	 * a 0-ref folio, it assumes it beat folio_put() to the list
+-	 * lock and must clean up the LRU state - the same dequeue we
+-	 * will do below as part of the split.
+-	 */
+-	dequeue_deferred = folio_test_anon(folio) && old_order > 1;
+-	if (dequeue_deferred) {
+-		struct mem_cgroup *memcg;
+ 
+-		rcu_read_lock();
+-		memcg = folio_memcg(folio);
+-		lru = list_lru_lock(&deferred_split_lru,
+-				    folio_nid(folio), &memcg);
+-	}
+ 	if (folio_ref_freeze(folio, folio_cache_ref_count(folio) + 1)) {
+ 		struct swap_cluster_info *ci = NULL;
+ 		struct lruvec *lruvec;
+ 
+-		if (dequeue_deferred) {
+-			__list_lru_del(&deferred_split_lru, lru,
+-				       &folio->_deferred_list, folio_nid(folio));
+-			if (folio_test_partially_mapped(folio)) {
+-				folio_clear_partially_mapped(folio);
+-				mod_mthp_stat(old_order,
+-					MTHP_STAT_NR_ANON_PARTIALLY_MAPPED, -1);
+-			}
+-			list_lru_unlock(lru);
+-			rcu_read_unlock();
++		/* Take off the deferred split queue while frozen and memcg set */
++		folio_unqueue_deferred_split(folio);
 +
-+generated_configs += ppc64le_locks_debug_defconfig
-+ppc64le_locks_debug_defconfig:
-+	$(call merge_into_defconfig,ppc64_defconfig,le locks_debug)
-+
-+generated_configs += ppc64le_mm_debug_defconfig
-+ppc64le_mm_debug_defconfig:
-+	$(call merge_into_defconfig,ppc64_defconfig,le mm_debug)
-+
-+generated_configs += ppc64le_lockup_debug_defconfig
-+ppc64le_lockup_debug_defconfig:
-+	$(call merge_into_defconfig,ppc64_defconfig,le lockup_debug)
-+
- generated_configs += ppc64_guest_defconfig
- ppc64_guest_defconfig:
- 	$(call merge_into_defconfig,ppc64_defconfig,be guest kvm_guest)
-diff --git a/arch/powerpc/configs/common_debug.config b/arch/powerpc/configs/common_debug.config
-new file mode 100644
-index 000000000000..a341c8b41468
---- /dev/null
-+++ b/arch/powerpc/configs/common_debug.config
-@@ -0,0 +1,11 @@
-+# For use in CI testing
-+CONFIG_EXPERT=y
-+CONFIG_PROVE_LOCKING=y
-+CONFIG_PROVE_RCU=y
-+CONFIG_KASAN=y
-+CONFIG_UBSAN=y
-+CONFIG_DEBUG_PAGEALLOC=y
-+CONFIG_DEBUG_VM=y
-+CONFIG_DEBUG_OBJECTS=y
-+CONFIG_DEBUG_KMEMLEAK=y
-+CONFIG_DEBUG_STACKOVERFLOW=y
-diff --git a/arch/powerpc/configs/locks_debug.config b/arch/powerpc/configs/locks_debug.config
-new file mode 100644
-index 000000000000..b2cb23de75db
---- /dev/null
-+++ b/arch/powerpc/configs/locks_debug.config
-@@ -0,0 +1,13 @@
-+CONFIG_EXPERT=y
-+CONFIG_PROVE_LOCKING=y
-+CONFIG_DEBUG_LOCK_ALLOC=y
-+CONFIG_DEBUG_ATOMIC_SLEEP=y
-+CONFIG_DEBUG_LOCKING_API_SELFTESTS=y
-+CONFIG_DEBUG_MUTEXES=y
-+CONFIG_DEBUG_SPINLOCK=y
-+CONFIG_DEBUG_RT_MUTEXES=y
-+CONFIG_DEBUG_RWSEMS=y
-+CONFIG_PROVE_RAW_LOCK_NESTING=y
-+CONFIG_RCU_EXPERT=y
-+CONFIG_PROVE_RCU=y
-+CONFIG_RCU_TRACE=y
-diff --git a/arch/powerpc/configs/lockup_debug.config b/arch/powerpc/configs/lockup_debug.config
-new file mode 100644
-index 000000000000..ad0a79abf60f
---- /dev/null
-+++ b/arch/powerpc/configs/lockup_debug.config
-@@ -0,0 +1,4 @@
-+CONFIG_EXPERT=y
-+CONFIG_WQ_WATCHDOG=y
-+CONFIG_DETECT_HUNG_TASK=y
-+CONFIG_PANIC_ON_OOPS=y
-diff --git a/arch/powerpc/configs/mm_debug.config b/arch/powerpc/configs/mm_debug.config
-new file mode 100644
-index 000000000000..0e88eb983536
---- /dev/null
-+++ b/arch/powerpc/configs/mm_debug.config
-@@ -0,0 +1,24 @@
-+CONFIG_EXPERT=y
-+CONFIG_DEBUG_PAGEALLOC=y
-+CONFIG_DEBUG_SLAB=y
-+CONFIG_KASAN=y
-+CONFIG_KFENCE=y
-+CONFIG_KMSAN=y
-+CONFIG_DEBUG_KMEMLEAK=y
-+CONFIG_DEBUG_VM=y
-+CONFIG_DEBUG_VIRTUAL=y
-+CONFIG_DEBUG_OBJECTS=y
-+CONFIG_DEBUG_OBJECTS_FREE=y
-+CONFIG_DEBUG_OBJECTS_TIMERS=y
-+CONFIG_DEBUG_OBJECTS_WORK=y
-+CONFIG_DEBUG_OBJECTS_RCU_HEAD=y
-+CONFIG_DEBUG_OBJECTS_PERCPU_COUNTER=y
-+CONFIG_SCHED_STACK_END_CHECK=y
-+CONFIG_DEBUG_VM_MAPLE_TREE=y
-+CONFIG_DEBUG_VM_RB=y
-+CONFIG_DEBUG_VM_PGFLAGS=y
-+CONFIG_DEBUG_MEMORY_INIT=y
-+CONFIG_DEBUG_PER_CPU_MAPS=y
-+CONFIG_DEBUG_KMAP_LOCAL=y
-+CONFIG_DEBUG_HIGHMEM=y
-+CONFIG_DEBUG_STACKOVERFLOW=y
---
++		/*
++		 * deferred_split_scan() takes the folio off the queue before it
++		 * splits it, so the unqueue above finds an empty list and
++		 * leaves PG_partially_mapped set.
++		 * Clear it here: the flag does not survive the split.
++		 */
++		if (folio_test_partially_mapped(folio)) {
++			folio_clear_partially_mapped(folio);
++			mod_mthp_stat(old_order,
++				      MTHP_STAT_NR_ANON_PARTIALLY_MAPPED, -1);
+ 		}
+ 
+ 		if (mapping) {
+@@ -4067,10 +4053,6 @@ static int __folio_freeze_and_split_unmapped(struct folio *folio, unsigned int n
+ 		if (ci)
+ 			swap_cluster_unlock(ci);
+ 	} else {
+-		if (dequeue_deferred) {
+-			list_lru_unlock(lru);
+-			rcu_read_unlock();
+-		}
+ 		return -EAGAIN;
+ 	}
+ 
+-- 
 2.54.0
 
