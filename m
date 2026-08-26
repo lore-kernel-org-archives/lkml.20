@@ -1,215 +1,269 @@
-Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f100.google.com (mail-pj1-f100.google.com [209.85.216.100])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 280A341D11C;
-	Wed, 26 Aug 2026 12:30:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC49341D204
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 12:30:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.100
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787747430; cv=none; b=SgC0BbFe3hv+JVT3lG0MFtjDtwYvFpjCW25MVit3L0Bw4rKgqQ0zMz0lcgkeMOGIQLc+CjH5gCgQfqNxnJGHZqUK3rlCipHBcnkcfirgNn/64NF/MoPemeAKvEVaDCyd7pK15yYLtOlywfNJ36WrFObFOwqHomodjIESw1qeR8I=
+	t=1787747428; cv=none; b=ZxzMMOZaaZwp1US1ZBnMaJmHB1Vl5RaCUpWBcxS0EO9rfzFYv6euTOTngdMcnJDcOGo1Av4gaL9BAm1jqQtxsv6jiaOMhEqOPGNQtNrVQBg/cTA1vWdcgmznG9EDQz7WqiuXbMcPxLLVYmLDaCn3RFVCdlDujQDnFhnEw8BGisE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787747430; c=relaxed/simple;
-	bh=7g9WYieq5DH8PTkAh++CiV42caM5OYD+6gLEc3qdowI=;
-	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=Mom+qoXnnFoAxTeBkr1bOiN/riJ1PXjpooCXZaN179EQU1plg/Z4pnZNCY+KeLhjGeB0jfKxBU2/DeVJLildxHx+JrqUhhV4HSsuFwsFGsMABxUiiF9wjJpZpArAZHnTdfpiQP522xPBNxC1jeyvxwmCS2TSS80+F6H9xgxtzW8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.170])
-	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hVP9H4yZszKHMbr;
-	Wed, 26 Aug 2026 20:29:39 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.252])
-	by mail.maildlp.com (Postfix) with ESMTP id 425FF4056B;
-	Wed, 26 Aug 2026 20:30:20 +0800 (CST)
-Received: from [10.174.176.103] (unknown [10.174.176.103])
-	by APP3 (Coremail) with UTF8SMTPA id _Ch0CgBXkUBb3I5qsgfwDg--.57335S2;
-	Wed, 26 Aug 2026 20:30:20 +0800 (CST)
-Subject: Re: [PATCH bpf] bpf: Fix UAF due to concurrent consumption of
- waiting_for_gp_ttrace
-To: Pu Lehui <pulehui@huaweicloud.com>, bpf@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
- Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>,
- Yonghong Song <yonghong.song@linux.dev>, Song Liu <song@kernel.org>,
- Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>,
- Ihor Solodrai <ihor.solodrai@linux.dev>, Pu Lehui <pulehui@huawei.com>
-References: <20260826103615.932094-1-pulehui@huaweicloud.com>
-From: Hou Tao <houtao@huaweicloud.com>
-Message-ID: <8ddc39b4-a28c-fffb-8b90-b4d60e0adaec@huaweicloud.com>
-Date: Wed, 26 Aug 2026 20:28:21 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
+	s=arc-20240116; t=1787747428; c=relaxed/simple;
+	bh=SBHBs+xC01gXcU0QqelCAGQ2JpfZjVrxNcgJku3imGk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=btMyFlgdmXsQw2yIF/b3KUmDRSUwh+KWCm00uVqamtWNoSUlSVCWG9kaNhwdJZ5pqMHUie27gwjqs5AIirkGPS58f626krFKf/C1EQfU2R0yghi/8KVWxl8DZa3xVSMT0OLZpoXFC/gpKNaB7ilOhNxh2mH3j0mJtUXb38wteNE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=I++K9lnx; arc=none smtp.client-ip=209.85.216.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="I++K9lnx"
+Received: by mail-pj1-f100.google.com with SMTP id 98e67ed59e1d1-38511175ad3so976066a91.2
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 05:30:26 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787747426; x=1788352226;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SBHBs+xC01gXcU0QqelCAGQ2JpfZjVrxNcgJku3imGk=;
+        b=HXUr58Jp9HrvASk3XDCfzIok47SGaQjm2zPI4CbLS89TUoQKDGHhHLYSEx0lacTRde
+         bsa+0gwnK2Cxa3k/+XTDxbBeddLK1kQX9ANWpATQbfGK/zi0Ws1baDqQERFWpwsqQYcC
+         OEL/d9j9d56NpTxDDoPzkvtkix2plQjtEV3zSgmmGYUr2MHIJ+cTZlIsNKiPIu4VP62L
+         AS949p5FXBNFWg27zbb6JetjL5Her9L6RJOYk+zGDNZ7t800HWius0gE6rmEWFVHbwV5
+         R5fCN10tUQNaYEn+bxOxJRO3T1LT0GCoPpSfMzF1itfEUC/UMfHcYsTtJlqX1/MF47Bd
+         tmgg==
+X-Forwarded-Encrypted: i=1; AHgh+Ro2tc0iJqxa12weyFESBebs/kIfx8uR2RA7Bx+BQ3jd6eCQ6r09OWZtA/HvkUcOB+RDTqygbr8h2pKPfj0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nCCD16sQb0TUXdGaIZuyESR0v0HN5B07Gj7luiJ/7WRmbS6cga
+	Z4udgpDMJG9ynLhVRucz6Vu07Lxqd4NExMJse35FHFmUDoA30YOCxucM31dMvoBYEjptR8T1avG
+	ozvKRvU+0JxbyIesJogyk+cyXr2oDLfZONMnoRz5tqaHSfzUyCSALFmF1YXlEA8OyzCL+wT/eBW
+	D492YP0vp84ojW++Oqr1cdveOCDLgEFQbaOwxoR6DwwIp2QXXkhF05+tQBg5uXgnNgBMXnhjxr0
+	KT732e9wguO49H/J7QLXAyCeQ==
+X-Gm-Gg: AR+sD122ZJliYF2+LsflNbb0KZTVMvs8SMbgIokhE09CwxGc9RFnAk5lDlbb+qlDLvz
+	0KiHyTsrVWLrNLcYnZgtKy4lXe2oIkQFWknXS3BPU61DSyJEMi2vykFrWCLA3UaD0N2Zt4QAvL1
+	eB5H1KOWTfY8O5SW0NkWSBiTINPAdcOifoTHmyzfAGLHSEY1uf/o1jzkfb6Kv/O8fJEQGk/fWKi
+	EVjs50HnCb9abaHhJEEribmHQn8ljbdEDrETnPZbm2u6G9qlgce38Djgis7cNd3sXUZ7H3NCWbH
+	/yIR4Qxu91xg9UcPyWhnoZxHQcKOikAvruQm6g2um5ojnexjAyX3i0wT4HdJV1SQbCTX+z5IEOf
+	gWnIrnRVX6zNrlSFlAg/Cvcx4hSrhOs63IL30lks2a+FK4/bjkrg1gMZ6WLcIs2bVlDiWm5XgEV
+	/g+PglXg+stghDsxdHLSUn6uVIbjv7VqePX2aB/PIlKqf5
+X-Received: by 2002:a17:90b:530c:b0:396:635a:9b10 with SMTP id 98e67ed59e1d1-3966d3dc393mr11968079a91.11.1787747426193;
+        Wed, 26 Aug 2026 05:30:26 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-121.dlp.protect.broadcom.com. [144.49.247.121])
+        by smtp-relay.gmail.com with ESMTPS id 41be03b00d2f7-cc1bfd65849sm633864a12.4.2026.08.26.05.30.25
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 26 Aug 2026 05:30:26 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-47f753a0aa0so395546f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 05:30:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1787747424; x=1788352224; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SBHBs+xC01gXcU0QqelCAGQ2JpfZjVrxNcgJku3imGk=;
+        b=I++K9lnxTML/VFzCvJB7JiKY8gwbpLxcajkzl+OF23btytP5g2/H9sKlzKQFnEz4Qm
+         s0zQd1o7D+4YAc4b0egHx+mwXb4wp5DsZVzaZ9nsSAWFPXM2bEVZEt8ZzW6DA2Hzj3D9
+         0xG/2rgwIwucypWhlQ+LqhRqaJWvFvClIYKbU=
+X-Forwarded-Encrypted: i=1; AHgh+RrnavOuP4A7yJdODSzIvLNpnPOwLVGwfZRaBVtreOMzGmQ/e7MNRZBRYPi6fwGnUybtCSzB7gBm4J7oZ3M=@vger.kernel.org
+X-Received: by 2002:a05:6000:4a14:b0:47f:9096:3ef1 with SMTP id ffacd0b85a97d-482e26899efmr7531867f8f.9.1787747423887;
+        Wed, 26 Aug 2026 05:30:23 -0700 (PDT)
+X-Received: by 2002:a05:6000:4a14:b0:47f:9096:3ef1 with SMTP id
+ ffacd0b85a97d-482e26899efmr7531799f8f.9.1787747423437; Wed, 26 Aug 2026
+ 05:30:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20260826103615.932094-1-pulehui@huaweicloud.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-CM-TRANSID:_Ch0CgBXkUBb3I5qsgfwDg--.57335S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3GFWUKr1kCr4kKFy5Kr4xtFb_yoW7Kw1DpF
-	WxJr98Jr4kAFWSyas2vr4xC39xZw4Fqa43Gay8u34ayr15uw1qgFZ3Kry5ZF1akw40kFy3
-	trn0kF1kAw4UZ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9Ib4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
-	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7Cj
-	xVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x
-	0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG
-	6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFV
-	Cjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7Mxk0xIA0c2IE
-	e2xFo4CEbIxvr21lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4I
-	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
-	WwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr
-	0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWU
-	JVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJb
-	IYCTnIWIevJa73UjIFyTuYvjxUOBMKDUUUU
-X-CM-SenderInfo: xkrx3t3r6k3tpzhluzxrxghudrp/
+References: <20260826000234.2031564-1-joe@dama.to> <CACKFLi=gFqMz2nu_6gf_pX0JBXxsygcuzUwXAdqL=8XR0Jogng@mail.gmail.com>
+In-Reply-To: <CACKFLi=gFqMz2nu_6gf_pX0JBXxsygcuzUwXAdqL=8XR0Jogng@mail.gmail.com>
+From: Andy Gospodarek <andrew.gospodarek@broadcom.com>
+Date: Wed, 26 Aug 2026 08:30:11 -0400
+X-Gm-Features: AcwNN1XkZ2TeVi02ehUP9iKyMms2IsgfGsNkChcO8ZQtYv2Be7FwbhxsMjxfah0
+Message-ID: <CACDg6nWtE+0tcHqEgd_+=kHKpFGf-78Rc3ALyzJO9ZZkV2g=uA@mail.gmail.com>
+Subject: Re: [PATCH net] bnxt_en: Write doorbell when linearizing skb fails
+To: Michael Chan <michael.chan@broadcom.com>
+Cc: Joe Damato <joe@dama.to>, netdev@vger.kernel.org, 
+	Pavan Chebbi <pavan.chebbi@broadcom.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Somnath Kotur <somnath.kotur@broadcom.com>, Simon Horman <horms@kernel.org>, 
+	kalesh-anakkur.purayil@broadcom.com, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
+	boundary="0000000000002c50cc0659f26266"
 
-Hi,
+--0000000000002c50cc0659f26266
+Content-Type: multipart/alternative; boundary="0000000000001f6f520659f262e3"
 
-On 8/26/2026 6:36 PM, Pu Lehui wrote:
-> From: Pu Lehui <pulehui@huawei.com>
->
-> Syzkaller repeatedly triggered UAF splats related to nodes in
-> waiting_for_gp_ttrace within the bpf memalloc:
->
-> BUG: KASAN: slab-use-after-free in llist_del_first+0x85/0x110 lib/llist.c:61
-> Read of size 8 at addr ffff8881572cd080 by task syz.4.470/5112
->
-> CPU: 2 PID: 5112 Comm: syz.4.470 Not tainted 6.6.0+ #1
-> Hardware name: QEMU Standard PC (i440FX + PIIX, 1996)
-> Call Trace:
->  <IRQ>
->  ...
->  kasan_report+0xab/0xe0 mm/kasan/report.c:581
->  llist_del_first+0x85/0x110 lib/llist.c:61
->  alloc_bulk+0x193/0x460 kernel/bpf/memalloc.c:229
->  bpf_mem_refill+0x386/0x560 kernel/bpf/memalloc.c:436
->
-> Freed by task 14:
->  ...
->  __kmem_cache_free+0x15d/0x330 mm/slub.c:3885
->  free_one kernel/bpf/memalloc.c:262 [inline]
->  free_all kernel/bpf/memalloc.c:271 [inline]
->  __free_rcu kernel/bpf/memalloc.c:281 [inline]
->  __free_rcu_tasks_trace+0x48/0xd0 kernel/bpf/memalloc.c:291
->  rcu_tasks_invoke_cbs+0x1ec/0x3e0 kernel/rcu/tasks.h:571
->  rcu_tasks_one_gp+0x13d/0x220 kernel/rcu/tasks.h:621
->  rcu_tasks_kthread+0xf3/0x120 kernel/rcu/tasks.h:651
->
-> Initially, we suspected that alloc_bulk() lacked RCU Tasks Trace
-> protection when accessing waiting_for_gp_ttrace. However, explicitly
-> adding rcu_read_lock_trace() did not help.
->
-> This is expected because, as noted in commit 57b23c0f612d("bpf: Retire
-> rcu_trace_implies_rcu_gp()"), an RCU Tasks Trace GP currently implies
-> (and will continue to imply in the future) a normal RCU GP. Since
-> alloc_bulk() runs in an IRQ context (serving as an implicit normal RCU
-> read-side critical section), an RCU Tasks Trace GP cannot complete while
-> alloc_bulk() is accessing the list. Thus, the callback __free_rcu cannot
-> run concurrently, ruling out missing RCU read-side locks as the cause.
->
-> Further investigation revealed that the UAF does not occur before the
-> RCU Tasks Trace grace period expires, but rather during the execution of
-> its callback. When the callback invokes llist_del_all to reclaim
-> waiting_for_gp_ttrace nodes, there is no synchronization protecting
-> against concurrent alloc_bulk() calls. If alloc_bulk() operates on
-> waiting_for_gp_ttrace simultaneously, a race condition ensues, as
-> illustrated below:
->
-> CPU0                                           CPU1
->                                                __free_rcu (RCU Tasks Trace callback)
-> alloc_bulk (irq context)
->   llist_del_first(&c->waiting_for_gp_ttrace)
->     entry = smp_load_acquire(&head->first);
->     do {
->       if (entry == NULL)
->         return NULL;
->                                                free_all(llist_del_all(&c->waiting_for_gp_ttrace))
->                                                  llist_for_each_safe(pos, t, llnode)
->                                                    free_one(pos);
->       next = READ_ONCE(entry->next); <-- trigger UAF
->     } while (!try_cmpxchg(&head->first, &entry, next));
->
-> Since alloc_bulk() operates on waiting_for_gp_ttrace under irq context,
-> fix the issue by deferring the node reclamation. In __free_rcu callback,
-> detach the waiting_for_gp_ttrace nodes to a local list pointer and invoke
-> a normal RCU callback to free them.
->
-> Fixes: 04fabf00b4d3 ("bpf: Allow reuse from waiting_for_gp_ttrace list.")
-> Signed-off-by: Pu Lehui <pulehui@huawei.com>
-> ---
-> Another potential fix would be to invoke llist_del_all() on
-> waiting_for_gp_ttrace before call_rcu_tasks_trace(), but that would
-> defeat the purpose of reusing waiting_for_gp_ttrace in alloc_bulk().
->
->  kernel/bpf/memalloc.c | 22 ++++++++++++++++++++--
->  1 file changed, 20 insertions(+), 2 deletions(-)
->
-> diff --git a/kernel/bpf/memalloc.c b/kernel/bpf/memalloc.c
-> index e9662db7198f..fb1e733bfb82 100644
-> --- a/kernel/bpf/memalloc.c
-> +++ b/kernel/bpf/memalloc.c
-> @@ -110,7 +110,9 @@ struct bpf_mem_cache {
->  	struct llist_node *free_by_rcu_tail;
->  	struct llist_head waiting_for_gp;
->  	struct llist_node *waiting_for_gp_tail;
-> +	struct llist_node *waiting_for_reclaim_gp;
->  	struct rcu_head rcu;
-> +	struct rcu_head rcu_reclaim;
->  	atomic_t call_rcu_in_progress;
->  	struct llist_head free_llist_extra_rcu;
->  
-> @@ -276,12 +278,28 @@ static int free_all(struct bpf_mem_cache *c, struct llist_node *llnode, bool per
->  	return cnt;
->  }
->  
-> +static void __free_final_rcu(struct rcu_head *head)
-> +{
-> +	struct bpf_mem_cache *c = container_of(head, struct bpf_mem_cache, rcu);
-> +	struct llist_node *llnode = c->waiting_for_reclaim_gp;
-> +
-> +	c->waiting_for_reclaim_gp = NULL;
-> +	free_all(c, llnode, !!c->percpu_size);
-> +	atomic_set(&c->call_rcu_ttrace_in_progress, 0);
-> +}
-> +
->  static void __free_rcu(struct rcu_head *head)
->  {
->  	struct bpf_mem_cache *c = container_of(head, struct bpf_mem_cache, rcu_ttrace);
-> +	struct llist_node *llnode = llist_del_all(&c->waiting_for_gp_ttrace);
->  
-> -	free_all(c, llist_del_all(&c->waiting_for_gp_ttrace), !!c->percpu_size);
-> -	atomic_set(&c->call_rcu_ttrace_in_progress, 0);
-> +	if (!llnode) {
-> +		atomic_set(&c->call_rcu_ttrace_in_progress, 0);
-> +		return;
-> +	}
-> +
-> +	c->waiting_for_reclaim_gp = llnode;
-> +	call_rcu(&c->rcu_reclaim, __free_final_rcu);
->  }
+--0000000000001f6f520659f262e3
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-It will extra delay for the freeing of these memory objects. I think
-using a raw spinlock to protect the concurrentl llist_del_all() and
-llist_del_first() will be simpler. Alexei had written a patch for it
-before [0].
+On Wed, Aug 26, 2026 at 2:00=E2=80=AFAM Michael Chan <michael.chan@broadcom=
+.com>
+wrote:
+>
+> On Tue, Aug 25, 2026 at 5:02=E2=80=AFPM Joe Damato <joe@dama.to> wrote:
+> >
+> > When the driver is handed a burst of packets, the doorbell is deferred
+> > until the end. If the last packet has a huge number of frags, but fails
+> > to linearize, the doorbell will not be written adding latency on TX for
+> > any packets in the ring and holding their DMA mappings until the next
+> > TX. Note that the queue is not stopped, so this issue would delay
+> > pending BDs until the next TX.
+> >
+> > This issue was discovered by Sashiko and reading the code verifies that=
+,
+> > while unlikely, it is possible.
+> >
+> > Fix this by jumping to tx_free, which replicates the same pre-existing
+> > logic but also writes the doorbell.
+> >
+> > Fixes: b91e82129400 ("bnxt_en: Linearize TX SKB if the fragments exceed
+the max")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Joe Damato <joe@dama.to>
+>
+> Thanks.
+> Reviewed-by: Michael Chan <michael.chan@broadcom.com>
 
-[0]:
-https://lore.kernel.org/bpf/CAADnVQKea47Q1WPtmVrHEZijb=Ms8QzufVj8eds5HmNXGxSRug@mail.gmail.com/#t
+Looks good to me, too.
 
-However in my understanding, free_by_rcu_ttrace doesn't have such
-problem. The only possible way when there is concurrent llist_del_all()
-and llist_del_first() is during bpf_mem_alloc_destroy().
-bpf_mem_alloc_destroy() will set draining as true and do_call_rcu_ttrace
-will invoke free_all in advance. But right then, the caller of
-bpf_mem_alloc_destroy() will ensure there is no active allocation and
-there will be no invocation of llist_del_first().
->  
->  static void enque_to_free(struct bpf_mem_cache *c, void *obj)
+Reviewed-by: Andy Gospodarek <gospo@broadcom.com>
 
+--0000000000001f6f520659f262e3
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">On Wed, Aug 26, 2026 at 2:00=E2=80=AFAM Michael Chan &lt;<=
+a href=3D"mailto:michael.chan@broadcom.com">michael.chan@broadcom.com</a>&g=
+t; wrote:<br>&gt;<br>&gt; On Tue, Aug 25, 2026 at 5:02=E2=80=AFPM Joe Damat=
+o &lt;<a href=3D"mailto:joe@dama.to">joe@dama.to</a>&gt; wrote:<br>&gt; &gt=
+;<br>&gt; &gt; When the driver is handed a burst of packets, the doorbell i=
+s deferred<br>&gt; &gt; until the end. If the last packet has a huge number=
+ of frags, but fails<br>&gt; &gt; to linearize, the doorbell will not be wr=
+itten adding latency on TX for<br>&gt; &gt; any packets in the ring and hol=
+ding their DMA mappings until the next<br>&gt; &gt; TX. Note that the queue=
+ is not stopped, so this issue would delay<br>&gt; &gt; pending BDs until t=
+he next TX.<br>&gt; &gt;<br>&gt; &gt; This issue was discovered by Sashiko =
+and reading the code verifies that,<br>&gt; &gt; while unlikely, it is poss=
+ible.<br>&gt; &gt;<br>&gt; &gt; Fix this by jumping to tx_free, which repli=
+cates the same pre-existing<br>&gt; &gt; logic but also writes the doorbell=
+.<br>&gt; &gt;<br>&gt; &gt; Fixes: b91e82129400 (&quot;bnxt_en: Linearize T=
+X SKB if the fragments exceed the max&quot;)<br>&gt; &gt; Cc: <a href=3D"ma=
+ilto:stable@vger.kernel.org">stable@vger.kernel.org</a><br>&gt; &gt; Signed=
+-off-by: Joe Damato &lt;<a href=3D"mailto:joe@dama.to">joe@dama.to</a>&gt;<=
+br>&gt;<br>&gt; Thanks.<br>&gt; Reviewed-by: Michael Chan &lt;<a href=3D"ma=
+ilto:michael.chan@broadcom.com">michael.chan@broadcom.com</a>&gt;<div><br><=
+/div><div>Looks good to me, too.</div><div><br></div><div>Reviewed-by: Andy=
+ Gospodarek &lt;<a href=3D"mailto:gospo@broadcom.com">gospo@broadcom.com</a=
+>&gt;</div><div><br></div></div>
+
+--0000000000001f6f520659f262e3--
+
+--0000000000002c50cc0659f26266
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
+
+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
+tJVewHuOmXgWQxNWV7Oiszu1d9xAcqyj65s1PrEIIaHnxEM3eTK+teecLEy8QymZjjDTrCHg4x36
+2AczdlQAIiq5TSAucGja5VP8g1zTnfL/RAxEZvLS471GABptArolXY2hMVHdVEYcTduZlu8aHARc
+phXveOB5/l3bPqpMVf2aFalv4ab733Aw6cPuQkbtwpMFifp9Y3s/0HGBfADomK4OeDTDJfuvCp8g
+a907E48SjOJBGkh6c6B3ace2XH+CyB7+WBsoK6hsrV5twAXSe7frgP4lN/4Cm2isQl3D7vXM3PBQ
+ddI2aZzmewTfbgZptt4KCUhZh+t7FGB6ZKppQ++Rx0zsGN1s71MtjJnhXvJyPs9UyL1n7KQPTEX/
+07kwIwdMjxC/hpbZmVq0mVccpMy7FYlTuiwFD+TEnhmxGDTVTJ267fcfrySVBHioA7vugeXaX3yL
+SqGQdCWnsz5LyCxWvcfI7zjiXJLwefechLp0LWEBIH5+0fJPB1lfiy1DUutGDJTh9WZHeXfVVFsf
+rSQ3y0VaTqBESMjYsJnFFYQJ9tZJScBluOYacW6gqPGC6EU+bNYC1wpngwVayaQQMIIGozCCBIug
+AwIBAgIMLAiVyur+1MRjdDgxMA0GCSqGSIb3DQEBCwUAMFIxCzAJBgNVBAYTAkJFMRkwFwYDVQQK
+ExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBDQSAy
+MDIzMB4XDTI1MDYyMDEzNDMwNVoXDTI3MDYyMTEzNDMwNVowgeYxCzAJBgNVBAYTAlVTMRMwEQYD
+VQQIEwpDYWxpZm9ybmlhMREwDwYDVQQHEwhTYW4gSm9zZTEZMBcGA1UEYRMQTlRSVVMrREUtNjYx
+MDExNzETMBEGA1UEBBMKR29zcG9kYXJlazEPMA0GA1UEKhMGQW5kcmV3MRYwFAYDVQQKEw1CUk9B
+RENPTSBJTkMuMScwJQYDVQQDDB5hbmRyZXcuZ29zcG9kYXJla0Bicm9hZGNvbS5jb20xLTArBgkq
+hkiG9w0BCQEWHmFuZHJldy5nb3Nwb2RhcmVrQGJyb2FkY29tLmNvbTCCASIwDQYJKoZIhvcNAQEB
+BQADggEPADCCAQoCggEBAOP/A/G3pTTF6D8/BCAHpxJpQjOueWirQLqbjFWJTHsh6ADFdvKs+izD
+0snfZopX+ZSMfR+NKl12zoJaZy/HTGiXvyeLACXBAP5i8J+smf3H0UZo+ztl9s/CLIxDfjquoQYV
+UHAKWXC5euJvZ4N4/n2E35/OV6VV3JeKQHAiSOXhljrejDS6Wk96WYaQKawDm0jYH6OoXDnR/CMn
+3bcNBRgaGW5VtJUP5jpTLrsQFC25kFf6fA5/HWLsVdOwkBWic80s6HCG0ROnFWnbLPL49NGItRmc
+Cndhx/wUdeIk/qDpB3NiaC0IsvVNnZLIIbEl5kBojwkZV0jD/VicntRDJ78CAwEAAaOCAeIwggHe
+MA4GA1UdDwEB/wQEAwIFoDAMBgNVHRMBAf8EAjAAMIGTBggrBgEFBQcBAQSBhjCBgzBGBggrBgEF
+BQcwAoY6aHR0cDovL3NlY3VyZS5nbG9iYWxzaWduLmNvbS9jYWNlcnQvZ3NnY2NyNnNtaW1lY2Ey
+MDIzLmNydDA5BggrBgEFBQcwAYYtaHR0cDovL29jc3AuZ2xvYmFsc2lnbi5jb20vZ3NnY2NyNnNt
+aW1lY2EyMDIzMGUGA1UdIAReMFwwCQYHZ4EMAQUDAzALBgkrBgEEAaAyASgwQgYKKwYBBAGgMgoD
+AjA0MDIGCCsGAQUFBwIBFiZodHRwczovL3d3dy5nbG9iYWxzaWduLmNvbS9yZXBvc2l0b3J5LzBB
+BgNVHR8EOjA4MDagNKAyhjBodHRwOi8vY3JsLmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWltZWNh
+MjAyMy5jcmwwKQYDVR0RBCIwIIEeYW5kcmV3Lmdvc3BvZGFyZWtAYnJvYWRjb20uY29tMBMGA1Ud
+JQQMMAoGCCsGAQUFBwMEMB8GA1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQW
+BBTQMVctYYJaUBLeJgZz6cT67l9WmjANBgkqhkiG9w0BAQsFAAOCAgEARE5k774M2TzT1K6LUDrm
+HBHxHxe8rQpJrB59lyOANT2BjSITyUXPC/Up9ExGhYbioibOJALdaBhATnMgqw03EJLpr7Sy/mY9
+g/LlaPMSHU0vcuhuU15DAwQfJ9Liw4K9AmTo0MnPKgiSDLWT8yuphPFiXATg1x8+K1b/KEt8t3Cx
+3pY6cGPUH4iJXz801q7ka38emkBlMKS4i7eWgwCSHR/9c7JvlrVYT5+wqYCbmPasbv3jNS0MfEdY
+qNLhtJABTy1ePhWmAzFMlbexVyN3FeWCOtxrnnD6tFhYt9dMX2kSvti9voE1cPJfyHj7IhvHVlUc
+aBR5GY5F9netDgPvbqg1YpqYZwxblN6i91QhywTGSydHpbgJAmVEEp9rKvGJirwRjORPt0wXb3b6
+6BzJD4dFfmqoXVKRl6WHOOICEKWVcD0OnPRdCJEXiSW6y1xobGpElvWmB7lGIE+W9V/Efv17PdJa
+/u6hPkFWZBhzmFzEWDSaWvsfJpk3Jb+8oHhOk0IERLc4VLhPNhyMOQq+aL30GjEej1lqr79p5a70
+/+WaRxxlypFBMj2V0384P2ACDsYAayPdKSx5aoEJWmW2cc/xR0LxENIsNWeqUBvEjcA6Qud56l66
+dGBNtVCEGdHfKttDlWel93rPRa77UmnqEt+6YNFCXnuhaSUJGOA0yxQxggJXMIICUwIBATBiMFIx
+CzAJBgNVBAYTAkJFMRkwFwYDVQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxT
+aWduIEdDQyBSNiBTTUlNRSBDQSAyMDIzAgwsCJXK6v7UxGN0ODEwDQYJYIZIAWUDBAIBBQCggccw
+LwYJKoZIhvcNAQkEMSIEIP/GfMYdSFfOvro2wLfibX5OVZyuw2VekzDiBMjw5O7HMBgGCSqGSIb3
+DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI2MDgyNjEyMzAyNFowXAYJKoZIhvcN
+AQkPMU8wTTALBglghkgBZQMEASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0D
+BzALBgkqhkiG9w0BAQcwCwYJYIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAL2jPtcRDa6ohKYQ
+xqaUsbE7JXJw16nK160EYpjLkdB1s88T33oMEBxxCcq2aKqFVmG5kEeW8jY1r5btV3FWICd/hCil
+R2FjqceyDyHOiI6EXt57f1PgVWMU9ge2hpgD41KQ0YTBm7uMJE1k/Okh5UsXfZVAsiGYG4YPQnve
+SNJf6PlZaL9kdssPQDExo1p1FgnR+S/qEhiq4isXBUkFd+ddghQJORu5Kreva9tY5JYXK7tfJBBA
+MpGqrVs+iKefppRf8Hjlilpm5BYKqnKG8M3mkm/pPzr2RjP/RkzmXEyUrPjC+yXHCP0oCSkjph02
+HgerUADjJUYAfg8dFdZULYQ=
+--0000000000002c50cc0659f26266--
