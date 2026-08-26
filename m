@@ -1,155 +1,72 @@
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDE244582CC
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 17:57:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A37536B067;
+	Wed, 26 Aug 2026 18:03:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787767067; cv=none; b=Un0uWCYtpfaWPPhbv+KOPJEa7OLAEF/WQzU6ypDC3jW1TZTtuOzVXwYagJLyMp8QJ7HB1duF24aitO60aDVTAY1JUakz3IcGVuJFPhvXvV7M1PXhNir8thc4oCx3/f+0kRjbYy9AcePu2XqXD08Vaiw++ZrPOIOSdmN6oxy6QsQ=
+	t=1787767440; cv=none; b=pYR6ZUthTY3byIRowdviOH+r34NMQ9o+zlkVLp0YsnpFbRpXAVeYDEfzNFZapBuGiMtwxUJ72JZtblj+eq8xCIMn1p538CTUzPRXIctfFzX8XxligHDhyHOqAmgbxXtX+bFEOt1Ladot3XuBp2uo2qVkULUn2ZTCzpS5pZT9yQ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787767067; c=relaxed/simple;
-	bh=WP3lzz3sPwNr/uWnF1dnEtr6qfIaUelhmsrLvivFud4=;
+	s=arc-20240116; t=1787767440; c=relaxed/simple;
+	bh=cC5gnYKtKChjZjGK1f58P/EcMaK1ymn5oR8DTMK08Bg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B+cjCi/7Xin2nLZ7Y91HU8MoszkbgH5xBVVS0wSczaNZzJsXkrxfzb/YSO7sQRP96p1bPfBNdSiMFi2Bk37bXspRdI7DiAxRhguaOekhSi10sdSMNrgv5UTl+jRzq4BQMIXGYoSW54rMN4I+FhJ0qK0uEof3vlgWTugujs7ewPk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=hquZmByv; arc=none smtp.client-ip=209.85.214.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=PYNz73Edt5FbPrEfJ7IvM9oKe/bMtpWMuzZqBl5NayeHCb+NoNh4Dl0RmGs4E2uNWnznOpfAZKQL9NFzyfJr8OWHHm5lYy6IWpl+0ZqePh0S5Gy3iwgycv9X0RBKESndntR8gyJryvkhaPmbjyRD3cGuGt0rYAqUOllLck5Ungg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KyQp/rbG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="hquZmByv"
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2d3b440b97aso10725ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 10:57:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787767053; x=1788371853; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mOyt5LoY374Qkpz6cQhUC33i8CoGf2Yn2cDcltrm0Cc=;
-        b=hquZmByvqvONjAlbXKuBbz8QPQjRA5q24l+0d+Wr/FDWY71EaBqGj8IlwKdWAZ/7rN
-         qfhOOD0fECT1ixEw028sq04lhB5Z07hNlWPm6R3OajIctcl5IT/kz9pvApm4OixZ97oz
-         VZxiM4k8JmKXtVKR8jk7Gp9I4YGU5A7Chzn6ygBLmMqOe6Oa3kypdshgeQT3A/tHJtny
-         haMbvbBbdWrldqdotn11ykqbR6cZYMaVgFxEYpU5hbmi6FjSNGAfZNFD30VDJSmHUmlR
-         W7RvcM+aVp9V7cuZCosewrtpuz1dmLCXobqo+V3HFTZhZC6AHrBOyzbhjJdfQJguASa7
-         7CYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787767053; x=1788371853;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mOyt5LoY374Qkpz6cQhUC33i8CoGf2Yn2cDcltrm0Cc=;
-        b=a8XnJUxeo/ZykZZ3IYMd9AuaxUiTKe/dhT9PYF4XtNCnrsqv5hTpqc+4qUaW+Uvm82
-         j9nJDik+0COzJXDi87BwVqeAXRHCut/XMA9xi87nTaz403ze/cMHYnXuThgO97NHb7qE
-         arl1u6Gql3Td0F2sFoXUPKPROp6ujRgBbXk4s3s/3QXQyTyLwQ5DwHlKC+0xGNt8qovx
-         UcGBnPjc29M9iWGo2xzheljMcuDa064ZTBq0h6OhmW45spVwGfQV9c/DBojshHMuqRsp
-         uj9DTYDOjT4pUCX4AFLju0zfFxTCXAF6Tz9DSi6zFzJIdjz9YKdXWVNZsztkg0mNnJ6/
-         aoSA==
-X-Forwarded-Encrypted: i=1; AHgh+RpC1oZbuHPoRLL6pNtfoyKFNQpgP3cAYL+h1R/gWEHbpYYYc0InXJODgAw0VXMZ8oqIMb4gFsmSJTyDgeM=@vger.kernel.org
-X-Gm-Message-State: AFuF++l0q9GDD13WrkTHbvY2d9WGcKWJUwiltmBGadsgCTzBoSq0p76/
-	gz5QuWrh+YgJCflhmJZM38vQb6603bbtYSWbrx84ZqffXzPWRjPtNJUUD3dbl+Nlvg==
-X-Gm-Gg: AR+sD11JaKbzfCxgcbLp8AdJhwreREKSttA5KDZSDmLivw7gVtMLfSq8BAUcZNW7qiS
-	KvN297IaJGusONxyA/qn1Um8fo/9SjMQTawv5wVC9HWmz1paz0Mht/eKt553MDJmwPRup0b1iQH
-	1nkUOPVTpvkdaBPb+HCXuYiCZcYBVUC81QC01xOkbF0UADUgp4MqWARsP6lCHn3Liac4d797DuN
-	rA5EwLhpYqSnjr1ienQ4Td8huuK4N+LLDyUKBO4AYHB6cFAwKLAyvhAuoPeEl/AWVZr1/rd/mw4
-	lQLCr5ouLtxEUZocdqMOWG78IKvfviK5VMzPfbZiU9XXK2c/kXy5eNHMt+0l+S6V/FZqkUc+7AO
-	dnlMT3PMqZ9Q9cpSJFkk/xF8k74OEOmetifzvGUBBQsqyvWa1Oq9J9b/NYLNMLc0JSR9BUgT+sy
-	Lltw6+TNIexbUMGh0s8zEvXsa5TW9H5rDjvV1DHbTb4yiSNGn7lI6zzW9GjL14VsTlFudIHrVir
-	sfZxEFMDMiq3R/qGMrfvA==
-X-Received: by 2002:a17:902:d4c7:b0:2c9:b404:b55 with SMTP id d9443c01a7336-2d72a6912edmr556605ad.6.1787767052531;
-        Wed, 26 Aug 2026 10:57:32 -0700 (PDT)
-Received: from google.com (195.5.127.34.bc.googleusercontent.com. [34.127.5.195])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39645d31e8csm9002581a91.9.2026.08.26.10.57.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 10:57:31 -0700 (PDT)
-Date: Wed, 26 Aug 2026 17:57:28 +0000
-From: Lisa Wang <wyihan@google.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Miaohe Lin <linmiaohe@huawei.com>,
-	Naoya Horiguchi <nao.horiguchi@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Paolo Bonzini <pbonzini@redhat.com>, Shuah Khan <shuah@kernel.org>,
-	Hugh Dickins <hughd@google.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, Andi Kleen <andi@firstfloor.org>,
-	Hidehiro Kawai <hidehiro.kawai.ez@hitachi.com>,
-	Rik van Riel <riel@redhat.com>,
-	Yu Zhang <yu.c.zhang@linux.intel.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>, rientjes@google.com,
-	seanjc@google.com, ackerleytng@google.com, vannapurve@google.com,
-	michael.roth@amd.com, jiaqiyan@google.com, tabba@google.com,
-	dave.hansen@linux.intel.com,
-	Isaku Yamahata <isaku.yamahata@intel.com>,
-	Xiaoyao Li <xiaoyao.li@intel.com>
-Subject: Re: [PATCH v5 5/5] mm: selftests: Add shmem into memory failure test
-Message-ID: <ao8pCI3AaUssIO8S@google.com>
-References: <20260823-memory-failure-mf-delayed-fix-v5-0-d97a5703e45a@google.com>
- <20260823-memory-failure-mf-delayed-fix-v5-5-d97a5703e45a@google.com>
- <8a99f753-0713-4194-8eb5-90da0724e647@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KyQp/rbG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B03DE1F00A3E;
+	Wed, 26 Aug 2026 18:03:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787767428;
+	bh=v/rmQCkw+8/y3EOBoiQX/SoNR9BJ2BW+H56CgAbq6Ds=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KyQp/rbGfoscGd9gZ+TZfLHNZJiRYDwQjBDFtWvua749FFXn5GIUcdfdKF5CXiuhU
+	 c8o3Tvup+yIFWeYohSovOiPfDahU4lIVXY4fSnC6VBHrfEJrSZ/2TfjmfP8/woSzkZ
+	 9XxJTBJxQA0fY06vh8W1aWTRViwnkTu+LPoJgN716MwgNZX6bjuA9bQHPU7WYkv0Hr
+	 kkQ1bvXl/BJCZZfUWMYLA1dy6cXLvIybwcuO9jpeTT6eMqP4kNkY1Cgk/RoeHlGmN6
+	 w6ZbPf7MMkAQc51bzNbxJXsgd8C0RmJKpwDGIBx973eRgNS119yCCkgmZH5fiq4J4/
+	 c9UmZsaWAG+Yg==
+Date: Thu, 27 Aug 2026 03:03:46 +0900
+From: Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, akpm@linux-foundation.org, 
+	linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org, 
+	lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com, 
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, 
+	broonie@kernel.org, achill@achill.org, sr@sladewatkins.com
+Subject: Re: [PATCH 7.2 00/82] 7.2.1-rc1 review
+Message-ID: <20260826175904.GA3047625@rocinante>
+References: <20260825132541.560541185@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <8a99f753-0713-4194-8eb5-90da0724e647@kernel.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260825132541.560541185@linuxfoundation.org>
 
-On Mon, Aug 24, 2026 at 03:00:47PM +0200, David Hildenbrand (Arm) wrote:
-> > +++ b/tools/testing/selftests/mm/memory-failure.c
-> > @@ -20,6 +20,10 @@
-> >  
-> >  #include "vm_util.h"
-> >  
-> > +#ifndef fallthrough
-> > +# define fallthrough __attribute__((__fallthrough__))
-> > +#endif
+Hello,
+
+> This is the start of the stable review cycle for the 7.2.1 release.
+> There are 82 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> This doesn't belong into this test.
-> 
-> rseq/rseq.c selftest already uses it.
-> 
-> I think tools/testing/include/ already provides it.
-> 
-> Maybe
-> 
-> 	#include <linux/compiler.h>
-> 
-> does the trick?
+> Responses should be made by Thu, 27 Aug 2026 13:25:02 +0000.
+> Anything received after that time might be too late.
 
-Hi David,
-Thank you for replying.
-Would it be better to change it to /* FALLTHROUGH */
-like the rest of the mm selftests?
+No issues running for over a day now.  Additionally, a number of Arch and
+Omarchy Linux users also reported no issues - so the kernel has been tested
+on a variety of hardware now, and has been working fine.
 
-If we prefer to include <linux/compiler.h>, we can
-certainly do that, but we would also need to update
-the Makefile and fix a redefinition in pkey-helpers.h.
+As such:
 
---- a/tools/testing/selftests/mm/Makefile
-+++ b/tools/testing/selftests/mm/Makefile
-@@ -37,7 +37,7 @@ endif
- # LDLIBS.
- MAKEFLAGS += --no-builtin-rules
+  Tested-by: Krzysztof Wilczyński <kwilczynski@kernel.org>
 
--CFLAGS = -Wall -O2 -I $(top_srcdir) $(EXTRA_CFLAGS) $(KHDR_INCLUDES) $(TOOLS_INCLUDES)
-+CFLAGS = -Wall -O2 -I $(top_srcdir) $(EXTRA_CFLAGS) $(KHDR_INCLUDES) $(TOOLS_INCLUDES) -I$(top_srcdir)/tools/include
- CFLAGS += -Wunreachable-code
- LDLIBS = -lrt -lpthread -lm
+Thank you!
 
---- a/tools/testing/selftests/mm/pkey-helpers.h
-+++ b/tools/testing/selftests/mm/pkey-helpers.h
-@@ -22,7 +22,7 @@
- typedef __u8   u8;
- typedef __u16  u16;
- typedef __u32  u32;
--typedef __u64  u64;
-+// typedef __u64       u64;
-
-
-Lisa
+	Krzysztof
