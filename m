@@ -1,84 +1,112 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3F373C76A0;
-	Wed, 26 Aug 2026 18:58:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 750ED3D0927;
+	Wed, 26 Aug 2026 18:59:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787770705; cv=none; b=iiYZFaVwez5pTvD8q8WfSa27STheQ0vhYw6e93+YvqWYi6YopzPJiiYTNXi0Lxc1/6i1vhbsJh9fysdcSqoNT7MRTq6U6VQb70DoC/K8/OzP2XVjYR/E+tJSjIM3f6uYoLZz0G4Vwb0KZ0XmSffVJy8eWPnXbIK4QXiGV50/se0=
+	t=1787770802; cv=none; b=AJRJDskai5nSUOL+1rWsLo2BNsNBfxR/et422DMHYXGnWezJ7iASjnaEhUhbQXwrt5EWvwwyGIT0WFk56dWhkm4PCzQjDjf/HwqiQW5euRNkC2r9uIJhmV6Yhx7nbV7feM9IZWbTcX9WBtOeQUjhj+UsMaNZ0hhpAKAqqgxeI+A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787770705; c=relaxed/simple;
-	bh=7yVu7NGuF4jj3EeqtJX7hFsbveOdchtEl9yumj3rivg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=V/2ddXBYcYjHDE5zPDVrD8gFsUOeTvw+Z0+6E1afYnQ8xH4mHprhp/t49RZCtIDrnrtrVQF5cjYEL3Ci7Znhr9o2fbwX0MtVsXS6b4/zOwIextHsXCeYih4IZl4jO5aQcaqenpi+nnUeKwljMQiUBcjFr+E1ep9XghfDDUNE4sE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jw/vs888; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787770802; c=relaxed/simple;
+	bh=uXgi8iKJnUvL0UbynOWlNB/E3XxehnflE1vksrfXgVE=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=lIe0rylyNzrjJzpISZ3XNQDPLFERKPXtX8cGH0MiG0dv068IXy0W4V+UYc5FtQ40jdoJJokzE893as4R+qNHe+oxI3J081TVkhY84PYtJe8CvoBlwW41a8CB53hs4zreLzkdKyjWlA1PUC61pIg6ccpGy131AZ6dpu08zBr66Gg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ShWldzbn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jw/vs888"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 861E11F000E9;
-	Wed, 26 Aug 2026 18:58:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ShWldzbn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 998241F00A3A;
+	Wed, 26 Aug 2026 18:59:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787770697;
-	bh=mjcItGCHrnB/ioZeYCgC7spPCZuPgfw0z2OYhAXp9qg=;
-	h=From:To:Cc:Subject:Date;
-	b=Jw/vs888lHxf3+rtuYMReuArz/1AQYySXX1nB2WyrQyV1H/NWVg7H9HyoLvvU5HEh
-	 7x2W2XlRFiz5Mg+9U5C/d0qPcxw1G+IJu/zucEgQXkJWsp5FUMZR/czmTsDtYAvqOO
-	 DzuPsaBn/k6X2ThGsqUW7VgxEQLVw59lYuMz4UQWBTXMY0MmGm1fnfsYTuUsp0D9LD
-	 IVSdNwTLEc97YsaB9XjVjSQ0QWd24Ed/0QhSe1q//yCuI/He5A58UViq8b3Yrtinqj
-	 r3OPn4KGZksq4U3CAlN1L85xSRyCJq1iLv93B2vomXlQeVz5Ak/cn3Y8uNtTp0wTCM
-	 sREUEzHQRSJBQ==
-From: Namhyung Kim <namhyung@kernel.org>
-To: Arnaldo Carvalho de Melo <acme@kernel.org>
-Cc: Ian Rogers <irogers@google.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@kernel.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	linux-perf-users@vger.kernel.org,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>
-Subject: [PATCH] perf ftrace latency: Do not read trace files when BPF is used
-Date: Wed, 26 Aug 2026 11:58:15 -0700
-Message-ID: <20260826185815.280451-1-namhyung@kernel.org>
-X-Mailer: git-send-email 2.55.0.897.gb25b4bd76c-goog
+	s=k20260515; t=1787770793;
+	bh=fbV04NJfrDSda39bLfWpSQ1+96igYqVLEjB/G359u1A=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To;
+	b=ShWldzbn3uUC0ns5uuQZ0h6aN8QEk/hUHthMftucv/SJ6uem6njm5qntvgNmlXnh1
+	 YyyM1T9FrehPY0fAVO/U9hIP/f0Rs4hohmQj5YaDK3TqobTAbgM/z3JU5wK5xXBWnU
+	 mGeIGer3HpU+dIUvrH3wNAlw+TCFE4QC2BOqMe1ZoPtgivqq+79rg8R0IsGFkmIyJh
+	 74H+igIc0nTFpdSflHK5Kk5AhVIVa8AQObxjN/aMHhOwNzKae9jGsr5D2uvVF2dvMX
+	 Qb2hRT+VKZYcNafp1zlvcqUeYQGiw94aRuuh4FDFi9/9mmoBaJ0VlC1j4QNzio3PP2
+	 6QDo7BjpiuR2A==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 26 Aug 2026 20:59:47 +0200
+Message-Id: <DKZ3UPVXL5C5.37DDI6DQKS3MS@kernel.org>
+Subject: Re: [PATCH v3 1/5] rust: usb: add revocable typed interface I/O
+Cc: <linux-usb@vger.kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
+ Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+ <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>, "Colin Braun" <colinbrauncl@gmail.com>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+To: "Mike Lothian" <mike@fireburn.co.uk>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260826163101.4168-1-mike@fireburn.co.uk>
+ <20260826163101.4168-2-mike@fireburn.co.uk>
+In-Reply-To: <20260826163101.4168-2-mike@fireburn.co.uk>
 
-I've realized that it didn't set up the tracing files when BPF is used
-so poll() just returns immediately.  It ends up with calling poll()
-unnecessarily in a loop.
+On Wed Aug 26, 2026 at 6:30 PM CEST, Mike Lothian wrote:
+> +    /// Asks the driver core to unbind whatever driver is currently boun=
+d to this interface.
 
-BPF still needs the loop to wait for the target process exiting or a
-signal from users.  Let's sleep for 1 msec and check that.
+What is this needed for? Where do you use it?
 
-Cc: Steven Rostedt <rostedt@goodmis.org>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>
-Signed-off-by: Namhyung Kim <namhyung@kernel.org>
----
- tools/perf/builtin-ftrace.c | 5 +++++
- 1 file changed, 5 insertions(+)
+> +    /// This is the narrow, reviewed replacement for handing out a raw `=
+struct device` pointer: it
+> +    /// performs exactly one operation (`device_release_driver()`) on th=
+is interface's own device,
+> +    /// and cannot be used to reach the device-wide state of a composite=
+ peer.
+> +    ///
+> +    /// It is intended for a driver-provided "release my devices" contro=
+l (e.g. a sysfs attribute),
+> +    /// and must not be called from the driver's own `probe()` or `disco=
+nnect()` callback: the
+> +    /// driver core already holds the device lock across those.
 
-diff --git a/tools/perf/builtin-ftrace.c b/tools/perf/builtin-ftrace.c
-index 4f881a40c311ae52..e61b9de11e1e41c7 100644
---- a/tools/perf/builtin-ftrace.c
-+++ b/tools/perf/builtin-ftrace.c
-@@ -1146,6 +1146,11 @@ static int __cmd_latency(struct perf_ftrace *ftrace)
- 
- 	line[0] = '\0';
- 	while (!done) {
-+		if (ftrace->target.use_bpf) {
-+			usleep(1000);
-+			continue;
-+		}
-+
- 		if (poll(&pollfd, 1, -1) < 0)
- 			break;
- 
--- 
-2.55.0.897.gb25b4bd76c-goog
+IOW, it must not be available for Interface<Core>, which due to the deref c=
+hain
+is not that trivial to model. So, if this is really needed I think this nee=
+ds a
+an abstraction where you get a different device newtype from the scope wher=
+e
+this *should* be called from that allows you to do this and can never leave=
+ the
+scope.
 
+> +    pub fn release_driver(&self) {
+> +        // SAFETY: `self.as_raw()` is a valid `struct usb_interface` by =
+the type invariant, so the
+> +        // address of its embedded `dev` is a valid `struct device`. `de=
+vice_release_driver()`
+> +        // takes the device lock itself and tolerates a device with no d=
+river bound.
+> +        unsafe { bindings::device_release_driver(&raw mut (*self.as_raw(=
+)).dev) };
+> +    }
+
+[...]
+
+> +/// A revocable window during which USB I/O is permitted on an interface=
+.
+> +///
+> +/// A driver-`Bound` interface is *not* on its own proof that a transfer=
+ may be issued: the USB
+> +/// core forbids I/O outside the window that opens after a successful `p=
+robe()`/resume/reset-resume
+> +/// and must be closed again before `disconnect()`, `suspend()` or `pre_=
+reset()` returns. This type
+> +/// represents exactly that narrower state.
+
+How is this different or narrower than the device's Bound type state repres=
+ents?
+Also, this seems to reinvent Devres, which we superseded with Rust native
+lifetimes and higher-ranked types. Please use that instead.
