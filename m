@@ -1,162 +1,129 @@
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DD7E40F726
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:08:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787760487; cv=pass; b=pjfd66H40Criy/ktVLrzlw1TtPwvZu8ppmyVfKlGnRJJu9zHXCFN4RsS207/HgQ/Fusl5wXv1OUl0HxSp7/czVW3Co7wOOtJ/8VeI3BAZynUxPhCQ/6tHpRYc5LDwuCKSohxUjwZxPPbXu4BYWDGJnI9l77D/bEomIW5cOxH5+E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787760487; c=relaxed/simple;
-	bh=GIDnncHf3gt4skXsPSSthAQ8/5s/Uha2JwXUjEqzB9k=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NTVujQ1+UBQFLbUTAoRkRrstLdHsG1KuqsNUrPCSCXEbgvUHNg4Hm29oKrCoL4zBCfSUbn8Fngfb8y4HglJfTfRUyhlyG2xA1FimJHmEQzdsQA5UeN9IRVzGbND+iQgeIJUQuFr1Bt61SmOjkdXqDH5OLAE8L7NSZNGIrA+karI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WUejBtrG; arc=pass smtp.client-ip=209.85.167.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 384263783B4
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:09:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787760557; cv=none; b=NJ1MzN48rLpHZDLULGR32mSLyVhxtxKr07rbXuNXp0N8bOQQ1ySs1+NUlNQxu0VLXN8Fq6kh1mn/hhM7YU2ixWV/5OWfBsmeJGHGiuKAQiTyroJVhn7Zu3BUgGOzfzIqs7Cj9kFBj2pFl2kPBmOoZFMBdOxVUMjUduGZobhgOxE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787760557; c=relaxed/simple;
+	bh=VdYiVlAaEz21Hi+q/JsnUD7U1RNcR3aPRlDlKQ3I68g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ghl7HB3eP237/GOlcbR63fo1Pz3ccXeeYu4JBDQm+4veUbSSkBedHwCAp5n/ABFnb1ddvQhJgBuC8WmLMow8xmUmuRQriYEYvUvi027EubJJ8aRBF9JpNr0Rk5i5LLMKAsq7bRCzPo2NyUaeaaD7nWs4mvMNIA3osGkAAnu6Nns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=am+xWD6s; arc=none smtp.client-ip=209.85.218.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WUejBtrG"
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5b4aff8e8c4so20106e87.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 09:08:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787760484; cv=none;
-        d=google.com; s=arc-20260327;
-        b=o3otMskuFdYfab8CbYxF3ANXGzR/i5tCT1ArfYJbaaJckn1kADDkFSvBU4VVqBID1E
-         vgE81DtRn5zYgFNpSezFSoAeDPV7vRhDb7WWTNGQ9aOZXMecPPRRFNK+Mc7MPjHOnV8A
-         mtY+LCbEWGcApSASphTjoKUN8NKD7MEEkZ5MlJEjvLyUBdamgpVM4Z5xI1icMFgo3O4D
-         7jIgIKLfpuU5ggvwtIdv1v2XIxTC/ljeQt5bJvOMwrBnNxY8OzBXWBRSuEcSojqa4dCU
-         Zz+gmdvnAqvE/B8fAQkhC2bimjZbrpM08d31M2bhzM1A95/n/WzRrHC86FP5bgXGrHhn
-         XjaA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=6TL6o2qDUSSET4kTZDIBsppDmS2qokjwR9B3c5mQR8U=;
-        fh=oLqpsVizTQ6Ub7KVzOHTNaU1IJ0xVSF76ewnN9OlvDc=;
-        b=TrKWV9JKFB+ohK1Y8UIr7pJRfNgcrwQ9ejV86OE+N5yOjaByZOhVuKir8t1tjcThA6
-         Zp3OONF3xjYen1IjQeRMPiqEWxtjYHk/P5G1g4wuvfkonTr5jfBclCF6cm+3XvQunoHH
-         jJapPEfsbEnKxWJ5bjxxVD4+ROR+/x2pGY0L6EM/1z9KyspQZklKb3b4hR1gQmi9dNTb
-         l67vgZLzbb0uJZwCAL3Fz0XhjOQvFG54wwBSnxg38drXC3xrpK8LtF7992x/ouX4SlbM
-         vLHM2980MNMrsa7T7N5T+F/S8PZXrrSHP/FVUR8AcSInSFs2EEUcNRRlHxoujRmMrGmQ
-         Rl+w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="am+xWD6s"
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c1c26d7e951so169529966b.0
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 09:09:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787760484; x=1788365284; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6TL6o2qDUSSET4kTZDIBsppDmS2qokjwR9B3c5mQR8U=;
-        b=WUejBtrGAiIVK7cxZeJJdhY8cYkpmApOQBoN3TNoVbGsm+/M/VqkmhGNczfoVxd5lf
-         q5mxYfc2WzbDNaK+ElI+UdL6iKk4TlBMk7BTGeavHGPm8IjWLd3zU8f1tdoT476Z517w
-         llpGv/XfcW9ukhbF86PCClRwP3iPe56EHUzI5VAxU+cbOe2syK5TN4sGxpYGUiN9lbpB
-         Q7ncoFQuO4hB1bTLjw+bAJDWUR8VC0X4jUGXrf/4r3YMwx6TBZaIdJK9bHmL3shZWioD
-         Bxm6N1bY1AJuwc+KKUVIKQr+kRqy+w1GRBDHBxUmjlvCXLywTft2EoG3Zfdcc6kVPwnH
-         1wRg==
+        d=gmail.com; s=20251104; t=1787760553; x=1788365353; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zVZDnx8w1K3i56E12CadQZF3S/QBfdgckzz9SPQi62o=;
+        b=am+xWD6sMaQ/1o+4R6V8ERC0x3PueG4ZAXsxL3Gz8G7wl806hH+2oPJO6as9DGphlP
+         aghPtJFudU5QGiWk/PbfCqgJTUL6MY6DZ/zP7GRZm6PAlfzMqgX7rUAHVD7xy86n6VhF
+         oxlQNuGw8KKyph6EMpBNsBE/F1POCuYr34tsM1oAsZlGC7WMLpqyvomEZYTj10JlHYXU
+         ld7B9KI0Xc1H7M/CVkzk3eISvPE5nHGvzORYUQai8U47c68N18dMl12b+N/jER4AAf55
+         UVVzHz92Wik0iNS640RCwVxNlkcxVlTtIwBVa3DwPx9qITKGEGP8Kh1YqpWhIiiawrhZ
+         ANaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787760484; x=1788365284;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=6TL6o2qDUSSET4kTZDIBsppDmS2qokjwR9B3c5mQR8U=;
-        b=n3K3JcHIoUT6tXOnPviueUlf2N9IfRKr1xKasonCP8XOOFs727ZO+gVNAflcLdo1Zl
-         nxEJwrlk6XlK+cmLsKKfBqHw7wNtzAWdorBNjoT56HRGsJ5fcMBiRP4awITcUncC4DF0
-         HY7WAVmagXTyANH19zpJra/JmNE0e822KLJou1ALXbfL8PnyCS2/sUcY5aTbO1g+t5ci
-         UxcgFybtJ1i9W0b/409SiS2zcz2bYPzVw2vTDIQEhDpPvNEbvGrMZttJWRRKis8rwm0W
-         U+Raf7EZ9gZmIV2TiDrhDWi8dTuXW0qdz4EOO4Gi2CjvWP9uMU00uq+fd3MdW47/DkHn
-         jKnw==
-X-Forwarded-Encrypted: i=1; AHgh+RotMVP/3hbxfruJZuy6oTkz6ngmfYaIKG06vTgliAcUXQ6JjzYozelHlXFyglGMASOq4Qs+27zwQ7BjVeQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mtahK1uqRvh4GpiJT0CJFMKWOZupRlx3YnlmtMecfWOXv+X/ZI
-	9a6AEjVtkU/0frAcBr9dGwiMrjE03W2bYnPYfKplgnn7TnmsNWptqi1OnGbUAbRKgT8ZHXQP5vA
-	KZ1jTGu8thYkBmNNLYssqeyLUAUFzLKE=
-X-Gm-Gg: AR+sD11kjVdGNdCnq3++fsLVJPsp17lpVBDeRbErsnt0yhkslBIQc1nw8jscBrYEc7G
-	Vi3z8TwetWoVq/42ZhdFjUta5FJ7c/4qqor/WFygdQKn4eNvS6vFWk6f9Wi+RWDup0DiQl/qIy2
-	efeibrbcAXAs+yS1lpGbAYtZAGf4i1zR3t6JG/n1lJ0Hzh004CeYkZjtUACbRhCGcQ5G5pV9J3W
-	s9YwRmqF7ws3BZXVYQo/kMj1hXvhQKpoqr79LZxp5OgEOkSihJ8EDpMalPUtKUaUqiQUFUVWAN0
-	WDwffGw1Rh7INgP19ijaWGt5JiWbtIAOo7YJTIfjYgCUHlk1dLpyKddhf4FslZJWJ9zz3Bpk31I
-	=
-X-Received: by 2002:a05:6512:38c7:b0:5ae:b998:9134 with SMTP id
- 2adb3069b0e04-5b4a9006427mr2044785e87.1.1787760483740; Wed, 26 Aug 2026
- 09:08:03 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787760553; x=1788365353;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zVZDnx8w1K3i56E12CadQZF3S/QBfdgckzz9SPQi62o=;
+        b=B980xHOoZ0Ijr1qUFS7AGKGr8VDyU5OHuITrmTk4HNSSDtf7k/bk6dnN8TCKKH9T+M
+         JdJXi6ZQXEX+45nb125xKcV2nvd10DJRNlWcJbm4WkjfJU76mYK8V48INmQbwoACOqyk
+         RwP//5G532apnVfqGCVjBNrENm0NG3UPldp11IXMFeUIvgoNFfzfqfgWRYDS7GL1lxvL
+         HvKq0oQLMk8PIbnJ8GiS2GkUPN9yWTp/bE6bh2uGoDynUUxHeCACkA4wVFnWNA8tzeq0
+         OoMLDsLhIjQiNR/0PHZqqG4Vgr+HRWkDpgp1pSBHA8Kcx1CDfaW0bmBiMxuZWWequ9rO
+         Fnyw==
+X-Forwarded-Encrypted: i=1; AHgh+RqNPD6AUv/IRNo5x9MzqrVOQVT8dt8TFRuHOEc9atm4PgcL7rw2HJVm13yQCZmgj7D2mqOaBm9/CvoOVMM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nRVKOqcuMQFQ+OrORwNnw1TpK4Nf2umg352/1/pXmLyjiPwPMX
+	86WwgICHj9ZoYyTiwbqqNKPaLQngqFdqlM/enpMGBB8rm0NQdQX8pMO5oSMQTG10
+X-Gm-Gg: AR+sD10ydi9LY441Z1krbLi2+UF/wXH8nGqvAZKzvLs2Spe8OMbZFyHaozxuavFRRhB
+	39mp4Ep7Bot448Lr/KDyZdQ+WSCLt8eVhZ73ZbkPH+2re7HoP/xCoVM0h2xVd7du5A5gPWNQLKm
+	IJVBCXWK1jFS6uMareeTuJDtLAlmTaEje7V4FLIYplfh1esX/6SM4g1IZxE6DOUt5Yh3HvNfNPW
+	ezW0SYK89xn3+Ai2NyYv/7BSt8V0Pw6727ZPt/ZOvGhQkTxKjEiE1O9u2i6KOV+rG0obuHJfb0O
+	kEjzcATV64VeGwyc0enV96pj1MMWxlFIWzUwgdgXXRM3BfCSdfwoh0BvXHZXukWaxwEZvT1CfGj
+	T9rz4vXT68q9hyzjtwrqT/hQhG2+J/mxFNifYNZGIIsjJ30kjEe670hGsqW7nxeYFr7LDXEolUb
+	I8JvXzu/I14x/ZMJRbEdcCpUZgvG3FDIKN9l1w5+7+eNIg4UCGQRl/o334NkZC5sje2148px4+D
+	2Ogt28eNUAwIvzKnRThJmRfZi4Ye6ZQDC5wSW7eq+kq0oU=
+X-Received: by 2002:a17:907:e1c4:20b0:c25:1b4f:6d95 with SMTP id a640c23a62f3a-c251b4f7a1fmr632539166b.6.1787760552958;
+        Wed, 26 Aug 2026 09:09:12 -0700 (PDT)
+Received: from gmail.com ([2a01:e11:1403:8620:78ce:12f6:160d:28db])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25271e4cbcsm386050366b.18.2026.08.26.09.09.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 09:09:12 -0700 (PDT)
+From: Paolo Pisati <p.pisati@gmail.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Niklas Cassel <cassel@kernel.org>
+Cc: linux-ide@vger.kernel.org,
+	linux-m68k@lists.linux-m68k.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v6 0/2] m68k: pata_cswarp: Add Amiga cslab ata support
+Date: Wed, 26 Aug 2026 18:09:09 +0200
+Message-ID: <20260826160911.460165-1-p.pisati@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260815-shrink_zswap_entry_0815_v2-v3-0-0171bd86a667@gmail.com>
- <20260815-shrink_zswap_entry_0815_v2-v3-2-0171bd86a667@gmail.com> <CAO9r8zNFYM1bry0DwDRNtpnEL9yyXQ3h=1wcLbGsO1sFtGgvjg@mail.gmail.com>
-In-Reply-To: <CAO9r8zNFYM1bry0DwDRNtpnEL9yyXQ3h=1wcLbGsO1sFtGgvjg@mail.gmail.com>
-From: Jianyue Wu <wujianyue000@gmail.com>
-Date: Thu, 27 Aug 2026 00:07:51 +0800
-X-Gm-Features: AcwNN1Xa_upYQ8xLBB-nlAO59uqKGOulAkiKGtTDN8aKq4iOOwa5PXp7uoaS_Ik
-Message-ID: <CAJxJ_jgihBLy2mbPAN-uqup2mGq+hurKkH=W4RGo4Ad0Eki5sQ@mail.gmail.com>
-Subject: Re: [PATCH RFC v3 2/3] mm/zswap: replace the zswap_pools list with a
- fixed pools array
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Nhat Pham <nphamcs@gmail.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	Chris Li <chrisl@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Thanks for the detailed review.
+Here is a driver (and the subsequent defconfig change) for the pata/CF socket in
+the CS-Lab Warp series of Amiga boards.
 
-> I think the reservation logic is self-explaining, the comment here is
-> not warranted. Especially the idx part, I believe we only set
-> pool->idx here to keep track of the reserved index, not really to do
-> it before publishing as publishing happens later. If anything, maybe
-> replace this with a smaller comment to the reader that we reserve the
-> slot at pool creation but only assign it when we make it the current
-> pool, with a small explanation of why that is needed (the actually
-> issue Sashiko pointed out)?
+This is a respin of v5 addressing Geert's and sashiko-bot's review.
 
-Agreed.  The important part is the race from the v2 review, where
-zswap_pool_find_get() could observe a pool before it was committed as
-current.  I will shorten the comment to only explain the placeholder:
-claim the slot at creation time, publish the real pool only when it becomes
-current.
+Tested on real Warp hardware.
 
-> I think we can drop the assertion since we already have the lockdep
-> check below, especially because it uses BUG_ON().
+v5: https://lore.kernel.org/linux-ide/20260824153339.512487-1-p.pisati@gmail.com/
 
-Agreed, I will drop it.
+Changes in v6:
+ - fix 7.3 FTBFS (include <linux/device-id/zorro.h>, and use named initializers in
+   the zorro_device_id table)
+ - use devm_ioremap()
+ - print the register window with %pR in ata_port_desc()
 
-> Hmm let's read this into a variable first then compare it to
-> ZSWAP_SLOT_RESERVED instead? It's not very readable.
+Changes in v5:
+ - return the number of bytes actually consumed on the bus
+ - fix the trailing byte in pata_cswarp_data_xfer()
+ - drop a blank line in Kconfig
+ - fix the remaining checkpatch complaints
 
-Agreed, I will read the slot into a local variable first.
+Changes in v4:
+ - refactor pata_cswarp_data_xfer()
+ - ioremap WARP_OFFSET_ATA region
 
-> I think this comment is unnecessary.
+Changes in v3:
+ - suppress a comment
+ - properly return ata_host_activate() error code
 
-Agreed, I will drop it.
+Change in v2:
+ - fix style, remove duplicate swap macro, driver version, etc
+ - rework the zorro attach mechanism
+ - remove the unnecessary zorro ids refactor
 
-> Let's drop the assertion here as well since we're adding a lockdep check below.
+Paolo Pisati (2):
+  ata: pata_cswarp: Add Amiga cslab ata support
+  m68k: defconfig: enable PATA_CSWARP
 
-Agreed, I will drop this one too.
+ arch/m68k/configs/amiga_defconfig |   1 +
+ arch/m68k/configs/multi_defconfig |   1 +
+ drivers/ata/Kconfig               |  10 ++
+ drivers/ata/Makefile              |   1 +
+ drivers/ata/pata_cswarp.c         | 183 ++++++++++++++++++++++++++++++
+ 5 files changed, 196 insertions(+)
+ create mode 100644 drivers/ata/pata_cswarp.c
 
-> I would align the second parameter with the first one if it stays
-> below 100 characters.
 
-Sure, I will fix the alignment.
+base-commit: 66498c75b4f8017f62d720d9b59675bdf3abce91
+-- 
+2.43.0
 
-> This doesn't really explain why. Also, does ordering really matter
-> with the lock held?
-
-Yes, the ordering matters because zswap_pools_lock only serializes the
-writers.  zswap_current_pool can be observed by RCU readers without that
-lock.  Publishing the current pointer first would let a reader observe the
-new current pool while its array slot is still ZSWAP_SLOT_RESERVED.
-
-I will reword the comment to explain that the slot must be published before
-the current-pool pointer.
-
-> Is this a pre-existing bug, or why do we need to hold the lock here now?
-
-No, this was not a pre-existing bug.  The old list_add() ran during setup,
-before any RCU readers or runtime compressor updates existed.
-
-I added the lock only because zswap_setup() reused zswap_pool_publish_slot(),
-and that helper expects zswap_pools_lock to be held.  The setup path does not
-need that locking itself, so I will publish both zswap_pools[pool->idx] and
-zswap_current_pool directly there instead.
-
-Best regards,
-Jianyue
