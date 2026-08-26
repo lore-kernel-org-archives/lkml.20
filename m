@@ -1,122 +1,71 @@
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6DDF4252B1
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 15:02:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.182
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787756563; cv=pass; b=JTXK+9EItkV0p2UBZlIiIoL/SOGK7Y/1Mj2DM7HuMoq6IKAxYUZTPYqPvz0DapT5ISa0Jiq4THF0s1+/HiUEHWuVxYpgpiWGSjppeKIiAmP8/kegYNCfzjheB+itOnbKauLMa1TtfHWXVAn5CIqRcRNXf1Vw21iS10rFz2sFvRg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787756563; c=relaxed/simple;
-	bh=/5GEC9MtQECsj84A2/9ukz67BZyUeqSD9PsiFzlZiTg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MRs+Gs7T3wkYdYRFsb+An+uXI9JtgpKcFo36r0Ju18jtq0WSPdiWdaBGQZM2HunB3Eb22KACjhhslcc6iprqvT9Amm69jB+Bnvq5qcmHcCqfBHUB5Dsqn8gD0krSNZ+wvhhWOB6s/fqSMbZR8VpbeCrMuciW2roJRuZkQq+2ZFQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m8Pupy+C; arc=pass smtp.client-ip=209.85.215.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 983E840B6E2;
+	Wed, 26 Aug 2026 15:04:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787756677; cv=none; b=Ft90aVk2Hz8b+NZPw1sjqWba3RBYEz3CZfoZEio9to48uoXVTpVpCvIGSjm6GH0RAtyI+1ouh+ckXgfnAji+bNLGT3kHKcIJQyc+Igk97V3fYMewdHfQDraNqeM45cnWYYTo1aV291ISHszGgGUxl584nSWeS0NM9KtZtlbXjIE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787756677; c=relaxed/simple;
+	bh=ha5EeUmGMqyJtGR7X0QqNJp4AGSkOzNoD2LxtIdRtm8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=geHS3/Vr7PvyI0CMaY4fJpc+zwbKjjoHrxheQ6NdJsYvHr4G5mAZPzBzBBM+tO3W/dKnDaHGYdx4rxl1PJFj1cunR8OFhhR+WmPP1UMdfqOWAAJphgYMAtAK4kN+9lxJhYUBp/QD1YjUHPznCTe9SfTP66EYAQVsz9sM85LFICA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=AOheFklP; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m8Pupy+C"
-Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-ca5b707b78aso90987a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 08:02:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787756562; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LJxog20d1oGS6P/S5sklAYimDzsGk5LFvhAa6suR2cNxh9v4sUAcgDZZupWRn1BEST
-         gBpEcL4hAStPK8nYifYb2KBfvX4HcFX4tdKTOEl44VU7dsy0Cup/4cqlajcUd50kzcms
-         GNxibkdXLAppEf/dxwNy+C4IjfF7vf330sXvK5LsulSBwby4ENhUTnJu5KbDgxifEEq6
-         EdFDSHTYOU/RT+MYdFTXiLrpejsotWGSCEv4blyJju2phSAL1hPYdXNpudfHZJU3Mu/I
-         UgArlM+usrIdazNUdzxnjE7ENvq6D4eqN5UD70JcgSpYxbMl29aTnsXKLfmwRV9KKL0d
-         olDQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=fKjFrILSlKMtCa7HCHUu+Qbu0uL60HZCrihH3ZGerxk=;
-        fh=yPjN4Xiwudd0QQ317RcfGGlthKukRJNq2116XmivhLw=;
-        b=OaAksKeHg5aCuU8i439hT917gsF9oVBzs7LA0dcQfQHzPZlcKrg9ry1GGJHZGXwzY+
-         1/UjBm8H2bCqbHOrQpkQQ1H3cBiRBJhxEdjNmWIrIpantqIUdX1Q2vpF7MXkkgELME3L
-         SWtme7OfGVeI5MjxFoig8vGXzBcsPchYNnfxWy8OCEAgfPoEUcrUyBAzWdovdEVORDH6
-         ojp/+J9u+O4nnRW0m8BoMjwI0xBt8+idGwIQUSDnwMsOQNu/xzewDl0vZHSvbbo8Kffj
-         OyGg87qGIcr4GvZsD8fLFWDm8gKaYjxaJkLs9AMB8ubpZ+hg/GkCDHWtFovCR3rb2/B+
-         VZ1g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787756562; x=1788361362; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fKjFrILSlKMtCa7HCHUu+Qbu0uL60HZCrihH3ZGerxk=;
-        b=m8Pupy+CuZdnIMUlQqvnvg3oS4cQb73XGz0bfGWvZT3QL1Gkq5gfSRajc6P19gDG83
-         MH0nJCIRCt1tZWaeTygLEgmGNJ8mXKA8g8yv+0JrngS+qQx7VCh3R/IlSwORnjRpUQlP
-         /Qu93BjfgW76s8GzLFYRwquyjDtWHP1vSUHvpE7W4w7Vsh3lU0IRn/tWpof58BOWT9qP
-         OLycJJnweLFSU+l4eN5ud0RCcoVV5QQ7NQXr0Pbw4HFlKtMR0ZKNlEf6klXj6ACysBQx
-         vhNXc6T2jM4CbB+px1TLwOBIEfQFBiXPT1RJ5y6qiifL4kWdhiYewLtmD07HlyCaqnKi
-         t8sQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787756562; x=1788361362;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fKjFrILSlKMtCa7HCHUu+Qbu0uL60HZCrihH3ZGerxk=;
-        b=dPsndCC+mEazvPKcpyk7h77oplKqxcfudIhHBdkjchk45MVQC/2ziul+lfoxZ0WlgZ
-         Nd8Kbv7OV+S1J/qDFjkAjUD8PKWhpwTqKtwIhTkbQRrX2kL24yZWcWAgvoKU+e+47EQf
-         c19xiXruofpTgQme/2RvJT81ltuIjZ7Flx2rbYxmhm+dgE0pK3l4+hTZ2y55yg3rNiEz
-         UxgC8VqgjNgoq7B7q7vyv6Se7UsEo479tpfNkDPY8XFBe54ymGam5ZnYaLi5Ikd2GSpA
-         83Bd8pOBXBADRecsebMoD0DZv1nrfPbEPL1nKpiaaOhtNBoINyCf1UpC17wAnAOMznVJ
-         0+jw==
-X-Forwarded-Encrypted: i=1; AHgh+RpOkDCRMP6QWC+wUkhtkPGSI01MmyEunttdw2e5+GxLcsSeQuXO9ZTX8+og3YGJElaX4VMnFRpqHEo0dCw=@vger.kernel.org
-X-Gm-Message-State: AFuF++ndmkJa58og9aTfWK9Xozu1vqsP4SM9MlwJNrUDtej/UFy0H1Fw
-	L83TfsduE8VHlQpiVMAOVRDV6OlXCWesO3xfrAADjzkYuRbHZ144urXQh+4Qk66Z/LihIE6F/mV
-	b7CqIUN3znpFS1HI6HykKRNyn4+XyAZ8=
-X-Gm-Gg: AR+sD10Psjd4jL048RZN0eyEoNfsNo4ilCEZbKY0Xz8qpOmwQbeUc476FmsyDjmiHZp
-	ra9Ir9zSQRWGDhv4ermKH5DfEU95QBOelVMWmrFcJzuBFCDSg+58UOIy0MAvk++dxK5OytKsXEy
-	38wdueKg3rWXAYQWROgQpJ1eeguhgeLeswCL2dWxm8hsIfzdFiBzPKDxqROnLDwwZMXMv6FEPAJ
-	II2pMBL7WP2WMJ7L0UmKLZjZzlzt1TaZU4RJYlXYV1VwiNcurPm5Ynrk4YOTpGrJgBjNd2FNLld
-	4d38k6/iVVL97uuBqpvJQkeh4KLWmDVdABg+qA2Ni85cUZmPBaluGbCCrvvYkc+AP7LOKhei1D4
-	hVDO8rLRB8wef9rzY12ILTGm3bovZ2iLQKxza+LK7N1SNdA/lZb41q18oLR8mAg6ZyBKrSMnt
-X-Received: by 2002:a17:902:f691:b0:2cc:f4d4:29a0 with SMTP id
- d9443c01a7336-2d71e4cabcamr9458015ad.3.1787756561747; Wed, 26 Aug 2026
- 08:02:41 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="AOheFklP"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 194C41BCA;
+	Wed, 26 Aug 2026 08:04:31 -0700 (PDT)
+Received: from localhost (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8A65B3F85F;
+	Wed, 26 Aug 2026 08:04:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1787756674; bh=ha5EeUmGMqyJtGR7X0QqNJp4AGSkOzNoD2LxtIdRtm8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=AOheFklPW1RRHXqLak0pKDeFEKk3sN2QVpc2v4bwwwVU7SmboWzeMOG2Fdf/NtNQa
+	 RLNA+k5tQA7yim3bQmz1qSwsCye6bBfpQJhoWjTEFUwq78ILEz5O0Msi+EoN6MfTr6
+	 iXmbHQ1R9cm+NBBXFPvy/0xrfL6Npby4+S3/6lX0=
+Date: Wed, 26 Aug 2026 16:04:32 +0100
+From: Leo Yan <leo.yan@arm.com>
+To: James Clark <james.clark@linaro.org>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Mike Leach <mike.leach@arm.com>,
+	John Garry <john.g.garry@oracle.com>, Will Deacon <will@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>,
+	Leo Yan <leo.yan@linux.dev>, linux-arm-kernel@lists.infradead.org,
+	coresight@lists.linaro.org, linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@redhat.com>,
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH v2 02/14] perf cs-etm: Warn for invalid timestamp option
+Message-ID: <20260826150432.GJ8904@e132581.arm.com>
+References: <20260821-james-cs-unformatted-per-thread-fix-v2-0-00c4fd0701b4@linaro.org>
+ <20260821-james-cs-unformatted-per-thread-fix-v2-2-00c4fd0701b4@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826145832.42387-1-elouandacostapeixoto@gmail.com>
-In-Reply-To: <20260826145832.42387-1-elouandacostapeixoto@gmail.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Wed, 26 Aug 2026 17:02:29 +0200
-X-Gm-Features: AcwNN1VA-WD92RaG1JazLgbFi5wl6plkGePCcziqBYAfDtSGbu5lTLJre33ux2s
-Message-ID: <CANiq72=NtS=YHkCbB3ui1vVkHoVpHh2S12XAC=0vqHcurJFX+Q@mail.gmail.com>
-Subject: Re: [PATCH] rust: zerocopy-derive: Remove the BoolExt trait
-To: Elouan Da Costa Peixoto <elouandacostapeixoto@gmail.com>
-Cc: ojeda@kernel.org, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, boqun@kernel.org, gary@garyguo.net, 
-	bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org, 
-	aliceryhl@google.com, tmgross@umich.edu
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260821-james-cs-unformatted-per-thread-fix-v2-2-00c4fd0701b4@linaro.org>
 
-On Wed, Aug 26, 2026 at 4:58=E2=80=AFPM Elouan Da Costa Peixoto
-<elouandacostapeixoto@gmail.com> wrote:
->
-> FIXME comment was saying that this needed to
-> be removed once the MSRV >=3D 1.62.
-> The current MSRV is 1.85.0 obtained by using:
-> `scripts/min-tool-version.sh rustc` command.
->
-> Signed-off-by: Elouan Da Costa Peixoto <elouandacostapeixoto@gmail.com>
+On Fri, Aug 21, 2026 at 10:49:00AM +0100, James Clark wrote:
+> Instead of silently returning an error, print a useful warning.
+> 
+> Signed-off-by: James Clark <james.clark@linaro.org>
 
-Thanks for the patch!
-
-This code comes from upstream, i.e. it is intended to be vendored
-as-is, so if this were to be taken, then it should be submitted
-upstream instead.
-
-Having said that, their MSRV is different than ours:
-
-  https://github.com/google/zerocopy/blob/main/zerocopy/POLICIES.md#msrv
-
-Cheers,
-Miguel
+Reviewed-by: Leo Yan <leo.yan@arm.com>
