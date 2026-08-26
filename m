@@ -1,79 +1,127 @@
-Received: from sg-2-3.ptr.blmpb.com (sg-2-3.ptr.blmpb.com [71.18.227.3])
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81E6E2561A7
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 17:07:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB4D3402BB1
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 17:08:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787764090; cv=none; b=QHQUmgQotDHUXctd3At8h54bIe0U4JiAkiirKoVyFknvDGXe9Y4/HcUjAvksyBSJ1fLZDibDjNdFop/1j1yq8N+Bt7uY4SCxyg+xcf51lZ1ga3ZktgoV9AwiLXdvs6dRh3uUKlbIb2ROwXC1WrALrkLSruE4mBIZik/EVrO8TGY=
+	t=1787764103; cv=none; b=iZp6uaPWFWvF4z0DjigpVTqIsYvvJ8+3HtjEGXrfCfYlL58R2EqNbWvFJN6SIZoU2JDaLFUWy7uC3E9lAj6C2GktWFkUkDW/2PIc9/MaGjIH3ct8BJcaTEP6U2nDXjRjFQ5+JXz8fRA0IdOEhTAOqyCKJRbNE6Q2mz6UtHfB7so=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787764090; c=relaxed/simple;
-	bh=glCRWDETEOZd3T5Auf42nmSv6PlKlIi1zcCKql9h8P0=;
-	h=Mime-Version:Subject:Message-Id:Content-Type:Cc:From:To:Date; b=iBXNcQUx30AQYqUqRbzAEigcnOgeR933zQhm2rlxuJelkwG9usckSIwX19LcU4EEJTh7avFTexjY2WH/4ExUYlBl9sX/UR3TZXzEbvWwz8PpddNJv28hf/N8zK2mouCrfDhMB8tQz2IdjbIQkrrIJlixAvloXJ4U2X3+V88UEQ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=hDJXWGEp; arc=none smtp.client-ip=71.18.227.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
+	s=arc-20240116; t=1787764103; c=relaxed/simple;
+	bh=vdAY/faVLh29CfLHLgVsNnTrIBvl2WSvEe0RVJF/UQE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=B7Blm3ohAvN4YBjD7z9VQ7ykVs7CHtDHVTIb8wtaDSKUOFU6CJ4h7i9Fkn4RW4tGeZpwL7XCxMdLDMx9ZcDM7x26AkhfUkYb1tq02/1/RZ+N72/pxzGbEEKumqfx4vj26q+vjN9/K3PPebH544HTuo9D7YuWpVI+hRwSa8lRGxI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h97C8WWv; arc=none smtp.client-ip=209.85.215.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="hDJXWGEp"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604220257; d=cherr.cc; t=1787764066; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=c5Ot+JgDYQWyZUz2n6G/z2KoUJnMN+NrbAHmuQ4rCDw=;
- b=hDJXWGEpMqluZ1THie/DBE+mc4RbuWMd6DtDQSTA/3ZTS6tqOIHQr6lc3jjl1sXVSezTA8
- BAebLEwtN7q2D4/jpizfFMf9DF6QvJiBKaDdCPhA9Xv3RFa8ked8agy5wlE4C8rlpinmSI
- LzXRDQ5rxGUyGyi1WmSHODvBW1ggMo/rAFUxrqIrol8lUVbX7Fk0lb8Ww/VZ/DlhLDomai
- +H7TnUh800anpVugkFB258pImFMZimng8xHF8zwdOoN3RGoszkCQZDWG8x2gm+x6JaEuxu
- DFaOYhRP/8F/Pwb9EcaNduTKudVSx19X9wjUEuh5G4N/nWugEq1boH9/4nPFow==
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h97C8WWv"
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cbedf433a99so1042399a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 10:08:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787764081; x=1788368881; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=i7Y3/aUaSMSqtnYOcW/WwHTgglCUuyrDSlF3Z2YzqPY=;
+        b=h97C8WWvhPhI4zdzTjeXFsISyzxpH5ZmrXuuRLkyr/KGHENwOJoALsYoLdpzqr7Lv3
+         nNZReTVaEJeF3koK850Mpf/t1haMZ5tqHU9auIwo48bU9DvNC8C+m2Cy4kk523tFK/iw
+         G27fa+Awe1aEFepd554OOLqZ7KI2JaPb0NIgRq31Vk0oacmnGnx5c6l7N1f8uu6AEs0u
+         VFTGEXIjvagyyXflUC+wdNhQIakFpfuEdRiUWNzOZyQ/8/qs2spv795pMTha0KbmX2Ar
+         zDVe44XEWqJOEhkEy6F9aJbOQY0uO907+xiXmnqP9/GpNsij8BXuu0aWW0K+RMbsU5hy
+         CvOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787764081; x=1788368881;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=i7Y3/aUaSMSqtnYOcW/WwHTgglCUuyrDSlF3Z2YzqPY=;
+        b=nKeDt8jfTtUjApdzxqs+yWEZZP4QJLk8xKbMnFucScH832bM0V6yRBRy/1JrxXAS6r
+         opIOse0msW31LPBRBM6VSA7OOph+00tiBhxXh2aj6r5jnilcadhTzSuOutRLLVIzbdhy
+         iXU2kqrG0GfH2AS4mWzj2c8nGkYvkO2UL3tkS7SiB4/A9pUFgbRZ/iofozpezzYvJmPy
+         gSXj76J1xpwS1tOOxqepul+A4/jvMtq8iGw99MaO7ybaEZLsSC3Mx6fnAjMwOwult1pA
+         gQZR48eiYetSgH+DcjEPeWEhyFKE5i2V9VFDubSn8n9bsKI8QJ6KInS4rtMcLQgWUBus
+         k9lw==
+X-Forwarded-Encrypted: i=1; AHgh+RpTCiL1m2zEL7KL73+tUbGWrrfAR31VDNtjQe1eGi4N9fvFAdaWYJDzwQ6thbzPj5OVgW7PP6KUe//gwTA=@vger.kernel.org
+X-Gm-Message-State: AFuF++l+CvMbBZCxqlCS6a9m9oo9ZjEftPGykS18Rtd14HQkuIrW7a/0
+	wRfYynklDGjpKqnyn/RRptn8oPBrRq22Hoa5IGe23Sx9SHRWbbbsqiRt
+X-Gm-Gg: AR+sD10OysZj0SaDXxUmVKiklTWbiP7RDYknGeJVA7u8/OBGNgKKa4r8Nhd/r83nyKD
+	p3FPA6aHsbqER5zxPABk9Rn2HaanlzHA78GUCmTUAx2P6RSKKx2Gbuv+qI2BVvGNaANoqFWhpRD
+	q28ez5OwrtXVNJ4S9eJ46kfRXzafK7n5hOQ2noyT3ktQoErjsaocCm8U+CIlnyjzUnMhzq43x/r
+	miNn0Us9fw2MVVBu3IzPIUes5Z/jO0LsFTpyH7097W8fngDGKcoPh7p+gp2ILOgPPyJ/tzh5h9e
+	V9sdoM0R8SXSfjcBfpcqlYAcBQvJ5cf22ryNHzna0OaaJ1MTD5Yo70GTSc6TU1D7sSXGeUY8NXt
+	zJ3rOtc6rRYuzBRyHTYvshi0UwVWA/Notsf9oDkXFr49SIOYU3GaEPd6LKual/bN2hguPZ3ssrq
+	ZWp6YF+qFdS5OKF1CCb7YY+EhprM/sPk55fhXk33pgk5KY+yMWhSkJDa9qJyU2wjHhtqpinrWF6
+	5P889HpaZM0gnDP/00e5/q6x+R9aOWS2w5eKFw6PLOJ+pPmbSE8iWb3dQc=
+X-Received: by 2002:a17:90a:e70f:b0:38e:49c0:75a7 with SMTP id 98e67ed59e1d1-3966d43471cmr18087587a91.8.1787764081008;
+        Wed, 26 Aug 2026 10:08:01 -0700 (PDT)
+Received: from MSI.localdomain ([157.20.184.42])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a8eefd82sm8945491c88.2.2026.08.26.10.07.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 10:08:00 -0700 (PDT)
+From: Sanket Sharma <sanketsharmacsec@gmail.com>
+To: jarkko@kernel.org
+Cc: sudhakar@linux.ibm.com,
+	gregkh@linuxfoundation.org,
+	James.Bottomley@HansenPartnership.com,
+	zohar@linux.ibm.com,
+	dhowells@redhat.com,
+	linux-integrity@vger.kernel.org,
+	keyrings@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	security@kernel.org,
+	w@1wt.eu,
+	Sanket Sharma <sanketsharmacsec@gmail.com>
+Subject: [PATCH v3 2/2] keys: trusted: tpm1: reject unauthenticated response tag in TSS_checkhmac1/2
+Date: Wed, 26 Aug 2026 17:07:00 +0000
+Message-ID: <20260826170700.616-2-sanketsharmacsec@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260826170700.616-1-sanketsharmacsec@gmail.com>
+References: <20260826080405.255083-1-sanketsharmacsec@gmail.com>
+ <20260826170700.616-1-sanketsharmacsec@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAFodj2oC/x2MSQqAMAwAv1JyNqBV6/IV8RBt1IDU0ooI4t8tH gdm5oHIQThCrx4IfEmUwyUoMgXzRm5lFJsYdK5N3mqDvq7QW8KLdrF0Jh2bSXNXLNVsqIQU+sC L3P90GN/3A+Co+G5kAAAA
-X-Original-From: Shengzhuo Wei <me@cherr.cc>
-X-Lms-Return-Path: <lba+26a8f1d60+792251+vger.kernel.org+me@cherr.cc>
-Subject: [PATCH 0/2] wifi: p54: validate PDA entry data lengths in eeprom parser
-Message-Id: <20260827-p54-pda-validation-v1-0-bdc2b0675056@cherr.cc>
-Content-Type: text/plain; charset=UTF-8
-X-Mailer: b4 0.14.2
-Cc: <linux-wireless@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<stable@vger.kernel.org>, "Shengzhuo Wei" <me@cherr.cc>
-From: "Shengzhuo Wei" <me@cherr.cc>
-To: "Christian Lamparter" <chunkeey@googlemail.com>, 
-	"Michael Wu" <flamingice@sourmilk.net>, 
-	"John W. Linville" <linville@tuxdriver.com>, 
-	"David S. Miller" <davem@davemloft.net>
-Date: Thu, 27 Aug 2026 01:07:38 +0800
-Received: from [192.168.9.107] ([111.42.148.29]) by smtp.feishu.cn with ESMTPS; Thu, 27 Aug 2026 01:07:43 +0800
-Content-Transfer-Encoding: 7bit
-X-Change-Id: 20260826-p54-pda-validation-7b2e91f4c6a3
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-p54_parse_eeprom() walks the device-supplied PDA entries but some
-handlers read from entry->data without first checking that the entry
-actually carries the bytes they read. This series adds the missing
-length validations for the two worst offenders: the PA calibration
-curve data (a ~191 KB over-read) and the interface-list records.
+TSS_checkhmac1() and TSS_checkhmac2() silently return success when the
+response tag is TPM_TAG_RSP_COMMAND (0x00c4), bypassing HMAC
+verification entirely. A forged TPM response with this unauthenticated
+tag allows an attacker to skip integrity checks on TPM responses.
 
-This continues the EEPROM trust-boundary hardening of
-da1b9a55ff11 and ebd6d37fa94b, which validated the readback path but
-not the parser that consumes the received data.
+Reject TPM_TAG_RSP_COMMAND with -EINVAL in both functions, requiring
+all responses to carry a proper authenticated tag.
 
-Both over-reads were verified with KASAN reproducers of the respective
-loops, and both fixes confirmed to silence them.
-
+Signed-off-by: Sanket Sharma <sanketsharmacsec@gmail.com>
 ---
-Shengzhuo Wei (2):
-      wifi: p54: validate curve data length in p54_parse_eeprom()
-      wifi: p54: require a full exp_if record in PDR_INTERFACE_LIST
+ security/keys/trusted-keys/trusted_tpm1.c | 4 ----
+ 1 file changed, 4 deletions(-)
 
- drivers/net/wireless/intersil/p54/eeprom.c | 19 ++++++++++++++++++-
- 1 file changed, 18 insertions(+), 1 deletion(-)
----
-base-commit: 66fb95a521110da673090294561844c9f76ebe64
-change-id: 20260826-p54-pda-validation-7b2e91f4c6a3
-
-Best regards,
+diff --git a/security/keys/trusted-keys/trusted_tpm1.c b/security/keys/trusted-keys/trusted_tpm1.c
+index d47cb7108..6dbbf4546 100644
+--- a/security/keys/trusted-keys/trusted_tpm1.c
++++ b/security/keys/trusted-keys/trusted_tpm1.c
+@@ -201,8 +201,6 @@ static int TSS_checkhmac1(unsigned char *buffer,
+ 	tag = LOAD16(buffer, 0);
+ 	ordinal = command;
+ 	result = LOAD32N(buffer, TPM_RETURN_OFFSET);
+-	if (tag == TPM_TAG_RSP_COMMAND)
+-		return 0;
+ 	if (tag != TPM_TAG_RSP_AUTH1_COMMAND)
+ 		return -EINVAL;
+ 	authdata = buffer + bufsize - SHA1_DIGEST_SIZE;
+@@ -269,8 +267,6 @@ static int TSS_checkhmac2(unsigned char *buffer,
+ 	ordinal = command;
+ 	result = LOAD32N(buffer, TPM_RETURN_OFFSET);
+ 
+-	if (tag == TPM_TAG_RSP_COMMAND)
+-		return 0;
+ 	if (tag != TPM_TAG_RSP_AUTH2_COMMAND)
+ 		return -EINVAL;
+ 	authdata1 = buffer + bufsize - (SHA1_DIGEST_SIZE + 1
 -- 
-Shengzhuo Wei <me@cherr.cc>
+2.53.0
+
