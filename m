@@ -1,172 +1,247 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010046.outbound.protection.outlook.com [52.101.201.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02BB535CB9C
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 17:19:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787764804; cv=none; b=E84jsA6wIS209IyKHSlbGsHPamlGMp5HyIOFiW0E2K2bDwov2QUrfKZENHC2MbQTR+Bcz17SDTxlA+5OQGhF/1xgZs4NCshlvBPCVIQJhf4YExp02eUm5wynPXMbp6TGkYFtCK5Rzzryue6TvjMQgRhh2SpD3dYXtTCLvZxfOTU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787764804; c=relaxed/simple;
-	bh=wv1LRyJF436NBZkqYSed99dO660pUkPBSqfpXcjqKUI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=KOCKKJw6KgTruzlo1vr5NoCpM8Vdq9Akhlno95NVqlO1NZtK9mVQpDm6l4SnwO0VSHRueaDvUtUGWglsII1GkhlcTgjI2Ir1USCI2y9pjEdWHu+zUMweQyuo6l2Iu6ZsFqanDhyJx19/as4x4HeF7iU9vV/PElyDL/DZe7k3oAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=i0cHsH5M; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Cj4ti7Zz; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34B76361973
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 17:20:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787764843; cv=fail; b=XXngjjsWf3veaN7Jo+h0VAYf0b0PJJLbc/IU9h+pguzwGQUm8pxWc3T0DcmZZlCEDE/yAr685IbjeAfkxIdZLhbWiDeJCfYEmNvJ104GoS77BGZPCh0//ZSs3/uiNPO52JETsR4hm0C8qpxlIkw6BQZ6kPyGArdudj54kTvQGn8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787764843; c=relaxed/simple;
+	bh=eQ5PQ2DZUVHBM8plDUKyY5oBN15uWZYe36b7c5++Sco=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=nDZy9R6g2KEgT/RdETp993mwjAPRZaAteMP2DYafvwjwehtVH4e01reMO80D7EySq/XldALyaNfh4XGz+7HvXxwZVUB8gs7N/hLFyFAvbTEVBt0ihK8CW3CvyBvOpNe2BaNczUIky++qxs48B2weK4Ef3C6sd6pJgyl9dTQvJ3s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=D3FCDfyG; arc=fail smtp.client-ip=52.101.201.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="i0cHsH5M";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Cj4ti7Zz"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QGuwnG1008255
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 17:19:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=tD1u+02Zr5j6+6GAngHUQW
-	gDuBEpH+yAUOjfilb1Lg0=; b=i0cHsH5Myr654BX2GGBptirO3vrAjd5cAQBJde
-	uVVvhy1rtvbnlMYolAarMYZ6XyeRnV3FeOqDhOryG+ENNmT2WIvGX7mSDS77nSla
-	sr51ENigQoc03d+4PlJt3xh4J2tOjCphPQgj1kMcDcfnVAOVCwRSFbKHJBFgDnj4
-	ROs/r1Xll35Buy6JDnqQCbWU1lS86ti6bkHXnG/1w5OU0gIBjIAHNnz/Pt4rtvSL
-	wj0JNOr80ZYXLoOdp/se0IIzkpDczg9z5idEWeBFkmEx/lXL/VY7eU3Wz2vf0wND
-	NrhBlSp9b4HquIWJwdXo4QCCV1bkhsJhHGlRAjzGcFA9QzWQ==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g9smxax31-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 17:19:39 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc1c5810451so1270566a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 10:19:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787764779; x=1788369579; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=tD1u+02Zr5j6+6GAngHUQWgDuBEpH+yAUOjfilb1Lg0=;
-        b=Cj4ti7ZzjmDqvnae/WtTN5LHC6F9Md6SXmtHcIf6UN7i6mbynf+yjI43R+neoAcy+x
-         kHCtAjvOBVP+2fw3uskRFqM6YDOmvw/OgAvVclr95pmcONNnUbOJplvvubBcyUEA2ppO
-         eiNCsXnJq2zxRpr5tniGPg1GbjkEkecZLhq6nGNk5NoWZ4i4/l/6PdYezPWULJAWSFsC
-         vkmq0ZbpORsc4kQY4UuHa4bP5TlZMRP++xQjICtNSeSCu7IMe6YVB/OyUP7ldvWxFFXe
-         NaIhovmAS55xe3oOlR649oOC7kvSRThMdMRmgx0WQCqcqwRefEUbMyrbbgy/jhHF1l7h
-         FEnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787764779; x=1788369579;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=tD1u+02Zr5j6+6GAngHUQWgDuBEpH+yAUOjfilb1Lg0=;
-        b=SNv44W1x1h3bABBFvaWMRAqh+INogFTLCcXqHtnh001heyJI+hlvheja7oqYFIHmwZ
-         CU9GkW80vHGA0PWLr3tOJrCcJ52euPFoqVXWQ4WiGBIgNThKdM4wFgeskLw7nZjWqjgY
-         HVikiPxUT6ld/blEFeTuJeqzi7a0B9XugXPQomRNVjDlyCMDsNy9QDXbK28aex5F192T
-         SpBIYitTx1o98KvpUolLGzsQQ8KsJqXKZhCPPofX8kdBJ/qx67ou5tWEdvHrSaM779MG
-         6xLaDdaPzSkH9hrTFscLO9+M72ErlPimyXsYLIuC4BkBqlwrO0QgQgzZ7h/kVgYes33E
-         wx4g==
-X-Forwarded-Encrypted: i=1; AHgh+Rou5nWQ2BkzCnky+ln+ODieEEDZ0lCVe3HH149/Kzdy4/WnCdGwehj3aSMMf4UD4WsQsP9kWFFNko5dyrg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lR6t6mHMRSL93ep78H4/L2Gf1a8DMEkygJHJY4tZa2+ZTay4Vv
-	0Xaqw/cquDSahrV0IfRhvDqNWb30i6ME54NesgvCzpVj/9NOQVhKP+e5gX/MPrsVawPa/NiTgy+
-	ZcEunDFWBioXWIEM7LZ3PbN/vRRNBkD5qaegsNkTZLKBGlFyMVNGBjnKZ62Q/iqiC+vk=
-X-Gm-Gg: AR+sD10FQdb+IkW5lTEKNkepDc5jjIk52BgiBXQNxOZK9BcjHWeWVenGXgOqbjUXxMY
-	/EI8o5xYG6n64RdmXg27eiBLYwPX/Bg6lSjQyRtUtA3KdbWasZRWZlc7ri52uwmDIihLET8tIGa
-	ttZ1LJilH9i7f0xX6KGehYwiOgfx/5xycXfOKJcJMrWwSWC5jUwe8IDcN9sUkQb1dJoA8VDV9ZH
-	RAVHV3iFf7AsXkrj1v6IcI6XXq9ESQSmcAPx6GBVyYT5qb5BJFjWrVUy4RN4epewpYh5AtlchiI
-	hx/iOj4bSaRDk4hsZ0Iu6nS95hE5/ZZme2atTlSVwPn3IZ0MxuBZQnwvnBOmOyI1hxZ/FyGWoOR
-	+yBM5IAecbaYxXloAyT6F7cmP0EqbMX/j15w+G8iOOKxDL91+jQ==
-X-Received: by 2002:a05:6a00:8d86:b0:848:2eac:bfb2 with SMTP id d2e1a72fcca58-853748a0551mr17568199b3a.13.1787764779098;
-        Wed, 26 Aug 2026 10:19:39 -0700 (PDT)
-X-Received: by 2002:a05:6a00:8d86:b0:848:2eac:bfb2 with SMTP id d2e1a72fcca58-853748a0551mr17568124b3a.13.1787764778636;
-        Wed, 26 Aug 2026 10:19:38 -0700 (PDT)
-Received: from hu-aletran-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8535d345ecesm1206968b3a.59.2026.08.26.10.19.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 10:19:37 -0700 (PDT)
-From: Alex Tran <alex.tran@oss.qualcomm.com>
-Date: Wed, 26 Aug 2026 10:19:26 -0700
-Subject: [PATCH] i2c: busses: i2c-qcom-geni: Use resume and get pm runtime
- interface
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="D3FCDfyG"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DVvS90zIgIJsjtQP48U4vUphUduqD6vVhOLw1qzLdd0p+XI59eknWnv5gLQqblJ5TO7IwZvPdDN/+Uc4bLx1GQE2vSoc+Bo2sMUM8WajP2q2lAUK5d1FmKiMvVpzPB7ibhNYwhS45dpnOHPkkFg3+6FtFMjARUTeP3mq2IyBd7AyDzQcbeBij0OQ06AKTlZXnPAkzGaDVNe/ZIvUV8WugstpuJWONjJaKbuxH3hDxvMAEedv2wuTZv/03OSDHUMdbiZY48qBMMDfLsySXAeLeU/PuSoiDtpkTOFcr+bxZtaz4Agoavk1l9je4vPpP+JcOZJuv2XhE5zro5VH3rpUnQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vVVsN0uaKzJXaKRxH0+7Gsxb8oeEa2v8GP7AsocNtnA=;
+ b=ZsW7/DRznh7F3nqr7mdVRzTu+KwUjBDHtYWSgO3G5kbbR7EZj4dLQUEWDBleDoeS4Y0tQd8Tjyhbq6Y5HkCY/HRAwNKazryHbdNxoF3sITMI+MolfKJFzC3lLn6mEDTFOXowJJH4qMZLhX2BYsNuOOZbjlx9MrlzEVBgpC454O4klWrZ0pDsPnHwkjyafGt+ywXZ4drmYnzlMI6LhqNrmWLrYiO8NVnBijN75i/qtf39o2WfcZrh1AgknkEziZyjgrMPULPTEbb56meKu2kq2lsXJTCyUXK223CDy+dphQnqC+KcicFpgOKE8Axa6Dhb1QgFgXHLpoMprpM7qukpqA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 149.199.90.133) smtp.rcpttodomain=nvidia.com smtp.mailfrom=amd.com;
+ dmarc=fail (p=quarantine sp=quarantine pct=100) action=quarantine
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vVVsN0uaKzJXaKRxH0+7Gsxb8oeEa2v8GP7AsocNtnA=;
+ b=D3FCDfyGUxVdXhSXnnSYDyWBjFUesD+IfnzR7oapbimBvl5IjwCW+HCnWkZvod5U0+7ozM5qO2UGsPvN0quaK5PWi2tCIj8VV910txlBDFw7H8ELdO2B63PG6DOk5yEEPZ4RG4aTG1cy5fEo9Ya4XtsLaxNrEwiW0lz7HHumgBo=
+Received: from DS7P221CA0016.NAMP221.PROD.OUTLOOK.COM (2603:10b6:8:25c::19) by
+ IA0PR12MB7722.namprd12.prod.outlook.com (2603:10b6:208:432::7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.339.12; Wed, 26 Aug 2026 17:20:23 +0000
+Received: from SN1PEPF0002BA4B.namprd03.prod.outlook.com
+ (2603:10b6:8:25c:cafe::42) by DS7P221CA0016.outlook.office365.com
+ (2603:10b6:8:25c::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.10 via Frontend Transport; Wed,
+ 26 Aug 2026 17:20:23 +0000
+X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
+ 149.199.90.133) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=quarantine header.from=amd.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ amd.com discourages use of 149.199.90.133 as permitted sender)
+Received: from satlexmb08.amd.com (149.199.90.133) by
+ SN1PEPF0002BA4B.mail.protection.outlook.com (10.167.242.68) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.3 via Frontend Transport; Wed, 26 Aug 2026 17:20:23 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 26 Aug
+ 2026 12:20:22 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 26 Aug
+ 2026 12:20:22 -0500
+Received: from [192.168.0.226] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
+ Transport; Wed, 26 Aug 2026 12:20:17 -0500
+Message-ID: <74324f25-2e8c-4f90-8f22-c1788615b95e@amd.com>
+Date: Wed, 26 Aug 2026 22:50:11 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 04/16] sched/core: Activate blocked donor when no
+ owner is found
+To: Andrea Righi <arighi@nvidia.com>
+CC: John Stultz <jstultz@google.com>, Suleiman Souhlal <suleiman@google.com>,
+	Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, "Juri
+ Lelli" <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>,
+	Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	<linux-kernel@vger.kernel.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, "Mel
+ Gorman" <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, "Waiman
+ Long" <longman@redhat.com>
+References: <20260826062901.2137-1-kprateek.nayak@amd.com>
+ <20260826062901.2137-5-kprateek.nayak@amd.com> <ao8Mlls40IG9Vp6g@gpd4>
+Content-Language: en-US
+From: K Prateek Nayak <kprateek.nayak@amd.com>
+In-Reply-To: <ao8Mlls40IG9Vp6g@gpd4>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260826-i2c-qcom-geni-pm-runtime-resume-get-v1-1-25ee55d1f0c8@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAB0gj2oC/yXNwQrCMBCE4Vcpe3ahjVjEVxEPbTJNV0haN4kIp
- e9utKfhu/yzUYIKEt2ajRRvSbLEiu7UkJ2H6MHiqsm0pm+v5sJiLL/sEtgjCq+BtcQsAaxIpY5
- HZuem0QLd0J8d1dKqmOTzf7k/DqcyPmHzL037/gU4ciwRhwAAAA==
-X-Change-ID: 20260825-i2c-qcom-geni-pm-runtime-resume-get-ddfbcee1a63d
-To: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
-        Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
-        Andi Shyti <andi.shyti@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Alex Tran <alex.tran@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787764777; l=1272;
- i=alex.tran@oss.qualcomm.com; h=from:subject:message-id;
- bh=wv1LRyJF436NBZkqYSed99dO660pUkPBSqfpXcjqKUI=;
- b=rR/0L1/u4biv+fJMMwzDwAWDhrZnvz6R2e9sjXqUg7saAttIuhJzroOjxA3XmHOqWkHZnqbRA
- Dua4wX1Mu9kBo+6FbKoLALLdm0mDhfW3nAjYUr4yFgw57UKVppZYeF7
-X-Developer-Key: i=alex.tran@oss.qualcomm.com; a=ed25519;
- pk=vKab/gw1fXij5UviWoglv+ho+H/oOiTHyETCLfayPE0=
-X-Authority-Analysis: v=2.4 cv=O/oJeh9W c=1 sm=1 tr=0 ts=6a8f202b cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=qnW5PnHyz4QdMw9lHNoA:9 a=QEXdDO2ut3YA:10
- a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-GUID: umuH7820X3RJGRyUt2XEmlaA9-HHt4Yf
-X-Proofpoint-ORIG-GUID: umuH7820X3RJGRyUt2XEmlaA9-HHt4Yf
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDE0NCBTYWx0ZWRfX/BcwtKmO6+G4
- 0cksO37ULJRgi/wtO99Clpv+7+8KuIJHy773ttqsbB62NpgXfklPyeKOljFoUgOybjagQD6pEsG
- PCgtKv4tUtVqLezeODMHmpxLqEWMFsquwyzPpsJgH2LbRbB9Pz819l3Zl8BABnAbw+SPNZG68Lg
- etegLREQLBLh1H7nEEJxHZNANbNkyBtw8QI3HbdxTquC2l7GbUW1s1yjbmvA5Z35vBby6u2jwQW
- ERYpR3unp5AVpgOELZK7Q0LHy6tlOsz3v/usSUOYYGw9/6t4v0vQpLRJrSEZibF0LhJWSxiGwNx
- MeTxaIen55NPrGkqAESHcs9DTtvkKw/ODFQH/UfwQbEC3TeYc31SkmGOWgkIOL9sY8GSRmYpajG
- 6o3b9l8xgZ+7yEDyXylXtzPC6l1x9ezl5uAPl3Bsd33m/J2HsBbRhx6gedym/vdVNGRuNliz50A
- wr1pwZIq+yHaGcRjwWw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDE0NCBTYWx0ZWRfXyUYPrnTIQveM
- F4GXpvfd/rjNyIXpEvUm+WViFNE2tmi5ONCXKPcVnU8+YHJm8bDJDaxFXYKhrIWpxxpH/TSQNZg
- YgjvQIWT5IANqCVKxqg3XFTz37rfggc=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-26_05,2026-08-26_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 spamscore=0 adultscore=0 impostorscore=0
- lowpriorityscore=0 clxscore=1015 bulkscore=0 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260144
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA4B:EE_|IA0PR12MB7722:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6637a81c-ec96-4701-184a-08df03965031
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|36860700016|376014|23010399003|1800799024|82310400026|56012099006|10067099003|11063799006|22082099003|4143699003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	7N6sa+qDbWJP0u9+f7/Q90v8llPew18qlwLQK2MX1OGWBW4eWkl8H1FRXRGbnoF49Ok9emrxY50WXNAbSS2f1NjEVBcDKurr3XymdO74xYuZAEYFvaBOAEHNyhROlY8zKuUQaWEDUEnsXf6eeDtn6NES7Xt7JdEtthSzthw5i1CXjwdYcXbxpElqufOwgfCdzpj4BaV+vYrKN/v9St0iyhMOF/RdhWB0sQ7Dlld5q+0YlW8VKj+U9OTsza2ZU+SHkObuwpypuEW4asVykGxBCENMy3EpHxn1ZKvtwnhyh2Xho6qTgr0pHjJbsTmriRwwIPEjjoNG+UXTS3DlrakE7iVeHRDYCF4yLXyUZEmrOUwXBaKYVMiGJyd/pqKY/8ikbeUlYRz2gB5nRaqnfc0MMRyYhvfJuF4Q61PPn72OD5C+fylR+gezz6x/qKosBvNJgNjGSNGqx0j5da9qkiPNt5iuh3QIUrPrnsaXkn9X/TEucG0anSTMHg7LYHHzGJq4QTZBUCTJzb3inplG3AZutbPjnZ80+w+X2QqBvdkYb5PSJ+MeJl6/0ZIiBd0VMF+r/8IYRUg0OFQtgvKAjkBU8H8C0uEaZe3MNI7KSNElLYMukJ6de4iWGh8toGQG3hBiNHCY94tU5qg118MWIpENbijNwsnPyU26AKtPsMbtxbD2lpj03upKxlqTVLjPAzgCemIpcYiJoklPG663LwwcFA==
+X-Forefront-Antispam-Report:
+	CIP:149.199.90.133;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:unknown-90-133.xilinx.com;CAT:NONE;SFS:(13230040)(7416014)(36860700016)(376014)(23010399003)(1800799024)(82310400026)(56012099006)(10067099003)(11063799006)(22082099003)(4143699003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	yR3RmZ/ZnrDEMZS5m2oHZmdQ+6bfa4CoOtYehjOxgTAkkEgij7mXpNgX1ZtZAbaokjiKuvAQbdLAWOMYLcpSNewUrUVsPpkY7tkNby5sxRDmhMdILAuTzZleNRx3WxCFsYTT/LsEs+ZP9qu842ooi9JrG9Z7Xkl+n0siY11U4DndtFRbkNbabeHMEMrf1xGgsgUIAzNPjBwpczOw23WtPkpHUq1+Up2c10l6ibpwHom407gaVw7gvxC9OYR/zgg/BgW9itNIqCgqBsPS3/+fBbQs8R1SH68HhB/Fi4QV/3LXT5Sx/i/7BHVqyNLb7UTtn2YZjPQYmDKX8hGXClCmHhAyB//Gv2GjTqb9s7rKplzqUg8+bZ/jdFuiv0MMHZiz0brYOktvGpTbWfzOE+I4HfQDNXmktHB81pX/9wFae4Vncj+6rrXfEFzkESA4ZpkC
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 17:20:23.4351
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6637a81c-ec96-4701-184a-08df03965031
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[149.199.90.133];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF0002BA4B.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7722
 
-Utilize the provided pm_runtime_resume_and_get api
-to increase the usage count and call the rpm resume
-callback. Upon failure, the function takes care of
-calling pm_runtime_put_noidle. Remove the explicit
-call to put no idle.
+Hello Andrea,
 
-Signed-off-by: Alex Tran <alex.tran@oss.qualcomm.com>
----
- drivers/i2c/busses/i2c-qcom-geni.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+On 8/26/2026 9:26 PM, Andrea Righi wrote:
+> On Wed, Aug 26, 2026 at 06:28:48AM +0000, K Prateek Nayak wrote:
+>> mutex_unlock_slowpath() follows:
+>>
+>>     if (owner & MUTEX_FLAG_HANDOFF)
+>>         break /* ... and do __mutex_handoff() */
+>>
+>>     if (atomic_long_try_cmpxchg_release(&lock->owner, &owner, __owner_flags(owner))) {
+>>         if (owner & MUTEX_FLAG_WAITERS)
+>>             break; /* ... and wake up the forst waiter. */
+> 
+> nit: s/forst/first/
 
-diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-qcom-geni.c
-index 658636c1ee0e..d5f4de3e0a9d 100644
---- a/drivers/i2c/busses/i2c-qcom-geni.c
-+++ b/drivers/i2c/busses/i2c-qcom-geni.c
-@@ -963,10 +963,9 @@ static int geni_i2c_xfer(struct i2c_adapter *adap,
- 	struct geni_i2c_dev *gi2c = i2c_get_adapdata(adap);
- 	int ret;
- 
--	ret = pm_runtime_get_sync(gi2c->se.dev);
-+	ret = pm_runtime_resume_and_get(gi2c->se.dev);
- 	if (ret < 0) {
- 		dev_err(gi2c->se.dev, "error turning SE resources:%d\n", ret);
--		pm_runtime_put_noidle(gi2c->se.dev);
- 		/* Set device in suspended since resume failed */
- 		pm_runtime_set_suspended(gi2c->se.dev);
- 		return ret;
+Ack
 
----
-base-commit: 45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229
-change-id: 20260825-i2c-qcom-geni-pm-runtime-resume-get-ddfbcee1a63d
+> 
+>>
+>> MUTEX_FLAG_HANDOFF is only set by first-waiter after it has been woken
+>> up and in absence of MUTEX_FLAG_HANDOFF, the owner clears itself from
+>> the lock_word and wakes up the first waiter to try a
+>> __mutex_trylock_or_handoff().
+>>
+>> MUTEX_FLAG_HANDOFF exists to prevent new optimistic spinners from
+>> trying to hijack the lock from waiter all the time and potentially
+>> starving them but it is not necessary for MUTEX_FLAG_HANDOFF to be
+>> always set in presence of a waiter.
+>>
+>> If a blocked donor is deactivated when no owner is observed, it may not
+>> be woken up until it becomes the first waiter and is naturally woken up
+>> which breaks proxy in the interim.
+>>
+>> Wake up the blocked donor and allow it to grab the lock when no owner is
+>> observed. If the task manages to grab the lock, the block chain will
+>> follow at the next proxy migration. If the task fails to grab the lock,
+>> same situation is restored and everyone migrated to the CPU of new
+>> owner.
+>>
+>> Fixes: f13beb010e4a ("sched: Have try_to_wake_up() handle return-migration for PROXY_WAKING case")
+>> Signed-off-by: K Prateek Nayak <kprateek.nayak@amd.com>
+>> ---
+>> XXX: Is there a better way to handle this? If we can confirm a owner in
+>> find_proxy_task(), we don't need to do a spurious wakeup of every task
+>> observing !owner.
+>>
+>> proxy_resched_idle() until owner appears in an option but it will spin
+>> until next owner appears.
+> 
+> IIUC, the owner can remain NULL until the waiter selected by mutex_unlock() gets
+> CPU time and acquires the mutex, so proxy_resched_idle() could spin for longer
+> than just the unlock critical section.
+> 
+> Maybe we could instead force a handoff from mutex_unlock_slowpath() when proxy
+> execution is enabled and the mutex has waiters? This would keep the owner
+> identifiable and avoid waking every task that happens to observe !owner.
 
-Best regards,
---  
-Alex Tran <alex.tran@oss.qualcomm.com>
+I think that negates some of the benefits of the optimistic spinning +
+mutex_try_lock(). I'll see if it makes any difference to the benchmark
+results if we always force a handoff for MUTEX_FLAG_WAITERS.
+
+wait_lock should give enough guarantee that the waiter cannot simple
+disappear before the handoff after MUTEX_FLAG_PICKUP is set since
+waiter has to try at least one mutex_trylock() under wait_lock before
+checking for pending signals.
+
+Thank you for taking a look at the series and ack on the comment on
+the previous patch.
+
+> 
+>> ---
+>>  kernel/sched/core.c | 23 ++++++++++++++++++++---
+>>  1 file changed, 20 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+>> index 4cd69b08b415..9d9db7ccf01f 100644
+>> --- a/kernel/sched/core.c
+>> +++ b/kernel/sched/core.c
+>> @@ -6809,6 +6809,19 @@ static inline void proxy_reacquire_rq_lock(struct rq *rq, struct rq_flags *rf)
+>>  	update_rq_clock(rq);
+>>  }
+>>  
+>> +static void
+>> +proxy_activate(struct rq *rq, struct rq_flags *rf, struct task_struct *p)
+>> +	__must_hold(__rq_lockp(rq))
+>> +{
+>> +	lockdep_assert_rq_held(rq);
+>> +	proxy_resched_idle(rq);
+>> +	proxy_release_rq_lock(rq, rf);
+>> +
+>> +	wake_up_process(p);
+>> +
+>> +	proxy_reacquire_rq_lock(rq, rf);
+>> +}
+>> +
+>>  /*
+>>   * If the blocked-on relationship crosses CPUs, migrate @p to the
+>>   * owner's CPU.
+>> @@ -6934,14 +6947,15 @@ find_proxy_task(struct rq *rq, struct task_struct *donor, struct rq_flags *rf)
+>>  			/*
+>>  			 * If there is no owner, either clear blocked_on
+>>  			 * and return p (if it is current and safe to
+>> -			 * just run on this rq), or return-migrate the task.
+>> +			 * just run on this rq), or wake the task to try
+>> +			 * and grab the lock it is blocked on.
+>>  			 */
+>>  			__clear_task_blocked_on(p, NULL);
+>> -			if (task_current(rq, p)) {
+>> +			if (task_current(rq, p) || p->wake_cpu == task_cpu(p)) {
+>>  				p->is_blocked = 0;
+>>  				return p;
+>>  			}
+>> -			goto deactivate;
+>> +			goto activate;
+>>  		}
+>>  
+>>  		if (!READ_ONCE(owner->on_rq) || owner->se.sched_delayed) {
+>> @@ -7029,6 +7043,9 @@ find_proxy_task(struct rq *rq, struct task_struct *donor, struct rq_flags *rf)
+>>  	}
+>>  	return owner;
+>>  
+>> +activate:
+>> +	proxy_activate(rq, rf, p);
+>> +	return NULL;
+>>  deactivate:
+>>  	proxy_deactivate(rq, p);
+>>  	return NULL;
+-- 
+Thanks and Regards,
+Prateek
 
