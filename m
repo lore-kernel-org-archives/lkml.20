@@ -1,318 +1,121 @@
-Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D78C03F5BFA
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 15:58:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.122
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B66A738F633;
+	Wed, 26 Aug 2026 15:59:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787759910; cv=none; b=jG+Pgv2I8JnLnHfZOUBKsUnpQlEmUTJcUwbCnWSnZC+KZYQjE/0s+tXBx6+91uLriKNKEg18o1HZKXpNAWNVLRzYMQfbsoGsrLi9cweInHcfj3jM76SGEX7T0o7ZhWPByXWLy05RACxAQTv3n0NftfxlYTJTwqR6qLqwAzr5bps=
+	t=1787759992; cv=none; b=eBTnl252QMFb2xcJEC/kYauG/BZEiFYjv/9Z/dzR0Fex24T5wRVI4is8lrO+5BcVBOS+vU1OfWMiLkbseDNtlOYwW6832k60Nn2sK6PpNppQ4B6yGshlvOHhEJ90ZrxopdllBZeL5w3Kl2c6H19+yvJycYn9G8DtwAtIoZOefM8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787759910; c=relaxed/simple;
-	bh=bS4x73RKHJ+Ng/B9e79yFhTtNAXSxivKGC1Rgp2q+e4=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:Content-Type; b=mWZq75qrf+xEk8DK2wWEbx+jkGpjRIMxCesOJf58LObBPj6zttRDoM6CBtsb2bwGn2pfCE9DNwSSJuWrmKgo1LLCkbnEIV5NZsMzyVXf1H/L3hvYMIx6tdHnclkJ3rtVjW7eoTW4TDqPVzeqpQrxqua0RPMblMMaMotroCS82F4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=Z3Np0fIS; arc=none smtp.client-ip=185.125.188.122
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
+	s=arc-20240116; t=1787759992; c=relaxed/simple;
+	bh=C/j5JsOQuT9ioo9qkbgBTsuIi+HtFcKKahUZ/Q72Tm0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=bMI3hx+OTY0GGwyOh6bMaHew9VqNpw3ueizO4pXflzpagkUBRoZ0VJu3l5myFprjBypkGgD+pxu3NitFj/HChEku2q2rgZ5XjSMCO8R0DDsmR2/OmPPBC6RsbU5Gvw3ccCi5bm19CZ2swAnIvyyNXL0otqMxzwRRe1/jYgVHGKM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=hp8ZtsH9; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="Z3Np0fIS"
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id EB8613FC9A
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 15:58:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1787759905;
-	bh=RU+b0EgUdr8YZp0QJv4qyFI+odtfNC7/mQjbnNP14uk=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:Content-Type;
-	b=Z3Np0fISosOcfUNMswDKA0IeGgFnRDX8zfV5IDJa/NC+Ongt2uvHXQcFyy/KfX5cY
-	 vP91Q7Qi1MK7F8FK94jps8I3+iz5H8jq0ztsma6bNsv8ubOPdkDTtGQqpLNvTe7GE0
-	 zoqARa0h+Toa1TG6VLXO+NuXlem1b4Adhk95vh6PbuIxYf/uNwCWzHG0xXjWtZkXS6
-	 FDUg8PxnnTil9bsPexApROodyfHULp6SNrYWGo8jXcDD0etBuWbSzM6vv4CPBe+MjW
-	 uIfy/VnO8dLU4iB+IR2BeeLw8vB1nV3y3F1St9qt2ZTB9/VMqSPcqT+FTirWYjQDTT
-	 b+sTSZd/i4wGf/jbNmuUWFG2pcOFvAjM0MtYDyvML7OQ0/IxPWHV3GGRi0IRuSobmc
-	 t/v7gS6A2citf7hwe3OZs5Ct+XYWNITtgjHq74R0zbnrnjdxTXFxe+7idOETvnfniM
-	 PqZUFntrvcLxq9JfnSuZ0wgvaJgo81w3C3qnB67Alw3XMMHsAquKdT4LWM2qJ/xk5c
-	 yzS5McjAewjPj6tFybIByXctSTQLmGIqZNV2ESLP1h6QqeQg4Fz9DdrWEps/3QCHeP
-	 PlXTTuacB0FjKs3QZlnjUDe/g0MKpWFK9MARIxYSrYuiSlVfDLAJ4bf37wbJuS4HVo
-	 x4bxVzIRrH6tNWX8+uMaTyqQ=
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-38e7ff7b375so1952510a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 08:58:24 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787759903; x=1788364703;
-        h=content-transfer-encoding:content-type:organization:autocrypt
-         :content-language:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RU+b0EgUdr8YZp0QJv4qyFI+odtfNC7/mQjbnNP14uk=;
-        b=UC5Qy1HidUHJVALuShnT9IGSbbXrZYPErPOOZoLxzvQBN6dC6qKO9a/zT7dvdmi+Tt
-         YGTH6mNQmJtlH9rA4JwOqX10KmN/YKQC8tEdeE78xwezjnFOdA4xZO4jLYdE4uYKX72e
-         1v6TCsWfn2UM+zni41yZ2qcjApwmkPPd+0h+U4lFpLvN1lYVDMPOfF1hcOwSOHYh7pYt
-         s7G6JdVue/if2NtUFJm2hZ3rh1VgDzWqzdzhePdq33FtSVWvgQgBXWOyUPPAdaCEikwn
-         0JP6GXaWrCviV3gc5ltzIe3qA6fU8c+lg/RhbKcipQ/F9P6J4qVgMs+4nAQBfsVGNr/s
-         6nZg==
-X-Gm-Message-State: AFuF++mV0Mk8BogVNLG9hzNdLNkzTO1qTz2y7rH25yy0BjvE/I+GngBc
-	aQWAAHM8bt4WKfi7KW6123ruuhQdvAs4jZn11yrIN3/gwL4vvHW7AEBTPK/x4aZmO9X30wpPwqk
-	kbMkfgdXb57rxQN9IJ2Kuj+9lgK68lzGGDleJ+Gs7950hcI6qMpjINeRcV+J/9Qtn2xxyrX0iay
-	3osvtylI86ul3vfw==
-X-Gm-Gg: AR+sD123XCj24W+h/drHQz0WuraNuJuA2EusjmWr8YqEwjkuPRxEiq9z00v1VneFyRd
-	L6wHjblYCDNOdrQB60EIZcI89qS8U8QJiQIFTvnMcKAMRhVMTNcgJZgmn6IeMN4LsKsNQ2Y/YW4
-	vT/A4jejJZOE3RHPufMPESN10xspVGShlKJyIh6B8g2e91RzLSCMSzH2CV6cDRvXHKqIehe7jDv
-	z2AF/UZDWFhmHoaEg+H3ModkeOmQSjFRlTF9TFJ75vTnKfIxvLODJsqR6ZVXpKZ1BdgJPzAqDnt
-	RmK4poB0mgeEZt2zAEvCIHnFeCpSGI7z4z+XV0W6sy1D1JwLaKq6sY6uWlvCyrivfR/9bEFKJgN
-	AX6v+utvbeCHYXJ8=
-X-Received: by 2002:a17:90b:560c:b0:396:67ed:da2d with SMTP id 98e67ed59e1d1-3966d4931a0mr17176868a91.15.1787759902279;
-        Wed, 26 Aug 2026 08:58:22 -0700 (PDT)
-X-Received: by 2002:a17:90b:560c:b0:396:67ed:da2d with SMTP id 98e67ed59e1d1-3966d4931a0mr17176753a91.15.1787759901747;
-        Wed, 26 Aug 2026 08:58:21 -0700 (PDT)
-Received: from [192.168.192.72] ([50.47.147.90])
-        by smtp.googlemail.com with ESMTPSA id 98e67ed59e1d1-39645b07394sm8589234a91.4.2026.08.26.08.58.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 26 Aug 2026 08:58:20 -0700 (PDT)
-Message-ID: <997f83d3-18ef-4ca6-a1d6-39491b7a4c95@canonical.com>
-Date: Wed, 26 Aug 2026 08:58:20 -0700
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="hp8ZtsH9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=0l
+	74OhUqceJnGj4xl9NmQr5VfyR7MzAJ2mmS1+9Yg/Q=; b=hp8ZtsH98txM5iq3pN
+	oCwlLezbMUjqRvbU3cInBK9+MCA6YWJcIInrWDX/UMPu33OQGnvn1fb0Lcr/uTtB
+	KcA8EiA6krkGwyTUdcVW09zGJmOgHSfqm/KGWoq5hGcm8BzOK8OxRdaHFcpfoyit
+	Belei59uC+44Ha7j8pGKtMTU4=
+Received: from sky.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wDXx1o1DY9qlBl_Dw--.2963S2;
+	Wed, 26 Aug 2026 23:58:54 +0800 (CST)
+From: Junnan Zhang <zhangjn_dev@163.com>
+To: willemdebruijn.kernel@gmail.com
+Cc: davem@davemloft.net,
+	edumazet@google.com,
+	horms@kernel.org,
+	kuba@kernel.org,
+	linux-kernel@vger.kernel.org,
+	liuhangbin@gmail.com,
+	mst@redhat.com,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	sunshx@chinatelecom.cn,
+	zhangjn11@chinatelecom.cn,
+	zhangjn_dev@163.com
+Subject: Re: [PATCH] net/packet: fix network header offset-VLAN raw packets on VLAN subinterfaces
+Date: Wed, 26 Aug 2026 23:58:42 +0800
+Message-ID: <20260826155842.37442-1-zhangjn_dev@163.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <willemdebruijn.kernel.388b632cadf16@gmail.com>
+References: <willemdebruijn.kernel.388b632cadf16@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: John Johansen <john.johansen@canonical.com>
-Subject: [GIT PULL] AppArmor updates for v7.3
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: LKLM <linux-kernel@vger.kernel.org>,
- "open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
-Content-Language: en-US
-Autocrypt: addr=john.johansen@canonical.com; keydata=
- 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 lT9Q
-Organization: Canonical
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDXx1o1DY9qlBl_Dw--.2963S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxWFy7Wr1xuFWDKw4kXw1UZFb_yoW5urWfpa
+	yYqF9xtw4Dur15tr48J3WfJFWjvr4fGa4UWFy5JrWI9FWYgFyrAFWftF4jgFyj9ryrXr1F
+	vr1UX3W3uF4vyrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JU373kUUUUU=
+X-CM-SenderInfo: x2kd0wxmqbvvry6rljoofrz/xtbC7R-QZmqPDT-sowAA3c
 
-Hi Linus,
+Hi Willem,
+Thanks for the follow-up.
+> Why is the real length 14 + 14 == 28?
+> Where does the second 14 come from?
+You're right to flag this - my previous mail used "base" inconsistently,
+which is what made the "14 + 14" look unexplained. Let me redo it with a
+single reference point.
+The cleanest reference is skb->data after packet_snd() has set things up
+(i.e. the start of the user-supplied raw frame). With hard_header_len=18
+and min_header_len=14 on a software-offload VLAN subif:
+  - skb_reset_network_header() runs while data is at head + hlen
+    (hlen = LL_RESERVED_SPACE_EX(dev, 18) = 32, the HH_DATA_MOD-rounded
+     headroom), so network_header lands at head + hlen = head + 32.
+  - The SOCK_RAW branch then does skb_reserve(skb, -reserve) with
+    reserve = hard_header_len = 18, moving data back to head + 14
+    (= head + hlen - hard_header_len).
+  - The small-frame skb_reset_network_header() at packet_snd:3078 does
+    not fire for a GSO frame, so network_header stays at head + 32.
+Relative to data (= head + 14), this means:
+    network_header = data + (32 - 14) = data + 18 = data + hard_header_len
+    real IP header  = data + ETH_HLEN  = data + 14 = data + min_header_len
+So network_header points VLAN_HLEN (4) bytes past the real IP header.
+The "14 + 14 = 28" in my earlier reply was the absolute offset of IP
+from head (data-offset 14 from rounding + ETH_HLEN 14); the second 14 is
+ETH_HLEN, i.e. the user-supplied Ethernet header. I should not have mixed
+the head-relative IP position with a data-relative network_header - sorry
+for the confusion. v2 will use data-relative offsets throughout, which
+also matches skb_network_offset() and is independent of the
+LL_RESERVED_SPACE rounding.
+With the fix, skb_set_network_header(skb, dev->min_header_len) sets
+network_header = data + min_header_len = data + ETH_HLEN, i.e. exactly on
+the real IP header, so both skb_probe_transport_header() (nhoff) and GSO
+see the correct L3.
 
-I know this is running late, I have an alternate PR with just the bug
-fixes if you prefer. I ended up having to drop a couple of patch sets,
-and pulled in a couple of the simpler bug fixes late. I have a few
-more bug fixes coming but they will have to wait a week or two.
+> This is the hint that this is a vlan device with software VLAN tag
+> insertion? Technically, it might apply to other variable length
+> header devices too.
+>
+You're right, it is not specific to VLAN. min_header_len <
+hard_header_len also matches Ethernet drivers that reserve extra space
+in hard_header_len beyond ETH_HLEN for their own wrapping. For all of these, 
+the user-supplied non-VLAN SOCK_RAW frame still carries a standard 14-byte 
+Ethernet header, so its L3 header sits at ETH_HLEN = min_header_len, and 
+pointing network_header there is correct.
+The condition is intentionally generic, not VLAN-specific.
+For any ARPHRD_ETHER device whose hard_header_len exceeds min_header_len,
+a non-VLAN SOCK_RAW frame's L3 sits at min_header_len (the standard
+Ethernet header length), regardless of what extra bytes hard_header_len
+reserves for driver-internal wrapping. The fix points network_header at
+exactly that L2/L3 boundary. This matches the existing
+dev->min_header_len != hard_header_len check already used in packet_snd()
+(the small-frame skb_reset_network_header path).
+I'll reword the v2 commit message to describe the scope as "Ethernet
+devices whose hard_header_len exceeds min_header_len" rather than "VLAN
+subinterfaces", and drop the misleading VLAN-only framing.
+I'll send v2 as a new thread.
 
-These patches have all been merge, build, and regression tested
-against your tree as of yesterday. The majority of the code has had
-several weeks of testing, both in linux-next and the Ubuntu kernels.
-
-The biggest functional change is Jann Horn's fix for how aparmor is
-doing stale cred updates after a policy replacement.
-    apparmor: fix cred UAF caused by begin_current_label_crit_section()
-It moves the update to be done during task_work at the end of the
-syscall.
-
-The current patch set has one major feature which is allowing policy
-to be compressed in userspace instead of after the fact (in kernel) if
-we need to hold onto it for CRIU/introspection.  This is responsible
-for the majority of the diffstat in apparmorfs.c
-
-The other major change is to do with network mediation. It is a lot of
-code churn but does not do any functional changes to mediation. It
-moves the code around, and refactors it to use newer patterns for
-consistency, and in preparation for some improvements in mediation in
-a future patchset. This change is responsible for the majority of the
-diffstat in lsm.c and af_inet.c
-
-The cleanup of the mount mediation to the newer patterns and macros is
-responsible for the majority of the mount.c diffstat.
-
-With the constification of code being the next largest contributor to
-the diffstat.
-
-
-thanks
-- john
-
-
-The following changes since commit dc59e4fea9d83f03bad6bddf3fa2e52491777482:
-
-   Linux 7.2-rc1 (2026-06-28 12:01:31 -0700)
-
-are available in the Git repository at:
-
-   git://git.kernel.org/pub/scm/linux/kernel/git/jj/linux-apparmor tags/apparmor-pr-2026-08-26
-
-for you to fetch changes up to 3daad923a8685adb66087e0d819559b7eb6ba975:
-
-   apparmor: policy_int make sure list heads are initialized before fail path (2026-08-26 00:03:13 -0700)
-
-----------------------------------------------------------------
-+ Features
-   - support loading compressed policies
-   - add audit mode to provide a mechanism to silence complain messages
-   - refactor network mediation to use new patterns, and prepare
-     to for extended inet mediation (no functional change)
-
-+ Cleanups
-   - switch website link to https
-   - make include headers self-contained, and fix circular include
-   - constify aa_label, aa_dfa, aa_profile, and aa_perms paraneters
-   - mark static tables and structs as read only
-   - drop use of _confined variant for iteration
-   - refactory mount to use check_perms
-   - refactor network mediation code to be together
-   - refactor xattr attachment, to take the file path
-   - optimize current_label_crit_section()
-   - leverage audit_log_n_untrustedstring() when possible
-
-+ Bug Fies
-   - initialized policy lists heads before fail path
-   - fix deadlock in complain-mode change_hat
-   - auditing of mount binary data
-   - fix error debug output in fn_label_build
-   - fix race condition in label replacement
-   - fix unconfined user namespace restriction forced stack
-   - fix error handling for copy_from_user in policy_update
-   - fix out-of-bounds write when null terminating a label vec
-   - fix integer overflow in verify_tags() bounds check
-   - fix cred UAF caused by begin_current_label_crit_section()
-   - use SEND_SIG_NOINFO instead of NULL in aa_audit()
-
-----------------------------------------------------------------
-Baruch Siach (1):
-       apparmor: switch website link to https
-
-Fabrice Derepas (1):
-       apparmor: fix integer overflow in verify_tags() bounds check
-
-Hyunwoo Kim (1):
-       apparmor: fix out-of-bounds write when null terminating a label vec
-
-Jann Horn (1):
-       apparmor: fix cred UAF caused by begin_current_label_crit_section()
-
-John Johansen (30):
-       apparmor: fix alternate loaders ability to load compressed policy
-       apparmor: compressed_data not described in aa_get_data_from_compressed
-       apparmor: Fix build failure when ZSTD_DECOMPRESS is not enabled
-       apparmor: fix implicit declaration of function 'decompress_zstd'
-       apparmor: Fix warning: 'decompress_zstd' defined but not used
-       apparmor: optimize current_label_crit_section() with needput
-       apparmor: fix error handling for copy_from_user in policy_update
-       apparmor: make MEDIATES_AF_UNIX its own fn
-       apparmor: refactor network sock mediation in preparation for inet mediation
-       apparmor: push inet mediation into profile callbacks, and improve auditing
-       apparmor: refactor network socket mediation to support compatibility
-       apparmor: move netfilter functions next to the LSM network operations
-       apparmor: move sock_rcv_skb() next to inet_conn_request
-       apparmor: reserve mediation class for packet mediation
-       apparmor: fix unconfined user namespace restriction forced stack
-       apparmor: refactor xattr attachment, to take the file path
-       apparmor: fix race condition in label replacement
-       apparmor: make table entry count last enum for static tables
-       apparmor: fix error debug output in fn_label_build
-       apparmor: mark static tables and structs as read only
-       apparmor: add audit mode to provide a mechanism to silence complain messages
-       apparmor: fix auditing of mount binary data
-       apparmor: refactory mount to use check_perms
-       apparmor: drop use of _confined variant for iteration
-       apparmor: constify aa_perms parameters that are read-only
-       apparmor: constify aa_profile parameters on read-only compute paths
-       apparmor: constify aa_dfa parameters on read-only compute paths
-       apparmor: constify aa_label parameters on read-only query helpers
-       apparmor: fix deadlock in complain-mode change_hat
-       apparmor: policy_int make sure list heads are initialized before fail path
-
-Maxime Bélair (1):
-       apparmor: Initial support for compressed policies
-
-Oleg Nesterov (1):
-       apparmor: use SEND_SIG_NOINFO instead of NULL in aa_audit()
-
-Paul Moore (1):
-       apparmor: leverage audit_log_n_untrustedstring() when possible
-
-Ryan Lee (2):
-       apparmor: fix net.h and policy.h circular include pattern
-       apparmor: make include headers self-contained
-
-Tetsuo Handa (1):
-       apparmor: replace decompress_zstd() prototype with its entity
-
-  security/apparmor/Kconfig                 |  14 +-
-  security/apparmor/Makefile                |   2 +-
-  security/apparmor/af_inet.c               | 565 ++++++++++++++++++++++++++++++
-  security/apparmor/af_unix.c               |  44 ++-
-  security/apparmor/apparmorfs.c            | 281 +++++++++++----
-  security/apparmor/audit.c                 |  40 ++-
-  security/apparmor/capability.c            |   2 +-
-  security/apparmor/domain.c                | 157 ++++++---
-  security/apparmor/file.c                  |  15 +-
-  security/apparmor/include/af_inet.h       |  36 ++
-  security/apparmor/include/apparmor.h      |   1 +
-  security/apparmor/include/apparmorfs.h    |   3 +
-  security/apparmor/include/audit.h         |  10 +-
-  security/apparmor/include/capability.h    |   3 +-
-  security/apparmor/include/cred.h          |  22 +-
-  security/apparmor/include/file.h          |   2 +-
-  security/apparmor/include/label.h         |  31 +-
-  security/apparmor/include/lib.h           |   6 +-
-  security/apparmor/include/match.h         |  18 +-
-  security/apparmor/include/net.h           |   9 +-
-  security/apparmor/include/path.h          |   3 +
-  security/apparmor/include/perms.h         |  19 +-
-  security/apparmor/include/policy.h        |  17 +-
-  security/apparmor/include/policy_unpack.h |   4 +-
-  security/apparmor/include/procattr.h      |   2 +
-  security/apparmor/include/task.h          |  20 +-
-  security/apparmor/label.c                 |  95 +++--
-  security/apparmor/lib.c                   |  57 ++-
-  security/apparmor/lsm.c                   | 282 +++++++++------
-  security/apparmor/match.c                 |  35 +-
-  security/apparmor/mount.c                 | 279 ++++++---------
-  security/apparmor/net.c                   |  47 +--
-  security/apparmor/policy.c                |  30 +-
-  security/apparmor/policy_compat.c         |  14 +-
-  security/apparmor/policy_unpack.c         |  30 +-
-  security/apparmor/task.c                  |  27 ++
-  36 files changed, 1609 insertions(+), 613 deletions(-)
-  create mode 100644 security/apparmor/af_inet.c
-  create mode 100644 security/apparmor/include/af_inet.h
-
+Thanks,
+Junnan
 
