@@ -1,192 +1,87 @@
-Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.6])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B59E3F1AD7
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:10:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 042B33F1AD7;
+	Wed, 26 Aug 2026 13:10:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787749806; cv=none; b=ie2PGNZOkTFIf2ezhccsKsoU6uRklJvsczuQBw/uXyvFJL15GPwi4W+kZZI5udjvPB7cMxUN2ByiREEEJpy4X/Sm8P1NQhuWLiWN2JZHW/YDy0C4pYmim69vzjp+HLXmupve6nh67nQKt1oyyy1FuhBaQ/8qvP9G+Ta1awur94c=
+	t=1787749817; cv=none; b=FJ9xKeC76LKXI19gQTOB4tPgRLCnjfL3d0gBuChjCS4hEz7a6EimV7vZY7an0/3LHi7mTFpwSKlJ02xy5QGRgSv6+TtKB4WXVRsD0GTInFvwFy4AmbcNpkXZUyWv1MYBibZBqAyW9mr/43u7Pv9TwBaEi7DHamSdxW/ugLK8m34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787749806; c=relaxed/simple;
-	bh=2e+ePTt7fAXSGB0chgyASrs/asZF1pXCIoSOUMvObIU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dZAPNXRJqwL/tqZa5IsNUDxeRtz9L1dM04ZCSbZFfk++MsZ56SSt+CS2/s6BpDSRe/1uK94tnZTk+nuyMYuGWMDooD77CnK+Pwy/zy+H8ADiWp1I9LXIRRaVrf3lkg/i1CggTbvG2qTSwqDNnoNsMDPPfYuDPNRdmyzeKoDIMeE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=xiaomi.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=lPIzxeKD; arc=none smtp.client-ip=117.135.210.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=xiaomi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	s=arc-20240116; t=1787749817; c=relaxed/simple;
+	bh=DikMXrn6dNejgfcuxe4iWYRZZU6hw6FARPjRMsrHE9s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DHoTRX6xPmNu2NgjXptf45r9EUVgQ6Ujsaz3kYjXNkVjTLSYH9yJUUTc3Y2ioR+JZiv45W+k9KS9qRBXd5Vsxxyj/vEAw5ChYzqUQ2qXmuJRJCMyPerAk8bPLxJKql1ED4sv3lwxgyxVNd0EkO0C8mOQ2/+f6tUZqHql0lodvHc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hnoUkDCR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="lPIzxeKD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Xs
-	BIZC7IR9A7r1RXPLN8NZNQ5js4QQye/w5nXDK3zng=; b=lPIzxeKD1l8InKp8ad
-	tYXOp5UU7idKQ6+qk5VKhBcLPJ7VwxbCCMk52rmHG72sI+20v+2hugj0CWKWgeVh
-	1fq8+FMsklwqy5A2/CSYzWEyU/UlRvGM4xQ1TSI07OOkGfaPlYWXUsaDWDA0ZgaR
-	lC7wnusgqHJUEr+grSwaifYx4=
-Received: from nzzhao-ThinkCentre-M760t.mioffice.cn (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wB3P5N85Y5qx4G3Gg--.15517S2;
-	Wed, 26 Aug 2026 21:09:17 +0800 (CST)
-From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
-To: linux-f2fs-devel@lists.sourceforge.net,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Chao Yu <chao@kernel.org>
-Cc: Barry Song <baohua@kernel.org>,
-	Nanzhe Zhao <nzzhao@126.com>,
-	Juan Yescas <jyescas@google.com>,
-	Dev Jain <Dev.Jain@arm.com>,
-	linux-kernel@vger.kernel.org,
-	David Hildenbrand <David.Hildenbrand@arm.com>,
-	Bo Zhang <zhangbo56@xiaomi.com>,
-	Kalesh Singh <kaleshsingh@google.com>,
-	Ryan Roberts <Ryan.Roberts@arm.com>,
-	Pengfei Li <lipengfei28@xiaomi.com>
-Subject: [PATCH 11/14] f2fs: fix zeroing paths for large folios
-Date: Wed, 26 Aug 2026 21:09:12 +0800
-Message-ID: <20260826130916.2231342-1-zhaonanzhe@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260826082641.2007658-1-zhaonanzhe@xiaomi.com>
-References: <20260826082641.2007658-1-zhaonanzhe@xiaomi.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hnoUkDCR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB1241F000E9;
+	Wed, 26 Aug 2026 13:10:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1787749815;
+	bh=z29EKC1TEcpdEn0ZbUlK5fEa15VDOjDwmxfz9RTXdqI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hnoUkDCRtz++B5hNmtoD1jlGKWqCfoTBsaIX+dYjA6/zxajl3xysiiFoMU3DCy9PD
+	 1t+59qGAuFl+SkbrXocFqBvCOoCHOPNEsmX6w5WIiCw/4vKSeM1upiPIXw0oL5yz9I
+	 RbIHKYtyPOcZPbsDbH4Z0wvkwRZ88oApiOKqptmY=
+Date: Wed, 26 Aug 2026 15:10:14 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Bradley Morgan <brads@mainlining.org>
+Cc: atomlin@atomlin.com, corbet@lwn.net, da.gomez@kernel.org,
+	dakr@kernel.org, driver-core@lists.linux.dev,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-modules@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org, mathieu.desnoyers@efficios.com,
+	mcgrof@kernel.org, mhiramat@kernel.org, petr.pavlu@suse.com,
+	rafael@kernel.org, rdunlap@infradead.org, rostedt@goodmis.org,
+	samitolvanen@google.com, skhan@linuxfoundation.org
+Subject: Re: [PATCH 2/2] driver core: add TAINT_FORCED_BIND for when
+ userspace manually messes with devices and drivers
+Message-ID: <2026082604-freewill-pretzel-0057@gregkh>
+References: <20260826-bind_taint-v1-2-52b05f4a965c@linuxfoundation.org>
+ <C35F2CF9-9CD7-482F-8F30-2D152AB42D0B@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wB3P5N85Y5qx4G3Gg--.15517S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxWF4DKF1xAFy7Gr15CFW7Jwb_yoW7Jr45pF
-	W5GasrGrs5Gr48ur1xXF1DZw1rK3s3Wr4UCFWxGasIya4Yq3s5KF18t34j9Fs8tr48Arna
-	q3W8KFyrWF1UJF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UCQ6JUUUUU=
-Sender: nzzhao@126.com
-X-CM-SenderInfo: xq22xtbr6rjloofrz/xtbBsB3WpmqO5X1ULQAA3Y
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <C35F2CF9-9CD7-482F-8F30-2D152AB42D0B@mainlining.org>
 
-Several f2fs zeroing paths still use PAGE_SIZE based offsets after
-a file mapping can contain large folios.  This is fine for order-0
-folios, but it zeros the wrong range once the target block is not at
-offset 0 in a large folio.
+On Wed, Aug 26, 2026 at 12:58:00PM +0100, Bradley Morgan wrote:
+> On 26 August 2026 10:19:33 BST, Greg Kroah-Hartman
+> <gregkh@linuxfoundation.org> wrote:
+> >The ability to add and remove devices from a driver through the sysfs
+> >"bind" and "unbind" files was created all those decades ago as a way
+> >that kernel developers can iterate faster, and provide a debugging way
+> >for users to attempt to add a new device to a driver without having to
+> >rebuild their kernel.
+> >
+> >This api over the years has been abused and recently come under a major
+> >fuzzing "attack" through tools like syzbot which decided that it would
+> >attempt to just randomly bind any driver to any type of device, causing
+> >loads of unneeded errors and pointless kernel patches to be generated by
+> >unsuspecting new developers.
+> >
+> >Handle all of this by adding a new taint flag, TAINT_FORCED_BIND, which
+> >will be set on the driver if the bind/unbind sysfs files are ever
+> >successfully written to.  This lets kernel developers "know" that a user
+> >is attempting to do something that is not normal, and as such, if the
+> >kernel breaks they get to keep the shiny pieces laying around on the
+> >floor.
+> >
+> >Note, the taint flag gets set _BEFORE_ the bind/unbind callback happens,
+> >as many times crashes/oops/warnings/failures happen within the callback,
+> >and the taint flag needs to be there to show what was being attempted.
+> >If it were to be set after the callback happens, the oops report would
+> >not properly reflect what foolishness was being attempted.
+> >
+> 
+> sashiko found a couple valid concerns for 2/2
 
-Use offset_in_folio() to translate the file block index to the folio
-offset before zeroing data in truncate_partial_data_page(), fill_zero(),
-and f2fs_get_new_data_folio().
+Yes, will fix that for v2.
 
-Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
----
- fs/f2fs/data.c | 13 ++++++++++---
- fs/f2fs/f2fs.h |  1 +
- fs/f2fs/file.c | 27 ++++++++++++++++++++++-----
- 3 files changed, 33 insertions(+), 8 deletions(-)
+thanks,
 
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 15774e8e8795..0b167b14a9a5 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -1582,9 +1582,16 @@ struct folio *f2fs_get_new_data_folio(struct inode *inode,
- 		goto got_it;
- 
- 	if (dn.data_blkaddr == NEW_ADDR) {
--		folio_zero_segment(folio, 0, folio_size(folio));
--		if (!folio_test_uptodate(folio))
-+		size_t off = offset_in_folio(folio,
-+					(loff_t)index << PAGE_SHIFT);
-+
-+		folio_zero_segment(folio, off, off + PAGE_SIZE);
-+		if (folio_test_large(folio)) {
-+			f2fs_ffs_find_or_alloc(folio);
-+			f2fs_ffs_mark_subrange_uptodate(folio, off, PAGE_SIZE);
-+		} else if (!folio_test_uptodate(folio)) {
- 			folio_mark_uptodate(folio);
-+		}
- 	} else {
- 		f2fs_folio_put(folio, true);
- 
-@@ -2670,7 +2677,7 @@ static bool __ffs_mark_subrange_uptodate(struct folio *folio,
- 	return bitmap_full(ffs->state, nr_subpages);
- }
- 
--static void f2fs_ffs_mark_subrange_uptodate(struct folio *folio, size_t offset,
-+void f2fs_ffs_mark_subrange_uptodate(struct folio *folio, size_t offset,
- 				       size_t len)
- {
- 	struct f2fs_folio_state *ffs;
-diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index 0ffbe2bd04c8..6ae249bf9aa1 100644
---- a/fs/f2fs/f2fs.h
-+++ b/fs/f2fs/f2fs.h
-@@ -4330,6 +4330,7 @@ struct folio *f2fs_get_lock_data_folio(struct inode *inode, pgoff_t index,
- 			bool for_write);
- struct folio *f2fs_get_new_data_folio(struct inode *inode,
- 			struct folio *ifolio, pgoff_t index, bool new_i_size);
-+void f2fs_ffs_mark_subrange_uptodate(struct folio *folio, size_t offset, size_t len);
- int f2fs_do_write_data_page(struct f2fs_io_info *fio);
- int f2fs_map_blocks(struct inode *inode, struct f2fs_map_blocks *map, int flag);
- int f2fs_fiemap(struct inode *inode, struct fiemap_extent_info *fieinfo,
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index 02d687527241..4272013dbe38 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -811,12 +811,12 @@ void f2fs_truncate_data_blocks_range(struct dnode_of_data *dn, int count)
- static int truncate_partial_data_page(struct inode *inode, u64 from,
- 								bool cache_only)
- {
--	loff_t offset = from & (PAGE_SIZE - 1);
- 	pgoff_t index = from >> PAGE_SHIFT;
- 	struct address_space *mapping = inode->i_mapping;
- 	struct folio *folio;
-+	size_t folio_off;
- 
--	if (!offset && !cache_only)
-+	if (!(from & (PAGE_SIZE - 1)) && !cache_only)
- 		return 0;
- 
- 	if (cache_only) {
-@@ -834,12 +834,21 @@ static int truncate_partial_data_page(struct inode *inode, u64 from,
- 		return PTR_ERR(folio) == -ENOENT ? 0 : PTR_ERR(folio);
- truncate_out:
- 	f2fs_folio_wait_writeback(folio, DATA, true, true);
--	folio_zero_segment(folio, offset, folio_size(folio));
-+	folio_off = offset_in_folio(folio, from);
-+	folio_zero_segment(folio, folio_off, folio_size(folio));
- 
- 	/* An encrypted inode should have a key and truncate the last page. */
- 	f2fs_bug_on(F2FS_I_SB(inode), cache_only && IS_ENCRYPTED(inode));
--	if (!cache_only)
-+	if (!cache_only) {
-+		if (folio_test_large(folio)) {
-+			f2fs_ffs_find_or_alloc(folio);
-+			f2fs_ffs_mark_subrange_uptodate(folio, folio_off,
-+					folio_size(folio) - folio_off);
-+			f2fs_ffs_mark_subrange_dirty(folio, folio_off,
-+					folio_size(folio) - folio_off);
-+		}
- 		folio_mark_dirty(folio);
-+	}
- 	f2fs_folio_put(folio, true);
- 	return 0;
- }
-@@ -1310,6 +1319,7 @@ static int fill_zero(struct inode *inode, pgoff_t index,
- 	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
- 	struct folio *folio;
- 	struct f2fs_lock_context lc;
-+	size_t folio_off;
- 
- 	if (!len)
- 		return 0;
-@@ -1324,7 +1334,14 @@ static int fill_zero(struct inode *inode, pgoff_t index,
- 		return PTR_ERR(folio);
- 
- 	f2fs_folio_wait_writeback(folio, DATA, true, true);
--	folio_zero_range(folio, start, len);
-+	folio_off = offset_in_folio(folio,
-+				   (loff_t)index << PAGE_SHIFT) + start;
-+	folio_zero_range(folio, folio_off, len);
-+	if (folio_test_large(folio)) {
-+		f2fs_ffs_find_or_alloc(folio);
-+		f2fs_ffs_mark_subrange_uptodate(folio, folio_off, len);
-+		f2fs_ffs_mark_subrange_dirty(folio, folio_off, len);
-+	}
- 	folio_mark_dirty(folio);
- 	f2fs_folio_put(folio, true);
- 	return 0;
--- 
-2.43.0
-
+greg k-h
