@@ -1,131 +1,105 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87A8C41DE19
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 12:27:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5E4641D122
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 12:27:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787747273; cv=none; b=Cdd5RzMoE1mw8NpDw4fhCpjR37ac0so2tC+9eB0F6Yz/ND2X7mPElTeiAkZla61JWNmAEXsMu5uxyM+9eDeA+X4tPBzFytHlrTfpkoNqoaodQDr4/hYfJZoenHNfW+TuT0PXc0/LyOSO8Jj+DRUhS3L06KQrtOaSPIKJ6TwkYQg=
+	t=1787747276; cv=none; b=WO0EXiXjVQqmyA5DsKNch6OXtJsAE6jcZzKdL7MsQPw+p96DYuvBRMsIqs9gsPzXX5R4pHTSN9BSGRoWNnKcH07EwoYhbTucEFJ5vg1UTl6s7CZHCW7ClK6tSmTCjlyJ6qTHbOSJx2hPoq+sSEX8a0FKE5+2YUjhZ5qu74J10p0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787747273; c=relaxed/simple;
-	bh=+g3vEkdNg7C0/O7vW53BPoY9M7RNqcD2+kkLYI2zPOU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hGFqgV8eQq5hzl2ivrDE1aoA7jKrHa0lV9SCsL9JDgyv6cNzhGuJL3ntLQW1E7PwTVE6atYFOR5qKsMqbUTxE+UqBwFWirxf8qxZ8G4uPAUtJ9iPZ8YiU6bq1CuiaYgGLNvqLT0mlGUd6xMsGYmVCa77M1yfyrnefAteKYreOTo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dN7RzZZf; arc=none smtp.client-ip=209.85.218.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787747276; c=relaxed/simple;
+	bh=wvOp/5M9oSeAib2BaxQdO+zwBzrKRwMctyM/1j1TAec=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tIEL2nR5LkOw1nRnCrWemGVXXvU98pXVmRxIIbBBtWC4dwkaKrHMG52b8AjZ6IkRzKwnBHSveL4xQG4NHQQiF5dv+Q/uyVA3WauVs2oSYLb3CwfN/qkTC4Suu/y/0NoBYTgRAOyp3cZrMmjaP9+iLeysWw1YxEwElNzCDiuC+pw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=d5honx7x; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dN7RzZZf"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c197e7e4e94so130808766b.2
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 05:27:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787747268; x=1788352068; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2fRB6g9yGoP8wZu23NCaO6xBgrhz7xylfs1BpMSDQR4=;
-        b=dN7RzZZfoVADy4GUHd8VhiCu/ZZJ4tX78JI4BVKXy/r6urN5T5CsgwyzKHx2JsJm8G
-         MhhAbj5SfyyKSYHV72OSpJl7fRLAzo1cwjQqg6EFd8I/+Lkf8I0JGzqciTtWpWG153D4
-         6XnNlilg/Bavjj6g2qrjbbdwasauDOOcelDOsWjEMJWihS7YRiVT3pK1dcItKIvODmaW
-         KAYRftJ/4iUICpObnTara2tl5q830YSlevx4iLF8vqgkNLpY8pviUBzZ9pO05uXQECY2
-         7OgloW33PltRsJBxxlxClKen/OnaH1P7ZZOa0c0gWXMRxmnTLZgZaZ2VQfq8h4q7qtIf
-         NScQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787747268; x=1788352068;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2fRB6g9yGoP8wZu23NCaO6xBgrhz7xylfs1BpMSDQR4=;
-        b=H0flxWaeiQ/csbQHpq8C4sgwSPknXpY9D36KvWMixk6vX564EbRN9hXIVkqe30299V
-         qZLl2ntmJp/CRhOifPnLvgjGSd8eJp0gH8i7QgkE6l4CXiQ1d+qE16C8f1fD3ZaXQmpT
-         egw2t0N810k7zIJ0HCaTT5NkHco7qsyBupgBbnwfN53SZfffiq3vQaFosw/37bDRoXM7
-         DOypTs/79mfjPlaO6vqaa8MIU9gYkiTzQehLQynH1VZuYN1SItck58ongfqjXOGI2bsD
-         j46YQSNQffKneftoLAfYogSyxIK9oJaU/F1dDCXRy9nxeQuGrAwY+MgiG8kgD0zZ54qm
-         7Ajw==
-X-Forwarded-Encrypted: i=1; AHgh+RrM1qQgEceIP7Uuu8YWgx0HFWcEVAeU698iuXRCiW0xMQMSFiQJYGHKj4aChb6N9G0/OQuNWnALxRR8Uns=@vger.kernel.org
-X-Gm-Message-State: AFuF++mn1fzlcplSNllPCGySF41u/i2ebkDVI5k1IsF1hjB0GmfkHKuV
-	0JjM927MDIi20cQ51xVTHcm8X3AbXBY+aOX6QuktebsKPzflQixpJKOj
-X-Gm-Gg: AR+sD13BOdl4titqqgVYC4rGjk5kqkWxsGeNxrfAaEG+jZtzsbqxYl9DCVfbYj3ozYS
-	EKhllzVDhPezX8vPg96RswoBXJJny9yKQ1A5hlPo6r/TCG0AWpJsheM0U2rrcW2bVHUEWwGc5qk
-	Ij/jvgXHkQIEfTlZTsay96C1Bsn+nKsXNYSQj0IrKASX6gnwCPYBk+K2Xlp4CrO7jassTXno/oX
-	/g5AIPLViudxm35sknDCf+sFFXD/iz+9OBvFLmb1c6GBKMRLqvC6DG/Nc8C+n/76bGRxD/9DHZY
-	PuaAt4EJ3TDeqDvLp5xFu14Y57TwD3W5IwxEBilelLU1Wm38752ZAPrzbepZCEjtozXf6Q3S/7w
-	/cgen3nR2l9kaK+RT5urRAm1ZqEJQ3FrOIXqkaXjMIUHRMLaUsYgM1nHzAmsNaYTUeQ0fpn4n18
-	RuAzt4lgwZaLirECa6gWE0wbBhXCXclZz2ivL7OwsBTpjQwDxrckGpr/KE4a3ohLm/YZXtQ3+MA
-	vWeHtk/BxtovQ==
-X-Received: by 2002:a17:907:6088:b0:c21:35d0:f435 with SMTP id a640c23a62f3a-c250bc0f8f0mr808974366b.10.1787747268163;
-        Wed, 26 Aug 2026 05:27:48 -0700 (PDT)
-Received: from localhost.localdomain ([2a00:23c4:a702:d301:aa64:3da0:a259:ecd5])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a9b4e9csm504890266b.54.2026.08.26.05.27.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 05:27:47 -0700 (PDT)
-From: Biju <biju.das.au@gmail.com>
-X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Magnus Damm <magnus.damm@gmail.com>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>,
-	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Biju Das <biju.das.au@gmail.com>,
-	linux-renesas-soc@vger.kernel.org
-Subject: [PATCH v5 2/4] power: sequencing: Fix build issue with COMPILE_TEST
-Date: Wed, 26 Aug 2026 13:27:24 +0100
-Message-ID: <20260826122742.153643-3-biju.das.jz@bp.renesas.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260826122742.153643-1-biju.das.jz@bp.renesas.com>
-References: <20260826122742.153643-1-biju.das.jz@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="d5honx7x"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=RDMQst8eEoPEmikPgwEYc77DJ/dIQ8+891tDktDBlKE=; b=d5honx7xEAKCqLAft8iVBnJXkA
+	1106cIY+UCfYnkIz6G4+20BSFY5cT22Hj81MOyvZBpZcaDCZw2siSjEB2ssugpOnaSafvDY3LcjCc
+	65vZKPYMqApoTQb6BHjfl1ZAILKzn73hMagjRwUesCbA23Wd4zFs+t2jrFytlyK2O/QGnzrkAfMWz
+	dKujTF3atXZn4FE04w2+JHpWZRcBKYpr8q3T73W5sqOr7Bpdh5ESoePSzrEXj9wgfFIFxqDN3baVZ
+	ug1CoNSQfEYEH2UsnU7AVSrXklRg26j/jz+XKsUXgUWljgU2/WF9Nr9LfI9g6rRFBePbPbWTp1QW1
+	WY9/bLTA==;
+Received: from 154.red-79-147-121.dynamicip.rima-tde.net ([79.147.121.154] helo=[192.168.1.206])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1wzCj9-009X8C-AF; Wed, 26 Aug 2026 14:27:35 +0200
+Message-ID: <96fd00f9-bab3-40cb-b028-16f721e07c46@igalia.com>
+Date: Wed, 26 Aug 2026 14:27:31 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/atomic: remove bogus check for file_priv
+To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel-dev@igalia.com
+References: <20260817-drm_atomic_bogus_check-v2-1-2b9e60f32a7e@igalia.com>
+Content-Language: en-US
+From: Melissa Wen <mwen@igalia.com>
+In-Reply-To: <20260817-drm_atomic_bogus_check-v2-1-2b9e60f32a7e@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Biju Das <biju.das.jz@bp.renesas.com>
 
-The POWER_SEQUENCING_TH1520_GPU driver depends on
-(ARCH_THEAD && AUXILIARY_BUS) || COMPILE_TEST. This means when
-COMPILE_TEST=y and ARCH_THEAD is not set, the driver can still be
-built even though it requires AUXILIARY_BUS, which may not be
-selected in that configuration, leading to a build failure.
 
-Fix this by dropping AUXILIARY_BUS from the dependency and instead
-selecting it directly, so the dependency is satisfied regardless of
-whether COMPILE_TEST or ARCH_THEAD is enabled.
+On 17/08/2026 20:45, Thadeu Lima de Souza Cascardo wrote:
+> Since file_priv can never be NULL at prepare_signaling() as it is only
+> called by drm_mode_atomic_ioctl(), remove the check.
+>
+> If that was not the case, skipping the rest of the block here would cause
+> the drm_pending_vblank_event object to leak and fail to set up the fence in
+> case out_fence_ptr is set.
+>
+> Since the check is unreachable, there is no possible leak.
+>
+> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 
-Fixes: 1a7312b93ab0 ("power: sequencing: extend build coverage with COMPILE_TEST=y")
-Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
----
-v4->v5:
- * No change.
-v4:
- * New patch.
----
- drivers/power/sequencing/Kconfig | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Applied to drm-misc-fixes.
+commit d32b08284f44c20edb2ea3f64ba0a6a165036fb2
 
-diff --git a/drivers/power/sequencing/Kconfig b/drivers/power/sequencing/Kconfig
-index 1c5f5820f5b7..226c62704d9b 100644
---- a/drivers/power/sequencing/Kconfig
-+++ b/drivers/power/sequencing/Kconfig
-@@ -29,7 +29,8 @@ config POWER_SEQUENCING_QCOM_WCN
- 
- config POWER_SEQUENCING_TH1520_GPU
- 	tristate "T-HEAD TH1520 GPU power sequencing driver"
--	depends on (ARCH_THEAD && AUXILIARY_BUS) || COMPILE_TEST
-+	depends on ARCH_THEAD || COMPILE_TEST
-+	select AUXILIARY_BUS
- 	help
- 	  Say Y here to enable the power sequencing driver for the TH1520 SoC
- 	  GPU. This driver handles the complex clock and reset sequence
--- 
-2.43.0
+Melissa
+
+> ---
+> Changes in v2:
+> - Change commit message to indicate this is not a reachable leak.
+> - Link to v1: https://patch.msgid.link/20260729-drm_atomic_bogus_check-v1-1-a4d5bd4ae4c8@igalia.com
+> ---
+>   drivers/gpu/drm/drm_atomic_uapi.c | 3 ---
+>   1 file changed, 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+> index e997917819e8..657c15474ed5 100644
+> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+> @@ -1445,9 +1445,6 @@ static int prepare_signaling(struct drm_device *dev,
+>   		if (arg->flags & DRM_MODE_PAGE_FLIP_EVENT) {
+>   			struct drm_pending_vblank_event *e = crtc_state->event;
+>   
+> -			if (!file_priv)
+> -				continue;
+> -
+>   			ret = drm_event_reserve_init(dev, file_priv, &e->base,
+>   						     &e->event.base);
+>   			if (ret) {
+>
+> ---
+> base-commit: ab243f74ab4084ca5c8dec608cb5b0deb27db067
+> change-id: 20260729-drm_atomic_bogus_check-456d5fb6eee9
+>
+> Best regards,
+> --
+> Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+>
 
