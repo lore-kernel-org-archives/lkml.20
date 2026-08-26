@@ -1,63 +1,263 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1414939A7EA;
-	Wed, 26 Aug 2026 18:41:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7511F46D544
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 18:42:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787769685; cv=none; b=gomtslvH/Hsab+0mDJhzVjZ4vQIdksMVmsBRS8fksVl6zJa8wyNmaHp0ZSbf4ArXWSzf77JB6goWW/uun9BfiMLT6rzzK+c4VEvid5qDTb1mWrw6gndDOzHKKne9+Kfo53CtevRkWenr2c/EQG33ZFhPymeqbIqS+F8Vfxqar/k=
+	t=1787769766; cv=none; b=Nq0HfdZH2CANwY68sXrrFJyBOl5/0luFucVriZ+hbuKJGvxG5abCqzrBeJcX+hHkP0hxTRN1+J6HBu9s7syMYe335RXjtybr20Bsn1XDeI/jZMGU1el7EIgJuFQNSJv3tw9h53BYhtV9olcVoQ+13EH6pmVhLPME/oLFy5GVRz0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787769685; c=relaxed/simple;
-	bh=gReGmE1/cLJaKfOplEbYGMwMn7y3EAF2eWQ3WT/RweE=;
-	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=FlQgCtSBQfK1j5ZkLxjiTEgats67+HbNwsXmi2bk2aMNhEDMl76Mp9c6PmNAAxECUNgOnrGa8EOhanO3D5SLHPNvbQyhxT5ZIxSUDpEKruO2Y/K9Q1CvL/okhm6WCtbHVvj9tQH7bVFs1Zcv9K68EjT3xjVkPmDP3OwBEEkrbCI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RI0o1BXx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787769766; c=relaxed/simple;
+	bh=kEMHPVhKaY97RJNVbyCNGkuUcXWOTpfvD5iOeHK/aRc=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=RFsxUalivQeESJDoiEixxDGni1b17znDvzaiE0CqqfPATUKih2Cyqgufd2N7q4IZRFgiCag6eiZsP439piIYPP8Upeeqgx2+dvHeTTFX8HGokpKeADrZ1kWmBk1IK0LZpF3az9ig+KaTKk3SGGiptoI8xI7hOT01hDIdfKUrmhQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IqSH8cNe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RI0o1BXx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACE191F00A3E;
-	Wed, 26 Aug 2026 18:41:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IqSH8cNe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45DDC1F00A3E
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 18:42:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787769673;
-	bh=GHgN47fcm66FKMvq9HPLl1KMG0+LE6+6iSVOZ4wRA7g=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=RI0o1BXxuqucZ0Oq5qHGeVzi9jcmpRixY4Ws0Suuj4o/KP2ZSjwqccRdTwwIWW5Mn
-	 1+n3Ug83VqNsiZLHjKXCMMG/coYiakWwqW001JR6nPdJkHidd+pdmKz+hOTYbX11WQ
-	 wjzjgpy5ad/yXetoNu5Y137AQOBovJ8ORkTp4ghEiWhk6vmrOJnyUL5nrg25L40hP3
-	 vEcTyxZrDH5T323Yh8+YqhwfMupTdoWBRb5Hu8cpiQuQ5jc6PlYH4NLXk6hlKeW5xK
-	 qCQTMd/i1xuD5B/jLN5Jdn7mYTjO6cR35mnF7T917TS2Rwphw21V2dETcdirDCPkzp
-	 wzM3ZCiiRk2lw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 19C55380820D;
-	Wed, 26 Aug 2026 18:40:21 +0000 (UTC)
-Subject: Re: [GIT PULL] clk changes for the merge window
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20260826165611.236321-1-sboyd@kernel.org>
-References: <20260826165611.236321-1-sboyd@kernel.org>
-X-PR-Tracked-List-Id: <linux-clk.vger.kernel.org>
-X-PR-Tracked-Message-Id: <20260826165611.236321-1-sboyd@kernel.org>
-X-PR-Tracked-Remote: https://git.kernel.org/pub/scm/linux/kernel/git/clk/linux.git tags/clk-for-linus
-X-PR-Tracked-Commit-Id: dd8eb789f18c4c600f28e61176a02bcf3b790117
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 502d45774af09f1c681c754c4b7cdfb5d7f72fd9
-Message-Id: <178776961985.801860.9851676902423938203.pr-tracker-bot@kernel.org>
-Date: Wed, 26 Aug 2026 18:40:19 +0000
-To: Stephen Boyd <sboyd@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Michael Turquette <mturquette@baylibre.com>, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
+	s=k20260515; t=1787769751;
+	bh=N6Hwr22yRm36zz124yMp2U2W2ivdLhYJVTBuxmzuyj8=;
+	h=From:Date:Subject:To:Cc;
+	b=IqSH8cNeU2fiQs2yvpHKT2MEOy38PtjJhZ7SEWEB6RK0nFLZl9Za/8kud4HX68Cnr
+	 nZ5oUiJ1FsuYcr9SCVRqTr2S5Sf7Lets5O916r2Os9+1bDVHMaq650dcTrFBkfNyWS
+	 RHMAwTyWSk91QdlQk+OgBR6/B/eBOTvfKLLyA+KIWA+UPbO2vo4yq9aKYJo4SPj1C8
+	 sJJojWYRlyBt0FBQoowRZkQjME8/E9f/eKG4KhYV3QbIi+/qWdvP5cAWpSdSyAOd2o
+	 9q8WroOSZ0//o+oTsMvFvF4OfydFsznouXdwlagZlxKd87ztD4JDYsP3bq3oWDcefI
+	 teELzqsqAi1rQ==
+Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-3a1e9f55e03so12034571fa.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 11:42:31 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rq2UKKfAWNBjQI1IvnE8yef+VymLnRMMMCfLwENyQFCQ4C3maVNByyF25GDq8JDMTSLOihrBKa4UXZnqKQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nIm8NTVS0q0Q9bJIWIBx6PMfHrnEh2Uda3SjGtmdoPoKRFbtEu
+	90wW6La/PHTQkiD7phjXS6xUA70DVBde0iFLgJfiR5pYrEVYMUUvkzbpbTDJx0RnlWWmr0wYAxi
+	ArxBbsAgksnpIg7wuI7cjDptK1AWDwsQ=
+X-Received: by 2002:a05:651c:2108:b0:39a:da70:2c77 with SMTP id
+ 38308e7fff4ca-3a1fd5ab5a0mr23691831fa.3.1787769749638; Wed, 26 Aug 2026
+ 11:42:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Wed, 26 Aug 2026 20:41:45 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0g_k+WA+7aKKMw46h25uL0t+1gqQT3DAtgCWX91TcvFRQ@mail.gmail.com>
+X-Gm-Features: AcwNN1VTrB2Ji-RJbEhRTCg0uJpi9j2dquRL02QiAu9dW_DI5WQ9DIgskuoSAUo
+Message-ID: <CAJZ5v0g_k+WA+7aKKMw46h25uL0t+1gqQT3DAtgCWX91TcvFRQ@mail.gmail.com>
+Subject: [GIT PULL] More thermal control updates for 7.3-rc1
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Linux PM <linux-pm@vger.kernel.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Lukasz Luba <lukasz.luba@arm.com>, Jonathan Cameron <jic23@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-The pull request you sent on Wed, 26 Aug 2026 09:56:10 -0700:
+Hi Linus,
 
-> https://git.kernel.org/pub/scm/linux/kernel/git/clk/linux.git tags/clk-for-linus
+Please pull from the tag
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/502d45774af09f1c681c754c4b7cdfb5d7f72fd9
+ git://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm.git \
+ thermal-7.3-rc1-2
 
-Thank you!
+with top-most commit 79a57e48822a88f082a4dadb366abaf3c0988b5d
 
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+ thermal/drivers/qcom-spmi-mbg-tm: Add module namespace import for IIO_CONSUMER
+
+on top of commit 2d5667b6c3d7adf0f8551bbac7c707fb87155611
+
+ Merge branches 'thermal-core', 'thermal-hwmon', 'thermal-intel' and
+'thermal-tools'
+
+to receive the second part of thermal control updates for 7.3-rc1.
+
+This mostly consists of assorted updates of thermal drivers, including
+new hardware support (Airoha AN7583, Qualcomm Master BandGap thermal
+monitor, QCom PMIC5 Gen3 ADC), but it also includes two reverts of
+recent cosmetic thermal core updates that went against driver core
+plans to eliminate class_create():
+
+ - Fix missing bitfield include headers in Armada and QCom SPM BMG
+   drivers (Daniel Lezcano)
+
+ - Fix missed file when manually applying a change after a conflict
+   resolution for the QCom SPMI ADC TM5 Gen3 (Daniel Lezcano)
+
+ - Move thermal_zone_device_enable() to the right place in order to
+   prevent calling it if the thermal zone registration failed (Dan
+   Carpenter)
+
+ - Improve bitfield manipulations on Armada (Bryan B. Lima)
+
+ - Remove unneeded 'fast_io' on Sun8i and Armada (Wolfram Sang)
+
+ - Fix wrong boundary when clamping the low values in the set_trips()
+   callback and fix wrong mask when setting the temperature interval on
+   Airoha (Christian Marangi)
+
+ - Make use of the regmap API to support Airoha AN7583 (Christian
+   Marangi)
+
+ - Fix adc_tm5_get_temp() return check value on the QCom SPMI ADC
+   sensor (Rakesh Kota)
+
+ - Fix unbalanced clock enablement when the resume fails on the iMX
+   driver (Can Peng)
+
+ - Add Qualcomm Master BandGap thermal monitor support (Satya Priya
+   Kakitapalli)
+
+ - Add Maili Temperature bindings compatible (Haritha S K)
+
+ - Add a devm action to clean hardware interrupts, sampling, and
+   control registers on Spacemit K1 (Pei Xiao)
+
+ - Fix trivial typo in a thermal OF code comment (Marek Vasut)
+
+ - Remove unnecessary print on Qcom SPMI ADC driver when a call to
+   devm_request_threaded_irq() fails as this one already prints a
+   message (Jishnu Prakash)
+
+ - Add support for QCom PMIC5 Gen3 ADC by using auxiliary driver and
+   shared interrupt with the IIO driver (Jishnu Prakash)
+
+ - Make resets optional on MT8196 and add the corresponding property in
+   the DT bindings (AngeloGioacchino Del Regno)
+
+ - Fix clock staying enabled on failing resume operation on Qoriq (Can
+   Peng)
+
+ - Fix wrong closing brace position in thermal library header (Andreas
+   Haufler)
+
+ - Fix low and high trip point validation by moving the check after the
+   clamp on the spacemit driver (surendra)
+
+ - Remove redundant error messages on IRQ request failure (Pan Chuang)
+
+ - Add IIO_CONSUMER namespace import to the qcom-spmi-mbg-tm thermal
+   driver to avoid modpost warnings that would appear after merging the
+   iio tree against the thermal updates (Nathan Chancellor)
+
+ - Revert two recent cosmetic updates of the thermal core conflicting
+   with driver core plans to eliminate class_create() (Rafael Wysocki)
+
+Thanks!
+
+
+---------------
+
+Andreas Haufler (1):
+      tools/lib/thermal: Fix misplaced extern "C" closing brace
+
+AngeloGioacchino Del Regno (2):
+      dt-bindings: thermal: mediatek: Make resets optional for MT8196
+      thermal/drivers/mediatek/lvts_thermal: Make reset optional for MT8196
+
+Bryan B. Lima (1):
+      thermal/drivers/armada: Use bitfield and bitmask macros
+
+Can Peng (2):
+      thermal/drivers/imx: Disable clock on runtime resume failure
+      thermal/drivers/qoriq: Disable clock on resume failure
+
+Christian Marangi (7):
+      thermal/drivers/airoha: Fix copy paste error on clamp_t low temp
+      thermal/drivers/airoha: Fix copy paste error for sen internal
+      thermal/drivers/airoha: Convert to regmap API
+      thermal/drivers/airoha: Generalize probe function
+      thermal/drivers/airoha: Generalize get_thermal_ADC and set_mux function
+      dt-bindings: arm: airoha: Add the chip-scu node for AN7583 SoC
+      thermal/drivers/airoha: Add support for AN7583 Thermal Sensor
+
+Dan Carpenter (1):
+      thermal/drivers/rcar: Fix error checking in probe()
+
+Daniel Lezcano (2):
+      thermal/drivers/qcom/spm mbg tm: Fix missing bitfield header
+      thermal/drivers/armada: Fix missing bitfields include
+
+Haritha S K (1):
+      dt-bindings: thermal: qcom-tsens: Document the Maili Temperature Sensor
+
+Jishnu Prakash (4):
+      iio: adc: qcom-spmi-adc5-gen3: Remove an unnecessary print
+      iio: adc: qcom-spmi-adc5-gen3: Share SDAM0 IRQ with ADC_TM
+auxiliary driver
+      thermal/drivers/qcom: add support for PMIC5 Gen3 ADC thermal monitoring
+      thermal/drivers/qcom: Fix missing spmi adc tm5 gen3 file
+
+Marek Vasut (1):
+      thermal/of: Fix trivial enabled typo
+
+Nathan Chancellor (1):
+      thermal/drivers/qcom-spmi-mbg-tm: Add module namespace import
+for IIO_CONSUMER
+
+Pan Chuang (1):
+      thermal/drivers: Remove redundant error messages on IRQ request failure
+
+Pei Xiao (1):
+      thermal/drivers/spacemit/k1: Add shutdown action and reorder
+registration order
+
+Rafael J. Wysocki (2):
+      Revert "thermal/core: Use the thermal class pointer as init guard"
+      Revert "thermal/core: Allocate the thermal class dynamically"
+
+Rakesh Kota (1):
+      thermal/drivers/qcom-spmi-adc-tm5: Drop IIO_VAL_INT check in
+adc_tm5_get_temp
+
+Satya Priya Kakitapalli (2):
+      dt-bindings: thermal: Add Qualcomm MBG thermal monitor support
+      thermal/drivers/qcom: Add support for Qualcomm MBG thermal monitoring
+
+Wolfram Sang (1):
+      thermal: Remove unneeded 'fast_io' parameter in regmap_config
+
+surendra (1):
+      thermal/drivers/spacemit: Validate clamped trip thresholds
+
+---------------
+
+ .../bindings/arm/airoha,en7581-chip-scu.yaml       |  14 +
+ .../devicetree/bindings/mfd/qcom,spmi-pmic.yaml    |   4 +
+ .../bindings/thermal/mediatek,lvts-thermal.yaml    |  13 +-
+ .../bindings/thermal/qcom,pm8775-mbg-tm.yaml       |  72 ++++
+ .../devicetree/bindings/thermal/qcom-tsens.yaml    |   1 +
+ drivers/iio/adc/qcom-spmi-adc5-gen3.c              |  69 +---
+ drivers/thermal/airoha_thermal.c                   | 382 ++++++++++++++----
+ drivers/thermal/armada_thermal.c                   | 107 +++--
+ drivers/thermal/broadcom/brcmstb_thermal.c         |   3 +-
+ drivers/thermal/db8500_thermal.c                   |   8 +-
+ drivers/thermal/hisi_thermal.c                     |   4 +-
+ drivers/thermal/imx91_thermal.c                    |   2 +-
+ drivers/thermal/imx_thermal.c                      |  13 +-
+ drivers/thermal/loongson2_thermal.c                |   2 +-
+ drivers/thermal/max77620_thermal.c                 |   8 +-
+ drivers/thermal/mediatek/lvts_thermal.c            |  17 +-
+ drivers/thermal/qcom/Kconfig                       |  23 ++
+ drivers/thermal/qcom/Makefile                      |   2 +
+ drivers/thermal/qcom/lmh.c                         |   1 -
+ drivers/thermal/qcom/qcom-spmi-adc-tm5-gen3.c      | 434 +++++++++++++++++++++
+ drivers/thermal/qcom/qcom-spmi-adc-tm5.c           |   3 -
+ drivers/thermal/qcom/qcom-spmi-mbg-tm.c            | 257 ++++++++++++
+ drivers/thermal/qcom/tsens.c                       |   5 +-
+ drivers/thermal/qoriq_thermal.c                    |  13 +-
+ drivers/thermal/renesas/rcar_thermal.c             |  19 +-
+ drivers/thermal/renesas/rzg3e_thermal.c            |   4 +-
+ drivers/thermal/rockchip_thermal.c                 |   3 +-
+ drivers/thermal/samsung/exynos_tmu.c               |   4 +-
+ drivers/thermal/spacemit/k1_tsensor.c              |  78 +++-
+ drivers/thermal/st/st_thermal_memmap.c             |   4 +-
+ drivers/thermal/st/stm_thermal.c                   |   5 +-
+ drivers/thermal/sun8i_thermal.c                    |   1 -
+ drivers/thermal/tegra/soctherm.c                   |   8 +-
+ drivers/thermal/tegra/tegra30-tsensor.c            |   3 +-
+ drivers/thermal/thermal-fw.c                       |  12 +
+ drivers/thermal/thermal_core.c                     |  27 +-
+ drivers/thermal/thermal_fw.c                       |  97 +++++
+ drivers/thermal/thermal_of.c                       |   2 +-
+ include/linux/iio/adc/qcom-adc5-gen3-common.h      |   2 -
+ tools/lib/thermal/include/thermal.h                |   4 +-
+ 40 files changed, 1442 insertions(+), 288 deletions(-)
