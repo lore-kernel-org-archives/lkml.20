@@ -1,181 +1,113 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F32243BDD6;
-	Wed, 26 Aug 2026 13:58:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C46A43E067
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:59:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787752737; cv=none; b=VmD4Rt7kXarianV4QQB1wVtl+JxZ5WSj99axf9UsO7syzMhVHKpZGGqocDpKM35rF40of3Ze2Y2CFDwAoCcGHasCOmlPjAYFXaVqBjxEqIgAEvduoXou6i6J6FHjkhUYHZklFr1U9YWbb5MVi++cidNPKZn5V3s30oU10nn6sh4=
+	t=1787752797; cv=none; b=lXgkx/RJ/TF/y4tK/gwUOHFAUKYtqWvjovOVyh1qGMHBsSV46dRsYrCzx6W8dc4iLzjO3C62MZT82V/iUvCo/kSD0s3lK2jFXV7ueX5ztfDm94wIT+yD7x8Tgu7HWFfHYNIHQTxTFObkcbEnSS5+JmrhHivqM4KUBeDkYjBzHPg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787752737; c=relaxed/simple;
-	bh=0t7XCa8WPyE/QxBh7C/eInKBl6WqTO7dDcUNcyjT21Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=FlEyeSj7j4WcKFQTK+Pgk8XPqayFT+/Vc6NmM+pOb99QMu24Ollz3csIjSS7cQTRT7QdYX8eo/7nalLthEtWRZ54uln3Fmb+5jk7XfAdM5HyxipZR/3621MnXYXaVaNXC7hXA7TVlG0UUj+JGYUbFbestOQiycr2Qon4TlhGOgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=YsU0NAN8; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1787752797; c=relaxed/simple;
+	bh=BmbalL68ZikUuh25rRQGobzDqe2QcSShbOPYwfY2XDo=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=YD7Lo6k3gLgUOLsMfqCYnw6t0nUhiO8PQ/Fj+L0iT9/nTyuuXVfbvTUyz/JBmQv9hNeMp32+0Q6U87c8RK4kN/CGM81oS/LLR6xz4CTN2yqfK6GH5H+JorXhqxK0ZiEygSRMrVAwZ1wHV4rhIUGbbrI6SNbcN6RBZr7e4p6ieBc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=uYVD4LYy; arc=none smtp.client-ip=209.85.214.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="YsU0NAN8"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QCWEOD3894025;
-	Wed, 26 Aug 2026 13:57:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=2LiKUN
-	UJ1OiL3bYqU+s9DlRnAseVi3cKYOI6b9crRyc=; b=YsU0NAN8ubXRkP699Yyag+
-	++z/zJObPD2qbkgKdy/Y+NMGzk+v3l3MAQ53dM6POe5oMAxpiSCu/gErd+Ono45z
-	YCNS03vUkwrd7NOf3Oyym8vkP02mExnkwnVi6GvKIMQpZtyb+X/qs1FxX692cgoZ
-	dJvyRH7nE0AIP5mCbsdRrkD73Q37dcR6BO1DW1TeFZdqyhuzpaiqNf29TZlcgNDf
-	5gWpxcP0owI5YAQFvUfHBsNGZLN0UCQCWWa8nDB0zp9CxssVYgGdxrhYT5aCMfZA
-	A4DskgeC7F4VNjUM3aQzIQ4d0kGJPhXy4obYgW0mwgsNL3piwyoBXi6pizrCiFTQ
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g716hy57w-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 26 Aug 2026 13:57:28 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67QDfImv014111;
-	Wed, 26 Aug 2026 13:57:27 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4g7qkha6v9-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 26 Aug 2026 13:57:27 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67QDvPxn36307332
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 26 Aug 2026 13:57:25 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 7176120043;
-	Wed, 26 Aug 2026 13:57:25 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E4CB620040;
-	Wed, 26 Aug 2026 13:57:24 +0000 (GMT)
-Received: from p-imbrenda (unknown [9.224.75.30])
-	by smtpav03.fra02v.mail.ibm.com (Postfix) with SMTP;
-	Wed, 26 Aug 2026 13:57:24 +0000 (GMT)
-Date: Wed, 26 Aug 2026 15:57:22 +0200
-From: Claudio Imbrenda <imbrenda@linux.ibm.com>
-To: Hugh Dickins <hughd@google.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-        Ackerley Tng
- <ackerleytng@google.com>,
-        Alexander Viro <viro@zeniv.linux.org.uk>,
-        Baolin
- Wang <baolin.wang@linux.alibaba.com>,
-        Barry Song <baohua@kernel.org>, Binbin Wu <binbin.wu@linux.intel.com>,
-        Christian Brauner
- <brauner@kernel.org>,
-        Christoph Hellwig <hch@lst.de>, Christoph Lameter
- <cl@gentwo.org>,
-        David Hildenbrand <david@kernel.org>, JP Kobryn
- <jp.kobryn@linux.dev>,
-        Jan Kara <jack@suse.cz>, Jens Axboe
- <axboe@kernel.dk>,
-        Johannes Weiner <hannes@cmpxchg.org>, Kairui Song
- <ryncsn@gmail.com>,
-        Kiryl Shutsemau <kas@kernel.org>, Lance Yang
- <lance.yang@linux.dev>,
-        Leonardo Bras <leobras.c@gmail.com>, Lorenzo
- Stoakes <ljs@kernel.org>,
-        Marcelo Tosatti <mtosatti@redhat.com>,
-        Matthew
- Wilcox <willy@infradead.org>,
-        Mel Gorman <mgorman@techsingularity.net>,
-        Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>,
-        Minchan
- Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
-        Oscar
- Salvador <osalvador@suse.de>,
-        Peter Zijlstra <peterz@infradead.org>, Qi
- Zheng <qi.zheng@linux.dev>,
-        Rik van Riel <riel@surriel.com>,
-        Sebastian
- Andrzej Siewior <bigeasy@linutronix.de>,
-        Shakeel Butt
- <shakeel.butt@linux.dev>,
-        Suren Baghdasaryan <surenb@google.com>,
-        Vlastimil
- Babka <vbabka@kernel.org>,
-        Yang Shi <yang@os.amperecomputing.com>, Yu Zhao
- <yuzhao@google.com>,
-        "Zach O'Keefe" <zokeefe@google.com>, Zi Yan
- <ziy@nvidia.com>,
-        linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH 20/25] s390/fbatch: no lru_add_drain_all() in
- s390_wiggle_split_folio()
-Message-ID: <20260826155722.0198d3ce@p-imbrenda>
-In-Reply-To: <7bf68e7b-f88c-6ca9-39ab-e9fedab0c8be@google.com>
-References: <14a16945-529b-8bc0-ab38-3ea97e54e223@google.com>
-	<7bf68e7b-f88c-6ca9-39ab-e9fedab0c8be@google.com>
-Organization: IBM
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="uYVD4LYy"
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2d7151120d6so9379965ad.3
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 06:59:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787752786; x=1788357586; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=sJ5J4VsXiOuMp2dajzmF8XaYnCQzq6t9gwVoLisuj/k=;
+        b=uYVD4LYylAASE/IEQ6yNnKHWb7Cb8t5qcjtFl1fNefeb2pQ/vQuz8DtJfpQIGwsKAX
+         gysFIdkLGuXC9RNmvnFijMcQKL0lM52bPnjlpDpeecPr19mY2Cm9zT/gOZouzjBUYZx1
+         lT/CK9ke05J+FBHOUVc7g4fwQ2asbm35NNPL7f9xJUHWSBY0/FF9J+cPQpIUyzuOXQ4q
+         90Fhk4dNe7LirQuI5Y9PTF8dagVn2IUaRQJMtBbxZVIH/VlfMijxvPqxaqHQB/miS9VY
+         xlrklIJDzVH/fGbP5MkPGIvYSGeGOtWciiqDRAXYPfEDcsg2Th/5KrDtzlzyzvMudK80
+         J4bQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787752786; x=1788357586;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sJ5J4VsXiOuMp2dajzmF8XaYnCQzq6t9gwVoLisuj/k=;
+        b=L//ZjXV7GWpcMT5oRRzQ3h/NAYF1flslo5ZSp3l+pq28DRvTtFxaBHnYFnYuJSE1ee
+         5qwTWTAaOxs0jbtr4MUEvRcVfP5bBTrZuFjWmjWm2Z04cbR+nMAFDd5XdPPYplHmFZPX
+         p1b8gUqwFLSaXyVVtrZkiovn3obKm7NHlXnOyYfRcoiG+vEJo8w4//J/dei+ovv2HW7A
+         quzzHc/1H3crOLPFbyb+uRKituHXFn+uBFjHBUznjD7SNZLjRsCWv7WpX3fgqTgGvw4c
+         FRY9T7M0/24n+UxsXAd2F3ov2WhtD3DucnZ1DSPri7w8fGWmBWeZgIp3IoWaH6wvVRYK
+         zCQQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rq8Kc9gbNwxMXWUiBgbI1rd91dyrF5JeGK1xCRihuEeZ+cwTPQ/kUhvjZNt2K6fAEVRvDpRWi2KQzJbeOc=@vger.kernel.org
+X-Gm-Message-State: AFuF++n9CyZLYWNyANCRk91/3SmD0mt2szoNNnP+cgQMgsSGOVSTafiq
+	eS2Ky5TIs+jI7mNHikTWE4dAMRKo9Uurp+di5+7yWm/OAJTfd0xGfdYqvcil+jG4QK3iuPk3AlM
+	z9AN/WA==
+X-Received: from plht13.prod.google.com ([2002:a17:903:2f0d:b0:2c0:a516:2c2])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:1246:b0:2d1:1f73:3667
+ with SMTP id d9443c01a7336-2d707a04385mr106575235ad.1.1787752785793; Wed, 26
+ Aug 2026 06:59:45 -0700 (PDT)
+Date: Wed, 26 Aug 2026 06:59:45 -0700
+In-Reply-To: <d9d4264f-eb8f-4407-951b-245d144b3ec8@suse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDExMiBTYWx0ZWRfX6oBMoAXUz9b+
- R2tF2RTZdZcuqOBhxLba2axaGWhWg2Kl07rlyQKuFHwjSqkOxhSrWknwqzByANHgzXMIgsDlaEU
- Idl+30dokbx5c7aGM1azQMrbbL2NzlU=
-X-Proofpoint-GUID: ic4DR_A9PttbjD9aBnZ6wMO72ql0cvfP
-X-Proofpoint-ORIG-GUID: CtVKpmKXa-6fjrMbMK0sces9C8ZO455o
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDExMiBTYWx0ZWRfX7/j9vZ3raXyB
- Me/IVg+MC4rfQk452IoupMj8YDfCrRb2aDsOD5v2ra95DbPAkxcv7e6jEP0qwG0PZO4yv1Dhl8A
- MDor97CDbv2jWwZubFtFo71f50APNaOXyPErDM8wuF9ANlsKg4R8mN1ETfKeEs7LY/eu1rcSswR
- ujmCkelqB5shvDHGHK7KQOqUTjGxr+/PE2dnk7Tzh0Q9LtWA/LNTZI2nOT5w+ACGn+182t/6tXK
- bPa8WHzBebLfwFyGylResRBGUAtgIcfqoeAZhfcwRefUAXVTJ8Ojiq7mZr55C0JybbHa7HV8jvi
- 8uJw1ELRQYwi4ziuvlfXVFScGfFjx3IZg7prbBCfBy1ZK0LLB7Ui/X3wJ8bY09SA4c4pI3mYqwv
- qNrzli/jLZlc8rSiWLGU7lnDa8/sZ5pE5EOrVG5HVnBjdZ3HWdNB9DZb6M4ma79dfwpc/F0B57l
- J4jca6EyH0POQCLZBWQ==
-X-Authority-Analysis: v=2.4 cv=H7brBeYi c=1 sm=1 tr=0 ts=6a8ef0c9 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=1XWaLZrsAAAA:8
- a=67rAruxoP-Qw-q3ESxAA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-26_03,2026-08-26_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 malwarescore=0 lowpriorityscore=0 impostorscore=0 spamscore=0
- bulkscore=0 adultscore=0 priorityscore=1501 clxscore=1011 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260112
+Mime-Version: 1.0
+References: <20260819094903.3060020-1-xiaoyao.li@intel.com>
+ <20260819094903.3060020-10-xiaoyao.li@intel.com> <5426d2f6-3e67-45d3-85d6-d0da67edb486@suse.com>
+ <34161383-a382-411b-9278-098dab6587d8@intel.com> <d9d4264f-eb8f-4407-951b-245d144b3ec8@suse.com>
+Message-ID: <ao7xUc88m1fopax7@google.com>
+Subject: Re: [PATCH v4 9/9] KVM: VMX: Consolidate the exit handler for VMX and TDX
+From: Sean Christopherson <seanjc@google.com>
+To: Nikolay Borisov <nik.borisov@suse.com>
+Cc: Xiaoyao Li <xiaoyao.li@intel.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Kiryl Shutsemau <kas@kernel.org>, Rick Edgecombe <rick.p.edgecombe@intel.com>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 24 Aug 2026 07:39:12 -0700 (PDT)
-Hugh Dickins <hughd@google.com> wrote:
+On Wed, Aug 26, 2026, Nikolay Borisov wrote:
+>=20
+>=20
+> On 8/26/26 13:43, Xiaoyao Li wrote:
+> > On 8/26/2026 6:03 PM, Nikolay Borisov wrote:
+> > > > @@ -960,7 +978,7 @@ struct kvm_x86_ops vt_x86_ops __initdata =3D {
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .vcpu_needs_initialization =3D
+> > > > vt_op_tdx_only(vcpu_needs_initialization),
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .vcpu_run =3D vt_op(vcpu_run),
+> > > > -=C2=A0=C2=A0=C2=A0 .handle_exit =3D vt_op(handle_exit),
+> > > > +=C2=A0=C2=A0=C2=A0 .handle_exit =3D vt_handle_exit,
+> > >=20
+> > > nit: Why isn't this vt_op() for the sake of consistency and
+> > > introduce needless churn ?
+> >=20
+> > I didn't see how to make vt_op() still work here while dedupping the
+> > code. Do you have a better idea?
+>=20
+> Indeed, I saw that vt_op is actually different for the TDX/!TDX case. I
+> guess that function is always bound to have some quirk - i.e it has an
+> #ifdef guard inside even though is_td_vcpu() is defined for the !TDX case
+> but tdx_handle_exit() isn't. It's named VT, even though it's defined  in =
+the
+> "vmx section" ...
 
-> s390_wiggle_split_folio() has no good reason to lru_add_drain_all(),
-> now that the per-cpu fbatch references are gone.
-> 
-> Signed-off-by: Hugh Dickins <hughd@google.com>
-> ---
->  arch/s390/kernel/uv.c | 1 -
->  1 file changed, 1 deletion(-)
-> 
-> diff --git a/arch/s390/kernel/uv.c b/arch/s390/kernel/uv.c
-> index dc14ebc0105b..120a467026a5 100644
-> --- a/arch/s390/kernel/uv.c
-> +++ b/arch/s390/kernel/uv.c
-> @@ -364,7 +364,6 @@ int s390_wiggle_split_folio(struct mm_struct *mm, struct folio *folio)
->  
->  	lockdep_assert_not_held(&mm->mmap_lock);
->  	folio_wait_writeback(folio);
-> -	lru_add_drain_all();
->  
->  	if (!folio_test_large(folio))
->  		return 0;
+Because the name and the implementation are two separate things.  The scope=
+ is
+"vt_" to communicate that the operation is common to all flavors of VT, i.e=
+. to
+both VMX and TDX.  But when support for TDX is disabled, there's no need to
+trampoline through the routing code and so the vt_op() implementation wires=
+ the
+hooks up directly to the VMX functions.
 
-This is black magic for me, I am not sure I fully understand all the
-details, but what's the new purpose of lru_add_drain_all() ?
-
-will we have a guarantee that no stray references to mapped folios will
-ever remain?
-
-Any unexpected reference (i.e. not due to mappings, see
-expected_folio_refs()) will cause a protected guest to hang.
+.handle_exit doesn't use vt_op() because the implementation of vt_handle_ex=
+it()
+itself is completely common to VMX and TDX, i.e. there is no routing code a=
+nd
+thus no need to define a wrapper via vt_op().
