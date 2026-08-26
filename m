@@ -1,295 +1,221 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012011.outbound.protection.outlook.com [52.101.53.11])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C86F4424D79;
-	Wed, 26 Aug 2026 17:16:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787764610; cv=fail; b=KarqG1aY61M08PafVo5MBztt430itO8Ze2a+lAs2GQdAp4zF5Q13flgGMnMNKHyamesw/6nho6UjMh47BwRDEmh1uNCfyFEPg0YWaENCWBPQNQt+e1/kg7rjibEddCl4FMESUYKQrnA7uxldbu347rN+sYdgOaMYz+QA3kVgR8E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787764610; c=relaxed/simple;
-	bh=dy8oy/srC1BwJSevGQZCDcws6awJdOxDrj5ZMTQVeok=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=kkZAV5UvlGyQSHXJ0Dp2U8FXw2/6S3ek+8fyaye5jLH2+ackUw2vNs6YYFG0IphAqlGyX3cLKIlLVdhQkG8hTBJ4l6wnH+P09N77weVxFzGajcGBiY2wg3DfRLEs7EDdWfJAqs6OfFV+8npTopmRgiAww+YcuIYXCfXLOK+/XDo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Owdd8dYp; arc=fail smtp.client-ip=52.101.53.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC84138F633
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 17:17:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787764666; cv=none; b=urGtDaYzBh3insW+A6B90r4UIwI3DLEQBfumdWkulISTjbfKs/vlB3SXqIVfQrI8xASi1P4GTNvze+DB2Snccd3sifL4svhBta1OHXJ3uDx25jaTEjA422z6lW3GBK8lLfp5UmO6vagJck1mXtN38rNdR4pkQi69q9zY0+qdW7w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787764666; c=relaxed/simple;
+	bh=Vg+UFuV5m2015dxEcjnkurcF+hU9S27hy2MjwD4PGHc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bI2mpGtXaIlAi053pF+GSa76ieIyN8JFzeo1o1WU27n5TIejw0VPzEPBi65JvgufCQZrZFTVexdijZE4d5oAsUcPhFE2+6SMwBDJIAADZMrTpRNGVoz4H+w/I/W9roj4RWIKDHqknm3xJ4qFQ8NpzZF/2z+x4FtuuVRToazcGds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ddrJ/ESd; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=cQQLicZS; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Owdd8dYp"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=e06lU+pOWqPn3uZ9cq2OsdFzKcZe0/UpNgZIl1MlsO4G1EPYUuNxuJCyojsHPIj0k9gCYsJyb79T8oJZ17/nY27u35TFtiOPj6/xAyDjAQkiTwKb/bEWS0CU2l3c7kCODfRMr+nuH0KxRmnCOGN9Fe7FnX3WFhlKnDRINXRvmAcgvlGJFJnGItyQHudsDHl+p/bkNgMWy0rSp9hAEVWL91d6kpRUHPuvIrutpDcaS2L+sWVhUuYwMwg7zKCNuUwxuSCiVJE2fo/MuJtQre3xKJZcQvgpQbm4GJ9C4aph/nGGWF3iMVyZTCYLNpK1G0XRIoU/KzSJ+SZcsoLtmKcwAA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=emdJDRMuxf37Q3GwTCDWz+fc2YVnnjeMAU5Jm+uwtP0=;
- b=Y+MEoxJ+4zdkH4Rk7nyqA129oYJNzfnu9rrvps3uu/CwWxkZAPuHHLP5TTK3yqg5y2k1PncrkgihvC6UKR8jdzNNjZV5lddc1YrzaBVepq5okrHucfxSMdIj3y7MLJ3dPRaNx4RerKIDhjiaMyBFCDoPj6WSfkpAwWhrAisAmfvikYafmlMB7H8n6Uxq2mXqW2v39gy0EbWq7WjKbaTvfraqHbUPo4Jo9TROIO429dUHlJLcukUguG+D9IpmjH6DOZsui5KQKJ3SSc7GoJhrW5iQAG4tFZYWUIOOdKSuG8K7mAlscno6+Fkp1vVkHSzsllygOnAXxtaWzBsMV5k7ng==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 149.199.90.133) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com;
- dmarc=fail (p=quarantine sp=quarantine pct=100) action=quarantine
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=emdJDRMuxf37Q3GwTCDWz+fc2YVnnjeMAU5Jm+uwtP0=;
- b=Owdd8dYpTfVAg4hcKz1VjV2Y1NmIRU2NM/atl6ZPT/Pq1K98Gaje+bm0AcdhojOmqV/n92+TLi3Aie51f8TV17Z9Z1e7Ma3Py43+awCwswmZ8bTMBMqmEXgvMIYPuHblJ0M/BO4eFLb3I2U0WziwJU8JCfJpgg7X7H9wGN8HCeI=
-Received: from MW4PR03CA0152.namprd03.prod.outlook.com (2603:10b6:303:8d::7)
- by BN7PPF9C6E5285F.namprd12.prod.outlook.com (2603:10b6:40f:fc02::6db) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.6; Wed, 26 Aug
- 2026 17:16:00 +0000
-Received: from CO1PEPF000066E8.namprd05.prod.outlook.com
- (2603:10b6:303:8d:cafe::42) by MW4PR03CA0152.outlook.office365.com
- (2603:10b6:303:8d::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.8 via Frontend Transport; Wed, 26
- Aug 2026 17:16:00 +0000
-X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
- 149.199.90.133) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=quarantine header.from=amd.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- amd.com discourages use of 149.199.90.133 as permitted sender)
-Received: from satlexmb07.amd.com (149.199.90.133) by
- CO1PEPF000066E8.mail.protection.outlook.com (10.167.249.6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Wed, 26 Aug 2026 17:15:59 +0000
-Received: from airavat.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 26 Aug
- 2026 12:15:56 -0500
-From: Vishal Badole <Vishal.Badole@amd.com>
-To: <tglx@kernel.org>, <akpm@linux-foundation.org>,
-	<linux-kernel@vger.kernel.org>
-CC: <bp@alien8.de>, <wangyang.guo@intel.com>, <tianyou.li@intel.com>,
-	<tim.c.chen@linux.intel.com>, <dan.liang@intel.com>, Vishal Badole
-	<Vishal.Badole@amd.com>, <stable@vger.kernel.org>
-Subject: [PATCH v4] lib/group_cpus: Snapshot cluster masks to keep grouping hotplug invariant
-Date: Wed, 26 Aug 2026 22:45:37 +0530
-Message-ID: <20260826171537.4167367-1-Vishal.Badole@amd.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ddrJ/ESd";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="cQQLicZS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787764655;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6yYb0HNz5KGftss5YJcVkpZccia/QhI7Av14y4QDURk=;
+	b=ddrJ/ESdufzcOfRrhRK3PKTCiiDZprGyL4EB+lGux19Zktsjqwv75Frqd57KkoC4R4KLcS
+	jyLrPc2BQis79/F0etPJDlA0oNR1bEmsbagUfxrx0K6ytOH4LseoaE/l5W76lW5Yyocqyv
+	RUmfxlWopqIGdmrBl5GIc+X1GSBB4J0=
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-182-EzgDI0QwMKKGGTJ1y_9okA-1; Wed, 26 Aug 2026 13:17:34 -0400
+X-MC-Unique: EzgDI0QwMKKGGTJ1y_9okA-1
+X-Mimecast-MFC-AGG-ID: EzgDI0QwMKKGGTJ1y_9okA_1787764654
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-9372b9db132so108026485a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 10:17:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1787764654; x=1788369454; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=6yYb0HNz5KGftss5YJcVkpZccia/QhI7Av14y4QDURk=;
+        b=cQQLicZSxoTv0JUcI+VgSN+d0N5hjpF8m1Z0kDVPDtFXXhyd+bXCaIV3jxwLSYpXP9
+         jyuOzPxpTkz8Yk1pIxek04hjaRV+B3n9/lWIO7b4n6bcePtj4Nrb0hac3bWqFL8N8MQG
+         vVkmzMAx3a0NMCPRWUI3IwSFhu4vh5/F/XbiCk8BiY/KIOwM4wsWwSzp+wjVM0EUxREW
+         qks9DkAF5+pe3qiqDzl+uMr9x+UX7M/Sh1B/8rYaNNT+U+jCBsfEcNSsezEfbyvnYN+L
+         /ACpLSPGyfAmLS6zGMnmpR/kmkks0C4wtLwDk3D4pfeZDAApvtQYfNsRd/6XPF8cN/9e
+         O+OA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787764654; x=1788369454;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6yYb0HNz5KGftss5YJcVkpZccia/QhI7Av14y4QDURk=;
+        b=py34KeVTNCd4rJwB/rlKsfIAFoSKVH+XUPmlRGJXhaPYRg4KMLUU+PnXzpIS2Zb1qS
+         sMcF312RhIR6h4TBr2h1fqp677aaXRFW/VnLj5qfK1Cu5Ct54FSlX0Lr/JWoweO/zEFL
+         l4JlRf/s12iXqmB/FzNwUhaVHz3EjzGdf5RbMlkV1bdjouAftL0WRwQMmR1gq/I2qfHH
+         2sYBMStVp+GhvhoURePvb4Wx9yYYbyA+Dlx9GSxH5RnFSGgqENszQXMDUOAa3AyxJYmB
+         +1rmnp3AuH0IRYbYDdH/IHx1GZE/IXWHEs1o4jo85az/jOpCEy5bWqT07VCC8ItYJQTP
+         Xvmw==
+X-Forwarded-Encrypted: i=1; AHgh+RoP1b0eA9DDzhf3WtNVpTo9mWhEuoMWukZgmQjsXTn2CD+BUnBZx2k8QQ5lrK/1LAp2enaNugYSBTXQbXY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nlEVhFjuKzoFWnj6guWAIbBEJegDR4Q2YVmNpuqvdiVLi5WReH
+	vs1ELD09oiQ+iwv91dFMo4TEsOkPuI2TYFQg5jQH+coRaHgrLq+Yww3q8bn3qPyrvUuFetJ0xDR
+	d70UzF0kFVMAY5YFQAwaIVFwcEtFs+hCpg1gV+rJ3h3Wmr/890ebRhGrESt3EJMKgXw==
+X-Gm-Gg: AR+sD11FRyTsCxr+k65Vq21I867jrN/7ESttRW8BbaNqchUclNPJGXbtJmS8F+7bXLC
+	+kPwWOqZR8OoptGjX3B/PZRF8WeB5lii+4LWnZ+epScX0aHjVuJr0ur9cMjLUf21d+dtgGcVf9+
+	sRDY55C31tijjv03ZZWBX6qQ/N/PMVC4ZBvud+EfmpLsxXQCC3WnXozrew3l2a9rqsg3X+ou7ba
+	70kjNc4OTIGfQeDz37DJLXwfNf6b894Up+s1KyrMmSt2pvs98BthDMho+64BcYWrvU93ejBtNAx
+	G/xUNVADJ31KLbMq/FRybfK5eoh8pdJQgswe0EkwYqipMLnKMvGDF5au6/SqXTnXvsWK6A==
+X-Received: by 2002:a05:620a:a4a:b0:936:ce17:dac3 with SMTP id af79cd13be357-93780433529mr609194685a.40.1787764653937;
+        Wed, 26 Aug 2026 10:17:33 -0700 (PDT)
+X-Received: by 2002:a05:620a:a4a:b0:936:ce17:dac3 with SMTP id af79cd13be357-93780433529mr609188785a.40.1787764653394;
+        Wed, 26 Aug 2026 10:17:33 -0700 (PDT)
+Received: from redhat.com ([23.25.77.22])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9377e36954asm255124385a.18.2026.08.26.10.17.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 10:17:32 -0700 (PDT)
+Date: Wed, 26 Aug 2026 13:17:30 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Lucas Tanure <tanure@linux.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Kevin Hilman <khilman@baylibre.com>, Jian Hu <jian.hu@amlogic.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC] clk: meson: t7: Intermittent boot instability and memory
+ corruption on VIM4
+Message-ID: <ao8fqstEs01hd3--@redhat.com>
+References: <3930906f-783b-4d72-9260-ba25cc8081cb@linux.com>
+ <aoxjX3HabY0brgXk@redhat.com>
+ <57d796bd-7a3c-46b9-bd65-d6860adbd355@linux.com>
+ <72db2062-e0ac-4c33-b1d1-d1fa5ae4bec8@linux.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000066E8:EE_|BN7PPF9C6E5285F:EE_
-X-MS-Office365-Filtering-Correlation-Id: 114499cb-a7e5-407f-5c18-08df0395b324
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|82310400026|36860700016|376014|56012099006|10067099003|3023799007|18002099003|11063799006|5023799004;
-X-Microsoft-Antispam-Message-Info:
-	CpvuaZMD5xQ44FkpJ1xv+bFQ0vcKjQW7u0Ah6IKfqlDlmCkXWfq//ZUazoEMSc67SYVV8A5MSkX3reFigYYrXxpyGcPG9hfCfWoz1FmzZRNG/KrsQ0y72dr5MuGfruzm4rvaJ/nlWU1aG3QAxNOYwa5R25qJKSoFLb5eyDoydJAcn532IxEsbw2tOmiSJBhTbaHRXhiABfLWQj7ix1/fdPpgZLikGN0L757WigZmneqTRambsEdcyLW1CEgW2B/Zfnv5tJAOHgVtl+QJLwWiFJyRcq3nNzi0x+k88MNcjmOryvGQgUBILJVXLqIEfKsZkEEbZkFs0bPd1XqMcXDyqKiHBBjukD7VMpCh+x739VexoDHMUO2cQKstWY4RkhhJlqfaUyD8RReqDqGJNHvVCDvc2RdGgUkxkf2VQ/cRx5JIIm2z3k9vQ4svJH8dksPVK6kZWjpxVvfYntkwVa1SGiWiEkr2Z+9MjidH5Tc3fqktemQn7cztrhDEsgYt9JysxScvLSE3yEPMqm6Elje7atnc5b7vf/UR3gQYDn6Ia1/5gVpfkdXy83Oi9aRYZ+Hwk4JQ1N+Rt8ci/pd0yombGsdlUL0iBxVtMInpSGj7+jpxynbwI5CFy80839fXh8NMGrs665s6+WsjNO6P2vu5B8FZNR2xhEUPC1HGS0wcNsBQtj8+4H6fBzXIEY8JV33vQ+sYWw/YM0zbPDLJdRvrRg==
-X-Forefront-Antispam-Report:
-	CIP:149.199.90.133;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:unknown-90-133.xilinx.com;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(82310400026)(36860700016)(376014)(56012099006)(10067099003)(3023799007)(18002099003)(11063799006)(5023799004);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	60Xvl9V15oUzW+YSFwKJ1/BySME/OvFstuMQQ3Grcz9r1/F8jL3iOuOVnBjwTXCg3DTe/huNrQIsJQx2MnViVCSAI935f6b1i+/m0Zrg4l37UmI9FuZ+l1gV/12fxUF7Z3CZe+cVN7zdD6ZPgkQ3KH8hIFDTEpnWSmIex4ToEfgJCjTEqHoIsyz+SY1ne87gd8GNmsRChv/5POrSNdG+CsS3bG4yjMhBJz2SMO69ua+HW6KuI2xU6gtH4jrwmnb81Kk3aLFiedbCw4Kmp0VnzAU1TYueG7djfeS6mLChIYzR05Pfr9+dBnz90aUWZbSCQ5OcPezgMjj8ZFZqC7mOrN7OwVVGIpXATZoBy7HVBSoFYjiXaYAWr0Kv90Zrg6W4tINAiO30PchLkPzQDRrluxwOi5hDON6UGKhTDNrB38b74yMm4i1bd4b6UhI1gVKU
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 17:15:59.9112
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 114499cb-a7e5-407f-5c18-08df0395b324
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[149.199.90.133];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF000066E8.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPF9C6E5285F
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <72db2062-e0ac-4c33-b1d1-d1fa5ae4bec8@linux.com>
+User-Agent: Mutt/2.4.0 (2026-06-19)
 
-group_cpus_evenly() builds the managed-IRQ affinity spread used by
-multi-queue devices such as NVMe. That spread is meant to be a property
-of the static CPU topology: it walks cpu_present_mask and then
-cpu_possible_mask so every hardware queue owns a fixed set of CPUs,
-including CPUs that are offline at the time. A driver depends on that
-partition staying stable across re-computation - the CPUs a queue is
-given at probe must still describe the same queue after the device is
-later reset and its affinity recomputed.
+Hi Lucas,
 
-On an AMD system that stability breaks across an s2idle cycle. With CPUs
-3-11 offlined and only CPUs 0-2 left online, the machine is suspended to
-s2idle and resumed. The NVMe controller uses the simple-suspend quirk, so
-resume fully re-initialises it and recomputes the affinity spread. The
-system then hangs for roughly two minutes and stays sluggish afterwards,
-the controller only making progress through its command-timeout poll:
+On Wed, Aug 26, 2026 at 05:42:01PM +0100, Lucas Tanure wrote:
+> With Brian's patches, VIM4 does not turn off 4 clocks:
+> 
+> t7_sys_sd_emmc_b
+> t7_sys_sd_emmc_c
+> sd_emmc_b
+> sd_emmc_c
+> 
+> This is expected since I'm trying to run from an SD card. However, even with
+> these four clocks kept enabled, the board still hangs.
+> 
+> Complete list with all clocks being disabled after Brians patches:
+> [    1.002247] clk: Disabled unused clock: t7_sys_pwm_ao_gh
+> [    1.002898] clk: Disabled unused clock: t7_sys_pwm_ao_ef
+> [    1.003560] clk: Disabled unused clock: t7_sys_pwm_ao_cd
+> [    1.004220] clk: Disabled unused clock: t7_sys_pwm_ao_ab
+> [    1.004972] clk: Disabled unused clock: t7_sys_pwm_ef
+> [    1.005509] clk: Disabled unused clock: t7_sys_pwm_cd
+> [    1.006211] clk: Disabled unused clock: t7_sys_pwm_ab
+> [    1.006766] clk: Disabled unused clock: t7_sys_ts_hevc
+> [    1.007434] clk: Disabled unused clock: t7_sys_ts_vpu
+> [    1.008033] clk: Disabled unused clock: t7_sys_ts_nna
+> [    1.008741] clk: Disabled unused clock: t7_sys_ts_gpu
+> [    1.009294] clk: Disabled unused clock: t7_sys_sar_adc
+> [    1.009929] clk: Disabled unused clock: t7_sys_vpu_intr
+> [    1.010609] clk: Disabled unused clock: t7_sys_dspb
+> [    1.011186] clk: Disabled unused clock: t7_sys_dspa
+> [    1.011792] clk: Disabled unused clock: t7_sys_a73pclk_apb
+> [    1.012554] clk: Disabled unused clock: t7_sys_pclk_sys_apb
+> [    1.013213] clk: Disabled unused clock: t7_sys_rsa
+> [    1.013811] clk: Disabled unused clock: t7_sys_mipi_isp_pclk
+> [    1.014529] clk: Disabled unused clock: t7_sys_mmc_apb
+> [    1.015107] clk: Disabled unused clock: t7_sys_hdmirx_pclk
+> [    1.015819] clk: Disabled unused clock: t7_sys_i2c_s_a
+> [    1.016429] clk: Disabled unused clock: t7_sys_hdmitx_apb
+> [    1.017109] clk: Disabled unused clock: t7_sys_i2c_m_f
+> [    1.017740] clk: Disabled unused clock: t7_sys_i2c_m_e
+> [    1.018379] clk: Disabled unused clock: t7_sys_i2c_m_d
+> [    1.019018] clk: Disabled unused clock: t7_sys_i2c_m_c
+> [    1.019657] clk: Disabled unused clock: t7_sys_i2c_m_b
+> [    1.020296] clk: Disabled unused clock: t7_sys_i2c_m_a
+> [    1.020940] clk: Disabled unused clock: t7_sys_i2c_ao_b
+> [    1.021585] clk: Disabled unused clock: t7_sys_i2c_ao_a
+> [    1.022236] clk: Disabled unused clock: t7_sys_pcie_phy
+> [    1.022885] clk: Disabled unused clock: t7_sys_usb
+> [    1.023482] clk: Disabled unused clock: t7_sys_pcie
+> [    1.024088] clk: Disabled unused clock: t7_sys_spicc1
+> [    1.024723] clk: Disabled unused clock: t7_sys_spicc0
+> [    1.025345] clk: Disabled unused clock: t7_sys_g2d
+> [    1.025940] clk: Disabled unused clock: t7_sys_spicc5
+> [    1.026569] clk: Disabled unused clock: t7_sys_ts_a53
+> [    1.027197] clk: Disabled unused clock: t7_sys_ts_a73
+> [    1.027825] clk: Disabled unused clock: t7_sys_spicc4
+> [    1.028454] clk: Disabled unused clock: t7_sys_spicc3
+> [    1.029085] clk: Disabled unused clock: t7_sys_spicc2
+> [    1.029710] clk: Disabled unused clock: t7_sys_aififo
+> [    1.030339] clk: Disabled unused clock: t7_sys_uart_f
+> [    1.030967] clk: Disabled unused clock: t7_sys_uart_e
+> [    1.031595] clk: Disabled unused clock: t7_sys_uart_d
+> [    1.032224] clk: Disabled unused clock: t7_sys_uart_c
+> [    1.032857] clk: Disabled unused clock: t7_sys_uart_b
+> [    1.033482] clk: Disabled unused clock: t7_sys_eth
+> [    1.034077] clk: Disabled unused clock: t7_sys_audio
+> [    1.034694] clk: Disabled unused clock: t7_sys_ir_ctrl
+> [    1.035333] clk: Disabled unused clock: t7_sys_msr_clk
+> [    1.035972] clk: Disabled unused clock: t7_sys_spifc
+> [    1.036596] clk: Disabled unused clock: t7_sys_acodec
+> [    1.037218] clk: Disabled unused clock: t7_sys_smartcard
+> [    1.037880] clk: Disabled unused clock: t7_sys_am2axi2
+> [    1.038518] clk: Disabled unused clock: t7_sys_am2axi1
+> [    1.039157] clk: Disabled unused clock: t7_sys_am2axi0
+> [    1.039796] clk: Disabled unused clock: t7_sys_ampipe_eth
+> [    1.040468] clk: Disabled unused clock: t7_sys_ampipe_nand
+> [    1.041155] clk: Disabled unused clock: t7_sys_deswarp
+> [    1.041790] clk: Disabled unused clock: t7_sys_gdc
+> [    1.042385] clk: Disabled unused clock: t7_sys_cec
+> [    1.042981] clk: Disabled unused clock: t7_sys_aucpu
+> [    1.043600] clk: Disabled unused clock: t7_sys_aocpu
+> [    1.044217] clk: Disabled unused clock: t7_sys_mali
+> [    1.044830] clk: Disabled unused clock: t7_sys_ethphy
+> [    1.045451] clk: Disabled unused clock: t7_sys_mipi_dsi_b
+> [    1.046123] clk: Disabled unused clock: t7_sys_mipi_dsi_a
+> [    1.046795] clk: Disabled unused clock: t7_sys_dos
+> [    1.047390] clk: Disabled unused clock: t7_sys_ddr
+> [    1.047991] clk: Disabled unused clock: pwm_ao_g
+> [    1.048565] clk: Disabled unused clock: pwm_ao_f
+> [    1.049135] clk: Disabled unused clock: pwm_ao_e
+> [    1.049709] clk: Disabled unused clock: pwm_ao_d
+> [    1.050283] clk: Disabled unused clock: pwm_ao_b
+> [    1.050857] clk: Disabled unused clock: pwm_ao_a
+> [    1.051454] clk: Disabled unused clock: rtc_dualdiv
+> [    1.052038] clk: Disabled unused clock: rtc_duandiv_in
+> 
+> Also with the patches the disable happens 0.5 second later, from 0.5 seconds
+> after the boot to 1 second after the boot.
+> 
+> I am still investigating what is missing a consumer or what should be
+> labeled critical.
 
-  nvme nvme0: I/O tag 898 (3382) QID 9 timeout, completion polled
-  nvme nvme0: I/O tag 398 (618e) QID 11 timeout, completion polled
+I've seen cases where a clock is modeled in Linux, but isn't actually
+used by Linux, so it gets caught in the disable unused clocks sweep.
 
-QID 9 and QID 11 are the queues whose CPUs were offline when the spread
-was recomputed. "completion polled" means the commands did finish in
-hardware, but their interrupts were never delivered to a CPU that was
-watching the queue, so nothing reaped them until the timeout fired.
+Does the board immediately crash after the disable unused clock sweep?
+If so, you could add a log statement, then 1 second sleep in
+clk_disable_unused_subtree() and wait for the board to crash.
 
-It happens because commit 89802ca36c96 ("lib/group_cpus: make group CPU
-cluster aware") derives the cluster groups from topology_cluster_cpumask(),
-which lists only the cluster siblings that are online when it is called.
-The resulting partition therefore depends on the transient online mask
-rather than on the topology alone. Recomputed on resume while the non-boot
-CPUs are still offline, it no longer matches the boot-time partition, and a
-queue is left with an affinity that does not cover the CPU it is meant to
-serve once that CPU comes back online. The dependence is on the online
-mask, not on any AMD-specific behaviour, so the same stall is reproducible
-on Intel platforms as well.
+If you can't get timely help from the vendor, then you can add
+CLK_IGNORE_UNUSED to all of those clocks, and slowly start taking them
+off in batches and wait for the crash.
 
-Make the cluster grouping depend on the complete cluster topology rather
-than on whichever CPUs happen to be online. Snapshot the cluster masks
-once while every present CPU is online and reuse that view for every
-later spread. Every spread then groups from the same masks, so the
-partition computed when the controller is reset matches the one computed
-at probe and each queue's IRQ still covers the CPUs it serves. If the
-snapshot was never taken, the cluster path is skipped and the plain
-present/possible spread is used.
-
-Fixes: 89802ca36c96 ("lib/group_cpus: make group CPU cluster aware")
-Cc: stable@vger.kernel.org
-Signed-off-by: Vishal Badole <Vishal.Badole@amd.com>
----
-Changes in v4:
-- Drop the index-based unwind; reuse the mask-based cleanup path.
-- Link to v3: https://lore.kernel.org/all/20260821184923.2462575-1-Vishal.Badole@amd.com/
-
-Changes in v3:
-- Take the snapshot under cpus_read_trylock() to avoid a torn view.
-- Link to v2: https://lore.kernel.org/all/20260814123402.3170161-1-Vishal.Badole@amd.com/
-
-Changes in v2:
-- Gate the snapshot on cpu_present_mask instead of cpu_possible_mask.
-- Reword the changelog and the code comments. No other change.
-- Link to v1: https://lore.kernel.org/all/20260807073612.3711269-1-Vishal.Badole@amd.com/
----
- lib/group_cpus.c | 87 ++++++++++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 85 insertions(+), 2 deletions(-)
-
-diff --git a/lib/group_cpus.c b/lib/group_cpus.c
-index e6e18d7a49bb..3c2229feb9c3 100644
---- a/lib/group_cpus.c
-+++ b/lib/group_cpus.c
-@@ -6,6 +6,7 @@
- #include <linux/kernel.h>
- #include <linux/slab.h>
- #include <linux/cpu.h>
-+#include <linux/mutex.h>
- #include <linux/sort.h>
- #include <linux/group_cpus.h>
- 
-@@ -286,6 +287,77 @@ static void assign_cpus_to_groups(unsigned int ncpus,
- 	}
- }
- 
-+/*
-+ * topology_cluster_cpumask() only lists the cluster siblings that are online,
-+ * so group_cpus_evenly() would compute a different managed-IRQ partition when
-+ * recomputed with CPUs offline (e.g. an NVMe reset across s2idle), steering a
-+ * queue's IRQ away from the CPU it serves.
-+ *
-+ * Snapshot the cluster masks once, on the first spread seen with every
-+ * present CPU online, and reuse it so the grouping stays stable. If no
-+ * snapshot exists (partial boot via maxcpus=/nosmp, or allocation failure)
-+ * the cluster path is skipped and the plain present/possible spread is
-+ * used. Only the cluster path is stabilised; grp_spread_init_one()'s
-+ * sibling mask is unchanged. The snapshot lives for the system lifetime
-+ * and is not refreshed for CPUs hot-added after boot.
-+ */
-+static cpumask_var_t *cluster_snapshot;
-+static bool cluster_snapshot_ready;
-+static DEFINE_MUTEX(cluster_snapshot_lock);
-+
-+static void capture_cluster_snapshot(void)
-+{
-+	cpumask_var_t *snapshot;
-+	unsigned int cpu;
-+
-+	/* Pairs with the smp_store_release() below. */
-+	if (smp_load_acquire(&cluster_snapshot_ready))
-+		return;
-+
-+	/* Only capture when all present CPUs are online. */
-+	if (!data_race(cpumask_equal(cpu_present_mask, cpu_online_mask)))
-+		return;
-+
-+	mutex_lock(&cluster_snapshot_lock);
-+	if (cluster_snapshot_ready)
-+		goto out;
-+
-+	snapshot = kcalloc(nr_cpu_ids, sizeof(*snapshot), GFP_KERNEL);
-+	if (!snapshot)
-+		goto out;
-+
-+	for_each_possible_cpu(cpu)
-+		if (!zalloc_cpumask_var(&snapshot[cpu], GFP_KERNEL))
-+			goto free_snapshot;
-+
-+	/* Trylock: a caller may hold a lock the hotplug writer needs. */
-+	if (!cpus_read_trylock())
-+		goto free_snapshot;
-+
-+	/* Recheck under the lock, which also pins the cluster masks. */
-+	if (!data_race(cpumask_equal(cpu_present_mask, cpu_online_mask))) {
-+		cpus_read_unlock();
-+		goto free_snapshot;
-+	}
-+
-+	for_each_possible_cpu(cpu)
-+		cpumask_copy(snapshot[cpu], topology_cluster_cpumask(cpu));
-+	cpus_read_unlock();
-+
-+	cluster_snapshot = snapshot;
-+	/* Publish the filled snapshot before the ready flag. */
-+	smp_store_release(&cluster_snapshot_ready, true);
-+	goto out;
-+
-+free_snapshot:
-+	/* Unallocated entries are NULL, which free_cpumask_var() ignores. */
-+	for_each_possible_cpu(cpu)
-+		free_cpumask_var(snapshot[cpu]);
-+	kfree(snapshot);
-+out:
-+	mutex_unlock(&cluster_snapshot_lock);
-+}
-+
- static int alloc_cluster_groups(unsigned int ncpus,
- 				unsigned int ngroups,
- 				struct cpumask *node_cpumask,
-@@ -299,6 +371,17 @@ static int alloc_cluster_groups(unsigned int ncpus,
- 	const struct cpumask **clusters;
- 	struct node_groups *cluster_groups;
- 
-+	/*
-+	 * Capture on the first spread with every present CPU online (normally
-+	 * the first device probe); later spreads reuse it. Sample the ready
-+	 * flag once so both loops below use one consistent source.
-+	 */
-+	capture_cluster_snapshot();
-+
-+	/* Pairs with the smp_store_release() in capture_cluster_snapshot(). */
-+	if (!smp_load_acquire(&cluster_snapshot_ready))
-+		goto no_cluster;
-+
- 	cpumask_copy(msk, node_cpumask);
- 
- 	/* Probe how many clusters in this node. */
-@@ -307,7 +390,7 @@ static int alloc_cluster_groups(unsigned int ncpus,
- 		if (cpu >= nr_cpu_ids)
- 			break;
- 
--		cluster_mask = topology_cluster_cpumask(cpu);
-+		cluster_mask = cluster_snapshot[cpu];
- 		if (!cpumask_weight(cluster_mask))
- 			goto no_cluster;
- 		/* Clean out CPUs on the same cluster. */
-@@ -331,7 +414,7 @@ static int alloc_cluster_groups(unsigned int ncpus,
- 	cpumask_copy(msk, node_cpumask);
- 	for (n = 0; n < ncluster; n++) {
- 		cpu = cpumask_first(msk);
--		cluster_mask = topology_cluster_cpumask(cpu);
-+		cluster_mask = cluster_snapshot[cpu];
- 		nc = cpumask_weight_and(cluster_mask, node_cpumask);
- 		clusters[n] = cluster_mask;
- 		cluster_groups[n].id = n;
--- 
-2.34.1
+Brian
 
