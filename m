@@ -1,153 +1,187 @@
-Received: from sender-op-o19.zoho.eu (sender-op-o19.zoho.eu [136.143.169.19])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A9AB361DA7
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 15:18:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.19
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787757534; cv=pass; b=Bp2Yo/UHxfGJRELv/Rn0Q3VP06An2OADjt/SseA9vBWeFHw3odCwb/KghM4TT0Xna8aadQtXfTvq9Eg6GRibwLedLwBDbGNYoppCRjDxG8zPKREjPfBTI3R/Nnzjsua3/JfLC1aQsOJeZSLbvV8Ed57HuxNziRpBGK06cU7Y+q4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787757534; c=relaxed/simple;
-	bh=Ibhw6671lus/3uUGJQdaxZuzi3Gwryr6ruKVK2ZUt6E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=U6x+ulFCzpsiNTduoAaozw6bx3hCCV5yn64XaoU5DOrTDYv0xe1XYIvz35xRGJBUEsYrRNUmFsBjwoJDz5umeJzzcV2qm9qQINP4TwUSoqpdXcfaRj86L5pycQ3AuHUKdOE9RAJRP0MpGaWy5ViHkw0Q23r0Q7etKdcb/aZsbsg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kempniu.pl; spf=pass smtp.mailfrom=kempniu.pl; dkim=pass (1024-bit key) header.d=kempniu.pl header.i=kernel@kempniu.pl header.b=DBsJTfYm; arc=pass smtp.client-ip=136.143.169.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kempniu.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kempniu.pl
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85F2B41836C
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 15:19:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787757584; cv=none; b=Qd+cVZaNZffMOyz1HnZS+xnVR4pC867Qlb6spKZG6rD9j0OTQZc6HFlWIXYvfUv9Z/RoCaIjopZgDPkLmgSRBHJrKctOpKlse+zOZKcMGAlRBZUtFuyC5JvlpjxlR9WX9rVuj/Ze93g4AM3uXqZ4xO/RhR73lSHwbHrGz6x1JBg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787757584; c=relaxed/simple;
+	bh=ebsJXJehWq8vQ2+yk0Ww03KoJu5igP9PLWsd/FlrZiI=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:From:To:Subject:
+	 References:In-Reply-To; b=S08vy9FQKGmhXvgpiRxEcaYn6R4WZsFfV5CaSfe8EiIpygKcRJ/maBkQKvE4LTq1xLXNwE/J32zzruo2GxOxEgGlN0PmoHMEquE40blUNv34p7mpHH75SnniNEk8blSCMOJH0+L1CHu5vcbsNQWgQJ/uhsUgLjtc8xrmbNC5rLU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=HjpO8jxg; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=kempniu.pl header.i=kernel@kempniu.pl header.b="DBsJTfYm"
-ARC-Seal: i=1; a=rsa-sha256; t=1787757482; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=WeqOtexwCOjxzpqm5u5TL4MUFoffrA65FkKIBT/9UKCNYkiaZ0mWaJMHLcd4OPQpaDbYs5yBWmEteHRwHUAYijZ6sLFC0ca181fMr9Cp/Evh8WP64LkbMdrksr+R8T1lZoA2RSOHyyohh4wDliT1JsfB0mcf+k7YsOj1BpvOsvc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1787757482; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=r5GKdwopX+iDG66Z+g9cC2ObUXNcJjvNT1PQjIgQXbA=; 
-	b=U62E0MZPZXKcd6I2vGDSSfk9hCP2/jOufi1Qt2MkeJPod46avHHt0iDDdE3JC6kCiRJoVHtvbh/uFgjOL9tlyawqxYlKU8yguP1ZYgrSfSyDic/+1RZNWpQJ6YoNdhlGLZznmnB+ogbY32ycW+u/LPdpWG80LAnFCwcScqTRHIA=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=kempniu.pl;
-	spf=pass  smtp.mailfrom=kernel@kempniu.pl;
-	dmarc=pass header.from=<kernel@kempniu.pl>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787757482;
-	s=zmail; d=kempniu.pl; i=kernel@kempniu.pl;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
-	bh=r5GKdwopX+iDG66Z+g9cC2ObUXNcJjvNT1PQjIgQXbA=;
-	b=DBsJTfYmx/YUE2yTPKbQQ7i1WD6bjl9RFd4C0cUbqQkZJ4f+d/pcMkFhGEhoT+qk
-	f5pllgyeeN2eZOQLIwgW2a6eEX9KmQT513RBAvIikUrQyqI/Y2XIEz+mcEMDgve3LII
-	8rOkJ70StzQ9TWfxkXCbpVlDuBz+wvJSDuNbB/TQ=
-Received: by mx.zoho.eu with SMTPS id 1787757481610908.9381020255304;
-	Wed, 26 Aug 2026 17:18:01 +0200 (CEST)
-Date: Wed, 26 Aug 2026 17:18:00 +0200
-From: =?utf-8?B?TWljaGHFgiBLxJlwaWXFhA==?= <kernel@kempniu.pl>
-To: Christian Marangi <ansuelsmth@gmail.com>, Andrew Lunn <andrew@lunn.ch>
-Cc: Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] net: dsa: qca8k: Disable mgmt Ethernet for qca8327
-Message-ID: <ao8DqOFZJkln4pvh@larwa.hq.kempniu.pl>
-References: <20260810061612.23745-1-kernel@kempniu.pl>
- <6a79d7fa.ebbd881c.2cd61f.2e0d@mx.google.com>
- <anw5dJ0EqBJtAqRU@larwa.hq.kempniu.pl>
- <6a7c3b3e.e9cff95d.4a93a.554d@mx.google.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="HjpO8jxg"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id CF7544E413C1;
+	Wed, 26 Aug 2026 15:19:39 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 90193604EC;
+	Wed, 26 Aug 2026 15:19:39 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6759111C783C1;
+	Wed, 26 Aug 2026 17:19:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1787757573; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=dcHHWyRJIterVIg89zHGHjBsGnWPtPc3BMd4jHQ4tok=;
+	b=HjpO8jxgTnzphcnBhRkTuVBnoROWiD8ubMM1sxHlKesRQbfnHEQ7GBcYy6SH1Hy9r14VPR
+	s0OeD/uZAPPWDN+FdAqVsdEEQrjb2Jmb1oEkEOwN9jBl1Da3/MmjY1qwz56A7I0Rn7VEg1
+	T+4ZkXQr+RHeewEMt/BL6sZj0re/LM68MpNLNnkFw88bSakavz1jwNgGpXdJXMg65p9jfv
+	VZ5V00qUyWZoyIsw/yozVWe9iQgxFbmQ51Fbqlttk9coWzl1De01/TetpG5C8W5CqpgD4N
+	cnA5K4PgCJ0e2sraXUT7bJOF45weSFkaUVmWS57sLEBErb4wJ3cBrgYx2CYdtA==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <6a7c3b3e.e9cff95d.4a93a.554d@mx.google.com>
-X-ZM-MESSAGEID: 1787750107721015900
-X-ZM-MESSAGEID: 1787750157005007600
-X-ZM-MESSAGEID: 1787750417884007600
-X-ZohoMail-Sender: =?utf-8?B?TWljaGHFgiBLxJlwaWXFhA==?=
-X-ZM-MESSAGEID: 1787756654266007500
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.11.1.5.2/287.740.18
-X-ZohoMailClient: External
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 26 Aug 2026 17:19:25 +0200
+Message-Id: <DKYZ5ZH2J5A4.2E44FZDA68OKK@bootlin.com>
+Cc: <ebpf@linuxfoundation.org>, <bastien.curutchet@bootlin.com>,
+ <thomas.petazzoni@bootlin.com>, <bpf@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+ <martin.lau@kernel.org>, <clm@meta.com>
+From: =?utf-8?q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>
+To: "Kumar Kartikeya Dwivedi" <memxor@gmail.com>, <bot+bpf-ci@kernel.org>,
+ <alexis.lothore@bootlin.com>, <ast@kernel.org>, <daniel@iogearbox.net>,
+ <john.fastabend@gmail.com>, <andrii@kernel.org>, <martin.lau@linux.dev>,
+ <eddyz87@gmail.com>, <song@kernel.org>, <yonghong.song@linux.dev>,
+ <jolsa@kernel.org>, <tglx@kernel.org>, <bp@alien8.de>,
+ <dave.hansen@linux.intel.com>, <x86@kernel.org>, <hpa@zytor.com>,
+ <shuah@kernel.org>, <mingo@redhat.com>, <andreyknvl@gmail.com>,
+ <emil@etsalapatis.com>, <ihor.solodrai@linux.dev>, <laoar.shao@gmail.com>
+Subject: Re: [PATCH bpf-next v7 1/9] bpf: mark instructions accessing
+ program stack
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260822-kasan-v7-1-99afee6ef7fd@bootlin.com>
+ <f6a88fe55d543f5fe2a6d9e856acb4cf1b87b8210de58459df1272c8a456d926@mail.kernel.org> <DKWOIW8NUFZA.1QPBXZJY5YYOL@gmail.com>
+In-Reply-To: <DKWOIW8NUFZA.1QPBXZJY5YYOL@gmail.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-Christian, Andrew,
+On Mon Aug 24, 2026 at 12:33 AM CEST, Kumar Kartikeya Dwivedi wrote:
+> On Sat Aug 22, 2026 at 1:24 AM CEST, bot+bpf-ci wrote:
+>>> diff --git a/include/linux/bpf_verifier.h b/include/linux/bpf_verifier.=
+h
+>>> index 004b06785521..412a13a664fa 100644
+>>> --- a/include/linux/bpf_verifier.h
+>>> +++ b/include/linux/bpf_verifier.h
+>>> @@ -725,6 +725,8 @@ struct bpf_insn_aux_data {
+>>>  	u16 const_reg_map_mask;
+>>>  	u16 const_reg_subprog_mask;
+>>>  	u32 const_reg_vals[10];
+>>> +	/* instruction can access non-stack memory */
+>>> +	bool non_stack_access;
+>>>  };
+>>
+>> [ ... ]
+>>
+>>> diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+>>> index e036ae20bf6b..040af75d9550 100644
+>>> --- a/kernel/bpf/verifier.c
+>>> +++ b/kernel/bpf/verifier.c
+>>> @@ -3272,6 +3272,11 @@ static void mark_indirect_target(struct bpf_veri=
+fier_env *env, int idx)
+>>>  	env->insn_aux_data[idx].indirect_target =3D true;
+>>>  }
+>>>
+>>> +static void mark_non_stack_access(struct bpf_verifier_env *env, int id=
+x)
+>>> +{
+>>> +	env->insn_aux_data[idx].non_stack_access =3D true;
+>>> +}
+>>> +
+>>
+>> [ ... ]
+>>
+>>> @@ -6654,6 +6659,10 @@ static int check_mem_access(struct bpf_verifier_=
+env *env, int insn_idx, struct b
+>>>  				clear_scalar_id(&regs[value_regno]);
+>>>  		}
+>>>  	}
+>>> +
+>>> +	if (!err && reg->type !=3D PTR_TO_STACK)
+>>> +		mark_non_stack_access(env, insn_idx);
+>>> +
+>>>  	return err;
+>>>  }
+>>
+>> Does this test read the correct register type? For a load instruction wh=
+ere
+>> dst_reg =3D=3D src_reg (e.g., rX =3D *(u64 *)(rX + off)), check_mem_acce=
+ss()
+>> receives reg =3D &regs[src_reg] and value_regno =3D dst_reg, so reg poin=
+ts to
+>> the same slot that gets overwritten by the load.
+>>
+>> When the pointer is PTR_TO_STACK, check_stack_read() runs:
+>>
+>> check_stack_read_fixed_off() {
+>>     state->regs[dst_regno] =3D *reg;  /* or mark_reg_stack_read() */
+>> }
+>>
+>> By the time execution reaches the new test, reg->type is the loaded valu=
+e's
+>> type (typically SCALAR_VALUE), not PTR_TO_STACK. The condition evaluates=
+ to
+>> true and marks a stack-only access as non-stack.
+>>
+>> Both check_load_mem() and check_store_reg() snapshot the pointer type be=
+fore
+>> calling check_mem_access():
+>>
+>>     /* verifier.c check_load_mem */
+>>     src_reg_type =3D regs[insn->src_reg].type;
+>>     err =3D check_mem_access(env, env->insn_idx, ...);
+>>
+>>     /* verifier.c check_store_reg */
+>>     dst_reg_type =3D regs[insn->dst_reg].type;
+>>     err =3D check_mem_access(env, env->insn_idx, ...);
+>>
+>> Could check_mem_access() snapshot reg->type at entry and test that snaps=
+hot
+>> instead?
+>
+> This one also looks like a real bug, we should probably save the type bef=
+ore the
+> call as suggested and done elsewhere.
 
-Here is what I managed to determine for the QCA8327 switch on the board
-I have access to.
+It took me a bit of time to fully grasp it, but indeed, that's an actual
+issue, possibly over-instrumenting programs. I failed to reproduce it
+with any existing selftest, and also failed to make clang output a
+faulty program just from C, but playing with a bit of BPF assembly, I
+managed to observe it:
 
-> One bug that was there was that when PBUS was used to access single port
-> PHY register (instead of direct MDIO) the link up/down was broken. My
-> theory was that the Switch chip had some latch logic that was only
-> triggered with MDIO. Using PBUS didn't trigger such thing.
-> 
-> Could be that the QCA 8327 switch also have some kind of HW bug where specific
-> register needs to go with MDIO or some refresh/latch logic are not
-> correctly triggered.
+  SEC("tcx/ingress")
+  int ldx_self_alias_on_stack(struct __sk_buff *skb)
+  {
+  	struct kasan_test_val val;
+  	__u64 addr;
+ =20
+  	addr =3D (__u64)&val;
+  	asm volatile(
+  	        "r1 =3D %0\n"
+  	        "r1 =3D *(u64 *)(r1 + 0)\n"
+  	        :
+  	        : "r"(addr)
+  	        : "r1", "memory");
+ =20
+  	return 0;
+  }
 
-My problem sounds similar.  The exact symptom I am observing is that at
-a random point in time after switch setup, PHY register reads performed
-via mgmt Ethernet frames start returning all zeros.  The mgmt Ethernet
-transactions themselves are completed correctly, they just return all
-zeros in the data part.  When the issue is triggered, _all_ subsequent
-PHY register reads performed via mgmt Ethernet frames for the affected
-PHY return all zeros, i.e. it never recovers.
+This r1 =3D *(u64 *)(r1) ends up being wrongly instrumented, despite
+accessing only stack. I'll then add this reg->type saving to preserve
+and pass the initial state to the check.
 
-The problem is triggered on distinct PHYs one by one, in a seemingly
-random order; I did not identify any patterns.  Given enough time, all
-PHYs eventually start returning all zeros for all of their register
-reads.
+Alexis
 
-At one point, I tweaked qca8k_internal_mdio_read() so that when a PHY
-register read fails in this specific way, it is immediately retried over
-MDIO.  Those fallback reads over MDIO also returned all zeros.
+--=20
+Alexis Lothor=C3=A9, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
-No timeouts are occurring for mgmt Ethernet frames.  I instrumented all
-wait_for_completion_timeout() call sites in qca8k-8xxx.c and have yet to
-see any of them log a timeout (or any other error, for that matter).  In
-other words, all requests sent via mgmt Ethernet frames are responded to
-by the switch in a timely manner, so I have no reason to believe that
-the retry logic is involved here in any way.
-
-All of this reproducibly happens on a device that does not even have any
-Ethernet cables connected to it.
-
-Manually probing registers 2 and 3 on the external MDIO bus reveals no
-other devices except the expected five switch PHYs.
-
-I used tcpdump to capture the traffic going through the DSA conduit
-device, from the moment the switch is configured until the failure
-occurs.  I found nothing suspicious: the last PHY register read before
-the failed one happens about a second earlier and the sequence of mgmt
-Ethernet frames sent and received for the last _successful_ read is a
-1:1 match against the first _failing_ read, sans the sequence numbers.
-No other traffic is interleaved, which is expected given that both the
-external MDIO bus mutex and the mgmt Ethernet mutex are held throughout
-each distinct PHY management transaction.
-
-Given the above, I am out of ideas for something to latch on to for
-further investigations.  It seems that over time, using mgmt Ethernet
-for PHY access on this board makes the hardware transition into some
-broken state that it cannot recover from.  As I am able to reliably
-trigger this problem, I am open to ideas for further experiments that
-could possibly shed some light on this.
-
-> An idea might be to limit the mgmt to vlan and fdb and see if the problem
-> is still there. (after all those are the path where mgmt would benefit due
-> to the multiple register access required)
-
-Indeed, it seems that the simplest workaround for this glitch is to move
-the PHY nodes in the DTS file from the ethernet-switch node to its
-parent, the mdio node, and use phy-handle for ethernet-ports to
-configure qca8k in "external MDIO" mode.  That way, the external MDIO
-bus is used for PHY management while mgmt Ethernet is still used for MIB
-access and switch configuration, which seems to be stable; with PHY
-management moved to MDIO, I ran "ethtool -S <iface>" in a loop for a few
-hours and everything still seemingly worked fine.  This seems to be a
-cleaner workaround than tweaking the driver code, so I don't plan to
-submit any further patches in this spirit.
-
-Thank you for your guidance.  If you have any ideas for further
-experiments in this area, I am all ears.
-
--- 
-Best regards,
-Michał Kępień
