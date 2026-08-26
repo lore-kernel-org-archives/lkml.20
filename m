@@ -1,258 +1,295 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C951C31E844;
-	Wed, 26 Aug 2026 22:28:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD76F3A1A58
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 22:33:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787783309; cv=none; b=jJD0tXek3MyWtuDpklAwIcHPxXtvoYhIZDlkQcPVJuyIXkpYcTu6APom0i0BgaLyNLFcwj5mHhwxwu6fuFZdMtLYQQtxCIlEqNWvy/XymXSBtwppzuAExsTclecwthSPoL3v3ob3rLzGimfrPpIhIZ/k57aPnVyfuzvA1Gu8dgw=
+	t=1787783627; cv=none; b=iAtjsu/7xVcgm4Kx81KOdsrk4PZgs3xtgju9BS7Wzx5M82rsHSl1Nkk68nVkl0XrsBE/Ywo8oI45I0oSIDTHzjw6j+G4LKK6ccrTTDKGYVcTVE2HJaoH6nWHzLv/QhozKoUZGVnbhlrzRkpNOPZaoGzJlKf1B+bIAkPXvGXBArw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787783309; c=relaxed/simple;
-	bh=yAt7chsuQ3yUj0A8Qb5ZD6FDTelm93GvYP2mnoEnyOA=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=rb5t1EAYpiv92nAVzeOW+pVeeth196foMvC4sK0yxbBFqjT66haZ1ZHb/uovMNCItSnAvejb7YXs7Yq3ovPr2XIA3dTNubeERLs3AvsfjOVzfCdFD5qlalFMbsHmJnaejlIxxZoRgTn6wbF2vzeN62JPYH5Vaa1EvMvqgk2fMmY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=aJ2cc0Cj; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=9EFDm23S; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1787783627; c=relaxed/simple;
+	bh=xSXyqUElRzi4ro8cHC0OBS6VEnVwYq1rEqVbqm8HcoA=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=W8GeIvrbkLXVYNE53QXFr0DyzH0Bc3fajmUEaIVGZLuSVtEPeCFdCA952s6kJe0/yHha8g0A+9fIoE0R189af8IkrgVXX47vmECeb/iPpERPLrzD8v0hEXpDQmMNLL2ORyupGSSWRZbB+nQagOM/nGvSm2eO4pWxAlwfwRdTH48=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=AVzTjsCd; arc=none smtp.client-ip=209.85.215.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="aJ2cc0Cj";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="9EFDm23S"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1787783268; bh=AlE42pFzaC8xw8talHPrPGM
-	qxNrKTSb1xbJj5kQD+h4=; b=aJ2cc0CjqpjGIKPb7Lw8z8zf9a3mopKgSLssowxHM86ewIp3Nr
-	DXWD5xjuFDWFTRboxdOHKVlcvnyYb13YHx/M1XMUvPT26JeS/6mbNANlEALyuM4oowC0huJcG5R
-	3ekYPNYyHFn8USJ3sL5EvQfp8URocjQ9w9nC0tWqhoCR9pVLXZTLYnJs285lLhw+u2eLyeZPtxl
-	RmIWg3/LDvCfRRTaDu/ossD27ajR5vTAGsXJk+W6FmrzClfDVE/eRizTFojXdVYoOSAxXWEcHes
-	85T5pqik1uSgC0h2JmbI964YqRnJlULqkxk3p/1XguUHeGTi/9N9hT+/ePEe2hVBIFQ==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1787783268; bh=AlE42pFzaC8xw8talHPrPGM
-	qxNrKTSb1xbJj5kQD+h4=; b=9EFDm23SxGTvafSh7JjL9abzKSuJmJllEyVAHU6GIk54DZV3Pw
-	pvQ3XBy+MU40j8Cx56AyCLR2i7dp0GB4zTAA==;
-Date: Wed, 26 Aug 2026 23:27:49 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: Bill Wendling <morbo@google.com>
-CC: =?ISO-8859-1?Q?Thomas_Wei=DFschuh?= <thomas.weissschuh@linutronix.de>,
- Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Christian Brauner <brauner@kernel.org>, Aleksa Sarai <cyphar@cyphar.com>,
- Jan Kara <jack@suse.cz>, Nathan Chancellor <nathan@kernel.org>,
- Miguel Ojeda <ojeda@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
- Nicolas Schier <nsc@kernel.org>, Gary Guo <gary@garyguo.net>,
- Alice Ryhl <aliceryhl@google.com>, Douglas Anderson <dianders@chromium.org>,
- Anand Moon <linux.amoon@gmail.com>, Oleg Nesterov <oleg@redhat.com>,
- codemender-patching+linux@google.com, linux-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] userns: Add KUnit test suite for uid_gid_map
-In-Reply-To: <20260826220041.4075333-2-morbo@google.com>
-References: <20260823125155.1136740-1-morbo@google.com> <20260826220041.4075333-1-morbo@google.com> <20260826220041.4075333-2-morbo@google.com>
-Message-ID: <21ED2927-4536-432C-B1E5-B446A04ED230@mainlining.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="AVzTjsCd"
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-c89704da8c7so149870a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 15:33:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787783625; x=1788388425; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IpUANZHm7Ku5ncYu7RPUYz8NQSkFG4aKOc/nSfGf9bs=;
+        b=AVzTjsCdZ7ZJjFIRsHm+VtHDqmrKHPqZQS2ewLb8BgMhajOAzQ/FguDzxtEQMYnwKc
+         r7anwtQTJFn/ucy+x7VRsdLtrfGJIQDc9OV9NQeOP/i/bY4LcgB+zVGfo76+WslQmHmg
+         hJCjQXt1FA7LdcfRWLzDFjaGF2akzYu+ZhCMdnmqHV21gZO4B9UFyeq2otvTZhPkC2kn
+         aR26dtEXAtPQ54EyKvmVzuKZbFI+Bkv27GlRjza5X583vVfk3fUqpIMjzesvx43gNuph
+         aEd36NIKVaDrhXWu+oRz4/h6ei0nZb1kDjo8vFe+x7GK/4kcoXvlRDWlnl6kxS9VkSiS
+         M11w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787783625; x=1788388425;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IpUANZHm7Ku5ncYu7RPUYz8NQSkFG4aKOc/nSfGf9bs=;
+        b=cm0I+jzHY4YR/L4bOPdhmJVnUn17UlqcNder7s0vOSIM7Ie5/A/ayZrmNjvpR10lG4
+         ApqOhDmCso+dcgyqbB3wKQShgYIh5YZY4CESz/xpgXGPryvGp75qB+EkDGjY8wgXbaVw
+         hhMF/45bcv0NrReMELTrlGQQKS2uNf8JJSh/BihyvDbKrdl9R4QOyMjbtX3YpGqNsuon
+         +qhKF6pyQuR9c9Q0uUDFfcElM16L1aktpcYL3J0CUb/S/tWKGhyTWm2/6ri/Nyq99maf
+         NEmLUnAbhNQFWvsBBlUpy1Axjifo+/NIiTOQEILyDlbqHn00oUqEgUYrRC2DUJyRFWGX
+         2hog==
+X-Forwarded-Encrypted: i=1; AHgh+RoOuteVbTpwCo9xQmAYcQ9HxfG66eSjYLlohtxmJBQ22uG9AWhixOFnTZB/MHOh0Cbk6i4DskLY6CUC7BM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mAsnE4oq+23+Hamd57MF1h5wmXRRtSjwWwJxEpkK20bR4O1KEt
+	WtXaFJLYCKDFHfuDB0rPASEd7Fr3ueDPuURTuxcubio3IJ4EsG/Jx1IA5ujLflm0XieKBr+tAAw
+	IXFddQg==
+X-Received: from pgvi12.prod.google.com ([2002:a65:61ac:0:b0:cbe:e0a7:536b])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:c786:b0:3c3:b57b:627d
+ with SMTP id adf61e73a8af0-3cf84c5a493mr23198540637.12.1787783624481; Wed, 26
+ Aug 2026 15:33:44 -0700 (PDT)
+Date: Wed, 26 Aug 2026 15:33:43 -0700
+In-Reply-To: <mtbqvvvpwbzybgy6z47lwui6ag53kyubub3hkczui7u72zxesl@lnwsglrgwl5p>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260826-gmem-inplace-conversion-v11-0-0a15d8a799aa@google.com>
+ <20260826-gmem-inplace-conversion-v11-15-0a15d8a799aa@google.com>
+ <ao9CKMXAX-hScRSa@google.com> <mtbqvvvpwbzybgy6z47lwui6ag53kyubub3hkczui7u72zxesl@lnwsglrgwl5p>
+Message-ID: <ao9px1j7CLYXMiGP@google.com>
+Subject: Re: [PATCH v11 15/46] KVM: guest_memfd: Call arch make_shared
+ callback for to-shared conversion
+From: Sean Christopherson <seanjc@google.com>
+To: Michael Roth <michael.roth@amd.com>
+Cc: Ackerley Tng <ackerleytng@google.com>, aik@amd.com, andrew.jones@linux.dev, 
+	binbin.wu@linux.intel.com, brauner@kernel.org, chao.p.peng@linux.intel.com, 
+	david@kernel.org, jmattson@google.com, jthoughton@google.com, 
+	oupton@kernel.org, pankaj.gupta@amd.com, qperret@google.com, 
+	rick.p.edgecombe@intel.com, rientjes@google.com, shivankg@amd.com, 
+	steven.price@arm.com, willy@infradead.org, wyihan@google.com, 
+	yan.y.zhao@intel.com, forkloop@google.com, pratyush@kernel.org, 
+	suzuki.poulose@arm.com, aneesh.kumar@kernel.org, liam@infradead.org, 
+	Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Shuah Khan <shuah@kernel.org>, Vishal Annapurve <vannapurve@google.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, Youngjun Park <youngjun.park@lge.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Baoquan He <baoquan.he@linux.dev>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, tarunsahu@google.com, 
+	Fuad Tabba <fuad.tabba@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-mm@kvack.org, linux-coco@lists.linux.dev
+Content-Type: text/plain; charset="us-ascii"
 
-On 26 August 2026 23:00:35 BST, Bill Wendling <morbo@google.com> wrote:
->Add a KUnit test suite to verify the insertion and sorting of mappings
->in struct uid_gid_map. This test suite validates both base extent
->insertion (<= 5 mappings) and extended extent insertion (> 5 mappings,
->which triggers the allocation of the forward and reverse pointers).
->
->This is especially useful for verifying that the __counted_by_ptr
->attribute added to 'forward' and 'reverse' pointers works correctly
->without causing any runtime bounds-checking panics or traps.
->
->Assisted-by: Gemini:3.1-pro-preview
-
-Now for all the work s/you/your AI done, I've done the tests and they
-passed, and they LGTM
-
-Tested-by: Bradley Morgan <brads@mainlining.org>
-
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
-
-Thanks for your patch mate, (pls slow down tho, we can review oh so quick)
-
->Signed-off-by: Bill Wendling <morbo@google.com>
->---
->v2 - Remove Gerrit tag.
->v3 - s/KUNIT_EXPECT_NOT_ERR_OR_NULL/KUNIT_ASSERT_NOT_ERR_OR_NULL/
->   - Fixed Kconfig tests.
->v4 - Actually test on unsorted data. Corrected the "Assisted-by" tag.
->---
->Cc: Bradley Morgan <brads@mainlining.org>
->Cc: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
->Cc: Kees Cook <kees@kernel.org>
->Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>
->Cc: Christian Brauner <brauner@kernel.org>
->Cc: Aleksa Sarai <cyphar@cyphar.com>
->Cc: Jan Kara <jack@suse.cz>
->Cc: Nathan Chancellor <nathan@kernel.org>
->Cc: Miguel Ojeda <ojeda@kernel.org>
->Cc: Thomas Gleixner <tglx@kernel.org>
->Cc: Nicolas Schier <nsc@kernel.org>
->Cc: Gary Guo <gary@garyguo.net>
->Cc: "Thomas Weißschuh" <thomas.weissschuh@linutronix.de>
->Cc: Alice Ryhl <aliceryhl@google.com>
->Cc: Douglas Anderson <dianders@chromium.org>
->Cc: Anand Moon <linux.amoon@gmail.com>
->Cc: Oleg Nesterov <oleg@redhat.com>
->Cc: codemender-patching+linux@google.com
->Cc: linux-kernel@vger.kernel.org
->Cc: linux-hardening@vger.kernel.org
->---
-> init/Kconfig                  | 10 ++++
-> kernel/.kunitconfig           |  3 ++
-> kernel/user_namespace.c       |  4 ++
-> kernel/user_namespace_kunit.c | 92 +++++++++++++++++++++++++++++++++++
-> 4 files changed, 109 insertions(+)
-> create mode 100644 kernel/.kunitconfig
-> create mode 100644 kernel/user_namespace_kunit.c
->
->diff --git a/init/Kconfig b/init/Kconfig
->index f63bf5e05e79..d460344539a5 100644
->--- a/init/Kconfig
->+++ b/init/Kconfig
->@@ -1457,6 +1457,16 @@ config USER_NS
+On Wed, Aug 26, 2026, Michael Roth wrote:
+> On Wed, Aug 26, 2026 at 12:44:40PM -0700, Sean Christopherson wrote:
+> > On Wed, Aug 26, 2026, Ackerley Tng wrote:
+> > > Omit support for calling the arch hook to make private, since SNP, the only
+> > > implementer of the arch make-private hook today, would actually prefer
+> > > making private only just before faulting memory into the NPTs.
+> > > 
+> > > Calling the make-private arch hook would require iterating both bindings
+> > > and the filemap to find the intersection of bindings and allocated
+> > > folios.
+> > 
+> > Why would KVM need to iterate over the bindings?  Only the RMP needs to be updated,
+> > whether or not the RMP is currently reachable is irrelevant, no?
+> > 
+> > Subsequent calls to kvm_arch_gmem_make_private() from kvm_gmem_get_pfn() would be
+> > superfluous, but that's already possible, e.g. if an NPT mappings is removed for
+> > whatever reason.
+> > 
+> > > On top of that, SNP would need to figure out whether to actually
+> > > make private based on whether the memory is about to be faulted, or
+> > > whether it is a conversion.
+> > 
+> > This is a non-issue, no?  As above, sev_gmem_make_private() already bails early
+> > if the page is already assigned in the RMP.
+> > 
+> > I don't care terribly about how SNP handles this, but I do want accurate reasoning
+> > and justification so that if/when we revisit any of this in the future, we can make
+> > informed decisions.  Because unless I'm missing something, this is an optimization
+> > choice (eager vs. lazy to-private conversions), not a complexity tradeoff, and it's
+> > not clear to me how we decided the lazy approach would provide better performance.
 > 
-> 	  If unsure, say N.
+> I'm not sure it was discussed in this context, but there was some past
+> discussion around preallocation (i.e. "should we call make-private arch
+> hooks at allocation time to allow for faster boot for prealloc guests"
+> and then that ran into the TDX side of things where that would
+> necessarily entail pre-mapping into the sEPT as well, so
+> KVM_PRE_FAULT_MEMORY ended up being the interface we adopted for this
+> purpose.
 > 
->+config USER_NAMESPACE_KUNIT_TEST
->+	bool "Test user namespace map insertion" if !KUNIT_ALL_TESTS
->+	depends on KUNIT=y
->+	default KUNIT_ALL_TESTS
->+	help
->+	  This builds the KUnit test for user namespace uid/gid map insertion.
->+	  It validates map insertion, limits, dynamic allocation of the
->+	  extended extents array, and mapping sorting functions.
->+	  If unsure, say N.
->+
-> config PID_NS
-> 	bool "PID Namespaces"
-> 	default y
->diff --git a/kernel/.kunitconfig b/kernel/.kunitconfig
->new file mode 100644
->index 000000000000..7314dce05dc2
->--- /dev/null
->+++ b/kernel/.kunitconfig
->@@ -0,0 +1,3 @@
->+CONFIG_KUNIT=y
->+CONFIG_USER_NS=y
->+CONFIG_USER_NAMESPACE_KUNIT_TEST=y
->diff --git a/kernel/user_namespace.c b/kernel/user_namespace.c
->index 786dbf0506ca..0e7373085af9 100644
->--- a/kernel/user_namespace.c
->+++ b/kernel/user_namespace.c
->@@ -1417,3 +1417,7 @@ static __init int user_namespaces_init(void)
-> 	return 0;
-> }
-> subsys_initcall(user_namespaces_init);
->+
->+#if IS_ENABLED(CONFIG_USER_NAMESPACE_KUNIT_TEST)
->+#include "user_namespace_kunit.c"
->+#endif
->diff --git a/kernel/user_namespace_kunit.c b/kernel/user_namespace_kunit.c
->new file mode 100644
->index 000000000000..88467361efdf
->--- /dev/null
->+++ b/kernel/user_namespace_kunit.c
->@@ -0,0 +1,92 @@
->+// SPDX-License-Identifier: GPL-2.0
->+/*
->+ * KUnit test for user namespace map insertion and sorting.
->+ */
->+
->+#include <kunit/test.h>
->+#include <linux/user_namespace.h>
->+
->+static void test_user_ns_map_insert_base(struct kunit *test)
->+{
->+	struct uid_gid_map map;
->+	struct uid_gid_extent extent;
->+	int i, ret;
->+
->+	memset(&map, 0, sizeof(map));
->+
->+	/* Insert up to UID_GID_MAP_MAX_BASE_EXTENTS (5) elements */
->+	for (i = 0; i < UID_GID_MAP_MAX_BASE_EXTENTS; i++) {
->+		extent.first = i * 10;
->+		extent.lower_first = i * 100;
->+		extent.count = 5;
->+
->+		ret = insert_extent(&map, &extent);
->+		KUNIT_ASSERT_EQ(test, ret, 0);
->+		KUNIT_EXPECT_EQ(test, map.nr_extents, i + 1);
->+		KUNIT_EXPECT_EQ(test, map.extent[i].first, i * 10);
->+		KUNIT_EXPECT_EQ(test, map.extent[i].lower_first, i * 100);
->+		KUNIT_EXPECT_EQ(test, map.extent[i].count, 5);
->+	}
->+}
->+
->+static void test_user_ns_map_insert_extended(struct kunit *test)
->+{
->+	struct uid_gid_map map;
->+	struct uid_gid_extent extent;
->+	int i, ret;
->+
->+	memset(&map, 0, sizeof(map));
->+
->+	/* Insert more than UID_GID_MAP_MAX_BASE_EXTENTS (e.g., 10) elements */
->+	for (i = 0; i < 10; i++) {
->+		int value = 9 - i;
->+
->+		extent.first = value * 10;
->+		extent.lower_first = value * 100;
->+		extent.count = 5;
->+
->+		ret = insert_extent(&map, &extent);
->+		KUNIT_ASSERT_EQ(test, ret, 0);
->+		KUNIT_EXPECT_EQ(test, map.nr_extents, i + 1);
->+
->+		if (i < UID_GID_MAP_MAX_BASE_EXTENTS) {
->+			KUNIT_EXPECT_EQ(test, map.extent[i].first, value * 10);
->+		} else {
->+			KUNIT_EXPECT_EQ(test, map.forward[i].first, value * 10);
->+			KUNIT_EXPECT_EQ(test, map.forward[i].lower_first, value  * 100);
->+			KUNIT_EXPECT_EQ(test, map.forward[i].count, 5);
->+		}
->+	}
->+
->+	/* Now sort the map to set up reverse mapping */
->+	ret = sort_idmaps(&map);
->+	KUNIT_EXPECT_EQ(test, ret, 0);
->+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, map.reverse);
->+
->+	/* Verify sorting is correct */
->+	for (i = 0; i < map.nr_extents; i++) {
->+		KUNIT_EXPECT_EQ(test, map.forward[i].first, i * 10);
->+		KUNIT_EXPECT_EQ(test, map.forward[i].lower_first, i * 100);
->+		KUNIT_EXPECT_EQ(test, map.forward[i].count, 5);
->+
->+		KUNIT_EXPECT_EQ(test, map.reverse[i].first, i * 10);
->+		KUNIT_EXPECT_EQ(test, map.reverse[i].lower_first, i * 100);
->+		KUNIT_EXPECT_EQ(test, map.reverse[i].count, 5);
->+	}
->+
->+	kfree(map.forward);
->+	kfree(map.reverse);
->+}
->+
->+static struct kunit_case user_ns_map_test_cases[] = {
->+	KUNIT_CASE(test_user_ns_map_insert_base),
->+	KUNIT_CASE(test_user_ns_map_insert_extended),
->+	{}
->+};
->+
->+static struct kunit_suite user_ns_map_test_suite = {
->+	.name = "user_ns_map",
->+	.test_cases = user_ns_map_test_cases,
->+};
->+
->+kunit_test_suite(user_ns_map_test_suite);
->
+> Since then, KVM_PRE_FAULT_MEMORY was added on the QEMU side and gets
+> called after all conversions for both SNP/TDX, and even without
+> preallocation it's a decent performance boost to SNP. If we were to
+> switch to pre-calling the make-private arch hook then the
+> KVM_PRE_FAULT_MEMORY call because partly redundant and in practice we'd
+> probably see a small performance loss.
+> 
+> So there's real performance differences here but it's sort of been
+> addressed through a solution that offers additional performance
+> benefits on top so there's no longer as much to be gained here I think.
 
---- Thanks!
-https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+Or another way to look at it, eager conversion would allow QEMU to drop its
+workaround.
+
+To be clear, I'm a-ok with the code as-is, I just want to make sure we document
+exactly why we're choosing this implementation.
+
+> But I guess that's a moot point...
+> 
+> > 
+> > > Calling the make-shared arch hook and not the make-private arch hook does
+> > > leak SNP-specific details into guest_memfd (as in, why only make-shared
+> > > during conversions but not make-private?), but the additional complexity is
+> > > not worth taking on until guest_memfd has a user actually requiring an arch
+> > > make-private call.
+> > 
+> > ...
+> > 
+> > > +#ifdef CONFIG_HAVE_KVM_ARCH_GMEM_CONVERT
+> > > +static void kvm_gmem_make_shared(struct inode *inode, pgoff_t start, pgoff_t end)
+> > > +{
+> > > +	struct folio_batch fbatch;
+> > > +	pgoff_t next = start;
+> > > +	int i;
+> > > +
+> > > +	folio_batch_init(&fbatch);
+> > > +	while (filemap_get_folios(inode->i_mapping, &next, end - 1, &fbatch)) {
+> > > +		for (i = 0; i < folio_batch_count(&fbatch); ++i) {
+> > > +			struct folio *folio = fbatch.folios[i];
+> > > +			pgoff_t start_index, end_index;
+> > > +			kvm_pfn_t start_pfn;
+> > > +			kvm_pfn_t nr_pages;
+> > > +
+> > > +			start_index = max(start, folio->index);
+> > > +			end_index = min(end, folio_next_index(folio));
+> > > +			/*
+> > > +			 * end_index is either in folio or points to
+> > > +			 * the first page of the next folio. Hence,
+> > > +			 * all pages in range [start_index, end_index)
+> > > +			 * are contiguous.
+> > > +			 */
+> > > +			start_pfn = folio_file_pfn(folio, start_index);
+> > > +			nr_pages = end_index - start_index;
+> > > +
+> > > +			kvm_arch_gmem_make_shared(start_pfn, nr_pages);
+> > > +		}
+> > > +
+> > > +		folio_batch_release(&fbatch);
+> > > +		cond_resched();
+> > > +	}
+> > > +}
+> > > +#else
+> > > +static void kvm_gmem_make_shared(struct inode *inode, pgoff_t start, pgoff_t end) {}
+> > > +#endif
+> > > +
+> > >  static int __kvm_gmem_set_attributes(struct inode *inode, pgoff_t start,
+> > >  				     size_t nr_pages, uint64_t attrs,
+> > >  				     pgoff_t *err_index)
+> > > @@ -624,7 +661,12 @@ static int __kvm_gmem_set_attributes(struct inode *inode, pgoff_t start,
+> > >  
+> > >  	filter = to_private ? KVM_FILTER_SHARED : KVM_FILTER_PRIVATE;
+> > >  	kvm_gmem_invalidate_start(inode, start, end, filter);
+> > > +
+> > > +	if (!to_private && kvm_arch_has_gmem_convert())
+> > > +		kvm_gmem_make_shared(inode, start, end);
+> > > +
+> > >  	mas_store_prealloc(&mas, xa_mk_value(attrs));
+> > > +
+> > >  	kvm_gmem_invalidate_end(inode, start, end);
+> > 
+> > The real reason I responded...
+> > 
+> > Thinking about the Secure AVIC mess made me realize zapping NPTs for SNP VMs isn't
+> > strictly necessary in this path.  The PFN isn't changing, just the attributes, and
+> > that's (obviously) tracked in the RMP.  KVM doesn't need to zap SPTEs to induce a
+> > fault, because the mismatched C-bit vs. RMP status will cause an #NPF(RMP), and
+> > AFAICT kvm_mmu_page_fault() will do the right thing.  A misbehaving guest could
+> > continue to access the shared data (assuming we stick with lazy conversions), but
+> > that should be fine?  E.g. it's not really any different than implicit conversions.
+> 
+> I think this should work in theory...
+> 
+> zapping NPTs means the vCPUs will keep retrying until they get the page first
+> vCPU that faulted is trying to grab from gmem. If we don't zap, then they will
+> instead be racing with the first vCPU, and if they lose they will be
+> generating implicit page faults that trigger conversions back to shared,
+
+Why would they trigger conversions back to shared?  Assuming the guest isn't
+being silly and accessing the memory with C-bit=0, the #NPF will be tagged ENC
+and KVM will treat it as a private access.
+
+	if (is_sev_snp_guest(vcpu) && (error_code & PFERR_GUEST_ENC_MASK))
+		error_code |= PFERR_PRIVATE_ACCESS;
+
+kvm_mmu_faultin_pfn() will see "fault->is_private == kvm_is_private_gfn()" as
+true, i.e. won't kick out to userspace.  Same for __kvm_mmu_faultin_pfn(), which
+will call into kvm_mmu_faultin_pfn_gmem() => kvm_gmem_get_pfn(), see that the
+gfn is private, and call kvm_arch_gmem_make_private() as needed.
+
+I don't see how #NPFs due to the RMP being SHARED would be handled differently
+than !PRESENT #NPFs.
+
+> and most likely the first vCPU will re-trigger an implicit shared->private
+> conversion when it does PVALIDATE. Worst case, the guest fails PVALIDATE
+> due to racing with itself.
+> 
+> It's a bit chaotic, but it shouldn't break anything other than the guest, and
+> it's only something we'd generally expect for buggy/malicious guests anyway.
+> 
+> However...
+> 
+> > 
+> > In other words, couldn't we do this (as an on-top optimization)?  The only wrinkle
+> > I can think of is that it could delay reconstituion of a hugepage, especially if
+> > we opted for eager conversion (because the guest wouldn't hit #NPFs to trigger the
+> > hugepage promotion).
+> > 
+> > diff --git arch/x86/kvm/mmu/mmu.c arch/x86/kvm/mmu/mmu.c
+> > index 62f751952ad8..61f3e270ab61 100644
+> > --- arch/x86/kvm/mmu/mmu.c
+> > +++ arch/x86/kvm/mmu/mmu.c
+> > @@ -1670,6 +1670,7 @@ static bool __kvm_rmap_zap_gfn_range(struct kvm *kvm,
+> >  
+> >  bool kvm_unmap_gfn_range(struct kvm *kvm, struct kvm_gfn_range *range)
+> >  {
+> > +       unsigned long shared_private =  KVM_FILTER_SHARED | KVM_FILTER_PRIVATE;
+> >         bool flush = false;
+> >  
+> >         /*
+> > @@ -1683,6 +1684,10 @@ bool kvm_unmap_gfn_range(struct kvm *kvm, struct kvm_gfn_range *range)
+> >         lockdep_assert_once(kvm->mmu_invalidate_in_progress ||
+> >                             lockdep_is_held(&kvm->slots_lock));
+> >  
+> > +       if (gmem_in_place_conversion && !kvm_has_mirrored_tdp(kvm) &&
+> > +           ((range->attr_filter & shared_private) != shared_private))
+> > +               return false;
+> > +
+> 
+> This path would also trigger for hole-punching, where we would want to
+> zap the NPT entries. So we might need to adjust the logic for more than
+> just shared vs. private to account for that.
+
+No, because PUNCH_HOLE uses kvm_gmem_get_all_gfns_filter(), which does:
+
+	if (gmem_in_place_conversion)
+		return KVM_FILTER_SHARED | KVM_FILTER_PRIVATE;
+
+i.e. won't get short-circuited.  Though I agree with the implication that this
+is super fragile/subtle.
+
