@@ -1,151 +1,144 @@
-Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com [209.85.167.52])
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C0FA390237
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 23:38:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5002E390237
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 23:39:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787787512; cv=none; b=WTTWcvIhiD6bYMgrkyf1/yP+65Gc1byRuPHzE4EFSu22Pb/vloED95hxXOXi9348JnmKHjDVTSQR3CNhuWLx/S6vj/O32bc75FR5Kss9f4BAzQWEGvZSAwTVBjEyWFnRjwcOsck/ijH4lKw41r0ToXwTCkuMwJbPq583ADBtvbQ=
+	t=1787787562; cv=none; b=USkIXyIn3jDWF8uqZMQFhN7jhXiutf2JLSul/UDr87elIhctRII4dEv+u37V1SLtaIWAhNcHekMl0f5ZdaWWjjq412QjVt5lj8rffIsgEE40xrL7HpfGcy4uZ/knJjbz0IJFPbAoYEMvtcRzQvrjfJNiLF3rPN9HZAVVPH/jvWk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787787512; c=relaxed/simple;
-	bh=Ks97iZYDefkxuuXZdEEEwMFqACfSJ7anPx9rAcG522s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=E+xj8LvMn+FM+a0C+QlvXohBIDb7TN6XR2334/fLbrDxGETJLkhEJLwU048lGNZqNtwtxoavhtUhwagkTpTmH7Ky/jrh62acyLXIhXaAT01RMJ+PIIGjZH/taJPNrW7rhffcTI07yaqxI1hLqvjCrc74p/7DFPqz/e6TP4g9EqE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aMbd5GS6; arc=none smtp.client-ip=209.85.167.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787787562; c=relaxed/simple;
+	bh=ltnk6ZEe6UBI+OuxfAsKht6KJZGAQfW6WOiKhx0pKlc=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=BT2tsgQ7C9cQuz8k7MuV2pq2TYMO9/DvGz33WEE9FRBkw5Y7s0DepMcJnnHAiLvOwAVDNyaKgAcSw7YVVtXiEk+qkW9TamNtRZAIbgi4/SillibIFOa++H/4cMsifIKlTipMFpP+xIlgVf7ryueAJnw7Xv1vEUOVbw0EQmu1lXU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=KcOJ7zRp; arc=none smtp.client-ip=209.85.214.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aMbd5GS6"
-Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5b2b92065ffso1535068e87.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:38:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="KcOJ7zRp"
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d733799ebfso2068095ad.2
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:39:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787787509; x=1788392309; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Pn5cuibYSV1eGH20SoQ75z6FLNMGEndFYPOvwFpT6w4=;
-        b=aMbd5GS6znl027MTkpR9BsaCElgxZNisqvUwdWkAk8orLyOkJPsuVciMP70Bx2c453
-         +AihopAuglpwsX4wIZybx5IhND+we58KYClYTBV9zNrSBn+BF04V/BpUS/kU66SQtah9
-         eLvNC3AJ0kIYRxTSeGNPd6L+BzXCeXxl2krlbxfz04AR2p6/hwW69CJ2ayWg2oWW+uH7
-         6lW2WTbkDdjD2pDJyJMfih/JVaaSpOcHK2Bs1oljN1Oh1hYplOyphHkL2++4ogp11O9k
-         OKkSkvOLL/xRNGJGBnVwS7XWrhGSYqgHstHrhwvP/5HaWjmfwLje0Aa6EjxP9ngEctEV
-         BK2Q==
+        d=google.com; s=20251104; t=1787787560; x=1788392360; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1gny5c0JRJP6S8e9mlpbqEEJSGDZQAlsB6AnRfyperE=;
+        b=KcOJ7zRpjzGpp0R8rThMu0YGWh7XzvmZZ0CuXHnPE6xEujsakDEz+8IwFUhA8+/jh1
+         SooKJoVqLp70ap/yd+FZ0xZO1qcH/tvj15UgREXxSBX3dEgEb4wJL31WyNXlHn4naZ5h
+         +mUAEdB7P38pKd06m8x2ik45Obz8y5bdt0aSJWDlm5J/haxm0GfXTK292dcHTv8l1//D
+         cwuMtD51dDpfbwzCrj5eXJomdvwMaclvWsiFYJBPUCSsz2SZ5DDUPyXul0AZ+ZIAIIqw
+         A1CknJk/MGAPhTB6Rw+DRlTJlBlh3np/o3pnI3l8qJ/ryRNqT6TiNrNcxKheHAUSl32M
+         19jw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787787509; x=1788392309;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Pn5cuibYSV1eGH20SoQ75z6FLNMGEndFYPOvwFpT6w4=;
-        b=klc8AjF3xaDg0TLT5yAGUQrMio7NoN0hWFqkEHOeJlBfrEdynixFezYUMyAKELC1Ic
-         KD7AFfMaQHIQJtV7lEL5rlj3NWY0bpO5Pq5tgkzGaei4HcTo0RrXZn1yQjLi97gKuSmB
-         Ev3wuCADcbuLn95KE529crZusvGhEU0T6GYbCI9RsPhCOmpOzp6B9fwaVO2H/roBpSq4
-         cVgRVYlwudG3yS3R600GXTKsq7EjhQDPap9jECExTJ7dIa0jIZBg13WDQAWlARKVc1zJ
-         COe7aYafP0AE/5TQPQAwM4JHLhiwQVFrdjRPe0yRFtuSiMDLKKYBUrk33oO+pexkEpxD
-         gYIg==
-X-Forwarded-Encrypted: i=1; AHgh+RoC2Jmg3c5UObjY5ZEKk1ddW4jNKyLudI+pG5jDSTsm/aP2zhjwUr7WjwbSOPZVmfDiV5pvO/5nDcbMRqQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++n+uhUCYeUb/vezmz7jkeRgezqr2+N3K4J79vjxLps6aQTpVvkd
-	QcX7NhWqmAn32zpIPd3zVsc7lBgzHinfL3MW9FI/TmPggXUGyS9DGrv3
-X-Gm-Gg: AR+sD12uC7hp1Lyh3PphbsU50Yspi/ywNOi8wKG9uW5laMkbhI25CES/g7YhR0q52WU
-	zNlh47ALsy5WrYT/62+bkHAVNGhWRlUngkh1aJsYGLdFOUA56weUeQtOCLHIq4qntsJqc0FOwkg
-	KwytFKhbnMu0chL9EB5peTxiPzu8MH8AUU0YFk0zunoDtOPaVy4rl+P0vFXZdo3QwcEoLoABIUF
-	pbHjn73J/mCTqWHQ+LlbaaA84B06xWR3EtcKqH0Zb8azckZjyWI6+rvCawlc5iotGJpIHbwAlsV
-	5Zzi9RfHciX3GCQMAXf5a+OZmO14ZbDm50t99iV036XW/dcWJ2DC4loG6QH6cKZjt5fxt7mIWsX
-	FPkIuBd2Nvw8H4glbUVBXVsofScumMMsi8I9EG+gHmoCwumCeT85phhUItF8k5GLTfHuZfEgG6F
-	+H84m68mKMdX4kJkcR2Pr7xA64b2Jd0ofDWmHyZf+ea/1V5bluRfenYZTQJRam2sFh1aQYmQQE+
-	94hbkg47TdRlhBlX8kf8UwFjQWxttHFvCXuyi64
-X-Received: by 2002:a05:6512:3b83:b0:5b4:74ca:b5c4 with SMTP id 2adb3069b0e04-5b4a909b296mr3384719e87.17.1787787508779;
-        Wed, 26 Aug 2026 16:38:28 -0700 (PDT)
-Received: from notebook ([93.189.200.242])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b4a41ae602sm873550e87.56.2026.08.26.16.38.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 16:38:28 -0700 (PDT)
-From: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Caleb Connolly <caleb@connolly.tech>,
-	Frederic Laing <dev@fredfunk.tech>,
-	Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
-Subject: [PATCH] arm64: dts: qcom: sdm845-oneplus: fix fuel gauge compatible
-Date: Thu, 27 Aug 2026 02:38:18 +0300
-Message-ID: <20260826233818.124278-1-rinat.muhamedgaliev@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20251104; t=1787787560; x=1788392360;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=1gny5c0JRJP6S8e9mlpbqEEJSGDZQAlsB6AnRfyperE=;
+        b=oQI7l4/w3WMuqExXYZVVYju91n1n7V6VKJNh5zyKHo8CX/4k3aYLEBhQHkwDrqjgDq
+         v1EzeNkc1uJnN/ioYL5Z7esbPp1+wpFlKmsWMkMDw1KGoNmZwW02Q2oSaW4u67U4VQ9h
+         FOE/nQjCXyyDhJ9gBPbHjUMaUnPSqa/QinHj2qpl9x6r7A78UmwDBFON+oPHaiPfAumd
+         bvnW8B/KC9mFui3EWeNlI1WT/PVrMvZYFOwvWE/nbmuu1tOlBGHBio4tv0Lo1fa2+jUW
+         QWPN+m5OYFRGY0viHc+7Eldq/odk0EP1zMyvrp5POItBzhlXM1Mt8s9SWu10bHE/MAmR
+         XssA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp5zwpAknCMG3LmxjLqT4UKIYc5G9uEvJPvDEA1w5TTXi7A0zvEu2MgS1CIXOuwh/PpNUHjZKjebcyvjMs=@vger.kernel.org
+X-Gm-Message-State: AFuF++kBd1y7LOwR3VghkynkxYVyETgqX7z4shp2u8PN4pwploDGgoJd
+	jXLa9B658zSreFQnLc0BoxONx7TX44CwNBoVp8WYmBa4NBqRMUMC9tgfK+NScV2XAB8rp4/8Te4
+	n5bnspQ==
+X-Received: from plpe14.prod.google.com ([2002:a17:903:3c2e:b0:2ca:d0f4:2f91])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:1a45:b0:2cc:d6de:d597
+ with SMTP id d9443c01a7336-2d707a9fecbmr190994405ad.7.1787787560405; Wed, 26
+ Aug 2026 16:39:20 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Wed, 26 Aug 2026 16:39:06 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.887.g758fc8c411-goog
+Message-ID: <20260826233919.998904-1-seanjc@google.com>
+Subject: [PATCH v3 00/13] KVM: nVMX: Adjust VMPTRLD/VMPTRST behavior with
+ active eVMCS
+From: Sean Christopherson <seanjc@google.com>
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, f734222792@gmail.com, 
+	Vitaly Kuznetsov <vkuznets@redhat.com>, Sashiko Bot <sashiko-bot@kernel.org>, 
+	Yosry Ahmed <yosry@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-The fuel gauge at I2C address 0x55 on OnePlus 6T (fajita) reports
-DeviceType 0x0541, identifying it as a TI bq27541 rather than bq27411.
+Vitaly's series to adjust KVM's emulation of VMPTRLD/VMPTRST when the vCPU
+has an active eVMCS to match Hyper-V, and more importantly to not put the
+vCPU into an infinite loop.
 
-Binding it as bq27411 selects the wrong register map and produces
-invalid voltage, state-of-charge, and temperature readings. Use the
-bq27541 compatible and rename the shared label along with its fajita
-and enchilada consumers.
+The patches from Vitaly remain the same from v2.  The churn I piled on top
+came from wanting to use KVM_ASM_SAFE() for more VMX instructions to verify
+the RFLAGS bug+fix Sashiko pointed out, and I lack impulse control when it
+comes to cleanups.
 
-Tested on OnePlus 6T (fajita): queried DeviceType directly over I2C,
-built the DTB, booted it once with fastboot boot, then installed a
-locally built postmarketOS kernel package. Before the change, readings
-included about 65 V, over 10000% SOC, and -273.1 C. Afterward, the
-bq27xxx driver bound as ti,bq27541 and reported 3.835 V, 42% SOC, and
-33.3 C.
+v3:
+ - See above.
 
-Fixes: 12dfb002ca01 ("arm64: dts: qcom: sdm845-oneplus-*: add fuel gauge")
-Closes: https://gitlab.com/sdm845-mainline/linux/-/issues/36
-Link: https://gitlab.com/sdm845-mainline/linux/-/merge_requests/148
-Signed-off-by: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
----
- arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi   | 4 ++--
- arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts | 2 +-
- arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts    | 2 +-
- 3 files changed, 4 insertions(+), 4 deletions(-)
+v2:
+ - https://lore.kernel.org/all/20260818165258.2613603-1-vkuznets@redhat.com
+ - Fix build when !CONFIG_KVM_HYPERV [Sashiko]
+ - Drop now-unneeded evmcs_vmptrst() [Sashiko]
+ - Avoid hardcoding VMPTRLD insn length in hyperv_evmcs [Sashiko], use
+   KVM_ASM_SAFE framework instead [Sean]
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-index 948a0dd18..0c6203fa8 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-@@ -790,8 +790,8 @@ &i2c10 {
- 	status = "okay";
- 	clock-frequency = <100000>;
- 
--	bq27441_fg: bq27441-battery@55 {
--		compatible = "ti,bq27411";
-+	bq27541_fg: bq27541-battery@55 {
-+		compatible = "ti,bq27541";
- 		status = "okay";
- 		reg = <0x55>;
- 	};
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts b/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
-index 5f01115e2..21ebd3f67 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
-+++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
-@@ -44,7 +44,7 @@ main_cam_ois: main-cam-ois-regulator {
- 	};
- };
- 
--&bq27441_fg {
-+&bq27541_fg {
- 	monitored-battery = <&battery>;
- };
- 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts b/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
-index 7ffcad24d..d640b38b5 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
-+++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
-@@ -67,7 +67,7 @@ tfa9894_codec: tfa9894@34 {
- 
- };
- 
--&bq27441_fg {
-+&bq27541_fg {
- 	monitored-battery = <&battery>;
- };
- 
+v1: https://lore.kernel.org/all/20260814162221.2144473-1-vkuznets@redhat.com
+
+Sean Christopherson (9):
+  KVM: selftests: Don't clobber RFLAGS in happy path of __KVM_ASM_SAFE()
+  KVM: selftests: Assert success in vmptrst(), kill off vmptrstz()
+  KVM: selftests: Always assert that vmxon() and
+    prepare_for_vmx_operation() succeed
+  KVM: selftests: Always assert that vmclear() succeeds
+  KVM: selftests: Always assert that vmptrld() succeeds
+  KVM: selftests: Drop useless return code from load_vmcs()
+  KVM: selftests: Add macros to handle simple VMX instructions
+  KVM: selftests: Dedup assembly code for VMLAUNCH and VMRESUME
+  KVM: selftests: Add and use double-underscore versions of vmlaunch()
+    and vmresume()
+
+Vitaly Kuznetsov (4):
+  KVM: nVMX: Make VMPTRLD result in #UD when eVMCS is used
+  KVM: nVMX: Make VMPTRST return eVMCS GPA when it is used
+  KVM: selftests: Adapt to the updated VMPTRST behavior when eVMCS is
+    used
+  KVM: selftests: Check VMPTRLD with active eVMCS
+
+ arch/x86/kvm/vmx/nested.c                     |  24 ++-
+ .../testing/selftests/kvm/include/x86/evmcs.h |   8 -
+ .../selftests/kvm/include/x86/processor.h     |   2 +-
+ tools/testing/selftests/kvm/include/x86/vmx.h | 173 +++++++-----------
+ .../testing/selftests/kvm/lib/x86/memstress.c |   6 +-
+ tools/testing/selftests/kvm/lib/x86/vmx.c     |  20 +-
+ .../selftests/kvm/x86/aperfmperf_test.c       |   6 +-
+ .../kvm/x86/evmcs_smm_controls_test.c         |   4 +-
+ .../testing/selftests/kvm/x86/hyperv_evmcs.c  |  57 +++---
+ .../selftests/kvm/x86/kvm_buslock_test.c      |   6 +-
+ .../selftests/kvm/x86/nested_close_kvm_test.c |   6 +-
+ .../selftests/kvm/x86/nested_dirty_log_test.c |   6 +-
+ .../selftests/kvm/x86/nested_emulation_test.c |   6 +-
+ .../kvm/x86/nested_exceptions_test.c          |   6 +-
+ .../kvm/x86/nested_invalid_cr3_test.c         |   8 +-
+ .../selftests/kvm/x86/nested_tdp_fault_test.c |   6 +-
+ .../kvm/x86/nested_tsc_adjust_test.c          |   6 +-
+ .../kvm/x86/nested_tsc_scaling_test.c         |   6 +-
+ .../kvm/x86/save_restore_pf_stress_test.c     |   8 +-
+ tools/testing/selftests/kvm/x86/smm_test.c    |   4 +-
+ tools/testing/selftests/kvm/x86/state_test.c  |  42 ++---
+ .../kvm/x86/triple_fault_event_test.c         |   6 +-
+ .../selftests/kvm/x86/vmx_apic_access_test.c  |   8 +-
+ .../kvm/x86/vmx_apicv_updates_test.c          |   8 +-
+ .../kvm/x86/vmx_invalid_nested_guest_state.c  |   6 +-
+ .../kvm/x86/vmx_nested_la57_state_test.c      |   6 +-
+ .../kvm/x86/vmx_preemption_timer_test.c       |  10 +-
+ 27 files changed, 214 insertions(+), 240 deletions(-)
+
+
+base-commit: 76671054f9a1ff6abb976583cd8da37650acdc97
 -- 
-2.55.0
+2.55.0.887.g758fc8c411-goog
+
