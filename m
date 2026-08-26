@@ -1,167 +1,157 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010047.outbound.protection.outlook.com [52.101.193.47])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 350CB47140D;
-	Wed, 26 Aug 2026 16:44:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787762665; cv=fail; b=U47pabjSoWQi9INkSKDbDwMwr+kfNYoyklH9Fj52iOFr6GAXvLEVm8k0YqzZFjSXWFUhAZ/ORUa8cBX7RpB8UYDeGqOwERVxiWvasWZBD8M4lzJFhr9gBDT1LeOGTaFCJa3PC5jR9SWpOMga42nwGdqTQaRehyrSp3AFE91oEWo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787762665; c=relaxed/simple;
-	bh=H5g6qOkQwPuqGeIo/zsNa22K/PNeigZTYUeLrJFXfik=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=qvhaXeS27z+P2h9awGL2Ua56Ybu7uyXQt9JwdmNIYmAw/JW7/O/V2J0aWmlh8TmyU4pQvSfWB4LOHnJh7Gq+kpFCHDhnM7Y2M6Z55dxrBNrFbXqHh9Ehvich/ao3qHzL3zrMEOn+a86vn+g9aOWK95KfE3x+9pDSK63K+6gobsw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=q/kbT28B; arc=fail smtp.client-ip=52.101.193.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2507346D090;
+	Wed, 26 Aug 2026 16:45:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787762746; cv=none; b=c6wVgaTl0MNkNCF0JLjB0QPswae7n4P/jR7K93eP1XzEb5cMG87rs0xE2Uz5LffohJbijKnKJUytalPWMbwAF9VD+iHDL0iXdRoqsWYNB8SzZ28nkYv0qqc/lmViXBXmhUPsFCEORqM2w/2PpbHa8Su96oCA0icGG1L1A/AdEyA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787762746; c=relaxed/simple;
+	bh=FKwdZ0kNj6TKNMz6cRANqkd4+E8cghbWEbTNvONfBgk=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=LfzSsaFxCKg+x4axaQuuEBRQDpiHbGFVpxyjdiqskz9JlIQaseABoyaTalqMOU8vg8XEHc+ZZ9z+SZEd8c2EQ19JzJH+QAGAXR6QoSJiAziKE/PRNpZDBuqi5BYJ1jPFff3oJ5zM6Cl97FozrqE7xolhaAfTvvh9EoHdsrMaUeU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=PSpurddJ; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="q/kbT28B"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=coU5Mpznmi4HCobD4mSR+vi2crJuhwlDuARMQbm6jq9bLrf1itoLlYgdGWM9qbTcx4raKWM9KklobM+KzmBoQTrQtTfo0HaM1v6Qy9NzQRSeCfBLTBcguDWnVnJjM+Li8CZoW4GreknxmHWgqSv8VyGvJBcClY6mr0Ff/2tx+Wp1pmH5QnBnc4fucrYSbP9AN2+eP4EtqE1xGDbSdEd8Rhw1ce+EHRBG3OWveJRC9t/3oWhXJPCzbhYo94gRafEe47arIL8kBiZXDoI6KKY2+rchH2JidmaH/wnzd8FPsy1D1SXUQVnDke8g8XEfFP3bMbmw2qaGboCEMBeS0+qfHQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zGE1Iu6vgbN84yb/2RTgpU0rD8Ea4tVuOWxKtlHzTJ8=;
- b=MAoAR0dcOeZI8/UUTsq4LaTAY3tdBLlwcRdflFaGmDKWjWXr/rl6no8BjQA8mQAbFXDZsJdwpbB4AG5PexVnJRSSfosFc54z2AJ215xLcn89nnvRiLJtLNeWtWmccFkbYZUUZzyXo63o8m87pn1vqhGKwIgDksxIMrJggxGxIa+SbF3yW0oCBr3YfE7VYmnlfswCbJxnMTFJJlIZXPIW59lbGCFf4aelbzNhv2TPRIy0Q/mKz0RmCL0s51N5+sAX/hsFuM+igO/gk0bh2P5s1RhbPTkFO3ZYYq+a8QoIfbUdTH57hzO8CkepPFY2KdQGDI7OjMcbb8my6EZirlTSMw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zGE1Iu6vgbN84yb/2RTgpU0rD8Ea4tVuOWxKtlHzTJ8=;
- b=q/kbT28BEW+Qp6tPJjhqXRvcef1L85pm+EMrX5E1DyI/MEMD9xE320b9vz24aPjyXLxJVtEIMAES1fQz7plrEfSGqiUcKVPos5sDw1L0JA2EkN5sr1rVUCEfY05UpIxWCr+Py1THAw6epag2qk92ZTbWbq+6+gc2fAgeog6iF+dFJwfxtGfP0JAAHYBKKyc1gO+Wc2K3tsFretONoNzWBJ/1+I5gP77BOow2Er2pNLRAF3cnzQpxo6ZH/9z65TLrLiBusFDjVFo2GPvPJAWiO2TbFSesGVvk5JRWAKDMmgFXyE4JyMfiVxSwycsNyLZMyHyx0P2xxeeTN6x+1qJ1Vg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SA3PR12MB7901.namprd12.prod.outlook.com (2603:10b6:806:306::12)
- by CYYPR12MB8732.namprd12.prod.outlook.com (2603:10b6:930:c8::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.6; Wed, 26 Aug
- 2026 16:43:50 +0000
-Received: from SA3PR12MB7901.namprd12.prod.outlook.com
- ([fe80::6f7f:5844:f0f7:acc2]) by SA3PR12MB7901.namprd12.prod.outlook.com
- ([fe80::6f7f:5844:f0f7:acc2%5]) with mapi id 15.21.0360.006; Wed, 26 Aug 2026
- 16:43:50 +0000
-Date: Wed, 26 Aug 2026 19:43:40 +0300
-From: Ido Schimmel <idosch@nvidia.com>
-To: Baul Lee <baul.lee@xbow.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Nikolay Aleksandrov <razor@blackwall.org>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, federico.kirschbaum@xbow.com
-Subject: Re: [PATCH net] vxlan: mdb: Fix use-after-free in
- vxlan_mdb_remote_src_del()
-Message-ID: <20260826164340.GA1867215@shredder>
-References: <20260826151542.68815-1-baul.lee@xbow.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260826151542.68815-1-baul.lee@xbow.com>
-X-ClientProxiedBy: FR4P281CA0375.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f8::10) To SA3PR12MB7901.namprd12.prod.outlook.com
- (2603:10b6:806:306::12)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="PSpurddJ"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QE1dFk070358;
+	Wed, 26 Aug 2026 16:45:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=FKwdZ0
+	kNj6TKNMz6cRANqkd4+E8cghbWEbTNvONfBgk=; b=PSpurddJxZD7bjMvdy3hBK
+	65NbDdFR9d8U2S+TWRGIkAtTbJ5KVlisA3ay3tZRYNY7oFm+YS8v6Yd0OblJw4VP
+	/0UvvH/wW8zRrK4arMSicb9Bj5/my8ET6ygxqpKPYjUC5cT+UVmLF10Ird8DQ1Ri
+	pWrYe6sRBUH/D4yy22MMysWjKXRMR1dXM4q1SLOdfUEBH6s/RovgruAfvPyou1eU
+	rQlqQJyI8Ai4qQrQZKTelBjZQqw/AU/uP/7Tx7AyYaskEvAQVwVsFrBUTnWmDt3C
+	Ln8gsn/6yV6lRBLIVf+Lbxaeji4uB4DtOkgx9OrNguNXEqrIs8vA8YJANRHQNfGQ
+	==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g73dxfmr3-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 26 Aug 2026 16:45:04 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67QGfEDm022800;
+	Wed, 26 Aug 2026 16:45:03 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4g7p3qb7qd-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 26 Aug 2026 16:45:03 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67QGj1ge36372960
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 26 Aug 2026 16:45:02 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C8DE820043;
+	Wed, 26 Aug 2026 16:45:01 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C63DF20040;
+	Wed, 26 Aug 2026 16:44:58 +0000 (GMT)
+Received: from smtpclient.apple (unknown [9.124.213.3])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Wed, 26 Aug 2026 16:44:58 +0000 (GMT)
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA3PR12MB7901:EE_|CYYPR12MB8732:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2ccdf3b2-92a3-40f3-3144-08df03913468
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|23010399003|1800799024|366016|376014|56012099006|10067099003|6133799003|18002099003|22082099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	jdB3ZlNxFnvRsSHHLLpePSg/QD4jwym9r6CFT2jsacwmUtz/YeF4Oesfo/3loNSzcQahvoot4V5btrUyWHFz4hWdyKK14UypnfuB0hoy7vlqATJ4Cie/ekbR0G9mH9kJ/lqHYV+8yn2mPf4aKr/L7tNJbUtuoOJ/OhqKYRElC1gpZEdHN6QZXnThMhBOVa0cG6Eg2mK1ohEDTYhlFXdWWOp4g/EFH1YFFAuYJeKwj5Y+qvEesy9J0J4uyOb3u107kSFZxTMhOVumNvnynobUrTnwQS6B9w9+vC0U8fymmDCvEK4uCOO+VYBRLVV+JFEV8e8e49woC80ytNeXqgQ+WJkuZO/2R4+o+5lR2FmzkvQndKTbT59Fnp6BNYS82pHwmm7yUPPfSkGL91trtV7xjNsbP4C70bEBojlFpRy4pumhdu7hFUGPtAfhllIKh/CG3IEfnB83kHlQzQv4QaHXL3U3Y65He2Div8DTsjPOz4Rgf7sGZcEsQrawwMqvGb1uhAMeb4R/V1mmZH1YfQpPNyIx4672YY2phDA7zTdtix2K6gbdZ7AR6Tzfz5gli/O/3lSy93pQHJb+LJKR74oZsMfVBeZ+Klg1XaK1NZKD90rDJyTN7ryyC9DCtqE3Lt8+w4r6/iFAel8mPVHUWq1T10aK36CiDq5F91y5nM888Ew=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA3PR12MB7901.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(1800799024)(366016)(376014)(56012099006)(10067099003)(6133799003)(18002099003)(22082099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?paNAagqn8l/3nBdok9wi5jTRzqF7HAx5n68xeSiqlnc8C7zykRZSJJCDS+If?=
- =?us-ascii?Q?S7LPg3jICd04EBy7SUyu1l9fj3KP7d8fM77s4S7ObzdcbVc/768KT8AF5tW4?=
- =?us-ascii?Q?h/y7HFfJjnswpSK7tMtO2Yif1hdOSYKKw63MBZEUB78FmwOenKGGbYURrajD?=
- =?us-ascii?Q?XMe53nswu2Jaxg85kU0SN8KLxk5MHrr/7ZLepKKTPpXY8R1s5PJzCiJnpbCu?=
- =?us-ascii?Q?tb754mezz7zyxn55jr025RO5pPX3XXe6+aqvJB7EsDyN/B+f1h1f9ZdEXC8A?=
- =?us-ascii?Q?9S394vfTF91ztNiyBOT6GPt9UZCfxSyGLfvrootfYw2/sT2XXcXxxMhbXm1V?=
- =?us-ascii?Q?Olzu1585ehoCVUB0dt7Z1r5S0mazixxqPlGBwxn5LF152n5ChFUtQLNHQQx2?=
- =?us-ascii?Q?xafy4DCwAW4RskbO0MxNLy2gOndX+TixA3fRuvgxYANMXyf/oOcOkIBJV0Pk?=
- =?us-ascii?Q?gG6CYzQ8n3ZLBpQKuAXnFnJWzHZdCmOsgttTjhHceXFxoNpvOFpSVyicw32A?=
- =?us-ascii?Q?OuDrMn7Fcwdx8F/MVMBeEHDSY3BqBtmKBP5QWuVnW1FOnlbVnZ7xf9AD0/Vn?=
- =?us-ascii?Q?/rH+9ycT82suDx3LEaMfQ6wOl0BpOs7DD/1GhYq8QVsbKY/rsYPtZuGCwYR/?=
- =?us-ascii?Q?XNxAulP7UeBzQ2e0NuXPB48zvGj3rHp2IzGWfNEQkLmVOCsSL3af6ffkLZVp?=
- =?us-ascii?Q?Kf4qM/H5Gy3LIUNlAF0/08Qp307zGTszMzCAAysnhuzPvltoEGZqdIah6cFk?=
- =?us-ascii?Q?QBUZdL4nXyhzNZ/31oX+YVO0WiORn0E1cv6NpmyYfxuqmDzoSGc9R3weNsiW?=
- =?us-ascii?Q?3MEfbXgl+3foXDDKfo9DuecI+A1stULm/Dv5JnH3ErLY0q8OUEdA+XqtmqEe?=
- =?us-ascii?Q?7bggeNDiI97jV/QD8XNkqpV9UsJB21yLw7UC6ApQ4ps9siIfUL5vT/H8zgVz?=
- =?us-ascii?Q?aHb9cFB7lghdXvl8iAqDg5lb9QcVpZ/J4CRPxsZo8cbRPM/fqhuTkKVx9fE6?=
- =?us-ascii?Q?XZfMxqGJ652vU2csGi5NF3Q3f34NNd45SLFVQDNAQUviaFQOSQ6ykiasiOWr?=
- =?us-ascii?Q?z+4IkJTYv7Fwcg4coT/8ujIsAknY5zStNtnWCtLBG9QqGqBOUrNrIC+Ons72?=
- =?us-ascii?Q?8vssy1wUNsOtA9XIVR8W1bt/gLnOSWWFBHfYLo9QaAsfR8M7viS9gx6RwD2C?=
- =?us-ascii?Q?muwqD4gqimLZpPAAsQBxUf7WClKoFKvDQRyoA9x3ODudn24RH4LE2hJlHF1I?=
- =?us-ascii?Q?lR/aYGsIQN5lRCu6bdwbgdLMtBWcS5bjlEk7aGUmE53ACR3kEvVkhGDl+DZo?=
- =?us-ascii?Q?CfO8r3dy/OpCEXAzCZtwXKvwYKQ/2aL8wOU9vpUn4XjvyBHY45DfImb4wwo/?=
- =?us-ascii?Q?CLnsMlVsG4AKsMQCUy+xawIxOXQU6qI0W5tv243S0mNOs6XRGu8Mc5q7oqms?=
- =?us-ascii?Q?PXfgj2QdfXztnjdc0wkA6qvvkpbHiCS/OHGaTiFxxVdXyjbBiLAwJtc4No5h?=
- =?us-ascii?Q?rgczOSOJKHKuV9XKCUfQYoqH7M7vd47Lj5pXU83sDNrtyGLDH7gwrIqKphAo?=
- =?us-ascii?Q?c8XhLENO0h4cSK1yRmxgPj4PDuBy53G+3V2IbqOk+Uq2GTwq9VVj8j5ZsJrK?=
- =?us-ascii?Q?G8Bm1BDgUGlB0tPqpqcKhoqKF4CKIZBib7elRuTOVgbdfcRDMoSpR7YiUvjh?=
- =?us-ascii?Q?MaAT/h+rKRB/IfELghM068JWbWZDLu94vSTb1+eN7KPgPCYJUgLRLehMprJa?=
- =?us-ascii?Q?w7nhnDlSzA=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2ccdf3b2-92a3-40f3-3144-08df03913468
-X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB7901.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 16:43:49.8395
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: x/YjvIMV4Vu3zTop6gcnZC6juWDA1IqnMVct2olIwbhtIXiek87H1JbrXKrtuvaDXoFECZBL3SJp4aUKkZ3e2A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8732
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.1\))
+Subject: Re: [PATCH v2 1/2] keys: trusted: tpm1: add bounds check in
+ tpm_seal() before memcpy
+From: Sudhakar Kuppusamy <sudhakar@linux.ibm.com>
+In-Reply-To: <20260826080405.255083-1-sanketsharmacsec@gmail.com>
+Date: Wed, 26 Aug 2026 22:14:46 +0530
+Cc: jarkko@kernel.org, gregkh@linuxfoundation.org,
+        "James.Bottomley@hansenpartnership.com" <James.Bottomley@HansenPartnership.com>,
+        zohar@linux.ibm.com, dhowells@redhat.com,
+        linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
+        linux-kernel@vger.kernel.org, security@kernel.org, w@1wt.eu
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <284F8B1D-F60A-4BBB-80B3-D2814A165DC1@linux.ibm.com>
+References: <20260825182919.15943-1-sanketsharmacsec@gmail.com>
+ <20260826080405.255083-1-sanketsharmacsec@gmail.com>
+To: Sanket Sharma <sanketsharmacsec@gmail.com>
+X-Mailer: Apple Mail (2.3864.700.51.1.1)
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDEzOCBTYWx0ZWRfX9Rp50emSERgN
+ AHLYL9hbvYxRs31CJ99rs1NXBcl/2vTz67iaTzDSvl1xcKA9JFnRZGhovc1BBMhaYCSUHo1nIcK
+ vU4FgwXaOqgy9uXoDllVOQ/39qEfXzw=
+X-Authority-Analysis: v=2.4 cv=AYuB2XXG c=1 sm=1 tr=0 ts=6a8f1811 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=pGLkceISAAAA:8
+ a=VnNF1IyMAAAA:8 a=Qxsn6e9zUWdzkDgwqbgA:9 a=QEXdDO2ut3YA:10 a=KSyJCaK48GcA:10
+X-Proofpoint-ORIG-GUID: 3K8IBhSYKotbUWi57o4QzPLHEiMZX5Hn
+X-Proofpoint-GUID: Kebi_T0TQU_Y4_fB7XJj5Y3JXcaeVrtd
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDEzOCBTYWx0ZWRfX9EFuzPyxXAd2
+ 08J1/rAtOE/vkIyc69D2MSm7rZse3vnFiyqCpNPZvtw4e5fMl1fIrQB9xzEtntfGQrd08IakGdS
+ UaCIl5jyMIdxFr7kP/YddFr7LJJmD/VitYbtnn9q4Y2I5wPJgFffUZVaW/3rJeAnP0z19UpjjSM
+ IBuB3746A55d+bBhhgIzxUk0dTzRXraPCVjrVLOpClaHaTd7mToHa0IttB9iNipJKIazPtwTXAj
+ TxdN4LxrkOFyuYSoQseJPomATZ1Lk4NQN+VNur6ge6/Ys96QxJR4cDgzKxFvGJXKW+sy7U+VgG8
+ eW0CzWYSMNyd1b8Kjs4HleZIT8MnoTOSlsdqhal15emEZOSKSLV/v6KmX6z679ufdbwrFnS2HoS
+ 6P21Nzcms27g7vKC88rhxrjf4aVgaZeZvP7DYLzq5NwIbdyc1YMZjfmhlG7Xa+qpJByMuRH820P
+ /3YnU4eOTZztKsrv9kQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-26_04,2026-08-26_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 clxscore=1011 adultscore=0 bulkscore=0
+ impostorscore=0 priorityscore=1501 lowpriorityscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608260138
 
-On Thu, Aug 27, 2026 at 12:15:42AM +0900, Baul Lee wrote:
-> diff --git a/drivers/net/vxlan/vxlan_mdb.c b/drivers/net/vxlan/vxlan_mdb.c
-> index d71e1925ecfd..7986c5b5dc67 100644
-> --- a/drivers/net/vxlan/vxlan_mdb.c
-> +++ b/drivers/net/vxlan/vxlan_mdb.c
-> @@ -354,6 +354,10 @@ static bool vxlan_mdb_is_valid_source(const struct nlattr *attr, __be16 proto,
->  			NL_SET_ERR_MSG_MOD(extack, "IPv4 multicast source address is not allowed");
->  			return false;
->  		}
-> +		if (nla_get_in_addr(attr) == htonl(INADDR_ANY)) {
 
-Maybe:
 
-if (ipv4_is_zeronet(nla_get_in_addr(attr)))
+> On 26 Aug 2026, at 1:34=E2=80=AFPM, Sanket Sharma =
+<sanketsharmacsec@gmail.com> wrote:
+>=20
+> tpm_seal() computes storedsize from TPM response fields and passes
+> it directly to memcpy() into a MAX_BLOB_SIZE buffer without bounds
+> validation. A forged TPM response can set storedsize to 4086,
+> overflowing the 512-byte blob by 3574 bytes into adjacent slab
+> objects.
+>=20
+> Add a check that storedsize does not exceed MAX_BLOB_SIZE before
+> the memcpy, returning -EINVAL on oversized responses.
+>=20
+> Signed-off-by: Sanket Sharma <sanketsharmacsec@gmail.com>
 
-It's consistent with the ipv4_is_multicast() check above it.
+Reviewed-by: Sudhakar Kuppusamy <sudhakar@linux.ibm.com>
 
-> +			NL_SET_ERR_MSG_MOD(extack, "IPv4 all-zeros source address is not allowed");
-> +			return false;
-> +		}
->  		break;
->  #if IS_ENABLED(CONFIG_IPV6)
->  	case htons(ETH_P_IPV6): {
-> @@ -368,6 +372,10 @@ static bool vxlan_mdb_is_valid_source(const struct nlattr *attr, __be16 proto,
->  			NL_SET_ERR_MSG_MOD(extack, "IPv6 multicast source address is not allowed");
->  			return false;
->  		}
-> +		if (ipv6_addr_any(&src)) {
-> +			NL_SET_ERR_MSG_MOD(extack, "IPv6 all-zeros source address is not allowed");
-> +			return false;
-> +		}
 
-This looks fine.
+Thanks,
+Sudhakar
 
-Please add a test case in star_g_common() and sg_common() at
-tools/testing/selftests/net/test_vxlan_mdb.sh. You can squash it into
-this patch. We already have test cases for error cases there.
+> ---
+> security/keys/trusted-keys/trusted_tpm1.c | 4 ++++
+> 1 file changed, 4 insertions(+)
+>=20
+> diff --git a/security/keys/trusted-keys/trusted_tpm1.c =
+b/security/keys/trusted-keys/trusted_tpm1.c
+> index 8f57c6111..d47cb7108 100644
+> --- a/security/keys/trusted-keys/trusted_tpm1.c
+> +++ b/security/keys/trusted-keys/trusted_tpm1.c
+> @@ -531,6 +531,10 @@ static int tpm_seal(struct tpm_buf *tb, uint16_t =
+keytype,
+>=20
+> /* copy the returned blob to caller */
+> if (!ret) {
+> + if (storedsize > MAX_BLOB_SIZE) {
+> + ret =3D -EINVAL;
+> + goto out;
+> + }
+> memcpy(blob, tb->data + TPM_DATA_OFFSET, storedsize);
+> *bloblen =3D storedsize;
+> }
+> --=20
+> 2.53.0
+>=20
+>=20
 
-BTW, are you going to send v2 for [1]?
-
-Thanks
-
-[1] https://lore.kernel.org/netdev/20260815172032.79740-1-baul.lee@xbow.com/
