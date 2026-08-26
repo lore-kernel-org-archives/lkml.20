@@ -1,146 +1,153 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012020.outbound.protection.outlook.com [52.101.43.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8266463B7A
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:31:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787761906; cv=none; b=cpRfxKyzsHeTObZvfMioazrhMrpFPs8dlY5q8yn0zK6DcB9jOTFsdYGBpuKGPX4RPmynHjLD9wL2WC5mJMH61GHddmlx0j0U+7JFoNWJIBHV+dcuTRD6NClAxoOh6E4Ibo+0KJXbYPmemLE5l1wwLfhUUjP76MdkdqaspEo8wGM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787761906; c=relaxed/simple;
-	bh=5JUivoyhL/eFA3z1wzR8eXGOYWpIX0QOjpm+5X1M89U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BB+Q2y76dCRu//UJi43HmsDz8YlutT2SHAHLSf3Uefed1XHyIjiRno8pNRug5CfQ/JRsz/ziaJj0TYubnZ5/XrMJDrDCw3rWpZGLl15/lNaD1M0jtJfpTVPzBIcMvXwRgRUc7VMGKtqB9c2sCe6oPLC761zdCzeWm1hdMCP7U4M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk; spf=none smtp.mailfrom=fireburn.co.uk; dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b=Ik+m5hoy; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=fireburn.co.uk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 123D7466B14
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 16:32:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.20
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787761966; cv=fail; b=IcaXaxdF9D9/3Sz03632MNmsmRbAEFPGy+o/W1TsZEhSWu/5s2nU00ahn/U1iyZdxiAi4Eg2oSXSH1+HE2PItvxkU4yrG+W2vCea76Cp3pojksZfawhskgPX/XFa5yHlFvou/8J/SFqGhaiJqgHzRZNDpLOv4bULuXnQURzCvSg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787761966; c=relaxed/simple;
+	bh=Q92kkrfCDBg+yUK3ar/4Q14YOu1rmNrZWmVKqODgM+c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=ujtpjlbHSv5BrPVpLuAftIBTlYLhyya3ifQpHLNAVNaTaQRCqMXQ3YGsJV3laH8tVwZGolcIVhvNLZYjtQjRXBcoPpnekuYMvRyPuS/fzmfzl6Cbfp2GAjr3ikNZQkW41ij0ni9tnY7m8959ydlOikysiBedk8xzty7Atk2rJg0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=CsY5i2Tf; arc=fail smtp.client-ip=52.101.43.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="Ik+m5hoy"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49b0d78a801so1118785e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 09:31:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1787761903; x=1788366703; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zNZLQEVLi7AF6T2ecrRF6uxN2Gce7/nJnEoP7xr5640=;
-        b=Ik+m5hoyKNP9jH5UXNyP6CMLE8Y2NjBZOJ83j7q2PKJxmbN4zUuRjJNR0GDDnsLPPU
-         fYxSwnO/WmzVsGlDfvDfu5CH28q0rEjEJOEFsfVvEn3ROO6w7qenkuTPNdZW46aiehBc
-         o6BAoE8hAEEva1KFCyFmLHoJtLjiK8oO0LAvUF6PkMensV5D0llhHVbR9zcAvknTgxOR
-         buKZBYn6CWRoDdDhNv58QrwugTSFhjhUy6axZ5Yh0t9iz++rdL/hCGjxOw6E64d0m7Pu
-         vIFKdDHpKpVKpS1U74J0rt3UxK6ajzTy6t24qkNqseB+sp0y9SPhXHc2852ov24juBVR
-         sqFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787761903; x=1788366703;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zNZLQEVLi7AF6T2ecrRF6uxN2Gce7/nJnEoP7xr5640=;
-        b=qBLc1gc7p5s9+NPyIV5Xqb37GCJNOprUG1zJA4KynV57I8cMFV0gkgZyXaFAsGK0/P
-         Z969cf2qLVI2MNb6lWXxosipKHeHbSNWsY6YarUhDjaxuTniPAJP2KI2ZSRdSK46MuJG
-         LmR/EqR23H5R+q+aOWNt8jN/eKEO1DDCworh3bG1byHzR/emoY45loGmOxzIlvjNmVBb
-         tgNfQqj5kvcy3c+2miw/wlFzZBOriPFYwdKGO0V8oiQrcaRgGaINQPRGz1TeECsde0K1
-         LjSHRbSpfQ2fvj1NMihDBWseHy6Jr9JQ3aXrAw9dYeRKcofHRcsFKWF8yEZPysCWcGBH
-         Q/GA==
-X-Forwarded-Encrypted: i=1; AHgh+Rpb7A27hTFgWYNK0SdW4J+EjbcI2Ybfv8fepZM3D/pZ8u7hQWlGI1hMjolVJFWcqqd9rgQQmb1/0VW7kJs=@vger.kernel.org
-X-Gm-Message-State: AFuF++lI2qrSJ+nOaKQkmexHZdDFz/faB7Ju5I+Ha5WaY+8aw7MpmT64
-	SKeSrhR7jyxpE2KPHw3UmZq0Pzb+5lH+gmPV3xxchmNkFjZuNZl6IY/DXPANiGC6tA==
-X-Gm-Gg: AR+sD10WwUB1OzHVfjR73C6doPLclWF8m++nmFXNtCEZyGnHW8ZOjmxki7Moca2fO2C
-	ByI+y5wEPdZBu+y866o2lBa6YTEYfTvEJn7XQJ43RPy3KVbi+IMyMFqnyG8wRJrKPQnqJf4A/+o
-	nR2IpxUm9/ahv3wPa8Z7ipi/VL8ZhuAatULIP9fYI+u6ysuhm4TINgxESflgffFcCMGHrwybOHW
-	f6Lz2Xc/MT/HUz3umSgGLLh+eyMWVKLee3MdBmhuVI6Mrb9ziXqWBEOYmlqv+5hl9Xd8zA69YnS
-	M424OUOGKdOIXTu3qLBDSAOcyaESK9C2oYBFaeAgugr1JDqiJfCoFW2ZuiIjNP7EWf3ES/GbmP/
-	eQxoIyMurrKGMKXQtpPfJErADj5cRKG2NN1h/cpPGNlQlTmIYF4yEAVaTCZfiUzUh2TuMk7mcLY
-	/HxGxHDVRbGibVMCJBXqfbhwZtqMrvVdU3E6mZC+kiGEXonHyXTtWoRWmS3B/EjFKMv3W4FiMzz
-	WbkZcsCF4sD1sGDZS8o825lRpv2SCI/vUZA
-X-Received: by 2002:a05:600c:860b:b0:499:726a:a017 with SMTP id 5b1f17b1804b1-499dc6e0040mr88950875e9.1.1787761902407;
-        Wed, 26 Aug 2026 09:31:42 -0700 (PDT)
-Received: from axion.fireburn.co.uk ([2a01:4b00:d309:1c00:caf1:6b20:8531:818c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499dc9b83aesm31202705e9.12.2026.08.26.09.31.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 09:31:41 -0700 (PDT)
-From: Mike Lothian <mike@fireburn.co.uk>
-To: linux-usb@vger.kernel.org
-Cc: Mike Lothian <mike@fireburn.co.uk>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Colin Braun <colinbrauncl@gmail.com>,
-	rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 5/5] rust: usb: let a driver keep its interface usable while unbinding
-Date: Wed, 26 Aug 2026 17:30:41 +0100
-Message-ID: <20260826163101.4168-6-mike@fireburn.co.uk>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260826163101.4168-1-mike@fireburn.co.uk>
-References: <20260826163101.4168-1-mike@fireburn.co.uk>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="CsY5i2Tf"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JSNT1aS4bbUlTN7iTbNfW2JqUnEA5KinjcMF8BRY5JJzUbV0Io1+3QH0rMrfOIXAlxFt6I0LWjBWcWbDbGKvVTVHXN6nhPobCMGdemQYVsZ0/KFXHqzX6816j71HPbSPJ0OMB44Uer0lxuClgR52E03gPrEsz0sdejoUZyAxa9oVtIT43EWeCOrWbl27ORgFZfzccmq0drujv6CwNTGc3ZnPhRRisWMDkNJr71ON96GjNQF8Op7Ohxf+N/wnnAsa37jd/2TUmAtms2U5NwVPDbquQ9R5Bgi9pIejlmHfee7kCaFMKG9RPDNV39qs0jVX3Z4tFyoU6ofITsZ2bB3LxQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Q92kkrfCDBg+yUK3ar/4Q14YOu1rmNrZWmVKqODgM+c=;
+ b=ADGHOtGIsO7N4VZjb+yfxw1OTe88S3ZSbJDgiTao2pswghifCUzTn2YOfnaw8hq4m4IB3USnoZe0hQF0gNED3Kc6fzljIEc/WGdcSQW/h9E1kCWIZvwP6qRSJzMqCWGsJej684AlvxAla4BKtSL7cyfVGdW4cMmovbbGHxgZb2hoZLKHP5MggR/XhR1ZapMaVjhHR53nkg8q6lcm4LUNnHp24Crv8ifvuYkg79bRfsaKPOdw8o9dOnbyP0Vb8EDCYyHWoRunFMs7GkUEDUX68T6KbUZdipn5CwKKecESHV8EfWJio0wE9aCm4mzIKjrVRWA6Nrisj7JscNr3cG9CSw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Q92kkrfCDBg+yUK3ar/4Q14YOu1rmNrZWmVKqODgM+c=;
+ b=CsY5i2TfLPgvy42h8kwxER0YITYnanX8GB23m5sAVWTQFaUQl2TiytSB19sqaBth2W/fL6Z8aBl64uBbtmwk1B90nracsT5gVw8ue5DcrS8UxsheGr2I0mCFsA6kSJ6E0TRWc5bKESS9+TSSPaB9raBWvcD4g1RXOHrRmT9eb04eQPrg+TQqq8KPHMj5CaGtM797opKG8KGFsBmfgXx5nDv9cJsvEUFXqWtryujJ1XLpARMtcbuf8h9ydSyC6LeuA0KXtG5w2XT2bh9J5wEtKVQQePJ31zwmAFX/wJBYShu/gD1MbNgQEaxy9xfotZeeX7kpXlPo1/RN/uRrGJTMDg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
+ by BN7PPF0D942FA9A.namprd12.prod.outlook.com (2603:10b6:40f:fc02::6c7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.7; Wed, 26 Aug
+ 2026 16:32:36 +0000
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0360.006; Wed, 26 Aug 2026
+ 16:32:35 +0000
+Date: Wed, 26 Aug 2026 13:32:34 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Andrew Jones <andrew.jones@oss.qualcomm.com>
+Cc: linux-riscv@lists.infradead.org, iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org, tomasz.jeznach@linux.dev,
+	tjeznach@rivosinc.com, joro@8bytes.org, will@kernel.org,
+	robin.murphy@arm.com, pjw@kernel.org, palmer@dabbelt.com,
+	anup@brainfault.org, tglx@kernel.org, kevin.tian@intel.com,
+	fangyu.yu@linux.alibaba.com
+Subject: Re: [PATCH v4 02/21] iommufd: Add iommufd_sw_map_msi()
+Message-ID: <20260826163234.GN3325090@nvidia.com>
+References: <20260824125204.GP244917@nvidia.com>
+ <fp5myre5qaersxxshitgoupbzkx2zwo3rsz3q5jfdiarmtwknh@gmfhz3cxuc33>
+ <20260824170417.GR244917@nvidia.com>
+ <3gdj54zcs5dncgom3zlntyredyuh2xe5ueg7nd4pdrcksmnwfl@k3fyky4h6556>
+ <20260825140334.GA3325090@nvidia.com>
+ <cxbneh42ui3gbkoqrsnoatxoec5exzbprfbgxcy4iekqmbceho@gouiwn5q5uzs>
+ <20260825165209.GB3325090@nvidia.com>
+ <iltwtfmgnmofsroo7eqrvjx6yhqbptwutywq65mgm7adudz7pq@2mdg3dhvtoud>
+ <20260825175901.GE3325090@nvidia.com>
+ <pzutriwhwe4whonj3veoo4hzxmq5tlmmyui5u6gt4bgl5wxxrg@qjsq2pvd7by3>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <pzutriwhwe4whonj3veoo4hzxmq5tlmmyui5u6gt4bgl5wxxrg@qjsq2pvd7by3>
+X-ClientProxiedBy: BN9PR03CA0423.namprd03.prod.outlook.com
+ (2603:10b6:408:113::8) To LV8PR12MB9620.namprd12.prod.outlook.com
+ (2603:10b6:408:2a1::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|BN7PPF0D942FA9A:EE_
+X-MS-Office365-Filtering-Correlation-Id: c34f0b8c-6bea-4488-5040-08df038fa26f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|366016|7416014|376014|56012099006|10067099003|22082099003|18002099003|11063799006|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	oJv3Bm6RTV+3SQlovTgYRcTSF0Es5SK1WJK0X3NOw/qpu1v9zTBkrPlN+vqoFyNLjpSXeBG66y20JfUcjtmX9t5uT5pEWmPJcGx45V+05n0bBnT6nfB5DJztsVuGKovt1NrQYIQtypG/i2eQs6diD3AEVV+ISpYheUVjdWUhnxwjMWVUig7uxtScoJbtuEthjquMDgDMKT9sW4NnAaqgIZwzu4JYA5slXicnXu3ILjQXrnrFaDlcmsOv7Yy6SsKasltvgNhmFKHjMQOnpstwwwEPXJnZLhn5IFMbI4kxKdX8yOYIbqVtnYM3GAeRpFHv0XTl8wo30jMfXg0IdXh6LfEZ5CEB9I5fPugEiDW4fkXFXFntAV4FSWWIJUp8yFay3t9d9hIGJMggoq6zZnaDggnCGLdcImaI+A08IwNAtNKDQsjYaG7OpCCnMwYgE+xwQxs+SMuoU0JPQv756L+8B8ioCTza9dXlOLuAYvwvXJS7CXmgpJM57bgOd8Zt7xqLBYCsvbOtVl8iW71+p6ykJxJzGS0WbKHr6FS96keqF0fQBAB6EarbBSmfyR317nGxWI11ljhmpHElYAEeM6cqQpJjCAVTY3lDiqK0G0xIqah7HlhmlLIq1n73qTTuyaBbqkGpiu6zgUTQ/6yvOLWeO4JX0jfHA7Fu8dYdIDwGU2Q=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9620.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(7416014)(376014)(56012099006)(10067099003)(22082099003)(18002099003)(11063799006)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?9BUEj3+AQJUuaxgkVh4yn5cJiqVa54Jod7qMRcDdbYM3+p7qcTPsNVoaqZwi?=
+ =?us-ascii?Q?lBt/xHOVDb2HQ1MRVGap/XznPPvMBaJGvbwVjABhniaQfFG4lkdIhbm41g+c?=
+ =?us-ascii?Q?3xkfYQPSnBa2QrNA8o7T1xHNKbxuTZr37P3KvvICOgm6YmiiW3jQc+280E//?=
+ =?us-ascii?Q?4O1RBVwaNDPfNJS2gTPt7zlvJ89diwP48cqMgFpRY8yKqoJYaPt0dRTUoI/v?=
+ =?us-ascii?Q?BhKOjvS+y5kAixIrJIpKnVm/pW6/HWAleTZpovBAso4bTaTMS0aLIoRsgWmW?=
+ =?us-ascii?Q?4m02IrBZD2DCCkXKucGxyNIKiEgogCzsxEgsSKqwloIUUTupb7fqdM7W25Mi?=
+ =?us-ascii?Q?yWWyrB3hJ0hOPUBsaVK6FCQd9oJBHj8ZjcL4sKyfr0z0DxoIUua5LaJo9Crq?=
+ =?us-ascii?Q?Ua84DoTEliBsPBZZCQNRrmT5AWTFcXwYs7oFRk7K/aej0/odZC+Uny07VFMg?=
+ =?us-ascii?Q?3zRt8P6/AXwvQ+LNhgid6/ceU9fSIh6TSITdLrpWsZjj1J70SgwV23VWKvuI?=
+ =?us-ascii?Q?udoytXMrAOPta7sTLgCxDnOeFSOFIsq+dqLQn6z9ifmtce43qNRmzcNO1FYn?=
+ =?us-ascii?Q?qQKoR4qtU+3U0+14MoveICYn0RuIxzCS/0e4Imhd58xBGqxoTWp815ve+fu2?=
+ =?us-ascii?Q?f6Hpe18y8Mm8d1W+43Nz238Ui6dfBAkarQc3KZiDvAQnhNQItOpISMRmyYSc?=
+ =?us-ascii?Q?xLSRb+S/K2cE6T5JU3XOX6A4otKYPY045uxPsIUuPPTaQDOjDVHdyZvsfnDZ?=
+ =?us-ascii?Q?L6OOL+LEXPDM3NGltuVPZhVdzWRnMQ+hkRo7Uz/rQd8kGzjUiLAVDQNevo5J?=
+ =?us-ascii?Q?K8z7WJjreUYeB0loARuKMghX65FtDRPhThtJf2URWFMbQPz2jhOHKhLmWSWE?=
+ =?us-ascii?Q?pYtMAYTpjoL+MyvogMgGJJ46t57+IMxx+YsJdLGv8GPV3UJlALXOeIIcNt1W?=
+ =?us-ascii?Q?A3uJ1PMrp7O0Lyiy7dQCPIEI8Nu9PcHtDshvNE7FshSENS3aFhnM0iX9L98N?=
+ =?us-ascii?Q?te06ZQU3vx6YSTakj542T2mWRby40+ChRjcyIWP2eWPBZNU6WLcmVWW4abnD?=
+ =?us-ascii?Q?OQu7AoLb+/9TRC8xXZ9HBcbWj5XchZQmT5L3fzuMknP81dpTJ36t0Ljepya7?=
+ =?us-ascii?Q?rUAQ6P06dIV4U1fKFaDhZ13MugdZudUG3i2fXHo236tMrN+HKsqsSIDJ/SGb?=
+ =?us-ascii?Q?Y/BDFQg1jXX9H7Glhuru+6wex67ElyAyYfGMIHELcokCmI9Ylqxe4JfxCn0A?=
+ =?us-ascii?Q?5g1r6Him5Nld1RIv20h+kLRP4GXx2BrFEFOZHRKcpR9L1EetI0TJ6fA1Lmtv?=
+ =?us-ascii?Q?rOTVyfIMX0Chmfn5ls/qDMkiJMY/E2nviPijB/ykQrhcECHeRfAxGkIVU4CP?=
+ =?us-ascii?Q?B494nVxDKaOuN/sEzc/YV5R3fF3OHRsG44A9ejuTjIWU1V8D6D5DFNlNQgoo?=
+ =?us-ascii?Q?KLt4e12he+iq8RVUFOMm2K6da967FC2Dgw/xaKtXCc0pH8v1Uw2myevLgPa3?=
+ =?us-ascii?Q?8jr7/EaofPa2NTwOo0bcPJsCkjG9RfkFAqoSUfKQqR720ZZ9h7nx/0TSbMbx?=
+ =?us-ascii?Q?/4Mc35l5e0C7Y88Qd0p42lx4Q10hw3f7b2p6b+8A7g0p3lZ4M/Ome07VwbeH?=
+ =?us-ascii?Q?qU4SiQDr+SPYs6huBG1+5EjuO5+nFKIFJ8p0h7hbUAs8ZPn3PY5PqmrrWBTA?=
+ =?us-ascii?Q?ZZAnhZI296Vri0xioe/u0zJY3CDC7z4JD6JlQ6g2vmfNhGIk?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c34f0b8c-6bea-4488-5040-08df038fa26f
+X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 16:32:35.1770
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: oa8E4iv6RtF8CZBG9OiZiAHfNlTsH+aP+RESeIGdNxi0A60u59VivW79OvdfOEp2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPF0D942FA9A
 
-The USB core kills every outstanding URB and disables an interface's
-endpoints before it calls any driver callback. A driver with something
-left to say to the device on the way out therefore cannot say it: the
-transfer names an endpoint that no longer exists and is refused.
+On Wed, Aug 26, 2026 at 10:23:20AM +0200, Andrew Jones wrote:
+> RISC-V uses the same basic model as x86 (an IOMMU-owned interrupt
+> remapping IRQ domain). x86 makes that domain per-IOMMU because its IRTE
+> resources belong to the IOMMU instance. RISC-V makes it per-device because
+> its callbacks operate on the device's attached IOMMU domain and preserve
+> that device's existing MSI parent. The IRQ callbacks provide the lifecycle
+> hooks, even though the mappings, MSI table, and device context all remain
+> IOMMU state.
 
-Expose the core's soft-unbind flag as a driver constant. Setting it
-defers that teardown until the callbacks return, which makes cancelling
-outstanding transfers the driver's own responsibility.
+The irq domain isn't per device, it is per msi table, many devices can
+share the same table, and the VM should have a single shared table
+across all devices. That's the core uniquely RISCV wrinkle I think.
 
-This matters to a driver that leaves the device in a state a user can
-see. A display bridge that simply stops sending pixels leaves the
-monitor lit on whatever it decoded last.
+IDK how Thomas would like to model this, but you will get a better
+result if it is very clearly explained and asked.
 
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
----
- rust/kernel/usb.rs | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+I would like to keep the iommu out of it, so I prefer if IRQ code
+patches in its MSI table pointer broadly the same way AMD does.
+Though AMD doesn't have the restriction that remapping only works with
+a S2 domain :(
 
-diff --git a/rust/kernel/usb.rs b/rust/kernel/usb.rs
-index b2a0fb104ddf..1d8f5bc8a545 100644
---- a/rust/kernel/usb.rs
-+++ b/rust/kernel/usb.rs
-@@ -107,6 +107,7 @@ unsafe fn register(
-             (*udrv.get()).pre_reset = Some(Self::pre_reset_callback);
-             (*udrv.get()).post_reset = Some(Self::post_reset_callback);
-             (*udrv.get()).id_table = T::ID_TABLE.as_ptr();
-+            (*udrv.get()).set_soft_unbind(T::SOFT_UNBIND as core::ffi::c_uint);
-         }
- 
-         // SAFETY: `udrv` is guaranteed to be a valid `DriverType`.
-@@ -474,6 +475,19 @@ pub trait Driver {
-     /// The table of device ids supported by the driver.
-     const ID_TABLE: IdTable<Self::IdInfo>;
- 
-+    /// Whether the USB core must leave this interface usable until the driver has let go of it.
-+    ///
-+    /// By default the core kills every outstanding URB and disables the interface's endpoints
-+    /// *before* it calls any driver callback, so a driver that has something to say to the device
-+    /// on the way out cannot say it: the transfer is refused with [`ENOENT`] because the endpoint
-+    /// it names no longer exists. Setting this defers that teardown until after the callbacks
-+    /// return, which makes cancelling outstanding transfers the driver's own responsibility.
-+    ///
-+    /// Only useful to a driver that leaves the device in a state a user can see -- a display that
-+    /// otherwise goes on scanning out its last frame, an interface that must be told to power
-+    /// down.
-+    const SOFT_UNBIND: bool = false;
-+
-     /// USB driver probe.
-     ///
-     /// Called when a new USB interface is bound to this driver.
+Jason
