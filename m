@@ -1,286 +1,105 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 204A841A914;
-	Wed, 26 Aug 2026 12:25:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A85783FD139
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 12:25:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787747113; cv=none; b=qso4K9p1g4Y3da8SOuLM56m6UmH8TwlMoTTNzXQOKTf53Ahq/CJs3mTaXmHw/CSIkkKKoF9J16lrNqeytR/a3Jfcap8+6qG4n6r5iBuTtsCKJ9fSn1ttP5YyQEfzIt0QSdaPUOFMpN7Mz71z/f3tZOq6qrHKruubDpRdnVffwbA=
+	t=1787747137; cv=none; b=G3iHhARYaQrrd0ziq2Ihhh/ygHWGHNUskugkBIcMvvCAnt2FXd1EPJGNCASZH8BgZH4mBF83qV0kXfsyaBBDRiaQ8yZTC2VM68vy2Q2cCNd0U+QZDuZnS/E0jhSULYQRsQ6VnRDRE0vREqZ1RY+bhHVrblh1KrUkaD6hjJm1T7c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787747113; c=relaxed/simple;
-	bh=j7yzn2+ip7gaDbogI2HF7uGqF+si9ui1mIt3+JN8ZOo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=KHWzPdqBZm47tgd5xXgpfvuGwML1y94wJPDy8dgRF+frSWb4VwNXKV8veB89fGvNAHsAiPRSQYHAOrI0Y3br7zgi15QulyOFLu6W7/46XMqpwyh0lhr+M9oBJlIL4ikN7bzN5ftvsY87ko0FvqIgFWioqI/ekcOW7RAoP6vSjL8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=gLcxi1GC; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1787747137; c=relaxed/simple;
+	bh=G/4pYCI+p6biU0oob2SAOB3uONa8AVChe5krxzG7DZg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PqsGeBZ5qe/rvdXIfYWsPMt6ml4VYtJNyZzFC6g5YdLamN5njIpDH/JmR7Eqi5Qi/Dnew2DKpXvZ12X95Rege98Yd7+fryiVmPKthrgDVcTUVfcDdyLlpO1JAWELVXMTU6yu+QhicceRigxB4fCYYeCH3aPWUkNjFIXXF4V1S6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HhUMNIPi; arc=none smtp.client-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="gLcxi1GC"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 96DE41713;
-	Wed, 26 Aug 2026 05:25:06 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 73DA93F7D8;
-	Wed, 26 Aug 2026 05:25:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1787747110; bh=j7yzn2+ip7gaDbogI2HF7uGqF+si9ui1mIt3+JN8ZOo=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=gLcxi1GCoNWa/KSQheBTpWMJnIXEejun7+7KuWg4y2JktPJW5wDFYyP2OSk5yzsI2
-	 geDvUhCW+qtcSlo21nDzy6QssLvr+yVHB0zozWBIeYtrir+W1zVTZUrXurz/1FN/fv
-	 wS3PtMHvgpU3Y6BCLoc5N1mUxq9Z6AWw9/SZbjnY=
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-Date: Wed, 26 Aug 2026 13:24:40 +0100
-Subject: [PATCH v2 2/2] kselftest: mm: replace usage of /proc/self/smaps
- for check_huge_xxx() helper
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HhUMNIPi"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2cc891373e0so12011495ad.2
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 05:25:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787747134; x=1788351934; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QLB1RbqXq7v7CNRa3wJukW4z5hiwan9Z3mACetA9txg=;
+        b=HhUMNIPiTSQVpBDqwuYr1bDNISgpuMItOcXrP8pRE91ZF2A1Kz6ESIQ9nndGokElNp
+         61Nv3Mlz2+BCWHw6ga38qZHnQR1hd6hba7qAFyQB4Wq+eQX1ZYa3X2E8qCEljS/B2v7R
+         auFYK8/B3vBhgBgOhDQhgiaOgIehTTNf1QYW5E8Ya4UfKmicEn/xdluepOMRoN78KvOl
+         ukDq7CEomaNwUfDkNKrF5IgODpG/RCs5J5ehaJUWOSe8UeJsz1sSMZD0mmuJTlLLBxo1
+         TgRc3X/ilTb5y8+QGHmu/R7oqlCI0f6h8jL3lQEZOXTHMISfPV4o6Shkfq3YFCr0HEN5
+         ffwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787747134; x=1788351934;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=QLB1RbqXq7v7CNRa3wJukW4z5hiwan9Z3mACetA9txg=;
+        b=qhvUYgvlRy1t8WMoOEi5dWUoXdS/fPAPeHj0M6YBCu7qdtY60hdxAb5pJUqjL8jwQw
+         WPZIkqXqLX86r5/yQhx/7wthrpR1ymwqv5DWW98n9nO4ls1+NVBgWfzrgO47l1AejJf2
+         i2KO4iR5e7RCC9BC0o78D/Z3Jowc3h63yraMQOjWFvAfyxnFfsR9KzNVkZVpiVSb6IKn
+         /0Rz+2Vf4g/Cz4XQDO3RKaOk8Dn5Sc1VaxKsYGinaVllLLenNhcfvRDhoY10SQtpit5O
+         ITwrexG3rC5QB5VgED9cs+cn9Zo/WN0HaCbGbQIIfP7VLE/w/ch+3QDIXchguldoNKm0
+         z8Dw==
+X-Forwarded-Encrypted: i=1; AHgh+RqXtM/3CZtz18V7wQ+jojSGfNj9T7OUVBqSSZKaEL2pMWpsZXCSVDCfYK0q/e1TfoFO9Pyx+T2m89nAzgc=@vger.kernel.org
+X-Gm-Message-State: AFuF++l8Y4AHv/pjpdd4FqT1u5T8a2HvTaNVJmYLm+Pwq+KyvP01WmUm
+	VYWO7atlZ6Nvuqsv9AzsXY490KP3X+7zFaL4WN0BVLb5pTevbsSro3Rr
+X-Gm-Gg: AR+sD11nuOGG2HQB5Mw503/MHYgcn7vA2JboVOWM1abtkeQBs15+U767c3kRcHyNixD
+	fIJ2w4ToIVScn3U7fQyErYeJKeG9dwbooVT6/xf+SW4y2k2CSdMQyMXPJm0BCik61m+dWP1YvuX
+	eo2twOh6x56aVJskf/OM3T2lThbBaQrm/pft7vuFs49Fql54/4o/1J7193o0wfWcybydQKDADD3
+	E8htNQLrthrMGJOh4esFAYODxXjl1GjZq9J1Eav2oLw0Ef8BbYGUcm9r98j2XV8FBI20i8ozbVG
+	m5cIfi68JI7yJGpy4nlr+p5hMBoEsxyN8xDklOEc7JrSssO8+yf601x8L3EEiZPspDka8LSH2y3
+	p29r4VxkLIlBHypwb4WyCFW1oAtVCP3lt914XnhYAFh1H4aD3V7dVOoL0HalCtlUBj3AR0Rym17
+	p2gyHxJsN4JP+3N6lYylb3gDSKi5W8N3+kipLMO/kacIdKlDOdY4BDimBva3ecHwzJt7bKLpfvB
+	+EnPZz88/oEOXMS5u7hCi9wvSPW
+X-Received: by 2002:a17:90b:1dce:b0:381:cef1:11ac with SMTP id 98e67ed59e1d1-3966d3e1cfdmr13717327a91.10.1787747133812;
+        Wed, 26 Aug 2026 05:25:33 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:5877:641:857b:1318])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a905c18bsm8457963c88.14.2026.08.26.05.25.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 05:25:32 -0700 (PDT)
+Date: Wed, 26 Aug 2026 05:25:29 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Alvin =?utf-8?Q?=C5=A0ipraga?= <alvin.sipraga@analog.com>
+Cc: Michael Hennerich <michael.hennerich@analog.com>, 
+	Xiaolong Chen <xiaolong.chen@gmail.com>, Yuanbo Ye <yuan-bo.ye@motorola.com>, Tao Hu <taohu@motorola.com>, 
+	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, linux-gpio@vger.kernel.org, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] Input: adp5588-keys - cache GPIO state before
+ registering the gpiochip
+Message-ID: <ao7bNPVKN1q4dWOS@google.com>
+References: <20260818-adp5588-gpio-cache-v1-1-650a2674fc0d@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260826-fix_split-v2-2-71153c7f579a@arm.com>
-References: <20260826-fix_split-v2-0-71153c7f579a@arm.com>
-In-Reply-To: <20260826-fix_split-v2-0-71153c7f579a@arm.com>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>, 
- Kevin Brodsky <kevin.brodsky@arm.com>
-Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Yeoreum Yun <yeoreum.yun@arm.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7240; i=yeoreum.yun@arm.com;
- h=from:subject:message-id; bh=j7yzn2+ip7gaDbogI2HF7uGqF+si9ui1mIt3+JN8ZOo=;
- b=owEB7QES/pANAwAKAW3Vw9FaxTEzAcsmYgBqjtscnI2PSSpeC1NV+a49cQWW7aq4gHufdTP8r
- IT22MsqHWeJAbMEAAEKAB0WIQQtg+CS3QUzuFh1pJ1t1cPRWsUxMwUCao7bHAAKCRBt1cPRWsUx
- M3fwC/4wN69ja0RsRNlDZHSVZ1KLLaJerixhWSAn2QGJky3iQYr7Nmr/KfCO9EO2p+5BMPHtsNM
- 5bFtLeY4VLCTTva5wuqXN55dxhzXvUptRLTdqRuYArp6hYS+1YfV5+Fk1PFWeGo0swETkD+NobW
- HiwGc7Xl6//VzPS37TkZmGcNs70QSGTz0RdyoNO3ieDMWSaBKY4IA4u7LqmHiIcCjtuzhceuL0V
- beVaDwYrJ+pHKOruVf9lAw9xrp0OBFeHSsZsPAeICLDPb3YF4ymk/Ymbn8sXCCOahTu+lO+yHIq
- NGzRKiKKdcn7lEOKIRxu0MXwysRSOIqrvKHpLQBFRN6XeduwqgfN5Q2004vVy2taCvqyLWlJvdh
- Q+pcnpcC0DsN18ah425OdQgNrLGQZuicKuHtbkN/vyA9S3Ek5IA4DR8kC3A1K86GNP5tYoqSKqR
- peOwxfk74qa27301wE0rSYMMtNFqErfapa3P6IrRbDE3ipRlB4wNA4KsBm83Vd0FwuZUg=
-X-Developer-Key: i=yeoreum.yun@arm.com; a=openpgp;
- fpr=2D83E092DD0533B85875A49D6DD5C3D15AC53133
+In-Reply-To: <20260818-adp5588-gpio-cache-v1-1-650a2674fc0d@analog.com>
 
-Since glibc commit 321e1fc73f (“malloc: Enable 2MB THP by default on AArch64”),
-glibc may call madvise(MADV_HUGEPAGE) for sufficiently large allocations
-made by memalign().
+On Tue, Aug 18, 2026 at 06:00:02PM +0200, Alvin Šipraga wrote:
+> So as not to clobber any pre-programmed GPIO state in the execution
+> of its gpiochip ops, the driver caches things during probe time.
+> However, since those ops can be called both during and immediately after
+> the call to devm_gpiochip_add_data(), it is imperative that things are
+> cached before that. That's not the case right now, so reorder the two
+> steps to prevent any clobbering.
+> 
+> In a conrete example which motivated this change, a bootloader was
+> preconfiguring an important GPIO output to HIGH before booting the
+> kernel. Linux would then inadvertently set that output to LOW while
+> configuring a GPIO hog on a discrete GPIO line within the same 8-bit
+> bank (because the cached value was 0=LOW).
+> 
+> Fixes: ba9f507a1bea ("Input: adp5588-keys - export unused GPIO pins")
+> Signed-off-by: Alvin Šipraga <alvin.sipraga@analog.com>
 
-The underlying VMA may start at a different address from the aligned
-address returned by memalign(). Furthermore, a subsequent
-madvise(MADV_HUGEPAGE) call does not split the VMA because the flag is
-already set.
-
-This causes split_huge_page_test to fail because the check_huge_xxx()
-helpers incorrectly require the address returned by memalign() to
-match the VMA start address reported in /proc/self/smaps.
-
-Fix this by using /proc/self/pagemap and /proc/kpageflags instead of
-/proc/self/smaps to detect huge pages.
-
-Reported-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
----
- tools/testing/selftests/mm/vm_util.c | 130 ++++++++++++++++++++---------------
- tools/testing/selftests/mm/vm_util.h |   1 +
- 2 files changed, 77 insertions(+), 54 deletions(-)
-
-diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/mm/vm_util.c
-index 4821a3563036..1d0959b3b9e8 100644
---- a/tools/testing/selftests/mm/vm_util.c
-+++ b/tools/testing/selftests/mm/vm_util.c
-@@ -351,31 +351,13 @@ char *__get_smap_entry(void *addr, const char *pattern, char *buf, size_t len)
- 	return entry;
- }
- 
--static bool __check_pmd_huge(void *addr, char *pattern, int nr_hpages,
--		  uint64_t hpage_size)
--{
--	char buffer[MAX_LINE_LENGTH];
--	uint64_t thp = -1;
--	char *entry;
--
--	entry = __get_smap_entry(addr, pattern, buffer, sizeof(buffer));
--	if (!entry)
--		goto err_out;
--
--	if (sscanf(entry, "%9" SCNu64 " kB", &thp) != 1)
--		ksft_exit_fail_msg("Reading smap error\n");
--
--err_out:
--	return thp == (nr_hpages * (hpage_size >> 10));
--}
--
--static bool check_large_folios(void *addr, size_t len, int nr_hpages,
--		uint64_t hpage_size)
-+static bool check_large_folios(int pagemap_fd, int kpageflags_fd,
-+			       void *addr, size_t len, int nr_hpages,
-+			       uint64_t hpage_size)
- {
- 	int order = 0, pagesize = getpagesize();
- 	unsigned int nr_pages = hpage_size / pagesize;
- 	int orders[MAX_NR_ORDERS], status;
--	int pagemap_fd, kpageflags_fd;
- 	bool ret = false;
- 
- 	if (!nr_pages)
-@@ -386,15 +368,6 @@ static bool check_large_folios(void *addr, size_t len, int nr_hpages,
- 		ksft_exit_fail_msg("invalid order\n");
- 
- 	memset(orders, 0, sizeof(int) * MAX_NR_ORDERS);
--	pagemap_fd = open(PAGEMAP_PATH, O_RDONLY);
--	if (pagemap_fd == -1)
--		ksft_exit_fail_msg("read pagemap fail\n");
--
--	kpageflags_fd = open(KPAGEFLAGS_PATH, O_RDONLY);
--	if (kpageflags_fd == -1) {
--		close(pagemap_fd);
--		ksft_exit_fail_msg("read kpageflags fail\n");
--	}
- 
- 	status = gather_folio_orders(addr, len, pagemap_fd,
- 			kpageflags_fd, orders, MAX_NR_ORDERS);
-@@ -405,48 +378,97 @@ static bool check_large_folios(void *addr, size_t len, int nr_hpages,
- 		ret = true;
- 
- out:
--	close(pagemap_fd);
--	close(kpageflags_fd);
- 	return ret;
- }
- 
--bool check_huge_anon(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
-+enum check_huge_type {
-+	CHECK_HUGE_ANON,
-+	CHECK_HUGE_FILE,
-+	CHECK_HUGE_SHMEM,
-+};
-+
-+static bool __check_pmd_huge(void *addr, size_t len, int nr_hpages,
-+			     uint64_t hpage_size, enum check_huge_type type)
- {
--	uint64_t pmd_pagesize = read_pmd_pagesize();
-+	int pagemap_fd, kpageflags_fd;
-+	uint64_t pmd_pagesize, granule;
-+	uint64_t categories, kpf;
-+	unsigned long pfn;
-+	bool check_large, huge_mapped;
-+	char *start = addr;
-+	char *end = start + len;
- 
-+	pmd_pagesize = read_pmd_pagesize();
- 	if (!pmd_pagesize)
- 		ksft_exit_fail_msg("reading PMD pagesize failed\n");
- 
--	if (hpage_size == pmd_pagesize)
--		return __check_pmd_huge(addr, "AnonHugePages: ", nr_hpages, hpage_size);
-+	if (nr_hpages > 0) {
-+		check_large = true;
-+		granule = hpage_size;
-+	} else {
-+		check_large = false;
-+		granule = psize();
-+	}
- 
--	return check_large_folios(addr, len, nr_hpages, hpage_size);
--}
-+	pagemap_fd = open(PAGEMAP_PATH, O_RDONLY);
-+	if (pagemap_fd < 0)
-+		ksft_exit_fail_msg("open pagemap fail\n");
- 
--bool check_huge_file(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
--{
--	uint64_t pmd_pagesize = read_pmd_pagesize();
-+	kpageflags_fd = open(KPAGEFLAGS_PATH, O_RDONLY);
-+	if (kpageflags_fd < 0) {
-+		close(pagemap_fd);
-+		ksft_exit_fail_msg("open kpageflags fail\n");
-+	}
- 
--	if (!pmd_pagesize)
--		ksft_exit_fail_msg("reading PMD pagesize failed\n");
-+	if (check_large && !check_large_folios(pagemap_fd, kpageflags_fd,
-+					       addr, len, nr_hpages, hpage_size))
-+		goto out;
- 
--	if (hpage_size == pmd_pagesize)
--		return __check_pmd_huge(addr, "FilePmdMapped:", nr_hpages, hpage_size);
-+	for (; start < end; start += granule) {
-+		categories = pagemap_scan_get_categories(pagemap_fd, start);
-+		pfn = pagemap_get_pfn(pagemap_fd, start);
-+		if (pfn == -1UL) {
-+			if (check_large)
-+				goto out;
-+			else
-+				continue;
-+		}
-+		if (pageflags_get(pfn, kpageflags_fd, &kpf))
-+			ksft_exit_fail_msg("read kpageflags: %s\n", strerror(errno));
-+		huge_mapped = categories & PAGE_IS_HUGE;
-+		if (check_large != huge_mapped) {
-+			if (!check_large || granule == pmd_pagesize)
-+				goto out;
-+		}
-+		if (kpf & KPF_COMPOUND_TAIL)
-+			continue;
-+		if (!!(categories & PAGE_IS_FILE) != (type != CHECK_HUGE_ANON))
-+			goto out;
-+		if (type == CHECK_HUGE_ANON)
-+			continue;
-+		if (!!(kpf & KPF_SWAPBACKED) != (type != CHECK_HUGE_FILE))
-+			goto out;
-+	}
- 
--	return check_large_folios(addr, len, nr_hpages, hpage_size);
-+out:
-+	close(pagemap_fd);
-+	close(kpageflags_fd);
-+	return start >= end;
- }
- 
--bool check_huge_shmem(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
-+bool check_huge_anon(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
- {
--	uint64_t pmd_pagesize = read_pmd_pagesize();
--
--	if (!pmd_pagesize)
--		ksft_exit_fail_msg("reading PMD pagesize failed\n");
-+	return __check_pmd_huge(addr, len, nr_hpages, hpage_size, CHECK_HUGE_ANON);
-+}
- 
--	if (hpage_size == pmd_pagesize)
--		return __check_pmd_huge(addr, "ShmemPmdMapped:", nr_hpages, hpage_size);
-+bool check_huge_file(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
-+{
-+	return __check_pmd_huge(addr, len, nr_hpages, hpage_size, CHECK_HUGE_FILE);
-+}
- 
--	return check_large_folios(addr, len, nr_hpages, hpage_size);
-+bool check_huge_shmem(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
-+{
-+	return __check_pmd_huge(addr, len, nr_hpages, hpage_size, CHECK_HUGE_SHMEM);
- }
- 
- int64_t allocate_transhuge(void *ptr, int pagemap_fd)
-diff --git a/tools/testing/selftests/mm/vm_util.h b/tools/testing/selftests/mm/vm_util.h
-index 9a49af88702e..f19bd17817e5 100644
---- a/tools/testing/selftests/mm/vm_util.h
-+++ b/tools/testing/selftests/mm/vm_util.h
-@@ -18,6 +18,7 @@
- #define PM_SWAP                       BIT_ULL(62)
- #define PM_PRESENT                    BIT_ULL(63)
- 
-+#define KPF_SWAPBACKED                BIT_ULL(14)
- #define KPF_COMPOUND_HEAD             BIT_ULL(15)
- #define KPF_COMPOUND_TAIL             BIT_ULL(16)
- #define KPF_HWPOISON                  BIT_ULL(19)
+Applied, thank you.
 
 -- 
-2.43.0
-
+Dmitry
