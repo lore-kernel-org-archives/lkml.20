@@ -1,100 +1,101 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-72.mta0.migadu.com [91.218.175.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB3E640F72D;
-	Wed, 26 Aug 2026 12:43:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 978143AE1B4
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 12:43:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787748222; cv=none; b=Y3OhlHvZlowvwg+reK0RTfJ5/PeOdlJ/av8Z0zgyui0UvYzYWSBdzo1kIrXI4GdNMQBdpP3W4+Kje/iUSWCAhvhxeA+Fx+gojFdoWD9xHvpDL1asf0QR84RsmEKfOrWfTFWVGcoUQlaM9y/poA5FYrylEBxqW1DIK2oO4gof5RU=
+	t=1787748223; cv=none; b=DzLJfIpI3C0pSVKms5AmtbEQcabqQQT1qXAkBUg2EukWk1ahlM9G3AoSSr37QLhZwydtncVoabja+xi91q2K1fRmFThdpE+jeX3xOML/37OHOTaku76pgfDRtcoLY0VZQiz8WsVcz6PWfVFBDoc+8kozJyJzVRKRMYxErEo1cU4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787748222; c=relaxed/simple;
-	bh=50EVnbLhgMdyVGypBo9kduQP9h4EKPQxaXXDjtJbMYE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TkFgYlIdYTOBO8E4hxKkY/LksiAFuVf/OSyXmEsCJqI/nDt7WVuvUyhRvZmOcLugQeIDl+0M5i8/LrEU++V7oeLx0a8D+AuHxM7ztd0VHN5XRlaWMrPNb4jcih21DZYEe4ktIzyv5M4E2BRLdP1yt8J/ZgEugHIF6SCyu2veenc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=4pWIDh7X; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1787748223; c=relaxed/simple;
+	bh=dRZqnAdU/1gz1hPYT2CpYwf16xguN/jACTpU56xyZJU=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dzeXKiVgTSO9zi3HPFQ64bhgERaXJ6KyEn40S7d2DqZ6t99O9c4YI2PZVLoJXTCZPYtozEHaxycnYgXGXtKCaqCpcU5bv9fuX2EfNDChinV40mp8rn/AGfmPVv6yYA2t0A4XLmy30DBsZaMp59BrldyP2Wz96tQww05MFRv1w4k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=BdiMhhlj; arc=none smtp.client-ip=91.218.175.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="4pWIDh7X"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=arzcOx6vfsLYPgRwHygN2YIb0+P0qfJJ6xKycIsxFh8=; b=4pWIDh7XFmvoLHLNC90P76IIWl
-	ucnt/UAr0z3ZD3IrCPmywBEsDDygHbtcNufv3Dpiv0zthavCUNKbywAYYAG4k2+CWaJxPt7cpzcs2
-	fGOQnPfFvyjJmEPrl/mdAhEjRazQejowXjDqtapyjCnezhp9CGL6oWcK2UF5wuoWg9OY=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wzCyT-001WTi-LH; Wed, 26 Aug 2026 14:43:25 +0200
-Date: Wed, 26 Aug 2026 14:43:25 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Kyle Switch <kyle.switch@motor-comm.com>
-Cc: olteanv@gmail.com, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, mmyangfl@gmail.com,
-	horms@kernel.org, linux@armlinux.org.uk, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, ming.xu@motor-comm.com,
-	xiaolin.xu@motor-comm.com, jianmin.wang@motor-comm.com
-Subject: Re: [PATCH v3 net-next 2/2] net: dsa: Add support for Motorcomm
- YT922x
-Message-ID: <55523ac4-023b-4ed8-8519-293c778044a4@lunn.ch>
-References: <20260825061610.3116673-1-kyle.switch@motor-comm.com>
- <20260825061610.3116673-3-kyle.switch@motor-comm.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="BdiMhhlj"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=dRZqnAdU/1gz1hPYT2CpYwf16xguN/jACTpU56xyZJU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787748217; v=1; x=1788353017;
+ b=BdiMhhljcCTuhMF2lWgsYLB9YHmlpx2Tg43KPf+hGqWLGbMsl59lkq+dHTzdVf3H1pkEGe7M
+ MvwqUQxQRC3fpwgBmMt8KLOa5a0c3IUmRru02n0QPVm9ZulsWCRp6BdfVD3jiscDmO3jnoTzX3G
+ EWRYKnXuyWPZN49FWakwQfeI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: from localhost (2602:fce1:44f:115e::)
+	by smtp.migadu.com with ESMTPS id a185f76d2de5e8a4;
+	Wed, 26 Aug 2026 12:43:27 +0000
+X-Mizu-Trace-ID: a185f76d2de5e8a4
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: ljs@kernel.org
+Cc: akpm@linux-foundation.org,
+	david@kernel.org,
+	ziy@nvidia.com,
+	baolin.wang@linux.alibaba.com,
+	liam@infradead.org,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	lance.yang@linux.dev,
+	usama.arif@linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [PATCH] MAINTAINERS: remove myself as THP co-maintainer
+Date: Wed, 26 Aug 2026 20:43:16 +0800
+Message-Id: <20260826124316.80455-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+In-Reply-To: <ao7Nr_FALfP7cTY5@gremlin>
+References: <ao7Nr_FALfP7cTY5@gremlin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260825061610.3116673-3-kyle.switch@motor-comm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 26, 2026 at 05:08:02PM +0800, Kyle Switch wrote:
-> Motorcomm YT922x is a series of ethernet switches including:
-> 
->  - YT9224: 4 * 2.5G UTPs and 2 serdes interface
-> 
-> This patch just add basic func for a working DSA switch.
 
-I asked you to break this patch up. I want to see lots of little
-patches, each with a good commit messages, each obviously correct.
+On Wed, Aug 26, 2026 at 12:31:09PM +0100, Lorenzo Stoakes (ARM) wrote:
+>Since it's 2026 :) I asked Claude to look at my time as THP co-maintainer:
+>
+>	~107,000 words of review across 948 emails (in 279 distinct
+>	threads), counting only prose you actually wrote — quoted text,
+>	signatures and attribution lines stripped. That's a full novel's
+>	worth of review commentary.
+>
+>	Along the way you handed out 194 Reviewed-by and 15 Acked-by tags,
+>	and your longest single review was 2,404 words (mTHP collapse
+>	support, v12 — the khugepaged/mTHP collapse saga accounts for most
+>	of your top-10 longest reviews).
+>
+>	Estimated review time: roughly 300–500 hours, centred around ~400
+>	(i.e. ~7 hours/week for 14 months).
+>
+>	1,615 THP-related emails in the window: 948 reviews of others'
+>	work, 278 replies on your own THP-touching series threads (~31k
+>	more words responding to review), 382 patch emails, and a handful
+>	of MAINTAINERS bits. Busiest months: March 2026 (131 review
+>	emails), June 2026 (113), August 2026 (111); quietest was December
+>	2025 (5).
+>
+>Think I can be happy with that!
 
-https://www.kernel.org/doc/html/latest/process/maintainer-netdev.html
+Aw, man ... I totally get needing to step back, but we can't let you
+disappear from THP that easily :) You've put a crazy amount of time
+into it, and your reviews and judgment have made a massive difference.
+We'd miss you badly.
 
-says you can have a patch series of up to 15 patches.
+Could we talk you into staying on as a reviewer for now? Zero pressure to
+keep up with everything or carry the maintainer load. Just hang around,
+jump in whenever you feel like it, and come straight back as a maintainer
+whenever life gives you the room.
 
->  static int yt921x_mbus_int_read(struct mii_bus *mbus, int port, int reg)
->  {
->  	struct yt921x_priv *priv = mbus->priv;
-> +	int max_ports;
->  	u16 val;
->  	int res;
->  
-> -	if (port >= YT921X_PORT_NUM)
-> +	max_ports = priv->series_info->ports;
-> +	if (port >= max_ports)
->  		return U16_MAX;
+Seriously, Lorenzo, THP still needs you. Please stick around!
 
-What did i say about this in my last review? This would make a good,
-simple patch, changing all YT921X_PORT_NUM to priv->series_info->ports.
-
-You first need a simple patch which adds struct yt92xx_series and
-yt92xx_series_table[] with very minimal contents, only mode and name,
-for the existing device. And add the code to do the lookup and
-associate it to priv.
-
-Then you can have a patch which adds .ports, and changes all
-YT921X_PORT_NUM to priv->series_info->ports.
-
-Then you can add .num_lag_ids and change all those references.
-
-Then you can add .ageing_time_FOO and change all those references.
-
-Slowly make the existing code more generic by adding to struct
-yt92xx_series.
-
-    Andrew
-
----
-pw-bot: cr
+Thanks, Lance
