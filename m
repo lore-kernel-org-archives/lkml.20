@@ -1,119 +1,74 @@
-Received: from YQZPR01CU011.outbound.protection.outlook.com (mail-canadaeastazon11020109.outbound.protection.outlook.com [52.101.191.109])
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011028.outbound.protection.outlook.com [52.101.62.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18A9A400971;
-	Wed, 26 Aug 2026 15:56:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.191.109
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9376D44AB8A
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 15:56:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.28
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787759777; cv=fail; b=GFGuoHgfKzNgqUkaJGlT+35CIuZHWlFiOp46vOVfmry34WhHNKTj1VPerqQrpEprg+4ZQI/r0eoXz/w14YVr23C45n5qvh+uSIAXXmQGJbu0bhi+nwVTXLbdr+9TBln46IDIg5Sh6yk2hviQZRrSlyWIuNBKOKVNdbdqo418Y8U=
+	t=1787759781; cv=fail; b=knEFgj013ziyDSUhzONPPkiz5zG37XJZf6CePK9JLf5+c6g9IxKek5IhKk4vVR9qSp+BfHff22+9j8v2UzmlTxW6LbPuJRWdwxgdZinzQk+fFG7kBlNgIT6pJWw1pPEeRX8an76AAR92CRJg1qFpj0uUNppfsqpWIeNGSbRwz/w=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787759777; c=relaxed/simple;
-	bh=RWN/Igsyyh2uSObgS9thMxwFC7IhgeB7GnETrO8OlKM=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=MjbJvMeYsgCJAgY8RjNbLiOEy3R7B258m7GW3N6EXHR+nkHuRs8OIzr8ORpa641N53bTBtspDbuspGgfgunrVZitK+G5zyB1so4P6Pi+PwHxXTwkM+ekvUsncPA9bPXri8LJhob2PSeZc4IYhaFoVnY9nRfzm3Sgnuli769UhHQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=T9YLwwff; arc=fail smtp.client-ip=52.101.191.109
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+	s=arc-20240116; t=1787759781; c=relaxed/simple;
+	bh=hN7fh8FOUAn5qrDBaEGKvQ3O65jwVPWLuFlpEt0PSig=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=UYAwN+3WcykND+NGgztGuYNrQk5Nq7sPgkWYv+4GonNG/9bj6QHKOTscPdWmhXP7nAcm9bFjRz1Ci7aMCdxLhgCruuxfRD+T+43aor3ogve44XXJc4pa8jdVSh1xxrtdreMhlEUhbErDaYfABFNs2qbzpqTNoTS1OTrcw4fXUCM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=q0sK0Q3+; arc=fail smtp.client-ip=52.101.62.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="T9YLwwff"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="q0sK0Q3+"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pxu2cojw6SfbrhDFF9jX1caANcc3mlwrn1uxNC7U9VWxjpd21uVYug54XTA9mcrwnosw3KwfhFKFn9exJ8fdyF4CPnRlc+srSvRIsejghsVNKtdTnqm+vtgrkJ3v+VjwVL4OB2OsHdkaHe03Opo+Rg5wAbutc29aBP3avvhWHbXmZqV2YOMpdbPj83hKxYsGmhoW3a3QcmIYOMRBYcffcDKzEUstNqvGNO4imZllNJC5rJbRb4pZF9/+Xsq1KzAnIoJiK6dMThCt896jx9wGYXqcvb9WwojCtJQbFXCWaIHA6soNDODDTQBUAT7OsOALURJn1ZQWLhUwKrR5iVk6LQ==
+ b=anfjHBwOkYIoxK/QXer9QTfoxndbFjMyWSMqdob79iEHJkHYphoIDhM6Rz6jqYWmACW5UV8WJ6LPipqrmn1ghO2g8A/wuDnC+Qnz4RnaTjBizz+OzDx9fd6Lf1XljMtdRaszyBf2HWP9/QUawSAnaCy8qJKjXOzYs8VT2LWtW+0G64EPCWqyban5D2lLS72Qw2XBL68N+CAa67nk7FNdA2i1DRUz38032KQcnKb5/4iCJSG5xTyjyfVzP4+nD7RjBEe/g43xoXgyJorYZCQU5divsrZ91hpVR7bdT/HpqDxYLV6+tqJy+ltLmhQJtU9+znjrbwSRPe/RhYaoicad+w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gFxBbk6b/Eyua/VAOU8GLvzg1kjqXw4cqgfuYXnWnGY=;
- b=YSeVqUR6Yk4LoT5hS+REdotpa87RtPTT4OpiegkmrJVTaSLu5Atm9VUmEnVhxUaF2qCDpDpP8cZa0BmcIKHLaIoaDBw8VyRqkjH4wb+tL3G7fcxGJ6eANxmLS8WEIXuYHUaHMzr8KS0Yvan60FZR0McHnuyf5p4IzN0gWRRHBqieWayeINYKYC5JIV0YO/ybzGTZWBTwPm2vXwUPQJcQxwOMRiLYb7nFMnLxfZoOyt6nq/75/eeG63m0FhsFOE5NGvCEP6aRiXqlye8jVkr6nzc4Ir28CyZgTNN2l8PIEj74IZ+neGLQH+pcUXmRcWGKc65UPWWsi8ferL7Nr+RStg==
+ bh=u7+ZPVQKo7cwnRHbIOY5SYsxtaR4UrxXWrb+wHu9GtQ=;
+ b=mn08FdSOsgm5/yFVu8QnfzHgMidu2P/oJWiiEP3OEQXs/y2fYGjC7nLQZaHG5yrWwZDICig7F+G3vIIu4oC2vUbonE5xoZ8SkZ8SLQLTO0NMf4VlNNtYhUQjej2+eKN1UKBRW8gFrvLdRIIpwhvEIiN2WuT7m77rKLREoL3sxyICk+iSAKt0Z7+9N174haB9Ig2M9vWx6RBuD1OdIGCVn5HEvTiUqP+RVkv53QuBJUk4OuDcm1Ub8Tb1GWvV9Np2Ti3rIASZMqSzE+xuZf+T6CNudFQARy9NlpnFlCziv6MFy2lChVYTmBtb5AAMPrKXQ3tPjIjKlTGkX/Sq0HUY6g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
- dkim=pass header.d=efficios.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
- s=selector1;
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gFxBbk6b/Eyua/VAOU8GLvzg1kjqXw4cqgfuYXnWnGY=;
- b=T9YLwwffxa/fOo+jpZvF9lGbh5EDNAVOMu7FYXVWGbakTKDuyLl5N0StmReVQD3zSVtt1X7PmSzIFn0J9hbDqhbDcXto39S+pH/O7y7Yw7NhB6lu+2X7+ySTzJJx+yUv6dNa/r7fYjTO9yhOyw7HUoXOyAvboaSFGZNrgLQlVY+KaJgNI9rTs+U7eMtcwa9Yco+ptBTFB8Z9TCxJEOjiirTEoDlDTXB2NrlTOVCgHOyv12Odbrs/xUMFHx2rUQNwebLUBEGl2hhnVMlx8f8+wFEO1Ecm5/U8S/byTfAqkSQOZVvBCi+rUZbHEDiK5/7o31mlbRoiIx8iQUKqEWO8lw==
+ bh=u7+ZPVQKo7cwnRHbIOY5SYsxtaR4UrxXWrb+wHu9GtQ=;
+ b=q0sK0Q3+OusZUizsWU03EOpgh+AwVsVNOSLHqwJWf+B1qrbxeLLNsy448ZK6VqUAREWmfrLpTr1shTONWyiFlYOWyMaCRMZPDAMxo7vu1TZyf5L2iyPNy2bdlPPuS27C7xeA/YgEsmNjZSOKy4HhY9inMwYxefv2+pX+sOB/nHLLSulb54+nR1Yowf3F6ak5ddmuY6/aI7grk2JVM22M65ozs+Q66eTzALC0qVAPC/OqArr3M/o6+MHq3lR1shUDYgEKh+K/3TrG6znUko98B49vHvGDSP4CTuR7ZC7Y6TGhn4oyB46WxD4SHd/4rUGsceomevAsZF4Q99JHBj9jsQ==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=efficios.com;
-Received: from YT2PR01MB6451.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:6e::20)
- by YT4PR01MB10692.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:102::8) with
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
+ by CH4PR12MB489481.namprd12.prod.outlook.com (2603:10b6:610:509::21) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Wed, 26 Aug
- 2026 15:56:09 +0000
-Received: from YT2PR01MB6451.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::1ee8:6055:75fe:7c18]) by YT2PR01MB6451.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::1ee8:6055:75fe:7c18%6]) with mapi id 15.21.0360.006; Wed, 26 Aug 2026
- 15:56:09 +0000
-Message-ID: <132badbd-61e9-4e18-a953-dd19153b246b@efficios.com>
-Date: Wed, 26 Aug 2026 11:56:08 -0400
-User-Agent: Betterbird (Linux)
-Subject: Re: [PATCH 2/2] selftests/membarrier: Skip unpermitted membarrier
- command test if preregistered by libc
-To: Andrew Morton <akpm@linux-foundation.org>,
- Chris Gellermann <christian.gellermann@codasip.com>
-Cc: shuah@kernel.org, linux-kselftest@vger.kernel.org,
- richard.weiyang@gmail.com, reddybalavignesh9979@gmail.com,
- linux-kernel@vger.kernel.org,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- "Paul E. McKenney" <paulmck@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
- Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
- K Prateek Nayak <kprateek.nayak@amd.com>
-References: <20260803124900.3328789-1-christian.gellermann@codasip.com>
- <20260803124900.3328789-3-christian.gellermann@codasip.com>
- <20260803133704.8802e73e1a212364e64f67ee@linux-foundation.org>
-From: Michael Jeanson <mjeanson@efficios.com>
-Content-Language: fr
-Autocrypt: addr=mjeanson@efficios.com; keydata=
- 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 IZHa
-In-Reply-To: <20260803133704.8802e73e1a212364e64f67ee@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBPR0101CA0196.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:67::8) To YT2PR01MB6451.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:6e::20)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Wed, 26 Aug
+ 2026 15:56:14 +0000
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c%5]) with mapi id 15.21.0339.012; Wed, 26 Aug 2026
+ 15:56:14 +0000
+Date: Wed, 26 Aug 2026 17:56:06 +0200
+From: Andrea Righi <arighi@nvidia.com>
+To: K Prateek Nayak <kprateek.nayak@amd.com>
+Cc: John Stultz <jstultz@google.com>,
+	Suleiman Souhlal <suleiman@google.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	Waiman Long <longman@redhat.com>
+Subject: Re: [RFC PATCH 04/16] sched/core: Activate blocked donor when no
+ owner is found
+Message-ID: <ao8Mlls40IG9Vp6g@gpd4>
+References: <20260826062901.2137-1-kprateek.nayak@amd.com>
+ <20260826062901.2137-5-kprateek.nayak@amd.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260826062901.2137-5-kprateek.nayak@amd.com>
+X-ClientProxiedBy: MI3PEPF00007536.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:298:1::4c8) To DM6PR12MB4827.namprd12.prod.outlook.com
+ (2603:10b6:5:1d6::14)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -121,121 +76,171 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: YT2PR01MB6451:EE_|YT4PR01MB10692:EE_
-X-MS-Office365-Filtering-Correlation-Id: 50c11c50-092d-4fb5-236f-08df038a8b9b
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|CH4PR12MB489481:EE_
+X-MS-Office365-Filtering-Correlation-Id: 89671d37-f46b-4e40-0eb5-08df038a8eb5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|10067099003|56012099006|4143699003|22082099003|18002099003|6133799003;
+	BCL:0;ARA:13230040|7416014|1800799024|376014|23010399003|366016|4143699003|11063799006|56012099006|10067099003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	IXffYkEUhcYo9cwSa0TBbIwY98HLds2XO1dFP6eHKsNYcRnCl6YnXOfDhL+jUOz14xr2FTM9nCBG4KJ3b/O/q4gz7DaUxKQ4zKq17CYbU68l6UQgRc+GqfF2RmXeXoIHF0MINDcIvu7iWBdSDUNTBPHAxKWNe02adD2PHIiLL6l6sPHqDzeR8sBoF8eRsTOX1pImDlBDZDXhtDU0JpMM5AISM64861b3bkLDSpdoqPYBi0276CtbIg3JjMS8P+WbedOtzlZ4WlqMV1K3qsywc2On0bxIHdlJEPXzE33xBgMv+SOzU87NxeWF2zNQbVKo0zPvk92iQi5Z0kwjGwuMpkYIhPsG0byEjKhLPWnmQE1AV0AvnFXA7emXYB+Uhcaacut9NxY3rI+u7rken5QoZW2RgRcZy2GDdYEwFoYQ2Anqioz6EYIUMDoeTSxBX3rX72oJjfMSABKWU0F5WEu8/fQEPxmJpjfQjIXWiwkCoWGk6lYjnxNj1NSx6ea+7IZJ0rJd9wyGkExNwuCPr3C0iO5nWqnHXPqBWO1Dos3EqKLxtes4ssdZnhkRViQ90SMikXbxhzC0c0t8PZ5uhBchVNwVxUe6h3NikeJgDZE6m7I=
+	s1Op5XpcQPVph9bIhx8XXHO+Sukza4qY/hCyCB2U4KofBaHmEgwdjxWouMdG5rwuIfqo9Ix0+DPtE60ImkmdhrRooTRa+p2O0Ex8UPbyg9UiZhOMnsJWNotQfmfkCGonKC+I0DlZpnW/2Zi5F5WHzwIwmhePmxrBMk0ZHHxdRgvkh679RKVxQsrypFd2sZFdgFVXgqyArsZsc+Kli4e3qdLABn0Zwo8iOQpr5CADpP/e/ox/l/6r/9tDad5Y70YH7k0gZd5D/jyJAdO9NDyezNZJTZBk8N012Jtjw5KeVBySSbB3TxO3jr1kqYjp5I6Wjb7n11gn3RBKrAXSTac4Gy8j4U3CjK+8DYP/gXPFHdodTRN2U70isO7NtXTxqxcqUNfVSl8wg9lEhkR35dhZGrphjsaenybVBUhbf2ueQzQxO+nr0Txs7MoIcJKoy5Eq0dsfDQQ/+sIZ4EAqua+g4K/+Q282SW+XfBvCF0jD4vfWWQBR1SUnqvehhvxQUmghh7nHSmUSBjqWWfftrWggb6Rjs+x58zt/QFKBqsFDd74aZZWi1f0JakDU/cMm/MDfUKuKvJfeRM9HwBkkpkNSorwM+W68/GRu1jD1AHv+Y9Zv4j2000q3AvQSNt/i5WZLaFutlcL/YsWDLDLE0efFZGSkSX4mfU/NtExvbl8UZc8=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT2PR01MB6451.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(10067099003)(56012099006)(4143699003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(23010399003)(366016)(4143699003)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OWxSWndUczJHYWlxOUFPLzY4TzZLSjdzdGIwckJMUVFVV2JPd2ZwSGtmbi9m?=
- =?utf-8?B?bnYyd2hRSklGdWFHdmVZNVRnNlV1OFAvRlZ0UWRZeWZySkdVZld1U1UzUkFI?=
- =?utf-8?B?R2cvcThWYVZ4dUh1L3IwQUdmYWlpbW9adE1oS25mNmo2dWFlMjVJWHdBRk4x?=
- =?utf-8?B?QjZBbHlQekFpeUpKTndIMFVZWG9lNXpCOFVacjFwck9SckZjMVhqaGZtNTFN?=
- =?utf-8?B?OXBoVis3OCtnYlkzY0swUDNwV0tGQVZNL0M1ZmZuTm45WnpqZDczRndFWjky?=
- =?utf-8?B?aEdwNUtpZVNRaE5QWnQ4Y0J3ejhVYlAyQ1ozRGZycGFETU5mQUo3TU9NU2s5?=
- =?utf-8?B?UGttWUhTWnlpU2V1NndSRkhrcGpjRmZiSXBkU084eVMxSmZ6YXdWRE1rMVJU?=
- =?utf-8?B?OU9VeGZyb1ZVRXNFR25Ga1RXNS9ZV3ozNHF4V0tMMGwzUlExU3lWUjRGYk9o?=
- =?utf-8?B?VTNqczU0MFBML0JSM0duZDB0MnhXa3EzMVlYdXp0ZlJ1dXhiUFN5cS9aTDNz?=
- =?utf-8?B?RjZEMmx1MHhlK3VxNG5VWVRLWkJtSmc3V2lWWDNVL1hwbUh5WjFFQVBYbjM2?=
- =?utf-8?B?dG53aHhOd1g0cmtFVjNWNXlqU0lybE9GdndEQXlqUFZqSDY2RXFIUXhIeEg2?=
- =?utf-8?B?dEhpY0l1VnJoenBnYVVReUI4QVFoak5YVjRPVlE1clJBK0ZnUFN4eFJVWGd3?=
- =?utf-8?B?YjVwQ2QwMFFobjBIODkyZ3lvM0VPYmxHSVErQncyRGh1NmtjSFl4TkQyZ1Uv?=
- =?utf-8?B?ZjVaYnBxcDlCSXJlRWF4cDVnRzJvZG5BZEF2bnM3ZFBpdDFCMjZOek9XVysr?=
- =?utf-8?B?SjdKNFhnaTVGaXZoUjB1WjZNbUN5SnpJRVZYTWorWlY5Q2VKY1QxYjRocGlD?=
- =?utf-8?B?OUlkOUdOaUpXRUpXNlVVc1dyNTEvTXFOekNMTW5hOWZLLzBGdk5peXBPbDJy?=
- =?utf-8?B?dks3bzNodUJJS1paU0ZudVV1OXpiK0JaWitQODlyV0g3Ulc4OGpKQXNuSTN1?=
- =?utf-8?B?Z0pVd2VFaHhNODYxYmI1T2k0aXVvVWNUcW4rT1lKNjR0TklWMkhvUHR5OXNB?=
- =?utf-8?B?eHE5cDBOcTI0OWk0bDcxek5DemlDc1R3TUVWenhJWjJLVjV6ZzMrc1ZlZXRq?=
- =?utf-8?B?OGczVzhSdS9KaTRNM2VaK0t1UTBHMExwTHA0WWZzMTZ0cU5MeVhSL1JGeTds?=
- =?utf-8?B?V0U3MlBGV2tXUDRpUTgxQk9HbXJzU3AvdzFtbGo3eGkyQnIwWXVQbkxEUjZj?=
- =?utf-8?B?TEVhUkczT3lxaFZKUTJzQzlyTXMyK1RBTTVaMmlORCsxcTZYZk52c21jWk94?=
- =?utf-8?B?RkhPRXhRRW83WHhvZzRWNzM2WEhWWk9BaFh3QU1UZGxGUVl5V3ZxRERNcjJi?=
- =?utf-8?B?b1d0cndyczFrajZYSlAyZmtMbWd4d0FnUjdNdzFIdTE1a3h6V3VsZWFlSUdP?=
- =?utf-8?B?STEwU3BpK3BHbFZZOW1GT012WXNyS3hxdGU4NDR3V2tETFkxdnFxdjI4MHpQ?=
- =?utf-8?B?VHZieHpQUnRVcTZFNHNQVXUxT1UwT3RUazBySGE1T24yam91SzAwZ0FHdWlw?=
- =?utf-8?B?UHBzQ3ZKZ3V2NzFOS1hYNy9idDVzb3FISTNxVGk0Q3cyZ3BZckxiWGFRVlVW?=
- =?utf-8?B?WW94aTdFWW1MQjNyWDFidkZ2U0hBUENiaEJVaHZRaGtYRmU5Sk8xV1QvVXBY?=
- =?utf-8?B?QWN4cUJ1MzRBeWZkUFliWFFGS0piY09QeUVYb2c1QWVhdGRBbEplMlFvL1Vp?=
- =?utf-8?B?QXNxRlVRemwrS21tU1FvYUhaQkZLZi9MVDZ2ZGNjYUVzUmlkWlZsNStYUVhW?=
- =?utf-8?B?KytBcFM3Yno0SFVlQXU2TGc5Ump6SVJEUzJBMGRHc0JUMTdwcEZtZVFQZjZD?=
- =?utf-8?B?c3FXa2ZlYi9zdzRxN05VUy83aTd2bzZxOFB5UFhjaDh5dEhBOS9rRk94R3FR?=
- =?utf-8?B?VVBCTGVtcmdSTERheGpZWGtjSEIzRDJpREF3a283SFN4Q2lHQkhFRjJPYzZU?=
- =?utf-8?B?b0prbmVVbTFVQjVIODgzZkMySUNxRk5IUUxsR3I3SFpKSXlmMWdFTjgzcXEx?=
- =?utf-8?B?b1J1d2J6UDh5UUNzd0VxcEpSTjRqTzBGSHZEZjQvWFpoRDV0Rk0zMmhVV2RL?=
- =?utf-8?B?MjFHS2JaNGhuY0lwUS8rWkhXY2x4a2F2MUlTSWRxNlF1RmdOL0xkQkdwSFhr?=
- =?utf-8?B?ODVXd0x3VWZNcWtzdnlueWpWYmZiM1pvQ25acGlpU3ZYclBWVm11UVQvQ0hV?=
- =?utf-8?B?NVVpTVpmVEVQem5veEJ2dVkxeit4MTlNSU1Pc0hHbGhTRmx5Q1FxSExXNGsw?=
- =?utf-8?B?UnV0eTFVU3JEK1UzaU1QNkhhcXJvNW5wOXRRYk9pV0VvRXlrTW5tQT09?=
-X-OriginatorOrg: efficios.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 50c11c50-092d-4fb5-236f-08df038a8b9b
-X-MS-Exchange-CrossTenant-AuthSource: YT2PR01MB6451.CANPRD01.PROD.OUTLOOK.COM
+	=?us-ascii?Q?q4KO8zcEj//8tjlJOTkuKzWZLvCuK+Fw6Q5Z6zoImgepy1BDhXGR+74wBulu?=
+ =?us-ascii?Q?JBYmmFOWKRpaOuC+sXV7R1WXgjTF/SahltQTpSbZqWKe0nmx7gyBnryzg52w?=
+ =?us-ascii?Q?MeNMdM/07CI3dAyB+a+SqVBHJnOwBLIlwXtJ28VlqoxKYsryrqBcgXujl/QN?=
+ =?us-ascii?Q?398cDvASnWxJENTqEfoxUxfkgcEbAikcRXOd2gNk6ZTF6tnMqels/7IuCFf4?=
+ =?us-ascii?Q?isbvcGQp43G0VJY+zUP4NqRrnX780sV8rxebIb5owC7f0Nz8X+nWO1PEbwcO?=
+ =?us-ascii?Q?IsuuS2G7zpQupCt9L2ztgn75GRTMUzn52XId9yK3/WMuDBaNhDGM7nakC54+?=
+ =?us-ascii?Q?9S64H0EBrUD1lrLYcrGezP+uwKi1IoPQrI96GPtqPjgqRBvR/mOSjDsBoagL?=
+ =?us-ascii?Q?3m+uG3NI/J1KldK4wvhs0MnSIbR9lF3K13a3+3JzlRgZJ3Z7LkmE4tkFbOPt?=
+ =?us-ascii?Q?6kWFTiI/xgt3yYpofT7rykXzGWAc/iGYQZ57FPyLCu8UrDI7uFbOcwH/OmUj?=
+ =?us-ascii?Q?E9MBD2PkI+npqcnYXHEul8KyRGyMIaBFogNqXqRpQGDgG5Lt6uLcNZRZpFLm?=
+ =?us-ascii?Q?baqckwRLPw0bkhrKllv3yKsgAQyDXM6plUn/WEqCQU1RTjfP+cm2YGexpv/7?=
+ =?us-ascii?Q?67aUDO3Xg6ZiuG4xSpu1xMkmWYZNsWt3b1NQ30At8m6cauVU46Ah7xoCSVrZ?=
+ =?us-ascii?Q?4zpxY1thkcCrXWG5dS+4ErIrlO0Gu/ttRfCYPWvh9GfS1tuWpU32ZmudarpY?=
+ =?us-ascii?Q?kYUbwAZWA4IVK1VmqdsuXGP/QRiXgzCjv+W4D1M6IYwm4Nx48/jmKrnE/yz5?=
+ =?us-ascii?Q?oLirKeyohpQu+c/ROR+8tKfxVl0Ab0CVrGz+DkDWzzr+BzspSa9/oL4B1Q+r?=
+ =?us-ascii?Q?ZYYGFQiaNg9k9GWW8pe+Tl9EfcuTmrvFh7ffFc+hWsOzMA1+5LQhG//lVQAe?=
+ =?us-ascii?Q?R5V8OAyXx9Jj7V4Mb1JHAK7xskJ38qtHzAKvKL2EcUjksXR/ELDMFhdcuIyU?=
+ =?us-ascii?Q?kmlb2FMRdXumi3fVnKy83yTkfSXXwxC3sw1GEPDVHWd/1nImKOXpGRTgQHCo?=
+ =?us-ascii?Q?xad9Rc9sxuSl0ZpYxlKlu7MYCD/EJbISD5EJ4L1xdDHRIjtNnFHOVj72CaK4?=
+ =?us-ascii?Q?Hgc4PlxhwJiat+jJTrxDOQJkknGItSmQ2sYC252nkLNtZccIka59kuHWW4i/?=
+ =?us-ascii?Q?/Q6fbFiQ2FFwXC9mMPoYx/aKH9rcGxJ88o11K4cHvirtiaEYQ6rUcycsRw+q?=
+ =?us-ascii?Q?PKpzcbviIQ440EKkJ6sO8T7JpPRFbxKxu+X+Crqjl+83w2dAG9g77+EvQWIM?=
+ =?us-ascii?Q?bw0yfZJyb95ufKzsBu077Ffkq/JB72agx3FO/EU6yK2oVUAfnQL2FZUXYrmX?=
+ =?us-ascii?Q?rate4qkOvbDV175mV9vAY32TWb/3np6lhlRI9GSdB/+ZWTApj/5TnCc+F3kg?=
+ =?us-ascii?Q?r5obcAi+g0JuwZIpt9LYGD2fK8CbnxoXECCxL7ggDPfm2+ruEIlY4soJRAKM?=
+ =?us-ascii?Q?3iyTrKoxXDkSa1kEPpKjoZp6PB+lVQ1HisY+zwozOEBIcujG7STUrQwHIyUH?=
+ =?us-ascii?Q?Q6rxyoWCvXz8t982iQck4Tv65m2dRMJ9OnErDlqQ4kWz08463/jW39pjAhM0?=
+ =?us-ascii?Q?D2CV77GgNP10qNssV4Y9ibotNeBEqCkXyxCLrdbM1xKgznLtt+fJYs7vO8L6?=
+ =?us-ascii?Q?uMj2gVvHmnJURKcrZftB9tU0hVGar3Ac670r3RDmG4hALHBfmS2PFwfbQiEV?=
+ =?us-ascii?Q?EgtClqaPPg=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 89671d37-f46b-4e40-0eb5-08df038a8eb5
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 15:56:09.4626
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 15:56:14.5630
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WgV6RqFgFcDot9qdEJWw2Zq0/3NFl0LVhYwb4fG6OPuTxqfyjZjr6skml5QC6YIPd/pCZVGU726XFZM+o5CGuQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: YT4PR01MB10692
+X-MS-Exchange-CrossTenant-UserPrincipalName: i/OHSPVpgnrsUJ4+jnP7ltwGtbtX/ugEk7rVkn8jKl/VPinzZYbkeU1MnizfLdNFuhzEjcjkCHHXJvTK/FZaKg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH4PR12MB489481
 
-On 2026-08-03 16:37, Andrew Morton wrote:
-> On Mon,  3 Aug 2026 14:49:00 +0200 Chris Gellermann <christian.gellermann@codasip.com> wrote:
+On Wed, Aug 26, 2026 at 06:28:48AM +0000, K Prateek Nayak wrote:
+> mutex_unlock_slowpath() follows:
 > 
->> On thread creation, Musl registers the private expedited memory barrier,
->> see pthread_create [1]. Thus, invoking the barrier command will no
->> longer be rejected by the kernel with EPERM. The test checking this will
->> fail. Check if the memory barrier command has been registered and skip
->> the test in this case.
+>     if (owner & MUTEX_FLAG_HANDOFF)
+>         break /* ... and do __mutex_handoff() */
+> 
+>     if (atomic_long_try_cmpxchg_release(&lock->owner, &owner, __owner_flags(owner))) {
+>         if (owner & MUTEX_FLAG_WAITERS)
+>             break; /* ... and wake up the forst waiter. */
 
-Tested-By: Michael Jeanson <mjeanson@efficios.com>
+nit: s/forst/first/
 
->>
 > 
-> Who the heck maintains sched/membarrier?
+> MUTEX_FLAG_HANDOFF is only set by first-waiter after it has been woken
+> up and in absence of MUTEX_FLAG_HANDOFF, the owner clears itself from
+> the lock_word and wakes up the first waiter to try a
+> __mutex_trylock_or_handoff().
 > 
-> Short answer: everybody I've ever met.  All are cheerfully cc'ed.
+> MUTEX_FLAG_HANDOFF exists to prevent new optimistic spinners from
+> trying to hijack the lock from waiter all the time and potentially
+> starving them but it is not necessary for MUTEX_FLAG_HANDOFF to be
+> always set in presence of a waiter.
 > 
-> Perhaps finer-tuned answer: Peter.
+> If a blocked donor is deactivated when no owner is observed, it may not
+> be woken up until it becomes the first waiter and is naturally woken up
+> which breaks proxy in the interim.
 > 
->> --- a/tools/testing/selftests/membarrier/membarrier_test_impl.h
->> +++ b/tools/testing/selftests/membarrier/membarrier_test_impl.h
->> @@ -113,6 +113,16 @@ static int test_membarrier_private_expedited_fail(void)
->>   	int cmd = MEMBARRIER_CMD_PRIVATE_EXPEDITED, flags = 0;
->>   	const char *test_name = "sys membarrier MEMBARRIER_CMD_PRIVATE_EXPEDITED not registered failure";
->>   
->> +	/*
->> +	 * Some C libraries, like Musl, register the private expedited barrier
->> +	 * command when creating a thread. Expecting an EPERM on an unregistered
->> +	 * command will therefore no longer work. Skip the test in this case.
->> +	 */
->> +	if (MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED & membarrier_get_registrations()) {
->> +		ksft_test_result_skip("%s test: Command already registered\n", test_name);
->> +		return 0;
->> +	}
+> Wake up the blocked donor and allow it to grab the lock when no owner is
+> observed. If the task manages to grab the lock, the block chain will
+> follow at the next proxy migration. If the task fails to grab the lock,
+> same situation is restored and everyone migrated to the CPU of new
+> owner.
 > 
-> AI review
-> (https://sashiko.dev/#/patchset/20260803124900.3328789-1-christian.gellermann@codasip.com)
-> thinks that membarrier_get_registrations() can return -1 on old
-> kernels, so we should check for that before testing for
-> MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED.
+> Fixes: f13beb010e4a ("sched: Have try_to_wake_up() handle return-migration for PROXY_WAKING case")
+> Signed-off-by: K Prateek Nayak <kprateek.nayak@amd.com>
+> ---
+> XXX: Is there a better way to handle this? If we can confirm a owner in
+> find_proxy_task(), we don't need to do a spurious wakeup of every task
+> observing !owner.
 > 
-> Seems nonsensical to me - membarrier_get_registrations() doesn't do that.
-> 
-> And policy (my policy, at least) is that selftests test the kernel
-> they're shipped with and anyone who tries to run them against any older
-> or newer kernel is all out of luck.
-> 
-> 
-> That being said, and stepping back a bit, is this test testing
-> something which we would test?  If pass/fail depends upon deepest
-> details of the chosen libc flavour then perhaps the whole test was
-> ill-conceived.  wdyt?
+> proxy_resched_idle() until owner appears in an option but it will spin
+> until next owner appears.
 
-I think it's still somewhat useful to test the behavior of the syscall 
-when unregistered at least on libcs that don't have automatic registration.
+IIUC, the owner can remain NULL until the waiter selected by mutex_unlock() gets
+CPU time and acquires the mutex, so proxy_resched_idle() could spin for longer
+than just the unlock critical section.
+
+Maybe we could instead force a handoff from mutex_unlock_slowpath() when proxy
+execution is enabled and the mutex has waiters? This would keep the owner
+identifiable and avoid waking every task that happens to observe !owner.
+
+> ---
+>  kernel/sched/core.c | 23 ++++++++++++++++++++---
+>  1 file changed, 20 insertions(+), 3 deletions(-)
+> 
+> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> index 4cd69b08b415..9d9db7ccf01f 100644
+> --- a/kernel/sched/core.c
+> +++ b/kernel/sched/core.c
+> @@ -6809,6 +6809,19 @@ static inline void proxy_reacquire_rq_lock(struct rq *rq, struct rq_flags *rf)
+>  	update_rq_clock(rq);
+>  }
+>  
+> +static void
+> +proxy_activate(struct rq *rq, struct rq_flags *rf, struct task_struct *p)
+> +	__must_hold(__rq_lockp(rq))
+> +{
+> +	lockdep_assert_rq_held(rq);
+> +	proxy_resched_idle(rq);
+> +	proxy_release_rq_lock(rq, rf);
+> +
+> +	wake_up_process(p);
+> +
+> +	proxy_reacquire_rq_lock(rq, rf);
+> +}
+> +
+>  /*
+>   * If the blocked-on relationship crosses CPUs, migrate @p to the
+>   * owner's CPU.
+> @@ -6934,14 +6947,15 @@ find_proxy_task(struct rq *rq, struct task_struct *donor, struct rq_flags *rf)
+>  			/*
+>  			 * If there is no owner, either clear blocked_on
+>  			 * and return p (if it is current and safe to
+> -			 * just run on this rq), or return-migrate the task.
+> +			 * just run on this rq), or wake the task to try
+> +			 * and grab the lock it is blocked on.
+>  			 */
+>  			__clear_task_blocked_on(p, NULL);
+> -			if (task_current(rq, p)) {
+> +			if (task_current(rq, p) || p->wake_cpu == task_cpu(p)) {
+>  				p->is_blocked = 0;
+>  				return p;
+>  			}
+> -			goto deactivate;
+> +			goto activate;
+>  		}
+>  
+>  		if (!READ_ONCE(owner->on_rq) || owner->se.sched_delayed) {
+> @@ -7029,6 +7043,9 @@ find_proxy_task(struct rq *rq, struct task_struct *donor, struct rq_flags *rf)
+>  	}
+>  	return owner;
+>  
+> +activate:
+> +	proxy_activate(rq, rf, p);
+> +	return NULL;
+>  deactivate:
+>  	proxy_deactivate(rq, p);
+>  	return NULL;
+> -- 
+> 2.34.1
+> 
+
+Thanks,
+-Andrea
