@@ -1,143 +1,198 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A08C83AAF67;
-	Wed, 26 Aug 2026 11:54:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7C463F5BC7
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 11:54:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787745259; cv=none; b=FVQpN5GrGN/4BxgHHGY5ANtF75nHy8hxcb3pIMMNCsexbltBLguGfa9FTWHjHcAoqH5y4P3pM96hKe+zFs+PsCRr6xOQLoRBvITlRrEk3WvQFkMxLXl1MuOrpFO01hYLj/3XDNqrQ2Gq3t//NGfy0UrRLHrJOE30g0HLMGpOv1o=
+	t=1787745300; cv=none; b=cp0aFavlKNF++/9Dg79USX5WE5ZjI1uVhqbVz2NI3Hc9kcd2g07lG8OpgO7EaISQn+TUBFvRkk+iJKQtg7TUGoaIwdc8K27DCwo9CIpMRDj/XLnvIk5JyRcE6FM/L4b3XWDtC8X8jZX0CPzPLOAn4WDeS2Z3JmP6gABoobFXM7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787745259; c=relaxed/simple;
-	bh=2I4V+5nZftFyPygSOefb1nzxpoXWZ0cDxtu+pufa3Bo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mOamRxa+nyNUSrq1AKcCMUcGaJhWFs1H0nZtE7e3l2fhEPwn8iSTHkTMf6R1MY+rKR3vfx6r/LksuQUECUwRz14Hy0sgcbzN336wC0h2Iu3ehMLMRAHCAdy6jCr+6Ao12ZsxVJutj7LrO6bDTHrLe6UuVVB9Nr0v10glTPmbLDY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ydHlwx7Y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787745300; c=relaxed/simple;
+	bh=1bL8SHeY4H85ODVaWl9myp8bt68czbdVcvClUWMwZgw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZLTdVRv4QUIL6DT2Gtgv67LulppnF2nWhBmoeR265+LTleYGo25iH7bkfL1CxuXvD3IwijVPzsBXG0tMLSp8qRMPbDkaiI12unrLD37qEbp14Tb74w1HEAOUgpegnoYflg7fVd9zUgX08fnnxbYwWDBnCwjLzlRyMxI7VgPJMqY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LxtAFUjT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dQcPRL2H; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ydHlwx7Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 883601F000E9;
-	Wed, 26 Aug 2026 11:54:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787745258;
-	bh=zw2nAj6IlO6lwe7kWBG2krhlNtFNkwtviRZlhMibaJk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ydHlwx7YiEkk76m3Xmoc7IWEmHxXnoTMom/PQoFao5hKuhrp2yfvu/fV989xxXoFy
-	 xU6j3iz1lp2jvoX4laP1mHOJoeho4IF1ISDN0NFg7ryuUfNNu4HO6/Nz5zOoqDu9Yh
-	 YhCI+b1BKsA05suxKCumMArw84XfIUH+apcst/dI=
-Date: Wed, 26 Aug 2026 13:54:16 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Aaron Tomlin <atomlin@atomlin.com>
-Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
-	Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-usb@vger.kernel.org,
-	driver-core@lists.linux.dev, linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] module: pull out add_taint_module() to be public
-Message-ID: <2026082606-hemlock-aggregate-8b6c@gregkh>
-References: <20260826-bind_taint-v1-0-52b05f4a965c@linuxfoundation.org>
- <20260826-bind_taint-v1-1-52b05f4a965c@linuxfoundation.org>
- <lnbvi6d72t7zdc3w7yc34y4hyf6gnuduqpqk4q3vqzypw23j37@5zh62c4wyr6i>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LxtAFUjT";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dQcPRL2H"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QAH2ki3648220
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 11:54:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	kJXhURYbF22u5h3SNtJoh5SZFJhDJmU53UX6OeRXsy8=; b=LxtAFUjT3OLnYJSo
+	iTXTYynpeMBZks3L4NGPbINgsPIJu/3jPEXJrSKSfDkvAvKsbOgS8/xA2pH/39Rj
+	yy2dHdNl65obDPrQPNthxMCMAMWgHh884PzNFcJq4nm9LvoKh4XsgA66eT1Smh1r
+	AXIulxLmeOEBewWZYQvqjjTXLgC+yyjIosqmLJImuEwzwtk4RStmdaAJiANAkP0V
+	1xjbgX7vtwHu0a0qX5p9DOuVIYsgr9KNd+A9Et/Oto7ZZmbAvd4euQCNwqFA4O2p
+	eDfabYu69tKt10PyiZ60B4SJyK0M4vABOiJW6TOx8CkqbOwx8hGEUuuTRvWtum8T
+	o5/1SQ==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g9uthryu8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 11:54:57 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-84e13b57b2cso751289b3a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 04:54:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787745296; x=1788350096; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kJXhURYbF22u5h3SNtJoh5SZFJhDJmU53UX6OeRXsy8=;
+        b=dQcPRL2HyYx1eLxkjH4eHTXn7P/ISmBL4ZnUtYZ1oynh7D0+JWr6EXuZA4k4Esr1Bc
+         /GEYM313En+7Inr/w3VKZ3FHWmsOc/6NMHlQJ428N6UFuu5PrCn+Xa/bHWdRgyo4yp+o
+         QfAeOw9Tg6A30MvoYwKDGEcUlnOTciey6luH198D+818TtBqciwN/g9SQorezdo0t+f3
+         EbtILsqL/0+Gc7fK5lkZ8XKRGfjMp4UFay15Zt+oOhnNpdi6PQTxo/H7YBpdPOQOoN4F
+         okM7tIpgMJco+e8YUxYuO5yxKkzq/mnkOU1H1f6ckLbAp6FUwtcsz0XXVPKF9Ff8XxVB
+         5adQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787745296; x=1788350096;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kJXhURYbF22u5h3SNtJoh5SZFJhDJmU53UX6OeRXsy8=;
+        b=o417ogpWZaApZasMq8MOOEVZ2ka7/8dLHMxNwBuL+Ctltnq8MB+b2PpgHYeo44SnLe
+         muFQftKtE9qG3SvVHohD+0/KJ77OPBj6/vYd/RQ2FU1HzgQcMvXn3lC80akDND/vTFZ6
+         tDxc+YfrOFBjNN0Gz1n7Xtya2g65uWi0WUSmeckVa7CZhvnWbIasUTtN6bkBFmVGwap0
+         5UCZ5J/ILhW+1cQYTqQ/LvnSCvb0yi/Lh84+NdIZo2RQjrtJBuUukNwMEV0xiqieZpYM
+         kqlZCZq5i2sbFC1HDlxsL54lq4C7lrQhlvQ76aNLeVX4Yuy+EpfYLptEqZNZlSxSWkw3
+         uIVQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqEOILqk2OphK9YEocBS8eVXAtg9K8EOWG/Ij8VQF70YZGDBkFaUjSUczXby64abOhNpxHXvnLSKgogHog=@vger.kernel.org
+X-Gm-Message-State: AFuF++mDmNUUSXX+qd2mV3s6eKA0azREN+QoUgc+/T0WRB49L0Jof7hy
+	HPZKJiHo1gDo2JW+CP2Seuewn4mq7uPJdcHprGNHhU0i5H+6TuoxtGw8WTd6+Ixr2+l9B15BDul
+	cMVXnLdGKpUyY//39xemZQO9HsziRrC8fXKEad5mATFc2xlU/7pA2bzjmiLOlLnZusAs=
+X-Gm-Gg: AR+sD13b7+R/nIZ0fTpTJdUdlcaNogCG+Ner0zy8jgz0kku7/VcaDH8lWyhDFVk0uau
+	SNbNoR2FVVaIQf28NfXU5HY+AQG4DUdtXzYQ1zMPMqnRC7gZ0m2ujtdCFx938FRDLyYL1jfe6Fn
+	HqQ1d2bWWnhjIH5vpKYj6gDPKtY9MVlrHDLa7+4m+vFwt4e/7iA+mbVvY5sgm9V1DieXUhncXF3
+	P/HLpX2zRhB1x9gCMq3RrsfxqaOE5p80ILvMrolrW/Pah2+P/BPO4Tt8YUML1R19qEgBj09vM4z
+	YJHECjDN7hxAlxxCIISenuMSmlQbw3oQtllaFEY1ZxoKPt43GpsWPsuc20spsM71aAe/6CIvVo5
+	l8rlCtQbs1CaUa3ewT3AgWIhvYmwDbaioab4=
+X-Received: by 2002:a05:6a00:6ca7:b0:848:2e7e:353a with SMTP id d2e1a72fcca58-8536ec13a78mr13481220b3a.0.1787745296213;
+        Wed, 26 Aug 2026 04:54:56 -0700 (PDT)
+X-Received: by 2002:a05:6a00:6ca7:b0:848:2e7e:353a with SMTP id d2e1a72fcca58-8536ec13a78mr13481100b3a.0.1787745295712;
+        Wed, 26 Aug 2026 04:54:55 -0700 (PDT)
+Received: from [10.217.219.186] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8535cf3e982sm793514b3a.54.2026.08.26.04.54.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 26 Aug 2026 04:54:55 -0700 (PDT)
+Message-ID: <4efcdf15-286c-4bd6-a75f-77fbca07e7a4@oss.qualcomm.com>
+Date: Wed, 26 Aug 2026 17:24:48 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <lnbvi6d72t7zdc3w7yc34y4hyf6gnuduqpqk4q3vqzypw23j37@5zh62c4wyr6i>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7/7] i2c: qcom-geni: Use geni_se_set_rate() for setting
+ source clock frequency
+To: Praveen Talari <praveen.talari@oss.qualcomm.com>,
+        konrad.dybcio@oss.qualcomm.com, Sudeep Holla <sudeep.holla@kernel.org>,
+        Cristian Marussi <cristian.marussi@arm.com>,
+        Ulf Hansson <ulfh@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Jiri Slaby <jirislaby@kernel.org>, Mark Brown <broonie@kernel.org>,
+        Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
+        Andi Shyti <andi.shyti@kernel.org>
+Cc: chandana.chiluveru@oss.qualcomm.com, arm-scmi@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-serial@vger.kernel.org, linux-spi@vger.kernel.org,
+        linux-i2c@vger.kernel.org
+References: <20260805-derive_clk_perf_tbl_from_perf_domain_opp_table-v1-0-61171ab1cdce@oss.qualcomm.com>
+ <20260805-derive_clk_perf_tbl_from_perf_domain_opp_table-v1-7-61171ab1cdce@oss.qualcomm.com>
+ <8af7a34a-da4f-492f-a51c-cc420edc5e6e@oss.qualcomm.com>
+ <e000c3da-32f5-49ba-9aff-b2b17db23927@oss.qualcomm.com>
+Content-Language: en-US
+From: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
+In-Reply-To: <e000c3da-32f5-49ba-9aff-b2b17db23927@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=EMA2FVZC c=1 sm=1 tr=0 ts=6a8ed411 cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=4Fh5LKrImxLeDWyZwEgA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=OpyuDcXvxspvyRM73sMx:22
+X-Proofpoint-ORIG-GUID: WT2bk6Oc0qA2_ZJ64I4_hNIc5Q3kwF69
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDA5OSBTYWx0ZWRfX/QwGY27/vAHn
+ CuHG/LQnjOYtwxkjHZ4nVO3y4zy7H0MgCDjqmmmTrxcb88vFxMw2g6uCgnrYWzDXhHHyt04gWP+
+ +hQJAly1JIGShzQWyBEdoPI1MnQtYfD9+cZPYpVUF3Y0WxbJo7hJZoFfgo/EJRs9sfMhLFbdT6X
+ uJG5oxRtmiAg7iqCGROvtcBZkom/F7VptLn6Rg9uHk0LGIWxL/gVSDP/2y8lD0p8ckvuXl4IZoO
+ g8Lrp/d8hUKDJ19avwyumdAWy4nLWYrsejGYYMNdwDRONnH9DEyK0C3K5AhsD/e5APN8e/w4Vwk
+ /4jxv69nqPLibnk1zX5GGAsQQzjTlowuWm0fOAZ2h0ny9EjZ10BoS2un/1DcFhlbYK5Ud3sa8XQ
+ IRkHXjrhVphQKQXN0vIHUuYZ5GC+Jcvw33Jw9lJTsONNbbBWsPWdaVaj7qISjT/bG0ZTXSQCgco
+ b1svoifxJg26VqgZHJg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDA5OSBTYWx0ZWRfX2XRnNRGchNKz
+ g/Vkcn4V9DeEHeisqbsbOS9ETIEVFy2lZiT6WQwdEz44Z1lLs+yiC9tAzw8oIcxrginjTTP3IW2
+ XHHoZf/4Js0Skx6J/Ql+mwoPHLnmzYU=
+X-Proofpoint-GUID: WT2bk6Oc0qA2_ZJ64I4_hNIc5Q3kwF69
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-26_03,2026-08-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 spamscore=0 adultscore=0 malwarescore=0
+ clxscore=1015 phishscore=0 priorityscore=1501 suspectscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260099
 
-On Wed, Aug 26, 2026 at 07:13:36AM -0400, Aaron Tomlin wrote:
-> On Wed, Aug 26, 2026 at 11:19:32AM +0200, Greg Kroah-Hartman wrote:
-> > Other kernel code might want to call add_taint_module() so pull it out
-> > and make it global.  If modules are not enabled, this defaults to a call
-> > to add_taint(), so all is fine.
-> > 
-> > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> > ---
-> >  include/linux/module.h |  8 ++++++++
-> >  kernel/module/main.c   | 13 +++++++++++--
-> >  2 files changed, 19 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/include/linux/module.h b/include/linux/module.h
-> > index 96cc98568eea..25221539e645 100644
-> > --- a/include/linux/module.h
-> > +++ b/include/linux/module.h
-> > @@ -29,6 +29,7 @@
-> >  #include <linux/srcu.h>
-> >  #include <linux/static_call_types.h>
-> >  #include <linux/dynamic_debug.h>
-> > +#include <linux/panic.h>
-> >  
-> >  #include <linux/percpu.h>
-> >  #include <asm/module.h>
-> > @@ -770,6 +771,8 @@ static inline bool is_livepatch_module(struct module *mod)
-> >  
-> >  void module_for_each_mod(int(*func)(struct module *mod, void *data), void *data);
-> >  
-> > +void add_taint_module(struct module *mod, unsigned flag, enum lockdep_ok);
-> > +
-> >  #else /* !CONFIG_MODULES... */
-> >  
-> >  static inline struct module *__module_address(unsigned long addr)
-> > @@ -877,6 +880,11 @@ static inline bool module_is_coming(struct module *mod)
-> >  static inline void module_for_each_mod(int(*func)(struct module *mod, void *data), void *data)
-> >  {
-> >  }
-> > +
-> > +static inline void add_taint_module(struct module *mod, unsigned flag, enum lockdep_ok)
-> > +{
-> > +	add_taint(flag, lockdep_ok);
-> > +}
-> >  #endif /* CONFIG_MODULES */
-> >  
-> >  #ifdef CONFIG_SYSFS
-> > diff --git a/kernel/module/main.c b/kernel/module/main.c
-> > index d0e1e0bd2ad0..99cedb961898 100644
-> > --- a/kernel/module/main.c
-> > +++ b/kernel/module/main.c
-> > @@ -191,8 +191,17 @@ static inline int strong_try_module_get(struct module *mod)
-> >  		return -ENOENT;
-> >  }
-> >  
-> > -static inline void add_taint_module(struct module *mod, unsigned flag,
-> > -				    enum lockdep_ok lockdep_ok)
-> > +/**
-> > + * add_taint_module: add a taint flag if not already set for a specific module
-> > + * @mod: pointer to the module that caused the problem
-> > + * @flag: one of the TAINT_* constants.
-> > + * @lockdep_ok: whether lock debugging is still OK.
-> > + *
-> > + * If something bad has gone wrong, you'll want @lockdebug_ok = false, but for
-> > + * some noteworthy-but-not-corrupting cases, it can be set to true.
-> > + */
-> > +void add_taint_module(struct module *mod, unsigned flag,
-> > +		      enum lockdep_ok lockdep_ok)
-> >  {
-> >  	add_taint(flag, lockdep_ok);
-> >  	set_bit(flag, &mod->taints);
-> > 
-> > -- 
-> > 2.55.0
-> > 
+
+
+On 8/25/2026 12:38 PM, Praveen Talari wrote:
+[...]
+
+>>> index a23554d101fd..4561e2d235d5 100644
+>>> --- a/drivers/i2c/busses/i2c-qcom-geni.c
+>>> +++ b/drivers/i2c/busses/i2c-qcom-geni.c
+>>> @@ -213,11 +213,11 @@ static int geni_i2c_clk_map_idx(struct 
+>>> geni_i2c_dev *gi2c)
+>>>       return -EINVAL;
+>>>   }
+>>>   -static int qcom_geni_i2c_conf(struct geni_se *se, unsigned long freq)
+>>> +static int qcom_geni_i2c_conf(struct geni_se *se)
+>>>   {
+>>>       struct geni_i2c_dev *gi2c = dev_get_drvdata(se->dev);
+>>>       const struct geni_i2c_clk_fld *itr = gi2c->clk_fld;
+>>> -    u32 val;
+>>> +    u32 val, ret;
+>>>         writel_relaxed(0, gi2c->se.base + SE_GENI_CLK_SEL);
+>>>   @@ -233,6 +233,10 @@ static int qcom_geni_i2c_conf(struct geni_se 
+>>> *se, unsigned long freq)
+>>>                    itr->clk_div, itr->t_high_cnt,
+>>>                    itr->t_low_cnt, itr->t_cycle_cnt);
+>>>   +    ret = geni_se_set_rate(&gi2c->se, 19200000);
+>>
+>> hard code ?
 > 
-> Hi Greg,
+> Good point. The 19.2 MHz value is not intended to be a permanent 
+> limitation.
 > 
-> I believe Sashiko [1] found a few valid concerns.
+> This matches the frequency currently used by the I2C driver and 
+> therefore preserves
 > 
-> [1]: https://sashiko.dev/#/message/20260826102921.5B81B1F000E9%40smtp.kernel.org
+> the existing behavior. If support for higher source clock frequencies 
+> (e.g. 32 MHz or others)
 > 
 
-Yes it did, will fix that up for v2.
+This is already added in driver for 32 MHz and also AFAIK, support is 
+added for 3.4 MHZ which considers 100Mhz. so make it something which is 
+generic. Hard code is not recommended here.
 
-thanks,
+Can we store source freq selection and continue with that ?
 
-greg k-h
+> is added in the future, the requested OPP/performance state will need to 
+> be updated accordingly.
+> 
+> 
+>> May work currently, but if higher frequency support added, source may 
+>> change.
+>>
+>> Also you have added in commit message, but add a comment also here.
+>>
+[...]
