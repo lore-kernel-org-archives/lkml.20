@@ -1,127 +1,174 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+Received: from mail-oi2-f9.google.com (mail-oi2-f9.google.com [74.125.231.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65D933B27FB
-	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 20:37:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 534FA3B3C01
+	for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 20:37:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787776645; cv=none; b=P81zugHTE9CZxaefpnDKpaRsNKj7NpnOarkYgAm4LqW6g1XctZwVGIgiBA6IEgq83B2CpSdv2Z/gJCtSJOMWLk0k3akCg0LqZtjj//VFMdTpb7MOiZS/mmJvzAPZpleG4r5JN2+IzQIsOE4Eww7S9YfkXFIUQ93kT1OG9/ccQFk=
+	t=1787776651; cv=none; b=cgkSedB6OgfwHDMqlwsSgCYmqrs7vh8oHXoIAzL53ZZagVswmyX0yryfmQEONrJs2ppVJUuQ4oGmnvV1WOMRaEhiWBXI8uG1FLAoUUv0abKNkyBh4Q9HW1CNr73uVLfMEH6gBkkpmBOMGIB0f/Bkzx23UThI7fPGSof5R9ULQ54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787776645; c=relaxed/simple;
-	bh=YBYb28lJo+o6sWxWkJtKpwJvq7b6MSb+mLIbxMdLQwU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=A3DIN36IUtWEjNBmCATZEuVd4pNaJpFbu9RJ6/m8MHeOa5Y7rNG/KUYYje89nFE0R6YjqLeulxyb0CxvtV+lQNUSEuHWaF4RApfZhCZYjXHcMgn3abtr6qLOm19E5hcFrQtSTBJ5awUzcI51xk3H5ae4F17nJAk7u7ILQp6XIVE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UmTA5jyg; arc=none smtp.client-ip=209.85.214.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UmTA5jyg"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2d3b440b97aso8525ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:37:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787776644; x=1788381444; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YBYb28lJo+o6sWxWkJtKpwJvq7b6MSb+mLIbxMdLQwU=;
-        b=UmTA5jygbGLVv57VODY1QuVX+2StkJ/6WCNDnZp6KmYiMa2eS2RXD8rr63itsLF/Rk
-         Frv2ILod8FyqJR0kNbMw9lAmU9zefHZm+gi9MSKLKUDXfW9AM2ss+LUqS0YzSdJFbIuf
-         jfSkJSmfeAvfky9JuBJuESoe9VeYya/TOUMn5EN+k6tab9Nnbo9n+4Lc4BMn5v8yavzF
-         HrX5jbrsXj9kC8RDiDM2BKLgfwETb1PWkIJ53c+hFMqCJpOO0RhfEWn6DsXMYxxr1lYD
-         y99fEPa/LKDfqCItGTiM0cnvAQ83ZwEADDBRtGM7qZXN4fPNz//ie5Uw37C3wP7uor3D
-         pyGg==
+	s=arc-20240116; t=1787776651; c=relaxed/simple;
+	bh=LXfrlFG99DEOIw0cRJCftUGoI0X9FJkiYZEtUZxba1A=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=raSMwbF1BPnCZjT9pOCaMwTjG96yqyZNTLP3OKOfV/m4rqP5YqeE2DFsT5xB4ClXVTP+kxDQrvaCgEKIpJUgPDl/IFvqRBsSJdk23UOLVFcBF7nVMMbhHqmkTvhZq0/7FfPtyBThwJD61MBx9QNiJaIJKtHvlIsw/7/adIuGlNw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.201
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi2-f9.google.com with SMTP id 46e09a7af769-7edccf768b0so578478a34.0
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 13:37:29 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787776644; x=1788381444;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1787776648; x=1788381448;
+        h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=YBYb28lJo+o6sWxWkJtKpwJvq7b6MSb+mLIbxMdLQwU=;
-        b=IXvOnvzOyqLuF8kJPP7LtWjRa+lcI6z3+6vBBP0ywSZdBE1BKWZpwUUX6+D9Q2ZRtL
-         mDDq50qZ4hu9qpnw9vWzxH75kaW8oyrMohYyqsI3H4+u7QR1ohAcKdL/r4x9BLUVhotR
-         SE0fYYtbvD/QQm3hncvXzOglqR2niiHVIDiqRywh/Dm8ify6Ud8U0VdWIoCow6XKRZ5E
-         6wpubITVK74/lJyJPy3tJpzJSCom1idD08oheoRIMpx1PjKbu1brxFvQo1ui4RbgsKZ/
-         qNsBNS/tEPsgPJUeImseF8TRJ6agTbKUsagLYp6kBM1RlR/a0kUD5f6pIP9TmF0hVv5Z
-         0ueQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqpUJcmnk27ZivNQPRK1uxJrIkcljGzRqv8nSKO/SkFjBm6FOKyRdpJnLJ9vzbGecWYtLFAj9Na6lSOYpU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lDrVgk1MwLpjguuyPlvwtPYbszqWmgClNE3OTujhyZ28HTj5za
-	4ld6L8rmdjDkN1yrE+nyRy1I52ZoHYQCZr1ziK46Z4t8USO9QBmdRRaOZwwwFaQjBQ==
-X-Gm-Gg: AR+sD11Di31a9Yvvi2DfyOX/yd1Fo2Y2NvHMZTcmzgiYlADxWbwLkulH51qXoKEVbJt
-	kLrIs0zjSW5Ocr5NlSZU7yB3GdPB/8NfQ4GJX17rGSnIYzNf14NFrg/aY2G6lKL/klq7RmyqCb1
-	+/Ulr8rEZX4dRA0/M56AKB0D4cQyewteKKO7AYYpKtypHxMP+ySS4WnaaHw4DmT138HJYOmxTG+
-	XN7VMsGk/p8sEFptuIzMi6hcAYAZUb6jmurlh3bPZJScn8svXGnHWyqF+VD72tc8LS9l7fqcl3e
-	Idsk5wvm2yqNM2EfvBJjCZVvXfc1NlfKrj8EOSouYbMCe6a1lcNdD3gsmiFdhJ8NiKJNKrNBDVp
-	ThlBj/8nIewbZ8zKHDdLhPVnfxm21QhdRwV5lU7tounoSHuV6EBAleXucU6V6VPh6QkjMO+k4K1
-	FRN2Wawm248WhGiZO5UmVg/0R9vsZoC2X8+wEo962ATZt5L5c2bDEXTLRM3djeCw9umbAV7xzCD
-	24o8Zujb5qQ8TYwOeiURrsnPkPrK8GCFSM8V/QME8AiQNORU9/+e19d88nAtUqB8A33rQ==
-X-Received: by 2002:a17:902:f545:b0:2d1:1d3d:97c3 with SMTP id d9443c01a7336-2d733662a3fmr39975ad.13.1787776643126;
-        Wed, 26 Aug 2026 13:37:23 -0700 (PDT)
-Received: from google.com (210.87.127.34.bc.googleusercontent.com. [34.127.87.210])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8535cf3e982sm1302094b3a.54.2026.08.26.13.37.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 13:37:22 -0700 (PDT)
-Date: Wed, 26 Aug 2026 20:37:18 +0000
-From: Samiullah Khawaja <skhawaja@google.com>
-To: Pranjal Shrivastava <praan@google.com>
-Cc: Baolu Lu <baolu.lu@linux.intel.com>, 
-	David Woodhouse <dwmw2@infradead.org>, Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, Robin Murphy <robin.murphy@arm.com>, 
-	Kevin Tian <kevin.tian@intel.com>, Alex Williamson <alex@shazbot.org>, 
-	Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	kvm@vger.kernel.org, Pratyush Yadav <pratyush@kernel.org>, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, David Matlack <dmatlack@google.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Vipin Sharma <vipinsh@google.com>
-Subject: Re: [PATCH v4 08/18] iommu/vt-d: Clear unpreserved context entries
- during shutdown
-Message-ID: <ao9ONwUblaEqIpot@google.com>
-References: <20260808022723.3893618-1-skhawaja@google.com>
- <20260808022723.3893618-9-skhawaja@google.com>
- <446684d8-44d0-47c5-9301-172c55efd950@linux.intel.com>
- <ao7ccBlV9_RXT6Fe@google.com>
+        bh=4+jspPqcElMTjRhnOz3CLRLOL16gFXFE8Y2iqUKNCqc=;
+        b=aU8uzzrg6vB3JbaBYhC9qdVwN4XYTdM8FczCuDXEjYWr5htWg0ANQ07HB6IeyFDfGC
+         ePmyLDtPvICMfsANWZohLENPtceAQeeil1YZx4XLS3vu0X6n5XFKDqCgzcIB2wsv7gc0
+         FXr1PdhtOuyx2lAPPj/J/nJ5XyVMteG+Jtnvg338MmD++8juImHyCHl6ivyoAoum4Td3
+         AjkeljFhoS1N3O+q+9+KpQfHpdtuCHkiWkCgS09tQ2Mqjz+rDddQxeT+EBGbysHJzQWd
+         UGYrYKGZX8It8sf3dC92e3eE/q/8dIXPO6fyEwUF4qOsObKdlI31rf4EOCTi0uE95L9u
+         oMxQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrcOcRd8KOeCyqEjAuPDkecIXPT/RfbBdqBSUcMiSe+1i5WOC3G/R3hgjfzdh0o7KwtZ6qa7lU8bx56MV0=@vger.kernel.org
+X-Gm-Message-State: AFuF++m86NJ82Epz/D47CFgo1x7yJvrWeTyjBjmbj4EBRtNPU0byLWIf
+	JhkAAt8fwtm3Cb5QU6eD2CQ9UXupbcWq6SFkj3fHNIwM1r7MT9vgOv14BloSYJ7rQEnzthIP+C4
+	xNP1u93Z/LZe3/WZOvWmkex4anqJQ6UniRCBP4M0cbKmGpfmYCqGcr4ond48=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <ao7ccBlV9_RXT6Fe@google.com>
+X-Received: by 2002:a05:6820:906:b0:6b1:b31f:132e with SMTP id
+ 006d021491bc7-6b1b31f134bmr780445eaf.6.1787776648316; Wed, 26 Aug 2026
+ 13:37:28 -0700 (PDT)
+Date: Wed, 26 Aug 2026 13:37:28 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a8f4e88.27659fcc.2ceef7.0008.GAE@google.com>
+Subject: [syzbot] [bpf?] general protection fault in btf_type_show
+From: syzbot <syzbot+37b56485bbbf90ad8489@syzkaller.appspotmail.com>
+To: andrii@kernel.org, ast@kernel.org, bpf@vger.kernel.org, 
+	daniel@iogearbox.net, eddyz87@gmail.com, emil@etsalapatis.com, 
+	ihor.solodrai@linux.dev, jolsa@kernel.org, linux-kernel@vger.kernel.org, 
+	martin.lau@linux.dev, memxor@gmail.com, song@kernel.org, 
+	syzkaller-bugs@googlegroups.com, yonghong.song@linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Aug 26, 2026 at 12:30:40PM +0000, Pranjal Shrivastava wrote:
->On Wed, Aug 26, 2026 at 04:05:51PM +0800, Baolu Lu wrote:
->> On 8/8/26 10:27, Samiullah Khawaja wrote:
->> > During normal shutdown the iommu translation is disabled. Since the root
->> > table is preserved during live update, it needs to be cleaned up and the
->> > context entries of the unpreserved devices and root entries for the
->> > unpreserved context tables need to be cleared.
->>
->> The key assumption here seems to be that, during a live-update kexec,
->> most devices do not go through the normal iommu release path. Otherwise,
->> their context entries should already be torn down in the
->> iommu_release_device path.
->>
->> Could you please confirm this assumption and add some short note in the
->> comments or commit message?
->>
->
->Yes, that's correct
->
->During the normal shutdown paths (i.e power-off, normal reboot, & kexec),
->the kernel only calls device_shutdown(). This path bypasses driver
->unbinding, as a result, devres_release_all() and iommu_release_device()
->are never called. Those devres teardown paths are only triggered when a
->driver is explicitly unloaded / device is unplugged.
->
->Since live-update piggybacks on the kexec/shutdown path the unpreserved
->devices never have their context entries naturally torn down by the core
->driver's devres model, necessitating this explicit cleanup.
->
->I think we can add a line in the commit msg for this because comments
->might create confusion if similar comments don't exist in other drivers
->performing Live Update. What do you think, Sami?
+Hello,
 
-Agreed. I am going to add it both places.
->
->Thanks,
->Praan
+syzbot found the following issue on:
+
+HEAD commit:    818bebeb63dd drm/xe: Don't hand out the flat CCS storage a..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=135ef179580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
+dashboard link: https://syzkaller.appspot.com/bug?extid=37b56485bbbf90ad8489
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1437a179580000
+
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-818bebeb.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/6e4100526b12/vmlinux-818bebeb.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/723c4783ee96/bzImage-818bebeb.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+37b56485bbbf90ad8489@syzkaller.appspotmail.com
+
+Oops: general protection fault, probably for non-canonical address 0xdffffc0000000005: 0000 [#1] SMP KASAN NOPTI
+KASAN: null-ptr-deref in range [0x0000000000000028-0x000000000000002f]
+CPU: 2 UID: 0 PID: 5908 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:btf_type_show+0x223/0x2e0 kernel/bpf/btf.c:8232
+Code: c1 ea 03 80 3c 02 00 0f 85 90 00 00 00 48 8b 1c dd 40 25 fd 8b 48 b8 00 00 00 00 00 fc ff df 48 8d 7b 28 48 89 fa 48 c1 ea 03 <80> 3c 02 00 75 77 48 8b 43 28 48 8b 0c 24 48 83 c4 08 4d 89 e9 5b
+RSP: 0018:ffffc900034bf868 EFLAGS: 00010206
+RAX: dffffc0000000000 RBX: 0000000000000000 RCX: 0000000000000000
+RDX: 0000000000000005 RSI: 0000000000000000 RDI: 0000000000000028
+RBP: 0000000000000000 R08: 0000000000000001 R09: 0000000000000000
+R10: ffffc900034bf970 R11: 0000000000000001 R12: ffffffff9b96b140
+R13: ffffc900034bf8e0 R14: ffff888035e3f600 R15: 0000000000000003
+FS:  00005555665e7500(0000) GS:ffff8880d5da2000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000200000000000 CR3: 0000000027a0f000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ btf_type_seq_show_flags+0xca/0x120 kernel/bpf/btf.c:8250
+ htab_map_seq_show_elem+0x12e/0x350 kernel/bpf/hashtab.c:1669
+ map_seq_show+0x13d/0x1e0 kernel/bpf/inode.c:293
+ traverse.part.0.constprop.0+0x107/0x650 fs/seq_file.c:112
+ traverse fs/seq_file.c:99 [inline]
+ seq_read_iter+0x93f/0x1270 fs/seq_file.c:196
+ seq_read+0x344/0x4d0 fs/seq_file.c:163
+ vfs_read+0x1e4/0xb40 fs/read_write.c:572
+ ksys_pread64 fs/read_write.c:764 [inline]
+ __do_sys_pread64 fs/read_write.c:772 [inline]
+ __se_sys_pread64 fs/read_write.c:769 [inline]
+ __x64_sys_pread64+0x1eb/0x250 fs/read_write.c:769
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fa99f79e0d9
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fff8937c6c8 EFLAGS: 00000246 ORIG_RAX: 0000000000000011
+RAX: ffffffffffffffda RBX: 00007fa99fa25fa0 RCX: 00007fa99f79e0d9
+RDX: 0000000000000083 RSI: 0000200000002240 RDI: 0000000000000007
+RBP: 00007fa99f835024 R08: 0000000000000000 R09: 0000000000000000
+R10: 000000000000e5d6 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007fa99fa25fac R14: 00007fa99fa25fa0 R15: 00007fa99fa25fa0
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:btf_type_show+0x223/0x2e0 kernel/bpf/btf.c:8232
+Code: c1 ea 03 80 3c 02 00 0f 85 90 00 00 00 48 8b 1c dd 40 25 fd 8b 48 b8 00 00 00 00 00 fc ff df 48 8d 7b 28 48 89 fa 48 c1 ea 03 <80> 3c 02 00 75 77 48 8b 43 28 48 8b 0c 24 48 83 c4 08 4d 89 e9 5b
+RSP: 0018:ffffc900034bf868 EFLAGS: 00010206
+RAX: dffffc0000000000 RBX: 0000000000000000 RCX: 0000000000000000
+RDX: 0000000000000005 RSI: 0000000000000000 RDI: 0000000000000028
+RBP: 0000000000000000 R08: 0000000000000001 R09: 0000000000000000
+R10: ffffc900034bf970 R11: 0000000000000001 R12: ffffffff9b96b140
+R13: ffffc900034bf8e0 R14: ffff888035e3f600 R15: 0000000000000003
+FS:  00005555665e7500(0000) GS:ffff8880d5da2000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000200000000000 CR3: 0000000027a0f000 CR4: 0000000000352ef0
+----------------
+Code disassembly (best guess):
+   0:	c1 ea 03             	shr    $0x3,%edx
+   3:	80 3c 02 00          	cmpb   $0x0,(%rdx,%rax,1)
+   7:	0f 85 90 00 00 00    	jne    0x9d
+   d:	48 8b 1c dd 40 25 fd 	mov    -0x7402dac0(,%rbx,8),%rbx
+  14:	8b
+  15:	48 b8 00 00 00 00 00 	movabs $0xdffffc0000000000,%rax
+  1c:	fc ff df
+  1f:	48 8d 7b 28          	lea    0x28(%rbx),%rdi
+  23:	48 89 fa             	mov    %rdi,%rdx
+  26:	48 c1 ea 03          	shr    $0x3,%rdx
+* 2a:	80 3c 02 00          	cmpb   $0x0,(%rdx,%rax,1) <-- trapping instruction
+  2e:	75 77                	jne    0xa7
+  30:	48 8b 43 28          	mov    0x28(%rbx),%rax
+  34:	48 8b 0c 24          	mov    (%rsp),%rcx
+  38:	48 83 c4 08          	add    $0x8,%rsp
+  3c:	4d 89 e9             	mov    %r13,%r9
+  3f:	5b                   	pop    %rbx
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
