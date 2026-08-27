@@ -1,112 +1,74 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022129.outbound.protection.outlook.com [40.107.75.129])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FC6D27CCE0;
-	Thu, 27 Aug 2026 03:03:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 998A3386555;
+	Thu, 27 Aug 2026 03:04:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.75.129
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787799793; cv=fail; b=aiLBdAjAQjWVUh+Met/j9PLoExEbH8wZrJ0oRzhHutKFGNAHotiOfjU+HVegtQ8//ywIFDbdLN1vEoplTTPKrLelTn165rR0csSX4lxvaW2MFwNo1rAOyO0hQBr4+5/x0s9cpWvQ6uC3YdHsr5iKA1mc7xyihaRxu2eHAjYCpXI=
+	t=1787799882; cv=fail; b=MfERqZyw1lmwNIApBaMoMpTIzg6OtsacsqknvpLAwkwQ1v38GeFVNINL6BYuLGq/LPvRyOYVD9ZkNSLRGw1E4QGkTQhcY9pnHn5p4jg9Yxae5/p2YbDLxsrLB0DnQAA38iS9MCjK4XqlePB7tzEx7yGH+lpHgz5dBn0jDpplWLo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787799793; c=relaxed/simple;
-	bh=uO32IPCKJXXqHI2dY0U89lwl1FoYFTsIibnb7hECiJ0=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=pEghnJt7Q4LspHlbYknhPAa8rW8frmWj5222gaKbx0Q2Ll/XQ/RqR5NN1IIBjKEXbz6RWkezyHNKoAv4fzNIyJdP+IgJFO5FsG3FXTdgNL2xpioN+ptXA7wGzUQsVQFDs6Ug2ygi8ssvN5544PgL2Z2TfeVRHbIdBSO4VxiO3yg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mZnpyXWQ; arc=fail smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787799882; c=relaxed/simple;
+	bh=kUGtVJCweHqitI1eWX6aMKKjgoDsbBtzAVe69MWb72U=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=OZhxZkLsguEw0CqnoHTNqTKGsHrmJfyUlSV0Hf7AtSURW87SrCWt+VxTGGen7dhzJQD9aONVH6OC0vpeGDBF1DBX2X6HUqtIe6uR1vcAjqIST/0x+AL+9QiJqDUccT5ygpxXkcaMr5QhEDALvJBdq5K1rcX3dFt0G2biwfFf/+o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=hbfXUNAK; arc=fail smtp.client-ip=40.107.75.129
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mZnpyXWQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787799791; x=1819335791;
-  h=date:from:to:cc:subject:message-id:reply-to:references:
-   in-reply-to:mime-version;
-  bh=uO32IPCKJXXqHI2dY0U89lwl1FoYFTsIibnb7hECiJ0=;
-  b=mZnpyXWQBrSvprBxagMJ/SUJSWVXfPUytlFnuRE8gtMjDIDp46cqnI2T
-   Wob18iW8eRs7QnaqigvI02v7exDTPa9nuaePMIhvTEIozlcesFvB8bAI+
-   ZKU/jWot038pm0qwq8xLQ+6OPfOa+LE9RYQeWzE6toopbOwXlegt+kkwc
-   HxfeGK8bOY4hF5HvDjIF8cSsr7TabNRLtGB5AytVWd6pDaBTNjKO32Z2L
-   ulwt3ZTcPv/qh8CVR8uxQVPhSyTI9TJku1BqTkuxdVCgLyiM8xvyylxCD
-   j4TWaZBdTy6ljMYjmh2Qvu5wfqxBkf83h29kmooRKwGncuLkcXplqp8ra
-   w==;
-X-CSE-ConnectionGUID: auTfYUORSam9+kXuR0kZLw==
-X-CSE-MsgGUID: bnGDK/t9Ray7pyn+KgYywQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="92110220"
-X-IronPort-AV: E=Sophos;i="6.25,245,1779174000"; 
-   d="scan'208";a="92110220"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 20:03:11 -0700
-X-CSE-ConnectionGUID: KckVZ6X/TB2bVKX61FEX5g==
-X-CSE-MsgGUID: 1rc2iS50Qg++LHLKFxJGbg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,245,1779174000"; 
-   d="scan'208";a="264485664"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
-  by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 20:03:11 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 26 Aug 2026 20:03:10 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Wed, 26 Aug 2026 20:03:10 -0700
-Received: from BN8PR05CU002.outbound.protection.outlook.com (52.101.57.38) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Wed, 26 Aug 2026 20:03:10 -0700
+	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="hbfXUNAK"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Mz85MNRIVMX+29rB98yLOAziFAZdpeZOKZmjdZmPSwAwH59c8s+Ps9myIZPiux5F4eX4fVATwKckR1Uc+7IamXYZcMdfQCMoJAWYOy2TmHH+mO+dkVuvF74LSJD38r5vmp6VJ6Kd1nSPOc/OGdT137MeF4wNcGA+nFzeJARxCxKEz5WYuLnfJV3j4YURlZveuIPKtD2MAWCkP80HgvhiX5PPFpcaK/dJCDoZ8trzt6A3YU4taDeL7EllzkohLIkAO+FeW6k12PONV27IBC/KLvWmYS1LetNTqpG1eCutP1AZpo6kOUfT0IShavzG9qepVI45vgU4loJAedJfcFzFiw==
+ b=OMZ8Kd5LTw+/iqJUEsZbWpJ2wOvlh5phepO3RSWcavqUk57FAyXKz6YRJjLdn+aOr7gEzwrroiyVkuxvMD3/tEl9MI4SFgXH6dtIe4QbMox1WzKq4e9RUlaCqSP64MwekgG8TzX3yMyLI04EWLwHzQ3cOfohg8aIdt3EVCbr4tcVNNGoYcRz9Jvs3K7l95ytXiWE+bYAw4VE553LtSD6X5bZmntwEsLk7SFFgtG2yeLXO8kn+v30qpAmqJJXSQQmwefpwpvQaeCmqoQwVsvY7epzNFjTCmLKLpFyyuz1OEXvnzWrPj26El5s4/G5tiL+C1rcc/uzta7Z6ZdgfJSKXA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WmktmXC1XoVv1U3K5AuqYKHb7KXgkZpyQDWerDg2ocQ=;
- b=mrKd4X2YAHxwf6CL8++LNHUZwmBhpsP7MqVRWpmiNJrS4JfOujQp2oXm9jKNvAjGllK/dbyyrTNpVc8MjfefL8APtVDpBY8Cco5qKr4itP+mffq629c4Ius9UD5Xb6nCxPHTM08MdTq3Bxo4SkEhKawcSMDMi19jxdBCe191gqildr/SVYo5PP6C5wv+e+dofTiosNRmmREsvgYcqeFBKE82RUX/v3g01JWOiOsHjusAPOckBcp4H2FPFzNwnnUGr8LOtFifzhmgtKx2jNq88KrLjKZynI+7v3AcD041scC9PTNpZhw31HOJVMKSew5bs+Myrudu2kIaDN079FFIig==
+ bh=il4qxi/bh36OksjCuHW6aR6h/EQtYLSq9rXAuHx0hjA=;
+ b=L1HKpLYhfDK9o7YAos8syYt59UwDbYag7C4cZP1XclFI6RG5IcyqXfSlUEAtqvxZ8yXcXc3gYFt3EYoLMw1NvhclJ8KPS/L7A7ioCK756SHfGi5ltEU13fBtBcQBhAopeYzm8m8vkBdnW8LeGKuofF8m/IFgR7EsOADMd3SV4QNxhzp047oPIlMPL2TRDcHEN346b1rsBFQzrSF1r6CVAmXRAJni4ErnxnFd046K2dP4pncVywiNwWFu7ZatIH/+nBLisu0mPa+ohlXZ1j/VfV6k1Cx1hS4qfZAzhJQPUEqskdL/HKecweXhm+I2bI66q+lJac/Jr9+kfD54epfAAA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
+ smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
+ dkim=pass header.d=amlogic.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=il4qxi/bh36OksjCuHW6aR6h/EQtYLSq9rXAuHx0hjA=;
+ b=hbfXUNAKaKUIeoabmg3YKtyjJED39Bz4sH3S6/Gd/GruHlAy8dyV9JGs2x3jVsj/Pbm5oG1d3vPJzlsNsShWfC8CJ0dypxHlbKT4uau2OfLDCFcfqQbMssinWmuJjt85zNJVD0+4IFWPQVQu94RdCiPfcTsMkGdgI/yBI18/DYCQD67mjKTf3ayD6GQDsZYYJrsrKuUlBJ95revZT0Nem/WgwjZMEx7CTsQq+qjfO6OL6OcRMvkgHBMTTCkFMqX7LJ531JTMDTKR/SLj9JPvBRefEJrIzBX/I6nrK6ScBJ4Vs2V4sG8tZMix0Wd6GLbYGyRnUushzSanPpXy9FPcWA==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DSVPR11MB9579.namprd11.prod.outlook.com (2603:10b6:8:383::17)
- by MW3PR11MB4540.namprd11.prod.outlook.com (2603:10b6:303:56::18) with
+ header.d=none;dmarc=none action=none header.from=amlogic.com;
+Received: from KL1PR03MB5778.apcprd03.prod.outlook.com (2603:1096:820:6d::13)
+ by SEYPR03MB9610.apcprd03.prod.outlook.com (2603:1096:101:302::7) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Thu, 27 Aug
- 2026 03:03:05 +0000
-Received: from DSVPR11MB9579.namprd11.prod.outlook.com
- ([fe80::ab5f:5d0f:fb90:9d]) by DSVPR11MB9579.namprd11.prod.outlook.com
- ([fe80::ab5f:5d0f:fb90:9d%3]) with mapi id 15.21.0360.006; Thu, 27 Aug 2026
- 03:03:05 +0000
-Date: Thu, 27 Aug 2026 11:02:41 +0800
-From: Yan Zhao <yan.y.zhao@intel.com>
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-CC: "Hansen, Dave" <dave.hansen@intel.com>, "seanjc@google.com"
-	<seanjc@google.com>, "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
-	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>, "Huang, Kai"
-	<kai.huang@intel.com>, "Li, Xiaoyao" <xiaoyao.li@intel.com>,
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>, "kas@kernel.org"
-	<kas@kernel.org>, "binbin.wu@linux.intel.com" <binbin.wu@linux.intel.com>,
-	"mingo@redhat.com" <mingo@redhat.com>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "pbonzini@redhat.com" <pbonzini@redhat.com>,
-	"ackerleytng@google.com" <ackerleytng@google.com>, "sagis@google.com"
-	<sagis@google.com>, "Annapurve, Vishal" <vannapurve@google.com>,
-	"bp@alien8.de" <bp@alien8.de>, "tglx@kernel.org" <tglx@kernel.org>,
-	"yilun.xu@linux.intel.com" <yilun.xu@linux.intel.com>, "x86@kernel.org"
-	<x86@kernel.org>
-Subject: Re: [PATCH] x86/virt/tdx: Warn on !4K level in tdh_mem_page_aug()
-Message-ID: <ao+o0dfTlj1neBiu@yzhao56-desk.sh.intel.com>
-Reply-To: Yan Zhao <yan.y.zhao@intel.com>
-References: <20260825025533.25663-1-yan.y.zhao@intel.com>
- <ao2ZH8dmkPfBDnGv@google.com>
- <ao6UVdWNbhQaAFsm@yzhao56-desk.sh.intel.com>
- <1e77b1f6-0491-464b-b79f-ca756a73e7ea@intel.com>
- <26df3b906110c060d996ae8e79c4c1857f16f187.camel@intel.com>
- <14ff9d8dc8fe6999fa8a4100ea9fc833fd7a9c3d.camel@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <14ff9d8dc8fe6999fa8a4100ea9fc833fd7a9c3d.camel@intel.com>
-X-ClientProxiedBy: KU0P306CA0017.MYSP306.PROD.OUTLOOK.COM
- (2603:1096:d10:16::11) To DSVPR11MB9579.namprd11.prod.outlook.com
- (2603:10b6:8:383::17)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.7; Thu, 27 Aug
+ 2026 03:04:37 +0000
+Received: from KL1PR03MB5778.apcprd03.prod.outlook.com
+ ([fe80::e1e:5c95:a889:828e]) by KL1PR03MB5778.apcprd03.prod.outlook.com
+ ([fe80::e1e:5c95:a889:828e%4]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
+ 03:04:37 +0000
+Message-ID: <b16d8f3a-0f12-4e0e-950a-854d28481519@amlogic.com>
+Date: Thu, 27 Aug 2026 11:04:30 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC] clk: meson: t7: Intermittent boot instability and memory
+ corruption on VIM4
+To: Lucas Tanure <tanure@linux.com>, Brian Masney <bmasney@redhat.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
+ Jian Hu <jian.hu@amlogic.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <3930906f-783b-4d72-9260-ba25cc8081cb@linux.com>
+ <aoxjX3HabY0brgXk@redhat.com>
+ <57d796bd-7a3c-46b9-bd65-d6860adbd355@linux.com>
+ <72db2062-e0ac-4c33-b1d1-d1fa5ae4bec8@linux.com>
+ <ao8fqstEs01hd3--@redhat.com>
+ <5ac071a6-8013-4143-9f59-7d0c6cad5c00@linux.com>
+From: Chuan Liu <chuan.liu@amlogic.com>
+In-Reply-To: <5ac071a6-8013-4143-9f59-7d0c6cad5c00@linux.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: TP0P295CA0052.TWNP295.PROD.OUTLOOK.COM
+ (2603:1096:910:3::14) To KL1PR03MB5778.apcprd03.prod.outlook.com
+ (2603:1096:820:6d::13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -114,68 +76,365 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DSVPR11MB9579:EE_|MW3PR11MB4540:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3335f61d-ff84-47cb-96a3-08df03e7b6b6
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-TrafficTypeDiagnostic: KL1PR03MB5778:EE_|SEYPR03MB9610:EE_
+X-MS-Office365-Filtering-Correlation-Id: b790a0d7-622d-47db-0c40-08df03e7edc6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|7416014|366016|376014|23010399003|22082099003|18002099003|56012099006|5023799004|4143699003|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info: XRacVDBf05S3znndi9g+HrurYOpUz4dLW9Y9B1t/OmDBWrQcgn/80dvdzBfEvobMfwpiOW9MXKP1/INvN0zEMCGL8XMUNP4Kys0KtloWBZFjr7qlXViDu8v858BsU3olzhb01Hua8uhbAEN4l+w9F53lEDRhLQWtvAVlfO40TMZVgTQdJQ22Zno+sgdePw9DgW7O6E9dI+0mvmQYFB8kS1wz6HlIMAPbsLfhXkeBigx8ziUel9RGQ+0iMKgCHO4GHDKgRwlNP1ljqt3ZfDTxBXLFvgP7NZ0Y095Il5z3NMLIgi3HB7DUR1tuamUnYSOBHpnW+2QRsTBPZJ/9JNahY42hUCGnWq2R6k1l2x8o4qBfgzBGcB9BMe1GYEkDbJ1N7Xm4QEOa9FG7blqneA58HM0YYIsdw54UGbS0QXnd4ZJqn8nwkmKP9iKYhs5V1H4GNRX7TrivxWmAJZgym5LHjw/zo5X49jpvnUIAgaqydmXyyxFrWAG2KuSLxh6Y8LQeab8E7Ob0hJiXARLg3nKbaJcL5udCCEKePsSgTaMuANv+8hAjSxmG2j+huCuGyArDRyiORIf2eMARd4h9J7IJW+Xi0uigFix2m6QVLc4r56Ukc+gdHXLtfQKDH3gyfGF7RqbYa3Mphh7BSKLCVvxw8FGJ71EB7LukGQjQ5uiy5OU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DSVPR11MB9579.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(366016)(376014)(23010399003)(22082099003)(18002099003)(56012099006)(5023799004)(4143699003)(11063799006)(10067099003);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|366016|3023799007|56012099006|10067099003|11063799006|5023799004|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	jxN7jEZ5phL33GSsuAiS6c/6mOVZCG/gdO3Q1OfxzjVfzLrE1Zo7smJVWyKV0KHuRZiPoDEi8Hd+W9CBFy0aPsWzOHlQSx2XqiGynxl7t0OMVdaIOX8hnh9OTr/roTnTKI4DzJmOUMENc4cj1O3ktxgJH+WtFie+eEbk2fhukhepxKLzjADJg+3aZVKLMj8WjVGiiQZ2oUPAjUdW1T6uAHlBhB3tYQPZts8X/xu+r5JOz/pr6v/60hkiZKTUnH23qEllpupI58awD5dkCUVQtC38iq4Xx8UM1ebjTyQy2DsJzpDbIrJQZSL7E0KVdkPXOx3pVry8fovdba0N4i5TYuptVEF/bjd72XpqSCNo2K4F7uZqVybwJzFF3roEcoHJdzYlE4baaxZuZmdQ1EEQB1QLUyHg10WlmmJEJ50bQwSLpthDEhtCeSwM17t3ZjhTrBdZRAluFX0RF4XAlsDhTU2uV33nWrligxfuYEmTlK+rZ7p1A5rJpAKb54HcKSoICeyxvCK5xaZFCF6Jg/HSeIP16YiGNu4BDgQzEfqC9FQ5+vt0+VDKMJ9En0Rd1XGPjDKIaRAUt4vVNeMgq+OGR8Qbkl3ntNPy9teoebDz/xTaxS3x/HhkdSy+YempKjpQZ//pOA9dlqIYpPgkrEDnmJCBIAym5s8y3O8i0fnWCHM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB5778.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(3023799007)(56012099006)(10067099003)(11063799006)(5023799004)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?b5qknbGolJUX4F5B++vwFQ6owNYvuYQxnT8ufbm837KhX2egxxE2zZ0E1wBp?=
- =?us-ascii?Q?1pOqud0wqW4XZynbYbxwEilTTRRW0JzNJRsrdFYEQTrasz0NC0Dok5/bMgC6?=
- =?us-ascii?Q?iqK9ccqPvOagJB9/b+XyHdrIrAbeS9eWcKviKk1AbIRhiATAW9J/Hzt45EZk?=
- =?us-ascii?Q?CwTpHwut/1ftMu2qWq9YzaH13W8kIVICFdHaoujKqfDW/3vmLZWYxkZCOZjn?=
- =?us-ascii?Q?U3HeZtkYXE0qJUxMZu+U+2V+eFlWrWMxo2Ojvt3uqm0X546dzyqRsw7taJs5?=
- =?us-ascii?Q?ZEzFCMsQC9BQfyo9KqZFlqtxZSVcBwWjbQer82yURVZwTmENppKC0zFmxvGo?=
- =?us-ascii?Q?ql8LwIneIxgGO1z3K1Hnf4FekYPTobzabpfSEXxfNiIq8IjmwFSgrWgBMyzy?=
- =?us-ascii?Q?s9rsYM2w8PL8YGMJ9Xgh7tJjYyuZzfDC2+RIHlhN9WhRl+tw8SnIudRoQjxR?=
- =?us-ascii?Q?ABwFYZjhDryTdU+g1l7KWnr6VX5LMvAsyG5xhjLqwO5t6cwnHSTubOmauVkM?=
- =?us-ascii?Q?0/I9i5YbIBFhA0GgIdN6SFAryJB2x5JY0HpFkVOcJRDVTW2QuKpWxm1Y84N7?=
- =?us-ascii?Q?8KSDFFJGKeafi+fOc0I23qKB/lUopJ2Qbhvd9K0+8QjRLBo1Rq72UTU5iRfk?=
- =?us-ascii?Q?KgXwWkvr/OCUDjpw7JieSJHTq0DQdcPUYfIACmevJ1Rkyq9E6KE8I1NcxUkb?=
- =?us-ascii?Q?0PZYa7XIV1QpO6/iSK481AaAMu7sGZd3KtDywdhlsHdwlbS98KGNrzZmBgf8?=
- =?us-ascii?Q?B3GVOfzDFRhFeaxXa5wkcw61GUpHEjB5KVnck6pSCaRDde7Rr7XJ/j9+GnYX?=
- =?us-ascii?Q?z3fupR8pEToVoLHczJibXUnAiA82EkfrdWHv2AeEZA2ZDwLdgOGCySLW35Sr?=
- =?us-ascii?Q?Kh5bEQLdZCHNBqiyvCwJmCUk932O7sJJ3Bl1z61KnDz8pIZGOEy2q+SKpoGG?=
- =?us-ascii?Q?gJdebumPdqv35WW21XGHuRGPGncCIUm+N0S3HTmYP0KNs7p09GImw7Z/09/g?=
- =?us-ascii?Q?vdCeFLYGzomJW9nfcWcZ0l4DgowgLvCfh12d+EX0fFP8PjH8F12oUZk9gZp3?=
- =?us-ascii?Q?TQqhky+xHdEXMv/srT/x1z+3uNeVPTcOKWMy22dXVgLSbtU0BsXhslCnWJuV?=
- =?us-ascii?Q?TvIymEB5n6hOvtixfL3TQyTwXOPZFibWqBbPcfsRmRe1oKtdUlgHEEmF499G?=
- =?us-ascii?Q?2imdsUYG0Kgs+ytbLsTOk6rKEZKzD+EItbYAL4Q82CNTQhWEOregDuKCiwBH?=
- =?us-ascii?Q?gCE94mUdRcpt8GVL5tWKGyDwf1tU7qrJ2pIBpbBbNo/VlXmKRc+86C3DAZSz?=
- =?us-ascii?Q?F6WKtjxhiDudjhbmXz/qrkfkFTYrANuG7BJ2dTRQ0r6LIEzcDy8Osb1EMCqv?=
- =?us-ascii?Q?s/I2F6NgLWFRtqIsQzsZyg4TXwv7U/mkkRZOA72pLU4fLx49OyQJ9Bb0Hzuj?=
- =?us-ascii?Q?KNzcjM37EGCnlEqQDvIugBmPhXSgoo7iHsZ0SHXJj+wrkyqaE4c70T68kZXU?=
- =?us-ascii?Q?+mhkn69/ZhqNb8PjQFw3y0gDKD8eOaKBZavJfW0aMoT6JyGsIIqgwBzMyLIO?=
- =?us-ascii?Q?0xqqA0xxcuoeBeZziG5xQhSwoPo56kADKUNKeEdAqu0qGJ2AF3h0kL6EG3Hx?=
- =?us-ascii?Q?8Zu4+Zn5RiZaZMQjytLKr+Feej6g/X1marj6gLYbQ+WOB4kFKaN8G1c/xHVq?=
- =?us-ascii?Q?x1D1u+y8dxf3qLRl4FZdMA5RMvbLuo0f5r1Az6nSKXSAITzfuhEIOoqBEqP8?=
- =?us-ascii?Q?G6v28mowOA=3D=3D?=
-X-Exchange-RoutingPolicyChecked: ZiB+2/WOw2lo5mrGUa+QnlHnjclMmvkjRN3SV8fV1etnskJf0RthwCod+NYOR6beaj9RH7mEwXHg3xmHrfSwyCBihCtWggKK5M9BxD7qtkIg/cjSG62P56X8JJEp5JZY4xYmGoZqzIcbAHONM5fcTjrwlAwRCFRZ6uBjmYpsu6qYPFl9Ac9x5Gm0SRtS+xqlaB3Vofa4I56iiYgm3rR439WgchOrdililQwW9j+lSp/BCaCT26NQ5GiXq+owaQyDnhdXit0brCZQpJXRX23aNYVIBTAdZbVdZJgVeZGEyVuj0yhps97bi5GtXaS5GGR0RkeW47+DMnGlBHLxJg9C7w==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3335f61d-ff84-47cb-96a3-08df03e7b6b6
-X-MS-Exchange-CrossTenant-AuthSource: DSVPR11MB9579.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VDVub0pvSnhnYVBtVzFXTUx2ZTZ5aHE3WHFYWjZWMU1FM29ZLy9GbGtuSGM4?=
+ =?utf-8?B?cmQ1ZE9VYm8zbHdoWUVJTU8vaGZtZ0JjWFZ1bWJUYTJmNmNJVy9MdmxCWHB4?=
+ =?utf-8?B?OXV0UHJGcHduVnhhaVc5QlZZMnBZNHVwM1NFM1pmSUpxMjc2dzhLRlJHYm92?=
+ =?utf-8?B?anp4NzBsNkNDRHZpM1VoVW5RTjhNV2JJQnJsaGVEWDByWTlyZkFBT1VQK252?=
+ =?utf-8?B?M0lKaDVYWVBnQTZuYzVJcVJ6TTNtOFMzQURvejkwbVRhdWhkb1pDZ1BudnNC?=
+ =?utf-8?B?NUlLUVFFS2dlZGVPbzd6S0lQNVJSTEtTbnJyRmhjSEFhdlNnZ1o2VlpIUTNS?=
+ =?utf-8?B?SnlyKzBiUnlhODJaZXBMTkVjM2VjT1B5Nmsxb3JEZW5ndUQvWTVqSVZTdVdJ?=
+ =?utf-8?B?dG1GZFRCOXlYakVrdW1oZFlQS2tJSUZEVkxKTUVtcjBXT3BvSHV1Q0Eybk12?=
+ =?utf-8?B?Q0JVNU5PV09PWTNTUjA5ZkF0NVJVQUVseFZaM09TK1VNcGtNMEdZNUg2MnJn?=
+ =?utf-8?B?V1d0UXlWZGFHNi9lWG5MdVFiS2ZieXprSjZSOUViYjRLZ1FTQythZ1R4N3VV?=
+ =?utf-8?B?cGpZTkZnc2NxMzBoVEh3aWRDTXNMRUcrYXlSNnpaaVFZMVRUVStEMVlxZzZv?=
+ =?utf-8?B?cFNKWldRdmFLaTBTSVZodys1VTExWkNIejRrajlmNjRHQUorSU1ITzBRSFht?=
+ =?utf-8?B?NXYyOWU3YnhIWk5FZnc4TWRmOHJmMUF3TmdjM1RHQXQ4QmY4WU8wYkVQdm55?=
+ =?utf-8?B?V1E5UmE2Rm9IdFNyeVVmUHBGNmVrSkJGN2VCclkxd0xjckpEU2JIMHJlbGpZ?=
+ =?utf-8?B?T0l2c3FCWFR3NGJWK3dmY1ZrVUZaSXlVZGozWGd5VkxlSUtqRFlXNjE0YmY2?=
+ =?utf-8?B?cnhuSDZYakVqOU5EdW1HMVA3TjIzdnZJb1N1RXhZaWJGK1U2T1lrRjBRTVpm?=
+ =?utf-8?B?VElXS01PYlgwYzJCeDk2ZG8zUm8ydVVhblE0Y1VxMkQrU0ptSlhPWW44NzRU?=
+ =?utf-8?B?bW1mTkRBbktBMXpIR0hFdy9wNXlvd1hlVmkyTWw0N0dNc0dBdFBBRFhCR01w?=
+ =?utf-8?B?THlXTmNrQ3BuektKeS9FeVJmVmJ4QjFhNW40NGhYQ0tpUGw2aVE3QU85YXQ2?=
+ =?utf-8?B?WFc4MnZwL2lndFhNSmZOME82T0o0WWdPSDh6VURPcUxEd2tCM09NZ3RQa05w?=
+ =?utf-8?B?elJMdTNldlBzay8zaE5OVGVnVW42UktFTWdCWGI3cmxPSHQxWGF4dTlBRHFr?=
+ =?utf-8?B?OGhhOVoxR3E2N3FFTGpmelJPb2hIdlRTNkN3amt4V21CNGpEOS8vZFFWSzhL?=
+ =?utf-8?B?OTF2emhlN01ORnQydkkraTNKdExCRW9HYmtTa1NETzlmeFEvajcrTFpabnR2?=
+ =?utf-8?B?YWlQR1doWWtoYU1IUXF5Qzg5SDZwLzlKdlhWMmY3b3dpc3dZTXE1bVR6OHdh?=
+ =?utf-8?B?QlgycmROWDhLOC9PZ1BPeFlrVGpSTHBVaWZPTTJCNGh5RTlacnlTRGZXajJP?=
+ =?utf-8?B?L3ZaN0gvZ0Yva3JSQjNmaHhNL2hCdUZaNmdJR2h1amlQL0ptWVgyMFFxMmtX?=
+ =?utf-8?B?UVUrUU1PV2NVRkx3UnEzZ3ZrTjJKM2tSU1dDU3FJeW5vQ0UzV2tUZk16OVU4?=
+ =?utf-8?B?dUh1M0hiVkw4N3hmcFlQTDdFTXVxTm84eWpMdDVoYTB0czZheEh4ZHNwazR1?=
+ =?utf-8?B?bnF2cndqelo5bU91RXVFRWRNeXU1SEd1UXp3eW8zdWdXZ1M1UEhrVzFEanY1?=
+ =?utf-8?B?Lzg2R210QmRPT0llZ2l5dGV6ZUlaTDhwNm1jUmQvaXpOYWI0ZkRFUklZU0Nw?=
+ =?utf-8?B?V0E5NVN2QUEyY1JrNktDblNXcWYweFZqMHhROExGaVlpd1Y0ZVJWZXBhZlRS?=
+ =?utf-8?B?T3kzenNpUythd2VUcnhhSXQyVGlPTWdjYmtZQ0JVY0JHSm1laGFxVUZWT2pz?=
+ =?utf-8?B?bXNWZWRodmhqYm9pak5OOC9MMmp1OUhJeTNEOXo1ZGQ0Y3o4Q2k4Z1VTYzFM?=
+ =?utf-8?B?MmVGOTR0MnFPOUtISk5WWENjbmMyeHY1R1Jocjh0V0h2VWtwZzM4UDlmVFVR?=
+ =?utf-8?B?cHZhWEtWdnlyOHJraENndXBIOVpqVHRBaXduSmtOU3ZJamdyanBxZittUjFm?=
+ =?utf-8?B?TldWYUZBZ0FQSW9oY3BQWmx6RUtaU0NyZUlsd0hBbXMwaG1SVEdUczVnT3JR?=
+ =?utf-8?B?TWxDaDFrbEJTeFg4QkhkRkd3ZDdrbnhleEVEYnpjai9lWmJhbGV2NWF3Q0Z5?=
+ =?utf-8?B?eThrc2JPTXdPNGdXa3pOV3VYTWI0Zkp2Y2wvN3ZjNWR2MmtYbWEvUHZpOTZ0?=
+ =?utf-8?B?UlgrcC9CalNiRS9jOTdLaVlVMEZaTXlSa25uMG1uaENDTmdva3I4dz09?=
+X-OriginatorOrg: amlogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b790a0d7-622d-47db-0c40-08df03e7edc6
+X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB5778.apcprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 03:03:04.9610
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 03:04:37.3836
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CPEMfxMFfBIuIbZxg0Awb5iteR6fNrYnFFFcHWLlDqkMAnckG9UvtrD0mVG/v8WkDK4Pt6qE1CbCTHPsjWp07g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR11MB4540
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: A0UupeUnxEAee5btT7IPga4D5zhHtvpr/TFpqgxkEAn1jJNkvjebZdGQkOvr6SBSbHUlzxo+iNGnI0aKcYgH9Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR03MB9610
 
-On Thu, Aug 27, 2026 at 12:23:56AM +0800, Edgecombe, Rick P wrote:
-> On Wed, 2026-08-26 at 06:36 -0700, Edgecombe, Rick P wrote:
-> > We are waiting for some final confirmation that the TDX module will never set
-> > CLFLUSH_BEFORE_ALLOC. And that means all the clflushing is not needed. So I
-> > would probably shortly (weeks) send a patch to rip out any extra flushing added
-> > along with the rest of it.
-> > 
-> > I think another valid course of action here is to do nothing for now.
+Hi Lucas,
+
+I checked the board schematic and suspect that the stability issue is 
+very likely caused by voltage drops resulting from disabling the PWM clocks.
+
+On 8/27/2026 4:04 AM, Lucas Tanure wrote:
+> [ EXTERNAL EMAIL ]
 > 
-> Ok, just got confirmation. So how about instead of this, we just delete the
-> clflushing all together. Then the warning is not needed because the function
-> works for huge pages after that, right Yan? I can send a patch.
-Yes. Deleting clflushing all together works.
+> On 26/08/2026 18:17, Brian Masney wrote:
+>> Hi Lucas,
+>>
+>> On Wed, Aug 26, 2026 at 05:42:01PM +0100, Lucas Tanure wrote:
+>>> With Brian's patches, VIM4 does not turn off 4 clocks:
+>>>
+>>> t7_sys_sd_emmc_b
+>>> t7_sys_sd_emmc_c
+>>> sd_emmc_b
+>>> sd_emmc_c
+>>>
+>>> This is expected since I'm trying to run from an SD card. However, 
+>>> even with
+>>> these four clocks kept enabled, the board still hangs.
+>>>
+>>> Complete list with all clocks being disabled after Brians patches:
+>>> [    1.002247] clk: Disabled unused clock: t7_sys_pwm_ao_gh
+>>> [    1.002898] clk: Disabled unused clock: t7_sys_pwm_ao_ef
+>>> [    1.003560] clk: Disabled unused clock: t7_sys_pwm_ao_cd
+>>> [    1.004220] clk: Disabled unused clock: t7_sys_pwm_ao_ab
+>>> [    1.004972] clk: Disabled unused clock: t7_sys_pwm_ef
+>>> [    1.005509] clk: Disabled unused clock: t7_sys_pwm_cd
+>>> [    1.006211] clk: Disabled unused clock: t7_sys_pwm_ab
+>>> [    1.006766] clk: Disabled unused clock: t7_sys_ts_hevc
+>>> [    1.007434] clk: Disabled unused clock: t7_sys_ts_vpu
+>>> [    1.008033] clk: Disabled unused clock: t7_sys_ts_nna
+>>> [    1.008741] clk: Disabled unused clock: t7_sys_ts_gpu
+>>> [    1.009294] clk: Disabled unused clock: t7_sys_sar_adc
+>>> [    1.009929] clk: Disabled unused clock: t7_sys_vpu_intr
+>>> [    1.010609] clk: Disabled unused clock: t7_sys_dspb
+>>> [    1.011186] clk: Disabled unused clock: t7_sys_dspa
+>>> [    1.011792] clk: Disabled unused clock: t7_sys_a73pclk_apb
+>>> [    1.012554] clk: Disabled unused clock: t7_sys_pclk_sys_apb
+>>> [    1.013213] clk: Disabled unused clock: t7_sys_rsa
+>>> [    1.013811] clk: Disabled unused clock: t7_sys_mipi_isp_pclk
+>>> [    1.014529] clk: Disabled unused clock: t7_sys_mmc_apb
+>>> [    1.015107] clk: Disabled unused clock: t7_sys_hdmirx_pclk
+>>> [    1.015819] clk: Disabled unused clock: t7_sys_i2c_s_a
+>>> [    1.016429] clk: Disabled unused clock: t7_sys_hdmitx_apb
+>>> [    1.017109] clk: Disabled unused clock: t7_sys_i2c_m_f
+>>> [    1.017740] clk: Disabled unused clock: t7_sys_i2c_m_e
+>>> [    1.018379] clk: Disabled unused clock: t7_sys_i2c_m_d
+>>> [    1.019018] clk: Disabled unused clock: t7_sys_i2c_m_c
+>>> [    1.019657] clk: Disabled unused clock: t7_sys_i2c_m_b
+>>> [    1.020296] clk: Disabled unused clock: t7_sys_i2c_m_a
+>>> [    1.020940] clk: Disabled unused clock: t7_sys_i2c_ao_b
+>>> [    1.021585] clk: Disabled unused clock: t7_sys_i2c_ao_a
+>>> [    1.022236] clk: Disabled unused clock: t7_sys_pcie_phy
+>>> [    1.022885] clk: Disabled unused clock: t7_sys_usb
+>>> [    1.023482] clk: Disabled unused clock: t7_sys_pcie
+>>> [    1.024088] clk: Disabled unused clock: t7_sys_spicc1
+>>> [    1.024723] clk: Disabled unused clock: t7_sys_spicc0
+>>> [    1.025345] clk: Disabled unused clock: t7_sys_g2d
+>>> [    1.025940] clk: Disabled unused clock: t7_sys_spicc5
+>>> [    1.026569] clk: Disabled unused clock: t7_sys_ts_a53
+>>> [    1.027197] clk: Disabled unused clock: t7_sys_ts_a73
+>>> [    1.027825] clk: Disabled unused clock: t7_sys_spicc4
+>>> [    1.028454] clk: Disabled unused clock: t7_sys_spicc3
+>>> [    1.029085] clk: Disabled unused clock: t7_sys_spicc2
+>>> [    1.029710] clk: Disabled unused clock: t7_sys_aififo
+>>> [    1.030339] clk: Disabled unused clock: t7_sys_uart_f
+>>> [    1.030967] clk: Disabled unused clock: t7_sys_uart_e
+>>> [    1.031595] clk: Disabled unused clock: t7_sys_uart_d
+>>> [    1.032224] clk: Disabled unused clock: t7_sys_uart_c
+>>> [    1.032857] clk: Disabled unused clock: t7_sys_uart_b
+>>> [    1.033482] clk: Disabled unused clock: t7_sys_eth
+>>> [    1.034077] clk: Disabled unused clock: t7_sys_audio
+>>> [    1.034694] clk: Disabled unused clock: t7_sys_ir_ctrl
+>>> [    1.035333] clk: Disabled unused clock: t7_sys_msr_clk
+>>> [    1.035972] clk: Disabled unused clock: t7_sys_spifc
+>>> [    1.036596] clk: Disabled unused clock: t7_sys_acodec
+>>> [    1.037218] clk: Disabled unused clock: t7_sys_smartcard
+>>> [    1.037880] clk: Disabled unused clock: t7_sys_am2axi2
+>>> [    1.038518] clk: Disabled unused clock: t7_sys_am2axi1
+>>> [    1.039157] clk: Disabled unused clock: t7_sys_am2axi0
+>>> [    1.039796] clk: Disabled unused clock: t7_sys_ampipe_eth
+>>> [    1.040468] clk: Disabled unused clock: t7_sys_ampipe_nand
+>>> [    1.041155] clk: Disabled unused clock: t7_sys_deswarp
+>>> [    1.041790] clk: Disabled unused clock: t7_sys_gdc
+>>> [    1.042385] clk: Disabled unused clock: t7_sys_cec
+>>> [    1.042981] clk: Disabled unused clock: t7_sys_aucpu
+>>> [    1.043600] clk: Disabled unused clock: t7_sys_aocpu
+>>> [    1.044217] clk: Disabled unused clock: t7_sys_mali
+>>> [    1.044830] clk: Disabled unused clock: t7_sys_ethphy
+>>> [    1.045451] clk: Disabled unused clock: t7_sys_mipi_dsi_b
+>>> [    1.046123] clk: Disabled unused clock: t7_sys_mipi_dsi_a
+>>> [    1.046795] clk: Disabled unused clock: t7_sys_dos
+>>> [    1.047390] clk: Disabled unused clock: t7_sys_ddr
+>>> [    1.047991] clk: Disabled unused clock: pwm_ao_g
+
+This is the clock of the regulator that drives the VDDDDR.
+
+>>> [    1.048565] clk: Disabled unused clock: pwm_ao_f
+
+This is for VDDNPU
+
+>>> [    1.049135] clk: Disabled unused clock: pwm_ao_e
+
+This is for VDDGPU
+
+>>> [    1.049709] clk: Disabled unused clock: pwm_ao_d
+
+This is for VDDCPU_A (for A73)
+
+>>> [    1.050283] clk: Disabled unused clock: pwm_ao_b
+
+This is for VDDCPU_B (for A53)
+
+>>> [    1.050857] clk: Disabled unused clock: pwm_ao_a
+
+This is for VDDEE
+
+These clocks must not be disabled, otherwise the voltage may drop and 
+cause stability issues. You can try adding CLK_IGNORE_UNUSED to these 
+clocks and see if it improves the situation (especially for pwm_ao_a/b/d)?
+
+I checked the DTS and found that the pwm-regulator devices corresponding 
+to the VDD* rails mentioned above are not supported yet. If support for 
+these pwm-regulators is added in the DTS and the corresponding clocks 
+are properly referenced, the stability issues you are seeing may be 
+resolved.
+
+>>> [    1.051454] clk: Disabled unused clock: rtc_dualdiv
+>>> [    1.052038] clk: Disabled unused clock: rtc_duandiv_in
+>>>
+>>> Also with the patches the disable happens 0.5 second later, from 0.5 
+>>> seconds
+>>> after the boot to 1 second after the boot.
+>>>
+>>> I am still investigating what is missing a consumer or what should be
+>>> labeled critical.
+>>
+>> I've seen cases where a clock is modeled in Linux, but isn't actually
+>> used by Linux, so it gets caught in the disable unused clocks sweep.
+>>
+>> Does the board immediately crash after the disable unused clock sweep?
+> yes> If so, you could add a log statement, then 1 second sleep in
+>> clk_disable_unused_subtree() and wait for the board to crash.
+> good idea , thanks
+>>
+>> If you can't get timely help from the vendor, then you can add
+>> CLK_IGNORE_UNUSED to all of those clocks, and slowly start taking them
+>> off in batches and wait for the crash.
+> That's what I've been doing for the past few weeks, but I'm probably
+> hunting down a set of clock issues, as support for this board is still
+> in its early stages. It's a combination of clocks, which makes it way
+> more time-consuming.
+> 
+> I went with a more localized approach:
+> 
+> diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
+> index 2b6fae54702a..3358f4dc871f 100644
+> --- a/drivers/clk/clk.c
+> +++ b/drivers/clk/clk.c
+> @@ -1489,14 +1489,95 @@ static void clk_unprepare_unused_subtree(struct
+> clk_core *core,
+>                  else if (core->ops->unprepare)
+>                          core->ops->unprepare(core->hw);
+>                  trace_clk_unprepare_complete(core);
+> +               pr_info("clk: V Unprepared unused clock: %s\n", core- 
+>  >name);
+>          }
+>   }
+> 
+> +static const char * const disable_clocks[] = {
+> +       "t7_sys_pwm_ao_gh",
+> +       "t7_sys_pwm_ao_ef",
+> +       "t7_sys_pwm_ef",
+> +       "t7_sys_pwm_cd",
+> +       "t7_sys_pwm_ab",
+> +       "t7_sys_ts_hevc",
+> +       "t7_sys_ts_vpu",
+> +       "t7_sys_ts_nna",
+> +       "t7_sys_ts_gpu",
+> +       "t7_sys_sar_adc",
+> +       "t7_sys_vpu_intr",
+> +       "t7_sys_dspb",
+> +       "t7_sys_dspa",
+> +       "t7_sys_a73pclk_apb",
+> +       "t7_sys_pclk_sys_apb",
+> +       "t7_sys_rsa",
+> +       "t7_sys_mipi_isp_pclk",
+> +       "t7_sys_mmc_apb",
+> +       "t7_sys_hdmirx_pclk",
+> +       "t7_sys_i2c_s_a",
+> +       "t7_sys_hdmitx_apb",
+> +       "t7_sys_i2c_m_f",
+> +       "t7_sys_i2c_m_e",
+> +       "t7_sys_i2c_m_d",
+> +       "t7_sys_i2c_m_c",
+> +       "t7_sys_i2c_m_b",
+> +       "t7_sys_i2c_m_a",
+> +       "t7_sys_i2c_ao_b",
+> +       "t7_sys_i2c_ao_a",
+> +       "t7_sys_pcie_phy",
+> +       "t7_sys_usb",
+> +       "t7_sys_pcie",
+> +       "t7_sys_spicc1",
+> +       "t7_sys_spicc0",
+> +       "t7_sys_g2d",
+> +       "t7_sys_spicc5",
+> +       "t7_sys_ts_a53",
+> +       "t7_sys_ts_a73",
+> +       "t7_sys_spicc4",
+> +       "t7_sys_spicc3",
+> +       "t7_sys_spicc2",
+> +       "t7_sys_aififo",
+> +       "t7_sys_uart_f",
+> +       "t7_sys_uart_e",
+> +       "t7_sys_uart_d",
+> +       "t7_sys_uart_c",
+> +       "t7_sys_uart_b",
+> +       "t7_sys_eth",
+> +       "t7_sys_audio",
+> +       "t7_sys_ir_ctrl",
+> +       "t7_sys_msr_clk",
+> +       "t7_sys_spifc",
+> +       "t7_sys_acodec",
+> +       "t7_sys_smartcard",
+> +       "t7_sys_am2axi2",
+> +       "t7_sys_am2axi1",
+> +       "t7_sys_am2axi0",
+> +       "t7_sys_ampipe_eth",
+> +       "t7_sys_ampipe_nand",
+> +       "t7_sys_deswarp",
+> +       "t7_sys_gdc",
+> +       "t7_sys_cec",
+> +       "t7_sys_aucpu",
+> +       "t7_sys_aocpu",
+> +       "t7_sys_mali",
+> +       "t7_sys_ethphy",
+> +       "t7_sys_mipi_dsi_b",
+> +       "t7_sys_mipi_dsi_a",
+> +       "t7_sys_dos",
+> +       "t7_sys_ddr",
+> +       "pwm_ao_g",
+> +       "pwm_ao_e",
+> +       "pwm_ao_a",
+> +       "rtc_dualdiv",
+> +       "rtc_duandiv_in",
+> +};
+> +
+> +
+>   static void clk_disable_unused_subtree(struct clk_core *core,
+>                                         struct device *dev)
+>   {
+>          struct clk_core *child;
+>          unsigned long flags;
+> +       int i;
+> 
+>          lockdep_assert_held(&prepare_lock);
+> 
+> @@ -1517,6 +1598,11 @@ static void clk_disable_unused_subtree(struct
+> clk_core *core,
+>          if (core->flags & CLK_IGNORE_UNUSED)
+>                  goto unlock_out;
+> 
+> +       for (i = 0; i < ARRAY_SIZE(disable_clocks); i++) {
+> +               if (strcmp(core->name, disable_clocks[i]) == 0)
+> +                       goto unlock_out;
+> +       }
+> +
+>          /*
+>           * some gate clocks have special needs during the disable-unused
+>           * sequence.  call .disable_unused if available, otherwise fall
+> @@ -1529,6 +1615,7 @@ static void clk_disable_unused_subtree(struct
+> clk_core *core,
+>                  else if (core->ops->disable)
+>                          core->ops->disable(core->hw);
+>                  trace_clk_disable_complete(core);
+> +               pr_info("clk: V Disabled unused clock: %s\n", core->name);
+>          }
+> 
+> This makes it easier to let the sweep disable clocks for testing.
+> 
+>>
+>> Brian
+>>
+> Thanks
+> Lucas
+> 
+> 
+> _______________________________________________
+> linux-amlogic mailing list
+> linux-amlogic@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-amlogic
+
+-- 
+Best regards,
+Chuan
+
