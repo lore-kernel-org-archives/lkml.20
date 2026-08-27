@@ -1,201 +1,400 @@
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF165447803
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:36:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787852217; cv=pass; b=rM9qz/Z+3+11/GCH0aU2skOWuIx4pCluIHEY7+pjmkHwbCi5lfNQ1Yd9utFAkF+MJfyPgxNr5MRAz2HwRUXDSETmG+sG7lmASr1Er7bhd4DUWLQbYlOPE/64hUW1ZMrfRLpYnpkUYLXpreF8++RRPCjuFFu6TiB7PuzOp0xR4KU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787852217; c=relaxed/simple;
-	bh=zx9m3UJWLQKbi0/pNDNNX6lZqJj4z+ajiJa/RVGEIzM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MQRDTf5VB8+g1rWMpWumU/EWhmaflS+RFoBvXuYCoqnpZ6pXmfRrxsOewr84Svohb5U1zE7a0Hbir4DtKbS8nj6sStRi6jUEd7E54yMOibwE0AeQZ6N6kBJk8YHItpAB4NPcVa4VrtLFrt6AOmTBw7Aj4gXvWYuH4SYxYGd3YbA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=U+xla7h8; arc=pass smtp.client-ip=209.85.218.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7DD036F915;
+	Thu, 27 Aug 2026 17:36:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787852218; cv=none; b=kfbvyqXMmyVnITqEVQAtQKQOSgUerJyVYlqZL6VoTBR6adSVsr5yCswkzKu+1FGQQzQBRvhu5gQy4JKvhEyOlTIrjspY81SUCKs4IAn1U9B1lUfzh6UmBuPVZzakHpWGYilIyrDwlONw3lvAp7FCpd6S2yBZiNt1ctYlHspIkEc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787852218; c=relaxed/simple;
+	bh=PiArryQFkq2pGYcHA51qmh/BEiVorOPh2gCrnxo3gew=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PVss9KNqZO0q6tYu5knnQ98MSCpX1nv6iZlLGVZwpvigUR+nz9HmWfoZUVoW1bF7TZR5prUFr2bhDKkZRDM6MKvkIwLuxUw7BXrZESMbdZY7A57BmyNg28E9Y3I6XzIOs9waW6oqqAS7tphfw5jspocWFYyhDvuKirIJYfm6rtQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TPwdWZTS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="U+xla7h8"
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c207cb16cf5so19883466b.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:36:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787852214; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Zhwh1KxDD1QkfI7i6c7fxwijgiy0wLtSwZ1PLCXFNTIcF2v1wqciQS6VwuCZNFiTnc
-         r1Q1RCMsw0vQPl40PMf8npBOnjwkKY8j0HF9SdcQUR+nSDq36abzdKy30GoPYpqVwMfW
-         xI3NmGaQOFpcy3cuZho1+7daNquPcj7+vTMNp/l+17TNNJQOftyB1xzeLQhL1607PkoA
-         XTtSdz45DeT3CbZ/LoXDBMPZisuauANvuMOek//35EIvz/DjMsXGd0bA7TGKDx/Vzsn5
-         b2D2bszzlBjaLECoyCy/slzpGHbR2ReUrYHTnFO3rDOFP5f5pgi4epMx3rJoMlNfN9mt
-         ZriA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=cU2IdGj8HYn85rF2dapXdYr5omVVmX8wN53COGpvOpk=;
-        fh=cmxL2PK3lXBRwJSDm1EjEjlmRXm0g/m6YZcTOEzhhx0=;
-        b=rsXof6BHGVofd77ilDqncFdSV4JbmhCCqDxm/yYAACvDxvW+1oy9CpZgs6vtF8h9+A
-         P1SLGETy7xnrzukgj6PJRtE6+ivj5HAWq/9Rs7L6zXcBHjgsF01R5kJbY6lHhMuECNkx
-         6TFOCg9rmdtvG7k3ztYr3uSczwWHRblyARb3zQKgqjnS2tAQ/WpLYWXtzIdY3D7p2X0Q
-         9BzghkkabZlSPxl6T5alvaXVNlsp5+du3DL06s+U2OQxH74SuMO7T7Bu+byQkKNqhGHq
-         lfMSq3H5Cdm+1dOaI0htpUi/eSTDstmhAtMb/MGA+3vy3VrBSD7gS3Epq2cACT9WfUTt
-         yFPw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787852214; x=1788457014; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=cU2IdGj8HYn85rF2dapXdYr5omVVmX8wN53COGpvOpk=;
-        b=U+xla7h8Ps5Awr0Q4pOzTefLwg0sL6LhPl5rt1akFAS1W5K2Mr66/1cW9oZ63whvHF
-         /oFsZbExUUJjfkPTrmY3LjtatTvOBH0B0enpey5hQEkpv++yw4fbLUk7V+Dk3inzOP1w
-         0QX1MjO3ITThr8PJg3SZ9Aoh3kPlnGM11iICYIVu7rDnuGkGQau2mn6Mxp0J1A+t6D0o
-         Vklsj4LR+LqXoTPtJG5nPlGDlmwDDniLu8YfX532ZeS0XlIiiJXicDjHiII5A0G68dU6
-         uqXv0+SDPg2sageLB/Sf3QnMTjfwLV6TTuKBYDC9sw+Qbr48LL5hYMpMJK9SteXlMyjK
-         Hd2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787852214; x=1788457014;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cU2IdGj8HYn85rF2dapXdYr5omVVmX8wN53COGpvOpk=;
-        b=ThmD6CRVnrd3ABshZZ9YIqvovxCv8jQGPUCfPa73L0J16dJz7Oagx71CKy6XMjnlew
-         rJy6kUqxGd+dwaT5EauDSXROz2y/1LZjNXwNVekrdEau2T0VIzfS5YBhxlMuaPKC55m8
-         6YtGfQQk6WhHSC1r39mRnZ2dxA9VnUnJNWW9qBLRTzM8XOtKRJ4xv/Nnvbb5xitPP4zI
-         EcIMKeT6F5kObcLRSuFMM7fTaZ0T/IaAM2Va6lrzZuKO5s+2gSQlZJ5bEp7H1qm8Rx5C
-         HwaEynBrOPWqYb8oFEfaFNeBxR7lluD6nOuGfd2+n7FwL50zrOJF3R4QFvbWWwlC0RNV
-         R4Ug==
-X-Forwarded-Encrypted: i=1; AHgh+RodTE6wT4z8tGhFC2muzxNfiMoxhr2Tqnr6uBysGiUdLZMF1Xpm6rbJInyAChvlqwj1dPCdf7ZzyT2dra8=@vger.kernel.org
-X-Gm-Message-State: AFuF++l6/iCtzhxH0qNpKup2grdcCEInjvnu0GpneAMVWa6r306pWpdv
-	04mFVvWAOQj/s/V+nwAanm/xJh+vi4IjMZmHADgVsnq6f5RT8R3QQgA9JKJTSDXp1MKVRtZLmg8
-	JBuibuQvW4xrzf4W27V5elGNrPs+qfTWqkURLfgb2
-X-Gm-Gg: AR+sD108pW4DLGNjx6p1sxoUz0PBUh5UPz1HyiIzJO7ZYMuNJ/Tczvi50qQAXxBCW8p
-	OnSyvCxHQFdYfjm+HEbuIVeAUNaRrKaSp/NqQXQ0YnuaOnFW+v4mdQyGPUOHL4iOK6ajAOw45Ej
-	AYwKkhScihiRiWu6I/iNWglbwQeLStyIzbHLoyEQUDkb5HgpVGOL19THgjp7kNqdQujW8DhEOqF
-	6woi+Bv3kI7LDkOhovgDe23kbn7VxGJEikE5V5lliYXcUd1RU750PP6RPCt4Fw8WnwW+gaZfkcH
-	yT/xgaB1x8hEXPzbD8tpoY0Xxc3nvGrUlGRwCSoCy9p8Kg==
-X-Received: by 2002:a17:906:628b:b0:c1f:8021:deef with SMTP id
- a640c23a62f3a-c2556c61defmr29002166b.10.1787852213404; Thu, 27 Aug 2026
- 10:36:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TPwdWZTS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63F7A1F000E9;
+	Thu, 27 Aug 2026 17:36:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787852216;
+	bh=k3bwMPba/sR3oI0+gNWXKTJPdy5UtHTLwVkPv98WeiQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TPwdWZTSHmrzaJohefJXfWBOIGeNBqG/henF91BdpuDYvEFZHB7E+VicDtWh5BlH1
+	 bxSzv3vpKZNYqmGayCWoOf24C7fkgdKB3zf1Srmw4kdpoS5JuL2QjPZptv3+2ok6i1
+	 CytjBLOHtPxaY4smpE7RHoTni7q+6RC0xbh2fZVUDS/gqLy9QSlGInZfhsLByDchJl
+	 atcZrBHZrddcv4ri5xcGNrlrbZc45geWW2RirpYjnsgGkiRLWPBOYTQbcpxJfrjGgR
+	 lfaYxZvTU+NDAa5hlvKYMhKWto61mps6xQNP9BiBExxTZKjJlBoZElcfc9Jus6hQMZ
+	 DjWEgjRy6JwCQ==
+Date: Thu, 27 Aug 2026 18:36:50 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney@redhat.com>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Emil Renner Berthing <kernel@esmil.dk>,
+	Chen Wang <unicorn_wang@outlook.com>,
+	Inochi Amaoto <inochiama@gmail.com>,
+	Alexey Charkov <alchark@gmail.com>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Keguang Zhang <keguang.zhang@gmail.com>,
+	"linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>
+Subject: Re: [PATCH v4 7/8] soc: starfive: Add socinfo driver for JHB100 SoC
+Message-ID: <20260827-stack-aerosol-e1b1360b6ff5@spud>
+References: <ZQ4PR01MB1202DDE6C255441E1FC4F916F2DC2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+ <20260812-snowplow-punctured-28d19616f707@spud>
+ <ZQ4PR01MB1202F016AD1F1E699429DDC0F2DB2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+ <20260813-presoak-scarily-b6cdecfcb7cc@spud>
+ <ZQ4PR01MB1202CD24FCDA9039EDF2C7A0F2DA2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+ <20260814-reverb-mourner-283116bcc014@spud>
+ <ZQ4PR01MB1202BE1034795F1FBCF18076F2A72@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+ <20260818-recall-onion-3279fe070ccd@spud>
+ <ZQ4PR01MB12027CF8ADC7A2B39F7FB32CF2A52@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+ <ZQ4PR01MB1202AFE1B8600DFBE0DEB083F2AD2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260821193502.92431-1-vipinsh@google.com> <ao3nr1-t0DxANAyC@google.com>
- <CALzav=f5wUUt4mKZn0tvQez6_1iYPcb8eX5q-XjabTNy03JiNg@mail.gmail.com>
-In-Reply-To: <CALzav=f5wUUt4mKZn0tvQez6_1iYPcb8eX5q-XjabTNy03JiNg@mail.gmail.com>
-From: David Matlack <dmatlack@google.com>
-Date: Thu, 27 Aug 2026 10:36:25 -0700
-X-Gm-Features: AcwNN1XNPft5Ueou-qlSyAtHB2c_Ktuq8wp3SGgI-T0tZ93zrinbZgmtLF9T5Xs
-Message-ID: <CALzav=cEmjnYAZDS8Le_FkaZW1xE+pP1B+mks0Of85YWG-3_vg@mail.gmail.com>
-Subject: Re: [RFC PATCH 0/1] vfio: circular locking dependency in pci_dev_reset_iommu_prepare()
-To: Vipin Sharma <vipinsh@google.com>
-Cc: Alex Williamson <alex@shazbot.org>, Joerg Roedel <joro@8bytes.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Nicolin Chen <nicolinc@nvidia.com>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>, Robin Murphy <robin.murphy@arm.com>, 
-	jrhilke@google.com, skhawaja@google.com, tatashin@google.com, 
-	Will Deacon <will@kernel.org>, kvm@vger.kernel.org, iommu@lists.linux.dev, 
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="eZkx4DJCinx3comH"
+Content-Disposition: inline
+In-Reply-To: <ZQ4PR01MB1202AFE1B8600DFBE0DEB083F2AD2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+
+--eZkx4DJCinx3comH
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Aug 26, 2026 at 1:27=E2=80=AFPM David Matlack <dmatlack@google.com>=
- wrote:
->
-> On Tue, Aug 25, 2026 at 12:06=E2=80=AFPM David Matlack <dmatlack@google.c=
-om> wrote:
-> >
-> > On 2026-08-21 12:35 PM, Vipin Sharma wrote:
-> >
-> > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D
-> > > Potential Solutions Suggested by AI
-> > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D
+On Thu, Aug 27, 2026 at 06:22:20AM +0000, Changhuang Liang wrote:
+> Hi, Conor
+>=20
+> > Thanks for the review.
+> >=20
+> > > On Mon, Aug 17, 2026 at 01:27:08AM +0000, Changhuang Liang wrote:
+> > > > Hi, Conor
+> > > >
+> > > > Thanks for the review.
+> > > >
+> > > > > On Fri, Aug 14, 2026 at 01:13:38AM +0000, Changhuang Liang wrote:
+> > > > > > Hi,Conor
+> > > > > >
+> > > > > > Thanks for the review.
+> > > > > >
+> > > > > > > On Thu, Aug 13, 2026 at 08:10:12AM +0000, Changhuang Liang
+> > wrote:
+> > > > > > > > Hi ,Conor
+> > > > > > > >
+> > > > > > > > Thanks for the review.
+> > > > > > > >
+> > > > > > > > > On Wed, Aug 12, 2026 at 10:37:16AM +0000, Changhuang Liang
+> > > > > wrote:
+> > > > > > > > > > Hi, Conor
+> > > > > > > > > >
+> > > > > > > > > > Thanks for the review.
+> > > > > > > > > >
+> > > > > > > > > > > On Tue, Aug 11, 2026 at 05:36:19AM +0000, Changhuang
+> > > > > > > > > > > Liang
+> > > > > wrote:
+> > > > > > > > > > >
+> > > > > > > > > > > > > On Sat, Aug 08, 2026 at 06:50:53PM -0700,
+> > > > > > > > > > > > > Changhuang Liang
+> > > > > > > wrote:
+> > > > > > > > > > >
+> > > > > > > > > > > > > > +static int __init starfive_socinfo_init(void) {
+> > > > > > > > > > > > > > +	struct soc_device_attribute *attrs;
+> > > > > > > > > > > > > > +	struct soc_device *soc_dev;
+> > > > > > > > > > > > > > +	const char *machine =3D NULL;
+> > > > > > > > > > > > > > +	struct device_node *np;
+> > > > > > > > > > > > > > +	struct regmap *regmap;
+> > > > > > > > > > > > > > +	char rev_char;
+> > > > > > > > > > > > > > +	u32 rev_id;
+> > > > > > > > > > > > > > +	int ret;
+> > > > > > > > > > > > > > +
+> > > > > > > > > > > > > > +	np =3D of_find_compatible_node(NULL, NULL,
+> > > > > > > > > > > > > > +"starfive,jhb100-sys0-syscon");
+> > > > > > > > > > > > >
+> > > > > > > > > > > > > Remind me again why this is not just probed as an
+> > > > > > > > > > > > > mfd cell from the syscon driver?
+> > > > > > > > > > > > >
+> > > > > > > > > > > > > (Hint: please put this info in the commit message=
+).
+> > > > > > > > > > > >
+> > > > > > > > > > > > The discussion result with Krzysztof at that time is
+> > > > > > > > > > > > recorded
+> > > here:
+> > > > > > > > > > > > https://lore.kernel.org/all/20260405-strong-watchful
+> > > > > > > > > > > > -m
+> > > > > > > > > > > > armo
+> > > > > > > > > > > > t-fd
+> > > > > > > > > > > > fad6
+> > > > > > > > > > > > @quo
+> > > > > > > > > > > > ll/
+> > > > > > > > > > > >
+> > > > > > > > > > > > One register should not be treated as a separate de=
+vice
+> > node.
+> > > > > > > > > > >
+> > > > > > > > > > > That's a different question. In the case of an mfd
+> > > > > > > > > > > cell probed from the syscon driver there would be no
+> > > > > > > > > > > devicetree modifications required compared to what you
+> > > > > > > > > > > have
+> > > now. e.g.
+> > > > > > > > > > > sg2044-topsys.c
+> > > > > > > > > >
+> > > > > > > > > > This seems feasible, and I can introduce this
+> > > > > > > > > > modification in the next
+> > > > > > > > > version.
+> > > > > > > > >
+> > > > > > > > >
+> > > > > > > > > In fact, you don't even need the mfd cell, because your
+> > > > > > > > > driver is going to be in drivers/soc/starfive anyway? You
+> > > > > > > > > can just bind directly to the
+> > > > > > > > > sys0 syscon I think.
+> > > > > > > >
+> > > > > > > > I suddenly realized that I missed one issue:
+> > > > > > > > starfive,jhb100-sys0-syscon is already bound to the PLL
+> > > > > > > > driver by default, I
+> > > > > > > can't use it to bind another device anymore.
+> > > > > > > >
+> > > > > > > > which is why I used
+> > > > > > > >
+> > > > > > > > np =3D of_find_compatible_node(NULL, NULL,
+> > > > > > > > "starfive,jhb100-sys0-syscon");
+> > > > > > > >
+> > > > > > > > in jhb100-socinfo.c.
+> > > > > > > >
+> > > > > > > > So it seems the MFD cell approach isn't really feasible eit=
+her?
+> > > > > > >
+> > > > > > > You could, in that case, probe the clock driver using the
+> > > > > > > mfd_cell like sg2044-topsys. What else other than the pll
+> > > > > > > controls and the soc info register is in this register region?
+> > > > > >
+> > > > > > We don't have any other drivers right now in this register regi=
+on.
+> > > > >
+> > > > > I'm not asking about what's got a driver right now though, I am
+> > > > > wondering what else the registers in this region are for.
+> > > >
+> > > > Here are some registers related to debug functionality.
 > > >
-> > > 1. Decouple iommu_setup_dma_ops() from group->mutex in drivers/iommu/=
-iommu.c:
-> > >    iommu_setup_dma_ops() only requires struct device * and the domain=
- pointer
-> > >    (group->default_domain); it does not mutate any fields in struct i=
-ommu_group.
-> > >    Moving the iommu_setup_dma_ops() calls after mutex_unlock(&group->=
-mutex) in
-> > >    iommu_probe_device(), bus_iommu_probe(), and iommu_group_store_typ=
-e() breaks
-> > >    the initial &group->mutex -> cpu_hotplug_lock dependency.
-> >
-> > Are there any other code paths that rely on group->mutex -->
-> > mm->mmap_lock ordering? If so fixing this one case wouldn't help.
-> >
-> > > 2. Avoid holding down_write(&vdev->memory_lock) across pci_try_reset_=
-function()
-> > >    in VFIO:
-> > >    vfio-pci could zap active BAR mappings under memory_lock and set a=
- state
-> > >    flag / disable memory decoding, drop memory_lock before calling
-> > >    pci_try_reset_function(), and then re-acquire memory_lock to re-en=
-able
-> > >    memory. While resetting, any concurrent user fault will see the me=
-mory
-> > >    disabled condition and return VM_FAULT_SIGBUS safely.
-> >
-> > This would change the userspace-visible behavior of faulting on a VFIO
-> > device BAR from "block until reset is done and the succeed" to "fail
-> > with SIGBUS". And it would allow VFIO to access VFIO device BARs during
-> > the reset through vfio_pci_core_iowrite*().
-> >
-> > But I think we can extend this idea to solve those problems by
-> > introducing a wait queue for tasks to sit on while a device is being
-> > reset.
-> >
-> > e.g. Something like this (completely untested and partially written by =
-AI):
-> >
-> > From: David Matlack <dmatlack@google.com>
-> > Date: Tue, 25 Aug 2026 18:37:52 +0000
-> > Subject: [PATCH] vfio/pci: Avoid circular locking dependency during dev=
-ice reset
-> >
-> > Avoid a circular locking dependency during VFIO device reset by droppin=
-g
-> > vdev->memory_lock prior to calling PCI reset functions
-> > (pci_try_reset_function() and pci_reset_bus()). Introduce an explicit r=
-eset
-> > state flag (vdev->resetting) and wait queue (vdev->reset_done_wq) to st=
-all
-> > concurrent BAR page faults and MMIO accesses during reset without holdi=
-ng
-> > vdev->memory_lock across PCI reset operations.
-> ...
->
-> This approach does not look ideal. The implementation has a bug where
-> concurrent resets can lead to vdev->resetting being cleared too early.
-> And from a maintainability perspective, there are more call sites that
-> currently take memory_lock that would probably also have to be updated
-> to wait for vdev->resetting to become false.
->
+> > > So probably nothing else that linux will ever need?
+> >=20
+> > Yes.
+> >=20
 > > >
-> > > 3. Refine synchronization in pci_dev_reset_iommu_prepare():
-> > >    Evaluate if attaching to the blocking domain and pausing ATS durin=
-g device
-> > >    reset can be protected using more fine-grained locking or atomic s=
-tate
-> > >    flags without holding the coarse &group->mutex.
-> >
-> > I don't know enough about this part of the kernel to say, but this woul=
-d
-> > directly address the new lock ordering dependency vdev->memory_lock -->
-> > group->mutex introduced by commit f5b16b802174 ("PCI: Suspend iommu fun=
-ction
-> > prior to resetting a device"), which is what led to this lockdep error.
+> > > > > > So does that mean I can revise it to the format below:
+> > > > > >
+> > > > > > static const struct mfd_cell jhb100_sys0_subdev[] =3D {
+> > > > > > 	{
+> > > > > > 		.name =3D "jhb100-sys0-pll",
+> > > > > > 	},
+> > > > >
+> > > > > > 	{
+> > > > > > 		.name =3D "jhb100-socinfo",
+> > > > >
+> > > > > Why would this be needed? The driver with the mfd_cell would be
+> > > > > the same one that provides the soc info, no?
+> > > >
+> > > > My understanding is that one driver can only bind to one device, so
+> > > > the PLL driver and the socinfo driver need these two devices
+> > > > respectively, and thus cannot share one?
+> > >
+> > > Correct, but I am talking about the socinfo driver being the one that
+> > > calls
+> > > devm_mfd_add_devices() to create a device for the pll so that in the
+> > > end there are a total of two drivers, rather than create something
+> > > identical to sg2044-topsys.c that does nothing other than initialise =
+two mfd
+> > cells.
+> > > May as well consolidate the mfd_cell definition and call to
+> > > devm_mfd_add_devices() in one file, since it would be in the same
+> > > directory as the socinfo driver anyway.
+> >=20
+> > Okay, I will use this method.
+>=20
+> During the process of attempting this modification, there will be accompa=
+nying changes to the PLL driver.=20
+> The main changes include the following:
+>=20
+> 1. Addition of platform device ID table: A new platform_device_id array i=
+s introduced, enabling the driver to
+> be matched by device name when no OF compatible string is available.
+>=20
+> 2. Dynamic device node resolution: The driver now attempts to obtain the =
+device node using dev_of_node(dev).
+>  If the device has no node of its own (as is the case when instantiated a=
+s an MFD child cell), it falls back to=20
+> using the parent device's DT node (dev_of_node(dev->parent)). This ensure=
+s the syscon regmap can still be=20
+> correctly retrieved.
+>=20
+> The current initial draft of the PLL changes is generally as follows: Do =
+you have any better suggestions on
+> your side?
 
-I sent a proposed fix that takes this approach here:
+It's not beautiful, but it is sane - or at least I think so.
 
-  https://lore.kernel.org/linux-iommu/20260827173511.2322549-1-dmatlack@goo=
-gle.com/
+>=20
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D
+>=20
+> 	const struct jhb100_pll_match_data *match_data;
+> +	struct device *dev =3D &pdev->dev;
+> +	struct device_node *np;
+>  	struct jhb100_pll_priv *priv;
+>  	unsigned int idx;
+>  	int ret;
+> =20
+> -	match_data =3D of_device_get_match_data(&pdev->dev);
+> -	if (!match_data)
+> -		return -EINVAL;
+> +	match_data =3D of_device_get_match_data(dev);
+> +	if (!match_data) {
+> +		const struct platform_device_id *id =3D platform_get_device_id(pdev);
+> +
+> +		if (!id)
+> +			return dev_err_probe(dev, -EINVAL, "no match data\n");
+> +
+> +		match_data =3D (const struct jhb100_pll_match_data *)id->driver_data;
+> +	}
+> =20
+>  	priv =3D devm_kzalloc(&pdev->dev,
+> 			    struct_size(priv, pll, match_data->num_pll),
+>  			    GFP_KERNEL);
+>  	if (!priv)
+>  		return -ENOMEM;
+> =20
+>  	priv->match_data =3D match_data;
+> -	priv->dev =3D &pdev->dev;
+> -	priv->regmap =3D syscon_node_to_regmap(priv->dev->of_node);
+> -	if (IS_ERR(priv->regmap))
+> -		return PTR_ERR(priv->regmap);
+> +	priv->dev =3D dev;
+> +
+> +	/*
+> +	 * When instantiated as an MFD cell of the sys0 system controller this
+> +	 * device has no DT node of its own, so use the parent syscon node.
+> +	 */
+> +	np =3D dev_of_node(dev) ? : dev_of_node(dev->parent);
+
+I think I'd probably check that you're on the device you think you are
+(sys0) before doing the dev_of_node(dev->parent), but...
+
+> +	priv->regmap =3D syscon_node_to_regmap(np);
+
+=2E..this will fail if you are not on sys0 and somehow dev_of_node(dev)
+returned null so it's probably fine.
+
+Thanks,
+Conor.
+
+> +	if (IS_ERR(priv->regmap))
+> +		return dev_err_probe(dev, PTR_ERR(priv->regmap),
+> +				     "failed to get syscon regmap\n");
+>=20
+>  static const struct of_device_id jhb100_pll_match[] =3D {
+> -	{
+> -		.compatible =3D "starfive,jhb100-sys0-syscon",
+> -		.data =3D &jhb100_sys0_pll,
+> -	},
+>  	{
+>  		.compatible =3D "starfive,jhb100-per0-syscon",
+>  		.data =3D &jhb100_per0_pll,
+>  	},
+>  	{
+>  		.compatible =3D "starfive,jhb100-per1-syscon",
+>  		.data =3D &jhb100_per1_pll,
+>  	},
+>  	{ /* sentinel */ }
+>  };
+>  MODULE_DEVICE_TABLE(of, jhb100_pll_match);
+> =20
+> +static const struct platform_device_id jhb100_pll_ids[] =3D {
+> +	{
+> +		.name =3D "jhb100-sys0-pll",
+> +		.driver_data =3D (unsigned long)&jhb100_sys0_pll,
+> +	},
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(platform, jhb100_pll_ids);
+> +
+>  static struct platform_driver jhb100_pll_driver =3D {
+>  	.probe =3D jhb100_pll_probe,
+> +	.id_table =3D jhb100_pll_ids,
+>  	.driver =3D {
+>  		.name =3D "clk-starfive-jhb100-pll",
+>  		.of_match_table =3D jhb100_pll_match,
+>  		.suppress_bind_attrs =3D true,
+>  	},
+>  };
+>=20
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>=20
+> > >
+> > > >
+> > > > >
+> > > > > > 	},
+> > > > > > };
+> > > > > >
+> > > > > > static const struct mfd_cell jhb100_per0_subdev[] =3D {
+> > > > > > 	{
+> > > > > > 		.name =3D "jhb100-per0-pll",
+> > > > >
+> > > > > Why do these other ones need to be modified?
+> > > >
+> > > > I was thinking, since sys0-pll has been adjusted, would it be better
+> > > > to also
+> > > adjust per0-pll and per1-pll together in a unified way?
+> > >
+> > > I wouldn't complicate them with things that they don't need, so it
+> > > depends on if these other syscon regions contain more than just PLLs
+> > > and if there'll ever be drivers for the other stuff in those regions.
+> > >
+> > > >
+> > > > >
+> > > > > > 	},
+> > > > > > };
+> > > > > >
+> > > > > > static const struct mfd_cell jhb100_per1_subdev[] =3D {
+> > > > > > 	{
+> > > > > > 		.name =3D "jhb100-per1-pll",
+> > > > > > 	},
+> > > > > > };
+> > > > > >
+> > > > > > static const struct mfd_cell jhb100_ pcierp _subdev[] =3D {
+> > > > > > 	{
+> > > > > > 		.name =3D "jhb100-pcierp-reset",
+> > > > > > 	},
+> > > > > > };
+> > > >
+>=20
+> Best Regards,
+> Changhuang
+>=20
+
+--eZkx4DJCinx3comH
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapB1sgAKCRB4tDGHoIJi
+0hQHAP9b2jc04ZVINeEbE32l/s/LWGWHD4cV+YPL0C5e5JWWfQD8DCs0NPKf6XFC
+47t4wKiSlS1UOsuSgDvufVQXMWr00wE=
+=eQ6Y
+-----END PGP SIGNATURE-----
+
+--eZkx4DJCinx3comH--
