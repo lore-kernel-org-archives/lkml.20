@@ -1,158 +1,440 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5890547A0C4
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:54:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 11FB238BF62;
+	Thu, 27 Aug 2026 16:54:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787849662; cv=none; b=sQb6cqt1VjYvYcd5554lKZzzc8nL8go76OEWI5oXfMFrlWhqhYESj0bJz8dq1JJA1M7Ztxj7UHDAbUqxFvjwJyOyA/tQcKnzmK9RmIHNL1q8QwRDpe25aYdtHew1Cc4Dmy0MhWX35HWeQmFrRgp+OX7rMfE0tFUDV3V1yrXYiao=
+	t=1787849669; cv=none; b=fjQKjDM45NAIAJjBXkr80QXzDDo2i89BRPGeferMNFPYI6stcydusNMW9uXZYTHzG1RwRlBCDU0Cu37KxfkW1+9gDhcCj9uqbUDM1uzzyVnvss8bQzc6AxgiPQ8hsUM+VTPV7JMa0RMQRRMudPnc3tIHzlfWVjJaDPuaTeYxNsw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787849662; c=relaxed/simple;
-	bh=u11lJuZ3CHy20gCd2pC2khIydn89D9sUB56pU5B3pww=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UK5CelsN5q96u7VTEF3BuQ1fwE/cmGVQ/bvttPt7HeCdGChoyBrB5QYQWBuGBVH4bmB31xrLJhR9QjDAkEHWlR/yCVrK3puMOoluDvv0S1Q8CvWfJcfVTJGUfjNiKCrFSXMOA8kTJkD3/7h6oODYwLwBIW9WIkDrX/xI/hhFXj8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q1mbqkIR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787849669; c=relaxed/simple;
+	bh=DsQYUAYoIvLMCKyVTnqr6NjN9Agug39s0/XRUD7hItE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HBykUMDcCRREo4r5S6lkrwTs7qkAHR7suAvpTj8A70DU7+MLNvYVI2xOqxjk6kUYKUyHhK9QMv6wnHhBK5zT336lI11YkE+3f5l34bl6OKJ7G8CmMrMK7Rt8k/JIp9zqVcrJ4rHncVEjn7Ji4e7FEl7JEzGDW8w7CejSjRB0r/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=UX67LVpI; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q1mbqkIR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 557821F000E9;
-	Thu, 27 Aug 2026 16:54:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787849657;
-	bh=/0EijgfI0VhQhjrOTV+mfho0EuTlFA7vhzH58UT/Nl4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Q1mbqkIRp/j8VBTOJgQerAlZU8RI7OgMeuHkcQerXu9CaZBcqP7GmXXu/I7HJd4UV
-	 nvesbXLzUiwZJILNPf+do8UBEBx2LlzwBCFJV4eUzdKAYa6h5uSoIJ84Zkl7QawPdb
-	 Kb57R5YJkfKxgl8s56xglIX1+EAU882cbnWtS827eSn5DSGlkG9lEqkYhhD9v3zSq5
-	 2+oobrJHgm0lDln30e2YrGv5zDLds5wuUgPLaGHKREyWeNjoSp2hDzL3LqPskXtk87
-	 6BlFyemKV7gEye1DEnBcLG5K4Wy24J50jRxArPG3d3ew4VqgxEQT/pzACBPe6X8kKD
-	 BxcsE9VUob95w==
-Message-ID: <f495537b-90a1-4d22-9281-d1074af2ac1d@kernel.org>
-Date: Thu, 27 Aug 2026 18:54:09 +0200
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="UX67LVpI"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2E4101684;
+	Thu, 27 Aug 2026 09:54:18 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 52C673F66F;
+	Thu, 27 Aug 2026 09:54:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1787849661; bh=DsQYUAYoIvLMCKyVTnqr6NjN9Agug39s0/XRUD7hItE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=UX67LVpIuzwerPNysXQnLqBw90ixXmKYbCFxiUuGX/hfrZq2IAIOISwVTVuXd9dss
+	 kwjV3IXRQt4zZwiH3S2acuMWWKumHHbsY0jZeGKg2VPzvn95QQ+Lc/1mtRECL0U6JG
+	 aTldn2pMdR0kTROUwIK8E5oHcH+LMUpisyeAgeTY=
+Date: Thu, 27 Aug 2026 17:54:17 +0100
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: Zi Yan <ziy@nvidia.com>
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
+	Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] kselftest: mm: replace usage of /proc/self/smaps
+ for check_huge_xxx() helper
+Message-ID: <apBruUeQoCgP_Mhh@e129823.arm.com>
+References: <20260826-fix_split-v2-0-71153c7f579a@arm.com>
+ <20260826-fix_split-v2-2-71153c7f579a@arm.com>
+ <0107447a-7c1f-44f8-94fb-109b0f850677@linux.alibaba.com>
+ <apAVAvfxZSeEvf50@e129823.arm.com>
+ <DKZTG6MI4EI2.35PCXKS36M1DY@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 16/18] mm/huge_memory: clarify supported split orders
- in comment
-To: kasong@tencent.com, linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
- Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
- Shivam Kalra <shivamkalra98@zohomail.in>, Kairui Song <ryncsn@gmail.com>
-References: <20260821-swap-thp-cleanup-v3-0-9b43f5163238@tencent.com>
- <20260821-swap-thp-cleanup-v3-16-9b43f5163238@tencent.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260821-swap-thp-cleanup-v3-16-9b43f5163238@tencent.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <DKZTG6MI4EI2.35PCXKS36M1DY@nvidia.com>
 
-On 8/20/26 20:55, Kairui Song via B4 Relay wrote:
-> From: Kairui Song <kasong@tencent.com>
+On Thu, Aug 27, 2026 at 11:03:17AM -0400, Zi Yan wrote:
+> On Thu Aug 27, 2026 at 6:44 AM EDT, Yeoreum Yun wrote:
+> > Hi Baolin,
+> >
+> >> 
+> >> 
+> >> On 8/26/26 8:24 PM, Yeoreum Yun wrote:
+> >> > Since glibc commit 321e1fc73f (“malloc: Enable 2MB THP by default on AArch64”),
+> >> > glibc may call madvise(MADV_HUGEPAGE) for sufficiently large allocations
+> >> > made by memalign().
+> >> > 
+> >> > The underlying VMA may start at a different address from the aligned
+> >> > address returned by memalign(). Furthermore, a subsequent
+> >> > madvise(MADV_HUGEPAGE) call does not split the VMA because the flag is
+> >> > already set.
+> >> > 
+> >> > This causes split_huge_page_test to fail because the check_huge_xxx()
+> >> > helpers incorrectly require the address returned by memalign() to
+> >> > match the VMA start address reported in /proc/self/smaps.
+> >> > 
+> >> > Fix this by using /proc/self/pagemap and /proc/kpageflags instead of
+> >> > /proc/self/smaps to detect huge pages.
+> >> > 
+> >> > Reported-by: David Hildenbrand (Arm) <david@kernel.org>
+> >> > Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+> >> > ---
+> >> >   tools/testing/selftests/mm/vm_util.c | 130 ++++++++++++++++++++---------------
+> >> >   tools/testing/selftests/mm/vm_util.h |   1 +
+> >> >   2 files changed, 77 insertions(+), 54 deletions(-)
+> >> > 
+> >> > diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/mm/vm_util.c
+> >> > index 4821a3563036..1d0959b3b9e8 100644
+> >> > --- a/tools/testing/selftests/mm/vm_util.c
+> >> > +++ b/tools/testing/selftests/mm/vm_util.c
+> >> > @@ -351,31 +351,13 @@ char *__get_smap_entry(void *addr, const char *pattern, char *buf, size_t len)
+> >> >   	return entry;
+> >> >   }
+> >> > -static bool __check_pmd_huge(void *addr, char *pattern, int nr_hpages,
+> >> > -		  uint64_t hpage_size)
+> >> > -{
+> >> > -	char buffer[MAX_LINE_LENGTH];
+> >> > -	uint64_t thp = -1;
+> >> > -	char *entry;
+> >> > -
+> >> > -	entry = __get_smap_entry(addr, pattern, buffer, sizeof(buffer));
+> >> > -	if (!entry)
+> >> > -		goto err_out;
+> >> > -
+> >> > -	if (sscanf(entry, "%9" SCNu64 " kB", &thp) != 1)
+> >> > -		ksft_exit_fail_msg("Reading smap error\n");
+> >> > -
+> >> > -err_out:
+> >> > -	return thp == (nr_hpages * (hpage_size >> 10));
+> >> > -}
+> >> > -
+> >> > -static bool check_large_folios(void *addr, size_t len, int nr_hpages,
+> >> > -		uint64_t hpage_size)
+> >> > +static bool check_large_folios(int pagemap_fd, int kpageflags_fd,
+> >> > +			       void *addr, size_t len, int nr_hpages,
+> >> > +			       uint64_t hpage_size)
+> >> >   {
+> >> >   	int order = 0, pagesize = getpagesize();
+> >> >   	unsigned int nr_pages = hpage_size / pagesize;
+> >> >   	int orders[MAX_NR_ORDERS], status;
+> >> > -	int pagemap_fd, kpageflags_fd;
+> >> >   	bool ret = false;
+> >> >   	if (!nr_pages)
+> >> > @@ -386,15 +368,6 @@ static bool check_large_folios(void *addr, size_t len, int nr_hpages,
+> >> >   		ksft_exit_fail_msg("invalid order\n");
+> >> >   	memset(orders, 0, sizeof(int) * MAX_NR_ORDERS);
+> >> > -	pagemap_fd = open(PAGEMAP_PATH, O_RDONLY);
+> >> > -	if (pagemap_fd == -1)
+> >> > -		ksft_exit_fail_msg("read pagemap fail\n");
+> >> > -
+> >> > -	kpageflags_fd = open(KPAGEFLAGS_PATH, O_RDONLY);
+> >> > -	if (kpageflags_fd == -1) {
+> >> > -		close(pagemap_fd);
+> >> > -		ksft_exit_fail_msg("read kpageflags fail\n");
+> >> > -	}
+> >> >   	status = gather_folio_orders(addr, len, pagemap_fd,
+> >> >   			kpageflags_fd, orders, MAX_NR_ORDERS);
+> >> > @@ -405,48 +378,97 @@ static bool check_large_folios(void *addr, size_t len, int nr_hpages,
+> >> >   		ret = true;
+> >> >   out:
+> >> > -	close(pagemap_fd);
+> >> > -	close(kpageflags_fd);
+> >> >   	return ret;
+> >> >   }
+> >> > -bool check_huge_anon(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
+> >> > +enum check_huge_type {
+> >> > +	CHECK_HUGE_ANON,
+> >> > +	CHECK_HUGE_FILE,
+> >> > +	CHECK_HUGE_SHMEM,
+> >> > +};
+> >> > +
+> >> > +static bool __check_pmd_huge(void *addr, size_t len, int nr_hpages,
+> >> > +			     uint64_t hpage_size, enum check_huge_type type)
+> >> 
+> >> The original __check_pmd_huge() is only for PMD-sized large folios, but now
+> >> it not only checks PMD-sized large folios but also mTHP large folios, which
+> >> I find confusing. Please keep its original semantics, and only check
+> >> PMD-sized large folios.
+> >
+> > But, It seems to valuable to check other page-flags than checking
+> > the large-folio only.
+> >
+> >> 
+> >> >   {
+> >> > -	uint64_t pmd_pagesize = read_pmd_pagesize();
+> >> > +	int pagemap_fd, kpageflags_fd;
+> >> > +	uint64_t pmd_pagesize, granule;
+> >> > +	uint64_t categories, kpf;
+> >> > +	unsigned long pfn;
+> >> > +	bool check_large, huge_mapped;
+> >> > +	char *start = addr;
+> >> > +	char *end = start + len;
+> >> > +	pmd_pagesize = read_pmd_pagesize();
+> >> >   	if (!pmd_pagesize)
+> >> >   		ksft_exit_fail_msg("reading PMD pagesize failed\n");
+> >> > -	if (hpage_size == pmd_pagesize)
+> >> > -		return __check_pmd_huge(addr, "AnonHugePages: ", nr_hpages, hpage_size);
+> >> > +	if (nr_hpages > 0) {
+> >> > +		check_large = true;
+> >> > +		granule = hpage_size;
+> >> > +	} else {
+> >> > +		check_large = false;
+> >> > +		granule = psize();
+> >> > +	}
+> >> 
+> >> This is incorrect for the mTHP large folio check. I already hit a selftest
+> >> failure. Please test your patches before sending them out.
+> >
+> > Since for a split case, large folio can be as-is but only remove
+> > the PMD mapping only, skipping the large_folio checking seems valid
+> > when nr_hpage is 0.
 > 
-> The doc comment for __split_huge_page_to_list_to_order() needs an
-> update: only order 1 is rejected for anon and swapcache folios,
-> matching the new_order == 1 check in folio_check_splittable().
+> What split care are you referring to? split_huge_page_test() always
+> splits the folio.
 
-I'm confused, why is that not updated in patch #15, which also updates that comment?
-
-If there is some preexisting inconsistency, the comment should be fixed before
-patch #15.
+Not for split_huge_page_test case but for khugepage testcase like
+collapse_full_of_compound() test.
 
 > 
-> Also realign the continuation line of the function signature while at
-> it.
+> >
+> > And the failure of test seems because of unmapped area after
+> > changinng the collapse-order. Therefore, it seems to fine with below
+> > patch:
+> >
+> > ---------------&<----------------------
+> >
+> > diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/mm/vm_util.c
+> > index 1d0959b3b9e8..f174a76d2310 100644
+> > --- a/tools/testing/selftests/mm/vm_util.c
+> > +++ b/tools/testing/selftests/mm/vm_util.c
+> > @@ -387,14 +387,14 @@ enum check_huge_type {
+> >         CHECK_HUGE_SHMEM,
+> >  };
+> >
+> > -static bool __check_pmd_huge(void *addr, size_t len, int nr_hpages,
+> > -                            uint64_t hpage_size, enum check_huge_type type)
+> > +static bool __check_huge(void *addr, size_t len, int nr_hpages,
+> > +                        uint64_t hpage_size, enum check_huge_type type)
+> >  {
+> >         int pagemap_fd, kpageflags_fd;
+> >         uint64_t pmd_pagesize, granule;
+> >         uint64_t categories, kpf;
+> >         unsigned long pfn;
+> > -       bool check_large, huge_mapped;
+> > +       bool check_large, check_huge_mapped, allow_nomap;
+> >         char *start = addr;
+> >         char *end = start + len;
+> >
+> > @@ -405,11 +405,20 @@ static bool __check_pmd_huge(void *addr, size_t len, int nr_hpages,
+> >         if (nr_hpages > 0) {
+> >                 check_large = true;
+> >                 granule = hpage_size;
+> > +               if (granule == pmd_pagesize)
+> > +                       check_huge_mapped = true;
+> > +               else
+> > +                       check_huge_mapped = false;
+> >         } else {
+> >                 check_large = false;
+> >                 granule = psize();
+> >         }
 > 
-> Signed-off-by: Kairui Song <kasong@tencent.com>
-> ---
->  mm/huge_memory.c | 11 +++++------
->  1 file changed, 5 insertions(+), 6 deletions(-)
-> 
-> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> index 06f353f937d1..0a971ca48151 100644
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -4400,11 +4400,10 @@ int folio_split_unmapped(struct folio *folio, unsigned int new_order)
->   *    GUP pins, will result in the folio not getting split; instead, the caller
->   *    will receive an -EAGAIN.
->   *
-> - * 4) @new_order > 1, usually. Order-1 is not supported for anon or swapcache
-> - *    folios: anon folios need subpage 2 for _deferred_list, which order-1
-> - *    folios lack, and a swapcache folio may become anon once faulted in.
-> - *    File-backed order-1 folios are supported, since they do not use
-> - *    _deferred_list.
-> + * 4) @new_order != 1 for anon or swapcache. Anon folios need subpage 2 for
-> + *    _deferred_list, which order-1 folios lack, and a swapcache folio may
-> + *    become anon once faulted in. File-backed order-1 folios are supported,
-> + *    since they do not use _deferred_list.
->   *
->   * After splitting, the caller's folio reference will be transferred to @page,
->   * resulting in a raised refcount of @page after this call. The other pages may
-> @@ -4432,7 +4431,7 @@ int folio_split_unmapped(struct folio *folio, unsigned int new_order)
->   * with the folio. Splitting to order 0 is compatible with all folios.
->   */
->  int __split_huge_page_to_list_to_order(struct page *page, struct list_head *list,
-> -				     unsigned int new_order)
-> +				       unsigned int new_order)
+> The else is for nr_hpages == 0? But it looks like we allow negative
+> nr_hpages. Maybe add a bool expect_huge = nr_hpages > 0 to make it
+> explicit.
 
-These functions should all be concerted to double-tab as we you them.
+Fair enough. I'll change.
+
+> 
+> granule is an optimization for PAGE_IS_HUGE scanning? When we expect a
+> PMD mapping, we just scan at pmd_pagesize granularity, otherwise we
+> check every single page?
+> 
+> At the high level, the function looks good to me, the rules are:
+> 
+> 1. if hpage_size == pmd_pagesize, we need to check PAGE_IS_HUGE and
+> check_large_folio() can be skipped, since we only care about mappings.
+> This checks for PMD mappings.
+> 
+> 2. in other cases, check_large_folios() is always needed. This is for
+> mTHP checks.
+
+Exactly, but for some testcase where use this function, doesn't
+trigger split of large _folio but only check the HUGE MAP is removed
+(nr_hpage == 0), it skips the chekc_large_folio(). 
+
+> 
+> I think the ifs at the beginning is confusing. Can we do something like
+> below to get rid of the ifs? I also moved KPF_* checks in a separate
+> function. Feel free to make changes if you find any issue there.
+> 
+> static bool check_huge_type(uint64_t categories, uint64_t kpageflags,
+> 			    enum check_huge_type type)
+> {
+> 	bool file = categories & PAGE_IS_FILE;
+> 	bool swapbacked = kpageflags & KPF_SWAPBACKED;
+> 
+> 	switch (type) {
+> 	case CHECK_HUGE_ANON:
+> 		return !file;
+> 	case CHECK_HUGE_FILE:
+> 		return file && !swapbacked;
+> 	case CHECK_HUGE_SHMEM:
+> 		return file && swapbacked;
+> 	}
+> 
+> 	return false;
+> }
+> 
+> static bool __check_huge(void *addr, size_t len, int nr_hpages,
+> 			 uint64_t hpage_size, enum check_huge_type type)
+> {
+> 	int pagemap_fd, kpageflags_fd;
+> 	int nr_pmd_mappings = 0;
+> 	uint64_t pmd_pagesize, scan_mapping_size;
+> 	uint64_t categories, kpf;
+> 	unsigned long pfn;
+> 	bool check_pmd_mapping;
+> 	bool allow_nonpresent;
+> 	bool ret = false;
+> 	char *start = addr;
+> 	char *end = start + len;
+> 
+> 	pmd_pagesize = read_pmd_pagesize();
+> 	if (!pmd_pagesize)
+> 		ksft_exit_fail_msg("reading PMD pagesize failed\n");
+> 
+> 	check_pmd_mapping = hpage_size == pmd_pagesize;
+> 	scan_mapping_size = nr_hpages > 0 ? hpage_size : psize();
+> 	/* Some mTHP tests check a partially populated PMD-sized range. */
+> 	allow_nonpresent = (uint64_t)nr_hpages * hpage_size < len;
+> 
+> 	pagemap_fd = open(PAGEMAP_PATH, O_RDONLY);
+> 	if (pagemap_fd < 0)
+> 		ksft_exit_fail_msg("open pagemap fail\n");
+> 
+> 	kpageflags_fd = open(KPAGEFLAGS_PATH, O_RDONLY);
+> 	if (kpageflags_fd < 0) {
+> 		close(pagemap_fd);
+> 		ksft_exit_fail_msg("open kpageflags fail\n");
+> 	}
+> 
+> 	/* PTE-mapped large folios cannot be identified by PAGE_IS_HUGE. */
+> 	if (!check_pmd_mapping &&
+> 	    !check_large_folios(pagemap_fd, kpageflags_fd, addr, len,
+> 				 nr_hpages, hpage_size))
+> 		goto out;
+> 
+> 	for (; start < end; start += scan_mapping_size) {
+> 		categories = pagemap_scan_get_categories(pagemap_fd, start);
+> 		pfn = pagemap_get_pfn(pagemap_fd, start);
+> 		if (pfn == -1UL) {
+> 			if (!allow_nonpresent)
+> 				goto out;
+> 			continue;
+> 		}
+> 		if (pageflags_get(pfn, kpageflags_fd, &kpf))
+> 			ksft_exit_fail_msg("read kpageflags: %s\n", strerror(errno));
+> 		if (check_pmd_mapping && (categories & PAGE_IS_HUGE))
+> 			nr_pmd_mappings++;
+> 		if (kpf & KPF_COMPOUND_TAIL)
+> 			continue;
+> 		if (!check_huge_type(categories, kpf, type))
+> 			goto out;
+> 	}
+> 	if (check_pmd_mapping && nr_pmd_mappings != nr_hpages)
+> 		goto out;
+
+Again, because of collapse_full_of_compound() testcase,
+it would be failed for this. so, it would better to skip
+check_large_folioes() when nr_hpages is 0.
+
+> 	ret = true;
+> 
+> out:
+> 	close(pagemap_fd);
+> 	close(kpageflags_fd);
+> 	return ret;
+> }
+> 
+> >
+> > +       if (nr_hpages * hpage_size < len)
+> > +               allow_nomap = true;
+> > +       else
+> > +               allow_nomap = false;
+> > +
+> >         pagemap_fd = open(PAGEMAP_PATH, O_RDONLY);
+> >         if (pagemap_fd < 0)
+> >                 ksft_exit_fail_msg("open pagemap fail\n");
+> > @@ -428,18 +437,15 @@ static bool __check_pmd_huge(void *addr, size_t len, int nr_hpages,
+> >                 categories = pagemap_scan_get_categories(pagemap_fd, start);
+> >                 pfn = pagemap_get_pfn(pagemap_fd, start);
+> >                 if (pfn == -1UL) {
+> > -                       if (check_large)
+> > +                       if (!allow_nomap)
+> >                                 goto out;
+> >                         else
+> >                                 continue;
+> >                 }
+> >                 if (pageflags_get(pfn, kpageflags_fd, &kpf))
+> >                         ksft_exit_fail_msg("read kpageflags: %s\n", strerror(errno));
+> > -               huge_mapped = categories & PAGE_IS_HUGE;
+> > -               if (check_large != huge_mapped) {
+> > -                       if (!check_large || granule == pmd_pagesize)
+> > +               if (check_huge_mapped != !!(categories & PAGE_IS_HUGE))
+> >                                 goto out;
+> > -               }
+> >                 if (kpf & KPF_COMPOUND_TAIL)
+> >                         continue;
+> >                 if (!!(categories & PAGE_IS_FILE) != (type != CHECK_HUGE_ANON))
+> 
+> 
+> 
+> 
+> 
+> > @@ -458,17 +464,17 @@ static bool __check_pmd_huge(void *addr, size_t len, int nr_hpages,
+> >
+> >  bool check_huge_anon(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
+> >  {
+> > -       return __check_pmd_huge(addr, len, nr_hpages, hpage_size, CHECK_HUGE_ANON);
+> > +       return __check_huge(addr, len, nr_hpages, hpage_size, CHECK_HUGE_ANON);
+> >  }
+> >
+> >  bool check_huge_file(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
+> >  {
+> > -       return __check_pmd_huge(addr, len, nr_hpages, hpage_size, CHECK_HUGE_FILE);
+> > +       return __check_huge(addr, len, nr_hpages, hpage_size, CHECK_HUGE_FILE);
+> >  }
+> >
+> >  bool check_huge_shmem(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
+> >  {
+> > -       return __check_pmd_huge(addr, len, nr_hpages, hpage_size, CHECK_HUGE_SHMEM);
+> > +       return __check_huge(addr, len, nr_hpages, hpage_size, CHECK_HUGE_SHMEM);
+> >  }
+> >
+> >
+> > If it's good for you, I'll repost again.
+> >
+> > Thanks!
+> 
+> 
+> 
+> 
+> -- 
+> Best Regards,
+> Yan, Zi
+> 
 
 -- 
-Cheers,
-
-David
+Sincerely,
+Yeoreum Yun
