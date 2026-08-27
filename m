@@ -1,176 +1,230 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4D811FECBA;
-	Thu, 27 Aug 2026 14:16:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51A6C477299
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 14:16:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787840198; cv=none; b=qb453EoTQtsRLX3PHQH/OV159LDNmXxGhDKTggvTxWOaWkXvCk5fufeoqFC6DuOLd9LfuWYBWT7NXRb2Y+8HnapmcY6Xgyj8bUviVWu8/vX/aa7vgQXtCeCsVCBhbxT4aVAw/kiIhWTUrnA6QXr7upfxvCQYUKtYM9R3+Gf/DU8=
+	t=1787840200; cv=none; b=IutjJDU0QsZrDP+BrkmCpF5hHulHywp6kJQpi1GPqVyF1ZoUdzLKEv1FuL0FaNuJGg1LXMxovg16DP8FrNX+dWqIiuGHE6bdCTpU0yWAsr6qh7iy7D2JLz92EEMOFnMOwo10xeGu+G6ps1qW9yCVq8TmH2mb9Vq+lTNHjOuB9YQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787840198; c=relaxed/simple;
-	bh=hMRn0TAQdGANoNPh5Or6WlMCNKR68xOEkS5ns+jAYMI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fcF07N+4r59sw7Me5EbvMZWNx4wVJuDUw2b4lKJVm/ww1vYbE6t20CklVKHE0Vp10bVXYmaNiOvBIAO/oHdMUz9a9RRw0dmaYreIfx896MgVjZrQ0QQgAaihYjqIAJ3IVhbZwB4hh7D5tl4JK/FVI44G5mp1GnHfEZkBaybAcUc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=oOeWCn92; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1787840200; c=relaxed/simple;
+	bh=Jf2Y++ByfUCWe+cwPAQmk2BlwH0jkQ2VUemigYlv5Bo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TYVfHYztSnlaYSwlIlCEIq3Z4C84Dtt2AAqz0k33+E1At31i5/T7xM0ja59yjXgKDAMwL0ksftyBRngCaGXp0sxNuud5yBR/458KCYEzNHUOxQCJzP9OFbivK+g0tvCUdkQ8nxgvbAYBcBBUWaFp/I9ezi//9i5roi3KvRtNKp0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=bw2d8TxR; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="oOeWCn92"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=eF
-	PaUjzplDvusr9EdznTDxXJqZfQ+uxtFj+38XpXKC0=; b=oOeWCn92JKGIxth/Es
-	OTkKzs18z2WErJWeDRXPwH+hm2LrKo7bShUnVmZg7jAr5vTj69LRV10f8P7QMoKN
-	lbAmhQDDWTEX41OlBbklJGibYz0GUlj6o66nAA0UzVGkS3qCrySPE+LkzGha3FXx
-	+mph0fluV+Fzj+HE9u06BligY=
-Received: from fedora (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD395iNRpBqM49eSQ--.24405S2;
-	Thu, 27 Aug 2026 22:15:43 +0800 (CST)
-From: Ju Nan <junan76@163.com>
-To: antonio.borneo@foss.st.com
-Cc: alexandre.torgue@foss.st.com,
-	junan76@163.com,
-	linusw@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	mcoquelin.stm32@gmail.com
-Subject: [PATCH v2] pinctrl: stm32: fix the unit of the hwspinlock timeout
-Date: Thu, 27 Aug 2026 22:11:28 +0800
-Message-ID: <20260827141127.25789-2-junan76@163.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <9b0f76a08a7c1dbaec4684b4bc013263e0149a4b.camel@foss.st.com>
-References: <9b0f76a08a7c1dbaec4684b4bc013263e0149a4b.camel@foss.st.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="bw2d8TxR"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67RCVh2j3056633;
+	Thu, 27 Aug 2026 14:16:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=dcluX+
+	/mf8lazbWAYbxfRFNoZB8YSwa8nBk94K1KGpg=; b=bw2d8TxRtdi+hGjnlLQfxQ
+	MKhnyHYD+sXET3WLcEpQqRtPUC6z4W/G2RYDYVTFPXYJhm/MbG7GY/ceBPqjlWF5
+	SjdGRigMb2W+sb1gW2ixAb3hmufgYSwDEygmtRSGLL87dzrhT2DhZS9fArwaxeoI
+	h/hNZ13OBjvAaDiRS8992QFgAHFiQeNzFaa2517I7KprevFCq/KSdYrUaeJWl5nR
+	/V2dTxkzRKSFcdyL/DzDaasY7dehO0ttzjHHFprkRWNzy69U2aDq7v7nDb7AR2a+
+	8EzD2w4EaI5Fl27DhoiFRrPAt8SOzmNcu0lp4dnvWjaoTlNIV+6locY42vXdCXCg
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g73dxngk3-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 27 Aug 2026 14:16:28 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67RECE1F019730;
+	Thu, 27 Aug 2026 14:16:27 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4g7ragrakc-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 27 Aug 2026 14:16:27 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67REGNoF38404478
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 27 Aug 2026 14:16:23 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 9E4B12004D;
+	Thu, 27 Aug 2026 14:16:23 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id BF66F2004B;
+	Thu, 27 Aug 2026 14:16:20 +0000 (GMT)
+Received: from [9.67.92.114] (unknown [9.67.92.114])
+	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Thu, 27 Aug 2026 14:16:20 +0000 (GMT)
+Message-ID: <d8edbbfc-4910-4c0b-b104-2fe51756ecc7@linux.ibm.com>
+Date: Thu, 27 Aug 2026 19:46:18 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: powerpc: userspace processes crash on abort() from libc.so.6
+To: Shrikanth Hegde <sshegde@linux.ibm.com>,
+        linuxppc-dev <linuxppc-dev@lists.ozlabs.org>, tglx@kernel.org
+Cc: linux-kernel@vger.kernel.org, maddy@linux.ibm.com,
+        christophe.leroy@csgroup.eu, riteshh@linux.ibm.com
+References: <e301014d-568f-4ed5-bc64-b8a85ca0b1e1@linux.ibm.com>
+ <a147c153-0c73-422c-a183-dad5c5b9aa5c@linux.ibm.com>
+Content-Language: en-US
+From: Shivaprasad G Bhat <sbhat@linux.ibm.com>
+In-Reply-To: <a147c153-0c73-422c-a183-dad5c5b9aa5c@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD395iNRpBqM49eSQ--.24405S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxAFyDGw45tFykZF1xGFy3Jwb_yoWrur1rpF
-	Zagwn0yrs8X3y5Zw4DtF4q9rn3JayIywsrJF4jq3W8Zr1q9r95ta1Sqa92kF12qa4xJ3ZI
-	qFW2q345ua1kAaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piJKI_UUUUU=
-X-CM-SenderInfo: pmxqt0ixw6il2tof0z/xtbC1BB0JmqQRpCUKAAA3G
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDExOCBTYWx0ZWRfX5OrKWeDBh5AK
+ caYK8a9HkZ8MSg7TxO1WDqe+QE+3fgNIeSi1yhceIFJBDN7OxjGfi0QPzua7dlyHaJVGxPXt6r4
+ mHwUwhjPXztKAbGJsR3X9Y5VqUmg7M8=
+X-Authority-Analysis: v=2.4 cv=AYuB2XXG c=1 sm=1 tr=0 ts=6a9046bc cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=NEAV23lmAAAA:8
+ a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=pnlxZmXi8QIVzasWyfMA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: A4KgM3yLy7F_mvNhXEZ2ZmrpIZ3EIgL6
+X-Proofpoint-GUID: A4KgM3yLy7F_mvNhXEZ2ZmrpIZ3EIgL6
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDExOCBTYWx0ZWRfXwsr9uiKhzBsw
+ Yd3txQv3UExoUhd0S9PryQ8fVxy4OIk3uDHQjna+2JmOWZw34LmmJ92DtVjwgo9xpMLFyg1JLV+
+ GGsihZ84G+pBCCMgHa3/wLW8xrYhmjgc6qF6kxfbP/5R9Vy+o09yCJ4QSuL613YJUI+huAJI4qH
+ wDk3bPKCejT+A6LsRv8K679XFmNPCkcvFXBhDH8p97to1PboZH+UDp3CextRj+gFha8jSTtLQMl
+ PXuZOZZtgNskozJkHG1LF3enDhni75f3hx/ebGXR8eiH7nqpQR+eD51X6K90aVh+yUEX6SJcbcz
+ mFNYx3hAyRvj1nRxUub9+QmbxjcdvwyD8/4v9UUkkNnyg1hbGJMVj9a04BCZTMjz791rzz5YRrE
+ VKYrEvtR3cEPB2zr85MtIZIB30bILj6gIKKoASRjUU/ed8yfmBnojZ36x8DemytkBzW3voGjpZf
+ Fq1T0zs/eW6MqAGWEbA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-27_05,2026-08-26_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 clxscore=1015 adultscore=0 bulkscore=0
+ impostorscore=0 priorityscore=1501 lowpriorityscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608270118
 
-HWSPNLCK_TIMEOUT is passed to hwspin_lock_timeout_in_atomic(), whose
-timeout argument is in milliseconds, not microseconds:
+Hi Shrikanth,
 
-  atomic_delay += HWSPINLOCK_RETRY_DELAY_US;
-  if (atomic_delay > to * 1000)
-          return -ETIMEDOUT;
 
-So the driver asks for a 1 second timeout where the comment next to the
-macro says it wants 1 millisecond. All seven call sites spin on the
-hardware semaphore with udelay(), from sections that hold bank->lock or
-irqmux_lock, so on a non-PREEMPT_RT kernel this can keep interrupts
-disabled for up to one second while waiting for the coprocessor.
+On 8/27/26 5:08 PM, Shrikanth Hegde wrote:
+> Hi Shivaprasad.
+> 
+> On 8/27/26 11:13 AM, Shivaprasad G Bhat wrote:
+>>
+>> Hi All, Thomas,
+>>
+>> On my PPC64 machine, I see the below systemd crash orginating from 
+>> abort() during boot on top of the tree. Complete dmesg can be seen 
+>> here [1]
+>>        abort (libc.so.6 + 0x29484)
+>>        __libc_message_impl (libc.so.6 + 0x9e00c)
+>>        __libc_fatal (libc.so.6 + 0x9e06c)
+>>        start_thread (libc.so.6 + 0xadffc)
+>>        __clone (libc.so.6 + 0x152d68)
+>>        __clone (libc.so.6 + 0x152d68)
+>>        create_thread.constprop.0 (libc.so.6 + 0xad9c8)
+>>
+>> The git bisect pointed me to commit 3424d8c18a7da "(Merge tag 'core- 
+>> entry-2026-08-17' of git://git.kernel.org/pub/scm/linux/kernel/git/ 
+>> tip/tip)"
+>>
+>> Please find the kernel config used to build the kernel at [2].
+>>
+>> I have tried applying the pending fixes from Mukesh [3] and Ritesh [4] 
+>> for the currently outstanding issues and still see the problem.
+>>
+>> The system is running Fedora 42, with glibc-2.41-7.fc42.ppc64le. The
+>> complete list of toolchain and packages can be found here [5]
+>>
+>> Thanks and Regards,
+>> Shivaprasad
+>>
+>> References:
+>> 1 - https://gist.github.com/ 
+>> shivaprasadbhat/6f166374bab12b4f4c1cd4ac829e562c
+>> 2 - https://gist.github.com/shivaprasadbhat/ 
+>> aa499468e124015eec5932fb13e88e05
+>> 3 - https://lore.kernel.org/linuxppc-dev/ 
+>> lda1jyut.ritesh.list@gmail.com/#t
+>> 4 - https://lore.kernel.org/linuxppc-dev/20260820134718.2176411-1- 
+>> mkchauras@gmail.com/
+>> 5 - https://gist.github.com/shivaprasadbhat/ 
+>> ae56ca849c3009e8642a6313dc465ea7
+>>
+>> =========
+>> Backtrace from dmesg:
+>> [   22.039343][ T1833] systemd-coredump[1833]: Module libsystemd- 
+>> shared-257.6-1.fc42.so from rpm systemd-257.6-1.fc42.ppc64le
+>> [   22.039378][ T1833] systemd-coredump[1833]: Stack trace of thread 
+>> 1828:
+>> [   22.039378][ T1833] systemd-coredump[1833]: Stack trace of thread 
+>> 1828:
+>> [   22.039401][ T1833] systemd-coredump[1833]: #0  0x00007fffa4c29484 
+>> abort (libc.so.6 + 0x29484)
+>> [   22.039401][ T1833] systemd-coredump[1833]: #0  0x00007fffa4c29484 
+>> abort (libc.so.6 + 0x29484)
+>> [   22.039429][ T1833] systemd-coredump[1833]: #1  0x00007fffa4c9e00c 
+>> __libc_message_impl (libc.so.6 + 0x9e00c)
+>> [   22.039429][ T1833] systemd-coredump[1833]: #1  0x00007fffa4c9e00c 
+>> __libc_message_impl (libc.so.6 + 0x9e00c)
+>> [   22.039461][ T1833] systemd-coredump[1833]: #2  0x00007fffa4c9e06c 
+>> __libc_fatal (libc.so.6 + 0x9e06c)
+>> [   22.039461][ T1833] systemd-coredump[1833]: #2  0x00007fffa4c9e06c 
+>> __libc_fatal (libc.so.6 + 0x9e06c)
+>> [   22.039491][ T1833] systemd-coredump[1833]: #3  0x00007fffa4cadffc 
+>> start_thread (libc.so.6 + 0xadffc)
+>> [   22.039491][ T1833] systemd-coredump[1833]: #3  0x00007fffa4cadffc 
+>> start_thread (libc.so.6 + 0xadffc)
+>> [   22.039521][ T1833] systemd-coredump[1833]: #4  0x00007fffa4d52d68 
+>> __clone (libc.so.6 + 0x152d68)
+>> [   22.039521][ T1833] systemd-coredump[1833]: #4  0x00007fffa4d52d68 
+>> __clone (libc.so.6 + 0x152d68)
+>> [   22.039551][ T1833] systemd-coredump[1833]: #5  0x00007fffa4d52d68 
+>> __clone (libc.so.6 + 0x152d68)
+>> [   22.039551][ T1833] systemd-coredump[1833]: #5  0x00007fffa4d52d68 
+>> __clone (libc.so.6 + 0x152d68)
+>> [   22.039580][ T1833] systemd-coredump[1833]: #6  0x00007fffa4cad9c8 
+>> create_thread.constprop.0 (libc.so.6 + 0xad9c8)
+>> [   22.039580][ T1833] systemd-coredump[1833]: #6  0x00007fffa4cad9c8 
+>> create_thread.constprop.0 (libc.so.6 + 0xad9c8)
+>> [   22.039614][ T1833] systemd-coredump[1833]: #7  0x00000000003af858 
+>> n/a (n/a + 0x0)
+>> [   22.039614][ T1833] systemd-coredump[1833]: #7  0x00000000003af858 
+>> n/a (n/a + 0x0)
+>> [   22.039639][ T1833] systemd-coredump[1833]: ELF object binary 
+>> architecture: PowerPC64
+>> [   22.039639][ T1833] systemd-coredump[1833]: ELF object binary 
+>> architecture: PowerPC64
+>> [   22.042109][    T1] systemd[1]: systemd-journald.service: Scheduled 
+>> restart job, restart counter is at 1.
+> 
+> I was looking at merge patch and It is possible that TIF_SYSCALL_RET is 
+> still set when it is returned
+> and maybe causing a mismatch.
+> 
+> Does below help?
+> ---
+> 
+> --- a/arch/powerpc/kernel/syscall.c
+> +++ b/arch/powerpc/kernel/syscall.c
+> @@ -19,8 +19,10 @@ notrace long system_call_exception(struct pt_regs 
+> *regs, unsigned long r0)
+>       long ret;
+>       syscall_fn f;
+> 
+> -    if (unlikely(!syscall_enter_from_user_mode_randomize_stack(regs, 
+> &r0)))
+> +    if (unlikely(!syscall_enter_from_user_mode_randomize_stack(regs, 
+> &r0))) {
+> +        clear_thread_flag(TIF_SYSCALL_RET);
 
-The hwspinlock core documents this explicitly:
+Yes. This worked.
 
-  If the mode is HWLOCK_IN_ATOMIC (called from an atomic context) the
-  timeout is handled with busy-waiting delays, hence shall not exceed
-  few msecs.
-
-Pass the value the comment always described. The core retries every
-HWSPINLOCK_RETRY_DELAY_US (100 us), so the semaphore is still polled ten
-times before giving up, which is far longer than any plausible hold time
-on the coprocessor side. A timeout is reported with dev_err() and fails
-the pin configuration or the interrupt allocation, so shortening it
-degrades gracefully.
-
-Fixes: 290a9f937e5a ("pinctrl: stm32: use the hwspin_lock_timeout_in_atomic() API")
-Reviewed-by: Antonio Borneo <antonio.borneo@foss.st.com>
-Signed-off-by: Ju Nan <junan76@163.com>
----
-changelog:
-v2:
-- Add the "Fixes" tag
-- Redefine HWSPNLCK_TIMEOUT as HWSPNLCK_TIMEOUT_MS
-
-v1: https://lore.kernel.org/all/20260805032843.36961-2-junan76@163.com/
----
- drivers/pinctrl/stm32/pinctrl-stm32.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.c b/drivers/pinctrl/stm32/pinctrl-stm32.c
-index d97057ec2..0d888d30f 100644
---- a/drivers/pinctrl/stm32/pinctrl-stm32.c
-+++ b/drivers/pinctrl/stm32/pinctrl-stm32.c
-@@ -87,7 +87,7 @@
- #define gpio_range_to_bank(chip) \
- 		container_of(chip, struct stm32_gpio_bank, range)
- 
--#define HWSPNLCK_TIMEOUT	1000 /* usec */
-+#define HWSPNLCK_TIMEOUT_MS	1
- 
- static const char * const stm32_gpio_functions[] = {
- 	"gpio", "af0", "af1",
-@@ -633,7 +633,7 @@ static int stm32_gpio_domain_alloc(struct irq_domain *d,
- 
- 	if (pctl->hwlock) {
- 		ret = hwspin_lock_timeout_in_atomic(pctl->hwlock,
--						    HWSPNLCK_TIMEOUT);
-+						    HWSPNLCK_TIMEOUT_MS);
- 		if (ret) {
- 			dev_err(pctl->dev, "Can't get hwspinlock\n");
- 			pctl->irqmux_map &= ~BIT(hwirq);
-@@ -943,7 +943,7 @@ static int stm32_pmx_set_mode(struct stm32_gpio_bank *bank,
- 
- 	if (pctl->hwlock) {
- 		err = hwspin_lock_timeout_in_atomic(pctl->hwlock,
--						    HWSPNLCK_TIMEOUT);
-+						    HWSPNLCK_TIMEOUT_MS);
- 		if (err) {
- 			dev_err(pctl->dev, "Can't get hwspinlock\n");
- 			goto unlock;
-@@ -1086,7 +1086,7 @@ static int stm32_pconf_set_driving(struct stm32_gpio_bank *bank,
- 
- 	if (pctl->hwlock) {
- 		err = hwspin_lock_timeout_in_atomic(pctl->hwlock,
--						    HWSPNLCK_TIMEOUT);
-+						    HWSPNLCK_TIMEOUT_MS);
- 		if (err) {
- 			dev_err(pctl->dev, "Can't get hwspinlock\n");
- 			goto unlock;
-@@ -1132,7 +1132,7 @@ static int stm32_pconf_set_speed(struct stm32_gpio_bank *bank,
- 
- 	if (pctl->hwlock) {
- 		err = hwspin_lock_timeout_in_atomic(pctl->hwlock,
--						    HWSPNLCK_TIMEOUT);
-+						    HWSPNLCK_TIMEOUT_MS);
- 		if (err) {
- 			dev_err(pctl->dev, "Can't get hwspinlock\n");
- 			goto unlock;
-@@ -1178,7 +1178,7 @@ static int stm32_pconf_set_bias(struct stm32_gpio_bank *bank,
- 
- 	if (pctl->hwlock) {
- 		err = hwspin_lock_timeout_in_atomic(pctl->hwlock,
--						    HWSPNLCK_TIMEOUT);
-+						    HWSPNLCK_TIMEOUT_MS);
- 		if (err) {
- 			dev_err(pctl->dev, "Can't get hwspinlock\n");
- 			goto unlock;
-@@ -1239,7 +1239,7 @@ static int stm32_pconf_set_advcfgr(struct stm32_gpio_bank *bank, int offset, u32
- 	spin_lock_irqsave(&bank->lock, flags);
- 
- 	if (pctl->hwlock) {
--		err = hwspin_lock_timeout_in_atomic(pctl->hwlock, HWSPNLCK_TIMEOUT);
-+		err = hwspin_lock_timeout_in_atomic(pctl->hwlock, HWSPNLCK_TIMEOUT_MS);
- 		if (err) {
- 			dev_err(pctl->dev, "Can't get hwspinlock\n");
- 			goto unlock;
-@@ -1317,7 +1317,7 @@ stm32_pconf_set_skew_delay(struct stm32_gpio_bank *bank, int offset, u32 delay,
- 	spin_lock_irqsave(&bank->lock, flags);
- 
- 	if (pctl->hwlock) {
--		err = hwspin_lock_timeout_in_atomic(pctl->hwlock, HWSPNLCK_TIMEOUT);
-+		err = hwspin_lock_timeout_in_atomic(pctl->hwlock, HWSPNLCK_TIMEOUT_MS);
- 		if (err) {
- 			dev_err(pctl->dev, "Can't get hwspinlock\n");
- 			goto unlock;
--- 
-2.55.0
+Thanks,
+Shivaprasad>           return syscall_get_error(current, regs);
+> +    }
+> 
+>       if (unlikely(test_and_clear_thread_flag(TIF_SYSCALL_RET)))
+>           return syscall_get_error(current, regs);
 
