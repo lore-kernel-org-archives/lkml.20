@@ -1,63 +1,61 @@
-Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com [74.125.224.50])
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE4B73E0C73
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 23:55:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 245AA31E832
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 23:55:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787874919; cv=none; b=L+VhvV3F7DnpTjfhUJD42NE1Eo1kBLKSxZ1AR/FRzwY5ylGYTJUFaIKRUXcfpRiTJL53WbApKfPIeNQvtzz9xE7x7vui6Isjz98Olpj7KHDCYMZFjP0xnHbNURVU1ldgxFPmUESv28luIuIlSxQn9J70RrlYogxQihGtmvIoFTY=
+	t=1787874922; cv=none; b=FtPMlggDi0MRGYZez5mwh1R5KbB4E+kltL4OjBnguKOXoJ/Rg1tD1t22bJwysKbhBfL+jyyYs4wjKyU4KaOC255OKcIwyCcvou2YZXLJJDnPGXanROtId51HResC/n8B42g6MvSkWoVvYfnZDO+TuC45O2nRWpNPHfYVhEovNBE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787874919; c=relaxed/simple;
-	bh=povcfs+zEFwhtdLtyHZfkA0h8OxsjY5Ocq80rUw6ZxU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bnq1pAWXlS8fizuuDZzjVklHU94AAgFdxzcTw5YCUtlJifAj1QuKeOEyrl3hhnOFilQtPY8Lekmeypjp2JdGE7i64cFN7kSm6VZmkIjvkmEn9YjZcFrfMUH32PNanZjmdtlw4KnObkb01/T8MJKiA3etbdCp/HFoe4dDzY4+aY4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iyVBhwaw; arc=none smtp.client-ip=74.125.224.50
+	s=arc-20240116; t=1787874922; c=relaxed/simple;
+	bh=h27YVKK/TYuusXE6taFKqIAn5VyxSn/kotJtG8PpEoM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=INceA9IFYoCCgTLBPPxLTTNnU19ckBtwlf+TBXpeU39NNfSvQHAVwRmY09I0N3KFKY3ELaFzINmGiYbDh4jsggq7Fsf+m7FQJG6ib0LcfisAPQ2RKT9acEy1hyUiY6bKp8EghHae8VbgXjSLg7d354Nq/5heUvqgqBKAXkEm1qc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N0NYHgL+; arc=none smtp.client-ip=209.85.128.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iyVBhwaw"
-Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-66c744a00edso503721d50.2
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:55:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N0NYHgL+"
+Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8549a96e93cso1630947b3.3
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:55:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787874916; x=1788479716; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ibdqZhM5Iy57YHQTMa8QJ1pQX4PIL/iVkp9X2oZ/1hc=;
-        b=iyVBhwawK3j7j6zJAioLy7GC6kEvCDiZAtyIqD/EbyZ8B3Y+6Si5wSw6vKsivaVHB0
-         9v3OkTP/CLQtHsGp5V6NXwHa0bpekA4ofHKmPtlCiq+eehIqOizR1/LNWaIEyz+Hz25u
-         koIl1h/AjpuLM+jGvB9J2zMYw7Z59NJIsdfi8hjuI/uIPHOSH1rBW6dHBg+Q8XD7/2cE
-         G8Ow+Iyw9COr8y2BsPTiobbXv51AONgqcZudAlNQlo0uw/GktvAd6eDrwlBUMlxcXBvG
-         9qRyvkNKrZR4RS43+erdgnpFZqPA+qiylerawQPQJeQEeAVVXJh6WpymObXTljW9vqUd
-         agJg==
+        d=gmail.com; s=20251104; t=1787874918; x=1788479718; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oCfWHkIpmLvJEZNt0kO4ZWyCArHHxMdSOeCJ5Kkvn7k=;
+        b=N0NYHgL+c2r3z30Z0QHNoJkQQMqA+eBAyGLHu+gyXUdWzKcKqVzTQYFzzOu0U92lJ5
+         +A1bqI4umyXYLfErtoaJr+358x5yyFqGrAdxPwnq1ZYs0JDnO/oWTF6/a4oxIiwvwb2M
+         qpn1MLSiEgLeOoCrNq35bMpsUBT5gzQQwd8uNTRqqYG2YdThnjdFopDZEy8/1hcW5bu6
+         34UDwTAFSMrH5DSdu74Lk0g4ZvQ+bd5MkGdKrYr0dx2KtaQOfuEmAFN6l0w9b1AVdF6W
+         Km7RcGBgrOV9VUEC4QhXWSITtaRc4+lkXnxH6xvvC0heRsk6wMbiXrzdT00isYdcmY7G
+         8XSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787874916; x=1788479716;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ibdqZhM5Iy57YHQTMa8QJ1pQX4PIL/iVkp9X2oZ/1hc=;
-        b=UE2p3dcWVbMaE6j21uy5WFUIWLdlEjmtdQOvOYOIU+Pr+T0QImKSBndOyfl9dAvJ1b
-         m53BH6ohz7f7uKooXkMX1Ad00ymOIFMHAgCawdDWWcxHeZxVhM5elEDhfzT84s1Hc0Bs
-         3E5eNz3Vn4FKkx4v4rRGzD/iT7PtMhKzsO4EmfAoRwqG7VTkcNlCmWQUF7mvhQhZmd+6
-         jg+BEog3fXosIQycaT2fLXZ8HKS7KoapsBxtg7r0ltUzoRxNAIsNn8zWUiQvxh8PCs3p
-         cFgoP9LQ0hmfabUmcd8eT0QYIvgIzly6td6I08WX6ujtpDZJoR+HqVNDYavs6HdGhQ08
-         2XHQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rq7OhZP2NcLhryAkQm65LkaTy7o7JI3wuZLB+HMj6sZG9h+kHdMNJkmEk/jrXq8KZRi9/EbCqFfjLdA6WE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nKVDko/Qs6c1aqxUwaVoHsMpParDqlk31JUMLmfXHjZigsjZKk
-	x809EF1yH8igiNQx0rlzzGgjXCGAuGSPsaxx8lzUJinC3EWguG3GuX76
-X-Gm-Gg: AR+sD12MjiVCDz3noWdaxnboyIC7HrF38iCBhiekIdoF3SWvalyGtcWwQVaPuWc/BoD
-	yDTpgNDKN7wPuEv1y4FRrXYniU0cm5CHF1NIDn76TGkGgMEOruj7Q4Xkog7wmMi5SRZ88xeTk0J
-	JR2zc06dsSGeu6Q+c5B9bqRn7d0IMju3gCnS+po2SMnJvpWTqkrc4/+gye+FjKxc7Hk0i7HnNta
-	vLDL19qTxIXbCQJN1/coR4L9lc+quBmvi6ZygchlxtbSL1vMc9LuRg7XraSGvL5TBBEa3w+zCYB
-	VOOImqSEZx20Re1/dYnTeIuHTfw1YrHZ2IZJorPmVfLj+moTmsGPkSeIGu1z3KmhJCo1z6GRMcb
-	PpNcrMlFLPbVNOyGLS0MUfdEFkb20A6mS2FECfS3NSMrl6fO66eCGCTPKnyqm1rPKvYM5f7JSHU
-	SLLxCToHNGBIur5dLmHpCJyTLm+76+wCKR9QVW/lecYyYqFiYrs7NKgXZjP44RmrFoPe0=
-X-Received: by 2002:a53:acdb:0:20b0:66c:f55f:cd9b with SMTP id 956f58d0204a3-66e4c75015cmr700353d50.46.1787874915812;
-        Thu, 27 Aug 2026 16:55:15 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787874918; x=1788479718;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oCfWHkIpmLvJEZNt0kO4ZWyCArHHxMdSOeCJ5Kkvn7k=;
+        b=jCvOSOPLWI7WpsjcSelGY+l+E0ZUoZ7dDDUpFm/SnVgt7z1sPtXEhRBkDmtswVfzYt
+         WBlLxGVL9JOYomR+KH30UFMxTR8SIwSEus0/ifo2Q0Oik2CUIh1JLkl9GPI/8BHHVxTy
+         tbRELR4FAdbs9l8X5OH6cDhJvif3H40pV3q6mV2lDYEqjGlq0DIbWWGSIj2nf1pz4ru1
+         L5F926lNpLt3qjU59fdN+ZqLFPRcilo6cayqnyoOPk+Z5YLzJp7UWTEMBHrJLDJ1CWgx
+         TnzM9yNx1jqi2mCma/pW9LBAfXMzTaKm9MMlLjonf/FusKh21A+ZU7xLipvw2b7CN/uK
+         QhWA==
+X-Forwarded-Encrypted: i=1; AHgh+RoWbVmMGKjD++Uz++cjl/JVZtpcpYTKqPa0v5pJ3gOXNFersdE9A39MjYA8AYLKV/VjMlaizVRWpwr1xUw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nIqttl8Vmj+9zO4aDZCbY58Ybx3NU1CGemX3Im8ZB/m0mGPn+p
+	EEvF7OmIaEBTLgzLVOaZSgv6K6+40WOTPuuI/KhlkLo3flka51Z23vcL
+X-Gm-Gg: AR+sD12ba2jRCzC4ghQUX6kpcFtJJh2Q38hWUqCCCs3cpn/YEE/suKV+41vLvPCKWP+
+	elcIoDxIPpAzEZGAemeU4euDsNWmXsYNy7N9K1kgO4o9boDxOX72oPPGiTPyDruB+RTwA7Na5k4
+	7kUe9vPZ9o1rw9vsLZQjNSCY0HrgXRarCRW9sGeakX5Y+mmAuMT+ICzg9bhuh4qA20p3qIN8CN+
+	AEF14UOIMqHa5c82/WGCTl/DYOXeoxhskqmADOzsw0IFZrQ4UPc5LXeiHzwY9sd1XjC6qejGf9T
+	dEw7/q3xlvu/0WBoBDYIpPkSqIZoiN1d2hyO4cD9f9+kU0CqwTgtBgzx5HrvjHeeCkzD2hi8eoc
+	5Wng0Oj7NK6jLS3L6dTK2KknrctGxdGEcz9q6IMi2BiScH/MQ0eWAWmUXdt9MhTsvM4kVzOuZz2
+	cM5nuhDldh5+4VVcuM6MeDKeHPwspmRDOzKuGvo6GL35zrNQWY3OYaB+I7xwP64vJo/WU=
+X-Received: by 2002:a05:690e:428b:10b0:66c:d353:948a with SMTP id 956f58d0204a3-66e4c7645d8mr742101d50.39.1787874913018;
+        Thu, 27 Aug 2026 16:55:13 -0700 (PDT)
 Received: from mac.lan ([136.55.173.105])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66e4eb3dcdbsm55704d50.4.2026.08.27.16.55.15
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66e4eb3dcdbsm55704d50.4.2026.08.27.16.55.12
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 27 Aug 2026 16:55:15 -0700 (PDT)
+        Thu, 27 Aug 2026 16:55:12 -0700 (PDT)
 From: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>
 To: edumazet@google.com,
 	ncardwell@google.com,
@@ -81,14 +79,11 @@ Cc: kuniyu@google.com,
 	xmei5@asu.edu,
 	tgopinath@linux.microsoft.com,
 	kys@microsoft.com,
-	blbllhy@gmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH net v3 2/2] tcp: fix use-after-free in do_tcp_getsockopt(TCP_CC_INFO)
-Date: Thu, 27 Aug 2026 19:55:11 -0400
-Message-ID: <65fd3816ed5d541d9edd4bf4fcf97104a2cf907a.1787870710.git.blbllhy@gmail.com>
+	blbllhy@gmail.com
+Subject: [PATCH net v3 0/2] tcp: fix use-after-free in do_tcp_getsockopt()
+Date: Thu, 27 Aug 2026 19:55:09 -0400
+Message-ID: <cover.1787870710.git.blbllhy@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1787870710.git.blbllhy@gmail.com>
-References: <cover.1787870710.git.blbllhy@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -99,70 +94,47 @@ Content-Transfer-Encoding: 8bit
 
 From: "Cen Zhang (Microsoft Security FORGE Labs)" <blbllhy@gmail.com>
 
-do_tcp_getsockopt() reads icsk->icsk_ca_ops and dereferences the
-get_info function pointer without rcu_read_lock(). With BPF struct_ops
-congestion control, ca_ops can point to dynamically allocated memory
-that is freed concurrently, resulting in a use-after-free when the
-kernel dereferences or calls through the stale pointer.
+do_tcp_getsockopt() has two lockless reads of icsk_ca_ops. Since BPF
+struct_ops congestion control made icsk_ca_ops point to dynamically
+allocated memory, a concurrent setsockopt(TCP_CONGESTION) can replace
+the pointer and free the old object while either reader is using it.
 
-  BUG: KASAN: slab-use-after-free in do_tcp_getsockopt+0x2037/0x23e0
-  Read of size 8 at addr ffff888013701258 by task exploit/149
-   do_tcp_getsockopt+0x2037/0x23e0 (net/ipv4/tcp.c:4564)
-   tcp_getsockopt+0x91/0xf0
-   __sys_getsockopt+0xf7/0x170
+Patch 1 fixes the TCP_CONGESTION path by copying ca_ops->name to a
+stack buffer while holding rcu_read_lock(). It also uses READ_ONCE()
+for the lockless load and annotates the relevant icsk_ca_ops stores
+with WRITE_ONCE().
 
-Fix this by wrapping the ca_ops load and get_info call within
-rcu_read_lock()/rcu_read_unlock(), and using READ_ONCE() to load
-the icsk_ca_ops pointer.
+Patch 2 fixes the TCP_CC_INFO path by keeping the READ_ONCE() load,
+ca_ops->get_info lookup, and call inside an RCU read-side critical
+section.
 
-Fixes: 0baf26b0fcd7 ("bpf: tcp: Support tcp_congestion_ops in bpf")
-Suggested-by: Eric Dumazet <edumazet@google.com>
-Cc: AutonomousCodeSecurity@microsoft.com
-Cc: stable@vger.kernel.org
-Assisted-by: GitHub-Copilot:claude-opus-4.6
-Reviewed-by: Eric Dumazet <edumazet@google.com>
-Signed-off-by: Cen Zhang (Microsoft Security FORGE Labs) <blbllhy@gmail.com>
----
-Link: https://lore.kernel.org/all/20260821182449.79785-3-blbllhy@gmail.com/ (v1)
-Link: https://lore.kernel.org/all/20260826171344.4133-3-blbllhy@gmail.com/ (v2)
-Changes in v3:
-- Annotate dctcp_get_info()'s icsk_ca_ops comparison with READ_ONCE().
-Changes in v2:
-- Add READ_ONCE() for the icsk_ca_ops load.
----
- net/ipv4/tcp.c       | 4 +++-
- net/ipv4/tcp_dctcp.c | 2 +-
- 2 files changed, 4 insertions(+), 2 deletions(-)
+Changes since v2 [1]:
+- Fix the TCP_CONGESTION build failure by loading icsk_ca_ops inline.
+- Drop the unrelated WRITE_ONCE() conversion in mptcp_ca_reset().
+- Add READ_ONCE() to dctcp_get_info()'s icsk_ca_ops comparison.
 
-diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
-index 55ca74f60..71d4c5e6b 100644
---- a/net/ipv4/tcp.c
-+++ b/net/ipv4/tcp.c
-@@ -4561,9 +4561,11 @@ int do_tcp_getsockopt(struct sock *sk, int level,
- 		if (copy_from_sockptr(&len, optlen, sizeof(int)))
- 			return -EFAULT;
- 
--		ca_ops = icsk->icsk_ca_ops;
-+		rcu_read_lock();
-+		ca_ops = READ_ONCE(icsk->icsk_ca_ops);
- 		if (ca_ops && ca_ops->get_info)
- 			sz = ca_ops->get_info(sk, ~0U, &attr, &info);
-+		rcu_read_unlock();
- 
- 		len = min_t(unsigned int, len, sz);
- 		if (copy_to_sockptr(optlen, &len, sizeof(int)))
-diff --git a/net/ipv4/tcp_dctcp.c b/net/ipv4/tcp_dctcp.c
-index 99f68c299..5b457f68a 100644
---- a/net/ipv4/tcp_dctcp.c
-+++ b/net/ipv4/tcp_dctcp.c
-@@ -228,7 +228,7 @@ static size_t dctcp_get_info(struct sock *sk, u32 ext, int *attr,
- 	if (ext & (1 << (INET_DIAG_DCTCPINFO - 1)) ||
- 	    ext & (1 << (INET_DIAG_VEGASINFO - 1))) {
- 		memset(&info->dctcp, 0, sizeof(info->dctcp));
--		if (inet_csk(sk)->icsk_ca_ops != &dctcp_reno) {
-+		if (READ_ONCE(inet_csk(sk)->icsk_ca_ops) != &dctcp_reno) {
- 			info->dctcp.dctcp_enabled = 1;
- 			info->dctcp.dctcp_ce_state = (u16) ca->ce_state;
- 			info->dctcp.dctcp_alpha = ca->dctcp_alpha;
+Changes in v2 [2]:
+- Add READ_ONCE() to both lockless icsk_ca_ops loads.
+- Add WRITE_ONCE() to all six explicit icsk_ca_ops stores.
+- Include the data-race annotations in the UAF series as requested
+  by Eric Dumazet [3].
+
+[1] https://lore.kernel.org/all/20260826171344.4133-1-blbllhy@gmail.com/
+[2] https://lore.kernel.org/all/20260821182449.79785-1-blbllhy@gmail.com/
+[3] https://lore.kernel.org/all/CANn89iKr1ypEFeL+7te3xWoNaK5AFyYQmr+pDh2zSZAxfgNKjw@mail.gmail.com/
+
+Cen Zhang (Microsoft Security FORGE Labs) (2):
+  tcp: fix use-after-free in do_tcp_getsockopt(TCP_CONGESTION)
+  tcp: fix use-after-free in do_tcp_getsockopt(TCP_CC_INFO)
+
+ net/ipv4/tcp.c           | 18 ++++++++++++++----
+ net/ipv4/tcp_cong.c      |  4 ++--
+ net/ipv4/tcp_dctcp.c     |  4 ++--
+ net/ipv4/tcp_minisocks.c |  2 +-
+ net/ipv4/tcp_output.c    |  2 +-
+ 5 files changed, 20 insertions(+), 10 deletions(-)
+
+
+base-commit: a3dee9bb902ee4357fa02e49b415d7724ee0140a
 -- 
 2.43.0
