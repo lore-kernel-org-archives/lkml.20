@@ -1,229 +1,193 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010010.outbound.protection.outlook.com [52.101.193.10])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63D2E3F107D;
-	Thu, 27 Aug 2026 21:58:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787867885; cv=fail; b=M4By1RsBDHWvJsNKVNTi1lV/zz7ErfpsNy20ZHr42VFyaMOxxdHil+QrvQqazU89D5xMNZp8cWG8Q1eSQB8a869t56j5mmDx4iLn5EzjYDOhX6K7qWU57k1rrls2BbsnM1B1SGiHu+HHaYFMKq0/+5taGaA2Jn2lHGK/49HUQ5I=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787867885; c=relaxed/simple;
-	bh=bU8OUGx0xY5JQU2WVI3SVDKcVEi5wsmq3y+ylCDl+h0=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XZJlMvSKEL5vS0rjixWubtKqdyk186uugrF0yvPLg+XSgAoHDfxJlpb/0y7hlVNvTZYFOJHhEftOBoMUB2LzgKtwXRo/0p5PNFyGbpvv/6rFX+ejsmxzlBCrc54xXAzHam9XqvYe4fY72FeU9zubkwLJa8dkoa2vhYzsd1jnB4M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=AlYEXMFl; arc=fail smtp.client-ip=52.101.193.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 222A5364E84;
+	Thu, 27 Aug 2026 21:59:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787867954; cv=none; b=VxwWDD9RT1SoOzwFE4Qnctpo46C8SZ+3rpp6KNJw8VFhvREuQQ0Jj2pPtE20YPMMFm/Qzi9qq5GIiy6xKRSBSPDpOM2EW1hL1alTN7XSgZD4FfwK9utRuO6DIY0oSbKWDdCo6z80K8xRtKI5xWs/tIyCCuT7XGL/ClAUquhGTDM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787867954; c=relaxed/simple;
+	bh=qzLonAOzoeSO1KaA4hy9xTbUYSnBL2AJcsROKCH76qo=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=TXP8HfJ0fuRmHcj/sFchSMKyAHxi2Px/2PgYylkDLc/lXn9PJhomP4fmU8j4sXNp6HOjqWWsARDUS9r2f9zdqdde9pgdfdSeA9AsYxT/Q09x19xNiYbaUiIk/lGUFAJDmJ07WETprTY1pHtCaF4hcCQ9ewdAVYPueKzn05/aNxg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=mqgmylbH; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="AlYEXMFl"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=E4pO3To7m1xwsT0eggjkW/YlRuWD8J087S/O1dzSngYZHsv43HrVOj4j3lQe1m4TK9hM/nOz/AeX1h9ejIIb+x570xABE4vNyIW9HxX1wSl4kB8kMDYAEzNoSCfO+dsEgVZrPKdfp6Q91/w+Vm22DeMTvvyJh+EoL7bZNyi30lT/jevh+A1DxNt5FnSBIFS1Tv7N7hGZMT2bkFKlYn2dW3odQxwE+7uw0Xkzq0X3K62QxbpqCYvGwJocFsh5UnAfQ8x1TQ/t7LRWgEnreQSCZuUf3jKw9jxCOgc1q+jShQOuOm4itfgXSAz0eYstaA6zKQ+PWt5oebw24JIn2t2psQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hr+tRUTBxfChYYrqsfE2mtJOq1Hu+UAagWa+RLx8UKc=;
- b=cSq2u9d5vF/f+aPM3jWMPSOQFrrI4sYnwq8TRKK8ZX81EEtC9XQlbJ7lxNpyLn/GLfhJsGpCw6oNi3Msfn4XU0vgXCWqnMMQHiZE3NzsyUiTzA0TuXg9pTyUF6E87yo1yRmdUXfqSFh7NKLB5jh2Mz7cmsNm0ZtuvMGeVLltuyWP36kRnOq1KcmmUo5qjLxToXmfbAZoSFmrl7nt4x+JMxX9d/kSAgpcXc291KrrW4OqQryYjLy6Q1HzBaAG37C3QRESvYvrC6EzT3PaIXMYhu248HA0BIsP8h4P8geqiaHV24rBCMeE5baheRee5Qxe/b14NQoLN4NBalO2q92X0A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hr+tRUTBxfChYYrqsfE2mtJOq1Hu+UAagWa+RLx8UKc=;
- b=AlYEXMFlw8w+9RR6ofChif1r+OcHNrzPbcuuSpMaHPfcQ62dY0rX70nhNqklw+aF7x57zzUzo/WCotyB2Stp6NNcDJQUiIEEh5x8gPCKFTqTRIXtf/uEt96fSBrVOCJWjRMKmbTawQJxVURwX/IigC4o0pmnv0KC69K1WK5zIB8=
-Received: from SJ0PR13CA0024.namprd13.prod.outlook.com (2603:10b6:a03:2c0::29)
- by DSWPR12MB999129.namprd12.prod.outlook.com (2603:10b6:8:36d::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
- 2026 21:57:53 +0000
-Received: from SJ1PEPF0000231B.namprd03.prod.outlook.com
- (2603:10b6:a03:2c0:cafe::8) by SJ0PR13CA0024.outlook.office365.com
- (2603:10b6:a03:2c0::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.7 via Frontend Transport; Thu, 27
- Aug 2026 21:57:53 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF0000231B.mail.protection.outlook.com (10.167.242.232) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Thu, 27 Aug 2026 21:57:52 +0000
-Received: from jprecision.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 27 Aug
- 2026 16:57:51 -0500
-From: Juan Martinez <juan.martinez@amd.com>
-To: <westeri@kernel.org>
-CC: <mario.limonciello@amd.com>, <andreas.noever@gmail.com>,
-	<YehezkelShB@gmail.com>, <Basavaraj.Natikar@amd.com>, <Sanath.S@amd.com>,
-	<linux-usb@vger.kernel.org>, <linux-kernel@vger.kernel.org>, Juan Martinez
-	<juan.martinez@amd.com>
-Subject: [PATCH v3] thunderbolt: Fix tb->lock deadlock during hot-unplug on AMD USB4 routers
-Date: Thu, 27 Aug 2026 16:57:40 -0500
-Message-ID: <20260827215740.415496-1-juan.martinez@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260825214237.4179813-1-juan.martinez@amd.com>
-References: <20260825214237.4179813-1-juan.martinez@amd.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="mqgmylbH"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=2Z9GfRdYNGKAyi4eYFHvynSGXbnxrg/C+pRo3xywQik=; b=mqgmylbHvFWu2TC0svcfBjnUiu
+	lp4tHhY1qKErlAUjYabOkfDtkCxLVK+qUUU6mN2LQK1OdkYtOQQ7qIFd1EbhX/aX3joGNeLEzuHuQ
+	sEZUCXnP69iE3P/jtbc/PMv6u7U7dImz0A3pJH/ADQokzM/uw8nSsaWIumdcr9rJbL7A/gY8suasJ
+	ItrbyzOrxKUDxWOnD3G9SsW3+JNsRJx/uAav+/8kys6IirlShXGK/EZWtkcZqHtytP8bFhuiH+jy9
+	Ms6r5hTJ/LMVyqV7m4IzWniiNiSNUZql71A8gDl7zOCbPGEMNWG75ouPZSQ+AHYeJXrnCK4eMHSFG
+	y7S+1+eA==;
+Received: from [2001:8b0:10b:5:c5bc:77fb:75d5:ffaf] (helo=u09cd745991455d.ant.amazon.com)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1wzi7o-0000000DXSU-48dh;
+	Thu, 27 Aug 2026 21:59:09 +0000
+Message-ID: <0bab7b4331aab38ee1d174a7b402bcda7684b50f.camel@infradead.org>
+Subject: Re: KVM: x86/mmu: __kvm_rmap_lock() preemption assert trips on
+ PREEMPT_RT
+From: David Woodhouse <dwmw2@infradead.org>
+To: Sean Christopherson <seanjc@google.com>
+Cc: James Houghton <jthoughton@google.com>, Paolo Bonzini
+ <pbonzini@redhat.com>,  Sebastian Andrzej Siewior	 <bigeasy@linutronix.de>,
+ kvm@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Date: Thu, 27 Aug 2026 22:58:56 +0100
+In-Reply-To: <apCwV7xenDh2qmr7@google.com>
+References: <8d47b43e1829ac92703723e6a1a4afc7a2eaacb5.camel@infradead.org>
+	 <apCwV7xenDh2qmr7@google.com>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-9aQd3TZV0Yg4gzw9Vc6d"
+User-Agent: Evolution 3.60.3-0ubuntu1~ppa9~24.04 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231B:EE_|DSWPR12MB999129:EE_
-X-MS-Office365-Filtering-Correlation-Id: e47c948b-6134-41e3-25a5-08df04863e73
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|1800799024|376014|10067099003|22082099003|18002099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	4d+HeYVtelZDYThiPZJa5Ayhpv7ajmg89PH+JGrOtmUFYjKFeKo4PS+Z9ETTIk+2iI8hA7P7QXjF/qQcyqmbojM256GFH9k3g7KUGKrOFfr6c6V7oSz+/5MRqcYBHivak03QlSTf77rKTrWz/Tb+m7iEwJFnsrZc6Q0USVDA9gaqS+cvjojla5dKs+b4it/VmCBHHHmi9K9PovmySPRDMex41drTp2bMCzvkSct9Snt7H9XrWJXkA8p9lpdXh0VKqYKGiehPnB2ls1KykP0M06k9RZMahiXzgRvz7e8jyEqQeWdYOTfngOM3wzlIeFsXQ0sz9vAhUPYCZWS4msvi/Hb0dJwumYmzbr6bCA3Zri5YH7r/6UUmG3ghWiBQqjsllCdni1MeJ/OCIo28/OfUidjgMyq4EIjvdCZ3hOdo+6w6i9Wg6S8IbilSrXQQxkC6wqpw8c6n9Nrt1449rZRrhaKa70Tu1nmJSmhPY2saepAWgAjquzgOneBZDNDJwPX40lFpp8AqrWYr1oqiGhAF4aM2YO2Mcr0pjL1oxVc5KE++do5OhKwyxObCj+uD9SLMuEpWPnEVVBxIyOWaXNSrv/hN4Ml2ngXm5F4n+9jlSAVIuD8U6WOhIXuoJAVKK8oyO6Fqm9u4V8kdQEOKIqoYbHLTlpcMjhOdGN4+V6uCAOSLB5hIlUu6ARD+is1ncwE7vghCjHgYXKnUYLoASYb6dw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(1800799024)(376014)(10067099003)(22082099003)(18002099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	iu2BNXBCJOchP1USjJSsarxOspGtseJc0JMZTZCMIi/FvRb9RSYLv5GbXbARQ+ohkpFldR+iab1WT8WLAI6KD4VJ22HgU0G0Og9UFGzyts80F0VFpt+MYLYZ2babfrTXC8K+j8tpbzLGEKg/04QcJ+As577SBtr5jLtXEbJG4uvD4m5c9WRsOzeJh3Pw3OrCD6usPp4X67zV8c8zQNGFDO003A9Ni7DToXFfo6sEpOD+JE3lEQ32OSfJ8ZoY5HPsGbVdm7uR3j6lblRkiDjHYylWYhSB8zomBviNz265a421c4hXbe80ZbTSTi/sKjwS0spLzNh4v8R3lk3hlLc+yfxhlh4WA1i6pZJrbr3co87Mx6uX99dmdIfbHz05CgqRBj3DfZ9TT+Ssm0OswylYcHS7goz/MaK0hEZPCE4v7I7+m/xpfbkmGv+N/4x8CVtn
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 21:57:52.8497
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e47c948b-6134-41e3-25a5-08df04863e73
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF0000231B.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSWPR12MB999129
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-Commit f1de1fc5f632 ("thunderbolt: Add quirk to reset host interface on
-DMA path teardown for AMD USB4 routers") introduced a deadlock when
-physically unplugging a Thunderbolt cable on AMD systems.
 
-The problem occurs because tb_handle_hotplug() holds tb->lock while
-processing the unplug event. When it removes the XDomain services,
-tbnet_remove() calls tb_xdomain_disable_paths() which eventually calls
-tb_domain_reset_interface(). That function tries to acquire tb->lock
-via guard(mutex), but the hotplug worker already holds it, causing a
-self-deadlock.
+--=-9aQd3TZV0Yg4gzw9Vc6d
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The deadlock manifests as a complete network hang because
-tb_handle_hotplug() holds RTNL while waiting on its own mutex, blocking
-all network operations system-wide.
+On Thu, 2026-08-27 at 14:47 -0700, Sean Christopherson wrote:
+> I'll take it for a spin, unless someone has a better idea.
 
-The existing code already handles this scenario partially: when
-xd->is_unplugged is true, tb_disconnect_xdomain_paths() intentionally
-skips the DMA teardown because the hotplug handler will do it later
-via __tb_disconnect_xdomain_paths(). However, the reset was still
-being called unconditionally.
+Heh, no pun intended?
 
-Fix this by:
-1. Splitting tb_domain_reset_interface() into a locked inner function
-   __tb_domain_reset_interface_locked() and a locking wrapper
-2. Skipping the reset in tb_domain_disconnect_xdomain_paths() when
-   xd->is_unplugged is true (matching the existing teardown skip logic)
-3. Calling __tb_domain_reset_interface_locked() from tb_handle_hotplug()
-   after __tb_disconnect_xdomain_paths() where the actual DMA teardown
-   happens and tb->lock is already held
+> -	lockdep_assert_preemption_disabled();
+> +	if (IS_ENABLED(CONFIG_PREEMPT_RT))
+> +		lockdep_assert_preemption_disabled();
+> +	else
+> +		lockdep_assert_held(&kvm->mmu_lock);
 
-This preserves the reset behavior for normal shutdown paths while
-avoiding the deadlock during physical cable unplug.
+Other way round?
 
-Fixes: f1de1fc5f632 ("thunderbolt: Add quirk to reset host interface on DMA path teardown for AMD USB4 routers")
-Signed-off-by: Juan Martinez <juan.martinez@amd.com>
----
- drivers/thunderbolt/domain.c | 26 +++++++++++++++++++++-----
- drivers/thunderbolt/tb.c     |  1 +
- drivers/thunderbolt/tb.h     |  1 +
- 3 files changed, 23 insertions(+), 5 deletions(-)
+I'll fix that and throw it on top of my GPC/RT/RCU torture tests.
 
-diff --git a/drivers/thunderbolt/domain.c b/drivers/thunderbolt/domain.c
-index 12c88509a54f..8f33baafe9ae 100644
---- a/drivers/thunderbolt/domain.c
-+++ b/drivers/thunderbolt/domain.c
-@@ -788,14 +788,19 @@ int tb_domain_approve_xdomain_paths(struct tb *tb, struct tb_xdomain *xd,
- 			transmit_ring, receive_path, receive_ring);
- }
- 
--static void tb_domain_reset_interface(struct tb *tb)
-+/*
-+ * __tb_domain_reset_interface_locked - Reset host interface (lock held)
-+ *
-+ * Caller must hold tb->lock. Used by hotplug path where lock is already held.
-+ */
-+void __tb_domain_reset_interface_locked(struct tb *tb)
- {
- 	struct tb_nhi *nhi = tb->nhi;
- 
--	if (!nhi->ops->reset_interface)
--		return;
-+	lockdep_assert_held(&tb->lock);
- 
--	guard(mutex)(&tb->lock);
-+	if (!nhi->ops->reset_interface || !(nhi->quirks & QUIRK_RESET_DMA_ON_TEARDOWN))
-+		return;
- 
- 	/* The reset clears the ring state so stop the control channel */
- 	tb_ctl_stop(tb->ctl);
-@@ -803,6 +808,17 @@ static void tb_domain_reset_interface(struct tb *tb)
- 	tb_ctl_start(tb->ctl);
- }
- 
-+static void tb_domain_reset_interface(struct tb *tb)
-+{
-+	struct tb_nhi *nhi = tb->nhi;
-+
-+	if (!nhi->ops->reset_interface)
-+		return;
-+
-+	guard(mutex)(&tb->lock);
-+	__tb_domain_reset_interface_locked(tb);
-+}
-+
- /**
-  * tb_domain_disconnect_xdomain_paths() - Disable DMA paths for XDomain
-  * @tb: Domain disabling the DMA paths
-@@ -835,7 +851,7 @@ int tb_domain_disconnect_xdomain_paths(struct tb *tb, struct tb_xdomain *xd,
- 	if (ret)
- 		return ret;
- 
--	if (tb->nhi->quirks & QUIRK_RESET_DMA_ON_TEARDOWN)
-+	if (!xd->is_unplugged)
- 		tb_domain_reset_interface(tb);
- 
- 	return 0;
-diff --git a/drivers/thunderbolt/tb.c b/drivers/thunderbolt/tb.c
-index b7cc6894a598..89dfb3381345 100644
---- a/drivers/thunderbolt/tb.c
-+++ b/drivers/thunderbolt/tb.c
-@@ -2489,6 +2489,7 @@ static void tb_handle_hotplug(struct work_struct *work)
- 			tb_xdomain_remove(xd);
- 			port->xdomain = NULL;
- 			__tb_disconnect_xdomain_paths(tb, xd, -1, -1, -1, -1);
-+			__tb_domain_reset_interface_locked(tb);
- 			tb_xdomain_put(xd);
- 			tb_port_unconfigure_xdomain(port);
- 		} else if (tb_port_is_dpout(port) || tb_port_is_dpin(port)) {
-diff --git a/drivers/thunderbolt/tb.h b/drivers/thunderbolt/tb.h
-index 4373336d9425..2e6e0920cb1f 100644
---- a/drivers/thunderbolt/tb.h
-+++ b/drivers/thunderbolt/tb.h
-@@ -789,6 +789,7 @@ int tb_domain_disconnect_pcie_paths(struct tb *tb);
- int tb_domain_approve_xdomain_paths(struct tb *tb, struct tb_xdomain *xd,
- 				    int transmit_path, int transmit_ring,
- 				    int receive_path, int receive_ring);
-+void __tb_domain_reset_interface_locked(struct tb *tb);
- int tb_domain_disconnect_xdomain_paths(struct tb *tb, struct tb_xdomain *xd,
- 				       int transmit_path, int transmit_ring,
- 				       int receive_path, int receive_ring);
--- 
-2.43.0
+--=-9aQd3TZV0Yg4gzw9Vc6d
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
 
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCE8Ew
+ggWvMIIEl6ADAgECAhANkOKMSmGXhF5eMl0rsRhvMA0GCSqGSIb3DQEBDAUAMGUxCzAJBgNVBAYT
+AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
+BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBHMjAeFw0yNDAzMTMwMDAwMDBaFw0zNDAz
+MTIyMzU5NTlaMGIxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UE
+AxMxRGlnaUNlcnQgQXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTCCAiIw
+DQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAOfSIeC0vv1xPQ+dgSxbIIrkaru6skAWJYaGFzmv
+q4Kq+2wU2jxhcWlJg/JeP5jEkq/LM3pn5aaLao79j+XRmS7J1ZpJKUODJVoM4s9MQJhTMvo4qS5Z
+S64g6QR7Obkz3I1Lr3aWeSBmDDEyzue+NKtuWZ1Cxy3RdXo/w5HgRc3l2AercOM3Gt1XonTzEtTb
+Z/Hwc0Sn9Gz8RmGRK6Ka4hVDl8q/2l110KaV233Kh5etP0csXS8MIMdVRfRu3sc5hp13DG7lCKzK
+72a2GEpI8Wpl26G6I1/LMzz/98T+FqjTqxsdquk7Cj7m2vKGLW1BorpQH7WFGPdJQXJe1hfbfiZA
+CcVdCtl4nAacFacmsiArZBfX7AQGL7isvHUwwYFEtcApyGW4p2Lt+t8nvU0CANA6BHOpOz1xOP8W
+mAESbUriIjyuTUf3fJ9oDNCurVqhASMJCDaWI3lYX/QAoiAzt6akqbbZxo2ujW7mGGqc0KxqE2cs
+h2T79v7pC8aUtHBfwNrTR19GnZVxE0eQ7ViIQhR6mpSaUQFA9sG+cmD2G8TnCgYsLa0q8De6F61a
+CBevQGHNzrbZ3JAMneveYg/Jy1XxQHDRcvrMfWKe0jjcWbdKYlaGVPm5V1ILwYz7Yv5ewo3NUrxI
+GJiywe9qPhuJSDZs7VehTuI0FxGIsgKzVjgbAgMBAAGjggFcMIIBWDASBgNVHRMBAf8ECDAGAQH/
+AgEAMB0GA1UdDgQWBBT3m6JO05fF9DQPQw6Bhc6RkzKv+TAfBgNVHSMEGDAWgBTOw0q5mVXyuNtg
+v6l+vVa1lzan1jAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MHkGCCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEMG
+CCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURS
+b290RzIuY3J0MEUGA1UdHwQ+MDwwOqA4oDaGNGh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdp
+Q2VydEFzc3VyZWRJRFJvb3RHMi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUA
+A4IBAQA+b8Uw53sDspdZgukU+qzLyyHkcjlxGGhHlP+zrmDLKm1wEFvCRS2pili3Hy67i8N4N5NU
+vw5Rg6kv3lxb9S9Rktxk43k+tvm68pl7OxQE55ZjVY87P0lUPGwEqOOwLLyH02ZQcsfq5p5LrOH9
+0JvmvZ1yy73HS+VpDAqOlytE0NSvTIRqFFkKQGQwfjvtql9YflujuNNvJztjBaHKYZsnNSg+J38o
+jYq4TP3pSg3UdVH0PncVjPQyqxC9xef5Xae92Kbkzol3x7Nel3A1bwAkalrDMspvTHvey6LfiBks
+FIqviTnoy7fgjaRAJgHS+RXx/cmuRd3rUAclSVVrYu8RMIIHAzCCBOugAwIBAgIQAzUotrsybJHx
+HTjKOIVdIDANBgkqhkiG9w0BAQsFADBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQs
+IEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQg
+MjAyNCBDQTEwHhcNMjYwNzE4MDAwMDAwWhcNMjgwMTA0MjM1OTU5WjAeMRwwGgYDVQQDDBNkd213
+MkBpbmZyYWRlYWQub3JnMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2pYux73kdbYX
+sWF8f1u6DJP91qcqaZetsyfPkZk0B+MmXmAEv0kVes5n15V2mbDThOnpoPFly0UugQO9JYqLfrtD
+tKD5yL58fgrDB9Dw+LQikgrHafl6YSCds5AvUu/8hw2J6noKrcOLJpKlKn9Fl/4IB9Q3JIdLx5aa
+EtTqMalIPqHFOlgrJ7s+aua8xbB8YQ9ahqYBXWRJNv3P/2b1DYtdrz1oqZPE3CcB8Pc6Gf2a1Tcm
+6TAgtEx7Cf1BFcrsrMz7TWHmGQITieNb2r9UYWSc2Gp+GtYFNJCgT0JJXKUBIauPMKBLteYrL8Fo
+ff/uY44dC/mDWjdCP/5x0qelPQjlBvWdHL5zvBTOj06rJ0m3HNI/hnIcDh0Qu2j9reb9rLVcdym6
+bWmBM4uDEB8Zv9Ph0KTBFSy1IosyakuD1j1Os30EzjGfbi0EUXIvnOcYbTBAbM5UAzrxEHMhBvoX
+Pvnx+OyvjJmc9tWxTX6AcSz+m40esbT17URBeZS18afgieiikm5TynlUYP1LciR3hSgGVzvGXnKO
+02VDFR5itGWdRKZ2W5wIShNfWfhSa0D0K5UdIDt5Qc7sjzwK1Yb1sY5Tu0uA5mhIS82q1ov83uxB
+sFkriNnhGv/M1NCDVLBiOMsHu73qUM+yKmgKLwF9Hfn9WI25glbAMI4S5r3hYzcCAwEAAaOCAfcw
+ggHzMB8GA1UdIwQYMBaAFPebok7Tl8X0NA9DDoGFzpGTMq/5MB0GA1UdDgQWBBRcYhqbcGzn1jrT
+JOZaB8O7qllDpzAwBgNVHREEKTAngRNkd213MkBpbmZyYWRlYWQub3JngRBkYXZpZEB3b29kaG91
+LnNlMBQGA1UdIAQNMAswCQYHZ4EMAQUBAjAOBgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYB
+BQUHAwIGCCsGAQUFBwMEMIGpBgNVHR8EgaEwgZ4wTaBLoEmGR2h0dHA6Ly9jcmwzLmRpZ2ljZXJ0
+LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsME2gS6BJ
+hkdodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZT
+SEEzODQyMDI0Q0ExLmNybDCBjQYIKwYBBQUHAQEEgYAwfjAkBggrBgEFBQcwAYYYaHR0cDovL29j
+c3AuZGlnaWNlcnQuY29tMFYGCCsGAQUFBzAChkpodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20v
+RGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZTSEEzODQyMDI0Q0ExLmNydDANBgkqhkiG9w0B
+AQsFAAOCAgEAocabrh1cPd5s3vY5rnlBVQSTc7zs2ZWs67dAIltR+05WELrYClVzzUhMs/LOJPlr
+EUo45UDDomXq38DxFepaPd9+iNLjXfn33EX/IG44j04lU/oF/Rg9VeQILkYLbCZ/x9wOjNHZc4SN
+ydY7Dhvf/sT5aBz88u7D5+azZJ7Qf1U57wYseCH1Mt0nDrtr5y19IJ8D9xJJ33RFL6vfpHZBBAQ8
++3RqkKNxLoV2aFvQhxdhjNLDqTv3LjUIdicwPraN7JkxEu7CV2Lka7eRqJgkWL7SK0YmBjGpRafs
++icP/ON5RCCKTTb6VlX8eTG2sJJfsFhvJNCCt6xexbWzWtIrfP7NvPBvwBB737AyEGBZkS5aNizT
+McURJGTv9UKvBh1LF/+tNhYtLvPCN7oecGzhCHht9jcwSkygTo3Y6YlK3QgOu+ncmiBbfeuwlLZ1
+LxbYvG6hgNqXv7u6YyADbYajAQJXJ2OQen39pm3Q/AQSyLYG+B8lDglWsM8tYXPlEdrYJcksGK6F
+nqIX6Bumn43rBooLJdiZp4WmfWdL2pxe+LxRDjprmqu1WprixDxULSTOKJZoqTlugs6y3Bc+if+s
+gHnBBtz9WQ6MtPHkh7zONDAFIKcBmv8OqPQCx0F3Wv3OEybwMpXx0OsKgK8wLldaX1pXcMuyDgTL
+Sqs0AV0OHUgwggcDMIIE66ADAgECAhADNSi2uzJskfEdOMo4hV0gMA0GCSqGSIb3DQEBCwUAMGIx
+CzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UEAxMxRGlnaUNlcnQg
+QXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTAeFw0yNjA3MTgwMDAwMDBa
+Fw0yODAxMDQyMzU5NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqG
+SIb3DQEBAQUAA4ICDwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZe
+YAS/SRV6zmfXlXaZsNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2z
+kC9S7/yHDYnqegqtw4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qG
+pgFdZEk2/c//ZvUNi12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41va
+v1RhZJzYan4a1gU0kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0c
+vnO8FM6PTqsnSbcc0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PW
+PU6zfQTOMZ9uLQRRci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXt
+REF5lLXxp+CJ6KKSblPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQr
+lR0gO3lBzuyPPArVhvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7Iq
+aAovAX0d+f1YjbmCVsAwjhLmveFjNwIDAQABo4IB9zCCAfMwHwYDVR0jBBgwFoAU95uiTtOXxfQ0
+D0MOgYXOkZMyr/kwHQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3
+bXcyQGluZnJhZGVhZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEC
+MA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwgakGA1UdHwSB
+oTCBnjBNoEugSYZHaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZEcyU01J
+TUVSU0E0MDk2U0hBMzg0MjAyNENBMS5jcmwwTaBLoEmGR2h0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNv
+bS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsMIGNBggrBgEF
+BQcBAQSBgDB+MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wVgYIKwYBBQUH
+MAKGSmh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNB
+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
+SvVvszaRboFFjXowK5lX/j8AAAAAAAA=
+
+
+--=-9aQd3TZV0Yg4gzw9Vc6d--
