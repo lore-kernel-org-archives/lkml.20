@@ -1,75 +1,71 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 171244A3407
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:57:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA864485518
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:57:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787853440; cv=none; b=pLLz52r0oSSD0oLNQnc0WTjNEbxa4NI1ILiamn+9+HAy0n7QHob+sXP4C9EHM8Anqg6W/Hvgn5BO2PcOq+4gH8UfwPR+wjMvwHBX11DF+9xzATBnfH9Ej8DvhWqiGbman0glwuW7R18B0O8/vLF4X4g/sfT5gxRW+mO8DHe5H8M=
+	t=1787853461; cv=none; b=k8LV/eBT/0ieRU6ldEsxjirvakfme5sE188iMwI7f2Tm1soszxIcua6XNfrta2fbL3JL23j8QXjrOCU8ISoa+VUGpuG+8NYYdlx1e3g5QE1CGMObusH0TzUY+1TO/C+EGRUPtPKoe+I9nEzgmG17FEkd30sf14rLzH9iZJTW9v4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787853440; c=relaxed/simple;
-	bh=cFow8mmsLDB07/zPkXTBq2WrPcE7xOsvUQjMsrTrXWs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SOK0AaFbMwpNDihUmiSCHCD4EVtcm3Z821H2QCjJQsqgR3SvFn28xPMvF372c0/RcpT0Ptu2dYTInFDeyUOHsNBA2kKJJSjfOEmP+hNEHKEomCOtm4e+mxE+rlwJ0vOLSPZgVLGpuLygq541UbZQ6W1cdbozZGhSeZmPh2aUbtk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PUSjaNvh; arc=none smtp.client-ip=209.85.221.54
+	s=arc-20240116; t=1787853461; c=relaxed/simple;
+	bh=BFndmlciGHzeOgBCzrhNA/MP72XWG8rgm3n/q4+pMtc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FyyFvaXlnhuI6LESN0fVMWlJ+y2J+27ANul9EgNtPzgWpGplzLiu9BDAxWDTc3xHj1M6tzNmmzbsLWLVxjNkYLxUZMal6Iz52tOPJndj6szE5M6UYJGOc64L4jaHCfkNjanz1WOH2qDXjlpKbjv8f3OKHvH9mTZIB9w/dCrD2Rk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EfsPd0TD; arc=none smtp.client-ip=209.85.128.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PUSjaNvh"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-47f84023916so85999f8f.3
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:57:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EfsPd0TD"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-499b2981a7bso355515e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:57:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787853437; x=1788458237; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=msHPXb4xVBASBxcWVm54PW2v9v50vhp0zhhZwzN3qSA=;
-        b=PUSjaNvhEkxvyklQhOhDRqGu23QEbTAfqH7yftfT3dpnRSbKZDmqc70cRC0ZLlVa+m
-         DqnvVfQ5mcrGDIugJujWkftY7f5gGN/nD23nGXf8e/hIKzUNblksrVUoviNNUTxA+vPr
-         kFxdXyI3A1+DivHwlb05OTFtGm/n72NAQCkcYmhXFWno+y4TLapeFdf8jnr0T2SMjHYw
-         v+61zO5Tuw3RrXOegPxg2wqNf7EofnsVVFH5hB1cXfRQSI1Pyk/RJFsHPD/qjrprpz4q
-         onVN7NhYepJvkDX+XhV62EYos3Tck0bWicSR1v35kxakvQhq4tylAULHs9/S9dJZ0AaC
-         fJVQ==
+        d=gmail.com; s=20251104; t=1787853458; x=1788458258; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tAxoG/7M6yngkwtA+SjYZNvGegIxYBuYl/S78jn2qhw=;
+        b=EfsPd0TD3SsBtax8Q7jr/7wZimnsAm5y4S+hMBlzpQxlbyO/iauuAxUWeC9P0goi4J
+         EjBrwUBn9VATZeM5KN4GNYnLm5GxWQQ11bPRXckeQWvQt76N5XhQc8JO8yJq0aB1fO/8
+         Z7rKv+Mtq8a3DPQfaxpwzQcsJRYK0bYVj4e4+Br1eR0dNCjSJKkz03nxUJWeOq9vapEW
+         JYiBcs/axDXVOZh5tvuFcYO7whfE7rW6VNmqQYU3woJk1RAPn5CgTl7JSby4zsrMNy89
+         VN7zTBkgQ2llHyRYRXBTkrCsR5JVGCJzFzrkOOLFsSp8lt2GSEKbTNPgS0HScbKUA1cV
+         7q2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787853437; x=1788458237;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=msHPXb4xVBASBxcWVm54PW2v9v50vhp0zhhZwzN3qSA=;
-        b=DQ1quvYlv4oESeDfBV1TdnMfiMrUU8e45NC81thQr8SKKtE9xk3J9SX/i8p3IQ4kBq
-         K/5YciQJ0vPEpD+NaCOSHXtytmjZXb1BiHzrkeZrRN6Ig22/FtdvG66Idtkis5xJHRek
-         DmlLfARC3Y9KY7d66xpexJKeZsZHQNuhFfnl3bZiqWsA4WT3L/u9b/YzZiFT6Hq5FfeN
-         yEEIFsY4TnP8DairsFCfPiI3+cXj3NbTCp1SuYT8d2/53LsCFfQiuna/R5RFRJYY8iTh
-         KjA7InG9tW3SDjQPsSBgsf5y+Xmh89zaxlkYHaeIxsq512QR76CNrjVgMmytbG36SR8y
-         B84w==
-X-Forwarded-Encrypted: i=1; AHgh+RpQz+fASqqC8HJYbz0oTxApmklpSdGH0jVmvQUC2q8Kv0eygWZonHanYvuqiqoI/t5JhyNvPRrSy1RxQAE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nuBFr1bVP4H4fCT5PhFdRVAY2JVCY6wmKc5d2HgkJPjOfY6+6R
-	1A0PXUJ/tKeObLHDLT3stiGZOh5c5srY2HSKK0RMvx5e4t8Wt1ZTfrPD
-X-Gm-Gg: AR+sD11P7nG8pVdo/8fFJBEzgzW26Y3Wvl9TD/GbPC/yQltzqfArXTXyhtMkK+UStHI
-	3WACaGNG6FAhMV+kFKMsZnzZNOx4f4xhPD6a8G4C3oVJnveORgWjIcDEu8bWqpZFgIstCpF+w8u
-	fykJYsOn0ZLOtrQqcVpDqw1myqVKz4aQSNNwO47p2+eoss2Fqhx3N4TzxU71SduIC3Fld56z0wj
-	w/VDqpAVnXaT4HtKxfqcpNJoTfkR6JqdMyZ6PMTgqgMRlTO0gap8TsjDCt31zfpAxXv69KPEWqd
-	CiYbDw2sx5EIXLkDG9hpNlSSAAEiI1VpsXZq1dWHlGrZ9Jksgfl48DTJVZXLBuRl3CiJQaCe5VA
-	vX41Ev9bizXr8Yv/3h3C5KR6IGw4vP9BZNJgOwKKAcF4BtRlxiVUkPmuovKK1dwLM8h3o3jDAPe
-	h/uYDV90S5iFYAkVDVJxXtnHvNEVrUNx71X18f9Zun+8GWtN61aKhvp91CFVtjWBHjVLv0ilsq6
-	q1YHt10xx5Kq/ozHEruE5F0VLuTsiOfkxwDFglfe9Bn
-X-Received: by 2002:a05:600c:4452:b0:493:f140:c3fb with SMTP id 5b1f17b1804b1-49b91c2e42bmr10483065e9.7.1787853436758;
-        Thu, 27 Aug 2026 10:57:16 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787853458; x=1788458258;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tAxoG/7M6yngkwtA+SjYZNvGegIxYBuYl/S78jn2qhw=;
+        b=grUCrx60tX+J6MIazlX6sM1qjdFyrkHzBX+4vjD2PhcWQAhj75trpsCcggjRbg6xAm
+         iCeLKMMdOmd7Ndkn5DViMIewJWcF3pmjV1q2vfMzZYip3L7m7MNVfGzMsoXKRKYv8TLZ
+         6RVlK7eDFKj21YbdpsBNXv3lZ4A51GTfE1zZcn16mT6avUP6nG2Wejn8vLrSK07nA2cq
+         UA8I4FWUdlshpqSijWIO6lW8PVeeE/7gN9yp1wvkzqtJKTexnfDjoDycAg8kYxjLLLj5
+         YxMh8K/CTIwYS0I5xUaitIwE/sIfEAHLJyVIGPv2LlqhLRgx5Tvsd8524qwwowqsWRcH
+         OYzA==
+X-Forwarded-Encrypted: i=1; AHgh+RpKtOYCXuvuf4Nd+Wi+M23MH392is2W+BZJiYHEzOYh92NMEO3CqcUTXRMc6XA8j6vpiXdaR3GG6SDOLpI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kvVkmOuHDAA8nJ6ZGpSYWfAenqEDaW39il1xXB+wAvcNZbQXui
+	1kyR7vnq/dyzBIGXGnqKMLb5f3qp1WDN+Lr31/wf3mHDSDg7uREBl/Lr
+X-Gm-Gg: AR+sD12obXJj7gLLZvFGaxqAp+K5W/QPXgbXATYn65iZUdb7+wt74AY5o0QF3ChIdbJ
+	QEtM5N6T00A7KT1JWn6M9KS3TKa0ZPz+n3qNyf5ZZiIn+/3QQ9UFBmMXhrFyw5We2XlpCql57qw
+	UD7nFsvPsbEbeg+hA2JJZ/amNa9kh2ER6kTkMQFrbf9rd6hzaMeVbxtCezWjxsGk6gaWguqFosr
+	WC12kGwB2fPuVealk+3yEj4rmfMovtfUXF+r/uVLLO+ylstZUmHMpyDDOmbVdRlQ0BAzEwwH60D
+	em8wXyTKkVil10g8l/FlAcWj8ouv2oCa2EudGUx7S6KdkvEd22K5o+Eb0hgqVh9wizSfr0VrZjK
+	x+mbENoApabB/VasvHLrCv654DT7ouFet+SL16luBsRiCmuGeq9v4+AaXVedBSNVoh+RJRiGleO
+	ZsMgkCaLhknhBcPdl+X6X0BIUT9LvCxC/baAxLg9N0rhpo2KAEXKhg8NkWJ7tI91K1w2lHJCkux
+	wzOsGKhqoKMM+EP+3hWbdY4g2rHOkgbdNNGLsEvY/2BVlMqWZTxZs8=
+X-Received: by 2002:a05:600c:3513:b0:499:7a15:fcec with SMTP id 5b1f17b1804b1-49b91c4faebmr9674645e9.13.1787853457735;
+        Thu, 27 Aug 2026 10:57:37 -0700 (PDT)
 Received: from il-orgads-lp.corp.audiocodes.com ([134.231.187.64])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b4961004bsm82921295e9.4.2026.08.27.10.57.14
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b49eb3b21sm71905795e9.8.2026.08.27.10.57.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 10:57:15 -0700 (PDT)
+        Thu, 27 Aug 2026 10:57:37 -0700 (PDT)
 From: Orgad Shaneh <orgads@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: linux-usb@vger.kernel.org,
+To: tsbogend@alpha.franken.de
+Cc: linux-mips@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Orgad Shaneh <orgads@gmail.com>
-Subject: [PATCH 3/3] usb: octeon-hcd: sleep on an hrtimer for far-off periodic transfers
-Date: Thu, 27 Aug 2026 20:57:02 +0300
-Message-ID: <20260827175703.1549-3-orgads@gmail.com>
+Subject: [PATCH] MIPS: Octeon: apply USB FDT fixups also when USB is modular
+Date: Thu, 27 Aug 2026 20:57:28 +0300
+Message-ID: <20260827175728.1574-1-orgads@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260827175703.1549-1-orgads@gmail.com>
-References: <20260827175703.1549-1-orgads@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,117 +74,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-cvmx_usb_schedule() enables the SOF interrupt whenever any pipe has
-next_tx_frame in the future, and leaves it enabled until the transfer
-is due. An interrupt endpoint keeps such a deadline pending
-permanently, so a single attached hub (status pipe polled every 256ms)
-costs an interrupt on every SOF - 8000/s in high-speed mode, forever.
-On a 500MHz CN5020 that is measurably ~20% of one core spent counting
-frames.
+The uctl/usbn device-tree fixups in octeon_prune_device_tree() - which
+set the board's USB reference-clock frequency and type from
+__cvmx_helper_board_usb_get_clock_type() - are guarded by
+"#ifdef CONFIG_USB", which is false when USB is built as a module. The
+fixups then silently disappear and octeon-hcd sees whatever default the
+DTS carries (12MHz crystal in octeon_3xxx.dts), leaving the PHY dead or
+the bus erroring on boards with a different reference clock.
 
-The frame counter is resynchronized from HFNUM at the top of every
-poll, so the driver does not actually need to see every SOF to know
-when a deadline arrives. Sleep on an hrtimer when the nearest deadline
-is more than a few frames away (one high-speed frame is 125us) and
-keep SOF interrupts only for deadlines that are imminent - or far
-enough away to risk the 16383-frame HFNUM wrap, where the interrupt
-path still tracks the counter extension.
+Use IS_ENABLED() so USB=m gets the same fixups as USB=y.
 
-Measured on a CN5020 board with one 4-port hub attached and idle:
-8200 -> 4 USB interrupts/s, with no change in enumeration or transfer
-behavior.
-
+Fixes: 7fd57ab9d9cf ("MIPS: Octeon: Fix compile error when USB is not enabled.")
 Signed-off-by: Orgad Shaneh <orgads@gmail.com>
 ---
 
-diff --git a/drivers/usb/host/octeon-hcd.c b/drivers/usb/host/octeon-hcd.c
---- a/drivers/usb/host/octeon-hcd.c
-+++ b/drivers/usb/host/octeon-hcd.c
-@@ -378,8 +378,22 @@
- 	struct cvmx_usb_transaction *active_split;
- 	struct cvmx_usb_tx_fifo periodic;
- 	struct cvmx_usb_tx_fifo nonperiodic;
-+	struct hrtimer sof_timer;
- };
+diff --git a/arch/mips/cavium-octeon/octeon-platform.c b/arch/mips/cavium-octeon/octeon-platform.c
+--- a/arch/mips/cavium-octeon/octeon-platform.c
++++ b/arch/mips/cavium-octeon/octeon-platform.c
+@@ -18,7 +18,7 @@
+ #include <asm/octeon/octeon.h>
+ #include <asm/octeon/cvmx-helper-board.h>
  
-+static int cvmx_usb_poll(struct octeon_hcd *usb);
-+
-+static enum hrtimer_restart octeon_usb_sof_timer(struct hrtimer *t)
-+{
-+	struct octeon_hcd *usb = container_of(t, struct octeon_hcd, sof_timer);
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&usb->lock, flags);
-+	cvmx_usb_poll(usb);
-+	spin_unlock_irqrestore(&usb->lock, flags);
-+	return HRTIMER_NORESTART;
-+}
-+
- /*
-  * This macro logically sets a single field in a CSR. It does the sequence
-  * read, modify, and write
-@@ -1908,6 +1922,7 @@
- 	int channel;
- 	struct cvmx_usb_pipe *pipe;
- 	int need_sof;
-+	u64 min_due;
- 	enum cvmx_usb_transfer ttype;
- 
- 	if (usb->init_flags & CVMX_USB_INITIALIZE_FLAGS_NO_DMA) {
-@@ -1948,15 +1963,33 @@
- 	 * future that might need to be scheduled
- 	 */
- 	need_sof = 0;
-+	min_due = ~0ull;
- 	for (ttype = CVMX_USB_TRANSFER_CONTROL;
- 	     ttype <= CVMX_USB_TRANSFER_INTERRUPT; ttype++) {
- 		list_for_each_entry(pipe, &usb->active_pipes[ttype], node) {
--			if (pipe->next_tx_frame > usb->frame_number) {
--				need_sof = 1;
--				break;
--			}
-+			if (pipe->next_tx_frame > usb->frame_number &&
-+			    pipe->next_tx_frame < min_due)
-+				min_due = pipe->next_tx_frame;
- 		}
+-#ifdef CONFIG_USB
++#if IS_ENABLED(CONFIG_USB)
+ #include <linux/usb/ehci_def.h>
+ #include <linux/usb/ehci_pdriver.h>
+ #include <linux/usb/ohci_pdriver.h>
+@@ -1080,7 +1080,7 @@
+ 		;
  	}
-+	if (min_due != ~0ull) {
-+		u64 delta = min_due - usb->frame_number;
-+
-+		/*
-+		 * frame_number is resynced from HFNUM on every poll, so a
-+		 * deadline that is many frames away does not need an
-+		 * interrupt on every SOF to count them down - sleep on the
-+		 * timer instead and keep SOF interrupts for deadlines within
-+		 * a few frames. Stay well below the 16383-frame wrap of
-+		 * HFNUM. One (micro)frame is 125us in high-speed mode.
-+		 */
-+		if (delta <= 4 || delta > 8000)
-+			need_sof = 1;
-+		else
-+			hrtimer_start(&usb->sof_timer,
-+				      ns_to_ktime((delta - 2) * 125000),
-+				      HRTIMER_MODE_REL);
-+	}
- 	USB_SET_FIELD32(CVMX_USBCX_GINTMSK(usb->index),
- 			cvmx_usbcx_gintmsk, sofmsk, need_sof);
- }
-@@ -3646,6 +3679,8 @@
- 	usb = (struct octeon_hcd *)hcd->hcd_priv;
  
- 	spin_lock_init(&usb->lock);
-+	hrtimer_setup(&usb->sof_timer, octeon_usb_sof_timer, CLOCK_MONOTONIC,
-+		      HRTIMER_MODE_REL);
- 
- 	usb->init_flags = initialize_flags;
- 
-@@ -3696,6 +3731,7 @@
- 	unsigned long flags;
- 
- 	usb_remove_hcd(hcd);
-+	hrtimer_cancel(&usb->sof_timer);
- 	spin_lock_irqsave(&usb->lock, flags);
- 	status = cvmx_usb_shutdown(usb);
- 	spin_unlock_irqrestore(&usb->lock, flags);
+-#ifdef CONFIG_USB
++#if IS_ENABLED(CONFIG_USB)
+ 	/* OHCI/UHCI USB */
+ 	alias_prop = fdt_getprop(initial_boot_params, aliases,
+ 				 "uctl", NULL);
 -- 
 2.47.0
