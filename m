@@ -1,101 +1,149 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA4FC2D2495;
-	Thu, 27 Aug 2026 02:06:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B69F37E5DA;
+	Thu, 27 Aug 2026 02:06:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787796372; cv=none; b=Ee0DRRytVNTjnfTgce65RO/+gtJajJR/Ks7Y7dwDywycq9ZgSaFzXOv2x92FE+kgzyd97BakxsXvM1qjsAo97AjddxDnEI877RL7m6MwmBKtcfWtrSozOYYAnse3Rf/c0W2q2SvPWGEGbhqaUxzXBwisjV+Rh4kvx2tDm28EhLw=
+	t=1787796419; cv=none; b=dDWQFO8DL/fi6UGBQbXdAZQsuVZQ1TconYOzMFa0mGoBVGMiaSyMMR5ZBzbaapniDmb4oIC0jwuUfI6D+tM3Zy+s/vI09P4qTQLOwUDL+cftK//aHHIjlIk87Ny4Y/9/9Evr0DKoSOc2RFHa85yqCLl1rqG6VQm6AcaUlrPV2E8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787796372; c=relaxed/simple;
-	bh=VZ5/h+OKGYtSt7nA8HoLz+GDwC6ooxjuvt+K5hlEEWo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=KCIrxVvlqrK6wNKidO2rX32fRbhZ60/wpIwD5mmyag9rD3/Sh+Ej3PSksCCpLbkJAqkG8ZtmMn2fBv9mkROGd1g1WKyWMhLyYvmAKVHU2fZdjFvp7UlJtgd/famm4HpOiDYsBJ6FtLlfHZjLoFppxhkgCft3rKuGKighezzBNhg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=CAZn1vN3; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1787796419; c=relaxed/simple;
+	bh=gL0phxzVoVhVemXwWCd4xZC1JDHdiO9EhSL9gt+YRbk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lX7KkchheBw4rCiXNo0lThmunK4PbpX0LF7iAA0YybHuVONzKhU37m1GUl8beADe9kPxZ9FbpmAES76lkLPPoKdATBQIYxpTTRzBUms/0oXLF3Tu6gX9Z9PeXF68cxdwN3ahDuClqbWSEwHe1ofsfHM8nsA8D7W2ZVEVovTpa9g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=bsrMXhAq; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="CAZn1vN3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=8w
-	Ng58/e4SmTV+utYuoymEekmbcLwiJQlcALOeoJzs4=; b=CAZn1vN3jvsQo2+V7I
-	GuM3jCvFnyrCwp4ecy9xmnOy2+1Nsw1RIk88s44IcX9iXXtvLO9HVr0RZtn9Lqx9
-	9BRVTNX/6byDBvIg/2/nE3AxtrabC5wuWWKEU+i55TcYkUc1GHuaAB5QuxGzfkuF
-	vgGxfaTne8AGELMkEkwLt3FWU=
-Received: from thinkpadx13gen2i.. (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wAXAMd1m49qooVCQQ--.18551S2;
-	Thu, 27 Aug 2026 10:05:41 +0800 (CST)
-From: Zongmin Zhou <min_halo@163.com>
-To: sre@kernel.org,
-	kauschluss@disroot.org,
-	y.oudjana@protonmail.com
-Cc: linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zongmin Zhou <zhouzongmin@kylinos.cn>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>
-Subject: [PATCH] power: supply: s2mu005-battery: return errors from dev_err_probe() in probe
-Date: Thu, 27 Aug 2026 10:05:39 +0800
-Message-Id: <20260827020539.22837-1-min_halo@163.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="bsrMXhAq"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 7D74840E01A2;
+	Thu, 27 Aug 2026 02:06:54 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id jd_fD0SB0TYW; Thu, 27 Aug 2026 02:06:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1787796402; bh=tvL5rKHzTbVYhzBl9qHb4PL59PMigbMXonEm7pq5+dQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=bsrMXhAqesv5sWmU7bf5gApE2BR3rfOLkTFEj+daNgpEHVhRDtPz52LPifWUHlz3d
+	 DWBoKQT5Erwzv6MflMnL56czhzDNHWkoN40OPRdksiWLYPM6FY8iR4W+X0e1DCXQUL
+	 21E2Co0g+5FwhMBH5qIi4z1Z1bhlsTQyb0OrPRSIFKoKXQ5WIlLl7tAA/t0A3R6g2u
+	 5sJcuPSDYSvTF/TwAf5FARD2yEqH+G6Dy5sLa1LiQk8uVLgjmUws2Pbf3qAv5gYbV7
+	 vHqROTqRwdk2TTg4uig9vrhhtXBLinhrTUQPYl3BAdCVNZ8oeSW7lNoozEvzjSEnzL
+	 nQ+KhebLPX0iqv0E+1nozmQa1Wgb3duLUIWrxKFPOE43/pp23F4zpLOMwbmrJ4hsrI
+	 lp3O7hPL7Few4odcG4CzdpbLF2IbMuV9BZl3kyWQ7hTyEwrFRkdUX4cYoMaoC+MVnY
+	 iyPRtekgxShMRzfHmRfp44HFnIh3bCXEQcIax8+L33R/vTjRWXWP5INu6jsvcXCOOR
+	 bMGV2JG/uPOPzTxQRDJLrnIbHQ6lpoV3qY2Kkd4TjMo/o++XGeo0BrXEzGt2vfjlae
+	 UO6QA4P8YwJChK9R+9xFTsHRqAuzMs1AgId4IWKpYAX4KOtwH0upE3buqlYXV3gJaJ
+	 B6Yxn6S89nIktwbdRXcxN02Q=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::1a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id BDAEA40E00E6;
+	Thu, 27 Aug 2026 02:06:07 +0000 (UTC)
+Date: Wed, 26 Aug 2026 19:06:04 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Ashish Kalra <Ashish.Kalra@amd.com>
+Cc: tglx@kernel.org, mingo@redhat.com, dave.hansen@linux.intel.com,
+	x86@kernel.org, hpa@zytor.com, seanjc@google.com,
+	peterz@infradead.org, thomas.lendacky@amd.com,
+	herbert@gondor.apana.org.au, davem@davemloft.net, ardb@kernel.org,
+	pbonzini@redhat.com, aik@amd.com, Michael.Roth@amd.com,
+	KPrateek.Nayak@amd.com, Tycho.Andersen@amd.com,
+	Nathan.Fontenot@amd.com, ackerleytng@google.com, jackyli@google.com,
+	pgonda@google.com, rientjes@google.com, jacobhxu@google.com,
+	xin@zytor.com, pawan.kumar.gupta@linux.intel.com,
+	babu.moger@amd.com, dyoung@redhat.com, nikunj@amd.com,
+	john.allen@amd.com, darwi@linutronix.de,
+	linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
+	kvm@vger.kernel.org, linux-coco@lists.linux.dev
+Subject: Re: [PATCH v12 3/5] x86/sev: Initialize RMPOPT configuration MSRs
+Message-ID: <20260827020604.GCao-bjMkHGnQlAWnL@fat_crate.local>
+References: <cover.1786389115.git.ashish.kalra@amd.com>
+ <19b316f26a145646c521943f5fdd5dfc4b2d1e84.1786389115.git.ashish.kalra@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wAXAMd1m49qooVCQQ--.18551S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7CrWfXFy5ZF4xtrWxuF45KFg_yoW8CF1xpa
-	95uF4Ykr1UWr1UZ3yYyFyDXry2gay3AFW5Gr9Fyw1xAr97Jryqqr13trW3KF18CFWFka15
-	tay0q3y7Aa13A3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jwl1kUUUUU=
-X-CM-SenderInfo: pplqsxxdorqiywtou0bp/xtbC0RWCLmqPm3VCzAAA3t
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <19b316f26a145646c521943f5fdd5dfc4b2d1e84.1786389115.git.ashish.kalra@amd.com>
 
-From: Zongmin Zhou <zhouzongmin@kylinos.cn>
+On Mon, Aug 10, 2026 at 07:21:53PM +0000, Ashish Kalra wrote:
+> From: Ashish Kalra <ashish.kalra@amd.com>
+> 
+> The new RMPOPT instruction helps manage per-CPU RMP optimization
+> structures inside the CPU. It takes a 1GB-aligned physical address
+> and either returns the status of the optimizations or tries to enable
+> the optimizations.
+> 
+> Per-CPU RMPOPT tables support at most 2 TB of addressable memory for
+> RMP optimizations.
+> 
+> Initialize the per-CPU RMPOPT table base to the starting physical
+> address. This enables RMP optimization for up to 2 TB of system RAM on
+> all CPUs.
+> 
+> Additionally, add support to setup and enable RMPOPT once SNP is
+> enabled and initialized.
+> 
+> Suggested-by: Thomas Lendacky <thomas.lendacky@amd.com>
+> Suggested-by: Dave Hansen <dave.hansen@linux.intel.com>
+> Suggested-by: Borislav Petkov (AMD) <bp@alien8.de>
+> Suggested-by: K Prateek Nayak <kprateek.nayak@amd.com>
+> Reviewed-by: Dave Hansen <dave.hansen@linux.intel.com>
+> Signed-off-by: Ashish Kalra <ashish.kalra@amd.com>
+> ---
+>  arch/x86/include/asm/msr-index.h |  3 ++
+>  arch/x86/include/asm/sev.h       |  2 +
+>  arch/x86/virt/svm/sev.c          | 75 +++++++++++++++++++++++++++++---
+>  drivers/crypto/ccp/sev-dev.c     |  2 +
+>  4 files changed, 77 insertions(+), 5 deletions(-)
 
-s2mu005_fg_i2c_probe() calls dev_err_probe() when devm_mutex_init() or
-devm_request_threaded_irq() fails, but drops the return value and
-carries on, finally returning 0. A failed probe is then reported as a
-success: the device stays registered with an uninitialized mutex and
-without its IRQ handler installed.
+Some cleanups ontop:
 
-Return the error from dev_err_probe() in both places so that the probe
-fails and the driver core logs the error state properly.
-
-Fixes: aa2132799817 ("power: supply: add support for S2MU005 battery fuel gauge device")
-Cc: Yassine Oudjana <y.oudjana@protonmail.com>
-Cc: Kaustabh Chakraborty <kauschluss@disroot.org>
-Cc: Sebastian Reichel <sebastian.reichel@collabora.com>
-Signed-off-by: Zongmin Zhou <zhouzongmin@kylinos.cn>
----
- drivers/power/supply/s2mu005-battery.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/power/supply/s2mu005-battery.c b/drivers/power/supply/s2mu005-battery.c
-index 53de660..a76154e 100644
---- a/drivers/power/supply/s2mu005-battery.c
-+++ b/drivers/power/supply/s2mu005-battery.c
-@@ -262,7 +262,7 @@ static int s2mu005_fg_i2c_probe(struct i2c_client *client)
- 
- 	ret = devm_mutex_init(dev, &priv->monout_mutex);
- 	if (ret)
--		dev_err_probe(dev, ret, "failed to initialize MONOUT mutex\n");
-+		return dev_err_probe(dev, ret, "failed to initialize MONOUT mutex\n");
- 
- 	psy_desc = device_get_match_data(dev);
- 
-@@ -277,7 +277,7 @@ static int s2mu005_fg_i2c_probe(struct i2c_client *client)
- 					s2mu005_handle_irq, IRQF_ONESHOT,
- 					psy_desc->name, priv);
- 	if (ret)
--		dev_err_probe(dev, ret, "failed to request IRQ\n");
-+		return dev_err_probe(dev, ret, "failed to request IRQ\n");
- 
- 	return 0;
+diff --git a/arch/x86/virt/svm/sev.c b/arch/x86/virt/svm/sev.c
+index 923b7869acd1..982753002a3c 100644
+--- a/arch/x86/virt/svm/sev.c
++++ b/arch/x86/virt/svm/sev.c
+@@ -558,7 +558,7 @@ int snp_prepare(void)
  }
+ EXPORT_SYMBOL_FOR_MODULES(snp_prepare, "ccp");
+ 
+-static void snp_cleanup_rmpopt(void)
++static void rmpopt_disable(void)
+ {
+ 	int cpu;
+ 
+@@ -577,8 +577,7 @@ void snp_shutdown(void)
+ 	if (syscfg & MSR_AMD64_SYSCFG_SNP_EN)
+ 		return;
+ 
+-	/* Disable RMPOPT while CPU hotplug is disabled. */
+-	snp_cleanup_rmpopt();
++	rmpopt_disable();
+ 
+ 	clear_rmp();
+ 	on_each_cpu(mfd_reconfigure, NULL, 1);
+@@ -612,8 +611,7 @@ void snp_setup_rmpopt(void)
+ 	}
+ 
+ 	/*
+-	 * The RMPOPT_BASE MSR is per-core, so only one thread per core needs
+-	 * to set up the RMPOPT_BASE MSR.  All primary threads are online,
++	 * The RMPOPT_BASE MSR has core scope. All primary threads are online,
+ 	 * otherwise SNP would not have been enabled.
+ 	 */
+ 	for_each_online_cpu(cpu)
+
 -- 
-2.34.1
+Regards/Gruss,
+    Boris.
 
-
-No virus found
-		Checked by Hillstone Network AntiVirus
-
+https://people.kernel.org/tglx/notes-about-netiquette
