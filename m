@@ -1,110 +1,113 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB7333DA7F1
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 14:28:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C27E01C862D;
+	Thu, 27 Aug 2026 14:29:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787840940; cv=none; b=MnFVkvqlpNWlb1ySGRCRt/12niFs5M5/MzopvGM7uR5yfbA52mlt1CwAr8Euxl69flmShCV4s/DSJkbHnGn/3/UCcU2fqz8NDB+j0K51BfAe59LseiuWocXODkIjHk0AEbHYZJ7yz11OjxvzBfnkQoV36Z8Ejapo0MEoNRDdDNc=
+	t=1787840952; cv=none; b=m6Nh0hbg+x95MZX1zogkA/ZSrgjOZlKKmeAW1ufHSvpUXUXFJyoq4kxQPHyfvz3iDWoCvO4yklx4sGWS1Ka4APiazN3H/GRISNe+NAfRINECRckWkvUxhIinNls6C+Kd8Aib5PkfBUc6VpUOioQNe9AHvMQ6fEtAbbBa6JCNuXE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787840940; c=relaxed/simple;
-	bh=nKAx+rvAzxQ2/kf2GcBVYLAy8Xi8kdNaL+EwFmlkcWU=;
+	s=arc-20240116; t=1787840952; c=relaxed/simple;
+	bh=6brJ3I/FMSLxeAu7VYeM5Y1AtwdHO0fwzquf41vQQ9E=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZgxPLR6WSLFq3n3g5XwDPoYffFiJ36N2Fd6mTYXnsLD6ELcXtRj49n/yPU+eEapsSK/LF2FUvStGjfybwgMMShhfw7/wnHG5GNlo+rv4h2/iSAGTT2X2pHIO9HE46MVn/u6Fcp3CUKXT/Zd6ULe0Klkbg1p/3HjLQVcsvxoDcXs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=gTYm8g/9; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=PimSIt1Zut3uGaIw0Is7lRryujgJWFYLxxd3c+S/JN87cZefV3vxiddloNCmP6x0EpFYDyWqa51JBupZV+rFK9WdCLw4yzHCQBJcLbfY9nGm2L4qSF/UDDnzI1QQ4oYvsFXL1CogF0xG1nPlsoZutkASy3RCfhBGI8qOc34F3HE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=MN8qz0e3; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="gTYm8g/9"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49b8e527d63so5829825e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:28:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1787840937; x=1788445737; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PI7Nz8d3HH69nhtcQsyOVYUPwrNGYdNUTrVZkR05tbE=;
-        b=gTYm8g/9KbfqyhipbgSGeThEFgXOcXxabdTWb5EEzOyxnxM2hflSJOx4ResaUX8kz1
-         4cr6raNb4sWtBDJ0XXGta9HHjOI80JJEc2evQQDeYTTzhHhduH8/Qjxth86M7KifOLeq
-         xhKk6iHQBqb4ld2cH4KAMc9zDDwQL9sqXD2/zLlucOqp03reBjW5F19Y5bE94lO9soJe
-         PlhaXia87Mm34L9DGhRSftRPmAivW36q371pLAhAJJ72ApY85FzVUSXup6rCGXJvB6Gw
-         qvCRk852/11G5ToUy0fDscvA527YEdvHPQuozbr85VBlr0RoIa7qhPPuTxa4tKBAJveW
-         AI9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787840937; x=1788445737;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=PI7Nz8d3HH69nhtcQsyOVYUPwrNGYdNUTrVZkR05tbE=;
-        b=XcJ+0LYHrngsh9xzUicQPl5xqW1UYtKKJA4xRoFAFIQxtSNwun2G1ZZoxQGUP5zo8U
-         ASjL6gv1UroieDMOF4DGv0ErMZdp+ESsNGfomt/f90djmUR/zGOZombv4iqXL4kCTfwF
-         zSVyqk/Um0VmnCtUSh9t9uXsBU8eAscdm66a4FdI3HAvcHtHlnAxjZ2xongoShUgyIju
-         vsaFkNgSp1xIuABKqv5ACUtlanQPq+MKWk251s3+UcSHKSpIYiF1mSsspKYg++H6RTyP
-         PEN6ptB2R55wtJnyk3omr8EsbBioF9+MgFo4TBvCShLMuTDAjFtI54hjnhW9tgp0PGgk
-         dBTA==
-X-Forwarded-Encrypted: i=1; AHgh+RrCVlFcbQhLtk6I5x/kVMVvxSYEhhQHEiqnTdyxy2r/+Y7Rf1ktgJXOneSOhO21yM1qJoZSJ6uo3lVg44Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++kt0098luKzicojA5nKOG+q2TYCgAItCPcOEi8Th9E3Pb1TtFw2
-	0aEn0KNtMCFgxWFW7RIB7Tp3xDXFjsgU3cUBdtKXnrVZ5FlDEIV8C4ebZwTZMG2UMSs=
-X-Gm-Gg: AR+sD126Z1M193yV3vHqDcX1YztvODi89xmloogS0qxNGSDh8ygsO3n5IdV3BU9csUM
-	Ux+JZzXebOHwGLdhUzKTyiWCyLp22mQQb+koUY90R9jzSXisJVLVHocwM90mCmaEMDZNbffypnK
-	hCgTJtSO1tkzufKJpymsIOxUikvUTk1IdhaTQT2Jck+xnwxCJToplNQ/3I8Rg8uvwSf2+MWHf/6
-	v2s9/OIbhGSI5tom97ljJx+GTtFikqY6rsSj02/d/pQ/QJtvUhmdqnimfZpNRJ4ND0IqKnZ/0jh
-	g22mcyb1BrYP5m1TNOwLFhxijg1Qt3ZcwbHn/soQZvJmz3PP1DmlbEr1WgNnGwEHOVq4EbZbRSK
-	WN7dZIz6rGJKOWAFFBmD1mUtLlOvTsFa4aZ1LD8Wxn/ekk+84bGo9AhPDlInvuX9wUnQxRYjElD
-	88/KIekglvAZKhBkVscpQdIT8sFira8erbRyjigKCC6eP6mcrmKho=
-X-Received: by 2002:a05:600c:698c:b0:493:cefc:d113 with SMTP id 5b1f17b1804b1-499dc6f5dcdmr215984745e9.5.1787840936850;
-        Thu, 27 Aug 2026 07:28:56 -0700 (PDT)
-Received: from blackbook2 ([84.19.86.74])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b494228bfsm54431465e9.2.2026.08.27.07.28.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 07:28:23 -0700 (PDT)
-Date: Thu, 27 Aug 2026 16:28:02 +0200
-From: Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>
-To: Wilson Felipe Pereira <wfelipe@google.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Yosry Ahmed <yosry@kernel.org>, Nhat Pham <nphamcs@gmail.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Tejun Heo <tj@kernel.org>, Shuah Khan <shuah@kernel.org>, 
-	linux-mm@kvack.org, cgroups@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] selftests/cgroup: test_zswap: fix implicit
- unsigned promotion bug in test_no_kmem_bypass
-Message-ID: <apBJbOhQakQH4WyP@blackbook2>
-References: <20260827034807.2822234-1-wfelipe@google.com>
- <20260827034807.2822234-3-wfelipe@google.com>
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="MN8qz0e3"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 7539E40E021A;
+	Thu, 27 Aug 2026 14:28:58 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id ObWb8cOFOnty; Thu, 27 Aug 2026 14:28:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1787840928; bh=nH1dEa45oKyEZ+LvyVfaxCb3KtSM1VwnQfe9BHKlGaY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=MN8qz0e3pXb/1DL78Fq1XC5Hr75Pv2Og34nfm4yQbcx7w01QaBJG/Y5t3S6DR2sI4
+	 nOoLvlLbDx8LnDFCYAY0xNz7ApPmo0ahdYGXcdh4rsrUh3g0z8vSAicxm5WVWFtaW1
+	 52O0ix8ZLAqBxTbXYysHq93LeT6UlocQ+hxu+R7fWPZFIxsIDzqzI2xWmvfrXQMHYk
+	 atAbPpbg28vUKuk3TX5o2bUydDwdrhQFraiX+GwA6oSu2MwMu+Q8lFgQVcYIDnGGno
+	 Rz1JFfDL8uRIqvl5s2HiRr/faX1irlrpjMcEF7xzlFLvg+ABbDF2cl2/DPgkcdryBm
+	 +3byy+38iZZV4K093GMSWXW1xH0y/VkjUsiZ5F7otaUWCSHM1eehZ7AyEi4WedT0dO
+	 mJkfzfu4bPPO9/vAXINgj9j+NbdD+q4fUQp75bXyWG0Q6oPt7XadqP1/0hgp7DDS8O
+	 B/bfpyjo8zFVlHyWITijge1LfQWkEbwasZIlYkYahqFdfqFuNjZo/u9JXJG8qlAfMl
+	 2aDHAwpswfSgkAfGlLFnjO+ScL9AoTMmt6AIgzmkH+RjL6Ep8u7H0403YE5jeJH7jD
+	 6SrlSEuloFfbRCKWfRuSfBRtKZinMIlNkiiKS76uZ8ttPmRKwz/DJ+zeLtIAhtyTDZ
+	 H9DcvsVpehYhAg8DxqoEeJz4=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id BAF2440E00E6;
+	Thu, 27 Aug 2026 14:28:33 +0000 (UTC)
+Date: Thu, 27 Aug 2026 07:28:29 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Breno Leitao <leitao@debian.org>
+Cc: "Luck, Tony" <tony.luck@intel.com>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"x86@kernel.org" <x86@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+	"kernel-team@meta.com" <kernel-team@meta.com>
+Subject: Re: [PATCH 2/2] x86/mce: Add mce=panic_on_ce_count to panic on a
+ corrected error flood
+Message-ID: <20260827142829.GAapBJjfZwSEhZ-_71@fat_crate.local>
+References: <ao2eT0TWS9EaA28N@gmail.com>
+ <SJ1PR11MB60837D32B5D89336C87280A3FCAF2@SJ1PR11MB6083.namprd11.prod.outlook.com>
+ <20260825161625.GAao2_2d3U7xQFgHrw@fat_crate.local>
+ <SJ1PR11MB60839657B965AC3FDA53C186FCAF2@SJ1PR11MB6083.namprd11.prod.outlook.com>
+ <20260825191555.GCao3p63v3fXzwa7E7@fat_crate.local>
+ <SJ1PR11MB608315809B99B7194D167D8EFCAF2@SJ1PR11MB6083.namprd11.prod.outlook.com>
+ <20260825225202.GEao4ckknyv8nRc8Dh@fat_crate.local>
+ <ao7nGM9sCQyxJvsD@gmail.com>
+ <20260826160934.GBao8PvsM8M-U7XuFR@fat_crate.local>
+ <apAEy6c6xuXJXSEQ@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260827034807.2822234-3-wfelipe@google.com>
+In-Reply-To: <apAEy6c6xuXJXSEQ@gmail.com>
 
-On Thu, Aug 27, 2026 at 03:47:42AM +0000, Wilson Felipe Pereira <wfelipe@google.com> wrote:
-> In test_no_kmem_bypass(), delta (stored_pages * page_size - zswapped) is
-> checked against stored_pages * page_size / 4 to verify that the pages
-> pushed to zswap belong to the test memory cgroup.
+On Thu, Aug 27, 2026 at 02:47:11AM -0700, Breno Leitao wrote:
+> This is a user-configured option; each user picks whatever number
+> works best for them.
 > 
-> Due to slight stat update timing differences, delta can evaluate to a small
-> negative number (e.g. -5MB out of 1GB). Because delta is declared as a
-> signed int and stored_pages is an unsigned size_t, C's usual arithmetic
-> conversions implicitly promote a negative delta to a large unsigned 64-bit
-> integer, causing `delta < stored_pages * page_size / 4` to falsely evaluate
-> to 0 and fail the test.
-> 
-> Fix this by declaring zswapped and delta as signed longs and comparing
-> against a signed threshold, ensuring negative deltas correctly evaluate
-> to true.
-> 
-> Fixes: a549f9f31561a ("selftests: cgroup: add test_zswap with no kmem bypass test")
-> Signed-off-by: Wilson Felipe Pereira <wfelipe@google.com>
-> ---
->  tools/testing/selftests/cgroup/test_zswap.c | 9 +++++----
->  1 file changed, 5 insertions(+), 4 deletions(-)
+> From a quick look at the Meta fleet, this follows a bi-modal curve:
+> a bunch of hosts logging a dozen or so, and a few with thousands. So
+> doing some napkin math, I'd say "many" is around 100ish for Meta
+> fleet.
 
-Thanks!
+Sounds to me like this patch should remain in the Meta kernels too then.
 
-Acked-by: Michal Koutný <mkoutny@suse.com>
+Because I don't see it being that useful for upstream.
+
+> Correct, that's exactly my approach here.
+> 
+> After X CE errors, we acknowledge that the machine is no longer
+> stable enough to keep carrying the workload, and simply panic. It's
+> the last resort: it means lab technicians haven't fixed the problem,
+> and nobody has gracefully powered off the host either.
+
+So panic instead of graceful shutdown.
+
+This makes it even more a Meta-only specific approach.
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
