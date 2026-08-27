@@ -1,113 +1,118 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9921240928D
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:59:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 470A924886A;
+	Thu, 27 Aug 2026 13:59:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787839170; cv=none; b=CcZLbzPKZMg4Y0q9jNYKCq+sHZzp+WuIRrGIS1QfTGAK0q/4A1xytMR6unjOMXGDi2fEm+s75jX1t7nGfO2MKUdW/MKWfDu35EYyd5Xrcwcb5cDeDyAf/mRgq/bwKvoPHdn/1j/LnKHy0dejGCsF5c8bSlKeEiGJNnlm+Y2odQw=
+	t=1787839178; cv=none; b=FJfOsArSha4bJY/5N985kAybxwXc7+0wITc53260qkQz4VxmhSe4Yl5qflneKLcevs+9l8BN7XYGz4YjhACftsU0H9uqtUhCGzP6lBp7ayOO9HVJpf7OVylCNOc7JwxuYoUfjlw+QmgVYCblsCdfxXdF67G11PEGM5nDrSqKPxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787839170; c=relaxed/simple;
-	bh=4BApbd7xRD274am4qHzSTtPAUlhQ4Wf3kdL+o+NAvEU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nclx6sAvK3+A1paPOjrkXQDvIxJlGgI0QFMCsaBuU/wAHpaxl/mShDiO9FsfjzOE/5YERgr6z9V2kKRhbfe6khMMHFFZEMvoTcSPvNMQR/jTLrQRK5xaeYfsXMFH4oRPfrP+5M8lvd7ASKrvUOXJZFJ0ggaWKv5ymL+NFjEQRu4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=siw2lhYn; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787839178; c=relaxed/simple;
+	bh=6QtYceN08ctRHiGOKb2Te5ZRLhVJhxy9KZZsmpog0uw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=hhm9mI5KGiuAWA/iBcQ5Fxu7q/lyT7f2iUVo6SdfxWVQQrBYfQhhr4ABFrKGdtt7L0UFo1pdQJbTUbzr7AM4SHLP7ql/ODz9aSTSMdZbQnpeHVitWPqxZRNLFO7WUSS3JegPSZhibjDm0QFTjb9RCCjAlQ6qXq5LFtYRwzbVtUI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PUOcZg2O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="siw2lhYn"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-383b4a3755fso2743893a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:59:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787839169; x=1788443969; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=B5StRPqIQTEZjnwEJl7/p40cn9Gtnc5osnnCjWoXWNI=;
-        b=siw2lhYnmzU1LcPxrKChEiGPBfGlLQ1r/QNN2wK17Dp0IeSO1pVOAOZZ9zOUFtS0WR
-         Kiy1dJj6eTaCZaEz3LWWDihP9PdQ2iUkgObF8atWGbCd6ZIcfD4IXgwqyojQTB5Fh3j2
-         AMmeCm9pYqF7LA7umk3q7y+kObIMnF5wTxys4Bxxfg/vZ//vUc2AzdUNxKKpl6rW5I4+
-         xCm1y7XRnAxhqQgaNisBYDADL7lFNQzkPYVK8msN4EzFaGdcUlk1hGE8/wxsyUrnUNd8
-         Lmy4VLgG33cJfXJBNdNcWUaVZzZKXNZIZ2547OfRCb2iRaK351LFc/g1s4YH5CKLMO07
-         WL7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787839169; x=1788443969;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=B5StRPqIQTEZjnwEJl7/p40cn9Gtnc5osnnCjWoXWNI=;
-        b=MBVLkH38zp/bh511Vs6fmS7AdO9EC5BE0zDvGIbz0SFrgqm31mGRc9c8DmCKkuitlk
-         2htFH7pazUvVQXLkkIS3MUdrsn1N21XkSIbNQDN0zeTUDguqaJwgHNxHh4EGKXfeR9/d
-         RCC0dqCc4ad8DzglaY7SBhgP1WG1ldMZsGHDXkUxqs/vMnbZQUc0p/TuR4kEmdkD8tCo
-         EZ7WLkUQBaXHTvPzu2IDDrIxWBRs6LI70sLYLe1fq6YcvybaBIUKEDkNY2RoUaIejrxZ
-         rHbb58niofb3043Y4GNHRlM4G+PO67IRL2u5p9L2vyfpT8iM3mk4NLoSWneTeWzTyxZ1
-         tbbQ==
-X-Forwarded-Encrypted: i=1; AHgh+RprO5DABgCkM3Hr93HhfAfKVyUMOueyG+pWIsZfD8yK0mC46qMLNG+v6rHPJZM0WbpRqDSvyS0wsN53WDI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kCc4UeuYNoizFYw11zTizR7YtoZdWyuXdWplwl2hSq5dZ/GR/H
-	SFGwOcd7I8HqowfQa25eqqOXSMXrcVfrANpO8vpuQFrojRvx4Vupp2Nakbm0Vw==
-X-Gm-Gg: AR+sD12bbQRNumCG8iN4ocvCyhaGPB3TGrgteqhczIAri+lLaVUHnOseov0O3BnYM2U
-	gCpLqZElnc9azZdFWlcpFLnM3xTs2rZUd2L+YujBHtd5sKNalvSby2QB7AjVcUL3syx9WR2a+U2
-	4XBYRgXnx9oFrgVnlGWP3GGeO1qxUo2RsUJKMW0bd6wixY9g2pWCbUnZhd+6rN1PCNCVaZ0Z5J9
-	PfmaJCNnd4pE0XxpSC/4rXznaVwcVRqRe645GRXWvewQPjGVgNZnHd/Efr5WndC/Z9ICkkyN/Ya
-	7hrpseTiESSj+wkctW4qVgInpbecpt8e1FkRO7mU/kBMEEkU3I9+asPlcC0p9a/rdl0E8x2yR4C
-	qEUrGvGkqZ7S+47Ue7hKFncoPNEJLpw5qzbnbBB24Pe8H+nZ4OdQIAsvFRf8RR8CXjwOqc6Ek7D
-	pQ6LzxXJX0AmbNDmt1jinZvhHocSnDle5kimYlCgOxTjXzHg7J/NHQhKFlx5ZIipu7LbbUYgioG
-	g==
-X-Received: by 2002:a17:90b:1fd0:b0:38e:70d5:b12d with SMTP id 98e67ed59e1d1-3966d3ed042mr33079618a91.6.1787839168843;
-        Thu, 27 Aug 2026 06:59:28 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b0fd55a4sm2972734a91.7.2026.08.27.06.59.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 06:59:27 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Thu, 27 Aug 2026 06:59:27 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Manush Prajwal <manushprajwal555@gmail.com>
-Cc: xingyu.wu@starfivetech.com, ziv.xu@starfivetech.com,
-	wim@linux-watchdog.org, linux-kernel@vger.kernel.org,
-	linux-watchdog@vger.kernel.org
-Subject: Re: [PATCH v2] watchdog: starfive: fix runtime PM usage counter leak
- in pm_start
-Message-ID: <6cefb263-7f9c-4be5-aff2-6e1a66bdd4b5@roeck-us.net>
-References: <6a8b157b.8e75e0cb.2cc15f.4aae@mx.google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PUOcZg2O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07FBA1F000E9;
+	Thu, 27 Aug 2026 13:59:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787839176;
+	bh=YlYAmxTedcW+z4fH3/ZePc5utWgTFiPplYAQ6byAKJM=;
+	h=From:To:Cc:Subject:Date;
+	b=PUOcZg2OqkXJX8Sv/h7shs4Dy0sYV1xhlnOcbKILk4ut9aYpIGH/4Y8Vx7V+ID9Lk
+	 szZ0EGxiF18tx1SgGPB6fT5/INHoQzUCqq3JwjFCzmPnX7QGiJ/v4lyvPMJYC8N1Cb
+	 jko48HE/kS+Vh6aMVJMZHGZvVPITY4ylpxDC/uDHF+zqyLFDuC6BHaOnaAyr6a2N5h
+	 QN0ka7p/Rzm3KrKVDwOXJ5Kc8hPaTLKcZcJlTlYDmq9EqkDEvmKyfXje3g+IoU0FB6
+	 O3v0gMB8bKJHDjORaBbUjDZRpCrAXMjmfYMKFt1zb7IKDn/zpxASzatsIsxInqrAfF
+	 niv8RUIqYWXxA==
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+To: Linux PM <linux-pm@vger.kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>,
+ Linux ACPI <linux-acpi@vger.kernel.org>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Peixin Xie <peixin.xie@linux.spacemit.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>, Lukas Wunner <lukas@wunner.de>
+Subject: [PATCH v1] Revert "ACPI: scan: Defer device power initialization"
+Date: Thu, 27 Aug 2026 15:59:32 +0200
+Message-ID: <6029658.DvuYhMxLoT@rafael.j.wysocki>
+Organization: Linux Kernel Development - Intel
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6a8b157b.8e75e0cb.2cc15f.4aae@mx.google.com>
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun, Aug 23, 2026 at 09:14:59PM +0530, Manush Prajwal wrote:
-> starfive_wdt_pm_start() calls pm_runtime_get_sync() and returns its
-> error code directly on failure. Per Documentation/power/runtime_pm.rst,
-> pm_runtime_get_sync() does not drop the usage counter on error, so the
-> caller is expected to release the reference itself. The early return
-> here skips that, leaking a runtime PM usage count on wdd->parent on
-> every failed resume, which prevents the device from being suspended
-> correctly afterwards.
-> 
-> Fix it by calling pm_runtime_put_noidle() before returning, mirroring
-> the same balance the counterpart starfive_wdt_pm_stop() already
-> maintains with pm_runtime_put_sync().
-> 
-> v1 only balanced the pm_runtime_get_sync() failure path. As Guenter
-> Roeck and the Sashiko AI review both pointed out, the same leak
-> remains if the subsequent starfive_wdt_start() call fails: the
-> runtime PM reference acquired by pm_runtime_get_sync() would still be
-> held while returning an error, again leaving the device unable to
-> suspend. Drop the reference on that failure path too.
-> 
-> Signed-off-by: manushprajwal <manushprajwal555@gmail.com>
+From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
 
-checkpatch says:
+Revert commit dc948f8b384a ("ACPI: scan: Defer device power
+initialization") that is incomplete and may cause ACPI power
+management of devices to fail.
 
-WARNING: From:/Signed-off-by: email name mismatch: 'From: Manush Prajwal <manushprajwal555@gmail.com>' != 'Signed-off-by: manushprajwal <manushprajwal555@gmail.com>'
+The problem is that PCI devices are associated with the
+corresponding ACPI device objects before acpi_bus_attach()
+runs for them, so after commit dc948f8b384a, ACPI power
+management will not be initialized for them before making
+that association.  Consequently, the reference counting of
+ACPI power resources may not work as expected going forward
+and power management issues may appear.  If they appear, they
+may be elusive and hard to diagnose.
 
-... which means that I can not apply this patch. Please fix and resend.
+While this is fixable, I am not sure if fixing it on top of
+commit dc948f8b384a is the best way to go, so it is better to
+revert that commit for now and revisit the whole thing in the
+next cycle.
 
-Thanks,
-Guenter
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+---
+
+@Xie: Sorry for catching this late.  The change is quite subtle
+and I should probably take care of doing it myself.
+
+---
+ drivers/acpi/power.c | 1 -
+ drivers/acpi/scan.c  | 4 ++++
+ 2 files changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/acpi/power.c b/drivers/acpi/power.c
+index 922ba9803a93..23a4e207a01e 100644
+--- a/drivers/acpi/power.c
++++ b/drivers/acpi/power.c
+@@ -954,7 +954,6 @@ struct acpi_device *acpi_add_power_resource(acpi_handle handle)
+ 	INIT_LIST_HEAD(&resource->list_node);
+ 	INIT_LIST_HEAD(&resource->dependents);
+ 	device->power.state = ACPI_STATE_UNKNOWN;
+-	device->flags.initialized = true;
+ 
+ 	/* Evaluate the object to get the system level and resource order. */
+ 	status = acpi_evaluate_object(handle, NULL, NULL, &buffer);
+diff --git a/drivers/acpi/scan.c b/drivers/acpi/scan.c
+index 7dcf784199fa..f48715ed827c 100644
+--- a/drivers/acpi/scan.c
++++ b/drivers/acpi/scan.c
+@@ -1144,6 +1144,9 @@ static void acpi_bus_get_power_flags(struct acpi_device *device)
+ 		if (!list_empty(&device->power.states[ACPI_STATE_D3_HOT].resources))
+ 			device->power.states[ACPI_STATE_D3_COLD].flags.valid = 1;
+ 	}
++
++	if (acpi_bus_init_power(device))
++		device->flags.power_manageable = 0;
+ }
+ 
+ static void acpi_bus_get_flags(struct acpi_device *device)
+@@ -1825,6 +1828,7 @@ void acpi_init_device_object(struct acpi_device *device, acpi_handle handle,
+ 	acpi_set_pnp_ids(handle, &device->pnp, type);
+ 	acpi_init_properties(device);
+ 	acpi_bus_get_flags(device);
++	device->flags.initialized = true;
+ 	device->flags.enumeration_by_parent =
+ 		acpi_device_enumeration_by_parent(device);
+ 	acpi_device_clear_enumerated(device);
+-- 
+2.51.0
+
+
+
+
