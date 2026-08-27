@@ -1,82 +1,108 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D4852F7AD2;
-	Thu, 27 Aug 2026 11:59:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B190C3644A4;
+	Thu, 27 Aug 2026 11:59:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787831947; cv=none; b=FKHaYiT857J8NykNcqav1o/B5naX3NxYt/RAlsx+wm5HJEDEtXY8VB3PE0Vxq/Mu3KObZ9DyXYBE/b8rbYfBPQ1qOY4D6vnjOOVlFGY4cq/hyNcblYuWx8fTkvnZHlQbnVg02seMfzBnIHGy50fU3oMPQOU2lAO79FvcbVpHOyU=
+	t=1787831955; cv=none; b=NXRmSDGfjtQyWfQDnIdDp93VKbYs5DLM6sew3dkimkE/2hYAdUw73r0/QvL3GL/9cKJ8hS84MJuq7ENPKKZ1UrkfN1/cUlwgIe0k/+axfy47V+jTQoSiVyjnaFaB6p/3u+uUH2oK3aZW+uXMCoozA4D6knal+w3+BjNSjutduFw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787831947; c=relaxed/simple;
-	bh=kS6ytQQ6q0R74tYQWG1swwo5Vl/KkrJwJ0Lbu9SeWr0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cf16CPDrUQ4FaXGaLLlyrjJjMW32SHa4lyY/CXwb5AUTqgFZIcnPdXMHC4vDOWDkHWtiMkLoCnhJI9v15rECiXNl8a65MdgGNbXSf+ox9E0KwiixzDWgp79w+HBvQCzb/M6nLcCVM4AsBI2xUqENClyS1KKoUZJjcZJnzk6V3Pw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fXxm8UmC; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787831955; c=relaxed/simple;
+	bh=gl7Ypggdt6+OInYK5seGvYHZ3ns4wQAaeLb/KQCSOfw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pk8OETrGbV6KdnTBWiI/SWcviIrUh6F9Cqc2NFgTPjLV/L1brK9lDR8VERenNc9lNeE9iK27GF6H4+DOyxEjuuJXkrOFgdAgL4ih1vnUJw3UkaVessM0ZSwnEvh6I8v+2BCeP5FewfKKn7pr+GGNG7xx5nYRHEr/dWB9psNlxDM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mMCare4E; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fXxm8UmC"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mMCare4E"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787831944; x=1819367944;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=kS6ytQQ6q0R74tYQWG1swwo5Vl/KkrJwJ0Lbu9SeWr0=;
-  b=fXxm8UmCOJjikB4CQgX60TZ9DrE8fF+KByk5mGXZb4lQPufXBRKX0OzG
-   Pr6QzPdMmyXvlAt49yBjWsew0Wu8ueNsH9Vj5DjzobjgDP5zoaYaf03ed
-   mC7HeZVi0X2hciEOIaj19MXffpcCmbPO5w4yje7x/xKRovnfjM8vlg0wp
-   fhKuT7UteqGkbneSqJzFqoyM3ryS3pc7knmEO5VmnCDn3vkOuXjrdTyi5
-   xsb1lix+XbVEF1Ewyj3Lntspq5KNd4EM/1RRl6iW/xcS9aXh7FTCSwmZq
-   NM6vU6kvnpHJ4SfbntOnlghu+x15EN1VxA4K+iOqbFzCSKMD2kkffp4OW
-   w==;
-X-CSE-ConnectionGUID: s853uiIjRNGnscEeH8oc1Q==
-X-CSE-MsgGUID: eigDddPMSsOS/ElNwoRs6w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="88382318"
+  t=1787831954; x=1819367954;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=gl7Ypggdt6+OInYK5seGvYHZ3ns4wQAaeLb/KQCSOfw=;
+  b=mMCare4E9c8zGSJW0bzv6f3tESo0YDlEOgs+PpKt9Vg7PXK6xLIgePMg
+   CB3UQNFnPM+J1FrhqFxEA6ekTSlsd+D657J+2YsxbPdDDWZ0w2jVK9Ksd
+   wM+2R+2cLC7gmVwPUiJKvFdE4M/htAQTf904ix/rLBBDoWrU3m1ZSJagI
+   uqMPIZYAhK7mH1qEAWvE+KLZ/hhud43EpwaEGaY7eqHvgktpUIEVKyH8C
+   EUxyACMOEF6bEMH+rs35LEKz2PFEuEcwCz477vRDLS7jt8xqmerwlifSm
+   VrqjM0AVDWh0y01jE3BttcPFKfl/x8CWT8PE0o3hph48RSgph95j4CcWA
+   A==;
+X-CSE-ConnectionGUID: ufvTOtf9RCmNxgJxhrDbVw==
+X-CSE-MsgGUID: KO58nqLlRYOR19eg5CeztQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="105704515"
 X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="88382318"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 04:59:04 -0700
-X-CSE-ConnectionGUID: xwCZYXx4TjGvtCtC7qxaVA==
-X-CSE-MsgGUID: wwG9ts2ORV2UamLTP5AZHQ==
+   d="scan'208";a="105704515"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 04:59:14 -0700
+X-CSE-ConnectionGUID: T5mZF9iCT9KzrcrE8fY1yQ==
+X-CSE-MsgGUID: eAYSQsFJQgm/QV5Io8v0Lw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="269801642"
-Received: from xiaoyaol-hp-g830.ccr.corp.intel.com (HELO [10.124.240.119]) ([10.124.240.119])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 04:59:01 -0700
-Message-ID: <37003be3-82a1-4417-96fe-26a37fa36335@intel.com>
-Date: Thu, 27 Aug 2026 19:58:58 +0800
+   d="scan'208";a="271652792"
+Received: from amilburn-desk.amilburn-desk (HELO kekkonen.fi.intel.com) ([10.245.244.174])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 04:59:10 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id F28C7120DF1;
+	Thu, 27 Aug 2026 14:59:06 +0300 (EEST)
+Date: Thu, 27 Aug 2026 14:59:06 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Maurizio Casciano <mauriziocasciano7@gmail.com>,
+	linux-media@vger.kernel.org,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Bingbu Cao <bingbu.cao@amd.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Nicholas Roth <nicholas@rothemail.net>,
+	Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jose Maria Martin <jmmartinf@hotmail.com>,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/8] media: ov8858: support 19.2 MHz clock and CHT gain
+ setup
+Message-ID: <apAmisduSqFoTrpG@kekkonen.localdomain>
+References: <20260826132256.3343451-1-mauriziocasciano7@gmail.com>
+ <20260826132256.3343451-2-mauriziocasciano7@gmail.com>
+ <apAGGD27ZUFHQ6Aa@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 6/8] KVM: VMX: Use dummy pseudo-overlay struct for
- to_vt() and vt_to_vcpu()
-To: Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
- Rick Edgecombe <rick.p.edgecombe@intel.com>,
- Binbin Wu <binbin.wu@linux.intel.com>, Kai Huang <kai.huang@intel.com>,
- Yan Zhao <yan.y.zhao@intel.com>
-References: <20260826171246.777729-1-seanjc@google.com>
- <20260826171246.777729-7-seanjc@google.com>
-Content-Language: en-US
-From: Xiaoyao Li <xiaoyao.li@intel.com>
-In-Reply-To: <20260826171246.777729-7-seanjc@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apAGGD27ZUFHQ6Aa@ashevche-desk.local>
 
-On 8/27/2026 1:12 AM, Sean Christopherson wrote:
-> Define a combined vcpu_vmx_tdx structure to represent the common layout of
-> vcpu_vmx and vcpu_tdx, instead of having vcpu_tdx piggyback vcpu_vmx.  I.e.
-> require VMX and TDX to match the common definition, not for TDX to match
-> VMX.  This will allow moving to_vt() and vt_to_vcpu() to common.h where
-> they belong.
+On Thu, Aug 27, 2026 at 12:40:40PM +0300, Andy Shevchenko wrote:
+> > static int ov8858_init_ctrls(struct ov8858 *ov8858)
 > 
-> No functional change intended.
+> >  	struct v4l2_ctrl_handler *handler = &ov8858->ctrl_handler;
+> >  	const struct ov8858_mode *mode = &ov8858_modes[0];
+> >  	struct v4l2_fwnode_device_properties props;
+> > +	u32 digital_gain_default = OV8858_LONG_DIGIGAIN_DEFAULT;
+> > +	u32 digital_gain_max = OV8858_LONG_DIGIGAIN_MAX;
+> > +	u32 digital_gain_min = OV8858_LONG_DIGIGAIN_MIN;
+> >  	s64 exposure_max, vblank_def;
+> >  	unsigned int pixel_rate;
+> >  	struct v4l2_ctrl *ctrl;
 > 
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> >  			  OV8858_LONG_GAIN_MIN, OV8858_LONG_GAIN_MAX,
+> >  			  OV8858_LONG_GAIN_STEP, OV8858_LONG_GAIN_DEFAULT);
+> >  
+> > +	if (ov8858->xvclk_rate == OV8858_XVCLK_FREQ_19_2MHZ) {
+> > +		digital_gain_min = OV8858_MWB_GAIN_MIN;
+> > +		digital_gain_max = OV8858_MWB_GAIN_MAX;
+> > +		digital_gain_default = OV8858_MWB_GAIN_DEFAULT;
+> > +	}
+> 
+> Instead, use 'else' branch so all assignments are close to each other.
+> Also possible to avoid adding local variables.
 
-Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
+Or better yet, put them into an array and pick and index based on the
+frequency of the clock.
+
+-- 
+Sakari Ailus
