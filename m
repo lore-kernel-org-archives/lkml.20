@@ -1,30 +1,30 @@
 Received: from mailgw1.hygon.cn (unknown [101.204.27.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 55BEB241CB7
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 543E223E342
 	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:33:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.204.27.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787834030; cv=none; b=IbrslxMEO8QFQsKA2Wj+1O7uxzuMn3fA2PftNQhaNYmjj5YoQxdn3XdpcC5uBXWaPeshb5blKVWOQWc+ARSd8AJywun3Dh8MdS6PNhneNMITYWHlXLyjXDgKOUp2oWPV6ct5JIsgDieWUue5AdTh6OdAknmTBNATWUmWYXwt654=
+	t=1787834030; cv=none; b=N5tU6ppuOFLnkQDrnlshwl+N+CCzdlNnx2leRFC2gUnX9lM+18EwxATCM3O+eZktd+vKnTEGIDz95m+h47mxUuIOR/zXI77AWnQ1YBDcwBYuacOVqhviWeJ96JYYNqr8vxyr4vODshgdnFyWv/cQrk/WFNj7sEzNTW/Lu5dy4jU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787834030; c=relaxed/simple;
-	bh=5yKC19MbSQAjytJn6Ia8jWnPe9uPqicEcfz/gfJbET0=;
+	bh=HPyagUsnYpBzyY8QOscCyOaZtN63tOtXFs2+azNFKGU=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=uIciz6y9frtxkIC6cAW4TemKVd3rSVeRi2ln9hbVsmwuWu2iym9ZIBA5gGayGxpUc6CRyzGlwgWW95CBv/vu6QR9VvPlk6igpb/68NLDgrjD2UUmod6KVOW3m5k/bvxX3BTuH/xW5gZvZawoWLEpiad3zFfItlHSBUEWuMhNqlI=
+	 MIME-Version:Content-Type; b=BWqIuWSqCQ58mFqqLtR7syowZwOgNbj4q0BhQ/dxD0888C1FrRJCn6mP1zEtCfcX2up/8aWyGUirj2nTToKjbVRo78Ld6DUlZrtBAJIuTuRffYZh/s7z7UDEnxQVR6bJzPVnUnrY6ZGahwFwlTK0vuLjgzJhVXP8kaHqXcrdgg4=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn; spf=pass smtp.mailfrom=hygon.cn; arc=none smtp.client-ip=101.204.27.37
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
 Received: from maildlp1.hygon.cn (unknown [127.0.0.1])
-	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hW1C60WLDzBJb6g;
-	Thu, 27 Aug 2026 20:33:22 +0800 (CST)
+	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hW1CL0WpZzBJb6r;
+	Thu, 27 Aug 2026 20:33:34 +0800 (CST)
 Received: from maildlp1.hygon.cn (unknown [172.23.18.60])
-	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hW1C44rBxzBJb6b;
-	Thu, 27 Aug 2026 20:33:20 +0800 (CST)
+	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hW1CH2D2CzBJb6r;
+	Thu, 27 Aug 2026 20:33:31 +0800 (CST)
 Received: from cncheex04.Hygon.cn (unknown [172.23.18.114])
-	by maildlp1.hygon.cn (Postfix) with ESMTPS id 432F178AD;
-	Thu, 27 Aug 2026 20:33:13 +0800 (CST)
+	by maildlp1.hygon.cn (Postfix) with ESMTPS id D53FA78AD;
+	Thu, 27 Aug 2026 20:33:23 +0800 (CST)
 Received: from jianyong.hygon.cn (172.19.20.52) by cncheex04.Hygon.cn
  (172.23.18.114) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Thu, 27 Aug
- 2026 20:33:19 +0800
+ 2026 20:33:29 +0800
 From: Jianyong Wu <wujianyong@hygon.cn>
 To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
 	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
@@ -39,9 +39,9 @@ CC: Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt
 	<linux-mm@kvack.org>, <wujianyong@hygon.cn>, <jianyong.wu@outlook.com>,
 	<zhongyuan@hygon.cn>, <huangsj@hygon.cn>, <wangfengyu@hygon.cn>,
 	<yingzhiwei@hygon.cn>, <justin.he@arm.com>
-Subject: [RFC PATCH v2 07/23] sched/cache: Prioritize preferred NUMA node selection over LLC selection
-Date: Thu, 27 Aug 2026 20:28:00 +0800
-Message-ID: <20260827122816.756234-8-wujianyong@hygon.cn>
+Subject: [RFC PATCH v2 11/23] sched/cache: Introduce helpers for task migration decisions
+Date: Thu, 27 Aug 2026 20:28:04 +0800
+Message-ID: <20260827122816.756234-12-wujianyong@hygon.cn>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260827122816.756234-1-wujianyong@hygon.cn>
 References: <20260827122816.756234-1-wujianyong@hygon.cn>
@@ -56,194 +56,234 @@ Content-Type: text/plain
 X-ClientProxiedBy: cncheex05.Hygon.cn (172.23.18.115) To cncheex04.Hygon.cn
  (172.23.18.114)
 
-In the current implementation, the preferred LLC is selected based on the
-LLC with the largest running time of the thread group. However, the
-preferred LLC may be prone to frequent migration when the workload
-spreads across the entire system, especially when the number of CPUs
-sharing an LLC is small. A better approach is to first select a preferred
-NUMA node in the same way, and then select the preferred LLC within that
-preferred NUMA node.
+Cache-aware scheduling makes migration decisions purely based on LLC
+affinity, allowing moves only toward a task's preferred LLC. This rigid
+policy cannot handle workloads that do not fit within a single LLC.
+A better approach is on-demand thread aggregation across LLCs: as the
+thread count increases, additional LLCs are recruited to host threads,
+enabling workload scaling at LLC granularity.
+
+To realize this behaviour, we need to pick the next eligible LLC once
+currently selected LLCs become saturated.
+
+Earlier patches have built node-level and LLC-level distance matrices.
+From these matrices we obtain a node-affinity sequence, and within each
+node an intra-node LLC-affinity sequence. These sequences provide the
+priority order used to pick subsequent LLC candidates.
+
+This patch adds a helper routine to determine whether task migration
+is permitted. It checks whether the destination CPU resides within the
+first eligible LLC. Migration is permitted if this condition holds,
+and vice versa.
+
+The first eligible LLC is resolved via a two-stage policy. The first
+stage operates at NUMA-node granularity: we iterate over the
+node-affinity sequence to find the first node that can accommodate
+the task. Once such a node is found, the second stage selects the
+first capacity-available LLC within this node by walking the
+intra-node LLC-affinity sequence.
 
 Signed-off-by: Jianyong Wu <wujianyong@hygon.cn>
 ---
- kernel/sched/fair.c | 131 +++++++++++++++++++++++++++-----------------
- 1 file changed, 82 insertions(+), 49 deletions(-)
+ kernel/sched/fair.c | 185 ++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 185 insertions(+)
 
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index f15f5764818e..30de09ebd9f6 100644
+index dc7bbdb1ab98..cfbd596992ab 100644
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
-@@ -1826,12 +1826,13 @@ static inline void update_avg_scale(u64 *avg, u64 sample)
+@@ -10610,6 +10610,191 @@ static enum llc_mig can_migrate_llc(int src_cpu, int dst_cpu,
+ 	return mig_llc;
+ }
  
- static void task_cache_work(struct callback_head *work)
- {
--	int cpu, m_a_cpu = -1, nr_running = 0, curr_cpu;
- 	unsigned long next_scan, now = jiffies;
- 	struct task_struct *p = current, *cur;
--	unsigned long curr_m_a_occ = 0;
- 	struct mm_struct *mm = p->mm;
--	unsigned long m_a_occ = 0;
-+	unsigned long m_a_n_occ = 0, curr_m_a_n_occ = 0, curr_m_a_occ = 0;
-+	unsigned long pref_llc_occ = 0;
-+	int cpu, m_a_n_cpu = -1, nr_running = 0, curr_cpu;
-+	int pref_cpu, pref_llc_cpu = -1, new_cpu = -1;
- 	cpumask_var_t cpus;
- 
- 	WARN_ON_ONCE(work != &p->cache_work);
-@@ -1863,6 +1864,13 @@ static void task_cache_work(struct callback_head *work)
- 	if (!zalloc_cpumask_var(&cpus, GFP_KERNEL))
- 		return;
- 
-+	/*
-+	 * Sample the current preference once, up front. Re-reading it during
-+	 * the scan would let a choice made while walking one node feed into
-+	 * the comparison made for the next one.
-+	 */
-+	pref_cpu = READ_ONCE(mm->sc_stat.cpu);
++/*
++ * Like get_llc_stats but for sched domain that above LLC level.
++ * Based on get_llc_stats, we can accumulate utilization and cap for
++ * sched domain in the granularity of LLC.
++ */
++static bool get_span_stats(const struct cpumask *span, unsigned long *util_out,
++					unsigned long *cap_out)
++{
++	cpumask_var_t mask;
++	int cpu;
++	unsigned long util_tmp, cap_tmp, util = 0, cap = 0;
++	struct sched_domain *sd_tmp;
 +
- 	scoped_guard (cpus_read_lock) {
- 		guard(rcu)();
- 
-@@ -1870,68 +1878,93 @@ static void task_cache_work(struct callback_head *work)
- 
- 		for_each_cpu(cpu, cpus) {
- 			/* XXX sched_cluster_active */
--			struct sched_domain *sd = rcu_dereference_all(per_cpu(sd_llc, cpu));
--			unsigned long occ, m_occ = 0, a_occ = 0;
--			int m_cpu = -1, i;
-+			struct sched_domain *nsd = per_cpu(sd_node, cpu);
-+			unsigned long occ, m_occ, a_occ, a_n_occ = 0;
-+			unsigned long m_llc_occ = 0;
-+			int m_llc_cpu = -1, m_cpu, i, k;
- 
--			if (!sd)
-+			if (!nsd)
- 				continue;
- 
--			for_each_cpu(i, sched_domain_span(sd)) {
--				occ = fraction_mm_sched(cpu_rq(i),
-+			for_each_cpu_and(k, sched_domain_span(nsd), cpus) {
-+				a_occ = m_occ = 0;
-+				m_cpu = -1;
-+				/* XXX sched_cluster_active */
-+				struct sched_domain *sd =
-+					rcu_dereference_all(per_cpu(sd_llc, k));
++	if (!span || !util_out || !cap_out)
++		return false;
 +
-+				if (!sd)
-+					continue;
++	if (!alloc_cpumask_var(&mask, GFP_ATOMIC))
++		return false;
 +
-+				for_each_cpu(i, sched_domain_span(sd)) {
-+					occ = fraction_mm_sched(cpu_rq(i),
- 							per_cpu_ptr(mm->sc_stat.pcpu_sched, i));
--				a_occ += occ;
--				if (occ > m_occ) {
--					m_occ = occ;
--					m_cpu = i;
-+					a_occ += occ;
-+					if (occ > m_occ) {
-+						m_occ = occ;
-+						m_cpu = i;
-+					}
++	cpumask_copy(mask, span);
++	for_each_cpu(cpu, mask) {
++		if (!get_llc_stats(cpu, &util_tmp, &cap_tmp)) {
++			free_cpumask_var(mask);
++			return false;
++		}
 +
-+					cur = rcu_dereference_all(cpu_rq(i)->curr);
-+					if (cur && !(cur->flags & (PF_EXITING | PF_KTHREAD)) &&
-+					    cur->mm == mm)
-+						nr_running++;
- 				}
- 
--				cur = rcu_dereference_all(cpu_rq(i)->curr);
--				if (cur && !(cur->flags & (PF_EXITING | PF_KTHREAD)) &&
--				    cur->mm == mm)
--					nr_running++;
-+				cpumask_andnot(cpus, cpus, sched_domain_span(sd));
-+				if (a_occ > m_llc_occ) {
-+					m_llc_occ = a_occ;
-+					m_llc_cpu = m_cpu;
-+				}
-+				if (pref_cpu >= 0 && llc_id(pref_cpu) == llc_id(k))
-+					curr_m_a_occ = a_occ;
-+				/* record for numa node */
-+				a_n_occ += a_occ;
- 			}
- 
- 			/*
--			 * Compare the accumulated occupancy of each LLC. The
--			 * reason for using accumulated occupancy rather than average
--			 * per CPU occupancy is that it works better in asymmetric LLC
--			 * scenarios.
--			 * For example, if there are 2 threads in a 4CPU LLC and 3
--			 * threads in an 8CPU LLC, it might be better to choose the one
--			 * with 3 threads. However, this would not be the case if the
--			 * occupancy is divided by the number of CPUs in an LLC (i.e.,
--			 * if average per CPU occupancy is used).
--			 * Besides, NUMA balancing fault statistics behave similarly:
--			 * the total number of faults per node is compared rather than
--			 * the average number of faults per CPU. This strategy is also
--			 * followed here.
-+			 * Remember the busiest LLC of the node the preference
-+			 * currently points at, so that the LLC level decision can
-+			 * be taken once, after the whole scan.
- 			 */
--			if (a_occ > m_a_occ) {
--				m_a_occ = a_occ;
--				m_a_cpu = m_cpu;
-+			if (pref_cpu >= 0 && m_llc_cpu >= 0 &&
-+			    cpu_to_node(pref_cpu) == cpu_to_node(m_llc_cpu)) {
-+				pref_llc_occ = m_llc_occ;
-+				pref_llc_cpu = m_llc_cpu;
- 			}
- 
--			if (llc_id(cpu) == llc_id(READ_ONCE(mm->sc_stat.cpu)))
--				curr_m_a_occ = a_occ;
-+			if (a_n_occ > m_a_n_occ) {
-+				m_a_n_occ = a_n_occ;
-+				m_a_n_cpu = m_llc_cpu;
++		sd_tmp = rcu_dereference(per_cpu(sd_llc, cpu));
++		cpumask_andnot(mask, mask, sched_domain_span(sd_tmp));
++		util += util_tmp;
++		cap += cap_tmp;
++	}
++
++	*util_out = util;
++	*cap_out = cap;
++
++	free_cpumask_var(mask);
++	return true;
++}
++
++/*
++ * Decide if migration should happen on a specific node.
++ * The node here is an LLC or a NUMA.
++ */
++static enum llc_mig __maybe_unused can_migrate_node(int src_cpu, int dst_cpu,
++			struct task_struct *p, bool to_pref)
++{
++	const struct cpumask *span;
++	struct mm_struct *mm;
++	unsigned long dst_util, dst_cap, tsk_util = 0;
++	unsigned long src_util = 0, src_cap = 0;
++	unsigned long acc_util = 0, acc_cap = 0;
++	int node, target_cpu = src_cpu;
++	int get_src = 0;
++
++	if (!get_llc_stats(dst_cpu, &dst_util, &dst_cap))
++		return mig_unrestricted;
++
++	if (!get_llc_stats(src_cpu, &src_util, &src_cap))
++		src_cap = 0;
++
++	if (p) {
++		mm = p->mm;
++		if (mm) {
++			if (mm->sc_stat.cpu >= 0)
++				target_cpu = mm->sc_stat.cpu;
++		}
++		tsk_util = task_util(p);
++	}
++
++	dst_util = dst_util + tsk_util;
++
++	if (to_pref) {
++		unsigned long dst_pre = dst_util - tsk_util;
++
++		if (fits_llc_capacity(dst_util, dst_cap))
++			return mig_llc;
++
++		/*
++		 * The destination is over the margin. That is a reason to
++		 * refuse a task while the margin can still be met, but not
++		 * while every LLC of the node is over it: no placement
++		 * satisfies the margin then, and refusing every migration
++		 * leaves the imbalance in place.
++		 *
++		 * Let the task through when the move still lowers the peak,
++		 * that is when the source is noticeably heavier than the
++		 * destination and carries at least two more tasks worth of
++		 * utilization. The second condition keeps the destination
++		 * from becoming the heavier side, which would bounce the
++		 * task straight back.
++		 */
++		if (src_cap && util_greater(src_util, dst_pre) &&
++		    src_util >= dst_pre + 2 * tsk_util)
++			return mig_llc;
++
++		return mig_forbid;
++	}
++
++	for_each_sched_node(target_cpu, node) {
++		unsigned long u = 0, c = 0, nu, nc;
++
++		/*
++		 * The walk starts at the anchor, so the nodes it crosses before
++		 * reaching the source say nothing about this migration: the task
++		 * does not live there and is not going there. Judging them only
++		 * lets an unrelated node with room refuse the move. Start at the
++		 * node the task actually sits on.
++		 */
++		if (!get_src) {
++			if (!cpumask_test_cpu(src_cpu, cpumask_of_node(node)))
++				continue;
++			else
++				get_src = 1;
++		}
++
++		if (cpumask_test_cpu(dst_cpu, cpumask_of_node(node))) {
++			nu = 0;
++			nc = 0;
++			for_each_llc_node_span(node, span) {
++				get_span_stats(span, &u, &c);
++				nu += u;
++				nc += c;
++				if (cpumask_test_cpu(dst_cpu, span)) {
++					if (fits_llc_capacity(u + tsk_util, c))
++						return mig_llc;
++
++					/*
++					 * The destination is over the margin,
++					 * but so may be the source. Refusing
++					 * then leaves the peak where it is:
++					 * a LLC at seven tasks stays at seven
++					 * while a neighbour in the same node
++					 * sits at four, because taking one
++					 * more would put that neighbour over
++					 * the margin as well.
++					 *
++					 * Let the task through when the move
++					 * still lowers the peak, guarded the
++					 * same way as the aggregation path:
++					 * the source must be noticeably
++					 * heavier and carry at least two more
++					 * tasks worth of utilization, so the
++					 * destination cannot end up the
++					 * heavier side and bounce it back.
++					 */
++					if (src_cap &&
++					    util_greater(src_util, u + tsk_util) &&
++					    src_util >= u + 2 * tsk_util)
++						return mig_llc;
++
++					return mig_forbid;
++				/*
++				 * A nearer LLC only justifies vetoing this
++				 * migration if the task would actually fit
++				 * there, so account for its utilization the
++				 * same way the destination branch above does.
++				 * Without it a LLC already holding one task
++				 * per core still reads as having room and
++				 * vetoes every migration towards a farther,
++				 * genuinely idle LLC.
++				 */
++				} else if (fits_llc_capacity(acc_util + nu + tsk_util,
++						acc_cap + nc)
++						&& fits_llc_capacity(u + tsk_util, c)
++						&& !util_greater(u, dst_pre))
++					return mig_forbid;
 +			}
- 
--			cpumask_andnot(cpus, cpus, sched_domain_span(sd));
-+			if (pref_cpu >= 0 &&
-+			    cpu_to_node(cpu) == cpu_to_node(pref_cpu))
-+				curr_m_a_n_occ = a_n_occ;
- 		}
- 	}
- 
--	if (m_a_occ > (2 * curr_m_a_occ)) {
--		/*
--		 * Avoid switching sc_stat.cpu too fast.
--		 * The reason to choose 2X is because:
--		 * 1. It is better to keep the preferred LLC stable,
--		 *    rather than changing it frequently and cause migrations
--		 * 2. 2X means the new preferred LLC has at least 1 more
--		 *    busy CPU than the old one(200% vs 100%, eg)
--		 * 3. 2X is chosen based on test results, as it delivers
--		 *    the optimal performance gain so far.
--		 */
--		WRITE_ONCE(mm->sc_stat.cpu, m_a_cpu);
--	}
-+	/*
-+	 * Avoid switching sc_stat.cpu too fast. The reason to choose 2X is
-+	 * because:
-+	 * 1. It is better to keep the preferred LLC stable, rather than
-+	 *    changing it frequently and cause migrations
-+	 * 2. 2X means the new preferred LLC has at least 1 more busy CPU than
-+	 *    the old one(200% vs 100%, eg)
-+	 * 3. 2X is chosen based on test results, as it delivers the optimal
-+	 *    performance gain so far.
-+	 *
-+	 * Moving to another node takes precedence over moving inside the
-+	 * current one, as it did when the two updates were applied in that
-+	 * order.
-+	 */
-+	if (m_a_n_occ > 2 * curr_m_a_n_occ)
-+		new_cpu = m_a_n_cpu;
-+	else if (pref_llc_cpu >= 0 && pref_llc_occ > 2 * curr_m_a_occ)
-+		new_cpu = pref_llc_cpu;
++		}
 +
-+	if (new_cpu >= 0)
-+		WRITE_ONCE(mm->sc_stat.cpu, new_cpu);
- 
- 	update_avg_scale(&mm->sc_stat.nr_running_avg, nr_running);
- 	free_cpumask_var(cpus);
++		/* Don't migrate if this is a good place to live. */
++		for_each_llc_node_span(node, span) {
++			get_span_stats(span, &u, &c);
++			if (cpumask_test_cpu(src_cpu, span)) {
++				if (fits_llc_capacity(u, c))
++					return mig_forbid;
++			} else {
++				if (fits_llc_capacity(u + tsk_util, c))
++					return mig_forbid;
++			}
++		}
++	}
++
++	return mig_unrestricted;
++}
++
+ /*
+  * Check if task p can migrate from source LLC to
+  * destination LLC in terms of cache aware load balance.
 -- 
 2.34.1
 
