@@ -1,83 +1,77 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F147D3D9025
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 23:08:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787872134; cv=pass; b=dw+Ky/uycCzFhLQP4uce3xAsnN/9HYseW8Am9marWCJhAgF6dTpbt2KVpm8EN6TSZ770y6vZ07eiAO3OIeuuI0RkQzKzcJT62kRZb4SIzQOMgkIAC3RtOFa+B0uBLZFb26HsQ/IrxVegrlJSoYyb1CVjZmdUtfO1GxawRdMAxJ8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787872134; c=relaxed/simple;
-	bh=QE5r8Hefclm76uVhId1kbMmsj7Fs1WnSDJQ72lFByhs=;
-	h=From:MIME-Version:Date:Message-ID:Subject:To:Cc:Content-Type; b=DqNIkppfVi2lZGJV35md5nI/2nPpB6mmVKpgbor+SOf0+ymh3h3ehBrYIi/ZdLxRxdvbCblWS57lXFC7YbZX4ORARGmXyZxEtccSUhfsoYLxvni2VUm4NaNPzqEjYfC7XeMJSWaeUcGh1FaWvKf2IBQ1MVPv4CH+R/26OtcT230=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu; spf=pass smtp.mailfrom=berkeley.edu; dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b=MzrwqrSM; arc=pass smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berkeley.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 319BE3AFCE1
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 23:09:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787872166; cv=none; b=kpDbOc0cpAXX5T5seX+0QGig759wsuCSpOnzVqd+lB3Mfsww6P+vJLVKHwbGR/WMWxF9pd1RThlzdY8wOwos90790lOXGBty8vAZfdSYHZe5/07taRqyLSHGZxaVaM3mXu5IwpNIofy5P5oTU/d7CyOInTizR3klVxkxWWOxHcs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787872166; c=relaxed/simple;
+	bh=F2UZJlMMS1z+wb83vDqhiFHVbBPpvdXotCfJmtzy8Ys=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZKutb43mVUCi/lSOtYLsKuvsxXmNqkq4wauSTOIYCrL21YUsAjdsLp6huYKvumEVr1Syyn+a3ecV8NEYZWxtmQ9/SEKhAM/4lWge4BPwr8CyStjXqIitN0Yyrj+LYQsUkZkBmAbeW9CZtToB/NVmo7nErfBqJmDkD1FVmSqWnfc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=0b7IUrIX; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b="MzrwqrSM"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-383b4a3755fso572051a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:08:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787872132; cv=none;
-        d=google.com; s=arc-20260327;
-        b=fr35BUOvPsiWn7utlWMZ/mt0D0Rilyq+mKlzrQSlMkwjF5Nb1xUjUBd8KMNWRa1cD/
-         jwNene91SCzIOYY2CxTqnpUcs7PIYkDCCWJIh7alVr9ARkVY2Qv7WSYxlO48z/nmDoDq
-         ggp6mseKHUOVKAyGcCaDD8mCCc+9dHhARJrJMCDLH9KLSQ5YdVVXYbyE0ivlRKNlvoxQ
-         xCaRHAa3ud0Xl9x4AqUNek2AtUV6JxXwD5deTqN94Pbh+Sagosz6XgDYzo/xHP81GwiB
-         losgKRnxiPui0E9/8QbC+DwTgHsUi6arxKJScSt1EcWTWevRXt+AMiXZlH8H22Y9UFya
-         Z/9g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
-        bh=JdtPX2uer4IOAQhgeqeDxfMKbOSrBGipE39HlDMAV7Y=;
-        fh=fkH+W/SWFpb6e2eYLP+Xmk3/HhQAoqMv0QYjJe7LEXI=;
-        b=WPt+IADXwK/392Gl8Pq55LikJGlE/eeRG+dSoxtM0dYNKrZgejLtjcRZ6dLP784iLP
-         +8qhaHfpJvns4ekKXYxeHuKhNK5HRczzx15QLNqj7KCf23lBaW6vQfhWyRYv6DjryUSg
-         8Dk+/ZZFMZ+gRsaBYrXf7tJ66ujcNagQP6L9T03ihDv7vYD9bYdsoTkohBgPgGbxdmfa
-         64M17JWBgjQjRsIE1rKVqpqd39ND1j68k3OiLLViBBd1rj/a34ibdMRbbm58sSihJ8Nn
-         tDrSjpRSBRqZpcaKN2V1N4H0uUeAAedRAarE7ojUa8MBkg2QRyCoZhMus6dof3zeN/Z4
-         57hQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="0b7IUrIX"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3964e480f76so630304a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:09:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=berkeley.edu; s=google; t=1787872132; x=1788476932; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:from:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JdtPX2uer4IOAQhgeqeDxfMKbOSrBGipE39HlDMAV7Y=;
-        b=MzrwqrSMJuh1MCLtMwBFoLtEj8HIT2tiVoE4pFY5qBN/YJW+qjRRpA3WDjqyrFc+wc
-         uZUGzc8k+VHe/SA7RE2JfnKPh66Zg8N9SPLJrkb8Gi1gpvscxjMZ6K1E0hBvtsEmlp7n
-         +NBoWrjFREqpUAixvJOHJpVXz+8/8sh6CIWiPiVQEEk7XGezwJTzqmHullWeEL2UpMQR
-         YDlD70oq+N+ZDrU9E+0XlZ3018QL0nOPrO3TBYP7etEp4l1cOO9ldkSltDUWh3RVXWhZ
-         8EMQGmNeR0Ya0Ma5fivmIpPZdClK/audSCbdY/v3tLXJ8UDm1dpVsvhKuJJJ6Gumkc3Z
-         1dlA==
+        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1787872164; x=1788476964; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BkcA6upgwNOh6KQOWDQ2Abt6vcWyEOX5gxtQcZYTRGE=;
+        b=0b7IUrIXfdwR9/gwBxQ9Z8yUtV5E5a+WJQVNljdJp3gXJxWGp0f4ShgQjRyO8+jte1
+         fBVJpL6QAb9m3AtXRUtnN0qwIk3H+sixPmfGn53ZK+5NYnQAVOdGeutwl7sHTdF3dzD+
+         BL4cnV124XXCQku/yW329O2BXTWlvmGaDNmSU957iRnJI9561j7iNiTcd1QaZaCOrL8K
+         KfjBi38rcpr+UlDVCK1kKb9Ya4EAxcPGLBuA9L9P1DZ28tPtxvTPoUb9/KbjT3D1K/iF
+         UlbIZndIzzpJW0YacMlZQaYHI+LWV/Xsfi10Iy8JVp2taYwINTuZy3QYSa1umheNb1f7
+         r/jg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787872132; x=1788476932;
-        h=content-type:cc:to:subject:message-id:date:mime-version:from
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=JdtPX2uer4IOAQhgeqeDxfMKbOSrBGipE39HlDMAV7Y=;
-        b=tWxTaD+IiHmyEsNAK8eJJP8NEvzm8IczhuAbj2pq05ofCBntJ1Ra7gpvdySwi+hvo9
-         IkMhu+qRsYqYzNYHOdoiFxQSobTygYbRc3qMnkVwBU67aXBoL/Dk5gKyiGRUiq71oMlQ
-         10WWs0nSo2le7I3RsJ+W3FsjNi/bBP1s64PST0REdiW41eqsSQpDRwU66MV9hCtnKuMi
-         r7+3TvuTN+4HqMoNxixJ/1P0oMX0J2ne/hSb6k0glb6g8w4/di7xIf28cLjnxtk/5vAH
-         EEzSfAgitg3ckz1E669sfkKJMpftGrBu/xyxM0UOMKT8IF/za+VhH1r3VMcM+/x/gNpj
-         NaZg==
-X-Forwarded-Encrypted: i=1; AHgh+Rq1npOjRUdJJJYpUhVk9B15fKSmyznD6yHc0yQogdFo7toiON1+rzUdl3nJaxt7679HK2+z+0KP22JDftg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mt7KQ82YBb3I6vd3aHHKEgvJFbcY6tBLIYd5/mx7qWzI0y13kr
-	3eIm2ZzNzPPLll1xcbONlxxYAhfYh5qtxaGwgjXWNs+i1yZM4Gashl5cFQG1VPRT1T/HPZU+DiN
-	Dzg/bG2OjpUwxJhey0yJ36zbxV/RCjVPrsjAh3+2hfu3Gbv5Jqsq3Tw==
-X-Gm-Gg: AR+sD13NL1eIIMtsZNBBCBMExOltuPMtsRTKasWrxJulw8iDai+0pMQaWk1xrztUB4e
-	Z0v06arB62KzIJaPuxg/k4S6PfKlcsDHANkBnR55sqW9/W6F7rwhr50gdr3EVuZyMnfwjc36tIG
-	C1vcH9YS43ih7k6nEDX1C4ymieXDY61LBdF6YV5G8luCULs7BidgosdGdzdsLNhoujOaGKjM0HN
-	GA/CgfcR+G3M08U9HIpPpaDlXjMS9bQYe4faqhM8p6uaM3EQdGzLD/Iyu6BCRCo19iqvNRDfHKe
-	y3/TnJJpFok+myiBIdMmqxL6so6sYTvcYKoZ6a2ha1qpRhDe5jj1HfWQRRoGarGrqfI7tNGrgbz
-	T1xtS38ARvx0p0gnY1oU34ClIUC/RuOyX
-X-Received: by 2002:a17:90b:39ac:b0:38e:6f90:eabd with SMTP id
- 98e67ed59e1d1-396d0ea5451mr3577011a91.5.1787872131206; Thu, 27 Aug 2026
- 16:08:51 -0700 (PDT)
-Received: from 474444807712 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 27 Aug 2026 23:08:50 +0000
-Received: from 474444807712 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 27 Aug 2026 23:08:50 +0000
-From: Farhad Alemi <farhad.alemi@berkeley.edu>
+        d=1e100.net; s=20251104; t=1787872164; x=1788476964;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BkcA6upgwNOh6KQOWDQ2Abt6vcWyEOX5gxtQcZYTRGE=;
+        b=Z6kJn4CXTHXMq5U8RVHrFsYMFna4Dk8ehdq+a31H012kjHh6nTkyg5YKvOeg69HbYe
+         g/YWm6gNJI7jT7H9w+gfSHxLgA675JkrjY4ozkRq6NkOoZURZKP8Ai0NHfDDfepebp+k
+         4yUnK3FJjOUHcN14kwCk32aill+bvusIg23qzYK7qIHQivDz4kS0uEr+WCSZy69XUU20
+         BW+5vRYaq9alRsuv5/cufiFncJPj44glIeKvEPhwWqvrjQK+xJuWvKSgEfNaoeyLSZCV
+         R9htYAL20EMwzYHoDf6C9MqwiFDUkjy6nOebu4jTredh08YT/9HQPzS3FOAIAg5s4uSB
+         hdDw==
+X-Forwarded-Encrypted: i=1; AHgh+Rq9/qtUDIO29GqyevsVfF+/HW9owCLuYgswFvXdEROoWItuilAN84JFi6JaJkfyBfBKvgBpnBH/xJsqmPw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kbdg9O32jPE1tbAg7DrbAvYniTSrIjzDP99PsW90049AbMiZmm
+	bf4s7Ktq9N3FS0DM6Jl9D8aKF8N6+av2kcywuormN7i+6IpTCLdb9O0DW9+R2QCzZWI=
+X-Gm-Gg: AR+sD12zttn8jG/tuX/A8orlSoQtqh/Z73cJwqO6eogIdaR2l3ySvBNwD98oqUkKTHI
+	edyw2cFex22kPSQ/U0Tw3wA/Wnd9P3A9Ak1p8xoBDhodB0LVm+ofWyLUmqq9r+Q13lellHoZSjd
+	W8fDIVtFYwhZqwOpq6/8qOOGtAtFA351tFV+aj00y/Shhavsd0sMzjcq1cnUedmXD+OZuausr77
+	2BwLNMcP/eBpZRVsSlEuCP+2YsSfDQFLRyhhfdO/EnN0oRfK+bUICmBmFWgcIuJjZfvDMcc3WCF
+	xQLvHCg7/JMZEmTLnfmdgPN/jeAl/4ggiBrD+7RrWT9sLyRi565NwB7SkFyQqGEbfPi/fzS3yqN
+	z8H1MShGDlYRpQ/A/J3vM+huiGq7BcguKI56n3HozzoDlYcIqKh4aaZN37KMWlijF3wZsAyS9jY
+	kvg6WuVDNjx4eb0VvxZO4M9CI3dvUmi6h3yi8X9QdlBBQ=
+X-Received: by 2002:a17:90a:fc4e:b0:395:5eec:b932 with SMTP id 98e67ed59e1d1-396d0f8fdbemr5292536a91.11.1787872164320;
+        Thu, 27 Aug 2026 16:09:24 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:46::])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b186809dsm4603303a91.10.2026.08.27.16.09.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 16:09:23 -0700 (PDT)
+From: Joe Damato <joe@dama.to>
+To: netdev@vger.kernel.org,
+	Michael Chan <michael.chan@broadcom.com>,
+	Pavan Chebbi <pavan.chebbi@broadcom.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Joe Damato <joe@dama.to>
+Cc: horms@kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH net] bnxt_en: Prevent queue stop with deferred completions
+Date: Thu, 27 Aug 2026 16:02:32 -0700
+Message-ID: <20260827230233.94878-1-joe@dama.to>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -85,40 +79,122 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 27 Aug 2026 23:08:50 +0000
-X-Gm-Features: AcwNN1VbtQ_TKORfhlFpdsm_n8MBcq9xHZjdMpqeltBevAURlMvwXQR-2yvryik
-Message-ID: <CA+0ovCjUB=g+56ZCrT4MPfWjqBJX_CO=vfp12JLOrh7B53uVWQ@mail.gmail.com>
-Subject: [BUG] ksmbd: use-after-free on iface_list from the netdev notifier
-To: Namjae Jeon <linkinjeon@kernel.org>, Namjae Jeon <linkinjeon@samba.org>, 
-	Steve French <smfrench@gmail.com>, Steve French <sfrench@samba.org>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>
-Cc: falemi@asu.edu, linux-cifs@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello Namjae Jeon, Namjae Jeon,
+When the driver receives a burst of packets, it can mark a BD with the
+NO_CMPL bit to defer completions. The expectation is that the last
+packet in the ring will have this bit unset and the completion generated
+by that packet will cleanup that packet and the ones preceding it. This
+helps to reduce the number of completions fired.
 
-While fuzzing Linux 7.1-rc5 with syzkaller, as part of research at ASU's
-SEFCOM lab, we hit the crash below. Crash reports can be found here:
+The suppressed completions are controlled by the driver and the number
+of packets with suppressed completions scales with the size of the ring.
+SW USO packets, on the other hand, have an upper bound on the maximum
+number of BDs which can be consumed which does not scale with the ring
+size.
 
-  https://github.com/farhad-alemi/public_bug_reports/tree/main/117-ksmbd-unlocked-iface_list-uaf-netdev-event/
+So, for small rings it is possible that: a burst of packets is handed to
+the driver, the driver defers completions for all of the packets because
+the number of free descriptors stays above the threshold in the driver.
+Then, a USO packet arrives, but the number of BDs available is not
+enough and the USO code exits early with NETDEV_TX_BUSY.
 
-  refcount_t: addition on 0; use-after-free.
-  WARNING: lib/refcount.c:25 at refcount_warn_saturate+0x9f/0x110
-lib/refcount.c:25, CPU#1: kworker/u8:3/9983
-  Modules linked in:
-  CPU: 1 UID: 0 PID: 9983 Comm: kworker/u8:3 Not tainted 7.1.0-rc5 #1
-PREEMPT(full)
-  Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS
-1.16.3-debian-1.16.3-2 04/01/2014
-  Workqueue: netns cleanup_net
-  RIP: 0010:refcount_warn_saturate+0x9f/0x110 lib/refcount.c:25
-  Code: eb 66 85 db 74 3e 83 fb 01 75 4c e8 db 45 27 fd 48 8d 3d 04 03
-1a 0b 67 48 0f b9 3a eb 4a e8 c8 45 27 fd 48 8d 3d 01 03 1a 0b <67> 48
-0f b9 3a eb 37 e8 b5 45 27 fd 48 8d 3d fe 02 1a 0b 67 48 0f
+In this case, you end up in a state where the ring is full of packets
+with their completions suppressed, which can cause the queue to stop and
+never be restarted.
 
-Our reproducer.c is available upon request.
+Assuming default CONFIG_MAX_SKB_FRAGS, this is only possible for small
+rings (<= 457 descriptors, below the driver default value) when
+a burst of packets fills the ring, followed by a large USO packet that
+can't fit. For larger rings, the delta between the completion
+suppression threshold and the BDs required for SW USO is large enough
+that completions will fire and this case is unreachable.
 
-Happy to test a patch if that would help.
+This issue was pointed out by Sashiko and while it seems fairly unlikely
+given that the queue size must be small to trigger this, it is indeed
+possible.
 
-Regards,
+Fix this by tracking the last BD which deferred completions. If SW USO
+exits early and there is a doorbell pending, enable completions for the
+last packet in the ring with disabled completions. This ensures that a
+completion will be generated and avoids stopping the queue with no way
+to start it again.
+
+Fixes: cc5d90667db8 ("net: bnxt: Implement software USO")
+Cc: <stable@vger.kernel.org> # v7.1+: 4e15e89faac9: net: bnxt: ring the doorbell when SW USO exits early
+Signed-off-by: Joe Damato <joe@dama.to>
+---
+ drivers/net/ethernet/broadcom/bnxt/bnxt.c     |  1 +
+ drivers/net/ethernet/broadcom/bnxt/bnxt.h     |  1 +
+ drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c | 17 +++++++++++++++--
+ 3 files changed, 17 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+index d59bcca73a2b..8ab5acd5bee6 100644
+--- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
++++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+@@ -757,6 +757,7 @@ static netdev_tx_t bnxt_start_xmit(struct sk_buff *skb, struct net_device *dev)
+ 		if (free_size >= bp->tx_wake_thresh)
+ 			txbd0->tx_bd_len_flags_type |=
+ 				cpu_to_le32(TX_BD_FLAGS_NO_CMPL);
++		txr->kick_prod = txr->tx_prod - (last_frag + 2);
+ 		txr->kick_pending = 1;
+ 	}
+ 
+diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.h b/drivers/net/ethernet/broadcom/bnxt/bnxt.h
+index ab894f8addef..e2fa90740d61 100644
+--- a/drivers/net/ethernet/broadcom/bnxt/bnxt.h
++++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.h
+@@ -993,6 +993,7 @@ struct bnxt_tx_ring_info {
+ 	u16			txq_index;
+ 	u8			tx_napi_idx;
+ 	u8			kick_pending;
++	u16			kick_prod;
+ 	struct bnxt_db_info	tx_db;
+ 
+ 	struct tx_bd		*tx_desc_ring[MAX_TX_PAGES];
+diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c b/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c
+index f7e18bea0fb8..f9bf77bffea7 100644
+--- a/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c
++++ b/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c
+@@ -69,7 +69,7 @@ netdev_tx_t bnxt_sw_udp_gso_xmit(struct bnxt *bp,
+ 	if (unlikely(bnxt_tx_avail(bp, txr) < bds_needed)) {
+ 		netif_txq_try_stop(txq, bnxt_tx_avail(bp, txr),
+ 				   bp->tx_wake_thresh);
+-		return NETDEV_TX_BUSY;
++		goto tx_busy;
+ 	}
+ 
+ 	/* BD backpressure alone cannot prevent overwriting in-flight
+@@ -77,7 +77,7 @@ netdev_tx_t bnxt_sw_udp_gso_xmit(struct bnxt *bp,
+ 	 */
+ 	if (!netif_txq_maybe_stop(txq, bnxt_inline_avail(txr),
+ 				  num_segs, num_segs))
+-		return NETDEV_TX_BUSY;
++		goto tx_busy;
+ 
+ 	if (unlikely(tso_dma_map_init(&map, &pdev->dev, skb, hdr_len)))
+ 		goto drop;
+@@ -235,4 +235,17 @@ netdev_tx_t bnxt_sw_udp_gso_xmit(struct bnxt *bp,
+ 	dev_kfree_skb_any(skb);
+ 	dev_core_stats_tx_dropped_inc(bp->dev);
+ 	return NETDEV_TX_OK;
++
++tx_busy:
++	if (txr->kick_pending) {
++		u16 kick_prod = txr->kick_prod;
++		struct tx_bd *txbd0;
++
++		txbd0 = &txr->tx_desc_ring[TX_RING(bp, kick_prod)]
++					  [TX_IDX(kick_prod)];
++		txbd0->tx_bd_len_flags_type &=
++			cpu_to_le32(~TX_BD_FLAGS_NO_CMPL);
++	}
++
++	return NETDEV_TX_BUSY;
+ }
+
+base-commit: e2a6641e3bfde58f2284f9859c2b0fdcc6d1c0da
+-- 
+2.53.0-Meta
+
