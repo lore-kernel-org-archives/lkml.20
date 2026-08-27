@@ -1,291 +1,170 @@
-Received: from mail.muc.de (mail.muc.de [193.149.48.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f5.google.com (mail-oi2-f5.google.com [74.125.231.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A1AE483BE8
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:52:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.149.48.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C89304DA55D
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:53:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787856775; cv=none; b=WXJVsl9ZRCPNYA0ORMUcc/UuFg+/7XNLHnIgD7w3Xg84w0ZjtD/yFA9+6LxJr8Fi+j+qc6aKw4Lbh/KBrkZAKbbELYSP2Cvscq86I/Qq4tIcHRJFpBrUjFVMdYceWkVPxiVxvB7tPihNHnnl85h3lCrnps+pI2F4XTC+iuI96H8=
+	t=1787856824; cv=none; b=VZgENyZO6pVLvsVwaH9cKyQEXF6Wh39KzbMBMQrXf7LagE1sogS9AZ2KtIv4uEKdgeX7O0O3OzFxMOZ5ktTYktm/GQ3gbCdie1oeIZYU4XvBqQXiW6WoqVjEllLFV0S8shuCpsD7PEAxGM9r706qezBM4BxVdJlToqLJDbvhWVo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787856775; c=relaxed/simple;
-	bh=Kvce6yieCudu+/9pDz/WS/3YBvKiVqD/uWc/BTwazh0=;
-	h=Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:From; b=U/CC0+3tht8YWHP5bdTYKPsMjLkHL2ikLJR0NW0OuRTN/V/fHXKuJaSFXrm0geFUUxbl9vlQ8nYf70lzYKrZGc8pavhcI73BCNmWuP8Zkkf/klx4Gv3vUM1uxihzCykkJTnoROtjXYhHa0w/eLUsbYgk1cXt39Adi49Jjt/BPv8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=muc.de; spf=pass smtp.mailfrom=muc.de; arc=none smtp.client-ip=193.149.48.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=muc.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=muc.de
-Received: (qmail 21440 invoked by uid 3782); 27 Aug 2026 20:52:50 +0200
-Received: from muc.de (p4fe15cdf.dip0.t-ipconnect.de [79.225.92.223]) (using
- STARTTLS) by colin.muc.de (tmda-ofmipd) with ESMTP;
- Thu, 27 Aug 2026 20:52:49 +0200
-Received: (qmail 31137 invoked by uid 1000); 27 Aug 2026 18:52:48 -0000
-Date: Thu, 27 Aug 2026 18:52:48 +0000
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-  Jiri Slaby <jirislaby@kernel.org>, Simona Vetter <simona@ffwll.ch>,
-  linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
-  Helge Deller <deller@gmx.de>, Thomas Zimmermann <tzimmermann@suse.de>,
-  linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org
-Cc: acm@muc.de
-Subject: [Patch 6/9]: vt: Use u32 and typedef u1632 to handle whole glyphs
-Message-ID: <apCHgPpGWGfVz2cI@MAC.fritz.box>
-References: <apCEDM2sWv_M354-@MAC.fritz.box>
+	s=arc-20240116; t=1787856824; c=relaxed/simple;
+	bh=lW0uZW1hs0gCTIdN14XvqZsMYzXiPwXUKqvvDuIDG5E=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=LgOwHSNXl/YNze1FDc3IwOsCAN8uJDj4+vK6yGgaYqbh5JNqxHy+bDzP4duQ0HzSfX5EZn091SY0KRwGa6hnuf0f61Kb8B8LGNPiLepPWDg075g+RvhkjkzW3Q4IC3LSbJXNaSZ4Q7O9EiP9EYtMD5MD0UBFobmgWxtbjD5Ludw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi2-f5.google.com with SMTP id 5614622812f47-4b385b9c4e8so17674b6e.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:53:26 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787856804; x=1788461604;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Obb0nIkdjPqUkcgRqMgrOHeQeGpgeZJfAJJy2D7pdSo=;
+        b=Qw57ZFvfcxvllK+Dde2rAu6lJl4xDQ7p/b54igfM6tp0hUqC/W+a8dF4O4WAhYjrWy
+         BiORJchm3IWUGAvfHaJv/sF4T7L+1bHmCuPlvNFHETm10YZpuqs0685UkYDvE1ZYkpG+
+         nicN5ehKi3ACDGPcFHzXCHDB82E7OTikpaqz/ZcguJ+QIRa6tQi4vQzgNdlxOZfaK/px
+         AWxkwIsAwUmlpNMndj+3FG2y4/7l5k9x12KXE8b+0O/mXiOXkVQ2QhoGThdm8or29Ljr
+         CKLQkwXBYaSARQZgiBa3zAaYFMv9E2kDJ16x7SBn8kohLN6gvr4lCaxGGrJEndcjL9kL
+         VW4Q==
+X-Forwarded-Encrypted: i=1; AHgh+RowyS4RMWpMcYBDy4v1ITAC5GC1lsLyzjv7rcgnom1gg3npjdp6RvqLTGfU+hbUKLQoNCrBgHSKH4ipstk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lkKfEDMsTEJXEk7hDysTTPi5mf7B4DEpA178plxJeOQ2xDrvmo
+	TrjsJ1a4+J8e73+M3ZhEN/lP0yGSQDLYkqVM+E60qXY7qIPBDhsPxp+pgZRCktbQNMpty4EUSSl
+	a7OkdiEZSL8cf3DAFwgs9BLGnRPBvmj61ZdhLNe24xAJB5niNZwjBxY7ESuk=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apCEDM2sWv_M354-@MAC.fritz.box>
-X-Submission-Agent: TMDA/1.3.x (Ph3nix)
-From: Alan Mackenzie <acm@muc.de>
-X-Primary-Address: acm@muc.de
+X-Received: by 2002:a05:6808:4fcb:b0:4a4:ed9a:e7ac with SMTP id
+ 5614622812f47-4b397f66748mr1562136b6e.1.1787856804185; Thu, 27 Aug 2026
+ 11:53:24 -0700 (PDT)
+Date: Thu, 27 Aug 2026 11:53:24 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9087a4.4d659fcc.734b4.0013.GAE@google.com>
+Subject: [syzbot] [usb?] general protection fault in keyspan_break_ctl
+From: syzbot <syzbot+473d7477c523b41d4046@syzkaller.appspotmail.com>
+To: gregkh@linuxfoundation.org, johan@kernel.org, linux-kernel@vger.kernel.org, 
+	linux-usb@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-vt: 32b glyph: 6. Use u32 and typedef u1632 to handle whole glyphs
+Hello,
 
-The glyph size u1632 is an either 32- or 16-bit unsigned word
-depending on whether or not CONFIG_FB_GLYPH_21BIT is #defined.
+syzbot found the following issue on:
 
-Signed-off-by: Alan Mackenzie <acm@muc.de>
+HEAD commit:    818bebeb63dd drm/xe: Don't hand out the flat CCS storage a..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=16ba2979580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
+dashboard link: https://syzkaller.appspot.com/bug?extid=473d7477c523b41d4046
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=161f499e580000
 
-diff --git a/drivers/tty/vt/vt.c b/drivers/tty/vt/vt.c
-index 8f467b22b799..0c389a564357 100644
---- a/drivers/tty/vt/vt.c
-+++ b/drivers/tty/vt/vt.c
-@@ -322,12 +323,12 @@ static inline u16 *screenpos(const struct vc_data *vc, unsigned int offset,
- 	return (u16 *)(origin + offset);
- }
- 
--static void con_putc(struct vc_data *vc, u16 ca, unsigned int y, unsigned int x)
-+static void con_putc(struct vc_data *vc, u32 ca, unsigned int y, unsigned int x)
- {
- 	if (vc->vc_sw->con_putc)
- 		vc->vc_sw->con_putc(vc, ca, y, x);
- 	else
--		vc->vc_sw->con_putcs(vc, &ca, 1, y, x);
-+		vc->vc_sw->con_putcs(vc, (u16 *)&ca, 1, y, x);
- }
- 
- /* Called  from the keyboard irq path.. */
-@@ -782,7 +773,7 @@ void invert_screen(struct vc_data *vc, int offset, int count, bool viewed)
- void complement_pos(struct vc_data *vc, int offset)
- {
- 	static int old_offset = -1;
--	static unsigned short old;
-+	static unsigned int old;
- 	static unsigned short oldx, oldy;
- 
- 	WARN_CONSOLE_UNLOCKED();
-@@ -3194,7 +3250,7 @@ static int vc_con_write_normal(struct vc_data *vc, int tc, int c,
- {
- 	int next_c;
- 	unsigned char vc_attr = vc->vc_attr;
--	u16 himask = vc->vc_hi_font_mask;
-+	u32 himask = vc->vc_hi_font_mask;
- 	u8 width = 1;
- 	bool inverse = false;
- 
-diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
-index 9f5c4c101581..18fbf7cf11dd 100644
---- a/drivers/video/fbdev/core/fbcon.c
-+++ b/drivers/video/fbdev/core/fbcon.c
-@@ -313,7 +313,7 @@ static inline bool fbcon_is_active(struct vc_data *vc, struct fb_info *info)
- }
- 
- static int get_color(struct vc_data *vc, struct fb_info *info,
--		     u16 c, bool is_fg)
-+		     u32 c, bool is_fg)
- {
- 	int depth = fb_get_color_depth(&info->var, &info->fix);
- 	int color = 0;
-@@ -379,12 +379,12 @@ static int get_color(struct vc_data *vc, struct fb_info *info,
- 	return color;
- }
- 
--static int get_fg_color(struct vc_data *vc, struct fb_info *info, u16 c)
-+static int get_fg_color(struct vc_data *vc, struct fb_info *info, u32 c)
- {
- 	return get_color(vc, info, c, true);
- }
- 
--static int get_bg_color(struct vc_data *vc, struct fb_info *info, u16 c)
-+static int get_bg_color(struct vc_data *vc, struct fb_info *info, u32 c)
- {
- 	return get_color(vc, info, c, false);
- }
-@@ -1639,8 +1657,8 @@ static void fbcon_redraw_move(struct vc_data *vc, struct fbcon_display *p,
- 	while (count--) {
- 		unsigned short *start = s;
- 		unsigned short *le = advance_row(s, 1);
--		unsigned short c;
-+		unsigned int c;
- 		int x = 0;
--		unsigned short attr = 1;
-+		unsigned int attr = 1;
- 
- 		do {
-@@ -1668,7 +1688,7 @@ static void fbcon_redraw_blit(struct vc_data *vc, struct fb_info *info,
- 	int offset = ycount * vc->vc_cols;
- 	unsigned short *d = (unsigned short *)
- 	    (vc->vc_origin + vc->vc_size_row * line);
--	unsigned short *s = d + offset;
-+	unsigned short *s = d + ((long) offset) * GLYPH_HW;
- 	struct fbcon_par *par = info->fbcon_par;
- 
- 	while (count--) {
-@@ -1719,8 +1739,8 @@ static void fbcon_redraw(struct vc_data *vc, int line, int count, int offset)
- 	while (count--) {
- 		unsigned short *start = s;
- 		unsigned short *le = advance_row(s, 1);
--		unsigned short c;
-+		unsigned int c;
- 		int x = 0;
--		unsigned short attr = 1;
-+		unsigned int attr = 1;
- 
- 		do {
-@@ -2030,7 +2052,7 @@ static void updatescrollmode_accel(struct fbcon_display *p,
- #ifdef CONFIG_FRAMEBUFFER_CONSOLE_LEGACY_ACCELERATION
- 	struct fbcon_par *par = info->fbcon_par;
- 	int cap = info->flags;
--	u16 t = 0;
-+	u32 t = 0;
- 	int ypan = FBCON_SWAP(par->rotate, info->fix.ypanstep, info->fix.xpanstep);
- 	int ywrap = FBCON_SWAP(par->rotate, info->fix.ywrapstep, t);
- 	int yres = FBCON_SWAP(par->rotate, info->var.yres, info->var.xres);
-@@ -2146,6 +2168,7 @@ static bool fbcon_switch(struct vc_data *vc)
- 	struct fbcon_par *par;
- 	struct fbcon_display *p = &fb_display[vc->vc_num];
- 	struct fb_var_screeninfo var;
-+	unsigned short *d, *s;
- 	int i, ret, prev_console;
- 
- 	info = fbcon_info_from_console(vc->vc_num);
-diff --git a/drivers/video/fbdev/core/fbcon.h b/drivers/video/fbdev/core/fbcon.h
-index 407d207b14f1..5aaef363a343 100644
---- a/drivers/video/fbdev/core/fbcon.h
-+++ b/drivers/video/fbdev/core/fbcon.h
-@@ -217,7 +211,7 @@ static inline int real_y(struct fbcon_display *p, int ypos)
- }
- 
- 
--static inline int get_attribute(struct fb_info *info, u16 c)
-+static inline int get_attribute(struct fb_info *info, u32 c)
- {
- 	int attribute = 0;
- 
-diff --git a/include/linux/console_struct.h b/include/linux/console_struct.h
-index fe915afdece5..5afce52057ca 100644
---- a/include/linux/console_struct.h
-+++ b/include/linux/console_struct.h
-@@ -110,7 +119,7 @@ unsigned int vc_font_size(const struct vc_font *font);
-  * (vc_origin +            |                      |  \ EMPTY, to be filled by
-  *  vc_screenbuf_size)     |                      |  / vc_video_erase_char
-  *                         +----------------------+-'
-- *                         <---- 2 * vc_cols ----->
-+ *                         <--- 2/4 * vc_cols ---->
-  *                         <---- vc_size_row ----->
-  *
-  * Note that every character in the console buffer is accompanied with an
-@@ -178,7 +190,7 @@ struct vc_data {
- 		 int	vc_utf_char;
- 	DECLARE_BITMAP(vc_tab_stop, VC_TABSTOPS_COUNT);	/* Tab stops. 256 columns. */
- 	unsigned char   vc_palette[16*3];       /* Colour palette for VGA+ */
--	unsigned short * vc_translate;
-+	u1632		*vc_translate;
- 	unsigned int	vc_bell_pitch;		/* Console bell pitch */
- 	unsigned int	vc_bell_duration;	/* Console bell duration */
- 	unsigned short	vc_cur_blink_ms;	/* Cursor blink duration */
-diff --git a/include/linux/consolemap.h b/include/linux/consolemap.h
-index 539d488fdc03..5e50b4d4bd0b 100644
---- a/include/linux/consolemap.h
-+++ b/include/linux/consolemap.h
-@@ -19,11 +19,21 @@ enum translation_map {
- 
- #include <linux/types.h>
- 
-+#ifdef CONFIG_FB_GLYPH_21BIT
-+#define u1632 u32
-+#else
-+#define u1632 u16
-+#endif
-+
- struct vc_data;
- 
-+extern u8 dfont_unicount[];	/* Defined in consolemap_deftbl.c */
-+extern u16 dfont_unitable[];	/* Ditto */
-+
- #ifdef CONFIG_CONSOLE_TRANSLATIONS
--u16 inverse_translate(const struct vc_data *conp, u16 glyph, bool use_unicode);
--unsigned short *set_translate(enum translation_map m, struct vc_data *vc);
-+u1632 inverse_translate(const struct vc_data *conp, u1632 glyph,
-+			bool use_unicode);
-+u1632 *set_translate(enum translation_map m, struct vc_data *vc);
- int conv_uni_to_pc(struct vc_data *conp, long ucs);
- u32 conv_8bit_to_uni(unsigned char c);
- int conv_uni_to_8bit(u32 uni);
-@@ -32,7 +42,7 @@ unsigned int ucs_get_width(uint32_t cp);
- u32 ucs_recompose(u32 base, u32 mark);
- u32 ucs_get_fallback(u32 cp);
- #else
--static inline u16 inverse_translate(const struct vc_data *conp, u16 glyph,
-+static inline u1632 inverse_translate(const struct vc_data *conp, u16 glyph,
- 		bool use_unicode)
- {
- 	return glyph;
-diff --git a/include/linux/selection.h b/include/linux/selection.h
-index bab7d30d3446..44bc2b2892d8 100644
---- a/include/linux/selection.h
-+++ b/include/linux/selection.h
-@@ -33,7 +33,7 @@ extern unsigned char default_grn[];
- extern unsigned char default_blu[];
- 
- unsigned short *screen_pos(const struct vc_data *vc, int w_offset, bool viewed);
--u16 screen_glyph(const struct vc_data *vc, int offset);
-+u32 screen_glyph(const struct vc_data *vc, int offset);
- u32 screen_glyph_unicode(const struct vc_data *vc, int offset);
- void complement_pos(struct vc_data *vc, int offset);
- void invert_screen(struct vc_data *vc, int offset, int count, bool viewed);
-@@ -41,8 +41,8 @@ void invert_screen(struct vc_data *vc, int offset, int count, bool viewed);
- void getconsxy(const struct vc_data *vc, unsigned char xy[static 2]);
- void putconsxy(struct vc_data *vc, unsigned char xy[static const 2]);
- 
--u16 vcs_scr_readw(const struct vc_data *vc, const u16 *org);
--void vcs_scr_writew(struct vc_data *vc, u16 val, u16 *org);
-+u32 vcs_scr_readw(const struct vc_data *vc, const u16 *org);
-+void vcs_scr_writew(struct vc_data *vc, u32 val, u16 *org);
- void vcs_scr_updated(struct vc_data *vc);
- 
- int vc_uniscr_check(struct vc_data *vc);
-diff --git a/include/linux/vt_kern.h b/include/linux/vt_kern.h
-index d008c3d0a9bb..af99aeefe177 100644
---- a/include/linux/vt_kern.h
-+++ b/include/linux/vt_kern.h
-@@ -56,14 +56,20 @@ int tioclinux(struct tty_struct *tty, unsigned long arg);
- /* consolemap.c */
- 
- struct unipair;
-+struct unipair21;
-+#ifdef CONFIG_FB_GLYPH_21BIT
-+#define unipair8_21 unipair21
-+#else
-+#define unipair8_21 unipair
-+#endif
- 
- int con_set_trans_old(unsigned char __user * table);
- int con_get_trans_old(unsigned char __user * table);
- int con_set_trans_new(unsigned short __user * table);
- int con_get_trans_new(unsigned short __user * table);
- int con_clear_unimap(struct vc_data *vc);
--int con_set_unimap(struct vc_data *vc, ushort ct, struct unipair __user *list);
--int con_get_unimap(struct vc_data *vc, ushort ct, ushort __user *uct, struct unipair __user *list);
-+int con_set_unimap(struct vc_data *vc, u32 ct, struct unipair8_21 *list);
-+int con_get_unimap(struct vc_data *vc, u32 ct, u1632 __user *uct, struct unipair8_21 *list);
- int con_set_default_unimap(struct vc_data *vc);
- void con_free_unimap(struct vc_data *vc);
- int con_copy_unimap(struct vc_data *dst_vc, struct vc_data *src_vc);
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-818bebeb.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/6e4100526b12/vmlinux-818bebeb.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/723c4783ee96/bzImage-818bebeb.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+473d7477c523b41d4046@syzkaller.appspotmail.com
+
+Oops: general protection fault, probably for non-canonical address 0xdffffc0000000013: 0000 [#1] SMP KASAN NOPTI
+KASAN: null-ptr-deref in range [0x0000000000000098-0x000000000000009f]
+CPU: 2 UID: 0 PID: 6029 Comm: syz.3.20 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:keyspan_break_ctl+0x8e/0xe0 drivers/usb/serial/keyspan.c:608
+Code: ff ff ff e8 54 ca 48 fa 83 fb ff 48 b8 00 00 00 00 00 fc ff df 49 8d bc 24 9c 00 00 00 0f 94 c3 48 89 fa 0f b6 db 48 c1 ea 03 <0f> b6 14 02 48 89 f8 83 e0 07 83 c0 03 38 d0 7c 04 84 d2 75 1d 41
+RSP: 0018:ffffc900035b7cb0 EFLAGS: 00010203
+RAX: dffffc0000000000 RBX: 0000000000000000 RCX: ffffffff87c231ec
+RDX: 0000000000000013 RSI: 00000000ffffffff RDI: 000000000000009c
+RBP: ffff88802f436000 R08: 0000000000000005 R09: 00000000ffffffff
+R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000000000
+R13: ffff888034d39020 R14: ffff888034d390c8 R15: 0000000000000000
+FS:  0000555589f16500(0000) GS:ffff8880d5da2000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f5bac070000 CR3: 00000000584fe000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ serial_break+0xcb/0x160 drivers/usb/serial/usb-serial.c:538
+ send_break drivers/tty/tty_io.c:2458 [inline]
+ send_break+0x2ec/0x370 drivers/tty/tty_io.c:2441
+ tty_ioctl+0xa2c/0x1640 drivers/tty/tty_io.c:2733
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl fs/ioctl.c:583 [inline]
+ __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f5bac19e0d9
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffd93db7608 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+RAX: ffffffffffffffda RBX: 00007f5bac425fa0 RCX: 00007f5bac19e0d9
+RDX: 0000000000000000 RSI: 0000000000005425 RDI: 0000000000000004
+RBP: 00007f5bac235024 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f5bac425fac R14: 00007f5bac425fa0 R15: 00007f5bac425fa0
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:keyspan_break_ctl+0x8e/0xe0 drivers/usb/serial/keyspan.c:608
+Code: ff ff ff e8 54 ca 48 fa 83 fb ff 48 b8 00 00 00 00 00 fc ff df 49 8d bc 24 9c 00 00 00 0f 94 c3 48 89 fa 0f b6 db 48 c1 ea 03 <0f> b6 14 02 48 89 f8 83 e0 07 83 c0 03 38 d0 7c 04 84 d2 75 1d 41
+RSP: 0018:ffffc900035b7cb0 EFLAGS: 00010203
+RAX: dffffc0000000000 RBX: 0000000000000000 RCX: ffffffff87c231ec
+RDX: 0000000000000013 RSI: 00000000ffffffff RDI: 000000000000009c
+RBP: ffff88802f436000 R08: 0000000000000005 R09: 00000000ffffffff
+R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000000000
+R13: ffff888034d39020 R14: ffff888034d390c8 R15: 0000000000000000
+FS:  0000555589f16500(0000) GS:ffff8880d5da2000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f5bac070000 CR3: 00000000584fe000 CR4: 0000000000352ef0
+----------------
+Code disassembly (best guess), 2 bytes skipped:
+   0:	ff                   	ljmp   (bad)
+   1:	e8 54 ca 48 fa       	call   0xfa48ca5a
+   6:	83 fb ff             	cmp    $0xffffffff,%ebx
+   9:	48 b8 00 00 00 00 00 	movabs $0xdffffc0000000000,%rax
+  10:	fc ff df
+  13:	49 8d bc 24 9c 00 00 	lea    0x9c(%r12),%rdi
+  1a:	00
+  1b:	0f 94 c3             	sete   %bl
+  1e:	48 89 fa             	mov    %rdi,%rdx
+  21:	0f b6 db             	movzbl %bl,%ebx
+  24:	48 c1 ea 03          	shr    $0x3,%rdx
+* 28:	0f b6 14 02          	movzbl (%rdx,%rax,1),%edx <-- trapping instruction
+  2c:	48 89 f8             	mov    %rdi,%rax
+  2f:	83 e0 07             	and    $0x7,%eax
+  32:	83 c0 03             	add    $0x3,%eax
+  35:	38 d0                	cmp    %dl,%al
+  37:	7c 04                	jl     0x3d
+  39:	84 d2                	test   %dl,%dl
+  3b:	75 1d                	jne    0x5a
+  3d:	41                   	rex.B
 
 
--- 
-Alan Mackenzie (Nuremberg, Germany).
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
