@@ -1,140 +1,221 @@
-Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79E18455184
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:01:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E86146E00B;
+	Thu, 27 Aug 2026 16:01:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=43.163.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787846468; cv=none; b=JdMBIQvcuOe2KvlxZvtumRuL5QUChUk7GJ7/2+KlUb0Zi+1sheJpFKylG1SZyGHz20ycV5LjnwnwWl3KjQZxcHL/TmbCNvhvFVPp9Y3lPg8aZH5WBmmc+WjYDjUDQxI++APLT7zludzK0JQhQILevi+jjYs8coTlvWDGnpBQs0o=
+	t=1787846495; cv=none; b=OSjl+mekfU05W2V0PWq/aDVKNoWfY12rr0Ajtkab+fVYdAPA675BCw6zAJl5XAMB+jgDfHHODRuCqwBN15GIBrPSoVONOjaMmsNtJS0detWkq6vV/8pasMJ/Q+n58/HafBN49k9iEB+wls3M5T84V77fmhMOzxjnghguyGP9ho0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787846468; c=relaxed/simple;
-	bh=wf94Tgtp+mIa1Q5XRbJfuuqfksgiLCtqb8r2gfCY2rQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SNbxiqEpybqZfddMdTe9/Kp0ZhPPS74BCBMYRDQB3gDNu3kg9OzjqTpPiIH55WDAjnkwmMnatQ55wFXZATygV8FC1Fsr5ay3mtSPinPGqPScM1lpeiGu75icEtBT+JGT+l+5iiRGAo5lCT/h2uuoQohJS/prrIhWp6yMb3GjLrw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=Cj85lULj; arc=none smtp.client-ip=74.125.224.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	s=arc-20240116; t=1787846495; c=relaxed/simple;
+	bh=psvcIENqM3ib+o9exTVqDBxYfUhIqT3+CN4Bgi8xBwI=;
+	h=Message-ID:From:To:Cc:Subject; b=MJlmtgN5FVfPBzq6MPAiaf7NUgLKLNvLm9lPdgbbH6YNb/t5Z+96bMPh0ApxaaDTdxAbxvNG9brC0//Zla4bYzmDR1S3QeYbw8suf3KBx0x2nreT8ApNDGzgxTX4RxyCa+CFXRX79/gYxenBkdX//JoiTMEj7iTVQX9tjq3mLBc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=ZG4LIFcb; arc=none smtp.client-ip=43.163.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="Cj85lULj"
-Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-66ce5312ca6so212605d50.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:01:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1787846466; x=1788451266; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DNepDFInVPeIQZp56PM2k6duwIn9bQ+gjDRMqyyZVgU=;
-        b=Cj85lULjueIzeaN6Ftf3iWcUfY5N7nL5wUmCJ17eFOC72XuObwI0unKIjPg36IB5Ri
-         RZ0ShYgr1rTPGid7BgZ/TZ4H4MPz10n8tXH6HAcB4HLMpW4rivXIwiIXyL3mvrRK9SZP
-         zUuyol+gnkPfDl9UMwJuLcuLM8lSDV11wuWeELvPQ59FNk+6CHXwtQ9Kn1m7AG/FNsPP
-         jiNfAMrIfQcRXaGOVro0ZgesyseSCSXesCsrwz8rOQXiQg0i2CMjz1t9Azc66XK2fNyV
-         /0slHENlBbp7QlY1m3SjaYvshEMthqvqtDMhCsounolT0leswKTiTfM7bE/4U9uv/ceQ
-         m5NA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787846466; x=1788451266;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DNepDFInVPeIQZp56PM2k6duwIn9bQ+gjDRMqyyZVgU=;
-        b=gUm5A1h5zoNgin6ACYnMxHiq5u8/v3CyIXzk93vQYnx7GHxE9GWEwS2fKkYJE8g+sS
-         JPRxEDoXyc6XnQZ9QtuuD0xW2li+vkHYiRn8qxtIBck8SZHysNq7VaVAyTjTd/HNn+AD
-         poJEam6CMwCEp5TO9DXPblv+pAddgEBzwo+6jtJFeciLLgkzqMG02pqXV3awdjPK3uDO
-         b/LFXI6qWySYWiNpd5R01/Sy0DJEMWMUJ7pLIQEWzD/mPI8ZhXOPeTcgHGuif/01J90k
-         gqqm19oA1ZtdnIJxex/k6E4QY6Y+s+peCKIPUyc+VB7EsYwvkO3jP65GCNQL7n9ZjIhr
-         PaEA==
-X-Forwarded-Encrypted: i=1; AHgh+Rr++Je66H/l12k5T52WPBDOkg9a2Dr2MQMe9omakgToGBwYhAGF3u+E2bU2Y0QnGu2gpOQ3pYH0XQ3p7II=@vger.kernel.org
-X-Gm-Message-State: AFuF++n84lr7Zw/t8v958Xp5vSRvpsuauQew9SVan6WiBTBiVCckqavZ
-	Alu41w+4vI1NmbIWHGdmNVpSsY5PTqY45tYuT0N9jQZB9oSCZgAaFSwlLjISWw0D3A==
-X-Gm-Gg: AR+sD12fg9rBEbzEN0KP+hR83yy1djPWkiRFqRNriYb6GgHf7UIXhCH10r50Ngd532c
-	QDr/VS6Lz6ORrwh9xBebnGy/1K014RSTV5BfXzBNB2Es50UfLlNvzoqVrEJWCydx/2X076skToy
-	M7iPLDE5qe6gAVnMsqknBakPIo8ldoIy9EhcQJFkmc23QenJ6TFdDcQSYzByCyEgLqArjZJHdyU
-	R2fXagOv2QCz6bfLht+f8WWtvCYZs/v2HesMJiRbuMxPh0wVNzoy6iuFHd2buIQpgH8wD1v7/0P
-	GeReuSkuZU9d4j699qx1+1UefPQOWzeIfwn9u92+57KliyNyYrI3yciHBK0+W2E76f4RlnNl+wF
-	xS6j8iMJmHTLPEQm/WH3xMTqNa4Rr4RzQMpv2aZ02ZQqrc/r0CabOE1zwbOaBLdOfTWi1CiH7e0
-	xVNrJKfY4mLa+NnV+SLNuLs3CtrmeeAxC3sLEwbl+80P72zxEU/JrG90B4gBgnkyNqhCpdQZog1
-	VEu72yglhN5yQu4JjvG5yEBVCpr/gfI
-X-Received: by 2002:a05:690e:d4c:b0:66d:11b0:addd with SMTP id 956f58d0204a3-66d257d1a54mr6143501d50.37.1787846466030;
-        Thu, 27 Aug 2026 09:01:06 -0700 (PDT)
-Received: from rowland.harvard.edu ([2607:fb60:1011:2006:2008:aeb7:73d7:d8ff])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90cd73fc2c9sm19596796d6.35.2026.08.27.09.01.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 09:01:05 -0700 (PDT)
-Date: Thu, 27 Aug 2026 12:01:02 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: Oliver Neukum <oneukum@suse.com>,
-	Marco Crivellari <marco.crivellari@suse.com>,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-	Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Michal Hocko <mhocko@suse.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Petko Manolov <petkan@nucleusys.com>, linux-usb@vger.kernel.org
-Subject: Re: [PATCH v3 net-next 5/6] net: usb: pegasus: Move long delayed
- work on system_dfl_long_wq
-Message-ID: <31b46916-dd89-4ae9-89b9-9d39e29e8e69@rowland.harvard.edu>
-References: <20260720100902.155605-1-marco.crivellari@suse.com>
- <20260720100902.155605-6-marco.crivellari@suse.com>
- <f972b514-87ef-45bc-8258-db199a4cc0b8@suse.com>
- <20260825151812.4aJyFUgE@linutronix.de>
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="ZG4LIFcb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1787846481; bh=iSbbXSsZIEmVykoYpmduKfIhXEaTKa33hYcHeHMV02U=;
+	h=From:To:Cc:Subject;
+	b=ZG4LIFcbrElozzORC/y/zC60y3pGqa5Vk2yhgsQLN+ZVPH3bGK0fNh27PFtKda7iu
+	 lgCHxhTg5FFiEPdTqce6RGLgaCQrQnqgpPqJ2+z0NmIQ6I/eOSdicgKg2tzZvqqwa/
+	 y+s+E9wqLoSZBScGhWcYs66Ig6A52RFdVl3/w900=
+Received: from localhost ([59.67.37.28])
+	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
+	id 5192C71; Fri, 28 Aug 2026 00:01:17 +0800
+X-QQ-mid: xmsmtpt1787846477tfv1z6p55
+Message-ID: <tencent_72A978D4934F50D46D2ACFF7D70896938806@qq.com>
+X-QQ-XMAILINFO: NmRjDopJZVxOX2ndgblU9/Z/Q9ob2FaUDyunUQPbYNYzdcpDVGtq/hc4aXPamk
+	 EFMMz2aF0s2geYGzP6MuJqCNAJtRZ2Q235ZLNB/UY9h7SgLs5FABEkaVRQtDeaJ1krU1+MrJlTVG
+	 s26QtvxMQzm7DXM86xMynSgA0/6HDXbXZADkQHqqg467q69suICaY+gafdmlGbMqxwjJposTOGZ9
+	 Uij4Qi3wodf3Nr8xeB2Cyt0c8dDBluYX92NYLoTeDJV+kqErHyTUC5gSL+MbJiGpteGNbWCgUHpY
+	 QjA22m5AS46TOIj7IBGSKYbDfBVf5IEz/7Gvqlvw0lb7gEq8S27GbuA9Wjg+q/ln4gh/txFJl8Bf
+	 OCyurEiDlP9C1HXVXhYEloFr1ndf/nvLSDxiLi1Qx0Txb7YHWOYmt+qEVOqXK02u9vDCqk+Bqzir
+	 MwTPUeS3OXWeoL8NgmGBQCcGpy1fmPBvWGNzNOERkkHutFIRy7lG85s+80msbYat4/wv4PX+OtJM
+	 vlvcrO0aZs8sMtkU8xkOM5XLgHY8EOhsDvoz660YJi9v/Ir418JB3EBsqDae9scwzHFcXoCRX6IT
+	 TnaMNyN06XBeqi740Q5tlEF0BDYsS8vMu+QrG18hY5fShCfnKxIHEhtG4xxQ6XwGrZ9OJHvzrWhN
+	 TjgMoTKl86w/RDYmfz5ftF/6G7etThJRHkQfpbB1EO8+cmx3+07sC3tPa7cs+qewGGUCwhJPNqyR
+	 CB2IaVdPss23/Dyo7o2jQC2Fe/bTM4+KR2sOUDhe8FbE7ZNdOgNbG+M8HbFq6UgYnCgcyHRX7jcY
+	 uH3Yh/C6QsvXKrBJr595t/5d3X0XeZDgeLEWlrBFVv6S3Y0BO94c0Ekb8I+gUxfRrbZWIfm0Kjj7
+	 L+08SMr47z316W8q0nGGUKO0rYE8QvZsgtVMaAR/dAYSMLFXr2177oXJM/G+zNPaVeSm9IYD1Mg3
+	 H3VaZYy1assdRkXxqaRletcDlZgXaU+tuANjdu8+2mfpnmgkFsKEHEdWDYjvsvQAs9dcrw8dOBv6
+	 4EX7s3We9+peTdnAV/PTo2dhEJlEA=
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+From: Guikun Yang <2855020996@qq.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+    Hans Verkuil <hverkuil+cisco@kernel.org>,
+    linux-media@vger.kernel.org
+Cc: Yun Zhou <yun.zhou@windriver.com>,
+    Yousef Alhouseen <alhouseenyousef@gmail.com>,
+    Edward Adam Davis <eadavis@qq.com>,
+    Dan Carpenter <error27@gmail.com>,
+    Kees Cook <kees@kernel.org>,
+    Ricardo Ribalda <ribalda@chromium.org>,
+    linux-kernel@vger.kernel.org,
+    syzbot+1eb177ecc3943b883f0a@syzkaller.appspotmail.com
+Subject: Re: [PATCH v3] media: dvb-core: fix use-after-free in dvb_frontend_open
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260825151812.4aJyFUgE@linutronix.de>
 
-On Tue, Aug 25, 2026 at 05:18:12PM +0200, Sebastian Andrzej Siewior wrote:
-> On 2026-07-22 10:29:50 [+0200], Oliver Neukum wrote:
-> > On 20.07.26 12:08, Marco Crivellari wrote:
-> > Hi,
-> Hi Oliver,
-> 
-> > > Since the workqueue work doesn't rely on per-cpu variables, there is no
-> > > obvious reason that justify the use of a per-cpu workqueue. So change
-> > > system_long_wq with system_dfl_long_wq so that the work may benefit from
-> > > scheduler task placement.
-> > 
-> > these changes are problematic, although they look like a good cleanup
-> > in first place. But the test you are using to determine whether USB
-> > devices need their own work queue is incomplete because you are not
-> > considering the reason they allocate their own work queues.
-> 
-> This driver does not using its own workqueue.
-> 
-> > These drivers have their own work queues because they are part of the block layer.
-> > USB devices can share a device with a block device (storage & UAS) and
-> > USB devices have common, per device operations, in particular reset
-> > and runtime power management and disconnect handling. Because these operations
-> > can be necessary to complete block IO neither they nor anything
-> > they depend on can use IO to allocate memory. That is they need to
-> > perform any memory allocation with GFP_NOIO or GFP_ATOMIC.
-> 
-> This is a networking driver. It has nothing to do with storage and UAS.
-> It uses USB, yes.
+In-Reply-To: <1c0aa133-b44b-4cca-91cd-82a80769b494@windriver.com>
+References: <1c0aa133-b44b-4cca-91cd-82a80769b494@windriver.com>
 
-Ah, but a composite USB device can have both a networking interface and 
-a mass-storage interface.
+Hi Yun, all,
 
-Suppose you have such a device, and suppose the disk attached to its 
-mass-storage interface contains a swap partition.  Now suppose the 
-device is being reset, and as part of the preparation for that reset the 
-networking driver needs to flush its workqueue.  This means waiting 
-until the work routines that are already running have completed.
+Continuing this thread: the v3 series (and the related "avoid dropping
+device ref" / "pin frontend device" attempts from June) has not been
+merged as of v7.3-rc1 -- I confirmed dvb_frontend_open() still calls
+dvb_generic_release() on its err2 path in mainline today, and the
+underlying bug is still live (syzbot hit it again on 2026/08).
 
-Since it's a general-purpose workqueue, you don't know what those work 
-routines are going to do.  One of them might try to allocate memory 
-using GFP_KERNEL.  Suppose that in order to satisfy the memory request, 
-the kernel decides it needs to write some pages to the swap partition on 
-the USB mass-storage interface.  But the mass-storage driver is stuck; 
-it can't do anything until the device reset finishes.  Deadlock.
+I'd like to propose an alternative fix that I believe is more robust,
+with fault-injection reproduction on 7.2-rc7 / 7.3-rc1.
 
-That's why USB drivers have to use their own workqueues.
+Root cause
+----------
+dvb_device_open() takes one device reference for the file and drops it
+itself when ->open() fails (a2dd235df435).  dvb_frontend_open() undoes
+the users/readers/writers accounting of dvb_generic_open() on its error
+paths by calling dvb_generic_release().  But dvb_generic_release() also
+drops the file's device reference, so on a frontend open failure the
+same reference is dropped twice:
 
-Alan Stern
+  dvb_device_open()                dvb_frontend_open()
+  ------------------------------   ---------------------------------
+  dvb_device_get()          ref+1
+  file->f_op->open()
+                                   dvb_generic_open()
+                                   err3: dvb_frontend_start() fails
+                                         (e.g. -ENOMEM)
+                                   err2: dvb_generic_release()  ref-1
+  err != 0
+  dvb_device_put()          ref-1
+
+The extra put can drop the last reference and free the device while it
+is still registered in dvb_minors[], so a subsequent open() dereferences
+freed memory (KASAN: slab-use-after-free in dvb_device_open, syzbot
+extid 1eb177ecc3943b883f0a, first reported 2024/12).
+
+Why a different approach
+------------------------
+Previous proposals (v1-v3 in this thread, plus the June patches)
+balance the counters around dvb_generic_release() -- e.g. incrementing
+the refcount before the call so the put inside it nets out, or restoring
+users/writers/readers by hand.  That works, but it keeps the subtle
+coupling: dvb_generic_release() still has the side effect of dropping
+the device reference, which is only correct on a successful open.
+
+This patch instead splits that single responsibility out: the counter
+restore becomes dvb_generic_open_undo(), which does NOT touch the
+device reference, and dvb_frontend_open() uses it on its error paths.
+The reference remains owned and released by dvb_device_open().  This
+makes the ownership explicit and removes the class of double-put bugs
+for every future ->open implementation, not just the frontend.
+
+Verification
+------------
+syzbot reproducer (open of /dev/dvb/adapter0/frontend0 with fail_nth: 8,
+failing the kthread allocation in dvb_frontend_start()):
+  * unpatched 7.2-rc7: reproduces the KASAN UAF within seconds
+  * patched: survives 90s of continuous fault-injected opens, zero
+    KASAN / refcount warnings; FAULT_INJECTION traces confirm the error
+    path is exercised each time
+
+Fixes: 0fc044b2b5e2 ("media: dvbdev: adopts refcnt to avoid UAF")
+Cc: stable@vger.kernel.org
+Reported-by: syzbot+1eb177ecc3943b883f0a@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=1eb177ecc3943b883f0a
+Tested-by: Guikun Yang <2855020996@qq.com>
+Signed-off-by: Guikun Yang <2855020996@qq.com>
+---
+ drivers/media/dvb-core/dvb_frontend.c |  6 +++++-
+ drivers/media/dvb-core/dvbdev.c       | 29 +++++++++++++++++++++++++++++
+ include/media/dvbdev.h                | 11 +++++++++++
+ 3 files changed, 45 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/dvb-core/dvb_frontend.c b/drivers/media/dvb-core/dvb_frontend.c
+index d082b6c57c76..5ef7756c3413 100644
+--- a/drivers/media/dvb-core/dvb_frontend.c
++++ b/drivers/media/dvb-core/dvb_frontend.c
+@@ -2887,7 +2887,11 @@ static int dvb_frontend_open(struct inode *inode, struct file *file)
+ 	mutex_unlock(&fe->dvb->mdev_lock);
+ err2:
+ #endif
+-	dvb_generic_release(inode, file);
++	/*
++	 * Undo dvb_generic_open() only: the file's device reference is
++	 * dropped by dvb_device_open() when this open fails.
++	 */
++	dvb_generic_open_undo(file);
+ err1:
+ 	if (dvbdev->users == -1 && fe->ops.ts_bus_ctrl)
+ 		fe->ops.ts_bus_ctrl(fe, 0);
+diff --git a/drivers/media/dvb-core/dvbdev.c b/drivers/media/dvb-core/dvbdev.c
+index d753d329502a..8623df718ea0 100644
+--- a/drivers/media/dvb-core/dvbdev.c
++++ b/drivers/media/dvb-core/dvbdev.c
+@@ -172,6 +172,35 @@ int dvb_generic_release(struct inode *inode, struct file *file)
+ }
+ EXPORT_SYMBOL(dvb_generic_release);
+ 
++/**
++ * dvb_generic_open_undo - undo dvb_generic_open() on a failed ->open
++ *
++ * @file: pointer to &struct file.
++ *
++ * Restores the users/readers/writers accounting done by
++ * dvb_generic_open(), without dropping the file's device reference:
++ * that reference is taken by dvb_device_open(), which also releases
++ * it when ->open fails.  Using dvb_generic_release() on an error path
++ * of an ->open implementation would therefore drop the reference
++ * twice and could free a device that is still registered in
++ * dvb_minors[].
++ */
++void dvb_generic_open_undo(struct file *file)
++{
++	struct dvb_device *dvbdev = file->private_data;
++
++	if (!dvbdev)
++		return;
++
++	if ((file->f_flags & O_ACCMODE) == O_RDONLY)
++		dvbdev->readers++;
++	else
++		dvbdev->writers++;
++
++	dvbdev->users++;
++}
++EXPORT_SYMBOL(dvb_generic_open_undo);
++
+ long dvb_generic_ioctl(struct file *file,
+ 		       unsigned int cmd, unsigned long arg)
+ {
+diff --git a/include/media/dvbdev.h b/include/media/dvbdev.h
+index e5a00d126612..a32998afd804 100644
+--- a/include/media/dvbdev.h
++++ b/include/media/dvbdev.h
+@@ -354,6 +354,17 @@ int dvb_generic_open(struct inode *inode, struct file *file);
+  */
+ int dvb_generic_release(struct inode *inode, struct file *file);
+ 
++/**
++ * dvb_generic_open_undo - undo dvb_generic_open() on a failed ->open
++ *
++ * @file: pointer to &struct file.
++ *
++ * Restores the users/readers/writers accounting done by
++ * dvb_generic_open() without dropping the file's device reference,
++ * which dvb_device_open() releases itself when ->open fails.
++ */
++void dvb_generic_open_undo(struct file *file);
++
+ /**
+  * dvb_generic_ioctl - Digital TV close function, used by DVB devices
+  *
+-- 
+2.0.0
+
