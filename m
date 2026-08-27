@@ -1,95 +1,146 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 446F73DA7DF
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:16:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E49A53DA7D2
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:17:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787818615; cv=none; b=LNNBEBxWVcdwYTY3cOPOtICiz784bM7aHTUJ/seex3xn9d+SYXe5aiXw+N2nic96zH6o4t0OolORw3SC5UOyd/AnWevD2wz7LtFozLaOrADY7kM3OtecVAjg9v76ypvzPxcAA7cUlQNUAbRvm9jX/q7MsC2fslFpd5YgcXFCzpM=
+	t=1787818634; cv=none; b=nD3rat+KefIUaHtl11hV0RAgwPhiO0xnwoRMqoY3UzrrFvDNltOfKf8H+AvtmPpeGdPcgJ/4y0XWSSNLIpq/iD0dp6m42RjnfWEcldHmHTjK14CC5WMqGGqtsR2HcN+U/I2gHU2rr5Axo82HyIAzgMQJ/7NkPflfIcZ6uhtXQt4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787818615; c=relaxed/simple;
-	bh=Wa7EMNtS/SBStCyHa0wWvJVG0R2Xdy1a2EIB8SPizDA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QHlao7ijB5VczoInZiaXwvhvNLpviePUWaHh4c51TGPEiKxPtvF4grOT2ataSeo7bSRZmRDrikSv0SKcmZ8HMS73CCymf5Ou61OG7O0Ac9+X6ItU6+B50M6at9cE3X7j8HyeEGkEGR2KUC7PJl812gBro0EY2RMejtoCJ7ds798=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mKooWkvH; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787818634; c=relaxed/simple;
+	bh=3v1/IdLNCsT/qBsISOCiyBli6VQz9iDJt7iwfW00B1s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=J8VQzARaX5Nvi8LSkdI/nAho9W+lotSos/TAD8RHqWbgQFLkUrz7uTKXtXTP4IdBi3DGq4p/0tZNxhcCbz/xtlcwPPW/drzk+obktcW+dwCJ6LLhDWMIjCaoBMnwK4lR6f5SKk0PMZ0+Zbr1P7kfe41RLb+rSP1QDuxvW3Ga/Ro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kb3+VZf0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mKooWkvH"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3964dfb5a69so1972309a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 01:16:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787818612; x=1788423412; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wvUOAOKXuBQHrhv/+0psbsiL2fO8oAFnkMuF5lJmkVc=;
-        b=mKooWkvHIue0C1aY3KZJijANtpHuFWEfvOY1RPCxRb5myPsWV/cBHu/FnN+jqJU4Nt
-         N8ETBSCZKUtNs2lDpiKU/lUZUnrphkST1iAXfMo7sAH1gGc+KkYbTnSQ3hxN9r+hajRM
-         3J6dQ+Ut3EbK55WsyyOFWwkS0NrK4A6W6T6s4/keSmpjcQOUtNDK2oz1dvF4LnCxtcWf
-         tCNDo1+JsqFgQarJPNXu/0pvJ7JY+Gkdw/KIP/wSyfdKFz6pCi1X/TFTV1ZQhz3ZvlOl
-         h6ksG5tCLPVVT0NnLCdSMGF0n9/+O2CnqaKg/8Dm6a8eI/ygZa8t2iM32TRak7wN5puW
-         uLfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787818612; x=1788423412;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wvUOAOKXuBQHrhv/+0psbsiL2fO8oAFnkMuF5lJmkVc=;
-        b=gvWEvzuN5hdFdESZRljqMpw8HobVQ9oJfkIDhu9DjAPJaWcSLOJrBinwoYSYMukmhb
-         roasmZMNbNyRIPO3uw9f8J77xCP2Tx/DF9SRGOpkPBRHblQoUcvuab05AbvqMMmyK+QD
-         4v7GJ1ZgnQ2OrDA0QazArU39MASy5CBzrQUxFJWq9R8YVsWPT7LIiPoSj8byLPG2mXQe
-         rY/ULs6mHxb4lu4J3T/0w/h5GiQM18/9y2++DBMSBuH4jiBwfjd6RHTeylqKuuUEkZ9i
-         jSLqCtLm1jU3/X1bl/4GY+zgpBwtjP2ls+3wb+onVkqQyNxCLML3dMncRKK76GPJ68ag
-         VItg==
-X-Forwarded-Encrypted: i=1; AHgh+Rp/HVlJfEsB/VWiFTwjFAq7J/DYZV5n5exxJ1qS+5NlgywBHK7uyR41RbOUmmo8/Nzxz1DyCYDdnxltbPU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kEbf3AxxKSkdauDgjrh/VxDVQY8gB0ELA9+yvcaN4n4+rFfi7j
-	gaF1f8S/HpGJozFPc79LU/nP+7yoDEnFZ0uBohelGM4RSFVJmcqdk6i1
-X-Gm-Gg: AR+sD12JCEunFCnmejv9YJFvOmRDuQlmZUxsUbQ8nv/uJZGPHw4eNBEKOOTY2b9khSX
-	4pK/3oAFYK46R9zZrAXnt5WhE9aLKwTOeiaVNVcER4vbHacR+WIPf2SmHBGe5QkUCyHzYMIjgnU
-	tQyA0kuD9pOS1B1bqYQg/X/uTjXY0pnzZJH8xjVomeTJKNBXwDnFVfAvHHkX7EZptXGHNw3OWwc
-	PEELRVS3PeVs0DZolPZD7Zzb6pothFiaTmWb4suUSUqjMH/8tFGmCLAjWz0/fGqt5BmpJ1VrG3E
-	ucLIhM0XK0CL3H3XiQdKR8cBWzyJv0gC9rYhd2XTqoU2/UhI0AnZOyGnfQWsZdnKb4FW0kWRdxA
-	p2ly1X9jNgMkEXeV1yFDIp1uQrnh7Q6XX7OJ8IJPQENlK35FvsF60k4gZJX5ZKXZarSYDu/SZYR
-	BU2QYDHWZH256XgeeVdlP/sXlUXCJj2e0Fnk0S+//k804N+aLaXKPIZVwOBEbhgOIs+sMyx3GrT
-	Cek
-X-Received: by 2002:a17:90b:4a50:b0:392:b509:b1a5 with SMTP id 98e67ed59e1d1-3966d48c3e9mr24352683a91.14.1787818612187;
-        Thu, 27 Aug 2026 01:16:52 -0700 (PDT)
-Received: from Default ([2409:40f4:1015:7531:12c9:ad3b:96d3:4379])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a8eefd98sm26865924c88.3.2026.08.27.01.16.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 01:16:51 -0700 (PDT)
-From: Jeffin Philip <jeffinphilip14@gmail.com>
-To: syzbot+d632e93ffcd1452bc61e@syzkaller.appspotmail.com
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com
-Subject: KASAN: slab-use-after-free Read in roccat_open
-Date: Thu, 27 Aug 2026 13:46:39 +0530
-Message-ID: <20260827081639.17185-1-jeffinphilip14@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <6a8fd9c8.50659fcc.60cd.000e.GAE@google.com>
-References: <6a8fd9c8.50659fcc.60cd.000e.GAE@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kb3+VZf0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDC0E1F000E9;
+	Thu, 27 Aug 2026 08:17:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787818632;
+	bh=IoV2JLyDthha8SRAUynv+MIxi6zER3ywHmEQ0B1FVZU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Kb3+VZf0uc9hFIhgW8al0piOdE/JqGk3Kq7nxZ23oY2lo8kbzImiw7RY3gKQyIGf3
+	 egGYVWXHOgMkrPimJ7z4RryeJxr4bUze9but/U8U/wUqhRY+4unAJQvzCq76Kj6ccI
+	 uTmYJ8ZuSp6Epwm425ch7SAH0A6cGcNQQOsRNVz3lYc9YZs2A9AFohonNK07ozVTSU
+	 W7VHt53CL/qm2315HgfsuzMC8jtrtR/WjkPBguh8Wk3GrcqRN3ww0VbKniXISd5wRE
+	 ENaQF9nrIOUZ+QO2fI2NsvHb4YveXmDwiTs0i9lbnAm0NSXByY8bwviHpGiztS6Y1Z
+	 SAG803NYX3JDA==
+Message-ID: <62ba2ed2-d030-49d8-8872-d714ca0df8f2@kernel.org>
+Date: Thu, 27 Aug 2026 10:17:08 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/vmstat: annotate data race for per-cpu pageset fields
+To: Hui Zhu <hui.zhu@linux.dev>, Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Cc: Hui Zhu <zhuhui@kylinos.cn>
+References: <20260827070546.1336383-1-hui.zhu@linux.dev>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Content-Language: en-US
+In-Reply-To: <20260827070546.1336383-1-hui.zhu@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-#syz test: upstream 903c1cf6dff9
+On 8/27/26 9:05 AM, Hui Zhu wrote:
+> From: Hui Zhu <zhuhui@kylinos.cn>
+> 
+> zoneinfo_show_print() reads pcp->count, pcp->high, pcp->batch,
+> pcp->high_min, pcp->high_max and the per-cpu stat_threshold while
+> holding only zone->lock, which does not synchronize these fields.
+> The writers are the page allocation and free fast paths under
+> pcp->lock, decay_pcp_high() which updates pcp->high without any
+> lock, pageset_update() which writes batch/high_min/high_max with
+> WRITE_ONCE(), and refresh_zone_stat_thresholds() which writes
+> stat_threshold locklessly.
+> 
+> The race is benign: the values are only printed to /proc/zoneinfo,
+> they are naturally aligned integers, and pageset_update() already
+> documents that users of batch/high_min/high_max must cope with the
+> fields changing asynchronously.  Annotate the reads with data_race(),
+> following commit af1c31acc853 ("mm/vmstat: annotate data race for
+> zone->free_area[order].nr_free").
+> 
+> Found by KCSAN testing on an older kernel; the same race still
+> exists on mainline.  No functional change intended.
+> 
+> BUG: KCSAN: data-race in zoneinfo_show_print+0x355/0x520 root/klinux/mm/vmstat.c:1774
+> race at unknown origin, with read to 0xffff8e1835410808 of 4 bytes by task 22653 on cpu 12:
+> zoneinfo_show_print+0x355/0x520 root/klinux/mm/vmstat.c:1774
+> walk_zones_in_node root/klinux/mm/vmstat.c:1496 [inline]
+> zoneinfo_show+0x41/0x70 root/klinux/mm/vmstat.c:1806
+> seq_read_iter+0x30c/0x970 root/klinux/fs/seq_file.c:230
+> proc_reg_read_iter+0x10c/0x170 root/klinux/fs/proc/inode.c:305
+> copy_splice_read+0x2a1/0x4e0 root/klinux/fs/splice.c:365
+> do_splice_read root/klinux/fs/splice.c:985 [inline]
+> do_splice_read+0x139/0x1a0 root/klinux/fs/splice.c:959
+> splice_direct_to_actor+0x16b/0x540 root/klinux/fs/splice.c:1089
+> do_splice_direct_actor root/klinux/fs/splice.c:1207 [inline]
+> do_splice_direct+0x10a/0x180 root/klinux/fs/splice.c:1233
+> do_sendfile+0x6ea/0x7e0 root/klinux/fs/read_write.c:1363
+> __do_sys_sendfile64 root/klinux/fs/read_write.c:1424 [inline]
+> __se_sys_sendfile64 root/klinux/fs/read_write.c:1410 [inline]
+> __x64_sys_sendfile64+0x117/0x130 root/klinux/fs/read_write.c:1410
+> x64_sys_call+0x1cc7/0x1ee0 root/klinux/./arch/x86/include/generated/asm/syscalls_64.h:41
+> do_syscall_x64 root/klinux/arch/x86/entry/common.c:46 [inline]
+> do_syscall_64+0x75/0x2c0 root/klinux/arch/x86/entry/common.c:76
+> entry_SYSCALL_64_after_hwframe+0x76/0xe0
+> value changed: 0x000001b2 -> 0x000001b1
+> Reported by Kernel Concurrency Sanitizer on:
+> CPU: 12 PID: 22653 Comm: syz-executor.12 Not tainted 6.6.140+ #672
+> Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.16.3-0-ga6ed6b701f0a-prebuilt.qemu.org 04/01/2014
+> 
+> Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
 
-diff --git a/drivers/hid/hid-roccat.c b/drivers/hid/hid-roccat.c
-index 4f15eb951039..505844890ed3 100644
---- a/drivers/hid/hid-roccat.c
-+++ b/drivers/hid/hid-roccat.c
-@@ -236,6 +236,7 @@ static int roccat_release(struct inode *inode, struct file *file)
-                        hid_hw_close(device->hid);
-                } else {
-                        roccat_free_device(device);
-+                       devices[minor] = NULL;
-                }
-        }
- 
+Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+
+> ---
+>  mm/vmstat.c | 17 +++++++++++------
+>  1 file changed, 11 insertions(+), 6 deletions(-)
+> 
+> diff --git a/mm/vmstat.c b/mm/vmstat.c
+> index cb57714539fb..a3e809c57f29 100644
+> --- a/mm/vmstat.c
+> +++ b/mm/vmstat.c
+> @@ -1837,6 +1837,11 @@ static void zoneinfo_show_print(struct seq_file *m, pg_data_t *pgdat,
+>  		struct per_cpu_zonestat __maybe_unused *pzstats;
+>  
+>  		pcp = per_cpu_ptr(zone->per_cpu_pageset, i);
+> +		/*
+> +		 * Access to the per-cpu pageset fields is lockless as they
+> +		 * are used only for printing purposes. Use data_race to
+> +		 * avoid KCSAN warning.
+> +		 */
+>  		seq_printf(m,
+>  			   "\n    cpu: %i"
+>  			   "\n              count:    %i"
+> @@ -1845,15 +1850,15 @@ static void zoneinfo_show_print(struct seq_file *m, pg_data_t *pgdat,
+>  			   "\n              high_min: %i"
+>  			   "\n              high_max: %i",
+>  			   i,
+> -			   pcp->count,
+> -			   pcp->high,
+> -			   pcp->batch,
+> -			   pcp->high_min,
+> -			   pcp->high_max);
+> +			   data_race(pcp->count),
+> +			   data_race(pcp->high),
+> +			   data_race(pcp->batch),
+> +			   data_race(pcp->high_min),
+> +			   data_race(pcp->high_max));
+>  #ifdef CONFIG_SMP
+>  		pzstats = per_cpu_ptr(zone->per_cpu_zonestats, i);
+>  		seq_printf(m, "\n  vm stats threshold: %d",
+> -				pzstats->stat_threshold);
+> +				data_race(pzstats->stat_threshold));
+>  #endif
+>  	}
+>  	seq_printf(m,
+
