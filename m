@@ -1,67 +1,33 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B236345750
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 19:09:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D26FD345750
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 19:09:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787857752; cv=none; b=Jf8PYv3BvISynlMDb2TdNZgJXdYAUq8n3iEnZtYsyQ97D/O1cCX/PU1rSKiRSiy1QmZASmyVaduEpXyqiWp6DaSCzmThUnlsa5eYqzNysuJ2afhMUDFYgXptkqc77XCbOSCcLwVroVt8fzpQVYMvozqN5bicCJNJHOg+3SHsVnM=
+	t=1787857789; cv=none; b=fVEQNbgL8eHsaBuvnR7bwoKjbIuvb1r54WCPhWdOcMaSJ+MeBIaXuEmEH9qBspQJHsQ8P5qvVcdYaDatxMoxSSccOoK4zA1rG1F3pNZ5T6cK4BWpQzT5UuQfPdZMbvSmgVpNu9t2W0+hhF4O73Ls93h55oSdot3OHADe+qomfGI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787857752; c=relaxed/simple;
-	bh=i01fEhTlPtxQyoNW7mklqMP5iYwZSxTMRSj6P4yQlJ4=;
+	s=arc-20240116; t=1787857789; c=relaxed/simple;
+	bh=3aaFLW17RxLIn9YkA3/ToIC8JyEA+cs4RPjqiB4/sCo=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=T3RIVb67hy4NAm7t1J/ThbgOfMQh5UA2TiG2VIh/E4F4nHGmserY712YGy515POexeaPBdGrSqpsfW8lcpWONyJtFH1Prx+KcLaJiNEhZEZGeuxEqDSPcEhBgHiTBO/L5oTCrq2b8mvBAesmmUnZkMT7IMKb9gpfOUpqAhIA9es=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackwall.org; spf=none smtp.mailfrom=blackwall.org; dkim=pass (2048-bit key) header.d=blackwall.org header.i=@blackwall.org header.b=ULOFJe0T; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackwall.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=blackwall.org
+	 In-Reply-To:Content-Type; b=TNTA/2rR7k6JGxUWWepsRs9JecFyKX8F/Kfgs8EMODyZ7kWTrAmvO7/MbwMb83LG9kVkAr61tNTBH9vtn6EucUEUGP2H4fZcaeDLpiZ3rYF8QGL+1OhhGQoJOcirh8MqAScYaZ4gJlg2+fgYMOoihHuCgXcgw4bPu+5AjXAqvRg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kCK46U9G; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=blackwall.org header.i=@blackwall.org header.b="ULOFJe0T"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4957eefd361so781245e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:09:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=blackwall.org; s=google; t=1787857746; x=1788462546; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=djHyE1ruR5RlEBgoR9g1dHL9cBhxtknf2/63Rky3tpc=;
-        b=ULOFJe0TLpZVpw9T94yx56zPvVG+d9C+hR77++sT71lwZvpylNDiBKT88wzBVefC24
-         9PmZnWCH+Z8wEHG5ZVPYl/561ddkenFEIb637d3710T12bDZw9cpDadCoU1wPG+UZhLh
-         RWTrzP9MAd6gKTZ1egc3/aGfhTSsnjBqI1uDBn0zfASRmr6GvJMZkyWWsdtugdjG7iTv
-         CV6+Oz43NWAub9+h2q1k2nxJnZ0qhKXX3F8hKnczDj4Xl96Zc7IzUoT1tUyJhQzwS6Xo
-         6wnzVGIqRi3ISZV6BVwpAonoVa865ZLtCW4GdoD4F9Nbo2u3pcWijP8govCprl2c+CHb
-         0eKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787857746; x=1788462546;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=djHyE1ruR5RlEBgoR9g1dHL9cBhxtknf2/63Rky3tpc=;
-        b=QBXKt/QJ5pZPyNsbVui0Ua2ARP1oJ4flhfHQthIuwgNWq7DxulUj0kD8rirN+3bpyx
-         o0attXrMhGzpi7/BvMoMRYvie2iHIl2yBsg1i+SmCD5R64o9JK9SZezrrO/k60cDvigN
-         TRwS/4yzwO70EqK6FIbHrwb909yHQd/Ok895cdif1PvwgI5/Gld/seFD6t7/BcaT41Yz
-         bbtXWxpsLYIqrF7bjX/bvwhbXoOvg5ewZ2dzFORHvTSCCL6cXyY5QyAVoQQnrCpZqxDs
-         BpOEGv1F5ba/ws7iOk2JL4umewg9YwkTJFv1MBXt5IuKYeY1N7MiH8Jsi8qSJMvf1oMu
-         mnZw==
-X-Forwarded-Encrypted: i=1; AHgh+Rpd4XJx0oL5vXWK8Ok1V4ZL5U2Jg43D+Fiu4jSv5nm6Lb875SOCTQJIULWUgIBHz9utWOwOYgEr6PL77qU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nWFuCaQqjB8QUv8OZ25oXgb3z0ACZKNCX7oZ2JgHSlp39ZdFsA
-	uv8FpCzeTTadJG4Yaz7j9VCjpsBHkTtcz8CMMOF0nu+ZHck0I8862zwxVVM1EsgDNLw=
-X-Gm-Gg: AR+sD12wfNBjx0Sg9sboZkFbBP9JNRTuwNzcZ6LpuBPIPvi0vo8/Hpp6sASD4qxbXre
-	DGNUNubsIrKPF8HSaQhXjSEN7iSIO4Dmg9CEp2/MnWGP3kZMeLSD0iaNXxO3t+YbnsttDAfmRYK
-	gAx/q7lVGNETgikNZ1S5Tdw6WI45lf/3+4Ulw+Q/I0MT6KeVin3QyfspOGEeuc4QQnnEiR75iu6
-	p4mQ1egBzE2QQtxajmgvt9juPlyv0XxEVjGIDjtnM1hUu9o04H3SXb+0DBehMpF5DCb4Ls7ivYW
-	1FcpREqz5jjvLAxFGtzUbotKy7l7k1SBO86sxuGl5/nL/KtFu+oJal+hoyjH0+z8erwRFV1+EqZ
-	hp5w16jdU0rVd8R7xSwx7zvPZ15rCb1+9qdzmanpo9Zzo/fNt2X1G8SHqFckxHxUS+wny4vUX4+
-	3iPYUzfhoMp/97W26Suca/5za7/Bb4RI89Gro8KBQN348HsFIlvWajcyrMTwfZnSKcwPc88o9z4
-	CXyQv0IP1RdpKbyb4I=
-X-Received: by 2002:a05:600c:1f91:b0:499:bf8c:cfd1 with SMTP id 5b1f17b1804b1-49b91c1c784mr17002155e9.2.1787857746306;
-        Thu, 27 Aug 2026 12:09:06 -0700 (PDT)
-Received: from [192.168.0.161] (78-154-15-182.ip.btc-net.bg. [78.154.15.182])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e28e8499sm11330585f8f.26.2026.08.27.12.09.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 27 Aug 2026 12:09:05 -0700 (PDT)
-Message-ID: <9e71daf9-aad4-4c8b-9fc4-7429f62130c7@blackwall.org>
-Date: Thu, 27 Aug 2026 22:09:04 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kCK46U9G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE3BC1F000E9;
+	Thu, 27 Aug 2026 19:09:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787857787;
+	bh=nmdUPSYR2AcdjAucovMZ8EmnRUeNl7d20UAIuOxbQ8k=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=kCK46U9GJsjgih26JbOgTFvf19ZRvaA3OjLF6t1W7k727EvqR/ZqCyJb9kG92Obs+
+	 yDXNJI2yu9tJoCRDRbEb2Scw3GqbPELEJLWdX88Gg01vfACI7Gw20B0U4e8ImItvWb
+	 B17FTjV/umV1s3xyAx0tDgRzVczL9U0ae3QU3YXv2/IZMyrLuchaYoAvWwJE264GTV
+	 FO9NJqDy8VpRHnBg1UkTx6F3BiEvCBqOPupJOioFmVH0QKrV8t7MpywAbXTnw2GXGn
+	 36+paRYqrDvnw5Mxh3EmxpotdMXOq+lVqNuBSSlCoq1x0VWjAdtqCLgRQAiFgPWIyo
+	 N78N0439LuNPQ==
+Message-ID: <ee4e771a-b8ef-4ffe-9b79-301c22033d5d@kernel.org>
+Date: Thu, 27 Aug 2026 21:09:39 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,231 +35,175 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v5 2/2] bonding: fix u32 overflow in compute_gap()
-Content-Language: en-US, bg
-To: David Laight <david.laight.linux@gmail.com>,
- Hangbin Liu <hangbin.liu@linux.dev>
-Cc: Jay Vosburgh <jv@jvosburgh.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Hangbin Liu <liuhangbin@kylinos.cn>
-References: <20260825-bond_overflow-v5-0-7a800de133f1@kylinos.cn>
- <20260825-bond_overflow-v5-2-7a800de133f1@kylinos.cn>
- <20260827192048.39ea95e6@pumpkin>
-From: Nikolay Aleksandrov <razor@blackwall.org>
-In-Reply-To: <20260827192048.39ea95e6@pumpkin>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v3 08/18] mm/huge_memory: move unmap and remap into the
+ split helpers
+To: Kairui Song <ryncsn@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
+ Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
+ Shivam Kalra <shivamkalra98@zohomail.in>
+References: <20260821-swap-thp-cleanup-v3-0-9b43f5163238@tencent.com>
+ <20260821-swap-thp-cleanup-v3-8-9b43f5163238@tencent.com>
+ <a7f16d6b-217e-400e-812a-528493d45134@kernel.org>
+ <CAMgjq7Ay3T6BRJ2E1kGD7BNq=4bMMOpw_EKOskM-9im_fjq-MQ@mail.gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <CAMgjq7Ay3T6BRJ2E1kGD7BNq=4bMMOpw_EKOskM-9im_fjq-MQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 27/08/2026 21:20, David Laight wrote:
-> On Tue, 25 Aug 2026 09:01:30 +0800
-> Hangbin Liu <hangbin.liu@linux.dev> wrote:
-> 
->> From: Hangbin Liu <liuhangbin@kylinos.cn>
+On 8/27/26 19:35, Kairui Song wrote:
+> On Fri, Aug 28, 2026 at 12:32 AM David Hildenbrand (Arm)
+> <david@kernel.org> wrote:
 >>
->> The TLB load-tracking fields tx_bytes, load_history, load, and
->> unbalanced_load are all u32. At sustained throughput above ~3.2 Gbit/s
->> over the 10-second rebalance interval the byte counters wrap, causing
->> compute_gap() to produce incorrect gap values and mis-select slaves.
->> Such speeds are common on modern NICs under heavy traffic.
+>> On 8/20/26 20:55, Kairui Song via B4 Relay wrote:
+>>> From: Kairui Song <kasong@tencent.com>
+>>>
+>>> To prepare for further cleanup, move the unmap/remap handling from
+>>> __folio_split() into the split helpers.  Only anon folios need to
+>>> be remapped, so remap_page() is now only called for anon splits and
+>>> the anon check in remap_page() is redundant and can be removed.
 >>
->> Widen these fields to u64. Use u64_stats_sync to protect the per-cpu
->> unbalanced_load_stats against tearing on 32-bit architectures, and
->> div_u64() for the 64-bit divisions. The tx_bytes and load_history
->> are protected in spin_lock. Also protect the slave load writing in
->> bond_alb_monitor() with spin_lock in case of tear on 32-bit.
+>> I can understand why we would want to move the remap_page().
+>>
+>> But why the unmap_folio()?
+>>
+>>>
+>>> Reviewed-by: Zi Yan <ziy@nvidia.com>
+>>> Signed-off-by: Kairui Song <kasong@tencent.com>
+>>> ---
+>>>  mm/huge_memory.c | 58 ++++++++++++++++++++++++++++++--------------------------
+>>>  1 file changed, 31 insertions(+), 27 deletions(-)
+>>>
+>>> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+>>> index 01c8cf428595..af9c2edd1fba 100644
+>>> --- a/mm/huge_memory.c
+>>> +++ b/mm/huge_memory.c
+>>> @@ -3589,9 +3589,6 @@ static void remap_page(struct folio *folio, unsigned long nr, int flags)
+>>>  {
+>>>       int i = 0;
+>>>
+>>> -     /* If unmap_folio() uses try_to_migrate() on file, remove this check */
+>>> -     if (!folio_test_anon(folio))
+>>> -             return;
+>>>       for (;;) {
+>>>               remove_migration_ptes(folio, folio, TTU_RMAP_LOCKED | flags);
+>>>               i += folio_nr_pages(folio);
+>>
+>> I think we should rename that function now to unmap_folio, but likely better
+>> unmap_anon_folio().
+>>
+>>> @@ -3933,19 +3930,23 @@ static unsigned int folio_cache_ref_count(const struct folio *folio)
+>>>       return folio_nr_pages(folio);
+>>>  }
+>>>
+>>> -static int __folio_freeze_split_unmapped_anon(struct folio *folio, unsigned int new_order,
+>>> -                                           struct page *split_at, bool do_lru,
+>>> -                                           struct list_head *list, enum split_type split_type)
+>>> +static int __folio_split_unmap_and_freeze_anon(struct folio *folio, unsigned int new_order,
+>>> +                                            struct page *split_at, bool do_lru, bool unmap,
+>>> +                                            struct list_head *list, enum split_type split_type)
+>>>  {
+>>>       struct folio *end_folio = folio_next(folio);
+>>>       struct swap_cluster_info *ci = NULL;
+>>>       struct folio *new_folio, *next;
+>>>       int old_order = folio_order(folio);
+>>> +     enum ttu_flags ttu_flags = 0;
+>>>       struct list_lru_one *lru;
+>>>       struct lruvec *lruvec;
+>>>       bool dequeue_deferred;
+>>>       int ret = 0;
+>>>
+>>> +     if (unmap)
+>>> +             unmap_folio(folio);
+>>
+>> I really hate that "bool unmap" parameter.
+>>
+>> folio_split_unmapped() has this VM_WARN_ON_ONCE_FOLIO(folio_mapped(folio), folio);
+>>
+>> So you can really just do
+>>
+>> if (folio_mapped())
+>>         unmap_folio(folio);
+>>
+>> Or have an early exit and hide it in unmap_folio().
 > 
-> How about changing the rebalance interval to either 8 or 16 seconds
-> to avoid the expensive divide?
-> Alternatively multiply the other side of the comparisons by the interval,
-> replacing the expensive divide with a cheap multiply.
+> The only special case here is device private memory, from folio_split_unmapped.
 > 
-> David
+> Maybe I can just keep the unmap_folfio where it is, but
+> __folio_split_unmap_and_freeze_anon need to know if the folio need to
+> be remapped.
 > 
+> Will a "bool remap" parameter look good?
 
-How is that relevant to these patches?
-And how does that help at all if today that is done at about 10 second interval?
+I'd avoid that and rather have something like the following in the function.
 
->>
->> Rework compute_gap() to use s64 arithmetic throughout. Return LLONG_MIN
->> when the speed is unknown.
->>
->> Detected by AI code review.
->>
->> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
->> Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
->> ---
->>   drivers/net/bonding/bond_alb.c | 52 ++++++++++++++++++++++++++++++------------
->>   include/net/bond_alb.h         | 11 +++++----
->>   2 files changed, 44 insertions(+), 19 deletions(-)
->>
->> diff --git a/drivers/net/bonding/bond_alb.c b/drivers/net/bonding/bond_alb.c
->> index 0afed2c39231..9a43a1f47893 100644
->> --- a/drivers/net/bonding/bond_alb.c
->> +++ b/drivers/net/bonding/bond_alb.c
->> @@ -6,6 +6,7 @@
->>   #include <linux/skbuff.h>
->>   #include <linux/netdevice.h>
->>   #include <linux/etherdevice.h>
->> +#include <linux/ethtool.h>
->>   #include <linux/pkt_sched.h>
->>   #include <linux/spinlock.h>
->>   #include <linux/slab.h>
->> @@ -74,8 +75,8 @@ static inline u8 _simple_hash(const u8 *hash_start, int hash_size)
->>   static inline void tlb_init_table_entry(struct tlb_client_info *entry, int save_load)
->>   {
->>   	if (save_load) {
->> -		entry->load_history = 1 + entry->tx_bytes /
->> -				      BOND_TLB_REBALANCE_INTERVAL;
->> +		entry->load_history = 1 + div_u64(entry->tx_bytes,
->> +				      BOND_TLB_REBALANCE_INTERVAL);
->>   		entry->tx_bytes = 0;
->>   	}
->>   
->> @@ -133,7 +134,7 @@ static int tlb_initialize(struct bonding *bond)
->>   	if (!new_hashtbl)
->>   		return -ENOMEM;
->>   
->> -	bond_info->unbalanced_load = alloc_percpu(struct unbalanced_load_stats);
->> +	bond_info->unbalanced_load = netdev_alloc_pcpu_stats(struct unbalanced_load_stats);
->>   	if (!bond_info->unbalanced_load)
->>   		goto out;
->>   
->> @@ -170,8 +171,14 @@ static void tlb_deinitialize(struct bonding *bond)
->>   
->>   static long long compute_gap(struct slave *slave)
->>   {
->> -	return (s64) (slave->speed << 20) - /* Convert to Megabit per sec */
->> -	       (s64) (SLAVE_TLB_INFO(slave).load << 3); /* Bytes to bits */
->> +	u32 raw_speed = READ_ONCE(slave->speed);
->> +
->> +	/* It's meaningless to compare gap on unknown speed NIC */
->> +	if (raw_speed == (u32)SPEED_UNKNOWN)
->> +		return LLONG_MIN;
->> +
->> +	return ((s64)raw_speed << 20) - /* Convert to bits per sec */
->> +	       ((s64)SLAVE_TLB_INFO(slave).load << 3); /* Bytes to bits */
->>   }
->>   
->>   static struct slave *tlb_get_least_loaded_slave(struct bonding *bond)
->> @@ -188,7 +195,7 @@ static struct slave *tlb_get_least_loaded_slave(struct bonding *bond)
->>   		if (bond_slave_can_tx(slave)) {
->>   			long long gap = compute_gap(slave);
->>   
->> -			if (max_gap < gap) {
->> +			if (!least_loaded || max_gap < gap) {
->>   				least_loaded = slave;
->>   				max_gap = gap;
->>   			}
->> @@ -1354,8 +1361,14 @@ static netdev_tx_t bond_do_alb_xmit(struct sk_buff *skb, struct bonding *bond,
->>   	if (!tx_slave) {
->>   		/* unbalanced or unassigned, send through primary */
->>   		tx_slave = rcu_dereference(bond->curr_active_slave);
->> -		if (bond->params.tlb_dynamic_lb)
->> -			this_cpu_add(bond_info->unbalanced_load->tx_bytes, skb->len);
->> +		if (bond->params.tlb_dynamic_lb) {
->> +			struct unbalanced_load_stats *pcpu_load;
->> +
->> +			pcpu_load = this_cpu_ptr(bond_info->unbalanced_load);
->> +			u64_stats_update_begin(&pcpu_load->syncp);
->> +			u64_stats_add(&pcpu_load->tx_bytes, skb->len);
->> +			u64_stats_update_end(&pcpu_load->syncp);
->> +		}
->>   	}
->>   
->>   	if (tx_slave && bond_slave_can_tx(tx_slave)) {
->> @@ -1539,21 +1552,27 @@ netdev_tx_t bond_alb_xmit(struct sk_buff *skb, struct net_device *bond_dev)
->>   	return bond_do_alb_xmit(skb, bond, tx_slave);
->>   }
->>   
->> -static u32 reset_unbalanced_load(struct alb_bond_info *bond_info)
->> +static u64 reset_unbalanced_load(struct alb_bond_info *bond_info)
->>   {
->> +	u64 delta, tx_bytes, total_bytes = 0;
->>   	struct unbalanced_load_stats *p;
->> -	u32 delta, total_bytes = 0;
->> +	unsigned int start;
->>   	int i;
->>   
->>   	for_each_possible_cpu(i) {
->>   		p = per_cpu_ptr(bond_info->unbalanced_load, i);
->> -		total_bytes += READ_ONCE(p->tx_bytes);
->> +		do {
->> +			start = u64_stats_fetch_begin(&p->syncp);
->> +			tx_bytes = u64_stats_read(&p->tx_bytes);
->> +		} while (u64_stats_fetch_retry(&p->syncp, start));
->> +
->> +		total_bytes += tx_bytes;
->>   	}
->>   
->>   	delta = total_bytes - bond_info->prev_total_unbalanced;
->>   	bond_info->prev_total_unbalanced = total_bytes;
->>   
->> -	return delta / BOND_TLB_REBALANCE_INTERVAL;
->> +	return div_u64(delta, BOND_TLB_REBALANCE_INTERVAL);
->>   }
->>   
->>   void bond_alb_monitor(struct work_struct *work)
->> @@ -1597,8 +1616,13 @@ void bond_alb_monitor(struct work_struct *work)
->>   	if (atomic_read(&bond_info->tx_rebalance_counter) >= BOND_TLB_REBALANCE_TICKS) {
->>   		bond_for_each_slave_rcu(bond, slave, iter) {
->>   			tlb_clear_slave(bond, slave, 1);
->> -			if (slave == rcu_access_pointer(bond->curr_active_slave))
->> -				SLAVE_TLB_INFO(slave).load = reset_unbalanced_load(bond_info);
->> +			if (slave == rcu_access_pointer(bond->curr_active_slave)) {
->> +				u64 new_load = reset_unbalanced_load(bond_info);
->> +
->> +				spin_lock_bh(&bond->mode_lock);
->> +				SLAVE_TLB_INFO(slave).load = new_load;
->> +				spin_unlock_bh(&bond->mode_lock);
->> +			}
->>   		}
->>   		atomic_set(&bond_info->tx_rebalance_counter, 0);
->>   	}
->> diff --git a/include/net/bond_alb.h b/include/net/bond_alb.h
->> index 6fb09b4fc7e2..32f1981033e4 100644
->> --- a/include/net/bond_alb.h
->> +++ b/include/net/bond_alb.h
->> @@ -57,12 +57,12 @@ struct tlb_client_info {
->>   				 * packets to a Client that the Hash function
->>   				 * gave this entry index.
->>   				 */
->> -	u32 tx_bytes;		/* Each Client accumulates the BytesTx that
->> +	u64 tx_bytes;		/* Each Client accumulates the BytesTx that
->>   				 * were transmitted to it, and after each
->>   				 * CallBack the LoadHistory is divided
->>   				 * by the balance interval
->>   				 */
->> -	u32 load_history;	/* This field contains the amount of Bytes
->> +	u64 load_history;	/* This field contains the amount of Bytes
->>   				 * that were transmitted to this client by
->>   				 * the server on the previous balance
->>   				 * interval in Bps.
->> @@ -118,19 +118,20 @@ struct tlb_slave_info {
->>   			 * are the entries that were assigned to use this
->>   			 * slave for transmit.
->>   			 */
->> -	u32 load;	/* Each slave sums the loadHistory of all clients
->> +	u64 load;	/* Each slave sums the loadHistory of all clients
->>   			 * assigned to it
->>   			 */
->>   };
->>   
->>   struct unbalanced_load_stats {
->> -	u32			tx_bytes;
->> +	u64_stats_t		tx_bytes;
->> +	struct u64_stats_sync	syncp;
->>   };
->>   
->>   struct alb_bond_info {
->>   	struct tlb_client_info	*tx_hashtbl; /* Dynamically allocated */
->>   	struct unbalanced_load_stats __percpu	*unbalanced_load;
->> -	u32			prev_total_unbalanced;
->> +	u64			prev_total_unbalanced;
->>   	atomic_t		tx_rebalance_counter;
->>   	int			lp_counter;
->>   	/* -------- rlb parameters -------- */
->>
-> 
+if (folio_mapped()) {
+	folio_unmapped = true;
+	unmap_folio(folio);
+}
 
+...
+
+if (folio_unmapped)
+	remap_anon_folio(folio)
+
+
+...
+
+-- 
+Cheers,
+
+David
