@@ -1,292 +1,226 @@
-Received: from mail-oi2-f4.google.com (mail-oi2-f4.google.com [74.125.231.196])
+Received: from mail-pj1-f100.google.com (mail-pj1-f100.google.com [209.85.216.100])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E00753D5C15
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 23:06:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.196
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EE9A3DA5DE
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 23:07:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.100
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787871990; cv=none; b=WJqjDt5VJ5/0WfQdykuIvBCbGwA3M3fwRt19HPstQcAqjLlR8VC6ixM5N7Vpox2jWXSxF5VV4aoR4QXjkLbJvW07IyJ1VD1NKYLkabLz1HfemI+asWuUpNnAUnDQVncUdFKZtgnAvNfeYrFO4W19frp9vT6T7v9kjkeQla+DbXw=
+	t=1787872055; cv=none; b=kJwCSgNft7gtkP75aWmTuAD3SqMiAlP7BMv/pp9jOjptKLCLlI2jh0KPzuStkLtyxVl53x8ZJKn0aznPvVD9xL1FkU40DRL3r+JMxKMsOB1rvgYkA6MvEUP0wKz//VeYa5QGBu1RjRPiwqsV8OCCwWVNTU4Ch44c7l98EaQ83J0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787871990; c=relaxed/simple;
-	bh=K3LyyJpRAekmCCOfNQss+bePvxqy+QslfZ/U7ZRt3ls=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=G2zWWb71zoFKD4ECRD2ULTNHGQpevn6vujj01iDmpWZ346pF7kNh3PliW0XvZala/sd+0HU/Qbag+3KQHBdM9S9XMQA0E15l3T2q0oP4atW/dyGa6zpYaO21cLhXNoXFjJRV278TfzubalN77lHBE6J9KjGhVOGcwBtOZOgkVzE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.196
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi2-f4.google.com with SMTP id 5614622812f47-4ab2d8e7e4cso127594b6e.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:06:28 -0700 (PDT)
+	s=arc-20240116; t=1787872055; c=relaxed/simple;
+	bh=bbTdg9JFa0Kc7VHmAph8O1Qrhzog291xrI6ik21lJvc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fSHeHU+TBE3Bkv9kUlTGvreguS1eaDoHJHu5Jm6GmVpwOUkzLzQMnEOW6Hk4kXjtn+L0CRQ/JGa6ijiEV3HAhfY49tmpM52p/5StFs5oSsWor8ySHcCfW0kaSpu5u3tsCBv3w08B3SHzpGuan2ogxFAYpssYf5Ayzc0yAJxCLhk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=Z1CNmlC2; arc=none smtp.client-ip=209.85.216.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="Z1CNmlC2"
+Received: by mail-pj1-f100.google.com with SMTP id 98e67ed59e1d1-39686abd426so295166a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:07:32 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787871988; x=1788476788;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=1e100.net; s=20251104; t=1787872051; x=1788476851;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PF7vnqoWvY9H/WFYkDrahMRq113tjCZCp/ft7oDU4iU=;
+        b=sYviJogelT1Lt4lOVIoxplweKssDtkXbBGPirOt7mKPbjYjqNMrSTn9o4JqSHZQFc7
+         jy2l1ZyMkkLYl6kvrGbYxEPl1HuyDNYNhOWbKXvV14ndG1ArzHPymkKhzc0YMuzN8Z/W
+         54adrgqBUx2o8c709k5d4hhOcuhC+E+8YI8iIzC4KhIbs6ZGeACc0yqp90uaAgnNcIwk
+         OrRuVlX4x9gS2jD6rn4hu2bxuM6BCjDrd13nZckmUINfkdK4xEajAcqpkDpFE/4KTPKk
+         f0cPlZDyI0CgXwc4rJKFt8iHt8zefmhrQbKbWTTu0CxL4JWP+QIsdXWA/smmZhpHvWf3
+         c6uQ==
+X-Forwarded-Encrypted: i=1; AHgh+RplzdiM6R3/8zjWVJUDxKyf5bULycqsqEPL18XyvyFWsv3sMKQhsx+zXmj1vl7e5H9ugikJAtZr15vnRPg=@vger.kernel.org
+X-Gm-Message-State: AFuF++kCZBs+kSo9xbs8t1H/tjtd99P+wdRaIsdTbue1+kKn/dk3WWyt
+	4GZnelVRUPu4/hCRQfepeM+mmc4n4+Jd+wGGjcKPoYJxIY0ZaJkJpdLY0fomXjDNYuNwnMvI242
+	qSubAGiITY3z8zx4pGa5Ay/RrR9hDQBpAw8qCNSed2j2w7No1qHYKv0Hig1fanNTXX82Pf++Yo1
+	g7ChPI5EgcAR9OprvEbw5Ub+89Wq2Po98WBTJKZkRky/8p32s6MAAg2OUeStlWhi7RBURbIf2C2
+	u7Hcbuv89pUqfiiV4Q=
+X-Gm-Gg: AR+sD1174tt1CS3lBOXDhQnRM8jIh696pXWJ83d/aEyhFosIwGJYolVaRAC/AF0ut7o
+	zxiTwP18fc+jx1qsyYQwMd77UbshxNjrXNLl/JRKDndL9IWAAnZbB2fKm3yi1AwJ6bFmbC8qV1T
+	ulE3Br4iS3GOgFZeEhclPZiiAaE1HwVCRikfyl0ZbE0HWc6Z2hzzDJPX52QWA5ONRk6H0qrvrRz
+	DuvNt5wsdub93VWb4pzZoBCZ6CN1PRPXflsODKkFxutAerWxyJqpvm4iBize7qL/l0RCN91/TWc
+	BSj0tKLlAFm0auwEH/2PYtTh+wBsmcn8OwEXDcSH99Tb27IgsDsMKRCecDId5qZctHdVDwre+3f
+	JU9DfW1Z16xz1HhAtNscAnbgLzFrcqfsfeIN0hKyWVqCRZoWZx2+jUKychd3KCWsoGkCQe6+/WU
+	bx6aafSGH7cIuk4x4o/KapVrWCb3TNQecapJXxkQ==
+X-Received: by 2002:a17:90b:2f0f:b0:380:540:d499 with SMTP id 98e67ed59e1d1-396d0ed0023mr5339171a91.6.1787872051234;
+        Thu, 27 Aug 2026 16:07:31 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-121.dlp.protect.broadcom.com. [144.49.247.121])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-396b0fa8dc1sm1451024a91.7.2026.08.27.16.07.30
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 27 Aug 2026 16:07:31 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-ed1-f70.google.com with SMTP id 4fb4d7f45d1cf-6a60a510987so244608a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:07:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1787872049; x=1788476849; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Qmf06zEQDbnZobpEwdaBR83TxTTiT72v/4d2EBQCVw4=;
-        b=WgPrhGylb149YhRYdjJadKdnv6gvsPkEwyMudGf7Suwxyr1WrMk+zTDUp7zUZns722
-         PLgHiUuS1iL1XUuyboxaMfNUfJgTgo1xsBWWz/yXQUF5hsBmvEqg34JWVU/X0+c7rj1x
-         QkU7DmbmrkNRrWvZ8mo3vJLvRnp2/QeDRFK7zwSsC8ranA4hnGAenGN2AJzPPu22cx6y
-         SlvMKHlNPcoYFjKUxpFGEdQPg5+t+5sQ7h9wHnil9g8pp+H88aV40DbUFpVgYP0ZkvXW
-         60goAMbUr5Tc+t/S7CqLwwyL67LaadjTSeyhaqHieiTye/zHOw7tKsOosHleKNXdhspq
-         IjDg==
-X-Forwarded-Encrypted: i=1; AHgh+Rpv3z5V/PKjc5Orq0Ln47V7WJEu8z9KiPqOnX4mumgsag+rLG1UWFtRNX1UpuRLuS5u3G4j0QtmyGJV3v8=@vger.kernel.org
-X-Gm-Message-State: AFuF++n38NyqLK2Fvpxq+HPEOcRyNoLjlJx3jbPc48ETdjeXBZDy4cbt
-	Lii/luMqRrL5eunpbmW18Pr3zYdZbskYzymLAL1Eg6MvPzPdHQHgty+iMpXbtTvYo05v4V6cjN7
-	1VvgrFZ+MskAiG8z+HpXa9hUSVA/jZk2RXPnjQBKmZAhuwpB+NStiMgcido0=
+        bh=PF7vnqoWvY9H/WFYkDrahMRq113tjCZCp/ft7oDU4iU=;
+        b=Z1CNmlC2n/T1C6xEzZKlnzkWmPdkNuDVWpU4yjuKov4mGw6T75QshyzrnwpYEUZr37
+         +mE4O49oNNEMZRx1WkcIXbb2XvFZj1W7GzBnvKbmA6WQqvyFwvtLsXW7fYszM9ttaVta
+         RzzboCeB36btE2HUzM5+mlxxt9Le0TpE/V2s4=
+X-Forwarded-Encrypted: i=1; AHgh+Ro2HWYjPeKUvD2YcUL5p+lBaAK/XEsPmPmsvdJo25CgU5LdG5xEcZCPhB/xkIz8fLhqCUBEYhz2LTHrmuY=@vger.kernel.org
+X-Received: by 2002:a05:6402:44c4:b0:6a4:21c6:1d14 with SMTP id 4fb4d7f45d1cf-6a60d15f4b9mr1059314a12.0.1787872049355;
+        Thu, 27 Aug 2026 16:07:29 -0700 (PDT)
+X-Received: by 2002:a05:6402:44c4:b0:6a4:21c6:1d14 with SMTP id
+ 4fb4d7f45d1cf-6a60d15f4b9mr1059292a12.0.1787872048918; Thu, 27 Aug 2026
+ 16:07:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1c0e:b0:486:8a11:6e8b with SMTP id
- 5614622812f47-4b397f9f538mr3445107b6e.2.1787871987840; Thu, 27 Aug 2026
- 16:06:27 -0700 (PDT)
-Date: Thu, 27 Aug 2026 16:06:27 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a90c2f3.4d659fcc.734b4.0017.GAE@google.com>
-Subject: [syzbot] [nfs?] INFO: task hung in nfsd_nrthreads
-From: syzbot <syzbot+86a9d43d89b86def6d59@syzkaller.appspotmail.com>
-To: Dai.Ngo@oracle.com, cel@kernel.org, jlayton@kernel.org, 
-	linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, neil@brown.name, 
-	okorniev@redhat.com, syzkaller-bugs@googlegroups.com, tom@talpey.com
+References: <20260827185700.2157164-1-joe@dama.to>
+In-Reply-To: <20260827185700.2157164-1-joe@dama.to>
+From: Michael Chan <michael.chan@broadcom.com>
+Date: Thu, 27 Aug 2026 16:07:16 -0700
+X-Gm-Features: AcwNN1WAU4dLCKrvJBx349gD-WHw0mwDs76fZv8G0nESP3RnD5CVTvjCeEbfZYM
+Message-ID: <CACKFLikJiCdjej4ezF=U16Leef3oAjSZGQAyetRnF=nLRvUfZA@mail.gmail.com>
+Subject: Re: [PATCH net v3] bnxt_en: Bound SW TPA IDs to prevent crashes
+To: Joe Damato <joe@dama.to>
+Cc: netdev@vger.kernel.org, Pavan Chebbi <pavan.chebbi@broadcom.com>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+	Colin Winegarden <colin.winegarden@broadcom.com>, 
+	Rukhsana Ansari <rukhsana.ansari@broadcom.com>, 
+	Kalesh AP <kalesh-anakkur.purayil@broadcom.com>, horms@kernel.org, 
+	linux-kernel@vger.kernel.org, raphaelcf@meta.com, stable@vger.kernel.org, 
+	llvm@lists.linux.dev
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
+	boundary="0000000000006c1e90065a0f6601"
+
+--0000000000006c1e90065a0f6601
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+On Thu, Aug 27, 2026 at 11:57=E2=80=AFAM Joe Damato <joe@dama.to> wrote:
 
-syzbot found the following issue on:
+> @@ -3831,6 +3834,7 @@ static int bnxt_alloc_tpa_info(struct bnxt *bp)
+>         int i, rc;
+>
+>         bp->max_tpa =3D MAX_TPA;
+> +       bp->max_tpa_roundup_size =3D MAX_TPA;
 
-HEAD commit:    502d45774af0 Merge tag 'clk-for-linus' of git://git.kernel..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=11d58d49580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=c2d3e2a7997c1d5c
-dashboard link: https://syzkaller.appspot.com/bug?extid=86a9d43d89b86def6d59
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+This is strictly not needed.  If we return early below, it means the
+chip does not support TPA at all.  We skip allocating the TPA array
+for every ring, so it really makes no difference.
 
-Unfortunately, I don't have any reproducer for this issue yet.
+BNXT_SUPPORTS_TPA() will be false if we return early.  LRO and HW_GRO
+will not be supported.  So I would say it's a false positive from
+Sashiko.  Thanks.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/13c40240edf7/disk-502d4577.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/ccf7e87c89cc/vmlinux-502d4577.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/9feb3a41684b/bzImage-502d4577.xz
+>         if (bp->flags & BNXT_FLAG_CHIP_P5_PLUS) {
+>                 if (!bp->max_tpa_v2)
+>                         return 0;
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+86a9d43d89b86def6d59@syzkaller.appspotmail.com
+--0000000000006c1e90065a0f6601
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
 
-INFO: task syz.5.1942:10848 blocked for more than 143 seconds.
-      Tainted: G             L      syzkaller #0
-"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-task:syz.5.1942      state:D stack:27656 pid:10848 tgid:10847 ppid:8546   task_flags:0x400140 flags:0x00080002
-Call Trace:
- <TASK>
- context_switch kernel/sched/core.c:5520 [inline]
- __schedule+0x1259/0x6920 kernel/sched/core.c:7270
- __schedule_loop kernel/sched/core.c:7347 [inline]
- schedule+0xdd/0x2c0 kernel/sched/core.c:7362
- schedule_preempt_disabled+0x13/0x30 kernel/sched/core.c:7419
- __mutex_lock_common kernel/locking/mutex.c:726 [inline]
- __mutex_lock+0xcbf/0x1bc0 kernel/locking/mutex.c:821
- nfsd_nrthreads+0x57/0xd0 fs/nfsd/nfssvc.c:252
- write_threads+0x34a/0x600 fs/nfsd/nfsctl.c:445
- nfsctl_transaction_write+0x106/0x1a0 fs/nfsd/nfsctl.c:114
- vfs_write+0x2aa/0x1050 fs/read_write.c:685
- ksys_write+0x12a/0x250 fs/read_write.c:739
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f27b1d9e0d9
-RSP: 002b:00007f27b2bd1028 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
-RAX: ffffffffffffffda RBX: 00007f27b2025fa0 RCX: 00007f27b1d9e0d9
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000003
-RBP: 00007f27b1e35024 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f27b2026038 R14: 00007f27b2025fa0 R15: 00007fffbfec4448
- </TASK>
-INFO: task syz.5.1942:10849 blocked for more than 143 seconds.
-      Tainted: G             L      syzkaller #0
-"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-task:syz.5.1942      state:D stack:28728 pid:10849 tgid:10847 ppid:8546   task_flags:0x400040 flags:0x00080002
-Call Trace:
- <TASK>
- context_switch kernel/sched/core.c:5520 [inline]
- __schedule+0x1259/0x6920 kernel/sched/core.c:7270
- __schedule_loop kernel/sched/core.c:7347 [inline]
- schedule+0xdd/0x2c0 kernel/sched/core.c:7362
- schedule_preempt_disabled+0x13/0x30 kernel/sched/core.c:7419
- __mutex_lock_common kernel/locking/mutex.c:726 [inline]
- __mutex_lock+0xcbf/0x1bc0 kernel/locking/mutex.c:821
- fdget_pos+0x2aa/0x380 fs/file.c:1259
- class_fd_pos_constructor include/linux/file.h:85 [inline]
- ksys_read+0x71/0x250 fs/read_write.c:707
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f27b1d9e0d9
-RSP: 002b:00007f27b2bb0028 EFLAGS: 00000246 ORIG_RAX: 0000000000000000
-RAX: ffffffffffffffda RBX: 00007f27b2026090 RCX: 00007f27b1d9e0d9
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000003
-RBP: 00007f27b1e35024 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f27b2026128 R14: 00007f27b2026090 R15: 00007fffbfec4448
- </TASK>
-
-Showing all locks held in the system:
-locks held by khungtaskd/31: 1, last CPU#0:
- #0: ffffffff8edec060 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- #0: ffffffff8edec060 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
- #0: ffffffff8edec060 (rcu_read_lock){....}-{1:3}, at: debug_show_all_locks+0x3d/0x184 kernel/locking/lockdep.c:6793
-locks held by getty/5352: 2, on CPU#0:
- #0: ffff8880338b20a0 (&tty->ldisc_sem){++++}-{0:0}, at: tty_ldisc_ref_wait+0x24/0x80 drivers/tty/tty_ldisc.c:243
- #1: ffffc9000321e2e8 (&ldata->atomic_read_lock){+.+.}-{4:4}, at: n_tty_read+0x419/0x14e0 drivers/tty/n_tty.c:2211
-locks held by syz.4.1396/9282: 3, on CPU#1:
- #0: ffff888020b775f0 (&f->f_pos_lock){+.+.}-{4:4}, at: fdget_pos+0x2aa/0x380 fs/file.c:1259
- #1: ffff88807db82460 (sb_writers#22){.+.+}-{0:0}, at: ksys_write+0x12a/0x250 fs/read_write.c:739
- #2: ffffffff8f284440 (nfsd_mutex){+.+.}-{4:4}, at: write_ports+0xa5/0xcc0 fs/nfsd/nfsctl.c:867
-locks held by syz.5.1942/10848: 3, on CPU#1:
- #0: ffff88807562deb0 (&f->f_pos_lock){+.+.}-{4:4}, at: fdget_pos+0x2aa/0x380 fs/file.c:1259
- #1: ffff888040656460 (sb_writers#22){.+.+}-{0:0}, at: ksys_write+0x12a/0x250 fs/read_write.c:739
- #2: ffffffff8f284440 (nfsd_mutex){+.+.}-{4:4}, at: nfsd_nrthreads+0x57/0xd0 fs/nfsd/nfssvc.c:252
-locks held by syz.5.1942/10849: 1, on CPU#0:
- #0: ffff88807562deb0 (&f->f_pos_lock){+.+.}-{4:4}, at: fdget_pos+0x2aa/0x380 fs/file.c:1259
-locks held by kworker/u8:14/13269: 4, last CPU#0:
- #0: ffff88801f3d2940 ((wq_completion)iou_exit){+.+.}-{0:0}, at: process_one_work+0x1466/0x1b10 kernel/workqueue.c:3362
- #1: ffffc9000611fd08 ((work_completion)(&ctx->exit_work)){+.+.}-{0:0}, at: process_one_work+0xa2c/0x1b10 kernel/workqueue.c:3363
- #2: ffff88807f4d40a0 (&ctx->uring_lock){+.+.}-{4:4}, at: class_mutex_constructor include/linux/mutex.h:253 [inline]
- #2: ffff88807f4d40a0 (&ctx->uring_lock){+.+.}-{4:4}, at: io_req_caches_free io_uring/io_uring.c:2150 [inline]
- #2: ffff88807f4d40a0 (&ctx->uring_lock){+.+.}-{4:4}, at: io_ring_exit_work+0x422/0xd59 io_uring/io_uring.c:2354
- #3: ffffffff8edec060 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- #3: ffffffff8edec060 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
- #3: ffffffff8edec060 (rcu_read_lock){....}-{1:3}, at: class_rcu_constructor include/linux/rcupdate.h:1216 [inline]
- #3: ffffffff8edec060 (rcu_read_lock){....}-{1:3}, at: unwind_next_frame+0xbd/0x2090 arch/x86/kernel/unwind_orc.c:495
-locks held by kworker/u8:22/14261: 2, on CPU#1:
- #0: ffff88801c094140 ((wq_completion)events_unbound){+.+.}-{0:0}, at: process_one_work+0x1466/0x1b10 kernel/workqueue.c:3362
- #1: ffffc90006c9fd08 ((reaper_work).work){+.+.}-{0:0}, at: process_one_work+0xa2c/0x1b10 kernel/workqueue.c:3363
-locks held by syz.0.3240/15025: 3, on CPU#1:
- #0: ffff8880756840f0 (&f->f_pos_lock){+.+.}-{4:4}, at: fdget_pos+0x2aa/0x380 fs/file.c:1259
- #1: ffff888037bb8460 (sb_writers#10){.+.+}-{0:0}, at: ksys_write+0x12a/0x250 fs/read_write.c:739
- #2: ffff888056933080 (&of->mutex){+.+.}-{4:4}, at: kernfs_fop_write_iter+0x2c2/0x5f0 fs/kernfs/file.c:336
-locks held by syz.0.3240/15030: 1, on CPU#1:
- #0: ffff8880756840f0 (&f->f_pos_lock){+.+.}-{4:4}, at: fdget_pos+0x2aa/0x380 fs/file.c:1259
-locks held by syz-executor/15160: 4, last CPU#0:
- #0: ffffffff8ef3cab0 (dup_mmap_sem){++++}-{0:0}, at: dup_mm kernel/fork.c:1542 [inline]
- #0: ffffffff8ef3cab0 (dup_mmap_sem){++++}-{0:0}, at: copy_mm kernel/fork.c:1595 [inline]
- #0: ffffffff8ef3cab0 (dup_mmap_sem){++++}-{0:0}, at: copy_process+0x4815/0x8370 kernel/fork.c:2307
- #1: ffff8880504e1d38 (&mm->mmap_lock){++++}-{4:4}, at: mmap_write_lock_killable include/linux/mmap_lock.h:562 [inline]
- #1: ffff8880504e1d38 (&mm->mmap_lock){++++}-{4:4}, at: dup_mmap+0x127/0x2370 mm/mmap.c:1716
- #2: ffff8880339829f8 (&mm->mmap_lock/1){+.+.}-{4:4}, at: mmap_write_lock_nested include/linux/mmap_lock.h:552 [inline]
- #2: ffff8880339829f8 (&mm->mmap_lock/1){+.+.}-{4:4}, at: dup_mmap+0x1c9/0x2370 mm/mmap.c:1723
- #3: ffffffff8edec060 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- #3: ffffffff8edec060 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
- #3: ffffffff8edec060 (rcu_read_lock){....}-{1:3}, at: __pte_offset_map+0x2f/0x310 mm/pgtable-generic.c:290
-locks held by syz.4.3499/15896: 1, last CPU#1:
- #0: ffff88803306aac8 (&pcm->open_mutex){+.+.}-{4:4}, at: snd_pcm_oss_release+0xfb/0x300 sound/core/oss/pcm_oss.c:2589
-
-=============================================
-
-NMI backtrace for cpu 0
-CPU: 0 UID: 0 PID: 31 Comm: khungtaskd Tainted: G             L      syzkaller #0 PREEMPT(full) 
-Tainted: [L]=SOFTLOCKUP
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- nmi_cpu_backtrace.cold+0x12d/0x151 lib/nmi_backtrace.c:123
- nmi_trigger_cpumask_backtrace+0x21f/0x2a0 lib/nmi_backtrace.c:66
- trigger_all_cpu_backtrace include/linux/nmi.h:164 [inline]
- __sys_info lib/sys_info.c:157 [inline]
- sys_info+0x141/0x190 lib/sys_info.c:165
- check_hung_uninterruptible_tasks kernel/hung_task.c:353 [inline]
- watchdog+0xcb1/0x1030 kernel/hung_task.c:561
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-Sending NMI from CPU 0 to CPUs 1:
-NMI backtrace for cpu 1
-CPU: 1 UID: 0 PID: 15832 Comm: syz.1.3471 Tainted: G             L      syzkaller #0 PREEMPT(full) 
-Tainted: [L]=SOFTLOCKUP
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
-RIP: 0010:__sanitizer_cov_trace_pc+0x6b/0x70 kernel/kcov.c:231
-Code: 82 08 17 00 00 83 f8 02 75 20 48 8b 8a 10 17 00 00 8b 92 0c 17 00 00 48 8b 01 48 83 c0 01 48 39 d0 73 07 48 89 01 48 89 34 c1 <e9> 40 e1 c4 09 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 f3
-RSP: 0018:ffffc90004e378f0 EFLAGS: 00000046
-RAX: 0000000000080000 RBX: ffff88802d38a2bc RCX: ffffc9001b780000
-RDX: 0000000000080000 RSI: ffffffff820ec036 RDI: ffff88805a58cb00
-RBP: 0000000000000001 R08: 0000000000000007 R09: 0000000000000000
-R10: 00000000000002ac R11: 0000000000000001 R12: 0000000000000000
-R13: ffffc90004e379a8 R14: 0000000000000000 R15: ffff88801d2bc000
-FS:  00007fb805db56c0(0000) GS:ffff888123c6d000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000001b34422ff8 CR3: 00000000297f8000 CR4: 00000000003526f0
-DR0: 0000000000000000 DR1: 000000000000000a DR2: 0000000000000000
-DR3: 00000000c0f00480 DR6: 00000000ffff0ff0 DR7: 0000000000000400
-Call Trace:
- <TASK>
- rb_reserve_next_event kernel/trace/ring_buffer.c:4988 [inline]
- ring_buffer_lock_reserve+0x4b6/0x1220 kernel/trace/ring_buffer.c:5039
- __trace_buffer_lock_reserve kernel/trace/trace.h:1676 [inline]
- trace_event_buffer_lock_reserve+0x123/0x6f0 kernel/trace/trace.c:1924
- trace_event_buffer_reserve+0x1f9/0x350 kernel/trace/trace_events.c:715
- do_trace_event_raw_event_msr_trace_class arch/x86/include/asm/msr-trace.h:21 [inline]
- trace_event_raw_event_msr_trace_class+0xe8/0x270 arch/x86/include/asm/msr-trace.h:21
- __do_trace_write_msr arch/x86/include/asm/msr-trace.h:45 [inline]
- trace_write_msr+0x160/0x1f0 arch/x86/include/asm/msr-trace.h:45
- apic_write arch/x86/include/asm/apic.h:405 [inline]
- lapic_next_event+0x10/0x20 arch/x86/kernel/apic/apic.c:418
- clockevents_program_event+0x375/0x820 kernel/time/clockevents.c:372
- tick_program_event+0xa9/0x140 kernel/time/tick-oneshot.c:48
- hrtimer_rearm_event kernel/time/hrtimer.c:710 [inline]
- hrtimer_rearm kernel/time/hrtimer.c:2169 [inline]
- __hrtimer_rearm_deferred+0x234/0x7b0 kernel/time/hrtimer.c:2189
- hrtimer_rearm_deferred_tif include/linux/hrtimer_rearm.h:58 [inline]
- hrtimer_rearm_deferred include/linux/hrtimer_rearm.h:67 [inline]
- irqentry_exit_to_kernel_mode_after_preempt include/linux/irq-entry-common.h:505 [inline]
- irqentry_exit_to_kernel_mode include/linux/irq-entry-common.h:542 [inline]
- irqentry_exit+0x5f3/0xa10 kernel/entry/common.c:167
- asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
-RIP: 0010:__raw_spin_unlock_irq include/linux/spinlock_api_smp.h:220 [inline]
-RIP: 0010:_raw_spin_unlock_irq+0x29/0x50 kernel/locking/spinlock.c:229
-Code: 90 f3 0f 1e fa 53 48 8b 74 24 08 48 89 fb 48 83 c7 18 e8 ca a7 16 f6 48 89 df e8 e2 fd 16 f6 e8 cd b7 43 f6 fb bf 01 00 00 00 <e8> e2 07 06 f6 65 48 83 3d 71 c6 ba 08 00 74 06 5b c3 cc cc cc cc
-RSP: 0018:ffffc90004e37e40 EFLAGS: 00000206
-RAX: 0000000000050741 RBX: ffff88802da61bc0 RCX: 0000000000000000
-RDX: 0000000000000001 RSI: ffffffff8e3eb0b9 RDI: 0000000000000001
-RBP: ffff88805a58d498 R08: 0000000000000001 R09: 0000000000000000
-R10: 0000000000000001 R11: 0000000000000000 R12: ffff88805a58cb00
-R13: 0000000100000000 R14: 0000000000000007 R15: 0000000000000000
- spin_unlock_irq include/linux/spinlock.h:413 [inline]
- __set_current_blocked kernel/signal.c:3227 [inline]
- set_current_blocked+0xdd/0x120 kernel/signal.c:3211
- __do_sys_rt_sigreturn+0x1a2/0x2c0 arch/x86/kernel/signal_64.c:263
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fb804f3f459
-Code: 11 06 00 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 40 00 90 66 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 40 00 48 c7 c0 0f 00 00 00 0f 05 <0f> 1f 80 00 00 00 00 48 81 ec 48 01 00 00 49 89 d0 64 48 8b 0c 25
-RSP: 002b:00007fb805db4340 EFLAGS: 00000206 ORIG_RAX: 000000000000000f
-RAX: ffffffffffffffda RBX: 00007fb805225fa0 RCX: 00007fb804f3f459
-RDX: 00007fb805db4340 RSI: 00007fb805db4470 RDI: 0000000000000021
-RBP: 00007fb805035024 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000206 R12: 0000000000000000
-R13: 00007fb805226038 R14: 00007fb805225fa0 R15: 00007ffee7eee2b8
- </TASK>
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+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
+DPVtLUtep/P3evQuAtTQRaKedjamBcUpJ7qUhBuv/Z07LlLIlB/vfNSPWe1V+njTezc8m3VfvNEC
+qEpXasPSfDgfcuUhcPR+7++oUDaTt9iqGFOjwiURxx08pL6ogSuiT41O4Xu7msabnUE6RY0O0xR5
+5UGwbpC1QSmnBq7TAy8oQg/nNw4vowEh3S2lmjdHCOdR270Ygd7jet8WQKa5ia4ZK4QdkS8+5uLt
+rMMRyM3QurndiZZJBipjPvEWJR/+jod8867f3n0CAwEAAaOCAd0wggHZMA4GA1UdDwEB/wQEAwIF
+oDAMBgNVHRMBAf8EAjAAMIGTBggrBgEFBQcBAQSBhjCBgzBGBggrBgEFBQcwAoY6aHR0cDovL3Nl
+Y3VyZS5nbG9iYWxzaWduLmNvbS9jYWNlcnQvZ3NnY2NyNnNtaW1lY2EyMDIzLmNydDA5BggrBgEF
+BQcwAYYtaHR0cDovL29jc3AuZ2xvYmFsc2lnbi5jb20vZ3NnY2NyNnNtaW1lY2EyMDIzMGUGA1Ud
+IAReMFwwCQYHZ4EMAQUDAzALBgkrBgEEAaAyASgwQgYKKwYBBAGgMgoDAjA0MDIGCCsGAQUFBwIB
+FiZodHRwczovL3d3dy5nbG9iYWxzaWduLmNvbS9yZXBvc2l0b3J5LzBBBgNVHR8EOjA4MDagNKAy
+hjBodHRwOi8vY3JsLmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWltZWNhMjAyMy5jcmwwJAYDVR0R
+BB0wG4EZbWljaGFlbC5jaGFuQGJyb2FkY29tLmNvbTATBgNVHSUEDDAKBggrBgEFBQcDBDAfBgNV
+HSMEGDAWgBQAKTaeXHq6D68tUC3boCOFGLCgkjAdBgNVHQ4EFgQUJbO/Fi7RhZHYmATVQf6NlAH2
+qUcwDQYJKoZIhvcNAQELBQADggIBABcLQEF8mPE9o6GHJd52vmHFsKsf8vRmdMEouFxrW+GhXXzg
+2/AqqhXeeFZki82D6/5VAPkeVcgDeGZ43Bv89GHnjh/Vv0iCUGHgClZezpWdKCAXkn698xoh1+Wx
+K/c/SHMqGWfBSVm1ygKAWkmzJLF/rd4vUE0pjvZVBpNSVkjXgc80dTZcs7OvoFnt14UgvjuYe+Ia
+H/ux6819kbi0Tmmj5LwSZW8GXw3zcPmAyEYc0ZDCZk9QckL5yPzMlTAsy0Q+NMVpJ8onLj/mHgTk
+Ev8zt1OUE8MlXZj2+wgVY+az2T8rGmqRU2iOzRlJnc86qVwuwjL9AA9v4R13Yt8zYyA7jL0NiBNP
+WaOSajKBB5Z/4ZVtcvOMILD1+G+CVZX7GUWERT9NRXw/SyIEMU59lFbuvy4zxe3+RbOleCgp3pze
+q8HE2p9rkOJT3MkCNLxe+ij4RytIvPQXACsZeLdfTDUnjeXCDDJ9KugVhuqMelAZc4NissPz8FOn
+2NK++r5/QamlFqYRhsFxSBIvhkh2Q/hD3/zy4j17Yf/FUje5uyg03FblSBOk2WYpRpXEuCpyn5pb
+bYVIzfhQJgwGfO+L8BAeZIFjO1QL3s/zzn+RBlTl4wdDzh8L9eS+QEDhMcSsqb4fFRDbsoVuRjpx
+R5MunSUzk4GcmmM19m7oHhPGeKwIMYICVzCCAlMCAQEwYjBSMQswCQYDVQQGEwJCRTEZMBcGA1UE
+ChMQR2xvYmFsU2lnbiBudi1zYTEoMCYGA1UEAxMfR2xvYmFsU2lnbiBHQ0MgUjYgU01JTUUgQ0Eg
+MjAyMwIMZh03KTi4m/vsqWZxMA0GCWCGSAFlAwQCAQUAoIHHMC8GCSqGSIb3DQEJBDEiBCC+KYQQ
+0pzXN/aYFLVCpwhfHT/GUwfM5PdcVCxM7k0XnjAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwG
+CSqGSIb3DQEJBTEPFw0yNjA4MjcyMzA3MjlaMFwGCSqGSIb3DQEJDzFPME0wCwYJYIZIAWUDBAEq
+MAsGCWCGSAFlAwQBFjALBglghkgBZQMEAQIwCgYIKoZIhvcNAwcwCwYJKoZIhvcNAQEHMAsGCWCG
+SAFlAwQCATANBgkqhkiG9w0BAQEFAASCAQAeRUkOkaxDkqYWi+plrDFMiBUToj6TaFU08KmsFCrZ
+5odpV3E7deHGnUL0ERf8oyCxuccrDmwAF/Wv79Oot+auTrcOXxiU9FtrFi7IYBt/t9rmFZOxDqzc
+58Cyxs67Jh7OJbkfF7XQaa/H0rFnPMDkdPTCqTvYjVELQNhjHrIVETbDLal12qKreLjat12iIOrM
+AfjBCPcYg9wLU59x4AEHjE82nZPJeC/raMLacbNu9vZSZMcu6K9otzHNKmE/4kc7lvJGxneYBmQ1
+WRZ1vunJ0N6Pa6+BNn+N1BFaejkCJhUqD8wQ6omXwg+mQbj2d2SoJ4vqkITJVyWFvpfjQgTD
+--0000000000006c1e90065a0f6601--
