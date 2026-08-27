@@ -1,97 +1,64 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-193.mta1.migadu.com [95.215.58.193])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 156C43F787E
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:36:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 448584078CE
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:37:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.193
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787826996; cv=none; b=JEwIKTq2l8gmg2Hw5+xxzW+1Vpj/1E96SawBVPkDoWllu3OEEU0TirZccKh5FeGf0X4TWpJhatMuYb6PleG9JwQn4tAntMmev5YdvxfdMJtJx4jeS9vSfthFcWdSa/bgptwDA7Dnllk0n51tGBqSSsZWoikTb2MRJ+ma07yjDcM=
+	t=1787827027; cv=none; b=aGu5exvsol5X8vjr1vQSbstZSeIQhsJqG1a/t8frrllq3r7EDOcihKBBhjIQGYipZQQSx4mQygBMbq/I3+gKLZzOM6q3G/NUnVkQ5HfbTxeKKRBekp/aEl3p3wFGR0yTLWWGe7VOh6GDxlrHZlz5b+3VetlhyFQ6Yy+8g6C7GJ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787826996; c=relaxed/simple;
-	bh=R8NdFiTTELsNPWU5Kfh3V0If350yDqkrd80DIpjhzBo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=j7di2biaq7UNlUfb7baqx8EyyvG5LdJetzikQgTz4s3axYiqj14kTmKivV3US4hjNgTABFOB7uj2b4SNxPnYVIvbgQeAOWH5L1KUt60dx+B4g4DeL6FgHQRG5gIZ7pW/46iZpzm+w0pEvuvBOAIhrXnSTPJd2D3w3PUTlTrEQlE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OOgPKaVk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VmIieSEK; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787827027; c=relaxed/simple;
+	bh=1ZjfrCA2Bn7B9nyXIM3hZk40HAEkBRrlXow1cP7e6/M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=p2KXDTMPMHn7MhVFuMpbs+MmK52K3jxuy97wf9qhWl4rMzhRPK6pY/mAlPd+0GFhvnx2DNBCxWbmNihpwVcgz+ea8Oto23ifaJcftNuht2/zqLOzEmynyf47Kko2RD0A+T47Cy+CWxU6s5WSnHs5Ob5CNH5mZlVhEPu/bbWhU8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ca+KZQEo; arc=none smtp.client-ip=95.215.58.193
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OOgPKaVk";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VmIieSEK"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67R9H7vO3654639
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:36:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=49BmMEhz3FqoDnV6VvO1AkxNDAyy7o57JLC
-	z/BedGoQ=; b=OOgPKaVkAxVfVboRi0fJHNcCevK5jbr/9SFhmGMyWJacehZ6gRk
-	gUr4t88ttFd6jyicMhKxFv7LvqeztWMGst4sK72y6hX9z190lNyyCQ5/FtZ8LV9U
-	nv1RPHc2bjDldsooc7eyPWIHMQgVGxZP+6vx8F8+UWWqD+Y9hwL8+7XeMmOyn523
-	ZxgGF6QNdJD2iZ8cdwBYJ6kYy1drfQDVBTFM1dV56yuwSgIjiQKzbLVXWeXZeSGz
-	MqZuwLIBBG9tYWXkYCiRAECerrMTPqMN1hTpkadlHLZ5KUWDEJkz2PjmwqsK4jJa
-	2exqHdD+qhwnVox+yKLDrwYtiNewA2Tq6Kg==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ga075cgq7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:36:33 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2cc73f47bdcso8074725ad.3
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 03:36:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787826993; x=1788431793; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=49BmMEhz3FqoDnV6VvO1AkxNDAyy7o57JLCz/BedGoQ=;
-        b=VmIieSEKbPzwWKawSNnGX/I0sf1ZRwzyGOr7oD4XS0YZzive235W0bSXkihTgvCUUa
-         uS+BrCq+7tvdTnp5JIBfSyA9gnCQHfkPIYr6e7ZGWMVhsTdUu5SBTfMS2R4BvIn6y0aF
-         W44sPzPTmcUrColLLMExaz8gwjwQKe3sjPVP87nHPbmyCwjZcdWV6Chmq4ZmOSLw9rBo
-         pHpklruhG3ztBQpqk+VjxGY9XWQ5vkJerOsxKFSL0vQl1fxE8tx08RyxZ8DmmnrcKnUp
-         k6pMpQ3ONpyhwA9ndttOzY+vaIyQeA/gGfwx2G3O7sh1ll8x2VjF0jNYuLSAFZtyw6m7
-         OIFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787826993; x=1788431793;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=49BmMEhz3FqoDnV6VvO1AkxNDAyy7o57JLCz/BedGoQ=;
-        b=ILyA8AtYpTcgwGdHIzChq5EeLZt4n6LmLTuv6qES/TaPvFAvZl6u7xsBtuRr7j3/mR
-         xCyuMv6uBY30BJApLlqJODT78ZAS8f6aVwrX0YNRVhHXQuM3qy6w1TH/jfkPiQDxpSef
-         ykpZTLRp4nz9KzDQjyMjapEXwO41vwgZJXEH/8bFNiSTBkCMB5tgO0Fo5uPUI8X0oNBq
-         nF39KnV0oKIrD88ETmPQsyLFyyutSBth4N+rWBXjy+2AT+SULhDqbdVvNt3ZUdQE1pAi
-         lsrSSpD+Ygpc9XVqgiBz71gtSv7AOK5JBj+PrBBVZWcrRJHki1xz4mRiH/htCKBJr3g+
-         nfag==
-X-Forwarded-Encrypted: i=1; AHgh+RoJKXfYdAJWIdZBQCJ3a/4mx8PU2/0edmwLl41RShbRkIoyJCP1GWmt4zgfXfn/Xllp4jCMBpKPUKJgywU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lAlWu7T+q4P8vSik/J1h9aA98reRt3kwSZVOkfHxhEbqfU3R2v
-	fGl4KJHJniJU3s6CfIFb2ILrPLIsIYhFluRZ3E/8pP3O8NDHZ+Irnr0fT1oPjc768T9u4AmAQRA
-	jXBw9N8eMAzcOLGo2FX9IPacjOSpJS1G7iwr8Aj0skednzTAsgT6P+gehIEAhj4WyTGI=
-X-Gm-Gg: AR+sD133gj+w90oYs/VMYY/uhSqgUErVdnGY1PhxV/JsOhrxQ3HIpu5DgZ3i2nt/cmc
-	RVK6iKYa5prmgPvMzoW6LMb/3onXe57631VBY3fwMjy12BOoIRCwCzYtAgpynDUgVzhPbLSAdP9
-	jQsgl5Pf2DRAYav9FpaoH/hNv8ZVwAo0jEu0tiVW2QxfA7g1WdRdFSWPSRkslZPxbph+4RO7EiI
-	N2eU/hXQEocj/nwOLA+Dwwbc40LeDwxAYxXR1wKQtHxukxpgp+3oy+xdq4+g3OAp/aq27QYX8Tu
-	MKParAkvgxT5I+kccaBniwhGzewXxeVlqov8taewUOdYOPP24Q6TcRibVNiBu/eDZXOaF+HYG9k
-	KFHCwR2oEx96nLiEabexm/bNpk5byBYLMeD4IVo3M8/x3D2IgJ1ka+I4FCQHc
-X-Received: by 2002:a17:903:46c5:b0:2cc:9179:335 with SMTP id d9443c01a7336-2d707a5d142mr256847165ad.8.1787826992835;
-        Thu, 27 Aug 2026 03:36:32 -0700 (PDT)
-X-Received: by 2002:a17:903:46c5:b0:2cc:9179:335 with SMTP id d9443c01a7336-2d707a5d142mr256846265ad.8.1787826992414;
-        Thu, 27 Aug 2026 03:36:32 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3283d9e5fb1sm29831430eec.25.2026.08.27.03.36.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 03:36:31 -0700 (PDT)
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Amit Kucheria <amitk@kernel.org>,
-        Thara Gopinath <thara.gopinath@gmail.com>,
-        "Rafael J . Wysocki" <rafael@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>
-Cc: Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-        Jonathan Cameron <jic23@kernel.org>,
-        Guenter Roeck <linux@roeck-us.net>, Vinod Koul <vkoul@kernel.org>,
-        Sebastian Reichel <sebastian.reichel@collabora.com>,
-        Andy Shevchenko <andriy.shevchenko@intel.com>,
-        linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Subject: [PATCH] thermal/drivers/qcom/spmi-mbg-tm: Import IIO_CONSUMER namespace
-Date: Thu, 27 Aug 2026 18:35:55 +0800
-Message-ID: <20260827103555.883018-1-shengchao.guo@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ca+KZQEo"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=1ZjfrCA2Bn7B9nyXIM3hZk40HAEkBRrlXow1cP7e6/M=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787827023; v=1; x=1788431823;
+ b=ca+KZQEo6ekqcYHvyNX/+cb7LDUPX3D5a4xOlwQPLXgEINXu3faC4ajBI9mgMMdY/0Wg/1sX
+ mAxg9w0Y4BsiWZ5+uJ0Df7EF1fyO5xMOZ8Gr5FMwh4KSbIAqzHHxu6+hCR795qPiO8bQBbJ7NuA
+ 4S04s2Hwl3fjab9UfaqY49YY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id db1b73aa76be19cb;
+	Thu, 27 Aug 2026 10:37:02 +0000
+X-Mizu-Trace-ID: db1b73aa76be19cb
+X-Migadu-Flow: FLOW_OUT
+From: "Hui Zhu" <hui.zhu@linux.dev>
+To: Roman Gushchin <roman.gushchin@linux.dev>,
+	JP Kobryn <inwardvessel@gmail.com>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Barry Song <baohua@kernel.org>,
+	Geliang Tang <geliang@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org
+Cc: Hui Zhu <zhuhui@kylinos.cn>
+Subject: [PATCH bpf-next v5 1/2] mm/bpf: Add bpf_proactive_reclaim kfunc
+Date: Thu, 27 Aug 2026 18:36:29 +0800
+Message-ID: <5dfdc7800469eac4e9a240f2422ba65d4ef4c4ba.1787826402.git.zhuhui@kylinos.cn>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <cover.1787826402.git.zhuhui@kylinos.cn>
+References: <cover.1787826402.git.zhuhui@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -99,58 +66,93 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: vg2rICNUzUgCEMbmM5y11Smm5BIMc074
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDA4OCBTYWx0ZWRfX4nuinzz7hRmM
- 4XCkpoMPR0ZFggO0orbWFNGz7rwr1fx4xZjqMO7fpEH2OJzYn6FKF5BY1UZ6nHGa7CNt+c2anXI
- KAh5JgUhDALsaMbLfm0US+5HQZB35SpXgJgltTZExdCXSQYypzNBMnVZkK9sC4gg6QNnUWvhsyA
- yGgXsuwkBKXbls2fbaR9vo5i0EnhRGoA2PRFNR7tKDguWgTog15LIQAL31YzQbWug1HOZ82NtEY
- 2+jkjclRMBlrDlBGySuLjmAjqlndotPM8A237HMfmqAU47SzFHfGSiU9tuWep7PcikM00UM35wB
- 3BUKHNkyHIHBla6LmIj/W4vwD1wyZFkP3j2LbMYd+5pPKmdpYqhgF/zgXlrblb4QxHzEHo+zmOM
- qMDseoXTOi6/Sb2qSzjYXOlHrmPoIPf1Tx6KDWDIapTzfRupHaq72uScZyJiC6X4o1gbBaY1gSF
- IGWorK/RR7ZwkIqDxZw==
-X-Proofpoint-GUID: vg2rICNUzUgCEMbmM5y11Smm5BIMc074
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDA4OCBTYWx0ZWRfX1Vwa3Ifw6tFK
- A9WrsaU5ENWg40hCGsW28AsBSQTgM3dkDvlEsBH28B3K18YCsyPW7pfc5dDLZpjwJC0d75Xpo3d
- 2/+OIhPHya/BWKyXLeg8wHWzYgEWNTw=
-X-Authority-Analysis: v=2.4 cv=RPiD2Yi+ c=1 sm=1 tr=0 ts=6a901331 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
- a=4ZI4452vc5jSn75PgjkA:9 a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-27_04,2026-08-26_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 priorityscore=1501 spamscore=0 lowpriorityscore=0
- malwarescore=0 phishscore=0 suspectscore=0 bulkscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608270088
 
-The IIO consumer interface symbols moved into the IIO_CONSUMER namespace,
-so consumers must import it explicitly.  Without it modpost fails on
-'iio_read_channel_processed' and 'devm_iio_channel_get':
+From: Hui Zhu <zhuhui@kylinos.cn>
 
-  ERROR: modpost: drivers/thermal/qcom/qcom-spmi-mbg-tm.ko: module uses
-  symbol 'iio_read_channel_processed' from namespace 'IIO_CONSUMER', but
-  does not import it.
+Add bpf_proactive_reclaim(), a sleepable kfunc which performs one
+proactive reclaim pass on a given memory cgroup, similar to a write
+to memory.reclaim but without retrying until the target is reached.
 
-Fixes: ebf1d03dab96 ("iio: inkern: Use namespaced exports")
-Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+The kfunc refuses to reclaim if the calling task is already in a
+reclaim context, as a nested reclaim would corrupt the outer reclaim
+state.
+
+Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
 ---
- drivers/thermal/qcom/qcom-spmi-mbg-tm.c | 1 +
- 1 file changed, 1 insertion(+)
+ mm/bpf_memcontrol.c | 46 +++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 46 insertions(+)
 
-diff --git a/drivers/thermal/qcom/qcom-spmi-mbg-tm.c b/drivers/thermal/qcom/qcom-spmi-mbg-tm.c
-index 0492d5eeca01..012eb2a5f31f 100644
---- a/drivers/thermal/qcom/qcom-spmi-mbg-tm.c
-+++ b/drivers/thermal/qcom/qcom-spmi-mbg-tm.c
-@@ -252,5 +252,6 @@ static struct platform_driver mbg_tm_driver = {
- };
- module_platform_driver(mbg_tm_driver);
+diff --git a/mm/bpf_memcontrol.c b/mm/bpf_memcontrol.c
+index 716df49d7647..297ff7f05042 100644
+--- a/mm/bpf_memcontrol.c
++++ b/mm/bpf_memcontrol.c
+@@ -6,6 +6,7 @@
+  */
  
-+MODULE_IMPORT_NS("IIO_CONSUMER");
- MODULE_DESCRIPTION("PMIC MBG Temperature monitor driver");
- MODULE_LICENSE("GPL");
+ #include <linux/memcontrol.h>
++#include <linux/swap.h>
+ #include <linux/bpf.h>
+ 
+ __bpf_kfunc_start_defs();
+@@ -159,6 +160,49 @@ __bpf_kfunc void bpf_mem_cgroup_flush_stats(struct mem_cgroup *memcg)
+ 	mem_cgroup_flush_stats(memcg);
+ }
+ 
++/*
++ * Reclaim must not recurse: try_to_free_mem_cgroup_pages() overwrites
++ * current->reclaim_state, so a nested call would corrupt the outer
++ * reclaim state. Reclaim windows are marked with PF_MEMALLOC;
++ * reclaim_state is also checked because it is installed slightly
++ * before PF_MEMALLOC.
++ */
++static bool bpf_in_reclaim_context(void)
++{
++	return (current->flags & PF_MEMALLOC) || current->reclaim_state;
++}
++
++/**
++ * bpf_proactive_reclaim - proactively reclaim memory from a memory
++ *                         cgroup
++ * @memcg: the target memory cgroup to reclaim from
++ * @size:  the amount of memory to reclaim, in bytes
++ *
++ * Trigger one proactive reclaim pass on @memcg, similar to a write to
++ * memory.reclaim, but without retrying until @size is reached.
++ * Must not be called with a filesystem lock held: the reclaim path
++ * may deadlock on it via filesystem shrinkers.
++ *
++ * Return: The amount of memory reclaimed, in bytes, or 0 if @size is
++ * smaller than a page or the task is already in a reclaim context.
++ */
++__bpf_kfunc unsigned long bpf_proactive_reclaim(struct mem_cgroup *memcg,
++						unsigned long size)
++{
++	unsigned long nr_reclaimed;
++
++	if (size < PAGE_SIZE || unlikely(bpf_in_reclaim_context()))
++		return 0;
++
++	nr_reclaimed = try_to_free_mem_cgroup_pages(memcg, size / PAGE_SIZE,
++						    GFP_KERNEL,
++						    MEMCG_RECLAIM_MAY_SWAP |
++						    MEMCG_RECLAIM_PROACTIVE,
++						    NULL);
++
++	return nr_reclaimed * PAGE_SIZE;
++}
++
+ __bpf_kfunc_end_defs();
+ 
+ BTF_KFUNCS_START(bpf_memcontrol_kfuncs)
+@@ -172,6 +216,8 @@ BTF_ID_FLAGS(func, bpf_mem_cgroup_usage)
+ BTF_ID_FLAGS(func, bpf_mem_cgroup_page_state)
+ BTF_ID_FLAGS(func, bpf_mem_cgroup_flush_stats, KF_SLEEPABLE)
+ 
++BTF_ID_FLAGS(func, bpf_proactive_reclaim, KF_SLEEPABLE)
++
+ BTF_KFUNCS_END(bpf_memcontrol_kfuncs)
+ 
+ static const struct btf_kfunc_id_set bpf_memcontrol_kfunc_set = {
 -- 
-2.43.0
+2.53.0
 
