@@ -1,145 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 652403624A8;
-	Thu, 27 Aug 2026 07:14:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FD4225B09E
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:14:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787814865; cv=none; b=kmOmFTJ9CxWXCjpKXHnz07kLpkFJdWCKrUQtwX18WAwvJfht2bL7sm5YCtmWNEe+HLiF6LzA1/BnTEdB4Dj8RJC/OlGvP2IqWWr7DJBZ6E24NfKYMYChWkPSX6JWJSiptJ/xJlNUKRn5dFV0iSOirEAdR3ber7RWmJzMgKjTurM=
+	t=1787814893; cv=none; b=pHE+E8HzE9/dw9MInbkZ5WFmqE83J6PZ7/4ndHvHQ4L5R89jnmxRY8JB0x3lEkYqfJVU+BlF8vjqQM8i479e1zQza6RSsGsvjCNf0yKzBG0hsnGnpURrQa/b8osjNwNR1giGxCw8HsDO1DvqXFpF6331K6aWsxLTsDQjRvx3JRI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787814865; c=relaxed/simple;
-	bh=3D8ff5zW/vZMlEclUlwi+ylibdKBP+Y7SVtfjULZPJM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Xw5yVi07178dXqF0JPXsA8oExX6zrcQB8w/id5d8UiRYoqepf67Vl+gg+C1jW1pks5C26uRweoFJowUgzt+AYSz9NhdTFeve1l3cxJdBCKlqG/IM4irW9GPY4+WvS81x6x1dcMG4XAeZxcNckRFJyrT5ycUDPGF2pXsZfgVmXQg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fNddaP5u; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787814893; c=relaxed/simple;
+	bh=Cl5YG/mDjfpWhT2HWmxYZoFwquZLjjwBvTfgZj0lUIw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KBD4WpTzIOfJhVIDIcT+86LkoC5fVDP4qxb8AJ9uD1TC495DoXoXm8Gl3GEZEam+oJ308H8YwHCx/IiSznSv3KCQQ3YtbQUUu3ndb0zeyk0FwtfFKJICjG4n4uSuTcT10A1kMtoe3jTSDpSlYF6X+n+tFGH2TPKD16xpjZGTR8E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gAJ839kq; arc=none smtp.client-ip=209.85.210.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fNddaP5u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 037CF1F000E9;
-	Thu, 27 Aug 2026 07:14:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787814863;
-	bh=Raso+76RSPHx/Ucjk+/qBSNVKh7+vQJnbwdEuNJBG/U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fNddaP5u4ClF4IxDP5h5xr3XP6tMYYeqDdj9zpbu5LHBY7nbpaoRRntLYSgV7jemr
-	 b9eLgRPTDx55zngs9LXGmNbvEDH/S2ZXviXqTGjqmMO18aqmlUKhwWsgR1XWSi+/0G
-	 rwQSwYcLJ6CvN57sswjLw5O5CfbNZF6CvrJ9z/3LjnO/hU7zrUdVLmkjQvW7ym603+
-	 shF9ZXkrNBWluvZrGvfEWxHokaZVaa8X2HYN57n2H4s2ocnLV2KnlrBBib7zNEk8i4
-	 1AlkgpTeTZgRm5MwacXLRcAE1gc8MYWCCVB+RwCd2LHQ7Em+lyzBK1JY1/n1207Nyi
-	 X3uuqMYW2BQCQ==
-Date: Thu, 27 Aug 2026 10:14:12 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Barry Song <baohua@kernel.org>, Dev Jain <dev.jain@arm.com>,
-	Hugh Dickins <hughd@google.com>, Jann Horn <jannh@google.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
-	Jonathan Corbet <corbet@lwn.net>, Lance Yang <lance.yang@linux.dev>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Michal Hocko <mhocko@suse.com>, Muchun Song <muchun.song@linux.dev>,
-	Nico Pache <nico.pache@linux.dev>,
-	Oscar Salvador <osalvador@suse.de>,
-	Pedro Falcato <pfalcato@suse.de>, Peter Xu <peterx@redhat.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Usama Arif <usama.arif@linux.dev>,
-	Vlastimil Babka <vbabka@kernel.org>, Zi Yan <ziy@nvidia.com>,
-	linux-doc@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/6] userfaultfd: use userfaultfd_*() helpers instead of
- open coded flag tests
-Message-ID: <ao_jxMovVtj8UWeP@kernel.org>
-References: <20260823-uffd-vm-flags-v1-v1-0-3086981b33cf@kernel.org>
- <20260823-uffd-vm-flags-v1-v1-3-3086981b33cf@kernel.org>
- <aoxdWWMEeQbcG5Pq@gremlin>
- <ao16WPoLpdIdU3ID@kernel.org>
- <ao17rY2r-01wJxy6@gremlin>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gAJ839kq"
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-85590c5aeabso84261b3a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:14:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787814891; x=1788419691; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DNt1zgs6qAkEI9XNYbk2SKsA/z50MMsFTX1oHBMliIM=;
+        b=gAJ839kqdTlF60SrYl2P2EgyKFLTJV5ZdcqqfibYGCVTN0jPLBNzxBFxhmNiVepiLr
+         jPKHQnClDLU368tx0zWCRrYHsX4GQG2n9J405GWc6Jz6de9UHh9YF7Y1nq+TkYekUCqa
+         i4i+ObWD89WXhwB4/MYeJWcN+rGFbQgg91lNOGXRE0Bs/e+YYrkjEMPni4WbwWlNEBGu
+         H1XOdutNj4EUB/U9CNfNsTVfjT00rWibgpPwvUOVkKk/bz2CmutIlCmWxCTCF/R12d/q
+         gt+z3x8VnDfhL2XbcGxkH5GGRqZekPl8pYrVZOa0G8vlyXCF01RRawkGi2uNJsJCMerK
+         RfJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787814891; x=1788419691;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DNt1zgs6qAkEI9XNYbk2SKsA/z50MMsFTX1oHBMliIM=;
+        b=lkE1Ch7CFMDh7xY7bNCavfmZdRXgVWVZ/owNSHygZFh0tP+u+7AFMRQHShgf0F4e7l
+         p/CmAaULmhR9sygLKuEWUii3L9EyDLTbeOhnX+HNoOyVakTUMNVn7nUuYc2Ivc6u9ZDg
+         0jcOm/0DviBaO/NipRm6i2DMS04vk72VFpWOy6sNHkIzRbKknjdhQHS6+G+XPXdNkxA2
+         JZuUeGlVBAgJi3MiiXq76AX5zXrHLe77FzNUHZ9v7ex8ZBKcndEQ3jbYG/HAWpRq4yjq
+         go0yhj/f0x+z2w/S7c80NPIcry/MUNAMSvHBQ/3z7l0uCvrf8Hr23LRVYugRC7wmgbLz
+         21sA==
+X-Forwarded-Encrypted: i=1; AHgh+RpkEhoT9uj+HD5GmNItUh/h4ICF7SVs2fII76Ih3/ivl6xfDVizR6cVEaMj81Yz1z3GLeYDPDw6dkXFqUc=@vger.kernel.org
+X-Gm-Message-State: AFuF++n7i+fmRbngQ7JeHUZD0UCzY8opfmdO8pp6vs2PKTQn3fEU06hR
+	vDDH7YmgrFW7g9pGXzpIUOOk36H3JRwZtFk+8QSEUNMCpzGjeii7HzZC
+X-Gm-Gg: AR+sD10dQ+pREAeBy630B50ik3bz9vSsZBJk0ZjsuX1jbL6ydy/FjRXG9Gx1iZ3jH3H
+	xEvtWMYPjQmejWCvDUXX5oi9uYPZmSjP/Z85RE5sa1gMPr/CXgGeH42hkDx2zS7n53734N9AIU1
+	Wn0NdgsJBCVpAr0G+X4cE5LkTJTyxVecAudJGps3Mki8IDIbdNUVi4uOjMHuoezm2vh4H1TvMUh
+	zN9/QBDWv/sTknS+lWLdDLpsTNrgPf32jcegvyUWihwaqyVxZvSB3Lb2gFELp1SEQ+gSS9vYPl0
+	j7tBJ1mSeFUo0nefRj2hUtEhz3/a1+hVSgD5YMVYAtCWP4BYMSwog3aNkNPi1jSqmhC7F3V/gWx
+	GA12csOFavmzA5OKnMTXlXDVjPmUiAg1ZyCpp2hsF4pvP2Vb/Mjs7T9tXlbTT22GdWWiq5orpqR
+	nqmSmLV8M24IJJLOJy0Nsn5UYMDiimE3zIsCMk/JzOm2PkuOIaTyeDJkDvaiiLlzim/hId3Ih1M
+	OlcLNI=
+X-Received: by 2002:a05:6a21:6190:b0:3c3:a31b:3949 with SMTP id adf61e73a8af0-3cf83c17574mr27206586637.11.1787814891560;
+        Thu, 27 Aug 2026 00:14:51 -0700 (PDT)
+Received: from kernel ([45.251.35.105])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3283da25c09sm25999575eec.31.2026.08.27.00.14.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 00:14:51 -0700 (PDT)
+From: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+To: bhelgaas@google.com
+Cc: noaos@mellanox.com,
+	gwshan@linux.vnet.ibm.com,
+	ogerlitz@mellanox.com,
+	skhan@linuxfoundation.org,
+	jkoolstra@xs4all.nl,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+Subject: [PATCH] PCI: quirks: Fix out-of-bounds MMIO read in mellanox_check_broken_intx_masking()
+Date: Thu, 27 Aug 2026 12:44:38 +0530
+Message-ID: <20260827071439.4480-1-raizudeen.kerneldev@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ao17rY2r-01wJxy6@gremlin>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Aug 25, 2026 at 12:26:39PM +0100, Lorenzo Stoakes (ARM) wrote:
-> On Tue, Aug 25, 2026 at 02:19:52PM +0300, Mike Rapoport wrote:
-> > > > +/*
-> > > > + * Don't do fault around for WP, RWP or MINOR registered uffd range.  For
-> > > > + * MINOR registered range, fault around will be a total disaster and ptes can
-> > > > + * be installed without notifications; for WP it should mostly be fine as long
-> > > > + * as the fault around checks for pte_none() before the installation, however
-> > > > + * to be super safe we just forbid it; for RWP, pre-faulted neighbours would
-> > > > + * be indistinguishable from accessed pages in PAGEMAP_SCAN (PAGE_IS_ACCESSED)
-> > > > + * and pollute the tracked working set, so each page must be populated by its
-> > > > + * own fault.
-> > > > + */
-> > > > +static inline bool uffd_disable_fault_around(struct vm_area_struct *vma)
-> > > > +{
-> > > > +	return userfaultfd_minor(vma) || userfaultfd_wp(vma) ||
-> > > > +	       userfaultfd_rwp(vma);
-> > >
-> > > This is changing the logic.
-> > >
-> > > Before we were testing only the flags, now we have:
-> > >
-> > > static inline bool userfaultfd_rwp(const struct vm_area_struct *vma)
-> > > {
-> > > 	/*
-> > > 	 * Callers gate PAGE_NONE usage on this; PAGE_NONE is a BUILD_BUG()
-> > > 	 * without CONFIG_ARCH_HAS_PTE_PROTNONE, so fold to false.
-> > > 	 */
-> > > 	if (!IS_ENABLED(CONFIG_ARCH_HAS_PTE_PROTNONE))
-> > > 		return false;
-> > > 	return vma_test_single_mask(vma, VMA_UFFD_RWP);
-> > > }
-> > >
-> > > I.e. adding in a CONFIG_ARCH_HAS_PTE_PROTNONE check.
-> >
-> > Without CONFIG_ARCH_HAS_PTE_PROTNONE VMA_UFFD_RWP is hardwired to VM_NONE
-> > so it's functionally the same ;-)
-> 
-> Well then you're explicitly removing logic and not mentioning it anywhere
-> with a NFC commit.
-> 
-> So please say so in the commit message.
+The mellanox_check_broken_intx_masking() function maps 4 bytes of MMIO
+memory using ioremap(), but then reads two 32 bit values using
+ioread32be(fw_ver) ad ioread32be(fw_ver + 1).
 
-Ok 
+Because fw_ver is a pointer to a 32 bit type, fw_ver + 1 advances the
+address by 4 bytes. Reading 4 bytes at offset 4 goes past the mapped 4
+byte boundary. This out-of-bounds read can cause a page fault or kernel
+panic on architectures that enforce strict MMIO boundaries.
 
-> > > BTW side-note these:
-> > >
-> > > static inline bool userfaultfd_missing(const struct vm_area_struct *vma)
-> > > {
-> > > 	return vma_test_any_mask(vma, VMA_UFFD_MISSING);
-> > > }
-> > >
-> > > static inline bool userfaultfd_wp(const struct vm_area_struct *vma)
-> > > {
-> > > 	return vma_test_any_mask(vma, VMA_UFFD_WP);
-> > > }
-> > >
-> > > static inline bool userfaultfd_minor(const struct vm_area_struct *vma)
-> > > {
-> > > 	return vma_test_any_mask(vma, VMA_UFFD_MINOR);
-> > > }
-> > >
-> > > Should all use vma_test_single_mask() really :)
-> >
-> > These are changed anyway in a later patch.
-> 
-> Yup, but you (potentially) break one of them. Will comment there.
+Fix this by increasing the mapping size to 8 bytes to safely cover both
+32 bits.
+
+Fixes: 1600f62534b7 ("PCI: Support INTx masking on ConnectX-4 with firmware x.14.1100+")
+Signed-off-by: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+---
+ drivers/pci/quirks.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+index de9bbccda21f..b30ca4244f14 100644
+--- a/drivers/pci/quirks.c
++++ b/drivers/pci/quirks.c
+@@ -3714,7 +3714,7 @@ static void mellanox_check_broken_intx_masking(struct pci_dev *pdev)
+ 		return;
+ 	}
  
-Nope, nothing is broken, will comment there.
-
+-	fw_ver = ioremap(pci_resource_start(pdev, 0), 4);
++	fw_ver = ioremap(pci_resource_start(pdev, 0), 8);
+ 	if (!fw_ver) {
+ 		pci_warn(pdev, "Can't map ConnectX-4 initialization segment\n");
+ 		goto out;
 -- 
-Sincerely yours,
-Mike.
+2.53.0
+
