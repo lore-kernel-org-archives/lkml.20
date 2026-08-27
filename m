@@ -1,112 +1,141 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFB961F938
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:08:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F6D733E355
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:09:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787814539; cv=none; b=iJ0OL2UgMQYYYCY/aNOCmzVTn+juU0c+IybfuJr/pAhT1+19QxdS/IIORz8x1xT6zOEsH1hIDr+fkEiVV3lXOGiAEfF4lEF4jCfSdPwab3naiwH4xVb+bhqtTVqLVemX39+wkLhULynRIvAL6YUjGguQWroHXuiACMZ/wyfLgL4=
+	t=1787814600; cv=none; b=bbXT6kcZ4nl27Iiolo63SfMOA1kMfAzaE48UmdL/dV8BELPOSh69evIXThEyw/tnupaMyr7yCG7PDAHh+NyySmLfB/eG4kTPOMxGGue+asbWKVNZhQY4met84FU6G9PvDdWbRXQj6j0rPMUyngzViFlj7AYbW5WvGBy391+VeVU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787814539; c=relaxed/simple;
-	bh=sRd78QSJGil0ZcUwq3GxqGHQF3GnG4W0ymqk7CGnnE8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YdpBYc1NEkf5Y9l52s0p9RKEeqSXj+T7KLRITd0GRXyWhP+Je5zRmWXnnKzJsYxYSzNj5HK4Sbl/TlwdiO4qV0twHGXm4n9f/RX/9n4GIUbqsc/K3RhDLrhm8eVdWNhZg3j6JNr8ERHzbjlA7VE+v32t4Mx1DJ+HNPWnL9QQenw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=haR/eqIa; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787814600; c=relaxed/simple;
+	bh=otjiHE/ALxd0WQQGUzZepzGe33+eZ8p10IspGrscHgI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lM1jKyt5fnKttvJxmNxENpIsTF9CwfakCJWKheSLM6h4sZBPLABxkEwMyym20yCY6BpG6JE/UtxprzPht2y7r687hUKF6aWOiXRov8XSoLzVg630PX7crC1PhWfnlbZK9ZC/PpUk+GF1rHTjl6lTezUyXMEXkdngnzN5sd9bqUA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=nni1pEqo; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="haR/eqIa"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-39682983a0fso1665780a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:08:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787814538; x=1788419338; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sRd78QSJGil0ZcUwq3GxqGHQF3GnG4W0ymqk7CGnnE8=;
-        b=haR/eqIaTOhAA9p741xIu68tyWti+IJ3KXLfj8ZaJ87VR8KjzOk3RC6eLl9SrFlnaS
-         aPsGxzhz2e7/2Nyy17ThiYBApAWBMia6LWQSMD98FqpZVySqIloMPVxfu1GaO77OhLPf
-         pE4idmQp5Zr0KFJNEru4LhhcWxlgHECgby/CFJnw/1qTed0hZV26FJsFS2XGT5ICtfde
-         TmYYwjUojfD7aUky/QoaAjtMDC1s1xFHb6AWBuFL9HgCTtRa/A4GHOd0j2MMRS7XzLtK
-         RLLeXzfP1yz17ZvFtY+6PVHWk5hqfv0+I5CMA3umvUeFawwsDTvATiJUMdd/JINjekih
-         SPig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787814538; x=1788419338;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sRd78QSJGil0ZcUwq3GxqGHQF3GnG4W0ymqk7CGnnE8=;
-        b=RDMjOj/2JUvSQdQLrAVbA9kVp/PJiPFSkVqkwcFzTG4WLtfmiLfpZAPTdO74z3dO1f
-         2hAElLPTUFJt6vYf113U0Ua2apx5B4pVNUCHW36CfYPf2pW9KiwilpT3VzRK/NPQEwHu
-         Ivlo7SASkAbfglI5ESwVVcfCYbuSd3oCdsXgIi0zHXT12iMga3VCSO0BQP7XnWstMrZ3
-         HFRmgVoPeXKi61AuUUhY87LkVlHJscDP7jyXm26kksGrAaoA+Q058FP3odTDDYWdLIm5
-         id+p3TmmgU3MEmsLxx6ThWCb9LpLkPocKQ62OKu7z0R3HtpEu2R+CHYMMRnEZpnOvcyO
-         Hx6A==
-X-Forwarded-Encrypted: i=1; AHgh+RpxV5fK25EwVGTruyyT7tSylDaXPynT5QXWwhE+XYDypzDQCGy1E+x+W5H14dLCVRc3ECzDu5UWt4kUREI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lDM+xWd9TNhEVK0aoau9WZctSHReBCoi7a6XPts8QwO4G+83GB
-	52gbOHRKyC1BuGUo54DlWlbVvbrQC7SuaafLcC+WMX1aXyU5Q4TjkqF/
-X-Gm-Gg: AR+sD10DtSkUzF1EiKSVnKwvXGpj1vlu/rt2zqq1kBcE5SmDMaJTE0hKT0rfKz8TMLB
-	ge9KSzFXyGNIlQ5L20ype+Y9FaBT6e3+ODpWEb5D31l4lOd6FWF2QntYyP+0meujWSIcRQjrVK9
-	xGqXoDfrgk6jRjIZrWiFkmAVXDU4dL1hpTA6Bmc0dKQ69cTI+r8d/X5Zw12qy0Xw9WSVvhRYZi0
-	b6gSkzUWxTd0pGyyl69e3tIo3GuENiPZrooEUTFpND32e60coLEBviY0KVhs6s16QCKGMyix5Q1
-	UELw2IEbdEZQW/JDSjL6yl/RBnPgpJZxg0tRhh4Vjsnkp3vEd1cLvizTlPoU4Ea+0YiFAdnqZjE
-	+IdNc4izYcOeNyGDbRGZCjP/N+oO/Vk1LgMQbVhYRX21ZiiZQvQbB5HUBAuhVxZ4yPYU8wc4UNL
-	EqSClk9ErXXZ+yvhkLUw1m8calG/UchFRmQCIxKupctVKjRwo8h8s1ERTfv+TVcTpYS5HbtZ7nv
-	5ijoRt+FzFka9T1dzl8P+7V/bwf
-X-Received: by 2002:a17:90b:5102:b0:381:1c96:829b with SMTP id 98e67ed59e1d1-3966d370333mr28339383a91.3.1787814537645;
-        Thu, 27 Aug 2026 00:08:57 -0700 (PDT)
-Received: from Anshuman ([103.161.223.14])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a8eefd82sm13559447c88.2.2026.08.27.00.08.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 00:08:57 -0700 (PDT)
-From: Anshuman <anshumantewari123@gmail.com>
-To: david@kernel.org
-Cc: ljs@kernel.org,
-	akpm@linux-foundation.org,
-	baohua@kernel.org,
-	baolin.wang@linux.alibaba.com,
-	dev.jain@arm.com,
-	lance.yang@linux.dev,
-	liam@infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-mm@kvack.org,
-	mhocko@suse.com,
-	nico.pache@linux.dev,
-	rppt@kernel.org,
-	ryan.roberts@arm.com,
-	shuah@kernel.org,
-	surenb@google.com,
-	usama.arif@linux.dev,
-	vbabka@kernel.org,
-	ziy@nvidia.com,
-	Anshuman Tewari <anshumantewari123@gmail.com>
-Subject: Re: [PATCH] selftests/mm: khugepaged: remove str_dup() usage
-Date: Thu, 27 Aug 2026 12:34:07 +0530
-Message-ID: <20260827070407.4108-1-anshumantewari123@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <ao17EcW1-iNN4Y8i@gremlin>
-References: <ao17EcW1-iNN4Y8i@gremlin>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="nni1pEqo"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67R6VdG01082064;
+	Thu, 27 Aug 2026 07:09:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=otjiHE
+	/ALxd0WQQGUzZepzGe33+eZ8p10IspGrscHgI=; b=nni1pEqoVHrmpKiBr5bo0o
+	oyus+ruOYk4xc6qTGJS5sPtcgefmv9BbB1irt3YKFSugjo48mHpAxreHXXyYCa4J
+	jkEVuC0QiGZU8Hxml+oady7G18L5fjx2AZEZqgL7IXGkLbzYL18uxgCbfahnzJSP
+	Ya09n/DRTBq2rR1yHvr4cD1lmEb/xQWOiBWmfMkKLXNTzv04FUSY6KpUII8kehdy
+	ZoHoCV5K/HRP/wGKiHOlqorRnvL826qG9vw1Kb6+e7l0zvafhO4DFWKddxP3sdrs
+	8nHBn/Khr3RmnhJbXVngRFdutexEi7843aziNk7FYLgPbHWqv0ZXVeYIAu0HpOLg
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g726euq5d-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 27 Aug 2026 07:09:45 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67R6uK2A024191;
+	Thu, 27 Aug 2026 07:09:44 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4g7pfweshf-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 27 Aug 2026 07:09:44 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67R79dfR42795394
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 27 Aug 2026 07:09:39 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id B04B520043;
+	Thu, 27 Aug 2026 07:09:39 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3DD812004E;
+	Thu, 27 Aug 2026 07:09:35 +0000 (GMT)
+Received: from [9.67.147.197] (unknown [9.67.147.197])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Thu, 27 Aug 2026 07:09:34 +0000 (GMT)
+Message-ID: <04f38671-f894-40ef-94b2-f24e2bd42474@linux.ibm.com>
+Date: Thu, 27 Aug 2026 12:39:33 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] ppc/fadump: collect dump if the collected size is
+ lesser than reserved
+To: Shivang Upadhyay <shivangu@linux.ibm.com>, linux-kernel@vger.kernel.org,
+        linuxppc-dev@lists.ozlabs.org
+Cc: adityag@linux.ibm.com, adri.vero.dev@gmail.com,
+        anushree.mathur@linux.vnet.ibm.com, chleroy@kernel.org,
+        maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com
+References: <20260826125626.2108771-1-shivangu@linux.ibm.com>
+ <1a0a3a16-b92e-47ec-8545-035022583de7@linux.ibm.com>
+ <7ed10640c0b27403d7e9ef9807b957cff59eba60.camel@linux.ibm.com>
+Content-Language: en-US
+From: Sourabh Jain <sourabhjain@linux.ibm.com>
+In-Reply-To: <7ed10640c0b27403d7e9ef9807b957cff59eba60.camel@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=TfimcxQh c=1 sm=1 tr=0 ts=6a8fe2b9 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=5vD7ezWpz5V1CiZQhYcA:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDA1NiBTYWx0ZWRfX+Loab30cce3G
+ lPTklQ1tYVhXnZ1ZcSOhUmV/pyNDH61NnGV/FPpIe5MujzY7y737A/aEbVyp8YVDuQroo3+q4QT
+ yNsuNT9+h+ckEC8zCzzkdq26LCjuwik=
+X-Proofpoint-GUID: 7aKIp31cxkHQE5qmDpFzf8ewqZ8jTyeU
+X-Proofpoint-ORIG-GUID: ZSktznSnj5VpQkVey1pmz34mzZNHfiT_
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDA1NiBTYWx0ZWRfXzvVhD3S+P9Bd
+ otwH6IyKZFKTSLS2l33uWpZgf2QCK48iie6YM388h8pRZySv5/TPSNS+p98VLXMtmiN/loQ+QGI
+ 1JOtkz0qcpMcbigmljMGCFmv97baVWPuXeIZ20IUlkUSRhd6TUwcPnNvPhZ165MGy8NJCdj1Iw7
+ uGNWmr4EdEcVgFH7hWy+fWl1LNKcpcsggjE40vcCjjUpimQ6NyECW7pAHKgzUVM+BNhMEBu8j2S
+ hRjmSyjR0xZsL/DenClWkNvjvyExYZV3xVHaG/crqqxQyXFFgPHHOqCthwqUT+sTp12S+79hcx0
+ onZUeOwKOiTcL3btJ2SLt44y9bSmBgFMsFXm6u304L7ndgVMRccZ593HE3pOkxoveG955Xyb6/k
+ imJadv8ZKFyGukG7MvU9las2v7CLSjcKhvg5m9U+SKvrcEdjhbtg563CS2nz8qAgXt5n38Jg/QA
+ xCAITEsKl6uGaU5PlwQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-27_03,2026-08-26_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 bulkscore=0 malwarescore=0 priorityscore=1501
+ lowpriorityscore=0 clxscore=1015 phishscore=0 impostorscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608270056
 
-On Tue, Aug 25, 2026 at 01:20:59PM +0200, David Hildenbrand (Arm) wrote:
-> We don't check str_dup() return value and never free it. While both
-> things are irrelevant in practice, let's just clean it up by working on
-> argv[0] directly and avoiding the str_dup().
->
-> Nobody after us needs these parts of the argv[0] string anyway.
->
-> This patch is inspired by previous work from Anshuman Tewari [1].
->
-> Link: https://lore.kernel.org/r/20260821114416.12255-1-anshumantewari123@gmail.com [1]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-LGTM, thanks for the cleaner fix.
 
-Reviewed-by: Anshuman Tewari <anshumantewari123@gmail.com>
+On 27/08/26 12:06, Shivang Upadhyay wrote:
+> On Thu, 2026-08-27 at 11:05 +0530, Sourabh Jain wrote:
+>>> bytes_dumped <= source_len));
+>> Do we really need region_collected variable? Can't we manage with rc
+>> only?
+>>
+>> Is bytes_dumped < source_len is good enough instead of <=. There are
+>> a
+>> couple of warnings/errors reported by the checkpatch script.
+>> Please address them in the next version.
+>>
+>> - Sourabh Jain
+>>
+> Hi Sourabh,
+>
+> bytes_dumped < source_len should also be correct, but "<=" is more
+> expressive. Why not leave such optimizations to compiler.
+>
+> For the region_collected, RC should be used to manage the return code,
+> so I as per me it is more appropriate to use new variable here. Or
+> maybe, type the condition in the bracket itself(?).
+
+Yes this also works.
+
+- Sourabh Jain
+
+>
+> Thanks for pointing out the checkpatch bugs, I'll send a revision soon.
+>
+> ~Shivang.
+
