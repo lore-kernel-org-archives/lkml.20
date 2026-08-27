@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1327F440A1F;
-	Thu, 27 Aug 2026 10:55:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D87CC3F44EC;
+	Thu, 27 Aug 2026 10:56:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787828124; cv=none; b=X0A2+1sYLqocEPI/ygInEhgLsk/GF8YMfX7gjD/Ga0KmXbTX0f1LvXUOyO+WKgu3Mgs6Dnkp3LBgWuG8so/f1fMl2WWW/9OMgrMlaxElykBHG4ogme1KKqvEqa6xo8BQBnaNahgTOPdfpBD8jvBJq3dl1mIxAWru7/cN5rgp2VE=
+	t=1787828189; cv=none; b=lH2McXYmlaaRcbv9T31xZuJRYT/lzW9OJrbxkBjHW2PhoSJy+EtuXkg4r/nGXfxQ8vHXwouhLjG1KW5IJO0Ip4HQ+qcCpp0k1XrlLmmCaPaC6On7d8CZm//ygEfusGXh+yXi48hWBzmXPco16YRiQby4knKFY6HnCV++2I8kYuU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787828124; c=relaxed/simple;
-	bh=qVDoP69S5jcubxdwkgxYl/6m53lua0jM1BoH/rNwE2g=;
+	s=arc-20240116; t=1787828189; c=relaxed/simple;
+	bh=aeLOKipWhz7t3kYjsBn/bJ0T5mlSlbCPe9WPUdSgV/M=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dcTS1gWfF2fRFK+V2vZIZelmKtOhgH5cyVBofERDEQUBYNoXUsli2ynvSiKStm1lGpWuoy25z7XAo+iMPUMuSxZaX5kvikEAFKJqWDb9cNXYPN1mvhZVzPW/hJheEAmUvA3yw86Sz/1/dC+uRb70xZlPxOON+CkksvnQUrjbsBY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WmI6KeFW; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=UqFQ5QLpEDVX3U712/uROBT4FWfW+HRb6sYemd585fCFA8hYB1Z5dfZuMb2e61f7x+y/G1Ki0M1ledLdOOovk3WiLk/jISPe1MaLCpTXsJ3rYcowYCg0BpvCwEmXcG3CLCqgeDYLpLpu9OmDOoKXN6BfKPHBMBEPjez838qST9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hqAkKGTh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WmI6KeFW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 092E51F00A3A;
-	Thu, 27 Aug 2026 10:55:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hqAkKGTh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 884EE1F000E9;
+	Thu, 27 Aug 2026 10:56:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787828121;
-	bh=lOIjdq4+U/tO0XOht7hcXH5DuMTGbl0cEZdAzU3LGMU=;
+	s=k20260515; t=1787828187;
+	bh=NFSoHGGqxxziGMu2IRcDTRzduPnwUAK7ed4z65urCyM=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=WmI6KeFWRxalh2Qorm88ibg25D6VNeXU0rh2PyMvcYJugkGlQw3ypPTW+eM5X/X+a
-	 lKpvk4dJ/VQ4mNUOtwd6rab2qzqWg35yVHrZUjgYzPcAGlqHNnx7GbDlNkohro+tjK
-	 tAy73M/Ht07J/zQDivOswr7iUtQqX0SLJsbdkBtu8sRcBax1Y8y7i6mysu7ZAjzQ7O
-	 td4rdEWYPjvtgs/KBqLTdLy80b87OnYKH7iLsibHXZ9EqIQljx2BjvbYjJsjXPMGFo
-	 ELVYp3nicxjDCmV75c/XhNiCkiw4oLgAKpZpPn9eNHJhWKnfNFL7E9NE83svKucEM5
-	 z7rE+fxWMDJpQ==
-Message-ID: <ce7d74db-989c-4618-afd0-016943f0a58f@kernel.org>
-Date: Thu, 27 Aug 2026 12:55:13 +0200
+	b=hqAkKGThxGJWMDhKFcSqIWlnjHYbdxq1MeNgfjxCRuLwN4q6Unx/ArGi1iZEnVRvu
+	 Iv7dJcszqIzAJbFJsWXjHXD1+RsWJUxwC8j5Ks+evINia+X5Ozh67I5DYAQ53x2sA6
+	 ImjOty7oGpySiMZzOvF75EtrAk5qVpXX2dRmif+/T1O+/UGu9i7E+5tmYuVhWNWUxV
+	 wbTlrMwiZOTS1625hnk4jnRHRraUo038M1/ftEcQCVtClBMO5Gf4u42PMvrCDsm8nG
+	 jGP7E7920p8wsb0FNIMiK5eJs+xLOaIUtwoG3yz1aEZq1G4QC1bOBA7M+Oag9b2hiT
+	 1xm3sIdxFgf9g==
+Message-ID: <44d36fb6-fdf4-4a8b-8e74-084a4b4f802e@kernel.org>
+Date: Thu, 27 Aug 2026 12:56:20 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,24 +35,23 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/6] mm/migrate: copy all referenced state via
- folio_migrate_lru_refs
-To: kasong@tencent.com, linux-mm@kvack.org
-Cc: Andrew Morton <akpm@linux-foundation.org>, Barry Song
- <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- Baoquan He <baoquan.he@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Muchun Song <muchun.song@linux.dev>, Chris Li <chrisl@kernel.org>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Ridong Chen <ridong.chen@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Yu Zhao <yuzhao@google.com>, Zi Yan <ziy@nvidia.com>,
- Qi Zheng <qi.zheng@linux.dev>, cgroups@vger.kernel.org,
- linux-kernel@vger.kernel.org, Kairui Song <ryncsn@gmail.com>
-References: <20260826-mglru-flags-cleanup-v3-0-d9f1c75549c8@tencent.com>
- <20260826-mglru-flags-cleanup-v3-3-d9f1c75549c8@tencent.com>
+Subject: Re: [PATCH v2 2/2] kselftest: mm: replace usage of /proc/self/smaps
+ for check_huge_xxx() helper
+To: Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Yeoreum Yun <yeoreum.yun@arm.com>, Andrew Morton
+ <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Zi Yan <ziy@nvidia.com>, "Liam R. Howlett" <liam@infradead.org>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Shuah Khan <shuah@kernel.org>, Kevin Brodsky <kevin.brodsky@arm.com>
+Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260826-fix_split-v2-0-71153c7f579a@arm.com>
+ <20260826-fix_split-v2-2-71153c7f579a@arm.com>
+ <0107447a-7c1f-44f8-94fb-109b0f850677@linux.alibaba.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -99,35 +98,164 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20260826-mglru-flags-cleanup-v3-3-d9f1c75549c8@tencent.com>
+In-Reply-To: <0107447a-7c1f-44f8-94fb-109b0f850677@linux.alibaba.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 8/25/26 19:53, Kairui Song via B4 Relay wrote:
-> From: Kairui Song <kasong@tencent.com>
+On 8/27/26 10:28, Baolin Wang wrote:
 > 
-> folio_migrate_flags() copies PG_referenced separately from the MGLRU
-> refs counter, which folio_migrate_refs() transfers. Yet under MGLRU,
-> PG_referenced and the refs counter bits together describe the
-> referenced status of a folio.
 > 
-> Consolidate the two: rename folio_migrate_refs() to
-> folio_migrate_lru_refs() and let it copy the complete referenced
-> status, i.e., the MGLRU refs count including PG_referenced, or just
-> PG_referenced for the active/inactive LRU. Drop the open-coded
-> PG_referenced copy so the referenced status is transferred in one
-> place. No behavior change is intended: under the active/inactive LRU
-> the extra bits are unused, so operating on them is a noop.
+> On 8/26/26 8:24 PM, Yeoreum Yun wrote:
+>> Since glibc commit 321e1fc73f (“malloc: Enable 2MB THP by default on AArch64”),
+>> glibc may call madvise(MADV_HUGEPAGE) for sufficiently large allocations
+>> made by memalign().
+>>
+>> The underlying VMA may start at a different address from the aligned
+>> address returned by memalign(). Furthermore, a subsequent
+>> madvise(MADV_HUGEPAGE) call does not split the VMA because the flag is
+>> already set.
+>>
+>> This causes split_huge_page_test to fail because the check_huge_xxx()
+>> helpers incorrectly require the address returned by memalign() to
+>> match the VMA start address reported in /proc/self/smaps.
+>>
+>> Fix this by using /proc/self/pagemap and /proc/kpageflags instead of
+>> /proc/self/smaps to detect huge pages.
+>>
+>> Reported-by: David Hildenbrand (Arm) <david@kernel.org>
+>> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+>> ---
+>>   tools/testing/selftests/mm/vm_util.c | 130 ++++++++++++++++++++---------------
+>>   tools/testing/selftests/mm/vm_util.h |   1 +
+>>   2 files changed, 77 insertions(+), 54 deletions(-)
+>>
+>> diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/
+>> mm/vm_util.c
+>> index 4821a3563036..1d0959b3b9e8 100644
+>> --- a/tools/testing/selftests/mm/vm_util.c
+>> +++ b/tools/testing/selftests/mm/vm_util.c
+>> @@ -351,31 +351,13 @@ char *__get_smap_entry(void *addr, const char *pattern,
+>> char *buf, size_t len)
+>>       return entry;
+>>   }
+>>   -static bool __check_pmd_huge(void *addr, char *pattern, int nr_hpages,
+>> -          uint64_t hpage_size)
+>> -{
+>> -    char buffer[MAX_LINE_LENGTH];
+>> -    uint64_t thp = -1;
+>> -    char *entry;
+>> -
+>> -    entry = __get_smap_entry(addr, pattern, buffer, sizeof(buffer));
+>> -    if (!entry)
+>> -        goto err_out;
+>> -
+>> -    if (sscanf(entry, "%9" SCNu64 " kB", &thp) != 1)
+>> -        ksft_exit_fail_msg("Reading smap error\n");
+>> -
+>> -err_out:
+>> -    return thp == (nr_hpages * (hpage_size >> 10));
+>> -}
+>> -
+>> -static bool check_large_folios(void *addr, size_t len, int nr_hpages,
+>> -        uint64_t hpage_size)
+>> +static bool check_large_folios(int pagemap_fd, int kpageflags_fd,
+>> +                   void *addr, size_t len, int nr_hpages,
+>> +                   uint64_t hpage_size)
+>>   {
+>>       int order = 0, pagesize = getpagesize();
+>>       unsigned int nr_pages = hpage_size / pagesize;
+>>       int orders[MAX_NR_ORDERS], status;
+>> -    int pagemap_fd, kpageflags_fd;
+>>       bool ret = false;
+>>         if (!nr_pages)
+>> @@ -386,15 +368,6 @@ static bool check_large_folios(void *addr, size_t len,
+>> int nr_hpages,
+>>           ksft_exit_fail_msg("invalid order\n");
+>>         memset(orders, 0, sizeof(int) * MAX_NR_ORDERS);
+>> -    pagemap_fd = open(PAGEMAP_PATH, O_RDONLY);
+>> -    if (pagemap_fd == -1)
+>> -        ksft_exit_fail_msg("read pagemap fail\n");
+>> -
+>> -    kpageflags_fd = open(KPAGEFLAGS_PATH, O_RDONLY);
+>> -    if (kpageflags_fd == -1) {
+>> -        close(pagemap_fd);
+>> -        ksft_exit_fail_msg("read kpageflags fail\n");
+>> -    }
+>>         status = gather_folio_orders(addr, len, pagemap_fd,
+>>               kpageflags_fd, orders, MAX_NR_ORDERS);
+>> @@ -405,48 +378,97 @@ static bool check_large_folios(void *addr, size_t len,
+>> int nr_hpages,
+>>           ret = true;
+>>     out:
+>> -    close(pagemap_fd);
+>> -    close(kpageflags_fd);
+>>       return ret;
+>>   }
+>>   -bool check_huge_anon(void *addr, size_t len, int nr_hpages, uint64_t
+>> hpage_size)
+>> +enum check_huge_type {
+>> +    CHECK_HUGE_ANON,
+>> +    CHECK_HUGE_FILE,
+>> +    CHECK_HUGE_SHMEM,
+>> +};
+>> +
+>> +static bool __check_pmd_huge(void *addr, size_t len, int nr_hpages,
+>> +                 uint64_t hpage_size, enum check_huge_type type)
 > 
-> Transfer the reference state first, before the destination folio is
-> marked uptodate, so a concurrent lockless reader cannot have its
-> reference update overwritten by the copy.
+> The original __check_pmd_huge() is only for PMD-sized large folios, but now it
+> not only checks PMD-sized large folios but also mTHP large folios, which I find
+> confusing. Please keep its original semantics, and only check PMD-sized large
+> folios.
 > 
-> Reviewed-by: Baoquan He <baoquan.he@linux.dev>
-> Signed-off-by: Kairui Song <kasong@tencent.com>
-> ---
+>>   {
+>> -    uint64_t pmd_pagesize = read_pmd_pagesize();
+>> +    int pagemap_fd, kpageflags_fd;
+>> +    uint64_t pmd_pagesize, granule;
+>> +    uint64_t categories, kpf;
+>> +    unsigned long pfn;
+>> +    bool check_large, huge_mapped;
+>> +    char *start = addr;
+>> +    char *end = start + len;
+>>   +    pmd_pagesize = read_pmd_pagesize();
+>>       if (!pmd_pagesize)
+>>           ksft_exit_fail_msg("reading PMD pagesize failed\n");
+>>   -    if (hpage_size == pmd_pagesize)
+>> -        return __check_pmd_huge(addr, "AnonHugePages: ", nr_hpages, hpage_size);
+>> +    if (nr_hpages > 0) {
+>> +        check_large = true;
+>> +        granule = hpage_size;
+>> +    } else {
+>> +        check_large = false;
+>> +        granule = psize();
+>> +    }
+> 
+> This is incorrect for the mTHP large folio check. I already hit a selftest
+> failure. Please test your patches before sending them out.
+> 
+> [root@]./khugepaged -c 4 mthp_khugepaged:anon
+> TAP version 13
+> # Save THP and khugepaged settings... OK
+> 1..4
+> # Allocate huge page on fault... OK
+> # Split huge PMD on MADV_DONTNEED... OK
+> ok 1 allocate on fault and split
+> #
+> # Run test: collapse_full (mthp_khugepaged:anon)
+> # Collapse multiple fully populated PTE table.... OK
+> ok 2 collapse_full
+> #
+> # Run test: collapse_empty (mthp_khugepaged:anon)
+> # Do not collapse empty PTE table.... OK
+> ok 3 collapse_empty
+> #
+> # Run test: collapse_single_mthp (mthp_khugepaged:anon)
+> # Collapse PTE table with half PTE entries present.... Fail
+> not ok 4 collapse_single_mthp
+> # Totals: pass:3 fail:1 xfail:0 xpass:0 skip:0 error:0
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+FWIW, the CI flags this as well:
+
+https://github.com/linux-mm/linux-mm/actions/runs/33028595020/job/98375618491
 
 -- 
 Cheers,
