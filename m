@@ -1,72 +1,86 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11D712701D9
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 02:12:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 622842701D9
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 02:13:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787796725; cv=none; b=Jd9bqkCAFWQADv9IvtA2k8dq1p+jygUYJddjEZO51HVA6vFKYgBVlefpPoT3hdpXknO7pvHvveKy8QJgKcSrN93Y/1YG59bsp7gGyOYH0HfYj9B7xMI63msrx5ZH7GnOppcptMPHZ3ghKeG3Enjcr7TMuZbv38vB6vtZF5EJuMU=
+	t=1787796821; cv=none; b=rnDUHMJPDi9vacZn/OHYtl+hDYlTlNF1Csj6f+FD6iFQTtapaYam+jTpGvV5iaSmh+W8wfCsMkcCoslPyQ3O7uodzx3hnSscrTryjdHwU7lv6q34wMH8r0tG0g/f7X8vtuButtKBfVSygzOuHkslQiKWa2cSHIosEyPkZek+b0w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787796725; c=relaxed/simple;
-	bh=6XFLlRwnfy4QaqJaVKIIRjtHlyCVNVdW0UD+WKwk2r8=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=D0lxvqI9BBhaXUSbMEgvM5/BjZhbAE+oLBhaCAriyIn2S3NDq5kMNo8WY6CGDnnPonRjLpEgGxduHDVEeguUJVnL98Ia1HXcF8k8/R8p/b0gaycvWXHmDekvIw/BB97obYMWm7h4B449V/W50vqat+hjfCamoEKqMJZ/jq67Ws0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4b19ce23e5cso217696b6e.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 19:12:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787796723; x=1788401523;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=lLLLTixlifQgkFEgUMcS3ETtALUr1Ua0vaEcgqyKMyg=;
-        b=grUtP/6nRxXKrADfUKWo3tCSUYxFM+R+a+wbLM6KMo16Y7zMjXJ1ZrIu3qXiI3FO2z
-         tWw+rd1gqQg/+IlFRcEcB/xNtruJ0FWPdKI5Dkd5XpeT71dSM0ST04hUkPjaUE/zA6L1
-         WcKMKmcIm6FmJRc7ItrxCk04HCDSOm67ba5JkNpySqA7cKskuKNqKj+D/iKmGbljEUcm
-         e4Tpb5rS0KkUXewJM+EEJc64RHaGdWeHSmBk1Q82E3yrhQMtFfUEhHVQyKEc3aRZFDN6
-         dAfQOzafdszPwhe+m/Eg9vqhTgQhah4pK/CQhevabs8BVrP67oh90Npj+ulrmWHl3PUV
-         PE6Q==
-X-Forwarded-Encrypted: i=1; AHgh+RoKqjcuJd0GUhmu6xRtbgKnqI15SU7zytc+Wd/andFbgremWz3FDoGBJKIfQsQ2+Mp31Siw4IOK9MRMo9Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++lCIKIL4DxhSGtMvZLbwPHkVzfScCFU1jMo89Bdv18ssxLgFgeA
-	T3YQfB+acu5581v3iIIExvmdZ0MklgZHcO3OnahCBJPobnflMqkY6e2OkkjvMluWKlIvzFA1YCE
-	lqUhAEN6tK+EgsBwooA9f+6BG0xaE5skuBAWzTLigCdpBWU/MIv7V4hZpiV0=
+	s=arc-20240116; t=1787796821; c=relaxed/simple;
+	bh=2dHuMFPXfD1BNusSwxSfZh7oqwqE7AQ6aS6PJWfkRa8=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=J2zPuuVKgY+qoUrZzLtgmz3Zkhto3MLQnaX2+grfqXZznV0SsP/Hx4CsQLJ9j2xf+CbkCahhRR2W0VEQgqXWYbL8I5PnzWrSi8+4SHV1kfhHMIggvcA3HztEQxuuecGCLL/7fBx8LYV0BpZgh30fbn4h+JO3BddLhF3dMg2u8Ko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kqfjh0fG; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kqfjh0fG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787796820; x=1819332820;
+  h=date:from:to:cc:subject:message-id;
+  bh=2dHuMFPXfD1BNusSwxSfZh7oqwqE7AQ6aS6PJWfkRa8=;
+  b=kqfjh0fG+eJIgv5/JKv98T/E1P3DRYLsCjrHAp9lcRqfaH9Q9ZdWESWF
+   aVJTcpQvBZ80pG91uCtcitmJwfJm5UdOEFckQmlyDOesZhzvjjRrN1pv2
+   8Uxkn/UVoFcyAJqEQnCWDI9ZAcBkMxSGnVW9E9LixRspr+G0sLGJiRKBo
+   bO6gvchLqO9CV2NbVZ84MhJxUaew9t2ty2IWQid0f9zs1AyjHiOOB8qNi
+   dXGoMk2DXq3YWYTRK0n1u8ZjBTuSTcsqgci8daP/c/9vtyqRfib6cg/kb
+   /VlYjZLb4ElHqeIeRlIPPHqce+yzUgmN7sOKJLpD/J6CdITUaNXshEHxg
+   g==;
+X-CSE-ConnectionGUID: 8wv+i5WVSvOOTZOCcX2FqA==
+X-CSE-MsgGUID: o7NawKglReifhajbBPSdVw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="88055518"
+X-IronPort-AV: E=Sophos;i="6.25,245,1779174000"; 
+   d="scan'208";a="88055518"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 19:13:40 -0700
+X-CSE-ConnectionGUID: 5fVJWfU4QEWAaBHC0OCgxQ==
+X-CSE-MsgGUID: 7ajzokWeTYmldH7ndiSujg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,245,1779174000"; 
+   d="scan'208";a="271539409"
+Received: from lkp-server01.sh.intel.com (HELO 3532383e6126) ([10.239.97.150])
+  by orviesa004.jf.intel.com with ESMTP; 26 Aug 2026 19:13:39 -0700
+Received: from kbuild by 3532383e6126 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1wzPcW-000000008nF-1DUn;
+	Thu, 27 Aug 2026 02:13:36 +0000
+Date: Thu, 27 Aug 2026 10:12:38 +0800
+From: kernel test robot <lkp@intel.com>
+To: Tyrel Datwyler <tyreld@linux.ibm.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ "Martin K. Petersen" <martin.petersen@oracle.com>
+Subject: Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:1881 expecting
+ prototype for ibmvfc_relogin(). Prototype was for ibmvfc_scsi_relogin()
+ instead
+Message-ID: <202608271026.iMLmrwz4-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Received: by 2002:a05:6808:5185:b0:4b2:67f1:11d7 with SMTP id
- 5614622812f47-4b366b70521mr11931989b6e.17.1787796722964; Wed, 26 Aug 2026
- 19:12:02 -0700 (PDT)
-Date: Wed, 26 Aug 2026 19:12:02 -0700
-In-Reply-To: <20260827002543.1744-1-hdanton@sina.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a8f9cf2.1d9ded08.62e62.00c4.GAE@google.com>
-Subject: Re: [syzbot] [usb?] KASAN: slab-use-after-free Read in stub_rx_loop
-From: syzbot <syzbot+06fa667a0931a3430026@syzkaller.appspotmail.com>
-To: hdanton@sina.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
 
-Hello,
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229
+commit: e0fca728a89f14c2edd3e9f5343d0f019d8f50dd scsi: ibmvfc: delete NVMe/FC targets as well as SCSI
+date:   4 weeks ago
+config: powerpc-allmodconfig (https://download.01.org/0day-ci/archive/20260827/202608271026.iMLmrwz4-lkp@intel.com/config)
+compiler: powerpc64-linux-gcc (GCC) 16.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260827/202608271026.iMLmrwz4-lkp@intel.com/reproduce)
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: e0fca728a89f ("scsi: ibmvfc: delete NVMe/FC targets as well as SCSI")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202608271026.iMLmrwz4-lkp@intel.com/
 
-Reported-by: syzbot+06fa667a0931a3430026@syzkaller.appspotmail.com
-Tested-by: syzbot+06fa667a0931a3430026@syzkaller.appspotmail.com
+All warnings (new ones prefixed by >>):
 
-Tested on:
+>> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:1881 expecting prototype for ibmvfc_relogin(). Prototype was for ibmvfc_scsi_relogin() instead
+   Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:4976 function parameter 'protocol' not described in 'ibmvfc_alloc_target'
+   Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:4976 function parameter 'protocol' not described in 'ibmvfc_alloc_target'
 
-commit:         818bebeb drm/xe: Don't hand out the flat CCS storage a..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=167fe979580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
-dashboard link: https://syzkaller.appspot.com/bug?extid=06fa667a0931a3430026
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=1080b99e580000
-
-Note: testing is done by a robot and is best-effort only.
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
