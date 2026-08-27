@@ -1,150 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14A483DA7D1;
-	Thu, 27 Aug 2026 08:36:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B44C3C9886
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:37:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787819821; cv=none; b=tCs/Jc3TvUC1SB7N+xZKZqcrASjSgdBvNs7gzfh8j79vWAokk/KjJm6Ex5cXuVfJ2OPDorbMFfsI24+PCI7IW0JEK1Zpd3NiOF0zSXgP3Gm3fh2VKohZ44Fjjnoh1zz55Aa8AyHhkRfi/4U79ZAkg+/0kdkjwjaGp0LLNScGFug=
+	t=1787819862; cv=none; b=cNQSa3g9i1ayRbXBFUsN+NgcKaIV0tpUOXqHbEnkoV5I4726qKNBi5vWIDb9boLwh0YpOjEiE+KBhg4Z6vKifVmR3caZeafCUv6Ym9fDY64MJd6DPek0USTyeqBJMxngGEWoJ+8udKDJE5Lw+gYE8T9OaS/ejTzHgs2948+tuzE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787819821; c=relaxed/simple;
-	bh=O49pBanThnRwtkT1TJiXChrH5PYlmKW1VkdM3d8Lt0c=;
+	s=arc-20240116; t=1787819862; c=relaxed/simple;
+	bh=uLDJDHDq7131vcScWYDOdh9QqsBxxkSTjHkeHvBlQWw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dAwIFAl+rdOJN9V0TlGUKY1wGsqCEtN2eX/E5LR+NVVCXZWwbcf4RmjW/I1lotc9LDX1iMTZ686ylUc1bxT/gTcdyBYnDQOkShCGEMpC609efjxEo9nvqXIkSvpJ6g3N/weS9sHzGiZGt7TSk1p1xZB9FsIYdWxY+LSSL3O9zFk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LOWJ40ZD; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=gJcYtXwKyzfZMwHWU4uXuqD8jhY8hwq368Ois/z2IH4tAAEcLwpSgK+CByfvFlQYUPxoGPcbkr+yt4eAoTMON9hk+rfqPJc/KHr4uz+GOjqCd+mVcE+200CkJvpcxM11LLfCpizpfcln2Z9z7DBJsE4RgNFkyyjVFTjPxxMmNnM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=ickLu4H7; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=D1HUkaI0; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LOWJ40ZD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DE571F000E9;
-	Thu, 27 Aug 2026 08:36:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787819817;
-	bh=rkzdP2S548RxnrFBhwG8u6sLOgpp1gNeiux6b/1cAoM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LOWJ40ZDmi5YS420LN9xd2O1jW1tratjVPqUYSVCBSg8n3KTiSQy3pxU0RsuiaiP8
-	 6abWQINXVjomSW7EwwZ3ydvqAxdzRPEsBTJuKurEXKbFBc+i2SSSFYywxbAVHfB41R
-	 rBfjDPoAVfrAkSZv9tQPxXwAfjmluaRgD7s0FMLLQIA/r+Eo+3vToKJoTjuYxZS/B8
-	 LcbNples+T4+Hwqo+ajKrfDO6K5no/1myIhZi1dA2czKmK21v7byTR2DWTrjsdBtY0
-	 uZ+5TtaTHFRdb7pmsK0zoaFAJeM6oAQnqZS02DNGu5SGMnyDWka15cPq9n4toxZ+I4
-	 4XKQo09+wjilQ==
-Date: Thu, 27 Aug 2026 09:36:52 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Li Xinhai <lixinhai.lxh@gmail.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	syzbot+f12658786a4153df5113@syzkaller.appspotmail.com, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/mremap: reset unfaulted VMA page offset for
- MREMAP_DONTUNMAP
-Message-ID: <ao_25iegD62xA2u3@gremlin>
-References: <20260825-fix-mremap-dontunmap-pgoff-v1-1-39a40b2c98b3@kernel.org>
- <34fa1a4d-e5fb-4e27-a53b-b57b96be3f8c@kernel.org>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ickLu4H7";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="D1HUkaI0"
+Date: Thu, 27 Aug 2026 10:37:38 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1787819859;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uSLMOLZbaUgpVe/4MzjSC3H0CElONzcrnF1acij8DHM=;
+	b=ickLu4H7BHPk4yvoAl9zVCpXnS19K/JEPu6ZlDscGDc0un3qtR89V47DD901lS3OODO3lp
+	Y9186W6muVsGI+XGP19cNNrBePoLKOn4nLgkLz4lhtAgdOb/hIJ8ufCcW1wOzadM4FxJW+
+	4IycDKaGPErP38Bl5K7JG6dyrIT+OS54fqJ1cerxvTfHAoGI19k4IuHuo6m36z5QFRXih4
+	rVakGmWsawhfqE1WAARkg7X6ABJPCw6r+bZ5yabNzSUZTBMa7fK7T3uIHSK9cOsMttKwEl
+	jooqAvz4nK9EOJHVGssaAoEY4wnx2RFyuwY15xAEF/QOGE+vuSdExuMXhAUmDw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1787819859;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uSLMOLZbaUgpVe/4MzjSC3H0CElONzcrnF1acij8DHM=;
+	b=D1HUkaI0YP5VFdDp2mTgGwK1ZRcHqJ7YP2rmmqAXdRaJb/3IUxMaGFc2F7HZgSLB2dHK98
+	uDgIrTLwHtP1ZUAw==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Thomas Gleixner <tglx@linutronix.de>
+Cc: Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
+	=?utf-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>,
+	Darren Hart <dvhart@infradead.org>,
+	Davidlohr Bueso <dave@stgolabs.net>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>, Yao Kai <yaokai34@huawei.com>
+Subject: Re: [PATCH v3 1/2] futex: Add missing rt_mutex_.*_schedule() around
+ rt_mutex_wait_proxy_lock()
+Message-ID: <20260827083738.-6QSwUwb@linutronix.de>
+References: <20260824125544.2353006-1-bigeasy@linutronix.de>
+ <20260824125544.2353006-2-bigeasy@linutronix.de>
+ <20260824132334.GI687043@noisy.programming.kicks-ass.net>
+ <874igghi3w.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <34fa1a4d-e5fb-4e27-a53b-b57b96be3f8c@kernel.org>
+In-Reply-To: <874igghi3w.ffs@fw13>
 
-On Thu, Aug 27, 2026 at 10:32:15AM +0200, Vlastimil Babka (SUSE) wrote:
-> On 8/25/26 9:55 AM, Lorenzo Stoakes (ARM) wrote:
-> > Uniquely an mremap() invocation using the MREMAP_DONTUNMAP flag can reset
-> > a faulted VMA into an unfaulted one.
+On 2026-08-26 20:06:11 [+0200], Thomas Gleixner wrote:
+> On Mon, Aug 24 2026 at 15:23, Peter Zijlstra wrote:
+> > On Mon, Aug 24, 2026 at 02:55:42PM +0200, Sebastian Andrzej Siewior wrote:
+> >>  #include "futex.h"
+> >> @@ -865,7 +866,10 @@ int futex_wait_requeue_pi(u32 __user *uaddr, unsigned int flags,
+> >>  	case Q_REQUEUE_PI_DONE:
+> >>  		/* Requeue completed. Current is 'pi_blocked_on' the rtmutex */
+> >>  		pi_mutex = &q.pi_state->pi_mutex;
+> >> +
 > >
-> > It does so after the page tables have been moved to the copied VMA with
-> > MREMAP_DONTUNMAP leaving the old VMA in place which is naturally unfaulted
-> > as the page tables it had are no longer present.
-> >
-> > However, in doing so, it violates the invariant that the anonymous page
-> > offset of an unfaulted VMA is vma->vm_start >> PAGE_SHIFT.
-> >
-> > This is because a VMA may have been faulted in, mremap()'d (causing a delta
-> > between its page offset and vma->vm_start >> PAGE_SHIFT), and then
-> > mremap()'d again with MREMAP_DONTUNMAP resulting in the unfaulting.
-> >
-> > This condition is a violation of a fundamental assumption in mm, but now
-> > also triggers an assert in assert_sane_pgoff() which explicitly checks for
-> > this condition.
->
-> Oof. So what's the worst thing that could happen before the assert was
-> added? We'd use the "unfaulted" state to allow a merge, but the wrong
-> pgoff could mess up the result of the merge somehow?
+> > 		/*
+> > 		 * Since current is doing the requeue, it cannot also be
+> > 		 * a waiter on the same futex.
+> > 		 */
+> 
+> Current is not the task doing the requeue. Current is the requeued waiter which is
+> blocked on the rtmutex.
+> 
+> Though the change log is confusing at best. The whole requeue explanation
+> is not really helpful IMO.
+> 
+> The point is that _all_ invocations of rt_mutex_schedule() must be
+> preceeded by a call to rt_mutex_pre_schedule() and followed by a call to
+> rt_mutex_post_schedule().
+> 
+> So this code simply failed to do that, which triggers the
+> lockdep_assert() in rt_mutex_schedule().
+> 
+> And it's obvious from the surrounding comments how this task got there, no?
 
-Yep you'd just get merging not working. It's a bit of a unique set of
-circumstances so it's not a huge impact, but it's an edge case that'd break
-scalable CoW assumptions that I want to use to avoid having to track remaps
-so it's a good one to find :)
+I would suggest to strip it all from the futex part, not do the flush
+and just please the assert so it keeps quiet. I did some explaining in
+the v2 and then Yao suggested
+	https://lore.kernel.org/all/5df8a43e-11bb-4881-877d-40034c414984@huawei.com/
 
-Definitely incorrect however even if low impact in the past.
+which is what I had in mind.
 
->
-> > Correct it by resetting the VMA's page offset at the point of completing
-> > the MREMAP_DONTUNMAP operation.
-> >
-> > Reported-by: syzbot+f12658786a4153df5113@syzkaller.appspotmail.com
-> > Closes: https://lore.kernel.org/all/6a87853b.ae6ddae5.3da009.0023.GAE@google.com/
-> > Fixes: 1583aa278f5f ("mm: mremap: unlink anon_vmas when mremap with MREMAP_DONTUNMAP success")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->
-> Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-
-Thanks!
-
->
-> > ---
-> >  mm/mremap.c | 22 +++++++++++++++++-----
-> >  1 file changed, 17 insertions(+), 5 deletions(-)
-> >
-> > diff --git a/mm/mremap.c b/mm/mremap.c
-> > index e8df5cdb0ac9..2b4b523a86b8 100644
-> > --- a/mm/mremap.c
-> > +++ b/mm/mremap.c
-> > @@ -1331,18 +1331,30 @@ static void dontunmap_complete(struct vma_remap_struct *vrm,
-> >  {
-> >  	unsigned long start = vrm->addr;
-> >  	unsigned long end = vrm->addr + vrm->old_len;
-> > -	unsigned long old_start = vrm->vma->vm_start;
-> > -	unsigned long old_end = vrm->vma->vm_end;
-> > +	struct vm_area_struct *vma = vrm->vma;
-> > +	unsigned long old_start = vma->vm_start;
-> > +	unsigned long old_end = vma->vm_end;
-> >
-> >  	/* We always clear VMA_LOCKED[ONFAULT]_BIT on the old VMA. */
-> > -	vma_clear_flags_mask(vrm->vma, VMA_LOCKED_MASK);
-> > +	vma_clear_flags_mask(vma, VMA_LOCKED_MASK);
-> >
-> >  	/*
-> >  	 * anon_vma links of the old vma is no longer needed after its page
-> >  	 * table has been moved.
-> >  	 */
-> > -	if (new_vma != vrm->vma && start == old_start && end == old_end)
-> > -		unlink_anon_vmas(vrm->vma);
-> > +	if (new_vma != vma && start == old_start && end == old_end) {
-> > +		const pgoff_t pgoff_unfaulted = vma->vm_start >> PAGE_SHIFT;
-> > +
-> > +		unlink_anon_vmas(vma);
-> > +		/*
-> > +		 * The VMA is now unfaulted and it is an invariant that
-> > +		 * unfaulted anonymous VMAs have page offset equal to
-> > +		 * vma->vm_start >> PAGE_SHIFT.
-> > +		 */
-> > +		vma_set_anon_pgoff(vma, pgoff_unfaulted);
-> > +		if (vma_is_anonymous(vma) && !vma->vm_file)
-> > +			vma_set_pgoff(vma, pgoff_unfaulted);
-> > +	}
-> >
-> >  	/* Because we won't unmap we don't need to touch locked_vm. */
-> >  }
-> >
-> > ---
-> > base-commit: efecab401cb15fd3bb9bc05990609acb6b267ff2
-> > change-id: 20260824-fix-mremap-dontunmap-pgoff-a687134e995e
-> >
-> > Best regards,
->
-
---
-Cheers, Lorenzo
+Sebastian
