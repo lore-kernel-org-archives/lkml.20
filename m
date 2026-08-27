@@ -1,130 +1,303 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DEB318DB1F;
-	Thu, 27 Aug 2026 07:15:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E11C18DB1F
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:16:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787814942; cv=none; b=awkRcYhzI5LkLh3tlRQEIZSq0ODeU7zwwPJwPqY/lmi63+ANusvQeSgSVAx+RikzxFX8auSsQemPlTLmIUSaaqrYarKWt2IVkk7WEWf3Oo+tMM417rLnVcAjTMgbE4vaDZWBdB/R7Rff7h+QAEYJqSo6pwz0f3j5XhaAAHCdP/Y=
+	t=1787815006; cv=none; b=CvCepKa0vIAg5NytQ7ds42d9WNwFS/g0Dbh9u3QRz1Is6He4fTzrFgcpl5wPcXc30ew0taAM70pgv2P766UYdSJ//7AFgu9EcO+YIrgDdEwpmC01GpwSALMpjrh7o4THNCvoZk6m5IE0EtxX0kEe5pIbfKHr6pKqVMDwAIbs5Dg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787814942; c=relaxed/simple;
-	bh=9Z3mOB8sjN4xtEd9AWWKUGkfZsPYHphhCLDfo3n7LIM=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=rIE4un4Na1f6tjeE6VdkVG8ZwO6B/KBosqDyRyWSn7bDoOote5xmEF1yY9TL/R2WSR28bCrJq2q81Z2Be2Wh9Mj6V7gXhZ/A9ARk3WU/GG2SPbt4Pz6XTlaJhDzbnz2YXtql9x1MBOp1/p/BgOCPjvcLz35T1+0rrNESxeIbdzE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=jtxDEiKN; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	s=arc-20240116; t=1787815006; c=relaxed/simple;
+	bh=5SgBr4CPFeTziwvSiP0FcTBfcEZ/FQJ3VjOWNiP7Vm4=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=DrFmHKzo34TIFZ7J0laJDjzr63hXEPwsGR2bkfshrpeDIao27kzZbUTMn5G373gxDAC5M8+c99Z1ljTfyltfDZ7S9YUeio6f6CggxI5IJ/EeLbuFqaVXLJt/uNgcg3zNxLWhRk/oUxcoxKzxrGboDTYdxn3owGx4dA5Qs7dbXg4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q/aitK2E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="jtxDEiKN"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=0/WmpBw1NC/NZ1Pwlc5Do2FNd8FdtHL1x6eXwEeq7Ik=; b=jtxDEiKNLKP6UGzhJh3QLxRMR5
-	zWLQ+Glcw40djkqxGiLCniny5XLFJDUfQBSfW8sUc8TSkEVHrYfnLiS52hE0QkQRDoKxKGs9HPHLS
-	GyQ/0rH+nBBRK9lf+aQHn1fNAPgM9Mxc7HwXhDXDJTV2QmtPtKJGNwI7WHaQ7NvcVlDjplyX5OLp8
-	d3C485CFnBRn4jxXLDza1wb3JyJFvnXEZzqmvvK6QGGYcmeqZ17scH2DEzjWHtwRmaSHJcjr/zRXm
-	vw76HSWFBacsNxw7cIcUetUNbFGD+kLYNnKHUIPXDGpIGcyzSKNakCbywRrI304kFxMSEGiVD9fM5
-	EQ0NTuZA==;
-Received: from [::1] (port=55356 helo=pf-012.whm.fr-par.scw.cloud)
-	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.99.5)
-	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
-	id 1wzUKk-00000001pPr-2UA3;
-	Thu, 27 Aug 2026 09:15:34 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q/aitK2E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EE4C1F000E9;
+	Thu, 27 Aug 2026 07:16:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787815004;
+	bh=tPLA3RkuZIumhqwSS/uvWPLXsqpPYd79cJpclLT4Fp8=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=Q/aitK2EKCPBCQex7Y9h20PK2mKieT3UXBrcRiKhR2IawZYvsgySRaf6NibTCBgx3
+	 VqHGbm9x1FcwEf/Q43Bc61yefaI1I0z08Okeb/5+N8zgg5iM2MqiN1AiYKPcu0ZR1z
+	 3id5UQ9jm9bmvRgAgd/3bIU85pzi2L/LoZTrcaMmXV+RMciVoyv6KRUMH3AdlBIorS
+	 BUFRW2G5Q2FnkIa36Ef3Sxryum7mvV/d/R94mPD5teFSsp7mpE7bSQQpsqzpQvpnjT
+	 /Fr1DexZj03HlIn/0zpgzEi5QPCZwkXHlXyftCIAaZ4wf6Wz1Ibc1IpPr+tqKoSsba
+	 xzl1aLwGtqP8g==
+Message-ID: <3771dfee-db35-4af4-a15d-28b8fa98fe96@kernel.org>
+Date: Thu, 27 Aug 2026 15:16:41 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 27 Aug 2026 09:15:33 +0200
-From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
-To: Bradley Morgan <brads@mainlining.org>
-Cc: rostedt@goodmis.org, mhiramat@kernel.org,
- mathieu.desnoyers@efficios.com, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] tracing/user_events: Clear copied tracing state before
- fork duplication
-In-Reply-To: <5B7C72AA-5655-4916-AB17-03A8B94F5D7C@mainlining.org>
-References: <20260826214414.1971632-2-Jeremy.Jean@oss.cyber.gouv.fr>
- <5B7C72AA-5655-4916-AB17-03A8B94F5D7C@mainlining.org>
-User-Agent: Roundcube Webmail/1.6.18
-Message-ID: <faa62ef4d9144b3145a8a6254ac3fea6@oss.cyber.gouv.fr>
-X-Sender: jeremy.jean@oss.cyber.gouv.fr
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, Barry Song <baohua@kernel.org>,
+ Nanzhe Zhao <nzzhao@126.com>, Juan Yescas <jyescas@google.com>,
+ Dev Jain <Dev.Jain@arm.com>, linux-kernel@vger.kernel.org,
+ David Hildenbrand <David.Hildenbrand@arm.com>,
+ Bo Zhang <zhangbo56@xiaomi.com>, Kalesh Singh <kaleshsingh@google.com>,
+ Ryan Roberts <Ryan.Roberts@arm.com>, Pengfei Li <lipengfei28@xiaomi.com>
+Subject: Re: [PATCH 02/14] f2fs: carry subpage offset and count in write IO
+To: Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
+ linux-f2fs-devel@lists.sourceforge.net, Jaegeuk Kim <jaegeuk@kernel.org>
+References: <20260826082641.2007658-1-zhaonanzhe@xiaomi.com>
+ <20260826082641.2007658-3-zhaonanzhe@xiaomi.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20260826082641.2007658-3-zhaonanzhe@xiaomi.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-
->> diff --git a/kernel/trace/trace_events_user.c 
->> b/kernel/trace/trace_events_user.c
->> index 2bbc89d4a266..339e18085af3 100644
->> --- a/kernel/trace/trace_events_user.c
->> +++ b/kernel/trace/trace_events_user.c
->> @@ -865,9 +865,12 @@ void user_event_mm_remove(struct task_struct *t)
->> 
->> void user_event_mm_dup(struct task_struct *t, struct user_event_mm
->> *old_mm)
->> {
->> -	struct user_event_mm *mm = user_event_mm_alloc(t);
->> +	struct user_event_mm *mm;
->> 	struct user_event_enabler *enabler;
->> 
+On 8/26/26 16:26, Nanzhe Zhao wrote:
+> Large folio write paths need to submit I/O for a range inside a
+> folio instead of always submitting the whole folio from offset zero.
+> Add folio_offset and folio_blkcnt to f2fs_io_info to describe the
+> block offset inside the folio and the number of contiguous blocks
+> covered by the I/O.
 > 
-> Comment?
+> Apply the new fields to the bio submit paths that need the subpage
+> offset or contiguous block count.
 > 
-> /* Failure must leave the child with no copied state to free. */
+> Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+> ---
+>  fs/f2fs/data.c    | 59 ++++++++++++++++++++++++++++++++---------------
+>  fs/f2fs/f2fs.h    | 11 +++++++++
+>  fs/f2fs/segment.c |  3 ++-
+>  3 files changed, 54 insertions(+), 19 deletions(-)
 > 
-> I mean, okay, you don't got to, but itd be nice, if your happy with it, 
-> add
-> 
-> Reviewed-by: Bradley Morgan <brads@mainlining.org>
+> diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+> index 578a90d427e2..8649d443ca74 100644
+> --- a/fs/f2fs/data.c
+> +++ b/fs/f2fs/data.c
+> @@ -783,6 +783,9 @@ int f2fs_submit_page_bio(struct f2fs_io_info *fio)
+>  	struct folio *fio_folio = fio->folio;
+>  	struct folio *data_folio = fio->encrypted_page ?
+>  			page_folio(fio->encrypted_page) : fio_folio;
+> +	pgoff_t fio_lblk = F2FS_FIO_LBLK(fio_folio, fio);
+> +	size_t bio_offset = F2FS_FIO_BIO_OFFSET(fio);
+> +	size_t bio_len = F2FS_FIO_BIO_SIZE(fio);
+>  
+>  	if (!f2fs_is_valid_blkaddr(fio->sbi, fio->new_blkaddr,
+>  			fio->is_por ? META_POR : (__is_meta_io(fio) ?
+> @@ -795,11 +798,11 @@ int f2fs_submit_page_bio(struct f2fs_io_info *fio)
+>  	bio = __bio_alloc(fio, 1);
+>  
+>  	f2fs_set_bio_crypt_ctx(bio, fio_folio->mapping->host,
+> -			fio_folio->index, fio, GFP_NOIO);
+> -	bio_add_folio_nofail(bio, data_folio, folio_size(data_folio), 0);
+> +			fio_lblk, fio, GFP_NOIO);
+> +	bio_add_folio_nofail(bio, data_folio, bio_len, bio_offset);
+>  
+>  	if (fio->io_wbc && !is_read_io(fio->op))
+> -		wbc_account_cgroup_owner(fio->io_wbc, fio_folio, PAGE_SIZE);
+> +		wbc_account_cgroup_owner(fio->io_wbc, fio_folio, bio_len);
+>  
+>  	inc_page_count(fio->sbi, is_read_io(fio->op) ?
+>  			__read_io_type(data_folio) : WB_DATA_TYPE(fio->folio, false));
+> @@ -844,7 +847,8 @@ static bool io_is_mergeable(struct f2fs_sb_info *sbi, struct bio *bio,
+>  }
+>  
+>  static void add_bio_entry(struct f2fs_sb_info *sbi, struct bio *bio,
+> -				struct folio *folio, enum temp_type temp)
+> +				struct folio *folio, size_t len, size_t offset,
+> +				enum temp_type temp)
+>  {
+>  	struct f2fs_bio_info *io = sbi->write_io[DATA] + temp;
+>  	struct bio_entry *be;
+> @@ -853,7 +857,7 @@ static void add_bio_entry(struct f2fs_sb_info *sbi, struct bio *bio,
+>  	be->bio = bio;
+>  	bio_get(bio);
+>  
+> -	bio_add_folio_nofail(bio, folio, folio_size(folio), 0);
+> +	bio_add_folio_nofail(bio, folio, len, offset);
+>  
+>  	f2fs_down_write(&io->bio_list_lock);
+>  	list_add_tail(&be->list, &io->bio_list);
+> @@ -870,6 +874,9 @@ static int add_ipu_page(struct f2fs_io_info *fio, struct bio **bio,
+>  							struct folio *folio)
+>  {
+>  	struct folio *fio_folio = fio->folio;
+> +	pgoff_t fio_lblk = F2FS_FIO_LBLK(fio_folio, fio);
+> +	size_t bio_offset = F2FS_FIO_BIO_OFFSET(fio);
+> +	size_t bio_len = F2FS_FIO_BIO_SIZE(fio);
+>  	struct f2fs_sb_info *sbi = fio->sbi;
+>  	enum temp_type temp;
+>  	bool found = false;
+> @@ -892,8 +899,8 @@ static int add_ipu_page(struct f2fs_io_info *fio, struct bio **bio,
+>  							    fio->new_blkaddr));
+>  			if (f2fs_crypt_mergeable_bio(*bio,
+>  					fio_folio->mapping->host,
+> -					fio_folio->index, fio) &&
+> -			    bio_add_folio(*bio, folio, folio_size(folio), 0)) {
+> +					fio_lblk, fio) &&
+> +			    bio_add_folio(*bio, folio, bio_len, bio_offset)) {
+>  				ret = 0;
+>  				break;
+>  			}
+> @@ -1007,6 +1014,10 @@ int f2fs_merge_page_bio(struct f2fs_io_info *fio)
+>  	struct folio *data_folio = fio->encrypted_page ?
+>  			page_folio(fio->encrypted_page) : fio->folio;
+>  	struct folio *folio = fio->folio;
+> +	pgoff_t fio_lblk = F2FS_FIO_LBLK(folio, fio);
+> +	unsigned int fio_cnt = F2FS_FIO_BLKCNT(fio);
+> +	size_t bio_offset = F2FS_FIO_BIO_OFFSET(fio);
+> +	size_t bio_len = F2FS_FIO_BIO_SIZE(fio);
+>  
+>  	if (!f2fs_is_valid_blkaddr(fio->sbi, fio->new_blkaddr,
+>  			__is_meta_io(fio) ? META_GENERIC : DATA_GENERIC))
+> @@ -1021,9 +1032,10 @@ int f2fs_merge_page_bio(struct f2fs_io_info *fio)
+>  	if (!bio) {
+>  		bio = __bio_alloc(fio, BIO_MAX_VECS);
+>  		f2fs_set_bio_crypt_ctx(bio, folio->mapping->host,
+> -				folio->index, fio, GFP_NOIO);
+> +				fio_lblk, fio, GFP_NOIO);
+>  
+> -		add_bio_entry(fio->sbi, bio, data_folio, fio->temp);
+> +		add_bio_entry(fio->sbi, bio, data_folio, bio_len,
+> +			     bio_offset, fio->temp);
+>  	} else {
+>  		if (add_ipu_page(fio, &bio, data_folio))
+>  			goto alloc_new;
+> @@ -1034,7 +1046,7 @@ int f2fs_merge_page_bio(struct f2fs_io_info *fio)
+>  
+>  	inc_page_count(fio->sbi, WB_DATA_TYPE(folio, false));
+>  
+> -	*fio->last_block = fio->new_blkaddr;
+> +	*fio->last_block = fio->new_blkaddr + fio_cnt - 1;
+>  	*fio->bio = bio;
+>  
+>  	return 0;
+> @@ -1070,6 +1082,10 @@ void f2fs_submit_page_write(struct f2fs_io_info *fio)
+>  	struct folio *bio_folio;
+>  	struct f2fs_lock_context lc;
+>  	enum count_type type;
+> +	pgoff_t fio_lblk;
+> +	unsigned int fio_cnt;
+> +	size_t bio_offset;
+> +	size_t bio_len;
+>  
+>  	f2fs_bug_on(sbi, is_read_io(fio->op));
+>  
+> @@ -1108,6 +1124,9 @@ void f2fs_submit_page_write(struct f2fs_io_info *fio)
+>  	/* set submitted = true as a return value */
+>  	fio->submitted = 1;
+>  
+> +	fio_lblk = F2FS_FIO_LBLK(fio->folio, fio);
+> +	fio_cnt = F2FS_FIO_BLKCNT(fio);
+> +
+>  	type = WB_DATA_TYPE(bio_folio, fio->compressed_page);
+>  	inc_page_count(sbi, type);
+>  
+> @@ -1115,26 +1134,28 @@ void f2fs_submit_page_write(struct f2fs_io_info *fio)
+>  	    (!io_is_mergeable(sbi, io->bio, io, fio, io->last_block_in_bio,
+>  			      fio->new_blkaddr) ||
+>  	     !f2fs_crypt_mergeable_bio(io->bio, fio_inode(fio),
+> -				bio_folio->index, fio)))
+> +				fio_lblk, fio)))
+>  		__submit_merged_bio(io);
+>  alloc_new:
+>  	if (io->bio == NULL) {
+>  		io->bio = __bio_alloc(fio, BIO_MAX_VECS);
+>  		f2fs_set_bio_crypt_ctx(io->bio, fio_inode(fio),
+> -				bio_folio->index, fio, GFP_NOIO);
+> +				fio_lblk, fio, GFP_NOIO);
+>  		io->fio = *fio;
+>  	}
+>  
+> -	if (!bio_add_folio(io->bio, bio_folio, folio_size(bio_folio), 0)) {
+> +	bio_offset = F2FS_FIO_BIO_OFFSET(fio);
+> +	bio_len = F2FS_FIO_BIO_SIZE(fio);
+> +
+> +	if (!bio_add_folio(io->bio, bio_folio, bio_len, bio_offset)) {
+>  		__submit_merged_bio(io);
+>  		goto alloc_new;
+>  	}
+>  
+>  	if (fio->io_wbc)
+> -		wbc_account_cgroup_owner(fio->io_wbc, fio->folio,
+> -				folio_size(fio->folio));
+> +		wbc_account_cgroup_owner(fio->io_wbc, fio->folio, bio_len);
+>  
+> -	io->last_block_in_bio = fio->new_blkaddr;
+> +	io->last_block_in_bio = fio->new_blkaddr + fio_cnt - 1;
+>  
+>  	trace_f2fs_submit_folio_write(fio->folio, fio);
+>  #ifdef CONFIG_BLK_DEV_ZONED
+> @@ -3039,7 +3060,8 @@ int f2fs_do_write_data_page(struct f2fs_io_info *fio)
+>  		set_new_dnode(&dn, inode, NULL, NULL, 0);
+>  
+>  	if (need_inplace_update(fio) &&
+> -	    f2fs_lookup_read_extent_cache_block(inode, folio->index,
+> +	    f2fs_lookup_read_extent_cache_block(inode,
+> +						F2FS_FIO_LBLK(folio, fio),
+>  						&fio->old_blkaddr)) {
+>  		if (!f2fs_is_valid_blkaddr(fio->sbi, fio->old_blkaddr,
+>  						DATA_GENERIC_ENHANCE))
+> @@ -3058,7 +3080,8 @@ int f2fs_do_write_data_page(struct f2fs_io_info *fio)
+>  	if (fio->need_lock == LOCK_REQ && !f2fs_trylock_op(fio->sbi, &lc))
+>  		return -EAGAIN;
+>  
+> -	err = f2fs_get_dnode_of_data(&dn, folio->index, LOOKUP_NODE);
+> +	err = f2fs_get_dnode_of_data(&dn, F2FS_FIO_LBLK(folio, fio),
+> +				     LOOKUP_NODE);
+>  	if (err)
+>  		goto out;
+>  
+> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+> index 2e8f85cea6d0..31ddd321daf6 100644
+> --- a/fs/f2fs/f2fs.h
+> +++ b/fs/f2fs/f2fs.h
+> @@ -1357,6 +1357,8 @@ struct f2fs_io_info {
+>  	blk_opf_t op_flags;	/* req_flag_bits */
+>  	block_t new_blkaddr;	/* new block address to be written */
+>  	block_t old_blkaddr;	/* old block address before Cow */
+> +	pgoff_t folio_offset;	/* offset in large folio */
+> +	unsigned int folio_blkcnt;	/* block count in large folio */
+>  	union {
+>  		struct page *page;	/* page to be written */
+>  		struct folio *folio;
+> @@ -1378,6 +1380,15 @@ struct f2fs_io_info {
+>  	sector_t *last_block;		/* last block number in bio */
+>  };
+>  
+> +#define F2FS_FIO_LBLK(folio, fio)					\
+> +	((folio)->index + (fio)->folio_offset)
 
-I usually don't think about adding comments, but yes, that's a good 
-suggestion.
+#define F2FS_FIO_LBLK(fio)					\
+	(((fio)->folio)->index + (fio)->folio_offset)
 
-> Maybe you could add this to your memories
-> 
-> "The description length should be about the same as the change being
-> added,unless there is a splat, or something else like a table which 
-> needs
-> to be added to the description, keep the description length the same as
-> thepatch size, e.g:
-> 
-> Instead of doing 3 paragraths about a one liner, we could do a small 
-> two
-> or more line description describing:
-> 
-> What causes the issue?
-> Why is it bad?
-> How did you fix it?"
+> +#define F2FS_FIO_BLKCNT(fio)						\
+> +	((fio)->folio_blkcnt ? (fio)->folio_blkcnt : 1)
 
-Sounds like a good practical advice, thanks. Yet in the present case,
-since there is a security issue with the UAF, I felt that it was
-important to explain where it came from instead of something very
-short along the lines ("fixing a UAF"), hence the couple of paragraphs
-and the KASAN output.
+Hmm, it's better to not leaving fio.folio_blkcnt as zero, can we set
+fio.folio_blkcnt to 1 by default? and use fio->folio_blkcnt.
 
-Anyway, noted, and here is a shortened version that skips some details:
+Thanks,
 
-Clear the child's user_event_mm pointer before duplication so that a
-failure in user_event_mm_alloc() cannot leave the inherited parent
-pointer in place, which otherwise triggers a UAF.
-(+ KASAN output)
+> +#define F2FS_FIO_BIO_OFFSET(fio)					\
+> +	((fio)->folio_offset << PAGE_SHIFT)
+> +#define F2FS_FIO_BIO_SIZE(fio)					\
+> +	F2FS_BLK_TO_BYTES(F2FS_FIO_BLKCNT(fio))
+> +
+>  struct bio_entry {
+>  	struct bio *bio;
+>  	struct list_head list;
+> diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+> index df10119d94ad..5bb1e51a38a0 100644
+> --- a/fs/f2fs/segment.c
+> +++ b/fs/f2fs/segment.c
+> @@ -3816,7 +3816,8 @@ static int __get_segment_type_6(struct f2fs_io_info *fio)
+>  		if (file_is_cold(inode) || f2fs_need_compress_data(inode))
+>  			return CURSEG_COLD_DATA;
+>  
+> -		type = __get_age_segment_type(inode, fio->folio->index);
+> +		type = __get_age_segment_type(inode,
+> +					     F2FS_FIO_LBLK(fio->folio, fio));
+>  		if (type != NO_CHECK_TYPE)
+>  			return type;
+>  
 
-I will send a v3 if you feel that's good enough.
-
-Regards,
-Jérémy
