@@ -1,130 +1,99 @@
-Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79004175A6D;
-	Thu, 27 Aug 2026 04:06:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.223
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF99C2C326D
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 04:06:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787803612; cv=none; b=bTpKIqW62JYClkBZlkkLpjCBAsnJOu/XWDTdh24OkbM4I+eg0vTPlyyna0xY2x4lbPFT/jZNTbOIymPT3+eM+MWepVJXjPLflDY+XAkr5isuLQ2o+gY98KdmjG3I4izpB+NkqmKo4LSJMN6KVrj6jTY8dpXHb4ZoXENCGDdHS8U=
+	t=1787803617; cv=none; b=aAvExuenLmHGvWpi+gB8+atIeRRlAOBdrVkZeDu/D/y5wKixxxLqyji1gLYYIuh26D3aJAoEzNKdq0h5LDYeq8OH7PlO+AzgD5OnvsSatYi+s+GzXVKqiFgw/UF3EM3CmAZdkTUYzFLcIQhqU5EfU70VMBjtlOqMsVN7Ui+CuGo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787803612; c=relaxed/simple;
-	bh=E7Qb6Z+Ep2s7d65G9EgLZ0UDHre8gJvvJ/zc///mxcA=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Y9ShjvEDBTUV6FPIJFIkmS4zAO+W+GaK6E4hz3xRCpEgopOBRiTWQon60Ji4jOvUnfm75dRenTmsTQjqxIJrdGQM07sDFectXDM+Yfz5Rzt7YsFKPesFRDR+g+qyXipS8KG6iUOFep/Qo+7KNAGXdnIptN23Oy7dodCpJQyVdKM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=h-partners.com; spf=pass smtp.mailfrom=h-partners.com; dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b=X12VNfG9; arc=none smtp.client-ip=113.46.200.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=h-partners.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=h-partners.com
+	s=arc-20240116; t=1787803617; c=relaxed/simple;
+	bh=kEI9OvVbWJ7wq71P6L9MVOAfwamjGbck54SdcC+yBG4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=P9d4wVtDJkdkjTfYHHGel0g8mnN35Us1e2jM/8drU3kYTQu9VdCPZOScyRPzqVOqhH7RgASbjms6+dulHGmM3vFXRpuXWrkfF/Db5hNaqxNK2bN87FWNdvnSg6kxSOUQEduYqd2TeUrKVRLyz+GHAEhK5QlRgF2sQHcHEKbCCH4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GeoU4gv1; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b="X12VNfG9"
-dkim-signature: v=1; a=rsa-sha256; d=h-partners.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=L+L3pyxYhokonQIOqxie4jLVf2GeZhI+oJSiPttLZOY=;
-	b=X12VNfG9xpY0vI44Hwm5d0+g9VEzSXfpF6FBMf5lzNP0QjMWPUtFjlEWntrN2Jc8Qb4dmiyrT
-	eLtVEnEAGt6/6lKNfUkdsZg0G/xRBrxRKHQFKH+2S8Cd3Ztehj6tsbWAmr6+bl7SlFBx+ZARt5I
-	/wulnLjyfEpO05QW+2aq/N4=
-Received: from mail.maildlp.com (unknown [172.19.163.163])
-	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4hVnk56JSkzmV91;
-	Thu, 27 Aug 2026 11:55:57 +0800 (CST)
-Received: from kwepemo100013.china.huawei.com (unknown [7.202.195.244])
-	by mail.maildlp.com (Postfix) with ESMTPS id 291814057A;
-	Thu, 27 Aug 2026 12:06:44 +0800 (CST)
-Received: from localhost.localdomain (10.50.163.32) by
- kwepemo100013.china.huawei.com (7.202.195.244) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.36; Thu, 27 Aug 2026 12:06:43 +0800
-From: Junhao He <hejunhao3@h-partners.com>
-To: <linux-edac@vger.kernel.org>, <mchehab+huawei@kernel.org>
-CC: <linux-kernel@vger.kernel.org>, <tony.luck@intel.com>,
-	<shijujose2008@gmail.com>, <xueshuai@linux.alibaba.com>,
-	<tanxiaofei@huawei.com>, <xieyuanbin1@huawei.com>, <linuxarm@huawei.com>,
-	<hejunhao3@h-partners.com>
-Subject: [PATCH] rasdaemon: ras-events: Adapt to kernel v6.19 memory-failure trace event directory change
-Date: Thu, 27 Aug 2026 12:06:41 +0800
-Message-ID: <20260827040641.25143-1-hejunhao3@h-partners.com>
-X-Mailer: git-send-email 2.33.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GeoU4gv1"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49554ebb87dso14388145e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:06:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787803614; x=1788408414; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=leRlXbqgKULRfa+v/5YQeWOCF+c2KyYlCCc0f3p+zUs=;
+        b=GeoU4gv18qe+m5EXpyWtKQn+QXoF6dFXTcxTV3Gs67lZ1/jOX2N1Bvge6NQBbi8wIM
+         gRUDBfgwvUFNoDCd0LvaxIr8pg3TRRPGDbyCcQ56EvqxtkKdPAi+k5RSCbLljGXeTwFz
+         M4U7VXSJPbVJQfAzmanBK/aHR2+H8ROOK7TbKbDYYgDi/TWNFWT71i/2BRHHmxUWaZMt
+         Laq7nGPqyZSgUrzucE5K+nm/yFEue3pGOkNr8tilykxfmFeTOfAYClG2p/1i2QEGf1xM
+         RYOsL9UYOBdrhI6/7VzTE+FRW79Te3v64c2ERxNMMoL2u4oc2WtNox2g9A6OkCSnlp1h
+         ZuPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787803614; x=1788408414;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=leRlXbqgKULRfa+v/5YQeWOCF+c2KyYlCCc0f3p+zUs=;
+        b=ZTwxkQlrBfvNAB8BIFXzx3p6HWqWXEVPmbcK9CEvCgiM72sb9p+G0AP6p2ScBUKTV6
+         pmBonVGs9uZxN0MhjWFHBpQEzdSQsC994Q1Un22jtx9vXjayFFq2TG2U1aiGh9GOAfJ8
+         W3lqAIrQIodRH288Qmk4Ik4FugCj+1BhL43GuGnueSnrb8ffzZsksEQ+Plr9KcmhGdWQ
+         CSgMC0TIMy5hNd7BXt4l7EN12wR0TTxiM6SF1kqkWlj02uUbXpqBoo3HOolEuO76lsQP
+         rknA4PLlp8TWX7kpQRhDdxgkz3DeWlV42Y8gN+MQQicu0NVQsXbiPR/6VLyrZiAyd3zU
+         Tv1Q==
+X-Forwarded-Encrypted: i=1; AHgh+RqCjvHdCeJbC1Le0zxtqTlvqnk8bazioQCq/LTL15RQ61+MqLmkWv6jQMwEEl50zwazCfY658OY5IincCQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kLQCJi1mPWdXPpQxYakFhkkl7IoRV7WWIL2ObiQMJPqHGE6Gx2
+	Uwx5CwgYKVeA/0Nbz8YMpDiE+Ciktty8aIKVOX9jOttkAavIwlzW5sSq
+X-Gm-Gg: AR+sD12KG/eTOucsESvJwLF99i4oXoLg4WFmaiZlW/PjChH7oU7rtV1Gtg0zh7YTDQ9
+	fBvx7HkKGl0OvVnsMGZIO/kr3roKVlpGxP8cfaUDXgnZ6OCMiYGaEi9rqxVkWRriMTZhr8X/4Su
+	DaMvUSiB0qUzTtzDtf4F+zNQwFt6GWNh6s9bD4h0bPJNAd/mQNU82yARj9gyOLu4oRRzXfBGbRp
+	5zRSg1BmLcFKeZfUubIiQun3MLeAt4f4jIQk9L52oTwxNtxB0UKExdF08Fgn0IxT8QhFT/yxe75
+	ha0JW+rALuCtp+UxFYCQrdylXLk0rUbNpXK+o2xEkIrNywwVzq6bpWzYEZReYWwZE0AEOAy/XSr
+	0MW2TLsuH5p62A+B+21LfKlVvwvBfo+w6OVk9m7cDyEJwiqtcOfLpvT7jWCkTowq9VEYwPWwcmw
+	5p8DfZx99alfjqXm3sitUUmN8X8RSmXvGbN3pStyjlEMIsdEYIYjXFr9VJdxntnjH9BAKRFwoqA
+	6X4e1FfA/OPwGisU0hxC0wmdZ9jbPUQ3zXqq1ET/BChJyq4rOQL+nQEFyJIx+ZK2vC+Zwf8394h
+	j7IovwnwtAOYBDAzlsJ4rvY=
+X-Received: by 2002:a05:600c:c118:b0:49b:c8e:8e6 with SMTP id 5b1f17b1804b1-49b0c8e0911mr59314915e9.0.1787803614027;
+        Wed, 26 Aug 2026 21:06:54 -0700 (PDT)
+Received: from unknown748F3CBA5068 (dynamic-095-114-154-097.95.114.pool.telefonica.de. [95.114.154.97])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499fa55f458sm31127865e9.0.2026.08.26.21.06.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 21:06:53 -0700 (PDT)
+Date: Thu, 27 Aug 2026 06:06:22 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Michal Simek <monstr@monstr.eu>
+Cc: Appana Durga Kedareswara rao <appana.durga.kedareswara.rao@amd.com>, 
+	kernel test robot <lkp@intel.com>, oe-kbuild-all@lists.linux.dev, 
+	Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] microblaze: Fix MB_MANAGER build with older binutils
+Message-ID: <ao-3jrT0aP0_fSBA@gmail.com>
+References: <20260813024026.5402-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- kwepemo100013.china.huawei.com (7.202.195.244)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260813024026.5402-1-kmehltretter@gmail.com>
 
-Kernel v6.19 moves memory_failure_event from the "ras" trace event
-group to a separate "memory_failure" group, as the event's
-TRACE_SYSTEM changed from "ras" to "memory_failure". This changes
-the tracefs path from events/ras/memory_failure_event to
-events/memory_failure/memory_failure_event.
+On Thu, Aug 13, 2026 at 04:40:26AM +0100, Karl Mehltretter wrote:
+> The suspend mnemonic is an alias for mbar 24, and both encode as
+> 0xbb020004. Use the underlying instruction, which GNU as 2.30 already
+> supports.
+> 
+> Fixes: 88707ebe77e2 ("microblaze: Add custom break vector handler for mb manager")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202310310151.UhB396Qs-lkp@intel.com/
+> Suggested-by: Michal Simek <monstr@monstr.eu>
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-5.6-sol
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 
-Add get_memory_failure_group_name() to dynamically detect which
-path exists, ensuring backward compatibility with older kernels
-that still use the "ras" group.
+Just a friendly ping in case this got missed.
 
-kernel commit:
-    https://lore.kernel.org/all/20251119095943.67125-1-xieyuanbin1@huawei.com/
-
-Signed-off-by: Junhao He <hejunhao3@h-partners.com>
----
- ras-events.c | 24 +++++++++++++++++++++---
- 1 file changed, 21 insertions(+), 3 deletions(-)
-
-diff --git a/ras-events.c b/ras-events.c
-index ab2dd51..229ea93 100644
---- a/ras-events.c
-+++ b/ras-events.c
-@@ -66,6 +66,20 @@ static const struct event_trigger event_triggers[] = {
- #endif
- };
- 
-+#ifdef HAVE_MEMORY_FAILURE
-+static const char *get_memory_failure_group_name(struct ras_events *ras)
-+{
-+	char fname[MAX_PATH + 1];
-+
-+	snprintf(fname, sizeof(fname), "%s/events/memory_failure/memory_failure_event",
-+					ras->tracing);
-+	if (access(fname, F_OK) == 0)
-+		return "memory_failure";
-+
-+	return "ras"; /* fallback to old path */
-+}
-+#endif
-+
- static int get_mountdir_by_type(char *mount_type, char *tracing_dir, size_t len)
- {
- 	FILE *fp;
-@@ -325,7 +339,9 @@ int toggle_ras_mc_event(int enable)
- #endif
- 
- #ifdef HAVE_MEMORY_FAILURE
--	rc |= __toggle_ras_mc_event(ras, "ras", "memory_failure_event", enable);
-+	const char *group = get_memory_failure_group_name(ras);
-+
-+	rc |= __toggle_ras_mc_event(ras, group, "memory_failure_event", enable);
- #endif
- 
- #ifdef HAVE_CXL
-@@ -1166,13 +1182,15 @@ int handle_ras_events(int record_events, int enable_ipmitool)
- #endif
- 
- #ifdef HAVE_MEMORY_FAILURE
--	rc = add_event_handler(ras, pevent, page_size, "ras", "memory_failure_event",
-+	const char *group = get_memory_failure_group_name(ras);
-+
-+	rc = add_event_handler(ras, pevent, page_size, group, "memory_failure_event",
- 			       ras_memory_failure_event_handler, NULL, MF_EVENT);
- 	if (!rc)
- 		num_events++;
- 	else if (rc != EVENT_DISABLED)
- 		log(ALL, LOG_ERR, "Can't get traces from %s:%s\n",
--		    "ras", "memory_failure_event");
-+		    group, "memory_failure_event");
- #endif
- 
- #ifdef HAVE_CXL
--- 
-2.33.0
-
+Thanks,
+Karl
