@@ -1,68 +1,172 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com [209.85.217.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 845BA333730
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:45:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787831109; cv=none; b=D5/bdyK6NFx676+DsWfl41GUdC3sAym4J61Szcprew+jKhnHqT+MwlRmxA28QogpdGy04MJHLcBRRztzP9dtIuBdiZKQjVpALgfqheBEMFHoV8Ul7h0zAsRZHhf7A1DBRo5s8h2um3sDhyrSs86PONL+PvK3+dZ5a/2ZitD8e0E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787831109; c=relaxed/simple;
-	bh=tl/MrtSWTP2YZYbhCAQl0DVDAuF9kj/Byi1DrzYz8OU=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CFCB43E09D
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:45:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787831137; cv=pass; b=DE6hDiwkFGl4nR5xwjiFIsIxcQ++72BNY3IQyqfZrY4BBRT/Pp8EYs2okLOxrkSJgmKgihipayJtY9tke+vfN1/Pd8IEzQidiw3t5J9s9AiVszSECAgmtdIoa6bFYuBR/LpHutG7hZyztbtayKWxVHFTXKNE29S6IsB9YqrnI+I=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787831137; c=relaxed/simple;
+	bh=VA/u3r0a5SY8d1ZmAj2N6Z5ASI3VjJtN2zQVZAZqdrQ=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sdxOOwZ7FF56hsCnzkWwK9fSJyMLoySDbJix8vM1sQc4PvM78cUvoxHAISRKX+qDYSEywLauL8iS3ah0UARBJwgEzDC1kOwLPUcg3iiQZKbckiNFlzhAOgPUFjsXR7iHxMi0M2X39bkvXBx7AldJ96mJfs/WtCYzT52oj6OLeb4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CuGlYJP/; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=eexWTXvc1oWhcuGhD6t2O/FewEj0qydcgchrQ8MRGnSGDYQy1XuIDugzXMwsDbevJOZ+M1bX+KvZOtRlWT4zyFeyYsrwhyGuKtiY/6cTrM45G3Ra6Jj3sFlcvibz5CeoUPSMiOmxHXlVIaKPWcVI5sWHA95kPf9zdukkganZkmc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=baVmNv/z; arc=pass smtp.client-ip=209.85.217.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CuGlYJP/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAEDA1F00AC4
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:45:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787831108;
-	bh=tl/MrtSWTP2YZYbhCAQl0DVDAuF9kj/Byi1DrzYz8OU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=CuGlYJP/X78YG2vgI9NoV3MhRkkbHUcpgyKNj6odwl5Nb2XIETf+HicwwpDXdqlnd
-	 wXFc3aZtixxzAzN3iEJvLSbU0h5YeS28yFQDcjKYJxjmxg7GCJe01Bss8e2MXhplT9
-	 QW4ly8ljvGq2yRBJJ0oKjT/hHIBXPG+mj1M9WRymkGHmPBnl1MN5dL7U1e8JruijO5
-	 WOBhp3PeR2plTcDXiGzX5vneVADUhqaethosmtZa86/PwMZRvyKdjhr2dtBKDDYGpI
-	 lIqfxvePqYu5UovUerFW3fp/sI9wlcz33bF/Z9G92HZ1cC9EBGCIQ6CbK7aqmA1q+j
-	 km0nkFqY8aLkQ==
-Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-9390a2c8909so15800085a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 04:45:07 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpzI4Bx8wwBf9+hXxXnqIOAixIQ3OPpgmSszohx6B8dFKfuZIF8ECtekpnxAd8fHPlQ/4/Sl+ZVdvwZp8k=@vger.kernel.org
-X-Gm-Message-State: AFuF++nl/0LRzyo1da502KxzYHgH9WW/QGP/Ce9yBXGG5SECpHtl0+J3
-	w1+iyiXuj2WncMZVic42IEyAxSYayptt+gsuciB/YWjWXWiJgbMXzisBMU9hv8HYkD6B2eEH20H
-	paWKmHyF9UQYPmvONFRTd+3V92Cntwic=
-X-Received: by 2002:a05:620a:4688:b0:92e:fc42:2c19 with SMTP id
- af79cd13be357-9378012ed0fmr1253366785a.11.1787831107251; Thu, 27 Aug 2026
- 04:45:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="baVmNv/z"
+Received: by mail-vs1-f45.google.com with SMTP id ada2fe7eead31-74a9ac9cda6so1404122137.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 04:45:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787831134; cv=none;
+        d=google.com; s=arc-20260327;
+        b=iBZ1vsueWmfV4OKxkx2hYdawQGf5iGBLUihD+Rm3jSwr7Cy771b9CkeIoJclx6EPlL
+         qlvkzgH85w5Gk2Ou5uCFPQGeD/wZQKOQCxSWllI1NWtHMIQPQftvRlPIXiAtyHMrYusT
+         fG6qeDzKpXIBosZjs61s90UHziMWzmnawUkrVvPtwsUd9sHFBlSS/e/sgU9gGTTLM9Y2
+         M5COubGyLfa2BN24tM6hHayYAOVc2srh6P6OqV1nhKjWI6U1oFeH13yB8QhP80M/lOsS
+         sHZJ16+GNIe0+ZnQzh3p2mWkLTvU5qKflip5fOJ0Xx05TUP1o0OJgXQy3bnyxEv9Qq3j
+         tKmw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Vw/xwG5EhNUSyVJanB7DL+6LJ9tzB6hvrnbHnYadSKU=;
+        fh=pY39PhnD9M6YluATUcAi7vaNQQLzX/6ZxdqDJH92qB8=;
+        b=BSro+FhWvgrZwf91Fb0JiUJNphz2vnbGVrsbfacYYy5FqrTLVqUkm/BC8Xv5NQn+8O
+         zv+1I9JH8xNVWrDB7O+OKXF5VupEDP4NHN8BM56UsniT5x9qP/fT/KAjpJS68YQXIBYj
+         1N2bCPyPcpmkmXOO2MfcVHjpKE+BCmad6wwwhe4MeVf2OOp+IGiB7JVle4ldDEq8SJTv
+         qLp7RijgmJvvNOwZLLjPmwuFPfHFVsIeAbWFzKxpO0JT+j83yV7w2o2mdJrMQ1QCahcc
+         bUf/9WNgADZGb/ZrBOBJMC3xV65xnlCnnRubD+IQrmwJvTiJp9G0yKaRwui+gmKfgxhw
+         VU3w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787831134; x=1788435934; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Vw/xwG5EhNUSyVJanB7DL+6LJ9tzB6hvrnbHnYadSKU=;
+        b=baVmNv/zcXclm9vrEZdAUilQZC5cu9Qs6yWsToh95tE9mYugdq/0rX/he5s92BhPOf
+         CTlT/FKKtLKShlmxgo60wlr/zyYv6cW/TOCw0xrSqXMR+NWtYVUcWsdlh9z1Uf/dGckN
+         GAt4RXYREcGIGMzdUjnteWJNZSFzmfaknOxL0Epaw06aDeePeDwU77eDEci5PwLjdTl+
+         QbelL/gWrrQgP1Gx4wZfntNnPTwi/i/hnXl35pIJsbPpLYTM/7RoFOylY/PlfbRckXRv
+         dKlEPvoZ9Ey5P+yj7NT4ogS4oUc+OJx+KWeWXtP5Po/JaNOZK7kaynfjOAywMMyA+wpH
+         7uWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787831134; x=1788435934;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Vw/xwG5EhNUSyVJanB7DL+6LJ9tzB6hvrnbHnYadSKU=;
+        b=NRcL3M/tM5D3QGldkiNKedHftUPL4QYr3ObIp147n/JEf788KzUoZvyet5WPXF2utd
+         hfa2Kwz7ef4ae4zvE50thv7VcNFs/9L/B1lMSXuE9RABBg1+3ekD1ewfGOkAzAl5NvtD
+         QVBtAQXa6FxedxqIQ6YD7qNBXhiF3mo/IP9qigZwkprEU0u6HA7sE/uBITHlIKURu7um
+         ocfosnSUwOyEoKnOaiBytfXkLEziVTxIsGpxh2K1rVBPEVRraVWJS6HaqMyWmKHub0x/
+         HU7LfTbgZPXPz8AAqxaYBH05Ihh7xR1nc1xbRXzSMqnc7sJkLremjciyB8U0jhssy72D
+         uj1g==
+X-Forwarded-Encrypted: i=1; AHgh+Rp+6C/i/Xr9unfG+qM/Tj9/UnlWEUH80X9uxEAgh53kdJZbXug9RA6Pgew8/SGPTFXFOjf3oSmwza4+oK4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mUY464MKgRQwLg+GeWm2eRFRUBHlQdc55/R//uxMTgbKcbHqAq
+	dmvgtObCjwTT2NDyout4BtUnJVVjpzrrTnLqAyScOvcAX3RX16jvOGMXdFdVkRVwBDke+VlZlLD
+	ki0lzDxO3RNJ9NOTwHeFYH0Fe0WrGLKg=
+X-Gm-Gg: AR+sD11p0fm1b+6mkBX9Uu5YjsJnE7Z5xeotaQTt5eM2SqiXbDxJLR/+qrrVquRRlSr
+	lHL2j+rbam4pZmhxwlqGRVd8uMJCTz4GN1aqGN4WZE8UAefuYeQt0x0icvhWtLIaIiQz/xQX4N7
+	gzrHhxQgqqh8uW4mRoVNvW7wdGbRTYQ283XeS6LsmmdcVaq4lI7+9h1I0OcW4A+iwrFbP7bV8G8
+	/e/aGCLGP5GJ7V/zYqv4h7uM+g1O/xj8vIVUFV4R0bSHgcbj7aziGdjCk6RnKbWlh1nvUUyTZJl
+	4lsg6aaBKmtMmFbsxV2b7p4w66YbDAAM5TBB6fvAP0VjzQ==
+X-Received: by 2002:a05:6102:41a4:b0:778:5579:c661 with SMTP id
+ ada2fe7eead31-782c0dfe6a6mr5324176137.7.1787831134122; Thu, 27 Aug 2026
+ 04:45:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260827082722.1809702-1-yuehaibing@huawei.com>
-In-Reply-To: <20260827082722.1809702-1-yuehaibing@huawei.com>
-From: Barry Song <baohua@kernel.org>
-Date: Thu, 27 Aug 2026 19:44:55 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4zEn3fn0qU8QZqs9ujcLWL4KPWd8os2CbEhmZ23wCC_bQ@mail.gmail.com>
-X-Gm-Features: AcwNN1UEJWG47THBIyOeUsF3FWdr22GgPA-FTUeI3kQ5gT1BObP07Cd9-ND9oqk
-Message-ID: <CAGsJ_4zEn3fn0qU8QZqs9ujcLWL4KPWd8os2CbEhmZ23wCC_bQ@mail.gmail.com>
-Subject: Re: [PATCH -next] mm/swap: Remove unused declaration swapcache_clear()
-To: Yue Haibing <yuehaibing@huawei.com>
-Cc: akpm@linux-foundation.org, chrisl@kernel.org, kasong@tencent.com, 
-	shikemeng@huaweicloud.com, nphamcs@gmail.com, baoquan.he@linux.dev, 
-	youngjun.park@lge.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20260827-warn_instead_bug-v1-1-b515c0f74b89@gmail.com> <20260827114229.GK687043@noisy.programming.kicks-ass.net>
+In-Reply-To: <20260827114229.GK687043@noisy.programming.kicks-ass.net>
+From: Amin <amin.gattout@gmail.com>
+Date: Thu, 27 Aug 2026 13:45:22 +0200
+X-Gm-Features: AcwNN1UllEtgS-YWyDNOJz4hGkKApGe64r4QuxBpsaO8N92Q5bl_0XeOP2yd9Pg
+Message-ID: <CAHfa7xU19+uqN-DSfW4LAAoMpcLzv0vLMvNpAazOFoLykw00tw@mail.gmail.com>
+Subject: Re: [PATCH] sched/core: Convert remaining BUG_ON() instances to WARN_ON_ONCE()
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>, 
+	Vincent Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Aug 27, 2026 at 4:06=E2=80=AFPM Yue Haibing <yuehaibing@huawei.com>=
- wrote:
->
-> Commit c246d236b18b ("mm/shmem: never bypass the swap cache for
-> SWP_SYNCHRONOUS_IO") removed the implementations but leave this.
->
-> Signed-off-by: Yue Haibing <yuehaibing@huawei.com>
+Fair enough, thanks for the quick feedback.
 
-Right!
-Reviewed-by: Barry Song <baohua@kernel.org>
+Le jeu. 27 ao=C3=BBt 2026 =C3=A0 13:42, Peter Zijlstra <peterz@infradead.or=
+g> a =C3=A9crit :
+>
+> On Thu, Aug 27, 2026 at 01:40:14PM +0200, Amin Gattout wrote:
+> > Commit 09348d75a6ce ("sched/all: Change all BUG_ON() instances in the
+> > scheduler to WARN_ON_ONCE()") left a few BUG_ON() behind in core.c.
+> > Convert them as well.
+> >
+> > As described in Documentation/process/deprecated.rst, BUG_ON() crashes
+> > the system, which makes the failure harder to report and to debug, as
+> > the message often never reaches the console or the syslog. With
+> > WARN_ON_ONCE() the user gets a chance to see and report the problem
+> > instead, and system owners who do not want to keep running after an
+> > "impossible" condition can still set panic_on_warn.
+> >
+> > Signed-off-by: Amin Gattout <amin.gattout@gmail.com>
+> > ---
+> > Follow-up to commit 09348d75a6ce which converted the scheduler BUG_ON()
+> > instances to WARN_ON_ONCE() but left a few behind in core.c.
+> >
+> > Build tested on arm64 with CONFIG_NO_HZ_FULL and CONFIG_SCHED_CLASS_EXT
+> > enabled so that every converted site is compiled.
+> > ---
+> >  kernel/sched/core.c | 20 ++++++++++----------
+> >  1 file changed, 10 insertions(+), 10 deletions(-)
+> >
+> > diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> > index f78275192036..bab74b4f0dd6 100644
+> > --- a/kernel/sched/core.c
+> > +++ b/kernel/sched/core.c
+> > @@ -5949,7 +5949,7 @@ static void sched_tick_stop(int cpu)
+> >  int __init sched_tick_offload_init(void)
+> >  {
+> >       tick_work_cpu =3D alloc_percpu(struct tick_work);
+> > -     BUG_ON(!tick_work_cpu);
+> > +     WARN_ON_ONCE(!tick_work_cpu);
+> >       return 0;
+> >  }
+> >
+>
+> > @@ -8954,13 +8954,13 @@ void __init sched_init(void)
+> >       int i;
+> >
+> >       /* Make sure the linker didn't screw up */
+> > -     BUG_ON(!sched_class_above(&stop_sched_class, &dl_sched_class));
+> > -     BUG_ON(!sched_class_above(&dl_sched_class, &rt_sched_class));
+> > -     BUG_ON(!sched_class_above(&rt_sched_class, &fair_sched_class));
+> > -     BUG_ON(!sched_class_above(&fair_sched_class, &idle_sched_class));
+> > +     WARN_ON_ONCE(!sched_class_above(&stop_sched_class, &dl_sched_clas=
+s));
+> > +     WARN_ON_ONCE(!sched_class_above(&dl_sched_class, &rt_sched_class)=
+);
+> > +     WARN_ON_ONCE(!sched_class_above(&rt_sched_class, &fair_sched_clas=
+s));
+> > +     WARN_ON_ONCE(!sched_class_above(&fair_sched_class, &idle_sched_cl=
+ass));
+> >  #ifdef CONFIG_SCHED_CLASS_EXT
+> > -     BUG_ON(!sched_class_above(&fair_sched_class, &ext_sched_class));
+> > -     BUG_ON(!sched_class_above(&ext_sched_class, &idle_sched_class));
+> > +     WARN_ON_ONCE(!sched_class_above(&fair_sched_class, &ext_sched_cla=
+ss));
+> > +     WARN_ON_ONCE(!sched_class_above(&ext_sched_class, &idle_sched_cla=
+ss));
+> >  #endif
+> >
+>
+> These all really should be BUG_ON(), there is absolutely no point in
+> tying to complete the boot if they fail.
+>
+>
