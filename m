@@ -1,64 +1,64 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E258F3FC5BE
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:04:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ED58469836
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:04:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787835850; cv=none; b=bLIGXlN/MfQT8azkmbJguBLrNLX5bLO06ho1qrUF1YADEF01fOwZ53E8OaucdYmyyzgiwwy+dOUUu60bFlfDGy4BC431OOUP/NZJaEvpUB2i5NZiM6bU8Cvs8PvkbnkwnYKg/3BPhDQZRt9bTY5AcSnoF9b1SILtmav26T0Y97I=
+	t=1787835851; cv=none; b=Yjzpccm1FyrGyoTrbzzdly44mzsRo0CseRVCbt+aJ8PKGCXFGEQd0YNdqk4gZ7/bgbb59eRZJ+FvRa5KUHhe70yeEl+QERQfP+uX0X1cV5kxXqMxo/F0tan56l+fRlC2giNkAkz7uybqvBvgE6i88IGO4g7lyYp0OjJU+udHJxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787835850; c=relaxed/simple;
-	bh=MKz6TKDh/MzR6/ujqUMWkSFnSi9qZEpM9ovgfX/AxUU=;
+	s=arc-20240116; t=1787835851; c=relaxed/simple;
+	bh=sarQEdrSbBSoaCcKumeb7DKx9O4YVpY+WCIk3ge9e4Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CIWmXvWiw+KWrgZQZlg59FhhZ8kFBSVSuaB5znCoaEplWsxzyC548AEg8o8cQrMaFn90v85Ex2vMFZm+U1GyS0tETKJgt3q35TSo3vcwSSfuZrsS4JDqh5djW0sc4Pl6IYlKF8CqJPyXEZ1oRAvrfjI/QR6a18Yd3Ch0AYtJjVU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UZJeuNoC; arc=none smtp.client-ip=209.85.128.50
+	 MIME-Version; b=ms2IDxg44cWCBuG2uopX5gh6lR+KHrKAy2e8846B/ShA55bLBHHwZ1rHOzAIE6oR1OIP+eGXiV3diC+Qp4vuXpvBEgp3wOPJvQxkotlvPraAuntlMZnrLyKujYsIIzBZTPQDd+/+MUK5T/o5ZAyGixSO8Ek4P3O427K1jueOGF4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bNPf7GGm; arc=none smtp.client-ip=209.85.128.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UZJeuNoC"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-498028b3d5eso20992545e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:04:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bNPf7GGm"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-495590dde14so19450255e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:04:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787835835; x=1788440635; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787835839; x=1788440639; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=DxPA/ygF05pMbAMW0vsuxfL/xhlpJsyjpYIxaZ1WIpc=;
-        b=UZJeuNoC+bcEdra5Vus8a67yvyDUbIjhStmx7xfxz8VOY+WWW5VCVvF+SBnW70gcG7
-         60i/Jn6sgyNPpyz9qG5KZvCG8lDHWwd/67QgdMnxY7MI+pbYrkjNsV53iZ1BkZpoqM99
-         A0PkCnQ1gDT5k4JhjLg8/2I8IaGI9+/xPlcHhX6sPYVcBV07H5o4v+j8269NXE3j/K8c
-         hNdTUN2YOQZZrkSbO07u6J+19dv2Pn4fJHupXH0lf8ddX1rm/z6lUevXH6T9jvOxKUvf
-         CCDWF3af7dc320pXKRk3QA9HLKMpMmB9wDxbnIu0HLkv8px2G4OUPPVKjQcHMXUOiM+a
-         a1ag==
+        bh=QF2zBpTs1xbQ8vVeDBrFP8mtx1WkUete3RSSn/zfKZ4=;
+        b=bNPf7GGmSpoJPktSQVABQMu9LCAv6xK5GX133qC5CGLnd3z+AT2DgV/JkxWpUoRJna
+         wlordsXPLq58Gd3FZgjC+fOQkKVpyvpVCZDVGxudjOgElTYPfZvau0mNra0SFK7SNuLn
+         o27Q+CRBeauJJ2NoDSN3pSW0El/GEEGijkkGGQ2Q79jJ77V3x8HQ45DDejPelIjwmu5K
+         oAGiK+dJlICwQiL4O+oFdrx+eg5qks/8p4lNNygI+o8M07MwTiR5ICFKjYBTxrQq4Ty9
+         4gRNzTeW9nj+Xec2OoAhA2KNIjZ6s0XaTdkEroXNdnx1j7DJgbE7kozY98uOh9KYsJ0s
+         91Yw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787835835; x=1788440635;
+        d=1e100.net; s=20251104; t=1787835839; x=1788440639;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DxPA/ygF05pMbAMW0vsuxfL/xhlpJsyjpYIxaZ1WIpc=;
-        b=ovKgyApXGygcfNfm1F6QUbiSkjODJBqq91qrTJF4aPY4InJccNatSarXN5wBWiIN9q
-         OQ7+qR5b2kGpk2MX61xVxklp5h+EMdmcjFXh6sfYYG3lhQxruq7tu/QcVYCNn4R3Um9t
-         slKh6B2M1JZE11aK9J1/rlkj3/xT/d+tyq7tqHaouSQ/mBa0OHXDs1M3D3tArdxDyNsm
-         w67EfLnWLmO2En9wqIuqMyR6TR423tkTtGlLrd2Y4CF0Vg0divgdyB3Ov5LpPIUueReJ
-         0FrXh/TXkA7gU3HOAHnuQcbmwOyK5NiRNzAJdnO0w2Rd8ytht4MRmCLgttM1Nd1Ro0CD
-         MDpQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqNvZQctf8puUN9S/N7CkaXbSOKMdxevqJwZCb63CnANNbDYuebYhLy348aNnYn+ad5RBpTP++PYdgXKSg=@vger.kernel.org
-X-Gm-Message-State: AFuF++ld0aTluluI7LTOdcJ7Vt4fgjDVX0m1/0DrFm8Fit9yqxVmNH1f
-	N7gJHOVIVl0pcOHgvyT4RMrFKydQ8YtSnCUZJvR7hP2Sh9sHYzXP1iFc
-X-Gm-Gg: AR+sD12YFbpY0P4eJZnwVuJNf7GVpqM+KqnqYsYDAgUkW9vUyZILL+LYl49o8aGtFYE
-	Syep2hNsoKi3AiPQ1JAc63CONeVBVHPy7Tio992fvNukMi9ZJue4BBUbByYtzq4z8X5c16jTAbB
-	9SKKXwW0KISSVv2gLXi+cJkl3kQ7JN6KNSiv5fQfNtGEZMzu5Mkr45UJ8Hhle8CFgi+sUOyE5rk
-	mJ8p7hDAXogRA5OF3EVkGb+0RVYZq2HUWYT0x/1JGXW813f/p341k6xiUrHT1h3sbagjqsPDQwu
-	tj5487s5XNNoD1GT5Wwm1N9AAUCjZmdx6jLhQPTxlGwatarcWqe390fvV+UqALLnKG3Q+DMKpOF
-	F0I7rz4PkNdPmuE/jQAGbERz/QrlnKtKvWyhLMJyshkEGj29yBIeXWKnuwQQIo9Ge2yfHM8SPuz
-	izTADSqslkeltQkWulU6R9eneyP7HUDo7xq+UDz3AISSmqoejzTa7OhAU4a35tfes4Tb/JmjN2I
-	Alg91XzHuwFKSLwMhG8rs1j0ZmO0LPcsj1FQrsixD7EwZea4N7zCJAvForFL/OFdxq9pEXaNF8=
-X-Received: by 2002:a05:600c:a418:b0:49a:2c4b:403f with SMTP id 5b1f17b1804b1-49a2c4b41dfmr127644185e9.13.1787835834813;
-        Thu, 27 Aug 2026 06:03:54 -0700 (PDT)
+        bh=QF2zBpTs1xbQ8vVeDBrFP8mtx1WkUete3RSSn/zfKZ4=;
+        b=pvK7T8WHkn8dY8wvvcXinJpafHChAFhufGKgrCV0mwLC5y6PaFDbrqiH4y7myKVXt9
+         cv2b8TuAoGacRJCYuoejzpOkDx5DCJOEM6cUpik9xFVjoacUMLB9iGUp4xjmluid4+KX
+         EWLk6ULbST+Jdr0gj1JMMog4GAxRxiGMraurQI7IkNkL3bcqPO55p+wea1gkzOjfBM0v
+         Mx6xcqlYCCjPjdDvNSUHsJg0b0NIoO3ABICkaK9afr0qeIht/149rVkWy6CNYziCfBt9
+         VsrB9yTEDnLywnss87AqL2w2xMghu8Drns+xVLsrvDevQB6U8VQ0VKTz0VHDZbrpDN70
+         iD9w==
+X-Forwarded-Encrypted: i=1; AHgh+RrBHXlcJ6v4+hf+LCVaqNL6Jq/5jERKo2q/IEh/K7xMH0px178Ncyrq1rZS/bnGUOrLjUo1cOqCS9Vh83Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++lUNb+R4CeCbNfxlu+KywNwE8OyylTuiijy58AjaQIYi2HwTCN9
+	oCwyRFb8FwLq1K7fpqu9eRVQWBbuk6J10ZQRB+EvsuoBn+5Cn7hVPN31
+X-Gm-Gg: AR+sD13oqkT58KCO51PNBrcW5CJ+y0ToT92wUTo0UarKxrcL1boQWZGumKaibnuRmVp
+	LGD1prVU7slugo8GJ3mNLpuJ+JkXgI2OnRee2ljrYtoQFYtaxUboV3Sy1iO+C6OOSMqc+DQDHOe
+	ke+7F7wYxjtI9exbhzibTolySwfrpyjlsb6JxKm2va9QuzmXEp4xxqfZ/YYtvPEUDkCkuMKrfUz
+	NcnQvIctQ+aKFqn7TrbTw/W4KsxSzYegrKTsNCeACwaxcIUqvHq+l+0OUcx4Gtf9IQnXBgq4MBF
+	lnTQl9/aX4TM9WzAbO6kH6HQb4nre4Gy67ZgASqA5JBGS6m3VvJrO15PeWED2+aQXARfJBWravz
+	Iay5Ghc2lCDM5dvv9lfFKH6D2ZvUYB71mgyij1J3UgQQqqd/KYuZZ3ZlgZvVwrubXaC71xn5iph
+	UWaL3Ura5uv5T2ktX08thXErVG+R+xRhCKchyESMjzO+zDE0Ov38ANXqhmY2Qhko9mYYsUKczZX
+	t0a6OwuMg0xbgwfiLaCtAfGaKXfiEQJElzgNcI2+g4mNmUBFVYTz0ZyzI9eaNvVHIZNF4CNSkY=
+X-Received: by 2002:a05:600c:4505:b0:499:593b:a15b with SMTP id 5b1f17b1804b1-499dc6e9935mr159659955e9.1.1787835839294;
+        Thu, 27 Aug 2026 06:03:59 -0700 (PDT)
 Received: from localhost.localdomain ([2a01:5a8:737:d4a7:e53b:30a6:3c0f:1dad])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b49610170sm116081285e9.6.2026.08.27.06.03.52
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b49610170sm116081285e9.6.2026.08.27.06.03.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 06:03:54 -0700 (PDT)
+        Thu, 27 Aug 2026 06:03:58 -0700 (PDT)
 From: Georgi Valkov <gvalkov@gmail.com>
 To: briannorris@chromium.org,
 	johannes@sipsolutions.net,
@@ -88,9 +88,9 @@ Cc: francesco@dolcini.it,
 	devicetree@vger.kernel.org,
 	stable@vger.kernel.org,
 	gvalkov@gmail.com
-Subject: [PATCH v7 2/3] wifi: mwifiex: add dt flag to avoid conflict with platform reg domain
-Date: Thu, 27 Aug 2026 16:03:34 +0300
-Message-ID: <20260827130335.6606-2-gvalkov@gmail.com>
+Subject: [PATCH v7 3/3] ARM: dts: armada: WRT3200ACM: add marvell,invalid-reg-hint-in-rom
+Date: Thu, 27 Aug 2026 16:03:35 +0300
+Message-ID: <20260827130335.6606-3-gvalkov@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260827130335.6606-1-gvalkov@gmail.com>
 References: <20260827130335.6606-1-gvalkov@gmail.com>
@@ -113,47 +113,50 @@ When the system boots, it detects a conflict between the user selected
 region and the radios, e.g. BG FR US, and applies extreme restrictions,
 preventing phy0 from starting on any DFS channel. phy2 works.
 
-Add a device-tree flag, which allows affected devices, where the radio
-conflicts with the platform to ignore the incorrect regulatory hint in
-the ROM of the radio, so the platform regulatory domain can be used.
-This does not allow the user to change the regulatory configuration of
-any radio. It only allows phy0 to start and operate according to its
-certified configuration.
+Add node wifi@1 with a flag marvell,invalid-reg-hint-in-rom to the
+WRT3200ACM device-tree, which signals mwifiex that its regulatory
+hint from ROM conflicts with the platform and should be ignored, so the
+platform regulatory domain can be used. This does not allow the user to
+change the regulatory config of any radio. It only allows phy0 to start
+and operate according to its certified configuration. All radios in
+WRT3200ACM/WRT32x are locked to the hard-coded configuration for which
+they are certified.
 
-The change affects only platforms which explicitly define this flag, and
-helps overcome the incorrect behaviour of proprietary radio firmware.
+On WRT3200ACM, the platform configuration is stored on the devinfo mtd3
+partition, which is read-only: cert_region=EU modelNumber=WRT3200ACM-EU
+
+The Linux kernel sources do not have support for WRT32x. An equivalent
+patch for these routers has to be sent to OpenWrt.
 
 [1] https://github.com/kaloz/mwlwifi/issues/173#issuecomment-307879699
 [2] https://github.com/openwrt/openwrt/issues/9956
 
-Tested-on: WRT3200ACM, OpenWrt
-iw reg get: no longer reports region for phy2
-
 Cc: stable@vger.kernel.org
 Signed-off-by: Georgi Valkov <gvalkov@gmail.com>
 ---
- drivers/net/wireless/marvell/mwifiex/cfg80211.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/drivers/net/wireless/marvell/mwifiex/cfg80211.c b/drivers/net/wireless/marvell/mwifiex/cfg80211.c
-index 7a1ba32f1fb3..293876397b67 100644
---- a/drivers/net/wireless/marvell/mwifiex/cfg80211.c
-+++ b/drivers/net/wireless/marvell/mwifiex/cfg80211.c
-@@ -4897,7 +4897,14 @@ int mwifiex_register_cfg80211(struct mwifiex_adapter *adapter)
- 				country_code =
- 					mwifiex_11d_code_2_region(
- 						adapter->region_code);
+diff --git a/arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts b/arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts
+index 4ab45f294de2..2bf29981a031 100644
+--- a/arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts
++++ b/arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts
+@@ -165,6 +165,15 @@ &sdhci {
+ 	wp-inverted;
+ 	bus-width = <8>;
+ 	status = "okay";
 +
-+				/* If the reg hint in ROM conflicts with platform
-+				 * configuration, it should be ignored, so the
-+				 * platform regulatory domain can be used.
-+				 */
- 				if (country_code &&
-+				    !device_property_read_bool(adapter->dev,
-+							       "marvell,invalid-reg-hint-in-rom") &&
- 				    regulatory_hint(wiphy, country_code))
- 					mwifiex_dbg(priv->adapter, ERROR,
- 						    "regulatory_hint() failed\n");
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	wifi@1 {
++		compatible = "marvell,sd8897";
++		reg = <1>;
++		marvell,invalid-reg-hint-in-rom;
++	};
+ };
+ 
+ &usb3_1_vbus {
 -- 
 2.55.0
 
