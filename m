@@ -1,271 +1,274 @@
-Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D6F523E324;
-	Thu, 27 Aug 2026 12:39:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ECD921A434
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:39:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787834356; cv=none; b=NSnwFrITywDjwi3oWrUCvEn8V/i4qblEdoDBkEPrnEGYWBHlUSoIr/lXRvY13OSQsYlmVEAyysroeapgjc3xM2WuHKCc5jjFB8hr/D60M0yoQ8R3/POpRizfZWHgJyt2rWMmQTJsT0JrjfZLRyyoZWSKW5j3lUBWPpV+vi8WU8c=
+	t=1787834374; cv=none; b=A3CuBfE3A0LnVM25T9x4yNxI0G2WyL+fw1KgD8PkfJsPxJBm012h7d8zwzvuxk/w5Q6im8ASP7weK3GXBcw19XD186vLOoa1Bxo6N4W9PiIGLTrviPlda0/FCCY7NcdEu4x7riHeyBDSwcujOw7NB+3zj4bv55SryLu1BMOa1PM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787834356; c=relaxed/simple;
-	bh=TPjsjYIhwmc8ZTOSkFru+fhZPYQzf5Bi1NRpFr6ZtoM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Lp9HfQqbiQlAmN3V8WhA5KRsWxiEaocWUyZQ7F1mctveZKSBcp1rHblWN7ApDKeN81j4TVAUVWEeoNxdAwfGvSfu2lj7abzB8axKP4zmpqgsQoPbq3+jx7SeT1ONZxjVJth40C+f0lv6nOiHd06h05XoblViHKILbXq73SYdkvo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.177])
-	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hW1Jv4pwvzKHMVf;
-	Thu, 27 Aug 2026 20:38:23 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.252])
-	by mail.maildlp.com (Postfix) with ESMTP id D86AA405AA;
-	Thu, 27 Aug 2026 20:39:05 +0800 (CST)
-Received: from [10.174.178.253] (unknown [10.174.178.253])
-	by APP3 (Coremail) with UTF8SMTPSA id _Ch0CgCnlUToL5BqB05tDw--.4958S3;
-	Thu, 27 Aug 2026 20:39:05 +0800 (CST)
-Message-ID: <4b72d0a3-07a3-4799-8e5e-eae907b6adfe@huaweicloud.com>
-Date: Thu, 27 Aug 2026 20:39:03 +0800
+	s=arc-20240116; t=1787834374; c=relaxed/simple;
+	bh=CO2kOUM7TRdFECxqr1r/jfAIjFWfUBLeC303UsBtMew=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=allVJFiJYosX+JuUO1i/ndaZklyO/o6AbVSAbQwXteVZiJml7oWkbbnJdBLJMqq/Wdy24VdRwnFr7GS/ZnmmdZbGn09Uh3h0sNVtBK/C6RkcuVUwskh7VEYcef0wv3hPz4Hv2iV8Gcw2UapHpIRB0X6FMI2IYFOI1rtPOAHTD+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowAAXHz3kL5Bq4ERiBg--.38527S2;
+	Thu, 27 Aug 2026 20:39:03 +0800 (CST)
+From: Jiakai Xu <xujiakai2025@iscas.ac.cn>
+To: xujiakai2025@iscas.ac.cn
+Cc: alex@ghiti.fr,
+	aou@eecs.berkeley.edu,
+	dev.mbstr@gmail.com,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	palmer@dabbelt.com,
+	pjw@kernel.org,
+	qirui.001@bytedance.com,
+	samuel.holland@sifive.com,
+	zhangchunyan@iscas.ac.cn
+Subject: Re: [PATCH v5] riscv: stacktrace: fix stack-out-of-bounds in walk_stackframe()
+Date: Thu, 27 Aug 2026 20:38:48 +0800
+Message-Id: <20260827123849.816-1-xujiakai2025@iscas.ac.cn>
+X-Mailer: git-send-email 2.35.1.windows.2
+In-Reply-To: <20260705063656.237676-1-xujiakai2025@iscas.ac.cn>
+References: <20260705063656.237676-1-xujiakai2025@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] ext4: don't report delalloc data as a hole on
- indirect-mapped inodes
-To: daejun7.park@samsung.com
-Cc: "tytso@mit.edu" <tytso@mit.edu>,
- "adilger.kernel@dilger.ca" <adilger.kernel@dilger.ca>,
- "jack@suse.cz" <jack@suse.cz>, "ritesh.list@gmail.com"
- <ritesh.list@gmail.com>,
- "libaokun@linux.alibaba.com" <libaokun@linux.alibaba.com>,
- "ojaswin@linux.ibm.com" <ojaswin@linux.ibm.com>,
- "linux-ext4@vger.kernel.org" <linux-ext4@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "amonakov@ispras.ru" <amonakov@ispras.ru>
-References: <CGME20260827084829epcms2p6ecc0c39a71d0c3eebf9cb1ade77314f6@epcms2p6>
- <20260827084829epcms2p6ecc0c39a71d0c3eebf9cb1ade77314f6@epcms2p6>
-Content-Language: en-US
-From: Zhang Yi <yi.zhang@huaweicloud.com>
-In-Reply-To: <20260827084829epcms2p6ecc0c39a71d0c3eebf9cb1ade77314f6@epcms2p6>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:_Ch0CgCnlUToL5BqB05tDw--.4958S3
-X-Coremail-Antispam: 1UD129KBjvJXoWxKF4xGFyfJr4DAF13tFW3GFg_yoWftr43pF
-	ZI9r15Gws8W3409rWfCa1UXr1Y93WfCFWUXrZ3Ww1xAF95Jr1fKF1UtF1j9a4xtrZ5G3Wj
-	vF4jva4UCa90kaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUv0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
-	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7Cj
-	xVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x
-	0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG
-	6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFV
-	Cjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS
-	14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
-	8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8
-	ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x
-	0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
-	Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU1
-	7KsUUUUUU==
-X-CM-SenderInfo: d1lo6xhdqjqx5xdzvxpfor3voofrz/
+Content-Transfer-Encoding: quoted-printable
+X-CM-TRANSID:rQCowAAXHz3kL5Bq4ERiBg--.38527S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxKF13Aw4Uuw1DZryDGFyxGrg_yoW3uw48pF
+	Z8CFnrArZrKryIva4avrn7WFy5Jrs5W345KFW7Jw15Aa1rtFyrZr909as0qr1UAry0qa40
+	qF12yws3Can0va7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBF14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWxJVW8Jr
+	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IE
+	rcIFxwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x
+	0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E
+	7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcV
+	C0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF
+	04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7
+	CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUC1v3UUUUU=
+X-CM-SenderInfo: 50xmxthndljiysv6x2xfdvhtffof0/1tbiCRMMCWqP79DjiwAAst
 
-On 8/27/2026 4:48 PM, Daejun Park wrote:
-> When a plain lookup finds no block, ext4_ind_map_blocks() sizes the hole
-> it reports by counting the empty subtrees under 'partial' in the on-disk
-> indirect tree.  That count knows nothing about delayed allocation, so a
-> range holding delalloc data that has not been written back yet is
-> reported as a plain hole.  The extent-mapped path does not have this
-> problem: it trims the hole it found at the first delayed extent before
-> returning it.
-> 
-> ext4_map_blocks() consults the extent status tree before it calls into
-> the mapping layer, so a query that starts exactly on the delayed block
-> still finds it.  A query that starts earlier does not, because the hole
-> reported for the earlier block already spans the delayed one.  On a
-> 4k-block filesystem, lseek(SEEK_DATA) from offset 0 on a file whose only
-> data block is at logical block N and is still dirty returns:
-> 
->   N = 0..11      direct blocks                 N << 12
->   N = 12         first single-indirect block   N << 12
->   N = 13..1035   inside that indirect block    -1 ENXIO
->   N = 1036       first double-indirect block   N << 12
-> 
-> Blocks 12 and 1036 survive because the query lands on the delayed block
-> itself.  Blocks 13..1035 are swallowed by the 1024-block hole reported
-> for block 12.  fiemap loses the same data for the same reason.
-> 
-> An ext3 filesystem mounted as ext4 hits this during ordinary use: ext3
-> inodes stay indirect mapped, while mount -t ext4 turns on delayed
-> allocation even though mounting ext3 with -o delalloc is explicitly
-> rejected.  install(1) from coreutils uses SEEK_DATA to locate data in
-> its source file, so installing a sparse file that has not been written
-> back silently produces a destination of the right size holding none of
-> the data:
-> 
->   truncate -s 1G img && mkfs.ext3 -F img && mount -t ext4 img mnt
->   echo | dd of=mnt/src bs=1 count=1 seek=64K
->   install mnt/src mnt/dst
->   cmp mnt/src mnt/dst        # differ: char 65537
-> 
-> Reconciling a hole with the extent status tree does not depend on how
-> the hole was found, so instead of open coding it a second time, split
-> the delalloc handling out of ext4_ext_determine_insert_hole() into
-> ext4_determine_insert_hole(), which takes the hole the caller located,
-> and call that from ext4_ind_map_blocks() as well.  All the special cases
-> and the comments explaining them stay in one place.
-> 
-> Two things change for indirect-mapped inodes.  They now cache the holes
-> they report, as the extent-mapped path already does: ext4_punch_hole()
-> already puts EXTENT_STATUS_HOLE on such inodes, ext4_map_blocks() and
-> ext4_da_map_blocks() already handle a cached hole, the latter by
-> replacing it with the delayed extent, and consecutive hole entries
-> merge, so the tree does not grow with the length of a scan.  And when a
-> delayed extent covers the queried block itself - a race, since
-> ext4_map_blocks() found nothing in the tree just before - the hole is
-> now reported only up to the end of that extent instead of in full.
-> 
-> The indirect path passes hole_start == lblk, so the "delalloc extent in
-> front of the queried range" case cannot be reached there:
-> __es_tree_search() never returns an extent ending before the block it
-> was searched for.
-> 
-> With this the sweep above returns N << 12 for every N, while the
-> nodelalloc and extent-mapped controls are unchanged.  generic/225,
-> generic/285, generic/448 and generic/490 pass on ext4 made both with and
-> without the extent feature.  generic/286 and generic/436 pass on
-> extent-mapped ext4 and are skipped without it, since they need
-> fallocate.
-> 
-> Fixes: facab4d9711e ("ext4: return hole from ext4_map_blocks()")
-> Reported-by: Alexander Monakov <amonakov@ispras.ru>
-> Closes: https://lore.kernel.org/linux-ext4/594c17d9-c00f-e485-96fb-cedf27ce3aa3@ispras.ru/
-> Suggested-by: Jan Kara <jack@suse.cz>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Daejun Park <daejun7.park@samsung.com>
-
-Looks good to me.
-
-Reviewed-by: Zhang Yi <yi.zhang@huawei.com>
-
-> ---
-> v1: https://lore.kernel.org/linux-ext4/20260826052446epcms2p5a415be5fbfe23b8a32786f0ae6d05aea@epcms2p5/
-> v2: https://lore.kernel.org/linux-ext4/20260827043928epcms2p54597035aadd1eca0556ae9b0585694f9@epcms2p5/
-> 
-> v2: rather than open coding the delalloc trim in ext4_ind_map_blocks(),
->     split it out of ext4_ext_determine_insert_hole() into
->     ext4_determine_insert_hole() and call that from both paths, as Jan
->     suggested.
-> 
-> v3: only reconcile when the lookup really did find a hole.
->     ext4_get_branch() returns a non-NULL partial when it failed as
->     well, and ext4_ind_map_blocks() checks err only after this branch,
->     so v2 cached a hole for a range it could not read.  The error was
->     still returned, but every later read of that range was answered
->     from the cache as zeros instead of retrying the disk.  Reproduced
->     by pointing an inode's single-indirect block past the end of the
->     filesystem: v2 caches a hole for the whole 1024-block subtree and
->     reads succeed with zeros where they must return -EIO.
->     Also corrected the xfstests sentence: generic/286 and generic/436
->     need fallocate, so they are skipped rather than passing on a
->     filesystem made without the extent feature.
-> 
->  fs/ext4/ext4.h     |  3 +++
->  fs/ext4/extents.c  | 26 +++++++++++++-------------
->  fs/ext4/indirect.c | 17 +++++++++++++++++
->  3 files changed, 33 insertions(+), 13 deletions(-)
-> 
-> diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-> index 7fd078de265d..f5eff74631a4 100644
-> --- a/fs/ext4/ext4.h
-> +++ b/fs/ext4/ext4.h
-> @@ -3893,6 +3893,9 @@ extern void ext4_ext_tree_init(handle_t *handle, struct inode *inode);
->  extern int ext4_ext_index_trans_blocks(struct inode *inode, int extents);
->  extern int ext4_ext_map_blocks(handle_t *handle, struct inode *inode,
->  			       struct ext4_map_blocks *map, int flags);
-> +ext4_lblk_t ext4_determine_insert_hole(struct inode *inode, ext4_lblk_t lblk,
-> +				       ext4_lblk_t hole_start,
-> +				       ext4_lblk_t hole_len);
->  extern int ext4_ext_truncate(handle_t *, struct inode *);
->  extern int ext4_ext_remove_space(struct inode *inode, ext4_lblk_t start,
->  				 ext4_lblk_t end);
-> diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
-> index 836396ea7912..e2b7565e2cb4 100644
-> --- a/fs/ext4/extents.c
-> +++ b/fs/ext4/extents.c
-> @@ -4190,21 +4190,19 @@ static int get_implied_cluster_alloc(struct super_block *sb,
->  }
->  
->  /*
-> - * Determine hole length around the given logical block, first try to
-> - * locate and expand the hole from the given @path, and then adjust it
-> - * if it's partially or completely converted to delayed extents, insert
-> - * it into the extent cache tree if it's indeed a hole, finally return
-> - * the length of the determined extent.
-> + * Adjust the hole [@hole_start, @hole_start + @hole_len) the caller found
-> + * around the queried block @lblk if it's partially or completely converted
-> + * to delayed extents, insert it into the extent cache tree if it's indeed a
-> + * hole, finally return the length of the determined extent starting at
-> + * @lblk.  @hole_start must not be behind @lblk.
->   */
-> -static ext4_lblk_t ext4_ext_determine_insert_hole(struct inode *inode,
-> -						  struct ext4_ext_path *path,
-> -						  ext4_lblk_t lblk)
-> +ext4_lblk_t ext4_determine_insert_hole(struct inode *inode, ext4_lblk_t lblk,
-> +				       ext4_lblk_t hole_start,
-> +				       ext4_lblk_t hole_len)
->  {
-> -	ext4_lblk_t hole_start, len;
-> +	ext4_lblk_t len = hole_len;
->  	struct extent_status es;
->  
-> -	hole_start = lblk;
-> -	len = ext4_ext_find_hole(inode, path, &hole_start);
->  again:
->  	ext4_es_find_extent_range(inode, &ext4_es_is_delayed, hole_start,
->  				  hole_start + len - 1, &es);
-> @@ -4371,9 +4369,11 @@ int ext4_ext_map_blocks(handle_t *handle, struct inode *inode,
->  	 * we couldn't try to create block if flags doesn't contain EXT4_GET_BLOCKS_CREATE
->  	 */
->  	if ((flags & EXT4_GET_BLOCKS_CREATE) == 0) {
-> -		ext4_lblk_t len;
-> +		ext4_lblk_t hole_start = map->m_lblk, len;
->  
-> -		len = ext4_ext_determine_insert_hole(inode, path, map->m_lblk);
-> +		len = ext4_ext_find_hole(inode, path, &hole_start);
-> +		len = ext4_determine_insert_hole(inode, map->m_lblk,
-> +						 hole_start, len);
->  
->  		map->m_pblk = 0;
->  		map->m_len = min_t(unsigned int, map->m_len, len);
-> diff --git a/fs/ext4/indirect.c b/fs/ext4/indirect.c
-> index 5aec759eed70..a495080df710 100644
-> --- a/fs/ext4/indirect.c
-> +++ b/fs/ext4/indirect.c
-> @@ -586,6 +586,23 @@ int ext4_ind_map_blocks(handle_t *handle, struct inode *inode,
->  		for (i = partial - chain + 1; i < depth; i++)
->  			count = count * epb + (epb - offsets[i] - 1);
->  		count++;
-> +
-> +		/*
-> +		 * The count knows nothing about delayed allocation, so let
-> +		 * the common helper reconcile it with the extent status
-> +		 * tree.  Only when the lookup really did find a hole:
-> +		 * ext4_get_branch() also returns a non-NULL partial when it
-> +		 * failed, and caching a hole for a range it could not read
-> +		 * would answer every later read from that cache instead of
-> +		 * retrying.  Clamp the count first, a subtree can be bigger
-> +		 * than the logical block space when the block size is large.
-> +		 */
-> +		if (!err) {
-> +			count = umin(count, EXT_MAX_BLOCKS - map->m_lblk);
-> +			count = ext4_determine_insert_hole(inode, map->m_lblk,
-> +							   map->m_lblk, count);
-> +		}
-> +
->  		/* Fill in size of a hole we found */
->  		map->m_pblk = 0;
->  		map->m_len = umin(map->m_len, count);
-> 
-> base-commit: 9091c97be34083587a75db174aab51551d8e8543
+gentle ping ?=0D
+=0D
+> The fp_is_valid() function uses ALIGN(sp, THREAD_SIZE) as the upper=0D
+> bound for the frame pointer check. This bound is calculated relative=0D
+> to the current sp and shifts upward when sp itself exceeds the valid=0D
+> stack region, allowing the unwinder to read past the end of the=0D
+> allocated task stack and triggering KASAN stack-out-of-bounds.=0D
+> =0D
+> Fix this by using absolute stack boundaries determined once before=0D
+> the unwind loop:=0D
+> =0D
+> - When sp is on the task stack, use the task's pt_regs as the upper=0D
+>   bound.=0D
+> - When sp is on the overflow_stack (CONFIG_VMAP_STACK=3Dy), use the=0D
+>   overflow_stack's top as the boundary.=0D
+> - When sp is on the IRQ stack (CONFIG_IRQ_STACKS=3Dy), use the IRQ=0D
+>   stack's top as the boundary.=0D
+> - When sp is not on any known stack, warn and return.=0D
+> - For remote tasks (task !=3D current), if sp is not on the task=0D
+>   stack, warn and return since we cannot reliably determine the=0D
+>   correct boundary from a different CPU's stacks.=0D
+> =0D
+> Make the DECLARE_PER_CPU(overflow_stack) unconditional in=0D
+> asm/stacktrace.h so that stacktrace.c can use=0D
+> IS_ENABLED(CONFIG_VMAP_STACK) instead of #ifdef, in line with the=0D
+> kernel coding style which discourages the use of #ifdef in .c files=0D
+> (https://docs.kernel.org/process/coding-style.html).  This is safe=0D
+> because the DEFINE_PER_CPU (memory allocation) in traps.c remains=0D
+> guarded by CONFIG_VMAP_STACK; the reference in stacktrace.c is only=0D
+> compiled when IS_ENABLED(CONFIG_VMAP_STACK) evaluates to true.=0D
+> =0D
+> Fixes: a2a4d4a6a0bf ("riscv: stacktrace: fixed walk_stackframe()")=0D
+> Signed-off-by: Jiakai Xu <xujiakai2025@iscas.ac.cn>=0D
+> Assisted-by: YuanSheng:DeepSeek-V3.2=0D
+> ---=0D
+> V4 -> V5:=0D
+> - Made DECLARE_PER_CPU(overflow_stack) unconditional in=0D
+>   asm/stacktrace.h so that stacktrace.c can use IS_ENABLED()=0D
+>   instead of #ifdef, as suggested by Nam Cao.=0D
+> - Converted #ifdef CONFIG_VMAP_STACK to else if=0D
+>   (IS_ENABLED(CONFIG_VMAP_STACK)) in walk_stackframe() and folded=0D
+>   the overflow_stack and IRQ stack checks into a single if-else=0D
+>   chain, eliminating the !high sentinel variable.=0D
+> Link: https://lore.kernel.org/linux-riscv/20260630090535.4103888-1-xujiak=
+ai2025@iscas.ac.cn/T/#u=0D
+> =0D
+> V3 -> V4:=0D
+> - Switched to #include <asm/irq_stack.h> instead of hand-written=0D
+>   DECLARE_PER_CPU, as suggested by Nam Cao.  This also fixes a=0D
+>   build failure when CONFIG_IRQ_STACKS=3Dn since the header=0D
+>   unconditionally declares irq_stack_ptr.=0D
+> - Added dedicated overflow_stack handling (CONFIG_VMAP_STACK)=0D
+>   with the correct 4 KiB boundary. v3 fell through to the 32 KiB=0D
+>   IRQ stack bound when unwinding from the overflow_stack,=0D
+>   triggering KASAN OOB reads past the small overflow_stack=0D
+>   allocation. Reported by Sashiko AI review and reproduced by Xiao Wu.=0D
+> - Changed the fallback else branch to warn and return instead of=0D
+>   silently falling back to task_pt_regs(), as suggested by Nam Cao.=0D
+> - For remote tasks (task !=3D current), bail out with a warning when=0D
+>   sp is not on the task stack, since we cannot reliably use the=0D
+>   local CPU's IRQ/overflow stacks as the boundary.=0D
+> Link: https://lore.kernel.org/linux-riscv/20260625123906.211981-1-xujiaka=
+i2025@iscas.ac.cn/T/#u=0D
+> =0D
+> V2 -> V3:=0D
+> - Handled the case where sp is on the IRQ stack (CONFIG_IRQ_STACKS),=0D
+>   as suggested by Nam Cao: when sp is not within the task stack=0D
+>   range, use the IRQ stack's top (irq_stack_ptr + IRQ_STACK_SIZE)=0D
+>   as the upper bound instead of task_pt_regs(), which would point=0D
+>   to the wrong stack. The check uses the sp variable directly rather=0D
+>   than on_thread_stack(), because on_thread_stack() reads the=0D
+>   current CPU register sp which may differ from the unwinder's sp=0D
+>   when regs is provided.=0D
+> - Used IS_ENABLED(CONFIG_IRQ_STACKS) to guard the IRQ stack check,=0D
+>   and cast irq_stack_ptr to unsigned long for byte-level arithmetic.=0D
+> Link: https://lore.kernel.org/linux-riscv/20260517143704.659416-1-xujiaka=
+i2025@iscas.ac.cn/T/#u=0D
+> =0D
+> V1 -> V2:=0D
+> - Moved the NULL task check from fp_is_valid() into walk_stackframe(),=0D
+>   as suggested by Matthew Bystrin.=0D
+> - Changed the upper bound from task_stack_page(task) + THREAD_SIZE to=0D
+>   task_pt_regs(task) for a tighter boundary, as suggested by Matthew=0D
+>   Bystrin.=0D
+> Link: https://lore.kernel.org/linux-riscv/20260514100711.838895-1-xujiaka=
+i2025@iscas.ac.cn/t/#u=0D
+> ---=0D
+>  arch/riscv/include/asm/stacktrace.h |  8 +++++--=0D
+>  arch/riscv/kernel/stacktrace.c      | 37 ++++++++++++++++++++++++-----=0D
+>  2 files changed, 37 insertions(+), 8 deletions(-)=0D
+> =0D
+> diff --git a/arch/riscv/include/asm/stacktrace.h b/arch/riscv/include/asm=
+/stacktrace.h=0D
+> index b1495a7e06ce..2d13c35a8c05 100644=0D
+> --- a/arch/riscv/include/asm/stacktrace.h=0D
+> +++ b/arch/riscv/include/asm/stacktrace.h=0D
+> @@ -22,8 +22,12 @@ static inline bool on_thread_stack(void)=0D
+>  }=0D
+>  =0D
+>  =0D
+> -#ifdef CONFIG_VMAP_STACK=0D
+> +/*=0D
+> + * Declare unconditionally so that arch/riscv/kernel/stacktrace.c can us=
+e=0D
+> + * IS_ENABLED(CONFIG_VMAP_STACK) rather than #ifdef, in line with the ke=
+rnel=0D
+> + * coding style. The DEFINE_PER_CPU (memory allocation) remains guarded =
+by=0D
+> + * CONFIG_VMAP_STACK in traps.c.=0D
+> + */=0D
+>  DECLARE_PER_CPU(unsigned long [OVERFLOW_STACK_SIZE/sizeof(long)], overfl=
+ow_stack);=0D
+> -#endif /* CONFIG_VMAP_STACK */=0D
+>  =0D
+>  #endif /* _ASM_RISCV_STACKTRACE_H */=0D
+> diff --git a/arch/riscv/kernel/stacktrace.c b/arch/riscv/kernel/stacktrac=
+e.c=0D
+> index c7555447149b..7a66c7ee2c81 100644=0D
+> --- a/arch/riscv/kernel/stacktrace.c=0D
+> +++ b/arch/riscv/kernel/stacktrace.c=0D
+> @@ -12,6 +12,7 @@=0D
+>  #include <linux/stacktrace.h>=0D
+>  #include <linux/ftrace.h>=0D
+>  =0D
+> +#include <asm/irq_stack.h>=0D
+>  #include <asm/stacktrace.h>=0D
+>  =0D
+>  #ifdef CONFIG_FRAME_POINTER=0D
+> @@ -35,12 +36,12 @@=0D
+>  extern asmlinkage void handle_exception(void);=0D
+>  extern unsigned long ret_from_exception_end;=0D
+>  =0D
+> -static inline int fp_is_valid(unsigned long fp, unsigned long sp)=0D
+> +static inline int fp_is_valid(unsigned long fp, unsigned long sp,=0D
+> +			       unsigned long high)=0D
+>  {=0D
+> -	unsigned long low, high;=0D
+> +	unsigned long low;=0D
+>  =0D
+>  	low =3D sp + sizeof(struct stackframe);=0D
+> -	high =3D ALIGN(sp, THREAD_SIZE);=0D
+>  =0D
+>  	return !(fp < low || fp > high || fp & 0x07);=0D
+>  }=0D
+> @@ -48,7 +49,7 @@ static inline int fp_is_valid(unsigned long fp, unsigne=
+d long sp)=0D
+>  void notrace walk_stackframe(struct task_struct *task, struct pt_regs *r=
+egs,=0D
+>  			     bool (*fn)(void *, unsigned long), void *arg)=0D
+>  {=0D
+> -	unsigned long fp, sp, pc;=0D
+> +	unsigned long fp, sp, pc, high =3D 0;=0D
+>  	int graph_idx =3D 0;=0D
+>  	int level =3D 0;=0D
+>  =0D
+> @@ -68,19 +69,43 @@ void notrace walk_stackframe(struct task_struct *task=
+, struct pt_regs *regs,=0D
+>  		pc =3D task->thread.ra;=0D
+>  	}=0D
+>  =0D
+> +	if (!task)=0D
+> +		task =3D current;=0D
+> +=0D
+> +	if (sp >=3D (unsigned long)task_stack_page(task) &&=0D
+> +	    sp < (unsigned long)task_stack_page(task) + THREAD_SIZE) {=0D
+> +		high =3D (unsigned long)task_pt_regs(task);=0D
+> +	} else if (task !=3D current) {=0D
+> +		pr_warn("%s: sp (%lx) is not in task stack of %s\n",=0D
+> +			__func__, sp, task->comm);=0D
+> +		return;=0D
+> +	} else if (IS_ENABLED(CONFIG_VMAP_STACK) &&=0D
+> +		   sp >=3D (unsigned long)this_cpu_ptr(overflow_stack) &&=0D
+> +		   sp < (unsigned long)this_cpu_ptr(overflow_stack) + OVERFLOW_STACK_S=
+IZE) {=0D
+> +		high =3D (unsigned long)this_cpu_ptr(overflow_stack) + OVERFLOW_STACK_=
+SIZE;=0D
+> +	} else if (IS_ENABLED(CONFIG_IRQ_STACKS) &&=0D
+> +		   sp >=3D (unsigned long)this_cpu_read(irq_stack_ptr) &&=0D
+> +		   sp < (unsigned long)this_cpu_read(irq_stack_ptr) + IRQ_STACK_SIZE) =
+{=0D
+> +		high =3D (unsigned long)this_cpu_read(irq_stack_ptr) + IRQ_STACK_SIZE;=
+=0D
+> +	} else {=0D
+> +		pr_warn("%s: sp (%lx) is not on any known stack\n",=0D
+> +			__func__, sp);=0D
+> +		return;=0D
+> +	}=0D
+> +=0D
+>  	for (;;) {=0D
+>  		struct stackframe *frame;=0D
+>  =0D
+>  		if (unlikely(!__kernel_text_address(pc) || (level++ >=3D 0 && !fn(arg,=
+ pc))))=0D
+>  			break;=0D
+>  =0D
+> -		if (unlikely(!fp_is_valid(fp, sp)))=0D
+> +		if (unlikely(!fp_is_valid(fp, sp, high)))=0D
+>  			break;=0D
+>  =0D
+>  		/* Unwind stack frame */=0D
+>  		frame =3D (struct stackframe *)fp - 1;=0D
+>  		sp =3D fp;=0D
+> -		if (regs && (regs->epc =3D=3D pc) && fp_is_valid(frame->ra, sp)) {=0D
+> +		if (regs && (regs->epc =3D=3D pc) && fp_is_valid(frame->ra, sp, high))=
+ {=0D
+>  			/* We hit function where ra is not saved on the stack */=0D
+>  			fp =3D frame->ra;=0D
+>  			pc =3D regs->ra;=0D
+> -- =0D
+> 2.34.1=
 
