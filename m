@@ -1,170 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from frasgout.his.huawei.com (frasgout.his.huawei.com [185.176.79.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90A4747CA87
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:22:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB377483BFA
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:24:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.176.79.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787847761; cv=none; b=e0vfFivGAWYpV14hsuNq/eMNoNvJWGREIYJuFo6nuX1xoIyWkqgCJU+MT2xLuRZ6lSpAwB+AhdHFkhx3Qi4K0cVGSYcniV+wcNP+jw46neXTQby6h4H2TzyeZKsJSgULDdv1zf3m2nrridVJuBYSumDhveb6aWPobzIMEFi0Ea0=
+	t=1787847889; cv=none; b=EhqzjM1iCJHX9JSfm85XZmBA5+kQtyK+/+3N8zl5ZhQ2WztWS9oM609guupZLlUt4uXSniyA8aplJQJM6d0KdAJjyQmu5Z3c+qmVHeikYXjehFpJUwyVJsvMRRXhI27x3n07eA1FDCbUwr8F5BTOZ6vEoYA6JgVwwAhpSjrluUA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787847761; c=relaxed/simple;
-	bh=PRCC5CRhKeJ8OeJS0IFC2wNT2FsPAGDsz0RK/qV/kAU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PoPIEp0uYY7LoZ/cZeDy78CFHUbGlKntIvypJHjiLhkxGHz7gzroNrP6dZPVmfn0xResaIp5GIU6xji4wbjbk4ONiyQuCc6s8ukrVBdazCWumlzNiVxsN2AutCWtE0nYs7iOGGw+sb8p06cAShcTCNE/dHDbSBMDlrUkVLrkzW8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c6ijVLhU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787847889; c=relaxed/simple;
+	bh=pgoI14c19xZ43wko77ZwN8GGic+HffwtfhmOQJFlreQ=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=kwbqeiuz1n1nhZcna8Ghbk1K4BTJGtRaNVHmMk/R4Y6Ti3Qk3AEx9CdV9tbJm19lRuQkaVpjKQ1h9DuJ76KX+1IZsjsIqeI9IVTeVkmzfIHkTMEiPY2fspxcnPJ2bKC+OiOYHhD6w4fA0y1Y5q3tq8eEk5yCZ4HSVcKAk26EtT8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=rrMP/6Ig; arc=none smtp.client-ip=185.176.79.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c6ijVLhU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E90061F000E9;
-	Thu, 27 Aug 2026 16:22:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787847760;
-	bh=O7WrhVCgAaUOL4xGEC6xlCmy8BBYILHhfXa7lkRioBQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=c6ijVLhUqtExNvDwiI66mgRF5nYkLa3T6pS1wQ3aSXFcB334soGZPAHVq3d9QUeSA
-	 bHirNEtaAf8LcabVz65gpkeEYYF7uZK25EiLYNtja44LG/ljEzsyZ6SY7zRuiTqbQs
-	 oE6CXsEtEFBcTWsRcmPGM98tiaVzaqswrE2cAp6PlTRJeI0LIFmybz2jCihzwsb3UD
-	 NbxsCGjV4rrsYPJ4/4YJlJ8sp2LazTtoqnPqAdsdumgzK1Hfv8J3fRNgtK1wQuL35m
-	 P8PcLhbAdKgepAUpWuxc7G+huxNe+JbSYK9T8ToIHtupXu5i1W/cWln4VV9RGjg0S8
-	 H7brryOC3wovQ==
-Message-ID: <c796694d-7783-4f99-9ce2-331e1c551415@kernel.org>
-Date: Thu, 27 Aug 2026 18:22:32 +0200
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="rrMP/6Ig"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=oMZ5AFZhqeXmEWrdBGYUKt+USNzuDSrHR09vQq45iZE=;
+	b=rrMP/6IgeCyguD1XBUymEDs46U3PH2nQcOVjRM7NWTwXIBiKAc+v2wRktTvtj3dnhx+/A68o2
+	ujUyEiKFJ0FYG9oClz7vuPt/2Wbq9ooYp17fibHkCYasLVZkNzjTArv/0GTYFmcY9o+umZmAbaw
+	okn+6XU8oRhyoEmAUSQddQg=
+Received: from mail.maildlp.com (unknown [172.18.224.150])
+	by frasgout.his.huawei.com (SkyGuard) with ESMTPS id 4hW6KC66nqzHnH5L;
+	Fri, 28 Aug 2026 00:23:59 +0800 (CST)
+Received: from mscpeml500004.china.huawei.com (unknown [7.188.26.250])
+	by mail.maildlp.com (Postfix) with ESMTPS id D785540570;
+	Fri, 28 Aug 2026 00:24:35 +0800 (CST)
+Received: from mscphis00949.huawei.com (10.123.66.11) by
+ mscpeml500004.china.huawei.com (7.188.26.250) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 27 Aug 2026 19:24:35 +0300
+From: Nikita Panov <panov.nikita@huawei.com>
+To: <catalin.marinas@arm.com>, <akpm@linux-foundation.org>,
+	<david@kernel.org>, <ljs@kernel.org>, <vbabka@kernel.org>, <cl@gentwo.org>,
+	<linux@armlinux.org.uk>, <will@kernel.org>, <mark.rutland@arm.com>,
+	<liam@infradead.org>, <rppt@kernel.org>, <surenb@google.com>,
+	<mhocko@suse.com>
+CC: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <wangkefeng.wang@huawei.com>,
+	<artem.kuzin@huawei.com>, <panov.nikita@huawei.com>
+Subject: [RFC PATCH 02/18] arm64: align kernel text and rodata
+Date: Fri, 28 Aug 2026 00:11:42 +0800
+Message-ID: <20260827161158.3618409-3-panov.nikita@huawei.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260827161158.3618409-1-panov.nikita@huawei.com>
+References: <20260827161158.3618409-1-panov.nikita@huawei.com>
+Reply-To: <artem.kuzin@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 05/18] mm/huge_memory: rename __split_unmapped_folio()
- to __split_frozen_folio()
-To: Kiryl Shutsemau <kirill@shutemov.name>, kasong@tencent.com
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
- Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
- Shivam Kalra <shivamkalra98@zohomail.in>, Kairui Song <ryncsn@gmail.com>
-References: <20260821-swap-thp-cleanup-v3-0-9b43f5163238@tencent.com>
- <20260821-swap-thp-cleanup-v3-5-9b43f5163238@tencent.com>
- <apBQqJZ89MHZi2RJ@thinkstation>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <apBQqJZ89MHZi2RJ@thinkstation>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: mscpeml100003.china.huawei.com (10.199.174.67) To
+ mscpeml500004.china.huawei.com (7.188.26.250)
 
-On 8/27/26 17:06, Kiryl Shutsemau wrote:
-> On Fri, Aug 21, 2026 at 02:55:18AM +0800, Kairui Song via B4 Relay wrote:
->> From: Kairui Song <kasong@tencent.com>
->>
->> The helper splits a folio whose refcount is frozen: the frozen refcount
->> is the state it relies on, while unmapping is arranged by the caller
->> beforehand. The old name caused confusion and people may try to call the
->> helper on non-frozen folios.
->>
->> Suggested-by: Zi Yan <ziy@nvidia.com>
->> Reviewed-by: Zi Yan <ziy@nvidia.com>
->> Signed-off-by: Kairui Song <kasong@tencent.com>
-> 
-> This patch is fine:
-> 
-> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> 
->> @@ -3989,8 +3989,8 @@ static int __folio_freeze_split_unmapped_anon(struct folio *folio, unsigned int
->>  	if (do_lru)
->>  		lruvec = folio_lruvec_lock(folio);
->>  
->> -	ret = __split_unmapped_folio(folio, new_order, split_at, NULL,
->> -				     NULL, split_type);
->> +	ret = __split_frozen_folio(folio, new_order, split_at, NULL,
->> +				   NULL, split_type);
->>  
->>  	/*
->>  	 * Unfreeze the post-split folios and put them back to the right
->> @@ -4053,8 +4053,8 @@ static int __folio_freeze_split_unmapped_file(struct folio *folio, unsigned int
->>  	if (do_lru)
->>  		lruvec = folio_lruvec_lock(folio);
->>  
->> -	ret = __split_unmapped_folio(folio, new_order, split_at, xas,
->> -				     mapping, split_type);
->> +	ret = __split_frozen_folio(folio, new_order, split_at, xas,
->> +				   mapping, split_type);
->>  
->>  	/*
->>  	 * Unfreeze after-split folios and put them back to the right
-> 
-> But now you have *unmapped_anon/file() call *frozen_folio().
-> 
-> Given that you introduced *unmapped_anon/file() in the previous patch,
-> why not give them the right names from the start?
-> 
+In order to comply with AArch64 page table entries type -
+table and block descriptor format, we need to use correct alignment
+for replicated memory areas. Physical blocks allocated for replicated areas
+must have the same offset for all replicas and same relative offset
+to the virtual address.
+For simplicity, we just use an explicit alignment for kernel sections.
+If 4K pages are used,  2MB alignment should be applied.
+Otherwise CONT_PTE_SIZE alignment is used.
 
-+1
+Acked-by: Artem Kuzin <artem.kuzin@huawei.com>
+Acked-by: Alexander Grubnikov <alexander.grubnikov@huawei.com>
+Acked-by: Ilya Hanov <ilya.hanov@huawei-partners.com>
+Acked-by: Denis Darvish <darvish.denis@huawei.com>
+Signed-off-by: Nikita Panov <panov.nikita@huawei.com>
+---
+ arch/arm64/kernel/vmlinux.lds.S | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
-And just for completeness:  we cannot possibly freeze a mapped folio. So frozen
-implies unmapped.
-
-So the function can possibly just be called
-
-	__folio_freeze_split_file
-
-And we can can add a
-
-	VM_WARN_ON_ONCE(folio_mapped(folio));
-
-to self-document the expectation in the code.
-
+diff --git a/arch/arm64/kernel/vmlinux.lds.S b/arch/arm64/kernel/vmlinux.lds.S
+index af1d72020976..aaf07e926c54 100644
+--- a/arch/arm64/kernel/vmlinux.lds.S
++++ b/arch/arm64/kernel/vmlinux.lds.S
+@@ -192,6 +192,13 @@ SECTIONS
+ 		_text = .;
+ 		HEAD_TEXT
+ 	}
++#ifdef CONFIG_KERNEL_REPLICATION
++#ifdef CONFIG_ARM64_4K_PAGES
++	. = ALIGN(PMD_SIZE);
++#else
++	. = ALIGN(CONT_PTE_SIZE);
++#endif
++#endif
+ 	.text : ALIGN(SEGMENT_ALIGN) {	/* Real text segment		*/
+ 		_stext = .;		/* Text and read-only data	*/
+ 			IRQENTRY_TEXT
+@@ -207,10 +214,25 @@ SECTIONS
+ 	}
+ 
+ 	. = ALIGN(SEGMENT_ALIGN);
++#ifdef CONFIG_KERNEL_REPLICATION
++#ifdef CONFIG_ARM64_4K_PAGES
++	. = ALIGN(PMD_SIZE);
++#else
++	. = ALIGN(CONT_PTE_SIZE);
++#endif
++#endif
+ 	_etext = .;			/* End of text section */
+ 
+ 	/* everything from this point to __init_begin will be marked RO NX */
++#ifdef CONFIG_KERNEL_REPLICATION
++#ifdef CONFIG_ARM64_4K_PAGES
++	RO_DATA(PMD_SIZE)
++#else
++	RO_DATA(CONT_PTE_SIZE)
++#endif
++#else
+ 	RO_DATA(PAGE_SIZE)
++#endif
+ 
+ 	HYPERVISOR_RODATA_SECTIONS
+ 
 -- 
-Cheers,
+2.34.1
 
-David
