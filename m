@@ -1,108 +1,137 @@
-Received: from mta0.migadu.com (out-177.mta0.migadu.com [91.218.175.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3003F43B6ED
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:45:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA20F437130;
+	Thu, 27 Aug 2026 09:45:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787823940; cv=none; b=kZkC+BCre+gjuQyyzM2n712xv2PY25WfKY408QsIsyHPc208Bx6La4ZNCjqqZH8V3/UWogNatVadAK/RS6L8pNLcakf8+QsO5BEAPb3wwkHdrT01ghgJHd/bfcrRR9J7jMopsgajCgTnhd6qIMjQa7JMCsubDK3U+jJqhexrZEs=
+	t=1787823937; cv=none; b=aF21flWZoLzzH0tlb1zaqWUQcrspkdIJPKrOCyff908lcYEiUMBCjji0AoE7yWhZx4zGTlux5mim8mdRUzGU6jxJhC8exzbDUVyZ4kSIzl+FTiWlbO8PdadkCfIs8Y4dwyRT0vRX8+i3vVNE9z8Idj7GzuZq3LGM0vetKd10etw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787823940; c=relaxed/simple;
-	bh=I/BFNB+ifWAIbaadguJ3IudKOSUEap7yrw5rXb1mnN8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-type; b=jbsP99al+s+YIW22cyZuC9AV2gBT2WsQ04ZbjOUtai4X8BriisUddqU8CNOYBw37OIvCYC0vg3vMBvlp8Do8CMOtKqhveO/PGvXO3W/U47bttrwd2iz5W7TkgFpkOijRdsMHRszci2v04erIFVQOQ8ps6aAtsOQ3LTH0/0QZeqU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=linux.dev; arc=none smtp.client-ip=91.218.175.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-X-Envelope-To: linux-kernel@vger.kernel.org
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 54ef9dade49ec2a8;
-	Thu, 27 Aug 2026 09:45:30 +0000
-X-Mizu-Trace-ID: 54ef9dade49ec2a8
-X-Migadu-Flow: FLOW_OUT
-From: Baoquan He <hebaoquan@kylinos.cn>
-To: linux-mm@kvack.org
-Cc: akpm@linux-foundation.org,
-	chrisl@kernel.org,
-	kasong@tencent.com,
-	nphamcs@gmail.com,
-	baohua@kernel.org,
-	youngjun.park@lge.com,
-	hannes@cmpxchg.org,
-	yosry@kernel.org,
-	shikemeng@huaweicloud.com,
-	chengming.zhou@linux.dev,
-	baoquan.he@linux.dev,
-	david@kernel.org,
-	linux-kernel@vger.kernel.org,
-	Baoquan He <hebaoquan@kylinos.cn>
-Subject: [PATCH 03/16] mm, swap: add CONFIG_XSWAP and xswap fields to swap_info_struct
-Date: Thu, 27 Aug 2026 17:44:53 +0800
-Message-ID: <20260827094509.1016740-4-hebaoquan@kylinos.cn>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260827094509.1016740-1-hebaoquan@kylinos.cn>
-References: <20260827094509.1016740-1-hebaoquan@kylinos.cn>
+	s=arc-20240116; t=1787823937; c=relaxed/simple;
+	bh=G2Vqu+n6CHDCYlAOih5PbTcU8zIr26Lqkc0o8vZwTXg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RJ/tIZgNXs/sK427yMNyxCoMmkaTtekNqsphIBVhBRxUT2SMAVZRRXexXyUaLdzbQ2cxV5iL9PR6b4lzMKXcz3kzA+wl93u45OT5RuOV3eCwlV4UQ1v8Q3Afk+osQYpTNjC3ko2SrMpVBwbRPD32GO11W/SQ6wHVovCJY2DT8sU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MXSqcdKm; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MXSqcdKm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A0A91F000E9;
+	Thu, 27 Aug 2026 09:45:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787823930;
+	bh=SHBWRs4Qno6qVtIJprw+hywFhvx/zVhgMmQwZ2yFLO8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MXSqcdKmDOk8/JzfxOrlJ1CDybFToyuk35KlP+L42iugZj+fzIZl4F5yD4OoyXJp1
+	 wk3Iw/YRQI3a4RGW0af+J9uYIGWKD4j083A/Y2D2x04e0wO9QFabNsjmXu3fJA1qeF
+	 pckF/5aOeb7kMZeGidA8yzPm9Q9sZFHl1CTiUiB94ea+pWUeph6syth3I1suLso5EQ
+	 M7SDQvF8yVOkMxnhEqOeAS+MsVq4QPZbiiRBtXZnlhYrHtq6yWb0GAyHsVTEC5aP6R
+	 5EBsE2qPKzmN64eCUEYGGjVLOgEumwlD5uNxeDgtMdWuxDOJeJC0gKIGToO3v2ZmUB
+	 jqffGBbi3nNwA==
+Date: Thu, 27 Aug 2026 11:45:27 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: John Ogness <john.ogness@linutronix.de>
+Cc: Petr Mladek <pmladek@suse.com>, Jon Hunter <jonathanh@nvidia.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Andy Shevchenko <andy.shevchenko@gmail.com>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+	linux-kernel@vger.kernel.org, Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Hugo Villeneuve <hvilleneuve@dimonoff.com>, 
+	Kees Cook <kees@kernel.org>, Stepan Ionichev <sozdayvek@gmail.com>, 
+	Xin Zhao <jackzxcui1989@163.com>, Osama Abdelkader <osama.abdelkader@gmail.com>, 
+	Fushuai Wang <wangfushuai@baidu.com>, Marco Felsch <m.felsch@pengutronix.de>, 
+	linux-serial@vger.kernel.org, "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>
+Subject: Re: [PATCH tty v11 1/2] serial: 8250: Switch to nbcon console, take 2
+Message-ID: <apAEsebh17YagOsa@orome>
+References: <20260729120439.281252-1-john.ogness@linutronix.de>
+ <20260729120439.281252-2-john.ogness@linutronix.de>
+ <f3757a75-0ba1-4558-bf57-f19ab7e59a4c@nvidia.com>
+ <aoQPFC7d8mSuNZMh@pathway.suse.cz>
+ <861247ca-dfd4-40c6-a094-0fbe389f3b67@nvidia.com>
+ <aoR_9g7W0qyqWbOj@pathway.suse.cz>
+ <87a4qh9gyk.fsf@jogness.linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-type: text/plain
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="d6l4652caujow2si"
+Content-Disposition: inline
+In-Reply-To: <87a4qh9gyk.fsf@jogness.linutronix.de>
 
-Add CONFIG_XSWAP Kconfig option (depends on SWAP && 64BIT) for
-extendable (virtual) swap device support.
 
-Add three fields to struct swap_info_struct under CONFIG_XSWAP:
-- cluster_vm: the VM_SPARSE vm_struct backing the cluster_info array
-- nr_clusters: total number of clusters in the xswap address space
-- nr_clusters_mapped: number of clusters currently mapped (lazy grow)
+--d6l4652caujow2si
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH tty v11 1/2] serial: 8250: Switch to nbcon console, take 2
+MIME-Version: 1.0
 
-These fields enable lazy vmalloc-based dynamic cluster management.
+On Thu, Aug 20, 2026 at 01:26:03PM +0206, John Ogness wrote:
+> On 2026-08-18, Petr Mladek <pmladek@suse.com> wrote:
+> >> [0] https://pastebin.com/FhQVSqfy
+>=20
+> ...
+>=20
+> > Almost everything works as expected except for:
+> >
+> >   1. I am not sure why "printk: console [ttyS0] disabled" is printed.
+> >      It does not make any sense to me.
+>=20
+> I have seen this in the past. It can happens unregister_console_locked()
+> has always printed the disabled message before actually checking if the
+> console is registered.
+>=20
+> IIRC it has something to do with serial8250_register_8250_port() calling
+> uart_remove_one_port(). I remember starting to look into how to fix it
+> but then was going down a rabbit hole that exceeded my scope at the
+> time.
+>=20
+> >   2. The WARNING would be handled with NBCON_PRIO_EMERGENCY.
+> >      I wonder if this warning happened also with "v5" of this
+> >      patchset.
+>=20
+> The tegra issue we had with v5 was related to irqwork being scheduled
+> when suspending. When keep_bootcon is specified, there will be no
+> irqwork scheduled during boot because legacy_direct=3Dtrue.
+>=20
+> From the backtrace in the posted boot log we see that the warning is
+> within tegra_pmc_enter_suspend_mode(). I am wondering if this is the
+> same issue we saw with v5... an irqwork getting scheduled when the tegra
+> is entering some suspend state.
 
-Signed-off-by: Baoquan He <hebaoquan@kylinos.cn>
----
- include/linux/swap.h | 5 +++++
- mm/Kconfig           | 9 +++++++++
- 2 files changed, 14 insertions(+)
+You mentioning tegra_pmc_enter_suspend_mode() jogged a memory. We have
+to play some weird cpuidle tricks when PCI interrupts are anebled
+because of a hardware bug. That bug, as far as I know, is only Tegra20
+specific, so it doesn't explain this. In this particular case we're also
+not talking about PCI in this case, *but* I wonder if there's maybe
+other IRQ issues related to cpuidle.
 
-diff --git a/include/linux/swap.h b/include/linux/swap.h
-index 787fe463dcbb..35d357a393c6 100644
---- a/include/linux/swap.h
-+++ b/include/linux/swap.h
-@@ -248,6 +248,11 @@ struct swap_info_struct {
- 	signed char	type;		/* strange name for an index */
- 	unsigned int	max;		/* size of this swap device */
- 	struct swap_cluster_info *cluster_info; /* cluster info. Only for SSD */
-+#ifdef CONFIG_XSWAP
-+	struct vm_struct	*cluster_vm;	/* VM_SPARSE area for xswap dynamic cluster_info */
-+	unsigned long		nr_clusters;	/* total cluster count for xswap */
-+	unsigned long		nr_clusters_mapped; /* currently mapped cluster count */
-+#endif
- 	struct list_head free_clusters; /* free clusters list */
- 	struct list_head full_clusters; /* full clusters list */
- 	struct list_head nonfull_clusters[SWAP_NR_ORDERS];
-diff --git a/mm/Kconfig b/mm/Kconfig
-index 604c58199acb..26cf26a2c59f 100644
---- a/mm/Kconfig
-+++ b/mm/Kconfig
-@@ -122,6 +122,15 @@ config ZSWAP_COMPRESSOR_DEFAULT
-        default "zstd" if ZSWAP_COMPRESSOR_DEFAULT_ZSTD
-        default ""
- 
-+config XSWAP
-+	bool "Extendable (virtual) swap device"
-+	depends on SWAP && 64BIT
-+	help
-+	  Adds support for extendable swap devices (xswap) that decouple
-+	  PTE swap entries from physical backing storage. The cluster_info
-+	  array is backed by a sparse vmalloc area that grows and shrinks
-+	  on demand, avoiding static pre-allocation overhead.
-+
- config ZSMALLOC
- 	tristate
- 
--- 
-2.54.0
+It's a bit of a shot in the dark, but we could try disabling the various
+suspend modes via the PMC DT node. Notably LP2 seems to be the one
+that's causing issues on Tegra20 with PCI, so maybe changing
+nvidia,suspend-mode to something like 0 or 1 would help narrow things
+down?
 
+Thierry
+
+--d6l4652caujow2si
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqQBysACgkQ3SOs138+
+s6FkyA/9EzajeGAeGYsjltP4Hari7Vi/6saWUV+qJcf0iX4pM6l9mwUZ/O+s2HX0
+iqXe/ctdeUchq5Sk2mlVlaqc7rqDRLR4krIp6pjj5dWcmchCySmjfDG7FSU4bRLn
+DH559HYLAArep1KbUGrxkN/SzzyfGeHEskkU5d6nr2EXRz7Nlb4j1/nyr3orYM7V
+BG891/OroE7UnhyJWyqpeJJ/kHoNg2XJmEI1IyD1tLQM5XxXyMcc4/FSAhRmQNhz
+9uiwZHuz/n26tsrDkUhMwv2SUAc3ja+iqPPijuMsiqtlNqLIq5VQqPf7IAoI4UHt
+5cscLdP41JybtZNvDEjiETx2i7TjAk+ZMYnSoyiZq2tMYRoO2f5UjoHPPVa6SuSP
+EkgJIXHM4Iu4wWXHOYuB7pk7vAP4nT3Rv8BOmDKH7ScHMH29U4CFfm5b9BpPL+8D
+wt5KPMmTy2Ve7SSASLDTrm2L0ZwaW6YnsA3pCmIc0yMwKFx+nhq9G9X38q8+guP7
+15IoGA7UdYgfdYHXroW2Jyyt1GZbvy9JA9MI2mYn/DTG12YmCTK0oRvw8ojkfCuk
+PjcnTbJgmRA+mAHdObQ6QE9BrBQcuFpPWnJQSJmCTB2mN3+AkZpYEDA4sU0Yl0e0
+nrLrwFf6kICwOHxc9KnDcK0pTuz5b8pe0cgB872aZHWCKh8Spcg=
+=asUN
+-----END PGP SIGNATURE-----
+
+--d6l4652caujow2si--
