@@ -1,120 +1,118 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C8D43859F5;
-	Thu, 27 Aug 2026 16:55:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5EAB38BF62;
+	Thu, 27 Aug 2026 16:55:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787849723; cv=none; b=JHWLG7MGa/1wqG2o0amfqTiKa3+8eS4gUz12YUtt3rxhvM8GuIu2KutZTEuClJVtegzL0gfx5Lvb3yhVO7zYmzT73UI4bS1+Hfq2QBrtSopGdWFYgU/EV06iogAAZDAAo7dSXRboIqd2LvV3MTJ/crTQCq0qa4OGKig26NPWv6M=
+	t=1787849731; cv=none; b=j7IOyTipSeWboB3p38EcxiDNZzdFo5aWWMvDpgIVYafnl37mc51PvuG07vQjWmbQ8gqrPMxNa2Zw6UV3QZVJDcsuKFL5lg2Xi1WKzom0jilcmNgJNHPviN0sVH4CduxMSCTLlY40J+U/hFLOLYY/JeYMAB4AD+KtLdge0CStiZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787849723; c=relaxed/simple;
-	bh=IT+bDPqwMPhVv7pJKmfuTNtK+mO4WnLVCjybUfmqt4E=;
+	s=arc-20240116; t=1787849731; c=relaxed/simple;
+	bh=sWvbfe0faEMkG9UmLj6jsM++XJvszYcmtzVM0Y6s1m8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RXoCj49g/MIAN/yQsUg2N/eEZZvNgW5Nr1x4053Xr1/rGe/YcVFtMK+zZMdiU5am8r1+Fe7qCjQ/Ls0Et5PdnBLwgcizfJIl8pfqwrwrJwxZSwgFALI1zJvJGjKospS7ZIicW1SAoYvuhbfPvjWRzxnUryGYXcECv0jeS/x5G2g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EHkR+Yvd; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=OFchI9zL2yHG8+lW1bVXZiNe1cvblOYisIAQI54bnwM0CQgkLGnBsXTNDQbyqlIfh3ruMSNhwaw7TqEkXZGZrrJNTkp44hfx9wXJNIe5ucuKP2TyW9qe0PrGvlt9PATD3igAgvfxExLdsccGjqaNkcxVVPMlyF+czlNE3rZslNs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S41PkZi6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EHkR+Yvd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFCCC1F00A3A;
-	Thu, 27 Aug 2026 16:55:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S41PkZi6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 562611F000E9;
+	Thu, 27 Aug 2026 16:55:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787849722;
-	bh=IT+bDPqwMPhVv7pJKmfuTNtK+mO4WnLVCjybUfmqt4E=;
+	s=k20260515; t=1787849730;
+	bh=4Wi6KK4ZkyQrCkSyS1rWL6XigxS3LuABb8+3XjFD0S4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EHkR+YvdRCowwKkxTrZzHnEzyyUFyfSVROIXzkfnqT4qALJKNuBUBZ7Utg8P3i+T1
-	 7WnT/nX++DEvl7X6PtXob8XT37aweg65aTXmZRp2+/J8mPsgCH4racLS2au9/TfLgV
-	 +LETtS0fk7+q4eN+ru3fX/EPopJYtj50Vpjegu3ra2RDDJ3NBsgzsT1Dy///9qQjkQ
-	 El+Zvzig/E7hArqIaQpu1ImznvUuTvkfXxTAcHmFVX5KUdOiv9fYFXPQv7NtZA7k5F
-	 TQGfkNC5yYE1vhUf9IhyglPCTPjmq2xqV6FPBaJbusikxCLlQpwtEGZNlpHKqIfE2Z
-	 K44NZVl72OfLw==
-Date: Thu, 27 Aug 2026 17:55:17 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Vyacheslav Yurkov <uvv.mail@gmail.com>
-Cc: Rob Herring <robh@kernel.org>,
-	Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
+	b=S41PkZi648Se7z824nWEyoiRov+muspswIBFssXVKayIDP5CnEKdVu4D2VO5ZQJkM
+	 AeDIO8RdeMraqKrmd+c/m8Y0XR+WyTgPWyHYrTLtthSb3+3EIlMe2CdPy17SP9OdCb
+	 vyPxvW5yOdpqzvEsf2hRczeQxZHKF7q2cPvXLmao7AOstXNvWIAh/r5eHkl5mwTU0F
+	 mDh+cfuNuKQeCT54FsdgwwNYa7G5sqVAaEMTmtxoiBLC7CAPmU0o/GP+OdT8O3c8EE
+	 p2Ncaa0ulHE+meoGN4jPgAGe5YGasrziQjPWa5IouOxGmushNAaYd8esRskXALg6Sb
+	 moveHz18q0G5A==
+Date: Thu, 27 Aug 2026 17:55:25 +0100
+From: Lee Jones <lee@kernel.org>
+To: Stefan Wahren <wahrenst@gmx.net>
+Cc: Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Brian Masney <bmasney@redhat.com>, linux-kernel@vger.kernel.org,
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] dt-bindings: Add GPIO-locked fixed clock
-Message-ID: <20260827-parcel-isotope-22b344bace78@spud>
-References: <20260726-feature-clock-guard-v4-0-e9c8b372b71c@bruker.com>
- <20260726-feature-clock-guard-v4-1-e9c8b372b71c@bruker.com>
- <20260810164000.GA1846263-robh@kernel.org>
- <20260810165403.GA2145873-robh@kernel.org>
- <20260810-smilingly-kung-1fddc5e18df6@spud>
- <c53ce2d5-4674-4bda-9e92-fb4fbdc32da8@gmail.com>
+	Jean-Jacques Hiblot <jjhiblot@traphandler.com>,
+	Jonas Rebmann <jre@pengutronix.de>, linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH V4] leds: rgb: leds-group-multicolor: Implement
+ default-intensity
+Message-ID: <20260827165525.GG2943942@google.com>
+References: <20260813091428.9072-1-wahrenst@gmx.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6a7JqWW12ldR6L0p"
-Content-Disposition: inline
-In-Reply-To: <c53ce2d5-4674-4bda-9e92-fb4fbdc32da8@gmail.com>
-
---6a7JqWW12ldR6L0p
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260813091428.9072-1-wahrenst@gmx.net>
 
-On Thu, Aug 27, 2026 at 10:23:20AM +0200, Vyacheslav Yurkov wrote:
-> On 10.08.2026 18:58, Conor Dooley wrote:
-> > On Mon, Aug 10, 2026 at 11:54:03AM -0500, Rob Herring wrote:
-> > > On Mon, Aug 10, 2026 at 11:40:00AM -0500, Rob Herring wrote:
-> > >=20
-> > > I missed that this is N input clocks and 1 output clock. But that lea=
-ds
-> > > to other questions. You've implemented a clock mux then? I still don't
-> > > understand for what h/w that makes sense. Which input clock is select=
-ed?
-> > > The locked one?
-> >=20
-> > Yeah, I thought this was n inputs and n outputs, with each gpio
-> > signalling that an individual PLL had locked.
->=20
->=20
-> It is n input clocks and 1 output clock. It is kind of a mux, but the CPU
-> doesn't control the clocks or GPIO signals. The whole idea is that
-> peripherals check the output clock, when it's locked that means _all_ the
-> clocks are locked and GPIOs are in expected state. That's why the selecti=
-on
-> operation is not really implemented.
->=20
-> Actually the number of input clocks don't have to correspond to the number
-> of the GPIOs, because the GPIO signals indicate the locked state of the
-> clocks that are not accessible to the CPU.
+On Thu, 13 Aug 2026, Stefan Wahren wrote:
 
-I'm not entirely sure what you mean by this, but it is starting to sound
-like you're only having one output because that's the minimum you need to do
-to ensure that this driver has probed before the peripheral(s) using the
-N input clocks. Requiring other input clocks to be stable before
-declaring the input that's actually connected to the output stable
-appears to be a shortcut/hack rather than an accurate description of the
-hardware. If that's the case, I'd be much happier with this if this was
-implemented as either a) N inputs with N gpios and N outputs, or b) 1 input,
-M gpios (if multiple represent the stability of that input) and 1 output,
-with N instances, one for each clock.
-On the other hand, if this is genuinely a mux, then the binding should
-reflect that, rather than only describe a subset of what you can do and
-the driver should only check the actual parent out the output, rather
-than the N-1 other inputs.
+> Currently it's not possible to specify the initial color of a LED
+> multicolor group during boot. So implement the default-intensity property
+> similar to the leds-pwm-multicolor driver. In case the property is
+> missing, the old behavior is kept.
+> 
+> Signed-off-by: Stefan Wahren <wahrenst@gmx.net>
+> Reviewed-by: Jonas Rebmann <jre@pengutronix.de>
+> ---
+> 
+> Changes in V4:
+> - use device_property_read_u32 instead of fwnode_property_read_u32
+> - simplify if statement as suggested by Lee
+> - drop obvious comment
+> 
+> Changes in V3:
+> - drop unnecessary patch for leds-group-multicolor.yaml
+> - add Jonas' RB
+> 
+> Changes in V2:
+> - adapt to approach (incl. error behavior) by Jonas Rebmann [2]
+> - address comments by Lee which still apply
+> 
+>  drivers/leds/rgb/leds-group-multicolor.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/leds/rgb/leds-group-multicolor.c b/drivers/leds/rgb/leds-group-multicolor.c
+> index 548c7dd63ba1..f278d2a2bf5c 100644
+> --- a/drivers/leds/rgb/leds-group-multicolor.c
+> +++ b/drivers/leds/rgb/leds-group-multicolor.c
+> @@ -109,8 +109,10 @@ static int leds_gmc_probe(struct platform_device *pdev)
+>  
+>  		subled[i].color_index = led_cdev->color;
+>  
+> -		/* Configure the LED intensity to its maximum */
+> -		subled[i].intensity = max_brightness;
+> +		ret = device_property_read_u32(led_cdev->dev, "default-intensity",
+> +					       &subled[i].intensity);
 
-Thanks,
-Conor.
+<gemini>
 
---6a7JqWW12ldR6L0p
-Content-Type: application/pgp-signature; name=signature.asc
+Should we avoid clobbering the function-wide 'ret' variable with an ignored
+error from 'device_property_read_u32()'? It might be safer to use a local
+variable inside the loop to prevent any future bugs if 'ret' is assumed to
+be zero later in the function.
 
------BEGIN PGP SIGNATURE-----
+Also, should we use a local 'u32' variable to read the property instead of
+passing the address of 'subled[i].intensity' directly? Since 'intensity' is
+defined as 'unsigned int', using a temporary 'u32' variable would be
+type-safe and avoid potential compiler warnings. If we do this, we should
+declare the 'u32' variable at the start of the block and assign it with
+the function call on a separate line.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapBr9QAKCRB4tDGHoIJi
-0sBsAP0be2Ty0vroBWIHM986UTYNfJr+ERcKihD7EHjKMCMsjgEAtbskLw5P59Co
-gvq0jEh/b4jYbLyS3R2YKshkj3QllQY=
-=khXB
------END PGP SIGNATURE-----
+</gemini>
 
---6a7JqWW12ldR6L0p--
+> +		if (ret || subled[i].intensity > max_brightness)
+> +			subled[i].intensity = max_brightness;
+>  	}
+>  
+>  	/* Initialise the multicolor's LED class device */
+> -- 
+> 2.43.0
+> 
+
+-- 
+Lee Jones
