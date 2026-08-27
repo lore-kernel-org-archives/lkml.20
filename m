@@ -1,771 +1,213 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012049.outbound.protection.outlook.com [40.107.209.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 198BE47D95E;
-	Thu, 27 Aug 2026 14:39:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787841566; cv=none; b=nT6DNZgE8UK1ctcbwhh610kLVKpShHcCHOcpUOJYst3YhZY4EbqRxjfJgLrTglYhObup4pQeoNegYH1u1OaVFe824+GfrVXTV7jD5QYvAniS+eSkn1WA46tDLmMQDobCzp3Vu2qj/j/TMlqX6Ym0ZgXdcWPCjOuX3vfyKF0tHMA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2328237CD32;
+	Thu, 27 Aug 2026 14:39:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787841566; cv=fail; b=mrUyos2ht9V/qj5OzcEc4cgcxqtFkkyhs3CQhFnavNXIbl3KI6rxQtdAhY5zHvy4SW7zajzEn8C3+JL7A2H1XKpmiBCK6YHeF32RMuwUc6jlgiZKgOHvc1rf3k201I1jBZVe8wMR+YUpTulqucwCCxYJyv4ViXVOWg6Ghz0+7+E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787841566; c=relaxed/simple;
-	bh=4CAvsdNuYr1TOINvsiS1bTij7h5KBCM5YfX9B09fXK0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KWjEdrlYcjBZOpAvPCifNQESDlc33jyaFXcoZQ9bUNNNlDIA4d33OgY2iH5HnbxfpG8agGhUsuEmoSVOcXtxfKk0NPEfxKHtn9Or9nXYQkvZzZcg7ZCM+d80EHD/zoyudhyXwv8XRJZDceAl3jLCAjBBns2g4ul6wl2F3W6RwdA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nVvwoMql; arc=none smtp.client-ip=100.103.45.18
+	bh=qMHHci97kpRoaH8TZCpyx6yDCW+6CrCLY3xGk3NEPcs=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=hV4v0HEyADqSX8NM2egU8n1WfIk086bvIgXG9RsgZYcMZjW3jiyPQsmz8AwuacX5gjYj3ovXaA3RBsePsRSjEODy6hFaY1VjpTjdX12BoLtN/lrk6atwtTcP1OV7ZNLriKdoRQOtgN4WYllyVTTeBKSYF/Osl4GGwfBLNUK/pcs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=fSpx4HTH; arc=fail smtp.client-ip=40.107.209.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nVvwoMql"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A09F41F00A3F;
-	Thu, 27 Aug 2026 14:39:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787841555;
-	bh=X3ZQPN6AFGtjHd4y95l29Jb5lUMLezaPvyPRtl/8seI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=nVvwoMqlk2UIZNrdBfIvjkaZ+8qULJhY6MvieEbF8RiXDCh0dOWWV2ok6CHDSCnEA
-	 xsMKkCQhpbs9vCf1hCULVkYJ+jwqwb6SgZoy/g826vM9ZdPtTnu645sbvpT1mXX45F
-	 Oh2sVf7eCpTeNBbTFjtjI/gUXgCF5++gnFCGNapKzAWe7mg3quutilvpBOg9xVBp8e
-	 ykgehE2av2EIl7jE/kJjXz8ILPfdhmsafZwGV9y5lsAYhcZI9F1BKenMwWfLj8TE/G
-	 Xgr17owP+gFamRO3btbFUiXdC1RDDWSGSDVJCCg5qJRW8ttjKiivGOjhQ3wiGBjkBR
-	 5H8eMtyysZmcw==
-Message-ID: <4a493c7f-a248-4896-890d-3aa55e074ddd@kernel.org>
-Date: Thu, 27 Aug 2026 22:38:54 +0800
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="fSpx4HTH"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yzvnBe5EYVJk7rR6oXbdE/hvkwvVJ/9eLm/Ctpe96ZnUam71U0h0pIgSvdYB8q5XGoSoDuAdpw60PB+uy+ECyXFuIKr2S2oRNBg2PqzIpnSVbSVI1TkCcosjmjkt9XuPyJAjB6Z283yNx/dQ61FT35AiLsL9G1FlD6WsM25siD2q4Dlt651acD+pbmnjP7l/IbkPOcokr26Jeq4xsoH/xBxKT1RRyIU0ZwJKcbhMFrGV17jOLDqeRuaGZL58SiJWyzGrPWPV4BEzXBfpvXEBKRlowQmrDUr3bC3rMLxMXyXoXWXF3pLA6Ac9GThQYzIx4bc6mCrBybcN4drBeOEtLA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ApMdX9guvyOceEXrTPhY7HE0HrnGefrRWUY7ZHDJl5k=;
+ b=kxGg2SlYl7WVX4tzr5/jLZG3aXxLqpg0KUapqlAZwYFGTIShvkC9ZkZS8qRw1PIQx+mzaCLjRAfmuj618sgkNoUxuuwvFZxkFiV4bYZKW27Qn8hKyUq85G2i5CBKk/hZB7DP8a0X4WBWTfeGFA6qV/3LVYq9pI6KQK5JgBpjbTBBSJ7ID0VvxlnIC4u5+C6mUMiR8C54RxCZJIiI1l7D6TVutnLE+d8U1Ag2QhOVpQ0h00GRyLpwVzF57aR+8K5kw+/9Z5tlMvNLZzWeHhXCkqU4bd9wIexJUtefksq9evDtNz0IIHD7Ssc2d+IZb4uajzm5TgyDZtQDUog+RUxdOA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ApMdX9guvyOceEXrTPhY7HE0HrnGefrRWUY7ZHDJl5k=;
+ b=fSpx4HTHkWjQsKl0OkQNd5LpysXpPpYDDQACgdW/ZFgiK7guCrE25qMcXWj/t+E/gqwQOxoEzeWeyzrZgCt57ZCgnGUNfOdDk1tTT6Xjhzmt+L9YN23R7DUaWijhuZISxSRGLgrw+F+c9YnDs7DXRrx00QFyy1XacPl5USFH5vkwL0fKPbDF9rKgVrQxLetur4sCesX2SgpKZ+qF+EFlY5Gwfj5TetBks3cPa76TwzFSL0QcdoyAYsBE30v+QaXbH4D1y9Mb/3W7C0GXOm81zvfqdzX7pxYsynDgq0VZvC0V16rbzOPIWX+x/ZUQq3H175ug3YhXIJzwlKBfeKOiug==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by PH7PR12MB6719.namprd12.prod.outlook.com (2603:10b6:510:1b2::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.11; Thu, 27 Aug
+ 2026 14:39:06 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0315.014; Thu, 27 Aug 2026
+ 14:39:06 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 27 Aug 2026 23:39:03 +0900
+Message-Id: <DKZSXMNDXTI9.3Q3WFXWD3YS64@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
+ <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, <driver-core@lists.linux.dev>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pci@vger.kernel.org>
+Subject: Re: [PATCH v3 04/16] rust: io: perform conversions using `AsRepr`
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Gary Guo" <gary@garyguo.net>
+Content-Transfer-Encoding: quoted-printable
+References: <20260819-typed_register-v3-0-3699a75fadf1@garyguo.net>
+ <20260819-typed_register-v3-4-3699a75fadf1@garyguo.net>
+ <DKZJ14NCZ37X.31YOYFWBKZ478@nvidia.com>
+ <DKZSK6DW84GM.2EARLBR7IPHQ5@garyguo.net>
+In-Reply-To: <DKZSK6DW84GM.2EARLBR7IPHQ5@garyguo.net>
+X-ClientProxiedBy: TYCP286CA0158.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:383::9) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/5] clk: socfpga: agilex72: add clock manager driver for
- Agilex72
-Content-Language: en-US
-To: evon.chiam@altera.com, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>
-Cc: Lothar Rubusch <l.rubusch@gmail.com>, Ng Tze Yee <tzeyee.ng@altera.com>,
- Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>,
- Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>,
- Brian Masney <bmasney@redhat.com>, devicetree@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <cover.1786006669.git.evon.chiam@altera.com>
- <97675c0efd40a9407b6b1a1941cc73b73dd45d39.1786006669.git.evon.chiam@altera.com>
-From: Dinh Nguyen <dinguyen@kernel.org>
-In-Reply-To: <97675c0efd40a9407b6b1a1941cc73b73dd45d39.1786006669.git.evon.chiam@altera.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|PH7PR12MB6719:EE_
+X-MS-Office365-Filtering-Correlation-Id: 38b9bcb0-2c28-4d92-d1d5-08df0448f27f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|10070799003|23010399003|7416014|376014|366016|10067099003|56012099006|5023799004|11063799006|18002099003|22082099003|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	l+EhGhYQ2qMKsPYfBq58+0iz9jlDU6WiHQP3HainPRIC4hsUC/k+FzeBdoxUhqi/G+Yc+XsEF53axm8Go+LhWS9peEpHaUjQWQDo5qTWvxbl5bjmaQA0FqpyoNenMRUC5VM6zpYJFWSR4EP1jkeTCToNU/UTuIyVh5dZHfw6to7S+E+/tjPSlyy7BdZjXuMjVz8P2yBq8pujXw4xkxnSzQkxwXubSjnSH0uBMCJm9v73Y2uWMTy7iGQkB6C0D2RsgugzwJq+UW7EkLl7INasvFQN3ooQ2PqqKRz7ixxdsdv8VbA1lebFbOVFVz6w4mHP6oqNzRZVQZ30rT5ri2QddQEH5IKHpwHet6+AjTx7q7p1T2JEovRX2LiP9vbtukoP3S+jXcv7UeDfB8aNjugWAiN25KzTJclGKab4dzoSr5whm/0U47SAbBtSgcGfCSzD8q9FqRgSz2FyFWkeWoufmQN+6Z1iISFOWF+d7cp7vHayHHQiqXwF4fi3kM1NWbdq1A9AgeIKlahoF2WcX3gxwskUVhrx0TVrU2l78j8xluynfraRNtytuOJGsgdpNgLMet6bOBE6xvfuf1bGzsIgM2r/u9ePHoWGkcbMig6vi/31J0YKYA4t7KxGDj0r74/f0C5e1XblwStz1uUdXyZo600Iix0a9dIu9T4IunMNxNo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(10070799003)(23010399003)(7416014)(376014)(366016)(10067099003)(56012099006)(5023799004)(11063799006)(18002099003)(22082099003)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Y2FGUkttQjI3YlkySVdDVW45WWhuRzdsTHg0YURJa1llMnRoTVBqQjlkY3hw?=
+ =?utf-8?B?VU4zWERqMWdkOFhVS0lPSG16MVBzaVM3b0IyODhUclUyVElablRVSlVPb3NN?=
+ =?utf-8?B?OHBCVFdBd1d2TmJNWjRxZkV1NktkQW9YWTh5SUxScDBGMFhuWTdTSStUOSto?=
+ =?utf-8?B?cGtjeXQxNEUwYkRBdWVXT0JTTkJtZy9UV3NCaitMK3czamx2MVEzK1U4U00z?=
+ =?utf-8?B?cjRHWjhXYVpoMnZKVTRHdGx1MlArTlZYQkMxelkwMW5QOU85YWdwNTJXMzhp?=
+ =?utf-8?B?L0xJZnVHNWNnVXNYZzZFQStXY2JWS3dKckNWdnBmbmw0NVMvZEFBaWdCMENu?=
+ =?utf-8?B?MWllQWRaMWtjVXBRMC94OW5lblR6MHBrZTBrSW5VNHB4ZjBCTDlHdFkyNzJU?=
+ =?utf-8?B?aWx3UFNseDg5akJDSnZBSEt4M1hZbVBoaGIwalB3OVBjaWdYNG9GY1F4L2xr?=
+ =?utf-8?B?VkdadlgrcmQyaGlGRmcwNVlHZ3VOTklScW1NMnc0dm9FOWxyMTA5S2t3UDJw?=
+ =?utf-8?B?Z3RQem9vTUZBcDZNNU1uNEgrdzBZcDNtOFZWVTBnVW1pQTBhUnN5bjFLZndr?=
+ =?utf-8?B?WExPZkdkTUtyeVBJRTBMdEdGV0Y1QUE0ZWRCZ3JiKzk3b29NRFdhM21SdmpS?=
+ =?utf-8?B?UFVuZmkvQkF4WW9teVppdzRzekJsblpHQzllcmlLQy9RaXpuZDZyRHE4bjUr?=
+ =?utf-8?B?VEtEQWFWN202UTBmNXloRWlkWURGTmxVUmlFaUlBTk5ERnBiMmVZNWQ1ZGNl?=
+ =?utf-8?B?TXJSY2dXejZSdjNOTStWUWh6UGdZeDkzaFJ1d29XR0xzVFJNLzZtSTc4UkN1?=
+ =?utf-8?B?aVVuM2RMQk8yTEhuVXhPTGpzTGNRMHd2d0l1OW5jTUJEWHdyRWw3UWhiUVZD?=
+ =?utf-8?B?bGtWUEhJNlp2QmtHcHlFSS9tSXdaT3VTWFEwZm9LUVV3WkNmbTRIbkxGdE13?=
+ =?utf-8?B?aEZKS0FLMWJQL2pRVGdjMXMzZ1crZ1plNGdISGZhK3gvNDBzUW4rWE9oT1BO?=
+ =?utf-8?B?M3RlL1NsYi9maTdQZkh4STlOQ2RXbEs0QzVPMk14RERGQ1l5OUh3d2tzclpH?=
+ =?utf-8?B?aGEwWUQ2MFc4a0R3bktYaU80NW9RN21COTIyWTJVT0V2U2VvQ1ZDWlVNODVl?=
+ =?utf-8?B?Q0JiQnNaUTRaTkRFQ1htN3ljOW8vVlBGT1JDeDBZbWJLNG5rVmszc3FHaUsx?=
+ =?utf-8?B?aml5R3VucXVYWGZrdmdRV0JyY1VsdjYvZGxDSmFFNG5lUmtkSTNPOWVUdVBW?=
+ =?utf-8?B?UElHbmVXMU1FaDRCbE41NWhmQ3lrZ2JNMElJOWN1em1pbUFGWEtCSTZSbWZp?=
+ =?utf-8?B?aTY1MlAxdy9NSUluRnI2aElJUnJVUU9GYkZlUkxhWERYZ1ZscXBPYXkyMk1S?=
+ =?utf-8?B?UjdvODhFNVc3SElqc2NqVlh5WkZMczJ2d3BnUTl3TVkveFRqZ1FQVTlsYjFH?=
+ =?utf-8?B?LzVQeG9JYmVOM1hXckV1MUdiMjE1WlJwSDgrMXQvTHhFWGY1K1JOMW9iSjZI?=
+ =?utf-8?B?VWE2Y3NjcWhkbmdHT2JSdk9LTmFvWisrMmhHeDZRcUh3ZUJHazhwTXEwZDlR?=
+ =?utf-8?B?YWJqMW93cGx3bTJsb2hRYzQ0MGFBdnZUUWVlaEpOeC9KUW01ZnVTeUZTYlU5?=
+ =?utf-8?B?andLclNZd0lMd2IyODA4dHVaeCs1VU9NMm84VUwrR09Xb3k1Qy9NSVE4QlVS?=
+ =?utf-8?B?d2dtUDc5YUh1Unc1UnpZWktHQVRoNGhNcElUMFFlNExYTXM2dHpBV3VhOUhH?=
+ =?utf-8?B?MW5tR0VoVU5KWjBrSWlScC9RVWJOWDBSUDVkOTgxek5ZM1c4Ni9RRGlkSFB3?=
+ =?utf-8?B?ZXZ4WEFWUXFobi9TZWtUWXZ6V2d6RCtuSDFFVEdaTTVaenZrVXJZOWtqM1Uy?=
+ =?utf-8?B?dURFTi9HcXFZS3J0K0ludVp3eDZVdFVmRlRteTV5YVlRaEtITVNzTFhPQWt5?=
+ =?utf-8?B?aVd1WW9heHlVY2xkalNpRkJMMGxjR3pya0ExbU4yeVZSWk0rLzRFUXZSTnBi?=
+ =?utf-8?B?STRLL0xYdGQwZ3grRFdrM2FYbUExM3RwQXlEMTRBSGZjcFU5WVFJQ2lXM3p1?=
+ =?utf-8?B?UEJsQjRsSmkxQUJiNmlHUEh5M3NScStJQk5xbHUvdno1c1lROC8vcWR2Mnlt?=
+ =?utf-8?B?QWlsaWFJaVVHQVFNd3FzNjg5ZG1WaThYbElBMHY0UlRRaWQvTWIrVFNtcFBQ?=
+ =?utf-8?B?dWVXZW5HeDhjaVBGcW91d2RsaVUwdW02U1daaEh6M0tsK1RHMlZSU2VWQkQ3?=
+ =?utf-8?B?dWozaFM3UG5ld1N1WEZGeG9ZdnRONXhYOWtwaEgyclNodzBzSVJuODZSYzVE?=
+ =?utf-8?B?UVJiZExvYURreC81eHVJcTNLeXhVZlloMGx4cExXK3hJUXlxNktEYjVhenNa?=
+ =?utf-8?Q?lNHanoGkdEbIiRYIk5asg5Kvu0R+yDdi7V1rN+0jqnhzg?=
+X-MS-Exchange-AntiSpam-MessageData-1: jBpmYFQKarBpqA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 38b9bcb0-2c28-4d92-d1d5-08df0448f27f
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 14:39:06.3663
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3PnsXCbu6z7dpON+lJgd3nwBsC4PXhL55fR8vidnucrNteZKLNDTHSX0uxcyiR+4+GVLV4vhIVfXDgu48ahvJw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6719
 
+On Thu Aug 27, 2026 at 11:21 PM JST, Gary Guo wrote:
+> On Thu Aug 27, 2026 at 7:53 AM BST, Alexandre Courbot wrote:
+>> On Wed Aug 19, 2026 at 8:09 PM JST, Gary Guo wrote:
+>>> For types that are layout-compatible with an I/O capable type, we would
+>>> want the ability to use them directly for I/O operations. E.g.
+>>>
+>>>     bitfield! {
+>>>         pub struct Foo(u32) {
+>>>             ...
+>>>         }
+>>>     }
+>>>
+>>>     #[repr(C)]
+>>>     struct Bar {
+>>>         foo: Foo,
+>>>     }
+>>>
+>>>     let mmio: Mmio<'_, Bar> =3D ...;
+>>>     io_read!(mmio, .foo)
+>>>
+>>> Currently this feature is available from `register!()` macro but not
+>>> otherwise available with `io_read!`, `io_write!`. Support this by
+>>> performing conversions to I/O primitives via the `AsRepr`/`AsReprMut`
+>>> trait.
+>>>
+>>> This makes the `IoLoc::IoType` and `Register::Storage` redundant; thus
+>>> remove them; also convert register methods to use the `read_val` and
+>>> `write_val` instead.
+>>
+>> Nice, the redundancy was bothering me a bit so this is clearly a better
+>> design.
+>>
+>> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+>>
+>>>
+>>> Signed-off-by: Gary Guo <gary@garyguo.net>
+>>> ---
+>>>  rust/kernel/bitfield.rs    |  10 ++++
+>>>  rust/kernel/io.rs          | 135 +++++++++++++++++++++++++------------=
+--------
+>>>  rust/kernel/io/register.rs |  15 -----
+>>>  rust/macros/io/register.rs |   2 -
+>>>  4 files changed, 86 insertions(+), 76 deletions(-)
+>>>
+>>> diff --git a/rust/kernel/bitfield.rs b/rust/kernel/bitfield.rs
+>>> index a0d089423f21..619c5e2189d1 100644
+>>> --- a/rust/kernel/bitfield.rs
+>>> +++ b/rust/kernel/bitfield.rs
+>>> @@ -308,6 +308,7 @@ macro_rules! bitfield {
+>>>          $(#[$attr])*
+>>>          #[repr(transparent)]
+>>>          #[derive(Clone, Copy, PartialEq, Eq)]
+>>> +        #[derive($crate::prelude::FromBytes, $crate::prelude::IntoByte=
+s)]
+>>
+>> Do we need `FromBytes`/`IntoBytes` for every single bitfield type? I
+>> mean that probably doesn't hurt, but if we need them for registers then
+>> we can derive them from the register macro.
+>
+> These are not needed now (as `AsRepr` provides sufficient guarantee so
+> read_val/write_val use unsafe with them instead); but I kept them as I th=
+ink
+> it's useful derive regardless. I suppose these are not needed for `regist=
+er!` so
+> direct user of `bitfield` can derive them manually instead.
 
-
-On 8/6/26 17:25, evon.chiam@altera.com wrote:
-> From: "Chiam, Evon" <evon.chiam@altera.com>
-> 
-> Add new Clock manager driver to support new Altera Agilex72 platform
-> 
-> Signed-off-by: Chiam, Evon <evon.chiam@altera.com>
-> ---
->   MAINTAINERS                        |    5 +
->   drivers/clk/socfpga/Kconfig        |    3 +-
->   drivers/clk/socfpga/Makefile       |    2 +-
->   drivers/clk/socfpga/clk-agilex72.c | 1181 ++++++++++++++++++++++++++++
->   drivers/clk/socfpga/clk-agilex72.h |   91 +++
->   5 files changed, 1280 insertions(+), 2 deletions(-)
->   create mode 100644 drivers/clk/socfpga/clk-agilex72.c
->   create mode 100644 drivers/clk/socfpga/clk-agilex72.h
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 15011f5752a9..1b850dc3d6b6 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -3581,6 +3581,11 @@ S:	Maintained
->   F:	Documentation/devicetree/bindings/media/samsung,s5p-mfc.yaml
->   F:	drivers/media/platform/samsung/s5p-mfc/
->   
-> +ARM/SOCFPGA AGILEX72 CLOCK DRIVER
-> +M:	Chiam, Evon <evon.chiam@altera.com>
-> +S:	Maintained
-> +F:	drivers/clk/socfpga/clk-agilex72.[ch]
-> +
-
-I'll just maintain it for now under all socfpga.
->   ARM/SOCFPGA ARCHITECTURE
->   M:	Dinh Nguyen <dinguyen@kernel.org>
->   S:	Maintained
-> diff --git a/drivers/clk/socfpga/Kconfig b/drivers/clk/socfpga/Kconfig
-> index d88277e2a898..40cac9428fbe 100644
-> --- a/drivers/clk/socfpga/Kconfig
-> +++ b/drivers/clk/socfpga/Kconfig
-> @@ -13,7 +13,8 @@ config CLK_INTEL_SOCFPGA32
->   	default ARM && ARCH_INTEL_SOCFPGA
->   
->   config CLK_INTEL_SOCFPGA64
-> -	bool "Intel Stratix / Agilex / N5X / Agilex5 clock controller support" if COMPILE_TEST && (!ARM64 || !ARCH_INTEL_SOCFPGA)
-> +	bool "Intel Stratix / Agilex / N5X / Agilex5 / Agilex72 clock controller support" \
-> +		if COMPILE_TEST && (!ARM64 || !ARCH_INTEL_SOCFPGA)
->   	default ARM64 && ARCH_INTEL_SOCFPGA
->   
->   endif # CLK_INTEL_SOCFPGA
-> diff --git a/drivers/clk/socfpga/Makefile b/drivers/clk/socfpga/Makefile
-> index a1ea2b988eaf..97af3dfdbbad 100644
-> --- a/drivers/clk/socfpga/Makefile
-> +++ b/drivers/clk/socfpga/Makefile
-> @@ -3,4 +3,4 @@ obj-$(CONFIG_CLK_INTEL_SOCFPGA32) += clk.o clk-gate.o clk-pll.o clk-periph.o \
->   				     clk-pll-a10.o clk-periph-a10.o clk-gate-a10.o
->   obj-$(CONFIG_CLK_INTEL_SOCFPGA64) += clk-s10.o \
->   				     clk-pll-s10.o clk-periph-s10.o clk-gate-s10.o \
-> -				     clk-agilex.o clk-agilex5.o
-> +				     clk-agilex.o clk-agilex5.o clk-agilex72.o
-> diff --git a/drivers/clk/socfpga/clk-agilex72.c b/drivers/clk/socfpga/clk-agilex72.c
-> new file mode 100644
-> index 000000000000..e350d8a9bb4d
-> --- /dev/null
-> +++ b/drivers/clk/socfpga/clk-agilex72.c
-> @@ -0,0 +1,1181 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (C) 2026, Altera Corporation
-> + */
-> +#include <linux/slab.h>
-> +#include <linux/clk-provider.h>
-> +#include <linux/io.h>
-> +#include <linux/of.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/string.h>
-> +#include <dt-bindings/clock/altr,agilex72-clkmgr.h>
-> +#include "clk-agilex72.h"
-> +
-> +#define EMAC_BYPASS_OFFSET          0x10
-> +#define CLK_MGR_FREE_SHIFT          16
-> +#define CLK_MGR_FREE_MASK           0x7
-> +#define PERI_CLK_CNT_DIV_WIDTH      11
-> +#define BOOTCLKSRC_MASK             0x2000000
-> +#define BOOTCLKSRC_SHIFT            25
-> +#define SOCFPGA_PLL_POWER           0
-> +#define BOOT_CLK                    "boot_clk"
-> +#define CLK_MGR_PLL_CLK_SRC_SHIFT   27
-> +#define CLK_MGR_PLL_CLK_SRC_MASK    0x3
-> +#define PLL_RATE_REG_OFFSET         0x4
-> +#define PLL_CR_N_HI_MASK            0xFF
-> +#define PLL_CR_N_LO_MASK            0x1FE00
-> +#define PLL_CR_N_LO_SHIFT           9
-> +#define PLL_CRHI_M_MASK             0x1FF00000
-> +#define PLL_CRHI_M_SHIFT            20
-> +#define PLL_CR_C_MASK               0xFF
-> +#define PLL_CR_BYPASS_DIV_MASK      0x100
-> +#define PLL_FRACT_DIV_REG_OFFSET    0x5c
-> +#define PLL_CR_FRACT_DIV_MASK       0xFFFFFF
-> +
-> +static bool agilex72_gate_is_emac(const char *name);
-> +static u8 agilex72_parent_index(const char * const *parents,
-> +				size_t num_parents, const char *parent_name);
-> +static unsigned long agilex72_boot_clk_recalc_rate(struct clk_hw *hwclk,
-> +						   unsigned long parent_rate);
-> +static unsigned long agilex72_clk_pll_recalc_rate(struct clk_hw *hwclk,
-> +						  unsigned long parent_rate);
-> +static unsigned long agilex72_peri_c_clk_recalc_rate(struct clk_hw *hwclk,
-> +						     unsigned long parent_rate);
-> +static unsigned long
-> +agilex72_clk_peri_cnt_clk_recalc_rate(struct clk_hw *hwclk,
-> +				      unsigned long parent_rate);
-> +static unsigned long agilex72_gate_clk_recalc_rate(struct clk_hw *hwclk,
-> +						   unsigned long parent_rate);
-> +static u8 agilex72_boot_get_parent(struct clk_hw *hwclk);
-> +static u8 agilex72_clk_pll_get_parent(struct clk_hw *hwclk);
-> +static u8 agilex72_peri_c_clk_get_parent(struct clk_hw *hwclk);
-> +static u8 agilex72_clk_periclk_get_parent(struct clk_hw *hwclk);
-> +static u8 agilex72_gate_get_parent(struct clk_hw *hwclk);
-> +
-> +/* External parent clocks come from DT via fw_name */
-> +static const char * const boot_pll_parents[] = {
-> +	"osc1",
-> +	"cb-intosc-div2-clk",
-> +};
-> +
-> +static const char * const gppll0_clk_parents[] = {
-> +	"osc1",
-> +	"cb-intosc-div10-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +static const char * const gppll1_clk_parents[] = {
-> +	"osc1",
-> +	"cb-intosc-div10-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +static const char * const gppll2_clk_parents[] = {
-> +	"osc1",
-> +	"cb-intosc-div10-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +/* Core free muxes */
-> +static const char * const comp0_free_mux[] = {
-
-Do you mean core0 here?
-
-> +	"gppll1-c0",
-> +	"osc1",
-> +	"cb-intosc-div2-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +static const char * const core2_free_mux[] = {
-> +	"gppll2-c0",
-> +	"osc1",
-> +	"cb-intosc-div2-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +static const char * const core3_free_mux[] = {
-> +	"gppll2-c1",
-> +	"osc1",
-> +	"cb-intosc-div2-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +static const char * const dsu_free_mux[] = {
-> +	"gppll1-c1",
-> +	"osc1",
-> +	"cb-intosc-div2-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +static const char * const ccu_free_mux[] = {
-> +	"gppll0-c0",
-> +	"osc1",
-> +	"cb-intosc-div2-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +static const char * const hsp_noc_free_mux[] = {
-> +	"gppll0-c0",
-> +	"osc1",
-> +	"cb-intosc-div2-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +static const char * const lsp_noc_free_mux[] = {
-> +	"gppll0-c1",
-> +	"osc1",
-> +	"cb-intosc-div2-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +static const char * const trace_free_mux[] = {
-> +	"gppll0-c2",
-> +	"osc1",
-> +	"cb-intosc-div2-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +static const char * const emaca_free_mux[] = {
-> +	"gppll0-c0",
-> +	"osc1",
-> +	"cb-intosc-div2-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +static const char * const emacb_free_mux[] = {
-> +	"gppll0-c0",
-> +	"osc1",
-> +	"cb-intosc-div2-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +static const char * const emac_ptp_free_mux[] = {
-> +	"gppll0-c0",
-> +	"osc1",
-> +	"cb-intosc-div2-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +static const char * const gpio_db_free_mux[] = {
-> +	"gppll0-c1",
-> +	"osc1",
-> +	"cb-intosc-div2-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +static const char * const usb31_free_mux[] = {
-> +	"gppll0-c0",
-> +	"osc1",
-> +	"cb-intosc-div2-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +static const char * const s2f_user0_free_mux[] = {
-> +	"gppll0-c1",
-> +	"osc1",
-> +	"cb-intosc-div2-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +static const char * const s2f_user1_free_mux[] = {
-> +	"gppll0-c1",
-> +	"osc1",
-> +	"cb-intosc-div2-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +static const char * const xspi_phy_clk_mux[] = {
-> +	"gppll0-c3",
-> +	"osc1",
-> +	"cb-intosc-div2-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +static const char * const memdevice_phy_clk_mux[] = {
-> +	"gppll0-c3",
-> +	"osc1",
-> +	"cb-intosc-div2-clk",
-> +	"f2s-free-clk",
-> +};
-> +
-> +/* Secondary muxes between free_clk and boot_clk */
-> +static const char * const comp0_mux[] = {
-
-core0?
-
-> +	"comp0_free_clk",
-> +	BOOT_CLK,
-> +};
-> +
-> +static const char * const core2_mux[] = {
-> +	"core2_free_clk",
-> +	BOOT_CLK,
-> +};
-> +
-> +static const char * const core3_mux[] = {
-> +	"core3_free_clk",
-> +	BOOT_CLK,
-> +};
-> +
-> +static const char * const mpu_mux[] = {
-> +	"dsu_free_clk",
-> +	BOOT_CLK,
-> +};
-> +
-> +static const char * const ccu_mux[] = {
-> +	"ccu_free_clk",
-> +	BOOT_CLK,
-> +};
-> +
-> +static const char * const hsp_noc_mux[] = {
-> +	"hsp_noc_free_clk",
-> +	BOOT_CLK,
-> +};
-> +
-> +static const char * const lsp_noc_mux[] = {
-> +	"lsp_noc_free_clk",
-> +	BOOT_CLK,
-> +};
-> +
-> +static const char * const cs_at_mux[] = {
-> +	"lsp_noc_free_clk",
-> +	BOOT_CLK,
-> +};
-> +
-> +static const char * const cs_pdbg_mux[] = {
-> +	"lsp_noc_free_clk",
-> +	BOOT_CLK,
-> +};
-> +
-> +static const char * const cs_trace_mux[] = {
-> +	"trace_free_clk",
-> +	BOOT_CLK,
-> +};
-> +
-> +static const char * const emac_mux[] = {
-> +	"emaca_div_clk",
-> +	"emacb_div_clk",
-> +	BOOT_CLK,
-> +};
-> +
-> +static const char * const emac_ptp_mux[] = {
-> +	"emac_ptp_free_clk",
-> +	BOOT_CLK,
-> +};
-> +
-> +static const char * const gpio_db_mux[] = {
-> +	"gpio_db_free_clk",
-> +	BOOT_CLK,
-> +};
-> +
-> +static const char * const usb31_mux[] = {
-> +	"usb31_free_clk",
-> +	BOOT_CLK,
-> +};
-> +
-> +static const char * const s2f_user0_mux[] = {
-> +	"s2f_user0_free_clk",
-> +	BOOT_CLK,
-> +};
-> +
-> +static const char * const s2f_user1_mux[] = {
-> +	"s2f_user1_free_clk",
-> +	BOOT_CLK,
-> +};
-> +
-> +static const char * const xspi_mux[] = {
-> +	"xspi_phy_free_clk",
-> +	BOOT_CLK,
-> +};
-> +
-> +static const char * const memdevice_phy_mux[] = {
-> +	"memdevice_phy_free_clk",
-> +	BOOT_CLK,
-> +};
-> +
-> +static const struct agilex72_pll_clock pll_clks[] = {
-> +	{
-> +		.id = AGILEX72_BOOT_CLK,
-> +		.name = BOOT_CLK,
-> +		.parent_names = boot_pll_parents,
-> +		.num_parents = ARRAY_SIZE(boot_pll_parents),
-> +		.offset = 0x4,
-> +	},
-> +	{
-> +		.id = AGILEX72_GPPLL0_CLK,
-> +		.name = "gppll0",
-> +		.parent_names = gppll0_clk_parents,
-> +		.num_parents = ARRAY_SIZE(gppll0_clk_parents),
-> +		.offset = 0x160,
-> +	},
-> +	{
-> +		.id = AGILEX72_GPPLL1_CLK,
-> +		.name = "gppll1",
-> +		.parent_names = gppll1_clk_parents,
-> +		.num_parents = ARRAY_SIZE(gppll1_clk_parents),
-> +		.offset = 0x80,
-> +	},
-> +	{
-> +		.id = AGILEX72_GPPLL2_CLK,
-> +		.name = "gppll2",
-> +		.parent_names = gppll2_clk_parents,
-> +		.num_parents = ARRAY_SIZE(gppll2_clk_parents),
-> +		.offset = 0x60,
-> +	},
-> +};
-> +
-> +static const struct agilex72_perip_c_clock main_perip_c_clks[] = {
-> +	{ AGILEX72_GPPLL0_C0_CLK,
-> +	  "gppll0-c0", "gppll0", 1, 0x24, 23,  0, 8, 8 },
-> +	{ AGILEX72_GPPLL0_C1_CLK,
-> +	  "gppll0-c1", "gppll0", 1, 0x28, 14, 23, 8, 8 },
-> +	{ AGILEX72_GPPLL0_C2_CLK,
-> +	  "gppll0-c2", "gppll0", 1, 0x2c,  0,  9, 8, 8 },
-> +	{ AGILEX72_GPPLL0_C3_CLK,
-> +	  "gppll0-c3", "gppll0", 1, 0x30,  0,  9, 8, 8 },
-> +	{ AGILEX72_GPPLL0_C4_CLK,
-> +	  "gppll0-c4", "gppll0", 1, 0x38,  0,  9, 8, 8 },
-> +	{ AGILEX72_GPPLL0_C5_CLK,
-> +	  "gppll0-c5", "gppll0", 1, 0x3c,  0,  9, 8, 8 },
-> +	{ AGILEX72_GPPLL0_C6_CLK,
-> +	  "gppll0-c6", "gppll0", 1, 0x40,  0,  9, 8, 8 },
-> +	{ AGILEX72_GPPLL1_C0_CLK,
-> +	  "gppll1-c0", "gppll1", 1, 0x24, 23,  0, 8, 8 },
-> +	{ AGILEX72_GPPLL1_C1_CLK,
-> +	  "gppll1-c1", "gppll1", 1, 0x28, 14, 23, 8, 8 },
-> +	{ AGILEX72_GPPLL2_C0_CLK,
-> +	  "gppll2-c0", "gppll2", 1, 0x24, 23,  0, 8, 8 },
-> +	{ AGILEX72_GPPLL2_C1_CLK,
-> +	  "gppll2-c1", "gppll2", 1, 0x28, 14, 23, 8, 8 },
-> +};
-> +
-> +/* Non-SW clock-gated enabled clocks */
-> +static const struct agilex72_perip_cnt_clock main_perip_cnt_clks[] = {
-> +	{ AGILEX72_COMP0_FREE_CLK, "comp0_free_clk",
-> +	  comp0_free_mux, ARRAY_SIZE(comp0_free_mux), 0xbc },
-> +	{ AGILEX72_CORE2_FREE_CLK, "core2_free_clk",
-> +	  core2_free_mux, ARRAY_SIZE(core2_free_mux), 0xb8 },
-> +	{ AGILEX72_CORE3_FREE_CLK, "core3_free_clk",
-> +	  core3_free_mux, ARRAY_SIZE(core3_free_mux), 0xb4 },
-> +	{ AGILEX72_DSU_FREE_CLK, "dsu_free_clk",
-> +	  dsu_free_mux, ARRAY_SIZE(dsu_free_mux), 0xc0 },
-> +	{ AGILEX72_CCU_FREE_CLK, "ccu_free_clk",
-> +	  ccu_free_mux, ARRAY_SIZE(ccu_free_mux), 0xc4 },
-> +	{ AGILEX72_HSP_NOC_FREE_CLK, "hsp_noc_free_clk",
-> +	  hsp_noc_free_mux, ARRAY_SIZE(hsp_noc_free_mux), 0x104 },
-> +	{ AGILEX72_LSP_NOC_FREE_CLK, "lsp_noc_free_clk",
-> +	  lsp_noc_free_mux, ARRAY_SIZE(lsp_noc_free_mux), 0x108 },
-> +	{ AGILEX72_TRACE_FREE_CLK, "trace_free_clk",
-> +	  trace_free_mux, ARRAY_SIZE(trace_free_mux), 0x144 },
-> +	{ AGILEX72_EMAC_A_FREE_CLK, "emaca_free_clk",
-> +	  emaca_free_mux, ARRAY_SIZE(emaca_free_mux), 0x128 },
-> +	{ AGILEX72_EMAC_B_FREE_CLK, "emacb_free_clk",
-> +	  emacb_free_mux, ARRAY_SIZE(emacb_free_mux), 0x12c },
-> +	{ AGILEX72_EMAC_PTP_FREE_CLK, "emac_ptp_free_clk",
-> +	  emac_ptp_free_mux, ARRAY_SIZE(emac_ptp_free_mux), 0x130 },
-> +	{ AGILEX72_GPIO_DB_FREE_CLK, "gpio_db_free_clk",
-> +	  gpio_db_free_mux, ARRAY_SIZE(gpio_db_free_mux), 0x134 },
-> +	{ AGILEX72_USB31_FREE_CLK, "usb31_free_clk",
-> +	  usb31_free_mux, ARRAY_SIZE(usb31_free_mux), 0x140 },
-> +	{ AGILEX72_S2F_USER0_FREE_CLK, "s2f_user0_free_clk",
-> +	  s2f_user0_free_mux, ARRAY_SIZE(s2f_user0_free_mux), 0x138 },
-> +	{ AGILEX72_S2F_USER1_FREE_CLK, "s2f_user1_free_clk",
-> +	  s2f_user1_free_mux, ARRAY_SIZE(s2f_user1_free_mux), 0x13c },
-> +	{ AGILEX72_XSPI_PHY_FREE_CLK, "xspi_phy_free_clk",
-> +	  xspi_phy_clk_mux, ARRAY_SIZE(xspi_phy_clk_mux), 0x154 },
-> +	{ AGILEX72_MEMDEVICE_PHY_FREE_CLK, "memdevice_phy_free_clk",
-> +	  memdevice_phy_clk_mux, ARRAY_SIZE(memdevice_phy_clk_mux), 0x148 },
-> +};
-> +
-> +static const char * const hsp_mp_clk_parent[] = { "hsp_mp_clk" };
-> +static const char * const lsp_main_parent[] = { "lsp_main_clk" };
-> +static const char * const lsp_mp_parent[] = { "lsp_mp_clk" };
-> +static const char * const lsp_sp_parent[] = { "lsp_sp_clk" };
-> +static const char * const usb31_bus_clk_early_parents[] = { "hsp_main_clk" };
-> +static const char * const emaca_div_parents[] = { "emaca_free_clk" };
-> +static const char * const emacb_div_parents[] = { "emacb_free_clk" };
-> +
-> +/* SW Clock gate enabled clocks */
-> +static const struct agilex72_gate_clock gate_clks[] = {
-> +	{ AGILEX72_COMP0_CLK, "comp0_clk", comp0_mux,
-
-CORE0?
-
-> +	  ARRAY_SIZE(comp0_mux), 0x30, 8, 0, 0, 0, 0x3c, 5, 0 },
-> +	{ AGILEX72_CORE2_CLK, "core2_clk", core2_mux,
-> +	  ARRAY_SIZE(core2_mux), 0x30, 10, 0, 0, 0, 0x3c, 10, 0 },
-> +	{ AGILEX72_CORE3_CLK, "core3_clk", core3_mux,
-> +	  ARRAY_SIZE(core3_mux), 0x30, 11, 0, 0, 0, 0x3c, 11, 0 },
-> +	{ AGILEX72_MPU_CLK, "mpu_clk", mpu_mux,
-> +	  ARRAY_SIZE(mpu_mux), 0x30, 7, 0, 0, 0, 0x3c, 4, 0 },
-> +	{ AGILEX72_CCU_CLK, "ccu_clk", ccu_mux,
-> +	  ARRAY_SIZE(ccu_mux), 0x30, 6, 0, 0, 0, 0x3c, 3, 0 },
-> +	{ AGILEX72_APU_SYS_FREE_CLK, "apu_sys_free_clk", ccu_mux,
-> +	  ARRAY_SIZE(ccu_mux), 0, 0, 0x50, 22, 2, 0x3c, 3, 0 },
-> +	{ AGILEX72_HSP_SYS_FREE_CLK, "hsp_sys_free_clk", hsp_noc_mux,
-> +	  ARRAY_SIZE(hsp_noc_mux), 0, 0, 0x10c, 8, 2, 0xf0, 9, 0 },
-> +	{ AGILEX72_HSP_MAIN_FREE_CLK, "hsp_main_free_clk", hsp_noc_mux,
-> +	  ARRAY_SIZE(hsp_noc_mux), 0, 0, 0, 0, 0, 0xf0, 9, 0 },
-> +	{ AGILEX72_HSP_MAIN_CLK, "hsp_main_clk", hsp_noc_mux,
-> +	  ARRAY_SIZE(hsp_noc_mux), 0xe0, 1, 0, 0, 0, 0xf0, 9, 0 },
-> +	{ AGILEX72_HSP_MP_CLK, "hsp_mp_clk", hsp_noc_mux,
-> +	  ARRAY_SIZE(hsp_noc_mux), 0xe0, 2, 0x10c, 10, 2, 0xf0, 9, 0 },
-> +	{ AGILEX72_HSP_SP_CLK, "hsp_sp_clk", hsp_noc_mux,
-> +	  ARRAY_SIZE(hsp_noc_mux), 0xe0, 3, 0x10c, 12, 2, 0xf0, 9, 0 },
-Are any of these clock critical? Meaning, they cannot get gated off?
-
-
-> +	{ AGILEX72_USB2OTG_HCLK, "usb2otg_hclk", hsp_mp_clk_parent,
-> +	  1, 0xe0, 0, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_LSP_SYS_FREE_CLK, "lsp_sys_free_clk", lsp_noc_mux,
-> +	  ARRAY_SIZE(lsp_noc_mux), 0, 0, 0x10c, 2, 2, 0xf0, 9, 0 },
-> +	{ AGILEX72_LSP_MAIN_FREE_CLK, "lsp_main_free_clk", lsp_noc_mux,
-> +	  ARRAY_SIZE(lsp_noc_mux), 0xe0, 0, 0, 0, 0, 0xf0, 9, 0 },
-
-Does this clock really share the same gate as the usb2otg_hclk?
-> +	{ AGILEX72_LSP_MAIN_CLK, "lsp_main_clk", lsp_noc_mux,
-> +	  ARRAY_SIZE(lsp_noc_mux), 0xe0, 1, 0, 0, 0, 0xf0, 9, 0 },
-
-Are you sure this clock share the same enable bit as the hsp_main_clk?
-
-> +	{ AGILEX72_LSP_MP_CLK, "lsp_mp_clk", lsp_noc_mux,
-> +	  ARRAY_SIZE(lsp_noc_mux), 0xe0, 2, 0x10c, 4, 2, 0xf0, 9, 0 },
-
-Also here, the hsp_mp_clk has the same enable bit?
-
-> +	{ AGILEX72_LSP_SP_CLK, "lsp_sp_clk", lsp_noc_mux,
-> +	  ARRAY_SIZE(lsp_noc_mux), 0xe0, 3, 0x10c, 6, 2, 0xf0, 9, 0 },
-> +	{ AGILEX72_SPIM_0_CLK, "spim_0_clk", lsp_main_parent,
-> +	  1, 0xd0, 11, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_SPIM_1_CLK, "spim_1_clk", lsp_main_parent,
-> +	  1, 0xd0, 12, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_SPIS_0_CLK, "spis_0_clk", lsp_main_parent,
-> +	  1, 0xd0, 13, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_SPIS_1_CLK, "spis_1_clk", lsp_main_parent,
-> +	  1, 0xd0, 14, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_DMA_0_CORE_CLK, "dma_0_core_clk", lsp_main_parent,
-> +	  1, 0xd0, 15, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_DMA_0_HS_CLK, "dma_0_hs_clk", lsp_mp_parent,
-> +	  1, 0xd0, 15, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_DMA_1_CORE_CLK, "dma_1_core_clk", lsp_main_parent,
-> +	  1, 0xd0, 16, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_DMA_1_HS_CLK, "dma_1_hs_clk", lsp_mp_parent,
-> +	  1, 0xd0, 16, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_I3C_0_CORE_CLK, "i3c_0_core_clk", lsp_mp_parent,
-> +	  1, 0xd0, 22, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_I3C_1_CORE_CLK, "i3c_1_core_clk", lsp_mp_parent,
-> +	  1, 0xd0, 23, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_I2C_0_PCLK, "i2c_0_pclk", lsp_sp_parent,
-> +	  1, 0xd0, 17, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_I2C_1_PCLK, "i2c_1_pclk", lsp_sp_parent,
-> +	  1, 0xd0, 18, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_I2C_EMAC0_PCLK, "i2c_emac0_pclk", lsp_sp_parent,
-> +	  1, 0xd0, 19, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_I2C_EMAC1_PCLK, "i2c_emac1_pclk", lsp_sp_parent,
-> +	  1, 0xd0, 20, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_I2C_EMAC2_PCLK, "i2c_emac2_pclk", lsp_sp_parent,
-> +	  1, 0xd0, 21, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_UART_0_PCLK, "uart_0_pclk", lsp_sp_parent,
-> +	  1, 0xd0, 23, 0, 0, 0, 0, 0, 0 },
-
-Are you sure this clock share the same enable bit as the i3c_1_core_clk?
-
-> +	{ AGILEX72_UART_1_PCLK, "uart_1_pclk", lsp_sp_parent,
-> +	  1, 0xd0, 24, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_UART_2_PCLK, "uart_2_pclk", lsp_sp_parent,
-> +	  1, 0xd0, 25, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_SPTIMER_0_PCLK, "sptimer_0_pclk", lsp_sp_parent,
-> +	  1, 0xd0, 29, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_SPTIMER_1_PCLK, "sptimer_1_pclk", lsp_sp_parent,
-> +	  1, 0xd0, 30, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_CS_AT_CLK, "cs_at_clk", cs_at_mux,
-> +	  ARRAY_SIZE(cs_at_mux), 0xe0, 4, 0x10c, 24, 2, 0xf0, 9, 0 },
-> +	{ AGILEX72_CS_PDBG_CLK, "cs_pdbg_clk", cs_pdbg_mux,
-> +	  ARRAY_SIZE(cs_pdbg_mux), 0xe0, 4, 0x10c, 28, 2, 0xf0, 9, 0 },
-> +	{ AGILEX72_CS_TRACE_CLK, "cs_trace_clk", cs_trace_mux,
-> +	  ARRAY_SIZE(cs_trace_mux), 0xe0, 4, 0x10c, 26, 2, 0xf0, 10, 0 },
-> +	{ AGILEX72_EMACA_DIV_CLK, "emaca_div_clk", emaca_div_parents,
-> +	  1, 0, 0, 0x118, 8, 2, 0, 0, 0 },
-> +	{ AGILEX72_EMACB_DIV_CLK, "emacb_div_clk", emacb_div_parents,
-> +	  1, 0, 0, 0x118, 10, 2, 0, 0, 0 },
-> +	{ AGILEX72_EMAC0_CLK, "emac0_clk", emac_mux,
-> +	  ARRAY_SIZE(emac_mux), 0xd0, 0, 0, 0, 0, 0x100, 26, 0 },
-> +	{ AGILEX72_EMAC1_CLK, "emac1_clk", emac_mux,
-> +	  ARRAY_SIZE(emac_mux), 0xd0, 1, 0, 0, 0, 0x100, 27, 0 },
-> +	{ AGILEX72_EMAC2_CLK, "emac2_clk", emac_mux,
-> +	  ARRAY_SIZE(emac_mux), 0xd0, 2, 0, 0, 0, 0x100, 28, 0 },
-> +	{ AGILEX72_EMAC_PTP_CLK, "emac_ptp_clk", emac_ptp_mux,
-> +	  ARRAY_SIZE(emac_ptp_mux), 0xd0, 3, 0, 0, 0, 0xf0, 2, 0 },
-> +	{ AGILEX72_GPIO_DB_CLK, "gpio_db_clk", gpio_db_mux,
-> +	  ARRAY_SIZE(gpio_db_mux), 0xd0, 4, 0x114, 0, 16, 0xf0, 3, 1 },
-> +	{ AGILEX72_USB31_SUSPEND_CLK, "usb31_suspend_clk", usb31_mux,
-> +	  ARRAY_SIZE(usb31_mux), 0xe0, 7, 0x118, 12, 6, 0xf0, 7, 1 },
-> +	{ AGILEX72_USB31_BUS_CLK_EARLY, "usb31_bus_clk_early",
-> +	  usb31_bus_clk_early_parents, 1, 0xe0, 7, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_S2F_USER0_CLK, "s2f_user0_clk", s2f_user0_mux,
-> +	  ARRAY_SIZE(s2f_user0_mux), 0xd0, 27, 0, 0, 0, 0xf0, 4, 0 },
-> +	{ AGILEX72_S2F_USER1_CLK, "s2f_user1_clk", s2f_user1_mux,
-> +	  ARRAY_SIZE(s2f_user1_mux), 0xd0, 28, 0, 0, 0, 0xf0, 5, 0 },
-> +	{ AGILEX72_XSPI_PCLK, "xspi_pclk", lsp_mp_parent,
-> +	  1, 0xd0, 9, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_XSPI_CLK, "xspi_clk", xspi_mux,
-> +	  ARRAY_SIZE(xspi_mux), 0xd0, 9, 0x110, 8, 2, 0xf0, 14, 0 },
-> +	{ AGILEX72_XSPI_PHY_CLK, "xspi_phy_clk", xspi_mux,
-> +	  ARRAY_SIZE(xspi_mux), 0xd0, 9, 0x110, 8, 2, 0xf0, 14, 0 },
-> +	{ AGILEX72_SDMMC0_SDPHY_REG_CLK, "sdmmc0_sdphy_reg_clk",
-> +	  lsp_mp_parent, 1, 0xd0, 5, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_SDMMC1_SDPHY_REG_CLK, "sdmmc1_sdphy_reg_clk",
-> +	  lsp_mp_parent, 1, 0xd0, 7, 0, 0, 0, 0, 0, 0 },
-> +	{ AGILEX72_SDMMC0_SDMCLK, "sdmmc0_sdmclk", memdevice_phy_mux,
-> +	  ARRAY_SIZE(memdevice_phy_mux), 0xd0, 5, 0x110, 4, 2, 0xf0, 15, 0 },
-> +	{ AGILEX72_SDMMC1_SDMCLK, "sdmmc1_sdmclk", memdevice_phy_mux,
-> +	  ARRAY_SIZE(memdevice_phy_mux), 0xd0, 7, 0x110, 6, 2, 0xf0, 15, 0 },
-> +	{ AGILEX72_SDMMC0_PHY_CLK, "sdmmc0_phy_clk", memdevice_phy_mux,
-> +	  ARRAY_SIZE(memdevice_phy_mux), 0xd0, 5, 0x110, 4, 2, 0xf0, 15, 0 },
-> +	{ AGILEX72_SDMMC1_PHY_CLK, "sdmmc1_phy_clk", memdevice_phy_mux,
-> +	  ARRAY_SIZE(memdevice_phy_mux), 0xd0, 7, 0x110, 6, 2, 0xf0, 15, 0 },
-> +};
-> +
-
-<snip>
-
-> diff --git a/drivers/clk/socfpga/clk-agilex72.h b/drivers/clk/socfpga/clk-agilex72.h
-> new file mode 100644
-> index 000000000000..e120fe97fd65
-> --- /dev/null
-> +++ b/drivers/clk/socfpga/clk-agilex72.h
-> @@ -0,0 +1,91 @@
-> +/* SPDX-License-Identifier:    GPL-2.0 */
-> +/*
-> + * Copyright (C) 2026, Altera Corporation
-> + */
-> +
-> +#ifndef	__AGILEX72_CLK_H
-> +#define	__AGILEX72_CLK_H
-> +
-> +#include <linux/clk-provider.h>
-> +
-> +struct agilex72_clock_data {
-> +	/*
-> +	 * MMIO bases ioremapped from DT resources with "reg-names" property
-> +	 * in probe:
-> +	 *   [0] - "clkmgr"  : main clock manager register block
-> +	 *   [1] - "gppll0"  : GP PLL 0 register block
-> +	 *   [2] - "gppll1"  : GP PLL 1 register block
-> +	 *   [3] - "gppll2"  : GP PLL 2 register block
-> +	 */
-> +	void __iomem *base[4];
-> +
-> +	/* Must be last */
-> +	struct clk_hw_onecell_data	clk_data;
-> +};
-> +
-> +struct agilex72_pll {
-> +	struct clk_gate     hw;
-> +	void __iomem       *pll_base;
-> +};
-> +
-> +struct agilex72_periph_clk {
-> +	struct clk_gate  hw;
-> +	void __iomem    *div_reg;
-> +	u8               div_lo_shift;
-> +	u8               div_hi_shift;
-> +};
-> +
-> +struct agilex72_gate_clk {
-> +	struct clk_gate hw;
-> +	bool div_linear;
-> +	void __iomem *div_reg;
-> +	void __iomem *bypass_reg;
-> +	u8  div_width;	/* only valid if div_reg != 0 */
-> +	u8  div_shift;	/* only valid if div_reg != 0 */
-> +	u8  bypass_shift;      /* only valid if bypass_reg != 0 */
-> +};
-> +
-> +struct agilex72_pll_clock {
-> +	unsigned int	id;
-> +	const char	*name;
-> +	const char	* const *parent_names;
-> +	u8	num_parents;
-> +	unsigned long   offset;
-> +};
-> +
-> +struct agilex72_perip_c_clock {
-> +	unsigned int		id;
-> +	const char		*name;
-> +	const char		*parent_name;
-> +	u8			num_parents;
-> +	unsigned long		div_offset;
-> +	u8			div_lo_shift;
-> +	u8			div_hi_shift;
-> +	u8			div_lo_width;
-> +	u8			div_hi_width;
-
-I don't see div_lo_width and div_hi_width get used at all?
-
-> +};
-> +
-> +struct agilex72_perip_cnt_clock {
-> +	unsigned int		id;
-> +	const char		*name;
-> +	const char	* const *parent_names;
-> +	u8			num_parents;
-> +	unsigned long		offset;
-> +};
-> +
-> +struct agilex72_gate_clock {
-> +	unsigned int		id;
-> +	const char		*name;
-> +	const char	* const *parent_names;
-> +	u8			num_parents;
-> +	unsigned long		gate_reg;
-> +	u8			gate_idx;
-> +	unsigned long		div_reg;
-> +	u8			div_offset;
-> +	u8			div_width;
-> +	unsigned long		bypass_reg;
-> +	u8			bypass_shift;
-> +	bool			div_linear;
-> +};
-> +
-> +#endif	/* __AGILEX72_CLK_H */
-
-If clk-agilex72.c is the only consumer of this .h file, then just move 
-the declarations to the top of the C file. Or take a look at
-2050b57ecda0 ("clk: socfpga: agilex5: add clock driver for Agilex5") as 
-an example.
-
-Dinh
+Yeah, I don't think it's a big deal to have these, but since it is
+easier to add in the future than to remove once people start relying on
+them, I'd rather add them when a concrete need manifests itself.
