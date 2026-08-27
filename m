@@ -1,36 +1,43 @@
-Received: from Chamillionaire.breakpoint.cc (Chamillionaire.breakpoint.cc [91.216.245.30])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB2E047ACC6;
-	Thu, 27 Aug 2026 14:29:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.216.245.30
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4AF647B432
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 14:30:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787840984; cv=none; b=QFLBlTK7jJAvAIhSdKB8K/5Erf4C+kJmF/GgyBvaGn/XHjHXD981zRrEX0oBJQ3cAF8RwFLC6s4Nsg1xP7LTstV+zRGngylhYZ1mMgFQKJp+LaU287XzpTYKQE5mHzsrFpr7hJbUX1UAAz87a4R3BmdimomqhXlD1NdRSxD3iaM=
+	t=1787841031; cv=none; b=bK7VB7NmXh60hkAaTiayrbpL6EK5g6sinl2Fme1JpzsSsnH8l6FOzO6Tof1n0AOlfMFkRMqQK1x/SxbLY4wUzaMfYWfP+FKeDm5vJau6UyHSpKe5oWmk0KCDkpZAaIY/jpkoaASxKBpa34p8cfJ1d6CWNogJoKGzgIOpeY8As6I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787840984; c=relaxed/simple;
-	bh=nVlbatA/iH85BPi6NincgPUw3sFNqvX+MmZ1HYgQNmM=;
+	s=arc-20240116; t=1787841031; c=relaxed/simple;
+	bh=BQslOEnalplZew/MCazXzBtYc+3SET08Oh+53jrB+40=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uIUUkbXFPQ1pSo1dlmZQ3UTF3E5ILGjQUImRMNghY8G7OYbWMrQBzt+Cw71DFAJS9oc4mFy1bjviwiNKUaMkKn4n+Z9PWJwiuFeuhwNDA92VhzCLazR63QGw6ASTtUHLvsXU/V3OaTSbpl7RrtElmctiaAGnrQZm+nz6ubpA0EY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=strlen.de; spf=pass smtp.mailfrom=strlen.de; arc=none smtp.client-ip=91.216.245.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=strlen.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=strlen.de
-Received: by Chamillionaire.breakpoint.cc (Postfix, from userid 1003)
-	id A57F560260; Thu, 27 Aug 2026 16:29:36 +0200 (CEST)
-Date: Thu, 27 Aug 2026 16:29:28 +0200
-From: Florian Westphal <fw@strlen.de>
-To: netfilter-devel@vger.kernel.org
-Cc: bridge@lists.linux.dev, netdev@vger.kernel.org,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Nikolay Aleksandrov <razor@blackwall.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Sabrina Dubroca <sd@queasysnail.net>, Phil Sutter <phil@nwl.cc>,
-	Simon Horman <horms@kernel.org>, linux-kernel@vger.kernel.org
-Subject: Re: [BUG] net/bridge: out-of-bounds in br_forward()
-Message-ID: <apBJyKJ7zs4kUmpd@strlen.de>
-References: <fai12uKS5302YnCQV4E3zlDqcsAS5aGcMutS@bugs.sh>
+	 Content-Type:Content-Disposition:In-Reply-To; b=LGAEjsBV8lbAGzQALSzRu2Lg6p9CXySVk70SsArjLM5qWoz57nR/oHtx6RidXy+6wTjuSqjFyNGKlVbz5YjrHiEZ397hUpqbgNBfytw4NEch1BkMiWa3zWuwgKYs+zt2iosonv5eHRAoHmFbxEO7sCMEBtci667vbIxN4hJyaC4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ogWxMmf4; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ogWxMmf4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB3651F000E9;
+	Thu, 27 Aug 2026 14:30:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787841029;
+	bh=JZQjss/9eVMDnqpAzTSDDgo1ILBujLnrsEIoF3t8dmc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ogWxMmf4J62SjTNPX+WOrS0dmzcGFUnEVr01j2vBmechaE+DQJxr2knOZKhbjXdN6
+	 bWAQ6gmuBui+fqEUmU1DdENHaxI7EsjIWBafxTYr2V6F/FmxsPBjE140RfKAoBXjrA
+	 +GTBsVLjb3Erz1VtqVZHZkUKlQ//J1z+dnKW352ZJp0FUzJkY4Z3NX0GAZg/FGd4uU
+	 Ud7qVx19ddPfdfBqy4BzGbjTXWQE5JLyfGf8k5nvzmqk/zQSbZ4zVKVpTqldChPLze
+	 AmLppB5M8eEnk6rLacxZkjMUv4WrlB9HmnjnH/2iXMjOtEpouDkXOQ9NgNjBuLEOEn
+	 J6eyoNZB2Fw7g==
+Date: Thu, 27 Aug 2026 15:30:24 +0100
+From: Will Deacon <will@kernel.org>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	David Hildenbrand <david@kernel.org>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: mm: Walk page tables with interrupts disabled in
+ show_pte()
+Message-ID: <apBKADD1xiGWzHCB@willie-the-truck>
+References: <20260815211316.974-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -39,26 +46,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <fai12uKS5302YnCQV4E3zlDqcsAS5aGcMutS@bugs.sh>
+In-Reply-To: <20260815211316.974-1-kmehltretter@gmail.com>
 
-co <co+63bad23bb3b4cd85@bugs.sh> wrote:
-> We found a bug reachable in:
+On Sat, Aug 15, 2026 at 11:13:16PM +0200, Karl Mehltretter wrote:
+> show_pte() walks the page tables locklessly and can run with interrupts
+> enabled, so a concurrent teardown (e.g. munmap() in another thread of
+> the faulting mm) can free a table page from under it. Dereferencing the
+> freed page can fault again or print garbage in the oops report.
 > 
->     path    net/bridge/netfilter
->     crash   out-of-bounds in br_forward()
->     commit  7b5344954050 ("Merge tag 'nf-26-08-10' of git://git.kernel.org/pub/scm/linux/kernel/git/netfilter/nf")
+> arm64 selects MMU_GATHER_RCU_TABLE_FREE, and the documented protection
+> for lockless walkers is disabling interrupts, as gup_fast() does. That
+> holds off the RCU-deferred table frees and, unlike rcu_read_lock(),
+> also blocks the IPI-based synchronisation (tlb_remove_table_sync_one())
+> that khugepaged collapse uses before reusing a table.
+> 
+> Use guard(irqsave)() around the complete walk. This does not make the
+> diagnostic output a consistent snapshot, but prevents it from
+> dereferencing a released page-table page.
+> 
+> Fixes: 1d18c47c735e ("arm64: MMU fault handling and page table management")
+> Assisted-by: Codex:gpt-5.6-sol
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> ---
+> Testing: QEMU arm64 virt guest, 2 vCPUs, debug_pagealloc=on. A racing
+> page-table unmap triggered a nested fault in the walk without this
+> patch, none with it.
+> 
+>  arch/arm64/mm/fault.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
+> index 0b52557652be6..b173eebd3cd19 100644
+> --- a/arch/arm64/mm/fault.c
+> +++ b/arch/arm64/mm/fault.c
+> @@ -16,6 +16,7 @@
+>  #include <linux/mm.h>
+>  #include <linux/hardirq.h>
+>  #include <linux/init.h>
+> +#include <linux/irqflags.h>
+>  #include <linux/kasan.h>
+>  #include <linux/kprobes.h>
+>  #include <linux/uaccess.h>
+> @@ -151,6 +152,8 @@ static void show_pte(unsigned long addr)
+>  		return;
+>  	}
+>  
+> +	guard(irqsave)();
+> +
+>  	pr_alert("%s pgtable: %luk pages, %llu-bit VAs, pgdp=%016lx\n",
+>  		 mm == &init_mm ? "swapper" : "user", PAGE_SIZE / SZ_1K,
+>  		 vabits_actual, mm_to_pgd_phys(mm));
 
-I'm looking into these reports, I think this is the same
-underlying bug as the other report; a variant of
+Curious, but why did you add the guard before the print?
 
-ccb9fd4b8753 ("netfilter: revalidate bridge ports")
-
-That bug uses nfnetlink_queue for RCU escape, the other two reports
-use defrag engine.
-
-And sure, its br_netfilter again -- I think we will have to consider
-removing it even though it will break existing setups.
-
-As a compromise, I suggest to reject br_netfilter in user namespaces,
-i.e. call_iptables cannot be enabled anymore unless you have
-CAP_NET_ADMIN in init net.
+Will
