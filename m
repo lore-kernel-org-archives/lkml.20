@@ -1,85 +1,186 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B08655477E
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 22:09:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD511324B32;
+	Thu, 27 Aug 2026 22:11:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787868586; cv=none; b=QQRExErwxfn6hr1Qw971i+XhTZhkBkol9PmhBR3h2KNsEReFOLPBjPmOJ4n+4KxMfuh55eYQLd0hi1y8pgexGOZjmja4wY6RkirV7GfJoCrpREtebu/DOcq8agrUelMd60cQSRCc0WcxAek5c0aiBtEnIcEEBYyQum1hg00zRhM=
+	t=1787868685; cv=none; b=fipuUlwKQa2Bu2b41FIDD083edCxi3TZMsblDa5IAqYHR/+nqvhO8usiX8cC85dPfd6Rt1TP5+ZpbX2b4w8oVIsyJzN4zGD/viSmg9HQUZ+gDWHzeVqXvxvgvJaeS5ujBCszBHDqPN8t2jdh0Ui2X10/vXwWUHpeWj4m1RGgpvQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787868586; c=relaxed/simple;
-	bh=u8rB7E1KTIPKCvlCYRtbSGJSrJqJfo1aVYB/7J/Tu90=;
-	h=From:In-Reply-To:References:To:Cc:Subject:MIME-Version:
-	 Content-Type:Date:Message-ID; b=WJ0mh2TgmTVHRFkdMV5VWyDrWXMOlhCLaXmjclLf+p588r55FHrGSbYHQVlgLfe25qnAEn9vJCuWagehhFOHtP7YJg8cqxUzWAZ1bQZFjmMr5w+OSbBUBbu4NIv2zKJAM3V1B63L/dhM7fRRgmSlVrab8Roay63B9VQMyTVVGz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ULZS8rlT; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1787868685; c=relaxed/simple;
+	bh=uX0S2UmESjyGWq6tsSbYZrtDXW/+7jm4Gbs35u4jmcc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XRLTIvb33P5+QIFBz5yuJ/wfytbYOZjNTMkGOur1tqVu6dEL33E8lf2z5Jd7AurZfXx/HH30uVcdbJs2MAh2NMNvpJSWFmL/n5ay+qWhRTsp8dwTtog10DlOS9xfuLJ99muiun9vIM1tw37cnwbzU/UfOK0W0VnG64kwvC/x6bU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=fail smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VUxZMVyI; arc=none smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ULZS8rlT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787868583;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GMxp6wSms+vw9kLz6cUgEySeuHNAMRuIDlnUVPAS7tU=;
-	b=ULZS8rlThB+RBFYL2+GWuM/wfjgbAe0Qum7YQR3b4PAk8mu5Ni0whkwwzgK55ntpDLHj9h
-	0rVuNc5CxgEj08Rdn7PjsR5cJ25k+LSfFeXO+fB8cW7vjKonNsPdSnELXzD7iUxcwL1HSA
-	FGSbEMRSQG6ZLBh3dTq7Qm7hFUb5CJA=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-483-4yYeBdglN9KmKFpx6HSY4Q-1; Thu,
- 27 Aug 2026 18:08:32 -0400
-X-MC-Unique: 4yYeBdglN9KmKFpx6HSY4Q-1
-X-Mimecast-MFC-AGG-ID: 4yYeBdglN9KmKFpx6HSY4Q_1787868510
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id F28C21933F9A;
-	Thu, 27 Aug 2026 22:08:29 +0000 (UTC)
-Received: from warthog.procyon.org.uk (unknown [10.22.88.47])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 349F31955F7B;
-	Thu, 27 Aug 2026 22:08:27 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-In-Reply-To: <a0563aec-0ac2-47da-b03e-2e991a2aeabb@redhat.com>
-References: <a0563aec-0ac2-47da-b03e-2e991a2aeabb@redhat.com> <20260824091645.415423-1-dhowells@redhat.com>
-To: Paolo Abeni <pabeni@redhat.com>
-Cc: dhowells@redhat.com, netdev@vger.kernel.org,
-    Marc Dionne <marc.dionne@auristor.com>,
-    Jakub Kicinski <kuba@kernel.org>,
-    "David S. Miller" <davem@davemloft.net>,
-    Eric Dumazet <edumazet@google.com>, Simon Horman <horms@kernel.org>,
-    linux-afs@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v8 00/12] rxrpc: Fix CHALLENGE packet handling
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VUxZMVyI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787868673; x=1819404673;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=uX0S2UmESjyGWq6tsSbYZrtDXW/+7jm4Gbs35u4jmcc=;
+  b=VUxZMVyIYqylGpdp5nT85ZQtLkEsLGGkzSAe9juAjcnwSUk5I8kC9l+7
+   Yqd7wVUAOxL08hAdYsn/P2qqfem8cybwnaq8opq8TjZJAxTN1dvx2FqTu
+   /RQKKpjLkgE8GZ3nJAzmWhaWybMktXmbMqxKXVCNhQ/aQNhJrf+5+XJgI
+   Whkmu/KIwYENefMTMLiQroJ1evucpoXKJ7WvFPsv1TBDDBAIH8sutM3po
+   06mJu0AhEkkOx/xsTxpuCyGbGO+tWGwruRLL7+in0mdDrhEuqHZQ8qtzY
+   ZaDnTUcMyciKsVmyLAKjtHJ86/ec8VhWTDlC2srAcuavseye10OCfb/EG
+   g==;
+X-CSE-ConnectionGUID: G/4ClQ6ARCaR2iBQW3Fsjw==
+X-CSE-MsgGUID: KcBiS/neRBuZMH3EsBAcng==
+X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="99539933"
+X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
+   d="scan'208";a="99539933"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 15:11:11 -0700
+X-CSE-ConnectionGUID: WAWowepoRY6Q4oJaVs4FgA==
+X-CSE-MsgGUID: 0t8qqCcnR1OA+QR8efY88A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
+   d="scan'208";a="268008018"
+Received: from rchatre-mobl4.amr.corp.intel.com (HELO [10.125.109.124]) ([10.125.109.124])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 15:11:11 -0700
+Message-ID: <e3447007-4bc7-46f5-9bd5-f59b84d6113e@intel.com>
+Date: Thu, 27 Aug 2026 15:11:09 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <2422274.1787868506.1@warthog.procyon.org.uk>
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 27 Aug 2026 23:08:26 +0100
-Message-ID: <2422275.1787868506@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 7/7] cxl/fwctl: Propagate feature RPC delivery errors
+To: Richard Cheng <icheng@nvidia.com>, dave@stgolabs.net, jic23@kernel.org,
+ alison.schofield@intel.com, vishal.l.verma@intel.com
+Cc: iweiny@kernel.org, ming.li@zohomail.com, gourry@gourry.net,
+ rrichter@amd.com, linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org,
+ kees@kernel.org, newtonl@nvidia.com, kristinc@nvidia.com,
+ kaihengf@nvidia.com, kobak@nvidia.com
+References: <20260826014508.9989-1-icheng@nvidia.com>
+ <20260826014508.9989-8-icheng@nvidia.com>
+From: Dave Jiang <dave.jiang@intel.com>
+Content-Language: en-US
+In-Reply-To: <20260826014508.9989-8-icheng@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Did you mean:
 
-https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260824091645.415423-=
-1-dhowells%40redhat.com
 
-I've had a look through and I don't think there's anything that merits a
-respin.  There's quite a bit of pre-existing stuff that will need looking =
-at,
-both in rxrpc and afs, but I don't think I need to do it in this series.
-Also, the docs need updating, which again doesn't need to be done here.
+On 8/25/26 6:45 PM, Richard Cheng wrote:
+> FWCTL_RPC requires delivery failures to be returned as ioctl errors,
+> while device errors are reported in the output. Get and Set Feature
+> instead converted all failures into normal responses, sometimes with a
+> SUCCESS device status.
+> 
+> Initialize the return code to SUCCESS. When the helper fails without a
+> device error code, return its errno. Continue reporting actual device
+> errors through rpc_out->retval.
+> 
+> Fixes: 5908f3ed6dc2 ("cxl: Add support to handle user feature commands for get feature")
+> Fixes: eb5dfcb9e36d ("cxl: Add support to handle user feature commands for set feature")
+> Signed-off-by: Richard Cheng <icheng@nvidia.com>
+> ---
+> Changelog:
+> 
+> v1 -> v2:
+> 	- Remove redundant CXL_MBOX_CMD_RC_SUCCESS assignments. (Dave Jiang)
+> 
+> ---
+>  drivers/cxl/core/features.c | 14 +++++++-------
+>  1 file changed, 7 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/cxl/core/features.c b/drivers/cxl/core/features.c
+> index 8d44ce829497..28b326df3398 100644
+> --- a/drivers/cxl/core/features.c
+> +++ b/drivers/cxl/core/features.c
+> @@ -232,7 +232,7 @@ ssize_t cxl_get_feature(struct cxl_mailbox *cxl_mbox, const uuid_t *feat_uuid,
+>  	int rc;
+>  
+>  	if (return_code)
+> -		*return_code = CXL_MBOX_CMD_RC_INPUT;
+> +		*return_code = CXL_MBOX_CMD_RC_SUCCESS;
+>  
+>  	if (!feat_out || !feat_out_size)
+>  		return -EINVAL;
+> @@ -267,9 +267,6 @@ ssize_t cxl_get_feature(struct cxl_mailbox *cxl_mbox, const uuid_t *feat_uuid,
+>  		data_rcvd_size += mbox_cmd.size_out;
+>  	} while (data_rcvd_size < feat_out_size);
+>  
+> -	if (return_code)
+> -		*return_code = CXL_MBOX_CMD_RC_SUCCESS;
+> -
+>  	return data_rcvd_size;
+>  }
+>  
+> @@ -289,7 +286,7 @@ int cxl_set_feature(struct cxl_mailbox *cxl_mbox,
+>  	size_t hdr_size;
+>  
+>  	if (return_code)
+> -		*return_code = CXL_MBOX_CMD_RC_INPUT;
+> +		*return_code = CXL_MBOX_CMD_RC_SUCCESS;
+>  
+>  	if (feat_data_size > U16_MAX - offset)
+>  		return -EINVAL;
+> @@ -341,8 +338,6 @@ int cxl_set_feature(struct cxl_mailbox *cxl_mbox,
+>  
+>  		data_sent_size += data_in_size;
+>  		if (data_sent_size >= feat_data_size) {
+> -			if (return_code)
+> -				*return_code = CXL_MBOX_CMD_RC_SUCCESS;
+>  			return 0;
+>  		}
 
-David
+Minor. the {} can now go.
 
+>  
+> @@ -492,6 +487,9 @@ static void *cxlctl_get_feature(struct cxl_features_state *cxlfs,
+>  	data_size = cxl_get_feature(cxl_mbox, &feat_in->uuid,
+>  				    feat_in->selection, rpc_out->payload,
+>  				    count, offset, &return_code);
+> +	if (data_size < 0 &&
+
+Do we need to handle the 'data_size == 0' case here?
+
+> +	    return_code == CXL_MBOX_CMD_RC_SUCCESS)
+> +		return ERR_PTR(data_size);
+>  	*out_len = sizeof(struct fwctl_rpc_cxl_out);
+>  	if (data_size <= 0) {
+>  		rpc_out->size = 0;
+> @@ -544,6 +542,8 @@ static void *cxlctl_set_feature(struct cxl_features_state *cxlfs,
+>  	rc = cxl_set_feature(cxl_mbox, &feat_in->uuid,
+>  			     feat_in->version, feat_in->feat_data,
+>  			     data_size, flags, offset, &return_code);
+> +	if (rc && return_code == CXL_MBOX_CMD_RC_SUCCESS)
+> +		return ERR_PTR(rc);
+>  	*out_len = sizeof(*rpc_out);
+>  	if (rc) {
+>  		rpc_out->retval = return_code;
+
+
+We may also need to add something like this because of the change of default return code. The code segment is similar to cxl_xfer_log().
+
+diff --git a/drivers/cxl/core/features.c b/drivers/cxl/core/features.c
+index 28b326df3398..2e62f3720072 100644
+--- a/drivers/cxl/core/features.c
++++ b/drivers/cxl/core/features.c
+@@ -259,6 +259,17 @@ ssize_t cxl_get_feature(struct cxl_mailbox *cxl_mbox, const uuid_t *feat_uuid,
+                        .min_out = data_to_rd_size,
+                };
+                rc = cxl_internal_send_cmd(cxl_mbox, &mbox_cmd);
++               /*
++                * Per CXL r4.0 8.2.10.6.2, when Offset + Count runs past the
++                * end of the Feature the device returns only the bytes up to
++                * the Feature size. cxl_internal_send_cmd() reports that as
++                * -EIO with a short payload, so stop and return what arrived.
++                */
++               if (rc == -EIO && mbox_cmd.size_out &&
++                   mbox_cmd.size_out < data_to_rd_size) {
++                       data_rcvd_size += mbox_cmd.size_out;
++                       break;
++               }
+                if (rc < 0 || !mbox_cmd.size_out) {
+                        if (return_code)
+                                *return_code = mbox_cmd.return_code;
