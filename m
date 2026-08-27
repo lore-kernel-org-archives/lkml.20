@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5BCF1DD525
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:45:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C43A3264DA
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:45:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787849128; cv=none; b=oDkD32pQwBeNkn94Ap3vBly6F8HN2CYATvwOF4FeKaJqv/58BsbLNzKq/kfv4iHn81Kd9Ib1hn/4zf3e3xtR0i/Jo/PyEGoGO2oYL5ykJW759OlvLSh5Fff5UCoVGgk8S5L29vzFBkAHTozlqc3vuFqsVc3i6QCW6DAS4AjlRI4=
+	t=1787849154; cv=none; b=abJKU1N7jcBpiO6YitQTZUxipr0X4VE9FHP3sv246CedIGltqK2dep/fyz45D7TvxKlsoUKVc8+2tqN6a9Xcq0JwwA1a5y+lQpZekI1MldkZK4Nq0FKH17T4KkEzDGR2/h2A8fX77Ycco2GFk4X8+qoknsChw+xVD40oF1p00OM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787849128; c=relaxed/simple;
-	bh=50tegr5lN1LA2NVn6s+ca/OwjdeN6+9+jXK307xKy08=;
+	s=arc-20240116; t=1787849154; c=relaxed/simple;
+	bh=5iXCOtnDexDVg8iBj6uGhIsgyrJJ+TKPqiZZPJS+Q8c=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YVLx1nlRD0O448piM9QsZCJgEBNIiwQrdROXJ0KTmnYgjohS1DotQp58ffCbqvYDzO+cCRrX10PnHtkORC5mGxsEfTSi8m2VWdaBrfgqp+/LJbdQmmzysTETHjr5Ww2tkiYFhkpjszbkpoSC4LlbJzhG8s6OskUNR1Yef9gm2Xw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AdoA9Uqq; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=LfgqUJkVU/z58YjW9Etuk/TdGQaOakQKQ3BD5O/1CQmmtH2zwWYTvKHQD04Sg2kGi60hMEDHRacKvtyt5j6uxflqyHU+I1TJn/7i4m86tSFEKEmDWgtbe8EKzFZHF23j2TiW90YiU7nx/sE1MCXFEa2YrexgDNu304NMlx6/xgg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SBm/kPjP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AdoA9Uqq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B7E51F000E9;
-	Thu, 27 Aug 2026 16:45:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SBm/kPjP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 390341F000E9;
+	Thu, 27 Aug 2026 16:45:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787849127;
-	bh=c1dZYAjFuoGFepZl/cbwoPeJTSw+Dg47rXi7QIqZjxg=;
+	s=k20260515; t=1787849153;
+	bh=OD2S90orDKINgGCaMDMzphHuo5Rary9C+PKf1sfV1BA=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=AdoA9UqqEDpW+uKrLMUNbTXMFtPqnL/cE1hxXd1M+y6KHmBhziXUoT4oUVsnklGDX
-	 rSfgggMCO4k+O5yg4LpR2ln6+3c6VpyxHFr3OLZ6j2iQqJyM1182HeTBn7QIBeHq78
-	 M25npVCajc55jkhYwFHmin03/84Yy11ZKmnKNkjKMmpqhg9XTFtmcgrnGP5YaSQDDM
-	 VEzKdhk5SnnDbUqV9sOe15kOyjpCHyuiDnbMpHzH7RP9bM6DobSh9+vc/HH20qCJ0Z
-	 FgILrheHgqGxYxi2KEE7ii0JhBeNh/p8pYGo2YogJHnIz6oAfk1qkVbgbUngtiYyGm
-	 C7jz6DNfbapSA==
-Message-ID: <60908273-aeb8-41fe-b7d9-d35c80e950ca@kernel.org>
-Date: Thu, 27 Aug 2026 18:45:19 +0200
+	b=SBm/kPjP3uMP7DmN5FE6H+oE2PP3vCUUrBbtwIlk7QU8FFKBAnhjKgJXcnxGpyUxz
+	 UFJwaTSPmw9DqkMlgSDsnw0ALHp726khUfhHi6aTSHjxSJwmRVTI5zAZplxXg0hHRC
+	 sa9oJLAnO5r+UwTaNfcaZkP4ts7YMJnhQgQbS9bOmgRGeazsGVPNyfBEkqLxc63nyO
+	 zNxINmqD58NisoGVEI0OOELRWDro0kJjoNDn6yg+lRexMWShKlR0x7Bi2p1FzGQswv
+	 u3Gbk+CrnTjxvLqfXdijh/IK4kOBAob33mDX0lrU4O5I9tv9+AUUlD/fXqbvkE/kof
+	 4iCuAfnZmDvIw==
+Message-ID: <c2aaa7b6-0a1e-4401-907c-3be81b4764e3@kernel.org>
+Date: Thu, 27 Aug 2026 18:45:45 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,8 +35,8 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 12/18] mm/huge_memory: add kerneldoc for the split
- helpers
+Subject: Re: [PATCH v3 13/18] mm/huge_memory: drop the unused do_lru argument
+ of the file split helper
 To: kasong@tencent.com, linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
  Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
@@ -51,7 +51,7 @@ Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
  Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
  Shivam Kalra <shivamkalra98@zohomail.in>, Kairui Song <ryncsn@gmail.com>
 References: <20260821-swap-thp-cleanup-v3-0-9b43f5163238@tencent.com>
- <20260821-swap-thp-cleanup-v3-12-9b43f5163238@tencent.com>
+ <20260821-swap-thp-cleanup-v3-13-9b43f5163238@tencent.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -98,25 +98,21 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20260821-swap-thp-cleanup-v3-12-9b43f5163238@tencent.com>
+In-Reply-To: <20260821-swap-thp-cleanup-v3-13-9b43f5163238@tencent.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 8/20/26 20:55, Kairui Song via B4 Relay wrote:
 > From: Kairui Song <kasong@tencent.com>
 > 
-> Document __folio_split_unmap_and_freeze() and
-> __folio_split_unmap_and_freeze_file(), and rename the file split
-> helper's definition to match its call site.
+> The only caller of __folio_split_unmap_and_freeze_file() always passes
+> do_lru as true, so the argument and the branches gated on it are dead
+> code.  Drop it.
+> 
+> Signed-off-by: Kairui Song <kasong@tencent.com>
+> ---
 
-We don't really write kerneldoc for internal helpers.
-
-If you need excessive documentation for internal helpers, it could be that the
-function semantics are not clear enough to be expressed by a descriptive
-function name + variable names.
-
-Sometimes taking a step back and questioning how the code could be reworked to
-be more self-documenting helps.
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
 -- 
 Cheers,
