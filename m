@@ -1,151 +1,166 @@
-Received: from mail-oi2-f11.google.com (mail-oi2-f11.google.com [74.125.231.203])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5069A32B100
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:07:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.203
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4A7941F34C;
+	Thu, 27 Aug 2026 10:09:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787825273; cv=none; b=BO6nHf74EqELSI+1TzQA1XQhXXp3PNLamBbwEUjlACUGz/vPdGS8w+HI5JmDVQOTAdPfpaNMVN4rlSnJ2/aFov82jgPH/qVFgMk0aDwveMNKXNL/bsCDvLeNZcUGo2Xm25cBl57EcX5kynL+uL+ewclbLKsd89C3d6eYcO7x4I0=
+	t=1787825373; cv=none; b=gzK8vgInSd1IELnZDoG5E3ZxKQQS7Z0PVaMhOiIFmO/zR+5wsXmW4FN1Q/udvMNGwCnOLFmnIZZIMNV2fcCFzoq5RZiWRdXK3eIT/zGoZUBaoo1vzz3KwMVvbzikftkO8uYAmF0VG/Ft8PEIUE0et5D/wzPphipzJfON1Tsr1sc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787825273; c=relaxed/simple;
-	bh=RVzOCFn/4sEqFpOvd1a0857XGxya77/cuhUokJwqr6g=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=DEl7IYVDWthtkEipmV/huuy6sm4z33f/KRvDRTDxkqN0HaoZjRtWk0TnQUZnJUixYhXe4pj4OUWFek8s5Jv5ei98+4NXBHqoFZ/f7AeA8SC+VsyxU9NEO5qr7ZB+GOaIxFVOZ5zjqCuMIXG6d5L5y2JUYDSmsdnjBGnEqxGPe4M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.203
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi2-f11.google.com with SMTP id 5614622812f47-4af7193adb7so174957b6e.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 03:07:46 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787825264; x=1788430064;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=p11dZYhzWvRbix8e2dTeUc0wy381a09q511ebbLUCIA=;
-        b=Wp+RnsF7epg7+Um7ZpJKymS9So4UgY9AUasuzS9NYN593SKmZ+K51yVBSWMocRtIp3
-         uIrBquxnC3SPunGMs0/+Gn/1jmD6Kx7Jw6RyskrYGdDMkcUK2Ax9tCzRII7HELAssSTi
-         ynPIA5ea1qdAalu8ogefh38luhaRn6SHuG1gCLRZ0GOKZeFU+tZSGw1BtzugbN7Hwg40
-         yeqv3NHIyhH/rxLGqv2D9R3ki25il+PXCKJvY4QbiL+Io0yqlMAexkK3uZslnNV7nQ9f
-         acQlUQiyxldFgqb5Rqp+DfIoiShRNn8Zg/i4ibYYnZpFBW9JW1Ihx/o/M/9sBKOj/hYW
-         TiEg==
-X-Forwarded-Encrypted: i=1; AHgh+RqPTFKjlorHWWXwvSgO2MbkOoM1aDKg5lOwtoi1otUwd9chMqw0SOtMab17xghhBLD1Fhr0IBq3B00Ks4E=@vger.kernel.org
-X-Gm-Message-State: AFuF++m8fn4W7xI8kR9lgll+L4SMxnQzJWi+ztEUKPeK4OSbDxMNbLNh
-	ra19c0YeBe/zT/N9YmGvlw5yDshrBtoNzkBxWaWcaCKWp3xYmHd+YNFiczpLNG5D/5O5wiAlACL
-	2Xs9AE4+/L6b3IKFAAO2A/VTr4PJyUNnxTrLZesLjfaeQ3mBQCzgm78mY8w8=
+	s=arc-20240116; t=1787825373; c=relaxed/simple;
+	bh=nwvXDa65DDpCvM/R5fSvp+eMdu/X+13ukc0wOkQz1qg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uVfnmJIsoXdK+LzXo8rBdsj9Mb5htRiHXbUbADDaz/aEIegL913WL44kAPHO3vC6uhqRd2jyYSs53fmI0qM1sGmq8a+AaC+il0w1P8vvZh6jr8HpVtOPONCiWMUPzzQIZpYME/zsL06ETjwQJfx1Nz4Dwcn54ztBsA0j2DwEiSE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JH8jmiFB; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JH8jmiFB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5855D1F000E9;
+	Thu, 27 Aug 2026 10:09:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787825363;
+	bh=9KOMROoAXkB3YgzHCVgdK+B6/2OE8JJaZ2Gy/q8sZjk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=JH8jmiFBJ5LJ4rQruDP8uNR5wUgeZL1ae5Rk0qlMF4EodouTVkZfqDB4L11ruAQB+
+	 KQSJN8X58+W4verLaRSgLlkcltQetoFHrxooZz4qqsEB5fg5mV0tnp9x9ZaZdjHKM0
+	 Ds2ADVkdMhM9p+Mt5qY8bpy3VxNWeUzu7Lwa8J3IR/2usCX/ZccwN4cEKQh+QoW5Dh
+	 32ZbinaNYkDU/mPB2Tml8hcXRZSH3W3uj+g6qMfCdGVW9L2dYR3FOg9KFODsNF0tjq
+	 tQk5frNN2hmxadAXLIrZShMKX/56Sn2TyIrDeU6GXM7jK7GjShdZH7Hq/TPUI6DMXU
+	 rU1Le6j6dG7JA==
+Message-ID: <b2d596af-ec24-406f-bcd7-813db0aebeb5@kernel.org>
+Date: Thu, 27 Aug 2026 12:09:16 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:c297:b0:4a1:296:adec with SMTP id
- 5614622812f47-4b366a0113cmr17051837b6e.15.1787825264331; Thu, 27 Aug 2026
- 03:07:44 -0700 (PDT)
-Date: Thu, 27 Aug 2026 03:07:44 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a900c70.50659fcc.60cd.0013.GAE@google.com>
-Subject: [syzbot] [block?] BUG: unable to handle kernel paging request in blk_mq_complete_request_remote
-From: syzbot <syzbot+2e3bf0bd49acd9b21d4b@syzkaller.appspotmail.com>
-To: axboe@kernel.dk, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v16 6/8] i3c: hub: Add support for the I3C interface in
+ the I3C hub
+To: Lakshay Piplani <lakshay.piplani@nxp.com>, linux-kernel@vger.kernel.org,
+ linux-i3c@lists.infradead.org, alexandre.belloni@bootlin.com,
+ krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, broonie@kernel.org, lee@kernel.org,
+ Frank.Li@nxp.com, lgirdwood@gmail.com
+Cc: vikash.bansal@nxp.com, priyanka.jain@nxp.com, aman.kumarpandey@nxp.com
+References: <20260826103819.1614843-1-lakshay.piplani@nxp.com>
+ <20260826103819.1614843-7-lakshay.piplani@nxp.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <20260826103819.1614843-7-lakshay.piplani@nxp.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hello,
+On 26/08/2026 12:38, Lakshay Piplani wrote:
+> +/**
+> + * i3c_hub_init() - Initialize hub context
+> + * @hub: Hub instance
+> + * @ops: Vendor callbacks
+> + * @hub_dev: I3C hub device
+> + */
+> +void i3c_hub_init(struct i3c_hub *hub,
+> +		  const struct i3c_hub_ops *ops,
+> +		  struct i3c_device *hub_dev)
+> +{
+> +	struct i3c_master_controller *parent;
+> +	unsigned int depth;
+> +
+> +	hub->ops = ops;
+> +	hub->hub_dev = hub_dev;
+> +	mutex_init(&hub->lock);
+> +
+> +	if (!IS_ENABLED(CONFIG_LOCKDEP))
 
-syzbot found the following issue on:
+So without lockdep you do not initialize? Honestly, kerneldoc is useless
+here and explains nothing. Kerneldoc is pretty clear - you initialize
+hub context thus why hub context should be uninitialized without lockdep?
 
-HEAD commit:    68f892e99df9 Merge branch 'for-next/core' into for-kernelci
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
-console output: https://syzkaller.appspot.com/x/log.txt?x=135bb415580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=d1128bc53f2ef7f3
-dashboard link: https://syzkaller.appspot.com/bug?extid=2e3bf0bd49acd9b21d4b
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-userspace arch: arm64
+> +		return;
+> +
+> +	if (WARN_ON_ONCE(!hub_dev || !hub_dev->desc))
+> +		return;
 
-Unfortunately, I don't have any reproducer for this issue yet.
+How is this possible? Why panicking the machine?
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/f98dd20a7b98/disk-68f892e9.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/441f1ad32549/vmlinux-68f892e9.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/8da5227b7dc8/Image-68f892e9.gz.xz
+> +
+> +	parent = i3c_dev_get_master(hub_dev->desc);
+> +	if (WARN_ON_ONCE(!parent))
+> +		return;
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+2e3bf0bd49acd9b21d4b@syzkaller.appspotmail.com
+Why panicking here (WARN on panic)?
 
-Unable to handle kernel paging request at virtual address dfff800000000031
-KASAN: null-ptr-deref in range [0x0000000000000188-0x000000000000018f]
-Mem abort info:
-  ESR = 0x0000000096000005
-  EC = 0x25: DABT (current EL), IL = 32 bits
-  SET = 0, FnV = 0
-  EA = 0, S1PTW = 0
-  FSC = 0x05: level 1 translation fault
-Data abort info:
-  ISV = 0, ISS = 0x00000005, ISS2 = 0x00000000
-  CM = 0, WnR = 0, TnD = 0, TagAccess = 0
-  GCS = 0, Overlay = 0, DirtyBit = 0
-[dfff800000000031] address between user and kernel address ranges
-Internal error: Oops: 0000000096000005 [#1]  SMP
-Modules linked in:
-CPU: 1 UID: 0 PID: 8684 Comm: kworker/u8:27 Tainted: G             L      syzkaller #0 PREEMPT 
-Tainted: [L]=SOFTLOCKUP
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/07/2026
-Workqueue: nvme-reset-wq nvme_reset_work
-pstate: 83400005 (Nzcv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-pc : blk_mq_complete_request_remote+0xc4/0x858 block/blk-mq.c:1297
-lr : blk_mq_complete_request_remote+0x88/0x858 block/blk-mq.c:1289
-sp : ffff800095647900
-x29: ffff800095647980 x28: ffff800095647900 x27: dfff800000000000
-x26: 0000000000000000 x25: ffff0000c648326a x24: dfff800000000000
-x23: ffff700012ac8f20 x22: 1fffe000192284a4 x21: 1fffe00018c90648
-x20: 000000000000018e x19: ffff0000c9142400 x18: 1fffe00034bbbe28
-x17: 0000000000000003 x16: ffff800088b37000 x15: 0000000000000000
-x14: 0000000000000000 x13: 0000000000000001 x12: 0000000000000004
-x11: ffff700012ac8f3c x10: ffff8000884bb5d7 x9 : 1fffe00019228482
-x8 : 0000000000000031 x7 : ffff80008281b4e0 x6 : 0000000000000000
-x5 : 0000000000000000 x4 : 0000000000000001 x3 : ffff80008281f228
-x2 : 0000000000000000 x1 : ffff0000d604ba80 x0 : 0000000000000000
-Call trace:
- blk_mq_complete_request_remote+0xc4/0x858 block/blk-mq.c:1297 (P)
- nvme_try_complete_req drivers/nvme/host/nvme.h:823 [inline]
- nvme_handle_cqe drivers/nvme/host/pci.c:1590 [inline]
- nvme_poll_cq+0x4ec/0x106c drivers/nvme/host/pci.c:1621
- nvme_reap_pending_cqes drivers/nvme/host/pci.c:2078 [inline]
- nvme_dev_disable+0x384/0x540 drivers/nvme/host/pci.c:3328
- nvme_reset_work+0x510/0x69c drivers/nvme/host/pci.c:3490
- process_one_work kernel/workqueue.c:3322 [inline]
- process_scheduled_works+0x788/0x10b8 kernel/workqueue.c:3405
- worker_thread+0x798/0xbd0 kernel/workqueue.c:3486
- kthread+0x304/0x3d4 kernel/kthread.c:436
- ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:838
-Code: 97d02797 f9400288 91063914 d343fe88 (38f86908) 
----[ end trace 0000000000000000 ]---
-----------------
-Code disassembly (best guess):
-   0:	97d02797 	bl	0xffffffffff409e5c
-   4:	f9400288 	ldr	x8, [x20]
-   8:	91063914 	add	x20, x8, #0x18e
-   c:	d343fe88 	lsr	x8, x20, #3
-* 10:	38f86908 	ldrsb	w8, [x8, x24] <-- trapping instruction
+> +
+> +	/*
+> +	 * The routing mutex has the same hub nesting depth as the virtual
+> +	 * controllers this hub exposes, so the parent controller is one level
+> +	 * shallower. Keying it once here, rather than per port, avoids
+> +	 * reclassifying the single shared routing mutex from a later port that
+> +	 * may already have used it.
+> +	 */
+> +	depth = i3c_hub_controller_depth(parent) + 1;
+> +	if (WARN_ONCE(depth > I3C_HUB_MAX_LOCK_DEPTH,
+> +		      "i3c-hub: routing lock depth %u exceeds lockdep support\n",
+> +		      depth))
 
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+> +		depth = I3C_HUB_MAX_LOCK_DEPTH;
+> +
+> +	lockdep_set_class(&hub->lock, &i3c_hub_routing_lock_keys[depth - 1]);
+> +}
+> +EXPORT_SYMBOL_GPL(i3c_hub_init);
+> +
+> +const struct i3c_master_controller_ops *i3c_hub_master_ops(void)
+> +{
+> +	return &i3c_hub_master_ops_data;
+> +}
+> +EXPORT_SYMBOL_GPL(i3c_hub_master_ops);
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+Do you really need a wrapper call over single variable? Can the i3c hub
+core code be NOT present when your I3C hub driver is buillin?
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+Best regards,
+Krzysztof
