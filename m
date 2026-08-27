@@ -1,390 +1,253 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 425AE472534
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:14:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB26447255B
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:16:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787836485; cv=none; b=EYMzn40nAW3ORZGQva0wfbvRgKQFfWzZ9LUznZMtGOMEOi76vWbXqSeObIedMN6yumRk7xqwyk+WPGYIuGHRlR37uryHuiDPdaEnIygUrR3TfhayxNSZVWX1pKpBL5KVR/u+zQqgkWutxTmfxE6kmgcIun/lFKxuW4Kmbgb2gUQ=
+	t=1787836577; cv=none; b=gKyQf/2Cm39J3s5nQ8JK7aOFjXCOpIq7HfnyIICCT7v4yDJ3YO8RWNL9d0IS3cr/hzYf/fHnzfbYYz++h/hAh9Ep9krbWI2Q8jjAO+Mw5I8qxRLjTgRhe1wLJWy081VD0j6S0ddb67wvWY48Tn4SL3hIKVlu8Gy18bwgIf3ga/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787836485; c=relaxed/simple;
-	bh=yYnR2GRicwqJ0hb75OCOjfRGm7MPylGkIDePemk1L0U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bIalNSSaXpTl0dJ053wI5SvnU0/je1D2fQePEiOT9rKyUVDVefykKYVmEpzyyocO3BlmhG9wb655OIGq4XIgW/WXRUK9dOaIOGCyX6UDkIXthb0e1cNClfzfG77lDafUO1660tmuRUr8xqSkC9pRZEMLFXd3slqNNgEiPWIjscU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KCZL6Cm8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787836577; c=relaxed/simple;
+	bh=cfYLMttHm5lYFRShaioVB/9FzuF8nxuxPzPW7wPQFvY=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=A/8T0Cqn/gY9BBEFA4MlXc3Eg+T3cbdZTa1B14404wwbhGw0chpXnxCy7/t+bAeqAVQ+3TfYIFRn0Sn3HWRu6M1eXnIJIHsZaO/KRBpfrSOGUrcF/dcAReR6TAT+4SCIgOh0b4Za8oQsJyCySbvqEfcFwc5pDmOb3Xp0DNo2/Sw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CNddpMjm; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KCZL6Cm8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB32E1F00A3A;
-	Thu, 27 Aug 2026 13:14:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787836470;
-	bh=c7nONeAuFyNK+HNdK4Hve/v/urwDPgtYo2tf8c0d/P8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KCZL6Cm8zQvKvU3++0jmhoNnAK+372oZZSjAKrldVOkG5WoFxUw5hRX6KN3Qtwo9B
-	 kFkkSwBptSWKcNfHjduI72ETHUKpPt85XInJGggQHVUMyBs4GhwhsMclwNs75h8HeL
-	 hN3DZIWYhqFknDy5ADqTcT3yTiYGL2Sc76xUSUvysmsUaf9wMLc45MjtN1zH3TOiUm
-	 mO386zF9h4142iUL4Eb4fStYgb6aYZztvwRppa1bKqLQMiGkSVNf1A6ZRdcrZmtl+w
-	 lL/mUbiN0Z1NR1OqG699ZSDCcwIx/Chqte30Ed4gI13hnDexJ0knVIaoN+oRUsMXjb
-	 0QLFdbXJMZfhw==
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 115F1F40066;
-	Thu, 27 Aug 2026 09:14:29 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Thu, 27 Aug 2026 09:14:29 -0400
-X-ME-Sender: <xms:NTiQasA-j7s7T_nyXf_79w_2WdCfRxK3e8FmUuWsM_huQJeh8g6YOQ>
-    <xme:NTiQan2nS8uQdfScPABmgVGyNoWcknZIO9skEsjQdm46QHGo-ZUlhebAjVppvRGAO
-    EfaXX7qoDUD8KKUtlHZYPjBNIHC9O-pUraPeZF3nkRZnZllPaYldn0>
-X-ME-Received: <xmr:NTiQam1tYruAeN30_SBSjf-n3Kw7MEhoVTk0Oq1lt6PKHVdvG_yu8ZmIOTlQy1nQB-IbrjMue8iCeLroLa4x3ONadUGCXldK>
-X-ME-Proxy-Cause: dmFkZTGzADUYSxyZs9YWJWg2uGSwXhn+Vvu9MVfbUmCkMnsNT8TUCfGyqF4Ja/71kU0fbY
-    neLo2iV0RvDlpOs92211dORSEh7wLuBUcMT7Zuk1Pv0GsOTBjgxLiMNTneS1ZI+xcybHLN
-    9Y9IKudhczA2b8xi/5PlKpXuZHDWm7I/kpOoNHNsbuIblxpI4XhP+Y/kiKCOJcTnBtuaqc
-    6nRKUK17KGk2mJZOhN2pqddVDTyCsAvlyO1ERC+jgsk3VZiBHFvnvF/Hmh9XnN0CKCOiRZ
-    aQW7zU/d8K2ixp1zE0TtL3AsVBKszc73xUtKu1hUFix4oCEvhCk4Sto6IufU60gTfSBCBP
-    KDY00ecjECUrgNUCdbqMCYSXbKhhLxM2Q/meR0X307S8bjxm0Ik4MrS1kxu2MBRfIIxVRS
-    AamuIlx2LyxrIVdBOKfJSEBNwkdVEsYhtQKx4zGyXywCvDt1BfUpA500HDAHFI5RWkYVXp
-    z9QS8g2hqpwZvOC7I3AI4eMI+tlmOGT+kdL84L1ed1rMJq3ebhbTGCQdbe9zFYLrDTDr3+
-    8iJUizkahnPOMm7DIEqI9ram8U45T1vUjspZ8pOLLYXAuK6SpLoA32NLuymiVG5mI1TVYi
-    I3qzMtU8GwePkRn0E9qPMKAjAu6nDLT9SNlovtEOBlLtp8nbAvo1U1/wSaEA
-X-ME-Proxy: <xmx:NTiQakCk5CyXUD8n2OKHfpxD0b_hwG70xvUHyavzkjcUow0aWc4-Ew>
-    <xmx:NTiQat7l84F-1LonWr_3SGWafrFfQE1LseVTta0o-3Jy56N65r-NmQ>
-    <xmx:NTiQatJX1OCFoV9tadPFmnKhMW6jsbafDW-j-KO68cjqYtR6kbujMw>
-    <xmx:NTiQamvsK37lb1LclTkqJLgpPgDkzv6m0X_vaiySVYiX4k1fWDgMtA>
-    <xmx:NTiQasI5b3q4zECK5v4zFF_jIQ5MWD2kX3h1b1fDR5MRmZ7LXitZWkuE>
-Feedback-ID: i8dbe485b:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 27 Aug 2026 09:14:28 -0400 (EDT)
-Date: Thu, 27 Aug 2026 06:14:27 -0700
-From: Boqun Feng <boqun@kernel.org>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
-	linux-tip-commits@vger.kernel.org, x86@kernel.org
-Subject: Re: [PATCH] locking: Revert switching guards to
- _irq_{disable,enable}()
-Message-ID: <apA4M7Asz0mV9uaw@tardis.local>
-References: <20260804161447.84806-8-boqun@kernel.org>
- <178635226387.442315.3868294476114711805.tip-bot2@tip-bot2>
- <20260824104704.GA4121339@noisy.programming.kicks-ass.net>
- <20260824105523.GA4121620@noisy.programming.kicks-ass.net>
- <aozw_7Txxaq2qE7c@tardis.local>
- <877bldhkmq.ffs@fw13>
- <ao4lO7U7L-7Zice1@tardis.local>
- <87v78wezid.ffs@fw13>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CNddpMjm"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-49b14637dfdso4607415e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:16:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787836561; x=1788441361; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=XDY73W5+DrXEydXQR2nkbVBUMArg5jEL4W2f2kgOO8w=;
+        b=CNddpMjmPnV3DrhHV6NZetJs7JJCu6CCehp+OeHjbTFHlFFMQuUjLgewaMCEx9h1q+
+         9x/0EhI2UbXgKzxXFf2xcjXQc8UungWx310XAn1COzuOCySm7RXB5wixvb1Lqfi2f/BS
+         MlhMTXN28RU6GbwhhcJFLFOZIncM5NzivLkZ7Edu5OgnXweuj/n0Cx5Rn16QvzX2h1JI
+         +N+MtqJsiVCH4c5ODEP5HuQrAfp4VaTZbPGJWzJB4IZ9bouwvpbv6Cfmf30ncZqy5uZf
+         Z+iFhUUbj0/8Nqar36V70SYiXx7io/7xqOXTcNJtmjcYQWWJ4nBV8hSndRduQ10ygZl9
+         Cp1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787836561; x=1788441361;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=XDY73W5+DrXEydXQR2nkbVBUMArg5jEL4W2f2kgOO8w=;
+        b=DWJnbPCJDyDmEgRYsPMZDgfmeRZ8H+O8pVnGtblm8HClBPhP3bU1C6g1Epontn25wv
+         +Dfq5lgQlh4LRlOOwOCq4eueVrDBxGAAdkzGTRxumveH1LC/bvvFG0R84r6ZjRuge8ru
+         6nK1QBPY4qoMVQ6lyx7UIj5VbWSllGFfzZH9Yz9lYoTdea8mLAt3cL+5m6ZwhEhHGXIp
+         DjU6KtGPG86Lr3oB3s5+W7oBZBhBWjWv4EKpwqmElfDP8BDrCP15O4oRh+8aSH2uiD31
+         7znF6NAornt2t3qLuptCvUI1SN/naEFG34YCVhUDpPZ+tIa1SFCa/KmhURheLhG8sm+W
+         yeoQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpKtm2SGrnTQGBUX7HBkddjzNAouXyEOZzZPurzE7/91XYfZgV3HRkn+1tWRCy2hrJ4uHhq3sll4yGiDOY=@vger.kernel.org
+X-Gm-Message-State: AFuF++l4cmBlc0f1yGiHVz6J9PMfSZJqMUGp4RoVvnSZQrusRkvpgANJ
+	/GtXzVSmwRyzmYxLow8qk7a+C1jzf2/0e4NxY1y2X97xfWrZLuR/Gp2v
+X-Gm-Gg: AR+sD11MAu++ZBINrNsDhFziex04AtoVNdZkbSxBTWpaTAbOj+3AAUoj2G2lnzSv9VI
+	OSc2tpIVaa+cPTg+qxWQmkFjZMcZbT7cpH96td0wDQTp5rFfZ2gSgzuGSi5eTyyFbmlVgPZNAaG
+	heysq5/+oGGsGA93tyvoWPeRYjLP0YFyhUYr34yIZ4nUTowEvg7L9VRGYNFHPskajj2g1d1oYX8
+	3U39sWdYUXpcfWGG5LF6OP7XhAympyHqEv2DX9Zx4rdetgQ2LayjKPlf0Sy1jIx/y0IcGCPlFCU
+	/BJCfbnKHdNwJ/9xBCWiqmU2DLbR+QWeZQunZnQJK7CmLjffYq7YdnsCyg+fUDnT9BzAg5qboF3
+	Adpa48Oh1BTZe9JCs0tPjYR6KtrjWMUJUzmZ8VZSb2DNFIukG5XHGGPbUYLn5kQewBA2VVh/aTx
+	ECrRIRDdWnT+xg6ggAqYMNmnvFhzRmeL5GqNWPE7nqWcpa90W9krrkSGgEVCMqiSHkGq5AgeU+R
+	0qT9gZCqsYXy/p60G2fosdPbODmz6ygXUqOTDL3aXuTFHytfwS5ADzQ1FBt29E=
+X-Received: by 2002:a05:600c:3b0e:b0:499:dbba:9859 with SMTP id 5b1f17b1804b1-499dc701419mr155135385e9.5.1787836560352;
+        Thu, 27 Aug 2026 06:16:00 -0700 (PDT)
+Received: from Ansuel-XPS24.localdomain (host-79-26-252-140.retail.telecomitalia.it. [79.26.252.140])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-482e28dc3f5sm9367192f8f.21.2026.08.27.06.15.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 06:15:59 -0700 (PDT)
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 1/3] dt-bindings: phy: airoha: Document support for AN7583 USB PHY
+Date: Thu, 27 Aug 2026 15:15:45 +0200
+Message-ID: <20260827131551.26725-2-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260827131551.26725-1-ansuelsmth@gmail.com>
+References: <20260827131551.26725-1-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87v78wezid.ffs@fw13>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Aug 27, 2026 at 10:30:50AM +0200, Thomas Gleixner wrote:
-[...]
-> >> > Mainly hand-waving, but if we make _irq(), irqsave(), _disable()
-> >> > __acquires() different contexts, we may be able to catch these issues at
-> >> > compile time. I will explore a bit on this.
-> >> 
-> >> No.
-> >> 
-> >> Just do a wholesale conversion of all functions which affect the CPU
-> >> interrupt disabled state directly (local_irq_*) and indirectly (locking
-> >> functions etc.)
-> >> 
-> >> Anything else is just a whack a mole game.
-> >> 
-> >
-> > Alright. But I'm afraid that's just another type of whack-a-mole
-> > games.
-> 
-> I don't think so.
-> 
-> > As I mentioned here [1], we are a few unpaired local_irq_disable() +
-> > local_irq_enable(), we can spend time to clean them up, but no guarantee
-> > people will not introduce more, plus we have code that does
-> > spin_lock_irqsave(); spin_unlock_irq(); spin_lock_irq();
-> > spin_unlock_irqrestore(); and expect it works.
-> 
-> It actually works and there are reasons why this needs to work in
-> certain cases. It needs some support with a different set of helper
-> functions for sure.
-> 
-> I played around with changing local_irq_disab/enable/save/restore almost
-> two decades ago when cli/sti was expensive, so we could do a lazy
-> disable approach. It went nowhere because it turned out to be too
-> complex to handle the interrupts which hit a lazy disabled region later,
-> but the principle itself worked.
-> 
-> I dealt with the above example by doing:
-> 
->   oldcnt = irq_save()   	return cnt++;
->   irq_restore(oldcnt)		cnt = oldcnt;
->   irq_disable()  		cnt=1;
->   irq_enable()  		cnt=0;
-> 
-> See below.
-> 
-> > A more reasonable approach to me is introducing the new API and fixing
-> > the problematic usage one-by-one and then when we are certain about
-> > only a few cases left, we do a flag day change.
-> 
-> You already did a flag day change which causes problems, no?
-> 
+Add documentation for Airoha AN7583 USB PHY that describe the USB PHY
+for the USB controller.
 
-(I will reply a few things here, and will read through your suggestions
-below, and reply them latter.)
+Airoha AN7583 SoC support a maximum of 2 USB port. The USB 2.0 mode is
+always supported. The USB 3.0 mode is optional and depends on the Serdes
+mode currently configured on the system for the relevant USB port.
 
+To correctly calibrate, the USB 2.0 port require correct value in
+"airoha,usb2-monitor-clk-sel" property. Both the 2 USB 2.0 port permit
+selecting one of the 4 monitor clock for calibration (internal clock not
+exposed to the system) but each port have only one of the 4 actually
+connected in HW hence the correct value needs to be specified in DT
+based on board and the physical port. Normally it's monitor clock 1 for
+USB1 and monitor clock 2 for USB2.
 
-Right, but that was an attempt to see if we could switch to
-scoped_guard() implementation to the new infrastructure (see below) in
-this stage. Clearly we cannot because I overlooked cases like
-posix_timer_delete(), but itself is not trying to introduce the new API.
+To correctly setup the Serdes mode attached to the USB 3.0 mode, a phys
+property is required with the phandle pointing to the correct Serdes port
+provided by the SCU node. Providing the phys property is optional if USB
+3.0 is not used.
 
-> The main problem is that you cover only half of it and there are
-> completely correct cases where this simply blows up in your face:
-> 
->   local_irq_disable();                          // does not affect CNT
->   ....
->   guard(raw_spinlock)(&l1);                     // does not affect CNT
->      foo()
->        guard(raw_spinlock_irqsave)(&l2);        // observes CNT = 0
-> 
-> so the unlocking of &l2 will enable interrupts prematurely.
-> 
+Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+---
+ .../bindings/phy/airoha,an7583-usb-phy.yaml   | 133 ++++++++++++++++++
+ 1 file changed, 133 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/phy/airoha,an7583-usb-phy.yaml
 
-If we are talking the switch in this patch, then no, the unlocking
-of &l2 will NOT enable interrupts prematurely. The above code expands as
-the following (using pseudo code to describe how
-raw_spin_lock_irq_disable(), raw_spin_lock_irq_enable(),
-local_interrupt_disable(), and local_interrupt_enable() work)
+diff --git a/Documentation/devicetree/bindings/phy/airoha,an7583-usb-phy.yaml b/Documentation/devicetree/bindings/phy/airoha,an7583-usb-phy.yaml
+new file mode 100644
+index 000000000000..7ec655253a8e
+--- /dev/null
++++ b/Documentation/devicetree/bindings/phy/airoha,an7583-usb-phy.yaml
+@@ -0,0 +1,133 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/phy/airoha,an7583-usb-phy.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Airoha AN7581 SoC USB PHY
++
++maintainers:
++  - Christian Marangi <ansuelsmth@gmail.com>
++
++description: >
++  The Airoha AN7583 SoC USB PHY describes the USB PHY for the USB controller..
++
++  Airoha AN7583 SoC support a maximum of 2 USB port. The USB 2.0 mode is
++  always supported. The USB 3.0 mode is optional and depends on the Serdes
++  mode currently configured on the system for the relevant USB port.
++
++  On Airoha AN7583 there is an unified PHY implementation where a single
++  PHY provide support for both the 2 USB 2.0 port and
++  optionally one 3.0 USB.
++
++properties:
++  compatible:
++    const: airoha,an7583-usb-phy
++
++  reg:
++    items:
++      - description: phy register
++      - description: ana register
++      - description: pma register
++      - description: dig register
++
++  reg-names:
++    items:
++      - const: phy
++      - const: ana
++      - const: pma
++      - const: dig
++
++  '#address-cells':
++    const: 1
++
++  '#size-cells':
++    const: 0
++
++  usb3-phy:
++    type: object
++
++    properties:
++      phys:
++        items:
++          - description: phandle to Serdes PHY
++
++      '#phy-cells':
++        description: The cell contains the mode, PHY_TYPE_USB2 or PHY_TYPE_USB3,
++          as defined in dt-bindings/phy/phy.h.
++        const: 1
++
++    required:
++      - phys
++      - '#phy-cells'
++
++    additionalProperties: false
++
++patternProperties:
++  '^usb2-phy@[0-9-a-f]+$':
++    type: object
++
++    properties:
++      reg:
++        enum: [0x0, 0x1000]
++
++      airoha,usb2-monitor-clk-sel:
++        description: Describe what oscillator across the available 4
++          should be selected for USB 2.0 Slew Rate calibration.
++        $ref: /schemas/types.yaml#/definitions/uint32
++        enum: [0, 1, 2, 3]
++
++      '#phy-cells':
++        description: The cell contains the mode, PHY_TYPE_USB2 or PHY_TYPE_USB3,
++          as defined in dt-bindings/phy/phy.h.
++        const: 1
++
++    required:
++      - reg
++      - airoha,usb2-monitor-clk-sel
++      - '#phy-cells'
++
++    additionalProperties: false
++
++required:
++  - compatible
++  - reg
++  - reg-names
++  - '#address-cells'
++  - '#size-cells'
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    phy@1fac0000 {
++        compatible = "airoha,an7583-usb-phy";
++        reg = <0x1fac0000 0x11ff>,
++              <0x1fa6f000 0xff>,
++              <0x1fa6e000 0x3ff>,
++              <0x1fa6a000 0x8ff>;
++        reg-names = "phy", "ana", "pma", "dig";
++
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        usb2-phy@0 {
++            reg = <0x0>;
++            airoha,usb2-monitor-clk-sel = <0>;
++
++            #phy-cells = <1>;
++        };
++
++        usb2-phy@1000 {
++            reg = <0x1000>;
++            airoha,usb2-monitor-clk-sel = <1>;
++
++            #phy-cells = <1>;
++        };
++
++        usb3-phy {
++            phys = <&serdes_phy>;
++
++            #phy-cells = <1>;
++        };
++    };
+-- 
+2.53.0
 
-   local_irq_disable();                          // does not affect CNT
-   ....
-   guard(raw_spinlock)(&l1);                     // does not affect CNT
-      foo()
-        guard(raw_spinlock_irqsave)(&l2): 
-          raw_spin_lock_irq_disable():
-            local_interrupt_disable():
-	      CNT++;
-              this_cpu(state) = local_irq_save(); // record the current state
-            raw_spin_lock(&l2);
-	  ...
-          raw_spin_lock_irq_enable():
-            raw_spin_unlock(&l2);
-            local_interrupt_enable():
-              CNT--;
-              if (CNT == 0)
-                local_irq_restore(this_cpu(state)); // recover the previous state
-
-So local_interrupt_disable() and local_interrupt_enable() only recover
-to the previous state, as a result it'll not enable interrupt
-prematurely here. In other words, the following code works:
-
-    local_irq_disable();
-    local_interrupt_disable();
-    local_interrupt_enable();  // interrupt is not re-enabled here
-                               // similar to how preempt_disable() does
-			       // in a nested preemption disable
-			       // critical section.
-    local_irq_enable();
-
-These functions are the infrastructure thing you talk about below:
-
-(they are introduced in commit e901c1510e24 ("irq,spin_lock: Add counted
-interrupt disabling/enabling"))
-
-* local_interrupt_disable()
-* local_interrupt_enable()
-* raw_spin_lock_irq_disable()
-* raw_spin_lock_irq_enable()
-
-They currently work when nested in local_irq_disable() or
-local_irq_save() because of the per-CPU irq state tracking when CNT
-reaches 0->1 or 1->0.
-
-> That's a very common scheme in interrupt handling. Functions which know
-> they are always invoked with interrupts disabled use raw_spinlock()
-> while others which can be invoked from different contexts use the
-> irqsave() variant.
-> 
-> Also the lack of rwlock support is a red flag. Again completely valid
-
-We could use local_interrupt_disable() and local_interrupt_enable() to
-implement a new API for rwlock when the support is needed in the future.
-
-> code:
-> 
->      read_lock_irq()
->      ...
->      guard(spinlock_irqsave)();
-> 
-> Same issue as above.
-> 
-
-Similar as above, no issue in this case.
-
-> There are more subtle problems lurking around the corner.
-> 
-> > Trying to do it (new API and whole conversion) in one go is easier
-> > said than done. Of course I might miss something subtle here, looking
-> > forwards to your suggestion.
-> 
-> I did not say it's easy and I did not say that you have to do both in
-> one go, which is impossible.
-> 
-> You have to do it in stages, which means you put the infrastructure in
-> place first and then once that is settled you build the new API on top
-> if required at all. Building a new API first and hoping that it works
-> out without actually addressing the underlying issues first is just a
-> recipe for disaster.
-> 
-
-I agree and that is actually what I did here: adding the infrastructure
-local_interrupt_disable() and local_interrupt_enable() and gradually
-using that infrastructure to support building new API (or existing API).
-`
-The part that went wrong for this particular patch was I was missing the
-usage similar to posix_timer_delete() cases where users want to drop the
-lock under scoped_guard context, I have a proposal in another reply,
-and I think that might be better way, but of course the infrastructure
-can support without it, we just need to postpone the implementation
-switch of scoped_guard() until it's ready.
-
-All I'm trying to say here is I'm doing this slow and steady :)
-
-[I will take a deep look for the following later, I feel I need to reply
-above in case I or the patch confused you somehow]
-
-Regards,
-Boqun
-
-> interrupt flags of the CPU and that's definitely not locking.  That's
-> only a couple of functions plus a few related helpers:
-> 
->    raw_local_irq_disable()
->    raw_local_irq_enable()
->    raw_local_irq_save()
->    raw_local_irq_restore()
-> 
-> If you actually look at the usage of the 'flags' argument of
-> raw_local_irq_save() and raw_local_irq_restore() then you'll notice that
-> it's a completely opaque cookie. Validating that there is no user which
-> is actually interested in seeing the real flags should be trivial
-> enough. A quick skim of x86 revealed exactly zero places, but I might
-> have missed one of course.
-> 
-> So you can get away with:
-> 
-> raw_local_irq_save(flags)
-> {
-> 	flags = count;
-> 	if (!count)
->         	arch_local_irq_disable();
->         count++;
-> }
-> 
-> raw_local_irq_restore(flags)
-> {
-> 	if (!(count = flags))
->         	arch_local_irq_enable();
-> }
-> 
-> raw_local_irq_disable()
-> {
->         arch_local_irq_disable();
->         count = 1;
-> }
-> 
-> raw_local_irq_enable()
-> {
->         count = 0;
->         arch_local_irq_enable();
-> }
-> 
-> To make this work you need to deal with the obvious race conditions
-> between modifying the counter and modifying the CPU flag, which is
-> relevant for all hardware initiated context changes (syscalls,
-> interrupts, exceptions, NMI).
-> 
-> In enter_from_user_mode() is trivial. All you need to add is an
-> unconditional
-> 
->         count = 1;
-> 
-> because interrupts are enabled when a task runs in user space. On entry
-> to the kernel (syscall, interrupt, exception, NMI) the CPU disables
-> interrupts so you have to reflect that in the software counter.
-> 
-> exit_to_user_mode() requires then obviously:
-> 
->         count = 0;
-> 
-> irqentry_enter_from_kernel_mode() is a bit more tricky because count and
-> the actual interrupt flags state in the CPU can be out of sync as you
-> can see in all four related functions above. But that's easy enough to
-> cure:
-> 
->         irqentry_state_t ret = {
->                 .exit_rcu = false,
->         };
-> 
->         ret.irqdisable_cnt = count;
-> 	count = 1;
-> 
-> Setting it to 1 is the correct thing to do as this is fresh context and
-> it's safe for exception handlers which conditionally enable interrupts
-> because they explicitly rely on checking regs->eflags to figure out
-> whether the interrupted context had interrupts enabled.
-> 
-> That also makes this horrible hack in __irq_exit_rcu() go away because
-> the state is fully consistent.
-> 
-> In irqentry_exit_to_kernel_mode_after_preempt()
-> 
->        count = state.irqdisable_cnt;
-> 
-> In irqentry_nmi_enter() and irqentry_nmi_exit() you need exactly the
-> same.
-> 
-> With that you have a fully consistent and working system. Not what you
-> are aiming for in the very end, but a first step to cover the existing
-> code base fully without nasty to debug surprises.
-> 
-> Now you need to handle the oddball cases which nest an interrupt
-> enable/disable pair into a irqsave/restore region like the one in the
-> scheduler and the other in posix timers.
-> 
-> First of all, most of these places can be found by code analysis. When I
-> saw the one in the scheduler I whipped up a trivial coccinelle script
-> which found the one in posix timers immediately.
-> 
-> Then you can obviously add debug variants of those functions which are
-> conditional by an explicit config switch and emit warnings which are
-> easy enough to distinguish so that automated testing failures do not
-> result in a "paper over the problem" frenzy.
-> 
-> For dealing with those cases you want something like this:
-> 
-> raw_local_irq_enable_nested()
-> {
-> 	cur = count;
->         count = 0;
->         arch_local_irq_enable();
->         return cur;        
-> }
-> 
-> raw_local_irq_disable_nested(oldcnt)
-> {
->         arch_local_irq_disable();
->         count = oldcnt; 
-> }
-> 
-> Once all this headache is gone, you can modify the underlying machinery
-> without touching any other code at all and make the debug code a real
-> (lockdep) warning which has to be treated like any other splat.
-> 
-> See?
-> 
-> Thanks,
-> 
->         tglx
