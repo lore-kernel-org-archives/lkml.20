@@ -1,121 +1,73 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7CC03FB7E7
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:40:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EF73353A87
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:42:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787827249; cv=none; b=rd8E89q9QvE5jADySJGykadx+vT0uIG9EXGurl0TzmqK2kWKxycgHjK20WbTDF5DUmoqi6SZ9mM/Z7G1HF3NtCPT1Oh8CWTT2MGGhp6yVxaXsxSOrJwEz0JkCMAxKwh8zVNu6spMkIKiYRutRLOWsTr7mPTTKpMDLS6WDkEv6gw=
+	t=1787827323; cv=none; b=lXimqYRL26hRzVtXVCJrMBlj4ho2gM6ug5CJfay233HDmVwN7fCBjIMb1N31A9X8dCByRUZHicKWQpuxkp4R98qzYq66EQaJ6xnRcRcUx3zZltOfhao0hhAl9pNdi/NGk/OJrfudaTmjklmlZpUnrSsM5yDh40zqgeu/1QhLCRc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787827249; c=relaxed/simple;
-	bh=qHPCKGJ5o2tW+ZfnmNwZX4C95z8aSkgBAksEB0VrNkI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uLpNcqkXW0jn2w8ebsSAHQBqYks5NjGcGsEOO/WK06UYv9fHQUVvkBAoIsdjJEIWp5Cw3gai6Wonjr1EfBy47dO7Vb29gZqcugJKKazVx/feVMY1J0t33SA/S9yiExEmzT+Oczdf3ZmIgWfhhy7/BkAKHuwX12hK3qm0e7ENczo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AsvqKtdd; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AsvqKtdd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 656F61F00A3D
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:40:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787827248;
-	bh=9doIWBCQoxCqx/1P47ArUtpVwldGAPkQhgto/funho8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=AsvqKtddY7qZDpRoWiPI9OJ6VnRT2VPGZs+G20oTp8OB6+0tESkGI08Kp9tWTe+Rw
-	 KhtPMDbkOwApIfPE5CJ1QKlir1UYArj5PtRs+OKbPiHbBNxCWEpi/UywXxfKj4f/mv
-	 EE3vT6NP65961pmp5M/zDcniEYSl7gBYTSnMjRgl8+qQ/FOI8jlr4Pa2YrhyHOX3ZL
-	 vnWbjYnLA2cg/3BrKhGsaVfGYz+EIqYBtDtREKAhkSQpmiA0I/PkBI+xLb5wGR1QPR
-	 Trf/nIr8qe0VHkktvWJC/X2zNzlBm5LmYMGwXkn4Z6UAAWwOBAlikeh9MtX6aZetYH
-	 jywKN25vQ//wg==
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5b4ab40d839so445719e87.3
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 03:40:48 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqHI8SrmzLvZRl6tgNd+J8IhPDPVtWLXFv7WDASQan3/wVoO4TUqdsGcuFIFOXhhYZ6d36oqDBDCV43dzU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mGrqk++c7HTQmmLW7xi9GP8b8IEXffYr7JsK5ZwcYOtaGwtre6
-	1v7GppDhYaiStjJ9lWZgDXrtZxOIkxD07aKcnI+++sHmWI79L8aoBXL5C8yAhcIBUzZskktvRrP
-	zQCX4a7hljJ2/Bx6kruCO55M57ztAKIU=
-X-Received: by 2002:a05:6512:b0a:b0:5b4:ac27:6bb8 with SMTP id
- 2adb3069b0e04-5b4ac276cc0mr3937680e87.12.1787827246768; Thu, 27 Aug 2026
- 03:40:46 -0700 (PDT)
+	s=arc-20240116; t=1787827323; c=relaxed/simple;
+	bh=flCGS/7PHk+0hoFqtcQUigtTrygkVNvcRIaWkVdKTrE=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=I/lodiIvZLQEbERldmjCwwckmwpcPjHbZe0DA6rF4p4/mIQ5Cfkj3t1zKlo49c0yy+WPvm1vvvOoM84mQhwRr10LM+z4HvJnUzJZoKAuDIg5QgdmoKkh5lOJfQzVBv+mTgVG39GB30bCiQz6RoTlmFn9MUQj+3/fQa4IU3Y0yFE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b28d7ffab1so1711325b6e.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 03:42:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787827321; x=1788432121;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=d1gnvgJOAISuTZRMtpIvypONLcOhVuVvfZm8n7xlhSQ=;
+        b=i1j6b1u99q7uxIi0aa6DZkUfHbPxi2WKGMKGHbo2m5csgWYmnr02dnqchPegh9pEhj
+         u7ch9RiB1pByJKeFuEaPCW1FxhML0wUBo/u2IMuJ+H3vrHw2X48oxR+MRiDh7TRIBP27
+         KCjA4yzwC+/EQ1advLrtShsSjgFZQGMaJwz/uNpwJrUDe7ZwU6BkQidCzPArekSoiMhl
+         TE82+eyVrbhGafhbbt1NPtalBj4EI4RgJqKlKK2kordZ5K4eXCeorEiTCKoCWnT/oE3C
+         /1vtDEW04XA0bago929yK/tlgHXFzuW5uO4t+Ez9zmJA01D/8q5ftn/uofo4q5jnxfVg
+         wizQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rpry4IEoI1zlvJ+NpmcEFcP2e8jR3bZsXeVKoyGTOnzpyf55spNjSnhP+XYDv839UiU5fXlnhkYIa1FCIc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nhYSK/kKLOrwCBa0EbbElFZh7KyCa61DFMjfL+Hxo2krq+voBI
+	XHgbpARd0mH5yxJWDasqfA6wuCLABT4lzKNSvU21EBoqAondrgiNNwLGsinLdDcZKf77ow/kvF1
+	ssPnZ2foMdyQ5e9Wenn2yaZEd6b1a3Q76XyTE96hv/VrKP8DWY53TgPSkscY=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260827090505.3703860-1-luoxueqin@kylinos.cn>
-In-Reply-To: <20260827090505.3703860-1-luoxueqin@kylinos.cn>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Thu, 27 Aug 2026 12:39:59 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0gcsx6nsCBWfDjP7OEez2jM3-hNj8kSSm=xH5nS_fNSug@mail.gmail.com>
-X-Gm-Features: AcwNN1Vek8nxWavwBJ9nh-QHuAf7fGOEShayoPRzS6wWOf-UH3Dz_NBpbGflO50
-Message-ID: <CAJZ5v0gcsx6nsCBWfDjP7OEez2jM3-hNj8kSSm=xH5nS_fNSug@mail.gmail.com>
-Subject: Re: [PATCH] cpuidle: teo: Do not return a disabled idle state
-To: Xueqin Luo <luoxueqin@kylinos.cn>
-Cc: rafael@kernel.org, daniel.lezcano@kernel.org, christian.loehle@arm.com, 
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Received: by 2002:a05:6808:2222:b0:4b2:8e26:bdd2 with SMTP id
+ 5614622812f47-4b37cb42309mr5284504b6e.16.1787827321373; Thu, 27 Aug 2026
+ 03:42:01 -0700 (PDT)
+Date: Thu, 27 Aug 2026 03:42:01 -0700
+In-Reply-To: <20260827102831.21012-1-jeffinphilip14@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a901479.4d659fcc.734b4.000e.GAE@google.com>
+Subject: Re: [syzbot] [sound?] BUG: unable to handle kernel NULL pointer
+ dereference in snd_ctl_led_get
+From: syzbot <syzbot+b7fe2760ea6f1ee44b4d@syzkaller.appspotmail.com>
+To: jeffinphilip14@gmail.com, linux-kernel@vger.kernel.org, 
+	linux-sound@vger.kernel.org, syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Aug 27, 2026 at 11:05=E2=80=AFAM Xueqin Luo <luoxueqin@kylinos.cn> =
-wrote:
->
-> If idle state 0 is disabled and none of the enabled idle states satisfies
-> the PM QoS latency constraint, constraint_idx in teo_select() stays at it=
-s
-> initial value of 0, because the loop that updates it starts at state 1,
-> and so the candidate state index is capped at state 0, which is disabled,
-> and that state is returned to the caller.
->
-> The cpuidle core does not validate the returned state index against the
-> per-state disable flags, so the CPU ends up entering the disabled state 0=
-.
->
-> Address this by falling back to the shallowest enabled idle state, found
-> by the same loop that computes the candidate, whenever the state selected
-> by the latency constraint check turns out to be disabled.
->
-> Note that if none of the enabled idle states meets the latency constraint=
-,
-> choosing the shallowest enabled one is the least intrusive option, and it
-> is also consistent with the behavior of the menu governor.
->
-> Fixes: c410a9a142f1 ("cpuidle: teo: Change the main idle state selection =
-logic")
-> Signed-off-by: Xueqin Luo <luoxueqin@kylinos.cn>
-> ---
->  drivers/cpuidle/governors/teo.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
->
-> diff --git a/drivers/cpuidle/governors/teo.c b/drivers/cpuidle/governors/=
-teo.c
-> index ac43b9b013b3..b4b14c86b2a9 100644
-> --- a/drivers/cpuidle/governors/teo.c
-> +++ b/drivers/cpuidle/governors/teo.c
-> @@ -433,6 +433,14 @@ static int teo_select(struct cpuidle_driver *drv, st=
-ruct cpuidle_device *dev,
+Hello,
 
-I would instead add the following conditional here:
+syzbot tried to test the proposed patch but the build/boot failed:
 
-if (idx0 < constraint_idx)
-        constraint_idx =3D idx0;
+sound/core/control_led.c:117:50: error: expected ')' before 'return'
+sound/core/control_led.c:134:1: error: expected expression before '}' token
+sound/core/control_led.c:134:1: error: no return statement in function returning non-void [-Werror=return-type]
 
->         if (idx > constraint_idx)
->                 idx =3D constraint_idx;
->
-> +       /*
-> +        * If the state selected above is disabled, which is only possibl=
-e if
-> +        * it is state 0 (all of the enabled states violate the latency
-> +        * constraint in that case), fall back to the shallowest enabled =
-one.
-> +        */
-> +       if (dev->states_usage[idx].disable)
-> +               idx =3D idx0;
-> +
->         /*
->          * If the tick has not been stopped and either the candidate stat=
-e is
->          * state 0 or its target residency is low enough, there is basica=
-lly
-> --
-> 2.43.0
->
+
+Tested on:
+
+commit:         818bebeb drm/xe: Don't hand out the flat CCS storage a..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
+dashboard link: https://syzkaller.appspot.com/bug?extid=b7fe2760ea6f1ee44b4d
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=11abd579580000
+
