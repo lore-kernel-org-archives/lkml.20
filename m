@@ -1,138 +1,105 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C599427AC57;
-	Thu, 27 Aug 2026 03:37:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF6B535F5F8;
+	Thu, 27 Aug 2026 03:38:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787801879; cv=none; b=L2pbwxftAioWG8u470PpkSDDGGlZ2E6opv1QlCwv41LLWlvip02lB5XEEFKWMI/2t2G5cPsUGPMhynuHRSGaMbtGlQD+gtivMYVCK/Y9DQ4xV39hsbKBYYRMKvd6NZYl2MhYZ2JXVzDcK1Ku0FmBMkXZ3degpwvV81O+oKnUNW8=
+	t=1787801893; cv=none; b=ORgIPbDAEb3YBTp1FAMFiKi8lnZQGsEGc29QyRO5aQQC6L9x1NnhlI1VneFpKt9G2cGJJbfYjKHBr9fhqfzHW0pnkpw8vj61nO+WjkK19PmG57ypRs4oCECxpeNV6ppe92l3KVEFSnzWz3SsgL2gTSxbkwJQbNmmPGdCtmx/u20=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787801879; c=relaxed/simple;
-	bh=30xqhXVuW50Xi8gBUXoBjow+R6JQELvl8rH7ykpfKKA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=N23d5gNOVZmwCWBjNHoLp9DyX2ICcLx8oFgRyBv39kdj/0jRvBYl8CoorYhgyfxhVgZgtvchgu9r0en2eBjcFawpy1TOpLYeCQHt80hrq3ZZX9sJJFjfhy8weHRGlwEzJq4AZsH27egrlOyL+ikcjnyJFxZHoWDjAicj30eeWHU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=dpFrl0GO; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1787801893; c=relaxed/simple;
+	bh=g5eTbeyaFwMQv6+VWTLvGXuFzgzDx/Qub9ihtnGAQWk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Ezpl+AsEn04+2//VDN1iVncUoTtpCARcsn/E5pnm7QaHldFAmL77DVrCxD3DOpmb9oJwnt8bvrcTd5P+DTAygeglY4VUX6Q9RQ49D7zNUB/9oZMk6tSta9GPmxyWmffXcsE5GtNFsb1lj0aSccU5R5pu0OoBnN9Z0xOu0Gombv4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KLijvmtT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="dpFrl0GO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=XtavyOH0DxwVIQ6iw4IhqocgatWfmZ/qQBc1GNH3Eq0=;
-	b=dpFrl0GOCgCvm6neta/l37pfeO/G20EGmWglOxh765BB+hJ6muU9tF7mxwcJVd
-	XU61eTQTWLKAaMYEv5LGo9tDV2idgc0geHlMXgC+hsJCKwNyArfmuUos2qhNtryq
-	KWrSsm2n5HB01P1AGqz76iPowKWrc1iJek2CHbbFUVZtc=
-Received: from [IPV6:2409:8900:1ef4:8f82:6a1b:f1a6:cbdd:11fe] (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wC3NIn0sI9qO69oSQ--.57593S2;
-	Thu, 27 Aug 2026 11:37:25 +0800 (CST)
-Message-ID: <bd197da8-a8ec-40ad-a50d-dc579840d680@163.com>
-Date: Thu, 27 Aug 2026 11:37:24 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KLijvmtT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22C0C1F000E9;
+	Thu, 27 Aug 2026 03:38:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787801892;
+	bh=qktSdDuw+LvPQ8hF169l4fiZgm7L5YFz3tdhT11hID0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=KLijvmtT4ozmnssDASNKKsX3XX1TGW48Lwt5kfA58YlXdV3+dCXmMJwhafGn53ZJ0
+	 aPWVLvqndAuLVjEO+VEjByrS+Z5gIfgfo6h9GHqHicV0PBDhuRH6qGoUhLjmBfQYnV
+	 /FfEsqMQdYF7wWcaGveByfi52Urf/mGKKaPTnQHK5MYWl3o9N62CCOBEd/eXd/aDLQ
+	 D27ks91tVY58VBPF2gc3RsMpxBUHyfO8LbcZ5g7u2cL9n3n8s7yWXzOvRA0Y324Xx7
+	 lgPAOlwzf2DJM+nkN6bA/jhQbbm9xMM/U/VDAWFvRTFwzROwQ5s6HKlqmrrhrVjq6f
+	 Dh8CUancv59Fw==
+From: SJ Park <sj@kernel.org>
+To: zhaozhengzhuo@uniontech.com
+Cc: SJ Park <sj@kernel.org>,
+	shuah@kernel.org,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] selftests/damon: prevent remaining cross-object state pollution
+Date: Wed, 26 Aug 2026 20:38:04 -0700
+Message-ID: <20260827033804.89392-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <38E4AAAAEDFCC283+20260827021515.1316838-1-zhaozhengzhuo@uniontech.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] ntfs: fix race between fallocate and mmap reads
-To: Hongling Zeng <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
- hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
- zhongling0719@126.com, stable@vger.kernel.org,
- Baolin Liu <liubaolin@kylinos.cn>
-References: <20260827031647.1605970-1-zenghongling@kylinos.cn>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <20260827031647.1605970-1-zenghongling@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wC3NIn0sI9qO69oSQ--.57593S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxZFWxXw4Dtw1rurW7Gw4UJwb_yoW5Wryxpr
-	ZFgF1UKws3XrWjgF1kKw48uF1rWw4Ig3y5urWfJ3WxZFn5KFn2gw1jkFs3WFyftFZ3Jr45
-	Xr1UXrZrua4av3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U39N-UUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwRbnsmqPsPYVKgAA3e
 
+Hello zhaozhengzhuo,
 
+On Thu, 27 Aug 2026 10:14:52 +0800 zhaozhengzhuo@uniontech.com wrote:
 
-在 2026/8/27 11:16, Hongling Zeng 写道:
-> The fallocate implementation only takes invalidate_lock for punch hole,
-> collapse range, and insert range operations. For standard allocation modes
-> (mode == 0, FALLOC_FL_KEEP_SIZE), the lock is not held.
+> From: zhaozhengzhuo <zhaozhengzhuo@uniontech.com>
 > 
-> During ntfs_attr_fallocate(), new clusters are mapped to the runlist via
-> ntfs_attr_map_cluster() before being zeroed by ntfs_dio_zero_range(). This
-> creates a window where concurrent mmap page faults can read uninitialized
-> disk data.
+> _damon_sysfs.py defines constructors with mutable default arguments,
+> including DamosAccessPattern(), DamosQuota(), DamosWatermarks(),
+> DamosDests(), IntervalsGoal(), and empty lists.
 > 
-> Since mmap uses filemap_fault() which takes invalidate_lock in shared mode,
-> it can fault in pages during this window and expose old disk contents to
-> userspace. This is an information leak and data integrity issue.
+> Default arguments are evaluated once at function definition time.
+> Damos() instances created without explicit arguments therefore share
+> the same DamosQuota(), and the other default-constructed sub-objects
+> and lists are shared in the same way.  The sub-objects keep
+> back-pointers to their owner scheme, so constructing the second Damos()
+> rebinds the shared quota's scheme pointer to the second object.  An
+> item appended to one object's default contexts or filters list is also
+> visible from other default-constructed objects.
 > 
-> Fix by taking invalidate_lock for all fallocate operations, not just for
-> punch/collapse/insert modes. This prevents concurrent page faults from
-> accessing unzeroed clusters during the allocation window.
+> The shared state can corrupt test configurations.  DamosQuota.sysfs_dir()
+> derives the sysfs directory from its scheme pointer, so operating on
+> the first scheme's default quota may write to the second scheme's
+> directory.  The wrong values often match the defaults, so tests still
+> pass, but the behavior depends on object creation order.
+
+I agree all the points.  This should be fixed.  That said, these are only
+possible future issues.  No existing test is broken, right?
+
 > 
-> Fixes: 495e90fa3348 ("ntfs: update attrib operations")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
-> Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
-> Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
-> ---
-> Change in v2:
->   -Remove now-unnecessary map_locked variable.
-> ---
->   fs/ntfs/file.c | 7 ++-----
->   1 file changed, 2 insertions(+), 5 deletions(-)
+> Commit 8319dadcbd81 ("selftests/damon: prevent cross-context state
+> pollution in DamonCtx") fixed the same pattern in DamonCtx only.  Fix
+> the remaining constructors by defaulting to None and creating fresh
+> objects or lists inside each constructor.  Explicit arguments keep
+> their previous behavior.
+
+Thank you for fixing this, looks good to me!
+
 > 
-> diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
-> index 88747217ba61..779baafa0319 100644
-> --- a/fs/ntfs/file.c
-> +++ b/fs/ntfs/file.c
-> @@ -1153,11 +1153,8 @@ static long ntfs_fallocate(struct file *file, int mode, loff_t offset, loff_t le
->   	}
->   
->   	inode_dio_wait(vi);
-> -	if (mode & (FALLOC_FL_PUNCH_HOLE | FALLOC_FL_COLLAPSE_RANGE |
-> -		    FALLOC_FL_INSERT_RANGE)) {
-> -		filemap_invalidate_lock(vi->i_mapping);
-> -		map_locked = true;
-> -	}
-> +	/* Take invalidate_lock for all fallocate operations to prevent races */
-> +	filemap_invalidate_lock(vi->i_mapping);
->   
->   	switch (mode & FALLOC_FL_MODE_MASK) {
->   	case FALLOC_FL_ALLOCATE_RANGE:
+> Signed-off-by: zhaozhengzhuo <zhaozhengzhuo@uniontech.com>
 
-Hi Hyunchul and Hongling,
+Reviewed-by: SJ Park <sj@kernel.org>
 
-I think map_locked might still be needed though.
+This patch is applied to damon/next [1] tree.  If this patch is not added to
+mm.git in short term (~1 week?), I will ask mm.git maintainer (Andrew Morton)
+to pick this.  So, no action from your side is needed for now.  If it seems I
+also forgot doing that or you cannot wait for my action, please feel free to
+directly ask that to Andrew.
 
-Before filemap_invalidate_lock() is taken, there's this check:
+[1] https://origin.kernel.org/doc/html/latest/mm/damon/maintainer-profile.html#scm-trees
 
-         inode_lock(vi);
-         if (NInoCompressed(ni) || NInoEncrypted(ni) || 
-NInoWofCompressed(ni)) {
-                 err = -EOPNOTSUPP;
-                 goto out;
-         }
-
-         inode_dio_wait(vi);
-         filemap_invalidate_lock(vi->i_mapping);
-
-If that goto is taken, we reach the exit path without having locked.
-Without map_locked, we'd call filemap_invalidate_unlock() on a lock
-we never took.
-
-Would it make sense to either:
-1. Keep map_locked as a guard for the unlock, or
-2. Change that goto to inode_unlock() + direct return, so the shared
-      exit path always holds the lock?
-
-I'd appreciate your thoughts on this.
-
-Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
 
 Thanks,
-Baolin.
+SJ
 
+[...]
