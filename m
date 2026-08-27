@@ -1,122 +1,228 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA2B01E0DE8
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:21:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24582499F12
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:21:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787851295; cv=none; b=C6d2ECT7L6CZdOmp/ORZxqBETlpgs/4xIEn9I+oq43R4Jw5iZ5KI109fWq1W30XBxztvtbOadsvhBZb79g+LpGxodxGH+1Vr4ZTwopSWrvNR/9pB7Q6RrO2ZHMKmQExEhUQSiGLxwYRhvGRGzIE/Kfz8oU3wuEN+izIXwJUPHF0=
+	t=1787851297; cv=none; b=bVWr0Z/4F4lR3U12JVeYpwLpbnQjNwB//HCmFC5WT8FaH6xKPhRpEB77XenPYOqeHsfe+pFN3SW5BHVaSnxRxrVtCC79L/qqzAjqpEOs1mq+pr5VR28s8VQGwTfJCQik1RTRZg28tOtFFROCeEE1bkvGf6KPMg4yLCQd91YLY28=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787851295; c=relaxed/simple;
-	bh=TUonyImlFY/rVwlfDRO8v/UDvMzUF1i/lMk0MIe4OQY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=MGmpSwINwjNbP8Fv5zj7jkkcywhq6Hyu/bzCk72lVwmKMMYUqWQCs8HEPmywLBZLDly0cKEXafVgqhi5MTtEEaf8r23Ww+E6h3WzPV+17VGLwHoGHPpw6sX9vA5wFhXtUH+P0uf/9Gpt1ddGDIU0IYQu2nSzVcW/bfKFJgrtEdc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Pcw5T/F/; arc=none smtp.client-ip=209.85.216.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787851297; c=relaxed/simple;
+	bh=Q2vX2PKqgnf/DT3s06TtwCDpR39+I5KACde3Q2QRvJw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=j1UYWQXmkK0BCRaw2Z9jk+p8utL3Fnan+pXjopMAMl2UZRCY92j0lQbXz+0be6V5stMND/3a7rSmDHPuxJN5XNi+FCDVGBY2hQm6FILKwL3b5egiZfpdWCYuDDcHOEQ3QjN3vXPMjgXpMB0oE3kiXimIR5JuKhv8HlJHj5M9gSs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JOkLBXoZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pcw5T/F/"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3964dfb5b9aso272556a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:21:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787851293; x=1788456093; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=F4arbSueCZ9tfuttAJ7Jp1lnf9RoIfNdNZ1KOU8xkt0=;
-        b=Pcw5T/F/ZBt9n41E+hERCR85NlqKpFAI492ZQceN39hdQCtM3T8eEQpf/Nl6Csi9QM
-         S98cKf6csMDeaAgh/Se5zRR6/jXWQaYrSGvr6dk2+MAr0xhfcECiXJrh8TEBA7PWo1Lu
-         O4gVuhMDKbjuK56klQ2FPSjg+XrR23s3XJNq/4hfw4J2oRQLUZJqiifBpzkLvsFNNjJM
-         PD3lNjWVQWIpYD5SnL1ukcbmOTureBZhXanSkAuXa5mI/6pxCQcFll9vbmvqDco526TH
-         Nim7+yaJyJ1avrt7W9DfkM1nct3cei9TYhr38766VLT0NMpkWlOl8M14kGrZvhRIdrfk
-         KSiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787851293; x=1788456093;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=F4arbSueCZ9tfuttAJ7Jp1lnf9RoIfNdNZ1KOU8xkt0=;
-        b=QyWaqE/1OsfioR9M1eWjq15R2qpcAL4G4Dvw8YKbP5UVWMv0IKSKMKCrMGmTHyInwz
-         PI3vp3WSEg772EhGi4RP5AOowp+CHFX3q+41bxpKrbz0Ciy3C1tAHZCaYh0lh8Rk7am3
-         OJV8eCKiC7OWRYd/6V5eCEB//EY5388vp+lfn5/h/sILazhM2Z4EKp3EgF7fHIHSGNnG
-         1D3qDchX4DDQ4CXI2wODAJfDhRtg6xDs7CYCJvj4S+s3UtB/zSffL1VVrNt2UZ2BxsX5
-         IteQ6myJ2H484SAUFFbjqKJsYxTA0G++o53BTCSf68tn+KRUUs5R+VIUbvpMy9DS+JgJ
-         sIWg==
-X-Forwarded-Encrypted: i=1; AHgh+Rrfqqveavtg9pv6MJLdp4MAmjMNsmx0VaE5laVB+luOcTMteRS9aQgN+5WJi0cFdMBU3VPvx/C1mlPWa6Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++nJtajEpruo+ecdLkWM2AP9GQdxeALPD2QkMLdv899W0lTb8I5B
-	+frth8W1F0cIEl2SkmnGtwBHcQKdZhOiIpnQoXMjHWOcJPTzgipRxMX1
-X-Gm-Gg: AR+sD10hmp7XtIboTZMJz/+xE7Mvpciu4LzTLPGC3ybSeFUGohWs0A0GfnAoB4W5B2J
-	+l61RE/GTAjnpg7bJMhMwIxevmOmaWqjfzvQoFlJ5LGHNIgLMnlng77nAUW4WxP2/1KQG0zyxk9
-	i0toUj7L1yQ8Bv/Mk+B2YgR+nzr7KqwTMeXfYW33wRawI/c9D1q99HLKjOkc5ZxxR3ByhHVhDHX
-	zJr2EPyZ1M5v8ikSEcorYtYoszSWAkEOS26bmJ5QM1R+0c8zTDWmMCnwOKq78Q+/iDjO2aODOYk
-	VhSgfB63L8tM3EPwZtP/5CDPvkNAwEePC56AnrGvJyuPE8pLNmaOmdyd26BdEj2QLubHyGacjY4
-	D0ragy7nEGhXOHKXp1nBPSPyXkf/9u/jSWiMzVwpKzJoWtQeQslb7aaC1L/QmidsIoQyDAByAxf
-	gxpvu9nhJDcN5r+gE4bAYAqlGLVaiK9Tj1Z3aw5Wc9lIp9YraBZTgM4CGVDAXdJWbl5aqA+R0vv
-	3UVYRgWTF5iWImmo+WWTZZ1GcAdlNKHw+8f
-X-Received: by 2002:a17:90a:e185:b0:37f:eafd:3505 with SMTP id 98e67ed59e1d1-396d0ecbdb9mr1509289a91.6.1787851293068;
-        Thu, 27 Aug 2026 10:21:33 -0700 (PDT)
-Received: from debian.ari ([47.30.51.191])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a8eedd13sm17797165c88.1.2026.08.27.10.21.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 10:21:32 -0700 (PDT)
-From: Archit Anant <architanant5@gmail.com>
-To: jic23@kernel.org
-Cc: dlechner@baylibre.com,
-	andy@kernel.org,
-	nuno.sa@analog.com,
-	u.kleine-koenig@baylibre.com,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Archit Anant <architanant5@gmail.com>
-Subject: [PATCH v4 0/8] iio: adc: ti-ads1015: modernize driver
-Date: Thu, 27 Aug 2026 22:50:52 +0530
-Message-Id: <20260827172100.39176-1-architanant5@gmail.com>
-X-Mailer: git-send-email 2.39.5
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JOkLBXoZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CED8B1F00A3E
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:21:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787851295;
+	bh=Nbo8Jw/JZFRmbxLTzajprfYhK+yfsWSB2oYFirNFgOE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=JOkLBXoZMwoO0qgjUsL5ERaBPFhU/l7Qd1v3teTkrW10vFS3e6AV5rUfiWYgpsVLY
+	 a4vDop3LZjIn8COWwK6FspX9hCeePOlWqNjRa1NMEmtregqPKeYpGkX67oQ7D6og0C
+	 6fm7IODb5QFnuQpsEUpTcNIhZfYrcoqL+XCRyiG2pXhIUZ8gH0bhDE4/SQkPqhkf3Y
+	 Td0qJRsvjUHj9HhIAr01PNB9A0KDK957ia+OIZNByszTQ3qdSBdelVzuNJKPUOdGft
+	 hNQbeYBYROnBHvFiv199deJCpwB44A977pKNw1mO43Y/+ulJFMr0yjHsOGVrHoGtTn
+	 GC6c0bRMwcFOw==
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c20ce3c118aso9081266b.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:21:35 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RpR9VJV6wwrL+Um+6H0UjhcVr/t0pdWnshws82PtLE1yToutQL/CuY2xDNc1ipw/RDu/sEZu9+Kv53hBlI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kl6luN9kgefe+IC9vqeX2An77A95LfhwDlczRhJWPS+/AkhHEN
+	g1ums6yYBmpc+tcIqy0VpH4bN2GvBm5nibXpaJEfVmLkh4K7bmHoUEm7KhfUWs0IRskpjoM0LNy
+	+lpdD3MXYcgdsArmuH6ugfPrwl9ADzx4=
+X-Received: by 2002:a17:907:c26:b0:c25:4ca3:dfd8 with SMTP id
+ a640c23a62f3a-c25534389a4mr57307666b.2.1787851294689; Thu, 27 Aug 2026
+ 10:21:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260826233919.998904-1-seanjc@google.com> <20260826233919.998904-13-seanjc@google.com>
+ <CAO9r8zOuD+wU1Q80z077WHHpFBWvKomLk=TaXjH3gVnqj=mqFQ@mail.gmail.com>
+ <apBomFOn1ZqHEnAQ@google.com> <CAO9r8zP3O_80Lr=4eKL6v-OaM9etMXPsNzADizf6ztB6YBuLHA@mail.gmail.com>
+ <apBxMrqEkl_7khix@google.com>
+In-Reply-To: <apBxMrqEkl_7khix@google.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Thu, 27 Aug 2026 10:21:20 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zOLJs_fm9ixxCRV=uz5qwpOS67=oz5ATGtB=w2Yd2vtOw@mail.gmail.com>
+X-Gm-Features: AcwNN1V7RY0NKDbWFxDp6DWWaXNc7A3a2oETPSEHAGQdetAOsfYzfTwtAk0wcB8
+Message-ID: <CAO9r8zOLJs_fm9ixxCRV=uz5qwpOS67=oz5ATGtB=w2Yd2vtOw@mail.gmail.com>
+Subject: Re: [PATCH v3 12/13] KVM: selftests: Dedup assembly code for VMLAUNCH
+ and VMRESUME
+To: Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	f734222792@gmail.com, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Sashiko Bot <sashiko-bot@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-This series modernizes the ti-ads1015 driver by updating its runtime PM
-handling, error handling, resource management, and register bitfield
-operations.
+On Thu, Aug 27, 2026 at 10:17=E2=80=AFAM Sean Christopherson <seanjc@google=
+.com> wrote:
+>
+> On Thu, Aug 27, 2026, Yosry Ahmed wrote:
+> > On Thu, Aug 27, 2026 at 9:41=E2=80=AFAM Sean Christopherson <seanjc@goo=
+gle.com> wrote:
+> > >   #define __BUILD_VMX_VM_ENTRY_HELPER(insn, prefix, vmwrite_insn, vmw=
+rite_operand,      \
+> > >                                     __host_rsp, __host_rip)          =
+                   \
+> >
+> > The only part I really hate is vmwrite_operand. Why do we need it?  See=
+ms
+> > like all the current helpers use "r", I feel like I am missing somethin=
+g.
+>
+> ...
+>
+> > >   static int __##prefix##_##insn(void)                               =
+                   \
+> > >   {                                                                  =
+                   \
+> > >         int ret;                                                     =
+                   \
+> > >                                                                      =
+                   \
+> > >         __asm__ __volatile__("push $0;"                              =
+                   \
+> > >                              __stringify(vmwrite_insn) " %%rsp, %[hos=
+t_rsp];"           \
+> > >                              "lea 1f(%%rip), %%rax;"                 =
+                   \
+> > >                              __stringify(vmwrite_insn) " %%rax, %[hos=
+t_rip];"           \
+> > >                              VMX_SWITCH_GPRS_ASM                     =
+                   \
+> > >                              __stringify(insn)";"                    =
+                   \
+> > >                              "incq (%%rsp);"                         =
+                   \
+> > >                              "1: ;"                                  =
+                   \
+> > >                              VMX_SWITCH_GPRS_ASM                     =
+                   \
+> > >                              "pop %%rax;"                            =
+                   \
+> > >                              : [ret]"=3D&a"(ret)                     =
+                     \
+> > >                              : [host_rsp]__stringify(vmwrite_operand)=
+(__host_rsp),      \
+> > >                                [host_rip]__stringify(vmwrite_operand)=
+(__host_rip),      \
+> > >                                GUEST_REGS_OFFSETS                    =
+                   \
+> > >                              : "memory", "cc");                      =
+                   \
+> > >         return ret;                                                  =
+                   \
+> > >   }
+> > >
+> > >   #define BUILD_VMX_VM_ENTRY_HELPER(insn) \
+> > >         __BUILD_VMX_VM_ENTRY_HELPER(insn, _, vmwrite, r, (u64)HOST_RS=
+P, (u64)HOST_RIP)  \
+> > >         __BUILD_VMX_VM_ENTRY_HELPER(insn, __evmcs, mov, m,           =
+                   \
+> > >                                     current_evmcs->host_rsp, current_=
+evmcs->host_rip)
+>
+> eVMCS is a memory operand, i.e. it's MOV RSP, [evmcs->host_rip].  The exi=
+sting
+> evmcs_{vmresume,vmlaunch}() code is rather stupid and loads the address i=
+nto a
+> register, and then manually encodes MOV RSP, [<reg>].
 
-This series builds on the series [1] and:
-- replaces SET_RUNTIME_PM_OPS() with DEFINE_RUNTIME_DEV_PM_OPS().
-- sorts the driver headers.
-- uses a local device pointer in probe.
-- converts suitable error paths to dev_err_probe().
-- drops unneeded < 0 error checks.
-- converts mutex and runtime PM handling to managed resources.
-- replaces custom shift macros with FIELD_PREP()/FIELD_GET().
-- removes the redundant ads1015_set_conv_mode() helper.
+Can't we keep it as a register operand just to avoid vmwrite_operand?
+Does it actually hurt in any way?
 
-[1] https://lore.kernel.org/all/20260529183708.17819-1-sozdayvek@gmail.com/
+>
+> P.S. just in case you didn't already think this code is evil, the '&' in =
+the
+>      above "[ret]"=3D&a"(ret)" is an earlyclobber that tells the compiler=
+ that
+>      RAX may be clobbered before all inputs and processed, i.e. prevents =
+the
+>      compiler from using RAX for VMWRITE's register operand, or from usin=
+g RAX
+>      to compute the memory operand for eVMCS's MOV.
 
----
-v4:
-- Rebased the series as requested by Jonathan Cameron.
-- Use devm_pm_runtime_set_active_enabled() for runtime PM setup.
-- Reworked the register bitfield changes and inlined
-  ads1015_set_conv_mode() following review feedback.
-- Incorporated review feedback from Jonathan Cameron and Andy Shevchenko.
+TIL.
 
-v3: https://lore.kernel.org/linux-iio/20260812164433.23011-1-architanant5@gmail.com/
+>
+> P.P.S. even though the prototype for VMWRITE is "VMWRITE r64, r/m64", Int=
+el is
+>        ass-backwards when it comes to syntax, i.e r/m64 is the source, no=
+t the
+>        dest, and so the field encoding *must* be a register operand.  I.e=
+. we
+>        can't do something like this:
 
-Archit Anant (8):
-  iio: adc: ti-ads1015: use DEFINE_RUNTIME_DEV_PM_OPS()
-  iio: adc: ti-ads1015: sort headers alphabetically
-  iio: adc: ti-ads1015: use local device pointer in probe
-  iio: adc: ti-ads1015: use dev_err_probe() for error handling
-  iio: adc: ti-ads1015: drop unneeded < 0 error checks
-  iio: adc: ti-ads1015: Convert to managed resources
-  iio: adc: ti-ads1015: replace custom shift macros with FIELD_PREP/GET
-  iio: adc: ti-ads1015: inline ads1015_set_conv_mode()
+Right, I was suggested using register operands for everything.
 
- drivers/iio/adc/ti-ads1015.c | 153 ++++++++++++++++-------------------
- 1 file changed, 69 insertions(+), 84 deletions(-)
+>
+> diff --git tools/testing/selftests/kvm/lib/x86/vmx.c tools/testing/selfte=
+sts/kvm/lib/x86/vmx.c
+> index 1a8515de42b0..b5efd10950c7 100644
+> --- tools/testing/selftests/kvm/lib/x86/vmx.c
+> +++ tools/testing/selftests/kvm/lib/x86/vmx.c
+> @@ -179,7 +179,10 @@ void load_vmcs(struct vmx_pages *vmx)
+>         vmclear(vmx->shadow_vmcs_gpa);
+>  }
+>
+> -#define __BUILD_VMX_VM_ENTRY_HELPER(insn, prefix, vmwrite_insn, vmwrite_=
+operand,       \
+> +const u64 HOST_RSP_ENCODING =3D HOST_RSP;
+> +const u64 HOST_RIP_ENCODING =3D HOST_RIP;
+> +
+> +#define __BUILD_VMX_VM_ENTRY_HELPER(insn, prefix, vmwrite_insn,        \
+>                                     __host_rsp, __host_rip)              =
+               \
+>  static int __##prefix##_##insn(void)                                    =
+               \
+>  {                                                                       =
+               \
+> @@ -196,16 +199,17 @@ static int __##prefix##_##insn(void)               =
+                                       \
+>                              VMX_SWITCH_GPRS_ASM                         =
+               \
+>                              "pop %%rax;"                                =
+               \
+>                              : [ret]"=3D&a"(ret)                         =
+                 \
+> -                            : [host_rsp]__stringify(vmwrite_operand)(__h=
+ost_rsp),      \
+> -                              [host_rip]__stringify(vmwrite_operand)(__h=
+ost_rip),      \
+> +                            : [host_rsp]"m"(__host_rsp),                =
+               \
+> +                              [host_rip]"m"(__host_rip),                =
+               \
 
--- 
-2.39.5
+I suppose we can use "r" here though?
 
+>                                GUEST_REGS_OFFSETS                        =
+               \
+>                              : "memory", "cc");                          =
+               \
+>         return ret;                                                      =
+               \
+>  }
+>
+>  #define BUILD_VMX_VM_ENTRY_HELPER(insn) \
+> -       __BUILD_VMX_VM_ENTRY_HELPER(insn, _, vmwrite, r, (u64)HOST_RSP, (=
+u64)HOST_RIP)  \
+> -       __BUILD_VMX_VM_ENTRY_HELPER(insn, __evmcs, mov, m,               =
+               \
+> +       __BUILD_VMX_VM_ENTRY_HELPER(insn, _, vmwrite,                    =
+               \
+> +                                   HOST_RSP_ENCODING, HOST_RIP_ENCODING)=
+               \
+> +       __BUILD_VMX_VM_ENTRY_HELPER(insn, __evmcs, mov,                  =
+               \
+>                                     current_evmcs->host_rsp, current_evmc=
+s->host_rip)
+>
+>  BUILD_VMX_VM_ENTRY_HELPER(vmlaunch)
+>
