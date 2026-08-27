@@ -1,48 +1,46 @@
-Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 361EF19B5B1
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:33:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=111.22.67.151
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5155233E34B;
+	Thu, 27 Aug 2026 06:33:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787812389; cv=none; b=UPq5tZcVMa2811dxuBCtxB77cYR5Sm2rc5Wec7FbFZZOtMm0Zim6gJfBUE5xgjYTMPvU8HEsY8kp5MDuWPLPJ+DYAqRiYEPnJwwthQDPBesHyLn0GgR0963b2iB5NHlxxMEV9Lg/IrCe09rsjoC1nwkMLL1N/L1rUq3sB4cGYQw=
+	t=1787812398; cv=none; b=u8dbKd3qpFtng0srzD7KSOcNoyWN+A1FJt0a6zS5TeXrtZWwAqvKLmAdj63Gx6yL3S4qTlj89hrm/wfhvQMhBLodcRzhlqYUaAF1n7dRqCkB7yHOmN9mtny4xnmvh26Pd6oTJH0gy7dyHpyPsS/OZSQHUAyBFXYy3nui69es2ro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787812389; c=relaxed/simple;
-	bh=4x9vi7toy/IUYELOmeuC8loVNN+kA4zytxalEGSZT9k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=s2J3iPkBsK80ovGUM3rAsr6tcKnkzIfQ7u6+Ghl79POL/qPCwTanKaNQ1l1d2dTr1IUZAgpykicDnxGHJj4GQVXNGjpTzDTdBcHqTM4ssF59H4VBf9iUezFJG5REgr9zoUHRPhBsAU3S971pSFr34knbdBQ/qHtJiIZwbpV8SDY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com; spf=pass smtp.mailfrom=cmss.chinamobile.com; dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.b=WbyqNHoQ; arc=none smtp.client-ip=111.22.67.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	s=arc-20240116; t=1787812398; c=relaxed/simple;
+	bh=9BuPj2Q6nnqmomxr5ojIWuAlLQGEjeEupTUTB2nIRY8=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=r/EPDHMbJYBebLKTjXk5+hxXn3Bklt32EuLyFQh6B0jvciI3jIFvGr4vDZY/JxdzxUlhE0P+Rmo/ZJWzb2CjqZHghimTPhkrD/ou/AxroF8yotlByg0hHvzo53qHnUsK1A67roL2Ei52SY5t3MwDY6ToWX5sfKZOyFgSV49fBC8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=nOvRnxZT; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.b="WbyqNHoQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=WbyqNHoQHS8pv5wx6OEnhvISlvb1qlDbTQ2TbLmIjrEjCDyhVgbdI/AZs6qW5CWQek43+SaC3HHJ/
-	 ImPSPeRCipGcOV9C2nowDpWgTgwAH62XYAegKToQcc2onu8v/t417aY3g54banSeFF4oFMJ/IgK9iE
-	 6MpxZGWzqcvBHSpw=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app02-12002 (RichMail) with SMTP id 2ee26a8fd95f6d4-ac192;
-	Thu, 27 Aug 2026 14:29:51 +0800 (CST)
-X-RM-TRANSID:2ee26a8fd95f6d4-ac192
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from Z04181454368174 (unknown[10.55.1.71])
-	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16a8fd95cce2-1ea5c;
-	Thu, 27 Aug 2026 14:29:51 +0800 (CST)
-X-RM-TRANSID:2ee16a8fd95cce2-1ea5c
-From: zhangjiao2 <zhangjiao2@cmss.chinamobile.com>
-To: rostedt@goodmis.org
-Cc: pyudistira519@gmail.com,
-	sam.moelius@trailofbits.com,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="nOvRnxZT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=wa
+	CNnpILeDgl2UscKzIFsRiLjz7qOYqJMN3bvwNOKRo=; b=nOvRnxZT4C9KY3YSRH
+	BD42IJCb+EwMyFMzMikH7+NlUVlX2O3fjSiUYSS2/jqo/l44LkgPPUqPBxIo5DX8
+	/+CIyD9A+Gct6w4fD1g+/JKLxLGitPVdVti+RDnBSEIfYsrgwZfm3vkk7oqJoEZ9
+	S3ovoYCYHZQ/hz5dec2t06kv0=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3j4oG2o9q0hcgSQ--.17256S3;
+	Thu, 27 Aug 2026 14:32:40 +0800 (CST)
+From: ghuicao@163.com
+To: Song Liu <song@kernel.org>
+Cc: Yu Kuai <yukuai@fygo.io>,
+	Li Nan <magiclinan@didiglobal.com>,
+	Xiao Ni <xiao@kernel.org>,
+	linux-raid@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	trivial@kernel.org,
-	zhang jiao <zhangjiao2@cmss.chinamobile.com>
-Subject: [PATCH] samples: ftrace: Fix wrong parameter names in MODULE_PARM_DESC()
-Date: Thu, 27 Aug 2026 14:29:43 +0800
-Message-ID: <20260827062944.3329-1-zhangjiao2@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.50.1.windows.1
+	stable@vger.kernel.org,
+	Cao Guanghui <caoguanghui@kylinos.cn>
+Subject: [PATCH v3 2/3] md/raid5: fix leak and use-after-free in resize_stripes error path
+Date: Thu, 27 Aug 2026 14:32:34 +0800
+Message-Id: <20260827063235.85375-2-ghuicao@163.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260827063235.85375-1-ghuicao@163.com>
+References: <20260827023803.36602-1-ghuicao@163.com>
+ <20260827063235.85375-1-ghuicao@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,40 +48,88 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3j4oG2o9q0hcgSQ--.17256S3
+X-Coremail-Antispam: 1Uf129KBjvJXoWxCryUuryDCF1ktFW8CF13twb_yoW5Xw48pr
+	W3KFs3Z3WUW3s3twnrCw48uF1fG3yvqFWrGFya9w4vvFs8Kr10yr1rKrWDWryjyrn3tay2
+	qFZ0q395JF1vy3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jTD73UUUUU=
+X-CM-SenderInfo: 5jkxxuldr6il2tof0z/xtbC4Ag3yWqP2giuVgAA3Z
 
-From: zhang jiao <zhangjiao2@cmss.chinamobile.com>
+From: Cao Guanghui <caoguanghui@kylinos.cn>
 
-The MODULE_PARM_DESC() for assist_recursion and assist_rcu both
-reference a non-existent parameter "assist_reursion", which is a
-misspelling of "assist_recursion" and entirely the wrong name for
-the assist_rcu parameter. Correct them to match the module_param()
-declarations.
+resize_stripes() has two issues in how conf->disks is replaced:
 
-Signed-off-by: zhang jiao <zhangjiao2@cmss.chinamobile.com>
+1. Memory leak: conf->disks is replaced with ndisks in Step 3, but
+   pool_size is only updated at the end with "if (!err)".  If Step 4
+   (allocating pages for new stripe slots) fails, pool_size retains the
+   old value.  On teardown, free_conf() iterates only pool_size entries,
+   leaking (newsize - pool_size) extra_page allocations.
+
+2. Use-after-free: conf->disks is freed and replaced without holding
+   mddev->lock, while raid5_status() (called from /proc/mdstat via
+   md_seq_show) reads conf->disks[i].rdev under mddev->lock.  The
+   freeing and replacement happen under reconfig_mutex and
+   cache_size_mutex, which do not exclude mddev->lock holders.
+
+Fix both by deferring the conf->disks replacement until after Step 4
+succeeds, and performing the pointer swap under mddev->lock so that
+concurrent readers in raid5_status() see either the old or new array,
+never a freed one.  If Step 4 fails, ndisks is freed instead.
+
+This also preserves the original retry behavior: pool_size is only
+updated on full success, so check_reshape() correctly calls
+resize_stripes() again on retry.
+
+Fixes: ad01c9e3752f ("[PATCH] md: Allow stripes to be expanded in preparation for expanding an array")
+Cc: stable@vger.kernel.org
+Signed-off-by: Cao Guanghui <caoguanghui@kylinos.cn>
 ---
- samples/ftrace/ftrace-ops.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/samples/ftrace/ftrace-ops.c b/samples/ftrace/ftrace-ops.c
-index 8cae38d8b879..5ca621149687 100644
---- a/samples/ftrace/ftrace-ops.c
-+++ b/samples/ftrace/ftrace-ops.c
-@@ -44,11 +44,11 @@ MODULE_PARM_DESC(save_regs, "Register ops with FTRACE_OPS_FL_SAVE_REGS (save all
+Changes in v2:
+  - Defer conf->disks replacement to after Step 4 instead of setting
+    pool_size early, which would break reshape retry logic (Sashiko)
+  - Add spinlock protection around the pointer swap to fix a concurrent
+    use-after-free in raid5_status() (Sashiko)
+
+ drivers/md/raid5.c | 19 +++++++++++--------
+ 1 file changed, 11 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
+--- a/drivers/md/raid5.c
++++ b/drivers/md/raid5.c
+@@ -2639,9 +2639,7 @@ static int resize_stripes(struct r5conf *conf, int newsize)
+ 				if (ndisks[i].extra_page)
+ 					put_page(ndisks[i].extra_page);
+ 			kfree(ndisks);
+-		} else {
+-			kfree(conf->disks);
+-			conf->disks = ndisks;
++			ndisks = NULL;
+ 		}
+ 	} else
+ 		err = -ENOMEM;
+@@ -2685,8 +2683,20 @@ static int resize_stripes(struct r5conf *conf, int newsize)
+ 	}
+ 	/* critical section pass, GFP_NOIO no longer needed */
  
- static bool assist_recursion;
- module_param(assist_recursion, bool, 0);
--MODULE_PARM_DESC(assist_reursion, "Register ops with FTRACE_OPS_FL_RECURSION");
-+MODULE_PARM_DESC(assist_recursion, "Register ops with FTRACE_OPS_FL_RECURSION");
+-	if (!err)
++	if (!err && ndisks) {
++		struct disk_info *old_disks = conf->disks;
++
++		spin_lock_irq(&conf->mddev->lock);
++		conf->disks = ndisks;
++		spin_unlock_irq(&conf->mddev->lock);
++		kfree(old_disks);
+ 		conf->pool_size = newsize;
++	} else if (ndisks) {
++		for (i = conf->pool_size; i < newsize; i++)
++			if (ndisks[i].extra_page)
++				put_page(ndisks[i].extra_page);
++		kfree(ndisks);
++	}
+ 	mutex_unlock(&conf->cache_size_mutex);
  
- static bool assist_rcu;
- module_param(assist_rcu, bool, 0);
--MODULE_PARM_DESC(assist_reursion, "Register ops with FTRACE_OPS_FL_RCU");
-+MODULE_PARM_DESC(assist_rcu, "Register ops with FTRACE_OPS_FL_RCU");
- 
- /*
-  * By default, a trivial tracer is used which immediately returns to mimimize
+ 	return err;
 -- 
-2.33.0
-
-
+2.34.1
 
