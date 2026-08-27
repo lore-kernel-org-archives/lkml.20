@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F3E3483802
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 15:09:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CF49477995;
+	Thu, 27 Aug 2026 15:09:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787843364; cv=none; b=AaU272nWPN+qdFyMz9y69xBgS6yoper3GkYO4O9rzRURPvT4pr9Jh6eTJhAhE2EsS5PRFRN0UMfVI41K0ihMY96WbM7S+wLdvyvK2gEEhpVACR3FbP4DcuFWUmAymsmD5TAeSbIH1FlD9jh0tppstvWiwHPrFBq5d4mvzi1RQtI=
+	t=1787843365; cv=none; b=XwXIIFS9JZyWKAgrUuBnhc3Mke5OtokBbV52PO2FhEZhtX47sZlWuGRe7psXZxQ5lA6MO24LoKDgecFCx73S1d9VZRLp44CNzrSVRsnta0SFgtYYFQj0YAKKeSFrw1PKoFQ6EK2livtmAd7xhkr0de1IA9umvcXUrZl4vOww/E8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787843364; c=relaxed/simple;
-	bh=OFfObwRBXIHOvI4LdvtiG46WwRoIkgzrfsSSovgvQn8=;
-	h=Message-ID:Date:From:To:Cc:Subject; b=jzYdqUbXLoj5jfXt0hbGemW4LoIVZJcZGZDQSS0bLqA7r/Ja2Ttavkt1lDstfw9hsX+QEt3+brdqMn1gVtV1GZc9esYoyGI0RUZBeRSQNj33D77OtOJ1lKDtWRYvNj8vHUsUlGI9dBNgH48C+5DRAMvLUr6HMG2l9fUnE3fCnOk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aitMdB5C; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787843365; c=relaxed/simple;
+	bh=JPELbtqDwmev8QYHC4CJVOnU1QVGCPg6zDW7t3hN2BI=;
+	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
+	 Content-Type; b=pO07s3q2HhDihoQOb4sm11/H2Pym8eW+ctYec1nEuzIyqR02DzHBr/YrVDq665dnGIND+6GPUsnZ8iheAVUEEqOtvjil26mI2YucXHC52mr/uMb8UUg2EGs9k8eM2vjKrgG1/8ec7ThoQZvbG//wLmuLgsDDp5euDLuuFXnyzww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M2dFF7+2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aitMdB5C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 040A81F000E9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M2dFF7+2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AC9E1F00A3D;
 	Thu, 27 Aug 2026 15:09:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1787843363;
-	bh=eCdtUk7RLmbBubBv6zkfj5+w/LKqzc9f9kKtKK3Q8A8=;
-	h=Date:From:To:Cc:Subject;
-	b=aitMdB5ChfaunqVoMR/JT1f28cQMSJfdjM2ng5OkPuajydfPXBH30+UCTjlz27L2O
-	 JEYWGSDuy+vFYfo8bh7BJErR0lAiW2iSpze3AzL0XtbryAngotPBwfnXLsvtr14MTJ
-	 xETWLhjuOZY7wz+xqPiRPxzayDVc8LQHZ27d1RKgvyHNybkgARY+nfksrYkK28Zkz6
-	 9v+WRSOusRf9aCobqfHiCCA+XrPnhL56SuDcpE3GiXdQHBUFinp8Fkph47NLob2UD2
-	 t1NbuGfGkl5OfWfN9nhs1OF5H57bnGgrHUb7mrw1fPsdRDPBcB4MklY2/0HHJ1XvFL
-	 Wurj1CSVhrpTQ==
+	bh=5EI51HQq89GNPsww2hRYcznaJIDs1nehxu0amxKuebQ=;
+	h=Date:From:To:Cc:Subject:References;
+	b=M2dFF7+2iJR3VaGO+VmUr/x0KYGvHzQJoodyYFFpjxLXMyCGdp9mwSSujt7AcoUAU
+	 +oR9HKyUGgBjdFcVlblHEydPKb/UTsspMbXPJKXpK+aOtgrJDN2STTtpfa33G1CSg6
+	 hoJX/0dbLdT0tg7uwmcJpv4DdzQobI+0ieNG0cFenzYpYMNZRJgNG7bOF12oOHrH8N
+	 pVVPVcOKAs6mAWrO3NongioS+zSjQ3UvmJDd/YEt9OBP4nRZ2ecaiZFqm8RWVq8bn3
+	 GhR4Dt6lvJM6YmwVQxkMiIKzsCjVOMDXZjptjJA8BOFn8rpHbc7iGLS2mPuG+GToV7
+	 dILqDrtEaJMXA==
 Received: from rostedt by gandalf with local (Exim 4.99.4)
 	(envelope-from <rostedt@kernel.org>)
-	id 1wzbk2-00000008PE2-2ugd;
-	Thu, 27 Aug 2026 11:10:10 -0400
-Message-ID: <20260827150949.304280511@kernel.org>
+	id 1wzbk3-00000008PF2-0E0v;
+	Thu, 27 Aug 2026 11:10:11 -0400
+Message-ID: <20260827151010.884247572@kernel.org>
 User-Agent: quilt/0.69
-Date: Thu, 27 Aug 2026 11:09:49 -0400
+Date: Thu, 27 Aug 2026 11:09:51 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
@@ -41,96 +42,97 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Deepanshu Kartikey <kartikey406@gmail.com>,
  Haotian Zhang <vulab@iscas.ac.cn>,
  Hui Su <sh_def@163.com>,
- Vincent Donnefort <vdonnefort@google.com>
-Subject: [for-linus][PATCH 0/7] tracing: Fixes for v7.3
+ Vincent Donnefort <vdonnefort@google.com>,
+ stable@vger.kernel.org
+Subject: [for-linus][PATCH 2/7] tracing: Fix use-after-free with same-name named triggers
+References: <20260827150949.304280511@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 
-tracing fixes for v7.3:
+From: Hui Su <sh_def@163.com>
 
-- Fix error output of boot instance creation failure
+When two hist triggers on different events are registered with the same
+name=, the second one reuses the first as named_data.  Both are added to
+tr->hist_vars by save_hist_vars() during event_hist_trigger_parse(),
+because save_hist_vars() is called before event_trigger_register() while
+the named reuse is only detected later, in hist_register_trigger().
 
-  Currently if a boot instance creation fails, instead of printing out the
-  name of the instance that failed, it prints "(null)". That is because it
-  prints "cur_str" that had already been processed by strsep(). Print the
-  saved name instead.
+In the named-data branch hist_register_trigger() then frees the second
+histogram's hist_data via destroy_hist_data(), but never removes its
+tr->hist_vars list entry, leaving a dangling pointer and leaking the
+trace_array reference it holds.
 
-  While at it, print the error code of the failure.
+A later hist trigger that references a variable makes find_var_file()
+walk tr->hist_vars and dereference the freed hist_data.  The bug is
+reproducible from userspace by writing three hist triggers to tracefs:
 
-- Fix use-after-free for same named historgrams
+  cd /sys/kernel/tracing
+  echo 'hist:keys=common_pid:x=common_pid:name=mh' > events/sched/sched_switch/trigger
+  echo 'hist:keys=common_pid:x=common_pid:name=mh' > events/sched/sched_process_fork/trigger
+  echo 'hist:keys=common_pid:vals=$x' > events/sched/sched_process_exit/trigger
 
-  Histograms can be named so that they can be used in multiple events. But
-  if the named histogram has a variable attached, the second event that uses
-  the named histogram which duplicates it and needs to free the original
-  after duplication leaves the old variable in place and still visible. If
-  another histogram uses than variable, it will use the stale one which will
-  try to reference the freed duplicate histogram and crash the kernel.
+The third write panics the kernel:
 
-  Free the duplicate variables along with the duplicated histogram data.
+  BUG: KASAN: slab-use-after-free in find_var_file.part.0+0x272/0x290
+  Read of size 8 at addr ffff888001f8a0e0 by task sh/1
+  CPU: 1 UID: 0 PID: 1 Comm: sh Tainted: G      D          N
+  Call Trace:
+    find_var_file.part.0
+    find_event_var
+    parse_atom
+    parse_expr
+    __create_val_field
+    event_hist_trigger_parse
+    trigger_process_regex
+    event_trigger_write
+    vfs_write
+    ksys_write
+    do_syscall_64
+    entry_SYSCALL_64_after_hwframe
+  Allocated by task 1:
+    event_hist_trigger_parse
+  Freed by task 1:
+    hist_register_trigger+0x618/0xa30
+    event_hist_trigger_parse
+  The buggy address belongs to freed 2048-byte region
+  Oops: general protection fault ... RIP: find_var_file.part.0
+  Kernel panic - not syncing: Attempted to kill init! exitcode=0x0000000b
 
-- Check return value of kthread_run() in event self test
+Fix by removing the hist_data from tr->hist_vars and releasing the
+trace_array reference in the named-data branch of hist_register_trigger()
+before freeing the hist_data.
 
-  The events self tests uses a kthread for testing but does not check if it
-  succeeded in creating a kthread. If the kthread creation were to fail, the
-  code will still try to call kthread_stop() on the error returned.
+Cc: stable@vger.kernel.org
+Fixes: 6f86bdeab633 ("tracing: Fix bad hist from corrupting named_triggers list")
+Link: https://patch.msgid.link/20260816100427.33642-3-sh_def@163.com
+Signed-off-by: Hui Su <sh_def@163.com>
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+---
+ kernel/trace/trace_events_hist.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-- Fix race between reading trace_pipe and updating subbuffer size
-
-  If a user is reading the trace_pipe file at the same time they update the
-  ring buffer sub-buffer size, can cause the trace_pipe read to read stale
-  data. Add trace_access_lock() around updating the ring buffer sub-buffer
-  size.
-
-- Fix eventfs_inode on failure path in creation of the events directory
-
-  In the creation of the "events" directory, if after allocating the
-  eventfs_inode a failure is detected, it calls cleanup_ei() which calls
-  free_ei(). The free_ei() will test if eventfs_inode being freed has no
-  children. It is a bug if it does. But on the failure case of the creation
-  of the "events" directory, the children lists have not yet been
-  initialized and the free will trigger a warning because list_empty() on an
-  uninitialized list returns false.
-
-  Move the initialization into init_ei() where it makes more sense and makes
-  sure that a created eventfs_inode has its lists initialized upon creation.
-
-- Check return value of kthread_run() in ftrace direct sample code
-
-  The sample code that shows how to use the ftrace direct calls does not
-  test the return of kthread_run() to see if it succeeds. Return a failure
-  if the kthread_run() doesn't succeed.
-
-
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git
-trace/fixes
-
-Head SHA1: 6727b7618f49401acf373fa3ec5712e2ec52e5cf
+diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
+index 893bd8b0e48a..963e0d6b61fd 100644
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -6661,8 +6661,10 @@ static int hist_register_trigger(char *glob,
+ 		tracing_set_filter_buffering(file->tr, true);
+ 	}
+ 
+-	if (named_data)
++	if (named_data) {
++		remove_hist_vars(hist_data);
+ 		destroy_hist_data(hist_data);
++	}
+  out:
+ 	return ret;
+ }
+-- 
+2.53.0
 
 
-Deepanshu Kartikey (2):
-      tracing: Fix use-after-free in trace_pipe read on sub-buffer order change
-      eventfs: Initialize ei->children and ei->list in init_ei()
-
-Haotian Zhang (2):
-      samples/ftrace: Fix kthread_stop() on ERR_PTR in ftrace-direct-modify
-      samples/ftrace: Fix kthread_stop() on ERR_PTR in ftrace-direct-multi-modify
-
-Hui Su (2):
-      tracing: Fix use-after-free with same-name named triggers
-      tracing: Fix crash passing ERR_PTR to kthread_stop()
-
-Vincent Donnefort (1):
-      tracing: Fix logged instance name on creation failure
-
-----
- fs/tracefs/event_inode.c                    |  7 ++-----
- kernel/trace/trace.c                        |  6 +++++-
- kernel/trace/trace_events.c                 |  2 ++
- kernel/trace/trace_events_hist.c            |  4 +++-
- samples/ftrace/ftrace-direct-modify.c       | 12 +++++++++---
- samples/ftrace/ftrace-direct-multi-modify.c | 12 +++++++++---
- 6 files changed, 30 insertions(+), 13 deletions(-)
