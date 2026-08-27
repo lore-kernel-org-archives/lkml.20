@@ -1,288 +1,172 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazolkn19013087.outbound.protection.outlook.com [52.103.14.87])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0B7E3890EE;
-	Thu, 27 Aug 2026 04:28:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.14.87
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787804940; cv=fail; b=aVaZ+xCqpUgbCOu903YHnrrxF0Bl2+OzH9rmixgqziGrBTH1SIczp5svFj5iB5Zla3veIlxzSFfCv9+tH9z41xuR4MN1oIx6EmKGeq+XPeyK9i3kw4cjdFfahbsamt2t965ZUPpuxJTgas9nlA5odYiJfAgFXDWDrCDpAv9A5NY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787804940; c=relaxed/simple;
-	bh=3n1WaNw/r8dScV3PIa7BG/WQAcks3dK3IYlrAkGLfKo=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=j8BzPp58HIY77UuWLWQk70CxGHDa2VHvoKhCYAwzcvNG7yan/LjUobgBkp2MW/i1D4CRG5o7XjmBLW8wBAp0WHbqBMuDfwfFttWaPw9Aick3ESuTGVboiK4W2jdXePZSWFPhd0kSjLYdOaNTmv1ixiXxyEVoqqNJKJCgLvaDHt0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=kneGZaep; arc=fail smtp.client-ip=52.103.14.87
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EE5B38A71F
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 04:29:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787804959; cv=none; b=fVBsiV3ZidZn8ns1QZQSsd/kzywxYFtYqqMcfG9WQVbhs4USILtLShyG+eDhXb8gi97FmoSBFdkIsfuPcdnSnKGqDJql01+kXV7KIDFTSondJjZqJwN+pqgG7gjqzkZBKrojdNlwFGNlT+gfP1k/xUShYCgLbruj5LKsSboxEwo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787804959; c=relaxed/simple;
+	bh=WndD0WDFKtkC/iz6HWlwVmqlArMDCQAk82ZnUf/JwR0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PBO6+yBZuZSY/T6Vt7BNa7C09qzRiQZ8r8ZGqGqwSlZ7M7kjcDB7Iz9aH8Ey6UgBDyrYsiaocBbY0j784pLERRVfYUBjTZYcL4wy8TP1H2R8zNqWHdANoLX+jl6TstH2m4WJ6xiJ2udzmYdBxMRjhGN6a4WlWOVPIFaJf6aawlE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XgXC16Fk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Dpo7GHQk; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="kneGZaep"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fOwH/kmxNvjiRfejrjpTlEvIDgDHhZWzj655HJSChp4wU2fH9sazOcUxTwu9LY7QqOoHHL07twssGonU3NgUyr9/r9JuxDcGeVZ93MUzSQ4ntmucK+ufiK7ghPl7QXa412GnpXAi+zEfbmKClpOqEryDmbqLGxMRrggQrNXUi94ctCFyCwkD+u9g/vwye3Jup9cQNuEdv3eXHlNDgY3jJgXaQeCSvGUeSymeOAEfFZ7rNySv3ot5IXtG0yIXIxVHwWocHQAfWDXhENA81B55Jvo9xqd2O4AO83Exfaa6QbzT2yrLEUPk4aah3GWvlt9kpMzus1cdcFpEG6MG9mHFOw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HFCfeezYd/s400fhG1VyXZet3oxuGdJ/wRjS+JD7oCo=;
- b=yl30Ilpf+/QGB67eoLBKKWIAD3R/bFSr7am5QZRdgYHC4DHuZp8G2o7ClmAlL/6U9M5h7UqvZdGbpmupqH80KkZ9AdWcSAnpiX6Rl+oZD4BcM7zPYh4fdwK1x8O3PEPp0gjwB18bY7cpp6tE9VQXrFfLBDiRbIBO6f4yKCVrSfiWdkdNXVi7iktLO/sAfD9SqGCkbDlaf5Hjm8WKaGHDy/yypLll2cEkTM+yykDWrpcnkVDUAgkrmQMXvSQ2RrSh14Qt7YqX6hFuFUePOwpvOqDISFyZrZAqihillN8FKNJYA+C0yM/HqC7mBf6+w7KbZl884weD+MLME8B/fFei5A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HFCfeezYd/s400fhG1VyXZet3oxuGdJ/wRjS+JD7oCo=;
- b=kneGZaepqpYa1Owm2/4cSmw0kfHD/fzLtHYqW4KdUq2vy4lTDacE/BtgK6CQFSac6pCvZADrvi2cuRy15D59WpuMxQdV6YY5OP/NjPJenGapEiqgQ40WHCQJiTllz7sKVh2rg0nE1R4sSat3DE07/X+hNA6JHXvDHJZt8xmfE0zyqLvYOZ2aLUqQAUEIOfXXW9UYRtaCtbPBU5tNd12AV+mXfiPAEcPwesp7feK5EeYn+y9L4WTpcih9osrHfq/H00NxRCNkzpvJGpnFhPGWl4VX/O8HoBme7uwrakpUDorArwcbpjHRRBL27hiyJvHx+UCejuYIVxqkx0Z6WGGWew==
-Received: from SN6PR02MB4157.namprd02.prod.outlook.com (2603:10b6:805:33::23)
- by BY5PR02MB7011.namprd02.prod.outlook.com (2603:10b6:a03:23c::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.8; Thu, 27 Aug
- 2026 04:28:54 +0000
-Received: from SN6PR02MB4157.namprd02.prod.outlook.com
- ([fe80::900:1ccf:2b1e:52b6]) by SN6PR02MB4157.namprd02.prod.outlook.com
- ([fe80::900:1ccf:2b1e:52b6%3]) with mapi id 15.21.0360.005; Thu, 27 Aug 2026
- 04:28:54 +0000
-From: Michael Kelley <mhklinux@outlook.com>
-To: "wei.liu@kernel.org" <wei.liu@kernel.org>, Linux on Hyper-V List
-	<linux-hyperv@vger.kernel.org>
-CC: "mukeshrathor@linux.microsoft.com" <mukeshrathor@linux.microsoft.com>,
-	"anirudh@anirudhrb.com" <anirudh@anirudhrb.com>,
-	"schakrabarti@linux.microsoft.com" <schakrabarti@linux.microsoft.com>, "K. Y.
- Srinivasan" <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>,
-	Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>, Lorenzo
- Pieralisi <lpieralisi@kernel.org>, =?iso-8859-2?Q?Krzysztof_Wilczy=F1ski?=
-	<kwilczynski@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, Rob
- Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, "open
- list:PCI NATIVE HOST BRIDGE AND ENDPOINT DRIVERS"
-	<linux-pci@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH 3/3] PCI: hv: fix interrupt affinity change on the nested
- root partition
-Thread-Topic: [PATCH 3/3] PCI: hv: fix interrupt affinity change on the nested
- root partition
-Thread-Index: AQKjGFGck1AJEvvCYICSEZT2NjuzuAEnfXj0tRxDHwA=
-Date: Thu, 27 Aug 2026 04:28:54 +0000
-Message-ID:
- <SN6PR02MB4157DDA074C9080EBB7A79D8D4AD2@SN6PR02MB4157.namprd02.prod.outlook.com>
-References: <20260822003623.2925128-1-wei.liu@kernel.org>
- <20260822003623.2925128-4-wei.liu@kernel.org>
-In-Reply-To: <20260822003623.2925128-4-wei.liu@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SN6PR02MB4157:EE_|BY5PR02MB7011:EE_
-x-ms-office365-filtering-correlation-id: 5ff29cb5-b006-4812-df03-08df03f3b469
-x-microsoft-antispam:
- BCL:0;ARA:14566002|12121999013|41001999006|25010399006|19110799012|37011999003|31061999003|55001999006|15080799012|8062599012|13091999003|8060799015|24021099003|51005399006|12091999003|3412199025|440099028|102099032|40105399003|2607281247196008;
-x-microsoft-antispam-message-info:
- =?iso-8859-2?Q?Z5o0EE6EkNS2tQ4nRKAEJIqU7nUOrre9iFk+CIcDQae/BanXeDQOOkszoZ?=
- =?iso-8859-2?Q?kEphpy2tDMVFD+GiHTHhW9yTiyNNoKZkLwtZ7Q7ygrSKmHrUgdoTC4JoPV?=
- =?iso-8859-2?Q?bL/1FoIPi6Yvl8gcW9W8u0I8CvXwkvwKJXi++Ct8qSaMaac+30wHSfZgw5?=
- =?iso-8859-2?Q?eJSP5BiqCXaTIluNK0mbE5062B7heAkeM64XFnLb6n5BXWvFebx7VeXxM2?=
- =?iso-8859-2?Q?hZEjxVbgLMnwJp1Rr80sYhhdsCqSANdD5jIheHLdx7RRy97Z6jFKY+6PVS?=
- =?iso-8859-2?Q?yUtphzwZAeDf/LAXrb1yPVIi3Kned8aZ1SVriiMBmZrH33Y3fuHtdQxzvF?=
- =?iso-8859-2?Q?lah8T42Ki/3Sd7IVQ2QJ40GBjSa/S1mkOBhtkWFTH54jc07JeHway20Nka?=
- =?iso-8859-2?Q?L/JThDJpwQ7EuLuEvBhQONZLdJVtIkAJegK59+uyrtTTyTeWGiLe2lIbbk?=
- =?iso-8859-2?Q?jeo8QGcA7NLQM6kTCEYYVO4B0bTDI7Jg/kEJz7A4arfxYk+ysQxXQC6mFw?=
- =?iso-8859-2?Q?PqxSLpT3ULOtxSoaIK3LHLI/gD50JbAK4/yxp9qYnWrqDv1NxS4mrJMQC1?=
- =?iso-8859-2?Q?anWu7bb8LyMdh8QOZEc0YuMTrfns+o9RkKP/i3vyNithxBLrPhkd6S4Xjm?=
- =?iso-8859-2?Q?qJOx9TnxaO/C3ubyZ2NzxozrMMhimq1nyEizLJAW+FsneyjSdM+aDFq0qD?=
- =?iso-8859-2?Q?DwuWeAmpPojYz8+P76euI8siGGcxBCE+/8sA6Vvos1E5gUdDcnM7NMh5vC?=
- =?iso-8859-2?Q?cYBeOxI+RbthvyVZt3xiRKLe0gJqUJz3T0kfWv9EoeaGmwj2f35NG/y3Ar?=
- =?iso-8859-2?Q?xSHrdgsBRYtUu86sZ2VHe+3WYIuTsITInYupxILMBBjMc8pADKKfyVNAyQ?=
- =?iso-8859-2?Q?ahiydVvkUqIgOfm1mN9TnOwsYDA1hW74HCQG7e9qR7TikDyuV9YKThunLu?=
- =?iso-8859-2?Q?24rm6lyjV38BBhhfsqdd+C9RcBc7D9GLL2wZGcULzJEAkaireVb8owy8OO?=
- =?iso-8859-2?Q?qAKgDwOvx2QexVQgwEwniggGQJnz6wAnWqq266LEMyuXz754WiyHkBKM7C?=
- =?iso-8859-2?Q?DQTOfWvLON7ZjuZ2F6yOkiL3i02K3o5WMX/8Oj+b5WKWMPz+fo7lde/Ret?=
- =?iso-8859-2?Q?fTyGIKjhHxWmc4oUsKxOkegxafezb4Bkm+jif1f9/8RoQQ+qtZ?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-2?Q?mfeqAakQueqEe2XM1n06xhXv20RVI8k8ijDO69fV3zJCsnF81cOYqy0VDi?=
- =?iso-8859-2?Q?7sB/WMA47f/VrrzOEJEWuluh3LWO1uitnUCOpPxgHEcIuOq/238Q3AwsO3?=
- =?iso-8859-2?Q?Ke8TMCGzMpgiuRJEX5avzcP8nX8xifapPEgkxsCrHP0sYSsF/fDZxnyouZ?=
- =?iso-8859-2?Q?gqn0u0j30uyA6kBmttbiWAm4fmqCODfYo2VjXMNg0F23Z7+Lt0yAk9HBf4?=
- =?iso-8859-2?Q?fpJ0xE4uLnIqDNgdoLwxqxpk7xt36EtkIBOJbcK0N7pzQV2nqGJEcsIG54?=
- =?iso-8859-2?Q?ydqDivzbdA7CScIZjxWqtu2Q8hLJolbBroaVv9QJquNQfz0/PKNDcmqF5L?=
- =?iso-8859-2?Q?I4mcR0vwekzEjZBQNNi2DtfDm+6Q2Fhrs2Btd5pfG3PJriuM09zBbeAsC0?=
- =?iso-8859-2?Q?Dwl6HZICmb7MR/Kiw/lI760UYSdhCwiHi0m3edhJvs+iAg+cZEXloFsEZS?=
- =?iso-8859-2?Q?cQi6nR8pzmq/687h5VBRR2fzdqsOy3rAK++jY/l6fd/lbwJ+c/HJXp9RSF?=
- =?iso-8859-2?Q?yGztspVaTVWDUrcvzGNdEL69c2TNIIlcg+bOwGV9QFi+6ttb3bLr5hoT1P?=
- =?iso-8859-2?Q?y48VmvNOkUR8FETQy8zqYXnvawgjiCmQVTX+y8JvlDAiFpO6GcksqgMizu?=
- =?iso-8859-2?Q?xjX51mla3WfLd0VtwH0V+24lTBqEd7UNq55ObfMcUp86vGh9ITzCFHjjfo?=
- =?iso-8859-2?Q?KxBvp8ZrCs5MWCwNt95HtKVhX3PBO2gCD0TaGb1fwT+yH//bqUhWr+mMv3?=
- =?iso-8859-2?Q?RIvEBGWBXQNp5KKOj17RlXdPheAOf+rArosmi1P5nR0hbUucSlnLTP2n86?=
- =?iso-8859-2?Q?mHpY78NWoRKwt6C+95WKtEfZWTxiCptJcBVoOQb7j9utF1Wrjp7ClYxHsH?=
- =?iso-8859-2?Q?DEtcEabepRGxhKom0MOm0a9DIgHRmPQjk3Gn5dnb1c6RhornGTJgwF3O4f?=
- =?iso-8859-2?Q?ke1EV32t++Bj2io6j298eN0xlYBNblozsED9tSIQle7r52yh872t1SG8Df?=
- =?iso-8859-2?Q?9dnkAEgrnsEjI73JSfch9IFthazSzKwAb1f7kuOYYWv+y5p1mLUW1TzShL?=
- =?iso-8859-2?Q?xEIbkORTaoFkQFnSIBSt/uY8hKkZH/MKChY18zQ8NkVyOPo3Q8ejBg96Jf?=
- =?iso-8859-2?Q?Ez4j1lpU1qpHS9KbhTPxalBRFDgxD+LJbXgz9bVDWek6nnIhxptoCjS/2x?=
- =?iso-8859-2?Q?gyj4c9Y4ipEJkB0746uXKQONi57vVSfv3/7rW8yjGbh8cZPYWe/sW5I+Uq?=
- =?iso-8859-2?Q?QPIvWTNh0rtgzJy/HewCSH7nsTeriB6Ppk2WsMn4EI1Nsfe8M5J/4acdjy?=
- =?iso-8859-2?Q?Meou9vdvLx5e5mK/OWt14bp8qtfTFlp/o/NLxPJpJvMS8o40oLoiKRc1H5?=
- =?iso-8859-2?Q?w9VhMNxlQhRiEW6/iCH5MLBwwhDcmsMAxTTAfPiULuk99160i06U8=3D?=
-Content-Type: text/plain; charset="iso-8859-2"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XgXC16Fk";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Dpo7GHQk"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67R3JXL92863039
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 04:29:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=PBQfXRXdbtZK5RC0SQJwvsCn
+	/rM36L4ZzGVrHyQOUFc=; b=XgXC16FktSQa/UqUPSEbVSrpYisyPDeMD2X7EEVe
+	JINfReQlMl49naK9CZbIU0IoazGhg62KSI7f8Dr2m56BVInzEj6LPazArqZ4B/VC
+	RV5LrHpjaNVIEejYsODazVBneNsgN51SlCS6jkXWzXQWea8ZgvrJI2RK5aij3Ab/
+	2ChYg0HO2o6wes2iuK4so2VLdCA0vfdfVccpzGPWJnTdKAeQCmtICwMKSmwaY7+P
+	uFfOYOcYsfpt+WXu+aCnsGHLJOOXuvYuYOj0YSq6Ty4y00oojljtNqr/3KCvdI5R
+	QYRBAF9FrCvmuOiEcnH218uDDR07vYHPTn74ivrlKntF1g==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ga075b525-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 04:29:16 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d6f80c76e6so26919455ad.3
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:29:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787804956; x=1788409756; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=PBQfXRXdbtZK5RC0SQJwvsCn/rM36L4ZzGVrHyQOUFc=;
+        b=Dpo7GHQkhohaZqT1AMIHFa5pDcytSrasgZL81uvlw5SbWiESfnJLm5om1fdPP75MGn
+         8xETlQTJY874uFfqJExs48j26sSfGwAe/fzWnO0k5XFwNF6PUtl5ztdsqKEhEoZYkC9O
+         H8Tt9jfAVuDItqJlqA/blcgngIgNarseWJHh5SsC1zjSKpLnYJ+IqVEsrNOyZdDLB4FX
+         /aDMkL6DSFeGU/yfOHItzRT0uaCiu/A5CF/H8v+IDoJwQZUn6KqSWlOor/ReIjZQWuYw
+         YoOXOcp41Hsm/2XDN3v4y52I58R4Xq92QpnElj/rs5yBFxPRdeL10kfDeytmBeuR3y++
+         ORDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787804956; x=1788409756;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PBQfXRXdbtZK5RC0SQJwvsCn/rM36L4ZzGVrHyQOUFc=;
+        b=cUh2zj5gP1AXJ2w0uhfPr2RnEyfWp4sMzaoDK76QT7sigkkHgvcmBcpGw+2SY6E4Xs
+         T0HPtPBdPl4eHLQFsv1QnuiqvnSipSMlQsVn6bVDRQ0xYjnI+CdS3dj/RtatZj17gaPK
+         wH50aN/WccGtpYGHGS61Ch9hierKoaorwWtAtr6SU7QdvHKS+3L5qRgfmZsgce+dbBad
+         5tMCND+1xL5VQLX4wg9E4Jgz8vec8Yk9kNlzYrlsb21Sb+2cFAUG3RtE9OrVr5kob/zS
+         z9Br/nVHtvl7DjmECLa1PqpF89gZW9X42Fr7SI7Gqqc8xnJg+zyZTRhiTvXZYOgV4m6P
+         LD6w==
+X-Forwarded-Encrypted: i=1; AHgh+RoOTntGzOa/vPi5jVXG4qDZds1KtMYAIrUyGd5SllZMZ7EHd+Citwq/KRUgictXeDpYNpqvhiUKntLMtUA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kipyY8Z9v7CMwhnoRW1WGTQxtQ+aTaEXEqMa7XlfvTnkqgNRGu
+	SloScntbav4DN/nMKaL2uowIDOk+SEFq2Nr3x4Q3wHNOSv+r3zpwN4aBEKQIE4bTYvV3qXKcjJF
+	TiTBVU++m8+cuF+gRMfHRuw0+31ldtufdTYWxO9Fz8F19swOrHLKGm9QOk4fpOyz30Rk=
+X-Gm-Gg: AR+sD10ReedMWuJOUqStyJH75aO6kowEVEsv8/3ok1Af21ofWFwQAAfw7eyi85hKLYs
+	slYCPnE/0mxdCJIxT6Az4P8YH7hNdbFnoKIFbE6ciLfUQ5z9Jq8ZcefLWY7Z1YKs+M6AjyEFtY0
+	pn205ZaBvvDq81/QJ1yM3ac4RFZJwfbGUC6+pxAci4L2Mba6l4bAh0oDQ5taRenTlASl+NAK0Q3
+	2FRo5oX2KdSLiUcyp2BNOUBExsuX8xTC55kLcZ428Eu3EEUDTaz4Nozpq2HsOnrd74HZ1ewjGhP
+	DG4K6eZSOswU4tSShunDf7wbV9ZtnM4FzOMO1JhrQD39OCC8ZjL9lqciuQ8wkRUbmn0AFVKEZ+q
+	tlcowqKG3qeYx9aLNwbKzRqct7qVFdtp/DThG5xXN0GQfPqPz/Q5kynZwOn7GZqubszUQlqiI9x
+	LzV00cMhivoRQdYbxmhLvd0UchfmtfLw==
+X-Received: by 2002:a17:902:ef0a:b0:2c9:d88e:f996 with SMTP id d9443c01a7336-2d707ba9460mr232937905ad.9.1787804955917;
+        Wed, 26 Aug 2026 21:29:15 -0700 (PDT)
+X-Received: by 2002:a17:902:ef0a:b0:2c9:d88e:f996 with SMTP id d9443c01a7336-2d707ba9460mr232936955ad.9.1787804955469;
+        Wed, 26 Aug 2026 21:29:15 -0700 (PDT)
+Received: from hu-varada-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3283d885fb6sm13901932eec.14.2026.08.26.21.29.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 21:29:14 -0700 (PDT)
+Date: Thu, 27 Aug 2026 09:59:08 +0530
+From: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Wesley Cheng <quic_wcheng@quicinc.com>, linux-arm-msm@vger.kernel.org,
+        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 4/5] phy: qcom: snps-femto-v2: Move PHY init registers to
+ config tables
+Message-ID: <ao+9FOzw6d+hjDyB@hu-varada-blr.qualcomm.com>
+References: <20260824-phy-v1-0-257d68a3210b@oss.qualcomm.com>
+ <20260824-phy-v1-4-257d68a3210b@oss.qualcomm.com>
+ <d3d075ac-598a-4b79-8d59-556657edb23b@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR02MB4157.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5ff29cb5-b006-4812-df03-08df03f3b469
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Aug 2026 04:28:54.7863
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR02MB7011
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d3d075ac-598a-4b79-8d59-556657edb23b@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: FG7wKQHPmf66UE3gsckjtSIAxKBfgSae
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDAzNCBTYWx0ZWRfXwS/rlltiE23X
+ fQMKR2xkRtRVy5Zu2CRs0HAAZVZ17uZE7ZC8aOqYSvcn8CFT5ifOCOaDj10trLYoCwKBIU+mv/X
+ u+Js1dQBShAeJZHxj/mhrQRATgE2w4z+2g/H4YvR6cJ/9pushTJ9afDAiHk4OFTNG6G4FcLva1x
+ 7lcKNvIUjhUY/DfXCl5YnY1KYgwwcg+zRexJMJLPsAKCvMw17zv5Niyfb/VnsJVZh2zBUIfLeVx
+ mLOXa4hxkQhFpvN4R5PsjqYlMqw3ipH0v/YddZm6+7N57zl+/A7evFYYRCkuJP5ZkpDQX9jL4D4
+ ULJTY78mzo+Hu9mMtZhnrv+SewSdU6CRu7N0I3Byj3Ig2bfTFqeKW36IbmHF4ibDN6ZGARciCi+
+ bMVDoQmrKe/Mz/5lBPTn8zkAz8nGz4FY5yY/whc2qfQBuRIh7cmrOQJKCjS8k09ZL9MTQmE9Wyo
+ ApF5rAb9ZgkzSvWqyqw==
+X-Proofpoint-GUID: FG7wKQHPmf66UE3gsckjtSIAxKBfgSae
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDAzNCBTYWx0ZWRfX1pYEpRV14VVY
+ UkvMubFMgLjkXqpzAJKy7OwwPaAPIPeto38DNi9DP2WYjioIA0MBvwzVsA+Be3xEiMoqidDHrUy
+ M23WmcdPsl0c5r5Li3UFZxQ8t6jVKw8=
+X-Authority-Analysis: v=2.4 cv=RPiD2Yi+ c=1 sm=1 tr=0 ts=6a8fbd1d cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=Bgcfhj6G1kAcdHnFx8gA:9 a=CjuIK1q_8ugA:10
+ a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-27_02,2026-08-26_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 priorityscore=1501 spamscore=0 lowpriorityscore=0
+ malwarescore=0 phishscore=0 suspectscore=0 bulkscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608270034
 
-From: wei.liu@kernel.org <wei.liu@kernel.org> Sent: Friday, August 21, 2026=
- 5:36 PM
->=20
-> hv_compose_msi_msg() sends PCI_CREATE_INTERRUPT carrying
-> int_desc.vector, and the vPCI backend programs the device with the
-> address/data it returns for it.
->=20
-> An affinity change only ran irq_chip_set_affinity_parent(), which
-> re-allocates the x86 vector and nothing else, and hv_arch_irq_unmask()
-> then issued MAP_DEVICE_INTERRUPT for the new (VP, vector).  Nothing
-> re-composed the interrupt, so the device kept signalling the vector it
-> was created with and the new mapping was never used. This led to loss of
-> interrupts.
+On Tue, Aug 25, 2026 at 10:54:58AM +0200, Konrad Dybcio wrote:
+> On 8/24/26 8:37 AM, Varadarajan Narayanan wrote:
+> > The driver currently programs the common PHY register sequence directly in
+> > qcom_snps_hsphy_init(), with the fixed register writes split around the
+> > override parameter handling. This makes it hard to support SoCs that need a
+> > different sequence or different values.
+> >
+> > Move the fixed pre- and post-override register programming into per-
+> > compatible configuration tables, and keep the 7 nm override parameters in
+> > the same match-data structure. This allows the driver to share the common
+> > sequence while adding SoC-specific sequences for future platforms such as
+> > IPQ9650.
+> >
+> > Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+> > ---
+>
+> [...]
+>
+> > +	for (tmp = data->pre; tmp->offset != UINT_MAX; tmp++)
+>
+> "pre"/"post" alone are not descriptive - perhaps pre_tuning/post_tuning?
 
-Shift the wording in the above paragraph to present tense.
+Will change.
 
->=20
-> Do the re-target where the vector is known and the interrupt is
-> quiescent.  If the vector changed, re-compose the VMBus interrupt for
+> Or do we maybe know whether the order matters at all?
 
-I don't think of this as "VMbus interrupt". VMBus interrupts are
-channel interrupts or control message interrupts tied to the
-HYPERVISOR_CALLBACK_VECTOR. I think this is just an MSI/MSI-X
-Interrupt from the guest's standpoint.
+I believe so. This seems to follow the order given in the hardware
+programming guide.
 
-> it, write the resulting message to the device, and only then map the new
-> (vp, vector); the old mapping is destroyed as the new message is
-> composed.
->=20
-> Signed-off-by: Wei Liu <wei.liu@kernel.org>
-> ---
->  drivers/pci/controller/pci-hyperv.c | 41 +++++++++++++++++++++++++++--
->  1 file changed, 39 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/pci/controller/pci-hyperv.c b/drivers/pci/controller=
-/pci-hyperv.c
-> index 5a36382742bf..5acb8e41567e 100644
-> --- a/drivers/pci/controller/pci-hyperv.c
-> +++ b/drivers/pci/controller/pci-hyperv.c
-> @@ -294,6 +294,7 @@ struct tran_int_desc {
->  struct hv_msi_int_entry {
->  	struct tran_int_desc		int_desc;
->  	struct hv_interrupt_entry	hv_entry;
-> +	unsigned int			mapped_vector;
->  };
->=20
->  /* chip_data is passed around as a struct tran_int_desc *, so it must be=
- first. */
-> @@ -742,6 +743,8 @@ static void hv_irq_retarget_interrupt(struct irq_data=
- *data)
->  			"%s() failed: %#llx", __func__, res);
->  }
->=20
-> +static void hv_compose_msi_msg(struct irq_data *data, struct msi_msg *ms=
-g);
-> +
->  static void hv_arch_irq_unmask(struct irq_data *data)
->  {
->  	if (hv_root_partition()) {
-> @@ -752,9 +755,17 @@ static void hv_arch_irq_unmask(struct irq_data *data=
-)
->  		 * RETARGET_INTERRUPT.
->  		 *
->  		 * Keep the returned entry so the mapping can be removed again
-> -		 * when the interrupt is torn down.
-> +		 * when the interrupt is re-targeted or torn down.
-> +		 *
-> +		 * This is also the re-target point.  The core calls us from
-> +		 * __irq_move_irq() with the interrupt masked once the new
-> +		 * vector has been assigned, so if the vector changed the vmbus
-> +		 * interrupt is re-composed for it first -- PCI_CREATE_INTERRUPT
-> +		 * carries the vector, so the device would otherwise keep
-> +		 * signalling the one it was created with.
->  		 */
->  		struct hv_msi_int_entry *ie =3D data->chip_data;
+> > +		qcom_snps_hsphy_write_mask(hsphy->base, tmp->offset, tmp->mask, tmp->val);
+>
+> Custom termination is both error-prone and memory-inefficient, add
+> another int to size the arrays
 
-Use irq_data_to_irq_chip_data()??
+Ok.
 
-> +		unsigned int vec =3D hv_msi_get_int_vector(data);
->=20
->  		/*
->  		 * A NULL chip_data means hv_compose_msi_msg() failed and the
-> @@ -763,8 +774,29 @@ static void hv_arch_irq_unmask(struct irq_data *data=
-)
->  		if (!ie)
->  			return;
->=20
-> -		if (hv_map_msi_interrupt(data, &ie->hv_entry))
-> +		/* Already mapped for this vector, nothing changed. */
-> +		if (ie->mapped_vector =3D=3D vec && ie->hv_entry.source)
-> +			return;
-> +
-> +		if (ie->mapped_vector && ie->mapped_vector !=3D vec) {
-> +			struct msi_msg msg;
-> +
-> +			hv_compose_msi_msg(data, &msg);
-
-hv_compose_msi_msg() sends a VMBus message, and busy
-waits for the ack, which is really ugly, but necessary. I have no idea
-whether it's OK to do all that from the irq_unmask function.
-
-> +
-> +			ie =3D data->chip_data;
-> +			if (!ie)
-> +				return;
-
-Setting ie and checking for NULL appears to be duplicative of code
-above.
-
-> +
-> +			if (data->chip->irq_write_msi_msg)
-> +				data->chip->irq_write_msi_msg(data, &msg);
-
-Is the irq_write_msi_msg function defaulting to pci_msi_domain_write_msg()?
-I didn't go follow all the paths to see how this function gets set .....  I=
-s it
-even necessary to check for NULL before calling? I don't see such checks
-in the few other places irq_write_msi_msg is invoked.
-
-> +		}
-> +
-> +		if (hv_map_msi_interrupt(data, &ie->hv_entry)) {
->  			memset(&ie->hv_entry, 0, sizeof(ie->hv_entry));
-> +			ie->mapped_vector =3D 0;
-> +			return;
-> +		}
-> +		ie->mapped_vector =3D vec;
->  	} else {
->  		hv_irq_retarget_interrupt(data);
->  	}
-> @@ -1974,6 +2006,11 @@ static void hv_compose_msi_msg(struct irq_data *da=
-ta, struct msi_msg *msg)
->  	if (data->chip_data && !multi_msi) {
->  		int_desc =3D data->chip_data;
->  		data->chip_data =3D NULL;
-> +		/*
-> +		 * The descriptor is about to be destroyed, so release the
-> +		 * hypervisor mapping that belongs to it first.
-> +		 */
-> +		hv_vmbus_unmap_msi_interrupt(pdev, int_desc);
->  		hv_int_desc_free(hpdev, int_desc);
->  	}
->=20
-> --
-> 2.53.0
->=20
-
+Thanks
+Varada
