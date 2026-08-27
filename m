@@ -1,135 +1,119 @@
-Received: from mta0.migadu.com (out-198.mta0.migadu.com [91.218.175.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9151943CE4F
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:45:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8DAE43CE45;
+	Thu, 27 Aug 2026 09:45:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787823956; cv=none; b=khvC5mhL8M/uOUWB5E2eQps7+IVovECFL2+OyDZKS8hln/oOeKNXSuUZlGcQOKlIUyH/fxgacQ0E5xkMjQqat+JFETWZ7AHUtkH4ML1VPyscaUANXvsJReq0OKDHsmpR3BUQooVYd/vMfk+Ci7XnxsVU7H0ZaVe3jCTG0xViqdU=
+	t=1787823957; cv=none; b=T+sHaIWQZgpXPJphl1pYWI+hOabljoVf2/9v44GhZHiReYMByearrrtigvYUo+hZa8GYPE85NO42LiA2I6u+euibMvv5mI7KIQhxu+TcygkJggW3cZG3DWOhWgfAXqdPF354I2ZqqBoMUMLMI3Xx3uNmvAhPFcGeUT2XGzhJF74=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787823956; c=relaxed/simple;
-	bh=TOZrgZBL2nqq9rVeu8yyBvw2pItZAocX5D7PLiqwuPg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-type; b=G/emlVWj51xPYzwl4yVPElBn1BJ1YKHUhRrTNS6KL4+PAfrIs9zHmsqJoxZ8r38JFiWi1tOokYcLie73bI3wMkjmTxzYI7UF3FScNTPQwSHhhOkLjd2UJu6+etU0VGy65ODFyIlFKTrka8xeeQbgQ5b8Gyf0EYwJwDFH3+uMpKY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=linux.dev; arc=none smtp.client-ip=91.218.175.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-X-Envelope-To: linux-kernel@vger.kernel.org
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 8048e88cfe4c95cd;
-	Thu, 27 Aug 2026 09:45:52 +0000
-X-Mizu-Trace-ID: 8048e88cfe4c95cd
-X-Migadu-Flow: FLOW_OUT
-From: Baoquan He <hebaoquan@kylinos.cn>
-To: linux-mm@kvack.org
-Cc: akpm@linux-foundation.org,
-	chrisl@kernel.org,
-	kasong@tencent.com,
-	nphamcs@gmail.com,
-	baohua@kernel.org,
-	youngjun.park@lge.com,
-	hannes@cmpxchg.org,
-	yosry@kernel.org,
-	shikemeng@huaweicloud.com,
-	chengming.zhou@linux.dev,
-	baoquan.he@linux.dev,
-	david@kernel.org,
-	linux-kernel@vger.kernel.org,
-	Baoquan He <hebaoquan@kylinos.cn>
-Subject: [PATCH 07/16] mm, swap: add xswap grow trigger on cluster allocation
-Date: Thu, 27 Aug 2026 17:44:57 +0800
-Message-ID: <20260827094509.1016740-8-hebaoquan@kylinos.cn>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260827094509.1016740-1-hebaoquan@kylinos.cn>
-References: <20260827094509.1016740-1-hebaoquan@kylinos.cn>
+	s=arc-20240116; t=1787823957; c=relaxed/simple;
+	bh=+jTm3OKJ0tz0Ytt60lrG9vDPD8rlbV/F8CWtpIzZa7E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jkKZ8S/s8+rpgwJQhgIDF9hxHu2R+t1wCQB1S4khJi/iMmQpDLu3j7bnSd3iGaBVYGwMAjm7ukBOIC/eRZusvuPaVyJUVq4o0w+DEJSVD8KrB+H0uTMq6v3v1eqFLR5qlPnS8cRJV4UOhvRXL2nYdNR/8e08+UO4Rvs/+zZk9Aw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KvTlC2Op; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KvTlC2Op"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A004A1F00A3F;
+	Thu, 27 Aug 2026 09:45:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787823955;
+	bh=kVSoIlcrtimXOF4wgHNdqqDm7b4TiCLUottbj+bvSMY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KvTlC2Opb/LACvVIEtcVukSOcNkF5fgddnik77sTC1P/A7MGls0ANUE0zgHW6Wdpc
+	 LI82HoNNZdqJ3hJyvHSVcyScMhTe1VLTUdi+6nd1cDSdJPMZigWsTGvHvyPs/28CUB
+	 58s0FVNh7X0ykZ9Kgs6ORKrxGku087Q6cpSf1Y0Blg/RUY09SiT+GCyP+1kFz/JOKM
+	 IWkaCTk6EbSns/GmAJFYAHS2f3UgamJ6y3bjs0Ph8FkI34U3LyykuNss1NV9IfgIV3
+	 REhfB98M8F0+Yz/ztb5KFm/eNhiMCYi5mQ4p8qpc4eH8kvo2o11e1YsVUNAxXkjEkp
+	 1eCsJfBTgteNQ==
+Date: Thu, 27 Aug 2026 11:45:51 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
+Cc: Oleksij Rempel <o.rempel@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Sebastian Reichel <sre@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
+	Benson Leung <bleung@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>, 
+	Srinivas Kandagatla <srini@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+	Lukasz Luba <lukasz.luba@arm.com>, =?utf-8?B?U8O4cmVu?= Andersen <san@skov.dk>, 
+	Guenter Roeck <groeck@chromium.org>, Matti Vaittinen <mazziesaccount@gmail.com>, 
+	Ahmad Fatoum <a.fatoum@pengutronix.de>, Andrew Morton <akpm@linux-foundation.org>, 
+	avaneesh.dwivedi@oss.qualcomm.com, Umang Chheda <umang.chheda@oss.qualcomm.com>
+Subject: Re: [PATCH v2 1/4] dt-bindings: power: reset: add PSCRR NVMEM
+ recorder binding
+Message-ID: <20260827-spiffy-effective-hare-c05f53@quoll>
+References: <20260819-pscrr-provider-v2-0-9072383e0f4d@oss.qualcomm.com>
+ <20260819-pscrr-provider-v2-1-9072383e0f4d@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-type: text/plain
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260819-pscrr-provider-v2-1-9072383e0f4d@oss.qualcomm.com>
 
-When cluster_alloc_swap_entry() fails to find a free cluster and
-the xswap device still has room to grow, expand the mapped range
-by XSWAP_GROW_CLUSTERS clusters.
+On Wed, Aug 19, 2026 at 10:50:43PM +0530, Faruque Ansari wrote:
+> Add binding for the PSCRR NVMEM recorder. Records the power state
+> change reason into a small NVMEM cell, such as a PMIC SDAM byte or
+> RTC scratch register =E2=80=94 so the cause survives a power cycle and ca=
+n be
+> read back on the next boot.
 
-Since xswap is always SWP_SOLIDSTATE, no locks need to be dropped
-before calling xswap_map_clusters(), global_cluster_lock is never
-held on this path.
+A nit, subject: drop second/last, redundant "binding". The
+"dt-bindings" prefix is already stating that these are bindings.
+See also:
+https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/b=
+indings/submitting-patches.rst#L23
 
-The grow sequence:
-1. Check nr_clusters_mapped < nr_clusters and free list empty
-2. Call xswap_map_clusters() to allocate and map more physical pages
-3. Add newly mapped clusters to si->free_clusters under si->lock
-4. Retry allocation from the fresh free clusters
+>=20
+> Signed-off-by: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
+> ---
+>  .../bindings/power/reset/pscrr-nvmem.yaml          | 59 ++++++++++++++++=
+++++++
+>  MAINTAINERS                                        |  1 +
+>  2 files changed, 60 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/power/reset/pscrr-nvmem.ya=
+ml b/Documentation/devicetree/bindings/power/reset/pscrr-nvmem.yaml
+> new file mode 100644
+> index 000000000000..5334c923d644
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/power/reset/pscrr-nvmem.yaml
+> @@ -0,0 +1,59 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/power/reset/pscrr-nvmem.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: NVMEM Power State Change Reason recorder
+> +
+> +maintainers:
+> +  - Faruque Ansari <faruque.ansari@oss.qualcomm.com>
+> +  - Oleksij Rempel <o.rempel@pengutronix.de>
+> +
+> +description:
+> +  An NVMEM-backed recorder for Power State Change Reasons (PSCRR). Persi=
+sts
+> +  the reboot or shutdown cause into a small NVMEM cell, such as an RTC
+> +  scratch register, a PMIC SDAM (Scratch Data Access Memory) byte, or an
+> +  EEPROM =E2=80=94 so the reason survives a power cycle and can be read =
+back on the
+> +  next boot. The cell is referenced via the standard nvmem-cells consumer
+> +  binding.
 
-This makes the xswap cluster space grow transparently as swap usage
-increases, without any userspace intervention.
+I do not see how this should be a separate device. This should be rather pa=
+rt
+of PSCRR, reboot handler or just the nvmem. Otherwise it is just device
+node for instantiating driver.
 
-Signed-off-by: Baoquan He <hebaoquan@kylinos.cn>
----
- mm/swapfile.c | 45 +++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 45 insertions(+)
-
-diff --git a/mm/swapfile.c b/mm/swapfile.c
-index 1127e3d6596b..c6a01d74298a 100644
---- a/mm/swapfile.c
-+++ b/mm/swapfile.c
-@@ -1273,6 +1273,51 @@ static unsigned long cluster_alloc_swap_entry(struct swap_info_struct *si,
- 		if (found)
- 			goto done;
- 	}
-+
-+#ifdef CONFIG_XSWAP
-+	/*
-+	 * For xswap: if no free cluster was found and more clusters
-+	 * can be mapped, grow the cluster_info array and retry.
-+	 */
-+	if (!found && (si->flags & SWP_XSWAP) &&
-+	    READ_ONCE(si->nr_clusters_mapped) < READ_ONCE(si->nr_clusters) &&
-+	    list_empty(&si->free_clusters)) {
-+		unsigned long nr_new = min(READ_ONCE(si->nr_clusters) -
-+					  READ_ONCE(si->nr_clusters_mapped),
-+					  XSWAP_GROW_CLUSTERS);
-+		unsigned long start = READ_ONCE(si->nr_clusters_mapped);
-+		unsigned long i;
-+
-+		if (!xswap_map_clusters(si, start, nr_new)) {
-+			unsigned long added = 0;
-+
-+			for (i = start; i < start + nr_new; i++) {
-+				struct swap_cluster_info *ci = &si->cluster_info[i];
-+
-+				/*
-+				 * A concurrent grower may have already added
-+				 * these clusters to the free list.  Only add
-+				 * clusters that are still off-list (NONE).
-+				 * Lock ci->lock first: move_cluster() takes
-+				 * si->lock internally.
-+				 */
-+				spin_lock(&ci->lock);
-+				if (ci->flags == CLUSTER_FLAG_NONE) {
-+					move_cluster(si, ci, &si->free_clusters,
-+						     CLUSTER_FLAG_FREE);
-+					added++;
-+				}
-+				spin_unlock(&ci->lock);
-+			}
-+			WRITE_ONCE(si->nr_free_tail,
-+				   READ_ONCE(si->nr_free_tail) + added);
-+
-+			/* Retry allocation from the free list */
-+			found = alloc_swap_scan_list(si, &si->free_clusters,
-+						    folio, false);
-+		}
-+	}
-+#endif
- done:
- 	if (!(si->flags & SWP_SOLIDSTATE))
- 		spin_unlock(&si->global_cluster_lock);
--- 
-2.54.0
+Best regards,
+Krzysztof
 
