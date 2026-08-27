@@ -1,135 +1,225 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3A183812C7
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 23:00:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.179
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787871653; cv=pass; b=b0T4jv2Rjwz7nugE0XUhdA5z9yKcnrDu4A+lNjywcxdd+bFxtql0/SeF95aeWjfb44RJd2oz9/PXzeekIC9I3/BSiPUgBCoOKoOkErgVZ0UDSLLkoxwsCY4aq6vEE1V4xNVm8ikLxi5FnVflDgpWmSAv/dssioi0Py5HNU+hzkM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787871653; c=relaxed/simple;
-	bh=PtOQ1ctrt5ChIryejtRZPvf9ci4aQrCJNC6i+HqoyYo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ikcAOvtS452fUi1Iyl9r0vT0K7Bp8w4nYULTCMcLut7lOYbwaSyXGIW1LPTGcGSb6hYE3FmAWVApRz9BBrQg2a9MCoVmD49/2JITqpkYY8YYdfZBRjKuoBkp0i5tznu3G6hS7epPcyp54WL859o1MfRzcnTNa7OdAUZVYdq+tOs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p9+covru; arc=pass smtp.client-ip=209.85.214.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D82593290A5;
+	Thu, 27 Aug 2026 23:01:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787871688; cv=none; b=UZmFvEM83LEWtxhKs7PI7oTdmxT2mbRzfOUHgqWRRe7XYVl8OIArUrbBUV3PMn3wCsySLnSiRliiV9iQ/JYKpYYqPtDYV6rVvkdz1E64l4G5MgIpmQ4UFN4UgR35zIRNAFGaMB797iD1n8Sv4dFO60b+cud80fNj/+avYKDcc9U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787871688; c=relaxed/simple;
+	bh=fMQcW1aexhi5Ay/MHORDdn9i9uBYSep6pWh9b1WOvVk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EUO9h6opKRc7EgJhs+B/HlxFe5xNX/+4kOrW3xLe9/jsIbIFZkmrMkb0paGeBJXl7OPnwV5XlTHYUfPoH1UoEj/l+HugENzU+pFlcFjVtm7UYKvCszQWpGWn4NS2rHC/Sk1vcEZ8VyuqFpGFGoLtD6G9eXfXxbZvX4b8Z26wyGI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=eJs0Sql5; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p9+covru"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2d5862bc921so908785ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:00:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787871650; cv=none;
-        d=google.com; s=arc-20260327;
-        b=s5DWRmdc5gEiYnyILTBJ2S0Mmjq7ZNlhd79+IFK2NnXWaVaYE253GcHBGXZ/MY7bC8
-         nHvhN6XL/hBHma4nxGh1wwitlA0L4st0S1zlz7wG/xAdJB/Ajec3AOj3k5MmPzOpkM9e
-         HjtjaADQ6EjocJB4TTi4zZx1H/5InH1YqYT9gQMSPlLoySb2bFi5hEtEIL/cgyWUDDoQ
-         REWjGG41TsSSO0SeG5gwp4KqMXDArPjeN9CL6HBfD31fi8ao2uQhw4QyvUxRFb0izDe+
-         9/E9/0AXei0PN7LM3cEymEX2JgL+PpdgN2i7W9Z42iQm5+9vkpybvMIt9w7nHGZpNaHP
-         wdpA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=PtOQ1ctrt5ChIryejtRZPvf9ci4aQrCJNC6i+HqoyYo=;
-        fh=96TuQZBxuui4Lg4J+ifword0TcvfNuGA6RF1WWFvopo=;
-        b=mRQbKvnpHnnB4JxFC/Ve8pO1W68158zNiSz+u6W58nXo9gPn0mpf4uuC8n0MchvtXL
-         cl2ZvIVL2n5JK3sGb9aZEGEnzgOgvBu3E1XJStHz74s1vb0SMvyBi/5e9HXslDF9Iann
-         L0owENLdCwA2NaUMO/WNY9nhy3iaesg+M3VX8GJjCkZ0YxzIBG3Z7tEEGZ9wCDJZJrme
-         Yt4H4CP93NPVPHslquwRtAFEzegS5d4nQyZcrWefOYhYtJQ+84l92KLZ4S/EzBOSt8L3
-         48dVm0ePL4Y3Dd0KeHBXHUwLStvkViBDbMReEzWRiWqUgJ8Wcf+1x05kl1fIGvgc8bFl
-         7aNA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787871650; x=1788476450; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PtOQ1ctrt5ChIryejtRZPvf9ci4aQrCJNC6i+HqoyYo=;
-        b=p9+covru2Hp5BxxPX+gS4B4kj8l3iQMWtHIkbuwbH++g0b4ZFXpIwAUUa06uTwE4Qe
-         Ie/QHJVFJmxZNI+YrdT6rxNByYEAqaFDnzMtvmtLvIumADy9Uja0h1eCjX6/8APpCb/F
-         v+pb/A/Kh//celSSa/C8KiuFfGDDWvoCJYzbMIiabWsZHjuO49l0uydKOyuJ8JDeFqSE
-         SISdkJV/TWoRYIUVtm0Mz7LSC/TTuZETu/PceOtahPw5m+rQCDuO/8qrF925bpxEYOvs
-         W3ZqyBT82TUFs5+Cnv55Nt2v3gtqfBcf5hG63gG8kAr0nfVYDDA2euCgXHBfQJSCWibK
-         WjYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787871650; x=1788476450;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PtOQ1ctrt5ChIryejtRZPvf9ci4aQrCJNC6i+HqoyYo=;
-        b=dJSww/W5v8XRe1ow8kp2bgGPvKbJum2wWRcDDo1iy1oru5Eu21VXM67h4gRSadE9fY
-         Wp4gXLnEGUN7mc55CxtComGZwAcD8lff1xD3GmKFu+UZrDXla+0pXpGXi9xfH2PCro82
-         0WyOln1hAULga74/aHiw9VTocBJt4/vDX1Yhny9wPl6w02TncBNw01A3U/G+/m+hiC7e
-         s/jsrErjpxNSloie7Zdt53J/4mP+c6/NQeZKONrVL521Ly64z1V9yRnfCRZVYBsjq3ef
-         hYCkRD22UHol4dgir7XQ6Cn8dycP8cRLT+rJOeE9NOEnhCH2EFoREYPz54ttBiUV+ysD
-         jssw==
-X-Forwarded-Encrypted: i=1; AHgh+RpfTRBNoCuFVoNcCVtSYnZLzj01LXapo5MnxvWZCzy4TPyVvImDWrNgHufyWDB/uVLcB4bya11xJ1dA7V4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mSNq/IFftXjRxrAfssJ9FX1Z3lxWvX7Q5e7CVJZJ4XVn/OuEOI
-	6MYnKuxnUv9Bv5R1OiNyfkiwKq1MCa3IRBCweKiPzeY3MQzMbr6uyd1nHPDveS5iTuiF6V4lCrf
-	LGzfrg86biGG5dse/7ahYdXyG4eBKml4=
-X-Gm-Gg: AR+sD10p4kY1SWBa8Ylv9Q2DZ5YRk4UBZZiDcdFILv3vEb/PwMchFxDbO8e96n5F0cC
-	W1zzm2gSkai13L9cWQvwquVqnQNaehEYuxU++gcsOSvzm7xGUBDTGPsq085bfFYg/IVMZtTGHJS
-	cb+1Zu5XcfKZ/nBGfIY1cjrEE2VSSw+SDvNIWh1ThCT1CQuNRJaeXtswq4EHTgzkUUE8jNw+Vbv
-	iePLOqcpcTAJtvAKU8gR5hmtygusbQnAD+j9fYX8QDnOZoFcBpHNNBRSTHN1DPG3hZSFZpv+OrE
-	nSnAIGmXYBel/1VvAWwjak7r+hHDZR0s+jF9PvJm2v6+gG0XRAFwmvJhWkXeLaqDkwi/CBT1ThX
-	jEJ+140dRpVmVyDCf2uhlNzZM5dk7VGoUCGR7jgOFj9isLnT7CY+R4PO+CPpp
-X-Received: by 2002:a17:902:d2c7:b0:2c9:ed4a:c3a4 with SMTP id
- d9443c01a7336-2d74ce38075mr21203935ad.0.1787871649744; Thu, 27 Aug 2026
- 16:00:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="eJs0Sql5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787871687; x=1819407687;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=fMQcW1aexhi5Ay/MHORDdn9i9uBYSep6pWh9b1WOvVk=;
+  b=eJs0Sql5oFkTR6670FaDdxRDeWS44GVcHG+C8bnpVZjhKwa95DeACjBu
+   TxsOkeDJU8p388Zh116n84C/tWhahVbc5VxBo/1XMJJCZ5vTRgI1uUF/0
+   riqXiyo1hWmtvCDy6itI33hGJa48xQtMUa7d2CJWZWXsCSNLO55OGQdsz
+   xCd7Ipjw8YYEvb5Wr77NkA3VXHlfTLi0HuuZ7ShNKBCT7SXnCsciueWZO
+   gcOM2cPfIu3fkynW6QAYdm3ZbKIVZLm3LQv1FQEfy5El7d7gR4I5R3/i2
+   kXvUd6zHn/dqqH80SQh4WuDN7kqSZvASWwKPlQGxeC4i1LIvkWXyclIsT
+   g==;
+X-CSE-ConnectionGUID: qJITEVQOQd+bC6YugjkNKA==
+X-CSE-MsgGUID: yBm4jRkGRLiKnHvCNSPa3g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="92196900"
+X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
+   d="scan'208";a="92196900"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 16:01:26 -0700
+X-CSE-ConnectionGUID: QTZI9P9xTcWcyTCTN9gbCA==
+X-CSE-MsgGUID: KEFD47NUQrqekknRYndBkQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
+   d="scan'208";a="272218861"
+Received: from soc-cp83kr3.clients.intel.com (HELO [10.122.185.5]) ([10.122.185.5])
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 16:01:26 -0700
+Message-ID: <efb6f286-97da-4d5f-955b-29310d99d478@intel.com>
+Date: Thu, 27 Aug 2026 18:01:24 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826163004.3365-1-mike@fireburn.co.uk> <20260826163004.3365-3-mike@fireburn.co.uk>
- <20260827030352.GB2327@sol> <CANiq72k3COcjo1s1MXdh=K7qRcOMMSq7-3_JCMtNKN3J0zQmjg@mail.gmail.com>
- <20260827182907.GA2137493@google.com>
-In-Reply-To: <20260827182907.GA2137493@google.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Fri, 28 Aug 2026 01:00:35 +0200
-X-Gm-Features: AcwNN1XMEcBfhQK81kPdbiieX1lImw4sydc4Mu3cJx6g3SD17OlDU5gWr95b-jw
-Message-ID: <CANiq72n5swSHaTsDi3TYdneyCiePHF-gEAHuFk3ZWj4v0meR+w@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] rust: crypto: add synchronous RSA akcipher support
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: Mike Lothian <mike@fireburn.co.uk>, linux-crypto@vger.kernel.org, 
-	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, 
-	"Jason A. Donenfeld" <Jason@zx2c4.com>, Ard Biesheuvel <ardb@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	Lyude Paul <lyude@redhat.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Asahi Lina <lina+kernel@asahilina.net>, Burak Emir <bqe@google.com>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>, Yury Norov <ynorov@nvidia.com>, 
-	David Gow <david@davidgow.net>, linux-kernel@vger.kernel.org, 
-	rust-for-linux@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 07/23] perf/x86: Apply PMU partition mask on static
+ constraints
+To: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>,
+ Sean Christopherson <seanjc@google.com>, Paolo Bonzini
+ <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>
+Cc: kvm@vger.kernel.org, Andi Kleen <ak@linux.intel.com>,
+ Jim Mattson <jmattson@google.com>, Stephane Eranian <eranian@google.com>,
+ linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>,
+ Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>,
+ Xudong Hao <xudong.hao@intel.com>
+References: <20260821222002.54907-1-zide.chen@intel.com>
+ <20260821222002.54907-8-zide.chen@intel.com>
+ <09251cc4-c795-411c-a9d9-9133a0d73e03@linux.intel.com>
+Content-Language: en-US
+From: "Chen, Zide" <zide.chen@intel.com>
+In-Reply-To: <09251cc4-c795-411c-a9d9-9133a0d73e03@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Aug 27, 2026 at 8:29=E2=80=AFPM Eric Biggers <ebiggers@kernel.org> =
-wrote:
->
-> Yes, it doesn't explain why they need to be inconsistent though.
 
-It is simply because it is the end state that we want, i.e. both
-Kconfig and source code to be in the usual folder (so less things to
-move later), plus one normally wants the Kconfig options to show in
-the right place in the menus.
 
-> And if the code is "conceptually part of the subsystem", why is the
-> MAINTAINERS entry for "CRYPTO LIBRARY" not being updated to include it?
+On 8/26/2026 3:12 AM, Mi, Dapeng wrote:
+> It seems not a good practice for me to modify all the places calling these
+> static constraints. We could have to add new get_event_constraints()
+> helpers for future platforms, and we have to duplicate these
+> part_constraint() code.
+> Could we leverage the dynamic constraint mechanism?  We can set the
+> event->hw.dyn_constraint to be host counters mask, then we don't need any
+> specific change for these static constraints.
 
-I don't know, but it should be, indeed. That is what we have been
-asking subsystems to do since the beginning (modulo exceptional
-cases). Some take direct ownership, some request to have a maintainer
-dedicated to that in the entry, some add a new sub-subsystem, etc.
+In all code paths that use these static constraints, for example,
+counter0_constraint, it is assumed that GP counter 0 is available on the
+host. However, with PMU partitioning, any counter may be unavailable,
+even in the model-specific code path, and this assumption is broken.
 
-I hope that clarifies.
+So, adding a wrapper seems unavoidable.
 
-Cheers,
-Miguel
+Additionally, part_constraint() already makes use of dyn_constraint, right?
+
+> Thanks.
+> 
+> On 8/22/2026 6:19 AM, Zide Chen wrote:
+>> Static, counter-specific constraints used for attr.precise_ip == 3, or
+>> other special cases bypass intel_get_event_constraints(), which is
+>> where partition_mask is applied via dyn_constraint().
+>>
+>> As a result, such a host !exclude_guest event can still be scheduled
+>> onto a counter that partition_mask reserves for the guest, causing
+>> host and guest to share the same hardware counter.
+>>
+>> Some of these static constraint paths, e.g. glp or cmt, are currently
+>> only reachable on platforms that don't support PerfMon masking. Still,
+>> apply part_constraint() to all of them uniformly, so future platforms
+>> that combine PerfMon masking with these constraint paths are not
+>> silently exposed to this bug.
+>>
+>> Signed-off-by: Zide Chen <zide.chen@intel.com>
+>> ---
+>>  arch/x86/events/intel/core.c | 39 +++++++++++++++++++++++-------------
+>>  1 file changed, 25 insertions(+), 14 deletions(-)
+>>
+>> diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
+>> index 7951accfcf2c..0f76e56fd2db 100644
+>> --- a/arch/x86/events/intel/core.c
+>> +++ b/arch/x86/events/intel/core.c
+>> @@ -4459,6 +4459,9 @@ dyn_constraint(struct cpu_hw_events *cpuc, struct event_constraint *c, int idx)
+>>   * Mask out guest-owned counters from a constraint when PMU partition has been
+>>   * entered, so !exclude_guest host events are not scheduled onto them while
+>>   * the CPU is in non-root mode.
+>> + *
+>> + * This is also used by PMU-specific get_event_constraints() wrappers
+>> + * that hard-code a static, counter-specific constraint.
+>>   */
+>>  static struct event_constraint *
+>>  part_constraint(struct cpu_hw_events *cpuc, int idx,
+>> @@ -5568,7 +5571,7 @@ hsw_get_event_constraints(struct cpu_hw_events *cpuc, int idx,
+>>  	/* Handle special quirk on in_tx_checkpointed only in counter 2 */
+>>  	if (event->hw.config & HSW_IN_TX_CHECKPOINTED) {
+>>  		if (c->idxmsk64 & (1U << 2))
+>> -			return &counter2_constraint;
+>> +			return part_constraint(cpuc, idx, event, &counter2_constraint);
+>>  		return &emptyconstraint;
+>>  	}
+>>  
+>> @@ -5585,7 +5588,7 @@ icl_get_event_constraints(struct cpu_hw_events *cpuc, int idx,
+>>  	 */
+>>  	if ((event->attr.precise_ip == 3) &&
+>>  	    constraint_match(&fixed0_constraint, event->hw.config))
+>> -		return &fixed0_constraint;
+>> +		return part_constraint(cpuc, idx, event, &fixed0_constraint);
+>>  
+>>  	return hsw_get_event_constraints(cpuc, idx, event);
+>>  }
+>> @@ -5607,7 +5610,7 @@ glc_get_event_constraints(struct cpu_hw_events *cpuc, int idx,
+>>  	if ((event->attr.precise_ip == 3) &&
+>>  	    !constraint_match(&fixed0_constraint, event->hw.config)) {
+>>  		if (c->idxmsk64 & BIT_ULL(0))
+>> -			return &counter0_constraint;
+>> +			return part_constraint(cpuc, idx, event, &counter0_constraint);
+>>  
+>>  		return &emptyconstraint;
+>>  	}
+>> @@ -5623,7 +5626,7 @@ glp_get_event_constraints(struct cpu_hw_events *cpuc, int idx,
+>>  
+>>  	/* :ppp means to do reduced skid PEBS which is PMC0 only. */
+>>  	if (event->attr.precise_ip == 3)
+>> -		return &counter0_constraint;
+>> +		return part_constraint(cpuc, idx, event, &counter0_constraint);
+>>  
+>>  	c = intel_get_event_constraints(cpuc, idx, event);
+>>  
+>> @@ -5645,9 +5648,9 @@ tnt_get_event_constraints(struct cpu_hw_events *cpuc, int idx,
+>>  	if (event->attr.precise_ip == 3) {
+>>  		/* Force instruction:ppp on PMC0 and Fixed counter 0 */
+>>  		if (constraint_match(&fixed0_constraint, event->hw.config))
+>> -			return &fixed0_counter0_constraint;
+>> +			return part_constraint(cpuc, idx, event, &fixed0_counter0_constraint);
+>>  
+>> -		return &counter0_constraint;
+>> +		return part_constraint(cpuc, idx, event, &counter0_constraint);
+>>  	}
+>>  
+>>  	return c;
+>> @@ -5705,22 +5708,30 @@ cmt_get_event_constraints(struct cpu_hw_events *cpuc, int idx,
+>>  	if (event->attr.precise_ip == 3) {
+>>  		/* Force instruction:ppp on PMC0, 1 and Fixed counter 0 */
+>>  		if (constraint_match(&fixed0_constraint, event->hw.config)) {
+>> +			c = &fixed0_counter0_1_constraint;
+>> +
+>>  			/* The fixed counter 0 doesn't support LBR event logging. */
+>>  			if (branch_sample_counters(event))
+>> -				return &counter0_1_constraint;
+>> -			else
+>> -				return &fixed0_counter0_1_constraint;
+>> +				c = &counter0_1_constraint;
+>> +
+>> +			return part_constraint(cpuc, idx, event, c);
+>>  		}
+>>  
+>>  		switch (c->idxmsk64 & 0x3ull) {
+>>  		case 0x1:
+>> -			return &counter0_constraint;
+>> +			c = &counter0_constraint;
+>> +			break;
+>>  		case 0x2:
+>> -			return &counter1_constraint;
+>> +			c = &counter1_constraint;
+>> +			break;
+>>  		case 0x3:
+>> -			return &counter0_1_constraint;
+>> +			c = &counter0_1_constraint;
+>> +			break;
+>> +		default:
+>> +			c = &emptyconstraint;
+>> +			break;
+>>  		}
+>> -		return &emptyconstraint;
+>> +		return part_constraint(cpuc, idx, event, c);
+>>  	}
+>>  
+>>  	return c;
+>> @@ -5744,7 +5755,7 @@ rwc_get_event_constraints(struct cpu_hw_events *cpuc, int idx,
+>>  		 */
+>>  		if (event->attr.precise_ip == 3)
+>>  			return &emptyconstraint;
+>> -		return &counters_1_7_constraint;
+>> +		return part_constraint(cpuc, idx, event, &counters_1_7_constraint);
+>>  	}
+>>  
+>>  	return c;
+
