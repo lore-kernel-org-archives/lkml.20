@@ -1,96 +1,243 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com [209.85.160.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 843B8390209
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 03:58:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AC7C38F935
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 03:58:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787803133; cv=none; b=MF4v2qqhE1a8YIj26JdRgHZ80pfDmhXuhjubNZVEziJr61MQRNJQccUYoWucXZBP75KjCKjcd6rsv2zMLKje2gEuOYcbQhGHQCXnYNllce3Ux3zsARIrrBTrbmrAT0tC5NIlXVN4HB02LFl2N5IQIevcPo/Qqz4bUmKy/PdnzH4=
+	t=1787803131; cv=none; b=i8dqN7D0JjGWjklbt5Zz7ysqZE+DiGmx12vTLQFgQxfEekvZNMWbZ4+Hu9RbAM7zTzlY/g+RHt/0VJqRR0SQZo+6gBG2BFOTDFCq11hsUfifiFZ7NVWAFRKzxFImNWFw9u8LhMfAcHxJqmudr9kSrKT/EUNWK+bAqf6Cn2sSPW4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787803133; c=relaxed/simple;
-	bh=xVRZFbDUIViTRBkZ8muOyVesN8/ZBW2mU/Uvr8Y3YBM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SJo1neqSFne5zCG/PFOtYSkQybz7T91iW8x6hFvn0NtVz8QncvwdK2fyzVJ5m+L52dohr2smrf53q280oAAn1azK6M6d1vTpTCjcqnjkTAHDLnt43iVhwunfqxfpEkgpMX2grGPPY6HfXZoPZvIc7TjSzrPWBQBxhVRz8yNWvsY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k/ZzM0wz; arc=none smtp.client-ip=209.85.221.50
+	s=arc-20240116; t=1787803131; c=relaxed/simple;
+	bh=kqAGrQKBnvnPgOUp0Is/BsYIX2enC25F2BBLntksDdM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=V2ToV1CVYtOTJmATwRVNiZpL/nthxZgQOpJoKpEEZvrN2oDNe3aoXlaVLxZ5tg0tLyLUF6nCScOrDGL49rbbMHAFqpwIcURHrnCBoHgEJi23UjKSUzZXTDPjmBcU3PnksuFBAsnjQEwJTIFS5H/gMoZCDoH+F5EJQUM9H34Nngw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J+UJI7Gt; arc=none smtp.client-ip=209.85.160.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k/ZzM0wz"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-482e5733a5aso702886f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 20:58:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J+UJI7Gt"
+Received: by mail-oa1-f47.google.com with SMTP id 586e51a60fabf-459281bc13bso1608746fac.2
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 20:58:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787803130; x=1788407930; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CAzoKxSQ3b+/c/GS7UxwHGejvR1ze+cQZf36sXyzK8o=;
-        b=k/ZzM0wzkjGJVIv06/2nIxQg0rw/2WFH8sB/IOe7PXW8XcOfZnsXM8QhviCoZdRfZ5
-         MuWezIlSPnrIod1xOmGjZyVWzkAA0WuJelOZKlp7entOwl6sfD5Nbxa/4/dNs+o0TwWA
-         dOA5GdA+J2QvP2VDbvv/aFkd/C3MyKxyWHpYy9K7q4pq9WvQq+ro6qrMKTPq7mwCbXYL
-         HxIQOGJxJKvs6clxePKVGhuX0iTmOibG9Xli6vjjMnxFh7OklgIJeIb78QCjnYCqAW/0
-         AfVzIJ76770I5mjCNn+5oZ4qnSo4cuIeW4+rXqsXc79m67VA+i0qWBRn+WvRs5wLw7oB
-         /HZg==
+        d=gmail.com; s=20251104; t=1787803129; x=1788407929; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mZxMQK5WtsXLFwQrtkbnqWWj54ZVBmL2OgaA3/jRW4s=;
+        b=J+UJI7GtsUnE4UAjjCj4A+YUDvrw9ECyndehe8/209qhTS0NvXuwTS40vEhPrifsde
+         N84eaCSmVIMpwx1eVXeKM/cm827RLgvQ8GF9ZFCuiILDNh7OQtiXFlLRMOa9cLWUy/EO
+         gzu9iPPLcv+ZMJdqsbEVQsAyr+qASsHkb9G9QXJGJcc6g35GcCiuXY7zVcp6mRo7+dOI
+         oqgCQbJt0fItEUOtNZOL4YIe8fkpPFONMyykeVDjdy9xry6lrD/UBudgxqFFS6woG/9j
+         9YluZ2wwqAEllTFx10JPmolhCsSffQw15I9+KJHr+DibO1oxB8mQx3ILF0f65Q4DOzm8
+         eXfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787803130; x=1788407930;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1787803129; x=1788407929;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=CAzoKxSQ3b+/c/GS7UxwHGejvR1ze+cQZf36sXyzK8o=;
-        b=kYvLxYegxTYvJh2Uns4EV0kDxtsktdJzdMcxpw3TL/ptodXH00s3Mu/fzEF+xTDoQ6
-         RL3+Y8iFo/hijK8FxSWSUUJQVMkz8lLEObq2GGSzgzHKOhWJcx8py5fGT+KB9ynJEB5P
-         Q7po/ENL0zHyVW2cH5rj9lEy50O+ZhZZAwC9u9YgcuZ3TC9HQQHpYVNbhU+mfSHPxcLB
-         z8kzzNFYeG0GIj2azXxTlS4Wndb/EQZNQ5/ErkH4q69xGQvBLC2WvMZJqr59eCldECyY
-         qmW6V6cpYNtfCHCauZrrEXLgpPkP6awlk37y2ACCpS8qPPsjGb0VMHuUQRd0JsnSTEbz
-         hziQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrCXZJ+XZNwAbcs3WWTqeKt/wgbIYJ3OjJTAPPgq9kcwaHrQGAfnUwAxGd4aPi+FZPzpDmHpwjEi/zjbAw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mrLkRCIhVxfHz25UJaxnV0bRbPmrsAxVXkKKGZdXbdN3SFZkjg
-	dNW1g17Uk6jFzq0c5JEQZ5loQCGSjWV4LvGNBVVHzK/oWstr68qhyyU/
-X-Gm-Gg: AR+sD13VJQDJ8YpqBL/5NyiTbC4H3oFtPWAX0eFLJET/JZa8F/pqu1jL0uWJRESrWoW
-	m3IHgTVUEUr1gouMpVIIZ4YRV6fzNSd5eMgDTR8NOkKq1y/yr1sNCkce1SaIQGHkD9fcp0NZMnt
-	gwoApqLC0t7QbH4I5JhBvynGxyIoMCMtUFcm73kqUF5qUCHwIJBF1qCpwxRkloKh8dzLq7xLflB
-	3Ihf9z1PZMebhEg3DTS3w5nnbhvMVcTJXGysgc0o8LVWvXRWhRb8uSV7z0+nd/XC7AgJhvNVYdV
-	8DhKbbiazfq/Q/KceBq/6kNA3WnNtz8SGRlXbVqdZ2m1n8XWucuIqZxsvPM+kvxvQ55i6T5T1Y6
-	Y+5tWeUXseVzFz5uEOwEPGEhnK84Fv3lh+DDJKGIORptVExW1GgLj/2KFTvtnQqY1S74mBBJNve
-	3jrLDlmBk3AWEtscAxh8lpFHJMX/eSTtuHiDsD/0ZbHMacXSK2Qz7ErwSdnx/Uhu2yb1Aq3jPA4
-	BBgvwriKlX4SbRy71xOYaJTgPhG75SSR+UEV9V7q+WcmBSkjuk37OIoBEo321u86Wfr4n75isfB
-	WewTZZBYmi5rrKzlMxDYOLI=
-X-Received: by 2002:a05:6000:238a:b0:482:e968:86f9 with SMTP id ffacd0b85a97d-482e968892bmr7778855f8f.14.1787803129596;
-        Wed, 26 Aug 2026 20:58:49 -0700 (PDT)
-Received: from unknown748F3CBA5068 (dynamic-095-114-154-097.95.114.pool.telefonica.de. [95.114.154.97])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e27ab569sm5601745f8f.16.2026.08.26.20.58.48
+        bh=mZxMQK5WtsXLFwQrtkbnqWWj54ZVBmL2OgaA3/jRW4s=;
+        b=nTxJC7ZpJ1lj8laPXLsxWzHCVOJl9L+Uw1tnjYJygamnCtmRiLGs2f6tj0CTc/vab9
+         OmQqRepFhHvYRQWv3mURlxZOzcwHoi4fiYUbK/iqixMN3ZkQ4KXpmJXqWx38oTN5PiYN
+         jUpGCXBLglZ/q7i3v/1zztnuPxslVzEogrRoNaJ3gQVDBnsKM4PoIcw2CHT2rXSwnCHa
+         4Tl2spqjf8UUIOVKlKdV+gWJ14/VCczxsZOtFIoHSEGACFwGkXUNytwJPE859cDKijXa
+         7p6gxz8MEcPD7UiB3vCUq3C89vT4X0QW5bKnPEy93sI8UB62+qQGzxARsm0BnDYs8up2
+         G1Vg==
+X-Gm-Message-State: AFuF++khQu57JmA8Kgh2ZugzBcwwVpwmE3EZE1/pLOFnC0QPJM5OhUPH
+	onIJ5keIJ80DZiqCQjOxhFP8Yfd9haB5uYhw4eJyO1N29OjabyhNcZRZfqOZhA53
+X-Gm-Gg: AR+sD13XXCm8X/HlQXQuRn2ftT5B+Xxrm/dFJov+DfZmGyANiom5XdZP+rB69jOqB5E
+	9JFTRF0E1SryrLejxO+vHn98EdawzgT/m/uH31pZGf0wt1JqBcD7Nadw0SJ8g0t8zrY86aBimLX
+	bCoEfxhxs7+YiakEW+XHDjMGRnnbxpKGe5xkSkYPMShSMzECP+B2L1bhcAUy8p8DrdkqHaWdImN
+	N9ejIT52pkownlL8jAr/aL+yAEQiiVDSvH3Rfetyk1RX13TmHwoZ+EmxkAXnthXVhP6E1QvCcXh
+	BB0edfsVhwtimES+aPh/GguFbpEeS3Eb6sCtuMK8VWyUkkkVIY11cQJyg9nHT5VMzDVvFDchaM8
+	YpSO1W+2VOseCslBxZJzZIIuL1sAbCJgO0QNvWVtUVxItxOkp4mP7jL47vbamXohrmCNU+Xy7Pb
+	Yj7w8g3QGANn23n5t5N/6hBrVYLTyVIqCrB2XItEj5sHnrBNU5bJP2YjBkUjwpd49bn0ItVJLiB
+	Bo3dYfAXIwn3+wvWmrx75/YINSD0WnAjfyxf+y9ylV6I/8A/Z5gEiqnq0S8VD2H37LKn1nkp6dv
+	x6EFvRjq
+X-Received: by 2002:a05:6870:fb9f:b0:448:9d5b:6393 with SMTP id 586e51a60fabf-46599f6067dmr13214306fac.14.1787803128910;
+        Wed, 26 Aug 2026 20:58:48 -0700 (PDT)
+Received: from [192.168.0.245] (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
+        by smtp.googlemail.com with ESMTPSA id 586e51a60fabf-467367af2bfsm900825fac.6.2026.08.26.20.58.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 20:58:49 -0700 (PDT)
-Date: Thu, 27 Aug 2026 05:58:18 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Arend van Spriel <arend.vanspriel@broadcom.com>, 
-	linux-wireless@vger.kernel.org
-Cc: Hante Meuleman <meuleman@broadcom.com>, 
-	"John W. Linville" <linville@tuxdriver.com>, Franky Lin <frankyl@broadcom.com>, 
-	Pieter-Paul Giesberts <pieterpg@broadcom.com>, brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] wifi: brcmfmac: fix lost 802.1x TX completion wakeup
-Message-ID: <ao-1n5uWuVPKjhb1@gmail.com>
-References: <20260811082702.44521-1-kmehltretter@gmail.com>
+        Wed, 26 Aug 2026 20:58:48 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+Date: Wed, 26 Aug 2026 21:58:39 -0600
+Subject: [PATCH 7/8] lockdep: Expose slab pool telemetry in
+ /proc/lockdep_stats and initcalls
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260811082702.44521-1-kmehltretter@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260826-lockdep-memblock-v1-v1-7-e2db855391ec@gmail.com>
+References: <20260826-lockdep-memblock-v1-v1-0-e2db855391ec@gmail.com>
+In-Reply-To: <20260826-lockdep-memblock-v1-v1-0-e2db855391ec@gmail.com>
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Waiman Long <longman@redhat.com>
+Cc: linux-kernel@vger.kernel.org, Jim Cromie <jim.cromie@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787803120; l=6448;
+ i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
+ bh=kqAGrQKBnvnPgOUp0Is/BsYIX2enC25F2BBLntksDdM=;
+ b=uZ7Wd4Ljf/hajAN/9LfeUHolQFsjSym1A2G7yUaBESqdf1Nk/KyZ1IOyQ1xCbiOic1T7KNxRT
+ VZARg1PyRvqDcUhCkOrFsgt+JIEwGWPdisQ8y0WJHs77+lp6PcZmx2d
+X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
+ pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 
-On Tue, Aug 11, 2026 at 10:27:02AM +0100, Karl Mehltretter wrote:
-> Fixes: 21fff75d2fb6 ("brcmfmac: use wait_event_timeout for 8021x pending count")
-> Assisted-by: Claude:claude-fable-5
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> ---
-> LKMM results with herdtools7 7.58:
-> 
+Extend lockdep observability to track slab allocation dynamics:
 
-Just a friendly ping in case this got missed.
+0. In /proc/lockdep_stats, display total reserved slabs, used slabs,
+   free slabs (headroom), and a per-consumer slab breakdown (lock_classes,
+   direct deps, dependency chains, chain hlocks, stack traces).
 
-Thanks,
-Karl
+1. In lockdep.c, add lockdep_report_stage() hooks registered across
+   initcall milestones (core, postcore, arch, subsys, fs, device, late)
+   to log slab consumption progress throughout kernel initialization.
+
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+ kernel/locking/lockdep.c           | 47 ++++++++++++++++++++++++++++++++++++++
+ kernel/locking/lockdep_internals.h |  4 +++-
+ kernel/locking/lockdep_proc.c      | 40 ++++++++++++++++++++++++--------
+ 3 files changed, 80 insertions(+), 11 deletions(-)
+
+diff --git a/kernel/locking/lockdep.c b/kernel/locking/lockdep.c
+index 3fb6c07cea36..b6048e7c8b56 100644
+--- a/kernel/locking/lockdep.c
++++ b/kernel/locking/lockdep.c
+@@ -6992,6 +6992,53 @@ void __init lockdep_init(void)
+ 	       sizeof(((struct task_struct *)NULL)->held_locks));
+ }
+ 
++static void lockdep_report_stage(const char *domain, const char *stage_name)
++{
++	unsigned int used = lockdep_slabs_used - lockdep_nr_free_slabs;
++	unsigned int class_per_chunk = lock_class_PER_CHUNK;
++	unsigned int entry_per_chunk = LOCKDEP_SLAB_SIZE / sizeof(struct lock_list);
++	unsigned int chain_per_chunk = lock_chain_PER_CHUNK;
++	unsigned int hlock_per_chunk = chain_hlock_PER_CHUNK;
++	unsigned int trace_per_chunk = LOCKDEP_SLAB_SIZE / sizeof(unsigned long);
++
++	unsigned int cl_w = nr_lock_classes / class_per_chunk;
++	unsigned int cl_f = ((nr_lock_classes % class_per_chunk) * 100) / class_per_chunk;
++
++	unsigned int en_w = nr_list_entries / entry_per_chunk;
++	unsigned int en_f = ((nr_list_entries % entry_per_chunk) * 100) / entry_per_chunk;
++
++	unsigned long chains = lock_chain_count();
++	unsigned int ch_w = chains / chain_per_chunk;
++	unsigned int ch_f = ((chains % chain_per_chunk) * 100) / chain_per_chunk;
++
++	unsigned int hlocks = chain_hlocks_used();
++	unsigned int hl_w = hlocks / hlock_per_chunk;
++	unsigned int hl_f = ((hlocks % hlock_per_chunk) * 100) / hlock_per_chunk;
++
++	unsigned int tr_w = nr_stack_trace_entries / trace_per_chunk;
++	unsigned int tr_f = ((nr_stack_trace_entries % trace_per_chunk) * 100) / trace_per_chunk;
++
++	pr_info("lockdep: %-8s [%-9s] : %u/%u slabs : classes=%u.%02u entries=%u.%02u chains=%u.%02u hlocks=%u.%02u trace=%u.%02u\n",
++		domain, stage_name, used, lockdep_nr_slabs,
++		cl_w, cl_f, en_w, en_f, ch_w, ch_f, hl_w, hl_f, tr_w, tr_f);
++}
++
++#define DEFINE_LOCKDEP_LEVEL_REPORT(lvl, name)			\
++	static int __init lockdep_report_##name(void)		\
++	{							\
++		lockdep_report_stage("initcall", #name);	\
++		return 0;					\
++	}							\
++	lvl(lockdep_report_##name)
++
++DEFINE_LOCKDEP_LEVEL_REPORT(core_initcall_sync, core);
++DEFINE_LOCKDEP_LEVEL_REPORT(postcore_initcall_sync, postcore);
++DEFINE_LOCKDEP_LEVEL_REPORT(arch_initcall_sync, arch);
++DEFINE_LOCKDEP_LEVEL_REPORT(subsys_initcall_sync, subsys);
++DEFINE_LOCKDEP_LEVEL_REPORT(fs_initcall_sync, fs);
++DEFINE_LOCKDEP_LEVEL_REPORT(device_initcall_sync, device);
++DEFINE_LOCKDEP_LEVEL_REPORT(late_initcall_sync, late);
++
+ static int lockdep_shutdown_notify(struct notifier_block *nb,
+ 				   unsigned long code, void *unused)
+ {
+diff --git a/kernel/locking/lockdep_internals.h b/kernel/locking/lockdep_internals.h
+index ccd7343af672..6fb776618ac6 100644
+--- a/kernel/locking/lockdep_internals.h
++++ b/kernel/locking/lockdep_internals.h
+@@ -223,7 +223,7 @@ extern unsigned int max_lockdep_depth;
+ extern unsigned int max_bfs_queue_depth;
+ extern unsigned long max_lock_class_idx;
+ 
+-DECLARE_2D_RADIX(lock_class, struct lock_class);
++DECLARE_CHUNKED_ARRAY(lock_class, struct lock_class);
+ extern unsigned long lock_classes_in_use[];
+ 
+ struct lockdep_slab_usage {
+@@ -240,6 +240,8 @@ struct lockdep_slab_stats {
+ 	struct lockdep_slab_usage usage;
+ };
+ 
++void lockdep_get_slab_stats(struct lockdep_slab_stats *st);
++
+ unsigned int chain_hlocks_used(void);
+ unsigned long lock_chain_count(void);
+ void lockdep_get_slab_stats(struct lockdep_slab_stats *st);
+diff --git a/kernel/locking/lockdep_proc.c b/kernel/locking/lockdep_proc.c
+index 95b76047918d..76e32fca8c54 100644
+--- a/kernel/locking/lockdep_proc.c
++++ b/kernel/locking/lockdep_proc.c
+@@ -380,17 +380,37 @@ static int lockdep_stats_show(struct seq_file *m, void *v)
+ 			debug_locks);
+ 
+ 	/*
+-	 * Zapped classes and lockdep data buffers reuse statistics.
++	 * Shared Memblock Slab Reservoir Statistics
+ 	 */
+-	seq_puts(m, "\n");
+-	seq_printf(m, " zapped classes:                %11lu\n",
+-			nr_zapped_classes);
+-#ifdef CONFIG_PROVE_LOCKING
+-	seq_printf(m, " zapped lock chains:            %11lu\n",
+-			nr_zapped_lock_chains);
+-	seq_printf(m, " large chain blocks:            %11u\n",
+-			nr_large_chain_blocks);
+-#endif
++	{
++		struct lockdep_slab_stats st;
++
++		lockdep_get_slab_stats(&st);
++		if (st.total_slabs) {
++			unsigned int free_slabs = st.total_slabs > st.used_slabs ?
++						  st.total_slabs - st.used_slabs : 0;
++			unsigned int headroom_pct = (free_slabs * 100) / st.total_slabs;
++
++			seq_puts(m, "\n lockdep memblock slab reservoir:\n");
++			seq_printf(m, "   total slabs:                 %11u (%zu kB)\n",
++				   st.total_slabs, (size_t)st.total_slabs * 64);
++			seq_printf(m, "   used slabs:                  %11u (%zu kB)\n",
++				   st.used_slabs, (size_t)st.used_slabs * 64);
++			seq_printf(m, "     - lock_classes slabs:      %11u (%zu kB)\n",
++				   st.usage.lock_classes, (size_t)st.usage.lock_classes * 64);
++			seq_printf(m, "     - direct deps slabs:       %11u (%zu kB)\n",
++				   st.usage.direct_deps, (size_t)st.usage.direct_deps * 64);
++			seq_printf(m, "     - dependency chains slabs: %11u (%zu kB)\n",
++				   st.usage.lock_chains, (size_t)st.usage.lock_chains * 64);
++			seq_printf(m, "     - chain hlocks slabs:      %11u (%zu kB)\n",
++				   st.usage.chain_hlocks, (size_t)st.usage.chain_hlocks * 64);
++			seq_printf(m, "     - stack_trace slabs:       %11u (%zu kB)\n",
++				   st.usage.stack_traces, (size_t)st.usage.stack_traces * 64);
++			seq_printf(m, "   free slabs (headroom):       %11u (%zu kB, %u%%)\n",
++				   free_slabs, (size_t)free_slabs * 64, headroom_pct);
++		}
++	}
++
+ 	return 0;
+ }
+ 
+
+-- 
+2.55.0
+
