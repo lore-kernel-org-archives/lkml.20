@@ -1,125 +1,193 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 32D9642125F;
-	Thu, 27 Aug 2026 17:34:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6135342122A
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:35:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787852098; cv=none; b=D2/hfCvvK1eEScrec3w/I2hb1qUTjbx4/wDRytCIfMMesL+RQUeuo3+JA354Z4VoKxjDL+tYdW7qxAewY9rHviT9QRYcFBWaa/iwzaGN9hyEluoWp0qpSW6HM9tlyPlyVGoc5r8UNLANohi9Dtk6G9bEhekqYXI7wIi0wkbL0RE=
+	t=1787852124; cv=none; b=rbFdZgKE3ptREgPp7jGnQ6IfJtRiAp3T82URFYSMfN7B289G0jc773UajdwGqZ0ioozMN23kXat9ReOpDQgEh3eNPL9D0Zx50IlUparkW7d4fkQU9wdYj/IVh+iDOfVhiFKrIbS/0g1za9usOU3wNwemHWShjKXzbjrExjI9qwU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787852098; c=relaxed/simple;
-	bh=HIYz2kIXhv1C4lh+L3uA2mr5Px+nz+onXV60RWtd3NQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ri3Fsy++eoKD3U1mR7muWm0x0sqOTeb4Z6+Lt2XAHWobiDw/SDCbHeF0+q9agehvcH6fAIaFKnIgc+HbxciCyJBjL8cMABlTsr7T1xl+kJJ6MENIx8HyMe9ucMOHVZ+t0Rkr7PuUhVV9crkRqhPETSRaP7t4criAMdDKuCCeIy4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=JDTuz51W; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1787852124; c=relaxed/simple;
+	bh=w71Et5wpQCMNemYcecfDHqCh0RM4Z1TQVLm/oPzTJ/Y=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=nPnQ0rvWqzN1aD87XPTz8cuIbeHTuVwlfJgCyoQNRa72O9BDcFr8zabVgXtngT+KKqt2D7nYA5w/u7G7rjlChnPj9qvXHvQ2E3YEfxqrjRiDzRSJUNWO4fzDgcNGX+fE3BWSVdb5a6cXopIFrUe2OL1uXedNq+jAoTwjHDkRqVg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Frtesjwr; arc=none smtp.client-ip=209.85.216.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="JDTuz51W"
-Received: by linux.microsoft.com (Postfix, from userid 1127)
-	id B6B5720B7167; Thu, 27 Aug 2026 10:34:23 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com B6B5720B7167
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1787852063;
-	bh=PRM4WsYYCbTuuUkMBHLU01nQ7CqrfJwf9ezzBDEDiA8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=JDTuz51WYfRjLQHX5p8dgR5B9SyCSIS9i2mbOHECoUjLkXLAyPAAnmUTXHs/dFj63
-	 aQMPDrnOSHxpIZBBGcXXQ798WHA2nQaqomr0QnGhIe1t33PrPX1ttWntYzO2/6fU3Z
-	 IOHWG6i6QTlCoH4xXGwDPinGzZpvQK0AXqDVdAAI=
-Date: Thu, 27 Aug 2026 10:34:23 -0700
-From: Saurabh Singh Sengar <ssengar@linux.microsoft.com>
-To: Michael Kelley <mhklinux@outlook.com>
-Cc: Long Li <longli@microsoft.com>,
-	Naman Jain <namjain@linux.microsoft.com>,
-	Sahil Chandna <sahilchandna@linux.microsoft.com>,
-	KY Srinivasan <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	"wei.liu@kernel.org" <wei.liu@kernel.org>,
-	Dexuan Cui <DECUI@microsoft.com>,
-	"lpieralisi@kernel.org" <lpieralisi@kernel.org>,
-	"kwilczynski@kernel.org" <kwilczynski@kernel.org>,
-	"mani@kernel.org" <mani@kernel.org>,
-	"robh@kernel.org" <robh@kernel.org>,
-	"bhelgaas@google.com" <bhelgaas@google.com>,
-	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
-	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] PCI: hv: Warn when wait_for_response() waits indefinitely
-Message-ID: <apB1HytkO5xu7jP6@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-References: <20260825051850.2438816-1-sahilchandna@linux.microsoft.com>
- <736091cf-8d00-415e-a890-e2dfa6739325@linux.microsoft.com>
- <SA1PR21MB66836C32FD0FABD94B45D7F6CEAF2@SA1PR21MB6683.namprd21.prod.outlook.com>
- <SN6PR02MB41578D73327A61FD3D7412C2D4AD2@SN6PR02MB4157.namprd02.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Frtesjwr"
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3823dcc1647so216268a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:35:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787852121; x=1788456921; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:mime-version:date:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=6i2GuB52vsi1dvGmgIuAll9oKdxoOK0J1vulbgdbfqA=;
+        b=FrtesjwrL7rgKwjZAn/iQFQS7D3vdK+SGjoK/uhIs6mE/uHiEPmO+pgz5DY501LQdQ
+         kWmAZ0UgLDMbLzu75Y0+Qz8cwpivfKtdk4nlbgNKSQvORXwy9ukzi7i3oXJ8IOhehKmN
+         vqLRGYN5BZ2OfuKQhIa+uDYrSagdmu4ZKrP36ktKQwU/OCrvmVP2uA1YBDo34P8IbY2B
+         EWYwNxd6W2w4fQUepKM+i7QqXNQrbfx2DRYd3PIDmoBIt4fWWmJ09m6qEWLMrZU81kM+
+         tKfZtHKGKlYhcMrjA3Z4hr9KgeVzKwu6Pa+y3tbFlBgX9UMNjneJ8Wo6SnGmZD3ZnDNA
+         ltzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787852121; x=1788456921;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:mime-version:date:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6i2GuB52vsi1dvGmgIuAll9oKdxoOK0J1vulbgdbfqA=;
+        b=JG1JH0lq+lJvBvIpSBi31LdBSJfd7waOQFLxh2o38LbbO99SJZH8cGQxR0+QRJakjp
+         8oKUoMKt3HAVE53MVk35bATkh5WS7YiAlOvd2aPAO1nvqRaInJp2RGcyNNJ+cpSiWTdj
+         LffuyGw6y/YgoPxUKpXBHKdpuz4YD8xyYXO9LRUWN0nSJ68WxrWd8AQle6AR31f7qKGV
+         RPwZZKTr/WYECMmTb0HDlM8RkIjrvpVTsphIadxKAraeH6dJp4tEwYEVr0eagLcQqU4S
+         d1EtSNZwNyT7V8sz7rLrUCn8Z3plaEtKPY2va6q6riuF40XwYn1rdn1GE8mpQS1x5it/
+         id0Q==
+X-Forwarded-Encrypted: i=1; AHgh+RpxsQVuVjbIGyaCJa+iZhOgy0ZlSiKN3yuDG5fziZEczyaVohX2bEYPtI52dZq1CTr7yQn35b2XZayO5Mk=@vger.kernel.org
+X-Gm-Message-State: AFuF++leHktXx5tkbDn2djucjIGNYA3z5u6Lne6SMBnc8fzwb9S03KJa
+	lh0gu7EgrNG6LHFkqAS00MINhqn2Ln5gz1OsX9AQcidoq2Zs7aT/aND7VzBPoCva9vKxok7wUp0
+	zIn4tnD0gYq1yEA==
+X-Received: from pjbpb6.prod.google.com ([2002:a17:90b:3c06:b0:38f:659:4491])
+ (user=dmatlack job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90b:530c:b0:381:1c96:829b with SMTP id 98e67ed59e1d1-396d0d4c43amr1737954a91.3.1787852121369;
+ Thu, 27 Aug 2026 10:35:21 -0700 (PDT)
+Date: Thu, 27 Aug 2026 17:35:11 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <SN6PR02MB41578D73327A61FD3D7412C2D4AD2@SN6PR02MB4157.namprd02.prod.outlook.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.897.gb25b4bd76c-goog
+Message-ID: <20260827173511.2322549-1-dmatlack@google.com>
+Subject: [PATCH] iommu: Introduce reset_mutex to avoid circular locking dependency
+From: David Matlack <dmatlack@google.com>
+To: iommu@lists.linux.dev, linux-kernel@vger.kernel.org
+Cc: Alex Williamson <alex@shazbot.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, "Joerg Roedel (AMD)" <joro@8bytes.org>, Joerg Roedel <joerg.roedel@amd.com>, 
+	Kevin Tian <kevin.tian@intel.com>, Nicolin Chen <nicolinc@nvidia.com>, 
+	Robin Murphy <robin.murphy@arm.com>, Will Deacon <will@kernel.org>, 
+	David Matlack <dmatlack@google.com>, Vipin Sharma <vipinsh@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Aug 27, 2026 at 04:07:06PM +0000, Michael Kelley wrote:
-> From: Long Li <longli@microsoft.com> Sent: Tuesday, August 25, 2026 10:01 AM
-> 
-> [snip]
-> 
-> > >
-> > > Basically something like this:
-> > >
-> > > #define PCI_RESPONSE_WARN_TIMEOUT_SEC 300
-> > >
-> > > static int wait_for_response(struct hv_device *hdev,
-> > >                   struct completion *comp) {
-> > >      unsigned long warn_at =
-> > >          jiffies + secs_to_jiffies(PCI_RESPONSE_WARN_TIMEOUT_SEC);
-> > >      bool warned = false;
-> > >
-> > >      while (true) {
-> > >          if (hdev->channel->rescind) {
-> > >              dev_warn_once(&hdev->device, "The device is gone.\n");
-> > >              return -ENODEV;
-> > >          }
-> > >
-> > >          if (wait_for_completion_timeout(comp, HZ / 10)) {
-> > >              if (warned || time_after_eq(jiffies, warn_at))
-> > >                  dev_warn(&hdev->device,
-> > >                       "PCI response received after prolonged wait.\n");
-> > >              return 0;
-> > >          }
-> > >
-> > >          if (!warned && time_after_eq(jiffies, warn_at)) {
-> > >              dev_warn(&hdev->device,
-> > >                   "PCI still waiting for response.\n");
-> > >              warned = true;
-> > >          }
-> > >      }
-> > > }
-> > >
-> > > Regards,
-> > > Naman
-> > 
-> > This looks better.
-> > 
-> 
-> I like getting the "response received" message if the response
-> eventually does come in. It's a judgment call, but I would be OK
-> with outputting the "still waiting" message after each wait interval
-> rather than doing it only once. And I would make the interval smaller
-> than 300 seconds. Five minutes is a long time to wait and wonder
-> what's going on when things are hung. 60 or 120 seconds would
-> be OK -- a line in dmesg every 1 or 2 minutes doesn't seem like
-> spamming to me when something is fundamentally broken.
-> And probably don't expect a VM in this broken state to keep running
-> for hours -- the sysadmin or automatic monitoring software will
-> reboot it to get it working again.
+Introduce a dedicated reset_mutex inside struct iommu_group to serialize
+device reset operations and domain resetting state without acquiring
+group->mutex.
 
-I will also vote for repeated message as long as interval between two
-messages is greater than 60 seconds.
+Commit f5b16b802174 ("PCI: Suspend iommu function prior to resetting a
+device") introduced pci_dev_reset_iommu_prepare() and
+pci_dev_reset_iommu_done(), which acquire group->mutex during PCI device
+resets. In drivers such as VFIO, device reset handlers (e.g.
+pci_try_reset_function()) are executed while holding driver locks such
+as vdev->memory_lock.
 
-- Saurabh
+This introduces a circular locking dependency that can lead to tasks
+being permanently stuck in a deadlock:
 
-> 
-> Just my $.02. Outputting the "still waiting" message only once is
-> also OK. Your call.
-> 
-> Michael
+[vdev->memory_lock]  =E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+(1. VFIO Reset)=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80>  [io=
+mmu_group->mutex]
+         =E2=96=B2
+         =E2=94=82                                                    =E2=
+=94=82
+ (3. VFIO BAR Page Fault)                                    ... [*]
+         =E2=94=82                                                    =E2=
+=94=82
+         =E2=94=82                                                    =E2=
+=94=82
+         =E2=94=94=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80  [mm->mmap_lock]  <=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=98
+
+Fix this by using group->reset_mutex instead of group->mutex in
+pci_dev_reset_iommu_prepare() and pci_dev_reset_iommu_done(). To ensure
+other iommu_group operations stay properly synchronized with resets,
+also take group->reset_mutex when checking group->recovery_cnt.
+
+[*] The iommu_group->mutex --> mm->mmap_lock dependency was reported as
+a transitive chain: iommu_group->mutex --> cpu_hotplug_lock -->
+i_mutex_dir_key --> mm->mmap_lock.
+
+Reported-by: Vipin Sharma <vipinsh@google.com>
+Closes: https://lore.kernel.org/kvm/20260821193502.92431-1-vipinsh@google.c=
+om/
+Fixes: f5b16b802174 ("PCI: Suspend iommu function prior to resetting a devi=
+ce")
+Signed-off-by: David Matlack <dmatlack@google.com>
+---
+Cc: Alex Williamson <alex@shazbot.org>
+
+ drivers/iommu/iommu.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
+index e8f13dcebbde..29e63697211f 100644
+--- a/drivers/iommu/iommu.c
++++ b/drivers/iommu/iommu.c
+@@ -56,6 +56,7 @@ struct iommu_group {
+ 	struct list_head devices;
+ 	struct xarray pasid_array;
+ 	struct mutex mutex;
++	struct mutex reset_mutex;
+ 	void *iommu_data;
+ 	void (*iommu_data_release)(void *iommu_data);
+ 	char *name;
+@@ -1080,6 +1081,7 @@ struct iommu_group *iommu_group_alloc(void)
+=20
+ 	group->kobj.kset =3D iommu_group_kset;
+ 	mutex_init(&group->mutex);
++	mutex_init(&group->reset_mutex);
+ 	INIT_LIST_HEAD(&group->devices);
+ 	INIT_LIST_HEAD(&group->entry);
+ 	xa_init(&group->pasid_array);
+@@ -2476,6 +2478,7 @@ static int __iommu_group_set_domain_internal(struct i=
+ommu_group *group,
+ 	 * pci_dev_reset_iommu_done() attaches the device to group->domain, if
+ 	 * IOMMU_SET_DOMAIN_MUST_SUCCEED is not set.
+ 	 */
++	guard(mutex)(&group->reset_mutex);
+ 	if (group->recovery_cnt && !(flags & IOMMU_SET_DOMAIN_MUST_SUCCEED))
+ 		return -EBUSY;
+=20
+@@ -3652,6 +3655,7 @@ int iommu_attach_device_pasid(struct iommu_domain *do=
+main,
+ 	 * This is a concurrent attach during device recovery. Reject it until
+ 	 * pci_dev_reset_iommu_done() attaches the device to group->domain.
+ 	 */
++	guard(mutex)(&group->reset_mutex);
+ 	if (group->recovery_cnt) {
+ 		ret =3D -EBUSY;
+ 		goto out_unlock;
+@@ -3745,6 +3749,7 @@ int iommu_replace_device_pasid(struct iommu_domain *d=
+omain,
+ 	 * This is a concurrent attach during device recovery. Reject it until
+ 	 * pci_dev_reset_iommu_done() attaches the device to group->domain.
+ 	 */
++	guard(mutex)(&group->reset_mutex);
+ 	if (group->recovery_cnt) {
+ 		ret =3D -EBUSY;
+ 		goto out_unlock;
+@@ -4042,7 +4047,7 @@ int pci_dev_reset_iommu_prepare(struct pci_dev *pdev)
+ 	if (!pci_ats_supported(pdev) || !dev_has_iommu(&pdev->dev))
+ 		return 0;
+=20
+-	guard(mutex)(&group->mutex);
++	guard(mutex)(&group->reset_mutex);
+=20
+ 	gdev =3D __dev_to_gdev(&pdev->dev);
+ 	if (WARN_ON(!gdev))
+@@ -4153,7 +4158,7 @@ void pci_dev_reset_iommu_done(struct pci_dev *pdev)
+ 	if (!pci_ats_supported(pdev) || !dev_has_iommu(&pdev->dev))
+ 		return;
+=20
+-	guard(mutex)(&group->mutex);
++	guard(mutex)(&group->reset_mutex);
+=20
+ 	gdev =3D __dev_to_gdev(&pdev->dev);
+ 	if (WARN_ON(!gdev))
+
+base-commit: 37ffa24c9d07edcd414d34283e02af3f3866cf12
+--=20
+2.55.0.897.gb25b4bd76c-goog
+
