@@ -1,227 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBEB9489898
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:21:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C9BA03FB052;
+	Thu, 27 Aug 2026 18:21:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787854914; cv=none; b=aCqAOzC58+E965rQnhRgF01S4ImAXzQxfhgyokf62QVZKkmwTVHPr5Mhxdiobqt8VX3NtcCk+9p6HWPt5ZqHOV3nbaMO5J4JfN1LXISpekQGq7roeviWd3Thjnw39+yPsRTF/iIklrK5s5AbFwbaUWYGBk9n6zpMtzjrALq7XgE=
+	t=1787854915; cv=none; b=bPlydBIccSjLUOqFdM5+WaX7UIsTK8r5F4TOJ7k0aoAW7z8akYVoi9yqycEBM9lHUQwdtIOjAsBeW1g+mQtFpdY9a6kzA+2hbGqvBS87cw2GFEqA3QWPAmAbStMZjHPaXixqWTSNnU/rQsP9eOqFACJAlgEqhlY3XsHGdPBh3dk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787854914; c=relaxed/simple;
-	bh=l1f5hRevgKH8JjZ+SZUpJpw1Vr/K7hc8Nu/vRqyoRO0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=O9U++hDAe7JYiz4Dy9650FPMxz4p49rAqPQ5Lteyoy/48Zb1pfyAMGStaUCxWAZ3Z0vmlKn2PQKJNb4Pc3BxXWG+KPmZpsZEkxBI+hjb5WBeOyLQGr8VberQulghrXPUAnad3nlJ0HFz0yovk/9ujrp+DWM8QYZBuvYTWXazNnk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rwfs85H7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787854915; c=relaxed/simple;
+	bh=rUd7+J/8/iNJI3bKZQzX3i/RyNWMQTasR2RA1ttzPaI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=giUuZUHomdXWSkzHMkge6mvT30KUsvoVv9DNHFtl675Mr6Zbdr0mWTX1NuXOWXof1wGk5XNJwM8sPGKOQUU5dfaRfykKz453Fc4ALLJpYQptbH9T6dClwvS+jKPjQfRoDEVi4oKVFIasJdAFI8UbMeHn21s2MWTRlIGq7FI2vpc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Iob+HDAG; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rwfs85H7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 857061F00A3D
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:21:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787854912;
-	bh=FAy1Q9YXLdMo+8ilgf6UBUK0WvHjAoC6zfuJqq6oPDI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Rwfs85H78EtB9phRTlsAMVyL9tXeWaB67j5YZEn3xQAu2INb6WpsnYySmDpWBQmvK
-	 Twwy7s/mFdE3Qgqgeg6rzOOWBLxdhDFJaixyHzCdXWN9JpCl5xwg2r5P1jD1hCgzHM
-	 7G/01cJFbiqOjePtp0j03OYjmEMLc80UXwdI7kZJppeSVbvgo2hyb9kLQsvHBzRa20
-	 Z2D8OU9AGkIh/I/goeb8PzHRviMDQDH+4gmoPv+1rb3CH6X24GlGt9DOU0/C4xvoY9
-	 8SiuMHfIuiXhVmoNxOPvPpCnHpK14Wkj8jRj2nbXG8jSBoiovu+tuviYXa3hTwa541
-	 TIkMLqlZ0vmRg==
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c15e592da74so20973166b.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:21:52 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RrJJpLeTLHhpwVjJuTDw8zVnguv3RM7tKES+csbIjqwIfiexw0ko/jtlLH6QBpiUZA8Twxm1ZH7onk1Y4g=@vger.kernel.org
-X-Gm-Message-State: AFuF++lQM7kdrRl4G/y4qSuffpkARMIJjdXv3ujfIEVlKVE0qGVbPdsr
-	WG7AAC8YBJNW4YEK/wBLShmjVsQnOrqlHzSJtyICMQ92CwXG8UKYMhUFFhpNOOmwhcfMDtqsVyS
-	YmO4lk3rIzBITnJos6Ju88uttNuYRIoE=
-X-Received: by 2002:a17:907:c5c3:b0:c16:14d1:b529 with SMTP id
- a640c23a62f3a-c25571f3a11mr48299366b.18.1787854911427; Thu, 27 Aug 2026
- 11:21:51 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Iob+HDAG"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4B1681688;
+	Thu, 27 Aug 2026 11:21:48 -0700 (PDT)
+Received: from localhost (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A39303F66F;
+	Thu, 27 Aug 2026 11:21:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1787854912; bh=rUd7+J/8/iNJI3bKZQzX3i/RyNWMQTasR2RA1ttzPaI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Iob+HDAGtrc0jBrbEfWc/4fcivNp0bnI9NUeUJhCK1UBLaNzPhwgKnUCsNLRrHoIX
+	 fuyU7Ggy4b7+Tlzg9spHJZunbmB7Zf6sRtQcJSywt9AAN+fEcachMrlOPH1IkJ8kpm
+	 VIlZVsnAUEeNLjMZACsqGm/mQoTIoiSH3glLfpUw=
+Date: Thu, 27 Aug 2026 19:21:49 +0100
+From: Leo Yan <leo.yan@arm.com>
+To: James Clark <james.clark@linaro.org>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Mike Leach <mike.leach@arm.com>,
+	John Garry <john.g.garry@oracle.com>, Will Deacon <will@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>,
+	Leo Yan <leo.yan@linux.dev>, linux-arm-kernel@lists.infradead.org,
+	coresight@lists.linaro.org, linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@redhat.com>,
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH v2 11/14] perf auxtrace: cs-etm: Capture wrapped snapshots
+Message-ID: <20260827182149.GQ8904@e132581.arm.com>
+References: <20260821-james-cs-unformatted-per-thread-fix-v2-0-00c4fd0701b4@linaro.org>
+ <20260821-james-cs-unformatted-per-thread-fix-v2-11-00c4fd0701b4@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826233919.998904-1-seanjc@google.com> <20260826233919.998904-13-seanjc@google.com>
- <CAO9r8zOuD+wU1Q80z077WHHpFBWvKomLk=TaXjH3gVnqj=mqFQ@mail.gmail.com>
- <apBomFOn1ZqHEnAQ@google.com> <CAO9r8zP3O_80Lr=4eKL6v-OaM9etMXPsNzADizf6ztB6YBuLHA@mail.gmail.com>
- <apBxMrqEkl_7khix@google.com> <CAO9r8zOLJs_fm9ixxCRV=uz5qwpOS67=oz5ATGtB=w2Yd2vtOw@mail.gmail.com>
- <apB0-xly771CU7m_@google.com> <CAO9r8zNBpMry1ipXcNcQgZgUkTSb4scDadiMNXN0AwqJiY=8pA@mail.gmail.com>
- <apB87RG_qon96Q8R@google.com>
-In-Reply-To: <apB87RG_qon96Q8R@google.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Thu, 27 Aug 2026 11:21:39 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zMudqAMX2W8v102yhZ-NFyu7Z=L-iQ11FyN7L8YE2fq3g@mail.gmail.com>
-X-Gm-Features: AcwNN1ViTyEKnuilUuNmJedzKHNh1cFIr1S0Ry4cN4uoIt5LCqv49USWhdknc-4
-Message-ID: <CAO9r8zMudqAMX2W8v102yhZ-NFyu7Z=L-iQ11FyN7L8YE2fq3g@mail.gmail.com>
-Subject: Re: [PATCH v3 12/13] KVM: selftests: Dedup assembly code for VMLAUNCH
- and VMRESUME
-To: Sean Christopherson <seanjc@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	f734222792@gmail.com, Vitaly Kuznetsov <vkuznets@redhat.com>, 
-	Sashiko Bot <sashiko-bot@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260821-james-cs-unformatted-per-thread-fix-v2-11-00c4fd0701b4@linaro.org>
 
-On Thu, Aug 27, 2026 at 11:07=E2=80=AFAM Sean Christopherson <seanjc@google=
-.com> wrote:
->
-> On Thu, Aug 27, 2026, Yosry Ahmed wrote:
-> > On Thu, Aug 27, 2026 at 10:33=E2=80=AFAM Sean Christopherson <seanjc@go=
-ogle.com> wrote:
-> > >
-> > > On Thu, Aug 27, 2026, Yosry Ahmed wrote:
-> > > > On Thu, Aug 27, 2026 at 10:17=E2=80=AFAM Sean Christopherson <seanj=
-c@google.com> wrote:
-> > > > > eVMCS is a memory operand, i.e. it's MOV RSP, [evmcs->host_rip]. =
- The existing
-> > > > > evmcs_{vmresume,vmlaunch}() code is rather stupid and loads the a=
-ddress into a
-> > > > > register, and then manually encodes MOV RSP, [<reg>].
-> > > >
-> > > > Can't we keep it as a register operand just to avoid vmwrite_operan=
-d?
-> > > > Does it actually hurt in any way?
-> > >
-> > > ...
-> > >
-> > > > > diff --git tools/testing/selftests/kvm/lib/x86/vmx.c tools/testin=
-g/selftests/kvm/lib/x86/vmx.c
-> > > > > index 1a8515de42b0..b5efd10950c7 100644
-> > > > > --- tools/testing/selftests/kvm/lib/x86/vmx.c
-> > > > > +++ tools/testing/selftests/kvm/lib/x86/vmx.c
-> > > > > @@ -179,7 +179,10 @@ void load_vmcs(struct vmx_pages *vmx)
-> > > > >         vmclear(vmx->shadow_vmcs_gpa);
-> > > > >  }
-> > > > >
-> > > > > -#define __BUILD_VMX_VM_ENTRY_HELPER(insn, prefix, vmwrite_insn, =
-vmwrite_operand,       \
-> > > > > +const u64 HOST_RSP_ENCODING =3D HOST_RSP;
-> > > > > +const u64 HOST_RIP_ENCODING =3D HOST_RIP;
-> > > > > +
-> > > > > +#define __BUILD_VMX_VM_ENTRY_HELPER(insn, prefix, vmwrite_insn, =
-       \
-> > > > >                                     __host_rsp, __host_rip)      =
-                       \
-> > > > >  static int __##prefix##_##insn(void)                            =
-                       \
-> > > > >  {                                                               =
-                       \
-> > > > > @@ -196,16 +199,17 @@ static int __##prefix##_##insn(void)       =
-                                               \
-> > > > >                              VMX_SWITCH_GPRS_ASM                 =
-                       \
-> > > > >                              "pop %%rax;"                        =
-                       \
-> > > > >                              : [ret]"=3D&a"(ret)                 =
-                         \
-> > > > > -                            : [host_rsp]__stringify(vmwrite_oper=
-and)(__host_rsp),      \
-> > > > > -                              [host_rip]__stringify(vmwrite_oper=
-and)(__host_rip),      \
-> > > > > +                            : [host_rsp]"m"(__host_rsp),        =
-                       \
-> > > > > +                              [host_rip]"m"(__host_rip),        =
-                       \
-> > > >
-> > > > I suppose we can use "r" here though?
-> > >
-> > > No, because then the encoding for VMWRITE needs to be:
-> > >
-> > >   vmwrite %%rsp, %[host_rsp]
-> > >
-> > > but for MOV/eVMCS needs to be:
-> > >
-> > >   mov %%rsp, (%[host_rsp])
-> > >
-> > > Have fun feeding the '(' and ')' into the asm blob :-)
-> >
-> > Semi-joking, what if we pass in the entire instruction instead?
->
-> Then there needs to be separate parameters for RSP vs. RIP, and we still =
-need to
-> pass different operands, *and* it bleeds information into the callers sin=
-ce they
-> would need to hardcode use of %%rax and of the named constraints.
->
-> As ugly as the proposed code is, IMO the maintenance implications of the =
-below
-> is far worse than the subtle 'r' vs. 'm' (and on principle, I dislike pas=
-sing an
-> address in a register and then manually encoding a memory operand).
+On Fri, Aug 21, 2026 at 10:49:09AM +0100, James Clark wrote:
 
-Yeah this isn't pretty either. I don't feel strongly either way tbh,
-so whatever you think is best.
+[...]
 
-One other option is accepting some duplication, and letting the eVMCS
-variants be separate. Basically keep your original patch as-is, and
-just add a similar one for eVMCS variants.
+> @@ -2061,10 +2061,20 @@ static int __auxtrace_mmap__read(struct mmap *map,
+>  
+>  	head = auxtrace_mmap__read_head(mm, kernel_is_64_bit);
+>  
+> -	if (snapshot && itr->snapshot_has_wrapped) {
+> -		err = auxtrace_find_snapshot(itr, mm->idx, mm, data, &head, &old);
+> -		if (err)
+> -			return err;
+> +	if (snapshot) {
+> +		if (itr->snapshot_has_wrapped) {
+> +			err = auxtrace_find_snapshot(itr, mm->idx, mm, data, &head, &old);
+> +			if (err)
+> +				return err;
+> +		} else if (itr->monotonic_snapshot_head) {
+> +			size = head - old;
+> +			/* Force a full buffer read if a wrap has occurred */
+> +			if (size > mm->len) {
+> +				pr_debug3("%s: wrap detected, adjusting old from 0x%"PRIx64" to 0x%"PRIx64"\n",
+> +					  __func__, old, head - mm->len);
+> +				old = head - mm->len;
+> +			}
+> +		}
 
-Again, no strong preference, and I generally prefer your proposal for
-deduplicating all of them if it wasn't for the subtle 'r' vs 'm'
-thingy :/
+Wouldn't this be a bug fix, since CoreSight did not have a
+find_snapshot() callback before this series?
 
->
-> #define __BUILD_VMX_VM_ENTRY_HELPER(insn, prefix, vmwrite_rsp, vmwrite_ri=
-p,             \
->                                     __host_rsp, __host_rip)              =
-               \
-> static int __##prefix##_##insn(void)                                     =
-               \
-> {                                                                        =
-               \
->         int ret;                                                         =
-               \
->                                                                          =
-               \
->         __asm__ __volatile__("push $0;"                                  =
-               \
->                              vmwrite_rsp                                 =
-               \
->                              "lea 1f(%%rip), %%rax;"                     =
-               \
->                              vmwrite_rip                                 =
-               \
->                              VMX_SWITCH_GPRS_ASM                         =
-               \
->                              __stringify(insn)";"                        =
-               \
->                              "incq (%%rsp);"                             =
-               \
->                              "1: ;"                                      =
-               \
->                              VMX_SWITCH_GPRS_ASM                         =
-               \
->                              "pop %%rax;"                                =
-               \
->                              : [ret]"=3D&a"(ret)                         =
-                 \
->                              : [host_rsp]"r"((u64)__host_rsp),           =
-               \
->                                [host_rip]"r"((u64)__host_rip),           =
-               \
->                                GUEST_REGS_OFFSETS                        =
-               \
->                              : "memory", "cc");                          =
-               \
->         return ret;                                                      =
-               \
-> }
->
-> #define BUILD_VMX_VM_ENTRY_HELPER(insn)                                  =
-               \
->         __BUILD_VMX_VM_ENTRY_HELPER(insn, _,                             =
-               \
->                                     "vmwrite %%rsp, %[host_rsp];",       =
-               \
->                                     "vmwrite %%rax, %[host_rip];",       =
-               \
->                                     HOST_RSP, HOST_RIP)                  =
-               \
->         __BUILD_VMX_VM_ENTRY_HELPER(insn, __evmcs,                       =
-               \
->                                     "mov %%rsp, (%[host_rsp]);",         =
-               \
->                                     "mov %%rsp, (%[host_rip]);",         =
-               \
->                                     &current_evmcs->host_rsp, &current_ev=
-mcs->host_rip)
+I am wondering whether CoreSight could reuse the common callback
+introduced by this series. I expect this idea may be pushed back :),
+however, my concern is more about the overall code complexity.
+
+Reusing a common find_snapshot() mechanism could give us a couple of
+benefits:
+
+ 1. Userspace could share the same snapshot/wrap handling, rather than
+    maintaining different mechanisms for different AUX trace.
+
+ 2. It could also make it easier for the TRBE driver to use circular
+    mode for snapshot, which would avoid IRQ maintenance and many
+    redundant RECORD_AUX records (and avoid the mentioned trigger
+    counter for assistance in snapshot mode).
+
+The monotonic head pointer can simplify some calculations in userspace,
+but if the common find_snapshot() callback can be extended to handle both
+arbitrary and monotonic head, seems to me, this is a good chance to
+simplify the code.
+
+Thanks,
+Leo
