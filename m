@@ -1,297 +1,122 @@
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 843D241D648
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:57:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E58FE4DB575;
+	Thu, 27 Aug 2026 18:58:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787857071; cv=none; b=Lej8dd6/Dl17ULS32NTvwkLLySFAdRR2FCSWIENgsGSRujxv1ECbmQJXbyz1FZpzJ6CORPrCp62vfWeB2SZZk83aKgSfjbQxOripSAZb9RSe81ooLK/7qlMSts8RVyoMRo/OIvD3vMwoPerNgBIzXuIg2aQjQiRGrFOkMsyDzHQ=
+	t=1787857102; cv=none; b=DaeDW+QZZ3VnMSiqYGOtIGypQpa686+9cENiLwJNWzSkJ/23sQAxoNpPRabRUohqRYY303dMGL5IiYUXKy8urMOki1mVXicDrCyb1QuBjPf4qKbVFUwefynq00qG/sioAXjHQoAAijcFa+c0IM4Xbd8NCYWFxXjaVSu4Yu9Gsfw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787857071; c=relaxed/simple;
-	bh=2sOodfgfsJvhsqW94qeYn0qkhe9uEMRF+lcymC2ACNk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jYrALZGLkXxgLkIiExub29mhg2p9IN9iRDQ5i5O+vCB1SbdjHg1P8XWI4pqaA//ogcv3urXKLhvURTiIEtQyBvC6XveTyrtOj//ulMmeDBqQiMPS6hDkg6HVKrTRod8ZWET4BTzTaiaEu5+1pBlLf+TgDmolC7sZbC/mBMhSJmo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=ey28pnFV; arc=none smtp.client-ip=209.85.210.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
+	s=arc-20240116; t=1787857102; c=relaxed/simple;
+	bh=4zcrTddowpSxiYhcSYOL05EQdrvjbZcH9gttjFlk72U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZpXcZm0h5lYw+l5V7vHR2Nd13/Bl9e6zsQuicOecFNQqzKbjtqlYqpg/saXus/sR1BJueoTv4u7WrZvW2M3Hn7UcCKarxd4D6uWqdxzWcpGn0fdgnibUk9NAC1Vvl0uAJfugNiEGcTXM4M8KvIrmO1/On+4t0HHdVUfhJS4LQJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BX7MBw0A; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="ey28pnFV"
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8525efa7274so245794b3a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:57:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1787857056; x=1788461856; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=l6buHA8XL3FoLT9T4LeVf/7ku8y2shlH2FUen9mPz6c=;
-        b=ey28pnFVtbturuRJRAVpQ2FirCc1pFV029jreFdMvUpDfk+ZuuMWgaI8sCi0d0FseL
-         VWj7Wnoxa8lz5pTXm4MQCoatUE424lgV3cqjVvgdsR/5WjgWcpeK9zhQ3kaWJyl65sRV
-         aRoLVdlKRNj1brJMwidirWtfAh2avcDr8zxc7pVKpd0AU1hPw6VXWYCrbziAliXUE/A/
-         gn6AXgRWDQ6BWHefozm3nXqngsBZs44bX4XIMsfL2Yy8lj2dl2BZ0xH7jdMHRaUwm67Z
-         JqEfZSYaM3HtHl2pRlCHWA93tNSVJK1KbKzUu2YVA1gBRsd4UC0D4U9WftHzJSJFpviV
-         ZKKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787857056; x=1788461856;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=l6buHA8XL3FoLT9T4LeVf/7ku8y2shlH2FUen9mPz6c=;
-        b=MnYYuAi0ylbMmix0OI/ObauripU9TEyV9pfFZTlC1zQLfLQrw4ookY4PDFgkibxI/g
-         cbFKIcTEEWLl0b5bgvrrzFP9HMaZ1z6V1nIoMhelWNw3V7N5Iguqpygr8Hb6wi38WtNZ
-         sISBv0XVexWMlZ+YT1jJFfOw2pM0Zu9XtXz5vCfDHA7l3BUlauVMbTx2wH+QDBwpkIHT
-         cklFxI17vMmUzq81bR+otHzf4C98RCX5/o6FNFelYW2fh/TUi9rUj/Ul9wmmf6EIyxVh
-         lkFk4XXuCeK7sXDNWeop6T63PEnKp4f7a01RA++S25wiGt0coaJRJDIL9SbFXsal+zm8
-         9uGg==
-X-Forwarded-Encrypted: i=1; AHgh+Rq9M1f7QBMj0P9V2wb6HgKUB3whZdCHjhK2yztXKoGznOSuYmB/MPAbic6bG+KXuzfDDBmcjLWGieKqxhk=@vger.kernel.org
-X-Gm-Message-State: AFuF++mgpy0+aUvPyLxhmll5nlJBaYv4nviVI0t8BU9JCNjdF7ivHVNc
-	dEGokM1t+fEA3bDDoDGdc97Zu/0ILpufmjGxg6MmKDwjBoFMS6W2+NNmgt4m91tQeMQ=
-X-Gm-Gg: AR+sD13gBQq0JdS+v8R35cn2aTt2k22FAXqUKGpDaWQxZEKCAGsGzRUG5ahOYyCn3H0
-	HfzX5LoNidsv7Cs8m4zYjJqQsbST5EyapjmRiH9312BBm306wyxGRb0/F0ObTELSBYlCExd91lR
-	Npofc60kYQQR/sBXuKJi3YAUqszUHggsPzTlQdtQaisEp1WvRpWEUCeflcOmlg7DgNVTsq4VxQt
-	LLw+pmj9+uddreOSFt5EO5M6gPMs+tL7ypNK39T0vM1WpS8GMPxjQGkRHNEOnfX+KKfkWNUTAbU
-	yKuIwQdZCtgHYjEPv/AEOawxPurn1lcYgJ55JtTk8UPN5FeQVwPJnhLcSZlp/tHiuk1QBL01jH+
-	jHV061Xvjp1QFEaRx+Z0euLVPrnxUuNYpE0jFQG3jEm+nOWicfF5jLrqPY2WW986BfIp6DsuI2+
-	CiZNeil9XB9pe2zgU4K6h7KOlD7i1A4sqEpGWKvQ==
-X-Received: by 2002:a05:6a00:4109:b0:852:38ea:3fd with SMTP id d2e1a72fcca58-85629a252e3mr2408405b3a.11.1787857056352;
-        Thu, 27 Aug 2026 11:57:36 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff::])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85359cd5f3asm2327602b3a.3.2026.08.27.11.57.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 11:57:35 -0700 (PDT)
-From: Joe Damato <joe@dama.to>
-To: netdev@vger.kernel.org,
-	Michael Chan <michael.chan@broadcom.com>,
-	Pavan Chebbi <pavan.chebbi@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Colin Winegarden <colin.winegarden@broadcom.com>,
-	Rukhsana Ansari <rukhsana.ansari@broadcom.com>,
-	Kalesh AP <kalesh-anakkur.purayil@broadcom.com>
-Cc: horms@kernel.org,
-	linux-kernel@vger.kernel.org,
-	raphaelcf@meta.com,
-	Joe Damato <joe@dama.to>,
-	stable@vger.kernel.org,
-	llvm@lists.linux.dev
-Subject: [PATCH net v3] bnxt_en: Bound SW TPA IDs to prevent crashes
-Date: Thu, 27 Aug 2026 11:56:58 -0700
-Message-ID: <20260827185700.2157164-1-joe@dama.to>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BX7MBw0A"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787857092; x=1819393092;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=4zcrTddowpSxiYhcSYOL05EQdrvjbZcH9gttjFlk72U=;
+  b=BX7MBw0Agz/7wECjgjiuUSscGzNty2/h8PyNsO1XwmbVWuAY+wMW2AEj
+   u4E4s332QjvhQNWS+7DQO8IKf7tvwa0f7q/Qo0eM1ytm0jxwh7kwdjyDk
+   Wv533reo4T3G5ptLmsnNMyOZsTWslE5lZLUVqOzEUHgtpnAJC/4jviM4Y
+   d4d9RWD/2EsJyW9jetkSZq9sqqFmeXIPmw3bdiWmWLB016S67Sb35yuZy
+   9E0dPLPGyt5llitrjvwZMiU3tWCuFljlMfgb9iMfJ+euUj7c3t70Mc4UB
+   Yy216Q4FJ6s/eBOQ6DLrm0CBPytSZ2BFxXXpcJDzu+tKZGd6Xv+f9MOlx
+   w==;
+X-CSE-ConnectionGUID: PMDnzm/TRoS32hcPrIORKw==
+X-CSE-MsgGUID: WAZSE4fpTkm5a6SmF20X3w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="98965360"
+X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
+   d="scan'208";a="98965360"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 11:58:08 -0700
+X-CSE-ConnectionGUID: FVVv0PTfRDSMYeYN1XYNCA==
+X-CSE-MsgGUID: e4HhexLHSEK495d7uilDEA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
+   d="scan'208";a="297850150"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.125])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 11:58:04 -0700
+Date: Thu, 27 Aug 2026 21:58:02 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bingbu Cao <bingbu.cao@amd.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Nicholas Roth <nicholas@rothemail.net>,
+	Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jose Maria Martin <jmmartinf@hotmail.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 00/11] media: Add Lenovo Yoga Book YB1-X91 camera
+ support
+Message-ID: <apCIuhDu9jI9ZbJl@ashevche-desk.local>
+References: <20260826132256.3343451-1-mauriziocasciano7@gmail.com>
+ <20260827181756.2430054-1-mauriziocasciano7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827181756.2430054-1-mauriziocasciano7@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-TPA IDs are generated by FW and can be up to 1024. bnxt_alloc_agg_idx is
-intended to wrap the FW ID down to a software ID which is used to index
-rxr->rx_tpa, and to generate a mapping between FW IDs and the wrapped
-software ID.
+On Thu, Aug 27, 2026 at 08:17:45PM +0200, Maurizio Casciano wrote:
+> The Lenovo Yoga Book YB1-X91L exposes an OV2740 front sensor and an
+> OV8858 rear sensor through the Cherry Trail AtomISP. Its firmware does
+> not provide enough information for the existing sensor and IPU bridge
+> drivers to construct the complete camera links.
+> 
+> Add the ACPI IDs and bridge data, describe both AtomISP camera links,
+> support the Yoga Book sensor clocks and modes, expose raw Bayer capture,
+> add per-channel white-balance controls, and add the WV517S rear-camera
+> lens actuator.
+> 
+> Raw capture is selected through the normal V4L2 raw pixel formats. There
+> is no module parameter or separate private ABI. Processed formats retain
+> the existing behavior, while raw formats expose the complete CSI-2
+> transport frames required by the ISP2401 copy pipeline.
 
-On a 57608 with firmware version 233, the firmware advertises 32
-concurrent TPAs. As of the commit under fixes, bp->max_tpa on this NIC
-is set to 32.
+Do not start new version in the email thread of the previous one!
 
-If the software ID from bnxt_alloc_agg_idx is above 31, this results in
-an invalid address being loaded on this line:
+> The series is based on mainline at 73e3f0710014.
 
-  tpa_info = &rxr->rx_tpa[agg_id];
+Unneeded statement, the --base puts data (and it did) in the cover letter.
+Tools know about it.
 
-because rx_tpa is allocated with only bp->max_tpa (32) entries. Writes
-to tpa_info later in the code are out of bounds.
+> All patches pass strict
+> checkpatch with no errors, warnings or checks. Pahole reports a 64-byte
+> ov2740_mode with no holes and a 792-byte ov8858 with the new clock-rate
+> field naturally aligned. A clean 20-job bindeb-pkg build containing the
+> same final source state completed successfully.
+> 
+> Runtime testing used a Lenovo Yoga Book YB1-X91L. Both sensors, AtomISP
+> and WV517S bound. Focus position 300 was accepted. Captures passed with:
+> 
+> - front raw BG10: 1932x1092, 4472832 bytes;
+> - rear raw BG10: 3264x2448, 16293888 bytes;
+> - front processed YU12: 1920x1080; and
+> - rear processed JPEG: 3248x2432, 1530647 bytes.
+> 
+> The raw format was selected and streamed in the same v4l2-ctl invocation,
+> as reopening the video node restores its default format. Both raw files
+> were non-empty and distinct, and the rear full-resolution JPEG completed
+> without AtomISP, sensor or runtime-PM errors.
 
-This bug results in a crash at boot:
-
-Oops: general protection fault, kernel NULL pointer dereference 0x8: 0000 [#1] SMP NOPTI
-RIP: 0010:bnxt_rx_pkt+0xc0/0x1560
-RSP: 0018:ffffc900009b8c78 EFLAGS: 00010246
-RAX: 0000000000000000 RBX: 0000000000000048 RCX: 0000000206682516
-RDX: ffffc900009b8db4 RSI: 0000000000000000 RDI: 01ffffff038fe1c0
-RBP: ffffc9006e687480 R08: ffffc9006e687000 R09: 0000000000003048
-R10: 0000000000000480 R11: ffff8881c6083900 R12: 0000000006682516
-R13: ffff8881c6095400 R14: 0000000000000016 R15: ffff8881c6b66680
-FS:  0000000000000000(0000) GS:ffff88fef3c77000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007fc8bda40584 CR3: 000000807c812001 CR4: 0000000008772ef0
-PKRU: 55555554
-Call Trace:
- <IRQ>
- ? __netif_receive_skb_list_core+0x1ca/0x250
- __bnxt_poll_work+0x152/0x280
- bnxt_poll_p5+0x1cd/0x480
- __napi_poll+0x30/0x180
- net_rx_action+0x20b/0x3b0
- ? note_gp_changes+0x53/0xe0
- ? tick_setup_sched_timer+0x180/0x180
- ? __napi_schedule+0x9a/0xb0
- ? bnxt_msix+0x24/0x30
- handle_softirqs+0xdd/0x2c0
- __irq_exit_rcu.llvm.3171231171502365008+0x47/0xf0
- common_interrupt+0x85/0x90
- </IRQ>
- <TASK>
- asm_common_interrupt+0x22/0x40
-
-This stack trace is from a crash triggered when an out of bounds rx_tpa
-is dereferenced. The invalid write mentioned above is silent in this
-particular crash.
-
-Fix this by allocating rx_tpa with bp->max_tpa rounded up to the next
-power of 2 (bp->max_tpa_roundup_size) entries and masking the FW TPA ID
-with that size, so the wrapped ID can never index past the end of the
-array.
-
-Fixes: 54c28fab2fa5 ("bnxt_en: Set bp->max_tpa according to what the FW supports")
-Reported-by: Raphael Cardoso Fernandes <raphaelcf@meta.com>
-Suggested-by: Michael Chan <michael.chan@broadcom.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Joe Damato <joe@dama.to>
----
-
-v3:
-  - Addressed an issue Sashiko pointed out, where max_tpa_roundup_size may be
-    left unset if bnxt_alloc_tpa_info returns early, which would lead to out
-    of bounds access.
-  - The other pre-existing issues Sashiko pointed out are unrelated to this
-    patch and would need different Fixes tags, so they are better served with
-    separate patches in the future.
-
-v2: https://lore.kernel.org/netdev/20260825001842.2501798-1-joe@dama.to/
-  - Followed Michael's suggestion on the v1 to increase the size of the tpa
-    array so that wrapping indexes into the array is a simple mask.
-  - Add Suggested-by because the approach was suggested by Michael.
-  - Add a Reported-by so that Raphael gets credit for reporting this bug.
-  - Boot tested on a machine with a 57608 and the crash did not reproduce.
-
-v1: https://lore.kernel.org/netdev/20260821233549.3134699-1-joe@dama.to/
-
- drivers/net/ethernet/broadcom/bnxt/bnxt.c | 25 ++++++++++++++---------
- drivers/net/ethernet/broadcom/bnxt/bnxt.h |  2 +-
- 2 files changed, 16 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-index d59bcca73a2b..8f4791fb468d 100644
---- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-+++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-@@ -1514,14 +1514,16 @@ static int bnxt_discard_rx(struct bnxt *bp, struct bnxt_cp_ring_info *cpr,
- 	return 0;
- }
- 
--static u16 bnxt_alloc_agg_idx(struct bnxt_rx_ring_info *rxr, u16 agg_id)
-+static u16 bnxt_alloc_agg_idx(struct bnxt *bp, struct bnxt_rx_ring_info *rxr,
-+			      u16 agg_id)
- {
- 	struct bnxt_tpa_idx_map *map = rxr->rx_tpa_idx_map;
--	u16 idx = agg_id & MAX_TPA_P5_MASK;
-+	u16 idx = agg_id & (bp->max_tpa_roundup_size - 1);
- 
- 	if (test_bit(idx, map->agg_idx_bmap)) {
--		idx = find_first_zero_bit(map->agg_idx_bmap, MAX_TPA_P5);
--		if (idx >= MAX_TPA_P5)
-+		idx = find_first_zero_bit(map->agg_idx_bmap,
-+					  bp->max_tpa_roundup_size);
-+		if (idx >= bp->max_tpa_roundup_size)
- 			return INVALID_HW_RING_ID;
- 	}
- 	__set_bit(idx, map->agg_idx_bmap);
-@@ -1586,7 +1588,7 @@ static void bnxt_tpa_start(struct bnxt *bp, struct bnxt_rx_ring_info *rxr,
- 
- 	if (bp->flags & BNXT_FLAG_CHIP_P5_PLUS) {
- 		agg_id = TPA_START_AGG_ID_P5(tpa_start);
--		agg_id = bnxt_alloc_agg_idx(rxr, agg_id);
-+		agg_id = bnxt_alloc_agg_idx(bp, rxr, agg_id);
- 		if (unlikely(agg_id == INVALID_HW_RING_ID)) {
- 			netdev_warn(bp->dev, "Unable to allocate agg ID for ring %d, agg 0x%x\n",
- 				    rxr->bnapi->index,
-@@ -3584,7 +3586,7 @@ static void bnxt_free_one_tpa_info_data(struct bnxt *bp,
- {
- 	int i;
- 
--	for (i = 0; i < bp->max_tpa; i++) {
-+	for (i = 0; i < bp->max_tpa_roundup_size; i++) {
- 		struct bnxt_tpa_info *tpa_info = &rxr->rx_tpa[i];
- 		u8 *data = tpa_info->data;
- 
-@@ -3781,7 +3783,7 @@ static void bnxt_free_one_tpa_info(struct bnxt *bp,
- 	kfree(rxr->rx_tpa_idx_map);
- 	rxr->rx_tpa_idx_map = NULL;
- 	if (rxr->rx_tpa) {
--		for (i = 0; i < bp->max_tpa; i++) {
-+		for (i = 0; i < bp->max_tpa_roundup_size; i++) {
- 			kfree(rxr->rx_tpa[i].agg_arr);
- 			rxr->rx_tpa[i].agg_arr = NULL;
- 		}
-@@ -3807,13 +3809,14 @@ static int bnxt_alloc_one_tpa_info(struct bnxt *bp,
- 	struct rx_agg_cmp *agg;
- 	int i;
- 
--	rxr->rx_tpa = kzalloc_objs(struct bnxt_tpa_info, bp->max_tpa);
-+	rxr->rx_tpa = kzalloc_objs(struct bnxt_tpa_info,
-+				   bp->max_tpa_roundup_size);
- 	if (!rxr->rx_tpa)
- 		return -ENOMEM;
- 
- 	if (!(bp->flags & BNXT_FLAG_CHIP_P5_PLUS))
- 		return 0;
--	for (i = 0; i < bp->max_tpa; i++) {
-+	for (i = 0; i < bp->max_tpa_roundup_size; i++) {
- 		agg = kzalloc_objs(*agg, MAX_SKB_FRAGS);
- 		if (!agg)
- 			return -ENOMEM;
-@@ -3831,6 +3834,7 @@ static int bnxt_alloc_tpa_info(struct bnxt *bp)
- 	int i, rc;
- 
- 	bp->max_tpa = MAX_TPA;
-+	bp->max_tpa_roundup_size = MAX_TPA;
- 	if (bp->flags & BNXT_FLAG_CHIP_P5_PLUS) {
- 		if (!bp->max_tpa_v2)
- 			return 0;
-@@ -3838,6 +3842,7 @@ static int bnxt_alloc_tpa_info(struct bnxt *bp)
- 		/* Older P5 FW sets max_tpa_v2 low by mistake except NPAR */
- 		if (bp->max_tpa <= 32 && BNXT_CHIP_P5(bp) && !BNXT_NPAR(bp))
- 			bp->max_tpa = MAX_TPA_P5;
-+		bp->max_tpa_roundup_size = roundup_pow_of_two(bp->max_tpa);
- 	}
- 
- 	for (i = 0; i < bp->rx_nr_rings; i++) {
-@@ -4551,7 +4556,7 @@ static int bnxt_alloc_one_tpa_info_data(struct bnxt *bp,
- 	u8 *data;
- 	int i;
- 
--	for (i = 0; i < bp->max_tpa; i++) {
-+	for (i = 0; i < bp->max_tpa_roundup_size; i++) {
- 		data = __bnxt_alloc_rx_frag(bp, &mapping, rxr,
- 					    GFP_KERNEL);
- 		if (!data)
-diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.h b/drivers/net/ethernet/broadcom/bnxt/bnxt.h
-index ab894f8addef..de46b42d7c98 100644
---- a/drivers/net/ethernet/broadcom/bnxt/bnxt.h
-+++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.h
-@@ -789,7 +789,6 @@ struct nqe_cn {
- 
- #define MAX_TPA		64
- #define MAX_TPA_P5	256
--#define MAX_TPA_P5_MASK	(MAX_TPA_P5 - 1)
- #define MAX_TPA_SEGS_P5	0x3f
- 
- #if (BNXT_PAGE_SHIFT == 16)
-@@ -2380,6 +2379,7 @@ struct bnxt {
- 
- 	u16			max_tpa_v2;
- 	u16			max_tpa;
-+	u16			max_tpa_roundup_size;
- 	u32			rx_buf_size;
- 	u32			rx_buf_use_size;	/* useable size */
- 	u16			rx_offset;
-
-base-commit: e2a6641e3bfde58f2284f9859c2b0fdcc6d1c0da
 -- 
-2.53.0-Meta
+With Best Regards,
+Andy Shevchenko
+
 
