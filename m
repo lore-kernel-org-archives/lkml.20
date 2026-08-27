@@ -1,102 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C21F4746B7;
-	Thu, 27 Aug 2026 13:33:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 339B344606D;
+	Thu, 27 Aug 2026 13:33:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787837614; cv=none; b=m4ZfeMmAsW9itgXaVEMQ/ASEVjCz7UZ6SXEkaHWBIB2sA2BQXlIek53pm90O6H1qE3NRnxWvHGX3t6r8JOO16Sf8xViWWrpWXZDCp9SNff+fJu62b85ED9kz3F/80FGXRF0E1B8UPzzIJbslQ6pEYEPIKTuDVuGTEZxyVNpp1RQ=
+	t=1787837625; cv=none; b=uDpwGGfYYf/omMmXc429T+x4w8qEoskyPtyTjP9Rs2CNUdLDPvOl3II+lZWvOFalwESjhpERxNvTIUvKRAhE1B/PsEtN86pEBf2a+BYqQjNYy1eEie5aEV9X8cq1Brqw4paqhAR7GRochaOfxg/ryzPbHWeMzAZmjhi5O8VGznQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787837614; c=relaxed/simple;
-	bh=MmhRczpeait+8pej4NW6iWlfBLKfTeVw/6dAVLLtbUE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rHUkjtRs/YAxqxgZJuVpPaeyEPc6deL13XX5aFRBtqRT8dEbhG+H8ug5zw3ixzY7N+OdRkjlltxxMS5Rpl9XMuESgOmfk/VDJ2HPB5HArsL8F2UBOU3rh/e0jO93TH2aEeQPPvDnXHrMN30fICOd1PI1lKjWwVE9negjiszlfXA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JiTRj2c5; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JiTRj2c5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 548C61F000E9;
-	Thu, 27 Aug 2026 13:33:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787837602;
-	bh=VWLd3sU9atQfIoDce7jl0NZ8RDqno2g42DMkclW3s2E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JiTRj2c5TEgZDqNGP/gwA6qAeqCW2m94hZugSCyqcfvN1RfoLyTD/kiRcj2+CD/qk
-	 nU8QeIYTFRX+iBGSxhyFEthALC+BsFUMCgTn/8RGriu1mRdcyQNaDV7eh0AWTMwpaw
-	 rKeDsXzBzUqLySAvK1g4tzU9s8y0ef/HECYEZed5wslXyKduIOIxUKTYLBuRGG1Vbg
-	 kXQkv69f2iqqDLfv/ndP1jYauBgVZasQJ2/OsSXwV73AdLBriw8d0/RqD4iQn3bnBc
-	 ixFSv/cl1ow/fCzS2NDNXQe/jDegFPT7u6jfdqQBRaxOLM9ClKqs7w8xoeMFuyLqtw
-	 iIYE93xYUphLg==
-Received: from johan by xi.lan with local (Exim 4.99.4)
-	(envelope-from <johan@kernel.org>)
-	id 1wzaEJ-000000031ue-2nz6;
-	Thu, 27 Aug 2026 15:33:19 +0200
-Date: Thu, 27 Aug 2026 15:33:19 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
-	Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Aaron Tomlin <atomlin@atomlin.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-usb@vger.kernel.org,
-	driver-core@lists.linux.dev, linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] driver core: add TAINT_FORCED_BIND for when
- userspace manually messes with devices and drivers
-Message-ID: <apA8n524yIn-g6ep@hovoldconsulting.com>
-References: <20260826-bind_taint-v1-0-52b05f4a965c@linuxfoundation.org>
- <20260826-bind_taint-v1-2-52b05f4a965c@linuxfoundation.org>
+	s=arc-20240116; t=1787837625; c=relaxed/simple;
+	bh=aikjkH4eA9w6grwtrnwsLSLiV0hqYSJ5yEX6K35R6h4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=dwzEguP4ufmdKAOY966DpKHI0CHtEGIQMB/hccF2WujM6z0qSM503qFFsbSHcLp5tP1fs6WKjuvwk25VkChRHC88MzKG67H/j8tZxweCtw1TcW8IzwHcq7ZGbFhrvktmlCBwUzOOQ09rFJ5Slu7o9yHd1qLGvfGY6/oEuQwvpts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from ratatoskr.pengutronix.de (unknown [IPv6:2a0a:edc0:0:701:c3a7:c242:e5e7:34c7])
+	(Authenticated sender: str@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 41D9B201B99;
+	Thu, 27 Aug 2026 15:33:32 +0200 (CEST)
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Conor Dooley <conor@kernel.org>,  Andrew Lunn <andrew+netdev@lunn.ch>,
+  "David S. Miller" <davem@davemloft.net>,  Eric Dumazet
+ <edumazet@google.com>,  Jakub Kicinski <kuba@kernel.org>,  Paolo Abeni
+ <pabeni@redhat.com>,  Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski
+ <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,  Andrew Davis
+ <afd@ti.com>,  Heiner Kallweit <hkallweit1@gmail.com>,  Russell King
+ <linux@armlinux.org.uk>,  netdev@vger.kernel.org,
+  devicetree@vger.kernel.org,  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] dt-bindings: dp83867: add binding for
+ output-impedance
+In-Reply-To: <d944329d-9ad5-4acf-a7d3-b2f8eaf1e92c@lunn.ch> (Andrew Lunn's
+	message of "Thu, 27 Aug 2026 14:47:30 +0200")
+References: <20260826-v7-2-topic-dp83867-v2-0-a97b4cec6e93@pengutronix.de>
+	<20260826-v7-2-topic-dp83867-v2-2-a97b4cec6e93@pengutronix.de>
+	<20260826-salutary-skype-524c69932dc2@spud>
+	<87ik4wgfbc.fsf@pengutronix.de>
+	<d944329d-9ad5-4acf-a7d3-b2f8eaf1e92c@lunn.ch>
+User-Agent: mu4e 1.14.3; emacs 30.2
+Date: Thu, 27 Aug 2026 15:33:31 +0200
+Message-ID: <87a4q74ris.fsf@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260826-bind_taint-v1-2-52b05f4a965c@linuxfoundation.org>
+Content-Type: text/plain; format=flowed
 
-On Wed, Aug 26, 2026 at 11:19:33AM +0200, Greg Kroah-Hartman wrote:
-> The ability to add and remove devices from a driver through the sysfs
-> "bind" and "unbind" files was created all those decades ago as a way
-> that kernel developers can iterate faster, and provide a debugging way
-> for users to attempt to add a new device to a driver without having to
-> rebuild their kernel.
-> 
-> This api over the years has been abused and recently come under a major
-> fuzzing "attack" through tools like syzbot which decided that it would
-> attempt to just randomly bind any driver to any type of device, causing
-> loads of unneeded errors and pointless kernel patches to be generated by
-> unsuspecting new developers.
-> 
-> Handle all of this by adding a new taint flag, TAINT_FORCED_BIND, which
-> will be set on the driver if the bind/unbind sysfs files are ever
-> successfully written to.  This lets kernel developers "know" that a user
-> is attempting to do something that is not normal, and as such, if the
-> kernel breaks they get to keep the shiny pieces laying around on the
-> floor.
-> 
-> Note, the taint flag gets set _BEFORE_ the bind/unbind callback happens,
-> as many times crashes/oops/warnings/failures happen within the callback,
-> and the taint flag needs to be there to show what was being attempted.
-> If it were to be set after the callback happens, the oops report would
-> not properly reflect what foolishness was being attempted.
-> 
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+On 2026-08-27 at 14:47 +02, Andrew Lunn <andrew@lunn.ch> wrote:
 
-This makes it clear that this is a development tool, and it is a good
-compromise preferable to adding unnecessary complexity or suppressing
-the attributes completely just to prevent root from shooting themselves
-in the foot:
+> On Thu, Aug 27, 2026 at 10:04:07AM +0200, Steffen Trumtrar wrote:
+> > On 2026-08-26 at 17:01 +01, Conor Dooley <conor@kernel.org> wrote:
+> > 
+> > > On Wed, Aug 26, 2026 at 02:48:40PM +0200, Steffen Trumtrar wrote:
+> > > > Currently, the output-impedance can only be set to default, minimum or
+> > > > maximum or via a nvmem cell.
+> > > > In cases where there is no backend for a nvmem cell, a value can not be
+> > > > set.
+> > > > > Add a DT binding, 'ti,output-impedance-ohms', for specifying the
+> > > > output-impedance via a fixed value. The existing boolean values for
+> > > > minimum and maximum still take precedence over the new value.
+> > > > > Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+> > > > ---
+> > > >  Documentation/devicetree/bindings/net/ti,dp83867.yaml | 16 ++++++++++++++++
+> > > >  1 file changed, 16 insertions(+)
+> > > > > diff --git a/Documentation/devicetree/bindings/net/ti,dp83867.yaml
+> > > b/Documentation/devicetree/bindings/net/ti,dp83867.yaml
+> > > > index 7a6fe516bab27..49fafe3ce6f47 100644
+> > > > --- a/Documentation/devicetree/bindings/net/ti,dp83867.yaml
+> > > > +++ b/Documentation/devicetree/bindings/net/ti,dp83867.yaml
+> > > > @@ -38,6 +38,16 @@ properties:
+> > > >      items:
+> > > >        - const: io_impedance_ctrl
+> > > >  > +  ti,output-impedance-ohms:
+> > > > +    description: |
+> > > > +      MAC Interface Impedance control to set the programmable output impedance.
+> > > > +      Valid range is 0x00 to 0x1f (32 steps).
+> > > > +      - 0x1f = 35 ohms (minimum impedance)
+> > > > +      - 0x00 = 70 ohms (maximum impedance)
+> > > > +      - Step size varies with process.
+> > > > +    minimum: 0
+> > > > +    maximum: 31
+> > > 
+> > > Your property is named in ohms, but not implemented in ohms.
+> > 
+> > So without the -ohms?
+> 
+> No. DT uses real unit, Ohms, Meters, Volts, Degrees Centigrade, Seconds
+> etc.
+> 
+> Have the driver do the conversion from Ohms to the magical register
+> value.
 
-Reviewed-by: Johan Hovold <johan@kernel.org>
-Tested-by: Johan Hovold <johan@kernel.org>
+Fair enough and I agree, but the datasheet says:
 
-Johan
+Output impedance approximate range from 35-70 Ohm in 32 steps. Lowest being 11111 and highest being 00000. Range and step size will vary with process.
+
+I mean, the difference will be miniscule, but the binding can't specify the exact ohm value, because it is not guaranteed to be correct. There are more values than steps and even the range is only an approximate range.
+
+So, just allow values between 35 and 70 in the binding and then convert that value to something near the truth in the driver?
+
+
+Best regards,
+Steffen
+
+-- 
+Pengutronix e.K.                | Dipl.-Inform. Steffen Trumtrar |
+Steuerwalder Str. 21            | https://www.pengutronix.de/    |
+31137 Hildesheim, Germany       | Phone: +49-5121-206917-0       |
+Amtsgericht Hildesheim, HRA 2686| Fax:   +49-5121-206917-5555    |
