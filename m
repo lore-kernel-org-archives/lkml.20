@@ -1,105 +1,82 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-61.mta0.migadu.com [91.218.175.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5CCF279907;
-	Thu, 27 Aug 2026 07:18:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EC7E1EFFA1
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:19:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.61
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787815111; cv=none; b=SWiot57quS5HkVUAaFY3AS/GdSRUjkjkTG4GOV1IkCeuxVzc6tynCqf4uv91uURt3nZF2cD6VNDAMyO0tLt1W1OJQXNYQAswotSfU6oGdbZmzw19JLvrNjv8dcg6FGt59BEvpXbrGhoM9TXMOVmuDseln4QCDSKB5rym8BtP0pg=
+	t=1787815153; cv=none; b=FUsIJl5cWhbOhT5kwRgSFsXpCmkJoffbonR5TxSwxKEp5g1WXTk+Mk6YYPy5LrBFUoCxDHCdjQIUSQgh7qxrk7618D9gSA0qzn42TYP6LvlyDxlTfCPQbnIPwhiIyl+rZy7pjfto091nCKsg91ER6PZrPS5JLeG3WJTZ0PQMX3s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787815111; c=relaxed/simple;
-	bh=UvD7TQgA18JVFJVQjvWgn1N0hB0o5goWAESI6PcJFLk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KafDU8jhZbYrfiC33CpGoY0ce0jgx8aGSITbQpLo5VwfGvZ2FFaJPn7NT8KG8ErVXNTZXno5eOGdaUCiri6fUCz5dAvo7+zMJTR2m49Z5Ac01W1Rg6efeZo6B97o7x49WPGof+dmv7hUpuFsZo6Vn5oFwZ5K/6j4SjaBzAzvkv0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=izWxVpu+; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787815153; c=relaxed/simple;
+	bh=HN+3sbUNbycWz2IO1Ch0ptieDL2g4IBu4VoKtwdN7hM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=REG2Ix98UFVb5e/jmCNmoxTYduXGoeucE1tmyiCh4exP8KEuEAruEYR7ECvnDuKs99vQae7h5KjZM7DbK5hVqFkJljq5mhIMyYH+NAYiw9e2f78PZ1LLyhFCk9+SXHy+zxVsR0J2JI6T998MOWsGIYRUzglbevV5FXDnalEhpHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=YVkW448i; arc=none smtp.client-ip=91.218.175.61
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="izWxVpu+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787815109; x=1819351109;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=UvD7TQgA18JVFJVQjvWgn1N0hB0o5goWAESI6PcJFLk=;
-  b=izWxVpu+TarVXWITe8kpqx9r7xPJqvhVbEKbO3pPEQCAfU+N97N6D9R1
-   Ps+Gca/DTmuEUTzw+LCexODWziLJeull1QlOAq/aD7X2p7lYb2M5ifc9s
-   ZIRVWw1Vw2YfDq6znlpni0d0/gQmBMSIAb67tNKt78x6JMAKubck/8bXQ
-   Wc4DBi9X4VSQCSw/2t3B9hlzQjkVfjSKQGsNmc5d+Sk95E4ucf7ucyUyP
-   IJ24RCsvaRf488ByQETTEDzH/hGZtWFs+/29zSKj3+/WUwyZ02KFd7Nw/
-   B1d7LmLZJ7UgElX3a/AjGtTvC3IFpQgwlPJ+CGUZ7tj2pPVCmx3D/vzrz
-   A==;
-X-CSE-ConnectionGUID: GiDOasCJTqe/jXLrky+nHA==
-X-CSE-MsgGUID: V6QB1my9SqGwLdV5cBpSbw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="98905716"
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="98905716"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 00:15:38 -0700
-X-CSE-ConnectionGUID: NLWMJ1/tTZ+1cItM60d/ww==
-X-CSE-MsgGUID: WGfP4NUNTrGo9A+j00AiQw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="264552085"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.125])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 00:15:35 -0700
-Date: Thu, 27 Aug 2026 10:15:32 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Thierry Chatard <tchatard@gmail.com>
-Cc: linux-kernel@vger.kernel.org, hansg@kernel.org, lee@kernel.org,
-	platform-driver-x86@vger.kernel.org, ilpo.jarvinen@linux.intel.com,
-	djrscally@gmail.com, linux-media@vger.kernel.org,
-	mchehab@kernel.org, sakari.ailus@linux.intel.com,
-	jacopo.mondi@ideasonboard.com, nicholas@rothemail.net,
-	v.vitovt@gmail.com
-Subject: Re: [PATCH v8 1/6] platform/x86: intel_lpss: add resource conflict
- quirk for Dell Latitude 5285
-Message-ID: <ao_kFJE1smoKeKXA@ashevche-desk.local>
-References: <20260826112452.13539-1-tchatard@gmail.com>
- <20260826112452.13539-2-tchatard@gmail.com>
- <ao_jsFUSa8GmgHnr@ashevche-desk.local>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="YVkW448i"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=HN+3sbUNbycWz2IO1Ch0ptieDL2g4IBu4VoKtwdN7hM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787815149; v=1; x=1788419949;
+ b=YVkW448idKOe+POBziPtzwnC4ioTs+k1elyy3bZse34SLLX9GHZddetXbGMs5gHIICC/q46/
+ hWsNvEnZOtCO2F/TV/rQU7cnwVFyRWzjDEpMQjDvyV+K1cbbVTlXvZWV3E5jtLHwHYR0u0pRomM
+ UhPA3LC9neOutfr0CkAj/csI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: from fedora (117.129.78.49)
+	by smtp.migadu.com with ESMTPS id 2886061bcc752116;
+	Thu, 27 Aug 2026 07:19:08 +0000
+X-Mizu-Trace-ID: 2886061bcc752116
+X-Migadu-Flow: FLOW_OUT
+From: Hao Li <hao.li@linux.dev>
+To: akpm@linux-foundation.org,
+	david@kernel.org
+Cc: ljs@kernel.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Hao Li <hao.li@linux.dev>
+Subject: [PATCH] mm: remove unused anon_vma_trylock_write()
+Date: Thu, 27 Aug 2026 15:18:06 +0800
+Message-ID: <20260827071845.17636-1-hao.li@linux.dev>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ao_jsFUSa8GmgHnr@ashevche-desk.local>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Thu, Aug 27, 2026 at 10:13:58AM +0300, Andy Shevchenko wrote:
-> Again, there is an in-thread new version, DO NOT DO this!
-> If you send a new version, start a *new* email thread.
-> With that, the v8 has no cover letter...
-> 
-> Note, using `b4` tool will help you in preparing patch series properly.
-> 
-> On Wed, Aug 26, 2026 at 01:24:46PM +0200, Thierry Chatard wrote:
-> 
-> > The Dell Latitude 5285 2-in-1 has a BIOS bug where the ACPI GEXP device
-> > and the I2C4 controller (INT3446) both claim the same MMIO region via the
-> > shared SB04 variable. This causes intel_lpss_acpi to fail binding to I2C4
-> > with -EBUSY, preventing the front camera (OV5670) sensor from being
-> > registered.
-> > 
-> > Match the affected machine by DMI and the affected device by ACPI ID,
-> > carrying QUIRK_IGNORE_RESOURCE_CONFLICTS in the ACPI match data and
-> > applying it to the per-device info in probe. This follows the quirk
-> > organisation used by the PCI counterpart.
-> 
-> It's okay now,
+The last user of anon_vma_trylock_write() was removed by cc22b9978509,
+leaving the helper unused. Remove it.
 
-Ah, actually not. The subject prefix must be "mfd: intel-lpss: ..."
+Signed-off-by: Hao Li <hao.li@linux.dev>
+---
+ mm/internal.h | 5 -----
+ 1 file changed, 5 deletions(-)
 
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-
-So, this tag only applies if the above is being addressed.
-
+diff --git a/mm/internal.h b/mm/internal.h
+index 68db5abd0a4c..9069013d191f 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -298,11 +298,6 @@ static inline void anon_vma_lock_write(struct anon_vma *anon_vma)
+ 	down_write(&anon_vma->root->rwsem);
+ }
+ 
+-static inline int anon_vma_trylock_write(struct anon_vma *anon_vma)
+-{
+-	return down_write_trylock(&anon_vma->root->rwsem);
+-}
+-
+ static inline void anon_vma_unlock_write(struct anon_vma *anon_vma)
+ {
+ 	up_write(&anon_vma->root->rwsem);
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.54.0
 
