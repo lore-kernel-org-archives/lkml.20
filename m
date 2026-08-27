@@ -1,265 +1,281 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CA244503FA;
-	Thu, 27 Aug 2026 16:43:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD3C848D89B
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:43:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787848998; cv=none; b=MzGC6HkDloWq7vr+rlOWEib2tJhgyuPEABqasic/B3AZvmLpPJfO2hJt1Lu+nuOBiELLuqvRWhHmvE1qfYp4OOAlb78xgvWC/kjxfU2YJ4MO/5A3KPvRKbauZ886Xdb2XWoDS1lbhRox/hEuYzK5Fy7AKrxFcVvWHtSyTB/jQrM=
+	t=1787849002; cv=none; b=CsQCokNlQRtBXNphx8lKLdwL/fX9YByzromSCN/TWrLa5XyYiARHVZax1YK1pY4/diapuOv7hsMd61ru1hUynOcAnwbhxcxaTcMOISrv1InGK5AhirYKc4MxbiDwsVmRo5ntnGraxAYAafR0Oy+r8RJ8Z3hSCXuM3arfB8ZSgiE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787848998; c=relaxed/simple;
-	bh=msUao0bB7sSLNOEfo7ZDNt4+6EAf3vg2HRvY1QIzhU0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OQSimnx34myQTYuhQ/AOgoEOl5YBuAMnlJmA8+Nc8exyK+90uEogz7wK5y+jJyqySveFbPi2zeU5xlwe9IM8AOcNGHxdMcUYR+T+Vme/nRQd+GUBN6JM0ekD1yaL6pmCwMClvmDR3ueXQ/py1q1P2nbRFesTholrrHYTiJcdync=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g34NWurm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787849002; c=relaxed/simple;
+	bh=nRoHwlsF3WUuqUr3nk9ZUcEETd205tk2KfbH8mKe/+I=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=orvwPf77J22Iyma8olB5225BKmEkgkrf2e9JPP3icK+XXT9HOtBEGO/L78EpQQ5mc/WHtSKU5bo8UyrfjppmMhorEHHxjd27XvWOnN5icmwWgDXYlv3oX7pLBy0RfjAZ2naw+2yOKxlGyEY9AhhGve+qZo/7070wCJJ+qjO+6+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=CtnZ5jlj; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g34NWurm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E453C1F000E9;
-	Thu, 27 Aug 2026 16:43:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787848997;
-	bh=YPuUIEgAWUbRknirj129WjN+BRWrRvbLZyxXhh94ONk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=g34NWurmaut3phSu8fNpe3tBGQHYabwvtF74bY9erqzFXu3Oz+nNQ8Nho8detgNac
-	 sQl/AGvoF5/E7YM6ocivvIHNUuqbbOvR/703O7+7QuFPVXWKssWmHOCbJFqLxtQmWO
-	 3o6cNbxxo/Kxhf/Yq2wgRDylRm7tbA4+O8T15G4Kf2vZFoDEykyWy5rX3Wb2SB8mrn
-	 GdV+qbo7MVsamARlSRQjBCrqiUZ8BHS0wdTjWW0yEpvyDDFy7giPCd8DRU5RJ1qnRC
-	 7/skQkL5itdtnrn8UwYPeKnY+48rSG5DWwwRIgya5wR8T96/R7IHSWx9+FMtnK93d+
-	 V+uey5VK5wmxg==
-Date: Thu, 27 Aug 2026 17:43:10 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Paul Elder <paul.elder@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Dafna Hirschfeld <dafna@fastmail.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, michael.riesch@collabora.com,
-	stefan.klug@ideasonboard.com, mehdi.djait@linux.intel.com,
-	xuhf@rock-chips.com, zyc@rock-chips.com, dalong.deng@rock-chips.com,
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 4/5] dt-bindings: media: Add rockchip rkisp2
-Message-ID: <20260827-uncloak-protract-d1ceb60f1c6a@spud>
-References: <20260827-rkisp2-v3-0-e91ff0a604d6@ideasonboard.com>
- <20260827-rkisp2-v3-4-e91ff0a604d6@ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="CtnZ5jlj"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 98D204E413E1;
+	Thu, 27 Aug 2026 16:43:15 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 5F6D3604ED;
+	Thu, 27 Aug 2026 16:43:15 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7C11511C780CB;
+	Thu, 27 Aug 2026 18:43:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1787848990; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=XxwcF+GEHxUG8bL+ir1yRXCJzX7aC3C+dEO4fpdt0sE=;
+	b=CtnZ5jljui7LdupirTQTWqUV0oYljGBVXGYVu4CKz7D7RrOdul50N1Vby2mU6FlWVMh7NP
+	pKStH9KHhko65mtJp6B9E3QC7MJSP8AhJlQ6HfGvHSwKQc3izf4qS4FUznX6lb7ORcjKDf
+	ADmbhhOI+hd2ATph44wfpEQu0d6amAUwbAW9VrA29F0/CnzYFkLcFfdeKBWIgCLBykfdC2
+	I1RQ9YcOVpEN4VABV9DjsBdrautKJkfwi3iFAk6gh29qq+nz5nCbSs/0utCAWw5QQlYJbJ
+	qKOx+G6BAh58Au/A9/qRftOK+XnMerXXvl6GkxrtsbkO2MrMa8tb4WjmgN0gdw==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: "Michael Walle" <mwalle@kernel.org>
+Cc: "Pratyush Yadav" <pratyush@kernel.org>,  "Takahiro Kuwano"
+ <takahiro.kuwano@infineon.com>,  "Richard Weinberger" <richard@nod.at>,
+  "Vignesh Raghavendra" <vigneshr@ti.com>,  "Nicolas Ferre"
+ <nicolas.ferre@microchip.com>,  "Alexandre Belloni"
+ <alexandre.belloni@bootlin.com>,  "Claudiu Beznea"
+ <claudiu.beznea@tuxon.dev>,  "Jonathan Corbet" <corbet@lwn.net>,  "Shuah
+ Khan" <skhan@linuxfoundation.org>,  "Steam Lin" <STLin2@winbond.com>,
+  "Hsin-Yi Wang" <hsinyi@chromium.org>,  "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>,  <linux-mtd@lists.infradead.org>,
+  <linux-arm-kernel@lists.infradead.org>,  <linux-kernel@vger.kernel.org>,
+  <linux-doc@vger.kernel.org>
+Subject: Re: [PATCH v3 05/23] mtd: spi-nor: Create the concept of fixup
+ table with match function
+In-Reply-To: <DKOKFU8AD2U6.151AX0VOBX67H@kernel.org> (Michael Walle's message
+	of "Fri, 14 Aug 2026 11:40:21 +0200")
+References: <20260813-winbond-v7-1-spi-nor-rv-addition-v3-0-b637cf120d5c@bootlin.com>
+	<20260813-winbond-v7-1-spi-nor-rv-addition-v3-5-b637cf120d5c@bootlin.com>
+	<DKOKFU8AD2U6.151AX0VOBX67H@kernel.org>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Thu, 27 Aug 2026 18:43:04 +0200
+Message-ID: <87cxv3cy5j.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="hYIEQ4m2e7KxrXOL"
-Content-Disposition: inline
-In-Reply-To: <20260827-rkisp2-v3-4-e91ff0a604d6@ideasonboard.com>
-
---hYIEQ4m2e7KxrXOL
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, Aug 27, 2026 at 07:48:33PM +0900, Paul Elder wrote:
-> Add documentation for the Rockchip rkisp2 bindings. This is meant to
-> support multiple versions of Rockchip ISPs going forward, including the
-> 2.x series and 3.x series. The current version only adds the compatible
-> for the RK3588, which is a 3.0.
->=20
-> Signed-off-by: Paul Elder <paul.elder@ideasonboard.com>
->=20
-> ---
-> Changes in v3:
-> - reorder patches
->=20
-> No change in v2
-> ---
->  .../devicetree/bindings/media/rockchip-isp2.yaml   | 125 +++++++++++++++=
-++++++
->  1 file changed, 125 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/media/rockchip-isp2.yaml b=
-/Documentation/devicetree/bindings/media/rockchip-isp2.yaml
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..b85c28e4d7aa8ceb5db55b49b=
-4de10ef8ed704ec
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/rockchip-isp2.yaml
+Hi Michael,
 
-Filename matching compatible please.
+I took me a lot of time to go through all your requests, in the end I
+will not implement most of your feedback because either I do not
+understand what is the gain, or because the result is not better at all
+from my point of view. I try to explain that in my feedback
+below. Nevertheless, I truly appreciate the deep review you made. I
+think I mostly agree with the comments in the other messages.
 
-> @@ -0,0 +1,125 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/rockchip-isp2.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Rockchip SoC Image Signal Processing unit v2
-> +
-> +maintainers:
-> +  - Paul Elder <paul.elder@ideasonboard.com>
-> +
-> +description: |
-> +  Rockchip ISP2 is the Camera interface for the Rockchip series of SoCs =
-which
-> +  contains image processing, scaling, and compression functions.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - rockchip,rk3588-isp
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    minItems: 2
-> +    maxItems: 2
+On 14/08/2026 at 11:40:21 +02, "Michael Walle" <mwalle@kernel.org> wrote:
 
-When they match, you only need one.
-An items list however might be nice here to explain what the interrupts
-actually are.
+> On Thu Aug 13, 2026 at 5:19 PM CEST, Miquel Raynal wrote:
+>> Manufacturer ID tables increase and fixup() hooks proliferate. Having
+>> one possible structure per chip was fine until the fixups started being
+>> more and more common and needed, to some extend due to ID reuses. Mixing
+>> fixups and chips becomes hard and requires extra helpers to sort which
+>> ones are needed for a given chip, which every time this happens requires
+>> a lot of rework.
+>
+> Thanks, this patch looks really promising!
+>
+>> Replace the two-level fixup association (a manufacturer wide hook and a
+>> per flash_info hook) with a per-manufacturer list of fixups that can be
+>> looked up by flash ID and/or match function.
+>>
+>> The match logic works as follows:
+>> - If there is an ID, it must match
+>> - If there is a match function, it must match (cumulative)
+>> - If there is no identifier (no ID nor any match function), it's a
+>>   catch-all entry typically used for flagging manufacturer fixups.
+>
+> This mimics, how it's currently handled. But since the fixups are
+> now treated as a separate list, i.e. it has it's own SNOR_ID, we
+> shall move away from this manufacturer thingy too.
 
-> +
-> +  interrupt-names:
-> +    items:
-> +      - const: isp_irq
-> +      - const: mi_irq
+Why shall we? See below, I don't get the point. I drafted something it
+took me two full days to work on that, to eventually realize I did not
+see *any* benefit.
 
-They're interrupts by definition, having _irq is redundant.
+> IMHO that really
+> clutters the code.
 
-> +
-> +  clocks:
-> +    minItems: 3
+Clearly an opinion I do not share. Maybe I am missing something.
 
-You support one device, which has all 5. Drop this.
+> As a fun fact, spi_nor_match_id() will have the
+> unexpected side effect of setting nor->manufacturer.
 
-> +    items:
-> +      - description: ISP AXI clock (aclk)
-> +      - description: ISP AHB clock (hclk)
-> +      - description: ISP core clock (isp)
-> +      # for rk3588
+Not sure I get why this is unexpected?
 
-Commentary like this is redundant, you have the explicit conditional
-below, and this will become a mess with many devices.
+> So here's how I'd do it:=20
+> (1) remove spi_nor_manufacturer.
+> (2) have a list of initcalls in the core to call into the individual
+>     vendor modules (that could later be replaced by something more
+>     sophiticated)
+> (3) that initcall will then call spi_nor_register_parts(const struct
+>     flash_info *parts, int nparts)
+> (4) (optionally) calls spi_nor_register_fixups(const struct
+>     spi_nor_fixup *fixups, int nfixups)
 
-> +      - description: ISP core clock (marvin)
-> +      - description: ISP core clock (vicap)
-> +
-> +  clock-names:
-> +    minItems: 3
-> +    items:
-> +      - const: aclk
-> +      - const: hclk
-> +      - const: clk_core
-> +      # for rk3588
-> +      - const: clk_core_marvin
-> +      - const: clk_core_vicap
+I've been trying hard to follow your approach, but really, I don't get
+the point. Initcalls are not possible here, or it would prevent
+CONIFG_MTD_SPI_NOR=3Dm so I went for an alternative approach with an init
+registration which I believe matches your expectations. This is not
+an actual problem.
 
-isp, marvin, vicap.
+But registering parts and fixups independently, maybe, but again, why?
+What is the intended benefit? We now need to go through 96 (spi-nor
+wide) fixups. But what do we get in exchange? From my point of view:
+extra churn and boilerplate, nothing particularly better than before. I
+must admit, I do not understand your aversion for the manufacturer
+structure. So while I like the idea of a flash-info independent fixup
+list (which I implemented in v3), I do not understand the need for this
+extra step.
 
-> +
-> +  iommus:
-> +    maxItems: 1
-> +
-> +  power-domains:
-> +    items:
-> +      - description: ISP power domain
-> +
-> +  ports:
-> +    $ref: /schemas/graph.yaml#/properties/ports
-> +
-> +    properties:
-> +      port@0:
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        unevaluatedProperties: false
-> +        description: connection point for VICAP in inline mode
-> +
-> +        properties:
-> +          endpoint:
-> +            $ref: video-interfaces.yaml#
-> +            unevaluatedProperties: false
-> +
-> +    required:
-> +      - port@0
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
+Since I do not get the point of this request, I prefer to not implement
+it, because I will anyway do it the wrong way. If someone wants to make
+a proposal, I will have a look, but at this point I need to back
+off. There are already ~70 patches pending which I hope will be applied
+ASAP after -rc1 gets tagged and we agree on the remaining points (there
+are other comments from you and Takahiro which I need to address).
 
-If you want to ever be able to actually use interrupt-names, make it
-required too.
+> Also both could be a macro, then we can get rid of the size
+> argument.
+>
+> The current manufacturer fixups gets registered with a
+> "SNOR_ID(vendor)".=20
+>
+> That leaves us with the manufacturer name, which should be set by
+> that vendor catch all fixup.
+>
+> Btw, I'm fine with deprecating the name as well as the manufacturer
+> sysfs entry, but it shouldn't be as in "it just goes away".
 
-> +  - clocks
-> +  - clock-names
-> +  - power-domains
-> +
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: rockchip,rk3588-isp
-> +    then:
-> +      properties:
-> +        clocks:
-> +          minItems: 5
-> +        clock-names:
-> +          minItems: 5
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +
-> +    #include <dt-bindings/clock/rockchip,rk3588-cru.h>
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/power/rk3588-power.h>
-> +
-> +    parent0: parent {
-> +        #address-cells =3D <2>;
-> +        #size-cells =3D <2>;
-> +
-> +        isp0: isp@fdcb0000 {
+I have no strong wish to get rid of those, especially the manufacturer
+name which is not particularly problematic today.
 
-Drop the unused label ehre please.
+[...]
 
-pw-bot: changes-requested
+>> +	for (i =3D 0; i < nor->manufacturer->nfixups; i++) {
+>> +		if (fixups[i].fixups->post_bfpt &&
+>> +		    spi_nor_fixup_match(nor, &fixups[i])) {
+>> +			ret =3D fixups[i].fixups->post_bfpt(nor, bfpt_header, bfpt);
+>> +			if (ret)
+>> +				return ret;
+>> +		}
+>
+> This is repeated several times, can we have something like
+>
+> spi_nor_apply_fixups(struct spi_nor *nor, int (*fixup_fn), void *fixup_ar=
+gs);
+>
+> int spi_nor_post_bfpt_fixup(struct spi_nor *nor, const struct spi_nor_fix=
+up *fixup, void *_args)
+> {
+> 	struct post_bfpt_fixup_args *args =3D _args;
+>
+> 	if (!fixup->post_bfpt)
+> 		return 0;
+>
+> 	return fixup->post_bfpt(nor, args->bfpt_header, args->bfpt);
+> }
+>
+> which then will be called with
+> spi_nor_apply_fixups(nor, spi_nor_post_bfpt_fixup, args);
 
-Thanks,
-Conor.
+I drafted it, but arguments are different, argument numbers are
+different, return values are different, we need stubs for each
+fixup... Nothing is identical, we just save a couple of simple checks
+and a for loop. On the other hand, code just grows, complexity is
+higher, readability is definitely lower. Sorry, but again, I do not see
+the gain with this attempt, it just darkens what the core does. It would
+definitely work with another -more advanced- language than C, though.
 
-> +            compatible =3D "rockchip,rk3588-isp";
-> +            reg =3D <0x0 0xfdcb0000 0x0 0x7f00>;
-> +            interrupts =3D <GIC_SPI 131 IRQ_TYPE_LEVEL_HIGH 0>,
-> +                         <GIC_SPI 133 IRQ_TYPE_LEVEL_HIGH 0>;
-> +            interrupt-names =3D "isp_irq", "mi_irq";
-> +            clocks =3D <&cru ACLK_ISP0>, <&cru HCLK_ISP0>,
-> +                     <&cru CLK_ISP0_CORE>, <&cru CLK_ISP0_CORE_MARVIN>,
-> +                     <&cru CLK_ISP0_CORE_VICAP>;
-> +            clock-names =3D "aclk", "hclk", "clk_core",
-> +                        "clk_core_marvin", "clk_core_vicap";
-> +            power-domains =3D <&power RK3588_PD_VI>;
-> +            iommus =3D <&isp0_mmu>;
-> +        };
-> +    };
->=20
-> --=20
-> 2.47.2
->=20
+>> +	for (i =3D 0; i < nor->manufacturer->nfixups; i++) {
+>> +		if (fixups[i].fixups->post_bfpt &&
+>> +		    spi_nor_fixup_match(nor, &fixups[i])) {
+>> +			ret =3D fixups[i].fixups->post_bfpt(nor, bfpt_header, bfpt);
+>> +			if (ret)
+>> +				return ret;
+>>  	}
+>>=20=20
 
---hYIEQ4m2e7KxrXOL
-Content-Type: application/pgp-signature; name=signature.asc
+[...]
 
------BEGIN PGP SIGNATURE-----
+>> --- a/drivers/mtd/spi-nor/gigadevice.c
+>> +++ b/drivers/mtd/spi-nor/gigadevice.c
+>> @@ -64,7 +64,6 @@ static const struct flash_info gigadevice_nor_parts[] =
+=3D {
+>>  		.id =3D SNOR_ID(0xc8, 0x40, 0x19),
+>>  		.name =3D "gd25q256",
+>>  		.flags =3D SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB | SPI_NOR_TB_SR_BIT6,
+>> -		.fixups =3D &gd25q256_fixups,
+>>  		.fixup_flags =3D SPI_NOR_4B_OPCODES,
+>
+> The fixup_flags should also go into the fixups list.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapBpHgAKCRB4tDGHoIJi
-0tuFAQDobr6oxwDruhhhS+WDp9YR8SU2H/aPxZ2cocJWi3H5tgEA5QSYlBdMiBNB
-pli/mB9FCtFZV24ScQc6oVHoQBfStg0=
-=LVlI
------END PGP SIGNATURE-----
+Yes, we can use a similar logic here. Actually if at some point we want
+to get rid of those flags, we could transform the flags into proper
+fixup functions, but I'm not going to do that now.
 
---hYIEQ4m2e7KxrXOL--
+[...]
+
+>> +/* PM25LV parts have no JEDEC ID and are likely matched by name */
+>> +static bool issi_pm25lv_match(const struct spi_nor *nor)
+>> +{
+>> +	const char *name =3D nor->info ? nor->info->name : NULL;
+>> +
+>> +	return name && !strncmp(name, "pm25lv", 6);
+>
+> Won't just strcmp("pm25lv", name) do it? Both arguments are
+> guaranteed to be NUL terminated. The above would also match
+> "pm25lvextrabytes", no, and we get rid of that redundant size
+> argument.
+
+No it won't, because that would no longer be a match, you would compare
+pm25lv against pm25lv010 or pm25lv512 -> no match if you don't limit to
+the first 6 bytes. Since names are part of the sysfs ABI, we cannot just
+modify the names for that. We also need two different entries (two
+different sizes) since we do not even match with an ID.
+
+[...]
+
+>> @@ -233,6 +230,17 @@ static int mt25qu512a_post_bfpt_fixup(struct spi_no=
+r *nor,
+>>  	return 0;
+>>  }
+>>=20=20
+>> +/*
+>> + * n25q00a parts share the first same 3 ID bytes with mt25qu01g.
+>> + * In order to not mix the fixups, further filter out using the part na=
+me.
+>
+> How would that work? The part name is also set by the duplicated ID,
+> so the first one wins, no?
+
+- First part (mt25qu01g) is checked
+  -> ID match
+- There is a match function where we compare the name with n25q00a
+  -> no match, not applying the fixup
+
+- Second part (n25q00a) is checked
+  -> ID match
+- There is a match function where we compare the name with n25q00a
+  -> name match
+
+The fixup is only applied for n25q00a.
+
+For the other chip we can just give more ID bytes for the match.
+
+So I believe there is no problem here?
+
+Thanks!
+Miqu=C3=A8l
