@@ -1,37 +1,37 @@
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48CC61FC0;
-	Thu, 27 Aug 2026 18:23:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92F17427F93;
+	Thu, 27 Aug 2026 18:23:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787855025; cv=none; b=PuNVZxRyEh04RJiilspv0hxXavQlZxXupj8MEplopuToXv5JUdf6sJi6+V13X6yENs3VUl4mFKktLtDrw5T+cVWHPlpPkqNUDVh5eo1OjZ2MKBUaWU46jui4O9c9osHNeggH8EXV2kGj4rgExwrVIZyoMQtryvfweFMLXRyh23E=
+	t=1787855026; cv=none; b=XKg6caFYLNZ4ce21QV1uDQ18YljYz0GU96Oafbe9sMCVx8GxB/cUuzgtO2Tq9kmdMhvf+2QkuTjNZeMBt9ZfvOYmnmIb8rBwL61EsNnMEI533cg/TGv1NJ3+VXvz52NOjP4gSCglSTDp2+6mPzNgZhP+ofh0DwYxHY4+DLw6uHw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787855025; c=relaxed/simple;
-	bh=NTpk/J9rpNjetJmd6pVzwIlDZyZF8zY2ytNk++SopB4=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=C2qpQyNFzYucNmTYZ68nim/NXeW4Zu0L4XVNTe8HEMAZGhkbAItYTleRTeqLScWRZWWgZWVEV7OlCtraP29dHZPXYIlowuIdfjEJi1HsFicI8FV2JN8GrcWlREDgjDS0qvo69wN04OXnDtUcl1+TYfStGZ1hnsZOeuv6DsEDrcs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=ss+YEE4b; arc=none smtp.client-ip=213.97.179.56
+	s=arc-20240116; t=1787855026; c=relaxed/simple;
+	bh=2ZXRjorq2KysLVrJlKMzOoraXEEIPHeumA77uxaBHFw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=KntVeGkSE4+zqLlj4Zhe0ap/8Qd2ZOG5hpPF5Oip7+QQpePCV5ULsTvCP8UbWn9Sqq8mGdK3xRSIzHmAazXMj5ZwbcPGYJOYxOnygraYdz1Zwdjs8W4PheEpHTTrHmuJf/bJWWdFIMWN+uEkqu7H2ZoE3C9g6laaeO8yjREQmds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=VUd8o07O; arc=none smtp.client-ip=213.97.179.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="ss+YEE4b"
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="VUd8o07O"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
-	Message-Id:Date:Subject:From:From:Reply-To;
-	bh=lW5yUPVESWNp8FJ60ucl8RG8n/LJobsXvM0l0Jreta8=; b=ss+YEE4b/aZyxI4zRVBqSur/8v
-	Fc85AUt8epJqduW4+yRAI2hbrSKRfL+YgA+hpmpTYZqKe4LY2lA60lulc4/I8/XwchM0EgOxcuOu+
-	kO09vhl3rg/Dyg3xzRfrsnZ+eU6HE5ZWP08df2XhtDekUWbiQoC/71/llCxH0K64Zp3oidfGsRxqQ
-	cPa9x3aRlEkQSEtb+pWKH6Z2S8WIPdEtL/a08HrMFp7cj/M6fZq2yN8JTpfeCsNl/7ItPOh8PBPea
-	mO2Y7aDq+4DeQTU4FjpaPnX51CfSaxcUTQjwxG0jtU4t6rTTYkBTUcK90srBFdeLweMm3Up721GTk
-	VDY+LmmA==;
+	s=20170329; h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Subject:Date:From:From:Reply-To;
+	bh=2rgfO1UNR9r853HcMuUsDdAX5avvibvW0mwFAGglu70=; b=VUd8o07OUMJhrByGHDlGLnxHqB
+	E+tOG2MFjru/Fg3ZySyBLs+1ugnEnHIs87WW+xUtAltCYkqzC5ZBjELEgX+YuVv2Yk66+q9z3VsMU
+	0xTeK4VixtehlJU/aUJKSR712yjiLQsCDbOPTgEIYSsD8jn0SOvV+zGW7+jDSmk6nQ7E5fiEJvWle
+	fUDfm1E5VflpvdRo2GZGH1QunD3O+nh87GHjPGEoQ+N3dv7qylPP/AT99wN5wsN206WD7UXIAPbJj
+	7W1BuZU6MqSJOjCFqGCAjAXODzWHsA0X8ME9Ak9n+RwXi0MBl8ySpHzGS/gyeuVKgfTAP26HlFWZX
+	GgIi4rNQ==;
 Received: from [187.57.78.212] (helo=[192.168.15.100])
 	by fanzine2.igalia.com with esmtpsa 
 	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1wzekx-00AOUg-3S; Thu, 27 Aug 2026 20:23:19 +0200
+	id 1wzelC-00AOUg-AY; Thu, 27 Aug 2026 20:23:34 +0200
 From: =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
-Subject: [PATCH v5 0/6] sched: Add support for long task name
-Date: Thu, 27 Aug 2026 15:22:59 -0300
-Message-Id: <20260827-tonyk-long_name-v5-0-5fa843782a00@igalia.com>
+Date: Thu, 27 Aug 2026 15:23:02 -0300
+Subject: [PATCH v5 3/6] lib/string_kunit: Add test for copy_task_comm()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,12 +40,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23P0U4DIRAF0F9peBYDA8suPvkfpjHADlu0BbNsN
- zbN/rtQY6rBx5vcOTNzJRnngJk87a5kxjXkkGIJ3cOOuIOJE9IwlkyAgWIdV3RJ8fJOjylOr9G
- ckFrthewMWiY5KVMfM/rweRNf9t85n+0buqUytXEIeUnz5bZy5bX3o/eNvnLKqHAwABqjOcJzm
- MwxmEeXTqTyK/wCQLYAVECAV3YsFzrZAOIOKA4tIArQ60FbpXAwWjeAvAP9fy/IAnCPo3dDz0b
- gf4Bt274AOov+54QBAAA=
-X-Change-ID: 20260516-tonyk-long_name-b9f345aeb041
+Message-Id: <20260827-tonyk-long_name-v5-3-5fa843782a00@igalia.com>
+References: <20260827-tonyk-long_name-v5-0-5fa843782a00@igalia.com>
+In-Reply-To: <20260827-tonyk-long_name-v5-0-5fa843782a00@igalia.com>
 To: Peter Zijlstra <peterz@infradead.org>, 
  Juri Lelli <juri.lelli@redhat.com>, 
  Vincent Guittot <vincent.guittot@linaro.org>, 
@@ -61,125 +58,72 @@ Cc: linux-kernel@vger.kernel.org, kernel-dev@igalia.com, linux-mm@kvack.org,
  =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
 X-Mailer: b4 0.15.2
 
-* Use case
+Add a new test for copy_task_comm(). Check if a copy from a task_struct
+works, and special cases when the size of source and destination buffer
+mismatches.
 
-When debugging and tracing complex programs with hundreds of threads, 16 bytes
-long thread names are not enough anymore. cmd_line can show a lot of
-characters, but it's not affected by pthread_setname_np() or
-prctl(PR_SET_NAME), so let's give the same love kthreads got with commit
-6b59808bfe48 ("workqueue: Show the latest workqueue name in 
-/proc/PID/{comm,stat,status}"). This patchset creates a new
-PR_{SET,GET}_EXT_NAME that supports 64 bytes long names.
-
-It also introduces a new function copy_task_comm() that ensures that the string
-is always NUL-terminated despite of mismatching sizes of buffers. We can't just
-use strscpy() because it proved to give some overhead [0] in tracing.
-
-* Patchset
-
-Patch 1 and 2 do some prep work in order to avoid buffer overflows around
-the kernel, now that current->comm is bigger. It also make sure that if
-the destination buffer is smaller than TASK_COMM_EXT_LEN, it will
-be NUL-terminated.
-
-Patch 3 adds a KUnit for the new function copy_task_comm()
-
-Patch 4 sets current->comm length to TASK_COMM_EXT_LEN and take care of
-making sure that current userspace APIs gets only TASK_COMM_LEN.
-
-Patch 5 creates new prctl() to set and get all the TASK_COMM_EXT_LEN bytes.
-
-Patch 6 adapts the existing selftest for this new interface.
-
-* Testing
-
-selftests/prctl/set-process-name.c survives this patchset, and it was extended
-to the new interface. KUnit test was modified to support copy_task_comm().
-
-I ran the same benchmark as at [0], and no significant change was found.
-
-* Changes
-
-Since v4:
-- Remove copy_task_comm() calls for structs other than struct task_struct
-- copy_task_comm(): Add checks for len > TASK_COMM_LEN and len < 0
-- Link to v4: https://patch.msgid.link/20260717-tonyk-long_name-v4-0-1fedfc870d21@igalia.com
-
-Since v3:
- - Simplify Get rid of get_task_comm() commit
- - Simplify copy_task_comm(): just do a memcpy + NUL char at the end
- - Link to v3: https://patch.msgid.link/20260612-tonyk-long_name-v3-0-7989b66e8a99@igalia.com
-
-Since v2:
- - Add a custom function copy_task_comm() that uses memcpy when possible and
- fallback to strscpy(). It always ensures that the string in NUL-terminated
- - Add KUnit test for the new function
- - Link to v2: https://patch.msgid.link/20260524-tonyk-long_name-v2-0-332f6bd041c4@igalia.com
-
-Since v1:
- - Replace new strtostr() with strscpy()
- - Don't replace memcpy in tools/
- - Link to v1: https://patch.msgid.link/20260517-tonyk-long_name-v1-0-3c282eaa91e2@igalia.com
-
-[0] https://lore.kernel.org/lkml/20260526190625.3f4aca0a@gandalf.local.home/
-
+Signed-off-by: André Almeida <andrealmeid@igalia.com>
 ---
-André Almeida (6):
-      treewide: Get rid of get_task_comm()
-      treewide: Replace memcpy(..., current->comm) with copy_task_comm()
-      lib/string_kunit: Add test for copy_task_comm()
-      sched: Extend task command name with TASK_COMM_EXT_LEN
-      prctl: Add support for long user thread names
-      selftests: prctl: Add test for long thread names
+ lib/tests/string_kunit.c | 38 ++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 38 insertions(+)
 
- drivers/connector/cn_proc.c                        |  2 +-
- drivers/dma-buf/sw_sync.c                          |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c   |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c            |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c    |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |  4 +--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c       |  2 +-
- drivers/gpu/drm/lima/lima_ctx.c                    |  2 +-
- drivers/gpu/drm/panfrost/panfrost_gem.c            |  2 +-
- drivers/gpu/drm/panthor/panthor_gem.c              |  2 +-
- drivers/gpu/drm/panthor/panthor_sched.c            |  2 +-
- drivers/gpu/drm/virtio/virtgpu_ioctl.c             |  2 +-
- drivers/hwtracing/stm/core.c                       |  2 +-
- drivers/tty/tty_audit.c                            |  2 +-
- fs/binfmt_elf.c                                    |  2 +-
- fs/binfmt_elf_fdpic.c                              |  2 +-
- fs/proc/array.c                                    |  2 +-
- include/linux/coredump.h                           |  2 +-
- include/linux/sched.h                              | 33 +++++++++----------
- include/linux/tracepoint.h                         |  4 +--
- include/trace/events/block.h                       | 10 +++---
- include/trace/events/coredump.h                    |  2 +-
- include/trace/events/f2fs.h                        |  4 +--
- include/trace/events/oom.h                         |  2 +-
- include/trace/events/osnoise.h                     |  2 +-
- include/trace/events/sched.h                       | 10 +++---
- include/trace/events/signal.h                      |  2 +-
- include/trace/events/task.h                        |  4 +--
- include/uapi/linux/prctl.h                         |  3 ++
- kernel/audit.c                                     |  6 ++--
- kernel/auditsc.c                                   |  6 ++--
- kernel/printk/printk.c                             |  2 +-
- kernel/sys.c                                       | 23 ++++++++++---
- lib/tests/string_kunit.c                           | 38 ++++++++++++++++++++++
- net/bluetooth/hci_sock.c                           |  2 +-
- net/netfilter/nf_tables_api.c                      |  4 ++-
- security/integrity/integrity_audit.c               |  3 +-
- security/ipe/audit.c                               |  3 +-
- security/landlock/domain.c                         |  2 +-
- security/lsm_audit.c                               |  7 ++--
- tools/testing/selftests/prctl/set-process-name.c   | 37 +++++++++++++++++++++
- 42 files changed, 173 insertions(+), 76 deletions(-)
----
-base-commit: 73e3f0710014fe6d4ed98cfc02292f6121db7558
-change-id: 20260516-tonyk-long_name-b9f345aeb041
+diff --git a/lib/tests/string_kunit.c b/lib/tests/string_kunit.c
+index 0819ace5b027..27a27ab13254 100644
+--- a/lib/tests/string_kunit.c
++++ b/lib/tests/string_kunit.c
+@@ -881,6 +881,43 @@ static void string_bench_strrchr(struct kunit *test)
+ 	STRING_BENCH_BUF(test, buf, len, strrchr, buf, '\0');
+ }
+ 
++#define TASK_NAME "task_name"
++#define TASK_NAME_LEN 9
++#define TASK_MAX_LEN TASK_COMM_LEN
++#define SMALLER_LEN (TASK_NAME_LEN - 3)
++#define BIGGER_LEN (TASK_MAX_LEN + 3)
++
++static void string_copy_task_comm(struct kunit *test)
++{
++	char str[TASK_MAX_LEN] = TASK_NAME, copy[TASK_MAX_LEN],
++	     smaller_buf[SMALLER_LEN], bigger_buf[BIGGER_LEN];
++	static struct task_struct task, *tsk = &task;
++	int len1, len2, i;
++
++	/* set and get task name */
++	set_task_comm(tsk, str);
++	copy_task_comm(copy, tsk, TASK_COMM_LEN);
++
++	len1 = strlen(str);
++	len2 = strlen(copy);
++
++	KUNIT_ASSERT_EQ(test, len1, len2);
++	KUNIT_ASSERT_EQ(test, len2, TASK_NAME_LEN);
++	KUNIT_ASSERT_EQ(test, copy[len2], '\0');
++	KUNIT_ASSERT_TRUE(test, !strcmp(str, copy));
++
++	/* copy to a smaller dst buffer */
++	copy_task_comm(smaller_buf, tsk, sizeof(smaller_buf));
++	KUNIT_ASSERT_TRUE(test, !strncmp(str, smaller_buf, SMALLER_LEN - 1));
++	KUNIT_ASSERT_EQ(test, smaller_buf[SMALLER_LEN - 1], '\0');
++
++	/* copy to a bigger dst buffer */
++	copy_task_comm(bigger_buf, tsk, sizeof(bigger_buf));
++	KUNIT_ASSERT_TRUE(test, !strncmp(str, bigger_buf, TASK_NAME_LEN));
++	for (i = TASK_NAME_LEN; i < BIGGER_LEN; i++)
++		KUNIT_ASSERT_EQ(test, bigger_buf[i], '\0');
++}
++
+ static struct kunit_case string_test_cases[] = {
+ 	KUNIT_CASE(string_test_memset16),
+ 	KUNIT_CASE(string_test_memset32),
+@@ -910,6 +947,7 @@ static struct kunit_case string_test_cases[] = {
+ 	KUNIT_CASE(string_bench_strnlen),
+ 	KUNIT_CASE(string_bench_strchr),
+ 	KUNIT_CASE(string_bench_strrchr),
++	KUNIT_CASE(string_copy_task_comm),
+ 	{}
+ };
+ 
 
-Best regards,
---  
-André Almeida <andrealmeid@igalia.com>
+-- 
+2.55.0
 
