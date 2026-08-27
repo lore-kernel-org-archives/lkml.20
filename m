@@ -1,138 +1,217 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAA1836D503;
-	Thu, 27 Aug 2026 12:27:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83AA941DE0D
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:28:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787833674; cv=none; b=C7IdHIB4EBGYEPu+9dVo3cCQ4eF6RYR1xlFeIimUYYVbe9fqgQ1r9uvX8YTMaepFOG+JwxWdctAQp16A/Sri/zGL3QRBbzXhDO5tQQKQE97TY7TyhAX+j9E21i1yzkbRvvD4RNBZBeYEMjAtQiMWvbTpNV+9vB7Uh/fYtfH899o=
+	t=1787833682; cv=none; b=LEodz1MnQ7qWzm9oJTmZbvTN52YMGVgteXuNIoYg0NozxLYx94KDibqIvC88vpJ1RTLNhUnXG8TbZ4R6EJkzmKz93xXzy/VzETsJXQhtJADTUTfs0N4URVorHbPX2VAkWecEfLz8fIzVwfe6gKfzqMu6GCv5LrNnCXxQFsxZDiw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787833674; c=relaxed/simple;
-	bh=0NQQV9LlbF0a/loMDk4OajOl5hTBIHpuqK/90NKZm8o=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=HUnPSIR5Ei/tAMsdDn/Ztmcs09v65hSsSJUYICsplL0tEUy1NdLN0+ci009wz2duWudcowM/R98AAoV+ZfHDJpnlpndSp1/WSWeG9hz9M6x3iFXqG6Jhbx/anDhmT4zlCz35euQNJyTi87TUXT2mhZ0MyV7sOa5cS3bxtXk8/N4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=IKmDmBBB; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	s=arc-20240116; t=1787833682; c=relaxed/simple;
+	bh=9svXqtqyffmCnBi3bJtEcbSBLp3Ou2cJhPq5IW5GGrg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=I1QX4HEZyykUDRSrN4aPeMg/zGvjYcj/vmmGsBRZf+WnaMcI0UujsWhxDmH5XY9/l9w21gdKFe/gf289DUtIPOZCHVCZfauqvHsy6+Zs51SmFBYnenmR9wCkTGyz7G069q6y+OcNUT/V6U8sZmYFZ5Z1yfRQPvApXO4aLoV8wuE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Z1BJ8fDk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Hg9zT0pd; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="IKmDmBBB"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=bX+iMofqIG9jE2E//kQHKV8uxkbBD8n3W9MnLo0o0wU=; b=IKmDmBBBafFSHNSFNc84+Xf8Rs
-	tZiAsuLod4OlXM/4Kjmc8qiQDs0XfXwy/LKTRXJJrIIMhYQrGTh9I2SRlGvkBySxHgXFNfkeQMBkB
-	pLf4h562mKMcTTyDquwmpxXmdtLsVhbJ3RpLfEaGT3rTTHRrTCs8mFCpRfcn5+3b6+cX8yLYojMCK
-	98iRBQFd0FgixQtCnsyrqE2QZYu3r45lln+s6swq6qqPaNjY/NXUUphxD1thFEdNjlCJR3oOK5gOu
-	J6GvnCOKMUfVG5fqAZuPIaWiQX4OVtYwKYcwF8ipdJ1doHEKzRWQzy9pNEsDsQ/ZPFjCkzIZX9P1x
-	viIIE6tA==;
-Received: from [::1] (port=51628 helo=pf-012.whm.fr-par.scw.cloud)
-	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.99.5)
-	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
-	id 1wzZCr-00000007MnU-0WyP;
-	Thu, 27 Aug 2026 14:27:44 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Z1BJ8fDk";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Hg9zT0pd"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67RCCVGV3474340
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:27:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=w5+eiCY9p8RiiqYomgs4p2
+	jL0uYjh7QF17bPtKi+vQI=; b=Z1BJ8fDklddY7/ZpD9p4X7Iw9GDDZHBqhdrIic
+	AI4rLgiZ65suNYd+HLrtG7jqeAgVL7qRuiP33+KWc+LYyORunCcMe7Kxq8WTCvBZ
+	LPTM0IVZvZdZ1PS0akw0otjNouEYc6hXyZRVP35Bk2DcQFFekf9mZATNyRafhos/
+	3wvNPXwOv7HRV5+kfrPPJPgmusQkpwPbD6TUIW8j4PBWmU8SN4XN1diDi3ZnwaO6
+	5+vWi8jzFJECsYFJmYPa9U8m21H+7LSjHmoZlw72baHG5w8yOwuDNNaQknPfiz5F
+	2I+RI5qrw35CwI+rbL2G/m8sTNKYwane0ZuIXZPuO/p7c2GA==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ga4fwkrsy-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:27:59 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3968bb86fb7so2003223a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 05:27:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787833678; x=1788438478; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=w5+eiCY9p8RiiqYomgs4p2jL0uYjh7QF17bPtKi+vQI=;
+        b=Hg9zT0pd0gf/o6MqqtubxqQkxI1uyvwzMikm2Y31BsjJyCuIkwlDek0upIdeq1X0T7
+         tljQtL8xgZUqO4lnWgCvRYpBFXFP1ooaxj096SgHyG2IPNIaPCryOmxAhTpUnv/2B/wF
+         lj92WFXChwTae0vN0Dn6pV0M54Ty9EyuATPC8eZSvhLQ3cH4R0+XmNZ2udSg/ACrUWIH
+         qy6CzP6ZuCrp1b8Co5Eghpqjm/0Yv5338eouZP0TZcMgatRQmgcprIwKc1PVJspBQrlJ
+         hUyZxVekjBw+VW+10fetvqUeR5dia0579UgO+awdYRXanbr3wF/1PvdsOlR976rgigoH
+         R9Cg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787833678; x=1788438478;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=w5+eiCY9p8RiiqYomgs4p2jL0uYjh7QF17bPtKi+vQI=;
+        b=iWXQATPmUW8NLnvda382RgIxrpYbJTcJAqMjU4nevv6IsQ7CNTiWTgCZdaOQyh5u4m
+         /ChQbNZ5uXdXA40uwwDFpVgpV+yb7YI9G7pEbazHOfC+Dhn73WqrzxUBFBCTgu8Q8Cw5
+         g5W53m1ugj/wcBjNvvj7bhZ/pcuZZFZXoRIGLZ9hUhAqWL87Rapd8KN5x99miMFKxYh0
+         V0ZmHBvdphOBWsyaAU9qCeOxSUHESyrbpCHAaykbQNhbe+6w41lweML8OnwmpmhkdK5D
+         A6lC7ejsEVRJ6mNhI00y4Ho+C4gQxDG3PSZ3WQ8TCRgSmVY0Q+8kGKurPAxR3C7NmAT0
+         IU0g==
+X-Forwarded-Encrypted: i=1; AHgh+Rq+SjSMXLqwSS8dBbVvT6vXzeiro9/zRruRiJqQlzUbN2+iHqvRJq4iqNeZeWx3bLMVDkiWf2/dHq0XxDg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mi0DOlfn/EsLIoeibL0RM+URlyX02JGMcPUb555ASh8P4ghrTO
+	fK86XPKXdYRXCNr3gZMy/K5W+frn5HRczthfiBmeNTev3yNYo0PuNLGgImBEy7WfD7ZdXwVwv80
+	ebsQ3WG5dIthaacDR7Xs+u8ibWrPHIXymCot4/sPkM+EbX4vB8e9haoPFwgDZEn0seXU=
+X-Gm-Gg: AR+sD10ENwm0y4YV7IIJFbDtdMiHAGcW4QChVz4HuWBcD0vQSuA97mUjwnXt4bRpIBt
+	IC/YlaAxFfco753IEoNqqlsbFsVvBz7JjSlfBBSHhLDJ7Nst4oukOzZFz+Yv9QEjPB7BMLCh8IY
+	JOGHfvathkR/kq/2aDd/mnMatMCgqfC7r9eBXBZGEKbmPgN/ooE5HozNVFuC8m1mabH9nqTRxgg
+	m8m6wFMJ07rlJQ+flmYgtpy5V/SEFK1IqTMm/3xikE2HW76PciV3oYEodhELRaha+LNWP7Lan1X
+	2DaEky7iWFEBXupCucHYII3Sf6373Yz6EbP3GKoqFPwGQzbXoBKOSPl8sJIVn3b9UnQLr4fRGFB
+	VQXbZQrIIXoBr3bTLGOepAbj6zNUl9Irjofc=
+X-Received: by 2002:a17:90b:3f88:b0:395:f0e8:9e13 with SMTP id 98e67ed59e1d1-3966d207838mr33034150a91.7.1787833678185;
+        Thu, 27 Aug 2026 05:27:58 -0700 (PDT)
+X-Received: by 2002:a17:90b:3f88:b0:395:f0e8:9e13 with SMTP id 98e67ed59e1d1-3966d207838mr33034001a91.7.1787833677640;
+        Thu, 27 Aug 2026 05:27:57 -0700 (PDT)
+Received: from hu-arandive-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b0fcfa3asm2707690a91.6.2026.08.27.05.27.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 05:27:57 -0700 (PDT)
+From: Aniket Randive <aniket.randive@oss.qualcomm.com>
+Subject: [PATCH v8 0/2] i2c: Add dynamic transfer timeout based on message
+ length and frequency
+Date: Thu, 27 Aug 2026 17:57:49 +0530
+Message-Id: <20260827-master-v8-0-596bc81c5cf9@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 27 Aug 2026 14:27:44 +0200
-From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Bradley Morgan <brads@mainlining.org>, mhiramat@kernel.org,
- mathieu.desnoyers@efficios.com, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] tracing/user_events: Clear copied tracing state before
- fork duplication
-In-Reply-To: <20260827081915.320fe2c3@gandalf.local.home>
-References: <20260826214414.1971632-2-Jeremy.Jean@oss.cyber.gouv.fr>
- <20260827080839.35e44d04@gandalf.local.home>
- <A4F580CE-2211-4D05-9D3D-15AB427C74A4@mainlining.org>
- <20260827081915.320fe2c3@gandalf.local.home>
-User-Agent: Roundcube Webmail/1.6.18
-Message-ID: <3beb0339407a35c0b995856eae74d870@oss.cyber.gouv.fr>
-X-Sender: jeremy.jean@oss.cyber.gouv.fr
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEUtkGoC/zWNQQ6CMBBFr0JmbUkpgVJX3sOwqGUqNUK1U4iGc
+ HcLxM0kL3n/zQKEwSHBOVsg4OzI+TFBc8rA9Hq8I3NdYhBc1FwWNRs0RQzMyk5X0shKKA1JfgW
+ 07rOHru3BNN0eaOK23ozeUfThu3+a5eYd0aYo/9FZMs5Kq3jBjVVCqIsnyt+Tfho/DHk60K7r+
+ gPo8oxItQAAAA==
+X-Change-ID: 20260716-master-f7da57c7529a
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+        Andi Shyti <andi.shyti@kernel.org>,
+        Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+        Dmitry Guzman <Dmitry.Guzman@mobileye.com>
+Cc: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
+        linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Aniket Randive <aniket.randive@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787833673; l=3599;
+ i=aniket.randive@oss.qualcomm.com; s=20260325; h=from:subject:message-id;
+ bh=9svXqtqyffmCnBi3bJtEcbSBLp3Ou2cJhPq5IW5GGrg=;
+ b=UTFNAvIngmoVFqsPoH38r3m7/4l3HvX5CDmjMLjJyARyQ4/Ilz8ydpwNvfnrmZ+RngxUwqERK
+ 4TPr+JtnTDzC2aVR/GCnE06vknfzqRLVs37NzVyLuftDn2DBHZqmLCJ
+X-Developer-Key: i=aniket.randive@oss.qualcomm.com; a=ed25519;
+ pk=4o37X1ZqGbCO/T2SR8kq/HnWvq0yb1RUlFuNukovbQk=
+X-Proofpoint-GUID: 4XtZwxHCMdsP0513m1Ln9n4BFCDLhCP2
+X-Authority-Analysis: v=2.4 cv=OtZ/DS/t c=1 sm=1 tr=0 ts=6a902d4f cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=JvO64EORAAAA:8
+ a=m8JL0bDcoiRC_ExNt2kA:9 a=QEXdDO2ut3YA:10 a=iS9zxrgQBfv6-_F4QbHw:22
+ a=FO4_E8m0qiDe52t0p3_H:22 a=Qz6KxWHdQ2_aS5WpiCfK:22
+X-Proofpoint-ORIG-GUID: 4XtZwxHCMdsP0513m1Ln9n4BFCDLhCP2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDEwNCBTYWx0ZWRfX4JBwKsp+XtJW
+ wMft2DgZdLJaG82rsWkGLGyD16SoFCr0BNJLj6D50PqI0XyFqbwN8egiw3b2hF7+O6ISokCKscg
+ AW1JdZXmgAGw/I5PQYl6Ipt3MJ7msfqWrDAKql5rm8yiZXGbo/HGq5Tt5Jv8KxCtWcoAkdbLkln
+ ku0oPVujw8KT1TWfuwz0/yoevJ5/jlYuawuVmBEfOywaj12wWH20OL95tS+X//K5ZKPi6kH9/3v
+ JtblgUzx4tNE6wdr5DLRKM+T3qW0o2w3kJWMB/YM2GbNR3WUcqh1HGbHHOkKgvigyvynx0WpACp
+ ujDsOhP3f14uKc91rq/BbtbIjUxFQw0URAAtOIpdKSK2OauAPZ1pM3WJ1g9RnlQ11LsGSsZhS8y
+ lpiI5nvgdpE/hUFFHKQDL7Dlp13aGDpr2t+oNoo2Weqs4rY6o6Fwp+zs/qc1OyHlheViek7ZFnm
+ EifrYmSgfVUoPZsh21Q==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDEwNCBTYWx0ZWRfX6D4EtiRJZ1ia
+ RGvWsDMIRJhDBmNtr9dXUXJD5hpAYf+BJCRiPA2DXfp0I59ac2W+Rlo0i3dn3WqJy8ezPXoveJT
+ oogkLEixYrn4Jlj0bHtm5UkxAjSpUBU=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-27_05,2026-08-26_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 clxscore=1015 impostorscore=0
+ priorityscore=1501 malwarescore=0 bulkscore=0 phishscore=0 suspectscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608270104
 
-On 2026-08-27 14:19, Steven Rostedt wrote:
-> On Thu, 27 Aug 2026 13:09:44 +0100
-> Bradley Morgan <brads@mainlining.org> wrote:
-> 
->> >> @@ -865,9 +865,12 @@ void user_event_mm_remove(struct task_struct *t)
->> >>
->> >>  void user_event_mm_dup(struct task_struct *t, struct user_event_mm
->> >*old_mm)
->> >>  {
->> >> -	struct user_event_mm *mm = user_event_mm_alloc(t);
->> >> +	struct user_event_mm *mm;
->> >
->> >Why this change?
->> >
->> >>  	struct user_event_enabler *enabler;
->> >>
->> >> +	t->user_event_mm = NULL;
->> >> +	mm = user_event_mm_alloc(t);
->> >
->> >I don't see why you moved the mm assignment down here. The
->> >t->user_event_mm
->> >is not used in user_event_mm_alloc().
->> 
->> Uff, not wrong, I must be dummy dumb dumb, well, I base my reviews off
->> 
->> Does this fix the bug? And is this a small fix?
->> 
-> 
-> The bug is fixed because it needs to NULL out that value. I asked from 
-> v1
-> to move that change to this function. But this function only needs to 
-> add
-> that line before the return. It doesn't need to modify anything else in
-> that function.
-> 
-> That is, something like this:
-> 
-> diff --git a/kernel/trace/trace_events_user.c 
-> b/kernel/trace/trace_events_user.c
-> index 8c82ecb735f4..6b89d225b189 100644
-> --- a/kernel/trace/trace_events_user.c
-> +++ b/kernel/trace/trace_events_user.c
-> @@ -868,6 +868,9 @@ void user_event_mm_dup(struct task_struct *t, 
-> struct user_event_mm *old_mm)
->  	struct user_event_mm *mm = user_event_mm_alloc(t);
->  	struct user_event_enabler *enabler;
-> 
-> +	/* On failure, do not free parent's copy */
-> +	t->user_event_mm = NULL;
-> +
->  	if (!mm)
->  		return;
-> 
-> 
-> -- Steve
+The I2C core and many controller drivers currently rely on a fixed
+timeout value that does not account for transfer characteristics such as
+message length or bus frequency. This can make the timeout unnecessarily
+large for short transfers, while longer transfers at lower bus
+frequencies may require a timeout that better matches the expected
+transfer duration.
 
-Hello Steve,
+Introduce a generic helper API in the I2C core to calculate a
+transfer-specific timeout from the expected wire time of a transaction.
+Store the computed value in adap->timeout so that both the I2C core retry
+logic and controller drivers use a timeout value that reflects the
+current transfer.
 
-Thanks for this. I thought that my previous version was okay
-so that it was not required to read the details of
-user_event_mm_alloc() to get convinced whether user_event_mm is
-accessed or not, but it's true that in the end, this is not
-required. Your fix is simpler. Do you want me to send a v3
-with that simplification and the same changelog as in the v2?
+Keep timeout policy decisions within individual controller drivers. Let
+drivers provide their own safety margins and minimum timeout floors, and
+avoid exposing those driver-specific policy values as part of the
+generic API.
 
-Regards,
-Jérémy
+Convert the Qualcomm GENI I2C driver to use the helper while preserving
+its existing timeout policy. Preserve the static timeout behaviour when
+CONFIG_I2C_DYNAMIC_TIMEOUT is disabled, and let a userspace-configured
+I2C_TIMEOUT value take precedence over the computed timeout.
+
+Suggested-by: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
+
+Changes in v8:
+- Compute GPI multi-descriptor timeout using the total length of all
+  messages in the batch, since completion is reported only after the
+  entire batch finishes.
+- Guard against zero bus frequency in i2c_update_timeout() with
+  WARN_ON_ONCE() and retain the existing timeout as a safe fallback.
+- Link to v7: https://patch.msgid.link/20260813-master-v7-0-3f9010cf9229@oss.qualcomm.com
+
+Changes in v7:
+- Add CONFIG_I2C_DYNAMIC_TIMEOUT to gate i2c_update_timeout(); no-op
+  stub when config is disabled preserving existing static behaviour
+- Store userspace I2C_TIMEOUT ioctl value in a new adap->user_timeout
+  field; userspace-configured timeout always takes precedence over the
+  kernel-computed value
+- Fix geni_i2c_gpi_multi_xfer_timeout_handler() parameter type u32 ->
+  unsigned long to match wait_for_completion_timeout() expectation
+
+Changes in v6:
+- Split into two patches: core helper + driver consumer
+- Moved timeout calculation to i2c-core as i2c_update_timeout(), which
+  writes directly into adap->timeout so all consumers of that field
+  (including the __i2c_transfer() retry loop) benefit automatically
+- Driver supplies safety coefficient and minimum floor as parameters,
+  keeping I2C_TIMEOUT_SAFETY_COEFFICIENT and I2C_TIMEOUT_MIN_USEC
+  internal to i2c-qcom-geni.c
+- Compute timeout once per batch in geni_i2c_xfer() using max message
+  length, all internal wait sites read adap->timeout directly
+
+Link: https://lore.kernel.org/r/20260715101805.3615166-1-aniket.randive@oss.qualcomm.com
+
+Signed-off-by: Aniket Randive <aniket.randive@oss.qualcomm.com>
+---
+Aniket Randive (2):
+      i2c: core: Add i2c_update_timeout() helper for dynamic transfer timeouts
+      i2c: qcom-geni: Add dynamic transfer timeout based on transfer length and frequency
+
+ drivers/i2c/Kconfig                | 13 +++++++++++
+ drivers/i2c/busses/i2c-qcom-geni.c | 48 +++++++++++++++++++++++++++++++-------
+ drivers/i2c/i2c-core-base.c        | 43 ++++++++++++++++++++++++++++++++++
+ drivers/i2c/i2c-dev.c              |  3 +++
+ include/linux/i2c.h                | 13 +++++++++++
+ 5 files changed, 111 insertions(+), 9 deletions(-)
+---
+base-commit: f82a5da2f04960df9fb57489992d03dd5e64ec6f
+change-id: 20260716-master-f7da57c7529a
+
+Best regards,
+--  
+Aniket Randive <aniket.randive@oss.qualcomm.com>
+
