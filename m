@@ -1,109 +1,88 @@
-Received: from mail-m1973187.qiye.163.com (mail-m1973187.qiye.163.com [220.197.31.87])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AB1640F726;
-	Thu, 27 Aug 2026 09:14:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.87
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CDB8417D9C;
+	Thu, 27 Aug 2026 09:15:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787822100; cv=none; b=rbQZ/xWiJrNfyhpLTpwM/lDauML4Egd+A/ZdVsEMozEgTwUm/bQdfvRIH2ytgaRG4JeTSLzPdoub8AwkXpw+ym1sCGlPGmw9Lfi2lhEnFH9Kb2nI8U3eMRY8B5QwnyqSmsZxqUhAtZu4LxUrR8axRxzYOju5KDAAFNcWnV7Fmjk=
+	t=1787822118; cv=none; b=CwO7m3agABES7Xh4n2KBSnQVyXLIry7LqAiyRLGEBZFgRb8OUYutMD0K/4F3xKSxa44MCEHy0ZXmqzYJZOXA2QMzgxE6euTDCc2HhdcZl6kOgULSW+T42qgvi1AmN3iTf4OgWffV+ZG9NT6Sc4gfj6tkUJ5FhYyp8u+O2FCkmbs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787822100; c=relaxed/simple;
-	bh=grmCiVipkjXWoPdeDos2G9qwqwt5gNiNBomxnucVHLM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References; b=pKTUraBA8dGbPPkzYLTCIcKW3otabJEoeV+OwNMKGj5A/oCJdxwH3RHD/K7fvQoDTgRIwmSznrbLUlwIpJoIyggQTp/t6fHPYjsUzhi/uyLdeBvdFNrtnk8BKIVyFOSkZ4wn6mH0OUCL/7qYIHwRMD5Qy8jZT2SxRUImgKuIQSg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=H67ADWp1; arc=none smtp.client-ip=220.197.31.87
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1787822118; c=relaxed/simple;
+	bh=Kr7o/zNjit8WWWD191s7+7OMGGaB7zhVZg4obMvI8pA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Kq3/aEqX1EET3pYuojH/OxEc4SWWCZj7SHGIDb+8ZZGpSREd1WLQwwwI75L+4KSc2ptyM9L+vFDVF5zIa0RH2sVtFvLk0j3OtVXFSMJzSoGtR4CBtRMdMxjrsmEANgtOJD4lmcpttjZAXtqN79/l2Onc08oSA9fa9uDOShhkyeY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ix+B0AWX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="H67ADWp1"
-Received: from localhost.localdomain (unknown [58.22.7.114])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4b88a3286;
-	Thu, 27 Aug 2026 15:58:58 +0800 (GMT+08:00)
-From: Shawn Lin <shawn.lin@rock-chips.com>
-To: Ulf Hansson <ulfh@kernel.org>
-Cc: Jaehoon Chung <jh80.chung@samsung.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	linux-mmc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Shawn Lin <shawn.lin@rock-chips.com>
-Subject: [PATCH 4/4] mmc: dw_mmc: expose the watchdog state in debugfs
-Date: Thu, 27 Aug 2026 15:58:06 +0800
-Message-Id: <1787817486-137277-5-git-send-email-shawn.lin@rock-chips.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1787817486-137277-1-git-send-email-shawn.lin@rock-chips.com>
-References: <1787817486-137277-1-git-send-email-shawn.lin@rock-chips.com>
-X-HM-Tid: 0aa0423ab57203a4kunm6c47a0ea1fed97
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZQh5JH1YfTB0eTkhLQx
-	hNGE1WFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
-	tIVUpLSU9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=H67ADWp1qVuc93lA971kTNc5ApvNUlmhZLVmNyZ5afwPHywtoQpKMMQzGjL21OWaWi4TExdVK0EfFDmJ+19YCJXrizsDzaLmz/yPSqGGE+GsU2jQMrFl0D5xUDwfb0cR09jKpsTPBf0LoNUcG8zXWmpW4LEhTexpujH41OKFcsk=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=JZ4XpEb1+g28iCRMjVK3FX/RGC7lLKUvYM01CWuJzec=;
-	h=date:mime-version:subject:message-id:from;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ix+B0AWX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7306C1F000E9;
+	Thu, 27 Aug 2026 09:15:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787822106;
+	bh=LdRXpOvpY8MU9GMUpEh8fPVPCUtndoEd5nrLrISpGFs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ix+B0AWXNJJWen1w78P2vTxR1ovIcsbPrDM3oBaZYsZ4Yz8UODavHLF+fd+FrxlDr
+	 69z/8n1uDLFKPcqThIe5Iu5S71zbYi1h/pJgVMcSDTTFkNlsKDw/cJ8opO0GLNl5T1
+	 yjtEvDmUWBi5wfgVsrGmCxmx1gSSpuzQKjz5IGDMecu9z4W68jHDm3FxFvg+NIHA29
+	 w+cbIdrpKCwBd1Z8XyAhWPA8fiORQjalN8SYdigZ+DI8D3ohOA6IZTKVcjMCDiaq+o
+	 MdHb8OFuC6c3HfN2NzgpBUUeFDFeRfCH7yje8CF7v4kX3aCkbSRZYjKeN9gyC2EQOw
+	 7KfuTHRDBTpPA==
+Date: Thu, 27 Aug 2026 11:15:03 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Sasha Finkelstein <k@chaosmail.tech>
+Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
+	Neal Gompa <neal@gompa.dev>, Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, asahi@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v7 1/6] dt-bindings: spmi: apple,spmi: Add t603x and t8122
+Message-ID: <20260827-curvy-competent-bee-fcd81d@quoll>
+References: <20260818-t603x-spmi-v7-0-dafebe6e7739@chaosmail.tech>
+ <20260818-t603x-spmi-v7-1-dafebe6e7739@chaosmail.tech>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260818-t603x-spmi-v7-1-dafebe6e7739@chaosmail.tech>
 
-Debugging hangs on the request legs now means asking 'what was the
-watchdog guarding and until when?'  Expose the awaited events, the
-valid states, and the absolute deadline of the current watch next to
-the existing pending_events/completed_events nodes; all three zero out
-once a leg is settled or the watch fired.
+On Tue, Aug 18, 2026 at 08:32:40PM +0200, Sasha Finkelstein wrote:
+> Add t603x and t8122 compatibles, interrupt support, and support for
+> SPMI controllers that are not always-on.
+> 
+> Reviewed-by: Janne Grunau <j@jannau.net>
+> Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
+> ---
+>  Documentation/devicetree/bindings/spmi/apple,spmi.yaml | 37 ++++++++++++++++++++++++++++++++++---
+>  1 file changed, 34 insertions(+), 3 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/spmi/apple,spmi.yaml b/Documentation/devicetree/bindings/spmi/apple,spmi.yaml
+> index 3e5b14bc8c31..1d14025b44c5 100644
+> --- a/Documentation/devicetree/bindings/spmi/apple,spmi.yaml
+> +++ b/Documentation/devicetree/bindings/spmi/apple,spmi.yaml
+> @@ -20,8 +20,11 @@ properties:
+>        - items:
+>            - enum:
+>                - apple,t6020-spmi
+> +              - apple,t6030-spmi
+> +              - apple,t6031-spmi
+>                - apple,t8012-spmi
+>                - apple,t8015-spmi
+> +              - apple,t8122-spmi
+>            - const: apple,t8103-spmi
+>        - items:
+>            - enum:
+> @@ -34,9 +37,37 @@ properties:
+>    reg:
+>      maxItems: 1
+>  
+> -required:
+> -  - compatible
+> -  - reg
 
-Signed-off-by: Shawn Lin <shawn.lin@rock-chips.com>
+This stays. Which device does not need reg or compatible? I think none.
 
----
-
- drivers/mmc/host/dw_mmc.c | 6 ++++++
- drivers/mmc/host/dw_mmc.h | 1 +
- 2 files changed, 7 insertions(+)
-
-diff --git a/drivers/mmc/host/dw_mmc.c b/drivers/mmc/host/dw_mmc.c
-index 6852c05..ff0b25d 100644
---- a/drivers/mmc/host/dw_mmc.c
-+++ b/drivers/mmc/host/dw_mmc.c
-@@ -108,6 +108,7 @@ static void dw_mci_wd_arm(struct dw_mci *host, unsigned long ms,
- 
- 	host->wd_events = events;
- 	host->wd_states = states;
-+	host->wd_deadline_ns = ktime_get_ns() + (u64)ms * NSEC_PER_MSEC;
- 	hrtimer_start(&host->wd_timer, ms_to_ktime(ms), HRTIMER_MODE_REL);
- }
- 
-@@ -167,6 +168,7 @@ static enum hrtimer_restart dw_mci_watchdog_fn(struct hrtimer *t)
- 
- 	host->wd_events = 0;
- 	host->wd_states = 0;
-+	host->wd_deadline_ns = 0;
- 
- 	spin_unlock_irqrestore(&host->irq_lock, irqflags);
- 
-@@ -300,6 +302,10 @@ static void dw_mci_init_debugfs(struct dw_mci *host)
- 			   &host->pending_events);
- 	debugfs_create_xul("completed_events", 0400, root,
- 			   &host->completed_events);
-+	debugfs_create_x64("wd_deadline_ns", 0400, root,
-+			   &host->wd_deadline_ns);
-+	debugfs_create_xul("wd_events", 0400, root, &host->wd_events);
-+	debugfs_create_xul("wd_states", 0400, root, &host->wd_states);
- #ifdef CONFIG_FAULT_INJECTION
- 	fault_create_debugfs_attr("fail_data_crc", root, &host->fail_data_crc);
- #endif
-diff --git a/drivers/mmc/host/dw_mmc.h b/drivers/mmc/host/dw_mmc.h
-index 7b70392..12b88e7 100644
---- a/drivers/mmc/host/dw_mmc.h
-+++ b/drivers/mmc/host/dw_mmc.h
-@@ -240,6 +240,7 @@ struct dw_mci {
- 	struct hrtimer		wd_timer;
- 	unsigned long		wd_events;
- 	unsigned long		wd_states;
-+	u64			wd_deadline_ns;
- 
- #ifdef CONFIG_FAULT_INJECTION
- 	struct fault_attr	fail_data_crc;
--- 
-2.7.4
+Best regards,
+Krzysztof
 
