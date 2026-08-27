@@ -1,172 +1,222 @@
-Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com [209.85.217.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CFCB43E09D
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:45:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787831137; cv=pass; b=DE6hDiwkFGl4nR5xwjiFIsIxcQ++72BNY3IQyqfZrY4BBRT/Pp8EYs2okLOxrkSJgmKgihipayJtY9tke+vfN1/Pd8IEzQidiw3t5J9s9AiVszSECAgmtdIoa6bFYuBR/LpHutG7hZyztbtayKWxVHFTXKNE29S6IsB9YqrnI+I=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787831137; c=relaxed/simple;
-	bh=VA/u3r0a5SY8d1ZmAj2N6Z5ASI3VjJtN2zQVZAZqdrQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=eexWTXvc1oWhcuGhD6t2O/FewEj0qydcgchrQ8MRGnSGDYQy1XuIDugzXMwsDbevJOZ+M1bX+KvZOtRlWT4zyFeyYsrwhyGuKtiY/6cTrM45G3Ra6Jj3sFlcvibz5CeoUPSMiOmxHXlVIaKPWcVI5sWHA95kPf9zdukkganZkmc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=baVmNv/z; arc=pass smtp.client-ip=209.85.217.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="baVmNv/z"
-Received: by mail-vs1-f45.google.com with SMTP id ada2fe7eead31-74a9ac9cda6so1404122137.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 04:45:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787831134; cv=none;
-        d=google.com; s=arc-20260327;
-        b=iBZ1vsueWmfV4OKxkx2hYdawQGf5iGBLUihD+Rm3jSwr7Cy771b9CkeIoJclx6EPlL
-         qlvkzgH85w5Gk2Ou5uCFPQGeD/wZQKOQCxSWllI1NWtHMIQPQftvRlPIXiAtyHMrYusT
-         fG6qeDzKpXIBosZjs61s90UHziMWzmnawUkrVvPtwsUd9sHFBlSS/e/sgU9gGTTLM9Y2
-         M5COubGyLfa2BN24tM6hHayYAOVc2srh6P6OqV1nhKjWI6U1oFeH13yB8QhP80M/lOsS
-         sHZJ16+GNIe0+ZnQzh3p2mWkLTvU5qKflip5fOJ0Xx05TUP1o0OJgXQy3bnyxEv9Qq3j
-         tKmw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Vw/xwG5EhNUSyVJanB7DL+6LJ9tzB6hvrnbHnYadSKU=;
-        fh=pY39PhnD9M6YluATUcAi7vaNQQLzX/6ZxdqDJH92qB8=;
-        b=BSro+FhWvgrZwf91Fb0JiUJNphz2vnbGVrsbfacYYy5FqrTLVqUkm/BC8Xv5NQn+8O
-         zv+1I9JH8xNVWrDB7O+OKXF5VupEDP4NHN8BM56UsniT5x9qP/fT/KAjpJS68YQXIBYj
-         1N2bCPyPcpmkmXOO2MfcVHjpKE+BCmad6wwwhe4MeVf2OOp+IGiB7JVle4ldDEq8SJTv
-         qLp7RijgmJvvNOwZLLjPmwuFPfHFVsIeAbWFzKxpO0JT+j83yV7w2o2mdJrMQ1QCahcc
-         bUf/9WNgADZGb/ZrBOBJMC3xV65xnlCnnRubD+IQrmwJvTiJp9G0yKaRwui+gmKfgxhw
-         VU3w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787831134; x=1788435934; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Vw/xwG5EhNUSyVJanB7DL+6LJ9tzB6hvrnbHnYadSKU=;
-        b=baVmNv/zcXclm9vrEZdAUilQZC5cu9Qs6yWsToh95tE9mYugdq/0rX/he5s92BhPOf
-         CTlT/FKKtLKShlmxgo60wlr/zyYv6cW/TOCw0xrSqXMR+NWtYVUcWsdlh9z1Uf/dGckN
-         GAt4RXYREcGIGMzdUjnteWJNZSFzmfaknOxL0Epaw06aDeePeDwU77eDEci5PwLjdTl+
-         QbelL/gWrrQgP1Gx4wZfntNnPTwi/i/hnXl35pIJsbPpLYTM/7RoFOylY/PlfbRckXRv
-         dKlEPvoZ9Ey5P+yj7NT4ogS4oUc+OJx+KWeWXtP5Po/JaNOZK7kaynfjOAywMMyA+wpH
-         7uWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787831134; x=1788435934;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Vw/xwG5EhNUSyVJanB7DL+6LJ9tzB6hvrnbHnYadSKU=;
-        b=NRcL3M/tM5D3QGldkiNKedHftUPL4QYr3ObIp147n/JEf788KzUoZvyet5WPXF2utd
-         hfa2Kwz7ef4ae4zvE50thv7VcNFs/9L/B1lMSXuE9RABBg1+3ekD1ewfGOkAzAl5NvtD
-         QVBtAQXa6FxedxqIQ6YD7qNBXhiF3mo/IP9qigZwkprEU0u6HA7sE/uBITHlIKURu7um
-         ocfosnSUwOyEoKnOaiBytfXkLEziVTxIsGpxh2K1rVBPEVRraVWJS6HaqMyWmKHub0x/
-         HU7LfTbgZPXPz8AAqxaYBH05Ihh7xR1nc1xbRXzSMqnc7sJkLremjciyB8U0jhssy72D
-         uj1g==
-X-Forwarded-Encrypted: i=1; AHgh+Rp+6C/i/Xr9unfG+qM/Tj9/UnlWEUH80X9uxEAgh53kdJZbXug9RA6Pgew8/SGPTFXFOjf3oSmwza4+oK4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mUY464MKgRQwLg+GeWm2eRFRUBHlQdc55/R//uxMTgbKcbHqAq
-	dmvgtObCjwTT2NDyout4BtUnJVVjpzrrTnLqAyScOvcAX3RX16jvOGMXdFdVkRVwBDke+VlZlLD
-	ki0lzDxO3RNJ9NOTwHeFYH0Fe0WrGLKg=
-X-Gm-Gg: AR+sD11p0fm1b+6mkBX9Uu5YjsJnE7Z5xeotaQTt5eM2SqiXbDxJLR/+qrrVquRRlSr
-	lHL2j+rbam4pZmhxwlqGRVd8uMJCTz4GN1aqGN4WZE8UAefuYeQt0x0icvhWtLIaIiQz/xQX4N7
-	gzrHhxQgqqh8uW4mRoVNvW7wdGbRTYQ283XeS6LsmmdcVaq4lI7+9h1I0OcW4A+iwrFbP7bV8G8
-	/e/aGCLGP5GJ7V/zYqv4h7uM+g1O/xj8vIVUFV4R0bSHgcbj7aziGdjCk6RnKbWlh1nvUUyTZJl
-	4lsg6aaBKmtMmFbsxV2b7p4w66YbDAAM5TBB6fvAP0VjzQ==
-X-Received: by 2002:a05:6102:41a4:b0:778:5579:c661 with SMTP id
- ada2fe7eead31-782c0dfe6a6mr5324176137.7.1787831134122; Thu, 27 Aug 2026
- 04:45:34 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A9EA43F8CF;
+	Thu, 27 Aug 2026 11:45:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787831143; cv=none; b=WdQ9luEMnSdNCcD9XI+TnDFgB1dCrmn4TSQgHCuIH2h41EMyyIP0zGkz0YoM1CezbskcAMaJhAvS2NgwzD71MLkRCg9YZ/078K6jvtyr6ZnqvCraXoJUpL9qEFAiN3NXtFp2IqAi9dO9W5AxmDlVxkJQ7V6LQINY/AHMyr+FQ7k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787831143; c=relaxed/simple;
+	bh=4/6Q9Hyv/Uc6R8d+ArJIkGE2O2zjnA3bBX/nSSI28eg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lHkYOsMhfdEvSoyt4y5Dxt2DRX4U7wNOxxT0ZIriWilii3BvIC0dB95ucNSoT09S3/UiHuHBmJOEGp/WDMght0rx7e9bqtQjURlyhustSJminueiYYndmJ8OtDlZfyzandkPnlFBEui4n3FGRDIfVMtx2cZlcTECUB1OaAgQDcQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.170])
+	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hW07Q40MjzYQty7;
+	Thu, 27 Aug 2026 19:45:06 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.128])
+	by mail.maildlp.com (Postfix) with ESMTP id 4D38340574;
+	Thu, 27 Aug 2026 19:45:37 +0800 (CST)
+Received: from [10.67.110.68] (unknown [10.67.110.68])
+	by APP4 (Coremail) with UTF8SMTPA id gCh0CgCnhBlgI5BqjsyODw--.1732S2;
+	Thu, 27 Aug 2026 19:45:37 +0800 (CST)
+Message-ID: <de17533f-73fa-4673-90de-133d93ce7492@huaweicloud.com>
+Date: Thu, 27 Aug 2026 19:45:36 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260827-warn_instead_bug-v1-1-b515c0f74b89@gmail.com> <20260827114229.GK687043@noisy.programming.kicks-ass.net>
-In-Reply-To: <20260827114229.GK687043@noisy.programming.kicks-ass.net>
-From: Amin <amin.gattout@gmail.com>
-Date: Thu, 27 Aug 2026 13:45:22 +0200
-X-Gm-Features: AcwNN1UllEtgS-YWyDNOJz4hGkKApGe64r4QuxBpsaO8N92Q5bl_0XeOP2yd9Pg
-Message-ID: <CAHfa7xU19+uqN-DSfW4LAAoMpcLzv0vLMvNpAazOFoLykw00tw@mail.gmail.com>
-Subject: Re: [PATCH] sched/core: Convert remaining BUG_ON() instances to WARN_ON_ONCE()
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>, 
-	Vincent Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf v2] bpf: Fix UAF due to concurrent consumption of
+ waiting_for_gp_ttrace
+Content-Language: en-US
+To: Leon Hwang <leon.hwang@linux.dev>, bpf@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
+ Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>,
+ Yonghong Song <yonghong.song@linux.dev>, Song Liu <song@kernel.org>,
+ Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>,
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Hou Tao <houtao@huaweicloud.com>,
+ Pu Lehui <pulehui@huawei.com>
+References: <20260827084013.1062816-1-pulehui@huaweicloud.com>
+ <63ae0f06-e5a8-4a21-90cd-03e0ef100fda@linux.dev>
+From: Pu Lehui <pulehui@huaweicloud.com>
+In-Reply-To: <63ae0f06-e5a8-4a21-90cd-03e0ef100fda@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:gCh0CgCnhBlgI5BqjsyODw--.1732S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3GF4kJw13WFy7GryUGw45Jrb_yoW7XryUpF
+	yxGF1rJF48ZFZF93WIqr4kAa9aqw40qa43C3yUua4Skr15Zw1DtFyfAry7uF90vrWxKr4S
+	yr1vgryxCrWUZFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvK14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcVAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kI
+	c2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbV
+	WUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF
+	67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42
+	IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF
+	0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxh
+	VjvjDU0xZFpf9x0JUZYFZUUUUU=
+X-CM-SenderInfo: psxovxtxl6x35dzhxuhorxvhhfrp/
 
-Fair enough, thanks for the quick feedback.
 
-Le jeu. 27 ao=C3=BBt 2026 =C3=A0 13:42, Peter Zijlstra <peterz@infradead.or=
-g> a =C3=A9crit :
->
-> On Thu, Aug 27, 2026 at 01:40:14PM +0200, Amin Gattout wrote:
-> > Commit 09348d75a6ce ("sched/all: Change all BUG_ON() instances in the
-> > scheduler to WARN_ON_ONCE()") left a few BUG_ON() behind in core.c.
-> > Convert them as well.
-> >
-> > As described in Documentation/process/deprecated.rst, BUG_ON() crashes
-> > the system, which makes the failure harder to report and to debug, as
-> > the message often never reaches the console or the syslog. With
-> > WARN_ON_ONCE() the user gets a chance to see and report the problem
-> > instead, and system owners who do not want to keep running after an
-> > "impossible" condition can still set panic_on_warn.
-> >
-> > Signed-off-by: Amin Gattout <amin.gattout@gmail.com>
-> > ---
-> > Follow-up to commit 09348d75a6ce which converted the scheduler BUG_ON()
-> > instances to WARN_ON_ONCE() but left a few behind in core.c.
-> >
-> > Build tested on arm64 with CONFIG_NO_HZ_FULL and CONFIG_SCHED_CLASS_EXT
-> > enabled so that every converted site is compiled.
-> > ---
-> >  kernel/sched/core.c | 20 ++++++++++----------
-> >  1 file changed, 10 insertions(+), 10 deletions(-)
-> >
-> > diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> > index f78275192036..bab74b4f0dd6 100644
-> > --- a/kernel/sched/core.c
-> > +++ b/kernel/sched/core.c
-> > @@ -5949,7 +5949,7 @@ static void sched_tick_stop(int cpu)
-> >  int __init sched_tick_offload_init(void)
-> >  {
-> >       tick_work_cpu =3D alloc_percpu(struct tick_work);
-> > -     BUG_ON(!tick_work_cpu);
-> > +     WARN_ON_ONCE(!tick_work_cpu);
-> >       return 0;
-> >  }
-> >
->
-> > @@ -8954,13 +8954,13 @@ void __init sched_init(void)
-> >       int i;
-> >
-> >       /* Make sure the linker didn't screw up */
-> > -     BUG_ON(!sched_class_above(&stop_sched_class, &dl_sched_class));
-> > -     BUG_ON(!sched_class_above(&dl_sched_class, &rt_sched_class));
-> > -     BUG_ON(!sched_class_above(&rt_sched_class, &fair_sched_class));
-> > -     BUG_ON(!sched_class_above(&fair_sched_class, &idle_sched_class));
-> > +     WARN_ON_ONCE(!sched_class_above(&stop_sched_class, &dl_sched_clas=
-s));
-> > +     WARN_ON_ONCE(!sched_class_above(&dl_sched_class, &rt_sched_class)=
-);
-> > +     WARN_ON_ONCE(!sched_class_above(&rt_sched_class, &fair_sched_clas=
-s));
-> > +     WARN_ON_ONCE(!sched_class_above(&fair_sched_class, &idle_sched_cl=
-ass));
-> >  #ifdef CONFIG_SCHED_CLASS_EXT
-> > -     BUG_ON(!sched_class_above(&fair_sched_class, &ext_sched_class));
-> > -     BUG_ON(!sched_class_above(&ext_sched_class, &idle_sched_class));
-> > +     WARN_ON_ONCE(!sched_class_above(&fair_sched_class, &ext_sched_cla=
-ss));
-> > +     WARN_ON_ONCE(!sched_class_above(&ext_sched_class, &idle_sched_cla=
-ss));
-> >  #endif
-> >
->
-> These all really should be BUG_ON(), there is absolutely no point in
-> tying to complete the boot if they fail.
->
->
+
+On 2026/8/27 16:51, Leon Hwang wrote:
+> On 27/8/26 16:40, Pu Lehui wrote:
+>> From: Pu Lehui <pulehui@huawei.com>
+> [...]
+>>   kernel/bpf/memalloc.c | 31 +++++++++++++++++++++++++------
+>>   1 file changed, 25 insertions(+), 6 deletions(-)
+>>
+>> diff --git a/kernel/bpf/memalloc.c b/kernel/bpf/memalloc.c
+>> index e9662db7198f..58296e92a4fe 100644
+>> --- a/kernel/bpf/memalloc.c
+>> +++ b/kernel/bpf/memalloc.c
+>> @@ -119,6 +119,7 @@ struct bpf_mem_cache {
+>>   	struct llist_head waiting_for_gp_ttrace;
+>>   	struct rcu_head rcu_ttrace;
+>>   	atomic_t call_rcu_ttrace_in_progress;
+>> +	raw_spinlock_t lock;
+>>   };
+>>   
+>>   struct bpf_mem_caches {
+>> @@ -207,6 +208,7 @@ static void add_obj_to_free_list(struct bpf_mem_cache *c, void *obj)
+>>   static void alloc_bulk(struct bpf_mem_cache *c, int cnt, int node, bool atomic)
+>>   {
+>>   	struct mem_cgroup *memcg = NULL, *old_memcg;
+>> +	unsigned long flags;
+>>   	gfp_t gfp;
+>>   	void *obj;
+>>   	int i;
+>> @@ -228,12 +230,14 @@ static void alloc_bulk(struct bpf_mem_cache *c, int cnt, int node, bool atomic)
+>>   	if (i >= cnt)
+>>   		return;
+>>   
+>> +	raw_spin_lock_irqsave(&c->lock, flags);
+>>   	for (; i < cnt; i++) {
+>> -		obj = llist_del_first(&c->waiting_for_gp_ttrace);
+>> +		obj = __llist_del_first(&c->waiting_for_gp_ttrace);
+>>   		if (!obj)
+>>   			break;
+>>   		add_obj_to_free_list(c, obj);
+>>   	}
+>> +	raw_spin_unlock_irqrestore(&c->lock, flags);
+> 
+> Looks like scoped_guard() could get rid of the 'flags':
+> 
+> scoped_guard(raw_spinlock_irqsave, &c->lock) {
+> 	...
+> }
+> 
+>>   	if (i >= cnt)
+>>   		return;
+>>   
+>> @@ -279,8 +283,14 @@ static int free_all(struct bpf_mem_cache *c, struct llist_node *llnode, bool per
+>>   static void __free_rcu(struct rcu_head *head)
+>>   {
+>>   	struct bpf_mem_cache *c = container_of(head, struct bpf_mem_cache, rcu_ttrace);
+>> +	struct llist_node *llnode;
+>> +	unsigned long flags;
+>>   
+>> -	free_all(c, llist_del_all(&c->waiting_for_gp_ttrace), !!c->percpu_size);
+>> +	raw_spin_lock_irqsave(&c->lock, flags);
+>> +	llnode = __llist_del_all(&c->waiting_for_gp_ttrace);
+>> +	raw_spin_unlock_irqrestore(&c->lock, flags);
+> 
+> Ditto
+>> +
+>> +	free_all(c, llnode, !!c->percpu_size);
+>>   	atomic_set(&c->call_rcu_ttrace_in_progress, 0);
+>>   }
+>>   
+>> @@ -297,6 +307,7 @@ static void enque_to_free(struct bpf_mem_cache *c, void *obj)
+>>   static void do_call_rcu_ttrace(struct bpf_mem_cache *c)
+>>   {
+>>   	struct llist_node *llnode, *t;
+>> +	unsigned long flags;
+>>   
+>>   	if (atomic_xchg(&c->call_rcu_ttrace_in_progress, 1)) {
+>>   		if (unlikely(READ_ONCE(c->draining))) {
+>> @@ -307,8 +318,10 @@ static void do_call_rcu_ttrace(struct bpf_mem_cache *c)
+>>   	}
+>>   
+>>   	WARN_ON_ONCE(!llist_empty(&c->waiting_for_gp_ttrace));
+>> +	raw_spin_lock_irqsave(&c->lock, flags);
+>>   	llist_for_each_safe(llnode, t, llist_del_all(&c->free_by_rcu_ttrace))
+>> -		llist_add(llnode, &c->waiting_for_gp_ttrace);
+>> +		__llist_add(llnode, &c->waiting_for_gp_ttrace);
+>> +	raw_spin_unlock_irqrestore(&c->lock, flags);
+> 
+> Ditto
+> 
+>>   
+>>   	if (unlikely(READ_ONCE(c->draining))) {
+>>   		__free_rcu(&c->rcu_ttrace);
+>> @@ -535,6 +548,7 @@ int bpf_mem_alloc_init(struct bpf_mem_alloc *ma, int size, bool percpu)
+>>   			c->objcg = objcg;
+>>   			c->percpu_size = percpu_size;
+>>   			c->tgt = c;
+>> +			raw_spin_lock_init(&c->lock);
+>>   			init_refill_work(c);
+>>   			prefill_mem_cache(c, cpu);
+>>   		}
+>> @@ -557,7 +571,7 @@ int bpf_mem_alloc_init(struct bpf_mem_alloc *ma, int size, bool percpu)
+>>   			c->objcg = objcg;
+>>   			c->percpu_size = percpu_size;
+>>   			c->tgt = c;
+>> -
+>> +			raw_spin_lock_init(&c->lock);
+>>   			init_refill_work(c);
+>>   			prefill_mem_cache(c, cpu);
+>>   		}
+>> @@ -609,7 +623,7 @@ int bpf_mem_alloc_percpu_unit_init(struct bpf_mem_alloc *ma, int size)
+>>   		c->objcg = objcg;
+>>   		c->percpu_size = percpu_size;
+>>   		c->tgt = c;
+>> -
+>> +		raw_spin_lock_init(&c->lock);
+>>   		init_refill_work(c);
+>>   		prefill_mem_cache(c, cpu);
+>>   	}
+>> @@ -620,6 +634,8 @@ int bpf_mem_alloc_percpu_unit_init(struct bpf_mem_alloc *ma, int size)
+>>   static void drain_mem_cache(struct bpf_mem_cache *c)
+>>   {
+>>   	bool percpu = !!c->percpu_size;
+>> +	struct llist_node *llnode;
+>> +	unsigned long flags;
+>>   
+>>   	/* No progs are using this bpf_mem_cache, but htab_map_free() called
+>>   	 * bpf_mem_cache_free() for all remaining elements and they can be in
+>> @@ -629,7 +645,10 @@ static void drain_mem_cache(struct bpf_mem_cache *c)
+>>   	 * on these lists, so it is safe to use __llist_del_all().
+>>   	 */
+>>   	free_all(c, llist_del_all(&c->free_by_rcu_ttrace), percpu);
+>> -	free_all(c, llist_del_all(&c->waiting_for_gp_ttrace), percpu);
+>> +	raw_spin_lock_irqsave(&c->lock, flags);
+>> +	llnode = __llist_del_all(&c->waiting_for_gp_ttrace);
+>> +	raw_spin_unlock_irqrestore(&c->lock, flags);
+> 
+> Ditto
+> 
+> Thanks,
+> Leon
+> 
+>> +	free_all(c, llnode, percpu);
+>>   	free_all(c, __llist_del_all(&c->free_llist), percpu);
+>>   	free_all(c, __llist_del_all(&c->free_llist_extra), percpu);
+>>   	free_all(c, __llist_del_all(&c->free_by_rcu), percpu);
+
+ok, will do
+
