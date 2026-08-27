@@ -1,198 +1,137 @@
-Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CC64379C22;
-	Thu, 27 Aug 2026 01:39:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.217
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787794788; cv=none; b=X/cdWLqGNTyr5P4Lv976wdpnR9q61ZOkmwJQYHdylo2tFkFs+pxfFYotQq4SUfrV1O5UWnKCeXPgLp7Sf/xNoJxjJXBDiHbbu4bH2ppvtwMTiC34aJMo/duakcX9638AoLja1YryublDQ0JxLDsuhL4T1RMplDZlfNrsuRj8Dqo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787794788; c=relaxed/simple;
-	bh=2MdvFAHIEshwqfWjDGepWUruAskvgBp4I4JxaicYqN4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=f15x4nxybCrOYKyD5T9FLhh54EZmBnzldCUJGEv6aOiOooL1P1xr5XD7HhGP/OkAIqodeZ+OVXY6o5ggj0+CVYqUEWDsyaFMq0yRLve2nHqMBy9Za14s0b3/ZBJyXPNqQQcrXYuJ4yaxs96hRfIy9M55VncOmTCKO7uEqBuuXKE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=cMdkJyY7; arc=none smtp.client-ip=113.46.200.217
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FDEF26158B
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 01:42:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.172
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787794966; cv=pass; b=Ke0qy7cL3mq6GpMmlfKUAH7nZocAPKx/00KKhaoYXX/sx18MH0gKmN8k9/GU1+5KADgqBhrW/M/AfGrhPE8dYJSEtSNN03aD3IMGqXiYc41mWXN03DQ6Dk81yetaj7OrLWMKiG4DAXUnaRbiQtHMYxc//886h1Z3aRY19Il0kks=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787794966; c=relaxed/simple;
+	bh=jQXZpWEa69A8mhfcE1SS+n9nS7LZ88iDUXIZo6zOxlc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=U3hJxrJe/Kh9oo5dqH7wbHWapy3uxj3JpY2hAVQUDTBpLvUsesEQY/7c2MqVyJ9eb8DxM1eEPVgvUj5uc4EGENfLmHbat0svAxmpoD7vwrgR7dpmojYfCAZ5vHq/zdW/npkKMbfhQLz8nlZJ0xMX+TucjiodHXhGRAJcrwbbgIs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=ZS/rb9Jb; arc=pass smtp.client-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="cMdkJyY7"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=6V/h+o47odsyXIkxbfxkMIxGGEws32dxuRVF3fbP4lk=;
-	b=cMdkJyY79rhFemLfJnmHtfBmdzU4z+QZw2teLc9nRsAh3EPFUwYTH4Yu367yK9WgOoNsrBLDD
-	iFj80RBXDylV0su8ss449sBZUOus1vFmd53cu/GJNuvppeargZOewslDIfQiP/XXa66m9ImU+5T
-	qbqnm1caQxoju3xi/C2YEfI=
-Received: from mail.maildlp.com (unknown [172.19.163.104])
-	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4hVkSg1p2Szcb0T;
-	Thu, 27 Aug 2026 09:29:07 +0800 (CST)
-Received: from kwepemf100001.china.huawei.com (unknown [7.202.181.215])
-	by mail.maildlp.com (Postfix) with ESMTPS id 4F6974057F;
-	Thu, 27 Aug 2026 09:39:41 +0800 (CST)
-Received: from [10.67.121.90] (10.67.121.90) by kwepemf100001.china.huawei.com
- (7.202.181.215) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 27 Aug
- 2026 09:39:40 +0800
-Message-ID: <7572871f-7533-4373-9ebf-5c392a57140f@huawei.com>
-Date: Thu, 27 Aug 2026 09:39:40 +0800
+	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="ZS/rb9Jb"
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc1bc88a20eso1816424a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 18:42:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787794965; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XX9zRosv+MbbtUArLA1d/HMtf3WLWjWC3Zs/rT0O2oJuRTEesK7+tOo5C66aOdw1v/
+         4lssfox1jtjWzoJLkl3IOLZrzDCdmWvrCxORd4WxCkgvBCZqivL4A+wHB0wZCj7APWrd
+         UD52yjj1nzMiq+4rix5OQMhavzO9V13MYVWvRTp9Bo5JIYoU+Y4GvXXom8s+D2A92e3R
+         jnRr3h5Ktw7dBVhfctYO2FqVV2epcb0fk7eq+ajZQEjpYq0d9fsg6+IsUEEtd0Ir7yNe
+         s8F6B77W4EtqJa0dZDxQ2SLZGjINpFrbxHcQyFhnsDKy2sWHQQq6WuDvNO/9mC4wuIje
+         fE9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=MW12y6xPgbaKCNUYBedVgTiCqU80qClCqNc6nnpgicY=;
+        fh=HYtWxPely/xvo5A/V0RytCd4WJ/ZKhkmUDzpphz+T9s=;
+        b=ffN9SH6fhHsThtYXSBOW3FNn2vg7BH1My0u9qJ4EbqWWhmsbiGeTuoG58Ffylrm07A
+         7elf5QicaHGHQ+r5ZfzhHMC6lYNIm5cCfSqplESqDopd2ktKBs23ZJ7yU89eGSFSYhzM
+         o647YbJ2oHk0JjBRh49eiaF0RTgyDn3jnxTOVXM220L9OKtIpx/oLRTOsCJRqCKUdzRK
+         Ky4hpb+SkJsMs3UfNKoGQAVd6oVIyZIfufIHDXvV/bKVbQTafoKFG+IxrwhXUnWTNiHm
+         7ROHJ/XHSsefoykAAl9tCa5fVroiIhoMYJ9kpr5UP0rofRzxKMBEbKVtzwV8+uDF2gJG
+         B7SQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=paul-moore.com; s=google; t=1787794964; x=1788399764; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MW12y6xPgbaKCNUYBedVgTiCqU80qClCqNc6nnpgicY=;
+        b=ZS/rb9JbpBtoMVh7PAYy6LGfjcUOZP2BzJct6dr68tYf05WpE0/kXRfugBF2dt1Xmp
+         1SX1TGUOyJpv3Ekc98KdvsO9TqoPSoJDMl7a5U/mYuf/mT480m+596SZIHcwwDxSBuQP
+         fbk3Fmw3qOIQDaCNJjzxAtzqZ3ayPdb/izVnwgfw6I+u29RzyxufkTocXOsm5dnDhvYz
+         gYI1GEr0iGbXl4e9kQE7CSSROv7FGbZ3Y/0xb6kytciu7fohVc26DxWGwu0EjROrsOZg
+         v1z0KAe1QAWQFgmpgodEuZr7DfP/ysAWOuUr11HAF9js4TeX/w+SVXp35Dvm3HRsWJs+
+         u3VA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787794964; x=1788399764;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MW12y6xPgbaKCNUYBedVgTiCqU80qClCqNc6nnpgicY=;
+        b=h0vd9iY15W2breSc3LHk48YimBwoR6b5zo7Xr4dn8IZwgn2A83C6O7EEzMYb/KfH0z
+         B9ObfFekyb3S89Gc3+nWAK6PunuD8w4/1Sm+aURCf5C+tm0Idk+SktDJu6h+8HIDmy+T
+         dd/9AosvrfW0ST4ack2Esu3K2IUHqW9Y8e0Qv8WDgyb5IIEjH2Cx4YbKqolKNAmKU/0q
+         OcFDHoUY+7uEdwmRNFKcIeYR9qUayMhxLMYfo0P+jPxr76kPwtxvdWRBxXSaPFr5+PuX
+         u0rNMZxeJCF4PXo3IxvI4Zkl41V/ja2Ld2zo6uClNcAnhe6kG+AkaD6r0SYBp7Ov30gx
+         3NRw==
+X-Forwarded-Encrypted: i=1; AHgh+RpZuEg4FVcC5/v/JxdRKlZHOPIlUIfo2E5zeNwsYwUA4CqhHuOoysTSuwaVJTtk/s7Mnxp+lkLTo/HhFzc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lkyiyPwFXIWwVpt2W/cRTc7A18X5raBiBQlpcllWSh0nRI72Uj
+	AOqgM9Lyg4UgkpTn5gvt+51+BFlK3eokBKWe96FmsX47yJyH6aFXdQKpx865LBhF6P8F1PR+0Y2
+	fAuA4W/5JcBOoQYGF4NyqHCd/R54Ek2Y/SqrUlKet
+X-Gm-Gg: AR+sD12cjYF/vTTFzxUZdmZrsqh4bLtR1mukvl862GeVgn2Znx8FzfoezJlwoOO92nB
+	w/xgQx/cAo6ftw6lwTxFSRirmIlcSw3AtsmXnH6YRXN9zq93Q2af2M4My6npMKGym+W+QdcAIC3
+	qpzgDu2539P89Shrm9sfy8AjDQAZwXierJPDsYtESymBma83agh80qfQFsSwbar1VBsAXCJb7e2
+	oIFiVDAjWom9ttepCXf/Qau87rMH04jFymbRbQ3X+CQB+7ti86Q6rrXEkyJQ0ZP6Sie5rQO6sXr
+	8t3LWyhGENdmKr+YyUPI4UpOgGJL/mDT/7QbhS9ZTtb/
+X-Received: by 2002:a05:6a21:9202:b0:3c3:64cb:9b99 with SMTP id
+ adf61e73a8af0-3cf76283ed6mr24475298637.6.1787794964690; Wed, 26 Aug 2026
+ 18:42:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ACPI: processor: Add acpi_processor_start() back to parse
- _CPC tables before CPU online
-To: Pengjie Zhang <zhangpengjie2@huawei.com>, <rafael@kernel.org>,
-	<catalin.marinas@arm.com>, <lenb@kernel.org>,
-	<jonathan.cameron@oss.qualcomm.com>
-CC: <linux-acpi@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linuxarm@huawei.com>, <gshan@redhat.com>, <miguel.luis@oracle.com>,
-	<guohanjun@huawei.com>, <zhanjie9@hisilicon.com>, <lihuisong@huawei.com>,
-	<yubowen8@huawei.com>, <wangzhi12@huawei.com>, <linhongye@h-partners.com>
-References: <20260120113242.3843463-1-zhenglifeng1@huawei.com>
- <e83096fc-d6f8-46bf-91e6-2922ac35b751@huawei.com>
-From: "zhenglifeng (A)" <zhenglifeng1@huawei.com>
-In-Reply-To: <e83096fc-d6f8-46bf-91e6-2922ac35b751@huawei.com>
+References: <6a8f89e5.1d9ded08.62e62.00bf.GAE@google.com> <7F4D890F-C006-4855-888A-62ED786A32ED@mainlining.org>
+ <CAHC9VhRvoDkJ0Pn1WHgTAEJ5RwZTmD4vChFGgqATn90C-Aae+g@mail.gmail.com> <1129ADC2-8838-47EE-A817-87631D933BA0@mainlining.org>
+In-Reply-To: <1129ADC2-8838-47EE-A817-87631D933BA0@mainlining.org>
+From: Paul Moore <paul@paul-moore.com>
+Date: Wed, 26 Aug 2026 21:42:33 -0400
+X-Gm-Features: AcwNN1UZQjdl8nAFoKRE5OXLt1mXTI6xe4mUlw-2BQCvwnerelt_uTfOeFp0llk
+Message-ID: <CAHC9VhT-SH8ci5f4cEGafAub4qE09KgWPJHRMgO_Uhwca2c3Bg@mail.gmail.com>
+Subject: Re: [syzbot] [audit?] BUG: unable to handle kernel paging request in integrity_audit_message
+To: Bradley Morgan <brads@mainlining.org>
+Cc: Mimi Zohar <zohar@linux.ibm.com>, Roberto Sassu <roberto.sassu@huawei.com>, 
+	syzbot+5ebeb3089ea6439c37be@syzkaller.appspotmail.com, audit@vger.kernel.org, 
+	eparis@redhat.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com, linux-integrity@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
- kwepemf100001.china.huawei.com (7.202.181.215)
+Content-Transfer-Encoding: quoted-printable
 
-Hi Pengjie,
+On Wed, Aug 26, 2026 at 9:23=E2=80=AFPM Bradley Morgan <brads@mainlining.or=
+g> wrote:
+> On 27 August 2026 02:22:17 BST, Paul Moore <paul@paul-moore.com> wrote:
+> >On Wed, Aug 26, 2026 at 9:06=E2=80=AFPM Bradley Morgan <brads@mainlining=
+.org>
+> >wrote:
+> >> On 27 August 2026 01:50:45 BST, syzbot
+> >> <syzbot+5ebeb3089ea6439c37be@syzkaller.appspotmail.com> wrote:
+> >> >Hello,
+> >> >
+> >> >syzbot found the following issue on:
+> >>
+> >> #syz set subsystems security:
+> >>
+> >> Note:  here's my suggested fix, in security/ima_appraise.c
+> >>
+> >>  path =3D dentry_path(dentry, pathbuf, PATH_MAX);
+> >>  +if (IS_ERR(path))
+> >>   path =3D NULL;
+> >>
+> >> apparmor and tomoyo both IS_ERR check their dentry_path calls, ima
+> >> is the only one that doesnt. NULL fname is already handled by the audi=
+t
+> >> side
+> >
+> >Thanks for taking a look Bradley.  Adding Mimi, Roberto, and the
+> >linux-integrity list as the security/integrity/ima/ima_appraise.c file
+> >is their domain.
+>
+> np man, do you want me to submit a patch for it? or nahhhh
 
-On 8/26/2026 3:59 PM, Pengjie Zhang wrote:
-> Hi Lifeng,
-> 
-> On 1/20/2026 7:32 PM, Lifeng Zheng wrote:
->> Currently, if boot with maxcpus less than NR_CPUS, the cppc_cpufreq driver
->> will fail to register. Because it requires the domain information of all
->> possible CPUs to construct shared_cpu_map, which shows the CPUs that share
->> the same domain.
->>
->> Commit c1385c1f0ba3 ("ACPI: processor: Simplify initial onlining to use
->> same path for cold and hotplug") removes probe() of acpi_processor_driver
->> and makes acpi_cppc_processor_probe() only being called the first time CPU
->> goes online. This means that CPUs that haven't yet gone online will not
->> have pre-parsed _CPC objects and causes cppc_cpufreq driver register fail.
->>
->> Add acpi_processor_start() back as the probe() callback of
->> acpi_processor_driver and call acpi_cppc_processor_probe() in it to make
->> sure all _CPC tables will be parsed when acpi_processor_driver registered.
->>
->> Fixes: c1385c1f0ba3 ("ACPI: processor: Simplify initial onlining to use same path for cold and hotplug")
->> Signed-off-by: Lifeng Zheng <zhenglifeng1@huawei.com>
->> ---
->>   drivers/acpi/processor_driver.c | 30 ++++++++++++++++++++++++++----
->>   1 file changed, 26 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/acpi/processor_driver.c b/drivers/acpi/processor_driver.c
->> index 65e779be64ff..c8b4daf580b0 100644
->> --- a/drivers/acpi/processor_driver.c
->> +++ b/drivers/acpi/processor_driver.c
->> @@ -33,6 +33,7 @@ MODULE_AUTHOR("Paul Diefenbaugh");
->>   MODULE_DESCRIPTION("ACPI Processor Driver");
->>   MODULE_LICENSE("GPL");
->>   +static int acpi_processor_start(struct device *dev);
->>   static int acpi_processor_stop(struct device *dev);
->>     static const struct acpi_device_id processor_device_ids[] = {
->> @@ -46,6 +47,7 @@ static struct device_driver acpi_processor_driver = {
->>       .name = "processor",
->>       .bus = &cpu_subsys,
->>       .acpi_match_table = processor_device_ids,
->> +    .probe = acpi_processor_start,
->>       .remove = acpi_processor_stop,
->>   };
->>   @@ -162,10 +164,6 @@ static int __acpi_processor_start(struct acpi_device *device)
->>       if (!pr)
->>           return -ENODEV;
->>   -    result = acpi_cppc_processor_probe(pr);
->> -    if (result && !IS_ENABLED(CONFIG_ACPI_CPU_FREQ_PSS))
->> -        dev_dbg(&device->dev, "CPPC data invalid or not present\n");
->> -
->>       if (!cpuidle_get_driver() || cpuidle_get_driver() == &acpi_idle_driver)
->>           acpi_processor_power_init(pr);
->>   @@ -192,6 +190,30 @@ static int __acpi_processor_start(struct acpi_device *device)
->>       return result;
->>   }
->>   +static int acpi_processor_start(struct device *dev)
->> +{
->> +    struct acpi_device *device = ACPI_COMPANION(dev);
->> +    struct acpi_processor *pr;
->> +    int result;
->> +
->> +    if (!device)
->> +        return -ENODEV;
->> +
->> +    pr = acpi_driver_data(device);
->> +    if (!pr)
->> +        return -ENODEV;
->> +
->> +    /* Protect against concurrent CPU hotplug operations */
->> +    cpu_hotplug_disable();
->> +    result = acpi_cppc_processor_probe(pr);
->> +    cpu_hotplug_enable();
->> +
->> +    if (result && !IS_ENABLED(CONFIG_ACPI_CPU_FREQ_PSS))
->> +        dev_dbg(&device->dev, "CPPC data invalid or not present\n");
->> +
->> +    return 0;
->> +}
->> +
->>   static int acpi_processor_stop(struct device *dev)
->>   {
->>       struct acpi_device *device = ACPI_COMPANION(dev);
-> I reproduced the issue described by this patch on the latest kernel at
-> commit 45c13f3f9e3bb15f.
-> 
-> On my system, CPU0 and CPU1 belong to the same software-coordinated
-> frequency domain. After booting with maxcpus=1, CPU1 is present but
-> offline, and its CPC descriptor is not parsed.
-> 
-> Consequently, acpi_get_psd_map() skips CPU1 and constructs an
-> incomplete shared_cpu_map containing only CPU0.
-> 
-> When CPU1 is subsequently brought online:
-> 
-> echo 1 > /sys/devices/system/cpu/cpu1/online
-> 
-> the cpufreq core creates an overlapping policy and attempts to create
-> the existing cpu0/cpufreq symbolic link again, resulting in the
-> following warnings:
-> ...
-> sysfs_warn_dup
-> sysfs_do_create_link_sd
-> sysfs_create_link
-> add_cpu_dev_symlink
-> cpufreq_policy_online
-> cpufreq_online
-> cpuhp_cpufreq_online
-> ...
-> processor cpu0: cpufreq symlink creation failed
-> 
-> freq_qos_add_request() called for active request
-> WARNING: kernel/power/qos.c:658 at freq_qos_add_request
-> 
-> The affected CPU masks are also inconsistent:
-> 
-> $ cat /sys/devices/system/cpu/cpu0/cpufreq/affected_cpus
-> 0
-> 
-> $ cat /sys/devices/system/cpu/cpu1/cpufreq/affected_cpus
-> 0 1
-> 
-> After applying this patch on top of commit 45c13f3f9e3bb15f, the CPC
-> descriptors are parsed before the CPUs are brought online. The
-> shared_cpu_map is constructed correctly, and CPU1 can be brought
-> online without triggering the duplicate sysfs link or active QoS
-> request warnings.
-> 
-> This patch fixes the issue in my testing. so，
-> 
-> Tested-by: Pengjie Zhang <zhangpengjie2@huawei.com>
-> Reviewed-by: Pengjie Zhang <zhangpengjie2@huawei.com>
-> 
+That's a question for Mimi and Roberto, but if you can put together a
+patch without too much effort it definitely couldn't hurt to post it
+(make sure you post it to linux-integrity).
 
-Thanks for the testing! 
-
+--=20
+paul-moore.com
