@@ -1,141 +1,194 @@
-Received: from proxmox-new.maurer-it.com (proxmox-new.maurer-it.com [94.136.29.106])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75DD0471268;
-	Thu, 27 Aug 2026 18:06:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=94.136.29.106
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A74D305674
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:07:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787854022; cv=none; b=l2JB2Uar7bhp5j66e1kYy0iJFlcX7H+/aCgoigB58cTvLF1GYTLFVedOVNydyJ9q4lAm6hWqJj2+JwVSvVdg4YLcLbeyJSsfSjW+z3QKaqTPUps8UN4M0gOhsARL7cYRsw/+lXm6RjDjYlPMYcILv3KUvXCW2DodmNmNq5xbrjw=
+	t=1787854074; cv=none; b=OHCtQCmjrdFxukJZ3TcwftngzFaAmn8pRU3RNEj0VBaMKH6gsfzqy27zR+yaV6Bowp0k41HKUr6vQUZ9Rff5X7TbD9tbNnqHE2f/1QN8tctZlfaj+jqVXQuW/itNHxZZrCczuVMciYcVpLFwH0l6HzS1zahWbbQtxc+CN09w4zQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787854022; c=relaxed/simple;
-	bh=vUxjF7NDXTGO4J/lLRHHBDemilqLVtHwctCaWe2exKY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kTKPK9F8TaMDsH4mTb9Ci7O2VHfL0H/DPuTvUcjEMNoSeDDtoyzLNBIch3Ln2K536CfjslaR+z081RGrQ6aTKoF6ZapPKcO03JYw5NLgMumJJeTmegz89ZV06mlT0YX6meD7EDB2t/LirJ+Q7AAbSJCGLQOAarKfnQhiWNCmYC4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com; spf=pass smtp.mailfrom=proxmox.com; arc=none smtp.client-ip=94.136.29.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proxmox.com
-Received: from proxmox-new.maurer-it.com (localhost.localdomain [127.0.0.1])
-	by proxmox-new.maurer-it.com (Proxmox) with ESMTP id 972E7A323C;
-	Thu, 27 Aug 2026 19:57:54 +0200 (CEST)
-From: Thomas Lamprecht <t.lamprecht@proxmox.com>
-To: Kashyap Desai <kashyap.desai@broadcom.com>,
-	Sumit Saxena <sumit.saxena@broadcom.com>,
-	Shivasharan S <shivasharan.srikanteshwara@broadcom.com>,
-	Chandrakanth patil <chandrakanth.patil@broadcom.com>,
-	megaraidlinux.pdl@broadcom.com,
-	"Martin K . Petersen" <martin.petersen@oracle.com>
-Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Damien Le Moal <dlemoal@kernel.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Keith Busch <kbusch@kernel.org>,
-	Ranjan Kumar <ranjan.kumar@broadcom.com>,
-	Thorsten Leemhuis <regressions@leemhuis.info>,
-	regressions@lists.linux.dev,
-	Lukasz Magiera <me@magik.net>,
-	Mira Limbeck <m.limbeck@proxmox.com>,
-	Daniel Fernau <mail@danielfernau.com>,
-	Mats Topstad <Mats.topstad@intility.no>,
-	stable@vger.kernel.org
-Subject: [PATCH] scsi: megaraid_sas: Limit NVMe request size to the PRP chain frame
-Date: Thu, 27 Aug 2026 19:24:24 +0200
-Message-ID: <20260827175743.734593-1-t.lamprecht@proxmox.com>
-X-Mailer: git-send-email 2.47.3
+	s=arc-20240116; t=1787854074; c=relaxed/simple;
+	bh=mYM7KZCNC4J6Gm99F9eOnRiT7a9uGwEnhTr3Hv881/A=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=tfhnwcVBGKDsbBH204wG+so/wvO43vlSH177zKBnmSiw7g/pP2T7FbdLrBZ+03+gU0YWW3XeLq7qKhdlqqBqBAv6QE95K9uWt4XYPYInGXnS277irBDtx50XbLmQ6VZR8TeOaSaGm4iiFJIqN92M93fUov7PPGwhtruiV89eCbw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=l1+3KkUE; arc=none smtp.client-ip=209.85.210.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="l1+3KkUE"
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8486c3411c8so230237b3a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:07:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787854063; x=1788458863; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=TCbLhzowWRlxRL1FBEh8DJZH9Zo/O/ePme34cY78990=;
+        b=l1+3KkUE5Upe3WXdYS5j6lyy6qMHUHqNg0aLSLRuQejYlSmvtDxSJfgvFjzrE1lphh
+         gSnnyBWe/ss0/eRXFsjuBrMxgVmARMJZOAcQePRXy4vYTqsxDhqXCFAZ5lhputrHuabw
+         bAXL7FTYkqdOfoBM9ZqOJ1ZampDWhjwFX6/cBLUEgg+OKAkyoztJ4ufK9Ck2nJz5tUrz
+         Js69oHYZ7IOtzw0MOV2sZI7fsgibl7sUXrHu91ZezhhG9oc6l5ZVG7mNkW+1Tx1hQiTe
+         Fg+d12iT5dBfvi5Mi16xc5UtLVbRSRzhINEAIGsisuCNF9QmvxGRGrzFhdrnqf2SWsG1
+         7o5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787854063; x=1788458863;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TCbLhzowWRlxRL1FBEh8DJZH9Zo/O/ePme34cY78990=;
+        b=Az5YJyE024LgXwxXckk0eyTtR9toZmo1Gc+vWpo4RR4PMJHBemiM/9fWtbj1DRDxxs
+         fFkPaaQchuhQlCYldUeeHOMGNR/LQU1uKVOFnEdCUCTj6S9E0sJ7lef1pMBUZW0CNCqz
+         jf+22H827CBX2tsDzYS9WQf+lbnGHM1emrLQCQcf0fnHsmoAkovKRZWkTLTlvZLFHC2x
+         zFMqXuNXocWFWTxD+xc/mUE1/jKLf7b4MI6fhRB/e7Mzm30EY2e13ihaN9LnVvULmkXs
+         MQVgO/PRTUQa3P6EXqiFMmbWI7gVb/LMuHdNj4a+LUhPLrzXh5ppZEfWaIsdcx8vcH4A
+         NHLw==
+X-Forwarded-Encrypted: i=1; AHgh+Rr3ZARZHN/Vrrkb8/yxYa8l/9ZF04vQcMTYMAOJvhivPtx1/rYS2lN1kJlo1WkrzJAiScXi8H/kpfaeRaE=@vger.kernel.org
+X-Gm-Message-State: AFuF++l6IrcAogWdKgO6RbDMFS0UopZt8lBv1PR3BIWdufHyaA7C1iwK
+	caQvRC6+DqeRSbIDMBnhqQclHDkfQcE8nrX2BEBCMzq+DrApeebE9jxjI1+QzBjxNU2s//Y8+VP
+	fiaDs/A==
+X-Received: from pfbcj13.prod.google.com ([2002:a05:6a00:298d:b0:842:83c0:8d73])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:190c:b0:848:77b3:579a
+ with SMTP id d2e1a72fcca58-8562b888e7fmr1797225b3a.17.1787854062569; Thu, 27
+ Aug 2026 11:07:42 -0700 (PDT)
+Date: Thu, 27 Aug 2026 11:07:41 -0700
+In-Reply-To: <CAO9r8zNBpMry1ipXcNcQgZgUkTSb4scDadiMNXN0AwqJiY=8pA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Bm-Milter-Handled: 55990f41-d878-4baa-be0a-ee34c49e34d2
-X-Bm-Transport-Timestamp: 1787853463961
+Mime-Version: 1.0
+References: <20260826233919.998904-1-seanjc@google.com> <20260826233919.998904-13-seanjc@google.com>
+ <CAO9r8zOuD+wU1Q80z077WHHpFBWvKomLk=TaXjH3gVnqj=mqFQ@mail.gmail.com>
+ <apBomFOn1ZqHEnAQ@google.com> <CAO9r8zP3O_80Lr=4eKL6v-OaM9etMXPsNzADizf6ztB6YBuLHA@mail.gmail.com>
+ <apBxMrqEkl_7khix@google.com> <CAO9r8zOLJs_fm9ixxCRV=uz5qwpOS67=oz5ATGtB=w2Yd2vtOw@mail.gmail.com>
+ <apB0-xly771CU7m_@google.com> <CAO9r8zNBpMry1ipXcNcQgZgUkTSb4scDadiMNXN0AwqJiY=8pA@mail.gmail.com>
+Message-ID: <apB87RG_qon96Q8R@google.com>
+Subject: Re: [PATCH v3 12/13] KVM: selftests: Dedup assembly code for VMLAUNCH
+ and VMRESUME
+From: Sean Christopherson <seanjc@google.com>
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	f734222792@gmail.com, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Sashiko Bot <sashiko-bot@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-megasas_make_prp_nvme() builds a command's PRP list in cmd->sg_frame, a
-DMA pool buffer of instance->max_chain_frame_sz bytes, spending one entry
-per NVMe page of the transfer plus one per page of the buffer for the
-chain pointer. The loop runs until the transfer is described and never
-checks the buffer bound.
+On Thu, Aug 27, 2026, Yosry Ahmed wrote:
+> On Thu, Aug 27, 2026 at 10:33=E2=80=AFAM Sean Christopherson <seanjc@goog=
+le.com> wrote:
+> >
+> > On Thu, Aug 27, 2026, Yosry Ahmed wrote:
+> > > On Thu, Aug 27, 2026 at 10:17=E2=80=AFAM Sean Christopherson <seanjc@=
+google.com> wrote:
+> > > > eVMCS is a memory operand, i.e. it's MOV RSP, [evmcs->host_rip].  T=
+he existing
+> > > > evmcs_{vmresume,vmlaunch}() code is rather stupid and loads the add=
+ress into a
+> > > > register, and then manually encodes MOV RSP, [<reg>].
+> > >
+> > > Can't we keep it as a register operand just to avoid vmwrite_operand?
+> > > Does it actually hurt in any way?
+> >
+> > ...
+> >
+> > > > diff --git tools/testing/selftests/kvm/lib/x86/vmx.c tools/testing/=
+selftests/kvm/lib/x86/vmx.c
+> > > > index 1a8515de42b0..b5efd10950c7 100644
+> > > > --- tools/testing/selftests/kvm/lib/x86/vmx.c
+> > > > +++ tools/testing/selftests/kvm/lib/x86/vmx.c
+> > > > @@ -179,7 +179,10 @@ void load_vmcs(struct vmx_pages *vmx)
+> > > >         vmclear(vmx->shadow_vmcs_gpa);
+> > > >  }
+> > > >
+> > > > -#define __BUILD_VMX_VM_ENTRY_HELPER(insn, prefix, vmwrite_insn, vm=
+write_operand,       \
+> > > > +const u64 HOST_RSP_ENCODING =3D HOST_RSP;
+> > > > +const u64 HOST_RIP_ENCODING =3D HOST_RIP;
+> > > > +
+> > > > +#define __BUILD_VMX_VM_ENTRY_HELPER(insn, prefix, vmwrite_insn,   =
+     \
+> > > >                                     __host_rsp, __host_rip)        =
+                     \
+> > > >  static int __##prefix##_##insn(void)                              =
+                     \
+> > > >  {                                                                 =
+                     \
+> > > > @@ -196,16 +199,17 @@ static int __##prefix##_##insn(void)         =
+                                             \
+> > > >                              VMX_SWITCH_GPRS_ASM                   =
+                     \
+> > > >                              "pop %%rax;"                          =
+                     \
+> > > >                              : [ret]"=3D&a"(ret)                   =
+                       \
+> > > > -                            : [host_rsp]__stringify(vmwrite_operan=
+d)(__host_rsp),      \
+> > > > -                              [host_rip]__stringify(vmwrite_operan=
+d)(__host_rip),      \
+> > > > +                            : [host_rsp]"m"(__host_rsp),          =
+                     \
+> > > > +                              [host_rip]"m"(__host_rip),          =
+                     \
+> > >
+> > > I suppose we can use "r" here though?
+> >
+> > No, because then the encoding for VMWRITE needs to be:
+> >
+> >   vmwrite %%rsp, %[host_rsp]
+> >
+> > but for MOV/eVMCS needs to be:
+> >
+> >   mov %%rsp, (%[host_rsp])
+> >
+> > Have fun feeding the '(' and ')' into the asm blob :-)
+>=20
+> Semi-joking, what if we pass in the entire instruction instead?
 
-max_hw_sectors comes straight from the MDTS the firmware reports for the
-drive. On drives with a large MDTS the only thing keeping the list inside
-the buffer was the block layer default of 1280 KiB, which needs 320
-entries, which fit into a 4 KiB frame as that holds 512. But since commit
-9b8b84879d4a ("block: Increase BLK_DEF_MAX_SECTORS_CAP") that default is
-4 MiB, and such a transfer needs 1025 entries, so the list runs a full
-page past the end of the frame:
+Then there needs to be separate parameters for RSP vs. RIP, and we still ne=
+ed to
+pass different operands, *and* it bleeds information into the callers since=
+ they
+would need to hardcode use of %%rax and of the named constraints.
 
-  sd 1:0:1:0: [sdb] tag#630 page boundary ptr_sgl: 0x00000000ba62d13f
-  BUG: unable to handle page fault for address: ff663bcb81e7c000
-  #PF: supervisor write access in kernel mode
-  #PF: error_code(0x0002) - not-present page
-  RIP: 0010:megasas_build_and_issue_cmd_fusion+0xeaa/0x1870 [megaraid_sas]
+As ugly as the proposed code is, IMO the maintenance implications of the be=
+low
+is far worse than the subtle 'r' vs. 'm' (and on principle, I dislike passi=
+ng an
+address in a register and then manually encoding a memory operand).
 
-If the page after the frame happens to be mapped, the overrun does not
-fault but silently corrupts the neighbouring pool entry, which is another
-in-flight command's PRP list.
+#define __BUILD_VMX_VM_ENTRY_HELPER(insn, prefix, vmwrite_rsp, vmwrite_rip,=
+		\
+				    __host_rsp, __host_rip)				\
+static int __##prefix##_##insn(void)							\
+{											\
+	int ret;									\
+											\
+	__asm__ __volatile__("push $0;"							\
+			     vmwrite_rsp						\
+			     "lea 1f(%%rip), %%rax;"					\
+			     vmwrite_rip						\
+			     VMX_SWITCH_GPRS_ASM					\
+			     __stringify(insn)";"					\
+			     "incq (%%rsp);"						\
+			     "1: ;"							\
+			     VMX_SWITCH_GPRS_ASM					\
+			     "pop %%rax;"						\
+			     : [ret]"=3D&a"(ret)						\
+			     : [host_rsp]"r"((u64)__host_rsp),				\
+			       [host_rip]"r"((u64)__host_rip),				\
+			       GUEST_REGS_OFFSETS					\
+			     : "memory", "cc");						\
+	return ret;									\
+}
 
-Cap max_hw_sectors at what the chain frame can describe, less one page
-for transfers that do not start on a page boundary and so need one entry
-more. This is the megaraid_sas counterpart of commit 04631f55afc5 ("scsi:
-mpt3sas: Limit NVMe request size to 2 MiB"), but derives the limit from
-max_chain_frame_sz rather than hardcoding it.
-
-Cc: stable@vger.kernel.org
-Fixes: 9b8b84879d4a ("block: Increase BLK_DEF_MAX_SECTORS_CAP")
-Reported-by: Lukasz Magiera <me@magik.net>
-Closes: https://lore.kernel.org/all/GPhsSM0vkgyIrs0DIZ62qeUZX7X4RxwQXVKiuvMx-lHQVSPDxpztUyQOGS0xikqvJ-Z94hMV-dW_5KN_0CX2hsfV7kTf_t0MTf6vdAAaSEc=@magik.net/
-Reported-by: Mira Limbeck <m.limbeck@proxmox.com>
-Closes: https://lore.kernel.org/all/d171cc76-bf25-48ce-b482-d344669dfc24@proxmox.com/
-Suggested-by: Martin K. Petersen <martin.petersen@oracle.com>
-Link: https://lore.kernel.org/all/yq17bmzd5jr.fsf@ca-mkp.ca.oracle.com/
-Signed-off-by: Thomas Lamprecht <t.lamprecht@proxmox.com>
----
-
-Based on current master, but mostly tested on our downstream 7.0-based
-kernel.
-
-The derived cap was checked against a replay of the pointer arithmetic in
-megasas_make_prp_nvme(), for chain frames of 1024
-(MEGASAS_CHAIN_FRAME_SZ_MIN) to 15872 bytes and NVMe page sizes of 4 and
-8 KiB, at every 512 byte start offset, with both fully coalesced and
-one-entry-per-page scatterlists.
-
- drivers/scsi/megaraid/megaraid_sas_base.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/scsi/megaraid/megaraid_sas_base.c b/drivers/scsi/megaraid/megaraid_sas_base.c
-index ecd365d78ae3c14f4682d61063b6f216974daa7d..d83abded2039ba9ffae23d0c78a79e155b32424f 100644
---- a/drivers/scsi/megaraid/megaraid_sas_base.c
-+++ b/drivers/scsi/megaraid/megaraid_sas_base.c
-@@ -1973,12 +1973,23 @@ megasas_set_nvme_device_properties(struct scsi_device *sdev,
- {
- 	struct megasas_instance *instance;
- 	u32 mr_nvme_pg_size;
-+	u64 max_prp_io;
- 
- 	instance = (struct megasas_instance *)sdev->host->hostdata;
- 	mr_nvme_pg_size = max_t(u32, instance->nvme_page_size,
- 				MR_DEFAULT_NVME_PAGE_SIZE);
- 
--	lim->max_hw_sectors = max_io_size / 512;
-+	/*
-+	 * megasas_make_prp_nvme() builds the PRP list in cmd->sg_frame without
-+	 * bounding it against that buffer, and spends one entry per page of
-+	 * it on the chain pointer. Cap the transfer at what the buffer holds,
-+	 * less one page for lists that start off a page boundary.
-+	 */
-+	max_prp_io = (u64)((instance->max_chain_frame_sz / sizeof(u64)) -
-+			   (instance->max_chain_frame_sz / mr_nvme_pg_size) - 1) *
-+		     mr_nvme_pg_size;
-+
-+	lim->max_hw_sectors = min_t(u64, max_io_size, max_prp_io) >> SECTOR_SHIFT;
- 	lim->virt_boundary_mask = mr_nvme_pg_size - 1;
- }
- 
-
-base-commit: 18fbf5151d2c0bfe433c7428eef03cabf5fdb2fa
--- 
-2.47.3
-
-
+#define BUILD_VMX_VM_ENTRY_HELPER(insn) 						\
+	__BUILD_VMX_VM_ENTRY_HELPER(insn, _,						\
+				    "vmwrite %%rsp, %[host_rsp];",			\
+				    "vmwrite %%rax, %[host_rip];",			\
+				    HOST_RSP, HOST_RIP)					\
+	__BUILD_VMX_VM_ENTRY_HELPER(insn, __evmcs,					\
+				    "mov %%rsp, (%[host_rsp]);",			\
+				    "mov %%rsp, (%[host_rip]);",			\
+				    &current_evmcs->host_rsp, &current_evmcs->host_rip)
