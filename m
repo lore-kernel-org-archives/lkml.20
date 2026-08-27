@@ -1,67 +1,67 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BA393A3E67
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:55:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A78D43A168E
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:55:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787817344; cv=none; b=ZVdntbdWH4KyHxxrWjyHXS2LoLLKxfu3QQfnKXTDNKPO2JPd+Wen06LeThsx/MUG/YQpUwsFlq3J0f3zDzMx/lMOkwWsMiHMsUpbqEMJboQavGckXPomdZO7yTcECQ5ClqbsXfyVLNE9XRRi3a0AIcYdzwe8akx4grTXZYXLEVs=
+	t=1787817352; cv=none; b=WyKDxNVfxdsX81Fl4C2jMPSzQWbRdc9Z2upx7uAD/iIR+peecudqoVv1DPskDybtLzl2BuILKHPDK6SJBfAZGSl5CjEzR0Oz12PHO0+JRv7Xy0PNTTa+Gj+LMG/lO8XmWB+qa7R8HRlc9E5NB0SHUqdaM2uuW8TCO8ht+h87eGs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787817344; c=relaxed/simple;
-	bh=5+g1es8ujcbaJ+DeAnz49JBmYw1EJz2CqI7iFe1ijrA=;
+	s=arc-20240116; t=1787817352; c=relaxed/simple;
+	bh=t4/SR8SWQmaZ5WztW+CHvg/QC5M34jhKztRXj5DMFzw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=AaviV2FP7+RhLZrgV4+tDr1d3eQqoKY7bj5dm/+OOt1KthrrmE0WcAZ3iqLzVqd3i1naeiCOID7rTcXCVPE094n/oPKw3EMGp0Twql9UUwO/nwDNcLzBh5DSj2Hn/TpVplxnrsnNzg63fMyPehsZCIFvSTNIX8kZDMcqXtUtm+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=beagleboard.org; spf=fail smtp.mailfrom=beagleboard.org; dkim=pass (2048-bit key) header.d=beagleboard.org header.i=@beagleboard.org header.b=Sr7mE+73; arc=none smtp.client-ip=209.85.216.42
+	 In-Reply-To:To:Cc; b=MKgr8PsLFsIioTVW0sET4Yn2wNeC1foe2tR7RZlk1fihJXns5aE02yVsTWq9FkWqrvdKcTiqmjENx/f8GtwVZ2KrkQ+FOkLYQWJFyv4qtiecqDBIRcDBt6l9EYp/ZItS/q2o9SMAEsveT+Ztm5ia50mCFlv0DS70pLFPOiysIUc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=beagleboard.org; spf=fail smtp.mailfrom=beagleboard.org; dkim=pass (2048-bit key) header.d=beagleboard.org header.i=@beagleboard.org header.b=tQggt716; arc=none smtp.client-ip=209.85.214.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=beagleboard.org
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=beagleboard.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=beagleboard.org header.i=@beagleboard.org header.b="Sr7mE+73"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38e7109321dso1431447a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:55:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=beagleboard.org header.i=@beagleboard.org header.b="tQggt716"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2d5cad1a6baso5044555ad.3
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:55:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=beagleboard.org; s=google; t=1787817341; x=1788422141; darn=vger.kernel.org;
+        d=beagleboard.org; s=google; t=1787817350; x=1788422150; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Ywd5ymW5Sqwc3yq9XUINVOaEavB26DXvRJFclpGXEBQ=;
-        b=Sr7mE+73xZBiIzOfnbBWZaV2ajLlrUsgLKM/o2w2TNGKY2ChtZEAwPDXWGUKF+Bohm
-         qlKrlIrFLdapgK+AFNWcOIru3QE2fT0yxqBPO4PICA4A08dPbOwPsSIEDu+xs8Q3SRXr
-         W2nUepoarC0G/JmnXVXosRq7zdaOCM1eXybFICqrr4gNH6ID6quv0iGO4gMql7DFiHO1
-         7o9S152hhpxj8V+FxHvOCxiQ4l7hmzeIUpXvt0jS2Gyx735X+2bE8Cr2ClCHFAVKCn7H
-         +AGut4hXnOwH2q7m0UBpE32Tc0oM8qEN2imSaF+YZCP+hwm+ICFGR0vB2UOg5+i8tEk6
-         fvuA==
+        bh=vj8h83cNWEkfF8w29lRmAWs8Ge/MzQCuHu+NZTz6F+o=;
+        b=tQggt716SVGx8C7jywRVtAm9cJxP04Xwt4qonOqre1trhG2kGNyRaxGUv5S/yNeB7Z
+         hKn3gLJa/7l+HB2PCjpLYjTMl76WF6HuGae4QzT4jNUX+DdEcr97x+pP8LyVNPn4ir+n
+         RhF6xs0tv3g3mA5t2UoEvxeyvZkYrKFjTyWSqf+7iYxMT0/8b4JReDe2Y84s4Q1dUtzo
+         /gG5OB0RBKn+8sYqQvWnoO3ls+/fpAdrhG3eO1oEL6sBbE2UhIfDavp5N+rzi7dHMGnv
+         DL4UbWIcxoNg0DL3gB0kF5FPx6ILTTOYeIhOuBFhaqaZT8K1cY9iN1KYZb5BkrLuyBSu
+         PJyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787817341; x=1788422141;
+        d=1e100.net; s=20251104; t=1787817350; x=1788422150;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Ywd5ymW5Sqwc3yq9XUINVOaEavB26DXvRJFclpGXEBQ=;
-        b=GQRRUpiVXVeRrtj1DnlIuKO4/98pgamBVH9ZnjDHLalHmNZwdxL1hhyXGZO1XgEslp
-         mhn7+1sbdZg7wnwlt0kXkEJQlNBCHnqKN7u1PA15KlskDuul0I2021pRTsj0I3VzMGvU
-         W6g4u/T0uonRSqyQ8iKrluAqoL5sNyChIfGDD8GXE2BQL2CogU99DNS+1oJKJU10dD3W
-         pQ2deXVjxdv9ZSFQkdbf+JbjefyZnkwYPxGEH6/EPBFZoxmXiAwEEQtyKQnLjnGTeclO
-         +wqfLPLLrj9bnRrZWCLrnNQ7ICoVjHIbIf5RddtuUx1zJPgYgX3e1B8L2qmeHFXDiDrS
-         V+Cw==
-X-Forwarded-Encrypted: i=1; AHgh+RoZjEpVXiXD8V+MmLJlxP15XWc3dDE/VVMJx9orpf6k4TUVAtktW1jReh35CaZxROXJndBoI11aSg3deeI=@vger.kernel.org
-X-Gm-Message-State: AFuF++ksDAHqZMubhLioD7f52PwvitfdcsTIhN5FBtQl7p7f5LETurWa
-	TSM0HYQhR+vFDTz10UJdsJsi2OoR6h6AB0qwt5UYxDNsGyGmcD0tar9frePjALB5Cw==
-X-Gm-Gg: AR+sD139s8OWdKV6Yw0iMC2inbHetNX1ohOUL0XwyciuU7QaiiLc4/YMN7WbCORkWL/
-	XGgForyCAqPhx7Tx6weKNIu75TuJyVdiYbN8KONFVVCxWY0uT/9cffBTNgXdkLK3ytOZfrLcXbU
-	5ojg8zp6g7rRcqOsl2UxBn8ANVQrrG4t2ono2YwYx8LJf2uP19V5Md/JmDyfkzTFbouLQdi8KA0
-	ocVgLYvpEFTF10nqYq7AJs7qrsVCT4Z8hLgdRU6P+jqUgfKm8DXRKtxLKfwjaMQEYItIvNdCMz0
-	QIDAJxaLyLG7If8FGba+yifMfOZFLMySk7iMvP7j6ksy51ECFnYO9FP/gau158Y5fqVTdEBAbaQ
-	1QG4dJb1lDV+TJvcMRRLF5Lk1sifB4zddZyHqVDoo7R+9dpO6+Lw/myZWm65On/B5pAeh9JhYu/
-	2Hi8kFNaqt4haaWJv2X6IbVBvT5b30KTc/AdI8t72ih3AXdJK06HE2epsjRKMWeo1EbDVK9DE=
-X-Received: by 2002:a17:90b:5291:b0:396:673f:fe56 with SMTP id 98e67ed59e1d1-3966d3d89e6mr28236162a91.9.1787817340607;
-        Thu, 27 Aug 2026 00:55:40 -0700 (PDT)
+        bh=vj8h83cNWEkfF8w29lRmAWs8Ge/MzQCuHu+NZTz6F+o=;
+        b=H/eoIAn7LUll0Wgyq1NQ4fhEqPEsC7ejGLEI6HqTa08jwbe8h4I+CDkVtCtWUH22gf
+         8OmvrAptCdhnSU4wGvka+U21GAc9jjAHaM/EwIYphJ1zusNqGhdZu52azjl5HrutqcvR
+         H32psjowjt0RIQ0tj+sdTFhNUT+eEnkrvnJIrCjGWYlZ86L+HW75jkcctKMu7ssmh1UG
+         ogwuHubnyZZ9FlNZaOET+UE9Er/I6ChMtOfjzqOX6q+kxKZHok8/6/QlADJo/YvpFjQT
+         qn4FHhDwX7TZ6TmikXAsbY3hYtqbprHOx9/ZuJCfeMZxsehfaSS1JnzL9LD8yrLVE+wV
+         +smQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoicJOXjxtqrTVod+oPLuV61d+MpIVvI+jBLJpneX7vSUY+rPLI4A0nw/4nr7tt5pGgzWJmcmQa1javg1g=@vger.kernel.org
+X-Gm-Message-State: AFuF++lMeVUj9Ib3EYAHU4FGEzcDV8OPHn7NtgDxdRNtw0ktSVrEJkQt
+	mSaCpPjeLj6NDNx+fBZGY80j6NgQAY703O2P7ssk9TKFS21Q7O/2lItkEOJaqwxvJw==
+X-Gm-Gg: AR+sD10qrXG8wXocEbTImW9iHOk43lp3xTVmH+Iv1uwkTxFEEyDrSKdQJaNjTprdXu8
+	R/PDQXGL7sHr6CeS8D3dbP3EXju7ds5TYsu66JyowgulfWEhuK6YrejuXnFqLbbc4PopM8yAGXF
+	x8+7uw/6k+1AGxqaa8r4ocC6pI2Rm3p64LCmrvAKxVswXq23DkBDG5F/n1gUlo1+j1fq6hDuGiB
+	8Vw8d6bNACDVwqeMhz9h9EzcpCo3B2rL6UsVc2G6YUTWz1r0087mn0oSDqsDdUBCA7VDve1haiM
+	YZju7fIqrmHDCNpR420S5RV8/FV3gFoqgAL7F/52JOCjj1su4seEezfxPpgphiCZMaDObSJZTtd
+	kvQ5IKSPugS12s+V8a817DXCkHq1wbv54aoXqdQ5Lb1Hie5d7s0JKAHMdNtpR58Se+oajcC6LA4
+	KZkNC+beNzPxAd4j1Y4jE15t9WqpSi5Q2YQiwweYUlw+JBWNm0QHuy4KL7jINbMMsuPc0EySk=
+X-Received: by 2002:a17:903:380b:b0:2d6:fec3:bd57 with SMTP id d9443c01a7336-2d707b6ca38mr268151405ad.14.1787817350050;
+        Thu, 27 Aug 2026 00:55:50 -0700 (PDT)
 Received: from [192.168.29.54] ([2405:201:4019:32fc:3c55:6b24:5147:322b])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3283d60c2b4sm24641685eec.5.2026.08.27.00.55.31
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3283d60c2b4sm24641685eec.5.2026.08.27.00.55.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 00:55:40 -0700 (PDT)
+        Thu, 27 Aug 2026 00:55:49 -0700 (PDT)
 From: Ayush Singh <ayush@beagleboard.org>
-Date: Thu, 27 Aug 2026 13:24:41 +0530
-Subject: [PATCH v2 5/7] drivers: greybus: Add software SVC implementation
+Date: Thu, 27 Aug 2026 13:24:42 +0530
+Subject: [PATCH v2 6/7] dt-bindings: beagle: Add BeagleConnect Freedom
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,8 +69,8 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260827-gb-uart-transport-v2-5-a03bb1f5fbd1@beagleboard.org>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260827-gb-uart-transport-v2-6-a03bb1f5fbd1@beagleboard.org>
 References: <20260827-gb-uart-transport-v2-0-a03bb1f5fbd1@beagleboard.org>
 In-Reply-To: <20260827-gb-uart-transport-v2-0-a03bb1f5fbd1@beagleboard.org>
 To: Jason Kridner <jkridner@beagleboard.org>, robertcnelson@gmail.com, 
@@ -96,643 +96,96 @@ Cc: greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org,
  rust-for-linux@vger.kernel.org, linux-crypto@vger.kernel.org, 
  devicetree@vger.kernel.org, Ayush Singh <ayush@beagleboard.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=21766;
- i=ayush@beagleboard.org; h=from:subject:message-id;
- bh=5+g1es8ujcbaJ+DeAnz49JBmYw1EJz2CqI7iFe1ijrA=;
- b=owEBbQKS/ZANAwAKAQXO9ceJ5Vp0AcsmYgBqj+1DyYo3hFaElotqb4eS0O2BVsm/x80xPO+Td
- mgrHHHduFGJAjMEAAEKAB0WIQTfzBMe8k8tZW+lBNYFzvXHieVadAUCao/tQwAKCRAFzvXHieVa
- dCFCD/49kLdjzLGC44Lu5iz4WEURITkqwfPhzNyxfXNO/7EenX5j57SdvF3wiVNNcwd2oT+iatW
- 9HK+h8fjV7i1EQw+XFllUdydduUzKetsdBjyHiAKrWldbX4GOLkB7xu0oeRYIUXRhte45iahO1h
- 3s4fMOUNXX6Xq5EKnj7FH8gqSWAnlTGqejzxxrP3SLh8OxALEPzMvZ3PipuHOXBqtQgZF/fTdVj
- PEw0VBKX1kMrh/4qyl2hwrL+2AQu430z+5uoJ+BF9Ty1tGVaPtJyPO3/evdnmt3YMffFwSbEoci
- tQEvStHemmA1Yc3LRBYv0Hehb+wjS6jWydUXgFnfUXbQ3b/pAed3oG2enbOuAkMGYNqFETexcGD
- DQNZhRycf0dbatetvZ0V94h0DRHKdBKFrSD4U1PZlCbMDk3BNqavYSoOQCSq1O1PmKnNefTZj1N
- 4KFLrW2ox0MsvKttDlP/W9JcNDZ6/QxmKIS/a8VD+yk/iHYyJKk8fLbJbfsIPACOsw71nBGXu7R
- WtHzuyoEx26Zk7OBj9u54Mf/qgtDotYDc++8on/k1h0qV5FUUB2wAyH7JEXb+b9po6Zh+ysgoeM
- Tkz42pWq9DWD2pk1+Z1m8xP2SdDkHx8hIEUjo+kqXm8/5DMX5SR5E7Md28g3eFxRdJLR60gFvR7
- A3YwxIkue41SZag==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2301; i=ayush@beagleboard.org;
+ h=from:subject:message-id; bh=t4/SR8SWQmaZ5WztW+CHvg/QC5M34jhKztRXj5DMFzw=;
+ b=owEBbQKS/ZANAwAKAQXO9ceJ5Vp0AcsmYgBqj+1DBpvxBrw6gBdnsE8wvudZhudc7tdhHKrtM
+ d+ionZN1JmJAjMEAAEKAB0WIQTfzBMe8k8tZW+lBNYFzvXHieVadAUCao/tQwAKCRAFzvXHieVa
+ dLcbEAC6bUVXSX32NXCQRkssEbDKvah2Wau0ZPIEkRI1pohKltxCcJ+J3gLeAEpqmfWoMh9XSUm
+ 2Pd/ZQt/fEy31azAHIzO/axqtKGNag2/NAMd1cl8N5tcbN406xM2E2KnOUKqt84uKCwyCfcHuM6
+ wIU2QlsxGzVahCuy2WN7r6Rpgi7MU/Wfo/XIGUucg7Wo528MIJNh+Doz/ytrJ6lVv53ZCdHoAIt
+ ezSnprvifKwMDsQoGLd0vsggeVkOcXIing6/4EgcDPqKv9CKnEf7Rz6g4N3xCWLXLooN8PEwkr2
+ 5G//BAWasSbfFE9t5Zvxf5WxllIEDJfYn6Mx6Zca8RwSXtjAXHVl2BGCms/s7wScrgyEN4ydIfB
+ L3LcZYu6VvPPSL2swqF/dI4DEHapg0EHc/PihXoZyQqQGGEUoe6TGpTk+7CGYA43gKxoDJFgMtg
+ q5Psoq50HSpAO06AlWcwqZ/6zSwGSc8jvyIhEEU8Hf5lIQ4RLn9EZ/vKx/4AUw4xS2MzbSr75tz
+ 82qbRWMJIbQ0YOM27IAGIEu3VczXQr5+LrELfzhSdCwv82Wu8F73v9LK62KosEbNEdmKSce3qGc
+ SNjQlt6CArQ+m+Gc9WQaWl44SCxoM6y4lt6Cz3ar6TsksOb0fhj4AGoLnGYEW9JTkcoiLtgMWGF
+ +reexnLazFuUAFw==
 X-Developer-Key: i=ayush@beagleboard.org; a=openpgp;
  fpr=DFCC131EF24F2D656FA504D605CEF5C789E55A74
 
-A Greybus network requires an SVC (Supervisory Controller) to bring
-interfaces up, assign device IDs and connect CPorts to the AP. On a
-UniPro network the SVC is a real entity on the bus, but transports that
-merely carry Greybus messages - a UART, an I2C bus, a network link -
-have no such entity, so every host driver for those transports ends up
-open-coding an SVC emulation of its own.
-
-Add gb-softsvc, a Rust implementation of the SVC that lives in the
-kernel and registers itself as a Greybus host device. It answers the
-SVC-side operations the core expects during interface bring-up and
-teardown.
-
-Host drivers use it through a small in-kernel interface. A driver
-implements the NodeOps trait to send data towards its node and then
-calls module_insert() to announce a new node, submit_message() to hand
-incoming Greybus messages back to the core, and module_remove() on
-disconnect. Interface IDs are allocated by the SVC and returned from
-module_insert().
-
-Connection create/destroy and interface activate/resume currently just
-acknowledge the request; callbacks into NodeOps can be added later if
-transports need to act on them.
-
-gb_softsvc_exports.c exports the Rust symbols for dependent modules, as
-the build system does not yet support Rust cross-module dependencies
-natively. This hack is taken from nova-core [0].
-
-[0]: https://lore.kernel.org/all/20260622-nova-exports-v5-0-6191773fc977@nvidia.com/
+Add devicetree bindings for the BeagleBoard.org BeagleConnect Freedom,
+a wireless-enabled board based on the TI CC1352P7. The board exposes an
+MCU that can be attached to a host over USB, UART, SPI or I2C, and is
+described as a child node of the corresponding bus.
 
 Signed-off-by: Ayush Singh <ayush@beagleboard.org>
 ---
- MAINTAINERS                          |   6 +
- drivers/greybus/Kconfig              |  12 +
- drivers/greybus/Makefile             |   2 +
- drivers/greybus/gb_softsvc.rs        | 504 +++++++++++++++++++++++++++++++++++
- drivers/greybus/gb_softsvc_exports.c |  15 ++
- 5 files changed, 539 insertions(+)
+ .../beagle/beagle,beagleconnect-freedom.yaml       | 39 ++++++++++++++++++++++
+ MAINTAINERS                                        |  6 ++++
+ 2 files changed, 45 insertions(+)
 
+diff --git a/Documentation/devicetree/bindings/beagle/beagle,beagleconnect-freedom.yaml b/Documentation/devicetree/bindings/beagle/beagle,beagleconnect-freedom.yaml
+new file mode 100644
+index 000000000000..be051a39acdc
+--- /dev/null
++++ b/Documentation/devicetree/bindings/beagle/beagle,beagleconnect-freedom.yaml
+@@ -0,0 +1,39 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/beagle/beagle,beagleconnect-freedom.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: BeagleBoard.org BeagleConnect Freedom
++
++description:
++  The BeagleBoard.org BeagleConnect Freedom board connected over USB, UART, SPI or I2C.
++
++maintainers:
++  - Ayush Singh <ayush@beagleboard.org>
++
++properties:
++  compatible:
++    const: beagle,beagleconnect-freedom
++
++  reg:
++    maxItems: 1
++
++  vbat-supply: true
++
++required:
++  - compatible
++
++allOf:
++  - $ref: /schemas/spi/spi-peripheral-props.yaml#
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    serial {
++      mcu {
++        compatible = "beagle,beagleconnect-freedom";
++        vbat-supply = <&vbat>;
++      };
++    };
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 80247a031353..3ba56cdbf056 100644
+index 3ba56cdbf056..d047090be5f4 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -11328,6 +11328,12 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/net/ti,cc1352p7.yaml
- F:	drivers/greybus/gb-beagleplay.c
+@@ -11334,6 +11334,12 @@ L:	greybus-dev@lists.linaro.org (moderated for non-subscribers)
+ S:	Maintained
+ F:	drivers/greybus/gb_softsvc.rs
  
-+GREYBUS SOFTSVC DRIVERS
++GREYBUS UART NODE DRIVERS
 +M:	Ayush Singh <ayush@beagleboard.com>
 +L:	greybus-dev@lists.linaro.org (moderated for non-subscribers)
 +S:	Maintained
-+F:	drivers/greybus/gb_softsvc.rs
++F:	Documentation/devicetree/bindings/beagle/beagle,beagleconnect-freedom.yaml
 +
  GREYBUS SUBSYSTEM
  M:	Johan Hovold <johan@kernel.org>
  M:	Alex Elder <elder@kernel.org>
-diff --git a/drivers/greybus/Kconfig b/drivers/greybus/Kconfig
-index 3bf3b8691442..381d1a6ee135 100644
---- a/drivers/greybus/Kconfig
-+++ b/drivers/greybus/Kconfig
-@@ -48,5 +48,17 @@ config GREYBUS_ES2
- 	  To compile this code as a module, choose M here: the module
- 	  will be called gb-es2.ko
- 
-+config GREYBUS_SOFTSVC
-+	tristate "Greybus software SVC"
-+	depends on RUST
-+	help
-+	  Select this option to enable a software implementation of the
-+	  Greybus SVC (Supervisory Controller) running in the kernel. It can
-+	  be used by host drivers that talk to a Greybus network which does
-+	  not provide an SVC of its own.
-+
-+	  To compile this code as a module, choose M here: the module
-+	  will be called gb-softsvc.ko
-+
- endif	# GREYBUS
- 
-diff --git a/drivers/greybus/Makefile b/drivers/greybus/Makefile
-index d986e94f8897..e6f594128802 100644
---- a/drivers/greybus/Makefile
-+++ b/drivers/greybus/Makefile
-@@ -25,4 +25,6 @@ gb-es2-y := es2.o
- 
- obj-$(CONFIG_GREYBUS_ES2)	+= gb-es2.o
- 
-+obj-$(CONFIG_GREYBUS_SOFTSVC)	+= gb-softsvc.o
-+gb-softsvc-y			+= gb_softsvc.o gb_softsvc_exports.o
- 
-diff --git a/drivers/greybus/gb_softsvc.rs b/drivers/greybus/gb_softsvc.rs
-new file mode 100644
-index 000000000000..79e2752e42ba
---- /dev/null
-+++ b/drivers/greybus/gb_softsvc.rs
-@@ -0,0 +1,504 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! Greybus software SVC.
-+//!
-+//! A Greybus network needs an SVC to bring interfaces up and to connect their CPorts to the AP.
-+//! Transports that carry Greybus without one - a UART or an I2C bus rather than a UniPro network -
-+//! have to provide it themselves.
-+//!
-+//! This module implements that SVC in software.
-+
-+use kernel::{
-+    alloc::Flags,
-+    c_str,
-+    error::code,
-+    faux,
-+    greybus::{
-+        self,
-+        hd,
-+        protocols,
-+        CPORT_ID_MAX,
-+        GB_OPERATION_SIZE_MAX, //
-+    },
-+    id_pool::IdPool,
-+    new_mutex, new_spinlock,
-+    prelude::*,
-+    sync::{
-+        aref::ARef,
-+        Arc,
-+        Mutex,
-+        SpinLock, //
-+    },
-+    transmute::AsBytes,
-+};
-+use pin_init::init_array_from_fn;
-+
-+const SVC_VERSION_MAJOR: u8 = 0;
-+const SVC_VERSION_MINOR: u8 = 1;
-+
-+const ENDO_ID: u16 = 0;
-+const AP_INF_ID: u8 = 0;
-+
-+const TOSHIBA_DMID: u32 = 0x0126;
-+
-+const MAX_INTF_ID: u8 = u8::MAX;
-+const INTF_ID_START: u8 = 1;
-+const INTF_MAP_LEN: usize = (MAX_INTF_ID - INTF_ID_START) as usize;
-+
-+#[repr(C, packed)]
-+struct Msg<P> {
-+    hdr: protocols::GbOperationMsgHdr,
-+    payload: P,
-+}
-+
-+// SAFETY: `Msg` is a POD type with no padding and no interior mutability.
-+unsafe impl<P> kernel::transmute::AsBytes for Msg<P> {}
-+
-+impl<P> Msg<P> {
-+    const GB_SIZE: u16 = size_of::<Self>() as u16;
-+
-+    /// Builds a request of type `ty`.
-+    ///
-+    /// An `operation_id` of zero marks a unidirectional request, for which the AP sends no
-+    /// response.
-+    const fn request(operation_id: u16, ty: u8, payload: P) -> Self {
-+        Self {
-+            hdr: protocols::GbOperationMsgHdr::new(Self::GB_SIZE, operation_id, ty, 0),
-+            payload,
-+        }
-+    }
-+
-+    /// Builds the response to `request`, carrying `result`.
-+    const fn response(request: &protocols::GbOperationMsgHdr, result: u8, payload: P) -> Self {
-+        Self {
-+            hdr: protocols::GbOperationMsgHdr::new(
-+                Self::GB_SIZE,
-+                request.operation_id(),
-+                request.msg_type() | protocols::MESSAGE_TYPE_RESPONSE,
-+                result,
-+            ),
-+            payload,
-+        }
-+    }
-+}
-+
-+const _: () = assert!(size_of::<Msg<()>>() == size_of::<protocols::GbOperationMsgHdr>());
-+
-+module! {
-+    type: GreybusSoftSvc,
-+    name: "gb_softsvc",
-+    authors: ["Ayush Singh <ayush@beagleboard.org>"],
-+    description: "Greybus software SVC implementation",
-+    license: "GPL",
-+}
-+
-+kernel::sync::global_lock! {
-+    unsafe(uninit) static GLOBAL_STATE: Mutex<Option<GlobalState>> = None;
-+}
-+
-+struct GlobalState {
-+    svc: Arc<Svc>,
-+    gb_hd: ARef<hd::Device>,
-+}
-+
-+impl GlobalState {
-+    fn new(svc: Arc<Svc>, gb_hd: ARef<hd::Device>) -> Self {
-+        Self { svc, gb_hd }
-+    }
-+}
-+
-+#[pin_data]
-+struct Svc {
-+    #[pin]
-+    svc_operation_id: SpinLock<IdPool>,
-+    // Pos 0 = INTF_ID_START
-+    #[pin]
-+    intf_map: Mutex<[Option<Arc<dyn InterfaceOps>>; INTF_MAP_LEN]>,
-+}
-+
-+impl Svc {
-+    fn new() -> impl PinInit<Self, Error> {
-+        pin_init!(Self {
-+            intf_map <- new_mutex!(init_array_from_fn(|_| None)),
-+            svc_operation_id <- new_spinlock!(IdPool::with_capacity(u16::MAX.into(), GFP_KERNEL)?)
-+        }? Error)
-+    }
-+
-+    fn new_operation_id(&self) -> Result<u16> {
-+        let mut ida = self.svc_operation_id.lock();
-+        let res = ida.find_unused_id(1).ok_or(code::EOVERFLOW)?.acquire() as u16;
-+
-+        Ok(res)
-+    }
-+
-+    fn release_operation_id(&self, id: u16) {
-+        let mut ida = self.svc_operation_id.lock();
-+        ida.release_id(id as usize);
-+    }
-+
-+    fn map_insert(&self, intfs: &[Arc<dyn InterfaceOps>]) -> Result<u8> {
-+        fn inner(
-+            intf_map: &[Option<Arc<dyn InterfaceOps>>; INTF_MAP_LEN],
-+            count: usize,
-+        ) -> Result<u8> {
-+            for (id, window) in intf_map.windows(count).enumerate() {
-+                if window.iter().all(|x| x.is_none()) {
-+                    return Ok(id as u8);
-+                }
-+            }
-+
-+            Err(code::EOVERFLOW)
-+        }
-+
-+        let mut guard = self.intf_map.lock();
-+
-+        let pos = inner(&guard, intfs.len())?;
-+        for (i, intf) in intfs.iter().cloned().enumerate() {
-+            guard[usize::from(pos) + i] = Some(intf);
-+        }
-+
-+        Ok(pos + INTF_ID_START)
-+    }
-+
-+    fn map_remove(&self, primary_id: u8, intf_count: u8) {
-+        let id = primary_id - INTF_ID_START;
-+        let mut guard = self.intf_map.lock();
-+
-+        for i in 0..intf_count {
-+            let _ = guard[usize::from(id + i)].take();
-+        }
-+    }
-+
-+    fn intf_by_id(&self, id: u8) -> Result<Arc<dyn InterfaceOps>> {
-+        let id = id - INTF_ID_START;
-+        let guard = self.intf_map.lock();
-+
-+        guard
-+            .get(usize::from(id))
-+            .ok_or(code::ENODEV)?
-+            .as_ref()
-+            .ok_or(code::ENODEV)
-+            .cloned()
-+    }
-+
-+    fn send_request<P>(&self, hd: &hd::Device, ty: u8, payload: P) -> Result<()> {
-+        let msg = Msg::request(self.new_operation_id()?, ty, payload);
-+        hd.data_rcvd(protocols::GB_SVC_CPORT_ID, msg.as_bytes());
-+        Ok(())
-+    }
-+
-+    fn module_insert(&self, hd: &hd::Device, intfs: &[Arc<dyn InterfaceOps>]) -> Result<u8> {
-+        let intf_id = self.map_insert(intfs)?;
-+        // map_insert already checks that intf len fits in u8
-+        let intf_count = intfs.len() as u8;
-+
-+        let payload = protocols::GbSvcModuleInsertedRequest::new(intf_id, intf_count, 0);
-+        let res = self.send_request(hd, protocols::GB_SVC_TYPE_MODULE_INSERTED, payload);
-+
-+        if res.is_err() {
-+            self.map_remove(intf_id, intf_count);
-+        }
-+
-+        res.map(|()| intf_id)
-+    }
-+
-+    fn module_remove(&self, hd: &hd::Device, intf_id: u8, intf_count: u8) -> Result<()> {
-+        self.map_remove(intf_id, intf_count);
-+        let payload = protocols::GbSvcModuleRemovedRequest::new(intf_id);
-+        self.send_request(hd, protocols::GB_SVC_TYPE_MODULE_REMOVED, payload)?;
-+
-+        Ok(())
-+    }
-+
-+    fn send_version(&self, hd: &hd::Device) -> Result<()> {
-+        dev_info!(hd.as_ref(), "Sending SVC version request");
-+
-+        let payload = protocols::GbSvcVersionRequest::new(SVC_VERSION_MAJOR, SVC_VERSION_MINOR);
-+        self.send_request(hd, protocols::GB_SVC_TYPE_PROTOCOL_VERSION, payload)?;
-+
-+        Ok(())
-+    }
-+
-+    fn send_svc_hello(&self, hd: &hd::Device) -> Result<()> {
-+        dev_info!(hd.as_ref(), "Sending SVC Hello request");
-+
-+        let payload = protocols::GbSvcHelloRequest::new(ENDO_ID, AP_INF_ID);
-+        self.send_request(hd, protocols::GB_SVC_TYPE_SVC_HELLO, payload)?;
-+
-+        Ok(())
-+    }
-+
-+    fn send_response<P>(&self, hd: &hd::Device, msg: &protocols::GbOperationMsgHdr, payload: P) {
-+        let msg = Msg::response(msg, 0, payload);
-+        hd.data_rcvd(protocols::GB_SVC_CPORT_ID, msg.as_bytes());
-+    }
-+
-+    fn intf_set_pwrm(&self, hd: &hd::Device, msg: &greybus::Message) -> Result<()> {
-+        let req_msg: &protocols::GbSvcIntfSetPwrmRequest = msg.payload().ok_or(code::EINVAL)?;
-+        let result_code = if req_msg.tx_mode() == protocols::GB_SVC_UNIPRO_HIBERNATE_MODE
-+            && req_msg.rx_mode() == protocols::GB_SVC_UNIPRO_HIBERNATE_MODE
-+        {
-+            protocols::GB_SVC_SETPWRM_PWR_OK
-+        } else {
-+            protocols::GB_SVC_SETPWRM_PWR_LOCAL
-+        };
-+
-+        let payload = protocols::GbSvcIntfSetPwrmResponse::new(result_code);
-+        self.send_response(hd, msg.header(), payload);
-+
-+        Ok(())
-+    }
-+
-+    fn dme_peer_get(&self, hd: &hd::Device, hdr: &protocols::GbOperationMsgHdr) {
-+        let payload = protocols::GbSvcDmePeerGetResponse::new(0, TOSHIBA_DMID);
-+        self.send_response(hd, hdr, payload);
-+    }
-+
-+    fn dme_peer_set(&self, hd: &hd::Device, hdr: &protocols::GbOperationMsgHdr) {
-+        let payload = protocols::GbSvcDmePeerSetResponse::new(0);
-+        self.send_response(hd, hdr, payload);
-+    }
-+
-+    fn pwrmon_rail_count_get(&self, hd: &hd::Device, hdr: &protocols::GbOperationMsgHdr) {
-+        let payload = protocols::GbSvcPwrmonRailCountGetResponse::new(0);
-+        self.send_response(hd, hdr, payload);
-+    }
-+
-+    fn intf_vsys_enable_disable(&self, hd: &hd::Device, hdr: &protocols::GbOperationMsgHdr) {
-+        let payload = protocols::GbSvcIntfVsysResponse::new(protocols::GB_SVC_INTF_VSYS_OK);
-+        self.send_response(hd, hdr, payload);
-+    }
-+
-+    fn intf_refclk_enable_disable(&self, hd: &hd::Device, hdr: &protocols::GbOperationMsgHdr) {
-+        let payload = protocols::GbSvcIntfRefclkResponse::new(protocols::GB_SVC_INTF_VSYS_OK);
-+        self.send_response(hd, hdr, payload);
-+    }
-+
-+    fn intf_unipro_enable_disable(&self, hd: &hd::Device, hdr: &protocols::GbOperationMsgHdr) {
-+        let payload = protocols::GbSvcIntfUniproResponse::new(protocols::GB_SVC_INTF_UNIPRO_OK);
-+        self.send_response(hd, hdr, payload);
-+    }
-+
-+    fn intf_activate(&self, hd: &hd::Device, msg: &greybus::Message) {
-+        let payload = protocols::GbSvcIntfActivateResponse::new(
-+            protocols::GB_SVC_OP_SUCCESS,
-+            protocols::GB_SVC_INTF_TYPE_GREYBUS,
-+        );
-+
-+        // TODO: Maybe call a callback?
-+
-+        self.send_response(hd, msg.header(), payload);
-+    }
-+
-+    fn intf_resume(&self, hd: &hd::Device, msg: &greybus::Message) {
-+        let payload = protocols::GbSvcIntfResumeResponse::new(protocols::GB_SVC_OP_SUCCESS);
-+
-+        // TODO: Maybe call a callback?
-+
-+        self.send_response(hd, msg.header(), payload);
-+    }
-+
-+    fn conn_create(&self, hd: &hd::Device, msg: &greybus::Message) -> Result<()> {
-+        // TODO: Evaluate if we need to add callback to NodeOps
-+        self.send_response(hd, msg.header(), ());
-+
-+        Ok(())
-+    }
-+
-+    fn conn_destroy(&self, hd: &hd::Device, msg: &greybus::Message) -> Result<()> {
-+        // TODO: Evaluate if we need to add callback to NodeOps
-+        self.send_response(hd, msg.header(), ());
-+
-+        Ok(())
-+    }
-+
-+    fn handler(&self, msg: &greybus::Message) -> Result<()> {
-+        let hdr = msg.header();
-+        let hd = msg.operation().connection().host_device();
-+
-+        if hdr.is_response() {
-+            self.release_operation_id(hdr.operation_id());
-+        }
-+
-+        match (hdr.is_response(), hdr.request_type()) {
-+            (
-+                false,
-+                protocols::GB_SVC_TYPE_INTF_DEVICE_ID
-+                | protocols::GB_SVC_TYPE_ROUTE_CREATE
-+                | protocols::GB_SVC_TYPE_ROUTE_DESTROY
-+                | protocols::GB_SVC_TYPE_PING,
-+            ) => self.send_response(hd, hdr, ()),
-+            (false, protocols::GB_SVC_TYPE_CONN_CREATE) => self.conn_create(hd, msg)?,
-+            (false, protocols::GB_SVC_TYPE_CONN_DESTROY) => self.conn_destroy(hd, msg)?,
-+            (false, protocols::GB_SVC_TYPE_DME_PEER_GET) => self.dme_peer_get(hd, hdr),
-+            (false, protocols::GB_SVC_TYPE_DME_PEER_SET) => self.dme_peer_set(hd, hdr),
-+            (false, protocols::GB_SVC_TYPE_INTF_SET_PWRM) => self.intf_set_pwrm(hd, msg)?,
-+            (false, protocols::GB_SVC_TYPE_PWRMON_RAIL_COUNT_GET) => {
-+                self.pwrmon_rail_count_get(hd, hdr)
-+            }
-+            (
-+                false,
-+                protocols::GB_SVC_TYPE_INTF_VSYS_ENABLE | protocols::GB_SVC_TYPE_INTF_VSYS_DISABLE,
-+            ) => self.intf_vsys_enable_disable(hd, hdr),
-+            (
-+                false,
-+                protocols::GB_SVC_TYPE_INTF_REFCLK_ENABLE
-+                | protocols::GB_SVC_TYPE_INTF_REFCLK_DISABLE,
-+            ) => self.intf_refclk_enable_disable(hd, hdr),
-+            (
-+                false,
-+                protocols::GB_SVC_TYPE_INTF_UNIPRO_ENABLE
-+                | protocols::GB_SVC_TYPE_INTF_UNIPRO_DISABLE,
-+            ) => self.intf_unipro_enable_disable(hd, hdr),
-+            (false, protocols::GB_SVC_TYPE_INTF_ACTIVATE) => self.intf_activate(hd, msg),
-+            (false, protocols::GB_SVC_TYPE_INTF_RESUME) => self.intf_resume(hd, msg),
-+            (true, protocols::GB_SVC_TYPE_PROTOCOL_VERSION) => self.send_svc_hello(hd)?,
-+            (
-+                true,
-+                protocols::GB_SVC_TYPE_MODULE_INSERTED
-+                | protocols::GB_SVC_TYPE_SVC_HELLO
-+                | protocols::GB_SVC_TYPE_MODULE_REMOVED,
-+            ) => {}
-+            _ => return Err(code::ENOTSUPP),
-+        };
-+
-+        Ok(())
-+    }
-+}
-+
-+struct GbHdDriver(Arc<Svc>);
-+
-+#[vtable]
-+impl hd::HdDriver for GbHdDriver {
-+    fn message_send(
-+        data: &Self,
-+        dest_cport_id: u16,
-+        msg: &greybus::Message,
-+        gfp_mask: Flags,
-+    ) -> Result {
-+        if dest_cport_id == protocols::GB_SVC_CPORT_ID {
-+            data.0.handler(msg)
-+        } else {
-+            let conn = msg.operation().connection();
-+            let intf = data.0.intf_by_id(conn.interface().unwrap().id())?;
-+
-+            let mut buf = KVec::with_capacity(msg.header().size().into(), gfp_mask)?;
-+
-+            buf.extend_from_slice(msg.header().as_bytes(), gfp_mask)?;
-+            buf.extend_from_slice(msg.payload_bytes(), gfp_mask)?;
-+
-+            intf.write(&buf, conn.intf_cport_id(), gfp_mask)
-+        }
-+    }
-+
-+    fn message_cancel(_msg: &greybus::Message) {}
-+}
-+
-+struct GreybusSoftSvc {
-+    _hd: hd::Registration<GbHdDriver>,
-+    _faux: faux::Registration,
-+}
-+
-+impl kernel::Module for GreybusSoftSvc {
-+    fn init(_module: &'static ThisModule) -> Result<Self> {
-+        pr_info!("gb_softsvc (init)\n");
-+
-+        // SAFETY: This runs once at module init, before anything else can reach `GLOBAL_STATE`.
-+        unsafe { GLOBAL_STATE.init() };
-+
-+        let faux = faux::Registration::new(c_str!("gb-softsvc"), None)?;
-+        let svc = Arc::pin_init(Svc::new(), GFP_KERNEL)?;
-+        let data = GbHdDriver(svc.clone());
-+
-+        let dev = faux.as_ref().as_ref();
-+        let hd = hd::Registration::new(dev, GB_OPERATION_SIZE_MAX, CPORT_ID_MAX + 1, Ok(data))?;
-+
-+        svc.send_version(hd.as_ref())?;
-+
-+        let global_state = GlobalState::new(svc.clone(), hd.as_ref().into());
-+        let _ = GLOBAL_STATE.lock().replace(global_state);
-+
-+        Ok(GreybusSoftSvc {
-+            _hd: hd,
-+            _faux: faux,
-+        })
-+    }
-+}
-+
-+impl Drop for GreybusSoftSvc {
-+    fn drop(&mut self) {
-+        let _ = GLOBAL_STATE.lock().take();
-+        pr_info!("gb_softsvc (exit)\n");
-+    }
-+}
-+
-+/// The operations a Greybus interface provides.
-+///
-+/// A node is whatever sits behind an interface — a real transport, an in-kernel emulation, or
-+/// anything else that can accept Greybus traffic. This module does not care which.
-+pub trait InterfaceOps: Send + Sync {
-+    /// Delivers `data` to the node's `cport`.
-+    fn write(&self, data: &[u8], cport: u16, gfp_mask: Flags) -> Result<()>;
-+}
-+
-+/// A module attached to the Greybus network.
-+pub struct Module {
-+    id: u8,
-+    intf_count: u8,
-+    gb_hd: ARef<hd::Device>,
-+    svc: Arc<Svc>,
-+}
-+
-+impl Module {
-+    /// Attaches `node` as a new module and returns the interface id assigned to it.
-+    pub fn new(intfs: &[Arc<dyn InterfaceOps>]) -> Result<Self> {
-+        let Ok(intf_count) = u8::try_from(intfs.len()) else {
-+            return Err(code::E2BIG);
-+        };
-+
-+        if intf_count == 0 {
-+            return Err(code::EINVAL);
-+        }
-+
-+        let guard = GLOBAL_STATE.lock();
-+        let state = guard.as_ref().ok_or(code::EAGAIN)?;
-+        let id = state.svc.module_insert(&state.gb_hd, intfs)?;
-+
-+        Ok(Self {
-+            id,
-+            intf_count,
-+            gb_hd: state.gb_hd.clone(),
-+            svc: state.svc.clone(),
-+        })
-+    }
-+
-+    /// Delivers `msg`, received from interface `id` on its `cport`, to the Greybus core.
-+    ///
-+    /// `intf_id_rel` is the id relative to the actual interface. Eq, if an Module has 3 interfaces
-+    /// then the relative id will be 0 or 1 or 2
-+    /// `cport` is the interface-side CPort id.
-+    ///
-+    /// Fails with `EINVAL` if no connection is bound to that pair, or `EAGAIN` if the
-+    /// host device has not been brought up yet.
-+    pub fn submit_message(&self, intf_id_rel: u8, cport: u16, msg: &[u8]) -> Result<()> {
-+        if intf_id_rel >= self.intf_count {
-+            return Err(code::EINVAL);
-+        }
-+
-+        let intf = self
-+            .gb_hd
-+            .find_connection_by_intf(self.id + intf_id_rel, cport)
-+            .ok_or(code::EINVAL)?;
-+        self.gb_hd.data_rcvd(intf.hd_cport_id(), msg);
-+
-+        Ok(())
-+    }
-+}
-+
-+impl Drop for Module {
-+    fn drop(&mut self) {
-+        let _ = self
-+            .svc
-+            .module_remove(&self.gb_hd, self.id, self.intf_count);
-+    }
-+}
-diff --git a/drivers/greybus/gb_softsvc_exports.c b/drivers/greybus/gb_softsvc_exports.c
-new file mode 100644
-index 000000000000..a0e360c4d137
---- /dev/null
-+++ b/drivers/greybus/gb_softsvc_exports.c
-@@ -0,0 +1,15 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// SPDX-FileCopyrightText: Copyright (c) 2026 BeagleBoard.org. All rights reserved.
-+
-+/*
-+ * Exports Rust symbols from the `gb_softsvc` crate for use by dependent modules.
-+ *
-+ * This is a workaround until the build system supports Rust cross-module
-+ * dependencies natively.
-+ */
-+
-+#include <linux/export.h>
-+
-+#define EXPORT_SYMBOL_RUST_GPL(sym) extern int sym; EXPORT_SYMBOL_GPL(sym)
-+
-+#include "exports_gb_softsvc_generated.h"
 
 -- 
 2.55.0
