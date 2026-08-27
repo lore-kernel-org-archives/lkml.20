@@ -1,100 +1,217 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7050E29B79B
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 04:11:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC41B37B007
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 04:16:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787803876; cv=none; b=S1kIxzyRAy6i7rj6RV8YTmBLuSGsJNrEgy/xTeGJ0/JTIT+bj6HDzu6X8kl/0Vnh3fbypJNex8sY28fSW+3HOFn5lvDqGKKbm/3N2dCMQPZf+9ZujO3BfugQwloJwyEvel8Ne7mLUgqTvsrE0qVg1+HY1c4/gyJmNIV8tw54U6A=
+	t=1787804168; cv=none; b=V56EvlF8OlImcwE5Dwcz7DCvHW7tY94UcQiIPYibpLsFwaPl+HvvqKE/sCsPsXYoeDMEw00YjvphB41SP+w3Sdgk+0HmVqLquh+o7jyEjaL9pkMLKbIP3MQBAf3ph83RCzKToDXvWR6uYZ2dvHoynMat1FFJZD395JaHmzkyGbI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787803876; c=relaxed/simple;
-	bh=cL9x6Pd5g4ypYhwSfC1QHJU86Y71iXecsHAlMHgRVOI=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=RVOD6sgpndDs7DEmfpjp4pR8tbqcQs4yKUJb9xzW8tLWzTGeJdcxN9TKJDSOnJ4JqX85KZeTyOTEtzd2CTVNf2/yqfbZlJdEgxbl7bjy48xaw2AHotDhDYJOOJab33Dgt1YU5GgVtHZyivJiUrujwMdx3Ajom2LraDiGFbZ6HDk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=Az50jHWP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787804168; c=relaxed/simple;
+	bh=UWzUvtID8syz4sGuom2ZigoVHQiCo7GCx8hU0w977u8=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 Cc:Content-Type; b=frq64dsqdPVc5z5XxJjpY1w5NFCgUZI+3ab5o47PAqiqGDr0jWGQnA1oi629cq5MU2catbx+WuTIhBwTA12rbq1plNc4zIayZHRO3R34NNeCiURYJ8mqmU0wW9dX2NT/cgSrMS+CPws+63p3Kmu2JyrnACcXUh+NyvDEpXGAMa0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=kqBgjLoc; arc=none smtp.client-ip=209.85.214.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="Az50jHWP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C67651F000E9;
-	Thu, 27 Aug 2026 04:11:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="kqBgjLoc"
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2cfe48ca1efso26782955ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:16:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1787803875;
-	bh=TckfMnyGR0QCFTyUeCahI52REXoUQAOwubXzvRhQ4gs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Az50jHWPmNGAf+1eO7jEzdxff10EYwWZxfaDfuitiEb0pKgsZOnu0iaj75hCSubdL
-	 M8Fcal1LsD+PvuTbl4EzeY/baHFhuZu+rLA6Q8AV27gD36tgxJB1PGrRFo3FqD5ejI
-	 isGkPvnqImF+bW1v8iRHmb3peI81x0Xs2H1qDgXs=
-Date: Wed, 26 Aug 2026 21:11:14 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Daehyeon Ko <4ncienth@gmail.com>
-Cc: Christian Brauner <brauner@kernel.org>, Al Viro
- <viro@zeniv.linux.org.uk>, NeilBrown <neil@brown.name>, Manfred Spraul
- <manfred@colorfullife.com>, Jan Kara <jack@suse.cz>,
- linux-kernel@vger.kernel.org, Davidlohr Bueso <dave@stgolabs.net>
-Subject: Re: [PATCH] ipc/mqueue: release notification resources during inode
- eviction
-Message-Id: <20260826211114.69f01811929877dc73f41914@linux-foundation.org>
-In-Reply-To: <20260824042359.925145-1-4ncienth@gmail.com>
-References: <20260824042359.925145-1-4ncienth@gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=google.com; s=20251104; t=1787804166; x=1788408966; darn=vger.kernel.org;
+        h=content-type:cc:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RYByO2UIdNlghf6qo3FWAyAUG9bYH3XbqKc7jalZmSU=;
+        b=kqBgjLocOeSrkxMe6lcBL2pLLB5ksuG3zg8ZU9SMOeIViFWBQdUGmSgmp+4vt+nZE9
+         SRSJBemGWV2/CJjnL2pVtP/p9BjAOT6n1mayovLUoOiLI4mTUSvTzWGeZZaM69qgMsKp
+         XwQv4ZuGAiZzUIkGhEzj10iKuJVuXaaoIN8vN1ARhrOvLey1W/zYU4iRRqDEJm06aHHB
+         sZljLGfzg35gAimFSKtL768/1qLsrk1VWKki21ZvEOGEQxSLVITzTmJkg4cxZckQHZc1
+         StXWgSiUO8gVYkRxrrfzKBHKBbCFgeIhAG/sljj2iHY/4lYS/Zaa3mCiGSdODiQTsqUQ
+         l0IA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787804166; x=1788408966;
+        h=content-type:cc:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RYByO2UIdNlghf6qo3FWAyAUG9bYH3XbqKc7jalZmSU=;
+        b=Gj0tkDypOmRE3kH+Y50tpuwyHpmLL72dv17tIjnZ6CWbf3YI1gGygoZviuh8o4ZXs5
+         zPPPiB5OiqYwbJFCUNypWmvkCWKgAZgyAL9/zOI37CNbIhvebIFUUlsnK1FL9l64E6ZF
+         3tUQ8Td2iyhp7vjpabeOFTqg7P8dy54XHf8RfMzXUCNyHwueSg5JwNxVDsBe5sxjqBws
+         t1grqGOI9TnBMZ4T2UsSsFcn9Fl3KYbkpOY7UvQBOepbjyxKdTkDCfh512ehZfIFqwyD
+         fBoFoVQeKRPH3fB+84Cved5XPqPljDoMr1JM2qp4plxoZl6mstCMsdpOnG7nRN9SnvQQ
+         nl4A==
+X-Forwarded-Encrypted: i=1; AHgh+RqsTxhIPjza/OFoapQf8S2JD5Jd9TwerDdgrFFx1wsuJkVe3ItYgION0B+okEUxRMTKWNwVP1uzrYMsrZA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kET3xaSJHYV+oR2K1cobnyX85XkIAaPxfXk5vhFYuedJRTEBIZ
+	SV4mJNRPlulyIT0Er8Yo7GIHRLuh+PluyWeLQS1yi99FnYWs4TJlagP9FsHoC40aJpIoG2FAwi7
+	r
+X-Received: from plok12.prod.google.com ([2002:a17:903:3bcc:b0:2cc:97d3:e244])
+ (user=morbo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:2c03:b0:2ca:e19c:97b
+ with SMTP id d9443c01a7336-2d707a3f857mr189197875ad.5.1787804165952; Wed, 26
+ Aug 2026 21:16:05 -0700 (PDT)
+Date: Thu, 27 Aug 2026 04:15:56 +0000
+In-Reply-To: <20260827041601.187608-1-morbo@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20260810204118.1981755-1-morbo@google.com> <20260827041601.187608-1-morbo@google.com>
+X-Mailer: git-send-email 2.55.0.897.gb25b4bd76c-goog
+Message-ID: <20260827041601.187608-2-morbo@google.com>
+Subject: [PATCH 2/2] vfs: Add KUnit tests for fdtable
+From: Bill Wendling <morbo@google.com>
+Cc: Bill Wendling <morbo@google.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, codemender-patching+linux@google.com, 
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	linux-hardening@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 24 Aug 2026 13:23:59 +0900 Daehyeon Ko <4ncienth@gmail.com> wrote:
+This adds a KUnit test suite for fdtable to verify correct allocation,
+max_fds initialization, and dynamic object size of the fd array under
+__counted_by_ptr when CONFIG_CC_HAS_COUNTED_BY_PTR is enabled.
 
-> mqueue_flush_file() removes an mq_notify() registration only when the
-> closing task belongs to the thread group stored in notify_owner.
-> 
-> A task in a separate thread group created with CLONE_FILES can register
-> SIGEV_THREAD notification and exit without closing the shared file table.
-> If another thread group then unlinks and last-closes the queue, ->flush()
-> skips the registration and inode eviction loses the only pointers to its
-> resources.
-> 
-> The orphaned registration permanently retains the notification skb, its
-> netlink socket, a pid reference and a user namespace reference. An
-> unprivileged process can repeat the sequence with new queues and sockets.
-> 
-> No inode users remain during eviction. Remove any stale registration there
-> after dropping info->lock, since netlink_sendskb() may release the final
-> socket reference.
+Assisted-by: Gemini:3.1-pro-preview
+Signed-off-by: Bill Wendling <morbo@google.com>
+---
+v2 - Added 'test_dup_fd' testcase for separate allocation path.
+---
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: Jan Kara <jack@suse.cz>
+Cc: Kees Cook <kees@kernel.org>
+Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Cc: codemender-patching+linux@google.com
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-fsdevel@vger.kernel.org
+Cc: linux-hardening@vger.kernel.org
+---
+ fs/Kconfig               |  8 +++++
+ fs/file.c                |  4 +++
+ fs/tests/.kunitconfig    |  2 ++
+ fs/tests/fdtable_kunit.c | 72 ++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 86 insertions(+)
+ create mode 100644 fs/tests/.kunitconfig
+ create mode 100644 fs/tests/fdtable_kunit.c
 
-Thanks.
-
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-
-Pity the poor -stable maintainers (and others downstream from them)
-wondering "why was I sent this".
-
-To answer this, please, in all bugfix changelogs, provide a concise
-description of the userspace-visible runtime effects of the bug.
-
-I asked Gemini that exact question and was told
-
-  This bug creates an unkillable kernel resource leak by failing to
-  free netlink socket, PID, and user namespace references when a POSIX
-  message queue is evicted.  An unprivileged process can exploit this
-  leak repeatedly to cause kernel memory exhaustion and lead to a
-  Denial of Service (DoS).
-
-which I'll paste into the changelog.
-
-> Assisted-by: LLM
-
-OK ;)
-
-> A reproducer and regression selftest are available on request.
-> 
-> Tested on x86_64 KASAN at the stated base. The unpatched oracle reproduced
-> 3/3 and the patched oracle passed 3/3, with no KASAN report, WARNING splat,
-> Oops or panic.
-
-Useful info, thanks for including.
-
+diff --git a/fs/Kconfig b/fs/Kconfig
+index e05917adcd60..05b63f7506a7 100644
+--- a/fs/Kconfig
++++ b/fs/Kconfig
+@@ -421,4 +421,12 @@ source "fs/unicode/Kconfig"
+ config IO_WQ
+ 	bool
+ 
++config FDTABLE_KUNIT_TEST
++	bool "KUnit test for fdtable" if !KUNIT_ALL_TESTS
++	depends on KUNIT=y
++	default KUNIT_ALL_TESTS
++	help
++	  This builds the fdtable KUnit tests, which tests various aspects
++	  of the fdtable structure and allocation.
++
+ endmenu
+diff --git a/fs/file.c b/fs/file.c
+index 628ca07dc4b1..9c7001b901cf 100644
+--- a/fs/file.c
++++ b/fs/file.c
+@@ -1529,3 +1529,7 @@ int iterate_fd(struct files_struct *files, unsigned n,
+ 	return res;
+ }
+ EXPORT_SYMBOL(iterate_fd);
++
++#ifdef CONFIG_FDTABLE_KUNIT_TEST
++#include "tests/fdtable_kunit.c"
++#endif
+diff --git a/fs/tests/.kunitconfig b/fs/tests/.kunitconfig
+new file mode 100644
+index 000000000000..de67125a9421
+--- /dev/null
++++ b/fs/tests/.kunitconfig
+@@ -0,0 +1,2 @@
++CONFIG_KUNIT=y
++CONFIG_FDTABLE_KUNIT_TEST=y
+diff --git a/fs/tests/fdtable_kunit.c b/fs/tests/fdtable_kunit.c
+new file mode 100644
+index 000000000000..6abd2a8d8f5d
+--- /dev/null
++++ b/fs/tests/fdtable_kunit.c
+@@ -0,0 +1,72 @@
++// SPDX-License-Identifier: GPL-2.0-only
++#include <kunit/test.h>
++#include <linux/fdtable.h>
++#include <linux/file.h>
++
++static void test_alloc_fdtable(struct kunit *test)
++{
++	struct fdtable *fdt;
++	unsigned int slots = 64;
++
++	fdt = alloc_fdtable(slots);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, fdt);
++
++	/* Check that max_fds is set correctly and is >= slots */
++	KUNIT_EXPECT_GE(test, fdt->max_fds, slots);
++
++	/* Check that fd is allocated */
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, fdt->fd);
++
++	/*
++	 * Check dynamic object size of fdt->fd if compiler supports
++	 * __counted_by_ptr.
++	 */
++#ifdef CONFIG_CC_HAS_COUNTED_BY_PTR
++	KUNIT_EXPECT_EQ(test, __builtin_dynamic_object_size(fdt->fd, 0),
++			fdt->max_fds * sizeof(struct file *));
++#endif
++
++	__free_fdtable(fdt);
++}
++
++static void test_dup_fd(struct kunit *test)
++{
++	struct files_struct *newf;
++	struct fdtable *fdt;
++
++	newf = dup_fd(&init_files, NULL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, newf);
++
++	fdt = rcu_dereference_raw(newf->fdt);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, fdt);
++
++	/* Check that max_fds is set correctly and is >= NR_OPEN_DEFAULT */
++	KUNIT_EXPECT_GE(test, fdt->max_fds, NR_OPEN_DEFAULT);
++
++	/* Check that fd is allocated */
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, fdt->fd);
++
++	/*
++	 * Check dynamic object size of fdt->fd if compiler supports
++	 * __counted_by_ptr.
++	 */
++#ifdef CONFIG_CC_HAS_COUNTED_BY_PTR
++	KUNIT_EXPECT_EQ(test, __builtin_dynamic_object_size(fdt->fd, 0),
++			fdt->max_fds * sizeof(struct file *));
++#endif
++
++	put_files_struct(newf);
++}
++
++static struct kunit_case fdtable_test_cases[] = {
++	KUNIT_CASE(test_alloc_fdtable),
++	KUNIT_CASE(test_dup_fd),
++	{}
++};
++
++static struct kunit_suite fdtable_test_suite = {
++	.name = "fdtable",
++	.test_cases = fdtable_test_cases,
++};
++
++kunit_test_suite(fdtable_test_suite);
+-- 
+2.55.0.897.gb25b4bd76c-goog
 
