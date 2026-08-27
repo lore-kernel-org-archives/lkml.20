@@ -1,155 +1,279 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 544C6455182;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2747D3CDBA5;
 	Thu, 27 Aug 2026 12:56:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787835418; cv=none; b=FD+6zs+0v29NvR7nULuXRTsn+vZozV9ptivGgoi+ooJI6Ci+W7+LO0AYxoLxzEvyt7m9H1cRF6mSpp1oECggYB4sccJzUpgEsiMvSVeJ+f5IYU3oeieglmIaRyuivTM/3IANUJhqNxYFS7eMLONBY9SUQj64GlUVRbA4vmSz1oo=
+	t=1787835421; cv=none; b=LjiUoEZSCQNBLaet0Et5VMfDU3EDnGi87YLBtDXOcsiWMp/WFNsF+KY1TeQwwsC2uZraNvuN1zdaKlAH621QYkEg51EsofTae+rnK38t5DSIxu5GBq1FvpEnHu1xsN7vnXmlEY6QloCNetmI1nF3/LEhk5dbm2GG5M+rsL+YQT0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787835418; c=relaxed/simple;
-	bh=PgvSykzIwy9uc/lVtTS5okw21TByEUZjdTjgC0Jiss8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C0Lo5IHG9wY/IcIlybSWlmsB8bTkQbdAUDkH7TklptF6SeFe9+a5R63KKiv8FkbcZaLPc2+7OB2D+fjac8uprSEnaZR7MuHZd8VR6z704BmtEN5LbMeLaMxYFRkjZm+SedXAfZk26bdMMFxNoiHvqqBJANIQCHMMxoNVIAI0Lxg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EqdhRjO6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787835421; c=relaxed/simple;
+	bh=9IqA/KbzrccCn+tjh1EsdNv1HQohQzfg+FPvlG9E4JQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=E8RpqpqcgmIJso+y3QspkZkw8e7CjYCrpz0HU88iQ6RXIP2QPcCo6hu8IBdsZDpCldP/kh0YtxPXvYaew09PHGtEcTFLrVaYiKPKqRKnfoD4SmLDJE//MyRIZ3ikD+/WuL+yT0qGHELwx7EJ3GoOcrWcgd1NExOAfiivXryPM6c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=DA0qP1e1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EqdhRjO6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 139751F00AC4;
-	Thu, 27 Aug 2026 12:56:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787835401;
-	bh=84D7JGfn3OSGzXIWSGTcG//xl0whJ+rapCqk+y7kxGM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EqdhRjO69TFsGv7z/qz2fyi5pLykZxzEtoKo0V+rVh/cnSQIBfdBnPXXribWkEPs0
-	 EkPCCscmhMTXOUmeMn1BllS3Q3CL728VtQKsOw2bemkg62e0f+I128SIZ6Vb1JgxT6
-	 XehR/1K2kCTwSRsrxSjqt7Z2gkJSfQMBtIzy5NUheyhMTI2WAmUBkTDN7VWXDZ/LkO
-	 jcpwp3EjrvygKkh7q94ZzeHRtZJQjuFZfSOLF9BQsMjE8wNpSC8N5w1yYzDP+zFqeU
-	 5+O6y6huLTq+ENkzXOy3w3ecJM04r08p4KOyRS2bEpnNA/GvhjEQV0F+3o/l7SEEue
-	 u3Vtvq2qPkP+A==
-Date: Thu, 27 Aug 2026 13:56:35 +0100
-From: Will Deacon <will@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	linux-arm-kernel@lists.infradead.org, Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Mark Brown <broonie@kernel.org>, kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Fuad Tabba <tabba@google.com>
-Subject: Re: [PATCH v4 2/2] arm64: Don't read GMID_EL1 when MTE is disabled
-Message-ID: <apA0A-bqLVBcmdSv@willie-the-truck>
-References: <20260825164219.3347229-1-fuad.tabba@linux.dev>
- <20260825164219.3347229-3-fuad.tabba@linux.dev>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="DA0qP1e1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9FD41F00A3D;
+	Thu, 27 Aug 2026 12:56:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1787835400;
+	bh=oyXsisxI2IP3mGw0SesI3sSruwukyrRVN0SIIaC4C/A=;
+	h=From:To:Cc:Subject:Date;
+	b=DA0qP1e1oGJHSycQOgmhXewS/Qv9Qc56oyP4p7cENTYEn17c/kR03GVNF4axn8Bil
+	 gs4Avi7i34uRIiz7eRyxxJwgqfG9Fx7xLhAWQ1W1e+QTenBhT3pl+BjFGYGE5SEpyh
+	 47qxrKQGuDQw/0onFKbGgqcpWAIi5jNThIp3s6UI=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: linux-kernel@vger.kernel.org,
+	akpm@linux-foundation.org,
+	torvalds@linux-foundation.org,
+	stable@vger.kernel.org
+Cc: lwn@lwn.net,
+	jslaby@suse.cz,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Linux 5.10.267
+Date: Thu, 27 Aug 2026 14:56:36 +0200
+Message-ID: <2026082737-chaos-crabbing-187d@gregkh>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260825164219.3347229-3-fuad.tabba@linux.dev>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Aug 25, 2026 at 05:42:19PM +0100, Fuad Tabba wrote:
-> __cpuinfo_store_cpu() gates the GMID_EL1 read on the raw
-> ID_AA64PFR1_EL1, so it reads the register even when the kernel has
-> disabled MTE (CONFIG_ARM64_MTE=n or arm64.nomte). KVM sets HCR_EL2.TID5
-> in that case, and pKVM injects an UNDEF the host cannot handle:
-> 
->   Internal error: Oops - Undefined instruction: 0000000002000000 [#1]  SMP
->   pc : __cpuinfo_store_cpu+0xf4/0x264
->   Kernel panic - not syncing: Attempted to kill the idle task!
-> 
-> Only pKVM reaches it, and only after a CPU is offlined and brought back
-> online: its CPU_ON relay sets the host HCR before the CPU enters EL1,
-> while plain nVHE sets it at CPUHP_AP_KVM_ONLINE.
-> 
-> Gate the read on __read_sysreg_by_encoding(), which applies the cmdline
-> override, and on CONFIG_ARM64_MTE, which no register reflects.
-> 
-> Fixes: f35abcbb8a084 ("KVM: arm64: Trap MTE access and discovery when MTE is disabled")
-> Cc: stable@vger.kernel.org # needs "arm64: Apply overrides to CPU local capabilities"
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-> ---
->  arch/arm64/include/asm/cpufeature.h | 9 +++++++++
->  arch/arm64/kernel/cpufeature.c      | 6 ++----
->  arch/arm64/kernel/cpuinfo.c         | 2 +-
->  3 files changed, 12 insertions(+), 5 deletions(-)
-> 
-> diff --git a/arch/arm64/include/asm/cpufeature.h b/arch/arm64/include/asm/cpufeature.h
-> index a57870fa96db5..0b374e938f708 100644
-> --- a/arch/arm64/include/asm/cpufeature.h
-> +++ b/arch/arm64/include/asm/cpufeature.h
-> @@ -1085,6 +1085,15 @@ static inline bool cpu_has_lpa2(void)
->  #endif
->  }
->  
-> +/* No ID register reflects CONFIG_ARM64_MTE. */
-> +static inline bool gmid_el1_accessible(void)
-> +{
-> +	if (!IS_ENABLED(CONFIG_ARM64_MTE))
-> +		return false;
-> +
-> +	return id_aa64pfr1_mte(__read_sysreg_by_encoding(SYS_ID_AA64PFR1_EL1));
+I'm announcing the release of the 5.10.267 kernel.
 
-I'm planning to internalise __read_sysreg_by_encoding() into cpufeature.c
-so I'd prefer to avoid adding another user of it, if possible. In this case,
-__cpuinfo_store_cpu() has already read the thing, so all it needs is the
-override logic (but see below).
+All users of the 5.10 kernel series must upgrade.
 
-> +}
-> +
->  #endif /* __ASSEMBLER__ */
->  
->  #endif
-> diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
-> index 88b15b5ef2f7f..23f174b3c4e26 100644
-> --- a/arch/arm64/kernel/cpufeature.c
-> +++ b/arch/arm64/kernel/cpufeature.c
-> @@ -1228,7 +1228,7 @@ void __init init_cpu_features(struct cpuinfo_arm64 *info)
->  		init_cpu_ftr_reg(SYS_MPAMIDR_EL1, info->reg_mpamidr);
->  	}
->  
-> -	if (id_aa64pfr1_mte(info->reg_id_aa64pfr1))
-> +	if (gmid_el1_accessible())
->  		init_cpu_ftr_reg(SYS_GMID_EL1, info->reg_gmid);
->  }
->  
-> @@ -1523,11 +1523,9 @@ void update_cpu_features(int cpu,
->  	 * they read/write depends on the GMID_EL1.BS field. Check that the
->  	 * value is the same on all CPUs.
->  	 */
-> -	if (IS_ENABLED(CONFIG_ARM64_MTE) &&
-> -	    id_aa64pfr1_mte(info->reg_id_aa64pfr1)) {
-> +	if (gmid_el1_accessible())
->  		taint |= check_update_ftr_reg(SYS_GMID_EL1, cpu,
->  					      info->reg_gmid, boot->reg_gmid);
-> -	}
->  
->  	/*
->  	 * If we don't have AArch32 at all then skip the checks entirely
-> diff --git a/arch/arm64/kernel/cpuinfo.c b/arch/arm64/kernel/cpuinfo.c
-> index d50e2a9b066b3..389fca84f106b 100644
-> --- a/arch/arm64/kernel/cpuinfo.c
-> +++ b/arch/arm64/kernel/cpuinfo.c
-> @@ -502,7 +502,7 @@ static void __cpuinfo_store_cpu(struct cpuinfo_arm64 *info)
->  	info->reg_id_aa64smfr0 = read_cpuid(ID_AA64SMFR0_EL1);
->  	info->reg_id_aa64fpfr0 = read_cpuid(ID_AA64FPFR0_EL1);
->  
-> -	if (id_aa64pfr1_mte(info->reg_id_aa64pfr1))
-> +	if (gmid_el1_accessible())
->  		info->reg_gmid = read_cpuid(GMID_EL1);
+The updated 5.10.y git tree can be found at:
+	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git linux-5.10.y
+and can be browsed at the normal kernel.org git web browser:
+	https://git.kernel.org/?p=linux/kernel/git/stable/linux-stable.git;a=summary
 
-I'm not sure this is safe. For the boot CPU, __cpuinfo_store_cpu() is
-called before init_cpu_features(), so the arm64_ftr_regs[] array hasn't
-been sorted and we can't call get_arm64_ftr_reg() reliably. In fact, it
-doesn't even look like the overrides will have been processed.
+thanks,
 
-So we're in a bit of a chicken-and-egg problem here. Perhaps we need an
-early (__init) function that can apply the override manually to the
-value read from hardware using arm64_ftr_safe_value(). You'll probably
-need something like my old hack [1] to avoid the bsearch though :/
+greg k-h
 
-Will
+------------
 
-[1] https://lore.kernel.org/all/20230110161651.GB9436@willie-the-truck/
+ Makefile                                       |    2 
+ arch/arm64/kvm/mmu.c                           |   42 +--
+ drivers/gpio/gpio-ml-ioh.c                     |   36 +-
+ drivers/hid/hid-core.c                         |   11 
+ drivers/hid/hid-hyperv.c                       |   27 +-
+ drivers/hid/hid-magicmouse.c                   |   16 +
+ drivers/hid/hid-sensor-custom.c                |   17 -
+ drivers/input/misc/ims-pcu.c                   |    2 
+ drivers/misc/fastrpc.c                         |  110 +++++---
+ drivers/net/can/dev/dev.c                      |    2 
+ drivers/net/can/slcan.c                        |    1 
+ drivers/net/ntb_netdev.c                       |   15 -
+ drivers/net/usb/rndis_host.c                   |    6 
+ drivers/nfc/fdp/i2c.c                          |   27 ++
+ drivers/nfc/microread/microread.c              |   31 ++
+ drivers/nfc/pn533/pn533.c                      |    1 
+ drivers/nfc/st21nfca/dep.c                     |    3 
+ drivers/nvme/target/fc.c                       |    2 
+ drivers/nvme/target/tcp.c                      |    5 
+ drivers/s390/cio/vfio_ccw_cp.c                 |   22 +
+ drivers/s390/cio/vfio_ccw_drv.c                |    7 
+ drivers/s390/cio/vfio_ccw_ops.c                |    8 
+ drivers/staging/rtl8723bs/core/rtw_wlan_util.c |    3 
+ drivers/tty/serial/amba-pl011.c                |    8 
+ fs/ext4/xattr.c                                |    7 
+ fs/iomap/buffered-io.c                         |   19 +
+ fs/ocfs2/xattr.c                               |   18 -
+ fs/xfs/libxfs/xfs_attr_leaf.c                  |   14 +
+ fs/xfs/xfs_buf_item_recover.c                  |   53 ++--
+ fs/xfs/xfs_dquot.c                             |    3 
+ include/linux/can/core.h                       |    1 
+ include/linux/can/dev.h                        |    1 
+ include/linux/can/skb.h                        |    2 
+ include/linux/netdevice.h                      |    6 
+ include/net/sch_generic.h                      |    1 
+ kernel/events/core.c                           |  104 ++++----
+ mm/huge_memory.c                               |   46 ++-
+ net/bluetooth/rfcomm/core.c                    |   24 +
+ net/can/af_can.c                               |   14 -
+ net/can/bcm.c                                  |    2 
+ net/can/isotp.c                                |  320 +++++++++++++++++--------
+ net/can/j1939/socket.c                         |    1 
+ net/can/j1939/transport.c                      |    2 
+ net/can/raw.c                                  |    7 
+ net/ceph/osd_client.c                          |    5 
+ net/ipv4/fib_lookup.h                          |    1 
+ net/ipv4/fib_semantics.c                       |   69 +++--
+ net/ipv4/inet_fragment.c                       |    6 
+ net/ipv4/ip_output.c                           |    4 
+ net/ipv6/ip6_output.c                          |    2 
+ net/nfc/digital_technology.c                   |    2 
+ net/nfc/llcp_commands.c                        |   18 +
+ net/nfc/llcp_core.c                            |   15 -
+ net/nfc/nci/ntf.c                              |    6 
+ net/nfc/nci/rsp.c                              |    1 
+ net/packet/af_packet.c                         |   65 +++--
+ net/sched/sch_api.c                            |    9 
+ net/x25/af_x25.c                               |    4 
+ net/x25/x25_timer.c                            |   25 +
+ net/xfrm/xfrm_state.c                          |    4 
+ sound/aoa/codecs/onyx.c                        |  104 +++++---
+ sound/aoa/codecs/tas.c                         |  113 +++++---
+ sound/aoa/core/gpio-feature.c                  |   20 +
+ sound/aoa/core/gpio-pmf.c                      |   26 +-
+ sound/aoa/soundbus/i2sbus/pcm.c                |   75 +++--
+ tools/lib/bpf/libbpf.c                         |    2 
+ 66 files changed, 1127 insertions(+), 498 deletions(-)
+
+Abel Vesa (1):
+      misc: fastrpc: Rework fastrpc_req_munmap
+
+Aditya Chillara (1):
+      perf/core: Fix group leader use-after-free after sibling detach
+
+Ali Ahmet Memis (1):
+      Bluetooth: RFCOMM: take rfcomm_mutex for the deferred setup accept
+
+Amit Cohen (1):
+      net: ipv4: Publish fib_nlmsg_size()
+
+Baul Lee (2):
+      net/x25: fix use-after-free of the socket by its timers
+      HID: core: fix OOB read of field->usage in hid_set_field()
+
+Bryam Vargas (1):
+      nfc: fdp: bound the device-reported read length and fix an skb leak
+
+David Matlack (1):
+      KVM: arm64: Retry fault if vma_lookup() results become invalid
+
+Doruk Tan Ozturk (4):
+      nfc: digital: clamp SENSF_RES length to the destination buffer
+      nfc: llcp: bound the connect_sn TLV walk to the skb
+      nfc: llcp: reject PDUs shorter than the LLCP header
+      nfc: st21nfca: validate ATR_REQ length against the received frame
+
+Ekansh Gupta (1):
+      misc: fastrpc: Remove buffer from list prior to unmap operation
+
+Eric Farman (2):
+      s390/vfio_ccw: Cancel existing workqueues
+      s390/vfio_ccw: Free all memory if cp_init() fails
+
+Fan Wu (1):
+      serial: amba-pl011: synchronize DMA teardown
+
+Greg Kroah-Hartman (2):
+      nvmet-tcp: Do not WARN on remotely-controlled oversized SGL allocations
+      Linux 5.10.267
+
+Griffin Kroah-Hartman (1):
+      rndis_host: add overflow check in rndis_rx_fixup()
+
+Guanghui Yang (1):
+      ext4: clear error before retrying inode xattr space fallback
+
+Haoxiang Li (1):
+      HID: sensor: custom: Fix use-after-free in enable_sensor
+
+Hongling Zeng (1):
+      xfs: validate attr entry pointer before field access
+
+Ian Bridges (1):
+      ocfs2: fix missing metadata reservation for large xattrs
+
+Ibrahim Hashimov (1):
+      xfs: bounds-check buffer log item's dirty bitmap
+
+Jann Horn (1):
+      HID: core: fix number/pointer type confusion on long items
+
+Jiang HongHui (1):
+      nvmet-fc: fix invalid free in LS IOD error path
+
+Joanne Koong (1):
+      iomap: adjust read range correctly for non-block-aligned positions
+
+Junjie Cao (1):
+      gpio: ml-ioh: use raw_spinlock_t for the register lock
+
+Koichiro Den (1):
+      NTB: ntb_netdev: Preserve RX queue depth on allocation failure
+
+Lee Jones (1):
+      HID: magicmouse: Prevent out-of-bounds (OOB) read during DOUBLE_REPORT_ID
+
+Linmao Li (1):
+      nfc: nci: free destination parameters when closing a connection
+
+Long Li (1):
+      xfs: fix ilock leak on error in xfs_dq_get_next_id
+
+Lorenzo Stoakes (ARM) (1):
+      mm/huge_memory: fix huge_zero_pfn race
+
+Luxiao Xu (1):
+      ipv6: fix use-after-free in ip6_finish_output2()
+
+Matthias Goergens (1):
+      ext4: stop retrying saturated xattr cache entries
+
+Michael Bommarito (1):
+      HID: hyperv: validate initial device info bounds
+
+Muhammad Bilal (2):
+      staging: rtl8723bs: fix OOB read in WMM_param_handler()
+      nfc: llcp: fix OOB read and u8 offset wrap in TLV parsers
+
+Oliver Hartkopp (2):
+      can: use skb hash instead of private variable in headroom
+      can: isotp: fix timer drain order, wakeup handling and tx_gen ordering
+
+Pavitra Jha (1):
+      libceph: fix OOB read in decode_watchers() via missing bounds check
+
+Pengpeng Hou (1):
+      nfc: microread: validate target discovery payload lengths
+
+Peter Zijlstra (1):
+      perf: Fix cgroup state vs ERROR
+
+Qihang Tang (2):
+      packet: use consistent hard_header_len in non-ring send paths
+      packet: use consistent hard_header_len in TX_RING send path
+
+Samuel Page (1):
+      nfc: nci: fix out-of-bounds write in nci_target_auto_activated()
+
+Sasha Levin (2):
+      Revert "Input: ims-pcu - fix race condition in reset_device sysfs callback"
+      Revert "ALSA: aoa: Use guard() for mutex locks"
+
+Srinivas Kandagatla (1):
+      misc: fastrpc: separate fastrpc device from channel context
+
+Weiming Shi (1):
+      bpf: reject negative CO-RE accessor indices in bpf_core_parse_spec()
+
+Xiang Mei (Microsoft) (1):
+      xfrm: fix sk_dst_cache double-free in xfrm_user_policy()
+
+Xu Rao (1):
+      nfc: pn533: purge fragmented skbs during cleanup
+
+Yeoreum Yun (1):
+      perf: Fix dangling cgroup pointer in cpuctx
+
+Yong Wang (1):
+      ipv4: reject undersized MTUs in ip_do_fragment()
+
+Zhiling Zou (1):
+      inet: frags: publish queues before arming timer
+
+Zihan Xi (2):
+      ipv4: Fix fib_nlmsg_size() for RTA_VIA nexthops
+      packet: synchronize pressure clearing with ring reconfiguration
+
+Zijie Huang (1):
+      net/sched: reject overly deep qdisc hierarchies
+
