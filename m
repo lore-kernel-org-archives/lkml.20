@@ -1,130 +1,182 @@
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B1662D9796
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 22:06:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBD0C32D7F1
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 22:08:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787868411; cv=none; b=Hg9AqCfvkmK4PHZg1wPjXjhEuj6KzjO6IupKNM7zyd5kTn4z+pF4AiDvamBFXnfbOSrWCHTd2zRV0MtQTJ/tgadRjs+/E7uhmRi8L7KMrBlDOOvKRh/u4OP8acrorZeY6HBOlkAwxGZ0R3MgzQN8b5eP1J8VBK9p3zuSsmYwDsI=
+	t=1787868498; cv=none; b=nFI+1ADWDOHM0GXfdvGVQixfY5lmA64UokwpG/8zOihXVDfwFPxWgoGKxLHFxBN6c+b4MeBohv22v7iaQsOyB1VFcjl+e2l3ohyi2OS5HI+uUiUUWxx7LDZXV/PeIYfpUfGzrq13uyyxUH450/Q+MbdNBnDnvdcuFuRjVMRb+0k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787868411; c=relaxed/simple;
-	bh=iaHuxTL9GgUJZF86l4ALIIzy/p5FmBSH/AsEH222pSE=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=jF1oLtJLJv+V5Ho+FrIUTKzl+FIkIIWLgAOd+jmytrfvVSWDuqtN5RVATpH40S0YuHOMTLSFxlnf6vkb/el06dp+ykai6gLFC4D7P7vJZEfPoQtenA1Ei5BCTz14E6bHWYofKgCrui0lBBuOOQaiXh23YrPU2Rb95BE93CS9758=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=e0W+xDS/; arc=none smtp.client-ip=209.85.214.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com
+	s=arc-20240116; t=1787868498; c=relaxed/simple;
+	bh=4NZvaMgEivH19ze0KrHa5URPQF+DJXe0KL1Iof4hU0I=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=tP2iI/ibi/ZQed/NvnyqnJ2XyfnXVxMOFVpu048YOWI0tCrtH0dSLnym2RIpaS0kiRlKIfG15BBlKp6N2uvdGlwr/gyMnlgXRQfLHN+C2/PoLKaxr9RMTimPtAMezdvRE+UAs21BUgBpydwK55hYUSzmE8XcBTD41deTg7Kyp2M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZkZACa4M; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="e0W+xDS/"
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2ce7dfd33ffso4605985ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 15:06:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZkZACa4M"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-482e1bfcc63so194643f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 15:08:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787868410; x=1788473210; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6GW+2Hhc2UcSsdCGhPp7Ouw0/2a2zcXh23hCHwGyqeA=;
-        b=e0W+xDS/Np2tDy3zyJm9EVlLo58KFOT3yPU64sTUc2NOq+MudOuwy4dsnyIdTGNVQY
-         XWNSmplb2pFe9xbyfV8tC2/f3tZTY10+zmf/dHr5VwI1VGdv5aIG1mK3Sa0kcfXfQMtI
-         co3bn+b8swGeXelDpK1bUoBNY+0HjZmRkdUH6wBiO08aN4GcyEEucEKctq2RltyK5hie
-         jHpzkG9xpvKdYCze1II93U/Fbc91GgsJ50Kt01YM/odZpMC5Oa1LtT+iywYiWYMNkWto
-         +fjjJFUecNHiagp1gf5Q0LPsFkYSRpISSlZR0CSdXfBT3imQ6BAFzQqwJk1b/PDi09Rd
-         RGiA==
+        d=gmail.com; s=20251104; t=1787868495; x=1788473295; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=12Czze317YjE4biaV1BLwood9eGVcYGSVELmZ2ehr0Q=;
+        b=ZkZACa4MWqRVc/0lmyKUfN+BEO3QCsy1dGf0mBe8Zi3krYTf4Rpp+MGpPfDI1Soi0S
+         NIcwitWJh0Gpu/PkYOwOgasQj39XuNdu6GscUn4RgcplqNI8pH3VROh2YLFUet9dqaji
+         Gmnp2Otm5XQ31LaFJnPIBHPDIc/3GpHWyh3uD0wTnRqHPyIy6LT8U54IGllYfS3s7EUr
+         aSVee/ptWVfB9mW5l+MML3d/hMCEbQ+DRW7b+y1gDk5kbbZN3fTCpSeUQrTfJqkfDZYA
+         Mr9bTE1uxewFIYCM0GCdPVqQXLxV+tkeFaSE6SaGgwHLlNXG4c+B7pd201DbZVdViJPz
+         iOUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787868410; x=1788473210;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6GW+2Hhc2UcSsdCGhPp7Ouw0/2a2zcXh23hCHwGyqeA=;
-        b=qtKo7VlJg2sdQg1sE9P0N551Jesek8VOctlS7ephSk9NyOAov5KI9U7DtHCS0gzj6j
-         R6CL0HCQnQjjhYhhfz0LyGD8HxUXxlvn3FrUonRiB6MGPHFMJeN5EqnFzeYURgW4ld6j
-         72pZv8Rt2pvZ1XT1Wb5jBn5PX/Scf2heWURobaYdF+8uFAABC68YPBkcTrETmuQMVKdm
-         KqtP0vOtOp3PIZ8Pm/ZqdAdw8WkXxpbB6YbrXjarX4o0TSocy40otn/2Zs8ZF9k2xGJn
-         XWpAy8+RhVzhUCc76gyvlFEnJon57AcXuDJguej0WF8AcjVHchUdWwh6zYWsyLdRwvt5
-         lQgg==
-X-Forwarded-Encrypted: i=1; AHgh+RrOSuHpINvPIHe6T1xlgG8zswDi+SGCv6iu4Z5DrrHJoaUMUasQU6Dw4i7bdh5YzqF6OqiPbGO4FAoRghg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mtIrCzfOXrLLrjXY6ZqIHxJnI6GVNq6myObhWbrLiTbyetYeEe
-	HE0+l27rH9az8xRXkmmD07yzPcvVe/4X40T6YeBTFz9ZxDFIqWsr8eUAvE8cz/YTQMLX2c3z+Mv
-	94GWk5vEeHnGkiA==
-X-Received: from dybgj36.prod.google.com ([2002:a05:7301:124:b0:328:6c15:25c1])
- (user=cmllamas job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90a:d44d:b0:38e:c7b0:84ad with SMTP id 98e67ed59e1d1-396d0c15f3cmr4689966a91.0.1787868409462;
- Thu, 27 Aug 2026 15:06:49 -0700 (PDT)
-Date: Thu, 27 Aug 2026 22:04:27 +0000
+        d=1e100.net; s=20251104; t=1787868495; x=1788473295;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=12Czze317YjE4biaV1BLwood9eGVcYGSVELmZ2ehr0Q=;
+        b=bJNKsciAO+dbgcTfrjHBmgfLNcn0kxOYY7Nd89iQWJk2LCyG/yaviI0gRPGKA+XGGY
+         ImwZDRkdnN5uaZj6OzO1W02Zv2DaW6WsvkAeheOcq2GK2KV+5OcOBwjDSSvJHq+Ulop9
+         bXlvACFlrEgYDGzTzRcD+3toIg29DPCJqlARYBLpGipdJKbImDnBpoIpecpNDOCzP9IY
+         ZNZ7ebnu0Ysqn9/mdZYpfMdcxCBTbHpKeYqAVZINUpwD/dRWW407W/gjS8kwVIgnYnuR
+         NTaJOnqKq3nuvCB9AfLl7UxnmRyEIolDFyNZ1HfhUZCmuYBLVaFD/qgU25HPNo/BtvKt
+         GsMg==
+X-Forwarded-Encrypted: i=1; AHgh+RpDjSr2lwMmK7rnzN+LIarj0g8CR5hvMVt/6nZ0m6cEjN4/pjSHLKfAwE4udoZv0BToSSK+IZXJWjZ3Ysg=@vger.kernel.org
+X-Gm-Message-State: AFuF++n6xe+nm3yC5ZC980kKZnoVGGkmDdVGkQ7CJJbkDS6EiODx5n61
+	Ig09LDjonkqcloKM23QsC9nimnW/wgYeq642lX6O+2UGzd0ZX+Cs1jRV
+X-Gm-Gg: AR+sD11xcb0FpdSHQjOyMSRLumDhwAuHeWJ1x54kfY0vXs0x1vNqgwQiCnrMmw8fFLP
+	YFYf5SQdLRehQboK6wXHLT8KZ/wO4EwboMEjsH8qTk5GT3uTPYLvdF0HlokVICF+gl2vY+qHOUg
+	TAps4MLY/0eRM4AY/U2TT3ARsUxmgdHc4bnRBKrEF4J1hKG3J16M0W15W/LRnUQlbUYdm1wK1w4
+	Cbo/kxBpWQMzlGJr4jXUgrxN48kVaG7HXx5NxuM5JW6OklKxCfWsveKr2dAVC6TI1g7sx1AXMK5
+	W09EkvN7gjF1mfFu2hkdOA9ete/GhDnOrr2kau2uo8yJT3rR90i8KBHjLvXbAvfNJkPKtvCiHJD
+	gPo+J4WUoJQhNDtfB0eLCT79H9EySmchqg1OSNb7BeOblzzp8+aQZWgsrXtreerDivTDDULSbdW
+	DJqq7/KyTvK0lX6nG7acTvovmaNCqOe7DxEyml+R6MjXHeeti7quxiQDm79co=
+X-Received: by 2002:a5d:6f0d:0:b0:47f:71a0:c060 with SMTP id ffacd0b85a97d-482eab5ff3cmr11537622f8f.2.1787868494701;
+        Thu, 27 Aug 2026 15:08:14 -0700 (PDT)
+Received: from m2.. ([37.142.156.156])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-482e28e899dsm12023740f8f.28.2026.08.27.15.08.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 15:08:13 -0700 (PDT)
+From: Michael Zaidman <michael.zaidman@gmail.com>
+To: linusw@kernel.org
+Cc: jikos@kernel.org,
+	bentiss@kernel.org,
+	brgl@kernel.org,
+	germain.hebert@ca.abb.com,
+	rio@r26.me,
+	brunoceg1@gmail.com,
+	contact@christina-quast.de,
+	daniel.beer@igorinstitute.com,
+	gregkh@linuxfoundation.org,
+	jirislaby@kernel.org,
+	michael.zaidman@gmail.com,
+	linux-serial@vger.kernel.org,
+	linux-input@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 08/13] HID: ft260: uart: add modem pins control via ioctl
+Date: Fri, 28 Aug 2026 01:08:05 +0300
+Message-ID: <20260827220805.23112-1-michael.zaidman@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <CAD++jLnKXqbV0xB3wvTF9Ri7g1MuWV6csO0MGzCtv5LBwmSr4g@mail.gmail.com>
+References: <CAD++jLnKXqbV0xB3wvTF9Ri7g1MuWV6csO0MGzCtv5LBwmSr4g@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.55.0.897.gb25b4bd76c-goog
-Message-ID: <20260827220428.2988999-1-cmllamas@google.com>
-Subject: [PATCH 6.12.y] HID: uhid: convert to hid_safe_input_report()
-From: Carlos Llamas <cmllamas@google.com>
-To: stable@vger.kernel.org
-Cc: kernel-team@android.com, Carlos Llamas <cmllamas@google.com>, 
-	Lee Jones <lee@kernel.org>, Jiri Kosina <jkosina@suse.com>, 
-	Benjamin Tissoires <bentiss@kernel.org>, 
-	"open list:UHID USERSPACE HID IO DRIVER" <linux-input@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-commit 63a694c51bf120a37550890b8e7736b4888985e9 upstream.
+On Tue, 25 Aug 2026 at 10:08 +0200, Linus Walleij wrote:
+> I'm not the authortative expert on modem control using GPIO,
+> but what I think you should do is to
+>
+> select GPIOLIB
+> select SERIAL_MCTRL_GPIO
+>
+> On Kconfig, so that gpiolib is always available and you can use
+> the generic modem control helpers for modem control over GPIO.
 
-Commit 0a3fe972a7cb ("HID: core: Mitigate potential OOB by removing
-bogus memset()"), added a check in hid_report_raw_event() to reject
-reports if the received data size is smaller than expected. This was
-intended to prevent OOB errors by no longer allowing zeroing-out of
-shorter reports due to the lack of buffer size information.
+I looked into this, and it does not work for the FT260 without
+changing serial_mctrl_gpio.c first. Three blockers:
 
-However, this leads to regressions in hid_report_raw_event(), where
-shorter than expected reports are rejected, even though their buffers
-are sufficiently large to be zero-padded.
+- Every GPIO access on this chip is a USB transfer, so the
+  gpiochip has can_sleep = true. mctrl_gpio_set() calls
+  gpiod_set_array_value() and mctrl_gpio_get() calls
+  gpiod_get_value(), and gpiolib does WARN_ON(can_sleep) in both,
+  so every TIOCMGET/TIOCMSET would give a WARN backtrace.
 
-To solve this issue, Benjamin introduced a safer alternative in commit
-206342541fc8 ("HID: core: introduce hid_safe_input_report()"), which
-forwards the buffer size and allows hid_report_raw_event() to safely
-zero-pad the data.
+- mctrl_gpio_init() takes a struct uart_port and its IRQ handler
+  needs it: uart_port_lock_irqsave(), uart_handle_dcd_change(),
+  port->icount, delta_msr_wait. This UART is a plain tty_driver
+  with a tty_port, so only mctrl_gpio_init_noauto() is left - and
+  the FT260 GPIO lines have no interrupts anyway.
 
-Convert uhid to use hid_safe_input_report() and pass UHID_DATA_MAX as
-the buffer size. This prevents the reported regressions [1], allowing
-hid core to zero-pad the shorter reports safely as expected.
+- mctrl_gpio_init_noauto() only picks up lines that exist as
+  firmware properties: device_property_present(dev, "cts-gpios")
+  and friends. A gpiod_add_lookup_table() table is the machine
+  lookup path, so every line would be skipped, all descriptors
+  would stay NULL and both helpers would silently do nothing.
+  Software nodes could satisfy that check, but there is no
+  PROPERTY_ENTRY_GPIO in the tree to build them with.
 
-Cc: stable@vger.kernel.org
-Fixes: 0a3fe972a7cb ("HID: core: Mitigate potential OOB by removing bogus memset()")
-Closes: https://lore.kernel.org/all/ahsh0UtTX6e0ZeHa@google.com/ [1]
-Signed-off-by: Carlos Llamas <cmllamas@google.com>
-Reviewed-by: Lee Jones <lee@kernel.org>
-Closes: https://lore.kernel.org/all/ahsh0UtTX6e0ZeHa@google.com/
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
-Signed-off-by: Carlos Llamas <cmllamas@google.com>
----
- drivers/hid/uhid.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+serial_mctrl_gpio.h is also private to drivers/tty/serial - all
+eleven users are serial_core drivers in that directory.
 
-diff --git a/drivers/hid/uhid.c b/drivers/hid/uhid.c
-index 21a70420151e..d16667207b9f 100644
---- a/drivers/hid/uhid.c
-+++ b/drivers/hid/uhid.c
-@@ -595,8 +595,8 @@ static int uhid_dev_input(struct uhid_device *uhid, struct uhid_event *ev)
- 	if (!READ_ONCE(uhid->running))
- 		return -EINVAL;
- 
--	hid_input_report(uhid->hid, HID_INPUT_REPORT, ev->u.input.data,
--			 min_t(size_t, ev->u.input.size, UHID_DATA_MAX), 0);
-+	hid_safe_input_report(uhid->hid, HID_INPUT_REPORT, ev->u.input.data, UHID_DATA_MAX,
-+			      min_t(size_t, ev->u.input.size, UHID_DATA_MAX), 0);
- 
- 	return 0;
- }
-@@ -606,8 +606,8 @@ static int uhid_dev_input2(struct uhid_device *uhid, struct uhid_event *ev)
- 	if (!READ_ONCE(uhid->running))
- 		return -EINVAL;
- 
--	hid_input_report(uhid->hid, HID_INPUT_REPORT, ev->u.input2.data,
--			 min_t(size_t, ev->u.input2.size, UHID_DATA_MAX), 0);
-+	hid_safe_input_report(uhid->hid, HID_INPUT_REPORT, ev->u.input2.data, UHID_DATA_MAX,
-+			      min_t(size_t, ev->u.input2.size, UHID_DATA_MAX), 0);
- 
- 	return 0;
- }
--- 
-2.55.0.897.gb25b4bd76c-goog
+Registering a uart_port instead was tried for this device and
+turned down. Daniel Beer's 2022 FT260 UART patch was built on
+serial_core and called uart_add_one_port(); Greg asked for
+usb-serial, and Johan Hovold answered that "neither USB-serial or
+serial (core) is a good fit for such a HID device", pointing at
+Christina Quast's tty driver as the right approach - which patch
+1 of this series is a port of.
 
+  https://lore.kernel.org/lkml/638c51a2.170a0220.3af16.18f8@mx.google.com/
+  https://lore.kernel.org/lkml/Y6WNl6+ySy8zcSyg@hovoldconsulting.com/
+
+That patch left set_mctrl empty and get_mctrl returning a
+constant, which is this same constraint seen from the other side:
+uart_ops.set_mctrl and .get_mctrl must not sleep, while every
+FT260 line access is a HID feature report over USB.
+
+> This can be a bit delicate in this case since the gpiochip that you
+> use for mctrl is also registered in this driver, so you need to
+> register the gpiochip *first*, then add a look-up table for the
+> GPIOs, then register this modem control.
+>
+> Then look in e.g. drivers/mfd/sm501.c which is an
+> MFD device that register a gpiochip and then consume
+> GPIOs from itself.
+
+Agreed on the ordering, and thanks for the reference. The UART
+probe currently registers the tty port before the gpiochip, so
+that would have to be inverted, and the gpiochip label is built
+from the HID device name, so the table would have to be built at
+probe rather than being static. Both are workable; they are not
+what blocks this. sm501 does not hit the sleeping problem because
+its gpiochip is memory mapped.
+
+> The core idea is that the serial modem control should look
+> up the GPIOs from its own gpiochip and use the MCTRL
+> library helpers, then this should result in very little and
+> compact code that is easy to read.
+
+No argument with the goal - I would rather have that than my own
+TIOCM handling. But making it usable here means work inside the
+serial helpers: cansleep set/get, a path that does not require a
+uart_port, a lookup that works without firmware properties, and
+the header moved to include/linux. That is a serial subsystem
+series to agree with Greg and Jiri Slaby, so I propose keeping
+the ioctl implementation in this series and doing the conversion
+as a follow-up.
+
+Even then only the set/get helpers would apply: with no GPIO
+interrupts, modem status changes come from the FT260's own
+interrupt status input report (0xB1), so that part stays in the
+driver either way.
+
+Thanks,
+Michael
