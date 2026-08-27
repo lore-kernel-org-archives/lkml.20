@@ -1,162 +1,115 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ED58469836
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C742370AEB
 	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:04:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787835851; cv=none; b=Yjzpccm1FyrGyoTrbzzdly44mzsRo0CseRVCbt+aJ8PKGCXFGEQd0YNdqk4gZ7/bgbb59eRZJ+FvRa5KUHhe70yeEl+QERQfP+uX0X1cV5kxXqMxo/F0tan56l+fRlC2giNkAkz7uybqvBvgE6i88IGO4g7lyYp0OjJU+udHJxc=
+	t=1787835850; cv=none; b=gMIkawWaoxBoAjPysz7dQm1TmJVDNAwbAOKY29cZDGnaUU94UX1lpxhgRO0m0d7rSjga4kqJ3xyboRYV/FTP2hiI5ckn/KwW73Kl6q45z2B3gU9U5sIb9e4hlTWCTm626ehwktMy6E2rnt3t02KwgMvxcusj2cMZGQJJRR7mJTg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787835851; c=relaxed/simple;
-	bh=sarQEdrSbBSoaCcKumeb7DKx9O4YVpY+WCIk3ge9e4Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ms2IDxg44cWCBuG2uopX5gh6lR+KHrKAy2e8846B/ShA55bLBHHwZ1rHOzAIE6oR1OIP+eGXiV3diC+Qp4vuXpvBEgp3wOPJvQxkotlvPraAuntlMZnrLyKujYsIIzBZTPQDd+/+MUK5T/o5ZAyGixSO8Ek4P3O427K1jueOGF4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bNPf7GGm; arc=none smtp.client-ip=209.85.128.46
+	s=arc-20240116; t=1787835850; c=relaxed/simple;
+	bh=FycTryzO6CYp9jbhP7pmnkEllg/ck10vYf+Ck/xZVpA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tTZia5q/hyaApC8cwiI/Ru6c690Dl5/HgRTwVBai5EV9ucYyKTKxeFpHaPPnxqmDOec84rPtf7Q1hD5kMdOcu5xl8qScXjIhihYwuwEF3etyijCMEb2pmBW4yQosi9suy1WEvYxYDoXg8J05e/jdCzx977WnDDn7tQ4Zo96gPYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qmzJDWcR; arc=none smtp.client-ip=209.85.214.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bNPf7GGm"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-495590dde14so19450255e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:04:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qmzJDWcR"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2d7200b2e15so14101955ad.3
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:04:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787835839; x=1788440639; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QF2zBpTs1xbQ8vVeDBrFP8mtx1WkUete3RSSn/zfKZ4=;
-        b=bNPf7GGmSpoJPktSQVABQMu9LCAv6xK5GX133qC5CGLnd3z+AT2DgV/JkxWpUoRJna
-         wlordsXPLq58Gd3FZgjC+fOQkKVpyvpVCZDVGxudjOgElTYPfZvau0mNra0SFK7SNuLn
-         o27Q+CRBeauJJ2NoDSN3pSW0El/GEEGijkkGGQ2Q79jJ77V3x8HQ45DDejPelIjwmu5K
-         oAGiK+dJlICwQiL4O+oFdrx+eg5qks/8p4lNNygI+o8M07MwTiR5ICFKjYBTxrQq4Ty9
-         4gRNzTeW9nj+Xec2OoAhA2KNIjZ6s0XaTdkEroXNdnx1j7DJgbE7kozY98uOh9KYsJ0s
-         91Yw==
+        d=gmail.com; s=20251104; t=1787835842; x=1788440642; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5zxyBr6L+CuEvCLLnTBBC05O3r7u5XqflfOC0yEsoRc=;
+        b=qmzJDWcRqK5OMP0Gu9Vomknjhf/fiLf1bY3hQc/P6rXwU6cDW8s2Rc7ZUqqR5wo5e9
+         T2NfMYDoW8OxI1+VHeX5mngLUsIfClK7fNseEsJi5LJDPvAtPS+lE56ncZIZ+y0mm7rg
+         u9GcQcxu5XGqSkVsVxxj09kewkwxoXtX9NjNWW3ejZVnhOZBlnvOieVhK4GK2qg3Xg+n
+         KgdCkIWSEVFDsXDLI90Q9dhJIWbU4JTzN/WcPwbiVX9wMmIAhJ8xHB0aapuKHQQwMEn4
+         f5ncFfy9oLoL9TaD7886MORdkrG82ke3ADYobIo8aHACTRkwDm9wv1ArtumKrcQuyjmA
+         sd/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787835839; x=1788440639;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QF2zBpTs1xbQ8vVeDBrFP8mtx1WkUete3RSSn/zfKZ4=;
-        b=pvK7T8WHkn8dY8wvvcXinJpafHChAFhufGKgrCV0mwLC5y6PaFDbrqiH4y7myKVXt9
-         cv2b8TuAoGacRJCYuoejzpOkDx5DCJOEM6cUpik9xFVjoacUMLB9iGUp4xjmluid4+KX
-         EWLk6ULbST+Jdr0gj1JMMog4GAxRxiGMraurQI7IkNkL3bcqPO55p+wea1gkzOjfBM0v
-         Mx6xcqlYCCjPjdDvNSUHsJg0b0NIoO3ABICkaK9afr0qeIht/149rVkWy6CNYziCfBt9
-         VsrB9yTEDnLywnss87AqL2w2xMghu8Drns+xVLsrvDevQB6U8VQ0VKTz0VHDZbrpDN70
-         iD9w==
-X-Forwarded-Encrypted: i=1; AHgh+RrBHXlcJ6v4+hf+LCVaqNL6Jq/5jERKo2q/IEh/K7xMH0px178Ncyrq1rZS/bnGUOrLjUo1cOqCS9Vh83Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++lUNb+R4CeCbNfxlu+KywNwE8OyylTuiijy58AjaQIYi2HwTCN9
-	oCwyRFb8FwLq1K7fpqu9eRVQWBbuk6J10ZQRB+EvsuoBn+5Cn7hVPN31
-X-Gm-Gg: AR+sD13oqkT58KCO51PNBrcW5CJ+y0ToT92wUTo0UarKxrcL1boQWZGumKaibnuRmVp
-	LGD1prVU7slugo8GJ3mNLpuJ+JkXgI2OnRee2ljrYtoQFYtaxUboV3Sy1iO+C6OOSMqc+DQDHOe
-	ke+7F7wYxjtI9exbhzibTolySwfrpyjlsb6JxKm2va9QuzmXEp4xxqfZ/YYtvPEUDkCkuMKrfUz
-	NcnQvIctQ+aKFqn7TrbTw/W4KsxSzYegrKTsNCeACwaxcIUqvHq+l+0OUcx4Gtf9IQnXBgq4MBF
-	lnTQl9/aX4TM9WzAbO6kH6HQb4nre4Gy67ZgASqA5JBGS6m3VvJrO15PeWED2+aQXARfJBWravz
-	Iay5Ghc2lCDM5dvv9lfFKH6D2ZvUYB71mgyij1J3UgQQqqd/KYuZZ3ZlgZvVwrubXaC71xn5iph
-	UWaL3Ura5uv5T2ktX08thXErVG+R+xRhCKchyESMjzO+zDE0Ov38ANXqhmY2Qhko9mYYsUKczZX
-	t0a6OwuMg0xbgwfiLaCtAfGaKXfiEQJElzgNcI2+g4mNmUBFVYTz0ZyzI9eaNvVHIZNF4CNSkY=
-X-Received: by 2002:a05:600c:4505:b0:499:593b:a15b with SMTP id 5b1f17b1804b1-499dc6e9935mr159659955e9.1.1787835839294;
-        Thu, 27 Aug 2026 06:03:59 -0700 (PDT)
-Received: from localhost.localdomain ([2a01:5a8:737:d4a7:e53b:30a6:3c0f:1dad])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b49610170sm116081285e9.6.2026.08.27.06.03.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 06:03:58 -0700 (PDT)
-From: Georgi Valkov <gvalkov@gmail.com>
-To: briannorris@chromium.org,
-	johannes@sipsolutions.net,
-	andrew@lunn.ch,
-	krzk+dt@kernel.org
-Cc: francesco@dolcini.it,
-	johannes.berg@intel.com,
-	kees@kernel.org,
-	miriam.rachel.korenblit@intel.com,
-	rongqianfeng@vivo.com,
-	wenst@chromium.org,
-	rafael.beims@toradex.com,
-	avraham.stern@intel.com,
-	error27@gmail.com,
-	s.kerkmann@pengutronix.de,
-	gregory.clement@bootlin.com,
-	sebastian.hesselbarth@gmail.com,
-	robh@kernel.org,
-	conor+dt@kernel.org,
-	Frank.Li@nxp.com,
-	chunfan.chen@gmail.com,
-	arend.vanspriel@broadcom.com,
-	peddolla.reddy@oss.qualcomm.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	stable@vger.kernel.org,
-	gvalkov@gmail.com
-Subject: [PATCH v7 3/3] ARM: dts: armada: WRT3200ACM: add marvell,invalid-reg-hint-in-rom
-Date: Thu, 27 Aug 2026 16:03:35 +0300
-Message-ID: <20260827130335.6606-3-gvalkov@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260827130335.6606-1-gvalkov@gmail.com>
-References: <20260827130335.6606-1-gvalkov@gmail.com>
+        d=1e100.net; s=20251104; t=1787835842; x=1788440642;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5zxyBr6L+CuEvCLLnTBBC05O3r7u5XqflfOC0yEsoRc=;
+        b=V9kNH1TkTIrLFFoC+z2HuDDTNqhlozd/2+EgmNOhQW56HlMATT9xfIrsnrYlmvHIcH
+         uF/Y5+2EbqbewqQr2hrZbvCiLO+pHiM8SYe2fz41mEadNTEnQIuyHbLcxZcGY8mUoDVa
+         Vtaof3IVX8e3wH85eUFHRMLVii0myklpMWyIgcKILS0/TbSuhlb0iYxkYZ1yq/GSUc7C
+         yywZxN4aZbCzgedKYumGzdJBbI8FLV1IudkPbd4wwJsfQim/rwlpwA3boW6ZA5SLge5y
+         e1+9oRbOKUkP/k6myMPPY9n6FVDHAo83nFnwaWYFVq4xz3wobtrqY9M6KMcFcktI6DZB
+         hc4A==
+X-Forwarded-Encrypted: i=1; AHgh+RqgfdMvqkHknCqhO0KxZJl7cvDqSBygBQMnCSHn8r2ZjqHMpdfETOB2u3p9xhafaCHVqjTjw9mprdUZyHI=@vger.kernel.org
+X-Gm-Message-State: AFuF++le1BY/paN0D4mACQTQ2jWnVbjigBmCZn7dEGr4fu5E2cNyn2++
+	VwK1F3dhB1DgzbO7BLLmKCFNSdrYw1taCLRBnqZ9rR/Y9C3bcfvwbGn5
+X-Gm-Gg: AR+sD136IMiM8SKFxA4LLrwDVRgaC9DTkz5ynktGPaPx/SvTTz9CRC544Noe0aONWna
+	PZ8iR7hmwsJF874EBXfpEI3rVXlsVl+hNEiTgfZuX116aOu3S1KjMmlwjl0oWll3spxW392WEHy
+	GKQhQ7bmemZ65qtJldQ8sPo/F1xUP+PWUrElkYGX8AA2SpDJ4yAEBpMZfQmxGYeZBBt4my6pfl5
+	1mRW7hn+s2OcnhlMvroDZb/CKLHOK37xMIpkTZ7os3TQnR53hW/9YnX0rXhM3IFauRjrZcKoYFY
+	wZy51qoGh3HhLOZmpfFtkbFcfnxB6FuXffV4YaxiW5ChMJZtLj0qYDvH/GkrSDDdwXCauEJqQH/
+	EqPFyLM1jxLjAzemw7U3YCzGp1svj8uN75+rg4/nJdKLjiW2ged+XPXmP6OVY4iLf16gfGBEMlt
+	1w8b7XwhfTfQCiIIpYp2zSq8FbRt2bkFdzC4eEdzdw6YS87O79OX4V33wVaGZS2LgEorE=
+X-Received: by 2002:a17:902:f78e:b0:2c9:deec:f564 with SMTP id d9443c01a7336-2d707c0d370mr230045975ad.13.1787835842448;
+        Thu, 27 Aug 2026 06:04:02 -0700 (PDT)
+Received: from [192.168.55.196] ([218.49.81.87])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d70493ce09sm16665875ad.15.2026.08.27.06.04.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 27 Aug 2026 06:04:01 -0700 (PDT)
+Message-ID: <28ac9afd-92dc-4c92-91f3-94f025977ca7@gmail.com>
+Date: Thu, 27 Aug 2026 22:03:58 +0900
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [BUG] srcu: false-positive WARN in cleanup_srcu_struct() after
+ 78a38cbf6f20
+To: Zqiang <qiang.zhang@linux.dev>, rcu@vger.kernel.org
+Cc: paulmck@kernel.org, linux-kernel@vger.kernel.org,
+ syzbot+d4faf7db59e11f6fd1ab@syzkaller.appspotmail.com
+References: <20260824105625.3725157-1-shpark061104@gmail.com>
+ <494f3e0cdb3692bf13690f4cddd3b40098b51627@linux.dev>
+ <24c0edd6-3cdc-4536-ac78-394bf785aad4@gmail.com>
+ <0e74e6799bf042293fd1e34e2f242c56786c3de4@linux.dev>
+ <9e216978-d884-4d56-b39f-d134f78a4999@gmail.com>
+ <eb2132ad05cd3804a8f2a170de441d79afa793e9@linux.dev>
+ <f85c60a0-81d7-41a4-9926-f69cf10222d0@gmail.com>
+ <e6350377085ddd85d6ef00d8e9a67bd50c762d3c@linux.dev>
+ <698a4d8b6c559f9049ee6fa6b0bc99d45a3d7e44@linux.dev>
+ <d036078f31cd8f0fdf0b9185ce8cadef803cc375@linux.dev>
+Content-Language: en-US
+From: Sunho Park <shpark061104@gmail.com>
+In-Reply-To: <d036078f31cd8f0fdf0b9185ce8cadef803cc375@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-WRT3200ACM and WRT32x routers always report a fixed US regulatory domain
-from the mwifiex ROM, which conflicts with the platform regulatory
-configuration on units sold outside the US market. For example:
-- phy0 mwlwifi 5 GHz, hard-coded region 98 EU mapped to FR
-- phy1 mwlwifi 2.4 GHz, hard-coded region 98 EU mapped to FR
-- phy2 mwifiex 2.4 and 5 GHz, hard-coded region US
+On 8/27/26 21:40, Zqiang wrote:
+> Now, I am trying to rephrase your problem in the following way:
+> 
+> 1- the step1 call_srcu() trigger SRCU grace period has been end and queue sdp->work.
+> 2- the step4 queue srcu callback has been intercepted by step5 srcu_barrier()
+>     and start a new SRCU grace period.
+> 3- this new SRCU grace period end, and invoke rcu_seq_end(&sup->srcu_gp_seq), queue a timer.
+> 4- the sdp->work begin run, and call srcu_segcblist_advance() with current sup->srcu_gp_seq.
+>     so the step4's srcu callback and step5's barrier calback both to be run.
+>     all callback finished, but the len not yet update.
+> 5- the srcu_barrier() return, begin call srcu_clean_up(), and then the srcu_clean_up
+>     find the a timer is still pending and the cb_len also not be zero, trigger WARN_ON()
+> 
+> right?
+Exactly. The real callbacks are properly invoked as srcu_barrier() 
+guarantees. The WARN is triggered only by the two transient states: a 
+pending delay_work timer and a stale cblist len. So I think this is a 
+false positive warning.
 
-When the system boots, it detects a conflict between the user selected
-region and the radios, e.g. BG FR US, and applies extreme restrictions,
-preventing phy0 from starting on any DFS channel. phy2 works.
+Sorry if my explanations were too wordy.
 
-Add node wifi@1 with a flag marvell,invalid-reg-hint-in-rom to the
-WRT3200ACM device-tree, which signals mwifiex that its regulatory
-hint from ROM conflicts with the platform and should be ignored, so the
-platform regulatory domain can be used. This does not allow the user to
-change the regulatory config of any radio. It only allows phy0 to start
-and operate according to its certified configuration. All radios in
-WRT3200ACM/WRT32x are locked to the hard-coded configuration for which
-they are certified.
-
-On WRT3200ACM, the platform configuration is stored on the devinfo mtd3
-partition, which is read-only: cert_region=EU modelNumber=WRT3200ACM-EU
-
-The Linux kernel sources do not have support for WRT32x. An equivalent
-patch for these routers has to be sent to OpenWrt.
-
-[1] https://github.com/kaloz/mwlwifi/issues/173#issuecomment-307879699
-[2] https://github.com/openwrt/openwrt/issues/9956
-
-Cc: stable@vger.kernel.org
-Signed-off-by: Georgi Valkov <gvalkov@gmail.com>
----
- arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts b/arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts
-index 4ab45f294de2..2bf29981a031 100644
---- a/arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts
-+++ b/arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts
-@@ -165,6 +165,15 @@ &sdhci {
- 	wp-inverted;
- 	bus-width = <8>;
- 	status = "okay";
-+
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	wifi@1 {
-+		compatible = "marvell,sd8897";
-+		reg = <1>;
-+		marvell,invalid-reg-hint-in-rom;
-+	};
- };
- 
- &usb3_1_vbus {
--- 
-2.55.0
-
+Thanks
+Sunho Park
