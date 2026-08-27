@@ -1,417 +1,290 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021084.outbound.protection.outlook.com [52.101.100.84])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F84845FFA7
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:59:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787839184; cv=none; b=gEo4zrUR5VbkQEjzetkaEma/TsmwMnoxbqCB33cgmDOYVKOg3Ow1o/vP03U0eUdjSZmZgc0/kOU4GWf12WZ6DJuo0DBZJWacWilfU32Mv+pgdCyCmLvqkbwrUjqjqg1TYTD7Qn87CHVHZGthBnnblQkQ3cq4aOrdAW7Oz00l34M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787839184; c=relaxed/simple;
-	bh=Lx9FZrQWcuYBmQGf8/mjXbV4/cVEOgq5LcYLjNzq3/I=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
-	 Content-Type; b=CoICpW9rTvSkshIAR6Nn/KzAlZXUv11kpikaiMWmN5hemzkh8s0Bnrb4OaqvsBfXG3Yv5DA2reVpWW1c36P8K6VcvniX9utMF6MyeH5N+QT44R56xUJ2ox+vkLv5o+csOs4aeuJAOVRBPu4CR2Q7lpLOk/BbsfPvcs+tCCy5Ycs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4b28dbf4197so3815659b6e.2
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:59:42 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787839181; x=1788443981;
-        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=6jlAodZTMdJ5oEqgjDXWKFeou0hDngy1iIMXLLJ7X7M=;
-        b=Zi2hNYYnrsuxlUIzvp+QlAeh1LqdP47i2YeZjKT+HKu169tkf63sGxc8dtpV945FQg
-         YhlSdogf2w3QcyorXuaaf5QgBVCzXr2HhUMfqvCJcyCNRHIQsNpfT7MzEq1wjRpZg/+o
-         XJZ4cOpfLOA0CaWJ/zPWSPV144JDjzFL62wjuYhXjQS93eICaIfbA2LTXZv9Jq9YVRrN
-         CcKe0Q9Dxso7BKfiAIFga3TRs6Bf5yY/pYiYPvuz3XYQ0EacrKCQ0MoiKv4XdJComFYw
-         YOMrA38bJLAbysE2Hx34q2nfxLVgrmCjc5kzbsStYDbA3HexvtxWLdbFtMd7gH3MAW1F
-         9yVw==
-X-Forwarded-Encrypted: i=1; AHgh+Roca5dPQPQRAPYg5PSovC3AldNxqK8Cm16mF4+5O2IYXHBKLskwmrFWRab5m1z1Is6eWZ91hRZCRe7dYBo=@vger.kernel.org
-X-Gm-Message-State: AFuF++k4ykwZd38p7j43FhWxR9biaSEtob4HU8t9R9CwVuNdIvw2cGqF
-	4HHhvjJOFZ9XQWUViBpwXkE/tI0W7wJE24rpKi/t7B+HAsOf2VcFOIDx3+pQtf9471ZLn+2t6CE
-	uP3PQq1Pth3djb5clCuutvYo9wVf26BUIs22QmKuI79DeWFZmuACw0rNWy3Y=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B8D635F16B;
+	Thu, 27 Aug 2026 13:59:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.100.84
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787839185; cv=fail; b=anC8oRvRrjxaljZT2Uy/Rk7nxl93KBol1whFNxbL9Ujf6XqBmjs/fmZx+1QapZNRWidYpJMNzhpN7FBeL3Ao0yNLdmP9pcoMr4aWbkdydF32QbUTcAhelgi0fWECAAd3YMpd87L1iFI/FXVfyc52+VtifH2l/0l4n/qfaxWmm4k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787839185; c=relaxed/simple;
+	bh=6bwqXH+JvcIXeC14tQOV4XoD8WYLh009iCt14vzDKGE=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=qC9mwf9gnabraaNyM5u+6eokMWXf+E2dUf/ws14ucQOcrqBsSQF26qmvYD2VELogzT/UdLR9ElOg6CErlWM5TRoz74fHGM0o3vm69xjV6HZEY8gm9b4XrpA22YWbRD8LUMP6sG85ZTX3PE5WJ+5D1Vn2gAl++Qy/FyIcCeIZODU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=YaHFpyP1; arc=fail smtp.client-ip=52.101.100.84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="YaHFpyP1"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=W248hF9dwwz2/n64Ggdb553VXSre6Saytp4WMMxKMAeBpcBr3b8J2KUpZB/hFlJChGwzgfUcsc62pAqX/P4390zVwrT4Rs78dzPa1eT7gFgp1alGBYWT0WgvBhG/pihEtE6qDQ6EkJadneU9LNKr5cQK4jrr/kRFsv3wlEGzjnAtKEGUdKudlIYh8q4NceyrRH7r/IuNBcguSj0CZKmYpHruNj++QoqPwx4j0h7RF3UBkcCLe0HiPKFvSVd5roIr/OaB9NnWercLDKlNYZ5v8gTMjpxqZxcZPEw4+wltnVDRSAOVG6KQMTBbrQT4OY5dIGtwfpkWYxRzzybNFJhM3Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Fg6v7L4n57XP3L4C62biOpoWe9Evdhv+mXXVRpL9j0w=;
+ b=X5HG+feRmvDD2RG+SIzc7VujYoCjbky0p2jQTqo5nBQJ7d2+qfoCoGfYPI4t5aLUtfn6pmc74Pj3UaRl98+CC5mI26IQLUwQxHbFs65tbqOcMoPd5rmxYCU+Nu702QQYkaWBmjBocdX3BMIUsu+dz91RAN7g5txXyN4P1l8VWXwrNVfCanIJIIS1sNWaswFFkDIxk1SGx4MxfnVoLuYCkXx6awiavd/YmeoHIYTMfnCdWtD2RNrhDZMtW+iBFnywjrO+bdulIUtlIMqsjR+rG05yMeTnr6CmwW+u+fkJ88wj1BQZl01ZpsVoBXBG3WJkH9Lg5bP2dCEBHy1WVg4z0Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Fg6v7L4n57XP3L4C62biOpoWe9Evdhv+mXXVRpL9j0w=;
+ b=YaHFpyP1fZ0t5WJ/KIHzdwaXghvYm1NuabthbOOSVgkVvpqW7Qu+9c1Euh6ZHilOfCR2ieyCQApIkG90QYwiy6N1JorFZwejzP0Vf4Gq6b7V7EPALjaYyemxwQ1IGYRGy9km7CxrViyzeekZhyIeGTaAfBQokP7Njv3N9quLOrg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by LO7P265MB7984.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:464::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
+ 2026 13:59:38 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
+ 13:59:36 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 27 Aug 2026 14:59:34 +0100
+Message-Id: <DKZS3E7Y2G2O.WYBCRQJR63AE@garyguo.net>
+Cc: "Burak Emir" <burak.emir@gmail.com>, "Yury Norov"
+ <yury.norov@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+ <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v8 03/12] rust: num: add cv! macro to create values from
+ constant expressions
+From: "Gary Guo" <gary@garyguo.net>
+To: "Eliot Courtney" <ecourtney@nvidia.com>, "Alexandre Courbot"
+ <acourbot@nvidia.com>, "Alice Ryhl" <aliceryhl@google.com>
+X-Mailer: aerc 0.22.0
+References: <20260827-chid-v8-0-bc74c77d0214@nvidia.com>
+ <20260827-chid-v8-3-bc74c77d0214@nvidia.com> <apAEK9CUZICDTL1i@google.com>
+ <DKZNWJZTS063.3Q91LQ4LNE4Q6@nvidia.com>
+ <DKZOJLLRFT75.1967F9U9JUTVV@nvidia.com>
+ <DKZRUNURZ645.1R1EVJ9ZEXFDE@nvidia.com>
+In-Reply-To: <DKZRUNURZ645.1R1EVJ9ZEXFDE@nvidia.com>
+X-ClientProxiedBy: LO4P123CA0615.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:314::17) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:3090:b0:6b1:b946:bffe with SMTP id
- 006d021491bc7-6b1b946dd1bmr3119756eaf.25.1787839181352; Thu, 27 Aug 2026
- 06:59:41 -0700 (PDT)
-Date: Thu, 27 Aug 2026 06:59:41 -0700
-In-Reply-To: <20260827094509.1016740-1-hebaoquan@kylinos.cn>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9042cd.50659fcc.60cd.0014.GAE@google.com>
-Subject: [syzbot ci] Re: xswap: extendable swap device backed by zswap
-From: syzbot ci <syzbot+cibdf28e878344e870@syzkaller.appspotmail.com>
-To: akpm@linux-foundation.org, baohua@kernel.org, baoquan.he@linux.dev, 
-	chengming.zhou@linux.dev, chrisl@kernel.org, david@kernel.org, 
-	hannes@cmpxchg.org, hebaoquan@kylinos.cn, kasong@tencent.com, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, nphamcs@gmail.com, 
-	shikemeng@huaweicloud.com, yosry@kernel.org, youngjun.park@lge.com
-Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO7P265MB7984:EE_
+X-MS-Office365-Filtering-Correlation-Id: ba64d1b4-76f3-45ab-f8b9-08df04436d91
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|7416014|376014|1800799024|10070799003|23010399003|56012099006|10067099003|5023799004|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	haEGKySxzN9Lf9nBHlf0t4DVbEaENuVzCl7hBw8XtVMh1RrySgwenBim88I5cpEYEbRge/vbZ43Oujmh/Kc1GIfz7TmGQiGoUS9xtWWJawqeeuPYmPx7zw5sgYYRQwqxzx8hCD8ujkwxvRMZ9cpY4eSb1AcqKsmoH8PXN9hf0KdnPiEpilv/78gqnGkJSTs6KQwqOgiQF2WmMxx8EmHcQz4b6khlSLFE1zGhnBYp7tXZk0nuex0q1CWSbBwkRFx0w8Bc3g5V+5GsY9hg0z0IzJmLflxm3TNS3e4KH3ru7lTjSPpyhSMXk+S1DT9rRbmwhlB9VEvqRIpTzOSTgwTjqQF2iO+4TKHzcMQI5nrKQ5WyhNgfPoAfEIeK/W/uEALZPBMGIVgAlr/3t11sj2T2fzodk273Xd+NLT6ep+5skOlpBWDIZ9kPlIaguWkQBNtVSZy4uo5YqNrydEGROsKd37fe8dlthe2z1PC/Smh1tNqh5/XrUhqIH+S0kTZZ7OQTNbTeIuGnppDIEI9ak2BqUeOAG6ob5AghYcfTe39+QsgsI6ZnRAWeOnIAAcE24nBtyeC7jqomoC8lYMGjkg+VqYjDmeJvJ9EuS0zTP2zKSXE+nQGi2judZv5cfm5X6OYmHiYSvJh8gC+c0WFMTC9hQw2/RKMbLGlmtMjkeIsxE3o=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024)(10070799003)(23010399003)(56012099006)(10067099003)(5023799004)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZUxkbEtXRTFMWnlsZ0t5amJ6ZWd6bGZiSUFnUDJGVnl3THBYZEhTSWZENHhp?=
+ =?utf-8?B?djZXVFRZWFZVUEJjRlh4QzE4ODdEclhtNmY2Wlk5djlaWFkyUUI0VzQrclBO?=
+ =?utf-8?B?eVlUbFRSNUFGSEcyMjgxWnNoQmx6NXlEZGhIOE9EM3dKMWF6VEhmTkZUTDM4?=
+ =?utf-8?B?WXJMOVdqVmltT240VTdoQXF3Q3NkaEhuZFpLckRmRVhTSDFLNUhyZitmUzdE?=
+ =?utf-8?B?VGVpckd3Z2RJbzVDeHBuWG9oUlllZkhzQzc3WGZTdTZpMk5YM2g3M1JERVhm?=
+ =?utf-8?B?MjAvRk04dS83NG5LeHNPTXJZMEJMcE1LR0pheU1Kek85eTBmY2dUOHpaZC9w?=
+ =?utf-8?B?SGVBSVYrVktrZjJVaUx0cFZRQWdKTURxazVBN2RPUFpmTEEyaUo2dFNJeW84?=
+ =?utf-8?B?bUJmaDhseGxoODhlWGRIdUlLQ0djSTJsNEY5VURkOGZGL1lCOFZYcHhsKzVL?=
+ =?utf-8?B?MEZaWkE3OXFYVHJ0Z2Z5V0MwbmE5T1Fnc1BBQ0VDYUxrSnNSK1JaekpzRFFP?=
+ =?utf-8?B?OG1LN1BIV3dDVlp5NzM1TzdydWk4bXptcGxPTGQvVjBUZ05BcENrRzdXWXk2?=
+ =?utf-8?B?cnFQT0FVczdOZjg2d1hPYUp1a0p6TExBRXZlUlNuKzlETURJTWVSNDVDdklU?=
+ =?utf-8?B?UUE5NlZyNEJnL1pZSEkrUDk2OGRla3ZUb29hWnoxbmNkRDhXZk9iSTZudVV4?=
+ =?utf-8?B?SmNFbWovYlBlcFJtbCtiUUNNaGhpcUhUM2NWZmRFSzd5L3A1R1FML1hTL3Ix?=
+ =?utf-8?B?UFBGM0hNMml6TnFlSGlEbFFiQ2Q5cm9ZUzJreWd3c3VqbUQxRVNodXdjbGh3?=
+ =?utf-8?B?Z1UwYVF5V2JqaWJlZkJndWt2QkxGYkpTYTFqS0VPQkFvbUFXTGpHNGpyTGh4?=
+ =?utf-8?B?alh0dEFtTTlCRVI5KytINGtwamhKbkJFNG8rYlZvazkrekVaMnlVVmN3blV0?=
+ =?utf-8?B?Y1hubXJld2NBcDVUdmxOTzNCVllQYWxSTDBZTUM2UkNlUWZCZ1JrWWVtUU1G?=
+ =?utf-8?B?ZGlQRlVBaGtoTUtFSHJxUzR0SEZJTzQvWHJ0WGZBS29ydHBHaXlBeVRTK08w?=
+ =?utf-8?B?SHVaY0VHQlh5L01lQkRIb3k5Y0k5REFOZDVBLzdRRDNsTEtDVjdsYVczd0xQ?=
+ =?utf-8?B?cUR4bFhrTDdRNDlLV3VmSTFtM0pzUXpNUmlJYWgwZmtVTWVXcnJxUW53TSto?=
+ =?utf-8?B?Y1NneitqTEpaZjlKMVFrditYVWhhbzdqMlU4VzU0eDZDRldEb1U5emZOem95?=
+ =?utf-8?B?TzdzZmM4UElpbDFuWmVadCtxbzU4bGVRN2hoK3FNaHhoaHVBY1labVVWL1pu?=
+ =?utf-8?B?TnpEOHRhQzR3aFBCWlkxSWdhQWcwbmpRZStZTDlOOHZZeWd5RzdLMXl0cVZt?=
+ =?utf-8?B?ZkMvY3FsLzFPbjNnakRnYnRuYUxGRDNhTVlrbEllVnBGZEhpZHhpQWg0ZjVx?=
+ =?utf-8?B?WkxhZTJnSlY2Qkwxem1CRXlyd3hTZDhjWUNIMmNzTjBGM0dEY1Fmak56cyt2?=
+ =?utf-8?B?cVYwN2FXeldaTUVXSmRFWEZMUzhmbUt6UENxeElYMDN2OE51RjZReUFyNGE0?=
+ =?utf-8?B?LzJQcWdOQmxuR2szc1c3TktNVlN6WFJhWkwrb0ZqN3BYd3lLUkdwdGluY0lU?=
+ =?utf-8?B?RDdhV2FSM1ltalBjSWxWeDZDT2dLOTJPUk1CMUhwQmVaN1p4UmQ2Q1dXaDRa?=
+ =?utf-8?B?RFBmVytYZWYzaHIyRmtsdXI4aG94TDM2TVRKeXNYYzlOdG1rTk5uWXBQOXZ3?=
+ =?utf-8?B?WllBRmdNV1NpS2gweWhKMVQvanFjYm84Z1g2ZVBoVGIvSnNyQWxLa2l1OHl6?=
+ =?utf-8?B?VmFpSk9sM3Exdk1QekNGVGFRZHY5MTJFQ3dWZmpna202NmJmUnJxOGk1NWdo?=
+ =?utf-8?B?RkxINkw2eS9BZi9yZkhFcmRmKzZYY2VqZ0RmaWI2UjJSZzl4akRRWmtJM2hU?=
+ =?utf-8?B?U1UxaWE3NmhCQi9IYk9kRlpxT2FFWTJiOGNWQmJKdEVDaUFvYlBDekRieGJl?=
+ =?utf-8?B?eGEwTFBBQkZvOFliY0lPS1hseS9Tb0k5MVZQeXBZT3RIcVdPMUluMVRqamNO?=
+ =?utf-8?B?c3E1MmI4VXo4V0FQMkFVaDRhbzhtNkNoTDYzaTlVOFNhbGFxLzdZUWl0dUNX?=
+ =?utf-8?B?U3RkY0VpdlRKUEJJU010ZlhhYmMzWnNTMEk5VlU1bzhSQmhXbkRwTGFoRUho?=
+ =?utf-8?B?eHQwMnZXaVFpT0Q1ejlpTkdyNVRFRW0rRVZjRThjL2VuRWdZSnlZMVBrRVJk?=
+ =?utf-8?B?TFlneG01R1dQQnZZc1Faamlya3MvTXc1VUw4OVNRaDJERUdRRmZVNExFSGNr?=
+ =?utf-8?B?UDBGL1RyN2F5RG9IeTRwci82NzlzeTZtTHdjc1ljV2ZBb1Q4eEZkdz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: ba64d1b4-76f3-45ab-f8b9-08df04436d91
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 13:59:36.0722
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: b5/+cJRb1NV3Rf7tqt9T9NN6rQs5bQoGQ/hVRUpOWRSbvD2DMxH1czK1cEg8zlBO0IWmZkAChXgktbJlS8evOQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO7P265MB7984
 
-syzbot ci has tested the following series
+On Thu Aug 27, 2026 at 2:48 PM BST, Eliot Courtney wrote:
+> On Thu Aug 27, 2026 at 8:12 PM JST, Alexandre Courbot wrote:
+>> On Thu Aug 27, 2026 at 7:42 PM JST, Alexandre Courbot wrote:
+>>> On Thu Aug 27, 2026 at 6:32 PM JST, Alice Ryhl wrote:
+>>>> On Thu, Aug 27, 2026 at 04:28:31PM +0900, Eliot Courtney wrote:
+>>>>> Currently, using NonZero/Bounded constants is quite verbose. It's
+>>>>> unfortunate because it disincentivizes using it in interface boundari=
+es.
+>>>>> Introduce a macro to make it nicer to use. The macro `cv!` (for const=
+ant
+>>>>> value) takes a const integer expression and widens it to i128 (at bui=
+ld
+>>>>> time only) before passing it as a const generic value to a new trait
+>>>>> function `FromConst::from_const`. The trait is implemented by NonZero=
+,
+>>>>> Bounded, and Alignment and lets values of each be constructed from
+>>>>> constants without a verbose turbofish syntax. For example,
+>>>>> `const { NonZero::new(1).unwrap() }` can be written as `cv!(1)`.
+>>>>>=20
+>>>>> Suggested-by: Gary Guo <gary@garyguo.net>
+>>>>> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+>>>>
+>>>> This doesn't work in const context, so I don't think this is a great
+>>>> strategy.
+>>>>
+>>>> I would want to use it for cases like this:
+>>>>
+>>>> drivers/android/binder/netlink.rs
+>>>>         const BINDER_CMD_REPORT: u8 =3D kernel::uapi::BINDER_CMD_REPOR=
+T as u8;
+>>>>         const BINDER_A_REPORT_ERROR: c_int =3D kernel::uapi::BINDER_A_=
+REPORT_ERROR as c_int;
+>>>>         const BINDER_A_REPORT_CONTEXT: c_int =3D kernel::uapi::BINDER_=
+A_REPORT_CONTEXT as c_int;
+>>>>         const BINDER_A_REPORT_FROM_PID: c_int =3D kernel::uapi::BINDER=
+_A_REPORT_FROM_PID as c_int;
+>>>>         const BINDER_A_REPORT_FROM_TID: c_int =3D kernel::uapi::BINDER=
+_A_REPORT_FROM_TID as c_int;
+>>>>         const BINDER_A_REPORT_TO_PID: c_int =3D kernel::uapi::BINDER_A=
+_REPORT_TO_PID as c_int;
+>>>>         const BINDER_A_REPORT_TO_TID: c_int =3D kernel::uapi::BINDER_A=
+_REPORT_TO_TID as c_int;
+>>>>         const BINDER_A_REPORT_IS_REPLY: c_int =3D kernel::uapi::BINDER=
+_A_REPORT_IS_REPLY as c_int;
+>>>>         const BINDER_A_REPORT_FLAGS: c_int =3D kernel::uapi::BINDER_A_=
+REPORT_FLAGS as c_int;
+>>>>         const BINDER_A_REPORT_CODE: c_int =3D kernel::uapi::BINDER_A_R=
+EPORT_CODE as c_int;
+>>>>         const BINDER_A_REPORT_DATA_SIZE: c_int =3D kernel::uapi::BINDE=
+R_A_REPORT_DATA_SIZE as c_int;
+>>>
+>>> `const_as!` [1] should do the trick for this, provided you don't need t=
+o
+>>> create a const `NonZero`.
+>>>
+>>> [1] https://lore.kernel.org/all/20260825-const_as-v1-1-1ce712225fe2@nvi=
+dia.com/
+>>
+>> ... but I agree it would be nice to be able to use this in const
+>> context. And there is an overlap with `const_as!` that becomes more
+>> obvious the more I look at it.
+>>
+>> In for a penny, in for a pound of macro code as they say. Since we
+>> agreed on using macros, how about unifying both under the same `cv!`
+>> macro, with as many branches as we have types we want to initialize from
+>> a constant value? For instance:
+>>
+>>     // Does what `const_as!` currently does under the hood.
+>>     const BINDER_CMD_REPORT: u8 =3D cv!(u8::from(kernel::uapi::BINDER_CM=
+D_REPORT));
+>>     // Calls `NonZero::new().unwrap()` under the hood.
+>>     const SOME_NONZERO: NonZero<u8> =3D cv!(NonZero::new(kernel::uapi::N=
+ONZERO_VALUE));
+>>     // Calls `Bounded::new::<{ ...}>()` under the hood.
+>>     const SOME_BOUNDED: Bounded<u32, 2> =3D cv!(Bounded::new(kernel::uap=
+i::SMALL_VALUE));
+>>
+>> I.e. we would have one extra matching arm in `cv!` per type it handles
+>> instead of implementing a trait. The syntax of the macro would look more
+>> natural (bye bye `const_as`'s awkward `=3D>`), albeit it would have the
+>> limitations of such a semantic dispatch.
+>>
+>> Even the name `const_as!` wasn't really accurate to begin with: what it
+>> really emulates is a const `try_from`, and we even discussed
+>> implementing it in these terms in the future.
+>>
+>> I'm sure the idea needs more polishing but I think there's something to
+>> explore here.
+>
+> Yeah I agree that const_as! is similar and if we had const traits we
+> could fully merge them and have it always work in a const context for
+> both duties (which are really a const tryfrom as you said).
+>
+> I am not sure about the suggested syntax (e.g.
+> cv!(Bounded::new(kernel::uapi::SMALL_VALUE))), since it seems very
+> verbose.
+>
+> Alternatively, what about just directly merging them so you use
+> cv!(5) (the non const context FromConst::from_const dispatcher in this
+> series) or cv!(value =3D> u8) (exactly const_as!), with the =3D>
+> distinguishing between the two?
+>
+> So this is what would work for Alice's example (const_as! but pushed
+> inside cv!):
+> ```
+> const BINDER_CMD_REPORT: u8 =3D cv!(kernel::uapi::BINDER_CMD_REPORT =3D> =
+u8);
+> ```
+>
+> When we have const traits then we could remove the =3D> syntax I think.
 
-[v1] xswap: extendable swap device backed by zswap
-https://lore.kernel.org/all/20260827094509.1016740-1-hebaoquan@kylinos.cn
-* [PATCH 01/16] mm: zswap: return -ENOENT when the swap device is gone
-* [PATCH 02/16] mm: xswap support for zswap
-* [PATCH 03/16] mm, swap: add CONFIG_XSWAP and xswap fields to swap_info_struct
-* [PATCH 04/16] mm, swap: refactor free_swap_cluster_info to take swap_info_struct
-* [PATCH 05/16] mm, swap: add xswap cluster grow via VM_SPARSE vmalloc
-* [PATCH 06/16] mm, swap: add sysfs create interface for xswap
-* [PATCH 07/16] mm, swap: add xswap grow trigger on cluster allocation
-* [PATCH 08/16] mm, swap: add xswap_try_shrink and shrink trigger on cluster free
-* [PATCH 09/16] mm, swap: free backing pages in xswap_unmap_clusters
-* [PATCH 10/16] mm, swap: add nr_free_tail for O(1) xswap shrink detection
-* [PATCH 11/16] mm, swap: add adjustable runtime ceiling (nr_clusters) for xswap
-* [PATCH 12/16] mm, swap: add debugfs knob for xswap per-device cluster limit
-* [PATCH 13/16] mm, swap: defer xswap shrink to workqueue to avoid lock recursion
-* [PATCH 14/16] mm, swap: refactor swapoff + add xswap_destroy
-* [PATCH 15/16] mm, swap: require zswap for xswap devices
-* [PATCH 16/16] mm, swap: allow setting xswap device priority at creation
+It'd still be useful to allow explicit specification if user prefers. I thi=
+nk it
+makes sense to (ultimately) translate
 
-and found the following issue:
-possible deadlock in console_flush_all
+    cv!(val)
 
-Full report is available here:
-https://ci.syzbot.org/series/6e23a918-7d02-47ba-a61f-bcad82aebf14
+to
 
-***
+    const { FromConst::from_const(val as i128) }
 
-possible deadlock in console_flush_all
+and
 
-tree:      linux-next
-URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/next/linux-next
-base:      169393fff5d1ec2690934067eeb95544ff5ebdd7
-arch:      amd64
-compiler:  Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-config:    https://ci.syzbot.org/builds/633d2731-0a5e-45d2-96bf-bd29305475b9/config
-syz repro: https://ci.syzbot.org/findings/b9106c23-79f3-457d-bb14-c0cf63e4bed2/syz_repro
+    cv!(val =3D> ty)
 
-------------[ cut here ]------------
-======================================================
-WARNING: possible circular locking dependency detected
-syzkaller #0 Not tainted
-------------------------------------------------------
-syz.1.20/5854 is trying to acquire lock:
-ffffffff8eb4bf40 (console_owner){..-.}-{0:0}, at: rcu_try_lock_acquire include/linux/rcupdate.h:305 [inline]
-ffffffff8eb4bf40 (console_owner){..-.}-{0:0}, at: srcu_read_lock_nmisafe include/linux/srcu.h:428 [inline]
-ffffffff8eb4bf40 (console_owner){..-.}-{0:0}, at: console_srcu_read_lock kernel/printk/printk.c:291 [inline]
-ffffffff8eb4bf40 (console_owner){..-.}-{0:0}, at: console_flush_one_record kernel/printk/printk.c:3246 [inline]
-ffffffff8eb4bf40 (console_owner){..-.}-{0:0}, at: console_flush_all+0x123/0xaf0 kernel/printk/printk.c:3343
+to
 
-but task is already holding lock:
-ffff88823c63a898 (&pool->lock){-.-.}-{2:2}, at: __queue_work+0x7fe/0x10a0 kernel/workqueue.c:2358
+    const { ty::from_const(val as i128) }
 
-which lock already depends on the new lock.
+I think there might be some tricks possible to get it working without const
+trait, e.g. for `Bounded` and `Alignment` we could simply add an inherent m=
+ethod
 
+    #[doc(hidden)]
+    #[inline]
+    const fn __from_const(val: i128) -> Self { ... }
 
-the existing dependency chain (in reverse order) is:
+but I'll need to think about how to make it work with core types.
 
--> #3 (&pool->lock){-.-.}-{2:2}:
-       __raw_spin_lock include/linux/spinlock_api_smp.h:158 [inline]
-       _raw_spin_lock+0x2e/0x40 kernel/locking/spinlock.c:158
-       __queue_work+0x72f/0x10a0 kernel/workqueue.c:2361
-       queue_work_on+0x106/0x1d0 kernel/workqueue.c:2452
-       queue_work include/linux/workqueue.h:699 [inline]
-       rpm_suspend+0xeca/0x17b0 drivers/base/power/runtime.c:688
-       __pm_runtime_idle+0x12f/0x1a0 drivers/base/power/runtime.c:1129
-       pm_runtime_put include/linux/pm_runtime.h:551 [inline]
-       __device_attach+0x355/0x450 drivers/base/dd.c:1116
-       device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
-       bus_probe_device+0x12a/0x220 drivers/base/bus.c:620
-       device_add+0x7d7/0xb80 drivers/base/core.c:3772
-       serial_base_port_add+0x18f/0x270 drivers/tty/serial/serial_base_bus.c:186
-       serial_core_port_device_add drivers/tty/serial/serial_core.c:3275 [inline]
-       serial_core_register_port+0x37f/0x2840 drivers/tty/serial/serial_core.c:3314
-       serial8250_register_8250_port+0x16b4/0x2090 drivers/tty/serial/8250/8250_core.c:828
-       serial_pnp_probe+0x56a/0x7f0 drivers/tty/serial/8250/8250_pnp.c:480
-       pnp_device_probe+0x30b/0x4c0 drivers/pnp/driver.c:111
-       call_driver_probe drivers/base/dd.c:-1 [inline]
-       really_probe+0x254/0xae0 drivers/base/dd.c:706
-       __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
-       driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
-       __driver_attach+0x339/0x600 drivers/base/dd.c:1292
-       bus_for_each_dev+0x23b/0x2c0 drivers/base/bus.c:383
-       bus_add_driver+0x345/0x670 drivers/base/bus.c:763
-       driver_register+0x23a/0x320 drivers/base/driver.c:174
-       serial8250_init+0x8f/0x160 drivers/tty/serial/8250/8250_platform.c:317
-       do_one_initcall+0x250/0x870 init/main.c:1347
-       do_initcall_level+0x10a/0x1a0 init/main.c:1409
-       do_initcalls+0x59/0xa0 init/main.c:1425
-       kernel_init_freeable+0x29d/0x3e0 init/main.c:1658
-       kernel_init+0x1d/0x1d0 init/main.c:1548
-       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+Best,
+Gary
 
--> #2 (&dev->power.lock){-...}-{3:3}:
-       __raw_spin_lock_irqsave include/linux/spinlock_api_smp.h:132 [inline]
-       _raw_spin_lock_irqsave+0x40/0x60 kernel/locking/spinlock.c:166
-       __pm_runtime_resume+0x10f/0x180 drivers/base/power/runtime.c:1196
-       pm_runtime_get include/linux/pm_runtime.h:494 [inline]
-       __uart_start+0x171/0x460 drivers/tty/serial/serial_core.c:149
-       uart_write+0x251/0x9f0 drivers/tty/serial/serial_core.c:629
-       process_output_block drivers/tty/n_tty.c:557 [inline]
-       n_tty_write+0xd49/0x11e0 drivers/tty/n_tty.c:2366
-       iterate_tty_write drivers/tty/tty_io.c:1006 [inline]
-       file_tty_write+0x509/0x9c0 drivers/tty/tty_io.c:1081
-       new_sync_write fs/read_write.c:595 [inline]
-       vfs_write+0x612/0xba0 fs/read_write.c:687
-       ksys_write+0x150/0x270 fs/read_write.c:739
-       do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
-       do_syscall_64+0x174/0x580 arch/x86/entry/syscall_64.c:94
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
--> #1 (&port_lock_key){-.-.}-{3:3}:
-       __raw_spin_lock_irqsave include/linux/spinlock_api_smp.h:132 [inline]
-       _raw_spin_lock_irqsave+0x40/0x60 kernel/locking/spinlock.c:166
-       uart_port_lock_irqsave include/linux/serial_core.h:719 [inline]
-       serial8250_console_write+0x153/0x1ba0 drivers/tty/serial/8250/8250_port.c:3344
-       console_emit_next_record kernel/printk/printk.c:3183 [inline]
-       console_flush_one_record kernel/printk/printk.c:3269 [inline]
-       console_flush_all+0x6ea/0xaf0 kernel/printk/printk.c:3343
-       __console_flush_and_unlock kernel/printk/printk.c:3373 [inline]
-       console_unlock+0xd1/0x1c0 kernel/printk/printk.c:3413
-       vprintk_emit+0x485/0x560 kernel/printk/printk.c:2479
-       _printk+0xdd/0x130 kernel/printk/printk.c:2504
-       register_console+0xbc3/0xfc0 kernel/printk/printk.c:4208
-       univ8250_console_init+0x3a/0x70 drivers/tty/serial/8250/8250_core.c:515
-       console_init+0x10b/0x4a0 kernel/printk/printk.c:4407
-       start_kernel+0x238/0x3e0 init/main.c:1112
-       x86_64_start_reservations+0x24/0x30 arch/x86/kernel/head64.c:310
-       x86_64_start_kernel+0x137/0x1b0 arch/x86/kernel/head64.c:291
-       common_startup_64+0x13e/0x157
-
--> #0 (console_owner){..-.}-{0:0}:
-       check_prev_add kernel/locking/lockdep.c:3165 [inline]
-       check_prevs_add kernel/locking/lockdep.c:3284 [inline]
-       validate_chain kernel/locking/lockdep.c:3908 [inline]
-       __lock_acquire+0x15ff/0x2e50 kernel/locking/lockdep.c:5238
-       lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5890
-       console_lock_spinning_enable kernel/printk/printk.c:1902 [inline]
-       console_emit_next_record kernel/printk/printk.c:3177 [inline]
-       console_flush_one_record kernel/printk/printk.c:3269 [inline]
-       console_flush_all+0x693/0xaf0 kernel/printk/printk.c:3343
-       __console_flush_and_unlock kernel/printk/printk.c:3373 [inline]
-       console_unlock+0xd1/0x1c0 kernel/printk/printk.c:3413
-       vprintk_emit+0x485/0x560 kernel/printk/printk.c:2479
-       _printk+0xdd/0x130 kernel/printk/printk.c:2504
-       __report_bug+0x349/0x570 lib/bug.c:248
-       report_bug+0x16a/0x220 lib/bug.c:286
-       handle_bug+0x9c/0x200 arch/x86/kernel/traps.c:436
-       exc_invalid_op+0x1a/0x50 arch/x86/kernel/traps.c:490
-       asm_exc_invalid_op+0x1a/0x20 arch/x86/include/asm/idtentry.h:593
-       __queue_work+0xd18/0x10a0 kernel/workqueue.c:2385
-       queue_work_on+0x106/0x1d0 kernel/workqueue.c:2452
-       swap_put_entries_cluster+0x3b1/0x4b0 mm/swapfile.c:1893
-       swap_put_entries_direct+0x94/0x100 mm/swapfile.c:2403
-       zap_nonpresent_ptes mm/memory.c:1900 [inline]
-       do_zap_pte_range mm/memory.c:1967 [inline]
-       zap_pte_range mm/memory.c:2065 [inline]
-       zap_pmd_range mm/memory.c:2151 [inline]
-       zap_pud_range mm/memory.c:2179 [inline]
-       zap_p4d_range mm/memory.c:2200 [inline]
-       __zap_vma_range+0x1da0/0x4f70 mm/memory.c:2240
-       unmap_vmas+0x390/0x550 mm/memory.c:2309
-       exit_mmap+0x293/0x9f0 mm/mmap.c:1315
-       __mmput+0x118/0x420 kernel/fork.c:1187
-       exit_mm+0x221/0x2d0 kernel/exit.c:615
-       do_exit+0x6cd/0x2360 kernel/exit.c:997
-       do_group_exit+0x22d/0x2f0 kernel/exit.c:1152
-       get_signal+0x121b/0x12c0 kernel/signal.c:3046
-       arch_do_signal_or_restart+0xbb/0x860 arch/x86/kernel/signal.c:337
-       __exit_to_user_mode_loop kernel/entry/common.c:66 [inline]
-       exit_to_user_mode_loop+0x104/0x730 kernel/entry/common.c:101
-       __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
-       syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
-       syscall_exit_to_user_mode include/linux/entry-common.h:318 [inline]
-       do_syscall_64+0x353/0x580 arch/x86/entry/syscall_64.c:100
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-other info that might help us debug this:
-
-Chain exists of:
-  console_owner --> &dev->power.lock --> &pool->lock
-
- Possible unsafe locking scenario:
-
-       CPU0                    CPU1
-       ----                    ----
-  lock(&pool->lock);
-                               lock(&dev->power.lock);
-                               lock(&pool->lock);
-  lock(console_owner);
-
- *** DEADLOCK ***
-
-8 locks held by syz.1.20/5854:
- #0: ffff8881bb3703b8 (&mm->mmap_lock){++++}-{4:4}, at: mmap_read_lock include/linux/mmap_lock.h:600 [inline]
- #0: ffff8881bb3703b8 (&mm->mmap_lock){++++}-{4:4}, at: exit_mmap+0x1a4/0x9f0 mm/mmap.c:1299
- #1: ffffffff8eb59c60 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:300 [inline]
- #1: ffffffff8eb59c60 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:840 [inline]
- #1: ffffffff8eb59c60 (rcu_read_lock){....}-{1:3}, at: __pte_offset_map+0x29/0x240 mm/pgtable-generic.c:290
- #2: ffff88816d267f18 (ptlock_ptr(ptdesc)#2){+.+.}-{3:3}, at: spin_lock include/linux/spinlock.h:342 [inline]
- #2: ffff88816d267f18 (ptlock_ptr(ptdesc)#2){+.+.}-{3:3}, at: pte_offset_map_lock+0x13d/0x210 mm/pgtable-generic.c:404
- #3: ffff8881102a40f8 (&cluster_info[i].lock){+.+.}-{3:3}, at: spin_lock include/linux/spinlock.h:342 [inline]
- #3: ffff8881102a40f8 (&cluster_info[i].lock){+.+.}-{3:3}, at: __swap_cluster_lock mm/swap.h:155 [inline]
- #3: ffff8881102a40f8 (&cluster_info[i].lock){+.+.}-{3:3}, at: swap_cluster_lock mm/swap.h:170 [inline]
- #3: ffff8881102a40f8 (&cluster_info[i].lock){+.+.}-{3:3}, at: swap_put_entries_cluster+0x109/0x4b0 mm/swapfile.c:1864
- #4: ffffffff8eb59c60 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:300 [inline]
- #4: ffffffff8eb59c60 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:840 [inline]
- #4: ffffffff8eb59c60 (rcu_read_lock){....}-{1:3}, at: __queue_work+0x1ea/0x10a0 kernel/workqueue.c:2321
- #5: ffff88823c63a898 (&pool->lock){-.-.}-{2:2}, at: __queue_work+0x7fe/0x10a0 kernel/workqueue.c:2358
- #6: ffffffff8eb4bfa0 (console_lock){+.+.}-{0:0}, at: _printk+0xdd/0x130 kernel/printk/printk.c:2504
- #7: ffffffff8ea33838 (console_srcu){....}-{0:0}, at: rcu_try_lock_acquire include/linux/rcupdate.h:305 [inline]
- #7: ffffffff8ea33838 (console_srcu){....}-{0:0}, at: srcu_read_lock_nmisafe include/linux/srcu.h:428 [inline]
- #7: ffffffff8ea33838 (console_srcu){....}-{0:0}, at: console_srcu_read_lock kernel/printk/printk.c:291 [inline]
- #7: ffffffff8ea33838 (console_srcu){....}-{0:0}, at: console_flush_one_record kernel/printk/printk.c:3246 [inline]
- #7: ffffffff8ea33838 (console_srcu){....}-{0:0}, at: console_flush_all+0x123/0xaf0 kernel/printk/printk.c:3343
-
-stack backtrace:
-CPU: 1 UID: 0 PID: 5854 Comm: syz.1.20 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_circular_bug+0x2e2/0x300 kernel/locking/lockdep.c:2043
- check_noncircular+0x12f/0x150 kernel/locking/lockdep.c:2175
- check_prev_add kernel/locking/lockdep.c:3165 [inline]
- check_prevs_add kernel/locking/lockdep.c:3284 [inline]
- validate_chain kernel/locking/lockdep.c:3908 [inline]
- __lock_acquire+0x15ff/0x2e50 kernel/locking/lockdep.c:5238
- lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5890
- console_lock_spinning_enable kernel/printk/printk.c:1902 [inline]
- console_emit_next_record kernel/printk/printk.c:3177 [inline]
- console_flush_one_record kernel/printk/printk.c:3269 [inline]
- console_flush_all+0x693/0xaf0 kernel/printk/printk.c:3343
- __console_flush_and_unlock kernel/printk/printk.c:3373 [inline]
- console_unlock+0xd1/0x1c0 kernel/printk/printk.c:3413
- vprintk_emit+0x485/0x560 kernel/printk/printk.c:2479
- _printk+0xdd/0x130 kernel/printk/printk.c:2504
- __report_bug+0x349/0x570 lib/bug.c:248
- report_bug+0x16a/0x220 lib/bug.c:286
- handle_bug+0x9c/0x200 arch/x86/kernel/traps.c:436
- exc_invalid_op+0x1a/0x50 arch/x86/kernel/traps.c:490
- asm_exc_invalid_op+0x1a/0x20 arch/x86/include/asm/idtentry.h:593
-RIP: 0010:__queue_work+0xd18/0x10a0 kernel/workqueue.c:2385
-Code: 3d 7e ec b2 0e 01 0f 85 35 02 00 00 e8 a1 28 39 00 e9 82 f3 ff ff e8 97 28 39 00 90 0f 0b 90 e9 21 fd ff ff e8 89 28 39 00 90 <0f> 0b 90 e9 80 fe ff ff e8 7b 28 39 00 eb 11 e8 74 28 39 00 4c 8b
-RSP: 0018:ffffc90003cdf1d8 EFLAGS: 00010093
-RAX: ffffffff818dc2d7 RBX: dffffc0000000000 RCX: ffff888113955a00
-RDX: 0000000000000000 RSI: ffffffff8c4bca60 RDI: ffffffff8c4bca20
-RBP: 0000000000000001 R08: ffffffff90572d37 R09: 1ffffffff20ae5a6
-R10: dffffc0000000000 R11: fffffbfff20ae5a7 R12: ffff888160408400
-R13: ffff88810fdd7088 R14: 0000000000000001 R15: ffff88810fdd7090
- queue_work_on+0x106/0x1d0 kernel/workqueue.c:2452
- swap_put_entries_cluster+0x3b1/0x4b0 mm/swapfile.c:1893
- swap_put_entries_direct+0x94/0x100 mm/swapfile.c:2403
- zap_nonpresent_ptes mm/memory.c:1900 [inline]
- do_zap_pte_range mm/memory.c:1967 [inline]
- zap_pte_range mm/memory.c:2065 [inline]
- zap_pmd_range mm/memory.c:2151 [inline]
- zap_pud_range mm/memory.c:2179 [inline]
- zap_p4d_range mm/memory.c:2200 [inline]
- __zap_vma_range+0x1da0/0x4f70 mm/memory.c:2240
- unmap_vmas+0x390/0x550 mm/memory.c:2309
- exit_mmap+0x293/0x9f0 mm/mmap.c:1315
- __mmput+0x118/0x420 kernel/fork.c:1187
- exit_mm+0x221/0x2d0 kernel/exit.c:615
- do_exit+0x6cd/0x2360 kernel/exit.c:997
- do_group_exit+0x22d/0x2f0 kernel/exit.c:1152
- get_signal+0x121b/0x12c0 kernel/signal.c:3046
- arch_do_signal_or_restart+0xbb/0x860 arch/x86/kernel/signal.c:337
- __exit_to_user_mode_loop kernel/entry/common.c:66 [inline]
- exit_to_user_mode_loop+0x104/0x730 kernel/entry/common.c:101
- __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
- syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
- syscall_exit_to_user_mode include/linux/entry-common.h:318 [inline]
- do_syscall_64+0x353/0x580 arch/x86/entry/syscall_64.c:100
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f46ce79e0d9
-Code: Unable to access opcode bytes at 0x7f46ce79e0af.
-RSP: 002b:00007f46cf6fc028 EFLAGS: 00000246 ORIG_RAX: 000000000000001c
-RAX: 0000000000000000 RBX: 00007f46cea26090 RCX: 00007f46ce79e0d9
-RDX: 0000000000000015 RSI: 0000000000600003 RDI: 0000200000000000
-RBP: 00007f46ce835024 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f46cea26128 R14: 00007f46cea26090 R15: 00007ffefd86c578
- </TASK>
-!list_empty(&work->entry)
-WARNING: kernel/workqueue.c:2385 at __queue_work+0xd18/0x10a0 kernel/workqueue.c:2385, CPU#1: syz.1.20/5854
-Modules linked in:
-CPU: 1 UID: 0 PID: 5854 Comm: syz.1.20 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
-RIP: 0010:__queue_work+0xd18/0x10a0 kernel/workqueue.c:2385
-Code: 3d 7e ec b2 0e 01 0f 85 35 02 00 00 e8 a1 28 39 00 e9 82 f3 ff ff e8 97 28 39 00 90 0f 0b 90 e9 21 fd ff ff e8 89 28 39 00 90 <0f> 0b 90 e9 80 fe ff ff e8 7b 28 39 00 eb 11 e8 74 28 39 00 4c 8b
-RSP: 0018:ffffc90003cdf1d8 EFLAGS: 00010093
-RAX: ffffffff818dc2d7 RBX: dffffc0000000000 RCX: ffff888113955a00
-RDX: 0000000000000000 RSI: ffffffff8c4bca60 RDI: ffffffff8c4bca20
-RBP: 0000000000000001 R08: ffffffff90572d37 R09: 1ffffffff20ae5a6
-R10: dffffc0000000000 R11: fffffbfff20ae5a7 R12: ffff888160408400
-R13: ffff88810fdd7088 R14: 0000000000000001 R15: ffff88810fdd7090
-FS:  00007f46cf6fc6c0(0000) GS:ffff8882a8f5a000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000200000e6c000 CR3: 000000010a5a2000 CR4: 00000000000006f0
-Call Trace:
- <TASK>
- queue_work_on+0x106/0x1d0 kernel/workqueue.c:2452
- swap_put_entries_cluster+0x3b1/0x4b0 mm/swapfile.c:1893
- swap_put_entries_direct+0x94/0x100 mm/swapfile.c:2403
- zap_nonpresent_ptes mm/memory.c:1900 [inline]
- do_zap_pte_range mm/memory.c:1967 [inline]
- zap_pte_range mm/memory.c:2065 [inline]
- zap_pmd_range mm/memory.c:2151 [inline]
- zap_pud_range mm/memory.c:2179 [inline]
- zap_p4d_range mm/memory.c:2200 [inline]
- __zap_vma_range+0x1da0/0x4f70 mm/memory.c:2240
- unmap_vmas+0x390/0x550 mm/memory.c:2309
- exit_mmap+0x293/0x9f0 mm/mmap.c:1315
- __mmput+0x118/0x420 kernel/fork.c:1187
- exit_mm+0x221/0x2d0 kernel/exit.c:615
- do_exit+0x6cd/0x2360 kernel/exit.c:997
- do_group_exit+0x22d/0x2f0 kernel/exit.c:1152
- get_signal+0x121b/0x12c0 kernel/signal.c:3046
- arch_do_signal_or_restart+0xbb/0x860 arch/x86/kernel/signal.c:337
- __exit_to_user_mode_loop kernel/entry/common.c:66 [inline]
- exit_to_user_mode_loop+0x104/0x730 kernel/entry/common.c:101
- __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
- syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
- syscall_exit_to_user_mode include/linux/entry-common.h:318 [inline]
- do_syscall_64+0x353/0x580 arch/x86/entry/syscall_64.c:100
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f46ce79e0d9
-Code: Unable to access opcode bytes at 0x7f46ce79e0af.
-RSP: 002b:00007f46cf6fc028 EFLAGS: 00000246 ORIG_RAX: 000000000000001c
-RAX: 0000000000000000 RBX: 00007f46cea26090 RCX: 00007f46ce79e0d9
-RDX: 0000000000000015 RSI: 0000000000600003 RDI: 0000200000000000
-RBP: 00007f46ce835024 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f46cea26128 R14: 00007f46cea26090 R15: 00007ffefd86c578
- </TASK>
-
-
-***
-
-If these findings have caused you to resend the series or submit a
-separate fix, please add the following tag to your commit message:
-  Tested-by: syzbot@syzkaller.appspotmail.com
-
----
-This report is generated by a bot. It may contain errors.
-syzbot ci engineers can be reached at syzkaller@googlegroups.com.
-
-To test a fix for this bug, please reply with `#syz test`
-(on a separate line) and attach the patch to the email.
-
-Notes:
-- The patch will be applied on top of the tested series (as an
-  incremental fix).
-- To test a new version of the whole series, please send it directly
-  to syzbot@lists.linux.dev.
-- Arguments like custom git repos and branches are not supported.
