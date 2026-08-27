@@ -1,184 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 551AE359A90
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 15:24:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAD9047D46A
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 15:24:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787844241; cv=none; b=EeHDJp9np1kFrRWYRgQSMgQKqtR4ACJkfJD1abDpLwAUQvf+eNsWPRHlOUXD91dBoT7Fd26fUwId5XeWNWH5rjrrZOU4tOAdbVCxYOHBp9x2TsRtb9tIhAsgijZ35ndeiKdYPd2cw9ZX61If8lB7+kSALesOLYOG+ZT4BZJeXSQ=
+	t=1787844268; cv=none; b=RcPyuuolOZse7M+edOv+F6sZgYI124UBJ48EOhnjSbRMkzi7hx8/Qwm6nsHlXlxNsgrXNlS4j3V56FYGZHzgsFzAljXvUEKFLGcyjXEvJhTByfp8wnJUogjW1SKnbQs0cLuAUd7V/+0M5/1uaCflA0HxlZwQeLcw7Z1NhOYpFbs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787844241; c=relaxed/simple;
-	bh=tEvltH3HxfmMaiQVRdIf6ngJ3i77UsideDkvmEsixqk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gOCEiYl24XXywvX65l5CDWO2mADZtW96qEmAXSqzcIapU3Wd1wxUOcJXVPZskeFYLgUFVWGusgGxs7LgZENrgaMlAOwaF+lH+eeTY+dX033rTZv6Z/BankyecmDL5vqoxGwHahZkBE+AjC9bUusMP3GystD+wjVbhSzAND2oe2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=glnJ0K3D; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787844268; c=relaxed/simple;
+	bh=gPPDBVz7emEv719U/1T+Q5qL4mRlgYE+mty6MZDOCpA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=WAZVIvO/Ie1Fg58NJtJRgLl1+A7o6RmQk4EWwxMtt0g1oYfrLlaXIuFjhIInU45ql7OqmGcuuvB+11NwvlXOBaYVKjb144Mlks3+Ks93tM8duc3gC7sdjrx3piHoHIKHO3C+/nSB8tusIoHCrl7/LiXNcxXE1Miwi51/I6M0dAg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d9l9DKSA; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="glnJ0K3D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A17F91F000E9;
-	Thu, 27 Aug 2026 15:23:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787844239;
-	bh=QV9O0kb5nHnYqHl1na5pYG1wtKPWpi2bl7NpiLwLaVA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=glnJ0K3D/Jl9fJ+YhlA14ou55XsbF4GhVDB1Yl7QH0VQvegQU1X3LI77lIO+y1VTG
-	 ZAa2hOzkfLp11XeCjXvefQSY2jlcjurJnofU+++Bg4+xi6oLc84aagJQ+wX4qPoAJI
-	 YoZcExlpukUNNuKIsU6j4uhlUhwy4LRFQlDYiiV3odguGbPs10zmDbsJM1sY82V0uV
-	 DP570GSsjfqsYADXKCgmYYKiW2kj14NrFfnQESMbGcBzInx1yLuCrTsfYROgbPzTf8
-	 PNEwwKGmLtmyDPpxYQYw1DUcm290n4JiPiqquRTb8az3iwbLUjblzxmxXK5nVEmjbt
-	 iDIzNyWamSOZQ==
-Message-ID: <c3f16d64-ffe3-46aa-9596-b233f9294fcb@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d9l9DKSA"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-47f59f25ec4so1187829f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:24:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787844265; x=1788449065; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1DILcxOjqLfpxM3Ar5Lvo++XnVhWWEcd9Lq8Wh426u8=;
+        b=d9l9DKSAT6ivpm4EnTABWHidL6sz/4gVW2JphZyDX5/2XpeDoUSo4QKTThdE6s5MzV
+         hirvU6emHuwD088cgh8wCx1YMeMuXW4KO7U7Ex99xOgY0aRlTaGXR1Vok8rBWUXr3rLV
+         Ihr0frF1GjQb/sxMPAThvz8ZuOwWy3TiClSW+nXDzIDBOJ63yfjciN15SqSCV4F1k3SW
+         6vhFKCHAX0aaByi3OVq/QtyB9eREUK7gEC2dIK4/RLqiATKuDG2l/TV1+KRTXXDAxA7a
+         iv/ti+h3oYz4JMGJ7fYWgpl7fG6m5RbyDQBRSEezspNKiqTag6WhYGtJURmewb7rdPxV
+         DtMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787844265; x=1788449065;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1DILcxOjqLfpxM3Ar5Lvo++XnVhWWEcd9Lq8Wh426u8=;
+        b=GglSeWGYDWCHTRaEWO4Y9MBEJSJTiYyuRgV6Stf43V8QYkagJJr32UUEN4JsyAGgpJ
+         E51YDAW0cbwSnqGQRunKvwHMxWSsluMxqQUWtcFkPx5XSVyWdnGKqwIJh4lM+zmbsMkC
+         jg7S7EmbGOafyXNOcQx314sSYIN7TEvijaR51zdBg/uPQabCIJUpsFFR3y5CoJgnfrkY
+         VwNh1mZlYbWloPASigwaoz7K7J+nd4EPAuBSzuhcs5aq0LNL52+1ad74IR+0zIr4sdz6
+         DcA9k1rxLa1U8wGIkp/FHZpAhv78BJOn2zZqA+0BMOr2sPJhx0zsxYApmdNabuoHKiib
+         ze/A==
+X-Forwarded-Encrypted: i=1; AHgh+Rr5C/BoT3bKiq8m6ZYnW51KK1zZZCoQtrZn/nsUUdRd1GcEko/AsjA6kO3ldgBAIHbVZ/NtGPA7qzn+eA0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mW+D0NyrSXkngOYbH1Fv9uY8yYApF81eIXG4Qn3yyS+a31cULt
+	/vJsT45QRLQKtaU+WJrAAQdFwVCSxuIJMKMmP44x1AdBixlwm6w/nrfLxQdjSJ12/Gs=
+X-Gm-Gg: AR+sD11GudU6EpQBD+70fKDqNcePd4AnvHDvCYrDlVvB8G7YhZnuKWdFk4pSdUzTvpN
+	awVQVQuMsZFfoyU667NlLA9qJQJJwX3J36N8cpmA8UnmpBY+1x1mxouM0LDn90mj/FojzDHmGAT
+	L+rNHeHXv3oYEMR/e0Q/Yc/aCmq6ioqkSMNF5dmTQONEDQvarO0HjHORHlW8yWjZ9KBfMCEu+Q7
+	/Ns3xua0OKDU9xLVHYq9W997Id7CKa4T4txEjJ6QeFk7n98W8XHPZ+gZUka1pAU1MODFwijpspv
+	i125L9aPNs6LgO8QVX5aTPUJIYc51jpKQIMZVYFSsXvP3JUEcj3WAAQAcBhx4O4vxIQH/e1TAoW
+	sp6B2jT2+NWoyEM4V8zsVoBbLjJzoVSeV7tFJLHiq/Dv2+9C7im1UyXvLj8HRGnIiGY5YSnqzzt
+	poDzHrEVakPMaWS0qU/Q/pIt1teh22WGFUOflxCRxIlfFeVn+5W6oo1qaYHMlKsqV4VASNBtqOb
+	gwMj99joKUViFMBbVndFnc=
+X-Received: by 2002:a05:6000:653:b0:481:5167:d526 with SMTP id ffacd0b85a97d-482e269d904mr19918299f8f.6.1787844264757;
+        Thu, 27 Aug 2026 08:24:24 -0700 (PDT)
+Received: from amwld-tmagires1.us.drwholdings.com ([149.14.21.6])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e27ab1f3sm10257371f8f.11.2026.08.27.08.24.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 08:24:23 -0700 (PDT)
+From: Tudor-Stefan Magirescu <tudor.magirescu@gmail.com>
+To: peterz@infradead.org,
+	mingo@redhat.com,
+	acme@kernel.org,
+	namhyung@kernel.org,
+	mark.rutland@arm.com,
+	alexander.shishkin@linux.intel.com,
+	jolsa@kernel.org,
+	irogers@google.com,
+	adrian.hunter@intel.com
+Cc: linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	tudor.magirescu@gmail.com
+Subject: [RFC PATCH v2 0/1] perf scripts flamegraph: Add --asm option
 Date: Thu, 27 Aug 2026 17:23:53 +0200
+Message-ID: <20260827152354.1513813-1-tudor.magirescu@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260821090555.1B6DC1F000E9@smtp.kernel.org>
+References: <20260821090555.1B6DC1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] mm/huge_memory: do not touch frozen folios in
- deferred_split_isolate()
-To: Kiryl Shutsemau <kirill@shutemov.name>, akpm@linux-foundation.org,
- ljs@kernel.org, hannes@cmpxchg.org, usama.arif@linux.dev
-Cc: lance.yang@linux.dev, ziy@nvidia.com, hughd@google.com,
- baolin.wang@linux.alibaba.com, baohua@kernel.org, liam@infradead.org,
- nico.pache@linux.dev, dev.jain@arm.com, ryan.roberts@arm.com,
- balbirs@nvidia.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-References: <20260826162101.1314941-1-kirill@shutemov.name>
- <20260826162101.1314941-2-kirill@shutemov.name>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260826162101.1314941-2-kirill@shutemov.name>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 8/26/26 18:20, Kiryl Shutsemau wrote:
-> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-> 
-> deferred_split_isolate() probes each queued folio with folio_try_get().
-> folio_try_get() failure is treated as a lost race with folio_put(): clear
-> PG_partially_mapped, correct MTHP_STAT_NR_ANON_PARTIALLY_MAPPED, take
-> the folio off the queue.
-> 
-> The folio_put() race is the most common case for !folio_try_get(), but
-> it is not the only option. Another scenario is folio_ref_freeze().
-> 
-> A zero refcount in such cases does not mean the folio is going away.  It
-> means "don't touch me" and current deferred_split_isolate() doesn't
-> respect it. It can lead to unqueueing folios from the deferred list for
-> no reason:
+Flame graphs report samples at function granularity, so a wide frame shows
+which function is hot but not which part of it. Obtaining that requires
+perf annotate, which reports per-instruction counts without the calling
+context of a flame graph. This adds an --asm option that appends the
+sampled instruction as a leaf node, so both views are available at once.
 
-Yes.
+While testing locally on x86_64 I noticed that when recording using
+--call-graph fp and :p event modifiers, the top stack frame of the
+callchain and the sample information don't agree. In my case, it appears
+that the callchain's ip is exactly one instruction after the sample's ip.
+perf annotate seems to ignore the callchain information and only uses the
+sample ip to record the distributions, which I replicated in the script,
+so that both tools attribute a sample to the same instruction.
 
-> 
->     CPU 0                            CPU 1
->     ---------------------------      ------------------------------
->     freeze a mapped folio            deferred_split_scan()
->       folio_ref_freeze()               folio_try_get() fails
->                                        folio_clear_partially_mapped()
->                                        NR_ANON_PARTIALLY_MAPPED--
->                                        folio off the queue
->     give up, put it back
->       folio_ref_unfreeze()
-> 
-> The folio is still partially mapped, but it is no longer a split candidate.
-> Nothing queues it again until part of it is unmapped once more.
-> 
-> Skip the folio instead: whoever freezes the folio, owns it and owner is
-> responsible for its fate. It also covers the folio_put() case:
-> __folio_put() unqueues the folio via folio_unqueue_deferred_split().
-> 
-> Reported-by: Lance Yang <lance.yang@linux.dev>
-> Link: https://lore.kernel.org/all/20260824131224.73344-1-lance.yang@linux.dev/
+This approach has 2 problems:
 
-Fixes?
+1) (Occurs only when recording with --call-graph fp and :p) The sample and
+top of callchain might not refer to the same function, which means that
+some instructions might be misattributed to a wrong call stack. Is a fixup
+wanted here, and if so should it live in this script or where the
+callchain is built?
 
-> Assisted-by: Claude-Code:claude-opus-5
-> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> ---
->  mm/huge_memory.c | 19 ++++---------------
->  1 file changed, 4 insertions(+), 15 deletions(-)
-> 
-> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> index ced400f72d43..6281ed993243 100644
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -4590,22 +4590,11 @@ static enum lru_status deferred_split_isolate(struct list_head *item,
->  	struct folio *folio = container_of(item, struct folio, _deferred_list);
->  	struct list_head *freeable = cb_arg;
->  
-> -	if (folio_try_get(folio)) {
-> -		list_lru_isolate_move(lru, item, freeable);
-> -		return LRU_REMOVED;
-> -	}
-> +	/* Lost race to folio_put() or the folio is under folio_ref_freeze() */
-> +	if (!folio_try_get(folio))
-> +		return LRU_SKIP;
->  
-> -	/*
-> -	 * We lost race with folio_put(). Read folio state before the
-> -	 * isolate: folio_unqueue_deferred_split() checks list_empty()
-> -	 * locklessly, so once removed the folio can be freed any time.
-> -	 */
-> -	if (folio_test_partially_mapped(folio)) {
-> -		folio_clear_partially_mapped(folio);
-> -		mod_mthp_stat(folio_order(folio),
-> -			      MTHP_STAT_NR_ANON_PARTIALLY_MAPPED, -1);
-> -	}
-> -	list_lru_isolate(lru, item);
-> +	list_lru_isolate_move(lru, item, freeable);
->  	return LRU_REMOVED;
->  }
->  
+2) A binary object might contain 2 or more symbols with the same name but
+different code (e.g., when defining 2 static functions with the same name
+in different translation units). In this case, the approach cannot
+disambiguate between them, so instructions might get misattributed. Would
+exporting the symbol start and end for the sample, as already present for
+callchain entries, be acceptable? This would also remove the objdump -t
+call entirely.
 
-Who will clean up the stats that we used to clean up? That should be mentioned
-in the commit log, otherwise it looks like some piece of the puzzle is missing.
+Changes since V1:
+- Warn to stderr and disable annotations if objdump is not found at startup.
+- Resolve DSOs through perf's build-id cache rather than raw DSO path.
+- Try debug before elf in the build-id cache to support stripped binaries.
+
+Tudor-Stefan Magirescu (1):
+  perf scripts flamegraph: Add --asm option
+
+ tools/perf/scripts/python/flamegraph.py | 161 ++++++++++++++++++++++++
+ 1 file changed, 161 insertions(+)
 
 -- 
-Cheers,
+2.43.0
 
-David
