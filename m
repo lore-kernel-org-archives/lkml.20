@@ -1,97 +1,69 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D972622FDE6;
-	Thu, 27 Aug 2026 13:36:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E9DD378D9C
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:36:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787837809; cv=none; b=AtmIhKtEF//qtx8u/oG06Z4DLQqiGnNzxb/Q5nBxxE/Il5Q3A8yifEOTSFsbosOfGfrHYjKiCdRo7ZdifEb3HwPBT1I5XvxS5whDqO3rJXwb1Z+vLnkIZEbjXkLz1sVtciLDCZj8oMRw+6mRMI2fBLY+ozU8lsXePLyQWEDbN7k=
+	t=1787837817; cv=none; b=jZjGF+BaFZbUazITrNcSPWJG2yrBDkLQCRBikGmb6bPd0qgOv2s4i+WHd65KMP/sFqKleEhIV0Cwp2EmGqowhrChu/LM3BndgGO9yZLDoy6u3azyjyjX5oeHqh6+ctVoYq0Zx4b7mIpRl1LptZ/llKxFcGXOzMEVHQp0ITuh5OE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787837809; c=relaxed/simple;
-	bh=y77JdbmbQ+p8ao/XsJ+yBKEj/BzsMs8447bJoe6PuaM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=D8w4szGhoQIVnjYgbgvxpBnVjvfwT3hvx+8MK+sPetNYLiAlnHWzcRBXovtDo7y1dQfHrTJ/t0Exb5bJmi7D/iYV4TBvVfbRekQoDIXPB/93LO2up7QhvySUzDiR4x5uh4ipYlsiHtslckr1YnYtruILESvx5P8OYB6GCQAmafk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VyD0UtL0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787837817; c=relaxed/simple;
+	bh=A5r0+yUXSX3XQUcP9QrMrgeywepUhT6vyR5hnyxxQlU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=N73i1mMXND0r5AKj/lE9RdRGmNPNKaTQ8O6kHHWxXpacoGCWBw5LliSFkwbSRZpDHtf2jD73c0mKII/lLM9s1vsJSzRRdOS9eZRLsbNMMG4rOzRRmuRWl7RPFJAi40of8MwAo+EHmvOi3E+OPZjhjxsE1jvZbP6BQU8LdbM+M/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=p0Ew9lVd; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VyD0UtL0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21D881F000E9;
-	Thu, 27 Aug 2026 13:36:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787837804;
-	bh=AFrAUexgDEbcFroMIVFfeYtWH8e4l4ZTKASZuHJWSKs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VyD0UtL0Qcckx5OVhnXQ2dB8+QfpjBYNsnjlJJt6CJW91D78QGnnFOJwjQPpld9PH
-	 sXF8ZSk7RnN9mFQphO9L3XzVfDJqMBzWmNmdisg22MnPdmkBaxlY1V+Dp+V1ZYVriR
-	 AFHd2SbPCU7FT2GF8KciIclmpdLXTrah887vD59ZivEBYYBbsARbQenrW9EAGvqSUJ
-	 g1Aa2MqbkgvGWaJ5IaV7ycTMcK77GdM39Bn+M5/G1Ax9PktIG7jpZK3sZB+g214lzE
-	 kf9kFGloctZ5NxMPt7csp8dyzbros+tlxniHa/iZQna1W7Mo88vJFvx1BcuuxI92Ut
-	 Qd2tYjl4Qe6Gw==
-Received: from johan by xi.lan with local (Exim 4.99.4)
-	(envelope-from <johan@kernel.org>)
-	id 1wzaHZ-000000031xk-3ZRU;
-	Thu, 27 Aug 2026 15:36:41 +0200
-Date: Thu, 27 Aug 2026 15:36:41 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
-	Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Aaron Tomlin <atomlin@atomlin.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-usb@vger.kernel.org,
-	driver-core@lists.linux.dev, linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] module: pull out add_taint_module() to be public
-Message-ID: <apA9aTiIpBz4inof@hovoldconsulting.com>
-References: <20260826-bind_taint-v1-0-52b05f4a965c@linuxfoundation.org>
- <20260826-bind_taint-v1-1-52b05f4a965c@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="p0Ew9lVd"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=A5r0+yUXSX3XQUcP9QrMrgeywepUhT6vyR5hnyxxQlU=; b=p0Ew9lVdxDMpqqMCJQPiMrrSIN
+	oczAEJ9P4l57EslTO8aBrNgTsmyf3KIRpzzzqFAyIcw2u6VTGv3x+sBRVotqHg+IQZRnXc+D1L9bK
+	FxpYMMrunx627E71POwRG5r8BxHZmMNbFPRNG/yqtxcaRD6x1Fm6sqmv/PGnNB8w0bWpcUdl4t8qi
+	Kw/PTXYKZc7lLDpV9IGV9E54g6GXOB+Op8ho9NgvV4g7b2MsPZm34dGdusYELoqPjQASwuDOlkBrn
+	vMK8mB1/bAo9u9yxPy/A9iDc3ygx0FQk+40tvoJK1u2vSs9N8PX7YM2nwxAwv5cH1yCg8sWkEMB2M
+	uGh4IFRg==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>, jason98166@gmail.com
+Cc: Heiko Stuebner <heiko.stuebner@cherry.de>, linux-phy@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Jason Yang <jason98166@gmail.com>
+Subject:
+ Re: [PATCH] phy: rockchip-samsung-dcphy: Enable runtime PM at PHY core level
+Date: Thu, 27 Aug 2026 15:36:42 +0200
+Message-ID: <10904774.nUPlyArG6x@phil>
+In-Reply-To: <20260821-dcphy-rpm-v1-v1-1-a7db728b2539@gmail.com>
+References: <20260821-dcphy-rpm-v1-v1-1-a7db728b2539@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260826-bind_taint-v1-1-52b05f4a965c@linuxfoundation.org>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-On Wed, Aug 26, 2026 at 11:19:32AM +0200, Greg Kroah-Hartman wrote:
-> Other kernel code might want to call add_taint_module() so pull it out
-> and make it global.  If modules are not enabled, this defaults to a call
-> to add_taint(), so all is fine.
-> 
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Am Freitag, 21. August 2026, 13:44:19 Mitteleurop=C3=A4ische Sommerzeit sch=
+rieb Jason Yang via B4 Relay:
+> From: Jason Yang <jason98166@gmail.com>
+>=20
+> phy_create() only enables runtime PM on the new PHY device if the parent
+> already has it enabled, and this driver enables it afterwards. The PHY
+> device therefore never gets runtime PM, and phy_pm_runtime_get_sync()
+> returns -ENOTSUPP for every phy_init() and phy_power_on(). The block is
+> still resumed today, but only through the supplier link fw_devlink builds
+> from the phys phandle, which fw_devlink=3Doff and =3Dpermissive do not.
+>=20
+> Move devm_pm_runtime_enable() before devm_phy_create(), as done for the
+> sibling HDPTX PHY in commit 10ba8479f460 ("phy:
+> phy-rockchip-samsung-hdptx: Enable runtime PM at PHY core level").
+>=20
+> Fixes: b2a1a2ae7818 ("phy: rockchip: Add Samsung MIPI D-/C-PHY driver")
+> Signed-off-by: Jason Yang <jason98166@gmail.com>
 
-> -static inline void add_taint_module(struct module *mod, unsigned flag,
-> -				    enum lockdep_ok lockdep_ok)
-> +/**
-> + * add_taint_module: add a taint flag if not already set for a specific module
-> + * @mod: pointer to the module that caused the problem
-> + * @flag: one of the TAINT_* constants.
-> + * @lockdep_ok: whether lock debugging is still OK.
-> + *
-> + * If something bad has gone wrong, you'll want @lockdebug_ok = false, but for
-> + * some noteworthy-but-not-corrupting cases, it can be set to true.
-> + */
-> +void add_taint_module(struct module *mod, unsigned flag,
-> +		      enum lockdep_ok lockdep_ok)
->  {
->  	add_taint(flag, lockdep_ok);
+Reviewed-by: Heiko Stuebner <heiko@sntech.de>
 
->  	set_bit(flag, &mod->taints);
 
-As has been pointed out, this crashes with built-in drivers. If you go
-with a simple mod NULL check before this call (and updated kernel-doc)
-you can add my:
-
-Reviewed-by: Johan Hovold <johan@kernel.org>
-Tested-by: Johan Hovold <johan@kernel.org>
-
-Johan
