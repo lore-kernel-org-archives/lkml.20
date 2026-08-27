@@ -1,107 +1,174 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011017.outbound.protection.outlook.com [52.101.62.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F71135CB60;
-	Thu, 27 Aug 2026 06:22:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787811779; cv=none; b=M8FV6lUuK8kem0dISUPFSa7EEOsi2p0Yb+T6MaIzmUQ4p0ppob3u6DZ8DMliFTZ2RV7aX/GjJWce+S5rjYGgsi5pFw178ykOicPH/LVAXZDfPUVXhHUrQptWWiALLiB/GFcwBJlGgj8PPOY2lNaAN9R/PYbC0blb24/53gM8XKY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787811779; c=relaxed/simple;
-	bh=S0MFObbzMYfGZPvhLGUQnmSIcx9IDKqS9/i758u2B5k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nOhxF9kbUmCTBzLEcDcxu2bJ+TyssO+FImPdAJWPlQ9Y5ENKF5KniIQx5zvhbGfAm93yvJTxIOTSrfIUV+N89aL4cKxirUOhUGOSdvtqYeH9HCDGq+JBJYqA1MR2p6D7sLzPv/P3jsbOchulguCu4+b2E7fZdMsdoFnsx7Q0trI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=U10DQYys; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F71635CB81;
+	Thu, 27 Aug 2026 06:23:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.17
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787811805; cv=fail; b=f/iBADKZcxcPQGWx/reI1g1GJfggQzGvwqnKM50D+Vfb10YiLWgdRIWc32jAN0eEnkrFxeI7AQ/+z3CynWrUcFNfZo/Z96Y4EdnDjOYqNvWDZm8c3ROSAjJ6dqUUVWlwcew6l7rlX1RZ8lbjFS7Dg9nQdy4Ll/7mRQocRi2hO9g=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787811805; c=relaxed/simple;
+	bh=erOe2tmSWUTnVc0pTn08jMCr/kFvbb7veylURatv2Ik=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=HNCRfErfz3EeHIespiNtjwwZujjXQMc/49ykxJ+4/4AIETzVkUk0zMf8L/SAOCl1eHXlbgL5cC67brDJ3Dqn5CY3RgiCLHzDedevUj/lGD5tlA5PnLzFozQPjhg7k/Abp7KWgNDusg0PUhbiCcGcXoBV8mt3gVqO04ELbmpwk9I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=o0wpZ+2f; arc=fail smtp.client-ip=52.101.62.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="U10DQYys"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787811777; x=1819347777;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=S0MFObbzMYfGZPvhLGUQnmSIcx9IDKqS9/i758u2B5k=;
-  b=U10DQYys6pTJCqCtKflf0LGHvMk2jFYRkXDIcJmGhppGPxqW8p0dkGiq
-   GQSQAWPCms1Mr4AIbcGdhJoebhxGVUDorws0/SfiHj1H245BOkh8wABbR
-   wUkFPDTGW6c6/lSK22XgrPaG5mb+LyBYM1h9zmNaoS0Wh7OmOMcG5x7si
-   Aw8JFB9MnjkUrL6mU/ey/ctetknBVAyw+bA1U1IaTZm8w0lE+CU/hiCdc
-   muV4rt68jo6PPGHpH4cU08te1cL98tr03zQDTTY+z2sDAGS3mdZoQdUXb
-   7s42Q3fOvHX7+IDLDOfL/QcifNE8QkaLyE68vdFyeGwJw3LWeTguf3GXD
-   A==;
-X-CSE-ConnectionGUID: IP+dWgrOScORLyL/WPQYPA==
-X-CSE-MsgGUID: 6RmHITE/RxeH/ot/Hs9vzQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="75845960"
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="75845960"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 23:22:56 -0700
-X-CSE-ConnectionGUID: a01mTHa9QcmxBUiBUT8uxA==
-X-CSE-MsgGUID: qbbYqFUrR9exqWj7SVXqKQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="266475938"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.125])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 23:22:54 -0700
-Date: Thu, 27 Aug 2026 09:22:51 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Mika Westerberg <mika.westerberg@linux.intel.com>
-Cc: xiaoyueyoqwq <xiaoyueyoqwq@gmail.com>, andi.shyti@kernel.org,
-	westeri@kernel.org, linux-i2c@vger.kernel.org,
-	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] i2c: acpi: Add DELL0A86 to
- i2c_acpi_force_100khz_device_ids
-Message-ID: <ao_Xu-43lnM6I7Pn@ashevche-desk.local>
-References: <63cb7f6e-27ab-43d8-adb5-d2f4acd57674@gmail.com>
- <20260823123310.188189-1-xiaoyueyoqwq@gmail.com>
- <20260824102221.GE893316@black.igk.intel.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="o0wpZ+2f"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NX8dOup2C/A9KzaFK+NHahoQ0ywrfTWI1nd2fVJlWzN+l9A+c1mfJkYKa4n1PH232cGNSnV+iKLd/G7E8Yvz76mTgc3DfEaABHpH6fFrefDekO8hK2B4x0VFUDFW5/Ntz+6uuuvot/qhbxbQOQecjTOurum4SMhaIShfKyHVzJw9DhhDIKDn3TWB9PZJDO/L7bFOaN1g9hYUE3bdEFy8Wxyuu+NyzjPGgMBicRt/GDWPHPkx7nwz62fsvWvgGo35i0g2VL3qtZXxKQX6klAFO6JU8b1+b6Y7sirMUBGMawHfY1TNmuwNb41njHjrGRbkkBjKhDleAGkjW+JMtyZkkA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hUCI94qSoX0tJ5S/YxS0FkLQWVT2BwihTKfpSyFRTIs=;
+ b=aJaGSYCV6OBi2gtxFQOTV2ov8pJFm/uMkjR1OSN+Sd2zo2Fg9FScGyhuvLWtauGm8nUN/pddc8Yg+lqrLm+17czHTT5utrn2kWCJrD2sP7tk/DHhs6DHcyFr4j1vWYLyJCaLMaAgATQxRLqO1tW5ES9WRZE9f454qeS/4xkaUDmoV0BW3GZOq0DLpu5ytCk1xNI46+jtO7SerAjeFeRiR/90bZh203nB2eevjdFYl+8hZ4ZRnCUC3M/TqNumYyL+ZBeXFvyg1O5ufFoYH9JOYW6J90B80exyvFp18iyFztSz8FdaoxdVM5iB7VV/z68ciOo/5JioONSIxKOBCu+BvA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hUCI94qSoX0tJ5S/YxS0FkLQWVT2BwihTKfpSyFRTIs=;
+ b=o0wpZ+2fjXTmx0Ee/ThYfZ5OBGwuBXg/fc1KDhXXozPzkKISv1kcYMctIpRAE6G2bffUzXmgUdEsFFs8l1/PEeGeCiNMX6Zq9XU9VWegPHl0dtaQPqVNPyEH2Gbf36l1zf5kS/YOuzFwyeaSS3/k/XwwZyCioGWBZNvxjqS+7Dk=
+Received: from BN9PR03CA0108.namprd03.prod.outlook.com (2603:10b6:408:fd::23)
+ by BN5PR12MB9540.namprd12.prod.outlook.com (2603:10b6:408:2a8::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
+ 2026 06:22:05 +0000
+Received: from LV8PEPF0000005F.namprd02.prod.outlook.com
+ (2603:10b6:408:fd:cafe::d) by BN9PR03CA0108.outlook.office365.com
+ (2603:10b6:408:fd::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.7 via Frontend Transport; Thu, 27
+ Aug 2026 06:22:05 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ LV8PEPF0000005F.mail.protection.outlook.com (10.167.245.137) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.3 via Frontend Transport; Thu, 27 Aug 2026 06:22:05 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 27 Aug 2026 01:22:00 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+	<srinivasan.shanmugam@amd.com>, Matthew Brost <matthew.brost@intel.com>,
+	"Mika Kuoppala" <mika.kuoppala@linux.intel.com>,
+	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>, Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
+	<dri-devel@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+	<linux-media@vger.kernel.org>, <linaro-mm-sig@lists.linaro.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH 0/2] drm: Add Common drm_user_fence helper and Convert XE
+Date: Thu, 27 Aug 2026 11:51:40 +0530
+Message-ID: <20260827062142.4038272-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260824102221.GE893316@black.igk.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PEPF0000005F:EE_|BN5PR12MB9540:EE_
+X-MS-Office365-Filtering-Correlation-Id: 016dd069-4a69-4887-69f9-08df040383cd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|82310400026|376014|7416014|1800799024|36860700016|10067099003|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	T5B4VpOl8TnGp4thRsH2NMYK0FkM1k86bKV4i7rC8tIW/rq6DBf9AtEU1xBequJDQfxIhAHhMzWjDT8tl60XZvKoqMjV7YyO/a8I4I2TsYXqx11XoSXAm/DbchIMOAVd6oeXx0eH4u51NKPJSP6dbemD7aKDMdV54O7x/nfgxaq/6U4IB7SSX5eVUkg/pRnikwWkEs7+P8Jaoo3oA1UTYGqSr5SZCbFZQZArMGXc4MkBi0VXCNVzrgBW/TBnImqMoNTbV+J0QgMRRYemtkt3r5bvm3wiCNjJOURW4jXYA8dFv5wM+9zLKM1vOsLyt8ew8NaFNxfQZ9xorhQkqcZ7ReDWsfj5x8SMtkQ507mVubwOVTHmQqd3J5IVDqNO2QtP1bLt65HUf+eoiwJvU4gy2DHzGMFQ0P8mTh9gyg4oQHQOlgqoVSiqn6Y6FSFsewVNawzbMTF39LEcJcBmf1hHtomSWCIMedEnsu+uAKAqOlw+7YF98p09Tgo0BNj9Ldqc71U1vki48fsbRmpMgLGoNyWGuDzF9YbxEoVbB/zpJkmISwoS40K2te24DIoejmtBDcUAzbyWCXIlt9/SmFP2IdbPNiVwhLfbXuEmkwoiy0SIM8zeGL/IMqLfw56fFehP5G8cm64zcrdj+jyFZnpHFDgJ7RKSdAE8kQ4KFi68QnIIXyzg3ulohqLDgvJliZ3VcHQO3vbdvUG5M45Py6na3g==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(376014)(7416014)(1800799024)(36860700016)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	igEPQTg8ZEh1uuqKwFZmNmlBW2kcLl/CJ0T0c0QrDJP4joBNYKvAmxRBAUdHGCOMh4wDooVJKh6bfi/OiK3K9UL2QTayjUMoxGe6aDeaV1amZ/x48VBIqLm7s5Uj4MDFwaxe0ObFj7Fw+po0sUWwQmgJHyKMiuidG8bHerHsyFI0etGkZ871b9KgRDTyiE9tpsAeS103/Vd0iYTxdUMKsD/4WHOJNdkcosMGjgzfbo1Ww9+9jQIHvnA74zXZv7hkTN3nrIjZk6sc5l4/6chKR0aQ4uDFYt3TyVCgWqgWSVhUuKI2KkAuKC52S1zo6dX4sVqjv5H5o6tI+kF7lLed+/C7yaUUZB+RaIpOavQalEFiBC0D996p7worPrEnwDUWi79pZZsWSGaiCKI6atui2l4SZJ4rxqkoQWdHC3vbPp0QPmgrEWNr+28YjJpe/dEV
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 06:22:05.2166
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 016dd069-4a69-4887-69f9-08df040383cd
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	LV8PEPF0000005F.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN5PR12MB9540
 
-On Mon, Aug 24, 2026 at 12:22:21PM +0200, Mika Westerberg wrote:
-> +Andy
-> 
-> On Sun, Aug 23, 2026 at 08:33:10PM +0800, xiaoyueyoqwq wrote:
-> > The ELAN 04F3:3185 touchpad exposed as DELL0A86 on the Dell Inspiron
-> > 13 5310 intermittently exhibits excessive smoothing when the I2C bus
-> > runs at 400 kHz. During an affected period pointer movement becomes
-> > severely sluggish and sticky for tens of seconds.
+When a GPU dma-fence signals, drivers often need to access userspace
+memory from a kthread context — either to write a fence completion
+value to a userspace VA (XE) or to signal a per-queue eventfd (AMDGPU).
+Both require borrowing the process MM via kthread_use_mm(), and both
+use the same kref-managed dma-fence-callback-to-workqueue pattern.
 
-Just for the confirmation (no need to include in the commit message) can
-you share the DSDT excerpt of the device in question?
+Extracting this pattern into a shared DRM helper allows both XE and
+AMDGPU to use it instead of maintaining independent open-coded
+implementations.
 
-(acpidump -o tables.dat; acpixtract tables.dat; iasl -d dsdt.dat; # open dsdt.dsl)
+This series does that:
 
-> > The ACPI firmware configures the touchpad bus for 400 kHz. Add DELL0A86
-> > to i2c_acpi_force_100khz_device_ids so that the bus runs at 100 kHz, as
-> > is already done for other touchpads exhibiting the same excessive
-> > smoothing problem.
-> > 
-> > With the quirk applied, the kernel reports that the firmware requested
-> > 400 kHz and that the bus is forced to 100 kHz. The problem did not recur
-> > during extended heavy use, including an S4 hibernate/resume cycle.
+Patch 1 introduces drm_user_fence — an embeddable base structure with
+driver-supplied worker/destroy callbacks. The common code handles:
+ - process MM grab at init (mmgrab)
+ - dma-fence callback registration
+ - workqueue dispatch on fence signal
+ - mmget_not_zero/kthread_use_mm/mmput in the worker
+ - kref lifetime management
 
-...
+Patch 2 converts XE to use the new helper. struct xe_user_fence embeds
+struct drm_user_fence as its base. XE-specific fields (xe_device pointer
+for ufence_wq wake-up, userspace VA, expected value, signalled flag)
+remain in the wrapper. No behavioral change is intended.
 
-> > +	{ "DELL0A86", 0 },
-> >  	{ "DLL0945", 0 },
-> >  	{ "ELAN0678", 0 },
-> >  	{ "ELAN06FA", 0 },
+A follow-on patch (not in this series) will wire AMDGPU's render-node
+EOP eventfd signaling path to the same helper.
 
-At some point this should be switched to C99 initialisers and dropped unused
-driver_data.
+Suggested-by: Christian König <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>
+Cc: dri-devel@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Cc: linux-media@vger.kernel.org
+Cc: linaro-mm-sig@lists.linaro.org
+Cc: linux-kernel@vger.kernel.org
+Cc: amd-gfx@lists.freedesktop.org
+
+Srinivasan Shanmugam (2):
+  drm: Add common drm_user_fence helper
+  drm/xe: Convert xe_user_fence to drm_user_fence
+
+ drivers/gpu/drm/Makefile           |   1 +
+ drivers/gpu/drm/drm_user_fence.c   | 130 +++++++++++++++++++++++++++++
+ drivers/gpu/drm/xe/xe_sync.c       | 114 ++++++++++---------------
+ drivers/gpu/drm/xe/xe_sync_types.h |   1 -
+ include/drm/drm_user_fence.h       |  68 +++++++++++++++
+ 5 files changed, 244 insertions(+), 70 deletions(-)
+ create mode 100644 drivers/gpu/drm/drm_user_fence.c
+ create mode 100644 include/drm/drm_user_fence.h
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.34.1
 
