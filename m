@@ -1,100 +1,178 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AE591A5B8A
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:44:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C94D2DEA8C
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:45:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787813048; cv=none; b=ZvRDcgi1K99cpFgugrLx5MeiqXurFZedENy5BY/2tyFAWpAAmylo8aR1ZnkMoQMDyo5pSdzj5XBzQQhFH5dPhMF0nZuADGbIndJ2NEROeS1HA0kK5lef+L/7IiHAkzY3bscqCy4/u9lXIKenGGmtAhEROY2MI9iSddTe8Nzs0qA=
+	t=1787813125; cv=none; b=Kkck8Zk+Hjt/OfHnzErmt9bkuewcfP8J4vnBKAxk8Lm5quftMGJLVyLgI+czZbjCEh/D1V227+jzOVNN/i2gQBwgelm7D09UtOs0G87tM8Y4rjy/KQ8uLGSG2fdhFfDjSexqcpUsOFTPt4XIfz6rAXlMhW5HtVaBB0af2XZuv8o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787813048; c=relaxed/simple;
-	bh=HywmGVnxKlAHZInwgVBJgLVgCYVuOmXDCv+c+JgZ0JM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EhVoCrVZW9NtwFCLYVEAzxnxV7a/FTMElgKbAy8HMrSsRH31nsjpfRw+TMwDKy9+8IxwHsu5jFf5W6bHiykMMICF1iqYBwsqVQS64wi/+CPPzcoGfsUT8pYZKUA8WUUA4rONSCt7yDCClNSW5QOMX6gYAvboitkzZ2r16lsoij8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=qV+WljVh; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1787813125; c=relaxed/simple;
+	bh=XGmwQyzKjcY+aGCfdpW8qhopeg1xgE2lfJukbmXqPak=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Ys+65w8jNbYslUhkrYZxQQ06cYjUTn5IsudZhxwDVp1bv1TeU9bPrus666kdWLGgBO/tOll4F2hsFqW7WFIg+mjZnVS3DbG+to8OcTrfkyrOol2lPnVURmygQmQy9t/P0iww8IrZC0E3HpOnJvD+dy8tqY5jEGqNWEELcCaOhsg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BVm+zrWG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="qV+WljVh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=zk
-	Al6G439mZlrQuDeRjXw0tGtyICJx0hovFj4l5wQOc=; b=qV+WljVhxpqYMO6Nbv
-	4MrX1Swa5SPBwNhqYcU15JzHa7Fe4ml92SAo7k9BHHJ6PF7qmKWnDC1NMyxqSriH
-	niLFCLg4nuHmnwebjD5Ni5UOrqdc3ZwcDPg9VcemQ6UiDD3EmFUth49Flb7TzMEw
-	bJfsOjLLPjaOvu80Eejr1JTRU=
-Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSgvCgD3nwSY3I9qUB_9NA--.52121S2;
-	Thu, 27 Aug 2026 14:43:37 +0800 (CST)
-From: Baolin Liu <liubaolin12138@163.com>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	liubaolin12138@gmail.com,
-	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v2] ntfs: leave HasEA flag untouched on setxattr failure
-Date: Thu, 27 Aug 2026 14:43:17 +0800
-Message-ID: <20260827064317.2252884-1-liubaolin12138@163.com>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BVm+zrWG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16A6D1F00A3D
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:45:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787813124;
+	bh=w64hbmqoxi4eIucqvvm2p+HldRcaMlL5Ju3HRIh5vUw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=BVm+zrWG4iGcwssAFQ5/m+kc5RSc/Ma4eX1sfjNTKvnzyElMW1z/oufxlueJS6uRJ
+	 OFQDFkVQ35nyez9D9kflNYd04YfXEDZYW+EM0OlBFXNxnFAmWxuBtslqlxyRGPbxE8
+	 C3tFdjy0+cPuj9pJtiPG8lMDaJKg1Qz0xjhQ5XVGTJrwgJmI6h6MN7dYKE21KHFwHl
+	 zSEV6+at05XFh3nPTVMDOzyxvb8T0bXKdfNfkr0NDGthTI0hxPDdcpE06ZrIASli5i
+	 FGginXUvwrshsRRI41XWoBoAsCRdGR3WTHgd1pSTZiHeaY3GnMg+6epVC7jC4+xKHG
+	 KmY87hxOR+SDg==
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6a38098734bso520681a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 23:45:24 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqsBNOYpdlsnTFNBowjdWo1h88AzKYMh5+fRFR0GD6KmVLKjqaRVnVO0Ox1P15XCWIlPH2z+DH6jbyu/+w=@vger.kernel.org
+X-Gm-Message-State: AFuF++kEAwkQbdhh2cERnvOS0wrkufcD4SwhveOvlYUEOkRzFNOdnOD6
+	fOWDTdWM7uxCuqKWi12kiZCmZeFIWDd2wK+aHxBn6/R3YdqRgCIok+hSJVoQNYCnMR/zyqlVesD
+	HkuXWqt20WsZhxlcS/e/AWeOcexd2HaA=
+X-Received: by 2002:a17:907:3d0f:b0:c1f:983f:d8a with SMTP id
+ a640c23a62f3a-c250c36b68emr1456130366b.24.1787813123043; Wed, 26 Aug 2026
+ 23:45:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PSgvCgD3nwSY3I9qUB_9NA--.52121S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7CFy5Cr43Aw1fGFy3WFykXwb_yoW8Xry8pr
-	93GF1UKw4jqr17CFykK3yqqa97Z3y7Jw40yry7Kw1Skw4Fqr4Yyw40k3W8W3yfKryfJa15
-	KF15ua9IyF10vaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jeBT5UUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6RnbpmqP3JkAPgAA3T
+References: <20260826233919.998904-1-seanjc@google.com> <20260826233919.998904-13-seanjc@google.com>
+In-Reply-To: <20260826233919.998904-13-seanjc@google.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Wed, 26 Aug 2026 23:45:10 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zOuD+wU1Q80z077WHHpFBWvKomLk=TaXjH3gVnqj=mqFQ@mail.gmail.com>
+X-Gm-Features: AcwNN1W1K1wcOYFKECCJsH8NB9-j09zWsmaQJT_ycB-dgEdLE37gZ0gCYqumGYo
+Message-ID: <CAO9r8zOuD+wU1Q80z077WHHpFBWvKomLk=TaXjH3gVnqj=mqFQ@mail.gmail.com>
+Subject: Re: [PATCH v3 12/13] KVM: selftests: Dedup assembly code for VMLAUNCH
+ and VMRESUME
+To: Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	f734222792@gmail.com, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Sashiko Bot <sashiko-bot@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Baolin Liu <liubaolin@kylinos.cn>
+On Wed, Aug 26, 2026 at 4:39=E2=80=AFPM Sean Christopherson <seanjc@google.=
+com> wrote:
+>
+> Dedup the assembly code from VMLAUNCH vs. VMRESUME, the difference is
+> literally only the actual VM-Enter instruction.
 
-In ntfs_set_ea(), the exit path unconditionally updates the HasEA
-flag based on ea_info_qsize. When an error occurs before
-ea_info_qsize is updated, NInoClearHasEA() hides existing on-disk
-EAs until the inode is evicted.
+You couldn't resist macrofiying this too.
 
-Only update the flag on success.
+>
+> No functional change intended.
+>
+> Cc: Yosry Ahmed <yosry@kernel.org>
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> ---
+>  tools/testing/selftests/kvm/include/x86/vmx.h | 74 +++++++------------
+>  1 file changed, 26 insertions(+), 48 deletions(-)
+>
+> diff --git a/tools/testing/selftests/kvm/include/x86/vmx.h b/tools/testin=
+g/selftests/kvm/include/x86/vmx.h
+> index 3def8df902a2..fa01341e22bc 100644
+> --- a/tools/testing/selftests/kvm/include/x86/vmx.h
+> +++ b/tools/testing/selftests/kvm/include/x86/vmx.h
+> @@ -359,55 +359,33 @@ static inline u64 vmptrst(void)
+>         return value;
+>  }
+>
+> -static inline int vmlaunch(void)
+> -{
+> -       int ret;
+> -
+> -       if (enable_evmcs)
+> -               return evmcs_vmlaunch();
+> -
+> -       __asm__ __volatile__("push $0;"
+> -                            "vmwrite %%rsp, %[host_rsp];"
+> -                            "lea 1f(%%rip), %%rax;"
+> -                            "vmwrite %%rax, %[host_rip];"
+> -                            VMX_SWITCH_GPRS_ASM
+> -                            "vmlaunch;"
+> -                            "incq (%%rsp);"
+> -                            "1: ;"
+> -                            VMX_SWITCH_GPRS_ASM
+> -                            "pop %%rax;"
+> -                            : [ret]"=3D&a"(ret)
+> -                            : [host_rsp]"r"((u64)HOST_RSP),
+> -                              [host_rip]"r"((u64)HOST_RIP),
+> -                              GUEST_REGS_OFFSETS
+> -                            : "memory", "cc");
+> -       return ret;
+> -}
+> -
+> -static inline int vmresume(void)
+> -{
+> -       int ret;
+> -
+> -       if (enable_evmcs)
+> -               return evmcs_vmresume();
+> -
+> -       __asm__ __volatile__("push $0;"
+> -                            "vmwrite %%rsp, %[host_rsp];"
+> -                            "lea 1f(%%rip), %%rax;"
+> -                            "vmwrite %%rax, %[host_rip];"
+> -                            VMX_SWITCH_GPRS_ASM
+> -                            "vmresume;"
+> -                            "incq (%%rsp);"
+> -                            "1: ;"
+> -                            VMX_SWITCH_GPRS_ASM
+> -                            "pop %%rax;"
+> -                            : [ret]"=3D&a"(ret)
+> -                            : [host_rsp]"r"((u64)HOST_RSP),
+> -                              [host_rip]"r"((u64)HOST_RIP),
+> -                              GUEST_REGS_OFFSETS
+> -                            : "memory", "cc");
+> -       return ret;
+> +#define BUILD_VMX_VM_ENTRY_HELPERS(insn)                               \
 
-Fixes: fc053f05ca28 ("ntfs: add reparse and ea operations")
-Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
----
-v1 was posted as "[PATCH v1 2/9] ntfs: fail EA update when reading
-$EA_INFORMATION fails" in the "ntfs: assorted error path fixes" series.
+s/HELPERS/HELPER?
 
-Changes in v2:
- - Rebased on ntfs-next.
- - Dropped the -EIO return for a failed $EA_INFORMATION read, which is
-   already handled on ntfs-next by 56cc42a7b387 ("ntfs: return errors
-   from ntfs_attr_readall"). Only the HasEA flag part remains.
- - Updated the subject to match the remaining change.
+or maybe better: DEFINE_VMX_VM_ENTRY_HELPER()?
 
- fs/ntfs/ea.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+With the rename:
 
-diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
-index 9f0222c172d9..33ef4f4b439c 100644
---- a/fs/ntfs/ea.c
-+++ b/fs/ntfs/ea.c
-@@ -404,10 +404,12 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
- 		*packed_ea_size = p_ea_info->ea_length;
- 	mark_mft_record_dirty(ni);
- out:
--	if (ea_info_qsize > 0)
--		NInoSetHasEA(ni);
--	else
--		NInoClearHasEA(ni);
-+	if (!err) {
-+		if (ea_info_qsize > 0)
-+			NInoSetHasEA(ni);
-+		else
-+			NInoClearHasEA(ni);
-+	}
- 
- 	kvfree(ea_buf);
- 	kvfree(old_ea_buf);
--- 
-2.51.0
+Reviewed-by: Yosry Ahmed <yosry@kernel.org>
 
+(Who's f734222792@gmail.com?)
+
+> +static inline int insn(void)                                           \
+> +{                                                                      \
+> +       int ret;                                                        \
+> +                                                                       \
+> +       if (enable_evmcs)                                               \
+> +               return evmcs_##insn();                                  \
+> +                                                                       \
+> +       __asm__ __volatile__("push $0;"                                 \
+> +                            "vmwrite %%rsp, %[host_rsp];"              \
+> +                            "lea 1f(%%rip), %%rax;"                    \
+> +                            "vmwrite %%rax, %[host_rip];"              \
+> +                            VMX_SWITCH_GPRS_ASM                        \
+> +                            __stringify(insn)";"                       \
+> +                            "incq (%%rsp);"                            \
+> +                            "1: ;"                                     \
+> +                            VMX_SWITCH_GPRS_ASM                        \
+> +                            "pop %%rax;"                               \
+> +                            : [ret]"=3D&a"(ret)                         =
+ \
+> +                            : [host_rsp]"r"((u64)HOST_RSP),            \
+> +                              [host_rip]"r"((u64)HOST_RIP),            \
+> +                              GUEST_REGS_OFFSETS                       \
+> +                            : "memory", "cc");                         \
+> +       return ret;                                                     \
+>  }
+> +BUILD_VMX_VM_ENTRY_HELPERS(vmlaunch)
+> +BUILD_VMX_VM_ENTRY_HELPERS(vmresume)
+>
+>  static inline void vmcall(void)
+>  {
+> --
+> 2.55.0.887.g758fc8c411-goog
+>
