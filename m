@@ -1,52 +1,52 @@
 Received: from bg-bec.cloudflare-smtp.org (bg-bec.cloudflare-smtp.org [104.30.16.142])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A26332ED54
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:43:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBAEB3C8737
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:43:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=104.30.16.142
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787834605; cv=none; b=Ab6i+H1Bma8Cn657wUW/QMhpneE2Lkkpp+z1r4vHYKDNhBv3S7yyQL06J78RmmDAdfuC7Czn5j2hxnN8rQ0MIEUyN1gewytprfWQcS4wOU6QS/4e3Fo7ZXdcwo3q3tb9kFLbE7JtuXW4NdYWfjeVwKYoI/yRxN+fU4KexpBIJ/I=
+	t=1787834595; cv=none; b=OXggQidwqMIhk8cccPMamiffwkuQl/ExxzeXNgwkaOXJQbEtcveL273KANZl/3O9PaODbVFFhLIqg9B6q3dfTC2/QgV1Qk94h1fX4EEPh2F7+cxVAhHqPyGa7RxjcPd4wQ6qkJbl6qHdEbGwGzvfi/pWYyQ20Ja+GEW37TL/WWA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787834605; c=relaxed/simple;
-	bh=b/fC+GD0Bhpx9A6zC42hiP9tocTjMBMLpwkoQn6ACv8=;
-	h=From:Message-ID:Date:Subject:To:MIME-Version:Content-Type; b=YKQBTGey3XZkOhgCcJ4p0oJnTiY+8YzBrdW/YmU93PHxnjXsJ9fsA0weA/2gbO8HYdvaUekp3SGXSTFF8SreJl0C1WlGi4qZhWZNnAKbSy1vAV6eWb3yksywURE3ycsgb6a1bbimta781Nvfk7FTCwePr/KcRLTuyk2LtFMcZTA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh; spf=pass smtp.mailfrom=cf-bounce.bugs.sh; dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b=JeT+xk72; dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b=hR9ZRf+U; arc=none smtp.client-ip=104.30.16.142
+	s=arc-20240116; t=1787834595; c=relaxed/simple;
+	bh=Z9WWPhST0hlrLitTRphRtM/V0v7qIm2z9Lsrp4GTf88=;
+	h=From:Message-ID:Date:Subject:To:MIME-Version:Content-Type; b=CfxingaVPegG/KtQ0YaICvuBE9lZMb3i7mB2yHTluTtllDHggpa+KdXOBLfBwc+GeSojnN8DNdxHwRFCEI7Ahz1EAcKddtZUqt0CQLEmWi+QOPLKMbGxv/5/NrtT4qa9T5TV59jNXRNWHKP6+jzI+FgYHNuMIwhiulnREfiw2fk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh; spf=pass smtp.mailfrom=cf-bounce.bugs.sh; dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b=hMOZzSzj; dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b=fSHYXEVi; arc=none smtp.client-ip=104.30.16.142
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cf-bounce.bugs.sh
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b="JeT+xk72";
-	dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b="hR9ZRf+U"
+	dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b="hMOZzSzj";
+	dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b="fSHYXEVi"
 DKIM-Signature: v=1; a=rsa-sha256; s=cf2024-1; d=cloudflare-smtp.org; c=relaxed/relaxed;
 	h=To:Subject:Date:From:Feedback-ID:from:reply-to:cc:resent-date
 	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
 	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
-	:list-owner:list-archive; t=1787834597; x=1788439397; bh=sLlAxbEfCVYbW/6A66
-	frTETNLK1V+95Rf4TN8BoQAL8=; b=JeT+xk72tExYKQAhWmukngQOiwMbOAup3jXHZI2l7Fn68
-	bRNR/ZxH64HtbxtSjoCcsD+S27hRoHWneQyrtNLgQ73T6VC8nu2hrfnVbI/ynH94okJQUZQXHkP
-	P1nqqy70iKP0x6iW261UU/NGMi2dtPdDVAnUMvJDWHpaTRXRRd03Y3+xoSsVGRWSFF87nOO4mM9
-	YZ5MWyEiER951g/fW4lgv1CLbs29uouhnGaIWKLqS4FKV+Ygr+5DXAS/8x4h4ulSORh2kKG945v
-	4c0qaYWVev/0qGxuxo0PQni2QX6EdVqqxsVCxAGzrNVHwOBxJEfQNjgcsVIEL1i60giAsMWA==;
+	:list-owner:list-archive; t=1787834586; x=1788439386; bh=cotsfsblR1DSPJX7et
+	zLpHcOzcyhluHcTjEwvPf0RxA=; b=hMOZzSzjnf8XtpgBdcolkiBbtx4mqy8WrKl4Qiij6FCiv
+	/wYNenOU/hU9oWFeZrhtVBRiitl0I0LCx1Lp623mna4bhApnMXjDDXD8aEMJGPd3vc/Gmcey8ib
+	wlMY+xMQKh4z8qyYj4qD5r+fLd1xPbQJNUYUmVq05adb996NuwVeTIhmtTzIMyxaiILbgJgQfOm
+	xW6kMy4RR2kTmUtTRBpaTdS0HQxr8EDpcXILhOpz6kO7IRuKDkhIYJefLy+2hxXDHgrKfA5iGRv
+	o0T0sfhJh1zYxPlU+CIk1tztRLD2DMsQG4YpYlqYlyRyboRJPAjbAPd5qE1Gwndz+B9ymuBw==;
 DKIM-Signature: v=1; a=rsa-sha256; s=cf-bounce; d=bugs.sh; c=relaxed/relaxed;
 	h=To:Subject:Date:From:Feedback-ID:from:reply-to:cc:resent-date
 	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
 	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
-	:list-owner:list-archive; t=1787834597; x=1788439397; bh=sLlAxbEfCVYbW/6A66
-	frTETNLK1V+95Rf4TN8BoQAL8=; b=hR9ZRf+UEAP8cMSkXTdlFcc+wIeLwc3pC6KZWYEHH/sA6
-	ktT/5l27tLFJ1kwbQv6wjxxp6GkQqZoi4M2k25BeJUpfc1ZmXIlcuPsqmtqlcXDLGz9WtggyIXp
-	WKXwmzQWC69zcclsYb2C8sFeBJo8XVHiEM0UNG9TD+MUIaPPQZnea9a8PpnWEGxvlrEnjaHMfpo
-	nxpGkWgg+rbiqOfo/sQqz0Xco99vDv4ixFSb5aYe2oMVFkuUJt4QcS9+6NGqQLoNeIrn/zAC6FX
-	cJCaY7AA8oRhBAuvkEDx3aQ7RmLdg9zfRvlHfw12kL3+F+P+CbKxi/qNBZTu/7vSedm/uX/g==;
+	:list-owner:list-archive; t=1787834586; x=1788439386; bh=cotsfsblR1DSPJX7et
+	zLpHcOzcyhluHcTjEwvPf0RxA=; b=fSHYXEViGcibGI62bT4olwkT1nHJVCSeqPRjTVF/YeF3o
+	Hdvzv2gQGF1dRoKofLJlLqsAB9zus7NgZ1SFUZTmhuA8tVM+8IL8MbgfgWlbs4gZoiwDPy8xFrS
+	3+cuWUwOOpXqcTTJquSWx11vvhm0qlqD6lpM6/bIE9rxGXQIU2N92viJMeubyn1gfgKjI+NWoWi
+	0Nz2R2YWfbk5x5itn/O76btJPd2ulS9SQz4ndh8P7qobvJr8PlnlB/U7BrtoADRna2GorwkUznZ
+	00mN20vSFRGTLpTp6KG80GSGEza/h0EOb4FJA4iXg4YUYMqqrhWIS7Ngy/3eDsZrfSNX9FSg==;
 Feedback-ID: bugs.sh:5:6:Cloudflare
-From: co <co+63bad23bb3b4cd85@bugs.sh>
-Message-ID: <fai12uKS5302YnCQV4E3zlDqcsAS5aGcMutS@bugs.sh>
-Date: Thu, 27 Aug 2026 12:43:08 +0000
-Subject: [BUG] net/bridge: out-of-bounds in br_forward()
-To: netfilter-devel@vger.kernel.org, coreteam@netfilter.org, bridge@lists.linux.dev, netdev@vger.kernel.org, "Pablo
- Neira Ayuso" <pablo@netfilter.org>, "Florian Westphal" <fw@strlen.de>, "Nikolay
- Aleksandrov" <razor@blackwall.org>, "Ido Schimmel" <idosch@nvidia.com>, "David
- S. Miller" <davem@davemloft.net>, "Eric Dumazet" <edumazet@google.com>, "Jakub
- Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>, "Sabrina
- Dubroca" <sd@queasysnail.net>, "Phil Sutter" <phil@nwl.cc>, "Simon Horman" <horms@kernel.org>, linux-kernel@vger.kernel.org
+From: co <co+e5693071d903b832@bugs.sh>
+Message-ID: <sQDn678D0YppKseC8dIUC0I6uKmzsrOVtoN1@bugs.sh>
+Date: Thu, 27 Aug 2026 12:42:57 +0000
+Subject: [BUG] drivers/tty: NULL pointer dereference in paste_selection()
+To: speakup@linux-speakup.org, "William Hubbs" <w.d.hubbs@gmail.com>, "Chris
+ Brannon" <chris@the-brannons.com>, "Kirk Reiser" <kirk@reisers.ca>, "Samuel
+ Thibault" <samuel.thibault@ens-lyon.org>, "Petr Mladek" <pmladek@suse.com>, "Geert
+ Uytterhoeven" <geert+renesas@glider.be>, "Oleg Nesterov" <oleg@redhat.com>, "Biju
+ Das" <biju.das.jz@bp.renesas.com>, "Sebastian Andrzej Siewior" <bigeasy@linutronix.de>, "Song
+ Liu" <song@kernel.org>, "Greg Kroah-Hartman" <gregkh@suse.de>, linux-kernel@vger.kernel.org
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -58,10 +58,10 @@ Content-Transfer-Encoding: quoted-printable
 
 We found a bug reachable in:
 
-    path    net/bridge/netfilter
-    crash   out-of-bounds in br_forward()
-    commit  7b5344954050 ("Merge tag 'nf-26-08-10' of git://git.kernel.org/=
-pub/scm/linux/kernel/git/netfilter/nf")
+    path    drivers/tty/vt/selection.c` (fault site), `drivers/accessibilit=
+y/speakup/main.c` + `drivers/accessibility/speakup
+    crash   NULL pointer dereference in paste_selection()
+    commit  f5098b6bae76 ("Linux 7.2-rc5")
 
 Config, environment, the sanitizer report and a C reproducer follow.
 
@@ -71,7 +71,7 @@ Config, environment, the sanitizer report and a C reproducer follow.
     If you patch the bug based on our artifacts, a tag would be
     appreciated:
 
-Reported-by: co+63bad23bb3b4cd85@bugs.sh
+Reported-by: co+e5693071d903b832@bugs.sh
 
     Everything in this mail is validated by the reproducer below.
 
@@ -81,8 +81,8 @@ Reported-by: co+63bad23bb3b4cd85@bugs.sh
     human review, so both still require validation before you send or
     apply them. Available on:
 
-        patch.diff  https://bugs.sh/b/63bad23bb3b4cd85/patch.diff
-        report.md   https://bugs.sh/b/63bad23bb3b4cd85/report.md
+        patch.diff  https://bugs.sh/b/e5693071d903b832/patch.diff
+        report.md   https://bugs.sh/b/e5693071d903b832/report.md
 
     This is an open science project. The code and the full set of PoCs
     are not public at this moment, as we intend to disclose our findings
@@ -96,60 +96,29 @@ Reported-by: co+63bad23bb3b4cd85@bugs.sh
 =3D=3D Environment =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-    Reproduced on  7b5344954050 ("Merge tag 'nf-26-08-10' of git://git.kern=
-el.org/pub/scm/linux/kernel/git/netfilter/nf")
-    VM setup       https://bugs.sh/b/63bad23bb3b4cd85/run.sh
-    config         https://bugs.sh/b/63bad23bb3b4cd85/config.gz
-    poc            https://bugs.sh/b/63bad23bb3b4cd85/repro.c
+    Reproduced on  f5098b6bae76 ("Linux 7.2-rc5")
+    VM setup       https://bugs.sh/b/e5693071d903b832/run.sh
+    config         https://bugs.sh/b/e5693071d903b832/config.gz
+    poc            https://bugs.sh/b/e5693071d903b832/repro.c
 
 =3D=3D Sanitizer Report =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-BUG: KASAN: slab-out-of-bounds in br_forward+0x3c2/0x420
-Read of size 8 at addr ffff888023fc3938 by task exploit/5007
-CPU: 0 UID: 1000 PID: 5007 Comm: exploit Not tainted 7.2.0-rc6-00285-g7b534=
-4954050 #20 PREEMPT(full)
+Oops: general protection fault, probably for non-canonical address 0xdffffc=
+0000000044: 0000 [#1] SMP KASAN NOPTI
+KASAN: null-ptr-deref in range [0x0000000000000220-0x0000000000000227]
+CPU: 1 UID: 0 PID: 49 Comm: kworker/1:1 Not tainted 7.2.0-rc5 #10 PREEMPTLA=
+ZY
+Workqueue: events __speakup_paste_selection
+RIP: 0010:paste_selection (drivers/tty/vt/selection.c:393)
 Call Trace:
- <IRQ>
- dump_stack_lvl+0x10e/0x1f0 (lib/dump_stack.c:123)
- print_report+0xf7/0x600 (mm/kasan/report.c:379)
- kasan_report+0xe4/0x120 (mm/kasan/report.c:597)
- br_forward+0x3c2/0x420 (net/bridge/br_forward.c:151 (discriminator 2))
- nft_reject_br_send_v4_unreach+0x9c/0x130 (net/bridge/netfilter/nft_reject_=
-bridge.c:75)
- nft_reject_bridge_eval+0x4f0/0xcc0 (net/bridge/netfilter/nft_reject_bridge=
-.c:129)
- nft_do_chain+0x2e5/0x19d0 (net/netfilter/nf_tables_core.c:287)
- nft_do_chain_bridge+0x199/0x290 (net/netfilter/nft_chain_filter.c:235)
- nf_hook_slow+0xbf/0x220 (net/netfilter/core.c:620)
- br_nf_hook_thresh+0x286/0x410 (net/bridge/br_netfilter_hooks.c:1164)
- br_nf_pre_routing_finish+0xb7c/0x1830 (net/bridge/br_netfilter_hooks.c:432)
- br_nf_pre_routing+0xfb6/0x1600 (./include/linux/netfilter.h:319)
- br_handle_frame+0xcbb/0x1520 (net/bridge/br_input.c:292)
- __netif_receive_skb_core.constprop.0+0x6bf/0x3610 (net/core/dev.c:6103 (di=
-scriminator 1))
- __netif_receive_skb_one_core+0xb0/0x1e0 (net/core/dev.c:6215)
- __netif_receive_skb+0x1f/0x120 (net/core/dev.c:6329)
- process_backlog+0x399/0x15b0 (./include/linux/rcupdate.h:869)
- __napi_poll.constprop.0+0xb3/0x550 (net/core/dev.c:7740)
- net_rx_action+0xa5e/0x1020 (net/core/dev.c:7804)
- handle_softirqs+0x1ea/0x9b0 (./arch/x86/include/asm/jump_label.h:37)
- do_softirq+0xad/0xe0 (kernel/softirq.c:523 (discriminator 20))
- </IRQ>
- __local_bh_enable_ip+0xfc/0x120 (kernel/softirq.c:450)
- __dev_queue_xmit+0xa2c/0x47f0 (net/core/dev.c:4914)
- packet_xmit+0x243/0x360 (./include/linux/netdevice.h:3448)
- packet_sendmsg+0x32fa/0x5010 (net/packet/af_packet.c:3109 (discriminator 1=
-))
- __sys_sendto+0x480/0x4d0 (net/socket.c:775 (discriminator 1))
- __x64_sys_sendto+0xe0/0x1c0 (net/socket.c:2255)
- do_syscall_64+0x116/0x7d0 (arch/x86/entry/syscall_64.c:63 (discriminator 1=
-))
-The buggy address belongs to the object at ffff888023fc3920
- which belongs to the cache kmalloc-16 of size 16
-The buggy address is located 8 bytes to the right of
- allocated 16-byte region [ffff888023fc3920, ffff888023fc3930)
-Kernel panic - not syncing: KASAN: panic_on_warn set ...
+__speakup_paste_selection (drivers/accessibility/speakup/selection.c:112)
+process_one_work (kernel/workqueue.c:3322)
+worker_thread (kernel/workqueue.c:3405 kernel/workqueue.c:3486)
+kthread (kernel/kthread.c:436)
+ret_from_fork (arch/x86/kernel/process.c:158)
+ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
+Kernel panic - not syncing: Fatal exception
 
 
 ---
