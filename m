@@ -1,220 +1,110 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 690B640B6E2;
-	Thu, 27 Aug 2026 09:11:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EBA573FD12A;
+	Thu, 27 Aug 2026 09:11:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787821886; cv=none; b=OlZ33HBwQrysIkdQNZmCgI/lKorTm84Dv49xAZvlzykv2Ttb64Pbhg9aw+hm0WXh9kp4bVF4s5fZPcJKY4NPwB6sT5LjRo3mX5igFkta/Q8l+df0gvgiGt2dV0k0DmLXZUx9PyTVNz7rF7kdUJlaIgKZlA41h6+zE+6Hm3yZob0=
+	t=1787821888; cv=none; b=li1aimdqA9BPh42B0Cw6sRu6QZQZnxtuVPfjZUnBId+iN2Wl9ghZc11u3wXOQjtd612aaW4jjctmwiNfh1QuZ/VAqB6YabNmUyQJ1lDvfLTwKpc4+kBDIe/n1rGJaPQfXkTZ4WRTP7iv6rcSB6Rc8awcKy6LpgFhFWBuX4av5To=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787821886; c=relaxed/simple;
-	bh=QKU+9q4pENcnompvJW0fhnGbUV8ZmvmR3+gMvGi7I0k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Rl5N+cXjmR2q15D0ODb8sl5PzG2DOqi2ZDxUyo1RQN84yUDqhkH0V8dnqcYQ3HBLMQr1m3Y2dKWUcljpgce07nkwhKIW7ZoxThjxGV/IOxvAMllpT5SCrgK+IdOCYePK1EO6dFMGUxvVu46vhzF9Aos3r+YC13M+2qB8JaC/dWo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=B78f3fUn; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1787821888; c=relaxed/simple;
+	bh=rqn5qgF0ey7m+CUiH7k4tp5mvuDf4KdzxBl57y0xAiU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RZTHehopcKm07iywora1Xg+9KMVRZQgH/BBX/Cxv5J37hpI+N0B+tfhaLOAiXJRnhXhBIoDeBBjxg8S/zvcjwy5lhAirIHASvx2s/cPF80kKUDH2IRz7UrcnyaUe+2SLUgak3F3fsa1LpagFd5YUm/PiSjqWWz7wpI/tGZ/NY6I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=eirjbYFv; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="B78f3fUn"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BAA691691;
-	Thu, 27 Aug 2026 02:11:19 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F04703F66F;
-	Thu, 27 Aug 2026 02:11:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1787821883; bh=QKU+9q4pENcnompvJW0fhnGbUV8ZmvmR3+gMvGi7I0k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=B78f3fUnTn4z7rhLL+do+CgyE8kOHsCC7k1NgDAp1/gfwIIO8Nh6AzoSw8HaJGJhM
-	 Fyq5N3VpBFcpwtbtozzYzAIyDnvbzPrNyZ30ZkXOdOKNLF7++7wUcq7q8tgo2022sl
-	 pMbahu2ZxtcFvFBT7bMpwqg4cTC1U5HPz+Vv0L/E=
-Date: Thu, 27 Aug 2026 10:11:18 +0100
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
-	Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] kselftest: mm: replace usage of /proc/self/smaps
- for check_huge_xxx() helper
-Message-ID: <ao__Noj3IkhfHVRE@e129823.arm.com>
-References: <20260826-fix_split-v2-0-71153c7f579a@arm.com>
- <20260826-fix_split-v2-2-71153c7f579a@arm.com>
- <0107447a-7c1f-44f8-94fb-109b0f850677@linux.alibaba.com>
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="eirjbYFv"
+Received: from [10.95.65.43] (unknown [52.172.102.219])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 54DF620B7167;
+	Thu, 27 Aug 2026 02:10:49 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 54DF620B7167
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1787821852;
+	bh=Hm2hfLqIvPKYexzQZBKUPaVmWCI7ULZvISViEVv0iVY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=eirjbYFv1kwyLaDCsuBnLhfr4Fo/2Sq9pdMPLpqbaXThZfu+DBj3FxQTkSBrq38f6
+	 UqJ48VrWXAHO1gcvwhwE/zguzpn6dSdSWMPeX/e9nWJjIiFsJQuCL87XmFFh20Jj6N
+	 xKmeqnnpJMlWS4odRvvyg6KtHNboGM9yFdE5FnV0=
+Message-ID: <ffd568dc-8292-43c4-b425-a68047a40c8e@linux.microsoft.com>
+Date: Thu, 27 Aug 2026 14:41:19 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <0107447a-7c1f-44f8-94fb-109b0f850677@linux.alibaba.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] lib/group_cpus: rotate extra groups to avoid IRQ
+ stacking
+To: Michael Kelley <mhklinux@outlook.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Thomas Gleixner
+ <tglx@kernel.org>, Ming Lei <tom.leiming@gmail.com>,
+ Ming Lei <ming.lei@redhat.com>
+Cc: Wangyang Guo <wangyang.guo@intel.com>, Tianyou Li <tianyou.li@intel.com>,
+ Tim Chen <tim.c.chen@linux.intel.com>, Long Li <longli@microsoft.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>
+References: <20260810062144.2108758-1-namjain@linux.microsoft.com>
+ <SN6PR02MB415735EB56D0EBEAC606282DD4AE2@SN6PR02MB4157.namprd02.prod.outlook.com>
+Content-Language: en-US
+From: Naman Jain <namjain@linux.microsoft.com>
+In-Reply-To: <SN6PR02MB415735EB56D0EBEAC606282DD4AE2@SN6PR02MB4157.namprd02.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Aug 27, 2026 at 04:28:01PM +0800, Baolin Wang wrote:
+
+
+On 8/26/2026 7:31 AM, Michael Kelley wrote:
+> From: Naman Jain <namjain@linux.microsoft.com> Sent: Sunday, August 9, 2026 11:22 PM
 > 
+> [snip]
 > 
-> On 8/26/26 8:24 PM, Yeoreum Yun wrote:
-> > Since glibc commit 321e1fc73f (“malloc: Enable 2MB THP by default on AArch64”),
-> > glibc may call madvise(MADV_HUGEPAGE) for sufficiently large allocations
-> > made by memalign().
-> > 
-> > The underlying VMA may start at a different address from the aligned
-> > address returned by memalign(). Furthermore, a subsequent
-> > madvise(MADV_HUGEPAGE) call does not split the VMA because the flag is
-> > already set.
-> > 
-> > This causes split_huge_page_test to fail because the check_huge_xxx()
-> > helpers incorrectly require the address returned by memalign() to
-> > match the VMA start address reported in /proc/self/smaps.
-> > 
-> > Fix this by using /proc/self/pagemap and /proc/kpageflags instead of
-> > /proc/self/smaps to detect huge pages.
-> > 
-> > Reported-by: David Hildenbrand (Arm) <david@kernel.org>
-> > Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
-> > ---
-> >   tools/testing/selftests/mm/vm_util.c | 130 ++++++++++++++++++++---------------
-> >   tools/testing/selftests/mm/vm_util.h |   1 +
-> >   2 files changed, 77 insertions(+), 54 deletions(-)
-> > 
-> > diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/mm/vm_util.c
-> > index 4821a3563036..1d0959b3b9e8 100644
-> > --- a/tools/testing/selftests/mm/vm_util.c
-> > +++ b/tools/testing/selftests/mm/vm_util.c
-> > @@ -351,31 +351,13 @@ char *__get_smap_entry(void *addr, const char *pattern, char *buf, size_t len)
-> >   	return entry;
-> >   }
-> > -static bool __check_pmd_huge(void *addr, char *pattern, int nr_hpages,
-> > -		  uint64_t hpage_size)
-> > -{
-> > -	char buffer[MAX_LINE_LENGTH];
-> > -	uint64_t thp = -1;
-> > -	char *entry;
-> > -
-> > -	entry = __get_smap_entry(addr, pattern, buffer, sizeof(buffer));
-> > -	if (!entry)
-> > -		goto err_out;
-> > -
-> > -	if (sscanf(entry, "%9" SCNu64 " kB", &thp) != 1)
-> > -		ksft_exit_fail_msg("Reading smap error\n");
-> > -
-> > -err_out:
-> > -	return thp == (nr_hpages * (hpage_size >> 10));
-> > -}
-> > -
-> > -static bool check_large_folios(void *addr, size_t len, int nr_hpages,
-> > -		uint64_t hpage_size)
-> > +static bool check_large_folios(int pagemap_fd, int kpageflags_fd,
-> > +			       void *addr, size_t len, int nr_hpages,
-> > +			       uint64_t hpage_size)
-> >   {
-> >   	int order = 0, pagesize = getpagesize();
-> >   	unsigned int nr_pages = hpage_size / pagesize;
-> >   	int orders[MAX_NR_ORDERS], status;
-> > -	int pagemap_fd, kpageflags_fd;
-> >   	bool ret = false;
-> >   	if (!nr_pages)
-> > @@ -386,15 +368,6 @@ static bool check_large_folios(void *addr, size_t len, int nr_hpages,
-> >   		ksft_exit_fail_msg("invalid order\n");
-> >   	memset(orders, 0, sizeof(int) * MAX_NR_ORDERS);
-> > -	pagemap_fd = open(PAGEMAP_PATH, O_RDONLY);
-> > -	if (pagemap_fd == -1)
-> > -		ksft_exit_fail_msg("read pagemap fail\n");
-> > -
-> > -	kpageflags_fd = open(KPAGEFLAGS_PATH, O_RDONLY);
-> > -	if (kpageflags_fd == -1) {
-> > -		close(pagemap_fd);
-> > -		ksft_exit_fail_msg("read kpageflags fail\n");
-> > -	}
-> >   	status = gather_folio_orders(addr, len, pagemap_fd,
-> >   			kpageflags_fd, orders, MAX_NR_ORDERS);
-> > @@ -405,48 +378,97 @@ static bool check_large_folios(void *addr, size_t len, int nr_hpages,
-> >   		ret = true;
-> >   out:
-> > -	close(pagemap_fd);
-> > -	close(kpageflags_fd);
-> >   	return ret;
-> >   }
-> > -bool check_huge_anon(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
-> > +enum check_huge_type {
-> > +	CHECK_HUGE_ANON,
-> > +	CHECK_HUGE_FILE,
-> > +	CHECK_HUGE_SHMEM,
-> > +};
-> > +
-> > +static bool __check_pmd_huge(void *addr, size_t len, int nr_hpages,
-> > +			     uint64_t hpage_size, enum check_huge_type type)
+>> @@ -510,6 +633,8 @@ struct cpumask *group_cpus_evenly(unsigned int numgrps, unsigned int *nummasks)
+>>   	if (!masks)
+>>   		goto fail_node_to_cpumask;
+>>
+>> +	spread_offset = (unsigned int)atomic_fetch_inc(&group_spread_cnt);
+>> +
+>>   	build_node_to_cpumask(node_to_cpumask);
+>>
 > 
-> The original __check_pmd_huge() is only for PMD-sized large folios, but now
-> it not only checks PMD-sized large folios but also mTHP large folios, which
-> I find confusing. Please keep its original semantics, and only check
-> PMD-sized large folios.
-
-Okay. thanks!
-
-> >   {
-> > -	uint64_t pmd_pagesize = read_pmd_pagesize();
-> > +	int pagemap_fd, kpageflags_fd;
-> > +	uint64_t pmd_pagesize, granule;
-> > +	uint64_t categories, kpf;
-> > +	unsigned long pfn;
-> > +	bool check_large, huge_mapped;
-> > +	char *start = addr;
-> > +	char *end = start + len;
-> > +	pmd_pagesize = read_pmd_pagesize();
-> >   	if (!pmd_pagesize)
-> >   		ksft_exit_fail_msg("reading PMD pagesize failed\n");
-> > -	if (hpage_size == pmd_pagesize)
-> > -		return __check_pmd_huge(addr, "AnonHugePages: ", nr_hpages, hpage_size);
-> > +	if (nr_hpages > 0) {
-> > +		check_large = true;
-> > +		granule = hpage_size;
-> > +	} else {
-> > +		check_large = false;
-> > +		granule = psize();
-> > +	}
+> One additional observation:  In my testing, group_cpus_evenly() is
+> often called with numgrps set to 1. This happens in the block "loop"
+> devices (drivers/block/loop.c) and for the NVMe admin queue. In
+> these cases, the spread_offset is never used, but group_spread_cnt
+> gets incremented anyway. Incrementing for NVMe admin queues
+> tends to dirty the spreading for multiple NVMe devices with the
+> same configuration because it is usually interleaved with the
+> spreading of the main NVMe I/O queues.
 > 
-> This is incorrect for the mTHP large folio check. I already hit a selftest
-> failure. Please test your patches before sending them out.
+> To improve this, I changed the above code to this:
 > 
-> [root@]./khugepaged -c 4 mthp_khugepaged:anon
-> TAP version 13
-> # Save THP and khugepaged settings... OK
-> 1..4
-> # Allocate huge page on fault... OK
-> # Split huge PMD on MADV_DONTNEED... OK
-> ok 1 allocate on fault and split
-> #
-> # Run test: collapse_full (mthp_khugepaged:anon)
-> # Collapse multiple fully populated PTE table.... OK
-> ok 2 collapse_full
-> #
-> # Run test: collapse_empty (mthp_khugepaged:anon)
-> # Do not collapse empty PTE table.... OK
-> ok 3 collapse_empty
-> #
-> # Run test: collapse_single_mthp (mthp_khugepaged:anon)
-> # Collapse PTE table with half PTE entries present.... Fail
-> not ok 4 collapse_single_mthp
-> # Totals: pass:3 fail:1 xfail:0 xpass:0 skip:0 error:0
+> +       if (numgrps == 1)
+> +               spread_offset = 0;
+> +       else
+> +               spread_offset = (unsigned int)atomic_fetch_inc(&group_spread_cnt);
+> 
+> With this change, my configuration #1 (Azure L48s v2 VM) is noticeably
+> better.  All CPUs in NUMA node 1 have either 3 or 4 IRQs assigned. NUMA
+> node 0 ranges from 3 to 5 IRQs, but that's partly because the NUMA
+> nodes themselves aren't balanced, as previously discussed. With your
+> change to apply group_spread_cnt to the NUMA nodes, and my change
+> above, my config #1 is likely to work out very near optimal. Of course,
+> there's no guarantee that some other device won't increment
+> group_spread_cnt and dirty things, but for the typical case it probably
+> works very well.
+> 
 
-Oh sorry. I've forgotten to this case to test.
+Thanks for the suggestion, I tried this and it works fine.
 
-Thanks!
+> This change to skip incrementing group_spread_cnt when numgrps == 1
+> doesn't help my arm64 configs. I'm still thinking about ways to do better
+> when there aren't any clusters. I have an idea that I'm experimenting
+> with, but it may be a few more days before I reach any conclusions.
+> 
+> Michael
 
- 
+Acked.
 
--- 
-Sincerely,
-Yeoreum Yun
+Regards,
+Naman
