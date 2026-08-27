@@ -1,146 +1,110 @@
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB92747CA87
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:31:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FC9037F8D6
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:32:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.173
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787851892; cv=pass; b=j0UP3MPX6foLLmKa+e9I+NciW3AXOtk7ETVM7PNQUbr7wCq/kDRf8ItTyYutkoybFQYo5dfsHzYVw9q0vyd5JeaQMWFLb8CS2Q8TFpYQOqrNuJJrW3oYHDl6OfkBjo2Mg52JPCdIKQFfJK4C1wGnhcgFcaYNtoZPqJfeT8yAVZ0=
+	t=1787851978; cv=pass; b=Ue6vquKAxCX1cly1doAs52N4KyedxerHNvrGAMyXqe3Ag/spQX/Ejgse1gTg/U6vBDaalnoKEweqaJW1fB9iN2dz+eA7/P1FmXhNtOfvDaeFyXJQKDu1KImudsnAe4WeZp1DXE8EH6dT4I3OuBg4vPXF3tc17EZPcZ85YNx4Q68=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787851892; c=relaxed/simple;
-	bh=fi3xXx9lmMzosKdhDR5Rz7ejkV2wx9RBdSDmpnPGy/I=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AQu7WYvwyZIrlHbT0x7IPloZtKdXE/I/W6FXjN4kshb0oEZkWuDmMHAiHFWHN9+iLEjaT7DGKanYw8+JWWpoOHBzHSzmV/dpwSRVz8BOU7Fp77lXUPxGxE49mqVzT9SZ5UAN+6crlp/Quxw9chse35aqEDX6D2w05c9W36YSnb0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=jON3D1qh; arc=pass smtp.client-ip=209.85.215.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
+	s=arc-20240116; t=1787851978; c=relaxed/simple;
+	bh=3JUS29UpP0tjMzt5rlQ6iVe2Fv70kH7TSVP13qbejKc=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=tAK5fpxLhOJv6VuFCBg1Xd3x4l2bquBxZvDuKkzvA7rCfcS4n7TzIjfmDS7PwAcWbKEFLQ4e6fa1k/zBa89wvSWNE5a/XoEhpfh7CEgMUkR91mVuXQOFF98JUpZbR6IT8V+qqAo9vAg5Is4nf+EGeX1/ELQx3RDAO1QR6QTngOA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TZMv71J+; arc=pass smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="jON3D1qh"
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc1c73645a1so122127a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:31:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787851889; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TZMv71J+"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2d7200b2e15so987175ad.3
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:32:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787851976; cv=none;
         d=google.com; s=arc-20260327;
-        b=TL9BtVuRvruwhzV3rCYCSVnwljZtMQ0J2XX2QqD2i9ES0AISqD1peV4tkpKRKuMgKg
-         Q3IDwbMIIv3v8VBWjoq24lIy15VbbFfLUe6OhkjJpWthcpyPjZHSAFVrWWOJpf5WEpCA
-         O8FVleJCkQGZzxWvzpVneIctV+6+teE5+dCOvPr2QY86utjC3fjVWAH7sVzD3sIJzBZs
-         nNGonJCdElaNNVTX4YnTDWzyrjSG6YpQAqSb+8G0B1g1z54BJlxnrWNngQZdOo7TCpUV
-         stWvrzXdMwQ7Fe6dMB/l26KVv/wLEz7i2rhlsZtwv4DS8CxLjcqPXByJ5tcV24yRpe4b
-         0P7w==
+        b=hfp66WiGsEtU6zf/ZeB13gl2Vhx71Pt7yCVv9FBDLYJOjOcJvuo/Yr2yLbKr26JP3k
+         jYSdxKEqAAhhS59mNvAPuCz5KjCLmvp87wlUSuCWjjFst3vMZXUw19mEGD4Yrom8twPU
+         b57amVcfhD48kaBEx4G7/Y5NZIDGMJ81s43NPoguxdqC3Ty6WlvHWlabHLowpv1T3C0b
+         X5hCwC5H+1YmLcFzJ7RwSaZt58j8lhOVwUhnFX0UcHpdrhANhZca5fWQd2hirOKZhTj/
+         SJwsjb3ZNv17coG1D1Aa5gquPobWPzm6+hw3iHNJYBAmOxk0Gj7I3tVstdmoZnf3r//F
+         lZxw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=KkgVLt4NrfCVE7i/NEEAS+hRQSbquCyjXQQNoGs7LPU=;
-        fh=w9eRCr8xSELOX2xMzKV84jLOGHo/ublroTfvxhgpqO8=;
-        b=J3Ucpfrq1UAoTyyoshLeu0xjL7araKFsSn7xR6ZP8Ceb5K3QlfYbmD3TNID2yghY1g
-         Vn6q84+tXzGoYwDac9rIqVVFUPOtCQXk1IHYs9Fw10pDEquqiSby891V3GsDZOzjphWF
-         ethMt9p7+erVuM7tADIJiBMyV8DvGPl8e4MkQpB/rfH/E3+V7LDbg46K58gddWRpV/D4
-         MahYs3AW8IVpRVIbNrdeAnGs8iTArEUJTelgUM+3MPOR/LPjHu6q1w7T1tA+UDbkkFAT
-         5lvgSLCVv5zyzuGIM+C7TuW6gXjimVqRhXC1rRqfJDk9iUf/Sy7wrkdsm7l1OpxIHP1P
-         LU+g==;
+        h=content-transfer-encoding:to:subject:message-id:date:from
+         :mime-version:dkim-signature;
+        bh=vbKYmLU98l6vY14xKmLi8SPVCiSpyKCJuPRcxtrBtD0=;
+        fh=V9AeBafJgTW96HdC48wsxGAfd7Fe9P2uAL8tLCjpUN4=;
+        b=Ag0CLgdjeAWF6XTEECZnD2L/cOnuoNwwGygVOdO5RgjpzdJf3hWK9DPd3BLo7OHq1b
+         IYTaA1Rd4fT2zFIFjD1YUjqmSYwUBhfA1nay26TPJJ2Rpi+vMdsytqUlrzZPuoo1YQF5
+         jObwp22HdZW71LPt0KrvatyKd/hWAW2tAv/kZam2Q8Xk76keKLBiU9dLZQwckmlrzIQC
+         XKLKnR5d4661D8IBrpR6EKVnRDEo5F1LIFCkq6UCPmS3n6610HU3kMPJYp/LlfjFKEl8
+         kT8/dZeYnM5B2y+4RVdUL5/C/+ii9Bv9rvjvGXLArqGvIpscFyu9T9iZGh3qlUvxLskp
+         5LFg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1787851889; x=1788456689; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KkgVLt4NrfCVE7i/NEEAS+hRQSbquCyjXQQNoGs7LPU=;
-        b=jON3D1qhVdf0/iNyzFEtCCbR9adPrP+3opOujs0W6rCQhssamMz4m2arjThZYqzDRv
-         J5b+raZS5sNUAFLXlYhOrmq9IXNCysRRr/4apVXLhTzsYVvqPVq8QgmGsHGd8fSrbgm9
-         L0W5e+9cE6pb3PHxq6PibVUcPjldw0Cl13mAGJuFQJnsGmja9j1w0qJ80yrsSOPsMn7t
-         nOCwLE5pm/NJv/MnaN6qeoxWmOW6d2Wlz7fTMpznZX2tWhP0xIDXFpxcVa9m2d0VxRhs
-         yya6eZ+Hxmx4y/kuXUqxIQqQsl9QWsrK8m2wBjCQklx1Ps5lhyPNBA1OFwWcpJv5jbzi
-         Q1VQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787851889; x=1788456689;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1787851976; x=1788456776; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:to:subject:message-id:date
+         :from:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=KkgVLt4NrfCVE7i/NEEAS+hRQSbquCyjXQQNoGs7LPU=;
-        b=cT6QfEvWWu9I3JtV6q2RYASwxJ3oIS/izmvsBOZDhvoRCKHxgdF8QfBFT3jEhlal0L
-         rgtU/UZN+BsSdycr/JkSacU9U2SLiKSDI/4KwV4LG+ByqPvxWhoyc3Q+1R0K0WUlO90Z
-         6TqPBbvqNKx3cI/8aBVlCRVpZSy8GuoCaIItI8ZvSQsSWpRF/IgH2y33Y0s/ZUAvDrCp
-         NAG2cTC/1UJ8gIIhGOL4waIM80QX+WzCw1eRqiFaO6YJNvx4IQ+ajfKTHI3NSJWESRp5
-         HM4JZhZr1kEwB9kVtTftQg5DgquJkeRszypDxvA3VUGMEYx7QJsZwNMcRK0GBHzWqbAK
-         EqTA==
-X-Forwarded-Encrypted: i=1; AHgh+RqFYaBGP1Bp01vrS24y1JqZEWwZXXBwVC1NS96tnGAw2ugqkofZi8+IzIOTFSkbQb8IdZrBvyftaHWeMlE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kFf0wIn2l15LsFYSWy9x+IwNOrnudGy9sY046ay+10xVD1fphf
-	uLLZB/v6yivs7mjANxcW3RsUfRUyE8T8mX6nsWkSNKT8MvN27YIfdIWE5XX22+Mc/yMvaigkezO
-	WjDEWvwpKqFXcjMk2Dy7YK3jEQwHOQZOxDFfNLBiw
-X-Gm-Gg: AR+sD12ecaL15Z9hqNnhlL0HMqtIr8CCvi3DITCJ4+kdWbCr8wELiTGEqK8Y6xR/nme
-	dsHc6aGbjI1ZTIdcN3NHx8MDJfW3RPYrVhE7UIkzTzFSF4F7kzw7W32FGSch6DesTn8Hv+Hbv0Q
-	GQrq80QKSmRm+T7wyv0IS+KIf/Mr86JdfiFkndy9oeDW2JyLSkwkH1YzSG9HEq8et5Vf36NjDia
-	/n+oNvXR4+2X+Uo6gxKRlLhXmsp8KvFEs/pyHfWkgioV6rga0koZktOLhbes5K8mXKGFh0OnJig
-	Iw1MfMAS4UiSLCLK4+vP+oqeylrSYmIC6MmnHwqFYIoYoxP8WYCOD9eVbukvezCXi9/UbY6eE43
-	PT9TLtE9kSEy1AIiyIvG40b8Lcm2yIkr8lMU=
-X-Received: by 2002:a05:6a21:3390:b0:3cd:7ba2:e669 with SMTP id
- adf61e73a8af0-3d2686a3386mr834940637.10.1787851889149; Thu, 27 Aug 2026
- 10:31:29 -0700 (PDT)
+        bh=vbKYmLU98l6vY14xKmLi8SPVCiSpyKCJuPRcxtrBtD0=;
+        b=TZMv71J+JzIBSXhkZbEPlPz637/P1w5QtMJYe9wc2B3/5/sVm4npkbtoFdFk5qFZZc
+         Sql+mWDnh2glG5oGnKrrJPXFYIqRRLVyaiSdPQRorQWh9pfBVskmwXt7uUhe1fnfi+/Q
+         VGDp7puw04Ixw8hsrLzvWOsiogt77goMs/XQLmw5EUx8uPFR8OGIovhwAP/58mL3DxnE
+         ky5Aze7tTWzSVuIt7f/O+MqRxElJl/sHSWqKb3V/y8GAtxpc/JjSOzgjJE09rSJIK75g
+         BA/mUeYg6TawbmcWroEVsWvr6C9Gx5tiQ6i092ktLO9OTtAPlu/lcLtBD1+5YQJkABpk
+         dcHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787851976; x=1788456776;
+        h=content-transfer-encoding:content-type:to:subject:message-id:date
+         :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vbKYmLU98l6vY14xKmLi8SPVCiSpyKCJuPRcxtrBtD0=;
+        b=WIcn6x/e8ZxtMBho42WTKSMLtzJMc35DOTReh4sgQBx4DmCZvbCqEinhpAbiIoN4zJ
+         4MDaC0RDbm14MQnht+w8AFX+oUx0exKNGBGgqXbU2ZNUiimm1M0kzdswXDK3TuCbf774
+         Gb+a+Ur8+mqG7PH/okxMwXiiMCrrJCixT36Dn9EGvNPdJbhlCj/D0sHNZHQjf0dwL1w8
+         A6ZTsQbsMcPRfDQ6h0/cO11E9AnMFgvqWgKuTXGteYdcQ+sEaIsgOdd4ait1JTipVGuc
+         H/iSJur2x1YQbCt82bPQflYvSVUkWP+JZdIZECfTfBCFb+AFit6/SC9P4F3RtiCRwx40
+         pKfg==
+X-Gm-Message-State: AFuF++lUXNBVLc1TJSPNtbLH3SjtVY13V8MLsfq7KH6U3NffhySNSx1R
+	nXix6TWHbwjiuOyJPs1ejSheUdg/40UL7qAcFsLP6OeQTkvBmhYngEjjGAufR7t4UAurvFjA68E
+	ojeefqit9mG3taPtCNSer9nb8hAQilT2Kk8mQOls=
+X-Gm-Gg: AR+sD123i2nz1ZLOsJktcFz9gnzgtRpSTDB1lXfB9eB1h71Ck4kaK4tVR6RapDjMNc+
+	2y6CgCo9ldM+A/ZQ438BDh1a0S7cEDCZ8clUto99GaAXnDxMGps+J+ZKrtVI6fRu1KzYVwJo/6L
+	dEaxifhVcDRlhCmUb9uOxOpIGdWcO2ZzvgP8pxdvAIlgsGc2nKMknFa7jF+1HTs0SQsxJmmPW5J
+	2KVEdbkjOeIhSyVfUqJersVKz5W5jDpZd0+1PI7HjWqk2ZfrUEngvVknUsX0JpvIYLAuR7oRwhT
+	OX7EN0gH3EyU39MQxltBKyH2k9lMJUM+H9/49u/pTo9bUSg=
+X-Received: by 2002:a17:902:e549:b0:2ca:6eca:492f with SMTP id
+ d9443c01a7336-2d74df5f87cmr7374385ad.14.1787851976378; Thu, 27 Aug 2026
+ 10:32:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <D4tcSGerkYkIV1DmaUo1t8TaR5qQElDLkidn@bugs.sh> <2026082732-flaccid-overpay-0985@gregkh>
-In-Reply-To: <2026082732-flaccid-overpay-0985@gregkh>
-From: Xiang Mei <xmei5@asu.edu>
-Date: Thu, 27 Aug 2026 10:31:18 -0700
-X-Gm-Features: AcwNN1UH6rQHNXhcYdg99UoLIjWRDePA68176IBEWq-kIwPF2BtV8uwj4x4omdw
-Message-ID: <CAPpSM+RJKziJf7enrZ5FMy-uxJp1Fy1M_acVXy+v3WskU7jJXw@mail.gmail.com>
-Subject: Re: [BUG] drivers/usb: out-of-bounds in xhci_queue_bulk_tx()
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: co <co+fd80bc5967eb22c3@bugs.sh>, linux-usb@vger.kernel.org, 
-	Mathias Nyman <mathias.nyman@intel.com>, linux-kernel@vger.kernel.org
+From: viney kumar <viney.kumar@gmail.com>
+Date: Thu, 27 Aug 2026 23:02:44 +0530
+X-Gm-Features: AcwNN1XO8q-N4xTBjKw263XYvJBVkowoDLNTZyMzjC7g6h2IsnOgGsQNl5LeRTU
+Message-ID: <CA+NqQMLJ8-S=S3qUyJvj-aJUbcZ4SV6akn_RhQWuUSngykQ2pg@mail.gmail.com>
+Subject: [QUESTION] Memory isolation between critical and deferrable workloads
+ in embedded Linux
+To: linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Th
+I am working on a memory-constrained embedded Linux system and looking
+for an effective way to reduce RAM pressure.
 
-On Thu, Aug 27, 2026 at 5:50=E2=80=AFAM Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
->
-> On Thu, Aug 27, 2026 at 12:43:58PM +0000, co wrote:
-> > We found a bug reachable in:
-> >
-> >     path    drivers/usb/host
-> >     crash   out-of-bounds in xhci_queue_bulk_tx()
-> >     commit  bd5f485f3f02 ("Merge tag 'soc-arm-7.3' of git://git.kernel.=
-org/pub/scm/linux/kernel/git/soc/soc")
-> >
-> > Config, environment, the sanitizer report and a C reproducer follow.
-> >
-> > =3D=3D Notes =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> >     If you patch the bug based on our artifacts, a tag would be
-> >     appreciated:
-> >
-> > Reported-by: co+fd80bc5967eb22c3@bugs.sh
-> >
-> >     Everything in this mail is validated by the reproducer below.
-> >
-> >     We also hold an LLM-generated root-cause analysis and a candidate
-> >     patch. The patch passes an A/B test: the same reproducer panics the
-> >     unpatched kernel and runs clean on the patched one. Neither has had
-> >     human review, so both still require validation before you send or
-> >     apply them. Available on:
-> >
-> >         patch.diff  https://bugs.sh/b/fd80bc5967eb22c3/patch.diff
-> >         report.md   https://bugs.sh/b/fd80bc5967eb22c3/report.md
->
-> Please validate and ensure that this is correct before sending this to
-> us.  No need for us to dig through random web links, right?
->
-Thanks for your feedback, Greg.
+approach under consideration:  To classify threads into categories
+based on their importance:
+Critical =E2=80=93 must remain operational
+Normal =E2=80=93 regular functionality
+Deferrable =E2=80=93 activity can be delayed or suspended under memory
+pressure, till memory is available in this category pool.
 
-We are working on making reports public. Sorry for the inconvenience.
-We'll stop sending bug reports before we fix the issue.
+I am considering assigning a shared, bounded memory pool/budget to
+each category.
+which would be used by all threads belonging to that category.
+Query:
+1. Is this approach effective for managing RAM pressure in Linux?
+2. If yes, What is the recommended way to implement category-level
+memory pools or memory budgets for groups of threads in Linux?
 
-Xiang
-
-> thanks,
->
-> greg k-h
->
+Thanks in anticipation !
