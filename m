@@ -1,75 +1,121 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE1C248B38C
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:33:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E5433FFD;
+	Thu, 27 Aug 2026 16:35:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787848405; cv=none; b=SQLPBkKFVm6oBq2lSMLdQ3fCY34OUfJX3jGiZoOx6xD6axScJ3DnpkiakZ2SjJ73QDBk4FS5i4oSeT9wI5RXlq6IYpl8BL9TT7F+2Eso1ri6pc/5DMI/OUnyW8M3aKbvNDJR9nCFn5FsyQyreF3kmdMrRfKSROBr5DEEpzAXiF4=
+	t=1787848534; cv=none; b=gjg1ioCn6UVBf5hPqltefIDWAauvZB0NQHMnQ7WZcCAPmptOpcn282SY33ZCdbYxrz9qzylzdhd7QeKECNIVoJM/OlN42lcFQ5m77icXs9HkVR3Pyjq0yxlHByqSqsbBJ60Sivm6t6WF2DxUrYQmTszHlt0P7Z2I2g2NMUoQKGE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787848405; c=relaxed/simple;
-	bh=DtAQGCWj4wQPGw/fn4RpnH94zUParCrSELcr5Lxa7Cw=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=E7j08QaZrhMimuywnQNE8bp95r2ZCrymulYQdUNTs0huSQ4gBP5G01YWLA1a4pSpDgVL2B4C3fC+qkNhSbShCJ6gT2hPsghNmArvN6IbVbpgWyLDdJv+CGkRm9vWyNujwWSv7tkSEFiyfd4NF+D+X5114KId/ADYjm4Q0p5OhCE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=lIAmOY8W; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787848534; c=relaxed/simple;
+	bh=FMOa7K8c9ntfrDsnr/HJ1yPnOO249osGs33iCOsn7Zk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qa6/8KwuUhIcmH2X2IDZQ8oRdwrXtBlNeyQA1z1J2x3R94RNf+Ed1W02yQgVaahLpTIwX0KIDKVFnSBxDl0wf5Y9mL2nFWpb5qo+2NRdTHRplLcLUeitq8H31ep/jGCU+6UOgTZ28s5ZPnFvqn5+uCsENOfwdVsnRjJT5g3fGYs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OqtrQ3UO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="lIAmOY8W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0A251F000E9;
-	Thu, 27 Aug 2026 16:33:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1787848402;
-	bh=vDF430L9eL17qkXvJWF4I/+5SoLvT5ASA6u8T+S5+DM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=lIAmOY8W7LKUCKU2gMhg6cObfeD7bpLl8Jz8Ugv3lydn9tmYVzG6k2DPNOtqMwgwV
-	 jnlBbEcCQDWiyrLzXBWOanA8LOejEtz+RQyATcoJPA0W1k1DbHppN5Xrl0fV87cWiu
-	 8B0cvqZuWNDwdluVLu3TST4jSTNX0UTw+IZQxk2c=
-Date: Thu, 27 Aug 2026 09:33:22 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: syzbot <syzbot+5c417b73ac02e0e352c4@syzkaller.appspotmail.com>
-Cc: jannh@google.com, liam@infradead.org, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, ljs@kernel.org, pfalcato@suse.de,
- syzkaller-bugs@googlegroups.com, vbabka@kernel.org
-Subject: Re: [syzbot] [mm?] WARNING in __split_vma
-Message-Id: <20260827093322.f99541b28aad2a3c069ed155@linux-foundation.org>
-In-Reply-To: <6a8ff666.27659fcc.2ceef7.000f.GAE@google.com>
-References: <6a8ff666.27659fcc.2ceef7.000f.GAE@google.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OqtrQ3UO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9F731F000E9;
+	Thu, 27 Aug 2026 16:35:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787848532;
+	bh=UkC+ptFG83CHhhlpQRvkIDNUp0LPgh2nBFtJOu4cRYk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OqtrQ3UO5DK5ea7IutsBW0fKPbPHZ3JqecFipin5mSzscVkAtNQ+Ty9+jliAFK4Zt
+	 g15Qi+KZlP/yiux+fX3lJ4bUzm7zMOW5vWhnPEbxGjCbQV+ZlJh/gyViUhDHbCq4xw
+	 crwLqTzYEvyQxhKYOMg8UuPIlqgZ0owmUkH43f/c9UjzfkQAmwcNHYIECT/uWbBvy6
+	 gnHZi+/H8z7ZThawDtjTuqcXoYnXGlTCfSgUCFosG9tHcgclDHoUwKW5WoYJKmbz6C
+	 nC43AcrVTtC90M6Ont11jqNz6ty1+ZT/4vzL1AVi0WLUKqz3IBh1HFw97z2ku9bchh
+	 MN80ZQQOtj/Sw==
+Date: Thu, 27 Aug 2026 17:35:28 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
+	Thierry Reding <treding@nvidia.com>
+Subject: Re: [PATCH 2/4] dt-bindings: thermal: Add Tegra264 header
+Message-ID: <20260827-riverbank-cinema-d898d4e5a522@spud>
+References: <20260827-tegra264-fan-v1-0-3c55f0c748b1@nvidia.com>
+ <20260827-tegra264-fan-v1-2-3c55f0c748b1@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="j61CVKVvUtbZjtu/"
+Content-Disposition: inline
+In-Reply-To: <20260827-tegra264-fan-v1-2-3c55f0c748b1@nvidia.com>
 
-On Thu, 27 Aug 2026 01:33:42 -0700 syzbot <syzbot+5c417b73ac02e0e352c4@syzkaller.appspotmail.com> wrote:
+--j61CVKVvUtbZjtu/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> Hello,
-> 
-> syzbot found the following issue on:
-> 
-> HEAD commit:    818bebeb63dd drm/xe: Don't hand out the flat CCS storage a..
-> git tree:       upstream
-> console output: https://syzkaller.appspot.com/x/log.txt?x=1645f979580000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
-> dashboard link: https://syzkaller.appspot.com/bug?extid=5c417b73ac02e0e352c4
-> compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=104a0d49580000
-> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13f35979580000
-> 
-> Downloadable assets:
-> disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-818bebeb.raw.xz
-> vmlinux: https://storage.googleapis.com/syzbot-assets/6e4100526b12/vmlinux-818bebeb.xz
-> kernel image: https://storage.googleapis.com/syzbot-assets/723c4783ee96/bzImage-818bebeb.xz
-> 
-> IMPORTANT: if you fix the issue, please add the following tag to the commit:
-> Reported-by: syzbot+5c417b73ac02e0e352c4@syzkaller.appspotmail.com
+On Thu, Aug 27, 2026 at 05:07:51PM +0200, Thierry Reding wrote:
+> From: Thierry Reding <treding@nvidia.com>
+>=20
+> This header file defines the set of thermal zones exposed by the BPMP on
+> Tegra264.
 
-Thanks.
+Does this need to be a binding, since you're just using it in the dts?
+Can it just go into your dts directory insteaD?
 
-Hopefully fixed by the pending "mm/mremap: reset unfaulted VMA page
-offset for MREMAP_DONTUNMAP".
+Cheers,
+Conor.
 
-https://lore.kernel.org/20260825-fix-mremap-dontunmap-pgoff-v1-1-39a40b2c98b3@kernel.org
+>=20
+> Signed-off-by: Thierry Reding <treding@nvidia.com>
+> ---
+>  include/dt-bindings/thermal/nvidia,tegra264-bpmp.h | 20 ++++++++++++++++=
+++++
+>  1 file changed, 20 insertions(+)
+>=20
+> diff --git a/include/dt-bindings/thermal/nvidia,tegra264-bpmp.h b/include=
+/dt-bindings/thermal/nvidia,tegra264-bpmp.h
+> new file mode 100644
+> index 000000000000..b32739691385
+> --- /dev/null
+> +++ b/include/dt-bindings/thermal/nvidia,tegra264-bpmp.h
+> @@ -0,0 +1,20 @@
+> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+> +/* SPDX-FileCopyrightText: Copyright (c) 2023-2025 NVIDIA CORPORATION & =
+AFFILIATES. All rights reserved. */
+> +
+> +#ifndef DT_BINDINGS_THERMAL_NVIDIA_TEGRA264_BPMP_H
+> +#define DT_BINDINGS_THERMAL_NVIDIA_TEGRA264_BPMP_H
+> +
+> +#define TEGRA264_THERMAL_ZONE_TJ_MAX		0
+> +#define TEGRA264_THERMAL_ZONE_TJ_MIN		1
+> +#define TEGRA264_THERMAL_ZONE_GPU_AVG		2
+> +#define TEGRA264_THERMAL_ZONE_CPU_AVG		3
+> +#define TEGRA264_THERMAL_ZONE_SOC_012_AVG	4
+> +#define TEGRA264_THERMAL_ZONE_SOC_45_AVG	5
+> +#define TEGRA264_THERMAL_ZONE_SOC_3_AVG		6
+> +#define TEGRA264_THERMAL_ZONE_GPU_MAX		7
+> +#define TEGRA264_THERMAL_ZONE_CPU_MAX		8
+> +#define TEGRA264_THERMAL_ZONE_SOC_012_MAX	9
+> +#define TEGRA264_THERMAL_ZONE_SOC_345_MAX	10
+> +#define TEGRA264_THERMAL_ZONE_TJ_AVG		11
+> +
+> +#endif /* DT_BINDINGS_THERMAL_NVIDIA_TEGAR264_BPMP_H */
+>=20
+> --=20
+> 2.55.0
+>=20
 
+--j61CVKVvUtbZjtu/
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapBnUAAKCRB4tDGHoIJi
+0q4DAP44AXo8+VuIeThg7JueM2wliz1yUngCjU3ZDbI7xRjAQAD/TljVAvfIa4lF
+NFgx3cC+O8jitOvsYhKJwceeVuZPGQc=
+=VgGR
+-----END PGP SIGNATURE-----
+
+--j61CVKVvUtbZjtu/--
