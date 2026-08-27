@@ -1,461 +1,182 @@
-Received: from mail.muc.de (mail.muc.de [193.149.48.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f228.google.com (mail-pf1-f228.google.com [209.85.210.228])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A7C831A56D
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:56:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.149.48.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A593D490BFC
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:57:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787856999; cv=none; b=SDKa1o5yLUZt1B1j0/U8sgpLmFRMpHghgC+aYPqCIjwff8UDv5uU2IYcN2NuC/1fNNK/H9cM9mxzcxR7CDvYquj5JSYAtexJacSsmjN/BbckogwPCjq9nqgN8ZBO8ktwqc7mA6TdiA2PlZfiTyF455+6RxdX5zyyTG5Zzy+jcdU=
+	t=1787857063; cv=none; b=sTFeljfJXtybNhTkqEIxqSyVGZXvrB7NJ4NOAH8RgroICtk19obC3eqyHkLtWyGwoPCaYEgQ+w4zXT3KCjz6/53Nt3PnOe1o82KnXRRRF5sNJcc5XsXxIhGX5QXuanpbKbB6QN+gHYcN9T+PfBt9tExJE6Z1jgDVMXgL/47stgQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787856999; c=relaxed/simple;
-	bh=Ix7DghB6muBQigIXdXbebwT/3eu8lLlJpGnoq35FY+M=;
-	h=Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:From; b=BX79MIiAW/qWxlqfRQDatxToTi1X8EUKZauC7kbEDJ5Wb7JDqsvDnL1qB0uQrNQWM75A4hRe3wbQrUpoxXpOOVPPFytS7sgW0issW96oOKLH0jJ82BmVQI9xhlaugr6ih5TOS2+5c07MkyzjeYLVKCi5AYyRjlgU8CqnbFJfJ1Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=muc.de; spf=pass smtp.mailfrom=muc.de; arc=none smtp.client-ip=193.149.48.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=muc.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=muc.de
-Received: (qmail 24280 invoked by uid 3782); 27 Aug 2026 20:56:32 +0200
-Received: from muc.de (p4fe15cdf.dip0.t-ipconnect.de [79.225.92.223]) (using
- STARTTLS) by colin.muc.de (tmda-ofmipd) with ESMTP;
- Thu, 27 Aug 2026 20:56:32 +0200
-Received: (qmail 31193 invoked by uid 1000); 27 Aug 2026 18:56:31 -0000
-Date: Thu, 27 Aug 2026 18:56:30 +0000
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-  Jiri Slaby <jirislaby@kernel.org>, Simona Vetter <simona@ffwll.ch>,
-  linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
-  Helge Deller <deller@gmx.de>, Thomas Zimmermann <tzimmermann@suse.de>,
-  linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org
-Cc: acm@muc.de
-Subject: [Patch 8/9]: vt: Enhancements to the VT ioctl interface
-Message-ID: <apCIXtwoPY_a3QOi@MAC.fritz.box>
-References: <apCEDM2sWv_M354-@MAC.fritz.box>
+	s=arc-20240116; t=1787857063; c=relaxed/simple;
+	bh=bId58P1f3rx83kEyCFQCmbOQueTyIg0Jg1Ag1a5jGfQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=EYhifEtB4y14GpYWk2d/tXvkUX6TcKFVHB32GmBfW1Oq1du1xzaRhubxyeyr36l+j6sLnp7JcsaX1nEPrkymIY2I4Cki4mbUqz37bFAj6gXjCvcmDR8nUOvSWj9wT4lm8kZeguVlSlRCN/3mXushKFq/WCyx0xCuvFVq5gzFVvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=Q9rrg5rA; arc=none smtp.client-ip=209.85.210.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="Q9rrg5rA"
+Received: by mail-pf1-f228.google.com with SMTP id d2e1a72fcca58-85457d780adso28302b3a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:57:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=purestorage.com; s=google2022; t=1787857052; x=1788461852; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ex+RB5aItdA3h/bx30wNaWsAq7n74S1CMmypqWLJ+1k=;
+        b=Q9rrg5rARoepcGhMNERctdSNthFuFWKbtn0YACk+MDoFqExmU3YFRTvG4ddSXeXGLJ
+         ZjOTr7Ezz8nshhwzVsbdrmg3gYansSJK9e/QTsJP2bESpb3QEJz2jtmfpTJjuRSdYNMu
+         aaZCMl7Yy+5xfIj+vZI+Q+ta2uBdSzlmlpwwa8izr7BTDocl3P69ejOOb/bEMlKBoAhl
+         kdD+4ZbDp3ve0Ph6K/GhwDG/SyTHQV8BU9IM2YaIsO+j4edvVUURTqXDbaHUdBm5eHHb
+         oPdddvES6u1xiuAyc+VDqmxWLO0Y0d3vwmTbrqOJQSq4FcKAeKXYfQR3aRWr3NY2/pxG
+         PPeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787857052; x=1788461852;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ex+RB5aItdA3h/bx30wNaWsAq7n74S1CMmypqWLJ+1k=;
+        b=aJVSbaXFfgMZacb/jMZM7/E1JAbqejAWbnDMBdLEtyeGsfMzc4YJZd2hpHkleH+cVV
+         gB4zJLNTaUxu46XdxRVI+ruitZG5hj0id5IeCjnjR0QC8Eeqw0NZ2TyQpJwJHxvSsrMo
+         Sqe3DYYV9iei3XQ+IMF2Wcpgekn34C4ycVIl5riLyyQCI/d0kJgWvjKOmT1YhqcLREPx
+         3c51S8QI5SEIm3Zc+NzbWV/qotrVGtfYjwtiaOMeDZAZVV9zNJm1Ip04nG+u6GKvK51x
+         Q68Pm9BLaqzZJMSUcOan1iKAz2PdnuIC+D89UXsY4cd8bftzIADdYD8TqB1PNTvQ303q
+         clig==
+X-Forwarded-Encrypted: i=1; AHgh+RpAgFQpXV8+7Td83sIGUGHT8NzHAVDGSD3KOlereqFEnaXi5hgGq9sCriy/z55QjfFKyEJDfY08uFJVZvU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nd5ZITERqH95HfW72dh5/02ki0X3GXXAEzf2wuhbhTBqP4sf2y
+	2wif9O/WJPfQGQT6jyLxvpIUB/fbH5Rzw0MtlKBrQzdbveG97u31gQDOQ6tR5sd+W86ehB4ZlTk
+	4HccgoeMOqWvSDYGIaKCHZ9DYHtHOBCXEvtpMrreuVTZY7Cak30af
+X-Gm-Gg: AR+sD12h83sOeu2b0sYhIcdHmfv/JYEoTP3XR0q8W0sUN4CPCKzCxlPCw2JJgaWzSAz
+	jVz66Uzw0s1rXecqQ6aZP3TLFlFmO9B68hpVJeHy1Hgs73pkj2+2kZ//vxe0JORnjpKLy/yoNmC
+	+pbPYWkQCEzUSeAOe1ABslKHm48H0dol7CYEjjYdPjdb9GZxP79KLO4j+Aw88BqzxnRH9C27wY3
+	gcWKguEhK+bH2dz0HcqTUZnxujT/yKJuNeiVUscib8PtNNKNOD2Zk+O4wH/RP4c91PNxrm7Fq6V
+	aS5DxOqtaP8MfRVYcEnxjWpvtn1lxTytOZuKJrwbsD7LDSXQtExVAd4Rmnx4sSQcTPdrmhTx/lK
+	ecYIzbV4s8y3gCfGLLw==
+X-Received: by 2002:a05:6a00:4449:b0:851:c2bd:43d1 with SMTP id d2e1a72fcca58-85628a85b9amr829996b3a.1.1787857051450;
+        Thu, 27 Aug 2026 11:57:31 -0700 (PDT)
+Received: from c7-smtp-2026.dev.purestorage.com ([2620:125:9017:12:36:3:6:0])
+        by smtp-relay.gmail.com with ESMTPS id d2e1a72fcca58-8538d0c4935sm2212871b3a.7.2026.08.27.11.57.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 11:57:31 -0700 (PDT)
+X-Relaying-Domain: purestorage.com
+Received: from dev-csander.dev.purestorage.com (dev-csander.dev.purestorage.com [10.112.12.104])
+	by c7-smtp-2026.dev.purestorage.com (Postfix) with ESMTP id A24254030A;
+	Thu, 27 Aug 2026 12:57:30 -0600 (MDT)
+Received: by dev-csander.dev.purestorage.com (Postfix, from userid 1557716354)
+	id 9F60AE404C2; Thu, 27 Aug 2026 12:57:30 -0600 (MDT)
+From: Caleb Sander Mateos <csander@purestorage.com>
+To: Jens Axboe <axboe@kernel.dk>,
+	Ming Lei <tom.leiming@gmail.com>,
+	Keith Busch <kbusch@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Chris Mason <clm@fb.com>,
+	David Sterba <dsterba@suse.com>,
+	Bernd Schubert <bernd@bsbernd.com>,
+	Joanne Koong <joannelkoong@gmail.com>,
+	Miklos Szeredi <miklos@szeredi.hu>
+Cc: linux-block@vger.kernel.org,
+	linux-nvme@lists.infradead.org,
+	linux-scsi@vger.kernel.org,
+	linux-btrfs@vger.kernel.org,
+	fuse-devel@lists.linux.dev,
+	io-uring@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Caleb Sander Mateos <csander@purestorage.com>
+Subject: [PATCH 2/2] nvme/ioctl: call io_uring_cmd_set_res32() in ->end_io()
+Date: Thu, 27 Aug 2026 12:57:21 -0600
+Message-ID: <20260827185722.3234622-3-csander@purestorage.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260827185722.3234622-1-csander@purestorage.com>
+References: <20260827185722.3234622-1-csander@purestorage.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apCEDM2sWv_M354-@MAC.fritz.box>
-X-Submission-Agent: TMDA/1.3.x (Ph3nix)
-From: Alan Mackenzie <acm@muc.de>
-X-Primary-Address: acm@muc.de
+Content-Transfer-Encoding: 8bit
 
-vt: 32b glyph: 10. Enhancements to the VT ioctl interface
+io_uring_cmd_set_res32() only performs loads and stores to the io_uring
+request state, so it's safe to call in interrupt context. Move the call
+from the nvme_uring_task_cb() task work to nvme_uring_cmd_end_io(). This
+unifies the 2 io_uring_cmd_set_res32() callers and removes the need to
+pass result and status through struct nvme_uring_cmd_pdu, saving 16
+bytes and a couple memory accesses.
 
-Handle the current 16-bit P/GIO_UNIMAP ioctls by converting
-to/from 32-bit code-points/glyph numbers.  Add handling for new
-32-bit ioctls P/GIO_UNIMAP21.  Convert to and from __user in
-vt_ioctl.c rather than in vt.c or consolemap.c.
+Signed-off-by: Caleb Sander Mateos <csander@purestorage.com>
+---
+ drivers/nvme/host/ioctl.c | 16 +++++++---------
+ 1 file changed, 7 insertions(+), 9 deletions(-)
 
-Signed-off-by: Alan Mackenzie <acm@muc.de>
-
-diff --git a/drivers/tty/vt/vt_ioctl.c b/drivers/tty/vt/vt_ioctl.c
-index 28993a3d0acb..05986430e1bb 100644
---- a/drivers/tty/vt/vt_ioctl.c
-+++ b/drivers/tty/vt/vt_ioctl.c
-@@ -24,7 +24,6 @@
- #include <linux/major.h>
- #include <linux/fs.h>
- #include <linux/console.h>
--#include <linux/consolemap.h>
- #include <linux/signal.h>
- #include <linux/suspend.h>
- #include <linux/timex.h>
-@@ -36,6 +35,7 @@
- 
- #include <linux/kbd_kern.h>
- #include <linux/vt_kern.h>
-+#include <linux/consolemap.h>
- #include <linux/kbd_diacr.h>
- #include <linux/selection.h>
- 
-@@ -484,10 +484,155 @@ static int vt_k_ioctl(struct tty_struct *tty, unsigned int cmd,
- 	return 0;
- }
- 
-+#ifdef CONFIG_FB_GLYPH_21BIT
-+static int vt__user_unipair_8_to_21(unsigned int ct,
-+				    struct unipair __user *entries,
-+				    struct unipair21 **tmp21_entries)
-+{
-+	struct unipair *tmp_entries;
-+	int i, ret = 0;
-+
-+	tmp_entries = kmalloc_array(ct, sizeof(struct unipair), GFP_KERNEL);
-+	if (!tmp_entries)
-+		return -ENOMEM;
-+	if (copy_from_user(tmp_entries, entries, ct * sizeof(struct unipair))) {
-+		ret = -EFAULT;
-+		goto free_tmp;
-+	}
-+	*tmp21_entries = kmalloc_array(ct, sizeof(struct unipair21), GFP_KERNEL);
-+	if (!*tmp21_entries) {
-+		ret = -ENOMEM;
-+		goto free_tmp;
-+	}
-+	for (i = 0; i < ct; i++) {
-+		(*tmp21_entries)[i].unicode = tmp_entries[i].unicode;
-+		(*tmp21_entries)[i].fontpos = tmp_entries[i].fontpos;
-+	}
-+free_tmp: kfree(tmp_entries);
-+	return ret;
-+}
-+
-+static int vt_unipair_21_to__user_8(unsigned int ct,
-+				    struct unipair21 *entries21,
-+				    struct unipair __user *entries)
-+{
-+	struct unipair *tmp_entries;
-+	int i, ret = 0;
-+
-+	tmp_entries = kmalloc_array(ct, sizeof(struct unipair), GFP_KERNEL);
-+	if (!tmp_entries)
-+		return -ENOMEM;
-+	for (i = 0; i < ct; i++) {
-+		if ((entries21[i].unicode > 0xffff) ||
-+		    (entries21[i].fontpos > 0xffff)) {
-+			ret = -EINVAL;
-+			goto free_tmp;
-+		}
-+		tmp_entries[i].unicode = entries21[i].unicode;
-+		tmp_entries[i].fontpos = entries21[i].fontpos;
-+	}
-+	if (copy_to_user(entries, tmp_entries, ct * sizeof(struct unipair)))
-+		ret = -EFAULT;
-+free_tmp: kfree(tmp_entries);
-+	return ret;
-+}
-+
- static inline int do_unimap_ioctl(int cmd, struct unimapdesc __user *user_ud,
- 		bool perm, struct vc_data *vc)
- {
- 	struct unimapdesc tmp;
-+	struct unipair21 *tmp21_entries = NULL;
-+	int ret = 0, ret1 = 0;
-+	unsigned int ct;
-+
-+	if (copy_from_user(&tmp, user_ud, sizeof(tmp)))
-+		return -EFAULT;
-+	switch (cmd) {
-+	case PIO_UNIMAP:
-+		if (!perm)
-+			return -EPERM;
-+		ret = vt__user_unipair_8_to_21(tmp.entry_ct, tmp.entries,
-+					       &tmp21_entries);
-+		if (ret)
-+			return ret;
-+		ret = con_set_unimap(vc, tmp.entry_ct, tmp21_entries);
-+		kfree(tmp21_entries);
-+		return ret;
-+
-+	case GIO_UNIMAP:
-+		if (!perm && fg_console != vc->vc_num)
-+			return -EPERM;
-+		tmp21_entries = kmalloc_array(tmp.entry_ct,
-+					      sizeof(struct unipair21),
-+					      GFP_KERNEL);
-+		if (!tmp21_entries)
-+			return -ENOMEM;
-+		ret = con_get_unimap(vc, tmp.entry_ct, &ct, tmp21_entries);
-+		if (ret)
-+			goto free_tmp21;
-+		ret = vt_unipair_21_to__user_8(ct, tmp21_entries, tmp.entries);
-+free_tmp21:	ret1 = put_user(ct, &user_ud->entry_ct);
-+		kfree(tmp21_entries);
-+		return ret ? ret : ret1;
-+	}
-+	return 0;
-+}
-+
-+static inline int do_unimap_ioctl21(int cmd, struct unimapdesc21 __user *user_ud,
-+		bool perm, struct vc_data *vc)
-+{
-+	struct unimapdesc21 tmp;
-+	struct unipair21 *k_entries;
-+	int ret = 0, ret1 = 0;
-+
-+	if (copy_from_user(&tmp, user_ud, sizeof(tmp)))
-+		return -EFAULT;
-+	switch (cmd) {
-+	case PIO_UNIMAP21:
-+		if (!perm)
-+			return -EPERM;
-+		k_entries = kmalloc_array(tmp.entry_ct,
-+					  sizeof(struct unipair21),
-+					  GFP_KERNEL);
-+		if (!k_entries)
-+			return -ENOMEM;
-+		if (copy_from_user(k_entries, tmp.entries,
-+				   tmp.entry_ct * sizeof(struct unipair21))) {
-+			ret = -EFAULT;
-+			goto free_k_entries;
-+		}
-+		ret = con_set_unimap(vc, tmp.entry_ct, k_entries);
-+free_k_entries: kfree(k_entries);
-+		return ret;
-+	case GIO_UNIMAP21:
-+		if (!perm && fg_console != vc->vc_num)
-+			return -EPERM;
-+		k_entries = kmalloc_array(tmp.entry_ct,
-+					  sizeof(struct unipair21),
-+					  GFP_KERNEL);
-+		if (!k_entries)
-+			return -ENOMEM;
-+		ret = con_get_unimap(vc, tmp.entry_ct, &tmp.entry_ct,
-+				     k_entries);
-+		if (ret)
-+			goto free_k_entries1;
-+		if (copy_to_user(tmp.entries, k_entries,
-+				 tmp.entry_ct * sizeof(struct unipair21)))
-+			ret = -EFAULT;
-+free_k_entries1: ret1 = put_user(tmp.entry_ct, &user_ud->entry_ct);
-+		kfree(k_entries);
-+		return ret ? ret : ret1;
-+	}
-+	return 0;
-+}
-+
-+#else
-+static inline int do_unimap_ioctl(int cmd, struct unimapdesc __user *user_ud,
-+		bool perm, struct vc_data *vc)
-+{
-+	struct unimapdesc tmp;
-+	struct unipair *k_entries;
-+	int ret = 0, ret1 = 0;
- 
- 	if (copy_from_user(&tmp, user_ud, sizeof tmp))
- 		return -EFAULT;
-@@ -495,15 +640,41 @@ static inline int do_unimap_ioctl(int cmd, struct unimapdesc __user *user_ud,
- 	case PIO_UNIMAP:
- 		if (!perm)
- 			return -EPERM;
--		return con_set_unimap(vc, tmp.entry_ct, tmp.entries);
-+		k_entries = kmalloc_array(tmp.entry_ct,
-+					  sizeof(struct unipair),
-+					  GFP_KERNEL);
-+		if (!k_entries)
-+			return -ENOMEM;
-+		if (copy_from_user(k_entries, tmp.entries,
-+				   tmp.entry_ct * sizeof(struct unipair))) {
-+			ret = -EFAULT;
-+			goto free_k_entries;
-+		}
-+		ret = con_set_unimap(vc, tmp.entry_ct, k_entries);
-+free_k_entries: kfree(k_entries);
-+		return ret;
- 	case GIO_UNIMAP:
- 		if (!perm && fg_console != vc->vc_num)
- 			return -EPERM;
--		return con_get_unimap(vc, tmp.entry_ct, &(user_ud->entry_ct),
--				tmp.entries);
-+		k_entries = kmalloc_array(tmp.entry_ct,
-+					  sizeof(struct unipair),
-+					  GFP_KERNEL);
-+		if (!k_entries)
-+			return -ENOMEM;
-+		ret = con_get_unimap(vc, tmp.entry_ct, &tmp.entry_ct,
-+				     k_entries);
-+		if (ret)
-+			goto free_k_entries1;
-+		if (copy_to_user(tmp.entries, k_entries,
-+				 tmp.entry_ct * sizeof(struct unipair)))
-+			ret = -EFAULT;
-+free_k_entries1: ret1 = put_user(tmp.entry_ct, &user_ud->entry_ct);
-+		kfree(k_entries);
-+		return ret ? ret : ret1;
- 	}
- 	return 0;
- }
-+#endif /* CONFIG_FB_GLYPH_21BIT */
- 
- static int vt_io_ioctl(struct vc_data *vc, unsigned int cmd, void __user *up,
- 		bool perm)
-@@ -543,6 +714,12 @@ static int vt_io_ioctl(struct vc_data *vc, unsigned int cmd, void __user *up,
- 	case GIO_UNIMAP:
- 		return do_unimap_ioctl(cmd, up, perm, vc);
- 
-+#ifdef CONFIG_FB_GLYPH_21BIT
-+	case PIO_UNIMAP21:
-+	case GIO_UNIMAP21:
-+		return do_unimap_ioctl21(cmd, up, perm, vc);
-+#endif
-+
- 	default:
- 		return -ENOIOCTLCMD;
- 	}
-@@ -1026,16 +1203,20 @@ compat_kdfontop_ioctl(struct compat_console_font_op __user *fontop,
- }
- 
- struct compat_unimapdesc {
--	unsigned short entry_ct;
-+	u16 entry_ct;
- 	compat_caddr_t entries;
+diff --git a/drivers/nvme/host/ioctl.c b/drivers/nvme/host/ioctl.c
+index 131959c00287..b50bba207818 100644
+--- a/drivers/nvme/host/ioctl.c
++++ b/drivers/nvme/host/ioctl.c
+@@ -421,12 +421,10 @@ struct nvme_uring_data {
+  * Expect build errors if this grows larger than that.
+  */
+ struct nvme_uring_cmd_pdu {
+ 	struct request *req;
+ 	struct bio *bio;
+-	u64 result;
+-	int status;
  };
  
-+#ifdef CONFIG_FB_GLYPH_21BIT
- static inline int
- compat_unimap_ioctl(unsigned int cmd, struct compat_unimapdesc __user *user_ud,
- 			 int perm, struct vc_data *vc)
+ static inline struct nvme_uring_cmd_pdu *nvme_uring_cmd_pdu(
+ 		struct io_uring_cmd *ioucmd)
  {
- 	struct compat_unimapdesc tmp;
- 	struct unipair __user *tmp_entries;
-+	struct unipair21 *tmp21_entries = NULL;
-+	int ret = 0, ret1 = 0;
-+	unsigned int ct;
+@@ -438,29 +436,30 @@ static void nvme_uring_task_cb(struct io_tw_req tw_req, io_tw_token_t tw)
+ 	struct io_uring_cmd *ioucmd = io_uring_cmd_from_tw(tw_req);
+ 	struct nvme_uring_cmd_pdu *pdu = nvme_uring_cmd_pdu(ioucmd);
  
- 	if (copy_from_user(&tmp, user_ud, sizeof tmp))
- 		return -EFAULT;
-@@ -1044,14 +1225,83 @@ compat_unimap_ioctl(unsigned int cmd, struct compat_unimapdesc __user *user_ud,
- 	case PIO_UNIMAP:
- 		if (!perm)
- 			return -EPERM;
--		return con_set_unimap(vc, tmp.entry_ct, tmp_entries);
-+		ret = vt__user_unipair_8_to_21(tmp.entry_ct, tmp_entries,
-+					       &tmp21_entries);
-+		if (ret)
-+			return ret;
-+		ret = con_set_unimap(vc, tmp.entry_ct, tmp21_entries);
-+		kfree(tmp21_entries);
-+		return ret;
-+
- 	case GIO_UNIMAP:
- 		if (!perm && fg_console != vc->vc_num)
- 			return -EPERM;
--		return con_get_unimap(vc, tmp.entry_ct, &(user_ud->entry_ct), tmp_entries);
-+		tmp21_entries = kmalloc_array(tmp.entry_ct,
-+					      sizeof(struct unipair21),
-+					      GFP_KERNEL);
-+		if (!tmp21_entries)
-+			return -ENOMEM;
-+		ret = con_get_unimap(vc, tmp.entry_ct, &ct, tmp21_entries);
-+		if (ret)
-+			goto free_tmp21;
-+		ret = vt_unipair_21_to__user_8(ct, tmp21_entries, tmp_entries);
-+free_tmp21:	ret1 = put_user(ct, &user_ud->entry_ct);
-+		kfree(tmp21_entries);
-+		return ret ? ret : ret1;
-+	}
-+	return 0;
-+}
-+#else
-+static inline int
-+compat_unimap_ioctl(unsigned int cmd, struct compat_unimapdesc __user *user_ud,
-+			 int perm, struct vc_data *vc)
-+{
-+	struct compat_unimapdesc tmp;
-+	struct unipair __user *tmp_entries;
-+	struct unipair *k_entries;
-+	int ret = 0, ret1 = 0;
-+
-+	if (copy_from_user(&tmp, user_ud, sizeof(tmp)))
-+		return -EFAULT;
-+	tmp_entries = compat_ptr(tmp.entries);
-+	switch (cmd) {
-+	case PIO_UNIMAP:
-+		if (!perm)
-+			return -EPERM;
-+		k_entries = kmalloc_array(tmp.entry_ct,
-+					  sizeof(struct unipair),
-+					  GFP_KERNEL);
-+		if (!k_entries)
-+			return -ENOMEM;
-+		if (copy_from_user(k_entries, tmp_entries,
-+				   tmp.entry_ct * sizeof(struct unipair))) {
-+			ret = -EFAULT;
-+			goto free_k_entries;
-+		}
-+		ret = con_set_unimap(vc, tmp.entry_ct, k_entries);
-+free_k_entries: kfree(k_entries);
-+		return ret;
-+	case GIO_UNIMAP:
-+		if (!perm && fg_console != vc->vc_num)
-+			return -EPERM;
-+		k_entries = kmalloc_array(tmp.entry_ct, sizeof(struct unipair),
-+					  GFP_KERNEL);
-+		if (!k_entries)
-+			return -ENOMEM;
-+		ret = con_get_unimap(vc, tmp.entry_ct, &tmp.entry_ct,
-+				     k_entries);
-+		if (ret)
-+			goto free_k_entries1;
-+		if (copy_to_user(tmp_entries, k_entries,
-+				 tmp.entry_ct * sizeof(struct unipair)))
-+			ret = -EFAULT;
-+free_k_entries1: ret1 = put_user(tmp.entry_ct, &user_ud->entry_ct);
-+		kfree(k_entries);
-+		return ret ? ret : ret1;
+ 	if (pdu->bio)
+ 		blk_rq_unmap_user(pdu->bio);
+-	io_uring_cmd_set_res32(ioucmd, pdu->status, pdu->result);
+ 	io_uring_cmd_done(ioucmd, IO_URING_CMD_TASK_WORK_ISSUE_FLAGS);
+ }
+ 
+ static enum rq_end_io_ret nvme_uring_cmd_end_io(struct request *req,
+ 						blk_status_t err,
+ 						const struct io_comp_batch *iob)
+ {
+ 	struct io_uring_cmd *ioucmd = req->end_io_data;
+ 	struct nvme_uring_cmd_pdu *pdu = nvme_uring_cmd_pdu(ioucmd);
++	u64 result = le64_to_cpu(nvme_req(req)->result.u64);
++	int status;
+ 
+ 	if (nvme_req(req)->flags & NVME_REQ_CANCELLED) {
+-		pdu->status = -EINTR;
++		status = -EINTR;
+ 	} else {
+-		pdu->status = nvme_req(req)->status;
+-		if (!pdu->status)
+-			pdu->status = blk_status_to_errno(err);
++		status = nvme_req(req)->status;
++		if (!status)
++			status = blk_status_to_errno(err);
  	}
- 	return 0;
- }
-+#endif /* CONFIG_FB_GLYPH_21BIT */
+-	pdu->result = le64_to_cpu(nvme_req(req)->result.u64);
++	io_uring_cmd_set_res32(ioucmd, status, result);
  
- long vt_compat_ioctl(struct tty_struct *tty,
- 	     unsigned int cmd, unsigned long arg)
-diff --git a/include/uapi/linux/kd.h b/include/uapi/linux/kd.h
-index 6b384065c013..342654dfbc16 100644
---- a/include/uapi/linux/kd.h
-+++ b/include/uapi/linux/kd.h
-@@ -56,7 +56,7 @@ typedef char scrnmap_t;
- #define GIO_SCRNMAP	0x4B40	/* get screen mapping from kernel */
- #define PIO_SCRNMAP	0x4B41	/* put screen mapping table in kernel */
- #define GIO_UNISCRNMAP  0x4B69	/* get full Unicode screen mapping */
--#define PIO_UNISCRNMAP  0x4B6A  /* set full Unicode screen mapping */
-+#define PIO_UNISCRNMAP  0x4B6A	/* set full Unicode screen mapping */
- 
- #define GIO_UNIMAP	0x4B66	/* get unicode-to-font mapping from kernel */
- struct unipair {
-@@ -67,8 +67,19 @@ struct unimapdesc {
- 	unsigned short entry_ct;
- 	struct unipair __user *entries;
- };
-+struct unipair21 {
-+	unsigned int unicode;
-+	unsigned int fontpos;
-+};
-+struct unimapdesc21 {
-+	unsigned int entry_ct;
-+	struct unipair21 __user *entries;
-+};
- #define PIO_UNIMAP	0x4B67	/* put unicode-to-font mapping in kernel */
- #define PIO_UNIMAPCLR	0x4B68	/* clear table, possibly advise hash algorithm */
-+#define GIO_UNIMAP21	0x4B6E	/* get 21-bit unicode-to-font mapping from kernel */
-+#define PIO_UNIMAP21	0x4B6F	/* put 21-bit unicode-to-font mapping to kernel */
-+
- struct unimapinit {
- 	unsigned short advised_hashsize;  /* 0 if no opinion */
- 	unsigned short advised_hashstep;  /* 0 if no opinion */
-@@ -185,6 +196,6 @@ struct console_font {
- 
- /* note: 0x4B00-0x4B4E all have had a value at some time;
-    don't reuse for the time being */
--/* note: 0x4B60-0x4B6D, 0x4B70-0x4B72 used above */
-+/* note: 0x4B60-0x4B6F, 0x4B70-0x4B72 used above */
- 
- #endif /* _UAPI_LINUX_KD_H */
-diff --git a/include/linux/vt_kern.h b/include/linux/vt_kern.h
-index d008c3d0a9bb..af99aeefe177 100644
---- a/include/linux/vt_kern.h
-+++ b/include/linux/vt_kern.h
-@@ -90,13 +96,13 @@ static inline int con_clear_unimap(struct vc_data *vc)
- 	return 0;
- }
- static inline
--int con_set_unimap(struct vc_data *vc, ushort ct, struct unipair __user *list)
-+int con_set_unimap(struct vc_data *vc, ushort ct, struct unipair *list)
- {
- 	return 0;
- }
- static inline
--int con_get_unimap(struct vc_data *vc, ushort ct, ushort __user *uct,
--		   struct unipair __user *list)
-+int con_get_unimap(struct vc_data *vc, ushort ct, ushort *uct,
-+		   struct unipair *list)
- {
- 	return -EINVAL;
- }
-
-
+ 	/*
+ 	 * For IOPOLL, check if this completion is happening in the context
+ 	 * of the same io_ring that owns the request (local context). If so,
+ 	 * we can complete inline without task_work overhead. Otherwise, we
+@@ -469,11 +468,10 @@ static enum rq_end_io_ret nvme_uring_cmd_end_io(struct request *req,
+ 	 */
+ 	if (blk_rq_is_poll(req) && iob &&
+ 	    iob->poll_ctx == io_uring_cmd_ctx_handle(ioucmd)) {
+ 		if (pdu->bio)
+ 			blk_rq_unmap_user(pdu->bio);
+-		io_uring_cmd_set_res32(ioucmd, pdu->status, pdu->result);
+ 		io_uring_cmd_done(ioucmd, 0);
+ 	} else {
+ 		io_uring_cmd_do_in_task_lazy(ioucmd, nvme_uring_task_cb);
+ 	}
+ 	return RQ_END_IO_FREE;
 -- 
-Alan Mackenzie (Nuremberg, Germany).
+2.55.0
+
