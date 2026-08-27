@@ -1,163 +1,190 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3679118A6CF;
-	Thu, 27 Aug 2026 06:12:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D400F342538
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:13:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787811153; cv=none; b=Vp6AZz3V8fPjRgKUYAbhVkGKdAis+pmxsxe6tv31mdYDo9OyNtRL2XJRKmgCMkYwqJE9sQeL0OOcL282GOW78PRPrqr7M1xFcfcZ+oV08AU4DRyrYg6LBm5Zi71MeZ9D5l+cQx/ruCl1hJTF7Y5cTo0NyRC5Iq1mufk98bz59eY=
+	t=1787811215; cv=none; b=MllmReSIINlW3oyo59NTrkqAoWp1IkQSE443ZUaXSw0CR5oxkUcoyJLZnEJTODWYPLpJysIIyaPUmYKcbmg/pAXb6A9b4ahWlWGewfYimDdHGXtWrbYoxx9ElIsHTVzBQaOF1PlAssqxTHGE8tQhvDSf2ZBIK3mLVndqmoebI84=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787811153; c=relaxed/simple;
-	bh=wkZeUQ4BQwpgXHTOgzgPRXmkOunhCqWXTRvfIjtuG7c=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=g3TlQoaN6J5JIb4c8KfV5yH7Xv8h4wAF8u3ZXPLjAiBKTPrltLpb5tl4yuEQx6aEYoXP5zZKrzQHhX9OJFuK3EjhkeK4HGjFTmsoQNEJCMQskAjrLgLMt/R1yC9lUslW0oFeljajDpIYKTj3wm9s+qL8GXXCW/nijO0yhoZ2Hsk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=hrj2lziH; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1787811215; c=relaxed/simple;
+	bh=jDdgZH17D1vfbwDBwFJWWkxbXBa6RDc0srPWzM+18ac=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=muAEYrb19S7lkrqSVXRZbv/pPRtF2s9J+VZhaaQowOeWtFjYo2vgUpB6XIYna/2xcx0NIZts4ugU875vE7SZboA9uXhhqPqH0IC4lsFQM36uL5Dn1ZZyAVoMwdbJKgf9qYLBsDNG0Y0fCE7Ka6R1iTBHF1LqH/5zhj0obGhHqd0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RlYYXnAR; arc=none smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="hrj2lziH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Bv
-	wMe8T3Nrn9ZRYw4IEDwm3e+PQfQJg9sEXDb2z5Yeo=; b=hrj2lziHsgvjQ71KX4
-	5/8xsIbVTA3nbSgJUoRSJfkGbcFfhINsbKb44ZRoBPiEFZsHtO0LiN2duNvavO7+
-	1GiqfayDvzj4yAjKORBcbjG9MH/Ee3OFNuOWGejIIyDaynwUHviP/uKi8qx5ZQDn
-	n8qQm/7nwBrUi1z3WWDa/B2wY=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgC37aUx1Y9qkXlaPQ--.24874S3;
-	Thu, 27 Aug 2026 14:12:02 +0800 (CST)
-From: ghuicao@163.com
-To: Song Liu <song@kernel.org>
-Cc: Yu Kuai <yukuai@fygo.io>,
-	Li Nan <magiclinan@didiglobal.com>,
-	Xiao Ni <xiao@kernel.org>,
-	linux-raid@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Cao Guanghui <caoguanghui@kylinos.cn>
-Subject: [PATCH v2 2/3] md-cluster: propagate update_size() errors to callers
-Date: Thu, 27 Aug 2026 14:11:59 +0800
-Message-Id: <20260827061200.79753-2-ghuicao@163.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260827061200.79753-1-ghuicao@163.com>
-References: <20260827025229.40138-1-ghuicao@163.com>
- <20260827061200.79753-1-ghuicao@163.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RlYYXnAR"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-482c58a8683so199066f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 23:13:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787811212; x=1788416012; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+lMbggc8NhQwvUFDG+z6sVwFxEQ7RmYHvoRw1OoYWNQ=;
+        b=RlYYXnARj2JQBRo8O3A8qsVb7frLfkYocBdk2RExeqHRUfUieHc7AMRMWbSebktvrQ
+         llhM8PIFDRtbBh4gvd640UwJ0iOfpZYCz9+FhOsRKKq1M9HgJ4ooSjqmyaQFXOMMWZ8a
+         xxVV12Fded8/Lyps6ReYQgjp8a5SOZH6z7JlMS+EcaZWqU5qZdV8cWeOSZAoNwOMMMkS
+         7WvTNrNSpewI/8tci/9iNzxpT3XCMT3xjnksxK+QPZ9WFWjNXVCFrk5L965HGWY7Ffp6
+         wIZrfyTkmIQCzmS+Nn2BEk3usXqRd2CxyH7oU20g+5gzEGl2dTx6URNFbAIg61iWyVJz
+         6RmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787811212; x=1788416012;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+lMbggc8NhQwvUFDG+z6sVwFxEQ7RmYHvoRw1OoYWNQ=;
+        b=tZxW321Aa6hvWHvTeVDcD8+CU3qSTzk5JM4mexUnam1F9tt+L3G5ox7jO0tpBD1C2N
+         N/Kl/q+755RgME9gR4F8vnZ0g738OY2jQMCiZ+7IdgRW7RoDWvCEuJIEqTEbLUeD4a0b
+         ps5CzHxtT7x4v66jDtJLXxs9pW3UNFALb5gsLlSWgsFn92h4ruMoqwlXPE1wLfqTo5QB
+         cWFewzhDLt6Z5oizjW13ziYUec+LTAtjR+xfYjBHzOU4krk3HRfdaZP2uxSloQPAfxQc
+         zBXkLgCJScR4LVjp4RkRf8jBuNXfSY3hD0RzDKwzrHAedXSia1URfKxsRRtos5DjTyV9
+         DiHg==
+X-Forwarded-Encrypted: i=1; AHgh+Rpmb5a6B8IKMf4FKDuGi+h6OYXHjCn4L2CSs7WXV+uBWhHF/Rge6kQL2y8MyJ98YB96e4ZbNXXN8B7h8t8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mBwzp1IB7cqc0IrZrX/63dhBNbxt/Y+apLYpYejFtL5hKLn8xo
+	O80GsVLyh1i+QvagBmXP7kD0IdJfZSwNZcSa68Eit7rCXndR81+kZrTp
+X-Gm-Gg: AR+sD13uDI5j/l315NgaSPSVdrOzl2E3KJ6kDwD7/qOoRX+ByRFC0VAArWD9/ilEWr4
+	SVkI+syoZJ1iEJQFzqRwAbSSxyzCqg466zg8QG6xJzRzXetvof+KhLA4Uuf+L1BIXhcgqNtnJeJ
+	Dfh/dFhU9Ml8Q5pCHCInZT1lo1MuriWxu1b5l5k+Vp240s1Gun1NeB52F/W0kM82pmbBcVpmMAh
+	bKG5EeEYU67fAT4KQN9JVaeK619Pte3H1+j+AOhpWjZgGmcQBrUrfh60AR0RMRUzCfxg60sxyMq
+	jKn+24mlOrgR5Xm8ZsZNVBfN7xnEE06Jz4DoKDLns2r5ofGnNd9f7eXFzeR67KBJni/NWXJk1zX
+	LGYhFCieqWgIANjwoh4gyOS0B63wYoEoXirR3T72KZ/2893rkIq89VLvD4XRj//KthdMBuUzxa6
+	VOK2A8G6bOwK/xEWrwj5qA4zJG4kcxCj4JzFLQzVPuK40FBrnNSnEXtV5RZUT3PIHe4Aste2IK
+X-Received: by 2002:a5d:6087:0:b0:47f:8f8f:db74 with SMTP id ffacd0b85a97d-482e26f16f4mr12397707f8f.12.1787811211362;
+        Wed, 26 Aug 2026 23:13:31 -0700 (PDT)
+Received: from [192.168.1.10] ([95.43.220.235])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-482e4f0c8f7sm6225688f8f.27.2026.08.26.23.13.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 26 Aug 2026 23:13:30 -0700 (PDT)
+Message-ID: <09b589a1-2661-4365-a87e-ebb871e52f0d@gmail.com>
+Date: Thu, 27 Aug 2026 09:13:28 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] phy: omap-usb2: add explicit PHY comparator API
+To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Johan Hovold <johan@kernel.org>
+Cc: linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260722053618.602702-1-ivo.g.dimitrov.75@gmail.com>
+Content-Language: en-GB
+From: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
+In-Reply-To: <20260722053618.602702-1-ivo.g.dimitrov.75@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgC37aUx1Y9qkXlaPQ--.24874S3
-X-Coremail-Antispam: 1Uf129KBjvJXoWxuFyrCFy7Xw1UArWDZrWxCrg_yoWrXw1kpF
-	W7KFyfGw15JrWFgw4UJFn7ua45K3s7trZrtry7GayxGFnIgrWkGF4rXF9Yqr4DGa4rXrsI
-	qws8Jw4Uu3s7Ww7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j5AwxUUUUU=
-X-CM-SenderInfo: 5jkxxuldr6il2tof0z/xtbC4BIAkmqP1TItNwAA34
 
-From: Cao Guanghui <caoguanghui@kylinos.cn>
+Gentle ping on this patch. It's been about five weeks since v1, and I 
+haven't seen any feedback yet.
 
-update_size() in md-cluster.c has a void return type, so the caller in
-md.c cannot detect cluster resize failures.  A capacity revert or
-message delivery failure is silently lost, and the MD layer reports
-success to userspace even when the cluster operation failed.
+The patch is still applicable to current linux-next. Please let me know 
+if the approach looks reasonable, or if there are any concerns I should 
+address.
 
-Change the update_size() callback in struct md_cluster_ops and its
-implementation to return int, and propagate the error at the call sites
-in md.c.
+Thanks,
+Ivo
 
-Fixes: 818da59f97d6 ("md-cluster: add the support for resize")
-Cc: stable@vger.kernel.org
-Signed-off-by: Cao Guanghui <caoguanghui@kylinos.cn>
----
- drivers/md/md-cluster.c | 11 ++++++-----
- drivers/md/md-cluster.h |  2 +-
- drivers/md/md.c        |  7 +++++--
- 3 files changed, 12 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/md/md-cluster.c b/drivers/md/md-cluster.c
---- a/drivers/md/md-cluster.c
-+++ b/drivers/md/md-cluster.c
-@@ -1292,7 +1292,7 @@ static int cluster_check_sync_size(struct mddev *mddev)
-  *    let other nodes to perform it. If one node can't update sync_size
-  *    accordingly, we need to revert to previous value.
-  */
--static void update_size(struct mddev *mddev, sector_t old_dev_sectors)
-+static int update_size(struct mddev *mddev, sector_t old_dev_sectors)
- {
- 	struct md_cluster_info *cinfo = mddev->cluster_info;
- 	struct cluster_msg cmsg;
-@@ -1303,7 +1303,7 @@ static int update_size(struct mddev *mddev, sector_t old_dev_sectors)
- 	md_update_sb(mddev, 1);
- 	if (lock_comm(cinfo, 1)) {
- 		pr_err("%s: lock_comm failed\n", __func__);
--		return;
-+		return -1;
- 	}
- 
- 	memset(&cmsg, 0, sizeof(cmsg));
-@@ -1325,12 +1325,12 @@ static int update_size(struct mddev *mddev, sector_t old_dev_sectors)
- 			pr_err("%s:%d: failed to send METADATA_UPDATED msg\n",
- 			       __func__, __LINE__);
- 			unlock_comm(cinfo);
--			return;
-+			return ret;
- 		}
- 	} else {
- 		pr_err("md-cluster: No good device id found to send\n");
- 		unlock_comm(cinfo);
--		return;
-+		return -1;
- 	}
- 
- 	/*
-@@ -1355,6 +1355,7 @@ static int update_size(struct mddev *mddev, sector_t old_dev_sectors)
- 			       __func__, __LINE__);
- 	}
- 	unlock_comm(cinfo);
-+	return ret;
- }
- 
- static int resync_start(struct mddev *mddev)
-diff --git a/drivers/md/md-cluster.h b/drivers/md/md-cluster.h
---- a/drivers/md/md-cluster.h
-+++ b/drivers/md/md-cluster.h
-@@ -34,7 +34,7 @@ struct md_cluster_operations {
- 	int (*resize_bitmaps)(struct mddev *mddev, sector_t newsize, sector_t oldsize);
- 	int (*lock_all_bitmaps)(struct mddev *mddev);
- 	void (*unlock_all_bitmaps)(struct mddev *mddev);
--	void (*update_size)(struct mddev *mddev, sector_t old_dev_sectors);
-+	int (*update_size)(struct mddev *mddev, sector_t old_dev_sectors);
- };
- 
- extern int md_setup_cluster(struct mddev *mddev, int nodes);
-diff --git a/drivers/md/md.c b/drivers/md/md.c
---- a/drivers/md/md.c
-+++ b/drivers/md/md.c
-@@ -8023,7 +8023,7 @@ static int update_size(struct mddev *mddev, sector_t num_sectors)
- 	rv = mddev->pers->resize(mddev, num_sectors);
- 	if (!rv) {
- 		if (mddev_is_clustered(mddev))
--			mddev->cluster_ops->update_size(mddev, old_dev_sectors);
-+			rv = mddev->cluster_ops->update_size(mddev, old_dev_sectors);
- 		else if (!mddev_is_dm(mddev))
- 			set_capacity_and_notify(mddev->gendisk,
- 						mddev->array_sectors);
-@@ -10615,8 +10615,12 @@ void md_reap_sync_thread(struct mddev *mddev)
- 	 */
- 	if (mddev_is_clustered(mddev) && is_reshaped &&
- 	    mddev->pers->finish_reshape &&
--	    !test_bit(MD_CLOSING, &mddev->flags))
--		mddev->cluster_ops->update_size(mddev, old_dev_sectors);
-+	    !test_bit(MD_CLOSING, &mddev->flags)) {
-+		int ret = mddev->cluster_ops->update_size(mddev, old_dev_sectors);
-+
-+		if (ret)
-+			pr_warn("md: cluster update_size failed after reshape: %d\n", ret);
-+	}
- 	/* flag recovery needed just to double check */
- 	set_bit(MD_RECOVERY_NEEDED, &mddev->recovery);
- 	sysfs_notify_dirent_safe(mddev->sysfs_completed);
--- 
-2.34.1
-
+On 22.07.26 г. 8:36 ч., Ivaylo Dimitrov wrote:
+> The existing omap_usb2_set_comparator() API locates the OMAP USB2 PHY
+> instance by calling usb_get_phy(USB_PHY_TYPE_USB2), assuming there is a
+> single USB2 PHY registered in the system.
+> 
+> This assumption no longer holds on systems with multiple USB2 PHY
+> providers. In such cases, the global lookup may return a different USB2
+> PHY instance, causing the OMAP driver to perform an invalid container_of()
+> conversion when accessing its private data.
+> 
+> Introduce omap_usb2_set_phy_comparator(), allowing callers to explicitly
+> specify the OMAP USB2 PHY instance to associate with a phy_companion.
+> The new helper validates that the supplied USB PHY is an OMAP USB2 PHY
+> before accessing its private data.
+> 
+> The existing omap_usb2_set_comparator() API is kept unchanged for
+> existing users.
+> 
+> 
+> Signed-off-by: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
+> ---
+>   drivers/phy/ti/phy-omap-usb2.c | 32 ++++++++++++++++++++++++++++++++
+>   include/linux/phy/omap_usb.h   |  7 +++++++
+>   2 files changed, 39 insertions(+)
+> 
+> diff --git a/drivers/phy/ti/phy-omap-usb2.c b/drivers/phy/ti/phy-omap-usb2.c
+> index 1eb252604441..ac31b693fce7 100644
+> --- a/drivers/phy/ti/phy-omap-usb2.c
+> +++ b/drivers/phy/ti/phy-omap-usb2.c
+> @@ -70,6 +70,8 @@ struct omap_usb {
+>   
+>   #define	phy_to_omapusb(x)	container_of((x), struct omap_usb, phy)
+>   
+> +static int omap_usb_set_host(struct usb_otg *otg, struct usb_bus *host);
+> +
+>   struct usb_phy_data {
+>   	const char *label;
+>   	u8 flags;
+> @@ -113,6 +115,36 @@ int omap_usb2_set_comparator(struct phy_companion *comparator)
+>   }
+>   EXPORT_SYMBOL_GPL(omap_usb2_set_comparator);
+>   
+> +/**
+> + * omap_usb2_set_phy_comparator() - associate a comparator with an OMAP USB2 PHY
+> + *
+> + * @omap_phy: OMAP USB2 PHY instance
+> + * @comparator: companion PHY providing comparator operations
+> + *
+> + * The phy companion driver should call this API with the companion PHY
+> + * implementation containing the callbacks required by @omap_phy.
+> + *
+> + * For use by phy companion drivers.
+> + */
+> +int omap_usb2_set_phy_comparator(struct usb_phy *omap_phy,
+> +				 struct phy_companion *comparator)
+> +{
+> +	struct omap_usb	*phy;
+> +
+> +	if (!omap_phy)
+> +		return -EINVAL;
+> +
+> +	if (WARN_ON(!omap_phy->otg ||
+> +		    omap_phy->otg->set_host != omap_usb_set_host))
+> +		return -EINVAL;
+> +
+> +	phy = phy_to_omapusb(omap_phy);
+> +	phy->comparator = comparator;
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(omap_usb2_set_phy_comparator);
+> +
+>   static int omap_usb_set_vbus(struct usb_otg *otg, bool enabled)
+>   {
+>   	struct omap_usb *phy = phy_to_omapusb(otg->usb_phy);
+> diff --git a/include/linux/phy/omap_usb.h b/include/linux/phy/omap_usb.h
+> index e23b52df93ec..96f9792c6ce6 100644
+> --- a/include/linux/phy/omap_usb.h
+> +++ b/include/linux/phy/omap_usb.h
+> @@ -15,11 +15,18 @@
+>   
+>   #if defined(CONFIG_OMAP_USB2) || defined(CONFIG_OMAP_USB2_MODULE)
+>   extern int omap_usb2_set_comparator(struct phy_companion *comparator);
+> +extern int omap_usb2_set_phy_comparator(struct usb_phy *omap_phy,
+> +					struct phy_companion *comparator);
+>   #else
+>   static inline int omap_usb2_set_comparator(struct phy_companion *comparator)
+>   {
+>   	return -ENODEV;
+>   }
+> +static inline int omap_usb2_set_phy_comparator(struct usb_phy *omap_phy,
+> +					       struct phy_companion *comparator)
+> +{
+> +	return -ENODEV;
+> +}
+>   #endif
+>   
+>   #endif /* __DRIVERS_OMAP_USB_H */
