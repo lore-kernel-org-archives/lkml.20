@@ -1,84 +1,92 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C419366075;
-	Thu, 27 Aug 2026 18:13:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2443441600
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:13:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787854399; cv=none; b=MIziTHdCCJ1ulgWkWf+dHwEchzv7btDSq81TeiMiBaRV0ekK7bUzA0tOo2FzxSl/TsQEebgGScPi4Cjq47ibnf2ihgtSgl9sLuxiQnN2wzhIvmhZd+EUyw4lnYIH2Byy1HmPlKQx1qcb+Lx/f82UVXSRezEbX88Ea9p4XrBD/oY=
+	t=1787854406; cv=none; b=b1SuqydNkCouFv5wP2MraeECNfrjJ68yy4D/OHsECFA1b64b5ECvi350exBTtO/Io0JVKwHqIsyjxI2NUYb0ba329qrrLonRxIlgxIYfKy7rsKfLIIzyAc/ipzSKiaTGeIELTwDCxx6mThD+GiiSAaAr9eA8TjZ0ZnV108G1DTg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787854399; c=relaxed/simple;
-	bh=67gFJyU1P+ShSTG8wExHaaoaRNU52SWxJIXR0MbC0sQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lAZLKLIy4FJnkfcPOOOpKv5VvucihdRRR4t/oiajPh04N+qkVSoYMYuxUOPrc6elZb6mY9+J07a8fkQywshl8Mvjbi+0MZ8Zt8OG57BSAqTfEixkOFYWs64rh9tLcSlcMOPnNzwjA9wRHa9+fyZZQnyjQepXWrbUNYD6Hn4mU8c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=dHqgXAoV; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1787854406; c=relaxed/simple;
+	bh=9mw38/WNwW1LTjSnxBcc4xhixLdnlZ6cf0Ka5h7706I=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=Eh9/rSQIVDgNmP4YHq7OX2H/NmdMzT6DG+ZNrSAcdSsbv3ZFJ40wp1DlNHnhsiT9n2uQaJo2Q0IvR/Hpo7VxTGO6Du2BpRnCiSG8MtPxWntGOSv4CrxwyhdqTaV1ktUdVaqTK2ZffbJFweL+Yonaa9rTgPQIMTJGHeHrU9tWDyg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=jR8/Lgd8; arc=none smtp.client-ip=209.85.214.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="dHqgXAoV"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=IoQU/6fzzXlG8e+LszOJee1lrSsQe+ACl9wBVnDv6zA=; b=dHqgXAoVmI0kVTLChoKEvm9ki1
-	0+1g6Rlq4XeWS0grpmb/rQsHCvZ8r+YlQc8p6GRYvmBcnm2TrEL61m8KpvyK/KqoiEi+QkFaHLi/m
-	iQckVUu4djA4uI/ZpGarA5rEe+WaZ28I5I504JZe+DSnPODMsG/fMnNZOiI3DjQWrfK0=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wzeaz-001hnJ-8B; Thu, 27 Aug 2026 20:13:01 +0200
-Date: Thu, 27 Aug 2026 20:13:01 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Aleksei Sviridkin <f@lex.la>
-Cc: "Chester A . Unal" <chester.a.unal@arinc9.com>,
-	Daniel Golle <daniel@makrotopia.org>,
-	Vladimir Oltean <olteanv@gmail.com>, Felix Fietkau <nbd@nbd.name>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
-	Qingfang Deng <dqfext@gmail.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH net v2 1/2] net: dsa: mt7530: populate lpi_interfaces to
- fix EEE support
-Message-ID: <55dbbbcf-f3b2-4e2d-bc3b-78fb0be4d843@lunn.ch>
-References: <20260824024117.46154-1-f@lex.la>
- <20260824024117.46154-2-f@lex.la>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="jR8/Lgd8"
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2d52734fc41so2573955ad.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:13:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787854404; x=1788459204; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5x6DsCI3ug4zKS7hBUde1Gm18tVYAO0b1NSsK6HdL24=;
+        b=jR8/Lgd8o/N0jCAYpiWmdzwQqpVSD2N6jH7Q1uOKAoIWSS4NTpKbeaYIBlTQpQ1Jw1
+         bgOhOu5HBrqdlDMF3RTE+6DtEXgaQACOfmKTc18M2Buy7IEr9vZsoyut/zWYPNIulQm5
+         Dac8lL/RMEplme8h/raqfSA7GkbreHNX0LwTgdTj/Rga80q1q+UcC5tivpyGs9NOrUGq
+         hOMJtlJbr1Hc8orpaa6czEVcMJ0hdrPgFFdOMIsGzHQ5XemyIZNdyJpfLFnIglhJYKqD
+         B/9fGf0RnHVTSBKqnCn/DDIK8aS+3ZLvNv8EpKtsmwPD50wgsBfsmUFtrADBkpVwPpZG
+         TGYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787854404; x=1788459204;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5x6DsCI3ug4zKS7hBUde1Gm18tVYAO0b1NSsK6HdL24=;
+        b=PciCsLwQJjQwBrrwRfYu22EBRD9kH54gdoSMQe56R3u8p8jN6dRV1VtBMbWghXBmMS
+         J26ZXay7IiZDJOEHFBDB8snryA2OF4nvFpH0EPCqVtGT1q0CZbVe73FkjvZvfbAjcL9i
+         MB5+nyFPLhMkMN0oGa6wtQWkXUnpGmxpD4oU9QDvBZlusP6y4WBzf9P4MhGTyEiDzx8O
+         lEl5E04SMt+aA6OR3+GOSnOyJr1aXK+JppRzvps0fdspIk6Fai/mrq3P0oGwRswv9F7d
+         DuAAaqSV1x+SJJGDhrCjGKDojvmOZ4l1brA+cjLUgqWZfIiPI6UBIVgnU844MkvWpiMS
+         TFKg==
+X-Forwarded-Encrypted: i=1; AHgh+Rr5+e12VTukx22ymDPoaojVJJIZxcppLueHdoapKfv7Lwm1W6Bjo/iePliBIqb6tNptwMPZYPhw+P4Vfog=@vger.kernel.org
+X-Gm-Message-State: AFuF++nf1J/FwuCHD1F9Ge0dlxypJ9jY3oIeVhkxPTQ8QCOFEoKi/JW+
+	zng84tK/jj7cyl6MClAiQTFd2dBHp0mYRnBS1p2FYkQCsf5/2OQF+dckFpniziCt4ZgRL/4DuDb
+	eKuy2tQ==
+X-Received: from plbjx3.prod.google.com ([2002:a17:903:1383:b0:2d0:1248:a5dc])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:f546:b0:2ca:6c8:abd8
+ with SMTP id d9443c01a7336-2d74df45042mr11979985ad.12.1787854403782; Thu, 27
+ Aug 2026 11:13:23 -0700 (PDT)
+Date: Thu, 27 Aug 2026 11:13:23 -0700
+In-Reply-To: <CAO9r8zMbhEg76dKSXWtyKf_=HFvNC3f1gX3xFZ5iPmA=9L1JVg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260824024117.46154-2-f@lex.la>
+Mime-Version: 1.0
+References: <20260826211844.884951-1-seanjc@google.com> <20260826211844.884951-4-seanjc@google.com>
+ <CAO9r8zM7KSRX5r-PazJ87QaZze3wkB5WmJL4e6az5akmJLterQ@mail.gmail.com>
+ <apBQYmmBC8lE-KiQ@google.com> <CAO9r8zOiPc=AdSZov9w5EN-WogpSTR54z8UuTd3oqKHiWCfNmA@mail.gmail.com>
+ <apB0FLZGZPmAEk8o@google.com> <CAO9r8zMbhEg76dKSXWtyKf_=HFvNC3f1gX3xFZ5iPmA=9L1JVg@mail.gmail.com>
+Message-ID: <apB-Q04f-3d0V_BM@google.com>
+Subject: Re: [PATCH 3/4] KVM: x86/mmu: Bug the VM if KVM calcs a CPU role with
+ EFER.LMA=1 && CR4.PAE=0
+From: Sean Christopherson <seanjc@google.com>
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Stefan Teodorescu <fane@google.com>
+Content-Type: text/plain; charset="us-ascii"
 
-On Mon, Aug 24, 2026 at 05:41:16AM +0300, Aleksei Sviridkin wrote:
-> mt753x_phylink_get_caps() fills in lpi_capabilities and
-> lpi_timer_default but never lpi_interfaces, so phylink treats the MAC
-> as not supporting EEE: ethtool reports "Not supported" and
-> phy_disable_eee() keeps userspace locked out. That undoes what
-> commit 06dfcd4098cf ("net: dsa: mt7530: fix enabling EEE on MT7531
-> switch on all boards") arranged: EEE off by default, but enableable
-> with ethtool.
+On Thu, Aug 27, 2026, Yosry Ahmed wrote:
+> > but (a) that's still
+> > a (must smaller) game of whack-a-mole and (b) it would actively hide KVM bugs for
+> > flows that are supposed to reject the invalid state.  And if we WARNed to address
+> > (b), we'll be right back where we are today: playing whack-a-mole to prevent the
+> > WARN from being triggered.
 > 
-> Copy the supported interfaces into lpi_interfaces after
-> mac_port_get_caps() has populated them, and leave the speeds above
-> 1 Gbps out for now: drop 2500BASE-X from the copy, drop MAC_2500FD
+> Either way it's a game of whack-a-mole, unfortunately, whether it's on
+> the write side or the read side. What I am hoping is that if we do
+> miss one case, we don't crash or corrupt the VM. Ideally, we can just
+> ignore EFER.LMA if EFER.LME is not set in these cases?
 
-Blah, blah, blah.
-
-Please assume i can read the patch and understand what it does.
-
-The commit message is about answering the question "Why?". That you
-often cannot see from the code.
-
-    Andrew
-
----
-pw-bot: cr
+No, because the context matters.  Did we end up with EFER.LMA=1 && EFER.LME=0
+because L1 is running L2 with weird settings and wants EFER.LMA to be ignored?
+Or did we end up with the impossible state because KVM screwed up?  In which case
+crashing the guest because KVM runs it with long mode disabled when it expects to
+have long mode enabled is the *best* case scenario, and the worst case scenario
+is the guest limps along enough to corrupt its memory and persist the badness to
+disk or whatever.
