@@ -1,116 +1,132 @@
-Received: from mail-m1973197.qiye.163.com (mail-m1973197.qiye.163.com [220.197.31.97])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76CED3CB8E2;
-	Thu, 27 Aug 2026 08:13:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EA1C3D7D8E
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:15:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787818442; cv=none; b=SBJdXLqkixTtm6Bce1RmPo3cbtKdshVVOLFXWvwpQtEHPge6mNN7gCPuJydS8e72ZOXDtmLKdMTzjTTZEnAiJNt+Jsm4lxRMAnZPizqUjDtUmw41VRb5vRQ9Ra6ZfvbD6FqUaLr20cwW4diqVseiUjOdYrZCzKWChW8pNU21pZc=
+	t=1787818537; cv=none; b=JuJybFlIwe4GWIAxAtcFH9YZcSeOFx8XW09AFh3pkdwC2cEEYAFOkHA6GyDABHYkag0QNdKlX2cMQVywfsobyVcP5COtB5DjUGkSSEtPeqCMlQEyU7pCOR927/QpQEaRQ7VO0rLJudzMETG8FHafqT2UUHrf5pU0xBSTm5X9uq4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787818442; c=relaxed/simple;
-	bh=cC6CrL1ZHz/aGBuEXuFsDL84mT2BzoW8k6+KzrRV5GM=;
-	h=From:To:Cc:Subject:Date:Message-Id; b=qEgXYsKMw7J4Q3Td0DRtcL4gtqbF6o0DeTbI+f2zs3dpPvH1l4aVpUCxulvCcos15j2rwcLbvH79I6h+H85ppsPyRlJFR89Hl/7kL+Sag5G0uOjOvsXaTgksob4wHAwORtc+/LjAjIJag+w7muZNXtXO5SOW6CsmRHrjR2Nu744=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=WSScQXsa; arc=none smtp.client-ip=220.197.31.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="WSScQXsa"
-Received: from localhost.localdomain (unknown [58.22.7.114])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4b88a31a0;
-	Thu, 27 Aug 2026 15:58:26 +0800 (GMT+08:00)
-From: Shawn Lin <shawn.lin@rock-chips.com>
-To: Ulf Hansson <ulfh@kernel.org>
-Cc: Jaehoon Chung <jh80.chung@samsung.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	linux-mmc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Shawn Lin <shawn.lin@rock-chips.com>
-Subject: [PATCH 0/4] mmc: dw_mmc: replace three fallback timers with a single watchdog
-Date: Thu, 27 Aug 2026 15:58:02 +0800
-Message-Id: <1787817486-137277-1-git-send-email-shawn.lin@rock-chips.com>
-X-Mailer: git-send-email 2.7.4
-X-HM-Tid: 0aa0423a35cd03a4kunm6c47a0ea1fec0b
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZGUJDHlZJQhhPTENOTE
-	hJSBhWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
-	tIVUpLSU9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=WSScQXsaFjXzMcoYl9Rq+B73FhCAWifaPQcMx0ICXYAuTtNtV1nuMh/1lXFRvbHfk0kUgagAFktN2jIoeb7fAY9dSKoXzgDn8T5ndw0Q8Mj6r5uoWsEssu0SRKAYogCoJOhB+///Fu/AXAxmrisVb7ZZFQ7x4cssjZErDBTL48c=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=bkxj+Aaw8GbXm1RPxI+LqoiZYCRob1bkxA3m0vbzVtQ=;
-	h=date:mime-version:subject:message-id:from;
+	s=arc-20240116; t=1787818537; c=relaxed/simple;
+	bh=OuXyJT/6AAnPaKeNWwF5AWE1eYqXOKiTD0cr/c0h5p8=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=SHelOmpisxgNjs6V2/wCpSPA6p1XsORNjjyIf0lxfFX/AX2bZGX0wCckneDFLUPk5uKgFOfuwSRLRB60ui6nj80P+0XuBS9zTPjgECieTs0IiXtItlurINBe8VuB3FFUBCo0ZfAkke41LCRaNOEXvzhqZFKDqhREyHcgniW8+bc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4a7de733fa9so3601532b6e.3
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 01:15:35 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787818535; x=1788423335;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=lJ3qk8/61Sl6jI2iMIYu5MoNTkIskaGzAad+uLDuAyY=;
+        b=RPzcrsCBiuOUshTqn4Qf3ATjraiBYgigXMttn0bpS+6dtnssV/705tyyaKyViHzeYj
+         vXKuDdrT990zselawEDXAbaMpPXkl7yg7VoJNxHFmV+uye02tiMyNckkMPQkacx5JDhm
+         CFU90ayrp+JC2CB4sCQduLohp3hS5GtTLgRLPrpxgyW7YarcT0FVAli6N6aKYwslECtK
+         uvkcbPyMcdrY1uHEQQpMQrfPh1IR7ffkGdBlBKpra03KnD253foJhre+oeke4hi1WF/I
+         guq2IC4A/hK8V9lX3y3aGI1nIBLJ498geNfGh5D6ktUQGi5R/Np0lL30buq/sBjJeCvl
+         sw5Q==
+X-Forwarded-Encrypted: i=1; AHgh+Rp7kgZMi1p0ogdz2ffyRYS0s4LNkTT9JXn/nelfbQn4PqBbF3G5q9KzubwpBAu3cUX/vAeHgExAKgZt65c=@vger.kernel.org
+X-Gm-Message-State: AFuF++lKK9+lTsyXNn/9efbCEnb5/h3S5ytgWxgB3DHGdvwvWcB+H7/S
+	QriqAdAjcJg7WTa+POqzD/QuszLuNREAPQRIDXioKbUPGjMdq5UkaibaRXAP3x8Yul2FonuTLK4
+	7ONVgyafmz7zBlilkCEjnNWcy64bW39CvilrDqVSCKJRZ4NP0eap5Ykwf3Nk=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-Received: by 2002:a05:6808:c172:b0:4b2:8e51:aac2 with SMTP id
+ 5614622812f47-4b366af5606mr15363937b6e.8.1787818534952; Thu, 27 Aug 2026
+ 01:15:34 -0700 (PDT)
+Date: Thu, 27 Aug 2026 01:15:34 -0700
+In-Reply-To: <6a86bb5c.4d75e56a.c9a88.0039.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a8ff226.1d9ded08.62e62.00c8.GAE@google.com>
+Subject: Re: [syzbot] [kernel?] WARNING: refcount bug in bnep_session (2)
+From: syzbot <syzbot+98baa83c342e86a836d7@syzkaller.appspotmail.com>
+To: dakr@kernel.org, driver-core@lists.linux.dev, gregkh@linuxfoundation.org, 
+	linux-kernel@vger.kernel.org, rafael@kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+
+syzbot has found a reproducer for the following issue on:
+
+HEAD commit:    818bebeb63dd drm/xe: Don't hand out the flat CCS storage a..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=13956d49580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
+dashboard link: https://syzkaller.appspot.com/bug?extid=98baa83c342e86a836d7
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13435625580000
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+98baa83c342e86a836d7@syzkaller.appspotmail.com
+
+------------[ cut here ]------------
+refcount_t: underflow; use-after-free.
+WARNING: lib/refcount.c:28 at refcount_warn_saturate+0xf4/0x130 lib/refcount.c:28, CPU#3: kbnepd bnep0/6057
+Modules linked in:
+CPU: 3 UID: 0 PID: 6057 Comm: kbnepd bnep0 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:refcount_warn_saturate+0xf4/0x130 lib/refcount.c:28
+Code: 06 e8 70 ca e6 fc 48 8d 3d c9 dd 29 0c 67 48 0f b9 3a e8 5f ca e6 fc 5b 5d c3 cc cc cc cc e8 53 ca e6 fc 48 8d 3d bc dd 29 0c <67> 48 0f b9 3a e8 42 ca e6 fc 5b 5d e9 4b ee a5 06 e8 36 ca e6 fc
+RSP: 0018:ffffc90005c6f958 EFLAGS: 00010293
+RAX: 0000000000000000 RBX: ffff8880507dfc78 RCX: 0000000000000001
+RDX: ffff88803142cb00 RSI: ffffffff8524377d RDI: ffffffff914e1540
+RBP: 0000000000000003 R08: 0000000000000005 R09: 0000000000000004
+R10: 0000000000000003 R11: 0000000000000000 R12: ffff8880134cd400
+R13: ffff8880507dfc78 R14: ffffffff8661d790 R15: ffff888035896000
+FS:  0000000000000000(0000) GS:ffff8880d5ea2000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fcfb9c4bd58 CR3: 0000000036184000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ __refcount_sub_and_test include/linux/refcount.h:400 [inline]
+ __refcount_dec_and_test include/linux/refcount.h:432 [inline]
+ refcount_dec_and_test include/linux/refcount.h:450 [inline]
+ kref_put include/linux/kref.h:64 [inline]
+ klist_dec_and_del lib/klist.c:206 [inline]
+ klist_put+0x18a/0x1d0 lib/klist.c:217
+ device_del+0x1b8/0x9b0 drivers/base/core.c:3942
+ unregister_netdevice_many_notify+0x1503/0x2150 net/core/dev.c:12551
+ unregister_netdevice_many net/core/dev.c:12589 [inline]
+ unregister_netdevice_queue net/core/dev.c:12390 [inline]
+ unregister_netdevice_queue+0x30b/0x3c0 net/core/dev.c:12376
+ unregister_netdevice include/linux/netdevice.h:3487 [inline]
+ unregister_netdev+0x1f/0x60 net/core/dev.c:12697
+ bnep_session+0x22e6/0x2f40 net/bluetooth/bnep/core.c:544
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+----------------
+Code disassembly (best guess), 1 bytes skipped:
+   0:	e8 70 ca e6 fc       	call   0xfce6ca75
+   5:	48 8d 3d c9 dd 29 0c 	lea    0xc29ddc9(%rip),%rdi        # 0xc29ddd5
+   c:	67 48 0f b9 3a       	ud1    (%edx),%rdi
+  11:	e8 5f ca e6 fc       	call   0xfce6ca75
+  16:	5b                   	pop    %rbx
+  17:	5d                   	pop    %rbp
+  18:	c3                   	ret
+  19:	cc                   	int3
+  1a:	cc                   	int3
+  1b:	cc                   	int3
+  1c:	cc                   	int3
+  1d:	e8 53 ca e6 fc       	call   0xfce6ca75
+  22:	48 8d 3d bc dd 29 0c 	lea    0xc29ddbc(%rip),%rdi        # 0xc29dde5
+* 29:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
+  2e:	e8 42 ca e6 fc       	call   0xfce6ca75
+  33:	5b                   	pop    %rbx
+  34:	5d                   	pop    %rbp
+  35:	e9 4b ee a5 06       	jmp    0x6a5ee85
+  3a:	e8 36 ca e6 fc       	call   0xfce6ca75
 
 
-The driver carries three fallback timers (cmd11_timer, cto_timer,
-dto_timer) added piecemeal after the hardware failed in the field.
-dto_timer exists because Synopsys confirmed that the DTO interrupt can
-be lost entirely, leaving no hardware fallback and blocking the request
-forever without software help (57e104864bc4); cto_timer came later,
-when Rockchip's reworked sample circuit was root-caused to swallow both
-CMD_DONE and response-timeout interrupts across their whole dwmmc
-family (03de19212ea3); cmd11_timer papered over voltage-switch hangs
-that reproduced reliably when ejecting/inserting UHS cards on rk3288
-(5c935165da79).
-
-Because each callback races against the very interrupt it supplements,
-all three grew the same copy-pasted defenses: re-read MINTSTS in case
-the interrupt is merely late, check whether pending_events has been set
-meanwhile, validate host->state against the leg being guarded, and only
-then synthesize the missed event -- with timer_delete_sync() calls from
-softirq context eventually needed just to contain them.  Meanwhile the
-special cases keep piling up: the EXTENDED_TMOUT quirk makes the DTO
-story differ per platform, fault injection can post DATA_ERROR ahead of
-any real completion, and every future change has to reason about up to
-three timers at once.
-
-The observation enabling the cleanup is that command, data and
-voltage-switch legs run strictly serially within a request, so a single
-hrtimer suffices.  Under irq_lock it records which pending_events bits
-are awaited along with a snapshot of host->state (dw_mci_wd_arm()),
-and producers clear that awaited mask instead of deleting any timer
-(dw_mci_wd_deliver()).  On expiry the one callback classifies what
-expired by comparing the awaited set against the named
-DW_MCI_WD_{CMD,DATA}_EVENTS masks, keeps the old MINTSTS latency check
-but re-arms instead of going passive so an interrupt lost for good
-can no longer wedge the request forever, and only then synthesizes
-exactly what its predecessor would have (RTO + command complete, or
-DRTO + data error/complete).  The per-leg deadlines -- CTO formula,
-DRTO formula, 500ms CMD11 budget -- are carried over unchanged.
-
-Apart from three behavioral deltas called out in the individual commit
-messages as well -- a single surviving watch during voltage switch
-instead of two timers racing, a stuck CMD11 aborting after exactly
-500ms instead of racing min(cto_ms, 500ms) with -ETIMEDOUT unchanged,
-and bounded recovery from interrupt-latency peaks instead of an
-unbounded hang -- no functional change is intended.
-
-Tested on Rockchip platforms with SD card and eMMC (rv1126/rk3568/
-rk3576 boards): normal IO, suspend/resume and card removal during
-transfer.  Compile tested on every variant consuming dw_mmc.h.
-
-Next steps: first split dw_mci_work_func() into per-state handlers to
-make the transitions explicit, then go further in the sdhci direction:
-shrink the eight-state machine, drop the redundant completed_events
-bookkeeping, and end up where other host drivers already are: one state
-machine, one timer, no separate event flags.
-
-
-
-Shawn Lin (4):
-  mmc: dw_mmc: add central watchdog and convert CTO onto it
-  mmc: dw_mmc: convert DTO onto the central watchdog
-  mmc: dw_mmc: absorb CMD11 timeout into the central watchdog
-  mmc: dw_mmc: expose the watchdog state in debugfs
-
- drivers/mmc/host/dw_mmc.c | 316 +++++++++++++++++++++++-----------------------
- drivers/mmc/host/dw_mmc.h |  15 ++-
- 2 files changed, 165 insertions(+), 166 deletions(-)
-
--- 
-2.7.4
-
+---
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
