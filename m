@@ -1,165 +1,194 @@
-Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com [209.85.217.46])
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5549E37419B
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:44:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 620BA37C109
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:46:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787816693; cv=none; b=r10+zcjn/YmDo+1N+AJhShYm/UszRbvuIdXbQgxRHczQPja+FGu8lzIagXAx4N5WBMRVJHrhHHMJq8k8PYo8U3oCPmVKMYaKDPc8yVS7AXRrqfM8GRqRPK3vc8pM7BR3YMycx05XpkQIj+cVAPBFa4/QAoTiOjHwfXDLZjjaU8g=
+	t=1787816763; cv=none; b=d9pv7Ty4WtIdM+g6JROMVHVKD9kZHD0o+Sk+fQizn9ST7LmOEL2bdkkQ0hiyXi18BxIh7gcxYAJF8hSKz2mcnUkoXLDM4UpZ9Tbk/gBxrO0UK/aAcq1NLcCLp1mpyRSLNiozQXUMnJozJcsowBI6yeEryBW78sIwIQCR0PWKO2U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787816693; c=relaxed/simple;
-	bh=ggU062oNDv6dCZRK0WhK9Rj3itfFVRSGgrnD6N2LKKQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AZjItKZ6ap5mk8au0v5NAvcrB0Qq6ZNfr2aYS4tKmsULb0L4DATVHBhcaZH3/bzkJXsSmiGekkx5yI8XsMQ8dwUdHhSN7GqvzaldwVNA7yjqXAeBUUyRHx5pAv51ncdGXp0xoDPzHa9+QKLGDB5+UiYe452gztT07rqQvqm3IL0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+	s=arc-20240116; t=1787816763; c=relaxed/simple;
+	bh=Pjvhgu2/AEvgKnflUCPPraKj9JOKej2+U3fUV/BsjuU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qnz5D33UMxnLQe025v92By5j/GkKTcZRLqL6NZh25VQ+f4m5OXtL548g5QA/XeR8++h+3Fn8uly+kPQCdFPVrOtsEY1TS0s921T7php0vpNlZUgzDoDiIR6fvNSXlDcRYyF5Y87OuEEpTviv1fB23raNUil8MKZ0EuInkvveQjc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AuoXgVEZ; arc=none smtp.client-ip=209.85.215.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f46.google.com with SMTP id ada2fe7eead31-782e0fc1e55so593015137.3
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:44:52 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AuoXgVEZ"
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-ca97d139d5fso434187a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:46:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787816760; x=1788421560; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LbRs574snZvpW2X/HQOkQ+OUsJHTgB/OYJACP1nJVIU=;
+        b=AuoXgVEZ/M55/kMohZOzkYGfpVdnkPFazAbo8t81J18OKUbh8/Nen8HKdeG2eiXGAw
+         4o9Y/XgnP5453MfFoJPiooJAz0vNfFaj1ckf/T16RJX7AHsSscDGPC0L88X2NyOkSM4L
+         uo65/QBTzYXeAktzxbOAeZ5PsljFikrDhK3yHfo5h07c17snqEUAwNnXmHhj/32tTrRf
+         qQx/s/We5Fmn7WLUrAlYxnDSfz4XmWy9VI5ELG1NMpbp6cds+xwyxhSp+ZFZuI9fx2jR
+         p6/TMqnh1Hjy4Db0/dPYnwknAIszOoZXJ9F1qjsk1BgmyjOztmt8eiLGPqd7iyZUmcEF
+         GHKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787816691; x=1788421491;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=TAq2mnIxXFzO957tO9XR1Q6W7W89hYvIMjgxkFCKtOc=;
-        b=PWBalC6mArXp4Nh/eUBBnykvnZAfrkG1KbcsJ97TVAey9cnTnWjGH4/foTZRWA3tot
-         oWySP1a9/UU1TCH9bsqXPLTQQG1RNg7zoX8AhZ/gQv6C3OzImTQvwYdFUDc1vqxJ5ryp
-         OZqx56hhCiOeNMq1DAIl+75u8oGI6rfcQPa0WlHjSyR/4ITth9XfxcvvL2Xz5fOgpq6j
-         Hfrats11bqfd0AyJ/ExPP5YAwD1NIwxw5ne3gQwhje7aS216WRWIiEpzSrDLw8FNoPkC
-         hmO55hfPSXyCITvmsnnegXFm7u8vVaGjH/hy51TABkOMirV+Qk0+CAoXVoxffP5ER209
-         N/vg==
-X-Forwarded-Encrypted: i=1; AHgh+RqFVjrXcCrLzmGxI6e2HT1owjKJwZ7Ix7rPSbuvfZ2csrFxG8MPP8p83uw8ZhypYi1tzgj64/BybflwdY0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mHTJhINSjx/SiZKKTyGODW8UfAdiNTGrUdbniTP9Br6m6hx1xf
-	pA/EmX6wY+R1Sj2nPd9lB7JPsR/fxHOE60p9+IqBzMf6fc+JeVJL8Zwuu5UWLJGz
-X-Gm-Gg: AR+sD13LcZ7otR1/Y97nn6aWrG6gnP9D1FBL/Pahi9k2/53MzF/z7AJkeFxW4LURpCC
-	l0uMvqjdOCrJK1YIzAU49VMoP8hiW+JfzZMIBuA+G9y4EPhagMXVMo6XiVTt73YflanXZrlo1oh
-	/TZuROht59/ZHHSnmFg3K75EFVOcnvowfoqCMzVtDYkQzTXEtcbQ/McTj+xxovzlLCuv3FrV0QW
-	WYRpfu44yWgiwURHI5Lq2o3095r0G+qOeCbzVCsWdsU+IP9HX4CLZJk0Q62/wrOlSWZowYlGhgS
-	dCFJ3j/23Kk6JLApswuFNq0pBKQvc3lPq5FjtfsyxU/wZ3xGljDm7lzXyFtQk/O1dT6WeLxK1Bk
-	NrtWrarSkQn4uvEqfkHe4PcwCDxHmg8NoIByovBMqzT1r/7wVCxZFdvaPhHCJncDSs1ZGCwVLRk
-	41npxLsWmJtyc8mdRz4BcYACoy4rKEo45UZV3vK2KIfNPtpOd6phw2k7cN+N44QvlAy8SpWP9Za
-	u26l6gOzxtf6UYia6EDSxtrHKmnNM+4oaqZ
-X-Received: by 2002:a05:6102:510c:b0:784:94dd:5389 with SMTP id ada2fe7eead31-78494dd7348mr718177137.13.1787816691050;
-        Thu, 27 Aug 2026 00:44:51 -0700 (PDT)
-Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com. [209.85.217.49])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-97ccc0f4963sm2261037241.12.2026.08.27.00.44.50
-        for <linux-kernel@vger.kernel.org>
+        d=1e100.net; s=20251104; t=1787816760; x=1788421560;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LbRs574snZvpW2X/HQOkQ+OUsJHTgB/OYJACP1nJVIU=;
+        b=GC3cI2vH9yhUdO7vcXyQpeCxty4t+suEKBA6cDnQYs+AaYF5ay+sVsjf+8ehdoefoX
+         l+dUO1XvRIrBR0VxmeMo/eei1gg0xJ6XgBn5OsmCKHGEFKXr8GoF2xH0Fpvr1EreBAzC
+         Eqv2ij2c1hy5vE4IWIKsqDP7/6WiBO82dE6Q3UIwBt97Zvllp/tdhnCDBCeGQVcX7h1p
+         xxDx1Jp8U8Ws0nEdo6AZf5Z68lQzGgIQs2sWW//eBpH+GdX3pqhAKPf7rqP7rck5q4nA
+         GPOQJOIsYArMihzMi138AVd4izlPWf9gqmMN7WdC8ini+oDegtu6rxev4rFzDj2Br5hT
+         sTdA==
+X-Forwarded-Encrypted: i=1; AHgh+RoWcwGzq8xT9QuhigdCKXuleX9H9yQ6e4nAqgESw5JDUXAjkBUD4BGdFWZuX6Rz+TjC6x28tqc88CwbBTY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nwjzrDR/tMPPfObHDxm1YN5ymYhg3TxsZMk4IQLA44pmIEVkee
+	J/sUJe+BMpD3HHrR3yC5d85CP1mbY8+OFhneZodLbrcgHt+BiBKoXss2mY3yUR6B9gdaIqAx
+X-Gm-Gg: AR+sD11UHL+B1vDV4gZ8KY/SUZqGn66pZlJVARsqvxehSnC2pthsmqfoeHFHjHLnKlj
+	ruFW2KoS4tLBvKSRlr48vsSLPs/G4fLomu5OjD2z8QG5zpVvluqHI/HYCzvJgmBWeu3DAP0ObdF
+	HWUcwd81G4LumJdyaJ9/JQJ8oU3Ygwb07/g4ByElUTdCXqVOb5ZsZE4JX4SzqAd8qq1Jy5q+z/T
+	bdCDCMnTJ34CurGbB9ywJV3A04TgV8XcgQ7msLLdSAmmkmajNgizq1mFfvMUyfHQ+srg/xIhJcZ
+	FF5rqBBN0YDndPgIe8rkc40OOxAx9IV7OQzR1PjP2R9l9dNYSgLDMbnqo+VKcS6IhBRaYH1DUks
+	dVb+f+HhhPoMxLGUdPD004I8og9siCeN/1fLqoOceB5Cg4KQB40bgRHmiszlh8+GlVUCyjQsvbM
+	JuA44iW9G7EGRuOTPzX+AVAG/Z/k9Zorp3rflmbbkRjkJA36/to8wqAqGEmfC1qg==
+X-Received: by 2002:a05:6a00:8d0:b0:84e:2722:5d9e with SMTP id d2e1a72fcca58-85371cb27e1mr24732639b3a.1.1787816760362;
+        Thu, 27 Aug 2026 00:46:00 -0700 (PDT)
+Received: from [198.18.0.1] ([23.26.139.2])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8535cd7c162sm1680320b3a.33.2026.08.27.00.45.57
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 27 Aug 2026 00:44:50 -0700 (PDT)
-Received: by mail-vs1-f49.google.com with SMTP id ada2fe7eead31-782e0fc1e55so593008137.3
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:44:50 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RoIYXPfuumFrKofM3R+ehhBwLtiDOUAp9teAj2hwB5X9bNPGQ+cRwge7PlPecnezxB9asxa8uk41Bc3UdQ=@vger.kernel.org
-X-Received: by 2002:a05:6102:50a9:b0:778:9e3c:5760 with SMTP id
- ada2fe7eead31-782c1a00971mr4010623137.11.1787816690046; Thu, 27 Aug 2026
- 00:44:50 -0700 (PDT)
+        Thu, 27 Aug 2026 00:45:59 -0700 (PDT)
+Message-ID: <11e2734c-2856-4fc2-8209-7410571dbbbf@gmail.com>
+Date: Thu, 27 Aug 2026 15:46:00 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <1e519fb24aa5521788d69cc7980665ccbc227b14.1787584184.git.geert@linux-m68k.org>
- <ao1hIejAdBPKUHFW@kniemiec-mobl1> <CAMuHMdWuG_s3Rm-gLc2KNw9Z0bptQjdDDGH+9YawEMEsFZZ6Nw@mail.gmail.com>
- <ao8Fc8DWbsxMtSRu@kniemiec-mobl1>
-In-Reply-To: <ao8Fc8DWbsxMtSRu@kniemiec-mobl1>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 27 Aug 2026 09:44:37 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWCF0=P4XGYuM1c1+KZckJYw9KuaoUZOF8-EOOqtqsWyQ@mail.gmail.com>
-X-Gm-Features: AcwNN1XzEY3I1YHBaPGvpKk8MVWoRxkSmhwGS1lNUFejWW4kN8mjsnYoKG8va7I
-Message-ID: <CAMuHMdWCF0=P4XGYuM1c1+KZckJYw9KuaoUZOF8-EOOqtqsWyQ@mail.gmail.com>
-Subject: Re: [PATCH] gpu: GPU_BUDDY_KUNIT_TEST should not select GPU_BUDDY
-To: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Krzysztof Karas <krzysztof.karas@intel.com>, 
-	Sebastian Brzezinka <sebastian.brzezinka@intel.com>, Maarten Lankhorst <dev@lankhorst.se>, 
-	Andi Shyti <andi.shyti@linux.intel.com>, dri-devel@lists.freedesktop.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] i2c: acpi: Add DELL0A86 to
+ i2c_acpi_force_100khz_device_ids
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>
+Cc: andi.shyti@kernel.org, westeri@kernel.org, linux-i2c@vger.kernel.org,
+ linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <63cb7f6e-27ab-43d8-adb5-d2f4acd57674@gmail.com>
+ <20260823123310.188189-1-xiaoyueyoqwq@gmail.com>
+ <20260824102221.GE893316@black.igk.intel.com>
+ <ao_Xu-43lnM6I7Pn@ashevche-desk.local>
+Content-Language: en-US
+From: xiaoyueyoqwq <xiaoyueyoqwq@gmail.com>
+In-Reply-To: <ao_Xu-43lnM6I7Pn@ashevche-desk.local>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Krzysztof,
+Hi Andy,
 
-On Wed, 26 Aug 2026 at 18:39, Krzysztof Niemiec
-<krzysztof.niemiec@intel.com> wrote:
-> I got unnecessarily annoyed/angry in my previous reply, I'm sorry for that.
-> It clouded my judgement a bit then but I still have some comments now
+Sure. The relevant DSDT excerpt is below.
+
+    Scope (_SB.PC00.I2C1)
+    {
+        ...
+
+        Device (TPD0)
+        {
+            Name (SBFB, ResourceTemplate ()
+            {
+                I2cSerialBusV2 (0x002C, ControllerInitiated, 0x00061A80,
+                    AddressingMode7Bit, "\\_SB.PC00.I2C1",
+                    0x00, ResourceConsumer, _Y55, Exclusive,
+                    )
+            })
+
+            CreateWordField (SBFB, \_SB.PC00.I2C1.TPD0._Y55._ADR, BADR)
+            CreateDWordField (SBFB, \_SB.PC00.I2C1.TPD0._Y55._SPE, SPED)
+
+            Method (_INI, 0, NotSerialized)
+            {
+                ...
+
+                HID2 = TPDH
+                BADR = TPDB
+                If ((TPDS == Zero))
+                {
+                    SPED = 0x000186A0
+                }
+
+                If ((TPDS == One))
+                {
+                    SPED = 0x00061A80
+                }
+
+                If ((TPDS == 0x02))
+                {
+                    SPED = 0x000F4240
+                }
+            }
+
+            Name (ITPN, "DELL0A86")
+            Method (_HID, 0, NotSerialized)
+            {
+                Return (ITPN)
+            }
+
+            ...
+
+            Method (_CRS, 0, NotSerialized)
+            {
+                ...
+
+                If ((TPDM == Zero))
+                {
+                    Return (ConcatenateResTemplate (I2CM (I2CX, BADR, SPED), SBFG))
+                }
+
+                Return (ConcatenateResTemplate (I2CM (I2CX, BADR, SPED), SBFI))
+            }
+        }
+    }
+
+The speed values are 100 kHz, 400 kHz and 1 MHz respectively. On this
+machine Linux receives 400 kHz from ACPI, which is also confirmed by the
+kernel log when the quirk is applied:
+
+    DSDT uses known not-working I2C bus speed 400000, forcing it to 100000
+
+And for now my PC touchpad has continued to work normally since applying the quirk, and the issue has still not recurred. :)
+
+Thanks,
+YuXin
+
+在 2026/8/27 14:22, Andy Shevchenko 写道:
+> On Mon, Aug 24, 2026 at 12:22:21PM +0200, Mika Westerberg wrote:
+>> +Andy
+>>
+>> On Sun, Aug 23, 2026 at 08:33:10PM +0800, xiaoyueyoqwq wrote:
+>>> The ELAN 04F3:3185 touchpad exposed as DELL0A86 on the Dell Inspiron
+>>> 13 5310 intermittently exhibits excessive smoothing when the I2C bus
+>>> runs at 400 kHz. During an affected period pointer movement becomes
+>>> severely sluggish and sticky for tens of seconds.
+> Just for the confirmation (no need to include in the commit message) can
+> you share the DSDT excerpt of the device in question?
 >
-> On 2026-08-25 at 14:15:34 +0200, Geert Uytterhoeven wrote:
-> > On Tue, 25 Aug 2026 at 13:39, Krzysztof Niemiec
-> > <krzysztof.niemiec@intel.com> wrote:
-> > > On 2026-08-24 at 17:12:30 +0200, Geert Uytterhoeven wrote:
-> > > > Enabling a (modular) test should not silently enable additional kernel
-> > > > functionality, as that may increase the attack vector for a product.
-> > >
-> > > What vector? What product, exactly? As far as I know buddy allocator code is
-> >
-> > Any product that uses DRM and has CONFIG_KUNIT_ALL_TESTS=m, so
-> > developers can easily run any relevant test when the need arises.
-> >
-> > > currently loaded when a) loading a drm driver (which would need that code
-> >
-> > Not just "a drm driver": very few DRM drivers use it.
-> > Hence one can have a product with DRM that does not need the buddy
-> > allocator.
+> (acpidump -o tables.dat; acpixtract tables.dat; iasl -d dsdt.dat; # open dsdt.dsl)
 >
-> And the buddy allocator was moved out of DRM in anticipation of a
-> possible non-DRM driver that wants the buddy allocator. So there's no
-> implication between DRM and buddy in either way anymore.
+>>> The ACPI firmware configures the touchpad bus for 400 kHz. Add DELL0A86
+>>> to i2c_acpi_force_100khz_device_ids so that the bus runs at 100 kHz, as
+>>> is already done for other touchpads exhibiting the same excessive
+>>> smoothing problem.
+>>>
+>>> With the quirk applied, the kernel reports that the firmware requested
+>>> 400 kHz and that the bus is forced to 100 kHz. The problem did not recur
+>>> during extended heavy use, including an S4 hibernate/resume cycle.
+> ...
 >
-> Currently it's only DRM drivers that actually use it, but there's already
-> scaffolding in rust for it that does not depend on DRM, and once
-> there's a non-DRM driver that wants to use the allocator it would have
-> to undo the dependency added in this patch anyway.
-
-Then the dependency can be lifted.  There are hundreds (thousands?)
-of Kconfig symbols that will need to get heir dependencies updated
-one day.
-However, missing dependencies means more questions for all users
-configuring kernels.
-
-> > > > --- a/drivers/gpu/Kconfig
-> > > > +++ b/drivers/gpu/Kconfig
-> > > > @@ -1,14 +1,15 @@
-> > > >  # SPDX-License-Identifier: GPL-2.0
-> > > >
-> > > >  config GPU_BUDDY
-> > > > -       bool
-> > > > +       bool "Page based buddy allocator for GPU memory" if KUNIT
-> > > > +       depends on DRM || COMPILE_TEST
-> > >
-> > > What's the justification for COMPILE_TEST here? It might be needed but
-> > > you didn't explain why or mention it in the patch description at all.
-> >
-> > It is customary to add "|| COMPILE_TEST" when adding dependencies that
-> > are not strictly needed for a successful build.
+>>> +	{ "DELL0A86", 0 },
+>>>  	{ "DLL0945", 0 },
+>>>  	{ "ELAN0678", 0 },
+>>>  	{ "ELAN06FA", 0 },
+> At some point this should be switched to C99 initialisers and dropped unused
+> driver_data.
 >
-> I can't tell if this is something so obvious it needs no comment; I feel
-> like it should be documented explicitly in the commit log.
->
-> If the DRM dependency would be dropped would the COMPILE_TEST have to
-> stay? Because then we're forcing a non-drm user to enable it if they want
-> to use the buddy alloc at all.
-
-If the DRM dependency would be dropped, the COMPILE_TEST can be
-dropped too.
-If a (not always enabled) non-drm user appears, it can be added to the
-dependency list.
-
-> I think just leaving the "if KUNIT" part would check all the boxes,
-> since the tests are actually runnable with KUnit via .kunitconfig
-> without building an entire DRM driver, GPU_BUDDY also won't be randomly
-> enabled with KUNIT_ALL_TESTS on systems that don't care about it, and
-> we're not forcing anyone to enable DRM on a feature that was explictly
-> made independent from it.
-
-There are systems that do not use DRM, but still want tests enabled.
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
