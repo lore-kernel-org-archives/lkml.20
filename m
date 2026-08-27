@@ -1,102 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45381346A02
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:08:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFB961F938
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:08:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787814522; cv=none; b=BMekpFoohTvTYAkwPAQcFzTwWggMbzcNbGhr4g42tMYm7IgaKi4huMDosTV93ZnSmy66I1aaInRAfI7urpn08sDpom2DDFsnecuTFgfIsqIMjrKOq4DdVKN6ats4w5njSI7/345S1cBhM8flMjVPH7kBQzbIshR+K3HNrJxHJ5w=
+	t=1787814539; cv=none; b=iJ0OL2UgMQYYYCY/aNOCmzVTn+juU0c+IybfuJr/pAhT1+19QxdS/IIORz8x1xT6zOEsH1hIDr+fkEiVV3lXOGiAEfF4lEF4jCfSdPwab3naiwH4xVb+bhqtTVqLVemX39+wkLhULynRIvAL6YUjGguQWroHXuiACMZ/wyfLgL4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787814522; c=relaxed/simple;
-	bh=dQf27oAC4dBGe/SyI1+0GsuR50NE5X8GkWKLYmc4X3w=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=FkAlGfTEGab6gLVB0WZmURuXJfnNwypMj74oJQX4gQbFDnrLwD89TWglGf5fYPBef0XHcvwHtbk4Q058cQhwG2yMfHR6TGBycoer7LROEQ/S4Z+JZMzccO+fAkY89u8NFa9m4dtkCDqPktjOlBgECON0gjcE8I18kd9tB4yN7ns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i6zJRpa9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787814539; c=relaxed/simple;
+	bh=sRd78QSJGil0ZcUwq3GxqGHQF3GnG4W0ymqk7CGnnE8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YdpBYc1NEkf5Y9l52s0p9RKEeqSXj+T7KLRITd0GRXyWhP+Je5zRmWXnnKzJsYxYSzNj5HK4Sbl/TlwdiO4qV0twHGXm4n9f/RX/9n4GIUbqsc/K3RhDLrhm8eVdWNhZg3j6JNr8ERHzbjlA7VE+v32t4Mx1DJ+HNPWnL9QQenw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=haR/eqIa; arc=none smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i6zJRpa9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E988B1F00A3E
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:08:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787814519;
-	bh=hm9FQNMTULRI5PbphxoLf0euP/KXUzuUHsfwhItuw4M=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=i6zJRpa9ogYypqtYJevNbiYc7OWsqazL2hJ9QrDTTHe9zmwgrw1tWKi3sXXnp9j/Z
-	 38AuDTWqo8RtQ4tnXbVvdt/EGCd/qNuuX3T4E1n+Ba8usPhdUmF42e/s92cAB2L3xW
-	 YMzLKd09nmzXx5bPNNAwaywaaOUXYtBvVZxygPwRxhPltlJs+b0NyCkBZqsvRGeaFl
-	 jox8aoEAWlR6NF/ZnXhZcxxNOLX2FjD3HV5X7q26doOX1TffK7dkhRyQtZA0AeTp6N
-	 HNajv6kVAd0ETtBSRT83pnHvCbQXK1SWmrKPlto9CikynHoINu+mNkkI29ivz8HpAj
-	 JILnKO96vRiag==
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c2055573c8cso272402666b.3
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:08:39 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpTBAwGlumUoFpY9W8kLyV4rPQaUUAKDw2jzdEnnkTeAUTzWqM6hmLtRkZiQGmDnZ0WmMIY15zA2UrTcd4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lWaKUFJvw2mPSiK7MCup5e2pVcdMQ6hZIJ5F/iBPqzJE0utpee
-	vmMmpXrdYJEmY+nTlGTiOXzGMsOAUxsvYrg22cE+J6jav6lz2nmjbtBWxg0VYl1WktRj9G7igN8
-	j6aPryAdW+5HcBc6fj2NlQ0E7Ml8D0Do=
-X-Received: by 2002:a17:906:2081:b0:c25:2e93:28a6 with SMTP id
- a640c23a62f3a-c252e932fe8mr701170966b.3.1787814518868; Thu, 27 Aug 2026
- 00:08:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="haR/eqIa"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-39682983a0fso1665780a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:08:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787814538; x=1788419338; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sRd78QSJGil0ZcUwq3GxqGHQF3GnG4W0ymqk7CGnnE8=;
+        b=haR/eqIaTOhAA9p741xIu68tyWti+IJ3KXLfj8ZaJ87VR8KjzOk3RC6eLl9SrFlnaS
+         aPsGxzhz2e7/2Nyy17ThiYBApAWBMia6LWQSMD98FqpZVySqIloMPVxfu1GaO77OhLPf
+         pE4idmQp5Zr0KFJNEru4LhhcWxlgHECgby/CFJnw/1qTed0hZV26FJsFS2XGT5ICtfde
+         TmYYwjUojfD7aUky/QoaAjtMDC1s1xFHb6AWBuFL9HgCTtRa/A4GHOd0j2MMRS7XzLtK
+         RLLeXzfP1yz17ZvFtY+6PVHWk5hqfv0+I5CMA3umvUeFawwsDTvATiJUMdd/JINjekih
+         SPig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787814538; x=1788419338;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sRd78QSJGil0ZcUwq3GxqGHQF3GnG4W0ymqk7CGnnE8=;
+        b=RDMjOj/2JUvSQdQLrAVbA9kVp/PJiPFSkVqkwcFzTG4WLtfmiLfpZAPTdO74z3dO1f
+         2hAElLPTUFJt6vYf113U0Ua2apx5B4pVNUCHW36CfYPf2pW9KiwilpT3VzRK/NPQEwHu
+         Ivlo7SASkAbfglI5ESwVVcfCYbuSd3oCdsXgIi0zHXT12iMga3VCSO0BQP7XnWstMrZ3
+         HFRmgVoPeXKi61AuUUhY87LkVlHJscDP7jyXm26kksGrAaoA+Q058FP3odTDDYWdLIm5
+         id+p3TmmgU3MEmsLxx6ThWCb9LpLkPocKQ62OKu7z0R3HtpEu2R+CHYMMRnEZpnOvcyO
+         Hx6A==
+X-Forwarded-Encrypted: i=1; AHgh+RpxV5fK25EwVGTruyyT7tSylDaXPynT5QXWwhE+XYDypzDQCGy1E+x+W5H14dLCVRc3ECzDu5UWt4kUREI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lDM+xWd9TNhEVK0aoau9WZctSHReBCoi7a6XPts8QwO4G+83GB
+	52gbOHRKyC1BuGUo54DlWlbVvbrQC7SuaafLcC+WMX1aXyU5Q4TjkqF/
+X-Gm-Gg: AR+sD10DtSkUzF1EiKSVnKwvXGpj1vlu/rt2zqq1kBcE5SmDMaJTE0hKT0rfKz8TMLB
+	ge9KSzFXyGNIlQ5L20ype+Y9FaBT6e3+ODpWEb5D31l4lOd6FWF2QntYyP+0meujWSIcRQjrVK9
+	xGqXoDfrgk6jRjIZrWiFkmAVXDU4dL1hpTA6Bmc0dKQ69cTI+r8d/X5Zw12qy0Xw9WSVvhRYZi0
+	b6gSkzUWxTd0pGyyl69e3tIo3GuENiPZrooEUTFpND32e60coLEBviY0KVhs6s16QCKGMyix5Q1
+	UELw2IEbdEZQW/JDSjL6yl/RBnPgpJZxg0tRhh4Vjsnkp3vEd1cLvizTlPoU4Ea+0YiFAdnqZjE
+	+IdNc4izYcOeNyGDbRGZCjP/N+oO/Vk1LgMQbVhYRX21ZiiZQvQbB5HUBAuhVxZ4yPYU8wc4UNL
+	EqSClk9ErXXZ+yvhkLUw1m8calG/UchFRmQCIxKupctVKjRwo8h8s1ERTfv+TVcTpYS5HbtZ7nv
+	5ijoRt+FzFka9T1dzl8P+7V/bwf
+X-Received: by 2002:a17:90b:5102:b0:381:1c96:829b with SMTP id 98e67ed59e1d1-3966d370333mr28339383a91.3.1787814537645;
+        Thu, 27 Aug 2026 00:08:57 -0700 (PDT)
+Received: from Anshuman ([103.161.223.14])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a8eefd82sm13559447c88.2.2026.08.27.00.08.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 00:08:57 -0700 (PDT)
+From: Anshuman <anshumantewari123@gmail.com>
+To: david@kernel.org
+Cc: ljs@kernel.org,
+	akpm@linux-foundation.org,
+	baohua@kernel.org,
+	baolin.wang@linux.alibaba.com,
+	dev.jain@arm.com,
+	lance.yang@linux.dev,
+	liam@infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-mm@kvack.org,
+	mhocko@suse.com,
+	nico.pache@linux.dev,
+	rppt@kernel.org,
+	ryan.roberts@arm.com,
+	shuah@kernel.org,
+	surenb@google.com,
+	usama.arif@linux.dev,
+	vbabka@kernel.org,
+	ziy@nvidia.com,
+	Anshuman Tewari <anshumantewari123@gmail.com>
+Subject: Re: [PATCH] selftests/mm: khugepaged: remove str_dup() usage
+Date: Thu, 27 Aug 2026 12:34:07 +0530
+Message-ID: <20260827070407.4108-1-anshumantewari123@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <ao17EcW1-iNN4Y8i@gremlin>
+References: <ao17EcW1-iNN4Y8i@gremlin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826211844.884951-1-seanjc@google.com> <20260826211844.884951-4-seanjc@google.com>
-In-Reply-To: <20260826211844.884951-4-seanjc@google.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Thu, 27 Aug 2026 00:08:27 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zM7KSRX5r-PazJ87QaZze3wkB5WmJL4e6az5akmJLterQ@mail.gmail.com>
-X-Gm-Features: AcwNN1UNE2kyRdaKjw4CnNNb1QW-6POFF94C18u1aNFWrrjITYoTs7pQZcwdWYU
-Message-ID: <CAO9r8zM7KSRX5r-PazJ87QaZze3wkB5WmJL4e6az5akmJLterQ@mail.gmail.com>
-Subject: Re: [PATCH 3/4] KVM: x86/mmu: Bug the VM if KVM calcs a CPU role with
- EFER.LMA=1 && CR4.PAE=0
-To: Sean Christopherson <seanjc@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Stefan Teodorescu <fane@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 26, 2026 at 2:18=E2=80=AFPM Sean Christopherson <seanjc@google.=
-com> wrote:
+On Tue, Aug 25, 2026 at 01:20:59PM +0200, David Hildenbrand (Arm) wrote:
+> We don't check str_dup() return value and never free it. While both
+> things are irrelevant in practice, let's just clean it up by working on
+> argv[0] directly and avoiding the str_dup().
 >
-> Bug the VM if KVM attempts to construct a CPU role with the should-be-
-> impossible combination of long mode being active without PAE paging being
-> enabled.  KVM's MMU construction assumes that EFER.LMA can be set if and
-> only CR4.PAE is set, and will create a completely invalid MMU if that
-> assumption fails.  FNAME(walk_addr_generic) already has sanity checks to
-> try and mitigate the fallout, but attempt to catch such bugs earlier, as
-> this is (at least) the second time KVM has had bugs that escaped into
-> FNAME(walk_addr_generic), and it's entirely possible the bad state could
-> cause problems elsewhere.
+> Nobody after us needs these parts of the argv[0] string anyway.
 >
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-> ---
->  arch/x86/kvm/mmu/mmu.c | 3 +++
->  1 file changed, 3 insertions(+)
+> This patch is inspired by previous work from Anshuman Tewari [1].
 >
-> diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-> index 064ecc33b926..81c30e2c74f3 100644
-> --- a/arch/x86/kvm/mmu/mmu.c
-> +++ b/arch/x86/kvm/mmu/mmu.c
-> @@ -5910,6 +5910,9 @@ static union kvm_cpu_role kvm_calc_cpu_role(struct =
-kvm_vcpu *vcpu,
->                 return role;
->         }
->
-> +       if (KVM_BUG_ON(____is_efer_lma(regs) && !____is_cr4_pae(regs), vc=
-pu->kvm))
+> Link: https://lore.kernel.org/r/20260821114416.12255-1-anshumantewari123@gmail.com [1]
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Can we shove this into the existing if (____is_efer_lma(regs)) below?
+LGTM, thanks for the cleaner fix.
 
-> +               *(u64 *)&regs->efer &=3D ~EFER_LMA;
-
-Why do this if we will crash the VM anyway (and Sashiko doesn't like it)?
-
-> +
->         role.base.efer_nx =3D ____is_efer_nx(regs);
->         role.base.cr0_wp =3D ____is_cr0_wp(regs);
->         role.base.cr4_smep =3D ____is_cr4_smep(regs);
-> --
-> 2.55.0.887.g758fc8c411-goog
->
+Reviewed-by: Anshuman Tewari <anshumantewari123@gmail.com>
