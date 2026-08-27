@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6254F448393
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:46:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0FFE401494
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:47:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787834789; cv=none; b=AWPKamoBnDce/5ZkMW3TVcH/GxUTNqxtX8/ivUnWAUbo/7R7QvaMrfwaKhzUxAc5laeHmO8WhY3TYmgw0/d22cj7QwAsnr37dCU3NSjJ5eY2TtV5qg/ySJphgFUHl28tZlReoEKAYSGwDey+TITxz+bkikQtHdG6Y+gh5mrxjys=
+	t=1787834850; cv=none; b=BohiIQ0JZeLEMmQdwtFc26wIjwiMkVRtRz20rq8muGv+56tahhYz4jxWYQs4LYhi4p6SYvb5IPUjv07lzFnFe+K1RPvf9KztvB7mofkKr16aGUKEjowI42GIMwhpwcHQRpJWbDAqYE2eqoH2qKua4zk9K16XcG/JBFexkeYTIXc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787834789; c=relaxed/simple;
-	bh=Fa4yz4ws80lvnPHZGu7LUR50w5bA4WdsPLfYwz1C7kc=;
+	s=arc-20240116; t=1787834850; c=relaxed/simple;
+	bh=PdyIiFnfwutzm1suEhff0HPvIUN8xuHSPVRJYXoda0E=;
 	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=BJqYS+5QTATvbmGLy9uIze98A2vpB/e+JFoleO5LYB9eR50BTT/hod0LnQyXgU3MywKm9Gtp+qRcWTriQSS32eHZF++CGouHYzsz1TuM1IZxGtz7hsFW37BxGETkL/trnNhoOleyiTdyo7C4cAC6s13xhBABh0MmVGR+nfPVXsY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FMMXu4/+; arc=none smtp.client-ip=100.103.45.18
+	 Content-Disposition; b=gZ7cCZdKMaIsEN7l2QDgmCNSLnChkYwwYCG+JXSotl86BE4q9w0znctcYk5k7imAXN64j0gKq2dNxkJ1z6RyxRSkBCnReJ7t5PIB1dDme0PA9rUubuIctpXGx8XeayNl0tbeaIpD41Rjg7KJo7WaT76ivXNJ2aS4iF8HIoJ+pIM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P7tOBn/Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FMMXu4/+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 530A41F00A3A;
-	Thu, 27 Aug 2026 12:46:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P7tOBn/Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 973FB1F000E9;
+	Thu, 27 Aug 2026 12:47:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787834779;
-	bh=B5ucIQ1lVVSs/cgcJ4OWpF3bwfs7pY1lRvruaqatyoM=;
+	s=k20260515; t=1787834841;
+	bh=NoqGPVIyc97ZcKe2e0S4qLnfmIW5lJYQNfdANgG+8i0=;
 	h=Date:From:To:Cc:Subject;
-	b=FMMXu4/+1nIwqzrzlPkkbEUEPYxR6fPw+xfJHVxG7V2Zy9aK1skEhv8I5jD2/8+Ae
-	 Owf8WnpQ6dnxp9edMiP+gQvcArtiNdZv5rj/Y32D3EDaqUiYTd8Vpg6LLengIvz/tZ
-	 2aD7OFo5hYnKsinx1ZGANeGTdEgVO3Iz/Rvo4xIzaCzo61gAy+ciGmuX4WJkYnLK+R
-	 2Jkjr+WmipzFMOCg/eK7PphQbO9s8UMbKmJl4GaWArfPqVqXA8PoL7M6nkoSm0PwZg
-	 rl8o9uyhhrSLShd5SPxnKqJORSh7tuWdi6QL8E3ShjherSIcDs40X7SuHuWGHnogYe
-	 3HXfmLUniY5Jw==
-Date: Thu, 27 Aug 2026 13:46:15 +0100
+	b=P7tOBn/QhLqeIal3wc43l9DZYhfR8r5tvfChWEKQIHwfV2P/PjZ7bpD8vqrpOnEua
+	 IsnbKvRc5nM2N3b+smvjERJb2Q37PhJB0wrurTDpPjEvr3VGFSUAWRfm/TgGCfs0re
+	 d8qQ68i5FTNCwwv+AHUdCfMMbeMn30LjxUHx80ZosmcF+EqrDKioKoy+MRvjhxncCa
+	 5QTerUCUrOECWRTOCdG/hFlcZbYFLt04q1Pl2z+I3dEF18te4vlT1p4+RQs8IVkOC9
+	 kY3HL+oQQ6+2MGFrSoEq+KccTr/RzyzvcpcPmS/X3Zka2m8IQZC8YhaU8o+TlKtV5D
+	 KFlD/rFtk6Ptg==
+Date: Thu, 27 Aug 2026 13:47:18 +0100
 From: Lee Jones <lee@kernel.org>
 To: Linus Torvalds <torvalds@linux-foundation.org>
 Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Pavel Machek <pavel@ucw.cz>
-Subject: [GIT PULL] LEDs for v7.3
-Message-ID: <20260827124615.GF770273@google.com>
+	Daniel Thompson <danielt@kernel.org>
+Subject: [GIT PULL] Backlight for v7.3
+Message-ID: <20260827124718.GG770273@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,142 +50,71 @@ The following changes since commit dc59e4fea9d83f03bad6bddf3fa2e52491777482:
 
 are available in the Git repository at:
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/lee/leds.git tags/leds-next-7.3
+  git://git.kernel.org/pub/scm/linux/kernel/git/lee/backlight.git tags/backlight-next-7.3
 
-for you to fetch changes up to f8cca63a0a4f3475199d9ab7f86782bdfeb0744d:
+for you to fetch changes up to cf1a12e0804515e0ed8b3f50c1c32f7f425bd660:
 
-  leds: is31fl319x: Modernize registration (2026-08-12 12:45:11 +0100)
+  backlight: Use sysfs_emit() instead of sprintf() (2026-08-12 14:06:29 +0100)
 
 ----------------------------------------------------------------
-LEDs for v7.3
+Backlight for v7.3
 
 - New Support & Features
-  - Core: Extend netdev trigger speeds up to 100G.
-  - PWM Multicolor: Introduce default-intensity property.
-  - Analog Devices LTC3220: Add support for 18 channel LED driver.
-  - NXP PCA963x: Add multicolor LED class support.
+  - Silergy SY7758: Add driver for the 6-channel high-efficiency LED driver
 
 - Improvements & Fixes
-  - GPIO: Clear error pointers for skipped LEDs.
-  - Broadcom BCM63138: Use %pe to print pinctrl error instead of %ld.
-  - ISSI IS31FL319x: Modernize device registration by using fwnode APIs.
-  - NXP PCA9532: Fix inverted GPIO output polarity.
-  - NXP PCA9532: Fix phantom device registration on missing hardware.
-  - STMicroelectronics ST1202: Correct and extend hw_pattern documentation.
-  - STMicroelectronics ST1202: Fix channel disable logic on zero brightness and ensure
-    brightness changes are applied in active mode.
-  - STMicroelectronics ST1202: Fix hardware pattern sequence programming, validate inputs,
-    and correct pattern duration calculations.
-  - STMicroelectronics ST1202: Validate LED reg property against channel count.
-  - TI LP5860: Fix a potential double-unlock during device initialization and fix error
-    handling path by using devm_mutex_init().
+  - Awinic AW99706: Fix device tree property names to match the binding, consistently
+    validate all property values, and honor the core blank state in `update_status()`
+  - Kinetic KTD2801: Add missing dependency on `GPIOLIB` in Kconfig
+  - Qualcomm WLED: Remove redundant `dev_err()` calls
 
 - Cleanups & Refactoring
-  - GPIO: Make legacy gpiolib interface optional.
+  - Core: Use `sysfs_emit()` instead of `sprintf()` in sysfs show callbacks
+  - Maintainers: Update Junjie Cao's email address for the Awinic AW99706 driver
 
 - Device Tree Binding Updates
-  - Core: Add default-intensity property.
-  - Core: Document "gpio" trigger.
-  - Analog Devices LTC3220: Add DT binding for LTC3220 18 channel LED Driver.
-  - Broadcom BCM6358: Convert to DT schema.
-  - LaCie NS2: Convert to DT schema.
-  - NXP PCA963x: Add multicolor LED support.
-  - NXP PCA963x: Fix reg maximum for pca9635.
-  - TI TPS65217: Convert backlight bindings to DT schema.
+  - Marvell 88PM860X: Add missing bracket in the example
+  - Silergy SY7758: Document the 6-channel high-efficiency LED driver
 
 ----------------------------------------------------------------
-Andreas Kemnade (1):
-      leds: is31fl319x: Modernize registration
+Julian Braha (1):
+      backlight: ktd2801: Fix unmet dependency on GPIOLIB
 
-Arnd Bergmann (1):
-      leds: gpio: Make legacy gpiolib interface optional
+Junjie Cao (4):
+      MAINTAINERS: Update my email address for the AW99706 backlight driver
+      backlight: aw99706: Fix DT property names to match binding
+      backlight: aw99706: Validate all DT property values consistently
+      backlight: aw99706: Honor the core blank state in update_status()
 
-Christophe JAILLET (2):
-      leds: lp5860: Fix a potential double-unlock
-      leds: lp5860-spi: Fix an error handling path
+KancyJoe (1):
+      backlight: Add SY7758 6-channel High Efficiency LED Driver support
 
-Cosmo Chou (2):
-      leds: pca9532: Fix inverted GPIO output polarity
-      leds: pca9532: Fix phantom device registration on missing hardware
+Levente Szajko (1):
+      backlight: Use sysfs_emit() instead of sprintf()
 
-Edelweise Escala (2):
-      dt-bindings: leds: Add LTC3220 18 channel LED Driver
-      leds: ltc3220: Add Support for LTC3220 18 channel LED Driver
+Manuel Ebner (1):
+      dt-bindings: backlight: 88pm860x: Add missing bracket
 
-Eduard Bostina (1):
-      dt-bindings: leds: backlight: Convert TPS65217 to DT schema
+Neil Armstrong (1):
+      dt-bindings: leds: backlight: Document the SY7758 6-channel High Efficiency LED Driver
 
-Jonas Rebmann (2):
-      leds: pwm-multicolor: Introduce default-intensity property
-      dt-bindings: leds: Add default-intensity property
+Pan Chuang (1):
+      backlight: qcom-wled: Remove redundant dev_err()
 
-Loic Poulain (3):
-      dt-bindings: leds: nxp,pca963x: Fix reg maximum for pca9635
-      dt-bindings: leds: nxp,pca963x: Add multicolor LED support
-      leds: pca963x: Add multicolor LED class support
-
-Manuel Fombuena (9):
-      leds: st1202: Stop pattern sequence before reprogramming
-      leds: st1202: Validate pattern input before stopping the sequence
-      leds: st1202: Fix pattern duration prescaler and pattern_clear skip marker
-      leds: st1202: Set all pattern PWM slots to full after clearing pattern
-      leds: st1202: Fix spurious pattern sequence start in setup
-      leds: st1202: Fix brightness having no effect while pattern mode is active
-      leds: st1202: Disable channel when brightness is set to zero
-      leds: st1202: Validate LED reg property against channel count
-      leds: st1202: Correct and extend hw_pattern documentation
-
-Mike Marciniszyn (Meta) (1):
-      leds: trigger: netdev: Extend speeds up to 100G
-
-Ninad Naik (3):
-      dt-bindings: leds: bcm6358: Convert to DT schema
-      leds: bcm63138: Use %pe to print pinctrl error instead of %ld
-      dt-bindings: leds: lacie,ns2-leds: Convert to DT schema
-
-Samuel Holland (1):
-      dt-bindings: leds: Document "gpio" trigger
-
-Steve Dunnagan (1):
-      leds: gpio: Clear error pointers for skipped LEDs
-
- .../devicetree/bindings/leds/adi,ltc3220.yaml      | 133 +++++
- .../bindings/leds/backlight/ti,tps65217.yaml       | 170 ++++++
- .../bindings/leds/backlight/tps65217-backlight.txt |  27 -
- .../bindings/leds/brcm,bcm6358-leds.yaml           |  96 ++++
- Documentation/devicetree/bindings/leds/common.yaml |  12 +
- .../devicetree/bindings/leds/lacie,ns2-leds.yaml   |  85 +++
- .../devicetree/bindings/leds/leds-bcm6358.txt      | 143 -----
- .../devicetree/bindings/leds/leds-ns2.txt          |  35 --
- .../bindings/leds/leds-pwm-multicolor.yaml         |   4 +
- .../devicetree/bindings/leds/nxp,pca963x.yaml      | 108 +++-
- .../devicetree/bindings/regulator/tps65217.txt     |  78 ---
- Documentation/leds/leds-st1202.rst                 |   9 +-
- MAINTAINERS                                        |   8 +
- drivers/leds/Kconfig                               |  14 +
- drivers/leds/Makefile                              |   1 +
- drivers/leds/blink/leds-bcm63138.c                 |   4 +-
- drivers/leds/leds-gpio.c                           |  53 +-
- drivers/leds/leds-is31fl319x.c                     |  61 +--
- drivers/leds/leds-ltc3220.c                        | 586 +++++++++++++++++++++
- drivers/leds/leds-pca9532.c                        |  18 +-
- drivers/leds/leds-pca963x.c                        | 189 +++++--
- drivers/leds/leds-st1202.c                         | 102 ++--
- drivers/leds/rgb/leds-lp5860-core.c                |   3 +-
- drivers/leds/rgb/leds-lp5860-spi.c                 |  10 +-
- drivers/leds/rgb/leds-pwm-multicolor.c             |   2 +
- drivers/leds/trigger/ledtrig-netdev.c              |  46 +-
- include/linux/leds.h                               |   6 +
- 27 files changed, 1565 insertions(+), 438 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/leds/adi,ltc3220.yaml
- create mode 100644 Documentation/devicetree/bindings/leds/backlight/ti,tps65217.yaml
- delete mode 100644 Documentation/devicetree/bindings/leds/backlight/tps65217-backlight.txt
- create mode 100644 Documentation/devicetree/bindings/leds/brcm,bcm6358-leds.yaml
- create mode 100644 Documentation/devicetree/bindings/leds/lacie,ns2-leds.yaml
- delete mode 100644 Documentation/devicetree/bindings/leds/leds-bcm6358.txt
- delete mode 100644 Documentation/devicetree/bindings/leds/leds-ns2.txt
- delete mode 100644 Documentation/devicetree/bindings/regulator/tps65217.txt
- create mode 100644 drivers/leds/leds-ltc3220.c
+ .../bindings/leds/backlight/88pm860x.txt           |   1 +
+ .../bindings/leds/backlight/awinic,aw99706.yaml    |   2 +-
+ .../bindings/leds/backlight/silergy,sy7758.yaml    |  52 +++++
+ MAINTAINERS                                        |   2 +-
+ drivers/video/backlight/Kconfig                    |  10 +-
+ drivers/video/backlight/Makefile                   |   1 +
+ drivers/video/backlight/aw99706.c                  |  25 +-
+ drivers/video/backlight/backlight.c                |  16 +-
+ drivers/video/backlight/lcd.c                      |   6 +-
+ drivers/video/backlight/qcom-wled.c                |   2 -
+ drivers/video/backlight/sy7758.c                   | 259 +++++++++++++++++++++
+ 11 files changed, 350 insertions(+), 26 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/leds/backlight/silergy,sy7758.yaml
+ create mode 100644 drivers/video/backlight/sy7758.c
 
 -- 
 Lee Jones
