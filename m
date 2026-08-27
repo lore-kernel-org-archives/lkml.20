@@ -1,121 +1,95 @@
-Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90DE71C84D0;
-	Thu, 27 Aug 2026 02:40:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.146
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F235B1C84D0;
+	Thu, 27 Aug 2026 02:41:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787798410; cv=none; b=AMO4qG9LTujcWOsEtECgnxFZgDNrFg32V4u/ebMKUWQnL1a0B8bQrA/iZBNVeZdFlv866lGWN/slV1WaHUmku4iPKcpt4bkb3UMI2xS/RbyT9lRaujN1pMMS1lOnuzDIDp4CWPS+aofPpmj3W/fzAKwf1EJC40gVXmi2Kkt10AI=
+	t=1787798510; cv=none; b=TXhtVkFfPWBQe26bUf1jFYN4ELGwOcvZBiuWFMDJagk6Iwj9q4F4M4Hf7vkXavT420vHyRwwjnspOdJ7fWiD9tTmIV/Ty49UlSWdjlpdUAZNJ4Hn6P8Q416IKGxUDAXs87VBJMgceub40hf3hLTdKpf/Gsdu7cBMmp8IFbCzhrc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787798410; c=relaxed/simple;
-	bh=a6PJlX2eDjqG6eTem80WGbWpxw0WOCwQ48T60BYfyfY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bIIVSm1gE0yq80KEOOXxGvunebVV3+UJNeqOSVBXnx+fpjBDWltPVVMl4mpoe680kmedCP17IqKkLAY18pWLNirGo0pE0DlNyoLnX5GOHui8kqmhW0w12OZ2MbvNZOQUqhaitjxCAP1Gdf1gMQqNrBQW4thuD4oYWgBakiXrpas=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=YRWCZdp0; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=SNRWVki5; arc=none smtp.client-ip=202.12.124.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	s=arc-20240116; t=1787798510; c=relaxed/simple;
+	bh=Pe6ebjgOySQG8KNJ1VVfaNeyeiwUQZQXsALIp8Pr0Ug=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CufRTT61ulQ9tnNh6N8iq/KHS5b0Ae6hblDGrLloobjIVIydjkfHZJ+we1xka3ZEwtXrrqb4JNZLB9rgGdhsRsk9dJOIsL492HauwDbtwyFSKg6hyTdpdtoqeSDbmP4HO0Ofk9c838LrDWaQbhx6zOGKFso2tvmT3ldJvkDE7SI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BP/YiBWD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="YRWCZdp0";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="SNRWVki5"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.stl.internal (Postfix) with ESMTP id 3B0921D000D0;
-	Wed, 26 Aug 2026 22:40:06 -0400 (EDT)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-03.internal (MEProxy); Wed, 26 Aug 2026 22:40:06 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1787798406;
-	 x=1787884806; bh=hWMp3cXukM5aYcw/dN/YYGhsXf9+BYduq0DgOXDKtYU=; b=
-	YRWCZdp0YJ4TxwI9X8YehchX3imdHe5sVY13fJLhGd6i3sCQPov9ZNY2FvvxqzB6
-	euZkQ1DO0//LNRWQgartBjqXBmjktIj8ndCOF1BGQt9E6CEIp7a63NEEWDlL7A8i
-	pwLNdZAHCUdYBNsYJ6CggOcMROfom08i948CyP0fKX/TUvfiRZCFGf8R/ZpezcQm
-	NM9ZgfrAZFncByBUMkOBdM4HwEo8MrWQjxMSVo3BgQRD9nRpBTuj1Q4yozFgWTB/
-	Ou/ji45wXnPfZBF+Mi+xU4ZL0Nr+k1Gej46LYhCJYJL3JMa71d3t6EOMYNTisOb8
-	TgNWqxN+H9SRL1L7pFQ5JA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1787798406; x=
-	1787884806; bh=hWMp3cXukM5aYcw/dN/YYGhsXf9+BYduq0DgOXDKtYU=; b=S
-	NRWVki50UnPJ7mNgDQPxe/8km7Ahc3E/c6WlF5VoDYf/GuyNwdicJuIcz5Hk+cmK
-	ysuHDtKbaSku7ass3LN9Mn+YggCyndVRuC/zaHHA2YwvEuBG/qIpphEyrtQPQbWh
-	Kmg0XVcfKEbPquTqDK+3QxaILPyLTNokIK6mLtU5iKq0v4TA29Lc9UfSByM+zACJ
-	gR4uVfm+6DGkVwYo6BkW//buAuIwNbnG+1IQznvH+YiPJ7W2bFKPgqbjbLgpUoKJ
-	nogEjkNTEQqDhE6EiwnIymSQuGFVXWNrkH/ovq004ARaSna1zsQX1KLNkSsoGJx7
-	W1QOWJ1ptbyqygWliLj6Q==
-X-ME-Sender: <xms:haOPasgGxHjENguA8tgCogUhHBFEtwtyta2YiwFbrRMZJAzgthc_gw>
-    <xme:haOPag7i8RWRGRtyASeoU5W3vrheF8bg7Sxtr05SZnXpaaC6walbXJTBboEf7IVqk
-    GLsppMtiLfew-Z-BQzA26Urcyf1-ZXdPR7RTj654Q0PUGrlFMTm3zM>
-X-ME-Received: <xmr:haOPavm6ETtfYUUTTsJShkuL757KoE7aNGeRwZ8zBeowth6xkMo14jgFS350cQqCHJzXeVALpZxqfDKa69iDRCnmzoWz46V->
-X-ME-Proxy-Cause: dmFkZTFB/oj+N6i/pB1QH6sVmwIZNNP9xM3v2B0i8HNXDDWrLjkdHN/fNOcO9f13+P+buo
-    y3lyLGvEjK+enk5yoB19S2msvURE7st1oi7p+nWxEA7T/whKEKnYo9bVjG2IFyiKwa53Xt
-    gCuB8lu3otyFfudhiM9vztRPkVFkT6roqNZqkPdfCDG020fIUJ9K6QPn8vVrDKsiUqkYiM
-    ie1VkYgF95DtlNfLjt7iSCkFGp4DQvbE6m406xdtFFtseYiTy1Acc7kA7/k3+wbnTt5D+s
-    FUccso02ytCoE6v5jURM2JimKW0WOC++EPvSm6z8Co5I83VNjbqseCaO1l/k+Ppm2lBaO7
-    +fnnubVB59ni+OpMtHf9IueQGMNLQiMPlBbn3i9hCjLJUaYWHk3zhiAINvGZy+sGrRo7Ry
-    Oce9KbfhLrWSww1X7/tZQ1OCqKAuRM+ZPp/AfSJI3ILJheF70ogyNpzdkOj1+JGGBTobOY
-    /aSbQv57ndLYdhPdfin6c/b6V6qWoJwZqyO4yvVu0IZiBYTTUre+FqwMUquYs+Y/wx4HhW
-    wrGubNLorde/U1e7Hj8hZBYklxki70oWYuUooEUeyCzLIVgplQ5qbwpZCs56JxRH3Yjcec
-    V3zIY3JfTzkOgUj97i1ahS1bD5fy0TOs753fnRNP22D1KEgZE9i4B1fB7BLA
-X-ME-Proxy: <xmx:haOPahM8h7MJoT5VNpj40JqcHjKHb_9lABee0Vub8sgv1U_ICT6vUQ>
-    <xmx:haOPahpffUeBYIDmGFsiJCHQ-WfX5QrPguCPpzh8LyaBnPeA2Ij5cA>
-    <xmx:haOPaqtwJgx66IFQxbuqfchSDFbLhZgqK6XJQBs-1Ftk37P285q1IQ>
-    <xmx:haOPal68Bec9ZFd4j4E2NzuLij3-pc_SveDwULhMcvcwb3knHWR2Pg>
-    <xmx:hqOParWC3FxdOOUfDnDfplIX5IkuGt_IZdOkkqdlBFTQ_pVm1gbxxbP1>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 26 Aug 2026 22:40:03 -0400 (EDT)
-Message-ID: <d478e59a-ddf1-40f3-8cbf-306a9fbad206@pobox.com>
-Date: Wed, 26 Aug 2026 19:40:01 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BP/YiBWD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BD1C1F000E9;
+	Thu, 27 Aug 2026 02:41:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787798508;
+	bh=0jL/52kKMOIHpqQcbC2UZp4pVJ+MTKjkZLk5/qlb7SM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BP/YiBWD+3TcmZitorucd8VNk9N7uCYMgLIssSwWIctzVn4uwyV0delXCj7+vpN2X
+	 dyqAJycPGAY+KfZM57H+XNBNuLf/HonYBg4xc+mFcz8zKQeXRZmBcTDQj00Cn7d62I
+	 sTc1HAr0GRCugKUC7SGCgKhcQ7GVf7WpakaOWw4IAbOb9nXAPt2bpxDj7LBrX5ufkp
+	 jz1D/lozHm+SJueYetT/I/NfclDASej5KtZcoCSgeA+Zn6Eh3WB+o6jsJp1nmqKx9A
+	 8d+PyLkteaHUQ0NUzujhiyYgrS+n7cD2pgkYORaUzXTQlkyFMzcZUfBgFNGl4Fw7G7
+	 GlCNCnUdbQoaw==
+Date: Wed, 26 Aug 2026 19:39:43 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Usama Arif <usama.arif@linux.dev>
+Cc: dsterba@suse.com, linux-kernel@vger.kernel.org, terrelln@fb.com,
+	linux-crypto@vger.kernel.org, yosry@kernel.org, hannes@cmpxchg.org,
+	nphamcs@gmail.com, chengming.zhou@linux.dev, shakeel.butt@linux.dev,
+	kernel-team@meta.com
+Subject: Re: [PATCH 0/3] zstd: probe the CPU for BMI2 support once, not per
+ context
+Message-ID: <20260827023943.GA2327@sol>
+References: <20260826122558.2662013-1-usama.arif@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.1 00/79] 6.1.185-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260825132541.677185791@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20260825132541.677185791@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260826122558.2662013-1-usama.arif@linux.dev>
 
-On 8/25/26 6:25 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.1.185 release.
-> There are 79 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On Wed, Aug 26, 2026 at 05:25:35AM -0700, Usama Arif wrote:
+> zstd picks between BMI2 and generic code paths at runtime, and issues
+> CPUID to decide every time a compression or decompression context is set
+> up. The answer cannot change while the kernel is running.
 > 
-> Responses should be made by Thu, 27 Aug 2026 13:25:02 +0000.
-> Anything received after that time might be too late.
+> It is not a cold path: squashfs calls zstd_init_dstream() for every block
+> it decompresses, and erofs, btrfs, f2fs and crypto/zstd all initialise a
+> context per operation. Each probe is two serializing CPUID instructions
+> on x86.
 > 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.1.185-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.1.y
-> and the diffstat can be found below.
+> Patch 1 routes ZSTD_initStaticCCtx() through ZSTD_cpuSupportsBmi2()
+> instead of open-coding the probe, which also fixes it testing for BMI2
+> without BMI1 - the bodies it selects are tagged
+> TARGET_ATTRIBUTE("lzcnt,bmi,bmi2"), so both are needed. No CPU in the
+> field implements BMI2 without BMI1, so this is latent. Patch 2 skips the
+> probe when DYNAMIC_BMI2 is 0, where every consumer ignores the flag
+> anyway. Patch 3 caches the result.
 > 
-> thanks,
+> A 4 KiB crypto_acomp benchmark [1] in a one-vCPU KVM guest, twelve boots
+> of nine 30,000-operation rounds, median per-round mean over 108 rounds:
 > 
-> greg k-h
+>                     compress     decompress
+>   unpatched         16,756 ns     3,455 ns
+>   patched           13,646 ns     1,002 ns
+>                     -3,110 ns    -2,452 ns
+>                      (18.6%)      (71.0%)
+> 
+> The main reason is because CPUID is an unconditional VM exit.
+> 
+> [1] https://gist.github.com/uarif1/5cf02f0e22c23f0d1b3d84348f12914c
+>  
+> Usama Arif (3):
+>   zstd: use ZSTD_cpuSupportsBmi2() in ZSTD_initStaticCCtx()
+>   zstd: skip the BMI2 probe when dynamic BMI2 dispatch is disabled
+>   zstd: probe the CPU for BMI2 support only once
+> 
+>  lib/zstd/common/zstd_internal.h   | 22 ++++++++++++++++++++--
+>  lib/zstd/compress/zstd_compress.c |  2 +-
+>  2 files changed, 21 insertions(+), 3 deletions(-)
 
-Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working well,
-no regressions observed.
+Why not just use cpu_feature_enabled(X86_FEATURE_BMI2), which compiles
+down to a static branch?  All these issues are caused by lib/zstd/ using
+its own custom CPU feature detection code, instead of the normal CPU
+feature detection code that the rest of the kernel uses.
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
-
--- 
--Barry K. Nathan  <barryn@pobox.com>
+- Eric
