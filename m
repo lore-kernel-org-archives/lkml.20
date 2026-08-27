@@ -1,167 +1,260 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013024.outbound.protection.outlook.com [40.107.159.24])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C2F03F105E
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:57:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.24
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787864243; cv=fail; b=OApfxzd40K8Q96nFpRHhZ5R3ehD1kTKi07Z/wwLylJrHvCavBMZYwLFASRqR7MoCw2mAaLZ5U+PYPtKSaze4Z6wJGY6N57oSd12sYwgKo0SdToK2q1fkr9uQAWei6z3NERgfw2xhOhE0UZi0O/znBT2T2Pn3nqu0teCARVG9bkQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787864243; c=relaxed/simple;
-	bh=wXUess2igCfyyZl/+t0E0Wx20qp1iBEwA5guLSqOzN8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=f3ngTKXNCQ3kchjBHUcWu32G1lRySw/vABdNqLEy6RV7fWxF9LVuc3oB1qvapbcaJ8g/hJKHQ45XGL00gHgfnIG1ff6uWPJF36auwSBzU0bA+bFrqpBZ2cTcJWmjSnVTbOkCEM5s43q2aBJNfRhabIdic02eNaX1jbK4Sirq9bw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=S2ZRXir6; arc=fail smtp.client-ip=40.107.159.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E473E3F105E
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:57:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787864258; cv=none; b=pVOZOkQ2QCFSvBdFGt+BjkLHqK/3+2UFOAk/1ITFof4qrzP8rIO1/WfDFSzU+9J5qurzR9WfYj8h+sXQV7cs2jcftwVOFd9ABwDZNgANFl3hyBJ05ZPCD3vLjt4SffuHrprcQDKSI1LDwDofbnPD1vnP8ZbDFqAB43NGyQWxz/E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787864258; c=relaxed/simple;
+	bh=Donu65/36kGS+VqA2Oyp0PEnRCBi7gvEikgAyWaik5M=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Vn+cOAgFanO/pxQPJmpixGSL2m0ltEkmC4vvbMWUMPrk15gCbO3VdCqvc5olrg9IkpDqMipTKhMYS5F7PrKT4v3v9n9JdkyB4KQHLt20Ulf7tFMix8FrK+fQZHuWdUbJlWumrNgoAhEczvwiMXCOOIRhQA6soanh3/J/ZY94q9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=knUwSWnx; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="S2ZRXir6"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PZTzmkFuAU9O1fhEK34M5mZSDz18rX/iShAH0+U1nnJPcWRsTa4XGuuNKFu75cW9eRfLkCmZdj8Q3EA6qtUSp6zimyBJizD3rlchnetwqnNhk3uKuQ29SIrurAZ0Xq+j6B070/SXNcF9SUUu/k41OEerzP6j7dd/KuTPyrS38zvt636xbKCj+gXT4haTWImT5zlP+tVWmA7dRWNI6BiTat5iVOoSjg5NHfUzeC+k547JeXN556JqfaPRvt92iIEo4Hhd7BMS4pmyeV0xfsmIKfuu+wDeoBlC13QjKgNu13IgkOCRVfL+L13rkL2SAlCDmhR+BYnHsS66nbGK2JNfcw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8tGM9AW+WOJ4aOkd0eHhkkRK+rwSWeG0CUwho4v4eyU=;
- b=E3UzyX/P2g4KDuhwneGD9NP8n0/HLqyZlEwqeDOYrJvJLc5RWfRNWwMzAS1oAeM2MBiWFjFtJGKeFvfJQpAcsNgDmY2JwNA/vK9UBX9pDg+VL9jYkLX6KoXmQoKMS8Nzj+D3LpXYi9HpHYqNSZ6OqDP0Q6EAiCXOgtRxpo1/cb6OIl3g2uWu5dUNLRLtwfv85oYaI0035lp4in44OrA5eatuvCBUodmByvHSPZZnbSt5q2nBI2bEDLQFWx/RTZblPvR20KFmumeg8kVL0Lj+VBDO4/SLD7FwTyvhx6ss3kWKVw9WFuXeySiN4RLnLLzDEchinYT03/DWj2raFZs5Hw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8tGM9AW+WOJ4aOkd0eHhkkRK+rwSWeG0CUwho4v4eyU=;
- b=S2ZRXir6fuDmAzJpN7S1V18aaI13GO+EYZL//dk/wjkl/wd200WHQRre+pXAueX4kNFhwO+nflZe5hl/czquGHo3u8ymKm9m3VBv9AiJrApWe7oQf/w3n34PlKb8wwt5DMKw07xgqpNdrvppoiCP6P1sySdDbRp7Rzgpot0svz3C6v4ZYWKgnfVMKDWBBTuzBql023GMm9DRLNErEHFE5wVEXEmUqtoFetK9Z3RXEPj2vNP4Q7DyEriWiEr0JHzwwou3+DCdH2p/vgxW+7pXwUXr96IZE8Sh+af7TuzywuarorAIwNzFHaM4VT/dxvUhyGpda4nol8+3zvEsQKtyPw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by PAWPR04MB11569.eurprd04.prod.outlook.com (2603:10a6:102:50a::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
- 2026 20:57:18 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
- 20:57:18 +0000
-Date: Thu, 27 Aug 2026 16:57:10 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 05/11] accel: ethosu: Ensure SRAM region size matches job
-Message-ID: <apCkpjQtKRaTNQ1n@lizhi-Precision-Tower-5810>
-References: <20260827-ethosu-fixes-v1-0-346f9ea8791c@kernel.org>
- <20260827-ethosu-fixes-v1-5-346f9ea8791c@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827-ethosu-fixes-v1-5-346f9ea8791c@kernel.org>
-X-ClientProxiedBy: PH7P220CA0131.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:327::33) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="knUwSWnx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787864256; x=1819400256;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=Donu65/36kGS+VqA2Oyp0PEnRCBi7gvEikgAyWaik5M=;
+  b=knUwSWnxzxfvsVVx8A4jxjCRWs0uPk7I+CaYldBtM/4PJU8IxeT/9SRA
+   bVGsKkF7hPkD+yP91AExv1Mqaqds50Dy5abFfSBBR3DHjK7VhbOEqupZc
+   osGxrvxAs0N0AXHtzDhAsob7zQtXMPh1xO2WdrbsNbc6hRTfCGZYTq220
+   jWvrNjaCFIchVNzKynMjnqwnQnXmIjls6fz62PR0HK5LYv+ZjNNT+xR7m
+   RSkrgPOKAIMPdbY7H+o5td2oMg6D+Q7dAC1r5WgBkKOGWEZlFmyTaGIMz
+   D/n3q9jY0b19JBO4NUasGCCjWqJVTKj13vcgMCarrGcjGGJ9o/osQ70RP
+   Q==;
+X-CSE-ConnectionGUID: ljd1Uc/QQmKzvpLODaiRWw==
+X-CSE-MsgGUID: A8jpj4HjTkCuIOQ79412fw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="87318140"
+X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
+   d="scan'208";a="87318140"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 13:57:35 -0700
+X-CSE-ConnectionGUID: U58TKUZeQz+4XAVvmcm88Q==
+X-CSE-MsgGUID: PxdcLiFgTdeetol7BLC/qQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
+   d="scan'208";a="264210967"
+Received: from unknown (HELO [10.241.243.185]) ([10.241.243.185])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 13:57:34 -0700
+Message-ID: <59e2b8265fc650266b93d8f523c366edfa912428.camel@linux.intel.com>
+Subject: Re: sched/fair: which tasks should nr_pref_llc_running be compared
+ against?
+From: Tim Chen <tim.c.chen@linux.intel.com>
+To: Zhan Xusheng <zhanxusheng1024@gmail.com>, yu.c.chen@intel.com
+Cc: peterz@infradead.org, mingo@redhat.com, juri.lelli@redhat.com, 
+	vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org, 
+	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
+ kprateek.nayak@amd.com, 	linux-kernel@vger.kernel.org,
+ zhanxusheng@xiaomi.com
+Date: Thu, 27 Aug 2026 13:57:33 -0700
+In-Reply-To: <20260827135000.735138-1-zhanxusheng@xiaomi.com>
+References: <20260827135000.735138-1-zhanxusheng@xiaomi.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PAWPR04MB11569:EE_
-X-MS-Office365-Filtering-Correlation-Id: e76b4fae-f05a-470a-c0fc-08df047dc842
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|366016|376014|19092799006|56012099006|10067099003|11063799006|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	SRJNkx7+NrRiVJ5UWf/yXAsSFv7SffFLH0Eaewpg6tc25w1W4XjrIFy3mvOa8sCWojomZ7Tr46s7mAZvXlKcjD74WpzsuRxqcL/1muqtWnp3xaaMjbt9husBPfRpIIhLvRcwY+6jdx3icRTKf+K6FiZV7Zx32hGbvlSAw46YPJnh9wmGkIk5MeVKmSS+5E+0K3Uw8JuVv142J1D4MT3d62OU4iS0T7INRuiAGa+qQBsuWdn/XTTs9QmA5Gy1ZvVuVrZIX/qCYyosAoVBpYEHgyfY+rxX7wk+Hy9q/td8LHudSGijPSdvE980MC8lym7zEpJrb9aL1RAAxXdmWd51lW8PvzomwlsVu/WvqW4/gGDC3Ub3xtGob8bG5KV+9k8YUB/51RQw0Vvm7fLeAm8R3ajnYWE+FGxcqE/ZT8eoUDkix7EQ+OnM1rO4F8D8FWrZwi8gUatNuyjHfqpgmJ1ZgsoI7F5dirMTWwLssvLTlWUnhfrY3h+WryJ1sgNsOPOVH76n3HP85rYrTQVi1VNO1w19kloHQ1CaIDuKsEo5mvUjHZ5kaENE3CG71P4t4NZFM5ErvZfPk/R6bFdg2Fvg1nBz49ChTB8rYVfnN3RczW8w+gA+qtzH2n2dxxZ2cqiIIOle8PhjlAeS9AM2IgUsNT2mfLbQy+QGbep6HIfdjG8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(19092799006)(56012099006)(10067099003)(11063799006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?NJUG4srbzmCmMFj+AoBE74UMLKT+iQlheiLageMZCMnaFTcENi7jOc4gbfwv?=
- =?us-ascii?Q?TSQ9D3UJi+ZQh9/CYLNvcm5Cc+t2Ln33v+5YIJ2ECW4und4p3yFzn4GjakI1?=
- =?us-ascii?Q?5Ux92a9IsPYptpl9Mhe/Fp/bp4rv9Mqi5eCjYWY63Jv1NLN68xd9VIpIlaPm?=
- =?us-ascii?Q?EeHX8N/ztGGgFX0rhUrnXXnwJf/p6lbP90cQ68XQWofgLjyV7YD5sgD/azrH?=
- =?us-ascii?Q?nTGEFJaLCYUcR86lq82tJ791ZHbf5WZbay9rdzcN7cGjoWw4n74eVC0JnDod?=
- =?us-ascii?Q?RdbQajsQL5rLouBeuAgCpqlaKlMmVs1hIffNlIZgfT4yq0uEjMCKbgVbZE9z?=
- =?us-ascii?Q?6dXfQuSjml9YZ+Gq2spotxEUQE4pkY5lKXikTBnwr5O3Rwux/ZQEQrZUSS9v?=
- =?us-ascii?Q?08R2RYck2f4M0vsJPW8y0ILDqjfVGifYHh6mtppS/HuhIfxE9L9yVR0iV9Mp?=
- =?us-ascii?Q?NAD8i2VB5J/qRQSFMPbr7t4zrwJuSGMWLSwxsMKosQGyuCsobeE78svoZYRo?=
- =?us-ascii?Q?H7Jn59+RrzBAxWnfwx5F4I1mFbCIkBHSXJtRaTbQSYhlvy9PWeHc7s41rndT?=
- =?us-ascii?Q?bA1mnFXXR/MvM7NGY8ODYq4G1nNCu1dtz/BfDkyvcSQDArq8D2pXNSaXIVMK?=
- =?us-ascii?Q?mL4WicYHEsfHsHi6we6DoUSGJsSVEEQ11sZrfVZlnlhqs4WSHi+9WiIS36Ix?=
- =?us-ascii?Q?Oz5ITBf5b8vsO8td4M+bl5zUfmB/3a4ag1AcqlL+UKc51APta1/3aBWmTQK8?=
- =?us-ascii?Q?h2MfXLZZNaKWgFrV6S13a51JFVvHNcThRns2HPLmSRLxh/+Ich00FbB5stNZ?=
- =?us-ascii?Q?hD/xFJrqazfUmbLw9bm3XeJ/9Jlz7IgNxp1TXtDldfDZnxf6JHSvbIvw25ig?=
- =?us-ascii?Q?0uCGttG2lFd8yGCMOerytp9UMfcpx9aRCqMUfq8J0WeqANfytahpUSys2CO+?=
- =?us-ascii?Q?3UwzbXh9DEgdbq5TgBE7OFW0waz3bn3+F0GlXtXG9C/oITy315O9oxj16/2S?=
- =?us-ascii?Q?4cGjmC1jrmp/YzuIEla49ooueiwb1bGRn5jO4SDnjvfpvEPkeO0xWyo6wL3h?=
- =?us-ascii?Q?OKf4/JoE6WKBD8FE0E0K9rO2uhQ5yV5ergOury3uzHjDpCWTNxOe36oCDvJB?=
- =?us-ascii?Q?jw82BDDs3pWVpvIoauWATRAyotK9P/PO4O14Mmn9968UQa3bpawxoJ68BKp/?=
- =?us-ascii?Q?IF3Vn6klkGp3Qb7vvtBjKX2eS/VBgh2RpTRXuFMfrkKzWC7vTXWugn5AwI/S?=
- =?us-ascii?Q?LQvvVmX/97OIYYUrG3dX5BaXVQJkMJoFYpjydIB0M64JdZWyUvzh48KLrwRu?=
- =?us-ascii?Q?kwDy+P1ziMPdeOnW0LGjcArmeQzNZxq6XfFAzres/F5e+ttRZhk2uHDA7ThU?=
- =?us-ascii?Q?3MG3xPJHZQKr35UbyGiLRseBaW5o/jMVbP2A0/sAzG4JppTJzs3eR4lYpKhm?=
- =?us-ascii?Q?BSA93j9PR70C04fu4pwLGJFcE4/hEL5vp/5I2wUosuBD9pmu3fw9tkBuuaul?=
- =?us-ascii?Q?JhIBi5KGsqGe/1OPUWunR70LIjxzXU4Tm7Jo5W5T+9g2PMV2YpKzVjf9AMWn?=
- =?us-ascii?Q?UjMtsdmCdGITABFSWy9TX1pB+e+NLMaDTEsp2zQAso+Xh3IJRAJQlMrMUS9t?=
- =?us-ascii?Q?a66pIiO2VcOOQkqOt9DRl5CzxkSc2K/XjkR0A2Uc9pTHiZ/rBDASc32cN31d?=
- =?us-ascii?Q?eLwG6TvVgTUwBcAQHtVVvO+PdmBf1nqTKvUhOEOEnYZjxQ78oQ9awmFilNE2?=
- =?us-ascii?Q?xzqCmwJvUBtH9iG9euL42wQHY73A3SbC1MkvWyLE+7aaqS8iLmb/?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e76b4fae-f05a-470a-c0fc-08df047dc842
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 20:57:18.8728
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IBSlz8+f4sYCIjZMgi1EKtaOZedqsTyYeolIOletbljOrjedGMqIRqKBmmv0MtCU1fy+t/yGr0qR2osDFrqqLemH+1jgKSO4DgIhn0Y7xENy/WcAnnrBFQbpAX6u+VQi
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR04MB11569
 
-On Thu, Aug 27, 2026 at 03:33:04PM -0500, Rob Herring (Arm) wrote:
-> It is possible for userspace to set the job SRAM size to 0, but then still
-> have SRAM accesses in the command stream. When the job SRAM size is 0,
-> setting the region base register is skipped and a stale base address from
-> a prior job is used.
->
-> Check the region size against the job's SRAM size instead of just the size
-> of the SRAM. The job's SRAM size was already checked against the total SRAM
-> size.
->
-> Fixes: 9cff90774872 ("accel: ethosu: Validate SRAM size on submit")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
+On Thu, 2026-08-27 at 21:50 +0800, Zhan Xusheng wrote:
+> Reading alb_break_llc() I cannot tell which set of tasks the equality is
+> meant to cover:
+>=20
+> 	/* kernel/sched/fair.c:10756 */
+> 	if (env->src_rq->nr_pref_llc_running &&
+> 	    env->src_rq->nr_pref_llc_running =3D=3D env->src_rq->cfs.h_nr_runnab=
+le) {
+>=20
+> The two counters track different sets.  nr_pref_llc_running is maintained
+> from account_entity_enqueue() and account_entity_dequeue() at fair.c:4522
+> and 4538, beside cfs_rq->nr_queued++/-- at 4525 and 4541, so it follows
+> queued tasks.  h_nr_runnable leaves out delay-dequeued entities:
+> set_delayed() decrements it at 6398 while the entity stays queued and
+> clear_delayed() restores it at 6418, neither going through
+> account_entity_dequeue().
+>=20
+> So with DELAY_DEQUEUE a task that has just gone to sleep holds
+> nr_pref_llc_running above h_nr_runnable until it is dequeued for real, th=
+e
+> equality cannot hold, and alb_break_llc() returns false, which stops
+> active load balance from honouring the LLC preference.  The counter is a
+> superset of the other, so the error is one-sided: the check can fail to
+> protect but never protects wrongly.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Thank you for your review of this code.  You have a valid point that DELAY_=
+DEQUEUE
+could cause problem with the check in question. The intention of the check =
+is to take
+care of the situation where all running tasks prefer the source LLC, and
+we should try not to do active balance that will break LLC locality.
+And delayed dequeue of a task preferring source LLC could break the check
+unintentionally, even though the rest of running tasks still prefer source =
+LLC.
 
->  drivers/accel/ethosu/ethosu_job.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/accel/ethosu/ethosu_job.c b/drivers/accel/ethosu/ethosu_job.c
-> index c33f2877b385..0982722a9195 100644
-> --- a/drivers/accel/ethosu/ethosu_job.c
-> +++ b/drivers/accel/ethosu/ethosu_job.c
-> @@ -441,13 +441,13 @@ static int ethosu_ioctl_submit_job(struct drm_device *dev, struct drm_file *file
->  			if (!cmd_info->region_size[i])
->  				continue;
->  			if (i == ETHOSU_SRAM_REGION) {
-> -				if (cmd_info->region_size[i] <= edev->npu_info.sram_size)
-> +				if (cmd_info->region_size[i] <= ejob->sram_size)
->  					continue;
->
->  				dev_err(dev->dev,
-> -					"cmd stream region %d size greater than SRAM size (%llu > %u)\n",
-> +					"cmd stream region %d size greater than job SRAM size (%llu > %u)\n",
->  					i, cmd_info->region_size[i],
-> -					edev->npu_info.sram_size);
-> +					ejob->sram_size);
->  				ret = -EINVAL;
->  				goto out_cleanup_job;
->  			}
->
-> --
-> 2.53.0
->
+>=20
+> Comparing against cfs.h_nr_queued would make both sides agree and read as
+> "every queued fair task prefers this LLC".  Keeping runnable semantics
+> would instead mean maintaining nr_pref_llc_running from set_delayed() and
+> clear_delayed(), which may be the better fit, since only runnable tasks
+> are candidates for active load balance and a task on its way to sleep is
+> not one.  Which did you have in mind?
+
+I think the proper thing to do is to make sure the nr_pref_llc_running acco=
+unts correctly
+the number of running tasks that prefer the source LLC.  And
+exclude those that are delayed dequeued.  How about the following fix:
+
+Tim
+
+---
+From de4acf2ec43a57d84aa301b50c4ab51965ac1f23 Mon Sep 17 00:00:00 2001
+From: Tim Chen <tim.c.chen@linux.intel.com>
+Date: Thu, 27 Aug 2026 11:20:31 -0700
+Subject: [PATCH] sched/cache: Keep nr_pref_llc_running in the runnable doma=
+in
+
+alb_break_llc() decides whether to break LLC preference during active
+load balance. It does so by testing that every runnable fair task on the
+source rq prefers its LLC:
+
+	env->src_rq->nr_pref_llc_running =3D=3D env->src_rq->cfs.h_nr_runnable
+
+But the two counters cover different sets. nr_pref_llc_running is updated
+in account_llc_enqueue()/account_llc_dequeue(), next to cfs_rq->nr_queued,
+so it follows queued tasks. h_nr_runnable is updated in set_delayed()/
+clear_delayed() and drops delay-dequeued tasks.
+
+Say we start off with all running tasks preferring source LLC.
+So under DELAY_DEQUEUE, a preferring task that goes to sleep stays counted
+in nr_pref_llc_running while h_nr_runnable falls. The equality then breaks,
+alb_break_llc() returns false, and active balance is free to pull a task
+off its preferred LLC. Active balance only moves runnable tasks, and this
+is the only LLC check it consults: once the stopper runs, LBF_ACTIVE_LB
+skips the per-task test in can_migrate_task().
+
+Fix it on the counter side. Adjust nr_pref_llc_running in set_delayed()
+and clear_delayed(), the same places that adjust h_nr_runnable, so both
+exclude delayed tasks.
+
+This needs care to not count a task twice. set_delayed() removes the task
+from nr_pref_llc_running when it sleeps. Later, when the task is really
+dequeued, dequeue_entity() calls account_llc_dequeue() and then
+clear_delayed(). Left as is, account_llc_dequeue() would remove the task a
+second time and clear_delayed() would add it back. So account_llc_dequeue()
+skips its decrement while the task is still delayed, and clears
+pref_llc_queued so clear_delayed() also leaves the count alone.
+nr_llc_running and sd->llc_counts are not touched and stay on queued
+semantics.
+
+Reported-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+Assisted-By: Claude Opus 4.8 <noreply@anthropic.com>
+Signed-off-by: Tim Chen <tim.c.chen@linux.intel.com>
+---
+ kernel/sched/fair.c | 45 ++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 44 insertions(+), 1 deletion(-)
+
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index d78467ec6ee1..1673b17273c5 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -1544,7 +1544,14 @@ static void account_llc_dequeue(struct rq *rq, struc=
+t task_struct *p)
+=20
+ 	rq->nr_llc_running--;
+ 	if (p->pref_llc_queued) {
+-		rq->nr_pref_llc_running--;
++		/*
++		 * If the task is being finally dequeued while still delayed,
++		 * set_delayed() already removed it from nr_pref_llc_running;
++		 * skip here to avoid underflow. Clearing pref_llc_queued also
++		 * stops the subsequent clear_delayed() from re-adding it.
++		 */
++		if (!p->se.sched_delayed)
++			rq->nr_pref_llc_running--;
+ 		/*
+ 		 * Update the status in case
+ 		 * other logic might query
+@@ -1572,6 +1579,24 @@ static void account_llc_dequeue(struct rq *rq, struc=
+t task_struct *p)
+ 	}
+ }
+=20
++/*
++ * A task becoming delay-dequeued leaves the runnable set while staying
++ * queued. Keep nr_pref_llc_running in the runnable domain (like
++ * h_nr_runnable) so alb_break_llc() can compare the two directly.
++ */
++static void account_llc_delayed(struct rq *rq, struct task_struct *p)
++{
++	if (p->pref_llc_queued)
++		rq->nr_pref_llc_running--;
++}
++
++/* A delay-dequeued task becoming runnable again rejoins the count. */
++static void account_llc_requeue_delayed(struct rq *rq, struct task_struct =
+*p)
++{
++	if (p->pref_llc_queued)
++		rq->nr_pref_llc_running++;
++}
++
+ void mm_init_sched(struct mm_struct *mm,
+ 		   struct sched_cache_time __percpu *_pcpu_sched)
+ {
+@@ -1969,6 +1994,10 @@ static void account_llc_enqueue(struct rq *rq, struc=
+t task_struct *p) {}
+=20
+ static void account_llc_dequeue(struct rq *rq, struct task_struct *p) {}
+=20
++static void account_llc_delayed(struct rq *rq, struct task_struct *p) {}
++
++static void account_llc_requeue_delayed(struct rq *rq, struct task_struct =
+*p) {}
++
+ #endif /* CONFIG_SCHED_CACHE */
+=20
+ /*
+@@ -6203,6 +6232,13 @@ static void set_delayed(struct sched_entity *se)
+ 	if (!entity_is_task(se))
+ 		return;
+=20
++	/*
++	 * A delayed task is queued but no longer runnable. Drop it from
++	 * nr_pref_llc_running so that counter keeps runnable semantics and
++	 * stays comparable with h_nr_runnable in alb_break_llc().
++	 */
++	account_llc_delayed(rq_of(cfs_rq_of(se)), task_of(se));
++
+ 	for_each_sched_entity(se) {
+ 		struct cfs_rq *cfs_rq =3D cfs_rq_of(se);
+=20
+@@ -6223,6 +6259,13 @@ static void clear_delayed(struct sched_entity *se)
+ 	if (!entity_is_task(se))
+ 		return;
+=20
++	/*
++	 * Re-add on wake (requeue_delayed_entity). On the final delayed
++	 * dequeue, account_llc_dequeue() has already cleared pref_llc_queued,
++	 * so this correctly does nothing.
++	 */
++	account_llc_requeue_delayed(rq_of(cfs_rq_of(se)), task_of(se));
++
+ 	for_each_sched_entity(se) {
+ 		struct cfs_rq *cfs_rq =3D cfs_rq_of(se);
+=20
+
+base-commit: a13c140cc289c0b7b3770bce5b3ad42ab35074aa
+--=20
+2.53.0
+
+
