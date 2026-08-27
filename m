@@ -1,51 +1,51 @@
 Received: from bg-bec.cloudflare-smtp.org (bg-bec.cloudflare-smtp.org [104.30.16.142])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DA6D34D398
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:42:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 671F834A3AB
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:42:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=104.30.16.142
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787834560; cv=none; b=GYIHahLiyoKdIKxM6T3xzxqo7PCtNGBhOjrEIoxhtEreehPn3bI41qTxspNFejf8Gsg1vQJ2nU7EbsMdN5DXl8pbZTv99oGbV9q8Tz86C8x/G8f1DI20kUifJEl7ONeJ+3ulCJcHXBfu8oHdfNdTILT0xddaGv6GpzhnoqbBR04=
+	t=1787834566; cv=none; b=JJ66F5avQk5x8GzZFWdH7rBMu1h0nwZXMZ0x9Lbaj3bmwz5SkxoR9cmnWi0UBmbTD1b0LK3JOSMJmcq2rZnClS5ysjCY0t7WvyxTWjeSnpjrzvVAWtyzCrrvY6GzUinKecG4YNA3mRNE6DiaOK+wvFgbrCpdaN0oHtB+WObF8Ws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787834560; c=relaxed/simple;
-	bh=AI5d5IqzS7q4VBUwORDrMITMfMe6rIMabN1dcTG/2es=;
-	h=From:Message-ID:Date:Subject:To:MIME-Version:Content-Type; b=kuYURrmtj31ISfBEn1wc5nq1kW7OJIMttMmQz3ZpQinBK9mVvYCM9VtroFV5AdcGoBp1gd0tulqDU4xBIN64gMNt3+eOyRHR+8JXEfhT4lwPclTTN7ltUkR3BShi79NWWq/KFN/9i3viMgjqI4GTnrgSREfl321i354qHL0fidU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh; spf=pass smtp.mailfrom=cf-bounce.bugs.sh; dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b=Nf0gHpF0; dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b=aqU3vgLd; arc=none smtp.client-ip=104.30.16.142
+	s=arc-20240116; t=1787834566; c=relaxed/simple;
+	bh=XQzAfIsC9+flS59+PGlC0Ss1Sp0nUG6zn1cFpGwpHo0=;
+	h=From:Message-ID:Date:Subject:To:MIME-Version:Content-Type; b=ZNCfFOx/14v7WgNH5qB/1sWOTow8kW+7ft13NRajavWx2luvddUFKHBj6PtPhOgTvBnEOGQEFD31MobZrIrc/vu75zABHzHlsIqf9bOjWLf0pWZvvqSErmEMru8yrjFLGOtCVGUbH9SlfjS2W89fQdxLmLI2vR+/kbq/pKRyVMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh; spf=pass smtp.mailfrom=cf-bounce.bugs.sh; dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b=VsjoukL0; dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b=eMuRgJ6q; arc=none smtp.client-ip=104.30.16.142
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cf-bounce.bugs.sh
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b="Nf0gHpF0";
-	dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b="aqU3vgLd"
+	dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b="VsjoukL0";
+	dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b="eMuRgJ6q"
 DKIM-Signature: v=1; a=rsa-sha256; s=cf2024-1; d=cloudflare-smtp.org; c=relaxed/relaxed;
 	h=To:Subject:Date:From:Feedback-ID:from:reply-to:cc:resent-date
 	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
 	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
-	:list-owner:list-archive; t=1787834554; x=1788439354; bh=qwcWHQkLh6sHsKv0PM
-	ad8X2aksEimXW/29XeXlzbdw0=; b=Nf0gHpF0JCASxuujorGZEbQe4yGdo2mYTJFrmUCcywyFi
-	Jikl+WCl88qYEvsiWDEqgNSj8y3I+517XSHYvTSHAmzXgIf+deOPZbCRjKiPgZcszNq89Ejfue+
-	Vy/0dfCiYACFCjRcDfrOFsxrY9np0vd9gDTVdNyOaYzjYgvhWUyBKfOAIfTfG/Atv5mlwlrOUQO
-	rxgCxj4DsIbxjkXg/tCQ914z9kuulBDxn6SWDk42aAtpNArIKOQVJxTAODGP2LuVSFRqV1EBra7
-	1gRM199y6XOIsci+RLJv9E6JuJKBMkhJshw8InmdwcWAUO1q35vIcIaITGkU0t4aNiaDI0Dg==;
+	:list-owner:list-archive; t=1787834556; x=1788439356; bh=q8SFxnN1MP94vl/s16
+	UCgPLlqsrqwyFpQxZRdVvmd+0=; b=VsjoukL0VyF8kKn5Ly26VYohgRrJIU6lqgNZhLcfPXl1U
+	HeUAxCoYKPHRaAlUHrxd8h7emly5J7OP1tVumh4HuCpT7EkkcCN0fVp7Y9Z7EcgIZ32O8A4PTTK
+	qQzk0p3OvEDP8kB7FJQ0udRZE6J/heEQv2k/ZbWKt5HwnM59xfCo+lNUubteiumAgn/87qW9hph
+	XrJs7u74LBTIilYNma4i1jvxJfeows95vThdyla/juN5lvBeSsdaP+LFNvc7kIrGi18nzK4t/Y5
+	n6BQ0ByEJ4vuTrPzsoe+CIkPIL+wFSwbjnVBLml3LoSwjB5+4J7Cm66rfXmbUpKddEU+jC4Q==;
 DKIM-Signature: v=1; a=rsa-sha256; s=cf-bounce; d=bugs.sh; c=relaxed/relaxed;
 	h=To:Subject:Date:From:Feedback-ID:from:reply-to:cc:resent-date
 	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
 	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
-	:list-owner:list-archive; t=1787834554; x=1788439354; bh=qwcWHQkLh6sHsKv0PM
-	ad8X2aksEimXW/29XeXlzbdw0=; b=aqU3vgLdS1mNtgDUnolZEooRaYuCdtQPcHryoGVhhsjRY
-	X2gEjhAklAq5a/vk2JlMpnAdclNVRo25C14rWXbtvnZNDiKlYawg+6nBYy1LFi18NOcWrmKNOHN
-	0gUeWs/2U4eSWViJ8hAk7OSh1Gp9naT4KuFp4cnWBi15dLlPzLcKFLUyJ4N/7YIFYGG4l9BEo/x
-	r3MKXZbiUtd6bwQg803dkBrWc7SiBgtMpF5J40DcD0Cg5eUJN9x8qSjxwn0kATTYvGouVQdC/vn
-	UvB9CljBfBqmRaduk5JjAeceNvSHT0JT8oX4s7Sn3IyGkQbuvb1nE+Oqhz1gw8LR2OTB5NPw==;
+	:list-owner:list-archive; t=1787834556; x=1788439356; bh=q8SFxnN1MP94vl/s16
+	UCgPLlqsrqwyFpQxZRdVvmd+0=; b=eMuRgJ6qGhKvNL1K5y1qKbpCkQn0rR3tGQfN8CNETbN3e
+	21WnyWyYuDqxYLfi+++GLTniEGwjdk6tGlmPcew05gLH+o74FxArGXTu6rvXzV03629BhtRTXPA
+	j0PMtXvLaCB7kB1gGpcQPsxSArJHDABlh7Doi2ID2Ticc5PH3IpgWXPbupT9ywT/bzTpbQAekDY
+	GWnAAH6npR6+WrQoVnVhsxtI0uyHfPeWf5Iw96OcnmhfLCX6XyuGnWKSxBNBTPHUJ/O28Jae5La
+	NqqKFhSTqIu6mcVsRjLWen1nC1qZDJENSI9u5eSdrm5G8UG8efDbuERpc08m7+zHHJDkKn8Q==;
 Feedback-ID: bugs.sh:5:6:Cloudflare
-From: co <co+9d44b184bc8f410d@bugs.sh>
-Message-ID: <1wU0VjMckz7b5ly5tzcr7MbjZKdV9kTFjcc4@bugs.sh>
-Date: Thu, 27 Aug 2026 12:42:26 +0000
-Subject: [BUG] drivers/misc: out-of-bounds in qp_memcpy_to_queue_iter()
-To: "Bryan Tan" <bryan-bt.tan@broadcom.com>, "Vishnu Dasa" <vishnu.dasa@broadcom.com>, "Arnd
- Bergmann" <arnd@arndb.de>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org, "Broadcom
- internal kernel review list" <bcm-kernel-feedback-list@broadcom.com>, "George
- Zhang" <georgezhang@vmware.com>, "Dmitry Torokhov" <dtor@vmware.com>, "Andy
- king" <acking@vmware.com>
+From: co <co+5a7f44e9dc1eab32@bugs.sh>
+Message-ID: <J9JLc2EgME43HXjcdEG2ILy4SDCm76YbQAKb@bugs.sh>
+Date: Thu, 27 Aug 2026 12:42:32 +0000
+Subject: [BUG] net/core: use-after-free in tcp_v4_do_rcv()
+To: netdev@vger.kernel.org, "Eric Dumazet" <edumazet@google.com>, "Kuniyuki
+ Iwashima" <kuniyu@google.com>, "Paolo Abeni" <pabeni@redhat.com>, "Willem
+ de Bruijn" <willemb@google.com>, "David S. Miller" <davem@davemloft.net>, "Jakub
+ Kicinski" <kuba@kernel.org>, "Simon Horman" <horms@kernel.org>, "Daniel
+ Zahka" <daniel.zahka@gmail.com>, linux-kernel@vger.kernel.org
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -57,10 +57,11 @@ Content-Transfer-Encoding: quoted-printable
 
 We found a bug reachable in:
 
-    path    drivers/misc/vmw_vmci
-    crash   out-of-bounds in qp_memcpy_to_queue_iter()
-    commit  bd5f485f3f02 ("Merge tag 'soc-arm-7.3' of git://git.kernel.org/=
-pub/scm/linux/kernel/git/soc/soc")
+    path    net/core/sock.c` (missing handling), `net/psp/psp_sock.c`, `net=
+/ipv4
+    crash   use-after-free in tcp_v4_do_rcv()
+    commit  7cbfb180945c ("net/sched: sch_cake: fix autorate reconfiguratio=
+n throttling")
 
 Config, environment, the sanitizer report and a C reproducer follow.
 
@@ -70,7 +71,7 @@ Config, environment, the sanitizer report and a C reproducer follow.
     If you patch the bug based on our artifacts, a tag would be
     appreciated:
 
-Reported-by: co+9d44b184bc8f410d@bugs.sh
+Reported-by: co+5a7f44e9dc1eab32@bugs.sh
 
     Everything in this mail is validated by the reproducer below.
 
@@ -80,8 +81,8 @@ Reported-by: co+9d44b184bc8f410d@bugs.sh
     human review, so both still require validation before you send or
     apply them. Available on:
 
-        patch.diff  https://bugs.sh/b/9d44b184bc8f410d/patch.diff
-        report.md   https://bugs.sh/b/9d44b184bc8f410d/report.md
+        patch.diff  https://bugs.sh/b/5a7f44e9dc1eab32/patch.diff
+        report.md   https://bugs.sh/b/5a7f44e9dc1eab32/report.md
 
     This is an open science project. The code and the full set of PoCs
     are not public at this moment, as we intend to disclose our findings
@@ -95,35 +96,63 @@ Reported-by: co+9d44b184bc8f410d@bugs.sh
 =3D=3D Environment =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-    Reproduced on  bd5f485f3f02 ("Merge tag 'soc-arm-7.3' of git://git.kern=
-el.org/pub/scm/linux/kernel/git/soc/soc")
-    VM setup       https://bugs.sh/b/9d44b184bc8f410d/run.sh
-    config         https://bugs.sh/b/9d44b184bc8f410d/config.gz
-    poc            https://bugs.sh/b/9d44b184bc8f410d/repro.c
+    Reproduced on  7cbfb180945c ("net/sched: sch_cake: fix autorate reconfi=
+guration throttling")
+    VM setup       https://bugs.sh/b/5a7f44e9dc1eab32/run.sh
+    config         https://bugs.sh/b/5a7f44e9dc1eab32/config.gz
+    poc            https://bugs.sh/b/5a7f44e9dc1eab32/repro.c
 
 =3D=3D Sanitizer Report =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-BUG: KASAN: slab-out-of-bounds in qp_memcpy_to_queue_iter.isra.0 (drivers/m=
-isc/vmw_vmci/vmci_queue_pair.c:348)
-Read of size 8 at addr ffff888013c2c568 by task exploit/145
-CPU: 0 UID: 0 PID: 145 Comm: exploit Not tainted 7.2.0+ #9 PREEMPTLAZY
+BUG: KASAN: slab-use-after-free in tcp_v4_do_rcv (./include/net/psp/functio=
+ns.h:107 ./include/net/psp/functions.h:118 net/ipv4/tcp_ipv4.c:1834)
+Read of size 4 at addr ffff88800bf51e14 by task exploit/145
+CPU: 1 UID: 0 PID: 145 Comm: exploit Not tainted 7.2.0+ #1 PREEMPTLAZY
 Call Trace:
+<IRQ>
 dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
 print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
 kasan_report (mm/kasan/report.c:595)
-qp_memcpy_to_queue_iter.isra.0 (drivers/misc/vmw_vmci/vmci_queue_pair.c:348)
-vmci_qpair_enquev (drivers/misc/vmw_vmci/vmci_queue_pair.c:2573 drivers/mis=
-c/vmw_vmci/vmci_queue_pair.c:3049 drivers/misc/vmw_vmci/vmci_queue_pair.c:3=
-036)
-vmci_transport_stream_enqueue (net/vmw_vsock/vmci_transport.c:1866)
-vsock_connectible_sendmsg (net/vmw_vsock/af_vsock.c:2305)
-__sys_sendto (net/socket.c:800 (discriminator 1) net/socket.c:815 (discrimi=
-nator 1) net/socket.c:2277 (discriminator 1))
-__x64_sys_sendto (net/socket.c:2284 net/socket.c:2280 net/socket.c:2280)
+tcp_v4_do_rcv (./include/net/psp/functions.h:107 ./include/net/psp/function=
+s.h:118 net/ipv4/tcp_ipv4.c:1834)
+tcp_v4_rcv (net/ipv4/tcp_ipv4.c:2238)
+ip_protocol_deliver_rcu (net/ipv4/ip_input.c:207 (discriminator 1))
+ip_local_deliver_finish (net/ipv4/ip_input.c:241 (discriminator 1))
+ip_local_deliver (./include/linux/netfilter.h:325 ./include/linux/netfilter=
+.h:319 net/ipv4/ip_input.c:262)
+ip_rcv (./include/net/dst.h:480 (discriminator 6) net/ipv4/ip_input.c:492 (=
+discriminator 6) ./include/linux/netfilter.h:325 (discriminator 6) ./includ=
+e/linux/netfilter.h:319 (discriminator 6) net/ipv4/ip_input.c:612 (discrimi=
+nator 6))
+__netif_receive_skb_one_core (net/core/dev.c:6264 (discriminator 4))
+process_backlog (net/core/dev.c:6377 net/core/dev.c:6728)
+__napi_poll (net/core/dev.c:7787)
+net_rx_action (net/core/dev.c:7850 net/core/dev.c:8007)
+handle_softirqs (kernel/softirq.c:645)
+do_softirq.part.0 (kernel/softirq.c:546 (discriminator 20))
+</IRQ>
+__local_bh_enable_ip (kernel/softirq.c:538 kernel/softirq.c:473)
+__dev_queue_xmit (./include/linux/bottom_half.h:33 (discriminator 1) ./incl=
+ude/linux/rcupdate.h:914 (discriminator 1) net/core/dev.c:4961 (discriminat=
+or 1))
+ip_finish_output2 (./include/linux/netdevice.h:3461 ./include/net/neighbour=
+.h:544 ./include/net/neighbour.h:558 net/ipv4/ip_output.c:236)
+ip_output (./include/linux/netfilter.h:314 net/ipv4/ip_output.c:437)
+__ip_queue_xmit (net/ipv4/ip_output.c:533)
+__tcp_transmit_skb (net/ipv4/tcp_output.c:1716 (discriminator 4))
+tcp_connect (net/ipv4/tcp_output.c:1734 net/ipv4/tcp_output.c:4383)
+tcp_v4_connect (net/ipv4/tcp_ipv4.c:345)
+__inet_stream_connect (net/ipv4/af_inet.c:684)
+inet_stream_connect (net/ipv4/af_inet.c:755)
+__sys_connect (net/socket.c:2183)
+__x64_sys_connect (net/socket.c:2189 net/socket.c:2186 net/socket.c:2186)
 do_syscall_64 (arch/x86/entry/syscall_64.c:61 arch/x86/entry/syscall_64.c:8=
 4)
 entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+The buggy address belongs to the object at ffff88800bf51e00
+which belongs to the cache kmalloc-cg-192 of size 192
+The buggy address is located 20 bytes inside of
 
 
 ---
