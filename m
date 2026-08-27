@@ -1,266 +1,161 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B935F4772A6
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:08:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787854101; cv=none; b=Ne4916dhGjc/3dsFlxZz6BwRdpZB37YeAJsRKwwiatwuR6xvrV8ruykkSodyNj7NMy8a76gZdNm9xlETi4EJS0XMdC677EYPOoWXYQl7oXr6FCOZ5aSF07aA5FOZ29czZogqTAgHM6X+oM9RADTROIVD+scrc2dncfBTG/ejPng=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787854101; c=relaxed/simple;
-	bh=ArT4A9LnLuUwhgr/cxAD+B5AibwuMzq9queyu1Qs/hw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BeByi+LrrDNIEguvbuXO4/J56gmKZCe6Kc1q4+ewVEEGMrvpDFmQlkzwcBydCzl6Kl/d/UZ7LwmFAZQkdgW5sdIloJ0thlr8l+u5j9xciqioaUvMyIkgvGCfMF0fBXudWq92RWs5ZTck7PFELLaUN2h9V9Hv+Ov+vnd5PLB0s3k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pvW46l1J; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8717D416CF4
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:09:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787854170; cv=pass; b=LLsohfxjbazcCHPTNryTyBgu7w2spAGaLLI7UQPh9fb9WhymhOqF86WU/gOvEgXanH9CYP4869rjN4AiswRXSjgUDt8L4U4KA+7nFBvoFIjP1J6CJhBDU6GrdAY9+4roshl4Z1Um6jRfcy3sGCguW0RTr86ccZhqRXrTmlEgd5Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787854170; c=relaxed/simple;
+	bh=gyvcr0bAWy6b+XaWJz4F6/gpXBvu5rK1SECJF9HtAZQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=LIi39r7Lx2NxMsuX5nRse5a8L6rEgBHm9c3v9v54wwLnUN9V+l+92S8ocjvswEITPsLcZvLAGbjBltKHrzsMVeU9kXtDqbrbI6gV+SeQB9dl06/VpmoUano8f8nCsAxdTM98vXbyfN59pKkDSYIjVCQ9lz3vZnZCilrOUkCwrT8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GiZevoJA; arc=pass smtp.client-ip=74.125.224.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pvW46l1J"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-39686abd426so381051a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:08:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GiZevoJA"
+Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-66c711b7f2aso402808d50.3
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:09:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787854167; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ES1tEuo1PNqjizdMwgRJouvqWJ008PAbECxVoDP/QprJ6d3ZoW6R0Ab9HP/E4mmrXc
+         P+7A8SPstPn5UqlyNQAffqjNrdhdZSY1n9HR5jnzOdavHE7Z00YD9GYeobZ6HQSjgzA8
+         uw+EwWesvbrwh+S0LbV235nWbcpEHnGoesrTRHre28VdaMd/Fbtz/a0bB4CWwVevhyRc
+         auymm8ChIE0r8019vpsfl3e2lrAj3EDEv+Zw1MhGraVfmo3MrDQ1lDobm7JebPEvor62
+         3ZaXNfdJU2YPiBhmdOr3kYcsSiUXam6sHVTh2Rj5vspBxZ/36wu7cmluClDEZefsynHu
+         Xv7w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=gyvcr0bAWy6b+XaWJz4F6/gpXBvu5rK1SECJF9HtAZQ=;
+        fh=G1wPYzgT8rAJGCm1uPOaseI6PrWmXQT2TwPffiHER9I=;
+        b=hk/30ixl3tjtVnm+eCZqwiLLn7WapfUSyCLHRIDo+d1qHD82yxQx1YkJRHaeWU7ylX
+         cVu/Gm3N6IG1q4uNbUSAYkj0xz23S7mg9U9SZUpk0Grwby7HCtHq6+8S3YLOLPGRR/c0
+         Wei16mxanXJK4xEBQtDnBUYYSeF86xNdvMKA0ODIQ8zOF6LqOMnasgWi2lrDt++9FI1B
+         OSnluOB5CBu5C1s2psw60PcPVzSb7xI06r6dPvxeKqg6zSL4ovbCTS/T/CTJkmoTF6Nn
+         S42NKJBEftmwSCpY6NPtBInOubEc9mDuaWtsSAR9sRg7d7iMvyH3wd5Lao63kaUuzgI+
+         11AQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787854093; x=1788458893; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=plMv1alWLSmRUs996GTzyKVxl/InS+Hvvr87SnLX3mc=;
-        b=pvW46l1JvjWDgPrFcMlLODLgl2LDA4SmwlMs1Lh9FcMCWOz4hCbARtokNWvropSAuw
-         gzJC8/A1KEWVFHFh44IKPgnXaRAMT02ffD9XDhB8v7cSRByzG8f4rNnS2eYXvjPl5DF4
-         CAAABmMuYNrf8fFLmd6mSblvoMk55HDDRI/WpfsSumnb9KAuhQTVTZlFQtwQnian4ctq
-         Oi2nmdpCPPJlcQnS28T+ycW96CRcrMABX3YzBWRKrd23ZqvAF6VwacRMe/AGlMRWv235
-         BEf3bWz2z2XueQ6Apce7FwRmrIflY03/7910A087RTY3Uw9/upuEu4q/iRqeUutNljxu
-         8rQA==
+        d=gmail.com; s=20251104; t=1787854167; x=1788458967; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gyvcr0bAWy6b+XaWJz4F6/gpXBvu5rK1SECJF9HtAZQ=;
+        b=GiZevoJAMWstBxyG3vW89tA5yzV7K52s+cOLWm2BTHyolHfkXCYHPMBpACCDgZV+5Y
+         WHN543CexEyfQug1l7LFgM/HOQK+cahJHJ6kC58Cd6IQffeKiXTNhWtgMNyPgJ6b9U1n
+         UEcdLuzjyixYSb3JRMgiNuZRwca3n0GxEg/ESaqaKWq1t6k6k3pmdgZFHXjr4LcN9Aru
+         n9ayG7NvDh8vzJVVH+zTETz4CsLd8X04hwHo9Bf0sGQR6N4R178rjmYkBJwrF9VR7Psf
+         w9U9b2sRKU2nO/FAANAF+iiwiMh2RViyeQutoZZIPsa/ogc/KZFQKA1hlMkqjE5R8BBq
+         BGcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787854093; x=1788458893;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=plMv1alWLSmRUs996GTzyKVxl/InS+Hvvr87SnLX3mc=;
-        b=h2b30Bz7BZv563U05/rKwVJE1L3KXuJck/Wkz0x3gQfl/H66yo2SvGTPU3tzk1aZ7e
-         cdbbFl1aShP8+2KuOVPMklB/fNvFFy4Li3Kvfzj6l0z4wSh2Bf8OXMJb1tgE0GAfx4C6
-         l0jc3NuXlILWC5lJk49R01S5cpJqGgpQLJ/f+cJTLRLePyRCnGhUi8utmEESLGHO9hXm
-         f1mXtVwBkNRPd94OHO7cMz5UN8IqeLXXgIG6lV819NfY3+YPjGMeVqPiQ758V1Yorq7o
-         2SIl1mH9MBNtF3DW22edOrHloe5hNt0faHnJiMHUslTA6Zjr7CWTfSTz0QytJOCXogPh
-         0VVw==
-X-Forwarded-Encrypted: i=1; AHgh+Rpu06d0G5WLLz1/DX20kDnRCGaMJSUU30MvVLgn1jD8DuN8TN8QrBd8e805ncy+35oKAe+HgZYi6o54KSQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nnVuVGQnfEY4Sum67lfb5bYWKpJ+z7t/GTNYttJqUVbEXoZDhZ
-	8sUVK+DJzi5HmwLdSOGfxdWMoejad1bby3Csw/pbWTytROtWUpN1aKng
-X-Gm-Gg: AR+sD13NcIUvA8EdVs3BypnjoxMNdPjIJUNgej+7EaW95uW4JdR/P1nEXW8qCs5rkG0
-	luKDd619gwWedKc8NrLNviUaUP2fi1i25jpByZXWBm0tEH0zoSHWFJwbxVVm05H0kVZxRwqHziy
-	XhULpL5qex8ASu+aWBKomW0eYXYT261c0f7lGhafLWO7VNQQbNLszA4eTfqEkO/I+8fGMN2bzvX
-	WOLfkqnS95gnfcTmlW2ld8NozvfOpjHxEdXHiW2EEMED35nG7+hMy8BBzKcu6MY50qhJE1pcm7F
-	Vk5oksipLAh7jrkrU84u84IqttZHKVV/nxuKhMkyYAUF9ED3UNI6Ur4twiE84k3x6+Hrm6KRqh0
-	IUoIpRdNyQxnWTVrpzC1sEQXOPVPwjjQ9pNf3FBtyFT5lyYN8e2UsLY4EOhtLjaM/GFefe4wxhh
-	s2TAflyisQvosj8+nJwDj1aP2klVVIl9agFsz1OVWi8j3wrUe2QoVlYs7ch460o5pIJna90G8pj
-	WHqbTVlYFTZGivVNec=
-X-Received: by 2002:a17:90b:440d:b0:38f:bbc:6a0f with SMTP id 98e67ed59e1d1-396d0e5f35fmr1346864a91.1.1787854092659;
-        Thu, 27 Aug 2026 11:08:12 -0700 (PDT)
-Received: from celestia.taila51cc2.ts.net ([2402:1980:88cd:27c4:5897:46d2:587d:19e7])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b0d80008sm3682194a91.6.2026.08.27.11.08.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 11:08:11 -0700 (PDT)
-From: Liew Rui Yan <aethernet65535@gmail.com>
-To: sj@kernel.org
-Cc: aethernet65535@gmail.com,
-	akpm@linux-foundation.org,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: Re: [RFC PATCH] mm/damon: fix damos quota walk-position tracking
-Date: Fri, 28 Aug 2026 02:08:22 +0800
-Message-ID: <20260827180822.4037-1-aethernet65535@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260827004438.82746-1-sj@kernel.org>
-References: <20260827004438.82746-1-sj@kernel.org>
+        d=1e100.net; s=20251104; t=1787854167; x=1788458967;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gyvcr0bAWy6b+XaWJz4F6/gpXBvu5rK1SECJF9HtAZQ=;
+        b=KMd605/zr0hSH85aj8xVn/N8IySFfFU5b8wHiWWLgC/9TvAO6v5Rpyh3WLPmCK5APT
+         CRR8EkxR6ROfZdeN8GosrMNVMdV5XZ4He8YAqlcvkc3Du/cskbodWgVSBTxxUcaQpnuP
+         C2DB69bS4FNwKaxI/J5/pCoQKZHpjrSixstCcZX3mGZV1L3kq6Ej4U2idzVRin4CSZ27
+         7LeXz9XN5o6ziH6LALUfojj8l+0fvtui/wOjmwPtzjo5wc6LqTKEPZdknLoLbPRL8Ln+
+         cSJ+Je17k1tgSUePiSjUMcSek1P1m3FyrqbFKHw4pD+g9CPuX52bUOxzIbmiW7Ufqozo
+         +3OQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rp6tJNbhl1FcQM1qP7tkFV9Gtn9x4PFjaRUo53Lt7n3Y+EpsUiLt5pEfO9Dp9vHMXCJ9ZF6XOH/GNAWoWM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lDKJnxWvC5sPoRCnMqHQs05k9AQomL1UO7WJlAKY9c00QAEhuW
+	IXZ2xT57mNdq9vEbXw8B4M5c890+P316ykrrLIjN4qGIanihCBBh2GtAHfaqnMVQv6gAszmgaXD
+	6wRMjAx5DmBmyRII/Cs1kruV/TXSCkWc=
+X-Gm-Gg: AR+sD11PJwtRJIPb/Xtf9IbPrrmygCxtQihq3rlIIFgGNSeyp2u5evG3IIi/Zie5FO/
+	Ddm6672+s46bdtJMleBq0GZpI/iAx5F4j4Es3AT5NMAJf/zywW30KMbrLB1vnBCBt9wDDAUpMXC
+	8zdAP0Z41abbp7wAcGX6pjS7vBUk//dw9JzuPBTWm9wvCrcjDmL9ijtvhcqmIq/BNehXjPhCJLA
+	puCV142lV/k0mVAU7bN4NAtmGHD5UxvP7JXHjUuiwrwV1X9WA2I32k6iMhEqnNOlOE1B274+qjt
+	6sMzKTIm6yZuCjtOpjYTHT5qFQgUXVmk8Iqbak464xl0X6kkRnoXoMDeXqZ57cL8GnprEROM3bY
+	zpe6wiMPa4E1QiXQukytUSqTV+A==
+X-Received: by 2002:a05:690e:2052:b0:66d:1877:121b with SMTP id
+ 956f58d0204a3-66e4c6d6f17mr41588d50.32.1787854167499; Thu, 27 Aug 2026
+ 11:09:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260827171937.28878-1-gvalkov@gmail.com> <20260827171937.28878-3-gvalkov@gmail.com>
+ <15F55ACD-E206-4B79-9E8D-1ED24427BB19@dolcini.it> <CADOrJmae24XCgxFwtHssdoWc4rv1Q743hfgjG=kUrVPgf6urmw@mail.gmail.com>
+ <A7FBAD8C-3AAD-4268-9BBC-3BDE071481E1@dolcini.it>
+In-Reply-To: <A7FBAD8C-3AAD-4268-9BBC-3BDE071481E1@dolcini.it>
+From: George Valkov <gvalkov@gmail.com>
+Date: Thu, 27 Aug 2026 21:09:13 +0300
+X-Gm-Features: AcwNN1WeeO0QLErFPaTPUKzS5E98_pxOjOnXU5-Tw2FaecGW6bryCcX8wHHKvEI
+Message-ID: <CADOrJmZ8u8Gj0dA=CqzUwxM32uN5ZOJ_GdaXJNi1ttYpp4FvrA@mail.gmail.com>
+Subject: Re: [PATCH v8 3/3] ARM: dts: armada: WRT3200ACM: add marvell,invalid-reg-hint-in-rom
+To: Francesco Dolcini <francesco@dolcini.it>
+Cc: briannorris@chromium.org, johannes@sipsolutions.net, andrew@lunn.ch, 
+	krzk+dt@kernel.org, johannes.berg@intel.com, kees@kernel.org, 
+	miriam.rachel.korenblit@intel.com, rongqianfeng@vivo.com, wenst@chromium.org, 
+	rafael.beims@toradex.com, avraham.stern@intel.com, error27@gmail.com, 
+	s.kerkmann@pengutronix.de, gregory.clement@bootlin.com, 
+	sebastian.hesselbarth@gmail.com, robh@kernel.org, conor+dt@kernel.org, 
+	Frank.Li@nxp.com, chunfan.chen@gmail.com, arend.vanspriel@broadcom.com, 
+	peddolla.reddy@oss.qualcomm.com, linux-arm-kernel@lists.infradead.org, 
+	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 26 Aug 2026 17:44:38 -0700 SJ Park <sj@kernel.org> wrote:
+On Thu, 27 Aug 2026 at 21:05, Francesco Dolcini <francesco@dolcini.it> wrote:
+>
+>
+>
+> On 27 August 2026 20:02:27 CEST, George Valkov <gvalkov@gmail.com> wrote:
+> >On Thu, 27 Aug 2026 at 20:40, Francesco Dolcini <francesco@dolcini.it> wrote:
+> >>
+> >>
+> >>
+> >> On 27 August 2026 19:19:37 CEST, Georgi Valkov <gvalkov@gmail.com> wrote:
+> >> >WRT3200ACM and WRT32x routers always report a fixed US regulatory domain
+> >> >from the mwifiex ROM, which conflicts with the platform regulatory
+> >> >configuration on units sold outside the US market. For example:
+> >> >- phy0 mwlwifi 5 GHz, hard-coded region 98 EU mapped to FR
+> >> >- phy1 mwlwifi 2.4 GHz, hard-coded region 98 EU mapped to FR
+> >> >- phy2 mwifiex 2.4 and 5 GHz, hard-coded region US
+> >> >
+> >> >When the system boots, it detects a conflict between the user selected
+> >> >region and the radios, e.g. BG FR US, and applies extreme restrictions,
+> >> >preventing phy0 from starting on any DFS channel. phy2 works.
+> >> >
+> >> >Add node wifi@1 with a flag marvell,invalid-reg-hint-in-rom to the
+> >> >WRT3200ACM device-tree, which signals mwifiex that its regulatory
+> >> >hint from ROM conflicts with the platform and should be ignored, so the
+> >> >platform regulatory domain can be used. This does not allow the user to
+> >> >change the regulatory config of any radio. It only allows phy0 to start
+> >> >and operate according to its certified configuration. All radios in
+> >> >WRT3200ACM/WRT32x are locked to the hard-coded configuration for which
+> >> >they are certified.
+> >> >
+> >> >On WRT3200ACM, the platform configuration is stored on the devinfo mtd3
+> >> >partition, which is read-only: cert_region=EU modelNumber=WRT3200ACM-EU
+> >> >
+> >> >The Linux kernel sources do not have support for WRT32x. An equivalent
+> >> >patch for these routers has to be sent to OpenWrt.
+> >> >
+> >> >[1] https://github.com/kaloz/mwlwifi/issues/173#issuecomment-307879699
+> >> >[2] https://github.com/openwrt/openwrt/issues/9956
+> >> >
+> >> >Cc: stable@vger.kernel.org
+> >>
+> >> This whole series is not material for stable. Please drop thia tag from all the patches.
+> >
+> >Dropped CC: stable from all patches, and sent v9:
+> >https://lore.kernel.org/linux-wireless/20260827175850.89395-1-gvalkov@gmail.com/T/#t
+>
+> Please, you are not supposed to send a new patch series revision every time you get a single comment and you did send the previous version just 2 hours ago.
+>
+> It does not work like that, you just create additional overhead.
+>
+> I assume this is all documented, please look into the Documentation directory.
 
-> On Wed, 26 Aug 2026 07:05:08 -0700 SJ Park <sj@kernel.org> wrote:
-> 
-> > On Wed, 26 Aug 2026 18:24:13 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
-> > 
-> > > On Tue, 25 Aug 2026 06:54:57 -0700 SJ Park <sj@kernel.org> wrote:
-> > > 
-> > > > On Tue, 25 Aug 2026 20:46:16 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
-> > > > 
-> > > > > DAMOS uses charge_target_from/charge_addr_from to remember how far a
-> > > > > quota-limited walk has progressed.  The current implementation has two
-> > > > > problems:
-> > > > > 
-> > > > > 1. Once set, the cursor unconditionally skips and resets at the last
-> > > > >    region of the tracked target, so the last region can be skipped even
-> > > > >    when it has not been processed.
-> > > > 
-> > > > I don't fully understand this.  Could you please clarify more?  Maybe adding a
-> > > > realistic example scenario would be helpful.
-> > > > 
-> > > 
-> > > Problem: Unconditional skip of the last region
-> > > 
-> > > In the current damos_skip_charged_region(), there is this logic:
-> > > 
-> > >     if (r == damon_last_region(t)) {
-> > >         quota->charge_target_from = NULL;
-> > >         quota->charge_addr_from = 0;
-> > >         return true; /* Skip */
-> > >     }
-> > > 
-> > > Scenario:
-> > > 1. Target has 2 regions: R1 (0-100 bytes) and R2 (100-200 bytes).
-> > > 
-> > > 2. Quota is configured to process only 50 bytes per window.
-> > > 
-> > > 3. Window 1: Processes R1 (0-50).  Quota is full.  Cursor is saved at
-> > >    (Target, 50).
-> > > 
-> > > 4. Window 2: Skips R1 (0-50).  Processes R1 (50-100).  Quota is full.
-> > >    Cursor is saved at (Target, 100), which is exactly the start of R2.
-> > > 
-> > > 5. Window 3: The loop reaches R2.  Because R2 is damon_last_region(t),
-> > >    the old code unconditionally returns true, skipping R2 entirely and
-> > >    resetting the cursor.
-> > > 
-> > > Result: R2 is permanently skipped even though it has never been
-> > > processed.
-> > 
-> > Ok, makes sense.  The user impact should be not that big, though.
-> > 
-> > > 
-> > > To fix this, the patch advances the cursor every time a region is
-> > > walked, regardless of whether it is applied or filtered out.  This
-> > > allows DAMON to accurately track whether the last region has already
-> > > been visited, eliminating the need for the unconditional reset.
-> > 
-> > Sounds like a big change compared to the problem.  Why we cannot modify the
-> > last region case?  Have you also considered other possible simpler approaches?
-> 
-> For example,
-> 
-> '''
-> --- a/mm/damon/core.c
-> +++ b/mm/damon/core.c
-> @@ -2686,14 +2686,15 @@ static bool damos_skip_charged_region(struct damon_target *t,
->         if (quota->charge_target_from) {
->                 if (t != quota->charge_target_from)
->                         return true;
-> -               if (r == damon_last_region(t)) {
-> -                       quota->charge_target_from = NULL;
-> -                       quota->charge_addr_from = 0;
-> -                       return true;
-> -               }
->                 if (quota->charge_addr_from &&
-> -                               r->ar.end <= quota->charge_addr_from)
-> +                               r->ar.end <= quota->charge_addr_from) {
-> +                       if (r->ar.end == quota->charge_addr_from ||
-> +                                       r == damon_last_region(t)) {
-> +                               quota->charge_target_from = NULL;
-> +                               quota->charge_addr_from = 0;
-> +                       }
->                         return true;
-> +               }
-> 
->                 if (quota->charge_addr_from && r->ar.start <
->                                 quota->charge_addr_from) {
-> '''
-> 
+ok, I will make sure to wait for a few days in the future. I apologise!
 
-Thank you for the example!
-
-While your approach works, I am curious, why should the cursor be reset
-every time the function returns false (does not skip)?
-
-In my opinion, a cleaner and more deterministic approach is to reset the
-cursor only after the target has been fully iterated through.  This
-separates "skip" logic from the "state reset" logic, making the flow
-easier to reason about.
-
-Here is my proposed minimal change:
-
-'''
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -2347,11 +2347,6 @@ static bool damos_skip_charged_region(struct damon_target *t,
-        if (quota->charge_target_from) {
-                if (t != quota->charge_target_from)
-                        return true;
--               if (r == damon_last_region(t)) {
--                       quota->charge_target_from = NULL;
--                       quota->charge_addr_from = 0;
--                       return true;
--               }
-                if (quota->charge_addr_from &&
-                                r->ar.end <= quota->charge_addr_from)
-                        return true;
-@@ -2368,8 +2363,6 @@ static bool damos_skip_charged_region(struct damon_target *t,
-                        damon_split_region_at(t, r, sz_to_skip);
-                        return true;
-                }
--               quota->charge_target_from = NULL;
--               quota->charge_addr_from = 0;
-        }
-        return false;
- }
-@@ -2658,18 +2651,26 @@ static void damon_do_apply_schemes(struct damon_ctx *c,
-                if (damos_quota_is_full(quota, c->min_region_sz))
-                        continue;
- 
--               if (damos_skip_charged_region(t, r, s, c->min_region_sz))
--                       continue;
--
-                if (s->max_nr_snapshots &&
-                                s->max_nr_snapshots <= s->stat.nr_snapshots)
-                        continue;
- 
-+               if (damos_skip_charged_region(t, r, s, c->min_region_sz)) {
-+                       if (damon_is_last_region(r, t)) {
-+                               quota->charge_target_from = NULL;
-+                               quota->charge_addr_from = 0;
-+                       }
-+                       continue;
-+               }
-+
-                if (damos_valid_target(c, r, s))
-                        damos_apply_scheme(c, t, r, s);
- 
--               if (damon_is_last_region(r, t))
-+               if (damon_is_last_region(r, t)) {
-                        s->stat.nr_snapshots++;
-+                       quota->charge_target_from = NULL;
-+                       quota->charge_addr_from = 0;
-+               }
-        }
- }
-'''
-
-> > > This patch ensures that every target is traversed sequentially and
-> > > deterministically, even when the quota is set very low.  I omitted this
-> > > benefit in the initial problem description.  If you think it is okay, I
-> > > will add it in the next revision.
-> > 
-> > What's the problem and benefit?  I still don't get it.  More clarification
-> > would be nice.
-
-My original idea was to ensure that every target would be checked
-sequentially, which seemed like a fairer approach.  However, upon
-further reflection, I realize this might not offer tangible benefits and
-could introduce unnecessary complexity.
-
-Since the DAMOS Quota min_score mechanism already ensures that regions
-truly needing action are prioritized, the current behavior (eventually
-resetting at the last region and moving on) is functionally sufficient
-for typical workloads.  Therefore, I do not see a strong justification
-for this change at this stage.
-
-Thank you for pointing this out and pushing me to clarify.  In the next
-revision, I will drop this changes and focus on the minimal fix for
-Problem 1.
-
-Best regards,
-Rui Yan
+Georgi Valkov
