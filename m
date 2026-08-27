@@ -1,299 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 541DF2F6586
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:25:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787851510; cv=none; b=cb18ZgrngpdlSAYr9w0+I65m0/sTvqL5QhdVcHMFVoDqomr00Y1+jYcS6ICAje4GqP3EN9kPTcbyjgoQqDdI0Xtm/3bWUNE2vLOP5lvbfjiGZBfQDlEhGH/dKltoJ8AcP6StbNDzjq3b8EIJar3iH/AnmEZlHa8uc6bDORBuHjQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787851510; c=relaxed/simple;
-	bh=0NRN+NBRy1cWgf+SjmdY306YZjsHFoGaUi+ADyB9hB4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=itSCj2mq/f/IlW0ydMSzGJwGDifHjsnrXcZ1yFs8buj36EIeiYrn2FgP5cUjEZy56GuFBsz5Oy/74nlBLYC6VaAuAEQMbtqWOsmG3X7+clGy1BqU3nCB4e2GSJebT/t9jBVpe3ZSIqhVJzWe/jVl9HdlooAbKFU8BvSZL6ktYMI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dPenraVi; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A05324963C8
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:27:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787851661; cv=pass; b=j7tX4zlwmh8kQ2dYVxL3kBXcRT1MiMPE1WwI6+t16Qk8KLTMbTNpiqwMxbgUB7c42S89z9EQZDor5r5XPbuguL+gIJM/FIWBgxg/g+nZRAQGcE5NR7ScbAeXv6K+NMg2wWeODxdqacikDOs2q2FV9ylko/3jrFwOH2w/uVXSijU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787851661; c=relaxed/simple;
+	bh=HvwT6T6j+NkHVCIiwJZYKviDkprWnij+Zd4dVGP5+4c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=H7KV1PQ0Mysc72QxNUCv63OI1tmdYrAjgMS1UtPE+DhaWxXArQgGdag1oQ6uKh1WUy8xxnjx4ng7oBFovQDpZvIB84t8aWMoRtqEE7K/iS7Sl83Fmt4fYoEX2nJj/1Y+eEx28sWUfYDfh1lPB8p4Y+4d4aKeke/KhQ0cCsPbAWM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eqebu9kI; arc=pass smtp.client-ip=209.85.208.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dPenraVi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D83331F00A3A;
-	Thu, 27 Aug 2026 17:25:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787851509;
-	bh=Wdt982Ce9e2WW4tML2j2T0NI00NUsPFfLNhjKnr4OFo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dPenraVinfjcty4s5td0FqGWCFsJkSJ65bWQuXhjRMdfS0uSF6F5PGp34m4B42Wkr
-	 oCmTBl+hQaKD/H/roiP9jEYPS7YLapVB8wJXCRi9qF9eJ2iZ9cGkxsiMS6g4g/diDe
-	 yf2iTSZGu+vzg00TiwKIPJdFLjRabj39FPx9Mc9vU6dpdpEdyoC3CONUMb6ONBvE2y
-	 IebdRfZ9Gtlxt/+Qrsq9F01qvpU2OxB+gtLZQrP2T9QTKcvwDxMiSDp9A0cGrYRx3f
-	 0H6OVSzOdivo7gzWsrdxkUFEY443EwHvyMdApVKgL/hA29VFpoo5ouKwuozWcuJQqC
-	 Xd4du+WOIj5ug==
-Date: Thu, 27 Aug 2026 18:25:01 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: artem.kuzin@huawei.com
-Cc: catalin.marinas@arm.com, akpm@linux-foundation.org, david@kernel.org, 
-	vbabka@kernel.org, cl@gentwo.org, linux@armlinux.org.uk, will@kernel.org, 
-	mark.rutland@arm.com, liam@infradead.org, rppt@kernel.org, surenb@google.com, 
-	mhocko@suse.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, wangkefeng.wang@huawei.com, panov.nikita@huawei.com
-Subject: Re: [RFC PATCH 00/18] mm: arm64: Add kernel replication feature
-Message-ID: <apBqjq24aG_s2ZTM@gremlin>
-References: <20260827161158.3618409-1-panov.nikita@huawei.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eqebu9kI"
+Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-39f20d19895so596011fa.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:27:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787851655; cv=none;
+        d=google.com; s=arc-20260327;
+        b=k7701bG/SgZkXFwH0RXvIP4pQYqpYZ44J3gQitjDKFl/G9GH+p2WmX0rjseICiFU0e
+         8WTcxmLIH2eWvf4amfmJn7J351zLliZ/WjdXYOStMkhR8oGnz2RNNBARa1jLci6tmhhO
+         vhlxqj/JpvLMpfecEvI2HiFYgCigM/s/AbPXYztHV+ioheMbH4xr8FV91/yJvrvH2xLy
+         MERt+4t9EhVBfFCWo7HUbUB5w0Wc6USEoTPhc20r14O34Y1I7CwBC1j+wYoWljQsVVXg
+         4cD3L31F2OsYqysakc/TDSQWq6/gTCvKeTfNY5dyhYwqj8C5IXjCVJgB37/6RNZImDAY
+         36YA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=HvwT6T6j+NkHVCIiwJZYKviDkprWnij+Zd4dVGP5+4c=;
+        fh=HCNLT1JyeiHphMvLp9ii4TY0pRx/C0ZXarXCRtO6axQ=;
+        b=GkgeJ/M6I++2jtEzBHjpJ5qy5Z7p+gzVWev830XTXwnl8rvFTWSrAaCtFRuqB6DvMJ
+         aZ//Djii+eKHdnh22X5NqLX84HsYdT8ubU7amnqMs7ZMpNLUMqKz6DGeQjBg1f+RyKVT
+         BXHsGp9MGC60nXfVzKygDJLfED1kpibyFoQKqQprDegN2siCzE1BO+cIYJEN0Zx/QLrq
+         seunqknTAT/wkW3ZM5UUcq/ZB3LRXyUVzJhxXPMB3AZAcwtIDlHq9nttYwY0FjvZBFDy
+         VAIQ06inZ2BQkYFSWoIjKkcYMKC3vCZgaIggJs9gg0IGl3/DFWc19+UAyaafPxC8AVFg
+         ccJg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787851655; x=1788456455; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HvwT6T6j+NkHVCIiwJZYKviDkprWnij+Zd4dVGP5+4c=;
+        b=eqebu9kIn1KdNwwDWR9qsI1okv8GRHyA7WCPkRLt5s/V/9miIz5qmq+h/pfFg6HLDy
+         ytpDDnnx1hk3HNruDfyT+413QN6AIG1j33eWVnnrgFVjNON0909xUr3zM74oLpd7i7Ck
+         WDvWTsI84NMonhzQ8+Mb1OMfbZc5Ag4NF/3f9/OW59+DAXycr2VGA/uNy0o2lZ8zRmdL
+         7zX4jTy14T6kiLLh9uD/Z1cPZDgJGKeoX6PU1lia+8er9D79yDfpFP1M7OThfSXi75JW
+         ojx89OwyRy03HG3pIKrca6F3NN9XURrJjM3EGZ2UafMV6vUuzr2Ny0YuWXdKIQJeD7aq
+         e3DA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787851655; x=1788456455;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=HvwT6T6j+NkHVCIiwJZYKviDkprWnij+Zd4dVGP5+4c=;
+        b=BJ8L2J+4752dVaeImej91YCXOxbSXHizkLoB2CK30ChXKrwUY2wpYlrwNsNAYXQwJr
+         w+WtdkyaKq9o8FVySGje+4Swx/mvkhjzBaweqNdU/o1N+50CwseSqq+eAt3tMU15Lfdk
+         ZL3casy5kWSuDsXhPdHkjcNpDD8tETFHxXOPRByn1W9N55qxz209qbXwTyYHHXULxcwI
+         mBQYZEaTKMgHLEX8pZlHD7PAxKareUCsUINlgdY6mMugKC9ZpqO1yQy4AI16ILl9evAF
+         nGvPTjuFqDoWVwKaq0oalgPf+cGVKQupibInl82npzTK1uXSHsjLU+w19+KAQfVeNKuV
+         A24g==
+X-Forwarded-Encrypted: i=1; AHgh+Rp5kuubNrZP65OzKnLc6vKStCH5Hjr8n79+TjSMcRjZK8Pd9fsBLBybkxvqLMv5OL/W5Eu06bupWqBw6mU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kT1GOwyznrHxG3VJ2pZ84XT/euvC9hsN5K1nMD6X+1YjjicLlr
+	NxZ82doalmU9kErokwM8ONXbsBMDxtmIDmsTLSUk0VacF9iS9+GbEx579BDP4XGYQJ75MGvCzzd
+	O4B87VzkbrSFw36yS5foCtz/AOe8msVI=
+X-Gm-Gg: AR+sD11sxThAdqS95ApoEasqbfX9hdQN+fTwhBUyt5DFk1fg7JDavMxjrszPAQtSYNQ
+	+B5HXrMNn8CSHC5wiZdJvReUxyJkC5T6BCD8ku1kKAT0ihmbPYu51WXpjZZwZ+TRScuvhFpBHcp
+	GcfuKGsQOWfPzMwhav3lCVFx6bd/TTNpbFRZOaAnxnhAa1Nnfisw2EOA04O5n4V9SZp1R22avJJ
+	c2aRcaemuNoRj8nv1t4pFasIDZf8LhOOoOu/F36UMUagAcUEu0PH5V2PJmqHEtoOILjVutfqrKj
+	X+Y+4QECWyrucv60/C32mjBpX0Ojw+DL3iey3zRISLttgOE8Dt2OXve9fC/FrKNyhZ8zXBBVbC+
+	bSVRdnvl5S1jB/5UWtXi6jt9lpA==
+X-Received: by 2002:a05:651c:43c7:10b0:3a1:980f:5905 with SMTP id
+ 38308e7fff4ca-3a30187d5eemr119801fa.3.1787851655217; Thu, 27 Aug 2026
+ 10:27:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827161158.3618409-1-panov.nikita@huawei.com>
+References: <20260827130335.6606-1-gvalkov@gmail.com> <20260827130335.6606-2-gvalkov@gmail.com>
+ <fbde1932-5433-48e8-b352-bf27eb545149@kernel.org>
+In-Reply-To: <fbde1932-5433-48e8-b352-bf27eb545149@kernel.org>
+From: George Valkov <gvalkov@gmail.com>
+Date: Thu, 27 Aug 2026 20:27:23 +0300
+X-Gm-Features: AcwNN1XMmtv8Tl2z9UfKPdkvBE_-gNrpL34xpH-g_gnIEgIMH3CQYCP7LMwA5gY
+Message-ID: <CADOrJmY5jZvn8zEu-jCntGChXSY9wRd3bsOy1GB0EWNTY9GK6Q@mail.gmail.com>
+Subject: Re: [PATCH v7 2/3] wifi: mwifiex: add dt flag to avoid conflict with
+ platform reg domain
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: briannorris@chromium.org, johannes@sipsolutions.net, andrew@lunn.ch, 
+	krzk+dt@kernel.org, francesco@dolcini.it, johannes.berg@intel.com, 
+	kees@kernel.org, miriam.rachel.korenblit@intel.com, rongqianfeng@vivo.com, 
+	wenst@chromium.org, rafael.beims@toradex.com, avraham.stern@intel.com, 
+	error27@gmail.com, s.kerkmann@pengutronix.de, gregory.clement@bootlin.com, 
+	sebastian.hesselbarth@gmail.com, robh@kernel.org, conor+dt@kernel.org, 
+	Frank.Li@nxp.com, chunfan.chen@gmail.com, arend.vanspriel@broadcom.com, 
+	peddolla.reddy@oss.qualcomm.com, linux-arm-kernel@lists.infradead.org, 
+	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi,
-
-On Fri, Aug 28, 2026 at 12:11:40AM +0800, Nikita Panov wrote:
-> Current status:
+On Thu, 27 Aug 2026 at 18:33, Krzysztof Kozlowski <krzk@kernel.org> wrote:
 >
-> There were several prior submissions with some sort of replication
-> for NUMA systems, including one from our side for the x86_64 platform.
-> In the last couple years, several research articles related to solving
-> locality issues on NUMA machines through replication emerged as well.
+> On 27/08/2026 15:03, Georgi Valkov wrote:
+> > WRT3200ACM and WRT32x routers always report a fixed US regulatory domain
+> > from the mwifiex ROM, which conflicts with the platform regulatory
+> > configuration on units sold outside the US market. For example:
+> > - phy0 mwlwifi 5 GHz, hard-coded region 98 EU mapped to FR
+> > - phy1 mwlwifi 2.4 GHz, hard-coded region 98 EU mapped to FR
+> > - phy2 mwifiex 2.4 and 5 GHz, hard-coded region US
+> >
+> > When the system boots, it detects a conflict between the user selected
+> > region and the radios, e.g. BG FR US, and applies extreme restrictions,
+> > preventing phy0 from starting on any DFS channel. phy2 works.
+> >
+> > Add a device-tree flag, which allows affected devices, where the radio
+> > conflicts with the platform to ignore the incorrect regulatory hint in
+> > the ROM of the radio, so the platform regulatory domain can be used.
+> > This does not allow the user to change the regulatory configuration of
+> > any radio. It only allows phy0 to start and operate according to its
+> > certified configuration.
+> >
+> > The change affects only platforms which explicitly define this flag, and
+> > helps overcome the incorrect behaviour of proprietary radio firmware.
+> >
+> > [1] https://github.com/kaloz/mwlwifi/issues/173#issuecomment-307879699
+> > [2] https://github.com/openwrt/openwrt/issues/9956
+> >
+> > Tested-on: WRT3200ACM, OpenWrt
 >
-> [1]  - arm64 kernel text replication
-> [2]  - x86 NUMA-aware kernel replication
-> [3]  - x86 kernel text replication
-> [4]  - NUMA replication of user data
-> [5]  - Mitosis: Transparently Self-Replicating Page-Tables for Large-Memory Machines
-> [6]  - WASP: Workload-Aware Self-Replicating Page-Tables for NUMA Servers
-> [7]  - PaCaR: Improved Buffered I/O Locality on NUMA Systems with Page Cache Replication
-> [8]  - Memory page replication for Linux on X86 processors
-
-(What happened to 9-11? :P)
-
-> [12] - Optimize this_cpu_*() ops for non-x86 (ARM64 for this series)
+> OK, so this comment from v6 was not about binding, but this is still
+> wrong - there is no such tag. Just make it a standard sentence.
 >
-> As of today, none of it was merged into mainline.
+> Do not introduce OpenWRT rules in to the upstream kernel.
 
-I mean :) maybe take that as a hint? If a number of series trying to do X get
-rejected by upstream, that is maybe suggestive of barking up the wrong tree?
+Dropped the invalid tag. I hope this is suitable:
+The change has been tested on OpenWrt and fixes the issue where
+phy0 does not start on WRT3200ACM-EU when a DFS channel is used
 
-> However, after thorough re-evaluation, we were not able to observe
-> performance improvement for the x86 platform, so we have decided to stop this
-> direction and switch on arm64.
+I sent v8:
+https://lore.kernel.org/linux-wireless/20260827171937.28878-1-gvalkov@gmail.com/T/#t
 
-I mean, why? You should provide details here, this is quite hand-wavey. You are
-also proposing core mm changes for something that seems specific to unique
-hardware as far as I can tell, which is a big ask.
-
-<snip>
-
-> Known problems:
->
-> 1. Other combinations of base page size and va size (especially with 16K pages)
->    should be adapted and verified.
-
-Umm, yeah this is basic stuff for upstreamability :)
-
-> 2. Replicated translation tables for the vmalloc region are not local right now.
->    Allocation performed with default memory policy, so translation tables
->    for kernel modules will not be local. However,
->    replicated text and rodata of the modules are local.
->    In general, vmalloc patch should be cleaned up.
-
-Again, this is really more of an alpha pre-RFC I'd say.
-
-> 3. Any modifications of kernel PGD level. These modifications
->    should be synchronized across all replicated tables.
->    Right now, for example, memory hotplug/hotunplug
->    lacks this support, vmemmap and kasan regions for
->    added memory might not be observed correctly. This could be fixed
->    by patching all places in the kernel where swapper_pg_dir
->    is modified, or by "lazy" propagation on kernel faults in the pgd-level.
->    Propagation approach will not help in the case of pgd_clear()
->    on swapper_pg_dir though.
-
-Yeah OK this suggests to me you've got the locking and synchronisation all wrong
-and it's worrying :)
-
-In general I really oppose anything that adds additional kernel page tables or
-complicates kernel page table handling.
-
-We already have singificant complexity and bugs/races emerging from people doing
-odd things with kernel page tables on assumption that it's 'safe'.
-
-You'll need very compelling evidence to justify anything that touches such
-sensitive stuff.
-
-The code is also fiddling with PGD assignment in a way that could interact badly
-with how these PGDs are synchronised. These things are very subtle, and even if
-it's limited to one arch the core mm code is not.
-
->
-> Overall, this patch set in an early PoC stage and require some improvements.
->
-> Overhead:
->
-> Memory overhead for the kernel itself is about 30MB per NUMA node
->   on our deployment. For kernel modules - depends on their sizes, but text
->   and ro-data are not that big.
-> CPU overhead - replication performed on the boot stage. After boot
->   only "rare" operations are slowed down -
->   module loading, text patching, kernel table pgd-level modifications.
-
-Hmm. I wonder if they're as rare as you think though? It all depends also on how
-slowed down they are, how that manifests, etc.
-
->
-> Performance evaluation:
->
-> Our local testing was performed on
-> Kunpeng 920, 128 CPU, 4 nodes, 100Gb for each node.
-
-Thanks for providing details of the hardware used!
-
->
-> Microbenchmark:
-> Kernel module with a huge text section (~50MB) filled with CPU-bound
-> instructions. For each NUMA node thread is spawned, each thread in a loop
-> executes isntructions. Total execution time of each thread is measured.
-> The insmod call bound to node 0 through numactl (less time is better).
-
-So wait, you bound it to node 0, then rely on kernel text replication to improve
-performance due to a bad hint?
-
-That seems like you could fix the issue by binding correctly? :)
-
->
-> node                 0        1        2        3
-> Before time, s     5.567    7.598   13.294   18.905
-> After  time, s     5.469    6.960    6.777    5.531
->
-> Diff               ~0%      -8.5%    -49%     -70%
-> In this benchmark, interconnect was not used by any other actors,
-> so microbenchmark numbers might be significantly improved.
-
-This benchmark seems entirely synthetic and it seems odd to me, prima facie, to
-implement a feature to correct for incorrect NUMA binding?
-
-Maybe I'm missing something though.
-
->
-> Customer's evaluation:
-> We were provided with the following feedback on this patch set
-> directly from our customers. Unfortunately, we do not have details
-> regarding how these measurements were done other than it was
-> a production setup.
-> Evaulation was performed on Kunpeng 920 and 920B platforms:
-> CEPH distributed storage +5%
-> StarRocksDB              +5%
-
-This isn't hugely encouraging.
-
->
-> Couple more words about patch set and technology:
->
-> This patchset was merged into the innovative branch of
-> the openEuler distributive 1.5 year ago (openEuler-25.03)
-> and was actively tested in production environment [9], [10].
-> In addition, besides the kernel part, we have published
-> user space replication (for translation tables and rodata) as well,
-> but it is very complex and experimental
-> even compared to this patch set [11]. With replication in user
-> space, we were able to achieve the following numbers in
-> performance improvement:
-> MySQL + sysbench      1-6%
-> Spark TPC-H           4-20%
-> Phoronix test-suite   0-25%
-
-These seem very vague and wide-ranged, I'm not sure they're really saying much
-at all?
-
->
-> Discussion:
->
-> The main question we'd like to discuss is the following:
-> Should the kernel replication feature be merged into the Linux
-> somewhere in the future? In any form, not specifically this patch set,
-> but the core concept itself.
-
-I will leave the broader topic to the NUMA experts.
-
->
-> If the answer is yes, please share your thoughts on this patch set. What else
-> should be fixed (or reimplemented and redsigned completly) in this patch
-> for mainline in your opinion? We'd be glad to do it, and in that case
-> I'll send an updated version in the near future.
-
-Glancing thorugh, The patch set seems very far from being upstreamable:
-
-	if (kernel_replication_enabled)
-		pr_info("WARNING! WARNING! WARNING! Kernel replication enabled WARNING! WARNING! WARNING!\n");
-
-For instance... this really shouts some alpha effort.
-
-Annnd :) this:
-
-	if (rwsem_is_locked(&mm->mmap_lock))
-		locked = true;
-	else
-		mmap_read_lock(mm);
-
-is just utterly, utterly broken.
-
-rwsem_is_locked() can be raced at any time, you don't own the lock so it can
-just be unlocked underneath you.
-
-That you do that suggests to me you've not thought about locks correctly _at
-all_ here.
-
-And as I said above, locking issues around page table walking and manipulation
-is very subtle and difficult to manage correctly.
-
-Then there's stuff like this:
-
-		/* TODO: remove last condition and do something better
-		 * In the case of a folded P4D level, pgd_none and pgd_huge
-		 * always return 0, so we might start to replicate empty entries.
-		 * We obviously want to avoid this, so the last check is performed here.
-		 */
-		if (pgd_none(*orig_pgd) || pgd_val(*orig_pgd) == 0)
-			goto skip;
-
-This whole block seems confused, and it's nitty but you're using completely
-incorrect comment style for the linux kernel which again doesn't fill me with
-confidence that you've really thought things through or understand mm code
-correctly.
-
-Your replicate_memory() function seems to not synchronise _at all_, but you do
-for some reason synchronise on dumping memory, bizarely.
-
-You write a ton of duplicative page table code that doesn't seem to handle huge
-pages at all, again doesn't seem to be performing any locking correctly at all,
-and yeah the list goes on.
-
-In general the code looks like an alpha experimental thing and a million miles
-away from anything even vaguely upstreamable.
-
-And in general for this kind of thing - the devil is in the detail.
-
-So if you want to assert that something is viable, you need code that at
-least looks _vaguely_ upstreamable and demonstates understanding of the
-issues at play here, and you are not doing so.
-
-In conclusion:
-
-- 12 (or is it 9? :) attempts have been made at this kind of thing and all
-  were rejected - this isn't an encouraging sign that the approach is
-  viable.
-
-- You've already found it has limited use, and your benchmark numbers seem
-  either entirely synthetic or bordeline not statistically significant.
-
-- The code is, as discussed, not even vaguely close to being upstreamable.
-
-So overall it seems to me that perhaps better NUMA policy decisions could
-solve your problems.
-
-But yeah, what's presented in this series doesn't seem like a worthwhile
-road to travel down to me.
-
---
-Cheers, Lorenzo
+Greetings!
+Georgi Valkov
