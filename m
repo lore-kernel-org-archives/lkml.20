@@ -1,128 +1,117 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 700263B19B4
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:19:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B6C33C3C07;
+	Thu, 27 Aug 2026 08:20:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787818784; cv=none; b=OMtZkEglQMQ+LqDBwC5dokEpSTrLQ2N7PABAvDOqN+1IJMLzR647JOAlT4aodz/qvxHOoZtFKaf1Xg8FGJorp8/3tjIv5wHv+XgJ4zjSnJc+0JUt6l46AX2nKG3k4cUBbNS1/66V9rFDn0kW1jQHtdIjAmQMC9xBh0+Mg8oPFp8=
+	t=1787818830; cv=none; b=VkFGZP/HBNq46m6WB5q/JOJyejSRYJftbI7D7/CMer1MaA+AMYQEghfxUUeInBFciuj3mJ/2e7Vlvv4App4JK8/gk11W5TqXA3CypMpQ4qkvmCFSnNzYPrUGgf/zpVYX8mAvcDK7lOkYhqSXS74Fbb7v2xVh9ZS/EIZzpwHUf2k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787818784; c=relaxed/simple;
-	bh=/2CgVl31wv4sSObo0af19ir9kjm3WN8DPIOwijvUzqU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QutDtz0+lQju+pZYwD5AJqM/PspNAR6tSI/b4RXYyxcEx3UOaGpdF7fPs2bMis3mNEOmhkuC+64fR1N0nN6EUq0TExObwHlCL0n+I6zRRZE3m+k8N1vA8fX5WA47VGZ7N1p/BgkilcwpB4XW2zSJqlQ3+WvrTbDeXtJbGGIsjuU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ZQossVzU; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=GVl7y00V; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1787818830; c=relaxed/simple;
+	bh=SV/m4iYNW87OXTbwLv7lP42wYFhTHG6yO/9HHGcZArI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fqs+W73VRk3X5h/26MPYbUFnDmfOrFtDLleOFG9cHhUkDE0wzKYDz19QJdDpYeVHWrMqsGDVf64gZsl4cAcMHV8Y5RRXX4PfEoQkGKXeQ1m0CBOQnXepCuj5jrRBx2s8wQad6mfRXx27xNGZkPyl6sPBaKkJgnCvhocdoDsuqEM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=xEMckJcc; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=/xHz2Dwu; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ZQossVzU";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="GVl7y00V"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787818782;
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="xEMckJcc";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="/xHz2Dwu"
+Date: Thu, 27 Aug 2026 10:20:19 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1787818821;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=pT8QHmdIgh8C/99Uph+9sWbsTLGNaTSQ6OcKusUcL0k=;
-	b=ZQossVzUDsQ+vVemwjvQ7xYZwIW9Z8Y+2xxXDDTppueh9GCRwlWdgSJcRRPKp/z6gdm0vL
-	QgQS9ZQjaq8nEZELPsqxMLe0zM/0Vx+KXy/+O++qmDPibuVngYEZH+kA871Udcxj3ECeT4
-	Qivv3llDFK3a4ep49en/a54PPePu9tA=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-324-CtPNM9T7NaKZQYvmStgKUA-1; Thu, 27 Aug 2026 04:19:40 -0400
-X-MC-Unique: CtPNM9T7NaKZQYvmStgKUA-1
-X-Mimecast-MFC-AGG-ID: CtPNM9T7NaKZQYvmStgKUA_1787818779
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-499b99a8a10so5750395e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 01:19:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1787818779; x=1788423579; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pT8QHmdIgh8C/99Uph+9sWbsTLGNaTSQ6OcKusUcL0k=;
-        b=GVl7y00V6DnGXeiP9lF9dx+5looE7eYNhowv8GDUJsXVGzyPzc0om+BoBLRtLmjNeF
-         xmjmf3VHV0mzelv6GgLI7eQO70NulhK9LHtbPpRdPETLJcFxwxymNJJC8BnVwaY5J8hm
-         BmbEfmFnsOIegK0hBakIMAfXZFEH5Fd99rnDHTG6b5uc/Xko8SMdy4oABv/RrPHLmggm
-         noTHlenQUzaMrHPEgJSTqbRlhUey0OoxOn731yptFKZXzCltH+Ur6HRn9b53P6gvwmhP
-         TwcYi0MWjnLbFdaANvtmVV7hdI7K1V0Oop805hwvoHbDT4LoXG4bxzU09OpEiKgpmT2U
-         w2jA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787818779; x=1788423579;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pT8QHmdIgh8C/99Uph+9sWbsTLGNaTSQ6OcKusUcL0k=;
-        b=Nxj+OwqgAYvj4E2AOdC++/MLLYKJhvjfdiTfvqIEHqW6wmmy2WRKrASSonPMhqcUnZ
-         2gJsuaPdt7ZXub2OMNOQCv95MVOPijspFtfCmm1HSNKnZlGLTAvqiQ+QPvdl+wIhXMO+
-         hbXSb0IDODNEro2k2q0wgyOas1dpnS0YRXnT9gzVs1MMuMBz3unkYw7kUAcu9Pz4mP0A
-         qOkNWnV88PSYI3mv3qM9mIQEZIgO+K7BQKmktHb7Z8cfPz8Orgdq3oywotqBbc4w3vOi
-         DZOhzaltWgeu7Wcz+/nwFpof6jQjjtHuJw8BQ9qp4tBEFn4+/MWR+NArXlW4HT94yw3g
-         kVlg==
-X-Forwarded-Encrypted: i=1; AHgh+RrEjAbQHBFvn1aVVEWipAJchJXmpqhTMrDR6yysEbAFhBH4FZPBjM0THYzYCBFlvfqxnLxA78aHyPollEU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nh46l99eNS+A9TbzIa9Ch4esJ28fRndSAGj83JF+4AqFoixmnb
-	ZzLQ4rCBQkSw+o/rqLuJTd/osbDTVt4uzR++siJAaISYx++ErfebFNtQyd8aHFi5InXD9m4n65O
-	b5R5/YaKAKpaYIL0KIjHmHIezH8b/VFgfvdaN0s1xAkRgRX5TXMPhag035H0F2VS3sQ==
-X-Gm-Gg: AR+sD13OBCS0DD1GTNm2kgEH0kIrpanV6/aC/mk/2VoTOw1oS9tB9do0zUOUqewCUSk
-	9OCL8Fh2Lv1nLay0ILpWt6Rs515GMJBqERigxOW8mfMT36LO+OVGJ9bCNFlPATcipIh8KwcFRD+
-	KcQ1AVhbdgE7dr2HvyiPjeLLBXNwJNEApzuDKwXq82Loc0ivBJMWPFLJgeVbESusCOnx181sl09
-	yxspG1/4yG+X6asTeEQnouHNMYDFavBJPAv6sEI4266VLQhEDZCVzcYkz7TwWZCWBCYRVtoSNIa
-	H08uuPMlvWuJS+kWjC7llYHVIpfn+yNyOCM7diMVPQZUwhiwRltIAVXKBunqaffrk4pK4PoSx0y
-	08XyJBwl+KAs3eC1bwLObqjQGr3QGEKUcTemnyWEAxw3V5yCl4j+2GRa1Eni91BHWXVvZfCM=
-X-Received: by 2002:a05:600c:3b25:b0:493:f783:c46a with SMTP id 5b1f17b1804b1-49b0dfcd4c2mr46298535e9.6.1787818779461;
-        Thu, 27 Aug 2026 01:19:39 -0700 (PDT)
-X-Received: by 2002:a05:600c:3b25:b0:493:f783:c46a with SMTP id 5b1f17b1804b1-49b0dfcd4c2mr46298095e9.6.1787818779033;
-        Thu, 27 Aug 2026 01:19:39 -0700 (PDT)
-Received: from [192.168.188.103] (ip46-47-231-195.pool-bba.aruba.it. [195.231.47.46])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b0dd3e148sm29013275e9.1.2026.08.27.01.19.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 27 Aug 2026 01:19:38 -0700 (PDT)
-Message-ID: <ad731f07-3b80-4d48-a6fa-c0e405eedefd@redhat.com>
-Date: Thu, 27 Aug 2026 10:19:36 +0200
+	bh=dHKgEcpAnFM7pEhWpO1E8wnd+7B5JBIywxZU+obwOD0=;
+	b=xEMckJcctN+XyCF3tP1A7kB3Z9NMqkOr1WP3u9eNx0R1d6VPmDAbkfzv6Dz5L6rc4iPDAL
+	DeTMebaCG9CYd60ZBy6/6oyFrOocGDegnbcEVpSCtOOxRTmp89Tc7fP2j9Jfwx1X3iSEr3
+	vfg3fbcnrSr6VMLGvtRDr7LRYO7vMlHebLP9UMnFoEz3x5z3PqRFdQA/dGiGAceQ7kGREX
+	B3FthaoTCt/827MpvioWnToPzvvNkcrRmQeEzocpdKAI+bB3Zz4jCENu/fNmn4DSRgK5+s
+	gQKshKN67amzT1FdkuYnlf17RNxG4BlGjMnJafxaU6KZGBY2ee5SSXKE7rYqRQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1787818821;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dHKgEcpAnFM7pEhWpO1E8wnd+7B5JBIywxZU+obwOD0=;
+	b=/xHz2DwueZDiGs6En/mm1IcQyzO3s2+iRZ1dFAnSt6ypCR7hibiWxWPyikRCsxBcAbJWib
+	mLu+1zK/ObCQ8jDw==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: "Paul E. McKenney" <paulmck@kernel.org>
+Cc: David Woodhouse <dwmw2@infradead.org>,
+	Sean Christopherson <seanjc@google.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>, Michal Hocko <mhocko@suse.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Simona Vetter <simona.vetter@ffwll.ch>,
+	Jerome Glisse <jglisse@redhat.com>,
+	Christian Koenig <christian.koenig@amd.com>,
+	Paolo Bonzini <pbonzini@redhat.com>, linux-mm@kvack.org,
+	kvm@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/mmu_notifier: Remove non_block_start/end() from
+ notifier invocation
+Message-ID: <20260827082019.xrNuIfE2@linutronix.de>
+References: <ao3z7Rtw2FROkVpy@google.com>
+ <d4f8ff92-08ac-4253-b647-f9e95c66698d@paulmck-laptop>
+ <20260826073233.T-KtFXmj@linutronix.de>
+ <da5ee56b7d082abfbb20f71be99a6885247e9811.camel@infradead.org>
+ <dbbd6634-4da9-4ecc-9fb2-d7430e2743ca@paulmck-laptop>
+ <98e123c9-3dc4-45fb-815b-881b3346741c@paulmck-laptop>
+ <ACC45EB6-F881-4EE9-A9F8-D53A2B921FEE@infradead.org>
+ <e62a7362-7dd0-4615-8877-6ab675971ab2@paulmck-laptop>
+ <06F9A0F0-2177-4173-A201-56325A73F89B@infradead.org>
+ <4415dbf2-10b0-4cb1-b045-13dbcd69c5d5@paulmck-laptop>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 net-next 0/3] net: phy: mediatek: support EcoNet
- EN751221 gbit SoC PHY
-To: Caleb James DeLisle <cjd@cjdns.fr>, netdev@vger.kernel.org,
- ansuelsmth@gmail.com
-Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- daniel@makrotopia.org, dqfext@gmail.com, SkyLake.Huang@mediatek.com,
- matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org
-References: <20260826202103.2280645-1-cjd@cjdns.fr>
-From: Paolo Abeni <pabeni@redhat.com>
-Content-Language: en-US
-In-Reply-To: <20260826202103.2280645-1-cjd@cjdns.fr>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <4415dbf2-10b0-4cb1-b045-13dbcd69c5d5@paulmck-laptop>
 
-On 8/26/26 10:21 PM, Caleb James DeLisle wrote:
-> NOTE: This patchset bases on https://lore.kernel.org/netdev/20260708102341.53919-1-ansuelsmth@gmail.com/
+On 2026-08-26 14:04:32 [-0700], Paul E. McKenney wrote:
+> > >Anyway, easy enough:
+> > >
+> > >#ifdef CONFIG_PREEMPT_RT
+> > >DEFINE_SRCU(whatever);
+> > >#define my_srcu_read_lock() srcu_read_lock(&whatever);
+> > >#define my_srcu_read_unlock(idx) srcu_read_unlock(&whatever, (idx));
+> > >#define my_synchronize_srcu() synchronize_srcu(&whatever);
+> > >#else
+> > >DEFINE_SRCU_ATOMIC(whatever);
+> > >#define my_srcu_read_lock() srcu_read_lock_atomic(&whatever);
+> > >#define my_srcu_read_unlock(idx) srcu_read_unlock_atomic(&whatever, (idx));
+> > >#define my_synchronize_srcu() synchronize_srcu_atomic(&whatever);
+> > >#endif
+> > 
+> > We could do that for the KVM GPC locking, but more consistent would be to change *all* users of the 'atomic' lock under PREEMPT_RT to silently get the sleeping version instead, like PREEMPT_RT does with spinlocks and rwlocks.
+> > 
+> > So it's srcu_read_lock_atomic() itself (et al) which would get that if/else treatment.
 > 
-> Add support for the EcoNet EN751221 SoC gigabit PHY, as identified by
-> product IDs 9451, and 9471.
-## Form letter - net-next-closed
+> OK, the traditional approach is that raw_synchronize_srcu_atomic() and
+> friends with the raw_ prefix are always atomic, and without the raw_
+> prefix it is atomic for !PREEMPT_RT and non-atomic otherwise.  You would
+> use the non-_raw primitives.
+> 
+> Easy enough to do.  But does it do the job, both from a PREEMPT_RT
+> perspective and a notifier perspective?
 
-net-next pull request for v7.3 has already been merged, and therefore
-the net-next tree is closed for new drivers, features, code refactoring
-and optimizations. We are currently accepting bug fixes only.
+It does not lead to any lock violations so that is a plus.
 
-Please repost when net-next reopens after Aug 31st.
+> And notifiers (though a different type of them) were the first use case
+> for SRCU.  ;-)
+> 
+> 							Thanx, Paul
 
-RFC patches sent for review only are obviously welcome at any time.
-
-See:
-https://www.kernel.org/doc/html/next/process/maintainer-netdev.html#development-cycle
--- 
-pw-bot: defer
-pv-bot: closed
-
-
+Sebastian
