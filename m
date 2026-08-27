@@ -1,101 +1,84 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B44C3C9886
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:37:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBE483E49F7
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:38:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787819862; cv=none; b=cNQSa3g9i1ayRbXBFUsN+NgcKaIV0tpUOXqHbEnkoV5I4726qKNBi5vWIDb9boLwh0YpOjEiE+KBhg4Z6vKifVmR3caZeafCUv6Ym9fDY64MJd6DPek0USTyeqBJMxngGEWoJ+8udKDJE5Lw+gYE8T9OaS/ejTzHgs2948+tuzE=
+	t=1787819900; cv=none; b=TjHFICHDU02kZmlDQ/bZ0a0niYWxZdBUO6ob+zSOuREdehoiivKiWj7KNEB8YxA0IshFSzF8XUmhQjKWv7cdrxz77iFJHw1CFfJgYFVfn9sgkKrp52Bc1O6BxOQVvNtnUOP6qySd6Jg0sGFqgFFOuZEKxQfaVEjqeEGrFAMdvG8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787819862; c=relaxed/simple;
-	bh=uLDJDHDq7131vcScWYDOdh9QqsBxxkSTjHkeHvBlQWw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gJcYtXwKyzfZMwHWU4uXuqD8jhY8hwq368Ois/z2IH4tAAEcLwpSgK+CByfvFlQYUPxoGPcbkr+yt4eAoTMON9hk+rfqPJc/KHr4uz+GOjqCd+mVcE+200CkJvpcxM11LLfCpizpfcln2Z9z7DBJsE4RgNFkyyjVFTjPxxMmNnM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=ickLu4H7; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=D1HUkaI0; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1787819900; c=relaxed/simple;
+	bh=fYTN9rXnoXktOjn8nAdtEOoyT9pEio9tFP/qs6Vafo8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DYJeNJkQngo6jkjZFQy5Y746amN8gi2QgGuviq/tdMXZGqCZuSI5fTHeXHAwQhyNRtUDBQ3tDNBBffYmUdNwwgTyUxYbTCSh0DllwiqNLTk7rPjqJRcAAPpzcV7mWiZCXdN1qMew4M+WuSlUiwxsKTJtAkbOxvYK+25kmj2ei6g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=he2igmL3; arc=none smtp.client-ip=115.124.30.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ickLu4H7";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="D1HUkaI0"
-Date: Thu, 27 Aug 2026 10:37:38 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1787819859;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uSLMOLZbaUgpVe/4MzjSC3H0CElONzcrnF1acij8DHM=;
-	b=ickLu4H7BHPk4yvoAl9zVCpXnS19K/JEPu6ZlDscGDc0un3qtR89V47DD901lS3OODO3lp
-	Y9186W6muVsGI+XGP19cNNrBePoLKOn4nLgkLz4lhtAgdOb/hIJ8ufCcW1wOzadM4FxJW+
-	4IycDKaGPErP38Bl5K7JG6dyrIT+OS54fqJ1cerxvTfHAoGI19k4IuHuo6m36z5QFRXih4
-	rVakGmWsawhfqE1WAARkg7X6ABJPCw6r+bZ5yabNzSUZTBMa7fK7T3uIHSK9cOsMttKwEl
-	jooqAvz4nK9EOJHVGssaAoEY4wnx2RFyuwY15xAEF/QOGE+vuSdExuMXhAUmDw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1787819859;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uSLMOLZbaUgpVe/4MzjSC3H0CElONzcrnF1acij8DHM=;
-	b=D1HUkaI0YP5VFdDp2mTgGwK1ZRcHqJ7YP2rmmqAXdRaJb/3IUxMaGFc2F7HZgSLB2dHK98
-	uDgIrTLwHtP1ZUAw==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Thomas Gleixner <tglx@linutronix.de>
-Cc: Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
-	=?utf-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>,
-	Darren Hart <dvhart@infradead.org>,
-	Davidlohr Bueso <dave@stgolabs.net>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>, Yao Kai <yaokai34@huawei.com>
-Subject: Re: [PATCH v3 1/2] futex: Add missing rt_mutex_.*_schedule() around
- rt_mutex_wait_proxy_lock()
-Message-ID: <20260827083738.-6QSwUwb@linutronix.de>
-References: <20260824125544.2353006-1-bigeasy@linutronix.de>
- <20260824125544.2353006-2-bigeasy@linutronix.de>
- <20260824132334.GI687043@noisy.programming.kicks-ass.net>
- <874igghi3w.ffs@fw13>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="he2igmL3"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1787819894; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=S0b5mtUWJPOlKR5LLS2V3xdKfgJHqZzr0zXFS4YHIDs=;
+	b=he2igmL3qqakWP0fEx0CMX31xH7mKEmlay+joCxHNqSKP64CRE81Kue43JF+XPZ162RmQ+xMlZ959ulMMMVpoiJfq89qJE5brtqVThYHNt6CdbwJqgUQA5c98R71AgAkJxnyOiu2glE7qjADbveU/evrVhsVQ+kruNjDoKa9yas=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R881e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=13;SR=0;TI=SMTPD_---0X9jAnny_1787819892;
+Received: from 30.74.144.120(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0X9jAnny_1787819892 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 27 Aug 2026 16:38:13 +0800
+Message-ID: <25baffdb-fd65-489b-ac9b-94e1ad676eaa@linux.alibaba.com>
+Date: Thu, 27 Aug 2026 16:38:12 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <874igghi3w.ffs@fw13>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] MAINTAINERS: remove myself as THP co-maintainer
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org
+References: <20260826-drop-thp-maintainership-v1-1-3d102748fa17@kernel.org>
+ <ao7Nr_FALfP7cTY5@gremlin>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <ao7Nr_FALfP7cTY5@gremlin>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 2026-08-26 20:06:11 [+0200], Thomas Gleixner wrote:
-> On Mon, Aug 24 2026 at 15:23, Peter Zijlstra wrote:
-> > On Mon, Aug 24, 2026 at 02:55:42PM +0200, Sebastian Andrzej Siewior wrote:
-> >>  #include "futex.h"
-> >> @@ -865,7 +866,10 @@ int futex_wait_requeue_pi(u32 __user *uaddr, unsigned int flags,
-> >>  	case Q_REQUEUE_PI_DONE:
-> >>  		/* Requeue completed. Current is 'pi_blocked_on' the rtmutex */
-> >>  		pi_mutex = &q.pi_state->pi_mutex;
-> >> +
-> >
-> > 		/*
-> > 		 * Since current is doing the requeue, it cannot also be
-> > 		 * a waiter on the same futex.
-> > 		 */
-> 
-> Current is not the task doing the requeue. Current is the requeued waiter which is
-> blocked on the rtmutex.
-> 
-> Though the change log is confusing at best. The whole requeue explanation
-> is not really helpful IMO.
-> 
-> The point is that _all_ invocations of rt_mutex_schedule() must be
-> preceeded by a call to rt_mutex_pre_schedule() and followed by a call to
-> rt_mutex_post_schedule().
-> 
-> So this code simply failed to do that, which triggers the
-> lockdep_assert() in rt_mutex_schedule().
-> 
-> And it's obvious from the surrounding comments how this task got there, no?
 
-I would suggest to strip it all from the futex part, not do the flush
-and just please the assert so it keeps quiet. I did some explaining in
-the v2 and then Yao suggested
-	https://lore.kernel.org/all/5df8a43e-11bb-4881-877d-40034c414984@huawei.com/
 
-which is what I had in mind.
+On 8/26/26 7:31 PM, Lorenzo Stoakes (ARM) wrote:
+> Since it's 2026 :) I asked Claude to look at my time as THP co-maintainer:
+> 
+> 	~107,000 words of review across 948 emails (in 279 distinct
+> 	threads), counting only prose you actually wrote — quoted text,
+> 	signatures and attribution lines stripped. That's a full novel's
+> 	worth of review commentary.
+> 
+> 	Along the way you handed out 194 Reviewed-by and 15 Acked-by tags,
+> 	and your longest single review was 2,404 words (mTHP collapse
+> 	support, v12 — the khugepaged/mTHP collapse saga accounts for most
+> 	of your top-10 longest reviews).
+> 
+> 	Estimated review time: roughly 300–500 hours, centred around ~400
+> 	(i.e. ~7 hours/week for 14 months).
+> 
+> 	1,615 THP-related emails in the window: 948 reviews of others'
+> 	work, 278 replies on your own THP-touching series threads (~31k
+> 	more words responding to review), 382 patch emails, and a handful
+> 	of MAINTAINERS bits. Busiest months: March 2026 (131 review
+> 	emails), June 2026 (113), August 2026 (111); quietest was December
+> 	2025 (5).
+> 
+> Think I can be happy with that!
 
-Sebastian
+Hi Lorenzo,
+
+Thanks for your great work as THP co-maintainer (we all know THP is one 
+of the busiest subsystems in the MM :)). I am glad to work with you and 
+very much appreciate your review comments and suggestions.
