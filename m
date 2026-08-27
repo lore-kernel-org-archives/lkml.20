@@ -1,64 +1,64 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B64A547D461
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:22:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26292496914
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:22:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787851324; cv=none; b=d4NHrUbfMfk9U+3pjuTijClKBu8vm0jEYEx7GWEHjU8i7buDnVVXY6QIMxekDY9A3fVsjijLALb/9RqcrTDOYbzAe3ZnjRqfrxAOSdIU+pY6KtL9tGW/wLgkWt7ow1J4y3lg+O4SWZvAhUrKReE98odtBXS6r5PpWr0bIXq2RhE=
+	t=1787851329; cv=none; b=SEPsANKsxfKDnH4mk/sK8v/mJkW8SZ9uj5+DcRvgzoFpy5nbzQj4Ak6qEupQ02mNMVMPvF+ztYrmv5D3ZjKurE+Yoovq78VvjtACXNS8UQEG8tBgUatjShucdjbMBrDK16S2hlGVbQLg3UV6DD2DD47VGYHGIVwVVcC/8QZsjso=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787851324; c=relaxed/simple;
-	bh=SQjMM6e5l1eXQ326406VN4Ppfu0Q1sDCfdFbTQj8lmk=;
+	s=arc-20240116; t=1787851329; c=relaxed/simple;
+	bh=0k5RIH93Yjz24ksL9fHu9qf1zYGBe+t//mBUH0aQddc=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Ztd7r2OAS8UUYLPdjTfIUhDaQuaJogdDql5H9EzKkWAL9uCILhRQiJznNOpk21L4BT5R7FYqCzMyZQdbIcuTp+5CvYherLplDWYQvHUFN1creE6rwDkO3WQYBLC7EvH4IGJqjIUeE+d4zhrBS4vI2eWS3fPyRcWYqPUw+estY38=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ahecb6Lj; arc=none smtp.client-ip=209.85.216.50
+	 MIME-Version; b=AcpLCW4UloTSHIacarbTstpE+vFcNWZVOb4wd2a9a8T3aHR38wmDt605kGHCwwhkJRnrD3MR6eI8VFnRDD8RjIw29nwO9US4QzutYbEs4zd/sxHL4Yz6xRjIbAJXQKQ08mj+jV5UwNWb+9yUvR826mYFM4c/sJw5AptWcbeTU8A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sk6kih+4; arc=none smtp.client-ip=209.85.216.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ahecb6Lj"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3965d3d9ab8so214686a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:22:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sk6kih+4"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-38759bcd877so310325a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:22:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787851323; x=1788456123; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787851327; x=1788456127; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=zSPvpz+bFRPPrDJKLP2l884CdP+OIZCEuQCCyJqs4wI=;
-        b=ahecb6Lj8hn7UHxE4gAGhXJf4rfsX/io5wMhKVgL6cRjm3Do3dzKWiOFmBDxSl56+f
-         OqyWjJHSardnItpUllhAU0+LDOlmbJjIBPyx1QsKKCk+LCfSo95nimLYePBRX2Zbltqa
-         fxoPjwOQ6zkTDwwee8HV9ogC6Q9OcO5pTZrba56M+Hq3DNaCPX6fvxTiJY7APDB0Fz5g
-         pHQwN6ArnLWZxG1wFiinBBsRubsuDTH9i/B1cwhoqDwUHk8+kJbFN+jWIpgUtES1+JrJ
-         giWSRmrxG9wxWkHNp3BemQwLIqyD6dCzOHe9YgPlpEwiJ7YcKoO8x+Jl7AhXycsMeBRm
-         xVEA==
+        bh=ext/cEoySzDhvG6GqDZxdkuFYWzU30RhxhzVbTbp7aI=;
+        b=sk6kih+4q1q9x3tu2rRpEdIALNDyAuPNgB+/84rNjDmwiirDezG8YI/g7f1I/2WxJl
+         UPiXLtPU4BMiAdhWv/3VbHGYhpQTk+TRmsVygNvWFYkjfltrXvVBMrDxJHwKjvZExmvt
+         CWJV+9onglqlcyCKXnQzS9NvWovWDNezf7tbqD9q8RJ15RsK4fbkHVk3TP+ZrpiZJGdZ
+         VMsrRBKoJ3Wdr+DArLhjKahXxi+rcHybfpBB/AupzBwpnHYOjwdnGBZOs4GKbMCuMV3C
+         omXCuk3/WVp5TCwpWzbHw8rcRbnleb2JyOe+JqPRU8oWcuBvIzxQ4DPGTAJId9UkRw5s
+         95uA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787851323; x=1788456123;
+        d=1e100.net; s=20251104; t=1787851327; x=1788456127;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zSPvpz+bFRPPrDJKLP2l884CdP+OIZCEuQCCyJqs4wI=;
-        b=Ni+iM/qG7cd5eCSg6HVdDmc+bD2i+ZlEDiSRD3d8LkaQmz4J1EMBIii6ofhIqKkVYI
-         AT4fY6oh46t6+Rm25JiE9zpimMNP12gQsXPOA0Tqn2Z4iIDneubtcqAUcQHA+q0nOSNm
-         zTs8PaJ6IeLG5oYUikmUSccKdX1x9FiwDxg4yDcQ90fO5kcuwtWzqNdmVoy9005t+xO+
-         kNwqn1dqnugenzT/VsvChNr5qzKJQpymRfl6O0BPFYWNKTuzHWbToERyYg7Qb5AmTz8x
-         dy5wfyaw+xFdi0SnPtIugXVTkhwMCO+zaqyyWO4Jx0RZ+TIKPM21S8XbZi9yuY7zUYuu
-         XO1w==
-X-Forwarded-Encrypted: i=1; AHgh+Rri3P2o+tsoyYm3i3k26viDlk+kq53Z/zCR+Q8vT9bJaYzdC9qXJ5jA5SBlS95H9iCp/TOIztjpj+4n2XI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nvNjUnJkxRcVQwN2qOm92fBvFYr4iWKyrxAEBTbo5HCibl/mGw
-	7GyZNvH5tcv1EV63hraKO8Za3t412q/Z37sGBGjhYlfIEzwIIXBG7LX/
-X-Gm-Gg: AR+sD12JsN8xuPMuyJGjQe+jWkJPfS0ebFq4f2peF362lMhioXCiIFl0irqzqyfV1T1
-	qnJERZCes59ED82BIjvzqrH+bq5VN63u5mXG7wjGlkzdwx9cl8b0dSU3pU4D7CfgienmBb1AHdQ
-	BH6uMe39iIzPjsGYc+dQcPsoEPBSrYwxzaZsT8cdzN4rZtsiBow8zJtNMKdfk5+6dbfcLb1IgzD
-	o202Flh1kn0N9bZsr8pNkPfSYRDJyJBw5gPfjKizlwvIFaWzlQQSktdEzM7aPz7Qi5owOH3ahGP
-	AsWKgMKMZhplRdr+QS4Bwb+4OwCdKnCAV/DeD9LRyWFhmFB2U1KDA9jNJ7sGNx2XIyoTT1jAkon
-	Iy25fcysscucHtuv6kGC/aDxCtJ5uQ78UA66AvPErPZtkhqpA9sOayXYQsXRDH+sP/wVWWrcYwS
-	eLJC/v/oS/o1u+YtilgCYFW83paE5PAB0cZc7CwNpAncMSSDcXyjk7rN862GMkJeQ0e2ktUBcM4
-	v6W0GWZjJUWNOdDM00XaeT6sb/nKhIRdKIg
-X-Received: by 2002:a17:90b:384e:b0:38c:a59b:5189 with SMTP id 98e67ed59e1d1-396d104d0bfmr1151199a91.15.1787851322882;
-        Thu, 27 Aug 2026 10:22:02 -0700 (PDT)
+        bh=ext/cEoySzDhvG6GqDZxdkuFYWzU30RhxhzVbTbp7aI=;
+        b=UD5UmH5a54ZU61bKTwdmZPKMVrMMC/5RrywhDVnqMXejhKNsIhZoZmnxUP6vqLeOvI
+         VhWOMMozP9vfyA50Sz6gWISu6O+Z3o8ez9rEfPce8aONmR4AZEaP6lxW+TOv2P6MFInu
+         2ngMRsF01oitr4q328B7NzwjsI2sq1wN8IUgxnxl6QMSr47Svy6fy4FhaIUm8rEcyobj
+         e3sbJv/ZrilI56eYN4Ih2wVI/+u232JCeMkRw/Q1vPcCnbHwXDB8jKqnlBIcHpk92lDe
+         0NckL0FFHTfAtxV4L9h8uzON9Exc4qEcdj6KsWgnqfYB0dg/BmLEHvOr7Jxida3gW8jT
+         5CNA==
+X-Forwarded-Encrypted: i=1; AHgh+RqSX2Xc+Z9fMVDuKPXjvZf/73aLayihpnnVPCW1eL9FdCz8eH7N4f/Ivg1hMH6sqBEoVnd52JJMdVPBaZI=@vger.kernel.org
+X-Gm-Message-State: AFuF++m8X0BmLLIOzB5F9cOOJPmLUeLPVgboLktYOk2lfDnDhUXHGnFX
+	EC1NSqY0xcvpSG7n3gtxAK6J3vNuC8qUCg3q+YlmGxGi9Y+B5uQcJDpJ
+X-Gm-Gg: AR+sD11Es0JpZ6uSiprKGy8XvBAGYL6CkICS4prSI5saLyYt9uhDwTbyShWSe39B8je
+	X2Askl7vInNjft0rMwHb+mU//GlyQFfG0eJKybxstdwEbxZjYV3d2FRC7SI1Rs3HkQeWhGSQYaX
+	A/ypb9UMUhHFuEo4PmUmtYcxZYTbxraGCJ9g4xYuNKtSRZ0HpIW6TLZ3/G1DAelx5eOIpNyBLRp
+	KN60BjqNDYdurp7jL6aR+2os7Po6xrq/qxEDeYivxUFVCqtrTbsiOI0nxSJtlKjcG+KeC0LuOTB
+	LiUg9MfTIW+XoGH//4CDCvdARx/mmAJ2wv5pJYYq7GiT2Dfuc8g4R9Hax3CENgbFXGCEYAcRbj5
+	lz0RRSU39jLwrCAnkYw51lbSa/AWI+2NPTxyh1sa4nfQarj7wN2fWZbF/FuxWrnLLVKggmR2JxO
+	GlWEIOzN/TJR5ZY+0e3gwiZCwB7+FNwG4Hf2E6qslaTrjinesda0JewKPLYKWFCILtAgefe6euE
+	IVkrfkEd+7YlNU3uw85IQmoflzyf1SpbzZf8b2eUBpmqUsA
+X-Received: by 2002:a17:90b:1a8e:b0:396:4c63:7193 with SMTP id 98e67ed59e1d1-396d0fe45damr1226750a91.11.1787851327313;
+        Thu, 27 Aug 2026 10:22:07 -0700 (PDT)
 Received: from debian.ari ([47.30.51.191])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a8eedd13sm17797165c88.1.2026.08.27.10.21.58
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a8eedd13sm17797165c88.1.2026.08.27.10.22.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 10:22:02 -0700 (PDT)
+        Thu, 27 Aug 2026 10:22:06 -0700 (PDT)
 From: Archit Anant <architanant5@gmail.com>
 To: jic23@kernel.org
 Cc: dlechner@baylibre.com,
@@ -68,9 +68,9 @@ Cc: dlechner@baylibre.com,
 	linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Archit Anant <architanant5@gmail.com>
-Subject: [PATCH v4 6/8] iio: adc: ti-ads1015: Convert to managed resources
-Date: Thu, 27 Aug 2026 22:50:58 +0530
-Message-Id: <20260827172100.39176-7-architanant5@gmail.com>
+Subject: [PATCH v4 7/8] iio: adc: ti-ads1015: replace custom shift macros with FIELD_PREP/GET
+Date: Thu, 27 Aug 2026 22:50:59 +0530
+Message-Id: <20260827172100.39176-8-architanant5@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20260827172100.39176-1-architanant5@gmail.com>
 References: <20260827172100.39176-1-architanant5@gmail.com>
@@ -82,49 +82,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Use managed resource helpers for the mutex and runtime PM setup.
+The driver currently uses custom _SHIFT macros and manual bitwise
+operations to read and write to the configuration register.
 
-Replace mutex_init() with devm_mutex_init() and replace the separate
-pm_runtime_set_active() and devm_pm_runtime_enable() calls with
-devm_pm_runtime_set_active_enabled().
+Modernize the bitwise logic by replacing all manual shifts with the
+standard FIELD_PREP() and FIELD_GET() macros from <linux/bitfield.h>.
+This improves readability and prevents potential bitwise errors.
 
-This simplifies resource management and ensures resources are
-automatically cleaned up on probe failure and device removal.
+Remove the now-unused _SHIFT macros from the top of the file.
 
+Suggested-by: Jonathan Cameron <jic23@kernel.org>
 Signed-off-by: Archit Anant <architanant5@gmail.com>
 ---
- drivers/iio/adc/ti-ads1015.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+ drivers/iio/adc/ti-ads1015.c | 40 +++++++++++++++---------------------
+ 1 file changed, 16 insertions(+), 24 deletions(-)
 
 diff --git a/drivers/iio/adc/ti-ads1015.c b/drivers/iio/adc/ti-ads1015.c
-index ba4a01850531..a6dd85debc0e 100644
+index a6dd85debc0e..d675f82c0bd5 100644
 --- a/drivers/iio/adc/ti-ads1015.c
 +++ b/drivers/iio/adc/ti-ads1015.c
-@@ -959,7 +959,9 @@ static int ads1015_probe(struct i2c_client *client)
- 	data = iio_priv(indio_dev);
- 	i2c_set_clientdata(client, indio_dev);
+@@ -11,6 +11,7 @@
+  *	* 0x4B - ADDR connected to SCL
+  */
  
--	mutex_init(&data->lock);
-+	ret = devm_mutex_init(dev, &data->lock);
-+	if (ret)
-+		return ret;
++#include <linux/bitfield.h>
+ #include <linux/cleanup.h>
+ #include <linux/delay.h>
+ #include <linux/i2c.h>
+@@ -39,14 +40,7 @@
+ #define ADS1015_LO_THRESH_REG	0x02
+ #define ADS1015_HI_THRESH_REG	0x03
  
- 	indio_dev->name = ADS1015_DRV_NAME;
- 	indio_dev->modes = INDIO_DIRECT_MODE;
-@@ -1044,12 +1046,9 @@ static int ads1015_probe(struct i2c_client *client)
+-#define ADS1015_CFG_COMP_QUE_SHIFT	0
+-#define ADS1015_CFG_COMP_LAT_SHIFT	2
+-#define ADS1015_CFG_COMP_POL_SHIFT	3
+-#define ADS1015_CFG_COMP_MODE_SHIFT	4
+-#define ADS1015_CFG_DR_SHIFT	5
+ #define ADS1015_CFG_MOD_SHIFT	8
+-#define ADS1015_CFG_PGA_SHIFT	9
+-#define ADS1015_CFG_MUX_SHIFT	12
  
- 	data->conv_invalid = true;
+ #define ADS1015_CFG_COMP_QUE_MASK	GENMASK(1, 0)
+ #define ADS1015_CFG_COMP_LAT_MASK	BIT(2)
+@@ -408,15 +402,15 @@ int ads1015_get_adc_result(struct ads1015_data *data, int chan, int *val)
+ 	dr = data->channel_data[chan].data_rate;
+ 	mask = ADS1015_CFG_MUX_MASK | ADS1015_CFG_PGA_MASK |
+ 		ADS1015_CFG_DR_MASK;
+-	cfg = chan << ADS1015_CFG_MUX_SHIFT | pga << ADS1015_CFG_PGA_SHIFT |
+-		dr << ADS1015_CFG_DR_SHIFT;
++	cfg = FIELD_PREP(ADS1015_CFG_MUX_MASK, chan) | FIELD_PREP(ADS1015_CFG_PGA_MASK, pga) |
++			 FIELD_PREP(ADS1015_CFG_DR_MASK, dr);
  
--	ret = pm_runtime_set_active(dev);
--	if (ret)
--		return ret;
- 	pm_runtime_set_autosuspend_delay(dev, ADS1015_SLEEP_DELAY_MS);
- 	pm_runtime_use_autosuspend(dev);
--	ret = devm_pm_runtime_enable(dev);
-+	ret = devm_pm_runtime_set_active_enabled(dev);
+ 	if (ads1015_event_channel_enabled(data)) {
+ 		mask |= ADS1015_CFG_COMP_QUE_MASK | ADS1015_CFG_COMP_MODE_MASK;
+-		cfg |= data->thresh_data[chan].comp_queue <<
+-				ADS1015_CFG_COMP_QUE_SHIFT |
+-			data->comp_mode <<
+-				ADS1015_CFG_COMP_MODE_SHIFT;
++		cfg |= FIELD_PREP(ADS1015_CFG_COMP_QUE_MASK,
++				  data->thresh_data[chan].comp_queue) |
++			FIELD_PREP(ADS1015_CFG_COMP_MODE_MASK,
++				   data->comp_mode);
+ 	}
+ 
+ 	cfg = (old & ~mask) | (cfg & mask);
+@@ -427,7 +421,7 @@ int ads1015_get_adc_result(struct ads1015_data *data, int chan, int *val)
+ 		data->conv_invalid = true;
+ 	}
+ 	if (data->conv_invalid) {
+-		dr_old = (old & ADS1015_CFG_DR_MASK) >> ADS1015_CFG_DR_SHIFT;
++		dr_old = FIELD_GET(ADS1015_CFG_DR_MASK, old);
+ 		conv_time = DIV_ROUND_UP(USEC_PER_SEC, data_rate[dr_old]);
+ 		conv_time += DIV_ROUND_UP(USEC_PER_SEC, data_rate[dr]);
+ 		conv_time += conv_time / 10; /* 10% internal clock inaccuracy */
+@@ -744,6 +738,7 @@ static int ads1015_enable_event_config(struct ads1015_data *data,
+ static int ads1015_disable_event_config(struct ads1015_data *data,
+ 	const struct iio_chan_spec *chan, int comp_mode)
+ {
++	unsigned int val = FIELD_PREP(ADS1015_CFG_COMP_QUE_MASK, ADS1015_CFG_COMP_DISABLE);
+ 	int ret;
+ 
+ 	if (!ads1015_event_channel_enabled(data))
+@@ -756,10 +751,7 @@ static int ads1015_disable_event_config(struct ads1015_data *data,
+ 			comp_mode == ADS1015_CFG_COMP_MODE_WINDOW)
+ 		return 0;
+ 
+-	ret = regmap_update_bits(data->regmap, ADS1015_CFG_REG,
+-				ADS1015_CFG_COMP_QUE_MASK,
+-				ADS1015_CFG_COMP_DISABLE <<
+-					ADS1015_CFG_COMP_QUE_SHIFT);
++	ret = regmap_update_bits(data->regmap, ADS1015_CFG_REG, ADS1015_CFG_COMP_QUE_MASK, val);
  	if (ret)
  		return ret;
  
+@@ -1005,19 +997,19 @@ static int ads1015_probe(struct i2c_client *client)
+ 		unsigned int cfg_comp_mask = ADS1015_CFG_COMP_QUE_MASK |
+ 			ADS1015_CFG_COMP_LAT_MASK | ADS1015_CFG_COMP_POL_MASK;
+ 		unsigned int cfg_comp =
+-			ADS1015_CFG_COMP_DISABLE << ADS1015_CFG_COMP_QUE_SHIFT |
+-			1 << ADS1015_CFG_COMP_LAT_SHIFT;
++			FIELD_PREP(ADS1015_CFG_COMP_QUE_MASK, ADS1015_CFG_COMP_DISABLE) |
++			FIELD_PREP(ADS1015_CFG_COMP_LAT_MASK, 1);
+ 
+ 		switch (irq_trig) {
+ 		case IRQF_TRIGGER_FALLING:
+ 		case IRQF_TRIGGER_LOW:
+-			cfg_comp |= ADS1015_CFG_COMP_POL_LOW <<
+-					ADS1015_CFG_COMP_POL_SHIFT;
++			cfg_comp |= FIELD_PREP(ADS1015_CFG_COMP_POL_MASK,
++					       ADS1015_CFG_COMP_POL_LOW);
+ 			break;
+ 		case IRQF_TRIGGER_HIGH:
+ 		case IRQF_TRIGGER_RISING:
+-			cfg_comp |= ADS1015_CFG_COMP_POL_HIGH <<
+-					ADS1015_CFG_COMP_POL_SHIFT;
++			cfg_comp |= FIELD_PREP(ADS1015_CFG_COMP_POL_MASK,
++					       ADS1015_CFG_COMP_POL_HIGH);
+ 			break;
+ 		default:
+ 			return -EINVAL;
 -- 
 2.39.5
 
