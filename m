@@ -1,199 +1,244 @@
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA24C490BF0
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:18:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 146AD499F22
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:18:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.46
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787851112; cv=pass; b=XZXDLybPVQ2WMaaz8YmA1DqjlmXjxQP7+wX2w7rp0cT9NJ+PAwnsBJtKvWwjH9P8uYuyJP1lQTw3nB8Nol2qu55P9kIugkfLPPAfAEDLV/wjNN86hRr7UTg+1TefL1I2QS4A8n5CKdmubJoY3yqTPGuvYQ0AKsGv7tV20j0PK7c=
+	t=1787851116; cv=pass; b=fU/9o7IhWbAeHUXoneOX+mV7VTbwEzaZBWIm5qcqbs7QW4nohfIsv1hYe3tupMmMyD5OefCl6WWIN9W+yt5hStnaGaU+lchRrU1NzhPk5beFv1gnoFFDuFr78B4uRiKn4yfNOouAUGAd8BwaRo/tHBEuEAlkcj/6T+UtKC/bCmE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787851112; c=relaxed/simple;
-	bh=dBUBPexRlyMLsVoGjr+3rtevSBmSG8Ic9FKpcxX/rGY=;
+	s=arc-20240116; t=1787851116; c=relaxed/simple;
+	bh=cNKN7P+0Hjj504FMpK5rDVWOiT7kp0KvvD/7ppm3CW0=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=h1qq0y2lOKyR08KU7Ggii60SLDaZc2YUw5TucREJbynT+On1TtjQoFKqv6Wn6dMVlVMrgjt1sPyaTViVPj9iWgeOMW9CJadmfK9iaZkR9f2BL1CmNW4bg+lA4a0NGLNWTtuvKkvGrf3XTln/DWzCaDgLuW+Bc3JbWbm8JC57lK4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Sn4TZopR; arc=pass smtp.client-ip=209.85.210.172
+	 To:Cc:Content-Type; b=lHGEzlzAjH9mPxSIutzDVFU1iHGnp1nssFqyYR9IF183N5QuANPLfVxPy81wXMtkNBn9QYbH2a821HBtaQvBTRzvd0bSYwFLt6sJ9bgqmhmwt5VJPsuOPmFhGWWYVdg8kBwvMvHNkjPoNu8C0tMrFHGKiOAe2CAcS0HFkDy4iM4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RaJPorKh; arc=pass smtp.client-ip=209.85.208.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Sn4TZopR"
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-853c947bfefso49389b3a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:18:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787851110; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RaJPorKh"
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6a600a1caf8so41452a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:18:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787851113; cv=none;
         d=google.com; s=arc-20260327;
-        b=Q7r0YzABOBoCivkyWddAFNdMY5a+vUXnZdVTyuygoyTIYnhhWJ4Msel+KP/c55FmSs
-         Ng8rV5Ts18Gjrv/Im+ZpOoTxtUf1YK6vP1HSdAk62CvroQ/MldsbVkcYGBdFC4JYsWjL
-         qNpQLCwyFsaS614NQXu4Gq+JwDx7mo0zO298BelRVQJmbyX4ljhZkdA+dN/LmO1u4yr5
-         M8R9XZ+cqVvQcj9E+p3ptB1DbZVQkWyX96CAMdeFhgphd1tIfll0TKbp4GqNQTdT2xbp
-         05BGjxgvCpy8bS/7r5hWyM73Llc4IAPlLZM6ghFYoza7r1it6OiC3UnfENa/3N1AH1sO
-         O/KA==
+        b=HoLBkFBScvuWKGjKq4Sp/jkOd6LcxgSqNq7VSdcKm+Y1+5s4lrsW3jy0C8ty091tyx
+         TFdoTFt1sfjFfPkByow39Q9IlOhzWtbsPdOGzeKJ6b7fhpllN+RSrOcyZOGbAnko67wk
+         A65t98PJvP91YPEDvBc4oxnl7lx9fXJfbL6c/DBnA68GUMB4h9ftjUT6CaOIDyx5smI1
+         d+K+67J3ujJnWGGmmwg1f05wveNRjr/L2IoJ6VS7+KVp/YDIKxqFSKddGwJ4Tb0UtJ1T
+         Ed6egvCcNuf9dbtflsXzHpUwubYwaVEto4jiW9tbMZeQsaC6F9gjtQDUM5lZsqWXwJZm
+         1fiw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=YEtozXouVWJGqO6lpvX2FbcKxusT+Eqsv3MS9X7Ic+0=;
-        fh=VYlv91EIKg0nPB78KPUzhzILQoIb889MAmHHkRAbkzc=;
-        b=YWoPjpS41v1559ZAwrXwYD7Mg5YvNTkhU1dacO9PsvjaN+WbZ+w2pSKysjnPfXU0+H
-         aSe/zly1SLAn+R6mHX/5nwZsRChgTip7FCjRVvOV1TMqsUDi3nKjIWIOiFcYcps1C+dL
-         BCS5Zv5+Ruz8Bdm2cafWBPVL7JJ6r/+vqFseCYd9mbTVSyy/QY7gVE6OPmsV6NyXht1k
-         UYWCTxCyNpB5w0VdrHPhWf0Ne7D7uCtdcpyVwjkpu2qjVT0lWqoyapV/crN8cat3aOIK
-         a9Je+JgKlzj0qCXgsb9ONuCLGAYH0b7th1D+n6mlm3ZrjyOhHsVRcRs3Z60qmok9Awqu
-         KNww==;
+        bh=XtbE6IYV/bM0IXeRDDxsSyGBBMTGpNCnOy9DkA38jik=;
+        fh=QgKOngfeQBYoKsIv+kkrh2LIq/TjgGVCjpK3BD7ltUc=;
+        b=i+w+ddWow3aispcX8Z/pO5rEhwAP5mfou/ORSv1bGzDUt+9iQPPsXt5OPDh38s7NCO
+         oJxcMm98NVAf2P5eSI1kHFxIlW+oAdpcjgJFEqor4gM05lurJacmYozQeGQ1vMO+0cbW
+         Nf6tizJuQEZJl+YYWAV9REj136u3x6ES3QDhBG+uGHAHMxghejd4ZM/xjJuiUCDA+CDb
+         KxAa79aXFKCec6loOYBpicMSmYhbC1Tc9dC/npsCZIxy7z8ozpt27n4zkqrq38h02jWW
+         5h93FYSc9yyflCYziM0l1/R52DuSvASuz/OkhD4Z5teNBjlkneYvNYvYSQtPMCvGbzCz
+         mCQg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787851110; x=1788455910; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787851113; x=1788455913; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=YEtozXouVWJGqO6lpvX2FbcKxusT+Eqsv3MS9X7Ic+0=;
-        b=Sn4TZopRyCYsnz8ga/aG3HyirHTm6zbi5Gy8J8e+Zw/OLjgMbxi2LgutE5yv4r8uQW
-         D+RxU+hsIgDPFC+UCm0z8hJo7vw0wY8brvOTay40wqAovwKzaeGb3UCvRW6vwvTy1fgv
-         70Ymzt5j7t07ZvEnvfWr5qO8adsU9V3hSXxaOfKe54DEapdHyXc5x+ApgxdZCJTKv92D
-         912OjktLIOsl0zljMbxUbPqV4ivQ5RHe/8iymoNQZbkW+vJaftme+viFFqgTu2sWlpRP
-         OIC4Fa3q6nFmsWb/gyY+nibwlfFSdDIJA9kyrlkVJSU06imQ78/5kiymAOr7PAEDAk0f
-         SpdQ==
+        bh=XtbE6IYV/bM0IXeRDDxsSyGBBMTGpNCnOy9DkA38jik=;
+        b=RaJPorKh9D7wNCgoGTp+aiBsuLa5M3CDetHa6AYGysQMiZC1d5vDK+OOyALmsrysIt
+         xgqj9iX4uoxze9ZOENbgTChUEh8UNN/581IYTZKPa/+6IBgpDO6DuJqaTSeginLzZQBO
+         hJbqmtphTMNMsMEd5rOTaGtbjBvua5p3v2XsFjdLkoKnUIeyt5B0e/7W4/bISr6ASg6v
+         mqlndYwUVXiA/+CTX1PQxptHA0gK1i1QagQi0tq7Wx8kctn423ERmtWc3fS7PKylHJBt
+         n9sIQuSgFGq0gbto8jGf9JpZVsEIK4vT2Wqbd8DL4gwgpnUf9qXUVQe+iTsWNr0ojuYb
+         cG2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787851110; x=1788455910;
+        d=1e100.net; s=20251104; t=1787851113; x=1788455913;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=YEtozXouVWJGqO6lpvX2FbcKxusT+Eqsv3MS9X7Ic+0=;
-        b=gPdT2hk/o7M89vXx3Ff5P6660DKcipPvF7sog1vBJfgaevUlxBXzMhWRF4CiuAZQFZ
-         +PMcFKjhRmfuPIsEdL7RtzzS7XOJ6Vi9XSwCHq7ca8GJ8EXoa09NcK7Hwf9m2qoDf/IO
-         itFl/xbdJvRML9DH3IaxBdVIcr4mobU0OwWdPuis7H5H36sAo8+6bSyWHlVpPUz/CY7o
-         M2r0lWtK0v8ASzNnE+AQwsKk6/ea+Wt4HUuHCqxrEsxSGJ/Hy9wLFjKr5SqXBMSrEgMP
-         k2TvYf/TXYBuwjzj8/Hy/g9Vb8cPqp2wfnRqxyfMpbhvwYcfl2D8X3eWY1tzW8DiqKZU
-         A0xQ==
-X-Forwarded-Encrypted: i=1; AHgh+Ro63UXeSIZQXjZGssoqIoGC57zFDsU+deU8hGWaZNNzP8kyGJcEYWpkrN5/6zozPx3Zy4mk4Ycu5keAxqU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lRH2eT80UhwZ2gu6sxwVLotuYGuXB5vyS2a34PNyXcSr81sevc
-	HdOXKLe0nzeBFyx/DTQ7Hk0fR+lvNkbyNwKlqcU6r/U4iAy/X9T7O+ioKToym7gPET34ePuFBxP
-	1cymcLYTNlkpoaRL0uUECDtEeJFE/NLE=
-X-Gm-Gg: AR+sD13eNRe4Xfm7sFXUZGItHW9/0lQfKWBMogg4pwgOnPxSzAkmOrOemL/Spw8L2tw
-	RZGDwd0xz3VPxmfOrycGmIScCA9hjRz9c8nrQFkJswregAjBpD1s1Lje2VhUNfjFllxdj0NiQ7u
-	d7MRo/FoU3rVaHhdAjWPil70pk8Vna+4THwZhd3nsRWDYis9Cp/15FKQFRdLwqresJwewTgrij2
-	qXOmhsqls2QZUE4jkXqTsgWWPNTBAwXxvzBb/l1jicOBm9DYjd+INUhyRAzsmVRWaTXjoPGroJw
-	7vdN+G40bcNDnQ4w3n+eeb093KWn4qcM02JeyUXAU1ykOKGV69GowLMB4ct+kssVYa3uEK83AVV
-	YSKgTni0EugWhPiYKRNGKo6krgwtSaNlOJt6T7l8by0g=
-X-Received: by 2002:a05:6a00:929e:b0:854:2071:be08 with SMTP id
- d2e1a72fcca58-854c6b7fa20mr9813220b3a.6.1787851110067; Thu, 27 Aug 2026
- 10:18:30 -0700 (PDT)
+        bh=XtbE6IYV/bM0IXeRDDxsSyGBBMTGpNCnOy9DkA38jik=;
+        b=outLK8ujW04htowBECiVJUfCrXvcWTjV8ExVzopUI8S9eOkH4GZUoKi0FQzAecur5A
+         I2WN8lMYNbO64xvBposqIve6Wpco/R9Ke8AGzJx2Hwmssg+YT5wIJtMkRoR9+Bqt8PhR
+         O70YRf9uMuF3asUyIlhRxkrnohwnl576/RfZlr1dZ4QtURrhxuZivBf5bXULPrkcR0yt
+         AJzu80oxIbsPviszaUpmYgJtAC9sUtiOS0yS8cBjLRVix03e/T4F1wo4Sso8Ru+mJxrx
+         APmpGpVvjHceMcKnxCjjHxNjvzhr9jIynR4Duz3f7jeZZExHggQPoxWICZtDCVptzfsJ
+         palA==
+X-Forwarded-Encrypted: i=1; AHgh+Rqcj8DzHgpPhJ+r9nX+hdFyYzcvNe4Z5157qxhDhzn6a7HKQsWCYx22oMKML5zmnkw931v0OemiEVqo6MM=@vger.kernel.org
+X-Gm-Message-State: AFuF++miKGX8vHAlGWvsqeLpRPWaUuM2ZwHE2xWAzbrVh8cE6AxikwYc
+	4aaGlYlT3wgaczsA9T5j0FBQ1dvbbYwW4cY/YrqMWGLdfTxlpW1Jm5JXRZdcmoDEWC51L+5O3eu
+	q7VTYw3H6CcKz+5HG0JJEJ9apB8vkYj8=
+X-Gm-Gg: AR+sD13q9K4EriPDluVJsYMcTPh4XhIFyedjYgP4qhMAbUfHpQBUQMERxjCAdUp3fXQ
+	+4RvPRfZxNIRbY5nRluvEa805LJSvhmN5z06GB6F9DfGNMRzfhgxqjYQEptoiMY91VQDphpCZZq
+	Az/UfhnQ7KcA5E1vYQzqiIYAbszcTsGBOtyRmZMPXEHFdbpIAyP+UnHNi3UheB6l5pIzNucpZfu
+	CRXsYRag5GIJYhIgp0EgUBAB16MJkocMBAcMFcu6suZRe1bqqeGj9DIEBLvExnqBKsfWC5x5bUv
+	+AjiEko72DR5w9v0UWqkYWxK2MBbOc9FlXLeYIe4ngSt4pHk6zb7NGQra9+C97NTL+abGPg33ul
+	E
+X-Received: by 2002:a05:6402:44d8:b0:698:9e5e:5df8 with SMTP id
+ 4fb4d7f45d1cf-6a60d3450b4mr16898a12.7.1787851113010; Thu, 27 Aug 2026
+ 10:18:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260827075006.3979566-1-sunyiqixm@gmail.com>
-In-Reply-To: <20260827075006.3979566-1-sunyiqixm@gmail.com>
-From: Xin Long <lucien.xin@gmail.com>
-Date: Thu, 27 Aug 2026 13:18:18 -0400
-X-Gm-Features: AcwNN1UYlSeUhyVnikOguDNaDeElz5rpDvHHe4_oAp-JS77cqmlR8-ikFEzZv5Y
-Message-ID: <CADvbK_dFoagLs1c4b-3aFqsbDueu3VO0t-8S93+6GgevuoRBLQ@mail.gmail.com>
-Subject: Re: [PATCH net] sctp: avoid livelock while updating retransmit path
-To: Yiqi Sun <sunyiqixm@gmail.com>
-Cc: marcelo.leitner@gmail.com, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
-	linux-sctp@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
+References: <20260821-swap-thp-cleanup-v3-0-9b43f5163238@tencent.com>
+ <20260821-swap-thp-cleanup-v3-4-9b43f5163238@tencent.com> <e156c931-69b4-48d6-84bf-c06df134c9da@kernel.org>
+In-Reply-To: <e156c931-69b4-48d6-84bf-c06df134c9da@kernel.org>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Fri, 28 Aug 2026 01:17:56 +0800
+X-Gm-Features: AcwNN1VebzlFJypx5e4RotNewkKx5zemE-HrEPZEpkP6B4aDviKyhLvjLFBwBqQ
+Message-ID: <CAMgjq7BzAkuibv+SyZQ+WzzbEL29dV-vPYyX2p43L0JDn3=wNg@mail.gmail.com>
+Subject: Re: [PATCH v3 04/18] mm/huge_memory: split the routine for splitting
+ anon and file folio
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
+	Youngjun Park <youngjun.park@lge.com>, Shivam Kalra <shivamkalra98@zohomail.in>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Aug 27, 2026 at 3:50=E2=80=AFAM Yiqi Sun <sunyiqixm@gmail.com> wrot=
-e:
+On Fri, Aug 28, 2026 at 12:19=E2=80=AFAM David Hildenbrand (Arm)
+<david@kernel.org> wrote:
 >
-> sctp_assoc_update_retran_path() walks the association transport list from
-> the current retransmit path's successor and stops once it reaches the
-> current retransmit path again. However, the loop skips transports in
-> SCTP_UNCONFIRMED state before checking for the wraparound condition.
+> Switch to double tab indentation instead while at it. Same for the other =
+function.
+
+Sure, will change it.
+
+> >  {
+> >       struct folio *end_folio =3D folio_next(folio);
+> >       struct swap_cluster_info *ci =3D NULL;
+> > @@ -3948,7 +3946,6 @@ static int __folio_freeze_and_split_unmapped(stru=
+ct folio *folio, unsigned int n
+> >       bool dequeue_deferred;
+> >       int ret =3D 0;
+> >
+> > -     VM_WARN_ON_ONCE(!mapping && end);
+> >       /*
+> >        * If this folio can be on the deferred split queue, lock out
+> >        * the shrinker before freezing the ref. If the shrinker sees
+> > @@ -3956,7 +3953,7 @@ static int __folio_freeze_and_split_unmapped(stru=
+ct folio *folio, unsigned int n
+> >        * lock and must clean up the LRU state - the same dequeue we
+> >        * will do below as part of the split.
+> >        */
+> > -     dequeue_deferred =3D folio_test_anon(folio) && old_order > 1;
+> > +     dequeue_deferred =3D old_order > 1;
+> >       if (dequeue_deferred) {
+> >               struct mem_cgroup *memcg;
+> >
+> > @@ -3986,24 +3983,72 @@ static int __folio_freeze_and_split_unmapped(st=
+ruct folio *folio, unsigned int n
+> >               rcu_read_unlock();
+> >       }
+> >
+> > -     if (mapping) {
+> > +     if (folio_test_swapcache(folio))
+> > +             ci =3D swap_cluster_get_and_lock(folio);
+> > +
+> > +     if (do_lru)
+> > +             lruvec =3D folio_lruvec_lock(folio);
+> > +
+> > +     ret =3D __split_unmapped_folio(folio, new_order, split_at, NULL,
+> > +                                  NULL, split_type);
+> > +
+> > +     /*
+> > +      * Unfreeze the post-split folios and put them back to the right
 >
-> This makes the loop non-terminating when the association contains only
-> UNCONFIRMED transports at that point and asoc->peer.retran_path is also
-> UNCONFIRMED. One way to reach that state is through ASCONF wildcard
-> DEL-IP processing after an unconfirmed address is selected as the
-> primary transport. sctp_assoc_del_nonprimary_peers() then removes the
-> other transports one by one; when removing the current retran_path,
-> sctp_assoc_rm_peer() calls sctp_assoc_update_retran_path() before
-> unlinking it. If the remaining candidate and the current retran_path are
-> both UNCONFIRMED, the loop repeatedly continues before it can observe
-> that it has completed a full pass.
+> Why call it "post-split" here when it's "after-split" in the other commen=
+t?
+
+Will just call it after-split then.
+
+> > +      * place. Keep the head @folio frozen until the end: sub entries
+> > +      * in swap cache must be updated first, so a concurrent
+> > +      * swap_cache_get_folio() cannot return the head folio for a sub
+> > +      * entry (folio_try_get() will fail on the head @folio until unfr=
+eeze).
+> > +      */
+> > +     for (new_folio =3D folio_next(folio); new_folio !=3D end_folio;
+> > +          new_folio =3D next) {
+> > +             next =3D folio_next(new_folio);
+> > +             zone_device_private_split_cb(folio, new_folio);
+> > +             folio_ref_unfreeze(new_folio,
+> > +                                folio_cache_ref_count(new_folio) + 1);
+> > +             if (do_lru)
+> > +                     lru_add_split_folio(folio, new_folio, lruvec, lis=
+t);
+> > +             if (ci)
+> > +                     __swap_cache_replace_folio(ci, folio, new_folio);
+> > +     }
 >
-> The same reproducer that exercised the bug fixed by commit 9b2854f86f0b
-> ("sctp: don't free the ASCONF's own transport in DEL-IP processing") can
-> still trigger this CPU stall after that fix is applied. With the UAF
-> prevented, the ASCONF processing no longer dereferences the freed
-> transport, but it can still reach the retransmit-path update described
-> above and spin in the all-UNCONFIRMED case.
-Please share the PoC with maintainers.
+> This smells like duplicate code now. That should better be factored out?
+>
+
+There were some discussion on this in previous series, I tried to
+implement a macro or helper, but it ended up being uglier. Right now
+the duplication is just about 3 lines of for loop due to the split,
+and the extra loop duplication existed before, so I think it's fine at
+this point, maybe a helper later if this grows.
 
 >
-> Fix this by remembering whether the current transport is the original
-> retran_path, still considering it as a candidate when it is not
-> UNCONFIRMED, and then breaking after the candidate logic. This preserves
-> the existing fallback semantics while making the full-pass termination
-> independent of the transport state.
+> > -     zone_device_private_split_cb(folio, NULL);
+> >       /*
+> >        * Unfreeze @folio only after all page cache entries, which
+> >        * used to point to it, have been updated with new folios.
+> > @@ -4075,8 +4105,6 @@ static int __folio_freeze_and_split_unmapped(stru=
+ct folio *folio, unsigned int n
+> >
+> >       if (do_lru)
+> >               lruvec_unlock(lruvec);
+> > -     if (ci)
+> > -             swap_cluster_unlock(ci);
+> >
+> >       return ret;
+> >  }
+> > @@ -4230,10 +4258,14 @@ static int __folio_split(struct folio *folio, u=
+nsigned int new_order,
+> >                       ret =3D -EAGAIN;
+> >                       goto fail;
+> >               }
+> > +             ret =3D __folio_freeze_split_unmapped_file(folio, new_ord=
+er, split_at, &xas, mapping,
+> > +                                                      true, list, spli=
+t_type, end,
+> > +                                                      &nr_shmem_droppe=
+d);
+> > +     } else {
+> > +             ret =3D __folio_freeze_split_unmapped_anon(folio, new_ord=
+er, split_at, true,
+> > +                                                      list, split_type=
+);
+> >       }
 >
-> Also restore the NULL guard around the retran_path assignment. In the
-> all-UNCONFIRMED case there is no eligible replacement transport, and
-> installing NULL would leave later retransmit-path users and the debug
-> print with a NULL path.
 >
-> Fixes: 4c47af4d5eb2 ("net: sctp: rework multihoming retransmission path s=
-election to rfc4960")
-> Signed-off-by: Yiqi Sun <sunyiqixm@gmail.com>
-> ---
->  net/sctp/associola.c | 19 +++++++++++--------
->  1 file changed, 11 insertions(+), 8 deletions(-)
+> I was briefly wondering whether shmem folios in the swapcache would now g=
+o
+> through __folio_freeze_split_unmapped_anon(). But folio_check_splittable(=
+)
+> rejects them.
 >
-> diff --git a/net/sctp/associola.c b/net/sctp/associola.c
-> index c0512c827d0f..6f19eb0b01e2 100644
-> --- a/net/sctp/associola.c
-> +++ b/net/sctp/associola.c
-> @@ -1272,6 +1272,7 @@ void sctp_assoc_update_retran_path(struct sctp_asso=
-ciation *asoc)
->  {
->         struct sctp_transport *trans =3D asoc->peer.retran_path;
->         struct sctp_transport *trans_next =3D NULL;
-> +       bool last =3D false;
+> I think we should consider changing all the "if (mapping)" checks there t=
+o
+> "is_anon" instead.
 >
->         /* We're done as we only have the one and only path. */
->         if (asoc->peer.transport_count =3D=3D 1)
-> @@ -1289,18 +1290,20 @@ void sctp_assoc_update_retran_path(struct sctp_as=
-sociation *asoc)
->                 /* Manually skip the head element. */
->                 if (&trans->transports =3D=3D &asoc->peer.transport_addr_=
-list)
->                         continue;
-> -               if (trans->state =3D=3D SCTP_UNCONFIRMED)
-> -                       continue;
-> -               trans_next =3D sctp_trans_elect_best(trans, trans_next);
-> -               /* Active is good enough for immediate return. */
-> -               if (trans_next->state =3D=3D SCTP_ACTIVE)
-> -                       break;
-> +               last =3D trans =3D=3D asoc->peer.retran_path;
-> +               if (trans->state !=3D SCTP_UNCONFIRMED) {
-> +                       trans_next =3D sctp_trans_elect_best(trans, trans=
-_next);
-> +                       /* Active is good enough for immediate return. */
-> +                       if (trans_next->state =3D=3D SCTP_ACTIVE)
-> +                               break;
-> +               }
->                 /* We've reached the end, time to update path. */
-> -               if (trans =3D=3D asoc->peer.retran_path)
-> +               if (last)
->                         break;
-After removing the continue, I think you can keep using
-if (trans =3D=3D asoc->peer.retran_path) here without 'last' needed.
+> is_anon implies no mapping and !is_anon implies that we need a mapping.
 
-Thanks.
+Good idea.
 
->         }
+> This patch LGTM, but I think we should clean up __folio_split() further. =
+Maybe
+> taht happens in the next patches in this series :)
 >
-> -       asoc->peer.retran_path =3D trans_next;
-> +       if (trans_next)
-> +               asoc->peer.retran_path =3D trans_next;
->
->         pr_debug("%s: association:%p updated new path to addr:%pISpc\n",
->                  __func__, asoc, &asoc->peer.retran_path->ipaddr.sa);
-> --
-> 2.34.1
->
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+
+Thanks!
