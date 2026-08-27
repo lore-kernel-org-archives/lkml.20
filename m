@@ -1,327 +1,342 @@
-Received: from mail-oa1-f45.google.com (mail-oa1-f45.google.com [209.85.160.45])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D90453D333E
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 22:27:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BE973D3CF6
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 22:27:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787869665; cv=none; b=NkPlYnb+Y1Gpl2KUSE6DFWNbhBRhsboLU0kzr/hXaZuklLmNpR2DHkk9QdaycbeBWN5/Oh7afUBjc1d9EVXEN0ZMiJ+/DUlt8LWk/BmxobHYt3Gk3T2K8IgmWU64Qv6SKt5yCP2CUFIjEKghRnju4HDLjYuNn83S3HVx0n/Jcps=
+	t=1787869688; cv=none; b=PcsQsAKETp1D1kOWf4aWmPT+sXKLGorVp3TZJJPJgT7P9+qD9/CUo+qJu3L5SogA0qsft0x/GGE4bCaq+7cYqIKD+s+LLZDESo13dcEvBn6bXeSpLHPE4v2DzraYeDXWzvAaYrhwSjaDFpIKrvwjW/YCcbDLkEp6sVgSMQFKh34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787869665; c=relaxed/simple;
-	bh=7Uhs0MSax/2UW6OR59jpn2lW4CIqxOIeFaZDQkF77p8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=fcLDG/XsRZqt4OFQoP1s5WnxsUbeC68GO+N6zh5Yqz2NejjFmC6Qcpgvt/sKX+cE7gJHQAQbnOp5vUJwv5An4SYFq3hpONdp+Wbmc7ZcbvUiCzyslKRNXyo0mLOI/ctNbTLL5SAH3mNx0H+iFTfgi0NjVbnCnHBFF1l6HNzjDY4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=S/zAlQKq; arc=none smtp.client-ip=209.85.160.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1787869688; c=relaxed/simple;
+	bh=18llIs05IJKa1HdLCnkckJCFlXCUQmYfVtPGNSS1Gag=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D5bwvps9zGnYC2d8Angzcz5H+u81P3NISqtMMarSdZdOAsPoXuryQX3ISkKbmuq1VJbdIBK1sBEu58T7LVMdWhgqysGhWu6SdUHXnc7H9gv641c7n8/Z82lANxOQ1swvRZRKGZ+IT5zNcEmoC5lxouXO7lTUM94HIvWLEtS5AJA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p8r+0/3d; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="S/zAlQKq"
-Received: by mail-oa1-f45.google.com with SMTP id 586e51a60fabf-45837e52d8aso567948fac.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 15:27:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p8r+0/3d"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49954b88fffso2157615e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 15:27:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1787869650; x=1788474450; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=htYJi+oyLOV36C7aJQ/sDgWgRKF7nb1wEToOz4+J7JA=;
-        b=S/zAlQKqvMFogmHFVyg4hk72syGdhu9l2CxyggPCyytW6rQFrZD+WMdmf1h08hNIj7
-         nwEFuwQ3JOzfGcbAGjX1Rin5+xQyQHgLgnGvWQaS+KMM6gCpuGtlFo4W9xZQwX3fnFTu
-         iAHZXjFvVtzKL8hBxquAjytnnWHqo/YkjCmepji5uetVEeR+VVsFSixxaPksUYwM6HXP
-         KOkdERKfhmZPxzc9KHtd4zZNmFaaSsfeyNP0Sl9Mg0ynm+PL3bHhFxJZJ0QlthBSIseU
-         ZlQ9P4L7eOVMNW0kBzL8TIYHZYXuPWF86VV7FiD+5dtv0ooja2LC53xqR9vRSuAXkPaZ
-         XHgw==
+        d=gmail.com; s=20251104; t=1787869676; x=1788474476; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fS7Yp6zONpDID8iVF6b0Hkrhoh2u+ZSy86K9wN/lMH8=;
+        b=p8r+0/3dXgAWRjlmEf8yFYXmOb8I0udolZgNJL9Lf+LvZFEzo5AZR9QBlwNyRCHd2h
+         zz5w0EOLht5OlR5x2o01yUykGB/dRuESw+8gYH+2lkbmgw3Iq4mQV82Z4GpUjxi5Tp4h
+         K2CDe9GYlcER7/lh6TVstrdeo7KkUa6eErrtI775Bg0LoqGO9y2AlXn1Ttc/WVUBcjwm
+         77YwbubQFSHrwmYphHPKmJaWeIn88jaeje55OVAdcVwt+eT1XmUytrKCxFWYDxRXNUDc
+         1pYiv4V8lQIUI7It2eAeeY3XXoXVMwZqqGolBh0eV8kHVuC+nYpOCaXfDYNXtPUsozDi
+         6Z/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787869650; x=1788474450;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=htYJi+oyLOV36C7aJQ/sDgWgRKF7nb1wEToOz4+J7JA=;
-        b=lnGOnNKlvSd7dsgz+FWaVjDEMnWtvcixf7lctfipWuOilPXSWVM4CHmX1x9DvvqZ6c
-         CGn/sWPYB2aMX6zhXZlVjWpNpwm1Zce4VEnapPv2ALKLwNXU/ud1ZvSDYXxVWSnXFG8W
-         /ePDz1xsUJD0TxXWAeN6S5Oa8aS3dsh3jqBlsec/DkBUdMxup/L8cOQFGd7lQpzF5jgr
-         n4ytPt2Khpq4XWS5MczHTrNNIcKpe+NxVGajLX99sD4OIQxa1go/2hAa6xDrp5kf6hJI
-         QxZsY7Nf7x1IhcCjZm6ls7IIW8lTUTesCL9IgfVQjDoUm7YhGUIggUA04RkzSts1Flb/
-         JFcA==
-X-Forwarded-Encrypted: i=1; AHgh+RoWHWJl8KgZNpNMskBUtBVhiGMLPfzNQHGEbxGpc6HA2o0N96DH7HjRR0ki2+HJuOukbeirl+YeGSFVCig=@vger.kernel.org
-X-Gm-Message-State: AFuF++n3jI+JzIsQzsZC05Q3NJ/N5qyAzNDdmX63nuhgOuHIRue22Bno
-	4OPchNHuG3ZtIeHs1q2eHUx2gaKSRh6MLfKF1fC6WxmG4ARpCTBSDPIDcl21SjDY3k5W3wVzhB2
-	3FQx/fuQ=
-X-Gm-Gg: AR+sD13TLqhk/4TDWZaqKnSp0g00siLeInOQCBxXIZrrJNPYAMkmEghjjdiOARcMIlF
-	pOHTZEEQYgBdtzBKhqgGc4N4PiPwOGMhfU7itw5JL0v9zNrciPVhqjYiOu5KaY0TkQ3hD8q8W5T
-	8Tngiuv+0V/z6QXYIHxVBx2fLvtnZMZ+gVek50d1UMIGO6AbTSMQptEMn4u9A8DZpORHC2zuVtb
-	kc5EW1HLXKqHebakF/wyTJQyvvZ4QtL4tBeWNdJsM0Ecc4bAgO2pwzgMCof4QuBM5R3tbVFrVbg
-	RneM2SeU3tupWYUf5rzyCwcJoLQVYZA9BHXwk5gkttLHv8h6SxvwlJBKygqBts5iSp+8QNncWWJ
-	fz5d+g/WdTCoyv6BAl4bQsSiKP0Gcc+tQwK1X3B8CxFPoGkpotD4NpksNh9XeZJ4/4bvxPkPg4/
-	w0JOfCkMO0dNQN+36XY3VUndQl2/LW0SaCbJAX3P3jUB27GCV/CUZOzpgfcus+eEarFQ==
-X-Received: by 2002:a05:6871:e498:b0:466:ad49:d0f6 with SMTP id 586e51a60fabf-468360af5a5mr3894415fac.7.1787869650010;
-        Thu, 27 Aug 2026 15:27:30 -0700 (PDT)
-Received: from [127.0.1.1] ([2600:8803:e7e4:500:d288:6f77:e285:6925])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-46736444b99sm3336392fac.3.2026.08.27.15.27.28
+        d=1e100.net; s=20251104; t=1787869676; x=1788474476;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fS7Yp6zONpDID8iVF6b0Hkrhoh2u+ZSy86K9wN/lMH8=;
+        b=cT18socC+0/H8w1HIOEZkJ8lGGCtdA5p1pH1SSWANlMEY5AZ0sJWOtWhKYcBKGcIAL
+         r7CWBf+MGk1zoWAZgfc4I2/0RnkqZ8m6eZIBBS2xhHw19vnwpAJkqeFQ1jaYTE7WxPfi
+         8RhH2cSnHM7TvewwGtZATk4xD/2k1HmF4Ujpvt1/+a8G4ryswmRsYFFLc8EZG6M7TXWA
+         cNinZM3GoV9SndjwpY28SWz0Ls1XrksbfwHA8WCebFvbefmra8OYR6H9S8yZJ7blrQfu
+         HAtYuoMabE9l1XIii9RQjYpKChR/9hj2sh9L7rbOOWSyXqTRy3//8wWi1qn1MUO0fLjx
+         kVSw==
+X-Forwarded-Encrypted: i=1; AHgh+Rozn7X2ddJSHM2zk6Np6WNQvtdkzp6OejdjZjVKe4ktUKKyoqvvjFVZ24dWPwuMlMo41w7ceM79u1Qm66k=@vger.kernel.org
+X-Gm-Message-State: AFuF++k9G1e9VYue2gSo1gHrj2fA9rpkT3I2QUPj46qwNS0g6o2CvO6s
+	VvoqHW80XZsKb7Fna/i+HYexKMAZw21r/wwKynd7Mfw4+J1hFBQ5LXvU
+X-Gm-Gg: AR+sD11WtL5yLBjW4F8pCdZSSkEzotu2wWYAEyqp6ImfzBjLWYmW6gUkweUmRenG70v
+	zUmkqGI+SRlDo9dD75jB1WXNncrTh2WW4LiY9RwUk40CFVXaJlBNcChe0XyvHEY+ir+8/OtoPHf
+	vjJLkhsDEycSLUQ4DBUySAs7NNTO6y7QmAGaSuXHK11REfC8I/LFgSqJfNslHA0BY/TZr1yMfxB
+	VhoF/fVVZN+1/FmXU7SmqIlXteoC5Mmad8yfPRa2Rn0EjJQoHIO792bhu4TUWK9LGJqrtm5egWs
+	FG050c8OzqZ01bV9B3A+VxTT1e6TMo13FLGRUOD/30QTJdcx3azOKO0H7Dgv/6rAxVpgNQpUi+Y
+	jXkvI7y8+3DJrqPjAr5fnderWYtn24qqzCvo/n4YH46FIzgvQtqGjqe5GHXIigfwFArAZIgg60P
+	CoRzXu3Z5befIGtDsYiBfJYj/SHwkOAVM92qp/78YR0APx1UMRuf9ubUnlogQjWjg=
+X-Received: by 2002:a05:600c:a03:b0:499:a8bd:1930 with SMTP id 5b1f17b1804b1-49b91c20ba0mr29526265e9.5.1787869676291;
+        Thu, 27 Aug 2026 15:27:56 -0700 (PDT)
+Received: from xerxes ([2001:8a0:ee6f:5800:65bf:d008:6bb6:cf89])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b94dc103dsm3174345e9.1.2026.08.27.15.27.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 15:27:28 -0700 (PDT)
-From: "David Lechner (TI)" <dlechner@baylibre.com>
-Date: Thu, 27 Aug 2026 17:27:02 -0500
-Subject: [PATCH v2 1/2] iio: adc: ti-ads112c14: add burnout current support
+        Thu, 27 Aug 2026 15:27:56 -0700 (PDT)
+From: Romeu G <asm.artisan256@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Romeu G <asm.artisan256@gmail.com>
+Subject: [PATCH] staging: rtl8723bs: remove unnecessary parentheses in ioctl_cfg80211.c
+Date: Thu, 27 Aug 2026 23:27:52 +0100
+Message-ID: <20260827222752.122457-1-asm.artisan256@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260827-iio-adc-ti-ads112c14-burnout-v2-1-00a1fab9e2d1@baylibre.com>
-References: <20260827-iio-adc-ti-ads112c14-burnout-v2-0-00a1fab9e2d1@baylibre.com>
-In-Reply-To: <20260827-iio-adc-ti-ads112c14-burnout-v2-0-00a1fab9e2d1@baylibre.com>
-To: Jonathan Cameron <jic23@kernel.org>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>
-Cc: Chris Hall <c-hall@ti.com>, Patrick Edwards <pedwards@ti.com>, 
- Kurt Borja <kuurtb@gmail.com>, linux-iio@vger.kernel.org, 
- linux-kernel@vger.kernel.org, "David Lechner (TI)" <dlechner@baylibre.com>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7958; i=dlechner@baylibre.com;
- h=from:subject:message-id; bh=7Uhs0MSax/2UW6OR59jpn2lW4CIqxOIeFaZDQkF77p8=;
- b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBqkLm/W0dTqEEAP0+KSrDGou6SX8B7405Mn2/+Z
- bsksv8egdeJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCapC5vwAKCRDCzCAB/wGP
- wEHAB/9wPfeBzvdN4DKM7L1ReOGn7gZUjWxSGKSv78t6QkVem1ntuAdkn4coLi/+8jPBT98Oi7H
- 1aCpjEzsH2pQlGsLMRIrJ7+g0X4upf4u3LoKaU+wfwgFzpcHw2sEGp+xoS99h8m4y6g0ZKCNfGa
- 4H3Z+Ypy9blTBot9ywFAN2KWry0x72XRFvXTA15vjealw63Wxc65la4Dy6HdIfBJDPk1tlygxYC
- sgIU7mndZUeeAfsIUuhYTA4sOdGvwkWrg0xcVfrZ0ziAXDmUiRDyemyrSbNbBBrFWquJ2ZRMSl0
- NxVx2FqbxsPvv1IGd7RFnM9OpsLGwkUZcqgjov326Mle9+G6
-X-Developer-Key: i=dlechner@baylibre.com; a=openpgp;
- fpr=8A73D82A6A1F509907F373881F8AF88C82F77C03
+Content-Transfer-Encoding: 8bit
 
-Add a custom attribute via ext_info when a channel has a burnout current
-specified in the devicetree. This adds an in_{voltageY,resistanceY,
-voltageY-voltageX}_burnoutraw sysfs attribute for the channel that
-performs a single conversion (same as _raw attribute) except that it
-enables the burnout current. The chip also has a restriction that input
-chopping cannot be enabled when burnout current is enabled, so we also
-disable input chopping when burnout current is active.
+Remove unnecessary parentheses around the right-hand side of
+assignments and around function arguments. This clears up all
+"Unnecessary parentheses" warnings reported by checkpatch.pl.
 
-Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
+Signed-off-by: Romeu G <asm.artisan256@gmail.com>
 ---
- drivers/iio/adc/ti-ads112c14.c | 126 ++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 117 insertions(+), 9 deletions(-)
+ .../staging/rtl8723bs/os_dep/ioctl_cfg80211.c | 70 +++++++++----------
+ 1 file changed, 35 insertions(+), 35 deletions(-)
 
-diff --git a/drivers/iio/adc/ti-ads112c14.c b/drivers/iio/adc/ti-ads112c14.c
-index 878764deffc5..58c815f5faeb 100644
---- a/drivers/iio/adc/ti-ads112c14.c
-+++ b/drivers/iio/adc/ti-ads112c14.c
-@@ -76,6 +76,11 @@
- #define   ADS112C14_DEVICE_CFG_PWDN			BIT(7)
- #define   ADS112C14_DEVICE_CFG_STBY_MODE		BIT(6)
- #define   ADS112C14_DEVICE_CFG_BOCS			GENMASK(5, 4)
-+#define     ADS112C14_DEVICE_CFG_BOCS_DISABLED		  0
-+#define     ADS112C14_DEVICE_CFG_BOCS_200_nA		  1
-+#define     ADS112C14_DEVICE_CFG_BOCS_1_uA		  2
-+#define     ADS112C14_DEVICE_CFG_BOCS_10_uA		  3
-+
- #define   ADS112C14_DEVICE_CFG_CLK_SEL			BIT(3)
- #define   ADS112C14_DEVICE_CFG_CONV_MODE		BIT(2)
- #define     ADS112C14_DEVICE_CFG_CONV_MODE_CONTINUOUS	  0
-@@ -251,6 +256,7 @@ struct ads112c14_measurement {
- 	u8 idac2_mux;
- 	u8 iadc_count;
- 	u8 gain_val;
-+	u8 burnout;
- 	bool global_chop;
- 	bool bipolar;
- 	int scale_available[ARRAY_SIZE(ads112c14_pga_gains_x10)][2];
-@@ -460,7 +466,8 @@ static const struct regmap_config ads112c14_regmap_config = {
- };
- 
- static int ads112c14_prepare_measurement_channel(struct ads112c14_data *data,
--						 const struct iio_chan_spec *chan)
-+						 const struct iio_chan_spec *chan,
-+						 bool en_burnout)
+diff --git a/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c b/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
+index 3468d4114f60..a40d8886e233 100644
+--- a/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
++++ b/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
+@@ -216,7 +216,7 @@ struct cfg80211_bss *rtw_cfg80211_inform_bss(struct adapter *padapter, struct wl
+
+ 	struct wireless_dev *wdev = padapter->rtw_wdev;
+ 	struct wiphy *wiphy = wdev->wiphy;
+-	struct mlme_priv *pmlmepriv = &(padapter->mlmepriv);
++	struct mlme_priv *pmlmepriv = &padapter->mlmepriv;
+
+ 	bssinf_len = pnetwork->network.ie_length + sizeof(struct ieee80211_hdr_3addr);
+ 	if (bssinf_len > MAX_BSSINFO_LEN)
+@@ -281,7 +281,7 @@ struct cfg80211_bss *rtw_cfg80211_inform_bss(struct adapter *padapter, struct wl
+ 	pbuf = buf;
+
+ 	pwlanhdr = (struct ieee80211_hdr *)pbuf;
+-	fctrl = &(pwlanhdr->frame_control);
++	fctrl = &pwlanhdr->frame_control;
+ 	*(fctrl) = 0;
+
+ 	SetSeqNum(pwlanhdr, 0/*pmlmeext->mgnt_seq*/);
+@@ -291,7 +291,7 @@ struct cfg80211_bss *rtw_cfg80211_inform_bss(struct adapter *padapter, struct wl
+ 		eth_broadcast_addr(pwlanhdr->addr1);
+ 		SetFrameSubType(pbuf, WIFI_BEACON);
+ 	} else {
+-		memcpy(pwlanhdr->addr1, myid(&(padapter->eeprompriv)), ETH_ALEN);
++		memcpy(pwlanhdr->addr1, myid(&padapter->eeprompriv), ETH_ALEN);
+ 		SetFrameSubType(pbuf, WIFI_PROBERSP);
+ 	}
+
+@@ -328,7 +328,7 @@ struct cfg80211_bss *rtw_cfg80211_inform_bss(struct adapter *padapter, struct wl
+  */
+ int rtw_cfg80211_check_bss(struct adapter *padapter)
  {
- 	struct ads112c14_measurement *measurement = &data->measurements[chan->scan_index];
- 	u32 refp_buf_en, refn_buf_en, ref_val, ref_sel;
-@@ -514,7 +521,7 @@ static int ads112c14_prepare_measurement_channel(struct ads112c14_data *data,
- 	ret = regmap_update_bits(data->regmap, ADS112C14_REG_DATA_RATE_CFG,
- 				 ADS112C14_DATA_RATE_CFG_GC_EN,
- 				 FIELD_PREP(ADS112C14_DATA_RATE_CFG_GC_EN,
--					    measurement->global_chop));
-+					    measurement->global_chop && !en_burnout));
- 	if (ret)
- 		return ret;
- 
-@@ -612,10 +619,11 @@ static int ads112c14_prepare_sys_mon_channel(struct ads112c14_data *data,
+-	struct wlan_bssid_ex  *pnetwork = &(padapter->mlmeextpriv.mlmext_info.network);
++	struct wlan_bssid_ex  *pnetwork = &padapter->mlmeextpriv.mlmext_info.network;
+ 	struct cfg80211_bss *bss = NULL;
+ 	struct ieee80211_channel *notify_channel = NULL;
+ 	u32 freq;
+@@ -352,7 +352,7 @@ int rtw_cfg80211_check_bss(struct adapter *padapter)
+ void rtw_cfg80211_ibss_indicate_connect(struct adapter *padapter)
+ {
+ 	struct mlme_priv *pmlmepriv = &padapter->mlmepriv;
+-	struct wlan_network  *cur_network = &(pmlmepriv->cur_network);
++	struct wlan_network  *cur_network = &pmlmepriv->cur_network;
+ 	struct wireless_dev *pwdev = padapter->rtw_wdev;
+ 	struct wiphy *wiphy = pwdev->wiphy;
+ 	int freq = (int)cur_network->network.configuration.ds_config;
+@@ -362,7 +362,7 @@ void rtw_cfg80211_ibss_indicate_connect(struct adapter *padapter)
+ 		return;
+
+ 	if (!rtw_cfg80211_check_bss(padapter)) {
+-		struct wlan_bssid_ex  *pnetwork = &(padapter->mlmeextpriv.mlmext_info.network);
++		struct wlan_bssid_ex  *pnetwork = &padapter->mlmeextpriv.mlmext_info.network;
+ 		struct wlan_network *scanned = pmlmepriv->cur_network_scanned;
+
+ 		if (check_fwstate(pmlmepriv, WIFI_ADHOC_MASTER_STATE)) {
+@@ -394,7 +394,7 @@ void rtw_cfg80211_ibss_indicate_connect(struct adapter *padapter)
+ void rtw_cfg80211_indicate_connect(struct adapter *padapter)
+ {
+ 	struct mlme_priv *pmlmepriv = &padapter->mlmepriv;
+-	struct wlan_network  *cur_network = &(pmlmepriv->cur_network);
++	struct wlan_network  *cur_network = &pmlmepriv->cur_network;
+ 	struct wireless_dev *pwdev = padapter->rtw_wdev;
+
+ 	if (pwdev->iftype != NL80211_IFTYPE_STATION
+@@ -407,7 +407,7 @@ void rtw_cfg80211_indicate_connect(struct adapter *padapter)
+ 		return;
+
+ 	{
+-		struct wlan_bssid_ex  *pnetwork = &(padapter->mlmeextpriv.mlmext_info.network);
++		struct wlan_bssid_ex  *pnetwork = &padapter->mlmeextpriv.mlmext_info.network;
+ 		struct wlan_network *scanned = pmlmepriv->cur_network_scanned;
+
+ 		if (!scanned) {
+@@ -493,7 +493,7 @@ static int rtw_cfg80211_ap_set_encryption(struct net_device *dev, struct ieee_pa
+ 	struct sta_info *psta = NULL, *pbcmc_sta = NULL;
+ 	struct adapter *padapter = rtw_netdev_priv(dev);
+ 	struct mlme_priv *pmlmepriv = &padapter->mlmepriv;
+-	struct security_priv *psecuritypriv =  &(padapter->securitypriv);
++	struct security_priv *psecuritypriv =  &padapter->securitypriv;
+ 	struct sta_priv *pstapriv = &padapter->stapriv;
+ 	char *grpkey = padapter->securitypriv.dot118021XGrpKey[param->u.crypt.idx].skey;
+ 	char *txkey = padapter->securitypriv.dot118021XGrptxmickey[param->u.crypt.idx].skey;
+@@ -552,7 +552,7 @@ static int rtw_cfg80211_ap_set_encryption(struct net_device *dev, struct ieee_pa
+ 			psecuritypriv->dot11PrivacyKeyIndex = wep_key_idx;
+ 		}
+
+-		memcpy(&(psecuritypriv->dot11DefKey[wep_key_idx].skey[0]), param->u.crypt.key, wep_key_len);
++		memcpy(&psecuritypriv->dot11DefKey[wep_key_idx].skey[0], param->u.crypt.key, wep_key_len);
+
+ 		psecuritypriv->dot11DefKeylen[wep_key_idx] = wep_key_len;
+
+@@ -578,8 +578,8 @@ static int rtw_cfg80211_ap_set_encryption(struct net_device *dev, struct ieee_pa
+ 				memcpy(grpkey, param->u.crypt.key, (param->u.crypt.key_len > 16 ? 16 : param->u.crypt.key_len));
+
+ 				/* set mic key */
+-				memcpy(txkey, &(param->u.crypt.key[16]), 8);
+-				memcpy(rxkey, &(param->u.crypt.key[24]), 8);
++				memcpy(txkey, &param->u.crypt.key[16], 8);
++				memcpy(rxkey, &param->u.crypt.key[24], 8);
+
+ 				psecuritypriv->busetkipkey = true;
+
+@@ -622,8 +622,8 @@ static int rtw_cfg80211_ap_set_encryption(struct net_device *dev, struct ieee_pa
+ 					psta->dot118021XPrivacy = _TKIP_;
+
+ 					/* set mic key */
+-					memcpy(psta->dot11tkiptxmickey.skey, &(param->u.crypt.key[16]), 8);
+-					memcpy(psta->dot11tkiprxmickey.skey, &(param->u.crypt.key[24]), 8);
++					memcpy(psta->dot11tkiptxmickey.skey, &param->u.crypt.key[16], 8);
++					memcpy(psta->dot11tkiprxmickey.skey, &param->u.crypt.key[24], 8);
+
+ 					psecuritypriv->busetkipkey = true;
+
+@@ -652,8 +652,8 @@ static int rtw_cfg80211_ap_set_encryption(struct net_device *dev, struct ieee_pa
+ 					memcpy(grpkey, param->u.crypt.key, (param->u.crypt.key_len > 16 ? 16 : param->u.crypt.key_len));
+
+ 					/* set mic key */
+-					memcpy(txkey, &(param->u.crypt.key[16]), 8);
+-					memcpy(rxkey, &(param->u.crypt.key[24]), 8);
++					memcpy(txkey, &param->u.crypt.key[16], 8);
++					memcpy(rxkey, &param->u.crypt.key[24], 8);
+
+ 					psecuritypriv->busetkipkey = true;
+
+@@ -748,7 +748,7 @@ static int rtw_cfg80211_set_encryption(struct net_device *dev, struct ieee_param
+ 			psecuritypriv->dot11PrivacyKeyIndex = wep_key_idx;
+ 		}
+
+-		memcpy(&(psecuritypriv->dot11DefKey[wep_key_idx].skey[0]), param->u.crypt.key, wep_key_len);
++		memcpy(&psecuritypriv->dot11DefKey[wep_key_idx].skey[0], param->u.crypt.key, wep_key_len);
+
+ 		psecuritypriv->dot11DefKeylen[wep_key_idx] = wep_key_len;
+
+@@ -778,8 +778,8 @@ static int rtw_cfg80211_set_encryption(struct net_device *dev, struct ieee_param
+ 					memcpy(psta->dot118021x_UncstKey.skey, param->u.crypt.key, (param->u.crypt.key_len > 16 ? 16 : param->u.crypt.key_len));
+
+ 					if (strcmp(param->u.crypt.alg, "TKIP") == 0) { /* set mic key */
+-						memcpy(psta->dot11tkiptxmickey.skey, &(param->u.crypt.key[16]), 8);
+-						memcpy(psta->dot11tkiprxmickey.skey, &(param->u.crypt.key[24]), 8);
++						memcpy(psta->dot11tkiptxmickey.skey, &param->u.crypt.key[16], 8);
++						memcpy(psta->dot11tkiprxmickey.skey, &param->u.crypt.key[24], 8);
+
+ 						padapter->securitypriv.busetkipkey = false;
+ 						/* _set_timer(&padapter->securitypriv.tkip_timer, 50); */
+@@ -789,8 +789,8 @@ static int rtw_cfg80211_set_encryption(struct net_device *dev, struct ieee_param
+ 				} else { /* group key */
+ 					if (strcmp(param->u.crypt.alg, "TKIP") == 0 || strcmp(param->u.crypt.alg, "CCMP") == 0) {
+ 						memcpy(padapter->securitypriv.dot118021XGrpKey[param->u.crypt.idx].skey, param->u.crypt.key, (param->u.crypt.key_len > 16 ? 16 : param->u.crypt.key_len));
+-						memcpy(padapter->securitypriv.dot118021XGrptxmickey[param->u.crypt.idx].skey, &(param->u.crypt.key[16]), 8);
+-						memcpy(padapter->securitypriv.dot118021XGrprxmickey[param->u.crypt.idx].skey, &(param->u.crypt.key[24]), 8);
++						memcpy(padapter->securitypriv.dot118021XGrptxmickey[param->u.crypt.idx].skey, &param->u.crypt.key[16], 8);
++						memcpy(padapter->securitypriv.dot118021XGrprxmickey[param->u.crypt.idx].skey, &param->u.crypt.key[24], 8);
+ 						padapter->securitypriv.binstallGrpkey = true;
+
+ 						padapter->securitypriv.dot118021XGrpKeyid = param->u.crypt.idx;
+@@ -981,7 +981,7 @@ static int cfg80211_rtw_get_station(struct wiphy *wiphy,
+ 	/* for infra./P2PClient mode */
+ 	if (check_fwstate(pmlmepriv, WIFI_STATION_STATE)
+ 		&& check_fwstate(pmlmepriv, _FW_LINKED)) {
+-		struct wlan_network  *cur_network = &(pmlmepriv->cur_network);
++		struct wlan_network  *cur_network = &pmlmepriv->cur_network;
+
+ 		if (memcmp((u8 *)mac, cur_network->network.mac_address, ETH_ALEN)) {
+ 			ret = -ENOENT;
+@@ -1022,7 +1022,7 @@ static int cfg80211_rtw_change_iface(struct wiphy *wiphy,
+ 	enum nl80211_iftype old_type;
+ 	struct adapter *padapter = rtw_netdev_priv(ndev);
+ 	struct wireless_dev *rtw_wdev = padapter->rtw_wdev;
+-	struct mlme_ext_priv *pmlmeext = &(padapter->mlmeextpriv);
++	struct mlme_ext_priv *pmlmeext = &padapter->mlmeextpriv;
+ 	int ret = 0;
+
+ 	if (adapter_to_dvobj(padapter)->processing_dev_remove) {
+@@ -1111,11 +1111,11 @@ void rtw_cfg80211_unlink_bss(struct adapter *padapter, struct wlan_network *pnet
+ void rtw_cfg80211_surveydone_event_callback(struct adapter *padapter)
+ {
+ 	struct list_head					*plist, *phead;
+-	struct	mlme_priv *pmlmepriv = &(padapter->mlmepriv);
+-	struct __queue *queue	= &(pmlmepriv->scanned_queue);
++	struct	mlme_priv *pmlmepriv = &padapter->mlmepriv;
++	struct __queue *queue	= &pmlmepriv->scanned_queue;
+ 	struct	wlan_network	*pnetwork = NULL;
+
+-	spin_lock_bh(&(pmlmepriv->scanned_queue.lock));
++	spin_lock_bh(&pmlmepriv->scanned_queue.lock);
+
+ 	phead = get_list_head(queue);
+ 	list_for_each(plist, phead)
+@@ -1124,13 +1124,13 @@ void rtw_cfg80211_surveydone_event_callback(struct adapter *padapter)
+
+ 		/* report network only if the current channel set contains the channel to which this network belongs */
+ 		if (rtw_ch_set_search_ch(padapter->mlmeextpriv.channel_set, pnetwork->network.configuration.ds_config) >= 0
+-			&& true == rtw_validate_ssid(&(pnetwork->network.ssid))) {
++			&& true == rtw_validate_ssid(&pnetwork->network.ssid)) {
+ 			/* ev =translate_scan(padapter, a, pnetwork, ev, stop); */
+ 			rtw_cfg80211_inform_bss(padapter, pnetwork);
+ 		}
+ 	}
+
+-	spin_unlock_bh(&(pmlmepriv->scanned_queue.lock));
++	spin_unlock_bh(&pmlmepriv->scanned_queue.lock);
  }
- 
- static int ads112c14_prepare_channel(struct ads112c14_data *data,
--				     const struct iio_chan_spec *chan)
-+				     const struct iio_chan_spec *chan,
-+				     bool en_burnout)
- {
- 	if (chan->channel < ADS112C14_SYS_MON_CHANNEL_BASE)
--		return ads112c14_prepare_measurement_channel(data, chan);
-+		return ads112c14_prepare_measurement_channel(data, chan, en_burnout);
- 
- 	return ads112c14_prepare_sys_mon_channel(data, chan);
- }
-@@ -673,14 +681,14 @@ static int ads112c14_wait_for_conversion_poll(struct ads112c14_data *data)
- 
- static int ads112c14_single_conversion(struct ads112c14_data *data,
- 				       const struct iio_chan_spec *chan,
--				       u8 *buf, bool for_scan)
-+				       u8 *buf, bool en_burnout, bool for_scan)
- {
- 	struct i2c_client *client = to_i2c_client(regmap_get_device(data->regmap));
- 	int ret;
- 
- 	guard(mutex)(&data->lock);
- 
--	ret = ads112c14_prepare_channel(data, chan);
-+	ret = ads112c14_prepare_channel(data, chan, en_burnout);
- 	if (ret)
- 		return ret;
- 
-@@ -734,7 +742,7 @@ static int ads112c14_read_raw(struct iio_dev *indio_dev,
- 		if (IIO_DEV_ACQUIRE_FAILED(claim))
- 			return -EBUSY;
- 
--		ret = ads112c14_single_conversion(data, chan, buf, false);
-+		ret = ads112c14_single_conversion(data, chan, buf, false, false);
- 		if (ret)
- 			return ret;
- 
-@@ -1009,7 +1017,7 @@ static irqreturn_t ads112c14_trigger_handler(int irq, void *private)
- 
- 		ret = ads112c14_single_conversion(data, chan,
- 						  (u8 *)&data->scan[offset++],
--						  true);
-+						  false, true);
- 		if (ret) {
- 			dev_err_once(indio_dev->dev.parent,
- 				     "failed to read channel %d: %pe; additional errors will be suppressed\n",
-@@ -1066,7 +1074,7 @@ static int ads112c14_buffer_postenable(struct iio_dev *indio_dev)
- 
- 	guard(mutex)(&data->lock);
- 
--	ret = ads112c14_prepare_channel(data, chan);
-+	ret = ads112c14_prepare_channel(data, chan, false);
- 	if (ret)
- 		return ret;
- 
-@@ -1117,6 +1125,78 @@ static const struct iio_buffer_setup_ops ads112c14_buffer_setup_ops = {
- 	.validate_scan_mask = ads112c14_validate_scan_mask,
- };
- 
-+static ssize_t ads112c14_read_burnout_raw(struct iio_dev *indio_dev,
-+					  uintptr_t private,
-+					  struct iio_chan_spec const *chan,
-+					  char *buf)
-+{
-+	struct ads112c14_data *data = iio_priv(indio_dev);
-+	struct ads112c14_measurement *measurement;
-+	int ret, ret2, val;
-+	u8 raw_buf[3];
-+
-+	if (chan->channel >= ADS112C14_SYS_MON_CHANNEL_BASE)
-+		return -EINVAL;
-+
-+	measurement = &data->measurements[chan->scan_index];
-+
-+	if (!measurement->burnout)
-+		return -EINVAL;
-+
-+	IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
-+	if (IIO_DEV_ACQUIRE_FAILED(claim))
-+		return -EBUSY;
-+
-+	ret = regmap_update_bits(data->regmap, ADS112C14_REG_DEVICE_CFG,
-+				 ADS112C14_DEVICE_CFG_BOCS,
-+				 FIELD_PREP(ADS112C14_DEVICE_CFG_BOCS,
-+					    measurement->burnout));
-+	if (ret)
-+		return ret;
-+
-+	ret = ads112c14_single_conversion(data, chan, raw_buf, true, false);
-+
-+	/*
-+	 * Important to always turn off burnout current even if the conversion
-+	 * fails so that it does not affect subsequent measurements. This error
-+	 * also takes precedence over the conversion error since the device may
-+	 * be left in a bad state.
-+	 */
-+	ret2 = regmap_update_bits(data->regmap, ADS112C14_REG_DEVICE_CFG,
-+				  ADS112C14_DEVICE_CFG_BOCS,
-+				  FIELD_PREP(ADS112C14_DEVICE_CFG_BOCS,
-+					     ADS112C14_DEVICE_CFG_BOCS_DISABLED));
-+	if (ret2)
-+		return ret2;
-+
-+	if (ret < 0)
-+		return ret;
-+
-+	switch (data->chip_info->resolution_bits) {
-+	case 16:
-+		val = get_unaligned_be16(raw_buf);
-+		break;
-+	case 24:
-+		val = get_unaligned_be24(raw_buf);
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	if (measurement->bipolar)
-+		val = sign_extend32(val, data->chip_info->resolution_bits - 1);
-+
-+	return sysfs_emit(buf, "%d\n", val);
-+}
-+
-+static const struct iio_chan_spec_ext_info ads112c14_ext_info_burnout[] = {
-+	{
-+		.name = "burnoutraw",
-+		.read = ads112c14_read_burnout_raw,
-+	},
-+	{ }
-+};
-+
- static int ads112c14_populate_idac_mag(u32 current_nA, u8 *idac_mag)
- {
- 	u32 current_uA = current_nA / (NANO / MICRO);
-@@ -1285,6 +1365,34 @@ static int ads112c14_parse_channels(struct iio_dev *indio_dev,
- 		measurement->global_chop = fwnode_property_read_bool(child,
- 								     "input-chopping");
- 
-+		if (fwnode_property_present(child, "burn-out-current-nanoamp")) {
-+			u32 burnout_nA;
-+
-+			ret = fwnode_property_read_u32(child, "burn-out-current-nanoamp",
-+						       &burnout_nA);
-+			if (ret)
-+				return dev_err_probe(dev, ret,
-+						     "failed to read burn-out-current-nanoamp property\n");
-+
-+			switch (burnout_nA) {
-+			case 200:
-+				measurement->burnout = ADS112C14_DEVICE_CFG_BOCS_200_nA;
-+				break;
-+			case 1000:
-+				measurement->burnout = ADS112C14_DEVICE_CFG_BOCS_1_uA;
-+				break;
-+			case 10000:
-+				measurement->burnout = ADS112C14_DEVICE_CFG_BOCS_10_uA;
-+				break;
-+			default:
-+				return dev_err_probe(dev, -EINVAL,
-+						     "invalid burn-out-current-nanoamp value\n");
-+			}
-+
-+			if (measurement->burnout)
-+				spec->ext_info = ads112c14_ext_info_burnout;
-+		}
-+
- 		if (fwnode_property_present(child, "reference-sources")) {
- 			ret = fwnode_property_match_property_string(child,
- 				"reference-sources", ads112c14_vref_source_names,
 
--- 
-2.43.0
+ static int rtw_cfg80211_set_probe_req_wpsp2pie(struct adapter *padapter, char *buf, int len)
+@@ -1138,7 +1138,7 @@ static int rtw_cfg80211_set_probe_req_wpsp2pie(struct adapter *padapter, char *b
+ 	int ret = 0;
+ 	unsigned int wps_ielen = 0;
+ 	u8 *wps_ie;
+-	struct mlme_priv *pmlmepriv = &(padapter->mlmepriv);
++	struct mlme_priv *pmlmepriv = &padapter->mlmepriv;
 
+ 	if (len > 0) {
+ 		wps_ie = rtw_get_wps_ie(buf, len, NULL, &wps_ielen);
+@@ -2058,8 +2058,8 @@ static netdev_tx_t rtw_cfg80211_monitor_if_xmit_entry(struct sk_buff *skb, struc
+ 		/* u8 category, action, OUI_Subtype, dialogToken = 0; */
+ 		/* unsigned char *frame_body; */
+ 		struct ieee80211_hdr *pwlanhdr;
+-		struct xmit_priv *pxmitpriv = &(padapter->xmitpriv);
+-		struct mlme_ext_priv *pmlmeext = &(padapter->mlmeextpriv);
++		struct xmit_priv *pxmitpriv = &padapter->xmitpriv;
++		struct mlme_ext_priv *pmlmeext = &padapter->mlmeextpriv;
+ 		u8 *buf = skb->data;
+ 		u32 len = skb->len;
+ 		u8 category, action;
+@@ -2244,7 +2244,7 @@ static int rtw_add_beacon(struct adapter *adapter, const u8 *head, size_t head_l
+ 	int ret = 0;
+ 	u8 *pbuf = NULL;
+ 	unsigned int len, wps_ielen = 0;
+-	struct mlme_priv *pmlmepriv = &(adapter->mlmepriv);
++	struct mlme_priv *pmlmepriv = &adapter->mlmepriv;
+
+ 	if (!check_fwstate(pmlmepriv, WIFI_AP_STATE))
+ 		return -EINVAL;
+@@ -2336,7 +2336,7 @@ static int cfg80211_rtw_del_station(struct wiphy *wiphy,
+ 	u8 updated = false;
+ 	struct sta_info *psta = NULL;
+ 	struct adapter *padapter = rtw_netdev_priv(wdev->netdev);
+-	struct mlme_priv *pmlmepriv = &(padapter->mlmepriv);
++	struct mlme_priv *pmlmepriv = &padapter->mlmepriv;
+ 	struct sta_priv *pstapriv = &padapter->stapriv;
+ 	const u8 *mac = params->mac;
+
+@@ -2461,8 +2461,8 @@ static int _cfg80211_rtw_mgmt_tx(struct adapter *padapter, u8 tx_ch, const u8 *b
+ 	int ret = _FAIL;
+ 	bool __maybe_unused ack = true;
+ 	struct ieee80211_hdr *pwlanhdr;
+-	struct xmit_priv *pxmitpriv = &(padapter->xmitpriv);
+-	struct mlme_ext_priv *pmlmeext = &(padapter->mlmeextpriv);
++	struct xmit_priv *pxmitpriv = &padapter->xmitpriv;
++	struct mlme_ext_priv *pmlmeext = &padapter->mlmeextpriv;
+
+ 	rtw_set_scan_deny(padapter, 1000);
+
+--
+2.55.0
