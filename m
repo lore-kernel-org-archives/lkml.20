@@ -1,343 +1,151 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f11.google.com (mail-oi2-f11.google.com [74.125.231.203])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0D9043CE5E
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:05:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5069A32B100
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:07:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.203
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787825147; cv=none; b=STm2EitR471+IpW80qyjDoehUXjhyHbwY97KU4KTn7SG74/dqzadA9Yt1UFKelEEE63zDTzQDIzqVDAP1a5+DkmHF5ouAiCkjgyTp4MhF1G93N0d1i1eHeVTruo1vjWgY/GJ4KQxjzeGytKUh2LEUnloBZ7Oc421FIRxfKmzmcw=
+	t=1787825273; cv=none; b=BO6nHf74EqELSI+1TzQA1XQhXXp3PNLamBbwEUjlACUGz/vPdGS8w+HI5JmDVQOTAdPfpaNMVN4rlSnJ2/aFov82jgPH/qVFgMk0aDwveMNKXNL/bsCDvLeNZcUGo2Xm25cBl57EcX5kynL+uL+ewclbLKsd89C3d6eYcO7x4I0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787825147; c=relaxed/simple;
-	bh=6gfmxpUfmKrrSJSDuGpRQrshbQrUGosUHDSPwWb56VE=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=RHiH2VJukakx3h4X9sNLySrSyfoKq2FwIrv3qnTEhSOCmsP0xqDXPcNu5shTjTVvHNRLNzn8t8LVJRGkW3WInGlfpK06mC7w9INFbd+Rgvr7R63UpfjCd4fSwqL3vt7XMcWt1tOnik/ih7uNo2LbJv4TD2WZPMEhDvRQ7lCeRco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MOx4vJAn; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=nZVbHz0H; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MOx4vJAn";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="nZVbHz0H"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787825134;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=pW88VWxynzX4FH5YDB27jvLcss8TpBBYAW8EnWr/occ=;
-	b=MOx4vJAnhfpkU81/mS0XGl4v1hR3NG3LNzmJwkkcqNJYBXjuJmes2TdDoJPNPiBYCXmtpl
-	xhDNpl606EZcWsJR/GY+kCpZV8lCaaf8EXMWEmtGl5m94J38zxUE1G9t8D4y0qIOMTDoQj
-	9l71auR4ugqNzpq2MsPE0T0gS0J8Zeo=
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
- [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-224-p13GuKBfMjS8LN8Dm3aZNA-1; Thu, 27 Aug 2026 06:05:32 -0400
-X-MC-Unique: p13GuKBfMjS8LN8Dm3aZNA-1
-X-Mimecast-MFC-AGG-ID: p13GuKBfMjS8LN8Dm3aZNA_1787825131
-Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-c213d5fb55aso220436466b.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 03:05:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1787825131; x=1788429931; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pW88VWxynzX4FH5YDB27jvLcss8TpBBYAW8EnWr/occ=;
-        b=nZVbHz0HwkDRrK5y4YGLbtDP/6rRgG3huiNiwgaLbAoa4c5RBa9nm9fHbF887YTliv
-         cAnUDH7loGi4S5+pllROyGfIjMou+36Ed87WRvPrs1XOw4j8J7JCEzfBVZnzwOMFGeuf
-         yap/8a6kmRIxi+Bvg9LmQXxbRz6CfEjZtMq9RyDWw33nicAjvbRw9SwrB2sqjE54n+4+
-         c3Q7AV8ft00b1YYW5Y/Yw1dCkZiYe3sSJ+1+kf868n/aZ3YmsEllMf6c5vkVcBebXXGj
-         Zn3u/vWITp9CyPer1xxdsHpGvJjagsAGmb/y1mdZCaICD0cAJucw7YeirodlFr4CMdcU
-         Xrzw==
+	s=arc-20240116; t=1787825273; c=relaxed/simple;
+	bh=RVzOCFn/4sEqFpOvd1a0857XGxya77/cuhUokJwqr6g=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=DEl7IYVDWthtkEipmV/huuy6sm4z33f/KRvDRTDxkqN0HaoZjRtWk0TnQUZnJUixYhXe4pj4OUWFek8s5Jv5ei98+4NXBHqoFZ/f7AeA8SC+VsyxU9NEO5qr7ZB+GOaIxFVOZ5zjqCuMIXG6d5L5y2JUYDSmsdnjBGnEqxGPe4M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.203
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi2-f11.google.com with SMTP id 5614622812f47-4af7193adb7so174957b6e.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 03:07:46 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787825131; x=1788429931;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=pW88VWxynzX4FH5YDB27jvLcss8TpBBYAW8EnWr/occ=;
-        b=a8oOPewpuxPU+FqI7z8VMSVT7jE4B58uHh52fBO6bs8SzMUsLAQXTvdLeCbVaRz99v
-         EF1tBqH6+V6GSikl5iBfwKwe/ehj5fdiNJGEovEXZPL1nXiNZ8TqY8j0VN7mXLVq7HKk
-         ldyjb8LBEgMOo/99WF5R96xjUTuHVuG3R9Vnjs6EFaLehRg3XZBjShqFjv2oXHSSLudc
-         WnqTCR3jmxagTYUoSeNItwfpH6QfZU0IM1Z3rmp8vM/qodF9gTosbozzXn/oHvEmzcF5
-         PHs0XHHTF/23AftZsbqAx8j982THHb6FzVe+GgHeoKzTF6dMhwJwaUCdvrE4jOTFlaE+
-         QM6g==
-X-Forwarded-Encrypted: i=1; AHgh+RrK9b7XaHh9LkXwEgLs+zVR7GzTaHcS/CFZSzA3Yw38qMRSkZ8ChmulKNSUikMnnJpOTrvobEYbAWhmDyI=@vger.kernel.org
-X-Gm-Message-State: AFuF++m/Xskb9Aop91a3W4NGLnmpDjGHGzmWgXZsCAyTB5pvo7MyuMaP
-	o3C7EnjIQZ/eejFiPm+xO4tjEkJGI2DsDsT6WorHUILsecGdS9f7Qc8Qm3iSuC47gU5pFJBgrqM
-	bXE13EhRmapm2vwCvsN8EmWhU7oORzQfUjJ1sp9MivqxQ/bfuXF1EhtiKKB2zq5sc7Q==
-X-Gm-Gg: AR+sD101cn6yEGcNPkl7G/RCbKIehI3Fw+i5o0d9G9XVGsJ2c3J8mE/dQrr1IPMLO3q
-	nkmBfFqt5Bf9toYiDoFQcNTpD5cG3BwIWMYYzDfDiObUg9M7C1m20rmkq5nywjkjajzTIAzcSnT
-	pD4E7vml2xkpBrD23/l+1Y10SB2jcVJK+ObTFkwe2D/iiTDApZIlz/tBGMw78IlS8BFeQx9arum
-	GzrYdDcz7t4SJl648uLElrxKWzqdeylNLu0ILsx1wnnjoQFpjZeTWefXhZH3Q0sL4t1IA+4u1FS
-	G4T/FSwN0Nqz+4FCDXYXamQMbUvDWtQ7BDm0g2wnFLhX/zLR+BZbyj2f73LEGFjLqx7g6tkF/oh
-	BTxNK3KRBTrpn32M8jD4o2lqJZbw3fh+KmOSanlKHy0qaL98EiHkofesxhwu0oitYsbpdJQ==
-X-Received: by 2002:a17:907:8997:b0:c24:6505:8f66 with SMTP id a640c23a62f3a-c250c595824mr1566839466b.13.1787825130840;
-        Thu, 27 Aug 2026 03:05:30 -0700 (PDT)
-X-Received: by 2002:a17:907:8997:b0:c24:6505:8f66 with SMTP id a640c23a62f3a-c250c595824mr1566829466b.13.1787825130067;
-        Thu, 27 Aug 2026 03:05:30 -0700 (PDT)
-Received: from gmonaco-thinkpadt14gen3.rmtit.csb (212-8-243-115.hosted-by-worldstream.net. [212.8.243.115])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a9b43absm719115766b.51.2026.08.27.03.05.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 03:05:29 -0700 (PDT)
-Message-ID: <4d96d3520f5f2079155f6fcc6f7075deef8aec20.camel@redhat.com>
-Subject: Re: [PATCH v6 6/9] rv: Add tlob hybrid automaton monitor
-From: Gabriele Monaco <gmonaco@redhat.com>
-To: wen.yang@linux.dev
-Cc: Nam Cao <namcao@linutronix.de>, linux-trace-kernel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Date: Thu, 27 Aug 2026 12:05:28 +0200
-In-Reply-To: <d8eb57e037881da2187c84fb9c8499f3acf04fb3.1787243842.git.wen.yang@linux.dev>
-References: <cover.1787243842.git.wen.yang@linux.dev>
-	 <d8eb57e037881da2187c84fb9c8499f3acf04fb3.1787243842.git.wen.yang@linux.dev>
-Autocrypt: addr=gmonaco@redhat.com; prefer-encrypt=mutual;
- keydata=mDMEZuK5YxYJKwYBBAHaRw8BAQdAmJ3dM9Sz6/Hodu33Qrf8QH2bNeNbOikqYtxWFLVm0
- 1a0JEdhYnJpZWxlIE1vbmFjbyA8Z21vbmFjb0BrZXJuZWwub3JnPoiZBBMWCgBBFiEEysoR+AuB3R
- Zwp6j270psSVh4TfIFAmjKX2MCGwMFCQWjmoAFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgk
- Q70psSVh4TfIQuAD+JulczTN6l7oJjyroySU55Fbjdvo52xiYYlMjPG7dCTsBAMFI7dSL5zg98I+8
- cXY1J7kyNsY6/dcipqBM4RMaxXsOtCRHYWJyaWVsZSBNb25hY28gPGdtb25hY29AcmVkaGF0LmNvb
- T6InAQTFgoARAIbAwUJBaOagAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgBYhBMrKEfgLgd0WcK
- eo9u9KbElYeE3yBQJoymCyAhkBAAoJEO9KbElYeE3yjX4BAJ/ETNnlHn8OjZPT77xGmal9kbT1bC1
- 7DfrYVISWV2Y1AP9HdAMhWNAvtCtN2S1beYjNybuK6IzWYcFfeOV+OBWRDQ==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+        d=1e100.net; s=20251104; t=1787825264; x=1788430064;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=p11dZYhzWvRbix8e2dTeUc0wy381a09q511ebbLUCIA=;
+        b=Wp+RnsF7epg7+Um7ZpJKymS9So4UgY9AUasuzS9NYN593SKmZ+K51yVBSWMocRtIp3
+         uIrBquxnC3SPunGMs0/+Gn/1jmD6Kx7Jw6RyskrYGdDMkcUK2Ax9tCzRII7HELAssSTi
+         ynPIA5ea1qdAalu8ogefh38luhaRn6SHuG1gCLRZ0GOKZeFU+tZSGw1BtzugbN7Hwg40
+         yeqv3NHIyhH/rxLGqv2D9R3ki25il+PXCKJvY4QbiL+Io0yqlMAexkK3uZslnNV7nQ9f
+         acQlUQiyxldFgqb5Rqp+DfIoiShRNn8Zg/i4ibYYnZpFBW9JW1Ihx/o/M/9sBKOj/hYW
+         TiEg==
+X-Forwarded-Encrypted: i=1; AHgh+RqPTFKjlorHWWXwvSgO2MbkOoM1aDKg5lOwtoi1otUwd9chMqw0SOtMab17xghhBLD1Fhr0IBq3B00Ks4E=@vger.kernel.org
+X-Gm-Message-State: AFuF++m8fn4W7xI8kR9lgll+L4SMxnQzJWi+ztEUKPeK4OSbDxMNbLNh
+	ra19c0YeBe/zT/N9YmGvlw5yDshrBtoNzkBxWaWcaCKWp3xYmHd+YNFiczpLNG5D/5O5wiAlACL
+	2Xs9AE4+/L6b3IKFAAO2A/VTr4PJyUNnxTrLZesLjfaeQ3mBQCzgm78mY8w8=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Received: by 2002:a05:6808:c297:b0:4a1:296:adec with SMTP id
+ 5614622812f47-4b366a0113cmr17051837b6e.15.1787825264331; Thu, 27 Aug 2026
+ 03:07:44 -0700 (PDT)
+Date: Thu, 27 Aug 2026 03:07:44 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a900c70.50659fcc.60cd.0013.GAE@google.com>
+Subject: [syzbot] [block?] BUG: unable to handle kernel paging request in blk_mq_complete_request_remote
+From: syzbot <syzbot+2e3bf0bd49acd9b21d4b@syzkaller.appspotmail.com>
+To: axboe@kernel.dk, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Wen,
+Hello,
 
-thanks for the series, I'm going with the first chunk, I still need to
-review the unbind_reap logic here.
+syzbot found the following issue on:
 
-On Fri, 2026-08-21 at 00:45 +0800, wen.yang@linux.dev wrote:
-> From: Wen Yang <wen.yang@linux.dev>
-> +static inline void tlob_reset_notify(struct da_monitor *da_mon)
-> +{
-> +	struct ha_monitor *ha_mon =3D to_ha_monitor(da_mon);
-> +	struct tlob_task_state *ws;
-> +
-> +	ha_monitor_reset_env(da_mon);
-> +
-> +	ws =3D ha_get_target(ha_mon);
-> +	if (!ws)
-> +		return;
-> +
-> +	/*
-> +	 * stopping=3D=3D1 means tlob_stop_task() ended this window already.
-> +	 * acquire pairs with the _release clear in ha_setup_invariants().
-> +	 */
-> +	if (atomic_read_acquire(&ws->stopping))
-> +		return;
+HEAD commit:    68f892e99df9 Merge branch 'for-next/core' into for-kernelci
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
+console output: https://syzkaller.appspot.com/x/log.txt?x=135bb415580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=d1128bc53f2ef7f3
+dashboard link: https://syzkaller.appspot.com/bug?extid=2e3bf0bd49acd9b21d4b
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+userspace arch: arm64
 
-Maybe I'm getting confused by the "acquire" in here, but are you aiming
-to "acquire" the stopping here by reading and then setting it later?
-That's obviously not atomic so you could read 0 and a concurring handler
-could set it to 1 before you do. Wouldn't it be better to cmpxchg?
+Unfortunately, I don't have any reproducer for this issue yet.
 
-> +
-> +	/*
-> +	 * Monitor disable (ha_mon_destroying set) is not a violation: the
-> +	 * teardown paths free ws regardless.=C2=A0 Couples to an HA-layer flag
-> +	 * with no public contract; a framework-level equivalent would be
-> +	 * cleaner.
-> +	 */
-> +	if (unlikely(READ_ONCE(ha_mon_destroying)))
-> +		return;
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/f98dd20a7b98/disk-68f892e9.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/441f1ad32549/vmlinux-68f892e9.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/8da5227b7dc8/Image-68f892e9.gz.xz
 
-This should be the first check in this function, there's no need to do
-anything else and you cannot trust the da_mon pointer.
-Put it before ha_monitor_reset_env() (to_ha_monitor is pointer
-arithmetic, it can stay where it is for better readability).
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+2e3bf0bd49acd9b21d4b@syzkaller.appspotmail.com
 
-> +
-> +	/* Genuine expiry: end the window so a later start takes the restart
-> path. */
-> +	atomic_set(&ws->stopping, 1);
-> +
-> +	/* Stamped regardless of the tracepoint; tlob_stop_task() reads it.
-> */
-> +	WRITE_ONCE(ws->budget_exceeded, true);
-> +
-> +	if (!trace_detail_env_tlob_enabled())
-> +		return;
-> +
-> +	unsigned int curr_state =3D READ_ONCE(da_mon->curr_state);
-> +	u64 accs[TLOB_ACC_MAX], partial_ns;
-> +	unsigned long flags;
-> +
-> +	/* Snapshot accumulators; partial_ns covers curr_state time not yet
-> folded in. */
-> +	raw_spin_lock_irqsave(&ws->entry_lock, flags);
-> +	partial_ns =3D ktime_get_ns() - ktime_to_ns(ws->last_ts);
-> +	accs[TLOB_ACC_RUNNING]=C2=A0 =3D ws->accs_ns[TLOB_ACC_RUNNING]=C2=A0 +
-> +				=C2=A0 (curr_state =3D=3D running_tlob=C2=A0 ? partial_ns :
-> 0);
-> +	accs[TLOB_ACC_WAITING]=C2=A0 =3D ws->accs_ns[TLOB_ACC_WAITING]=C2=A0 +
-> +				=C2=A0 (curr_state =3D=3D waiting_tlob=C2=A0 ? partial_ns :
-> 0);
-> +	accs[TLOB_ACC_SLEEPING] =3D ws->accs_ns[TLOB_ACC_SLEEPING] +
-> +				=C2=A0 (curr_state =3D=3D sleeping_tlob ? partial_ns :
-> 0);
-> +	raw_spin_unlock_irqrestore(&ws->entry_lock, flags);
-> +
-> +	trace_detail_env_tlob(da_get_id(da_mon), ws->threshold_ns,
-> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 accs[TLOB_ACC_RUNNING],
-> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 accs[TLOB_ACC_WAITING],
-> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 accs[TLOB_ACC_SLEEPING]);
-> +}
-> +
-> +#define BUDGET_NS(ha_mon) (ha_get_target(ha_mon)->threshold_ns)
-> +
-> +/* HA constraint functions (called by ha_monitor_handle_constraint) */
-> +
-> +static u64 ha_get_env(struct ha_monitor *ha_mon, enum envs_tlob env,
-> +		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u64 time_ns)
-> +{
-> +	if (env =3D=3D clk_elapsed_tlob)
-> +		return ha_get_clk_ns(ha_mon, env, time_ns);
-> +	return ENV_INVALID_VALUE;
-> +}
-> +
-> +/*
-> + * Invariant: clk_elapsed < BUDGET_NS in running/waiting/sleeping.=C2=A0=
- "stopped"
-> + * is exempt: the parked period must not be measured against the old win=
-dow's
-> + * clock anchor (restart from "stopped" would otherwise spuriously overr=
-un).
-> + */
-> +static inline bool ha_verify_invariants(struct ha_monitor *ha_mon,
-> +					enum states curr_state, enum events
-> event,
-> +					enum states next_state, u64 time_ns)
-> +{
-> +	if (curr_state =3D=3D stopped_tlob)
-> +		return true;
-> +	return ha_check_invariant_ns(ha_mon, clk_elapsed_tlob, time_ns,
-> BUDGET_NS(ha_mon));
-> +}
-> +
-> +/*
-> + * The clock stays in guard (anchor) representation all window: env_stor=
-e
-> + * holds the window-start timestamp, re-anchored on start/restart.
-> + * ha_invariant_passed_ns() never stores the deadline representation (th=
-e
-> + * framework dropped ha_set_invariant_ns(), commit ab2900ae252b), so cal=
-ling
-> + * ha_inv_to_guard() here would subtract BUDGET_NS from the anchor and s=
-kew
-> + * every check by one budget.=C2=A0 nomiss likewise never converts.
-> + */
-> +
-> +/* No per-event guard conditions for tlob; invariants suffice. */
-> +static inline bool ha_verify_guards(struct ha_monitor *ha_mon,
-> +				=C2=A0=C2=A0=C2=A0 enum states curr_state, enum events
-> event,
-> +				=C2=A0=C2=A0=C2=A0 enum states next_state, u64 time_ns)
-> +{
+Unable to handle kernel paging request at virtual address dfff800000000031
+KASAN: null-ptr-deref in range [0x0000000000000188-0x000000000000018f]
+Mem abort info:
+  ESR = 0x0000000096000005
+  EC = 0x25: DABT (current EL), IL = 32 bits
+  SET = 0, FnV = 0
+  EA = 0, S1PTW = 0
+  FSC = 0x05: level 1 translation fault
+Data abort info:
+  ISV = 0, ISS = 0x00000005, ISS2 = 0x00000000
+  CM = 0, WnR = 0, TnD = 0, TagAccess = 0
+  GCS = 0, Overlay = 0, DirtyBit = 0
+[dfff800000000031] address between user and kernel address ranges
+Internal error: Oops: 0000000096000005 [#1]  SMP
+Modules linked in:
+CPU: 1 UID: 0 PID: 8684 Comm: kworker/u8:27 Tainted: G             L      syzkaller #0 PREEMPT 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/07/2026
+Workqueue: nvme-reset-wq nvme_reset_work
+pstate: 83400005 (Nzcv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
+pc : blk_mq_complete_request_remote+0xc4/0x858 block/blk-mq.c:1297
+lr : blk_mq_complete_request_remote+0x88/0x858 block/blk-mq.c:1289
+sp : ffff800095647900
+x29: ffff800095647980 x28: ffff800095647900 x27: dfff800000000000
+x26: 0000000000000000 x25: ffff0000c648326a x24: dfff800000000000
+x23: ffff700012ac8f20 x22: 1fffe000192284a4 x21: 1fffe00018c90648
+x20: 000000000000018e x19: ffff0000c9142400 x18: 1fffe00034bbbe28
+x17: 0000000000000003 x16: ffff800088b37000 x15: 0000000000000000
+x14: 0000000000000000 x13: 0000000000000001 x12: 0000000000000004
+x11: ffff700012ac8f3c x10: ffff8000884bb5d7 x9 : 1fffe00019228482
+x8 : 0000000000000031 x7 : ffff80008281b4e0 x6 : 0000000000000000
+x5 : 0000000000000000 x4 : 0000000000000001 x3 : ffff80008281f228
+x2 : 0000000000000000 x1 : ffff0000d604ba80 x0 : 0000000000000000
+Call trace:
+ blk_mq_complete_request_remote+0xc4/0x858 block/blk-mq.c:1297 (P)
+ nvme_try_complete_req drivers/nvme/host/nvme.h:823 [inline]
+ nvme_handle_cqe drivers/nvme/host/pci.c:1590 [inline]
+ nvme_poll_cq+0x4ec/0x106c drivers/nvme/host/pci.c:1621
+ nvme_reap_pending_cqes drivers/nvme/host/pci.c:2078 [inline]
+ nvme_dev_disable+0x384/0x540 drivers/nvme/host/pci.c:3328
+ nvme_reset_work+0x510/0x69c drivers/nvme/host/pci.c:3490
+ process_one_work kernel/workqueue.c:3322 [inline]
+ process_scheduled_works+0x788/0x10b8 kernel/workqueue.c:3405
+ worker_thread+0x798/0xbd0 kernel/workqueue.c:3486
+ kthread+0x304/0x3d4 kernel/kthread.c:436
+ ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:838
+Code: 97d02797 f9400288 91063914 d343fe88 (38f86908) 
+---[ end trace 0000000000000000 ]---
+----------------
+Code disassembly (best guess):
+   0:	97d02797 	bl	0xffffffffff409e5c
+   4:	f9400288 	ldr	x8, [x20]
+   8:	91063914 	add	x20, x8, #0x18e
+   c:	d343fe88 	lsr	x8, x20, #3
+* 10:	38f86908 	ldrsb	w8, [x8, x24] <-- trapping instruction
 
-Mmh, I just realised you don't use the guards for resets, is the order
-of actions a problem for this monitor?
 
-> +	return true;
-> +}
-> +
-> +/*
-> + * Guard on stopping: a sched_switch after ha_cancel_timer_sync() would
-> + * re-arm the timer (ODEBUG splat).=C2=A0 _acquire pairs with cmpxchg_re=
-lease in
-> + * tlob_stop_task.
-> + *
-> + * Entering stopped_tlob also resets env_store to the invalid sentinel, =
-so a
-> + * restart re-anchors the clock; a stale anchor would wrap the restart's
-> + * timer delay to ~U64_MAX.
-> + */
-> +static inline void ha_setup_invariants(struct ha_monitor *ha_mon,
-> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 enum states curr_state, enum ev=
-ents
-> event,
-> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 enum states next_state, u64 tim=
-e_ns)
-> +{
-> +	if (next_state =3D=3D stopped_tlob) {
-> +		/*
-> +		 * Window ending: reset env_store to the invalid sentinel so
-> +		 * the next window gets a fresh clock anchor.=C2=A0 Keep
-> stopping=3D=3D1
-> +		 * so __tlob_acc() continues to block sched events while
-> parked.
-> +		 */
-> +		ha_monitor_reset_all_stored(ha_mon);
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-Is this really necessary since you have a reset() in the start edge?
-Isn't that anyway equivalent to reset() on the stop edge too?
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-> +		return;
-> +	}
-> +
-> +	if (atomic_read_acquire(&ha_get_target(ha_mon)->stopping)) {
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
-Same as above, do you mean to cmpxchg?
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
 
-> +		/*
-> +		 * Restart (stopped -> running): arm the timer, then clear
-> +		 * stopping so __tlob_acc() admits sched events only once the
-> +		 * state is already running_tlob.=C2=A0 _release pairs with the
-> +		 * acquires in __tlob_acc/tlob_reset_notify.
-> +		 */
-> +		if (next_state < state_max_tlob)
-> +			ha_start_timer_ns(ha_mon, clk_elapsed_tlob,
-> BUDGET_NS(ha_mon), time_ns);
-> +		atomic_set_release(&ha_get_target(ha_mon)->stopping, 0);
-> +		return;
-> +	}
-...
-> +
-> +/*
-> + * Accumulate elapsed ns into accs_ns[idx] since last_ts and advance it.
-> + * Returns true if monitored with an active window.=C2=A0 The stopping g=
-ate is
-> + * what keeps scheduler events from reaching a parked task (no "stopped"
-> + * self-loops, see tlob.h) and keeps accs_ns[] from growing while parked=
-.
-> + */
-> +static inline bool __tlob_acc(struct task_struct *task, ktime_t now,
-> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 enum tlob_acc_idx idx)
-> +{
-> +	struct tlob_task_state *ws;
-> +	unsigned long flags;
-> +
-> +	guard(rcu)();
-> +	ws =3D da_get_target_by_id(task->pid);
-> +	/* acquire pairs with the _release clear in ha_setup_invariants(). */
-> +	if (!ws || atomic_read_acquire(&ws->stopping))
-> +		return false;
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
 
-Mmh, returning false on !ws is kind of a shortcut to avoid another
-hashtable lookup that would return nothing, but skipping events on
-stopping is actually changing how the model behaves.
-
-It is usually clearer to allow all events in a stopped state as
-self-loops (the /task/ can go through those events also when stopped).
-I usually prefer to keep logic in the model rather than in the source
-file.
-
-It wouldn't be too wrong to say that the task can do anything but the
-tlob instance is stopped and other events cannot occur there, like
-you're doing, but that should be well documented.
-You're vaguely mentioning this in some changelog, if you want to keep it
-this way, please explain it in the documentation file.
-Word it like a description of the model rather than how you implement
-it, something like (adapt it accordingly): "although tasks can enter the
-scheduler when tlob is in the stopped state, those events are explicitly
-ignored by the tlob instance, hence there is no self-loop in the stopped
-state".
-
-Thanks,
-Gabriele
-
+If you want to undo deduplication, reply with:
+#syz undup
