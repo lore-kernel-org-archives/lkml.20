@@ -1,201 +1,216 @@
-Received: from mta0.migadu.com (out-140.mta0.migadu.com [91.218.175.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010006.outbound.protection.outlook.com [52.101.56.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A6ED4734F8
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 14:21:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787840513; cv=none; b=CPby6zb5X/K3P0bsDSN+RR7tmQ2m67nne2eJaPlwJ5/fJOJbvMD7HZ5+zKgfDY3XdLBzEDCSvuAwGA602hcYRSQlozUFx8w91eaPMbdwR76XvNauTV4P2Ow5uI+s0SJjcqvDooBuQcyLoX05WJbtCZNuYozPDgJnpby9Sq/GHJ0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787840513; c=relaxed/simple;
-	bh=8wLCDmXDF7DPuapA5Jj+j3NkJgks2+k18q3akLPinvA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HUlq/nr8GqZD7ye/PI7ie7l/3oCQl2pJXgv0c1BMlCYPYcukFE5mLr3YrXgO3KicIG9mg5faseBbLcpyBfqDjRbWny6tXl9nll8kKZAC2E2XoOah5zUx2oHDRcCY/fljcQ3akpqqS/QOYwb2mwnWmd+6M36XgCGrJQ86W6caBfE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Va2D5I66; arc=none smtp.client-ip=91.218.175.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC084263F44;
+	Thu, 27 Aug 2026 14:22:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.6
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787840580; cv=fail; b=TCnndEHg5+siNVYMNve/u8ltJAeZc/SIdeW4/qM9H5oXUakzLTxJJ1TS7vMDOI7hQ2PkYD9EyQDaLvjGiFq3VxsAaqATD1ej306eQ9uRJBZrenb7VgwSGjXADwKkmmGpwXJEF2lGn0GhKT6yYjov95z8s9/6cYHm1LRvEBemIfA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787840580; c=relaxed/simple;
+	bh=3Og8ajdC6b9uZ7Yz4zkoNQcUGEkAg1cvsEzo/4O1nWE=;
+	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=kutekclbdMMsVhbkn+aeeuXt8/VK3RCYe7HZIUdqxemaei7ZFLsoSZMsiPyA01Z32/+i71lK6criUNXjtSPKMZei10afDDiZng6oZlU1g4FcFyiwnJsvdd0KstrdtHrr/RWISaY2SFAqIKcz91z8dmdbV4h6VdL9x8wUcGKlPZI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=cl2ZpavB; arc=fail smtp.client-ip=52.101.56.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Va2D5I66"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=8wLCDmXDF7DPuapA5Jj+j3NkJgks2+k18q3akLPinvA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787840508; v=1; x=1788445308;
- b=Va2D5I66xDs9Q2vPQGvo+XAL259fOL18sgXFR3XrpCDcWkX2uUQZyyeNDEhMZaPIoTmdu4tz
- r+y6X6c5JMOf9DwGZ9I4hHtl3zDp7vkpdBKs7eEOQHSzMN5kkUcl4/8F8F0QX2nni93CZpHIPxG
- FOyEbS88mcY9GzCFUg0gAf0w=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a2b0f75b2f75a3d7;
-	Thu, 27 Aug 2026 14:21:48 +0000
-X-Mizu-Trace-ID: a2b0f75b2f75a3d7
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <c8d71171-9b4c-418a-a48d-c18bb20da52f@linux.dev>
-Date: Thu, 27 Aug 2026 15:21:44 +0100
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="cl2ZpavB"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=E3Q6hFRVXoH9wlXR8xwKxuH3ieoFBpssJ9uGpZUAylj4K7lbbAX7COLKk8LQxnU8z9TbiTd5i8Jote5vpTSsF+Np1b11ZbvMTtzvOKprGLj9q7+drJNfuYSU9csZjMixoehZ5sawqdEPzq08yT9vBUhnZFrG3SW78parLh9jl/veehXTJs6d5PBh2atGca4jNGxYKNP5KJUXwG7VJYuamBOQc+tkwgqhlia8mh0VLBu7NsiBKOwwwrTIYZGCzLdyJg39dNcdOyIZTc4b9Db8agJjUfGh7kXsVgV/VxsBDTmTwyxNNZCsUVN9jZIsrJLwUz8xXUWTV+2IhMKGjREoKA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SCoIC+eSfzhEO0deLCakBHwn1gUQWocOUStAOMLa5ck=;
+ b=hrUMY1VwkgETTCZA5NBgaWHZZJgKDzCsIS7l40oKlccoPp9jkmeqvrb4peXaP4YGQA4ASJfm4qeybNaGx3GczacmqQ2Y09cSrrTfLeCd4MbheUxs3ES2oN5Hv1mU5nB2QrFhgG4fbPJhrx2dyb1W0X7XmhZsTdJLq6IguLbbQKdFHSp0b7mAn6LXNPvqAqAvwAcZ44zJZTS0Xvfp31b5Y7QYlRlcdZTQAWubFtltzAZMlwG6RbD9PI4SM/ywk+ElMq200L+c9O48olgBLcrEJ/pv8qEOnSAhAwztqTySXdNz2VcZ6EW3G0izhKis4dPTsTrwWFb3GhR2ZtxgemOsVQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SCoIC+eSfzhEO0deLCakBHwn1gUQWocOUStAOMLa5ck=;
+ b=cl2ZpavB7aenn7En237LtS/qXbwO3X6vevMVwLM+cecoZqqYgL/a/YZMGO+/irJqX3rameaE3pMW3JKOj+2kYlAPvm8oliMGincn6hiwQW+q/jmcLBA0s9fjJ//dqnDwAwDbDcATmk7ne/JE7lNr8Nsc2tVKIJruz/uHxpQmzdXseBEsihlimedWNkTMyYDPVm6Wckj1DwFp2UmRNxgGPW/2NAAth5Bq4IiCQ8MKT3OfbTF8Vz+IkOU03lpQQir06NYymfoZOuSWk5bqFE0EJkzqZo0HzMfmo80esoAjXn/GK2TWpm5zQDubtatKLXoJqDnWZnqfdSICqhPUSjtu7g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ LVUPR12MB999161.namprd12.prod.outlook.com (2603:10b6:408:3a2::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
+ 2026 14:22:48 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
+ 14:22:48 +0000
+From: Eliot Courtney <ecourtney@nvidia.com>
+Subject: [PATCH v2 0/8] gpu: nova-core: add NVKV codec
+Date: Thu, 27 Aug 2026 23:12:49 +0900
+Message-Id: <20260827-b4-nvkv-v2-0-0de9d5c8658c@nvidia.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/21Qy47CMBD7lSrnTZVJ0zThxH+sOOQxhcC2ZZMSg
+ VD/fdOC9oTmZMn22H6ShDFgIrvqSSLmkMI0FsC/KuJOZjwiDb5gwhmXTAGnVtAxXzKFBkzfOi4
+ lOFLY14h9uG9O34cXTjd7Rjev8jcj4u+tvJhfNGJNQuqmYQjzrhJOWyNYx0Ch8miZ9NZJ0QBwa
+ 5zqBSvX63a1GjAls2UrUddkkre8AQ26lpoLISjQ6Yze7C8YR/ypp3j8qOuY5lCqQA2Ct591a5t
+ TSPMUH9tMGbbw70W6/0UyUEatEt62qISV3X7MwQdTl4bksCzLH6fZHoxtAQAA
+X-Change-ID: 20260812-b4-nvkv-131af5c2661c
+To: Danilo Krummrich <dakr@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Uladzislau Rezki <urezki@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: John Hubbard <jhubbard@nvidia.com>, 
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ Eliot Courtney <ecourtney@nvidia.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: TYCP301CA0025.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:400:381::12) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] zstd: probe the CPU for BMI2 support once, not per
- context
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: dsterba@suse.com, linux-kernel@vger.kernel.org, terrelln@fb.com,
- linux-crypto@vger.kernel.org, yosry@kernel.org, hannes@cmpxchg.org,
- nphamcs@gmail.com, chengming.zhou@linux.dev, shakeel.butt@linux.dev,
- kernel-team@meta.com
-References: <20260826122558.2662013-1-usama.arif@linux.dev>
- <20260827023943.GA2327@sol>
-Content-Language: en-US
-From: Usama Arif <usama.arif@linux.dev>
-In-Reply-To: <20260827023943.GA2327@sol>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|LVUPR12MB999161:EE_
+X-MS-Office365-Filtering-Correlation-Id: 962d5573-09a8-45b7-9cfb-08df0446ab6f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|10070799003|366016|376014|7416014|1800799024|10067099003|3023799007|18002099003|11063799006|56012099006|921020;
+X-Microsoft-Antispam-Message-Info:
+	iOeO3MUsyXrUtbiy4sqfBt0imDgITJzkNEWsieHKvkxqXc9ztOx+6ebuy8DvQfUXp+VS1ETZSIi5a+mAUNPY0/qj7Ck3u5q1I0sti4tdX1BU9ZDkmUrX0GUVj3rrGl2LQ00R+yRBOdfL2DIFIzhg7lizxRkJu3NcwfVwZ7DanxBD0r9deJsSfk0ZK2afRt8RuCrEUFDydWEUd1QR5/S6v8DK3sG0nUxTCm7iqBxAbyEXyiHKas5Rr5bD2vu4CMTR4Apj0Rz94EcEzT6tZqlB0qojXawujm7pzG/CeQSY46KOg4So8t2V3VTWUDvTm+71gOUucTLdTvtOLELdcZ655a1orxwL7AiDul43lBizbVAMFC/z00JrhVjMn42o480hgPL6FACavBn/a08B14nJCHZ018uWstz0lv6sHYi9XXxPyP7D5P2kIIyRTHGbZTuqN4609fWknJDVarIHCquVJ6jz4BJdgW/C3PK6y6SsXdpq8eqlJzZri0WskaGMdUJA6rvX0VV+2bn3lUFx4v1OHwqaattLqeQl4IOs2GxkosTLR/Qw7lx46IgK0q0JNJh2a9k4zuxFBvLDO2pBbJOTMRohwacRXSqKW8q3Y77gW1YtlRfik386ROMPKuZlBnlbsOQcxNpVQdyJSI4iZvKk31FG4NoYLMzTFpqycRQgq4jwMiKtvles9hOds9gH9uZ6BVN2/89TGuzWenk6MV/qxg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(10070799003)(366016)(376014)(7416014)(1800799024)(10067099003)(3023799007)(18002099003)(11063799006)(56012099006)(921020);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?R04yZjlZNS9za1JmRDRQQ0I1UzZwOWJTb01SN3JWcnNrMW9vTDlJOHUreDBI?=
+ =?utf-8?B?aXowekkwcHdGL0czb3hvNjhBOTZaWUJLUEVmNEgwNmlFZjhlTkg1ZDZwNlNW?=
+ =?utf-8?B?YU5DMmpmWjJ4R1B1bFAvdTk3MmpYYnprc0grOTdweEpVeGE2YlN6TXd4bjNk?=
+ =?utf-8?B?N3U3K0R5WVAreUo5YTN5UFF6aDRncHU0SHo4SHdvdmRQVWVkVlVvNlpRWEpR?=
+ =?utf-8?B?bWpYVE1FK3hhUFBaY1BzTHo0WVBYczlwTFhjR2FGVC9NTTUyMVY5UWFsS3V4?=
+ =?utf-8?B?NXhCa09XVzlJQmQ5R3RaNVhoRzFQRUN5YmFBNGVZaFloSE4xaTlZeTd5cHpa?=
+ =?utf-8?B?R0JmMjNEQlVkRnBsQ0l5UDdkN0YyWVRZczg4TThBaldvMTRNMngzT0Fhcnhh?=
+ =?utf-8?B?UWZXV2gvdW83MzdweXVMbTBZUHl5cjJkdDFUZk9aeVRzUnFES1RTOXNkUHZP?=
+ =?utf-8?B?N0UzUGNCS0owSnBXUEFNYVhpTlhxR2Q4N0FxbWNKUUR6bjVJV24vSDFOMlQw?=
+ =?utf-8?B?VCsxRGtjRXVHMWNYYURobDZpdnhRdVovc2hvNVBLcStKL0NLVnkxNW1pYUJh?=
+ =?utf-8?B?dytVaG8yN0VteU84N0lGdXNWcUlwZmdGN2c1SGkzU2QxUzZxbk1QRTFJMmV0?=
+ =?utf-8?B?a3ZmbVRHeTB5NFk4UnhIWERjSWV6ckxYditXSEEwa04wZ2EzajlnRGQxRnZp?=
+ =?utf-8?B?TmNxYXdGbWVDdm96Ti82SnpjWG9jakxqcUdnOVl6aFNhZVpXTkE1M1BxR1c1?=
+ =?utf-8?B?RTRMVFVZZHh2VWV6N3M5ZnlyVk5BZEd3TUwwdWo0bmxFQWlja0VzTUppWHhR?=
+ =?utf-8?B?bUhMM3JlT09GaEJVY0RFRUNiMHlvRHJ4SEdnZU9aL05vb0JZRWdXWVNwT2JK?=
+ =?utf-8?B?dFowMG9mU3NQUHkvdWtTQVZKWjc2TTBtWkJHM05QZUhUTzRQc1ZIYVRQUVQx?=
+ =?utf-8?B?dE50ZlN4SVF6OXdRWUlrcDA4cnUyK2xiaWxRMVE2SHZBY3cwSWJZMjdHVEsr?=
+ =?utf-8?B?WW5vbzFZNlFUWEw0amFLejNwM3ZDQ1lKMTZsWGI4ZFVwa3pYd29nT1BaNkF1?=
+ =?utf-8?B?c0ZzRTZvbytvM1B6OUNNdFNGTXMrZTIveXVSSUp1VDdzeDM2M2RoaEJ2M1FP?=
+ =?utf-8?B?TEhCT0JydzlQL2wzcEE5NFpua1dJREpjUU1nbzJqb1ZORkVkL0U3bXhOcW1D?=
+ =?utf-8?B?MXRvRDEwbmQxdG81Q01xNzNMdm15Y0duUW5lOFRVUlpGSDdIeU14V3pNMU5B?=
+ =?utf-8?B?S21zMG16SFFyZkRwTnVNLzdKeWRkR0NQa1FEYWgvTkZrQ1lYaFNkamRaR2Nq?=
+ =?utf-8?B?WTd1SHlPQmtYazk0MEN3U2dFZmlCZFJITjRoL1A2Y2ZUMi9yVVp5Mkw1SVNy?=
+ =?utf-8?B?c0dZLzF0ZEUrQi9uVXVkbFpSaFNoMnkybnEwV0Mzd1dvMyswdlRwQmRVRWd4?=
+ =?utf-8?B?S0FtWEtJcUVnYWVsZ2paVlBwNllYQmlkRTU3RFZ1azNNM0tneEdQbGFEbWxz?=
+ =?utf-8?B?SThJeUFSR1QvazVjN0FtYjJSM0NjQlYxZWR6U1EyektWa3I1WWlWV0FDNjR2?=
+ =?utf-8?B?aC9ub1NXdnRtaUNEK29CK3A4WUJvRHhxajNiWEpZRGhrY2xFQW9GTmVmRjFn?=
+ =?utf-8?B?WGRJSUZRYUJXbVFQVHJqOXJlQ2hJQWZxWlJKeVlxOUtWRFJqcSswUnUxUnBI?=
+ =?utf-8?B?cnZHWGNrNmppS045UXlLbXdHM1pHdE4zbnpSaFpxOGxiUGpaZ3E3UE1YVEhj?=
+ =?utf-8?B?ZGtrVERkZjZFdE5FY1JZbWRobDRlelNlM1IwdHR5ZGVjNGFKakdpRjVabXJx?=
+ =?utf-8?B?bkJ6Z0doYTc5dGxtM05VaHF0cHZoeHZxaXJ0RU5iTkJnS2FaMGF2cnNaRWxw?=
+ =?utf-8?B?WlpkeVh5TjFhWTdWMlM5QjI4WEZhM3o0UEVkbU9kWXJwSXg2QU50aGY1Rlpn?=
+ =?utf-8?B?bldINzRvL1EyQVhoRlhuT1NBSUFhMUZhUmJFNEZsb3lqZ2N5ZmwxZktDV2Nj?=
+ =?utf-8?B?OW1oazFLTy81WGlKM29PemRIeWd4V0ZqZlVvdHV0WHREc1JvTFIzTkM1b1hx?=
+ =?utf-8?B?UXNVRlJ5YVNMUXlEUTlUeWcydUFCWTJ6dVgzblVjajlkMHhRTzZ5aE5zcWs2?=
+ =?utf-8?B?eHA3UEtlR2MvSWtvSVNOVUgwS2JSdmhSWVVlL0VtOEc4TVpRMEY5S3RvQUVm?=
+ =?utf-8?B?QlF2Q1NlSFVLanR2VDZVdTA0QXkwTVE2azBERWFDbXNEejI0VEswS21hbndl?=
+ =?utf-8?B?VVc4WkcxalVoQUM3bU1YMGFrbFJDYXlCbTI3VEd4R0w1V2N3em9yWkFyT202?=
+ =?utf-8?B?VjdPNm5OdC9WQW9TS3RBMjg3WDZpcEhaeTN4Y01UMVdVWDB5b2JoWk9ERmcw?=
+ =?utf-8?Q?EBbNYyArUt6HviBp359kjLCtDNUWnhaSfoP5/G5nOAU4V?=
+X-MS-Exchange-AntiSpam-MessageData-1: VepkpoV/nhfr/A==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 962d5573-09a8-45b7-9cfb-08df0446ab6f
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 14:22:48.3697
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ONFxLUEp0EcVMq9E5md+BsS3tXj1hU/lXNnXovTU402ma+nfzLMjNP57nEwMIF3ZGECZKjU+yZo7yIN6QVyxOQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LVUPR12MB999161
 
+This series adds support for the NVKV wire format for communicating
+with GSP.
 
+Essentially, the format encodes a sequence of calls to some function
+f(key, index, value), where value is a [u8], u32, u64, [u32], or a
+[u64]. The key is a u16 and the index is a 12 bit integer. The
+interpretation of these function calls is per GMCAPI (RPC interface
+used in firmwares later than r570). Generally speaking, the function
+calls will map to some struct - for example, f(GPU_NAME_STRING_KEY, 0,
+b"some gpu") naturally maps to storing a &str with the GPU name.
 
-On 27/08/2026 03:39, Eric Biggers wrote:
-> On Wed, Aug 26, 2026 at 05:25:35AM -0700, Usama Arif wrote:
->> zstd picks between BMI2 and generic code paths at runtime, and issues
->> CPUID to decide every time a compression or decompression context is set
->> up. The answer cannot change while the kernel is running.
->>
->> It is not a cold path: squashfs calls zstd_init_dstream() for every block
->> it decompresses, and erofs, btrfs, f2fs and crypto/zstd all initialise a
->> context per operation. Each probe is two serializing CPUID instructions
->> on x86.
->>
->> Patch 1 routes ZSTD_initStaticCCtx() through ZSTD_cpuSupportsBmi2()
->> instead of open-coding the probe, which also fixes it testing for BMI2
->> without BMI1 - the bodies it selects are tagged
->> TARGET_ATTRIBUTE("lzcnt,bmi,bmi2"), so both are needed. No CPU in the
->> field implements BMI2 without BMI1, so this is latent. Patch 2 skips the
->> probe when DYNAMIC_BMI2 is 0, where every consumer ignores the flag
->> anyway. Patch 3 caches the result.
->>
->> A 4 KiB crypto_acomp benchmark [1] in a one-vCPU KVM guest, twelve boots
->> of nine 30,000-operation rounds, median per-round mean over 108 rounds:
->>
->>                     compress     decompress
->>   unpatched         16,756 ns     3,455 ns
->>   patched           13,646 ns     1,002 ns
->>                     -3,110 ns    -2,452 ns
->>                      (18.6%)      (71.0%)
->>
->> The main reason is because CPUID is an unconditional VM exit.
->>
->> [1] https://gist.github.com/uarif1/5cf02f0e22c23f0d1b3d84348f12914c
->>  
->> Usama Arif (3):
->>   zstd: use ZSTD_cpuSupportsBmi2() in ZSTD_initStaticCCtx()
->>   zstd: skip the BMI2 probe when dynamic BMI2 dispatch is disabled
->>   zstd: probe the CPU for BMI2 support only once
->>
->>  lib/zstd/common/zstd_internal.h   | 22 ++++++++++++++++++++--
->>  lib/zstd/compress/zstd_compress.c |  2 +-
->>  2 files changed, 21 insertions(+), 3 deletions(-)
-> 
-> Why not just use cpu_feature_enabled(X86_FEATURE_BMI2), which compiles
-> down to a static branch?  All these issues are caused by lib/zstd/ using
-> its own custom CPU feature detection code, instead of the normal CPU
-> feature detection code that the rest of the kernel uses.
-> 
-> - Eric
+This series adds a general encoder and decoder that works with the
+base formats used ([u8], u32, u64, [u32], or a [u64]) for encode and a
+general `Schema` trait for decode. This could be used directly, but
+since most messages are struct-like, it's more ergonomic to use some
+typed helpers for this declarative use case. So this series adds two
+simple macros for encode and decode of structs, plus some general
+types and implementations that help with using these.
 
+Future patches will wire this up through the command queue.
 
-The only issue I saw with that was that zstd is a standalone library that
-is imported, so I am not sure how using cpu_feature_enabled() would work
-for the maintainers. If the maintainers are happy with it, I think the
-below patch is much better.
+This is based on drm-rust-next.
 
-
-From 0b21d945f579cbb5e41b92b4c9306e9d5bac84f1 Mon Sep 17 00:00:00 2001
-From: Usama Arif <usama.arif@linux.dev>
-Date: Thu, 27 Aug 2026 05:34:41 -0700
-Subject: [PATCH] zstd: use kernel CPU feature detection on x86
-
-Zstd currently probes CPUID while initializing each compression or
-decompression context. This bypasses the x86 feature policy used by the
-rest of the kernel and repeats a serializing instruction sequence for
-every context.
-
-Use cpu_feature_enabled() in the normal x86 compressor and decompressor
-objects. Check ABM, BMI1, and BMI2 because the dispatched functions are
-compiled with lzcnt, bmi, and bmi2. The checks are alternatives-patched
-at boot.
-
-The effect is especially visible under virtualization, where CPUID
-normally causes a VM exit. A 4 KiB crypto_acomp benchmark was run in
-one-vCPU KVM guests. Comparing the unpatched baseline with this
-three-patch series, the median reported ns/op values were:
-
-                         before    after
-  compression            16,777   13,635 ns/op  (-18.7%)
-  decompression           3,454    1,006 ns/op  (-70.9%)
-
-Keep the existing raw CPUID fallback for preboot and other builds which
-cannot use the normal x86 feature infrastructure. Also retain the early
-return when dynamic dispatch is disabled.
-
-Signed-off-by: Usama Arif <usama.arif@linux.dev>
 ---
- lib/zstd/Makefile               |  5 +++++
- lib/zstd/common/zstd_internal.h | 18 ++++++++++++++----
- 2 files changed, 19 insertions(+), 4 deletions(-)
+Changes in v2:
+- Tweak Schema trait to avoid materializing copies on the stack
+- Move ArrayVec to alloc module (+add potentially useful methods) (Danilo)
+- Add Vec::try_push_init (Danilo)
+- Add sum error type for try_push_init, PushInitError
+- Use Danilo's EncodedStream abstraction
+- Add some stack space asserts (Danilo) - needs to skip on clippy tho
+- Using zerocopy e.g. ref_from_prefix_with_elems requires updated zerocopy to
+  avoid linking error, so added those as prereqs.
+- Link to v1: https://patch.msgid.link/20260817-b4-nvkv-v1-0-b84db5e84b67@nvidia.com
 
-diff --git a/lib/zstd/Makefile b/lib/zstd/Makefile
-index be218b5e0ed59..db1d1439f5447 100644
---- a/lib/zstd/Makefile
-+++ b/lib/zstd/Makefile
-@@ -42,3 +42,8 @@ zstd_common-y := \
- 		common/error_private.o \
- 		common/fse_decompress.o \
- 		common/zstd_common.o \
-+
-+ifeq ($(CONFIG_X86),y)
-+CFLAGS_compress/zstd_compress.o += -DZSTD_USE_KERNEL_CPU_FEATURES
-+CFLAGS_decompress/zstd_decompress.o += -DZSTD_USE_KERNEL_CPU_FEATURES
-+endif
-diff --git a/lib/zstd/common/zstd_internal.h b/lib/zstd/common/zstd_internal.h
-index 41f190b533209..f7d3bca650747 100644
---- a/lib/zstd/common/zstd_internal.h
-+++ b/lib/zstd/common/zstd_internal.h
-@@ -31,6 +31,11 @@
- #include "fse.h"
- #include "huf.h"
- #include <linux/xxhash.h>                /* XXH_reset, update, digest */
-+
-+/* Use the kernel's CPU feature policy in normal x86 kernel builds. */
-+#if defined(ZSTD_USE_KERNEL_CPU_FEATURES)
-+#include <asm/cpufeature.h>
-+#endif
- #define ZSTD_TRACE 0
- 
- /* ---- static assert (debug) --- */
-@@ -311,12 +316,17 @@ size_t ZSTD_decodeSeqHeaders(ZSTD_DCtx* dctx, int* nbSeqPtr,
-  */
- MEM_STATIC int ZSTD_cpuSupportsBmi2(void)
- {
--#if DYNAMIC_BMI2
--    ZSTD_cpuid_t cpuid = ZSTD_cpuid();
--    return ZSTD_cpuid_bmi1(cpuid) && ZSTD_cpuid_bmi2(cpuid);
--#else
-+#if !DYNAMIC_BMI2
-     /* Nothing looks at the flag in this configuration. */
-     return 0;
-+#elif defined(ZSTD_USE_KERNEL_CPU_FEATURES)
-+    return cpu_feature_enabled(X86_FEATURE_ABM) &&
-+           cpu_feature_enabled(X86_FEATURE_BMI1) &&
-+           cpu_feature_enabled(X86_FEATURE_BMI2);
-+#else
-+    ZSTD_cpuid_t cpuid = ZSTD_cpuid();
-+    return ZSTD_cpuid_bmi1(cpuid) &&
-+           ZSTD_cpuid_bmi2(cpuid);
- #endif
- }
- 
--- 
-2.53.0-Meta
+---
+Eliot Courtney (8):
+      rust: alloc: add Vec::try_push_init
+      rust: alloc: add Vec::push_init
+      rust: alloc: add ArrayVec
+      gpu: nova-core: add NVKV encoder
+      gpu: nova-core: add NVKV decoder
+      gpu: nova-core: add NVKV typed encoding
+      gpu: nova-core: add NVKV typed decoding
+      gpu: nova-core: add NVKV GSP_INIT schemas
 
+ drivers/gpu/nova-core/gsp.rs             |   1 +
+ drivers/gpu/nova-core/gsp/fw/commands.rs | 350 +++++++++++++++
+ drivers/gpu/nova-core/gsp/nvkv.rs        | 197 ++++++++
+ drivers/gpu/nova-core/gsp/nvkv/decode.rs | 741 +++++++++++++++++++++++++++++++
+ drivers/gpu/nova-core/gsp/nvkv/encode.rs | 388 ++++++++++++++++
+ rust/kernel/alloc.rs                     |   3 +
+ rust/kernel/alloc/arrayvec.rs            | 347 +++++++++++++++
+ rust/kernel/alloc/kvec.rs                |  73 ++-
+ rust/kernel/alloc/kvec/errors.rs         |  30 ++
+ 9 files changed, 2128 insertions(+), 2 deletions(-)
+---
+base-commit: 4c9ba407018e8deb06dbc643112bac8f40404f95
+change-id: 20260812-b4-nvkv-131af5c2661c
+prerequisite-message-id: 20260625231919.692444-1-ojeda@kernel.org
+prerequisite-patch-id: 1387aaf8fd9dbfaf04e6e8d52c3b39fbd9ff9432
+prerequisite-message-id: 20260709211311.142544-1-ojeda@kernel.org
+prerequisite-patch-id: 75036fb19a16a9c89bcba34e233a4b6de4ae421e
+
+Best regards,
+--  
+Eliot Courtney <ecourtney@nvidia.com>
 
