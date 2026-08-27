@@ -1,410 +1,179 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011063.outbound.protection.outlook.com [52.101.70.63])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C07138DC60
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:39:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.63
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787863172; cv=fail; b=hoBdvSn8zcG2wwLeJpBxcCA6D42RgxmiIG9RTUs5CCTf4yrLo1E2Z+MYr8oEFeraeaqEyndYP13eykZ6pnEVUevOp3ebfTVO7eTWWytHDEEcMEJyb8Wr3C3nvpH3leSxM6UOozx3pIkjSF376VI/5ckYqaoEXotXNtDiZctnnYY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787863172; c=relaxed/simple;
-	bh=OBl5LjFz+YWJYQZ2vNPD42VlhufV+ZlL+ksQDvQlNbc=;
-	h=From:Date:Subject:Content-Type:Message-Id:To:Cc:MIME-Version; b=CqoK25g6/oB5ERiswNK72wSRSny9/gDTf4AagXQmOE1NOzYKNYVLbgVYBryQk0R6jkKQ7d29/AT3ICgLTIC5sgsViSHW8MwdaVz44xI/Xaods7nEzDWepQX2/gDgcybIqhlCZ0dJUME7hNen9+3ijiB0fIFJUl0Bj9OiLyvyQOg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=anR/jvTA; arc=fail smtp.client-ip=52.101.70.63
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3605B392C46
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:39:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787863197; cv=none; b=sbdbY1RsZWU0WLXDBcJtx9fvAvKIPwj2K8UNU2lR2kdKUjYgLclC6nFgsr2eaNPsxX/0tnztaEtMqZb6CJmU6IV4ANKVHDqBREOeBn9HvwxlStH/La99KqcFHDl7guPLyVdeL7n98LNHO9fDDzFgWMsHkXqE1oD4N+8vEP7iF/4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787863197; c=relaxed/simple;
+	bh=/vNPwhkmLtCiGk6PhShTSyEnp/kNV/OOoJOfRAtZ5IY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=mDun693pjjPPALrHa7ZJmAG4twQuVhHPJ5OHTF+Zu8V0g2f3Nb5VIbPYe75AEjwLUZyhklBkWtkI0HMCE/FHcJXWMnq6gtpa41nQMUAn/WMRU12hGQm6C7g65S1fUMbJFCvXPRO6ThYe2oIzCwlmMAvwcAEbW5d3uWSSX5fBdhU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dLizQTPv; arc=none smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="anR/jvTA"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lTQxcrRw2znLNgIOy1YJhrMzI3PzV0dnR0RmVu2JzODjawIy3RV/ib+7bbKnO6Ctf4trpcaT3p1HWecH9BSow0nHnMcz3ELS+XtnQ/cNRRsR9hUZ8/inMpRTUOXoIxr6OZFg2A/+g8erCd1cIXOEW4S4i4sCxQ8MoOLYik6MMIATQP2uAvnRmQ39g4xr46sSnlVh1LSyBqSrTrMuo0lS+fiwc9dF+JdiiZcQZMv2OtWshWu1BShZi066XLXjhCUP9i043DXJvJzr8ZY/54802P4Mdg2eQBvzMRVB7aqW1lC4QJ0GoFgva2wJK0Wh2VPfequyZAoeNw8KR/+LceH1Gw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=24ksJ/oPsRx1y8bcpCXr4ir6HLy7Jozv29st/47D+qk=;
- b=npIqzHByoFPVONcSywBxFIi4NFvI5eQdDi3unz6LFSHxaYmDS4AAm4IF1yQb1kZoDbzazMSNtXbPr2reNlPNsgCxgkeYIdM/1aYR8hsfn5vqN0VdBG6oUj0zDNDX5moar8G1Lv27NoFloBmarVAArvlU+3qC/Di4kUAKiCG8uKqA6jt0xJG2bfQi201H31wSfBSNnV2dhpSUW8iKKXRBz7Cy/p0vTOinWgFxc02pXdibXfr3rA12N6djmlKKI6kAepxE2H+NsoDyPA4aHfVIFLl6WJWogx5BZT0/SwuLBFpNNjlXvpsJShpn4KL6dQcHX+C2b+sPxkosQg+dLWcK0A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=24ksJ/oPsRx1y8bcpCXr4ir6HLy7Jozv29st/47D+qk=;
- b=anR/jvTAF7DmnhzopiwJcxxhm/3nK+SRJ1Ur5WUHGYaVeBFk4CdwFUD8Gg9KTcDcZMNnxJAgIH1MKttfyO6FlAP8jYufwLd7ZyWwnOeplrRssxg1vuWpWRIciHUZ38br5Obb/o1IUzTRhhjzHKjAq3dL4Lqj8tYkPp127Ej8LEIw/yH9dc+zaJeR3P+hDy0/CCsRyVMWBgj+zlViR/9MFyWyc10CfVqoAkD5ZmZ8iJYtN7bogCrji+x0WmcUrcegcWXBoyLiGMJz48VwvPRNfIj+xjQs34GF5VPdd3ZQKMAec1UBW8h0SwY8uigYmnxx1nnKYEDo3jOHGzpJByf8Kg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AS8PR04MB9079.eurprd04.prod.outlook.com (2603:10a6:20b:446::12)
- by DU4PR04MB11316.eurprd04.prod.outlook.com (2603:10a6:10:5d3::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
- 2026 20:39:19 +0000
-Received: from AS8PR04MB9079.eurprd04.prod.outlook.com
- ([fe80::9761:3d78:e9db:2308]) by AS8PR04MB9079.eurprd04.prod.outlook.com
- ([fe80::9761:3d78:e9db:2308%3]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
- 20:39:19 +0000
-From: han.xu@oss.nxp.com
-Date: Thu, 27 Aug 2026 15:39:12 -0500
-Subject: [PATCH v2] mtd: spinand: add support for ISSI SPI NAND flash
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260827-spinand_issi-v2-1-88e04b19f4fa@nxp.com>
-X-B4-Tracking: v=1; b=H4sIAG+gkGoC/3WNQQ6CMBBFr0JmbU1bo4Ar7mGIgc4gY2JpOthgC
- HcXcO3yJe+/P4NQZBK4ZjNESiw8+BXsIQPXN/5BinFlsNpedGHPSgL7xuOdRVhh2eUloT450rB
- OQqSOpz13q38s7/ZJbtwam9GzjEP87H/JbN6fdDLKKCxMi5g7ayxWfgpHN7ygXpblCwaRquC4A
- AAA
-X-Change-ID: 20260825-spinand_issi-d9f79ed03ce0
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
-Cc: linux-kernel@vger.kernel.org, linux-mtd@lists.infradead.org, 
- imx@lists.linux.dev, Bill Lee <blee@issi.com>, Jeff Kim <jekim@issi.com>, 
- Han Xu <han.xu@nxp.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787863154; l=9064;
- i=han.xu@nxp.com; s=20240131; h=from:subject:message-id;
- bh=C/39LmYjn775zenuuGZ18R0Wka+n0R/EaKDO3v8BuYI=;
- b=AeyuvRndXtL7KktC69DjYDc/05CyfHZv5yGvSRz4OIwI7Kdki469drXsc8He814bRnrwy+1SC
- idcSAFJjHykD98Dav+ql10A8aIaPN3Bqk0GSdBDvZ6w5unrpyHaUc9p
-X-Developer-Key: i=han.xu@nxp.com; a=ed25519;
- pk=XSryOlQ4EKXqt7ZHz2D+BcDu1AWYF0m5bX48xQOVF5A=
-X-ClientProxiedBy: SN7PR18CA0023.namprd18.prod.outlook.com
- (2603:10b6:806:f3::16) To AS8PR04MB9079.eurprd04.prod.outlook.com
- (2603:10a6:20b:446::12)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dLizQTPv"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-480001972b8so144245f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:39:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787863187; x=1788467987; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/vNPwhkmLtCiGk6PhShTSyEnp/kNV/OOoJOfRAtZ5IY=;
+        b=dLizQTPvZ4KhTWe+uxt4RgwP8RN7sKAbOihi7TyB5EVQFRpGcri5kkS/JFzumEbXCQ
+         NIQgXVaI4zW/KrV84TfGs2af1THBt+YXG8aA43WyFlnzPveVbd30q3HpERflxo2GpcdT
+         KQIK/I0ePYbTJos5HW7zvfK/BOk0g6vpjS3bapI+szQpkcPrHSG0cOFco2t6V4naWQKn
+         ZngIITy3SmGws0le4nHJKwGbmkWHCOSggT7BYD4p/o9YdA+coQj3UI55iIiQcsNpyhSW
+         SWq6D+kYLvA+MpMRE9a28F9F4UgMcVIsE7p+dZYjuZlBINqGCy+Ms6j7T2/o6YkHDZNY
+         ZItA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787863187; x=1788467987;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/vNPwhkmLtCiGk6PhShTSyEnp/kNV/OOoJOfRAtZ5IY=;
+        b=DDjXyyiOGbvy6C+Y7FNmr5ryCftOuc+9bWHthNeagSX8mQ5deatjHULUaVhtj7BucW
+         S5T6+9YU//HCU6wbFxlXVawXUIyxOObTwiKFBVeSiwMnq8pm1czba60QOD66rg5za5a9
+         nuL4U6eQIoOLy7l8Fm+ZgPQ4bPYkIDhNp/jObY2sqMaWLloLdmAbD3+pXHbTciSdZvon
+         fL8cxgNKTUqFYCIhhuGW3zo9exCNWHrk2ZmWDqAG3KaX5y/7nP758I9waqSmmKPcfeOj
+         BouIwlPsorO/P44g7lDM2iTjQ60RRZIBbMO+MBuFTzq7zZzOa8UARguwTSxL38WlkZyh
+         xZuQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpEm6xUl8mUq5BJAfdrCBHXMgEZWgkMG7jbMT7RBoFXbpNwChPpUrZBjpqcifPkVyoReYKgSICVwNsnP/4=@vger.kernel.org
+X-Gm-Message-State: AFuF++ni+T26vhOXZgNs/eIzebX2gg4MyLwo/TpYoEHwm8W2vki+nuix
+	WE2X/abpQz2afuK8NoeB4vMCdEznDZs9nedsnGNg3w9AMI5jBIk9ZR9aeYyt/Gv6
+X-Gm-Gg: AR+sD11dju/k0MtcRm42/8GZ2BaULEcB8ciMixNlkRk8A7kdblmE2+tZCtkFtuDg1Xm
+	55Li9t1w36QkQjOBWEeudRFo6O/bZDtN6vveoIoDtWnhq0zI//MMTCxwkhL2xvO/eZCrz/ktkEf
+	EQT/gmPjTY39knJiMV0KV7t6f4DpW3tpAtGRqzzOI/nLTa5fO2/WuhT7rk79Xt6uwNMzNcQe5C2
+	VJ2xJZQjedKj47o/njIqbNrJ0Y9GtccK9VyYdBExz1OLDWGQCjhu89WPsMdXxbdN3eDGs5b9Caw
+	9pxLIy0IuPc+0Xw2N77lKVoBxqogsQRdBNkLxYS/eCMoIlg9ntop7TQLt6RBtSDfU5sNwZf0UTe
+	IKDlszEARVkenpS2QVPNGVm9QJu/Wxtz7ANiiJXTGcgKq+2+qTkxsc8tOuFjL8+k75jPuJZWZRc
+	u5sw/9iY2ibRQNIQUw0XQitsTjmD8tmWezAveWgiaIpHxuwfOJ1FBmtOIqHm0=
+X-Received: by 2002:a05:6000:24c6:b0:47f:4919:d5b2 with SMTP id ffacd0b85a97d-482f79870bemr1673162f8f.1.1787863186967;
+        Thu, 27 Aug 2026 13:39:46 -0700 (PDT)
+Received: from m2.. ([37.142.156.156])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-482e28dc10asm12012065f8f.19.2026.08.27.13.39.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 13:39:46 -0700 (PDT)
+From: Michael Zaidman <michael.zaidman@gmail.com>
+To: linusw@kernel.org
+Cc: jikos@kernel.org,
+	bentiss@kernel.org,
+	brgl@kernel.org,
+	germain.hebert@ca.abb.com,
+	rio@r26.me,
+	brunoceg1@gmail.com,
+	contact@christina-quast.de,
+	linux-input@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 03/13] HID: ft260: add GPIO support on top of UART
+Date: Thu, 27 Aug 2026 23:39:33 +0300
+Message-ID: <20260827203933.16726-1-michael.zaidman@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <CAD++jLm3ZK-=AYCVJHMt=x3_G26CsXZhOVj4E7na1e9JK0busg@mail.gmail.com>
+References: <CAD++jLm3ZK-=AYCVJHMt=x3_G26CsXZhOVj4E7na1e9JK0busg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS8PR04MB9079:EE_|DU4PR04MB11316:EE_
-X-MS-Office365-Filtering-Correlation-Id: d31051ea-897c-440b-0810-08df047b4471
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|23010399003|19092799006|366016|10067099003|56012099006|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	Pp+4qfqf1NJFsJETBKuM8Xpm7eeUwgvx+1gA5BiI7PLt8cZRZhelf88LBnUZDc1qTm6qrY3czjIfcHhnCYWRUGCkg1kFlSV8SeuZnT3VsjJy32YLO/pU9XwkeiSyC1rFl0DjC5dcYQ7aq5JF9u8gHuuGHInvfDHTDA/OC6I+0UVuHWazODZch1BV53nN9F1dHU8KhI6AvmvXRZXBnY27q28fYIFzPsaMhZNhj0JG9XXhgKf+5C68XLdIW/HNtZFLT0pVONdCucngamPn1Vf8Ba6/j4/93QFYzdrgjwdXQrOI+2rRMia8XYAJiv9a6SUcht9r/UMBO217uJyD5VZU6vo/aP9djL8Ar4Yp7/Se+alGmKG0wKv58u7ND8Y/AD5AVqqWC2kP0LrRYHKuuCbNL9U0Wh48IlMJVKspHb+PJbHa++zvxjEV5mjv8HegKRWJhpmz1X/qRnK4bk0j1o0brtwcGw5/oHxNjondcDsUutd9wgxEEN0mqlUgwpFdDHM6hhbaPfJAUj2a057y+F5XFfk2Q5i9RtY0MtNsX1FLv1PK55y3CDLcCjC63yj8huuZloZES55f57ysCFRsea3Tpb5bHAln8PQCdLo/iQQVXo0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR04MB9079.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(19092799006)(366016)(10067099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NXBzZnJGL0Z5MnZIbE9Cemt4VEpiYXQwenpXZG1LSG9yeURlOFhmVTFLNGVF?=
- =?utf-8?B?RmRtcW1JUnV5OW1xSm5oc2VpakMyaUduL2hTMngvejhwVWMyM3NGSmZZcVAz?=
- =?utf-8?B?RnBPOFQ3Q3ZUbldQTXhmZWF2M05KQlhKWHZNZTVkdVptcXV5dFErZVJJVjM0?=
- =?utf-8?B?UFFrOTJjRDJnblkwNU5HbkFJNU0wcUo1NUZxOVZUVU93czk2RmZuOFlvb3kv?=
- =?utf-8?B?ZGNoREhMTEplWG8zOEF0QW8xNWVmektIZXNXSFlxbGcwTmxGdTJSdWFLcUpN?=
- =?utf-8?B?OElPSTQvbjViZXd4MTIzbWlQamI2cSs0Y3E1MFZsTnVKQ0JWcWx5ZHpWT29o?=
- =?utf-8?B?RldCbUpBOXRsVG8rR2dyK1N4MExRQ1ErZmxaaE43TjY0bldlSkthbWdmWDgw?=
- =?utf-8?B?Zy8xTW9IM1ZOQ3BwdndpSEFnY1lGNHBxdXFsOUMrYmIxMjYrVXF4R2hVTElG?=
- =?utf-8?B?eWZmMFZtZERJMkZ2aHhuQVZEODlWR3NvUkdSN3NUZ0s3SFBNR1dPa21GejYw?=
- =?utf-8?B?TkRNRGgzUlhWNmhTc1QwbldmWFBXTzJWV0JSczhDYTgxMFV0anQrMUtoY2w5?=
- =?utf-8?B?SlZQbzAvSEh1dFZYMnk4SzU1YndZSTk5a0VrRFNXaWZNcURyc0NMRmhJWXlT?=
- =?utf-8?B?WWJIaUlLTmtvYy9XRzRxb3ZhSVpOT1BZNGNSTEx0RkpoKzN0bXZheXFtMHRw?=
- =?utf-8?B?NzMxSkJBaGJLUWN1aU1rcTBzV09OamYrYWdyRlJPc2lTNEptLzdSazhNZDBn?=
- =?utf-8?B?QitNeGpKd1l2WW91L3FybmUyY3dyTjZPN3FoRSszMm5UWm5NdXNHWWNmb2RY?=
- =?utf-8?B?VTJ4ZWxIeCttRWpFWU4xMnlDd1VEWmVrM1pPbG5ETTM1ZitFWTk2VUNCS3lo?=
- =?utf-8?B?c1JLWkRuN1ZqQ0EyWnIvVExIMm9ndlpIajlhWmZiL0hWZjVseEpINjJGbkIw?=
- =?utf-8?B?T1czYnpIRUE2bUdMcnp2bVhhaFV5ZXlwMHlwamRDajdzN3JWd0NqTHJLL1lF?=
- =?utf-8?B?YW9hK0V3Y2dMb3puSll4MUNzRkliYkE4L0lGa0NqM1pacGlRL3ZPWlQwSW80?=
- =?utf-8?B?SzlXT3RBejVGdUZFanE3NTBnSTQyNERmZFpId1VVVXFVS0NVNENSTTdvQTV2?=
- =?utf-8?B?cDB2am4ycllkWTU4akdYa2NMNXIxS0RKaWpRVGN2TFRoM1RlYlZxQ09wMzBL?=
- =?utf-8?B?N3MvajRTNlhzZ2lROUpoOWlkSlB0K2NCRXA5RitIRDVYblZDMkd1TjJ3OXJU?=
- =?utf-8?B?R2RKR2xKamkvWFo2aCt3d0x2VytnWDlxZU12TGJXYkEwUEpTMkpNbGh2QXFw?=
- =?utf-8?B?ZXVTWEtFeUJPM2pQaEg5Qmo5WXMwTFVTdTdjaS9OTnlRV0lHd0ZuRXdqMkp6?=
- =?utf-8?B?UkNIWG1QSGROMlE3R0k1TVVYUDhBUHBRMFM0djVQRVZvbHBLaitQMUtwUmhs?=
- =?utf-8?B?OXNjaStidWh6Q2dkU3NRYXNNZEI0MWNYYkd1LzVxSlFpandyY0QzV21hNm5N?=
- =?utf-8?B?TzM0TDVoWk1RYzZneVZUQnpBbTZQV05BUFRyREQwTHF4RmxTck1kTXE1Znps?=
- =?utf-8?B?UDNMdGUzaWFabHYyU0FwRWtjYzlFRk40cGUvOVRSMHZwUTNCTWFHclJpdUMx?=
- =?utf-8?B?aWtOKzJxc2JXUk9kVkRPcW4rNENnNFBBM0tIbndkUHRLaUFHV08zQWN3VjZI?=
- =?utf-8?B?U0ZKNjNjc3NJb0pTSmhqSmRhOVFwQUIvbkMxZTlyZ0hRcytmU0xDMlcvdm0z?=
- =?utf-8?B?TkRsMHRHV2JVbThkOXdHNlY0V295SzZTc2dVMWxxcGw1bmpSNCswdG04RXVX?=
- =?utf-8?B?S3R2bk1jbmtrY0FvbnM2emlMeUJtWXJVTnkvU0Nhb3JIN252OGk0bUhmeU1h?=
- =?utf-8?B?UkJmRUJCNitCbFFRZVNDS2owdHZiZklzcDVtbVFYd3hpZHB4K1kwT3g2KzdI?=
- =?utf-8?B?bEl1Q1BwNzVFa3Ntb2NpM2kwNFZhR2ZPcHNCTys1UTMrc1F0a2ZQQ1JBRld6?=
- =?utf-8?B?OWw5U2R3N1M5VzI2ODZHUGZ5amlnVnJSa0xUdlR2ZHppTTJIVlpHSkRYRVhJ?=
- =?utf-8?B?ckN6S3BBbllZTXBFVEZrUDZGVWpFazJ0OVlQYjZ5bUJscGxvYUZmdlhiNWda?=
- =?utf-8?B?QmdGckoxNXphRXpKU2VtM1Q3L2lDUHVFWlpHNEpqMmFsb3Y5aHZyRDRLK1lR?=
- =?utf-8?B?U0N3UTAxa1lmYXUyUHY5YkFCRzBRNlJsUmtLS3RwV3UxNFpFanhKTlV4Q0Fs?=
- =?utf-8?B?Qk9oOFVQdkpEL1JGOGRlTks2OWg3dFB6dzFrR0IzSnNNSzUyM0kvZGc3bmwz?=
- =?utf-8?B?QVlJYzlnOFpKcWhRV3AwRlZwNTZJaHVIOVdYZHhnVm5od2pCeXpmWTk2QWtF?=
- =?utf-8?Q?MIyrcNHobNmsplMs=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d31051ea-897c-440b-0810-08df047b4471
-X-MS-Exchange-CrossTenant-AuthSource: AS8PR04MB9079.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 20:39:19.0838
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cwcjMqBB76ZdBjLjhqKQfAwBQnlSz26BwckwMCM/2helicnGba8OBv7IL94JHrT7h/uUnj/my+WYWhiQLG6XVgFJbdz+CDF6gCfLgUkQTU0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB11316
+Content-Transfer-Encoding: 8bit
 
-From: Bill Lee <blee@issi.com>
+On Tue, 25 Aug 2026 at 09:44 +0200, Linus Walleij wrote:
+> It seems this patch title should just be
+> "HID: ft260: add GPIO support"
+> the "on top of UART" part seems to be more about
+> which order you did the patches and that is about
+> development process, not technical content, we don't
+> put that into Subject.
 
-Add a new manufacturer driver for ISSI SPI NAND devices (manufacturer
-ID 0x9d). The following devices are supported:
+Will drop that from the subject in v2.
 
-  - IS37/IS38SMW01G8B: 1Gb, 1.8V
-  - IS37/IS38SMW02G8B: 2Gb, 1.8V
-  - IS37/IS38SML04G8B: 4Gb, 3.3V, 2-die stacked
-  - IS37/IS38SMW04G8B: 4Gb, 1.8V, 2-die stacked
+> You probably want:
+>
+> #include <linus/bits.h>
 
-Signed-off-by: Bill Lee <blee@issi.com>
-Signed-off-by: Jeff Kim <jekim@issi.com>
-Signed-off-by: Han Xu <han.xu@nxp.com>
----
-Changes in v2:
-- Convert ECC status defines to plain values and decode with FIELD_GET()
-- Style fixes, drop unhelpful comments and blank lines.
-- Reword commit log, list supported devices as bullets.
-- Link to v1: https://patch.msgid.link/20260825-spinand_issi-v1-1-d81bdd7c212d@nxp.com
+<linux/bits.h>. I'll switch the pin constants to #define + BIT()
+and the group masks to #defines.
 
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Richard Weinberger <richard@nod.at>
-To: Vignesh Raghavendra <vigneshr@ti.com>
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-mtd@lists.infradead.org
----
- drivers/mtd/nand/spi/Makefile |   2 +-
- drivers/mtd/nand/spi/core.c   |   1 +
- drivers/mtd/nand/spi/issi.c   | 187 ++++++++++++++++++++++++++++++++++++++++++
- include/linux/mtd/spinand.h   |   1 +
- 4 files changed, 190 insertions(+), 1 deletion(-)
+> So 6 GPIOs is "max" and then there are extended GPIOs and then there is
+> a new max which is 8?
+>
+> #define FT260_BASE_GPIOS 6
+> #define FT260_EXTENDED_GPIOS 8
 
-diff --git a/drivers/mtd/nand/spi/Makefile b/drivers/mtd/nand/spi/Makefile
-index b5ccb44860df..f6b2a094fafc 100644
---- a/drivers/mtd/nand/spi/Makefile
-+++ b/drivers/mtd/nand/spi/Makefile
-@@ -1,5 +1,5 @@
- # SPDX-License-Identifier: GPL-2.0
- spinand-objs := core.o otp.o
- spinand-objs += alliancememory.o ato.o dosilicon.o esmt.o fmsh.o foresee.o gigadevice.o heyangtek.o
--spinand-objs += macronix.o micron.o paragon.o skyhigh.o toshiba.o winbond.o xtx.o
-+spinand-objs += issi.o macronix.o micron.o paragon.o skyhigh.o toshiba.o winbond.o xtx.o
- obj-$(CONFIG_MTD_SPI_NAND) += spinand.o
-diff --git a/drivers/mtd/nand/spi/core.c b/drivers/mtd/nand/spi/core.c
-index 35365b67dd8e..c11d74450257 100644
---- a/drivers/mtd/nand/spi/core.c
-+++ b/drivers/mtd/nand/spi/core.c
-@@ -1360,6 +1360,7 @@ static const struct spinand_manufacturer *spinand_manufacturers[] = {
- 	&foresee_spinand_manufacturer,
- 	&gigadevice_spinand_manufacturer,
- 	&heyangtek_spinand_manufacturer,
-+	&issi_spinand_manufacturer,
- 	&macronix_spinand_manufacturer,
- 	&micron_spinand_manufacturer,
- 	&paragon_spinand_manufacturer,
-diff --git a/drivers/mtd/nand/spi/issi.c b/drivers/mtd/nand/spi/issi.c
-new file mode 100644
-index 000000000000..122b3a6e2f62
---- /dev/null
-+++ b/drivers/mtd/nand/spi/issi.c
-@@ -0,0 +1,187 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (c) 2026 ISSI
-+ *
-+ * Authors:
-+ *	Bill Lee <blee@issi.com>
-+ *	Jeff Kim <jekim@issi.com>
-+ * Co-Author:
-+ *	Han Xu <han.xu@nxp.com>
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/device.h>
-+#include <linux/kernel.h>
-+#include <linux/mtd/spinand.h>
-+
-+#define SPINAND_MFR_ISSI 0x9d
-+
-+#define ISSI_STATUS_ECC_MASK		GENMASK(6, 4)
-+#define ISSI_STATUS_ECC_NO_BITFLIPS	0
-+#define ISSI_STATUS_ECC_1TO3_BITFLIPS	1
-+#define ISSI_STATUS_ECC_UNCOR_ERROR	2
-+#define ISSI_STATUS_ECC_4TO6_BITFLIPS	3
-+#define ISSI_STATUS_ECC_7TO8_BITFLIPS	5
-+
-+/*
-+ * As per datasheet, die selection is done by the 7th bit of Drive
-+ * Strength Register (Address 0xD0).
-+ */
-+#define ISSI_DIE_SELECT_REG 0xD0
-+#define ISSI_SELECT_DIE_MASK BIT(7)
-+#define ISSI_SELECT_DIE(x) ((x) << 7)
-+
-+static SPINAND_OP_VARIANTS(
-+	quadio_read_cache_variants,
-+	SPINAND_PAGE_READ_FROM_CACHE_1S_1S_4S_OP(0, 1, NULL, 0, 0),
-+	SPINAND_PAGE_READ_FROM_CACHE_1S_1S_2S_OP(0, 1, NULL, 0, 0),
-+	SPINAND_PAGE_READ_FROM_CACHE_FAST_1S_1S_1S_OP(0, 1, NULL, 0, 0),
-+	SPINAND_PAGE_READ_FROM_CACHE_1S_1S_1S_OP(0, 1, NULL, 0, 0));
-+
-+static SPINAND_OP_VARIANTS(x4_write_cache_variants,
-+			   SPINAND_PROG_LOAD_1S_1S_4S_OP(true, 0, NULL, 0),
-+			   SPINAND_PROG_LOAD_1S_1S_1S_OP(true, 0, NULL, 0));
-+
-+static SPINAND_OP_VARIANTS(x4_update_cache_variants,
-+			   SPINAND_PROG_LOAD_1S_1S_4S_OP(false, 0, NULL, 0),
-+			   SPINAND_PROG_LOAD_1S_1S_1S_OP(false, 0, NULL, 0));
-+
-+static int issi_8_ooblayout_ecc(struct mtd_info *mtd, int section,
-+				struct mtd_oob_region *region)
-+{
-+	if (section)
-+		return -ERANGE;
-+
-+	region->offset = mtd->oobsize / 2;
-+	region->length = mtd->oobsize / 2;
-+
-+	return 0;
-+}
-+
-+static int issi_8_ooblayout_free(struct mtd_info *mtd, int section,
-+				 struct mtd_oob_region *region)
-+{
-+	if (section)
-+		return -ERANGE;
-+
-+	/* Reserve 2 bytes for the BBM. */
-+	region->offset = 2;
-+	region->length = (mtd->oobsize / 2) - 2;
-+
-+	return 0;
-+}
-+
-+static const struct mtd_ooblayout_ops issi_8_ooblayout = {
-+	.ecc = issi_8_ooblayout_ecc,
-+	.free = issi_8_ooblayout_free,
-+};
-+
-+static int issi_select_target(struct spinand_device *spinand,
-+			      unsigned int target)
-+{
-+	int ret;
-+	u8 regval;
-+
-+	if (target > 1)
-+		return -EINVAL;
-+
-+	ret = spinand_read_reg_op(spinand, ISSI_DIE_SELECT_REG, &regval);
-+	if (ret)
-+		return ret;
-+
-+	regval &= ~ISSI_SELECT_DIE_MASK;
-+	regval |= ISSI_SELECT_DIE(target);
-+
-+	return spinand_write_reg_op(spinand, ISSI_DIE_SELECT_REG, regval);
-+}
-+
-+static int issi_8_ecc_get_status(struct spinand_device *spinand, u8 status)
-+{
-+	switch (FIELD_GET(ISSI_STATUS_ECC_MASK, status)) {
-+	case ISSI_STATUS_ECC_NO_BITFLIPS:
-+		return 0;
-+
-+	case ISSI_STATUS_ECC_1TO3_BITFLIPS:
-+		return 3;
-+
-+	case ISSI_STATUS_ECC_4TO6_BITFLIPS:
-+		return 6;
-+
-+	case ISSI_STATUS_ECC_7TO8_BITFLIPS:
-+		return 8;
-+
-+	case ISSI_STATUS_ECC_UNCOR_ERROR:
-+		return -EBADMSG;
-+	default:
-+		break;
-+	}
-+
-+	return -EINVAL;
-+}
-+
-+static const struct spinand_info issi_spinand_table[] = {
-+	/* IS37/38SMW01G8B 1Gb 1.8V */
-+	SPINAND_INFO("IS37/38SMW01G8B",
-+		     SPINAND_ID(SPINAND_READID_METHOD_OPCODE_DUMMY, 0x15),
-+		     NAND_MEMORG(1, 2048, 128, 64, 1024, 40, 1, 1, 1),
-+		     NAND_ECCREQ(8, 512),
-+		     SPINAND_INFO_OP_VARIANTS(&quadio_read_cache_variants,
-+					      &x4_write_cache_variants,
-+					      &x4_update_cache_variants),
-+		     SPINAND_HAS_QE_BIT,
-+		     SPINAND_ECCINFO(&issi_8_ooblayout, issi_8_ecc_get_status),
-+		     SPINAND_SELECT_TARGET(issi_select_target)),
-+
-+	/* IS37/38SMW02G8B 2Gb 1.8V */
-+	SPINAND_INFO("IS37/38SMW02G8B",
-+		     SPINAND_ID(SPINAND_READID_METHOD_OPCODE_DUMMY, 0x25),
-+		     NAND_MEMORG(1, 2048, 128, 64, 2048, 40, 1, 1, 1),
-+		     NAND_ECCREQ(8, 512),
-+		     SPINAND_INFO_OP_VARIANTS(&quadio_read_cache_variants,
-+					      &x4_write_cache_variants,
-+					      &x4_update_cache_variants),
-+		     SPINAND_HAS_QE_BIT,
-+		     SPINAND_ECCINFO(&issi_8_ooblayout, issi_8_ecc_get_status),
-+		     SPINAND_SELECT_TARGET(issi_select_target)),
-+
-+	/* IS37/38SML04G8B 4Gb 3.3V */
-+	SPINAND_INFO("IS37/38SML04G8",
-+		     SPINAND_ID(SPINAND_READID_METHOD_OPCODE_DUMMY, 0x34),
-+		     NAND_MEMORG(1, 2048, 128, 64, 2048, 40, 1, 1, 2),
-+		     NAND_ECCREQ(8, 512),
-+		     SPINAND_INFO_OP_VARIANTS(&quadio_read_cache_variants,
-+					      &x4_write_cache_variants,
-+					      &x4_update_cache_variants),
-+		     SPINAND_HAS_QE_BIT,
-+		     SPINAND_ECCINFO(&issi_8_ooblayout, issi_8_ecc_get_status),
-+		     SPINAND_SELECT_TARGET(issi_select_target)),
-+
-+	/* IS37/38SMW04G8B 4Gb 1.8V */
-+	SPINAND_INFO("IS37/38SMW04G8B",
-+		     SPINAND_ID(SPINAND_READID_METHOD_OPCODE_DUMMY, 0x35),
-+		     NAND_MEMORG(1, 2048, 128, 64, 2048, 40, 1, 1, 2),
-+		     NAND_ECCREQ(8, 512),
-+		     SPINAND_INFO_OP_VARIANTS(&quadio_read_cache_variants,
-+					      &x4_write_cache_variants,
-+					      &x4_update_cache_variants),
-+		     SPINAND_HAS_QE_BIT,
-+		     SPINAND_ECCINFO(&issi_8_ooblayout, issi_8_ecc_get_status),
-+		     SPINAND_SELECT_TARGET(issi_select_target)),
-+};
-+
-+static int issi_spinand_init(struct spinand_device *spinand)
-+{
-+	return 0;
-+}
-+
-+static const struct spinand_manufacturer_ops issi_spinand_manuf_ops = {
-+	.init = issi_spinand_init,
-+};
-+
-+const struct spinand_manufacturer issi_spinand_manufacturer = {
-+	.id = SPINAND_MFR_ISSI,
-+	.name = "ISSI",
-+	.chips = issi_spinand_table,
-+	.nchips = ARRAY_SIZE(issi_spinand_table),
-+	.ops = &issi_spinand_manuf_ops,
-+};
-diff --git a/include/linux/mtd/spinand.h b/include/linux/mtd/spinand.h
-index 5f4c00ae72a7..b42407b69db3 100644
---- a/include/linux/mtd/spinand.h
-+++ b/include/linux/mtd/spinand.h
-@@ -438,6 +438,7 @@ extern const struct spinand_manufacturer fmsh_spinand_manufacturer;
- extern const struct spinand_manufacturer foresee_spinand_manufacturer;
- extern const struct spinand_manufacturer gigadevice_spinand_manufacturer;
- extern const struct spinand_manufacturer heyangtek_spinand_manufacturer;
-+extern const struct spinand_manufacturer issi_spinand_manufacturer;
- extern const struct spinand_manufacturer macronix_spinand_manufacturer;
- extern const struct spinand_manufacturer micron_spinand_manufacturer;
- extern const struct spinand_manufacturer paragon_spinand_manufacturer;
+Agreed, the names are misleading. FT260_GPIO_MAX and
+FT260_GPIO_EX_MAX are counts of the two GPIO groups the chip
+exposes, not bit indices: 6 pins named GPIO0-5 and 8 named
+GPIOA-H. v2 will use FT260_BASE_GPIOS and FT260_EXTENDED_GPIOS.
 
----
-base-commit: 15a3cbce32994141252bb4ecfe3ff3a5d22d0b4f
-change-id: 20260825-spinand_issi-d9f79ed03ce0
+One distinction worth making, since it explains the bit numbers
+you suggested. The GPIO report (0xB0) carries the two groups
+in separate bytes: GPIO0-5 values and directions in bits 0-5 of
+one byte pair, GPIOA-H values and directions in bits 0-7 of the
+next pair. So in the report GPIOA is bit 0.
 
-Best regards,
---  
-Han Xu <han.xu@nxp.com>
+The FT260_GPIO_* masks are not report bits. They are the
+gpiochip offset space, where the two groups are concatenated
+into one 14-line chip: GPIO0-5 at offsets 0-5, GPIOA-H at
+offsets 6-13. There GPIOA is BIT(6) and GPIOB is BIT(7), so
+I'll write them as explicit BIT() with the group named:
 
+#define FT260_GPIO_EXT_A BIT(6)
+#define FT260_GPIO_EXT_B BIT(7)
+
+> What about just:
+>
+> #define FT260_GPIO_MASK GENMASK(FT260_GPIO_TOTAL, 0)
+
+Yes, that mask is over the 14 gpiochip offsets, and GENMASK is
+clearer than the shift. It needs to stop at the top offset:
+
+#define FT260_GPIO_MASK GENMASK(FT260_GPIO_TOTAL - 1, 0)
+
+which is the 0x3fff the current expression produces.
+GENMASK(FT260_GPIO_TOTAL, 0) would add bit 14.
+
+> Is this *really* an enum? I feel an enum should be something like
+> consecutive or sparse integer ranges.
+> What about just using #define for those.
+>
+> Use #defines for all of this as well.
+
+Will do.
+
+> So instead of creating your own cache of all registers,
+> have you considered just using regmap for this?
+> Regmap is essentially a register cache.
+
+There is no register space for regmap to model. 0xB0
+is one 4-byte feature report, a value byte and a direction byte
+per GPIO group, reached with hid_hw_raw_request(). The mux that
+decides which of those bits are GPIO at all is in a different
+report, 0xA1, with an unrelated layout.
+
+> This looks like names you could have already assigned
+> in the UART patch and then the diff would be less noisy.
+
+v2 will put the UART_ infix in the serial patch, as in my
+other mail.
+
+> Linux has bitmap manipulation functions in
+> <linus/bitmap.h>, use these instead of reinventing the wheel.
+
+gpio_en is "GPIO enabled": a mask of which of the 14 lines are
+muxed to GPIO at all, derived from chip_mode and uart_mode, not
+pin state. The setters only OR and mask it, and the only readers
+test one line before touching the pin. That is a u16 flag word,
+and the bitmap helpers work on unsigned long arrays, so I'd keep
+the u16 and use BIT(offset) in those tests instead of 1 << offset.
+I can convert it to DECLARE_BITMAP() if you prefer.
+
+Thanks,
+Michael
