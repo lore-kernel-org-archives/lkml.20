@@ -1,31 +1,31 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D3C19357D00;
-	Thu, 27 Aug 2026 06:31:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 81E5E13777E;
+	Thu, 27 Aug 2026 06:31:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787812277; cv=none; b=QgBgpMWH8PYoqXpRyv8mQSK+6gRxNPU64Dq8nn39Lke+WiyHQRVnabzI7FyTzJXe7RVmjB0v996O2CDbvBmOszhhfCJByVmzqtyktlsISqGufLUwRB3YbmlDDDEeJ5T1r4S3PNHcjsBfLzYBMaOPfkVVmHZ1kAvkdJBgyy0fAYs=
+	t=1787812284; cv=none; b=XhO26u79KNkCrhRVcM0a0VmmBSBKNE6XgfW+M4+mf8SuAyP7KCzXaFESK/r+P/gDMSLzxtxluRy/0X86fIWmC+iSrBJ4hOnRV4LzOPYCNhXRk44dtuSw/m4hZeQV5C+babvUMNYM3RVAk3recBnuslx7gZD32jDMTZieKCWq2t4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787812277; c=relaxed/simple;
-	bh=Q9p0h3cSEJuLue32sY9m1AtHv9UYmZkLhU9AmCgvRho=;
+	s=arc-20240116; t=1787812284; c=relaxed/simple;
+	bh=kR2CJ4g/1ICvY139wP+3YJ4emVdbHeu3Rzzr5fTwz1c=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=rcPdstcxKvR1E8mZtQZ2ViB+j8OAVuY5jD9UvR3gukc1erlr5r1r9I99ps1uIy4yk15Qgro+gME9LPHyTiL3eNdiZZ/Ex2PJoMK+06yLQkjEf0KZ2g0+hjhJYeAItut0hf+Zrm04NmH72YgJEXusuhXceE/b0f/KktC5KO/PP6I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=fWwopnIh; arc=none smtp.client-ip=217.140.110.172
+	 MIME-Version; b=LjSAFBWlMn8PdHJLZuxE33ttsLmie7/st++8nMgnkHYpO43yL1ZGa5SYwzSNADBmLX8ZbBRoUjUg1AQXG4CIDjIXjJFXoPceUFcknn4dRL2gCy/u11SRhhrsPuK+UGu58zv0fR0DxgWo6x4S4QR8NI09ZSsNmEyjGan9uilDEC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=QGP5pB+X; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="fWwopnIh"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="QGP5pB+X"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 603A61BB0;
-	Wed, 26 Aug 2026 23:31:10 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 13C9C1BB0;
+	Wed, 26 Aug 2026 23:31:16 -0700 (PDT)
 Received: from e127648.arm.com (unknown [10.57.73.34])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 0669E3F85F;
-	Wed, 26 Aug 2026 23:31:11 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 723B63F85F;
+	Wed, 26 Aug 2026 23:31:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1787812274; bh=Q9p0h3cSEJuLue32sY9m1AtHv9UYmZkLhU9AmCgvRho=;
+	t=1787812279; bh=kR2CJ4g/1ICvY139wP+3YJ4emVdbHeu3Rzzr5fTwz1c=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=fWwopnIhU+jzmo0k8Neadw4gQiZ1pDc/DzU3KnfNMQJJst2oEAd/fc1kaMtk1ZfbA
-	 Ng8M3bCXnkZ8SghXWkgkBNCdcvYP3k8E9bS7lmEFDkjMFIbpDgRfu5j6rWR5UfFh26
-	 /4dzo8DLXeOlr6kuFZ01bJ3hdfjKbMlpKe+RLmr4=
+	b=QGP5pB+XgHV3vaTUnUMsEhs1+zaY8sdCQeEhdZT1vj11RgPnBrHARjUsbWLyUbzWa
+	 hy5nK3z7skXmlVBND1iVf+pvpcuZTTafN6XF8j8D22sAt99/lazw6vUtrW83xsCcPS
+	 KgqCJL8n4REF9VASiBVkAQv2SoZVXWOhecZ2Ffw8=
 From: Christian Loehle <christian.loehle@arm.com>
 To: "Rafael J . Wysocki" <rafael@kernel.org>,
 	Viresh Kumar <viresh.kumar@linaro.org>
@@ -42,9 +42,9 @@ Cc: linux-pm@vger.kernel.org,
 	zhongqiu.han@oss.qualcomm.com,
 	Christian Loehle <christian.loehle@arm.com>,
 	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v5 02/15] ACPI: CPPC: Validate _CPC entry and control semantics
-Date: Thu, 27 Aug 2026 07:30:47 +0100
-Message-Id: <20260827063100.2741066-3-christian.loehle@arm.com>
+Subject: [PATCH v5 04/15] ACPI: CPPC: Use 64-bit masks for register fields
+Date: Thu, 27 Aug 2026 07:30:49 +0100
+Message-Id: <20260827063100.2741066-5-christian.loehle@arm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260827063100.2741066-1-christian.loehle@arm.com>
 References: <20260827063100.2741066-1-christian.loehle@arm.com>
@@ -56,284 +56,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Writable _CPC controls are Register descriptors encoded as Buffer objects.
-Integer entries represent fixed values or unsupported optional registers;
-Autonomous Selection Integer 1 is the special immutable form which enables
-operation without Desired Performance.
+MASK_VAL_READ() and MASK_VAL_WRITE() operate on u64 values but construct
+their masks with GENMASK(), whose type is unsigned long. On 32-bit kernels
+a field wider than 32 bits therefore produces an invalid shift or loses
+its upper bits.
 
-The parser accepts arbitrary object types and cpc_write() assumes that its
-argument contains a GAS. Malformed firmware can therefore make it interpret
-an Integer union member as a register.
+The Generic Address Structure permits QWord access units and the CPPC
+accessors implement 64-bit MMIO reads and writes. Use GENMASK_ULL() in both
+directions so the mask matches the value and supported access width on
+every architecture.
 
-Validate the portion of each encoding consumed by Linux: bound Integer
-DWORD forms to 32 bits, and require Buffer entries to start with a complete
-Generic Register descriptor with the expected header. Continue tolerating
-Integer 0 for an absent optional register and retain type checks in
-cpc_write() as defense in depth.
-
-Capability registers are read into u64 temporaries but exposed through u32
-fields. Reject values above U32_MAX instead of allowing them to be truncated;
-in particular, a truncated Highest Performance value can otherwise become a
-zero divisor in the performance-to-frequency conversion.
-
-Check mandatory object presence separately from the Integer-zero convention
-for absent optional fields. ACPI does not reserve zero in the abstract
-Lowest Performance scale, so accept a present Lowest Performance DWORD of
-zero and remove the matching runtime rejection.
-
-Performance Limited is listed as a required Buffer, but the interface does
-not depend on it to control performance and the specification permits a
-platform with no limiting indication to always report zero. Preserve
-Linux's compatibility with firmware that represents that case using a NULL
-register descriptor instead of disabling CPPC entirely.
-
-Emit an error when a present _CPC package fails parsing or initialization
-so such firmware and resource failures no longer silently suppress cpufreq.
-
-Fixes: 337aadff8e45 ("ACPI: Introduce CPU performance controls using CPPC")
+Fixes: 60949b7b8054 ("ACPI: CPPC: Fix MASK_VAL() usage")
 Reported-by: Sashiko <sashiko-bot@kernel.org>
 Link: https://sashiko.dev/#/patchset/20260724134251.1632824-1-christian.loehle%40arm.com
 Signed-off-by: Christian Loehle <christian.loehle@arm.com>
 ---
- drivers/acpi/cppc_acpi.c | 124 +++++++++++++++++++++++++++++++++++----
- 1 file changed, 111 insertions(+), 13 deletions(-)
+ drivers/acpi/cppc_acpi.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
-index 3b8cdf88e31d..d9d5c877b9fd 100644
+index 3fbfb2eea6cf..1caac71d3e00 100644
 --- a/drivers/acpi/cppc_acpi.c
 +++ b/drivers/acpi/cppc_acpi.c
-@@ -129,6 +129,21 @@ static DEFINE_PER_CPU(struct cpc_desc *, cpc_desc_ptr);
- 				!!(cpc)->cpc_entry.int_value :		\
- 				!IS_NULL_REG(&(cpc)->cpc_entry.reg))
+@@ -248,10 +248,10 @@ static bool cpc_pcc_write_supported(const struct cpc_register_resource *reg)
  
-+static bool cpc_is_writable(const struct cpc_register_resource *cpc)
-+{
-+	return cpc->type == ACPI_TYPE_BUFFER &&
-+	       !IS_NULL_REG(&cpc->cpc_entry.reg);
-+}
-+
-+static bool cpc_entry_present(const struct cpc_register_resource *cpc)
-+{
-+	if (cpc->type == ACPI_TYPE_INTEGER)
-+		return true;
-+
-+	return cpc->type == ACPI_TYPE_BUFFER &&
-+	       !IS_NULL_REG(&cpc->cpc_entry.reg);
-+}
-+
- /*
-  * Each bit indicates the optionality of the register in per-cpu
-  * cpc_regs[] with the corresponding index. 0 means mandatory and 1
-@@ -142,6 +157,29 @@ static DEFINE_PER_CPU(struct cpc_desc *, cpc_desc_ptr);
-  */
- #define IS_OPTIONAL_CPC_REG(reg_idx) (REG_OPTIONAL & (1U << (reg_idx)))
+ /* Shift and apply the mask for CPC reads/writes */
+ #define MASK_VAL_READ(reg, val) (((val) >> (reg)->bit_offset) &				\
+-					GENMASK(((reg)->bit_width) - 1, 0))
++					GENMASK_ULL(((reg)->bit_width) - 1, 0))
+ #define MASK_VAL_WRITE(reg, prev_val, val)						\
+-	((((val) & GENMASK(((reg)->bit_width) - 1, 0)) << (reg)->bit_offset) |		\
+-	((prev_val) & ~(GENMASK(((reg)->bit_width) - 1, 0) << (reg)->bit_offset)))	\
++	((((val) & GENMASK_ULL(((reg)->bit_width) - 1, 0)) << (reg)->bit_offset) |	\
++	((prev_val) & ~(GENMASK_ULL(((reg)->bit_width) - 1, 0) << (reg)->bit_offset))) \
  
-+static bool cpc_integer_entry_valid(unsigned int reg_idx, u64 value)
-+{
-+	switch (reg_idx) {
-+	case HIGHEST_PERF:
-+	case NOMINAL_PERF:
-+	case LOW_NON_LINEAR_PERF:
-+	case LOWEST_PERF:
-+	case CTR_WRAP_TIME:
-+	case REFERENCE_PERF:
-+	case LOWEST_FREQ:
-+	case NOMINAL_FREQ:
-+		return value <= U32_MAX;
-+	case AUTO_SEL_ENABLE:
-+		return value <= 1;
-+	case DESIRED_PERF:
-+		/* Validated against Autonomous Selection after parsing. */
-+		return value == 0;
-+	default:
-+		/* Tolerate the customary Integer 0 for an absent option. */
-+		return value == 0 && IS_OPTIONAL_CPC_REG(reg_idx);
-+	}
-+}
-+
- /*
-  * Arbitrary Retries in case the remote processor is slow to respond
-  * to PCC commands. Keeping it high enough to cover emulators where
-@@ -150,6 +188,8 @@ static DEFINE_PER_CPU(struct cpc_desc *, cpc_desc_ptr);
- #define NUM_RETRIES 500ULL
- 
- #define OVER_16BTS_MASK ~0xFFFFULL
-+#define CPC_GENERIC_REGISTER_DESCRIPTOR 0x82
-+#define CPC_GENERIC_REGISTER_LENGTH (sizeof(struct cpc_reg) - 3)
- 
- #define define_one_cppc_ro(_name)		\
- static struct kobj_attribute _name =		\
-@@ -871,11 +911,32 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
- 		cpc_obj = &out_obj->package.elements[i];
- 
- 		if (cpc_obj->type == ACPI_TYPE_INTEGER)	{
--			cpc_ptr->cpc_regs[i-2].type = ACPI_TYPE_INTEGER;
--			cpc_ptr->cpc_regs[i-2].cpc_entry.int_value = cpc_obj->integer.value;
-+			if (!cpc_integer_entry_valid(i - 2,
-+						     cpc_obj->integer.value)) {
-+				pr_debug("Invalid Integer _CPC register %u for CPU:%d\n",
-+					 i - 2, pr->id);
-+				ret = -EINVAL;
-+				goto out_free;
-+			}
-+			cpc_ptr->cpc_regs[i - 2].type = ACPI_TYPE_INTEGER;
-+			cpc_ptr->cpc_regs[i - 2].cpc_entry.int_value = cpc_obj->integer.value;
- 		} else if (cpc_obj->type == ACPI_TYPE_BUFFER) {
-+			if (cpc_obj->buffer.length < sizeof(*gas_t)) {
-+				pr_debug("Invalid register descriptor for CPU:%d\n",
-+					 pr->id);
-+				ret = -EINVAL;
-+				goto out_free;
-+			}
-+
- 			gas_t = (struct cpc_reg *)
- 				cpc_obj->buffer.pointer;
-+			if (gas_t->descriptor != CPC_GENERIC_REGISTER_DESCRIPTOR ||
-+			    gas_t->length != CPC_GENERIC_REGISTER_LENGTH) {
-+				pr_debug("Invalid register resource for CPU:%d\n",
-+					 pr->id);
-+				ret = -EINVAL;
-+				goto out_free;
-+			}
- 
- 			/*
- 			 * The PCC Subspace index is encoded inside
-@@ -961,15 +1022,35 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
- 	}
- 	per_cpu(cpu_pcc_subspace_idx, pr->id) = pcc_subspace_id;
- 
-+	/*
-+	 * Performance Limited is required by the specification, but tolerate a
-+	 * NULL descriptor used by firmware which cannot report limiting events.
-+	 * CPPC control does not depend on this status.
-+	 */
-+	for (i = 0; i < num_ent - 2; i++) {
-+		if (i != DESIRED_PERF && i != PERF_LIMITED &&
-+		    !IS_OPTIONAL_CPC_REG(i) &&
-+		    !cpc_entry_present(&cpc_ptr->cpc_regs[i])) {
-+			pr_debug("CPU:%d lacks mandatory _CPC register %u\n",
-+				 pr->id, i);
-+			ret = -EINVAL;
-+			goto out_free;
-+		}
-+	}
-+
- 	/*
- 	 * In CPPC v1, DESIRED_PERF is mandatory. In CPPC v2, it is optional
- 	 * only when AUTO_SEL_ENABLE is supported.
- 	 */
--	if (!CPC_SUPPORTED(&cpc_ptr->cpc_regs[DESIRED_PERF]) &&
-+	if (!cpc_is_writable(&cpc_ptr->cpc_regs[DESIRED_PERF]) &&
- 	    (!osc_sb_cppc2_support_acked ||
--	     !CPC_SUPPORTED(&cpc_ptr->cpc_regs[AUTO_SEL_ENABLE])))
--		pr_warn("Desired perf. register is mandatory if CPPC v2 is not supported "
--			"or autonomous selection is disabled\n");
-+	     cpc_ptr->cpc_regs[AUTO_SEL_ENABLE].type != ACPI_TYPE_INTEGER ||
-+	     cpc_ptr->cpc_regs[AUTO_SEL_ENABLE].cpc_entry.int_value != 1)) {
-+		pr_debug("CPU:%d lacks a writable Desired Performance register\n",
-+			 pr->id);
-+		ret = -EINVAL;
-+		goto out_free;
-+	}
- 
- 	/*
- 	 * Initialize the remaining cpc_regs as unsupported.
-@@ -1027,6 +1108,8 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
- 	return 0;
- 
- out_free:
-+	pr_err("CPU%d: failed to initialize _CPC: %d\n", pr->id, ret);
-+
- 	/* Free all the mapped sys mem areas for this CPU */
- 	for (i = 2; i < cpc_ptr->num_entries; i++) {
- 		void __iomem *addr = cpc_ptr->cpc_regs[i-2].sys_mem_vaddr;
-@@ -1217,11 +1300,18 @@ static int cpc_write(int cpu, struct cpc_register_resource *reg_res, u64 val)
- 	u64 prev_val;
- 	void __iomem *vaddr = NULL;
- 	int pcc_ss_id = per_cpu(cpu_pcc_subspace_idx, cpu);
--	struct cpc_reg *reg = &reg_res->cpc_entry.reg;
-+	struct cpc_reg *reg;
- 	struct cpc_desc *cpc_desc;
- 	unsigned long flags;
- 	bool locked = false;
- 
-+	if (reg_res->type != ACPI_TYPE_BUFFER)
-+		return -EOPNOTSUPP;
-+
-+	reg = &reg_res->cpc_entry.reg;
-+	if (IS_NULL_REG(reg))
-+		return -EOPNOTSUPP;
-+
- 	size = GET_BIT_WIDTH(reg);
- 
- 	if (IS_ENABLED(CONFIG_HAS_IOPORT) &&
-@@ -1364,7 +1454,9 @@ static int cppc_get_reg_val(int cpu, enum cppc_regs reg_idx, u64 *val)
- 
- 	reg = &cpc_desc->cpc_regs[reg_idx];
- 
--	if ((reg->type == ACPI_TYPE_INTEGER && IS_OPTIONAL_CPC_REG(reg_idx) &&
-+	/* Desired may be absent for immutable autonomous selection. */
-+	if ((reg->type == ACPI_TYPE_INTEGER &&
-+	     (IS_OPTIONAL_CPC_REG(reg_idx) || reg_idx == DESIRED_PERF) &&
- 	     !reg->cpc_entry.int_value) || (reg->type != ACPI_TYPE_INTEGER &&
- 	     IS_NULL_REG(&reg->cpc_entry.reg))) {
- 		pr_debug("CPC register is not supported\n");
-@@ -1415,7 +1507,7 @@ static int cppc_set_reg_val(int cpu, enum cppc_regs reg_idx, u64 val)
- 	reg = &cpc_desc->cpc_regs[reg_idx];
- 
- 	/* if a register is writeable, it must be a buffer and not null */
--	if ((reg->type != ACPI_TYPE_BUFFER) || IS_NULL_REG(&reg->cpc_entry.reg)) {
-+	if (!cpc_is_writable(reg)) {
- 		pr_debug("CPC register is not supported\n");
- 		return -EOPNOTSUPP;
- 	}
-@@ -1505,7 +1597,7 @@ int cppc_get_perf_caps(int cpunum, struct cppc_perf_caps *perf_caps)
- 	struct cpc_register_resource *highest_reg, *lowest_reg,
- 		*lowest_non_linear_reg, *nominal_reg, *reference_reg,
- 		*guaranteed_reg, *low_freq_reg = NULL, *nom_freq_reg = NULL;
--	u64 high, low, guaranteed, nom, ref, min_nonlinear,
-+	u64 high, low, guaranteed = 0, nom, ref, min_nonlinear,
- 	    low_f = 0, nom_f = 0;
- 	int pcc_ss_id = per_cpu(cpu_pcc_subspace_idx, cpunum);
- 	struct cppc_pcc_data *pcc_ss_data = NULL;
-@@ -1588,7 +1680,9 @@ int cppc_get_perf_caps(int cpunum, struct cppc_perf_caps *perf_caps)
- 		goto out_err;
- 	perf_caps->lowest_nonlinear_perf = min_nonlinear;
- 
--	if (!high || !low || !nom || !ref || !min_nonlinear) {
-+	if (!high || !nom || !ref || !min_nonlinear ||
-+	    high > U32_MAX || low > U32_MAX || guaranteed > U32_MAX ||
-+	    nom > U32_MAX || ref > U32_MAX || min_nonlinear > U32_MAX) {
- 		ret = -EFAULT;
- 		goto out_err;
- 	}
-@@ -1605,6 +1699,10 @@ int cppc_get_perf_caps(int cpunum, struct cppc_perf_caps *perf_caps)
- 		if (ret)
- 			goto out_err;
- 	}
-+	if (low_f > U32_MAX || nom_f > U32_MAX) {
-+		ret = -EFAULT;
-+		goto out_err;
-+	}
- 
- 	perf_caps->lowest_freq = low_f;
- 	perf_caps->nominal_freq = nom_f;
-@@ -1791,13 +1889,13 @@ int cppc_set_epp_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls, bool enable)
- 			return -ENODEV;
- 		}
- 
--		if (CPC_SUPPORTED(auto_sel_reg)) {
-+		if (cpc_is_writable(auto_sel_reg)) {
- 			ret = cpc_write(cpu, auto_sel_reg, enable);
- 			if (ret)
- 				return ret;
- 		}
- 
--		if (CPC_SUPPORTED(epp_set_reg)) {
-+		if (cpc_is_writable(epp_set_reg)) {
- 			ret = cpc_write(cpu, epp_set_reg, perf_ctrls->energy_perf);
- 			if (ret)
- 				return ret;
+ static u64 cpc_sysmem_access_size(const struct cpc_register_resource *reg)
+ {
 -- 
 2.34.1
 
