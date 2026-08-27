@@ -1,124 +1,211 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39CAE349CD2;
-	Thu, 27 Aug 2026 21:32:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B751031E85B
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 21:33:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787866370; cv=none; b=QKiOv9eMUefLjXnnU/mM4bCe6geeg01ocsg7h9rPClta8+WqCEpzP6QjwsGMYqGBq3wEk9V3VVJkwUV6ZMZQgqJR9JrwHGuZwrK6Ajx02OXd9UOyfVNPZWG4KU+hUJ2NlthQuO3hu0nfY5UIbM8g8kt+M0g+glee27djCe7ZxG8=
+	t=1787866389; cv=none; b=BJ5Pkhn4smKiPaOWRvSnL2Ru/UumyuKac/mV/TiBUF9ZktwtroIJD705eJ1YhaM2syMocM/BNanqlZZO/SByroEIuFQWfi8EcZiejeGzLkRRS34Nri2Ed4nipf+6aTzxDHTUQ7Yj31hCcKZgnm4DsZAXqdadfW0ewqMdADI076o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787866370; c=relaxed/simple;
-	bh=Nr0Cy+uBT0Flm2v7WVmkxQoA9wjhO9C0Wl0ja0+g8yg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DA/5jfYwUxJ8jbOCJfopQShVCzzC+0UBbLO1FxoTx+2pRaxeMhmBt2H/kQXtYDVqh5seyGLfiL60T1cWO2Mezhd1FDnF3nZTxCk92aOo2kdmCgAtcnWouqw5L1RF6IQASUX4QNX3VA3Ybn74rq8bnczDefn9yFq0wL6ue846BkI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=edygtnii; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787866389; c=relaxed/simple;
+	bh=nMZJBzb92toHNRH/edtukFBgmlximzDnzvhagjrVIJ0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EM7GJ+PsN+osPMhcGGOdxxGRCeTz1SOztTYbuBhM9wZxSbGeqAiAj8+YhGdzImkpdefb5MtVg8jWlkY0IzAe0v8ZCpnRBUouGASfq9W66TdGeRMw3HvDyqQjkct+CexNZx3SkceH6QICWrPrg1ZPp/0D3QjPIS/5a2+0ceOLS74=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NP/vQZrN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="edygtnii"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46ACC1F000E9;
-	Thu, 27 Aug 2026 21:32:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NP/vQZrN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 384D21F00A3D;
+	Thu, 27 Aug 2026 21:33:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787866368;
-	bh=LkJBPyUwA+hyO/JesG4AiAf3V7aNlVVXoW+RmWZs2F4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=edygtnii9K6HXbSrjcTddfpEsrJ3lPRpekgDoU9c+ejrv97vEuWw7hayd6mX76tse
-	 RpsRg76wTwrW04lUOZ+4xjGfSXEJRWsNvttoa1AGgmgIHtbRkhxuwwjNABf2fVOeU2
-	 ORI9eBfeEDmAxX3CF24bt3lnEpidjRD1wbuYOGjwn0/N7DWCY/VsAHoDcBJvTRr14p
-	 LEiBb4OgbOtb3p/Kjg3+v/h3yxq1NRXnYgU28jWWgzIjMoSDAUyVLCB8VqDPAfYNo9
-	 K4sY0ejVdaNvY+nnRuurlKdNDejPCqmFSvVGP+v9WYCQg9+7W4+Cw6Sn7gYpsGfTnI
-	 60UomytggBGeA==
-Message-ID: <164b4f99-a642-4c88-8ff9-78930264d093@kernel.org>
-Date: Thu, 27 Aug 2026 23:32:37 +0200
+	s=k20260515; t=1787866388;
+	bh=dReqKR+pI6TEs3tx5rwHJL0mx53KP83srsunFU51vZQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NP/vQZrN5mPc8WGRSEhyEr1QawoI5t7c5rdJV+3SDuw5q/YTZgzGy67Kz2mgcunTm
+	 HCPCI33PREwp16IgxF77EOyaLC1GPMlIZWONktl5FPQwF2Td5mbaRZH1SUFCyYYD5w
+	 SZG/tNIPEzXmcT+PQxGmqIafk6un6O2fxoRD27Bi3RI7df9Y7x8ouzOopgntk9mumF
+	 s6J+D8FTQCbToO8LOKfrEyoWWJNOOr8AX2n9Z8cVYCxgikok1aOJT3PSMtvrzYePjO
+	 VGT+tnKnTYsbCcdSbhe+AYj5bZTjADvj40BYEdXGuLFUaHharQBJTOaqMJp7QCPJ2q
+	 WfHlRQxTOfRQw==
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 48CDDF40069;
+	Thu, 27 Aug 2026 17:33:07 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-06.internal (MEProxy); Thu, 27 Aug 2026 17:33:07 -0400
+X-ME-Sender: <xms:E62Qalspzwa2ZNEsAvh3epw_YjicKmZie7GnYgpQ8T-V-uQrWG7X8Q>
+    <xme:E62QanzNLfMq_Qr9qDC508ThcuvbOEjbq2kCUhEByovFaelIOt5YvNa_qsqMACaFV
+    sryDAbK3uUS06lomZyZcyhKi1sfZYAF8Ypoh7hawhsvvOv2ItJKjRI>
+X-ME-Received: <xmr:E62QagC14w18DfcHUP9cNyTRrGX10vjIvq6pWBDRDJtjSDsmf0zDHSVBvhzK8aAqcjOXXiRw9rjpnn40pNJz6kDErIOev22y>
+X-ME-Proxy-Cause: dmFkZTGyYpHZiopyqhRhsuTgRsAXTIzzHuJacDaquisJV/fkJA6uz2BPq5pKDCYY6gGIEt
+    23HJxC845af3s9juTWmKmVODrRJABNokSDzZ6x6GvKFqUSsttq8D/TClgZH/PxzCeqVxaX
+    cTMFXthxc6eOEgIpWJO2c2WwLZ1BG3wMINTLr9nRjw9Hpnefjh73uDqaOyUJeKFVbfHPf3
+    ki6v1UX33utSN1jvqqASZnw52wMrO1k3Q8vim9EZ7DV4p8zSibp2Olu7jCOS8JVnKSNPVF
+    /OQ2AtGE1j0pfXdbAcXMWV+3bglGhyCsdA3JneD4dKH2ovIXzkfWYpcLRFYQMtNoXUNNoZ
+    nVL3IoD6gjn3rMSPTmcPDJyFbMyKIgdUcW6G0HilMvWoUgPRLxV8eYxHm4A5AHg8DZ6G1Z
+    UVudsIhX3zSpmj7kHbksnUzefmi6ptTprXLpsL1R7FWJMNCLDWmwImwpE35d0dPVXLrkWy
+    XIvIgjT0Gz27CcXL/Ml5fby8UBQo8Dqi5fg3hltE2fzJklRoi95UwQH5MC9CTKz6wgVQDo
+    3938McO9X9bz4XCKG4TJmz7kBPndq6E1YU0KnMKlT765kEJT72qQ8PiSQQRMQEEaF5IHOq
+    4RWyxpBRjaeFyDEQmwJuC3YzsusYI0Pywk3eTDOHC+tMXERlmvOD3UKai1ng
+X-ME-Proxy: <xmx:E62QatcvwunMgh4teH4Bg2ST9s_qevyYiYN_nyrG_UvAnGncEu46FQ>
+    <xmx:E62Qain_5ZgqTq5ZSLQ7n9FIfuP_ELIAmSZ8bZ_i5JIwZr76wMN5kg>
+    <xmx:E62QasF-xoMM2mt2Ss5n6qWwbU8RdrcgVNawxT7GNSnfGVf7DRUQ_w>
+    <xmx:E62Qai46lZSRYLKCqRViniMzljmRJAw_dDOQsJFuyc8XgQM6BTQaDQ>
+    <xmx:E62QasmH5moFi67-Xbz15zSa94fyMcwaISzHra1d_XzdLRSlB_7ZP71N>
+Feedback-ID: i8dbe485b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 27 Aug 2026 17:33:06 -0400 (EDT)
+Date: Thu, 27 Aug 2026 14:33:05 -0700
+From: Boqun Feng <boqun@kernel.org>
+To: Thomas Gleixner <tglx@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
+	linux-tip-commits@vger.kernel.org, x86@kernel.org
+Subject: Re: [PATCH] locking: Revert switching guards to
+ _irq_{disable,enable}()
+Message-ID: <apCtEUnPzdCQVpIs@tardis.local>
+References: <20260804161447.84806-8-boqun@kernel.org>
+ <178635226387.442315.3868294476114711805.tip-bot2@tip-bot2>
+ <20260824104704.GA4121339@noisy.programming.kicks-ass.net>
+ <20260824105523.GA4121620@noisy.programming.kicks-ass.net>
+ <aozw_7Txxaq2qE7c@tardis.local>
+ <877bldhkmq.ffs@fw13>
+ <ao4lO7U7L-7Zice1@tardis.local>
+ <87v78wezid.ffs@fw13>
+ <875x0vfgtl.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 2/3] wifi: mwifiex: add dt flag to avoid conflict with
- platform reg domain
-To: George Valkov <gvalkov@gmail.com>
-Cc: briannorris@chromium.org, johannes@sipsolutions.net, andrew@lunn.ch,
- krzk+dt@kernel.org, francesco@dolcini.it, johannes.berg@intel.com,
- kees@kernel.org, miriam.rachel.korenblit@intel.com, rongqianfeng@vivo.com,
- wenst@chromium.org, rafael.beims@toradex.com, avraham.stern@intel.com,
- error27@gmail.com, s.kerkmann@pengutronix.de, gregory.clement@bootlin.com,
- sebastian.hesselbarth@gmail.com, robh@kernel.org, conor+dt@kernel.org,
- Frank.Li@nxp.com, chunfan.chen@gmail.com, arend.vanspriel@broadcom.com,
- peddolla.reddy@oss.qualcomm.com, linux-arm-kernel@lists.infradead.org,
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, stable@vger.kernel.org
-References: <20260827130335.6606-1-gvalkov@gmail.com>
- <20260827130335.6606-2-gvalkov@gmail.com>
- <fbde1932-5433-48e8-b352-bf27eb545149@kernel.org>
- <CADOrJmY5jZvn8zEu-jCntGChXSY9wRd3bsOy1GB0EWNTY9GK6Q@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <CADOrJmY5jZvn8zEu-jCntGChXSY9wRd3bsOy1GB0EWNTY9GK6Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <875x0vfgtl.ffs@fw13>
 
-On 27/08/2026 19:27, George Valkov wrote:
-> On Thu, 27 Aug 2026 at 18:33, Krzysztof Kozlowski <krzk@kernel.org> wrote:
->>> [1] https://github.com/kaloz/mwlwifi/issues/173#issuecomment-307879699
->>> [2] https://github.com/openwrt/openwrt/issues/9956
->>>
->>> Tested-on: WRT3200ACM, OpenWrt
->>
->> OK, so this comment from v6 was not about binding, but this is still
->> wrong - there is no such tag. Just make it a standard sentence.
->>
->> Do not introduce OpenWRT rules in to the upstream kernel.
+On Thu, Aug 27, 2026 at 10:29:10PM +0200, Thomas Gleixner wrote:
+> On Thu, Aug 27 2026 at 10:30, Thomas Gleixner wrote:
+> > On Tue, Aug 25 2026 at 16:28, Boqun Feng wrote:
+> > So you can get away with:
+> >
+> > raw_local_irq_save(flags)
+> > {
+> > 	flags = count;
+> > 	if (!count)
+> >         	arch_local_irq_disable();
+> >         count++;
+> > }
+> >
+> > raw_local_irq_restore(flags)
+> > {
+> > 	if (!(count = flags))
+> >         	arch_local_irq_enable();
+> > }
+> >
+> > raw_local_irq_disable()
+> > {
+> >         arch_local_irq_disable();
+> >         count = 1;
+> > }
+> >
+> > raw_local_irq_enable()
+> > {
+> >         count = 0;
+> >         arch_local_irq_enable();
+> > }
 > 
-> Dropped the invalid tag. I hope this is suitable:
-> The change has been tested on OpenWrt and fixes the issue where
-> phy0 does not start on WRT3200ACM-EU when a DFS channel is used
+> Actually it can be done way simpler because the nasty case of
+> 
+>          scoped_guard(lock_irqsave, lock) {
+>          	unlock_irq(lock);
+>                 lock_irq(lock);
+>          }
+> 
+> is only valid for a single lock guard, because if it's nested then the
+> outer lock would lose the interrupt disabled protection. Anything else
+> would be a bug on its own and would have long ago blown up in our face.
 > 
 
-Thanks.
+Right.
 
-Best regards,
-Krzysztof
+> So we can completely ignore flags.
+> 
+> raw_local_irq_save(flags)
+> {
+>  	if (!count)
+>          	arch_local_irq_disable();
+>         count++;
+> }
+> 
+> raw_local_irq_restore(flags)
+> {
+>  	if (!--count)
+>          	arch_local_irq_enable();
+> }
+> 
+
+These are just local_interrupt_{disable,enable}() (replacing
+arch_local_irq_save() with arch_local_irq_disable()) :)
+
+> raw_local_irq_disable()
+> {
+>          arch_local_irq_disable();
+>          count++;
+> }
+> 
+> raw_local_irq_enable()
+> {
+>          count--;
+>          arch_local_irq_enable();
+> }
+> 
+> with a copious amount of debug machinery to catch any oddballs.
+> 
+
+Ok, so brainstorm on the oddballs:
+
+# 1: double disable
+
+	local_irq_disable();
+	local_irq_disable();
+	local_irq_enable();
+
+# 2: double enable
+
+	local_irq_disable();
+	local_irq_enable();
+	local_irq_enable();
+
+I think these mean we should probably do count = 1 and count = 0 in
+irq_{enable,disable}() than count++ and count--?
+
+# 3: only restore once
+
+	local_irq_save(flag1);
+	local_irq_save(flag2);
+	local_irq_restore(flag1);
+
+# 4: keep restoring
+
+	local_irq_save(flag1);
+	local_irq_restore(flag1);
+	local_irq_restore(flag1);
+
+these are a bit tricky, I guess we could only fix the users? But we
+should not postpone the infrastructure because of these?
+
+> Also note that this never uses irqsave/restore because historically that
+> has been way slower than CLI/STI.
+> 
+> A decade+ ago this used to be up to 30%, but micro architectures
+> optimized for it. Still on a SKL it's ~14% and on a Zen3 ~8% slower.
+> 
+
+Yes, if we go to the level to unify all irq disabling with counter
+tracking then I think using arch_local_irq_disable() is possible and
+makes a lot of senses.
+
+Regards,
+Boqun
+
+> Thanks,
+> 
+>         tglx
+> 
