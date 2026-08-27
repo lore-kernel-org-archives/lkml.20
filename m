@@ -1,70 +1,70 @@
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A929C46985A
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:31:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CE7B533D6
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:32:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787848293; cv=none; b=I0yXDbK/cTecxOdGrgAItwT/cPJEEbAeweGEthdOGEwT8Jrv3h7WaE86RaTgyFL9VFJl1EoSCY7Q4/nqnv5NDUN5vNiDrIDlzmgmCBN17K1CgDTFNN5EqakVPL7AbYFxSyYJ8eJqzMqG6qL7LnN8eoXAGm+GD1Tu6SP9Z2uZhpo=
+	t=1787848328; cv=none; b=uo16oS/w6EBPR4Ne915r5X+vX0MKQinn8irERXjuB/AjGGB9zOMzxkqUmd8WjWLuF0wNqikmc04hotR9LvjNqtQDH8l7/dPBkNUmyfbBRAgPcqXx/ZcY66AeaM0yeoScrnq3X++o3K9kneu2G/9Au73rZ0bELCxV7R6PdFIBvG0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787848293; c=relaxed/simple;
-	bh=pcKZ3uCSxaYzrbAxVt2stjR9PoVzqelhi/qCqZ0scZ4=;
+	s=arc-20240116; t=1787848328; c=relaxed/simple;
+	bh=SiBxTrG58Gv3M0sYoaL+6q+gsY8zYTJ3C5/IBL4T8JI=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DgBGIKiBcXPRjM0rzQu7xtkjn32BiYKtzVgIR02rRiLALv6aCy8FFnAPYO6Cyk3/aP8hHld4+uZzaDukX4e3NLuVWnVqGLKpq1Dh7Q1rz9ROzcKY3IXl0pSE/mbRaXgt2/SO9w341qlW9DwILbxE6tnQvpRqBzOoMJ5xNoYxE/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=c/gNs+DZ; arc=none smtp.client-ip=209.85.208.49
+	 To:Cc:Content-Type; b=MsPORb9PZLmMdGraebbP/ba8H4v71LyUREW4wxWy1Urru/wg+s0q7nqT5gjaSab5Ni294PgaI9d6pehl5vTkqQwuMhnKlT3fTGBvzxW1/1x2f+Rx4+ARnJlAjaHAYGuu1CilInzgYxRm0f97BxkSoxtYESjb0+3irPYHahIUrJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=H0jDH/Dg; arc=none smtp.client-ip=209.85.208.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="c/gNs+DZ"
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6a601ba6870so928022a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:31:31 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="H0jDH/Dg"
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6a3fda88184so3858964a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:32:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1787848289; x=1788453089; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1787848325; x=1788453125; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=pcKZ3uCSxaYzrbAxVt2stjR9PoVzqelhi/qCqZ0scZ4=;
-        b=c/gNs+DZCqF393qMSHQDbBHFQ6qj4HyUZvCFMoe0Wn9x757vkPySXb0+Gear7MS1Nq
-         q/aBzjoCIUvFAVaO6gNYmL5+a06sB5zTfLxPhMJwi0E2t/zQvS/VKiwJvhONds/SUryr
-         6OxJjtkIGWPpP6q1bai5ubrx6twuGWqDziPKY=
+        bh=mzMGBct2T5j19pFzqr+r438MOOPyyfPFxEllccYYNUA=;
+        b=H0jDH/DgawITHDOVpeV9AdxN9xFPi/gXeYzNMB4Ia/pQCkd9imwztu4Fxg0HxhOmaW
+         O8qT8+ToWVjhnDARs0F4pG4lWuFkNjRmyva86PDn17lQ/Pjfh/ophop+G+mA6RasOpyn
+         kNxwryNslj2cr0ysIA+Q/9p09DKHUhDQrLftA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787848289; x=1788453089;
+        d=1e100.net; s=20251104; t=1787848325; x=1788453125;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=pcKZ3uCSxaYzrbAxVt2stjR9PoVzqelhi/qCqZ0scZ4=;
-        b=RGVUpOW/T17dp1DPKguX/tjE3/MRZ4dyqVuOmkD3uL+OcV+xqHcb62xaprr/csSp2C
-         soEdgoDfHGef5Ee6IUs1rnf3a6YqigJRaSpuwB/gXuPZcRGKqSxS9rb1nv8YLKw75lHD
-         65vD7fEACsEtJJRJeAkcVHaTv66MabT9bNmtXcQ/1k8AmAJMiQF3dcuh2S1Pt/A+aEKO
-         l38ui1UCNIkANfpDaUUkCyCf1lYkXuPRdwff7+oUDuqKN4Vx8+eXQxqfFFFZTqC/jvgC
-         iceVQng3ku2H9pca4Rduxo6F3gvjrWDOgRNZtKIQGhhpp9E+CpaigIQkdVOFlbp6vv42
-         zDYA==
-X-Forwarded-Encrypted: i=1; AHgh+RqAXZIEyorQ3gTPC+OWCTbLwLgJEWMoiTf6qwRksjRgSaMNLMxLIH2PgPvMrWxgoekc4WMTM4mLF8/juNk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nykfO2DW/Fm+t+WR3dry7gCs1D1oPMbIdZqtg25HczG2O0xrTg
-	R57OTrXfQ6aSafw62XeDilRSbm+916vTTD/lVE2+0nztKv5zfYbZfvGrAwGqeklEpQtprnnQrEW
-	PUbSqU6A3
-X-Gm-Gg: AR+sD11iEaSmU5uIBDvzKfU4t2NoD5Ykq2unDumXU9v5RZ0T6QEWAAv2H+nU1cUteW6
-	q1DCue4XDupFYkNceqirU5SvYkQdZ753oh99LVFTnrvKBPEjetkprs83JYD/3O1h9Wcmhnj0i9k
-	/+Ggz/ANu8zRLGFWcgiDx2uZE+P0DMVuwTkIFsTDrALD9Sge03fg4VhjVVykti3qvqPsaXJHWkD
-	b+5YvWC/pJQk/nkWjKIEbZanuETOKVVKoHIyiMPkMtn1RcZ4b3peYeAR2W1baqp9FkMOFgpKNnu
-	aYMjCiLnixqTaLPqy7VNxXUmcKDDHSgWEmRt9T/V9EgsdNp1OfDihxIVCBHueLGumviDdfp/mEg
-	4hH7nDVnQqrcmqTKUOA8BWE53r4k2ECvb5/HvkupOFWKK1rXESNsGeg9NyODZ5Vug9JyPygTKR0
-	0gV9rZxPvWmcye/jcy8c4eEgfQ3TUJFSZVo+jMU6rJQGDYSP+Hpgyb5elPFJRgza3Ia56t6wcOf
-	+xNKwZ00bTNMpncTZaJS+xaggema8lDrEXCow==
-X-Received: by 2002:a05:6402:f0a:b0:6a5:f4ed:7760 with SMTP id 4fb4d7f45d1cf-6a5f4ed77aemr5301251a12.4.1787848289518;
-        Thu, 27 Aug 2026 09:31:29 -0700 (PDT)
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com. [209.85.218.53])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a5de5f7bb8sm6724645a12.0.2026.08.27.09.31.28
+        bh=mzMGBct2T5j19pFzqr+r438MOOPyyfPFxEllccYYNUA=;
+        b=mFEWIIac1erVhs4cngSAHQDOyqAMx0xehQts5JRQEXwVP7kym1/t6iX18g5bFg7wgl
+         XlopZ/swu256/e9s728jx2RAq3q3fc2ZHcwrgG8jdMpuTSpWgkyjTYsB+aoe04eOyXmT
+         Xg2oypLlrO8wqtllghgKNdNnKQUEoltbmFBcnPStqMIcTWGBszW2NApiWEOZjrd8EBcy
+         2ahlnfHKphpyhsTq72sQ1iGCu2ddEVcUFZo0YNOZmdA2OquEYIeSXrA+z8AYKw5HWFXD
+         cVzLilyOfKBTwcg1sWe+FNpV51vp3G5xlfENPLrMIwLJuqw3ZrjSd+bcq4P9giqO7/Vo
+         6B0A==
+X-Forwarded-Encrypted: i=1; AHgh+RpJ7kfNBiDk5+BAWtzK02cjPfeclQvdM6qwpsBWIX3U9qrvaZqwJlZBinWI27xcklMPSOZz79EbHWQ26zw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kywT6a247bdtHzUIv7p86wkl1IEf/SdsIPmUrc0iohVQ1RNIID
+	yPVqGLDD04fwyNu7eRg/BrBGLa6R1JKm6uLFiYZzkstDZXv7TG5x+ZmfycVXPoYCp73j9ExQlmj
+	+1ObxHn9n
+X-Gm-Gg: AR+sD11tRGftrkL9uWkO3/u+NtExJ2KQsACpiDQWK+XSaEXlDmAlEruzXJlgXPQBgGF
+	iLvksoh+JAqQy0o/3EIQVZ7jYk/S6rq/6wgcqI7VZbPtfmTtCHM2pH06//8xNHWYBlYU74dteYa
+	37hmj0RgiHPV97HbkWUNIOkza6YnXPqimD7RWloG9z7zFinEGh/r3huZbFa2hLIhgkLyl6vVpb0
+	xCRxHJ4CpLj1zA4Xr/T4pCPKBkmI0C0TTKyoXjcWSc9RywPqrbO+FSljTr6Ur5A8a6L4Wy2gi0u
+	pM9nSgLlacnyDA2iHAKGsUttlRdNgAUuE9C36qWgij6Vj88HibydDVJXAdi0Qk78iL3JmdwnhFb
+	ER9JfsgdZDK2qUWHou4vXEbP/ngAg4XlYcaj4skDlD5xvXEQhwP3KZnPYbICKCJYm7PVNavP7F2
+	uyz1wAX+aL1KP9N6k0R9lcPIhJUoUtify2R/1U5MLV/RLGVx2d6FSqCu6XcHVunvMtVf0wHqLTL
+	Zm8j/vRnrPw5fgKLc7+Oa5Ir2w=
+X-Received: by 2002:a05:6402:190c:b0:6a1:29ca:681e with SMTP id 4fb4d7f45d1cf-6a5df5e18c6mr16001291a12.7.1787848324480;
+        Thu, 27 Aug 2026 09:32:04 -0700 (PDT)
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com. [209.85.208.49])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a5deac9a21sm5376571a12.25.2026.08.27.09.32.04
         for <linux-kernel@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 27 Aug 2026 09:31:28 -0700 (PDT)
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c1670dad7a8so4694466b.3
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:31:28 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RorQgHuI/Rwc1q7XP0K/IkPPvsY3EK+hIQQZDfsrmxXzDhUvbtOtnfjiilYCfovQZ81Jjo1uGgkcAq5pXI=@vger.kernel.org
-X-Received: by 2002:a5d:64c2:0:b0:482:e10e:58df with SMTP id
- ffacd0b85a97d-482e26d51e8mr23348728f8f.21.1787847829596; Thu, 27 Aug 2026
- 09:23:49 -0700 (PDT)
+        Thu, 27 Aug 2026 09:32:04 -0700 (PDT)
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-69fc9f25118so2618188a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:32:04 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rq2kOs+xTQCzeSZaYvKnPROtMdWgPyhf2dCI6mOgAG8ITP2P7jARigtDbbuTpMmaehAUlrUOyvvToLOgVM=@vger.kernel.org
+X-Received: by 2002:a05:600c:1d8c:b0:49b:916f:1471 with SMTP id
+ 5b1f17b1804b1-49b91c1df21mr2431435e9.3.1787847852763; Thu, 27 Aug 2026
+ 09:24:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,14 +72,14 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 References: <20260825-drm-bridge-drm_panel-cleanup-v2-0-c6c88ba7ffd2@bootlin.com>
- <20260825-drm-bridge-drm_panel-cleanup-v2-8-c6c88ba7ffd2@bootlin.com>
-In-Reply-To: <20260825-drm-bridge-drm_panel-cleanup-v2-8-c6c88ba7ffd2@bootlin.com>
+ <20260825-drm-bridge-drm_panel-cleanup-v2-4-c6c88ba7ffd2@bootlin.com>
+In-Reply-To: <20260825-drm-bridge-drm_panel-cleanup-v2-4-c6c88ba7ffd2@bootlin.com>
 From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 27 Aug 2026 09:23:38 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=Xdj_foBqt9A9EVVoCA2BxAV3UZNz3SuVPu2ZoNXgnS=w@mail.gmail.com>
-X-Gm-Features: AcwNN1Uxl8vA8-7oT2LAyO-KpGAM6LbpIr9SieIL_bb_C2KnJR44V7-XxhJsCE0
-Message-ID: <CAD=FV=Xdj_foBqt9A9EVVoCA2BxAV3UZNz3SuVPu2ZoNXgnS=w@mail.gmail.com>
-Subject: Re: [PATCH v2 08/12] drm/bridge: parade-ps8640: select DRM_PANEL_BRIDGE
+Date: Thu, 27 Aug 2026 09:24:01 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=VtDHWX5yXDE_CSMEZY9nTAd9372kkUAuti1K09zLywig@mail.gmail.com>
+X-Gm-Features: AcwNN1VF3py5doozl6LD9Pr4fEpbkFlfT_OL-hoHyQ67imrOzi930oQk0T6UzBQ
+Message-ID: <CAD=FV=VtDHWX5yXDE_CSMEZY9nTAd9372kkUAuti1K09zLywig@mail.gmail.com>
+Subject: Re: [PATCH v2 04/12] drm/bridge: ti-sn65dsi86: don't select unused DRM_PANEL
 To: Luca Ceresoli <luca.ceresoli@bootlin.com>
 Cc: Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
 	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
@@ -91,8 +91,8 @@ Cc: Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@lina
 	Ian Ray <ian.ray@gehealthcare.com>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
 	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
 	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
-	Jitao Shi <jitao.shi@mediatek.com>, CK Hu <ck.hu@mediatek.com>, 
-	Pin-yen Lin <treapking@chromium.org>, Enric Balletbo i Serra <eballetbo@kernel.org>
+	Sandeep Panda <spanda@codeaurora.org>, Franz Schnyder <franz.schnyder@toradex.com>, 
+	John Ripple <john.ripple@keysight.com>, Michael Walle <mwalle@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -101,14 +101,36 @@ Hi,
 On Tue, Aug 25, 2026 at 3:11=E2=80=AFAM Luca Ceresoli <luca.ceresoli@bootli=
 n.com> wrote:
 >
-> This driver uses the drm_panel_bridge API and not the drm_panel API so it
-> should select DRM_PANEL_BRIDGE and not DRM_PANEL.
+> This driver does not use the drm_panel APIs at all, so no need to select
+> DRM_PANEL.
+>
+> Cc: Douglas Anderson <dianders@chromium.org>
+> Cc: Sandeep Panda <spanda@codeaurora.org>
+> Cc: Franz Schnyder <franz.schnyder@toradex.com>
+> Cc: John Ripple <john.ripple@keysight.com>
+> Cc: Michael Walle <mwalle@kernel.org>
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> ---
+>  drivers/gpu/drm/bridge/Kconfig | 1 -
+>  1 file changed, 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kcon=
+fig
+> index 043596801a65..d46aa2eb01b5 100644
+> --- a/drivers/gpu/drm/bridge/Kconfig
+> +++ b/drivers/gpu/drm/bridge/Kconfig
+> @@ -474,7 +474,6 @@ config DRM_TI_SN65DSI86
+>         select DRM_BRIDGE_CONNECTOR
+>         select DRM_KMS_HELPER
+>         select REGMAP_I2C
+> -       select DRM_PANEL
+>         select DRM_MIPI_DSI
+>         select AUXILIARY_BUS
+>         select DRM_DISPLAY_DP_AUX_BUS
 
-Which exact "drm_panel_bridge" API does it use? I don't see any...
-Certainly it's highly likely that the next bridge in the chain is a
-panel, but there are no API calls that I see. Maybe the scripts got
-confused because the variable name didn't get updated in commit
-5486eac81004 ("drm/bridge: parade-ps8640: switch to
-devm_drm_of_get_bridge") ?
+Looks right to me. Ages ago it used panel APIs directly, but not today.
 
--Doug
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
+
+I assume you have a plan for landing the series. If you want me to
+land this patch on its own to drm-misc-next, please yell.
