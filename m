@@ -1,34 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2B933FDC05;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20A9D3B71C0;
 	Thu, 27 Aug 2026 09:08:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787821726; cv=none; b=a/26Nb1CsuA4L1K0x+snJbAjWSENM02EssxNhStdUT01pjz+w8KAST1C+VqW8BB0S9DmoOCzhCjzLld9mVrRIhqD5KUN4Cnz6iNY5JFCxV4mSXKbQ/WCNa0Po6/rLJmhaVKRJm5sby2uRKgHkzwArY5QTiVgPpSBQ9pVi4L1Lj0=
+	t=1787821725; cv=none; b=dB58bpKHKag1UahEPvOJwTmAM9D+1dI1pCLWvB+V4Z6hfm09q1ca6Yk1ffff7qcTlyy+fHFTznuhYQ0nMEOncqsH7/mCOgDgOGOodPw6oui/DVuAwUnwuNCYUV/MQahKKg6+9SVz3h23065p4Mv8/JricwEYlQ2OpNX6Qk+Bt4w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787821726; c=relaxed/simple;
-	bh=Xxv7LmKVMXjjYZv8NFNSnSakxsax5lAclsdAXTnQ2l8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ItyCHQX2YORjnHZMDu59c3tYRo27Hrma2PhBtvLArtTJh6bHNtZF7Benq7aiVNIHTIqYK3ZeVb1GvXqb1AMb4vwl94LEpMHCjxOjIMF5WtNvXSYLvqz7kuAFEesgoLaYeptgWrflG5/8Paknv2cQn/8QtLm+R+8+9yVuhDCStDE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lAhJr41G; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787821725; c=relaxed/simple;
+	bh=wrUkFwnM+R07bwYLdGeFKD6f7cCxL8V0HhE9wAhAhsk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gWQCou5CQmh+6+7fpMNSL3yG4sDVijVnX970BWv14GDOoD6DWglcp2N+SVqNPBhFp28cqSoFVDgpTQ6kZAaC6DPbz47xXwr4u/TR51AOLBoeC/y02hU0OUVoZZ3sPav4HrG9xAbPjwS3QCx3GmpF0OGb4mJ9yelkb62H14oyliY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YFQJEyMM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lAhJr41G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75DF61F00A3D;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YFQJEyMM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77B321F00A3E;
 	Thu, 27 Aug 2026 09:08:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1787821722;
-	bh=F71mUxpCC9lB/TEKxDCkjypZdTsveKGITFGaS7b2D3A=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lAhJr41GxJEmPP3oyjG45cL2Vbh5L1ZjsdRdEei2nqSzlLO5AUj+WoboC0Ig52pub
-	 dgVurvYvDnaicJJfKRumb6NCSnqDlC/pSSOsBNcVmFo1qC01eHiyd59zCim/Bp7GIy
-	 FuIXCzsSlZ4kIXqzyGXwQsRpYNu/JcIcf5HHybhKDiZGVTlzSy6YQorILeJkVfgsdV
-	 i8ly9vl+4WmYHtXYSmD0NizTg0bVmpvM4f9UZZb2NBH6xVHAOox3OI1IT9j91bdM0O
-	 /VfAyX79/ltgfSrLiY1EVNKbVk7HILv5neb2wcK086/rI4uDL+bHlOccgA6gRh4QmB
-	 Qv3g+3Whf/MDQ==
+	bh=z2B/sO6n1rd/Y3SEpkWHwaRbIGjo8FB6XSMqx1GnY7Q=;
+	h=From:To:Cc:Subject:Date;
+	b=YFQJEyMMQqla8HlzhpENEhuVWUD/DX1FyXDo4oojjdKtvid6Y4XHWL0MsJpBujd32
+	 Vdetn3noxRoa86XF1fTAR19W5vDk3OJaHbWEoJ4/S2cWBgfpRz/gSQZ30IFwEL+zaE
+	 awhpHOKYRi3Mo3cghEX63+guB79d1Whfa+yuO9IxppjSoLHqavENFuy4ni6cjjTfbB
+	 dBmIm8Yw0bJNzrCJ+tcuFYkIy1RE5mXLEhJmHbynYwtstELXctLT8yYqWikR2BuyEQ
+	 o+ASxSlA3yfIHociwS11CSQ9jaAbuK2KBAQwunEqbXA+gsG1GHTHlhrWCDHtEkcMh2
+	 JG5Nuae/yxqUQ==
 Received: from johan by xi.lan with local (Exim 4.99.4)
 	(envelope-from <johan@kernel.org>)
-	id 1wzW6C-00000002g8J-0vxR;
+	id 1wzW6C-00000002g8D-0k9M;
 	Thu, 27 Aug 2026 11:08:40 +0200
 From: Johan Hovold <johan@kernel.org>
 To: Andi Shyti <andi.shyti@kernel.org>
@@ -36,12 +35,10 @@ Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
 	linux-i2c@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Johan Hovold <johan@kernel.org>
-Subject: [PATCH 3/3] i2c: dev: clean up registration
-Date: Thu, 27 Aug 2026 11:08:04 +0200
-Message-ID: <20260827090804.638565-4-johan@kernel.org>
+Subject: [PATCH 0/3] i2c: dev: fix blocked adapter deregistration
+Date: Thu, 27 Aug 2026 11:08:01 +0200
+Message-ID: <20260827090804.638565-1-johan@kernel.org>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260827090804.638565-1-johan@kernel.org>
-References: <20260827090804.638565-1-johan@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,121 +47,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Drop the get_free_i2c_dev() and put_i2c_dev() helpers and do all set up
-and tear down directly in i2cdev_attach_adapter() and
-i2cdev_detach_adapter() for consistency and to make the logic clearer.
+As part of addressing i2c lifetime issues, this series fixes an issue
+which may actually matter to some people, at least if they are playing
+around with USB attached i2c controllers, and whose fix does not depend
+on any larger rework.
 
-Note that the device list is only used at detach so the i2c-dev can be
-added after registering the class device.
+This could possibly go into 7.3, but can also wait for 7.4 as the impact
+of the issue (both in terms of number of affected users and symptoms)
+should be limited.
 
-Signed-off-by: Johan Hovold <johan@kernel.org>
----
- drivers/i2c/i2c-dev.c | 64 ++++++++++++++++---------------------------
- 1 file changed, 24 insertions(+), 40 deletions(-)
+Johan
 
-diff --git a/drivers/i2c/i2c-dev.c b/drivers/i2c/i2c-dev.c
-index 319bc46cc207..1aa798b87dcd 100644
---- a/drivers/i2c/i2c-dev.c
-+++ b/drivers/i2c/i2c-dev.c
-@@ -73,42 +73,6 @@ static struct i2c_dev *i2c_dev_get_by_minor(unsigned index)
- 	return i2c_dev;
- }
- 
--static struct i2c_dev *get_free_i2c_dev(struct i2c_adapter *adap)
--{
--	struct i2c_dev *i2c_dev;
--
--	if (adap->nr >= I2C_MINORS) {
--		pr_err("Out of device minors (%d)\n", adap->nr);
--		return ERR_PTR(-ENODEV);
--	}
--
--	i2c_dev = kzalloc_obj(*i2c_dev);
--	if (!i2c_dev)
--		return ERR_PTR(-ENOMEM);
--	i2c_dev->adap = adap;
--
--	spin_lock(&i2c_dev_list_lock);
--	list_add_tail(&i2c_dev->list, &i2c_dev_list);
--	spin_unlock(&i2c_dev_list_lock);
--	return i2c_dev;
--}
--
--static void put_i2c_dev(struct i2c_dev *i2c_dev, bool del_cdev)
--{
--	spin_lock(&i2c_dev_list_lock);
--	list_del(&i2c_dev->list);
--	spin_unlock(&i2c_dev_list_lock);
--	if (del_cdev) {
--		cdev_device_del(&i2c_dev->cdev, &i2c_dev->dev);
--
--		scoped_guard(rwsem_write, &i2c_dev->rwsem) {
--			i2c_dev->adap = NULL;
--		}
--	}
--
--	put_device(&i2c_dev->dev);
--}
--
- static ssize_t name_show(struct device *dev,
- 			 struct device_attribute *attr, char *buf)
- {
-@@ -718,11 +682,17 @@ static int i2cdev_attach_adapter(struct device *dev)
- 		return NOTIFY_DONE;
- 	adap = to_i2c_adapter(dev);
- 
--	i2c_dev = get_free_i2c_dev(adap);
--	if (IS_ERR(i2c_dev))
-+	if (adap->nr >= I2C_MINORS) {
-+		pr_err("Out of device minors (%d)\n", adap->nr);
-+		return NOTIFY_DONE;
-+	}
-+
-+	i2c_dev = kzalloc_obj(*i2c_dev);
-+	if (!i2c_dev)
- 		return NOTIFY_DONE;
- 
- 	init_rwsem(&i2c_dev->rwsem);
-+	i2c_dev->adap = adap;
- 
- 	cdev_init(&i2c_dev->cdev, &i2cdev_fops);
- 	i2c_dev->cdev.owner = adap->owner;
-@@ -741,11 +711,15 @@ static int i2cdev_attach_adapter(struct device *dev)
- 	if (res)
- 		goto err_put_i2c_dev;
- 
-+	spin_lock(&i2c_dev_list_lock);
-+	list_add_tail(&i2c_dev->list, &i2c_dev_list);
-+	spin_unlock(&i2c_dev_list_lock);
-+
- 	pr_debug("adapter [%s] registered as minor %d\n", adap->name, adap->nr);
- 	return NOTIFY_OK;
- 
- err_put_i2c_dev:
--	put_i2c_dev(i2c_dev, false);
-+	put_device(&i2c_dev->dev);
- 	return NOTIFY_DONE;
- }
- 
-@@ -762,7 +736,17 @@ static int i2cdev_detach_adapter(struct device *dev)
- 	if (!i2c_dev) /* attach_adapter must have failed */
- 		return NOTIFY_DONE;
- 
--	put_i2c_dev(i2c_dev, true);
-+	spin_lock(&i2c_dev_list_lock);
-+	list_del(&i2c_dev->list);
-+	spin_unlock(&i2c_dev_list_lock);
-+
-+	cdev_device_del(&i2c_dev->cdev, &i2c_dev->dev);
-+
-+	scoped_guard(rwsem_write, &i2c_dev->rwsem) {
-+		i2c_dev->adap = NULL;
-+	}
-+
-+	put_device(&i2c_dev->dev);
- 
- 	pr_debug("adapter [%s] unregistered\n", adap->name);
- 	return NOTIFY_OK;
+
+Johan Hovold (3):
+  i2c: dev: fix blocked adapter deregistration
+  i2c: dev: drop unnecessary sysfs device lookup
+  i2c: dev: clean up registration
+
+ drivers/i2c/i2c-dev.c | 155 +++++++++++++++++++++++++-----------------
+ 1 file changed, 94 insertions(+), 61 deletions(-)
+
 -- 
 2.54.0
 
