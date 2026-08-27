@@ -1,182 +1,161 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020096.outbound.protection.outlook.com [52.101.196.96])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03C3C360EFC;
-	Thu, 27 Aug 2026 20:35:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787862951; cv=none; b=V9UwlNfZtJ0jGXoWmWU3hIONsDtDRFCVUiFz8fWLCwMDhA9heGilEbiwCS4bEt7Mls7RZPmtChC2eB6xt43roWkXAcBKE0OnFXuj8sma0MOhucPvG3eXr+zPDceiNdRBJj/gpNY4BAniSAHDWdAWDeYCAAt9/WA6NumaCxRyY6Q=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787862951; c=relaxed/simple;
-	bh=PxQCY1jfbF8EOAuJZqRKxtm3dvxwia6O/a/ZZ9DApj0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Hi2DDhVFIYUuPYejd8MhLRdpJRZNOOWNyEi4U4t8/Cd0CO59ZCkk2206sXMU+9E0U2UDBdSKxTSwZegRWk2D5jekbuXzL6HE3HVttwcgnKZbxYDlo5VqW4PMaVFPplg4vDmB68uJOPh2aPpKuFRcCj2rZut2NzM6b8xthjOiFRs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hSa60bDg; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hSa60bDg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787862947; x=1819398947;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=PxQCY1jfbF8EOAuJZqRKxtm3dvxwia6O/a/ZZ9DApj0=;
-  b=hSa60bDgyhYXXLLbHEP8hpiBpuOVkYQ5T59kaN1v4513kGe2g5ejqnZw
-   kBwAnDwP0QwOb0ETDCuc+4+byq5ei1ghyogSg+kj+CPF/iCZW1RmwWXTA
-   ZOGhnTmcx59vA9yAdGccX/PzDnqdrvK3RLgvFeZyhExV2gq2vPnkzQXOm
-   xQQyWlYKhCLm3zpbniALgChbELvppjhYzLBaklzhJ/y/I8Cc+pN7GdBg3
-   OM37nQxAlT2UBV+30MYymm9BbgCrP3tNbRuBOKeOX8CZvQOTHJ+FEIjCM
-   n+bZas6RlzY7m4UL/4GWW5gmR5fDSE20w31x7O/l3/VRJFdvkUF/ULgbA
-   w==;
-X-CSE-ConnectionGUID: S9Ye/XdnQdKEyx5OPemQzw==
-X-CSE-MsgGUID: gOgd5ppfQTO50Mx46gqWwg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="88248928"
-X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
-   d="scan'208";a="88248928"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 13:35:44 -0700
-X-CSE-ConnectionGUID: LuCavyYhReqzqLj8SdY7cA==
-X-CSE-MsgGUID: N+PM9AHaSem5Dc2Ha0IxcA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
-   d="scan'208";a="273230951"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.125])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 13:35:41 -0700
-Date: Thu, 27 Aug 2026 23:35:38 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Thierry Chatard <tchatard@gmail.com>
-Cc: linux-kernel@vger.kernel.org, hansg@kernel.org, lee@kernel.org,
-	platform-driver-x86@vger.kernel.org, ilpo.jarvinen@linux.intel.com,
-	djrscally@gmail.com, linux-media@vger.kernel.org,
-	mchehab@kernel.org, sakari.ailus@linux.intel.com,
-	jacopo.mondi@ideasonboard.com, nicholas@rothemail.net,
-	v.vitovt@gmail.com
-Subject: Re: [PATCH v9 3/6] platform/x86: int3472: tps68470: fix clock
- consumer registration for Dell Latitude 5285
-Message-ID: <apCfmoIBKLhjexav@ashevche-desk.local>
-References: <20260827201611.99825-1-tchatard@gmail.com>
- <20260827201611.99825-4-tchatard@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDDCB57C9F
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:37:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.196.96
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787863074; cv=fail; b=kTtj77yGSqOMcq2X8iQy1qpXkvpBxyAfeotzPU/oeZlyiKSYoRuqwlVP2rV9dIWhYqrCMA8j0L47R2lZr6gFYn3/Z2ytcYbkwqSj3D+oDmpDDdQ5FYK+5dTtjAFTzDd+AyMNRm2hA4h3QafU9ugieaclig8lIyUFtrD2JXBKe2A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787863074; c=relaxed/simple;
+	bh=O86DfLqnxUvb8dCYp7CdHbzPqMWFAwzYV4yHr483aKA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=T3kyCddiAtP/ywc5V1CGBtuWJVklqlkH2m3MAEaJOfxzmKcEQ0OhMNPQnygrWECzR6oR1PnoJyhvYusteukk5QRKPd1DNPY3qJUutbyEotDvFWFhdnEM1/0Yej6AIDgoujAuzAKCqfiKpQ0LokGPF2BVArHlWBvtdnjdt94P2/8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.196.96
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BKEbhfXAMhpUR0V5V49joM0PioSYYI9aMeNhB63ZuxdiZOle4AC9qwGYuTCLo9fUDhXC6G1HK0CtMC9wkxUF/+cLb13POqib2LzourabXpGzCv5F/y2nXq5/Usci2g5Eod/b2kE78uXOGz5YqhXONHnxkx2gc/Ladk5h5HlxvhqO3KMi6VJ2TB4dp/S+5nq5ObqFkVnm4c3iNlpBmegaSy1uI2qTEBrzOf1bw17f6mRJt88Nd6rxxK1eCBGr/BuPurMxtgb4m7mE3hF9QOUiJ6Lta6o8sCP0blKh5h6yvfSI0wbu6/QYtYjZQE6tH50kwf8doCcvy6dWakHVr5Ekng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=L6dLuwVPwpNP3bVVvrjGEk87oCaeCsYN38RaJLrzp98=;
+ b=pnkRDkQIUmpNsdg25hahN52Sc+UsKnFKwCGWVdRIBilNKHl6BRBCcEXnS91nOU0TtETy0B4uHNq7iyY7qjMmSsqKIk5DvgpLJ80IXF7HaEk6y3epBmOoFGcQNiJwTn7jlthBM4YtuE12DghrmKgUfzUD0+31jBQ9b8fab/kMaU2hzfnazJ3lO46XZehPG3vTgBwoVEHXaJHH8+XCuns3skphqq7SwHHwbxzh4mWSW9Sq4eZDxrzsPQeUm6UVDZfgpQvlNnGgslRolC60uBNvYxNpS/oZhhQ2i7jUxz0WI4/vyja4YzCjVr1a5Dkq72UPh40y67awGEEMd5cJt/pZUA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
+ dkim=pass header.d=atomlin.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=atomlin.com;
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
+ by LO0P123MB7718.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:42a::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.11; Thu, 27 Aug
+ 2026 20:37:41 +0000
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
+ 20:37:41 +0000
+Date: Thu, 27 Aug 2026 16:37:39 -0400
+From: Aaron Tomlin <atomlin@atomlin.com>
+To: mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com, 
+	vincent.guittot@linaro.org
+Cc: paulmck@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org, 
+	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, 
+	zhanxusheng1024@gmail.com, neelx@suse.com, chjohnst@mail.com, mproche@mail.com, 
+	sean@ashe.io, steve@abita.co, rishil1999@outlook.com, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v8 1/6] sched: Annotate rq->rd with __rcu and update
+ lockless readers
+Message-ID: <zekeanf2poef2qh2dkinxxwhme5utfibmz6bmvqrz2dzd3o6ub@gfokk2j2xroc>
+References: <20260827194014.977758-1-atomlin@atomlin.com>
+ <20260827194014.977758-2-atomlin@atomlin.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260827194014.977758-2-atomlin@atomlin.com>
+X-ClientProxiedBy: LO4P265CA0042.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2ac::7) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:400:183::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827201611.99825-4-tchatard@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LO0P123MB7718:EE_
+X-MS-Office365-Filtering-Correlation-Id: 89f44237-edd7-4c06-6be0-08df047b0a1d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|7416014|22082099003|18002099003|56012099006|4143699003|3023799007|6133799003|5023799004|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	QKTQWIqpLvIGvzMFS8oI0DC+ZWvXRECbjcwBI/erCfdY0qgmNTcDJl4EbJlPUw08yJUhuCdOOoGzNcDn1JzPA7p9IOkL21UudbGiRUXqOoBJhwPl7jn2pIvarAVL0a95cPQKIjdvapEZMvW4oOsJGQ8Uii6E2LyJUe1fQbByDkOXnWkruxw4fxGhlK9iUU58PqFeLtEcmDXgKZ42gzd4G9Fm6LL6+BYCH53eHeaei1ii/S3PFupUilOZ435c0zHbefofyvfW70qiC5r47ysJo4XfwCE/+yWD4d73lFVApugr5edl5MSYleQGCrwnT3NdHRLYry6Jz6/HNdMttfKnu8pTu2tAGg6aP5ZXM8Ls5Swz6kCYgh19F10ZXN9P2FX6msqpbtmHRsi4XOHAFvAeXuABHEUzq/Mq5wLyVVoOB27mAqiXH1Uk1cY1c6kjyuM4rndUVF4ElXZeGs9n2fED9zy5RuXLnFt+k80ejsoBts+tPY0HFzAKCwoYKlP0u1sEed79V2tkW2udOY9D86b+f3Q+0f6EdLKmN6v/iSjGjpjja8mYxhvEaIGdzBQAmSv9LF6dFlRhGP5jiCcZGDzrS3i0kCzJoowJujdJ9cYQde0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(22082099003)(18002099003)(56012099006)(4143699003)(3023799007)(6133799003)(5023799004)(10067099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RUNLekY4Y3pZb0tVOE9mMFBORkNyOStnbzExSjRDOU9CVnRrTVZ0L2JlaGZF?=
+ =?utf-8?B?d3ZSd20wQnNTbm5jZ1ZyU0pmVUhzZWxvcSsyRjJtcUM1bWdHMEx2QmJBcHQw?=
+ =?utf-8?B?SXZtVnZ1U20yZjVFdlZWMVNCUk5pNkl4djJFV3h3R2pYWHRJUEtHRE1vOXNE?=
+ =?utf-8?B?TUx1NktQNTRaazNNcEhMTG5vWlJoamFuLy9hYXdUOUlXY0ZGTzhyZ1VvOFRk?=
+ =?utf-8?B?d1pSS2h2dXJpNVp4RHhVd1ZmcG9BSUdEdlYxOFYxRUhBSm1YMmpPVlNvNGpr?=
+ =?utf-8?B?THF5SVhhaDUrYi9meUt5S3RFT3dXS0hHc05HRk5qdWlqcmpiY1phZXhiS3Zu?=
+ =?utf-8?B?T0lGWkJzTEFVL1liZ3ZybWNWMjIzd1A3TGZDVTkvYnZlazc3eklUb0dpelVT?=
+ =?utf-8?B?cDZmck15ZTVZT214eDVKbGNBM3lUaXJ1NUtRT29QaVRIVzltckZqRUtNYjE5?=
+ =?utf-8?B?Wm5vR3RWTXNYWnE4QUY3SXdkWmZiSDFEMHhjWTlQT0IxcWZlbHFpK1Z3akJX?=
+ =?utf-8?B?NG1FSStlUDljTUxYbXhtWC81NzhNYU9Ra01QWWdhQUw3S0kxVEE0cHJUVXFL?=
+ =?utf-8?B?eERWNC9rRE1lTitFem1EbmxWSnlOWmtqZ1ZhdE9CQ2F5am43N2ZPWUFZVzc4?=
+ =?utf-8?B?SG12b2MxVDlCMHRuRStpWkYwR1BxSTBKdjRQSDhVMWYvK0VZZWVjbUtKTUJG?=
+ =?utf-8?B?QjFCaDJxWWZHbHRDVTJLL05uazFJU2ZRa3g1eEhEYXBpT0pPQjZ1N1huV0ky?=
+ =?utf-8?B?NjZvMmtVV2JEZHdjanVhc0JuU3pTdFRHQnBRa2xwMzk5bHN5ZmR1a3RNLzhD?=
+ =?utf-8?B?WElBMktzMFYxS3FnRU0rVndOVTZ3MXlJUHY1ZktXVExjM0ZjZGRLZEVURzB4?=
+ =?utf-8?B?V21Sc0d4dWlZd2NSRnlEVHBDbGpZU0Zpdy9QU09DeWtISmpaSkFXMTZaUXow?=
+ =?utf-8?B?RmFJcUtwWXl4Z0pMVkNzQXE1RWJrM3dIaElIZXhsVWxEcjU5NzB5ekFjTTBo?=
+ =?utf-8?B?YXRvclpETVI3UEVHRmFvdUFmUDY0Tk5lbzZyUHdadjAxMWZGUDQvc2lBTnBE?=
+ =?utf-8?B?SW9Pb3UzOVR5Zi8zRGhRR28yc0xxRnl6em9WNEVTVm54bTlHUVZmd1BLSFhF?=
+ =?utf-8?B?RVNTdkNoWnlLQUZkOUNEbE0xNXk5QXRnZVk0b0R5Vk5Dc2JhM2haTTc4UWJh?=
+ =?utf-8?B?dWFTYm5rOXFmeENNeHVGc1RmNHpUa2NJaHZpMzQ1ODIvSndWRkozNmNtNWZK?=
+ =?utf-8?B?VGJPQlFQK0NiWEFsMGlRdnZYRi9FRTZuRExINnZBcnlZR3dGcm00cHZWMk9h?=
+ =?utf-8?B?Ym0vM0VNdjNNR010dmk2Z0JkMGljOGZadUliYWQ4RmJiRVN0Wk5ab1dpSytv?=
+ =?utf-8?B?aUprcjFMTlNDdWZMM2ZxS0FPUTAvQS9qRnF1NnZ2MUZGOWJvc0ZSWWp5Ymoz?=
+ =?utf-8?B?dFg5OUt1YkdBYUhCTzhxNmZlcXI4V2p6Tk52UG8zVVdiOHYxdTU5TGxJTy9M?=
+ =?utf-8?B?b1g3OE9ObmRaTDZEYk1KeHNYM1UwRys3UjIxdWlvSHBxa3pNbG93bDBSU1hL?=
+ =?utf-8?B?eTZIcXZEWkxPV0Q2N2grVUVMY3BJNnU4MExERUgrK1BTSjlQLzJkNWFkbG5Z?=
+ =?utf-8?B?ZVlrVWRlb2FncGxuYnZybUJ3cHYvVllHR3dtNDZIRG81ZjlZaWNtVzJDQUhR?=
+ =?utf-8?B?S0l3ZzAyNUQ2UkdGK1RidlZrckNtdEZZcHZmaGJBcnZqeVNSclFiV3g5bkJ0?=
+ =?utf-8?B?d3ZJOXFUelR6MlF5QitxNC8xTFIzTHpRclhHWERyeUM0QmpPTldhQVZTa3FE?=
+ =?utf-8?B?WXIxQWdDa1N6ci9uWk4wUTVWdnVDSTg0WkdPcG1UNkJvVkVTZmZSR0QxWnF1?=
+ =?utf-8?B?bUhOU01tYmxzY3AxeXJjNS9XY3BVVzhnalhWRk5CVEtvZzNJclF5ZFcwVXd5?=
+ =?utf-8?B?MUhEUlUzaWZrR0xRYmZTaGYxMjRTUXJ3NXgwZ2xTcjJyclY4azdzUHBOUnpT?=
+ =?utf-8?B?NDJZYkhCVHFhK3NycHpqMjNLaldtSzhSQUJpWTRDb1I5aHNaV3pFeUNrdTNM?=
+ =?utf-8?B?bEpzRHk4U3paVCsyN0NSN21tZFRTaVlLNDNrWUxSbURFQTNPK2RmbGFuUDJI?=
+ =?utf-8?B?ZWNaT3o5ellwdG1XNW9DdVVJYlFmNzBlT2dCOVhHK1FwSkhNYTd2U3BHU3Bp?=
+ =?utf-8?B?THJ0OURwVGZiZlNweWhUU1NFWTRDU1hmdE56ZXY0Z2E4ODZ1bkg0ZTgzeEpJ?=
+ =?utf-8?B?VTh3M0hpV25QeFEzUndYVWxoTmZpQXB1Y2IzdWVoekhlL01LamN4ZFpKakxk?=
+ =?utf-8?Q?I8Kjinksppf9468+u0?=
+X-OriginatorOrg: atomlin.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 89f44237-edd7-4c06-6be0-08df047b0a1d
+X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 20:37:40.9264
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DHtdiJUBzdfQdvjqtjijjVvC2n0bk9CcEKN2TQy+PKH6VflZdVEyeamHgrtYjeYB9GNxK2sVuVEhR9/WRXL0cA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P123MB7718
 
-On Thu, Aug 27, 2026 at 10:16:08PM +0200, Thierry Chatard wrote:
-> The BIOS on the Dell Latitude 5285 leaves GNVS field C0TP at zero.
-> With C0TP=0 the ACPI _DEP method on INT3479 (OV5670, front camera)
-> resolves to PCI0 instead of the INT3472 (TPS68470 PMIC) device.
-> 
-> Because for_each_acpi_consumer_dev() walks the _DEP reverse-mapping,
-> INT3479 is invisible to it: the clock consumer lookup entry for the
-> front camera is never registered with the tps68470-clk driver, and the
-> OV5670 sensor driver cannot acquire its MCLK.
-> 
-> Add optional static clock consumer fields to the board data so probe can
-> register the consumers directly, bypassing the broken _DEP traversal.
-> Platforms that do not set these fields keep using the existing ACPI
-> traversal path unchanged.
-
-Are your patches assisted by AI?
-
-...
-
->  static int skl_int3472_tps68470_probe(struct i2c_client *client)
+On Thu, Aug 27, 2026 at 03:40:09PM -0400, Aaron Tomlin wrote:
+> @@ -3355,10 +3363,7 @@ static void set_cpus_allowed_dl(struct task_struct *p,
+>  bool dl_task_needs_bw_move(struct task_struct *p,
+>  			   const struct cpumask *new_mask)
 >  {
-> -	struct acpi_device *adev = ACPI_COMPANION(&client->dev);
-> +	struct device *dev = &client->dev;
+> -	if (!dl_task(p))
+> -		return false;
+> -
+> -	return !cpumask_intersects(task_rq(p)->rd->span, new_mask);
+> +	return !cpumask_intersects(rcu_dereference_root_domain(task_rq(p)->rd)->span, new_mask);
+>  }
 
-> +	struct acpi_device *adev = ACPI_COMPANION(dev);
+Hi Peter, Vincent,
 
-Split the assignment at the same time...
+Please ignore; I will address this in the next iteration.
 
->  	const struct int3472_tps68470_board_data *board_data;
->  	struct tps68470_clk_platform_data *clk_pdata;
-> +	struct gpiod_lookup_table * const *tables;
->  	struct mfd_cell *cells;
->  	struct regmap *regmap;
->  	int n_consumers;
+Sashiko [1] correctly reported that dl_task_needs_bw_move(), is invoked
+while holding cpuset_mutex in process context, with neither
+sched_domains_mutex held nor an active RCU read-side critical section.
 
-...and put it here.
+I subsequently confirmed this using virtme-ng:
 
->  	if (!adev)
->  		return -ENODEV;
+    [  170.335047] WARNING: suspicious RCU usage
+    [  170.335052] 7.2.0-rc7-virtme-00041-g6509e33120f4 #23 Not tainted
+    [  170.335054] -----------------------------
+    [  170.335056] kernel/sched/deadline.c:3366 suspicious rcu_dereference_check() usage!
 
-> +	board_data = int3472_tps68470_get_board_data(dev_name(dev));
-> +	if (!board_data)
-> +		return dev_err_probe(dev, -ENODATA,
-> +				     "No board-data found for this model\n");
-> +
-> +	if (board_data->n_clk_consumers) {
-> +		clk_pdata = devm_kzalloc(dev,
-> +					 struct_size(clk_pdata, consumers,
-> +						     board_data->n_clk_consumers),
-> +					 GFP_KERNEL);
-> +		if (!clk_pdata)
-> +			return -ENOMEM;
-> +		clk_pdata->n_consumers = board_data->n_clk_consumers;
-> +		for (i = 0; i < board_data->n_clk_consumers; i++)
-> +			clk_pdata->consumers[i] = board_data->clk_consumers[i];
-> +		n_consumers = board_data->n_clk_consumers;
-> +	} else {
-> +		n_consumers = skl_int3472_fill_clk_pdata(dev, &clk_pdata);
-> +		if (n_consumers < 0)
-> +			return n_consumers;
-> +	}
-> +
-> +	cells = kzalloc_objs(*cells, TPS68470_WIN_MFD_CELL_COUNT);
-> +	if (!cells)
-> +		return -ENOMEM;
-> +
-> +	/*
-> +	 * The order of the cells matters here! The clk must be first
-> +	 * because the regulator depends on it. The gpios must be last,
-> +	 * acpi_gpiochip_add() calls acpi_dev_clear_dependencies() and
-> +	 * the clk + regulators must be ready when this happens.
-> +	 */
-> +	cells[0].name = "tps68470-clk";
-> +	cells[0].platform_data = clk_pdata;
-> +	cells[0].pdata_size = struct_size(clk_pdata, consumers, n_consumers);
-> +	cells[1].name = "tps68470-regulator";
-> +	cells[1].platform_data = (void *)board_data->tps68470_regulator_pdata;
-> +	cells[1].pdata_size = sizeof(struct tps68470_regulator_platform_data);
-> +	cells[2].name = "tps68470-gpio";
-> +
-> +	tables = board_data->tps68470_gpio_lookup_tables;
-> +	for (i = 0; i < board_data->n_gpiod_lookups; i++)
-> +		gpiod_add_lookup_table(tables[i]);
-> +
-> +	ret = devm_mfd_add_devices(dev, PLATFORM_DEVID_NONE,
-> +				   cells, TPS68470_WIN_MFD_CELL_COUNT,
-> +				   NULL, 0, NULL);
-> +	kfree(cells);
-> +
-> +	if (ret) {
-> +		for (i = 0; i < board_data->n_gpiod_lookups; i++)
-> +			gpiod_remove_lookup_table(tables[i]);
-> +	}
-> +
+[1]: https://sashiko.dev/#/patchset/20260827194014.977758-1-atomlin%40atomlin.com
 
-...
+Additionally, direct dereferences of the __rcu pointer still require
+suitable conversion.
 
-> +++ b/drivers/platform/x86/intel/int3472/tps68470.h
-
->  struct gpiod_lookup_table;
-
-+ blank line to separate generic and local groups of forward declarations.
-
-> +struct tps68470_clk_consumer;
->  struct tps68470_regulator_platform_data;
-
+Kind regards,
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+Aaron Tomlin
