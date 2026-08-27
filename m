@@ -1,76 +1,45 @@
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DC374252C9
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:43:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 122FC427F91;
+	Thu, 27 Aug 2026 09:43:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787823817; cv=none; b=bIXJE1E/Sw3iOmMeSZygLtIXOmJkIr3dW9sJdd7HCHObWth6Nd3+nEFPWZ5j1Zi7+jLCN2JrSMa2IqREdckXxRWGMKNX2+V3uVYlXRaei6XVpPkHIS3zfCKEyIkcS9oxJL3HZ+iqm2v43heGFNBIquMSDdPGoZ0miK25XqaqTMw=
+	t=1787823822; cv=none; b=RG8eGn9w7rslFgvbbtAbCUUki5vqsrd7RWnSoqorUnyOdM8jpWgs4OtXS0iJRlcOi+LTwabW4bki5AcxCyqhvWE7xr87e63ee8OOupQ+0wABhpHLgQeVKxZVOc3S6sA+tIYOo6faUDtyXsC8EOMj3dRZPdwQvAQhENgSptBJBz8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787823817; c=relaxed/simple;
-	bh=nAFD+3K5tJyDsA5OQxUN3fnA9raIXptCyzTjFd5xq2Q=;
+	s=arc-20240116; t=1787823822; c=relaxed/simple;
+	bh=Kml3UFpqKmuyNf6MPWVigrUiYTDyfoerBU7UcsXJHck=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MHBpin/O+yk5wf8RsOgVafBCNv+IhW7JN9cxF0cAHivU2sHO3aFy3vTrn6wGgD34xcjiMeCfyQew9EmIuoH8w1LnyyHYlGQEFwsDUaFGkNppRmUZ8IisDj6X8MPMQXzbJMbOWRUmTec0wAlVED2fN7IRPSdKdLNZdUHx37DtNGs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GlDstutI; arc=none smtp.client-ip=209.85.210.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=hiTInyXVJvDuWXEVKfKaGoWVK83iHB98NFNZvW1njBTi6OW7qeoc35cvQj5xPnflpCrdPLyZBX1+28oaBrYTwZDaiAX/HqnHc8r7DR/0L6PgMjxz3cYKR8Vd1AaxwsRVKbQQzqQpNTjoe3Z9stydErLQnyxm1hTA5woparlZ4XA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PpGWjk39; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GlDstutI"
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-848761b5897so165447b3a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 02:43:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787823810; x=1788428610; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+HKJ3tAW7wa6wdeNZbsdvg5DDct+7sFZSSnnEf99jqQ=;
-        b=GlDstutIPquRUYYvswGP75U2MIHJe/4k2MwbeeRC6+i0Zi6aoEZmGgH3YTyE4zC5Bl
-         Iyb3B6pywpgLE46DjUQIK6OhnFH7kL5wgI+ktVD4Zi4PWG8lDhbfeRNk2/3Syx0fNNsK
-         xpDAGkdg6fdRaaE26PAOMHzobYXj0hTe3AtAEAfJguh5t+o/07MHxqWj5d0qzkiWLQ0r
-         avl93LTiLfN1bLVFUV6I2f/ORup9b2NAYf4Uv+cBzfJWBjki/xtipTeiPDmQyotmahHm
-         lufG+q0Q3n0DZ1Fgr/v5rSzyPLNjBmM7w9A7ZyFBW8WuzLg2fcBacV1lCct45xlnkK0I
-         IBxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787823810; x=1788428610;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+HKJ3tAW7wa6wdeNZbsdvg5DDct+7sFZSSnnEf99jqQ=;
-        b=SqxvFUQeZqukwegjhu+DQEKi0A+r1JGwqeW73xlLVLneXeC8CTwVbSSRSoAL5ERLJX
-         E13aEn0Ee1af0xBu7TfIWa7HvOoxuaeD6AMIB41SwatshROkeyrnbFCRCry5F4hHYI6y
-         1menoHnXYd5XM4B+2LhWk/9J73Mi7hgxovE9LwHNM8G0s9zz3j2JlvjpRz5JbYSgMnvM
-         +D9CT1LnjwiQHxtEQEpqfKYDy3AdJPYRkiCqRVXWozWDaioV909E+oGkDmPpi9LR0V95
-         KS5OctqBZqUZXsfkcvWWHtsr4cNug/mzTycyCJ7KnYnGBDTD9H4CVqQW9oZpaewkFVoG
-         z+nA==
-X-Forwarded-Encrypted: i=1; AHgh+Rq5tmVbJF17cN5JPEhPNZ/KD7d01OvND2go6zNyoSFOAaOAGSwYE3kMcEAcMmFeY+Rm811UXVqxi0CZHjA=@vger.kernel.org
-X-Gm-Message-State: AFuF++m+FJ0oUmMTVm0iSOevJSvtpQTykM5flb9Po63imAGaCvHB3HTp
-	HPrATtboDq3o01im0d4HJ2HPf1lHnwZ0gIbebNwHErpfzPYlWSbm0Fv3
-X-Gm-Gg: AR+sD12IEXkzlbgsDR22yiIpwP3BQU8EJD9jE8I45IKho9+PLAj2ElUbWPte3VfOrK9
-	2+0QU7FjjvIdGpHraWCH8a5lfB87SiauXL4BfvXWxdf5XN6tmySEPi2COmExZNHsGNAsivKAKXi
-	9DGn1rRq+aHBEGdhGd+H+Jwpb9grqebWPODRxWSPqel0V+zJSHzN2B33lZuYuoGzTFDs6ZUBc9Y
-	E+ZUINGDyhQETlcJwf1H+ffR2TYReRcF1octlDSULGpZwj0z9xFYt5rjNLFld/GT4pwiHkgqnyG
-	4olupbbFZ0ZMDrSxLVWluwfdjiKO6mh+Ayb3nUMGIeU2Odah6iqxR+R4nKILBlYL+vbamTkHA7j
-	UQg2mbaqahr7mOr7ARbGYER27F/EHo809d1N7kDR+Y2yopcA4Zhb0h7ZArXH0rU2neB9aPgomzb
-	Q8YFQB/P3DdQKeC5hRoKw9llViVsHvxqW03Etk6tcP/FcIg/A7+dr2dEl709Mrhhkn71CdofBpe
-	D0HQ9Q+LlPGoBDbWc8TYPfBzm4H46iG8We85jRR6I9uYg==
-X-Received: by 2002:a05:6a00:349a:b0:848:42d0:bc91 with SMTP id d2e1a72fcca58-853750ce0a3mr26520732b3a.12.1787823809790;
-        Thu, 27 Aug 2026 02:43:29 -0700 (PDT)
-Received: from KASONG-MC4 ([43.132.141.20])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85359cdfeebsm1819566b3a.4.2026.08.27.02.43.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 02:43:29 -0700 (PDT)
-Date: Thu, 27 Aug 2026 17:43:24 +0800
-From: Kairui Song <ryncsn@gmail.com>
-To: Kemeng Shi <shikemeng@huaweicloud.com>
-Cc: akpm@linux-foundation.org, chrisl@kernel.org, kasong@tencent.com, 
-	nphamcs@gmail.com, baoquan.he@linux.dev, youngjun.park@lge.com, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Luiz Capitulino <luizcap@redhat.com>
-Subject: Re: [PATCH v2 2/4] mm, swap: Move setup_swap_clusters_info() after
- SWP_SOLIDSTATE initialization
-Message-ID: <apAGe5g99mHeIzlI@KASONG-MC4>
-References: <20260820115505.20027-1-shikemeng@huaweicloud.com>
- <20260820115505.20027-3-shikemeng@huaweicloud.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PpGWjk39"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EA2B1F000E9;
+	Thu, 27 Aug 2026 09:43:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787823817;
+	bh=Y4cZ0UoCXxH9qXg2RynlUOzzxRFmakF4LP9Cl47C+ak=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PpGWjk39akJN778WuJcEBg1B5/32So6V0zQonbpf5DoI+Q4CWlAJJNNIh3pfjv8md
+	 u91T8xEgnqA6GLetH4c/IDHs2exbv4ofeoBiCnY97zOljqsJYym6b4a8o+87X4x1G3
+	 rrFBWwA+hsMUnIt3jPcU4puz0Dan2h997V21PNLqzvxlROPPyBbRG4Th5vdsBanIkR
+	 8UmZrfuCz5sNHFQ3KdvINnlMxEQpAkmcFbAFa10BZFILKRq8JsRbOZgzKWg4fM8pyA
+	 V6zlmMojIYiNFCHItBvQCi9VZk9Zww7EocOGrPD6XrtS/0Oq++89LPJ+kSX6LQlmca
+	 lF90qjvqR15nw==
+Received: from johan by xi.lan with local (Exim 4.99.4)
+	(envelope-from <johan@kernel.org>)
+	id 1wzWdy-00000002iAA-30xi;
+	Thu, 27 Aug 2026 11:43:34 +0200
+Date: Thu, 27 Aug 2026 11:43:34 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Andi Shyti <andi.shyti@kernel.org>
+Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/3] i2c: dev: fix blocked adapter deregistration
+Message-ID: <apAGxmeDmdTTYgCQ@hovoldconsulting.com>
+References: <20260827090804.638565-1-johan@kernel.org>
+ <20260827090804.638565-2-johan@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,17 +48,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260820115505.20027-3-shikemeng@huaweicloud.com>
+In-Reply-To: <20260827090804.638565-2-johan@kernel.org>
 
-On Thu, Aug 20, 2026 at 07:55:03PM +0800, Kemeng Shi wrote:
-> In setup_swap_clusters_info(), SWP_SOLIDSTATE is used to decide
-> global_cluster allocation. Move setup_swap_clusters_info() after
-> SWP_SOLIDSTATE initialization to avoid unneeded global_cluster
-> allocation.
+On Thu, Aug 27, 2026 at 11:08:02AM +0200, Johan Hovold wrote:
+> The i2c subsystem allows controllers to be used by non-child devices
+> that may remain registered after an adapter goes away.
 > 
-> Fixes: 451c6326105b2 ("mm, swap: clean up swapon process and locking")
-> Signed-off-by: Kemeng Shi <shikemeng@huaweicloud.com>
+> To handle this, adapter deregistration blocks until the last reference
+> to the adapter is released. Albeit unorthodox, this is mostly fine for
+> the vast majority of controllers but can cause some trouble when
+> controllers reside on hotpluggable buses.
+> 
+> Specifically, userspace can prevent an adapter from being deregistered
+> indefinitely by holding an i2c-dev character device file open. And with
+> USB attached controllers this prevents further hub events from being
+> processed by the parent hub until the file is closed.
+> 
+> Fix the i2c-dev implementation by dropping the additional reference
+> taken at open() and using an rwsem to make sure the adapter is only
+> accessed while registered.
+> 
+> Note that before commit 611e12ea0f12 ("i2c: core: manage i2c bus device
+> refcount in i2c_[get|put]_adapter") an adapter going away would instead
+> have resulted in a use-after-free.
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Johan Hovold <johan@kernel.org>
+ 
+>  static int i2cdev_open(struct inode *inode, struct file *file)
+>  {
+> -	unsigned int minor = iminor(inode);
+> +	struct i2c_dev *i2c_dev = container_of(inode->i_cdev, struct i2c_dev, cdev);
+> +	struct i2c_adapter *adap = i2c_dev->adap;
 
-Thanks!
+Bah, I of course need to take the rwsem here as well as pointed out by
+Sashiko.
 
-Acked-by: Kairui Song <kasong@tencent.com>
+Let me respin.
+
+Johan 
