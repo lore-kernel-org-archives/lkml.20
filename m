@@ -1,91 +1,111 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B953361957
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:15:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 033C74B04B3;
+	Thu, 27 Aug 2026 18:15:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787854525; cv=none; b=GJA/j2sCXO0Ni4cQzOALlTcTT+k3yNnUG56nC+UYo62jFJIrtKFUoZOXWXKjlJtca/fvfPXjcZfs8Q99N4uXLd/f+/HVjmPbteTkUtDN5jvxQek473RrdILUNlx/AIm6n1eNzVg2iPYEQOblhaWVP9kE0Jkz4FfkIs5LXX1npfc=
+	t=1787854549; cv=none; b=qT6sMCseM5ESxJ1PVvUvvWqmAW3Q9gQ6LVzq8WHi2jBHSggvt00mdGTvZyhTfoT8pcrXV1DrPwwRLy6dvIiHDC3gB+0gx5jR3USq/1pDybPwmPT/n/cwNu9qj1XI0lZSEVuvWECiGHjaxOTytcU7J/S++sKYfhg5zmbiZe4Amlg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787854525; c=relaxed/simple;
-	bh=RBsNvOQrVxRHUyjRqfTfJUZhqdTeMeE1bFwzjn1jGV8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=M0eAwles8t8dS3uNbWDeh0JDBbgmzyp7YHWGLH737PmIgxqZwz6w+YlmttmIFkI2MW2KaUtoqfLOydWI6Hx2eFqhP+SdK+H5edkGJsrd9XVWHQacEmKOl8Mvfgq+er9tQJB2thLd5kFQW59k5A8c/iizmSmuzuY3o9DKmhsahZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N+k4ivX2; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787854549; c=relaxed/simple;
+	bh=d8Nzyy2I97Der3EoFMZLxbko0ewXmOJjS+7fdvU06n0=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=U6brNnTIKObjJOLHyX6BYw1mDE6RcF4oektf/5lwCK7V7tzlAh5lQdmSZjzd/VkWguJbBZztX0n9zFdsRWN2HXf29o9twn9KYpW6A4OkqnGS3soiTG/oUy/VbK/tjnBRKB570CkYO6SJ+7hN7rksqfDIdLd70XgicVswH+RrzOk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ot1PEofT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N+k4ivX2"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-49b0eab380eso912705e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:15:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787854522; x=1788459322; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RBsNvOQrVxRHUyjRqfTfJUZhqdTeMeE1bFwzjn1jGV8=;
-        b=N+k4ivX2dm2WVdNFpOg5OzOjPPK0oj5zSRthgrFbCc3FK7Q4UcvEHQNlOHKLmHA5Eb
-         xZ+otv25WsMDEB95eynSKvQP2xSTDjbUJPCoB5VK6BZmiQY1L6c20jsaBuu7xtH/tQAU
-         o0YAO+i4f6hFEPFYxW0QMv56Ketd++plxB/gta8BBoRElJzhZfIalcnfRMc2pchoXX0z
-         DIC9OeMUS9DFS/e++Bj2e+Ly95jfWnySomwRjcmWhwWfzWoKzHL+n7TQS+PIYlWLxRaP
-         ER4dmh9kZBjHY++yVpZKjlR/myM20aX0feaAUa0ALWIjYqWPGvv09Q1VovUQ5FZ0k/43
-         Cxqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787854522; x=1788459322;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RBsNvOQrVxRHUyjRqfTfJUZhqdTeMeE1bFwzjn1jGV8=;
-        b=Y8RjeVnVNqFrD3eEvjRR7CazgQCZT12CcUCQsmhRhE5D3yyR56ylo/IHgM7xphkl+8
-         xp+8KSHrgREN3rfD2MRz9zCIbxtWJIT2x0u3FaKnWpCkwdMgLrivweTZSmIoIPgvIArO
-         oeDteM9KvayqSOwQwlM1B/hwc+RQOtNFGsolto7xM0Zt95nQJIaxn3pg5ZJvCIof7nDb
-         ksCVPqyAxSHiCeybV1voYvz3NXWTEXzc6oCXx+zS3hHuXhWmdKTi0+F/DZj6Ij3psYpH
-         DO7s8ZCWGu2D2eZf8ZQ1Cdg/SBfRqOpi5o1zpjwQoBGrG9Om+WUkZ9nmOun1D8o14hbg
-         GxUQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqNl6p6Z3tO4A6n/yk0zZHUjOCWxfodWv0SGXCqDOmywF/nSqrBzbPmx3WsFmsY1l3s7QkCudjBHmW7098=@vger.kernel.org
-X-Gm-Message-State: AFuF++kXUp9gHo2vWiIodSCEEjhkw2VHMfsEio7IF0WS2rEQSeDKPJ77
-	tmk+upzDzvz7LhOid3FZcHKmLOSYYtWNk1qjE5amSt4RrmJFVhv8gKyT
-X-Gm-Gg: AR+sD101ld7ByKBF3h+Qm1V8KRRFNWuy63PKZufeQ46O3B/ERZQyD+zsUXUp9n3wyBD
-	PS2ORoKFMsrCLHqcBS/QDz/hTJWgu0OaVrIZFGwSje500q0HDi8+HkCdoupF8Mm1rdUcDHtf6hq
-	AZjGaiqz9aTDkBOl0FnId+vUoWaKbdwrs6TTvdn3KflA6p41/yR7f3pRdXWiNkmOCRGXrnFId0s
-	W3OhxmCC2eW2F0fXJWzG2R9OIEptNNFRRqty4jEAcEVl0FGZauP57GMw4ZZFBE6EOfwCSTSCdE+
-	NnR5zcOZsym3FEPZ1he62U+ydUET7D+025JXaHkf+5cC+qy2ygIeTQZRlgOLE4vyiLlpw2uc+WM
-	qpVvWT95olgoFireKXvCU8FtbqzwJzt11pQfswoxXb2WumbzWXouvCZoT0eXzWNZAlRuT5WgWi1
-	Sp+55cuScIiZdpodTGzjLk00LSNrpr96MTht9trEdLXYronVTK4D0azbHLnzVpymXjUb7EoAC1+
-	byCuaZCn85nivoCmywDMh/VWVTV3P9inHC/RbgSiKAf
-X-Received: by 2002:a05:600c:3b25:b0:493:f783:c46a with SMTP id 5b1f17b1804b1-49b91a67d36mr12068965e9.6.1787854522377;
-        Thu, 27 Aug 2026 11:15:22 -0700 (PDT)
-Received: from 1Z10 ([78.213.170.242])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b91c5790csm5825985e9.0.2026.08.27.11.15.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 11:15:21 -0700 (PDT)
-From: Maurizio Casciano <mauriziocasciano7@gmail.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: linux-input@vger.kernel.org,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	David Heidelberg <david@ixit.cz>,
-	linux-kernel@vger.kernel.org,
-	Maurizio Casciano <mauriziocasciano7@gmail.com>
-Subject: Re: [PATCH 2/2] Input: drv260x: Map ACPI enable GPIO
-Date: Thu, 27 Aug 2026 20:15:19 +0200
-Message-ID: <20260827181519.2426159-1-mauriziocasciano7@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <apAXfjxVv8e-yxJ7@google.com>
-References: <apAXfjxVv8e-yxJ7@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ot1PEofT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 049DF1F000E9;
+	Thu, 27 Aug 2026 18:15:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787854547;
+	bh=TUBqD3KUS1xxeafm0nFuOmyQf7xCguy2c5ekRikFYNw=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=Ot1PEofTarR2zNlX7TNds/oHIwfqXbTeASTBNVYGmt79iG9Spm/u+6reAz7S1mD4z
+	 QC5xTu9VCsYSf1d6VfsHkqRySLSVy94sDH7Pe/olFnZdowB56c5Ja0wB4FZHRawPMS
+	 zLTK5YxZJsrH19iVJfx8hsyReAMZ/1mn/8uWqysSW+AOk5gDZrfjLg79scRDn1+R4u
+	 yoe4w8FWhHmHmFkVJD/OvwGVFEXflgH26t56ggdOYPfhfWE3XartPEqgdhUMlcyEE1
+	 e+EBe0mkaM9xCTt+brYczylbe5BZc6b30r0Qs+sjBnXMuYqhgmFGXVx0iswRZqBkjx
+	 athhSHfwn2B5w==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Boqun Feng <boqun@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
+ linux-tip-commits@vger.kernel.org, x86@kernel.org
+Subject: Re: [PATCH] locking: Revert switching guards to
+ _irq_{disable,enable}()
+In-Reply-To: <apBrZuxU8bmCgG8h@tardis.local>
+References: <20260804161447.84806-8-boqun@kernel.org>
+ <178635226387.442315.3868294476114711805.tip-bot2@tip-bot2>
+ <20260824104704.GA4121339@noisy.programming.kicks-ass.net>
+ <20260824105523.GA4121620@noisy.programming.kicks-ass.net>
+ <aozw_7Txxaq2qE7c@tardis.local> <877bldhkmq.ffs@fw13>
+ <ao4lO7U7L-7Zice1@tardis.local> <87v78wezid.ffs@fw13>
+ <apA4M7Asz0mV9uaw@tardis.local> <87jypbfu1t.ffs@fw13>
+ <apBrZuxU8bmCgG8h@tardis.local>
+Date: Thu, 27 Aug 2026 20:15:44 +0200
+Message-ID: <87bjanfmzz.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-Agreed, thank you. I am withdrawing this generic-driver patch.
+On Thu, Aug 27 2026 at 09:52, Boqun Feng wrote:
+> On Thu, Aug 27, 2026 at 05:43:26PM +0200, Thomas Gleixner wrote:
+>> But coming back to the problem underneath. The ordering in
+>> local_interrupt_disable() is simply wrong. You need to disable first and
+>> then update the counter. Reverse order for enable() obviously update
+>> counter and enable, which you got right.
+>> 
+>
+> Noted, the reason that I used the current order is to optimize
+> local_interrupt_disable() from re-disabling interrupt every time:
+>
+> 	https://lore.kernel.org/rust-for-linux/87a5eu7gvw.ffs@tglx/
 
-The enable-GPIO mappings are now supplied by Yoga Book board software nodes
-in the platform/x86 v2 series. That series also carries the supporting fix
-which attaches GPIO-provider secondary software nodes to the matching
-gpio_device.
+Yes. I gave you the wrong order, but I expected you to actually think it
+through and not blindly copy it. :)
 
-Maurizio
+> but looks like we cannot do it without the fixups you mention below.
+
+But that does not mean it can't be done. Checking for 0 first and
+incrementing after the actual disable is still achieving the same result
+of touching the CPU only once, no?
+
+> For now I will reverse the order and remove the additional checking in
+> softirq to fix the softirq pending issue.
+
+That "fixes" another nasty bug which was latent for weeks and people
+could not get a handle on it because it was absolutely not
+reproducible. Given all that I'm absolutely not convinced that there
+isn't another pile of latent surprises lurking.
+
+Aside of that I'm worried about having this new counter exposed in the
+current state of affairs. Nothing prevents arbitrary code from using
+hardirq_disable_count(), which is definitely faster than
+irqs_disabled(), but returns a random value depending on context. That's
+just another recipe for latent and hard to debug disasters to happen as
+you already demonstrated in __irq_exit_rcu().
+
+It's not the end of the world to bite the bullet and undo the whole
+pile, except for the then unused expansion of preempt count, go back to
+the drawing board and come up with a consistent and better overall
+solution.
+
+I know that hurts, I've been there myself more than once. But at the end
+I was always happy that we decided to rip it out instead of trying to
+debug and duct tape it to death.
+
+A inconsistent and fragile facility is worse than having none.
+
+Thanks,
+
+        tglx
+
+
+
+
+
+
+
