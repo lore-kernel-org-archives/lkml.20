@@ -1,79 +1,64 @@
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD0BD439F97
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:38:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B163F43B4A3
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:38:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787823531; cv=none; b=KMqrW8txvjvhMzTYIoPh/foQfeS9/pgttZLQuOmyByLwEoQdhNM77sbFi5FYk5+O1+dmhzB0JDIDkN5IZvvstDEI4Wpu2FLtzI2shva/eaQ/rN/h8J4C1hZmZThB1QNqNvCO4gZvEPPjOSzQPxL0l+HlEDuSCebMPlWcaIWPVrU=
+	t=1787823539; cv=none; b=I7SaHZap1urtCUmIm/Sl/AT7l+ACpzmC64KoH+x/Z9InD2jpppIEygNuB+q3FctLdNQCl2fYhDlY9CLgxmLFf5lQey66FS7tlAnhMzts796E07f1r1pNaQ2BjcxUH+2csHSqi6vFuktd/KXUNJhyBw/EV7T1td6Dbo1RXNF+yv8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787823531; c=relaxed/simple;
-	bh=Acbi/5Z1s4IMhsfByjxEE/zcDhBASoTNbBSqV/XBPS4=;
+	s=arc-20240116; t=1787823539; c=relaxed/simple;
+	bh=gZJj56dXZ3m5mpuWg5Y32mLuivOuA0n2jQSSKK4Lf/g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=u86ggBAZ8HuVEkPGKVyJIL5cGWZJZ7iTa43pk6GGJYX1pd8q0fhWt60pa4bAwnUc99FurQnQPaiG8uAAMwHhmqJoehzu8C2kkIdTgxwe1xzCLACJVr9bIx6Iuej8goIP94Q732hVi4Qs26k+YAvbCWwuBmdBI8ZAYqetJFHhuwc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FWe8JfLZ; arc=none smtp.client-ip=209.85.215.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=jsg8REcMCORQ56p3TZUISCAq+SmBtqZhpJmaKpdTMx/4LLSmlZ5hA3FUbtVamVQJIX6CK9M7li9g9nHLJMNYSWpV9MqN8YkjfOsWJyu6dh3mZY5tW24Fmr4Z5sNDQlI0otwff3ZPipMoeDlrdVH1yNlqsBOci6E6u93UZb5CrDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=QdsulrUK; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FWe8JfLZ"
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cc1c3c90074so1754762a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 02:38:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787823527; x=1788428327; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fh4l8uX631Tci1dujRkQbbJ7tiB/SAC2IQktwximJc8=;
-        b=FWe8JfLZcbriX6M+YTiG0eYVLC2wVKWxv5pVDkhez94zMSaQRftsDuFX2ixtWoA5Ml
-         NNuRfpOrQj4d+KR058ytr9eDXz5i3Ip5+/naQnto4f8mDmoG7Wcj5pdduYNLbeaRHglv
-         VBH7888B18YFCnQb8SNVXZt++A+sSELt0P4ZogQ58AnPCQtn893VR2UAhrNQCeL6AygN
-         4S1wm7eEVqfvGn/otg0kMiHHiaSmtStWaTR0C7NEs59ljPH0SFc4FFyN1vJJ3DdeYmx0
-         UsNxCE3dpehVGqlCbQTwrg1me0PdyJRdEPWZD6ijue5gIcnY9Unzv7kHNwTJJ28rfuze
-         sl5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787823527; x=1788428327;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fh4l8uX631Tci1dujRkQbbJ7tiB/SAC2IQktwximJc8=;
-        b=jrVjzsO7NBBtcPihpUMM5sH70Qst10cujVP3CYQX9gZmXWb6pHcYC5Bt3WtWCPKtpK
-         CRDWxhJIvhnv7rkcw1/0FOPfwIHPhXrDh0tvfZrnH8kQqg0z17QhMnURSl58L5mo42Zo
-         ekQUuHfcLZZxoNeEVEDyopkmeJaV6Z3AFUbM86xUO78fxaiEvf6lhbVul4VIW2r5zDVG
-         1cRslAFP2Q8COg8+/tZchPXGPxyEWLyr6KTnNS476D8FldCvHuUvLatu9v1ngP7aksoi
-         pYjlzVDc579AkF7MGyQrG/TgQeN8dKrVa7iWmdvJYTMXzdumkQVM30BduEZs/LfSypRC
-         N5zg==
-X-Forwarded-Encrypted: i=1; AHgh+RrgygXNKWOb0Il8hNa5J+NGK5uIUgCrV1VoW2NsaDO4BuC/4i8qyi4XmRfl3rjqkV8vvQjJOwshF7qcZCw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lzMNqtmKSS0Aaxi70un23zZK6bhJDPPwqG7qGzu7QDhIO+eM+Y
-	GQfU8xIKY8KqbSgleOlOxPWLqGl82yCsHWw8QL1WNFyH/1rEVWl94jSKV7Co6A==
-X-Gm-Gg: AR+sD11qMx/birM4C9F5DBPY25Ry9q1D/hiVS6MtL5Gr9PN/LuP9JJwDObmu0wHv6Xo
-	WvZT5Af6P3vyR7CiPs6FgWCowbqyShHmJGPz6hUgDnineYLgCcMFL0Bt4fUn+VwG2oebQE6Efj+
-	aDxW348mPzwl+fgSgtF86AWvGGieHsZ9tgotgymmSWDUJ7em4AWOdV7DosNMf8hLb2q+g6YwKcc
-	iNBiDB5dGYzOUZ7WO2rWlhXtGMYSSWrVsUZKktZfYWc4Bgha1JzsfMOXp+YajZeyadLNYthFsO4
-	Tc8xGmKSh/Yumjm0CMVpZlqvaJkPUjQeqUYIaEplCChOyoFoP4DHGOK4Xw+zQJcI8ph9WMK6N2D
-	9/RhDcS8kHLzSJOeoVFmn0Wfw8yy+kJn7CnAuiL1by5CTiIXDKMkqfISC0SH9OPfidr4IFKzc/J
-	F6ccsYILYUbJV5ZV+BlFF7mOyHllLf2K9kzEWMqn5nwF/hukLbrTmtomAQ4VTO9iWyhabw3/B2l
-	nDD
-X-Received: by 2002:a05:6300:6690:b0:3d1:af47:5f80 with SMTP id adf61e73a8af0-3d1af4762b9mr4401002637.11.1787823527042;
-        Thu, 27 Aug 2026 02:38:47 -0700 (PDT)
-Received: from osman.mioffice.cn ([43.224.245.178])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1bec7f491sm1905900a12.23.2026.08.27.02.38.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 02:38:45 -0700 (PDT)
-From: Zhan Xusheng <zhanxusheng1024@gmail.com>
-To: fangqiurong@kylinos.cn
-Cc: tj@kernel.org,
-	void@manifault.com,
-	arighi@nvidia.com,
-	changwoo@igalia.com,
-	sched-ext@lists.linux.dev,
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="QdsulrUK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787823534;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=b4i/vAlF7TVRLwxgQcCoqCNsYOQic8KZ0Txwd6Khtt8=;
+	b=QdsulrUKS0MxYBHkz2OCEf5MTy2gZj93oUd/ipZcPZzzyLoU0e7FR3WmDw6QKTOMWTmMBZ
+	hCnLCo4F8KosguNt9cR9G6zDKErbX04t+h05BDKJ3hilcGnW5Z0FPeBAbhKHelI2qtFRFh
+	nh31CG/zxaqDTU9L9HNZfkqx+VC8eIc=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-99-29C6pAf6M6KyBp40UdNyVQ-1; Thu,
+ 27 Aug 2026 05:38:49 -0400
+X-MC-Unique: 29C6pAf6M6KyBp40UdNyVQ-1
+X-Mimecast-MFC-AGG-ID: 29C6pAf6M6KyBp40UdNyVQ_1787823526
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1F6D2195423A;
+	Thu, 27 Aug 2026 09:38:46 +0000 (UTC)
+Received: from warthog.com (unknown [10.22.88.47])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 3072E423;
+	Thu, 27 Aug 2026 09:38:42 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+To: Christian Brauner <christian@brauner.io>
+Cc: David Howells <dhowells@redhat.com>,
+	Paulo Alcantara <pc@manguebit.org>,
+	netfs@lists.linux.dev,
+	linux-afs@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	ceph-devel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	zhanxusheng@xiaomi.com
-Subject: Re: [PATCH] sched_ext: Skip per-CPU data allocation for built-in DSQs
-Date: Thu, 27 Aug 2026 17:38:38 +0800
-Message-ID: <20260827093838.532352-1-zhanxusheng1024@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260827082329.3368255-1-fangqiurong@kylinos.cn>
-References: <20260827082329.3368255-1-fangqiurong@kylinos.cn>
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v3 01/10] netfs: Fix uninitialized return value in netfs_unbuffered_write()
+Date: Thu, 27 Aug 2026 10:38:16 +0100
+Message-ID: <20260827093828.1956211-2-dhowells@redhat.com>
+In-Reply-To: <20260827093828.1956211-1-dhowells@redhat.com>
+References: <20260827093828.1956211-1-dhowells@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,41 +66,44 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+From: Karl Mehltretter <kmehltretter@gmail.com>
 
-On Thu, 27 Aug 2026 16:23:29 +0800, Qiurong Fang wrote:
-> Every built-in DSQ still carries nr_cpu_ids * sizeof(struct
-> scx_dsq_pcpu) bytes of dead per-CPU memory.
+If preparation of the first subrequest fails,
+netfs_unbuffered_write() exits its loop before ret is initialized. The
+empty-iterator check can do the same.
 
-It is quadratic rather than linear, which is worth saying.  The number of
-built-in DSQs scales with nr_cpu_ids too, because most of them are
-initialised inside for_each_possible_cpu():
+For synchronous writes, netfs_unbuffered_write_iter_locked() may then
+return an unrelated error instead of wreq->error. This is reachable
+through CIFS if cifs_prepare_write() fails to reopen the file or obtain
+credits.
 
-  ext.c:8681  SCX_DSQ_LOCAL
-  ext.c:8683  SCX_DSQ_REJECT   (CONFIG_EXT_SUB_SCHED)
-  ext.c:7172  SCX_DSQ_BYPASS
-  sub.c:672   SCX_DSQ_RESCUE   (per rq, via scx_rescue_init())
+Initialize ret to 0 so the caller returns wreq->error if no data was
+written, or the number of bytes already written otherwise.
 
-Only SCX_DSQ_GLOBAL is a single instance.  Each of those then allocates
-nr_cpu_ids entries, so what you drop is on the order of nr_cpu_ids^2
-struct scx_dsq_pcpu, which on a large machine is a very different number
-from the one the changelog suggests.
+Found with Clang's -Wconditional-uninitialized.
 
-The guard holds.  ext.c:1130 is the only read of dsq->pcpu, and it already
-sits under !(dsq->id & SCX_DSQ_FLAG_BUILTIN) at 1127, the complement of
-what you skip on; the local DSQ branch above uses sch->pcpu instead.  All
-five ids passed to scx_init_dsq() carry the flag (sched/ext.h:58-62), so
-nothing is missed either.  exit_dsq() contains nothing but the pcpu walk
-and the free, so the early return skips nothing else, and it is needed
-rather than tidy: per_cpu_ptr(NULL, cpu) hands the loop an offset pointer
-and list_empty() would read it, so relying on free_percpu(NULL) alone
-would not do.
+Fixes: a0b4c7a49137e ("netfs: Fix unbuffered/DIO writes to dispatch subrequests in strict sequence")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-fable-5
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Signed-off-by: David Howells <dhowells@redhat.com>
+---
+ fs/netfs/direct_write.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Two smaller things.  A Fixes: tag routes this to stable, which is more
-than a memory saving asks for unless you see a correctness angle.  And the
-mail header says "Qiurong Fang" while the From: and Signed-off-by in the
-body say "fangqiurong".
+diff --git a/fs/netfs/direct_write.c b/fs/netfs/direct_write.c
+index c16fbad286a1..b04019097ab8 100644
+--- a/fs/netfs/direct_write.c
++++ b/fs/netfs/direct_write.c
+@@ -95,7 +95,7 @@ static int netfs_unbuffered_write(struct netfs_io_request *wreq)
+ {
+ 	struct netfs_io_subrequest *subreq = NULL;
+ 	struct netfs_io_stream *stream = &wreq->io_streams[0];
+-	int ret;
++	int ret = 0;
+ 
+ 	_enter("%llx", wreq->len);
+ 
 
-Thanks,
-Zhan Xusheng
