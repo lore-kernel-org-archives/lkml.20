@@ -1,228 +1,194 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FA07485CEF;
-	Thu, 27 Aug 2026 15:43:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 892101E260C
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 15:45:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787845410; cv=none; b=DUG0pF74iemm7wwbzbXAjpnlsVAzJH3QcQOxUfIwlgJ80bajIq6hiuqdJMQMFxgTsXVluB+FwGdvvPow7UqCBOg9BmpJOWsiTDaVdSL+B0VJ2GCz6lMVzAXidFZw5EvvK4/4/e1McIa5ajn/mQ8R3B60r5uDOfhhPF1gni/H27w=
+	t=1787845526; cv=none; b=KOEK4Agk0xiIpGJOaMyOAxILdn+kr2JzUhp0ePmwn2wvqStv2cdbqJdD3tnobb+WgxS5xgvhh/eysx0F2dUJBkYctUnadawBK+e1Qzs5y+JmNIwszKLGCnvyvNhcADwwk13F1jtJyuvFnxFp1wcCF5628YNIbVW/+J6Pg7SP4EU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787845410; c=relaxed/simple;
-	bh=zq5h3cnywoelwGXUno6BGqmFYh9AgJvHb3HtZbl0J80=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=WMafuhGN1K90k+JCsBuwfetLHHEv256Gjvboto6cTGuuI2R7Zkf5Lf+jJsCLc6GUJVp2DgWMH+wTcatZp6Mq84g6QUh4OqewISV+aDEI7yJFvO8+xdC6EcGDCYYnOyTAkTXx3zW3PZCNhB3SPxqp3Ghm6tycZJ6hCOuZy4a/gTc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NmkCAMVp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787845526; c=relaxed/simple;
+	bh=/fxAMBlf0kUAuzwPRUNe7r1h2X/Fn3SIGCrrk8cVO+w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EW3PS/U+2YgUPjDrEhCk0y5qugKBOkOCZvuMyFgnG5J7sJb96DDKkJENB5BS0yLsWLS8V/zCaGDv7+6CPp6d2xG2FJrhzfRFVKYUaXM6fLDH3YYjUPPx+q+RZl/TrbmuMAfKcDcUqbUWQc5uvkgBG5tVSLoX0wYe5/goITLxmCI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=DDMeJzkd; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NmkCAMVp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 760431F000E9;
-	Thu, 27 Aug 2026 15:43:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787845409;
-	bh=hozitDb8o4QqNFIUiwM2iNnAnj0KCgq7vDUxVG5Uano=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=NmkCAMVp+rfVQZZgXwNwrQIDRRoGn2DrYljSgIZCKbyrH0/97lO5RMLBUme7F8YCW
-	 4XDom6Bk022T388UqjUgJqja+dHTpVpkeaoRUmuQoWmU9x0uEB7m7zOZXba7Ew+3A0
-	 QkOMHvdGx+oZAjolbjPnxEFRI8uEcP8lLZXA4DOmjYzqKEb+TRz+4ZVjZ9k/ksihwp
-	 OMfQVxyFVt14pazZEBXwXRnBeoYXIzBb+wHlfz48lZwuM7DQrg4q31JaCNbs+xP5Yj
-	 LBrq5Y033Bwi9AycerJ390hEd9dR80YAT/wY3JAc4zXOAJS/4N9v2iLARKX/1/Tz2Q
-	 EBx69HRR0n2oA==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Boqun Feng <boqun@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
- linux-tip-commits@vger.kernel.org, x86@kernel.org
-Subject: Re: [PATCH] locking: Revert switching guards to
- _irq_{disable,enable}()
-In-Reply-To: <apA4M7Asz0mV9uaw@tardis.local>
-References: <20260804161447.84806-8-boqun@kernel.org>
- <178635226387.442315.3868294476114711805.tip-bot2@tip-bot2>
- <20260824104704.GA4121339@noisy.programming.kicks-ass.net>
- <20260824105523.GA4121620@noisy.programming.kicks-ass.net>
- <aozw_7Txxaq2qE7c@tardis.local> <877bldhkmq.ffs@fw13>
- <ao4lO7U7L-7Zice1@tardis.local> <87v78wezid.ffs@fw13>
- <apA4M7Asz0mV9uaw@tardis.local>
-Date: Thu, 27 Aug 2026 17:43:26 +0200
-Message-ID: <87jypbfu1t.ffs@fw13>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="DDMeJzkd"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so21281735e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:45:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1787845522; x=1788450322; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZHwo+xGhyHn5BFSs+/et2NTgWRMdJNfULKw3PzDr3AE=;
+        b=DDMeJzkdaGm2SLozuoK/PnbGkUHkcubus9fh2wHIT2eck5lD3DGFEwX0tUFKJHPkYo
+         Qo9ff96P79zzXmNgE3JWE4j2j+fx9YRT9U6D14gigHLhNSE36G1YQWY5mHXxVGL/vwmk
+         JTwFq0ElrIt75tXpaIcd95fj+xJ1F4GFg7Hg+eA5BtvEdsCTkMTZH+KcfBIVjzIkFFPY
+         FJ8ZmAXaaKzfK+UruvxDpCYwRY7nD5PGJpd45bAkq1XoWoH1SFVDMIgh2Y2EyS3jYvt5
+         1ivZGIlf5HMRW1dz6P9X6d+oDZ5XRIkJ1796Jb6a6KnXC4miSxwCRjlSExHiHgOO2NU6
+         ig8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787845522; x=1788450322;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZHwo+xGhyHn5BFSs+/et2NTgWRMdJNfULKw3PzDr3AE=;
+        b=oCLHSnGGjeJPxpORZwpPEEDS1hPXW6vbI3PStzfwNI5b35jfFG8N4PlSHjI+5h+K2b
+         8e1cy11ZjpVdM2F0EYpUv3gHyEOnVsZMu1erLatC4fDRgzLPY/HVkHDazFVmHwWbMQcn
+         8z0/fyC+c64Ik4OdKp/0kgykzbmTiVfNmkxoE++bJJe1yCuiZ0IRkn/pLBdcski8Zemp
+         Sg1uN13BZT4/AraF0+aFUM14U/x0uelmtXMBuYmnf6qxlnnaqV/YmTUPCMdlkdAUo1Fa
+         IMk+vRvEOlu78wDaClbGBZ7+If3qGqUT9FIQOgoS3kGftt3Wri2lEtvYEAwE3qDprb8M
+         kxBQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rphy9GTN7IbszgggOBIs28cMv4SSJNb71WN+h3vqDb1SdzllRCUfPiZ1JWqcFfBKlUkIyXynj+/6r9uZfY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nCKNNQfPsgVFpea814ySRNVnDwY21kzKF3CmsPEDUiw0qfu/4f
+	j9mOwh8Xvdb8vEzG10YIkhIIWZsG6Shz4fqzLQwNwO3Ow/zBxRCKsLwrFkBa2ZJu+iU=
+X-Gm-Gg: AR+sD10NK4aBCjVizDTcCriXWdFzvgBf4H/etNukAlGyewJ3MBFqCQrSYq3FfbC7S5a
+	JND21VyM856dBulb2akCzfwjNRKJNeSMjcJYBcT6XMcr636aMVIvuiK8C3U7OXwwvtdFIEFlTNT
+	nIjG7qwzcsfe2JHwT28TpcZMmKBrH0rfAHsbP63HEEP5qmUdmbepi49QW1NGg68iEh0g9K+tBCu
+	KQp/rYy1kAjXmdPQ+CTSu0n1P3CTyn1z9mh8wDc2HTl4GKeyeg9BSiShjAG6mOABAVtWlNnirJa
+	L4robphb1qUtAfgrKW0moeYmQkQR5N9xdsua/3/lLagE6OakU/8uIR88Rno7EH7xk4B3T6kjvKn
+	zlwsp9FJe5wCW8ka9EF6xJ3V/o7EL83tt0poy2xIhJtyIZwYOHP5IcSlBcd1ttQncUpfAH+Q0S2
+	EciCyCS08EPwBzgxZBclkgDTkPtY7J5g2hIWsiSgtrCTogK5IrgRitJPflfN1nsw==
+X-Received: by 2002:a05:600c:8109:b0:49b:910c:7703 with SMTP id 5b1f17b1804b1-49b910c77a6mr21605835e9.9.1787845521714;
+        Thu, 27 Aug 2026 08:45:21 -0700 (PDT)
+Received: from pathway.suse.cz ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499dd56acedsm90464825e9.3.2026.08.27.08.45.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 08:45:20 -0700 (PDT)
+Date: Thu, 27 Aug 2026 17:45:18 +0200
+From: Petr Mladek <pmladek@suse.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: Harry Hsu <x90613@gmail.com>, live-patching@vger.kernel.org,
+	linux-kernel@vger.kernel.org, jikos@kernel.org, jpoimboe@kernel.org,
+	mbenes@suse.cz, joe.lawrence@redhat.com
+Subject: Re: [PATCH v2] livepatch: Reject livepatches with aliased old_func
+Message-ID: <apBbjoEHJ98DWN_W@pathway.suse.cz>
+References: <20260823060734.58443-1-x90613@gmail.com>
+ <20260823062313.1321B1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260823062313.1321B1F000E9@smtp.kernel.org>
 
-On Thu, Aug 27 2026 at 06:14, Boqun Feng wrote:
-> On Thu, Aug 27, 2026 at 10:30:50AM +0200, Thomas Gleixner wrote:
->> The main problem is that you cover only half of it and there are
->> completely correct cases where this simply blows up in your face:
->> 
->>   local_irq_disable();                          // does not affect CNT
->>   ....
->>   guard(raw_spinlock)(&l1);                     // does not affect CNT
->>      foo()
->>        guard(raw_spinlock_irqsave)(&l2);        // observes CNT = 0
->> 
->> so the unlocking of &l2 will enable interrupts prematurely.
->> 
->
-> If we are talking the switch in this patch, then no, the unlocking
-> of &l2 will NOT enable interrupts prematurely. The above code expands as
-> the following (using pseudo code to describe how
-> raw_spin_lock_irq_disable(), raw_spin_lock_irq_enable(),
-> local_interrupt_disable(), and local_interrupt_enable() work)
->
->    local_irq_disable();                          // does not affect CNT
->    ....
->    guard(raw_spinlock)(&l1);                     // does not affect CNT
->       foo()
->         guard(raw_spinlock_irqsave)(&l2): 
->           raw_spin_lock_irq_disable():
->             local_interrupt_disable():
-> 	      CNT++;
->               this_cpu(state) = local_irq_save(); // record the current state
->             raw_spin_lock(&l2);
-> 	  ...
->           raw_spin_lock_irq_enable():
->             raw_spin_unlock(&l2);
->             local_interrupt_enable():
->               CNT--;
->               if (CNT == 0)
->                 local_irq_restore(this_cpu(state)); // recover the previous state
->
-> So local_interrupt_disable() and local_interrupt_enable() only recover
-> to the previous state, as a result it'll not enable interrupt
-> prematurely here. In other words, the following code works:
->
->     local_irq_disable();
->     local_interrupt_disable();
->     local_interrupt_enable();  // interrupt is not re-enabled here
->                                // similar to how preempt_disable() does
-> 			       // in a nested preemption disable
-> 			       // critical section.
->     local_irq_enable();
+On Sun 2026-08-23 06:23:12, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> 
+> Pre-existing issues:
+> - [High] Initialization failures in klp_init_object_loaded() leave livepatch module relocations uncleared, leading to state corruption and permanently preventing target module loading.
+> --
+> 
+> --- Patch [1]: [PATCH v2] livepatch: Reject livepatches with aliased old_func ---
+> commit 230a471112d181b2e9810c9877ffebb05a42d61c
+> Author: Harry Hsu <x90613@gmail.com>
+> 
+> livepatch: Reject livepatches with aliased old_func
+> 
+> This patch adds a check during livepatch initialization to reject
+> configurations where multiple functions resolve to the same alias address.
+> It prevents ambiguity when the redirection logic evaluates the func_stack
+> in the ftrace handler.
+> 
+> Link: https://lore.kernel.org/all/20260812140232.48079-1-x90613@gmail.com/
+> 
+> > diff --git a/kernel/livepatch/core.c b/kernel/livepatch/core.c
+> > index 28d15ba58a26d..c35cf08c27c86 100644
+> > --- a/kernel/livepatch/core.c
+> > +++ b/kernel/livepatch/core.c
+> > @@ -866,7 +866,7 @@ static void klp_clear_object_relocs(struct klp_patch *patch,
+> >  static int klp_init_object_loaded(struct klp_patch *patch,
+> >  				  struct klp_object *obj)
+> >  {
+> > -	struct klp_func *func;
+> > +	struct klp_func *func, *prev_func;
+> >  	int ret;
+> >  
+> >  	if (klp_is_module(obj)) {
+> [ ... ]
+> > @@ -888,6 +888,21 @@ static int klp_init_object_loaded(struct klp_patch *patch,
+> >  		if (ret)
+> >  			return ret;
+> >  
+> > +		/*
+> > +		 * Aliased symbols share one address, so they would resolve to
+> > +		 * the same klp_ops and stack up on a single ops->func_stack,
+> > +		 * leaving the redirection ambiguous.  Reject the livepatch.
+> > +		 */
+> > +		klp_for_each_func(obj, prev_func) {
+> > +			if (prev_func == func)
+> > +				break;
+> > +			if (prev_func->old_func == func->old_func) {
+> > +				pr_err("'%s' and '%s' resolve to the same address, aliased symbols are not supported\n",
+> > +				       prev_func->old_name, func->old_name);
+> > +				return -EINVAL;
+> 
+> [Severity: High]
+> This is a pre-existing issue, but returning an error here leaves the
+> module relocations applied earlier in this function uncleared.
+> 
+> When a module is loaded, klp_module_coming() iterates over patches and
+> calls klp_init_object_loaded(). If initialization fails, it delegates
+> cleanup to the error path:
+> 
+> kernel/livepatch/core.c:klp_module_coming() {
+> 	...
+> 	ret = klp_init_object_loaded(patch, obj);
+> 	if (ret) {
+> 		...
+> 		goto err;
+> 	}
+> 	...
+> err:
+> 	...
+> 	klp_cleanup_module_patches_limited(mod, patch);
+> 	...
+> }
+> 
+> However, the cleanup loop skips the failing patch entirely:
+> 
+> kernel/livepatch/core.c:klp_cleanup_module_patches_limited() {
+> 	...
+> 	klp_for_each_patch(patch) {
+> 		if (patch == limit)
+> 			break;
+> 		...
+> 		klp_clear_object_relocs(patch, obj);
+> 	}
+> }
+> 
+> Because it breaks when reaching the limit patch, klp_clear_object_relocs()
+> is never called for the relocations that were successfully applied at the
+> start of klp_init_object_loaded() via klp_apply_object_relocs().
+> 
+> Could this permanently corrupt the livepatch module's state and prevent
+> the target module from safely loading again, since the relocations are
+> never reverted?
 
-Fair enough. I misread that part.
+This is a good catch. Functions called in klp_module_coming() are
+supposed to revert their own changes on failure. Or
+klp_module_coming() is supposed to call the counter-part
+(pre/post scripts).
 
-But my main observation that the counter is inconsistent still stands
-and I think that's a fundamental flaw because there is no way that code
-can rely on that counter until everything has been converted over and
-the interrupt/exception/nmi/syscall entry/exit code has been fixed up.
+It seems to work, except for the changes done by
+klp_init_object_loaded().
 
-Just let me look at local_interrupt_disable() and __irq_exit_rcu()
-again.
+I think that it was not important in the original design.
+The only important revert is the clearing of relocations
+which was added later.
 
-local_interrupt_disable()
-   new_count = hardirq_disable_enter();
+I am working on a patch which would fix it. I want to do it
+the right way and call also klp_free_object_loaded() and
+clearing obj->mod separately...
 
-   /* Interrupts can happen here, but it's OK, see __irq_exit_rcu(). */
+It is getting late here. I hope that I'll send it tomorrow...
 
-   if ((new_count & HARDIRQ_DISABLE_MASK) == HARDIRQ_DISABLE_OFFSET)
-      _local_interrupt_disable();
-
-This is absolutely not ok. Why?
-
-The counter is incremented _before_ interrupts are actually
-disabled. Now in __irq_exit_rcu():
-
-        if (!in_interrupt() && !hardirq_disable_count() &&
-            local_softirq_pending()) {
-
-which prevents soft interrupt handling in a completely legitimate
-situation. As a consequence _nothing_ will handle the pending soft
-interrupt until:
-
-     - an interrupt coming in which observes consistent state
-
-     - a local_bh_enable() processes them
-
-That explains that recently quite a few more spurious 'local soft irq
-pending' printk's have been observed by people as there is no guarantee
-that either one of those events happens _before_ a CPU reaches
-idle. Even in the non-idle case deferring this to the next 'by chance'
-handling is fundamentally broken. This needs to be removed ASAP.
-
-But coming back to the problem underneath. The ordering in
-local_interrupt_disable() is simply wrong. You need to disable first and
-then update the counter. Reverse order for enable() obviously update
-counter and enable, which you got right.
-
-And to make stuff work correctly you need the fixups I pointed out in my
-previous reply to the various entry/exit functions. It's exactly the
-same problem as we handle in interrupt/exception/nmi entry/exit code
-vs. RCU, lockdep, tracing etc.
-
-So if disable() does:
-
-   if (!count)
-   	arch_local_irq_disable();
-   count++;
-
-then an interrupt hitting before arch_local_irq_disable() will always
-observe the correct state. After that it can't be delivered.
-
-Now with exceptions that's a different story because they can hit after
-local_irq_disable() and before the count is incremented.
-
-I thought some more about the state handling there and I think we can
-avoid irq_state_t completely:
-
-  irqentry_enter_from_kernel_mode()
-     count++;
-     ...
-
-  irqentry_exit_to_kernel_mode_after_preempt()
-     ...
-     count--;
-
-For a regular interrupt which hit _before_ disable() managed to disable
-it at the CPU level, this will go from 0 -> 1 and on return from 1 -> 0.
-
-For an exception which hits between disabling and incrementing the
-counter this will go from 0 -> 1 as well, but there is nothing which can
-be done about that and exception handlers need to consult regs->eflags
-to figure out the state of the context they interrupted. If the
-exception hits afterwards then it will set the correct state.  But it
-does not matter in that case because everything there needs to do
-irqsave() so interrupts can't be enabled accidentaly. The only exception
-to that rule is the conditional enable:
-
-   if (regs->eflags & X86_EFLAGS_IF)
-   	local_irq_enable();
-
-And for that to work correctly you want overall consistent counter
-state. Otherwise your counter is just a random number generator.
-
-With that fixed the disable race becomes:
-
-disable()
-     if (!count)
-
--> Interrupt before interrupts are disabled in the CPU.
-
-  irqentry_enter_from_kernel_mode()
-     count++;   // Correct state because the CPU disabled interrupts
-
-  ...
-  __irq_exit_rcu()
-     if (!in_interrupt() && local_softirq_pending()) {
-        handle_softirqs()
-          ...
-          local_irq_enable();                -> Count goes to 0
-          ...
-          guard(spinlock_irq)(&lock)
-            local_interrupt_disable()
-              // Observes count == 0
-              if (!count)
-                 arch_local_irq_disable();
-     ...
-     
-  irqentry_exit_to_kernel_mode_after_preempt()
-     ...
-     count--;
-
-And yes, this only works correctly when _all_ state is consistent. You
-can't get it to work properly with half of it without creating hard to
-debug problems.
-
-Thanks,
-
-        tglx
+Best Regards,
+Petr
