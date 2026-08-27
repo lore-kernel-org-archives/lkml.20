@@ -1,73 +1,74 @@
-Received: from chaosmail.tech (chaosmail.tech [77.81.229.115])
+Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com [113.46.200.221])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 640BA380FF7;
-	Thu, 27 Aug 2026 09:17:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.81.229.115
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A567F41B8F2;
+	Thu, 27 Aug 2026 09:17:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.221
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787822266; cv=none; b=kEEBATE9SLBhTSkcUsGpYXiGPI7xopPoudXHlh1n70KoOeVuvk1a1CH4rYJDIpPAKE+o7EThKpaPlTLLbKmk4bzApDfdZLIag7MtojJGb9b7HfxFKFBCRaaboM8eycAzKGOmIYvQDDTZ1E/2yZEULWKZmApRM4SmV8Gk62NBPEU=
+	t=1787822284; cv=none; b=vBYeIlOtJ2w+CsJh6XOPKQ/NS+srLWlrM8t1bf++1dS+xSsnhJ9w+Aaxvbm/rM2RSbTR75lytOSiLYLQqjpJpJ60t7rtiMBDH06o/0IuO62Iw7Ff5OMPMVC4QWvxNBUGLvdj8byP5KXlC7OVpan+8b2H3ARTUjqTogicaz1I2cY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787822266; c=relaxed/simple;
-	bh=M4JL2DDh2kFEEIBztGWVHhTHMhrmj6tjJLoT35GI3g4=;
-	h=Content-Type:MIME-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=HM2wyfpado/20mABZdvu5jKdq+AmcA5u4pbhc2tqmyxI9YxYpap9q4BgK/peamT63HrnNWdSZ4z95sv9os6qO0G0Mbr+nPct83vs4bss/fUZ82qUfDYFkUv8G3EuiWaBSDPUcuWWpEe+d7g9uX8SU4/wg6L8BaVEzQMYD7NY8JE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech; spf=pass smtp.mailfrom=chaosmail.tech; dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b=RTM768D6; arc=none smtp.client-ip=77.81.229.115
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chaosmail.tech
+	s=arc-20240116; t=1787822284; c=relaxed/simple;
+	bh=Cg4ZAfNGf8KMVQQMDraUIAQ9gerTtCCxcaHKDN+YbJM=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=mBtJRYFQNrMJG2Y0A0zcbn+GLpzzN17vNH9/JBUx985zQSNIpp6iT+13h0Y8a6DTxKsFQHhjaKCCywlwtKzx9FbVG1wWkQJkitvNvFKL3JGWMf3beqfDA7a8EORYCgZXsiXskO6QgJARHfdvbW+xFQ3DfcBtX4a/LkA6XcWiQLo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=oNZRIGE6; arc=none smtp.client-ip=113.46.200.221
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b="RTM768D6"
-Received: by chaosmail.tech (Postfix) id 0B8ED1CC004;
-	Thu, 27 Aug 2026 09:17:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chaosmail.tech;
-	s=mail; t=1787822258;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=B3d6qXAoH2ydeKOTX+N21t6om6kaUfysJTrx7H/1Esk=;
-	b=RTM768D65uV9EGE7KIHZHXEhVA8fU4yBLezNY2ButWgK+qMZkKwAETCTj8wIp+DumjX51z
-	hgdse1rrUH9++OWsmH35RBcoDRLakI4cGy+3OBM58tHSmY7TV68CK2JKmKAZwesmemOL4k
-	06UqESq2A1V6t55Qd1/9nmXJZfUDYfI=
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="oNZRIGE6"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=7YjgYte16FbuTVIo1F9PguT6oBSfTv5aoq2XAbKuJjA=;
+	b=oNZRIGE61Q826VNXogMGk/Jyv70fx+SL+Ho2CDKx1J8Iqe0nchaXV/IrcMEQIHDLA9PUgSRz7
+	s0IeYitybJUJEap6AR2WZi3Gtim+jchX/bWgQs/2tc3QW75Wn8HPjKKVVyPd/ubaH8pfUgfvu0O
+	CqNsidq7RhTtFdJJlE58aTA=
+Received: from mail.maildlp.com (unknown [172.19.162.140])
+	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4hVwd160W6zRhQt;
+	Thu, 27 Aug 2026 17:07:01 +0800 (CST)
+Received: from kwepemk300012.china.huawei.com (unknown [7.202.194.175])
+	by mail.maildlp.com (Postfix) with ESMTPS id 247C62025F;
+	Thu, 27 Aug 2026 17:17:46 +0800 (CST)
+Received: from DESKTOP-A37P9LK.huawei.com (10.67.109.17) by
+ kwepemk300012.china.huawei.com (7.202.194.175) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 27 Aug 2026 17:17:45 +0800
+From: Xie Yuanbin <xieyuanbin1@huawei.com>
+To: <hejunhao3@h-partners.com>
+CC: <linux-edac@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linuxarm@huawei.com>, <mchehab+huawei@kernel.org>,
+	<shijujose2008@gmail.com>, <tanxiaofei@huawei.com>, <tony.luck@intel.com>,
+	<xieyuanbin1@huawei.com>, <xueshuai@linux.alibaba.com>
+Subject: Re: [PATCH] rasdaemon: ras-events: Adapt to kernel v6.19 memory-failure trace event directory change
+Date: Thu, 27 Aug 2026 17:17:15 +0800
+Message-ID: <20260827091715.62022-1-xieyuanbin1@huawei.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260827040641.25143-1-hejunhao3@h-partners.com>
+References: <20260827040641.25143-1-hejunhao3@h-partners.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v7 1/6] dt-bindings: spmi: apple,spmi: Add t603x and t8122
-From: Sasha Finkelstein <k@chaosmail.tech>
-In-Reply-To: <20260827-curvy-competent-bee-fcd81d@quoll>
-Date: Thu, 27 Aug 2026 11:17:27 +0200
-Cc: Sven Peter <sven@kernel.org>,
- Janne Grunau <j@jannau.net>,
- Neal Gompa <neal@gompa.dev>,
- Stephen Boyd <sboyd@kernel.org>,
- Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- asahi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org
-Content-Transfer-Encoding: 7bit
-Message-Id: <E0136D1E-4CB0-44A8-BB70-D499F113D211@chaosmail.tech>
-References: <20260818-t603x-spmi-v7-0-dafebe6e7739@chaosmail.tech>
- <20260818-t603x-spmi-v7-1-dafebe6e7739@chaosmail.tech>
- <20260827-curvy-competent-bee-fcd81d@quoll>
-To: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ kwepemk300012.china.huawei.com (7.202.194.175)
 
-On Aug 27, 2026, at 11:15, Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> 
-> On Tue, Aug 18, 2026 at 08:32:40PM +0200, Sasha Finkelstein wrote:
->> 
->> -required:
->> -  - compatible
->> -  - reg
-> 
-> This stays. Which device does not need reg or compatible? I think none.
+On Thu, 27 Aug 2026 12:06:41 +0800, Junhao He wrote:
+> Kernel v6.19 moves memory_failure_event from the "ras" trace event
+> group to a separate "memory_failure" group, as the event's
+> TRACE_SYSTEM changed from "ras" to "memory_failure". This changes
+> the tracefs path from events/ras/memory_failure_event to
+> events/memory_failure/memory_failure_event.
+>
+> Add get_memory_failure_group_name() to dynamically detect which
+> path exists, ensuring backward compatibility with older kernels
+> that still use the "ras" group.
+>
+> kernel commit:
+>     https://lore.kernel.org/all/20251119095943.67125-1-xieyuanbin1@huawei.com/
 
-I have moved it to the else: section of the if/then below, so it is 
-still present
-
+Can this patch solve your problem?
+Link: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=e57d6e9e20b551e4910d7a6331a81775c3ad6693
