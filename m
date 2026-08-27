@@ -1,32 +1,50 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2F382FBE1F;
-	Thu, 27 Aug 2026 04:34:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89A952F7445;
+	Thu, 27 Aug 2026 04:34:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787805250; cv=none; b=MkMaU4qcmUjkWdY8qPhSiHb90bbSYWbzXsr4OfG3zZEc34NxDBGvXak55nNNgz+E/GGFnncBAh2RvBR5lcXsZdzBc/cgWg8JgjseJAMOWLj+JlRsY7b16vSz0//m5qHn1jLoksTvQUK5RhPTZGmytFiClIw/YXDOFL5HeU6ngOk=
+	t=1787805271; cv=none; b=RVtcjozx1iGa70eHFORjM4oRaLpk/22ceVo+xNLgnvimqvzItIq1Kwmp75P+uU39ifjYfGtaiYQF79JbMtFz6oxNFb3HAalwY64ZPdfe7DnAlLQ5cuapFGahM1LruwEw8KYkrwWzTjjbSfo2f8SKrc7C3uy6q9fSOzN8RYLLD7Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787805250; c=relaxed/simple;
-	bh=1BH16QiWc0Qjb48YHhn9W5XUR+q9xRxcLUk2RYcQIi0=;
+	s=arc-20240116; t=1787805271; c=relaxed/simple;
+	bh=Xr2YAmCQGQtyvAfz5tyUYMYX/2JBvSP9WNi2BFs0z+o=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hiBOI49VnchY6xmEEM29t0AGKU6Lk3WiPyNE7ne6zGhWWLNXmSjtPARHFk0U9UAy/TlI4uHfCkWrfkiqF0SNJlbVrIpZXgyes61NR1l9N2eLOjlXiaG9M3xZy9lgJM6vnv5shdxOiLrfaydD1eyS4t3u6B+aomZhcGndxdbKtzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=CxbT6Z72; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	 In-Reply-To:Content-Type; b=b8N1tMPgC+Oj0Ob7PVUJU/VVGAThNqAfZ2pWYTquNerW1CRvCZ18RyZ1jc7P6QrzmtnL1ovB24VOEa6QvwTkOvk6FDRMWfNCrH60NTwHy3rmusEYVmULh4xXE9XsJvfX9ic/0FX0CLz+YBdrHQPiAp+FgYPNChwxP/BCvSzsnzM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=meCw09th; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="CxbT6Z72"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=PRoXD4sZgycHw3w5/hnLgpayzzS06vs5edBN/I94MWc=;
-	b=CxbT6Z72WSbtkVnrJTNytTTxgQQdQXdSv+j1NOkIYbnVqwReA5n0r7zb507ScU
-	uZgqQg49YPRIQgd8bGPnfxGYR008ITLwLE8H6e7k6wLW0BvWxjILF5HyDkPZTS3Q
-	Yp3DJtakRQ85VpRXHsKhbfwrwC0zfqoJn++Oygjh5UrLA=
-Received: from [IPV6:2409:8900:1ef4:8f82:6a1b:f1a6:cbdd:11fe] (unknown [])
-	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wCnoe0dvo9q_WUwDw--.46122S2;
-	Thu, 27 Aug 2026 12:33:35 +0800 (CST)
-Message-ID: <6bf63800-e169-4ff7-baa2-52c4d42bb35e@163.com>
-Date: Thu, 27 Aug 2026 12:33:33 +0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="meCw09th"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787805270; x=1819341270;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=Xr2YAmCQGQtyvAfz5tyUYMYX/2JBvSP9WNi2BFs0z+o=;
+  b=meCw09thLe8tpZwZ74giYRGtyeGLzWIFmxWi/MeHwZTUX5KfT+vH/a1D
+   1JUiaxVVTS0qVpwdgmiYjjtsYZ/juXNYkT+HQtAR6brKmV8LbquQq6cBZ
+   XIwXt6oNCsXO0vLyXMmqqMpB4flpMaU29WQelopK4HQJn2SPKS9bvlDz5
+   ruAKISVF3N84rzN0HtgbxfdWVP4WNeQOK1ny/dx6oMPDU2OuODljr0x06
+   //hxR3FLRsu5/3G3kAdwy8AjMYzdthRIj5ErvXIv40OUe1PAWHA9OTwLo
+   t7XjyHL5ERXLFgjr0qOoC8D39Gj1k33RApePoX6xleR+t1JRwMfb+KY7R
+   g==;
+X-CSE-ConnectionGUID: +b5wgn7rTAu98IPXLJPB/w==
+X-CSE-MsgGUID: G2Anc8E3TGqgBUakQE0d/A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="75839220"
+X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
+   d="scan'208";a="75839220"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 21:34:28 -0700
+X-CSE-ConnectionGUID: rV3cStscS/aNLMyWraRS+w==
+X-CSE-MsgGUID: WvkBd7g8TtuwCi4hAeOL8Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
+   d="scan'208";a="269701976"
+Received: from xiaoyaol-hp-g830.ccr.corp.intel.com (HELO [10.124.240.119]) ([10.124.240.119])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 21:34:14 -0700
+Message-ID: <a151b52d-0afb-4b32-a871-4da67210f416@intel.com>
+Date: Thu, 27 Aug 2026 12:34:11 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -34,144 +52,108 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] ntfs: fix race between fallocate and mmap reads
-To: Hongling Zeng <zhongling0719@126.com>,
- Hongling Zeng <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
- hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Baolin Liu <liubaolin@kylinos.cn>
-References: <20260827031647.1605970-1-zenghongling@kylinos.cn>
- <bd197da8-a8ec-40ad-a50d-dc579840d680@163.com> <6A8FB73D.30104@126.com>
+Subject: Re: [PATCH v10 09/41] KVM: guest_memfd: Filter both shared and
+ private when invalidating
+To: Sean Christopherson <seanjc@google.com>,
+ Ackerley Tng <ackerleytng@google.com>
+Cc: Michael Roth <michael.roth@amd.com>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>,
+ "David Hildenbrand (Arm)" <david@kernel.org>, aik@amd.com,
+ andrew.jones@linux.dev, binbin.wu@linux.intel.com, brauner@kernel.org,
+ chao.p.peng@linux.intel.com, jmattson@google.com, jthoughton@google.com,
+ oupton@kernel.org, pankaj.gupta@amd.com, qperret@google.com,
+ rick.p.edgecombe@intel.com, rientjes@google.com, shivankg@amd.com,
+ steven.price@arm.com, tabba@google.com, willy@infradead.org,
+ wyihan@google.com, yan.y.zhao@intel.com, forkloop@google.com,
+ pratyush@kernel.org, aneesh.kumar@kernel.org, liam@infradead.org,
+ Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Shuah Khan <shuah@kernel.org>, Vishal Annapurve <vannapurve@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Youngjun Park <youngjun.park@lge.com>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Baoquan He <baoquan.he@linux.dev>,
+ Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, tarunsahu@google.com,
+ Vlastimil Babka <vbabka@kernel.org>, kvm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-mm@kvack.org, linux-coco@lists.linux.dev
+References: <20260807-gmem-inplace-conversion-v10-9-2fc18ee6d3ba@google.com>
+ <13ca60c6-e154-4397-8092-09f861e90fe0@kernel.org>
+ <cbf5f7ca-a960-4fb8-a760-2d2794eb6864@arm.com>
+ <CAEvNRgGOyQHnF_b8dk8E0d7_=CcwXtYUdU3ko7Qbep+_O7UC0Q@mail.gmail.com>
+ <aoZZMQ3Uc8yQWPNA@google.com>
+ <7eba513d-cdae-4832-abac-038dcdd88517@intel.com>
+ <meww2a2uf3yeevsfpicyrlg3hch2x4bsdqv2lsv3vfjxg4qzes@co5eogmhkxrk>
+ <ao3lOu8-wpGTs2wd@google.com>
+ <ba8d0441-b52f-4357-b2e7-1e352aa385a2@intel.com>
+ <CAEvNRgFXJbV78ktsg=b4srFp1OFjtQWQGuNPjr_MmWD-wOvjgw@mail.gmail.com>
+ <ao7vwx3nMqCjCHZU@google.com>
 Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <6A8FB73D.30104@126.com>
+From: Xiaoyao Li <xiaoyao.li@intel.com>
+In-Reply-To: <ao7vwx3nMqCjCHZU@google.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wCnoe0dvo9q_WUwDw--.46122S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxGw45tFyrtry7ArWkZFW5Wrg_yoWrGw1fpr
-	WqgF4jkr48XrWUuF1vgw4j9F1Fg340grW5urW3J3WIvrn8KFn2gF1UKr4xuryFyFZ3Jrs3
-	X3WUJrZruFyYv3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UaJPiUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwh81AGqPvh-OlwAA31
+Content-Transfer-Encoding: 7bit
 
-
-
-在 2026/8/27 12:04, Hongling Zeng 写道:
+On 8/26/2026 9:53 PM, Sean Christopherson wrote:
+<snip>
+>> Is this just a case of user error? That with gmem_in_place_conversion,
+>> userspace should not use userspace_addr from something other than the
+>> gmem for the same memslot?
 > 
-> 在 2026年08月27日 11:37, liubaolin 写道:
->>
->>
->> 在 2026/8/27 11:16, Hongling Zeng 写道:
->>> The fallocate implementation only takes invalidate_lock for punch hole,
->>> collapse range, and insert range operations. For standard allocation 
->>> modes
->>> (mode == 0, FALLOC_FL_KEEP_SIZE), the lock is not held.
->>>
->>> During ntfs_attr_fallocate(), new clusters are mapped to the runlist via
->>> ntfs_attr_map_cluster() before being zeroed by ntfs_dio_zero_range(). 
->>> This
->>> creates a window where concurrent mmap page faults can read 
->>> uninitialized
->>> disk data.
->>>
->>> Since mmap uses filemap_fault() which takes invalidate_lock in shared 
->>> mode,
->>> it can fault in pages during this window and expose old disk contents to
->>> userspace. This is an information leak and data integrity issue.
->>>
->>> Fix by taking invalidate_lock for all fallocate operations, not just for
->>> punch/collapse/insert modes. This prevents concurrent page faults from
->>> accessing unzeroed clusters during the allocation window.
->>>
->>> Fixes: 495e90fa3348 ("ntfs: update attrib operations")
->>> Cc: stable@vger.kernel.org
->>> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
->>> Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
->>> Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
->>> ---
->>> Change in v2:
->>>   -Remove now-unnecessary map_locked variable.
->>> ---
->>>   fs/ntfs/file.c | 7 ++-----
->>>   1 file changed, 2 insertions(+), 5 deletions(-)
->>>
->>> diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
->>> index 88747217ba61..779baafa0319 100644
->>> --- a/fs/ntfs/file.c
->>> +++ b/fs/ntfs/file.c
->>> @@ -1153,11 +1153,8 @@ static long ntfs_fallocate(struct file *file, 
->>> int mode, loff_t offset, loff_t le
->>>       }
->>>         inode_dio_wait(vi);
->>> -    if (mode & (FALLOC_FL_PUNCH_HOLE | FALLOC_FL_COLLAPSE_RANGE |
->>> -            FALLOC_FL_INSERT_RANGE)) {
->>> -        filemap_invalidate_lock(vi->i_mapping);
->>> -        map_locked = true;
->>> -    }
->>> +    /* Take invalidate_lock for all fallocate operations to prevent 
->>> races */
->>> +    filemap_invalidate_lock(vi->i_mapping);
->>>         switch (mode & FALLOC_FL_MODE_MASK) {
->>>       case FALLOC_FL_ALLOCATE_RANGE:
->>
->> Hi Hyunchul and Hongling,
->>
->> I think map_locked might still be needed though.
->>
->> Before filemap_invalidate_lock() is taken, there's this check:
->>
->>         inode_lock(vi);
->>         if (NInoCompressed(ni) || NInoEncrypted(ni) || 
->> NInoWofCompressed(ni)) {
->>                 err = -EOPNOTSUPP;
->>                 goto out;
->>         }
->>
->>         inode_dio_wait(vi);
->>         filemap_invalidate_lock(vi->i_mapping);
->>
->> If that goto is taken, we reach the exit path without having locked.
->> Without map_locked, we'd call filemap_invalidate_unlock() on a lock
->> we never took.
->>
->> Would it make sense to either:
->> 1. Keep map_locked as a guard for the unlock, or
->> 2. Change that goto to inode_unlock() + direct return, so the shared
->>      exit path always holds the lock?
->>
->> I'd appreciate your thoughts on this.
->>
->> Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
->>
->> Thanks,
->> Baolin.
-> Hi  Baolin and Hyunchul
->   You're right — that's exactly the unbalanced-unlock path we spotted while
->    preparing v3, and option 2 is what v3 implements. The early exit now 
-> does
->    inode_unlock() + direct return, so every path reaching out: holds
->    invalidate_lock, which let us drop map_locked entirely:
-> 
->     inode_lock(vi);
->     if (NInoCompressed(...) ) {
->             inode_unlock(vi);
->             return -EOPNOTSUPP;
->     }
->     inode_dio_wait(vi);
->     filemap_invalidate_lock(vi->i_mapping);
->     ...
->     out:
->             filemap_invalidate_unlock(vi->i_mapping);
->     v3 with this cleanup is on its way / attached.
-> 
->   Would this v3 approach be OK with you?
-> 
->     Thanks,
->     Hongling
+> Yes.  It's not just invalidations that will go sideways, 
 
-Hi Hyunchul,
-    I think this approach is good.Looking forward to your feedback.
+> KVM accesses to guest
+> memory won't hit the same physical page as actual guest accesses.
 
-Thanks,
-Baolin.
+Side topic.
+
+If KVM enforces KVM_MEMSLOT_GMEM_ONLY when gmem_in_place_conversion is 
+true like below proposal, should we update KVM's guest memory accessors 
+to access gmem directly?  If still use the existing code of accessing 
+userspace_addr of the memslot, I think KVM needs to document clearly 
+that when KVM_CAP_GUEST_MEMFD_MEMORY_ATTRIBUTES is enumerated, if 
+configuring the guest_memfd for a memslot, the userspace_addr passed in 
+needs to be the mmaped address of the guest_memfd.
+
+> Huh.  But that isn't strictly guaranteed, because userspace could bind to a
+> memslot that isn't configured with GUEST_MEMFD_FLAG_MMAP, in which case SHARED
+> faults will go through the VMA, not kvm_mmu_faultin_pfn_gmem().  It's a bit early
+> in the morning, but off the top of my head, I can't think of any reason we need
+> to support such a setup.  If userspace really, really wants to use a separate
+> mapping, they could DELETE+CREATE an equivalent memslot without the guest_memfd
+> file descriptor.
+> 
+> So I think we should do this?
+> 
+> diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
+> index 9c2d52bdf25e..86f53e53a136 100644
+> --- a/virt/kvm/guest_memfd.c
+> +++ b/virt/kvm/guest_memfd.c
+> @@ -1013,7 +1013,7 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
+>   	 */
+>   	WRITE_ONCE(slot->gmem.file, file);
+>   	slot->gmem.pgoff = start;
+> -	if (kvm_gmem_supports_mmap(inode))
+> +	if (gmem_in_place_conversion || kvm_gmem_supports_mmap(inode))
+>   		slot->flags |= KVM_MEMSLOT_GMEM_ONLY;
+
+I like this idea. It makes gmem_in_place_conversion a step closer to 
+what its name implies, though in-place conversion is not truly 100% 
+guaranteed[*].
+
+[*] https://lore.kernel.org/all/akUbz_kJvYulaboo@google.com/
+>   	xa_store_range(&f->bindings, start, end - 1, slot, GFP_KERNEL);
+> 
+> Regardless, the key aspect of all this is that in-place conversion is brand new
+> functionality, so we don't have to ensure backwards compatibility.
 
