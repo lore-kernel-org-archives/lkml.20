@@ -1,187 +1,103 @@
-Received: from mail-oi2-f4.google.com (mail-oi2-f4.google.com [74.125.231.196])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B94162D73B9
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:50:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.196
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787791848; cv=none; b=e6XREBFU1k1dGKAj6uEHgsZ1I2QRVYanlhfswLbzbMsiWDZznz6icXHkqM+PtAWTGDqvAbVHOw146nigATKuoBkFOzN727x1grCco81mikAXFdj2VPqWk3VTLfn2Eonvy6yYRa+tB2Yx4FinVkHVx/Pde6KZMOVNhmjab1ZDdD4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787791848; c=relaxed/simple;
-	bh=I91zT7bi8CbiqYpDL1hKBuFQfWl3eq5wnlYIHQII3IM=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=KYlp4VINZS7ag3v5gjdrUZ+kDJXdmnRmtLdlWwaFP/dlqW/PsAewm8jlmwurEJ370lWLqmIK5Bry++EbBB2GElepuRJ19Gptg9KszkoSgN8lOoT/7U//qgcCF8VGTpIPxSpsgfCj98FL7H1mkdlOcE8P2s/P6GGektc7fNMDZgM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.196
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi2-f4.google.com with SMTP id 5614622812f47-4a4d46eea77so660832b6e.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 17:50:46 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787791845; x=1788396645;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=myKNcAXHQHBzDxhBxtfw059JmFkfhbvcFY/BtTg3Qcs=;
-        b=Oda5dW8qNCw1Vn1qbeCidbMLmqEiDUQKFdGXCG1piEHYd29rx2bbS1wVhGoEWYKItG
-         IC/VQ/cyLTNWQ4X6iN1lYsOhYgQ8i7OXYlLwepUNwGJbIKdCN7OK/8nAGKk1tmi5UjwV
-         38XQOQ0T9E4yFAH+sSL0M+jpjU9JBhKUlAz9UfgVpFzfIeujqnY1dXTC+K/01OcnIBG8
-         ElL5DGcqthzDUyr43Fw4jvSU9TQWNMV6MECBu/f/H+z9MPGkKlGKs6l5dlBGvKkpWzpS
-         5PrQzmy8Up01VkO+pLofpPtTc97S7tIic/XwKu97JEc9lVXAx4+mVvBhHU+moYUrL0IS
-         W/Ew==
-X-Forwarded-Encrypted: i=1; AHgh+RqUjE/zxZGRX4R5TLw3CtpGxWHNXH7S/ex6gf4i3Sp6m0JT2mnGkWF+6m6+kYQJXqNORNdf1Duii+EvOSQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++k5e7jBCIkmb/+pUOkeOQbEQch2TvHy6hbKjVlvbgl0D+DZMKDC
-	xOgPSTwaa6ArGUYEnuMB6Vdt1bEtIrYptq6Bmr+VUNBBOizbmoNd7EQep+J4WqC1pWIqv/vmYnT
-	Zqw8k0JUQ3jD+8ILm84wyies/U4vGlikN5GREpeQ2jSAqvs6hg7TT/e3qXj0=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6E0E25B0BB;
+	Thu, 27 Aug 2026 00:56:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787792203; cv=pass; b=WkUo8uxNCZZkKhHxfIbu1mQ/wPdaF5X/0qI7B9W7IT/NiC2ePKmAWhQcHPFNlOeH5M2iOB60P88HMW9leA8HBsojbukg43hkKrZ3eHPaVYaQcf+WOm6zOIf5XmU0eItASo1oFlFZI1773fcX3Sza3uP1/9EhZw04Buba2s7Df0I=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787792203; c=relaxed/simple;
+	bh=+LrLE8+rJtI76h8J7YNnJ/2iFK09dqNEr+r/n2j1rL0=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=N9RtCQY00pq55bP/pCVAvJsrXnO5KeefufyjzfMSStX+c64U1G359Gu3QNKLoQua2eXzXliQh6isnSaN72SuHdwJuxfWixJokUdfT7Z3qH/Qc+ApwWoY74RxBzKRKrT33zELS71S9uUzeWfm1YdQeOhIK8YNQdildEVTU0j/5uA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b=jX7MyS9U; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="jX7MyS9U"
+ARC-Seal: i=1; a=rsa-sha256; t=1787792151; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=IJg7DN2ynBoKLJxuLdPi/98gMDxeFQlNBrjpW7l0d4kvH29O2TkVwNnjuAUZaK1M1BfEjeVA969J0SbP1VAP22P8pSIpT7/YLuOqZgxCa+rTHRnV9mW8oi6fXmckROaQim+VZJ+n29Y5SAEeAeWiwDGOr97WTnHnFffrWJIWDRg=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1787792151; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=+LrLE8+rJtI76h8J7YNnJ/2iFK09dqNEr+r/n2j1rL0=; 
+	b=Vk6BWSwF0De1cG1FHIjoEsFM5KXFv/MVgKkfRwNhS0qqPxlPa619F2yvRyPVILUA8Eo+2trp7oYgHCdxWO5Da30X/rBQhqoyU2LlIkbBVtsayBciGpUzfak0yCclEwf2nIlGJ4VvVdmua4NgKI6MIWdpqHxY7r11hg70iDeoYDk=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+	dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787792151;
+	s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+	h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
+	bh=+LrLE8+rJtI76h8J7YNnJ/2iFK09dqNEr+r/n2j1rL0=;
+	b=jX7MyS9UBkYiXyxmJjm2CtrFStlSKhzaq2fMYbOFFH3qx49LvYU/mWlHsmdYtAHO
+	zsmWC/M6ZdCtPDIXZ09Y3rymqZY/nWmYsUhjsqxV6yE4DSXi72b9drHzSDmpmDJV8bj
+	7z2dCfy0ql/D2KgOpltrebaN2ADQgA8oAbe8MRWk=
+Received: by mx.zohomail.com with SMTPS id 178779214921797.4098834851884;
+	Wed, 26 Aug 2026 17:55:49 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Received: by 2002:a05:6808:199b:b0:4b3:7efc:e970 with SMTP id
- 5614622812f47-4b37f0c2d0bmr3488260b6e.5.1787791845588; Wed, 26 Aug 2026
- 17:50:45 -0700 (PDT)
-Date: Wed, 26 Aug 2026 17:50:45 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a8f89e5.1d9ded08.62e62.00bf.GAE@google.com>
-Subject: [syzbot] [audit?] BUG: unable to handle kernel paging request in integrity_audit_message
-From: syzbot <syzbot+5ebeb3089ea6439c37be@syzkaller.appspotmail.com>
-To: audit@vger.kernel.org, eparis@redhat.com, linux-kernel@vger.kernel.org, 
-	paul@paul-moore.com, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
+Subject: Re: [PATCH v4 03/11] rust: xarray: add `XArrayState`
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <20260604-xarray-entry-send-v4-3-965f6028790e@kernel.org>
+Date: Wed, 26 Aug 2026 21:55:29 -0300
+Cc: Miguel Ojeda <ojeda@kernel.org>,
+ Alex Gaynor <alex.gaynor@gmail.com>,
+ Gary Guo <gary@garyguo.net>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Christoph Lameter <cl@gentwo.org>,
+ David Rientjes <rientjes@google.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Boqun Feng <boqun@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>,
+ Harry Yoo <harry@kernel.org>,
+ Hao Li <hao.li@linux.dev>,
+ Daniel Gomez <da.gomez@kernel.org>,
+ rust-for-linux@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <66630DA9-0546-4211-BF30-C99123B76E5B@collabora.com>
+References: <20260604-xarray-entry-send-v4-0-965f6028790e@kernel.org>
+ <20260604-xarray-entry-send-v4-3-965f6028790e@kernel.org>
+To: Andreas Hindborg <a.hindborg@kernel.org>
+X-Mailer: Apple Mail (2.3826.700.81)
+X-ZohoMailClient: External
 
-Hello,
+Hi Andreas,
 
-syzbot found the following issue on:
+My main worry here is cursor invalidation, i.e.: what happens if someone
+mutates the tree while we have live instances of XArrayState handed out =
+via
+patch 7? For example, what if someone writes =
+"self.state.guard.remove(...)"
+inside the kernel crate itself while some user code has an =
+OccupiedEntry?
 
-HEAD commit:    66fb95a52111 Merge tag 'caps-pr-20260820' of git://git.ker..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=1560d549580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=b0978f5ed2905b98
-dashboard link: https://syzkaller.appspot.com/bug?extid=5ebeb3089ea6439c37be
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=16fb4625580000
+I think this could be solved by hiding XArrayState in its own module and
+exposing only a small set of checked helpers while its fields remain =
+private so
+that we carefully vet against the situation above.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/e7d9049723b0/disk-66fb95a5.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/a04d6efe59a0/vmlinux-66fb95a5.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/81e3f2b9c049/bzImage-66fb95a5.xz
+Additionally we have to ensure that, in order to get the guard, one must
+destroy the XArrayState, for the same reason. This is currently the case =
+with
+into_guard() IIUC, but I think it's worth to spell it out in the =
+invariant section.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+5ebeb3089ea6439c37be@syzkaller.appspotmail.com
-
-BUG: unable to handle page fault for address: ffffffffffffffdc
-#PF: supervisor read access in kernel mode
-#PF: error_code(0x0000) - not-present page
-PGD eb97067 P4D eb97067 PUD eb99067 PMD 0 
-Oops: Oops: 0000 [#1] SMP KASAN NOPTI
-CPU: 0 UID: 0 PID: 5818 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/16/2026
-RIP: 0010:strlen+0x30/0xa0 lib/string.c:402
-Code: 00 00 00 00 00 fc ff df 55 48 89 fa 48 89 fd 53 48 c1 ea 03 48 83 ec 08 0f b6 04 02 48 89 fa 83 e2 07 38 d0 7f 04 84 c0 75 50 <80> 7d 00 00 74 3d 48 bb 00 00 00 00 00 fc ff df 48 89 e8 48 83 c0
-RSP: 0018:ffffc90003d77940 EFLAGS: 00010246
-RAX: 0000000000000000 RBX: ffffffffffffffdc RCX: 0000000000000000
-RDX: 0000000000000004 RSI: ffffffff8207fb91 RDI: ffffffffffffffdc
-RBP: ffffffffffffffdc R08: 0000000000000004 R09: 00000000000000b7
-R10: 00000000000006c0 R11: ffffffff8bc921d3 R12: ffff8880785a84c0
-R13: 0000000000000007 R14: 00000000fffffff3 R15: ffffffffffffffdc
-FS:  000055555ec16500(0000) GS:ffff888123b86000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: ffffffffffffffdc CR3: 0000000075fb6000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- __fortify_strlen include/linux/fortify-string.h:218 [inline]
- audit_log_untrustedstring+0x19/0x30 kernel/audit.c:2203
- integrity_audit_message+0x366/0x4f0 security/integrity/integrity_audit.c:60
- integrity_audit_msg+0x41/0x60 security/integrity/integrity_audit.c:32
- validate_hash_algo security/integrity/ima/ima_appraise.c:752 [inline]
- ima_inode_setxattr+0x512/0x5f0 security/integrity/ima/ima_appraise.c:775
- security_inode_setxattr+0x2d0/0x560 security/security.c:1940
- __vfs_setxattr_locked+0xad/0x2b0 fs/xattr.c:309
- vfs_setxattr+0x14a/0x390 fs/xattr.c:344
- do_setxattr+0x145/0x180 fs/xattr.c:662
- file_setxattr fs/xattr.c:672 [inline]
- file_setxattr+0x139/0x1b0 fs/xattr.c:666
- path_setxattrat+0x335/0x3b0 fs/xattr.c:732
- __do_sys_fsetxattr fs/xattr.c:782 [inline]
- __se_sys_fsetxattr fs/xattr.c:779 [inline]
- __x64_sys_fsetxattr+0xc5/0x140 fs/xattr.c:779
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f506239e0d9
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fff3373f938 EFLAGS: 00000246 ORIG_RAX: 00000000000000be
-RAX: ffffffffffffffda RBX: 00007f5062625fa0 RCX: 00007f506239e0d9
-RDX: 0000200000000380 RSI: 0000200000000080 RDI: 0000000000000004
-RBP: 00007f5062435024 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000002 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f5062625fac R14: 00007f5062625fa0 R15: 00007f5062625fa0
- </TASK>
-Modules linked in:
-CR2: ffffffffffffffdc
----[ end trace 0000000000000000 ]---
-RIP: 0010:strlen+0x30/0xa0 lib/string.c:402
-Code: 00 00 00 00 00 fc ff df 55 48 89 fa 48 89 fd 53 48 c1 ea 03 48 83 ec 08 0f b6 04 02 48 89 fa 83 e2 07 38 d0 7f 04 84 c0 75 50 <80> 7d 00 00 74 3d 48 bb 00 00 00 00 00 fc ff df 48 89 e8 48 83 c0
-RSP: 0018:ffffc90003d77940 EFLAGS: 00010246
-RAX: 0000000000000000 RBX: ffffffffffffffdc RCX: 0000000000000000
-RDX: 0000000000000004 RSI: ffffffff8207fb91 RDI: ffffffffffffffdc
-RBP: ffffffffffffffdc R08: 0000000000000004 R09: 00000000000000b7
-R10: 00000000000006c0 R11: ffffffff8bc921d3 R12: ffff8880785a84c0
-R13: 0000000000000007 R14: 00000000fffffff3 R15: ffffffffffffffdc
-FS:  000055555ec16500(0000) GS:ffff888123b86000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: ffffffffffffffdc CR3: 0000000075fb6000 CR4: 00000000003526f0
-----------------
-Code disassembly (best guess):
-   0:	00 00                	add    %al,(%rax)
-   2:	00 00                	add    %al,(%rax)
-   4:	00 fc                	add    %bh,%ah
-   6:	ff                   	lcall  (bad)
-   7:	df 55 48             	fists  0x48(%rbp)
-   a:	89 fa                	mov    %edi,%edx
-   c:	48 89 fd             	mov    %rdi,%rbp
-   f:	53                   	push   %rbx
-  10:	48 c1 ea 03          	shr    $0x3,%rdx
-  14:	48 83 ec 08          	sub    $0x8,%rsp
-  18:	0f b6 04 02          	movzbl (%rdx,%rax,1),%eax
-  1c:	48 89 fa             	mov    %rdi,%rdx
-  1f:	83 e2 07             	and    $0x7,%edx
-  22:	38 d0                	cmp    %dl,%al
-  24:	7f 04                	jg     0x2a
-  26:	84 c0                	test   %al,%al
-  28:	75 50                	jne    0x7a
-* 2a:	80 7d 00 00          	cmpb   $0x0,0x0(%rbp) <-- trapping instruction
-  2e:	74 3d                	je     0x6d
-  30:	48 bb 00 00 00 00 00 	movabs $0xdffffc0000000000,%rbx
-  37:	fc ff df
-  3a:	48 89 e8             	mov    %rbp,%rax
-  3d:	48                   	rex.W
-  3e:	83                   	.byte 0x83
-  3f:	c0                   	.byte 0xc0
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+=E2=80=94 Daniel=
