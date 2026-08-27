@@ -1,162 +1,140 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F06023392B
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 19:05:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 096EB3FB046
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 19:06:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787857531; cv=none; b=oCDWulf4S2zbM/HPTGYnBi8f4zIuMJ+ptX91w/LHd3rEKLziO+vYZ7HqOqXGhGPlILGTYBc7sH5LlfqLYGet4EjgnkUyzgYXh/RTIRQBKcoWUYLge8nqQevDHCnsWLVp1DB4dNWdOa89j6WZczC4TFlmCqcOyvX/ryBzM/EjGO4=
+	t=1787857563; cv=none; b=JIxgoFvyl922/gTg6fcM/m8Nnv2eYPF7JUMqviRxy0jRodccPlnXOWnSkrEPimniYl2ORlbiyoQWIegcmEZJr9Zu+Z1xI5zk4Mr645DmcR/a7/wVfw8bEADvVb/jO1gNq7CJp9kvJQq/TH+BVXe8D+4ah12O2MbqsSjpb1lgY8w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787857531; c=relaxed/simple;
-	bh=AImPO2yc3vyRcHbRtS9kErL7C+vs8y+5bovw/Pauct4=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=gHYxt4qseW/Nq/B7GVws46THKffUJcpmiif7oPMG38yjRzr+ySnCVanb8ZU/GXloTxc/C/cC0sttTKB+QEnZLOJZB5h3GTaEpVrxioWnQszUqNqogf/SZl3jDAYlnDO4MGosgel4LIy1yqYVk6NfEaKDWVA9moI6O+GtCF5jJBw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=JfLIGPWP; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=j6SZCrKo; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1787857563; c=relaxed/simple;
+	bh=E+90YyG8rFTayq6+/y5ItQ+4p+xUE5Od8M4P46rwFP8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QvWR5Y4MBNnLz+JpsFmgEA0kwZnCQ6luYlzmqtWLb2bw8mgzj1GC3j/VaJ8J8subcUldF+gyGSuh6QzvAlcfrfBginm6AuBSMpDk/ZlsXEFfTVc6l+mK1QyUObGGR/FEiJnNtVuQSyi21ZS5P6ayKH8gccRgQLscafT6aFULVwU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dvycqUr8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="JfLIGPWP";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="j6SZCrKo"
-From: John Ogness <john.ogness@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1787857528;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1t06oSpIK8dv7dZg9J3ZYOM/SDrR5ugFNYHdBQaPLvc=;
-	b=JfLIGPWPaTY4pzuuiyA0KfmW8WLto7GPBL/8JQWIdwK3Zg9BH8L9Zpn6nmMQ6hE++vCtbG
-	hvqUjNaR10w58aYgMlByQ/SUiy0DZVVbo8+9oYXHkNf1xrw8/W6Ud/Y9HDIK3bMslealcg
-	2trLeAjQi7PHtK6zFZ9L/w8AlhFT5995EyqJgeAkIjsYMWH0/zflGs39yN7OEErnYA+Zsf
-	dllEmt0lW7yso3IclIkSFF/9ce1rg7aqthHWODtawBbACQh45yxL+m215008dxZhFknWHN
-	L0DR+53KTvxrPySSMaZySEQvuVVJYtTo+jgxuVcKFxOOoIVp9d7sA9CvhaJ4Qw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1787857528;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1t06oSpIK8dv7dZg9J3ZYOM/SDrR5ugFNYHdBQaPLvc=;
-	b=j6SZCrKop2FK6ohkxXhy0BJWduFkU1ugPJkzLguyo+2s8/mnk97iiSmW1zVCR/5+8z0WGP
-	SDyaqmHBgFw2QxCQ==
-To: Aditya Chillara <aditya.chillara@oss.qualcomm.com>, Petr Mladek
- <pmladek@suse.com>, Steven Rostedt <rostedt@goodmis.org>, Sergey
- Senozhatsky <senozhatsky@chromium.org>
-Cc: linux-kernel@vger.kernel.org, Aditya Chillara
- <aditya.chillara@oss.qualcomm.com>
-Subject: Re: [PATCH 0/2] printk/stop_machine: Defer legacy console flushes
- while a CPU runs a stopper callback
-In-Reply-To: <20260827-defer-legacy-console-write-on-multi_cpu_stop-v1-0-3b9f6bb4679f@oss.qualcomm.com>
-References: <20260827-defer-legacy-console-write-on-multi_cpu_stop-v1-0-3b9f6bb4679f@oss.qualcomm.com>
-Date: Thu, 27 Aug 2026 21:11:27 +0206
-Message-ID: <87pkz3o03s.fsf@jogness.linutronix.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dvycqUr8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15B7D1F000E9;
+	Thu, 27 Aug 2026 19:05:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787857561;
+	bh=qvAjMUQfB68JhL8RVuJBxxq+2zV5hpIDxgxtvNxSWwY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=dvycqUr8nLdxAJSsmYmBehOuav+6pGYrnTBb9M8bBqCwslkLJLCEoCtZvOtKbaHIR
+	 ryAPQBlm7sHMrS7BJV1r443wYqfuBQhQlrxXWZxafTS2lLZ2vb0UrNjUA+jubDIjlZ
+	 HcUATpM7k2WspidyNx4/YWoWqzRZ0dCBNFd2QkyTQdyFLhVc4dYzfqh24xGdbN0O2z
+	 Q2empcC3PyH4s1m4N6AcGGrkOvt7V6okP4p56o07ybWLLbOOdOARJ32yxl5S9FeT+L
+	 UkSwaYcNxTcjCbw52ruUFCgufiEaZJDGK/EdJISib7XijKTUPhYbiJFn7IPyHQm0GM
+	 e38gChEbkc+Dg==
+Message-ID: <dbc740e2-660a-44be-8f62-61838603d838@kernel.org>
+Date: Thu, 27 Aug 2026 21:05:54 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 04/18] mm/huge_memory: split the routine for splitting
+ anon and file folio
+To: Kairui Song <ryncsn@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
+ Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
+ Shivam Kalra <shivamkalra98@zohomail.in>
+References: <20260821-swap-thp-cleanup-v3-0-9b43f5163238@tencent.com>
+ <20260821-swap-thp-cleanup-v3-4-9b43f5163238@tencent.com>
+ <e156c931-69b4-48d6-84bf-c06df134c9da@kernel.org>
+ <CAMgjq7BzAkuibv+SyZQ+WzzbEL29dV-vPYyX2p43L0JDn3=wNg@mail.gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <CAMgjq7BzAkuibv+SyZQ+WzzbEL29dV-vPYyX2p43L0JDn3=wNg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 2026-08-27, Aditya Chillara <aditya.chillara@oss.qualcomm.com> wrote:
-> A device using a legacy UART console (console=ttyMSM0,115200n8) hit a
-> watchdog bark/bite about 40 seconds after boot.
->
-> stop_machine() (used here for kprobe text patching) stops every CPU by
-> running multi_cpu_stop() on each of them, through the per-CPU
-> "migration/%u" threads. These threads run at a higher priority than the
-> msm_watchdog thread. At bite time, all eight CPUs were still spinning in
-> multi_cpu_stop()'s MULTI_STOP_PREPARE state, where interrupts are left
-> enabled.
->
-> Heavy SELinux denial logging had built up a large backlog on the
-> console. One CPU took an interrupt while spinning in MULTI_STOP_PREPARE.
-> Handling it eventually led to a printk(), and because the console was a
-> legacy console, that printk() synchronously drained the whole backlog
-> over the slow UART. While the drain was still running, the watchdog bark
-> interrupt hit the same CPU, found no recent pet, and escalated to a
-> bite.
->
-> The captured stack for that CPU, innermost frame first:
->
->   qcom_soc_set_wdt_bite
->   qcom_wdt_bark_handler
->   __handle_irq_event_percpu
->   handle_irq_event
->   handle_fasteoi_irq
->   generic_handle_domain_irq
->   gic_handle_irq
->   do_interrupt_handler
->   el1_interrupt
->   el1h_64_irq_handler
->   el1h_64_irq
->   console_flush_all
->   console_unlock
->   vprintk_emit
->   dev_vprintk_emit
->   dev_printk_emit
->   __dev_printk
->   _dev_err
->   btspi_sleep_timeout_handler
->   call_timer_fn
->   __run_timer_base
->   run_timer_softirq
->   handle_softirqs
->   __do_softirq
->   ____do_softirq
->   call_on_irq_stack
->   do_softirq_own_stack
->   __irq_exit_rcu
->   irq_exit_rcu
->   el1_interrupt
->   el1h_64_irq_handler
->   el1h_64_irq
->   multi_cpu_stop
->   cpu_stopper_thread
->   smpboot_thread_fn
->   kthread
->   ret_from_fork
->
-> Every other CPU stayed parked in the rendezvous the whole time, since
-> their stopper threads outrank msm_watchdog. Nothing could pet the
-> watchdog until the drain finished.
->
-> This was observed through multi_cpu_stop(), but the hazard is not
-> specific to it. Every cpu stopper callback runs in stop_sched_class,
-> above msm_watchdog and every other thread on the CPU, so a slow flush
-> from any of them (including single-CPU callbacks such as the migration
-> and task-migration stoppers) can starve the watchdog just as well. The
-> fix therefore covers all stopper callbacks, not only multi_cpu_stop().
->
-> Fix this by having the cpu stopper mark the CPU active while a callback
-> runs, and having printk use that marker to defer legacy console flushes
-> until the callback returns:
->
->   1/2 stop_machine: Track when a CPU executes a stopper callback
->
->       Add a per-CPU flag, set in the stopper dispatch path around the
->       callback, and an in_cpu_stop() accessor.
->
->   2/2 printk: Defer legacy console flushes while a CPU runs a stopper callback
->
->       Route legacy console output through the offload path instead of
->       flushing it directly while a CPU is inside a stopper callback, and
->       flush it once the callback returns. Emergency and panic output is
->       unaffected.
->
-> Reproduced and verified with an out-of-tree test module that triggers
-> stop_machine() with a queued console backlog and a printk() inside the
-> rendezvous, paired with a kprobe-based script that flags any console
-> flush happening while a CPU is inside a stopper callback.
+> 
+>>> +      * place. Keep the head @folio frozen until the end: sub entries
+>>> +      * in swap cache must be updated first, so a concurrent
+>>> +      * swap_cache_get_folio() cannot return the head folio for a sub
+>>> +      * entry (folio_try_get() will fail on the head @folio until unfreeze).
+>>> +      */
+>>> +     for (new_folio = folio_next(folio); new_folio != end_folio;
+>>> +          new_folio = next) {
+>>> +             next = folio_next(new_folio);
+>>> +             zone_device_private_split_cb(folio, new_folio);
+>>> +             folio_ref_unfreeze(new_folio,
+>>> +                                folio_cache_ref_count(new_folio) + 1);
+>>> +             if (do_lru)
+>>> +                     lru_add_split_folio(folio, new_folio, lruvec, list);
+>>> +             if (ci)
+>>> +                     __swap_cache_replace_folio(ci, folio, new_folio);
+>>> +     }
+>>
+>> This smells like duplicate code now. That should better be factored out?
+>>
+> 
+> There were some discussion on this in previous series, I tried to
+> implement a macro or helper, but it ended up being uglier. Right now
+> the duplication is just about 3 lines of for loop due to the split,
+> and the extra loop duplication existed before, so I think it's fine at
+> this point, maybe a helper later if this grows.
 
-This is a fairly heavy series just to address a problem with legacy
-consoles that has always existed.
+Actually I wanted to drop this comment after digging into the code, but forgot.
+So it's fine with me.
 
-How about instead a series to switch msm_serial.c/qcom_geni_serial.c
-over to NBCON? That is fairly straightforward (especially with the
-availability of CON_NBCON_ATOMIC_UNSAFE) and would help to move the
-kernel forward rather than improving the parts we are trying to get rid
-of.
+-- 
+Cheers,
 
-I would even be willing to convert those 2 drivers if you could provide
-the necessary testing for me.
-
-John
+David
