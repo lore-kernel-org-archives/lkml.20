@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 411373EC2CD;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 540F03EDAB5;
 	Thu, 27 Aug 2026 08:40:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787820047; cv=none; b=i0QLtsPOck7SWDtFNM20zJAieD8Cy+AywWqzS0tihYKbzVgh63uRdbx6P6zVujatUTT1qyyJbyxsBOi9DmUTX90Oqk2KYM35utQFKPIFEpsWohc4pbA/M+11nptGbahN4LsnmSWPWlNx0beWFt8xbPXM8fnt8DnJF32ELVtF5MA=
+	t=1787820047; cv=none; b=SstRimWOXYhu8VQiIMzmK5JLEBHFB54TsiF83wbAL8vjqmpCDhTvGCYBO/TwCFquESExZ2THXLh1QcIlZAGEfV7XiaUeSM7xOGZ5xij58SOTbOJo5YaqTVFtoozTibB6ZkeaGAtVKB12i23bufcPgtLm1wXyMVOsG32oFZ7r8Ag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787820047; c=relaxed/simple;
-	bh=fCtAMe4g2dnp7uoVqhfhA8xkjx6xBz/IzJykgOh3Txc=;
+	bh=raey7IcSkGHwiWP9oHD9SowA1rYRlgfNL/m5FNUAnww=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=UiIWWmHjEh9vSUppg4LOU0GqIPFjte8v0ZJQLn6cCdEsWcD9pCjwlk3Z2s81Q8euFbJxYHu/HN9a0WPSQ/OyEJCFCQowY1dPeZFv+Rfnnksoa4fD7/fOohKTHJvWpAhOLpQh3D0FuBd5qNS9XH54JpIkZwAz0CCwtHrsR21vW2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DjsG7k9b; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=gEy78WyzJCweo/92U6qQjAw71UnUlMH6584JHPdo9IVq6gobCR2fUmQ5/zUvv7ZAWYtY6Rg34RJWF33qZCdP1Bl0Ov22QSFd/uNGZqsP1SNbOwnyUe2HOIPuOsVISigpH10dD6b/qSneXncvKbL0OF6ha/wvUZAld9qpwA7Hh/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PVnXVStM; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DjsG7k9b"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id BB58FC2BCFA;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PVnXVStM"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id DA36DC2BCFC;
 	Thu, 27 Aug 2026 08:40:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1787820046;
-	bh=fCtAMe4g2dnp7uoVqhfhA8xkjx6xBz/IzJykgOh3Txc=;
+	bh=raey7IcSkGHwiWP9oHD9SowA1rYRlgfNL/m5FNUAnww=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=DjsG7k9bWHXICF7RpPVzkZG6RfWV6Fo2Qi2sFeg1Omjdot5AkVq0IOulj4prdd5hQ
-	 VqfNGp48Ndd/7/G7XHEyGjswMY20sy//Jy+RG6fFIEui8QU1xPYOH+lcTTnxvFc168
-	 mSJs00CGcvzzVQBwDsyOkqXP1PEPekVuwYZGZ/ea8hRyzsl+g2FbvM/uvmClan5CN1
-	 oRDJ93rHHv6YMf2kwlgBSgVRhQUiKTPc5MxEwOP80mLEKZ+hEktHSkBuFAKjZd87DD
-	 09a39hrdTd6m6DLnorUKt6CIQLD8WFo9qDmeBVhboW0M6LbrosLItrdV69HeWekHLi
-	 edtsjwwk9p5og==
+	b=PVnXVStMqKiADJZK4H5/iy0nEtYMV/mZgjz/i0AisjNSUdLDtpMzafZInmIUAJF8H
+	 TFUdwUjGwcihgVkD7fxH77C7ibwd9uIqiSxUxrHvqHQrdl2/qPRwQpoPjuXpmB26pH
+	 gnO+39rYFMmXpULHIS2hRrt7YGwpg4YbYscss4tGve5d8rYmUzoI/9Dh5oKZ8HKf/J
+	 GbeMvwkfscRfVQNljge0kzlpEnr+zVNXGUE1UhnqWKTabHXoTobt8t0PZLdVCJt2tr
+	 rEt8HW10F4MU8PcPCL2BPzg2xib2D1bP6PhtgVKZT7fWnw2GFypJvetogebx6YFuce
+	 2FjlFDy1h+JsQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A016FC61DC7;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C4B31C61DCB;
 	Thu, 27 Aug 2026 08:40:46 +0000 (UTC)
 From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
-Date: Thu, 27 Aug 2026 08:40:11 +0000
-Subject: [PATCH v4 2/4] pwm: meson: add the PWM count driver data
+Date: Thu, 27 Aug 2026 08:40:13 +0000
+Subject: [PATCH v4 4/4] pwm: meson: Add support for Amlogic S7
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260827-s6-s7-pwm-v4-2-d28a2015177d@amlogic.com>
+Message-Id: <20260827-s6-s7-pwm-v4-4-d28a2015177d@amlogic.com>
 References: <20260827-s6-s7-pwm-v4-0-d28a2015177d@amlogic.com>
 In-Reply-To: <20260827-s6-s7-pwm-v4-0-d28a2015177d@amlogic.com>
 To: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
@@ -53,11 +53,11 @@ Cc: linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  linux-amlogic@lists.infradead.org, Xianwei Zhao <xianwei.zhao@amlogic.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787820043; l=4621;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787820043; l=1273;
  i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
- bh=XWBLCai/fzPSLXT+rV6gvMmqDHi7OFZogDsuyVzW6gk=;
- b=Rh9OjEOD7SNxnECzTQEmrJSTchFP5bhVfta+X6y2sVbP3EbhfJ6CZfSi1WkgC2qIsCwNZv0rq
- Z1YyvX/Xj/fCH3vrsAFgdZ5vcf9hEZiU/0sVB4IXqNQ7PoIEkRdXils
+ bh=bxanl4T1hd21Hw06PnQXj6xGMQbU+zReu1OrHg7McSk=;
+ b=0vaQo/fBgbLRHzWKS3mXgLiyVajPMUz9dbrbZVd3jjmB/2F56tL5Ry9j/ENdIlQL/PLCowQAm
+ P2g2nAg4w+RBIldLTwsxHkfgwYiA7ukj3SBodgsTJ8I/HNKY0pwBTxL
 X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
  pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
 X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
@@ -67,141 +67,48 @@ Reply-To: xianwei.zhao@amlogic.com
 
 From: Xianwei Zhao <xianwei.zhao@amlogic.com>
 
-Add .npwm fill the  existing entries, use it in probe, and switch the loop
-in meson_pwm_init_clocks_meson8b() and meson_pwm_init_channels_s4() to
-chip->npwm. No functional change.
+Add support for Amlogic S7 PWM. Amlogic S7 different from the previous
+SoCs, a controller includes one pwm, at the same time,the controller has
+only one input clock source.
+
+Also use the kernel coding style for the empty of_device_id terminator.
 
 Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
 ---
- drivers/pwm/pwm-meson.c | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
+ drivers/pwm/pwm-meson.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/pwm/pwm-meson.c b/drivers/pwm/pwm-meson.c
-index 8c6bf3d49753..22cefc6d5dd0 100644
+index 6f151464d7cc..2da958231719 100644
 --- a/drivers/pwm/pwm-meson.c
 +++ b/drivers/pwm/pwm-meson.c
-@@ -113,6 +113,7 @@ struct meson_pwm_data {
- 	int (*channels_init)(struct pwm_chip *chip);
- 	bool has_constant;
- 	bool has_polarity;
-+	u8 npwm;
+@@ -595,6 +595,13 @@ static const struct meson_pwm_data pwm_s4_data = {
+ 	.npwm = 2,
  };
  
- struct meson_pwm {
-@@ -382,7 +383,7 @@ static int meson_pwm_init_clocks_meson8b(struct pwm_chip *chip,
- 	char name[255];
- 	int err;
- 
--	for (i = 0; i < MESON_NUM_PWMS; i++) {
-+	for (i = 0; i < chip->npwm; i++) {
- 		struct meson_pwm_channel *channel = &meson->channels[i];
- 		struct clk_parent_data div_parent = {}, gate_parent = {};
- 		struct clk_init_data init = {};
-@@ -510,7 +511,7 @@ static int meson_pwm_init_channels_s4(struct pwm_chip *chip)
- 	struct meson_pwm *meson = to_meson_pwm(chip);
- 	int i, ret;
- 
--	for (i = 0; i < MESON_NUM_PWMS; i++) {
-+	for (i = 0; i < chip->npwm; i++) {
- 		meson->channels[i].clk = of_clk_get(np, i);
- 		if (IS_ERR(meson->channels[i].clk))
- 			return dev_err_probe(dev,
-@@ -530,6 +531,7 @@ static int meson_pwm_init_channels_s4(struct pwm_chip *chip)
- static const struct meson_pwm_data pwm_meson8b_data = {
- 	.parent_names = { "xtal", NULL, "fclk_div4", "fclk_div3" },
- 	.channels_init = meson_pwm_init_channels_meson8b_legacy,
-+	.npwm = 2,
- };
- 
- /*
-@@ -539,6 +541,7 @@ static const struct meson_pwm_data pwm_meson8b_data = {
- static const struct meson_pwm_data pwm_gxbb_ao_data = {
- 	.parent_names = { "xtal", "clk81", NULL, NULL },
- 	.channels_init = meson_pwm_init_channels_meson8b_legacy,
-+	.npwm = 2,
- };
- 
- static const struct meson_pwm_data pwm_axg_ee_data = {
-@@ -546,6 +549,7 @@ static const struct meson_pwm_data pwm_axg_ee_data = {
- 	.channels_init = meson_pwm_init_channels_meson8b_legacy,
- 	.has_constant = true,
- 	.has_polarity = true,
-+	.npwm = 2,
- };
- 
- static const struct meson_pwm_data pwm_axg_ao_data = {
-@@ -553,6 +557,7 @@ static const struct meson_pwm_data pwm_axg_ao_data = {
- 	.channels_init = meson_pwm_init_channels_meson8b_legacy,
- 	.has_constant = true,
- 	.has_polarity = true,
-+	.npwm = 2,
- };
- 
- static const struct meson_pwm_data pwm_g12a_ee_data = {
-@@ -560,6 +565,7 @@ static const struct meson_pwm_data pwm_g12a_ee_data = {
- 	.channels_init = meson_pwm_init_channels_meson8b_legacy,
- 	.has_constant = true,
- 	.has_polarity = true,
-+	.npwm = 2,
- };
- 
- static const struct meson_pwm_data pwm_g12a_ao_ab_data = {
-@@ -567,6 +573,7 @@ static const struct meson_pwm_data pwm_g12a_ao_ab_data = {
- 	.channels_init = meson_pwm_init_channels_meson8b_legacy,
- 	.has_constant = true,
- 	.has_polarity = true,
-+	.npwm = 2,
- };
- 
- static const struct meson_pwm_data pwm_g12a_ao_cd_data = {
-@@ -574,22 +581,26 @@ static const struct meson_pwm_data pwm_g12a_ao_cd_data = {
- 	.channels_init = meson_pwm_init_channels_meson8b_legacy,
- 	.has_constant = true,
- 	.has_polarity = true,
-+	.npwm = 2,
- };
- 
- static const struct meson_pwm_data pwm_meson8_v2_data = {
- 	.channels_init = meson_pwm_init_channels_meson8b_v2,
-+	.npwm = 2,
- };
- 
- static const struct meson_pwm_data pwm_meson_axg_v2_data = {
- 	.channels_init = meson_pwm_init_channels_meson8b_v2,
- 	.has_constant = true,
- 	.has_polarity = true,
-+	.npwm = 2,
- };
- 
- static const struct meson_pwm_data pwm_s4_data = {
- 	.channels_init = meson_pwm_init_channels_s4,
- 	.has_constant = true,
- 	.has_polarity = true,
-+	.npwm = 2,
- };
- 
++static const struct meson_pwm_data pwm_s7_data = {
++	.channels_init = meson_pwm_init_channels_per_channel_clk,
++	.has_constant = true,
++	.has_polarity = true,
++	.npwm = 1,
++};
++
  static const struct of_device_id meson_pwm_matches[] = {
-@@ -650,9 +661,10 @@ static int meson_pwm_probe(struct platform_device *pdev)
- {
- 	struct pwm_chip *chip;
- 	struct meson_pwm *meson;
-+	const struct meson_pwm_data *pdata = of_device_get_match_data(&pdev->dev);
- 	int err;
+ 	{
+ 		.compatible = "amlogic,meson8-pwm-v2",
+@@ -645,7 +652,11 @@ static const struct of_device_id meson_pwm_matches[] = {
+ 		.compatible = "amlogic,meson-s4-pwm",
+ 		.data = &pwm_s4_data
+ 	},
+-	{},
++	{
++		.compatible = "amlogic,s7-pwm",
++		.data = &pwm_s7_data
++	},
++	{ }
+ };
+ MODULE_DEVICE_TABLE(of, meson_pwm_matches);
  
--	chip = devm_pwmchip_alloc(&pdev->dev, MESON_NUM_PWMS, sizeof(*meson));
-+	chip = devm_pwmchip_alloc(&pdev->dev, pdata->npwm, sizeof(*meson));
- 	if (IS_ERR(chip))
- 		return PTR_ERR(chip);
- 	meson = to_meson_pwm(chip);
-@@ -664,7 +676,7 @@ static int meson_pwm_probe(struct platform_device *pdev)
- 	spin_lock_init(&meson->lock);
- 	chip->ops = &meson_pwm_ops;
- 
--	meson->data = of_device_get_match_data(&pdev->dev);
-+	meson->data = pdata;
- 
- 	err = meson->data->channels_init(chip);
- 	if (err < 0)
 
 -- 
 2.52.0
