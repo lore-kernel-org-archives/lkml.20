@@ -1,522 +1,474 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022086.outbound.protection.outlook.com [52.101.101.86])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D12A3409635
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:56:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787821024; cv=none; b=WuEM14H1FUENTJOYLmLpQ+uZL6ac7ZPX5HlnRWWrWP1fVNq84x8ubNF4/XQ3wdqgkZdEeHOSoCeCaXGfsVWbpeKuSa21T0TNWyo8/7rDCAJTWDp9UWKzcqoQEtZKU5KLF+6SF0q95sXS8MBuI64ansj+HPYWZ01eXdmDKKZzrGY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787821024; c=relaxed/simple;
-	bh=8GLsPyCYSReJXtFnw/pED7QoBc7HdU/pN0zL/QOQEEM=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=bLrK56gwA5+dCj9eQm9eqz8gh2tgyuvuTh2fiD3ux+KK4QW2m/m7JaK86F+62SFsUqE+uDcTFXIDuO3KRdvsqaKU/4/Q5+tLRpQlSsIolRTkVPzxHmx5Gm2ru0x5kuZYma+PuZnb0cGeGBArWdCu3LJR/6RTjq5SJwfyK85JyqM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gp0g68Aa; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gp0g68Aa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B202C1F000E9;
-	Thu, 27 Aug 2026 08:56:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787821018;
-	bh=EOEJ4CK0mQUXac3rydzccVHddtIdGliR8fWdejy4oaI=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=gp0g68AaIhrthBM/KDS6XlNpnTpE4gg4BJ4XIiKjXsgCrxbNUGE6QJghvBBsmzlG6
-	 qoW6PB6d1GHchgmay9SK2R8tPi9G0TyKesB8F1IXgbFoQgloXt23qtXgnLtHsXt3Qg
-	 xz6fWhjyxgMD+z7gu6ylS9AsHJZkqihljdLuofpByrylKpfEC1W2KBRfzc5EUU1ExQ
-	 t7cHAT//9DFfi87ZlPiOSu2iEE1m8UZ1yuD6oypN11ayv+ZWXWYBN8yQMwx0zC99Ip
-	 3azGSVBIGcpcsRAJMuGXO0TyiAH12RoNOnvxE/YeqlF+MmzQ/p0GCh2upZTEKl4ATr
-	 iwjzEOSlYBeZw==
-Message-ID: <83fe187e-e3e8-4328-bbbf-a6751873b9e0@kernel.org>
-Date: Thu, 27 Aug 2026 16:56:53 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2313348465
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:57:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.101.86
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787821078; cv=fail; b=YK/vvE+KFyTNNWuGD3EdjqxKjjBlpJTNtQSsxuzSz82f5lx0ZsiWVn2xLY5xcFhMfAgnFHTFTX1dnkZahuwQ0jiGuvXulObE58f9AxOjlOlgykV7VypSzsUliSAvKRcSwQwwPL2sch9QzyYjjR2tKFP2zDcpzBVfrGdpYJWnxIc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787821078; c=relaxed/simple;
+	bh=npBjyRKtx5tHTK/EZFAPZpZ2r+ZQcb4qfDkvESqyOcw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=RVAlx867DfS4vKkuNxkji6a5jj4s79566OuPaNFbv7631kPu/KTrKkhAA8nGkf8Yu/ulMLaVUqjArFfJtmWn9cHJqnlIN4FDct5w7mMeJKV8cOSp/8FYt8zp3eqRNUGwYpvn5jbjLT1QjVID51YV2Iyhq2hvd8SysqE87doIFEw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.101.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tbGbxqTDqa4iyi2C+8wV+PaFqaXW129bNebvyf5LAwNwQUD89F6ffpNdN5bUDCYTB8uD8b9XJVGw3O6px9f6By4ryUa2FqiIhGzu+7t2aEDfUZKau26WrMkSSMQbTQXxCtpz841AVYIlhL6tAJDsNn7L3Yd9id14mTBDSux7PIaHq/k6bkq+O0ZcGnX63h4tTShiUCL8fECwuW7VqRuEkIccIAgr7WqVtO3qoQAkgHr22XaUfq1L/ulhdseAUsX59ZIV/Fp+82euZtYRp1xCatFT8GZ7fhyjJ51pm92KwrWDiSGItiKKuFRuwKKKlsaYuufmAKe+zbPeSKHf80KQkA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=hk3DC75Kg1w9bq4frOOxKUoju8M/Y8tVhK6/28i85FU=;
+ b=XHjRAjC7admdWDV+LJRItZz3G9pzw9JgcvLVpq7FqgJv2yKil4W2ADpszOjCUOEAMu+OCOkVucvXiRyCNvH2Lr6OY0btew64e52kLGgBF/WaLKmbJJ7+BcNPaW+vtWKLqSufVtWh4AFz2RinGBdhPfPJTWhZgriwar8E4ipeAe6KZzmMIdHwcPkiVVNLai97VMYjiU+a+KvCQ28UUMn4eW2yvIMxWHNZnTdyCd11LLAZxwGoH7GvjpL2ocyDFi7rLcUAjflUwSYkyguAMacbN4Sx2JipP8S+pWok7qAg1VNmhqFOxR/EIYEJgLGcmMFmxOrhQvQYlYluwgXdr51PUw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
+ dkim=pass header.d=atomlin.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=atomlin.com;
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
+ by CWXP123MB3175.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:41::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.8; Thu, 27 Aug
+ 2026 08:57:51 +0000
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
+ 08:57:51 +0000
+Date: Thu, 27 Aug 2026 04:57:49 -0400
+From: Aaron Tomlin <atomlin@atomlin.com>
+To: Vincent Guittot <vincent.guittot@linaro.org>
+Cc: mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com, 
+	paulmck@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org, 
+	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, 
+	zhanxusheng1024@gmail.com, neelx@suse.com, chjohnst@mail.com, mproche@mail.com, 
+	sean@ashe.io, steve@abita.co, rishil1999@outlook.com, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 1/6] sched: Annotate rq->rd with __rcu and update
+ lockless readers
+Message-ID: <qb77zzhmbb22f6g4of3lzgv5e3chxfbbgw3chn2dmle4lhvp3u@3apu5i3qf7bs>
+References: <20260826224238.936456-1-atomlin@atomlin.com>
+ <20260826224238.936456-2-atomlin@atomlin.com>
+ <CAKfTPtACUPezTdiJKUW8zdb0NoURZU2Of+AnMU5VvzXE0tmB2g@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CAKfTPtACUPezTdiJKUW8zdb0NoURZU2Of+AnMU5VvzXE0tmB2g@mail.gmail.com>
+X-ClientProxiedBy: LO4P123CA0665.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:316::16) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:400:183::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, Barry Song <baohua@kernel.org>,
- Nanzhe Zhao <nzzhao@126.com>, Juan Yescas <jyescas@google.com>,
- Dev Jain <Dev.Jain@arm.com>, linux-kernel@vger.kernel.org,
- David Hildenbrand <David.Hildenbrand@arm.com>,
- Bo Zhang <zhangbo56@xiaomi.com>, Kalesh Singh <kaleshsingh@google.com>,
- Ryan Roberts <Ryan.Roberts@arm.com>, Pengfei Li <lipengfei28@xiaomi.com>
-Subject: Re: [PATCH 03/14] f2fs: support regular file buffered writes on large
- folios
-To: Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
- linux-f2fs-devel@lists.sourceforge.net, Jaegeuk Kim <jaegeuk@kernel.org>
-References: <20260826082641.2007658-1-zhaonanzhe@xiaomi.com>
- <20260826082641.2007658-4-zhaonanzhe@xiaomi.com>
-Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <20260826082641.2007658-4-zhaonanzhe@xiaomi.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|CWXP123MB3175:EE_
+X-MS-Office365-Filtering-Correlation-Id: 71c0621f-70b5-4765-1a4c-08df04194641
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|366016|7416014|376014|10067099003|4143699003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	5VBk316KTW4qJdN8C7Kjv5OkLzQqnZqkLevp/72HPnX5KkjZBxbN/PP6fv7Bt9x2uaSqobA4tAlZwynCvnp46MbJyGoRQ3d+uu9rmQhpSmNPElw5Nj96MYX/ERHsNoRcqGrtA/Wj3Mar5GDiE47hQWPYpTVZ43gYGp7jU4kcFOeGiOek05NTQixJCV6HzOJtHwDPWtEhwmYQz4esQVYhGzmfKecLXFYaDefjWbnPfhxRTE5dslUBh5PMBH2RstkSCVO7IRQU624blKxnmc7hSFxyuOwjEu0lNOlD1u6A5bXYuoi6VarAkl3iWtc0egLhxmtJ/rJLbOZrR44UqU5nMT5KpNmVCE4az80pIsQGtN/u+pf2BtxAjNEWg99Hr03NVzTMgA3lBGZ6oyQ+ZD0qVenKctCcB8SYXgqL9OckVAL6qbs9C9gq9BoQWXR2nCIrgF/9JTMi1Mh9Qt16J2c8A6EAdx6Wfc4la+rjEwpyYf3CsbezTH9rlESoLnBGP6u39PYhoYalzGNzlrPYqEuyitAzwIBuNRhsRRbDpEdDAI6xWL2krwsW02d4Po1X4zyvogWGME8b7hKav1g8otPv7cHPKtmJhrfkBhaZaUS1B5n4T3+dBeViSgnXfm3tErzY4HLrg4SyBbe1jxJAwnNRnjidhMDb+1ADx6ShA2vZ7ag=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(7416014)(376014)(10067099003)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SGhuREVtRkNJYzRYYS9TNzBZV2VBakVlNFBRU0QxbkdHYmhRM2pCWnVEczVZ?=
+ =?utf-8?B?MHNETGNoMTg1SGE2aDRYbWI1V0xHb0JFWHVmWnlxNThyYzc5aFF5UUdIbGVN?=
+ =?utf-8?B?UDhUeVBZTlJUaEU4c01RK0ppR2graldCZk9IcXh4ZCttS0RTa1lYKzd2WmNn?=
+ =?utf-8?B?cmhqNG5UOXhWb2xGakxtaWl2N3drRU1vRCtpTzgyYytlQ0QrQ2k5VzNPRC9B?=
+ =?utf-8?B?TXFrckJESllPME04amx6aXRXOXFUblU5VXoyZmJ1b1VTdjhZa3FDbGJ4OS8x?=
+ =?utf-8?B?QWdUZ0JodEtXVHlYVms4a1pxdmkzUnMvNmxsOFIyNkJvRkdFRENzV2d6TGJ6?=
+ =?utf-8?B?WEg5OFJSWTZNRzUwMFJTNzNDUXVVajFNVFdXU2pDRnRad0hrQzF5c0VhakZ5?=
+ =?utf-8?B?Um1KcE5pODRtQnFlckI5THgwdjZ5WmMrRXNzaFJIV3ZTTUR1V1FLTkdpQTMv?=
+ =?utf-8?B?RjZJeGtTa1VBbVV5VDY0WTFVR1ZLMTNkZjV5c05TQXpBMU45OTArWTRKdEFq?=
+ =?utf-8?B?OXhjeFBWVXRTUUJmOFgxOUJxYjNWd25IbzJqTFFlVUxheXNpYXVRcEhHT01D?=
+ =?utf-8?B?ekJsRTRkZmVlc0k0dVZzWEl1c0FDKy8zeVFCOGhLTmd1cks0K1pFTlkzbVhE?=
+ =?utf-8?B?dVg0bThUb0lSVkpVekx4aEsrYUlWdS9EcEZubmVGUTZma1l5Rm9jZmNOODVM?=
+ =?utf-8?B?em52NDJhUXg5bjVhRVBzekpXbkJJNGRJY2tZUTlwQ3RFbU1YOUJoVEVTQVUx?=
+ =?utf-8?B?aW1uS3R5V09WUi9UUUFwaU1Vem5UWDYvUDU5QXVLTFdNb0pGeGFaZW5LQXpI?=
+ =?utf-8?B?Tmc1cjRrZ1ovRUZTeW51VDVDc29UUG5VcHhLSmtrd1Bvek5hVmJFNy83Z1p5?=
+ =?utf-8?B?MnRzZzBRSzFRUDRNTS9VQmRhSnFuMDlseVUwNGFjUzBJODN2M0Q2NTNvSHEr?=
+ =?utf-8?B?ZzNmZjJLUmI5M09jVlFLTHJra0dEdHFhK1N0U2F4TTBIK0VJNVAxQklGbDhj?=
+ =?utf-8?B?K2s3bjI5TzBidTE0TkdVUHpFR1RUWWc2QzVkeTRCbmprb2RrOGl0eGJwVlkz?=
+ =?utf-8?B?M3RPTVNxMzRja3FVWGVNd0MvZTYrTHdnMkJYekhZL0lvOThQcnNnd3cybHB4?=
+ =?utf-8?B?aUxBc2tJa01TU2t5OVBiLzlyR2d1OUFWYzFMM3VFYUJabi9HMFA5Wmk3elk4?=
+ =?utf-8?B?Sm43TGY0RWhLQmdxQzNCOWFwWHk5SHVpVFBaUGoyVHlQVFFEMURneXQ5ZVRX?=
+ =?utf-8?B?ZVJLSVRhNjBUOHJaQldjejM5anE2RzhsdENDWm4walhCYXR6WWZydFhaZXV1?=
+ =?utf-8?B?Y1hzRjdLZGVQbjN2ZjFxeGdFNjFkTXgrZExMQXF0T1czQ1JOcGVmazd3ZGI1?=
+ =?utf-8?B?Rk1IOHNqWWJLcTZaMHFDVVNlMU00Rm1rdGpGNUU5QmY3c2xIWFovUkwydXNl?=
+ =?utf-8?B?VFhtNmxWWnh4QkFIR2o5YUEzQ2VvUzNqOWZBSmpuRlRIV3J1NHJGVkJLTitl?=
+ =?utf-8?B?NWFWV2UxQlBvOVRyWXFqMWVka3NOWFlPUUdpNzM2ZkxyMmRrb3ZPQ215dW9j?=
+ =?utf-8?B?UTVLLzBucjhjVng0bkRhWjlNNVdGaEdzQVNkRm1acWpTY3JMZUtjTW02ckdh?=
+ =?utf-8?B?ZXJiZ2luWU1pL09QMlRCOG1KV3pwam92a0VXRUZhRVpsR1g3M3gzNlJWWWtl?=
+ =?utf-8?B?SmEwODdaYWtVeWtCeXluNjdtYjhpRmNsaWFmOHgxUmtGakpIWXUvMUR2OW1P?=
+ =?utf-8?B?bGgwTU1EYVFoWTE3Ym1GcEt1cDViV3lCbVN3cm1jVE9wMVpMeGZXYXArSGJo?=
+ =?utf-8?B?aUlReDFBTFFzSllSeEhpTmRQaHV5ekUwVTBhNVZWSHp3WEhpdHVFWFJNUlRD?=
+ =?utf-8?B?WVY4MFhuUDVFUkRhOFQyWFhyVWlmTTdXTW56ME5rSy9rRjhXdm0xNHE2aEgw?=
+ =?utf-8?B?NkNidUdYaURuVTZkTEhhU3VaWHlsTjFLS0tuYU1qQkoxREYveVQ3eHFoZWxT?=
+ =?utf-8?B?dGVqS3hxeFpkSGV5QjEwdUVwVW8xc2VHS1NTV3IxeWIyU2Z5aXU0a3ZHOHhE?=
+ =?utf-8?B?cFJTcnAybnd4N2g4WkpBR3hSSHE2WFpVMEhHSnl0dzNlN05sbEVxYkU1OXE4?=
+ =?utf-8?B?d0VoaCsrcklWb3B6NlAwMVRCMG53eURoVVAwOUhpb1ZWdHdoc1hTcVN0NCta?=
+ =?utf-8?B?RFUycnZaYW4vK3lvV3lTNW5tbTFSNVJodkoyYzBQK1plWEpGWmdkMElKQmN1?=
+ =?utf-8?B?NFVkUlFiQlU1YndwTFcyY3B0S2hjb3MwWnlaOVJreWFmd0xWVFRVdlJKNmxo?=
+ =?utf-8?Q?Mxn7dYn0IiX6nGnWE2?=
+X-OriginatorOrg: atomlin.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 71c0621f-70b5-4765-1a4c-08df04194641
+X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 08:57:51.1037
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0CCHaVwks4FXZg+DP6hvQCh81pPVcYBC5mxCli8ElJ+GIA0Ak243/pYrRuR4zVLhEAZs1Nbvyy/HfRu5mKXOWA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP123MB3175
 
-On 8/26/26 16:26, Nanzhe Zhao wrote:
-> To avoid the complexity of unlocking a large folio in write_begin,
-> preallocate partial blocks for inodes that can use large folios.
-> During write_begin, read only the partial head and tail 4K subpages
-> that need read-before-write, and skip read I/O for the full middle
-> subpages covered by the write.
+On Thu, Aug 27, 2026 at 08:54:18AM +0200, Vincent Guittot wrote:
+> On Thu, 27 Aug 2026 at 00:42, Aaron Tomlin <atomlin@atomlin.com> wrote:
+> >
+> > The root_domain pointer rd field in struct rq is updated dynamically
+> > using RCU, and its memory reclamation is deferred via call_rcu() in
+> > rq_attach_root(). However, struct rq's rd field was missing the __rcu
+> > compiler annotation, and several lockless readers across the scheduler
+> > subsystem accessed rq->rd directly without using RCU dereference
+> > primitives.
+> >
+> > Add the __rcu annotation to struct rq's rd field in kernel/sched/sched.h.
+> > Update lockless readers across kernel/sched/ to use rcu_dereference(),
+> > rcu_dereference_sched() or rcu_access_pointer() appropriately. This
+> > ensures proper data-dependency barriers on all architectures, enables
+> > Sparse static analysis validation, and documents RCU read-side ownership
+> > contracts.
+> >
+> > Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
+> > ---
+> >  kernel/sched/core.c     | 24 ++++++++++-----
+> >  kernel/sched/deadline.c | 67 +++++++++++++++++++++++------------------
+> >  kernel/sched/fair.c     | 29 +++++++++---------
+> >  kernel/sched/rt.c       | 64 ++++++++++++++++++++++-----------------
+> >  kernel/sched/sched.h    |  2 +-
+> >  kernel/sched/topology.c | 11 ++++---
+> >  6 files changed, 113 insertions(+), 84 deletions(-)
+> >
+> > diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> > index 2e7cde033a31..86de58f5825b 100644
+> > --- a/kernel/sched/core.c
+> > +++ b/kernel/sched/core.c
+> > @@ -8547,8 +8547,10 @@ void set_rq_online(struct rq *rq)
+> >  {
+> >         if (!rq->online) {
+> >                 const struct sched_class *class;
+> > +               struct root_domain *rd;
+> >
+> > -               cpumask_set_cpu(rq->cpu, rq->rd->online);
+> > +               rd = rcu_dereference_protected(rq->rd, lockdep_is_held(&rq->__lock));
+> > +               cpumask_set_cpu(rq->cpu, rd->online);
+> >                 rq->online = 1;
+> >
+> >                 for_each_class(class) {
+> > @@ -8562,6 +8564,7 @@ void set_rq_offline(struct rq *rq)
+> >  {
+> >         if (rq->online) {
+> >                 const struct sched_class *class;
+> > +               struct root_domain *rd;
+> >
+> >                 update_rq_clock(rq);
+> >                 for_each_class(class) {
+> > @@ -8569,7 +8572,8 @@ void set_rq_offline(struct rq *rq)
+> >                                 class->rq_offline(rq);
+> >                 }
+> >
+> > -               cpumask_clear_cpu(rq->cpu, rq->rd->online);
+> > +               rd = rcu_dereference_protected(rq->rd, lockdep_is_held(&rq->__lock));
+> > +               cpumask_clear_cpu(rq->cpu, rd->online);
+> >                 rq->online = 0;
+> >         }
+> >  }
+> > @@ -8577,10 +8581,12 @@ void set_rq_offline(struct rq *rq)
+> >  static inline void sched_set_rq_online(struct rq *rq, int cpu)
+> >  {
+> >         struct rq_flags rf;
+> > +       struct root_domain *rd;
+> >
+> >         rq_lock_irqsave(rq, &rf);
+> > -       if (rq->rd) {
+> > -               BUG_ON(!cpumask_test_cpu(cpu, rq->rd->span));
+> > +       rd = rcu_dereference_protected(rq->rd, lockdep_is_held(&rq->__lock));
+> > +       if (rd) {
+> > +               BUG_ON(!cpumask_test_cpu(cpu, rd->span));
+> >                 set_rq_online(rq);
+> >         }
+> >         rq_unlock_irqrestore(rq, &rf);
+> > @@ -8589,10 +8595,12 @@ static inline void sched_set_rq_online(struct rq *rq, int cpu)
+> >  static inline void sched_set_rq_offline(struct rq *rq, int cpu)
+> >  {
+> >         struct rq_flags rf;
+> > +       struct root_domain *rd;
+> >
+> >         rq_lock_irqsave(rq, &rf);
+> > -       if (rq->rd) {
+> > -               BUG_ON(!cpumask_test_cpu(cpu, rq->rd->span));
+> > +       rd = rcu_dereference_protected(rq->rd, lockdep_is_held(&rq->__lock));
+> > +       if (rd) {
+> > +               BUG_ON(!cpumask_test_cpu(cpu, rd->span));
+> >                 set_rq_offline(rq);
+> >         }
+> >         rq_unlock_irqrestore(rq, &rf);
+> > @@ -9009,8 +9017,8 @@ void __init sched_init(void)
+> >  #endif
+> >                 rq->next_class = &idle_sched_class;
+> >
+> > -               rq->sd = NULL;
+> > -               rq->rd = NULL;
+> > +               RCU_INIT_POINTER(rq->sd, NULL);
+> > +               RCU_INIT_POINTER(rq->rd, NULL);
+> >                 rq->cpu_capacity = SCHED_CAPACITY_SCALE;
+> >                 rq->balance_callback = &balance_push_callback;
+> >                 rq->active_balance = 0;
+> > diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+> > index 857dbe3519a8..026d8b499dcf 100644
+> > --- a/kernel/sched/deadline.c
+> > +++ b/kernel/sched/deadline.c
+> > @@ -122,12 +122,12 @@ static inline struct dl_bw *dl_bw_of(int i)
+> >  {
+> >         RCU_LOCKDEP_WARN(!rcu_read_lock_sched_held(),
+> >                          "sched RCU must be held");
+> > -       return &cpu_rq(i)->rd->dl_bw;
+> > +       return &rcu_dereference_sched(cpu_rq(i)->rd)->dl_bw;
+> >  }
+> >
+> >  static inline int dl_bw_cpus(int i)
+> >  {
+> > -       struct root_domain *rd = cpu_rq(i)->rd;
+> > +       struct root_domain *rd = rcu_dereference_sched(cpu_rq(i)->rd);
+> >
+> >         RCU_LOCKDEP_WARN(!rcu_read_lock_sched_held(),
+> >                          "sched RCU must be held");
+> > @@ -159,13 +159,13 @@ static inline unsigned long dl_bw_capacity(int i)
+> >                 RCU_LOCKDEP_WARN(!rcu_read_lock_sched_held(),
+> >                                  "sched RCU must be held");
+> >
+> > -               return __dl_bw_capacity(cpu_rq(i)->rd->span);
+> > +               return __dl_bw_capacity(rcu_dereference_sched(cpu_rq(i)->rd)->span);
+> >         }
+> >  }
+> >
+> >  bool dl_bw_visited(int cpu, u64 cookie)
+> >  {
+> > -       struct root_domain *rd = cpu_rq(cpu)->rd;
+> > +       struct root_domain *rd = rcu_dereference_sched(cpu_rq(cpu)->rd);
+> >
+> >         if (rd->visit_cookie == cookie)
+> >                 return true;
+> > @@ -533,15 +533,18 @@ void init_dl_rq(struct dl_rq *dl_rq)
+> >
+> >  static inline int dl_overloaded(struct rq *rq)
+> >  {
+> > -       return atomic_read(&rq->rd->dlo_count);
+> > +       return atomic_read(&rcu_dereference_sched(rq->rd)->dlo_count);
+> >  }
+> >
+> >  static inline void dl_set_overload(struct rq *rq)
+> >  {
+> > +       struct root_domain *rd;
+> > +
+> >         if (!rq->online)
+> >                 return;
+> >
+> > -       cpumask_set_cpu(rq->cpu, rq->rd->dlo_mask);
+> > +       rd = rcu_dereference_sched(rq->rd);
+> > +       cpumask_set_cpu(rq->cpu, rd->dlo_mask);
+> >         /*
+> >          * Must be visible before the overload count is
+> >          * set (as in sched_rt.c).
+> > @@ -549,16 +552,19 @@ static inline void dl_set_overload(struct rq *rq)
+> >          * Matched by the barrier in pull_dl_task().
+> >          */
+> >         smp_wmb();
+> > -       atomic_inc(&rq->rd->dlo_count);
+> > +       atomic_inc(&rd->dlo_count);
+> >  }
+> >
+> >  static inline void dl_clear_overload(struct rq *rq)
+> >  {
+> > +       struct root_domain *rd;
+> > +
+> >         if (!rq->online)
+> >                 return;
+> >
+> > -       atomic_dec(&rq->rd->dlo_count);
+> > -       cpumask_clear_cpu(rq->cpu, rq->rd->dlo_mask);
+> > +       rd = rcu_dereference_sched(rq->rd);
+> > +       atomic_dec(&rd->dlo_count);
+> > +       cpumask_clear_cpu(rq->cpu, rd->dlo_mask);
+> >  }
+> >
+> >  #define __node_2_pdl(node) \
+> > @@ -699,14 +705,14 @@ static struct rq *dl_task_offline_migration(struct rq *rq, struct task_struct *p
+> >          * since p is still hanging out in the old (now moved to default) root
+> >          * domain.
+> >          */
+> > -       dl_b = &rq->rd->dl_bw;
+> > +       dl_b = &rcu_dereference_sched(rq->rd)->dl_bw;
+> >         raw_spin_lock(&dl_b->lock);
+> > -       __dl_sub(dl_b, p->dl.dl_bw, cpumask_weight(rq->rd->span));
+> > +       __dl_sub(dl_b, p->dl.dl_bw, cpumask_weight(rcu_dereference_sched(rq->rd)->span));
+> >         raw_spin_unlock(&dl_b->lock);
+> >
+> > -       dl_b = &later_rq->rd->dl_bw;
+> > +       dl_b = &rcu_dereference_sched(later_rq->rd)->dl_bw;
+> >         raw_spin_lock(&dl_b->lock);
+> > -       __dl_add(dl_b, p->dl.dl_bw, cpumask_weight(later_rq->rd->span));
+> > +       __dl_add(dl_b, p->dl.dl_bw, cpumask_weight(rcu_dereference_sched(later_rq->rd)->span));
+> >         raw_spin_unlock(&dl_b->lock);
+> >
+> >         set_task_cpu(p, later_rq->cpu);
+> > @@ -2222,9 +2228,9 @@ static void inc_dl_deadline(struct dl_rq *dl_rq, u64 deadline)
+> >         if (dl_rq->earliest_dl.curr == 0 ||
+> >             dl_time_before(deadline, dl_rq->earliest_dl.curr)) {
+> >                 if (dl_rq->earliest_dl.curr == 0)
+> > -                       cpupri_set(&rq->rd->cpupri, rq->cpu, CPUPRI_HIGHER);
+> > +                       cpupri_set(&rcu_dereference_sched(rq->rd)->cpupri, rq->cpu, CPUPRI_HIGHER);
+> >                 dl_rq->earliest_dl.curr = deadline;
+> > -               cpudl_set(&rq->rd->cpudl, rq->cpu, deadline);
+> > +               cpudl_set(&rcu_dereference_sched(rq->rd)->cpudl, rq->cpu, deadline);
+> >         }
+> >  }
+> >
+> > @@ -2239,14 +2245,15 @@ static void dec_dl_deadline(struct dl_rq *dl_rq, u64 deadline)
+> >         if (!dl_rq->dl_nr_running) {
+> >                 dl_rq->earliest_dl.curr = 0;
+> >                 dl_rq->earliest_dl.next = 0;
+> > -               cpudl_clear(&rq->rd->cpudl, rq->cpu, rq->online);
+> > -               cpupri_set(&rq->rd->cpupri, rq->cpu, rq->rt.highest_prio.curr);
+> > +               cpudl_clear(&rcu_dereference_sched(rq->rd)->cpudl, rq->cpu, rq->online);
+> > +               cpupri_set(&rcu_dereference_sched(rq->rd)->cpupri, rq->cpu,
+> > +                          rq->rt.highest_prio.curr);
+> >         } else {
+> >                 struct rb_node *leftmost = rb_first_cached(&dl_rq->root);
+> >                 struct sched_dl_entity *entry = __node_2_dle(leftmost);
+> >
+> >                 dl_rq->earliest_dl.curr = entry->deadline;
+> > -               cpudl_set(&rq->rd->cpudl, rq->cpu, entry->deadline);
+> > +               cpudl_set(&rcu_dereference_sched(rq->rd)->cpudl, rq->cpu, entry->deadline);
+> >         }
+> >  }
+> >
+> > @@ -2686,12 +2693,14 @@ static void migrate_task_rq_dl(struct task_struct *p, int new_cpu __maybe_unused
+> >
+> >  static void check_preempt_equal_dl(struct rq *rq, struct task_struct *p)
+> >  {
+> > +       struct root_domain *rd = rcu_dereference_sched(rq->rd);
+> > +
+> >         /*
+> >          * Current can't be migrated, useless to reschedule,
+> >          * let's hope p can move out.
+> >          */
+> >         if (rq->curr->nr_cpus_allowed == 1 ||
+> > -           !cpudl_find(&rq->rd->cpudl, rq->donor, NULL))
+> > +           !cpudl_find(&rd->cpudl, rq->donor, NULL))
+> >                 return;
+> >
+> >         /*
+> > @@ -2699,7 +2708,7 @@ static void check_preempt_equal_dl(struct rq *rq, struct task_struct *p)
+> >          * see if it is pushed or pulled somewhere else.
+> >          */
+> >         if (p->nr_cpus_allowed != 1 &&
+> > -           cpudl_find(&rq->rd->cpudl, p, NULL))
+> > +           cpudl_find(&rd->cpudl, p, NULL))
+> >                 return;
+> >
+> >         resched_curr(rq);
+> > @@ -2948,7 +2957,7 @@ static int find_later_rq(struct task_struct *task)
+> >          * We have to consider system topology and task affinity
+> >          * first, then we can look for a suitable CPU.
+> >          */
+> > -       if (!cpudl_find(&task_rq(task)->rd->cpudl, task, later_mask))
+> > +       if (!cpudl_find(&rcu_dereference_sched(task_rq(task)->rd)->cpudl, task, later_mask))
+> >                 return -1;
+> >
+> >         /*
+> > @@ -3232,7 +3241,7 @@ static void pull_dl_task(struct rq *this_rq)
+> >          */
+> >         smp_rmb();
+> >
+> > -       for_each_cpu(cpu, this_rq->rd->dlo_mask) {
+> > +       for_each_cpu(cpu, rcu_dereference_sched(this_rq->rd)->dlo_mask) {
+> >                 if (this_cpu == cpu)
+> >                         continue;
+> >
+> > @@ -3358,7 +3367,7 @@ bool dl_task_needs_bw_move(struct task_struct *p,
+> >         if (!dl_task(p))
+> >                 return false;
+> >
+> > -       return !cpumask_intersects(task_rq(p)->rd->span, new_mask);
+> > +       return !cpumask_intersects(rcu_dereference_sched(task_rq(p)->rd)->span, new_mask);
+> >  }
+> >
+> >  /* Assumes rq->lock is held */
+> > @@ -3368,9 +3377,9 @@ static void rq_online_dl(struct rq *rq)
+> >                 dl_set_overload(rq);
+> >
+> >         if (rq->dl.dl_nr_running > 0)
+> > -               cpudl_set(&rq->rd->cpudl, rq->cpu, rq->dl.earliest_dl.curr);
+> > +               cpudl_set(&rcu_dereference_sched(rq->rd)->cpudl, rq->cpu, rq->dl.earliest_dl.curr);
+> >         else
+> > -               cpudl_clear(&rq->rd->cpudl, rq->cpu, true);
+> > +               cpudl_clear(&rcu_dereference_sched(rq->rd)->cpudl, rq->cpu, true);
+> >  }
+> >
+> >  /* Assumes rq->lock is held */
+> > @@ -3379,7 +3388,7 @@ static void rq_offline_dl(struct rq *rq)
+> >         if (rq->dl.overloaded)
+> >                 dl_clear_overload(rq);
+> >
+> > -       cpudl_clear(&rq->rd->cpudl, rq->cpu, false);
+> > +       cpudl_clear(&rcu_dereference_sched(rq->rd)->cpudl, rq->cpu, false);
+> >  }
+> >
+> >  void __init init_sched_dl_class(void)
+> > @@ -3440,10 +3449,10 @@ void dl_add_task_root_domain(struct task_struct *p)
+> >         cpu = cpumask_first_and(cpu_active_mask, msk);
+> >         BUG_ON(cpu >= nr_cpu_ids);
+> >         rq = cpu_rq(cpu);
+> > -       dl_b = &rq->rd->dl_bw;
+> > +       dl_b = &rcu_dereference_sched(rq->rd)->dl_bw;
+> >
+> >         raw_spin_lock(&dl_b->lock);
+> > -       __dl_add(dl_b, p->dl.dl_bw, cpumask_weight(rq->rd->span));
+> > +       __dl_add(dl_b, p->dl.dl_bw, cpumask_weight(rcu_dereference_sched(rq->rd)->span));
+> >         raw_spin_unlock(&dl_b->lock);
+> >         raw_spin_unlock_irqrestore(&p->pi_lock, rf.flags);
+> >  }
+> > @@ -3504,7 +3513,7 @@ void dl_clear_root_domain(struct root_domain *rd)
+> >
+> >  void dl_clear_root_domain_cpu(int cpu)
+> >  {
+> > -       dl_clear_root_domain(cpu_rq(cpu)->rd);
+> > +       dl_clear_root_domain(rcu_dereference_sched(cpu_rq(cpu)->rd));
+> >  }
+> >
+> >  static void switched_from_dl(struct rq *rq, struct task_struct *p)
+> > diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> > index f79fcba4afec..51b28440d05d 100644
+> > --- a/kernel/sched/fair.c
+> > +++ b/kernel/sched/fair.c
+> > @@ -7865,13 +7865,10 @@ static inline void set_rd_overutilized(struct root_domain *rd, bool flag)
+> >
+> >  static inline void check_update_overutilized_status(struct rq *rq)
+> >  {
+> > -       /*
+> > -        * overutilized field is used for load balancing decisions only
+> > -        * if energy aware scheduler is being used
+> > -        */
 > 
-> Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
-> ---
->  fs/f2fs/data.c | 289 +++++++++++++++++++++++++++++++++++++++++++++++--
->  fs/f2fs/f2fs.h |   1 +
->  fs/f2fs/file.c |  17 ++-
->  3 files changed, 293 insertions(+), 14 deletions(-)
-> 
-> diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-> index 8649d443ca74..7ce96ae02cfc 100644
-> --- a/fs/f2fs/data.c
-> +++ b/fs/f2fs/data.c
-> @@ -1249,6 +1249,40 @@ static void f2fs_submit_page_read(struct inode *inode, struct fsverity_info *vi,
->  	f2fs_submit_read_bio(sbi, bio, DATA);
->  }
->  
-> +/*
-> + * Synchronously read a single 4K subpage by reusing f2fs_submit_page_read()
-> + * so that iostat, trace, blk-crypto and post-read handling are all preserved.
-> + * The caller must have already allocated ffs for the folio.
-> + */
-> +static int f2fs_submit_page_read_sync(struct inode *inode, struct folio *folio,
-> +				      pgoff_t index, block_t blkaddr)
-> +{
-> +	struct f2fs_folio_state *ffs = folio->private;
-> +	unsigned long flags;
-> +
-> +	/* Add bias so end_io does not call folio_end_read(). */
-> +	spin_lock_irqsave(&ffs->state_lock, flags);
-> +	ffs->read_pages_pending++;
-> +	spin_unlock_irqrestore(&ffs->state_lock, flags);
-> +
-> +	f2fs_submit_page_read(inode, NULL, folio, index, blkaddr,
-> +			      REQ_OP_READ, false);
-> +
-> +	/* Wait for pending drops back to bias which indicates all bio have completed. */
-> +	while (READ_ONCE(ffs->read_pages_pending) != 1)
-> +		f2fs_io_schedule_timeout(DEFAULT_SCHEDULE_TIMEOUT);
+> There is no reason to remove the comment above
 
-Suspect there will be potential performance issue, as timeout interval is
-large.
+Agreed. That was an unintentional drop while updating the function to use
+rcu_dereference_sched().
 
-> +
-> +	/* Remove the bias. */
-> +	spin_lock_irqsave(&ffs->state_lock, flags);
-> +	ffs->read_pages_pending--;
-> +	spin_unlock_irqrestore(&ffs->state_lock, flags);
-
-Looks hacky.
-
-If large folio has 4 sub pages, first 3 pages are uptodate.
-Then we use f2fs_submit_page_read_sync() to read last page,
-in f2fs_finish_read_bio(), we update state bitmap of last page to 1,
-but as read_pages_pending is 1, so folio won't be set as uptodate.
-
-Oh, in f2fs_write_end(), we have another change to set folio uptodate
-though, so the flow is a little bit different here.
-
-> +
-> +	if (!f2fs_ffs_test_blk_uptodate(folio, index))
-> +		return -EIO;
-> +
-> +	return 0;
-> +}
-> +
->  static void __set_data_blkaddr(struct dnode_of_data *dn, block_t blkaddr)
->  {
->  	__le32 *addr = get_dnode_addr(dn->inode, dn->node_folio);
-> @@ -2582,6 +2616,112 @@ static void ffs_detach_free(struct folio *folio)
->  	kfree(ffs);
->  }
->  
-> +bool f2fs_ffs_test_blk_uptodate(const struct folio *folio, pgoff_t index)
-> +{
-> +	struct f2fs_folio_state *ffs;
-> +	unsigned int idx;
-> +
-> +	if (!f2fs_folio_has_ffs(folio))
-> +		return folio_test_uptodate(folio);
-> +
-> +	if (!folio_contains(folio, index))
-> +		return false;
-
-Can we check this out of f2fs_ffs_test_blk_uptodate()? and add a sanity
-check here:
-
-f2fs_bug_on(sbi, !folio_contains(folio, index));
-
-> +
-> +	ffs = (struct f2fs_folio_state *)folio->private;
-> +	idx = index - folio->index;
-> +	return test_bit(idx, ffs->state);
-> +}
-> +
-> +static bool __ffs_mark_subrange_uptodate(struct folio *folio,
-> +		struct f2fs_folio_state *ffs, size_t offset, size_t len)
-> +{
-> +	unsigned int nr_subpages = folio_nr_pages(folio);
-> +	unsigned int start, end;
-> +
-> +	start = offset >> PAGE_SHIFT;
-> +	end = (offset + len + PAGE_SIZE - 1) >> PAGE_SHIFT;
-> +	end = min(end, nr_subpages);
-> +
-> +	bitmap_set(ffs->state, start, end - start);
-> +	return bitmap_full(ffs->state, nr_subpages);
-> +}
-> +
-> +static void f2fs_ffs_mark_subrange_uptodate(struct folio *folio, size_t offset,
-> +				       size_t len)
-> +{
-> +	struct f2fs_folio_state *ffs;
-> +	unsigned long flags;
-> +	bool mark_uptodate = false;
-> +
-> +	f2fs_bug_on(F2FS_F_SB(folio), offset + len > folio_size(folio));
-> +
-> +	if (!f2fs_folio_has_ffs(folio)) {
-> +		folio_mark_uptodate(folio);
-> +		return;
-> +	}
-> +
-> +	ffs = (struct f2fs_folio_state *)folio->private;
-> +	spin_lock_irqsave(&ffs->state_lock, flags);
-> +	mark_uptodate = __ffs_mark_subrange_uptodate(folio, ffs, offset, len) &&
-> +			!ffs->read_pages_pending;
-> +	spin_unlock_irqrestore(&ffs->state_lock, flags);
-> +	if (mark_uptodate)
-> +		folio_mark_uptodate(folio);
-> +}
-> +
-> +static void f2fs_ffs_mark_subrange_dirty(struct folio *folio,
-> +				    size_t offset, size_t len)
-> +{
-> +	struct f2fs_folio_state *ffs;
-> +	unsigned int nr_subpages, start, end;
-> +	unsigned long flags;
-> +
-> +	f2fs_bug_on(F2FS_F_SB(folio), offset + len > folio_size(folio));
-> +
-> +	if (!f2fs_folio_has_ffs(folio))
-> +		return;
-> +
-> +	ffs = (struct f2fs_folio_state *)folio->private;
-> +	nr_subpages = folio_nr_pages(folio);
-> +	start = offset >> PAGE_SHIFT;
-> +	end = (offset + len + PAGE_SIZE - 1) >> PAGE_SHIFT;
-> +	end = min(end, nr_subpages);
-> +
-> +	spin_lock_irqsave(&ffs->state_lock, flags);
-> +	bitmap_set(ffs->state, nr_subpages + start, end - start);
-> +	spin_unlock_irqrestore(&ffs->state_lock, flags);
-> +}
-> +
-> +static bool find_next_valid_block(const struct folio *folio,
-> +				  size_t orig_off, size_t *need_off,
-> +				  size_t len)
-> +{
-> +	size_t start = orig_off;
-> +	size_t end = start + len;
-> +	size_t head, tail;
-> +	pgoff_t index;
-> +
-> +	if (start & (PAGE_SIZE - 1)) {
-> +		head = round_down(start, PAGE_SIZE);
-> +		index = folio->index + (head >> PAGE_SHIFT);
-> +		if (!f2fs_ffs_test_blk_uptodate(folio, index)) {
-> +			*need_off = head;
-> +			return true;
-> +		}
-> +	}
-> +
-> +	if (end & (PAGE_SIZE - 1)) {
-> +		tail = round_down(end - 1, PAGE_SIZE);
-> +		index = folio->index + (tail >> PAGE_SHIFT);
-> +		if (!f2fs_ffs_test_blk_uptodate(folio, index)) {
-> +			*need_off = tail;
-> +			return true;
-> +		}
-> +	}
-> +
-> +	return false;
-> +}
-> +
->  static int f2fs_read_data_large_folio(struct inode *inode,
->  		struct fsverity_info *vi,
->  		struct readahead_control *rac, struct folio *folio)
-> @@ -3975,6 +4115,102 @@ static int prepare_atomic_write_begin(struct f2fs_sb_info *sbi,
->  	return 0;
->  }
->  
-> +static int prepare_large_folio_write_begin(struct inode *inode,
-> +					  struct folio *folio, loff_t pos,
-> +					  unsigned int len)
-> +{
-> +	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
-> +	struct f2fs_folio_state *ffs;
-> +	size_t ori_off = offset_in_folio(folio, pos);
-> +	size_t need_off = ori_off;
-> +	int err = 0;
-> +
-> +	len = min_t(unsigned int, len, folio_size(folio) - ori_off);
-> +
-> +	/*
-> +	 * When folio minimum order is non-zero, the fsverity
-> +	 * page_cache_write() path enters f2fs_write_begin() via
-> +	 * aops->write_begin without going through f2fs_write_iter(),
-> +	 * so preallocation from f2fs_write_iter() is skipped.  In that
-> +	 * case, if FI_PREALLOCATED_ALL is not set, we must preallocate
-> +	 * the write blocks here.
-> +	 */
-> +	if (!is_inode_flag_set(inode, FI_PREALLOCATED_ALL)) {
-> +		struct f2fs_map_blocks map = {};
-> +
-> +		map.m_lblk = F2FS_BYTES_TO_BLK(pos);
-> +		map.m_len = F2FS_BLK_ALIGN(pos + len) - map.m_lblk;
-> +
-> +		if (!IS_DEVICE_ALIASING(inode))
-> +			map.m_may_create = true;
-> +		map.m_seg_type = NO_CHECK_TYPE;
-> +
-> +		err = f2fs_map_blocks(inode, &map, F2FS_GET_BLOCK_PRE_AIO);
-> +		if (err)
-> +			return err;
-> +	}
-> +
-> +	/*
-> +	 * Skip read and ffs allocation if the folio is already fully
-> +	 * uptodate or the write covers the entire folio.
-> +	 */
-> +	if (folio_test_uptodate(folio) || len == folio_size(folio))
-> +		return 0;
-
-Do we need to adopt fsverity like we did in f2fs_write_begin()?
-
-	if (!(pos & (PAGE_SIZE - 1)) && (pos + len) >= i_size_read(inode) &&
-	    !f2fs_verity_in_progress(inode)) {
-		folio_zero_segment(folio, len, folio_size(folio));
-		return 0;
-	}
-
-> +
-> +	ffs = f2fs_ffs_find_or_alloc(folio);
-
-f2fs_ffs_find_or_alloc() will never fail.
-
-> +	if (!ffs)
-> +		return -ENOMEM;
-> +
-> +	/* Inline data must have been converted before reaching here. */
-> +	f2fs_bug_on(sbi, f2fs_has_inline_data(inode));
-> +
-> +	while (find_next_valid_block(folio, ori_off,
-> +				     &need_off, len)) {
-> +		struct dnode_of_data dn;
-> +		pgoff_t index = folio->index + (need_off >> PAGE_SHIFT);
-> +		block_t blkaddr;
-> +		bool get_dn = false;
-> +
-> +		if (!f2fs_lookup_read_extent_cache_block(inode, index,
-> +							&blkaddr)) {
-> +			if (IS_DEVICE_ALIASING(inode))
-> +				return -ENODATA;
-> +
-> +			set_new_dnode(&dn, inode, NULL, NULL, 0);
-> +			err = f2fs_get_dnode_of_data(&dn, index, LOOKUP_NODE);
-> +			if (err)
-> +				return err;
-> +			get_dn = true;
-> +			blkaddr = dn.data_blkaddr;
-> +
-> +			if (blkaddr == NEW_ADDR) {
-> +				size_t off = offset_in_folio(folio,
-> +							     index << PAGE_SHIFT);
-> +
-> +				folio_zero_segment(folio, off, off + PAGE_SIZE);
-> +				f2fs_ffs_mark_subrange_uptodate(folio, off,
-> +							       PAGE_SIZE);
-> +				goto out;
-> +			}
-> +
-> +			if (!f2fs_is_valid_blkaddr(sbi, blkaddr,
-> +						  DATA_GENERIC_ENHANCE_READ)) {
-> +				err = -EFSCORRUPTED;
-> +				goto out;
-> +			}
-> +		}
-> +
-> +		err = f2fs_submit_page_read_sync(inode, folio, index, blkaddr);
-> +out:
-> +		if (get_dn)
-> +			f2fs_put_dnode(&dn);
-> +		if (err)
-> +			return err;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->  static int f2fs_write_begin(const struct kiocb *iocb,
->  			    struct address_space *mapping,
->  			    loff_t pos, unsigned len, struct folio **foliop,
-> @@ -3986,6 +4222,7 @@ static int f2fs_write_begin(const struct kiocb *iocb,
->  	pgoff_t index = pos >> PAGE_SHIFT;
->  	bool need_balance = false;
->  	block_t blkaddr = NULL_ADDR;
-> +	fgf_t fgp = FGP_LOCK | FGP_WRITE | FGP_CREAT;
->  	int err = 0;
->  
->  	trace_f2fs_write_begin(inode, pos, len);
-> @@ -4033,9 +4270,9 @@ static int f2fs_write_begin(const struct kiocb *iocb,
->  	 * Do not use FGP_STABLE to avoid deadlock.
->  	 * Will wait that below with our IO control.
->  	 */
-> -	folio = f2fs_filemap_get_folio(mapping, index,
-> -				FGP_LOCK | FGP_WRITE | FGP_CREAT,
-> -				mapping_gfp_mask(mapping));
-> +	fgp |= fgf_set_order(len);
-> +	folio = __filemap_get_folio(mapping, index, fgp,
-> +				    mapping_gfp_mask(mapping));
-
-It detaches from fault injection, why we need to change to use
-__filemap_get_folio()?
-
->  	if (IS_ERR(folio)) {
->  		err = PTR_ERR(folio);
->  		goto fail;
-> @@ -4048,7 +4285,7 @@ static int f2fs_write_begin(const struct kiocb *iocb,
->  	if (f2fs_is_atomic_file(inode))
->  		err = prepare_atomic_write_begin(sbi, folio, pos, len,
->  					&blkaddr, &need_balance);
-> -	else
-> +	else if (!folio_test_large(folio))
->  		err = prepare_write_begin(sbi, folio, pos, len,
->  					&blkaddr, &need_balance);
->  	if (err)
-> @@ -4069,6 +4306,14 @@ static int f2fs_write_begin(const struct kiocb *iocb,
->  
->  	f2fs_folio_wait_writeback(folio, DATA, false, true);
->  
-> +	if (folio_test_large(folio)) {
-> +		err = prepare_large_folio_write_begin(inode,
-> +					folio, pos, len);
-> +		if (!err)
-> +			return 0;
-> +		goto put_folio;
-> +	}
-> +
->  	if (len == folio_size(folio) || folio_test_uptodate(folio))
->  		return 0;
->  
-> @@ -4129,15 +4374,20 @@ static int f2fs_write_end(const struct kiocb *iocb,
->  	trace_f2fs_write_end(inode, pos, len, copied);
->  
->  	/*
-> -	 * This should be come from len == PAGE_SIZE, and we expect copied
-> -	 * should be PAGE_SIZE. Otherwise, we treat it with zero copied and
-> -	 * let generic_perform_write() try to copy data again through copied=0.
-> +	 * If a short copy happens on a folio that isn't uptodate, we treat
-> +	 * it with zero copied and let generic_perform_write() try to copy
-> +	 * data again through copied=0.
->  	 */
->  	if (!folio_test_uptodate(folio)) {
-> -		if (unlikely(copied != len))
-> +		if (unlikely(copied != len)) {
->  			copied = 0;
-> -		else
-> +		} else if (folio_test_large(folio)) {
-> +			f2fs_ffs_mark_subrange_uptodate(folio,
-> +					offset_in_folio(folio, pos), len);
-> +		} else {
-> +			/* This should be come from len == PAGE_SIZE */
->  			folio_mark_uptodate(folio);
-> +		}
->  	}
->  
->  #ifdef CONFIG_F2FS_FS_COMPRESSION
-> @@ -4156,6 +4406,9 @@ static int f2fs_write_end(const struct kiocb *iocb,
->  	if (!copied)
->  		goto unlock_out;
->  
-> +	if (folio_test_large(folio))
-> +		f2fs_ffs_mark_subrange_dirty(folio, offset_in_folio(folio, pos),
-> +								   copied);
->  	folio_mark_dirty(folio);
->  
->  	if (f2fs_is_atomic_file(inode))
-> @@ -4218,8 +4471,22 @@ static bool f2fs_dirty_data_folio(struct address_space *mapping,
->  
->  	trace_f2fs_set_page_dirty(folio, DATA);
->  
-> -	if (!folio_test_uptodate(folio))
-> -		folio_mark_uptodate(folio);
-> +	if (!folio_test_uptodate(folio)) {
-> +		bool uptodate = true;
-> +
-> +		if (f2fs_folio_has_ffs(folio)) {
-> +			struct f2fs_folio_state *ffs =
-> +				(struct f2fs_folio_state *)folio->private;
-> +			unsigned long flags;
-> +
-> +			spin_lock_irqsave(&ffs->state_lock, flags);
-> +			uptodate = bitmap_full(ffs->state, folio_nr_pages(folio)) &&
-> +				   !ffs->read_pages_pending;
-> +			spin_unlock_irqrestore(&ffs->state_lock, flags);
-
-f2fs_ffs_mark_subrange_uptodate(folio, 0, folio_size(folio)); ?
-
-> +		}
-> +		if (uptodate)
-> +			folio_mark_uptodate(folio);
-> +	}
->  	BUG_ON(folio_test_swapcache(folio));
->  
->  	if (filemap_dirty_folio(mapping, folio)) {
-> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-> index 31ddd321daf6..ae6031693700 100644
-> --- a/fs/f2fs/f2fs.h
-> +++ b/fs/f2fs/f2fs.h
-> @@ -4342,6 +4342,7 @@ int f2fs_write_single_data_page(struct folio *folio, int *submitted,
->  				struct writeback_control *wbc,
->  				enum iostat_type io_type,
->  				int compr_blocks, bool allow_balance);
-> +bool f2fs_ffs_test_blk_uptodate(const struct folio *folio, pgoff_t index);
->  void f2fs_write_failed(struct inode *inode, loff_t to);
->  void f2fs_invalidate_folio(struct folio *folio, size_t offset, size_t length);
->  bool f2fs_release_folio(struct folio *folio, gfp_t wait);
-> diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-> index d440231b8cb9..e40285d4f9c2 100644
-> --- a/fs/f2fs/file.c
-> +++ b/fs/f2fs/file.c
-> @@ -5405,9 +5405,20 @@ static int f2fs_preallocate_blocks(struct kiocb *iocb, struct iov_iter *iter,
->  			return ret;
->  	}
->  
-> -	/* Do not preallocate blocks that will be written partially in 4KB. */
-> -	map.m_lblk = F2FS_BLK_ALIGN(pos);
-> -	map.m_len = F2FS_BYTES_TO_BLK(pos + count);
-> +	if (mapping_large_folio_support(inode->i_mapping)) {
-> +		/*
-> +		 * Preallocate all blocks touched by a large-folio buffered write so
-> +		 * the regular write_begin path does not need to unlock the folio for
-> +		 * f2fs_balance_fs().  Rechecking large-folio state after unlock is
-> +		 * unreliable since partial truncation can split the folio.
-
-You mean buffered io case, right? so we need to check !dio as well?
-
-Thanks,
-
-> +		 */
-> +		map.m_lblk = F2FS_BYTES_TO_BLK(pos);
-> +		map.m_len = F2FS_BLK_ALIGN(pos + count);
-> +	} else {
-> +		/* Do not preallocate blocks that will be written partially in 4KB. */
-> +		map.m_lblk = F2FS_BLK_ALIGN(pos);
-> +		map.m_len = F2FS_BYTES_TO_BLK(pos + count);
-> +	}
->  	if (map.m_len > map.m_lblk)
->  		map.m_len -= map.m_lblk;
->  	else
-
+Kind regards,
+-- 
+Aaron Tomlin
