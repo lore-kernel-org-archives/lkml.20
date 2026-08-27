@@ -1,180 +1,102 @@
-Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6640043B3E6
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:56:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.122
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34F993F0A86
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:56:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787824588; cv=none; b=JJhQox9RDH+IjUCQBGvMd2yQTST92ySUyL23DDHla2knxy53gvOO/DTnHf7DvK+dJ7jLZ3hIVgtqQKPH3Euwymrl1V3p6EwO8/2a0oL1DaFyX+IG0p3a4EOOKqOSNROPOLm3iZsJrdqRxwZ8HDvXQzaAqabzZgRgzrinENcsocw=
+	t=1787824619; cv=none; b=PnrIsUnmsJKcrce8n1s0caDx06jDh5tkVwaoXnWgzkrctjeRfG8GHgSQ1Fu4Lc/B+d3BBGUruhFPuvluNfADhAOoHBkDP1wEWX/Rxpv9S8HpsKl2LuHjSBbdWBH8gdqAZ/KoLKX/LlYCZ/NZE/seXAckCv+c0FEWuxpqMgJMtsw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787824588; c=relaxed/simple;
-	bh=XVwxuwVv9J8klcfz+P0rkEtNX7AV6V6/RcSwg0haeL0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=swJZRrqM0xSuaIrXECF3Ok/kGj+RoJdMGzN2MI8V4GTYV9czbkSLtMakml7t0Uc/CiKtDKBqlEepo9XspPu70AJPsFDwTGKELhx5FK22mkDIuAbpWtcJFhWiaVRa2IumiW+LACz0/t/AR6NJmPiNgKn4RhIkEFoDtjYg997d5Ec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=Uz1FxSCi; arc=none smtp.client-ip=185.125.188.122
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
+	s=arc-20240116; t=1787824619; c=relaxed/simple;
+	bh=ZsgSEkFEThAsuNHtCMgJ2lAhqARJk3KNgLFl25kjaN4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=sI33/gJ1NARx0SMvxOwLpm24sWSslPlxpcwiIHUkUnJr5i3qT6SDJD6oxcMCcfVHgtAYNNb+SUx59gVzi6W/qMueH+u+Re2yPZXzNkVceQyxtwaUIK955M/0f2EvasDXGcSltX6hwJmySrKOMwlCUF0tyRm/w9cpkpeKFTsGRoc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LdsuvsJ0; arc=none smtp.client-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="Uz1FxSCi"
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com [209.85.128.71])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id BB2243FE28
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:56:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1787824571;
-	bh=twtaGX9keTthWlD8Iz9JDELL7y9v94YhHTzfCCgZVkY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:In-Reply-To;
-	b=Uz1FxSCibNfL4jH0ATZjeFge2Q8AfHnXFgIon3LvgJFa9X5r+o9X9DxaIzeeDXvLz
-	 iKrZsg4vDPeGlSThaJgSrnQAkNJxgXha8EF7knyLsoM3IbuIB6Qw83YwJxHm2JGLBI
-	 PY/z3V9YKWdYOue0M1OrzJiNlVdN28W27MkL3tUGspR9HmA5YjuO6fgCRCPMhKc0Ii
-	 vDajfBt9sWseooPPiEJAoWsrOMR8gYGYDKcMa1oLNLKDaByzEGKJpK91A1PLib8eyu
-	 yeAcQ6Y/J44bUIKXuerf0gTU75KO7Cvlb48APu0vNZ6qy/fPvgNq6H6OzKiBKHNqT7
-	 TapzUZtFknij38LIlzGoi0YYa9qwLfnmyAfqKoBS0ptCJv4MRxbvmNxaoMwY9BKlx4
-	 8aUm0WrXH2UsbqQuDsXY5a5jFYrEog2SrPXDl0f+hIyX7LxwMaJzMYKvQxI+hr+3JL
-	 zv9DTUan40+RupRwsbrn5Fai7/suDhOFeHS1cuLLwJ2ySb9s6fVrOPvLwbst/Z3muQ
-	 fXVUPcnHiRavTFeAe0sPzcq1HZ2Mwz4iAv3q8WU2IkEUq178Ezt+nMlLT7uEyzPcbS
-	 lmFEAP+7GZZ7pMCEJSlpiM79Wr/oAdpq9v6VHTHerS+36DCU7lHhyJhiKKrsh1z2hy
-	 PNraum6R3qMo0+Scjg5SF/zU=
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4954c2d4081so15628225e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 02:56:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LdsuvsJ0"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8556ec44e9aso284107b3a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 02:56:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787824603; x=1788429403; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZsgSEkFEThAsuNHtCMgJ2lAhqARJk3KNgLFl25kjaN4=;
+        b=LdsuvsJ0tWhH5krOisGt+B73nqDbgp9TyPwMy7s7EEZFKkQrGpoyYPmxuyM3KU39G+
+         Mho/Rjoa9KLsPyY511asHYVq/7f3VKsa2G77eXmC054dFoIrX3aw3yKajHkZ9q78w3td
+         X87vd28XP4hj7FJurmNHqYxvy9EPLYAarALoupfMn8uCXxbrbHCIskNtke9acM5j41gj
+         7nL6KLQvJ6Tq7uC6v0trFUDrMeqCSPbQ5aivTRVg+j4wU9FODCNQ+is9vrZWoAFVXScl
+         N1dZztccy3VRDsK5fLR2KlLx9TfU+og6aFw6ncp486wauTRf9LxIkWLxEiH+plcjIRRP
+         qRkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787824571; x=1788429371;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=twtaGX9keTthWlD8Iz9JDELL7y9v94YhHTzfCCgZVkY=;
-        b=lEcVYB6BG6ViW1eSdAhEK+xDcYvhsvAAt/mMRFOL54L4n4sAaNaXm1Dy8cyJhHGfJo
-         7M+xzzMwUN9vJB5s8iqZyTrz70+wgxqUEYmfZ1KWuFHBBYmBVfS5BQgH5fO+f790sFhr
-         mOmv72gNak6PTLwNevmqxx2Jghdy0fPqPab8OxDK3OFshmCiULgIsmWg5WDklEZ63vlY
-         9q6eMDi9LB/5JfK/e8QMc7qrG3MwfOYD3fWf0Va+jWXMTJynqh3+aQuLmKLSVs1fUeFr
-         mPYA1XtSjOQbFQdDOZW0ntEF35/Amcq3FMvmjsjwTm7rOUa9FowUBR36sJxvUlEksgvI
-         wUNw==
-X-Forwarded-Encrypted: i=1; AHgh+RqSaTJ35/aosUw7ClqNE2tpR2ihiyGzkBoYUSz1mus3PY18uVrKn2pDVUMqMdISnL7Wk6WNO0+c9oie6NI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nMmNkNgM23dP+FWLEQnyRhqHgtclvTYwzDlNQMfvjgQrlXL8DF
-	F2qmLNukYa+CAo7yTMmFsDhJsE54FG5XDzRTIjpEPSLDiAHcdk9f/EHp9Br84AKFyiLQ4LI/NOQ
-	wrMYjd3zoG5y7i15hTu6sS5h5RUHtL33OgbAxi8oS8qz+VdmuYRS/qk3NvOwy8UiKZ4J83Sm7qs
-	hxSktsSA==
-X-Gm-Gg: AR+sD10tBQFPPs2OW817Yb/gC0W33Lx3/TR+ArDWiDz1veM4MEaQIzUtLFOhAbajOBc
-	QOMHrww/sxjntoteuqLK9co4T19cpag1M/d8KJH4RuViBmltGjRrHiz6DGwHyPeDaoE2JLwORXZ
-	i8+sJ5MQwTGjV897TRHlRTJhJprh1TEoW4WBdfBiWPr543XKUNB2ZGw4V9ovxl4j5AaKy6sC7N7
-	DxhdkFpXNYNuahnKWbLmiFcjJtBtb6Um3sgTLj7rbkokQoEW4RGMRwOPXvRffIWa7WqO94pzUVS
-	3a8E1W6XPNoiMvoE6cWETjii199fafLhSQYFsa94W9nq7UcoTulKAZuU/lmGA8of9UpEZbCWUJj
-	eKSe68svWKB5Q7g3nMG1eq4/PupjO08pgXOxpvlwr9mYkSJKWOu1+J3VwdgafkPE8MOA=
-X-Received: by 2002:a05:600c:3acf:b0:499:db5a:1049 with SMTP id 5b1f17b1804b1-499dc70246bmr162323595e9.8.1787824571156;
-        Thu, 27 Aug 2026 02:56:11 -0700 (PDT)
-X-Received: by 2002:a05:600c:3acf:b0:499:db5a:1049 with SMTP id 5b1f17b1804b1-499dc70246bmr162323025e9.8.1787824570756;
-        Thu, 27 Aug 2026 02:56:10 -0700 (PDT)
-Received: from localhost (93-35-56-63.ip53.fastwebnet.it. [93.35.56.63])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b497fa9c5sm36964705e9.4.2026.08.27.02.56.10
+        d=1e100.net; s=20251104; t=1787824603; x=1788429403;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZsgSEkFEThAsuNHtCMgJ2lAhqARJk3KNgLFl25kjaN4=;
+        b=tCqKwMgub/wBXvreSLqhLoSQTZ3X++JT0NHbz+a3MrdPslD6T5qi7/hlj3XieSiDOe
+         xIGM2/5jj6lV9DeSM95STNg2xKZ2WSDCPKrpmN26+QbEw9ru4vTo/CUvIXFyapoyouwM
+         04/XEjKmSceXxaOnYSOzOV6Jc73Xi/blpC2w0JuCwpTOk/S9AiwKn2EwlxpnKD77v2Le
+         BztQ2ddQ9DYQ57zrglvFkjXF5vDltZv4luP3G0K+N52+EBDvDn8Mcf700ewF8Aa6NLEy
+         cBRIT5iuqxlD4CH2AiNdwKTd8BSFMWGDKCRekHN+tE7vbcHIMBCix9gL0NQrDg18L1vc
+         D/ag==
+X-Forwarded-Encrypted: i=1; AHgh+RoQ1/0GvckIty0QZr/+bED5XYlruOwxaDByoMN7tmtf9cHCvqVSL2FG+DrdDmHTDcn43rzjmSnmtkHPdQg=@vger.kernel.org
+X-Gm-Message-State: AFuF++llE2LTTrWDq1y0YXvuG5EEH2AvO6dBpHhOK1pwoM5TTulZXA/M
+	OdZQzqgvw6LvIy7pdn5myX8btrWIBo9ugxbIuF9boWmxYJKen3AgeYXT
+X-Gm-Gg: AR+sD10tytY0KgHObl6k+6h4GcWnb8pBKFYsZQE1Q5BuZjoPpHeqgyClhMoWIN2ySy7
+	5BCQH0IYjoZ1HJzk3sukWQu9DY01M6T/T91YzRmKYb8eXKzX08s3JPOTaeU9QFn5cIo5ghL2egd
+	7LMsWakbAIQjaoib7Hm5AIUyvMHW7LvwItf2QbbqI1/IE1lAhilqkVTSFJFbFwDTcbxNR7QlYQh
+	ACrtYVxKG37+LkKShZBmDcdiqD44wjzX4zy/ufWnyBYvAdmW/mVUitU5OrUqt+iYFjEFHVstnC2
+	DSEKMjmYL3kL8GRCqwdGHjJ8nDsMKPJLkFIDFh+lQJ93o6Ypsz9XmCCLZPWDxPsnf69hibrtdkM
+	7mjXimIytKlPB9YUO3aGLTBrLmtZbh4kTmVuWozYUK7yo7+nSV7vVQM2MaXl5rGEg9xw7eIbJsi
+	WEL9w5UiR7M3GmuvC5fIdehmdrq8THX5I88YcJoJ6QPU9BjSVRZ/2i1RvnWLtxYsmXwtDk8lx/8
+	On7ElUQ6Wgfu2w=
+X-Received: by 2002:a05:6a00:1a13:b0:855:a211:6679 with SMTP id d2e1a72fcca58-855a21188f2mr2342124b3a.5.1787824603352;
+        Thu, 27 Aug 2026 02:56:43 -0700 (PDT)
+Received: from osman.mioffice.cn ([43.224.245.178])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8535a8b8bb2sm1819592b3a.16.2026.08.27.02.56.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 02:56:10 -0700 (PDT)
-Date: Thu, 27 Aug 2026 11:56:09 +0200
-From: Alessio Faina <alessio.faina@canonical.com>
-To: Andrea Mayer <andrea.mayer@uniroma2.it>
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, horms@kernel.org, shuah@kernel.org,
-	netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org, hangbin.liu@linux.dev,
-	stefano.salsano@uniroma2.it
-Subject: Re: [PATCH net] selftest/net: skip srv6_end_d[t/x][4/6]_*_test.sh if
- iproute2 too old
-Message-ID: <apAJuZzDOvjkVx60@cicciput>
-References: <20260824091537.2305107-1-alessio.faina@canonical.com>
- <20260826000156.bdaa71db68dbdc9c13907205@uniroma2.it>
- <ao7S04LkWVXAQpgq@cicciput>
- <20260827030701.bfaf6eea6dea1aef24c353cf@uniroma2.it>
+        Thu, 27 Aug 2026 02:56:42 -0700 (PDT)
+From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+To: liwanwu@kylinos.cn
+Cc: tj@kernel.org,
+	void@manifault.com,
+	arighi@nvidia.com,
+	changwoo@igalia.com,
+	linux-kernel@vger.kernel.org,
+	sched-ext@lists.linux.dev,
+	zhanxusheng@xiaomi.com
+Subject: Re: [PATCH] sched_ext: Fix several comment issues
+Date: Thu, 27 Aug 2026 17:56:35 +0800
+Message-ID: <20260827095635.535908-1-zhanxusheng1024@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260827091411.973621-1-liwanwu@kylinos.cn>
+References: <20260827091411.973621-1-liwanwu@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827030701.bfaf6eea6dea1aef24c353cf@uniroma2.it>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Aug 27, 2026 at 03:07:01AM +0200, Andrea Mayer wrote:
-> On Wed, 26 Aug 2026 13:49:39 +0200
-> Alessio Faina <alessio.faina@canonical.com> wrote:
-> 
-> Hi Alessio,
-> 
-> > I was running kernel 5.15 (5.15.0-139-generic).
-> >
-> > Removing the sink to /dev/null in check_hs_connectivity
-> > I can see the following error:
-> >
-> > ------------
-> > PING 10.0.0.2 (10.0.0.2) 56(84) bytes of data.
-> >
-> > --- 10.0.0.2 ping statistics ---
-> > 1 packets transmitted, 0 received, 100% packet loss, time 0ms
-> >
-> >     TEST: Hosts connectivity: hs-t100-1 -> hs-t100-2 (tenant 100)       [FAIL]
-> >
-> > .....
-> > ------------
-> >
-> > The error I can see upon installing the route in the setup is the
-> > following:
-> >
-> > ------------
-> > Error: either "to" is duplicate, or "vrftable" is a garbage.
-> > ------------
-> 
-> This error comes from the route parser: the seg6local action was
-> parsed, and "vrftable" was not recognised. The End.DT4/DT6/DX4/DX6
-> actions have been in iproute2 since v4.14.0, but the vrftable
-> attribute only since v5.11.0.
-> 
-> > I can see that iproute2 doesn't support any End routes
-> >
-> > ------------
-> > ~$ ip route help 2>&1 | grep -qo "End"
-> > ~$ echo $?
-> > 1
-> > ------------
-> 
-> The help text reports the names of these four actions only since
-> v5.14.0.
-> 
-> > It's similar to the case we added last month(-ish) for
-> > srv6_end_dt46_l3vpn_test.sh.
-> 
-> End.DT46 was different: parsing and help line came in one commit,
-> so no upstream release has one without the other.
-> 
-> The two DX tests do not use vrftable, their seg6local routes only
-> need nh4 and nh6, which are as old as the actions. Which error do
-> the DX tests give on your setup?
-> 
-> Thanks,
-> 
-> Ciao
-> Andrea
+From: Zhan Xusheng <zhanxusheng@xiaomi.com>
 
-For the DX tests I was doing a local test but it's not in the original
-kernel, sorry, I must have confused 2 tasks with one, so disregard the
-DX4 and DX6 tests, they are not relevant to this issue; if we manage to
-agree on a solution for the DT4 and DT6 tests, I will discard those
-modification in a subsequent patch.
+Grepping the tree for the old spellings turns up exactly the lines you
+touch and nothing else, and the new names hold up against what the
+comments around them claim: __setscheduler_class() does return a
+sched_class (kernel/sched/core.c:7608), task_should_scx() is reached from
+it at 7617 and from the sched_fork() path at 4862, and the @running
+callback documented at internal.h:439 is the one set_next_task_scx()
+triggers.
 
-About the DT4 and DT6 tests, I thought to use the same method as the failure
-was practically the same as End.DT46.
-This is the version I'm currently using 
-ip utility, iproute2-ss200127 (should be 5.5.0 if I'm not mistaken)
-and I can confirm 
-[SEG6_LOCAL_ACTION_END_DT4]		= "End.DT4"
-[SEG6_LOCAL_ACTION_END_DT6]		= "End.DT6",
-is available.
+Reviewed-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
 
-What do you suggest would be the right way forward to check what is
-going on?
+One thing for the changelog rather than the diff: it lists three renames
+while the patch fixes four sites, because __setschduler_prio and
+__setscheduler_prio are two spellings of the same stale name.
 
-Kind regards,
-
-    -Alessio Faina
+Thanks,
+Zhan Xusheng
