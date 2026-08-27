@@ -1,81 +1,119 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0D803F210B;
-	Thu, 27 Aug 2026 11:21:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E101641DED5
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:21:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787829681; cv=none; b=sLNc+DgdSe5/Rm3Ngth+H0q844/DcJBPq5KNkIwo5WzEI5N16rh6PREFSnEWoIK4DlBOSIMQTTdhRHwGmUvDt20PDNbCf6dXuCA+gpHGtUBoERThESwZOoLt4mKhvr41e688EW+0ATqqBOdesCACqm6sieCZI9oaIkTiz2UGsK0=
+	t=1787829690; cv=none; b=EgUsnJFqisMkjz1vRDvKaE9oSIwjiehUe1iE3qsOQ0kfkSxkJk+9IrUC0mQ+fJQth0NonWgv0BoT64En69nVRyGB0HIVjt23uUGOyHOUkMqUzh/CQ8ghgt76UQTGJuJnqz/xmJJdB2S32rfKLXIklaewycFSTCAjlMweNElHNw4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787829681; c=relaxed/simple;
-	bh=rHbHMpWeZJyn7hIS7WVlw57xDOzTyULuqNzOeAv8564=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ln5MDge9JPFpD66Nzw/f+CAWGDkuW3u845JfW1/QQ9rui3pwgih1OdcIWbIuHaNeBkAOKg4gWxpy1idrknEP0DtKDL/uee/V1TYe8PsnRFe7x0R15AyWSDoKEPGCKtluZLgbVr1mX1huSznakHcBPZmRcYSlGeDyUGaoGJQ/y6w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MW/vBlE/; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787829690; c=relaxed/simple;
+	bh=jAJCUoDhgJdImNIePC7j08N47hwd3t2WfQxePgjwS3M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dqea8W5Lu5uFoB5V7KPzyE4fWBBWgX/la9tQUWceLINpE+L+a0CcxiNkL8vKo/b2hN34xXnn2BKts7IgkPRMkGfdgCAyrOkvtSEkNfaeeG6ARt/jIQfD+IOVBtC8n7pX9OEVFSumHxvqC1fWRJd/seYLXmxxCuI2C9HJXoxCvZI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mViux1bY; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MW/vBlE/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787829677; x=1819365677;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=rHbHMpWeZJyn7hIS7WVlw57xDOzTyULuqNzOeAv8564=;
-  b=MW/vBlE/HG8Umn/11o5ffbxzDDQ6RKnjaHaOTkaSqo+q8Ud2L6uLK02s
-   1L7T+j/m6qQqXJFpQcvZ6Kc685D+mNv3jbtzQS31FD4kaEsN6GX6A3mzg
-   EPVLvOeWmu/p1phSm9XZ7k7+Ah8oisvF6l3d3I5lQ5Typ0bonaRmNut6G
-   mAfkUamv0n9Mv/dckrF7JJ5Zl8MlzlRX4dwhknb3LEKl1C3klKutUfjpd
-   tVNLfR85fL37NjvtGScp/bT09WHMhbQtosOzLpJu/HE/VdPwsyhKMwv5K
-   gtDYpSLHZQo6lqbatfDRCkcNk/WhIHWlkf8lzMQssKY3NiKVCG/5GpYVS
-   w==;
-X-CSE-ConnectionGUID: 4UwlA5qiT8etlk0LuaG1cw==
-X-CSE-MsgGUID: N7dppJO/Smma43G0mF/CUw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="88090213"
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="88090213"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 04:21:15 -0700
-X-CSE-ConnectionGUID: PvSf7o9tQyGbftur5NRnfQ==
-X-CSE-MsgGUID: 2DjN8I/pSRm0bOaMbd1njQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="271647305"
-Received: from xiaoyaol-hp-g830.ccr.corp.intel.com (HELO [10.124.240.119]) ([10.124.240.119])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 04:21:13 -0700
-Message-ID: <15c473e0-1ea5-4d35-b4f2-e07b21f87e11@intel.com>
-Date: Thu, 27 Aug 2026 19:21:10 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mViux1bY"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-39652a6e963so804134a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 04:21:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787829686; x=1788434486; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6AQl5RP9TxXn81ZgXLlb05Y9y6XA1JA2H2ttGtX56P8=;
+        b=mViux1bYxGTC+ThorwbYBWpDwOYm0/6QXKtKgdDK5vyjlVjS0R1+dPWEYg570CRFAD
+         XKHI87iyRxzJ2W+QvLy/0GPOiXTmSK7L/9e95XmSMvvxYMhBb5YfqWk1YxsHVeorlAFu
+         Vod0Y5EBYdNs+obYp8XSonZc/TozJ0LgOjSYUqMZc0RkhGovtXeSht18DiFgUzxACC1c
+         5aI/fv9pq3gH38zWr3tbiKp0BbxKbjzslBbLhBM738gFrFBJx0jMunybuAEyX5ZGxmqg
+         iHHElr5OxKhdLmQVXLd/A/8gFL2v1Y72xzAiwiLdfARkV6eNrfEkEc04sNApSYu7xqw5
+         iALg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787829686; x=1788434486;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6AQl5RP9TxXn81ZgXLlb05Y9y6XA1JA2H2ttGtX56P8=;
+        b=GARXY1Ch8Zbis3Oja6yhgAp2hu6Z8YzC3u/VKjDARL0Q4ry9W525iFqro0ncpbK7v9
+         QoMxAJuKI6A/5dWeT7uLd3Q4qolkL5DNWUOyFhLgnVcNUwjTKiCmDNiHVi+v0AI/Upj5
+         15mN1ZuzXUk/9OyFJXlbMFYqRt2YeAwxdHxT0NDecA3hcpeHKfKdk+ncvQuhc2J4mgdU
+         rKoYd9lT0dZkQuiU4AkICmk1+EB08ovKIrYwiY/ZKcQnb1iqyPEiF30XF4SiPiY8HrQm
+         7Hg1EqQsDHxvJGYHMvqaMAPXzXaHVQebhSsXMCy5GdN5F9bQLYm0whA7nDY2aohlFlop
+         nvfA==
+X-Forwarded-Encrypted: i=1; AHgh+RoMueDn9cXvUwawCHBduRkWZ/Tml0Be2lpGPJj8fn9xeqvjYL0ThlCpRyombqGavafUVLKvOBCsa391mZU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mB8RZ+AXCqGwOUNlbAHBzHtw9eMuD6V9AQ9pwdYIO/Z7x2Oniw
+	B0mO+qBaInPmhT+mrvWqDmxtvESckYBAXzF5CQcUhqHTUWKQMUSLIA8t
+X-Gm-Gg: AR+sD102r6kk7KLOCHGGMPfecfKjs3BmIzHuk9IK0ir7u5IpHKVzKa27gw7qD28bL2Q
+	muj18+AS6UFXSyqVCGeU4wGSPbnZCxfEVai2VyTdQ+MmRSKZQx9Sms+QZDbVlmu34JxL62JP0Qo
+	LEdg+WrLEYKahiySKmL3NT3wB0ABRew6mupfMENo+eIyL1YBExVDdLr8JgSjZRkPjz8F41PHPoi
+	hMqpJgSAQG4+UM5N47RUH0C0T6uqpIoib3tBmLCY+fto9IiXC/tIkqCs2W4eEBdPO4jANDxfO/Y
+	k1fBEFqr5cCNrdg+UsE9Mf7eluWm1YLWn0EzaA21EKvGdjwRvZE5eV6C8H8doSVdyKjO6MkThKV
+	pxZ3FvM30rmaLF4QuZIgVFJmXQgzEVsgyszTxi1HQRukIT6fSSk7BxsPzDOVlL9aJKLHya61z5R
+	wvOZi1WgTWf8t4nhFDVN7/IZyXDRffRURQAx13W04ZRo1DxiHNzO79/+/WzuNlguXSDHt0I2K18
+	UfNAstfWNdO6yKpsjgtMnG1fRX1iV4SEfb1xnk=
+X-Received: by 2002:a17:90a:e70f:b0:38f:cfe2:fd3a with SMTP id 98e67ed59e1d1-3969bc5054dmr8099705a91.15.1787829686419;
+        Thu, 27 Aug 2026 04:21:26 -0700 (PDT)
+Received: from baaz.tail58d41.ts.net ([2401:4900:8853:c223:d8cf:ffee:2034:18a5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a8f20095sm16423327c88.6.2026.08.27.04.21.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 04:21:25 -0700 (PDT)
+From: Muhammad Falak R Wani <falakreyaz@gmail.com>
+To: Tyrel Datwyler <tyreld@linux.ibm.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	kernel test robot <lkp@intel.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <christophe.leroy@csgroup.eu>,
+	linuxppc-dev@lists.ozlabs.org
+Subject: [PATCH 2/2] scsi: ibmvfc: document protocol parameter of ibmvfc_alloc_target()
+Date: Thu, 27 Aug 2026 16:50:38 +0530
+Message-ID: <b073968ae020b6ae0240e91341a92f428587ebd9.1787828961.git.falakreyaz@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <dd866cf2321381694af027fbd726bcbd63ac3751.1787828961.git.falakreyaz@gmail.com>
+References: <dd866cf2321381694af027fbd726bcbd63ac3751.1787828961.git.falakreyaz@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/8] KVM: VMX: Disallowing using to_vmx() in common VT
- code
-To: Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
- Rick Edgecombe <rick.p.edgecombe@intel.com>,
- Binbin Wu <binbin.wu@linux.intel.com>, Kai Huang <kai.huang@intel.com>,
- Yan Zhao <yan.y.zhao@intel.com>
-References: <20260826171246.777729-1-seanjc@google.com>
- <20260826171246.777729-4-seanjc@google.com>
-Content-Language: en-US
-From: Xiaoyao Li <xiaoyao.li@intel.com>
-In-Reply-To: <20260826171246.777729-4-seanjc@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 8/27/2026 1:12 AM, Sean Christopherson wrote:
-> Poison to_vmx() in main.c and posted_intr.c so that attempting to interpret
-> the vCPU as a VMX vCPU will fail at compile time, as opposed to failing at
-> runtime, or worse corrupting state without outright failing.
-> 
-> Note, to_tdx() is buried in tdx.c, i.e. isn't broadly reachable, and so
-> doesn't need the same treatment as to_vmx().
-> 
-> Signed-off-by: Sean Christopherson<seanjc@google.com>
+Commit 249313b3f7b5 ("scsi: ibmvfc: allocate targets based on protocol")
+added a protocol parameter to ibmvfc_alloc_target() but did not describe
+it in the function's kernel-doc comment, so a W=1 build warns:
 
-Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
+  drivers/scsi/ibmvscsi/ibmvfc-core.c:4996: warning: Function parameter
+  or struct member 'protocol' not described in 'ibmvfc_alloc_target'
+
+Add the missing parameter description.
+
+Fixes: 249313b3f7b5 ("scsi: ibmvfc: allocate targets based on protocol")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202608270829.lHI1FAdO-lkp@intel.com/
+Signed-off-by: Muhammad Falak R Wani <falakreyaz@gmail.com>
+---
+ drivers/scsi/ibmvscsi/ibmvfc-core.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/scsi/ibmvscsi/ibmvfc-core.c b/drivers/scsi/ibmvscsi/ibmvfc-core.c
+index d1956552698e0..6fd4c601f978c 100644
+--- a/drivers/scsi/ibmvscsi/ibmvfc-core.c
++++ b/drivers/scsi/ibmvscsi/ibmvfc-core.c
+@@ -4987,6 +4987,7 @@ static void ibmvfc_tgt_query_target(struct ibmvfc_target *tgt)
+  * ibmvfc_alloc_target - Allocate and initialize an ibmvfc target
+  * @vhost:		ibmvfc host struct
+  * @target:		Holds SCSI ID to allocate target forand the WWPN
++ * @protocol:		protocol of the target to allocate
+  *
+  * Returns:
+  *	0 on success / other on failure
+-- 
+2.55.0
+
