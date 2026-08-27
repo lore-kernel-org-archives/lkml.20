@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE97347140B;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C00324746B6;
 	Thu, 27 Aug 2026 13:44:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787838282; cv=none; b=vGUzGm9o8+szSbCDA6zurDGxRw5Giy5b8sGSKS11KdQ7DUMKvz62PWZ3SKLSLCJU3NkSsJtL8JcYW3uDMfli4VFi3oKDSSEOEDbRSkuu6RscdAMphrWWKOJIripV8s9SbhG9QOwcLSLrup7ktrtRQnzNakKj4lQaa/AQepyijSg=
+	t=1787838284; cv=none; b=QYtYIskXAM7wgl+goCjBHb8EIYSkmB0kyEPmcUI3g/fF2O4rcWvqAoyTRgAK8IPNk6yMAoEMgdBCz6Qk82asywTAKs5OqhZfYCtIM5zcjUITb9Fut4IIETkovWbQXaUI1YN2JU2+Yd22pUiLUNiCHNuEzoOkRNcZUAqv9Wpv2Eo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787838282; c=relaxed/simple;
-	bh=fVFLkhzANZFV+pW0lm+qtfKNlza7qQdqLZv1gNZFGIU=;
+	s=arc-20240116; t=1787838284; c=relaxed/simple;
+	bh=ncX71bZRwu4AuWDsk7FltFFxkbG60aAYKLG941OcN9c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bxzCQWEKzIykvlf3jTEbW24vxjqTdKLaX2wkxcdlzUjG3x1MkkrL0zJOcWNYBTKRJPozewPNVv6aPjw3hjEjZVMOrwE5SGTTz8APIkmwfTrxF8cKhATqQ2i5ZvNatGX4poUpBr/9hBzsrT+GMPuMXcl/6XHCAjccg0Qbl1Mxivo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jX5woQMX; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=GdGuVnRQA3wGimyFjq8pQDsdtmL6++iFk/cbP1IZd66/hjIJGgpTjTLN+08jSsr5mEgOt5OdU+m19WpZyGDM2VqDZ94RKQAVfT8zv0pPQYfDoajhZnVbg7AdZrQ5Z4bOZIsGh0n03KuL7mH8znkxaYqG2LIkM7WiTGQeBlpheQM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BUFLAjiq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jX5woQMX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECC931F00A3E;
-	Thu, 27 Aug 2026 13:44:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BUFLAjiq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A30561F00A3F;
+	Thu, 27 Aug 2026 13:44:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1787838277;
-	bh=R6N7NhpJ1BNkiL5rB15BJSeHfYTylJVAOauFDB7Ic14=;
+	bh=9nWd2JiHbGpFxdKtIgR1/mA2jBP+r1D6KF4ucSMyulY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jX5woQMXyglCLMJmWu7VohkJQfCZyylp4B4oKtWyfmvnMhZ6bdPickxD8wmutLsre
-	 QpdS/6ucicxyye6iCqYjDlSQVu4RBu1TAWf2ecxjESh8wgB/a8BDKAuq447Xu4qcK2
-	 H6GFY6ohRj05L4fFRM0tSVhqd4n5TTg3aDowOOuflhA+6vKUdf3Pjlo3B26z/gepbJ
-	 71dUFx4rjnY3CiF2X44WQWz0OoU4ucAS3GmLDhT4sgzLEh5PB8ZOaBuRQL5xMOVQJk
-	 Rjgg4DdLufmlKIx31ul+MKsQapuKPAgcMRhGujDiVK4kwiGwiBw4FIhytkCxvDyvbQ
-	 6Wd/JTQ9B+pWA==
+	b=BUFLAjiqHJqs/KvRm8Y+02p8G9HG/HkY+T2ptguC+9wUOH88glOR13lJQ6rZISAAX
+	 lm3zIA4U63MfGBv4Pfi2VtjrLpaPai2PlBokszEmUKOOmJgbwERCXMptu4a72rKfGd
+	 7ZTAZDKkV70zKT+2f7CkRwa9eGYpT/AOeSA5yqq4Eu1X/9OcDx9E22Ruv1LRJOqhaP
+	 EZ5n6GMzcEiWX8Clf1FsxQz/KmQsfFzMPovlSKjN/YFqraZ/MIszhm59tj0V6m5BFu
+	 PULYTwAcBDBzKc9iM1Si+qx44h5MNPDwOe1S26QLeMyS3hzAjSwzyqxYCvw9CwyRqX
+	 9ZY1pFc/+sYVw==
 From: SJ Park <sj@kernel.org>
 To: 
 Cc: SJ Park <sj@kernel.org>,
 	stable@vger.kernel.org,
 	Andrew Morton <akpm@linux-foundation.org>,
+	Quanmin Yan <yanquanmin1@huawei.com>,
 	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [RFC PATCH v1.1 1/3] mm/damon/core: initialize damos_quota_goal->last_psi_total
-Date: Thu, 27 Aug 2026 06:44:26 -0700
-Message-ID: <20260827134429.123023-2-sj@kernel.org>
+Subject: [RFC PATCH v1.1 3/3] mm/damon/sysfs: set next refresh jiffies per sysfs context
+Date: Thu, 27 Aug 2026 06:44:28 -0700
+Message-ID: <20260827134429.123023-4-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260827134429.123023-1-sj@kernel.org>
 References: <20260827134429.123023-1-sj@kernel.org>
@@ -48,88 +49,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When DAMOS_QUOTA_SOME_MEM_PSI_US metric damos quota goal is set, the PSI
-delta for the feedback loop is calculated using
-damos_quota_goal->last_psi_total.  However, it is initialized only after
-the first feedback loop.  The first iteration of the loop uses the
-uninitialized value.  As a result, the feedback loop can change the
-effective quota in an unexpected way at the first iteration.
+When 'refresh_ms' is set, DAMON sysfs interface periodically updates
+auto-tuned parameters and DAMOS stats.  The timestamp for the next
+refresh is initialized when a DAMON context starts, and updated in its
+damon_call() callback function.  That is, each DAMON context updates it.
+However, the timestamp is a global variable that is shared with all the
+contexts.  When there are multiple DAMON contexts having different
+refresh_ms, the update frequency will be changed, depending on the order
+of the contexts.  When there are multiple kdamonds, it will be even more
+chaotic.  Fix the problem by having the timestamp per each context.
 
-The user impact of the issue is not big, because the issue impacts only
-the first iteration of the feedback loop.  The feedback loop also has an
-internal cap of the quota adjustment.  The wrong adjustment will soon be
-corrected over a few iterations.  For this reason, doing no
-initialization at commit time was intentional.  It is also explicitly
-commented.  That said, nobody likes behaviors that are unexpected or
-difficult to be expected.  Fixing it is also simple and not expensive.
+The user impact is not very critical.  It does not leak, corrupt or
+crash.  The update will not be faster or slower than the lowest and
+largest refresh_ms values of the contexts, respectively.  The user can
+also manually ask the updates on demand using kdamond state commands.
+That said, clearly this is a bug and can easily be reproduced.
 
-Initialize the field at the beginning of kdamond and each commit of
-SOME_MEM_PSI_US type quota goals.
-
-The issue was discovered [1] by Sashiko.
-
-[1] https://lore.kernel.org/20260718005316.89585-1-sj@kernel.org
-
-Fixes: 2dbb60f789cb ("mm/damon/core: implement PSI metric DAMOS quota goal")
-Cc: <stable@vger.kernel.org> # 6.9.x
+Fixes: 9fd7bb5083d1 ("mm/damon/sysfs: change next_update_jiffies to a global variable")
+Cc: <stable@vger.kernel.org> # 6.18.x
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
- mm/damon/core.c | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+ mm/damon/sysfs.c | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index f8dddbff74a77..e5b6b1c6bb7b2 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -1118,10 +1118,15 @@ static struct damos_quota_goal *damos_nth_quota_goal(
- 	return NULL;
+diff --git a/mm/damon/sysfs.c b/mm/damon/sysfs.c
+index e3858ffab4b22..f05b256c90ee7 100644
+--- a/mm/damon/sysfs.c
++++ b/mm/damon/sysfs.c
+@@ -1789,6 +1789,7 @@ struct damon_sysfs_kdamond {
+ 	struct damon_sysfs_contexts *contexts;
+ 	struct damon_ctx *damon_ctx;
+ 	unsigned int refresh_ms;
++	unsigned long next_refresh_jiffies;
+ };
+ 
+ static struct damon_sysfs_kdamond *damon_sysfs_kdamond_alloc(void)
+@@ -2215,17 +2216,15 @@ static struct damon_ctx *damon_sysfs_build_ctx(
+ 	return ctx;
  }
  
-+static u64 damos_get_some_mem_psi_total(void);
-+
- static void damos_commit_quota_goal_union(
- 		struct damos_quota_goal *dst, struct damos_quota_goal *src)
+-static unsigned long damon_sysfs_next_update_jiffies;
+-
+ static int damon_sysfs_repeat_call_fn(void *data)
  {
- 	switch (dst->metric) {
-+	case DAMOS_QUOTA_SOME_MEM_PSI_US:
-+		dst->last_psi_total = damos_get_some_mem_psi_total();
-+		break;
- 	case DAMOS_QUOTA_NODE_MEM_USED_BP:
- 	case DAMOS_QUOTA_NODE_MEM_FREE_BP:
- 		dst->nid = src->nid;
-@@ -1143,7 +1148,6 @@ static void damos_commit_quota_goal(
- 	dst->target_value = src->target_value;
- 	if (dst->metric == DAMOS_QUOTA_USER_INPUT)
- 		dst->current_value = src->current_value;
--	/* keep last_psi_total as is, since it will be updated in next cycle */
- 	damos_commit_quota_goal_union(dst, src);
- }
+ 	struct damon_sysfs_kdamond *sysfs_kdamond = data;
  
-@@ -3741,6 +3745,17 @@ static int kdamond_wait_activation(struct damon_ctx *ctx)
- 	return -EBUSY;
- }
+ 	if (!sysfs_kdamond->refresh_ms)
+ 		return 0;
+-	if (time_before(jiffies, damon_sysfs_next_update_jiffies))
++	if (time_before(jiffies, sysfs_kdamond->next_refresh_jiffies))
+ 		return 0;
+-	damon_sysfs_next_update_jiffies = jiffies +
++	sysfs_kdamond->next_refresh_jiffies = jiffies +
+ 		msecs_to_jiffies(sysfs_kdamond->refresh_ms);
  
-+static void damos_init_quota_goal_last_psi(struct damos *s)
-+{
-+	struct damos_quota_goal *goal;
-+
-+	damos_for_each_quota_goal(goal, &s->quota) {
-+		if (goal->metric != DAMOS_QUOTA_SOME_MEM_PSI_US)
-+			continue;
-+		goal->last_psi_total = damos_get_some_mem_psi_total();
-+	}
-+}
-+
- static void kdamond_init_ctx(struct damon_ctx *ctx)
- {
- 	unsigned long sample_interval = ctx->attrs.sample_interval ?
-@@ -3757,6 +3772,7 @@ static void kdamond_init_ctx(struct damon_ctx *ctx)
- 	damon_for_each_scheme(scheme, ctx) {
- 		damos_set_next_apply_sis(scheme, ctx);
- 		damos_set_filters_default_reject(scheme);
-+		damos_init_quota_goal_last_psi(scheme);
+ 	if (!mutex_trylock(&damon_sysfs_lock))
+@@ -2273,8 +2272,8 @@ static int damon_sysfs_turn_damon_on(struct damon_sysfs_kdamond *kdamond)
  	}
- }
+ 	kdamond->damon_ctx = ctx;
  
+-	damon_sysfs_next_update_jiffies =
+-		jiffies + msecs_to_jiffies(kdamond->refresh_ms);
++	kdamond->next_refresh_jiffies = jiffies +
++		msecs_to_jiffies(kdamond->refresh_ms);
+ 
+ 	repeat_call_control->fn = damon_sysfs_repeat_call_fn;
+ 	repeat_call_control->data = kdamond;
 -- 
 2.47.3
