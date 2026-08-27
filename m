@@ -1,52 +1,50 @@
 Received: from bg-bec.cloudflare-smtp.org (bg-bec.cloudflare-smtp.org [104.30.16.142])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3201C33D6ED
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:42:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C83643546C9
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:42:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=104.30.16.142
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787834572; cv=none; b=krAHEdAiR230rdVOe87OkHtmMO82AS+1T66WykdrrX+hmdn5rBeiVWxx9WGxNch2j2fAPZTVTm1TJA3fMYXGqxraSLyrAkell2XoAJs6h89u+/CuXwyT2jeB/U7r5dUMzhce6fbPITkt/JfA6cYEXWYS83mO7Fr/HYDJv6QXArY=
+	t=1787834583; cv=none; b=IoD5DaGGuCSRHSW+s9SwTlSaPj2GV2I+UD0KOtAjhWAl6KoJAbE/0UW18z6dmx6xAbpW32WsIXlvsP8N1oNJ344olaX0aq8PI/1i5Kbw6C62w/rZV67DVqz5ygzgaCOrTuYXpZAOEIs0VLp5FaozhEsztOKl13oN0yzASe3oRn8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787834572; c=relaxed/simple;
-	bh=Fyq8W1C5NIE2ID3dj//V5ozh3f+RWS9ymH5093GPYoY=;
-	h=From:Message-ID:Date:Subject:To:MIME-Version:Content-Type; b=WZ7hpjbjg62OPFbgFMFOGxpV15V516VRV2ZT/AlU4dfK+9sfcjwucy6nasdqg3ZK1oBMF2Vqu2C5lpeBXCN/srymO2+S5y0g8I0K14rucITpp/MH2CFsS3nXGq9h98WBIC+/KXqovwEdvdaALTw+XoxX2QRJssdDPR7jp06I4dg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh; spf=pass smtp.mailfrom=cf-bounce.bugs.sh; dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b=Gik/z/rw; dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b=Cx8KHar9; arc=none smtp.client-ip=104.30.16.142
+	s=arc-20240116; t=1787834583; c=relaxed/simple;
+	bh=fbxDeYvyvxjoR5ZFTwmONVXbzci/IqOHoqKa7M5aQpg=;
+	h=From:Message-ID:Date:Subject:To:MIME-Version:Content-Type; b=e7whk4ZjkHiO9IOakHWmk6TxqmtJMG/h5zbcgKXPKeaosM8wDoTA8gP+KW+T1vg2M6uX3Gm0rfzskdLyfpdLO+dAmVZpJU8OsJan4gO4ZmtOKEUgpV06t6NQaReDhoTojKzG8q3qSonDYXj6sCRLaKPjAAyOp6ShvJXUSJdTJNI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh; spf=pass smtp.mailfrom=cf-bounce.bugs.sh; dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b=G69/3lBk; dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b=TkEO/kMc; arc=none smtp.client-ip=104.30.16.142
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cf-bounce.bugs.sh
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b="Gik/z/rw";
-	dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b="Cx8KHar9"
+	dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b="G69/3lBk";
+	dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b="TkEO/kMc"
 DKIM-Signature: v=1; a=rsa-sha256; s=cf2024-1; d=cloudflare-smtp.org; c=relaxed/relaxed;
 	h=To:Subject:Date:From:Feedback-ID:from:reply-to:cc:resent-date
 	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
 	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
-	:list-owner:list-archive; t=1787834566; x=1788439366; bh=IETVInWIvmTv02Nai9
-	QrkDPchLUk3qge893iEYEYjUA=; b=Gik/z/rwMWNiToV3uZyt84Pk0llATqG30a82UuX/on6ti
-	pxJLRmShRaz1a71X9KugptFLrugzTAPjrw/v2t+IqGHUeh9PmQXCsr6OL5shuSWr/tKTWP83g73
-	VDFBL0Miu7sTcez9crTFK+GjnVooqksAyS95se+cvbJIAoPjeJipJGlnMQpEybywEGZPFSA4Dj3
-	gBMT5F/BPcbd0d/rt7vMSqOpu7wcnoCdDPs1Lxe5rEJ5BDgHUWxJ0iNn1nsDfIOnWqMSDMt+Qck
-	bigj3tzj09GTBrTzkqF/ktNHBwmiJWgRLuZo4R7TlpFhESK9a1ttVC+KcwiUHnPxX9M55V9w==;
+	:list-owner:list-archive; t=1787834570; x=1788439370; bh=xolQtDTvcx7Ik7f2ae
+	NUamIlZy97liYAIRbX4sTp+f0=; b=G69/3lBklflC7YrNW/j+EJdPep2EqfmTxt80/w9Q5lVNp
+	ORG5XAMIXdM4uqq3RWLiuXGpGM8Y5ArL7E3aJZL/s68+v1E6RSWuG+o2E4rZ0W/y9xuJmOAzLzD
+	r9d34bizivge2OnTh9/OVQFiz7n0rHb2zkfTj1JrhWcBSRPG/Be3rco4AiDUy4HcBSKEfjAAry9
+	8RUYrdpdJB+sUDEQXqDbGbQMgLQTUMv0ZfS9GvfmnS9VYWc4SFq4n1pptPc3QYwe8bzhGn+0CF5
+	0/c+beysb4AMWn2RBa7IaOeFqaweeT4jJ3GdQGZ1AhfAIpaWb0+Q8N4mqxVHAbnRtqM5Yhfg==;
 DKIM-Signature: v=1; a=rsa-sha256; s=cf-bounce; d=bugs.sh; c=relaxed/relaxed;
 	h=To:Subject:Date:From:Feedback-ID:from:reply-to:cc:resent-date
 	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
 	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
-	:list-owner:list-archive; t=1787834566; x=1788439366; bh=IETVInWIvmTv02Nai9
-	QrkDPchLUk3qge893iEYEYjUA=; b=Cx8KHar9vznihLABqlemqceJAVKnKLL4QPuZGPXrP3T+z
-	jof8MV6cRtHJL/5VdXDHSQZSC11winNJz+MzJEhQtea55WdzyLiClrOWx265JnOTHj4aFVCgDkB
-	1zzFm4SFOIOByyKXDGX3PQtdOz9NGU/vZtKHp0e14v8wDA3wGlvqo8hArP2iwLYOUZmRZW6aawX
-	6FBE64O15XGSn1IqpL0rmX9lCJ8DwpD5xUmXeLZ9IjDPUAeHaI6lxliWkc1kC/4bXwyzXWxG2Z2
-	sPHbx0LaZqMkE2Pbg2iuwMn8LopW+GSeN+tKDCQdQwZUJkXJtJMsia/7Ff5ipZDj6DevEumQ==;
+	:list-owner:list-archive; t=1787834570; x=1788439370; bh=xolQtDTvcx7Ik7f2ae
+	NUamIlZy97liYAIRbX4sTp+f0=; b=TkEO/kMcXCLa1kpLf+TWbbklQigspml+s4nOGj+jKMaEN
+	fYhepbWSUbrfyJWy9rfO/dCIgHRfcnOb8AFL33XWAfnoHyvtEz0iQr/K4NgBReD7uO+l8vA7lJC
+	Tg6OVz5q43bLo2YVJ23eTAT7b2TlDB5GLHOuOtk57QPj9EvFJxNs2qySsqiIPF1jJ98/1dNFoX9
+	/2PLtICTVA0ZwFEjIfaQK/RSaXt9Q/Y3F7EvOqWPLoqhDkn4w9I3b+f6m86FSP3CnIfYZCVNxWw
+	+0mcMIW7ZQkHazuF7KQu3obChC5APDEv5xaW4TEbQZK/deJrEncE1R7xwYQkE3EPDYp73h9w==;
 Feedback-ID: bugs.sh:5:6:Cloudflare
-From: co <co+a720ac0c47d2d165@bugs.sh>
-Message-ID: <zKVpkZXjE75xVdFiLMgHlG0eo0eFhEoMzS81@bugs.sh>
-Date: Thu, 27 Aug 2026 12:42:38 +0000
-Subject: [BUG] net/bridge: wild access in br_handle_frame_finish()
-To: netfilter-devel@vger.kernel.org, coreteam@netfilter.org, netdev@vger.kernel.org, bridge@lists.linux.dev, "Pablo
- Neira Ayuso" <pablo@netfilter.org>, "Florian Westphal" <fw@strlen.de>, "David
- S. Miller" <davem@davemloft.net>, "Eric Dumazet" <edumazet@google.com>, "Jakub
- Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>, "Nikolay
- Aleksandrov" <razor@blackwall.org>, "Ido Schimmel" <idosch@nvidia.com>, "Phil
- Sutter" <phil@nwl.cc>, "Simon Horman" <horms@kernel.org>, "Jiri Pirko" <jiri@resnulli.us>, linux-kernel@vger.kernel.org
+From: co <co+6dcbccedc9ec6452@bugs.sh>
+Message-ID: <ILTHcT8oe1HP47sY25JVxssvKmkCTjYlX9Hs@bugs.sh>
+Date: Thu, 27 Aug 2026 12:42:43 +0000
+Subject: [BUG] drivers/vdpa: use-after-free in sk_skb_reason_drop()
+To: virtualization@lists.linux.dev, "Michael S. Tsirkin" <mst@redhat.com>, "Jason
+ Wang" <jasowangio@gmail.com>, "Xuan Zhuo" <xuanzhuo@linux.alibaba.com>,
+ =?utf-8?b?RXVnZW5pbyBQw6lyZXo=?= <eperezma@redhat.com>, "Parav Pandit" <parav@nvidia.com>, "Eli
+ Cohen" <elic@nvidia.com>, linux-kernel@vger.kernel.org
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -58,10 +56,10 @@ Content-Transfer-Encoding: quoted-printable
 
 We found a bug reachable in:
 
-    path    net/bridge
-    crash   wild access in br_handle_frame_finish()
-    commit  4e15e89faac9 ("net: bnxt: ring the doorbell when SW USO exits e=
-arly")
+    path    drivers/vdpa
+    crash   use-after-free in sk_skb_reason_drop()
+    commit  bd5f485f3f02 ("Merge tag 'soc-arm-7.3' of git://git.kernel.org/=
+pub/scm/linux/kernel/git/soc/soc")
 
 Config, environment, the sanitizer report and a C reproducer follow.
 
@@ -71,7 +69,7 @@ Config, environment, the sanitizer report and a C reproducer follow.
     If you patch the bug based on our artifacts, a tag would be
     appreciated:
 
-Reported-by: co+a720ac0c47d2d165@bugs.sh
+Reported-by: co+6dcbccedc9ec6452@bugs.sh
 
     Everything in this mail is validated by the reproducer below.
 
@@ -81,8 +79,8 @@ Reported-by: co+a720ac0c47d2d165@bugs.sh
     human review, so both still require validation before you send or
     apply them. Available on:
 
-        patch.diff  https://bugs.sh/b/a720ac0c47d2d165/patch.diff
-        report.md   https://bugs.sh/b/a720ac0c47d2d165/report.md
+        patch.diff  https://bugs.sh/b/6dcbccedc9ec6452/patch.diff
+        report.md   https://bugs.sh/b/6dcbccedc9ec6452/report.md
 
     This is an open science project. The code and the full set of PoCs
     are not public at this moment, as we intend to disclose our findings
@@ -96,51 +94,47 @@ Reported-by: co+a720ac0c47d2d165@bugs.sh
 =3D=3D Environment =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-    Reproduced on  4e15e89faac9 ("net: bnxt: ring the doorbell when SW USO =
-exits early")
-    VM setup       https://bugs.sh/b/a720ac0c47d2d165/run.sh
-    config         https://bugs.sh/b/a720ac0c47d2d165/config.gz
-    poc            https://bugs.sh/b/a720ac0c47d2d165/repro.c
+    Reproduced on  bd5f485f3f02 ("Merge tag 'soc-arm-7.3' of git://git.kern=
+el.org/pub/scm/linux/kernel/git/soc/soc")
+    VM setup       https://bugs.sh/b/6dcbccedc9ec6452/run.sh
+    config         https://bugs.sh/b/6dcbccedc9ec6452/config.gz
+    poc            https://bugs.sh/b/6dcbccedc9ec6452/repro.c
 
 =3D=3D Sanitizer Report =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-Oops: general protection fault, probably for non-canonical address 0xe0001b=
-ffe0002001: 0000 [#1] SMP KASAN NOPTI
-KASAN: maybe wild-memory-access in range [0x0000ffff00010008-0x0000ffff0001=
-000f]
-CPU: 0 UID: 1000 PID: 146 Comm: exploit Not tainted 7.2.0+ #57 PREEMPTLAZY
-RIP: 0010:fdb_find_rcu (include/linux/rhashtable.h:152 include/linux/rhasht=
-able.h:629 include/linux/rhashtable.h:672 net/bridge/br_fdb.c:216)
+BUG: KASAN: slab-use-after-free in sk_skb_reason_drop (./include/linux/inst=
+rumented.h:82 ./include/linux/atomic/atomic-instrumented.h:32 ./include/lin=
+ux/refcount.h:170 ./include/linux/skbuff.h:1290 net/core/skbuff.c:1220 net/=
+core/skbuff.c:1249)
+Read of size 4 at addr ffff888013ca3adc by task exploit/145
+CPU: 1 UID: 65534 PID: 145 Comm: exploit Not tainted 7.2.0+ #8 PREEMPTLAZY
 Call Trace:
-<IRQ>
-br_handle_frame_finish (net/bridge/br_input.c:204 (discriminator 1))
-br_nf_hook_thresh (net/bridge/br_netfilter_hooks.c:1165)
-br_nf_pre_routing_finish (net/bridge/br_netfilter_hooks.c:430)
-br_nf_pre_routing (include/linux/netfilter.h:325 include/linux/netfilter.h:=
-319 net/bridge/br_netfilter_hooks.c:539)
-br_handle_frame (include/linux/netfilter.h:165 net/bridge/br_input.c:291 ne=
-t/bridge/br_input.c:442)
-__netif_receive_skb_core.constprop.0 (net/core/dev.c:6151)
-__netif_receive_skb_one_core (net/core/dev.c:6262)
-process_backlog (net/core/dev.c:6377 net/core/dev.c:6728)
-__napi_poll (net/core/dev.c:7787)
-net_rx_action (net/core/dev.c:7850 net/core/dev.c:8007)
-handle_softirqs (kernel/softirq.c:645)
-do_softirq.part.0 (kernel/softirq.c:546 (discriminator 20))
-</IRQ>
-__local_bh_enable_ip (kernel/softirq.c:538 kernel/softirq.c:473)
-__dev_queue_xmit (include/linux/bottom_half.h:33 (discriminator 1) include/=
-linux/rcupdate.h:914 (discriminator 1) net/core/dev.c:4961 (discriminator 1=
-))
-packet_sendmsg (net/packet/af_packet.c:3110 net/packet/af_packet.c:3142)
+dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
+print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
+kasan_report (mm/kasan/report.c:595)
+kasan_check_range (mm/kasan/generic.c:186 mm/kasan/generic.c:200)
+sk_skb_reason_drop (./include/linux/instrumented.h:82 ./include/linux/atomi=
+c/atomic-instrumented.h:32 ./include/linux/refcount.h:170 ./include/linux/s=
+kbuff.h:1290 net/core/skbuff.c:1220 net/core/skbuff.c:1249)
+vdpa_nl_cmd_dev_config_get_doit (./include/linux/skbuff.h:1323 ./include/li=
+nux/skbuff.h:1332 ./include/net/netlink.h:1131 drivers/vdpa/vdpa.c:1324)
+genl_family_rcv_msg_doit (net/netlink/genetlink.c:1114)
+genl_rcv_msg (net/netlink/genetlink.c:1194 net/netlink/genetlink.c:1209)
+netlink_rcv_skb (net/netlink/af_netlink.c:2556)
+genl_rcv (net/netlink/genetlink.c:1218)
+netlink_unicast (net/netlink/af_netlink.c:1319 net/netlink/af_netlink.c:134=
+5)
+netlink_sendmsg (net/netlink/af_netlink.c:1900)
 __sys_sendto (net/socket.c:800 (discriminator 1) net/socket.c:815 (discrimi=
-nator 1) net/socket.c:2281 (discriminator 1))
-__x64_sys_sendto (net/socket.c:2288 net/socket.c:2284 net/socket.c:2284)
+nator 1) net/socket.c:2277 (discriminator 1))
+__x64_sys_sendto (net/socket.c:2284 net/socket.c:2280 net/socket.c:2280)
 do_syscall_64 (arch/x86/entry/syscall_64.c:61 arch/x86/entry/syscall_64.c:8=
 4)
 entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
-Kernel panic - not syncing: Fatal exception in interrupt
+The buggy address belongs to the object at ffff888013ca3a00
+which belongs to the cache skbuff_head_cache of size 232
+The buggy address is located 220 bytes inside of
 
 
 ---
