@@ -1,128 +1,149 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5637823C4F3
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:24:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1664E3DD87F
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:24:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787819047; cv=none; b=EBVrAJ0AXaAxSVns65tTI6lJqRT+TGvlrWxW4H+R7R6MX5mOM0Zitw5vO4cVAYo1pXPIpTB0edgI1DwdjHxuUIPX6LZcMFev9DkVk7ZR8bga+rwszyfZqVAr6fZ0XI7t4dj+jzhLnwzmI+u5jcvvC+7NUjcRUnKkXNIY8WNJ1dY=
+	t=1787819052; cv=none; b=YxYCYrJ+jn9vH5iz1ZFxLNsdR2QwHDLnXzNPQbDtogf41IssBin5WTmZw0V+1UvAGWNrobsQPPoG/2Zii2TIvF09U1hSw3weDMAAIMSlaLIJgv2763a8Tmp3tOaqhu062fxu095d+QDTJFBuffhT4bDlypTU3qMCUUx63Nrfx6c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787819047; c=relaxed/simple;
-	bh=vSxvbDRs7jpFNifaA9NQBhKbV6mMP0jERupIA3P82EU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IoKls6s3c+SvpyTteNIBYMfG2zBHVwTHTMjY4qIu2d+g6lX1vTnQkL3nB7gZt9zsIXODT5yOM2n6S/cD4pzWB2NWAWPS7rPPodJU3f83N+6spcqJCqqvd1wK/Wm+u3Clc5uptt4zymNrC77bOv+gNR2XO+JJIk0srRN/dmzSWmw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=BAtgl98i; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=dkstzukU; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1787819052; c=relaxed/simple;
+	bh=pkGSAMDXspEu3J7iLyllPLKHDKuo8B5U1HH9oT1LPhE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=szC9k5u1FGzN2fLr818I1+jAd4pvjiq9LR7qc722sBckBTLiqfo0JBJCbnSXgZ6H0ZdOuugIJ6jH0hErGzGaUbcQ58Zc2OzvMFNfrtbOJmwHPY4TnX0f7KmWetDWOVHm0r+olr3QJrikEkssgBiITPcprYNVCJK1eNnokZ2QXLg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sl4rSaq6; arc=none smtp.client-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="BAtgl98i";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="dkstzukU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787819045;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=erCGkMBq6wNZzYxKYvBXkMicQIwmnQyBEnM/IZzuXQI=;
-	b=BAtgl98i+nFCD459MVMHKSOxjGmWrwRsy5Y4KDiarEkEEHw82UOdVOTSRMBTQSTnIgO9CC
-	SoRmyTO0ajP9uc3Q1FJ0vgQCpnbjuFBWtBxqY8YDiqY9WM2r0cvFzqyad0/D8sQftIRmzm
-	T74omMU9ZbzRR/9AjJU8/vwgzKSwW9w=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-696-6L1sV-VXMYurQ0BChAVd_Q-1; Thu, 27 Aug 2026 04:24:02 -0400
-X-MC-Unique: 6L1sV-VXMYurQ0BChAVd_Q-1
-X-Mimecast-MFC-AGG-ID: 6L1sV-VXMYurQ0BChAVd_Q_1787819041
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-47f6db77430so253315f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 01:24:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sl4rSaq6"
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2d71d1cc8b2so10040255ad.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 01:24:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1787819041; x=1788423841; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=erCGkMBq6wNZzYxKYvBXkMicQIwmnQyBEnM/IZzuXQI=;
-        b=dkstzukUbGDLRR0MGf6Kc3UxuNb9eGUDoVgzivRhY+54FCA4nDtLF623+6sj+UB9PR
-         7jIpi771R06oxYEPlootW/nvFHphE8ciTKeNPhCSjG3YcbfF6XzmwqABxddK8jJZIRsd
-         62cNIqgFdhdSwlvrFju18bah5cE8Gop7dsR+oTRnxG7kOQ27M4H2s/5PWG/f92M/3TrL
-         +h5kN6JThjQ1rMk19mQgUxfYmEnNwZDqeymEdXMXOb8F8Jg590Id6AUvjckOKzBy+v5C
-         +YhkW7LAQm4UJsugM2RH/VVrcK3xDTiomPpaStCW6HwNbvl0mkPrLdhIgJd9O0TuCaWI
-         IHHw==
+        d=gmail.com; s=20251104; t=1787819050; x=1788423850; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=53SA5jsB14fklHtRYEmUAlSS2YNOxZbTqVCbUtQsPlw=;
+        b=sl4rSaq60uYgwUyZTtrgDZdST54j99noz6an88k0fyH+geKFkfuTBDBsBmLq2BKAMJ
+         d85qoEZo91yX8bZM4llnhASQCw0PhCuxn0Yj7P00nEoiDcgf+8lT9By0lcmckw8nWAOT
+         3jElD3R/NL+D4KNsyZ6IhjSA/j5fbokPBHNL8zfa688+g2bqVm14R+zID7sbj4sIJmf/
+         mcAUDQOxbasNQ4kEdKeNqHvKcrhUjVLSSyMEsWpt9RkXLpfSDc7WQo+z1NITIDRUuBvs
+         iw5b4aAz4pDmvCufcblZU4ihi+DdBX34ZN3NiNzwRTCZDmMmbg0mnq8nHvr/EX06I6fD
+         GlBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787819041; x=1788423841;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=erCGkMBq6wNZzYxKYvBXkMicQIwmnQyBEnM/IZzuXQI=;
-        b=tWEhddNmKKz7vi7T292yTlMWmWxTXuKJOKWPxr9F6qeQPCg/EqRBMVS+J8e9kIGUzG
-         vGizJvLm2g/qK8/Grr2i/GaUXQnPR+m8Rvvlr4hkd2ZWL4l6vLu/ZS4WWPsctNsXowzN
-         EkSH8SL0mKN3svPVsxbx55g/qF/ipHPNeJyzmnwQgmBs1tNqQyJ1EnQLyKEPzzqxWQlX
-         nDxJapa8E7DI6DxbK10YlEFPvdwNPwBd+RqQ69k05yjoUbxkXkvNDz/0uCHDVfaEoscG
-         tGiNWG1QHqFYVamKBMnZ2dV0AmCYGbpWIGRJzON8nEd/eIg3WATCo1vSHE2c+/ja5pzz
-         x2fQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrHUaCsF5w8LZOqjaMLeJhv9AfoHUJdA7ZKIrHYuWdUoCNCPpJehNyOU1BR3mHKn0dKYyzoOuaScRF1wP4=@vger.kernel.org
-X-Gm-Message-State: AFuF++m9W+R8C4/Qc8o4/h7ukcyHwQYAJ5qTaDfkYsT1Ca3UODIs5CjD
-	YYHF1BEi/WY5HOGORxIjCuHqfmvQ8zD7GqQq5CIcU/nngfW92tE4p2hyViAf6u0rJWYP8DFhXc9
-	w4LswQqCHUVuuGcdr03ZmhqwX/266WqpaIV+BSHH0E2EeiJ0gFb8Cm5lAppERd+eb+Q==
-X-Gm-Gg: AR+sD12E4L9qfJJvh6VGznSoGXvEkiXObwJaMo/3jaSiWqdujqwXYt4a6jFaSjv3CZ6
-	b8VrTpB2U9uld64NmW2i1cTZmWhqIlkgtgKW8hH1dJfjDBpV8BbzLg83NrGsd3kdMCseJz2bAP4
-	eUVTzGEdwnpSY5+H3pjSj6iu1JjT/bGvLz13rk21tUpSIUhOgFsTc+svmfiUNFtR8LO3Sh/ewXv
-	mI1dESmn5UyVxUeP0wHKWsgtQRaDN0iQmHi1R2+fwO7IofqjZ0z7Pb1ZEeDqKllIYjvf+X6JbRj
-	/ZL5LLpj66Gmu+DgoTil7DyKsQnXnPf3A1587PpgH228aYTsU5kqLP3fwBngA3Q8rLDtvSsAXxs
-	lDFitc7g/m+WFzk1aIn+0irNCHaDomll4uHByPNLGhlhcu2NTwBmRpX7govbxS7zuqiJvq6k=
-X-Received: by 2002:a05:6000:4543:b0:481:4697:a6b0 with SMTP id ffacd0b85a97d-482e26d99efmr12170110f8f.20.1787819040898;
-        Thu, 27 Aug 2026 01:24:00 -0700 (PDT)
-X-Received: by 2002:a05:6000:4543:b0:481:4697:a6b0 with SMTP id ffacd0b85a97d-482e26d99efmr12170052f8f.20.1787819040481;
-        Thu, 27 Aug 2026 01:24:00 -0700 (PDT)
-Received: from [192.168.188.103] (ip46-47-231-195.pool-bba.aruba.it. [195.231.47.46])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e279ecaesm7526943f8f.6.2026.08.27.01.23.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 27 Aug 2026 01:23:59 -0700 (PDT)
-Message-ID: <96bd39b4-136b-4941-9cb8-3e35c5680f0a@redhat.com>
-Date: Thu, 27 Aug 2026 10:23:58 +0200
+        d=1e100.net; s=20251104; t=1787819050; x=1788423850;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=53SA5jsB14fklHtRYEmUAlSS2YNOxZbTqVCbUtQsPlw=;
+        b=qF2M3Ct5i0TO+OTuKhDBFzS0C+G1TEq12bVIZZInsUf57UjUbHu6UunIk7fXbk7gru
+         9IrWGrQ7tB02Yg0WC6+tWocmy0POfsJvp1UujqyIWi75megrKYz3/b+KEfhihIQP+nPG
+         R/odAaRxjnjcKQNRCYR2ctvttLwIXsHUKYDFUtMWPGCFWVu7LPqYAkRP0FETx/r8DxNR
+         3dfN4sFJn922uTAnSz+1dvJfOvkre2aSLyb7dbkk7lmbGEHFyvZdc+EvxrXFj8b6Ji9L
+         GQK6EsMLIycRaUm4VpBokNJ3W+tbD4IOZ1m+ZYG20W/jq/HiO7tdojjNG6aWQTUS3Po7
+         b3TA==
+X-Forwarded-Encrypted: i=1; AHgh+RqYMKufvgc+lFiBe/04dUSG7AWc4w7mti/eeuG7bXO8pv82x8lbcb2VEwkCPCjqOfAgGNnKr/pPjh+4Eqw=@vger.kernel.org
+X-Gm-Message-State: AFuF++luvYzO0D7bhWnfCaWQ1IZzH4Ps2WeeOIvji0xT1cIsIn/3AQOt
+	o9deX+2KFH034Bnhpac/Nrv2uTUBBATevep1Zb7X9JC0TqE2JnyCDTSJ
+X-Gm-Gg: AR+sD11dGW+h2HMLQ7/4q1dV131HnlbluK/z3Pf5Csa+fZ7spAoqRHMF4j8La/SjoYc
+	sOM0hVKxZ7i9JiijI7/Zn6wdrQMdcfxQjf5/bCfg1u/FvIV/ohvlWwqobcYTQybBQkZdKYTE8co
+	WquSuyDtSmp7M+Y2AWIRtk9NQTaQYsxuliLMRwoiA6u1rRVjWEn92LdR4grb6jTucaSzbpuWpOF
+	ubQ5MFfeIco2U/n0J5vjAID/JDemx1osU11m6rYOz4n011sdVI/8x+ioiHdw5BN+A4hbts43ZgM
+	KA1S9YBSm+0Wosk0dsQb7/LSFKaKtQ+v6p/Q8HV2BFONlgad0eR46dDGXarSoG5OWHoG/cXXyg7
+	CyDuE56HcKcCO6YaqeLfF6Wm7qc9lFA0+hx/8SQongcvmTfH89m42sIR3AwjG/jnZld8WjwISa6
+	2kPSdqZWU0QG1nVj+/69ki9IlTC2HELC/9c8ypgmkcpxscKTXkVmWKw5DOiNiOFkr4ndDPihDJN
+	/PJWk/aaw==
+X-Received: by 2002:a17:903:19eb:b0:2cc:6018:f030 with SMTP id d9443c01a7336-2d707bc0823mr263048885ad.14.1787819050220;
+        Thu, 27 Aug 2026 01:24:10 -0700 (PDT)
+Received: from localhost.localdomain ([142.91.101.48])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d70498d74asm14491125ad.29.2026.08.27.01.24.05
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 27 Aug 2026 01:24:09 -0700 (PDT)
+From: "Lian Wang (ProcessMission)" <lianux.mm@gmail.com>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [PATCH] MAINTAINERS: remove myself as THP co-maintainer
+Date: Thu, 27 Aug 2026 16:23:27 +0800
+Message-ID: <20260827082352.26769-1-lianux.mm@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <ao7Nr_FALfP7cTY5@gremlin>
+References: <20260826-drop-thp-maintainership-v1-1-3d102748fa17@kernel.org> <ao7Nr_FALfP7cTY5@gremlin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 net-next 1/2] net: phy: mediatek: differentiate MT7530
- GE PHY from EcoNet FE PHY
-To: Caleb James DeLisle <cjd@cjdns.fr>, netdev@vger.kernel.org
-Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
- daniel@makrotopia.org, naseefkm@gmail.com, joey@tinyisr.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org
-References: <20260827065930.2618729-1-cjd@cjdns.fr>
- <20260827065930.2618729-2-cjd@cjdns.fr>
-From: Paolo Abeni <pabeni@redhat.com>
-Content-Language: en-US
-In-Reply-To: <20260827065930.2618729-2-cjd@cjdns.fr>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 8/27/26 8:59 AM, Caleb James DeLisle wrote:
-> MT7530 gigabit PHY has the same ID as an EcoNet EN751221 10/100
-> PHY. Differentiate by checking whether the PHY supports 1000BASE-T
-> which is always supported by MT7530.
-> 
-> Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
-## Form letter - net-next-closed
+On Wed, 26 Aug 2026 12:31:09 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
 
-net-next pull request for v7.3 has already been merged, and therefore
-the net-next tree is closed for new drivers, features, code refactoring
-and optimizations. We are currently accepting bug fixes only.
+> Since it's 2026 :) I asked Claude to look at my time as THP co-maintainer:
+>
+> 	~107,000 words of review across 948 emails (in 279 distinct
+> 	threads), counting only prose you actually wrote — quoted text,
+> 	signatures and attribution lines stripped. That's a full novel's
+> 	worth of review commentary.
+>
+> 	Along the way you handed out 194 Reviewed-by and 15 Acked-by tags,
+> 	and your longest single review was 2,404 words (mTHP collapse
+> 	support, v12 — the khugepaged/mTHP collapse saga accounts for most
+> 	of your top-10 longest reviews).
+>
+> 	Estimated review time: roughly 300–500 hours, centred around ~400
+> 	(i.e. ~7 hours/week for 14 months).
+>
+> 	1,615 THP-related emails in the window: 948 reviews of others'
+> 	work, 278 replies on your own THP-touching series threads (~31k
+> 	more words responding to review), 382 patch emails, and a handful
+> 	of MAINTAINERS bits. Busiest months: March 2026 (131 review
+> 	emails), June 2026 (113), August 2026 (111); quietest was December
+> 	2025 (5).
+>
+> Think I can be happy with that!
+>
+> --
+> Cheers, Lorenzo
 
-Please repost when net-next reopens after Aug 31st.
+You certainly can.  Thank you very much for everything you have done for
+THP and for all the people whose work you have reviewed.
 
-RFC patches sent for review only are obviously welcome at any time.
+You and David were among the first people to review the first patch I
+sent.  Later, SJ, Zi Yan, Mark Brown, and many others also began helping
+me.  Although I kept making mistakes, I genuinely wanted to learn enough
+to share some of the review and maintenance load that you have been
+carrying.
 
-See:
-https://www.kernel.org/doc/html/next/process/maintainer-netdev.html#development-cycle
--- 
-pw-bot: defer
-pv-bot: closed
+I still have a great deal to learn, but I have started to slow down, think
+more carefully, and improve both the technical quality of my work and the
+way I submit it.  The help I have received from the community means a lot
+to me, and your patience and reviews were an important part of that.
 
+I know none of this changes the workload that led you to step down, but
+reading this made me realize again how much time and care you gave to all
+of us.  I will be at LPC this year, and I hope I can thank you in person.
+
+I will also be more disciplined about patch preparation, testing evidence,
+email formatting, revision history, and the overall submission and review
+workflow.  I hope that, over time, I can take on a useful share of the work
+rather than add to it.
+
+Thank you again, Lorenzo.  I will miss having you as a THP co-maintainer,
+though I am very glad that you will still be around.
+
+Thanks,
+Lian
