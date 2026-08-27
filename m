@@ -1,148 +1,164 @@
-Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com [209.85.208.169])
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13E4D30B529
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:02:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.169
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787853763; cv=pass; b=ILKGEidQAiW4uTM9GWHCIsBMe9LHV7t6YRiJq8WaNBkimj36+eCQvNTK+XSk8Gp+LEvSIwygqoSFLwoIg4uTYiJ5nVc/oDvXwfinxXXcszLaVKrK8VLz0INlzQ23Ye8cda32nd/7dd5tijGGw9VwleZoTUDFGq+geGGM/ocS8Fo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787853763; c=relaxed/simple;
-	bh=do51Gl5dKXox8vJq4RVAbo30sgZsNyHF3P929jzrUc0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YZvm2Z1CUom9XRGm36jrqljxD5rV9qibD3XoTChzqn8Mo5h3KOLf3nLA8W2Qtvov/QzdTXMOCsddwklLlK7pOopvTiP8jhN7FiFK0MeIYbskDVRxypZ/X4P/hcPfDgv23w/brUG0h8zIsj5qt/cuJfXbRzwCMm+BkGgKoZumxKE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n2eTbU+c; arc=pass smtp.client-ip=209.85.208.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AACE73385A7
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:03:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787853803; cv=none; b=mw3KBY9pdz397vzmEvRfsLpVFglnncgfI+aK9t3dxqy8sWZDUsuWL2MZ0pkOtRS/lCk3GYOADd204Oc7yNvU7si2Zrqnxow5jFsh7bNlqNj0zpYOTla3Ju1BUqkNJt/QEOMLA9vkar1pbv2/92vb/hZpwIAzMgmD5fWUlnBv41s=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787853803; c=relaxed/simple;
+	bh=aVJvper34EDrUAZdd4lOfHj1wCc4uQDuLNlXgq1p1YQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XCftx8qJqz5ROBUzXLq9OmauA/jRYEYTSevvjxqS4PZDpgKGtgRG+HGa0I5RtA8rXsJ+YGYXd87R5T7GYX3aLlEEtZpXhaLaBVHYi5J0dQkiyIlgqQrT1TveFwkC69rppbK+sC+1PVZ2Qx2Q50kOAkDpjd4Bttt/HxsxIMi0+Ts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Bqa79GVU; arc=none smtp.client-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n2eTbU+c"
-Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3a20f56876eso1065751fa.2
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:02:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787853759; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JH+q8AcNpaiKEZxhY2zTleJLrJmvKxoGGtKy51ivcN6CpHjbWQvbJURiqlPXfo0qN6
-         mTn5aEA5DJigcO7AAN5FQaYgR54VfILbJH9v3C4TO41QbknV/fR8dBEmNiDrtbdnO3DV
-         7dKmDJRdgCciz0z639LPdo7dTwpR92ywMLZKos9t8Uk6hFqHVe4gP5GtZPsOy7gD/WkF
-         BSpclnUGP8vDfiije6XQ0zMI/aGxuQw8fOqWLCWIFEKdPdu/qvUst5jwQNDIS40J1Cc6
-         rHnI7icHB2wMUfxGJRUSHNCZUvMilzqgJlNSQyCIHsiuxU/vuOCqd4Y/cWY7RYo7uOnQ
-         vjlw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=do51Gl5dKXox8vJq4RVAbo30sgZsNyHF3P929jzrUc0=;
-        fh=A6+ITNdpfzuLAZeltqxOuKOnQAG/1JgC7mBKASQ7oQE=;
-        b=EsjvnfArCYXr1v1I3lsLViJ1hZouqcv2YDqa8RfnEzkg6MlZlVxQ/NZe5uuxtIV+TS
-         6Sp+R87tN9RZDhAIQdzrKbVazNSCga/f28joOSmGT6iYILU9eSLcGcyZqaHfqo67k0YC
-         gv+Hg8BGkTgS5bHKTH3QWWwrqx94+uvLYXbNApqhqZv/xOUpqgc/WGMNxtfsUCtdpe4t
-         hYH1W0dBiD07pVw8F0B2hHTMkhRY2niDX3JX951IirCsWWO1aOlJmmSnGZ7v99UWlehY
-         WKYeKPsdRBegECXamDU68mpD7OBlXcgYfyQGrbfwzZbF45fMoFfgo2Ub7SoAIst6KPOt
-         O7qw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Bqa79GVU"
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2cede6375caso14635ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:03:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787853759; x=1788458559; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=do51Gl5dKXox8vJq4RVAbo30sgZsNyHF3P929jzrUc0=;
-        b=n2eTbU+cbSbMUPkABPoMoo/sPQBVCvk2x42AjW51PvgBG2QdJkfraFvAANsPASidPf
-         hgKh55SR4U04ozjiNmctMMYi6DdS84DpFDoN2Dda88qInvjcUzOuiq8AaHJ1LjNrqYXd
-         BAhTk8QE74rczrC8g2Jh+81993ycn/H9sglMjaRAEGLj3kDriJsfUGVhQPTBVWlfrmnM
-         zQ9Wp/bpAoBBunLQ0c8S2qR+05WXHrFYD+5DAGN29/41yzzqdH/t6mpiJ4Kq+Ua+S6s2
-         Miiilzi23ZCYmU1UCM3d56SBR7xCR6syP3wZvuI3HC5AgIaTtILZRsvwzhUPpXXaXyxW
-         S6PQ==
+        d=google.com; s=20251104; t=1787853801; x=1788458601; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KoGSjfHeCXk5ZMZawIjFrD2nA/EHJWwuQY/vd3YWCZ4=;
+        b=Bqa79GVUVZJc0oroeM3AzdPpJtHhs/mwHewHAduY4gHIDgkKtR2k/3ddHratw1HBEG
+         Vq3zGH2ZX/RVdNd+UnMBwgcXUaiOxYcB9BZ0IyPUoQJ7GZq7vKezITaTgjeUmX5JBgfJ
+         /bP7jDiI005+pXBl05eUtrrxwkzQlje/NUedUcXi81pQfP+vqT8ONA/3RheQ1+7EZlCD
+         rhUvjC7vuox2dgeyODGH/EspWiSnShrEFB5zDdcaUggUVbdLAWAny3OQ6HDXZP/cwW0c
+         gb/pDPsJTjdB02SoN3WKXzbxPD0CFnSEtLzcGgCyUGaEow+9zJc1TmOLaZttfqv6ADuY
+         Z14g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787853759; x=1788458559;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=do51Gl5dKXox8vJq4RVAbo30sgZsNyHF3P929jzrUc0=;
-        b=DOsV14k5PHIy0imZmVi9xfHjb0cYzrMQcZgIzRRyhqKc9yTYTWLyhyutmEI4tB5QfO
-         X2yZyaG8gO3R9keI/vSl0vqnMzHq8FtWdr+49SFmPAgcZojYKZSY0pq2or7e+CPKSBAt
-         r+FtkvFsyB0vkjIE10/u68LJrGA2Nkbx82caYzsmsd5UG8al8Nct6kSTHwatyfx9ApHT
-         64rcyBgBo0MQqMKLbaogA2VhSBthjoeQYT5a1OGl4uoFo5/3KZuZMmzVD7xUbIRECDAN
-         FMIA5ufjQMRARm2aTB08MXG//czL1G4UGvFNii6Dwbncvhs4D67OFsGfITFMiFcwwW4D
-         nhGg==
-X-Forwarded-Encrypted: i=1; AHgh+RoXJObtenLOpqV6ZzrJEhh6YB2BqiZ2lfIQmQp9HGyW8l29qnTh4sSSXIPTmi46W9kHbISqK9frGJRobdQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nf82lPIEyOZ8DsMPcW2BWXRW/FegUo905HJhCPTKVanG/m4PeO
-	KgkJwYGY9L43fm+viG35Fr0nsGyYkdGMUw6UDyi9FihsYKi/vbjyDHs4zNwPRnEE8laCjNUjoto
-	njulCIgqFQqCDXf7YFGv3zI5g/NuN+pU=
-X-Gm-Gg: AR+sD12AHFI5+11RRWDmefA0vv9CVkgvM3EUQ/AxyiJegc4SMqAfdEFx1+LiYhIEmTx
-	afLkLrf8cxVNwKG6BEq7tgejEMAKeepmcWos14faBBML6/Idt3U+PTaw2hcPzWLDLWwrdDwPtLr
-	l16WewCr+tSMhgzf7N4OqGt0HuXQrIXX/Bl5oifXSedYaZtZXSzHcnA/rxaoiR8qVYUAfS4gdf5
-	Hh6ZAJXlmKvQPINJE5N1bRkvNlI4/Gnym5Mqc8tNzyfe9mkS4xTRRIcaGDNTsT1PKpIl4veGTIj
-	aEsDoDOnyRKR0wQGJWa3WKOPPq7xkV+x3S65n3+7X5pw4LZBUq2gwWgpN7inAfkwxHu3V/LZvrx
-	W4trm+IkNvH5YgHfLLt11jmtepw==
-X-Received: by 2002:a05:651c:a11b:10b0:39c:9241:af65 with SMTP id
- 38308e7fff4ca-3a301ac1f3amr415741fa.11.1787853758715; Thu, 27 Aug 2026
- 11:02:38 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787853801; x=1788458601;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=KoGSjfHeCXk5ZMZawIjFrD2nA/EHJWwuQY/vd3YWCZ4=;
+        b=qSIyG1JPWwYLJuOWqzLmTrTEg8M/uRRo9LxQqrJbEWr0lDd/Oqr8qco2/kDpgP9hEn
+         af6C0FRUTcxDeXskmNkgy/BWPKl3tx/eWdHHRrfhLCAqYyiJMBgMr0v0NzqJ6X41n2m7
+         SNpfeB26bM15jF7T7V5FE9ujVAGCy68UPX3WOi+8wnXVv1UAM3yIUE1A5exgkngcQ0E7
+         M2WpzCOFSwTtZ3L3M4XLnfiZPpBmKsSNPvEQUEvEJsRIXJ1DDqscwNfpB1LdZebf7Pwy
+         IeTp3GpenhnfSIT9R/8SMynC2JwXrkpC9WPl/fENs/ZknS7XgmGqmuIinTw93IYxTgcv
+         RPSQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrBijQO64Sgxtj1BvHAn+tN73CBH/uzqrw7ysf2Tui7yR17dDvbidyxcToZ9+edXRlxYQH8cqB4eSodk88=@vger.kernel.org
+X-Gm-Message-State: AFuF++mhggVIT8UBmU+1CxLEUWpI9nquFdo2OzrDR952Tdm90mutmOE9
+	Jzwm+pc1fDHoUD5drr6YgDCiD/Iv44o13CrOSAPU9Yof+FD9qj4s+5iu0cvby0zTeA==
+X-Gm-Gg: AR+sD115s5y3/BO/XPsRULIPavuSGyf5cTJWTA/T6a5pRg6ZqdfDi8t+LPOR5fP/kMC
+	UrRMewITI/nCQRyt/Dj2oac8M5lx3DzfBe8loij2IOe5v/EFnrlIK1/E3qb6Y5Qf47iRxSAA+pb
+	orJeAoE5Xi3MxVmPjz3d2SYuvu8hTkRbR5vJPJgSqnylq469A/85WSmzDGQDXQfACN5+XxDfdcS
+	4+Wbh0I66k2uVuY0A3prc3FXxTUPP26VtAZKLMqY6pY7tGwrrdc6oSFqjfftk0toc4yoo9y9KQs
+	rxMII8ANbyfpvFS4CWhIEajmvCqz1b1wU6B6yRfVIrRbyAFYUYBnz4XbcPyRi3uGp5t6xqpcTCb
+	Ds3l/S6cwkO284HjAKZZaqSgNOVH6NcFmhjmgBC+/qrnGy7aUizlVJYM5C1YeALBlWVCuz1Oi0i
+	SNYYf5p6ep4LiqcbB2grBjxjHCAnIQCaNhvykPncQHB/7kAlT00lXdT5g+aIhykiwHy88JO4+sI
+	kWem5XtHiIFCt0+HQAjc8L2hjzsrQsNet4hl6em1Ost6WtE8iyidQRkiYA=
+X-Received: by 2002:a17:903:8c5:b0:2d5:db3d:1a44 with SMTP id d9443c01a7336-2d74f6efb5bmr432895ad.17.1787853800262;
+        Thu, 27 Aug 2026 11:03:20 -0700 (PDT)
+Received: from google.com (210.87.127.34.bc.googleusercontent.com. [34.127.87.210])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39675867f73sm3108022a91.4.2026.08.27.11.03.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 11:03:19 -0700 (PDT)
+Date: Thu, 27 Aug 2026 18:03:15 +0000
+From: Samiullah Khawaja <skhawaja@google.com>
+To: David Matlack <dmatlack@google.com>
+Cc: Vipin Sharma <vipinsh@google.com>, Alex Williamson <alex@shazbot.org>, 
+	Joerg Roedel <joro@8bytes.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Nicolin Chen <nicolinc@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	Kevin Tian <kevin.tian@intel.com>, Robin Murphy <robin.murphy@arm.com>, jrhilke@google.com, 
+	tatashin@google.com, Will Deacon <will@kernel.org>, kvm@vger.kernel.org, 
+	iommu@lists.linux.dev, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 0/1] vfio: circular locking dependency in
+ pci_dev_reset_iommu_prepare()
+Message-ID: <apB6tsN6cHz9Iuv3@google.com>
+References: <20260821193502.92431-1-vipinsh@google.com>
+ <ao3nr1-t0DxANAyC@google.com>
+ <CALzav=f5wUUt4mKZn0tvQez6_1iYPcb8eX5q-XjabTNy03JiNg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260827171937.28878-1-gvalkov@gmail.com> <20260827171937.28878-3-gvalkov@gmail.com>
- <15F55ACD-E206-4B79-9E8D-1ED24427BB19@dolcini.it>
-In-Reply-To: <15F55ACD-E206-4B79-9E8D-1ED24427BB19@dolcini.it>
-From: George Valkov <gvalkov@gmail.com>
-Date: Thu, 27 Aug 2026 21:02:27 +0300
-X-Gm-Features: AcwNN1WhcJL-nGDx-lqXbkS4JNH0Ob2Z7Us1EwrenTLfU7VSU-Ti3TpW8tZnfmw
-Message-ID: <CADOrJmae24XCgxFwtHssdoWc4rv1Q743hfgjG=kUrVPgf6urmw@mail.gmail.com>
-Subject: Re: [PATCH v8 3/3] ARM: dts: armada: WRT3200ACM: add marvell,invalid-reg-hint-in-rom
-To: Francesco Dolcini <francesco@dolcini.it>
-Cc: briannorris@chromium.org, johannes@sipsolutions.net, andrew@lunn.ch, 
-	krzk+dt@kernel.org, johannes.berg@intel.com, kees@kernel.org, 
-	miriam.rachel.korenblit@intel.com, rongqianfeng@vivo.com, wenst@chromium.org, 
-	rafael.beims@toradex.com, avraham.stern@intel.com, error27@gmail.com, 
-	s.kerkmann@pengutronix.de, gregory.clement@bootlin.com, 
-	sebastian.hesselbarth@gmail.com, robh@kernel.org, conor+dt@kernel.org, 
-	Frank.Li@nxp.com, chunfan.chen@gmail.com, arend.vanspriel@broadcom.com, 
-	peddolla.reddy@oss.qualcomm.com, linux-arm-kernel@lists.infradead.org, 
-	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CALzav=f5wUUt4mKZn0tvQez6_1iYPcb8eX5q-XjabTNy03JiNg@mail.gmail.com>
 
-On Thu, 27 Aug 2026 at 20:40, Francesco Dolcini <francesco@dolcini.it> wrote:
->
->
->
-> On 27 August 2026 19:19:37 CEST, Georgi Valkov <gvalkov@gmail.com> wrote:
-> >WRT3200ACM and WRT32x routers always report a fixed US regulatory domain
-> >from the mwifiex ROM, which conflicts with the platform regulatory
-> >configuration on units sold outside the US market. For example:
-> >- phy0 mwlwifi 5 GHz, hard-coded region 98 EU mapped to FR
-> >- phy1 mwlwifi 2.4 GHz, hard-coded region 98 EU mapped to FR
-> >- phy2 mwifiex 2.4 and 5 GHz, hard-coded region US
-> >
-> >When the system boots, it detects a conflict between the user selected
-> >region and the radios, e.g. BG FR US, and applies extreme restrictions,
-> >preventing phy0 from starting on any DFS channel. phy2 works.
-> >
-> >Add node wifi@1 with a flag marvell,invalid-reg-hint-in-rom to the
-> >WRT3200ACM device-tree, which signals mwifiex that its regulatory
-> >hint from ROM conflicts with the platform and should be ignored, so the
-> >platform regulatory domain can be used. This does not allow the user to
-> >change the regulatory config of any radio. It only allows phy0 to start
-> >and operate according to its certified configuration. All radios in
-> >WRT3200ACM/WRT32x are locked to the hard-coded configuration for which
-> >they are certified.
-> >
-> >On WRT3200ACM, the platform configuration is stored on the devinfo mtd3
-> >partition, which is read-only: cert_region=EU modelNumber=WRT3200ACM-EU
-> >
-> >The Linux kernel sources do not have support for WRT32x. An equivalent
-> >patch for these routers has to be sent to OpenWrt.
-> >
-> >[1] https://github.com/kaloz/mwlwifi/issues/173#issuecomment-307879699
-> >[2] https://github.com/openwrt/openwrt/issues/9956
-> >
-> >Cc: stable@vger.kernel.org
->
-> This whole series is not material for stable. Please drop thia tag from all the patches.
+On Wed, Aug 26, 2026 at 01:27:20PM -0700, David Matlack wrote:
+>On Tue, Aug 25, 2026 at 12:06 PM David Matlack <dmatlack@google.com> wrote:
+>>
+>> On 2026-08-21 12:35 PM, Vipin Sharma wrote:
+>>
+>> > ================================================================================
+>> > Potential Solutions Suggested by AI
+>> > ================================================================================
+>> >
+>> > 1. Decouple iommu_setup_dma_ops() from group->mutex in drivers/iommu/iommu.c:
+>> >    iommu_setup_dma_ops() only requires struct device * and the domain pointer
+>> >    (group->default_domain); it does not mutate any fields in struct iommu_group.
+>> >    Moving the iommu_setup_dma_ops() calls after mutex_unlock(&group->mutex) in
+>> >    iommu_probe_device(), bus_iommu_probe(), and iommu_group_store_type() breaks
+>> >    the initial &group->mutex -> cpu_hotplug_lock dependency.
 
-Dropped CC: stable from all patches, and sent v9:
-https://lore.kernel.org/linux-wireless/20260827175850.89395-1-gvalkov@gmail.com/T/#t
+The group->mutex is needed here also since it sets up the dma_ops on the
+default_domain that is currently attached to the device. And those
+attachments are protected with group->mutex.
+>>
+>> Are there any other code paths that rely on group->mutex -->
+>> mm->mmap_lock ordering? If so fixing this one case wouldn't help.
+>>
+>> > 2. Avoid holding down_write(&vdev->memory_lock) across pci_try_reset_function()
+>> >    in VFIO:
+>> >    vfio-pci could zap active BAR mappings under memory_lock and set a state
+>> >    flag / disable memory decoding, drop memory_lock before calling
+>> >    pci_try_reset_function(), and then re-acquire memory_lock to re-enable
+>> >    memory. While resetting, any concurrent user fault will see the memory
+>> >    disabled condition and return VM_FAULT_SIGBUS safely.
+>>
+>> This would change the userspace-visible behavior of faulting on a VFIO
+>> device BAR from "block until reset is done and the succeed" to "fail
+>> with SIGBUS". And it would allow VFIO to access VFIO device BARs during
+>> the reset through vfio_pci_core_iowrite*().
+>>
+>> But I think we can extend this idea to solve those problems by
+>> introducing a wait queue for tasks to sit on while a device is being
+>> reset.
+>>
+>> e.g. Something like this (completely untested and partially written by AI):
+>>
+>> From: David Matlack <dmatlack@google.com>
+>> Date: Tue, 25 Aug 2026 18:37:52 +0000
+>> Subject: [PATCH] vfio/pci: Avoid circular locking dependency during device reset
+>>
+>> Avoid a circular locking dependency during VFIO device reset by dropping
+>> vdev->memory_lock prior to calling PCI reset functions
+>> (pci_try_reset_function() and pci_reset_bus()). Introduce an explicit reset
+>> state flag (vdev->resetting) and wait queue (vdev->reset_done_wq) to stall
+>> concurrent BAR page faults and MMIO accesses during reset without holding
+>> vdev->memory_lock across PCI reset operations.
+>...
+>
+>This approach does not look ideal. The implementation has a bug where
+>concurrent resets can lead to vdev->resetting being cleared too early.
+>And from a maintainability perspective, there are more call sites that
+>currently take memory_lock that would probably also have to be updated
+>to wait for vdev->resetting to become false.
+>
+>> >
+>> > 3. Refine synchronization in pci_dev_reset_iommu_prepare():
+>> >    Evaluate if attaching to the blocking domain and pausing ATS during device
+>> >    reset can be protected using more fine-grained locking or atomic state
+>> >    flags without holding the coarse &group->mutex.
 
-Thank you!
-Georgi Valkov
+This might not work as reset_iommu_prepare() changes the domain of the
+device being reset and those things protected by the group->mutex.
+>>
+>> I don't know enough about this part of the kernel to say, but this would
+>> directly address the new lock ordering dependency vdev->memory_lock -->
+>> group->mutex introduced by commit f5b16b802174 ("PCI: Suspend iommu function
+>> prior to resetting a device"), which is what led to this lockdep error.
+
+Thanks,
+Sami
