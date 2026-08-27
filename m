@@ -1,124 +1,111 @@
-Received: from mail3-relais-sop.national.inria.fr (mail3-relais-sop.national.inria.fr [192.134.164.104])
+Received: from out28-125.mail.aliyun.com (out28-125.mail.aliyun.com [115.124.28.125])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55C7144239A;
-	Thu, 27 Aug 2026 12:00:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.134.164.104
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B293364059;
+	Thu, 27 Aug 2026 12:00:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.125
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787832012; cv=none; b=VslCIYM4J20sM0hIdwaOi2gChrAhQGHvw2MwPC0vxZLn+Nw5XpRkg/KLgeQVq0AnLsCPUQTZ/JuBqJfIcsn3iDJr9mDyhCYhzo1GUEloYJluyxPawIg7jJuRJ85O8kHNUQcTn0/61yVCHcHqu+JBSOIaGwW+CvQQ219flEHQrBY=
+	t=1787832029; cv=none; b=eQcoEux4sW39mrpdY08uKbwL2BubZvfwSU9RM7bc99uSP8NJFIDCWDWLYVHjqmNoJUKNPQCYJLxFrKLXoAUYljx15JRXxIxj4yhybnJcELlxD0wk6g8fqoZt2GBCckFNIL8S/3ME9QIXqx7GrLRVZvxkp3zonZfS6ChbQLavzC0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787832012; c=relaxed/simple;
-	bh=GTmJbqWO2G+JwtACRSzR5BR2F80bBvrZ0TXrXaxFoNg=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=GcGwRhYOxtvdT4YiP0nJOganeID24/lshc9lp/QVE2AQyFM9ZK+nYBXewn83Xo6rlPqfrj+d/284gGuvzEZuQXKrKv4lRafQDCQVH0EnA7usq8rLEnTrTiuHklRXztg+acFejJkQwYsmrezTWHzaagN8GseLdnI5RDp3OFbGbkk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr; spf=pass smtp.mailfrom=inria.fr; dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr header.b=Om//ueuu; arc=none smtp.client-ip=192.134.164.104
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inria.fr
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr header.b="Om//ueuu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=inria.fr; s=dc;
-  h=date:from:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=ZezuO2NgwuOKZZT46NB5n0n9jBETCPGkKkIHPY19i1k=;
-  b=Om//ueuuGBuKyoMKhklNTNn/a4xt28I9NO5LMt+0G+l5vGgADzcXAgU4
-   MB4LUqP6OSB2fobbg5u/4GFjEc65kv28KNklYFjbZ3pm4vrk9B7Z9IGXK
-   5B7J0KEo0Gje/tIwYUs65DlS9UpTmmWZxQniNPiZEqh6ythTVUbXp1Lzx
-   M=;
-X-CSE-ConnectionGUID: kUUrCOlrQG+IFxsgUdOTDw==
-X-CSE-MsgGUID: kt5pwAjhTl6ACnTAinlsVg==
-Authentication-Results: mail3-relais-sop.national.inria.fr; dkim=none (message not signed) header.i=none; spf=SoftFail smtp.mailfrom=julia.lawall@inria.fr; dmarc=fail (p=none dis=none) d=inria.fr
-X-IronPort-AV: E=Sophos;i="6.25,246,1779141600"; 
-   d="scan'208";a="155185037"
-Received: from dt-lawall.paris.inria.fr ([128.93.67.65])
-  by mail3-relais-sop.national.inria.fr with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 14:00:01 +0200
-Date: Thu, 27 Aug 2026 14:00:00 +0200 (CEST)
-From: Julia Lawall <julia.lawall@inria.fr>
-To: Markus Elfring <Markus.Elfring@web.de>
-cc: Ricardo Ribalda <ribalda@chromium.org>, cocci@inria.fr, 
-    linux-input@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
-    linux-doc@vger.kernel.org, Bastien Nocera <hadess@hadess.net>, 
-    Benjamin Tissoires <bentiss@kernel.org>, 
-    Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-    =?ISO-8859-15?Q?Filipe_La=EDns?= <lains@riseup.net>, 
-    Jiri Kosina <jikos@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-    Nicolas Palix <nicolas.palix@imag.fr>, 
-    Shuah Khan <skhan@linuxfoundation.org>
-Subject: Re: [cocci] [PATCH] HID: fix semantic patch and improve its
- performance
-In-Reply-To: <eaca9bae-fba2-4824-9219-faad0b9f766e@web.de>
-Message-ID: <ec917c17-dcee-bbed-b59f-49e3cde23cc@inria.fr>
-References: <20260827112949.2431233-1-Julia.Lawall@inria.fr> <eaca9bae-fba2-4824-9219-faad0b9f766e@web.de>
+	s=arc-20240116; t=1787832029; c=relaxed/simple;
+	bh=0A56trFj6J5konV9Y3shHgoQU8d0EbnJfG+xPjR0fIM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qW0kh27G6hzv1389hb39Vr8nRBIs0ODISI8kvpaJcuzHXvnae6cL0aokfVlYyG73WB41ChGWrgsf3M4lD6X2eCMS25vsmPMMPSjDs17kesTBGZGQJ1JNVzLV/Blzb1+ZRrCuW989QeEjzKdCLIuDz3B89He9fRg1TOYTu96tByg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com; spf=pass smtp.mailfrom=motor-comm.com; arc=none smtp.client-ip=115.124.28.125
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.08164567|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.084389-0.000296656-0.915314;FP=7742681021160765058|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037031241;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=14;RT=14;SR=0;TI=SMTPD_---.izQFyu0_1787832015;
+Received: from 10.10.26.192(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.izQFyu0_1787832015 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Thu, 27 Aug 2026 20:00:16 +0800
+Message-ID: <0c8024bc-c444-42ea-83fc-88446c8c560e@motor-comm.com>
+Date: Thu, 27 Aug 2026 20:00:04 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-444202327-1787832000=:3521"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 net-next 2/2] net: dsa: Add support for Motorcomm
+ YT922x
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: olteanv@gmail.com, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, mmyangfl@gmail.com, horms@kernel.org,
+ linux@armlinux.org.uk, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ ming.xu@motor-comm.com, xiaolin.xu@motor-comm.com,
+ jianmin.wang@motor-comm.com
+References: <20260825061610.3116673-1-kyle.switch@motor-comm.com>
+ <20260825061610.3116673-3-kyle.switch@motor-comm.com>
+ <55523ac4-023b-4ed8-8519-293c778044a4@lunn.ch>
+Content-Language: en-US
+From: Kyle Switch <kyle.switch@motor-comm.com>
+In-Reply-To: <55523ac4-023b-4ed8-8519-293c778044a4@lunn.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-444202327-1787832000=:3521
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-
-
-
-On Thu, 27 Aug 2026, Markus Elfring wrote:
-
-> > Replace "expression" with "identifier" in the declaration of hdev.
-> > This is necessary because hdev is used as the name of a function
-> > parameter.
-> …
-> > +++ b/scripts/coccinelle/hid/ff_race.cocci
-> …
-> > -@r@
-> > +@r exists@
-> >  identifier probe_fn;
-> > -expression hdev, flags;
-> > +identifier hdev;
+On 8/26/26 20:43, Andrew Lunn wrote:
+> On Wed, Aug 26, 2026 at 05:08:02PM +0800, Kyle Switch wrote:
+>> Motorcomm YT922x is a series of ethernet switches including:
+>>
+>>   - YT9224: 4 * 2.5G UTPs and 2 serdes interface
+>>
+>> This patch just add basic func for a working DSA switch.
+> I asked you to break this patch up. I want to see lots of little
+> patches, each with a good commit messages, each obviously correct.
 >
-> May the following SmPL code variant be applied?
+> https://www.kernel.org/doc/html/latest/process/maintainer-netdev.html
 >
->  identifier hdev, probe_fn;
+> says you can have a patch series of up to 15 patches.
+>
+>>   static int yt921x_mbus_int_read(struct mii_bus *mbus, int port, int reg)
+>>   {
+>>   	struct yt921x_priv *priv = mbus->priv;
+>> +	int max_ports;
+>>   	u16 val;
+>>   	int res;
+>>   
+>> -	if (port >= YT921X_PORT_NUM)
+>> +	max_ports = priv->series_info->ports;
+>> +	if (port >= max_ports)
+>>   		return U16_MAX;
+> What did i say about this in my last review? This would make a good,
+> simple patch, changing all YT921X_PORT_NUM to priv->series_info->ports.
+>
+> You first need a simple patch which adds struct yt92xx_series and
+> yt92xx_series_table[] with very minimal contents, only mode and name,
+> for the existing device. And add the code to do the lookup and
+> associate it to priv.
+>
+> Then you can have a patch which adds .ports, and changes all
+> YT921X_PORT_NUM to priv->series_info->ports.
+>
+> Then you can add .num_lag_ids and change all those references.
+>
+> Then you can add .ageing_time_FOO and change all those references.
+>
+> Slowly make the existing code more generic by adding to struct
+> yt92xx_series.
+>
+>      Andrew
 
-Yes, but it doesn't matter.
+Ans: We intend to split this patch into smaller functional pieces and submit
+them as separate commits.
+I would also like to seek your advice on a design question.
+For the yt92xx_series_info table, the maveall reference design invokes
+chip_detect() inside probe() to perform the matching lookup.
+However, in the existing yt921x DSA driver, chip_detect() is called within
+dsa_setup() instead.
 
->
->
-> > +expression flags;
-> >  position p1, p2;
-> >  @@
-> >
-> >  probe_fn(struct hid_device *hdev, ...) {
-> > -  <...
-> > +  ... when any
-> >    hid_hw_start@p1(hdev, flags)
-> >    ...
-> > -  \(input_ff_create\|input_ff_create_memless\)@p2(...)
-> > -  ...>
-> > +  \(input_ff_create@p2\|input_ff_create_memless@p2\)(...)
->
-> How do you think about to use the following SmPL code variation?
->
-> (input_ff_create@p2
-> |input_ff_create_memless@p2
-> )(...)
+We are considering two possible approaches:
+1. Keep the code as-is and relocate the initialization of certain
+dsa_switch structure parameters into dsa_setup().
+2. Refactor by moving chip_detect() into probe() to align with
+the reference design.
 
-I find this completely unreadable.
+Which of these two approaches would you lean toward,
+and what are your considerations?
 
-julia
-
->
->
-> > +  ... when any
-> >  }
-> >
-> >  @script:python depends on report@
->
-> Regards,
-> Markus
->
---8323329-444202327-1787832000=:3521--
+> ---
+> pw-bot: cr
