@@ -1,91 +1,132 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 393F734D3B2
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:52:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64BA9370AE0
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:54:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787863980; cv=none; b=us7XsRbEYydYNoXpPwyLnvYyfx9r5ArhzZNAGIZ8JoqT2UC3rUTJHHn8s80D3MAygv1XkgFfQUWwzy94xpPtAfuNsPkywyqR+NOIUAT0OcVBvKuWxJ+v9DVndH41ErxpiKGoBe6wqbhMmYp91ugX5m+ltsouVTiGThCbtk9uz/U=
+	t=1787864045; cv=none; b=ZHRz22PJKh+CJNXPknZQJV2ILCHX04km0MGqynndT7Tqf1vj1UvtBNELVKcRfBqsm/IPt+Oo1uwUeJ+irbZt+pcleRokpFp2OQ+9LWBvRQdBoFZXwCH9sLmpzbRPG2c9hl48xgYGS/ZnVJ5u8pitfPMQB+GUdqN6RNymppPBQTU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787863980; c=relaxed/simple;
-	bh=0Chqx6WH1u0Mf0GyWh6BMIsSMTThTfRsXV0B0hMBHZc=;
-	h=From:In-Reply-To:References:To:Cc:Subject:MIME-Version:
-	 Content-Type:Date:Message-ID; b=FNdplKUaXA/RJSAyOmWwvrS83qwx5Ntvg74kKCCje1fJUaN9fsWkWN9QYxk4iYn8+ptRWMRwsjFDQSekHDXdEgRox+A79NnJwkkWm7+vLdo8v37ri4QtmORgsisOe1uiEnOPj/gbZPTVyWChmJ9EYrZ/8OjIuJePeNnB5oCM2b8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=cNLZsq+v; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1787864045; c=relaxed/simple;
+	bh=584T2Fi+jYdHnPMPryAzdeyBmBsauq81+2zQRXO51LQ=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=ufhrbj9vvAITT7fv/zPQRn82RE4PVOCNZMgbVyxjpUCfd5WRCDCrQ4LnfkYCCD+y+Z/Sd2A3g/y4oq2EVsnPQlVfNAkzyHWskzZGIUw9C4iuhIJwDdZx2YBJNT9buBrNHzHjZbFnZGCOGHJD+QuPDahGEwEyu/oZqKDhvE1doWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NDhHjzQU; arc=none smtp.client-ip=209.85.210.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="cNLZsq+v"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787863978;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WQ79GLnxP2mfq88wFmbxlLH55XhZEIIm9+qkuFVWJbg=;
-	b=cNLZsq+vHqx/MiWzHjKKsN1r3uZALvLmWybtv36VVjCua8mlwAAlOHPwR8ieIRTB9EG1IR
-	qkLfzJuZgpJbsPD5Agh+t8yrTpWjytstWwFQ4Ss3856wbHnZ1p+Pd+iixx7CdzFhrbO+Ug
-	d0SBoH5u3lv1KLPagKco2b+DTpzpZMY=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-256-RIEQwW_RMeC_M2kvR9_5EQ-1; Thu,
- 27 Aug 2026 16:52:52 -0400
-X-MC-Unique: RIEQwW_RMeC_M2kvR9_5EQ-1
-X-Mimecast-MFC-AGG-ID: RIEQwW_RMeC_M2kvR9_5EQ_1787863970
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6DFDC183F9EF;
-	Thu, 27 Aug 2026 20:52:49 +0000 (UTC)
-Received: from warthog.procyon.org.uk (unknown [10.22.88.47])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 8056F1955F72;
-	Thu, 27 Aug 2026 20:52:46 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-In-Reply-To: <a0563aec-0ac2-47da-b03e-2e991a2aeabb@redhat.com>
-References: <a0563aec-0ac2-47da-b03e-2e991a2aeabb@redhat.com> <20260824091645.415423-1-dhowells@redhat.com>
-To: Paolo Abeni <pabeni@redhat.com>
-Cc: dhowells@redhat.com, netdev@vger.kernel.org,
-    Marc Dionne <marc.dionne@auristor.com>,
-    Jakub Kicinski <kuba@kernel.org>,
-    "David S. Miller" <davem@davemloft.net>,
-    Eric Dumazet <edumazet@google.com>, Simon Horman <horms@kernel.org>,
-    linux-afs@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v8 00/12] rxrpc: Fix CHALLENGE packet handling
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NDhHjzQU"
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-85602449126so742424b3a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:54:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787864044; x=1788468844; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZEfQxTOKQyDG0uZqNyCVnRw0wmiuuoqTc9XyRDn+pn0=;
+        b=NDhHjzQUvh3ExnAjwNkVIJFwsPZcmuA2IniGkFO/nza1s9PQ7UM+5SBSybByx8jfzC
+         9H76VzzIzoNit3xu/+s7pMEmDNzD/0TaoOmS3lzHmaCl3jnT0cx350Cy2zY2AKZARIdx
+         UuaaQUkt10uQ2St3MJ7eZcVmDbXDw+4NTJFh8pjHVBgXnTfepFdpYbWWoX0PWX9/asJN
+         Fq+Bvtpe7qZpck9RIc+q76+2w3yqqe5rKZsboxBBolUEN2/nSmQjxLRV6Iv0be9wYMUH
+         FAx9lcKQxR5EtlqPw+mnJ4X/uuVyLHwt7LvL7KWV7uzVe5Cu4MOsoGK6wumcbonDoEFQ
+         Sq8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787864044; x=1788468844;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZEfQxTOKQyDG0uZqNyCVnRw0wmiuuoqTc9XyRDn+pn0=;
+        b=MaIXWD9PkD8EJz7UUmnBC20yoL9VHPj9Y5Z98p9qbInYyZjj25tWLxQzK3aOF7I5Uj
+         0U0jbPTy45zWOe/L/crmiq4olXckBzM0+WGaDsg5vW3Hr1IbJgysTSk4rT4RsWnlByr9
+         3T+prG9IEZMiGRSisedS6f6m47CD9YxRGnnbTgf36K6YeuVhUtkkROP5USNzmMBzVLgg
+         IcdOa6RHLg+gDolFVRQ9wCAZP/61gcK3WB35bpTRFxz9TleHUKucMp2qQS9ac7swvBJg
+         8SLuI4DGldzqgWgq35C0qvh6dH65DwdCHKyffrsZHkiCZnHiHtJAqGd7rIEp93iLAMQw
+         kiug==
+X-Forwarded-Encrypted: i=1; AHgh+Ro7M741heUQGYXCCkkx4WMYB9xpaVT1nEBJ2RZyhP8HQXaU1k0JU2nsfyvIvFZrAE87khpiHkjVUryPLYA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mtmB8rZMe3/H10EHqt5z8fJt8+7KJATnttxz2xXP5ZycC08Kh0
+	09ukf1xvHFDihUgRzzbETQqlvowXdXJWvxF4aYqeInu7X33UOz9sGfWO7JuyJ2XsUC4Um5aAvpi
+	BU6uyhw==
+X-Received: from pfbkr16.prod.google.com ([2002:a05:6a00:4b50:b0:848:5480:9ac7])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:e09:b0:851:fb36:a702
+ with SMTP id d2e1a72fcca58-85629f09cc5mr4062708b3a.9.1787864043380; Thu, 27
+ Aug 2026 13:54:03 -0700 (PDT)
+Date: Thu, 27 Aug 2026 13:54:02 -0700
+In-Reply-To: <ztufznh6v5md5cn56t7pvokubvbpc3yki6dhiilgebb5uq3ju3@aa4xc6wwte5r>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+References: <20260826-gmem-inplace-conversion-v11-0-0a15d8a799aa@google.com>
+ <20260826-gmem-inplace-conversion-v11-15-0a15d8a799aa@google.com>
+ <ao9CKMXAX-hScRSa@google.com> <mtbqvvvpwbzybgy6z47lwui6ag53kyubub3hkczui7u72zxesl@lnwsglrgwl5p>
+ <ao9px1j7CLYXMiGP@google.com> <ztufznh6v5md5cn56t7pvokubvbpc3yki6dhiilgebb5uq3ju3@aa4xc6wwte5r>
+Message-ID: <apCj6gz8x24Dkle8@google.com>
+Subject: Re: [PATCH v11 15/46] KVM: guest_memfd: Call arch make_shared
+ callback for to-shared conversion
+From: Sean Christopherson <seanjc@google.com>
+To: Michael Roth <michael.roth@amd.com>
+Cc: Ackerley Tng <ackerleytng@google.com>, aik@amd.com, andrew.jones@linux.dev, 
+	binbin.wu@linux.intel.com, brauner@kernel.org, chao.p.peng@linux.intel.com, 
+	david@kernel.org, jmattson@google.com, jthoughton@google.com, 
+	oupton@kernel.org, pankaj.gupta@amd.com, qperret@google.com, 
+	rick.p.edgecombe@intel.com, rientjes@google.com, shivankg@amd.com, 
+	steven.price@arm.com, willy@infradead.org, wyihan@google.com, 
+	yan.y.zhao@intel.com, forkloop@google.com, pratyush@kernel.org, 
+	suzuki.poulose@arm.com, aneesh.kumar@kernel.org, liam@infradead.org, 
+	Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Shuah Khan <shuah@kernel.org>, Vishal Annapurve <vannapurve@google.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, Youngjun Park <youngjun.park@lge.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Baoquan He <baoquan.he@linux.dev>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, tarunsahu@google.com, 
+	Fuad Tabba <fuad.tabba@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-mm@kvack.org, linux-coco@lists.linux.dev
 Content-Type: text/plain; charset="us-ascii"
-Content-ID: <2416733.1787863965.1@warthog.procyon.org.uk>
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 27 Aug 2026 21:52:45 +0100
-Message-ID: <2416734.1787863965@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-Paolo Abeni <pabeni@redhat.com> wrote:
+On Wed, Aug 26, 2026, Michael Roth wrote:
+> On Wed, Aug 26, 2026 at 03:33:43PM -0700, Sean Christopherson wrote:
+> > > So there's real performance differences here but it's sort of been
+> > > addressed through a solution that offers additional performance
+> > > benefits on top so there's no longer as much to be gained here I think.
+> > 
+> > Or another way to look at it, eager conversion would allow QEMU to drop its
+> > workaround.
+> 
+> True, for SNP at least, but pre-map is nice too, and not really gmem's
+> place, so most likely KVM_PRE_FAULT_MEMORY would remain regardless.
 
-> It looks like  some of the comment raised by sashiko are new,
-> especially on patch 9/12:
-> =
+Hmm, good point.  And as below, we can't sanely avoid the check in kvm_gmem_get_pfn()
+without reintroducing the preparation tracking, so the lazy approach is probably
+the best option at this point.
 
-> https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260812110129.97997=
-0-1-dhowells%40redhat.com
-> =
+> > To be clear, I'm a-ok with the code as-is, I just want to make sure we document
+> > exactly why we're choosing this implementation.
+> 
+> Agreed. My understanding of the current design choice is basically that
+> it doesn't *need* to happen here, since kvm_gmem_get_pfn() will already
+> trigger it on-demand when it is actually needed (or not), and that tends
+> to happen at fault time when other platforms like TDX handle it. 
 
-> Do you think later follow-ups (i.e. in another series) would be ok?
+Oh, this jogged my memory.  For out-of-place conversion, waiting until
+kvm_gmem_get_pfn() to update the RMP makes sense because KVM doesn't know whether
+or not the SHARED backing as been allocated, and can't easily get at it in the
+first place.
 
-Hi Paolo,
+> To handle it differently would be to go out of our way to make SNP special in
+> this flow in exchange for performance, 
 
-That's a couple of weeks old and about v7, not v8 of the patches.  I think
-I've addressed everything in it that's not pre-existing
-
-David
-
+Not really?  We'd still need kvm_gmem_get_pfn() to update the RMP to handle PFNs
+that were never explicitly converted.  Either that or KVM would have to preallocate
+everything (ewww).
