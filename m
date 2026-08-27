@@ -1,131 +1,130 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACD133890F8
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 23:11:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.179
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787872268; cv=pass; b=m/QO91thagusEyTa907KAcQ3Rs3XhaleGYFF56P0GiKa+7ntW1tlpyBrRFQ7Swy5LOT1i9GDNUb761iUdZg4g8XfYqSWAwC8yBkeDM564yk7EIalhFdmZ7yn2j1XW7qXxkm0ASxPpqWVR1xR9PIh7oFUUAzF35dx9kcb/IjDMLk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787872268; c=relaxed/simple;
-	bh=ykliYNlRp0ZTa9p8bjUi+k7K0Pia3lpKqIyQaZvT8lU=;
-	h=From:MIME-Version:Date:Message-ID:Subject:To:Cc:Content-Type; b=oJz3hWO3UYbBHoYsvVtFyZhjONXodKa/P9sCfJIyAfO5rJaxxqdrkCt1aOEO+BsiVgENgP+qipNMR4umk9i1PqEZyw5IGUfT1HyOOdX0+38AGpXO9mBUwha93n17BKSOSRmmNRNMREolEMPExNHhfmUDsumIRTUtP5Jzj5dAyoU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu; spf=pass smtp.mailfrom=berkeley.edu; dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b=Rb25D2b1; arc=pass smtp.client-ip=209.85.214.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berkeley.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C90A53AFCE1
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 23:12:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787872371; cv=none; b=MNvFUtDO0j51i5jm8xmgCecEeWL9RL1uCvMOkOsbS/KNqScE7Unl7iq4bCBJdznmVcO/YSY70vLqFe8hZnX6yBOg6KWmlejf4saPvfDFkZ4q8+l32YaP+yUUaJY3dmjGICaWU9x0jmC5Gp0McazRj1VI853TNNrOp6Dosbk9AGc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787872371; c=relaxed/simple;
+	bh=W/VboFtsniwlT13CzTXqyyKAo6bLiMCk0pQp6dNAoJQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SAVjEUGaGTr/vt0GN2IZut/sz+uuiSm5ScaouOwgeaBLHT0g4GjhDarvan1+1UNg2awoGErBL4PAQqSLpNB6PcV3fuw7uiiGjPMb/hvkDaHccPkMsmjbTwpAbnFKfwX5ogQcIKKEOwwlS35TUK7UG05n7pSOsEeFSMUz7TQ4cEc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=buVTuGqq; arc=none smtp.client-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b="Rb25D2b1"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2d7200b2e15so4432715ad.3
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:11:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787872266; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kI9S9RlE+0JXgOzjvcQntG5/RlgocTEbdhqFtMoL5DGpmVPhG3uzywTKkoDUFt/5tL
-         ym+HlZ+7N4gYCkkO427fg6Q7YNZcPpo7DNCvvYH/rDOtom0Bg0u1dIFXxm4TzIebrzOQ
-         oRJ6bpeUFLB/WfilssfT3ky6kjmZxJ+SYWCemHBpYZakke9HSF7RrB7PE4g+0n/f9qDY
-         Dl9HgtZw0BrAgNeJ9Ija872kT6VjQXGxnTtBGC9hTrySUU/cXkQs7TPsuwqS1Nigbp3v
-         hehYJEdslnhUlku6ZWxPxsVf1PU38AkdnG1Fva2kKg5vyf09v9gDZsY/EjihoOFxvK+6
-         R+Pw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
-        bh=OaOHOksjpEwsETf/w29tNkN0mLCmHUAIdh293WQTJbQ=;
-        fh=6npaUtubNPaAf354V2j+moQvmPiAtW9ROrrS3rwc0lA=;
-        b=mO7Nn4rgXhKxYRegrhatKP2S79rYVAO4An4eTgmL6rXhQSfYd/b336LtH0OC6SMRQN
-         avFdpHH1VtRt5AM2XYBGyGpndz7Qjvo6DmK9yYe3V97mwNFS5fxhJf7s81/rPkXm+eUH
-         j5fyPKbA/BgEvkc4gFMEztoarrLsls8q7R36zzHtTskR+HHsNCw8gLlD9S8i0aOC7FIr
-         CxyZXtmRJxmrOXsEZP9ULrRgIb+roFT3sx9h60ztkyZ3xhes8sYB0dsyTwXcuX4v5fsL
-         VtRIT5PykH/BlYeKDBZN9NszJHeQgPvewRTJ47f0BQQUuidxUZF4z2/SHfMtcK4C7dlt
-         ggMw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="buVTuGqq"
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc1cb472b76so210653a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:12:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=berkeley.edu; s=google; t=1787872266; x=1788477066; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:from:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OaOHOksjpEwsETf/w29tNkN0mLCmHUAIdh293WQTJbQ=;
-        b=Rb25D2b1kzf45RPgRrJfTIdlRwBYjMWHB+kseMlqvjTDfQZMod5ZndwHZKN8IbVhB5
-         EXSuLTERpUPNRev+n5Qln3p2zAf2xi88DYEYwI5TawaPNvBh27LVXicgco+BibU1oTJR
-         ZYG+Wyi5g1XT6J15NP/++ch28gqFr7pYB1skfLawMk9VbWjll4BcdqHjndqLeW6NT2+c
-         z8mfF1to4UWsqFjWJ8bX3hPu+GWFwz70rAU5rzHorJL9FOZSb3MJ6azjS3Iq1PqeUsP4
-         zYL83Qe6abaSL3IyIekQxL4u1V/t+/Zv4RRDXE7eITvBjUOZZu/geP1D2S7AaNSaCDAp
-         nuqQ==
+        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1787872369; x=1788477169; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:mail-followup-to:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=owiJggVEjqcjWE0DQ/s7zqsjd4JZVI2c130pUmNZmGw=;
+        b=buVTuGqqD47M3f4PAj6OgpHPxdbihT5s/5hK1VWsyxLTmynWwOzbsNBTFhFF/2qytx
+         +e1pZxOkuKAPI32nBX5rlyFQf1jRTdQ1LWz1tWJMNC9bVML4yg4a7HdndvDimhmhgAN7
+         aASBsn69NJiuJu87GwKQpc1PR1TE/LH9DtvePRC3Wpz7rPB85HCQpAb3gzMAwvtoqlwb
+         2g6QrdCmkv7F0DUWwFR6C4hiGRTYFeeNKPJtbz39jwKtno5Pd3207JdvRmtP0jxYVjoL
+         BeOKNjOOsFzmOe2zicucdxR5wphaV/hzb2wNoVJZRsOQxxfBMM5c4Is6hPrPXh2ajMWd
+         FCgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787872266; x=1788477066;
-        h=content-type:cc:to:subject:message-id:date:mime-version:from
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=OaOHOksjpEwsETf/w29tNkN0mLCmHUAIdh293WQTJbQ=;
-        b=oMWcfmpZt6Qxd0FAlMZJGs6IXXTvT/+ThinXWt+8y4F1P9a2mB11CiTt9JOgLnximu
-         Ysoqrsme+7u36eBIwbDWdLUdnei8Xc95DgXQ9wRbHZZbne6PQC8VfphlNliwLUMYHNPH
-         Rd4TQozN3LcAL5oO96YTGHYQQf/v3fcXQ2ZUOqmjVjirHGY0nGze8iV/AtJjqqpoktKi
-         HX8l0gRYM2MgK3wlj/QNy5lbx28+9APF/JrWlJwZxrMNdOMzPpDM4nMSAkIMR+H0qplc
-         M2aa2CE1sgw2EPG8EYIqcKENZpifF/uVCK/fpgUV1GhYN9SSubBg3mzZUASYXZMUUuZr
-         1Gbg==
-X-Forwarded-Encrypted: i=1; AHgh+Rp5pDhwYiL7JYib7PYDFb3orFiu5GMZzwUOL5SpfunCxv6pNb47It1HVFg1xOL7L+M7Zvm+Mj4IM8HZkWw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kndHNVVNGfiHZpECnQtGbXM/KN9awCfOxiiYrBt0B2Iyh/f6A/
-	rt3RH/wUrJ97VYwkU8dl251YTo4VtK3V4qyV9xop2i9W2lhkN4fufV5gxTND4ef2Oj7tV6MUYlZ
-	Sg1gCz/sVDA3QC8+jK85ujHlunYlfoZel/uCeVX43wLm9ZWCGUFlJmQ==
-X-Gm-Gg: AR+sD12A8sCQwL9YonSSv0HR7FqCUv0tKYqlr5wSojyPeuHbRXj/1G/K1SPPHvt/ifm
-	al7Gq/S/JiXQ2NDP9DXC9Hh/kqQPpTELdlbIAFb2Oq2pFjzYijaLbOjHPBubvMBsNgKO0PFZPL5
-	Tjf+UQixmBHdfHJxo77MwVd+9MyovAq5J6RcNQcRFoo6nRernXsZo9PUCOuge8bL2bMOTSigskb
-	VvxtIycJiS+p8sKuorVqY95WKgm1OYQQUT0r1OAUNrSOUWZU0p76zeLmhmFrJEYSgYISCZ9+YFI
-	ervpWoasUm38RxJ+ZY5RtSC0BbuYBWHUUIRtUoNfSYqShv9QmFJQ794hAXtZdbl071QRf/3SNwZ
-	lTe/NzqRIzDHSM+Ffyna3Ds8fYR/giS+t
-X-Received: by 2002:a17:903:2b0e:b0:2d7:3f6e:5cb9 with SMTP id
- d9443c01a7336-2d74dc910cemr45136225ad.8.1787872264814; Thu, 27 Aug 2026
- 16:11:04 -0700 (PDT)
-Received: from 474444807712 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 27 Aug 2026 23:11:03 +0000
-Received: from 474444807712 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 27 Aug 2026 23:11:03 +0000
-From: Farhad Alemi <farhad.alemi@berkeley.edu>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20251104; t=1787872369; x=1788477169;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:mail-followup-to:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=owiJggVEjqcjWE0DQ/s7zqsjd4JZVI2c130pUmNZmGw=;
+        b=mesvcUm9SRJDRBqWAnfMwXbm8PtxjCCBewo1XRoxiZkTNLg36JnUmTZ9dZSw36fwgB
+         6e2ufDkV6uxfIRCNFsjeIXnNnmBowbTS/6wh6QoZEAsxKci/CT/AkRL8NgHOViG43BG/
+         /f2dgfJmpMTa6uBtyp9zsDRzrnG7nVPN3m0XCKiLwaST/HV/9m07CahdXfLiTABbTL8f
+         E7fYm79XLwJOE0CajkBKYvuFS1tl9kwrVfmaL93X9w3e6fI9QdA7b4vMvRjOYD1lb/yU
+         /kKcJIXRI4SeGKlJGhFV5WvD0zgrEH2v5RYhLha/Oze1nrjgeCVDPwAqg126D0S9fhmN
+         CzTA==
+X-Forwarded-Encrypted: i=1; AHgh+RrlDbS7/HiOBIIkJXLo7yo1zA1CWbXV+u+VNVJk1nu8JnLZ7hdTRkPZSa+KtCDq7UfVKTR6q5+RyBMa5tI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kKEdoxX8m813oP5EtDMANZPqMKH4SrOVw37s1paYYzGBHqN1Df
+	NpkLtlivNXZUHFV9d5yuELswksid7SXhJtpxfKKuKBainfcijLqNKfOBkPvay2yrMEQ=
+X-Gm-Gg: AR+sD11SDGfjw4hbbENKcC3GLF6v8/HTXHCt3BwSUkBjTxvFIuq0IB2+PJGv5m7Y3la
+	1J0Wpnzw8rd47pYF77JA2B8ZAvOm/s+7wZv8t+F+oRn5mg9W6ZoTXiv3qfSS8PKAC9KdgqWt7cN
+	dsn+gNL2qXR4kkOz+vNHuDzZxra+JLHGDp0QdSXVxeB55FsmbhdDFqMxTEBK638x98I3Z6Tjoya
+	mRDClSrOdpxvmmyhQsysFwCD2GGj/rS91PK2sVmbnVmZdBEW0jOJp1tz2KdREMKZ/RKdSu5BEdB
+	IoUok9f8fF3jQ15NNidA9/f462E3xeap7AVWhJbnaXbd4XTS0t5fDeh8mmWDm4B6HK0ESbA62s5
+	iHzl4dyl+PwImlVeYS5ctnFyoRnjO82Mn5nXHrvuejEwPoow9szA9d7E7E3KRxvC4HB6tHzzFfS
+	7Cey3d7DKy7V70ktdYUneaZn/pjE+ymxuxicnh9ziRu/Y=
+X-Received: by 2002:a17:90b:380a:b0:38f:de97:b06 with SMTP id 98e67ed59e1d1-396d0daf810mr4835678a91.5.1787872368810;
+        Thu, 27 Aug 2026 16:12:48 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:4f::])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b0d3c9e4sm4598254a91.2.2026.08.27.16.12.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 16:12:48 -0700 (PDT)
+Date: Thu, 27 Aug 2026 16:12:47 -0700
+From: Joe Damato <joe@dama.to>
+To: Michael Chan <michael.chan@broadcom.com>
+Cc: netdev@vger.kernel.org, Pavan Chebbi <pavan.chebbi@broadcom.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Colin Winegarden <colin.winegarden@broadcom.com>,
+	Rukhsana Ansari <rukhsana.ansari@broadcom.com>,
+	Kalesh AP <kalesh-anakkur.purayil@broadcom.com>, horms@kernel.org,
+	linux-kernel@vger.kernel.org, raphaelcf@meta.com,
+	stable@vger.kernel.org, llvm@lists.linux.dev
+Subject: Re: [PATCH net v3] bnxt_en: Bound SW TPA IDs to prevent crashes
+Message-ID: <apDEb/LIqcrI9LoV@devvm20253.cco0.facebook.com>
+Mail-Followup-To: Joe Damato <joe@dama.to>,
+	Michael Chan <michael.chan@broadcom.com>, netdev@vger.kernel.org,
+	Pavan Chebbi <pavan.chebbi@broadcom.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Colin Winegarden <colin.winegarden@broadcom.com>,
+	Rukhsana Ansari <rukhsana.ansari@broadcom.com>,
+	Kalesh AP <kalesh-anakkur.purayil@broadcom.com>, horms@kernel.org,
+	linux-kernel@vger.kernel.org, raphaelcf@meta.com,
+	stable@vger.kernel.org, llvm@lists.linux.dev
+References: <20260827185700.2157164-1-joe@dama.to>
+ <CACKFLikJiCdjej4ezF=U16Leef3oAjSZGQAyetRnF=nLRvUfZA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 27 Aug 2026 23:11:03 +0000
-X-Gm-Features: AcwNN1UCO-DyGHnolg4whJRtG0xeWHR7MKGEgfF-XdSV1SZOaJOw9sTbLP3xi4c
-Message-ID: <CA+0ovCj+WxdpjdJWJmrkjjcK6WsZYg1agfiAPE-CYOr=13kjPQ@mail.gmail.com>
-Subject: [BUG] v4l2_ctrl_request_unbind -- KASAN slab-use-after-free
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: falemi@asu.edu, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CACKFLikJiCdjej4ezF=U16Leef3oAjSZGQAyetRnF=nLRvUfZA@mail.gmail.com>
 
-Hello Mauro Carvalho Chehab,
+On Thu, Aug 27, 2026 at 04:07:16PM -0700, Michael Chan wrote:
+> On Thu, Aug 27, 2026 at 11:57 AM Joe Damato <joe@dama.to> wrote:
+> 
+> > @@ -3831,6 +3834,7 @@ static int bnxt_alloc_tpa_info(struct bnxt *bp)
+> >         int i, rc;
+> >
+> >         bp->max_tpa = MAX_TPA;
+> > +       bp->max_tpa_roundup_size = MAX_TPA;
+> 
+> This is strictly not needed.  If we return early below, it means the
+> chip does not support TPA at all.  We skip allocating the TPA array
+> for every ring, so it really makes no difference.
+> 
+> BNXT_SUPPORTS_TPA() will be false if we return early.  LRO and HW_GRO
+> will not be supported.  So I would say it's a false positive from
+> Sashiko.  Thanks.
 
-While fuzzing Linux 7.1-rc5 with syzkaller, as part of research at ASU's
-SEFCOM lab, we hit the crash below. Crash reports can be found here:
+I see, OK.
 
-  https://github.com/farhad-alemi/public_bug_reports/tree/main/119-media-vim2m-uaf-v4l2_ctrl_request_unbind/
-
-  ==================================================================
-  BUG: KASAN: slab-use-after-free in
-v4l2_ctrl_request_unbind+0x5b/0x2d0
-drivers/media/v4l2-core/v4l2-ctrls-request.c:101
-  Read of size 8 at addr ffff88803e2ae8a8 by task syz.4.148/13541
-
-  CPU: 0 UID: 0 PID: 13541 Comm: syz.4.148 Not tainted 7.1.0-rc5 #1
-PREEMPT(full)
-  Call Trace:
-   <TASK>
-   dump_stack_lvl+0x94/0xd0 lib/dump_stack.c:120
-   print_address_description+0x55/0x1e0 mm/kasan/report.c:378
-   print_report+0x58/0x70 mm/kasan/report.c:482
-   kasan_report+0x130/0x170 mm/kasan/report.c:595
-   v4l2_ctrl_request_unbind+0x5b/0x2d0
-drivers/media/v4l2-core/v4l2-ctrls-request.c:101
-   media_request_object_unbind+0x25a/0x530 drivers/media/mc/mc-request.c:474
-   media_request_clean+0x11b/0x480 drivers/media/mc/mc-request.c:49
-   media_request_release drivers/media/mc/mc-request.c:72 [inline]
-   kref_put include/linux/kref.h:65 [inline]
-   media_request_put+0x98/0x1e0 drivers/media/mc/mc-request.c:83
-   media_request_close+0x38/0x50 drivers/media/mc/mc-request.c:91
-   __fput+0x435/0xa40 fs/file_table.c:510
-
-Our reproducer.c is available upon request.
-
-Happy to test a patch if that would help.
-
-Regards,
+I suppose that means I'll have to resubmit the v2 over again in 24hr?
