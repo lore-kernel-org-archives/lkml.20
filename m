@@ -1,118 +1,82 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61E3744E67D;
-	Thu, 27 Aug 2026 12:48:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97C9E3BB9F4;
+	Thu, 27 Aug 2026 12:48:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787834910; cv=none; b=RmjJ3PSW03c4XekwjIHbbEyySa0mCb+IhyGHBykxgbkfzMGiBxzoyVZqhbltZPComdU/kX5+Nq8l05dJEXK2KopZHZGc6Pd9Wz1DHnKv4/4f5l5A7sTgaTt9aYPp3bcbJsBsqogloa5gL8wdhCKO0GvSFMVSRO9xBwF75ApWb1s=
+	t=1787834914; cv=none; b=dzOO6lj1WseY+CKnItYNOqZQhC/kIfu5K4r7F4mrk/dnP6K2dqNMts24i+fvHk1hRxlCEMUshra65SW6nn03yp7szQMNz0DvhdNLJQFwCcOn+z5iQ27PWyGCX3CGepVDpY9HpRWzmW+Co+lAsdUnELoiw0ARhUSl4EDi2fCGnSQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787834910; c=relaxed/simple;
-	bh=LSe4ClYHyzoUMjPQ2O2AIJo3kbtl9bxf0qFjcfWnhxI=;
+	s=arc-20240116; t=1787834914; c=relaxed/simple;
+	bh=1Bhx/Raco5H/c+FE1c0VCLFACqcMQjx4hIqxzcdgWDA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RrcBN1Q4TEUMXrdD78pnmYtDOcWIb4yFmJDpWXjriVwVKTFmtXXA8KzONefcng6MgtnK7Mmeb3yFms9NzG9rVplxN4Dug4vjrCw3dLdaw8/wuuRTuRceceQCqTVgISnASQLziJG9raDB3d9yqGBH1HIxu2UjB+W+Jnt+a/3dBjs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=H0en+QKU; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=sLtZJeLDCNCakmKX/UTJ5AhYqDQdQgytzESzfyoge8RXLZznsbHN9yh1pa0Ey9Ahu/wprzdkyqsN7GKSMvPQH+N7aUB4t3Ivc2H3VDVBdNPh0/ZCIM52orNK2SnA+YJYqMnhbWzU5Yh1Flc496gWwzJVA1TdadWRsUBsxHsGJ0c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=aQL//VmA; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="H0en+QKU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787834892; x=1819370892;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=LSe4ClYHyzoUMjPQ2O2AIJo3kbtl9bxf0qFjcfWnhxI=;
-  b=H0en+QKUMhnOmVWXKY7E3/GkeNWmuwbK9r2Qew8Hhj0gC3NQUxMMcTD8
-   vxU1SoakSXjd/PsR79XsHUG04x4tbK3TrdKTFx+a2TJB0DEDHTTQBS1cH
-   XMATIco6XqkOri0wQ7Bd8GDPH0+ppTUtHM5bXdE3KaKpAHvymc0T/roxS
-   ZFPTT+jUjEh/jIZfnubQeLMHs4Ey4Uul6qT+85/vfzgyXcBxPv8WETxck
-   DkYhMrGRBLN2rQWE+PYidwS1CzK5TVfke6FClhqMtEFleh7zMvaDepMJz
-   X5OGsLg5FpBulPIYLGvQ635wR70vUscdxsN3dwNzjlMv9ZRV539AD9rbn
-   w==;
-X-CSE-ConnectionGUID: cCKBK2g0RQiIQntxRzc7+g==
-X-CSE-MsgGUID: G8nVrgYfQMOQF148UCRGKw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="88189819"
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="88189819"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 05:48:07 -0700
-X-CSE-ConnectionGUID: 5r8ZA7vORXinB4cAgEhcqQ==
-X-CSE-MsgGUID: wbyizxAKSNCFhTkpZJP1mA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="271386983"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.125])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 05:48:01 -0700
-Date: Thu, 27 Aug 2026 15:47:57 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Janani Sunil <jan.sun97@gmail.com>
-Cc: Janani Sunil <janani.sunil@analog.com>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Mark Brown <broonie@kernel.org>,
-	Marius Cristea <marius.cristea@microchip.com>,
-	Marcus Folkesson <marcus.folkesson@gmail.com>,
-	Kent Gustavsson <kent@minoris.se>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Daire McNamara <daire.mcnamara@microchip.com>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-spi@vger.kernel.org, Kent Gustavsson <nedo80@gmail.com>,
-	linux-riscv@lists.infradead.org
-Subject: Re: [PATCH v10 3/3] iio: dac: Add AD5529R DAC driver support
-Message-ID: <apAx_ZUDQ6G6XVuc@ashevche-desk.local>
-References: <20260827-ad5529r-driver-v10-0-38f2be07b824@analog.com>
- <20260827-ad5529r-driver-v10-3-38f2be07b824@analog.com>
- <ao_z9QTJC_q8gH0v@ashevche-desk.local>
- <aed972ef-3776-4055-81aa-63255d072b8d@gmail.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="aQL//VmA"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=HXw8p/Z8u7hwdpy2r92uaPSgWCw/J8UMZgsokUSz8Wg=; b=aQL//VmAcmGxqxEe77GBQWXmPw
+	PDUexRf/tWtfO2GsJB70nNP01ZJG4nZZwjAsdBmyMEoZ2s3x9qtlOQaX0+osDEsZPenlnhXNWxJmx
+	XQHmT5xv6lkpZP1JxSfIibKF1G0Znpd2nn9ykdI0i+5FcndOhBjheNEWV6XPyVqMko0C4fXvgcylZ
+	kRQlOJi062D9vCUQxrNGWEFstD0l2aau2Q9pRWm+IENoEVPJhGoRX0v6/G2c5VsYjWLKTly650sO4
+	f+GerBI1mMroc0OiADTzk+Vgc7F8QBhXjwe/B6ErpRiDfQXK5U0spb/q/2JfLLauvO4ceBKRa+KZh
+	J/wzLbCw==;
+Received: from [38.23.173.23] (helo=localhost)
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1wzZWM-00000003zUW-2O1B;
+	Thu, 27 Aug 2026 12:47:54 +0000
+Date: Thu, 27 Aug 2026 08:47:51 -0400
+From: "Liam R. Howlett" <liam@infradead.org>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: aliceryhl@google.com, ljs@kernel.org, vbabka@kernel.org, 
+	urezki@gmail.com, ojeda@kernel.org, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] MAINTAINERS: add Alice Ryhl as co-maintainer for Rust
+ [ALLOC]
+Message-ID: <qvmn5p7kb4rrk6dmehtipmlxzjtiorflayyy2gakzn3qtexpv6@doqcxo7nujd3>
+References: <20260826132729.3281308-1-dakr@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aed972ef-3776-4055-81aa-63255d072b8d@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260826132729.3281308-1-dakr@kernel.org>
 
-On Thu, Aug 27, 2026 at 01:17:13PM +0200, Janani Sunil wrote:
-> On 8/27/26 10:23, Andy Shevchenko wrote:
-> > On Thu, Aug 27, 2026 at 09:34:48AM +0200, Janani Sunil wrote:
-
-...
-
-> > > +	for (unsigned int i = 0; i < ARRAY_SIZE(ad5529r_vss_supply_names); i++) {
-> > > +		ret = devm_regulator_get_enable_optional(dev,
-> > > +							 ad5529r_vss_supply_names[i]);
-> > > +		if (ret && ret != -ENODEV)
-> > > +			return dev_err_probe(dev, ret,
-> > > +					     "Failed to get and enable %s regulator\n",
-> > > +					     ad5529r_vss_supply_names[i]);
-> > > +	}
-> > Hmm... Can we use bulk regulator approach here?
+On 26/08/26 03:27PM, Danilo Krummrich wrote:
+> Add Alice as co-maintainer for the Rust alloc module to share
+> maintenance responsibility. This is also a natural fit, as some of the
+> alloc code overlaps with the mm subsystem.
 > 
-> I don´t think the bulk helper fits here. Each VSS supply is independently
-> optional, and there is currently no optional bulk get-enable regulator
-> helper.
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 
-Ah, I see. Yeah, then we have to live with a for-loop...
+Acked-by: Liam R. Howlett (Oracle) <liam@infradead.org>
 
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+> ---
+>  MAINTAINERS | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 24ca91ce5d86..7daacfd70197 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -23945,6 +23945,7 @@ K:	\b(?i:rust)\b
+>  
+>  RUST [ALLOC]
+>  M:	Danilo Krummrich <dakr@kernel.org>
+> +M:	Alice Ryhl <aliceryhl@google.com>
+>  R:	Lorenzo Stoakes <ljs@kernel.org>
+>  R:	Vlastimil Babka <vbabka@kernel.org>
+>  R:	Liam R. Howlett <liam@infradead.org>
+> 
+> base-commit: 45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229
+> -- 
+> 2.55.0
+> 
