@@ -1,84 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB26E2AD3F
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:24:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AA57448BB6;
+	Thu, 27 Aug 2026 12:24:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787833459; cv=none; b=YdVwKoVFJFX1Tje693ZoSkeU814bC6Z5xj/V5ezPrufHiPk1VmGDwPitQPpAYbJZyO7qXHsWNymINYzq8CxS2rF1b4FCth6OOtlTnhxKJIYBVi4BeE1CBKP8CHEi3IqVtzDqa7WBxeyz8/bWHKK2k1wxoP6JlX2NUTvgTl9alGA=
+	t=1787833492; cv=none; b=AGqTZIw49Ob1VPyO6J8AJdPmYIfRG69U3Km2Gys9yFuHHoLxx3Tnx3u5qENyppV7kMMoBdLa7bFbbgf2uGyN1D1nIOvJAacZvhMP/4R/EuOhePYunU9xBaK49K7IjgvdtEmAUIr2UVYRcF5NHF1ObGCGRSw6H2YJ3t8lYr+cdvE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787833459; c=relaxed/simple;
-	bh=o75G+1/hgtVGL/qEWSHTdWoO/2SmV6e9bLp7kKM7Wy0=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=OkCt1hvmfWJTAtZ9X2wnKDYVoiKTQEFhPAd1BtMajnZz9oZ3S4clJQ5FD1Hef0QvhISU5ukS1v9gQsy29NjQbPh4xzOaXDsBspWev2/DJZ7S2CrP4imQS8/dWjdQT7n/fFx2KEJryoE3QMIoeHx5o2q7Bby5wJiSgL7l8mOaKzU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XEcHf1Aj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787833492; c=relaxed/simple;
+	bh=ivf53OgFtMjyPnLKACr+7rsvdM7IpLqa4fkvzX2elFM=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=XzCVfy5nChtBlZDIUkx8qKoG7nCmV/sZQisl1p+tYNDWRcFQXc5Sbb5Z4ZWPcWwSK0esGjSNfp8RGPDC7zUYmUEm7OS2PKpcwxotjiGlViTCXKs9i731gMGcUYwkVRenGdF1LcwsabANEazTI3BqOgqvPk4skwLc1uCe0Ir8ut0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=H/f7wP+F; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=JOw5lk16; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XEcHf1Aj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB4421F000E9;
-	Thu, 27 Aug 2026 12:24:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787833456;
-	bh=7Q1oZ0TkvMzGLf8uu4+USXNHqgvQ2VnfXdLPXwXiyZw=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=XEcHf1AjYU8pYLl2mfYnjEVo3Gz4nrhlBEyKQmIZDH0sQzZ/WreAPi83Ik0aGiRwL
-	 PHf7REcoLiklL/c6L+5kU6QJMRsZ5UfNvphpE28XDZp1jPnIg4cLkv7jORI6ucODul
-	 uhrFb6clSNKNGnGQp57hx9A45z8T//1n8ZHlWoLoGTNT9/TiQ4FVdYl3icSaI7fDXQ
-	 CW7cow5AztlJ+gq7VQ6NM2IpZQuoMb1jZ2D/me4ifIDE5h3S/67+8xz/FAEZR/ylqb
-	 c+gz5aX62InsPadw+kXYt6fY6keFw1mk4AqzmFOcWr6ZGxq0EVHa6zuzy5NA8Yyv9d
-	 7ypQDWj5WBM9Q==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Oleg Nesterov <oleg@redhat.com>
-Cc: Frederic Weisbecker <frederic@kernel.org>, Hyunwoo Kim
- <imv4bel@gmail.com>, brauner@kernel.org, peterz@infradead.org,
- anna-maria@linutronix.de, ebiederm@xmission.com,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] signal: Use list_del_init_careful() in flush_sigqueue()
-In-Reply-To: <ao8_NUo0ACPAA4QB@redhat.com>
-References: <875x10hrkt.ffs@fw13> <8733w3j1i1.ffs@fw13>
- <aowkvvxg8cPP5V0X@redhat.com> <aoww8qi_ce_8ECA9@redhat.com>
- <aoxOVAd8ooqHFW12@localhost.localdomain> <87pkz6gms6.ffs@fw13>
- <ao3kt-eRxw4agOj7@redhat.com> <87fr02gegn.ffs@fw13>
- <ao6zmDB9EjsqPIVN@redhat.com> <87zey8g05g.ffs@fw13>
- <ao8_NUo0ACPAA4QB@redhat.com>
-Date: Thu, 27 Aug 2026 14:24:13 +0200
-Message-ID: <87pkz3g39u.ffs@fw13>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="H/f7wP+F";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="JOw5lk16"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1787833475; bh=JxKthkBcIEQZDO2wxHRAzfg
+	xeEEMbJD0usxwKTdeUaE=; b=H/f7wP+FXUO+yxa+q5vMus7cTVI+8nucqzx0Wp+UYsGKinys03
+	4pG4JJ1IkakhM0gsWPYanau/YtRvLuEcZfz+tXmgVUjDaToLzIaxnOotvSAf+houXm45s7awPUe
+	3Eu6PJL/VNZnE/TkBM8OF0xh0ZJDvSoijKpAI5m4vKUCneKFeF8V5YL20NRBypDSWmv3I4xOegz
+	V/ntvXmHlDiMvC674mCk2RQMUUSygeVGrZCOazYNvtGi6BoBOZ7YzjEPJ6fbmuFzJHQxeRMZY97
+	FAeA+NJlCv85yztUJ6Gczxsyuhi16LumrzaFVDQqfOUPoBtfab8UOvvUjw0jzR1Kszg==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1787833475; bh=JxKthkBcIEQZDO2wxHRAzfg
+	xeEEMbJD0usxwKTdeUaE=; b=JOw5lk16fOmp4jIc3b+JiIh8o2Vx7r00pCxMUo7g2SxJbzFbNy
+	/f9IF5SKpBnHdKbYez1ePgLmSbdH4Bn9UZAw==;
+Date: Thu, 27 Aug 2026 13:24:31 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: Steven Rostedt <rostedt@goodmis.org>
+CC: =?ISO-8859-1?Q?J=E9r=E9my_Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+ mhiramat@kernel.org, mathieu.desnoyers@efficios.com,
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2=5D_tracing/user=5Fevents=3A_Clear_c?=
+ =?US-ASCII?Q?opied_tracing_state_before_fork_duplication?=
+In-Reply-To: <20260827081915.320fe2c3@gandalf.local.home>
+References: <20260826214414.1971632-2-Jeremy.Jean@oss.cyber.gouv.fr> <20260827080839.35e44d04@gandalf.local.home> <A4F580CE-2211-4D05-9D3D-15AB427C74A4@mainlining.org> <20260827081915.320fe2c3@gandalf.local.home>
+Message-ID: <E0B041DD-5A2A-4120-95F6-BDCA947495A9@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 26 2026 at 21:32, Oleg Nesterov wrote:
-> On 08/26, Thomas Gleixner wrote:
->>
->> On Wed, Aug 26 2026 at 11:36, Oleg Nesterov wrote:
->> >
->> > So. With this change release_task()->flush_sigqueue(&old_leader->pending)
->> > can still race with posixtimer_send_sigqueue(), but it will do nothing.
->> >
->> > But it also does "nothing" if tmr->sigq is already pending (!list_empty)
->> > so I am starting to think about the change below again...
->>
->> Sure, but that's an orthogonal optimization once we fixed the exec()
->> mess :)
+On 27 August 2026 13:19:15 BST, Steven Rostedt <rostedt@goodmis.org> wrote:
+>On Thu, 27 Aug 2026 13:09:44 +0100
+>Bradley Morgan <brads@mainlining.org> wrote:
 >
-> I am almost sure I missed something again. But I thought that this "optimization"
-> can also fix the exec() mess we discuss in this thread?
+>> >> @@ -865,9 +865,12 @@ void user_event_mm_remove(struct task_struct *t)
+>> >>  
+>> >>  void user_event_mm_dup(struct task_struct *t, struct user_event_mm  
+>> >*old_mm)  
+>> >>  {
+>> >> -	struct user_event_mm *mm = user_event_mm_alloc(t);
+>> >> +	struct user_event_mm *mm;  
+>> >
+>> >Why this change?
+>> >  
+>> >>  	struct user_event_enabler *enabler;
+>> >>  
+>> >> +	t->user_event_mm = NULL;
+>> >> +	mm = user_event_mm_alloc(t);  
+>> >
+>> >I don't see why you moved the mm assignment down here. The
+>> >t->user_event_mm
+>> >is not used in user_event_mm_alloc().  
+>> 
+>> Uff, not wrong, I must be dummy dumb dumb, well, I base my reviews off 
+>> 
+>> Does this fix the bug? And is this a small fix?
+>> 
+>
+>The bug is fixed because it needs to NULL out that value. I asked from v1
+>to move that change to this function. But this function only needs to add
+>that line before the return. It doesn't need to modify anything else in
+>that function.
+>
+>That is, something like this:
+>
+>diff --git a/kernel/trace/trace_events_user.c b/kernel/trace/trace_events_user.c
+>index 8c82ecb735f4..6b89d225b189 100644
+>--- a/kernel/trace/trace_events_user.c
+>+++ b/kernel/trace/trace_events_user.c
+>@@ -868,6 +868,9 @@ void user_event_mm_dup(struct task_struct *t, struct user_event_mm *old_mm)
+> 	struct user_event_mm *mm = user_event_mm_alloc(t);
+> 	struct user_event_enabler *enabler;
+> 
+>+	/* On failure, do not free parent's copy */
+>+	t->user_event_mm = NULL;
+>+
 
-It does not because the sigqueue stays linked in old_leader::pending and
-any concurrent or later access to it from an expiry (see Hyunwoo's
-explanation) will access freed memory: either old_leader::pending or
-other unrelated sigqueue entries which have been freed.
+Sorry to be mr begfortags here, but this also LGTM, this fixes the bug,
+andit's short, thanks for the patch, since I'm busy rn, add my tag if jean
+is to submit this 
 
-I really don't understand why you are so obsessed about "fixing" it with
-a dirty hack instead of just making it comprehensible, safe and future
-proof in the first place.
+> 	if (!mm)
+> 		return;
+> 
+>
+>-- Steve
 
-I'm actually tempted to move the posix timer cleanup _before_
-de_thread() and just make sure that no new timers can be created anymore.
-
-Thanks,
-
-        tglx
+--- Thanks!
+https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
