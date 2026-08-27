@@ -1,72 +1,130 @@
-Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com [209.85.160.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01A9D35C6B8
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:15:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DEB318DB1F;
+	Thu, 27 Aug 2026 07:15:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787814906; cv=none; b=qnsXtDFPIrv/lFobRwdbB9+/ZMLA2wpxxMNcAP/4hh9EdQ3YiwZWeC3WFOtD9RLMtlWZbWhJ3A3O7FeAfoyQ/1yfGHgEiW/sg583hQcPbxInpKEzJkTk9PJWRMzgS9alfT8NsV46k3nCxCOqRCyKOYvQIs40CTpDM9jZYByg38U=
+	t=1787814942; cv=none; b=awkRcYhzI5LkLh3tlRQEIZSq0ODeU7zwwPJwPqY/lmi63+ANusvQeSgSVAx+RikzxFX8auSsQemPlTLmIUSaaqrYarKWt2IVkk7WEWf3Oo+tMM417rLnVcAjTMgbE4vaDZWBdB/R7Rff7h+QAEYJqSo6pwz0f3j5XhaAAHCdP/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787814906; c=relaxed/simple;
-	bh=a7abdXmyXVjcgXxgHDvF6+A1YVRMGGisqdZBQlHZDw8=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=FrFNY82VZv5n6KBi7wsnIefPrOCj6HymUMiO3wlstLkVWBUtwzbPTwsVyUFY6CqUFcr04SeTTBpHWVlmY+iC1XiNPR27QhaSq1oDCjPNv8qHaOuAyv3enbm66qJ9d4xgH9R4rBO1agcQXUsiVbmqR+kliTcgbBnYwi63FQRmVyg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-45ecef50eeeso2015414fac.2
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:15:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787814904; x=1788419704;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ZWvdTS7720Z1YSYDHZ7ty73vLzkYDj/u2fgb825Q1Hk=;
-        b=d5gpxKgjWjHblIYhCLuamctfY+mbhyP10x8R8A+FDgR+82+GsBkLLyg6Lm2XXmKzbD
-         nU1tjuO4dJ7MRb6DpcrgRRq08vuP9/wROKC9SE/h/0fKpprukwx7JOJl/4/d6nu29MFV
-         XY43/kGC3aINct7laIMUyxwQsgb1Q8ij5kVa2yPqtNQPvWBo/UFMxMXmBC1PIZKiasp7
-         8S318LQff8gb2RbSoK+FilHCspduutiS/MjiXwmYPfyv7hq82CdTnKPLTq5Uqw3Vv6lS
-         LXNjVJE4FmXQGQsF/JnBzQC1H4+qCVR8RhQgw1MERtY17ken1fuDs9Lg4WINybwhd/wh
-         XXcQ==
-X-Forwarded-Encrypted: i=1; AHgh+Roi+XeDSeVDR+a0Slsv85veCEkaQOH9KaVpN/Jribj9MT90oaIp2kPkcDcnm5RClPAe9ldmGGiUGwBX7sg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kmyctGsddbq8cPaGl5q9som0xPEkIFbqjMy0V63kboECsdHk57
-	lI3p9JD1GsRbEAl5RG68fz4e0+cSbTjtVavDpenUYKnUaeMpiUVivHIXcA5YPj+O/S0BKvEDt8A
-	CxDMZr3ZQcxrszdxgfotFJPY7dfHmx2vsdi4v3UlNkBhw2s9fKlxPcqNWthc=
+	s=arc-20240116; t=1787814942; c=relaxed/simple;
+	bh=9Z3mOB8sjN4xtEd9AWWKUGkfZsPYHphhCLDfo3n7LIM=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=rIE4un4Na1f6tjeE6VdkVG8ZwO6B/KBosqDyRyWSn7bDoOote5xmEF1yY9TL/R2WSR28bCrJq2q81Z2Be2Wh9Mj6V7gXhZ/A9ARk3WU/GG2SPbt4Pz6XTlaJhDzbnz2YXtql9x1MBOp1/p/BgOCPjvcLz35T1+0rrNESxeIbdzE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=jtxDEiKN; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="jtxDEiKN"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=0/WmpBw1NC/NZ1Pwlc5Do2FNd8FdtHL1x6eXwEeq7Ik=; b=jtxDEiKNLKP6UGzhJh3QLxRMR5
+	zWLQ+Glcw40djkqxGiLCniny5XLFJDUfQBSfW8sUc8TSkEVHrYfnLiS52hE0QkQRDoKxKGs9HPHLS
+	GyQ/0rH+nBBRK9lf+aQHn1fNAPgM9Mxc7HwXhDXDJTV2QmtPtKJGNwI7WHaQ7NvcVlDjplyX5OLp8
+	d3C485CFnBRn4jxXLDza1wb3JyJFvnXEZzqmvvK6QGGYcmeqZ17scH2DEzjWHtwRmaSHJcjr/zRXm
+	vw76HSWFBacsNxw7cIcUetUNbFGD+kLYNnKHUIPXDGpIGcyzSKNakCbywRrI304kFxMSEGiVD9fM5
+	EQ0NTuZA==;
+Received: from [::1] (port=55356 helo=pf-012.whm.fr-par.scw.cloud)
+	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.99.5)
+	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
+	id 1wzUKk-00000001pPr-2UA3;
+	Thu, 27 Aug 2026 09:15:34 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a4a:edc3:0:b0:6b1:b375:481 with SMTP id
- 006d021491bc7-6b1b3750548mr3292507eaf.0.1787814903847; Thu, 27 Aug 2026
- 00:15:03 -0700 (PDT)
-Date: Thu, 27 Aug 2026 00:15:03 -0700
-In-Reply-To: <ea1f4017-46e6-48d2-8481-238355cdadd5@yandex.ru>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a8fe3f7.1d9ded08.62e62.00c6.GAE@google.com>
-Subject: Re: [syzbot] [can?] memory leak in j1939_netdev_start (2)
-From: syzbot <syzbot+489e907b2a026a6f5fa0@syzkaller.appspotmail.com>
-To: dmantipov@yandex.ru, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Date: Thu, 27 Aug 2026 09:15:33 +0200
+From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
+To: Bradley Morgan <brads@mainlining.org>
+Cc: rostedt@goodmis.org, mhiramat@kernel.org,
+ mathieu.desnoyers@efficios.com, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] tracing/user_events: Clear copied tracing state before
+ fork duplication
+In-Reply-To: <5B7C72AA-5655-4916-AB17-03A8B94F5D7C@mainlining.org>
+References: <20260826214414.1971632-2-Jeremy.Jean@oss.cyber.gouv.fr>
+ <5B7C72AA-5655-4916-AB17-03A8B94F5D7C@mainlining.org>
+User-Agent: Roundcube Webmail/1.6.18
+Message-ID: <faa62ef4d9144b3145a8a6254ac3fea6@oss.cyber.gouv.fr>
+X-Sender: jeremy.jean@oss.cyber.gouv.fr
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-Hello,
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+>> diff --git a/kernel/trace/trace_events_user.c 
+>> b/kernel/trace/trace_events_user.c
+>> index 2bbc89d4a266..339e18085af3 100644
+>> --- a/kernel/trace/trace_events_user.c
+>> +++ b/kernel/trace/trace_events_user.c
+>> @@ -865,9 +865,12 @@ void user_event_mm_remove(struct task_struct *t)
+>> 
+>> void user_event_mm_dup(struct task_struct *t, struct user_event_mm
+>> *old_mm)
+>> {
+>> -	struct user_event_mm *mm = user_event_mm_alloc(t);
+>> +	struct user_event_mm *mm;
+>> 	struct user_event_enabler *enabler;
+>> 
+> 
+> Comment?
+> 
+> /* Failure must leave the child with no copied state to free. */
+> 
+> I mean, okay, you don't got to, but itd be nice, if your happy with it, 
+> add
+> 
+> Reviewed-by: Bradley Morgan <brads@mainlining.org>
 
-Reported-by: syzbot+489e907b2a026a6f5fa0@syzkaller.appspotmail.com
-Tested-by: syzbot+489e907b2a026a6f5fa0@syzkaller.appspotmail.com
+I usually don't think about adding comments, but yes, that's a good 
+suggestion.
 
-Tested on:
+> Maybe you could add this to your memories
+> 
+> "The description length should be about the same as the change being
+> added,unless there is a splat, or something else like a table which 
+> needs
+> to be added to the description, keep the description length the same as
+> thepatch size, e.g:
+> 
+> Instead of doing 3 paragraths about a one liner, we could do a small 
+> two
+> or more line description describing:
+> 
+> What causes the issue?
+> Why is it bad?
+> How did you fix it?"
 
-commit:         73e3f071 Merge tag 'nfs-for-7.3-1' of git://git.linux-..
-git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=176b6579580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=f403bd8c639b6040
-dashboard link: https://syzkaller.appspot.com/bug?extid=489e907b2a026a6f5fa0
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=14fe5625580000
+Sounds like a good practical advice, thanks. Yet in the present case,
+since there is a security issue with the UAF, I felt that it was
+important to explain where it came from instead of something very
+short along the lines ("fixing a UAF"), hence the couple of paragraphs
+and the KASAN output.
 
-Note: testing is done by a robot and is best-effort only.
+Anyway, noted, and here is a shortened version that skips some details:
+
+Clear the child's user_event_mm pointer before duplication so that a
+failure in user_event_mm_alloc() cannot leave the inherited parent
+pointer in place, which otherwise triggers a UAF.
+(+ KASAN output)
+
+I will send a v3 if you feel that's good enough.
+
+Regards,
+Jérémy
