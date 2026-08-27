@@ -1,96 +1,92 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1989313527;
-	Thu, 27 Aug 2026 06:06:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 996253624D3;
+	Thu, 27 Aug 2026 06:06:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787810792; cv=none; b=uvTBxIu6RB4XgOVZSOoAzWKFSOzRTcgVgKO37kM4Ekct2uBUKlbimgpEe7RK4eztCXMAcBeZMX6NddBYTdG9cGTWcYRJnSUQNiECAjayvB93lKLmppR48qb7v653rukRZ1ug+DvHSugTvDIR42IhmUMPtulBOyduipFgC1ugE54=
+	t=1787810795; cv=none; b=cY4cv+G8fEGGat+QHOVm2qBQvSgRvAh0w7Ipzf2suSz1PG2MpGinyE50YMZo9SMlRYne8cRzjtI7CLs6m8Y3Ix5SDRDEV+lGziAjjUQ4KAjB18t8tExYx7SHwqVWJjqsZui/ddUaSNMGIa0bVRAqrD4MGGMZFvrj6D+ih0bUGik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787810792; c=relaxed/simple;
-	bh=bAruQZ0cIRVmOCmhEQYA1wQoiKdmxyMg6Rgx4pWc0MI=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=O0ErSUVIaULrWHk0nsO1OMzYu3SMMb9C5QQlbLt4WywwwEvZ9XeCknHHq65J6kAF6FpO7E5q4YKc5HcoXE4OnGjtapQIdErdpXRlkhdPCqjXk8AQFky1tspDH83dCgrBYYn/TQydcnw8EymHegpts2i6buicq94V6XkgPwc0NbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ZWd9ZSo6; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1787810795; c=relaxed/simple;
+	bh=4MEVYAYSJL4cEovvPaUuVnqFB51awZSJxYddF6SWzro=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Gq69hnNIJU8hblxeQF44JDGZK894+0A1Zq6M7EGp5TZlkeO/rUOU5CvHk3nZYVLwgnaXloamI/89YEfmm0aekwfrTJ3vQsRyCTzTrP41zHStOV/G61uFMa55Fca2tjpvKMqwaExkSpqcayHxqBzq1fY3dTpcbrX5FP0o2lyzXSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=atxvd2MB; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ZWd9ZSo6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=o2
-	kY95xCwNWCpsR/iyxyWE5K4DUXGZxG7v6ikeJdzPI=; b=ZWd9ZSo6zbsyrAR05x
-	4hUbeh7XAJHX1oXcPv2i7D/30y9Q/kE5D5Nm8cnNY1TYq3JKOhjaZXey6Ev351sI
-	8Qwcq5549lkLu0y5Fw5lByYs55MkcMcArtQwawgP94sDS1XqtRfGD5mzDfQM1oYV
-	OsqQQ0o21YYOe4fkJq5bmhVnY=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgBnFyvF049q9Y7gOQ--.42204S4;
-	Thu, 27 Aug 2026 14:06:00 +0800 (CST)
-From: ghuicao@163.com
-To: Song Liu <song@kernel.org>
-Cc: Yu Kuai <yukuai@fygo.io>,
-	Li Nan <magiclinan@didiglobal.com>,
-	Xiao Ni <xiao@kernel.org>,
-	linux-raid@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Cao Guanghui <caoguanghui@kylinos.cn>
-Subject: [PATCH v2 3/3] md/raid5: fix NULL pointer dereference in raid5_free_percpu
-Date: Thu, 27 Aug 2026 14:05:54 +0800
-Message-Id: <20260827060554.77849-3-ghuicao@163.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260827060554.77849-1-ghuicao@163.com>
-References: <20260827023803.36602-1-ghuicao@163.com>
- <20260827060554.77849-1-ghuicao@163.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="atxvd2MB"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 343D01691;
+	Wed, 26 Aug 2026 23:06:29 -0700 (PDT)
+Received: from localhost (a085714.arm.com [10.164.19.28])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 46D2D3F85F;
+	Wed, 26 Aug 2026 23:06:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1787810793; bh=4MEVYAYSJL4cEovvPaUuVnqFB51awZSJxYddF6SWzro=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=atxvd2MBYeFEkKGg88c3L5GRhXIVBg8ao3BgsUAsWkYA7ds0RiLYyyyMKGlCqEe4v
+	 MOEpEcQqGd8VjOnqn4rLw1NEKggOUfl9biN2Je1oGa1rmznEcLbhjXu1/IkCtDfkV+
+	 TlSm0YogFKVAPwPubmvtzGJxMq025DHHeIV/tBH0=
+Date: Thu, 27 Aug 2026 11:36:29 +0530
+From: Anshuman Khandual <anshuman.khandual@arm.com>
+To: Samuel Holland <samuel.holland@sifive.com>
+Cc: Yoshinori Sato <ysato@users.sourceforge.jp>, 
+	Rich Felker <dalias@libc.org>, John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, Helge Deller <deller@gmx.de>, 
+	Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, linux-alpha@vger.kernel.org, 
+	linux-snps-arc@lists.infradead.org, linux-arm-kernel@lists.infradead.org, linux-csky@vger.kernel.org, 
+	linux-hexagon@vger.kernel.org, loongarch@lists.linux.dev, linux-m68k@lists.linux-m68k.org, 
+	linux-mips@vger.kernel.org, linux-openrisc@vger.kernel.org, linux-parisc@vger.kernel.org, 
+	linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org, 
+	linux-sh@vger.kernel.org, sparclinux@vger.kernel.org, linux-um@lists.infradead.org, 
+	linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org, Lorenzo Stoakes <ljs@kernel.org>, 
+	linux-mm@kvack.org, akpm@linux-foundation.org, david@kernel.org
+Subject: Re: [RFC V3 1/8] mm: Make ptrval_to_str() generally available
+Message-ID: <xj6w5re27lbtih3lxksk2jxv6kvnpek25urjjcoobwj5pgfqtr@z5loauvsw3jj>
+References: <20260818040041.1891769-1-anshuman.khandual@arm.com>
+ <20260818040041.1891769-2-anshuman.khandual@arm.com>
+ <029cfde8-74fc-4437-bc18-b1b53d44cab2@sifive.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgBnFyvF049q9Y7gOQ--.42204S4
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ury7Kr1xuFWrZw1fKF48WFg_yoW8Xry8pw
-	4DAr1Yg34rAanYk3s2vw4UuF1YqanrGrW8Aas3Wws5ZFs5Zr9Fyw45ZFW8WFy8AFZaqayx
-	A3s8XrnxJF4DtaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jYrWrUUUUU=
-X-CM-SenderInfo: 5jkxxuldr6il2tof0z/xtbC-AmlOGqP08mQ4wAA3k
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <029cfde8-74fc-4437-bc18-b1b53d44cab2@sifive.com>
 
-From: Cao Guanghui <caoguanghui@kylinos.cn>
+On Mon, Aug 24, 2026 at 10:45:09AM -0500, Samuel Holland wrote:
+> On 2026-08-17 11:00 PM, Anshuman Khandual wrote:
+> > Move ptrval_to_str() inside a header thus making the helper more generally
+> 
+> Typo here and in subject: ptrval -> ptval
 
-If cpuhp_state_add_instance() fails in raid5_alloc_percpu() (e.g., the
-startup callback raid456_cpu_up_prepare fails due to an allocation
-failure), conf->node is never added to the cpuhp instance list and
-its pprev remains NULL (from kzalloc initialization).
+Fixed.
 
-When setup_conf() then jumps to abort, free_conf() calls
-raid5_free_percpu(), which checks conf->percpu (non-NULL, since it was
-allocated before the cpuhp failure) and proceeds to call
-cpuhp_state_remove_instance().  This calls hlist_del() on the unhashed
-node, which dereferences node->pprev (NULL), causing a kernel panic.
-
-Guard the removal with hlist_unhashed() so that the cpuhp instance is
-only removed if it was actually added.
-
-Fixes: 29c6d1bbd7a2 ("md/raid5: Convert to hotplug state machine")
-Cc: stable@vger.kernel.org
-Signed-off-by: Cao Guanghui <caoguanghui@kylinos.cn>
----
- drivers/md/raid5.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
---- a/drivers/md/raid5.c
-+++ b/drivers/md/raid5.c
-@@ -7539,7 +7539,8 @@ static void raid5_free_percpu(struct r5conf *conf)
- {
- 	if (!conf->percpu)
- 		return;
- 
--	cpuhp_state_remove_instance(CPUHP_MD_RAID5_PREPARE, &conf->node);
-+	if (!hlist_unhashed(&conf->node))
-+		cpuhp_state_remove_instance(CPUHP_MD_RAID5_PREPARE, &conf->node);
- 	free_percpu(conf->percpu);
- }
--- 
-2.34.1
-
+> 
+> > available for new users which are being added later. While here, also move
+> > another related string size macro PTVAL_STR_MAX inside the header as well.
+> > 
+> > Cc: Andrew Morton <akpm@linux-foundation.org>
+> > Cc: David Hildenbrand <david@kernel.org>
+> > Cc: Lorenzo Stoakes <ljs@kernel.org>
+> > Cc: linux-mm@kvack.org
+> > Cc: linux-kernel@vger.kernel.org
+> > Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
+> > ---
+> >  include/linux/mm_types.h | 15 +++++++++++++++
+> >  mm/memory.c              | 16 ++--------------
+> >  2 files changed, 17 insertions(+), 14 deletions(-)
+> > 
+> > diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
+> > index b18c2b2e7d2c..a5b514e55dd7 100644
+> > --- a/include/linux/mm_types.h
+> > +++ b/include/linux/mm_types.h
+> > @@ -2001,4 +2001,19 @@ static inline unsigned long mmf_init_legacy_flags(unsigned long flags)
+> >  	return flags & MMF_INIT_LEGACY_MASK;
+> >  }
+> >  
+> > +void ptval_bytes_to_hex_str(char *buf, size_t buf_size, const void *entry, size_t entry_size);
+> > +
+> > +#define ptval_to_str(buf, val)								\
+> >...
