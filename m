@@ -1,121 +1,64 @@
-Received: from mta0.migadu.com (out-248.mta0.migadu.com [91.218.175.248])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A96D2701D9
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 02:14:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.248
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BF232701D9;
+	Thu, 27 Aug 2026 02:14:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787796867; cv=none; b=Q61An563Wpyc3l3UKVhUxebaBPyqFJdDN09t7Odf+JtU2oPGv4fUghTZ4eYwEyGkbWOwEk5zxBtH9Y6skF/oztpcFUR8ZToqWkX5J/anYqBK5iLr09t9ERc29e7kMlgqXkPi94YVlml3MiupODiuTZk7tzI2lm9tKYp2/w5AkFg=
+	t=1787796875; cv=none; b=scnwrdOgsym7QjHgmDHtp9eu/91bi2C0rdjpr4bxWNxSyZUWIIh02hT26hcbrSeUMg8r4QY7W9EwG8LVdSrb8ELVKBB9obwTdx11rfDXZPBbSHU4rxOYIuEov1hKoxYud8Qb83FXwf9Z2lQUGXurbz/84SbQSmPgDmQ0REceMDw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787796867; c=relaxed/simple;
-	bh=JccDt/Ebs3T8dFYp1/kM4G7Y7+hnSC4GBpVNEFEMEH0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dtvQQ4yyn5/S+CC1+c4K/7hq8tLqDfots8UMYocYFQz7dT9wTBOO40xHywS0/8OdBKwV5uLvGpXCPPBLAGG2eatYEnYsT/8NFuDJjWrPJnsdS/hzkM7QzPM0Q9v7OmsuwdexRRgELljK4meTT4e4ROfz8SFNxmCnAkBQqwyTrB8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Ux3DPNy8; arc=none smtp.client-ip=91.218.175.248
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787796875; c=relaxed/simple;
+	bh=EMz3CLlSruM1oLo6SYgpHfz8DCXHc0BUFVA833NUF/A=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=T9HWjGnGJqYTn5TT6dKW0ABUqFnmVAvxDnbhPNw6eU7caZvQ0Lobukb7720jPVlWk8w3dLoRq6fuk8Ed69NrfDx9tJgLdHcMRrBzu7iMPpKH7gdyOV6m2vuh3bdAvpJhT5F+Y6Y2QEQX2gHSfwpBGiwEozoLLUdUOeRj8eqOKFE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=iYs8oDAK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Ux3DPNy8"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=JccDt/Ebs3T8dFYp1/kM4G7Y7+hnSC4GBpVNEFEMEH0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787796862; v=1; x=1788401662;
- b=Ux3DPNy8Qw3IkAf2CWTzhiYTIhuyNXY5esueywUhua2T7g2nrhJ8q3XWhvnLD2A5K+g+QzPK
- jbx5A7MRH+zoHZTShJdcVAI3OuK4+gDFtSHhzPtSViJ+PGGf3Uy4gemy/PmTrNQhA5cB3x5aENR
- DQu74H2/lB1iZAmJPRJOL11I=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: from localhost (223.70.159.239)
-	by mta10.migadu.com with ESMTPS id a5c59b9767382a5f;
-	Thu, 27 Aug 2026 02:14:22 +0000
-X-Mizu-Trace-ID: a5c59b9767382a5f
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 27 Aug 2026 10:14:19 +0800
-From: Baoquan He <baoquan.he@linux.dev>
-To: Barry Song <baohua@kernel.org>
-Cc: akpm@linux-foundation.org, linux-mm@kvack.org, axelrasmussen@google.com,
-	baolin.wang@linux.alibaba.com, chenridong@xiaomi.com,
-	david@kernel.org, hannes@cmpxchg.org, kasong@tencent.com,
-	lianux.mm@gmail.com, linux-kernel@vger.kernel.org, ljs@kernel.org,
-	lyugaofei@xiaomi.com, mhocko@kernel.org, qi.zheng@linux.dev,
-	shakeel.butt@linux.dev, stevensd@chromium.org,
-	wangzicheng@honor.com, weixugc@google.com, yuanchu@google.com,
-	zhangbo56@xiaomi.com
-Subject: Re: [PATCH 3/6] mm/mglru: enhance cold/hot inversion handling in
- inc_min_seq()
-Message-ID: <ao-dewgE9XAfP0rU@MiWiFi-R3L-srv>
-References: <20260821102538.22642-1-baohua@kernel.org>
- <20260821102538.22642-4-baohua@kernel.org>
- <ao6qTTtk2xkkeKob@fedora>
- <CAGsJ_4ywk7mA1xfk=emtqby1UAwFsaH9PChmk2TuZoDKrMzuXw@mail.gmail.com>
- <ao-I8rYv_G5j4wz4@MiWiFi-R3L-srv>
- <CAGsJ_4zoXvyXG6-qAH+=nv6V92w_U_tk78YAPKMihRniqvTe8A@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="iYs8oDAK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3FFA1F000E9;
+	Thu, 27 Aug 2026 02:14:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1787796874;
+	bh=Cane1AOlUQJyHZIyoy0KeSRwQewjcMOk/ZLKOeepJe0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=iYs8oDAKJjVJVud930jSrVlON9IqVlQIIVkzomxm7HhwsfXPPeiNpOjYUksZ+4bdd
+	 K56fsXsFs3pMbR+BfTtO314sJurM1m/TFJszmmFHkBJ4kQoOTFxtRJEOwo1lGqZgTK
+	 Y29BV8qbdTFqze3QWHK8lyevmOKRmKQkH35NzP00=
+Date: Wed, 26 Aug 2026 19:14:33 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: ZhengYuan Huang <gality369@gmail.com>
+Cc: mark@fasheh.com, jlbec@evilplan.org, joseph.qi@linux.alibaba.com,
+ ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+ baijiaju1990@gmail.com, r33s3n6@gmail.com, zzzccc427@gmail.com
+Subject: Re: [PATCH v2] ocfs2: reject inconsistent local xattr entries
+Message-Id: <20260826191433.c9208982c4eb7ff97f755969@linux-foundation.org>
+In-Reply-To: <20260806085012.2650042-1-gality369@gmail.com>
+References: <20260806085012.2650042-1-gality369@gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAGsJ_4zoXvyXG6-qAH+=nv6V92w_U_tk78YAPKMihRniqvTe8A@mail.gmail.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 08/27/26 at 09:24am, Barry Song wrote:
-> On Thu, Aug 27, 2026 at 8:46 AM Baoquan He <baoquan.he@linux.dev> wrote:
-> >
-> > On 08/27/26 at 05:43am, Barry Song wrote:
-> > > On Wed, Aug 26, 2026 at 4:56 PM Baoquan He <baoquan.he@linux.dev> wrote:
-> > > >
-> > > > On 08/21/26 at 06:25pm, Barry Song (Xiaomi) wrote:
-> > > > > During aging, a folio's generation may already have been updated by
-> > > > > folio_update_gen(), even though it has not yet been moved to the
-> > > > > corresponding generation list. Such folios are hotter than those
-> > > > > already in that generation.
-> > > > >
-> > > > > It makes sense for inc_min_seq() to increment the generation of
-> > > > > folios that were never promoted during aging and move them to the
-> > > > > tail of the new oldest generation. However, folios that were already
-> > > > > promoted should instead be moved to the head of their updated
-> > > > > generation, just as sort_folio() does in scan_folios().
-> > > >
-> > > > While sort_folio() move protected folio to the head of next gen too.
-> > > > It only moves ineligible folios to the tail of next gen.
-> > > >
-> > >
-> > > Hi Baoquan,
-> > >
-> > > Thanks for the review! I’m not quite sure I understand what you mean :-)
-> > > Could you please clarify what you’re suggesting?
-> >
-> > Sorry for the confusion, Barry. I meant this is a good one, and
-> > sort_folio() has the similar issue in which the protected folios are
-> > moved to the head, wondering if that need be adjusted too. One consistent
-> > rule for both is better.
+On Thu,  6 Aug 2026 16:50:12 +0800 ZhengYuan Huang <gality369@gmail.com> wrote:
+
+> [BUG]
+> A corrupt OCFS2 xattr entry can set OCFS2_XATTR_ENTRY_LOCAL while
+> keeping xe_value_size larger than OCFS2_XATTR_INLINE_SIZE. When that
+> entry reaches namevalue_size_xe(), the filesystem hits its BUG_ON:
 > 
-> I think it might be fine for sort_folio() to move protected folios to the
-> head, since those folios have either been accessed multiple times or have
-> reached a tier higher than tier_idx. They are sort of hot in theory, right?
-> 
-> if (tier > tier_idx || refs + workingset == BIT(LRU_REFS_WIDTH) + 1)
-> 
-> But for inc_min_seq(), it is just catching up to make sure the newest
-> generation doesn't overlap with the oldest generation. Those non-promoted
-> folios themselves aren't hot , so I feel these are actually different?
+> kernel BUG at fs/ocfs2/xattr.c:231!
+>
+> ...
+>
+> [FIX]
+>
+> ...
 
-I got your point, sort_folio() considers the hottness, inc_min_seq()
-doesn't. I agree with you now. Thanks for the explanation.
+Thanks.  AI review might have found several issues - two are
+pre-existing and two introduced by this patch:
 
-BUT no matter what it is, protected folios, lazily promoted folios,
-and no matter where it is, put in head of next gen or tail of next gen,
-their refs are cleared by folio_inc_gen(). Then in sort_folio(), they
-are all tier 0 of the oldest gen and must be reclaimed.
-
-So here, I think differentiating them and moving them into head or tail
-doesn't make sense, the thing is whether if we need do something to
-retain refs of folios when gen_increased. At least, for lazily promoted
-folios, it should not be put in the tail of next gen and refs cleared.
-What do you think?
-
-Thanks
-Baoquan
+	https://sashiko.dev/#/patchset/20260806085012.2650042-1-gality369@gmail.com
