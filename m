@@ -1,202 +1,361 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azolkn19010022.outbound.protection.outlook.com [52.103.23.22])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C001A485CE8;
-	Thu, 27 Aug 2026 16:07:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.23.22
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787846830; cv=fail; b=IFPw7gPEx2W6D65yN73Hup4T2U0y+/Ggh2tUlH3hzMDxYIqzWfsq0ASRvFzsemUM64r9q54aA9NnoxlgCPsg29pKQQKC/hGyvzV5g5G5j7VuJ6VQloasT6OfLoL/iqpWuyx3LCai6npfF4EmWVRPLN1hf5T2G/Q5Q1mwkRnt6zo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787846830; c=relaxed/simple;
-	bh=mqTINbod+1inTDwo7ZGUAMHxdPSd61sEWF/BVkFGaVw=;
-	h=From:To:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=HDiQuNFksRwB0EX5wY8Yo6P46Wub7zGLA+F5ZoewTMkLXdRyegYs9BOB2udroSZAyVOkQ/DBkhph5rlx92yv9PYUCndZcPti6N37CMGonRPcMABj+iLp93aD5LYn353yjsg9ZNtGw+ABNK2OTBTMIeLT8gkBJwgaBqZQLhDK3Dk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=IiFK7Hdf; arc=fail smtp.client-ip=52.103.23.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC26F486E78
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:08:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787846906; cv=none; b=aOeWQf5edJAXMSGYIujqH4g688A0gXYRuqzHqAmrSleljkzXBu0zKq/3KyzeB3A+yvWwkdvXAvollw9FFvsm+mFwUDwaTxZwkVUyDZeikzJvv2A9NWXcba2EHlrwJGvWwRy43P6Y7h075D1JNxLnG4HFzJUn3O6UAEf6oaHTD5k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787846906; c=relaxed/simple;
+	bh=InJBi1ft2hBbaFKieY6YZqUXPU/gfk8w7Fh7r9+bQPc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=IgZACVxIfwpzXGQXgvBKGR57uMprFQvrZixfPu2wox822ZjmK/9wpGk1T+IfQrjg471IAz160HId1o394LSh9dXlgOwHRc+k7KeE6E6Sst6FG2cfrFTosVzGtBu8sUUDzE+iApmn9iyJ7aY4zJ0q30MHJI5v3eqWfaB0ePSTVnc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Y4uq6JlM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=F1Gzg4Vm; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="IiFK7Hdf"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CuCND0jbcFSujttf9EjWy3PvQU3t6XtucUuXL722h1zznIHNP47GQPtkRiMt4U5HZv2OLXLIzOrgBTW5lGZrO1F7tZkU8XPOjg04Vwp4xt4hcpeyKdyy2x+bqFT8mRfSnIJS1lwbb9Wd66h+3PxbnEDJQ7uzSsH3pL6rp2cKCf7aBFKNNkSsWF1MteBHvcLINjHpoPskgg2+c4y3DsDPsaXKaLiRnE4aJTcL5KjKJMe3LC/V+EEYvvae81nc74jPTzBmBzYmV9J7N409JrKHmwe+UjxxzSce9UNc6Ckpy5BphBMROYcJTkuEs1JUvz25iSwzJ+hewCeK7TBFMBYw1g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AVEem69Z+rTUXv2NKI1+uPZF6VQGpOpsFiE5RSl37EQ=;
- b=t4uMJa5EFog7qegtHGDESox4k2NcdI8sqUTsVMTtuhFqyPHZJ7FuuBu58JHL43580g2pWPxMv0twSGPQHyrp/BTzAwaCL0Ddb/HLRwrOHf3XO/mUafJVuNiovrBHAnkMmIY1bSPYlGmc7mZj2/4x9z9E9ehDAhm2XsTx0LmUY+XVbeXuNYs9hL7cWPMwAyVYf/zRGXj8S0j3egemDNminRMqF3mya1D2NZsvfUvjUzvjhbag3ydu3l4gOT1SMWUxAli8glg1fCGVdV/0HCjEpjacuBQyx10k8Y6QWFut5vs9p/gvv8Gn02TCKSf/qfsXuCYh3acHsYBbGkoSfFQSpQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AVEem69Z+rTUXv2NKI1+uPZF6VQGpOpsFiE5RSl37EQ=;
- b=IiFK7HdfQ7l63cvx6y8hodmv1k/lmo124Jbev3K/I2OPSjOihQj5ICqgum3U8MGgQHAZ42/qrKC0Gj36nEk+GMcUWihKvLXmtyA1jogC4Hqf7eFNwtl+ziC/dxR0XbuklXFxCNfJlnE2ddP9lfwtmFdjVSkhQ8Z6Fzu7zHnpbPLrSBc7KQY9ZzzGG763wqwTjasDcJf3hhlERBvDGl5pmP9o0kvfG4LWegODJx23Zc6ioyc4UMYmlfLRm4uLD337amBelkdMvAfQ43f9Fu2J4DqKN6V3i7IrZN5WJFLYjdNUACTpRREsIHv7iQ0bVG2/eN3fPz+dZYmuP4ALSEZZ6g==
-Received: from SN6PR02MB4157.namprd02.prod.outlook.com (2603:10b6:805:33::23)
- by SA0PR02MB7452.namprd02.prod.outlook.com (2603:10b6:806:ea::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
- 2026 16:07:06 +0000
-Received: from SN6PR02MB4157.namprd02.prod.outlook.com
- ([fe80::900:1ccf:2b1e:52b6]) by SN6PR02MB4157.namprd02.prod.outlook.com
- ([fe80::900:1ccf:2b1e:52b6%3]) with mapi id 15.21.0360.005; Thu, 27 Aug 2026
- 16:07:06 +0000
-From: Michael Kelley <mhklinux@outlook.com>
-To: Long Li <longli@microsoft.com>, Naman Jain <namjain@linux.microsoft.com>,
-	Sahil Chandna <sahilchandna@linux.microsoft.com>, KY Srinivasan
-	<kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>,
-	"wei.liu@kernel.org" <wei.liu@kernel.org>, Dexuan Cui <DECUI@microsoft.com>,
-	"lpieralisi@kernel.org" <lpieralisi@kernel.org>, "kwilczynski@kernel.org"
-	<kwilczynski@kernel.org>, "mani@kernel.org" <mani@kernel.org>,
-	"robh@kernel.org" <robh@kernel.org>, "bhelgaas@google.com"
-	<bhelgaas@google.com>, "linux-hyperv@vger.kernel.org"
-	<linux-hyperv@vger.kernel.org>, "linux-pci@vger.kernel.org"
-	<linux-pci@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH] PCI: hv: Warn when wait_for_response() waits indefinitely
-Thread-Topic: [PATCH] PCI: hv: Warn when wait_for_response() waits
- indefinitely
-Thread-Index: AQG4UhXQUA1TB9NlC8hDWzGtIZRKrwHJvkR+ATw7WGe246Oo0A==
-Date: Thu, 27 Aug 2026 16:07:06 +0000
-Message-ID:
- <SN6PR02MB41578D73327A61FD3D7412C2D4AD2@SN6PR02MB4157.namprd02.prod.outlook.com>
-References: <20260825051850.2438816-1-sahilchandna@linux.microsoft.com>
- <736091cf-8d00-415e-a890-e2dfa6739325@linux.microsoft.com>
- <SA1PR21MB66836C32FD0FABD94B45D7F6CEAF2@SA1PR21MB6683.namprd21.prod.outlook.com>
-In-Reply-To:
- <SA1PR21MB66836C32FD0FABD94B45D7F6CEAF2@SA1PR21MB6683.namprd21.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ActionId=dc4abd39-7366-4940-aec4-2297ecdf07fb;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ContentBits=0;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Enabled=true;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Method=Standard;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Name=Internal;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SetDate=2026-08-25T17:00:03Z;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SiteId=72f988bf-86f1-41af-91ab-2d7cd011db47;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Tag=10,
- 3, 0, 1;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SN6PR02MB4157:EE_|SA0PR02MB7452:EE_
-x-ms-office365-filtering-correlation-id: 0c0ddc24-5c36-4c30-4d07-08df04553db8
-x-microsoft-antispam:
- BCL:0;ARA:14566002|25010399006|24021099003|55001999006|51005399006|13091999003|15080799012|31061999003|41001999006|8062599012|37011999003|8060799015|19110799012|440099028|3412199025|102099032|40105399003|2607281247196008;
-x-microsoft-antispam-message-info:
- =?us-ascii?Q?713KiWPBZSMB9wz13gPjvonVxYtLRXIueNtQC7kCdgmQQ1OMSVa5pe8CvIy+?=
- =?us-ascii?Q?s1/EyJiSsUpTuNVjnBqdZnp6/m6miPEUeRUUs9h4Y4a0kACC5SkHw/yoUD1W?=
- =?us-ascii?Q?KDb/+mhJFnB/KXXQTWkGOWjbL7yWauxdBck0ofYrYMUDSr6+2IvgNWbn5qd8?=
- =?us-ascii?Q?m7fSuFdl9RA3Mh2Bkf9iRfAI/tdd6yS0/eCqGy84e7Oki6nCqor3T2MVqG7R?=
- =?us-ascii?Q?Z5OuD4eyYu+nnuzbT5I/z7uNxh9Ay5d2Qa1IudOwli7HkPlec6aQXA2I10t4?=
- =?us-ascii?Q?3BoVTpfC+/xd+KbNc+739hxGufjcYPf3i6tCCafY1wo7oqYPITnTa8NpY615?=
- =?us-ascii?Q?5V9lwTWdj9bfvcqq1yJnaUhrbE4/mfNimboh0NPyAxBj+Q9oLBqsZYLwvtK+?=
- =?us-ascii?Q?HRCmMkik6KIEZCURZHlrOIO8MeALq5L22xXDaWFUsjeBeeMWNrLyb19KPO6k?=
- =?us-ascii?Q?vfKt2Q7tI5HMjHKmGGIQVaD+rQTS0WANfSURhdqyoyDeGHL09Vftj2ppv+XV?=
- =?us-ascii?Q?SFKlcNQT0+xPrOMMQzm4GGZ51SD3ToS6USB55wiwJp7wW7RUHF3f9JSyDraD?=
- =?us-ascii?Q?fwN4jSAjCgfreLmbJS5jKXW74w33rKJWm3knxpiRa/c23o3YmIC7I2Ll/zMq?=
- =?us-ascii?Q?66tIFcEb6vWcjxmkyQLu+mezKrWZZYO1oMNCRFdWQ+IVr+PczoigumEKlsHg?=
- =?us-ascii?Q?yUDj9T7tPK8lYpVSEuYGtkb+wiRb/F4EKJEZgVY0O7eADUPPaV49KH3s3l0P?=
- =?us-ascii?Q?TWOGhctdsBFNVy802r3/hYLejRHAxbKIWVWC6MGLUCNq6qHjpaHW+66RWUjd?=
- =?us-ascii?Q?mwuDeK6K5EU8YArBdcEBzUt1zq0lwJTMiRybFx52ItQvjczji+cNQCj2VLPE?=
- =?us-ascii?Q?IsHbehwKHy00iT7I1Bc6Ve78sr4MxZSq80xVwYjOSG8eASjNNB+D6Rj0/byG?=
- =?us-ascii?Q?PaMV1qvNwKJpwUsq1dLpi9oeYXFqMV5j2JZH/jKCBAB0dJMiFCp+zFHp7vMx?=
- =?us-ascii?Q?RJXT5Yz/s9lzJgvbXsxxXgubwklgeFlPIv2ZI2H2KrzrBqXJzoCHUMgzPIZS?=
- =?us-ascii?Q?RRG8SYjb?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?WzGZMHEtW5ZTFcm0s6u44s9r6bOXqgEKEnwz8q1MGXQ9HkTBDY5ErpvjOfHG?=
- =?us-ascii?Q?XkbJ8IpCbrCxwl5OVWg5Gy6ULDe/yD3w+ZiNEiUnQIZff81bBhj7ZLLOqAET?=
- =?us-ascii?Q?DKmxg5EvJCnqdgKWw+4FBGlXcI7MsuoDIAl/chsW8iVyOBS2I5SPltQ+fFjp?=
- =?us-ascii?Q?WBEjGY2qvQyqjp5ANDL7rEuQ99khxurD9zqxlL72lnmskKcfjm3yT4G7/Vac?=
- =?us-ascii?Q?dTMkkveqVnNoCqaZRapyb2AtkrDaQ6MWGKSF7yE0/OXLWpYQ1rRPiy1dx9/e?=
- =?us-ascii?Q?RY1Q2WHZq1eaMKaOitcEeIUNQ6TUi9kosP0pHdDjv9ewYuYGjEw2HOig0DkJ?=
- =?us-ascii?Q?BIIi0ZJ07/iphq6oPMsxfVi6JM85sqWEWoPiWJL92nLOY9S3sn9C12rv1W7S?=
- =?us-ascii?Q?GiV+DdZS6+LAMnJwFvYXVLvZz0YJuMgbsuLtxL4hNlSdrMHTxo462fQclUYi?=
- =?us-ascii?Q?Ha8x244VPJtwLmu6duAq37w2A15yeB//TP0zA1PtKj8ff2gtGrn8BVI7U8M7?=
- =?us-ascii?Q?12lrxsXI2juggbzC2BR0Pxj0BrVibhCRLKFb54Ou3B3jttcv5mRsY5lEECJm?=
- =?us-ascii?Q?MOJjzwkmekJ0ZiaZVAbTJom0Aoa8nNBcc8OJwiPWzWSMnH5CygkMrKqHzLe4?=
- =?us-ascii?Q?ZXjQzTVegzONw8jhXxL6YFEoRvxEmsjzMeUzDjC7aSmVQuxoI5VaCkL1E5BY?=
- =?us-ascii?Q?JgEH7wb/Hk091apugIV1Yxi4ySEMpoziXS7o0hiQioOOyvbT1n1QqiAsSS68?=
- =?us-ascii?Q?zyMT1SwSxNbeJhFMj1tb2/DLukaWjYTk0t4JQEjyepboHLvPCsCJN365nPde?=
- =?us-ascii?Q?qRh3enAenDWJ94mYi9KPY5LUI9mCbuuMqI62w/cZT1RSjh2w8iKfT8vpyYOZ?=
- =?us-ascii?Q?n1ngr+54mSJbSp/HTsiUFtp1VJkz2LIbF52m2CBtcoACzeuebbFEPA5HxAhP?=
- =?us-ascii?Q?J5uyCHtJFP1QiXPFuTtrL71Idpnik/zUegADrcRNdakWvy7cF4YaRFYQ3tJH?=
- =?us-ascii?Q?Kniy2qHg1J8tPl0i8XufeqpT53iIfT1UAL/DZYklSRADm5nYj+bkj1L7ReQK?=
- =?us-ascii?Q?eBEOlOoBTXnGJha+Z+vzUmRFyWGPJ7vYlsVHcqYJ9JTk/XzuP8Clb7qXubsp?=
- =?us-ascii?Q?XxQaaNJE7V2uIzhsVXqec6PCJpGccdk0fZ6zXQg92o1sPHbrwGHbT49H7vxs?=
- =?us-ascii?Q?XgPNj4k9KVGs9VCBo0JKmvs8mHCpi6PrctyfcbNhjez6Q3szrIbInmY9iyYU?=
- =?us-ascii?Q?vP+Tcmv4/mmW5iFuBCF0/aYb2UvnHmypE89lXZGD5Vj33AomMyzY2rfAZHsY?=
- =?us-ascii?Q?7equJRntHaLjBaZYDUyGHaGRWfD2vQKsNcE7pPfLsVfP2IXT/h81ZpXaVGHq?=
- =?us-ascii?Q?L7KTZ/4=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Y4uq6JlM";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="F1Gzg4Vm"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67RFbfQA865932
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:08:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=atRu9g3ecGR/Ax5Jg8bJIB
+	651HizDXONPJoQtisnwWc=; b=Y4uq6JlMpmj0npdFeC57HIRdcXHvB1w2M6L9O9
+	PwLZ2U/E0etX95l5S3QazbFxtQ84dSCpFhs45XMhhNr3ykMBlc1XAe08rxWKIf93
+	ISwIavbNkpr3MlFveW/yD//12y0VEiu3W4O4nTwolGa++uMHbVVNsr38aOU7Ccob
+	nAAhMKFTAbbbRqXqxz0wW2chDr7MQ4aF8D7HsMFFWPhL78MCVYcgmQe7N9Jv2Aks
+	dANs4IPALWTMepSN4Eu5YdlOwWxdhvCJ5Fo/H19ieoRURWH+ZGvNlorRanqW5mN7
+	JP7f9tVZZ3N/9OpCUX+Y6KR5kKq6jRemzqPyb59O9qxQdGMQ==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gapgv8m6r-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:08:23 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc1a439db36so69467a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:08:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787846903; x=1788451703; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=atRu9g3ecGR/Ax5Jg8bJIB651HizDXONPJoQtisnwWc=;
+        b=F1Gzg4VmkuOEsACdblWuKAtOcr6W6YKWMVFwu+Kh+gqkimFgSCc2waBhtWpILUSOrv
+         DO7w/AJuTdBuIde3AdytuBdGizsu4+v2Unpni5n5oR+DC+NTUZjJw+prd7nmEqVoTfxB
+         kvFax5lZ85MmKppQTTDpSvFHWVMOwR01gshwQqiGAnwGWLww9oy1QI5TyQQlvOi5rOkE
+         3s015XgPsOf/meLzGNptBOBC1/zVuUvZrahT6/T6XTFzfzbEoj5zWbMx1/nIVYgsNZkY
+         2h/p5WWerLNSk+N9aRCq2MQaW920TkEXf28Pwpa1ZUN24kTIJedpyYaukAC7SH+ztFgt
+         y/fA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787846903; x=1788451703;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=atRu9g3ecGR/Ax5Jg8bJIB651HizDXONPJoQtisnwWc=;
+        b=hyH+OunyN5BhseZ3UYF1Rl2R6hIHBICcYLt+L1zwsx7vKLISbIqHFPBPTRxAVdXPEu
+         Mch03dA36JFVT78Ut+sNtkX8+f0e4a+o1l7ol1iUkB7fqkP+qihQgtZUU1x/5Gj+HTSk
+         cIuQX/18nS2NbKGqjm5Ei989YVDnLrrSq3N/VePbnvHx8cgYXrW3T/MB6PlvTG61eRtW
+         8FRjpB/WfR+xcfKQTUi46621KBxIS8CzLCUMNrS02Jkq5T4dbmzXrJCkg8Ia+C0CHTKf
+         8yfVX5uKEUflPboyUbnBCnOr9T9ZVZqtsfyA4JXxPrFveHNQu949pl75ttHrbVDIqr8I
+         4Ycw==
+X-Forwarded-Encrypted: i=1; AHgh+RpXwQWPbalmpT01ZZ+DXByAfMjEjnNjzG/oq/epKj/0ncRl9OcX/xZuwWa62YBqRHk4N/90WQ42He9BDCU=@vger.kernel.org
+X-Gm-Message-State: AFuF++k+pZd/hCqXUED5z1E5S/FOlrDLfYjjo5n9z6fHkVse/qoNymIL
+	6JtW6iEdVMM40dKE2asNvfXPzBJ8734CM9dmu+4iEv1IYTIVS+kcAekLDL38sBlNsJYgN8/++0B
+	H+nd/q/dkVWen5oHWkzzTMP7bL8sN0unvyIiFreqYH8QHeDpDA5ycf6VNGANLUrA07rc=
+X-Gm-Gg: AR+sD13etxfnJbLNUJ8wbuI0lVc77hdymXUk962POJEnyYqcYI7ksw4O0FGkvDNOKAY
+	+q1LqmfEHDOAX+Fr7bRBpptqccQ4FMKKpSceW+qGao9cj/gEnYeOv/9988lEcjN94XSXtflF0lx
+	IOdLmGokNl0u2V/c9O9k7FGDPHvOmF8EhuQZmgx32RB3ZqYUBp9kHkDJGKjV6qXGRhBasfkA2pL
+	kgfHa5ia8Sh0PsZb070kSjKqBHVJbeqSieno5RAqVwW0hdSZ4Sbdi62rixFaB1i8frkTytN2R0Z
+	DJu0qmKTBFaLyHiN8ChsjzQ7pJ79o0pKY2C3RKwxCEdqxAX1Q22o5sORUBiiGYybGnaTz31J1Ja
+	AmtnDt3cGnOnELK3Vp9ElTMjUt6hKL6G9uPleZRFXvRQ1/KmEpeTOPqxGJ58=
+X-Received: by 2002:a17:90b:3c8a:b0:38e:524:8797 with SMTP id 98e67ed59e1d1-396d10076e9mr459898a91.13.1787846901410;
+        Thu, 27 Aug 2026 09:08:21 -0700 (PDT)
+X-Received: by 2002:a17:90b:3c8a:b0:38e:524:8797 with SMTP id 98e67ed59e1d1-396d10076e9mr459325a91.13.1787846899408;
+        Thu, 27 Aug 2026 09:08:19 -0700 (PDT)
+Received: from u24-san1p10108.qualcomm.com (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b0fd9085sm3245892a91.12.2026.08.27.09.08.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 09:08:18 -0700 (PDT)
+From: Linlin Zhang <linlin.zhang@oss.qualcomm.com>
+To: ebiggers@kernel.org, axboe@kernel.dk, mst@redhat.com, jasowangio@gmail.com,
+        James.Bottomley@HansenPartnership.com, martin.petersen@oracle.com,
+        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        linux-block@vger.kernel.org, linux-crypto@vger.kernel.org,
+        linux-scsi@vger.kernel.org, virtualization@lists.linux.dev,
+        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Cc: neeraj.soni@oss.qualcomm.com, gaurav.kashyap@oss.qualcomm.com,
+        mani@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
+        bvanassche@acm.org, alim.akhtar@samsung.com, avri.altman@sandisk.com,
+        stefanha@redhat.com, pbonzini@redhat.com, eperezma@redhat.com,
+        xuanzhuo@linux.alibaba.com, linux-kernel@vger.kernel.org
+Subject: [PATCH v1 00/11] FBE virtualization: inline encryption for virtio-blk guests
+Date: Thu, 27 Aug 2026 09:07:09 -0700
+Message-ID: <20260827160806.1295313-1-linlin.zhang@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR02MB4157.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0c0ddc24-5c36-4c30-4d07-08df04553db8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Aug 2026 16:07:06.3923
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR02MB7452
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: -cPGwSuAMWRdaTN-JoZDw2FqyEcVCLy5
+X-Proofpoint-GUID: -cPGwSuAMWRdaTN-JoZDw2FqyEcVCLy5
+X-Authority-Analysis: v=2.4 cv=FpU1OWrq c=1 sm=1 tr=0 ts=6a9060f7 cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=bZYwddHGPv9KEr_TRj0A:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=3WC7DwWrALyhR5TkjVHa:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDEzNiBTYWx0ZWRfX493pVDc18Pmt
+ LjtzBAo+1Sj2e0f4nCpOG8Fa09IH+ECynV3RWtypyTBVombMaUUnvGz/uxnX9rpByJ9iUttpufs
+ 8Plq/xa9HJpTamqIX3s+AAJGdcwFZFWY2dqx3upw7YU2ayWNVkRmjCxGP1UEucEgw0HAIaK378p
+ ulpgfdF+nXLn5tubYaxYTwRkU9wzsZSbCXzGaXhDrnl+6wwEcLA7Z7Om+zXwPXfZu44BuuOHSSC
+ C8Jj2OIRbYpvQQza5JBIWFoAffmHnaJ1X3WBktzWr4wx1hGjiLWantWtU4jH8TPkj86F0QKML2c
+ K+srcc7OQctIELQzadvTZEkgUWhoeVDDEtdr7p9V+F6gBfU12IEPMQwEvL/YEApsIm3t/7rpLvx
+ CItRndEJi/ohcrkdWty9Cziuckst8qCDkSp3tQ8nzD82Pkws0bIh0u8mFzviA1Dgg5RM7x9MPLJ
+ u/Iwtdjmj/2SbmURNgg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDEzNiBTYWx0ZWRfXxywzAngDYeyN
+ JppXxZqcUBq1G0F1XxXcQCVc96lW7K1UCNjkHowbeJYBYR3zPerwMTIrblYpeqrY+9hVOAiJoxz
+ HX6zFSAECq2GAzMjsm0UG09D4yiGl+E=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-27_07,2026-08-27_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 adultscore=0 suspectscore=0 impostorscore=0 phishscore=0
+ spamscore=0 bulkscore=0 malwarescore=0 priorityscore=1501 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608270136
 
-From: Long Li <longli@microsoft.com> Sent: Tuesday, August 25, 2026 10:01 A=
-M
+From: linlzhan <linlin.zhang@oss.qualcomm.com>
 
-[snip]
+Current virtio-blk does not provide a mechanism for a guest to
+program hardware keys or submit encrypted I/O using pre-programmed
+keyslots.  It drops the crypto context when issuing a bio request
+to the virtio-blk queue, preventing inline-encryption-based FBE
+on virtio block devices.
 
-> >
-> > Basically something like this:
-> >
-> > #define PCI_RESPONSE_WARN_TIMEOUT_SEC 300
-> >
-> > static int wait_for_response(struct hv_device *hdev,
-> >                   struct completion *comp) {
-> >      unsigned long warn_at =3D
-> >          jiffies + secs_to_jiffies(PCI_RESPONSE_WARN_TIMEOUT_SEC);
-> >      bool warned =3D false;
-> >
-> >      while (true) {
-> >          if (hdev->channel->rescind) {
-> >              dev_warn_once(&hdev->device, "The device is gone.\n");
-> >              return -ENODEV;
-> >          }
-> >
-> >          if (wait_for_completion_timeout(comp, HZ / 10)) {
-> >              if (warned || time_after_eq(jiffies, warn_at))
-> >                  dev_warn(&hdev->device,
-> >                       "PCI response received after prolonged wait.\n");
-> >              return 0;
-> >          }
-> >
-> >          if (!warned && time_after_eq(jiffies, warn_at)) {
-> >              dev_warn(&hdev->device,
-> >                   "PCI still waiting for response.\n");
-> >              warned =3D true;
-> >          }
-> >      }
-> > }
-> >
-> > Regards,
-> > Naman
->=20
-> This looks better.
->=20
+This series enables File-Based Encryption in guest VMs on Qualcomm
+GVM platforms where the ICE inline encryption hardware is shared
+between the host and guests.  In this environment the guest kernel
+has no access to the ICE hardware directly; it supplies a virtual
+keyslot index and data unit number with each encrypted I/O request
+via VIRTIO_BLK_F_INLINE_ENCRYPTION, and the host must translate the
+virtual slot to a physical ICE keyslot and submit the bio — without
+transferring raw key material across the VM boundary.
 
-I like getting the "response received" message if the response
-eventually does come in. It's a judgment call, but I would be OK
-with outputting the "still waiting" message after each wait interval
-rather than doing it only once. And I would make the interval smaller
-than 300 seconds. Five minutes is a long time to wait and wonder
-what's going on when things are hung. 60 or 120 seconds would
-be OK -- a line in dmesg every 1 or 2 minutes doesn't seem like
-spamming to me when something is fundamentally broken.
-And probably don't expect a VM in this broken state to keep running
-for hours -- the sysadmin or automatic monitoring software will
-reboot it to get it working again.
+             +----------------------------------------------------------------+   
+             |                                                                |   
+             |               LA GVM                                           |   
+             |                                                                |   
+             |                                                       |        |   
+             |                                                       |        |   
+             |                                                       |        |   
+             |                                                +------v------+ |   
+             |                               +----y-----------+   blk-mq    | |   
+             |                               |                +-------+-----+ |   
+             |                               |                        |       |   
+             |                               |                        |       |   
+             |                    +----------v-----------+            |       |   
+             |                    |blk-crypto-profile    +------------v       |   
+             |                    +----------------------+            |       |   
+             |                                                        |       |   
+             |                                                        |       |   
+             |            Control path:                               |       |   
+             |            generate/import/prepare key                 |       |   
+             |            program/evict/derive_sw_secret key          |       |   
++----------+ |                                                        |       |   
+|          | |+-------------+     +-----------------------+     +-----v-----+ |   
+|Trust Zone| || crypto-virt <-----+ virtio-blk-crypto-ext <-----+virtio-blk | |   
+|          | |+------+------+     +-----------------------+     +-----+-----+ |   
+|          | |       |                                         Data path: I/O |   
++-------^--+ +-------+------------------------------------------------+-------+   
+        |         SMC|call                                (virt_slot, DUN, DUSize)
+        |            |                                    appended in virtblk_req 
+    +---+------------v------------------------------------------------v----------+
+    |  +--------------+                             +--------------------------+ |
+    |  | SMC trap     |                  Hypervisor | MMIO trap/VIRQ injection | |
+    +--+--------------+-----------------------------+--------------------------+ +
 
-Just my $.02. Outputting the "still waiting" message only once is
-also OK. Your call.
+    +--------------------------------------------------------------------------------------------+
+    |                                                                    PVM                     |
+    |                                                                                            |
+    | Crypto IO    +--------------+                                                              |
+  +-+-------------->  QEMU/Crosvm +-------+                                                      |
+  | |              +--------------+  IO data                                                     |
+  | |                             virt_slot, DUN, DUSize                                         |
+  | |                                     |                                                      |
+  | |+----------------+       +--------- -v-----+                                                |
+  | ||  blk-crypto    <-------+ blk-crypto-proxy+-------------+----------------------+           |
+  | |+----------------+       +-----------+-----+             |                      |           |
+  | |                             slot path based             |                      |           |
+  | |                               bio_crypt_ctx             |                      |           |
+  | |+-----------------------+       +--- v----+              |                      |           |
+  | || blk-crypto-profile    <---x---+  blk-mq |      bcp_hypervisor_ops             |           |
+  | |+-----------------------+       +----+----+              |                      |           |
+  | |                                     |                   |             bcp_slot_virt_ops    |
+  | |                         +-----------v-----+             |                      |           |
+  | |                         |         SCSI    |             |                      |           |
+  | |                         +-----------+-----+             |                      |           |
+  | |                                     |                   |                      |           |
+  | |                 crypto msg in UTRD  |                   |                      |           |
+  | |+----------------------+        +----v-----+  +----------v-- ---------+ +-------v--- ------+|
+  | ||    ufs crypto        <--------+ ufs-core |  |blk-crypto-hyp-backend | | keyslot-partition||
+  | |+----------------------+        +-----+----+  +-----------------------+ +------------------+|
+  | +--------------------------------------+-----------------------------------------------------+
+  |                                        |                                                      
+  |                                        |                                                      
++-----------------------------------+   +--v---+-----------+                                      
+| +------------------------+        |   |  ICE |    UFS    |                                      
+||MMIO trap/VIRQ injection |  HYP   |   +------+-----------+                                      
++ +------------------------+--------+                                                             
 
-Michael
+Patches 1-3 land in the guest kernel.  Patch 1 negotiates
+VIRTIO_BLK_F_INLINE_ENCRYPTION and wires it into blk-crypto.
+Patches 2-3 add the Qualcomm GVM-side crypto backend, which routes
+key programming and software-secret derivation through SCM calls to
+TrustZone.  These patches are sent for review; the virtio-blk inline
+encryption protocol is also under review (see
+https://lore.kernel.org/all/20260814142306.3934029-1-linlin.zhang@oss.qualcomm.com/).
+These patches and the virtio-spec depend on each other.  They must be
+kept consistent for upstream merging.
+
+Patch 4 adds the dt-binding for the Qualcomm crypto-virt node used by
+the guest-side backend.
+
+Patch 5 introduces a "slot path" in blk-crypto that lets a bio carry
+a pre-programmed physical ICE keyslot index in bc_slot rather than a
+blk_crypto_key pointer (bc_key == NULL).  This is needed on the host
+side where the hypervisor has already programmed the keyslot; the host
+kernel has no access to the raw key.  Patch 6 extends
+ufshcd_prepare_lrbp_crypto() to handle this path.  Patch 7 moves
+bio_crypt_dun_increment() to the public header so it can be called
+from drivers/block/.
+
+Patch 8 adds /dev/blk-crypto-proxy, a misc character device for
+userspace virtio-blk backends.  The interface is three ioctls:
+BCP_BIND_CONTEXT binds a host block device fd and a hypervisor VM fd;
+BCP_GET_CRYPTO_CAPS queries the device's inline-crypto capabilities
+and the VM's ICE keyslot allocation; BCP_SUBMIT_IO_BY_VSLOT resolves
+a guest virtual slot to a physical ICE keyslot and submits the
+inline-encrypted bio synchronously.  The driver is
+hypervisor-agnostic and storage-vendor-agnostic, using two pluggable
+op-sets registered by platform drivers at runtime.
+
+Patch 9 implements bcp_slot_virt_ops for Qualcomm platforms: it parses
+a qcom,ice-keyslot-map device-tree node that maps each guest_id to a
+contiguous physical keyslot range.  Patch 10 adds slot_offset to struct
+blk_crypto_profile so that blk_crypto_keyslot_index() returns the
+correct physical slot number when the host's ICE range does not start
+at slot 0.  Patch 11 extends ufs-qcom to read the host's own slot
+reservation from the same DT node and initialize the
+blk_crypto_profile accordingly.
+
+Patches 1-4 are technically ready for review.  However, since they
+depend on the proposed virtio-blk inline encryption protocol, progress
+on these patches is expected to follow consensus on the protocol design.
+Feedback on the overall architecture is therefore particularly valuable,
+as it will also help advance the associated virtio-spec work.
+
+Patches 5-8 implement the core host-side infrastructure and are
+believed ready for review.
+
+Patches 9-11 do not depend on any hypervisor-specific code.  Of them,
+patches 9 and 11 provide the Qualcomm platform implementation based
+on a static device-tree keyslot mapping; this may be revised in a future
+version to use a TZ SCM query interface.
+
+The kernel-internal header declares bcp_hypervisor_ops, which
+translates a hypervisor VM fd to an opaque guest_id.  No upstream
+implementation is included in this series because the series was
+validated on a downstream Qualcomm GVM platform using the Gunyah
+hypervisor, which provides a stable per-VM identifier but is not
+yet upstream.  KVM does not currently expose an externally-visible
+per-VM identifier that a kernel module could use for this purpose.
+Input from KVM maintainers on whether and how such an interface
+could be added, or whether an alternative identity mechanism is
+preferred, would be welcome.
+
+Known limitations
+-------
+  - Only AES-256-XTS has been tested.
+  - virtio_blk_crypto_msg.dun is a fixed __virtio64; the driver refuses
+    to enable inline crypto if the device advertises max_dun_bytes > 8 to
+    prevent silent IV truncation and reuse.
+  - Inline encryption is mutually exclusive with VIRTIO_BLK_F_ZONED.
+  - The qcom_ice_slots driver uses a
+    global singleton and ignores the blk_crypto_profile argument to its
+    callbacks, so multiple storage controllers sharing a single slot table
+    are not yet supported.
+  - BCP_SUBMIT_IO_BY_VSLOT submits each bio synchronously with
+    submit_bio_wait(); concurrent in-flight bios from multiple threads
+    sharing one fd are not supported.
+
+Testing
+-------
+Compilation pass on Linux-next.
+End-to-end FBE virtualization with wrapped key enabled was validated
+on top of gunyah hypervisor.  wrapped_key_test is a local utility to
+get wrapped key and ephemeral wrapped key via storage ioctl interfaces.
+  - /data/wrapped_key_test /dev/block/userdata generate
+  - /data/wrapped_key_test /dev/block/userdata prepare /data/lt_key.bin
+  - /data/fscryptctl insert_wrapped_key < /data/eph_key.bin
+  - /data/fscryptctl set_policy --identifier=20f553802e64e36b43469211266a5f1c /data/testing
+  - echo "data" > /data/testing/file.txt
+  - sync and reboot
+  - /data/wrapped_key_test /dev/block/userdata prepare /data/lt_key.bin
+  - /data/fscryptctl insert_wrapped_key < /data/eph_key_2.bin
+  - /data/fscryptctl set_policy --identifier=d8ca51d6d2094b73b2dae5ee7e3a10b6 /data/testing
+  - cat /data/testing/file.txt
+
+
+linlzhan (11):
+  virtio_blk: add inline encryption support
+  soc: qcom: add crypto_virt backend for virtio-blk inline crypto
+  soc: qcom: crypto_virt: add support for create, prepare and import
+    keys
+  dt-bindings: soc: qcom: add binding for qcom,crypto-virt
+  blk-crypto: add slot-based inline encryption path
+  scsi: ufs: core: add slot path to ufshcd_prepare_lrbp_crypto
+  blk-crypto: move bio_crypt_dun_increment() to the public header
+  block: add /dev/blk-crypto-proxy for host-side virtio-blk inline
+    encryption
+  soc: qcom: add ICE keyslot partitioning driver for guest VMs
+  blk-crypto: add slot_offset to blk_crypto_profile
+  scsi: ufs: ufs-qcom: support ICE keyslot partitioning for guest VMs
+
+ .../bindings/soc/qcom/qcom,crypto-virt.yaml   |  39 +
+ block/blk-crypto-internal.h                   |   5 +-
+ block/blk-crypto-profile.c                    |   7 +-
+ block/blk-crypto.c                            |  57 +-
+ drivers/block/Kconfig                         |  28 +
+ drivers/block/Makefile                        |   3 +
+ drivers/block/blk-crypto-proxy.c              | 667 ++++++++++++++++++
+ drivers/block/virtio_blk.c                    | 199 +++++-
+ drivers/block/virtio_blk_crypto_ext.c         | 283 ++++++++
+ drivers/soc/qcom/Kconfig                      |  30 +
+ drivers/soc/qcom/Makefile                     |   2 +
+ drivers/soc/qcom/crypto_virt.c                | 197 ++++++
+ drivers/soc/qcom/qcom_ice_slots.c             | 232 ++++++
+ drivers/ufs/core/ufshcd-crypto.h              |  14 +-
+ drivers/ufs/host/ufs-qcom.c                   |  91 ++-
+ include/linux/blk-crypto-profile.h            |   9 +
+ include/linux/blk-crypto-proxy.h              | 100 +++
+ include/linux/blk-crypto.h                    |  28 +
+ include/linux/virtio_blk_crypto_ext.h         |  78 ++
+ include/uapi/linux/blk-crypto-proxy.h         | 122 ++++
+ include/uapi/linux/virtio_blk.h               |  62 ++
+ 21 files changed, 2224 insertions(+), 29 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/soc/qcom/qcom,crypto-virt.yaml
+ create mode 100644 drivers/block/blk-crypto-proxy.c
+ create mode 100644 drivers/block/virtio_blk_crypto_ext.c
+ create mode 100644 drivers/soc/qcom/crypto_virt.c
+ create mode 100644 drivers/soc/qcom/qcom_ice_slots.c
+ create mode 100644 include/linux/blk-crypto-proxy.h
+ create mode 100644 include/linux/virtio_blk_crypto_ext.h
+ create mode 100644 include/uapi/linux/blk-crypto-proxy.h
+
+-- 
+2.34.1
+
