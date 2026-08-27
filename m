@@ -1,77 +1,105 @@
-Received: from mail1.fiberby.net (mail1.fiberby.net [193.104.135.124])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CE663CDBA5;
-	Thu, 27 Aug 2026 11:05:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.104.135.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1690442386;
+	Thu, 27 Aug 2026 11:06:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787828729; cv=none; b=FdjeJ4VZb5ZW7wFm5dHJeF2FworxlFESAsI/Ebak1t8HgJ/0evje7W/QjaxxhbmHhw3TGCo9kC66TvRgvXf2IHzfaLSi6r5DCXpNpwEQzgDJ1TrCSK0BrUZNb7nf2Gwc59W8XYwJ6iG8bMw9zQWNH1IHSWGoQySQXZXOlez3Hx0=
+	t=1787828807; cv=none; b=Vz2j2DFwc94Q9FPidQxMNx1T3J26kFzFwmLLu0ULK0ItQj4KW1YKjgi+IFF736lw0Y1YNWYy9+et0YG1zSqCu673ZROLcdOM3sGkENbkC3KFp9IvRWtSsCg784Q3yiku5808n5MzKXasJkRSKfRHPbTJTnhaE3zXmmWy8/umcBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787828729; c=relaxed/simple;
-	bh=fmfXQZB0uXWgiiShpulwf1mMv7Yv65jiwQKkNRm5mPg=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=tUqdZr9gwdEHAqbFxIueW1TPWCI4PBDJUVUpVYY65Fu4DMpvN3TxCabiifct5Ev40Zno/LMz4tXB2sMcrbQqmWEmGzi8pHhcwJSMbVsPkVo0AJQXcWMnGi2Yr69Cf0aa/0Fp2wRPxHKLU5YrudYyyVIDjYdqbpYtCOTYlSehBGs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fiberby.net; spf=pass smtp.mailfrom=fiberby.net; dkim=pass (2048-bit key) header.d=fiberby.net header.i=@fiberby.net header.b=TeQhdhXS; arc=none smtp.client-ip=193.104.135.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fiberby.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fiberby.net
+	s=arc-20240116; t=1787828807; c=relaxed/simple;
+	bh=Mwok4D6Z97zpbH+7hsrLXnbXIFTqw5arzv1nPOyNruI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=PZhGlf97M5dAyXUo+6N8JS0BB4QVOVy6GUxLfnWYqbCWADtQqjCKdIUgeEa6q12n/FiktnWWN4XyoeMOiTSA69TfUjE7dYUGxxbQydWiY/JnuS6Z1LrBz1bgjQ11PxAFTVF4V3diKvupD41sAVlxE2q2ghKcMRsQmh2gIubeF5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=UH+3EmeY; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fiberby.net header.i=@fiberby.net header.b="TeQhdhXS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fiberby.net;
-	s=202008; t=1787828719;
-	bh=fmfXQZB0uXWgiiShpulwf1mMv7Yv65jiwQKkNRm5mPg=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To:From;
-	b=TeQhdhXScGO7wJWYfousrDHMDNn41ARql6Q2fcKVZ1NgInejU1QrFM1LBUyhiS+LP
-	 xYfNNhBjbsZTeepeY6pKvXkZLDMnDEEvA9S+gsFZIS97o20u1O/b/XqBytpQwPRB2W
-	 7zmZrTNShKn0e+b8bZUnngcVMNYo6d+CifkhIVn/Mni1NrcQiXMntX4l387GUeT9lR
-	 oTXKQRR3LaHWioxvWiTy230eU5xxymtki6my9CM8/ZjUGLa54HBCOWh6Wu1KzDs5bU
-	 hPAiAgtrvi1YHirNZcaH5A9tfJy2eqdJHdcvBjpCsHOQ02/s6qoTplguc4T39QLpP2
-	 guSFEc7InlB0g==
-Received: from x201s (193-104-135-243.ip4.fiberby.net [193.104.135.243])
-	by mail1.fiberby.net (Postfix) with ESMTPSA id B3C8F60075;
-	Thu, 27 Aug 2026 11:05:18 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1])
-	by x201s (Postfix) with ESMTP id 3920C201763;
-	Thu, 27 Aug 2026 11:04:55 +0000 (UTC)
-Message-ID: <94804df2-4b2d-4b2a-9a4c-9bc09a6a3f1d@fiberby.net>
-Date: Thu, 27 Aug 2026 11:04:54 +0000
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="UH+3EmeY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=+c
+	beuehtt3XZHv1/3LwaEWwYrGuUef3m9TDF3qzwGi8=; b=UH+3EmeYazpiL7raB3
+	w2QIi9SCX7ZlDnVVAGy9FuMaJa6CUNl9ue0fNsxEgGwcErNhkL3//qIfXveb+KJm
+	H0slzFNB4+CWUFXiCIea6TVCvWcdc7SJlU3AnWmxDAEegMAYUTIv0EziAQk32dFH
+	sdS3GBTuZvDOmHMPLSzinIJQw=
+Received: from zengchi (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wBXG9EaGpBq3ORxRw--.60880S2;
+	Thu, 27 Aug 2026 19:06:04 +0800 (CST)
+From: Zeng Chi <zeng_chi911@163.com>
+To: pbonzini@redhat.com,
+	seanjc@google.com,
+	chao.p.peng@linux.intel.com
+Cc: kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	zengchi@kylinos.cn
+Subject: [PATCH] KVM: Release reserved xarray entries if reserving memory attributes fails
+Date: Thu, 27 Aug 2026 19:05:58 +0800
+Message-Id: <20260827110558.457891-1-zeng_chi911@163.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: =?UTF-8?Q?Asbj=C3=B8rn_Sloth_T=C3=B8nnesen?= <ast@fiberby.net>
-Subject: Re: [PATCH net v2 2/2] netlink: specs: add missing mask attributes
- for conntrack dump
-To: Ilya Maximets <i.maximets@ovn.org>, netdev@vger.kernel.org
-Cc: "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Donald Hunter <donald.hunter@gmail.com>,
- "Remy D. Farley" <one-d-wide@protonmail.com>,
- "Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
- Florian Westphal <fw@strlen.de>, linux-kernel@vger.kernel.org,
- netfilter-devel@vger.kernel.org, stable@vger.kernel.org
-References: <20260826220444.4054714-1-i.maximets@ovn.org>
- <20260826220444.4054714-3-i.maximets@ovn.org>
-Content-Language: en-US
-In-Reply-To: <20260826220444.4054714-3-i.maximets@ovn.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wBXG9EaGpBq3ORxRw--.60880S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxJrW7ury5WFW3KFW8WF43GFg_yoW8ZFWUpF
+	yDGrWDGw45Jr12qaykta1Du3W8u3yS9FW7AF15Ka47Zr15Jwn2qryrKr4jvr45ArWvva4j
+	qFyjg347CrWUXrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j8iSdUUUUU=
+X-CM-SenderInfo: 52hqws5fklmiqr6rljoofrz/xtbC6BxMCGqQGhwp-AAA3Z
 
-On 8/26/26 10:01 PM, Ilya Maximets wrote:
-> 'mark-mask' and 'status-mask' are defined and supported by the
-> conntrack dump, but missing from the list of arguments.
-> 
-> While at it, the order of the arguments should follow the order of
-> their definition in the enum ctattr_type.  That appears to be a common
-> convention for other spec files.
-> 
-> Fixes: 23fc9311a526 ("netlink: specs: add conntrack dump and stats dump support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
+From: Zeng Chi <zengchi@kylinos.cn>
 
-LGTM, thanks.
+kvm_vm_set_mem_attributes() reserves an xarray entry for every gfn in
+the range before modifying any attributes, so that the actual updates
+can't fail partway through.  But if one of the reservations fails, e.g.
+due to -ENOMEM, the entries that were already reserved are left behind,
+as the error path bails without releasing them.
 
-Reviewed-by: Asbjørn Sloth Tønnesen <ast@fiberby.net>
+A reserved entry is XA_ZERO_ENTRY, not NULL.  xa_load() hides the
+difference, but kvm_range_has_memory_attributes() uses xas_find() to
+check whether a range has no attributes at all, and xas_find() returns
+zero entries as-is.  As a result, a leaked reservation makes KVM think
+the range has attributes set even though kvm_get_memory_attributes()
+reports none.  On x86, the next time mixed-attribute tracking is
+recomputed for the range (memslot creation, or a later attribute change
+that straddles the 2MiB page), hugepage_has_attrs() treats a fully
+shared 2MiB range as having mixed attributes and refuses to map it with
+a hugepage, until userspace happens to set attributes on the range
+again.
+
+Release the successfully reserved entries on failure.  xa_release() is
+a nop for entries that hold a real value, so it's safe to blindly
+release all entries in [start, i).
+
+Fixes: 5a475554db1e ("KVM: Introduce per-page memory attributes")
+Signed-off-by: Zeng Chi <zengchi@kylinos.cn>
+---
+ virt/kvm/kvm_main.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index 65eb26a0520d..20031a832c21 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -2575,8 +2575,11 @@ static int kvm_vm_set_mem_attributes(struct kvm *kvm, gfn_t start, gfn_t end,
+ 	 */
+ 	for (i = start; i < end; i++) {
+ 		r = xa_reserve(&kvm->mem_attr_array, i, GFP_KERNEL_ACCOUNT);
+-		if (r)
++		if (r) {
++			while (i-- > start)
++				xa_release(&kvm->mem_attr_array, i);
+ 			goto out_unlock;
++		}
+ 
+ 		cond_resched();
+ 	}
+-- 
+2.25.1
+
+
+No virus found
+		Checked by Hillstone Network AntiVirus
+
