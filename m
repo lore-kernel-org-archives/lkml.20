@@ -1,69 +1,69 @@
-Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
+Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB522390224
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 03:58:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAB75385D7B
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 03:58:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787803126; cv=none; b=AvzwKqxbCzokS0TeLHdT+TmvOMG0ydA9usH3v8ouzpFHl5+WwFlLeAIC4aHeUvvSV7tSlmLaBIKN4xKJZP1OuFp4wgz/5f4vMzSM/CQDwUbbD2iNQhm84CZ2acS4uoqiuHQY1yBfsWzT5W8bz+G3p7zHqsI7rYt7pWnrW9CLJjs=
+	t=1787803127; cv=none; b=X+foScIVE2+APie3xMUymk+D6X3NKeg1MkKrR1SkDj2yqSz82CRY8J5EBPM6p8Rlxoks7NDTeE/ddR8jHs2xcrVeqCql6fclzL7ZUGcszJCo4cMGDuK3tCr3HnaqL7xkvw8ar6ysLVyEU4vPSQrnR9lT6BHF1K5TVmAi7e5+rSQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787803126; c=relaxed/simple;
-	bh=LV7C+hevD5jo0Qd1ODKuYm9AUbl3ktdplJF7EunsPCM=;
+	s=arc-20240116; t=1787803127; c=relaxed/simple;
+	bh=7xH2J5Hr5hCWfWqBYkebvmkGGwU+I/aNQBP7/OLO9LU=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Edu5oBcwROskNFG3U10PFZobrK3bKNHuZCgXwvuMIgtHxe98YzPehihG0wbejKwRqKOwyho6Fm3Fdahu9wmqhCh3Bt9ZCSaOIXg7R6lc8UZsihw8/XR+xhgoqb0R4LMBVoMrx4E2JGoQD6anY1Nls98tglONBiDSu56Ney+c64k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m1quY3s+; arc=none smtp.client-ip=209.85.210.51
+	 In-Reply-To:To:Cc; b=WKFW2bsWg/RmJrJz8QQnxVQhHCLBa6DUUgq5W34JSnifUAlenbvpoqGiApdxCUA8M8xNNu3muN6Me8PaHquGYll6Kj8D/sfsAE/kDEZl7gFpIucGpxxbBIjn4Tj7JOrlO109tHyhhoL1aIr7ylV6JgJRJKoR9oFqiRyJxyBNc0M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W9umTilU; arc=none smtp.client-ip=209.85.210.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m1quY3s+"
-Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-7eb6573bd52so224156a34.3
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 20:58:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W9umTilU"
+Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-7ee4399c423so1528258a34.0
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 20:58:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787803123; x=1788407923; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787803124; x=1788407924; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=k4Y2U8xWTC4FJYDwWkNZ0ZGiY0VW6Zu3Z+04xUlwhys=;
-        b=m1quY3s+n/no3UyhIDquBgGuNM8GDdNjW5+yPTYff/QZOc7fx5A8yrh4bMjJIuSp2A
-         29EP6egEFWSjvSEkdiIMdGBm3DZusRf3aHKriD5reI7mWzLCNDxz7KNtUAh8/C9FLz8w
-         xHcBMTd8i/Hvoztda4ycsJfwrfDElNhy2dYO4L0j1ubcQnl6RRlAzEBGw3PoyvM0r4EA
-         1F3Y+6R39LcJtmaWlRpuaywT05NfGeWDQQ72rczLXE9R3JMbBCar9TRX4iQU826Qb5sz
-         zC8eFQiNvyO03sbPeW0DhW0Q7ysD+wXhrTUMvcw9gOtS9I8QN638Pz3tbnH2NgmF/V7V
-         X3/g==
+        bh=VLB/ujA8yYDNmLHTN9IIlJkJcIVKxZQzZL5WlW6fCXc=;
+        b=W9umTilUfZ+a6nbwoWlgcOGg1SSXKN5nElRXrxbhGecgXGa9CNpjHaiQ35cBzijFrV
+         TACzN4YJkV/DZc6ff11UJDiLxKHt0eQjtlU+G56YKGpWrG8QmgeJVPLoEy1hQwFhrPs3
+         2CpyyVaorqqxDbb/s8ga8QETC8HlP6hUsxBmZ8FHaTskQFXxKHf0m906qNK2GI04AJtx
+         b7g8sKbJf/OeNqVmJTFkaqvMxKWNDEqsfAcafGISlWaptLi03yZWGe7j8OAaPUnL7VgE
+         E+2lTCrg7xGiKZ6YzK+4z7QDMnYcVP4mzREVei/3VTUcJ93x/AF4kBHY16ZSWkAZ7bUG
+         vN9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787803123; x=1788407923;
+        d=1e100.net; s=20251104; t=1787803124; x=1788407924;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=k4Y2U8xWTC4FJYDwWkNZ0ZGiY0VW6Zu3Z+04xUlwhys=;
-        b=T/QbUlIknApE49/zONk/vH58vQiO5FezDzKU7OPqYWDerGA6MziIsyj6CZTyslFVll
-         zGXn6RA2Rq9/l6XRZAXfjPyBDVSxOLD797FjhrIHOygFZJLAP/TLxKn1pGZwbNf5t8ny
-         tZlB6TDcKpoqEoDJbJw+ouTSiDL1wZ7P06FLrcgsXXOjbtsUBpKiLjfXPipoGIdy0G4P
-         d5PE2aZaAyIl4ZU3d4nM1hUZLARGrbDg6iSOGwPqyLaL1eEFO1t1sUcymRfAfaMRe592
-         qy3/DF3DBz/KrHgIEcTpTA5GJRgqtqGBiukUZzk4KM+Fc/ZS6GXrApurYD5ufCbQ1jG5
-         pEnw==
-X-Gm-Message-State: AFuF++nMdD9pgxLyEz2SW29AnfQQitHb7CmOP3hu0mupxrVACdMK6zZi
-	nJgy48xIxLhZilK+9d1WGAJhWXY9wDXj6EEvcqwikfHMxnos0VMfXQd1
-X-Gm-Gg: AR+sD13VuFPIaxhbkE1V3nHu3d5ZvNp/uhHhWAb9aJxgdeI1FC6ezs3j7Zzb7Bk4bC9
-	opxbOIxFczXIdlxWkYqgMRItfaO7PwsaPzLHnzmqWxsg9nWiXo3eHQOBMSa0vltP/mc+r1K7FZd
-	I19ZrtQAeE3OnhwKeuJKzAicJUvA4vU0dcDzf7RkOO0lITexSPXbr/Pb3AbOcY2YLmaC+a89wny
-	A7DhATHGsRvAZA7mUtZ4zWzH/neiKUDE8p6Ygp9Rl2aMXmnlR4VkHmEFX4QqXP1Y5Dfyo70P8cS
-	4e6FGFQvVzyctHOWdZmbxU8PB5By3EandIcY2pn91St5yIMrRCnfmQvHfUsofzsEjMhkGDZLyT4
-	lvMAoUbFbRFEFhDaL3p8nJCtCeyk1lh9AwkKG5rB1aLPrJ2gsQKCYv8EzMg9TciVGZdnttTOCpQ
-	JAoVkVKUIi/XmDvabj2JpC277YanFMkNkSzhZu7prSAaQFkC/RiFBJJbWFhB3EHSO0sIvJIwlLY
-	ZoqtZUxNGYisbQSAXlnZD61sV/GQryzEjGcnlUq/yyqXERsynWK+vvpCCaYRdMXHffsm/5RKvHS
-	AdCvf+sSLUggY+0b6Zwa
-X-Received: by 2002:a05:6820:55c4:10b0:6b1:4357:9fe9 with SMTP id 006d021491bc7-6b1a03675c0mr9390227eaf.6.1787803123629;
-        Wed, 26 Aug 2026 20:58:43 -0700 (PDT)
+        bh=VLB/ujA8yYDNmLHTN9IIlJkJcIVKxZQzZL5WlW6fCXc=;
+        b=JRUUOV0hoShPXS7cX1CPt4giiFDACK/6FPYIQVD9rDkQbN7621d0FUT/Vdf/9IKf51
+         kPkq/zZeqzvdpsHxKLCGn1QjlDPPaVpsNJcbXy8sgh3dLt7wScnPVxkzqTsKB4F80Mhq
+         /g+tt78zK5bKiaFnCjHlTYPQXcUJJsUY1fWhzmWp1LitsYHGz2hsXVdK9Vb7NFziLYHE
+         fLzOiBrfQxZoCCDY+Oj52c1PGw1SqwAQ1KlG4qeyIlWALCchbYLNBQRMk3+EH+OPySma
+         EgPH1Xp7FJSXYZ5y6QVt/Au9kfqLOJ0p3ysdMQpqKrS4pD3V9GFAYlmsafArUcUdoL1j
+         QkmQ==
+X-Gm-Message-State: AFuF++m4wDU42t6YjgnAz3Teyuypx9Q9sdAvsfpO/PYwV44pZs/5owlR
+	7zcVQm/iqKgsrx3cRcm1VSo1ckQfE39g9gQzrY0OS+wVhvcEfuz8Hnzx
+X-Gm-Gg: AR+sD12WnA1tq2lfI5jOSF8R5I1tijNogEwnfI7ly2kE632U2/GWQUwvYnnoqsqt8pn
+	XMrpE1R6mnMtX5RnXj4yG1Nk7FnT++avk5Lwh8meZ9fyi0ieEMMEWpPMPXutrhuuv08V4cBjX6L
+	8wDcCSxmpReeY6X3Q5iDbmzE00BU8e5qlh5s0wbETZeoWiLe5YzGHaK3h39h0fjp0mX568kATNM
+	zwcX3E7hAehCyziv15OryIFQtm+Jf6B4ZLqGEMu5yLlbYvDm5IxgqKf2AK/aiIPIyRSW3QJ67Vb
+	cSsQ1M+9dwqyY59b/2GD9s2UJYmLJW8yKMoJC0pwqJ9TrvtVCSv7wCMuR9KDxJCvJoEye/U7PBS
+	0AgnIo8AI+D3fiVyR9yAazUrRBw/ba3/lU9CVzRjplqtR2hGVjSsB92vD4RFKjxtLIcmnwPOMML
+	eaPbG9fXMvTzLhx3gQuKYS41bMpwcpH45KabbzCdrXaGEjeZwHr6xgmuMLMonzl7UkRaP9c9C1b
+	gxmWezbyjgEsp/SI27/By3j6FifEQKdvgGuAGftGfskux4+sYsT41MYs/jzHNDzLGzUlka0hrbn
+	drD4J3zk
+X-Received: by 2002:a05:6820:1a05:b0:6ae:ab01:91a8 with SMTP id 006d021491bc7-6b1a053ad8amr10898047eaf.34.1787803124589;
+        Wed, 26 Aug 2026 20:58:44 -0700 (PDT)
 Received: from [192.168.0.245] (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
-        by smtp.googlemail.com with ESMTPSA id 586e51a60fabf-467367af2bfsm900825fac.6.2026.08.26.20.58.42
+        by smtp.googlemail.com with ESMTPSA id 586e51a60fabf-467367af2bfsm900825fac.6.2026.08.26.20.58.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 20:58:42 -0700 (PDT)
+        Wed, 26 Aug 2026 20:58:44 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
-Date: Wed, 26 Aug 2026 21:58:34 -0600
-Subject: [PATCH 2/8] lockdep: Add chunked array infrastructure and embedded
- indices
+Date: Wed, 26 Aug 2026 21:58:35 -0600
+Subject: [PATCH 3/8] lockdep: Pre-reserve early memblock slab pool for
+ dynamic tables
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260826-lockdep-memblock-v1-v1-2-e2db855391ec@gmail.com>
+Message-Id: <20260826-lockdep-memblock-v1-v1-3-e2db855391ec@gmail.com>
 References: <20260826-lockdep-memblock-v1-v1-0-e2db855391ec@gmail.com>
 In-Reply-To: <20260826-lockdep-memblock-v1-v1-0-e2db855391ec@gmail.com>
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
@@ -80,127 +80,216 @@ To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
  Waiman Long <longman@redhat.com>
 Cc: linux-kernel@vger.kernel.org, Jim Cromie <jim.cromie@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787803120; l=4352;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787803120; l=6278;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=LV7C+hevD5jo0Qd1ODKuYm9AUbl3ktdplJF7EunsPCM=;
- b=1SwhDkg8pHPHGRaZqLjVF8JnKhDqodfKVGuFnFmAFrcu2BklyY1qDhOcxo5iFmQD2kU82FZZb
- LsNeOc5r/l/CzhamJZfEaKUhpP8J1sWURSpw6t56eSf0jY0erjU03Qp
+ bh=7xH2J5Hr5hCWfWqBYkebvmkGGwU+I/aNQBP7/OLO9LU=;
+ b=cHlISIFFiAHVupKSDAtbApaG2C3y9p8jbxVPYHVvqMhd1OUwvzq0fuVqhrcBwgtMCXIub7seS
+ WlMK8zK9JpuDrJyn7Fc2f8YsBc3aGHK0fCaq6oQ9TMFToZMywBArwll
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 
-Lockdep's dependency graph has historically relied on flat static
-arrays in .bss. To transition these tables to dynamically allocated
-slabs without incurring division instructions, introduce the
-DECLARE_CHUNKED_ARRAY() and DEFINE_CHUNKED_ARRAY() macros.
+Lockdep cannot allocate memory dynamically during normal runtime because
+it cannot recurse into allocator locks. However, before mm_core_init()
+brings up the buddy allocator, lockdep can claim a contiguous pool of
+64 KB slabs directly from early memblock.
 
-These macros construct 2-tier chunked arrays (Array-of-Arrays) indexed
-via Granlund-Montgomery reciprocal divide (reciprocal_divide()),
-mapping indices to (chunk, offset) tuples in constant time (~3 cycles).
+Add lockdep_early_init() to start_kernel() right before mm_core_init()
+to reserve a private pool of 64 KB slabs. Auto-tune the pool based on
+physical RAM (2 MB on <512 MB systems, 4 MB default, 8 MB on >64 GB
+servers) and accept overrides via lockdep_slabs=N and
+lockdep_headroom=M%.
 
-Also embed class_idx into struct lock_class and chain_idx into struct
-lock_chain to replace flat pointer arithmetic (ptr - base) with O(1)
-index lookups across disjoint slab chunks.
+Provide lockdep_claim_slab() and lockdep_release_slab() to dole out and
+recycle slabs under graph_lock without invoking external locks.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/linux/lockdep.h            |  3 ++-
- include/linux/lockdep_types.h      |  1 +
- kernel/locking/lockdep_internals.h | 48 ++++++++++++++++++++++++++++++++++++--
- 3 files changed, 49 insertions(+), 3 deletions(-)
+ init/main.c                        |   1 +
+ kernel/locking/lockdep.c           | 131 +++++++++++++++++++++++++++++++++++++
+ kernel/locking/lockdep_internals.h |   3 +-
+ 3 files changed, 134 insertions(+), 1 deletion(-)
 
-diff --git a/include/linux/lockdep.h b/include/linux/lockdep.h
-index 621566345406..4c96959d8ad7 100644
---- a/include/linux/lockdep.h
-+++ b/include/linux/lockdep.h
-@@ -77,7 +77,7 @@ struct lock_chain {
- 	unsigned int			irq_context :  2,
- 					depth       :  6,
- 					base	    : 24;
--	/* 4 byte hole */
-+	unsigned int			chain_idx;
- 	struct hlist_node		entry;
- 	u64				chain_key;
- };
-@@ -85,6 +85,7 @@ struct lock_chain {
- /*
-  * Initialization, self-test and debugging-output methods:
-  */
-+extern void lockdep_early_init(void);
- extern void lockdep_init(void);
- extern void lockdep_reset(void);
- extern void lockdep_reset_lock(struct lockdep_map *lock);
-diff --git a/include/linux/lockdep_types.h b/include/linux/lockdep_types.h
-index eae115a26488..8acac0b59f69 100644
---- a/include/linux/lockdep_types.h
-+++ b/include/linux/lockdep_types.h
-@@ -121,6 +121,7 @@ struct lock_class {
+diff --git a/init/main.c b/init/main.c
+index e363232b428b..12280dfe1d11 100644
+--- a/init/main.c
++++ b/init/main.c
+@@ -1031,6 +1031,7 @@ void start_kernel(void)
+ 	vfs_caches_init_early();
+ 	sort_main_extable();
+ 	trap_init();
++	lockdep_early_init();
+ 	mm_core_init();
+ 	maple_tree_init();
+ 	poking_init();
+diff --git a/kernel/locking/lockdep.c b/kernel/locking/lockdep.c
+index 6a4f21f3e9c8..68d82e46cbf6 100644
+--- a/kernel/locking/lockdep.c
++++ b/kernel/locking/lockdep.c
+@@ -58,12 +58,96 @@
+ #include <linux/context_tracking.h>
+ #include <linux/console.h>
+ #include <linux/kasan.h>
++#include <linux/memblock.h>
  
- 	unsigned int			subclass;
- 	unsigned int			dep_gen_id;
-+	unsigned int			class_idx;
+ #include <asm/sections.h>
  
- 	/*
- 	 * IRQ/softirq usage tracking bits:
-diff --git a/kernel/locking/lockdep_internals.h b/kernel/locking/lockdep_internals.h
-index 0e5e6ffe91a3..3d8bce0dc9f9 100644
---- a/kernel/locking/lockdep_internals.h
-+++ b/kernel/locking/lockdep_internals.h
-@@ -122,9 +122,53 @@ enum {
- #define MAX_LOCKDEP_CHAINS	(1UL << MAX_LOCKDEP_CHAINS_BITS)
+ #include "lockdep_internals.h"
+ #include "lock_events.h"
  
- #define AVG_LOCKDEP_CHAIN_DEPTH		5
--#define MAX_LOCKDEP_CHAIN_HLOCKS (MAX_LOCKDEP_CHAINS * AVG_LOCKDEP_CHAIN_DEPTH)
-+#include <linux/reciprocal_div.h>
- 
--extern struct lock_chain lock_chains[];
-+#define LOCKDEP_SLAB_SIZE	(64 * 1024)
-+#define LOCKDEP_MAX_SLABS	64
++static void *lockdep_slabs[LOCKDEP_MAX_SLABS];
++static unsigned int lockdep_nr_slabs;
++static unsigned int lockdep_slabs_used;
++static struct lockdep_slab_usage ld_slabs;
 +
-+/*
-+ * Chunked Array Tables:
-+ * Replaces flat monolithic BSS arrays with 2D chunk pointer matrices.
-+ * Chunk 0 is statically allocated in BSS for early boot, while subsequent
-+ * chunks are claimed from the memblock reservoir via lockdep_claim_slab().
-+ * Indexing uses compile-time Granlund-Montgomery reciprocal divide
-+ * (~3-cycle multiply+shift, zero division instructions).
-+ */
-+#define DECLARE_CHUNKED_ARRAY(name, type)					\
-+	enum {									\
-+		name##_PER_CHUNK = (LOCKDEP_SLAB_SIZE / sizeof(type)),		\
-+	};									\
-+	extern type * name##_chunks[LOCKDEP_MAX_SLABS];				\
-+	extern const struct reciprocal_value name##_rv;				\
-+	static __always_inline type *idx_to_##name(unsigned int idx)		\
-+	{									\
-+		unsigned int chunk = reciprocal_divide(idx, name##_rv);		\
-+		unsigned int offset = idx - (chunk * name##_PER_CHUNK);		\
-+		type *chunk_ptr;						\
-+		if (unlikely(chunk >= LOCKDEP_MAX_SLABS))			\
-+			return NULL;						\
-+		/* Pairs with smp_store_release() when new chunk slabs are published */ \
-+		chunk_ptr = smp_load_acquire(&name##_chunks[chunk]);		\
-+		if (unlikely(!chunk_ptr))					\
-+			return NULL;						\
-+		return &chunk_ptr[offset];					\
++static unsigned int requested_lockdep_slabs;
++static unsigned int requested_lockdep_headroom_pct = 100; /* default 100% headroom */
++static bool lockdep_headroom_specified;
++static bool lockdep_disabled_early;
++
++static int __init setup_lockdep_slabs(char *str)
++{
++	unsigned long val;
++
++	if (!str)
++		return -EINVAL;
++
++	if (!strcmp(str, "off") || !strcmp(str, "0")) {
++		lockdep_disabled_early = true;
++		return 0;
 +	}
 +
-+#define DEFINE_CHUNKED_ARRAY(name, type)					\
-+	static type name##_chunk0[name##_PER_CHUNK];				\
-+	type *name##_chunks[LOCKDEP_MAX_SLABS] = { name##_chunk0 };		\
-+	static unsigned int nr_##name##_chunks = 1;				\
-+	const struct reciprocal_value name##_rv =				\
-+		RECIPROCAL_VALUE_INIT(name##_PER_CHUNK)
++	if (kstrtoul(str, 0, &val))
++		return -EINVAL;
 +
-+struct lockdep_slab_usage {
-+	unsigned int lock_classes;
-+	unsigned int direct_deps;
-+	unsigned int lock_chains;
-+	unsigned int chain_hlocks;
-+	unsigned int stack_traces;
-+};
++	if (val > 10000) {
++		pr_warn("lockdep: ignoring unrealistic lockdep_slabs=%lu\n",
++			val);
++		return -EINVAL;
++	}
++
++	requested_lockdep_slabs = clamp_t(unsigned int, val, 2, LOCKDEP_MAX_SLABS);
++	return 0;
++}
++early_param("lockdep_slabs", setup_lockdep_slabs);
++
++static int __init setup_lockdep_headroom(char *str)
++{
++	unsigned long val;
++
++	if (!str || kstrtoul(str, 0, &val))
++		return -EINVAL;
++
++	requested_lockdep_headroom_pct = clamp_t(unsigned int, val, 10, 900);
++	lockdep_headroom_specified = true;
++	return 0;
++}
++early_param("lockdep_headroom", setup_lockdep_headroom);
++
++static void *lockdep_free_slabs[LOCKDEP_MAX_SLABS];
++static unsigned int lockdep_nr_free_slabs;
++
++/*
++ * Claim a 64KB slab from the pre-allocated memblock reservoir.
++ * Must be called with graph_lock held. Completely lockless and deadlock-free.
++ */
++static void *lockdep_claim_slab(unsigned int *table_counter)
++{
++	void *slab;
++
++	if (lockdep_nr_free_slabs > 0)
++		slab = lockdep_free_slabs[--lockdep_nr_free_slabs];
++	else if (lockdep_slabs_used < lockdep_nr_slabs)
++		slab = lockdep_slabs[lockdep_slabs_used++];
++	else
++		return NULL;
++
++	if (table_counter)
++		(*table_counter)++;
++
++	return slab;
++}
++
++static void lockdep_release_slab(void *slab, unsigned int *table_counter)
++{
++	if (!slab || lockdep_nr_free_slabs >= LOCKDEP_MAX_SLABS)
++		return;
++
++	lockdep_free_slabs[lockdep_nr_free_slabs++] = slab;
++	if (table_counter && *table_counter > 0)
++		(*table_counter)--;
++}
++
+ #include <trace/events/lock.h>
  
- #define LOCK_USAGE_CHARS (2*XXX_LOCK_USAGE_STATES + 1)
+ #ifdef CONFIG_PROVE_LOCKING
+@@ -6646,6 +6730,53 @@ void lockdep_unregister_key(struct lock_class_key *key)
+ }
+ EXPORT_SYMBOL_GPL(lockdep_unregister_key);
  
++void __init lockdep_early_init(void)
++{
++	unsigned int nr_slabs, i;
++	phys_addr_t phys_mem;
++	size_t slab_bytes;
++	void *pool;
++
++	if (lockdep_disabled_early) {
++		pr_info("lockdep: disabled by early boot parameter, 0 bytes reserved\n");
++		return;
++	}
++
++	phys_mem = memblock_phys_mem_size();
++
++	/* Auto-tune based on physical memory and CPU count */
++	if (phys_mem && phys_mem < (512ULL << 20))
++		nr_slabs = 32;   /* 2 MB on small systems (<512MB RAM) */
++	else if (num_possible_cpus() >= 64 || phys_mem > (64ULL << 30))
++		nr_slabs = 128;  /* 8 MB on large servers (>64GB RAM or >64 CPUs) */
++	else
++		nr_slabs = LOCKDEP_DEFAULT_SLABS; /* 64 slabs = 4 MB default */
++
++	/* Ensure initial reservation satisfies requested floor or headroom */
++	if (requested_lockdep_slabs > nr_slabs)
++		nr_slabs = requested_lockdep_slabs;
++
++	if (lockdep_headroom_specified && requested_lockdep_headroom_pct > 100)
++		nr_slabs = (nr_slabs * (100 + requested_lockdep_headroom_pct)) / 100;
++
++	nr_slabs = clamp_t(unsigned int, nr_slabs, 8, LOCKDEP_MAX_SLABS);
++
++	slab_bytes = (size_t)nr_slabs * LOCKDEP_SLAB_SIZE;
++	pool = memblock_alloc(slab_bytes, PAGE_SIZE);
++	if (!pool) {
++		pr_err("lockdep: failed to allocate %u slabs (%zu KB) from memblock\n",
++		       nr_slabs, slab_bytes / 1024);
++		return;
++	}
++
++	for (i = 0; i < nr_slabs; i++)
++		lockdep_slabs[i] = (char *)pool + (i * LOCKDEP_SLAB_SIZE);
++
++	lockdep_nr_slabs = nr_slabs;
++	pr_info("lockdep: reserved %u slabs (%zu KB) from memblock\n",
++		nr_slabs, slab_bytes / 1024);
++}
++
+ void __init lockdep_init(void)
+ {
+ 	pr_info("Lock dependency validator: Copyright (c) 2006 Red Hat, Inc., Ingo Molnar\n");
+diff --git a/kernel/locking/lockdep_internals.h b/kernel/locking/lockdep_internals.h
+index 3d8bce0dc9f9..3344361a1c3b 100644
+--- a/kernel/locking/lockdep_internals.h
++++ b/kernel/locking/lockdep_internals.h
+@@ -125,7 +125,8 @@ enum {
+ #include <linux/reciprocal_div.h>
+ 
+ #define LOCKDEP_SLAB_SIZE	(64 * 1024)
+-#define LOCKDEP_MAX_SLABS	64
++#define LOCKDEP_MAX_SLABS	512
++#define LOCKDEP_DEFAULT_SLABS	64
+ 
+ /*
+  * Chunked Array Tables:
 
 -- 
 2.55.0
