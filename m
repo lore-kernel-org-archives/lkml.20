@@ -1,150 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A677485CF2
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:00:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79E18455184
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:01:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787846445; cv=none; b=MrbbTXl/8h2+/UlBPlk47ym1lT22xNBIG00IJbw3nTjNUQGr32tmkKCafBn9QpxKMeDL2R5no2hU0WG0YBEre1DSULC3I4oNHPvr+rp6deQ+XrFX1shhp2azX8qlGtHvHVaPQWowYNQzQHiv+ikxxASyXE1PjHyObYWNzkm6YGE=
+	t=1787846468; cv=none; b=JdMBIQvcuOe2KvlxZvtumRuL5QUChUk7GJ7/2+KlUb0Zi+1sheJpFKylG1SZyGHz20ycV5LjnwnwWl3KjQZxcHL/TmbCNvhvFVPp9Y3lPg8aZH5WBmmc+WjYDjUDQxI++APLT7zludzK0JQhQILevi+jjYs8coTlvWDGnpBQs0o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787846445; c=relaxed/simple;
-	bh=iD13pPaoLE5oPvr40q34TFI6uYHb+O6sKhwG95ObvWI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=h/lhaZE/63Gka/qgBUtYEBewS2D2Fn7aYaO4mSEZQute9nlCZ1EPPipZRU0cQSNvratP8qc1tJQkXhDjSPdwuWW89eYOGL22KokVTMkrIH7/oDct+kmAtVsVVT4TQEDRZU2qkHhktaF5TOUHIsMw3NFlTubWp8aNNdG1u++ut0k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V6PLoF46; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787846468; c=relaxed/simple;
+	bh=wf94Tgtp+mIa1Q5XRbJfuuqfksgiLCtqb8r2gfCY2rQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SNbxiqEpybqZfddMdTe9/Kp0ZhPPS74BCBMYRDQB3gDNu3kg9OzjqTpPiIH55WDAjnkwmMnatQ55wFXZATygV8FC1Fsr5ay3mtSPinPGqPScM1lpeiGu75icEtBT+JGT+l+5iiRGAo5lCT/h2uuoQohJS/prrIhWp6yMb3GjLrw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=Cj85lULj; arc=none smtp.client-ip=74.125.224.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V6PLoF46"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 252F31F00A3A;
-	Thu, 27 Aug 2026 16:00:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787846441;
-	bh=nrlTIkFE6/b+AXgWzKleN3cfwGZ9PDfL2MFZp1jZv4Q=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=V6PLoF46F//II/OdhzDITrpykl+/+mbZDkIJ1ZNNRSekUZU6bmwIaBJz56zGOZ/5Y
-	 ne5bquWchpCIPzExXuryY1wCxc1k+4iAzhulroW5fLso0mWRAl/D3RIFffydZ7ZRna
-	 b6DU9tM3u0SIIzy/L59PsuwrCKZNt4nre6bTiCdLuE6Nubbah45+V0trbyJEjkOAmw
-	 HWK5BHRHASZrz+MJT51IXZSsuraIa6Z1WMePep8glLJ/qkqX6Ta/eg1dOXyhtP0Wf6
-	 Tchx9Mcl3qJwc20YDL5y8vjEEl/JnjlK+NFIkuLCdPlbRSi2LtlVgfUuIMS3wqCYpR
-	 5EwP0YrjgL9wA==
-Message-ID: <50bb70bc-d442-43df-ab4f-a158c8b05ac7@kernel.org>
-Date: Thu, 27 Aug 2026 18:00:33 +0200
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="Cj85lULj"
+Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-66ce5312ca6so212605d50.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:01:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1787846466; x=1788451266; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=DNepDFInVPeIQZp56PM2k6duwIn9bQ+gjDRMqyyZVgU=;
+        b=Cj85lULjueIzeaN6Ftf3iWcUfY5N7nL5wUmCJ17eFOC72XuObwI0unKIjPg36IB5Ri
+         RZ0ShYgr1rTPGid7BgZ/TZ4H4MPz10n8tXH6HAcB4HLMpW4rivXIwiIXyL3mvrRK9SZP
+         zUuyol+gnkPfDl9UMwJuLcuLM8lSDV11wuWeELvPQ59FNk+6CHXwtQ9Kn1m7AG/FNsPP
+         jiNfAMrIfQcRXaGOVro0ZgesyseSCSXesCsrwz8rOQXiQg0i2CMjz1t9Azc66XK2fNyV
+         /0slHENlBbp7QlY1m3SjaYvshEMthqvqtDMhCsounolT0leswKTiTfM7bE/4U9uv/ceQ
+         m5NA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787846466; x=1788451266;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DNepDFInVPeIQZp56PM2k6duwIn9bQ+gjDRMqyyZVgU=;
+        b=gUm5A1h5zoNgin6ACYnMxHiq5u8/v3CyIXzk93vQYnx7GHxE9GWEwS2fKkYJE8g+sS
+         JPRxEDoXyc6XnQZ9QtuuD0xW2li+vkHYiRn8qxtIBck8SZHysNq7VaVAyTjTd/HNn+AD
+         poJEam6CMwCEp5TO9DXPblv+pAddgEBzwo+6jtJFeciLLgkzqMG02pqXV3awdjPK3uDO
+         b/LFXI6qWySYWiNpd5R01/Sy0DJEMWMUJ7pLIQEWzD/mPI8ZhXOPeTcgHGuif/01J90k
+         gqqm19oA1ZtdnIJxex/k6E4QY6Y+s+peCKIPUyc+VB7EsYwvkO3jP65GCNQL7n9ZjIhr
+         PaEA==
+X-Forwarded-Encrypted: i=1; AHgh+Rr++Je66H/l12k5T52WPBDOkg9a2Dr2MQMe9omakgToGBwYhAGF3u+E2bU2Y0QnGu2gpOQ3pYH0XQ3p7II=@vger.kernel.org
+X-Gm-Message-State: AFuF++n84lr7Zw/t8v958Xp5vSRvpsuauQew9SVan6WiBTBiVCckqavZ
+	Alu41w+4vI1NmbIWHGdmNVpSsY5PTqY45tYuT0N9jQZB9oSCZgAaFSwlLjISWw0D3A==
+X-Gm-Gg: AR+sD12fg9rBEbzEN0KP+hR83yy1djPWkiRFqRNriYb6GgHf7UIXhCH10r50Ngd532c
+	QDr/VS6Lz6ORrwh9xBebnGy/1K014RSTV5BfXzBNB2Es50UfLlNvzoqVrEJWCydx/2X076skToy
+	M7iPLDE5qe6gAVnMsqknBakPIo8ldoIy9EhcQJFkmc23QenJ6TFdDcQSYzByCyEgLqArjZJHdyU
+	R2fXagOv2QCz6bfLht+f8WWtvCYZs/v2HesMJiRbuMxPh0wVNzoy6iuFHd2buIQpgH8wD1v7/0P
+	GeReuSkuZU9d4j699qx1+1UefPQOWzeIfwn9u92+57KliyNyYrI3yciHBK0+W2E76f4RlnNl+wF
+	xS6j8iMJmHTLPEQm/WH3xMTqNa4Rr4RzQMpv2aZ02ZQqrc/r0CabOE1zwbOaBLdOfTWi1CiH7e0
+	xVNrJKfY4mLa+NnV+SLNuLs3CtrmeeAxC3sLEwbl+80P72zxEU/JrG90B4gBgnkyNqhCpdQZog1
+	VEu72yglhN5yQu4JjvG5yEBVCpr/gfI
+X-Received: by 2002:a05:690e:d4c:b0:66d:11b0:addd with SMTP id 956f58d0204a3-66d257d1a54mr6143501d50.37.1787846466030;
+        Thu, 27 Aug 2026 09:01:06 -0700 (PDT)
+Received: from rowland.harvard.edu ([2607:fb60:1011:2006:2008:aeb7:73d7:d8ff])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90cd73fc2c9sm19596796d6.35.2026.08.27.09.01.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 09:01:05 -0700 (PDT)
+Date: Thu, 27 Aug 2026 12:01:02 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: Oliver Neukum <oneukum@suse.com>,
+	Marco Crivellari <marco.crivellari@suse.com>,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Michal Hocko <mhocko@suse.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Petko Manolov <petkan@nucleusys.com>, linux-usb@vger.kernel.org
+Subject: Re: [PATCH v3 net-next 5/6] net: usb: pegasus: Move long delayed
+ work on system_dfl_long_wq
+Message-ID: <31b46916-dd89-4ae9-89b9-9d39e29e8e69@rowland.harvard.edu>
+References: <20260720100902.155605-1-marco.crivellari@suse.com>
+ <20260720100902.155605-6-marco.crivellari@suse.com>
+ <f972b514-87ef-45bc-8258-db199a4cc0b8@suse.com>
+ <20260825151812.4aJyFUgE@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 02/18] mm/huge_memory: fix rejection of swap cache
- folios with a mapping
-To: kasong@tencent.com, linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
- Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
- Shivam Kalra <shivamkalra98@zohomail.in>, Kairui Song <ryncsn@gmail.com>
-References: <20260821-swap-thp-cleanup-v3-0-9b43f5163238@tencent.com>
- <20260821-swap-thp-cleanup-v3-2-9b43f5163238@tencent.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260821-swap-thp-cleanup-v3-2-9b43f5163238@tencent.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260825151812.4aJyFUgE@linutronix.de>
 
-On 8/20/26 20:55, Kairui Song via B4 Relay wrote:
-> From: Kairui Song <kasong@tencent.com>
+On Tue, Aug 25, 2026 at 05:18:12PM +0200, Sebastian Andrzej Siewior wrote:
+> On 2026-07-22 10:29:50 [+0200], Oliver Neukum wrote:
+> > On 20.07.26 12:08, Marco Crivellari wrote:
+> > Hi,
+> Hi Oliver,
 > 
-> A folio in the swap cache cannot be split if it has a mapping (shmem).
-> The split code does a defensive check for this in
-> __folio_freeze_and_split_unmapped, after the folio ref has been frozen
-> and the NR_SHMEM_THPS/NR_FILE_THPS counters have been decremented. It
-> rejects the split and returns -EINVAL without unfreezing the folio or
-> restoring the counters. That error path is buggy: if it is ever taken,
-> it leaves the folio frozen and stuck, skews the counters, and fires
-> the VM_WARN_ON_ONCE_FOLIO for a state that is actually legitimate.
+> > > Since the workqueue work doesn't rely on per-cpu variables, there is no
+> > > obvious reason that justify the use of a per-cpu workqueue. So change
+> > > system_long_wq with system_dfl_long_wq so that the work may benefit from
+> > > scheduler task placement.
+> > 
+> > these changes are problematic, although they look like a good cleanup
+> > in first place. But the test you are using to determine whether USB
+> > devices need their own work queue is incomplete because you are not
+> > considering the reason they allocate their own work queues.
 > 
-> Check for this case up front in folio_check_splittable and return
-> -EBUSY before any state is modified, so the split routine always backs
-> out cleanly.
+> This driver does not using its own workqueue.
 > 
-> Also fix a bracket style issue that checkpatch.pl keeps complaining
-> about.
+> > These drivers have their own work queues because they are part of the block layer.
+> > USB devices can share a device with a block device (storage & UAS) and
+> > USB devices have common, per device operations, in particular reset
+> > and runtime power management and disconnect handling. Because these operations
+> > can be necessary to complete block IO neither they nor anything
+> > they depend on can use IO to allocate memory. That is they need to
+> > perform any memory allocation with GFP_NOIO or GFP_ATOMIC.
 > 
-> Fixes: 00527733d0dc ("mm/huge_memory: add two new (not yet used) functions for folio_split()")
-> Fixes: 714b056c8321 ("mm/huge_memory: convert VM_BUG* to VM_WARN* in __folio_split")
-> Reviewed-by: Zi Yan <ziy@nvidia.com>
-> Signed-off-by: Kairui Song <kasong@tencent.com>
-> ---
->  mm/huge_memory.c | 27 ++++++++++++++++-----------
->  1 file changed, 16 insertions(+), 11 deletions(-)
-> 
-> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> index ced400f72d43..a6759a14e057 100644
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -3878,6 +3878,9 @@ static int __split_unmapped_folio(struct folio *folio, int new_order,
->  int folio_check_splittable(struct folio *folio, unsigned int new_order,
->  			   enum split_type split_type)
->  {
-> +	bool is_anon = folio_test_anon(folio);
-> +	bool is_swapcache = folio_test_swapcache(folio);
+> This is a networking driver. It has nothing to do with storage and UAS.
+> It uses USB, yes.
 
-Both const please.
+Ah, but a composite USB device can have both a networking interface and 
+a mass-storage interface.
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Suppose you have such a device, and suppose the disk attached to its 
+mass-storage interface contains a swap partition.  Now suppose the 
+device is being reset, and as part of the preparation for that reset the 
+networking driver needs to flush its workqueue.  This means waiting 
+until the work routines that are already running have completed.
 
--- 
-Cheers,
+Since it's a general-purpose workqueue, you don't know what those work 
+routines are going to do.  One of them might try to allocate memory 
+using GFP_KERNEL.  Suppose that in order to satisfy the memory request, 
+the kernel decides it needs to write some pages to the swap partition on 
+the USB mass-storage interface.  But the mass-storage driver is stuck; 
+it can't do anything until the device reset finishes.  Deadlock.
 
-David
+That's why USB drivers have to use their own workqueues.
+
+Alan Stern
