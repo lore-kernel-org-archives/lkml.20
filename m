@@ -1,94 +1,86 @@
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81E5541DED5
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:31:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8E5B40F730;
+	Thu, 27 Aug 2026 10:31:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787826710; cv=none; b=pd3Dh73SU+lfg7IIXjSkg4C6hF/M66geGQ/ZS7QdPPL7VzqnUr+R9rODCxROUqdAxMZi67pF3mM/bY/DAZn9Bb5yMK0OIl1zcdWRO0MoiIdE8XGykBsWHGhS7EqNsr6mwoR5RTe24DhustGBzA7nFoRGLEo3s5+1HCJyQXOLxPY=
+	t=1787826717; cv=none; b=FjVfK3siAZcgmbNkA74J8vfk/M+y/5RRWkeJEu9vDTIW00yR0DrZz4og77YeYn1LAqflOI+w0rcCWfdYUpHr7AfeQNEw1hTudR3NNmWmaZeTHO5gvXUR4ow+zcFFTxWoN44pisvO4RSt6dSPJw5ASuES8ZEInzi7hnBmTf8ELd4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787826710; c=relaxed/simple;
-	bh=vRUinhL8Kl69hQDB7Kmeani1hMmmG3jjlapkgspJ2Z8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
-	 References; b=KN5cDYIq6bw7AiqiMe7VYOo4IdRxk0KnbxYonINEuN58Vw3L0ZrQ1qwhGiGAuKYJpZP7NiTIgrsGDWANh18gx9DQ7weqEGaFZd41qENXzWEMcQqm3Wru0W3+xqadC/XGMBj4IrzefAzgyjeX7F7KoDYpWFub6s6qKKw/PHJYBek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=CUswHnJo; arc=none smtp.client-ip=210.118.77.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1787826717; c=relaxed/simple;
+	bh=gTI/2zY28PlksG51O7DVosuqQ8uAwW9c+zVSAfbIE5A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TvCDZnkmdVNO7SIcet/WHA6BOFbkgtCzyydIw9b6Hp7xHVsEU5RUZ25bQW7Ul/oGlATjW4Tmrxjn9y+7/M5M+BhOTBM2AT0u8dxxYp0xZIKiqQj8ilWBLis1UZX9ImaCDFkUyxP0zulknzo0Ivgo16ubmmvOxEbALdMvkVT3byw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V7UZGM82; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="CUswHnJo"
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20260827103141euoutp013e595bbc37514c176f2923fd440bac8f~PoumpjhqD0754107541euoutp01x
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:31:41 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20260827103141euoutp013e595bbc37514c176f2923fd440bac8f~PoumpjhqD0754107541euoutp01x
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1787826701;
-	bh=1tP05teUxVPqrtuviHpqptvcSsGiCr6FinH/7ktOWxo=;
-	h=From:To:Cc:Subject:Date:References:From;
-	b=CUswHnJoH4Sbeo8XiNLebbc8rV2zuB6Qhf/yLmX8DQQ7ndTaITf5Tk1J6UzSPyGu1
-	 ZtqBPBsfkn4b4xxJh9pR1Ei2rycmIvv1Mzjzt+X+Hz0lHiUYNUHHaYJ6O5I5KiyPOc
-	 Ujd5tetLQEoUYKG2rvxeIOjpDmZz9gEYgHDM0OWA=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20260827103141eucas1p1a97fc08693ac663d8e8382e2ffb7f800~PoumMXccw2646726467eucas1p1S;
-	Thu, 27 Aug 2026 10:31:41 +0000 (GMT)
-Received: from AMDC4653.digital.local (unknown [106.120.51.32]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20260827103140eusmtip157997614241f2b88e841c3c47ce8d6bb~Poul3U-fU0968509685eusmtip1y;
-	Thu, 27 Aug 2026 10:31:40 +0000 (GMT)
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org, iommu@lists.linux.dev, Marek Szyprowski
-	<m.szyprowski@samsung.com>, Robin Murphy <robin.murphy@arm.com>, Alexander
-	Graf <graf@amazon.com>
-Subject: [GIT PULL] dma-mapping fix for Linux 7.3
-Date: Thu, 27 Aug 2026 12:31:26 +0200
-Message-ID: <20260827103127.4074178-1-m.szyprowski@samsung.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V7UZGM82"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85CD61F000E9;
+	Thu, 27 Aug 2026 10:31:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787826714;
+	bh=dcHTYbKYT/nJkwAK6jeYRLpi/KgxCeK7/I6NNC8+9io=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=V7UZGM82RCn78p5P69dazx6jcIHBDkgAi/ENOGOGgrK9P5dVTftJFuMnHQ+061e9w
+	 YMRl+JmKi3D2w1ttgg1JBRZSq39q7G0WnlYQnS2nldfYVGSluPpGRZkEGE4ptE0/BL
+	 7s/hoTh4HJ2gI3xeL5mSVaRXWzNqX0k1+KnHO7hcyyAewOSjRZ9UsKGwCtMR+CdyuB
+	 k/ieseVCyhSYcRGYgp78TljaomORFF3LvVziLZ8UiQUMmWerg/c8J+LyHCxiZMcD8G
+	 TbpxP1Qgck2OP4w5jNExH8Ix7PpOuIjDG56nwpp6vr6rqRtXzles3VEnjnHw/3ftzo
+	 HloujtBgSiPJA==
+Date: Thu, 27 Aug 2026 12:31:51 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Kristian Brox <isyourbrainfoss@proton.me>
+Cc: Luca Weiss <luca.weiss@fairphone.com>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: qcm6490-fairphone-fp5: add
+ ST21NFCD NFC
+Message-ID: <20260827-strange-sensible-duck-40cfa3@quoll>
+References: <20260820-fp5-st21nfcd-v3-v3-0-5ee0a7f44d04@proton.me>
+ <20260820-fp5-st21nfcd-v3-v3-3-5ee0a7f44d04@proton.me>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260827103141eucas1p1a97fc08693ac663d8e8382e2ffb7f800
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260827103141eucas1p1a97fc08693ac663d8e8382e2ffb7f800
-X-EPHeader: CA
-X-CMS-RootMailID: 20260827103141eucas1p1a97fc08693ac663d8e8382e2ffb7f800
-References: <CGME20260827103141eucas1p1a97fc08693ac663d8e8382e2ffb7f800@eucas1p1.samsung.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260820-fp5-st21nfcd-v3-v3-3-5ee0a7f44d04@proton.me>
 
-The following changes since commit 121f9fd1c3083312055126205f3e40b8ee999fe6:
+On Thu, Aug 20, 2026 at 08:56:13PM +0000, Kristian Brox wrote:
+> Enable the ST21NFCD on i2c9 (0x08), IRQ TLMM 41, reset TLMM 38
+> active-high. Compatible is st,st21nfcd (raw NCI).
+> 
+> SYS_CLK is LN_BB_CLK2. VPS_IO is L18B (vreg_l18b). ese-present and
+> uicc-present follow the public schematic (NFC_SWP1/SWP2: SWP_SE to
+> SIM1, SWP_UICC to SIM2). Reader path is tested; SE/HCE is not.
+> 
+> Signed-off-by: Kristian Brox <isyourbrainfoss@proton.me>
+> ---
+>  arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts | 34 +++++++++++++++++++++-
+>  1 file changed, 33 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+> index 04cb9230d..ef66079a0 100644
+> --- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+> +++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+> @@ -908,7 +908,23 @@ redriver_ss_in: endpoint {
+>  &i2c9 {
+>  	status = "okay";
+>  
+> -	/* ST21NFC NFC @ 28 */
+> +	nfc@8 {
+> +		compatible = "st,st21nfcd";
+> +		reg = <0x08>;
+> +
+> +		interrupts-extended = <&tlmm 41 IRQ_TYPE_LEVEL_HIGH>;
+> +		reset-gpios = <&tlmm 38 GPIO_ACTIVE_HIGH>;
 
-  dma/swiotlb: decouple high watermark tracking from CONFIG_DEBUG_FS (2026-08-13 08:02:35 +0200)
+This must be ACTIVE_LOW and existing driver is just wrong. Driver should
+handle old DTS without change, but for the new device correct it to
+proper way of handling logical state of GPIO pin (reset as "1" means
+asserted, so device is not working).
 
-are available in the Git repository at:
-
-  https://git.kernel.org/pub/scm/linux/kernel/git/mszyprowski/linux.git tags/dma-mapping-7.3-2026-08-27
-
-for you to fetch changes up to 1476cca098f6d3a553fcec6fe9b7d86e15c00b59:
-
-  dma-contiguous: fix truncation of numa_cma / cma_pernuma sizes >= 2G (2026-08-24 15:40:07 +0200)
-
-----------------------------------------------------------------
-dma-mapping fix for Linux 7.3
-
-- integer overflow fix for kernel cmdline parser for DMA contiguous
-initialization code (Alexander Graf)
-
-----------------------------------------------------------------
-Alexander Graf (1):
-      dma-contiguous: fix truncation of numa_cma / cma_pernuma sizes >= 2G
-
- kernel/dma/contiguous.c | 16 +++++++++-------
- 1 file changed, 9 insertions(+), 7 deletions(-)
-
-----------------------------------------------------------------
-
-Thanks!
-
-Best regards
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+Best regards,
+Krzysztof
 
