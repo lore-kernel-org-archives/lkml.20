@@ -1,87 +1,79 @@
-Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com [209.85.167.178])
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 424C23D9DB4
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 23:22:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CC0736B92B
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 23:22:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787872927; cv=none; b=ZZT+Irwkd36XzymUjvhmerA0LD3iSJnp2aFMBIpIrGEhqjvwlcFDVmW3XMbYNlZERLZ6pUtZlnEwgRWrDGhNlVRJ/mL+R8LqLg39e9vQGR6jF9YDcVjZt10jpE0O50RIZTQG4/HafbzboYPLMSCn2IvmMMseQsNustzPFLv+E4Q=
+	t=1787872964; cv=none; b=feu+j8VIY+IU5PY3R1JXbNhYcPplhQBBYk36DjTa/VaCMifpfHSIRbuZznHezA7uXYqd0cGlzxgGnvNuxs/56Ox/dIsLy6/T3l3Kp+o/JP6+L5k9/KNMmvWlFTUJQbUC2L5RblQRm4XjUwzPBOTXjq2QDx+sjIDR9Wf0xt9zlj0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787872927; c=relaxed/simple;
-	bh=pZwz+f8Jrl4t8j4pbfuvXzvgW56/tDJ2sxBemNi0t/g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Msh7BEC+nfaM157Mt7z848yQbp2yMJOmaRzTWrr/mzSKo6Nt23eREwBsYTQqL3U/oZbFwEhCgJqx3bQDGR14Zgt6RwxGAsayDy3vCGP3dWtsAckAg3+0QAe8/rwV7mOotlInl222hsVkiHlvT8auGs7QU8hvOuxu6DaKpFsRqxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=emGwcFid; arc=none smtp.client-ip=209.85.167.178
+	s=arc-20240116; t=1787872964; c=relaxed/simple;
+	bh=ToL+qrxaGPkIwwzSzJ3JM0QaLYNkEH3g2w92rivyJ3g=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qqUBhcvkWM392RZf46A4/dR+oMWDq2uXwCeXHHq1zNVdMhx5ElcR67rd+9ip7vbucLwNYBQpjDIveVmQ9fUJclNBgg7lXADBxa53qvKdSvYDeQVFd/KsEHb9NISo9YLWWt8v2iZVkLdbzvMk8EQK0yAMNFmIlZzn1To0ZzMX59k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U/uRqyNz; arc=none smtp.client-ip=209.85.214.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="emGwcFid"
-Received: by mail-oi1-f178.google.com with SMTP id 5614622812f47-4a45b3f0becso491374b6e.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:22:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U/uRqyNz"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2d712281f8bso4685855ad.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:22:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787872925; x=1788477725; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=O+4qeVVVSQESc4ddkEUc5FBIdc2XaWCbbfUsn4FAT3M=;
-        b=emGwcFidEtBEBAjw0JVY3UiNYTxO5dwXsVgh+9y0WnAb0ABV/dmsyTRgtODDwGCqMy
-         xBqoL5KrXoUuT7aV0tQooAqfoPHDbn30dnlDcF9ngxDsOWsG4IhKrvsdjtVDygG9k3Ee
-         2GkbMb37+WJNGhIDbpmmuE1uTacARbVbvbBu9WVFFKzTF3PV3NT7AHxHcXxGRfe9m0nF
-         1wrYZhbJKWatKXaFy0It52Et82JncI/wdi7MbcweXRbZIFvsTp2/engRvDHGMfW4NQTw
-         2o7Fu0aVEUH6h3V3ajpdDzg3yndRCaUGzK1n2vPVHQNlWXg85Zbngr/Zz6shvHq0E9t0
-         8pOw==
+        d=gmail.com; s=20251104; t=1787872962; x=1788477762; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WCUYZUagUYklDLur0cOGI1Qx/7xjgBtFl/8/oR1JLCI=;
+        b=U/uRqyNzHXLost5EtlVjlZEAZLlxWKoeyCB/dlbJeC4gEg+begoOFjv5WktDE3BBof
+         K3hMLDES48qonPLCjEt/M8GOrQMKYCf3MvUM5uMPky0Ci/hFQggHkeiJQXY5FOuD+8sT
+         PFX8OTTSa55U3bQkQDDHk5SqRQfk3DVmLjCIQoZ4Dwvxl4Qy8Qk4qo3TgSYt7CrRdkTC
+         5HTps3Q4ekcd23YOW12Q7ZHOxLmzTTLxyrlfPKgNKpREhXkafinK9+5vUo7F5kOMpYnr
+         tcch2QcFX97g4vYWAJ4161A88u0GBWxsYa4ovF+/DlmbfQLh45s2Jm6QPTMO7bAkdGF6
+         d3nQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787872925; x=1788477725;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=O+4qeVVVSQESc4ddkEUc5FBIdc2XaWCbbfUsn4FAT3M=;
-        b=d1+CdT+gU6KoxHoPGnbk0+HAGtCyjoLa3zDKAlJ+R6zCBAu033jlD8bZ/YmCS1wr1B
-         OpgkQMM4vpyF8rC8UyiDcRN7XM56QsRKX6lONSWoo5q8S9wl/xaT/uWuq/ESqx0R/i16
-         6iZu/MjeGYY0RB0kZ5mYcq9KAv2YmIZQKZh90cbZDJwNNoGgknLrvdrYiSBcDFgPd3FN
-         E/9wIbZPw71ZnRgHFJJAmuLxf7bEXv6aSG/OEYeq9mUrwHlkoZjZvVy5D9OILJiP3gy0
-         13FBNYNObj/mbLICOVU0y7GU/QyKzwTLUlwcbSEcRcE1HeDSVCAbtJ1x5sqBDPdWKvoo
-         4DeQ==
-X-Forwarded-Encrypted: i=1; AHgh+Ro0HdIySB2m/imLUg1+eDj4Km7Ssq1YLyw4TZyMgYm9tl+WC9ImKpjkQm094s1QlX5hyBbTRmO1g6+ICQg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nNWm2gu/5wLsIsfT/l+K3Bz92YlDwGL2QIkkcmV+WASNaBV7UT
-	3x0vI83OHjVcJgaBqGVHhdm0+16QBXKtNY9mPQEaBFX0Ardi1CH3GdRh
-X-Gm-Gg: AR+sD10yXACT1uvMG147shVvwIs844r/8h7OU84Cnwb4wLo0XPcr+VziHjokA67q+FH
-	QggIaLMRCZIcc33LknPn3ntNTcBeJcgXSDTYOohPB9JIVmbmOIzHxCsAwBaAf8CnUruT/sUt8vQ
-	xuP2YQyiV2NA1BEk3UrqdxYjY60WC6lVZsppfpMsg4XcwIVufy7GV6XBwh7GOEGahCoz/y+D5EO
-	99NH/DDcRLejdcIs0XpejCd9Dm+cCV2Yl7cKVUofJbFPHH13IUH5Ojiyd8LQQ/rFPZEZAjCMca2
-	tQHt+szWafvnGL7Jbm3QNiYHVJGtvkE3E8s/N7V6NiEctSVoGfC+q/6RM/CHe8nleXYQBdyMFVe
-	g++SX1BZMGVA78L2cyTpHi5m9nmUzjPaWj2hGeSO2zM4hFfgNMaBzLSr0m97IgibIWQrX2PSWpx
-	3Lq3sGBeMG+TVbvaGFw+Vb9zfBkx1lph4Dt3XQfnxUx1wZCVtlx52f+9VMcK7JuvRz6nSaaLAb5
-	E9kpw==
-X-Received: by 2002:a05:6808:538e:b0:497:8f1:df07 with SMTP id 5614622812f47-4b398038bdamr3195085b6e.7.1787872925030;
-        Thu, 27 Aug 2026 16:22:05 -0700 (PDT)
-Received: from localhost.localdomain ([2600:1702:4ff0:baa0:5054:ff:fe3d:4ddb])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b38fbfe089sm1589553b6e.14.2026.08.27.16.22.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 16:22:03 -0700 (PDT)
-From: Will Porter <mrwillporter@gmail.com>
-To: Takashi Iwai <tiwai@suse.com>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	"Geoffrey D. Bennett" <g@b4.vu>,
-	Asahi Lina <lina@asahilina.net>,
-	Chris J Arges <chris.j.arges@canonical.com>,
-	Nick Kossifidis <mickflemm@gmail.com>,
-	Detlef Urban <onkel@paraair.de>,
-	Roy Vegard Ovesen <roy.vegard.ovesen@gmail.com>,
-	fenugrec <fenugrec@mail.com>,
-	Frederic Popp <frederic.l.popp@t-online.de>,
-	=?UTF-8?q?C=C3=A1ssio=20Gabriel?= <cassiogabrielcontato@gmail.com>,
-	Shipei Qu <qu@darknavy.com>,
-	linux-sound@vger.kernel.org,
+        d=1e100.net; s=20251104; t=1787872962; x=1788477762;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WCUYZUagUYklDLur0cOGI1Qx/7xjgBtFl/8/oR1JLCI=;
+        b=Ehuv6J85mDXhmmcrChuBmbqg/rYpvS+W9SKstZoAhmvVXSwP5CVuxZWhmG9moMI3QL
+         ovhGG76B0gq6USqn6Auh/HY5GmT+NhM6T4G1mXyCTc5sO4KAAEXkDvznZMS8NmQOIMhG
+         K6qVIY1scT8eZsTOcCRcNUgNQVdkJpgmxj8zgCEmzP7M2C4HjttbvQ+B6HCcG5xs8ZU5
+         g+WNCdba86rTTJSWZyid+YJRPRM3cMYqF74bvp/hImxETwkIUBgGw2VqLjoAyyfgPowU
+         QS13i5KT/qKmGA50oYjJN57OZkOik0gXBY9eYAWUjyTx0Umw3PJgFbTbHqvwL8mo5PXK
+         7PgA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp1It/EKJo3oE15Pb2K+Tvdoc7mR7ZDXk4MracX4SbFLVqyKU269G2R5Hby6emm772J11USg/QAqvh74Is=@vger.kernel.org
+X-Gm-Message-State: AFuF++nSueZlhpWQ3GIKFtZlA+EsSNkh61hx9CiUyXlL8yENYSKibqt7
+	dUFUAcyyRzQNY3YWX5c6l1ccHjMeu323iuOEz2D6I34uwdZDr43WPXqM
+X-Gm-Gg: AR+sD12IULdMPaXqD41v8s7+PJgPKyyJy8wsrH9RaPX3sPEeGPnuTek5m89aoZv07pV
+	ACeLbJJbKpgwqGpZWJimuCN+0jYJBAv/9kOXrMJQdCpiLPgGDT69XDbIx7LDfYsdTOfCxGSEL4P
+	WIEmO8eCqQpu12ahoqdamsRX8k35f01mvRd/dPRaVPY9FiUzpt9WbGJYLcHeHtoAjrALSoSDqDO
+	g2OpiAlXZ1VJx6iB9C4hpFaWFqpniIDJQZ1QEu3wQjjrrHNPz2Z1Xxv1iceIlrWehWdejpDxpv3
+	jUx/gMde1AhHbUtqIt9ZK9Exvb64uda28PffTpNfv3RY2biQ0rxn6edblEKyh9ERRsrtYQgWo4S
+	I3mq2FGH2KKVBQPlZf7fZiOBUY9znM4VI6g4zf+za+nuykJF0jyUekUp5uIur3yVpmLrlaTtNRL
+	i2kiw6Sfd7M/NNokWyJ0RzYvQqkNl4v8X5nbGPP4+Hk7j8IXcXuw95TN+BlJRKb5p1t2TEJUqTM
+	g5+Kp8T37qhHKY2UH56aJ6DLB9PCNTNSBEDGYtuwXFF5bhh52AX4IX/cNH8joHPHH2DoSeJKLj3
+	naUytHi8A9HR1zPQlT4IRzEBaqRukKfrlSiGk6E=
+X-Received: by 2002:a17:903:3a8b:b0:2c9:d88e:f996 with SMTP id d9443c01a7336-2d74dee96b5mr44091705ad.9.1787872962286;
+        Thu, 27 Aug 2026 16:22:42 -0700 (PDT)
+Received: from localhost.localdomain (2403-4800-2450-5401--2d10.sta.dodo.net.au. [2403:4800:2450:5401::2d10])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3283d730c3csm24163635eec.9.2026.08.27.16.22.38
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 27 Aug 2026 16:22:41 -0700 (PDT)
+From: James Nugraha <aslan.jnn@gmail.com>
+To: Raju.Rangoju@amd.com,
+	PrashanthKumar.K.R@amd.com
+Cc: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Will Porter <mrwillporter@gmail.com>
-Subject: [PATCH 6/6] ALSA: usb-audio: Guard FCP protocol transfers
-Date: Thu, 27 Aug 2026 18:21:43 -0500
-Message-ID: <20260827232143.149197-7-mrwillporter@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260827232143.149197-1-mrwillporter@gmail.com>
-References: <20260824230302.27965-1-mrwillporter@gmail.com>
- <20260827232143.149197-1-mrwillporter@gmail.com>
+	david.laight.linux@gmail.com,
+	James Nugraha <aslan.jnn@gmail.com>
+Subject: [PATCH net v3] net: amd-xgbe: discard rx packets with bad FCS
+Date: Fri, 28 Aug 2026 09:22:19 +1000
+Message-Id: <20260827232220.69907-1-aslan.jnn@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,53 +82,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-FCP meter and hwdep operations issue control transfers without
-preventing runtime suspend or disconnect. Protect the central
-request-and-response transport. One reference then covers the command,
-acknowledgment wait, and response.
+amd-xgbe driver currently sets the MAC_RCR.DCRCC bit whenever
+RX is enabled. This disables hardware FCS validation, causing packets
+with bad FCS to be accepted unconditionally.
 
-The initial step-zero request bypasses that transport. Hold an outer
-reference across the complete initialization sequence so the device stays
-active through step zero, notification-URB setup, and both initialization
-commands. The central transport keeps its guard for calls outside
-initialization; the existing active counter balances the nested calls.
+This change unsets DCRCC so that packets with bad FCS will be dropped,
+in-line with typical behaviours of many other network controllers.
 
-FCP has no private resume callback. Its suspend callback only removes the
-notification URB. Taking the initialization and transport guards under the
-existing protocol mutex causes no resume-side lock inversion.
+Tests:
+- Verified that packets with bad FCS are now dropped.
+- Verified that receiving packets with bad FCS will increment the
+  `rx_crc_errors` counter.
 
-Assisted-by: Codex:gpt-5.6-sol
-Signed-off-by: Will Porter <mrwillporter@gmail.com>
+Fixes: c5aa9e3b8156 ("amd-xgbe: Initial AMD 10GbE platform driver")
+Signed-off-by: James Nugraha <aslan.jnn@gmail.com>
 ---
- sound/usb/fcp.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+v3:
+  - Removed DCRCC unset on xgbe_disable_rx().
+  - Add back the missing "Fixes" reference.
+v2: https://lore.kernel.org/all/20260819091656.23943-1-aslan.jnn@gmail.com/
+  - Eliminated DCRCC toggling via RXALL: now it simply sets the
+    correct default value on MAC Rx enable.
+  - Updated testing information.
+v1: https://lore.kernel.org/all/20260812091616.35811-1-aslan.jnn@gmail.com/
 
-diff --git a/sound/usb/fcp.c b/sound/usb/fcp.c
-index 5fc2131b4561..68bb7eabf107 100644
---- a/sound/usb/fcp.c
-+++ b/sound/usb/fcp.c
-@@ -191,6 +191,10 @@ static int fcp_usb(struct usb_mixer_interface *mixer, u32 opcode,
- 	const int max_retries = 5;
- 	int err;
- 
-+	CLASS(snd_usb_lock, pm)(mixer->chip);
-+	if (pm.err < 0)
-+		return -EIO;
-+
- 	if (!private->urb)
- 		return -ENODEV;
- 
-@@ -1026,6 +1030,10 @@ static int fcp_init(struct usb_mixer_interface *mixer,
- 	struct usb_device *dev = mixer->chip->dev;
- 	int err;
- 
-+	CLASS(snd_usb_lock, pm)(mixer->chip);
-+	if (pm.err < 0)
-+		return -EIO;
-+
- 	err = snd_usb_ctl_msg(dev, usb_rcvctrlpipe(dev, 0),
- 		FCP_USB_REQ_STEP0,
- 		USB_RECIP_INTERFACE | USB_TYPE_CLASS | USB_DIR_IN,
--- 
-2.47.3
+ drivers/net/ethernet/amd/xgbe/xgbe-dev.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
+diff --git a/drivers/net/ethernet/amd/xgbe/xgbe-dev.c b/drivers/net/ethernet/amd/xgbe/xgbe-dev.c
+index 2de974213..e2e850c1b 100644
+--- a/drivers/net/ethernet/amd/xgbe/xgbe-dev.c
++++ b/drivers/net/ethernet/amd/xgbe/xgbe-dev.c
+@@ -3400,7 +3400,7 @@ static void xgbe_enable_rx(struct xgbe_prv_data *pdata)
+ 	XGMAC_IOWRITE(pdata, MAC_RQC0R, reg_val);
+ 
+ 	/* Enable MAC Rx */
+-	XGMAC_IOWRITE_BITS(pdata, MAC_RCR, DCRCC, 1);
++	XGMAC_IOWRITE_BITS(pdata, MAC_RCR, DCRCC, 0);
+ 	XGMAC_IOWRITE_BITS(pdata, MAC_RCR, CST, 1);
+ 	XGMAC_IOWRITE_BITS(pdata, MAC_RCR, ACS, 1);
+ 	XGMAC_IOWRITE_BITS(pdata, MAC_RCR, RE, 1);
+@@ -3411,7 +3411,6 @@ static void xgbe_disable_rx(struct xgbe_prv_data *pdata)
+ 	unsigned int i;
+ 
+ 	/* Disable MAC Rx */
+-	XGMAC_IOWRITE_BITS(pdata, MAC_RCR, DCRCC, 0);
+ 	XGMAC_IOWRITE_BITS(pdata, MAC_RCR, CST, 0);
+ 	XGMAC_IOWRITE_BITS(pdata, MAC_RCR, ACS, 0);
+ 	XGMAC_IOWRITE_BITS(pdata, MAC_RCR, RE, 0);
