@@ -1,45 +1,43 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97C9E3BB9F4;
-	Thu, 27 Aug 2026 12:48:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB2CF44A3ED;
+	Thu, 27 Aug 2026 12:49:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787834914; cv=none; b=dzOO6lj1WseY+CKnItYNOqZQhC/kIfu5K4r7F4mrk/dnP6K2dqNMts24i+fvHk1hRxlCEMUshra65SW6nn03yp7szQMNz0DvhdNLJQFwCcOn+z5iQ27PWyGCX3CGepVDpY9HpRWzmW+Co+lAsdUnELoiw0ARhUSl4EDi2fCGnSQ=
+	t=1787834969; cv=none; b=Dl+rRTa+XVEaU8kgcD7vASDPV++Qi1iO3SAPSlOPJGdg+FMiApxDHoqyQ6C/lXAiJY5R/hVin+u6d0A/mD2P2DNO6R9xWKkv4D0H+0n6ni4VMz1cmtUR8rhTqvVT2luEWmQFASGBJxa5b7PMBT3TmqH6L1NTLbAmeAAi7Qj+sYU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787834914; c=relaxed/simple;
-	bh=1Bhx/Raco5H/c+FE1c0VCLFACqcMQjx4hIqxzcdgWDA=;
+	s=arc-20240116; t=1787834969; c=relaxed/simple;
+	bh=WccHgyxAi+nBOE6XPI0X71OtXCwAStMIRl9JJFqDmUI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sLtZJeLDCNCakmKX/UTJ5AhYqDQdQgytzESzfyoge8RXLZznsbHN9yh1pa0Ey9Ahu/wprzdkyqsN7GKSMvPQH+N7aUB4t3Ivc2H3VDVBdNPh0/ZCIM52orNK2SnA+YJYqMnhbWzU5Yh1Flc496gWwzJVA1TdadWRsUBsxHsGJ0c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=aQL//VmA; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=gpuy0c3iaQwdX4hXApcxU3BabSqtS8Sm2e+EEJPVo+Azaa24ZAXrqZDsBAKzIH07OzXJcaZVVV28stYFaeQY0FMMilfOYPiQLPIESjAD4dltHMMufEpI8sBYh2rVj5Bi0pMeIVhnpn3k1YJ1mGcYEkf/Po7BRg01CHDb6Qr+hC8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UjgXa3Bk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="aQL//VmA"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=HXw8p/Z8u7hwdpy2r92uaPSgWCw/J8UMZgsokUSz8Wg=; b=aQL//VmAcmGxqxEe77GBQWXmPw
-	PDUexRf/tWtfO2GsJB70nNP01ZJG4nZZwjAsdBmyMEoZ2s3x9qtlOQaX0+osDEsZPenlnhXNWxJmx
-	XQHmT5xv6lkpZP1JxSfIibKF1G0Znpd2nn9ykdI0i+5FcndOhBjheNEWV6XPyVqMko0C4fXvgcylZ
-	kRQlOJi062D9vCUQxrNGWEFstD0l2aau2Q9pRWm+IENoEVPJhGoRX0v6/G2c5VsYjWLKTly650sO4
-	f+GerBI1mMroc0OiADTzk+Vgc7F8QBhXjwe/B6ErpRiDfQXK5U0spb/q/2JfLLauvO4ceBKRa+KZh
-	J/wzLbCw==;
-Received: from [38.23.173.23] (helo=localhost)
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1wzZWM-00000003zUW-2O1B;
-	Thu, 27 Aug 2026 12:47:54 +0000
-Date: Thu, 27 Aug 2026 08:47:51 -0400
-From: "Liam R. Howlett" <liam@infradead.org>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: aliceryhl@google.com, ljs@kernel.org, vbabka@kernel.org, 
-	urezki@gmail.com, ojeda@kernel.org, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] MAINTAINERS: add Alice Ryhl as co-maintainer for Rust
- [ALLOC]
-Message-ID: <qvmn5p7kb4rrk6dmehtipmlxzjtiorflayyy2gakzn3qtexpv6@doqcxo7nujd3>
-References: <20260826132729.3281308-1-dakr@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UjgXa3Bk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE1A31F000E9;
+	Thu, 27 Aug 2026 12:49:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787834950;
+	bh=HyDreMhM8N9JTmhSp9B7DPAqPwJUx4KyypUPXl0B5YU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UjgXa3BkL/lES3mcrKXQAccwqIUeoCH9pX7zqiI6VZCrau8vdTYwIvyomxGPkMiIG
+	 rw3+KJz59pIgcnJv+BqBb5uUDUixzeiGhWXzPdpxYAXrFjE/g/v7pLNSCr5CDmw71T
+	 x+B8nfrFBoEEqmqiY++UdyZvOlDGOQNLLnf62o7cqSBiBK3dgEmF24oShD9B9Voq/I
+	 a0i0UA11p96DWClV+uwXMmXq6tLQdEUNrfZ8UkL0kRKsEJTochM9QlXbvIM2pMFykb
+	 aS1yEduMnZoinNnIU/pMzToje2BPPfUWWyUO3rObHyR9NZPOKVHBAiZqIm1okYgVYN
+	 isNLUwzK1ZBlw==
+Date: Thu, 27 Aug 2026 13:49:05 +0100
+From: Lee Jones <lee@kernel.org>
+To: Thierry Chatard <tchatard@gmail.com>
+Cc: linux-kernel@vger.kernel.org, hansg@kernel.org,
+	platform-driver-x86@vger.kernel.org, ilpo.jarvinen@linux.intel.com,
+	djrscally@gmail.com, linux-media@vger.kernel.org,
+	mchehab@kernel.org, sakari.ailus@linux.intel.com,
+	jacopo.mondi@ideasonboard.com, nicholas@rothemail.net,
+	andriy.shevchenko@intel.com, v.vitovt@gmail.com
+Subject: Re: [PATCH v8 0/6] Enable cameras on Dell Latitude 5285 2-in-1
+Message-ID: <20260827124905.GH770273@google.com>
+References: <20260826112452.13539-1-tchatard@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,35 +46,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260826132729.3281308-1-dakr@kernel.org>
+In-Reply-To: <20260826112452.13539-1-tchatard@gmail.com>
 
-On 26/08/26 03:27PM, Danilo Krummrich wrote:
-> Add Alice as co-maintainer for the Rust alloc module to share
-> maintenance responsibility. This is also a natural fit, as some of the
-> alloc code overlaps with the mm subsystem.
-> 
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+On Wed, 26 Aug 2026, Thierry Chatard wrote:
 
-Acked-by: Liam R. Howlett (Oracle) <liam@infradead.org>
+> This series enables the front (OV5670/INT3479) and rear (OV8858/INT3477)
+> cameras on the Dell Latitude 5285 2-in-1 under Linux.
+> 
+> Per Documentation/process/coding-assistants.rst: this work was developed
+> with significant help from an AI coding assistant (Claude Code, by
+> Anthropic). I used it to help reverse-engineer the ACPI/TPS68470 bring-up,
+> iterate on the board data, and draft these patches. I have reviewed and
+> tested all of it on the actual hardware and take full responsibility for
+> the result.
+> 
+> The series spans two trees: patches 1-4 target platform-drivers-x86 and
+> patches 5-6 target linux-media. All six are needed for a working system.
+> 
+> Changes since v7 (addressing Andy Shevchenko's review):
+> - Patch 1 (intel_lpss): rework the quirk to be data-driven. Match the
+>   machine by DMI and the device (INT3446) by ACPI ID, carry
+>   QUIRK_IGNORE_RESOURCE_CONFLICTS in the ACPI match data, and apply it to
+>   the per-device info in probe, mirroring the PCI counterpart. Drop the
+>   duplicate spt_i2c_info_ignore_conflicts struct and the machine-specific
+>   dev_info(). Fix the include ordering.
+> - New patch 2 (int3472: tps68470): split the int -> unsigned int loop
+>   counter change out of the clock-consumer patch into its own cleanup.
+> - Patch 3 (int3472: tps68470, was patch 2): trim the commit message; no
+>   code change beyond the counter split above.
+> - Patch 6 (ov8858, was patch 5): use a C99 initialiser for the ACPI match
+>   entry and drop the comma after the sentinel.
+> 
+> On the open question from the review: I kept the per-table
+> gpiod_add_lookup_table() loop rather than switching to
+> gpiod_add_lookup_tables(). There is no gpiod_remove_lookup_tables()
+> counterpart for the error-unwind path, the board data uses a counted (not
+> NULL-terminated) array, and the singular form is what the rest of the tree
+> uses, including int3472/discrete.c.
+> 
+> Earlier changelogs (v2-v7) are in the v7 posting:
+>   https://lore.kernel.org/all/20260819140107.1329091-1-tchatard@gmail.com/
+> 
+> Tested on Ubuntu 25.10 (kernel 6.17.0-22-generic) and Ubuntu 26.04
+> (kernel 7.0.0-30-generic). Both cameras working in Zoom, Chrome, and GNOME
+> Camera via PipeWire. Also independently tested on the closely-related Dell
+> Latitude 5290 2-in-1 (same IPU3/TPS68470/OV5670/OV8858/DW9714 stack) by
+> Vitalii Tytskyi:
+>   https://github.com/vitovt/dell-5290-camera-kernel/tree/master/patches
+> 
+> Thierry Chatard (6):
+>   platform/x86: intel_lpss: add resource conflict quirk for Dell Latitude 5285
+>   platform/x86: int3472: tps68470: use unsigned int for GPIO lookup loop counters
+>   platform/x86: int3472: tps68470: fix clock consumer registration for Dell Latitude 5285
+>   platform/x86: int3472: tps68470: add board data for Dell Latitude 5285
+>   media: ipu-bridge: add sensor configuration for OV8858 (INT3477)
+>   media: ov8858: add ACPI device ID INT3477
 
-> ---
->  MAINTAINERS | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 24ca91ce5d86..7daacfd70197 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -23945,6 +23945,7 @@ K:	\b(?i:rust)\b
->  
->  RUST [ALLOC]
->  M:	Danilo Krummrich <dakr@kernel.org>
-> +M:	Alice Ryhl <aliceryhl@google.com>
->  R:	Lorenzo Stoakes <ljs@kernel.org>
->  R:	Vlastimil Babka <vbabka@kernel.org>
->  R:	Liam R. Howlett <liam@infradead.org>
-> 
-> base-commit: 45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229
-> -- 
-> 2.55.0
-> 
+What command did you use to create this set?
+
+Where is the diff?  Walking through each patch to see if there is
+anything I should look at is suboptimal.
+
+-- 
+Lee Jones
