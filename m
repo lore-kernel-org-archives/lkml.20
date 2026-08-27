@@ -1,417 +1,200 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD5E333A6E2
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 01:52:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787795526; cv=none; b=YDpNF/7JzjHZeUjvqiPvTwBoGTuSKpyH8q/WbxJRgO4NvSeuS88QRd/eO1m4njLD7FXhiY3TVbNJo+N2FMCclTte/W4hntzDgdlsnF2l9HNm3o2lGdeODQgnxwoH1YsFP5oMPM25rmXkWIjRtHmlP5bUlkS6wwIG6mh69jxMWOY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787795526; c=relaxed/simple;
-	bh=Z3dJrfN+7whSbAUcK9nYuUNqmN5nKb0PIhzCyTU1r2Q=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=G4Lq8eSQ4fQYlDsTnBaPQaG/7O9/ivdj0kqJsR+O9BKBUoqLwfveZyr8Elyh8sSAp9P45OlHiKv3UWxk2mJKDTJ30/HP0KAsNFpG6yJmLt4uHCLcZLuEAGc9i89i94wIk7LHMgkouqKD1YCr7lFy5AMpFTo9MyS3GfBPyUIdADg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4b28d9206f8so1244239b6e.0
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 18:52:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787795523; x=1788400323;
-        h=content-transfer-encoding:content-type:to:from:subject:message-id
-         :in-reply-to:date:mime-version:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=A2wrl4l5FU6QMXo2RUhhcyrnkT1JWu2KKUXmi+RfHwU=;
-        b=Tmee10LrGy1ykiqP7w99mBSouUT8REmyJaH1E9B/jt44tNwEgSu8ALR/h+ffOmNu54
-         lmqqAtOPnk/xjQEvXLhqpwqOK1+heFoRmmo15Jh1yWiLEZzkGQjydWZFp/PfbqicYgxI
-         5YLoIfcCSkVdeJHZ8Hp0BvMpmAll2XGjQ6mU8QS0aO5+b9pJIwm0pRKbrAWb8gR3sg+7
-         rdLMc0sKOIc61gyB7derfqpEIZbKC3TgkiadJ3I8hwaZ6CSsJ9TrUPjYX/SmkSlFqQ8S
-         rkOEcSY3NBx9xJxrK9hzezMfSpC8sb4MrHS0lZNjdIkQuMVLB94sE8JL/6CzMdIOx85y
-         4pDA==
-X-Forwarded-Encrypted: i=1; AHgh+RrEHosabmT6uSf+Nll3RDv5VhaVe5R9Zjs4dhyj5bTU+PCQZW8t25BPd06mJTcZE0vrK1b33K3bIJ6MeG0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mHwKa7YQ7yy4aIuFzwngsAWotq71tHZu8hsHvkLg/5UIJ6a5r/
-	cOIA8tI+C4+XklLjt0SrV+WI6N6xjhtNJJu12n0OpHvkk4eJ15t06rcm5npQp71NT3IKhFEK8vv
-	oXVNlplKR4Eyn+y3vLMMgi2DEfa2850AcKkigAEGvb1d7NHDlNKnFUfqNkNA=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCE2037DE9D;
+	Thu, 27 Aug 2026 01:52:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=210.61.82.184
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787795567; cv=fail; b=Tp78To+mK8088+vAZ20kCvEb8BbSO4q44G/kW97kw2q7KWFkafNmsZYwt6OEcPVOKIpBiTXiFxyjRgzMfHLxqqtZbhYMsFHkhSmw6RJVcsHCS3BRpUVr+E3jspG3zn+4Bd6JkPyaUBztyAVHNGfDQwWdowyl5APqh+snPQ8q/0A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787795567; c=relaxed/simple;
+	bh=LpC17be2nnfk6N/200E2yV+PoSJPhSHJgzNTmmEV0Ng=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=nOv8shebvYYRBWyYanFxjL6SAZ9ZbrQ/3B//7TJHxBkjdt8+l8A06fNepZP4OhVmy/EmyQoNFZhWh+zJIyp3PNaqxs6uu/yOs+aPTvqpa4v3OnGf5YdeMYiC3LGrrdsZOiTCp7xebkWLh23QzX+lZXiAxjqKw50hPwFZJWLdXMU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=NwXXD+dT; dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b=gJiXox71; arc=fail smtp.client-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="NwXXD+dT";
+	dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b="gJiXox71"
+X-UUID: f8dafc54a1b911f18dc8c9802ae25ab1-20260827
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From; bh=LpC17be2nnfk6N/200E2yV+PoSJPhSHJgzNTmmEV0Ng=;
+	b=NwXXD+dTTFwRhAZywIjnZCOGrOU94sZzHYsHi0ldXKK0wFt57jxzct4Wx+3ryQZXL+ks5pH3yA6ecnSNtXCq4iuLLkE/CfnEUXEWcb+axKMrojTR88LsKPIdeB2JD4Wq+3G4HMjzDpntcHZ6pKU6MZBnlXDis3yBpL3hkGXP7kQ=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:6c18ebe5-3570-4bbd-9685-fe606659a1fb,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:0b2277fe-f4cb-4ad2-b022-e3ac6648bf25,B
+	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|110|111|136|836|865|888|898,TC
+	:-5,Content:0|15|50|99,EDM:-3|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:
+	nil,BEC:-1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC
+	:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: f8dafc54a1b911f18dc8c9802ae25ab1-20260827
+Received: from mtkmbs14n1.mediatek.inc [(172.21.101.75)] by mailgw02.mediatek.com
+	(envelope-from <ck.hu@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 1032202706; Thu, 27 Aug 2026 09:52:34 +0800
+Received: from mtkmbs10n1.mediatek.inc (172.21.101.34) by
+ mtkmbs13n2.mediatek.inc (172.21.101.108) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Thu, 27 Aug 2026 09:52:32 +0800
+Received: from SI4PR04CU001.outbound.protection.outlook.com (172.21.101.237)
+ by mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Thu, 27 Aug 2026 09:52:32 +0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vXRAn/IXTSchV/iaTYvvbQ83u6XEtI5NpSQeN9j9KAL1fbtYK1l5vr6FYZoYLDnSXO0ydSjqqXvzPmL7zUbUURTEx9rdvxdisiHRzpiZRnWb+2LfX0d6FiBB7YBDRnAg6/zpvIPJrtMtDTXsPhvfNnw3OQi6Rr6QxWkSWf08MElASwoQgTsz4iu4FoqOgg3am7U5Q4q5sqLGph76sLcGmr/4zJLL717zpfpoP7TTTzFlWlMpRQePnBTZ1yrc+hJwqlXUwZ/crZsfjzWJq0aaD0m9P9QA08iT57P//xDCitTpw4ZEKKepDi3ywEs3QsBiV9lCoQDXg/BPhMaPagOsZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LpC17be2nnfk6N/200E2yV+PoSJPhSHJgzNTmmEV0Ng=;
+ b=MtzQRg6g91T8+UmxE4mBYpSdeiw78kJCYMoc9kEGd5MylY6q3gg8eH1Ht0Qm5bHam/Pl8GLPGH14UkxU8fbEaWGgD25uIYRaw6djCVCe2HAEC+URbEcLsa1jRpxbLRb5gS4CfYYOQizfcFHbTswFz4vRjASfdqiP7GWwdeHJMc9rlEFUp6X7enrIcuFveKWb64vOOIEwnps40zvcijNYOpCp7+F51ef3MPH3cdHC/zRvzVk6+Xavo9A8FY3c1BXWrLA2rDmpA/0YW7yfLDHSq4v8IPlW3AmGrhwIBR7fFtKXcR13TtndG4TPUIKY8vZ2IpBoe9UFaN5VfLZX4oSBsQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
+ dkim=pass header.d=mediatek.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LpC17be2nnfk6N/200E2yV+PoSJPhSHJgzNTmmEV0Ng=;
+ b=gJiXox71mO+o1LaKZyvPtOsgcFlu6TEX/sAkLrrIKoCZMJc9o2gdE/J0j3fdfshsP40+Ik7KMsqqCnoX52h2gD28I4XOiw/vbWKAno46b5SQyb2P8vYWOB6QHg0SQXMYs0E0hAIA2NGT1ZFeOhg/RDqvg8UWM0DxdDLf4BfPmNM=
+Received: from TYZPR03MB6624.apcprd03.prod.outlook.com (2603:1096:400:1f4::13)
+ by OSQPR03MB8576.apcprd03.prod.outlook.com (2603:1096:604:275::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
+ 2026 01:52:28 +0000
+Received: from TYZPR03MB6624.apcprd03.prod.outlook.com
+ ([fe80::a3c2:b94a:70f:e640]) by TYZPR03MB6624.apcprd03.prod.outlook.com
+ ([fe80::a3c2:b94a:70f:e640%4]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
+ 01:52:27 +0000
+From: =?utf-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	"chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>
+CC: "kernel@collabora.com" <kernel@collabora.com>, "robh@kernel.org"
+	<robh@kernel.org>, "tzimmermann@suse.de" <tzimmermann@suse.de>,
+	"simona@ffwll.ch" <simona@ffwll.ch>, "mripard@kernel.org"
+	<mripard@kernel.org>, =?utf-8?B?Sml0YW8gU2hpICjnn7PorrDmtpsp?=
+	<jitao.shi@mediatek.com>, "linux-mediatek@lists.infradead.org"
+	<linux-mediatek@lists.infradead.org>, "maarten.lankhorst@linux.intel.com"
+	<maarten.lankhorst@linux.intel.com>, "dri-devel@lists.freedesktop.org"
+	<dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "p.zabel@pengutronix.de"
+	<p.zabel@pengutronix.de>, "airlied@gmail.com" <airlied@gmail.com>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "matthias.bgg@gmail.com"
+	<matthias.bgg@gmail.com>, =?utf-8?B?SnVzdGluIFllaCAo6JGJ6Iux6IyCKQ==?=
+	<Justin.Yeh@mediatek.com>, =?utf-8?B?SmFzb24tSkggTGluICjmnpfnnb/npaUp?=
+	<Jason-JH.Lin@mediatek.com>
+Subject: Re: [PATCH v6 07/11] drm/mediatek: mtk_dsi: Add support for MT8189
+Thread-Topic: [PATCH v6 07/11] drm/mediatek: mtk_dsi: Add support for MT8189
+Thread-Index: AQHdFGH3p7dEOOyEFkmUyLiP6uKVCraxZKiA
+Date: Thu, 27 Aug 2026 01:52:27 +0000
+Message-ID: <614bec3336f5e450e914926bd390ef2f6d942ed1.camel@mediatek.com>
+References: <20260715135703.46540-1-angelogioacchino.delregno@collabora.com>
+	 <20260715135703.46540-8-angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20260715135703.46540-8-angelogioacchino.delregno@collabora.com>
+Accept-Language: zh-TW, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+user-agent: Evolution 3.52.3-0ubuntu1 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=mediatek.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TYZPR03MB6624:EE_|OSQPR03MB8576:EE_
+x-ms-office365-filtering-correlation-id: c9726858-3bad-4d14-6005-08df03ddd960
+x-ld-processed: a7687ede-7a6b-4ef6-bace-642f677fbe31,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|7416014|376014|42112799006|1800799024|366016|23010399003|10067099003|22082099003|18002099003|11063799006|4143699003|56012099006|38070700021;
+x-microsoft-antispam-message-info: wdQXFcTDFTNzHunV6sQIXatHFPM17fheNw0CrU+OoZ+3TdnQx8PX2JMnX2auoq1JURKvmIYU3bRrvtN3N0WVjPy5AKlgLJkeqfTR7kes1EdDlJdC93NLCakaIKQjXUCNZ1uJ780np5kgNpXegJ3bGGKCabLx16OVsRLFQL2WsX5+NPdjXYGvqFzBFiBt4CH31k9fwZ3k++R5wXlmGRvpNr+N9ubYp7U5vP0DxamqhB4R8K/QIvc5KJdF8mT6JqezdzhyoP0vXMl0HQuV8yyR2j3gC0L6fk8DvtXillCyyzdjzMcilMmijIzX1tpMVPlWhf9Zh7TuT6Rb3vVuk2n1TLMQt8QMb63YJWDB+aGrzFcLoDBoajLBqMTS8EWoxEGLApJTIqTWecGnHdqmOFYS3SfQU5vTFbselSr9Si2CI/8sBXwYX4v+EHShdK1qZcdXU8MNJc0TFiiI4Nzry+XZW9G/Kkwc7ATNLXWgVvJSpe4sJ/R61ps4htcn3avmiL8OWPAglLMYRH4zyON6FIioV/OjKAnkSG/f9XsKh0RHEmiSoylZ+obWr9efwsaoTj49TnNLfIMY8ShV0SxZt3Ig1+zF9FJJGhdU0ndCEJndRSboxS8tF3Iml+8YqZgNfpZEyXBKQ1ebdSU0NZIZPWXLrrhhINABpRHWHGK+EA3Z6OAyfTqps/TeQGkRqAuhPl/7GFvi4Z6OTRN6eN1nUgsaEQ==
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYZPR03MB6624.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(42112799006)(1800799024)(366016)(23010399003)(10067099003)(22082099003)(18002099003)(11063799006)(4143699003)(56012099006)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?YkdIV1g3dXcvQktPSzRxRkhGK05IYStyTllHeVYzM2xtem04VnUwTnhUa2Ro?=
+ =?utf-8?B?QW5YZW1oamgyc1h1c25pMDc5aVBZL3hjZ3VCR0RaYWU3YmgyeW81Y3R4QkVI?=
+ =?utf-8?B?Z3NLUEZiQ0l1NkJnZjYzZDN3My91ZjgxeEJQOU9GcUI4TTJLSDRWM2dZdEZG?=
+ =?utf-8?B?YlpPb1lwUXo5dWhuVE1TcExOd0lod1hhaURPMEpkQjlVbTBGcVFyQVRpVkFq?=
+ =?utf-8?B?dWRLeU5JbFBPV1BzZGZhL0ZOdGJqcWZkSkYzSThsWmF3azlUaHBrYlpLMjRN?=
+ =?utf-8?B?RjM3UUtkQ0ZwQWVYUE9nWXh4WEg2N0tkWXN6RlB1K2d2MHBXOWZYODBmbzhM?=
+ =?utf-8?B?NVJUeW1rM2k3bEJnZ1BtanNWcy8rZG81Rmh1YWpxVlN0ODdwU2ZPa1lNa1lW?=
+ =?utf-8?B?VXZPQVUxTjAvTGpqY2hXL0N4QzYveGU1NTJmSEdKc3ZuV250THozN1NwVUVN?=
+ =?utf-8?B?bVRaWTFERnp0d1FjSzg1dGJ0VmNNbmdYNWc4OWdmTk11MGFWK29NVnFjYkEv?=
+ =?utf-8?B?ZkFCRkhwV3FKeU40SHZRSXlyZDlxWk1GaDlaMTJKK1F5REhiTmlYV0VDRDBS?=
+ =?utf-8?B?Szd5VlBEWkNoUm5IcFJ0RzVpOTI3eWwzOS8rOXBKK3dDcFBrVkduMWZydm5l?=
+ =?utf-8?B?cndPQkhaYlQ5c2NkTVdpNzhWK0ZPVnhRRllCbnNoMWZHZU1MRHRnalVMSURq?=
+ =?utf-8?B?UWg3S3pwSjZuZ2V5WlhhQlhJTWMzcTJsVTFIVTMvbmgvSGRvM2loY3FlWFJC?=
+ =?utf-8?B?ZlR5T2VVTUQ0bDJ2R0t5N1kxYVFCQUx3Y0xwZUE5ZjVtTm5QcnByeDcrQlBP?=
+ =?utf-8?B?NzZ4NWowNVlXOEZPdHNOc0trTnROSjFCNGlLQVRzWmJBYzhEakdJMmVWQ0Nj?=
+ =?utf-8?B?TDhONGhidFNkVXZYZTljMDRjczFnRjZXemRUVW9aaEFFNVBDSXpZK0EyM2Qx?=
+ =?utf-8?B?OUtYd2N5SDFRUld6Zy9SdkdBREVhaS8rbCtVbC9LbE9OYU5qOW9TSmJoS292?=
+ =?utf-8?B?VDhkM3NxRjgzMlkrdkRlenZBYUFrRzF1cXlWUTMrbzlWUGVnL3JIREp3WXZ5?=
+ =?utf-8?B?UFhVS1IrRHZ2Y25BdFhJaUtKdnkzOUs3dmN4dGhXY0ViL0tSSDk1QnQ5YjFZ?=
+ =?utf-8?B?SVJBWEhIMys2c25wdzFvZHZDcnkzTWVSVjJIdFgvQzNkTGd2Vi9vaTlROUly?=
+ =?utf-8?B?ZlA3U3VYNkpHcWJNc29vdERJSkM5OFhPRUNYc3VHekJ1eDMxMGY0cDJEMVov?=
+ =?utf-8?B?S0VjS2RqTXcydnBXSDlabkZTR3NRODRPc2pCdTN2ZFdHR1Q3OEdiWi83OWtM?=
+ =?utf-8?B?Ny93UkxlOERYSTdBdkRjMGRRT3FZZ1RxT1NydzNrRXJsZE90a2hIeTMvbEJQ?=
+ =?utf-8?B?Z2pMeTY3OEhBRzFWZkp4L3cwaHBYVVRpb2pPY2kwSk1iU1F1YklaeGlZTzFB?=
+ =?utf-8?B?TStKb3JUS2JWYStEeXVRajY3MzQ4aXByU01HeFZ6VzcrY3puMmRWelJsa2Ny?=
+ =?utf-8?B?aU1tMXZkVTVtMVgyYjYrSDl5T1dMS3h6S3pVWU9WR0hvOHZKMElkNnNPa2VI?=
+ =?utf-8?B?d2RNenhWOVBZOWhZengrYW90aWI2VjVLKzVzTm93SnFnU2NsOEJDSE1CT0Zv?=
+ =?utf-8?B?cUJhNjVCdXVCVDJBSDhFNFBjam90U0FoN1BLSUxBM3NhL3U3UzBES01EdVA1?=
+ =?utf-8?B?RXFpVHVOK0JrSFVRREpsaWZoTWw0RTRrZDVQZEV0d3hXWVRUMkJHaFdtcWkz?=
+ =?utf-8?B?L05xcnQ5eUkzTUtoMitWZUE0MzQ5M1hMOGhIZTF6Q0l5VytlSlVhY3lDTllj?=
+ =?utf-8?B?TWMwczcvZ2dxN2VVUzlnNEx4TWRKR3pkMlJjR3BQblRhSlFyc0RsZ3FMelB3?=
+ =?utf-8?B?ZWIyaEJnTW83SWxiU3k1RW50ZVF3ZDlpa05tNWtJaFd3WUZQc2NoeXcvWFRm?=
+ =?utf-8?B?dzlYbjhkUlFoSWo5bWowOGdNUWlDOGQrcHVTSnZFcG9iVzZheHNZUWhQVHBS?=
+ =?utf-8?B?cDZZQ3VXcmdDWU8yNG1Wak9SRFc2SFNjWjhQcU5jK1I1K0svcnB1MDBNSjgy?=
+ =?utf-8?B?S3RRcEpyNnlJejVRbVc4ZTNCRlhXalo4M2o3YVI1T1N3OVJyVTRkdDF2YTNw?=
+ =?utf-8?B?YUVRR1JSMjliNFVYaUxiR2JHZmhoSHc3SjdySlJiUG4zUy8zZEc2dFJXR0cy?=
+ =?utf-8?B?Rk5qcUFJN1B1c2JyZnZleGxyNll3b0ZvNmxVbkUrMDNKQ1VkTE10MDRIQmtI?=
+ =?utf-8?B?U1JQK3JoUDBqWmdDaHExVzM1NEN5L1loT0sreXU3a0xFNTNhTkQzQi9ieVpE?=
+ =?utf-8?B?aTZNUStGZ1ZtR3BpbEpTdThJbkFHL2xZK0ZGaDFEd2hzeFVHTjVtZz09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <3E1870311CCC914791683411710A1C33@apcprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:22a3:b0:49b:33c8:4b75 with SMTP id
- 5614622812f47-4b366910400mr13603778b6e.5.1787795523608; Wed, 26 Aug 2026
- 18:52:03 -0700 (PDT)
-Date: Wed, 26 Aug 2026 18:52:03 -0700
-In-Reply-To: <20260826233812.10722-1-kartikey406@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a8f9843.1d9ded08.62e62.00c3.GAE@google.com>
-Subject: Re: [syzbot] [bpf?] general protection fault in btf_type_show
-From: syzbot <syzbot+37b56485bbbf90ad8489@syzkaller.appspotmail.com>
-To: kartikey406@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Exchange-RoutingPolicyChecked: biZoeB+7bexcOheu4lkPDeQEQ3A8ryXQC6LNMdlOu6NaWXy39oSLgJg1wcgfm9zg5aUZcaZq+UVODk2SJj+D1bwc82ebNLTRSdiRViqNfPmnGWPtzwv2FByWxsrf+9RA70HHA7HiwZb4plmu2Ub2ND5sDn0zsJNEGXszNDOtFil2+qBAU/n2Zycp3QxcZv8Pu1Pr/djm3j84+eCYmZDo1UCq8XFpshpKs9EGOkYNr7ENYRebXJekKFI7D4fiki+hR1OAGmdsMYkn6u0xRijn4AEqE1YDw73Wl4XP7GQkUzpPcnWHeJkHr4BzrDfZnDoy0/+dUjtAZgzWJQmyZmR4QA==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB6624.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c9726858-3bad-4d14-6005-08df03ddd960
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Aug 2026 01:52:27.8980
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: FrPXvV7pQ72eCIUnQC9t9L25QnzAr3BdV7/A9PkX5FO2w3o7R5Hk4ksE80ydUpxpuGN0e0QfKiIT90zKrwdB+g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSQPR03MB8576
+X-MTK: N
 
-Hello,
-
-syzbot tried to test the proposed patch but the build/boot failed:
-
-   T1] RAPL PMU: API unit is 2^-32 Joules, 0 fixed counters, 10737418240 ms=
- ovfl timer
-[    4.474934][    T1] kvm_amd: CPU 1 isn't AMD or Hygon
-[    4.474993][    T1] clocksource: tsc: mask: 0xffffffffffffffff max_cycle=
-s: 0x257a472b559, max_idle_ns: 440795210424 ns
-[    4.484335][    T1] clocksource: Switched to clocksource tsc
-[    4.526975][    T1] Initialise system trusted keyrings
-[    4.528327][    T1] workingset: timestamp_bits=3D40 (anon: 35) max_order=
-=3D20 bucket_order=3D0 (anon: 0)
-[    4.535686][    T1] DLM installed
-[    4.542852][    T1] squashfs: version 4.0 (2009/01/31) Phillip Lougher
-[    4.550466][    T1] NFS: Registering the id_resolver key type
-[    4.550700][    T1] Key type id_resolver registered
-[    4.550712][    T1] Key type id_legacy registered
-[    4.551060][    T1] nfs4filelayout_init: NFSv4 File Layout Driver Regist=
-ering...
-[    4.551182][    T1] nfs4flexfilelayout_init: NFSv4 Flexfile Layout Drive=
-r Registering...
-[    4.555844][    T1] smbdirect: subsystem loading...
-[    4.562500][    T1] smbdirect: subsystem loaded
-[    4.575870][    T1] Key type cifs.spnego registered
-[    4.576074][    T1] Key type cifs.idmap registered
-[    4.579587][    T1] ntfs3: Enabled Linux POSIX ACLs support
-[    4.579598][    T1] ntfs3: Read-only LZX/Xpress compression included
-[    4.579808][    T1] jffs2: version 2.2. (NAND) (SUMMARY)  =C2=A9 2001-20=
-06 Red Hat, Inc.
-[    4.581620][    T1] romfs: ROMFS MTD (C) 2007 Red Hat, Inc.
-[    4.581778][    T1] QNX4 filesystem 0.2.3 registered.
-[    4.581850][    T1] qnx6: QNX6 filesystem 1.0.0 registered.
-[    4.582643][    T1] fuse: init (API version 7.46)
-[    4.584530][    T1] orangefs_debugfs_init: called with debug mask: :none=
-: :0:
-[    4.585189][    T1] orangefs_init: module version upstream loaded
-[    4.586040][    T1] JFS: nTxBlock =3D 8192, nTxLock =3D 65536
-[    4.597245][    T1] SGI XFS with ACLs, security attributes, realtime, sc=
-rub, repair, quota, no debug enabled
-[    4.604106][    T1] 9p: Installing v9fs 9p2000 file system support
-[    4.604734][    T1] NILFS version 2 loaded
-[    4.604744][    T1] befs: version: 0.9.3
-[    4.605658][    T1] ocfs2: Registered cluster interface o2cb
-[    4.606687][    T1] ocfs2: Registered cluster interface user
-[    4.607437][    T1] OCFS2 User DLM kernel interface loaded
-[    4.618862][    T1] gfs2: GFS2 installed
-[    4.627883][    T1] ceph: loaded (mds proto 32)
-[    4.650286][    T1] NET: Registered PF_ALG protocol family
-[    4.654591][    T1] async_tx: api initialized (async)
-[    4.657652][    T1] Key type asymmetric registered
-[    4.661111][    T1] Asymmetric key parser 'x509' registered
-[    4.661175][    T1] Asymmetric key parser 'pkcs8' registered
-[    4.661197][    T1] Key type pkcs7_test registered
-[    4.661884][    T1] Block layer SCSI generic (bsg) driver version 0.4 lo=
-aded (major 239)
-[    4.663457][    T1] io scheduler mq-deadline registered
-[    4.663468][    T1] io scheduler kyber registered
-[    4.663778][    T1] io scheduler bfq registered
-[    4.664888][    T1] raid6: skipped pq benchmark and selected avx512x4
-[    4.700668][    T1] ACPI: \_SB_.GSIE: Enabled at IRQ 20
-[    4.707226][    T1] pcieport 0000:00:04.0: PME: Signaling with IRQ 25
-[    4.709647][    T1] pcieport 0000:00:04.0: AER: enabled with IRQ 26
-[    4.716102][    T1] input: Power Button as /devices/platform/LNXPWRBN:00=
-/input/input0
-[    4.717363][    T1] ACPI: button: Power Button [PWRF]
-[    5.035886][    T1] ioatdma: Intel(R) QuickData Technology Driver 5.00
-[    5.061462][    T1] ACPI: \_SB_.GSIF: Enabled at IRQ 21
-[    5.093788][    T1] ACPI: \_SB_.GSIH: Enabled at IRQ 23
-[    5.400353][    T1] N_HDLC line discipline registered with maxframe=3D40=
-96
-[    5.401481][    T1] Serial: 8250/16550 driver, 4 ports, IRQ sharing enab=
-led
-[    5.411938][    T1] 00:04: ttyS0 I/O:0x3f8 (irq =3D 4, base_baud =3D 115=
-200) is a 16550A
-[    5.448672][    T1] Non-volatile memory driver v1.3
-[    5.457263][    T1] usbcore: registered new interface driver xillyusb
-[    5.459532][    T1] ACPI: bus type drm_connector registered
-[    5.463504][    T1] [drm] Initialized vgem 1.0.0 for vgem on minor 0
-[    5.463734][    T1] usbcore: registered new interface driver udl
-[    5.465228][    T1] [drm] pci: virtio-vga detected at 0000:00:01.0
-[    5.465324][    T1] virtio-pci 0000:00:01.0: vgaarb: deactivate vga cons=
-ole
-[    5.492574][    T1] Console: switching to colour dummy device 80x25
-[    5.495090][    T1] [drm] features: -virgl +edid -resource_blob -host_vi=
-sible
-[
-** replaying previous printk message **
-[    5.495105][    T1] [drm] features: -context_init -blob_alignment
-[    5.501365][    T1] [drm] number of scanouts: 1
-[    5.501399][    T1] [drm] number of cap sets: 0
-[    5.504207][    T1] ------------[ cut here ]------------
-[    5.504216][    T1] [PLANE:36:plane-1] pixel format with alpha exposed b=
-ut blend mode not setup
-[    5.504223][    T1] WARNING: drivers/gpu/drm/drm_mode_config.c:872 at dr=
-m_mode_config_validate+0xfb4/0x1be0, CPU#2: swapper/0/1
-[    5.533001][    T1] Modules linked in:
-[    5.535247][    T1] CPU: 2 UID: 0 PID: 1 Comm: swapper/0 Not tainted syz=
-kaller #0 PREEMPT(full)=20
-[    5.540434][    T1] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), =
-BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[    5.546862][    T1] RIP: 0010:drm_mode_config_validate+0xfbb/0x1be0
-[    5.550664][    T1] Code: 00 49 8b 57 18 48 89 f8 48 c1 e8 03 0f b6 04 2=
-8 84 c0 74 08 3c 03 0f 8e 00 0b 00 00 48 8d 3d ec 61 7e 0b 41 8b b7 c8 00 0=
-0 00 <67> 48 0f b9 3a e9 fa fd ff ff 48 8b 5c 24 20 e8 01 e5 39 fc 48 8d
-[    5.563050][    T1] RSP: 0000:ffffc90000047908 EFLAGS: 00010246
-[    5.566897][    T1] RAX: 0000000000000000 RBX: 0000000000000000 RCX: 000=
-0000000000000
-[    5.571446][    T1] RDX: ffff888027bd2f40 RSI: 0000000000000024 RDI: fff=
-fffff915052c0
-[    5.575765][    T1] RBP: dffffc0000000000 R08: 0000000000000001 R09: 000=
-0000000000000
-[    5.579893][    T1] R10: 0000000000000001 R11: 0000000000000000 R12: fff=
-fed1005000c23
-[    5.584354][    T1] R13: ffffed1005000c24 R14: 0000000000000001 R15: fff=
-f888028006028
-[    5.588750][    T1] FS:  0000000000000000(0000) GS:ffff8880d5d6a000(0000=
-) knlGS:0000000000000000
-[    5.593478][    T1] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[    5.597618][    T1] CR2: 0000000000000000 CR3: 000000000eb96000 CR4: 000=
-0000000352ef0
-[    5.602523][    T1] Call Trace:
-[    5.604635][    T1]  <TASK>
-[    5.606449][    T1]  ? queue_work_on+0xd7/0x1e0
-[    5.609586][    T1]  drm_dev_register+0x56e/0x7b0
-[    5.612951][    T1]  ? aperture_remove_conflicting_pci_devices+0x138/0x1=
-e0
-[    5.617963][    T1]  virtio_gpu_probe+0x271/0x360
-[    5.620957][    T1]  virtio_dev_probe+0x6a2/0xbe0
-[    5.623804][    T1]  ? __pfx_virtio_dev_probe+0x10/0x10
-[    5.627271][    T1]  ? kernfs_create_link+0x1bd/0x240
-[    5.630371][    T1]  ? kernfs_put+0x3f/0x60
-[    5.633541][    T1]  ? sysfs_do_create_link_sd+0xbb/0x140
-[    5.637163][    T1]  ? sysfs_create_link+0x68/0xc0
-[    5.640484][    T1]  ? __pfx_virtio_dev_probe+0x10/0x10
-[    5.643796][    T1]  really_probe+0x241/0xa60
-[    5.646731][    T1]  __driver_probe_device+0x210/0x460
-[    5.649805][    T1]  ? _raw_spin_unlock_irqrestore+0x52/0x80
-[    5.654757][    T1]  driver_probe_device+0x4a/0x140
-[    5.657837][    T1]  __driver_attach+0x21f/0x5b0
-[    5.660733][    T1]  ? __pfx___driver_attach+0x10/0x10
-[    5.664174][    T1]  bus_for_each_dev+0x13e/0x1d0
-[    5.666795][    T1]  ? __pfx_bus_for_each_dev+0x10/0x10
-[    5.669565][    T1]  ? bus_add_driver+0x2b5/0x5b0
-[    5.672088][    T1]  bus_add_driver+0x305/0x5b0
-[    5.674770][    T1]  driver_register+0x1e2/0x360
-[    5.677613][    T1]  ? __pfx_virtio_gpu_driver_init+0x10/0x10
-[    5.680910][    T1]  virtio_gpu_driver_init+0xc9/0x170
-[    5.683760][    T1]  do_one_initcall+0x11c/0x6f0
-[    5.686221][    T1]  ? __pfx_do_one_initcall+0x10/0x10
-[    5.689018][    T1]  ? kasan_unpoison+0x43/0x60
-[    5.691592][    T1]  ? kernel_init_freeable+0x4ca/0x7b0
-[    5.694601][    T1]  kernel_init_freeable+0x6ea/0x7b0
-[    5.697334][    T1]  ? __pfx_kernel_init+0x10/0x10
-[    5.699993][    T1]  kernel_init+0x21/0x1e0
-[    5.702344][    T1]  ? __pfx_kernel_init+0x10/0x10
-[    5.705326][    T1]  ret_from_fork+0x730/0xd60
-[    5.708154][    T1]  ? __pfx_ret_from_fork+0x10/0x10
-[    5.710993][    T1]  ? __switch_to+0x800/0x10f0
-[    5.713506][    T1]  ? __pfx_kernel_init+0x10/0x10
-[    5.716058][    T1]  ret_from_fork_asm+0x1a/0x30
-[    5.718608][    T1]  </TASK>
-[    5.720210][    T1] Kernel panic - not syncing: kernel: panic_on_warn se=
-t ...
-[    5.720947][    T1] CPU: 2 UID: 0 PID: 1 Comm: swapper/0 Not tainted syz=
-kaller #0 PREEMPT(full)=20
-[    5.720947][    T1] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), =
-BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[    5.730940][    T1] Call Trace:
-[    5.730940][    T1]  <TASK>
-[    5.730940][    T1]  dump_stack_lvl+0x100/0x190
-[    5.730940][    T1]  vpanic+0x553/0x970
-[    5.740939][    T1]  ? __pfx_vpanic+0x10/0x10
-[    5.740939][    T1]  panic+0xd1/0xe0
-[    5.740939][    T1]  ? __pfx_panic+0x10/0x10
-[    5.740939][    T1]  check_panic_on_warn.cold+0x19/0x34
-[    5.750951][    T1]  ? drm_mode_config_validate+0xfb4/0x1be0
-[    5.750951][    T1]  __warn.cold+0x191/0x318
-[    5.750951][    T1]  __report_bug+0x30f/0x440
-[    5.750951][    T1]  ? drm_mode_config_validate+0xfb4/0x1be0
-[    5.760949][    T1]  ? __pfx___report_bug+0x10/0x10
-[    5.760949][    T1]  ? __pfx___might_resched+0x10/0x10
-[    5.760949][    T1]  ? schedule_timeout+0x161/0x280
-[    5.760949][    T1]  report_bug_entry+0xe2/0x290
-[    5.770967][    T1]  ? drm_mode_config_validate+0xfbb/0x1be0
-[    5.770967][    T1]  handle_bug+0x1cd/0x2a0
-[    5.770967][    T1]  exc_invalid_op+0x17/0x50
-[    5.780911][    T1]  asm_exc_invalid_op+0x1a/0x20
-[    5.780911][    T1] RIP: 0010:drm_mode_config_validate+0xfbb/0x1be0
-[    5.780911][    T1] Code: 00 49 8b 57 18 48 89 f8 48 c1 e8 03 0f b6 04 2=
-8 84 c0 74 08 3c 03 0f 8e 00 0b 00 00 48 8d 3d ec 61 7e 0b 41 8b b7 c8 00 0=
-0 00 <67> 48 0f b9 3a e9 fa fd ff ff 48 8b 5c 24 20 e8 01 e5 39 fc 48 8d
-[    5.790950][    T1] RSP: 0000:ffffc90000047908 EFLAGS: 00010246
-[    5.801075][    T1] RAX: 0000000000000000 RBX: 0000000000000000 RCX: 000=
-0000000000000
-[    5.801075][    T1] RDX: ffff888027bd2f40 RSI: 0000000000000024 RDI: fff=
-fffff915052c0
-[    5.801075][    T1] RBP: dffffc0000000000 R08: 0000000000000001 R09: 000=
-0000000000000
-[    5.810970][    T1] R10: 0000000000000001 R11: 0000000000000000 R12: fff=
-fed1005000c23
-[    5.810970][    T1] R13: ffffed1005000c24 R14: 0000000000000001 R15: fff=
-f888028006028
-[    5.820978][    T1]  ? drm_mode_config_validate+0xf76/0x1be0
-[    5.820978][    T1]  ? queue_work_on+0xd7/0x1e0
-[    5.820978][    T1]  drm_dev_register+0x56e/0x7b0
-[    5.830989][    T1]  ? aperture_remove_conflicting_pci_devices+0x138/0x1=
-e0
-[    5.830989][    T1]  virtio_gpu_probe+0x271/0x360
-[    5.830989][    T1]  virtio_dev_probe+0x6a2/0xbe0
-[    5.841011][    T1]  ? __pfx_virtio_dev_probe+0x10/0x10
-[    5.841011][    T1]  ? kernfs_create_link+0x1bd/0x240
-[    5.841011][    T1]  ? kernfs_put+0x3f/0x60
-[    5.841011][    T1]  ? sysfs_do_create_link_sd+0xbb/0x140
-[    5.850976][    T1]  ? sysfs_create_link+0x68/0xc0
-[    5.850976][    T1]  ? __pfx_virtio_dev_probe+0x10/0x10
-[    5.850976][    T1]  really_probe+0x241/0xa60
-[    5.850976][    T1]  __driver_probe_device+0x210/0x460
-[    5.860978][    T1]  ? _raw_spin_unlock_irqrestore+0x52/0x80
-[    5.860978][    T1]  driver_probe_device+0x4a/0x140
-[    5.860978][    T1]  __driver_attach+0x21f/0x5b0
-[    5.870986][    T1]  ? __pfx___driver_attach+0x10/0x10
-[    5.870986][    T1]  bus_for_each_dev+0x13e/0x1d0
-[    5.870986][    T1]  ? __pfx_bus_for_each_dev+0x10/0x10
-[    5.870986][    T1]  ? bus_add_driver+0x2b5/0x5b0
-[    5.880995][    T1]  bus_add_driver+0x305/0x5b0
-[    5.880995][    T1]  driver_register+0x1e2/0x360
-[    5.880995][    T1]  ? __pfx_virtio_gpu_driver_init+0x10/0x10
-[    5.890955][    T1]  virtio_gpu_driver_init+0xc9/0x170
-[    5.890955][    T1]  do_one_initcall+0x11c/0x6f0
-[    5.890955][    T1]  ? __pfx_do_one_initcall+0x10/0x10
-[    5.890955][    T1]  ? kasan_unpoison+0x43/0x60
-[    5.900962][    T1]  ? kernel_init_freeable+0x4ca/0x7b0
-[    5.900962][    T1]  kernel_init_freeable+0x6ea/0x7b0
-[    5.900962][    T1]  ? __pfx_kernel_init+0x10/0x10
-[    5.910965][    T1]  kernel_init+0x21/0x1e0
-[    5.910965][    T1]  ? __pfx_kernel_init+0x10/0x10
-[    5.910965][    T1]  ret_from_fork+0x730/0xd60
-[    5.910965][    T1]  ? __pfx_ret_from_fork+0x10/0x10
-[    5.910965][    T1]  ? __switch_to+0x800/0x10f0
-[    5.910965][    T1]  ? __pfx_kernel_init+0x10/0x10
-[    5.910965][    T1]  ret_from_fork_asm+0x1a/0x30
-[    5.910965][    T1]  </TASK>
-[    5.930931][    T1] Kernel Offset: disabled
-[    5.930931][    T1] Rebooting in 86400 seconds..
-
-
-syzkaller build log:
-go env (err=3D<nil>)
-AR=3D'ar'
-CC=3D'gcc'
-CGO_CFLAGS=3D'-O2 -g'
-CGO_CPPFLAGS=3D''
-CGO_CXXFLAGS=3D'-O2 -g'
-CGO_ENABLED=3D'1'
-CGO_FFLAGS=3D'-O2 -g'
-CGO_LDFLAGS=3D'-O2 -g'
-CXX=3D'g++'
-GCCGO=3D'gccgo'
-GO111MODULE=3D'auto'
-GOAMD64=3D'v1'
-GOARCH=3D'amd64'
-GOAUTH=3D'netrc'
-GOBIN=3D''
-GOCACHE=3D'/syzkaller/.cache/go-build'
-GOCACHEPROG=3D''
-GODEBUG=3D''
-GOENV=3D'/syzkaller/.config/go/env'
-GOEXE=3D''
-GOEXPERIMENT=3D''
-GOFIPS140=3D'off'
-GOFLAGS=3D''
-GOGCCFLAGS=3D'-fPIC -m64 -pthread -Wl,--no-gc-sections -fmessage-length=3D0=
- -ffile-prefix-map=3D/tmp/go-build2460156341=3D/tmp/go-build -gno-record-gc=
-c-switches'
-GOHOSTARCH=3D'amd64'
-GOHOSTOS=3D'linux'
-GOINSECURE=3D''
-GOMOD=3D'/syzkaller/jobs/linux/gopath/src/github.com/google/syzkaller/go.mo=
-d'
-GOMODCACHE=3D'/syzkaller/jobs/linux/gopath/pkg/mod'
-GONOPROXY=3D''
-GONOSUMDB=3D''
-GOOS=3D'linux'
-GOPATH=3D'/syzkaller/jobs/linux/gopath'
-GOPRIVATE=3D''
-GOPROXY=3D'https://proxy.golang.org,direct'
-GOROOT=3D'/usr/local/go'
-GOSUMDB=3D'sum.golang.org'
-GOTELEMETRY=3D'local'
-GOTELEMETRYDIR=3D'/syzkaller/.config/go/telemetry'
-GOTMPDIR=3D''
-GOTOOLCHAIN=3D'auto'
-GOTOOLDIR=3D'/usr/local/go/pkg/tool/linux_amd64'
-GOVCS=3D''
-GOVERSION=3D'go1.26.0'
-GOWORK=3D''
-PKG_CONFIG=3D'pkg-config'
-
-git status (err=3D<nil>)
-HEAD detached at 1e72964b011
-nothing to commit, working tree clean
-
-
-tput: No value for $TERM and no -T specified
-tput: No value for $TERM and no -T specified
-Makefile:31: run command via tools/syz-env for best compatibility, see:
-Makefile:32: https://github.com/google/syzkaller/blob/master/docs/contribut=
-ing.md#using-syz-env
-go list -f '{{.Stale}}' -ldflags=3D"-s -w -X github.com/google/syzkaller/pr=
-og.GitRevision=3D1e72964b0111319984575e60f266d1fa0a98abb5 -X github.com/goo=
-gle/syzkaller/prog.gitRevisionDate=3D20260817-123423"  ./sys/syz-sysgen | g=
-rep -q false || go install -ldflags=3D"-s -w -X github.com/google/syzkaller=
-/prog.GitRevision=3D1e72964b0111319984575e60f266d1fa0a98abb5 -X github.com/=
-google/syzkaller/prog.gitRevisionDate=3D20260817-123423"  ./sys/syz-sysgen
-make .descriptions
-tput: No value for $TERM and no -T specified
-tput: No value for $TERM and no -T specified
-Makefile:31: run command via tools/syz-env for best compatibility, see:
-Makefile:32: https://github.com/google/syzkaller/blob/master/docs/contribut=
-ing.md#using-syz-env
-bin/syz-sysgen
-touch .descriptions
-GOOS=3Dlinux GOARCH=3Damd64 go build -ldflags=3D"-s -w -X github.com/google=
-/syzkaller/prog.GitRevision=3D1e72964b0111319984575e60f266d1fa0a98abb5 -X g=
-ithub.com/google/syzkaller/prog.gitRevisionDate=3D20260817-123423"  -o ./bi=
-n/linux_amd64/syz-execprog github.com/google/syzkaller/tools/syz-execprog
-mkdir -p ./bin/linux_amd64
-g++ -o ./bin/linux_amd64/syz-executor executor/executor.cc \
-	-m64 -O2 -pthread -Wall -Werror -Wparentheses -Wunused-const-variable -Wfr=
-ame-larger-than=3D16384 -Wno-stringop-overflow -Wno-array-bounds -Wno-forma=
-t-overflow -Wno-unused-but-set-variable -Wno-unused-command-line-argument -=
-static-pie -std=3Dc++17 -I. -Iexecutor/_include   -DGOOS_linux=3D1 -DGOARCH=
-_amd64=3D1 \
-	-DHOSTGOOS_linux=3D1 -DGIT_REVISION=3D\"1e72964b0111319984575e60f266d1fa0a=
-98abb5\"
-/usr/bin/ld: /tmp/cc0Q5SV6.o: in function `Connection::Connect(char const*,=
- char const*)':
-executor.cc:(.text._ZN10Connection7ConnectEPKcS1_[_ZN10Connection7ConnectEP=
-KcS1_]+0x386): warning: Using 'gethostbyname' in statically linked applicat=
-ions requires at runtime the shared libraries from the glibc version used f=
-or linking
-./tools/check-syzos.sh 2>/dev/null
-
-
-Error text is too large and was truncated, full error text is at:
-https://syzkaller.appspot.com/x/error.txt?x=3D13945625580000
-
-
-Tested on:
-
-commit:         73e3f071 Merge tag 'nfs-for-7.3-1' of git://git.linux-..
-git tree:       upstream
-kernel config:  https://syzkaller.appspot.com/x/.config?x=3Dc2d3e2a7997c1d5=
-c
-dashboard link: https://syzkaller.appspot.com/bug?extid=3D37b56485bbbf90ad8=
-489
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Deb=
-ian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=3D1213e9795800=
-00
-
+T24gV2VkLCAyMDI2LTA3LTE1IGF0IDE1OjU2ICswMjAwLCBBbmdlbG9HaW9hY2NoaW5vIERlbCBS
+ZWdubyB3cm90ZToNCj4gQWRkIHN1cHBvcnQgZm9yIHRoZSBEU0kgSVAgZm91bmQgaW4gdGhlIE1U
+ODE4OSBTb0M6IHRoaXMgb25lIGlzDQo+IHNpbWlsYXIgdG8gdGhlIElQcyBmb3VuZCBpbiB0aGUg
+bW9zdCByZWNlbnQgYWxyZWFkeSBzdXBwb3J0ZWQgU29Dcw0KPiB3aXRoIHRoZSBvbmx5IGRpZmZl
+cmVuY2UgYmVpbmcgdGhhdCBpdCBzdXBwb3J0cyBhIGhpZ2hlciBsaW5rIHJhdGUNCj4gb2YgMi41
+R2JwcyBpbnN0ZWFkIG9mIDEuNUdicHMuDQo+IA0KPiBUbyBzdXBwb3J0IHRoZSBoaWdoZXIgcmF0
+ZSwgYWRkIGEgbmV3ICJtYXhfbGlua19yYXRlX21icHMiIG1lbWJlcg0KPiB0byB0aGUgbXRrX2Rz
+aV9kcml2ZXJfZGF0YSwgYXNzaWduIHRoZSBjb3JyZWN0IG9uZSB0byBhbGwgb2YgdGhlDQo+IHN1
+cHBvcnRlZCBTb0NzLCBvdGhlciB0aGFuIHRvIHRoZSBuZXdseSBpbnRyb2R1Y2VkIE1UODE4OSwg
+YW5kDQo+IHVzZSBpdCBpbiB0aGUgLm1vZGVfdmFsaWQoKSBjYWxsYmFjayBpbiBwbGFjZSBvZiB0
+aGUgaGFyZGNvZGVkDQo+IDEuNUdicHMgdmFsdWUuDQo+IA0KPiBTaW5jZSAubW9kZV92YWxpZCgp
+IGlzIHN1cHBvc2VkIHRvIHJ1biBqdXN0IGZvciByZXNvbHV0aW9uIGNoYW5nZXMNCj4gdGhlIGxp
+bmsgcmF0ZSB3YXMgZXhwcmVzc2VkIGluIE1icHMgYW5kIGdldHMgbXVsdGlwbGllZCBvbiB0aGUg
+Zmx5DQo+IHRvIHNhdmUgc29tZSBiaXRzLg0KPiANCj4gQXMgYSBub3RlLCBzdGFydGluZyB3aXRo
+IE1UODE4OSwgaGlnaGVyIG1heGltdW0gcGl4ZWwgY2xvY2sgcmF0ZXMNCj4gYXJlIGFjaGlldmFi
+bGU6IHdoaWxlIGF0IGl0LCBhbHNvIG1ha2Ugc3VyZSB0aGF0IGNhbGN1bGF0aW9ucyBhcmUNCj4g
+bm90IG92ZXJmbG93aW5nIGJ5IGNhc3RpbmcgdG8gdTY0IHdoZXJlIG5lZWRlZC4NCg0KSSB3b3Vs
+ZCBsaWtlIHRvIHNlcGFyYXRlIHRoaXMgcGF0Y2ggaW50byB0d28gcGF0Y2hlcy4NCk9uZSBpcyB0
+byBhZGQgbWF4X2xpbmtfcmF0ZV9tYnBzIHRvIHN1cHBvcnQgZGlmZmVyZW50IG1heCBsaW5rIHJh
+dGUuDQpBbm90aGVyIG9uZSBpcyB0byBzdXBwb3J0IG10ODE4OSBkc2kuDQoNClJlZ2FyZHMsDQpD
+Sw0KDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBBbmdlbG9HaW9hY2NoaW5vIERlbCBSZWdubyA8YW5n
+ZWxvZ2lvYWNjaGluby5kZWxyZWdub0Bjb2xsYWJvcmEuY29tPg0KPiAtLS0NCg0K
