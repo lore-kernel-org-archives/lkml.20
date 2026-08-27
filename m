@@ -1,170 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from r3-11.sinamail.sina.com.cn (r3-11.sinamail.sina.com.cn [202.108.3.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDC8B3911AB;
-	Thu, 27 Aug 2026 23:43:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DA1F2BE02D
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 23:46:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787874220; cv=none; b=DnPYbP86juwKsEP4VnlZy68F/i0XgWgaboagifx12k7+0m9oxk4QdwwG+UG30chPPRbIAfD71zLFZf4r31GXBQVTnE92dBTUbH8Vv/a99WbcPkPrEraS5F2yCmvb0QqWO2YpTp+VJLQ7pJybVgLkeIO01NFsR0GPl9YSnE95knM=
+	t=1787874370; cv=none; b=Me9TGOAHivqrk9AvKZZQJqQAHMBufaVPRwND+c3f6Qz5VijpFenG6uzVTgUL1StOAh3eilCpzcAqBOBfMFZPK1cp5Ii/6RoBVCLdstYukyITMSLbrdcWnBODGxd0SSCi+dC+ttYaLHaMGQ03A86RV2cPGHY/WkiJx/kMT3jVDzQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787874220; c=relaxed/simple;
-	bh=aVbapNLWK2qfSawOG2PBSAswbd0mvUw5awyzWMDDGdY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uEJYYRJUPLprIxg/vVRUIdnTDgUHrdbYP9I2VxZTnIm+si854ZnZQNJIsuO6QvGoGgHF/QUIWZyJwB0VgUQ8doKsvp3qse3EkhzZ7EZjemKinJ04MuNT+SLqBm3PYAaDh7/WUgxbzM5hX1XT7bvC4xXPC0aeR2B0Yo+OZZNtoOg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XjYYTimE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787874370; c=relaxed/simple;
+	bh=3KX/Fugr/Yv5DcLb8arEf1+fCu2wAAMZ9/Xxitb4YgI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=JZivHgYGOO32IX/JhvtIWQE8Jge3kvcUjVu5mZBFnG17RMdAN6nSlk3yzwP29T6QXz2jRq3pF97HHej/hEZYm2QLJI59IurUMW+AfG+3gRY+9fa+Jcen+QYDHaHTebvwC6KxAg93MFHmIymoFSW5BdNIl0GKzxoZ6NE83rTLKuE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=lGPbokFX; arc=none smtp.client-ip=202.108.3.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XjYYTimE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F1441F000E9;
-	Thu, 27 Aug 2026 23:43:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787874218;
-	bh=uG/sFEYg6fLCXYbNnioa5h406ZuuQtswBX3GqQ3y1Wg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=XjYYTimEgX81hphj9S+zikpktLrOLN75rFHIYOpWFs4GLu4PgwaGEYEVEBqgCOSEj
-	 /Z+duVxHY8BJbToNjuGq5XiPzaa9Hq7QPv3H1T8PrkRA7Bug0HTWa6lfITitztPUf2
-	 STjMRwY2qmG6VDAzk/xu7R2aVK56rkklDwQ3dHnVnsvXbduasD34C7Af9fmRjZR/mT
-	 sfb/bfieYwU6Ods/MTL1WNyM5Sn0UwQLnLhtDNIfisL3oYYvzT1JXh+WkYTC45/+yz
-	 6tmj7ojLDRYxq5JoGVToj1coxgrO1rmI9mxxcyIounpyWMBw8RjLt1RrQn2sEKPsNR
-	 EE1wvPkulbEpg==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC 08/10] Set PF_RECLAIMABLE_STACK in various places
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "David Stevens" <stevensd@google.com>
-Cc: linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev
-In-Reply-To: <20260827232948.2520558-9-stevensd@google.com>
-References: <20260827232948.2520558-1-stevensd@google.com>
- <20260827232948.2520558-9-stevensd@google.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 27 Aug 2026 23:43:37 +0000
-Message-Id: <20260827234338.3F1441F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="lGPbokFX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1787874365;
+	bh=CXmNRXpwDr9L+NRSTgprwbZvNbEWKioENjFRaHEwz88=;
+	h=From:Subject:Date:Message-ID;
+	b=lGPbokFX9whDKqfuSS5D9GXkPAjUSP3SNiLQxGO45d4M+H080O/R89raowZctauJK
+	 KGG7iojlSUc4C0l2mGa0v+mEWpZwf5VVoz0qSSBT9z6yiJxYsOaAES69NuNeCfOGDz
+	 nXHPhdWZ2sxbxwa3M786z365h9K8SxXKMTHyZRHc=
+X-SMAIL-HELO: localhost.localdomain
+Received: from unknown (HELO localhost.localdomain)([114.249.62.194])
+	by sina.com (10.54.253.34) with ESMTP
+	id 6A90CC3500000F0E; Thu, 28 Aug 2026 07:46:00 +0800 (CST)
+X-Sender: hdanton@sina.com
+X-Auth-ID: hdanton@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=hdanton@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=hdanton@sina.com
+X-SMAIL-MID: 8115396292064
+X-SMAIL-UIID: 0A5ADD4195004BCDB6DFE08C898C3124-20260828-074600-1
+From: Hillf Danton <hdanton@sina.com>
+To: syzbot <syzbot+b5d7ab56d43de3fd5aac@syzkaller.appspotmail.com>
+Cc: linux-kernel@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com
+Subject: Re: [syzbot] [input?] possible deadlock in tasklet_action_common (2)
+Date: Fri, 28 Aug 2026 07:45:46 +0800
+Message-ID: <20260827234547.1861-1-hdanton@sina.com>
+In-Reply-To: <6a655704.70955b6c.323240.0028.GAE@google.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Safe Rust methods `set_flag_bits` and `clear_flag_bits` on `Task` =
-allow data races when called on non-current tasks.
-- [Medium] Unconditional clearing of `PF_RECLAIMABLE_STACK` in Rust binder =
-breaks flag preservation logic.
+> Date: Sat, 25 Jul 2026 17:38:28 -0700	[thread overview]
+> syzbot has found a reproducer for the following issue on:
+> 
+> HEAD commit:    cc2b5f627e8c Add linux-next specific files for 20260714
+> git tree:       linux-next
+> console output: https://syzkaller.appspot.com/x/log.txt?x=13d446b9580000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=2290ccbf984c524f
+> dashboard link: https://syzkaller.appspot.com/bug?extid=b5d7ab56d43de3fd5aac
+> compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1310a232580000
+> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13c3b2ea580000
+
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 818bebeb63dd
+
+--- x/kernel/softirq.c
++++ y/kernel/softirq.c
+@@ -956,7 +956,6 @@ static void tasklet_action_common(struct
+ 	tl_head->tail = &tl_head->head;
+ 	local_irq_enable();
+ 
+-	tasklet_lock_callback();
+ 	while (list) {
+ 		struct tasklet_struct *t = list;
+ 
+@@ -976,7 +975,6 @@ static void tasklet_action_common(struct
+ 					}
+ 				}
+ 				tasklet_unlock(t);
+-				tasklet_callback_sync_wait_running();
+ 				continue;
+ 			}
+ 			tasklet_unlock(t);
+@@ -989,7 +987,6 @@ static void tasklet_action_common(struct
+ 		__raise_softirq_irqoff(softirq_nr);
+ 		local_irq_enable();
+ 	}
+-	tasklet_unlock_callback();
+ }
+ 
+ static __latent_entropy void tasklet_action(void)
+@@ -1042,7 +1039,7 @@ void tasklet_unlock_spin_wait(struct tas
+ 			 * interrupt processing or prevents ksoftirqd from
+ 			 * running.
+ 			 */
+-			tasklet_callback_cancel_wait_running();
++			tasklet_unlock_wait(t);
+ 		} else {
+ 			cpu_relax();
+ 		}
 --
-
-commit 6f8ac02f62f897200c71ad824d4019095dc4428c
-Author: David Stevens <stevensd@google.com>
-
-Set PF_RECLAIMABLE_STACK in various places
-
-Annotate various blocking locations with the PF_RECLAIMABLE_STACK.
-
-> diff --git a/drivers/android/binder/thread.rs b/drivers/android/binder/th=
-read.rs
-> index bc0ef8927905c..be62f7fd43ca2 100644
-> --- a/drivers/android/binder/thread.rs
-> +++ b/drivers/android/binder/thread.rs
-> @@ -538,13 +538,21 @@ fn get_work_local(self: &Arc<Self>, wait: bool) -> =
-Result<Option<DLArc<dyn Deliv
-[ ... ]
->              inner.looper_flags |=3D LOOPER_WAITING;
-> +
-> +            current.set_flag_bits(bindings::PF_RECLAIMABLE_STACK);
-> +
->              let signal_pending =3D self.work_condvar.wait_interruptible_=
-freezable(&mut inner);
-> +
-> +            current.clear_flag_bits(bindings::PF_RECLAIMABLE_STACK);
-
-[Severity: Medium]
-Will unconditionally clearing the flag break flag preservation logic if sta=
-ck
-reclaim states are nested?
-
-The C allow_stack_reclaim guard explicitly saves and restores the flag to
-support nesting. If get_work_local() is called from a context where
-PF_RECLAIMABLE_STACK is already set, this will unexpectedly disable stack
-reclamation for the outer scope upon exit.
-
-> +
->              inner.looper_flags &=3D !LOOPER_WAITING;
-> =20
->              if signal_pending {
-> @@ -592,15 +600,21 @@ fn get_work(self: &Arc<Self>, wait: bool) -> Result=
-<Option<DLArc<dyn DeliverToRe
-[ ... ]
-> +            current.set_flag_bits(bindings::PF_RECLAIMABLE_STACK);
-> +
->              inner.looper_flags |=3D LOOPER_WAITING | LOOPER_WAITING_PROC;
->              let signal_pending =3D self.work_condvar.wait_interruptible_=
-freezable(&mut inner);
->              inner.looper_flags &=3D !(LOOPER_WAITING | LOOPER_WAITING_PR=
-OC);
-> =20
-> +            current.clear_flag_bits(bindings::PF_RECLAIMABLE_STACK);
-
-[Severity: Medium]
-Similar to get_work_local(), is it safe to unconditionally clear the flag h=
-ere
-in get_work() instead of restoring its previous state?
-
-> +
->              if signal_pending || inner.looper_need_return {
->                  // We need to return now. We need to pull the thread off=
- the list of ready threads
->                  // (by dropping `reg`), then check the state again after=
- it's off the list to
-> diff --git a/rust/kernel/task.rs b/rust/kernel/task.rs
-> index 38273f4eedb51..6168f058343a2 100644
-> --- a/rust/kernel/task.rs
-> +++ b/rust/kernel/task.rs
-> @@ -344,6 +344,22 @@ pub fn group_leader(&self) -> &Task {
->          // only be used while `current` is still valid, thus still runni=
-ng.
->          unsafe { &*ptr.cast() }
->      }
-> +
-> +    /// Sets the given task flag bits on the current task.
-> +    #[inline]
-> +    pub fn set_flag_bits(&self, set: u32) {
-> +            // SAFETY: The `flags` field of `current` is not modified fr=
-om other threads, so
-> +	    // the non-atomic update isn't a race.
-> +	    unsafe { (*self.as_ptr()).flags |=3D set }
-> +    }
-
-[Severity: High]
-Does this expose a soundness hole by allowing data races on the flags field
-when called on a non-current task?
-
-The safety comment assumes self is the current task, but the method signatu=
-re
-accepts any Task reference. Because Task implements Send + Sync, another th=
-read
-could obtain a reference to a non-current task (for example, via group_lead=
-er())
-and safely call this method. This allows an unsafe non-atomic read-modify-w=
-rite
-and undefined behavior in safe Rust.
-
-> +
-> +    /// Clears the given task flag bits on the current task.
-> +    #[inline]
-> +    pub fn clear_flag_bits(&self, clear: u32) {
-> +            // SAFETY: The `flags` field of `current` is not modified fr=
-om other threads, so
-> +	    // the non-atomic update isn't a race.
-> +	    unsafe { (*self.as_ptr()).flags &=3D !clear }
-> +    }
->  }
-
-[Severity: High]
-Does this method suffer from the same soundness hole as set_flag_bits() sin=
-ce it
-is a safe method performing a non-atomic update without verifying self is t=
-he
-current task?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260827232948.2520=
-558-1-stevensd@google.com?part=3D8
