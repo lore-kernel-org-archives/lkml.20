@@ -1,134 +1,67 @@
-Received: from sg-3-112.ptr.tlmpb.com (sg-3-112.ptr.tlmpb.com [101.45.255.112])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66AD243F8C9
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:17:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.45.255.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECA5A43BDB4;
+	Thu, 27 Aug 2026 11:18:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787829477; cv=none; b=pTKXw3zM+F9bbeIa0yQkrSKkAxmbc0l8JjxFOy60VUGJgKpi1Ntu8KokCsC+YjX9Y8fuLcA4sBdHxtVTyfzFyL08APtgyf4oLbQw0AV/aVaWcEVBrQncM0ibb4vra0b4pXQejvou0isbNy2SoFK+ads3afqyEKyYf2URBwFLYPs=
+	t=1787829495; cv=none; b=m/c4W8MDK1S5H4iBvwcZNMkA780Dx+7Gfofe9zYHO1SudV4C9BzYki6tn+wZC51Ydp/KZWV/ok82VKjbs1erJd3IXiIW9KCaxwGdb8aQCCJaFBJdeAtnXwsH587tgNEXRTFkPZnql2ktFKmj+viBwWzGD1H8ACdiJirBkmDZTJI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787829477; c=relaxed/simple;
-	bh=wCm1eVnYAO/EO+owrR7lwDdvGU0g5n1lXtZK1GmOx9I=;
-	h=To:Cc:From:Message-Id:References:Subject:Content-Type:
-	 Content-Disposition:Date:Mime-Version:In-Reply-To; b=HVzqFvpmpE9JeWtJp0SN8ls+MGGDqILJI3YUuYTB2AoZEfvyDVu849vzljMzWL8yZRd4LKY6+e26OtccqZNIIMjunmWVbStUpT2ArJ4/M4h6Cg9uW2QOuKRMxbIk58OEohUJY8YzVdBOy39ryDbDBYtL7zTV7UUAwAFqUiPbVfA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=eLuS0Yv6; arc=none smtp.client-ip=101.45.255.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1787829495; c=relaxed/simple;
+	bh=MJ6gx4fQAQQiMiyUia5Kwki9u7qW+HCOdWJghlWyKgs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LM7sCAQ8ckG7LDJ11ffPa/Fs0ZYInl6r/OPHpOyF3aKHGm1U3UxBSeHCkLOeMBvQy+ISpXNMkYsGM814wAwEcA3mWvFcW2BozsKCtGtyBF4X1tmn5msks29g3Rvf+DhPWhbYIG1cVmi2ZJKKCPYUrp0tEzerkNEfT3BrvT10iSk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iQ3aBsMV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="eLuS0Yv6"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1787829417; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=C+ZVonszOQgEzuNk4+rgdYKom9BpXgO/p1jeWf7hvoE=;
- b=eLuS0Yv6d5uqyXpYrma5tLjHaTu1ySTmuP+Av4Pgf8jDIt+dEPtjYjaPk7p4jQ1/MxXl20
- 1ZOVmfCVdIZedncSlwmfA51byjZJDlN17CJPdQI4XfPKb+vcjpK04Q/LvG0WAFY8RkBfG9
- JNmh/sCGBMm2r7xuzZp5CTV0dvNVcO+iQLXqEu6rWIi2LvGG1w9EjwSv4ToiIKEiIHUpvs
- cbiQTxIzZDg7sTP3b8808yfOER2deJCF9jhQSGkoMrM+d/1/Uf2pwNQBhBJKNfkTWP2jF/
- SXAb1gqQq3pRg5kAsWZEs9ndnuIFLJ/jVbE4gSCPibYdu+7pQxDujWAfbdEypA==
-To: "chenjinghuang" <chenjinghuang2@huawei.com>
-Cc: "Ingo Molnar" <mingo@redhat.com>, 
-	"Peter Zijlstra" <peterz@infradead.org>, 
-	"Juri Lelli" <juri.lelli@redhat.com>, 
-	"Vincent Guittot" <vincent.guittot@linaro.org>, 
-	"Dietmar Eggemann" <dietmar.eggemann@arm.com>, 
-	"Steven Rostedt" <rostedt@goodmis.org>, 
-	"Ben Segall" <bsegall@google.com>, "Mel Gorman" <mgorman@suse.de>, 
-	"Valentin Schneider" <vschneid@redhat.com>, 
-	"K Prateek Nayak" <kprateek.nayak@amd.com>, 
-	<linux-kernel@vger.kernel.org>
-From: "Aaron Lu" <ziqianlu@bytedance.com>
-Message-Id: <20260827111557.GB3616635@bytedance.com>
-References: <20260825120629.2472938-1-chenjinghuang2@huawei.com> <20260826100009.GA3616635@bytedance.com> <bc90cc67-93d0-463c-adf9-53b00a932d56@huawei.com>
-Subject: Re: [Question] Userspace throttling + "sched/fair: Combine detach into dequeue when migrating task" causes guest boot hang
-Content-Type: text/plain; charset=UTF-8
-Content-Disposition: inline
-X-Original-From: Aaron Lu <ziqianlu@bytedance.com>
-Date: Thu, 27 Aug 2026 19:16:36 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iQ3aBsMV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06B341F00A3F;
+	Thu, 27 Aug 2026 11:18:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787829490;
+	bh=//3mFLKXDeSlJf9uiTpXYSHoe4KEas2aUJMTYjaIYDc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iQ3aBsMVfVyIGNeebDQBhf+x9z/cvPGz5nmhv87XRAkDKA38hdkE3QEIZnZAb3viq
+	 MOxQHyawWMbIXIcCq9bcRgLV5NouQKSOAMHWxUX65TN9sJEh8mKEA1lV5uq4rNaejq
+	 sWC+8skOc/iMNXplYWjITrT4kTyHcvYqYAcI6JRCCC0pWtliMbDdZYxdidJE0vNFfT
+	 Ryz5Fd9INrlICO77kqfx+3crXNdvHhJAaKhjLkhPa2GttfMMgZzYQawHQT3+PBiqOh
+	 +6A8dcFdf+CP5eTc5H3/R1S5nfe22uxfTXAGWtrQlbRiOieX87I+e5i58jNkVrboxc
+	 50D6FM2wE8ERg==
+Date: Thu, 27 Aug 2026 13:18:07 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Karl Asseily <karl@asseily.com>
+Cc: broonie@kernel.org, lgirdwood@gmail.com, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, perex@perex.cz, tiwai@suse.com, 
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] dt-bindings: vendor-prefixes: add ESS Technology
+Message-ID: <20260827-innocent-unyielding-koala-36daa9@quoll>
+References: <20260821043859.171871-1-karl@asseily.com>
+ <20260821043859.171871-2-karl@asseily.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-In-Reply-To: <bc90cc67-93d0-463c-adf9-53b00a932d56@huawei.com>
-X-Lms-Return-Path: <lba+26a901ca7+7f51d7+vger.kernel.org+ziqianlu@bytedance.com>
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260821043859.171871-2-karl@asseily.com>
 
-On Thu, Aug 27, 2026 at 11:36:33AM +0800, chenjinghuang wrote:
-> On 8/26/2026 6:00 PM, Aaron Lu wrote:
-> > On Tue, Aug 25, 2026 at 12:06:29PM +0000, Chen Jinghuang wrote:
-> >> Hi, I'm seeing a VM boot hang on mainline, and I'd like to understand =
-the
-> >> interaction between userspace throttling and the scheduler patch
-> >> "e1f078f50478 sched/fair: Combine detach into dequeue when migrating
-> >> task".
-> >>
-> >> Host:
-> >> aarch64, 96 CPUs (0-95), 4 NUMA nodes:
-> >> 	node0: 0-23, node1: 24-47, node2: 48-71, node3: 72-95
-> >> Mainline kernel tag: 7.2-rc1.
-> >>
-> >> Guest(libvirt/KVM) - described in words:
-> >> An aarch64 (virt-6.2) UEFI VM launched with `virsh create`; key config=
-:
-> >>
-> >> - 128 vCPUs (statically placed, oversubscribed =E2=80=94 the host has =
-only 96
-> >>   physical CPUs).
-> >> - host-passthrough CPU model; GICv3; 64 GiB RAM.
-> >> - <cputune> has <global_quota> set to 400000; all <vcpupin> and
-> >>   <emulatorpin> entries are commented out, so there is no vCPU pinning=
-.
-> >> - Storage: qcow2 on virtio-scsi (cache=3Dnone, io=3Dnative). HPET disa=
-bled.
-> >>
-> >> Userspace throttling:
-> >> The VM runs under a CPU-quota cap applied on the host. The actual valu=
-es
-> >> from the cgroup controller are:
-> >>
-> >> 	cpu.cfs_period_us =3D 100000
-> >> 	cpu.cfs_quota_us  =3D 400000
-> >>
-> >> I also found that if I set cpu.cfs_quota_us to -1, or enlarge it beyon=
-d a
-> >> certain point, the guest boots fine.
-> >>
-> >> Symptom:
-> >> The guest hangs at some command early in boot and never reaches the lo=
-gin
-> >> prompt.
-> >>
-> >=20
-> > I tried this on an x86 machine with v7.2-rc1 kernel and with quota set
-> > to 4 cpus, the VM booted fine; when I further reduced quota to 1 cpu, t=
-he
-> > guest kernel would dump a ton of soft lockups during boot. I also tried
-> > running an old 5.10 kernel(which doesn't have per-task throttle) and it
-> > behaved the same as v7.2-rc1.
-> >=20
-> > The x86 machine has 64cores/128cpus and the VM I created has 128cpus an=
-d
-> > 128G memory.
-> >=20
-> My host is an ARM64 machine without SMT, so 96 physical cores correspond =
-to
-> 96 logical CPUs. The VM is configured with 128 vCPUs, which is indeed a t=
-ypical
-> CPU oversubscription scenario. In my machine, if I configure the VM with =
-96 vCPUs,
-> the issue don't occur either.
->
+On Fri, Aug 21, 2026 at 07:38:56AM +0300, Karl Asseily wrote:
+> Add the vendor prefix for ESS Technology, Inc., maker of the SABRE family
+> of audio DACs. The prefix follows the company's domain, esstech.com.
+> 
+> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: Karl Asseily <karl@asseily.com>
+> ---
+> 
+> Notes:
+>     v2: rename the vendor prefix to esstech, after the company domain
+> 
+>  Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
 
-OK, so this looks like it has something to do with the task number. More
-vCPUs translated to more qemu threads and that caused your guest boot
-hang. I think there should be softlockup dumps in your case, is it that
-the softlockup detector is not enabled in your guest kernel config?
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-With this said, I increased vCPU to 256 on this 64core/128cpus Intel host
-to see if I can reproduce this. With 4 cpus quota, it managed to boot
-the guest. There are several softlockups during boot though and that is
-an indication the qemu task is in need of cpu time. I can imagine if I
-increase the vCPU number even more or reduce the quota further, it will
-eventually hang the guest with tons of softlockup msgs.
+Best regards,
+Krzysztof
+
