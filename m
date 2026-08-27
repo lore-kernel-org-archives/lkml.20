@@ -1,222 +1,100 @@
-Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A9EA43F8CF;
-	Thu, 27 Aug 2026 11:45:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60FD12F1FDF;
+	Thu, 27 Aug 2026 11:46:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787831143; cv=none; b=WdQ9luEMnSdNCcD9XI+TnDFgB1dCrmn4TSQgHCuIH2h41EMyyIP0zGkz0YoM1CezbskcAMaJhAvS2NgwzD71MLkRCg9YZ/078K6jvtyr6ZnqvCraXoJUpL9qEFAiN3NXtFp2IqAi9dO9W5AxmDlVxkJQ7V6LQINY/AHMyr+FQ7k=
+	t=1787831164; cv=none; b=UzfMoURdUTZUlIXXcQbbuXGY6mBW7PBmbjkVH0re5VWqcTDbO3/rqvupbNjRJWLMiQBIvaLbtl1MfTB9hRPIH48D8ld3kfsmAFhUTU71T6J2JdA3qwF2ESuhbt68rokS8gjAgSBVnRdQmJHRe5J8TWm4eg17IKoe+8Z0Yp1KzeY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787831143; c=relaxed/simple;
-	bh=4/6Q9Hyv/Uc6R8d+ArJIkGE2O2zjnA3bBX/nSSI28eg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lHkYOsMhfdEvSoyt4y5Dxt2DRX4U7wNOxxT0ZIriWilii3BvIC0dB95ucNSoT09S3/UiHuHBmJOEGp/WDMght0rx7e9bqtQjURlyhustSJminueiYYndmJ8OtDlZfyzandkPnlFBEui4n3FGRDIfVMtx2cZlcTECUB1OaAgQDcQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.170])
-	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hW07Q40MjzYQty7;
-	Thu, 27 Aug 2026 19:45:06 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.128])
-	by mail.maildlp.com (Postfix) with ESMTP id 4D38340574;
-	Thu, 27 Aug 2026 19:45:37 +0800 (CST)
-Received: from [10.67.110.68] (unknown [10.67.110.68])
-	by APP4 (Coremail) with UTF8SMTPA id gCh0CgCnhBlgI5BqjsyODw--.1732S2;
-	Thu, 27 Aug 2026 19:45:37 +0800 (CST)
-Message-ID: <de17533f-73fa-4673-90de-133d93ce7492@huaweicloud.com>
-Date: Thu, 27 Aug 2026 19:45:36 +0800
+	s=arc-20240116; t=1787831164; c=relaxed/simple;
+	bh=xgb06MEIf9CJaHsREliGIPBiNySU63RaBPNUvHNa6s8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DhL/RQcuHrBLU/TY+rZRiVA7sZTydW6CITtqbgYcf9FQMwlm7YIKrO/X/M1hcVq/7j+g1zVK36eLuEVYbu6kiLXNG6+jTeelgS/oGBf0lItM02WnbVTrkGAqWqQf8xbChaP6YkrYA1ZXFRgwt/ouVHMUJrs5960Nh7sAqWALwE0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M5vc8wrp; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M5vc8wrp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3620B1F000E9;
+	Thu, 27 Aug 2026 11:46:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787831163;
+	bh=3hAFo1rIdC3agJMCmmn/YuX832v7qzt/wzjEOyHEoqM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=M5vc8wrpHzFOUTNBu00KgjoyXKJr1qmKCRQs0sIzSetk2k3grLN0i5IO6nivL324t
+	 RgV7Z7wp4vIfWKwlCbxsG06aykfD+um8TfU4dSuiaeVCMsXKH4AVfwMypUbUL2xIXn
+	 6nrXQ5kV21nxhcYAe+k+FzKPopwSONnvdU9N/zTzzM/mgv6AUprA82MJZsMnrnKWPu
+	 T06cyHPvR9g4mX396zWHDyzxhu7c1pNX1yiXFC1cvpKQEsSMe5m+zQ3xtQLHIuYI2B
+	 H0kx/uEQilZMsSeVxAbatuM/HE7xQnk+qB2+T2as2rSHoIkC4jWRiBbEnRlLVg5B2M
+	 ArHH1oU7ZFRXg==
+Date: Thu, 27 Aug 2026 13:45:59 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Jason Yang <jason98166@gmail.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Guochun Huang <hero.huang@rock-chips.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Michael Riesch <michael.riesch@collabora.com>, 
+	Sebastian Reichel <sebastian.reichel@collabora.com>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/7] dt-bindings: phy: Add PHY_TYPE_DSI and
+ PHY_TYPE_CSI definitions
+Message-ID: <20260827-thundering-cream-saluki-dd05df@quoll>
+References: <20260821-dcphy-rx-v1-v4-0-f1797634233d@gmail.com>
+ <20260821-dcphy-rx-v1-v4-1-f1797634233d@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf v2] bpf: Fix UAF due to concurrent consumption of
- waiting_for_gp_ttrace
-Content-Language: en-US
-To: Leon Hwang <leon.hwang@linux.dev>, bpf@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
- Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>,
- Yonghong Song <yonghong.song@linux.dev>, Song Liu <song@kernel.org>,
- Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>,
- Ihor Solodrai <ihor.solodrai@linux.dev>, Hou Tao <houtao@huaweicloud.com>,
- Pu Lehui <pulehui@huawei.com>
-References: <20260827084013.1062816-1-pulehui@huaweicloud.com>
- <63ae0f06-e5a8-4a21-90cd-03e0ef100fda@linux.dev>
-From: Pu Lehui <pulehui@huaweicloud.com>
-In-Reply-To: <63ae0f06-e5a8-4a21-90cd-03e0ef100fda@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:gCh0CgCnhBlgI5BqjsyODw--.1732S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3GF4kJw13WFy7GryUGw45Jrb_yoW7XryUpF
-	yxGF1rJF48ZFZF93WIqr4kAa9aqw40qa43C3yUua4Skr15Zw1DtFyfAry7uF90vrWxKr4S
-	yr1vgryxCrWUZFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvK14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcVAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kI
-	c2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbV
-	WUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF
-	67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42
-	IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF
-	0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxh
-	VjvjDU0xZFpf9x0JUZYFZUUUUU=
-X-CM-SenderInfo: psxovxtxl6x35dzhxuhorxvhhfrp/
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260821-dcphy-rx-v1-v4-1-f1797634233d@gmail.com>
 
+On Fri, Aug 21, 2026 at 08:02:29PM +0800, Jason Yang wrote:
+> A MIPI D-PHY or C-PHY can be a transmitter (DSI) or a receiver (CSI),
+> and in some PHY blocks both work at the same time. The existing
+> PHY_TYPE_DPHY and PHY_TYPE_CPHY cannot tell whether a consumer wants
+> the transmitter or the receiver.
 
+The consumer knows this already, no? Imagine consumer of the phy is some
+ISP receiving data over CSI for given port, thus consumer cannot
+transmit over that link.
 
-On 2026/8/27 16:51, Leon Hwang wrote:
-> On 27/8/26 16:40, Pu Lehui wrote:
->> From: Pu Lehui <pulehui@huawei.com>
-> [...]
->>   kernel/bpf/memalloc.c | 31 +++++++++++++++++++++++++------
->>   1 file changed, 25 insertions(+), 6 deletions(-)
->>
->> diff --git a/kernel/bpf/memalloc.c b/kernel/bpf/memalloc.c
->> index e9662db7198f..58296e92a4fe 100644
->> --- a/kernel/bpf/memalloc.c
->> +++ b/kernel/bpf/memalloc.c
->> @@ -119,6 +119,7 @@ struct bpf_mem_cache {
->>   	struct llist_head waiting_for_gp_ttrace;
->>   	struct rcu_head rcu_ttrace;
->>   	atomic_t call_rcu_ttrace_in_progress;
->> +	raw_spinlock_t lock;
->>   };
->>   
->>   struct bpf_mem_caches {
->> @@ -207,6 +208,7 @@ static void add_obj_to_free_list(struct bpf_mem_cache *c, void *obj)
->>   static void alloc_bulk(struct bpf_mem_cache *c, int cnt, int node, bool atomic)
->>   {
->>   	struct mem_cgroup *memcg = NULL, *old_memcg;
->> +	unsigned long flags;
->>   	gfp_t gfp;
->>   	void *obj;
->>   	int i;
->> @@ -228,12 +230,14 @@ static void alloc_bulk(struct bpf_mem_cache *c, int cnt, int node, bool atomic)
->>   	if (i >= cnt)
->>   		return;
->>   
->> +	raw_spin_lock_irqsave(&c->lock, flags);
->>   	for (; i < cnt; i++) {
->> -		obj = llist_del_first(&c->waiting_for_gp_ttrace);
->> +		obj = __llist_del_first(&c->waiting_for_gp_ttrace);
->>   		if (!obj)
->>   			break;
->>   		add_obj_to_free_list(c, obj);
->>   	}
->> +	raw_spin_unlock_irqrestore(&c->lock, flags);
-> 
-> Looks like scoped_guard() could get rid of the 'flags':
-> 
-> scoped_guard(raw_spinlock_irqsave, &c->lock) {
-> 	...
-> }
-> 
->>   	if (i >= cnt)
->>   		return;
->>   
->> @@ -279,8 +283,14 @@ static int free_all(struct bpf_mem_cache *c, struct llist_node *llnode, bool per
->>   static void __free_rcu(struct rcu_head *head)
->>   {
->>   	struct bpf_mem_cache *c = container_of(head, struct bpf_mem_cache, rcu_ttrace);
->> +	struct llist_node *llnode;
->> +	unsigned long flags;
->>   
->> -	free_all(c, llist_del_all(&c->waiting_for_gp_ttrace), !!c->percpu_size);
->> +	raw_spin_lock_irqsave(&c->lock, flags);
->> +	llnode = __llist_del_all(&c->waiting_for_gp_ttrace);
->> +	raw_spin_unlock_irqrestore(&c->lock, flags);
-> 
-> Ditto
->> +
->> +	free_all(c, llnode, !!c->percpu_size);
->>   	atomic_set(&c->call_rcu_ttrace_in_progress, 0);
->>   }
->>   
->> @@ -297,6 +307,7 @@ static void enque_to_free(struct bpf_mem_cache *c, void *obj)
->>   static void do_call_rcu_ttrace(struct bpf_mem_cache *c)
->>   {
->>   	struct llist_node *llnode, *t;
->> +	unsigned long flags;
->>   
->>   	if (atomic_xchg(&c->call_rcu_ttrace_in_progress, 1)) {
->>   		if (unlikely(READ_ONCE(c->draining))) {
->> @@ -307,8 +318,10 @@ static void do_call_rcu_ttrace(struct bpf_mem_cache *c)
->>   	}
->>   
->>   	WARN_ON_ONCE(!llist_empty(&c->waiting_for_gp_ttrace));
->> +	raw_spin_lock_irqsave(&c->lock, flags);
->>   	llist_for_each_safe(llnode, t, llist_del_all(&c->free_by_rcu_ttrace))
->> -		llist_add(llnode, &c->waiting_for_gp_ttrace);
->> +		__llist_add(llnode, &c->waiting_for_gp_ttrace);
->> +	raw_spin_unlock_irqrestore(&c->lock, flags);
-> 
-> Ditto
-> 
->>   
->>   	if (unlikely(READ_ONCE(c->draining))) {
->>   		__free_rcu(&c->rcu_ttrace);
->> @@ -535,6 +548,7 @@ int bpf_mem_alloc_init(struct bpf_mem_alloc *ma, int size, bool percpu)
->>   			c->objcg = objcg;
->>   			c->percpu_size = percpu_size;
->>   			c->tgt = c;
->> +			raw_spin_lock_init(&c->lock);
->>   			init_refill_work(c);
->>   			prefill_mem_cache(c, cpu);
->>   		}
->> @@ -557,7 +571,7 @@ int bpf_mem_alloc_init(struct bpf_mem_alloc *ma, int size, bool percpu)
->>   			c->objcg = objcg;
->>   			c->percpu_size = percpu_size;
->>   			c->tgt = c;
->> -
->> +			raw_spin_lock_init(&c->lock);
->>   			init_refill_work(c);
->>   			prefill_mem_cache(c, cpu);
->>   		}
->> @@ -609,7 +623,7 @@ int bpf_mem_alloc_percpu_unit_init(struct bpf_mem_alloc *ma, int size)
->>   		c->objcg = objcg;
->>   		c->percpu_size = percpu_size;
->>   		c->tgt = c;
->> -
->> +		raw_spin_lock_init(&c->lock);
->>   		init_refill_work(c);
->>   		prefill_mem_cache(c, cpu);
->>   	}
->> @@ -620,6 +634,8 @@ int bpf_mem_alloc_percpu_unit_init(struct bpf_mem_alloc *ma, int size)
->>   static void drain_mem_cache(struct bpf_mem_cache *c)
->>   {
->>   	bool percpu = !!c->percpu_size;
->> +	struct llist_node *llnode;
->> +	unsigned long flags;
->>   
->>   	/* No progs are using this bpf_mem_cache, but htab_map_free() called
->>   	 * bpf_mem_cache_free() for all remaining elements and they can be in
->> @@ -629,7 +645,10 @@ static void drain_mem_cache(struct bpf_mem_cache *c)
->>   	 * on these lists, so it is safe to use __llist_del_all().
->>   	 */
->>   	free_all(c, llist_del_all(&c->free_by_rcu_ttrace), percpu);
->> -	free_all(c, llist_del_all(&c->waiting_for_gp_ttrace), percpu);
->> +	raw_spin_lock_irqsave(&c->lock, flags);
->> +	llnode = __llist_del_all(&c->waiting_for_gp_ttrace);
->> +	raw_spin_unlock_irqrestore(&c->lock, flags);
-> 
-> Ditto
-> 
-> Thanks,
-> Leon
-> 
->> +	free_all(c, llnode, percpu);
->>   	free_all(c, __llist_del_all(&c->free_llist), percpu);
->>   	free_all(c, __llist_del_all(&c->free_llist_extra), percpu);
->>   	free_all(c, __llist_del_all(&c->free_by_rcu), percpu);
+All this seems redundant.
 
-ok, will do
+> 
+> Add PHY_TYPE_DSI and PHY_TYPE_CSI, so that a binding can select both
+> D-PHY or C-PHY and transmitter or receiver. They do not replace
+> PHY_TYPE_DPHY/PHY_TYPE_CPHY, which remain the right choice where a cell
+> selects the mode. The first user is the Rockchip RK3588 MIPI DC-PHY
+> binding.
+> 
+> Suggested-by: Michael Riesch <michael.riesch@collabora.com>
+> Link: https://lore.kernel.org/r/82da3622-9c3a-454c-87bc-fb4ec7adb68d@collabora.com
+> Signed-off-by: Jason Yang <jason98166@gmail.com>
+
+Where is any DTS using it? I did a search and no results of upstream
+posting.
+
+> ---
+>  include/dt-bindings/phy/phy.h | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/include/dt-bindings/phy/phy.h b/include/dt-bindings/phy/phy.h
+> index 979b5dfd8353..8ee3f88e6d80 100644
+> --- a/include/dt-bindings/phy/phy.h
+> +++ b/include/dt-bindings/phy/phy.h
+> @@ -24,6 +24,8 @@
+>  #define PHY_TYPE_CPHY		11
+>  #define PHY_TYPE_USXGMII	12
+>  #define PHY_TYPE_XAUI		13
+> +#define PHY_TYPE_DSI		14
+> +#define PHY_TYPE_CSI		15
+
+DSI and CSI does not look like types of PHY...
+
+Best regards,
+Krzysztof
 
