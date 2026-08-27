@@ -1,249 +1,150 @@
-Received: from esa.hc6817-7.iphmx.com (esa.hc6817-7.iphmx.com [216.71.152.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f2.google.com (mail-oi2-f2.google.com [74.125.231.194])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82A2B49482B
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:52:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=216.71.152.95
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787856736; cv=fail; b=meJO5RM9jtErXOawBDSpRZzRnhdR73Psv5+VOUwqsDwncFtg62WS9i+13eMN5W/QQDoz9bbgumevnmhIOEgDzEsVqvl2c3NqiyrtF9Orhyrrxqo/MHdltPTwkIwFN1fnPyYOq2SEgtoW2QIoBQfkXp7qQXJx8ar7m9VQZL+939I=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787856736; c=relaxed/simple;
-	bh=JtBX/aBUN09AWsxwadoJAg/+zMrcD1hLnk0HfZm4hJc=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=F+rvSzJvWeheamm7fVLakNCNMw7lBz/n0rcxRH2awztxhYBxu4sOraSQduOXv3Y8/InsqMGtoC38o4IHUqSzrgNHY8J/mFB4vkdvRnGNG91fG3YP+fLsjJRM0zH9wL7vmoSMCso/MMGZ2ZNrSAVg+lAfUVqhB+BrYKFu9qCdSzU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sandisk.com; spf=pass smtp.mailfrom=sandisk.com; dkim=pass (2048-bit key) header.d=sandisk.com header.i=@sandisk.com header.b=vxhZ1iR+; arc=fail smtp.client-ip=216.71.152.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sandisk.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sandisk.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sandisk.com header.i=@sandisk.com header.b="vxhZ1iR+"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=sandisk.com; i=@sandisk.com; q=dns/txt;
-  s=dkimnew.sandisk.com; t=1787856733; x=1819392733;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=JtBX/aBUN09AWsxwadoJAg/+zMrcD1hLnk0HfZm4hJc=;
-  b=vxhZ1iR+8bNyh1JBGz20pXbcqIYzbxm9AVx9Fq43SqOUwrRc8hrzn2xa
-   /WY98ONgKo+S8WAdRqOiLWGvb026y3MNjGxXCSLUV28ogv7ne9yXm+I5W
-   5EZlq4xB/3pD939xhi4hCwrcViO5eFB+T4JBB6fseorymLOi9yRyPHnh3
-   rotZSDTHKd6eeXMfY8+pW3qaTNIBHlQ4g4bGY11iKSP0MHCFmRCmjCHat
-   nyihLrDThiliGlO+l2Nv9veaYXbs4TXV9mlY0D6NaUxoPKuiduZXz/bQp
-   jHguiI2l/R6oh+vvHnfI4LrDg+3o0MR0GCIaYCH/gIHi+wIn7Eg2CIncM
-   Q==;
-X-CSE-ConnectionGUID: JA8pCxuRSwiz/kKpKuHNmA==
-X-CSE-MsgGUID: gup5AhNTTo+047IfErFfXA==
-X-IronPort-RemoteIP: 52.101.43.127
-X-IronPort-MID: 29001589
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutgoingMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-Received: from mail-westusazon11022127.outbound.protection.outlook.com (HELO SJ2PR03CU001.outbound.protection.outlook.com) ([52.101.43.127])
-  by ob1.hc6817-7.iphmx.com with ESMTP; 27 Aug 2026 11:52:12 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xGI5cT3+bfmVUQidhrkk0pQip++Oyu27vBuVC9iDvo3yuioD49Lw0wSeXaosufGG8SMjRVT7P3Mfg3GCOV0lhI8+eSEbbCBeY5xK210cZ1UEaTBBqpWbpETN/5NjjmZI/jyZIe81M9ZYhAOljjL54AmV5rzEcD4E0zIFDfnZwjHeQasVNkHttwa26ZNP3fxslPHfqIBiKZizSsU0u8ZLsZNxH8AIq5a6BJUQpp2ZViavgebu7dPhA4/6uRXXGVvB0oyjZL+ZsrmT4R7Oy89EvYd6wVKVuRwSIz9b2oLxfr3VlmKMR+zks4jTKBW+p/yvqMLjehaATfghV8EMr+D67w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/obGtHXal1IANk3/PIALr0lCRNbTZ89xgWJ3aY1PmwI=;
- b=E1uUYEIMuroTZXianzg6pZ9JfSyGbFr+s/889XH1Nwr/au93Up6Lshd0fFFioiRD7GCsel5M+seHeNEVk8pFGhrcjfH4XSPWRRHEy+tTThcG98XSRbFUOhbyQeE2jbUFXHU+C/roMl7WR9pf7mRBGxcgZoleBPJqdNwigLml70HnUWX6xkPoKehPNiDtfLVqCk97UoaSZaVrzBpKhTljbHthQWx1FJJdeq7z+lavRMtL4JNm9CDDNCGWG87i/GIfo02/ItthtoAi9omb3oSNYqx6MqQzm5F3wdeLBg7ncbl+tzEf5cdqN2rwRxjkcPRPot3gxWcW8xUaL16W0lh+rQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=sandisk.com; dmarc=pass action=none header.from=sandisk.com;
- dkim=pass header.d=sandisk.com; arc=none
-Received: from DS4PR16MB6924.namprd16.prod.outlook.com (2603:10b6:8:31f::17)
- by SJ0PR16MB4721.namprd16.prod.outlook.com (2603:10b6:a03:429::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
- 2026 18:52:08 +0000
-Received: from DS4PR16MB6924.namprd16.prod.outlook.com
- ([fe80::977c:faf6:2b68:f082]) by DS4PR16MB6924.namprd16.prod.outlook.com
- ([fe80::977c:faf6:2b68:f082%3]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
- 18:52:08 +0000
-From: Alexey Bogoslavsky <Alexey.Bogoslavsky@sandisk.com>
-To: Ferran Duarri <ferran.duarri@me.com>, Keith Busch <kbusch@kernel.org>,
-	Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>, Sagi Grimberg
-	<sagi@grimberg.me>, Yehuda Hahn <Yehuda.Hahn@sandisk.com>
-CC: "linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH] nvme: lower default APST max latency to 25ms
-Thread-Topic: [PATCH] nvme: lower default APST max latency to 25ms
-Thread-Index: AQHyoQ3ATROJkKaMw9FUI4dwULo0cbaHZgBw
-Date: Thu, 27 Aug 2026 18:52:08 +0000
-Message-ID:
- <DS4PR16MB692456B5425BE0974054C45692AD2@DS4PR16MB6924.namprd16.prod.outlook.com>
-References: <20260820195415.275608-1-ferran.duarri@me.com>
-In-Reply-To: <20260820195415.275608-1-ferran.duarri@me.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=sandisk.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS4PR16MB6924:EE_|SJ0PR16MB4721:EE_
-x-ms-office365-filtering-correlation-id: a7625416-4df0-4225-0aa4-08df046c4b97
-x-ms-exchange-atpmessageproperties: SA
-sndkipoutbound: EOP-TRUE
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|10067099003|6133799003|5023799004|11063799006|56012099006|55112099003|18002099003|22082099003|38070700021;
-x-microsoft-antispam-message-info:
- 6/JvAkNXqiPkpbQfJcXsSfEeaZpt7Lz3h4My5Sh0S7nAU3qq2gDgvZIYes9K38JCG0UemmnduBxSgDdCcw44CNcOV3gDZ1qS+jgAXndA+n0CdcSiBbGljcSgVI7Fh9sbIq0U0LiTACSAy8u3bmmsW0ryzneDBeNDGSuLxy5VjtzNvSL8FyuJR4uhwQFTNMRobvayePfqlvA9M1PtAHivCTo9gOWKevfQ6NHa9R7W/d1vERdFOtnj+shcTY+3/oKZHeZvRKwuH9GZ40cjcJJTm3+nSs9wkHHC0Ec2vZnrhZrpCNDFGXeMEYKIJGgCg8DFfedyFiR3FAsnJIDj4bYm6cQDxFF8tEjX4KjazgaoBzj+KD7tQvudemuLo5HNZl40NxyiNjDMwkW3oRYZvA5pYwkx4SLKcsVr4Kk5sQWvPjsbboAE70qtNNlKxM3BF7Wcd+7Fmbu9NwchuEEBSkQI+Ys1K1BMBjWhTieFK6AOBsua1jIol3z9iGNIwyA6yMNVFAyIQikCvXXIKAiQNnLGaXcNxL80s2UE4NY1jyMSmLwz1Ra+Qb3mwDtjLQ0+tcPk25DV3OWfX+q3cAcsmLts2a/7PH7Jx+06yDWWg1wmawRdM/QzFjEs3Ui/h35jVhkI7KuuxhtVGuEDHhFeuDwUoInZxQKU3JPsThB7NhgL7RN7G9AIhvwuaDTHNlDnpLCxPiWz/dStYt/aF9LC7yZkAFNPiQD3h4bD9qdRaMt8i1k=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PR16MB6924.namprd16.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(10067099003)(6133799003)(5023799004)(11063799006)(56012099006)(55112099003)(18002099003)(22082099003)(38070700021);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?xEqF01PNGA0qUtE6jQrboTim6TQkrVV5yJPSY5apc4JjcMsT5lMxMM7UoSwA?=
- =?us-ascii?Q?tEOVKnIrnB+hhChULeimZLXXUIvY7hYB28XDDpw3dUCg6b1kWpkjWY8EpRnc?=
- =?us-ascii?Q?IxYOhLYMZV6/AB6qqrq8OZthm0SrO6UfiK6qft3Gw+SFdK6R7pLMntG1J6jQ?=
- =?us-ascii?Q?YrvfIGLrFAIHmJw8whrE/7l3Fy8vTmzsca0EPHVAppEeAJpgDCy9/vJ/90UF?=
- =?us-ascii?Q?RttLuymAEAwF6tMeisLSr8swSw/57weVpymzuGvaCJm14nYQLLypZLfMMBaa?=
- =?us-ascii?Q?nwvOyqvfmkr+maAePjv0xq+dB9FVzV3yd/bQEsxamz/WmlVQFxLAO7X9DzY7?=
- =?us-ascii?Q?tURkUUWA5Itoe8TcBi5Ob6zzPgJqsjQSoweeabqmMRKwCuWuXJ8UgJD/M7RO?=
- =?us-ascii?Q?YaNGMasmwC1df8fwaJwqcMVL1LD/gJQ8ae1fCBVT1p6hhdalPqcVv0Sz2N/l?=
- =?us-ascii?Q?WPqd0hpAmcfJ1mNPMrbr3OFZuZ2yTozQWnql6czbIVVdwON0tb4nH2QNsGZq?=
- =?us-ascii?Q?bxC2ZKVGhO0JHqSZOTSh+Xosjm8+ifCRJtERAiLDNDknI7Vpjlt7MO5Q8X6b?=
- =?us-ascii?Q?kbGuTPAjGp+btplgiAyHK9WHuLast5czV0QNGZoLdiyiKxJiTnKT4dKymhmp?=
- =?us-ascii?Q?FvNzAGZKxPIHGMmlEt2pCpgI2BDeJ5ddcf4P+fVgtPk4tnT68+Bh3ku5G+wx?=
- =?us-ascii?Q?sAmZkIRKYoBhhdAtpIaEtGAT9qV2vXaDHpug272STgBsQUPFA14SeHh32Flz?=
- =?us-ascii?Q?tisF2HQNLTC7mBTsJWBlgVSEonZozxgYvXgfT8O1wMG5KxRgfF8odymWfH4G?=
- =?us-ascii?Q?v06uPDIZwXCgnik0kGJkVbSQc6Y5+7bOQFukN9j//tN27Hk5aTb4v/auOUnd?=
- =?us-ascii?Q?he8Ts/OkVkuliSNH5Fh169PSkFnzasPL4V4RT2WHEdEOGmZiZFEHEEWK6aZI?=
- =?us-ascii?Q?42ZygdZ9o6jlmCT6fpcqfiGf9Ejo0I5Lqc29MvBySalLI/xI6ePo2ktRV7AR?=
- =?us-ascii?Q?lE0D1sD77xhO4yisBybuSS5FoWF3yroKxslEk5lZZckU++FaUpGRmvLYXqgw?=
- =?us-ascii?Q?IQ4GECvPviH2c+s6jF++qfFkZE8gu5VyTgrdCppPRpLAXZ7zQidGUG1ZwGPw?=
- =?us-ascii?Q?NEs9fHv6xl4Vq5WQJHrs59XkMYQbh+v/VMIvdNADmyhxjvdHaYucOU8ADYiy?=
- =?us-ascii?Q?6K9Vw6+qeiKJ5j0cnvN46zmZK33t5C0sVDy/uU1kTf5nekatTHsy7r6DNtLD?=
- =?us-ascii?Q?7Z+jL0ZFk/Wh4I6JaanxhACen0ywQkySaC9NxUeegAu+1J3XnGNHPxGaBgjR?=
- =?us-ascii?Q?xc8U6dhCynIxotbVtQn7RiClbXIeAlqslIiGpGVv3YLiMg0S+kz4s22N+YQu?=
- =?us-ascii?Q?oVYoAXGiZSUgohOwlGlk3+QzUPWZBvRoC+gvi9HuI1jo4H7zm355w9WdwzQJ?=
- =?us-ascii?Q?+UPywxNgEjmqwCZjkiBYHxqLH8PT87uoJ7cnsZ515YkEGDDyY5y2ECkmMtBT?=
- =?us-ascii?Q?kjCOsP1DGuNrZgEHLZ0JJTgeZJUh8UnXLGA+lg6nK3fIfGk8cYdRB1+dF2c2?=
- =?us-ascii?Q?q3rfRBQuX1n5ixCWMYOvcFziot/VzDoDLF5I8OgIusgm3y+UV/Dv5xwqQ16g?=
- =?us-ascii?Q?3ovejXm5TOlmxV5azADl9OVxtjCV4DkedbUb6V5oTFwLqUKb9JaoiaihLDuY?=
- =?us-ascii?Q?T+hXeYoKMhKdGLH0hgxiDdURUWALGKW6s6Ga+LlPhieMBR+9o1Pshj3Yh8uo?=
- =?us-ascii?Q?8Wx+xN+DU9JLCuWJcGfwBDiQ0bd62EM=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EA6E39CCE6
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:52:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.194
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787856762; cv=none; b=TJAg/iiqWPKMOE3vD8jyQQxJHrTbFBtxHczqOFrcq2S1245hcZMkB0qzz4pV2gjVSGNM7giDijqB0fUjef5XMb82dKDJcmv07lYHToFt8C24algeuZWN4E9oXgzihXg8E9tYmMolNxpLbq7D8Tp5gS430hMOQPm7tIX3nNE4cVA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787856762; c=relaxed/simple;
+	bh=hncabP7aPdHnuobTgSgk9fapXLnpLfx/uBL89CqOutI=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=FiJaEpHsFZUdgbH7cnEr0TgocKWCXiR+ZJpgyBMe9t57yrY5dBGoOVO8JB6YPc3TdkoJbJior2ZFKNmGCynYak5FZSNA2VmGNt7oLM2PaUfglLPDW2Y58Fn/huUoShcWaeXQme+PlfH+SLlrLrJxae90yqpZPKLedYgL0G3qxIU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.194
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi2-f2.google.com with SMTP id 5614622812f47-495d5d27acfso134441b6e.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:52:41 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787856760; x=1788461560;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Z1iWycX4pkHURg1o4GzvWHnwxlT8370uqudXNgMPEzI=;
+        b=GTcb0rEa7pZXJKfItZh8jY/Lbwsf4ZGr3IiqHwYEE+ApBqxyci+TveBzvNtnq0wj6d
+         w49UL6l2M/FrX2jDtBPJFBl761VEjWHsqyh9+FsNX8iQnSHUFOMUAmmDgvmBL25q84E4
+         mG1hrZFO2x5SMYD6j5S0FVZds7nWMzHe1ktCh2jPLTCtO2SDSyU0J776/ZSkVsjd9jcl
+         KdKIF3uQAEusf2A6K8imn4bFA6jaDjQHbZrs7YmmkVj6X0ESJp/9ns4yj1jBPJrnf9RU
+         IyIjv8IS+RRsyCPwbpYaap+Z0IgHe+3XY1aQDTV5PaZNnm522rkNFmOIhZ+gTeugM/0M
+         LXHw==
+X-Forwarded-Encrypted: i=1; AHgh+RqsKCQjONlIspHXHE4IdqzXoKjAq8agCfFioW2UyBYMxORHCwnoIJurOLK3s45xQXA/dFf2vLKMMBaTqE8=@vger.kernel.org
+X-Gm-Message-State: AFuF++n030Im5tFC/cfXXbcCm5+04yZnViSuc3rbmSraxj/7QPb5sjCf
+	XGQlBz+OFT+ckYEenFaQg7DarFwWbZtFyKqO6/IscjCoUsUrNpbRDRjV/BcZV8thLUAMCkYGDYu
+	XBscOmBFEhRQn+UB/ILlAvDbteGuReCJhsX+ecS4R4JLszqqmt3+lfrlg/oI=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
-	g74KWIvCEPA40EMIHp2hxZOTeaYSRmVTXCo9Pveo0U/lKCJcNB9gXsQmc6UZB+DF8gWSTsODe+wr5CtbaJeXt7GEl+OPitkqJjIJNWRPQvp7Txqw1Sm5eiIkuPQG/aGnRHUr9orLSdeQEZMt9EJf2VqWXBGQRzXqBWKTgNPgLHuH4K61UlvV2hzchCEtR28q+Hf0PPTmHqOsX11sFJP4o8vFfw0CQ5A+UiJayh/pS3tEJkwZfhF8yN7sLBEf/HgMEEBXs1Kg1cf3X1zaBNEDt+MVnZLkihCJDr6pEv37G2fHw3L8BYKAP/tSuG8QSqwGagogZmtqlplvd/rmCQTWTA==
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	1c+Yq3VfoC/FzPH7JEJZU/FX8nsPpEalVyrbO7yCo1mtvFMo8y3IzW7CQdgnxR/9Zyk6DRCdapXsuZ6aLpovNQyV81inldSaKdO0u/uvIkWp9OxwXjkMTUJLF0i6lv4JYismI0hdYeWsXD9U8pM6OEeVOd9VfwFPevFv7XlwqofoNRcml55oDnz/5Fh4dlPm71iDYMVSGiAj89iAJ3VJ2HBdxrBoliaBX7snyj2KUih6voNYXVy4unN5hpKte9ez5gIGhqBBtUpUKsGBjeg+3HRlv7joz8b95vNjQbSHQoaJxVCjCEVZ1r7ZLVd9ZpyiwINkrNKSVOANXcru4eeSKDLJ8+Gi2F100QRGh0EirZkxNhANsc64nPQ7/3app/Lsvw3yZBTTWLizFuPv+0Mme78q6fMxw8JyRFgvBERvPcCZt7UiN/P0qwThMR/L4BIIVoS2rSBSnzZENsDogr8y/0xBdqB+zXdhqxGGtCS+bNXULBoNbtjmCc6fQERISbxRQsi7Rw/a6xszWvwe2l5wK+b50srIv0VZ6JKVhPwdq1iAvN1kJY35fmlBy9yI1oZIyqkWwfsr6j0BwbA28Zo9LV1KmLoye9rOu+PUjZdk3d5/6jW08ed6QI8tgjX461DdYv+s48b/N3RdcG0vbj9/lQ==
-X-OriginatorOrg: sandisk.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS4PR16MB6924.namprd16.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a7625416-4df0-4225-0aa4-08df046c4b97
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Aug 2026 18:52:08.0973
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 7ffe0ff2-35d0-407e-a107-79fc32e84ec4
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: tjxVxdYH987L+FPY6/gdTDE8bDKxmaatmJn6vRVXEKucZEdgPs6mFDTg/MVy+l57DQdFhiXM8578+tsgp8f0EKbAX9GGTjnwstLLaz3d+is=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR16MB4721
+X-Received: by 2002:a05:6808:1918:b0:4b3:8ae8:7a47 with SMTP id
+ 5614622812f47-4b398340b93mr1111506b6e.16.1787856760208; Thu, 27 Aug 2026
+ 11:52:40 -0700 (PDT)
+Date: Thu, 27 Aug 2026 11:52:40 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a908778.1d9ded08.62e62.00db.GAE@google.com>
+Subject: [syzbot] [bluetooth?] WARNING in msft_do_close (2)
+From: syzbot <syzbot+14ce1b05b7d5a989abbe@syzkaller.appspotmail.com>
+To: linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	luiz.dentz@gmail.com, marcel@holtmann.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Aug 20, 2026 at 09:54:14PM +0200, Ferran Duarri wrote:
-> That one bound decides how deep a device may sleep. On a device that
-> advertises a non-operational state an order of magnitude slower than the
-> next one up, the 100ms default silently selects the slow one, and the
-> first read after an idle period pays that wake in full. It shows up as a
-> stall rather than as reduced throughput, being a one-shot cost on a cold
-> access rather than a steady-state penalty. The workload that prompted
-> this is staging large model weights from NVMe, where a cold mmap fault
-> on a multi-gigabyte checkpoint is exactly that access.
+Hello,
 
-> Measured on a Samsung SSD 990 EVO Plus 4TB (fw 2B2QKXG7), which
-> advertises two non-operational states:
+syzbot found the following issue on:
 
->  ps 3   exit  4.6ms   0.0800W
->  ps 4   exit 43.0ms   0.0070W
+HEAD commit:    818bebeb63dd drm/xe: Don't hand out the flat CCS storage a..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=15bde979580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
+dashboard link: https://syzkaller.appspot.com/bug?extid=14ce1b05b7d5a989abbe
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=111a3979580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=14f88579580000
 
-> At 100000 the APST table targets ps 4; at 25000 it targets ps 3. Cold
-> 4KiB O_DIRECT reads after an idle period, 60 trials per setting, the two
-> settings interleaved trial by trial:
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-818bebeb.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/6e4100526b12/vmlinux-818bebeb.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/723c4783ee96/bzImage-818bebeb.xz
 
-                     p50      p90      p99      max
->  100000 (ps 4)     3.3ms   33.0ms   33.5ms   33.5ms
->  25000  (ps 3)     3.2ms    3.6ms    3.7ms    4.2ms
->  warm, no idle     0.2ms    0.3ms    1.7ms    3.6ms
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+14ce1b05b7d5a989abbe@syzkaller.appspotmail.com
 
-> Observed worst case falls from 33.5ms to 4.2ms. Both states measured 78%
-> of their advertised exit latency, which is the cross-check that the two
-> figures measure the same thing at two magnitudes.
+------------[ cut here ]------------
+DEBUG_LOCKS_WARN_ON(lock->magic != lock)
+WARNING: kernel/locking/mutex.c:625 at __mutex_lock_common kernel/locking/mutex.c:625 [inline], CPU#1: kworker/u34:2/5890
+WARNING: kernel/locking/mutex.c:625 at __mutex_lock+0x944/0x1bc0 kernel/locking/mutex.c:821, CPU#1: kworker/u34:2/5890
+Modules linked in:
+CPU: 1 UID: 0 PID: 5890 Comm: kworker/u34:2 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Workqueue: hci0 hci_power_on
+RIP: 0010:__mutex_lock_common kernel/locking/mutex.c:625 [inline]
+RIP: 0010:__mutex_lock+0x94b/0x1bc0 kernel/locking/mutex.c:821
+Code: 0f b6 14 11 38 d0 7c 08 84 d2 0f 85 b4 10 00 00 44 8b 05 d8 d5 7a 05 45 85 c0 75 13 48 8d 3d ac da 7d 05 48 c7 c6 a0 d2 ef 8b <67> 48 0f b9 3a 90 e9 1b f8 ff ff 4d 8d a7 f0 0a 00 00 4c 89 e7 e8
+RSP: 0018:ffffc90002937890 EFLAGS: 00010246
+RAX: 0000000000000003 RBX: ffff88803c0a4440 RCX: 1ffffffff2287150
+RDX: 0000000000000000 RSI: ffffffff8befd2a0 RDI: ffffffff91468f60
+RBP: ffffc90002937a00 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 00000000000075eb R12: 0000000000000000
+R13: 0000000000000000 R14: dffffc0000000000 R15: ffff888056a15980
+FS:  0000000000000000(0000) GS:ffff8880d5ca2000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f8ddaddcff8 CR3: 000000002b956000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ msft_do_close+0x32e/0x6a0 net/bluetooth/msft.c:698
+ hci_dev_close_sync+0x1020/0x13c0 net/bluetooth/hci_sync.c:5596
+ hci_dev_do_close+0x2e/0xb0 net/bluetooth/hci_core.c:502
+ hci_power_on+0x1be/0x630 net/bluetooth/hci_core.c:940
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3387
+ process_scheduled_works kernel/workqueue.c:3470 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3551
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+----------------
+Code disassembly (best guess):
+   0:	0f b6 14 11          	movzbl (%rcx,%rdx,1),%edx
+   4:	38 d0                	cmp    %dl,%al
+   6:	7c 08                	jl     0x10
+   8:	84 d2                	test   %dl,%dl
+   a:	0f 85 b4 10 00 00    	jne    0x10c4
+  10:	44 8b 05 d8 d5 7a 05 	mov    0x57ad5d8(%rip),%r8d        # 0x57ad5ef
+  17:	45 85 c0             	test   %r8d,%r8d
+  1a:	75 13                	jne    0x2f
+  1c:	48 8d 3d ac da 7d 05 	lea    0x57ddaac(%rip),%rdi        # 0x57ddacf
+  23:	48 c7 c6 a0 d2 ef 8b 	mov    $0xffffffff8befd2a0,%rsi
+* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
+  2f:	90                   	nop
+  30:	e9 1b f8 ff ff       	jmp    0xfffff850
+  35:	4d 8d a7 f0 0a 00 00 	lea    0xaf0(%r15),%r12
+  3c:	4c 89 e7             	mov    %r12,%rdi
+  3f:	e8                   	.byte 0xe8
 
-> The p50 at 100000 needs reading carefully: roughly five trials in six did
-> not finish descending to ps 4 inside the idle window and were sampled at
-> ps 3 depth, which pulls that row's median down to the 25000 row's value.
-> The ps 4 column therefore rests on the remaining sixth, where it was
-> tightly reproducible, 32.9ms to 33.5ms. That effect can only understate
-> the cost of the current default, never overstate it.
 
-> 25ms is not derived from this device. It is a bound on latency an
-> interactive reader notices; any value between 4.6ms and 43ms behaves
-> identically here. The device is an existence proof that the 100ms
-> default admits a state far slower than the next available one, not the
-> source of the constant. On a device whose deepest non-operational state
-> exits well under 25ms this changes nothing, which is correct for a bound.
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-> The cost is idle power. Excluding ps 4 leaves ps 3 as the deepest state
-> the device reaches autonomously, 0.0800W rather than 0.0070W, so roughly
-> 73mW more on an idle drive.
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-As you noted, the advertised latency is not necessarily the real
-latency. But you may not have taken into account why the latencies
-are advertised the way they are. In client devices, the EXLAT+ENLAT
-values are derived from Microsoft guidelines available here:
-https://learn.microsoft.com/en-us/windows-hardware/design/
-component-guidelines/power-management-for-storage-hardware-devices-nvme
-To get to a situation in Windows where PS3 is used most of the time,
-the PS4 latency is sometimes advertised as much higher than in reality.
-Also, transitional energy can be high and is not measurable using just
-the power state values (transitional energy in worst case is PS0 power
-for the entire EXLAT, but in reality it's generally lower).
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
-I would recommend Linux keep aligning with the Windows values since
-those are the ones client devices optimize for. Selecting 25ms as the
-default will ensure that PS4 is never used in devices that are aligned
-with Windows, which will cost more power even though it will improve
-responsiveness. Some OEMs will find it unacceptable, as was the case
-before I introduced the current APST algorithm back in 2021.
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
 
-I believe that whenever latency is that important in the workload,
-users should explicitly disable power management (as one would do on
-Windows by switching to performance mode), but this shouldn't be the
-default.
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
 
-> This changes only the compiled-in default. default_ps_max_latency_us is
-> consumed once per controller in nvme_add_ctrl(), so it applies from the
-> kernel command line as nvme_core.default_ps_max_latency_us=3D. A running
-> controller instead follows its per-device PM QOS value
-> (pm_qos_latency_tolerance_us), which is how the two settings above were
-> compared without a reboot. Any system preferring deeper idle states can
-> restore the old behaviour without a rebuild.
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
 
-> Signed-off-by: Ferran Duarri <ferran.duarri@me.com>
-> ---
->  drivers/nvme/host/core.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-
-> diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-> index c3032d6ad6b1..e3038b880e8b 100644
-> --- a/drivers/nvme/host/core.c
-> +++ b/drivers/nvme/host/core.c
-> @@ -66,7 +66,7 @@ static u8 nvme_max_retries =3D 5;
->  module_param_named(max_retries, nvme_max_retries, byte, 0644);
->  MODULE_PARM_DESC(max_retries, "max number of retries a command may have"=
-);
-
-> -static unsigned long default_ps_max_latency_us =3D 100000;
-> +static unsigned long default_ps_max_latency_us =3D 25000;
->  module_param(default_ps_max_latency_us, ulong, 0644);
-> MODULE_PARM_DESC(default_ps_max_latency_us,
->                "max power saving latency for new devices; use PM QOS to c=
-hange per device");
+If you want to undo deduplication, reply with:
+#syz undup
