@@ -1,109 +1,93 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C6CE22F01
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:54:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B46E440A08
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:54:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787838846; cv=none; b=ZqvX7Hab/4JjuMWv4n8zZZ1fTSQ+Bzk3oV6nvNM98yKemXngaf5a4xkva7n0OHvxAKADaCM0uNQ78e/IcQn0COnSsjuiFAHQoVgh5rhZIa2emigcVBiK9oaa18sMDKALfAmMNWWFnC6KExJ1PUxOzt0S376M9dllcqkxB6dwOPo=
+	t=1787838853; cv=none; b=epHUiV4KAi3/fWBz9bqD+HcjTVVCNRqIP69xsTeytNBuCeEhtPtbifDyrq+/T5noP1UiERLmfJyR8xFsxh3xXEr1q6sddfbPSDLH13ITcBJZ0aGNwlYax7oUSFrOd9iaS7+H2zoJKQMW4gQ1dD1i2ZhOX8eHmbJ1PMlZdoiXIHA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787838846; c=relaxed/simple;
-	bh=QcnsRvBS8HwkR+O6VJHcSxjceTtwS1oZqvuyeAOVQBE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=svgvZdbjMKijwZAWlkJ+T/UMJQD6fgUsF0JmT+d+pDqpLiD5lp51p2kLmcFXCcz1JzYRncEhdcrS22XDnlcZG/wYkhudgKtk821TzW4YLp929Cxpvtd1L38xTxHdPXQD3hA4H6Ze3/AI4OVweISr7WH4eRf9cesfaZa3TTe+adE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W47rpLKp; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787838853; c=relaxed/simple;
+	bh=rWfd5/uJ5kBo6WJGlskG3tntoc37IMd3ji7UZYIgyR8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=UIzGTezLMXrAZdQkmWSvhfckOeM16HGTqbbm0ZoFCVyY4A19R/Ric2EuRi6sChQUK5ynrC66itWujqYMqaEOkYdnRbtAjSHdP9WozXWvQyletZObhGvY1uygjU+CnliRSNKGtHVLrjqyJPjEe8WWFRXICvaji556x4bh2e4r0o4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=pXUzBDvE; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W47rpLKp"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2d6efd73032so9481875ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:54:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787838845; x=1788443645; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=RngKn1qeN4IMu4W20K5F024kPlBdyKuXJtbP/ZBjLVg=;
-        b=W47rpLKpxgprzgm84JHNcrrstIUk3eh6n9RocLXhVaM0VIvRTXaGG2/kt5crpbzyM8
-         SIKhN8Wy2LW5RJY/2lrcoAO92616v/Fo2m8UhJrpD9U0D7+2U3A6I3gPqZXReITyHBXK
-         TnttMSziSVwRJLmzpYS9nauDh25ydtZNSRKPSl3IZiQ1ZlF3wV4zAE9W8ILqEPonWT1g
-         350Q1dKuLG8pb6xt6Hs1eT4thY75vSqIUDG6fMW/Uw0kOw30ub4t4dEk/DlW26y7sRTw
-         bGVLGbnVyI+qGPUCFh0iCE06lmeus+zHXCpLbaTgE0+AKMydVyg/ToVIvXgmtJwwhzys
-         G2rw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787838845; x=1788443645;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RngKn1qeN4IMu4W20K5F024kPlBdyKuXJtbP/ZBjLVg=;
-        b=CTGBT+F3hgTLVVihUAFnuSBQXW4fPasUZUs+vvBAg4GcWfv9cLhOn3RwXzJ7D3oyg5
-         DohkLhgEa7BHbhv8i2cBvhttKF0zYsIw/MZ466h6L34Nb4eYd2LJF5YAXDo2xVqTVdZe
-         GawGRaQCs/BgBhMXQ7l8qVDhSrTkSM2VC5ShdqBdow/WnBc2i1R2yUzTQhZPezl/72/w
-         6Lc1xMVsaTLgv3ggI6s9rmZF31iyM1dIHnkz1f3vGIm8uMf0pB7mJuEWklogJ/q7X2Sg
-         mfxxqZcru5qFxV931sxgzKifxa3S8bO4pQdIhSTdra+L5/RUXHPiycvLfrE/F+h1rXZv
-         rGwQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rp5wkFAVt3fL/wcxGKztWZIQhCdalozj6k/KJZyRTQ4xd0AJBPyLAR5WTQ/YKhj/6gmZpK/9TV3XnM1PaY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nLow9KfJjxZII01bYFKYkOaaP3m7hwOMVyTkDAY/xQJ0M9qYU6
-	lLMiv70bYA59nkMR9FHy7i9eSvvxUFA46StQcKKT9WxG5LYz0TwVz8mi
-X-Gm-Gg: AR+sD13dkoS1904T06IAfUqHsPDEPax6XDo2S6SAWlzDKX+p2EvjbJadiWWHlPbyx6l
-	XweNGJRb7tuQL5dADyfWfc1udc1kNf7qDq27TuQQcPNl8bnKqARynQRp3SE8sxVbavKUsF0zXRG
-	XmnWxx9oz9RFIN4YpZb+A6h/0Ye9eLW5O/nyETcul9rlUF0HH6hFqDo+ntSRgQ4MMX+vt+aNueo
-	LAkaRtxxbQQd2frG5lqg59AnYaHBE4UhbHEW01xs1VAf9hbmzAVTjmonSeoUpQq0Jkl7xDajOt4
-	98La2wesJpRTIV0I0ZsRtok0uLTmlJEDiQXKkDSlow0VU2BVpwr6iJmUA3m7tk9+DuHWMjeR8yV
-	axGqJsv1zAFOD4xsqAO8ATnssmJqyCzPqY9CaVHIUTQnXhy68RktrfZtByk82tafmXnD2ieTi7Y
-	gdHILgtDlNMKMPS7Xk4wraAxlnC+WEmaupf2J8fOYYPl5V/EPpDtnqK6GPy+Zwahn+FDq9LMoRJ
-	JMgYi+EAMGj5g==
-X-Received: by 2002:a17:902:e74e:b0:2cf:7db9:e13e with SMTP id d9443c01a7336-2d72600b801mr85038015ad.3.1787838844476;
-        Thu, 27 Aug 2026 06:54:04 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d704c34ac6sm17479885ad.73.2026.08.27.06.54.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 06:54:03 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Thu, 27 Aug 2026 06:54:03 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Wanming Gao <wanming.gao@mediatek.com>
-Cc: Tzung-Bi Shih <tzungbi@kernel.org>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, wallace.yu@mediatek.com,
-	Jarried.Lin@mediatek.com, vince-wl.liu@mediatek.com
-Subject: Re: [PATCH v2] watchdog: mediatek: acknowledge pretimeout interrupt
-Message-ID: <5e1793d5-6c78-4372-872a-069fcd99a07a@roeck-us.net>
-References: <20260827092616.2724197-1-wanming.gao@mediatek.com>
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="pXUzBDvE"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=rWfd5/uJ5kBo6WJGlskG3tntoc37IMd3ji7UZYIgyR8=; b=pXUzBDvEJRH2f1EWdSQVLIRPD0
+	st02wJxpl1rJYqoYPw3CMLo+Fl6YPud3datM6GryS3PIFiX9JDkxm7vyVKCrzihH785halA13rKcE
+	PTYnbuZIdWtycOfiSlFoqJS+OsCVWKQWD/2mXNbsJcnP900fCotQqRw78QseyYPdwLuCFLocWl9XR
+	t1m/VMl8J2s7/pUoSzxMmYjM6TXt9Tj7awsN0vnz4ZBAphh1rBt8hAkjZ+g+SYyUumBnT1xHjSDIZ
+	yip6AcM5B6C1XByK2mkGoM0Ihm1BVgPeT0j6RrYB7I4ZT/Wfyes2a/gKSVJUoEpmfRB19mCgE3WGz
+	SEGjWgdA==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Srinivas Kandagatla <srini@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org,
+ Stefan Kerkmann <s.kerkmann@pengutronix.de>,
+ Sascha Hauer <s.hauer@pengutronix.de>
+Subject: Re: [PATCH] nvmem: rockchip-otp: convert to runtime PM
+Date: Thu, 27 Aug 2026 15:54:06 +0200
+Message-ID: <2048906.PYKUYFuaPT@phil>
+In-Reply-To:
+ <20260819-rockchip-nvmem-pmruntime-v1-1-01f1acf80dba@pengutronix.de>
+References:
+ <20260819-rockchip-nvmem-pmruntime-v1-1-01f1acf80dba@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827092616.2724197-1-wanming.gao@mediatek.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-On Thu, Aug 27, 2026 at 05:26:12PM +0800, Wanming Gao wrote:
-> The MediaTek watchdog pretimeout interrupt is level-triggered and does
-> not have a separate acknowledge register. The interrupt is cleared by
-> changing WDT_MODE_IRQ_LEVEL_EN and then restoring it to its original
-> state. Without this transition, the interrupt may remain asserted and
-> cause an interrupt storm.
-> 
-> After changing WDT_MODE_IRQ_LEVEL_EN, wait 70 us before restoring it.
-> This is longer than two 32 kHz watchdog clock cycles, allowing the
-> level change to propagate across the clock domain.
-> 
-> WDT_MODE is also updated by the watchdog start, stop, and pretimeout
-> operations. Protect its read-modify-write sequences and the complete
-> IRQ acknowledge sequence with the watchdog spinlock so that concurrent
-> updates cannot overwrite the temporary IRQ level state.
-> 
-> Signed-off-by: Wanming Gao <wanming.gao@mediatek.com>
+Am Mittwoch, 19. August 2026, 14:33:45 Mitteleurop=C3=A4ische Sommerzeit sc=
+hrieb Sascha Hauer:
+> From: Stefan Kerkmann <s.kerkmann@pengutronix.de>
+>=20
+> The driver enables the OTP clocks inside rockchip_otp_read() and drops
+> them again before returning, so the controller is only alive for the
+> duration of a nvmem read issued by Linux.
+>=20
+> On RK3588 that is not sufficient. Part of the OTP array is readable only
+> from the secure world, and OP-TEE reads it through this same controller.
+> Its clocks are in the normal world's CRU and are plain gates, so an SMC
+> into OP-TEE hits a clock-gated controller unless Linux turns them on
+> first. OP-TEE cannot do that without a CRU driver of its own, which
+> would put both worlds on the same gate registers.
+>=20
+> Move the clock handling into runtime PM callbacks. A consumer can then
+> take a DL_FLAG_PM_RUNTIME device link on the OTP and hold a reference
+> for as long as it needs the controller, without knowing anything about
+> its clock list. DEFINE_RUNTIME_DEV_PM_OPS() supplies the system sleep
+> callbacks too, so holding one does not keep the clocks on over suspend.
+>=20
+> Enabling the clocks is now the callbacks' job alone, hence the dependency
+> on PM: with CONFIG_PM=3Dn they never run and a read would go out to a gat=
+ed
+> controller. Reads are otherwise unchanged.
+>=20
+> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: Stefan Kerkmann <s.kerkmann@pengutronix.de>
+> Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
 
-Applied.
+Reviewed-by: Heiko Stuebner <heiko@sntech.de>
 
-Thanks,
-Guenter
+> ---
+> The driver enables the OTP clocks inside rockchip_otp_read() and drops
+> them again before returning, so the controller is only alive for the
+> duration of a nvmem read issued by Linux.
+
+your commit message got duplicated here.
+
+
+Heiko
+
+
