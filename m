@@ -1,254 +1,160 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ED8A3B47FD
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:31:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787823103; cv=none; b=bsnslpAoJMS2KQYz57hkc8FmFeTwNfgWdf6GwT6MYaJPtXlfJvgE/lp6u3yV26FLq+l407bvtvU/AH/qOJwvT+TS4WEgdlcDEP4A1uxbI8dyn6cIVpOQOrUxs1ssXPLM8HgHGsqPr8BH3coIftbajW+MJH20ivUvBLu41/0hN5U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787823103; c=relaxed/simple;
-	bh=P3fpSl01EL+JlZZ7pcW5UeLGCEoiQ5sAzTvO6JoKySg=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=XURVYatF9QTgvu1zBmtOWGtV+TYfU8WbKJrzUXHfgKA5ppSLwLXzZleVuceBDlce/TJL8Ap6HYirWxxc991DQzviMtZiRW1DJtDdlnbEJuMke+eRD4HXcAd+A3ORwWrn1PTVuLrMZyottd+uwb6R7CCCsyeXFWEUgRVDpCOwJuw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4ab8b4887d4so1688152b6e.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 02:31:38 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CDB442B742
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:31:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787823121; cv=pass; b=mXb2Bv96yXi8e0AaCnMiRVwlpoRiddTqv58CJ9HQ08D+qugGoea6p7GpxednSwEneJDEx26SChcFLiUqlwAENLKZ4DKamkY1YsZgwqsqUzKnriHRv/8ekrEr/g2+buTz+0nCJ5Mi+u9Lb1qoRJfb93XCsQbdiaabHAukTPmUoAw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787823121; c=relaxed/simple;
+	bh=DiKezu3kxUMpOPlgjGkQvb9T0n90JHLS78j+3MVsolQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WoqxnpGdkNaRlilX9Crt8G5lYmb1Kqr8/19hukjMlpWR31ndVudAg73U46syfERBxCRPiMe9Bu0RdXnBRh3JCiZ7jAXTiM3IRMsnzZMNGFaN06hGTEblsGs12DhQDd0vpr93EymOh+ifqWBzxkzg/OndmIhraq0MfJsOAtoYooQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UXGTaEfL; arc=pass smtp.client-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UXGTaEfL"
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c2530cabcf4so200483366b.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 02:31:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787823110; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MRvSbwP/ZsuTQi5tM+flS4BlKH8kZ0FMyWK8B3dqsW0c6Chb9OdXo+BXFd6HR6QFUx
+         7KxXPyDizWJwZTlKsd/s7Q9EldoEHxigSgFN+Gwrh1PvFbvd6h627Lwid2P7t4jrMf8+
+         JDeAZ5rES6dhlyK3wpnw1vhoquzeFA7NXN3pjCefMBEEUraPnsEiwHdVJY/b+P+djGry
+         sXMwvATOKctYz046Rb6BQmchiytL8hIs8apMh9Cp6gUt37VScX8VTuxJyzBqSIc6BkHE
+         cuK2CBdFuaPvaKeCuu8FvPeAOM0q6oxIerUYk3DQPY46lP/BwGlhJ+zsDXAcJjskZ4Sx
+         h1AA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=5pR6mczGLZ4oTQtEIp92SfLVnhaH6TJA1RsH9sfmiLc=;
+        fh=LIqPIKg+TVw4nhhEZA8jYTp5/P1AhUVW7JYDhlmsRVE=;
+        b=CFI1nNvAwoeuvgvMGsVZ/XfAY8bjMC5PzfKhCcv5YVTSUahQcU0aWYg39PEdq/27Xl
+         G3PqTAykm4+FsMiJF2xfMsBbEpP8mlmGt9Szfu91bUKAFOWjYVG+PprlzjIfuDOlVNg9
+         f8C9sQG+Svrjl4+3PyrpYx2yWb/uucQ01i3FXd8CXuTUhNcjSQ9G8wiFGpifowSwUNQh
+         gm659OSiAJBO9alPW/7ukn7NmQDBLrXur1cz6V3+sfDiMhQIaD9YAOyWLxahUARvMqS5
+         5YT3bjOOiMa3BgQn8qmYf5KPvmNdDlRK+TyF4V7CUdquPZ1swViGDNbQrjuHTcJyi3XQ
+         xo6Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787823110; x=1788427910; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5pR6mczGLZ4oTQtEIp92SfLVnhaH6TJA1RsH9sfmiLc=;
+        b=UXGTaEfLtTxtgNOj2NvZXRGYKcWkK7NQ4PBzffnzk5Kfi8KrJPp+qfw7i2qKW6D/0U
+         k2V5LSr+do5O6L2xQb2K3Hvfv7v+dma9yxI2pStF08pDHPNkPSt9Xo2NRFxINf/CJRj2
+         9XpYXz8K0UFgkef6b1TzbYd2d6DY8CUCuDq14tzluiwHznyGxoto1Ef3yOZ+8dNtzuPF
+         HeRCYZS66yf5u5yN7pl12Zfbri7YrIsp+NyrWwWYZc4Czi/4Ow4zR5qW1o+aj1Z7r/3G
+         8YpYNneJ06nZvnnAh343nXyoHlogk5bdQYftPRiOOhnbdDvvWa8TIPKmTXo/KaaURUl1
+         3Ssw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787823097; x=1788427897;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=BJoli19LrMNg//Htjj7MlH5QuL1/UfWbHFfI+Ddim1M=;
-        b=mSJdziKNmae7NzqpDQ5ZAAkv27+NYUO0pe9oieZ0q7zLsFiCapd8VmVbBnxCvqSu8R
-         T5Zb7otibaVIzIg9wS2PZ6Ltybc2LbZY3pVaF8xXzZTap8NwGl1x5QNBk1vQ+2TEzDTq
-         CddKt3JylTrTOVSs5sxXAPIyDypQILMQ8QjWA4rYP05PzdNppVtDBpV/30HzMLFCEQfA
-         ew1ag1WIGc7OWZmv7CmJY4Dat+KlYI959sIaA59mSLxUDSyqD+0GHeLj4zpaOAS4NezQ
-         16uFrxLYKisi/nT8BMN/L2rcc1SL32oznNt8PCtduQlSboK4Yx84sgVkc8TdrbvzG0RC
-         786Q==
-X-Forwarded-Encrypted: i=1; AHgh+RrdkuUV1WbfQm3npE2pnvg1ftmSoKstsAwFDT175z9CVQHtnOGEu6iabtJKryjUtEXHq7y27Z1yumuzsr4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mbptyMThEid57l1BTo+qGyPVF4UhFI/A85d2XxDsTbSpn6MKtF
-	fgy53BZxO+q3qxyWrwnjXSTnsB9/ZNLXubZbXq/4FBxq/lB/k4ydApMEjLvuw0KW0QQ4D5hnEQv
-	w/+XeITCIHDX10WyJLVNDMywJWLc5FuHCqf+taqoh/g6V5JWzrwLhNk/qZgw=
+        d=1e100.net; s=20251104; t=1787823110; x=1788427910;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5pR6mczGLZ4oTQtEIp92SfLVnhaH6TJA1RsH9sfmiLc=;
+        b=qcWP9jCTtg3rQPaLQMRAYhSQxCDIOuzenElBXZqerpSTq4mtyVs/RoTZrpFFLZ0KJ4
+         EAtJJyj4Wp4KeYVaFBWEDrmVQQYZpBaRrfVF2P495OsATH6JZyg8j9+jJshhYxI/sqjx
+         oiWmP04Ty4XLVzGsBd2hZMgB8g5+4bdaEdCIdBY2w5IpO9r4mW+JU1uu0OInCgiQJmnG
+         aoCTMQecVwP63d2sf5Ulxod09Y+ks1tbCxH59MSR5DiKMeFXvIIC2WlUIdPep0zD43Cw
+         1ccSiUIEF2/ku+h0mbUfFxu2tMzJrYglaJuROCA/Ku8hasDJTtWWwbXghyMdLs4WHP6+
+         t+MQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrdhU31kGn22+6wCA8Ng+K054/RYJutACps8t5iHogGtZXJ8xpFSjWyuBICfSfW35spN0Sl+zuqfuUyuC0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lGk0sCqg1tB2m0442fNjlmBm6xaqJ1EnfZaSttOiqXAYlvWbpw
+	tPwjZYomasgweKSHGeOjjWhWksrQTC+U8HWReslJ3Os/CuPtEF542BNkrA+3NKnEoUnnYVFiT5Y
+	xTbYZ+Td4R/ALrSjp9GtwvmVqVjEoimw=
+X-Gm-Gg: AR+sD12UvHiKVkA+pqhiXQaXxWjteNuvnZgDfrYtZSrQj5nz/AR+zlQ3iwAizJVySrW
+	tTKKw4dckLvVx8noL7s3Deg9p/TF2WifVBs28yatkWXKyhjcno7UfA8bebeIeDu9FdAVtwv0wyp
+	sQRy5bAv/hbklHW7vhvMP7VtYCX8hvraNbXjVPn/SRXzeCwTYmJAP4D8fhckYJX3YjhNMr77Dl9
+	dIJRnD95jReBrtMJabl2zXbLAmTb2Bg6o1ZalI6dJ37kfA4RpuoeiS2A83ZWluZug40ATsPQ81w
+	Aoyx5+/yGjNQcj15XD+4uYbKQ1+WIhp7eIHBgBzWvAMObgXzUXh15bLiF5MQEMfQoeuybSiojAj
+	bMYU=
+X-Received: by 2002:a17:907:3c90:b0:c25:58e:83ff with SMTP id
+ a640c23a62f3a-c250bb126d0mr1498631566b.10.1787823109975; Thu, 27 Aug 2026
+ 02:31:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:3505:b0:493:a860:5809 with SMTP id
- 5614622812f47-4b3668b1451mr14124640b6e.4.1787823097520; Thu, 27 Aug 2026
- 02:31:37 -0700 (PDT)
-Date: Thu, 27 Aug 2026 02:31:37 -0700
-In-Reply-To: <6a8c451c.dbb3a75c.7844.0004.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9003f9.27659fcc.2ceef7.0012.GAE@google.com>
-Subject: Re: [syzbot] [media?] KASAN: slab-use-after-free Read in vidtv_bridge_on_new_pkts_avail
-From: syzbot <syzbot+c7fc4794e59786f5b4dc@syzkaller.appspotmail.com>
-To: dwlsalmeida@gmail.com, gregkh@linuxfoundation.org, 
-	jeffinphilip14@gmail.com, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, mchehab@kernel.org, stable@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
+References: <20260821-swap-thp-cleanup-v3-0-9b43f5163238@tencent.com>
+ <20260821-swap-thp-cleanup-v3-2-9b43f5163238@tencent.com> <CAGsJ_4x7ukyX1nUikuZd6fWtCdAJyfH8zJt+yRPByU7pZ8PPag@mail.gmail.com>
+In-Reply-To: <CAGsJ_4x7ukyX1nUikuZd6fWtCdAJyfH8zJt+yRPByU7pZ8PPag@mail.gmail.com>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Thu, 27 Aug 2026 17:31:13 +0800
+X-Gm-Features: AcwNN1UpyH7xDqcTAweobdT93tBwprOXaRt-X3XUo75tnaXlcJA4RQT7BJzDyEA
+Message-ID: <CAMgjq7Ab93eu0JzbGmyZaLC7SKMpNa9oLXwL6hn8CBoP0McW_w@mail.gmail.com>
+Subject: Re: [PATCH v3 02/18] mm/huge_memory: fix rejection of swap cache
+ folios with a mapping
+To: Barry Song <baohua@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Youngjun Park <youngjun.park@lge.com>, 
+	Shivam Kalra <shivamkalra98@zohomail.in>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-syzbot has found a reproducer for the following issue on:
+On Thu, Aug 27, 2026 at 4:46=E2=80=AFPM Barry Song <baohua@kernel.org> wrot=
+e:
+>
+> On Fri, Aug 21, 2026 at 2:55=E2=80=AFAM Kairui Song via B4 Relay
+> <devnull+kasong.tencent.com@kernel.org> wrote:
+> >
+> > From: Kairui Song <kasong@tencent.com>
+> >
+> > A folio in the swap cache cannot be split if it has a mapping (shmem).
+> > The split code does a defensive check for this in
+> > __folio_freeze_and_split_unmapped, after the folio ref has been frozen
+> > and the NR_SHMEM_THPS/NR_FILE_THPS counters have been decremented. It
+> > rejects the split and returns -EINVAL without unfreezing the folio or
+> > restoring the counters. That error path is buggy: if it is ever taken,
+> > it leaves the folio frozen and stuck, skews the counters, and fires
+> > the VM_WARN_ON_ONCE_FOLIO for a state that is actually legitimate.
+> >
+> > Check for this case up front in folio_check_splittable and return
+> > -EBUSY before any state is modified, so the split routine always backs
+> > out cleanly.
+> >
+> > Also fix a bracket style issue that checkpatch.pl keeps complaining
+> > about.
+> >
+> > Fixes: 00527733d0dc ("mm/huge_memory: add two new (not yet used) functi=
+ons for folio_split()")
+> > Fixes: 714b056c8321 ("mm/huge_memory: convert VM_BUG* to VM_WARN* in __=
+folio_split")
+> > Reviewed-by: Zi Yan <ziy@nvidia.com>
+> > Signed-off-by: Kairui Song <kasong@tencent.com>
+>
+> LGTM,
+> Reviewed-by: Barry Song <baohua@kernel.org>
 
-HEAD commit:    818bebeb63dd drm/xe: Don't hand out the flat CCS storage a..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=14fb5625580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
-dashboard link: https://syzkaller.appspot.com/bug?extid=c7fc4794e59786f5b4dc
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1033b415580000
+Thanks for the review!
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+c7fc4794e59786f5b4dc@syzkaller.appspotmail.com
+> [...]
+> >
+> > -               if (folio_test_swapcache(folio)) {
+> > -                       if (mapping) {
+> > -                               VM_WARN_ON_ONCE_FOLIO(mapping, folio);
+> > -                               return -EINVAL;
+>
+> BTW, I=E2=80=99m really curious whether you=E2=80=99ve ever encountered t=
+his warning?
+>
 
-==================================================================
-BUG: KASAN: slab-use-after-free in vidtv_bridge_check_demod_lock drivers/media/test-drivers/vidtv/vidtv_bridge.c:145 [inline]
-BUG: KASAN: slab-use-after-free in vidtv_bridge_on_new_pkts_avail+0x126/0x140 drivers/media/test-drivers/vidtv/vidtv_bridge.c:162
-Read of size 8 at addr ffff88802e860118 by task kworker/2:3/5832
-
-CPU: 2 UID: 0 PID: 5832 Comm: kworker/2:3 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Workqueue: events vidtv_mux_tick
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0x13d/0x4b0 mm/kasan/report.c:482
- kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
- vidtv_bridge_check_demod_lock drivers/media/test-drivers/vidtv/vidtv_bridge.c:145 [inline]
- vidtv_bridge_on_new_pkts_avail+0x126/0x140 drivers/media/test-drivers/vidtv/vidtv_bridge.c:162
- vidtv_mux_tick+0xb95/0x1460 drivers/media/test-drivers/vidtv/vidtv_mux.c:426
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3387
- process_scheduled_works kernel/workqueue.c:3470 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3551
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-
-Allocated by task 1:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
- __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __kmalloc_cache_noprof+0x2e7/0x6b0 mm/slub.c:5484
- _kmalloc_noprof include/linux/slab.h:988 [inline]
- _kzalloc_noprof include/linux/slab.h:1309 [inline]
- vidtv_demod_i2c_probe+0x6e/0x8a0 drivers/media/test-drivers/vidtv/vidtv_demod.c:421
- i2c_device_probe+0x658/0xd10 drivers/i2c/i2c-core-base.c:593
- call_driver_probe drivers/base/dd.c:628 [inline]
- really_probe+0x241/0xa60 drivers/base/dd.c:706
- __driver_probe_device+0x210/0x460 drivers/base/dd.c:868
- driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
- __device_attach_driver+0x1df/0x320 drivers/base/dd.c:1026
- bus_for_each_drv+0x159/0x1e0 drivers/base/bus.c:500
- __device_attach+0x1e4/0x4d0 drivers/base/dd.c:1098
- device_initial_probe+0xaf/0xd0 drivers/base/dd.c:1153
- bus_probe_device+0x64/0x160 drivers/base/bus.c:620
- device_add+0x121d/0x1970 drivers/base/core.c:3776
- i2c_new_client_device+0x660/0xd30 drivers/i2c/i2c-core-base.c:1020
- dvb_module_probe+0x165/0x310 drivers/media/dvb-core/dvbdev.c:1039
- vidtv_bridge_probe_demod drivers/media/test-drivers/vidtv/vidtv_bridge.c:354 [inline]
- vidtv_bridge_dvb_init drivers/media/test-drivers/vidtv/vidtv_bridge.c:430 [inline]
- vidtv_bridge_probe+0x370/0xa30 drivers/media/test-drivers/vidtv/vidtv_bridge.c:510
- platform_probe+0x106/0x1d0 drivers/base/platform.c:1507
- call_driver_probe drivers/base/dd.c:628 [inline]
- really_probe+0x241/0xa60 drivers/base/dd.c:706
- __driver_probe_device+0x210/0x460 drivers/base/dd.c:868
- driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
- __driver_attach+0x21f/0x5b0 drivers/base/dd.c:1292
- bus_for_each_dev+0x13e/0x1d0 drivers/base/bus.c:383
- bus_add_driver+0x305/0x5b0 drivers/base/bus.c:763
- driver_register+0x1e2/0x360 drivers/base/driver.c:174
- vidtv_bridge_init+0x52/0x80 drivers/media/test-drivers/vidtv/vidtv_bridge.c:602
- do_one_initcall+0x11c/0x6f0 init/main.c:1353
- do_initcall_level init/main.c:1415 [inline]
- do_initcalls init/main.c:1431 [inline]
- do_basic_setup init/main.c:1451 [inline]
- kernel_init_freeable+0x6ea/0x7b0 init/main.c:1666
- kernel_init+0x21/0x1e0 init/main.c:1556
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-Freed by task 6035:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:253 [inline]
- __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:285
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2678 [inline]
- slab_free mm/slub.c:6372 [inline]
- kfree+0x22b/0x6c0 mm/slub.c:6687
- i2c_device_remove+0x81/0x280 drivers/i2c/i2c-core-base.c:632
- device_remove+0xcb/0x180 drivers/base/dd.c:616
- __device_release_driver drivers/base/dd.c:1349 [inline]
- device_release_driver_internal+0x44e/0x620 drivers/base/dd.c:1372
- bus_remove_device+0x2bc/0x560 drivers/base/bus.c:664
- device_del+0x376/0x9b0 drivers/base/core.c:3965
- device_unregister+0x1d/0xe0 drivers/base/core.c:4006
- i2c_unregister_device+0xf5/0x270 drivers/i2c/i2c-core-base.c:1076
- dvb_module_release drivers/media/dvb-core/dvbdev.c:1061 [inline]
- dvb_module_release+0x69/0x90 drivers/media/dvb-core/dvbdev.c:1055
- vidtv_bridge_remove+0xd8/0x140 drivers/media/test-drivers/vidtv/vidtv_bridge.c:556
- platform_remove+0x5f/0x80 drivers/base/platform.c:1524
- device_remove+0xcb/0x180 drivers/base/dd.c:616
- __device_release_driver drivers/base/dd.c:1349 [inline]
- device_release_driver_internal+0x44e/0x620 drivers/base/dd.c:1372
- unbind_store+0xf8/0x110 drivers/base/bus.c:244
- drv_attr_store+0x74/0xb0 drivers/base/bus.c:125
- sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
- kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x6af/0x1050 fs/read_write.c:687
- ksys_write+0x12a/0x250 fs/read_write.c:739
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-The buggy address belongs to the object at ffff88802e860000
- which belongs to the cache kmalloc-2k of size 2048
-The buggy address is located 280 bytes inside of
- freed 2048-byte region [ffff88802e860000, ffff88802e860800)
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff88802e864000 pfn:0x2e860
-head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-flags: 0xfff00000000240(workingset|head|node=0|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 00fff00000000240 ffff88801c042f00 ffffea000071b010 ffffea0000993a10
-raw: ffff88802e864000 0000000800080007 00000000f5000000 0000000000000000
-head: 00fff00000000240 ffff88801c042f00 ffffea000071b010 ffffea0000993a10
-head: ffff88802e864000 0000000800080007 00000000f5000000 0000000000000000
-head: 00fff00000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
-head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000008
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 3, migratetype Unmovable, gfp_mask 0xd20c0(__GFP_IO|__GFP_FS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 1, tgid 1 (swapper/0), ts 15032077504
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x110d/0x35b0 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
- alloc_slab_page mm/slub.c:3267 [inline]
- allocate_slab mm/slub.c:3382 [inline]
- new_slab+0xa5/0x640 mm/slub.c:3428
- refill_objects+0xe3/0x410 mm/slub.c:7305
- refill_sheaf mm/slub.c:2805 [inline]
- __pcs_replace_empty_main+0x372/0x680 mm/slub.c:4677
- alloc_from_pcs mm/slub.c:4775 [inline]
- slab_alloc_node mm/slub.c:4907 [inline]
- __kmalloc_cache_noprof+0x47b/0x6b0 mm/slub.c:5480
- _kmalloc_noprof include/linux/slab.h:988 [inline]
- _kzalloc_noprof include/linux/slab.h:1309 [inline]
- wakeup_source_device_create+0x46/0x2e0 drivers/base/power/wakeup_stats.c:144
- wakeup_source_sysfs_add+0x1c/0x90 drivers/base/power/wakeup_stats.c:183
- wakeup_source_register+0x154/0x3e0 drivers/base/power/wakeup.c:218
- device_wakeup_enable+0xce/0x2e0 drivers/base/power/wakeup.c:336
- device_init_wakeup include/linux/pm_wakeup.h:238 [inline]
- alarmtimer_rtc_add_device+0x1da/0x320 kernel/time/alarmtimer.c:99
- device_add+0x13cc/0x1970 drivers/base/core.c:3799
- cdev_device_add+0x12b/0x270 fs/char_dev.c:553
- __devm_rtc_register_device+0x456/0x8d0 drivers/rtc/class.c:418
- cmos_do_probe drivers/rtc/rtc-cmos.c:1112 [inline]
- cmos_platform_probe+0xe3b/0x1100 drivers/rtc/rtc-cmos.c:1451
-page last free pid 24 tgid 24 ts 14981723256 stack trace:
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1418 [inline]
- free_pages_prepare+0x586/0xe00 mm/page_alloc.c:1463
- __free_contig_range_common+0x14f/0x250 mm/page_alloc.c:7060
- __free_contig_range mm/page_alloc.c:7105 [inline]
- free_pages_bulk+0x12a/0x200 mm/page_alloc.c:5322
- vm_area_free_pages+0xad/0x2b0 mm/vmalloc.c:3462
- vfree mm/vmalloc.c:3511 [inline]
- vfree+0x108/0x730 mm/vmalloc.c:3485
- delayed_vfree_work+0x56/0x80 mm/vmalloc.c:3415
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3387
- process_scheduled_works kernel/workqueue.c:3470 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3551
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-Memory state around the buggy address:
- ffff88802e860000: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff88802e860080: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->ffff88802e860100: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                            ^
- ffff88802e860180: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff88802e860200: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-==================================================================
-
-
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+Nope, found by reading the code. It's possible in theory, the race
+window is super short so maybe no one observed it, or observed it but
+hard to debug it (a random frozen folio). Anyway we should just fix
+it.
