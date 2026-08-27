@@ -1,234 +1,79 @@
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.domeneshop.no (smtp.domeneshop.no [194.63.252.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42DEF360EF9
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:27:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7C262931FF
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:28:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.63.252.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787812024; cv=none; b=RFq2mJhIm7Jakec04Ejw24wtUwYsR+z+eeOzvHvZMR08TrR6k3Gr8hOTBF7k+vF7sLMIEmdiAkbMLfWtl2bjX8q7FgOH5oh3H7FNMtvNpt9aNLRr05w10mdvfP+YZSGTLLIsk2cU72l0VUb+mHKo+CYKZVknqOWl5NYNi3N/YNc=
+	t=1787812101; cv=none; b=Ye3aKQkEVYAHUR+ZjxGDLlxvri6aJqIaBEuNG0Pb2FAGQ801KsnrbSG9UK6gNw8ydMGkjC25vOPAldgOrdrlO3qcib1c1JyeQU99ZFchjYZqebq2TNCjQ/wItZbqTgnw2KGfvkrFO7SevyKyqx4rhNx8tvssvMF0o7LgxQw1NXU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787812024; c=relaxed/simple;
-	bh=6Me5f9cNIiPxbreEnMrL7joFMQ/5JO/iEbrg5VgeQ0U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CrqbzfXhsuG9aFiv+Mvv/rrOBlsgporvuDvpSCnjdnzOQoQKqf/W1zMf0Q/oZPFNDN979pNLVuYCidnHbcPRdPDrsMfPKlywY9WmHdGZSGyLWY/F6WK93du5ChfoyXsUNMHifoe+wy9nwMEYBLvon9+VDE8mUyOQXnLGZmqwDg8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q2VJ08Nt; arc=none smtp.client-ip=209.85.210.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787812101; c=relaxed/simple;
+	bh=vYlw+yoDo94J1djbsp89GGZe6PpoQNV/EiITRv9otXQ=;
+	h=Message-ID:Date:MIME-Version:To:From:Subject:Content-Type; b=X9lupW8yCYk2wkyOHHHcRv3leQ/rCtEv4JdaZ76nUv/J0BcYgGEnfe6sYGkvgxfGeJYgrCtc8XIONcOJFxDwHcBea2ZqhNeMpv2K8iaU4DOhMYPIzldJ/RFnO7/s7qfTQK+tGEGgFRsc86ztAZl7PYQFmnjUhjmx5RnjXMVzNO0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bitvisir.nu; spf=pass smtp.mailfrom=bitvisir.nu; dkim=pass (2048-bit key) header.d=bitvisir.nu header.i=@bitvisir.nu header.b=qoVfmZfv; arc=none smtp.client-ip=194.63.252.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bitvisir.nu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bitvisir.nu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q2VJ08Nt"
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8548db7428aso853547b3a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 23:27:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787812023; x=1788416823; darn=vger.kernel.org;
-        h=content-transfer-encoding:andrewto:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZKMvnBcPJlEjiIGIjUEHCR8FjCIhDtcMqGhHVLCc0JE=;
-        b=q2VJ08Nt2z7XELYd6iYg4IK8YLbDiUH7Cq/1WB96DICi3+sEwAEuZtrKTm4IYrfgJO
-         4P0MrIrtV8xuuMmRsVfmy6uNFEyE3Pb/fTL/7Q3coVYVZKI/eaeiRAQV5OzGBzA/VXRn
-         tUepFC8ToToAt6+YC2nw1beuysaBKauzCZWtYI1xPkoYuTTutEzVKIweuCcSSIaqK1G9
-         XQpJcCFl4KSr7nJOxK1yEghr4JFQJYl2gsxVSPhy3mgfisuS+Rlf3keVEI8aauO4LxUp
-         dgxTVmYOU4wxJy8ZHwHon/7KFEvtn0GFSp8MwSkIMKDoKj+sg83LVrifA74BLdVGoQm3
-         VeZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787812023; x=1788416823;
-        h=content-transfer-encoding:andrewto:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZKMvnBcPJlEjiIGIjUEHCR8FjCIhDtcMqGhHVLCc0JE=;
-        b=AvVCtiOxOqoRvLSHKVk33csK3lTboCzLJjOIrioQpnmWzq8PECltaXFLv3Imug/VWy
-         m7ncM9UpMBEgb6nL2ILb3dYH3tg6zBD6A7hJesWuwHS+/sW+6Q/zOV4MZdk2wsurDaPD
-         KdKft0QMRF+Atfm5O14ykiGgWMEPrSbjuq7oX3qgrD++wObVo05SK+ADWdrQxleqiVz+
-         XI5jQzW4t5cf98VcBaoFz8Zfc+3DDVnzmVdo06eU8wm8v4TyfMEo1lADjxlti6dlbk8k
-         a2Kmm4l6ZTSwg4CNWILpMMobJhUIde9MWKI+5P4tDFE8OFqoYflJSZDqW8kLZslD8ZN9
-         2qDQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqrkFcVovHs2yEH/jP4kqWOda7beZ6O5DeZowrzmkYwezF67t15GKl5QVuQbpw4U4ZIEAHNGaftjUfORdA=@vger.kernel.org
-X-Gm-Message-State: AFuF++m/1PcgPdDpWMCCTgsznAQQJqGHV3q26vxjEH+83WTtr/gssBwO
-	9Jzk9GyEGRX0C5tfgTEBZzPMpAmjwh+gTbeOHSbr9aS9BH88ICIbSc8J
-X-Gm-Gg: AR+sD11y8CCLJPLAFG1c4eWmNgV2tpZUBXKB0Q3AAL9OdWT3dCavfZj4ismdWmRx+s8
-	h+hVhKeA39riyEdyHjwudAwruigKWvqL0jYy08tiZLqQpPUZj2Syfx7vxIB01ZL/F7U2wfre3ah
-	zzBn51OXy3MGuNdFxd24fKCUiExC67TkbeSyJGhCdn7VYwSSwm5x4Lc6tnTt4CCFPwsXtuS+ASi
-	JZpUkjvPJm7rXmOQtAg7Zfx32qDwe9bcelqqtSxYHDdtyzQU++/Ez1ygDDT5Cfn8dFveN6q58oy
-	nmHLKIsE/5RDKiTpjNg/FQiwrDEq005C4IATlV7a09hzxIlHhudw6IujZjjaWHlBWOLQGqaD54B
-	pvKroQelOPmCMD64xDOnTC0fGYClAZa48X3tFEVXsUxyWGxxd3We11h3p27FPfnIBti8O/Fcy1D
-	DpPcV0JuA04Qo2dET72jkIKHkGHbj0S+l1YLEcDMxN6Vzh+M1X2XUrmN1HorhVXnjzZ6T0YNxKf
-	N8k2H0=
-X-Received: by 2002:a05:6a00:181f:b0:84a:646f:193 with SMTP id d2e1a72fcca58-8536ea1f46fmr21211018b3a.0.1787812022167;
-        Wed, 26 Aug 2026 23:27:02 -0700 (PDT)
-Received: from kernel.tail6741c6.ts.net ([116.128.244.169])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8535cdc03b0sm1615408b3a.30.2026.08.26.23.26.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 23:27:01 -0700 (PDT)
-From: Kunwu Chan <kunwu.chan@gmail.com>
-X-Google-Original-From: Kunwu Chan <kunwu.chan@linux.dev>
-To: 
-Cc: Kunwu Chan <kunwu.chan@linux.dev>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Li Xinhai <lixinhai.lxh@gmail.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+f12658786a4153df5113@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/mremap: reset unfaulted VMA page offset for MREMAP_DONTUNMAP
-Date: Thu, 27 Aug 2026 14:26:50 +0800
-Message-ID: <20260827062652.305611-1-kunwu.chan@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260826192642.980c3aba921bf20cef425591@linux-foundation.org>
-References: 
+	dkim=pass (2048-bit key) header.d=bitvisir.nu header.i=@bitvisir.nu header.b="qoVfmZfv"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=bitvisir.nu
+	; s=ds202607; h=Content-Transfer-Encoding:Content-Type:Subject:From:To:
+	MIME-Version:Date:Message-ID:From:Sender:Reply-To:Subject:Date:Message-ID:To:
+	Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=KAcKaRU0OoMgU5Owi+vF4uHlaalbqO8MSSCJvkuVGgM=; b=qoVfmZfvYUZwNNoBk3BYDCdRGv
+	cgmRTUcOd8Q9i5uiceMm4mbH3YrlC4dXGW7g2nf/dDfUjCYzX+QmTnHXVtv+QYTxGt80uIXMqnvyP
+	bMwaOXHCvCdnt8s/pEJTIlT0WR0SgiQTL3n3vQmh/ZfmBWDz0U0d+kKeJpriU5k6kmjoVTWqoo0Au
+	akv23nlL8YHnsq4MYeFmKOc1zPaqlTuAswi11vM3aeZ2HsXslnOQA0zAibjRMYyR4C1DjUr7FoVvc
+	qdLVQTr6ymsXXDWmRTWwOD3jgGzucJlrqnAYqavXn9Kq9vQKFWlket92GoeThHq7wxvxIIsO3KIgp
+	fZtglbSw==;
+Received: from smtp
+	by smtp.domeneshop.no with esmtpsa (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.95)
+	id 1wzTau-00EmcX-FK
+	for linux-kernel@vger.kernel.org;
+	Thu, 27 Aug 2026 08:28:12 +0200
+Message-ID: <708c266d-dd55-46a7-8206-22d2e193667d@bitvisir.nu>
+Date: Thu, 27 Aug 2026 08:28:10 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-AndrewTo: Andrew Morton <akpm@linux-foundation.org>
+User-Agent: Mozilla Thunderbird
+To: linux-kernel@vger.kernel.org
+From: =?UTF-8?Q?Ywe_C=C3=A6rlyn?= <yn@bitvisir.nu>
+Subject: Philosophy (was Low Jitter, Fair Pay, Unification)
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On Wed, 26 Aug 2026 19:26:42 -0700 Andrew Morton <akpm@linux-foundation.org> wrote:
+Philosophy updates:
 
-> On Tue, 25 Aug 2026 08:55:26 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
-> 
-> > Uniquely an mremap() invocation using the MREMAP_DONTUNMAP flag can reset
-> > a faulted VMA into an unfaulted one.
-> > 
-> > It does so after the page tables have been moved to the copied VMA with
-> > MREMAP_DONTUNMAP leaving the old VMA in place which is naturally unfaulted
-> > as the page tables it had are no longer present.
-> > 
-> > However, in doing so, it violates the invariant that the anonymous page
-> > offset of an unfaulted VMA is vma->vm_start >> PAGE_SHIFT.
-> > 
-> > This is because a VMA may have been faulted in, mremap()'d (causing a delta
-> > between its page offset and vma->vm_start >> PAGE_SHIFT), and then
-> > mremap()'d again with MREMAP_DONTUNMAP resulting in the unfaulting.
-> > 
-> > This condition is a violation of a fundamental assumption in mm, but now
-> > also triggers an assert in assert_sane_pgoff() which explicitly checks for
-> > this condition.
-> > 
-> > Correct it by resetting the VMA's page offset at the point of completing
-> > the MREMAP_DONTUNMAP operation.
-> 
-> Thanks.  I'll park this in mm-new until mm.git is all merged up
-> (simplifying my life..)
-> 
-> 
-> Unrelatedly, Sashiko thinks we're messing up locked_vm accounting with
-> MREMAP_DONTUNMAP on a locked VMA.
-> 	https://sashiko.dev/#/patchset/20260825-fix-mremap-dontunmap-pgoff-v1-1-39a40b2c98b3@kernel.org
-> 
-> 
-> I had Sashiko write code to demonstrate this but am too lazy to test it
-> on a current kernel.  If someone could oblige?
+Now using the label Fidel, that is completely accurate, and a variant of 
+Hacker (Truther).
 
-Hi Andrew,
+Bitcurrency is a variant of Bitcoin where the amount is adjusted for 
+correctness in accordance to Fidel.
 
-I'll test the reproducer on a current kernel and check the mm->locked_vm 
-accounting before and after MREMAP_DONTUNMAP.
+OS's such as MX Linux, that claims Muslim (translated: Fidel) is not 
+supported due to the fact that they believe in schisms in that concept, 
+between variant labels. Fidel is letter pr. letter correct, and all can 
+be done according to it.
+
+This is now the only version really, since Mandrake (Linus version) was 
+ended in 2000, according to his own wishes.
+
+Inline with HP/UX really.
+
+Serenity,
+Bitvisir,
+Ywe Cærlyn
+https://bitvisir.nu/
 
 
-Thanks,
-Kunwu
 
 
-> 
-> 
-> #define _GNU_SOURCE
-> #include <stdio.h>
-> #include <stdlib.h>
-> #include <string.h>
-> #include <unistd.h>
-> #include <sys/mman.h>
-> #include <fcntl.h>
-> 
-> /* Read VMLck (in kB) from /proc/self/status */
-> static long get_vmlck_kb(void) {
->     FILE *f = fopen("/proc/self/status", "r");
->     if (!f) {
->         perror("fopen /proc/self/status");
->         return -1;
->     }
-> 
->     char line[256];
->     long vmlck = -1;
->     while (fgets(line, sizeof(line), f)) {
->         if (strncmp(line, "VMLck:", 6) == 0) {
->             sscanf(line + 6, "%ld", &vmlck);
->             break;
->         }
->     }
->     fclose(f);
->     return vmlck;
-> }
-> 
-> int main(void) {
->     size_t size = 4096 * 10; // 40 kB
->     long initial_vmlck, post_mlock, post_mremap, post_munmap;
-> 
->     initial_vmlck = get_vmlck_kb();
->     printf("[1] Initial VMLck:      %ld kB\n", initial_vmlck);
-> 
->     /* 1. Allocate initial VMA */
->     void *addr = mmap(NULL, size, PROT_READ | PROT_WRITE,
->                       MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
->     if (addr == MAP_FAILED) {
->         perror("mmap initial");
->         return 1;
->     }
-> 
->     /* 2. Lock the VMA (increments mm->locked_vm) */
->     if (mlock(addr, size) != 0) {
->         perror("mlock");
->         return 1;
->     }
->     post_mlock = get_vmlck_kb();
->     printf("[2] Post-mlock VMLck:   %ld kB (+%ld kB)\n", 
->            post_mlock, post_mlock - initial_vmlck);
-> 
->     /* 3. mremap with MREMAP_DONTUNMAP 
->      * move_vma() increments mm->locked_vm for the destination VMA,
->      * while dontunmap_complete() clears VMA_LOCKED_MASK on source VMA
->      * without decrementing mm->locked_vm.
->      */
->     void *new_addr = mremap(addr, size, size, 
->                             MREMAP_MAYMOVE | MREMAP_DONTUNMAP, NULL);
->     if (new_addr == MAP_FAILED) {
->         perror("mremap MREMAP_DONTUNMAP");
->         return 1;
->     }
->     post_mremap = get_vmlck_kb();
->     printf("[3] Post-mremap VMLck:  %ld kB (+%ld kB from initial)\n", 
->            post_mremap, post_mremap - initial_vmlck);
-> 
->     /* 4. Unmap source VMA 
->      * Since VMA_LOCKED_BIT was cleared on source VMA, 
->      * munmap fails to decrement mm->locked_vm for this region.
->      */
->     munmap(addr, size);
->     post_munmap = get_vmlck_kb();
->     printf("[4] Post-munmap source: %ld kB\n", post_munmap);
-> 
->     /* 5. Clean up destination VMA */
->     munmap(new_addr, size);
->     long final_vmlck = get_vmlck_kb();
->     printf("[5] Final VMLck:        %ld kB\n", final_vmlck);
-> 
->     /* Evaluation */
->     printf("\n--- Result ---\n");
->     if (final_vmlck > initial_vmlck) {
->         printf("BUG DEMONSTRATED: Leaked %ld kB in mm->locked_vm counter.\n",
->                final_vmlck - initial_vmlck);
->     } else {
->         printf("NO LEAK: mm->locked_vm returned to initial state.\n");
->     }
-> 
->     return 0;
-> }
-> 
-> 
+
 
