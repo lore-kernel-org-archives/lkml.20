@@ -1,111 +1,150 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B2573F7872;
-	Thu, 27 Aug 2026 08:45:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D35E93F8251;
+	Thu, 27 Aug 2026 08:45:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787820337; cv=none; b=aW8gQzbCtSMQ1dzOC7qFUZPuLBpE1jWcFV/L9FGeJUDjUtQjm7IuHW3KcvJ43zaAGgVDfYlr3vySpMshbBW0gmQQn/ADZDcLjfAfHlQb/AgnpnEcNOcgN7x+rQA+wcmPSW2CuusL44Go8wZC4Dz25rInE7PjeEUNEGReIlpsnag=
+	t=1787820342; cv=none; b=QLDrMiwHRD08YlyGzhcw1DNwkQlmdDIwxLPHs+RSyZf0y4n/1l23Our5z53P1UZ5qsC7pqoxDUJAanWmgVHmwm255sNKRog0U3lXULNRahmpgJ9D85CwjphunTIj5tYSVwxqdrAiVP1E+tE19C1SyfY3wqTg2YOR1A7cWH4sCb4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787820337; c=relaxed/simple;
-	bh=h7yOX4VW/wztNU8fp4bdk4euKzrz9m/US0S6jcGkJ5s=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=N+GuacyvF2Y7GLjM9IaavVxEI0APFj0d0pDm7VfjtI2QGBXxEK5YjMqIzDHxH2swfrZwR3BtY1wRf/I3uZ5rgb0aooVVW+yhr/6C04wuiOG4KPVzZBVpc1DbHm4XYYrlG+TEf+Z1AFzCmgBpkJ49uz/o66jTYUw0/cinXDWJzQE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=jG5Zw4X5; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1787820342; c=relaxed/simple;
+	bh=Bun68MjdXjqcRgCBPm51Kng9cowX31nQxyMJXlq0bt0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QH79QzwDSdlJfuetMx7cZd8kcFxn1ciewMOk0fBFTNekTEcMi88e9RXRkQ49KdepdSSc3oQf7uuv7OXMt0VhMt4TwKTprCOdN4Xf6rnR2MEgxQh0q/t+Pnb84VvST6Aqzd4TpDNYtJRl1fj/Wn/2hIVn3NbQ5NjbVZDSQsZEams=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ad90LDso; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="jG5Zw4X5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=TI
-	hGwWka/nqHDgf+s1AOlrgAG1nkUwUC/B6fUMbS5hM=; b=jG5Zw4X5mg0JpttLSz
-	d0rPvwo2Rg4paBZiV+j8oT7eQJZo7biegdoppmpkhNnXNXGFMLTXXNffjgGAcPhD
-	i0t8W1FDiNg9LwnylU9ebGi/dzYazFr2zwg4knsfX7HC6HNsQSXLoT2d6H7lgd//
-	hBEdWoyK+h9BRqzegiYeb624c=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgAXY_kG+Y9q545uPQ--.26825S4;
-	Thu, 27 Aug 2026 16:44:57 +0800 (CST)
-From: ghuicao@163.com
-To: Song Liu <song@kernel.org>
-Cc: Yu Kuai <yukuai@fygo.io>,
-	Li Nan <magiclinan@didiglobal.com>,
-	Xiao Ni <xiao@kernel.org>,
-	linux-raid@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Cao Guanghui <caoguanghui@kylinos.cn>
-Subject: [PATCH v3 3/3] md-cluster: revert local resize and propagate cluster errors
-Date: Thu, 27 Aug 2026 16:44:53 +0800
-Message-Id: <20260827084453.124629-3-ghuicao@163.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260827084453.124629-1-ghuicao@163.com>
-References: <20260827061200.79753-1-ghuicao@163.com>
- <20260827084453.124629-1-ghuicao@163.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ad90LDso"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787820340; x=1819356340;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Bun68MjdXjqcRgCBPm51Kng9cowX31nQxyMJXlq0bt0=;
+  b=ad90LDsoJdhSGLyhsjnRkVPV4JWmgSTjPpSLhIx2uGbopF63nYF2N9TL
+   3yjuDa0PrBv44XmhDZQ/2eq2KgukqwnvTJKjc17Llmvz6vLOAjPxNBFjw
+   elRdMg0Wej97KUw1QwYXU7wxfvDS1BjgeJXjI1T05+XC1VVY4heR1aozO
+   MXYOPCPct9kaGBEsMi4PlwAaAsG7rGx3PgWMXX0ETF/czvnpRx6IbEY8B
+   XuqpSDLnYBAROZECkGLsf6mHxNEhgKUyaeNUzn2SdKKbwhiLlUWHk+cm0
+   cdyXTy7e5/2KCCcrMAUG8AqA7cGqdIkN2d/nZAWPCg2CTWnb0OaMiMYz1
+   w==;
+X-CSE-ConnectionGUID: FBKftvZZSVauFY1geyqfDQ==
+X-CSE-MsgGUID: VgHHO20ZTDyW2kgBvAldqg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="88235710"
+X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
+   d="scan'208";a="88235710"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 01:45:39 -0700
+X-CSE-ConnectionGUID: l6yvOl/tRBClXA/x6DaMPQ==
+X-CSE-MsgGUID: zHoUCxLMRBOEJZKFuX2TIA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
+   d="scan'208";a="266513466"
+Received: from amilburn-desk.amilburn-desk (HELO kekkonen.fi.intel.com) ([10.245.244.174])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 01:45:34 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 2F24B120C1D;
+	Thu, 27 Aug 2026 11:45:32 +0300 (EEST)
+Date: Thu, 27 Aug 2026 11:45:32 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: dumitru.ceclan@analog.com, mitrutzceclan@gmail.com,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-gpio@vger.kernel.org,
+	Niklas =?iso-8859-1?Q?S=F6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
+	Martin Hecht <Martin.Hecht@avnet.eu>,
+	Andrian Suciu <Adrian.Suciu@analog.com>,
+	Cosmin Tanislav <demonsingur@gmail.com>,
+	Vivekananda Dayananda <vivekana@amd.com>,
+	Cory Keitz <ckeitz@amazon.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Julien Massot <julien.massot@collabora.com>,
+	Rob Herring <robh@kernel.org>,
+	Niklas =?iso-8859-1?Q?S=F6derlund?= <niklas.soderlund@ragnatech.se>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH v15 00/22] media: i2c: add Maxim GMSL2/3 serializer and
+ deserializer drivers
+Message-ID: <ao_5LDgGjzvPZVXU@kekkonen.localdomain>
+References: <20260807-gmsl2-3_serdes-v15-0-7212e9e5156a@analog.com>
+ <d0537d7f-6e74-4cca-93ae-398530c5cd51@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgAXY_kG+Y9q545uPQ--.26825S4
-X-Coremail-Antispam: 1Uf129KBjvJXoW7CryUXw4fJFW7ZFykAF1UJrb_yoW8urykp3
-	yxKF95try8GrZIgw47X3Z29FW5K34xtrWqqFyaka48JFn7Ar4ktF1ruF95XrWqk3s5Zrs8
-	Xws8Ja18ur1DWF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jThFxUUUUU=
-X-CM-SenderInfo: 5jkxxuldr6il2tof0z/xtbC+wr+kWqP+Qp-hAAA3z
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d0537d7f-6e74-4cca-93ae-398530c5cd51@ideasonboard.com>
 
-From: Cao Guanghui <caoguanghui@kylinos.cn>
+Hei Tomi,
 
-In md.c:update_size(), the local array is resized via pers->resize()
-before calling the cluster update_size() callback.  If the cluster
-operation fails, the local node has the new size while the rest of
-the cluster does not, causing a split-brain state.
+On Wed, Aug 26, 2026 at 01:15:03PM +0300, Tomi Valkeinen wrote:
+> Hi,
+> 
+> On 07/08/2026 16:02, Dumitru Ceclan via B4 Relay wrote:
+> > This series adds new drivers for multiple Maxim GMSL2 and GMSL3 devices,
+> > replacing the few GMSL2 drivers already in upstream, and introducing a
+> > common framework that can be used to implement such GMSL chips, which
+> > avoids code duplication while also adding support for previously
+> > unsupported features.
+> If you send a series, it needs your Signed-off-by.
 
-Propagate the cluster update_size() return value and revert the local
-resize on failure.  Also check the return value in the reshape
-completion path (md_reap_sync_thread) and log a warning on failure.
+Thanks for testing this. It's been out for review for long but without much
+attention. :-\
 
-Fixes: 818da59f97d6 ("md-cluster: add the support for resize")
-Cc: stable@vger.kernel.org
-Signed-off-by: Cao Guanghui <caoguanghui@kylinos.cn>
----
- drivers/md/md.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+> 
+> This series also depends on the internal pad, which is not upstream and is
+> not just a straightforward add-a-define case. Sakari's "[PATCH v12 00/86]
+> Generic line based metadata support, internal pads" has it, and additional
+> patches around it. For the time being, I think the internal pad
+> unfortunately blocks merging this.
 
-diff --git a/drivers/md/md.c b/drivers/md/md.c
---- a/drivers/md/md.c
-+++ b/drivers/md/md.c
-@@ -8022,9 +8022,11 @@ static int update_size(struct mddev *mddev, sector_t num_sectors)
- 	}
- 	rv = mddev->pers->resize(mddev, num_sectors);
- 	if (!rv) {
--		if (mddev_is_clustered(mddev))
--			mddev->cluster_ops->update_size(mddev, old_dev_sectors);
--		else if (!mddev_is_dm(mddev))
-+		if (mddev_is_clustered(mddev)) {
-+			rv = mddev->cluster_ops->update_size(mddev, old_dev_sectors);
-+			if (rv)
-+				mddev->pers->resize(mddev, old_dev_sectors);
-+		} else if (!mddev_is_dm(mddev))
- 			set_capacity_and_notify(mddev->gendisk,
- 						mddev->array_sectors);
- 	}
-@@ -10615,8 +10617,12 @@ void md_reap_sync_thread(struct mddev *mddev)
- 	 */
- 	if (mddev_is_clustered(mddev) && is_reshaped &&
- 	    mddev->pers->finish_reshape &&
--	    !test_bit(MD_CLOSING, &mddev->flags))
--		mddev->cluster_ops->update_size(mddev, old_dev_sectors);
-+	    !test_bit(MD_CLOSING, &mddev->flags)) {
-+		int ret = mddev->cluster_ops->update_size(mddev, old_dev_sectors);
-+
-+		if (ret)
-+			pr_warn("md: cluster update_size failed after reshape: %d\n", ret);
-+	}
- 	/* flag recovery needed just to double check */
- 	set_bit(MD_RECOVERY_NEEDED, &mddev->recovery);
- 	sysfs_notify_dirent_safe(mddev->sysfs_completed);
+I've briefly discussed this with Laurent and it seems we both think the
+internal pads could be introduced for this purpose. I don't see this being
+an issue; we still need to pay attention to how they are used which we'd
+need to do in any case.
+
+> 
+> However, (correct me if I'm wrong) the internal pad is only required for
+> TPG. An option would be to remove the TPG support (or at least the parts
+> that make it visible, i.e. you could keep the internal functionality), thus
+> removing the blocker. The TPG could be added later on top.
+
+That's an option, yes, but I'd just merge the internal pad patch.
+
+> 
+> I tested the series on Xilinx Kria KV260 and on TI AM62A SK, both with
+> max96716 deserializer and two max96717 serializers with imx219. On Xilinx I
+> used RAW8, with and without embedded data. On AM62A I used RAW8 and RAW10.
+> 
+> The deserializer TPG gives me no frames at all. I recall the clocking for
+> the TPG was quite a challenge on at least some max96 serializers, so maybe
+> it's related to that.
+> 
+> The serializer TPG worked, although I think there's something funny with it:
+> the initial frames (maybe just the first one) seem to be truncated a bit,
+> there's black at the bottom. Another, a bit more unclear, is that sometimes
+> ser tpg stops working. If I'm not mistaken, what I did was run cam0-tpg +
+> cam1-tpg. Then I tried des tpg. Then cam0-tpg, but it gives me nothing.
+> Streaming with cam0+cam1 video "resets" things and it all works again. I've
+> seen this a few times, but there seems to be some randomness so I haven't
+> been able to pinpoint it, but feels like there's some extra state that's
+> left behind into the HW.
+> 
+> All in all, the normal case (non-tpg) works ok for me:
+
+I'd indeed either fix the TPG before merging the set or postpone adding it
+for this reason. :-)
+
+> 
+> Tested-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+
 -- 
-2.34.1
+Terveisin,
 
+Sakari Ailus
