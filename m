@@ -1,112 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.zytor.com (terminus.zytor.com [198.137.202.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5747E305E1F
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 22:50:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00D5C36B92B;
+	Thu, 27 Aug 2026 22:50:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787871022; cv=none; b=lMAJd/uMO0o5mAG8IZtemq1yMhJShyZc2whWJyD6Uf1OuLjYqpJhYf6+9rcKAr4/hm2kWZRziCz4eu/8AEB2WtOESJtYpGgETWuJdo4dsx6KW3y2eXnZGIj11obNijsjmCSN+DcR0xDzEeVEQxpJF5kZESicXxZORgjo2X/QWYo=
+	t=1787871051; cv=none; b=uDPTU1K8LnIHB0ZH1ceDWgRHJ6PRov4LgNLifb47KSS1HrXkuPuzag/Gf0cWQasWXlb97ZLm4GkJlvekCkI/ck7yfvny10aYlnGNMJfyyTju5+DfrJJtdeptncnWkltqiJRrvO5GkDz2OcI1OECwL7QdgkVrZ1eUIXF4jpP1gIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787871022; c=relaxed/simple;
-	bh=IaddE9FgVri+4Jsb9k/07EXrkrSjcH9dZxAETt/uggk=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=EGS36h232J/PA4qFdTIcYf22rMQ8DzU5AvGv6e4S5WLgl4k02RCQGR7L3b6KSOU2fBHy1UpEVZGS+iqYhYOsXek+OjL63GxqxmrsfJI9N8o1/B411H/I+Vje9LoAmJzKlRPZGLuVHMvLLeg7Vq3SPlpgsH4f1uk9HvnfT+zMoiM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=YqeGqYYh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787871051; c=relaxed/simple;
+	bh=oVpn3Y3xe4yNSLPISH532HiWMGCaPXfViMVpomdHH3k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pIfSA6qgSEAwqzJZJ4t+0qFTutk8n50r0czjVO03hiWGFha/Ag/jz7uSejyo9GvhWUzE4Sa1YNsmxUi0aiu5Pcc/h69dcCDQ+mIei1wHuxC+/31h1OwDxg5nV8dO6HF3U7z/4jnuIAjA4VxqQjKB5pwqkfj+UC1DPw0qvM393Xw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com; spf=pass smtp.mailfrom=zytor.com; dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b=GymOd4Rk; arc=none smtp.client-ip=198.137.202.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zytor.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="YqeGqYYh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D0801F000E9;
-	Thu, 27 Aug 2026 22:50:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1787871020;
-	bh=+hrqml8c1MbGVS6iqvEsIMrnzdqhBIjUR56tKZiSMOs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=YqeGqYYhzoVgUUpvm6KZZd2OD/Z3uRoWsdGSckp6y1yuo07avs2dtVccmTgA3rAuN
-	 xLTD5R+6EJC33dMiEMn4dyGGtaDB66YqnWGpg7sTHXp6ji8UYr73RO7H2hsn4DHnFL
-	 5FpE2ib+D8JF9JtjbvfhRS9FJFFgyt7rYD+KzpgI=
-Date: Thu, 27 Aug 2026 15:50:20 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Qi Zheng <qi.zheng@linux.dev>
-Cc: hughd@google.com, baolin.wang@linux.alibaba.com, usama.arif@linux.dev,
- brauner@kernel.org, david@kernel.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Qi Zheng <zhengqi.arch@bytedance.com>
-Subject: Re: [PATCH v4 0/4] make unused huge shrinker memcg aware
-Message-Id: <20260827155020.530e28b0afa3b43fede9aa9c@linux-foundation.org>
-In-Reply-To: <cover.1786955972.git.zhengqi.arch@bytedance.com>
-References: <cover.1786955972.git.zhengqi.arch@bytedance.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b="GymOd4Rk"
+Received: from [IPV6:2601:646:8081:8d71:8c93:dacb:e5fa:49aa] ([IPv6:2601:646:8081:8d71:8c93:dacb:e5fa:49aa])
+	(authenticated bits=0)
+	by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 67RMl4Qn1836438
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+	Thu, 27 Aug 2026 15:47:04 -0700
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 67RMl4Qn1836438
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2026072801; t=1787870834;
+	bh=EXQuytFudEdgp91C+uFz8aeu/WW15G7DgPzpxtGKF4M=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=GymOd4RkxGi8njVCQCfisvKP39Bb44ZVOGqd2ZqhsM67DzFyYn8S/jMXCU8Rma33W
+	 PEelxL7L8kBY+qk5qAEjpsMwfkxEwjrDmJEsL+fSa6zkpR+h5d+MOwPtTLVMwwm0lZ
+	 bCPemLIjQYuVaQEQRjl132J4YP0xzX54ej4JFh90v2xhqZFikkHSFSnGkczichDoFv
+	 sZK/qGKEclFkhvxq+v2kMkmJ4o1BjYqiHVTd5aGLm7HyH0fkUCbFxhX7p3xCNzPfY0
+	 gzR1rveeuo2MbtEx3KqfD+thNsEFw5il2Dad3o6axDhdFmbVxxjrh2OwAc/diiyN8G
+	 nWKtXnX6xx8pw==
+Message-ID: <995a61ef-ce8c-4c8b-bea8-77f375076a39@zytor.com>
+Date: Thu, 27 Aug 2026 15:46:58 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [patch 03/18] entry: Provide
+ [syscall_]enter_from_user_mode_randomize_stack()
+To: Thomas Gleixner <tglx@kernel.org>, LKML <linux-kernel@vger.kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        Shrikanth Hegde <sshegde@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
+        Kees Cook <kees@kernel.org>, Huacai Chen <chenhuacai@kernel.org>,
+        loongarch@lists.linux.dev, Paul Walmsley <pjw@kernel.org>,
+        Palmer Dabbelt <palmer@dabbelt.com>, linux-riscv@lists.infradead.org,
+        Sven Schnelle <svens@linux.ibm.com>, linux-s390@vger.kernel.org,
+        x86@kernel.org, Mark Rutland <mark.rutland@arm.com>,
+        Jinjie Ruan <ruanjinjie@huawei.com>, Andy Lutomirski <luto@kernel.org>,
+        Oleg Nesterov <oleg@redhat.com>,
+        Richard Henderson <richard.henderson@linaro.org>,
+        Russell King <linux@armlinux.org.uk>,
+        Catalin Marinas <catalin.marinas@arm.com>, Guo Ren <guoren@kernel.org>,
+        Geert Uytterhoeven <geert@linux-m68k.org>,
+        Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+        Helge Deller
+ <deller@gmx.de>,
+        Yoshinori Sato <ysato@users.sourceforge.jp>,
+        Richard Weinberger <richard@nod.at>, Chris Zankel <chris@zankel.net>,
+        linux-arm-kernel@lists.infradead.org, linux-alpha@vger.kernel.org,
+        linux-csky@vger.kernel.org, linux-m68k@vger.kernel.org,
+        linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
+        linux-sh@vger.kernel.org, linux-um@lists.infradead.org,
+        Arnd Bergmann <arnd@arndb.de>, Vineet Gupta <vgupta@kernel.org>,
+        Will Deacon <will@kernel.org>, Brian Cain <bcain@kernel.org>,
+        Michal Simek <monstr@monstr.eu>, Dinh Nguyen <dinguyen@kernel.org>,
+        "David S. Miller" <davem@davemloft.net>,
+        Andreas Larsson <andreas@gaisler.com>,
+        linux-snps-arc@lists.infradead.org, linux-hexagon@vger.kernel.org,
+        linux-openrisc@vger.kernel.org, sparclinux@vger.kernel.org,
+        linux-arch@vger.kernel.org,
+        =?UTF-8?Q?Michal_Such=C3=A1nek?= <msuchanek@suse.de>,
+        Jonathan Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org
+References: <20260707181957.433213175@kernel.org>
+ <20260707190253.816918647@kernel.org>
+Content-Language: en-US, sv-SE
+From: "H. Peter Anvin" <hpa@zytor.com>
+In-Reply-To: <20260707190253.816918647@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Mon, 17 Aug 2026 17:03:24 +0800 Qi Zheng <qi.zheng@linux.dev> wrote:
-
-> Changes in v4:
-> Changes in v3:
-> Changes in v2:
-
-Thanks for the diligent versioning info.  fyi, it is conventional to
-maintain this below the --- separator.  It's not really the most
-important part of the [0/N]!
-
+On 2026-07-07 12:06, Thomas Gleixner wrote:
+> Randomizing the syscall stack can only happen after state is established
+> via enter_from_user_mode() or syscall_enter_from_user_mode(). The earlier
+> it happens the better.
 > 
-> The shmem unused huge shrinker maintains a per-superblock list of inodes
-> whose tail huge folio extends beyond i_size.  Because this list is not
-> memcg aware, reclaim triggered by memcg A can scan inodes across the
-> entire superblock and split huge folios charged to unrelated memcg B,
-> causing unexpected impact on it.
+> Provide two new macros to consolidate that:
 > 
-> In the worst case, memcg A has no reclaimable shmem at all, making the
-> reclaim entirely useless and incurring unnecessary latency.  We observed
-> this in production, where page lock contention during split caused
-> multi-hundred-millisecond stalls:
-
-Ugh.  That's the most important part!
-
->   tid 11340 comm scanner locked a page for 182264 us! kstack:
->           unlock_page+1
->           split_huge_page_to_list+3135
->           shmem_unused_huge_shrink+767
->           super_cache_scan+329
->           do_shrink_slab+291
->           shrink_slab+533
->           shrink_node+400
->           do_try_to_free_pages+206
->           try_to_free_mem_cgroup_pages+262
->           try_charge_memcg+591
->           mem_cgroup_charge+136
->           __handle_mm_fault+2431
->           handle_mm_fault+194
->           do_user_addr_fault+462
->           __do_page_fault+176
->           do_page_fault+48
->           page_fault+62
+>   - enter_from_user_mode_randomize_stack()
+> 	enter_from_user_mode();
+> 	add_random_kstack_offset_irqsoff();
 > 
-> Usama's recent patch [1] prevents the shmem unused shrinker from being
-> invoked during memcg-level reclaim altogether, but this is overly
-> conservative: we can do better by reclaiming only the shmem charged to
-> the reclaiming memcg.
+>   - syscall_enter_from_user_mode_randomize_stack()
+> 	enter_from_user_mode_randomize_stack();
+> 	syscall_enter_from_user_mode_work();
+>     
+> to reduce boiler plate code.
 > 
-> This series converts the shrinker list to a memcg-aware list_lru, so
-> that non-root memcg reclaim walks only candidates charged to the
-> reclaiming memcg.  Global reclaim, root memcg reclaim and shmem quota
-> reclaim retain their existing global semantics.
+> Those are macros and not inline functions as the latter would limit the
+> stack randomization scope to the inline function itself.
 > 
-> To avoid pinning a dying memcg through a long-lived CSS reference, each
-> inode stores an obj_cgroup reference instead of a mem_cgroup reference.
-> The list_lru add/delete paths resolve the current memcg from the objcg
-> under RCU, staying consistent with list_lru's own memcg migration on
-> offline.
+Not directly related to this patchset, but still:
 
-Sashiko said a few things and they look disturbing-if-true:
+Can anyone *please* find out what the actual security requirements are for the
+syscall randomization offset?
 
-	https://sashiko.dev/#/patchset/cover.1786955972.git.zhengqi.arch@bytedance.com
+The original checkin, 39218ff4c625 ("stack: Optionally randomize kernel stack
+offset each syscall") indicates that it is fundamental that the stack offset
+is applied *after* pt_regs pushing, but that isn't documented anywhere in the
+kernel sources as far as I can tell.
 
-(Apologies if this has already been considered - we don't have ways of
-tracking all this (yet, I hope) apart from personal memory and personal
-memorys are quite fried at present)
+However, I have also come to understand that there are further, undocumented
+constraints; at least at one point I was told that "the offset should not be
+stored in memory while running in the kernel", which seems more than a bit odd.
+
+This matters, because it creates a data dependency on exit. The original
+checkin does call out that RDTSC timing is inappropriate if the user could
+control it, but using a hardware CSPRNG like RDRAND (or its equivalent for
+other architectures) would be feasible if it isn't in the critical path. If an
+RDRAND - store sequence can be executed on entry, *after* the stack
+adjustment, then the high latency of RDRAND can hopefully be very effectively
+hidden by an OO CPU.
+
+Incidentally, in case you are wondering "why doesn't each core get a dedicated
+CSPRNG and hardware randomness generator, to avoid high latency", the answer
+is pretty simple: a hardware random number source, regardless of the specifics
+of the design, almost by definition violates the hardware design rules of any
+digital design; after all, the design rules are designed to *eliminate* noise
+(making the circuit behave as closely as physically possible to a realization
+of the abstract digital circuit), whereas the very goal of a HWRNG source is
+to *extract and amplify* quantum thermal noise. This means that considerable
+chip area is consumed by a "keep-out zone", a designated "no man's land"
+keeping the digital logic away from the noise source. This keep-out zone is
+typically much, much larger than the noise source itself.
+
+	-hpa
 
