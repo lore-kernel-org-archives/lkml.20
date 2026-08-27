@@ -1,377 +1,203 @@
-Received: from mta0.migadu.com (out-84.mta0.migadu.com [91.218.175.84])
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31C8C35838A
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:02:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.84
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 343F1469821
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:03:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787835785; cv=none; b=rqDwTj5v9ldq8ulZy7MlD7WP77zOEgXZwCzMm+6g1Jn9Ws1CP+VxiaU4YX/OmF5DZBG53aYeajRlbB70mi5XBeLsTA8nVkPHvk10udnHo+iHtKLLG3eiHhQJyXwfIExzRUrwvhNuv1M2nFfZxzE7ytK6MehRhJrnCDHrXitjIxU=
+	t=1787835846; cv=none; b=Pn40JT7Pw5KKWPUm8IKsNoW85DU2eR27MT/R2lro2x8z+RHwJlHWLtb6FkNToJf2extbt4ZfiMrHrsG6xicjJJo14iDV5hloARGC3q02sCybMttzw0jDJ9YIKbYjxhvENsPc6IFh6GIpw+wXO2qOrT3V0eAh6c8ex/HXgcp5r3Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787835785; c=relaxed/simple;
-	bh=zaXorwSx0qkUCwLt2lQ+z30Q7xd+Z/E9AKrAi5Mcmxg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gndlqhujyvYEKrdtU7ro173quYQ58nuXdZFP2AhsfMNkgPFMNbzovvSnKKXwo7iftuxUvk2kwC1zruiMXSzSAxk+VIQldfj6HzPtu8YmNtguGDNadmdv9hhWrVdwKEhBvaCrtLgBTYnoN1uPJibdYTWhabhh+1AEYGVuk6PGu/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=M/i7zlw6; arc=none smtp.client-ip=91.218.175.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787835846; c=relaxed/simple;
+	bh=+DL9LZKznnwk8GOx61vpD1OEMGHGZYiiUREj1sCBmQs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HdhY0FTEpL200fErAehi+YUmIoDBjeP8VybfHVLHP5Ph/Xd/S5SSFyJyEt079BxWVt9XkCFI+T+MjZrLUZRL/s1fptgB8L8M4HMEGZrBvPJfkNwxBFKeQ/QloNghiEUSRFortDQBeRDWNVqWGhFZgA2gD/zD3cP7PtP+tmuSDeo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IZoWULO8; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="M/i7zlw6"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=zaXorwSx0qkUCwLt2lQ+z30Q7xd+Z/E9AKrAi5Mcmxg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787835769; v=1; x=1788440569;
- b=M/i7zlw6OynSVxZRrBxrhebrrGKmBhkBL4YyBceo9N+j3oSqFGQZ4LxFNYYuaq66imBY72zB
- 3PaInkm+xCvUFUMKxn/aJVMACtm69tFae8NFF6ApWZEM/z46oy2R+NgcwXy7XJ3azd3Kg5hmRxN
- ftK2Vj4lLwwHnLDwP4kiTOSI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 39be45320f9a0c02;
-	Thu, 27 Aug 2026 13:02:48 +0000
-X-Mizu-Trace-ID: 39be45320f9a0c02
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <da2d8bda-5d88-4644-bc9a-3cc91851e5e1@linux.dev>
-Date: Thu, 27 Aug 2026 15:02:48 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IZoWULO8"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-482f413a232so429698f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:03:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787835831; x=1788440631; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fnPxGtE/YvJh9NvWxjMwiLTzPApsKlz9gccpke1iOiI=;
+        b=IZoWULO87LXUq5fNPvgS+PlWfh/e1Jdk0JYWAAby+pMlCiFfMAskWrnQAybYZ4hizY
+         i5jGYBNY7SLby4uLrGEEh5FEK20hHwq0gj2XP0eiOiJ80ruCR6iayHMvbgSmxwbxtSuh
+         +EtfelgzAdVvZaj9np1ZFzkUJEbJz8Af2fnXaixgpa0W0n3QBDDXfT7JRTP/dtcdxfwY
+         GBC4OBRQq0B4vQW1d5bT4CDUSt8N/C3d9j3VXfaIzCgeTCrpZrEQdzVznoYg4NmpfXhY
+         UwUws/OlRlJmptNfglQ11NbKtrNPUMzjDbQKZL6mhMAg+epL7oqeBdXMcJCoIAlWBZSu
+         F0Fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787835831; x=1788440631;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fnPxGtE/YvJh9NvWxjMwiLTzPApsKlz9gccpke1iOiI=;
+        b=jYetSz9URqgMNUDFkIgFJ2JdNf5TFE0p2PyFAuRtPHNfbkVDPF3RiPIm4OLpIwqLOr
+         xPaHJ6CvvabhrR4w2wLXcCekt0KVWrt84RRSfVPwi59tazHfI/7VXDNgH/6zWSRz0/Eq
+         70n8pjNl/m4J9xReiEyXp8orko8+oOiWcmuAvY7VwWW9fS6Kt3YRhAkzuwh2RSl0djE5
+         DtSLCE9hoW1/bGLf5IfE9CHVNv9VGbhvaJtUSDaDsSb4z2LmSPnzubs4ii1mxMSxhWFL
+         wnPudaE6msFvfTgymjbstJ+PpWX6QHecjpX+gmVvl8e+WeKGjNG3W0clw061OYXuJim6
+         yMkg==
+X-Forwarded-Encrypted: i=1; AHgh+Rq+k7TnLqRz/VaUKRpl+8+8wSwqZvXBEaje2Wba71Kjq6voX7JMkgvCHlx4JwzqI0OvyRtUbnj8WicdH+U=@vger.kernel.org
+X-Gm-Message-State: AFuF++mbY5Ssaayg5kSmCpEhmT+oV/I0BU6xpjs/plKw3kIMJKg2qpgG
+	0a9CG5HVI3zm66NWJ0kN8EI6r1QjbCPVCxJpX6ShREJFBusN9dYHCwhs
+X-Gm-Gg: AR+sD11JKwlRLqf2Vf0GBnDwSmUVjqfezJC4Xo1mYI9ZkYrPrTRKXMQkOC7KGuLCPZZ
+	zFhwpEjLAAZIc6y0aUI7/CmgpBLlz2Kx9fJ8CHi9KJ1McwyoxkIFsE+iy7Qpxzc42w/iiobcLWf
+	jILDxYEiUio1v2vOi01M3JXCwiNqMxlSlLEf6h/gE7xXHBAUcwk3EkC0i0JkMtxNA14XI4PJ0vh
+	Oa9jiu3omDsz+Fkn5E8/+BcSVG5FVY/pRuGZ4JX0xCmKMlWnKdgYqFpYFgoRUuo5cjZkNU+6Qes
+	mj65y6CO1zBymduhwQif0ee/qbP+e9HDFiUkiGod/DKg4o9uTuTuzZZ4DSXcIYfDqWYRl4ah9Do
+	QJHfyO7tilbLGuo8BxHtqaOurD5X4mH6OfQ1JOpOs+u4BLvm+dIUIQgELRs83jozIxImLVd8KTY
+	Sxh0Ejl3z4OrbYE93dFbOq3OgaqDDOYI1sxlAtJkT/FfAFaELpHLV+r577ezWVdcKFQJ0PExUxe
+	T3U8L3Dx9tTvLz4jaGt8hI0mSh/1sukqQL53ofphXynqHyj++3GbMED55iegv2WBAoHL+LcqiA=
+X-Received: by 2002:a05:600c:4592:b0:499:b402:6c0 with SMTP id 5b1f17b1804b1-499dc6eac3bmr172187105e9.3.1787835830323;
+        Thu, 27 Aug 2026 06:03:50 -0700 (PDT)
+Received: from localhost.localdomain ([2a01:5a8:737:d4a7:e53b:30a6:3c0f:1dad])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b49610170sm116081285e9.6.2026.08.27.06.03.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 06:03:49 -0700 (PDT)
+From: Georgi Valkov <gvalkov@gmail.com>
+To: briannorris@chromium.org,
+	johannes@sipsolutions.net,
+	andrew@lunn.ch,
+	krzk+dt@kernel.org
+Cc: francesco@dolcini.it,
+	johannes.berg@intel.com,
+	kees@kernel.org,
+	miriam.rachel.korenblit@intel.com,
+	rongqianfeng@vivo.com,
+	wenst@chromium.org,
+	rafael.beims@toradex.com,
+	avraham.stern@intel.com,
+	error27@gmail.com,
+	s.kerkmann@pengutronix.de,
+	gregory.clement@bootlin.com,
+	sebastian.hesselbarth@gmail.com,
+	robh@kernel.org,
+	conor+dt@kernel.org,
+	Frank.Li@nxp.com,
+	chunfan.chen@gmail.com,
+	arend.vanspriel@broadcom.com,
+	peddolla.reddy@oss.qualcomm.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	stable@vger.kernel.org,
+	gvalkov@gmail.com,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v7 1/3] dt-bindings: net: wireless: add flag marvell,invalid-reg-hint-in-rom
+Date: Thu, 27 Aug 2026 16:03:33 +0300
+Message-ID: <20260827130335.6606-1-gvalkov@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC for-next 2/3] block: allow error injection rules to delay
- bios
-To: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>
-References: <20260827000115.128093-1-haris.iqbal@linux.dev>
- <20260827000115.128093-3-haris.iqbal@linux.dev>
-Content-Language: en-US
-From: Haris Iqbal <haris.iqbal@linux.dev>
-In-Reply-To: <20260827000115.128093-3-haris.iqbal@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+WRT3200ACM and WRT32x routers always report a fixed US regulatory domain
+from the mwifiex ROM, which conflicts with the platform regulatory
+configuration on units sold outside the US market. For example:
+- phy0 mwlwifi 5 GHz, hard-coded region 98 EU mapped to FR
+- phy1 mwlwifi 2.4 GHz, hard-coded region 98 EU mapped to FR
+- phy2 mwifiex 2.4 and 5 GHz, hard-coded region US
 
+When the system boots, it detects a conflict between the user selected
+region and the radios, e.g. BG FR US, and applies extreme restrictions,
+preventing phy0 from starting on any DFS channel. phy2 works.
 
-On 8/27/26 02:01, Md Haris Iqbal wrote:
-> Error injection can only fail a bio today.  Add a delay_us option so that
-> a rule can hold a bio back first, to model a slow device.
-> 
-> If a matching rule has delay_us set, the bio is held for that long.  It is
-> then failed if the rule also has a status, or resubmitted below the
-> injection hook so that the rules are not applied to it again.
-> 
-> The bio is submitted from a workqueue rather than from the timer, because
-> submitting a bio can sleep.  Bios with REQ_NOWAIT are never delayed, and
-> values above 600 seconds are rejected.
-> 
-> Cc: Christoph Hellwig <hch@lst.de>
-> Signed-off-by: Md Haris Iqbal <haris.iqbal@linux.dev>
-> ---
->   block/blk-core.c        |  13 ++--
->   block/blk.h             |   1 +
->   block/error-injection.c | 147 ++++++++++++++++++++++++++++++++++++----
->   3 files changed, 142 insertions(+), 19 deletions(-)
-> 
-> diff --git a/block/blk-core.c b/block/blk-core.c
-> index 196bccf27f58..f28ccc4633d4 100644
-> --- a/block/blk-core.c
-> +++ b/block/blk-core.c
-> @@ -759,11 +759,8 @@ static void __submit_bio_noacct_mq(struct bio *bio)
->   	current->bio_list = NULL;
->   }
->   
-> -void submit_bio_noacct_nocheck(struct bio *bio, bool split)
-> +void __submit_bio_noacct_nocheck(struct bio *bio, bool split)
->   {
-> -	if (unlikely(blk_error_inject(bio)))
-> -		return;
-> -
->   	blk_cgroup_bio_start(bio);
->   
->   	if (!bio_flagged(bio, BIO_TRACE_COMPLETION)) {
-> @@ -793,6 +790,14 @@ void submit_bio_noacct_nocheck(struct bio *bio, bool split)
->   	}
->   }
->   
-> +void submit_bio_noacct_nocheck(struct bio *bio, bool split)
-> +{
-> +	if (unlikely(blk_error_inject(bio)))
-> +		return;
-> +
-> +	__submit_bio_noacct_nocheck(bio, split);
-> +}
-> +
->   static blk_status_t blk_validate_atomic_write_op_size(struct request_queue *q,
->   						 struct bio *bio)
->   {
-> diff --git a/block/blk.h b/block/blk.h
-> index 50abfd932886..cdf6d8964da6 100644
-> --- a/block/blk.h
-> +++ b/block/blk.h
-> @@ -61,6 +61,7 @@ bool __blk_freeze_queue_start(struct request_queue *q,
->   			      struct task_struct *owner);
->   int __bio_queue_enter(struct request_queue *q, struct bio *bio);
->   void submit_bio_noacct_nocheck(struct bio *bio, bool split);
-> +void __submit_bio_noacct_nocheck(struct bio *bio, bool split);
->   int bio_submit_or_kill(struct bio *bio, unsigned int flags);
->   
->   static inline bool blk_try_enter_queue(struct request_queue *q, bool pm)
-> diff --git a/block/error-injection.c b/block/error-injection.c
-> index 47cdd8973adc..9b823edf3f8a 100644
-> --- a/block/error-injection.c
-> +++ b/block/error-injection.c
-> @@ -6,9 +6,17 @@
->   #include <linux/blkdev.h>
->   #include <linux/parser.h>
->   #include <linux/seq_file.h>
-> +#include <linux/workqueue.h>
->   #include "blk.h"
->   #include "error-injection.h"
->   
-> +/*
-> + * Cap the delay so that a typo can't wedge a device for good.  This is still
-> + * well beyond the default hung task timeout, which is one of the things a
-> + * delay is useful for triggering.
-> + */
-> +#define BLK_ERROR_INJECT_MAX_DELAY_US	(600 * USEC_PER_SEC)
-> +
->   struct blk_error_inject {
->   	struct list_head		entry;
->   	sector_t			start;
-> @@ -18,14 +26,91 @@ struct blk_error_inject {
->   
->   	/* only inject every 1 / chance times */
->   	unsigned int			chance;
-> +
-> +	/* hold the bio for this long before submitting or failing it */
-> +	unsigned int			delay_us;
->   };
->   
-> +/*
-> + * A bio held by a delay rule.  This is self-contained on purpose: it does not
-> + * point back at the rule, so rules can be removed while delayed bios are
-> + * outstanding, and it does not point at the gendisk, so nothing has to be
-> + * cleaned up when the disk goes away.  A delayed bio holds no queue usage
-> + * counter reference either, so one that outlives its disk is failed by the
-> + * GD_DEAD check in __bio_queue_enter() once it is finally submitted.
-> + */
-> +struct blk_error_inject_delay {
-> +	struct delayed_work		dwork;
-> +	struct bio			*bio;
-> +	blk_status_t			status;
-> +};
-> +
-> +static struct workqueue_struct *blk_error_inject_wq;
-> +
->   DEFINE_STATIC_KEY_FALSE(blk_error_injection_enabled);
->   
-> +static void blk_error_inject_delay_work(struct work_struct *work)
-> +{
-> +	struct blk_error_inject_delay *d = container_of(to_delayed_work(work),
-> +			struct blk_error_inject_delay, dwork);
-> +	struct bio *bio = d->bio;
-> +	blk_status_t status = d->status;
-> +
-> +	kfree(d);
-> +
-> +	if (status != BLK_STS_OK) {
-> +		bio->bi_status = status;
-> +		bio_endio(bio);
-> +	} else {
-> +		/*
-> +		 * Submit below the injection hook.  Re-entering it would match
-> +		 * the same rule again and the bio would never be issued, so a
-> +		 * bio that was delayed once skips error injection entirely
-> +		 * from here on, including any other rule that covers it.
-> +		 */
-> +		__submit_bio_noacct_nocheck(bio, false);
+Add a device-tree flag, which allows affected devices, where the radio
+conflicts with the platform to ignore the incorrect regulatory hint in
+the ROM of the radio, so the platform regulatory domain can be used.
+This does not allow the user to change the regulatory configuration of
+any radio. It only allows phy0 to start and operate according to its
+certified configuration.
 
-According to Sashiko, this will cause split bios to go through multiple 
-delays.
+[1] https://github.com/kaloz/mwlwifi/issues/173#issuecomment-307879699
+[2] https://github.com/openwrt/openwrt/issues/9956
 
-Initial look says that what Sashiko is saying is true. I will take a 
-deeper look and get back.
+Signed-off-by: Georgi Valkov <gvalkov@gmail.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+v7:
+1. drop Cc: stable, the first patch only documents a binding
+2. restore colon after Tested-on as requested by openwrt-ai
+3. mention the added wifi@1 node
 
-> +	}
-> +}
-> +
-> +/*
-> + * Hand the bio to a workqueue that submits or fails it once the delay has
-> + * expired.  Both blk_mq_submit_bio() and ->submit_bio can sleep, so this can't
-> + * be completed from the timer itself.
-> + *
-> + * Returns false if the bio can't be delayed, in which case the caller handles
-> + * it immediately instead.
-> + */
-> +static bool blk_error_inject_delay(struct gendisk *disk, struct bio *bio,
-> +		blk_status_t status, unsigned int delay_us)
-> +{
-> +	struct blk_error_inject_delay *d;
-> +
-> +	/* never block a bio that asked not to be blocked */
-> +	if (bio->bi_opf & REQ_NOWAIT)
-> +		return false;
-> +
-> +	d = kmalloc_obj(*d, GFP_NOIO);
-> +	if (!d)
-> +		return false;
-> +
-> +	pr_info_ratelimited("%pg: delaying %s at sector %llu:%u by %uus\n",
-> +			disk->part0, blk_op_str(bio_op(bio)),
-> +			bio->bi_iter.bi_sector, bio_sectors(bio), delay_us);
-> +
-> +	d->bio = bio;
-> +	d->status = status;
-> +	INIT_DELAYED_WORK(&d->dwork, blk_error_inject_delay_work);
-> +	queue_delayed_work(blk_error_inject_wq, &d->dwork,
-> +			usecs_to_jiffies(delay_us));
-> +	return true;
-> +}
-> +
->   bool __blk_error_inject(struct bio *bio)
->   {
->   	struct gendisk *disk = bio->bi_bdev->bd_disk;
->   	struct blk_error_inject *inj;
-> +	blk_status_t status = BLK_STS_OK;
-> +	unsigned int delay_us = 0;
->   
->   	rcu_read_lock();
->   	list_for_each_entry_rcu(inj, &disk->error_injection_list, entry) {
-> @@ -45,29 +130,38 @@ bool __blk_error_inject(struct bio *bio)
->   		if (inj->chance > 1 && (get_random_u32() % inj->chance) != 0)
->   			continue;
->   
-> -		pr_info_ratelimited("%pg: injecting %s error for %s at sector %llu:%u\n",
-> -				disk->part0, blk_status_to_str(inj->status),
-> -				blk_op_str(inj->op), bio->bi_iter.bi_sector,
-> -				bio_sectors(bio));
-> -		bio->bi_status = inj->status;
-> -		rcu_read_unlock();
-> -		bio_endio(bio);
-> -		return true;
-> +		status = inj->status;
-> +		delay_us = inj->delay_us;
-> +		break;
->   	}
->   	rcu_read_unlock();
-> -	return false;
-> +
-> +	if (delay_us && blk_error_inject_delay(disk, bio, status, delay_us))
-> +		return true;
-> +	if (status == BLK_STS_OK)
-> +		return false;
-> +
-> +	pr_info_ratelimited("%pg: injecting %s error for %s at sector %llu:%u\n",
-> +			disk->part0, blk_status_to_str(status),
-> +			blk_op_str(bio_op(bio)), bio->bi_iter.bi_sector,
-> +			bio_sectors(bio));
-> +	bio->bi_status = status;
-> +	bio_endio(bio);
-> +	return true;
->   }
->   
->   static int error_inject_add(struct gendisk *disk, enum req_op op,
->   		sector_t start, u64 nr_sectors, blk_status_t status,
-> -		unsigned int chance)
-> +		unsigned int chance, unsigned int delay_us)
->   {
->   	struct blk_error_inject *inj;
->   	int error = -EINVAL;
->   
->   	if (op == REQ_OP_LAST)
->   		return -EINVAL;
-> -	if (status == BLK_STS_OK)
-> +	if (status == BLK_STS_OK && !delay_us)
-> +		return -EINVAL;
-> +	if (delay_us > BLK_ERROR_INJECT_MAX_DELAY_US)
->   		return -EINVAL;
->   
->   	inj = kzalloc_obj(*inj);
-> @@ -86,6 +180,7 @@ static int error_inject_add(struct gendisk *disk, enum req_op op,
->   	inj->start = start;
->   	inj->status = status;
->   	inj->chance = chance;
-> +	inj->delay_us = delay_us;
->   
->   	pr_debug_ratelimited("%pg: adding %s injection for %s at sector %llu:%llu\n",
->   			disk->part0, blk_status_to_str(status),
-> @@ -139,6 +234,7 @@ enum options {
->   	Opt_nr_sectors		= (1u << 18),
->   	Opt_status		= (1u << 19),
->   	Opt_chance		= (1u << 20),
-> +	Opt_delay_us		= (1u << 21),
->   
->   	Opt_invalid,
->   };
-> @@ -151,6 +247,7 @@ static const match_table_t opt_tokens = {
->   	{ Opt_nr_sectors,		"nr_sectors=%u"		},
->   	{ Opt_status,			"status=%s"		},
->   	{ Opt_chance,			"chance=%u"		},
-> +	{ Opt_delay_us,			"delay_us=%u"		},
->   	{ Opt_invalid,			NULL,			},
->   };
->   
-> @@ -189,7 +286,7 @@ static ssize_t blk_error_injection_parse_options(struct gendisk *disk,
->   		char *options)
->   {
->   	enum { Unset, Add, Removeall } action = Unset;
-> -	unsigned int option_mask = 0, chance = 1;
-> +	unsigned int option_mask = 0, chance = 1, delay_us = 0;
->   	enum req_op op = REQ_OP_LAST;
->   	u64 start = 0, nr_sectors = 0;
->   	blk_status_t status = BLK_STS_OK;
-> @@ -232,6 +329,9 @@ static ssize_t blk_error_injection_parse_options(struct gendisk *disk,
->   			if (!error && chance == 0)
->   				error = -EINVAL;
->   			break;
-> +		case Opt_delay_us:
-> +			error = match_uint(args, &delay_us);
-> +			break;
->   		default:
->   			pr_warn("unknown parameter or missing value '%s'\n", p);
->   			error = -EINVAL;
-> @@ -243,7 +343,7 @@ static ssize_t blk_error_injection_parse_options(struct gendisk *disk,
->   	switch (action) {
->   	case Add:
->   		return error_inject_add(disk, op, start, nr_sectors, status,
-> -				chance);
-> +				chance, delay_us);
->   	case Removeall:
->   		if (option_mask & ~Opt_removeall)
->   			return -EINVAL;
-> @@ -279,10 +379,11 @@ static int blk_error_injection_show(struct seq_file *s, void *private)
->   
->   	rcu_read_lock();
->   	list_for_each_entry_rcu(inj, &disk->error_injection_list, entry) {
-> -		seq_printf(s, "%llu:%llu op=%s,status=%s,chance=%u",
-> +		seq_printf(s, "%llu:%llu op=%s,status=%s,chance=%u,delay_us=%u",
->   			   inj->start, inj->end,
->   			   blk_op_str(inj->op),
-> -			   blk_status_to_tag(inj->status), inj->chance);
-> +			   blk_status_to_tag(inj->status), inj->chance,
-> +			   inj->delay_us);
->   		seq_putc(s, '\n');
->   	}
->   	rcu_read_unlock();
-> @@ -317,3 +418,19 @@ void blk_error_injection_exit(struct gendisk *disk)
->   {
->   	error_inject_removeall(disk);
->   }
-> +
-> +static int __init blk_error_injection_init_wq(void)
-> +{
-> +	/*
-> +	 * WQ_MEM_RECLAIM so that a delayed bio on the reclaim path can still
-> +	 * find a worker under memory pressure.  Note that this only guarantees
-> +	 * a worker exists, not that it is free: submitting a bio can block on
-> +	 * a queue freeze or on tag allocation, so a delayed bio can still be
-> +	 * held up behind another one.
-> +	 */
-> +	blk_error_inject_wq = alloc_workqueue("blk_error_inject", WQ_MEM_RECLAIM | WQ_UNBOUND, 0);
-> +	if (!blk_error_inject_wq)
-> +		panic("Failed to create blk_error_inject wq\n");
-> +	return 0;
-> +}
-> +subsys_initcall(blk_error_injection_init_wq);
+v6:
+Rename flag:
+marvell,ignore-regulatory-hint -> marvell,invalid-reg-hint-in-rom
+
+Clarify commit description:
+The patch series allows affected devices, where the radio conflicts with
+the platform to ignore the incorrect regulatory hint in the ROM of the
+radio, so the platform regulatory domain can be used.
+
+This does not allow the user to change the regulatory configuration of
+any radio. It only allows phy0 to start and operate according to its
+certified configuration.
+
+The change affects only platforms which explicitly define this flag, and
+helps overcome the incorrect behaviour of proprietary radio firmware.
+
+Rearrange patches so that the flag is implemented in the driver, before
+being added to the board for WRT3200ACM.
+
+Link:
+https://lore.kernel.org/linux-wireless/20260728103536.25012-1-gvalkov@gmail.com/T/#u
+
+v5:
+1. description: remove tag Tested-on
+2. add #address-cells = <1>, #size-cells = <0> to fix a warning:
+arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts:183.3-13:
+Warning (reg_format): /soc/internal-regs/sdhci@d8000/wifi@1:reg:
+property has invalid length (4 bytes) (#address-cells == 2, #size-cells == 1)
+
+3. description: add info about testing
+
+v4:
+1. Add binding documentation for flag marvell,ignore-regulatory-hint
+2. Add dt for sd8897 and move the flag there, I used sample from docs
+3. Use device_property_read_bool in the driver
+
+v3:
+I implemented and tested a better approach with no board specific code:
+1. check for a device-tree flag in mwifiex_register_cfg80211in()
+  !of_property_read_bool(of_root, "marvell,ignore-regulatory-hint")
+2. add this flag to the root device tree of each affected board
+Currently this affects only armada-385-linksys-rango.dts,
+because Linux has no dts for venom. OpenWrt will take care of that.
+This approach is more flexible and scalable, because the flag can
+also be used in other drivers, e.g. mwlwifi (not part of Linux).
+
+v2:
+Replace the compatible device names, which are currently only available on
+OpenWrt with board names which are available on both Linux and OpenWrt.
+
+ .../devicetree/bindings/net/wireless/marvell,sd8787.yaml    | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/net/wireless/marvell,sd8787.yaml b/Documentation/devicetree/bindings/net/wireless/marvell,sd8787.yaml
+index 930b700b73d0..9f905ef5c2c0 100644
+--- a/Documentation/devicetree/bindings/net/wireless/marvell,sd8787.yaml
++++ b/Documentation/devicetree/bindings/net/wireless/marvell,sd8787.yaml
+@@ -59,6 +59,12 @@ properties:
+     description: Calibration data for sub-band 3 in the 5GHz band.
+     maxItems: 502
+ 
++  marvell,invalid-reg-hint-in-rom:
++    $ref: /schemas/types.yaml#/definitions/flag
++    description:
++      The regulatory hint in ROM conflicts with platform configuration.
++      It should be ignored, so the platform regulatory domain can be used.
++
+   marvell,wakeup-pin:
+     $ref: /schemas/types.yaml#/definitions/uint32
+     description:
+-- 
+2.55.0
 
