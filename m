@@ -1,62 +1,64 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1D853112B2
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:25:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ADC0359A6F
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:25:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787815524; cv=none; b=J6O3tvg7SdRGhtZdpdLspUh+CWENNROYQfM1fMVZjVu39ysD5MMZDqAbotjj6ES7VwvvOZnqbShcJcUfMew9h6AUTCrpoUYcdj717cXavOH9AKjl5MsAkDRH13MGYThSqb9KRrA5U1U8tnuD3LCxdG2B9pvwy/cFR3BpGMIHwo0=
+	t=1787815527; cv=none; b=khtkCeF8SsPT0Xe4JvjrOUC7HE0tiCV5ON+U8LV5oIJOWH7PjYafVjf8Gv9QZV8K2UMrQmbkh2pHak6R6Ux2cZjPH9U747dOwtBol9Hx1ojw3MYDJkiA8nU7olD6//pieYb+5opVLuQQoYL2qSTYTgCmqQBuaGb8kysRTREfgqA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787815524; c=relaxed/simple;
-	bh=O1dbaUTVTfGbVw24bm0CdbXbY0ob+TZJMRe37OxfD20=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IdDtrxoBmkQGHAVgy/uYvtqNtdaX8/67qSwClG8WuNS7VzK8k66tf1gOWETl2E4DGPPKHhe/RokK8QwQJ/bPQ5D4pOQ1y1KwwUDwmmSN2LZjhipUXMiLX+5lt5seH217YHqCvYfoVr46Gg8daY0zyj5RqYw4kdzBcYUoOhKfGJA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ixwB++l5; arc=none smtp.client-ip=209.85.221.50
+	s=arc-20240116; t=1787815527; c=relaxed/simple;
+	bh=mpqCgIgbVUyjd+F1WZaymXLSN6NVJ3r7+KdT58O0YQw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=lknsq88TeAbA/sNZeGY6B9g9UQ+v7tq5EoDEodn1AAHX8QeYxSJLvzjEn2dkacsfbSGkllGepgiW9OoNorsDspu6RymW7i1Qq8o5uPW5UNiYbKgBre3H1r5RCZ6wKKlRYGzDE2NpDEftvdlF+Vxrwd6TtgC0DNjzY+56FSNlhHE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hZHB9yBE; arc=none smtp.client-ip=209.85.128.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ixwB++l5"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-47f96c5b722so153111f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:25:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hZHB9yBE"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4921eed3fa2so2949665e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:25:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787815521; x=1788420321; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NX6TVtE9C7aozz6veUYY/+cHfETuCEHSeqEpBbw/tT4=;
-        b=ixwB++l57zwpk9pEPVGPKRJ/oQy9+5jbvjwAWIB2aVJwKvKZ+ujF3/cxgY+gIr7mde
-         jQaPx7iTjZM5VS9wlUF2Fo1VeaZgVNuDJQrjE35HTWgx1N1eTS0SQCoPF9BpD6RCAYdN
-         ylST9KjTdyK6/tsQ24eI8gGjmG2Z47HHbdEvBmlgA9a9ft7iOTF4F5FxBLF4OSptFzv1
-         TqkYvxYqhMsCFvUv04cO1XbggcTfCJwP6GMTzLMFeEUBTR3E0mRsirJ/Tq8eRo7wczIS
-         M0PbTOuUk+Xil9C+ER8NPaqvdyqHDgqxoL1Hw5w/adEihcSoQuzhHmfFjqFrMaifdzPE
-         jHOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787815521; x=1788420321;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1787815524; x=1788420324; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NX6TVtE9C7aozz6veUYY/+cHfETuCEHSeqEpBbw/tT4=;
-        b=SvhhP9QI4aBoa7PFhgI1h9vCwhROQ1yPIZmp0hvscI9E3b6TfYKXnWgRnxyHS6+iGG
-         7W6EXrofSVwUVauh79t/BVZQVLeC5SwUHatwCAr5KbSuOvb88ubOVakvf8Z5RJDYPU2Y
-         +4PJq6ZX1tbsWxF0bJGIn7Eu+cCkk0mWLDGhuB1qPwzsMmMu7lOPK/5/uZ5BmY8QUuFY
-         zg7RnKXXryKohxCBBarx+KhFEZ42fxSN/YjpKpG1CFDr3kWf5UjkMEj4sDRXtPljSID8
-         iCzPsM6B20tDkA67aCuS37/PFNekLuTJ8uMVwNYikfp38Oagbj8FXxsFuAPKpok7WnZ3
-         RKbg==
-X-Forwarded-Encrypted: i=1; AHgh+Rok6vUywyUWFHLBRP/F60G8OsMQLWzh3jaViPCzP4kgfDbaVDgEvga5OyibGymeN4F3XSTkoSLjMoQHEtg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nZym9opsN6fQ43WrKYBoThjcn92hMh3zwxLmvd+nltuh0Oeehp
-	S84wGAA8gtQWn7ElNzPvpibl20u0du0aWdd2MnLuFodIiRjg8YZyihi3
-X-Gm-Gg: AR+sD11faLOh2RZyH4np/GK5inSTeD/0hRcfKxjHWKCbC2GTJN19TrmQPiEi+Fl1UtN
-	vnnlKC+C/kyYy7fjfrbJ/aIxhznpKkF46INL2VN2jIRmFmuzMMWObdYFq4KUj0AyoIKqTiOWykH
-	iOznMd5wPdNhbcynq0Tl4JEH1xEx0nQtvkJCNHZH+PFuN77afdyQyu2baRwLDMDOo664JCpXKPC
-	IRtYrBULv4uvY88kK5AstgtMqXUufwVu+GTeYf5zXb2I0VeRC/xTtl/Fba5xK9pqCPYyJblQib9
-	0o6/jGmM3a8Lgl/U6MDUKRUg9JqY/XO4JYCFgzKyqzR59avzZE88xs635gZck++8TmzibnvQiYC
-	hAGwQopLOJ1edMjn558Y81TlaTebjfciQ3bl6jyUXM+mRq2Utav3HH0fzf7GblvQzKvttiVL7Tu
-	qLfBsZpGBf+H1MJbWUZUmJ0UjUu/+1+/jtLW9Hi1a7tTqjCyDiVfa3wtpbp964QrIYVbEjpv2u6
-	mU/mrf+fXsf+rL7vO6E564SjvMMoiSBL8Jqrz8YfERC
-X-Received: by 2002:a5d:5f84:0:b0:482:f2f0:ca3d with SMTP id ffacd0b85a97d-482f2f0cb3bmr3192749f8f.14.1787815520675;
-        Thu, 27 Aug 2026 00:25:20 -0700 (PDT)
+        bh=8nOuW96iCEmlcVyEdR6sfhI0AvZg4dcgmRG78Orem0Y=;
+        b=hZHB9yBExUL4Z+k9HIRT9Icb0bf4jnVomOA5T20c1UEhWlDnPjUn35TZE48OLr479J
+         +DLEiHwEcbkqUcbf2Z3X5n0xxqWVBVa7JdGi9G2QKq0/VOM0/6InwRzSl80tbHV2LbDZ
+         a7Nv9QLUa6rJlrdKp9KemBhOjckJGXYh1QhwiY3mhq9/LWe5MT+hDIbrOOv96/iYrF/C
+         nQDb6MhfftfT19UcdyQbWaNahe/1v1epqTzOUoz9Rm9wUvTZ8Kb/XTRsJrpa/CvQaUkD
+         uH+HwKQNRTcjq1t4HBDZwbA4d7MIk8GuSkMa6moQabMgmoVmA7WoP7x6pWRjkiaW4rHA
+         EFeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787815524; x=1788420324;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8nOuW96iCEmlcVyEdR6sfhI0AvZg4dcgmRG78Orem0Y=;
+        b=TC0WJAVjnvCZJSlvq68mTWjllmF5+6hCIg5l5FqQ745pdM40UlxktGf2ivHUP1aVyc
+         l/fRZ47pKMcznrKqPZlEelyqRaHUieZxXlzNGjFytzt5DHWK2/i9O31CGQ6wdY2XmSkf
+         7UjoEqjcFkTsZxhwDr6AYKFr7w2Tr2zNej1l7PexajDxBlx0Jgbs3aLRnej4cvPEa3n5
+         NymXz7fDonN+Ep1BUvNEjQBT135gxTKVzM6+UaMgWLBFVTJ8WBZ7PmAfDjrhoYxH8qlU
+         WfdZBEL/vqKXtsb4b06g0/UvRYzqgJJmQp4DBQjvejC0yes4WwyFX2Uj3S0n99rVvxbh
+         8NoQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrY/0xEKf4fh1afVnkedR4f3kondNygzijngZlfQIT55kRAc23MEueekkZX1xpR8htJH/0HsVPPFwhvhtI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lkiFXgMz9rlXdjxXnOUtz1p0nEK3IJXpHsCriM7uhZlIqNCSQh
+	G8uTcCfFTKsj2Tlf1BvDN3dQAgzZKLKgl11+35/ZMYxkoXUaWFZ5/Bos
+X-Gm-Gg: AR+sD10HWzYW0b5avr0BjC0fcAbyZIo19Vkof4hdfHqhl+sgY/FLxrXD5P5FAULP3yJ
+	hIq/2bxhkKTYZfbHSXKYPmFfxJPK6mO+Ld4PWvDcZy5KvqdoIsEbKYetuXVHFaINuW0ogAmApHD
+	Xj4d84qNna9MHaz9Lm6FrxmGuzsmc63g/nHyGErnZhiruOfEemL9/LaCJwP/6WoiyXtnjRIva4M
+	E/gLcXQzxFiQxEKat1Sz1XdvS1pOjTEaVinAbBFMSKnEPynu60uOLBDaUoC/P9xpCQUXCofzyby
+	B8mz2+iezFJWdM43OsKyhOvP/hI+3s7zqvVwT93KUPXwyFxKTx2X+Nyz6QlEJOOtGL3dWxwgD69
+	tL8Rv53difZU3m2OUmzSF85O6UAxEw4N1ybbFHKSE9nLtfMQORPlOoQkB470BpZEgrP1nHaOe2W
+	yt1/MOGPCnsUY3XAMDws9X15H4VQHaLifP5aNnStyI60HHi6RP6rZkLxEHo4qf1flHTG1CfyslL
+	3YmPhwlYgajZRuPvJMID3xOWbBCtETIFAteg2t13KcQgBdHv9YqIgs=
+X-Received: by 2002:a05:600c:c8f:b0:496:bffb:fb7b with SMTP id 5b1f17b1804b1-499dc717efamr120968935e9.10.1787815524297;
+        Thu, 27 Aug 2026 00:25:24 -0700 (PDT)
 Received: from 1Z10 ([78.211.107.127])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e28dbe1dsm7270686f8f.22.2026.08.27.00.25.18
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e28dbe1dsm7270686f8f.22.2026.08.27.00.25.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 00:25:20 -0700 (PDT)
+        Thu, 27 Aug 2026 00:25:23 -0700 (PDT)
 From: Maurizio Casciano <mauriziocasciano7@gmail.com>
 To: Cezary Rojewski <cezary.rojewski@intel.com>,
 	Mark Brown <broonie@kernel.org>
@@ -71,10 +73,12 @@ Cc: Yauhen Kharuzhy <jekhor@gmail.com>,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Maurizio Casciano <mauriziocasciano7@gmail.com>
-Subject: [PATCH v4 0/2] ASoC: Intel: Add Lenovo Yoga Book RT5677 support
-Date: Thu, 27 Aug 2026 09:25:15 +0200
-Message-ID: <20260827072517.1401173-1-mauriziocasciano7@gmail.com>
+Subject: [PATCH v4 2/2] ASoC: Intel: cht: Add Yoga Book RT5677 machine entry
+Date: Thu, 27 Aug 2026 09:25:17 +0200
+Message-ID: <20260827072517.1401173-3-mauriziocasciano7@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260827072517.1401173-1-mauriziocasciano7@gmail.com>
+References: <20260827072517.1401173-1-mauriziocasciano7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,69 +87,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Lenovo Yoga Book YB1-X91F/L uses a Cherry Trail SSP2 link with an
-RT5677 codec and a TS3A227E headset detector. Its amplifiers and
-headphone path also require board-specific GPIO sequencing.
+The Yoga Book YB1-X91F/L exposes its RT5677 codec as ACPI device
+10EC5677. Add a Cherry Trail machine-table entry so SST creates the
+cht-rt5677 machine device and loads intel/fw_sst_22a8.bin.
 
-Add a generic Cherry Trail RT5677 machine driver and match the Yoga Book
-ACPI codec ID. The machine entry supports both the legacy SST firmware
-and the separately maintained SOF IPC3 topology.
+Associate the same entry with sof-cht-rt5677.tplg so SOF loads the
+matching IPC3 topology through the standard firmware search path. The
+topology sources are maintained and distributed separately by the SOF
+project.
 
-This continues Yauhen Kharuzhy's v3 work and supersedes my RFC series.
-The driver retains Yauhen's copyright and links to both his original
-implementation and the v3 posting.
+Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
 
-Changes since v3 and the RFC:
+Assisted-by: Codex:gpt-5.6-sol sparse
+---
+ sound/soc/intel/common/soc-acpi-intel-cht-match.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-- rename the driver, file and Kconfig symbol from Yoga Book-specific
-  names to generic Cherry Trail RT5677 names;
-- clone the card, DAI links and link components per device instead of
-  mutating global templates;
-- allocate the headset jack separately with the device lifetime;
-- unwind MCLK enablement on PLL or sysclk setup failures;
-- document the codec ASRC clock selections;
-- add the complete SST and SOF machine entry once, reducing the series
-  from three ASoC patches to two; and
-- carry forward Yauhen's copyright and provenance links.
-
-The series is based on ASoC for-next at 8a070652d919. Both touched C
-files passed sparse 0.6.5-rc1. Strict checkpatch reports no errors; its
-only warning is the generic new-file MAINTAINERS prompt, while the
-existing sound/soc/intel/ entry already covers the new driver. A clean
-20-job bindeb-pkg build completed successfully.
-
-Runtime testing used an integration kernel containing these exact v4
-sources on a Lenovo Yoga Book YB1-X91L. It used the stock signed
-intel/sof/sof-cht.ri firmware, version 2.2.0-57864, and the separately
-maintained sof-cht-rt5677.tplg topology. The following passed:
-
-- UCM Speaker1 and Mic1 route enablement;
-- PCM0 playback and capture at 48 kHz stereo in S16_LE, S24_LE and
-  S32_LE formats;
-- PCM1 deep-buffer playback at 48 kHz stereo in S32_LE format;
-- a bounded routed speaker tone and a non-empty three-second Mic1
-  capture; and
-- PipeWire playback and capture with advancing PCM pointers and clean
-  PCM closure after each stream.
-
-The GNOME Settings speaker and microphone tests also passed physical
-verification. No SOF, IPC, XRUN or ASoC errors were logged during those
-tests. The SOF topology source is maintained separately at:
-
-https://github.com/Yoga-Book/Yoga-Book-Sound-Open-Firmware/commits/feature/cht-rt5677-topology2-ipc3/
-
-Maurizio Casciano (2):
-  ASoC: Intel: Add Cherry Trail RT5677 machine driver
-  ASoC: Intel: cht: Add Yoga Book RT5677 machine entry
-
- sound/soc/intel/boards/Kconfig                |  14 +
- sound/soc/intel/boards/Makefile               |   2 +
- sound/soc/intel/boards/cht_rt5677.c           | 611 ++++++++++++++++++
- .../intel/common/soc-acpi-intel-cht-match.c   |   8 +
- 4 files changed, 635 insertions(+)
- create mode 100644 sound/soc/intel/boards/cht_rt5677.c
-
-
-base-commit: 8a070652d9194babdd35bf7cbd2c6722b441e8f4
+diff --git a/sound/soc/intel/common/soc-acpi-intel-cht-match.c b/sound/soc/intel/common/soc-acpi-intel-cht-match.c
+index e4c3492a0c28..442ef30ffcc7 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-cht-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-cht-match.c
+@@ -137,6 +137,14 @@ struct snd_soc_acpi_mach  snd_soc_acpi_intel_cherrytrail_machines[] = {
+ 		.board = "cht-bsw",
+ 		.sof_tplg_filename = "sof-cht-rt5670.tplg",
+ 	},
++	{
++		/* Lenovo Yoga Book YB1-X91F/L */
++		.id = "10EC5677",
++		.drv_name = "cht-rt5677",
++		.fw_filename = "intel/fw_sst_22a8.bin",
++		.board = "cht_rt5677",
++		.sof_tplg_filename = "sof-cht-rt5677.tplg",
++	},
+ 	{
+ 		.comp_ids = &rt5645_comp_ids,
+ 		.drv_name = "cht-bsw-rt5645",
 -- 
 2.53.0
+
