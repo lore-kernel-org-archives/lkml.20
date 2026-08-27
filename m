@@ -1,69 +1,70 @@
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1856B476681
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 14:45:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19FD33955CA
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 14:45:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787841925; cv=none; b=LxzBas3CfFgEnmW+3BG9TsCyTJABVUnpPv87GM+1+xOVn14+rH6zkLOCzxqEs3tII6RoaXACM6355Np0yKNEJV+yg4jieeeS3BWaes84PXiESkawQLIfgvN35mdZ+MQtgGbvSETG1Wt9hdM0WDk+S7H7ra/8CVRNCWP/aPUBHgs=
+	t=1787841927; cv=none; b=InuPw6Gad1U1zCOivvjwMQeWOhhtdao2Ea1WiM8LUKi61wyy3+0C/ahBwnb55MfxUbqQ0Yy1c8qYs9+SbjAp1CXJW59TMVgDcodMrupLY9dRrUsQnHRXKb26Ajk1hdrLr0RkEd+CXYwJxXPlO6mr98be0knzO8PU7UUh4c5KReQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787841925; c=relaxed/simple;
-	bh=4g4/QbZgUS13EU/EdWq0ZZBLZPlWqevmmiPOD7wbitg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tcnqQmgOZt5rmxxLrBRvOuehBzSiyjT7Z+s1pU/xRUguuA7OQznN98Q9/DGxfmk00BhBRrZuCeN/eaqsddgGFLHOk75QbiiSzF3UScOw7FjjISJJrTPGJlGw4OOPWyEtAdCA78Qbb1qAxp0Jo0JBFpF1QW5glTEdj7tcjUs33aQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rtwHMpDn; arc=none smtp.client-ip=209.85.215.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787841927; c=relaxed/simple;
+	bh=omudWtBkWpT0fLqCHfFjIgmvQ50mMiBpyOC3JL70bIc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Hj4eqvSXNklNc0Ovi3SRuhtWPGbyI2R1bwps84VlSMY13EbZSRhv6TwF14YDURfz73zknbC8KsFPtn1X3FLg6223DPM8R5deg25p6CFMUGCPih8Y3iAnF6rcYgTMUBHvCzSV6zkW52nVNzP/mUvuniugtSQEx11uF/NWUaxWX8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=K1kUxPgL; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rtwHMpDn"
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cc1a4c62804so2361027a12.3
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:45:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787841911; x=1788446711; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KczeZElwfYPxEPlG/rv8QuvplNP93y5shDnpCmj/Kkk=;
-        b=rtwHMpDnnqOt/mjkWblZWW8x/IIhQKEpB4Jk2lplkk3/CjZ5lY00pHWkYT/upV3fT3
-         yU2TsfA5EMQ8edPNSpDHHM2jZ3Dr7g/oCaPI0hbBbn1o+/Ch1apUqRz1jF43aGFw8aS/
-         qfQebvkG9WKQVyRQpMplZqmVFOF9cwqYDuH1yV/J3+6CeZ+jPyJRJEJkZTssS49+sLqx
-         q6w9PYTDZniBmW+4Yqzn+CvH4fUWORlu8qfQKrHD4VvHltEhcKQ3y4zj77Uy1YqIM4hN
-         fdFccCfs2IyucepQb8nFQv0MqeIVzrpsThxzRd/MCJMtzz03izKjK9QPdkdznq9Js//F
-         ayNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787841911; x=1788446711;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KczeZElwfYPxEPlG/rv8QuvplNP93y5shDnpCmj/Kkk=;
-        b=fwNpJ90SjmP0mSZoZHw2ouCcFcBZFUd3hw59g6/OFCowe6n+pV1qi1BWSZ0RYpf9Z2
-         vbx1lFQskZ15LudXF854o+tm+PV5V3P0yA1vEcWuHVoGyGWDBwpjLwBo+6dcViZgWyhp
-         WHwJLW14p+08cn8ZDUbJ+Tk6jdIxOt0KT/fU3JLzXWIxBsdGZuq4nVy51YJp3FKIe81c
-         Z9hOhu/gV6UnfVJciVaJpLhGBW+xqQSx9Av5/3RB05++z6Q7BFvSHdpXMzq9sDgOU2Vr
-         MI9EVzz0rQ+6F6yMqpWfAJEtQbURPqbT9fVtDJmrWFe4msqbbYb1Nyk2xzrjKDYswZwS
-         V4CQ==
-X-Gm-Message-State: AFuF++nMFoYf2u9tsisDn318uk6fKkHac7pRhPOEc8BayIqSyYxwLjKJ
-	rt4+Bj3+B/UMVfTxuAdaia1yB2DrxiQDV1ewpp+CefdtBHfnjA3vYRbKS6UeJA==
-X-Gm-Gg: AR+sD124TBu7ud3QRTmOhLrYGfBPsY23fI8KiCDU7qHctqfiZBEEg/VR8fDFelrsKNl
-	XEVmhEcHpSaEM6BUVhC5v2lW8nAsETF1D3YGqPGBYPUYDkH+r5qtzINobh1Etaa3boZRiTQZnzq
-	bKeGmykJ3SEkpFkgbGxHvSjYkdQon0ok1cjYyY149DFY0j1E36SwLEn5pmWtfM0QL7Bzpl/sfhv
-	T3xVL/R6tXBkVMPId9EaQHCvnbeM20z3rGXltiHG36dKztdXXNPE4HbJqWUb+L9MhIpy8tuLlnb
-	aPqQcikRF4V+Tawt5orFrmklMPGrEqNZNfjBVTcKTX0hM7i9l8c0J0mXENijCCdCMfDAT2x/KWi
-	iqtJaln5Db+Y/BzmE3giOk33Yxkf+MC60+K659SqUnr9WwQY0V+GljRoOhlyXx4WdpQMVGxaPod
-	KUXIOfZvhu3xA3tABCUAmKXrA1PHiFbuq5rNCV0fnMz2Xp5YuWu3eO6sv1oWqU6iHJYqg=
-X-Received: by 2002:a05:6a00:3926:b0:848:46a0:3d74 with SMTP id d2e1a72fcca58-8537499bb90mr26971410b3a.9.1787841911006;
-        Thu, 27 Aug 2026 07:45:11 -0700 (PDT)
-Received: from ubuntu.. ([110.9.142.4])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-855a2118b01sm518684b3a.41.2026.08.27.07.45.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 07:45:08 -0700 (PDT)
-From: Sang-Heon Jeon <ekffu200098@gmail.com>
-To: Mike Rapoport <rppt@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH] mm/mm_init: remove zone_absent_pages_in_node()
-Date: Thu, 27 Aug 2026 23:41:46 +0900
-Message-ID: <20260827144151.486192-1-ekffu200098@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="K1kUxPgL"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67REVxiP3333991;
+	Thu, 27 Aug 2026 14:45:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=9Wsdf8rVeG8RWU3k0TB6qxezFClQPADVajE5uS5jr
+	FU=; b=K1kUxPgLYOP1BZT45K3gVMptFc+QZVJSTvqyRbbeqRuOE0ZW14Ebjevcz
+	PkhQOi3MJUCnPAf8FlbSSq2gJeWWeu++0vwJlHYLI9Q6bwoospjVQT2XoSjGHtTU
+	Eimr0l33CMDErEIHdBIV/PpT0PJmXw0/gPO4ywFy6ly3d4NiR3vMYRRowtatbmrr
+	aWdAMk9DjzgA7Rcm5EgFAIfUvXZsKYBW12fP4QDxHZz2BFHLLQXfxnzyLLPnERCR
+	vr3A8YSiK6DrkxqV81QJchBY3wjSFM0OvcfkVd0nBHOccEgrL8zCwraAC1ZlYNZp
+	COeVMLQyJgJkeuaimlGv22x4jKvcQ==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g73dxnn5g-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 27 Aug 2026 14:45:04 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67REfF4O026300;
+	Thu, 27 Aug 2026 14:45:04 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4g7rsygasf-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 27 Aug 2026 14:45:03 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67REj2em37487042
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 27 Aug 2026 14:45:02 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 258A12004B;
+	Thu, 27 Aug 2026 14:45:02 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 73E7920040;
+	Thu, 27 Aug 2026 14:44:56 +0000 (GMT)
+Received: from li-4f5ba44c-27d4-11b2-a85c-a08f5b49eada.ibm.com.domain.name (unknown [9.67.160.40])
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Thu, 27 Aug 2026 14:44:56 +0000 (GMT)
+From: Sourabh Jain <sourabhjain@linux.ibm.com>
+To: linux-kernel@vger.kernel.org
+Cc: Sourabh Jain <sourabhjain@linux.ibm.com>,
+        Albert Ou <aou@eecs.berkeley.edu>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
+        Palmer Dabbelt <palmer@dabbelt.com>,
+        Pasha Tatashin <pasha.tatashin@soleen.com>,
+        Paul Walmsley <pjw@kernel.org>, Pratyush Yadav <pratyush@kernel.org>,
+        linux-riscv@lists.infradead.org, kexec@lists.infradead.org
+Subject: [PATCH] kexec_file: remove unused arch_kexec_locate_mem_hole hook
+Date: Thu, 27 Aug 2026 20:14:52 +0530
+Message-ID: <20260827144452.508328-1-sourabhjain@linux.ibm.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,60 +72,113 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDEyMiBTYWx0ZWRfXy84UX2sXhnLT
+ LaNtJyz+aF9qIImZWKYxb+r7rlmbGmQIil5i+oGlFlw1b1IUSmp2nZelsysTHq5Dk9d6uTnpgpd
+ V6ufqUDaM75hzMTDTCmE5t0hrBuHR6Y=
+X-Authority-Analysis: v=2.4 cv=AYuB2XXG c=1 sm=1 tr=0 ts=6a904d70 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=RzCfie-kr_QcCd8fBx8p:22 a=Z4Rwk6OoAAAA:8 a=VwQbUJbxAAAA:8 a=_O3DOGVWAAAA:8
+ a=7ipKWUHlAAAA:8 a=JfrnYn6hAAAA:8 a=VnNF1IyMAAAA:8 a=RFyrcEgT9I63OMj7VqIA:9
+ a=HkZW87K1Qel5hWWM3VKY:22 a=2TKV-7w1aU1AVAwN0oqT:22 a=gpc5p9EgBqZVLdJeV_V1:22
+ a=1CNFftbPRP8L7MoqJWF3:22
+X-Proofpoint-ORIG-GUID: La38qUEpUZRLxheRuQ91YouAfAvZu4Kz
+X-Proofpoint-GUID: La38qUEpUZRLxheRuQ91YouAfAvZu4Kz
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDEyMiBTYWx0ZWRfX9uFIUwCD1ZsR
+ hMFNu0gvVhiL6e2uEo8oTTVETLUBxFNVWFkrUG2fcRXH1u9GDVoZ9ZEZuFeKzF+b0b2VbE1QoIj
+ 08ZpC8j3Uar9R0J+wRE/MQDivcmA0s4sL0A05P8dHYGZ4XpFMa5bwMbWll2VyHkp1y117NtHuJc
+ XlSijr+5KDKXpaUj04Dr7/tEz7ohGAM4fG9ak6+q5K+U85aqLrDHUvxu7/jykAs8lVI5NhDPiYw
+ iO6XG608zXp+X7SXW9pzDiXPzjWYmWMkHqZba4Bg3zUg2pU/r6zauHiOU/UY6N5gLG95VcFSrxT
+ xIRMKkVqL2D5W7Oub8ykcBARuHHaTwn47BvrGx6gosqHE/VGM7p+t+sWjVhNIwA9y3ffk663ZFZ
+ wETs83wfBC1jECRppsospXXsMbIjHHTsAf5CRJGPc7hMAWDPlliyDrjaINHBBT6uP1Bafu59r/j
+ /RcM5YQm1ZD1OaR2fMw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-27_05,2026-08-27_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 clxscore=1011 adultscore=0 bulkscore=0
+ impostorscore=0 priorityscore=1501 lowpriorityscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608270122
 
-zone_absent_pages_in_node() returns 0 when the zone is empty and
-otherwise calls __absent_pages_in_range(), which already returns 0 for
-an empty range.
+No architecture provides an implementation of
+arch_kexec_locate_mem_hole(). Use kexec_locate_mem_hole() directly
+and remove the unused fallback wrapper from the kexec header.
 
-So remove it and call __absent_pages_in_range() directly.
+This simplifies the kexec memory allocation path without changing
+its behavior.
 
-No functional change.
-
-Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+Cc: Albert Ou <aou@eecs.berkeley.edu>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Baoquan He <baoquan.he@linux.dev>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Palmer Dabbelt <palmer@dabbelt.com>
+Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
+Cc: Paul Walmsley <pjw@kernel.org>
+Cc: Pratyush Yadav <pratyush@kernel.org>
+Cc: linux-riscv@lists.infradead.org
+Cc: kexec@lists.infradead.org
+Signed-off-by: Sourabh Jain <sourabhjain@linux.ibm.com>
 ---
- mm/mm_init.c | 20 +++-----------------
- 1 file changed, 3 insertions(+), 17 deletions(-)
+ arch/riscv/kernel/kexec_elf.c |  2 +-
+ include/linux/kexec.h         | 15 ---------------
+ kernel/kexec_file.c           |  2 +-
+ 3 files changed, 2 insertions(+), 17 deletions(-)
 
-diff --git a/mm/mm_init.c b/mm/mm_init.c
-index d87166a36ee8..1ead4d694099 100644
---- a/mm/mm_init.c
-+++ b/mm/mm_init.c
-@@ -1192,22 +1192,9 @@ unsigned long __init absent_pages_in_range(unsigned long start_pfn,
- 	return __absent_pages_in_range(MAX_NUMNODES, start_pfn, end_pfn);
- }
+diff --git a/arch/riscv/kernel/kexec_elf.c b/arch/riscv/kernel/kexec_elf.c
+index 3e9a32acb8f2..ca5abbad59e5 100644
+--- a/arch/riscv/kernel/kexec_elf.c
++++ b/arch/riscv/kernel/kexec_elf.c
+@@ -91,7 +91,7 @@ static int elf_find_pbase(struct kimage *image, unsigned long kernel_len,
+ 	kbuf.memsz = ALIGN(kernel_len, PAGE_SIZE);
+ 	kbuf.cma = NULL;
+ 	kbuf.top_down = false;
+-	ret = arch_kexec_locate_mem_hole(&kbuf);
++	ret = kexec_locate_mem_hole(&kbuf);
+ 	if (!ret) {
+ 		*old_pbase = lowest_paddr;
+ 		*new_pbase = kbuf.mem;
+diff --git a/include/linux/kexec.h b/include/linux/kexec.h
+index 0af8ae4fdd08..e5f1cfc11fef 100644
+--- a/include/linux/kexec.h
++++ b/include/linux/kexec.h
+@@ -259,21 +259,6 @@ int kexec_kernel_verify_pe_sig(const char *kernel, unsigned long kernel_len);
+ extern int kexec_add_buffer(struct kexec_buf *kbuf);
+ int kexec_locate_mem_hole(struct kexec_buf *kbuf);
  
--/* Return the number of page frames in holes in a zone on a node */
--static unsigned long __init zone_absent_pages_in_node(int nid,
--					unsigned long zone_type,
--					unsigned long zone_start_pfn,
--					unsigned long zone_end_pfn)
+-#ifndef arch_kexec_locate_mem_hole
+-/**
+- * arch_kexec_locate_mem_hole - Find free memory to place the segments.
+- * @kbuf:                       Parameters for the memory search.
+- *
+- * On success, kbuf->mem will have the start address of the memory region found.
+- *
+- * Return: 0 on success, negative errno on error.
+- */
+-static inline int arch_kexec_locate_mem_hole(struct kexec_buf *kbuf)
 -{
--	/* zone is empty, we don't have any absent pages */
--	if (zone_start_pfn == zone_end_pfn)
--		return 0;
--
--	return __absent_pages_in_range(nid, zone_start_pfn, zone_end_pfn);
+-	return kexec_locate_mem_hole(kbuf);
 -}
+-#endif
 -
+ #ifndef arch_kexec_apply_relocations_add
  /*
-  * Return the number of pages a zone spans in a node, including holes
-- * present_pages = zone_spanned_pages_in_node() - zone_absent_pages_in_node()
-+ * present_pages = zone_spanned_pages_in_node() - __absent_pages_in_range()
-  */
- static unsigned long __init zone_spanned_pages_in_node(int nid,
- 					unsigned long zone_type,
-@@ -1297,9 +1284,8 @@ static void __init calculate_node_totalpages(struct pglist_data *pgdat,
- 						     node_end_pfn,
- 						     &zone_start_pfn,
- 						     &zone_end_pfn);
--		absent = zone_absent_pages_in_node(pgdat->node_id, i,
--						   zone_start_pfn,
--						   zone_end_pfn);
-+		absent = __absent_pages_in_range(pgdat->node_id, zone_start_pfn,
-+						 zone_end_pfn);
+  * arch_kexec_apply_relocations_add - apply relocations of type RELA
+diff --git a/kernel/kexec_file.c b/kernel/kexec_file.c
+index 59fb9d71e9d8..9a981359addd 100644
+--- a/kernel/kexec_file.c
++++ b/kernel/kexec_file.c
+@@ -784,7 +784,7 @@ int kexec_add_buffer(struct kexec_buf *kbuf)
+ 	kbuf->cma = NULL;
  
- 		real_size = spanned - absent;
+ 	/* Walk the RAM ranges and allocate a suitable range for the buffer */
+-	ret = arch_kexec_locate_mem_hole(kbuf);
++	ret = kexec_locate_mem_hole(kbuf);
+ 	if (ret)
+ 		return ret;
  
 -- 
-2.43.0
+2.55.0
 
