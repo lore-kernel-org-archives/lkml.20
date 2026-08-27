@@ -1,207 +1,158 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B36D53812C2
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:52:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5890547A0C4
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:54:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787849579; cv=none; b=YZvu7RLMAAU4xerYzhPt08qUXAL6NjdS5cA14B2giJARZAJ36rFyYysJa3ySNd/q/2C5yI756DAuDBc5wb14J5SNUNERk4BIwurRjQpdn90Em7nFuQe2njWtRCk9vmqkrkDw0rWR7ant9eiuPEixSWdN5CtSL8rZjejVDfkKHtw=
+	t=1787849662; cv=none; b=sQb6cqt1VjYvYcd5554lKZzzc8nL8go76OEWI5oXfMFrlWhqhYESj0bJz8dq1JJA1M7Ztxj7UHDAbUqxFvjwJyOyA/tQcKnzmK9RmIHNL1q8QwRDpe25aYdtHew1Cc4Dmy0MhWX35HWeQmFrRgp+OX7rMfE0tFUDV3V1yrXYiao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787849579; c=relaxed/simple;
-	bh=Hlom3LElFC/Talrh/JZKuOX6hUzFwHVaX+9vowq0D2A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=h1YB7Lgn5jv0EL1mvIWp0EqFke7M7Li2o0wAYXETaympAvS17r/vPpaA9fn603JC4BsBkQL5WDPFe3q+nRM3y0ydZFR9YXY9EUh42mzgFFFGoLqW7JYp3uyz2wt74Y5k0BX0XLZzBjCE+wQsFezbVQaCWkrmY+toY/uqn9TjJ/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kSUBmPY/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787849662; c=relaxed/simple;
+	bh=u11lJuZ3CHy20gCd2pC2khIydn89D9sUB56pU5B3pww=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UK5CelsN5q96u7VTEF3BuQ1fwE/cmGVQ/bvttPt7HeCdGChoyBrB5QYQWBuGBVH4bmB31xrLJhR9QjDAkEHWlR/yCVrK3puMOoluDvv0S1Q8CvWfJcfVTJGUfjNiKCrFSXMOA8kTJkD3/7h6oODYwLwBIW9WIkDrX/xI/hhFXj8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q1mbqkIR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kSUBmPY/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B6C51F00ADB
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:52:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q1mbqkIR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 557821F000E9;
+	Thu, 27 Aug 2026 16:54:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787849577;
-	bh=/qMXLpKC/d7lTeX+trlbuLj331lUxLwBQTzncxUeZI4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kSUBmPY/YKqGAZNjanM/wBa5U+qYF5QfXkW7mJRQh5q+UoqHKXBKRBwafw8zovXi6
-	 ta7ZuhHOgc5MpVI+NcwKUTJO1j+5K9DeE66zWOpfU4ipb8sRUYd02Axg2MR8GnUrIX
-	 ZK9IsFh35daJ2tfVvuBq3pST12S0ZnZOtGNL3r1BKUafOGYz3X+xS8tSa1Dljca5qC
-	 4fl1zsQK+U0J8vqvDz8+UXXZOVvo4W9+9eRHttHdiHhrUwHY4DScJ8rwL1CLpLxN1G
-	 vDwlG97v4x3ewpwa0aehCcKnA+Lw7ELlidXYBvg0uXvhffVwSkSf+F/MMPDn5Eh5Md
-	 shAmiEcH586OQ==
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 31723F40066;
-	Thu, 27 Aug 2026 12:52:56 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-06.internal (MEProxy); Thu, 27 Aug 2026 12:52:56 -0400
-X-ME-Sender: <xms:aGuQaoAvjFGgMMo6UJKEqe84lFXmvf3nrLAA1Z3QWEL-zfMiEvBGxg>
-    <xme:aGuQaj2pSlnZ059h5mlPdFR2jDYHowP0O1NiNsZPShvOdU6LvPLJBBr5fxr7aYnec
-    pV6cv7PZ4gcGGbPLNvOfpEpg7GYSP-6OQaN6ryf6ShCqCM5RsH2v0I>
-X-ME-Received: <xmr:aGuQai2siGkVFyJGA9_6cYOu1JYqYLQnAdlhw5UVf2PQ7FBDA1CJdKM1orYOBtnYGukWWHH8jSAdO1Zauy1O66EDnRb1dqRE>
-X-ME-Proxy-Cause: dmFkZTGpAyVvSq+aFlI65LbBWK+d/UCiGOWcM+YRnyFMolEirGHgGfNXiHB2+xKPDReVYf
-    xsjqiXnQAWOnzHTp71awv7tIN9MBCJMDbhE/tchqhDd32uPOXm8WuiUKjey4W7aCNk2n0l
-    /HeghFbjVSfQ/b30CPwa3R9aAALl//WK2xVeFIAOR0ZF+F0QQwRYON1YaINRK0gqMmxqAf
-    3hcsSacjeNMv5wga1nxWrNWh9gFR08jQQQsXzRDwrStg+7dUY6xtDRRvekJbGzRxxcNS+R
-    964dVn7oi9FUSI3deIvJefh8IcM9m8NWXpws4aE/4KUgCh4Hwhd84uGBxW/EHb6CWJ2Ffy
-    Rk0zqLttQGYKDzSZ2EGhZCJ2FygpVU3KWSuTMb2Nw6H38nERNfOKum48+UPOmuXoH5A7b6
-    rLtqJLQJsrh7kgEa4wNg42hXlNycEx8hFIDHrtIz6H4M5hnN7cwJ0o4TAd3D81veGpFtGr
-    Zjx5KC4AWT6CBFvGSB/juPLculRok5600pVOnedpCN448ih4R04pSdtoykGTipD3Fyc6Rj
-    LzEgr+ioH8qqJPtezaHwHyF4lyOkbcxTNUmpM9X3WR3DfwXlOp+8pHZA91mCpgEugL+exY
-    np0AU/9cIlqvq3t1hyu8+uN3jmewltpnaikm5WiR7ecqp9VW6PpiGyvknyOg
-X-ME-Proxy: <xmx:aGuQagDcjQjEDTj_objHcH-CQEAk5sbnxGxoOaoYXV7LAJyzgbwd9A>
-    <xmx:aGuQap4iF_bhB9AUHD47zoGsxGgOAVaR6tCVAGthEodhtOABblJTYw>
-    <xmx:aGuQapK1aX2PxjBxabhzrmoZfXScKzr54tJur6cdk5vvT5IzA6cUKg>
-    <xmx:aGuQaitX_0hF3W3TOViSGHto5RIFdwVCWhHytOzJnRGLx3Dpo883uw>
-    <xmx:aGuQaoItXLGO4nn4A1AvFS-mb2v4Pm-eEOn9wIZRPHT75HvCUMiBWSh2>
-Feedback-ID: i8dbe485b:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 27 Aug 2026 12:52:55 -0400 (EDT)
-Date: Thu, 27 Aug 2026 09:52:54 -0700
-From: Boqun Feng <boqun@kernel.org>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
-	linux-tip-commits@vger.kernel.org, x86@kernel.org
-Subject: Re: [PATCH] locking: Revert switching guards to
- _irq_{disable,enable}()
-Message-ID: <apBrZuxU8bmCgG8h@tardis.local>
-References: <20260804161447.84806-8-boqun@kernel.org>
- <178635226387.442315.3868294476114711805.tip-bot2@tip-bot2>
- <20260824104704.GA4121339@noisy.programming.kicks-ass.net>
- <20260824105523.GA4121620@noisy.programming.kicks-ass.net>
- <aozw_7Txxaq2qE7c@tardis.local>
- <877bldhkmq.ffs@fw13>
- <ao4lO7U7L-7Zice1@tardis.local>
- <87v78wezid.ffs@fw13>
- <apA4M7Asz0mV9uaw@tardis.local>
- <87jypbfu1t.ffs@fw13>
+	s=k20260515; t=1787849657;
+	bh=/0EijgfI0VhQhjrOTV+mfho0EuTlFA7vhzH58UT/Nl4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Q1mbqkIRp/j8VBTOJgQerAlZU8RI7OgMeuHkcQerXu9CaZBcqP7GmXXu/I7HJd4UV
+	 nvesbXLzUiwZJILNPf+do8UBEBx2LlzwBCFJV4eUzdKAYa6h5uSoIJ84Zkl7QawPdb
+	 Kb57R5YJkfKxgl8s56xglIX1+EAU882cbnWtS827eSn5DSGlkG9lEqkYhhD9v3zSq5
+	 2+oobrJHgm0lDln30e2YrGv5zDLds5wuUgPLaGHKREyWeNjoSp2hDzL3LqPskXtk87
+	 6BlFyemKV7gEye1DEnBcLG5K4Wy24J50jRxArPG3d3ew4VqgxEQT/pzACBPe6X8kKD
+	 BxcsE9VUob95w==
+Message-ID: <f495537b-90a1-4d22-9281-d1074af2ac1d@kernel.org>
+Date: Thu, 27 Aug 2026 18:54:09 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87jypbfu1t.ffs@fw13>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 16/18] mm/huge_memory: clarify supported split orders
+ in comment
+To: kasong@tencent.com, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
+ Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
+ Shivam Kalra <shivamkalra98@zohomail.in>, Kairui Song <ryncsn@gmail.com>
+References: <20260821-swap-thp-cleanup-v3-0-9b43f5163238@tencent.com>
+ <20260821-swap-thp-cleanup-v3-16-9b43f5163238@tencent.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260821-swap-thp-cleanup-v3-16-9b43f5163238@tencent.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Aug 27, 2026 at 05:43:26PM +0200, Thomas Gleixner wrote:
-> On Thu, Aug 27 2026 at 06:14, Boqun Feng wrote:
-> > On Thu, Aug 27, 2026 at 10:30:50AM +0200, Thomas Gleixner wrote:
-> >> The main problem is that you cover only half of it and there are
-> >> completely correct cases where this simply blows up in your face:
-> >> 
-> >>   local_irq_disable();                          // does not affect CNT
-> >>   ....
-> >>   guard(raw_spinlock)(&l1);                     // does not affect CNT
-> >>      foo()
-> >>        guard(raw_spinlock_irqsave)(&l2);        // observes CNT = 0
-> >> 
-> >> so the unlocking of &l2 will enable interrupts prematurely.
-> >> 
-> >
-> > If we are talking the switch in this patch, then no, the unlocking
-> > of &l2 will NOT enable interrupts prematurely. The above code expands as
-> > the following (using pseudo code to describe how
-> > raw_spin_lock_irq_disable(), raw_spin_lock_irq_enable(),
-> > local_interrupt_disable(), and local_interrupt_enable() work)
-> >
-> >    local_irq_disable();                          // does not affect CNT
-> >    ....
-> >    guard(raw_spinlock)(&l1);                     // does not affect CNT
-> >       foo()
-> >         guard(raw_spinlock_irqsave)(&l2): 
-> >           raw_spin_lock_irq_disable():
-> >             local_interrupt_disable():
-> > 	      CNT++;
-> >               this_cpu(state) = local_irq_save(); // record the current state
-> >             raw_spin_lock(&l2);
-> > 	  ...
-> >           raw_spin_lock_irq_enable():
-> >             raw_spin_unlock(&l2);
-> >             local_interrupt_enable():
-> >               CNT--;
-> >               if (CNT == 0)
-> >                 local_irq_restore(this_cpu(state)); // recover the previous state
-> >
-> > So local_interrupt_disable() and local_interrupt_enable() only recover
-> > to the previous state, as a result it'll not enable interrupt
-> > prematurely here. In other words, the following code works:
-> >
-> >     local_irq_disable();
-> >     local_interrupt_disable();
-> >     local_interrupt_enable();  // interrupt is not re-enabled here
-> >                                // similar to how preempt_disable() does
-> > 			       // in a nested preemption disable
-> > 			       // critical section.
-> >     local_irq_enable();
+On 8/20/26 20:55, Kairui Song via B4 Relay wrote:
+> From: Kairui Song <kasong@tencent.com>
 > 
-> Fair enough. I misread that part.
-> 
-> But my main observation that the counter is inconsistent still stands
-> and I think that's a fundamental flaw because there is no way that code
-> can rely on that counter until everything has been converted over and
-> the interrupt/exception/nmi/syscall entry/exit code has been fixed up.
-> 
-> Just let me look at local_interrupt_disable() and __irq_exit_rcu()
-> again.
-> 
-> local_interrupt_disable()
->    new_count = hardirq_disable_enter();
-> 
->    /* Interrupts can happen here, but it's OK, see __irq_exit_rcu(). */
-> 
->    if ((new_count & HARDIRQ_DISABLE_MASK) == HARDIRQ_DISABLE_OFFSET)
->       _local_interrupt_disable();
-> 
-> This is absolutely not ok. Why?
-> 
-> The counter is incremented _before_ interrupts are actually
-> disabled. Now in __irq_exit_rcu():
-> 
->         if (!in_interrupt() && !hardirq_disable_count() &&
->             local_softirq_pending()) {
-> 
-> which prevents soft interrupt handling in a completely legitimate
-> situation. As a consequence _nothing_ will handle the pending soft
-> interrupt until:
-> 
->      - an interrupt coming in which observes consistent state
-> 
->      - a local_bh_enable() processes them
-> 
-> That explains that recently quite a few more spurious 'local soft irq
-> pending' printk's have been observed by people as there is no guarantee
-> that either one of those events happens _before_ a CPU reaches
-> idle. Even in the non-idle case deferring this to the next 'by chance'
-> handling is fundamentally broken. This needs to be removed ASAP.
-> 
-> But coming back to the problem underneath. The ordering in
-> local_interrupt_disable() is simply wrong. You need to disable first and
-> then update the counter. Reverse order for enable() obviously update
-> counter and enable, which you got right.
-> 
+> The doc comment for __split_huge_page_to_list_to_order() needs an
+> update: only order 1 is rejected for anon and swapcache folios,
+> matching the new_order == 1 check in folio_check_splittable().
 
-Noted, the reason that I used the current order is to optimize
-local_interrupt_disable() from re-disabling interrupt every time:
+I'm confused, why is that not updated in patch #15, which also updates that comment?
 
-	https://lore.kernel.org/rust-for-linux/87a5eu7gvw.ffs@tglx/
+If there is some preexisting inconsistency, the comment should be fixed before
+patch #15.
 
-but looks like we cannot do it without the fixups you mention below.
-For now I will reverse the order and remove the additional checking in
-softirq to fix the softirq pending issue.
+> 
+> Also realign the continuation line of the function signature while at
+> it.
+> 
+> Signed-off-by: Kairui Song <kasong@tencent.com>
+> ---
+>  mm/huge_memory.c | 11 +++++------
+>  1 file changed, 5 insertions(+), 6 deletions(-)
+> 
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index 06f353f937d1..0a971ca48151 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -4400,11 +4400,10 @@ int folio_split_unmapped(struct folio *folio, unsigned int new_order)
+>   *    GUP pins, will result in the folio not getting split; instead, the caller
+>   *    will receive an -EAGAIN.
+>   *
+> - * 4) @new_order > 1, usually. Order-1 is not supported for anon or swapcache
+> - *    folios: anon folios need subpage 2 for _deferred_list, which order-1
+> - *    folios lack, and a swapcache folio may become anon once faulted in.
+> - *    File-backed order-1 folios are supported, since they do not use
+> - *    _deferred_list.
+> + * 4) @new_order != 1 for anon or swapcache. Anon folios need subpage 2 for
+> + *    _deferred_list, which order-1 folios lack, and a swapcache folio may
+> + *    become anon once faulted in. File-backed order-1 folios are supported,
+> + *    since they do not use _deferred_list.
+>   *
+>   * After splitting, the caller's folio reference will be transferred to @page,
+>   * resulting in a raised refcount of @page after this call. The other pages may
+> @@ -4432,7 +4431,7 @@ int folio_split_unmapped(struct folio *folio, unsigned int new_order)
+>   * with the folio. Splitting to order 0 is compatible with all folios.
+>   */
+>  int __split_huge_page_to_list_to_order(struct page *page, struct list_head *list,
+> -				     unsigned int new_order)
+> +				       unsigned int new_order)
 
-Regards,
-Boqun
+These functions should all be concerted to double-tab as we you them.
 
-> And to make stuff work correctly you need the fixups I pointed out in my
-> previous reply to the various entry/exit functions. It's exactly the
-> same problem as we handle in interrupt/exception/nmi entry/exit code
-> vs. RCU, lockdep, tracing etc.
-> 
-> So if disable() does:
-> 
->    if (!count)
->    	arch_local_irq_disable();
->    count++;
-> 
-> then an interrupt hitting before arch_local_irq_disable() will always
-> observe the correct state. After that it can't be delivered.
-> 
-[...]
+-- 
+Cheers,
+
+David
