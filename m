@@ -1,100 +1,140 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EA8C2931F7;
-	Thu, 27 Aug 2026 06:52:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F136F3112B2
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:52:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787813527; cv=none; b=rgA9lSmzAD3urD0/tC3Z95wQPMQ6PmySDWH0N91V2uI8Zina+NfkOmKBdmMIknCRTkX7lZeX6owkdYG6jpErM4zZT8zuj+mzAajxo80XGcS5SbgtlobJ2rrtyXZNdoThvwEGnqZbBp4IOKfW7gkonIU1/hvuhAMZCJi417v9P1Y=
+	t=1787813533; cv=none; b=JHLLmzs4PwYFzSCFTyOAM3yEE37PLVTF7RKqvLEZhV8UQ8Tx/AQSB9ufPPpCixmOHwmkVmAEDWjmpIIEoexsUQcydnPUm7KJC1GILE1aeLTZ/uLGPvLAmb8fdhBObF4lpFAonTtRbK23qgmz1PZbejxJ1glqZ7D/9okAchCMs20=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787813527; c=relaxed/simple;
-	bh=Na/ROnshIIC7Ymj9ORTdoVUpVfDNpNInqCOmdYyqPCM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dEQBuprUzPHSBG1uAwus97ohbUsE90kKy1TMU2ORC7F4dr49CnfoAdVvewvzAFdrHorue9GRKRKla0hhji+0IO9Wa8lHedyPAJQq1GS40w303G6/UhC6N31FSAGiu8rHP+2ngkptP7W0zii40Xa91FkYrLSP9RW9nqfRDhSR5qs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=O1/flhaR; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787813533; c=relaxed/simple;
+	bh=Da0fXsfwuyG6dNJ6cZ9jptzuJE6lm5EZ7jZn7IqpEsM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KaN1Rk6PkN2pvXSZsyDM/ssqqJERjKcCBpDfgznWa+0WZH/DnMY6+xCr8wIie1cbsvbbwNAFQu016xiEhC42j9Rn7uwVTNGR6HdB3wYRf2B9qe92vtBdFMo2kVCLI0smAPB5MUm84SS9HmF+zyC2p7wslEdfAUlw5ZgOkUpMr94=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ItaaOz6b; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="O1/flhaR"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787813526; x=1819349526;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Na/ROnshIIC7Ymj9ORTdoVUpVfDNpNInqCOmdYyqPCM=;
-  b=O1/flhaRtgiDQhKH+YmZLrCYAEZ/RMrqWqjmdMccI1xg6/Bk6NVefyiF
-   uYx1721gBPnM8Z4vmXfSRAeTQhoIR16RQHGBkV23/GzZgzk1ulEavpNnU
-   Q/f9x9xST++VMO+bBo5QyPqmR9NRs+75LfgyUZQivVnhhPEx9PwAXrRuz
-   sOo5xrw+BHMvpUlifDmOPNxafbjttdpc9IrCnbpBw8vhitDvkqrSlkOjI
-   sgf+8hRrUP1Cf4oQZJ8bScMpLXi+WCGsZK9GtroEz56JHhr51oM+tosP+
-   sAxXbGGq6lb5UWjz3m8R1RNqDjB89H1pf8AL9SCQJDzUg26XlwxYDJWkA
-   w==;
-X-CSE-ConnectionGUID: c3UTZg85SBKCiEjrM7dGsQ==
-X-CSE-MsgGUID: mau84kfaSk2nFQdGcRNnAg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="88226919"
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="88226919"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 23:52:06 -0700
-X-CSE-ConnectionGUID: mV4cFKuQS4KvIS4o7BhN/Q==
-X-CSE-MsgGUID: Ul6eYNBkRdupSKjNYvphYw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="292629661"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.125])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 23:52:03 -0700
-Date: Thu, 27 Aug 2026 09:52:00 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Yash Suthar <yashsuthar983@gmail.com>
-Cc: jic23@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
-	andy@kernel.org, grondon@gmail.com, linusw@kernel.org,
-	hexlabsecurity@proton.me, sakari.ailus@linux.intel.com,
-	srinivas.pandruvada@linux.intel.com, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/3] iio: accel: bmc150: DMA-safe buffers and use
- iio_push_to_buffers_with_ts()
-Message-ID: <ao_ekPy1t26dmVDt@ashevche-desk.local>
-References: <20260825085156.212042-1-yashsuthar983@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ItaaOz6b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F82E1F00A3E
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:52:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787813531;
+	bh=wVi2eZPfbYuqP485PFkN0tjwr+z1YH8ptpjfhnz9BuQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ItaaOz6bCwnhLml7kTaU5Xs2zuoGjsOIOhI0blxBGWNYeXMMSV5zo/PKh14ODCOam
+	 fdTm7TzXlsCOZRzfByOWS5CYgxZVswlzG+n/MY5iNP2TC9nqulrz1DRGNCdB7PNs05
+	 Yi8Efcx47LmGX+5GnXpr08BWmNnTLj3Tafkd75vJsGrRw2kUUASiPnRD3U3mDZXTEg
+	 Bgq22Gj7sjpuDQilUaWVme2q2A8vlEj5tkBjhojyGdGICWj0pD+DvnC8qcHH6jJ/dV
+	 5lyuMlUxGQPo5Blf1U8Vt66RltlX7xw/q56+6LB0T8sBTl+2WUFb97f3fVwIEE0RHQ
+	 hyEnpjbtVBd5g==
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c20ce3c118aso143812766b.0
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 23:52:11 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RpPqycgBiegHG5ZDRFjABhg32CZxlSXVF7VWgBxj7VX8Zma+zTqeG7j9S9c/dqXGcD7jmdor5UNQXcn2Yo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mvpMKbSt8eJCs2r5KvPjy/ddkw6LsNzbTL9k1HNzvhQRnaF7Ld
+	6VvuB2Gk2EexiaRQrT1L1/VHrdKXrx42xn7oPU6amS0NzC0k1iX5WbcW+NsBKkftwLHWXlqpMUI
+	aeJriDk5kwXqam2O0oURRVdoiJ+Gl9XQ=
+X-Received: by 2002:a17:907:934b:b0:c20:7cb0:f33c with SMTP id
+ a640c23a62f3a-c253614e259mr286595366b.16.1787813530578; Wed, 26 Aug 2026
+ 23:52:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260825085156.212042-1-yashsuthar983@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20260826233919.998904-1-seanjc@google.com> <20260826233919.998904-14-seanjc@google.com>
+In-Reply-To: <20260826233919.998904-14-seanjc@google.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Wed, 26 Aug 2026 23:51:59 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zOOq05nWk6c1sCnPAimFTuZLxc3BDrZLro-fXPR6ZMmTw@mail.gmail.com>
+X-Gm-Features: AcwNN1XTwuTKdT-sv80CRHYM3m8PSeG1T_AR1bTACKJVAgElSchB7D80CH8cH6c
+Message-ID: <CAO9r8zOOq05nWk6c1sCnPAimFTuZLxc3BDrZLro-fXPR6ZMmTw@mail.gmail.com>
+Subject: Re: [PATCH v3 13/13] KVM: selftests: Add and use double-underscore
+ versions of vmlaunch() and vmresume()
+To: Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	f734222792@gmail.com, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Sashiko Bot <sashiko-bot@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Aug 25, 2026 at 02:21:53PM +0530, Yash Suthar wrote:
-> The trigger path used a plain s16 buffer while the FIFO path already had
-> a properly typed scan member (__le16 + aligned timestamp). Those two
-> buffers did the same job, and s16 does not represent little-endian data.
-> Drop the duplicate, keep scan at the end of struct bmc150_accel_data with
-> IIO_DMA_MINALIGN, and use it for both the trigger and FIFO paths.
-> 
-> The FIFO and read_raw buffers are passed to regmap bulk/raw reads, which
-> is not DMA-safe. Move them into struct bmc150_accel_data after the aligned
-> scan buffer. Because all buffers are serialized by data->mutex, placing
-> them after scan ensures DMA safety without needing separate alignment.
-> 
-> Finally, replace the deprecated iio_push_to_buffers_with_timestamp() with
-> iio_push_to_buffers_with_ts() so the push sites pass an explicit buffer
-> size.
-> 
-> This supersedes the earlier standalone patches:
-> Link: https://lore.kernel.org/linux-iio/20260808220236.421832-1-yashsuthar983@gmail.com/
-> Link: https://lore.kernel.org/linux-iio/20260809111303.496393-1-yashsuthar983@gmail.com/
+On Wed, Aug 26, 2026 at 4:39=E2=80=AFPM Sean Christopherson <seanjc@google.=
+com> wrote:
+>
+> Add double-underscore helpers for VMLAUNCH and VMRESUME, and have the
+> "outer" APIs assert success, as is common through KVM selftests.  In
+> addition to providing more familiar interfaces, this makes it more obviou=
+s
+> which paths expect VM-Enter *failure*.
 
-In this case it's better not to use Link: tag. `b4` can't distinguish them from
-the important ones.
+Nice.
 
-> Link to v1: https://lore.kernel.org/all/20260814101845.301769-1-yashsuthar983@gmail.com/
-> Link to v2: https://lore.kernel.org/linux-iio/20260815175728.99541-1-yashsuthar983@gmail.com/
+>
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
 
--- 
-With Best Regards,
-Andy Shevchenko
+Reviewed-by: Yosry Ahmed <yosry@kernel.org>
 
+Few semi-related comments below.
 
+[..]
+> diff --git a/tools/testing/selftests/kvm/x86/aperfmperf_test.c b/tools/te=
+sting/selftests/kvm/x86/aperfmperf_test.c
+> index 11f5894d8ac7..a082658c1e48 100644
+> --- a/tools/testing/selftests/kvm/x86/aperfmperf_test.c
+> +++ b/tools/testing/selftests/kvm/x86/aperfmperf_test.c
+> @@ -83,7 +83,7 @@ static void l1_vmx_code(struct vmx_pages *vmx)
+>                 vmreadz(CPU_BASED_VM_EXEC_CONTROL) | CPU_BASED_USE_MSR_BI=
+TMAPS);
+>
+>         GUEST_ASSERT(!vmwrite(GUEST_RIP, (u64)l2_guest_code));
+
+Do we wanna give the same treatment to vmwrite()?
+
+> -       GUEST_ASSERT(!vmlaunch());
+> +       vmlaunch();
+>  }
+>
+>  static void guest_code(void *nested_test_data)
+[..]
+> diff --git a/tools/testing/selftests/kvm/x86/nested_emulation_test.c b/to=
+ols/testing/selftests/kvm/x86/nested_emulation_test.c
+> index 2b38eff4f516..11fe4a31eda0 100644
+> --- a/tools/testing/selftests/kvm/x86/nested_emulation_test.c
+> +++ b/tools/testing/selftests/kvm/x86/nested_emulation_test.c
+> @@ -102,7 +102,7 @@ static void guest_code(void *test_data)
+>                         exit_insn_len =3D vmcb->control.next_rip - vmcb->=
+save.rip;
+>                         GUEST_ASSERT_EQ(vmcb->save.rip, (u64)l2_instructi=
+on);
+>                 } else {
+> -                       GUEST_ASSERT_EQ(i ? vmresume() : vmlaunch(), 0);
+> +                       i ? vmresume() : vmlaunch();
+
+Ewww
+
+>                         exit_reason =3D vmreadz(VM_EXIT_REASON);
+>                         exit_insn_len =3D vmreadz(VM_EXIT_INSTRUCTION_LEN=
+);
+>                         GUEST_ASSERT_EQ(vmreadz(GUEST_RIP), (u64)l2_instr=
+uction);
+> diff --git a/tools/testing/selftests/kvm/x86/nested_exceptions_test.c b/t=
+ools/testing/selftests/kvm/x86/nested_exceptions_test.c
+> index 50c271a03692..c36c11b5f518 100644
+> --- a/tools/testing/selftests/kvm/x86/nested_exceptions_test.c
+> +++ b/tools/testing/selftests/kvm/x86/nested_exceptions_test.c
+> @@ -112,7 +112,7 @@ static void vmx_run_l2(void *l2_code, int vector, u32=
+ error_code)
+>  {
+>         GUEST_ASSERT(!vmwrite(GUEST_RIP, (u64)l2_code));
+>
+> -       GUEST_ASSERT_EQ(vector =3D=3D SS_VECTOR ? vmlaunch() : vmresume()=
+, 0);
+> +       vector =3D=3D SS_VECTOR ? vmlaunch() : vmresume();
+
+Ewwwww
+
+Can we make these if/else statements? It was already ugly, but it
+looks even more ugly outside of GUEST_ASSERT_EQ().
+
+>
+>         if (vector =3D=3D FAKE_TRIPLE_FAULT_VECTOR)
+>                 return;
