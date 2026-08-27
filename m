@@ -1,96 +1,124 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21A8233E34B;
-	Thu, 27 Aug 2026 06:35:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CFCB3655FA;
+	Thu, 27 Aug 2026 06:36:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787812510; cv=none; b=kbytY/ktONwAae7H57DEqipmSbvyZk1rhWQ7QrexAUoyY5tUj/JFu0gj3WOgNw+79ka9BDNWZunS28Ng1t4Jn7lIxhLej92h0rqhuAjMKhemTeg7kc0UVoYmv/ZCyOzSSh6/G2LPKiH9+WH9Y88FLttGpNuk/AwNJQs4UWdSBkc=
+	t=1787812615; cv=none; b=V84eLuqfDzpv4GuOHRiBn8/Z3jYKJTi57yIs9wyb4Kf1+7735Qkio74ZPebkwX2qdFJq2VtsKV3wpQOOhWwjQ2hOTW4Nx7EhoX6/3YO8jMrCoqE340+SM/ekUcuauYKSuPmJrPwcoJIVtB3ITQB9z+0TxaBQhOf1FO4t7kWlyKs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787812510; c=relaxed/simple;
-	bh=WqchggjH9hn51vCdzs4WlFOEV7ma0Z4vukFOFOaqXcs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=u1l8jj/563N3DSovuwl7Ns+8+wsNGwvF3eVaVN45tN4zHJhf8FiVBe5oFbFYYWprIvJI4jXc0m40bDd5KIkRptad3LxJw8lT4YJALeJDBl6mQtpbN8jY2D5dCwN3FsWUUJ6O+DLmDT+MOW+uUkrSZWeXDqu/lU+sfiLtzwIjwI4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DPwwr8VR; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1787812615; c=relaxed/simple;
+	bh=obqsZ4uc1rQY9yfVPhKm+FWc6uLw7m/hLiUV6KnEyz8=;
+	h=From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:Date; b=Jrc7k2Bsj/sSdJMOnS+Bhv1IbZ+AlBtlkA09oGpT7P7ilpoxJ1uZD0byhGKMIa4vajz/X79TN6URj8Z6uT+kbjbb8ZLxJPigHXpnc5daRIbNT2Diosw1OMiEYG5xuufD2Naqos4xSxuyNv6oZh8wsjGsc+qIsS09BAfmYjm9uwE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VtKl8EWi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DPwwr8VR"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787812507; x=1819348507;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=WqchggjH9hn51vCdzs4WlFOEV7ma0Z4vukFOFOaqXcs=;
-  b=DPwwr8VRwItPicEj4wewun2cDpGEQTNFf7g01gVhYHFCXNaI6Ng7AW95
-   83FyWBsXPAjHPYlBFAJxEemsDlGqYhr/QYVzpfte5M9CU9TKkDKYbx8lb
-   EhbM95WQnF8qBNGbxirpambCqgBINQLVFPeCmY5COiq8U+spgk52v0m7S
-   yBZgAa/wDZSUL5Cx2O/XVyd+69n8iv7rqhCOm8K8mhjAj8xEwLUn6gL1z
-   bJAqIr709tbbiIGZ7fUm05zxS2Mxxtxx54GiIVy/gsYZtjdlYfGitU4tG
-   r3j4pMxCu/NtTicEw7nIxyGgHnZ5TdKa9dBsmLDzfHfyXU0oThF6/cgA1
-   g==;
-X-CSE-ConnectionGUID: Bc3RbpwNTsGDNN4kJ1UFlg==
-X-CSE-MsgGUID: +7ICXO5UReydSXMTNiQcoQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="99656350"
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="99656350"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 23:35:07 -0700
-X-CSE-ConnectionGUID: hgx/yuobSAy2bYalaVILkA==
-X-CSE-MsgGUID: g+Nc/osFRdehqhiX6rRgPw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="306004445"
-Received: from nneronin-mobl1.ger.corp.intel.com (HELO [10.94.252.51]) ([10.94.252.51])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 23:35:05 -0700
-Message-ID: <fdc17e7b-5b79-4b52-a1a9-929ec1565768@linux.intel.com>
-Date: Thu, 27 Aug 2026 09:34:50 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VtKl8EWi"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 61C941F00A3A;
+	Thu, 27 Aug 2026 06:36:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787812612;
+	bh=vDITXMHkUeseGMzoeKaLCCD7eXKdPq/heHr+EsapH3g=;
+	h=From:To:Cc:Subject:Date;
+	b=VtKl8EWiIKdzcH8n/jvyzIr+eEVUllRBxh/h9K3xFMCPZ6hS6QKmJ8qskKFYWkTZc
+	 JPgfVWYrRvsDQIlbCPjEOA1B7Sr3uScF4nWnvbjbPByd7RBgesrfzYKJiMbHb3G7AU
+	 ZG5c+zMM741+0wTGh6QDsiRNiO1zIXEUmZ/FOilBX/EccdzJqTHL7YptC0n2Dau7ka
+	 LMTBk+qDJbT9Vb5upxNdT1pjDXmrRwTygYGlALVVEcije4wppgWIE80T/Hy1YC4WLD
+	 3kcHdFWVju8h2DmkEIwhPGMAzltEM1sKoP8ZwTXK+DAApyLko+UW2NCjtzjP3WCYV7
+	 Fhuj1ly8cBglA==
+From: "syzbot" <syzbot@kernel.org>
+To: syzkaller-bugs@googlegroups.com, Slawomir Stepien <sst@poczta.fm>, "Basavaraj Natikar" <basavaraj.natikar@amd.com>, "Benjamin Tissoires" <bentiss@kernel.org>, "Jiri Kosina" <jikos@kernel.org>, <linux-input@vger.kernel.org>, "Sandeep Singh" <sandeep.singh@amd.com>
+Cc: linux-kernel@vger.kernel.org, syzbot@lists.linux.dev
+Subject: [PATCH] HID: amd_sfh: Validate PCI BAR size before mapping
+Message-ID: <94704655-d654-4500-8122-b80bea9bd908@mail.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] usb: xhci: fix ERST max field conversion
-To: Youngjoon Lee <getfeus@gmail.com>, Mathias Nyman <mathias.nyman@intel.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260827053748.3755-1-getfeus@gmail.com>
-Content-Language: en-US
-From: "Neronin, Niklas" <niklas.neronin@linux.intel.com>
-In-Reply-To: <20260827053748.3755-1-getfeus@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Date: Thu, 27 Aug 2026 06:36:52 +0000 (UTC)
+
+From: Slawomir Stepien <sst@poczta.fm>
+
+The amd_sfh driver maps PCI BAR 2 using pcim_iomap_regions() and
+subsequently accesses MMIO registers at offsets up to 0x10958 (e.g.,
+AMD_P2C_MSG3 at 0x1068C). However, the driver never validates that the BAR
+size is large enough to cover these accesses. If the driver is bound to a
+device with a smaller BAR 2, this leads to an out-of-bounds memory access
+and a page fault during the probe function.
+
+For example, a page fault can occur when reading from privdata->mmio +
+AMD_P2C_MSG3 in mp2_select_ops():
+
+  BUG: unable to handle page fault for address: ffffc9000390368c
+  PGD 100000067 P4D 100000067 PUD 1012c1067 PMD 105b64067 PTE 0
+  Oops: Oops: 0000 [#1] SMP KASAN NOPTI
+  RIP: 0010:readl arch/x86/include/asm/io.h:59 [inline]
+  RIP: 0010:mp2_select_ops drivers/hid/amd-sfh-hid/amd_sfh_pcie.c:282
+  [inline]
+  RIP: 0010:amd_mp2_pci_probe+0x337/0x5f0
+  drivers/hid/amd-sfh-hid/amd_sfh_pcie.c:487
+  Call Trace:
+   <TASK>
+   local_pci_probe drivers/pci/pci-driver.c:332 [inline]
+   pci_call_probe drivers/pci/pci-driver.c:394 [inline]
+   __pci_device_probe drivers/pci/pci-driver.c:455 [inline]
+   pci_device_probe+0x431/0xc90 drivers/pci/pci-driver.c:489
+
+Fix this by verifying that the length of BAR 2 is at least 128KB before
+attempting to map it. Since the maximum accessed offset is 0x10958, and PCI
+BAR sizes are powers of 2, any legitimate hardware will have a BAR size of
+at least 128KB.
+
+Fixes: 4f567b9f8141 ("SFH: PCIe driver to add support of AMD sensor fusion hub")
+Assisted-by: Gemini:gemini-3.7-flash Gemini:gemini-3.1-pro-preview syzbot
+Reported-by: syzbot+4eadd4dfe9e66522bae8@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=4eadd4dfe9e66522bae8
+Link: https://syzkaller.appspot.com/ai_job?id=3bc1c45c-548f-4ab5-8243-d2c8ec321d6c
+Signed-off-by: Slawomir Stepien <sst@poczta.fm>
+
+---
+diff --git a/drivers/hid/amd-sfh-hid/amd_sfh_common.h b/drivers/hid/amd-sfh-hid/amd_sfh_common.h
+index 78f830c13..c0c324565 100644
+--- a/drivers/hid/amd-sfh-hid/amd_sfh_common.h
++++ b/drivers/hid/amd-sfh-hid/amd_sfh_common.h
+@@ -17,6 +17,8 @@
+ #define PCI_DEVICE_ID_AMD_MP2		0x15E4
+ #define PCI_DEVICE_ID_AMD_MP2_1_1	0x164A
+ 
++#define AMD_SFH_MIN_BAR_SIZE		(128 * 1024)
++
+ #define AMD_C2P_MSG(regno) (0x10500 + ((regno) * 4))
+ #define AMD_P2C_MSG(regno) (0x10680 + ((regno) * 4))
+ 
+diff --git a/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c b/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c
+index 4b81cebdc..039b6ac32 100644
+--- a/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c
++++ b/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c
+@@ -451,6 +451,16 @@ static int amd_mp2_pci_probe(struct pci_dev *pdev, const struct pci_device_id *i
+ 	if (rc)
+ 		return rc;
+ 
++	if (!(pci_resource_flags(pdev, 2) & IORESOURCE_MEM)) {
++		dev_err(&pdev->dev, "BAR 2 is not IORESOURCE_MEM\n");
++		return -ENODEV;
++	}
++
++	if (pci_resource_len(pdev, 2) < AMD_SFH_MIN_BAR_SIZE) {
++		dev_err(&pdev->dev, "BAR 2 is too small\n");
++		return -EINVAL;
++	}
++
+ 	rc = pcim_iomap_regions(pdev, BIT(2), DRIVER_NAME);
+ 	if (rc)
+ 		return rc;
 
 
-
-On 27/08/2026 8.37, Youngjoon Lee wrote:
-> Commit 6d45e9556d4a ("usb: xhci: standardize multi bit-field
-> macros") converted the ERST maximum calculation from BIT() to a
-> left shift. These operations are not equivalent because the
-> HCS_ERST_MAX field contains an exponent.
-> 
-> On an MT8173 xHCI controller where HCS_ERST_MAX is zero, the new
-> calculation produces zero event ring segments. This reaches
-> dma_alloc_coherent() with a zero size, triggers a page allocator
-> warning, and prevents xHCI from probing with -ENOMEM.
-> 
-> Preserve the original calculation by applying BIT() to the value
-> extracted with FIELD_GET().
-> 
-> This restores the USB 2.0 and USB 3.0 root hubs on MT8173. A USB
-> webcam and both USB 2.0 and USB 3.0 hubs enumerate successfully,
-> and the previous ERST allocation failure is no longer present.
-> 
-> Fixes: 6d45e9556d4a ("usb: xhci: standardize multi bit-field macros")
-> Signed-off-by: Youngjoon Lee <getfeus@gmail.com>
-
-Thanks for the report and patch.
-
-This issue has already been addressed in:
-
-https://lore.kernel.org/linux-usb/7e6648ad-7459-4248-8c6c-227cfc2586d8@linux.intel.com/
-
--Niklas
-
+base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
+-- 
+See https://goo.gle/syzbot-ai-patches for information about AI-generated patches.
+The person who has signed off on the patch is responsible for
+addressing comments.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
