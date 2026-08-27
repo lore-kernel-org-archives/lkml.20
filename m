@@ -1,68 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25D0941D620;
-	Thu, 27 Aug 2026 12:12:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03E1844682F;
+	Thu, 27 Aug 2026 12:13:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787832756; cv=none; b=nH6o7gLlLT+LaLwijUiqi6A3wEkygnpwFcB1FPAplMNSK7Q7vVmdkBqrh8N1TS4hSwQ0pMLVmwYR9kbkkWKqq9pp0M699C3cGp5d7aKtU3IgjhF0nTQnoAEzDLB/udORDE/2hMLpQ4e7AUv6Q92eX0kpnlIXd//MV4WkrkAmcRk=
+	t=1787832790; cv=none; b=ggeRH5peKULD3SxbXNyY+PNvPEYfmGNp4EayMh/d6na+bqI6j+m31scu88WyXtl1lGoISsSp0qJNXrnRrookvNGUOCTVWrf9Ip/97b5rk3F6s7mUQO8Mw3xrNsiTuQfSmUSFHp7LKO0FuCEQn05LHw1oc8ont3wDduCMGraza0A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787832756; c=relaxed/simple;
-	bh=w0SQfwZUSuGH5Ew1gOFHwu/0bxEkKTLnRMcF5LLyfUo=;
+	s=arc-20240116; t=1787832790; c=relaxed/simple;
+	bh=fdo2s9XGyXvtpwE9ycsOJ89ZJGa5LDXmxDbSXQ/Ly3I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C2YAeTisCn/mu+0UoSBYZyVRQVJqZpU6yHkgZRJ+MkmpSEUOrlwvB+MMOBXGwdD6BXb9NhRiGvRerSWkFU/ZKP/vsbP/BNvS1ixnKKalPKsEKoOM349Gw+mwsB7puC1t2unURQ6xJz4aeP9JfxNbFuHAf6H9P3QqRuie9u9MzOg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HXcgLl0P; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=e5o9/AYq/CF8JYyZ1USg175hZwxpcbhxmjFZXSA9hY7bWvE4sGldcXtY3+ZXQWSFixtB6n9K/H8wKhkP/NUloxm1PjBCu9NT1gnvTY7mNrf9Fd/xOp5QOyUQVr3D7kYQ5pWOt94TqO0HDXEuyHUusB1SwOZyoQQYldYPCK8bdQg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Fwb8maPS; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HXcgLl0P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7B391F000E9;
-	Thu, 27 Aug 2026 12:12:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787832754;
-	bh=oN1uBNEZB9zCmyVRxDlBtR7tHE5jA4bpzOHI8/B57Gw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HXcgLl0PLqP5ixOEzoOZ638HhU1mGkyHmnZoq/qZDaBBA/zQGfmcV3r+3u7k4VoJF
-	 7P+7c4BxJVN63wedE5ZHFzUNXjBASY2z8g2zYUjtxy+5isxC2mRIcIKreyWoh8Vls7
-	 h9KJkhXWfCJUgXcXqd8YoHcizZzozp+dTvW/V224LV89OjEMwgL2Uz7xhvXKYEBc0i
-	 0lFixYKHToNC6CC5rA5a4YZ6+AZaq3gxNXkpkNA7QPTI65kxx/B0/FHTkB/JavZvh/
-	 UsJvHfQzToJqGKOcxDxOmSA1F04ie9+sHn83u5MR0nJrPVl8aMqi00cGT7DxjnGEZ1
-	 V+cabfdJ3oH0Q==
-Date: Thu, 27 Aug 2026 14:12:31 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Aiden Isik <aidenisik@member.fsf.org>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>, 
-	Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
-	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] watchdog: s3c2410_wdt: Add exynos5515-wdt
- compatible data
-Message-ID: <20260827-energetic-nifty-anaconda-6de11a@quoll>
-References: <20260821-for-next-lucky7-watchdog-v4-0-d070cee5009f@member.fsf.org>
- <20260821-for-next-lucky7-watchdog-v4-2-d070cee5009f@member.fsf.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Fwb8maPS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787832790; x=1819368790;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=fdo2s9XGyXvtpwE9ycsOJ89ZJGa5LDXmxDbSXQ/Ly3I=;
+  b=Fwb8maPSHI35ij7mf2uPsFF59CDPIPKiODY5LjshJvTbkZUdcbVjJyWF
+   IIu6k+QwB+n2OGdTWwCzCRmkksKnfr+a53gmspjM5ivP5XCjdmXvrzOSo
+   G6FqKTyUYM9hMXi5hfXJXMz5vYOjzCz/AW090UvVhfPvsfqTQFzea6/Qr
+   INPcHAf22L25+SDbDz3E09jht4Zh+pfJrAie/iYWZuxsMMzR9vAtW37Cc
+   AsZt1NTfnDBwgCl16WcXKAGyeNAwt/pN26ziqYIFzMZDMyQ59wZ4nt58H
+   SsB9E5/zjtwZpdW78Qn7ULSdw9+IeIc2TwNNjaU2hzqGLma0g1zXTNO4B
+   w==;
+X-CSE-ConnectionGUID: M8vOUhiqTYuaWNUCoUuudQ==
+X-CSE-MsgGUID: dq7wqbrvTWK14p5PLnIpoQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="111113644"
+X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
+   d="scan'208";a="111113644"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 05:13:09 -0700
+X-CSE-ConnectionGUID: IINibmaPSI+uWTXXLODgrw==
+X-CSE-MsgGUID: kYbk+smzSI6pA0J1YAe0Ig==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
+   d="scan'208";a="292694497"
+Received: from amilburn-desk.amilburn-desk (HELO kekkonen.fi.intel.com) ([10.245.244.174])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 05:13:05 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id C6C83120DF1;
+	Thu, 27 Aug 2026 15:13:02 +0300 (EEST)
+Date: Thu, 27 Aug 2026 15:13:02 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Bingbu Cao <bingbu.cao@amd.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Nicholas Roth <nicholas@rothemail.net>,
+	Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jose Maria Martin <jmmartinf@hotmail.com>,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/8] media: i2c: Add Yoga Book camera ACPI IDs
+Message-ID: <apApzsTjVmiWWc-w@kekkonen.localdomain>
+References: <20260826132256.3343451-1-mauriziocasciano7@gmail.com>
+ <20260826132256.3343451-3-mauriziocasciano7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260821-for-next-lucky7-watchdog-v4-2-d070cee5009f@member.fsf.org>
+In-Reply-To: <20260826132256.3343451-3-mauriziocasciano7@gmail.com>
 
-On Fri, Aug 21, 2026 at 04:14:50PM +0100, Aiden Isik wrote:
-> Add driver data for the Exynos5515 SoC's watchdog timer.
+Hi Maurizio,
+
+Thank you for the set.
+
+On Wed, Aug 26, 2026 at 03:22:50PM +0200, Maurizio Casciano wrote:
+> The Lenovo Yoga Book YB1-X91 firmware enumerates the front OV2740 as
+> OVTI2740 and the rear OV8858 as INT3477. Neither ID currently matches
+> its sensor driver, so both I2C devices remain unbound.
 > 
-> Unlike similar SoCs such as GS101 or Exynos990, Exynos5515's PMU does
-> not require explicit counter enablement for the watchdog to tick.
+> Add the IDs to the corresponding ACPI match tables. Sensor
+> configuration and CSI lane quirks are kept in later patches.
 > 
-> Signed-off-by: Aiden Isik <aidenisik@member.fsf.org>
-> ---
->  drivers/watchdog/s3c2410_wdt.c | 16 ++++++++++++++++
->  1 file changed, 16 insertions(+)
+> Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
+> Assisted-by: Codex:gpt-5.6-sol sparse
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Please split this into two, a patch per driver.
 
-Best regards,
-Krzysztof
+What is relevant here that ACPI IDs are added, not so much where these IDs
+are being used (that goes to the cover letter).
 
+-- 
+Regards,
+
+Sakari Ailus
