@@ -1,181 +1,213 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A2772EC083;
-	Thu, 27 Aug 2026 16:49:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C5B335C6A1
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:50:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787849379; cv=none; b=j/5d5AfFBsz/Hpe7jm3YRc36YuxWCD7M4RgHMAdMwI7TLAYApifWOx+SBY1S7m5dkc9JqKVHva+ML+pRA7MfXP9ZDvPkTsywIT8SBF9fnLIKdfe2Sl/iBvbvMkwdiq0rqw/I2JEmYGAMfIzKFk1pee3QiOYKSazMrpQl/2qv6sY=
+	t=1787849404; cv=none; b=JGHks5B644yScyEg0nMThB+vr7CmT2SgMv2saRTHvj/tDJ166zO7KZ0SKUjkriulNL+GaYExljTlLQPda+nt7Ht7uEd+2bpbpuhGFXcDMZn5MHFXyMgVBc4xNqzdR7Y3pdAibcrmbn7moHoeCmJDZB7xaSMiY056dGbOFH3Bp9A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787849379; c=relaxed/simple;
-	bh=3mRnnLbXPK+FL1Y11FZ2tsLwM5/BITjgA8Xy6c7obuU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ju8ZrQ8WhzvV81vzpksH26iJQ7y2CuH7GCwPKoYL1aihxXdFypdQDjhH1+UYKPRf43IA1ImdwzJWN8cq7vTzKeJtRaPEaxR7PhJoDohGdMcTFzLDsmL6SarqIxNNuSFgvnthfrgQLb8rYfFcXL+MP72kUZN/8+gMxs6Km1Lsedk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kGlA7VxW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787849404; c=relaxed/simple;
+	bh=hq6Dd50QNE5pWnkdJ3+SExZCZgpC+xCCarGNcc61RpM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Kadj8bYvCNWvw5nkheES/RtCYhEKpiSYvhguZl8zCpRtJWCYRHb6hflx9X+ERDUra3mm012l63O7o/ryIu9zdaQQQr6EHfYKO+Ac6mVIixIexM/Y+UzjK1JalkOCnbO65SPmIMOVEiaLU28Iv9klH3duYlK2sXeoOvXRMmjqpzQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fnw2tHW7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kGlA7VxW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2378D1F000E9;
-	Thu, 27 Aug 2026 16:49:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fnw2tHW7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0AFD1F00A3E
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:50:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787849377;
-	bh=J5cG4iuM1d9Xpr0Ghu/Ar+nS5GiRx98CK/xxd+1xvUA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=kGlA7VxWC4H4LrpdVhC9YYAuk4lfkA5dIfmFjIqZEw/WBSOnbU59U/UDlG3KwPCSA
-	 91i65tzQN9XBNvbBXurAaKaYXesWTyDaeQ4e73MZAK5G+DKufUOg4THZhWZ73Alq3m
-	 tbsdvs6Bd1CqbPjnHNRKgIBnjS6Y1dQDikz8Vk1Vo3PFbrOThoqf3Pum/+wRo460Yt
-	 Xf1QHoE3boTYnZG9s5GSlBiPYkk8xCbw7jfmYp1ltr/qg5dh5Uh5bPDhvk2bCgJKzd
-	 hjIIpnIMUmvxP1fOa2gH1XXK543sCa5MsU2DWLtKzKt7B1TVGz2leERxwjOqlWXA8i
-	 ODyD7h1p1IU3Q==
-Message-ID: <c9c11ca3-8f78-4086-8549-5e99a4d79feb@kernel.org>
-Date: Thu, 27 Aug 2026 18:49:33 +0200
+	s=k20260515; t=1787849402;
+	bh=A/HAoX1rGIxvt6EEdQNxTt9eQFJoQAsSXwVrATMnQi0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=fnw2tHW7/JQrFneuoDnsPVtBASjixPJmOmusU213TMDjOGxosTRME5M6qS4fz6zza
+	 +vBPRSOku1WgC7NZrRQhccTW4wQPPuWxuUK2AxVNEeqdyvbea1nldOt6eFMNM5Rcf4
+	 faxONOwZnCrhje0MaOdCNVsy+3mptZBd436U763i4tOJxykHH0lIMBeRlUeMYnk4K9
+	 yywJF9bKIWISA6yh31jsx2X4HNN1Hdyx/0pMLWDOLoQgA6ok73Xif/HUejjYio8uTr
+	 I5aC2QHisbja7NrmHyz62XZmjqk6a8/FB7v4b+V1M8O2NOWvYZ23j9Wi+UAQ42kMBo
+	 269U0RB1SvfNA==
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c169ae1cb26so270829866b.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:50:02 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RoWXXYe6Ir0KwUJSkLvKQno2mX1eaBCEn+HkqIkC9L36FeqtexTCLW9e30i3L9bV/duKRuFSGmBpgR0DVY=@vger.kernel.org
+X-Gm-Message-State: AFuF++loq7ufKOZBrtVlQ+hZ0Lmv+edxae8SgK1CVLYhFT3x3LPP33R8
+	iQ1JmrSG+8AbhUP0s+hf4bJSlGiXtxh1vNcYTd22fLfbpnU+ki4kcwTAye27sOxsFAz90VTmgAo
+	uIe1p0S/fWsf8UTreQ+JMXPSF1dcqiAg=
+X-Received: by 2002:a17:907:1c94:b0:c08:580e:899a with SMTP id
+ a640c23a62f3a-c2553d1daf7mr27301666b.10.1787849401600; Thu, 27 Aug 2026
+ 09:50:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/slab: reject unsupported kmalloc sizes
-To: Zi Yan <ziy@nvidia.com>, Harry Yoo <harry@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>,
- Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Alan Stern <stern@rowland.harvard.edu>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
- syzbot+805630f1453e490427fa@syzkaller.appspotmail.com, stable@vger.kernel.org
-References: <20260817-limit_kmalloc_size-v1-1-5bef487701cc@nvidia.com>
- <82f138f5-11d4-4839-94a3-c226fd982715@kernel.org>
- <ao9dPUpHxP5uOOcw@MacBook-Air.tail10959e.ts.net>
- <DKZ7J9HNUDR6.BP9KG5Q7HYMJ@nvidia.com>
- <c4684212-f44a-4aff-a02d-f3f26095ebc1@kernel.org>
- <DKZUH9SFMP6H.1ZMKA92IHQLG2@nvidia.com>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <DKZUH9SFMP6H.1ZMKA92IHQLG2@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260826233919.998904-1-seanjc@google.com> <20260826233919.998904-13-seanjc@google.com>
+ <CAO9r8zOuD+wU1Q80z077WHHpFBWvKomLk=TaXjH3gVnqj=mqFQ@mail.gmail.com> <apBomFOn1ZqHEnAQ@google.com>
+In-Reply-To: <apBomFOn1ZqHEnAQ@google.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Thu, 27 Aug 2026 09:49:48 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zP3O_80Lr=4eKL6v-OaM9etMXPsNzADizf6ztB6YBuLHA@mail.gmail.com>
+X-Gm-Features: AcwNN1WbGRFrBMKj62JwHlPuclqja8iCvmGe-oH8-_V7feeYeeyNw27mngDjnYM
+Message-ID: <CAO9r8zP3O_80Lr=4eKL6v-OaM9etMXPsNzADizf6ztB6YBuLHA@mail.gmail.com>
+Subject: Re: [PATCH v3 12/13] KVM: selftests: Dedup assembly code for VMLAUNCH
+ and VMRESUME
+To: Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	f734222792@gmail.com, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Sashiko Bot <sashiko-bot@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 8/27/26 17:51, Zi Yan wrote:
-> On Thu Aug 27, 2026 at 3:47 AM EDT, Vlastimil Babka (SUSE) wrote:
->> On 8/26/26 11:52 PM, Zi Yan wrote:
->>> On Wed Aug 26, 2026 at 5:47 PM EDT, Harry Yoo wrote:
->>>> On Wed, Aug 26, 2026 at 11:28:12AM +0000, Vlastimil Babka (SUSE) wrote:
->>>>> On 8/17/26 22:40, Zi Yan wrote:
->>>>>> kmalloc is used to allocate physically contiguous memory for kernel
->>>>>> allocations. For requests larger than KMALLOC_MAX_CACHE_SIZE, kmalloc uses
->>>>>> the page allocator and can only support up to KMALLOC_MAX_SIZE. For request
->>>>>> sizes bigger than KMALLOC_MAX_SIZE, the page allocator can emit a WARN
->>>>>> because kmalloc allocates an order greater than MAX_PAGE_ORDER. Systems
->>>>>> with panic_on_warn=1 crash because of this WARN. Fix it by rejecting any
->>>>>> kmalloc size bigger than KMALLOC_MAX_SIZE.
->>>>>>
->>>>>> Fixes: aadb4bc4a1f9 ("SLUB: direct pass through of page size or higher kmalloc requests")
->>>>>> Reported-by: syzbot+805630f1453e490427fa@syzkaller.appspotmail.com
->>>>>> Closes: https://lore.kernel.org/all/6a820ebc.9ebadd4d.20b15e.001b.GAE@google.com/
->>>>>> Tested-by: syzbot+805630f1453e490427fa@syzkaller.appspotmail.com
->>>>>> Signed-off-by: Zi Yan <ziy@nvidia.com>
->>>>>> Cc: stable@vger.kernel.org
->>>>>> ---
->>>>>> It fixes a page allocator warning (order > MAX_PAGE_ORDER) when gadgetfs
->>>>>> requests excessively large memory from kmalloc. Instead of adding
->>>>>> __GFP_NOWARN to suppress the warning, as was done for usbfs[1], change
->>>>>> kmalloc to return NULL without a warning for this specific issue.
->>>>>>
->>>>>> [1] commit 4f2629ea67e72 ("USB: usbfs: Don't WARN about excessively large memory allocations")
->>>>>
->>>>> So I checked and for kvmalloc() we have in __kvmalloc_node_noprof()
->>>>>
->>>>>         /* Don't even allow crazy sizes */
->>>>>         if (unlikely(size > INT_MAX)) {
->>>>>                 WARN_ON_ONCE(!(flags & __GFP_NOWARN));
->>>>>                 return NULL;
->>>>>         }
->>>>>
->>>>> This comes from Linus in commit 7661809d493b4. I'd do the same thing here
->>>>> then.
->>>>
->>>> But the purpose of this patch is to avoid the warning in the page
->>>> allocator. Should we fix this in the caller (gadgetfs) then? 
->>> 
->>> It is fixed by: https://lore.kernel.org/all/20260820223719.A4A3C1F000E9@smtp.kernel.org/
->>> 
->>> Please disregard this patch, but we can keep the discussion going.
->>
->> I still think this patch has some value if done as proposed above. Yes
->> in practice it will just replace the page allocator's warning with a
->> different warning, but IMHO it's "nicer" if kmalloc() sanitizes its own
-> 
-> And SLAB maintainers will be Cc'd. :)
+On Thu, Aug 27, 2026 at 9:41=E2=80=AFAM Sean Christopherson <seanjc@google.=
+com> wrote:
+>
+> On Wed, Aug 26, 2026, Yosry Ahmed wrote:
+> > On Wed, Aug 26, 2026 at 4:39=E2=80=AFPM Sean Christopherson <seanjc@goo=
+gle.com> wrote:
+> > >
+> > > Dedup the assembly code from VMLAUNCH vs. VMRESUME, the difference is
+> > > literally only the actual VM-Enter instruction.
+> >
+> > You couldn't resist macrofiying this too.
+>
+> It's either that or throw a branch in the asm blob, which is surprisingly
+> difficult because VMX_SWITCH_GPRS_ASM subtly clobbers RFLAGS and obviousl=
+y
+> clobbers GPRs.  Which basically leaves pushing the value on the stack, wh=
+ich is
+> totally doable, but still annoying, and needs to be done immediately, bef=
+ore
+> vmcs.HOST_RSP is loaded.  Branching at runtime also makes the generated c=
+ode
+> harder to read, e.g. when debugging, as it's not immediately obvious whic=
+h
+> instruction was actually attempted.
+>
+> That said, looking at this again made me realize evmcs_{vmlaunch,vmresume=
+}() have
+> the same core copy+paste mess.  Blech.  Macrofying the standard flows but=
+ not the
+> eVMCS flows is rather silly.
+>
+> Inlining these blobs *twice* (VMCS vs. eVMCS) at every VM-Enter is also r=
+idiculous.
+> E.g. at a glance, it's responsible for something ~100k bytes of code in t=
+he compiled
+> state_test.  While the code footprint of selftests isn't a priority, that=
+'s still
+> absurd.
+>
+> So instead of macrofying everything, how about this?  Depending on how on=
+e feels
+> about macro shenanigans, it's either horrific or amazing.  Or both.  But =
+IMO it's
+> worth eliminating all of the copy+paste, and it makes the control flow mu=
+ch easier
+> to read, which in practice is likely what most people care about?  At lea=
+st until
+> the entry/exit sequence fails and they have to debug macro hell :-)
+>
+> vmx.c:
+>
+>
+>   #define __BUILD_VMX_VM_ENTRY_HELPER(insn, prefix, vmwrite_insn, vmwrite=
+_operand,      \
+>                                     __host_rsp, __host_rip)              =
+               \
 
-For some people it doesn't matter if it's SLAB or PAGE ALLOCATOR :D
+The only part I really hate is vmwrite_operand. Why do we need it?
+Seems like all the current helpers use "r", I feel like I am missing
+something.
 
->> requests to the page allocator, using the KMALLOC_MAX_SIZE value.
-> 
-> Like this? Or the exact pattern as kvmalloc() is preferred?
-
-LGTM. Should return NULL even with __GFP_NOWARN or if the warning has fired
-and won't again, and AFAICS this does.
-
-The kvmalloc() pattern predates WARN_ON_ONCE_GFP addition, I think.
-
-> diff --git a/mm/slub.c b/mm/slub.c
-> index 0337e60db5ace..b562f2a6fbbee 100644
-> --- a/mm/slub.c
-> +++ b/mm/slub.c
-> @@ -5263,7 +5263,12 @@ static void *___kmalloc_large_node(size_t size, gfp_t flags, int node)
->  {
->  	struct page *page;
->  	void *ptr = NULL;
-> -	unsigned int order = get_order(size);
-> +	unsigned int order;
-> +
-> +	if (WARN_ON_ONCE_GFP(size > KMALLOC_MAX_SIZE, flags))
-> +		return NULL;
-> +
-> +	order = get_order(size);
->  
->  	if (unlikely(flags & GFP_SLAB_BUG_MASK))
->  		flags = kmalloc_fix_flags(flags);
-> 
-> 
-
+>   static int __##prefix##_##insn(void)                                   =
+               \
+>   {                                                                      =
+               \
+>         int ret;                                                         =
+               \
+>                                                                          =
+               \
+>         __asm__ __volatile__("push $0;"                                  =
+               \
+>                              __stringify(vmwrite_insn) " %%rsp, %[host_rs=
+p];"           \
+>                              "lea 1f(%%rip), %%rax;"                     =
+               \
+>                              __stringify(vmwrite_insn) " %%rax, %[host_ri=
+p];"           \
+>                              VMX_SWITCH_GPRS_ASM                         =
+               \
+>                              __stringify(insn)";"                        =
+               \
+>                              "incq (%%rsp);"                             =
+               \
+>                              "1: ;"                                      =
+               \
+>                              VMX_SWITCH_GPRS_ASM                         =
+               \
+>                              "pop %%rax;"                                =
+               \
+>                              : [ret]"=3D&a"(ret)                         =
+                 \
+>                              : [host_rsp]__stringify(vmwrite_operand)(__h=
+ost_rsp),      \
+>                                [host_rip]__stringify(vmwrite_operand)(__h=
+ost_rip),      \
+>                                GUEST_REGS_OFFSETS                        =
+               \
+>                              : "memory", "cc");                          =
+               \
+>         return ret;                                                      =
+               \
+>   }
+>
+>   #define BUILD_VMX_VM_ENTRY_HELPER(insn) \
+>         __BUILD_VMX_VM_ENTRY_HELPER(insn, _, vmwrite, r, (u64)HOST_RSP, (=
+u64)HOST_RIP)  \
+>         __BUILD_VMX_VM_ENTRY_HELPER(insn, __evmcs, mov, m,               =
+               \
+>                                     current_evmcs->host_rsp, current_evmc=
+s->host_rip)
+>
+>   BUILD_VMX_VM_ENTRY_HELPER(vmlaunch)
+>   BUILD_VMX_VM_ENTRY_HELPER(vmresume)
+>
+>   int __vmlaunch(void)
+>   {
+>         if (enable_evmcs) {
+>                 current_evmcs->hv_clean_fields =3D 0;
+>                 return ____evmcs_vmlaunch();
+>         }
+>
+>         return ____vmlaunch();
+>   }
+>
+>   int __vmresume(void)
+>   {
+>         if (enable_evmcs) {
+>                 /* HOST_RIP */
+>                 current_evmcs->hv_clean_fields &=3D ~HV_VMX_ENLIGHTENED_C=
+LEAN_FIELD_HOST_GRP1;
+>                 /* HOST_RSP */
+>                 current_evmcs->hv_clean_fields &=3D ~HV_VMX_ENLIGHTENED_C=
+LEAN_FIELD_HOST_POINTER;
+>                 return ____evmcs_vmresume();
+>         }
+>
+>         return ____vmresume();
+>   }
+>
+> vmx.h:
+>
+>   int __vmlaunch(void);
+>   int __vmresume(void);
+>
+>   static inline int vmlaunch(void)
+>   {
+>         return __vmlaunch();
+>   }
+>
+>   static inline int vmresume(void)
+>   {
+>         return __vmresume();
+>   }
