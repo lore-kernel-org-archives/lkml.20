@@ -1,99 +1,121 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp153-165.sina.com.cn (smtp153-165.sina.com.cn [61.135.153.165])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE06A1DF748
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:32:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4337235C01
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:32:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=61.135.153.165
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787833922; cv=none; b=SO2bjYk3xnTYkhS2ldyZfkcUgkscB9JpQobb9xsQS8Hii4EdrPOBBnva8E5DYNDphUrxC0KTKXszBDMdjz2lxXEEfzgTObt4Vqzwfj7d6vWKUxgqsmNwqG7MEPXbVTTzUl3DVO2cJMwE1l0fZk/UBIUlHJcijZySvonCJbU0ic8=
+	t=1787833946; cv=none; b=KULVq+SgM//AiB28GjY1JqlMM+P3bzNzqd8gRtFJo4l/ljZNoOz+1T/YyS+DkyQTgDVgYF+LYyfAEtDn0AVBWAOYLpBg32R6AdJBZf1Sa7t8oHfhijYgdv6L6DWM4g+otIjJ7Msy8Nf1edRC4LjGnQmQOOlAlZBzcEyTcdyLDAA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787833922; c=relaxed/simple;
-	bh=Zpuc0gcXbTFSlKBjxT+R0mVnEoN6GnkX8w5X+vcDJic=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=QpnTMDfqzvtnCNHRm3lOwTcfB6rgLYBiqzzrtWJIzbyyVe46OLDzYVCV+b+IMiRqyFzulmgKNgi2GUY1FwfQb2ioNSI7yoRvBf7bJPrqV8/72KdWRMbW09SZQB9FWGUzPmE2ePYGUz1LsIrmD7Zss0FCFCAZwzznFGDh41Zl/54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=kS7JMNVU; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=V2kAcByS; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1787833946; c=relaxed/simple;
+	bh=RBZB9BXn3rlldYFpbD1GyN4U/QuX7F8ri+NK7+Xtd1Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Qr7brhwAACPafriU9Ox4szImyMAmjvItbyznJ9mLe+sSF1TN/A/xT/En4b/10bnjQNvNcBAgsQKKx++dGwGpIzQw3szbYvxZ2pwiJOeeYKy52NaTs3UHRi92JR4M6To672V/5YKa/SA0kmmbO1KyucDANdI62ResY9X2BXPC/2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=ivFZwvL4; arc=none smtp.client-ip=61.135.153.165
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="kS7JMNVU";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="V2kAcByS"
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1787833917;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=prMo69dzUHkqktIi2MgcdWZ+eZ3K1M9LsUMPrYNj2SI=;
-	b=kS7JMNVUYTeIObK+rv642PZwZ/otvvDXV6RuX9+AGnlD5FajabHdXapn3IjS5c4W2vgymj
-	SPYBNyowmbD0EQPUip/S4b+KHTOaUlzNekVs6EBEMT2+QYvMjSKIyNk4dAnS4fTQ8HAosr
-	LYkvqoZHPpa2H3yH/3ve3vkzR1g/fn0KIyQPfI0IFxDRFIcOPxafQG7R6GtGPZV+k1lj2M
-	ziBgzp/DXRYa2SCrJvhbzMslGb1S3vQf/93nu367tLnpP+QgK2s8M4rhc/oAdSb5zkQcEL
-	3fMrxRepC1CtdpKI+EM5pIIvQS4aPZNbbL9azLnT3AuGy18G0xDUt2hxmD7eIQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1787833917;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=prMo69dzUHkqktIi2MgcdWZ+eZ3K1M9LsUMPrYNj2SI=;
-	b=V2kAcBySdUGeQgxWr0iIg6ingYejyEYt5QuQ6ZbTcloXXmsm/uhXBmiH+mwWzNEgWuvlJR
-	MAsjNXwV/UojgIAA==
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
- =?utf-8?Q?Andr=C3=A9?= Almeida <andrealmeid@igalia.com>, Darren Hart
- <dvhart@infradead.org>, Davidlohr Bueso <dave@stgolabs.net>, Ingo Molnar
- <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Yao Kai
- <yaokai34@huawei.com>
-Subject: Re: [PATCH v3 1/2] futex: Add missing rt_mutex_.*_schedule() around
- rt_mutex_wait_proxy_lock()
-In-Reply-To: <20260827083738.-6QSwUwb@linutronix.de>
-References: <20260824125544.2353006-1-bigeasy@linutronix.de>
- <20260824125544.2353006-2-bigeasy@linutronix.de>
- <20260824132334.GI687043@noisy.programming.kicks-ass.net>
- <874igghi3w.ffs@fw13> <20260827083738.-6QSwUwb@linutronix.de>
-Date: Thu, 27 Aug 2026 14:31:56 +0200
-Message-ID: <87mru7g2wz.ffs@fw13>
+	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="ivFZwvL4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1787833937;
+	bh=agJhLpE5CHkUfs7uAAwp3BtaT09Vi1FullFH2L5M9Dc=;
+	h=From:Subject:Date:Message-ID;
+	b=ivFZwvL49WMNkq4eG94I9bLhifbcfTgjM0PXe5HzxquWbf9gBnmastuHah/yikxGK
+	 1DJJNgK26/7y04wWKDzd7qVDIyEr9hwSp1NVVL27XMkhUxc2DgCQImsNdmtupEFaHQ
+	 xg0Wt/2mUID0IIrSjQxA0ZoExd9/x9jyif2gdoIc=
+X-SMAIL-HELO: localhost.localdomain
+Received: from unknown (HELO localhost.localdomain)([114.249.62.194])
+	by sina.com (10.54.253.32) with ESMTP
+	id 6A902E4500003855; Thu, 27 Aug 2026 20:32:11 +0800 (CST)
+X-Sender: hdanton@sina.com
+X-Auth-ID: hdanton@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=hdanton@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=hdanton@sina.com
+X-SMAIL-MID: 9179554456780
+X-SMAIL-UIID: 48D082B2065245AE981D4AE5203837A0-20260827-203211-1
+From: Hillf Danton <hdanton@sina.com>
+To: Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>
+Cc: Eric Dumazet <edumazet@google.com>,
+	syzbot <syzbot+2d770620059281e225a4@syzkaller.appspotmail.com>,
+	Nilay Shroff <nilay@linux.ibm.com>,
+	Keith Busch <kbusch@kernel.org>,
+	boqun@kernel.org,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	peterz@infradead.org,
+	syzkaller-bugs@googlegroups.com
+Subject: Re: [syzbot] [net?] WARNING: locking bug in tcp_tsq_handler
+Date: Thu, 27 Aug 2026 20:31:53 +0800
+Message-ID: <20260827123155.1835-1-hdanton@sina.com>
+In-Reply-To: <ao5BNjnM_pwcdk9X@shinhome>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Aug 27 2026 at 10:37, Sebastian Andrzej Siewior wrote:
-> On 2026-08-26 20:06:11 [+0200], Thomas Gleixner wrote:
->> On Mon, Aug 24 2026 at 15:23, Peter Zijlstra wrote:
->> > On Mon, Aug 24, 2026 at 02:55:42PM +0200, Sebastian Andrzej Siewior wrote:
->> >>  #include "futex.h"
->> >> @@ -865,7 +866,10 @@ int futex_wait_requeue_pi(u32 __user *uaddr, unsigned int flags,
->> >>  	case Q_REQUEUE_PI_DONE:
->> >>  		/* Requeue completed. Current is 'pi_blocked_on' the rtmutex */
->> >>  		pi_mutex = &q.pi_state->pi_mutex;
->> >> +
+On Wed, 26 Aug 2026 11:23:37 +0900 Shin'ichiro Kawasaki wrote:
+>On Aug 25, 2026 / 16:27, Eric Dumazet wrote:
+>> On Tue, Aug 25, 2026 at 3:53 PM Eric Dumazet <edumazet@google.com> wrote:
+>> > I think you missed one problem in lib/once.c
 >> >
->> > 		/*
->> > 		 * Since current is doing the requeue, it cannot also be
->> > 		 * a waiter on the same futex.
->> > 		 */
+>> > Revert commit e8eef69a99f1 (or restore once_disable_jump(once_key,
+>> > mod) inside __do_once_sleepable_done())
+>> > so static_branch_disable() is never called synchronously under caller locks.
+>> >
+>> > Previously, once_disable_jump() deferred static_branch_disable() to a
+>> > worker thread via schedule_work().
+>> >
+>> > Commit e8eef69a99f1 made it run synchronously in the caller's context.
+>> > Because __inet_hash_connect() is called under lock_sock(sk), calling
+>> > static_branch_disable() directly inside DO_ONCE_SLEEPABLE() takes
+>> > cpus_read_lock() (cpu_hotplug_lock) while holding lock_sock(sk).
+>> >
+>> > This created the bogus lock dependency sk_lock -> cpu_hotplug_lock.
+>> >
+>> > Every other storage/networking client (sunrpc, nbd, cifs, iscsi_tcp,
+>> > rxe, siw) uses static lockdep keys (static struct lock_class_key
+>> > ...[2]) without issue.
 >> 
->> Current is not the task doing the requeue. Current is the requeued waiter which is
->> blocked on the rtmutex.
->> 
->> Though the change log is confusing at best. The whole requeue explanation
->> is not really helpful IMO.
->> 
->> The point is that _all_ invocations of rt_mutex_schedule() must be
->> preceeded by a call to rt_mutex_pre_schedule() and followed by a call to
->> rt_mutex_post_schedule().
->> 
->> So this code simply failed to do that, which triggers the
->> lockdep_assert() in rt_mutex_schedule().
->> 
->> And it's obvious from the surrounding comments how this task got there, no?
+>> I  sent the revert request for review :
+>> https://lore.kernel.org/lkml/20260825142515.1965654-1-edumazet@google.com/T/#u
 >
-> I would suggest to strip it all from the futex part, not do the flush
-> and just please the assert so it keeps quiet. I did some explaining in
-> the v2 and then Yao suggested
-> 	https://lore.kernel.org/all/5df8a43e-11bb-4881-877d-40034c414984@huawei.com/
+> Thank you for the clarification. Now I have better understanding.
+> 
+> When I looked at the lock dependency chain among six locks below, I assumed
+> that any of the dependencies could not be cut.
+> 
+>    set->srcu -> sk_lock -> cpu_hotplug_lock -> fs_reclaim -> q_usage_counter -> elevator_lock -> set->srcu
+> 
+> So I thought that the idea to introduce the dynamic lockdep key for nvme-tcp
+> sk_lock instances would be the only one solution. But you pointed out that the
+> dependency sk_lock -> cpu_hotplug_lock can be cut by reverting the commit
+> e8eef69a99f1.
+> 
+> I did trial and confirmed that your suggestion works. With the kerenl v7.2 +
+> revert 19bdb70c77d3 + revert e8eef69a99f1, I confirmed the blktests test case
+> nvme/005 passed with tcp transport. The lockdep WARN due to the six locks goes
+> away. Great :)
+>
+Reverting e8eef69a99f1 alone failed to survive the syzbot test [15].
+Nor did Eric's change [16] to lockdep alone [17].
+Nor did Eric's change [16] to lockdep after Reverting e8eef69a99f1 [18].
 
-That makes sense.
+[15] Subject: Re: [syzbot] [kernfs?] possible deadlock in kernfs_link_sibling (2)
+https://lore.kernel.org/lkml/6a90125e.1d9ded08.62e62.00d0.GAE@google.com/
+
+[16] Subject: [PATCH] locking/lockdep: Invalidate stale class_cache entries for zapped classes
+https://lore.kernel.org/lkml/20260824155129.676096-1-edumazet@google.com/
+
+[17] Subject: Re: [syzbot] [net?] WARNING: locking bug in tcp_tsq_handler
+https://lore.kernel.org/lkml/6a8fa86e.27659fcc.2ceef7.000c.GAE@google.com/
+
+[18] Subject: Re: [syzbot] [kernfs?] possible deadlock in kernfs_link_sibling (2)
+https://lore.kernel.org/lkml/6a8fd74f.4d659fcc.734b4.000c.GAE@google.com/
+
+WTF root cause is Eric attempting to fix?
