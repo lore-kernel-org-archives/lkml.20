@@ -1,158 +1,165 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010068.outbound.protection.outlook.com [52.101.201.68])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA12845000;
-	Thu, 27 Aug 2026 07:01:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.68
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787814117; cv=fail; b=I+WeDNH5rZTpS1LMjBbzhTgknjEja+3DXA+9xVVc/sE7Gp+aHxWECDvbo5CXEJEX5zIeYv7ICy7YfpoaPN/oQWMzLHOHaSUpNwp5f+1m4LPDWOJwDVFri6sTBwCjkbFgWUFueR/wAdnoJkQaZ72I5MZLNCQq2BfZ8kx+b8J19o0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787814117; c=relaxed/simple;
-	bh=6ypyPF047ZL5k4OESZRqEcercnHx674PncOtByEd2r4=;
-	h=Content-Type:Date:Message-Id:From:To:Cc:Subject:References:
-	 In-Reply-To:MIME-Version; b=g8EGS1YxL9LWQKffwP5ByD+HjnFOn4lcmYtNCiR4FXLR+KQJo7IGRB8NnqBhG9rBra0sQNcwnJD5qhMAtbxTqb/nC/NMqFnSZEU5SLJI47wUF7glAr5d900Dni6LbNBIfgWtQdwbp7bJ8NoeWPnVqYMEVCQk8+4nWAa1+MLeOlc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=jE9Gj4Og; arc=fail smtp.client-ip=52.101.201.68
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48F74332601;
+	Thu, 27 Aug 2026 07:01:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787814120; cv=none; b=mLhlru0B8KGmm2iuc6sQod8MECq/0nLiltCptxL9+Kny06KbCYI+fTaQrLPr8Wf+Fn6H3o4Om3PJ7u8SIk326quPO6wo2sl0jQWRe1oxRfGTdGAwyR2qLM18PEWHq/2Jm3VI/VuoAZc74jwTZEIvEKWLCDYPfUC8dY4stQ5vgO8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787814120; c=relaxed/simple;
+	bh=rMYhr+FFl3KMzJ4WopkMeaMaQqMYKgr/4WQwGO/gP5w=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Subject:Cc:
+	 References:In-Reply-To; b=kwJrvhLRoTjhu3gDVaKBPAsxE7DCt9pjfIcsucRn88Wrs3D1i4aq5kFs8v5xmJaEzSfW1GWiM98OZ23lPrPuLHl1ss8y3vomHXdpVC0HNSG7fHwgH403W5WS/t+y7xgmOhtpOn4Nsu+LPmskAqRV3hYPNQEeQjDGEH+pf+RrMkE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=zr5vWxlS; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="jE9Gj4Og"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Y555JF/+oPN7UZoHAWGeuR9Q+8Zdy0pG4wFYXVoEh4Lm+yDQur9JLYmm2SOGg/S77EZgic2WWX83H66aQHKW64u6G3a0cM6DEbSs5Jg/mw5PfqxjzTwPqeyBhIGL+BkbRVXmcWPQkGwgBBZpEaU8G1wqx6THdXrOtYbc6g9v2fjcgKdO6XtmtDiVZJONhUY0E7U0YrpBm4WSTTzL571opQr3Z5jJ4kAnhIayYjgZW45NSsDbFqmr6ttwJ6XdoM6QEWigd1sZLHN3sRHxwD5H5/0aS9FHjwJLgDN/4i0cY9daE/asFwkjYXfFcAzjbLB5h/R6kHP/cIRvCz+ffebRQQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6ypyPF047ZL5k4OESZRqEcercnHx674PncOtByEd2r4=;
- b=oHpVEauk2IZX9/H0R/ViFO0jVwC4RGiXJOt46Bux71bHOQ+6Bz/6fPIzuVuPaRXPkl8zhvhKlawFjufydTLuV54WqArlxBwzEm5cGyi5/Yn607grAdVAlSFYUQc9aLPVPTE+5T/nqlyb1iHCQgpHFNlOBi437cNGOKR/+BLOylhzIhfePBGsNo095voKz9Lvb03PRbvRdNyuFidEotrqUp9ioZ38O9tbfMskHAKKBxoXe/SC+fyAEkwTyP/kxn1S6Qzzpe1UT+ecW7BILjMOph8lKolXWZmznsaqyV9orB+pweZLxvjnE3OKuKpRwKb7OI6BDMQdG3kVbf2Qyv3BWA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6ypyPF047ZL5k4OESZRqEcercnHx674PncOtByEd2r4=;
- b=jE9Gj4OgQpe2LZLsvUlBAx7qlUlgTGhCMpUssE8ZY8nNQM90DvMXVyYXMzu2DDfBBGN8hDoVAB2SxyVWO6ir7oQRDORjjaftbRuSA28GMKyKSl+QBLgimkgSAXiqSat9FKZYYVCsvcCd0r9hUPXScagAAKseIPatUDQqRzPDcgiCFRQg5PNvVK+X2MUH/dHsK+5emx8rA0z6r3CD7FJrhRQ9Xup06pKTyKJJ39dQzPKOWzpSfdmNDC1C7PJaASSG0kyml4UjEQi2IgMueUSGat+gvE4HK1avQe1AbmiiVkaOCjr5a+Bl26PYFAaLMfYE4Qictu5WKKmH2xSu7ajAPg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by PH8PR12MB7280.namprd12.prod.outlook.com (2603:10b6:510:220::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.8; Thu, 27 Aug
- 2026 07:01:52 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0315.014; Thu, 27 Aug 2026
- 07:01:51 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 27 Aug 2026 16:01:49 +0900
-Message-Id: <DKZJ7JFNYCXB.2U27C3L3NTNJ@nvidia.com>
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Gary Guo" <gary@garyguo.net>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, <driver-core@lists.linux.dev>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pci@vger.kernel.org>
-Subject: Re: [PATCH v3 05/16] rust: io: support register projections
-References: <20260819-typed_register-v3-0-3699a75fadf1@garyguo.net>
- <20260819-typed_register-v3-5-3699a75fadf1@garyguo.net>
-In-Reply-To: <20260819-typed_register-v3-5-3699a75fadf1@garyguo.net>
-X-ClientProxiedBy: TYCP286CA0121.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:2b6::14) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="zr5vWxlS"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 552701A185D;
+	Thu, 27 Aug 2026 07:01:55 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 1EF17602B8;
+	Thu, 27 Aug 2026 07:01:55 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BA8F311C78051;
+	Thu, 27 Aug 2026 09:01:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1787814109; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=LZbe2GS1y6n+NqZR8SC8iK/SbIh328ZBAhni88rkOIk=;
+	b=zr5vWxlScZ74+veUzn/MjjgAqEdRSSd6vg5uIl4X2OuAsAhLCDBhknPQZqRPSirB3PvGS1
+	0BZNIFc3f6hxlAI0A5Lis6e61+Nyyx8Wxl0y7YHgyVj2KmLJv8sV/lO2qc4EITOrKExqPh
+	KCRwUpP7ocG4fcdDhJEtLE7wK7CDgPL+eHBd0hDK1gKYE5IJqFl5lInz6ej4wcM2nBagZX
+	8oLn2uoGmYSRsjBWxj3BDaqP5xD6u+7eTtIIY3KG5MAnfApd9ywkc4Gzom1U+2rbcXNRhG
+	2QtleX3T+FB8C5xp8wGyqT53jUlpfEbfuLETeJBrzTp4eQox/y14vJy+afq6Aw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|PH8PR12MB7280:EE_
-X-MS-Office365-Filtering-Correlation-Id: e566ae3b-ff98-45a2-f0f2-08df04091238
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|366016|10070799003|376014|7416014|56012099006|10067099003|22082099003|18002099003|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	a3cKJq/OjkAWAw/dY/tvDHLwBpfJ0ti3KrQ6Rj1zqmhp5CsM4Ru8hi6tsQkDLptyKltCRdmLl+ToHKEVOxFkYwg698DNLY4H5xC9Y/ye3V2Xw9fq8jRXoXQxInl6lES95L7rJEYBvyibkhdKzLetrS33f0/14TtyodTNob8v33v5wezAT4GBiy4Sxh1LSm9RhoJJepy8151m3RpSDaQCDk+UKg39sB7jaBZdD7qk+pCEPPgInEKsbG6sVS5mVIGCrGAbMh/3OSzq1IV31W9hzGTJVs5JE/qVREgNACA1UCeNtrkfoUWarylhR8hUTlPq7tU/baOPsNj3pXaq98HhjCexMWvQoHlNfnvIqhVPU0HwAMgEoMBWe44BoUshox9SM26UT0ifEoYYVJkMAfIZ6UFNJWC4hrFLz+9AxkJ6Tv3lof7oQAmrCqst7NR/+XJ6AgBFDQ+X11bumpgU1SFeLEBZ6xAN8Adpd6/94BpFSK3HTE6+rjLhFQzo8BxhxVhSkvCnNWcF8pIT+oSCVM6c6T3/eAroF1yjj2nObOwUTZTRkd5Zl6ZGyTyANlbcKvf+XVQYH0JxryKXktWVJaCZ/UEr/XpvJWUjkncJ0VCpYkhApubGZabV1LVFN9Wop/xV1L37EmuXcvaQxoav9H3ENwMzoscqhhu86fNulFm7S+4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(10070799003)(376014)(7416014)(56012099006)(10067099003)(22082099003)(18002099003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OEp3TmM2OUpDSjZLVTBwZTRFSUFVazdBU0k2SHBCV3o0N3JOcy95QVcvNEZv?=
- =?utf-8?B?aGZkSjNhc00rczQ3RHdRVTJXV2s5QXFUbzh0bXFrSC8yRytGTndtRE4yMm9n?=
- =?utf-8?B?UzV0cjkwZ1VEazJmUWVrbk51SlhrOVorR2ovZWlwbmNQSnBiVmswK2ZxR082?=
- =?utf-8?B?bEw1TGRCekdHUWw5c0FOdFZHdU56dWhXeWk5ZmhnMms1aks5b3M3TmhIbHVY?=
- =?utf-8?B?eXVTV2FqQ3liL2tFY2pnRUlTeDRsemNKSnR4aEZBbllROFRyQXJ2c1JwZnRh?=
- =?utf-8?B?T2lydzU3OWdPU2NuL21rZCtxN2luUkthNW01N3lPL1A5cXhLN0VNVlhFSGtW?=
- =?utf-8?B?cG5DOVpudkdJMVh6eTkrN2lqT2lkSWN6VXlTQVFPVmQzUU9OdzRKM09SOVFl?=
- =?utf-8?B?YjNEdE5TVERxY0xSUTFCNHpnbEgwOStwS2tla3VYdnNQZFpFYjhmSy80Yldv?=
- =?utf-8?B?UmxoYTRzdjQ5UFp0SkhOWkVORmZuMVJVRnA5c29CRE1lZjZtb0dPNENQZTNX?=
- =?utf-8?B?YnovbFJUaFcxallJci9jTWpwUnFpc0paVURlampTNEthV0NPMEttZXR3S3VU?=
- =?utf-8?B?TzVUSEVXRGdCSEV6Ull4RUNzU2c3K0xLaDY4SWJNb0YxWTNQcjhHb2dsWmZo?=
- =?utf-8?B?cGdUaTZZRCtuVE1wRHNsRFcrUDBvTEdhbFRiVnEyUVgxWGM3SW1NMGNyRUcr?=
- =?utf-8?B?Ky9EdTV2dk81anpQSUZJdXhTL1VpNDI1a1FzeGxmRUZQNVZRSUZCTVRnT0tF?=
- =?utf-8?B?NnRtbzJCNHpPWGZFR1FreXNDYlRhOWJWMWk3Q1lVdCswYjdoRTZvRGJ5SnVG?=
- =?utf-8?B?SEVSWTJZOFJxa0UzTENmalZ3bkUwUFg0ZmFVb3E4NEVWWWw5QmZXbzd0dzg1?=
- =?utf-8?B?SFVhOHVzc2JNQXRwQ2Nrak8rWFp1SXR5Mng4TlpEUHYwcDVycHNBZ05oaTl5?=
- =?utf-8?B?SE1NUzZTUUJ2bktwa3Y5SkNZL0xmOEhabXhyd0ZiTFdYWnRJNnMzR3BtL3lo?=
- =?utf-8?B?MEQvcGEwWVc2Y1AwYWp5TGVUWVlqNktYNC9YMzBVa1kyeHdOS05BM1NVN2Z1?=
- =?utf-8?B?Q1haL0FjTTF2QjNtY3NCaVAvbnlwbVN4OU9XZkpRNEUzcmM2cEdKQmtSRVFj?=
- =?utf-8?B?Sjc3akNpelZyczNpLzROVDBqeHdsS1lxNmFoYi9ENStWUFhya25RMFZjYXNC?=
- =?utf-8?B?WVBBY1l5aFp6cWd6REFEclIya1RETjEwSlY1OWNXOFJYMDk2WmtpWGxPZHlF?=
- =?utf-8?B?U3h4VzB0eC8xWHhzUy9Hdkl3RUJGYzJreWMyVXhTWTJsNmlQbjlObEp3Q1FO?=
- =?utf-8?B?czVqcFlFMlNMZWlaMHFHWUp2WkdUL0grMkZzNFY5K2ZrY2pPeVRRNmZaTFh1?=
- =?utf-8?B?REtlVHlzUS9MZTF3UFZiU2dmUUd6WVhEZ3kwL1l3VDRqUHNsV05nSS9NVTdH?=
- =?utf-8?B?REZJbnBlQTF6Z1hXc2twSEs0d2thSm8zZzRKU0tiNUkwcWJsakF0NWNQQjda?=
- =?utf-8?B?dndma2lBcHQ3R3pzbFJndG1SMmxIcHd1NlRHUVpTc3JwZUVjRWpZcXlqeUg5?=
- =?utf-8?B?NEpCeUViVjM3THFLMmJpTGlqb29iUDV0WW5WeGVhMi9JL05PU2ZkalN5b0pv?=
- =?utf-8?B?QU1YamFNQWhoZUtwVFlWME1udmYyaGpUYXkxb0U1RWlURlphNmRDQ21iMGMx?=
- =?utf-8?B?YnlrSlJMdEcyR2VFTm1PM0VxZzJLNWRzbkU2RlY1eTdJeGRKVHVlTlI0ZUFw?=
- =?utf-8?B?MGxmYzFJZkM2a09QTGZ4RTRqRjc2T0xzSEVHWklZNUhha2VKQ1hoR3VsU29L?=
- =?utf-8?B?Z0lMdGdzbkxLQWJoU0I1MjJvWGFkRzM0Nit1TUhrb20yLzdMRkFXZjFGVG1v?=
- =?utf-8?B?VkFyOFJPankza05FVHRTVFg4YklLUWx5SWVjUXhCYVBBbW8ydXQydE5GbFNJ?=
- =?utf-8?B?eVBabVNoRG9LNm1aUldiQjlselkwa0ExZ0g0M3RWbnpZRTFjSXcvdHVxN09l?=
- =?utf-8?B?eGVaY3FpNVNoT0xJby9MZ05TNGNLRVhUOUh2b2tWQUlYampNZ0lvTlJ3d3RJ?=
- =?utf-8?B?MlVQZFRrNnVFemt2V3ZDdi9sdzJVb2NQK1Vlb3E1Y3BLc1Z2YUhJa0ZZT0Z2?=
- =?utf-8?B?Sk9YenBKY1pqQkpXK280STRWeExoUWprZUpnTkpRelZhSFBrbDQ5dWgybXVC?=
- =?utf-8?B?LytGdk5jbTVDVXhWdkYxbzRCNXV0U2RHR0FCeWtKOWpKMlZ5ZDRNVUszdFN3?=
- =?utf-8?B?ZlUvdmJ6V0l4Zzdvc0Z2MUovWU9jV055Qko3VEQ4TGZQdmt4UCtOeWhYOVh0?=
- =?utf-8?B?SVpyTWhpd2hsVzRla3VFSHVoNlQ1R1JaZDJMWWltU0lIQ0hXZDNPS0tzMFps?=
- =?utf-8?Q?g0JcvoOUBvG85k4Ke0Rlj0hE+V2UkbhQHqO2GFWd5Lv0Q?=
-X-MS-Exchange-AntiSpam-MessageData-1: vAJ2Rgi48fFFyA==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e566ae3b-ff98-45a2-f0f2-08df04091238
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 07:01:51.7788
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3HcyfqxACiSnmk82FRvl9YsCKpzR15RydACDuA5KeDQh4GVc+rY4DpZ9zARWnmSZx6v+7yK5KB7vVj9YQxxa6w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7280
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 27 Aug 2026 09:01:42 +0200
+Message-Id: <DKZJ7GFLAU12.1WHACTBREQQV2@bootlin.com>
+From: =?utf-8?q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>
+To: "Ihor Solodrai" <ihor.solodrai@linux.dev>, "Kumar Kartikeya Dwivedi"
+ <memxor@gmail.com>,
+ =?utf-8?b?QWxleGlzIExvdGhvcsOpIChlQlBGIEZvdW5kYXRpb24p?=
+ <alexis.lothore@bootlin.com>, "Alexei Starovoitov" <ast@kernel.org>,
+ "Daniel Borkmann" <daniel@iogearbox.net>, "John Fastabend"
+ <john.fastabend@gmail.com>, "Andrii Nakryiko" <andrii@kernel.org>, "Martin
+ KaFai Lau" <martin.lau@linux.dev>, "Eduard Zingerman" <eddyz87@gmail.com>,
+ "Song Liu" <song@kernel.org>, "Yonghong Song" <yonghong.song@linux.dev>,
+ "Jiri Olsa" <jolsa@kernel.org>, "Thomas Gleixner" <tglx@kernel.org>,
+ "Borislav Petkov" <bp@alien8.de>, "Dave Hansen"
+ <dave.hansen@linux.intel.com>, <x86@kernel.org>, "H. Peter Anvin"
+ <hpa@zytor.com>, "Shuah Khan" <shuah@kernel.org>, "Ingo Molnar"
+ <mingo@redhat.com>, "Andrey Konovalov" <andreyknvl@gmail.com>, "Emil
+ Tsalapatis" <emil@etsalapatis.com>, "Yafang Shao" <laoar.shao@gmail.com>
+Subject: Re: [PATCH bpf-next v7 0/9] bpf: add support for KASAN checks in
+ JITed programs
+Cc: <ebpf@linuxfoundation.org>, "Bastien Curutchet"
+ <bastien.curutchet@bootlin.com>, "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>, <bpf@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260822-kasan-v7-0-99afee6ef7fd@bootlin.com>
+ <DKWOY12R4ZJJ.A8KDS1DU1PHS@gmail.com>
+ <1c34603a-9170-4074-b826-e98d9871e2d8@linux.dev>
+In-Reply-To: <1c34603a-9170-4074-b826-e98d9871e2d8@linux.dev>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed Aug 19, 2026 at 8:09 PM JST, Gary Guo wrote:
-> `IoLoc`s themselves just describe a projection from a region to a concret=
+Hi Ihor,
+
+On Wed Aug 26, 2026 at 11:00 PM CEST, Ihor Solodrai wrote:
+> On 2026-08-23 3:53 p.m., Kumar Kartikeya Dwivedi wrote:
+>> On Sat Aug 22, 2026 at 12:39 AM CEST, Alexis Lothor=C3=A9 (eBPF Foundati=
+on) wrote:
+>>> Hello,
+>>> this is v7 of the series aiming to bring basic support for KASAN checks
+>>> to BPF JITed programs. This new revision just makes the series rebased
+>>> on top of current bpf-next_base.
+>>>
+>>> Please note that with the recent kernel splat detector introduced in
+>>> kernel-patches/vmtest through commit 8109e5928cd0 ("ci: own the kernel
+>>> splat matching (#509)"), CI runs on this series will fail with the
+>>> following error.
+>>>
+>>>     Error: kernel splat detected: [  100.689549] BUG: KASAN: \
+>>>     slab-use-after-free in \
+>>>     bpf_prog_eba69524d1d949b1_st_not_on_stack+0x12f/0x17a \
+>>>
+>>> which is pretty normal, as the new selftests introduced by this series
+>>> are expected to trigger KASAN splats (the test_progs part will pass,
+>>> only the kernel_splats part will trigger errors). The right fix may be
+>>> to just put a list of regex matching all the kasan subtests progs in th=
 e
-> register. Thus, support it in `io_project` macro too. Also, update method=
-s
-> that operate on `IoLoc` to use I/O projection.
+>>> relevant SPLAT_ALLOWLIST file; something like:
+>>>
+>>> BUG: KASAN: slab-(out-of-bounds|use-after-free) in bpf_prog_([a-f0-9]){=
+16}_(st|ld)(x)?(_not)?_on_stack\+
+>>> BUG: KASAN: slab-(out-of-bounds|use-after-free) in bpf_prog_([a-f0-9]){=
+16}_simple_atomic(_fetch)?(_not)_on_stack\+
+>>> BUG: KASAN: slab-(out-of-bounds|use-after-free) in bpf_prog_([a-f0-9]){=
+16}_ldx_patched(_not)?_on_stack\+
+>>> BUG: KASAN: slab-(out-of-bounds|use-after-free) in bpf_prog_([a-f0-9]){=
+16}_verifier_paths_stack_and_non_stack\+
+>>> BUG: KASAN: slab-(out-of-bounds|use-after-free) in bpf_prog_([a-f0-9]){=
+16}_ldx_oob\+
+>>> BUG: KASAN: slab-(out-of-bounds|use-after-free) in bpf_prog_([a-f0-9]){=
+16}_st_blinded\+
+>>> BUG: KASAN: slab-(out-of-bounds|use-after-free) in bpf_prog_([a-f0-9]){=
+16}_(load_acquire|store_release)(_not)?_on_stack\+
+>>>
+>>> I can take care of opening the relevant PR in kernel-patches/vmtest wit=
+h
+>>> this if it ends up being the correct solution, but it will make sense t=
+o
+>>> do so only once the selftests list is validated (but before merging the
+>>> series).
+>>=20
+>> We need to resolve this before landing the set. To me it looks inevitabl=
+e, esp.
+>> if we exercise the support and produce such warnings. That said I'll let=
+ Ihor
+>> respond and provide guidance for this. We should probably land the vmtes=
+t PR
+>> before v8 is posted, so that v8 can go through CI and be processed witho=
+ut
+>> failures.
 >
-> Documentation of `io_project!` is not expanded yet as the example works
-> better when `register!` type can specify base type. `io_read!` and
-> `io_write!` gains the ability to operate on registers as corollary of the
-> capability of `io_project!`. Examples are not added because `read` and
-> `write` is still preferrably used instead.
+> This is a tricky one.
 >
-> Signed-off-by: Gary Guo <gary@garyguo.net>
+> IIUC the suggested allowlist regex will also mask the real splats, which
+> the whole KASAN-in-JIT project was supposed to catch.
 
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+Not really: the proposed list of regex above just discards the splat
+emitted by the progs used by the tests related to the KASAN feature (so
+any prog in tools/testing/selftests/bpf/prog/{kasan.c,kasan_harden.c},
+which anyway generate "fake" KASAN splat for most of them, since we are
+manually poisoning some valid memory to trigger the splats. Any other
+program that generate a splat will be caught by the splat detector.
+>
+> I think a good way to resolve this is to teach the kasan splat
+> detection script about these tests, and drop/skip them from the dmesg
+> log it inspects. For example, match begin / end of the test set.
+> Might require special log anchors printed by the test itself, but
+> you get the idea.
+>
+> Alexis, do you mind trying this?
+
+If despite the comment above, teaching check-kernel-splat.sh how to
+ignore the kasan selftests specific splats remains a better solution,
+sure, I can work on this.
+
+Thanks,
+
+Alexis
+
+--=20
+Alexis Lothor=C3=A9, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
