@@ -1,156 +1,100 @@
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 717ED36F915
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:38:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787852281; cv=pass; b=JeI7+7vSCH+iOrNN/vL8zJRV9TQ02Qhahm0vhAr1OJGNKn7VpaVTm/h86w+PsMbGRws8GnoJvlp01kgD8WHFa6WV/qNedExdw7jEqfW/S/vgxTo1PlkDspjvBv4z9G8SIcxoq4EQ+TQtMNjJoIaFOoE5S0LVGzaA9gPoK56WEhw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787852281; c=relaxed/simple;
-	bh=6ex3kovo0uNMrsiAnnka/VhNOgHQ4ndsnxBahUyagcY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pwY9hTTUHES00lbHu2o5gvMKudwQGW64lXuf4uWy1jmwFESG1V0gnabEwXl32YqpWpTtQ8xo3YQphHg9Djobq80IRXBOU9CnCO3Odwu/kX9QjOkemVgbk74PjX4qaYcusNT4gq/shzMmWNHJ47J4kXCUnlrKmyGecDajwaMGK2k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dmDlnspH; arc=pass smtp.client-ip=209.85.208.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D574E499F3A;
+	Thu, 27 Aug 2026 17:40:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787852458; cv=none; b=RbxSUTY+Ty+GJPNObXtKoh/+Qz8cUlGOtGJd685ladD7fqPG1RwpnLO7gkZNljg8dikedW6WJkyu1t2msv7vZRHSBc/GeKP9ZXxf9opCh6R4XTZh7IxLqxls8iUHcTW9aVvmIeLBfwGLLX/afUPGuyVDaJ8c04cxw3TQi2uC2M4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787852458; c=relaxed/simple;
+	bh=Hg55+g+2sDxRj0S/u4Rec3c5AtKBMNduDaEDI/9xCII=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=ZI/LqtiKyfjyG4cnUjJzNxv0b5PgEE0w6hJJSTnAIPWw0O5UkxJP3TiYD1EAquPOz065PEgp5TmwL4OkdE5TTs++Krq0lfKVSyCeUDrkdoLi82pyIl0aLRGmCuDuz25IX6synqwc1Q5QfbH5LZQIl8n6Xie9ioo4RpDAirhDsp8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=rtPCcZtZ; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dmDlnspH"
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6a38098734bso94889a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:38:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787852279; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KSs+GfecpBp5iEj9PGY20XrszuUzGYqP4vzV5/UBPgMqT3QyuX3qkG0Sm80Hmqbe7k
-         H4cw30Netj03cPvN43oGlnU1Ign6moeACb2tVy/8Rt/olKn8rSOOm6z4CYNLeYr17yCj
-         udcJthtscKWzIf7QO0EHFiL2lPkya4bFMNzSEGxBDuja8j9y3Ah12rBZJaMChMxN5cyS
-         RF3rA852wZMcw7yP2oFc5mlKazQ/kxUI/K0VOWfnG3XDcG6lW2ERkmB9u0rBJc700Mqx
-         2fjCzuOft/K0OVSEx60D0+22aooeCaTsTVCgZwzviDKH/DBqHWtIxwzoR4SHp4/arGB3
-         KmAg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=kPHaEe57cuLcNj926FYE8F74J4KSg+lREB21aJh7hOA=;
-        fh=Jk1DGrn6N74RlzinPvp0SiiCqa1pQlF4M96bNraEG5Y=;
-        b=U64QwfaH+fGJ0JsWutJFIrj/LIkNc+lQti+2OjAHaozdq285sXzaxEgJaJ2CfIXP/y
-         bpFcOQoQbOoCJXNTm9HF8TLP0k9+Lqwd1yQROfSfLTtt3H80t7vlQriBxGdnrnx5K6T0
-         aWpiFk3tPJM8LbjhsVtVsynAr2sL4EEkFZh9+AVgugUQfTGicfpv1TX2cXjuIIN8mb0d
-         8blyk7unsRVx6+a1iq7HdBuGkA1m6OqmF4Mk0j7b7fVec1OwVIorHsMGEK7OHI/KAZS0
-         YY3hufnKJvG48ctarJQnFbNPIoC96ktDGJPQyexAoDY41/P0j+ZtE+F0gj8riXWK1/yA
-         efYA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787852279; x=1788457079; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kPHaEe57cuLcNj926FYE8F74J4KSg+lREB21aJh7hOA=;
-        b=dmDlnspHSxVU9eFYABJs3fIjmj691zdfgRpAJbFMWaQF6LSBBPoq9LytqeunL+0chC
-         BtYmWwwdvf15E4d0vzS4/XUt2NBitwTl4+RiTAC7pSgLGKb6mIAZ7R61blvj1tEl3ekO
-         mIbZwQkkH043nlkr6St0uYjbZTKvchY1qa0Cvhn6s7MzPSCzPGJg4zmdZZRh6ElyRNK/
-         CrIuUiKQ69kR4wiiIT25tCdMnfJSYhjDnytMNBGz8X7JoHGTmDItBZ2YtrXORhAIPHtd
-         RW3htk5KL4+vW/6L74cSH3Bn0sPmydQ9kFvyXuKl8cE8WRt1U+S1KXGZaXZDwxrCoG33
-         rq/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787852279; x=1788457079;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kPHaEe57cuLcNj926FYE8F74J4KSg+lREB21aJh7hOA=;
-        b=eUjpIL/Vv2XTGp6s+n/UBhSJjx5W/qcwP4tbazuXWFqGQhXIqwvYCoV/eGEQbJPlcu
-         ABVV3AwA5U+B+tMJD/+0q2adlWHdisy1eN83lJWDU0+XvL3h0Bx0Qc0nuLAH0NNyK9sG
-         PfT/dwokm8NiLx7EdqVZjOHKY4sz50TLF6DJYQ2n84N5Q/RFJPQ2fP/85VZLXRnmGPd8
-         nNHKrcCl9W2lIE0X3vYA7z2t6bj6bYB11ON242Dq6o59Ar//+MTo2CyVpUWojgVaXwiH
-         geKqMlN3GDEIn/iYxuHnvUPPFXTL6AXB9PxmCFph2UzyCiPpYrsULKL5XZ6VSaotYvdL
-         XaZg==
-X-Forwarded-Encrypted: i=1; AHgh+Rp4fEFHQzLo2TmEFf2u9TLVoddani2gjwskmg43LbI/oO3yxCWaXb6HJy0adB2FWrDnt3pUf2gQpQ3djLU=@vger.kernel.org
-X-Gm-Message-State: AFuF++n1pI7SQGX8Q5z5Nc04Xx6aQmu+JdLODkWKwMgeq4d+BK9nRR9M
-	HhdfceyjA6kEpC2KOiCf7rgKYBmZA9vZQlZQB91Cog8lo4WqbJXBPg4D0Vli3gon67Ubpqz/nUm
-	g74kS7MS0WX2iWd+POJ6ScOox5UYRNys=
-X-Gm-Gg: AR+sD10tVzTx8l9lwHBn3JcyKWTeBcxDuGktq3HzLgjLAOSTMmr3cboVnfujFMYN+Wn
-	PcY7YEF/dCAmM9HnldD2Ku+rYYAgj9GZWLuXPGWsHHHgiNcOkZJEFHyjFubgUpsbFoQQIqIjRMG
-	ZhJ8fNpPjt9W0wXp9WOaz1xFtJQaHSl4vXczpWMeUiOFuPqQtx2JxJ9dhNTLLRCS/g65baY4oBT
-	NfyEdZx+UlkIKeTdgtrFTueIHS2Gg1as72l1LJCbRkDAMTf1/qw4ChLAiHUbg3fJXPGpHh1rAil
-	aBY2Ebi4Vf3gwfQPWMBVD0BtdUUB+vhL9zE774HADG2jNk/nicVcZIRYT/YCRCVYjmws0XnQeh7
-	+atmkRY2Zt5o=
-X-Received: by 2002:a17:907:6d05:b0:c25:5a7:87f with SMTP id
- a640c23a62f3a-c25566499e8mr34430266b.0.1787852278645; Thu, 27 Aug 2026
- 10:37:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="rtPCcZtZ"
+Received: from ehlo.thunderbird.net (xcpe-178-82-167-143.dyn.res.sunrise.net [178.82.167.143])
+	by mail11.truemail.it (Postfix) with ESMTPA id D45DB1F8DA;
+	Thu, 27 Aug 2026 19:40:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1787852445;
+	bh=Hg55+g+2sDxRj0S/u4Rec3c5AtKBMNduDaEDI/9xCII=; h=From:To:Subject;
+	b=rtPCcZtZZLMg2hlmuRelXiAc9nkNWnlk+KZ/tNxhU9gp5XfzD64NF844FzFHh+mo2
+	 eSPRF3GmpK1FQcWOs3xdzcU4P/+MY+f8C3hboy4tUQUjVnk/JQnXblCyl7Iuvc+yZB
+	 yilCfKzwO2OgHaz/Tnsi8xdf9V14bstx1vqWQXB05SRwytH4uELlpHWVqCMtvlL9nz
+	 iP1QNwR2z8jpUOTv9M02XNAbHPbBcG8H1HrG+j7QHvwUOhmITFErOHTzbEOAbGkAS6
+	 WgRiTIn6k8CEMmPpPkX9ln+JDsv8un5A5cVQqyoiFXZxvkxV228eI9qK56nzi/6xCI
+	 zrwCc2KFJ1izw==
+Date: Thu, 27 Aug 2026 19:40:42 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Georgi Valkov <gvalkov@gmail.com>, briannorris@chromium.org,
+ johannes@sipsolutions.net, andrew@lunn.ch, krzk+dt@kernel.org
+CC: johannes.berg@intel.com, kees@kernel.org, miriam.rachel.korenblit@intel.com,
+ rongqianfeng@vivo.com, wenst@chromium.org, rafael.beims@toradex.com,
+ avraham.stern@intel.com, error27@gmail.com, s.kerkmann@pengutronix.de,
+ gregory.clement@bootlin.com, sebastian.hesselbarth@gmail.com,
+ robh@kernel.org, conor+dt@kernel.org, Frank.Li@nxp.com,
+ chunfan.chen@gmail.com, arend.vanspriel@broadcom.com,
+ peddolla.reddy@oss.qualcomm.com, linux-arm-kernel@lists.infradead.org,
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, stable@vger.kernel.org, gvalkov@gmail.com
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v8_3/3=5D_ARM=3A_dts=3A_armada=3A_WRT32?=
+ =?US-ASCII?Q?00ACM=3A_add_marvell=2Cinvalid-reg-hint-in-rom?=
+User-Agent: K-9 Mail for Android
+In-Reply-To: <20260827171937.28878-3-gvalkov@gmail.com>
+References: <20260827171937.28878-1-gvalkov@gmail.com> <20260827171937.28878-3-gvalkov@gmail.com>
+Message-ID: <15F55ACD-E206-4B79-9E8D-1ED24427BB19@dolcini.it>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260821-swap-thp-cleanup-v3-0-9b43f5163238@tencent.com>
- <20260821-swap-thp-cleanup-v3-9-9b43f5163238@tencent.com> <acdfa561-0690-4c78-bc50-92d308f4dca0@kernel.org>
-In-Reply-To: <acdfa561-0690-4c78-bc50-92d308f4dca0@kernel.org>
-From: Kairui Song <ryncsn@gmail.com>
-Date: Fri, 28 Aug 2026 01:37:20 +0800
-X-Gm-Features: AcwNN1XusF7KPTBCbFIorg-MpoUYcu7AsrCOyjMNN0VFuVbYt9OK7HHTzHSMN6Q
-Message-ID: <CAMgjq7BExecZ_Yo_ehoisUUDDMpvPxw2H0BWFocAMNMjMSMLLw@mail.gmail.com>
-Subject: Re: [PATCH v3 09/18] mm/huge_memory: move anon_vma and filemap
- management into split helpers
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Chris Li <chrisl@kernel.org>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
-	Youngjun Park <youngjun.park@lge.com>, Shivam Kalra <shivamkalra98@zohomail.in>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Aug 28, 2026 at 12:36=E2=80=AFAM David Hildenbrand (Arm)
-<david@kernel.org> wrote:
->
-> On 8/20/26 20:55, Kairui Song via B4 Relay wrote:
-> > From: Kairui Song <kasong@tencent.com>
-> >
-> > Only anon split needs vma info, and only file split needs the filemap
-> > handling. Move the related code into separate helpers so they are
-> > genuinely more self-contained.
->
-> This patch seems to do more than that, like relocating the
-> folio_expected_ref_count check (and duplicating it, which is not so nice)=
-.
->
-> >
-> > Reviewed-by: Zi Yan <ziy@nvidia.com>
-> > Signed-off-by: Kairui Song <kasong@tencent.com>
-> > ---
->
-> [...]
->
-> > -     /*
-> > -      * Racy check if we can split the page, before unmap_folio() will
-> > -      * split PMDs
-> > -      */
-> > -     if (folio_expected_ref_count(folio) !=3D folio_ref_count(folio) -=
- 1) {
-> > -             ret =3D -EAGAIN;
-> > -             goto out_unlock;
-> > -     }
-> > -
-> > -     if (!is_anon) {
-> > -             ret =3D __folio_split_unmap_and_freeze_file(folio, new_or=
-der, split_at, &xas, mapping,
-> > -                                                       true, list, spl=
-it_type);
-> > -     } else {
-> > +     if (is_anon)
-> >               ret =3D __folio_split_unmap_and_freeze_anon(folio, new_or=
-der, split_at, true,
-> >                                                         true, list, spl=
-it_type);
-> > -     }
->
-> Inverting the conditional seems to produce unnecessary noise in this patc=
-h.
 
-Will try to make this look nicer.
+
+On 27 August 2026 19:19:37 CEST, Georgi Valkov <gvalkov@gmail=2Ecom> wrote=
+:
+>WRT3200ACM and WRT32x routers always report a fixed US regulatory domain
+>from the mwifiex ROM, which conflicts with the platform regulatory
+>configuration on units sold outside the US market=2E For example:
+>- phy0 mwlwifi 5 GHz, hard-coded region 98 EU mapped to FR
+>- phy1 mwlwifi 2=2E4 GHz, hard-coded region 98 EU mapped to FR
+>- phy2 mwifiex 2=2E4 and 5 GHz, hard-coded region US
+>
+>When the system boots, it detects a conflict between the user selected
+>region and the radios, e=2Eg=2E BG FR US, and applies extreme restriction=
+s,
+>preventing phy0 from starting on any DFS channel=2E phy2 works=2E
+>
+>Add node wifi@1 with a flag marvell,invalid-reg-hint-in-rom to the
+>WRT3200ACM device-tree, which signals mwifiex that its regulatory
+>hint from ROM conflicts with the platform and should be ignored, so the
+>platform regulatory domain can be used=2E This does not allow the user to
+>change the regulatory config of any radio=2E It only allows phy0 to start
+>and operate according to its certified configuration=2E All radios in
+>WRT3200ACM/WRT32x are locked to the hard-coded configuration for which
+>they are certified=2E
+>
+>On WRT3200ACM, the platform configuration is stored on the devinfo mtd3
+>partition, which is read-only: cert_region=3DEU modelNumber=3DWRT3200ACM-=
+EU
+>
+>The Linux kernel sources do not have support for WRT32x=2E An equivalent
+>patch for these routers has to be sent to OpenWrt=2E
+>
+>[1] https://github=2Ecom/kaloz/mwlwifi/issues/173#issuecomment-307879699
+>[2] https://github=2Ecom/openwrt/openwrt/issues/9956
+>
+>Cc: stable@vger=2Ekernel=2Eorg
+
+This whole series is not material for stable=2E Please drop thia tag from =
+all the patches=2E
+
+
