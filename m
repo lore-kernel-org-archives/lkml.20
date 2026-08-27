@@ -1,48 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AFD84746D5;
-	Thu, 27 Aug 2026 13:27:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC73B299922;
+	Thu, 27 Aug 2026 13:28:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787837256; cv=none; b=biKW+JfzDbDmXMpzLA8mnnbgzeouJuxwjHA/clxDD25W2ilRB0DLSAFALJeysb4jUEPxeIcbEnuX/yXG660oqOAZldZev50ZcHc6EdwoVxm8d9v/9oZz8bNrRG39sBnlBBrjUkxrL2SdrGVuCyUpoB6Jh9J/mvliNe3oimpASA0=
+	t=1787837310; cv=none; b=Mt6RT5LKrEbqourQvmlacl39gpTsSpO4MIGjrvGvxNBw3ebwMzKa5B2+W1Yz/GrLLEbEFH8Lwo8jVJ6fQ3gBAsefr9agNEudaDpGFFZHFvZ4QXef4fmJaSAHrqlbZqqa5zDoyMmRGTUpB+M9mSDSmhpREUeMjnaPnjyPmFt2BaE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787837256; c=relaxed/simple;
-	bh=HjKVzbx0ka2ysw5tJK5V1jc6iPgys042GFj8Xu8Z4ZU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ki3iLpEFSG6sqib5ovQ2cpeVcW5koptmmna842haq5FUaI5ssr/wLRWpwWyp5w3tEvL9fok/V67ZQPfIH2/KV2QdRk4/36H9bo9ufyP+XK3436/uHEXqGFeQIO35lgEPmQDlqnsJZ0k9tRM43UgONgjSBA+/lh/n47i8sG5wxUw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aGAfIwmt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787837310; c=relaxed/simple;
+	bh=GaprarrX/Hu5FNhAbH8ouyOT7Ma8w6ym53WxEk/42ZE=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=N72lK3F2f6lDCk5LzfUfcKnFI0j+cRsLLnguaPckXremKG39g/kexCxLvbZR95ukIW+qfmeApKxYWNq/kjkdjJEXbCpVYTPm9jlJ5Q6c/lUNf0dsgTmfA0TNej0akNsYJBeIq6OfbUiumWlQf9U+I8OGzWJxo3bEL6ldHmR6bZM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nbZNSEOL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aGAfIwmt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B23AF1F000E9;
-	Thu, 27 Aug 2026 13:27:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nbZNSEOL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FAF41F000E9;
+	Thu, 27 Aug 2026 13:28:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787837244;
-	bh=2hBO9m0vTd/jCO9LU/z38lMIHBJ+dYBt/6htURH1XbA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aGAfIwmtuk9++SPdW6FRgTgug2ia1wvEzaHSv1xBVBVCmb5RWlJlK3peSPAFgR9ZY
-	 cVf2XWDqZrLsihSFF3LzFIeZSKMoOuyJPlQ9UT6vSRBCUP5FyDOpu7rDivLrAI2o9w
-	 lDHz6X5Oqg9V+8Uo5amRdFqoyLtrO9ysxljH97jfKEdXWLnq44ttmWYVE4KHAWhXkY
-	 DPTSExS7FJwzNkjOz0hrEIZY/9c9nWLOeKty0gen/iKiiTQ4Roa5DhxAQubSXsf4Xj
-	 yKNsKpCBBT+KYhksv32RQdZZ9ZzZuGZ5ZSXLcRmoZNJXpdO/MOS7XeQP1riJZRuHY0
-	 9Qtq8iZTZiwTA==
-Date: Thu, 27 Aug 2026 14:27:18 +0100
-From: Lee Jones <lee@kernel.org>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Michael Zaidman <michael.zaidman@gmail.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Germain Hebert <germain.hebert@ca.abb.com>, Rio Liu <rio@r26.me>,
-	Bruno Giacomazzi <brunoceg1@gmail.com>,
-	Christina Quast <contact@christina-quast.de>,
-	linux-input@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 00/13] HID: ft260: add UART and GPIO support, plus I2C
- fixes
-Message-ID: <20260827132718.GK770273@google.com>
-References: <20260822213941.98882-1-michael.zaidman@gmail.com>
- <CAD++jL=DZnKeSUu7TrC1uFn83eUu=WAFh5FGiVkO=oT3DZ6yzQ@mail.gmail.com>
+	s=k20260515; t=1787837302;
+	bh=Wfbt9FdAIskXDj0zssRilPrFLn0V1tVO14o+L9rnNos=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=nbZNSEOL+SKVTNrDJkClzkwQgFzbPuRQftnxOzrPG5yrzAIjCmJrbHlqkBqOHRY2n
+	 KHWo7iXfbd1Om4bVehvhtWAnorazhuMddC4npXfeoykAabTAT+Z1x3CsK+eN4/93KX
+	 fwAamkDqzQqdSCmsoYLNHIksJLvY3aEG0mQ9zLVCsd1ghaPbZ+E+zkuiT9Ah/q6e7k
+	 qe23BgsgCpfEMnZzBt/k/cTc8nfR3BqqQ2pK7vU/RYgAE4mY3ak287cbPz5igY17Jw
+	 D7hpDH/MrvidKDlpX+c3xRffmaS5K32Q5x0nuYNkZ7oWcNNISLzpfhPiJb1+R0Tktz
+	 Ea13wMtUL/JPg==
+Received: by alrua-x1.borgediget.toke.dk (Postfix, from userid 1000)
+	id B52B0979E5E; Thu, 27 Aug 2026 15:28:19 +0200 (CEST)
+From: Toke =?utf-8?Q?H=C3=B8iland-J=C3=B8rgensen?= <toke@kernel.org>
+To: Ramses de Norre via B4 Relay
+ <devnull+ramses.well-founded.dev@kernel.org>, "Jason A. Donenfeld"
+ <Jason@zx2c4.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+ <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Martin KaFai Lau
+ <kafai@fb.com>
+Cc: wireguard@lists.zx2c4.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Ramses de Norre <ramses@well-founded.dev>
+Subject: Re: [PATCH net] wireguard: queueing: preserve tstamp_type in
+ wg_reset_packet()
+In-Reply-To: <20260827-wg-tstamp-v1-1-4acfebb855ef@well-founded.dev>
+References: <20260827-wg-tstamp-v1-1-4acfebb855ef@well-founded.dev>
+X-Clacks-Overhead: GNU Terry Pratchett
+Date: Thu, 27 Aug 2026 15:28:19 +0200
+Message-ID: <87a4q74rrg.fsf@toke.dk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,36 +51,51 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAD++jL=DZnKeSUu7TrC1uFn83eUu=WAFh5FGiVkO=oT3DZ6yzQ@mail.gmail.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 25 Aug 2026, Linus Walleij wrote:
+Ramses de Norre via B4 Relay
+<devnull+ramses.well-founded.dev@kernel.org> writes:
 
-> Hi Michael,
-> 
-> thanks for your patch!
-> 
-> On Sat, Aug 22, 2026 at 11:40 PM Michael Zaidman
-> <michael.zaidman@gmail.com> wrote:
-> 
-> > Mainline supports only the FT260's I2C bridge. This series adds the
-> > UART/TTY interface and GPIO on top of it, and carries the I2C fixes made
-> > alongside them - two years of out-of-tree work [1], now replayed upstream.
-> (...)
-> >   HID: ft260: add serial driver
-> (...)
-> >   HID: ft260: add GPIO support on top of UART
-> 
-> This comment isn't pertaining to this one device in particular.
-> 
-> I'm not a HID maintainer but this trend to make HID devices spawn
-> serial and GPIO devices sort of turns HID into the new MFD, but
-> I suppose Jiri and Lee has discussed this phenomenon in the past?
+> From: Ramses de Norre <ramses@well-founded.dev>
+>
+> Sending traffic through a wireguard tunnel on a host using the fq
+> qdisc fills the log with:
+>
+>   fq: likely mono tstamp with tstamp_type 0
+>
+> An skb carries a timestamp in skb->tstamp and, separately, a
+> skb->tstamp_type field recording which clock that timestamp came from.
+> The two have to agree.
+>
+> When wireguard encapsulates a packet it calls wg_reset_packet(), which
+> clears the fields that must not leak from the inner packet into the
+> tunnel packet. It does so in two steps:
+>
+>   skb_scrub_packet(skb, true);
+>   memset(&skb->headers, 0, sizeof(skb->headers));
+>
+> skb_scrub_packet() deliberately keeps skb->tstamp when it holds a
+> monotonic timestamp: that value is the time the packet is scheduled to
+> be sent, and the qdisc still needs it. The memset then zeroes
+> skb->tstamp_type, because that field sits inside the headers group
+> while skb->tstamp does not. The packet therefore leaves wireguard
+> carrying a monotonic timestamp labelled as a realtime one.
+>
+> Nothing noticed until commit c4f796c4f16b ("net_sched: sch_fq: convert
+> skb->tstamp if not monotonic"): fq used to assume every timestamp was
+> monotonic. It now consults tstamp_type, spots the mismatch, warns, and
+> falls back to treating the value as monotonic. Pacing still ends up
+> correct, so the log spam is the actual problem.
+>
+> Save tstamp_type before the memset and restore it when encapsulating,
+> next to the hash fields that are already carried over this way. When
+> decapsulating it stays zeroed, which is right: an incoming packet's
+> timestamp is a realtime receive timestamp.
+>
+> Fixes: de799101519a ("net: Add skb_clear_tstamp() to keep the mono delive=
+ry_time")
+> Signed-off-by: Ramses de Norre <ramses@well-founded.dev>
 
-What is this?  4 device drivers in one, shoved into HID?  Each
-component; HID, I2C, GPIO, UART, should live in its respective
-subsystem, surely?
+Seems reasonable:
 
--- 
-Lee Jones
+Reviewed-by: Toke H=C3=B8iland-J=C3=B8rgensen <toke@kernel.org>
