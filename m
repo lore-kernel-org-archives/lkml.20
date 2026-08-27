@@ -1,39 +1,36 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE8F22BD00C;
-	Thu, 27 Aug 2026 05:03:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3866F2D0C7E;
+	Thu, 27 Aug 2026 05:06:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787806991; cv=none; b=c0X1pyNBGBTTSTLOAXJF/5EJsyKpYQs5DFbzjruTfaR4PEKOuN7yO4gdd6ZDVfkDZbHI6QSAU6HjX6KDXsKLVQ4reptnk4aZucZELAzPrOto2CjHSlCr2n3DiQTZwzGoEv49HfwdYsruzfosN4A8kBx5pBgwGYMZfnGykpQokIE=
+	t=1787807178; cv=none; b=qEPO+Wtti7k4Tb0DEm8iy70oBqlDhZ+YggN3v3YZT+IC0UsdMCWgIGh5q/WhRqDc7Pmm090RqtvjFXeCGTfAgOb3d5JKqscdy0HtRqRikNsx4sGaggaG9Z70ap27weuoLWa/OKv5oNehsa7ylVfoWHKvQVUXrRpaEJlgh64xpuQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787806991; c=relaxed/simple;
-	bh=+qARVZ3Vn+bsJZVhP/UquKzhmNyNprXMkZymPd3mNyI=;
+	s=arc-20240116; t=1787807178; c=relaxed/simple;
+	bh=0SbWVk81NSvWiVEymtaQC9KkKcEe1BhdRuENR95FLIs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qtnMAPvpMqEkJ+EuIUXGk+LoZwh7xz0b8khHEDUT95QXWEkWrecT0HpZ3/rQ8IkRT8llS7Kc0ppKBDFN6H0ZfXWhIc5x9X68BJx4pF+FSY5Gz8Sdquq3orwvgEsISEPK08NWfdVLLYY4qgqzctsSicqsz1vhpLJqLS6lDtZwSrQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=WBXIqTCB; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ckuc7EX+1KbNx/hYQ4Rjw9XON74hvSQlUv0wuzrfTCknFthl2nvR9H8lUmIiBJYAEeIAbhlpcigWEhvslmftKbtAVerwdX7q3lKosk3FQFYgudpuE6gbXq/7PdvhiZS6bl28k8ckUx/E/2pjBPKWe64v15oZDpXGt3VHbVibESo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=LLgSx9Eo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="WBXIqTCB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B55E61F000E9;
-	Thu, 27 Aug 2026 05:03:09 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="LLgSx9Eo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45BD51F000E9;
+	Thu, 27 Aug 2026 05:06:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787806990;
-	bh=CkOiFqyPeNWAL1IU6w4pHRdEzxW6E2h2tS/Qf1gbZBg=;
+	s=korg; t=1787807176;
+	bh=DE34z+US3g6UhDyZ+cyjk0YKv5xtZEJ59OP0oiZT5qA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WBXIqTCB7zZMoB816mnWlxYNCo+Q0vWrji+WlGQgkyuRh1HzojIHGzGCHTgkSxjgC
-	 TD2ByP8IAh1ywdDQ75RG1s6AwHZ4U3oUzM/7toI1OSKmfkm22QdpcY8FHAgCUna0o8
-	 CTnX2jUN7IaL/TooiMAuN9fFF6yWWP0AErAKGbx0=
-Date: Thu, 27 Aug 2026 07:03:08 +0200
+	b=LLgSx9EosB4UIXG0raO6bnu8dmRqt5ElZDtbf69oDBw5wFbEwoWXb8y6PUn5boLRc
+	 OWIKmy/fe3LIdkSQ7GeaAYBNANhuflmjv7t/K58ByzHRqBEhq7rF/KI4RgwWj7KX3L
+	 dlGKrxYIMwvV/I3rkUw6rkdCSPdGyQt2hAmjB9dQ=
+Date: Thu, 27 Aug 2026 07:06:14 +0200
 From: Greg KH <gregkh@linuxfoundation.org>
-To: Jeffin Philip <jeffinphilip14@gmail.com>
-Cc: balbi@ti.com, bigeasy@linutronix.de, linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org, stable@vger.kernel.org,
-	syzbot+fd6ef980cf1c722be639@syzkaller.appspotmail.com
-Subject: Re: [PATCH] usb: gadget: fix null pointer dereference in
- usb_put_function_instance()
-Message-ID: <2026082739-shudder-stylist-86ac@gregkh>
-References: <20260816061712.15547-1-jeffinphilip14@gmail.com>
- <20260827043746.13087-1-jeffinphilip14@gmail.com>
+To: Godana Emiru <godanaemiru@gmail.com>
+Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: rtl8723bs: fix coding style issues in
+ xmit_linux.c
+Message-ID: <2026082744-decorated-turban-7e67@gregkh>
+References: <20260826194059.12003-1-godanaemiru@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,24 +39,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260827043746.13087-1-jeffinphilip14@gmail.com>
+In-Reply-To: <20260826194059.12003-1-godanaemiru@gmail.com>
 
-On Thu, Aug 27, 2026 at 10:07:46AM +0530, Jeffin Philip wrote:
-> On Sun, 16 Aug 2026 11:47:12 +0530, Jeffin Philip wrote:
+On Wed, Aug 26, 2026 at 10:40:59PM +0300, Godana Emiru wrote:
+> Fix a handful of coding style issues in xmit_linux.c:
 > 
-> >usb_put_function_instance() attempts to dereference fd inside fi struct
-> >to get mod in uvc_alloc_inst() error path. However, fd is not allocated
-> >until later in try_get_usb_function_instance() after allocating fi in
-> >uvc_alloc_inst() and thus guranteed to be null in error path. Fix this
-> >by adding a null check for fi->fd that returns if fd is null.
-> 
-> Friendly ping, let me know if you want me to fix anything.
+> - Remove a stray extra blank line after the include.
+> - Split two chained assignments in _rtw_open_pktfile() into
+>   separate statements, one variable per line.
+> - Wrap the long rtw_os_xmit_resource_free() prototype so it fits
+>   within the column limit, aligned to the open parenthesis.
 
-It's the middle of the merge window, we can't do anything until after
--rc1 is out.
-
-In the meantime, please help review other patches on the list so that
-yours rises to the top.
+These are different things, so this should be a patch series, each doing
+only one logical thing.
 
 thanks,
 
