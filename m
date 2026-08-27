@@ -1,135 +1,113 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2C3523FA5F0
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:16:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D91B3411FA7;
+	Thu, 27 Aug 2026 12:18:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787832966; cv=none; b=W0h6H0jYTXmrcOD0wJdV5DH1h+8rEwGgVY1dyGhod+CjNp32RcP7so2j6bMh6Lt1IDjoBWJqFnx+t0ULTBYYtEiBPFcoZLLYitzRaII5vT7lgqxRq7E3ZvcCWG6xmKnE4evcffRk52tch2wzB1lbC8akdnBCTaD1IhgqfvxK5UM=
+	t=1787833094; cv=none; b=ba3InxFOD7HfcLYOInJeHtckph/adT58cUMPPUot81rkyB4cSqc9GJjkV+3g7iiMAvGCH3oc3Dk/bnL/7/kuqpcSPejQiOCLoF4CuVGSABCWAepr8Etx7WdjVbYo1rNv4WbzZLX5+Z+4yOJ+tsRFlwTfPXGYMplMLKdGeidb0Qo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787832966; c=relaxed/simple;
-	bh=TAX8S4NqmRp+bw/o5Pi0JMPJne9BisHCOygDHDk1+n8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XeqNnQt2FNyIc1iwq943qnI+rCGnt6IpqUnP0NVbF/6PZnPWco/znOc9Jtm+JaWVHBZrvJL16w0IpDusZAypZn2MIGf5+pt+zUfxwKGpwJvWITIuYs6M4eTw9xsWvZFFDsNVPNDuwL5s5nfBODCua7D/mnTYJR0/fv4Iw36YzQk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=bGqt8Mch; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1787833094; c=relaxed/simple;
+	bh=5ADKeD3SYv9XjbuCywHtJAUw7WKo8jt1m47yILG/d6k=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=Kxxj7kyjKQKTSqeBJM1X1gDMqpO3VY+iVQaPeApAtyF1+3TN3oYtucu1dXk3l1UC6RCKvJSj6yQeWL4FXJVm9vhvyotc1BLMDGLNtilpDV71z62qbcHQckd44B3hSQZHne8A9GQUh3EOFvxUXtUBY4hgwDFN+jtZ8kScodjTIrI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=XjBGK5UD; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=Q9p9QU83; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="bGqt8Mch"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0E9B01691;
-	Thu, 27 Aug 2026 05:15:58 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 368593F85F;
-	Thu, 27 Aug 2026 05:16:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1787832961; bh=TAX8S4NqmRp+bw/o5Pi0JMPJne9BisHCOygDHDk1+n8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=bGqt8MchFpcg7ATYp7vNR9CzAIMziiByExJRJoLPzCGzuSXD0XQ0ZiCAXBxM1iyoF
-	 I6gcM5IQ8cNqalC4a0yZEJPphVJIMkT63cGxqlaLcjaJzZ11zMV+vtIOzVfHd5ufmK
-	 cpXg62KPJbIUZWds69rxdhFLrAa75yLDK/NhDVwI=
-Date: Thu, 27 Aug 2026 13:15:57 +0100
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: Leo Yan <leo.yan@arm.com>
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>, coresight@lists.linaro.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	suzuki.poulose@arm.com, mike.leach@arm.com, james.clark@linaro.org,
-	alexander.shishkin@linux.intel.com, jie.gan@oss.qualcomm.com
-Subject: Re: [PATCH v9 04/13] coresight: etm4x: fix inconsistencies with
- sysfs configuration
-Message-ID: <apAqfS87BY4_2Vn9@e129823.arm.com>
-References: <20260725113645.57519-1-yeoreum.yun@arm.com>
- <20260725113645.57519-5-yeoreum.yun@arm.com>
- <20260811154521.GF15499@e132581.arm.com>
- <antUM71hxHaBJ_5l@e129823.arm.com>
- <20260811174503.GJ15499@e132581.arm.com>
- <antjkuiPhsfE7e_H@e129823.arm.com>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="XjBGK5UD";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="Q9p9QU83"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1787833050; bh=T0wPFc8wjuUMc+EQl/s943h
+	V3ykgmUBZgBjxvFUpE14=; b=XjBGK5UDm7oaiMh5/eFsRIwu3k8vi4HBKEqjJC/gVc4RIIwV4T
+	t6cy9mteImC+2GeX1T71hEGYAGLuEULs9YurJHVrWMIYBusK0CWL9Bj9T9oqZTUjFD6cohMvMSF
+	zE+lUBhYh9zHvEpXqUkPTIrU5hSZK7MrxbQ08Z3/7ZVzATAx00vP1VjvHIYOKTsptrcb/+N/Bhl
+	7EMYtjnFg/2VEKrD7BUYArAkNqoUJj97y/jEHd4SX17vvQDDTbhCGsqCLttlQrHtdBYDzKwvKz6
+	0lu/hUsgaWk+ESJh948GGqK1RtCStNx2lkigbQlxqvtRkO96EE6sBWuVlMuhx44z/SQ==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1787833050; bh=T0wPFc8wjuUMc+EQl/s943h
+	V3ykgmUBZgBjxvFUpE14=; b=Q9p9QU83I5kC2qyA/sTMJqoyv4ewU2bd90hCZLJ8LMA/Y13/FH
+	oYQOUBQm+NzC2Q9RnHVB1RaRl1seeljEs3Cg==;
+Date: Thu, 27 Aug 2026 13:17:28 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: Steven Rostedt <rostedt@goodmis.org>
+CC: =?ISO-8859-1?Q?J=E9r=E9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>,
+ mhiramat@kernel.org, mathieu.desnoyers@efficios.com,
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2=5D_tracing/user=5Fevents=3A_Clear_c?=
+ =?US-ASCII?Q?opied_tracing_state_before_fork_duplication?=
+In-Reply-To: <20260827081531.092fafbc@gandalf.local.home>
+References: <20260826214414.1971632-2-Jeremy.Jean@oss.cyber.gouv.fr> <5B7C72AA-5655-4916-AB17-03A8B94F5D7C@mainlining.org> <faa62ef4d9144b3145a8a6254ac3fea6@oss.cyber.gouv.fr> <DAC674C5-A6BE-4D99-9721-2805640BA8A3@mainlining.org> <20260827081531.092fafbc@gandalf.local.home>
+Message-ID: <493C257E-31B8-424C-992D-BD127151949B@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <antjkuiPhsfE7e_H@e129823.arm.com>
 
-On Tue, Aug 11, 2026 at 07:01:54PM +0100, Yeoreum Yun wrote:
-> > On Tue, Aug 11, 2026 at 05:56:19PM +0100, Yeoreum Yun wrote:
-> > 
-> > [...]
-> > 
-> > > > Can we treat this as a refactoring instead and split it into at least
-> > > > two patches? This would make it easier to review now and easier to
-> > > > understand later if someone will read the changes.
-> > > > 
-> > > >  - Lock refactoring
-> > > >  - SMP call refactoring
-> > > >  - active_config refactoring
-> > > 
-> > > It couldn't since separation of Lock and SMP can introduce the bug for
-> > > that patch. and the Lock and SMP call refactoring isn't meaningful
-> > > without active_config.
-> > 
-> > Each time I read through this patch, I find it a bit difficult to follow
-> > the overall logic, as it combines several changes together.
-> > 
-> > I have no strong opinion for this though. Perhaps we could split out the
-> > support for a NULL feat_csdev->drv_spinlock into a separate change
-> > first, as that seems independent and should not introduce regression.
-> 
-> If the NULL lock is separated, since it before the SMP refactoring
-> there will be a *race* for it.
-> OTOH, if SMP first, absent of NULL lock would make a deadelock.
-> 
-> So If we really want to seperate, we should the SMP and Lock
-> refactorying must be one group.
-> 
-> However, seperating the active_config from there, I'm not sure whether
-> This would really make a difficulty of backport.
-> We might separate the active_config as a cleanup but, this would require
-> also for backporting but active_config one wouldn't have a fix tag.
-> 
-> So, I think it would be better to keep as-is.
-> 
-> > 
-> > > > > +#define feat_csdev_lock(feat_csdev, flags)				\
-> > > > 
-> > > > Could use inline here?
-> > > > 
-> > > > static inline void feat_csdev_lock_irqsave(..., unsigned long *flags)
-> > > > {
-> > > >     ...
-> > > > }
-> > > 
-> > > I think this is much annyoing. since the deference might add more
-> > > instruction to save the flags. Otherwise the typecheck is for
-> > > compilet-time check and not for runtime.
-> > > 
-> > > So, it would be better to remain as-is.
-> > 
-> > An inline function provides stronger type checking at the API boundary.
-> > It is readable and easier to maintain. Dereferencing *flags would be
-> > fine, as this is not a hot path.
-> > 
-> > I was inspired by the implementation in include/linux/serial_core.h
-> > (see uart_port_lock_irqsave() and uart_port_unlock_irqrestore()).
-> 
-> I think there’s always been quite a bit of debate around this,
-> particularly regarding the maintainability of inline functions versus
-> function-like macros. Personally, I don’t find this particular function
-> any harder to read or maintain as a macro.
-> On the contrary, even though this isn’t a hot path, adding an extra
-> instruction still feels like a less preferable trade-off to me.
-> 
-> @Suzuki, What do you think? inline or macro for feat_csdev_lock_irqsave()?
+On 27 August 2026 13:15:31 BST, Steven Rostedt <rostedt@goodmis.org> wrote:
+>On Thu, 27 Aug 2026 10:45:29 +0100
+>Bradley Morgan <brads@mainlining.org> wrote:
+>
+>> >I usually don't think about adding comments, but yes, that's a good
+>> >suggestion.
+>> >  
+>> >> Maybe you could add this to your memories
+>> >> 
+>> >> "The description length should be about the same as the change being
+>> >> added,unless there is a splat, or something else like a table which  
+>> >needs  
+>> >> to be added to the description, keep the description length the same
+>as
+>> >> thepatch size, e.g:
+>
+>No that is not correct. In fact, some of my longest change logs are
+>one-liners and my big changes are small descriptions.
+>
+>A one-line can be extremely subtle and require a deep description of the
+>problem. Big changes may be "Implement this feature" with a description of
+>the feature that is much shorter than the code used to create it.
+>
 
-Gentile ping in case of forgotten.
+Hmm, could be right, my memory isn't perfect, don't worry.
 
-> 
-> -- 
-> Sincerely,
-> Yeoreum Yun
+>> >> 
+>> >> Instead of doing 3 paragraths about a one liner, we could do a small
+>two
+>> >> or more line description describing:
+>> >> 
+>> >> What causes the issue?
+>> >> Why is it bad?
+>> >> How did you fix it?"  
+>> >
+>> >Sounds like a good practical advice, thanks. Yet in the present case,
+>> >since there is a security issue with the UAF, I felt that it was
+>> >important to explain where it came from instead of something very
+>> >short along the lines ("fixing a UAF"), hence the couple of paragraphs
+>> >and the KASAN output.
+>> >  
+>> 
+>> umm, you could include a ASCII table or something, that signifies the
+>bug?
+>
+>I think the change log is fine and doesn't need to be changed.
+>
 
--- 
-Sincerely,
-Yeoreum Yun
+Yeah, I do too.
+
+>The added comment to the code is fine though.
+
+:)
+
+>
+>Thanks,
+>
+>-- Steve
+
+--- Thanks!
+https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
