@@ -1,146 +1,181 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E49A53DA7D2
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:17:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 64A133DB64B;
+	Thu, 27 Aug 2026 08:17:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787818634; cv=none; b=nD3rat+KefIUaHtl11hV0RAgwPhiO0xnwoRMqoY3UzrrFvDNltOfKf8H+AvtmPpeGdPcgJ/4y0XWSSNLIpq/iD0dp6m42RjnfWEcldHmHTjK14CC5WMqGGqtsR2HcN+U/I2gHU2rr5Axo82HyIAzgMQJ/7NkPflfIcZ6uhtXQt4=
+	t=1787818683; cv=none; b=mU7HbzohjpyAgNfK+kwTWx3ai8SWmBosnAMXd/tfrt75K0aycHDf0eRLxDqhBlF28uUt6EVUpRS5IRXGtVD9bCeL9WJ8uAWiKyJPDp8U/rsKEHuyeDMRb4CWTwTMaqPLGPnP8xQZfxsI9lHpQ6itZIKWc3ZU3Oan2eIlxTOgCzQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787818634; c=relaxed/simple;
-	bh=3v1/IdLNCsT/qBsISOCiyBli6VQz9iDJt7iwfW00B1s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=J8VQzARaX5Nvi8LSkdI/nAho9W+lotSos/TAD8RHqWbgQFLkUrz7uTKXtXTP4IdBi3DGq4p/0tZNxhcCbz/xtlcwPPW/drzk+obktcW+dwCJ6LLhDWMIjCaoBMnwK4lR6f5SKk0PMZ0+Zbr1P7kfe41RLb+rSP1QDuxvW3Ga/Ro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kb3+VZf0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787818683; c=relaxed/simple;
+	bh=5BaBaUpgbE7yZAPVZNeV57kX7ae+OLSMniMswhoEkkw=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=NUjJqaotUxOj+UOsX0Ohl9yiG4WIqFp06ZVpspInUM5KueqMsX0dK/gjdoxeKmTEARR78C5lTiaof0UdO7fREn4Snr/HdzLnBdsQbNrMrcAbP1RVONJzVu4LH7waCN1dLkGyURPkGlwkZ5nIL50JqOl7S7q9FwwbY/sYpE6vTpA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=none smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=qFsXo8DW; arc=none smtp.client-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kb3+VZf0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDC0E1F000E9;
-	Thu, 27 Aug 2026 08:17:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787818632;
-	bh=IoV2JLyDthha8SRAUynv+MIxi6zER3ywHmEQ0B1FVZU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Kb3+VZf0uc9hFIhgW8al0piOdE/JqGk3Kq7nxZ23oY2lo8kbzImiw7RY3gKQyIGf3
-	 egGYVWXHOgMkrPimJ7z4RryeJxr4bUze9but/U8U/wUqhRY+4unAJQvzCq76Kj6ccI
-	 uTmYJ8ZuSp6Epwm425ch7SAH0A6cGcNQQOsRNVz3lYc9YZs2A9AFohonNK07ozVTSU
-	 W7VHt53CL/qm2315HgfsuzMC8jtrtR/WjkPBguh8Wk3GrcqRN3ww0VbKniXISd5wRE
-	 ENaQF9nrIOUZ+QO2fI2NsvHb4YveXmDwiTs0i9lbnAm0NSXByY8bwviHpGiztS6Y1Z
-	 SAG803NYX3JDA==
-Message-ID: <62ba2ed2-d030-49d8-8872-d714ca0df8f2@kernel.org>
-Date: Thu, 27 Aug 2026 10:17:08 +0200
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="qFsXo8DW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	References:Date:Message-Id; bh=qJn7wJbUMWgChHPDDyLMAt32tsdxeqxOd
+	//ZEjwgzPE=; b=qFsXo8DW3ymaL/dtk0EINHI7KkhHPMs9yCPEQqLlrzcMnVVGe
+	c8QTLOmFyHsjEE1LI8F98ftxeTEGWBoA7YoeRYGyXCkXRT1qx/Gk3PwzAXH6MBoq
+	9Ex+LFy66KozxrJg3/r6cCwkZioTmcAoriIgH85uCPgxKCzC2rWy6/M9HU=
+Received: from [127.0.0.1] (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwB3V86Z8o9qyloBAA--.426S2;
+	Thu, 27 Aug 2026 16:17:29 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/vmstat: annotate data race for per-cpu pageset fields
-To: Hui Zhu <hui.zhu@linux.dev>, Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Cc: Hui Zhu <zhuhui@kylinos.cn>
-References: <20260827070546.1336383-1-hui.zhu@linux.dev>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Content-Language: en-US
-In-Reply-To: <20260827070546.1336383-1-hui.zhu@linux.dev>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 08/12] dt-bindings: net: snps,dwmac: Add compatible for
+ UltraRISC DP1000 SoC
+From: Jia Wang <wangjia@ultrarisc.com>
+To: Jia Wang <wangjia@ultrarisc.com>
+Cc: Conor Dooley <conor@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, 
+ Samuel Holland <samuel.holland@sifive.com>, 
+ Anup Patel <anup@brainfault.org>, Mark Brown <broonie@kernel.org>, 
+ Andi Shyti <andi.shyti@kernel.org>, 
+ Mika Westerberg <mika.westerberg@linux.intel.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
+ Jose Abreu <joabreu@synopsys.com>, 
+ Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>, 
+ Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ Paul Walmsley <paul.walmsley@sifive.com>, 
+ Palmer Dabbelt <palmer@sifive.com>, devicetree@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-spi@vger.kernel.org, linux-i2c@vger.kernel.org, 
+ netdev@vger.kernel.org, dmaengine@vger.kernel.org
+In-Reply-To: <178765275795.744215.4911904858473260204.b4-reply@b4>
+References: <20260824-ultrarisc-dts-v1-0-61ab7aebe9e5@ultrarisc.com>
+ <20260824-ultrarisc-dts-v1-8-61ab7aebe9e5@ultrarisc.com>
+ <20260824-bride-food-052b313e4b76@spud>
+ <20260824-blimp-spirited-01365897db24@spud>
+ <178765275795.744215.4911904858473260204.b4-reply@b4>
+Date: Thu, 27 Aug 2026 16:17:16 +0800
+Message-Id: <178781863615.2006105.6267469136684218126.b4-reply@b4>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787818636; l=2733;
+ i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
+ bh=5BaBaUpgbE7yZAPVZNeV57kX7ae+OLSMniMswhoEkkw=;
+ b=yY3yRewGFr8detGpKXWyntfFHN5tgfDhLwzMiCHKFuFC9QP8BaO4Ra35Xa9Z5GUaqytZylF/o
+ TBafhCLJFs0CdSTIHPO0SFPDgpPeTVPXfGX+6IafSoBj78xUPCINNMC
+X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
+ pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
+X-CM-TRANSID:AQAAfwB3V86Z8o9qyloBAA--.426S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxWF4DWrykZF13Zr4fWr4rXwb_yoW5Jw13pF
+	yrAFWjkF47Jr13Jw1kt3WxGF1jvr4SkrW8Xr4rtr1UKF90gFnYqrsrKw15W3Z5Zr4rGFy2
+	vrWUuw13J3WjvaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBEb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_Gr1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr
+	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IE
+	rcIFxwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWrXVW3AwCY02Avz4vE-s
+	yl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWU
+	JVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26rWY6r4UJwCIc40Y0x
+	0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8
+	JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIx
+	AIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0pKiifUUUUUU
+	=
+X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAMEWqPrHsAIQAAsP
 
-On 8/27/26 9:05 AM, Hui Zhu wrote:
-> From: Hui Zhu <zhuhui@kylinos.cn>
+On 2026-08-25 18:12 +0800, Jia Wang wrote:
+> On 2026-08-24 18:13 +0100, Conor Dooley wrote:
+> > On Mon, Aug 24, 2026 at 06:09:48PM +0100, Conor Dooley wrote:
+> > > On Mon, Aug 24, 2026 at 01:54:21PM +0800, Jia Wang via B4 Relay wrote:
+> > > > From: Jia Wang <wangjia@ultrarisc.com>
+> > > > 
+> > > > Add the SoC-specific compatible string for the UltraRISC DP1000 GMAC
+> > > > controller to the DesignWare MAC binding.
+> > > > 
+> > > > Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+> > > 
+> > > The dts may not be right, but I am also a bit concerned here.
+> > > 
+> > > This binding permits 100s of combinations of properties, of which only
+> > > a very limited set can be correct for your device. Just adding the
+> > > compatible permits all of this variation.
+> > > 
+> > > Please add some restrictions.
+> > 
+> > In fact, it's particularly bad here because you don't even restrict
+> > which fallback compatibles are used, so there's no guidance on what
+> > version of the IP is even in use!
+> > 
 > 
-> zoneinfo_show_print() reads pcp->count, pcp->high, pcp->batch,
-> pcp->high_min, pcp->high_max and the per-cpu stat_threshold while
-> holding only zone->lock, which does not synchronize these fields.
-> The writers are the page allocation and free fast paths under
-> pcp->lock, decay_pcp_high() which updates pcp->high without any
-> lock, pageset_update() which writes batch/high_min/high_max with
-> WRITE_ONCE(), and refresh_zone_stat_thresholds() which writes
-> stat_threshold locklessly.
+> I have rechecked the DTS against the hardware. The controller uses a
+> DesignWare GMAC IP from the 5.20 series, with "snps,dwmac-5.20" as its
+> version-specific fallback.
 > 
-> The race is benign: the values are only printed to /proc/zoneinfo,
-> they are naturally aligned integers, and pageset_update() already
-> documents that users of batch/high_min/high_max must cope with the
-> fields changing asynchronously.  Annotate the reads with data_race(),
-> following commit af1c31acc853 ("mm/vmstat: annotate data race for
-> zone->free_area[order].nr_free").
+> In the next version, I will restrict the fallback compatibles and add
+> DP1000-specific constraints for its hardware resources.
 > 
-> Found by KCSAN testing on an older kernel; the same race still
-> exists on mainline.  No functional change intended.
-> 
-> BUG: KCSAN: data-race in zoneinfo_show_print+0x355/0x520 root/klinux/mm/vmstat.c:1774
-> race at unknown origin, with read to 0xffff8e1835410808 of 4 bytes by task 22653 on cpu 12:
-> zoneinfo_show_print+0x355/0x520 root/klinux/mm/vmstat.c:1774
-> walk_zones_in_node root/klinux/mm/vmstat.c:1496 [inline]
-> zoneinfo_show+0x41/0x70 root/klinux/mm/vmstat.c:1806
-> seq_read_iter+0x30c/0x970 root/klinux/fs/seq_file.c:230
-> proc_reg_read_iter+0x10c/0x170 root/klinux/fs/proc/inode.c:305
-> copy_splice_read+0x2a1/0x4e0 root/klinux/fs/splice.c:365
-> do_splice_read root/klinux/fs/splice.c:985 [inline]
-> do_splice_read+0x139/0x1a0 root/klinux/fs/splice.c:959
-> splice_direct_to_actor+0x16b/0x540 root/klinux/fs/splice.c:1089
-> do_splice_direct_actor root/klinux/fs/splice.c:1207 [inline]
-> do_splice_direct+0x10a/0x180 root/klinux/fs/splice.c:1233
-> do_sendfile+0x6ea/0x7e0 root/klinux/fs/read_write.c:1363
-> __do_sys_sendfile64 root/klinux/fs/read_write.c:1424 [inline]
-> __se_sys_sendfile64 root/klinux/fs/read_write.c:1410 [inline]
-> __x64_sys_sendfile64+0x117/0x130 root/klinux/fs/read_write.c:1410
-> x64_sys_call+0x1cc7/0x1ee0 root/klinux/./arch/x86/include/generated/asm/syscalls_64.h:41
-> do_syscall_x64 root/klinux/arch/x86/entry/common.c:46 [inline]
-> do_syscall_64+0x75/0x2c0 root/klinux/arch/x86/entry/common.c:76
-> entry_SYSCALL_64_after_hwframe+0x76/0xe0
-> value changed: 0x000001b2 -> 0x000001b1
-> Reported by Kernel Concurrency Sanitizer on:
-> CPU: 12 PID: 22653 Comm: syz-executor.12 Not tainted 6.6.140+ #672
-> Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.16.3-0-ga6ed6b701f0a-prebuilt.qemu.org 04/01/2014
-> 
-> Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
 
-Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Following the discussion in patch 11, I will drop this patch from v2. I
+will first submit the dedicated DP1000 GMAC binding and DWMAC glue driver
+as a separate series, and then send v2 of this DTS series with that
+dependency recorded.
 
-> ---
->  mm/vmstat.c | 17 +++++++++++------
->  1 file changed, 11 insertions(+), 6 deletions(-)
+> > > 
+> > > pw-bot: changes-requested
+> > > 
+> > > Thanks,
+> > > Conor.
+> > >
 > 
-> diff --git a/mm/vmstat.c b/mm/vmstat.c
-> index cb57714539fb..a3e809c57f29 100644
-> --- a/mm/vmstat.c
-> +++ b/mm/vmstat.c
-> @@ -1837,6 +1837,11 @@ static void zoneinfo_show_print(struct seq_file *m, pg_data_t *pgdat,
->  		struct per_cpu_zonestat __maybe_unused *pzstats;
+> Best regards,
+> Jia Wang
 >  
->  		pcp = per_cpu_ptr(zone->per_cpu_pageset, i);
-> +		/*
-> +		 * Access to the per-cpu pageset fields is lockless as they
-> +		 * are used only for printing purposes. Use data_race to
-> +		 * avoid KCSAN warning.
-> +		 */
->  		seq_printf(m,
->  			   "\n    cpu: %i"
->  			   "\n              count:    %i"
-> @@ -1845,15 +1850,15 @@ static void zoneinfo_show_print(struct seq_file *m, pg_data_t *pgdat,
->  			   "\n              high_min: %i"
->  			   "\n              high_max: %i",
->  			   i,
-> -			   pcp->count,
-> -			   pcp->high,
-> -			   pcp->batch,
-> -			   pcp->high_min,
-> -			   pcp->high_max);
-> +			   data_race(pcp->count),
-> +			   data_race(pcp->high),
-> +			   data_race(pcp->batch),
-> +			   data_race(pcp->high_min),
-> +			   data_race(pcp->high_max));
->  #ifdef CONFIG_SMP
->  		pzstats = per_cpu_ptr(zone->per_cpu_zonestats, i);
->  		seq_printf(m, "\n  vm stats threshold: %d",
-> -				pzstats->stat_threshold);
-> +				data_race(pzstats->stat_threshold));
->  #endif
->  	}
->  	seq_printf(m,
+
+Best regards,
+Jia Wang
+
+> > > > ---
+> > > >  Documentation/devicetree/bindings/net/snps,dwmac.yaml | 1 +
+> > > >  1 file changed, 1 insertion(+)
+> > > > 
+> > > > diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> > > > index 2449311c6d28..2ed4564ae99d 100644
+> > > > --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> > > > +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> > > > @@ -119,6 +119,7 @@ properties:
+> > > >          - starfive,jh7110-dwmac
+> > > >          - tesla,fsd-ethqos
+> > > >          - thead,th1520-gmac
+> > > > +        - ultrarisc,dp1000-gmac
+> > > >  
+> > > >    reg:
+> > > >      minItems: 1
+> > > > 
+> > > > -- 
+> > > > 2.34.1
+> > > > 
+> > > > 
+> > > > 
+> > > > _______________________________________________
+> > > > linux-riscv mailing list
+> > > > linux-riscv@lists.infradead.org
+> > > > http://lists.infradead.org/mailman/listinfo/linux-riscv
+> > 
+> > 
+> 
+> 
+> 
+
 
