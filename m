@@ -1,82 +1,96 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2A8343F4A1
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:39:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B71C43F4C3;
+	Thu, 27 Aug 2026 09:40:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787823601; cv=none; b=qqj8Vso4XSeK2XZjSgpe/uc1Ab9WNRrVOS3F/mrbezBLgntJF6h10yxQEiWHvQPSgTK185tCuOIXOpfn1UpnmaQRtD47ReDTWh2PBuZSHOcRMrIOF/PgnpX/pymgyJ+8m5BG99MxWGho3V2pHJbw8oyx5RM46cSMmEyRwXPGhOM=
+	t=1787823606; cv=none; b=UR6WWS3HlmWEddpkTsHIxIR+kHnA0sIGp1T//wOWns6TxaY6h5aFqaf67MJfHKHPO4Oi/HqcgbjLOv0TlZQ+ZYJCVpACdAPdf2wVBrBjUqnzmw6scZHC/oxEC4+8DTHBBJPG8nGd9T+CChL+sM3DACqgNeyLFBpMiqEXd9aVpFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787823601; c=relaxed/simple;
-	bh=CLXuh/vcHXcEvxacKyzlkbGPnkYNV6xZf+h6lmkcAlw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=On0F70zhUsNuYr7BPCgikEfanTNAVXyKqXUa59PI+IFqq6bu3pEdGDvcYVImmdgqUZnYjpXu19P2vQzcj66WDQ6wcIqv2BCd/FcnpjozBgHphOYEhGlYOSFoCelYmUvTXgp/NZYHGFKtbct9giuqMRYZLRqPUZ1ZTsD5uRC30hk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=QquS7DEO; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="QquS7DEO"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
-	Sender:Reply-To:Content-ID:Content-Description;
-	bh=/AhnVGtj/w5D4VEBrq9xUEIQ9XIwF2qM9q6258calAE=; b=QquS7DEOLfr2xDgJbJkiGgJuH3
-	bASzvjGbJY+lMpmjgvok9V8Y0YS4KPpUWApzqgAUvi5ZM0u6tNGmhnmx9rQLuBPOXhACnrAs2mH5n
-	XD/y64P+N0ti3NI8+d5ApsjEiv1pvJtcHKe72C6V3KAnyoGIrFTFLYp5u2hbxOOYW+kQL4O5So7sv
-	mmW/1eIQgdeP5hKAWgbYjNFYIi75Y0trI+77MtWcv7CBfBE8H5Y5V1y5SbScAehHaMbf2kV6PxRwu
-	x1fxDaTUyBnJfoSlYjupmoMnQX9z15dyFZQxU1faSDjCRgr4CO/Mebkwo4s2MDDdYObUNsFJq5RUe
-	8zuua3mg==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1wzWa8-0000000CTnG-3ZFJ;
-	Thu, 27 Aug 2026 09:39:37 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 75CAA30057C; Thu, 27 Aug 2026 11:39:35 +0200 (CEST)
-Date: Thu, 27 Aug 2026 11:39:35 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Aaron Tomlin <atomlin@atomlin.com>
-Cc: mingo@redhat.com, juri.lelli@redhat.com, vincent.guittot@linaro.org,
-	paulmck@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
-	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
-	kprateek.nayak@amd.com, zhanxusheng1024@gmail.com, neelx@suse.com,
-	chjohnst@mail.com, mproche@mail.com, sean@ashe.io, steve@abita.co,
-	rishil1999@outlook.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 1/6] sched: Annotate rq->rd with __rcu and update
- lockless readers
-Message-ID: <20260827093935.GE4121339@noisy.programming.kicks-ass.net>
-References: <20260826224238.936456-1-atomlin@atomlin.com>
- <20260826224238.936456-2-atomlin@atomlin.com>
- <20260827073036.GC4121339@noisy.programming.kicks-ass.net>
- <36maob3lfrzbuktn6qii76rxdyt5bphjauc7dwg4rkmmgljqq2@j46iffegq6hd>
+	s=arc-20240116; t=1787823606; c=relaxed/simple;
+	bh=FbaErkOpi4XcPqVA81AGhRvQGMvMLd7T2zNmZjfkboc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=I6n6tM2KnuEwfWLHHr/0JpAylkpYk9jSB2tpe24PekFMOeMRyYAbEkpZOtnhTBMXyFaOU/yokWR4sQP685KRMhK/mkg/JyLBQfmNptaobqfVi1qVregtVjlOCMjgpEWFR0YKzXWjaDtegvSpbeqGkAVcKkxgIVJrmB/iNPDlhLc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 41e4d5c8a1fb11f19a56ed5b684f684d-20260827
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:640dcb19-faa6-4c45-a602-b342da94bd57,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:5d4d7d0e73630483ef795926548c25ba,BulkI
+	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50,EDM:-3|
+	-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:
+	0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 41e4d5c8a1fb11f19a56ed5b684f684d-20260827
+X-User: lilinmao@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <lilinmao@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 697264291; Thu, 27 Aug 2026 17:39:53 +0800
+From: Linmao Li <lilinmao@kylinos.cn>
+To: deller@gmx.de,
+	linux-fbdev@vger.kernel.org
+Cc: schmitzmic@gmail.com,
+	miro.kropacek@gmail.com,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Linmao Li <lilinmao@kylinos.cn>
+Subject: [PATCH] fbdev: atafb: Restrict SuperBlitter to supported formats
+Date: Thu, 27 Aug 2026 17:39:48 +0800
+Message-Id: <20260827093948.2825531-1-lilinmao@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <36maob3lfrzbuktn6qii76rxdyt5bphjauc7dwg4rkmmgljqq2@j46iffegq6hd>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Aug 27, 2026 at 05:35:44AM -0400, Aaron Tomlin wrote:
+The SuperBlitter operations derive an integer byte count per pixel.  The
+accelerated fill path handles only one-, two- and four-byte pixels.
+However, the operations are currently installed for every external
+framebuffer in SuperVidel RAM, including planar 1/2/4/8-bpp and 24-bpp
+truecolor modes accepted by the external video parser.
 
-> To solve this cleanly, I propose introducing a concise helper, for the ro=
-ot
-> domain in kernel/sched/sched.h mirroring rcu_dereference_sched_domain(p):
->=20
->     #define rcu_dereference_root_domain(p) \
->         rcu_dereference_all_check((p), lockdep_is_held(&sched_domains_mut=
-ex))
->=20
-> This covers both the update side (under sched_domains_mutex) and read-side
-> contexts (under rq_lock(), preemption-disabled, or RCU read locks) via
-> rcu_read_lock_any_held(), while keeping the call sites clean and
-> eliminating Sparse warnings.
->=20
-> Would you prefer rcu_dereference_root_domain(p)?
+For 1/2/4-bpp modes, the byte count becomes zero, so accelerated copies do
+nothing and fills fall through to 32-bit stores.  Planar 8-bpp uses an
+incompatible memory layout.  For 24-bpp modes, fills also use 32-bit stores
+despite advancing addresses by three bytes per pixel.  These cases can
+corrupt the framebuffer beyond the requested rectangle.
 
-Yeah, but I'm not sure I see the point of adding it, as it is exactly
-the same as rcu_dereference_sched_domain(). The root domains are part of
-the sched domains, so it doesn't seem wrong to me to use that existing
-one.
+Enable the SuperBlitter operations only for the layouts they implement:
+8-bpp packed pixels and 16/32-bpp truecolor.  Keep the existing software
+operations for all other external formats.
+
+Fixes: d463633d63e6 ("fbdev: atafb: Add support for SuperVidel's SuperBlitter")
+Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
+---
+ drivers/video/fbdev/atafb.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/video/fbdev/atafb.c b/drivers/video/fbdev/atafb.c
+index 5bca34c45cef3..c3011b61a94b9 100644
+--- a/drivers/video/fbdev/atafb.c
++++ b/drivers/video/fbdev/atafb.c
+@@ -3360,7 +3360,11 @@ static int __init atafb_probe(struct platform_device *pdev)
+ 		memset (screen_base, 0, external_len);
+ 
+ 		/* framebuffer in SV RAM: enable the SuperBlitter */
+-		if (external_addr >= 0xa0000000) {
++		if (external_addr >= 0xa0000000 &&
++		    ((external_pmode == FB_TYPE_PACKED_PIXELS &&
++		      external_depth == 8) ||
++		     (external_pmode == -1 &&
++		      (external_depth == 16 || external_depth == 32)))) {
+ 			svblit_regs = ioremap(SVBLIT_REGS_PHYS, 0x100);
+ 			if (svblit_regs) {
+ 				svblit_fw = svblit_rd(SVBLIT_VERSION) & 0x1ff;
+-- 
+2.25.1
+
