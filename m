@@ -1,30 +1,30 @@
 Received: from mailgw1.hygon.cn (unknown [101.204.27.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E16CE22A7F6
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:33:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C803A25B085
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:33:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.204.27.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787834018; cv=none; b=AkKIopqU7un6AHPgyUG3FTdUXlzctepxCmCbDSMSVxyed2czxLkdDO2P6D2hhuOZWWlnvwmxVLYCBLXx9YJYguekilyGvpJ9+ruUGN9KP8VbmOV1z+f4KqYHAr6Ac2tdIuZkRiBBQ259tKajxDu9OhBi3twdYODEsa91R8ebpVU=
+	t=1787834017; cv=none; b=itOfXFRweW44UlrhdgIVcrlR7eaPljwoUvAqnI663etemDzSguvc91MPh6t6YHUz5mo0eu6CpPsf8698P8yoj6LkJ4AbRRYxYixGs6gLr/nVHFE4tEg/cn54BU2XE2G3uIvCK8wBV/1V/0X+8Ckm9s24kt5+vPEIXbplyponT48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787834018; c=relaxed/simple;
-	bh=VtHDZHyAh/8z+uELiq1yDMBPgqNw2Mx46VDt9QoyJEU=;
+	s=arc-20240116; t=1787834017; c=relaxed/simple;
+	bh=hFdYaA3ii1vyF1SrC5UNn8ETxkUVvhBqAzTKcvX2c5c=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=svXbohTx8gDDZwOtPEBU/05nP2O88BzPJDGKB+8h4OX4h2Z8iwlv8g6FPEMvPeQq/7jRfRZtQtvJzWNcPMp9wRhjqGMiSuHUI9cmTD1xQatPB3ap536H/1bFiNnj5nosl95rGeHtCU9CX0QcK3GQfXRU220isTnPZrD8CHhiiKQ=
+	 MIME-Version:Content-Type; b=BFvbXqBC/AUdADtR6VT139nDebjU0yzG/gkNQ+aWR55BFhNsTK2IHx7ELdXNv97EHGme3XpUK3R5TaYgsCtUvEE8N2n0XvauxFDFY3mBBT8yjUV+XFWNLPBj1/6G/skrLPina4DPq1X8z4yDOm66TaeNpZgAfQ7EW8nPlx7KU7c=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn; spf=pass smtp.mailfrom=hygon.cn; arc=none smtp.client-ip=101.204.27.37
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
 Received: from maildlp2.hygon.cn (unknown [127.0.0.1])
-	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hW1Bx0W8wzBJb6S;
-	Thu, 27 Aug 2026 20:33:13 +0800 (CST)
+	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hW1Bt0Vx7zBJY4k;
+	Thu, 27 Aug 2026 20:33:10 +0800 (CST)
 Received: from maildlp2.hygon.cn (unknown [172.23.18.61])
-	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hW1Bw08t5zBJb63;
-	Thu, 27 Aug 2026 20:33:12 +0800 (CST)
+	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hW1Bq1hNPzBJY4k;
+	Thu, 27 Aug 2026 20:33:07 +0800 (CST)
 Received: from cncheex04.Hygon.cn (unknown [172.23.18.114])
-	by maildlp2.hygon.cn (Postfix) with ESMTPS id CAC1E36F1F84;
-	Thu, 27 Aug 2026 20:29:29 +0800 (CST)
+	by maildlp2.hygon.cn (Postfix) with ESMTPS id 0AA7B36F1F84;
+	Thu, 27 Aug 2026 20:29:25 +0800 (CST)
 Received: from jianyong.hygon.cn (172.19.20.52) by cncheex04.Hygon.cn
  (172.23.18.114) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Thu, 27 Aug
- 2026 20:33:10 +0800
+ 2026 20:33:05 +0800
 From: Jianyong Wu <wujianyong@hygon.cn>
 To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
 	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
@@ -39,9 +39,9 @@ CC: Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt
 	<linux-mm@kvack.org>, <wujianyong@hygon.cn>, <jianyong.wu@outlook.com>,
 	<zhongyuan@hygon.cn>, <huangsj@hygon.cn>, <wangfengyu@hygon.cn>,
 	<yingzhiwei@hygon.cn>, <justin.he@arm.com>
-Subject: [RFC PATCH v2 04/23] sched/topology: Introduce a method to calculate the llc distance
-Date: Thu, 27 Aug 2026 20:27:57 +0800
-Message-ID: <20260827122816.756234-5-wujianyong@hygon.cn>
+Subject: [RFC PATCH v2 02/23] sched/topology: Introduce a NUMA distance matrix with unique distance values
+Date: Thu, 27 Aug 2026 20:27:55 +0800
+Message-ID: <20260827122816.756234-3-wujianyong@hygon.cn>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260827122816.756234-1-wujianyong@hygon.cn>
 References: <20260827122816.756234-1-wujianyong@hygon.cn>
@@ -56,184 +56,350 @@ Content-Type: text/plain
 X-ClientProxiedBy: cncheex05.Hygon.cn (172.23.18.115) To cncheex04.Hygon.cn
  (172.23.18.114)
 
-The previous patch addresses NUMA inter-node distance handling. This
-patch shifts focus to the LLC layer and introduces a scheme to compute
-pairwise distances between sibling LLCs inside one NUMA node.
-The calculation only guarantees distinct distance values for all peers
-when viewed from a single reference LLC; it does not enforce globally
-unique distances for every arbitrary LLC pair on the node.
+Builds a refined node distance matrix based on the raw NUMA distance matrix
+provided by BIOS. The refined matrix preserves the relative ordering of
+NUMA distances, while assigning distinct distance values to node pairs that
+originally shared identical distances within each matrix row. This matrix
+is exclusively used for cache-aware scheduling and has no impact on existing
+NUMA topology logic such as sched domain construction.
 
-One valid calculation scheme is defined by the formula below:
+For example, consider a system with 4 NUMA nodes. The raw BIOS-provided
+distance matrix may look like this:
 
-  dist(LLC1, LLC2) = (rank1 + rank2) % k + 1
+        NODE0  NODE1  NODE2  NODE3
+NODE0   10     20     20     30
+NODE1   20     10     20     25
+NODE2   20     20     10     20
+NODE3   30     25     20     10
 
-Constraints: LLC1 and LLC2 must reside on the identical NUMA node.
-rank1 = local index of LLC1 within its node; rank2 follows the same rule.
-k = total count of LLCs available on the node.
+Multiple duplicate distance values exist within each row. After the
+deduplication step, the refined distance matrix becomes:
 
-The formula never yields zero, so diagonal self-distance entries are
-explicitly hardcoded to 0.
+        NODE0  NODE1  NODE2  NODE3
+NODE0   10     15     20     30
+NODE1   15     10     12     25
+NODE2   20     12     10     15
+NODE3   30     25     15     10
 
-For demonstration, consider a NUMA node with four LLCs (local ranks 0~3):
-        LLC0    LLC1    LLC2    LLC3
-LLC0    0       2       3       4
-LLC1    2       0       4       1
-LLC2    3       4       0       2
-LLC3    4       1       2       0
+All entries in each row are now unique, while adhering to two core principles:
+1. The relative distance ordering from the original matrix is preserved.
+   For instance, original distance(NODE0, NODE1) < distance(NODE0, NODE3),
+   and this relative relationship is retained in the refined matrix as well.
+2. The matrix remains symmetric across its main diagonal. Maintaining
+   symmetry is critical to guarantee consistent pairwise node distances.
 
-Sorting each matrix row in ascending order generates a unique LLC affinity
-sequence, which drives thread migration policies implemented in follow-up
-patches.
+Each row of this refined NUMA distance matrix is sorted in ascending order to
+generate a unique per-node affinity sequence. This sequence will guide
+thread migration logic introduced in subsequent patches.
 
 Signed-off-by: Jianyong Wu <wujianyong@hygon.cn>
 ---
- include/linux/topology.h |  1 +
- kernel/sched/topology.c  | 99 ++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 100 insertions(+)
+ include/linux/topology.h |   1 +
+ kernel/sched/topology.c  | 243 ++++++++++++++++++++++++++++++++++++++-
+ 2 files changed, 240 insertions(+), 4 deletions(-)
 
 diff --git a/include/linux/topology.h b/include/linux/topology.h
-index e01bc9ae6209..fe20ee9dc153 100644
+index 9967739a180c..e01bc9ae6209 100644
 --- a/include/linux/topology.h
 +++ b/include/linux/topology.h
-@@ -180,6 +180,7 @@ static inline int cpu_to_mem(int cpu)
+@@ -179,6 +179,7 @@ static inline int cpu_to_mem(int cpu)
+ 
  #ifdef CONFIG_SCHED_CACHE
  int llc_to_node(int llc);
- int sched_cache_node_distance(int node0, int node1);
-+int llc_intra_node_distance(int llc1, int llc2, int node);
++int sched_cache_node_distance(int node0, int node1);
  #endif
  
  #if defined(topology_die_id) && defined(topology_die_cpumask)
 diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
-index 166ff4e65a99..a47ed44f7b1f 100644
+index c6928c6b17b6..4c68dfe86019 100644
 --- a/kernel/sched/topology.c
 +++ b/kernel/sched/topology.c
-@@ -702,6 +702,21 @@ static int __rcu *sched_cache_node_dist_matrix;
- static int sched_cache_node_dist_size;
- static void rebuild_node_distance_matrix(int size);
- static void rebuild_node_order(int size);
-+
+@@ -685,9 +685,22 @@ DEFINE_PER_CPU(struct sched_domain __rcu *, sd_asym_cpucapacity);
+ DEFINE_STATIC_KEY_FALSE(sched_asym_cpucapacity);
+ DEFINE_STATIC_KEY_FALSE(sched_cluster_active);
+ 
++#ifdef CONFIG_NUMA
 +/*
-+ * Per-LLC rank within its own node (0-based) plus each node's LLC
-+ * count, used by llc_intra_node_distance() to derive a same-node LLC
-+ * distance.
++ * The de-duplicated NUMA distance tiers. Defined here, rather than next to
++ * the rest of the NUMA topology state further down, because the cache aware
++ * code below has to reach them as well.
 + */
-+struct llc_local_rank_topology {
-+	int nr_llc;
-+	int nr_node;
-+	int *rank;		/* [nr_llc]: LLC's 0-based rank within its node */
-+	int *node_count;	/* [nr_node]: number of LLCs in the node */
-+};
++static int			sched_numa_node_levels;
++static int			*sched_numa_node_distance;
++#endif
 +
-+static struct llc_local_rank_topology __rcu *llc_local_rank_topo;
-+static void rebuild_llc_local_rank(int size);
+ #ifdef CONFIG_SCHED_CACHE
+ static int __rcu *llc_to_node_map;
+ static void rebuild_llc_node_map(int size);
++static int __rcu *sched_cache_node_dist_matrix;
++static int sched_cache_node_dist_size;
++static void rebuild_node_distance_matrix(int size);
  #endif
  
  static void update_top_cache_domain(int cpu)
-@@ -921,6 +936,39 @@ int sched_cache_node_distance(int node0, int node1)
- 	return node_distance(node0, node1);
+@@ -875,6 +888,38 @@ int llc_to_node(int llc)
+ 	return node;
  }
  
 +/*
-+ * LLC distance restricted to same-node pairs, derived from each LLC's
-+ * rank within its node (llc_local_rank_topo)
-+ * dist = (rank1 + rank2) % k + 1, where k is the LLC count of
-+ * the shared node. Except that @llc1 equals @llc2, the distance is 0.
-+ * This formuler ensure that there is no identical distance between a
-+ * certain llc with any of its sibling llcs in the same node.
-+ *
-+ * NOTE: It's the caller's responsibility to check if llc1 and llc2 are
-+ * in the same node.
++ * De-duplicated NUMA-node distance, looked up from
++ * sched_cache_node_dist_matrix[]. Unlike node_distance(), no two nodes
++ * seen from the same node compare equal, while every relative ordering
++ * of the original node_distance() values (e.g. node_distance(a,b) >
++ * node_distance(a,c)) is preserved. Falls back to the raw
++ * node_distance() if the matrix has not been built yet (e.g. very
++ * early boot, before the first rebuild_node_distance_matrix() call).
 + */
-+int llc_intra_node_distance(int llc1, int llc2, int node)
++int sched_cache_node_distance(int node0, int node1)
 +{
-+	struct llc_local_rank_topology *topo;
-+	int rank1, rank2, k;
++	int *matrix;
++	int size;
++	int dist = -1;
 +
-+	if (llc1 == llc2)
++	if (node0 == node1)
 +		return 0;
 +
 +	rcu_read_lock();
-+	topo = rcu_dereference(llc_local_rank_topo);
-+	if (!topo || llc1 >= topo->nr_llc || llc2 >= topo->nr_llc || node < 0) {
-+		rcu_read_unlock();
-+		return -1;
-+	}
-+	rank1 = topo->rank[llc1];
-+	rank2 = topo->rank[llc2];
-+	k = topo->node_count[node];
++	matrix = rcu_dereference(sched_cache_node_dist_matrix);
++	size = READ_ONCE(sched_cache_node_dist_size);
++	if (matrix && node0 >= 0 && node0 < size
++		   && node1 >= 0 && node1 < size)
++		dist = matrix[node0 * size + node1];
 +	rcu_read_unlock();
 +
-+	return (rank1 + rank2) % k + 1;
++	if (dist >= 0)
++		return dist;
++
++	return node_distance(node0, node1);
 +}
 +
  static void rebuild_llc_node_map(int size)
  {
  	int *new_map, *old_map;
-@@ -1263,6 +1311,56 @@ int sched_node_order_at(int cpu, int idx)
- 	return topo->order[root * topo->nr_node + idx];
+@@ -911,6 +956,197 @@ static void rebuild_llc_node_map(int size)
+ 	kfree(old_map);
  }
  
-+static void free_llc_local_rank_topology(struct llc_local_rank_topology *topo)
-+{
-+	if (!topo)
-+		return;
-+
-+	kfree(topo->rank);
-+	kfree(topo->node_count);
-+	kfree(topo);
-+}
-+
 +/*
-+ * Compute each LLC's rank within its own node (ascending llc id) and
-+ * each node's LLC count, consumed by llc_intra_node_distance() to
-+ * derive a same-node LLC distance on the fly.
++ * Build a de-duplicated NUMA-node distance matrix using a tiering +
++ * greedy edge-coloring technique, applied directly to node pairs.
++ * Reuses the already sorted, de-duplicated distance tier list
++ * (sched_numa_node_distance[]/sched_numa_node_levels).
++ *
++ * Guarantees, compared to the raw node_distance() table:
++ *   - still symmetric;
++ *   - every relative ordering between two node_distance() values is
++ *     preserved (if node_distance(a,b) > node_distance(a,c) then
++ *     sched_cache_node_distance(a,b) > sched_cache_node_distance(a,c),
++ *     and likewise for equal/less-than);
++ *   - looked at from any single node, the distances to every other
++ *     node are pairwise distinct (this is the property the raw table
++ *     can violate, e.g. two nodes genuinely equidistant from a third).
 + */
-+static void rebuild_llc_local_rank(int size)
++static void rebuild_node_distance_matrix(int size)
 +{
-+	struct llc_local_rank_topology *topo, *old;
-+	int llc, node;
++	int *matrix = NULL, *old_matrix;
++	int *tier_dist = NULL;
++	int *tier_ncolors = NULL;
++	int nr_tiers = 0;
++	unsigned long **used_colors = NULL;
++	int i, j, t;
++	int scale;
 +
 +	if (size <= 0)
 +		return;
 +
-+	topo = kzalloc_obj(*topo);
-+	if (!topo)
-+		return;
++#ifdef CONFIG_NUMA
++	nr_tiers = READ_ONCE(sched_numa_node_levels);
++	if (nr_tiers > 0) {
++		tier_dist = kmalloc_array(nr_tiers, sizeof(int), GFP_KERNEL);
++		if (tier_dist) {
++			int *d;
 +
-+	topo->nr_llc = size;
-+	topo->nr_node = nr_node_ids;
-+	topo->rank = kcalloc(size, sizeof(int), GFP_KERNEL);
-+	topo->node_count = kcalloc(nr_node_ids, sizeof(int), GFP_KERNEL);
-+	if (!topo->rank || !topo->node_count) {
-+		free_llc_local_rank_topology(topo);
-+		return;
++			rcu_read_lock();
++			d = rcu_dereference(sched_numa_node_distance);
++			if (d)
++				memcpy(tier_dist, d, nr_tiers * sizeof(int));
++			else
++				nr_tiers = 0;
++			rcu_read_unlock();
++		} else {
++			nr_tiers = 0;
++		}
++
++		if (!nr_tiers) {
++			kfree(tier_dist);
++			tier_dist = NULL;
++		}
++	}
++#endif
++
++	matrix = kcalloc(size * size, sizeof(int), GFP_KERNEL);
++	if (!matrix)
++		goto out;
++
++	if (!tier_dist) {
++		/*
++		 * NUMA distance tiers not available yet (e.g. very early
++		 * boot or a non-NUMA build): fall back to the raw
++		 * node_distance() table, same as sched_cache_node_distance()
++		 * would have returned anyway.
++		 */
++		for (i = 0; i < size; i++) {
++			for (j = 0; j < size; j++) {
++				if (i == j)
++					continue;
++				matrix[i * size + j] = node_distance(i, j);
++			}
++		}
++		goto commit;
 +	}
 +
-+	for (llc = 0; llc < size; llc++) {
-+		node = llc_to_node(llc);
-+		if (node < 0 || node >= nr_node_ids)
-+			continue;
-+		topo->rank[llc] = topo->node_count[node]++;
++	tier_ncolors = kcalloc(nr_tiers, sizeof(*tier_ncolors), GFP_KERNEL);
++	if (!tier_ncolors)
++		goto out;
++
++	used_colors = kcalloc(size, sizeof(*used_colors), GFP_KERNEL);
++	if (!used_colors)
++		goto out;
++	for (i = 0; i < size; i++) {
++		used_colors[i] = bitmap_zalloc(size, GFP_KERNEL);
++		if (!used_colors[i])
++			goto out;
 +	}
 +
-+	old = rcu_dereference_protected(llc_local_rank_topo,
-+					 lockdep_is_held(&sched_domains_mutex));
-+	rcu_assign_pointer(llc_local_rank_topo, topo);
++	/* Greedy edge-color each tier; pack (tier, color) into matrix[]. */
++	for (t = 0; t < nr_tiers; t++) {
++		int dist = tier_dist[t];
++		int tier_max_color = 0;
++
++		for (i = 0; i < size; i++)
++			bitmap_zero(used_colors[i], size);
++
++		for (i = 0; i < size; i++) {
++			for (j = i + 1; j < size; j++) {
++				int color;
++
++				if (node_distance(i, j) != dist)
++					continue;
++
++				/* smallest color free at both endpoints */
++				color = 0;
++				for (;;) {
++					color = find_next_zero_bit(used_colors[i], size, color);
++					if (WARN_ONCE(color >= size,
++						      "sched_cache: no free color left in NUMA tier (node=%d)",
++						      i)) {
++						color = size - 1;
++						break;
++					}
++					if (!test_bit(color, used_colors[j]))
++						break;
++					color++;
++				}
++
++				set_bit(color, used_colors[i]);
++				set_bit(color, used_colors[j]);
++				if (color + 1 > tier_max_color)
++					tier_max_color = color + 1;
++
++				matrix[i * size + j] = t * (size + 1) + color;
++				matrix[j * size + i] = matrix[i * size + j];
++			}
++		}
++		tier_ncolors[t] = tier_max_color;
++	}
++
++	/*
++	 * Pick the smallest integer scale such that every tier's
++	 * span of increments (0..tier_ncolors[t]-1) still fits strictly
++	 * inside the gap to the next distinct tier once scaled.
++	 */
++	scale = 1;
++	for (;;) {
++		bool need_more = false;
++
++		for (t = 0; t < nr_tiers - 1; t++) {
++			int gap;
++
++			if (tier_ncolors[t] <= 1)
++				continue;
++			gap = tier_dist[t + 1] - tier_dist[t];
++			if (tier_ncolors[t] - 1 >= gap * scale) {
++				need_more = true;
++				break;
++			}
++		}
++		if (!need_more)
++			break;
++		if (++scale > 1000) {
++			scale = 1000;
++			break;
++		}
++	}
++
++	/* Unpack (tier, color) into the final, close-to-original value. */
++	for (i = 0; i < size; i++) {
++		for (j = 0; j < size; j++) {
++			int packed, t2, color;
++
++			if (i == j)
++				continue;
++
++			packed = matrix[i * size + j];
++			t2 = packed / (size + 1);
++			color = packed % (size + 1);
++			matrix[i * size + j] = tier_dist[t2] * scale + color;
++		}
++	}
++
++commit:
++	old_matrix = rcu_dereference_protected(sched_cache_node_dist_matrix, true);
++	sched_cache_node_dist_size = size;
++	rcu_assign_pointer(sched_cache_node_dist_matrix, matrix);
 +	synchronize_rcu();
-+	free_llc_local_rank_topology(old);
++	kfree(old_matrix);
++	matrix = NULL;
++out:
++	if (used_colors) {
++		for (i = 0; i < size; i++)
++			bitmap_free(used_colors[i]);
++		kfree(used_colors);
++	}
++	kfree(tier_ncolors);
++	kfree(tier_dist);
++	kfree(matrix);
 +}
 +
  /*
   * Get the effective LLC size in bytes that @cpu's bottom sched_domain
   * can use. A CPU within a cpuset partition can only use a proportion
-@@ -1335,6 +1433,7 @@ static bool alloc_sd_llc(const struct cpumask *cpu_map,
+@@ -981,6 +1217,7 @@ static bool alloc_sd_llc(const struct cpumask *cpu_map,
+ 	}
+ 
  	rebuild_llc_node_map(max_lid + 1);
- 	rebuild_node_distance_matrix(nr_node_ids);
- 	rebuild_node_order(nr_node_ids);
-+	rebuild_llc_local_rank(max_lid + 1);
++	rebuild_node_distance_matrix(nr_node_ids);
  	return true;
  err:
  	for_each_cpu(i, cpu_map) {
+@@ -1949,15 +2186,13 @@ enum numa_topology_type sched_numa_topology_type;
+ 
+ /*
+  * sched_domains_numa_distance is derived from sched_numa_node_distance
+- * and provides a simplified view of NUMA distances used specifically
+- * for building NUMA scheduling domains.
++ * (defined near the top of this file) and provides a simplified view of
++ * NUMA distances used specifically for building NUMA scheduling domains.
+  */
+ static int			sched_domains_numa_levels;
+-static int			sched_numa_node_levels;
+ 
+ int				sched_max_numa_distance;
+ static int			*sched_domains_numa_distance;
+-static int			*sched_numa_node_distance;
+ static struct cpumask		***sched_domains_numa_masks;
+ #endif /* CONFIG_NUMA */
+ 
 -- 
 2.34.1
 
