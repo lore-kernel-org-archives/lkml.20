@@ -1,179 +1,69 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3605B392C46
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:39:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41C7B3914ED;
+	Thu, 27 Aug 2026 20:40:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787863197; cv=none; b=sbdbY1RsZWU0WLXDBcJtx9fvAvKIPwj2K8UNU2lR2kdKUjYgLclC6nFgsr2eaNPsxX/0tnztaEtMqZb6CJmU6IV4ANKVHDqBREOeBn9HvwxlStH/La99KqcFHDl7guPLyVdeL7n98LNHO9fDDzFgWMsHkXqE1oD4N+8vEP7iF/4=
+	t=1787863212; cv=none; b=qvKDH2rAnpyGZKBXn+2ds+lOaIXeJXGnuEGJ+PxE6fvkhqcmVAZbeSC+gocd/wSfAHroyl7ph2ByPf+Xtf9xu95mephFr5ARwChHX5n/pUig5lmTWLHecWtL7FjuxTm+SPTJcAW21icVWpuygjjpBQmvP2Pk/8vEgEFMbP8CW4M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787863197; c=relaxed/simple;
-	bh=/vNPwhkmLtCiGk6PhShTSyEnp/kNV/OOoJOfRAtZ5IY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mDun693pjjPPALrHa7ZJmAG4twQuVhHPJ5OHTF+Zu8V0g2f3Nb5VIbPYe75AEjwLUZyhklBkWtkI0HMCE/FHcJXWMnq6gtpa41nQMUAn/WMRU12hGQm6C7g65S1fUMbJFCvXPRO6ThYe2oIzCwlmMAvwcAEbW5d3uWSSX5fBdhU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dLizQTPv; arc=none smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787863212; c=relaxed/simple;
+	bh=gJYAIMEVJz+yW04sHbC+x6poPPKdkOrpT40M7nAfvO0=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=gKnl+UE5pz9lUbO1fc111g3yMBnuHMHf2cV9wPeiaxOTVOm1CPWtr0zD/3MrQ7ysL2xSMkgg4MXu7BQyumHMccC4Eyf0dBltK6KkEJ3LhdtdqRGgxBhe8npPO3dY6R78M2uDPbCxRv+F2Q+ZwVbql/SmXvTqALs7nlwE6W1ZTyM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hDIx0HST; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dLizQTPv"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-480001972b8so144245f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:39:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787863187; x=1788467987; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/vNPwhkmLtCiGk6PhShTSyEnp/kNV/OOoJOfRAtZ5IY=;
-        b=dLizQTPvZ4KhTWe+uxt4RgwP8RN7sKAbOihi7TyB5EVQFRpGcri5kkS/JFzumEbXCQ
-         NIQgXVaI4zW/KrV84TfGs2af1THBt+YXG8aA43WyFlnzPveVbd30q3HpERflxo2GpcdT
-         KQIK/I0ePYbTJos5HW7zvfK/BOk0g6vpjS3bapI+szQpkcPrHSG0cOFco2t6V4naWQKn
-         ZngIITy3SmGws0le4nHJKwGbmkWHCOSggT7BYD4p/o9YdA+coQj3UI55iIiQcsNpyhSW
-         SWq6D+kYLvA+MpMRE9a28F9F4UgMcVIsE7p+dZYjuZlBINqGCy+Ms6j7T2/o6YkHDZNY
-         ZItA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787863187; x=1788467987;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/vNPwhkmLtCiGk6PhShTSyEnp/kNV/OOoJOfRAtZ5IY=;
-        b=DDjXyyiOGbvy6C+Y7FNmr5ryCftOuc+9bWHthNeagSX8mQ5deatjHULUaVhtj7BucW
-         S5T6+9YU//HCU6wbFxlXVawXUIyxOObTwiKFBVeSiwMnq8pm1czba60QOD66rg5za5a9
-         nuL4U6eQIoOLy7l8Fm+ZgPQ4bPYkIDhNp/jObY2sqMaWLloLdmAbD3+pXHbTciSdZvon
-         fL8cxgNKTUqFYCIhhuGW3zo9exCNWHrk2ZmWDqAG3KaX5y/7nP758I9waqSmmKPcfeOj
-         BouIwlPsorO/P44g7lDM2iTjQ60RRZIBbMO+MBuFTzq7zZzOa8UARguwTSxL38WlkZyh
-         xZuQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpEm6xUl8mUq5BJAfdrCBHXMgEZWgkMG7jbMT7RBoFXbpNwChPpUrZBjpqcifPkVyoReYKgSICVwNsnP/4=@vger.kernel.org
-X-Gm-Message-State: AFuF++ni+T26vhOXZgNs/eIzebX2gg4MyLwo/TpYoEHwm8W2vki+nuix
-	WE2X/abpQz2afuK8NoeB4vMCdEznDZs9nedsnGNg3w9AMI5jBIk9ZR9aeYyt/Gv6
-X-Gm-Gg: AR+sD11dju/k0MtcRm42/8GZ2BaULEcB8ciMixNlkRk8A7kdblmE2+tZCtkFtuDg1Xm
-	55Li9t1w36QkQjOBWEeudRFo6O/bZDtN6vveoIoDtWnhq0zI//MMTCxwkhL2xvO/eZCrz/ktkEf
-	EQT/gmPjTY39knJiMV0KV7t6f4DpW3tpAtGRqzzOI/nLTa5fO2/WuhT7rk79Xt6uwNMzNcQe5C2
-	VJ2xJZQjedKj47o/njIqbNrJ0Y9GtccK9VyYdBExz1OLDWGQCjhu89WPsMdXxbdN3eDGs5b9Caw
-	9pxLIy0IuPc+0Xw2N77lKVoBxqogsQRdBNkLxYS/eCMoIlg9ntop7TQLt6RBtSDfU5sNwZf0UTe
-	IKDlszEARVkenpS2QVPNGVm9QJu/Wxtz7ANiiJXTGcgKq+2+qTkxsc8tOuFjL8+k75jPuJZWZRc
-	u5sw/9iY2ibRQNIQUw0XQitsTjmD8tmWezAveWgiaIpHxuwfOJ1FBmtOIqHm0=
-X-Received: by 2002:a05:6000:24c6:b0:47f:4919:d5b2 with SMTP id ffacd0b85a97d-482f79870bemr1673162f8f.1.1787863186967;
-        Thu, 27 Aug 2026 13:39:46 -0700 (PDT)
-Received: from m2.. ([37.142.156.156])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-482e28dc10asm12012065f8f.19.2026.08.27.13.39.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 13:39:46 -0700 (PDT)
-From: Michael Zaidman <michael.zaidman@gmail.com>
-To: linusw@kernel.org
-Cc: jikos@kernel.org,
-	bentiss@kernel.org,
-	brgl@kernel.org,
-	germain.hebert@ca.abb.com,
-	rio@r26.me,
-	brunoceg1@gmail.com,
-	contact@christina-quast.de,
-	linux-input@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 03/13] HID: ft260: add GPIO support on top of UART
-Date: Thu, 27 Aug 2026 23:39:33 +0300
-Message-ID: <20260827203933.16726-1-michael.zaidman@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <CAD++jLm3ZK-=AYCVJHMt=x3_G26CsXZhOVj4E7na1e9JK0busg@mail.gmail.com>
-References: <CAD++jLm3ZK-=AYCVJHMt=x3_G26CsXZhOVj4E7na1e9JK0busg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hDIx0HST"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA2CD1F000E9;
+	Thu, 27 Aug 2026 20:40:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787863205;
+	bh=gJYAIMEVJz+yW04sHbC+x6poPPKdkOrpT40M7nAfvO0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=hDIx0HSTZn5+n8AyY8RtGNrP0jx08HYrijnX172FcdXu1N9kIsX5vmfZ30QdR1XOR
+	 aeA/ndyYcWs5VYTfuKOlMayCm7+5wZ2fhN3X8bAgpDpnANvl6r6GpBJXwEuI0TaWDg
+	 h8H+wQiGmXAZUP69YJW8e+4zZcdVgkLunwJq3/Z/MqllXgsgYLJ9Cc2Xz40t1eH/VY
+	 CA96NPrWkXW2xQ5xt8f/fPGTUS7wBlMmhKDfUOUt6mD0EMh/YTz4l0OpFAzas7EBxS
+	 i2pVI+OeLWGYdRcK1k6uqv3lnGk0lD4aliurLbMQYOTkCTK2T2JPz8G552qS7Okrqb
+	 c03mohZFs6ZsA==
+Date: Thu, 27 Aug 2026 13:40:04 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net, Eric Dumazet
+ <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Russell King
+ <linux@armlinux.org.uk>, Heiner Kallweit <hkallweit1@gmail.com>, Alexis
+ =?UTF-8?B?TG90aG9yw6k=?= <alexis.lothore@bootlin.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Emil Renner Berthing <kernel@esmil.dk>,
+ Minda Chen <minda.chen@starfivetech.com>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, Jerome
+ Brunet <jbrunet@baylibre.com>, Martin Blumenstingl
+ <martin.blumenstingl@googlemail.com>, Jan Petrous
+ <jan.petrous@oss.nxp.com>, Ovidiu Panait <ovidiu.panait.rb@renesas.com>,
+ Jose.Abreu@synopsys.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, thomas.petazzoni@bootlin.com,
+ linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [PATCH net 0/6] net: stmmac: More selftest related fixes
+Message-ID: <20260827134004.45ffb57e@kernel.org>
+In-Reply-To: <5ad6cfc0-94df-4528-b2af-8a190c1eee7a@bootlin.com>
+References: <20260826140500.616466-1-maxime.chevallier@bootlin.com>
+	<20260827105312.34f58822@kernel.org>
+	<5ad6cfc0-94df-4528-b2af-8a190c1eee7a@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue, 25 Aug 2026 at 09:44 +0200, Linus Walleij wrote:
-> It seems this patch title should just be
-> "HID: ft260: add GPIO support"
-> the "on top of UART" part seems to be more about
-> which order you did the patches and that is about
-> development process, not technical content, we don't
-> put that into Subject.
+On Thu, 27 Aug 2026 22:16:18 +0200 Maxime Chevallier wrote:
+> The main thing AI points points about the UC filter is "but won't we hit UC
+> promisc sooner ?" and the answer is yes absolutely, but it's the right thing
+> to do.
 
-Will drop that from the subject in v2.
-
-> You probably want:
->
-> #include <linus/bits.h>
-
-<linux/bits.h>. I'll switch the pin constants to #define + BIT()
-and the group masks to #defines.
-
-> So 6 GPIOs is "max" and then there are extended GPIOs and then there is
-> a new max which is 8?
->
-> #define FT260_BASE_GPIOS 6
-> #define FT260_EXTENDED_GPIOS 8
-
-Agreed, the names are misleading. FT260_GPIO_MAX and
-FT260_GPIO_EX_MAX are counts of the two GPIO groups the chip
-exposes, not bit indices: 6 pins named GPIO0-5 and 8 named
-GPIOA-H. v2 will use FT260_BASE_GPIOS and FT260_EXTENDED_GPIOS.
-
-One distinction worth making, since it explains the bit numbers
-you suggested. The GPIO report (0xB0) carries the two groups
-in separate bytes: GPIO0-5 values and directions in bits 0-5 of
-one byte pair, GPIOA-H values and directions in bits 0-7 of the
-next pair. So in the report GPIOA is bit 0.
-
-The FT260_GPIO_* masks are not report bits. They are the
-gpiochip offset space, where the two groups are concatenated
-into one 14-line chip: GPIO0-5 at offsets 0-5, GPIOA-H at
-offsets 6-13. There GPIOA is BIT(6) and GPIOB is BIT(7), so
-I'll write them as explicit BIT() with the group named:
-
-#define FT260_GPIO_EXT_A BIT(6)
-#define FT260_GPIO_EXT_B BIT(7)
-
-> What about just:
->
-> #define FT260_GPIO_MASK GENMASK(FT260_GPIO_TOTAL, 0)
-
-Yes, that mask is over the 14 gpiochip offsets, and GENMASK is
-clearer than the shift. It needs to stop at the top offset:
-
-#define FT260_GPIO_MASK GENMASK(FT260_GPIO_TOTAL - 1, 0)
-
-which is the 0x3fff the current expression produces.
-GENMASK(FT260_GPIO_TOTAL, 0) would add bit 14.
-
-> Is this *really* an enum? I feel an enum should be something like
-> consecutive or sparse integer ranges.
-> What about just using #define for those.
->
-> Use #defines for all of this as well.
-
-Will do.
-
-> So instead of creating your own cache of all registers,
-> have you considered just using regmap for this?
-> Regmap is essentially a register cache.
-
-There is no register space for regmap to model. 0xB0
-is one 4-byte feature report, a value byte and a direction byte
-per GPIO group, reached with hid_hw_raw_request(). The mux that
-decides which of those bits are GPIO at all is in a different
-report, 0xA1, with an unrelated layout.
-
-> This looks like names you could have already assigned
-> in the UART patch and then the diff would be less noisy.
-
-v2 will put the UART_ infix in the serial patch, as in my
-other mail.
-
-> Linux has bitmap manipulation functions in
-> <linus/bitmap.h>, use these instead of reinventing the wheel.
-
-gpio_en is "GPIO enabled": a mask of which of the 14 lines are
-muxed to GPIO at all, derived from chip_mode and uart_mode, not
-pin state. The setters only OR and mask it, and the only readers
-test one line before touching the pin. That is a u16 flag word,
-and the bitmap helpers work on unsigned long arrays, so I'd keep
-the u16 and use BIT(offset) in those tests instead of 1 << offset.
-I can convert it to DECLARE_BITMAP() if you prefer.
-
-Thanks,
-Michael
+Indeed, that false-positive one was very disappointing to see :/
+High severity when it's obviously the intent of the patch.
+Or maybe the AI knows something we don't know :D
