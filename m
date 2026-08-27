@@ -1,146 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82BAA46AA66
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 15:58:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1529E485CED;
+	Thu, 27 Aug 2026 16:00:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787846311; cv=none; b=oVchhDCYmOQzBuwicqWeXtgITM+D+RclhjNvImQ0C7TKAkCOgTY3SkPTJyhSI20llc+lZfcNX27rLCRSamdjsQhXVmkpVYRigwnWkdsr1vHbm685OQyZshvYBmIQhuiW/4nySRDS3QYumaisWYTTUIjKD9xbnu5mBsz8d28+IR8=
+	t=1787846407; cv=none; b=S56GJMfPoaVCOnhiQ+widyeVusA9qIQHBJdlnYkL+fg8zPW0HyH5F6LqyeQyTJiJREMQ30FBcWMtWFSL4ZtJPLFAIjsjmu5dG6AzvAEcdZA57ee1fumQjZ4/9hyKxkN+GjCMruAW8uPIf7u360CKN4wo0EGNWnMK/sVP6x+eCLk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787846311; c=relaxed/simple;
-	bh=x+CidgyEZgLbOnDWrIDXuBVefxOYNynTzPZVXIEtujE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EbRzfqkJOkg++gy2UUVtzme9rvkm5M7A6qdjG7PqVefqISrupI/bEB6Mgzlctujf5QFRgiaNUGzqIc8PK0QiYEFrPU+MtmaSDgorHTozSH5ddShKscDmbHQxMnvGksa9DYObFbm4PvWNyYU7qCD1MmsiivFlvY3AsGkNmTTXccI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IuvYdEUG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787846407; c=relaxed/simple;
+	bh=XCoK9x2tTWApdyAMdxVvZji81rq0oOOPaF/iNZZ6XZo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FRm3euYQsBvzVzXN5W9et/yOtO7nISL3Sa16hezZDmfR8DUoOWxUElOLSWG0+PREGBkZKNUAoPZ0+f3nC35+1YOysw2J7JXad0Jc24E/W3EFdabKzDY2yhXdZ7GA/8is3rDfPuJAW3akRHQWdRY6Pth+kp+WbihMUJ7Zo8lsLXk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=nA6pQY+5; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IuvYdEUG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3416C1F000E9;
-	Thu, 27 Aug 2026 15:58:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787846309;
-	bh=j6F1CmlViOZAv7ScdpKDj4KMGRJno7AOUlTrCO7k1xM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=IuvYdEUGfFZHsjDqrO3R3icx/zIgT8pMZ/kZa56FxwIxStQoFO0r0hSM8mLtTLCyN
-	 pqcjwK8SZHPICdndkn/dK6o8R9vpsFIfZUAnDvCgJpHDWNZixYX0GeRYWhxRVn0zid
-	 iROWgn+A45NWlds4wpAF6a+T6snS0vCp+WgsaOPqutp1FhQtn4ngXacsbFhEV8yRUw
-	 mT4UAAoRbw+p0YJMOZDOdIMNVrGILItRwJcAEdjziG8XqKl8HmI1Ft95TH/9j36qLB
-	 a1ucmi/HX0RRUUma2nTGd+VPWyQdBmbjAvMrzbZnwFRrpsQrpNjKkFHB+TutE0S4jy
-	 fpOmavz6Zq98A==
-Message-ID: <8acccec9-acd7-48e4-a461-0a3e706466c8@kernel.org>
-Date: Thu, 27 Aug 2026 17:58:20 +0200
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="nA6pQY+5"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67RF53N73355214;
+	Thu, 27 Aug 2026 16:00:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=yvt3cWl97vF1q64PQl3PVkdFXTLVhQ
+	M6q5sXf5SFUGI=; b=nA6pQY+5i/+bPFVlP60SzvSYpipuFYPk8dR2nfY+mEItWw
+	6nR/nO+I50MzsejZbcn1A/93xHLYphQ1cqcq8mSCAQz9tBnxI5sb7G/Yz/XRGfD5
+	7PELZJqgF3BjWHEeElawURcCjSbHHMqWbAobISJSN03tw0rf5eSUdlvXMm4jKgxe
+	YbsuYUuU8X20W9GCIcvEPAyD0PAPx7IVpm90AhcXi24Q0AdOK2zwoIhjqlfb7FD9
+	/QftR5Lmb7xVhNN/zADVSlK0/XoAjRWh9xHellgT2NOXfGfnu+amlfZxtWXWlQYb
+	TIfhoO1f/1Sd1h76JYCO7Gn+m9ey08LCc/xLuleg==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g73g56g99-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 27 Aug 2026 16:00:05 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67RFuGpG006223;
+	Thu, 27 Aug 2026 16:00:04 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4g7qkhgv04-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 27 Aug 2026 16:00:04 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67RFxv4645875608
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 27 Aug 2026 15:59:57 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 261D920043;
+	Thu, 27 Aug 2026 15:59:57 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id CAFA620040;
+	Thu, 27 Aug 2026 15:59:56 +0000 (GMT)
+Received: from localhost (unknown [9.111.46.147])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Thu, 27 Aug 2026 15:59:56 +0000 (GMT)
+Date: Thu, 27 Aug 2026 17:59:55 +0200
+From: Vasily Gorbik <gor@linux.ibm.com>
+To: Heiko Carstens <hca@linux.ibm.com>
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] s390/mm: Simplify crst_table_upgrade()
+Message-ID: <ttkfr3v@ub.hpns>
+References: <20260827102832.3823857-1-hca@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 02/18] mm/huge_memory: fix rejection of swap cache
- folios with a mapping
-To: Kiryl Shutsemau <kirill@shutemov.name>, kasong@tencent.com
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
- Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
- Shivam Kalra <shivamkalra98@zohomail.in>, Kairui Song <ryncsn@gmail.com>
-References: <20260821-swap-thp-cleanup-v3-0-9b43f5163238@tencent.com>
- <20260821-swap-thp-cleanup-v3-2-9b43f5163238@tencent.com>
- <apBJ7PeX7c2dD9kk@thinkstation>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <apBJ7PeX7c2dD9kk@thinkstation>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260827102832.3823857-1-hca@linux.ibm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: wYWo4jO4m6sbXUenrtU-A7ZRUBQ5ZRnF
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDEzMSBTYWx0ZWRfXxtaryh4Jovjt
+ WFgsxV520NAP4P6A1TfrKuKzmXv4rznUHTE0VJ2wWaZjGXAi4GBKIWQ1+j+m33KJnzd+vpo4FxJ
+ U8cAmvqPLMvCDYbfTmLJwfBdJ4pKfkQ=
+X-Proofpoint-GUID: wYWo4jO4m6sbXUenrtU-A7ZRUBQ5ZRnF
+X-Authority-Analysis: v=2.4 cv=JZyMa0KV c=1 sm=1 tr=0 ts=6a905f05 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8
+ a=xYfOwqoCNa0YIOl1ljMA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDEzMSBTYWx0ZWRfX0SzfT9y8XBhP
+ 09p2LjhwkF9K2lOTxATNnXIUkz2+6oBtmbLo9q5XZbDSdbf3najHvYZMlIoJH62kb8SJ8/S+prQ
+ eq5rgKxh4yGPluFmf1AIYQp5bxdG2zc6by7yhq6KQ/5k4ppKZ7xnZ1OxpQNHA8GLCFYahovvKql
+ kXamDuJ7cFBTDMxJmj0AsVoI01msD6h3/ivcpHcP3UzrnXrTVWhHanDPgtx6KfIGXZqP/lRdlx0
+ o7NaH9qWJld5Mb4SX4r4iLuuXq3s76yXG9kj1nnH6zTj9N+gYjLEJKuCFC9f8l/946Q8UunkavS
+ IEaSSAVoQzCZtfWBresLReHPv4+bpLOfc79i8BPtA614RfKEoKVHJNinH3cwnWjAttyMxDrBiCm
+ ikzRw2jHFWgk/nl0FHWbUpWc/9Mu+bD4IgarXaUBG5ADqRwrp9fTeicmvsWLk3kRpuFyp3NAwXj
+ MTp4ac8AhFb4D/iNVLw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-27_06,2026-08-27_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 adultscore=0 priorityscore=1501 impostorscore=0
+ malwarescore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608270131
 
-On 8/27/26 16:33, Kiryl Shutsemau wrote:
-> On Fri, Aug 21, 2026 at 02:55:15AM +0800, Kairui Song via B4 Relay wrote:
->> From: Kairui Song <kasong@tencent.com>
->>
->> A folio in the swap cache cannot be split if it has a mapping (shmem).
->> The split code does a defensive check for this in
->> __folio_freeze_and_split_unmapped, after the folio ref has been frozen
->> and the NR_SHMEM_THPS/NR_FILE_THPS counters have been decremented. It
->> rejects the split and returns -EINVAL without unfreezing the folio or
->> restoring the counters. That error path is buggy: if it is ever taken,
->> it leaves the folio frozen and stuck, skews the counters, and fires
->> the VM_WARN_ON_ONCE_FOLIO for a state that is actually legitimate.
+On Thu, Aug 27, 2026 at 12:28:32PM +0200, Heiko Carstens wrote:
+> In case of an upgrade from four to five level page tables, and a failing
+> pgd allocation, the exit path of crst_table_upgrade() would incorrectly
+> dereference the p4d NULL pointer via pagetable_dtor().
 > 
-> If you are going to repost this, could you make "This error path is
-> buggy" a new paragraph?
+> Address this by reworking crst_table_upgrade(), which basically is a
+> revert of [1]. Take into account that GFP_KERNEL order-2 allocation
+> failures are very unlikely. Therefore keep the code as simple as
+> possible:
 > 
->>
->> Check for this case up front in folio_check_splittable and return
->> -EBUSY before any state is modified, so the split routine always backs
->> out cleanly.
->>
->> Also fix a bracket style issue that checkpatch.pl keeps complaining
->> about.
->>
->> Fixes: 00527733d0dc ("mm/huge_memory: add two new (not yet used) functions for folio_split()")
->> Fixes: 714b056c8321 ("mm/huge_memory: convert VM_BUG* to VM_WARN* in __folio_split")
+> In case of an upgrade from three to five levels, and an allocation
+> failure of the fifth page table level, keep the upgrade to four levels
+> instead of reverting back to three levels. This allows to keep error
+> handling minimal.
 > 
-> This is inert bug, right? I don't think we want the commit to be
-> backported. I expect stable machinery to pick it up based on Fixes.
+> [1] commit 31932757c612 ("s390/mm: optimize page table upgrade routine")
 > 
-> Is there a way to express "not stable material" while keeping Fixes: in
-> place?
-In mm, stable never picks stuff up automatically.
+> Reviewed-by: Alexander Gordeev <agordeev@linux.ibm.com>
+> Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+> ---
+>  arch/s390/mm/pgalloc.c | 89 +++++++++++++++++-------------------------
+>  1 file changed, 36 insertions(+), 53 deletions(-)
 
-it's usually best to write in the patch description why the decision was made
-that it should or should not be, stable material.
-
--- 
-Cheers,
-
-David
+Applied, thank you!
