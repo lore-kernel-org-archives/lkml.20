@@ -1,90 +1,72 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEBC536B061
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 02:27:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 886F137F337
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 02:31:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787797675; cv=none; b=RW1WJMLJPHPAn39VIYIpAuP39lrkZsrII5xDk7JdPs2eXBd6o23R4nJOQgxpsBmwgMTnUUDJf1URfkaHRVpXXvbcGkcbyi7boyCyKnMe4VAil0aemcH3VXn58UhfazrfdvmDnSDnPb/cO0znR/3BohxEz0QqRr5yCJZY5qYgUPA=
+	t=1787797866; cv=none; b=cS7WcJ/uAg0haKGlt2joYl1R3gBtWUwdrL4WsC6xz/SA6uczo2d52iV99twAnbqDdvAtRyHSmiYRijCzyj/713AL5Tf0O+v9a/UEkx9pWzQW6b/k52oe/1h/3hKKtJa6zWZARtiO7ZFihgcDbENNch7EPrqaEWEJyyWDiyTZQOQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787797675; c=relaxed/simple;
-	bh=bd1tWYCe/xw7dqGl1zLqdcu74EzhsWFOTCGYYlkv/3M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RZEc8w6crlGMy/YvisEb3Ra64S36zhyh4j5x06spfmleCA7CefPciPbwAY8hy10Sb5xDRFZINoxL+idYLQ22/V2uRhzhczoHHwxMdfxbMlnLDvPO+XXl7z53y+yBgHDbgebcKYsSQPAkYaX99f1qa9RHKmLRRfeftDwWE1fjWoA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MvcBoqau; arc=none smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MvcBoqau"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3964dfb5b9aso2230402a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 19:27:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787797673; x=1788402473; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bd1tWYCe/xw7dqGl1zLqdcu74EzhsWFOTCGYYlkv/3M=;
-        b=MvcBoqau9K0wjc1YlMLj634xM9enaV0SgI2MagRraVp3RAp8ltRbJ7IQt89X/iMi+L
-         rAzTW2ar1QPLeUhx1Seg6mM5Tgs9LkfbaQ+rlGytWjCDMbGJoCaYh7rBbiEZ/7BSAzCk
-         7QGKmEMJLPWCU7SAlCStjwqDk7nSK8eWPcTsV193yEmbKGm6AHQh6sGxxkygFX3whLAI
-         Hx228xmo6P9HtorlbF44b2eTyhopypu14Y0jw0z2eeQOwvh6PQR8vHu4gwoqA7KpSmka
-         sQc0bjF5dKJ58gPDJiERg4zkT9q0umFYJMXeUE5YUjYBZpaTWI5NpL7mBGmktyzLqRNo
-         ni0Q==
+	s=arc-20240116; t=1787797866; c=relaxed/simple;
+	bh=XP7UHR1uB+U9JRNNGR4fmIT+dzWk5dvcudlCPG65Jls=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=WQiKFrYXXb6Ax5HfuJ3LL9JFaU93Mu3ZLeasFlLt+354jzUcUsUCDPWDekrj7nwjXDF8DJ3t6C5Cor2xDDJySm/yEWGq+FhHaNbMSXzaD1mIlN2fgXgzywDVAHDip9mDKH2SP7BEw8PVwgv65plSGuY0FDABJK4tK6cMoGmfObw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-7ec6685adabso3187564a34.0
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 19:31:02 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787797673; x=1788402473;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bd1tWYCe/xw7dqGl1zLqdcu74EzhsWFOTCGYYlkv/3M=;
-        b=ZWqctcDnTkyvfwrPwC/OaBzk6GdhY683SEGLjA/5DzYbbIqzw2GUFwrvxKwh23BC+c
-         LBD0pAwjo4bT0h1YmfzIj6dJlKMGVwUFQ6wra2uBpFKda5eF+t6t6lUzsJv/+h0CDI3N
-         K4paqFUKHjJu61DmuOwh3/TDzWbaKM3jbj8QLoxgrj5+kghP1uQpLhBaYAs1VZ38dgyG
-         kalwKs8IslKfLblpYWkTgpOhNxi8wkO+DmlReagqvrKgGEFVkG+zSiiwN/ytWiz8qcbl
-         +DRtbE9P+VRbl/nx14HKxOamKWTM8EoSkHlXNC3UsK3uqOH5KgY5pxOO5HhD7ZEwG3SY
-         EPKA==
-X-Forwarded-Encrypted: i=1; AHgh+RqsMwL8uYOTGeik3QKtBwarMBLnFfSxCEkKxPryKHL6dXQoRnQXyflbyVpo4JYdQIJdPfk6fzHncZ8ipsY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kQhMOz7aRlt4mmzl42fgXdkvyRfgV0ttrRBZxESrmxuJG11G7M
-	l1ZJe7bskOPVWgVqLnAcoRHV83Tx2J0qW8+IieD5yCV8RlVIYYl/ffoB
-X-Gm-Gg: AR+sD11fjWf/cDKiA2s/tHG7EZIT6X9k6qcHPQpmHMNp+qAYyFPfH6TIWyvL61dIhWT
-	UNvrDiP8dsFwphqIpvdQkwH4Oo809Dpz6OQfvdKsp0YtaLJSU9ttu9Xr67v7HhWofXCJpyyfeLk
-	SSbtjqRYJhnXk4eHKlWOHrxmII4GkVbiabOUBMrhGlP84mzW65u8eXFxTCmYTYMrXA+kCEpbTTG
-	+nXIXNnA1y5+goEWGaNmCjU5Wg/9qtxbcHGNV1Iv4MBBtEewi8yQuNdbGWVkR0vuJmW0vd2coPd
-	uNvoOO1gYqtMn2PyKA7jT92GaG2U5LK230qcuaEjwMyJOVtrWUaCdtb55BAbnil4AA2tc3gC/hF
-	CiwchFMfxQ49bnquzdM0hJN1naXzehNw1LbiYqz7jVd5/OQi4E5SqIyX2MwyWGZxrZjaPVLSGNO
-	jBSnvLeorsopMPkM05MyMa4KCrYyzK3gt3COqxlFgUkjIF7JyOZKxfXYFzPNi+cxZiXddwQRbAv
-	EI1dKuCQ8WTAnaq+VjDPj5a
-X-Received: by 2002:a17:90b:4c8e:b0:396:65dd:4093 with SMTP id 98e67ed59e1d1-3966d44daf1mr18399533a91.14.1787797673055;
-        Wed, 26 Aug 2026 19:27:53 -0700 (PDT)
-Received: from qiwenjie-ThinkCentre-M760t.mioffice.cn ([43.224.245.241])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b0ea80edsm671454a91.1.2026.08.26.19.27.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 19:27:52 -0700 (PDT)
-From: Wenjie Qi <qwjhust@gmail.com>
-X-Google-Original-From: Wenjie Qi <qiwenjie@xiaomi.com>
-To: daeho43@gmail.com
-Cc: daehojeong@google.com,
-	jaegeuk@kernel.org,
-	chao@kernel.org,
-	linux-f2fs-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	kernel-team@android.com,
-	qiwenjie@xiaomi.com,
-	qwjhust@gmail.com
-Subject: Re: [PATCH v2] f2fs: support resizable tail section and unify pinned allocation
-Date: Thu, 27 Aug 2026 10:27:45 +0800
-Message-ID: <20260827022745.4184511-1-qiwenjie@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260826153644.3726384-1-daeho43@gmail.com>
-References: <20260826153644.3726384-1-daeho43@gmail.com>
+        d=1e100.net; s=20251104; t=1787797861; x=1788402661;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=OKPu9SGHutG01yRBrH86cocuujKUKiiWLDZmPGFX6bE=;
+        b=mkwtCs1nx/DFzkloErKrJqGAnEjKSE7Lc5ivxfV4435V5d024iP5wIT6zU4chGCevA
+         DYPHRyIboAQQwqUq5KEG+YRTiEGeX0p0d0OICSUaYtu82zBI/F1ceaUOatp/JiPWwkjY
+         2hFUfhnwtAVFNUBN2F3fp6pT3V86R9/JvLh1Rc+DoUHSgLO9H2SNAho2RtP5nbN41esF
+         TpWIGIOHP/TMD4w6oxAJy8g7ZsQfyGc+vj+4KYWybmE+JON0jpKAnNOHW7dEcBJ+edKR
+         MgUh7DUL6/1aR2eme2mWtQ1/cEWHSmWCT1a7wE4AhEQl261nobl9kn7qzT/7Cwyjqp5K
+         Y0SA==
+X-Forwarded-Encrypted: i=1; AHgh+RpubQxjmrHI5WDkXV3aFC74k0A55oLYGSeg95Qm1VaYDlalUjYn2f8fV8dlAO7fGZXf39c6Bljx2xdnvxs=@vger.kernel.org
+X-Gm-Message-State: AFuF++ngTKg6H8mnoeqDqy6vc7OYAz5aRxBx7VhjyUMSlzwTvUl/LEyq
+	hRczQxS6Mi1ExpzSjWgWBjX2uSodXwB6Mthun6plF++K6GVJ7xjltdsQMl7xg9MefJ7WdpczRFI
+	FGwHoyUNL+Qrqz5fuAxoI3S668v/CFMxFkN7vQm4xhmkPbJY3tsRQzL9Qr2E=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6820:4ccc:b0:6b1:4fa4:76c5 with SMTP id
+ 006d021491bc7-6b1a035972cmr11997044eaf.4.1787797861678; Wed, 26 Aug 2026
+ 19:31:01 -0700 (PDT)
+Date: Wed, 26 Aug 2026 19:31:01 -0700
+In-Reply-To: <20260827004601.134804-1-eadavis@sina.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a8fa165.27659fcc.2ceef7.000b.GAE@google.com>
+Subject: Re: [syzbot] [usb?] KASAN: slab-use-after-free Read in stub_rx_loop
+From: syzbot <syzbot+06fa667a0931a3430026@syzkaller.appspotmail.com>
+To: eadavis@sina.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Reviewed-by: Wenjie Qi <qiwenjie@xiaomi.com>
+Hello,
 
-Thanks,
-Wenjie
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+
+Reported-by: syzbot+06fa667a0931a3430026@syzkaller.appspotmail.com
+Tested-by: syzbot+06fa667a0931a3430026@syzkaller.appspotmail.com
+
+Tested on:
+
+commit:         818bebeb drm/xe: Don't hand out the flat CCS storage a..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=10268579580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
+dashboard link: https://syzkaller.appspot.com/bug?extid=06fa667a0931a3430026
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=1420b415580000
+
+Note: testing is done by a robot and is best-effort only.
