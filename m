@@ -1,99 +1,129 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F4463B6344;
-	Thu, 27 Aug 2026 08:04:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BCD53B9617;
+	Thu, 27 Aug 2026 08:04:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787817863; cv=none; b=A5SkkjBh4vgf7ckLtMiqm1bszLk1Q2EJ+G+/B7JdqDe2F82e93GY2AdYY5qZc9gUoCStf/j8W/0dfnIp9dOP8BMMphlBv1QTeO60m1tb2Iqrp8SH7HYwrx4TDPpbTKBtc+kwI5VUQg30STY6N2DSiNRyJWTusOiwBsL5uBl7pQ0=
+	t=1787817867; cv=none; b=t1lh55Hq/R2xGyf8t75GEVsR7pMz/9XlCtTn5sCdoBrzBVb75bGiTLGq7K7CYoXtVMpnv1223ZG7qmEWP4HeZw+5vJetrTann4Wu1ixd8bjz6U5T/at7ulr1ntSF7oh3ZmPX6pP12xEF/1FuJIbLw9r6ttylGH2AGPk85BBzxAI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787817863; c=relaxed/simple;
-	bh=ef5P4NbGxhl4+Uk1F0KDET9+Ox/yvMBq5hL20NFEXW0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=dVQ6Fc3q4JwBxLNQsGmwEifDdXX1Kn0LOxx3OZiVL8aB6ouo34da1zsYhWSYpcpJgIpu2ySmDbVqTwIVE9hpuXVMguAFmUz5dDXsQrwpP1fSbfcQ6ZmEC8UnOKj9pH8vB2ImIYrRIarEF1eeBKiZeQ7neckhIifyGuqTfgzFmSk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=IclEnoYL; arc=none smtp.client-ip=117.135.210.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="IclEnoYL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=11
-	Gtp5Lb3rQoJvuk/TZT1JfLzY2fuTvHNx2t9ky+IIQ=; b=IclEnoYLn3LzHMnA+5
-	ATZ/rAs3S4xWlMqJmklkgfalYLDIjzF3DsdDkJklqo3WMalPQvQfFHbJ+oJkrw32
-	Y19O/bgforKyYx6rBV7T8N7cS26gMmkTxViC+CBtjLKAUtpgFphijeNjwrq/UzsS
-	zf3HFeMcO+iScuKpbiokOt7Ds=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgD3_wxe749qoz9pPQ--.29344S3;
-	Thu, 27 Aug 2026 16:03:44 +0800 (CST)
-From: ghuicao@163.com
-To: Song Liu <song@kernel.org>
-Cc: Yu Kuai <yukuai@fygo.io>,
-	Li Nan <magiclinan@didiglobal.com>,
-	Xiao Ni <xiao@kernel.org>,
-	linux-raid@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Cao Guanghui <caoguanghui@kylinos.cn>
-Subject: [PATCH v4 2/2] md/raid5: fix NULL pointer dereference in raid5_free_percpu
-Date: Thu, 27 Aug 2026 16:03:41 +0800
-Message-Id: <20260827080341.112296-2-ghuicao@163.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260827080341.112296-1-ghuicao@163.com>
-References: <20260827063235.85375-1-ghuicao@163.com>
- <20260827080341.112296-1-ghuicao@163.com>
+	s=arc-20240116; t=1787817867; c=relaxed/simple;
+	bh=SNyRT5rxQCCe6lGK+DFiDOerNMLATPQpc/CAw0TIWBU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=vDpq37WTosnJxhR355OGyDpob1E+d+0+kOJWoBH6coydrT3TxRoU5ezxys2OW2ctlZMjnSdDN08aHo4sRWnhz8wV4Q8aEaBzcc11mJz7Wt1k+ybscBX6bdaqEfwO8vFeOlYJSzYSKaUljjXbvq7wl+KO7/utxwpG7Zv7kww8kb0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 13989202200;
+	Thu, 27 Aug 2026 10:04:12 +0200 (CEST)
+Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=ratatoskr.pengutronix.de)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <s.trumtrar@pengutronix.de>)
+	id 1wzV5n-003ZJW-32;
+	Thu, 27 Aug 2026 10:04:12 +0200
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+To: Conor Dooley <conor@kernel.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,  "David S. Miller"
+ <davem@davemloft.net>,  Eric Dumazet <edumazet@google.com>,  Jakub
+ Kicinski <kuba@kernel.org>,  Paolo Abeni <pabeni@redhat.com>,  Rob Herring
+ <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor
+ Dooley <conor+dt@kernel.org>,  Andrew Davis <afd@ti.com>,  Andrew Lunn
+ <andrew@lunn.ch>,  Heiner Kallweit <hkallweit1@gmail.com>,  Russell King
+ <linux@armlinux.org.uk>,  netdev@vger.kernel.org,
+  devicetree@vger.kernel.org,  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] dt-bindings: dp83867: add binding for
+ output-impedance
+In-Reply-To: <20260826-salutary-skype-524c69932dc2@spud> (Conor Dooley's
+	message of "Wed, 26 Aug 2026 17:01:26 +0100")
+References: <20260826-v7-2-topic-dp83867-v2-0-a97b4cec6e93@pengutronix.de>
+	<20260826-v7-2-topic-dp83867-v2-2-a97b4cec6e93@pengutronix.de>
+	<20260826-salutary-skype-524c69932dc2@spud>
+User-Agent: mu4e 1.14.3; emacs 30.2
+Date: Thu, 27 Aug 2026 10:04:07 +0200
+Message-ID: <87ik4wgfbc.fsf@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgD3_wxe749qoz9pPQ--.29344S3
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ury7Kr1xuFWrZw1fKF48WFg_yoW8Ww4xpw
-	4DJr4Yg3s5AanYk3s2vw4UuF15XwsrGrW8Aas3Ww4rZFs5ZrnFywsxZFW8uFy8AFZaqayx
-	J3s8XrnxJa1DtaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j5AwxUUUUU=
-X-CM-SenderInfo: 5jkxxuldr6il2tof0z/xtbC4ACSJWqP72CvhwAA3V
+Content-Type: multipart/signed; boundary="=-=-=";
+	micalg=pgp-sha512; protocol="application/pgp-signature"
 
-From: Cao Guanghui <caoguanghui@kylinos.cn>
+--=-=-=
+Content-Type: text/plain; format=flowed
 
-If cpuhp_state_add_instance() fails in raid5_alloc_percpu() (e.g., the
-startup callback raid456_cpu_up_prepare fails due to an allocation
-failure), conf->node is never added to the cpuhp instance list and
-its pprev remains NULL (from kzalloc initialization).
+On 2026-08-26 at 17:01 +01, Conor Dooley <conor@kernel.org> wrote:
 
-When setup_conf() then jumps to abort, free_conf() calls
-raid5_free_percpu(), which checks conf->percpu (non-NULL, since it was
-allocated before the cpuhp failure) and proceeds to call
-cpuhp_state_remove_instance().  This calls hlist_del() on the unhashed
-node, which dereferences node->pprev (NULL), causing a kernel panic.
+> On Wed, Aug 26, 2026 at 02:48:40PM +0200, Steffen Trumtrar wrote:
+> > Currently, the output-impedance can only be set to default, minimum or
+> > maximum or via a nvmem cell.
+> > In cases where there is no backend for a nvmem cell, a value can not be
+> > set.
+> > 
+> > Add a DT binding, 'ti,output-impedance-ohms', for specifying the
+> > output-impedance via a fixed value. The existing boolean values for
+> > minimum and maximum still take precedence over the new value.
+> > 
+> > Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+> > ---
+> >  Documentation/devicetree/bindings/net/ti,dp83867.yaml | 16 ++++++++++++++++
+> >  1 file changed, 16 insertions(+)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/net/ti,dp83867.yaml b/Documentation/devicetree/bindings/net/ti,dp83867.yaml
+> > index 7a6fe516bab27..49fafe3ce6f47 100644
+> > --- a/Documentation/devicetree/bindings/net/ti,dp83867.yaml
+> > +++ b/Documentation/devicetree/bindings/net/ti,dp83867.yaml
+> > @@ -38,6 +38,16 @@ properties:
+> >      items:
+> >        - const: io_impedance_ctrl
+> >  
+> > +  ti,output-impedance-ohms:
+> > +    description: |
+> > +      MAC Interface Impedance control to set the programmable output impedance.
+> > +      Valid range is 0x00 to 0x1f (32 steps).
+> > +      - 0x1f = 35 ohms (minimum impedance)
+> > +      - 0x00 = 70 ohms (maximum impedance)
+> > +      - Step size varies with process.
+> > +    minimum: 0
+> > +    maximum: 31
+> 
+> Your property is named in ohms, but not implemented in ohms.
 
-Guard the removal with hlist_unhashed_lockless() so that the cpuhp
-instance is only removed if it was actually added.  The lockless variant
-uses READ_ONCE() for the pprev read, which is safe here because the
-actual removal is synchronized by cpuhp_state_mutex inside
-cpuhp_state_remove_instance().
+So without the -ohms?
 
-Fixes: 29c6d1bbd7a2 ("md/raid5: Convert to hotplug state machine")
-Cc: stable@vger.kernel.org
-Signed-off-by: Cao Guanghui <caoguanghui@kylinos.cn>
----
- drivers/md/raid5.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+> pw-bot: changes-requested
+> 
+> Can't you just achieve the same result using the existing max property?
 
-diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
---- a/drivers/md/raid5.c
-+++ b/drivers/md/raid5.c
-@@ -7539,7 +7539,8 @@ static void raid5_free_percpu(struct r5conf *conf)
- {
- 	if (!conf->percpu)
- 		return;
- 
--	cpuhp_state_remove_instance(CPUHP_MD_RAID5_PREPARE, &conf->node);
-+	if (!hlist_unhashed_lockless(&conf->node))
-+		cpuhp_state_remove_instance(CPUHP_MD_RAID5_PREPARE, &conf->node);
- 	free_percpu(conf->percpu);
- }
+The max property is a boolean which just says "use 70ohms".
+
+> I don't get the use case where you specify a max, but then don't want to
+> use that max. Just set the max to what you actually want?
+
+That's why I added the exclusion in the binding, because having nvmem-cells and/or any of the other output-impedance bindings doesn't make any sense.
+
+Best regards,
+Steffen
+
 -- 
-2.34.1
+Pengutronix e.K.                | Dipl.-Inform. Steffen Trumtrar |
+Steuerwalder Str. 21            | https://www.pengutronix.de/    |
+31137 Hildesheim, Germany       | Phone: +49-5121-206917-0       |
+Amtsgericht Hildesheim, HRA 2686| Fax:   +49-5121-206917-5555    |
 
+--=-=-=
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJAEARYKADgWIQQkoXgOFUjwSVmWFAoavSByCl5WIgUCao/vdxoccy50cnVtdHJh
+ckBwZW5ndXRyb25peC5kZQAKCRAavSByCl5WItC/AQD1VMwEkHhE52B58HmnCX+b
+wCkD46VgGZCu2CgbHn2j2wEA8NSy176kK7DWYdHnOtnWGgxAiFb0WzEbthvpscfI
+/Ak=
+=VG6h
+-----END PGP SIGNATURE-----
+--=-=-=--
