@@ -1,157 +1,111 @@
-Received: from bg-bec.cloudflare-smtp.org (bg-bec.cloudflare-smtp.org [104.30.16.142])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1280A369208
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 01:24:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=104.30.16.142
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB33A36494B
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 01:24:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787793862; cv=none; b=iPoUr6p/6yFJ7wOw35y/xCBe1ak1EW8yyBtFV+3fmB+houKY6KP4N6fkVkMF/MqhmaxNionr5pHKspdwwfM3J0lLcCLAB5v6eYvldGUiVR4GWmHtTaUj3Evy7o03VygOv63CvsgwF2eewL7LRSHXymQCZgrcOTMXVosmA4/3NaE=
+	t=1787793865; cv=none; b=VkwsUCodb0Qobiyxle6y1a7nmd4C2rqTrHaZwnomfIpEJHqBOSLffGJaG2Dy9hhqKIL6CMFJR6kYtYOMjgAFusHUvs9mb+ROMJoDuz7R59NcpSLXtsHGeWjmxhxNpfs31wOR9QrR1kQetNZ1taLrw1UOh+SZEINC9ot3jM+vdfQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787793862; c=relaxed/simple;
-	bh=n5MyuTScv6wA5T78EY70uekJ0jWe3IYyMcz1KjEJrPo=;
-	h=From:Message-ID:Date:Subject:To:MIME-Version:Content-Type; b=lT3mLC70oEc4j8XM57ZmDVVobRhUVecMrFZU7HVswMrVCGvoeQzSCW+HY+yP/hwFhR2EuuBS8bZEAtJJ7ZFZFAKm+guqr0kDxfuN6qooVNfh1qB79Bn5B9a4Zm6zG3fMDaZyhSaw7hScQ+moumNnAig0R6CB46xJI1yGRyFhnwM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh; spf=pass smtp.mailfrom=cf-bounce.bugs.sh; dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b=bZUOIyRd; dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b=dQMwgbPO; arc=none smtp.client-ip=104.30.16.142
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cf-bounce.bugs.sh
+	s=arc-20240116; t=1787793865; c=relaxed/simple;
+	bh=PQaF2XYCw0UqjA7wFgy6Ma0exqCO9jPfwIWCMzyga1E=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=owV+HupTcnabmd/QzR3avDezRNgqIODXRgBTNSgq+VEWrHMhK2AsLcOY4oWORZTVzkHhuSP9AOaFLKdBHxvP0BrQiY3igR9/VtTUrUQ8lL8toE5fVpvoIuGLNLF19eL8sleRzwFiZ81ogMcwsE95mLnHaFepOnwhK1GNYLwhT8g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hNzUrhEs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b="bZUOIyRd";
-	dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b="dQMwgbPO"
-DKIM-Signature: v=1; a=rsa-sha256; s=cf2024-1; d=cloudflare-smtp.org; c=relaxed/relaxed;
-	h=To:Subject:Date:From:Feedback-ID:from:reply-to:cc:resent-date
-	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
-	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
-	:list-owner:list-archive; t=1787793860; x=1788398660; bh=R8agjWfYY2oYlUhImh
-	VsejiTu0JFw9qNn6R1p25lThc=; b=bZUOIyRdyQvRRoGy3MwDbXcIez4fu5S56kcZQlQGvpO8C
-	bJIuaLE3OCs2JrOjFI4/easzNv4iaTJq4Lob3xuYz6KrRXsf22Ys/39ChcDnMJ9yF5keKmo1Aug
-	HXAppH+lGZ0mqkqtfwZOJYkhnNL51lsU/Q6JfOggzudEW+wHFONSQPI/dozwuXY41ogImXOiwZj
-	baqkuKyThzIJ4j16o4k5LiCyWfiVrIvicfn2gSgiT4m8rkGxytT6MtawfhLJrKjHINH2mkDu+1F
-	wiqQ0KOx3mhQtNOaH65y/DDSVzSvENB1TT7lTHEti+TXLMzui0RMpTyqqWCkatg09OVdf/VQ==;
-DKIM-Signature: v=1; a=rsa-sha256; s=cf-bounce; d=bugs.sh; c=relaxed/relaxed;
-	h=To:Subject:Date:From:Feedback-ID:from:reply-to:cc:resent-date
-	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
-	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
-	:list-owner:list-archive; t=1787793860; x=1788398660; bh=R8agjWfYY2oYlUhImh
-	VsejiTu0JFw9qNn6R1p25lThc=; b=dQMwgbPOyRALSaTON8TeS5s83VmsItG9QyNxmSNLcrg//
-	JkOzqQhndA+uT29QQSVyfOfV3rjCffyn+HOy3NUN8KG/qCD4EV0vgVApXbpUVpju1lwaYmZ4FlA
-	Ts1RfixI2g5szk58duHX9UpGIFdsvZRKpepQs8Aw3bZc8DQ526gtxnHZVmeLoRNblQLTjJ6Dtxu
-	uenWSZF4AeS5nkbo1jUjjrfU7G5gExmDS4m8bGr6rom89JnLWh3F0CbKA/gLVqkq9W0ai59Sft6
-	8AYM+UdfEYFrFQJoeMt8ktZDlWGGWrJkwnxn3kEfhcwmI6VdDMXwkJzDkZ7rQoUuUx0Pg1Xg==;
-Feedback-ID: bugs.sh:5:6:Cloudflare
-From: co <co+36935f8953d6874a@bugs.sh>
-Message-ID: <s6BRFbJoyNpjUBu6NC9TdJxvXM9vpQsN1FcY@bugs.sh>
-Date: Thu, 27 Aug 2026 01:24:09 +0000
-Subject: [BUG] net/mac80211: use-after-free in ieee80211_remove_link_keys()
-To: linux-wireless@vger.kernel.org, "Johannes Berg" <johannes@sipsolutions.net>, "Ilan
- Peer" <ilan.peer@intel.com>, linux-kernel@vger.kernel.org
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hNzUrhEs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 773F91F00A3F
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 01:24:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787793863;
+	bh=PQaF2XYCw0UqjA7wFgy6Ma0exqCO9jPfwIWCMzyga1E=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=hNzUrhEshXc26SmGiGBHoB439gJYfw9HCnrwOSDQlFVDUMjwa4I+PLxuhBt+9iSF+
+	 Dv1Kk19HGzwkwbSDu1bG0vbrk/At5f1VsiqDa1knU5ewaPyN8BiBoz0SeUSMzur4yP
+	 63K1dwnahsY8v5dHhYlCdmcKGjV3GYFW36zUHAWJygq/lztFerRcauPelQ5i24j9hY
+	 8zJTbm0tTb5rLf+oCNVlMLYseNOCm4pA9sMUrb/CmYRIEs4tZxT9vZ1SMO/FheF6GQ
+	 tNl/1djzxxU8ncUshFmOQ9mOGKvuaQYmvtOqq4wjF8xdiXB55KaZhEuzvvt3r/VpMK
+	 /a9zuwSl6ZKUw==
+Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-52f9e79ed93so6764791cf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 18:24:23 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rro2vUkB6ezSGOkeuXHon32gVS1bLAG42TSzB0hHfxNf2R0NfgQGY1kd0qLpi4kmf23hwVSTnvUj0q57Tw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nvWi4Noz1nyJ2b5znPaFkT4jWKjpPbYxd/FJboeaVH+J0e1LSC
+	fdWRnggbQPEvhXQ57k4Y6jIVv0glwuimi3rKfDOpCCGPYy0+0U2MFomD29qSRzuIxZ3oLgfeWyf
+	bWLIcQUiwIyPSJCIhotGZLgFJAaS7kKU=
+X-Received: by 2002:a05:622a:5144:b0:52d:6096:b398 with SMTP id
+ d75a77b69052e-52e423193c5mr121277711cf.10.1787793862520; Wed, 26 Aug 2026
+ 18:24:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <20260821102538.22642-1-baohua@kernel.org> <20260821102538.22642-4-baohua@kernel.org>
+ <ao6qTTtk2xkkeKob@fedora> <CAGsJ_4ywk7mA1xfk=emtqby1UAwFsaH9PChmk2TuZoDKrMzuXw@mail.gmail.com>
+ <ao-I8rYv_G5j4wz4@MiWiFi-R3L-srv>
+In-Reply-To: <ao-I8rYv_G5j4wz4@MiWiFi-R3L-srv>
+From: Barry Song <baohua@kernel.org>
+Date: Thu, 27 Aug 2026 09:24:11 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4zoXvyXG6-qAH+=nv6V92w_U_tk78YAPKMihRniqvTe8A@mail.gmail.com>
+X-Gm-Features: AcwNN1WjsBANY_EUTzkF7Ra3M4p0_sIYtGKnM5C4G_HdYSDH8YFZQRvcUca6J2M
+Message-ID: <CAGsJ_4zoXvyXG6-qAH+=nv6V92w_U_tk78YAPKMihRniqvTe8A@mail.gmail.com>
+Subject: Re: [PATCH 3/6] mm/mglru: enhance cold/hot inversion handling in inc_min_seq()
+To: Baoquan He <baoquan.he@linux.dev>
+Cc: akpm@linux-foundation.org, linux-mm@kvack.org, axelrasmussen@google.com, 
+	baolin.wang@linux.alibaba.com, chenridong@xiaomi.com, david@kernel.org, 
+	hannes@cmpxchg.org, kasong@tencent.com, lianux.mm@gmail.com, 
+	linux-kernel@vger.kernel.org, ljs@kernel.org, lyugaofei@xiaomi.com, 
+	mhocko@kernel.org, qi.zheng@linux.dev, shakeel.butt@linux.dev, 
+	stevensd@chromium.org, wangzicheng@honor.com, weixugc@google.com, 
+	yuanchu@google.com, zhangbo56@xiaomi.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-We found a bug reachable in:
+On Thu, Aug 27, 2026 at 8:46=E2=80=AFAM Baoquan He <baoquan.he@linux.dev> w=
+rote:
+>
+> On 08/27/26 at 05:43am, Barry Song wrote:
+> > On Wed, Aug 26, 2026 at 4:56=E2=80=AFPM Baoquan He <baoquan.he@linux.de=
+v> wrote:
+> > >
+> > > On 08/21/26 at 06:25pm, Barry Song (Xiaomi) wrote:
+> > > > During aging, a folio's generation may already have been updated by
+> > > > folio_update_gen(), even though it has not yet been moved to the
+> > > > corresponding generation list. Such folios are hotter than those
+> > > > already in that generation.
+> > > >
+> > > > It makes sense for inc_min_seq() to increment the generation of
+> > > > folios that were never promoted during aging and move them to the
+> > > > tail of the new oldest generation. However, folios that were alread=
+y
+> > > > promoted should instead be moved to the head of their updated
+> > > > generation, just as sort_folio() does in scan_folios().
+> > >
+> > > While sort_folio() move protected folio to the head of next gen too.
+> > > It only moves ineligible folios to the tail of next gen.
+> > >
+> >
+> > Hi Baoquan,
+> >
+> > Thanks for the review! I=E2=80=99m not quite sure I understand what you=
+ mean :-)
+> > Could you please clarify what you=E2=80=99re suggesting?
+>
+> Sorry for the confusion, Barry. I meant this is a good one, and
+> sort_folio() has the similar issue in which the protected folios are
+> moved to the head, wondering if that need be adjusted too. One consistent
+> rule for both is better.
 
-    path    net/mac80211
-    crash   use-after-free in ieee80211_remove_link_keys()
-    commit  53d3c6ddbb97 ("Linux 6.12.62")
+I think it might be fine for sort_folio() to move protected folios to the
+head, since those folios have either been accessed multiple times or have
+reached a tier higher than tier_idx. They are sort of hot in theory, right?
 
-Config, environment, the sanitizer report and a C reproducer follow.
+if (tier > tier_idx || refs + workingset =3D=3D BIT(LRU_REFS_WIDTH) + 1)
 
-=3D=3D Notes =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-    If you patch the bug based on our artifacts, a tag would be
-    appreciated:
+But for inc_min_seq(), it is just catching up to make sure the newest
+generation doesn't overlap with the oldest generation. Those non-promoted
+folios themselves aren't hot , so I feel these are actually different?
 
-Reported-by: co+36935f8953d6874a@bugs.sh
-
-    Everything in this mail is validated by the reproducer below.
-
-    We also hold an LLM-generated root-cause analysis and a candidate
-    patch. The patch passes an A/B test: the same reproducer panics the
-    unpatched kernel and runs clean on the patched one. Neither has had
-    human review, so both still require validation before you send or
-    apply them. Available on:
-
-        patch.diff  https://bugs.sh/b/36935f8953d6874a/patch.diff
-        report.md   https://bugs.sh/b/36935f8953d6874a/report.md
-
-    This is an open science project. The code and the full set of PoCs
-    are not public at this moment, as we intend to disclose our findings
-    in an ethical way.
-
-    Happy to test patches. Complaints and suggestions about our work
-    are welcome at:
-
-        cedalion@bugs.sh
-
-=3D=3D Environment =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-    Reproduced on  53d3c6ddbb97 ("Linux 6.12.62")
-    VM setup       https://bugs.sh/b/36935f8953d6874a/run.sh
-    config         https://bugs.sh/b/36935f8953d6874a/config.gz
-    poc            https://bugs.sh/b/36935f8953d6874a/repro.c
-
-=3D=3D Sanitizer Report =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-BUG: KASAN: slab-use-after-free in ieee80211_remove_link_keys (net/mac80211=
-/key.c:1114)
-Read of size 8 at addr ffff888028c3c818 by task exploit/5192
-CPU: 1 UID: 65534 PID: 5192 Comm: exploit Not tainted 6.12.62 #3
-Call Trace:
-dump_stack_lvl (lib/dump_stack.c:123)
-print_report (mm/kasan/report.c:378 mm/kasan/report.c:481)
-kasan_report (mm/kasan/report.c:596)
-ieee80211_remove_link_keys (net/mac80211/key.c:1114)
-ieee80211_vif_update_links (net/mac80211/link.c:192 net/mac80211/link.c:351)
-ieee80211_vif_set_links (net/mac80211/link.c:408)
-cfg80211_remove_link (arch/x86/include/asm/jump_label.h:27 include/linux/ju=
-mp_label.h:207 net/wireless/trace.h:425 net/wireless/rdev-ops.h:1460 net/wi=
-reless/util.c:2894)
-nl80211_remove_link (net/wireless/nl80211.c:16312)
-genl_family_rcv_msg_doit (net/netlink/genetlink.c:1117)
-genl_rcv_msg (net/netlink/genetlink.c:1195 net/netlink/genetlink.c:1210)
-netlink_rcv_skb (net/netlink/af_netlink.c:2546)
-genl_rcv (net/netlink/genetlink.c:1220)
-netlink_unicast (net/netlink/af_netlink.c:1314 net/netlink/af_netlink.c:133=
-9)
-netlink_sendmsg (net/netlink/af_netlink.c:1889)
-__sys_sendto (net/socket.c:729 (discriminator 1) net/socket.c:744 (discrimi=
-nator 1) net/socket.c:2214 (discriminator 1))
-__x64_sys_sendto (net/socket.c:2222)
-do_syscall_64 (arch/x86/entry/common.c:52 (discriminator 1) arch/x86/entry/=
-common.c:83 (discriminator 1))
-entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:130)
-Allocated by task 5192:
-Freed by task 5192:
-The buggy address belongs to the object at ffff888028c3c800
-which belongs to the cache kmalloc-1k of size 1024
-The buggy address is located 24 bytes inside of
-freed 1024-byte region [ffff888028c3c800, ffff888028c3cc00)
-The buggy address belongs to the physical page:
-Kernel panic - not syncing: KASAN: panic_on_warn set ...
-
-
----
-The report format is based on syzbot bug report.
-
-This report is generated by a bot. It may contain errors.
-See https://github.com/n132/cedalion for more information.
-
-For any issue with this report, reach out to cedalion@bugs.sh
-
-If the report is already addressed, let us know by replying with:
-#co fix: <commit hash>
-
-If the report is a duplicate of another one, reply with:
-#co dup: <lore link>
-
-If you want to undo deduplication, reply with:
-#co undup
-
-
+Best Regards
+Barry
