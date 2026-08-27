@@ -1,265 +1,354 @@
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB8A3412BE4;
-	Thu, 27 Aug 2026 09:26:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABF633F2118;
+	Thu, 27 Aug 2026 09:26:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787822794; cv=none; b=WvXBzv8t25MIqBRLtW6wROPCAPIVKj8U5hfFjVu1AIPuzeXtxbHXFcYX0u+y96nnK7Ckp2r900UFpjQXugllyTeSydcdbJNYopG/k6iBGhuZJSUU1YXdzoWnw/XliEKxZXvozWSQm8SHWL7FB1xdTnv8SuVlyymRO54FF2rZb84=
+	t=1787822814; cv=none; b=XAQGSJYDSzlPPQznk1oHFa0q+iKnw0IKYGCVFWEm/IZ45SG1JFkhB+/kcawMhgwEPgzVei+Gqh88h1mUcilpevOZ2Y4/XUCfQMYVP88RXzRhhtM1PgJYl8ZtPFUQazOtvNOO1A2NtZG3k77LU404VOf07Y3p8Txig7A7oF8XcuU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787822794; c=relaxed/simple;
-	bh=EUFsHtZRsv0ddmvm4C7650wWkHpkskwQBbetolaW+yY=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=nZBUT8U40w3qoZUP0i9J3c4x51WfCESuktq0jpc+2mpBxKMJXXT2ZTMXVWOQ2sNzcbpWJab24CINPMVM6/+YFNsRvIRcbdHpCDq6KQmsASBcqNkphDjR7xZmHgYam7SF+TBjnRfRJ+cmQOrkqhgPfDBDyir9QX/Zt3kpkFayJnk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=rJ2Iecz1; arc=none smtp.client-ip=60.244.123.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	s=arc-20240116; t=1787822814; c=relaxed/simple;
+	bh=jLzvZjqDnxlyZd2/yg5KilJ6gkcPsBkyU3U//aFt+Z0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=d9qriEQnd9BK583qzArjHSl34D+fbztDFkF9GH4PMBaaaU7uskg76ESkb7nTvw6RGIkilBzlxbg5Ij1rFH/d0mly7F9TNj10M0Vx2l4wmpenopSzH6tQujj5O0XxseMlGsZHTcTkimkdFivF9pDsu9iL9D0szGLERLjJTW7D1iA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZWY6CLF4; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="rJ2Iecz1"
-X-UUID: 5d45039ea1f911f1b1788b6acf885367-20260827
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From; bh=+/4zG/rocKpdtGp5a19MvF6vR/w5a841RTKI8Ud0lAA=;
-	b=rJ2Iecz1PCMOy4UclRsxTpu6zFVaUHgPWkOT4S8tCuZ5nyBqO2kaZ8MlLQ0DgZjETPkWm5y5sD2M8NH3jWIKiMI45qitvcUfer8xY0/RhEop+rphT8n+AeBVi54A80qpN1mb+qfgRIdnXXxuQslZMIEn1ca3eHrumGmkaR7ggqU=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:b5031976-dc3f-4c86-83a0-74c72db020b6,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:80e6f96e-d4b4-449a-a450-812cb2b13b0e,B
-	ulkID:nil,BulkQuantity:0,SF:102|836|865|888|898,TC:-5,Content:0|15|50|99,E
-	DM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,OSA:0,
-	AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 5d45039ea1f911f1b1788b6acf885367-20260827
-Received: from mtkmbs11n1.mediatek.inc [(172.21.101.185)] by mailgw01.mediatek.com
-	(envelope-from <wanming.gao@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 997661539; Thu, 27 Aug 2026 17:26:20 +0800
-Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
- mtkmbs11n2.mediatek.inc (172.21.101.187) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Thu, 27 Aug 2026 17:26:19 +0800
-Received: from gcnsap21.gcn.mediatek.inc (10.17.81.22) by
- mtkmbs13n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Thu, 27 Aug 2026 17:26:18 +0800
-From: Wanming Gao <wanming.gao@mediatek.com>
-To: Tzung-Bi Shih <tzungbi@kernel.org>, Wim Van Sebroeck
-	<wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, Matthias
- Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
-	<angelogioacchino.delregno@collabora.com>
-CC: <linux-watchdog@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>,
-	<wanming.gao@mediatek.com>, <wallace.yu@mediatek.com>,
-	<Jarried.Lin@mediatek.com>, <vince-wl.liu@mediatek.com>
-Subject: [PATCH v2] watchdog: mediatek: acknowledge pretimeout interrupt
-Date: Thu, 27 Aug 2026 17:26:12 +0800
-Message-ID: <20260827092616.2724197-1-wanming.gao@mediatek.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZWY6CLF4"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2D71DC19425;
+	Thu, 27 Aug 2026 09:26:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1787822814;
+	bh=jLzvZjqDnxlyZd2/yg5KilJ6gkcPsBkyU3U//aFt+Z0=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=ZWY6CLF4rTX2tZ1AomGcBeZkxS/t5sE1A0ly+VRHUkUUZSBj84Vux+n5gO7OU/QU6
+	 unsKJ3x8EmBxpMZ1ZfBWNryc/R2Rb4zHbaeHuOAmKAjKScg/W9z6gw0nvIkGzIHkMc
+	 MZIFptOZM3EA8cs9o7VE9dIOWGyikFoFc9FHftrcUm56j4MVe17Pj/Esu/kl3gcraj
+	 /L04X9d1iQwe4M8n0y+G4ntvdEOfHbtMbluemLO8BeJAvscIWpfjLkABwPom8Pb2Ke
+	 niJdzpH4lwxkzNvGgFuhayUFMbtVa1hvgpaHNuzklv3Me4e160cMSVu24iOKkT8eAP
+	 886yOOM3MxqLA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0B084C61DC7;
+	Thu, 27 Aug 2026 09:26:54 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Thu, 27 Aug 2026 11:26:53 +0200
+Subject: [PATCH v2] media: imx355: reuse existing CCS defines
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260827-imx355-ccsify-v2-1-3a97bc708315@ixit.cz>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNQQ6CMBBFr0JmbU1bLKAr72FYyDiVMRFMWwlIe
+ ndbXLt8yfvvr+DJMXk4FSs4mtjzOCTQuwKwvw53EnxLDFrqSjbqKPg5l8YIRM92EY2psDHS1MY
+ qSJuXI8vz1ru0P/bv7kEYciQbPfswumU7nFT2/rUnJZSQXYVk65rKgzzzzGGPH2hjjF+O9wQSu
+ gAAAA==
+X-Change-ID: 20260819-imx355-ccsify-856c850575f1
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=10030; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=8fjmIEf2Uou5I7hSyXj2MRgsHK14tG7lVR5oqFFpIqQ=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqkALdaU7SCL9MD2CLhpq7GVVTKytztNX37egim
+ 9gfQ5I8Ra+JAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCapAC3QAKCRBgAj/E00kg
+ civREADP0/akWHg818ryfVEvANU5flZiBcQagxj5ESZ0pvy8+1sEi6Hka/aUUrj0Un6SO/32xcQ
+ fyFHIv5g5OrQKCpIy/0q4ro6AclzE9iu7R3TGAACipS4DXcFm8Z6XP5SDikO47kIRDOJe+26ai0
+ 5iQcKkQsvXj9iJb6mc/mdNDKQekGMnmVQ45x8EYI3rfiZ+H3cjWNbSOFyHkzUXL9B8IGRkm6+kY
+ RezZxNT2gxHmHQW8+l44SILcJVLIrl4zAmm0Bl06ysMnTJnZ50n31FaMcg4mldUjkNAZFDOpZdq
+ EMst8ev6O/pp+XpgSLlyavKZlqsQyaZGcHrHWM8U2CKqkki8NoooVOU+kIfVacEfsOH3ivybDJm
+ C29JH3BmIa+ROq/IijFZkXwiDHiqG7Xa75LygU8smIY1NVK+JomSj7W+dHt88haqtagKhyZbHp7
+ cWuNnKCYJS4cGtxKOM+Q9lvzQdBjjl7n6xSMNaKj/1e6oel92AtW7WPuuNEggMdsXWgkac38Inq
+ 2q9NKWuRGFYC8PU/pBN6vaKrxNVPwPn/k1E8ErZ3vYIjC5QuWIMv9M3JrqV6Cy3k/jtTsz6TEuv
+ MHFvMh4xoosKFv+7s34g9WUWfjFVGPnKx2mmbA0UMnt7jiGOHeKSn/j4cvMD3/FR8wi+2m5cdCi
+ us5zaHndb613qgw==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-The MediaTek watchdog pretimeout interrupt is level-triggered and does
-not have a separate acknowledge register. The interrupt is cleared by
-changing WDT_MODE_IRQ_LEVEL_EN and then restoring it to its original
-state. Without this transition, the interrupt may remain asserted and
-cause an interrupt storm.
+From: David Heidelberg <david@ixit.cz>
 
-After changing WDT_MODE_IRQ_LEVEL_EN, wait 70 us before restoring it.
-This is longer than two 32 kHz watchdog clock cycles, allowing the
-level change to propagate across the clock domain.
+The driver may not be MIPI CCS compliant, but does use same address and
+often set same values as compliant drivers. Do not redefine registers we
+already know and are standard.
 
-WDT_MODE is also updated by the watchdog start, stop, and pretimeout
-operations. Protect its read-modify-write sequences and the complete
-IRQ acknowledge sequence with the watchdog spinlock so that concurrent
-updates cannot overwrite the temporary IRQ level state.
+No functional changes.
 
-Signed-off-by: Wanming Gao <wanming.gao@mediatek.com>
+Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- drivers/watchdog/mtk_wdt.c | 62 ++++++++++++++++++++++++++++++++++----
- 1 file changed, 56 insertions(+), 6 deletions(-)
+Changes in v2:
+- Replaced all occurences with CCS ones.
+- Link to v1: https://patch.msgid.link/20260819-imx355-ccsify-v1-1-0b6cef77e340@ixit.cz
+---
+ drivers/media/i2c/imx355.c | 84 ++++++++++++++--------------------------------
+ 1 file changed, 25 insertions(+), 59 deletions(-)
 
-diff --git a/drivers/watchdog/mtk_wdt.c b/drivers/watchdog/mtk_wdt.c
-index d9c30e4c80e3..ddc4d2ff9d9f 100644
---- a/drivers/watchdog/mtk_wdt.c
-+++ b/drivers/watchdog/mtk_wdt.c
-@@ -35,6 +35,7 @@
- #define WDT_MAX_TIMEOUT		31
- #define WDT_MIN_TIMEOUT		2
- #define WDT_LENGTH_TIMEOUT(n)	((n) << 5)
-+#define WDT_IRQ_LEVEL_SYNC_US	70
+diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
+index 8eb8588cb71bb..2c845b7b3df4f 100644
+--- a/drivers/media/i2c/imx355.c
++++ b/drivers/media/i2c/imx355.c
+@@ -14,89 +14,55 @@
+ #include <linux/unaligned.h>
  
- #define WDT_LENGTH		0x04
- #define WDT_LENGTH_KEY		0x8
-@@ -49,6 +50,7 @@
- #define WDT_MODE_EXRST_EN	(1 << 2)
- #define WDT_MODE_IRQ_EN		(1 << 3)
- #define WDT_MODE_AUTO_START	(1 << 4)
-+#define WDT_MODE_IRQ_LEVEL_EN	(1 << 5)
- #define WDT_MODE_DUAL_EN	(1 << 6)
- #define WDT_MODE_CNT_SEL	(1 << 8)
- #define WDT_MODE_KEY		0x22000000
-@@ -72,7 +74,7 @@ static unsigned int timeout;
- struct mtk_wdt_dev {
- 	struct watchdog_device wdt_dev;
- 	void __iomem *wdt_base;
--	spinlock_t lock; /* protects WDT_SWSYSRST reg */
-+	spinlock_t lock; /* protects WDT_MODE and WDT_SWSYSRST reg */
- 	struct reset_controller_dev rcdev;
- 	bool disable_wdt_extrst;
- 	bool reset_by_toprgu;
-@@ -212,8 +214,6 @@ static int toprgu_register_reset_controller(struct platform_device *pdev,
- 	int ret;
- 	struct mtk_wdt_dev *mtk_wdt = platform_get_drvdata(pdev);
+ #include <media/v4l2-cci.h>
+ #include <media/v4l2-ctrls.h>
+ #include <media/v4l2-device.h>
+ #include <media/v4l2-event.h>
+ #include <media/v4l2-fwnode.h>
  
--	spin_lock_init(&mtk_wdt->lock);
+-#define IMX355_REG_MODE_SELECT		CCI_REG8(0x0100)
+-#define IMX355_MODE_STANDBY		0x00
+-#define IMX355_MODE_STREAMING		0x01
++#include "ccs/ccs-regs.h"
+ 
+-/* Chip ID */
+-#define IMX355_REG_CHIP_ID		CCI_REG16(0x0016)
+ #define IMX355_CHIP_ID			0x0355
+ 
+-#define IMX355_REG_LANE_SEL		CCI_REG8(0x0114)
 -
- 	mtk_wdt->rcdev.owner = THIS_MODULE;
- 	mtk_wdt->rcdev.nr_resets = rst_num;
- 	mtk_wdt->rcdev.ops = &toprgu_reset_ops;
-@@ -302,12 +302,15 @@ static int mtk_wdt_stop(struct watchdog_device *wdt_dev)
- {
- 	struct mtk_wdt_dev *mtk_wdt = watchdog_get_drvdata(wdt_dev);
- 	void __iomem *wdt_base = mtk_wdt->wdt_base;
-+	unsigned long flags;
- 	u32 reg;
+ /* PLL registers that depend on the external clock frequency */
+-#define IMX355_REG_EXTCLK_FREQ		CCI_REG16(0x0136)
+ #define IMX355_REG_PLL_OP_PREDIV	CCI_REG8(0x030d)
+-#define IMX355_REG_PLL_OP_MUL		CCI_REG16(0x030e)
+ #define IMX355_REG_PLL_IVT_PCK_DIV	CCI_REG8(0x0301)
+ #define IMX355_REG_PLL_IVT_SYSCK_DIV	CCI_REG8(0x0303)
+ #define IMX355_PLL_OP_PREDIV		2
+ #define IMX355_PLL_IVT_PCK_DIV		5
  
-+	spin_lock_irqsave(&mtk_wdt->lock, flags);
- 	reg = readl(wdt_base + WDT_MODE);
- 	reg &= ~WDT_MODE_EN;
- 	reg |= WDT_MODE_KEY;
- 	iowrite32(reg, wdt_base + WDT_MODE);
-+	spin_unlock_irqrestore(&mtk_wdt->lock, flags);
+ /* V_TIMING internal */
+-#define IMX355_REG_FLL			CCI_REG16(0x0340)
+ #define IMX355_FLL_MAX			0xffff
+ #define IMX355_VBLANK_MIN		20
  
- 	return 0;
+-#define IMX355_REG_LLP			CCI_REG16(0x0342)
+ #define IMX355_LLP_MAX			0xffff
+ 
+-#define IMX355_REG_X_ADD_START		CCI_REG16(0x0344)
+-#define IMX355_REG_Y_ADD_START		CCI_REG16(0x0346)
+-#define IMX355_REG_X_ADD_END		CCI_REG16(0x0348)
+-#define IMX355_REG_Y_ADD_END		CCI_REG16(0x034a)
+-#define IMX355_REG_X_OUT_SIZE		CCI_REG16(0x034c)
+-#define IMX355_REG_Y_OUT_SIZE		CCI_REG16(0x034e)
+-
+ /* Exposure control */
+-#define IMX355_REG_EXPOSURE		CCI_REG16(0x0202)
+ #define IMX355_EXPOSURE_MIN		1
+ #define IMX355_EXPOSURE_STEP		1
+ #define IMX355_EXPOSURE_DEFAULT		0x0282
+ #define IMX355_EXPOSURE_OFFSET		10
+ 
+ /* Analog gain control */
+-#define IMX355_REG_ANALOG_GAIN		CCI_REG16(0x0204)
+ #define IMX355_ANA_GAIN_MIN		0
+ #define IMX355_ANA_GAIN_MAX		960
+ #define IMX355_ANA_GAIN_STEP		1
+ #define IMX355_ANA_GAIN_DEFAULT		0
+ 
+ /* Digital gain control */
+ #define IMX355_REG_DPGA_USE_GLOBAL_GAIN	CCI_REG8(0x3070)
+-#define IMX355_REG_DIG_GAIN_GLOBAL	CCI_REG16(0x020e)
+ #define IMX355_DGTL_GAIN_MIN		256
+ #define IMX355_DGTL_GAIN_MAX		4095
+ #define IMX355_DGTL_GAIN_STEP		1
+ #define IMX355_DGTL_GAIN_DEFAULT	256
+ 
+-/* Test Pattern Control */
+-#define IMX355_REG_TEST_PATTERN		CCI_REG16(0x0600)
+-#define IMX355_TEST_PATTERN_DISABLED		0
+-#define IMX355_TEST_PATTERN_SOLID_COLOR		1
+-#define IMX355_TEST_PATTERN_COLOR_BARS		2
+-#define IMX355_TEST_PATTERN_GRAY_COLOR_BARS	3
+-#define IMX355_TEST_PATTERN_PN9			4
+-
++/* Link rate register: 16-bit wide, unlike the CCS 32-bit one */
+ #define IMX355_REG_REQ_LINK_BIT_RATE	CCI_REG16(0x0820)
+ 
+-#define IMX355_REG_BINNING_MODE		CCI_REG8(0x0900)
+-#define IMX355_REG_BINNING_TYPE		CCI_REG8(0x0901)
+-#define IMX355_REG_BINNING_WEIGHTING	CCI_REG8(0x0902)
+-
+-/* Flip Control */
+-#define IMX355_REG_ORIENTATION		CCI_REG8(0x0101)
+-
+ #define IMX355_PIXEL_ARRAY_TOP		0
+ #define IMX355_PIXEL_ARRAY_LEFT		0
+ #define IMX355_PIXEL_ARRAY_WIDTH	3280
+ #define IMX355_PIXEL_ARRAY_HEIGHT	2464
+ 
+ struct imx355_reg_list {
+ 	u32 num_of_regs;
+ 	const struct cci_reg_sequence *regs;
+@@ -616,39 +582,39 @@ static int imx355_set_ctrl(struct v4l2_ctrl *ctrl)
+ 	 * when power is up for streaming
+ 	 */
+ 	if (!pm_runtime_get_if_in_use(imx355->dev))
+ 		return 0;
+ 
+ 	switch (ctrl->id) {
+ 	case V4L2_CID_ANALOGUE_GAIN:
+ 		/* Analog gain = 1024/(1024 - ctrl->val) times */
+-		ret = cci_write(imx355->regmap, IMX355_REG_ANALOG_GAIN,
++		ret = cci_write(imx355->regmap, CCS_R_ANALOG_GAIN_CODE_GLOBAL,
+ 				ctrl->val, NULL);
+ 		break;
+ 	case V4L2_CID_DIGITAL_GAIN:
+-		ret = cci_write(imx355->regmap, IMX355_REG_DIG_GAIN_GLOBAL,
++		ret = cci_write(imx355->regmap, CCS_R_DIGITAL_GAIN_GLOBAL,
+ 				ctrl->val, NULL);
+ 		break;
+ 	case V4L2_CID_EXPOSURE:
+-		ret = cci_write(imx355->regmap, IMX355_REG_EXPOSURE,
++		ret = cci_write(imx355->regmap, CCS_R_COARSE_INTEGRATION_TIME,
+ 				ctrl->val, NULL);
+ 		break;
+ 	case V4L2_CID_VBLANK:
+ 		/* Update FLL that meets expected vertical blanking */
+-		ret = cci_write(imx355->regmap, IMX355_REG_FLL,
++		ret = cci_write(imx355->regmap, CCS_R_FRAME_LENGTH_LINES,
+ 				format->height + ctrl->val, NULL);
+ 		break;
+ 	case V4L2_CID_TEST_PATTERN:
+-		ret = cci_write(imx355->regmap, IMX355_REG_TEST_PATTERN,
++		ret = cci_write(imx355->regmap, CCS_R_TEST_PATTERN_MODE,
+ 				ctrl->val, NULL);
+ 		break;
+ 	case V4L2_CID_HFLIP:
+ 	case V4L2_CID_VFLIP:
+-		ret = cci_write(imx355->regmap, IMX355_REG_ORIENTATION,
++		ret = cci_write(imx355->regmap, CCS_R_IMAGE_ORIENTATION,
+ 				imx355->hflip->val | imx355->vflip->val << 1,
+ 				NULL);
+ 		break;
+ 	default:
+ 		ret = -EINVAL;
+ 		dev_info(imx355->dev, "ctrl(id:0x%x,val:0x%x) is not handled",
+ 			 ctrl->id, ctrl->val);
+ 		break;
+@@ -823,75 +789,75 @@ static int imx355_start_streaming(struct imx355 *imx355)
+ 	crop = v4l2_subdev_state_get_crop(state, 0);
+ 	mode = v4l2_find_nearest_size(supported_modes,
+ 				      ARRAY_SIZE(supported_modes),
+ 				      width, height, fmt->width, fmt->height);
+ 	cci_multi_reg_write(imx355->regmap, mode->reg_list.regs,
+ 			    mode->reg_list.num_of_regs, &ret);
+ 
+ 	/* Set readout crop and size registers  */
+-	cci_write(imx355->regmap, IMX355_REG_X_ADD_START, crop->left,
++	cci_write(imx355->regmap, CCS_R_X_ADDR_START, crop->left,
+ 		  &ret);
+-	cci_write(imx355->regmap, IMX355_REG_Y_ADD_START, crop->top, &ret);
+-	cci_write(imx355->regmap, IMX355_REG_X_ADD_END,
++	cci_write(imx355->regmap, CCS_R_Y_ADDR_START, crop->top, &ret);
++	cci_write(imx355->regmap, CCS_R_X_ADDR_END,
+ 		  crop->width + crop->left - 1, &ret);
+-	cci_write(imx355->regmap, IMX355_REG_Y_ADD_END,
++	cci_write(imx355->regmap, CCS_R_Y_ADDR_END,
+ 		  crop->height + crop->top - 1, &ret);
+-	cci_write(imx355->regmap, IMX355_REG_X_OUT_SIZE, fmt->width, &ret);
+-	cci_write(imx355->regmap, IMX355_REG_Y_OUT_SIZE, fmt->height, &ret);
++	cci_write(imx355->regmap, CCS_R_X_OUTPUT_SIZE, fmt->width, &ret);
++	cci_write(imx355->regmap, CCS_R_Y_OUTPUT_SIZE, fmt->height, &ret);
+ 
+ 	binning_mode = ((crop->width / fmt->width) << 4) |
+ 			(crop->height / fmt->height);
+-	cci_write(imx355->regmap, IMX355_REG_BINNING_MODE,
++	cci_write(imx355->regmap, CCS_R_BINNING_MODE,
+ 		  binning_mode == 0x11 ? 0x00 : 0x01, &ret);
+-	cci_write(imx355->regmap, IMX355_REG_BINNING_TYPE, binning_mode, &ret);
+-	cci_write(imx355->regmap, IMX355_REG_BINNING_WEIGHTING, 0x00, &ret);
++	cci_write(imx355->regmap, CCS_R_BINNING_TYPE, binning_mode, &ret);
++	cci_write(imx355->regmap, CCS_R_BINNING_WEIGHTING, 0x00, &ret);
+ 
+ 	/* Set PLL registers for the external clock frequency */
+-	cci_write(imx355->regmap, IMX355_REG_EXTCLK_FREQ,
++	cci_write(imx355->regmap, CCS_R_EXTCLK_FREQUENCY_MHZ,
+ 		  imx355->clk_params->extclk_freq, &ret);
+-	cci_write(imx355->regmap, IMX355_REG_PLL_OP_MUL,
++	cci_write(imx355->regmap, CCS_R_OP_PLL_MULTIPLIER,
+ 		  imx355->clk_params->pll_op_mpy[lane_idx], &ret);
+ 	cci_write(imx355->regmap, IMX355_REG_PLL_OP_PREDIV,
+ 		  imx355->clk_params->pll_op_prediv[lane_idx], &ret);
+ 	cci_write(imx355->regmap, IMX355_REG_PLL_IVT_SYSCK_DIV,
+ 		  lane_idx ? 2 : 1, &ret);
+ 
+ 	/* Set MIPI configuration */
+-	cci_write(imx355->regmap, IMX355_REG_LANE_SEL,
++	cci_write(imx355->regmap, CCS_R_CSI_LANE_MODE,
+ 		  imx355->hwcfg->num_lanes - 1, &ret);
+ 
+ 	link_bitrate = imx355->link_freq->qmenu_int[imx355->link_freq->val] *
+ 		       imx355->hwcfg->num_lanes * 2;
+ 	do_div(link_bitrate, 1000000);
+ 	cci_write(imx355->regmap, IMX355_REG_REQ_LINK_BIT_RATE, link_bitrate,
+ 		  &ret);
+ 
+ 	/* set digital gain control to all color mode */
+ 	cci_write(imx355->regmap, IMX355_REG_DPGA_USE_GLOBAL_GAIN, 1, &ret);
+ 
+ 	/* set line length */
+-	cci_write(imx355->regmap, IMX355_REG_LLP,
++	cci_write(imx355->regmap, CCS_R_LINE_LENGTH_PCK,
+ 		  imx355->hblank->val + fmt->width, &ret);
+ 
+ 	/* Apply customized values from user */
+ 	if (!ret)
+ 		ret = __v4l2_ctrl_handler_setup(imx355->sd.ctrl_handler);
+ 
+-	cci_write(imx355->regmap, IMX355_REG_MODE_SELECT, IMX355_MODE_STREAMING,
++	cci_write(imx355->regmap, CCS_R_MODE_SELECT, CCS_MODE_SELECT_STREAMING,
+ 		  &ret);
+ 
+ 	return ret;
  }
-@@ -317,12 +320,14 @@ static int mtk_wdt_start(struct watchdog_device *wdt_dev)
- 	u32 reg;
- 	struct mtk_wdt_dev *mtk_wdt = watchdog_get_drvdata(wdt_dev);
- 	void __iomem *wdt_base = mtk_wdt->wdt_base;
-+	unsigned long flags;
- 	int ret;
  
- 	ret = mtk_wdt_set_timeout(wdt_dev, wdt_dev->timeout);
- 	if (ret < 0)
+ /* Stop streaming */
+ static int imx355_stop_streaming(struct imx355 *imx355)
+ {
+-	return cci_write(imx355->regmap, IMX355_REG_MODE_SELECT,
+-			 IMX355_MODE_STANDBY, NULL);
++	return cci_write(imx355->regmap, CCS_R_MODE_SELECT,
++			 CCS_MODE_SELECT_SOFTWARE_STANDBY, NULL);
+ }
+ 
+ static int imx355_set_stream(struct v4l2_subdev *sd, int enable)
+ {
+ 	struct imx355 *imx355 = to_imx355(sd);
+ 	struct v4l2_subdev_state *state;
+ 	int ret = 0;
+ 
+@@ -931,17 +897,17 @@ static int imx355_set_stream(struct v4l2_subdev *sd, int enable)
+ }
+ 
+ /* Verify chip ID */
+ static int imx355_identify_module(struct imx355 *imx355)
+ {
+ 	int ret;
+ 	u64 val;
+ 
+-	ret = cci_read(imx355->regmap, IMX355_REG_CHIP_ID, &val, NULL);
++	ret = cci_read(imx355->regmap, CCS_R_SENSOR_MODEL_ID, &val, NULL);
+ 	if (ret)
  		return ret;
  
-+	spin_lock_irqsave(&mtk_wdt->lock, flags);
- 	reg = ioread32(wdt_base + WDT_MODE);
- 	if (wdt_dev->pretimeout)
- 		reg |= (WDT_MODE_IRQ_EN | WDT_MODE_DUAL_EN);
-@@ -334,6 +339,7 @@ static int mtk_wdt_start(struct watchdog_device *wdt_dev)
- 		reg |= WDT_MODE_CNT_SEL;
- 	reg |= (WDT_MODE_EN | WDT_MODE_KEY);
- 	iowrite32(reg, wdt_base + WDT_MODE);
-+	spin_unlock_irqrestore(&mtk_wdt->lock, flags);
- 
- 	return 0;
- }
-@@ -343,7 +349,11 @@ static int mtk_wdt_set_pretimeout(struct watchdog_device *wdd,
- {
- 	struct mtk_wdt_dev *mtk_wdt = watchdog_get_drvdata(wdd);
- 	void __iomem *wdt_base = mtk_wdt->wdt_base;
--	u32 reg = ioread32(wdt_base + WDT_MODE);
-+	unsigned long flags;
-+	u32 reg;
-+
-+	spin_lock_irqsave(&mtk_wdt->lock, flags);
-+	reg = ioread32(wdt_base + WDT_MODE);
- 
- 	if (timeout && !wdd->pretimeout) {
- 		wdd->pretimeout = wdd->timeout / 2;
-@@ -352,19 +362,54 @@ static int mtk_wdt_set_pretimeout(struct watchdog_device *wdd,
- 		wdd->pretimeout = 0;
- 		reg &= ~(WDT_MODE_IRQ_EN | WDT_MODE_DUAL_EN);
- 	} else {
-+		spin_unlock_irqrestore(&mtk_wdt->lock, flags);
- 		return 0;
+ 	if (val != IMX355_CHIP_ID) {
+ 		dev_err(imx355->dev, "chip id mismatch: %x!=%llx",
+ 			IMX355_CHIP_ID, val);
+ 		return -EIO;
  	}
- 
- 	reg |= WDT_MODE_KEY;
- 	iowrite32(reg, wdt_base + WDT_MODE);
-+	spin_unlock_irqrestore(&mtk_wdt->lock, flags);
- 
- 	return mtk_wdt_set_timeout(wdd, wdd->timeout);
- }
- 
-+static void mtk_wdt_deassert_irq(struct watchdog_device *wdd)
-+{
-+	struct mtk_wdt_dev *mtk_wdt = watchdog_get_drvdata(wdd);
-+	void __iomem *wdt_base = mtk_wdt->wdt_base;
-+	unsigned long flags;
-+	u32 reg;
-+
-+	spin_lock_irqsave(&mtk_wdt->lock, flags);
-+
-+	reg = ioread32(wdt_base + WDT_MODE);
-+	reg ^= WDT_MODE_IRQ_LEVEL_EN;
-+	iowrite32(reg | WDT_MODE_KEY, wdt_base + WDT_MODE);
-+
-+	/*
-+	 * Wait for two 32 kHz watchdog clock cycles so the IRQ level
-+	 * change can propagate across the clock domain.
-+	 */
-+	udelay(WDT_IRQ_LEVEL_SYNC_US);
-+
-+	reg = ioread32(wdt_base + WDT_MODE);
-+	reg ^= WDT_MODE_IRQ_LEVEL_EN;
-+	iowrite32(reg | WDT_MODE_KEY, wdt_base + WDT_MODE);
-+
-+	/*
-+	 * Flush the posted write before releasing the lock and notifying
-+	 * the watchdog core.
-+	 */
-+	ioread32(wdt_base + WDT_MODE);
-+
-+	spin_unlock_irqrestore(&mtk_wdt->lock, flags);
-+}
-+
- static irqreturn_t mtk_wdt_isr(int irq, void *arg)
- {
- 	struct watchdog_device *wdd = arg;
- 
-+	mtk_wdt_deassert_irq(wdd);
- 	watchdog_notify_pretimeout(wdd);
- 
- 	return IRQ_HANDLED;
-@@ -406,6 +451,8 @@ static int mtk_wdt_probe(struct platform_device *pdev)
- 	if (!mtk_wdt)
- 		return -ENOMEM;
- 
-+	spin_lock_init(&mtk_wdt->lock);
-+
- 	platform_set_drvdata(pdev, mtk_wdt);
- 
- 	mtk_wdt->wdt_base = devm_platform_ioremap_resource(pdev, 0);
-@@ -414,8 +461,8 @@ static int mtk_wdt_probe(struct platform_device *pdev)
- 
- 	irq = platform_get_irq_optional(pdev, 0);
- 	if (irq > 0) {
--		err = devm_request_irq(&pdev->dev, irq, mtk_wdt_isr, 0, "wdt_bark",
--				       &mtk_wdt->wdt_dev);
-+		err = devm_request_irq(&pdev->dev, irq, mtk_wdt_isr, IRQF_NO_AUTOEN,
-+				       "wdt_bark", &mtk_wdt->wdt_dev);
- 		if (err)
- 			return err;
- 
-@@ -447,6 +494,9 @@ static int mtk_wdt_probe(struct platform_device *pdev)
- 	if (unlikely(err))
- 		return err;
- 
-+	if (irq > 0)
-+		enable_irq(irq);
-+
- 	dev_info(dev, "Watchdog enabled (timeout=%d sec, nowayout=%d)\n",
- 		 mtk_wdt->wdt_dev.timeout, nowayout);
- 
--- 
-2.45.2
+
+---
+base-commit: 5453bc3279e9f8578ac3e534d476240e40c879e1
+change-id: 20260819-imx355-ccsify-856c850575f1
+
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
+
 
