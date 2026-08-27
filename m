@@ -1,96 +1,182 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DC4440EB91;
-	Thu, 27 Aug 2026 09:52:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DA9543BDD2;
+	Thu, 27 Aug 2026 09:52:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787824343; cv=none; b=gJ+Fl+HrtcUxaI0WcV4II96qQlGDTHaaPc091eICqvL8xB2E1zSaZl6Bxbz+EFmjHUtbW2PBPSJO52AgIR09kkOi67BmrWiwQ6Mqv524WcCP6VLTL3rLQecUoYvYt5Hm/6tCpmnd8heNNaaq1DBhIEaF3NTUIpndypwMLClqFXw=
+	t=1787824377; cv=none; b=LGXs21x6oFnlqBkVtq/5g1qYR8o1yauGh29mkn6z/pYHu/Uo7purc/yMR2FU96Oovdy7ZOU6zwUdFGHgy4VhJV1ZpIRnsAgE1wTL6q7WDu513+WhUo9ImyyPOqPA7MxSnkNb1uOPVLI85Z+daZiQb0C8VZBGWJRwZ2hBj31klkI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787824343; c=relaxed/simple;
-	bh=HksSdvlUfR7hhbe5RrJY19bzCuQihgkb3cxoVmjocPk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qFbiYD4vccwNVRjgbYFbV8T2C6ajnwc+f/jBHyVqmBCywxW9R6qDRvqxrI9IMAgUXMr9bpVB0ACPoya0gArrReMH5+9M0aWlt/fFYrANASQVgJ08xehQ0oYPAxG9vYBqCQxNcKmlI+BUEg31xC6bfNNW2YlEcCr1j8oqEqQzVLI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BleKSS4F; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787824377; c=relaxed/simple;
+	bh=RWJZtLdZ6ZS/480H0LSNnFcg1i9+557te5Dr6v8HG38=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pQsymwS979kVnQfzOnVbBOiJ8vt+iTIhRQMMFVpjIXpFah0+bGB4afnNfW68RwrY4554nhJSOkaF1wK1ncHspmTKrdsGwoc2vD7M1XhsRvjWzwpnFdTsdD6Zq1B95DLrJWur14pbCtg9Q5itQkpatCCcKnGZrVIONxDtpYq4elw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=xwVqqt73; arc=none smtp.client-ip=54.204.34.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BleKSS4F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 286691F000E9;
-	Thu, 27 Aug 2026 09:52:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787824337;
-	bh=drbRyLN3wK3pHMtqRBM9QPBa4lVPgiYhMn2XsBFKhVc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BleKSS4FCkM0Tax5Dkf4TbR1GRkKocoGCvIBzlqjuRWJYl2OIoC2yBepgWxZN1VCd
-	 7uaRkzx1ResP867m2urRoXymgI2DMHoT+vfbdJ8pXqsnCzjvaUMZlGHW1caJzwMjsQ
-	 5iykDOOAnhMoKSIXryOUXF9wCnpG0rDgqdqazKm8xSwU0XW4CCJxyiLfdDcE90xcA7
-	 NmALUe70Q+NFq/XM4p7KFr7FyjYkp4giZmhHjWtOuxW8eqij7aokXgU4qIVLBf732e
-	 Gpb3a6SFS855FXEWN6+jyPccFXklHYhFls/hDnIW7dHU0PRBNyNzlmX/NcWIXc7Zw0
-	 hIMx8prGtl63g==
-Date: Thu, 27 Aug 2026 11:52:13 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Felix Fietkau <nbd@nbd.name>, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 1/3] dt-bindings: clock: airoha: Document support for
- AN7583 clock
-Message-ID: <20260827-expert-ruby-grasshopper-954aa2@quoll>
-References: <20260819221458.30040-1-ansuelsmth@gmail.com>
- <20260819221458.30040-2-ansuelsmth@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="xwVqqt73"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1787824352;
+	bh=6HhNKvnphh8gYUCrkxzvGMUTECP0EAeEndGb9SUyApk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:From;
+	b=xwVqqt73hvq/L/XV6b7VjYZ8fhZGLOsICEWRJBI0Ocl2rwwbFEb7Sfqma0FEwf5tw
+	 wuyEd6OYcosL96rWqn4QtTWB7nEiUzKqlY/tWu0cOS1THLzTM5oIIkBHObNgYJ1IMV
+	 sbrZQOLABDHCkt8KzOoM7rq+rrPDt8bLovBR3D7c=
+X-QQ-mid: esmtpsz11t1787824348t5d3603dd
+X-QQ-Originating-IP: 3FRuVmHJZu/1Q012Do+kPs/g+mcSjjnVSg8nfn7qEkI=
+Received: from [192.168.1.100] ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 27 Aug 2026 17:52:26 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 12697951333145275488
+EX-QQ-RecipientCnt: 6
+Message-ID: <8F4C0C8A8DA2D71A+7c57de3c-1f36-4e5b-b5e3-0eeb6ca88006@linux.spacemit.com>
+Date: Thu, 27 Aug 2026 17:52:25 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260819221458.30040-2-ansuelsmth@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] usb: dwc3: core: resume xHCI child on runtime resume
+ in host mode
+To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "troy.mitchell@linux.spacemit.com" <troy.mitchell@linux.spacemit.com>,
+ "peixin.xie@linux.spacemit.com" <peixin.xie@linux.spacemit.com>
+References: <20260811090817.109350-1-panjunzhong@linux.spacemit.com>
+ <ao-QDVibwU90yPm_@vbox>
+Content-Language: en-US
+From: Junzhong Pan <panjunzhong@linux.spacemit.com>
+In-Reply-To: <ao-QDVibwU90yPm_@vbox>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz5b-2
+X-QQ-XMAILINFO: No5qhXOiWrB7359tlTpEVNmsr8H/hmMgrwDcNW5NSDu8yg/XLtHbGtXh
+	gY04N4/7Wdl/PjTrK8RHMc3LlGH9tlkNPqrc5QqG+H5jjkO395EkREYvAKJsg0Zn6J9uvCZ
+	QEAOvRoKuURYnGYVGjZlKxoSdEBZZlkIB1n4Zzz5K8+09zvmmgogFZNRS7a7OZGfenRoovQ
+	HCIilX87fE9RRGFe7SqYbCUc+1S2EjNFtVO0a20O0EgB72e+kGlpiqFKl6lj0G9CkynX+LK
+	iZYEMIfgL74idwYMnzlcrae5v/3+V2EulyfPITwN+j6Gcnk2L/IIpc7dkX4Xa0vBL+P8QqY
+	G6jJzC6tIiehfa4eTkTuQ85iT9cp2fRD93rdSEt4D7fizG94NidiLZcTABIw/HtJwWruLky
+	C93O9zoB/gcJ50P/nrvbC0+s0o/dNp2l7c6pLXIASDm74AivjRnADLv6sQvUE3m6LwPGjVj
+	G9SW3EjT+u2JN11dbzCmNIY835n6ijGpxVBhRlhkH3jlHSetSziVLvmDBOKHmmUzR09qG9S
+	qp0n+Oo/gdIXN4dJJC6vHjCl5xe6FUl6/ftqO7t2X/7BbM1TpN4StGJqYpQ8aI6q1oolPFY
+	xZ9GRrbl1oh4Oz4TccvcM1OzJYiKRsVBRS4FudmcuXP9t+roaATpN64bPhTPMIJ+R8BOoWc
+	S8VChKODVNvheuNLcX+W01r+rjnOpT0pWKGkDkXjUQx86SCwmOvwBQxTsxfISIthRt1LSv+
+	iDC3WO63oKU5NXrX9lsPAES9QuX0ZKhMrbbGESZUGIis26NbnMiaRIl3GP4y3LAtZv24SmH
+	5vyz2lSDIZ01QpY10HiMEHhmnla6iiAUtG9HZRytELzbmsiL4MHE18jPdoV+zt2NQtJ8NCO
+	DdABuLiMB0p0sQW/xiXl9ziAcpzC7sbF52/hz1vePHnA3GN4ZLV1ppkRXo32mrHywVdTshJ
+	CoJzle4w0xWeouM99aQThDM92OnRF8LSp3JBJUrUnxewnO57Kk1ebHeGO5egekA8aJ1p2Jo
+	V3VfjE/q3sSh907jsTr4X3MRGG1JbZxMPgOB+c5/obhWkgCZ9nBWvTBQaurr5kO55hbx3sr
+	M5YlsekcDCGgfiLU2uSd8O+z92Dq+M0jmDxsraYNu4jHHAoHLRHpN0=
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
 
-On Thu, Aug 20, 2026 at 12:14:54AM +0200, Christian Marangi wrote:
-> Document support for Airoha AN7583 clock. This is based on the EN7523
-> clock schema with the new requirement of the "airoha,chip-scu".
+
+On 8/27/2026 10:11 AM, Thinh Nguyen wrote:
+> Hi,
 > 
-> Add additional binding for additional clock and reset lines.
+> On Tue, Aug 11, 2026, Junzhong Pan wrote:
+>> USB controller runtime suspend halts the controller on disconnection.
+>> It relies on platforms with custom connection notification to start
+>> the controller again.
+>>
+>> The host branch of dwc3_runtime_resume() does nothing currently. There
+>> are two paths that can trigger a runtime resume of the dwc3 core in
+>> host mode:
+>>
+>> (a) Wake lands on the xHCI child (DT platforms, e.g. Qualcomm, i.MX8MP)
+>>     A platform wakeup IRQ fires and the glue handler calls
+>>     pm_runtime_resume(&xhci->dev). Runtime PM walks upward, resumes
+>>     the dwc3 parent first, then resumes xHCI. Both wake correctly.
+>>
+>> (b) Wake lands on the dwc3 parent (ACPI platforms)
+>>     When an ACPI Notify(ACPI_NOTIFY_DEVICE_WAKE) targets the dwc3
+>>     parent device -- for example via a Generic Event Device on a
+>>     hardware-reduced platform where dwc3 is enumerated as an ACPI
+>>     device without a glue driver -- the ACPI core turns this into
+>>     pm_request_resume(dwc3_dev). Runtime PM does not propagate resume
+>>     downward, so the xHCI child stays suspended. Root hub polling is
+>>     never re-armed, and a device plugged in while suspended is silently
+>>     dropped.
 > 
-> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
-> ---
->  .../bindings/clock/airoha,en7523-scu.yaml     | 20 ++++++
->  include/dt-bindings/clock/en7523-clk.h        |  3 +
->  .../dt-bindings/reset/airoha,an7583-reset.h   | 65 +++++++++++++++++++
->  3 files changed, 88 insertions(+)
->  create mode 100644 include/dt-bindings/reset/airoha,an7583-reset.h
+> Good catch.
 > 
-> diff --git a/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml b/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
-> index eb24a5687639..edecc635807b 100644
-> --- a/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
-> +++ b/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
-> @@ -30,6 +30,7 @@ properties:
->    compatible:
->      items:
->        - enum:
-> +          - airoha,an7583-scu
->            - airoha,en7523-scu
->            - airoha,en7581-scu
->            - econet,en751221-scu
-> @@ -50,12 +51,30 @@ properties:
->      description: ID of the controller reset line
->      const: 1
->  
-> +  airoha,chip-scu:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description: phandle to the Chip SCU providing the registers required
-> +      for configuring the PCIe related clocks and resets.
+>>
+>> This patch fills in the host branch to cover case (b) by requesting an
+>> async resume of the xHCI child so xhci_resume() can restore the port
+>> state machine and re-arm root hub polling. Async is required to avoid
+>> deadlocking on the parent's own rpm_resume() re-entry.
+>>
+>> Signed-off-by: Junzhong Pan <panjunzhong@linux.spacemit.com>
+>> ---
+>> base-commit: d58772d8520c7ef247c4b95c9bd76d3a25da9ff5
+>>  drivers/usb/dwc3/core.c | 12 ++++++++++++
+>>  1 file changed, 12 insertions(+)
+>>
+>> diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
+>> index ceb49f2f8004..bce56765ad90 100644
+>> --- a/drivers/usb/dwc3/core.c
+>> +++ b/drivers/usb/dwc3/core.c
+>> @@ -2668,6 +2668,18 @@ int dwc3_runtime_resume(struct dwc3 *dwc)
+>>  		}
+>>  		break;
+>>  	case DWC3_GCTL_PRTCAP_HOST:
+>> +		/*
+>> +		 * Only the xHCI child's resume re-arms root hub polling, which
+>> +		 * is what rediscovers a device plugged in while suspended.
+>> +		 * Runtime PM never resumes children on its own, so request it
+>> +		 * here. This has to be asynchronous: resuming the child
+>> +		 * synchronously would deadlock because rpm_resume() tries to
+>> +		 * resume the parent before the child, and here the parent's
+>> +		 * own callback has not returned yet.
+>> +		 */
+> 
+> This note sounds as if this is needed to all cases, but you're only
+> describing only case b) here. Can you also mention for case a) that
+> there maybe an extra resume work call.
 
-This is the clock provider. Clock provider should not be accessing
-registers of other device to configure its clocks. Either you
-misrepresented clock hierarchy or devices.
+Will do.
 
-I did search for DTS to try to understand the big pictuer - nothing, no
-results, no upstream submission to Linux kernel.
+> 
+> Would be nice for it to be cleaner without the extra call, but I think
+> it should be fine.
 
-Best regards,
-Krzysztof
+I guess we could do this: after this merged, we patch those platform
+drivers(case a) to drop their existing workaround hack, dwc3 will
+take over it's child xhci in this wakeup resume path, they just wake
+dwc3. That makes things consistent. What do you think?
+
+> 
+>> +		if (dwc->xhci)
+>> +			pm_request_resume(&dwc->xhci->dev);
+>> +		break;
+>>  	default:
+>>  		/* do nothing */
+>>  		break;
+>> --
+>> 2.25.1
+>>
+> 
+> Thanks for the patch, can you resubmit with the proper assisted-by tag
+> and remove the RFC?
+
+Will do, thanks.
+
+> 
+> After the change:
+> 
+> Acked-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+> 
+> Thanks,
+> Thinh
+
+Best regards.
+
 
