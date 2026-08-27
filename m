@@ -1,81 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9295B380FDE;
-	Thu, 27 Aug 2026 08:11:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51AC43C3C06
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:11:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787818265; cv=none; b=g1QcAgMUel5eEwMklYa0dQ7Y+nxbNzceUrz0TR/4BVtxuNYWT3mN0SDRIuXbyL0/zjWvdom3WINnRJDzfMow7H2FiSMjqK11YvFq4FdVUK6Fjh+th7Wkm5UIWZkMhwr7GgCh2P2IaaXVEwkMCdukYyTXyyh6GLWIPH1SG3muyVk=
+	t=1787818268; cv=none; b=XHx8T4Bmdz5ULOJBW554zlvKuGvtmniImR8ol5qdAOsmm1B9YHvAe8aWF7TMv0MSEfGlTEis2MDXrUZOdKqGg17WBDLpWf3LZrRQIvp2mpBPJkfxXXzGxK2Y16IfX6S0sWqaCGXrShoimtht3BOndwItBHeNu4zrMmUpENER1U4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787818265; c=relaxed/simple;
-	bh=bxhnAPZCY5DW4eFRZDPe7yLHv6R0ofl8xh/MPWZq9PE=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=fTZFk9gfZ66tn/rTCCEX7fXZ9c9Xgc7ZAsNJDKiMHaw05AX9FtyQ2t0+U7t04bOy+4F0ZcXbjtCuc07pKDGEvDMAr3d2a199L6c2+Pq1hbZBcKZtpQqTvM5UqX96LYJ0xYjsNPPNiPD53lFIJFd5W+ZgK8XGUc05az8Kkp12sRY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K8rppW3A; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K8rppW3A"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99E971F000E9;
-	Thu, 27 Aug 2026 08:11:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787818260;
-	bh=+MwTcniFgsQyj/mh+HBBLh8w4RBABQD8nqYNKGZKxGU=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=K8rppW3ABdUDNXrK6Q7jT8E+OfMviBE+EPcrDRVdF8nvH61z4tOpwpzhH1mIZqVEW
-	 0YlYdIVc7HXFKeek3Cu77gsBKHUnyQzO0+18UhO5l8yyGg0L996u0CHk+T1BoE+8VP
-	 Ue93xqJYJVxpfX4YnKFPkzGdDTOSuZBxt78p7Xf/2ZRsCf8kWDPBtJkxH8Bm3GxR9R
-	 sO0dv6iFxWB0hf0lBZy1slylRLtWW9wHSRb49d+kNmkPVIFw9/h8bzUDJpatg87GX8
-	 1qtMk8zA+BPZQTxm1lp/YVVzTAB+ak4lOilFKxyUGX8xYIY0WDmzLXZKwaON5RotdZ
-	 RWq09+78fpGAw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 939493809A12;
-	Thu, 27 Aug 2026 08:10:07 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=arc-20240116; t=1787818268; c=relaxed/simple;
+	bh=AYeBPP3OW06DVQCdO1GS1C0ZmKzX/tSYOi14DJOospc=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=Kb1ZPisy7Xxt8xrkTrsM2jvZmbXxPA+jhif2UBlVknZK9K65K8nVZ3toBnYEaPV10YQ7MkReeDfghFcGSD50p43T0Na43YJrwh8ZM5teqmGsyv90vTcTTc5MNdwL2aCa5NAdii3bN+nbftciFpPjxK/iwEhdGrfICqXx+d/uxag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4ad778bacbeso3573670b6e.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 01:11:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787818262; x=1788423062;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=03QffqK9P308liZUSQIagHhrFKbvbex8Er9E4LQY4Y0=;
+        b=TfAOMONIPFWp3BvokjyUsz7QRXvXs3VWIRgHFs4D46d/uF7nueT8U+wANsnLkolILS
+         jUGe8V4q5USsVQs6TItA0RPCeC3iUVG72h4fVXITbMtHoI864fcbyeGGbtauHLEf+ezk
+         B9365ROc6TdLi7B4qS3pJyv5Ea+3LcZOLJhrHAxaSfgDg18nGIAMcNqcj5prnnE/v8m7
+         PhDnMfM7SI9WAYvHOqhqJzrjmcKjiz6Qcm6IF563F5F1S92pNokbWHNA9yK0QYdrvxJR
+         YWBKPN6gQp+rnZdFDJHKoT9vP/X/qPsOTUdPxTjWBVrYo14NzrspS0vZ1LtQJ4/v20SE
+         vHRw==
+X-Forwarded-Encrypted: i=1; AHgh+RrdUyug8qRvN1FMhi7cVzyBJoTfuCks0ZEK0U85hnGWhoGmX7b0pjzj1YdGPxO2k5md2tkO4GzlNzLEEVk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kFpSae+4iw/72os9EQlUiome/zpm53AYi/Q3qML3mHbs+zjOtf
+	lSODITUBv4yDfp5OR2xOpYqwG/GCnFrZFmQvI9hZJayJ0WInkQpLNkfvW5UmZIuXBOWRHULLjNb
+	bzsp5yCH+aabe4S70n8XDpXNrh0LW4uGGH9HDsOQX+jrgcEVJXqxoIwVELco=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] net: ethernet: sun4i-emac: Fix IRQ error handling
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178781820640.1094636.14217098118734046137.git-patchwork-notify@kernel.org>
-Date: Thu, 27 Aug 2026 08:10:06 +0000
-References: <20260824100901.31675-1-phucduc.bui@gmail.com>
-In-Reply-To: <20260824100901.31675-1-phucduc.bui@gmail.com>
-To: Bui Duc Phuc <phucduc.bui@gmail.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, wens@kernel.org,
- jernej.skrabec@gmail.com, samuel@sholland.org, linusw@kernel.org,
- kees@kernel.org, bartosz.golaszewski@oss.qualcomm.com, arnd@arndb.de,
- sr@denx.de, mripard@kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org
+X-Received: by 2002:a05:6808:221b:b0:4b3:880a:f07f with SMTP id
+ 5614622812f47-4b3880b1a9bmr1463234b6e.1.1787818262404; Thu, 27 Aug 2026
+ 01:11:02 -0700 (PDT)
+Date: Thu, 27 Aug 2026 01:11:02 -0700
+In-Reply-To: <20260827070305.162124-1-eadavis@sina.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a8ff116.50659fcc.60cd.0011.GAE@google.com>
+Subject: Re: [syzbot] [ntfs3?] general protection fault in al_destroy
+From: syzbot <syzbot+04cf7b83f6dd2c3a54c8@syzkaller.appspotmail.com>
+To: eadavis@sina.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hello:
+Hello,
 
-This patch was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-On Mon, 24 Aug 2026 17:09:01 +0700 you wrote:
-> From: bui duc phuc <phucduc.bui@gmail.com>
-> 
-> irq_of_parse_and_map() returns 0 when parsing or mapping an IRQ fails.
-> The current code checks for -ENXIO and therefore does not detect the
-> failure.
-> 
-> Check for a zero return value and convert it to -ENXIO.
-> 
-> [...]
+Reported-by: syzbot+04cf7b83f6dd2c3a54c8@syzkaller.appspotmail.com
+Tested-by: syzbot+04cf7b83f6dd2c3a54c8@syzkaller.appspotmail.com
 
-Here is the summary with links:
-  - [net] net: ethernet: sun4i-emac: Fix IRQ error handling
-    https://git.kernel.org/netdev/net/c/991c2be78257
+Tested on:
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+commit:         502d4577 Merge tag 'clk-for-linus' of git://git.kernel..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=14124579580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=dfd8ec781284be4e
+dashboard link: https://syzkaller.appspot.com/bug?extid=04cf7b83f6dd2c3a54c8
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=16b16d49580000
 
-
+Note: testing is done by a robot and is best-effort only.
