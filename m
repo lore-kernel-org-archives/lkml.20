@@ -1,33 +1,60 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2C6E3246E8
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 19:29:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 945D0499F3B;
+	Thu, 27 Aug 2026 19:29:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787858991; cv=none; b=ave6zneuYt3Xa8Gt04bTgkMgCZC3Zj4X38HTG4KohCnfIClz6ZnChNL6LGXHBcoeO7LBlpYG/XbZTqUKM9K2YW4/LhUcd5ttOxI9CI5ndwvKokLrXY6KKus30SZ2bhXR1ZRPrcym1plfkEZE3SWVEbmnXYrZfB0YlSFA9S95TGU=
+	t=1787858994; cv=none; b=cUStnzDFQg/I7xD3jtxaGQT9bDnBYnWduYml3o/LvfrnkR93R7eOz6n1ULb9rY9B+gcDSDUaRemAI0o47Sa4MO+aQ/a2WPkgeLol0ICZSpLX5nRKHY3Rw2obxg9dRacMmSayTrbM2cZlCs26IaiAnMNlUMQVETQUYhiqy5aFKJ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787858991; c=relaxed/simple;
-	bh=Yw2rxTuF8iN0ciAkvPxHdmrGK7naRpkfYPPHAUcSUjc=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=MexQxbxYjEijhKTTdPge4b/sOMjx0s8VHEdnI905CnlWmjM3Ec3VPwW4nos85mdRu3Okb8nnRbUvMf8cvxevkx7ksl7atSnwIE+FZjxX7Hu9zEsx5QMQfLYGzuZxP+YdwctT/6Zssn6MT3F1SQHSCN+YycJw44hS3xTvzrnmKjc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WvEhuVPb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787858994; c=relaxed/simple;
+	bh=HakblkERuJ8lxUcZ1No75a/kXLlrNKrK0yRSRw1Fsz8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TvfIn4nBcX+DCj2ir9VX7guGgn2nSF0eJhHn5QADWc5qoPe2pneB8WqKXr20veVOD/PD/E2W3tGO7RAFQ6fkeUXwqrvM6cZ+eiKo6W22RjtrDHA07m6WpBAScRIx637g6fNxZGOEMh9ahObTvWPzj5WbFJeg68JbOZPfXIxJLBo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=bne3dwsn; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WvEhuVPb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECFD31F000E9;
-	Thu, 27 Aug 2026 19:29:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787858989;
-	bh=SsiFIJKUIbdhwtZuL/ceZshbRCnEhEyMon6IFiRCczM=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=WvEhuVPbYOWgdlyaBZ9UD2AVXpxef2t6+BbSSWUhI9X72zZ9GuQggNN3ccz9pDrWJ
-	 mKJU57vPPqDur8rCuEJQM9XOng3Cp3ri7rAe5a4yFrRnY/RjU6RbngBr35teMTHMty
-	 NEKMrGcXL65sN6vJ+M8LY2yG0kIgm9D1lT/RkeSnfPjFZqh16csDoqeXLYCs5R/JtX
-	 5/B26kJkNtw2SaMOmwySBeWDjxtT2LcBF8L0V9OtGKNtMym1I9aUz3s/wzoHTPGVIQ
-	 jeFoYblVcFYtDOYdRFRny5l8kSJ/BLN9oSjvCpW0LM5zDpzv7CdUpnVdhcDm8wMiOZ
-	 7bWqaMPg/fwmw==
-Message-ID: <7c86ab45-38e1-4e02-94e3-d0925c28b25e@kernel.org>
-Date: Thu, 27 Aug 2026 21:29:42 +0200
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="bne3dwsn"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67RIVcCV3876912;
+	Thu, 27 Aug 2026 19:29:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=S59u3T
+	RnsKVWGoWTMHD50JnHRjTpgKKLIHcP2taOCtc=; b=bne3dwsnf80iDYIgrV5mWR
+	yK6RHL+Xqti0MnuFPSUbi1UKcT5E2DLnaUSvppfOrfovhep/HHHfhGK4gVede6SP
+	hFCDacKXGs/o+4phBMON0Eq2LmyQR9y1T8fIINBXmfrQcfJatsaPRkfSdMlAple4
+	Xt9ioWW6HlikXrEeJEBQFlW+hSqOo2skfJDQqj4RXOwJruYpWPNDDjpw0wEqaGB8
+	Qg6BXvZZqqF/+/T97rGh7/8FsCZESuDqKixP/xp35pLGoj/d1QFMI2RBldkwgG0T
+	hGcu5hgqh1oJg9xODtX13ojVKpETdkdQqeAlpXb0DOGOkmDAU7joEv3gSEfB5Dzg
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g73dxq677-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 27 Aug 2026 19:29:29 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67RJQcWD021730;
+	Thu, 27 Aug 2026 19:29:28 GMT
+Received: from smtprelay06.wdc07v.mail.ibm.com ([172.16.1.73])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4g7rsyhp42-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 27 Aug 2026 19:29:28 +0000 (GMT)
+Received: from smtpav05.wdc07v.mail.ibm.com (smtpav05.wdc07v.mail.ibm.com [10.39.53.232])
+	by smtprelay06.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67RJTRdj51315146
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 27 Aug 2026 19:29:27 GMT
+Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 9F37F58053;
+	Thu, 27 Aug 2026 19:29:27 +0000 (GMT)
+Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 640E058043;
+	Thu, 27 Aug 2026 19:29:26 +0000 (GMT)
+Received: from [9.61.79.161] (unknown [9.61.79.161])
+	by smtpav05.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Thu, 27 Aug 2026 19:29:26 +0000 (GMT)
+Message-ID: <b96e1cdf-bf10-464d-9fb9-5afc625d8984@linux.ibm.com>
+Date: Thu, 27 Aug 2026 12:29:25 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,138 +62,70 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 11/18] mm/huge_memory: allow splitting mappingless swap
- cache folios
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-To: Kairui Song <ryncsn@gmail.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
- Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
- Shivam Kalra <shivamkalra98@zohomail.in>
-References: <20260821-swap-thp-cleanup-v3-0-9b43f5163238@tencent.com>
- <20260821-swap-thp-cleanup-v3-11-9b43f5163238@tencent.com>
- <5ee65970-abb9-47ea-b548-5430b382cf7c@kernel.org>
- <CAMgjq7CgxBEuX0rtUdx=g5RFijONOfDuUM=A2FBqy1R2N2n-2Q@mail.gmail.com>
- <77e3dae7-8e59-432e-9cfa-68f71d3e9587@kernel.org>
+Subject: Re: [PATCH 2/2] scsi: ibmvfc: document protocol parameter of
+ ibmvfc_alloc_target()
+To: Muhammad Falak R Wani <falakreyaz@gmail.com>,
+        "Martin K. Petersen" <martin.petersen@oracle.com>,
+        "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
+        kernel test robot <lkp@intel.com>,
+        Madhavan Srinivasan
+ <maddy@linux.ibm.com>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        Christophe Leroy <christophe.leroy@csgroup.eu>,
+        linuxppc-dev@lists.ozlabs.org
+References: <dd866cf2321381694af027fbd726bcbd63ac3751.1787828961.git.falakreyaz@gmail.com>
+ <b073968ae020b6ae0240e91341a92f428587ebd9.1787828961.git.falakreyaz@gmail.com>
 Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <77e3dae7-8e59-432e-9cfa-68f71d3e9587@kernel.org>
+From: Tyrel Datwyler <tyreld@linux.ibm.com>
+In-Reply-To: <b073968ae020b6ae0240e91341a92f428587ebd9.1787828961.git.falakreyaz@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDE2MSBTYWx0ZWRfXzlWOBqC9HRUO
+ ++8bm4Puiev9eabSGcxJ4pLaVVP4fIdg60N0LwqB5e2Il4IMIssuaQ5uEmsefsq/0PgfruA097A
+ /63KZXCeH7bpkaQZOQn8QVdhCR8hB4g=
+X-Authority-Analysis: v=2.4 cv=AYuB2XXG c=1 sm=1 tr=0 ts=6a909019 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
+ a=QyXUC8HyAAAA:8 a=pGLkceISAAAA:8 a=VnNF1IyMAAAA:8 a=xP4I_6v4Ii45Jom1HAIA:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: VA61OV9oQxz5OlhCAXktmQ5nW6BdwtE5
+X-Proofpoint-GUID: 1sVxm5x9ea8oTlMhMr8MewCaWL1plwGh
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDE2MSBTYWx0ZWRfXw6MNoQrSvALG
+ lcXHZ7kMcY1Z2CvQ4LSR2mBFjBcjYlQnX8fZGYESmQtr3bQA0kZgeAAba0KCtTsprQ6YPKdrlhz
+ 0MzpU+ZtQepip7L1ISIHR/Gvt++SoJbPAuglWR5+mci2smj4lwGWznEvSUcNPrCfvZh5WTbCRjF
+ +gZDS9R/2WqQrsOZZdKfffN1weHIlEmgEb0Ps8LGJWeVuZ14X+Yksc1+UMWU937I7zhLc6uYAAs
+ 1Vz62LTmlqZ52cVj3eEftdyV2U1WwJ2HVvzhum7PH7tgFDFNp+qmE9529Wp06yDp7UENmiBpmaS
+ OLKUPhHQQs64/qCSyTsBZ+63C825/GMThTBsaz8kYyTa/dxNA3w8s4x+DQLuyqg7iA5VDp4EC7E
+ UOlapKTa5uO1tEC+iJ1wQyn6PZknhFkX8G0Te1ErLvi1nBJZ0wt4gvmW9AwfbfQCg/y+++fYuYo
+ n1qoe4jg+M9jt4GwLkQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-27_07,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 clxscore=1015 adultscore=0 bulkscore=0
+ impostorscore=0 priorityscore=1501 lowpriorityscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608270161
 
-On 8/27/26 21:16, David Hildenbrand (Arm) wrote:
-> On 8/27/26 19:41, Kairui Song wrote:
->> On Fri, Aug 28, 2026 at 12:41 AM David Hildenbrand (Arm)
->> <david@kernel.org> wrote:
->>>
->>> These two boolean parameters are really a pain. There must be a better way.
->>>
->>> Also, I don't like that __folio_split_unmap_and_freeze() sounds generic again.
->>>
->>> There must be a better way for that as well. We had a clean split and now we
->>> mangle it again.
->>>
->>>
->>> ... but I am just before my PTO and out of puff, so others can brainstorm on how
->>> to do this cleaner :)
->>
->> What if we just keep the __folio_split_unmap_and_freeze_anon name? And
->> have that "bool remap" mentioned in previous reply? Clean swap cache
+On 8/27/26 4:20 AM, Muhammad Falak R Wani wrote:
+> Commit 249313b3f7b5 ("scsi: ibmvfc: allocate targets based on protocol")
+> added a protocol parameter to ibmvfc_alloc_target() but did not describe
+> it in the function's kernel-doc comment, so a W=1 build warns:
 > 
-> I think you can just rely on folio_mapped() internally. swapcache-only is never
-> mapped. And anon folios you can just detect internally as well, right?
+>   drivers/scsi/ibmvscsi/ibmvfc-core.c:4996: warning: Function parameter
+>   or struct member 'protocol' not described in 'ibmvfc_alloc_target'
 > 
->> could be considered "anon compatible" as they might become anon
+> Add the missing parameter description.
 > 
-> Dirty but better than what you have right now. As you say, there really is no
-> difference.
-> 
-> But for example the mapping/remapping is superfluous. So you could also consider
-> a _swapcache that reuses some common bits from the _anon helper.
-> 
-
-Okay, I took another look at the resulting __folio_split() and I think if you
-pack the "Unlock all after-split folios" into a separate helper function, and
-call this helper from inside the _anon / _file etc, you can just end up with
-very nice function names:
-
-	ret = folio_check_splittable(folio, new_order, split_type);
-	...
-
-	if (is_anon)
-		ret = __folio_split_anon(...);
-	else if (is_swapcache)
-		ret = __folio_split_swapcache(...)
-	else
-		ret = __folio_split_file(...)
-
-out:
-	if (is_pmd_order(old_order))
-		...
-	return ret;
-
-IOW, the common bits don't have to be called by __folio_split(), but can be
-called by the other helpers.
-
-
-I guess it would be ok to have something like
-
-__folio_split_anon_or_swapcache(...);
-
-(the function name length is acceptable)
-
--- 
-Cheers,
-
-David
+> Fixes: 249313b3f7b5 ("scsi: ibmvfc: allocate targets based on protocol")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202608270829.lHI1FAdO-lkp@intel.com/
+> Signed-off-by: Muhammad Falak R Wani <falakreyaz@gmail.com>
+> ---
+Acked-by: Tyrel Datwyler <tyreld@linux.ibm.com>
