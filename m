@@ -1,50 +1,51 @@
 Received: from bg-bec.cloudflare-smtp.org (bg-bec.cloudflare-smtp.org [104.30.16.142])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C83643546C9
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:42:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 092E74322EE
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:43:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=104.30.16.142
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787834583; cv=none; b=IoD5DaGGuCSRHSW+s9SwTlSaPj2GV2I+UD0KOtAjhWAl6KoJAbE/0UW18z6dmx6xAbpW32WsIXlvsP8N1oNJ344olaX0aq8PI/1i5Kbw6C62w/rZV67DVqz5ygzgaCOrTuYXpZAOEIs0VLp5FaozhEsztOKl13oN0yzASe3oRn8=
+	t=1787834597; cv=none; b=rAIBR83lz2u6unwfqX18ecWs69pwdIXf4pX/yKvFuALOsjEtdn10ALXZWFRi9ibN/1eDUOOHLtftfEyK7u9X4FkIA7rEIYJULSwW+KSVowUGDNEJeBC3ldIjLOebtlbem2p6AIrvWrUh/AplgjCEG1KB5Lg6y10RIKJ4IRBwPMY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787834583; c=relaxed/simple;
-	bh=fbxDeYvyvxjoR5ZFTwmONVXbzci/IqOHoqKa7M5aQpg=;
-	h=From:Message-ID:Date:Subject:To:MIME-Version:Content-Type; b=e7whk4ZjkHiO9IOakHWmk6TxqmtJMG/h5zbcgKXPKeaosM8wDoTA8gP+KW+T1vg2M6uX3Gm0rfzskdLyfpdLO+dAmVZpJU8OsJan4gO4ZmtOKEUgpV06t6NQaReDhoTojKzG8q3qSonDYXj6sCRLaKPjAAyOp6ShvJXUSJdTJNI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh; spf=pass smtp.mailfrom=cf-bounce.bugs.sh; dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b=G69/3lBk; dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b=TkEO/kMc; arc=none smtp.client-ip=104.30.16.142
+	s=arc-20240116; t=1787834597; c=relaxed/simple;
+	bh=MRSnGejNdcct+4F9BQgiS4v8hDQnk5+Q9r8jg9KUXa8=;
+	h=From:Message-ID:Date:Subject:To:MIME-Version:Content-Type; b=Gxh9cY1EukdIR+f+CjvY2p+Vf8an/qzVAT9nQ1dQEbhb7jO0r9zk0b2475g1t+F2P6TS7ANYgCrTGw2Ynyd2i+vDTf7M5uwF8HN39/WF19hy88zRPcqILWAjfqHhnAX0hpGxciF6u9/DDMjYAVMOVf++ja5c9Xy0H4HSZDv0fvU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh; spf=pass smtp.mailfrom=cf-bounce.bugs.sh; dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b=Jol0Bv6s; dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b=ESqal6fj; arc=none smtp.client-ip=104.30.16.142
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cf-bounce.bugs.sh
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b="G69/3lBk";
-	dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b="TkEO/kMc"
+	dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b="Jol0Bv6s";
+	dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b="ESqal6fj"
 DKIM-Signature: v=1; a=rsa-sha256; s=cf2024-1; d=cloudflare-smtp.org; c=relaxed/relaxed;
 	h=To:Subject:Date:From:Feedback-ID:from:reply-to:cc:resent-date
 	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
 	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
-	:list-owner:list-archive; t=1787834570; x=1788439370; bh=xolQtDTvcx7Ik7f2ae
-	NUamIlZy97liYAIRbX4sTp+f0=; b=G69/3lBklflC7YrNW/j+EJdPep2EqfmTxt80/w9Q5lVNp
-	ORG5XAMIXdM4uqq3RWLiuXGpGM8Y5ArL7E3aJZL/s68+v1E6RSWuG+o2E4rZ0W/y9xuJmOAzLzD
-	r9d34bizivge2OnTh9/OVQFiz7n0rHb2zkfTj1JrhWcBSRPG/Be3rco4AiDUy4HcBSKEfjAAry9
-	8RUYrdpdJB+sUDEQXqDbGbQMgLQTUMv0ZfS9GvfmnS9VYWc4SFq4n1pptPc3QYwe8bzhGn+0CF5
-	0/c+beysb4AMWn2RBa7IaOeFqaweeT4jJ3GdQGZ1AhfAIpaWb0+Q8N4mqxVHAbnRtqM5Yhfg==;
+	:list-owner:list-archive; t=1787834591; x=1788439391; bh=W4fm0u3HZdhfMBbhRO
+	VOx1cU3LnYi3RVandcTDjcu3E=; b=Jol0Bv6sUhvBU4ktFdEyl++yy/5n7vz8myBOXeaSGkpdU
+	akOVqqo3hijnL0hMi8QtguPpTFma7zNo4z2vdcF0NgUeU06sBKSVuXWEG+aCoTO/uRQVoWNBy7v
+	X3WhtrowcirdfyKmZRkKgt5qGjODCAcz4SSXFo77oYTfCmGJ7Tirb082ZqTAcH4CSG4+vDKzhhE
+	rFMEhC+XWrxpV8DnEskPj+A/728QblsMq6Pjh7L68UNola0z97/VPnrOreSQyZzHch6B2K16VBI
+	Tq6ivTDx0JwC3+G03/qVKsoAd5HIsj1U+AFeY7iibweuQHiPWKTy3hQMsv9ey9vFSTw0GDyg==;
 DKIM-Signature: v=1; a=rsa-sha256; s=cf-bounce; d=bugs.sh; c=relaxed/relaxed;
 	h=To:Subject:Date:From:Feedback-ID:from:reply-to:cc:resent-date
 	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
 	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
-	:list-owner:list-archive; t=1787834570; x=1788439370; bh=xolQtDTvcx7Ik7f2ae
-	NUamIlZy97liYAIRbX4sTp+f0=; b=TkEO/kMcXCLa1kpLf+TWbbklQigspml+s4nOGj+jKMaEN
-	fYhepbWSUbrfyJWy9rfO/dCIgHRfcnOb8AFL33XWAfnoHyvtEz0iQr/K4NgBReD7uO+l8vA7lJC
-	Tg6OVz5q43bLo2YVJ23eTAT7b2TlDB5GLHOuOtk57QPj9EvFJxNs2qySsqiIPF1jJ98/1dNFoX9
-	/2PLtICTVA0ZwFEjIfaQK/RSaXt9Q/Y3F7EvOqWPLoqhDkn4w9I3b+f6m86FSP3CnIfYZCVNxWw
-	+0mcMIW7ZQkHazuF7KQu3obChC5APDEv5xaW4TEbQZK/deJrEncE1R7xwYQkE3EPDYp73h9w==;
+	:list-owner:list-archive; t=1787834591; x=1788439391; bh=W4fm0u3HZdhfMBbhRO
+	VOx1cU3LnYi3RVandcTDjcu3E=; b=ESqal6fjBRjl8zZIKAHrenPh8B8gjgx145Azm1F9SeqrX
+	pZbHXvIBwiPX3BRmuwiThX7NFl2sJH3m95dMZ2CoWHwg+ulfGAR4YWykddkA7V0ZUrEJj8fKLvI
+	xX+J6jWoNFJh3MEv+27CuPVq3VpFhK/lpMQ+5QuvN/AvX2Wu7t3YFxRdDLfdViy89NEAZhBQejx
+	N9AsoSPUhKcED21KLXhEiJvM9eiat6X3VmjJYWEMu1zN8wuzNf4hWR2ynHkw186wcHpxnbnTqy1
+	bOYWVUM/ijX2o7ZpVjy+KFWc3KamhG4vp33w1jIkvTF6IQFvkVMnIjCtQ6sF7VChDcEd9y9w==;
 Feedback-ID: bugs.sh:5:6:Cloudflare
-From: co <co+6dcbccedc9ec6452@bugs.sh>
-Message-ID: <ILTHcT8oe1HP47sY25JVxssvKmkCTjYlX9Hs@bugs.sh>
-Date: Thu, 27 Aug 2026 12:42:43 +0000
-Subject: [BUG] drivers/vdpa: use-after-free in sk_skb_reason_drop()
-To: virtualization@lists.linux.dev, "Michael S. Tsirkin" <mst@redhat.com>, "Jason
- Wang" <jasowangio@gmail.com>, "Xuan Zhuo" <xuanzhuo@linux.alibaba.com>,
- =?utf-8?b?RXVnZW5pbyBQw6lyZXo=?= <eperezma@redhat.com>, "Parav Pandit" <parav@nvidia.com>, "Eli
- Cohen" <elic@nvidia.com>, linux-kernel@vger.kernel.org
+From: co <co+6155a794e60d2ebf@bugs.sh>
+Message-ID: <BC0kQFzqFlua7hmRFXYJxLDaLlY5VAVsVW2p@bugs.sh>
+Date: Thu, 27 Aug 2026 12:43:03 +0000
+Subject: [BUG] net/core: use-after-free in sock_def_readable()
+To: netdev@vger.kernel.org, bpf@vger.kernel.org, "John Fastabend" <john.fastabend@gmail.com>, "Jakub
+ Kicinski" <kuba@kernel.org>, "Sabrina Dubroca" <sd@queasysnail.net>, "David
+ S. Miller" <davem@davemloft.net>, "Eric Dumazet" <edumazet@google.com>, "Paolo
+ Abeni" <pabeni@redhat.com>, "Simon Horman" <horms@kernel.org>, "Daniel
+ Borkmann" <daniel@iogearbox.net>, linux-kernel@vger.kernel.org
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -56,10 +57,10 @@ Content-Transfer-Encoding: quoted-printable
 
 We found a bug reachable in:
 
-    path    drivers/vdpa
-    crash   use-after-free in sk_skb_reason_drop()
-    commit  bd5f485f3f02 ("Merge tag 'soc-arm-7.3' of git://git.kernel.org/=
-pub/scm/linux/kernel/git/soc/soc")
+    path    net/core
+    crash   use-after-free in sock_def_readable()
+    commit  4e15e89faac9 ("net: bnxt: ring the doorbell when SW USO exits e=
+arly")
 
 Config, environment, the sanitizer report and a C reproducer follow.
 
@@ -69,7 +70,7 @@ Config, environment, the sanitizer report and a C reproducer follow.
     If you patch the bug based on our artifacts, a tag would be
     appreciated:
 
-Reported-by: co+6dcbccedc9ec6452@bugs.sh
+Reported-by: co+6155a794e60d2ebf@bugs.sh
 
     Everything in this mail is validated by the reproducer below.
 
@@ -79,8 +80,8 @@ Reported-by: co+6dcbccedc9ec6452@bugs.sh
     human review, so both still require validation before you send or
     apply them. Available on:
 
-        patch.diff  https://bugs.sh/b/6dcbccedc9ec6452/patch.diff
-        report.md   https://bugs.sh/b/6dcbccedc9ec6452/report.md
+        patch.diff  https://bugs.sh/b/6155a794e60d2ebf/patch.diff
+        report.md   https://bugs.sh/b/6155a794e60d2ebf/report.md
 
     This is an open science project. The code and the full set of PoCs
     are not public at this moment, as we intend to disclose our findings
@@ -94,47 +95,127 @@ Reported-by: co+6dcbccedc9ec6452@bugs.sh
 =3D=3D Environment =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-    Reproduced on  bd5f485f3f02 ("Merge tag 'soc-arm-7.3' of git://git.kern=
-el.org/pub/scm/linux/kernel/git/soc/soc")
-    VM setup       https://bugs.sh/b/6dcbccedc9ec6452/run.sh
-    config         https://bugs.sh/b/6dcbccedc9ec6452/config.gz
-    poc            https://bugs.sh/b/6dcbccedc9ec6452/repro.c
+    Reproduced on  4e15e89faac9 ("net: bnxt: ring the doorbell when SW USO =
+exits early")
+    VM setup       https://bugs.sh/b/6155a794e60d2ebf/run.sh
+    config         https://bugs.sh/b/6155a794e60d2ebf/config.gz
+    poc            https://bugs.sh/b/6155a794e60d2ebf/repro.c
 
 =3D=3D Sanitizer Report =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-BUG: KASAN: slab-use-after-free in sk_skb_reason_drop (./include/linux/inst=
-rumented.h:82 ./include/linux/atomic/atomic-instrumented.h:32 ./include/lin=
-ux/refcount.h:170 ./include/linux/skbuff.h:1290 net/core/skbuff.c:1220 net/=
-core/skbuff.c:1249)
-Read of size 4 at addr ffff888013ca3adc by task exploit/145
-CPU: 1 UID: 65534 PID: 145 Comm: exploit Not tainted 7.2.0+ #8 PREEMPTLAZY
+BUG: KASAN: slab-use-after-free in sock_def_readable+0x294/0x2d0
+Read of size 8 at addr ffff888100477188 by task exploit/149
+CPU: 1 UID: 0 PID: 149 Comm: exploit Tainted: G        W           7.0.0+ #=
+131 PREEMPT(lazy)
 Call Trace:
-dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
-print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
-kasan_report (mm/kasan/report.c:595)
-kasan_check_range (mm/kasan/generic.c:186 mm/kasan/generic.c:200)
-sk_skb_reason_drop (./include/linux/instrumented.h:82 ./include/linux/atomi=
-c/atomic-instrumented.h:32 ./include/linux/refcount.h:170 ./include/linux/s=
-kbuff.h:1290 net/core/skbuff.c:1220 net/core/skbuff.c:1249)
-vdpa_nl_cmd_dev_config_get_doit (./include/linux/skbuff.h:1323 ./include/li=
-nux/skbuff.h:1332 ./include/net/netlink.h:1131 drivers/vdpa/vdpa.c:1324)
-genl_family_rcv_msg_doit (net/netlink/genetlink.c:1114)
-genl_rcv_msg (net/netlink/genetlink.c:1194 net/netlink/genetlink.c:1209)
-netlink_rcv_skb (net/netlink/af_netlink.c:2556)
-genl_rcv (net/netlink/genetlink.c:1218)
-netlink_unicast (net/netlink/af_netlink.c:1319 net/netlink/af_netlink.c:134=
-5)
-netlink_sendmsg (net/netlink/af_netlink.c:1900)
-__sys_sendto (net/socket.c:800 (discriminator 1) net/socket.c:815 (discrimi=
-nator 1) net/socket.c:2277 (discriminator 1))
-__x64_sys_sendto (net/socket.c:2284 net/socket.c:2280 net/socket.c:2280)
-do_syscall_64 (arch/x86/entry/syscall_64.c:61 arch/x86/entry/syscall_64.c:8=
-4)
-entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
-The buggy address belongs to the object at ffff888013ca3a00
-which belongs to the cache skbuff_head_cache of size 232
-The buggy address is located 220 bytes inside of
+<IRQ>
+dump_stack_lvl+0xb8/0xf0
+print_report+0xd0/0x630
+kasan_report+0xca/0x100
+sock_def_readable+0x294/0x2d0
+tcp_data_ready+0x115/0x580
+tcp_data_queue+0x2569/0x4c30
+tcp_rcv_established+0xa0f/0x37e0
+tcp_v4_do_rcv+0x56c/0xb10
+tcp_v4_rcv+0x2808/0x3f00
+ip_protocol_deliver_rcu+0x6f/0x420
+ip_local_deliver_finish+0x3bb/0x560
+ip_local_deliver+0x2a7/0x300
+ip_rcv+0x37e/0x400
+__netif_receive_skb_one_core+0x19c/0x1f0
+process_backlog+0x263/0x900
+__napi_poll+0xba/0x6c0
+net_rx_action+0x482/0xc90
+handle_softirqs+0x1db/0x6a0
+do_softirq.part.0+0x70/0x90
+</IRQ>
+__local_bh_enable_ip+0x7c/0x80
+__dev_queue_xmit+0x99e/0x39a0
+ip_finish_output2+0xf93/0x1860
+__ip_finish_output+0x271/0x4a0
+ip_finish_output+0x78/0x3d0
+ip_output+0x19b/0x310
+ip_local_out+0xd6/0x110
+__ip_queue_xmit+0x905/0x1950
+__tcp_transmit_skb+0x3918/0x4ca0
+tcp_write_xmit+0xef3/0x78e0
+__tcp_push_pending_frames+0xb0/0x340
+tcp_push+0x48e/0x720
+tcp_sendmsg_locked+0x1851/0x43a0
+tcp_sendmsg+0x2f/0x50
+inet_sendmsg+0xba/0x140
+__sys_sendto+0x454/0x500
+__x64_sys_sendto+0xe1/0x1c0
+do_syscall_64+0x12f/0xc00
+entry_SYSCALL_64_after_hwframe+0x76/0x7e
+RIP: 0033:0x425e1a
+Allocated by task 149:
+kasan_save_stack+0x2f/0x50
+kasan_save_track+0x10/0x30
+__kasan_slab_alloc+0x6a/0x70
+kmem_cache_alloc_lru_noprof+0x1d1/0x580
+sock_alloc_inode+0x27/0x290
+alloc_inode+0x65/0x240
+sock_alloc+0x43/0x240
+__sock_create+0xc1/0x520
+__sys_socket+0x14e/0x260
+__x64_sys_socket+0x73/0xb0
+do_syscall_64+0x12f/0xc00
+entry_SYSCALL_64_after_hwframe+0x76/0x7e
+Freed by task 0:
+kasan_save_stack+0x2f/0x50
+kasan_save_track+0x10/0x30
+kasan_save_free_info+0x37/0x60
+__kasan_slab_free+0x3f/0x60
+kmem_cache_free+0xfe/0x4d0
+i_callback+0x47/0x70
+rcu_core+0x8dc/0x1110
+handle_softirqs+0x1db/0x6a0
+__irq_exit_rcu+0x146/0x240
+sysvec_apic_timer_interrupt+0x9d/0xc0
+asm_sysvec_apic_timer_interrupt+0x16/0x20
+Last potentially related work creation:
+kasan_save_stack+0x2f/0x50
+kasan_record_aux_stack+0x88/0xa0
+__call_rcu_common.constprop.0+0x76/0x8e0
+destroy_inode+0x131/0x1b0
+evict+0x54b/0x850
+iput+0x5ca/0x7b0
+dentry_unlink_inode+0x2ad/0x490
+__dentry_kill+0x1d8/0x600
+finish_dput+0x4b/0x260
+dput.part.0+0x2d1/0x3f0
+dput+0x20/0x30
+__fput+0x51c/0xb90
+fput_close_sync+0x119/0x250
+__x64_sys_close+0x8c/0x120
+do_syscall_64+0x12f/0xc00
+entry_SYSCALL_64_after_hwframe+0x76/0x7e
+The buggy address belongs to the object at ffff888100477100
+which belongs to the cache sock_inode_cache of size 768
+The buggy address is located 136 bytes inside of
+freed 768-byte region [ffff888100477100, ffff888100477400)
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x100474
+head: order:2 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+flags: 0x100000000000040(head|node=3D0|zone=3D2)
+page_type: f5(slab)
+raw: 0100000000000040 ffff888100b1a280 dead000000000122 0000000000000000
+raw: 0000000000000000 0000000800120012 00000000f5000000 0000000000000000
+head: 0100000000000040 ffff888100b1a280 dead000000000122 0000000000000000
+head: 0000000000000000 0000000800120012 00000000f5000000 0000000000000000
+head: 0100000000000002 ffffffffffffff01 00000000ffffffff 00000000ffffffff
+head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000004
+page dumped because: kasan: bad access detected
+Memory state around the buggy address:
+ffff888100477080: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+ffff888100477100: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+>ffff888100477180: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+^
+ffff888100477200: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ffff888100477280: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+Kernel panic - not syncing: Attempted to kill init! exitcode=3D0x00000000
 
 
 ---
