@@ -1,63 +1,63 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93DA84ADD8C
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:12:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D057841D122
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:12:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787854374; cv=none; b=S1otHWTKYHMYl4yIKJIUUcW/Kpql0bJuAD6C3nEcJDd0bz848BQhIIrMPR6DAZ0VYotAM6QMiM5jGxVPaj7XKGx4/TDXX0n4M/DF6YAE9hzSAqZJCuO3J446j8spua2JkRN+IlDUdF+tXgXc7inGxSiolFlZGbpR5EeAKVaboww=
+	t=1787854373; cv=none; b=uU6uIWSZqf1bAM1EszTuT12+wRdWYJvQ47oCrbn9371dsTr204FEK9RG8CGn1l4tkG1qU9I+s79Gk4uNWyKklbAabi42ZcJUpdbeIuAOE1E646VrGtAOQbqF7kiaVHit0YzaH4rTSj/0AGRTWHbte7an6z3syYTv/9NxCaiqOvk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787854374; c=relaxed/simple;
-	bh=p+PsdWMYgDeEzYR8CJuUDvk5UXQMtpQbuHidEtNGz/Q=;
+	s=arc-20240116; t=1787854373; c=relaxed/simple;
+	bh=5pM84wH63JepFHSb4kG/5A1SM/EOErdSVHZjNaaRyvQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uQJwAKW50C9Ghm+OeB+Ozv7cuc/r9XhCk9B/3BMIs5ixSqV0EX4fyfw/BjbOM5OyHheITYrBO9wQkFj70xxJh/XGDbOlNdYq8keEZUZvrcpwRthdJ5ufkWER5QeOiPzrc9EWiTMkHeqVqLUAibn/T+Bix8IB769wxnmhdqIi3HY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F2DczBCN; arc=none smtp.client-ip=209.85.221.52
+	 MIME-Version; b=uhfmXIfmCqY4Gs6vB8fz26SWqfYqbD+VmBBDDAqLYauWY0bSSioVa0UCqzrkitFlb8rZvPSbORIetQ+b86NtKePnUU1xWtm4sbX/cFDJoKb6nMcg1vJJ4eizvZbZLSyCOCKcmfV4SfvgvzkiCMG83qv4qW7Gip9TN70GH0uYjt8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Uq4ChYgy; arc=none smtp.client-ip=209.85.221.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F2DczBCN"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-482e257a23aso96743f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:12:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Uq4ChYgy"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-482e2fdf6ebso119408f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:12:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787854365; x=1788459165; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787854364; x=1788459164; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sMNGNdzcXKEoePKaXgyC7xmNkieewX0FtVFEtM4oZI8=;
-        b=F2DczBCNlEFzzLJ6lsNivfc4JG8UITqQCmtE7qwrcyt+QO9fjFgYz7MUSLwRZeC/Sz
-         eim/mOOONbmxZ6E900cj/WsN1SQywuLANQ6KzgDhGp5oMJET/732VnV8fHQEV93iMQ+r
-         Tg8Z9yRuxX/i6ABJOJ77hZbBJldnm4/TsMrzwiVl3j3ZOLrvHiEl7H1VlCYP6SHcH4KB
-         CCoVCI4dJbtsIaAH02L4YM7ccNEeH1gxB1RgkRs7v8nmg1h5xBgqzQZVV/zN4alX78Q2
-         w1kTwQHqXZJYjBnwQyisuel37CkiA1DSYYl5mY3H1g3/deb71HnHJsMNk2EYCCMWpL2f
-         3YsQ==
+        bh=3pcNMEhKQ8vEFE6EHmsl0CDo6A+w9XwgT+EBwepfbqE=;
+        b=Uq4ChYgycomYZ7X/2vY/zMi7ZCqKOVnCmLFGC36X741PfxzB8w/zly4vIfUS0ajIqQ
+         ydySeRXNTdX8hfMz8PjOn614BkLH1q4tLCBymKmQaDBNGcXQ2zIM/5x9kPEPDpiYX/8N
+         4UHXdav1dL6eut9SgAzoGwaVF2QNy95SnCSgxxuOsGgqGFpWPX8+AfCmYwZrI/L4xGKD
+         W0rTpBavVEUbQKNx21I22sWt+3147gnXb5r6aQDDCuqpo+lo/HZdMm+Oi4ABFq8MmZxr
+         0/G8P/7Cy9YKW7QZkpz1L5S0nMmPMUdW2EmlCuX/rS1ANdAvlaooZFHZ2dSpKOi6pxRB
+         BCQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787854365; x=1788459165;
+        d=1e100.net; s=20251104; t=1787854364; x=1788459164;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sMNGNdzcXKEoePKaXgyC7xmNkieewX0FtVFEtM4oZI8=;
-        b=NdqrCZDSNcq860bBzmd8uzDgPmib8lIuj3435nhjwim4yZfpTBFdZuME78B0q92s3v
-         QINDnqSAEuv+yS+4VV2ZsHSsQON1wTbtw77nahfQmppgKN25edZNA/8BUSe0lXRtBM4w
-         4ZazpCslaq4yzqk8DU8loa2cy6xcLEf4v0A4jt4aH8m/1zi2tMal2Gcl+qsdXb/L2tun
-         QWe2V2cAG9K0x9g34h7B+yHez4xA+lMlN5fkGYPO8T/xRQ1KRLZm3PLvwNR/F7mbZjB2
-         pHVn3vGOkT8HprE86CpWrgJp/U8O/V/GtGv8qZySsI81MHv/HPpb+x2gR8ZrzoOq8Hhu
-         +ozQ==
-X-Gm-Message-State: AFuF++ngOdIXABry7pNYnEpLK4QS2BzhR2QxiHGatPVFv8JTt3wD/VPz
-	O9ylH0OnbBIxzfrD84a9aZO2v1jL1/Zs1KSAC/ri0ndDq5XbRhNq7Zoa
-X-Gm-Gg: AR+sD12nigC/vdh9e884z0n9r4yiVRQEAGYGT5ZHWp2RVUwZ2c+zFlFBlVDI0DjeNig
-	x3/SLxQA2AaRAYSV8/g+9S8kyEtFOiOVcHOQ8LeuNWF2ttX9xlGJ7jw1ILraJChA/nX2YXVSp1g
-	j0Ocf3t0i+w94fUrrrxArbVMcPVms+00mATa3LJwnlYZgcir6eAJlHV35IugiAF2mNgmvM2rNAt
-	YlGh/3Cx3oRuNp5fu0Phs4Y962Qirdh3p6LZwraOkVLRIeJsplIMNoCzgGRxOJU6A0INHMxc9f9
-	kGzoXxIBhWNiSJtDCUQsd05nUl/zOPDUOQsgen/Fmu7fr+Vq34Pc0o+Q0hZOylii2qzGBOU1O2L
-	0VlYTyk/l2p7sphQ+cmzvv9/JDERDPuD6sx0CZk3WsRcry8GRXljSQygeBc9dla+QFL1k3Xnti6
-	w3ZRgSCHegbYDSe+iAEx0SwHNrU3RTxiseD3WkD1MsMNJkxNEH3+xLtPtJ3cpPj+GQxbjz/P6L3
-	ap9Jru/pxYC/jSQ3z8Eoj7Ega+mCDYkE6PJHGmVCu7r
-X-Received: by 2002:a5d:64c3:0:b0:47f:7759:89df with SMTP id ffacd0b85a97d-482f7977513mr896312f8f.3.1787854365279;
-        Thu, 27 Aug 2026 11:12:45 -0700 (PDT)
+        bh=3pcNMEhKQ8vEFE6EHmsl0CDo6A+w9XwgT+EBwepfbqE=;
+        b=TJtLgexqyD5egF7B27hgzCeHFcBjmdCB5hje7re+kgdtOyBwBc2rxUDIcJdR9NpK22
+         qhAm0odL8u4U57yv6E9oD+j+F9m+Qi9Q5X0hrLpA4XOlSaTHGy1NIaDcM5oSqyIX/ak8
+         JfHcAmoj7SHggX3uVo0cdepOWOGReb/Qcgp68w+4oR7qvFU73+Nc21CysqHgP/aciiXx
+         Vc5iDvzsiNLIa8fOOl6A0aIJaNpVmaSJJY0LoZjlpt87KHTTp8yWEoOuIl5lVOc5QzQ6
+         LJbS7GKn5bAanpgVlzwssSLyHV4kAwloUSnjCwD6h4zVrEWZ1mjWPOxBrGd/oBLBVJiu
+         wfBA==
+X-Gm-Message-State: AFuF++m8CZQGa+tiOkqerq22W20ky+ZTBgaol0eXFvN6my2EETnIGWFx
+	5c281J3Lu6pQDY/7r64/ragpe3y2nNgWVYS1KcaHOeYiE8SMnFrgz2GI
+X-Gm-Gg: AR+sD11cftYRDSsLNMZYRt0VUtwX6ZgVlgs/EAZ3KgaYYDyi1Js/k4mGy87DFUFviwo
+	U564VZK6qVf4DdQj3ZEHsdwqLmMNhl5bfqlccOD3XQG5A9Mygkhr3waJBJZ8rKBDHqaVsL8LXT3
+	tXpwJvWN8UkeiLt/bxSH71bWFLuw8CUsAOtK53DTG19g5UVknHrQYyAvWq7DjVemstV+8vPgUg4
+	UZ0t1uXDYt0JoywyP577yYK9ZFr1w3jGI7Gj8hf8LLb64VQtUkXYYj6MSgMrhV08cqSz/70jrae
+	42oBN4a98k+xiug3/faEq5UU+hlv2KyVYxS8OEuBSIKm1tB59hdPJnFVsDI5BjGqUHEdKa/QPHo
+	RyLAg+lLFW8dKy0h/+4XrU4ctltAKs7/KaiAQHKIIBoKIXRWTr7DljFFJXnnikJyAI3wQbcB+Wo
+	D1f2+MVmCGt+aLD1SurnjPRFXSDnUovkADoZXmUx4rT5JKOjkbIt371AczStlA3SStWB612UPH6
+	xzsbOwgyOY91N6YERqft6Xqhb1CvT5nOyBxi+mz7bDh
+X-Received: by 2002:a05:6000:4287:b0:481:4761:45dc with SMTP id ffacd0b85a97d-482f79b015cmr797857f8f.13.1787854363403;
+        Thu, 27 Aug 2026 11:12:43 -0700 (PDT)
 Received: from 1Z10 ([78.213.170.242])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e28f6917sm10189895f8f.35.2026.08.27.11.12.43
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e28f6917sm10189895f8f.35.2026.08.27.11.12.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 11:12:44 -0700 (PDT)
+        Thu, 27 Aug 2026 11:12:42 -0700 (PDT)
 From: Maurizio Casciano <mauriziocasciano7@gmail.com>
 To: linux-sound@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
@@ -72,9 +72,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Takashi Iwai <tiwai@suse.com>,
 	Yauhen Kharuzhy <jekhor@gmail.com>,
 	Maurizio Casciano <mauriziocasciano7@gmail.com>
-Subject: [PATCH v5 2/2] ASoC: Intel: cht: Add Yoga Book RT5677 machine entry
-Date: Thu, 27 Aug 2026 20:12:35 +0200
-Message-ID: <20260827181236.2421882-3-mauriziocasciano7@gmail.com>
+Subject: [PATCH v5 1/2] ASoC: Intel: Add Cherry Trail RT5677 machine driver
+Date: Thu, 27 Aug 2026 20:12:34 +0200
+Message-ID: <20260827181236.2421882-2-mauriziocasciano7@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260827181236.2421882-1-mauriziocasciano7@gmail.com>
 References: <20260827072517.1401173-1-mauriziocasciano7@gmail.com>
@@ -87,42 +87,692 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Yoga Book YB1-X91F/L exposes its RT5677 codec as ACPI device
-10EC5677. Add a Cherry Trail machine-table entry so SST creates the
-cht-rt5677 machine device and loads intel/fw_sst_22a8.bin.
+The Lenovo Yoga Book YB1-X91F/L uses the Cherry Trail SSP2 link with
+an RT5677 codec and a TS3A227E headset detector. Its amplifiers and
+headphone path also need board-specific GPIO sequencing.
 
-Associate the same entry with sof-cht-rt5677.tplg so SOF loads the
-matching IPC3 topology through the standard firmware search path. The
-topology sources are maintained and distributed separately by the SOF
-project.
+Add a Cherry Trail RT5677 machine driver based on Yauhen Kharuzhy's
+implementation. Clone the card, DAI links and link components per device
+so probing never mutates global templates, and allocate jack storage with
+the device lifetime. Support SST and SOF parent naming, MCLK and PLL setup,
+jack buttons, microphones, and output controls.
 
+Link: https://github.com/jekhor/yogabook-linux-kernel/commit/4e41d0ff72c1d1fd8d5c59dda247e4ca8a1da999
+Link: https://lore.kernel.org/linux-sound/20260611-asoc-yogabook-v2-v3-3-3128447b67b6@gmail.com/
 Assisted-by: Codex:gpt-5.6-sol sparse
 Co-developed-by: Yauhen Kharuzhy <jekhor@gmail.com>
 Signed-off-by: Yauhen Kharuzhy <jekhor@gmail.com>
 Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
 ---
- sound/soc/intel/common/soc-acpi-intel-cht-match.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ sound/soc/intel/boards/Kconfig      |  14 +
+ sound/soc/intel/boards/Makefile     |   2 +
+ sound/soc/intel/boards/cht_rt5677.c | 612 ++++++++++++++++++++++++++++
+ 3 files changed, 628 insertions(+)
+ create mode 100644 sound/soc/intel/boards/cht_rt5677.c
 
-diff --git a/sound/soc/intel/common/soc-acpi-intel-cht-match.c b/sound/soc/intel/common/soc-acpi-intel-cht-match.c
-index e4c3492a0c28..442ef30ffcc7 100644
---- a/sound/soc/intel/common/soc-acpi-intel-cht-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-cht-match.c
-@@ -137,6 +137,14 @@ struct snd_soc_acpi_mach  snd_soc_acpi_intel_cherrytrail_machines[] = {
- 		.board = "cht-bsw",
- 		.sof_tplg_filename = "sof-cht-rt5670.tplg",
- 	},
+diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
+index cddbd2aa424e..33b2b409f150 100644
+--- a/sound/soc/intel/boards/Kconfig
++++ b/sound/soc/intel/boards/Kconfig
+@@ -161,6 +161,20 @@ config SND_SOC_INTEL_CHT_BSW_RT5672_MACH
+ 	  Say Y or m if you have such a device. This is a recommended option.
+ 	  If unsure select "N".
+ 
++config SND_SOC_INTEL_CHT_RT5677_MACH
++	tristate "Cherrytrail with RT5677 codec"
++	depends on I2C && ACPI
++	depends on X86_INTEL_LPSS || COMPILE_TEST
++	depends on GPIOLIB || COMPILE_TEST
++	select SND_SOC_ACPI
++	select SND_SOC_RT5677
++	select SND_SOC_TS3A227E
++	help
++	  This adds support for Cherry Trail platforms with an RT5677 codec
++	  and TS3A227E headset-jack detector. It currently supports the
++	  Lenovo Yoga Book YB1-X91F/L.
++	  Say Y or m if you have such a device. If unsure select "N".
++
+ config SND_SOC_INTEL_CHT_BSW_RT5645_MACH
+ 	tristate "Cherrytrail & Braswell with RT5645/5650 codec"
+ 	depends on I2C && ACPI
+diff --git a/sound/soc/intel/boards/Makefile b/sound/soc/intel/boards/Makefile
+index 25a1a9066cbf..28940ca02aa7 100644
+--- a/sound/soc/intel/boards/Makefile
++++ b/sound/soc/intel/boards/Makefile
+@@ -9,6 +9,7 @@ snd-soc-sst-bytcr-rt5640-y := bytcr_rt5640.o
+ snd-soc-sst-bytcr-rt5651-y := bytcr_rt5651.o
+ snd-soc-sst-bytcr-wm5102-y := bytcr_wm5102.o
+ snd-soc-sst-cht-bsw-rt5672-y := cht_bsw_rt5672.o
++snd-soc-sst-cht-rt5677-y := cht_rt5677.o
+ snd-soc-sst-cht-bsw-rt5645-y := cht_bsw_rt5645.o
+ snd-soc-sst-cht-bsw-max98090_ti-y := cht_bsw_max98090_ti.o
+ snd-soc-sst-cht-bsw-nau8824-y := cht_bsw_nau8824.o
+@@ -41,6 +42,7 @@ obj-$(CONFIG_SND_SOC_INTEL_BYTCR_RT5640_MACH) += snd-soc-sst-bytcr-rt5640.o
+ obj-$(CONFIG_SND_SOC_INTEL_BYTCR_RT5651_MACH) += snd-soc-sst-bytcr-rt5651.o
+ obj-$(CONFIG_SND_SOC_INTEL_BYTCR_WM5102_MACH) += snd-soc-sst-bytcr-wm5102.o
+ obj-$(CONFIG_SND_SOC_INTEL_CHT_BSW_RT5672_MACH) += snd-soc-sst-cht-bsw-rt5672.o
++obj-$(CONFIG_SND_SOC_INTEL_CHT_RT5677_MACH) += snd-soc-sst-cht-rt5677.o
+ obj-$(CONFIG_SND_SOC_INTEL_CHT_BSW_RT5645_MACH) += snd-soc-sst-cht-bsw-rt5645.o
+ obj-$(CONFIG_SND_SOC_INTEL_CHT_BSW_MAX98090_TI_MACH) += snd-soc-sst-cht-bsw-max98090_ti.o
+ obj-$(CONFIG_SND_SOC_INTEL_CHT_BSW_NAU8824_MACH) += snd-soc-sst-cht-bsw-nau8824.o
+diff --git a/sound/soc/intel/boards/cht_rt5677.c b/sound/soc/intel/boards/cht_rt5677.c
+new file mode 100644
+index 000000000000..bb91693e41d7
+--- /dev/null
++++ b/sound/soc/intel/boards/cht_rt5677.c
+@@ -0,0 +1,612 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ *  cht_rt5677.c - ASoC machine driver for Cherry Trail with RT5677
++ *
++ *  Copyright (C) 2026 Yauhen Kharuzhy <jekhor@gmail.com>
++ *
++ *  Based on the mainline cht_bsw_rt5672.c driver and Lenovo's
++ *  cht_bl_dpcm_rt5677.c Android driver.
++ */
++
++#include <linux/clk.h>
++#include <linux/gpio/consumer.h>
++#include <linux/i2c.h>
++#include <linux/input.h>
++#include <linux/module.h>
++#include <linux/platform_device.h>
++#include <linux/slab.h>
++#include <sound/jack.h>
++#include <sound/pcm.h>
++#include <sound/pcm_params.h>
++#include <sound/soc.h>
++#include <sound/soc-acpi.h>
++#include "../../codecs/rt5677.h"
++#include "../../codecs/ts3a227e.h"
++#include "../atom/sst-atom-controls.h"
++
++#define RT5677_I2C	"i2c-rt5677"
++
++/* Platform clock 3 provides the codec's 19.2 MHz I2S master clock. */
++#define CHT_PLAT_CLK_3_HZ	19200000
++#define CHT_CODEC_DAI	"rt5677-aif1"
++
++struct cht_rt5677_private {
++	char codec_name[SND_ACPI_I2C_ID_LEN];
++	struct clk *mclk;
++	struct gpio_desc *gpio_spk_en1;
++	struct gpio_desc *gpio_spk_en2;
++	struct gpio_desc *gpio_hp_en;
++};
++
++static int cht_rt5677_platform_clock_enable(struct snd_soc_card *card,
++					    struct snd_soc_dai *codec_dai)
++{
++	struct cht_rt5677_private *ctx = snd_soc_card_get_drvdata(card);
++	int ret;
++
++	ret = clk_prepare_enable(ctx->mclk);
++	if (ret) {
++		dev_err(card->dev, "enabling MCLK failed: %d\n", ret);
++		return ret;
++	}
++
++	ret = snd_soc_dai_set_pll(codec_dai, 0, RT5677_PLL1_S_MCLK,
++				  CHT_PLAT_CLK_3_HZ, 48000 * 512);
++	if (ret) {
++		dev_err(card->dev, "setting codec PLL failed: %d\n", ret);
++		goto disable_mclk;
++	}
++
++	ret = snd_soc_dai_set_sysclk(codec_dai, RT5677_SCLK_S_PLL1,
++				     48000 * 512, SND_SOC_CLOCK_IN);
++	if (ret) {
++		dev_err(card->dev, "setting codec sysclk failed: %d\n", ret);
++		goto disable_mclk;
++	}
++
++	return 0;
++
++disable_mclk:
++	clk_disable_unprepare(ctx->mclk);
++	return ret;
++}
++
++static void cht_rt5677_platform_clock_disable(struct snd_soc_card *card,
++					      struct snd_soc_dai *codec_dai)
++{
++	struct cht_rt5677_private *ctx = snd_soc_card_get_drvdata(card);
++	int ret;
++
++	ret = snd_soc_dai_set_sysclk(codec_dai, RT5677_SCLK_S_RCCLK,
++				     48000 * 512, SND_SOC_CLOCK_IN);
++	if (ret)
++		dev_warn(card->dev, "setting codec idle sysclk failed: %d\n", ret);
++
++	clk_disable_unprepare(ctx->mclk);
++}
++
++static int cht_rt5677_platform_clock_control(struct snd_soc_dapm_widget *w,
++					     struct snd_kcontrol *kctl,
++					     int event)
++{
++	struct snd_soc_card *card = snd_soc_dapm_to_card(w->dapm);
++	struct snd_soc_dai *codec_dai;
++
++	codec_dai = snd_soc_card_get_codec_dai(card, CHT_CODEC_DAI);
++	if (!codec_dai) {
++		dev_err(card->dev, "codec DAI not found\n");
++		return -EIO;
++	}
++
++	if (SND_SOC_DAPM_EVENT_ON(event))
++		return cht_rt5677_platform_clock_enable(card, codec_dai);
++
++	cht_rt5677_platform_clock_disable(card, codec_dai);
++
++	return 0;
++}
++
++static int cht_rt5677_hp_event(struct snd_soc_dapm_widget *w,
++			       struct snd_kcontrol *kctl, int event)
++{
++	struct snd_soc_card *card = snd_soc_dapm_to_card(w->dapm);
++	struct cht_rt5677_private *ctx = snd_soc_card_get_drvdata(card);
++
++	gpiod_set_value_cansleep(ctx->gpio_hp_en, SND_SOC_DAPM_EVENT_ON(event));
++
++	return 0;
++}
++
++static int cht_rt5677_spk_event(struct snd_soc_dapm_widget *w,
++				struct snd_kcontrol *kctl, int event)
++{
++	struct snd_soc_card *card = snd_soc_dapm_to_card(w->dapm);
++	struct cht_rt5677_private *ctx = snd_soc_card_get_drvdata(card);
++
++	gpiod_set_value_cansleep(ctx->gpio_spk_en1, SND_SOC_DAPM_EVENT_ON(event));
++	gpiod_set_value_cansleep(ctx->gpio_spk_en2, SND_SOC_DAPM_EVENT_ON(event));
++
++	return 0;
++}
++
++static const struct snd_soc_dapm_widget cht_rt5677_widgets[] = {
++	SND_SOC_DAPM_HP("Headphone", cht_rt5677_hp_event),
++	SND_SOC_DAPM_MIC("Headset Mic", NULL),
++	SND_SOC_DAPM_MIC("Int Mic", NULL),
++	SND_SOC_DAPM_SPK("Speaker", cht_rt5677_spk_event),
++	SND_SOC_DAPM_SUPPLY("Platform Clock", SND_SOC_NOPM, 0, 0,
++			    cht_rt5677_platform_clock_control,
++			    SND_SOC_DAPM_PRE_PMU |
++			    SND_SOC_DAPM_POST_PMD),
++};
++
++static const struct snd_soc_dapm_route cht_rt5677_map[] = {
++	{"IN1P", NULL, "Headset Mic"},
++	{"IN1N", NULL, "Headset Mic"},
++	{"DMIC L1", NULL, "Int Mic"},
++	{"DMIC R1", NULL, "Int Mic"},
++	{"Headphone", NULL, "LOUT1"},
++	{"Headphone", NULL, "LOUT2"},
++	{"Speaker", NULL, "LOUT1"},
++	{"Speaker", NULL, "LOUT2"},
++
++	{"AIF1 Playback", NULL, "ssp2 Tx"},
++	{"ssp2 Tx", NULL, "codec_out0"},
++	{"ssp2 Tx", NULL, "codec_out1"},
++	{"codec_in0", NULL, "ssp2 Rx"},
++	{"codec_in1", NULL, "ssp2 Rx"},
++	{"ssp2 Rx", NULL, "AIF1 Capture"},
++	{"Headphone", NULL, "Platform Clock"},
++	{"Speaker", NULL, "Platform Clock"},
++	{"Headset Mic", NULL, "Platform Clock"},
++	{"Int Mic", NULL, "Platform Clock"},
++};
++
++static const struct snd_kcontrol_new cht_rt5677_controls[] = {
++	SOC_DAPM_PIN_SWITCH("Headphone"),
++	SOC_DAPM_PIN_SWITCH("Headset Mic"),
++	SOC_DAPM_PIN_SWITCH("Int Mic"),
++	SOC_DAPM_PIN_SWITCH("Speaker"),
++};
++
++static int cht_rt5677_aif1_hw_params(struct snd_pcm_substream *substream,
++				     struct snd_pcm_hw_params *params)
++{
++	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_dai *codec_dai = snd_soc_rtd_to_codec(rtd, 0);
++	int ret;
++
++	ret = snd_soc_dai_set_pll(codec_dai, 0, RT5677_PLL1_S_MCLK,
++				  CHT_PLAT_CLK_3_HZ, params_rate(params) * 512);
++	if (ret) {
++		dev_err(rtd->dev, "setting codec PLL failed: %d\n", ret);
++		return ret;
++	}
++
++	ret = snd_soc_dai_set_sysclk(codec_dai, RT5677_SCLK_S_PLL1,
++				     params_rate(params) * 512,
++				     SND_SOC_CLOCK_IN);
++	if (ret) {
++		dev_err(rtd->dev, "setting codec sysclk failed: %d\n", ret);
++		return ret;
++	}
++
++	ret = snd_soc_dai_set_fmt(codec_dai,
++				  SND_SOC_DAIFMT_DSP_B |
++				  SND_SOC_DAIFMT_IB_NF |
++				  SND_SOC_DAIFMT_CBC_CFC);
++	if (ret) {
++		dev_err(codec_dai->dev, "setting TDM format failed: %d\n", ret);
++		return ret;
++	}
++
++	/* Four 25-bit DSP_B slots carry 24-bit samples; the codec uses slots 0 and 1. */
++	ret = snd_soc_dai_set_tdm_slot(codec_dai, 0x3, 0x3, 4, 25);
++	if (ret) {
++		dev_err(rtd->dev, "setting codec TDM slots failed: %d\n", ret);
++		return ret;
++	}
++
++	return 0;
++}
++
++static int cht_rt5677_codec_init(struct snd_soc_pcm_runtime *runtime)
++{
++	struct snd_soc_dai *codec_dai = snd_soc_rtd_to_codec(runtime, 0);
++	struct snd_soc_component *component = codec_dai->component;
++	struct cht_rt5677_private *ctx = snd_soc_card_get_drvdata(runtime->card);
++	int ret;
++
++	/*
++	 * The codec derives its asynchronous sample-rate conversion clocks from
++	 * I2S1 while the SSP link runs from the Cherry Trail platform clock.
++	 */
++	rt5677_sel_asrc_clk_src(component, RT5677_DA_STEREO_FILTER |
++					    RT5677_AD_STEREO1_FILTER |
++					    RT5677_I2S1_SOURCE,
++				     RT5677_CLK_SEL_I2S1_ASRC);
++
++	/* Mono ADC L uses the codec system clock rather than the I2S1 clock. */
++	rt5677_sel_asrc_clk_src(component, RT5677_AD_MONO_L_FILTER, RT5677_CLK_SEL_SYS2);
++
++	/* Firmware may leave MCLK enabled without updating the CCF count. */
++	ret = clk_prepare_enable(ctx->mclk);
++	if (ret) {
++		dev_err(runtime->dev, "preparing MCLK failed: %d\n", ret);
++		return ret;
++	}
++	clk_disable_unprepare(ctx->mclk);
++
++	ret = clk_set_rate(ctx->mclk, CHT_PLAT_CLK_3_HZ);
++	if (ret) {
++		dev_err(runtime->dev, "setting MCLK rate failed: %d\n", ret);
++		return ret;
++	}
++
++	return 0;
++}
++
++static int cht_rt5677_codec_fixup(struct snd_soc_pcm_runtime *rtd,
++				  struct snd_pcm_hw_params *params)
++{
++	struct snd_interval *rate = hw_param_interval(params,
++			SNDRV_PCM_HW_PARAM_RATE);
++	struct snd_interval *channels = hw_param_interval(params,
++						SNDRV_PCM_HW_PARAM_CHANNELS);
++
++	/* The DSP will convert the FE rate to 48k, stereo, 24bits */
++	rate->min = 48000;
++	rate->max = 48000;
++	channels->min = 2;
++	channels->max = 2;
++
++	/*
++	 * Configure SSP2 for the 24-bit format expected by the codec. The SST
++	 * ssp2-port front end still advertises S16_LE and converts the stream.
++	 */
++	snd_mask_none(hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT));
++	params_set_format(params, SNDRV_PCM_FORMAT_S24_LE);
++
++	return 0;
++}
++
++static struct snd_soc_jack_pin cht_rt5677_jack_pins[] = {
 +	{
-+		/* Lenovo Yoga Book YB1-X91F/L */
-+		.id = "10EC5677",
-+		.drv_name = "cht-rt5677",
-+		.fw_filename = "intel/fw_sst_22a8.bin",
-+		.board = "cht_rt5677",
-+		.sof_tplg_filename = "sof-cht-rt5677.tplg",
++		.pin = "Headphone",
++		.mask = SND_JACK_HEADPHONE,
 +	},
- 	{
- 		.comp_ids = &rt5645_comp_ids,
- 		.drv_name = "cht-bsw-rt5645",
++	{
++		.pin = "Headset Mic",
++		.mask = SND_JACK_MICROPHONE,
++	},
++};
++
++static int cht_rt5677_headset_init(struct snd_soc_component *component)
++{
++	struct snd_soc_card *card = component->card;
++	struct snd_soc_jack *jack;
++	int jack_type;
++	int ret;
++
++	jack = devm_kzalloc(card->dev, sizeof(*jack), GFP_KERNEL);
++	if (!jack)
++		return -ENOMEM;
++
++	/*
++	 * TI supports four headset buttons:
++	 * KEY_MEDIA
++	 * KEY_VOICECOMMAND
++	 * KEY_VOLUMEUP
++	 * KEY_VOLUMEDOWN
++	 */
++	jack_type = SND_JACK_HEADPHONE | SND_JACK_MICROPHONE |
++		    SND_JACK_BTN_0 | SND_JACK_BTN_1 |
++		    SND_JACK_BTN_2 | SND_JACK_BTN_3;
++
++	ret = snd_soc_card_jack_new_pins(card, "Headset Jack", jack_type,
++					 jack, cht_rt5677_jack_pins,
++					 ARRAY_SIZE(cht_rt5677_jack_pins));
++	if (ret) {
++		dev_err(card->dev, "creating headset jack failed: %d\n", ret);
++		return ret;
++	}
++
++	return ts3a227e_enable_jack_detect(component, jack);
++}
++
++static int cht_rt5677_aif1_startup(struct snd_pcm_substream *substream)
++{
++	return snd_pcm_hw_constraint_single(substream->runtime,
++			SNDRV_PCM_HW_PARAM_RATE, 48000);
++}
++
++static const struct snd_soc_ops cht_rt5677_aif1_ops = {
++	.startup = cht_rt5677_aif1_startup,
++};
++
++static const struct snd_soc_ops cht_rt5677_be_ssp2_ops = {
++	.hw_params = cht_rt5677_aif1_hw_params,
++};
++
++static const struct snd_soc_aux_dev cht_rt5677_headset_dev = {
++	.dlc = COMP_AUX("i2c-ts3a227e"),
++	.init = cht_rt5677_headset_init,
++};
++
++SND_SOC_DAILINK_DEF(dummy, DAILINK_COMP_ARRAY(COMP_DUMMY()));
++
++SND_SOC_DAILINK_DEF(media, DAILINK_COMP_ARRAY(COMP_CPU("media-cpu-dai")));
++
++SND_SOC_DAILINK_DEF(deepbuffer, DAILINK_COMP_ARRAY(COMP_CPU("deepbuffer-cpu-dai")));
++
++SND_SOC_DAILINK_DEF(ssp2_port, DAILINK_COMP_ARRAY(COMP_CPU("ssp2-port")));
++SND_SOC_DAILINK_DEF(ssp2_codec, DAILINK_COMP_ARRAY(COMP_CODEC(RT5677_I2C, CHT_CODEC_DAI)));
++
++SND_SOC_DAILINK_DEF(platform, DAILINK_COMP_ARRAY(COMP_PLATFORM("sst-mfld-platform")));
++
++static const struct snd_soc_dai_link cht_rt5677_dailink[] = {
++	/* Front End DAI links */
++	[MERR_DPCM_AUDIO] = {
++		.name = "Audio Port",
++		.stream_name = "Audio",
++		.nonatomic = true,
++		.dynamic = 1,
++		.ops = &cht_rt5677_aif1_ops,
++		SND_SOC_DAILINK_REG(media, dummy, platform),
++	},
++	[MERR_DPCM_DEEP_BUFFER] = {
++		.name = "Deep-Buffer Audio Port",
++		.stream_name = "Deep-Buffer Audio",
++		.nonatomic = true,
++		.dynamic = 1,
++		.playback_only = 1,
++		.ops = &cht_rt5677_aif1_ops,
++		SND_SOC_DAILINK_REG(deepbuffer, dummy, platform),
++	},
++
++	/* Back End DAI links */
++	{
++		/* SSP2 - Codec */
++		.name = "SSP2-Codec",
++		.id = 0,
++		.no_pcm = 1,
++		.nonatomic = true,
++		.init = cht_rt5677_codec_init,
++		.be_hw_params_fixup = cht_rt5677_codec_fixup,
++		.ops = &cht_rt5677_be_ssp2_ops,
++		SND_SOC_DAILINK_REG(ssp2_port, ssp2_codec, platform),
++	},
++};
++
++/* SoC card */
++static const struct snd_soc_card cht_rt5677_card = {
++	.owner = THIS_MODULE,
++	.num_links = ARRAY_SIZE(cht_rt5677_dailink),
++	.num_aux_devs = 1,
++	.dapm_widgets = cht_rt5677_widgets,
++	.num_dapm_widgets = ARRAY_SIZE(cht_rt5677_widgets),
++	.dapm_routes = cht_rt5677_map,
++	.num_dapm_routes = ARRAY_SIZE(cht_rt5677_map),
++	.controls = cht_rt5677_controls,
++	.num_controls = ARRAY_SIZE(cht_rt5677_controls),
++};
++
++static const struct acpi_gpio_params speaker_enable_gpio = { 2, 0, false };
++static const struct acpi_gpio_mapping cht_rt5677_gpios[] = {
++	{ "speaker-enable-gpios", &speaker_enable_gpio, 1 },
++	{ }
++};
++
++#define SOF_CARD_NAME "cht yogabook"
++#define SOF_DRIVER_NAME "SOF"
++
++#define CARD_NAME "cht-rt5677"
++#define DRIVER_NAME NULL
++
++static void cht_rt5677_gpiod_put(void *data)
++{
++	gpiod_put(data);
++}
++
++static void cht_rt5677_remove_driver_gpios(void *data)
++{
++	acpi_dev_remove_driver_gpios(data);
++}
++
++static int cht_rt5677_get_gpio(struct device *dev, struct device *codec_dev,
++			       const char *con_id, struct gpio_desc **gpio)
++{
++	int ret;
++
++	*gpio = gpiod_get(codec_dev, con_id, GPIOD_OUT_LOW);
++	if (IS_ERR(*gpio)) {
++		ret = PTR_ERR(*gpio);
++		return dev_err_probe(dev, ret, "getting %s GPIO failed\n", con_id);
++	}
++
++	ret = devm_add_action_or_reset(dev, cht_rt5677_gpiod_put, *gpio);
++	if (ret)
++		return dev_err_probe(dev, ret, "registering %s GPIO cleanup failed\n",
++				     con_id);
++
++	return 0;
++}
++
++static int cht_rt5677_clone_dai_links(struct device *dev, struct snd_soc_card *card)
++{
++	struct snd_soc_dai_link_component *components;
++	struct snd_soc_dai_link *links;
++	size_t size;
++	int i;
++
++	links = devm_kmemdup(dev, cht_rt5677_dailink,
++			     sizeof(cht_rt5677_dailink), GFP_KERNEL);
++	if (!links)
++		return -ENOMEM;
++
++	for (i = 0; i < ARRAY_SIZE(cht_rt5677_dailink); i++) {
++		if (links[i].num_cpus) {
++			size = sizeof(*components) * links[i].num_cpus;
++			components = devm_kmemdup(dev, links[i].cpus, size, GFP_KERNEL);
++			if (!components)
++				return -ENOMEM;
++			links[i].cpus = components;
++		}
++
++		if (links[i].num_codecs) {
++			size = sizeof(*components) * links[i].num_codecs;
++			components = devm_kmemdup(dev, links[i].codecs, size, GFP_KERNEL);
++			if (!components)
++				return -ENOMEM;
++			links[i].codecs = components;
++		}
++
++		if (links[i].num_platforms) {
++			size = sizeof(*components) * links[i].num_platforms;
++			components = devm_kmemdup(dev, links[i].platforms, size, GFP_KERNEL);
++			if (!components)
++				return -ENOMEM;
++			links[i].platforms = components;
++		}
++	}
++
++	card->dai_link = links;
++	return 0;
++}
++
++static int snd_cht_rt5677_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct cht_rt5677_private *ctx;
++	struct snd_soc_acpi_mach *mach = dev_get_platdata(dev);
++	struct snd_soc_aux_dev *aux_dev;
++	struct snd_soc_dai_link *dai_links;
++	struct snd_soc_card *card;
++	const char *platform_name;
++	struct acpi_device *adev;
++	struct device *codec_dev;
++	bool sof_parent;
++	int ret;
++	int i;
++
++	ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
++	if (!ctx)
++		return -ENOMEM;
++
++	card = devm_kmemdup(dev, &cht_rt5677_card, sizeof(*card), GFP_KERNEL);
++	if (!card)
++		return -ENOMEM;
++
++	ret = cht_rt5677_clone_dai_links(dev, card);
++	if (ret)
++		return ret;
++	dai_links = card->dai_link;
++
++	aux_dev = devm_kmemdup(dev, &cht_rt5677_headset_dev,
++			       sizeof(cht_rt5677_headset_dev), GFP_KERNEL);
++	if (!aux_dev)
++		return -ENOMEM;
++
++	card->aux_dev = aux_dev;
++
++	strscpy(ctx->codec_name, RT5677_I2C, sizeof(ctx->codec_name));
++
++	/* Use the ACPI-enumerated codec name when firmware describes the codec. */
++	adev = acpi_dev_get_first_match_dev(mach->id, NULL, -1);
++	if (adev) {
++		snprintf(ctx->codec_name, sizeof(ctx->codec_name),
++			 "i2c-%s", acpi_dev_name(adev));
++
++		acpi_dev_put(adev);
++		for (i = 0; i < card->num_links; i++) {
++			if (dai_links[i].codecs->name &&
++			    !strcmp(dai_links[i].codecs->name,
++				    RT5677_I2C)) {
++				dai_links[i].codecs->name = ctx->codec_name;
++				break;
++			}
++		}
++	}
++
++	codec_dev = bus_find_device_by_name(&i2c_bus_type, NULL,
++					    ctx->codec_name);
++	if (!codec_dev)
++		return dev_err_probe(dev, -EPROBE_DEFER,
++				     "waiting for codec %s\n", ctx->codec_name);
++
++	adev = ACPI_COMPANION(codec_dev);
++	if (adev) {
++		ret = acpi_dev_add_driver_gpios(adev, cht_rt5677_gpios);
++		if (ret) {
++			dev_err_probe(dev, ret, "adding codec GPIO mappings failed\n");
++			goto out_put_codec;
++		}
++
++		ret = devm_add_action_or_reset(dev, cht_rt5677_remove_driver_gpios, adev);
++		if (ret) {
++			dev_err_probe(dev, ret, "registering GPIO mapping cleanup failed\n");
++			goto out_put_codec;
++		}
++	}
++
++	ret = cht_rt5677_get_gpio(dev, codec_dev, "speaker-enable", &ctx->gpio_spk_en1);
++	if (ret)
++		goto out_put_codec;
++
++	ret = cht_rt5677_get_gpio(dev, codec_dev, "speaker-enable2", &ctx->gpio_spk_en2);
++	if (ret)
++		goto out_put_codec;
++
++	ret = cht_rt5677_get_gpio(dev, codec_dev, "headphone-enable", &ctx->gpio_hp_en);
++	if (ret)
++		goto out_put_codec;
++
++	put_device(codec_dev);
++
++	card->dev = dev;
++	platform_name = mach->mach_params.platform;
++
++	ret = snd_soc_fixup_dai_links_platform_name(card, platform_name);
++	if (ret)
++		return dev_err_probe(dev, ret, "fixing DAI link platform name failed\n");
++
++	ctx->mclk = devm_clk_get(dev, "pmc_plt_clk_3");
++	if (IS_ERR(ctx->mclk))
++		return dev_err_probe(dev, PTR_ERR(ctx->mclk), "getting MCLK failed\n");
++
++	snd_soc_card_set_drvdata(card, ctx);
++
++	sof_parent = snd_soc_acpi_sof_parent(dev);
++
++	if (sof_parent) {
++		card->name = SOF_CARD_NAME;
++		card->driver_name = SOF_DRIVER_NAME;
++	} else {
++		card->name = CARD_NAME;
++		card->driver_name = DRIVER_NAME;
++	}
++
++	ret = devm_snd_soc_register_card(dev, card);
++	if (ret)
++		return dev_err_probe(dev, ret, "registering sound card failed\n");
++
++	return 0;
++
++out_put_codec:
++	put_device(codec_dev);
++	return ret;
++}
++
++static struct platform_driver snd_cht_rt5677_driver = {
++	.driver = {
++		.name = "cht-rt5677",
++		.pm = &snd_soc_pm_ops,
++	},
++	.probe = snd_cht_rt5677_probe,
++};
++
++module_platform_driver(snd_cht_rt5677_driver);
++
++MODULE_DESCRIPTION("Cherry Trail RT5677 machine driver");
++MODULE_LICENSE("GPL");
++MODULE_ALIAS("platform:cht-rt5677");
 -- 
 2.53.0
 
