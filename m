@@ -1,82 +1,101 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA5372F8EAC
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:26:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B1A115E8B
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:28:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787790399; cv=none; b=YR3Wku/40NlK+hDBS2sTf48BMxGpOQCcBsl3eEdrR4SNsqNnKOercFzAtR+nFEZ8WDW6TkWWCkO6qdgDtm8fg5OTfCigw41ynIeQC80qwhuQhJ0SQ7rlKMIYxPtuekSR4EyC5r4meDOhEa7E23RvAlHA9jfuOG3xL6gwIwKCRiw=
+	t=1787790514; cv=none; b=dRKmc5y9kibzu+/iG9RVzzrAt9sWETAdIJCgsmx7t4gHNrH96f9ZNzuw9sVcbVQYhKBnVnDiY9j0++geV9EMJR/8olpnmnCfSJgL3o/wT++buyWc1UXLwRcuWUOUpDJFLbWd3VGwqAgfWlwSnZ/IavQLmIJmgu19Nt7J44l7i+4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787790399; c=relaxed/simple;
-	bh=Ts2qD1/SZN24AeQ9qJOJ6utrljGi96qe530FN6JzC20=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=ru9JQT3dKUM35hVZmgfvkTM+Xehq2k6SkfAOB7N1/IJJeSFMbcjwX1mcZejE+rWgXX2ci/TN02uuexxB7oBBlHTs29hJ42ekrAYyAjSgKaOkhikltQkD/arBpQmhijNmHmnYESAAIMiorv4vecJiu1wsCU4dok0uZ7vona+JshI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=U2rdXIC6; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="U2rdXIC6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787790396; x=1819326396;
-  h=date:from:to:cc:subject:message-id;
-  bh=Ts2qD1/SZN24AeQ9qJOJ6utrljGi96qe530FN6JzC20=;
-  b=U2rdXIC676l0rJatwzC66G3401Uj4EDmoUJy9NWl84+bfhyH1FnIPc6c
-   t7JZ084goW/npFAYKkPD060ND6spZAZf+ju9Xfvfh2Mk3KEylpR2pEm4i
-   G6viRhK7UqL2R1qBn5VLur2p6kPNHPmYqBSTNOJUOBifUWTko/oKvxJwG
-   LjhJ8vbaczGwZEuyYZ7ZQl4d2JbG7xb/pAV2RgtcPSVXNS8ckSECXAyC1
-   SLPNyhxFl/QLqgJLPz+LzWOKlb6CAXdnIDS19hczVF1BevycTvrCALjeJ
-   RmLyp+/3640tsYmLyqAmTwZEBCEgb3Cs8XLGH14yniG96kC0/Aa/NW57q
-   w==;
-X-CSE-ConnectionGUID: dh6G5oEuQQSmdg0QKpeYcA==
-X-CSE-MsgGUID: 4MkHiVmhSjGt+UH4403Lrg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="98954694"
-X-IronPort-AV: E=Sophos;i="6.25,245,1779174000"; 
-   d="scan'208";a="98954694"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 17:26:36 -0700
-X-CSE-ConnectionGUID: LGz/FOyUSF605tyKlUT8Uw==
-X-CSE-MsgGUID: yj2yIzncQdOKLsWdRABcHA==
-X-ExtLoop1: 1
-Received: from lkp-server01.sh.intel.com (HELO 3532383e6126) ([10.239.97.150])
-  by fmviesa003.fm.intel.com with ESMTP; 26 Aug 2026 17:26:34 -0700
-Received: from kbuild by 3532383e6126 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1wzNwu-000000008hV-07ku;
-	Thu, 27 Aug 2026 00:26:32 +0000
-Date: Thu, 27 Aug 2026 08:26:17 +0800
-From: kernel test robot <lkp@intel.com>
-To: Tyrel Datwyler <tyreld@linux.ibm.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- "Martin K. Petersen" <martin.petersen@oracle.com>
-Subject: Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:4952 function
- parameter 'protocol' not described in 'ibmvfc_alloc_target'
-Message-ID: <202608270829.lHI1FAdO-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	s=arc-20240116; t=1787790514; c=relaxed/simple;
+	bh=aPjrspuVf6REiDPNrGWA6Y4h12fdT/+f+Lv0+U2toT0=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version; b=tVbJ3JlgErrjZs2/hqhhQ4the05XAVWDNbhblst4lNm0oZfXfsq6TgW44dXfmwmS2sylCqvEoM5cwmgjLTX0Sa1FtqFqB0MX68hQhrF0UiXkja9fff7bmxquq5ZF+uhUcE9cthwaWYUMn+oJ89XDC45uod2Y6tkJ4JRx/FIQw1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 3883696aa1ae11f19a56ed5b684f684d-20260827
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:d2c144c7-2d2d-4c9d-9709-b618bbf132ea,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:-25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACT
+	ION:release,TS:-50
+X-CID-META: VersionHash:7db8b62,CLOUDID:537ccb60ea429f4a8a6e81242d2c0f82,BulkI
+	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50,EDM:2,IP:ni
+	l,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES
+	:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 3883696aa1ae11f19a56ed5b684f684d-20260827
+X-User: lijun01@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <lijun01@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 309714696; Thu, 27 Aug 2026 08:28:26 +0800
+From: Li Jun <lijun01@kylinos.cn>
+To: lijun01@kylinos.cn,
+	andy@kernel.org,
+	geert@linux-m68k.org,
+	fourier.thomas@gmail.com,
+	bhelgaas@google.com,
+	u.kleine-koenig@baylibre.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v6] auxdisplay: arm-charlcd: Use DEFINE_SIMPLE_DEV_PM_OPS for power management
+Date: Thu, 27 Aug 2026 08:28:12 +0800
+Message-Id: <20260827002812.2457475-1-lijun01@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229
-commit: 249313b3f7b5dbbf1aed31feff339ab48937a6fc scsi: ibmvfc: allocate targets based on protocol
-date:   4 weeks ago
-config: powerpc-allmodconfig (https://download.01.org/0day-ci/archive/20260827/202608270829.lHI1FAdO-lkp@intel.com/config)
-compiler: powerpc64-linux-gcc (GCC) 16.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260827/202608270829.lHI1FAdO-lkp@intel.com/reproduce)
+Replace the manually defined dev_pm_ops structure with the
+DEFINE_SIMPLE_DEV_PM_OPS macro to simplify the power management
+code, pm_sleep_ptr() to safely drop the references without
+triggering compiler warnings. This macro automatically handles
+CONFIG_PM_SLEEP configuration and generates freeze/thaw/poweroff/restore
+callbacks, reducing boilerplate code.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 249313b3f7b5 ("scsi: ibmvfc: allocate targets based on protocol")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202608270829.lHI1FAdO-lkp@intel.com/
+Signed-off-by: Li Jun <lijun01@kylinos.cn>
 
-All warnings (new ones prefixed by >>):
+---
+Changes:
+-Replace SIMPLE_DEV_PM_OPS() in v1 v2 with DEFINE_SIMPLE_DEV_PM_OPS() for pm.
+-Corrected grammar errors in v1 v3 comment.
+-Add a description of pm_sleep_ptr() in v5.
+-Add pm_sleep_ptr(&charlcd_pm_ops) for charlcd_driver.
+---
+ drivers/auxdisplay/arm-charlcd.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
 
->> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:4952 function parameter 'protocol' not described in 'ibmvfc_alloc_target'
->> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:4952 function parameter 'protocol' not described in 'ibmvfc_alloc_target'
+diff --git a/drivers/auxdisplay/arm-charlcd.c b/drivers/auxdisplay/arm-charlcd.c
+index 70efda4f767e..ea684f3446c3 100644
+--- a/drivers/auxdisplay/arm-charlcd.c
++++ b/drivers/auxdisplay/arm-charlcd.c
+@@ -306,10 +306,7 @@ static int charlcd_resume(struct device *dev)
+ 	return 0;
+ }
+ 
+-static const struct dev_pm_ops charlcd_pm_ops = {
+-	.suspend = charlcd_suspend,
+-	.resume = charlcd_resume,
+-};
++static DEFINE_SIMPLE_DEV_PM_OPS(charlcd_pm_ops, charlcd_suspend, charlcd_resume);
+ 
+ static const struct of_device_id charlcd_match[] = {
+ 	{ .compatible = "arm,versatile-lcd", },
+@@ -319,7 +316,7 @@ static const struct of_device_id charlcd_match[] = {
+ static struct platform_driver charlcd_driver = {
+ 	.driver = {
+ 		.name = DRIVERNAME,
+-		.pm = &charlcd_pm_ops,
++		.pm = pm_sleep_ptr(&charlcd_pm_ops),
+ 		.suppress_bind_attrs = true,
+ 		.of_match_table = charlcd_match,
+ 	},
+-- 
+2.25.1
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
