@@ -1,38 +1,52 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0FFE401494
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:47:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77176448D03;
+	Thu, 27 Aug 2026 12:47:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787834850; cv=none; b=BohiIQ0JZeLEMmQdwtFc26wIjwiMkVRtRz20rq8muGv+56tahhYz4jxWYQs4LYhi4p6SYvb5IPUjv07lzFnFe+K1RPvf9KztvB7mofkKr16aGUKEjowI42GIMwhpwcHQRpJWbDAqYE2eqoH2qKua4zk9K16XcG/JBFexkeYTIXc=
+	t=1787834884; cv=none; b=XQjMU7ZzoT4USUns/3UwUi8RboiBsZ7jaPaMDEB0jZY7x9qOl4AhMaay7a+gzaDTEJqjSk7Sbkzw+t/pX7B1q77EiP1SsbsSCC7Dil+ZQpqVxG5aKKfQtrOPgHz1uE5mvYO1ee+/xTLanV8CUM3MVeTSVLqIm6c34oTmIO/8Kh4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787834850; c=relaxed/simple;
-	bh=PdyIiFnfwutzm1suEhff0HPvIUN8xuHSPVRJYXoda0E=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=gZ7cCZdKMaIsEN7l2QDgmCNSLnChkYwwYCG+JXSotl86BE4q9w0znctcYk5k7imAXN64j0gKq2dNxkJ1z6RyxRSkBCnReJ7t5PIB1dDme0PA9rUubuIctpXGx8XeayNl0tbeaIpD41Rjg7KJo7WaT76ivXNJ2aS4iF8HIoJ+pIM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P7tOBn/Q; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787834884; c=relaxed/simple;
+	bh=v1JaVfxuyGv/K74VJD51tsMnf1tz0lr+uJWFqv3nvvA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AR/lWPb9ELUfH61+ScARpKa9RX6RN6Md03XjOtojRvARmzyt5wNQ4vZJxeHinkgT8ZcvfBnGNSzrjuyvfep1ydoydtG7qJPEZcEpFQ2AZauDZgX2tOSV6ImIk8/uUFcQ+d9hOHJ92qEyw4D+W5ERC4SbFJgrJPlYKPjJkeIMrbo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=JA111HCB; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P7tOBn/Q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 973FB1F000E9;
-	Thu, 27 Aug 2026 12:47:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787834841;
-	bh=NoqGPVIyc97ZcKe2e0S4qLnfmIW5lJYQNfdANgG+8i0=;
-	h=Date:From:To:Cc:Subject;
-	b=P7tOBn/QhLqeIal3wc43l9DZYhfR8r5tvfChWEKQIHwfV2P/PjZ7bpD8vqrpOnEua
-	 IsnbKvRc5nM2N3b+smvjERJb2Q37PhJB0wrurTDpPjEvr3VGFSUAWRfm/TgGCfs0re
-	 d8qQ68i5FTNCwwv+AHUdCfMMbeMn30LjxUHx80ZosmcF+EqrDKioKoy+MRvjhxncCa
-	 5QTerUCUrOECWRTOCdG/hFlcZbYFLt04q1Pl2z+I3dEF18te4vlT1p4+RQs8IVkOC9
-	 kY3HL+oQQ6+2MGFrSoEq+KccTr/RzyzvcpcPmS/X3Zka2m8IQZC8YhaU8o+TlKtV5D
-	 KFlD/rFtk6Ptg==
-Date: Thu, 27 Aug 2026 13:47:18 +0100
-From: Lee Jones <lee@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Daniel Thompson <danielt@kernel.org>
-Subject: [GIT PULL] Backlight for v7.3
-Message-ID: <20260827124718.GG770273@google.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="JA111HCB"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=9GvVHe0werWHOnB5OKAezI41CKNF471yfbWq1NBqM6I=; b=JA111HCBUnv1a1obfctaO5gAQG
+	5zsPQXXv8AndgRDdRiSQgyzO1z3QZJL6rvZVgu2I5kFTsMM3r1azON03fbAv37lovBdcbLtUdzSka
+	1i7qY5qj2LuSAVHe0etcDlBIvj2I0DW8ZsUJBcdpwwFkoxknUyUYeBzqxp4ql9B0Vvwg=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wzZVy-001fK9-19; Thu, 27 Aug 2026 14:47:30 +0200
+Date: Thu, 27 Aug 2026 14:47:30 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Cc: Conor Dooley <conor@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Andrew Davis <afd@ti.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] dt-bindings: dp83867: add binding for
+ output-impedance
+Message-ID: <d944329d-9ad5-4acf-a7d3-b2f8eaf1e92c@lunn.ch>
+References: <20260826-v7-2-topic-dp83867-v2-0-a97b4cec6e93@pengutronix.de>
+ <20260826-v7-2-topic-dp83867-v2-2-a97b4cec6e93@pengutronix.de>
+ <20260826-salutary-skype-524c69932dc2@spud>
+ <87ik4wgfbc.fsf@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,80 +55,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <87ik4wgfbc.fsf@pengutronix.de>
 
-Good afternoon Linus,
+On Thu, Aug 27, 2026 at 10:04:07AM +0200, Steffen Trumtrar wrote:
+> On 2026-08-26 at 17:01 +01, Conor Dooley <conor@kernel.org> wrote:
+> 
+> > On Wed, Aug 26, 2026 at 02:48:40PM +0200, Steffen Trumtrar wrote:
+> > > Currently, the output-impedance can only be set to default, minimum or
+> > > maximum or via a nvmem cell.
+> > > In cases where there is no backend for a nvmem cell, a value can not be
+> > > set.
+> > > > Add a DT binding, 'ti,output-impedance-ohms', for specifying the
+> > > output-impedance via a fixed value. The existing boolean values for
+> > > minimum and maximum still take precedence over the new value.
+> > > > Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+> > > ---
+> > >  Documentation/devicetree/bindings/net/ti,dp83867.yaml | 16 ++++++++++++++++
+> > >  1 file changed, 16 insertions(+)
+> > > > diff --git a/Documentation/devicetree/bindings/net/ti,dp83867.yaml
+> > b/Documentation/devicetree/bindings/net/ti,dp83867.yaml
+> > > index 7a6fe516bab27..49fafe3ce6f47 100644
+> > > --- a/Documentation/devicetree/bindings/net/ti,dp83867.yaml
+> > > +++ b/Documentation/devicetree/bindings/net/ti,dp83867.yaml
+> > > @@ -38,6 +38,16 @@ properties:
+> > >      items:
+> > >        - const: io_impedance_ctrl
+> > >  > +  ti,output-impedance-ohms:
+> > > +    description: |
+> > > +      MAC Interface Impedance control to set the programmable output impedance.
+> > > +      Valid range is 0x00 to 0x1f (32 steps).
+> > > +      - 0x1f = 35 ohms (minimum impedance)
+> > > +      - 0x00 = 70 ohms (maximum impedance)
+> > > +      - Step size varies with process.
+> > > +    minimum: 0
+> > > +    maximum: 31
+> > 
+> > Your property is named in ohms, but not implemented in ohms.
+> 
+> So without the -ohms?
 
-The following changes since commit dc59e4fea9d83f03bad6bddf3fa2e52491777482:
+No. DT uses real unit, Ohms, Meters, Volts, Degrees Centigrade, Seconds
+etc.
 
-  Linux 7.2-rc1 (2026-06-28 12:01:31 -0700)
+Have the driver do the conversion from Ohms to the magical register
+value.
 
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/lee/backlight.git tags/backlight-next-7.3
-
-for you to fetch changes up to cf1a12e0804515e0ed8b3f50c1c32f7f425bd660:
-
-  backlight: Use sysfs_emit() instead of sprintf() (2026-08-12 14:06:29 +0100)
-
-----------------------------------------------------------------
-Backlight for v7.3
-
-- New Support & Features
-  - Silergy SY7758: Add driver for the 6-channel high-efficiency LED driver
-
-- Improvements & Fixes
-  - Awinic AW99706: Fix device tree property names to match the binding, consistently
-    validate all property values, and honor the core blank state in `update_status()`
-  - Kinetic KTD2801: Add missing dependency on `GPIOLIB` in Kconfig
-  - Qualcomm WLED: Remove redundant `dev_err()` calls
-
-- Cleanups & Refactoring
-  - Core: Use `sysfs_emit()` instead of `sprintf()` in sysfs show callbacks
-  - Maintainers: Update Junjie Cao's email address for the Awinic AW99706 driver
-
-- Device Tree Binding Updates
-  - Marvell 88PM860X: Add missing bracket in the example
-  - Silergy SY7758: Document the 6-channel high-efficiency LED driver
-
-----------------------------------------------------------------
-Julian Braha (1):
-      backlight: ktd2801: Fix unmet dependency on GPIOLIB
-
-Junjie Cao (4):
-      MAINTAINERS: Update my email address for the AW99706 backlight driver
-      backlight: aw99706: Fix DT property names to match binding
-      backlight: aw99706: Validate all DT property values consistently
-      backlight: aw99706: Honor the core blank state in update_status()
-
-KancyJoe (1):
-      backlight: Add SY7758 6-channel High Efficiency LED Driver support
-
-Levente Szajko (1):
-      backlight: Use sysfs_emit() instead of sprintf()
-
-Manuel Ebner (1):
-      dt-bindings: backlight: 88pm860x: Add missing bracket
-
-Neil Armstrong (1):
-      dt-bindings: leds: backlight: Document the SY7758 6-channel High Efficiency LED Driver
-
-Pan Chuang (1):
-      backlight: qcom-wled: Remove redundant dev_err()
-
- .../bindings/leds/backlight/88pm860x.txt           |   1 +
- .../bindings/leds/backlight/awinic,aw99706.yaml    |   2 +-
- .../bindings/leds/backlight/silergy,sy7758.yaml    |  52 +++++
- MAINTAINERS                                        |   2 +-
- drivers/video/backlight/Kconfig                    |  10 +-
- drivers/video/backlight/Makefile                   |   1 +
- drivers/video/backlight/aw99706.c                  |  25 +-
- drivers/video/backlight/backlight.c                |  16 +-
- drivers/video/backlight/lcd.c                      |   6 +-
- drivers/video/backlight/qcom-wled.c                |   2 -
- drivers/video/backlight/sy7758.c                   | 259 +++++++++++++++++++++
- 11 files changed, 350 insertions(+), 26 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/leds/backlight/silergy,sy7758.yaml
- create mode 100644 drivers/video/backlight/sy7758.c
-
--- 
-Lee Jones
+	Andrew
