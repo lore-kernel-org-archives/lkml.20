@@ -1,94 +1,163 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB8FA346E43;
-	Thu, 27 Aug 2026 04:48:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2766F27CCE0
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 04:50:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787806120; cv=none; b=lCQlREqZq83rPFJqjR5BwCXdUgQvgozY4stm609vEvcj6mrE5ZmAkIzgJmFwrzoRtu/DWsWd5zFxe5r1Gs1/389LgWt+xD4q4MsDMymTe5a0CoPMBzOlYu2UiQdoiNqwvkDTOqHv3a8RlbTugvx2rnp5eOzM/qeLab/0jEWorKo=
+	t=1787806227; cv=none; b=cUCF1ckl1kIOQsBucsLFyb9F5tWHDF73Yx0N9hdAsVymNnoguOAtjmuM6kNfXwWKCUoweIB0JS41HqtGG7jMZ7LnJsk6XozF/6+DsdnJDWUI5cyj3K7Dgrd/XA5F8ck1KG+NsrnmYmSAR5FQ+Qf9GtuZKOfkI8eZunIP8zczgic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787806120; c=relaxed/simple;
-	bh=wKgxFytNw3ZM+KBhSPlNdjvetj1OVSp/cj1I8MvLbfw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uVbRoP3g1JsUOlTd1HjvXw8MyDLVer5CYq04gtW1jvnTzQEeRrGZPozZx0s+VeGQq8aKnWhnAPoMBATnN71ZW19X9UHpD4+iSVRvDGsiUEe17xYr/wE8GjdtaTnPwA0WuVFF6BwUq0MyoqaKY3m/1M8oRWWeGoo2AValMdh331g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=003ojOKL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787806227; c=relaxed/simple;
+	bh=tMAdPF5LtoelHEGmvxcAEdHKDhIRTlFKh4yWr6CohTk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ON1D0PJKhLu0ZO3CKGYa8vAzccZ2PkpDWxT04Laho8/cV9mD5ygXTHbR0wPK0oaebylvNWmK/3pk+4KbhBCkRS0hJ5nOLoJ8Z3aYWn3VWdbGTHPaJiqseW/EX2XqT/sNOeCr6SoZXGq6cBIt0onHl6kTChAFAvuv7zIYLyBP3SY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=okC1/v3k; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="003ojOKL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCEE31F000E9;
-	Thu, 27 Aug 2026 04:48:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787806108;
-	bh=8yg1ILjNntpTPiz0h5KBdGdpzTzsnWd1kPiVEaP2kFs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=003ojOKLAolppnEV0se6b6gH8UzSTMu20pkhx4D7H67t+eW0x+0FGGl5ejm8iALlF
-	 quxUxelWjO0F/Ruz+r6poOcx2AeWWTG2JwT8s8fXdxlauQNjVmNfB2mnkRQoTADQU9
-	 B7zqJqzBD0g7vcCmcxmRGUSMV/cr2OVJoKtW0hOk=
-Date: Thu, 27 Aug 2026 06:48:26 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Shengzhuo Wei <me@cherr.cc>
-Cc: sre@kernel.org, kees@kernel.org, linux-kernel@vger.kernel.org,
-	Andras Domokos <andras.domokos@nokia.com>,
-	Carlos Chinea <carlos.chinea@nokia.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] HSI: hsi_char: Fix use-after-free on device removal
-Message-ID: <2026082727-hacker-flaky-2578@gregkh>
-References: <20260827-hsi-char-uaf-v1-1-4f824216a541@cherr.cc>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="okC1/v3k"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-38759bcd877so2388064a91.2
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:50:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787806225; x=1788411025; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DWvwvcyUlBuNouA22nARMdoaOdKzUDmVy7DPNf2S7cE=;
+        b=okC1/v3kgrH89NrYr4drtUAbxEa43LSevkgVftwfceFM5BIjpA1foaaijvZpkxi/uO
+         YdZNkPqOXfCebTdG7u5Wm49b6X+e1hXqawCBrAJEdEIF53JUpoWQgizKEKpQlF6WmmqJ
+         dDNVaRaeHOgnApl+JtDZw9O7EoVNHv/LmGNvM9hBrC8xQkLzW7SjcQpLMLcVf8zPxkbF
+         ny/MGboYAeVSbSH2bdAH4vXjoSrfpCCpsISgHNe2aM0oj+X807r39Dd4wjYNalvc9PKt
+         KpT6P+atWeowgO/yC1VWUO1e2eEQf685drxxVJEqZLArN0Hk+mrnT8o4AO9ogqRVP98Z
+         xSEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787806225; x=1788411025;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DWvwvcyUlBuNouA22nARMdoaOdKzUDmVy7DPNf2S7cE=;
+        b=Bwcy70+D+WdmyRLcedWQDeuBJDSe3DwFMRn9YECWz44k6IFeEwe9l5BxQzsZuJ5ftJ
+         rANmAtdZRXMK/Tv7rvY8SOWZTEnYkZ9Ln2Aj4U/K02GTfNcWTVpqdqfpjEz/E+SDhao4
+         qcCAIoVoauqwt8i+CP5o3Fn+0XVIm6ax5SflYhGjcZQuWSnn3C+eIYBeCL3yHk/YKzLy
+         trsIrTGZVhgIVsP6GJTGd9LpQXuK80nFEa/55Ejzi8aLV5azfr4Eq7HAVGJNXj62fuCq
+         8u6OD2YcOi6GgOHzxAsHPP188SC+rZhml5nu1MgRfwrXwHJ60v3ZsP9SMUAdWSfxHgqE
+         2Jzw==
+X-Forwarded-Encrypted: i=1; AHgh+RqTnfAzxY7gbyO3jSk29SA5btt0It//9ZahfkFldGNKUtaMkHmL3waaEqBiF+PYOnYzrKbqaRmaCryR7pM=@vger.kernel.org
+X-Gm-Message-State: AFuF++luy1DXkLwgBAge1dVSvLf70xR7rwwyomJ3mp7JRRKvkBT9f7To
+	jWlWxcrJk0H1GH5MVz5Xd4h+W8c7+fdJIpoPWsJdZ72xXx6dSO/gC7bw
+X-Gm-Gg: AR+sD13RfmikVRdsMvDfMneHCJf8qNko7EifIM6r1hQfYlE3iyHXwaOBJlZRLC7uzyv
+	UAgrlAYOOWEUd/gaZSmtfEdV/s8xSMjBjNyv/JrBGSdQiUOp3EXnHr1i1HeVicBGQFNMGNVyLCi
+	ONIda+DRifGUvDk8teRSHXOZR+g8kOfA6g1kfTOmwb3R5GjUmvhUWbP8GORDsUOY1Bk6BbfID6/
+	4z+MXkmnT6WX150oX/ib/mcvL1tg/csR2uuHD70VfUjdlSWJAiGa5h8KdUsFWAwjk7jHF3dWdFT
+	81TUEqMTw04Nj5aZIhUNnohnh4LXKmoxIvBubZsrgPawem9yJ5h8NSLH4Q4dDkjJXb1/32/pTMf
+	6NrcjwIXtlr2E9BzoVRMXr7d+2H6ZvWl0K3g9JfKRS3Henx5evbNuWsDOt1fzjUghwS6e5VchxB
+	Pqb2v3dQCe8r2XY8NLcM+Rc9LOeAWdKJGksVAk3zuRw7ck4tlfjXj8MrAsviOgIx7oH5duukUs
+X-Received: by 2002:a17:90b:524a:b0:380:540:d499 with SMTP id 98e67ed59e1d1-3966d1ba7bbmr26160762a91.6.1787806225328;
+        Wed, 26 Aug 2026 21:50:25 -0700 (PDT)
+Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b0fd5edbsm1066131a91.11.2026.08.26.21.50.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 21:50:24 -0700 (PDT)
+From: Daehyeon Ko <4ncienth@gmail.com>
+To: Jan Kara <jack@suse.cz>
+Cc: Amir Goldstein <amir73il@gmail.com>,
+	Miklos Szeredi <mszeredi@redhat.com>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [BUG] fanotify: destroy/add race leaves a mark on a detached connector
+Date: Thu, 27 Aug 2026 13:50:04 +0900
+Message-ID: <20260827045007.3831259-1-4ncienth@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827-hsi-char-uaf-v1-1-4f824216a541@cherr.cc>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Aug 27, 2026 at 04:43:08AM +0800, Shengzhuo Wei wrote:
-> hsc_open() stores a pointer to a channel embedded in the hsc_client_data
-> in file->private_data, but hsc_remove() frees the whole hsc_client_data
-> right after cdev_del(). If the HSI client device is removed while a
-> channel is open, the next access from the file descriptor (a read, an
-> ioctl or the final close) dereferences freed memory:
-> 
-> CPU0                                CPU1
-> hsc_remove                          hsc_read
->   cdev_del(&cl_data->cdev);           channel->cl->rx_cfg ...
->   kfree(cl_data);                     // use after free
-> 
-> Fix it by tracking the hsc_client_data with a kref: each open file
-> descriptor takes a reference, and hsc_remove() drops the initial one,
-> so the object is freed only after the last descriptor is closed.
-> 
-> Fixes: 4e69fc22753f ("HSI: hsi_char: Add HSI char device driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Shengzhuo Wei <me@cherr.cc>
-> ---
->  drivers/hsi/clients/hsi_char.c | 14 +++++++++++++-
->  1 file changed, 13 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/hsi/clients/hsi_char.c b/drivers/hsi/clients/hsi_char.c
-> index a31cc1466dd3ddf73762ce3d0213c96d64a190fd..479e5d6e94c8c03489464c4b39d81d697d104ce0 100644
-> --- a/drivers/hsi/clients/hsi_char.c
-> +++ b/drivers/hsi/clients/hsi_char.c
-> @@ -96,6 +96,7 @@ struct hsc_channel {
->   * @usecnt: Use count for claiming the HSI port (mutex protected)
->   * @cl: Referece to the HSI client
->   * @channels: Array of channels accessible by the client
-> + * @kref: Reference count for the client data lifetime
->   */
->  struct hsc_client_data {
->  	struct cdev		cdev;
-> @@ -104,6 +105,7 @@ struct hsc_client_data {
->  	unsigned int		usecnt;
->  	struct hsi_client	*cl;
->  	struct hsc_channel	channels[HSC_DEVS];
-> +	struct kref		kref;
+Hello,
 
-You now have 2 reference counts for the same structure, which is not how
-to handle this at all :(
+I found an unprivileged race in fsnotify_destroy_marks() that can leave an
+attached fanotify mark on a detached connector. On unmodified Linux v7.2 and
+v6.12.105 source builds, it naturally reaches the fsnotify_conn_mask()
+warning from fanotify_mark(). On unmodified builds, the only observed
+system-wide failure was a v7.2 panic when panic_on_warn=1; no memory
+corruption or privilege escalation was observed.
 
-Please either make the cdev be a pointer, or use the correct cdev api
-for handling this type of common problem.
+Tested and source-inspected versions:
 
-thanks,
+  - Linux v7.2, commit
+    8d3ae59288f1e7d58d76558a6ee96d533bc5019f: reproduced.
+  - Linux v6.12.105, commit
+    14c37ff05f22da2fa7076d10f6a07c7ede330c83: reproduced.
+  - Torvalds master at
+    73e3f0710014fe6d4ed98cfc02292f6121db7558: the relevant destroy
+    iterator and fdinfo consumer remain present. Commit e422777fdd47
+    changed mark-mask updates and can mask the immediate warning, but it
+    did not change this iterator or the detached-connector state.
 
-greg k-h
+The unconditional connector detachment involved in the race appears to
+originate in commit 6b3f05d24d35 ("fsnotify: Detach mark from object list
+when last reference is dropped"), released in v4.12-rc1. My unprivileged
+runtime results are limited to the two versions listed above. The limited
+unprivileged fanotify functionality used by this reproducer was introduced
+by 7cea2a3c505e ("fanotify: support limited functionality for unprivileged
+users"), released in v5.13-rc1; I am not asserting ordinary-user
+reachability before that change.
+
+Root cause:
+
+fsnotify_destroy_marks() holds a reference to the current mark, drops
+conn->lock, destroys that mark, and then continues the hlist walk. While the
+lock is dropped, an equal-priority mark can be inserted immediately before
+the current entry. The walk resumes from the current entry's next pointer,
+so it never visits the new predecessor, but it still detaches the connector
+from the object after the walk.
+
+The skipped mark remains ALIVE|ATTACHED and remains on both its group list
+and the connector list. At the same time, the object no longer points to the
+connector, conn->obj is NULL, and conn->type is DETACHED.
+
+Representative v6.12.105 output is:
+
+  WARNING: CPU: 1 PID: 163 at fs/notify/mark.c:128
+  fsnotify_conn_mask+0x113/0x150
+  CPU: 1 UID: 65534 PID: 163 Comm: fanotify_destro
+  ...
+  do_fanotify_mark
+  __x64_sys_fanotify_mark
+
+The source reproducer ran on ext4 as UID/GID 65534 with CapEff=0 and
+NoNewPrivs=1. It uses ordinary FAN_REPORT_FID groups and races final unlink
+against fd-based mark insertion. Both builds used a KASAN-enabled research
+configuration, but neither positive was a KASAN report.
+
+With panic_on_warn=0 and panic_on_oops=0, the unmodified v7.2 run emitted the
+warning and then completed 10,000 iterations and powered off cleanly. A
+separate fresh v7.2 run with panic_on_warn=1 reached the same warning and
+panicked through check_panic_on_warn(). The v6.12.105 run emitted seven
+warnings and reached its 10,000-iteration progress line; it later timed out
+during post-loop teardown, for which I am not assigning a kernel cause.
+
+A timing-only diagnostic kernel also demonstrated that fdinfo can combine
+the old INODE type with the detached NULL object and reach
+fanotify_show_fdinfo() -> igrab(NULL). I have not reproduced that Oops on an
+unmodified kernel, so it is not part of the impact claim. The skipped mark's
+group-list reference keeps the connector allocated; I have no evidence of a
+connector UAF, arbitrary read or write, information disclosure, or LPE.
+
+I do not have a submission-ready patch. During fix development I rejected a
+survivor-preservation prototype because it introduced a mask race, a
+drain/restart prototype because additions could starve cleanup, and a bounded
+retry prototype because review found an unresolved lock-order/deadlock risk
+when generic callers hold external locks needed by cleanup. I am reporting
+the root cause rather than sending an unsafe fix.
+
+A tested source reproducer, full serial logs, configs, and diagnostic details
+are available privately to the maintainers on request. AI-assisted tooling
+was used during discovery and analysis; I reviewed the source and the literal
+runtime evidence above and am reporting publicly without the reproducer as
+required by Documentation/process/security-bugs.rst.
+
+Assisted-by: LLM
+
+Thanks,
+Daehyeon Ko
