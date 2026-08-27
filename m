@@ -1,58 +1,57 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9746F489892;
-	Thu, 27 Aug 2026 16:16:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5544238423A;
+	Thu, 27 Aug 2026 16:16:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787847390; cv=none; b=ZV6Zj5II+jPQPZqFd7TCl7jB29OCkHbL94smtpuwt1k6bQwSUM2LCopBzl8r03a6VmH/2INk49lz2Ko0x4YP3PraSH5geGLPvmLQIx87B+2oNGxaslYcZ8AERge+LYVlf0BiVkZpY0u1v8z+/DlxKn3e2ytQN2JR+PzECgf83r0=
+	t=1787847403; cv=none; b=Bw3fUJev5+0OKH1Fyje/T5IOBvcsdpIdwPaDiaMbx9hZbfBACWaJ4USSe24kd7y/jcN04BGJyzHq60mK8K3JmLhRuaSE9ScQa9mhcAdQn8qJOnhjh+trSYbG9fHkg6rAldeoJoTe/ovXrl7K/R68hl+lcYqGA7ehrZWDCMjO/Wk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787847390; c=relaxed/simple;
-	bh=Po7B+ioTUC8/AQc54cprCiMxCkcn8AmZZRO/gw2sSvM=;
+	s=arc-20240116; t=1787847403; c=relaxed/simple;
+	bh=Y89/CiBHbHBD9Ia28ifkGEUp2oqsQl4zmuxmQjWTimg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pxjbp2tai9An7twPwMnp/s3jUhCSmameSSYmkmSRwtTYkHwop6B5/MgEumRhLRNX4ACBy0Afe67YliZ0kEDrfRP+nYWttVJxRJgWvOH1JrlE/dqBrmsrt++FJ5toOD7gqiOyyHnBsvabO63SzWLTlnrCQYxuyC+EEmFaaMu5X8w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=RSz0WQUr; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=e8Abas4xjryRDxeOMCtP6Z6JBbc6wdJK24Y44DR5TGWQ2JEfZVbTsm95BmsLUGZp9t9kqRm91Xtyv1es0FbwC2G56p/srJMLL83myG4tU/fXxhCinzUEv6537BYtOYHKxe3FMBa+gJdD3xHp4S2bfL5n45vwTIT9JLRmjyYvuIc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oZLTvTKV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="RSz0WQUr"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 71856165C;
-	Thu, 27 Aug 2026 09:16:17 -0700 (PDT)
-Received: from localhost (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D280E3F66F;
-	Thu, 27 Aug 2026 09:16:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1787847381; bh=Po7B+ioTUC8/AQc54cprCiMxCkcn8AmZZRO/gw2sSvM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=RSz0WQUrcKH2CxlPtJo/0Invj3NXrJJrlz9QcPIDv+6RcnX0U5tzKjzBArF49rlno
-	 ZC1qb6WRgIWljwhSLGfZ994TWwRDd9m+hXYBJNYaO80EHzG1UIlDa5HovlCjXOIFWO
-	 z0DFR7ViT+KHq3/JM/jWZBAY5XS2s33Kw41C7ET4=
-Date: Thu, 27 Aug 2026 17:16:19 +0100
-From: Leo Yan <leo.yan@arm.com>
-To: James Clark <james.clark@linaro.org>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Mike Leach <mike.leach@arm.com>,
-	John Garry <john.g.garry@oracle.com>, Will Deacon <will@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>,
-	Leo Yan <leo.yan@linux.dev>, linux-arm-kernel@lists.infradead.org,
-	coresight@lists.linaro.org, linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v2 07/14] perf arm-spe: Use generic snapshot search
-Message-ID: <20260827161619.GN8904@e132581.arm.com>
-References: <20260821-james-cs-unformatted-per-thread-fix-v2-0-00c4fd0701b4@linaro.org>
- <20260821-james-cs-unformatted-per-thread-fix-v2-7-00c4fd0701b4@linaro.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oZLTvTKV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 588A41F000E9;
+	Thu, 27 Aug 2026 16:16:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787847402;
+	bh=ICFnTYRS7s0OrNF+UlxpgEZVwggu1x23aonWDAOIy30=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oZLTvTKVh0ryslM2uHLc5UUJ+i+wFQHdBHG3enmsirsX00mIRPMPcG1HcmmJDPfh6
+	 324w7+u0jLRPTBsZO7OApM+CRZKOGJjZPRQsCKh3O/tC18cc0FNnL/az59Kd2DjebX
+	 pXriDpMt885numb9rjthDKIamxtaooUxAKhMqYqNKmtuB8ZblUcPiQIi6baG0USE+L
+	 QfCk/FnayvhDokIe3Nfj1z67okVoY5xfnoy1fSfDAmTcgmBIK2mOaThNEPZkjUvV5j
+	 JoOQQTfGzQu/+JHIr1ji8pGyesamRN5K1Ny2F5l1tsWTpDJZBkL6oImlDF90iIgKAm
+	 J2G+KVt1xgzpQ==
+Date: Thu, 27 Aug 2026 21:46:38 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: Manivannan Sadhasivam <mani@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Frank Wang <frank.wang@rock-chips.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Andy Yan <andy.yan@rock-chips.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Yubing Zhang <yubing.zhang@rock-chips.com>,
+	Alexey Charkov <alchark@flipper.net>,
+	Igor Paunovic <royalnet026@gmail.com>,
+	linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+	kernel@collabora.com, devicetree@vger.kernel.org,
+	linux-usb@vger.kernel.org
+Subject: Re: [PATCH v14 28/38] phy: core: add notifier infrastructure
+Message-ID: <apBi5sGBpPfwTW4G@vaman>
+References: <20260813-rockchip-usbdp-cleanup-v14-0-b5ad9c68fa11@collabora.com>
+ <20260813-rockchip-usbdp-cleanup-v14-28-b5ad9c68fa11@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -61,52 +60,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260821-james-cs-unformatted-per-thread-fix-v2-7-00c4fd0701b4@linaro.org>
+In-Reply-To: <20260813-rockchip-usbdp-cleanup-v14-28-b5ad9c68fa11@collabora.com>
 
-On Fri, Aug 21, 2026 at 10:49:05AM +0100, James Clark wrote:
+On 13-08-26, 22:52, Sebastian Reichel wrote:
+> Some PHY devices with multiple ports (e.g. USB3 and DP) require a reset
+> if the configuration changes or cable orientation changes. This is a
+> problem, as the consumer device will run into undefined behavior.
+> 
+> With the new PHY notifier API introduced in this patch, the consumer
+> driver can hook into reset events coming from a PHY device to handle the
+> PHY going down gracefully.
 
-[...]
+Hmmm how will phy get notified for these events. Typically there is a
+separate hotplug mechanism to take care of cable changes.
 
-> SPE also had a special fixup case for head pointers greater than the
-> buffer length, which is not needed because the SPE driver always wraps
-> them, and __auxtrace_mmap__read() handles that anyway. It also didn't
-> have the special case for old > head for when the wrap heuristic fails
-> but the pointers showed a wrap had happened.
+Looking at implementation of this, It seems to me there is checked on
+power-on, so maybe notifier maynot be right one... ?
 
-Here mentioned the "special fixup case" is:
-
-  if (head >= buffer_size)
-      return true
-
-If the hardware pointer is exactly the end of buffer, it is a strong
-indication for wrapping. So it might be worth adding an explicit
-"head == buffer_size" check in the common code.
-
-That said, if always checking the final 512 bytes, this case is very
-likely to be detected anyway, so I am not concerned about dropping the
-check.
-
-> The other feature lost is that this search only looked from head to the
-> end of the buffer, rather than always at the last 512 bytes. This was
-> flawed because once head is close to the end, it's likely it could
-> contain zero padding from actual SPE data and a wrap would be missed.
-
-> It's better to err on the side of caution and mark as a wrap, rather
-> than trying to optimize by limiting the search from head onwards.
-
-Wouldn't this be a trade-off between missing a wrap and reporting a
-false positive wrap?
-
-Ignoring head makes the search overlap valid trace data when head is
-close to the end of the buffer but has not wrapped yet
-(e.g. mm->len - head < 512). That data can then be mistaken as evidence
-of a wrap.
-
-For a false positive wrap, [head..mm->len] contains zero data. This
-should be fine, as zero data are treated as PAD packets and discarded
-during decoding.
-
-I'd suggest adding this info into the commit log, in case later we need
-to understand these weird cases. With that:
-
-Reviewed-by: Leo Yan <leo.yan@arm.com>
+-- 
+~Vinod
