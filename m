@@ -1,206 +1,148 @@
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f11.google.com (mail-oi2-f11.google.com [74.125.231.203])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1926B25DB12;
-	Thu, 27 Aug 2026 06:03:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=210.61.82.184
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787810599; cv=fail; b=LvCZzIP81+pTL4PIbfKYfns3j8QAel2igZqXvSBm0FHOnyObw7C9eQ+27KMkK8qf/c+pwFb3uFIcZLbNZ7eekkq/cNxiTr/CrODWENRok3cBEza9/fChQzzgW3/r9jdnbHDT1w2Izc2nAEQKx1NKkhucBNgKIcJfHGaDgE9rZxY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787810599; c=relaxed/simple;
-	bh=u4k4fMro5AYBegZihVJowd9C+b/9wb51y6wclcv7j8E=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=K1cR3vB3ntY5SIELkQ/3TiTKLOZz63vZDjJGZ1cZgbAdV0xtHUeSvroLrQHrpm5v8P6S28Je1TckPqEDY6YQpi+OYl4HFOJ/LdEMbw2md+t0EPnAfQ2wmlVvvqJDuiITIvWRFhmhPTh07w22wyOBqAVOQ0qFfJPC9qsSwBoMWuM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=ODnClPdy; dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b=JuAiyQLU; arc=fail smtp.client-ip=210.61.82.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="ODnClPdy";
-	dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b="JuAiyQLU"
-X-UUID: fa8963e2a1dc11f18dc8c9802ae25ab1-20260827
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From; bh=u4k4fMro5AYBegZihVJowd9C+b/9wb51y6wclcv7j8E=;
-	b=ODnClPdyj5e41fdWoI+JtYjwwTldkWKHlsi+gg/8NL0Z7bLi6ZBIndXDlHFrI3mMoNen8LDuO42wlG+iWH3rkuB7P8P/DSDxjW/jHICEXBp3KnCClgAZ6HxVbBuYWYc+jng1P8FtXibX3yDAHLrCLHvD35WF8c8Mpe3ypzDvy5I=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:80a0950a-1158-4cf2-8720-ca6a4bebbd1b,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:16bd8a5d-df34-4a8e-9b9a-92fccd5ae594,B
-	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|110|111|836|865|888|898,TC:-5,
-	Content:0|15|50|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-
-	1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: fa8963e2a1dc11f18dc8c9802ae25ab1-20260827
-Received: from mtkmbs14n2.mediatek.inc [(172.21.101.76)] by mailgw02.mediatek.com
-	(envelope-from <ck.hu@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1033911215; Thu, 27 Aug 2026 14:03:09 +0800
-Received: from mtkmbs10n2.mediatek.inc (172.21.101.183) by
- mtkmbs11n2.mediatek.inc (172.21.101.187) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Thu, 27 Aug 2026 14:03:08 +0800
-Received: from SI4PR04CU001.outbound.protection.outlook.com (172.21.101.237)
- by mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Thu, 27 Aug 2026 14:03:07 +0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=K0FN6Dr0N3AZNkyCkYgIHSSQOGPo2g59BQtHOFDuGhqUpSa7FHGl/S6xzji6wk3etW3zH/IB6etWDGSEqynj3BXJnFpBfP6Q+vMU4sKWeR8Zro141bjmAOUPOrGZE3nkDl6HiS9rIOuq7+F6XvQMdjt3q4/7pE1LQHbO/H9KiQ2otIAgK3tMQhLQiGVYOdhtViwjVEt/PuS5/R9fbcHsiKu9J2eelywERbIwrxAMvwX+mTm8HL+/mFZkW3agF0nSgA3WSPRPsNnRKlIOCD7m2AyTUtZzbw/l8b7InlgDXT1ipjY+tHoSXx7qNjfLIkW/fb48PWHG0IeTyd46aSOSiA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=u4k4fMro5AYBegZihVJowd9C+b/9wb51y6wclcv7j8E=;
- b=IaIUlVgLw1oldO8cQepidMc2x2QM5cJLIdqzj0+MvU+liNyicPZVGLt3telUVb+nNTxzs5rbeQH7ebQoPYzZrdLyJB+e1fWPBWztLOpTazIKj5VtXz0fpg27z0Zy14XyNOvLPipUjlRgsMaLTWAhCBwZNT9npbPMTb98m1XWeUYUW26VpxRXV6FCezoQMWA2hz5B3bW2TlAgRCglTd9FAmxg432vj2ajxiO78pryUVZfpL2Z34EsD2y8szRucaDwhZLz5x01W7snxMGxxDlUKW6vPXY6CClKg1ocZCnuV6TEvxeIMRn1vCOSIobojD/C8sji+WqtjpaxC1YWrjsPSA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
- dkim=pass header.d=mediatek.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=u4k4fMro5AYBegZihVJowd9C+b/9wb51y6wclcv7j8E=;
- b=JuAiyQLUzVoR7e+x3mavP4tjY/Cgd5vlVXwUEJ6irvd/2qS4qJJxOfhNd65sDI0aw8icx1u/CdJ8CQPREitKrvBySQ0nbyilb2f8maXlKunY3u9Ogeh66m2oRkNqnyKPY/Km5W7LZnFa1J8eteORPoe3yQb+Hb54jD3iHx3Iujc=
-Received: from TYZPR03MB6624.apcprd03.prod.outlook.com (2603:1096:400:1f4::13)
- by TYQPR03MB9405.apcprd03.prod.outlook.com (2603:1096:405:2fe::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.8; Thu, 27 Aug
- 2026 06:03:04 +0000
-Received: from TYZPR03MB6624.apcprd03.prod.outlook.com
- ([fe80::a3c2:b94a:70f:e640]) by TYZPR03MB6624.apcprd03.prod.outlook.com
- ([fe80::a3c2:b94a:70f:e640%4]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
- 06:03:04 +0000
-From: =?utf-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	"chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>
-CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
-	"kernel@collabora.com" <kernel@collabora.com>, "robh@kernel.org"
-	<robh@kernel.org>, Alexandre Mergnat <amergnat@baylibre.com>,
-	"tzimmermann@suse.de" <tzimmermann@suse.de>, "dmitry.osipenko@collabora.com"
-	<dmitry.osipenko@collabora.com>, =?utf-8?B?Sml0YW8gU2hpICjnn7PorrDmtpsp?=
-	<jitao.shi@mediatek.com>, "simona@ffwll.ch" <simona@ffwll.ch>,
-	"mripard@kernel.org" <mripard@kernel.org>,
-	"maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
-	=?utf-8?B?SmFzb24tSkggTGluICjmnpfnnb/npaUp?= <Jason-JH.Lin@mediatek.com>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "granquet@baylibre.com"
-	<granquet@baylibre.com>, "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
-	"airlied@gmail.com" <airlied@gmail.com>,
-	=?utf-8?B?SnVzdGluIFllaCAo6JGJ6Iux6IyCKQ==?= <Justin.Yeh@mediatek.com>,
-	"matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>,
-	=?utf-8?B?UmV4LUJDIENoZW4gKOmZs+afj+i+sCk=?= <Rex-BC.Chen@mediatek.com>
-Subject: Re: [PATCH v4 01/12] dt-bindings: display: mediatek: dp: Deprecate
- nvmem efuse data
-Thread-Topic: [PATCH v4 01/12] dt-bindings: display: mediatek: dp: Deprecate
- nvmem efuse data
-Thread-Index: AQHdD5ahv3e3aHroqEG4Peb965KVGraxtEOA
-Date: Thu, 27 Aug 2026 06:03:04 +0000
-Message-ID: <75a7c3a62f8fa8b174903e2de38a27454b060241.camel@mediatek.com>
-References: <20260709113148.49090-1-angelogioacchino.delregno@collabora.com>
-	 <20260709113148.49090-2-angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20260709113148.49090-2-angelogioacchino.delregno@collabora.com>
-Accept-Language: zh-TW, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Evolution 3.52.3-0ubuntu1 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mediatek.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TYZPR03MB6624:EE_|TYQPR03MB9405:EE_
-x-ms-office365-filtering-correlation-id: 112c0251-0ede-41e2-7716-08df0400dbc3
-x-ld-processed: a7687ede-7a6b-4ef6-bace-642f677fbe31,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|7416014|376014|366016|23010399003|1800799024|42112799006|38070700021|56012099006|10067099003|11063799006|4143699003|22082099003|18002099003;
-x-microsoft-antispam-message-info: 2THwtGflbS0BPOHLARkMiHe65r3YGKsrsl4nbGethgX5uw65us9bkB3qHV7vmfiM9EHoybjFzl55/YCFYQn06TlHBP1KLKVSNtzkkVoH/nilwF6JCPjMPEDARxXh8R2+3cyVM6hugHasyAnB8vfO7ukRIeVt5QlPlgpl5ExIfO8XxLHOEBypHKUzfvmGlsdWcsA1Kttyvg6o7OqXvQOLjx89PaNliuZKNdFRYxv3lu9mh7s0+3TWyIkRskLHKody3OZbNrc5ou1gGHfJKzYOMn8GAqbD1+xYlYo1arIqJ9vdekHSHEQ8VKqVdUSIw5ZQB8uh18m+KFm7XQd0mngbfT0kxt7PuE7Gbg9ce8y6vzlR7XuIajmv3yvSeND+aHUUDGB4x0gnF6fLCWd3+GXvEdsNz0ghXezr2YQpRWmNVQDoSCFCuAxxumtlFMSNVPEBmlrf5vsHnDrZm8eKr+8aSO8dETSLltYe0wyp+ycp7mSA4NyTWMzVpoTyjoNJ6VLDGjIQ+1Jdz1D+3n35vg2XfsEFY4FCpHWBM75qIvS1WwpuCYWuM08ug69gbUUbP3NWDPxTcA/mu6n8+TUrr8wHVI1DpBjNJMAbVumcXhdAHcwLChRfAjsznHHkAJP1SV3OaHXcwiYheNXBCS1PSN9kSO/A8I7ENA6Rze63DThIn0cgy0t2eZZxHJk6zYC+ZBGDXcLIZUbQeGn0sUMDHk5Qn+EtvCj3Xm6tetNaXI8D9Ug=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYZPR03MB6624.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(23010399003)(1800799024)(42112799006)(38070700021)(56012099006)(10067099003)(11063799006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?M2V0elVjQnNkTlR3TktaenN6dXp0SmJ0R2tnbXJ0czRxWXJBWVZSRkJmdHNP?=
- =?utf-8?B?Skh5TjBXdzQzWktMNzlFUzNMZjMzci9NZzc2ZU96NzZWTFNBOVZpN1pzdm5u?=
- =?utf-8?B?amRSUXRSK1czQkhHd2VSdEpvYnZMMG5vWXZTRU1LTmpmT0hoMTFNaUJsUi9U?=
- =?utf-8?B?dWJuUFc0bVRGc2NWSlo2UTMzT0ZtcDFMKzFBYVNIYXZ6N1ZpK2ZXTlduQnNO?=
- =?utf-8?B?YlF2dm5UbjRTRHg3cnlaSk5LbjFrZWRYSmxDeGsvTVdXNkRmOUt2azJKUXRD?=
- =?utf-8?B?bDZUaFhoZmNhRnV1SWt5QkV3YXN5TmRIcVdENE5MS0pvTXl4SWJXQTM2YkRR?=
- =?utf-8?B?aGl6aElGZlN1QTFvUXZoTTVJRzB6OVE5YjBtMU4xK2FFdnRpUEpnVW9DQ0xs?=
- =?utf-8?B?ZUVwOGxnL3prc1gzcUdvT3hSU2s5Z2U3bDNPRDRMMmxGNUVmS080Sm81Mkd1?=
- =?utf-8?B?MHJHV25OSTRNUDdXSEUrSmNnM0tqcU9BdFhtZGRTNkN6WDRyendKMEJ3WmJD?=
- =?utf-8?B?WG1lbFIvVjUrOXhyK1A1cG04NklQWUJDSGxjZUpsSG41Q2lmTEYzSk1GZXp2?=
- =?utf-8?B?cUl1YWRCa0NnWUJXMEZoRm53OVR5Z3kyK2dsbCs5aXpsdkZ6Vm9aWG55bldl?=
- =?utf-8?B?VFlPczF2cWd4bmZwL2NpdmQwalB6RlA5Y2I1ZElMMUxDTGtGdFRsTGhPRGxR?=
- =?utf-8?B?K3dFWldkNnBySkI5cnN1d3JCVlBpMXI4dndzeGk4MG40M0JrQjIyLzhUWlBR?=
- =?utf-8?B?bmY2T0pIcTNoYjUvMFpUNmN5MForWnpKckc5S0VCcHViSVlxSHVoc3V0dDcw?=
- =?utf-8?B?VDVvNUx5bXdZSDgwQllpNnpqdjIveGp2WTNJaDZKUjMwU3pabElPOVJRZWxu?=
- =?utf-8?B?eXkyQnh5bGpxWXRGQzl3SEE3bUtDWlEyS3ljc2k0Qk1URUV1NityTUxvV2hF?=
- =?utf-8?B?STZkVFcwTWE3NDN3cmRycGt5bjd2NEJpbENYKytRUnVwSmJJWU5WNWczeVU0?=
- =?utf-8?B?SzNyQkl2OHRkOU8zRnpkUktJT0pJVkZMeG9iaDFqTy8yN3ltQjRLaXpXcWhr?=
- =?utf-8?B?UmY4c0RRdHJmZjNsT3p4QWlGYklqSzFwZmFLMTBFMUJPcEhpTkpXbVhmSGo3?=
- =?utf-8?B?TG1oS2s3c0JLY3VSVVFlL1JCdWF1MlQ3TTNHOTNyNzFvUVcwU3FrK0ZEZjJ3?=
- =?utf-8?B?YzdqY3o0aXh5NlFRbWpCak5KTjBxdy8rYU5ZUy9hZnBmRld6RUE5SzZJNGo2?=
- =?utf-8?B?OXN0ZXF5NjhWb2ZVUDI2UzJqUGJYNlpubmI3ckJvZTRFN0l4RHV2Y2JWdzla?=
- =?utf-8?B?VFBqaVFDUTgrR2t2dlIrODJ5YU85KzF6c0c2bUxFMnpQd281K1dYOVo1Q0NQ?=
- =?utf-8?B?SlpJYlZ4WFliZnpRUjdXZE41RFVtRDFJKzF2TFlvZWJnbWVDWlBXNXBKRkh5?=
- =?utf-8?B?TjBpZXI0V0V4ekZmNkdVN3RCSE54ZThsMzVYcUd6cTlMcGQrN1lIT0twQXgw?=
- =?utf-8?B?akI5Q1JaZ1pNQ1lOOW5hbWZQWnI3KzR1MmE1TEN2ak9SYUg3a09XZldORklE?=
- =?utf-8?B?bmF4cmNueWtoREJrV0pjMmRYakVDeHg4amk2U2JLZTI4UUw2bGZRVlNqcngr?=
- =?utf-8?B?TjhBbTIwUXhTMVJjdFM5Skt6SS9paTEwWXRoaWdyVDVYZllwYlJrb0dHZGpM?=
- =?utf-8?B?bjBqL056MksyZEpnRzNnY2t0VVRNanNuRnZXUHdjdWplSWlhT2Fnb05jdGJ5?=
- =?utf-8?B?Y3JIaVVWMVdFV3VVUGlRRVk1bllmdnJaUjBnY0w4WTFBUXdCOFh5WnNnVGtx?=
- =?utf-8?B?bkV4NVBWL3g1bmV1YWNMMG9IUW9aMzN3cS9xRVRJdldGWHhZaStKTWdxTHUy?=
- =?utf-8?B?TTJBU2k3Y2JSNnM0eERFdE8xN0FKcDRTQVgxQ050aFFiM1c5STVCUkxDN1RH?=
- =?utf-8?B?RW9UeE8yZDhoemRMZmRiZk1OWVArblhDY3RYc0hqRDNSUWd3QVRWQndHcWhJ?=
- =?utf-8?B?amZTL3lReFZwNG9hRnlCZGtWWS9NVnB4NFdUSTZEbXdVYkk3aUFGblVoQ3lT?=
- =?utf-8?B?OTZoQWZ5V28zZ2lZNGdRQnhhZ2oxbU9TYy9TamU2UlQwUC9jVk1lMVJ2SEJI?=
- =?utf-8?B?Q3drdWo4Q2w5aWZadGVvdGRsVTNOWWU2ZGJSelZLVEs1eHpOWUdmOUdKS2Za?=
- =?utf-8?B?UGltRU50Yjg1ajVFNGVBQ0todld4UkwyK0hIdmtrOGxRV0JGMTdkTVdEZDcr?=
- =?utf-8?B?T1BGSUVEK1RIamJ5WmMvUmlwcG1DM0NXWCtadlpUN0szWE5sOC90R0xzZlFD?=
- =?utf-8?B?UUltWi8vS05lanhKdU9kYm9mTXh1WXhWM2JHVVZxWUFaMWZrYU5vUT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <40BEC315EDAA1D48B3CC9C52DE982CF7@apcprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D8D31B4223
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:03:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.203
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787810614; cv=none; b=S5HE/y49W01ahb+e+10dEiYkH1EBwIkXgf122IH80ttwHYpWqkI7AvqLIlrpq9j5rR7BhEQzSkWoP6HJqaS70cgZ/uzFMiRp6kRLrR0YUys5UL5u19p4MFJldG74xcGoYDhUWYK5DH6pa+TzSN9KhxviuFsEC1CW3gumt6RQO7g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787810614; c=relaxed/simple;
+	bh=wpjCM66ZGIpHBFMrmaVY3TR2/A1C97cAeq8B+JJexBk=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=pzB9SIkAhW9cwB6dLMq18+19we6ZG144GodYN3ddnU/hZ8fDxh0kOsjuf5OZCvFUPtjUaxSQT0MRyJ3gKfZZY1z2yPiND8MDQJkDdsvLXWl9QH4rYh/DWqU08CUaeo7yuJS0V6baWMJumUDRj+Zt0XDWC1ex2hcuD7x6mPoaiow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.203
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi2-f11.google.com with SMTP id 46e09a7af769-7e9df14804fso664904a34.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 23:03:33 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787810612; x=1788415412;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=5PG8cCF0wqj61zkbF+HJXBoqreydbADpLDFmxQ+CIcg=;
+        b=W4SGzjlMER/vY7ak5Y+/14hq46b9q50QQt18CCVFOCmQZax+YAveVvFLYDTsPlMLbL
+         GhnLnfxOfN7k7ufbif4Lkla1gmX4lShLboZBpLQx14G5qxSxdjYumnei4/X5KalJF1Ch
+         7V8RaGpAJhNRycBB4TVUD1svRaNrMcacCSpXtj2QVpWEcx80SkBlNkETtdDh1RlOH1st
+         1oIWaby+2ma/JG+d6fZB7FP74ePfGoszl19aMOEQMv3ZWyPt67CSRcX+MN3VHOcHa8Wi
+         /LaQYF7tiV/qD83+j1DnZGLMb/2OAehQeErmzsVVACDcfT1uMIgkA5fGFK3GbqhmaxAj
+         VCOA==
+X-Gm-Message-State: AFuF++nw8naIpsxNHLCG0RfejpEbmne7g+VLcsCYiQhns12ZYveJ/PUh
+	rVEyaH5hbAKgG8wFnU3vnDNy6WiFl7k3fzj7X/+3quuRsUhhRwe/3mvcHmVR7YZOdw3ihPxlmiO
+	J/CN4TDkmF9UiG8McqElKca/JaxdEIRMQpIctTh2ISf2HCzNm5m9mj2CWyD//fQ==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: 5ShmLzwe7uICkGzGnfCE2TBCq3mcz5268xdV1GwNuIHvSaKdlVYyBzNVKkTed1y04RlGAVk50w1MEa9B3MHtmRn1hmc9YxMN93m/n+XpnaZHXdGkSQMRtktylYKDBSU1FrwWh6FKYBfvG61HrQcny7q2E+BpDUcW2I3GaFvsP4n4gCzYVSUxSJxITUkU4RBs65wJsOun3hNJWRXvwi2JQSq2/82J0xLGWlFVGHTj8c+4FcfU2biDIk9PxpBBbw2TrBbnm6cM+D7h4l5k1RmPofCmoQNHf0IMgcLXoOA1nRAsKfTgdm2GcNXfeDsgYXEFPDL1vu2HgNTBus3aBet0WA==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB6624.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 112c0251-0ede-41e2-7716-08df0400dbc3
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Aug 2026 06:03:04.3355
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: +IyBeCYB611eGj5cI+W18e1dlbkwhRICpwP3ZMSSjZUFd9kuoC55RN3sxb3/eWOVmOpgn7C1NpdSMr2nJIL7Mw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYQPR03MB9405
-X-MTK: N
+X-Received: by 2002:a05:6820:214:b0:6b1:a11a:eeaf with SMTP id
+ 006d021491bc7-6b1a11b04b5mr12309138eaf.13.1787810612253; Wed, 26 Aug 2026
+ 23:03:32 -0700 (PDT)
+Date: Wed, 26 Aug 2026 23:03:32 -0700
+In-Reply-To: <6a8f0de8.1d9ded08.62e62.00b5.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a8fd334.27659fcc.2ceef7.000e.GAE@google.com>
+Subject: Re: [syzbot] [sound?] WARNING: ODEBUG bug in dummy_pcm_close
+From: syzbot <syzbot+225231fce6755d40d078@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org, perex@perex.cz, 
+	syzkaller-bugs@googlegroups.com, tiwai@suse.com
+Content-Type: text/plain; charset="UTF-8"
 
-T24gVGh1LCAyMDI2LTA3LTA5IGF0IDEzOjMxICswMjAwLCBBbmdlbG9HaW9hY2NoaW5vIERlbCBS
-ZWdubyB3cm90ZToNCj4gRGVwcmVjYXRlIG52bWVtLWNlbGxzIGFuZCBudm1lbS1jZWxsLW5hbWVz
-IGFuZCBjbGFyaWZ5IHRoZWlyDQo+IHB1cnBvc2UsIGFzIHRob3NlIGFyZSBmb3IgUEhZIGNhbGli
-cmF0aW9uIGRhdGEsIG5vdCBmb3IgdGhlIERQDQo+IElQIGl0c2VsZiwgYW5kIHRoYXQgZGF0YSBz
-aGFsbCBnbyBpbiB0aGUgUEhZIGJpbmRpbmcgaW5zdGVhZC4NCg0KUmV2aWV3ZWQtYnk6IENLIEh1
-IDxjay5odUBtZWRpYXRlay5jb20+DQoNCj4gDQo+IFNpZ25lZC1vZmYtYnk6IEFuZ2Vsb0dpb2Fj
-Y2hpbm8gRGVsIFJlZ25vIDxhbmdlbG9naW9hY2NoaW5vLmRlbHJlZ25vQGNvbGxhYm9yYS5jb20+
-DQo+IC0tLQ0KPiAgLi4uL2RldmljZXRyZWUvYmluZGluZ3MvZGlzcGxheS9tZWRpYXRlay9tZWRp
-YXRlayxkcC55YW1sICAgICB8IDQgKysrLQ0KPiAgMSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9u
-cygrKSwgMSBkZWxldGlvbigtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL0RvY3VtZW50YXRpb24vZGV2
-aWNldHJlZS9iaW5kaW5ncy9kaXNwbGF5L21lZGlhdGVrL21lZGlhdGVrLGRwLnlhbWwgYi9Eb2N1
-bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvZGlzcGxheS9tZWRpYXRlay9tZWRpYXRlayxk
-cC55YW1sDQo+IGluZGV4IDhmNGJkOWZiNTYwYi4uOTgwZjc2NjY3YWRhIDEwMDY0NA0KPiAtLS0g
-YS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvZGlzcGxheS9tZWRpYXRlay9tZWRp
-YXRlayxkcC55YW1sDQo+ICsrKyBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9k
-aXNwbGF5L21lZGlhdGVrL21lZGlhdGVrLGRwLnlhbWwNCj4gQEAgLTMwLDEwICszMCwxMiBAQCBw
-cm9wZXJ0aWVzOg0KPiAgICAgIG1heEl0ZW1zOiAxDQo+ICANCj4gICAgbnZtZW0tY2VsbHM6DQo+
-ICsgICAgZGVwcmVjYXRlZDogdHJ1ZQ0KPiAgICAgIG1heEl0ZW1zOiAxDQo+IC0gICAgZGVzY3Jp
-cHRpb246IGVmdXNlIGRhdGEgZm9yIGRpc3BsYXkgcG9ydCBjYWxpYnJhdGlvbg0KPiArICAgIGRl
-c2NyaXB0aW9uOiBlZnVzZSBkYXRhIGZvciBkaXNwbGF5IHBvcnQgcGh5IGNhbGlicmF0aW9uDQo+
-ICANCj4gICAgbnZtZW0tY2VsbC1uYW1lczoNCj4gKyAgICBkZXByZWNhdGVkOiB0cnVlDQo+ICAg
-ICAgY29uc3Q6IGRwX2NhbGlicmF0aW9uX2RhdGENCj4gIA0KPiAgICBwb3dlci1kb21haW5zOg0K
-DQo=
+syzbot has found a reproducer for the following issue on:
+
+HEAD commit:    818bebeb63dd drm/xe: Don't hand out the flat CCS storage a..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=13f58579580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
+dashboard link: https://syzkaller.appspot.com/bug?extid=225231fce6755d40d078
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12315625580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=17a84579580000
+
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-818bebeb.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/6e4100526b12/vmlinux-818bebeb.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/723c4783ee96/bzImage-818bebeb.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+225231fce6755d40d078@syzkaller.appspotmail.com
+
+------------[ cut here ]------------
+ODEBUG: free active (active state 0) object: ffff888034a07520 object type: hrtimer hint: dummy_hrtimer_callback+0x0/0x160 sound/drivers/dummy.c:325
+WARNING: lib/debugobjects.c:629 at debug_print_object+0x198/0x2b0 lib/debugobjects.c:629, CPU#3: syz.0.149/6362
+Modules linked in:
+CPU: 3 UID: 0 PID: 6362 Comm: syz.0.149 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:debug_print_object+0x1a5/0x2b0 lib/debugobjects.c:629
+Code: b8 00 00 00 00 00 fc ff df 48 89 fa 48 c1 ea 03 80 3c 02 00 75 4f 48 8d 3d d8 e1 1f 0c 41 56 48 8b 14 ed 40 71 61 8c 4c 89 e6 <67> 48 0f b9 3a 58 83 05 22 4e 15 0c 01 48 83 c4 18 5b 5d 41 5c 41
+RSP: 0018:ffffc9000520fb48 EFLAGS: 00010246
+RAX: dffffc0000000000 RBX: ffffc9000520fc30 RCX: 0000000000000000
+RDX: ffffffff8c617080 RSI: ffffffff8c616c20 RDI: ffffffff914e1e30
+RBP: 0000000000000003 R08: ffff888034a07520 R09: ffffffff8bf30280
+R10: 0000000000000001 R11: 0000000000000000 R12: ffffffff8c616c20
+R13: ffffffff8bf302c0 R14: ffffffff8962d870 R15: ffffc9000520fc48
+FS:  0000555580a4f500(0000) GS:ffff8880d5ea2000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f7df3feb7c0 CR3: 00000000556d2000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ __debug_check_no_obj_freed lib/debugobjects.c:1171 [inline]
+ debug_check_no_obj_freed+0x4da/0x630 lib/debugobjects.c:1201
+ slab_free_hook mm/slub.c:2609 [inline]
+ slab_free mm/slub.c:6372 [inline]
+ kfree+0x3d6/0x6c0 mm/slub.c:6687
+ dummy_pcm_close+0x9a/0xd0 sound/drivers/dummy.c:609
+ snd_pcm_release_substream.part.0+0x114/0x340 sound/core/pcm_native.c:2793
+ snd_pcm_release_substream sound/core/pcm_native.c:2786 [inline]
+ snd_pcm_release+0x10f/0x230 sound/core/pcm_native.c:2983
+ __fput+0x3ff/0xb50 fs/file_table.c:512
+ task_work_run+0x150/0x240 kernel/task_work.c:233
+ resume_user_mode_work include/linux/resume_user_mode.h:50 [inline]
+ __exit_to_user_mode_loop kernel/entry/common.c:70 [inline]
+ exit_to_user_mode_loop+0x1d8/0x700 kernel/entry/common.c:101
+ __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
+ syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
+ syscall_exit_to_user_mode include/linux/entry-common.h:336 [inline]
+ do_syscall_64+0x661/0x790 arch/x86/entry/syscall_64.c:89
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f7df3f9e0d9
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffdeaf84e28 EFLAGS: 00000246 ORIG_RAX: 00000000000001b4
+RAX: 0000000000000000 RBX: 00007f7df4227da0 RCX: 00007f7df3f9e0d9
+RDX: 0000000000000000 RSI: 000000000000001e RDI: 0000000000000003
+RBP: 00007f7df4227da0 R08: 00007f7df4226038 R09: 0000000000000000
+R10: 000000000003fda4 R11: 0000000000000246 R12: 0000000000010a73
+R13: 00007f7df422609c R14: 0000000000010769 R15: 00007f7df4226090
+ </TASK>
+----------------
+Code disassembly (best guess):
+   0:	b8 00 00 00 00       	mov    $0x0,%eax
+   5:	00 fc                	add    %bh,%ah
+   7:	ff                   	lcall  (bad)
+   8:	df 48 89             	fisttps -0x77(%rax)
+   b:	fa                   	cli
+   c:	48 c1 ea 03          	shr    $0x3,%rdx
+  10:	80 3c 02 00          	cmpb   $0x0,(%rdx,%rax,1)
+  14:	75 4f                	jne    0x65
+  16:	48 8d 3d d8 e1 1f 0c 	lea    0xc1fe1d8(%rip),%rdi        # 0xc1fe1f5
+  1d:	41 56                	push   %r14
+  1f:	48 8b 14 ed 40 71 61 	mov    -0x739e8ec0(,%rbp,8),%rdx
+  26:	8c
+  27:	4c 89 e6             	mov    %r12,%rsi
+* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
+  2f:	58                   	pop    %rax
+  30:	83 05 22 4e 15 0c 01 	addl   $0x1,0xc154e22(%rip)        # 0xc154e59
+  37:	48 83 c4 18          	add    $0x18,%rsp
+  3b:	5b                   	pop    %rbx
+  3c:	5d                   	pop    %rbp
+  3d:	41 5c                	pop    %r12
+  3f:	41                   	rex.B
+
+
+---
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
