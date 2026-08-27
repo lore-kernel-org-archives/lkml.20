@@ -1,58 +1,53 @@
-Received: from szxga04-in.huawei.com (szxga04-in.huawei.com [45.249.212.190])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0FDE3BCD38
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:07:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.190
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 329983C10B0
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:07:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787818027; cv=none; b=tbPchx4DKL7mQl7LsTaUsOgZNZqtr6bjbWm9eAjdOxIA18rtqFfq/u7Y6sIihy9rIuJ/QViLp+cueCnVnL78yQAIsEPulyn8eM3tJyaol8uGFCrUN1jFv1N+K1cbpy+5BV8r19ygXTETN8uv8hrkaED8hoc1v6XZuyUuFi2e9E4=
+	t=1787818073; cv=none; b=cBJtZ96OVWr0br5BrGV/Uwr/wBH2z43H3JaxpVJ/xowMjpq90UJo92XQclm9Rzbwo0lnOTgQMVdK0KTVxyB5ymCHnK148BtEyUv+UYAhCJ7UFnlJS6ZsC0Sk2KwEFvQLiBBpLoT5ibpTnWOQAOJEuDyfbHSVw+RkOtlC2ii66kE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787818027; c=relaxed/simple;
-	bh=RpIrQhwVYOYU5j8do2R4yAkldRlNagVVhS4E9lEEacY=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=hJPkNeQtxTMsMPVFdU0YSgPmE3j3W7Tpl0eDBLbvm6rjjtwzCIRqQYMYdfQe6oQ2YPBv6BODzvpB6Ey59N/z6SDyQW4phVRJ0mG899+PebbKunB6EHVB7T5e9GYIAjp/44c9ZtKvsAgQpAqcxpypLLIbgqbrlSonKyZqaN4jur0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=YSfrzoIv; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=YSfrzoIv; arc=none smtp.client-ip=45.249.212.190
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="YSfrzoIv";
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="YSfrzoIv"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=iqJEGxzt/5Md+xChD1VBbpbC9+3Knut6ftXuGJ5kJuw=;
-	b=YSfrzoIvlCPYebNJfeCnPgUuoNU29ch67w2ddM8IcF2HJXxbPV3FpyKWY1JOFtoEklHPMem6F
-	onBgmKK1OzuZuC+MmyRSYmHSC9fM9H+iJ8xvfJ/s9lI0hWwSlwDbEWtB0zucyvIAEAP1FmDT8fx
-	f90JjgwrAs1WnGgPQFYXdD0=
-Received: from canpmsgout10.his.huawei.com (unknown [172.19.92.130])
-	by szxga04-in.huawei.com (SkyGuard) with ESMTPS id 4hVvGc5dQ9z126M6W
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:06:00 +0800 (CST)
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=iqJEGxzt/5Md+xChD1VBbpbC9+3Knut6ftXuGJ5kJuw=;
-	b=YSfrzoIvlCPYebNJfeCnPgUuoNU29ch67w2ddM8IcF2HJXxbPV3FpyKWY1JOFtoEklHPMem6F
-	onBgmKK1OzuZuC+MmyRSYmHSC9fM9H+iJ8xvfJ/s9lI0hWwSlwDbEWtB0zucyvIAEAP1FmDT8fx
-	f90JjgwrAs1WnGgPQFYXdD0=
-Received: from mail.maildlp.com (unknown [172.19.163.127])
-	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4hVv2z2mw3z1K9Ws;
-	Thu, 27 Aug 2026 15:55:55 +0800 (CST)
-Received: from kwepemk100014.china.huawei.com (unknown [7.202.194.62])
-	by mail.maildlp.com (Postfix) with ESMTPS id BBF99402AB;
-	Thu, 27 Aug 2026 16:06:41 +0800 (CST)
-Received: from huawei.com (10.50.85.128) by kwepemk100014.china.huawei.com
- (7.202.194.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 27 Aug
- 2026 16:06:41 +0800
-From: Yue Haibing <yuehaibing@huawei.com>
-To: <akpm@linux-foundation.org>, <chrisl@kernel.org>, <kasong@tencent.com>,
-	<shikemeng@huaweicloud.com>, <nphamcs@gmail.com>, <baoquan.he@linux.dev>,
-	<baohua@kernel.org>, <youngjun.park@lge.com>
-CC: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
-	<yuehaibing@huawei.com>
-Subject: [PATCH -next] mm/swap: Remove unused declaration swapcache_clear()
-Date: Thu, 27 Aug 2026 16:27:22 +0800
-Message-ID: <20260827082722.1809702-1-yuehaibing@huawei.com>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1787818073; c=relaxed/simple;
+	bh=Iq9bINOSPxzr8e89Ie6d/8Vzg93tZ8SYLxSgTF2ETMQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=hSR7GfRckyu6pnj0nKBi4AWTVEgQfE0iyVvnr1KFMV1lIjDXrSG16bG6FF1XzcmHCGCBVvnZs2u/rDQusyWcI+af12kYf3IP7t0g2Yi1SXc4T167/rPLqaVhKDRBN6k3GZtvpP+c+KgvqVgYVpxZUv95sRdQL4xQBNQIHuXXVuQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 60753ad0a1ee11f19a56ed5b684f684d-20260827
+X-CID-CACHE: Type:Local,Time:202608271603+08,HitQuantity:1
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:5ea08da1-7c86-46ee-b052-310ade43f29b,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:-25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+	ON:release,TS:-30
+X-CID-META: VersionHash:7db8b62,CLOUDID:35ca360fb1af2561cd20f5597769b48b,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|102|865|898,TC:nil,Content:0|15|50,EDM:2,IP:
+	nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,L
+	ES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 60753ad0a1ee11f19a56ed5b684f684d-20260827
+X-User: liwanwu@kylinos.cn
+Received: from kylinos.cn [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <liwanwu@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 165197243; Thu, 27 Aug 2026 16:07:41 +0800
+From: Wanwu Li <liwanwu@kylinos.cn>
+To: Tejun Heo <tj@kernel.org>,
+	David Vernet <void@manifault.com>,
+	Andrea Righi <arighi@nvidia.com>,
+	Changwoo Min <changwoo@igalia.com>
+Cc: linux-kernel@vger.kernel.org,
+	sched-ext@lists.linux.dev,
+	Wanwu Li <liwanwu@kylinos.cn>
+Subject: [PATCH] sched_ext: Fix vtime delta loss in scx_flatcg cgroup migration
+Date: Thu, 27 Aug 2026 16:07:37 +0800
+Message-Id: <20260827080738.829103-2-liwanwu@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260827080738.829103-1-liwanwu@kylinos.cn>
+References: <20260827080738.829103-1-liwanwu@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -60,30 +55,35 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- kwepemk100014.china.huawei.com (7.202.194.62)
 
-Commit c246d236b18b ("mm/shmem: never bypass the swap cache for
-SWP_SYNCHRONOUS_IO") removed the implementations but leave this.
+fcg_cgroup_move() lost the signed vtime offset across cgroup
+migration in the mechanical conversion to time helpers:
+time_delta() clamps negative deltas to 0, so a queued task (whose
+dsq_vtime is normally behind the source frontier) loses its
+accumulated vtime credit and lands exactly at the destination
+frontier instead of keeping its relative position.  Restore the
+wrapping signed subtraction.
 
-Signed-off-by: Yue Haibing <yuehaibing@huawei.com>
+Fixes: 62addc6dbf36 ("sched_ext: Use time helpers in BPF schedulers")
+Signed-off-by: Wanwu Li <liwanwu@kylinos.cn>
 ---
- mm/swap.h | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/mm/swap.h b/mm/swap.h
-index d077e5893a42..29060a305443 100644
---- a/mm/swap.h
-+++ b/mm/swap.h
-@@ -344,7 +344,6 @@ void __swap_cache_replace_folio(struct swap_cluster_info *ci,
- 				struct folio *old, struct folio *new);
+diff --git a/tools/sched_ext/scx_flatcg.bpf.c b/tools/sched_ext/scx_flatcg.bpf.c
+index 64cf4dd964d6..d3186a6038c3 100644
+--- a/tools/sched_ext/scx_flatcg.bpf.c
++++ b/tools/sched_ext/scx_flatcg.bpf.c
+@@ -931,14 +931,14 @@ void BPF_STRUCT_OPS(fcg_cgroup_move, struct task_struct *p,
+ 		    struct cgroup *from, struct cgroup *to)
+ {
+ 	struct fcg_cgrp_ctx *from_cgc, *to_cgc;
+ 	s64 delta;
  
- void show_swap_cache_info(void);
--void swapcache_clear(struct swap_info_struct *si, swp_entry_t entry, int nr);
- struct folio *read_swap_cache_async(struct swap_io_ctx *ctx, swp_entry_t entry,
- 		gfp_t gfp_mask, struct vm_area_struct *vma, unsigned long addr);
- struct folio *swap_cluster_readahead(swp_entry_t entry, gfp_t flag,
--- 
-2.34.1
-
+ 	/* find_cgrp_ctx() triggers scx_bpf_error() on lookup failures */
+ 	if (!(from_cgc = find_cgrp_ctx(from)) || !(to_cgc = find_cgrp_ctx(to)))
+ 		return;
+ 
+-	delta = time_delta(p->scx.dsq_vtime, from_cgc->tvtime_now);
++	delta = (s64)(p->scx.dsq_vtime - from_cgc->tvtime_now);
+ 	scx_bpf_task_set_dsq_vtime(p, to_cgc->tvtime_now + delta);
+ }
+ 
+ s32 BPF_STRUCT_OPS_SLEEPABLE(fcg_init)
