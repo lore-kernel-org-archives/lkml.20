@@ -1,142 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93A3D37F006
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 23:47:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B3EA3F1065;
+	Thu, 27 Aug 2026 23:48:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787874462; cv=none; b=uljW3WQePXBVhNH+JzCdUtDH056nAianNHja94HxjGad+53MgUFMMoXit4Ce5muTqvzrNywrlIkhP+ne8d8329zNnqNE7hhDWouKv78b+vRQL4kLfmiBIVVgZy+h2cRe5Vs+62luw4/KUgfuzTKDyu6uFTcUUcUyvw9E9ga9eu0=
+	t=1787874497; cv=none; b=kPaim/bRJnEXbVdIBpdHMEhcAb383iv5ao3lFMgHH7UsStJVocXHy9BC3akQUQ/zK0U8RcswGmKXatXjlmD6690+hEZoGotWcOE4oAQF4PF+2/eUvKUjnMcIan1loB8Tlth9EvkavT3JuXvcotlCxQCsFl2ZIY3yJYfimsRawh8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787874462; c=relaxed/simple;
-	bh=Hxje9xumeitE6b5gN/GluFPkClYPXrs+5wmzMTCtK84=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=W97/s//niU+YIi9rzGBldOSWwzb4VAPz+d4L3VI0Qu5NX6jAxsr2761NdqgSqsG6C9/XcONssc9blYUDTe2wCJTqgij0VT38BU7PlKHObM+T2ysjvw6sdd1OTmUo78LCg7v16QXzDsnTU9JlGRJfgAnHYDqKob9Nb72ClDzp5Gk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vjf35Uvk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787874497; c=relaxed/simple;
+	bh=79Ppe89qsYq40c+DjqrR7Kiv7DFxwdoetJ9eL0V6bD4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tWPRjxKA/b2RO2YG1zDpCjLvKfZhXAjnV8hvVPU77IJukD0yZdqm5YIHJOfiPdRO5e4TfgrgZVphsuBk5C1nYGuMlMU8Vp2mN8wkTGbq6prPeXFyxr1wEgQhozlVMm5+nTSlcuUhs8ets6vCeKDJbD7pmNUCKE4O6opOf3CsCRk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=sOiEYcWR; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vjf35Uvk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFAA61F00A3D;
-	Thu, 27 Aug 2026 23:47:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787874461;
-	bh=qItSZf2IMrcadC3doUN+qm71ZNZWkB8tfnyRrPNJHJY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Vjf35UvktgdHiWQIABTxMqaWim3kr4E58NO+7gveoHzr9gSUuODU+e/oPsz6xDDHU
-	 d6molKBbiRPKf84hwQk5MKnfAuzKDUvOceSBI8UxSANtm2F+olNrsbn5M7PiwmhDF4
-	 1kKleza67ZT3+22y7hBv665q2bHi7AxrnTMwcJ4denIPhChL6ThTf0gCjWYRftQ07V
-	 6neNqlatpZ5vqdsoIPzu+ElSTTYbCqaIJy0yQceQLtwjMRP4rUSfNMSOMd6BiyFW1r
-	 fWy8QvSUkhZ5kR2k0z0bhGFCEUppN14Hvwa8EoskbbyiCtYlmsixo0qaEdRzsuzG2M
-	 f8+Xe0GMMdlrA==
-From: "Barry Song (Xiaomi)" <baohua@kernel.org>
-To: akpm@linux-foundation.org,
-	lianux.mm@gmail.com
-Cc: axelrasmussen@google.com,
-	baolin.wang@linux.alibaba.com,
-	baoquan.he@linux.dev,
-	chenridong@xiaomi.com,
-	david@kernel.org,
-	hannes@cmpxchg.org,
-	kasong@tencent.com,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	ljs@kernel.org,
-	lyugaofei@xiaomi.com,
-	mhocko@kernel.org,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	stevensd@chromium.org,
-	wangzicheng@honor.com,
-	weixugc@google.com,
-	yuanchu@google.com,
-	zhangbo56@xiaomi.com,
-	"Barry Song (Xiaomi)" <baohua@kernel.org>,
-	Xueyuan Chen <xueyuan.chen21@gmail.com>
-Subject: [PATCH v2 7/7] mm/mglru: batch move folios to the second-oldest gen's LRU
-Date: Fri, 28 Aug 2026 07:47:04 +0800
-Message-Id: <20260827234704.63163-8-baohua@kernel.org>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
-In-Reply-To: <20260827234704.63163-1-baohua@kernel.org>
-References: <20260827234704.63163-1-baohua@kernel.org>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="sOiEYcWR"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=WbrA5H4Yvk57EOsBNWlV0ekpieSDSLCMYYWZTClSrEA=; b=sOiEYcWRvCSxRASVuNIzInC47i
+	zNErCUzEMfXUGe0/SHQHaSCS6dB+wMNihofRUzgJpMfPm1xlgGmlDApET+ujz9oKz0qr0Lm0e65fv
+	gJuIGjg6P8vAREnZELW3c7qIs4vS5iQ8YP1ix6Fy6TS4S8SzWVziYYpfbw3W+YfkjIQk1i0AwDByL
+	mngleurW924PpzgIEnqId4llZUwhECm8TP4gIVKxO10MQ2a4qE2UkUjRPGJXlEDZczTRzCTA4mscp
+	tPFUGksNR5nn/tVEHedLSjEk2tR5tSxNXqCZzVckNM7s/VPY7WJMLucXfA8261xYtmynDIor2bjm9
+	TaSgwyMA==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1wzjpL-00000004vYb-1Jb0;
+	Thu, 27 Aug 2026 23:48:11 +0000
+Message-ID: <6bd84489-88e4-4b72-b1f8-af5e1866a37e@infradead.org>
+Date: Thu, 27 Aug 2026 16:48:10 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] MIPS: config: Add EcoNet EN751221 defconfig
+To: Caleb James DeLisle <cjd@cjdns.fr>, linux-mips@vger.kernel.org
+Cc: tsbogend@alpha.franken.de, linux-kernel@vger.kernel.org,
+ jonas.gorski@gmail.com, julianbraha@gmail.com
+References: <20260817220344.2931634-1-cjd@cjdns.fr>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20260817220344.2931634-1-cjd@cjdns.fr>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Detect folios that need to move from the oldest generation to
-the second-oldest generation, and batch-move them together.
-This can significantly reduce the sys time of inc_min_seq(),
-especially when the other type is significantly behind the
-preferred type.
 
-Assisted-by: gemini:gemini-3.6-flash
-Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
-Reviewed-by: Baoquan He <baoquan.he@linux.dev>
-Tested-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
----
- mm/vmscan.c | 20 +++++++++++++++++++-
- 1 file changed, 19 insertions(+), 1 deletion(-)
 
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 17524e96fe64..2b6f3f05ce60 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -3931,6 +3931,19 @@ static void clear_mm_walk(void)
- 		kfree(walk);
- }
- 
-+static inline void flush_lru_batch(struct list_head *head, struct list_head **batch_end,
-+				   struct list_head *dst)
-+{
-+	LIST_HEAD(movable);
-+
-+	if (!*batch_end)
-+		return;
-+
-+	list_cut_position(&movable, head, *batch_end);
-+	list_splice_tail_init(&movable, dst);
-+	*batch_end = NULL;
-+}
-+
- static bool inc_min_seq(struct lruvec *lruvec, int type, int swappiness)
- {
- 	int zone;
-@@ -3953,8 +3966,10 @@ static bool inc_min_seq(struct lruvec *lruvec, int type, int swappiness)
- 			lru_gen_is_active(lruvec, target_gen));
- 	/* prevent cold/hot inversion if the type is evictable */
- 	for (zone = 0; zone < MAX_NR_ZONES; zone++) {
-+		struct list_head *target_list = &lrugen->folios[target_gen][type][zone];
- 		struct list_head *head = &lrugen->folios[old_gen][type][zone];
- 		struct list_head *pos = head->next;
-+		struct list_head *batch_end = NULL;
- 		long delta = 0;
- 
- 		while (pos != head) {
-@@ -3974,7 +3989,7 @@ static bool inc_min_seq(struct lruvec *lruvec, int type, int swappiness)
- 			new_gen = __folio_inc_gen(folio, old_gen, &gen_increased);
- 			if (gen_increased) {
- 				delta += nr_pages;
--				list_move_tail(&folio->lru, &lrugen->folios[new_gen][type][zone]);
-+				batch_end = &folio->lru;
- 
- 				/* don't count the workingset being lazily promoted */
- 				if (refs + workingset != BIT(LRU_REFS_WIDTH) + 1) {
-@@ -3984,11 +3999,14 @@ static bool inc_min_seq(struct lruvec *lruvec, int type, int swappiness)
- 						   lrugen->protected[hist][type][tier] + nr_pages);
- 				}
- 			} else {
-+				flush_lru_batch(head, &batch_end, target_list);
- 				list_move(&folio->lru, &lrugen->folios[new_gen][type][zone]);
- 			}
- 			if (!--remaining)
- 				break;
- 		}
-+		flush_lru_batch(head, &batch_end, target_list);
-+
- 		WRITE_ONCE(lrugen->nr_pages[old_gen][type][zone],
- 			   lrugen->nr_pages[old_gen][type][zone] - delta);
- 		WRITE_ONCE(lrugen->nr_pages[target_gen][type][zone],
+On 8/17/26 3:03 PM, Caleb James DeLisle wrote:
+> Add config based on OpenWrt for EN751221 boards.
+> Of note: EcoNet bootloader has a 7.2MB kernel size limit so
+> ZBOOT is assumed to be needed in all cases.
+> 
+> Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
+> ---
+> Updated to work after SERIAL_8250 and SERIAL_OF_PLATFORM removed
+> from Kconfig.
+> Link: https://lore.kernel.org/linux-mips/20260815235109.666268-1-julianbraha@gmail.com/
+> ---
+>  MAINTAINERS                                 |   1 +
+>  arch/mips/configs/econet_en751221_defconfig | 264 ++++++++++++++++++++
+>  2 files changed, 265 insertions(+)
+>  create mode 100644 arch/mips/configs/econet_en751221_defconfig
+> 
+...
+> 
+> base-commit: 3b7711be02612845e44b5e9ef7c0b9f203cf29b6
+> prerequisite-patch-id: 0f044e47a76450ebb4fe52dc60a6b2f79625bbff
+> prerequisite-patch-id: 6380783b9da35b966b64c237b0ef50c31c7425d6
+
+Hi,
+Can you identify these 2 prerequisite patches?
+They are not in linux-next so I can't test this patch.
+
+thanks.
 -- 
-2.34.1
+~Randy
 
