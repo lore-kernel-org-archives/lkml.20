@@ -1,84 +1,80 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65A374078DF
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:51:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C6CE22F01
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:54:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787838664; cv=none; b=UAPNezHIgLDmqAHzJY7bufV3cNvXxfLKw8+wy2HCf8tZrS9cVvvFpWEScLvWJBazERmBlYVHRb5HWzkvh19hlf5p0JOcWdSTgfEuru7x+qWLbmRI4ZN1szpYPUMIgVRRqq5F89QUTylcPXQtCIGD391Q/+TXUZApm1Da7j6TRoA=
+	t=1787838846; cv=none; b=ZqvX7Hab/4JjuMWv4n8zZZ1fTSQ+Bzk3oV6nvNM98yKemXngaf5a4xkva7n0OHvxAKADaCM0uNQ78e/IcQn0COnSsjuiFAHQoVgh5rhZIa2emigcVBiK9oaa18sMDKALfAmMNWWFnC6KExJ1PUxOzt0S376M9dllcqkxB6dwOPo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787838664; c=relaxed/simple;
-	bh=GSXCNAWdi1MMmnqf1XW/FPRyeflfu8kqpYT/0BkJlPY=;
+	s=arc-20240116; t=1787838846; c=relaxed/simple;
+	bh=QcnsRvBS8HwkR+O6VJHcSxjceTtwS1oZqvuyeAOVQBE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RJ+c+UCl8K9vt0ruI3rDuUDok338UvQbqBCgzd5jMnomgiyaYuDVuifnD0kOG+51TlzB4uXT6maCyoQlxkWPQceBYNnRMUk9ZLNRP06qEZaEAPIgYstkGXc/G+dMRO39dMSBSGtfunNcd7CohH8/dGjgtJBvPZElt94TZdpqbxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=is4VpxRZ; arc=none smtp.client-ip=209.85.216.41
+	 Content-Type:Content-Disposition:In-Reply-To; b=svgvZdbjMKijwZAWlkJ+T/UMJQD6fgUsF0JmT+d+pDqpLiD5lp51p2kLmcFXCcz1JzYRncEhdcrS22XDnlcZG/wYkhudgKtk821TzW4YLp929Cxpvtd1L38xTxHdPXQD3hA4H6Ze3/AI4OVweISr7WH4eRf9cesfaZa3TTe+adE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W47rpLKp; arc=none smtp.client-ip=209.85.214.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="is4VpxRZ"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-396750cfee6so1859042a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:51:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W47rpLKp"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2d6efd73032so9481875ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:54:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787838662; x=1788443462; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787838845; x=1788443645; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:sender:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=QGwb2ysQ4spjThnrjYtrwlyO99o7U1vRUqimeHR94+E=;
-        b=is4VpxRZDqIyNePXkzt18xRXkXLrR9pzzxdJXlzsGjZ6tu6NcNjhfXVHmJn6x9QBqS
-         iQtlmeeyxwr+xEvHxcT198QYRnQ9ZLv0v40J7Axseee/GATGDuw6HrT9jgMDJKbD35ny
-         IzNvYSwdlRU408TtZAsSntz3SRebPAoViE9/hopqRaTakw2dZwA5OTpNrBVMUxG/tRgV
-         hMum4wiyROnDkRbMcNu44heUbyDp2SJP1siRwtb1j5deRTpsnQ7cIaworwlRyLWeOsyv
-         Mr+Q3nQWd8mOYMiIqGns9tyu+cDBjfsA3wyj+G0HlrA0yajjI4UGVG9IkbMOPN93+zsH
-         UKmA==
+        bh=RngKn1qeN4IMu4W20K5F024kPlBdyKuXJtbP/ZBjLVg=;
+        b=W47rpLKpxgprzgm84JHNcrrstIUk3eh6n9RocLXhVaM0VIvRTXaGG2/kt5crpbzyM8
+         SIKhN8Wy2LW5RJY/2lrcoAO92616v/Fo2m8UhJrpD9U0D7+2U3A6I3gPqZXReITyHBXK
+         TnttMSziSVwRJLmzpYS9nauDh25ydtZNSRKPSl3IZiQ1ZlF3wV4zAE9W8ILqEPonWT1g
+         350Q1dKuLG8pb6xt6Hs1eT4thY75vSqIUDG6fMW/Uw0kOw30ub4t4dEk/DlW26y7sRTw
+         bGVLGbnVyI+qGPUCFh0iCE06lmeus+zHXCpLbaTgE0+AKMydVyg/ToVIvXgmtJwwhzys
+         G2rw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787838662; x=1788443462;
+        d=1e100.net; s=20251104; t=1787838845; x=1788443645;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=QGwb2ysQ4spjThnrjYtrwlyO99o7U1vRUqimeHR94+E=;
-        b=hscjON2FnXLa2vi70j/D6dlbBhb2MTUo2RzEuKcaZTEX2/+2NLqubBAj0pktDpduZl
-         e9MbZTLb4FLsMCtGLOKn+P26Xl5h+P9lsuvk/VigqwKifRel4pycakWEkhQdoKMbY2CL
-         kdCchG8GaGzNdG/3leFVOpnlTPLj6475CB/+f4PFVvV2ZG3ZIKtlj3YyEfASnCkBai4c
-         Nm/ovYy3dhTWRamP01xAusJD5vvGL7v7MPcOSbQVX8KKYj3Pdjv6oq4RQjDpycMjoL11
-         e4SzFUbP904blsLH9gtqDC4DoDHRrKJbXBMPEqt76M/vzYL7ONIk+HQuPq+79Gth+3cH
-         +1OA==
-X-Forwarded-Encrypted: i=1; AHgh+RqVNdGuSBStpKAAHWaS3NNzUVe5kqB18nRaSfkMxks1bUDO/GxTm1e04dVM1OI/Zrfxe6ZkBxUrhZUyr08=@vger.kernel.org
-X-Gm-Message-State: AFuF++l9/qRG0Aq55ecCLgyjn8VECvhys5Pan+J/JzEQSye+e3BwmwAm
-	l1FwK55baKs6WatLG1jD7r9uAkjV5eqMxeto7Kc2jKA9gS1G0ejOizWS
-X-Gm-Gg: AR+sD12qZaYdPEQ0nP9Ro2yv0jf3gD4+w08ppw6YkMk0WhDunag1Tmi6IfbijcyV2gu
-	7qVrC3tn9PIuc5ITNP2ytB3kJNu2a1nP5Wj0NDbnLvCMLByVuDOyfIM0lKI6jQ1wg1rP9E9efYC
-	yWHknmcV+VarwL+oh6CeQJ4kxslc0w1iJfdxRr+EKoFIAoMmSi7ZUFGRL+udB77KpDa9+/SYBZX
-	WroN7hkClJve4cWHZe4qZNfC7ExQ0oQ5VeaykYdQoWLdvPVDMbx36mUi2v9zjxqPXBaiTxtvKsM
-	VhvBXJIPnVBabALiz6/DrsyyrDuLNd+8MVCwmk0OXP3hB0Un/1J7U0g3rzp9jh2xxOQZAmF/ZCW
-	P3LbXhJ8p5KKbPCeZ3MnsQ7fTtqHIKDmwMc5O7P/Y9n7CLRpLWYZ1/IIitpinqyBLe1EJRbhvb3
-	pSC30+yOFGbkb+l+5TVqLJZugw3i+q1KQWtWzP1+wa17afEtEkz5InFru8HAxFqtoLipCvcm8FW
-	w==
-X-Received: by 2002:a17:90b:4d88:b0:395:4de0:b78f with SMTP id 98e67ed59e1d1-3966d36e327mr30704782a91.1.1787838662493;
-        Thu, 27 Aug 2026 06:51:02 -0700 (PDT)
+        bh=RngKn1qeN4IMu4W20K5F024kPlBdyKuXJtbP/ZBjLVg=;
+        b=CTGBT+F3hgTLVVihUAFnuSBQXW4fPasUZUs+vvBAg4GcWfv9cLhOn3RwXzJ7D3oyg5
+         DohkLhgEa7BHbhv8i2cBvhttKF0zYsIw/MZ466h6L34Nb4eYd2LJF5YAXDo2xVqTVdZe
+         GawGRaQCs/BgBhMXQ7l8qVDhSrTkSM2VC5ShdqBdow/WnBc2i1R2yUzTQhZPezl/72/w
+         6Lc1xMVsaTLgv3ggI6s9rmZF31iyM1dIHnkz1f3vGIm8uMf0pB7mJuEWklogJ/q7X2Sg
+         mfxxqZcru5qFxV931sxgzKifxa3S8bO4pQdIhSTdra+L5/RUXHPiycvLfrE/F+h1rXZv
+         rGwQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rp5wkFAVt3fL/wcxGKztWZIQhCdalozj6k/KJZyRTQ4xd0AJBPyLAR5WTQ/YKhj/6gmZpK/9TV3XnM1PaY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nLow9KfJjxZII01bYFKYkOaaP3m7hwOMVyTkDAY/xQJ0M9qYU6
+	lLMiv70bYA59nkMR9FHy7i9eSvvxUFA46StQcKKT9WxG5LYz0TwVz8mi
+X-Gm-Gg: AR+sD13dkoS1904T06IAfUqHsPDEPax6XDo2S6SAWlzDKX+p2EvjbJadiWWHlPbyx6l
+	XweNGJRb7tuQL5dADyfWfc1udc1kNf7qDq27TuQQcPNl8bnKqARynQRp3SE8sxVbavKUsF0zXRG
+	XmnWxx9oz9RFIN4YpZb+A6h/0Ye9eLW5O/nyETcul9rlUF0HH6hFqDo+ntSRgQ4MMX+vt+aNueo
+	LAkaRtxxbQQd2frG5lqg59AnYaHBE4UhbHEW01xs1VAf9hbmzAVTjmonSeoUpQq0Jkl7xDajOt4
+	98La2wesJpRTIV0I0ZsRtok0uLTmlJEDiQXKkDSlow0VU2BVpwr6iJmUA3m7tk9+DuHWMjeR8yV
+	axGqJsv1zAFOD4xsqAO8ATnssmJqyCzPqY9CaVHIUTQnXhy68RktrfZtByk82tafmXnD2ieTi7Y
+	gdHILgtDlNMKMPS7Xk4wraAxlnC+WEmaupf2J8fOYYPl5V/EPpDtnqK6GPy+Zwahn+FDq9LMoRJ
+	JMgYi+EAMGj5g==
+X-Received: by 2002:a17:902:e74e:b0:2cf:7db9:e13e with SMTP id d9443c01a7336-2d72600b801mr85038015ad.3.1787838844476;
+        Thu, 27 Aug 2026 06:54:04 -0700 (PDT)
 Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b0ea80edsm2894675a91.1.2026.08.27.06.51.00
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d704c34ac6sm17479885ad.73.2026.08.27.06.54.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 06:51:01 -0700 (PDT)
+        Thu, 27 Aug 2026 06:54:03 -0700 (PDT)
 Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Thu, 27 Aug 2026 06:51:00 -0700
+Date: Thu, 27 Aug 2026 06:54:03 -0700
 From: Guenter Roeck <linux@roeck-us.net>
-To: Aiden Isik <aidenisik@member.fsf.org>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] watchdog: s3c2410_wdt: Add exynos5515-wdt
- compatible data
-Message-ID: <168be4ed-d670-4d61-a061-e01abb33efa4@roeck-us.net>
-References: <20260821-for-next-lucky7-watchdog-v4-0-d070cee5009f@member.fsf.org>
- <20260821-for-next-lucky7-watchdog-v4-2-d070cee5009f@member.fsf.org>
+To: Wanming Gao <wanming.gao@mediatek.com>
+Cc: Tzung-Bi Shih <tzungbi@kernel.org>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, wallace.yu@mediatek.com,
+	Jarried.Lin@mediatek.com, vince-wl.liu@mediatek.com
+Subject: Re: [PATCH v2] watchdog: mediatek: acknowledge pretimeout interrupt
+Message-ID: <5e1793d5-6c78-4372-872a-069fcd99a07a@roeck-us.net>
+References: <20260827092616.2724197-1-wanming.gao@mediatek.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -87,59 +83,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260821-for-next-lucky7-watchdog-v4-2-d070cee5009f@member.fsf.org>
+In-Reply-To: <20260827092616.2724197-1-wanming.gao@mediatek.com>
 
-On Fri, Aug 21, 2026 at 04:14:50PM +0100, Aiden Isik wrote:
-> From: Aiden Isik <aidenisik@member.fsf.org>
+On Thu, Aug 27, 2026 at 05:26:12PM +0800, Wanming Gao wrote:
+> The MediaTek watchdog pretimeout interrupt is level-triggered and does
+> not have a separate acknowledge register. The interrupt is cleared by
+> changing WDT_MODE_IRQ_LEVEL_EN and then restoring it to its original
+> state. Without this transition, the interrupt may remain asserted and
+> cause an interrupt storm.
 > 
-> Add driver data for the Exynos5515 SoC's watchdog timer.
+> After changing WDT_MODE_IRQ_LEVEL_EN, wait 70 us before restoring it.
+> This is longer than two 32 kHz watchdog clock cycles, allowing the
+> level change to propagate across the clock domain.
 > 
-> Unlike similar SoCs such as GS101 or Exynos990, Exynos5515's PMU does
-> not require explicit counter enablement for the watchdog to tick.
+> WDT_MODE is also updated by the watchdog start, stop, and pretimeout
+> operations. Protect its read-modify-write sequences and the complete
+> IRQ acknowledge sequence with the watchdog spinlock so that concurrent
+> updates cannot overwrite the temporary IRQ level state.
 > 
-> Signed-off-by: Aiden Isik <aidenisik@member.fsf.org>
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Wanming Gao <wanming.gao@mediatek.com>
 
 Applied.
 
 Thanks,
 Guenter
-
-> ---
->  drivers/watchdog/s3c2410_wdt.c | 16 ++++++++++++++++
->  1 file changed, 16 insertions(+)
-> 
-> diff --git a/drivers/watchdog/s3c2410_wdt.c b/drivers/watchdog/s3c2410_wdt.c
-> index e31f93db0509..e61439a3f4b2 100644
-> --- a/drivers/watchdog/s3c2410_wdt.c
-> +++ b/drivers/watchdog/s3c2410_wdt.c
-> @@ -232,6 +232,20 @@ static const struct s3c2410_wdt_variant drv_data_exynos5420 = {
->  		  QUIRK_HAS_PMU_RST_STAT | QUIRK_HAS_PMU_AUTO_DISABLE,
->  };
->  
-> +/*
-> + * Unlike similar SoCs like GS101, Exynos5515's PMU does not require
-> + * explicit counter enablement. Hence, QUIRK_HAS_PMU_CNT_EN is not set.
-> + */
-> +static const struct s3c2410_wdt_variant drv_data_exynos5515 = {
-> +	.mask_reset_reg = EXYNOSAUTOV920_CLUSTER0_NONCPU_INT_EN,
-> +	.mask_bit = 2,
-> +	.mask_reset_inv = true,
-> +	.rst_stat_reg = EXYNOS5_RST_STAT_REG_OFFSET,
-> +	.rst_stat_bit = 24,
-> +	.quirks = QUIRK_HAS_WTCLRINT_REG | QUIRK_HAS_PMU_MASK_RESET | \
-> +		  QUIRK_HAS_PMU_RST_STAT | QUIRK_HAS_DBGACK_BIT,
-> +};
-> +
->  static const struct s3c2410_wdt_variant drv_data_exynos7 = {
->  	.disable_reg = EXYNOS5_WDT_DISABLE_REG_OFFSET,
->  	.mask_reset_reg = EXYNOS5_WDT_MASK_RESET_REG_OFFSET,
-> @@ -379,6 +393,8 @@ static const struct of_device_id s3c2410_wdt_match[] = {
->  	  .data = &drv_data_exynos5250 },
->  	{ .compatible = "samsung,exynos5420-wdt",
->  	  .data = &drv_data_exynos5420 },
-> +	{ .compatible = "samsung,exynos5515-wdt",
-> +	  .data = &drv_data_exynos5515 },
->  	{ .compatible = "samsung,exynos7-wdt",
->  	  .data = &drv_data_exynos7 },
->  	{ .compatible = "samsung,exynos850-wdt",
