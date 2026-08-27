@@ -1,171 +1,104 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5E97C3AF660
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:00:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E5CD448BA4
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:02:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787835665; cv=none; b=vCYaZf6KnNE0pLlUccyo1t9IQOW4kE0FlwAKrGkfDmXFwunUSt2UN/ZORmwsIeigDGpWWHO4Vexsx2dZlpHqKLL8aKadVnTLdrc8SNs5+QLe39eZNZNAL29Et64XXGTBDkQi/I2DyiwF+6oFHeMGCI4KhhmSctUjz0JnQUEcP9w=
+	t=1787835772; cv=none; b=CwtDfaR037mxKp+9V+m3v5xPtz32cB/kI44BuW5TpKW/qfJ4kkUVeIZx2ATWo5jCAdi7MZcCMoIFImOExpGIJVPsd381Ya90g/lndPWMEAg1f8vDzBugWcHXsgkis401Gn+ecBVk5oF3OdxRA6xZfYthheqCeqqQHwruF/zUPQM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787835665; c=relaxed/simple;
-	bh=g25jzuf+eqcO/IIS8eTk7Cr9RLtw+eho1T/tyqHvaUM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MazwAyK4VEy6eN8V9mv22DeokznwHOcq0ba0/4CfYFvheHRvUdvLENV3LTibu/AXKjrQOxILwid4kFhScpGfmldsnuxoe1la18cIUlxWYVfV8Dm6ne87/YiBR2WxXTYv0oWcXcdUF4ByXaiF7akw3obRRb1SM8s5fv/liWbgo5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=t+QTPnBL; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1787835772; c=relaxed/simple;
+	bh=5o6ANdOnsEwvHNkc68cYshSKpXo+cUGt41qHOl1Tkjw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NdWg67+gP5KxbDT7UWtuzIf0nPY4q4dgvoHFHBsXELfO3F2e3eTDKiV1BDsTbzIGsQOZK9v+NMBmgRNaTS2R8yiuMzemHWU3I7Zf3GjerofK63Iy/MA0rQxzL9+Ow8pLNw4c/JsGvhOFHLNbXLA8ZSPDo/18dsqfejrpyd/kkcg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aJsnhU/m; arc=none smtp.client-ip=209.85.210.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="t+QTPnBL"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 48ED9169E
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:00:49 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id CAED43F85F
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:00:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1787835653; bh=g25jzuf+eqcO/IIS8eTk7Cr9RLtw+eho1T/tyqHvaUM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=t+QTPnBLbHb0pdxwtA+iXwpebGNkFaH0sBgYvijRi6xb5/MOh39IFW8Wv592EFkzQ
-	 +6Hzhsxn6xaXuFryXwTL9bNQWuy6eP79fdamuzwj8cYlwgKP1EvPj9rIYiHf2a1q3a
-	 KNJ0kPM4mVoozkoG3N/p6JE/ReZ6Y6POwd1w+J8g=
-Date: Thu, 27 Aug 2026 14:00:42 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Steven Price <steven.price@arm.com>,
-	Chris Diamand <chris.diamand@arm.com>,
-	Akash Goel <akash.goel@arm.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 01/18] drm/panthor: Disable reset work before unplug
-Message-ID: <apA0-ph6OBxUp6CW@e142607>
-References: <20260826-panthor-unplug-fixes-v4-0-982cc8f4234b@collabora.com>
- <20260826-panthor-unplug-fixes-v4-1-982cc8f4234b@collabora.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aJsnhU/m"
+Received: by mail-ot1-f46.google.com with SMTP id 46e09a7af769-7f4b94d72acso2051753a34.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:02:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787835756; x=1788440556; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+YbfpkMbK/g+UAyxQUtADUS+ulixTWRPAVGbjBEwn60=;
+        b=aJsnhU/mWHFN0gredSJKoQhgBZ/rL9W4AWSF5ne0MH5cB7Ux8HQ69+zjpUMCFK9QqE
+         mSEf0jtrCnRRk3gSqymNEd5Yb5Oh5/uH09ryRBaAwev8UCP2ol9zcltMcFGy+Y0iYxg7
+         I+KVm0c2F+cHhYv/J3kqjl0CzuA6/eXhycTdVmJPBt/cbojLqmPJbho8A7j4xQFKMpK0
+         zfW5QpOdQvAoL/cMOwaEYDF37lXqAK7HBUmsbamoezVPr4lF8unD0iNMUwjEJs4Tw4sZ
+         rZS2uYR44gFTzqa2lol/egznT4HIhsagkvdqmmDsuN/nULRHGv8Fuz9qh5ja5TCgwabZ
+         zvjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787835756; x=1788440556;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+YbfpkMbK/g+UAyxQUtADUS+ulixTWRPAVGbjBEwn60=;
+        b=Pd+6c1GFdYV21JK7b2j4HMH7hIj+bzhd1/Xs3Tk0gbwozQ2ZedGsKXkj97sGf9Qrsm
+         i9m4PxiEiZxCvHP90HixQvAXR5R7RnvW65/fvVGvpagDas5p1BSpCZ7rIskTZoNX1NcT
+         ICDdpJj62Odj3/GXGlm5jsRU6VrzJCt70NlCjI4gyJGXReiJxS2xPxORsiveA9CvrHdN
+         EkxsYdXWKI1X5Yn+++DCDV4dYpNFhPVzdF9JGW3ph5YTk75m54oaYYB8LCJrVltbHce6
+         OGarhAQ7f3hJGQE8QoEDmMGERahZO91g40CsIz3mE5PDkGc0n89oC6JK8A/xI98r1or1
+         Yb2w==
+X-Forwarded-Encrypted: i=1; AHgh+RpEdYFqjK9naVAfLz3hn/t3kqfRw8da4NptzCKfxJYNSQbLECAA7OTmJVFgEduAEcRFy6vwpBJ/MflFCc8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kDjPUSopchC0V62oViXm2r3l2zIqz/Jx7CQ4O4zeFUrUQShcOn
+	dMpdgGceEHLPxEfWiu+EZV59G0AbA2ey7ba19AyO+Mj5XTJn3juoT2I3
+X-Gm-Gg: AR+sD1109rcsqTKiw/mUu4w+cUSOrLEtoTMMAI4EG1aHEF+jqHLDNs3CHoKJh83XU1D
+	68oyv0MIBYyqmSjHti42xWrYcnB2cEJY9DFKgLqwjGlBM3d2zD6G8g19JYu25TQ6GLFOVLw60gw
+	ol2PwCdfWy7I44Dw0QNcar9y1viKcbPOGl0dQ0NKVYTyVS2GHu5zu91o1QO0MWTCD1XY/Bx1TgT
+	YeMi2fWHOQRGwQRwtQ3YFOCl/WZGsX7bHT/eYYHP67apGqUsPhLWrThWTr/MaSjsEYCwaSJIxCD
+	SH8KWGC5VUhmb8pHzjFZJuIOtdkrFf4zACOI7OFmEc30YDfNR5NWCjk/eRI+DTeXv3LZxLBCtpV
+	n1koXby/6Ifq/kh7nlcfbuhmSKetvlftckiQp7tbyaW5r0qUD0Z9t4tXqkjIRYjCBIFgvG7WKWe
+	ZAyWZHLSZ5xVmsK5nY61obiEqW8SSmNUADDoptkMIZ9iXc1sBhP9gzu9ra1HCW
+X-Received: by 2002:a05:6820:4c0f:b0:6b1:afdf:a01 with SMTP id 006d021491bc7-6b1afdf50c4mr7622702eaf.18.1787835746080;
+        Thu, 27 Aug 2026 06:02:26 -0700 (PDT)
+Received: from machine ([182.69.183.109])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a9035ff1sm15598089c88.11.2026.08.27.06.02.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 06:02:25 -0700 (PDT)
+From: Kartik Panesar <kartikpanesar@gmail.com>
+To: sakari.ailus@linux.intel.com,
+	mchehab@kernel.org,
+	gregkh@linuxfoundation.org
+Cc: linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Kartik Panesar <kartikpanesar@gmail.com>
+Subject: [PATCH v1] staging: media: ipu3: remove unnecessary dev_dbg function trace
+Date: Thu, 27 Aug 2026 18:30:40 +0530
+Message-ID: <20260827130040.117697-1-kartikpanesar@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260826-panthor-unplug-fixes-v4-1-982cc8f4234b@collabora.com>
 
-On Wed, Aug 26, 2026 at 04:56:00PM +0200, Boris Brezillon wrote:
-> Unplug is supposed to be the end of the road, so we need to make sure
-> reset works won't execute while we're cleaning up everything as part
-> of the unplug, otherwise it would mess up the internal state.
-> 
-> In order to be able to call disable_work_sync() in the unplug
-> path, we need to defer the unplug triggered by the reset logic,
-> otherwise we would deadlock.
-> 
-> Fixes: 5fe909cae118 ("drm/panthor: Add the device logical block")
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-> ---
->  drivers/gpu/drm/panthor/panthor_device.c | 21 ++++++++++++++++++++-
->  drivers/gpu/drm/panthor/panthor_device.h |  3 +++
->  2 files changed, 23 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
-> index 0b25abebb803..7c55d0c45cfd 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.c
-> +++ b/drivers/gpu/drm/panthor/panthor_device.c
-> @@ -79,6 +79,9 @@ void panthor_device_unplug(struct panthor_device *ptdev)
->  		return;
->  	}
->  
-> +	/* Make sure we're not interrupted by resets while we're unplugging. */
-> +	disable_work_sync(&ptdev->reset.work);
-> +
->  	drm_WARN_ON(&ptdev->base, pm_runtime_get_sync(ptdev->base.dev) < 0);
->  
->  	/* Call drm_dev_unplug() so any access to HW blocks happening after
-> @@ -91,6 +94,13 @@ void panthor_device_unplug(struct panthor_device *ptdev)
->  	 */
->  	mutex_unlock(&ptdev->unplug.lock);
->  
-> +	/* Unplug triggered by a device removal might race with the deferred
-> +	 * one queued by the reset work. The function covers this concurrent
-> +	 * unplug situation, but if we can disable the work before its
-> +	 * execution, that's still better.
-> +	 */
-> +	disable_work(&ptdev->unplug.work);
-> +
+Remove a dev_dbg() call that only logs function entry via __func__,
+flagged by checkpatch.pl as unnecessary ftrace-like logging .
 
-That's being super cautious and I'm not convinced it is necessary. Anything
-queued at this moment should end up waiting for unplug.done.
+Function entry/exit is already available through ftrace's function
+and function_graph tracers making this redundant.
 
-With the above call removed, I'm OK with the rest of the patch.
+Signed-off-by: Kartik Panesar <kartikpanesar@gmail.com>
+---
+ drivers/staging/media/ipu3/ipu3-css.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-
-Best regards,
-Liviu
-
-
->  	/* Now, try to cleanly shutdown the GPU before the device resources
->  	 * get reclaimed.
->  	 */
-> @@ -114,6 +124,13 @@ void panthor_device_unplug(struct panthor_device *ptdev)
->  	complete_all(&ptdev->unplug.done);
->  }
->  
-> +static void panthor_device_unplug_work(struct work_struct *work)
-> +{
-> +	struct panthor_device *ptdev = container_of(work, struct panthor_device, unplug.work);
-> +
-> +	panthor_device_unplug(ptdev);
-> +}
-> +
->  static void panthor_device_reset_cleanup(struct drm_device *ddev, void *data)
->  {
->  	struct panthor_device *ptdev = container_of(ddev, struct panthor_device, base);
-> @@ -148,8 +165,9 @@ static void panthor_device_reset_work(struct work_struct *work)
->  	drm_dev_exit(cookie);
->  
->  	if (ret) {
-> -		panthor_device_unplug(ptdev);
-> +		disable_work(&ptdev->reset.work);
->  		drm_err(&ptdev->base, "Failed to boot MCU after reset, making device unusable.");
-> +		queue_work(ptdev->reset.wq, &ptdev->unplug.work);
->  	}
->  }
->  
-> @@ -206,6 +224,7 @@ int panthor_device_init(struct panthor_device *ptdev)
->  	 */
->  	*dummy_page_virt = 1;
->  
-> +	INIT_WORK(&ptdev->unplug.work, panthor_device_unplug_work);
->  	INIT_WORK(&ptdev->reset.work, panthor_device_reset_work);
->  	disable_work(&ptdev->reset.work);
->  	ptdev->reset.wq = alloc_ordered_workqueue("panthor-reset-wq", 0);
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-> index b55a3f9edd41..6529e01e838d 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.h
-> +++ b/drivers/gpu/drm/panthor/panthor_device.h
-> @@ -268,6 +268,9 @@ struct panthor_device {
->  		 * operation is done.
->  		 */
->  		struct completion done;
-> +
-> +		/** @work: Unplug work. */
-> +		struct work_struct work;
->  	} unplug;
->  
->  	/** @reset: Reset related fields. */
-> 
-> -- 
-> 2.55.0
-> 
-
+diff --git a/drivers/staging/media/ipu3/ipu3-css.c b/drivers/staging/media/ipu3/ipu3-css.c
+index 8063401246fb..b2c8fb7d6813 100644
+--- a/drivers/staging/media/ipu3/ipu3-css.c
++++ b/drivers/staging/media/ipu3/ipu3-css.c
+@@ -290,7 +290,6 @@ int imgu_css_set_powerup(struct device *dev, void __iomem *base,
+ 
+ void imgu_css_set_powerdown(struct device *dev, void __iomem *base)
+ {
+-	dev_dbg(dev, "%s\n", __func__);
+ 	/* wait for cio idle signal */
+ 	if (imgu_hw_wait(base, IMGU_REG_CIO_GATE_BURST_STATE,
+ 			 IMGU_CIO_GATE_BURST_MASK, 0))
 -- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+2.55.0
+
