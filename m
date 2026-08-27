@@ -1,132 +1,317 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CC0736B92B
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 23:22:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DD602E737D;
+	Thu, 27 Aug 2026 23:25:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787872964; cv=none; b=feu+j8VIY+IU5PY3R1JXbNhYcPplhQBBYk36DjTa/VaCMifpfHSIRbuZznHezA7uXYqd0cGlzxgGnvNuxs/56Ox/dIsLy6/T3l3Kp+o/JP6+L5k9/KNMmvWlFTUJQbUC2L5RblQRm4XjUwzPBOTXjq2QDx+sjIDR9Wf0xt9zlj0=
+	t=1787873132; cv=none; b=eJ43mHM0Nnzb5eN+TdpZTab8t+hcfyGtPlCrEd/RsB+z1YKNtdby3Bcw7A5H/znLDFi3K0N7vcoYNklbWf0Ouxz1a4s2VrZX5v5OKkBLIECphCRWpOERSdl7HEP6l4BPbtuUzwajRas8ysFfOwTCHIWCA6nQRo47pQLhcvoLg8c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787872964; c=relaxed/simple;
-	bh=ToL+qrxaGPkIwwzSzJ3JM0QaLYNkEH3g2w92rivyJ3g=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qqUBhcvkWM392RZf46A4/dR+oMWDq2uXwCeXHHq1zNVdMhx5ElcR67rd+9ip7vbucLwNYBQpjDIveVmQ9fUJclNBgg7lXADBxa53qvKdSvYDeQVFd/KsEHb9NISo9YLWWt8v2iZVkLdbzvMk8EQK0yAMNFmIlZzn1To0ZzMX59k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U/uRqyNz; arc=none smtp.client-ip=209.85.214.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787873132; c=relaxed/simple;
+	bh=gSQgQMPetK1kCNLuB8WIfMAPfr8s2YwC6Hq6MPpiTHs=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=niGjLbLEaZFQ6VR/QPz2HzI2O5OH+XqRyykktjsB6+AECNqjuPCuOIo2xyrsqe76nR1fS+eGqnjr6PXx5apE+8EDj9UPbYA37e3vxLwCRz5DVXmta1wTVJydQOiQ50cCAuwAodWen9933NnkPpyo4KUJeC1n6LDOvw9WEwpK0Ds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=dvG50Ew1; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U/uRqyNz"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2d712281f8bso4685855ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:22:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787872962; x=1788477762; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WCUYZUagUYklDLur0cOGI1Qx/7xjgBtFl/8/oR1JLCI=;
-        b=U/uRqyNzHXLost5EtlVjlZEAZLlxWKoeyCB/dlbJeC4gEg+begoOFjv5WktDE3BBof
-         K3hMLDES48qonPLCjEt/M8GOrQMKYCf3MvUM5uMPky0Ci/hFQggHkeiJQXY5FOuD+8sT
-         PFX8OTTSa55U3bQkQDDHk5SqRQfk3DVmLjCIQoZ4Dwvxl4Qy8Qk4qo3TgSYt7CrRdkTC
-         5HTps3Q4ekcd23YOW12Q7ZHOxLmzTTLxyrlfPKgNKpREhXkafinK9+5vUo7F5kOMpYnr
-         tcch2QcFX97g4vYWAJ4161A88u0GBWxsYa4ovF+/DlmbfQLh45s2Jm6QPTMO7bAkdGF6
-         d3nQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787872962; x=1788477762;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WCUYZUagUYklDLur0cOGI1Qx/7xjgBtFl/8/oR1JLCI=;
-        b=Ehuv6J85mDXhmmcrChuBmbqg/rYpvS+W9SKstZoAhmvVXSwP5CVuxZWhmG9moMI3QL
-         ovhGG76B0gq6USqn6Auh/HY5GmT+NhM6T4G1mXyCTc5sO4KAAEXkDvznZMS8NmQOIMhG
-         K6qVIY1scT8eZsTOcCRcNUgNQVdkJpgmxj8zgCEmzP7M2C4HjttbvQ+B6HCcG5xs8ZU5
-         g+WNCdba86rTTJSWZyid+YJRPRM3cMYqF74bvp/hImxETwkIUBgGw2VqLjoAyyfgPowU
-         QS13i5KT/qKmGA50oYjJN57OZkOik0gXBY9eYAWUjyTx0Umw3PJgFbTbHqvwL8mo5PXK
-         7PgA==
-X-Forwarded-Encrypted: i=1; AHgh+Rp1It/EKJo3oE15Pb2K+Tvdoc7mR7ZDXk4MracX4SbFLVqyKU269G2R5Hby6emm772J11USg/QAqvh74Is=@vger.kernel.org
-X-Gm-Message-State: AFuF++nSueZlhpWQ3GIKFtZlA+EsSNkh61hx9CiUyXlL8yENYSKibqt7
-	dUFUAcyyRzQNY3YWX5c6l1ccHjMeu323iuOEz2D6I34uwdZDr43WPXqM
-X-Gm-Gg: AR+sD12IULdMPaXqD41v8s7+PJgPKyyJy8wsrH9RaPX3sPEeGPnuTek5m89aoZv07pV
-	ACeLbJJbKpgwqGpZWJimuCN+0jYJBAv/9kOXrMJQdCpiLPgGDT69XDbIx7LDfYsdTOfCxGSEL4P
-	WIEmO8eCqQpu12ahoqdamsRX8k35f01mvRd/dPRaVPY9FiUzpt9WbGJYLcHeHtoAjrALSoSDqDO
-	g2OpiAlXZ1VJx6iB9C4hpFaWFqpniIDJQZ1QEu3wQjjrrHNPz2Z1Xxv1iceIlrWehWdejpDxpv3
-	jUx/gMde1AhHbUtqIt9ZK9Exvb64uda28PffTpNfv3RY2biQ0rxn6edblEKyh9ERRsrtYQgWo4S
-	I3mq2FGH2KKVBQPlZf7fZiOBUY9znM4VI6g4zf+za+nuykJF0jyUekUp5uIur3yVpmLrlaTtNRL
-	i2kiw6Sfd7M/NNokWyJ0RzYvQqkNl4v8X5nbGPP4+Hk7j8IXcXuw95TN+BlJRKb5p1t2TEJUqTM
-	g5+Kp8T37qhHKY2UH56aJ6DLB9PCNTNSBEDGYtuwXFF5bhh52AX4IX/cNH8joHPHH2DoSeJKLj3
-	naUytHi8A9HR1zPQlT4IRzEBaqRukKfrlSiGk6E=
-X-Received: by 2002:a17:903:3a8b:b0:2c9:d88e:f996 with SMTP id d9443c01a7336-2d74dee96b5mr44091705ad.9.1787872962286;
-        Thu, 27 Aug 2026 16:22:42 -0700 (PDT)
-Received: from localhost.localdomain (2403-4800-2450-5401--2d10.sta.dodo.net.au. [2403:4800:2450:5401::2d10])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3283d730c3csm24163635eec.9.2026.08.27.16.22.38
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 27 Aug 2026 16:22:41 -0700 (PDT)
-From: James Nugraha <aslan.jnn@gmail.com>
-To: Raju.Rangoju@amd.com,
-	PrashanthKumar.K.R@amd.com
-Cc: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	david.laight.linux@gmail.com,
-	James Nugraha <aslan.jnn@gmail.com>
-Subject: [PATCH net v3] net: amd-xgbe: discard rx packets with bad FCS
-Date: Fri, 28 Aug 2026 09:22:19 +1000
-Message-Id: <20260827232220.69907-1-aslan.jnn@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="dvG50Ew1"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=1c3iG134Q9W/Fl8cKzlQDrUCGOgD3nxqoTYTVTZPXKA=; b=dvG50Ew1Manp3j2VbHcDC+lP9j
+	b+cgn86ihF4KAt5AKE871FiyUw71S4CVxZvyiyBaKIU/qaQYRO308QksgzsmMa9i5s857n75V3CK7
+	L/KiwNajSjpf46oYIlbta0fnLlMa+oI5Dd52KMEQ8e8bJtfBeXTGsCsCor7CzjruMSOYGF1Ys4TOg
+	l9JwXjMxpgvDxY1BZ3Sfo/QkS6MtblgujWyQqVrLrfv1VR70ae+yOebong4gH3cWWGW3i+X56e+ad
+	zys4zKV3DihgarYHpdQp3J6f39vPbU20bA8RlYBx/dYwypOJOwdyp2SWW83ucPfRHOdzowgdoxLWL
+	nPNTQbHQ==;
+Received: from [2001:8b0:10b:5:c5bc:77fb:75d5:ffaf] (helo=u09cd745991455d.ant.amazon.com)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1wzjT7-0000000Ddf8-3XPa;
+	Thu, 27 Aug 2026 23:25:14 +0000
+Message-ID: <c39bda52f4c1573193aed39246f0d705755143fe.camel@infradead.org>
+Subject: Re: [PATCH] mm/mmu_notifier: Remove non_block_start/end() from
+ notifier invocation
+From: David Woodhouse <dwmw2@infradead.org>
+To: paulmck@kernel.org
+Cc: Sean Christopherson <seanjc@google.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+  Michal Hocko <mhocko@suse.com>, Steven Rostedt <rostedt@goodmis.org>,
+ Andrew Morton	 <akpm@linux-foundation.org>, David Hildenbrand
+ <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett"
+ <liam@infradead.org>, Vlastimil Babka	 <vbabka@kernel.org>, Mike Rapoport
+ <rppt@kernel.org>, Suren Baghdasaryan	 <surenb@google.com>, Sebastian
+ Andrzej Siewior <bigeasy@linutronix.de>,  Clark Williams
+ <clrkwllms@kernel.org>, Simona Vetter <simona.vetter@ffwll.ch>, Jerome
+ Glisse <jglisse@redhat.com>,  Christian Koenig <christian.koenig@amd.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, linux-mm@kvack.org, 
+	kvm@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Date: Fri, 28 Aug 2026 00:25:01 +0100
+In-Reply-To: <b0be19e9-b0ae-48de-bef6-d905ee007c8a@paulmck-laptop>
+References: <333c4cdb-8f34-4e3f-a47f-961f47e089a0@paulmck-laptop>
+	 <11dcf5a87125451897982f728c1f65a5151987e4.camel@infradead.org>
+	 <69567965-48fd-48c5-abb6-0699d7f5bd16@paulmck-laptop>
+	 <124af87fb49c267eeb26b8b4d952b9b1a5b3fb68.camel@infradead.org>
+	 <9427a8e0-3ba6-4f31-a35d-54429bd7e071@paulmck-laptop>
+	 <3d0463b6099d4fcde9a025a2f9e231d75303b61c.camel@infradead.org>
+	 <b0be19e9-b0ae-48de-bef6-d905ee007c8a@paulmck-laptop>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-4qjmHOoyy117wguiDY5A"
+User-Agent: Evolution 3.60.3-0ubuntu1~ppa9~24.04 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-amd-xgbe driver currently sets the MAC_RCR.DCRCC bit whenever
-RX is enabled. This disables hardware FCS validation, causing packets
-with bad FCS to be accepted unconditionally.
 
-This change unsets DCRCC so that packets with bad FCS will be dropped,
-in-line with typical behaviours of many other network controllers.
+--=-4qjmHOoyy117wguiDY5A
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Tests:
-- Verified that packets with bad FCS are now dropped.
-- Verified that receiving packets with bad FCS will increment the
-  `rx_crc_errors` counter.
+On Tue, 2026-08-25 at 11:16 -0700, Paul E. McKenney wrote:
+> =C2=A0
+> > > Suppose that there is only one CPU, or, alternatively, that one of th=
+e
+> > > atomic SRCU readers is pinned to the same CPU occupied by the (higher
+> > > priority) task running synchronize_srcu_atomic().=C2=A0 In this case,=
+ the
+> > > call to synchronize_srcu_atomic() uselessly burns CPU time until its
+> > > priority decays, real-time throttling kicks in, or in some configurat=
+ions,
+> > > maybe never.
+> >=20
+> > I certainly have no problem with a blanket preempt_disable() around
+> > both sides for algorithmic reasons. As long as we aren't *just* doing
+> > it for the selfish reasons I described.=20
+>=20
+> Suppose I simply disable preemption in srcu_read_lock_atomic(),
+> enable it in srcu_read_unlock_atomic(), and disable it internally to
+> synchronize_srcu_atomic()?=C2=A0 It might be against all RCU tradition,
+> but might also be easier to use.=C2=A0 ;-)
 
-Fixes: c5aa9e3b8156 ("amd-xgbe: Initial AMD 10GbE platform driver")
-Signed-off-by: James Nugraha <aslan.jnn@gmail.com>
----
-v3:
-  - Removed DCRCC unset on xgbe_disable_rx().
-  - Add back the missing "Fixes" reference.
-v2: https://lore.kernel.org/all/20260819091656.23943-1-aslan.jnn@gmail.com/
-  - Eliminated DCRCC toggling via RXALL: now it simply sets the
-    correct default value on MAC Rx enable.
-  - Updated testing information.
-v1: https://lore.kernel.org/all/20260812091616.35811-1-aslan.jnn@gmail.com/
+Which indeed you have done in commit c2225b77b028 "srcu_tree: Disable
+preemption across synchronize_srcu_atomic()" so I've dropped that hack
+from my side. The important RCU patches remaining in my tree are the
+addition of try_synchronize_srcu() and then using it as the fast path
+of synchronize_srcu_atomic(). I've stopped bothering to test *without*
+those.
 
- drivers/net/ethernet/amd/xgbe/xgbe-dev.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+Since it looks like I have successfully nerd-sniped you with the srcu-
+atomic concept, I've reworked my tree to convert directly to that
+rather than first converting to SRCU and then to atomic in a later
+incremental commit.
 
-diff --git a/drivers/net/ethernet/amd/xgbe/xgbe-dev.c b/drivers/net/ethernet/amd/xgbe/xgbe-dev.c
-index 2de974213..e2e850c1b 100644
---- a/drivers/net/ethernet/amd/xgbe/xgbe-dev.c
-+++ b/drivers/net/ethernet/amd/xgbe/xgbe-dev.c
-@@ -3400,7 +3400,7 @@ static void xgbe_enable_rx(struct xgbe_prv_data *pdata)
- 	XGMAC_IOWRITE(pdata, MAC_RQC0R, reg_val);
- 
- 	/* Enable MAC Rx */
--	XGMAC_IOWRITE_BITS(pdata, MAC_RCR, DCRCC, 1);
-+	XGMAC_IOWRITE_BITS(pdata, MAC_RCR, DCRCC, 0);
- 	XGMAC_IOWRITE_BITS(pdata, MAC_RCR, CST, 1);
- 	XGMAC_IOWRITE_BITS(pdata, MAC_RCR, ACS, 1);
- 	XGMAC_IOWRITE_BITS(pdata, MAC_RCR, RE, 1);
-@@ -3411,7 +3411,6 @@ static void xgbe_disable_rx(struct xgbe_prv_data *pdata)
- 	unsigned int i;
- 
- 	/* Disable MAC Rx */
--	XGMAC_IOWRITE_BITS(pdata, MAC_RCR, DCRCC, 0);
- 	XGMAC_IOWRITE_BITS(pdata, MAC_RCR, CST, 0);
- 	XGMAC_IOWRITE_BITS(pdata, MAC_RCR, ACS, 0);
- 	XGMAC_IOWRITE_BITS(pdata, MAC_RCR, RE, 0);
+This is what I'm now testing, in=20
+https://git.infradead.org/?p=3Dusers/dwmw2/linux.git;a=3Dshortlog;h=3Drefs/=
+heads/gpc-v3
+
+It's working; the latency numbers have been looking good in all of my
+RT/DYNAMIC and debug/prod-like permutations. Redoing on the very latest
+now...
+
+  * 1ccf7ba90f8b KVM: x86/mmu: Take mmu_lock for the lockless aging walk on=
+ PREEMPT_RT (gpc-v3)
+  * 51de7a793839 KVM: selftests: Add nested transition benchmark
+  * 37c9400feec3 KVM: nSVM: Cache L1's IO permissions map pages
+  * 1c10fdf9c46d KVM: nSVM: Cache L1's MSR permissions map pages
+  * 7af4264346c2 KVM: nSVM: Use a gfn_to_pfn_cache for the vmcb12 page
+  * de951cadb238 KVM: x86: Move nested GPC lock helpers to x86.h as kvm_gpc=
+_lock_page()
+  * f04543987d9f KVM: selftests: Add nested VMX APIC cache invalidation tes=
+t
+  * 1b50353089d4 KVM: nVMX: Use pinned pfncache for L1 APIC virtualization =
+pages
+  * 4ae1202ef919 KVM: nVMX: Implement cache for L1 MSR bitmap
+  * 5102fb3c55fb KVM: x86: Post KVM_REQ_GET_NESTED_STATE_PAGES on memslot u=
+pdates
+  * 47998916d89f KVM: pfncache: Return -EAGAIN for a lookup which hits an i=
+nvalid memslot
+  * 2dab55238cd7 KVM: pfncache: Add guest-mode pinning (GUEST_USES_PFN succ=
+essor)
+  * 9740a75db3d5 KVM: x86: Use gfn_to_pfn_cache for steal time / preempted =
+status
+  * 3898f98ca5cd KVM: x86: Request the guest TLB flush from record_steal_ti=
+me()
+  * 0a06af648fa6 KVM: x86/xen: Don't dirty track "vCPU info" page
+  * eef7b09e5b52 KVM: x86/xen: Explicitly tag "shared info" page as never b=
+eing dirty tracked
+  * 99a7eae0266e KVM: x86/xen: Extract delivery of event to vCPU into a sep=
+arate helper
+  * f0162bb012fb KVM: pfncache: Use atomic SRCU for readers instead of a rw=
+lock
+  * 003716df6605 mm/mmu_notifier: Remove non_block_start/end() from notifie=
+r invocation
+  * 6d484ca99bc9 srcu: Try the inline no-readers proof first in synchronize=
+_srcu_atomic()
+  * 23f10e07aba3 srcu: Add try_synchronize_srcu() for callers which can pro=
+ve readers absent
+  * 2a55908bb12d srcu: Keep a spare node array so srcu_gp_end() need not bl=
+ock in reclaim
+  * cb117542cb92 srcu: Remove development pr_alert()s from synchronize_srcu=
+_atomic()
+  *   02738b15e08c Merge remote-tracking branch 'rcu/dev' into gpc-v3
+  |\
+  | * 7b9f3a948136 torture: Allow specifying alternative ssh command to kvm=
+-remote.sh (rcu/dev)
+  | * cd71c7941b25 doc: RCU: Fix s/strategem/stratagem/ typo in Requirement=
+s.rst
+  | * f1b2e15ef249 rcu: fix shrink budget underflow in lazy_rcu_shrink_scan
+  | * 8c9be6c76148 rcutorture: Synchronously wait for all rcu_torture_irq()=
+ callbacks to complete
+  | * 48b4d9799efe rcu: Use IRQ_WORK_INIT_HARD for srcu's irq_work
+  | * 260d0fdf6ea3 rcutorture: Fix divide-by-zero with fwd_progress_div=3D1
+  | * 5d9c38fbf615 fixup! srcutiny: Add an atomic Tiny SRCU
+  | * 7a263580788e fixup! srcutree: Add an atomic Tree SRCU
+  | * c2225b77b028 srcu_tree: Disable preemption across synchronize_srcu_at=
+omic()
+  | * e56c969b6c7b rcutorture: Add support for testing synchronize_srcu_ato=
+mic()
+  | * 9a2e9996ccec srcutiny: Add an atomic Tiny SRCU
+  | * 6cf65dd4d8fb srcutree: Add an atomic Tree SRCU
+  | =E2=8B=AE  (older rcu/dev elided)
+  * | dc14992a9abe KVM: pfncache: use a dedicated invalidation sequence for=
+ cache refresh (xen-v3)
+  * | a83533b07c67 KVM: x86/xen: Mark poll_evtchn accesses with READ_ONCE()=
+/WRITE_ONCE()
+  * | f578df3dda4e KVM: x86/xen: Take kvm->srcu in __kvm_xen_has_interrupt(=
+)
+  * | 0e38de3983e6 KVM: x86/xen: Use atomic*() APIs instead of open coded e=
+quivalents
+  * | f6179ff87266 KVM: x86/xen: Use 32-bit atomics if vCPU's evtchn_pendin=
+g_sel isn't aligned
+  * | 9c3243ef9edb KVM: x86/xen: Use 32-bit locked bts for vcpu_info evtchn=
+_pending_sel
+  * | 113a5ed7489f KVM: x86/xen: Enforce 4-byte alignment of vcpu_info regi=
+stration
+  * | 2505c393701c KVM: x86/xen: Latch shinfo mode in kvm_xen_schedop_poll(=
+)
+  * | 9dfe99cf7b45 KVM: x86/xen: Latch shinfo mode in kvm_xen_set_evtchn_fa=
+st()
+  * | 59325fcde6db KVM: x86/xen: Rename max_evtchn_port() to kvm_max_evtchn=
+_port()
+  * | 2d366afb5114 KVM: x86/xen: Introduce kvm_xen_has_64bit_shinfo() macro
+  * | 2e26fc558ac9 KVM: x86/xen: Rename 'longmode' to 'is_64bit' in hyperca=
+ll handling
+  o |  (kvm/next: 76671054f9a1 Merge tag 'kvmarm-7.3' ...)
+
+--=-4qjmHOoyy117wguiDY5A
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCE8Ew
+ggWvMIIEl6ADAgECAhANkOKMSmGXhF5eMl0rsRhvMA0GCSqGSIb3DQEBDAUAMGUxCzAJBgNVBAYT
+AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
+BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBHMjAeFw0yNDAzMTMwMDAwMDBaFw0zNDAz
+MTIyMzU5NTlaMGIxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UE
+AxMxRGlnaUNlcnQgQXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTCCAiIw
+DQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAOfSIeC0vv1xPQ+dgSxbIIrkaru6skAWJYaGFzmv
+q4Kq+2wU2jxhcWlJg/JeP5jEkq/LM3pn5aaLao79j+XRmS7J1ZpJKUODJVoM4s9MQJhTMvo4qS5Z
+S64g6QR7Obkz3I1Lr3aWeSBmDDEyzue+NKtuWZ1Cxy3RdXo/w5HgRc3l2AercOM3Gt1XonTzEtTb
+Z/Hwc0Sn9Gz8RmGRK6Ka4hVDl8q/2l110KaV233Kh5etP0csXS8MIMdVRfRu3sc5hp13DG7lCKzK
+72a2GEpI8Wpl26G6I1/LMzz/98T+FqjTqxsdquk7Cj7m2vKGLW1BorpQH7WFGPdJQXJe1hfbfiZA
+CcVdCtl4nAacFacmsiArZBfX7AQGL7isvHUwwYFEtcApyGW4p2Lt+t8nvU0CANA6BHOpOz1xOP8W
+mAESbUriIjyuTUf3fJ9oDNCurVqhASMJCDaWI3lYX/QAoiAzt6akqbbZxo2ujW7mGGqc0KxqE2cs
+h2T79v7pC8aUtHBfwNrTR19GnZVxE0eQ7ViIQhR6mpSaUQFA9sG+cmD2G8TnCgYsLa0q8De6F61a
+CBevQGHNzrbZ3JAMneveYg/Jy1XxQHDRcvrMfWKe0jjcWbdKYlaGVPm5V1ILwYz7Yv5ewo3NUrxI
+GJiywe9qPhuJSDZs7VehTuI0FxGIsgKzVjgbAgMBAAGjggFcMIIBWDASBgNVHRMBAf8ECDAGAQH/
+AgEAMB0GA1UdDgQWBBT3m6JO05fF9DQPQw6Bhc6RkzKv+TAfBgNVHSMEGDAWgBTOw0q5mVXyuNtg
+v6l+vVa1lzan1jAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MHkGCCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEMG
+CCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURS
+b290RzIuY3J0MEUGA1UdHwQ+MDwwOqA4oDaGNGh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdp
+Q2VydEFzc3VyZWRJRFJvb3RHMi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUA
+A4IBAQA+b8Uw53sDspdZgukU+qzLyyHkcjlxGGhHlP+zrmDLKm1wEFvCRS2pili3Hy67i8N4N5NU
+vw5Rg6kv3lxb9S9Rktxk43k+tvm68pl7OxQE55ZjVY87P0lUPGwEqOOwLLyH02ZQcsfq5p5LrOH9
+0JvmvZ1yy73HS+VpDAqOlytE0NSvTIRqFFkKQGQwfjvtql9YflujuNNvJztjBaHKYZsnNSg+J38o
+jYq4TP3pSg3UdVH0PncVjPQyqxC9xef5Xae92Kbkzol3x7Nel3A1bwAkalrDMspvTHvey6LfiBks
+FIqviTnoy7fgjaRAJgHS+RXx/cmuRd3rUAclSVVrYu8RMIIHAzCCBOugAwIBAgIQAzUotrsybJHx
+HTjKOIVdIDANBgkqhkiG9w0BAQsFADBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQs
+IEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQg
+MjAyNCBDQTEwHhcNMjYwNzE4MDAwMDAwWhcNMjgwMTA0MjM1OTU5WjAeMRwwGgYDVQQDDBNkd213
+MkBpbmZyYWRlYWQub3JnMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2pYux73kdbYX
+sWF8f1u6DJP91qcqaZetsyfPkZk0B+MmXmAEv0kVes5n15V2mbDThOnpoPFly0UugQO9JYqLfrtD
+tKD5yL58fgrDB9Dw+LQikgrHafl6YSCds5AvUu/8hw2J6noKrcOLJpKlKn9Fl/4IB9Q3JIdLx5aa
+EtTqMalIPqHFOlgrJ7s+aua8xbB8YQ9ahqYBXWRJNv3P/2b1DYtdrz1oqZPE3CcB8Pc6Gf2a1Tcm
+6TAgtEx7Cf1BFcrsrMz7TWHmGQITieNb2r9UYWSc2Gp+GtYFNJCgT0JJXKUBIauPMKBLteYrL8Fo
+ff/uY44dC/mDWjdCP/5x0qelPQjlBvWdHL5zvBTOj06rJ0m3HNI/hnIcDh0Qu2j9reb9rLVcdym6
+bWmBM4uDEB8Zv9Ph0KTBFSy1IosyakuD1j1Os30EzjGfbi0EUXIvnOcYbTBAbM5UAzrxEHMhBvoX
+Pvnx+OyvjJmc9tWxTX6AcSz+m40esbT17URBeZS18afgieiikm5TynlUYP1LciR3hSgGVzvGXnKO
+02VDFR5itGWdRKZ2W5wIShNfWfhSa0D0K5UdIDt5Qc7sjzwK1Yb1sY5Tu0uA5mhIS82q1ov83uxB
+sFkriNnhGv/M1NCDVLBiOMsHu73qUM+yKmgKLwF9Hfn9WI25glbAMI4S5r3hYzcCAwEAAaOCAfcw
+ggHzMB8GA1UdIwQYMBaAFPebok7Tl8X0NA9DDoGFzpGTMq/5MB0GA1UdDgQWBBRcYhqbcGzn1jrT
+JOZaB8O7qllDpzAwBgNVHREEKTAngRNkd213MkBpbmZyYWRlYWQub3JngRBkYXZpZEB3b29kaG91
+LnNlMBQGA1UdIAQNMAswCQYHZ4EMAQUBAjAOBgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYB
+BQUHAwIGCCsGAQUFBwMEMIGpBgNVHR8EgaEwgZ4wTaBLoEmGR2h0dHA6Ly9jcmwzLmRpZ2ljZXJ0
+LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsME2gS6BJ
+hkdodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZT
+SEEzODQyMDI0Q0ExLmNybDCBjQYIKwYBBQUHAQEEgYAwfjAkBggrBgEFBQcwAYYYaHR0cDovL29j
+c3AuZGlnaWNlcnQuY29tMFYGCCsGAQUFBzAChkpodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20v
+RGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZTSEEzODQyMDI0Q0ExLmNydDANBgkqhkiG9w0B
+AQsFAAOCAgEAocabrh1cPd5s3vY5rnlBVQSTc7zs2ZWs67dAIltR+05WELrYClVzzUhMs/LOJPlr
+EUo45UDDomXq38DxFepaPd9+iNLjXfn33EX/IG44j04lU/oF/Rg9VeQILkYLbCZ/x9wOjNHZc4SN
+ydY7Dhvf/sT5aBz88u7D5+azZJ7Qf1U57wYseCH1Mt0nDrtr5y19IJ8D9xJJ33RFL6vfpHZBBAQ8
++3RqkKNxLoV2aFvQhxdhjNLDqTv3LjUIdicwPraN7JkxEu7CV2Lka7eRqJgkWL7SK0YmBjGpRafs
++icP/ON5RCCKTTb6VlX8eTG2sJJfsFhvJNCCt6xexbWzWtIrfP7NvPBvwBB737AyEGBZkS5aNizT
+McURJGTv9UKvBh1LF/+tNhYtLvPCN7oecGzhCHht9jcwSkygTo3Y6YlK3QgOu+ncmiBbfeuwlLZ1
+LxbYvG6hgNqXv7u6YyADbYajAQJXJ2OQen39pm3Q/AQSyLYG+B8lDglWsM8tYXPlEdrYJcksGK6F
+nqIX6Bumn43rBooLJdiZp4WmfWdL2pxe+LxRDjprmqu1WprixDxULSTOKJZoqTlugs6y3Bc+if+s
+gHnBBtz9WQ6MtPHkh7zONDAFIKcBmv8OqPQCx0F3Wv3OEybwMpXx0OsKgK8wLldaX1pXcMuyDgTL
+Sqs0AV0OHUgwggcDMIIE66ADAgECAhADNSi2uzJskfEdOMo4hV0gMA0GCSqGSIb3DQEBCwUAMGIx
+CzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UEAxMxRGlnaUNlcnQg
+QXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTAeFw0yNjA3MTgwMDAwMDBa
+Fw0yODAxMDQyMzU5NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqG
+SIb3DQEBAQUAA4ICDwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZe
+YAS/SRV6zmfXlXaZsNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2z
+kC9S7/yHDYnqegqtw4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qG
+pgFdZEk2/c//ZvUNi12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41va
+v1RhZJzYan4a1gU0kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0c
+vnO8FM6PTqsnSbcc0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PW
+PU6zfQTOMZ9uLQRRci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXt
+REF5lLXxp+CJ6KKSblPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQr
+lR0gO3lBzuyPPArVhvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7Iq
+aAovAX0d+f1YjbmCVsAwjhLmveFjNwIDAQABo4IB9zCCAfMwHwYDVR0jBBgwFoAU95uiTtOXxfQ0
+D0MOgYXOkZMyr/kwHQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3
+bXcyQGluZnJhZGVhZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEC
+MA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwgakGA1UdHwSB
+oTCBnjBNoEugSYZHaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZEcyU01J
+TUVSU0E0MDk2U0hBMzg0MjAyNENBMS5jcmwwTaBLoEmGR2h0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNv
+bS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsMIGNBggrBgEF
+BQcBAQSBgDB+MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wVgYIKwYBBQUH
+MAKGSmh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNB
+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
+UGU1XTNayRaNqua5TERfZj4AAAAAAAA=
+
+
+--=-4qjmHOoyy117wguiDY5A--
