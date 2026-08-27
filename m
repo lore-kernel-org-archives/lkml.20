@@ -1,174 +1,165 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com [209.85.217.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A775E385D86
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 04:18:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787804311; cv=none; b=FDO8fgoDvLjyIeJPEACTeZ2jmV+/hkUE8rsRe7lIzSZ+njvxKTNwMo2pXt2ilyVlU+o5WkZyWV36N35Rguz2PEv6vrpm1cT9h0B/kEGjlTv3dn2ULxYEXtDG1nXwnXewFBx4Ncit4MDBij6GpFX1O4Eg9Gh1rbbe+MV/FTlbhJU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787804311; c=relaxed/simple;
-	bh=uSMkf3RwzjItLUAPe9EhTmetvptyKOyoUUkhMvsgRCQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=PtJHTWwXKODlmr45Baf6W4iFPt9LA8Fy/kJ1UdFCspNShxGRYn7l0dsxG02n74HknRiP25iiCM82no7zA/cwKCuBadSqWw0AX4YhbLyrZqJ81CDhnTOmpdNzvPQpif+ff4GOg4YP5QyBBDEtMDUTXMaOwnCR8bQj4wSGUnaOenA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Fw5dYrta; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F1BF38737B
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 04:18:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787804319; cv=pass; b=Z5oEfWMUDzS+Br8JpKUgFeK/iknZsnm1MuhgDAPVvpNATgp4vhMtgeY9bA05IuJ1slZEwSYtNpvjB1SuWovkHMtj9OgCchEtSHGrT4Hnd5c0C+cclRxhoIiIGzCYeyaTStNON+JerHqwd2MZWIzyJJUTVnetbOQ7NQuZnXOKMvM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787804319; c=relaxed/simple;
+	bh=vAkpENEL+aCJBuN6dUSQpHeziG23/MMgcrkzCZbrvzs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=F4bvCQIkVfd+g+xuRuoZk7AviJ/t2nW4bTsrYY4fBi1w4vnt59W1v0ehkOWynwy1wzNeciMmYsbl6m6x2rJ8JjnOEquTapcgtleL0LuRgIkDiIXGVwQY4ONvr7z1ZhqBzGYiuRFFR/S7DuiKLyCX+GIchaJM2P1Auw0WOC9zuPU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ZqajruhA; arc=pass smtp.client-ip=209.85.217.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Fw5dYrta"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-496bb7cdf51so2767245e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:18:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ZqajruhA"
+Received: by mail-vs1-f43.google.com with SMTP id ada2fe7eead31-73720e58dafso959603137.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 21:18:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787804315; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jy4LoT0FDyyQV6dVfct97tOQLo2o6OvRXmsLh51D5jWKie384eMM3DRmSYR9E4hd5n
+         ySsuoN/OphWFB2+1KiACup/J7GrIgS+EK8rZE87qnVSqPToQgPUZMj/UOPgpxx3CK1qi
+         20fo+UPpMkKaXgSQm6lnzd/xzK7WoFZ6jfDGKTLd5V38t1VeynJmxdNQ/uYOWs/cVB6T
+         y26uoeqZDloX2OHC8/qzVCbOPbawBvdR9QKz+wmfBD8fX9j2PmEHxezHQcYEVVzqS6y4
+         pHWDa5oN9KXde8o4zBfaL0H8X9Syn5d42+As3KlLnF0vNFBr3Pvqnzt9jnls885+1G07
+         NCqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=tdkvt93wxjyIEopPoQNCDcgWpKE+IyMU/m+EhcZoeq8=;
+        fh=PwxCk89ySqUTYn2+uu5QizB/ixTWjY6nTGIY+VxnPrc=;
+        b=Y1fvsGT1mOVbD3w+VFUEEZP2sTova7ovi4q4+DetoGdIqPOAuCixCpNE9W4LatrY5V
+         0ufACvX+KkESskqraz7hUvpE/AI3o7RQgtsn3wkz9FLf8m9v/l7IWbaYi2m2ccAlm04L
+         d7cxDK+DD5Ap+RN1AAFEMg6DdJuRS36ZT2y2mzBVfihA1knP+ddf9X9lpgTBUlYRMGto
+         sAIXXmmb5Pjs3nHpYCVI5U7XGgzGbTwP5CEiewzGdpmWzHNDxDQHGmzBZf9pjoNifaCV
+         xlmOavrNSMyb7rVa3HLoH/r+fZXX2fJbDZTLjMym8uWhEiFeFDcH3cS3dD13zTMIh3cO
+         I19w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787804308; x=1788409108; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tSfRa8BgrZI/TGibDtUnpQi8XG0Nol/aLRpoLE1ncnY=;
-        b=Fw5dYrtaeB3jCEnXs6TWFROTJIFbx+YCORThlSVQXWM3SrfXsEBICVbNTicynxwWRv
-         LDwqg2OP4tL1PB5gBQ3XqZ1IqqEFAJUhxWQVyxeMR9lh7hcZ9OaaUhJjHiWVdrs9IOxW
-         AYugMe4IkbEwSimVQbCWc68Hpx/rRO/ZBD8x5EDd26e9ubcMTgN/UJjJxW/95Ru0bMvC
-         IRyugGf7WC1umwBsFdRQiYGQqEuYH4LyfVuRQx0sqlMLtvcZPnKqWNjAVMrfEI2dhQby
-         3eoFFLTPzZWnkZzlNKTZrpWjoYKWLuT5mEJrHCA48vh5U9Irz7uM+CCcyAMR0Zjr+6oT
-         ZBDw==
+        d=google.com; s=20251104; t=1787804315; x=1788409115; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tdkvt93wxjyIEopPoQNCDcgWpKE+IyMU/m+EhcZoeq8=;
+        b=ZqajruhAAWYYYQhMXzyhdyG+si8j3ZjzLPNpHv2Gym4Qzb8APtcj1L1VHDVXvgdJ7Z
+         kY6lKx6FDw9/o9EqV4eQKJ/C2P0LoaI9Nk7dGd69MxwbCvfvv84f7Y9UTguNRjdC53p5
+         RnGJL1uNIbZomZJNDlG7VTtG0B64QV2rqcfMstCAhaQO/4URwy76MncEmbn/tuX5peNw
+         aix2Mm9S18vsUK+cvCkGffXpYkz2Y+Tvd9jzTb3E15cQP0htXsfaMrwJuCVMu5fbP9ID
+         ae0Xm4S5GGm+KJ7VKOKyXeqmbfsH+ngbI5ztE4mhpihqoFoQHu3p7015mqVQrNtmdIo9
+         Rb3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787804308; x=1788409108;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tSfRa8BgrZI/TGibDtUnpQi8XG0Nol/aLRpoLE1ncnY=;
-        b=LgejtFrV5QMhnhQpK8dnH1R1JGKsx5Zqzg+lMvvZfdttd/ojD0pBJGfcYF5BGOSz6a
-         sF7NxzgioI7rDP3L33ll8lWvGOVN1RkvXrR+evvDEmu/yTxrbDt9BBT1Xzi89YPxHS++
-         CbeXvJoHk45X4ujXhrFGQQIE8vydEAiTy4gWp2dLlTLAzHVxkXVSgcMxiguDy1NNjVl9
-         Y5zWvJgnvfyZtQQ6SaJCBSRGBdQkOL7MiCse0ewG0GMb99gcKLRUEnaKCWo6a5TWsBu9
-         57X4yf3NkkW3+uLMPnIwCVWWrDrbh0hKcf6W29gz8PR99cotLTbS3xnHMoMuDSUwLpZ0
-         K4SQ==
-X-Forwarded-Encrypted: i=1; AHgh+RruLUKLklE5r1uSwpTMOhz1nKMTBI1lXTGqVj5ap25ORbETzHv0+6wZnjD5XmWxRdsVYyfsr/rySEHQdWU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nvIhlXIC/lCYONb/ausN84MdoAVYMM2h3oBDbz1oUl4So9ZJm2
-	00wlAAud3XArFjQrOdV/F1jnxMRI/bXC0og1tlWzfAS88gXRCXAkMBZo
-X-Gm-Gg: AR+sD10NftNcXrOIp0IGw2OIG0BANpV6KCK0Omc3H9zHjghzc9RqKTiZkS1mxYUMy8j
-	1LphcO6IcGug3GLySwCi54vtIokbOZPnIvIpjNIfnyha22LLiTlcRVBT03Kr0PuLjkvcDeBPDnu
-	aYkd3efmak5PQX1nqDDx7qVIXMHzHA01fqCMrJ6Ky8K6BMclzyE2dbn3L/jdqzjy4GYxRCDnXdZ
-	yyYykVRIz6brAvSXKdxXC5FdDGf16U9vgRc3w1WjuWuBg5G34jIlMbW2kOmz7Gr6varcVCYQbV/
-	LujSyON40Ez89SRfnoKoljXYb48KNf8n//ratdnw/5EICFUCdqJIeUH6G8x8BLwjeYoLw+NtJZw
-	iFFA3Qz83Z86ls6qW253himzI4YfHutkLhMgw5Ypl4ql9T8hFEI4eR5iBvFJ1UISwveTsp9g8kd
-	kilxwqXR314htUtGxhGGk0KW0lUGPl+28ddB9EIO/ijyx0X1uVQRwoqQOw2qarC3/Gb5a47zzAf
-	KSB+5Vq0na0igyzZ8u5SfxzZbks7gE2GcKc6bMOVHHXOm5NX3mF2Jq+pk/CEnar9CXCRY/N7DKR
-	lLgofgo0KLp7tH03cXsiAabiGw==
-X-Received: by 2002:a05:600c:6088:b0:499:a277:e8b5 with SMTP id 5b1f17b1804b1-499dc6f3248mr130645735e9.3.1787804307537;
-        Wed, 26 Aug 2026 21:18:27 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-095-114-154-097.95.114.pool.telefonica.de. [95.114.154.97])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499dd5616f7sm44613445e9.2.2026.08.26.21.18.25
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 26 Aug 2026 21:18:27 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Matthew Wilcox <willy@infradead.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] klist: avoid accesses after waking klist_remove()
-Date: Thu, 27 Aug 2026 06:17:08 +0200
-Message-Id: <20260827041708.31682-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+        d=1e100.net; s=20251104; t=1787804315; x=1788409115;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tdkvt93wxjyIEopPoQNCDcgWpKE+IyMU/m+EhcZoeq8=;
+        b=ZnFn/A47wETUdj1jjIq05gVY1ncvr0C/RHuAoPyL5naNWGDqzpAMgEaDRiieNVCTVF
+         5CJIILUdFAcc8flcJfOI3F6F5QpUhbwIzTc2QvDeOQABdcp8VDxttDVaePePIJDA1qXl
+         7DofEAk7tQrwE30w2lrYzZe7yChzxhLehtvNmMWYWRz7AcOqA6E2puDHstbquMyt4ZbL
+         U1CE3Kf4hj4t77K9t7IKFExdvj9VHpmU6TAfxpmd6qXzwfdavuO1IDgkt0Haihs8EZs7
+         h2gA04QiQ7n2MFs8+qgs6opDPRM1wrjp5G3hPA+CqU7bublF5o+dRQocX7xGiimVMxRf
+         5sIQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqTr1GhWLH+F99waT1J881OSbsTPnYosovKwY0jiRCmlJVcIIVNZE3+F2u6oZVHsYv+b/kgYNwjvjPsQM8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mnlvjBGwyeX/SO2H4GLDbQ2O/NvfEJVahevja4fo8D9iE+3CWi
+	ZIpqrEzuCY5zATgHOacY16zTQoJ8J4PMHrfmbvP3Xo6juEwHRlGvxc/bZT8JXAWEFR9c7V36W3s
+	yqhfgA0+ZZHkcnmMJPbTO561Ofb3zh4OZykhmGPM=
+X-Gm-Gg: AR+sD11JtsaNRFHIbdkLWX0+5itrhOSFq+R9OyLngtYacvLzoz9aKyhOK3o5VtwMU2P
+	zbcfqqNZniZ/XM4g6HuZziEAh4u4D1KkPFosobETTQIlQdxDqNCDfgbVm0Vo10Jo9VaO/GU6TJ1
+	F8X2vEVmA+nvNrRLqkNe2xhRAHyfIEJMVqDFFW1mgm48g89AF+wleIt+yhfWzdTQn4wX7tkgk9k
+	yGOHIB5YaSashInZbrszIB0+wUhc8jwQJVY435DlC5sM4YoNJzvo25Pa6C3BFFUiIQA1gkf2Niu
+	5GSfOW+yvqev6rj2FMsCM3u+m/Fbanl+laxYnRiTUcOWwaX2TxntIhsymTCYHqzNKuVDXAV9hy3
+	m84AtpeNwdg==
+X-Received: by 2002:a05:6102:848e:10b0:783:cba3:cf0c with SMTP id
+ ada2fe7eead31-783cba3f1f3mr1743406137.6.1787804314889; Wed, 26 Aug 2026
+ 21:18:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260810204118.1981755-1-morbo@google.com> <20260810204118.1981755-2-morbo@google.com>
+ <202608101716.FB6205EA50@keescook>
+In-Reply-To: <202608101716.FB6205EA50@keescook>
+From: Bill Wendling <morbo@google.com>
+Date: Wed, 26 Aug 2026 21:18:18 -0700
+X-Gm-Features: AcwNN1VUOYfbScz7X7OOfAgR-_09E5r2bsRAMzD6g11t2BR6ucealC6FacdfVSY
+Message-ID: <CAGG=3QWmzsUtO2NMy4d_=qpyEfmeaojt8mjZh63V4Ep5vGLmMQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] vfs: Annotate struct fdtable's fd field with __counted_by_ptr
+To: Kees Cook <kees@kernel.org>
+Cc: codemender-patching+linux@google.com, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, linux-hardening@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-klist_remove() waits until a node is unreferenced so that its caller can
-free the containing object.  klist_release() currently publishes
-waiter->woken and wakes the waiter before its final accesses to the waiter
-and node.  klist_remove() can then return, allowing its stack waiter and
-the containing object to be freed or reused while klist_release() is still
-running.  In particular, bus_remove_driver() can free drv->p while
-__device_attach() walks the same bus klist with bus_for_each_drv().
+On Mon, Aug 10, 2026 at 5:18=E2=80=AFPM Kees Cook <kees@kernel.org> wrote:
+>
+> On Mon, Aug 10, 2026 at 08:41:12PM +0000, Bill Wendling wrote:
+> > The 'struct fdtable' holds the file descriptor table information,
+> > including the current file descriptor array 'fd' and its size 'max_fds'=
+.
+> > To harden the kernel against out-of-bounds accesses, we can annotate th=
+e
+> > 'fd' pointer field with the '__counted_by_ptr' attribute, referencing
+> > 'max_fds'.
+> >
+> > The compiler uses the '__counted_by_ptr' attribute to track the
+> > size of the memory allocated for the pointer field, enabling
+> > runtime bounds checks under KASAN and fortified functions. There are
+> > three places where a 'struct fdtable' is initialized, and in all of
+> > them, 'max_fds' is set before the 'fd' pointer is accessed or assigned
+> > in all allocation and initialization places.
+> >
+> > No accesses to 'fd' occur before 'max_fds' is set, preventing any
+> > potential runtime false-positives or panics due to uninitialized count
+> > fields.
+> >
+> > This patch was generated by CodeMender and checked by submitter.
+> >
+> > Cc: codemender-patching+linux@google.com
+> > Signed-off-by: Bill Wendling <morbo@google.com>
+> > ---
+> > Cc: Alexander Viro <viro@zeniv.linux.org.uk>
+> > Cc: Christian Brauner <brauner@kernel.org>
+> > Cc: Jan Kara <jack@suse.cz>
+> > Cc: Kees Cook <kees@kernel.org>
+> > Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+> > Cc: linux-kernel@vger.kernel.org
+> > Cc: linux-fsdevel@vger.kernel.org
+> > Cc: linux-hardening@vger.kernel.org
+> > ---
+> >  include/linux/fdtable.h | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/include/linux/fdtable.h b/include/linux/fdtable.h
+> > index c45306a9f007..3a5c88291125 100644
+> > --- a/include/linux/fdtable.h
+> > +++ b/include/linux/fdtable.h
+> > @@ -25,7 +25,7 @@
+> >
+> >  struct fdtable {
+> >       unsigned int max_fds;
+> > -     struct file __rcu **fd;      /* current fd array */
+> > +     struct file __rcu **fd __counted_by_ptr(max_fds);      /* current=
+ fd array */
+> >       unsigned long *close_on_exec;
+> >       unsigned long *open_fds;
+> >       unsigned long *full_fds_bits;
+>
+> I see the alloc_fdtable test, that's one max_fds assignment, but I also
+> see dup_fd(), which does the assignment after the newf allocation, so
+> that looks safe too, but it might be nice to add that allocation path to
+> the tests too?
+>
+Hi Kees,
 
-On an arm64 Cortex-A72 system, an unpatched 7.2.0-rc3 kernel with
-CONFIG_PREEMPT_RT=y and CONFIG_KASAN=y reproduced the bug through the
-in-tree I2C/at24 path.  KASAN reported a use-after-free in
-klist_dec_and_del() reached from klist_next()/bus_for_each_drv() while
-at24 was being unregistered.
+I added a testcase for the 'dup_fd' path.
 
-Clear n_klist and take a task reference before publishing woken.  Use
-release/acquire accesses for that publication and wake the referenced task.
-The task reference keeps the waiter task alive if it returns and exits
-before wake_up_process().
-
-Fixes: 8b0c250be489 ("[PATCH] add klist_node_attached() to determine if a node is on a list or not.")
-Fixes: 210272a28465 ("driver core: Remove completion from struct klist_node")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
-v2:
-- Explain the use-after-free and document an in-tree driver path; drop the
-  syzbot tags (Greg).
-- Keep the mb(); removing it was NAKed before:
-  https://lore.kernel.org/r/20220614144443.6566-1-wuchi.zero@gmail.com/
-- Add an arm64 Cortex-A72 PREEMPT_RT + KASAN reproduction through the
-  in-tree I2C/at24 driver path; the first run hit KASAN after 32 module
-  unregisters and 397 device operations.
-
-Link to v1:
-  https://lore.kernel.org/r/20260825040408.59225-1-kmehltretter@gmail.com/
-
- lib/klist.c | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
-
-diff --git a/lib/klist.c b/lib/klist.c
-index 332a4fbf18ff0..f133740b1c2cb 100644
---- a/lib/klist.c
-+++ b/lib/klist.c
-@@ -36,6 +36,7 @@
- #include <linux/klist.h>
- #include <linux/export.h>
- #include <linux/sched.h>
-+#include <linux/sched/task.h>
- 
- /*
-  * Use the lowest bit of n_klist to mark deleted nodes and exclude
-@@ -187,18 +188,24 @@ static void klist_release(struct kref *kref)
- 
- 	WARN_ON(!knode_dead(n));
- 	list_del(&n->n_node);
-+	knode_set_klist(n, NULL);
- 	spin_lock(&klist_remove_lock);
- 	list_for_each_entry_safe(waiter, tmp, &klist_remove_waiters, list) {
-+		struct task_struct *p;
-+
- 		if (waiter->node != n)
- 			continue;
- 
-+		p = waiter->process;
-+		get_task_struct(p);
- 		list_del(&waiter->list);
--		waiter->woken = 1;
-+		/* Publish only after the final waiter and n accesses */
-+		smp_store_release(&waiter->woken, 1);
- 		mb();
--		wake_up_process(waiter->process);
-+		wake_up_process(p);
-+		put_task_struct(p);
- 	}
- 	spin_unlock(&klist_remove_lock);
--	knode_set_klist(n, NULL);
- }
- 
- static int klist_dec_and_del(struct klist_node *n)
-@@ -250,7 +257,8 @@ void klist_remove(struct klist_node *n)
- 
- 	for (;;) {
- 		set_current_state(TASK_UNINTERRUPTIBLE);
--		if (waiter.woken)
-+		/* Pairs with the release store in klist_release() */
-+		if (smp_load_acquire(&waiter.woken))
- 			break;
- 		schedule();
- 	}
--- 
-2.53.0
+-bw
