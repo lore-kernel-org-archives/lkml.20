@@ -1,131 +1,151 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out03.mta.xmission.com (out03.mta.xmission.com [166.70.13.233])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6749737DE8B
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 03:52:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C9D236897F
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 03:53:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=166.70.13.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787802734; cv=none; b=HECluTDd/c+d6zADbyHoSKB0Xlw5/40v42HNB9rrcsPK8Uf5R1fuVE5uQwvCPWHHAmM1FQs0W0UAd1UasvMO9nHl0PQbES9nW8MxFHsxMZcOZP6VORJijka1aI1hIY2tnH7dBH1VHbKtn1dxk1aveDfHHUzhSnDHgUeTACbj09w=
+	t=1787802789; cv=none; b=YlTFR/eODI+oQyUkRoijzxybCO2SyIynF0G3dY5Gb8QGfYsHd+8p7FVbYb4Dh2Ni+H6v9V785t4HHIXbTOC3PmTmAXKRleqg14c5lt/h6V4ay9YxJ2QQ1Ljge+N4MXPJi4kFmF1Kgh+dcZZWfNJvLh81wnAC7TXciC8sEeDWAQM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787802734; c=relaxed/simple;
-	bh=wqAOpz+o/OmBXLvAWwJjaJJz1u7kCcgSqoUoQrl5Sbc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MyfAEPgGIhbiFB8V7/YFZNauU41lpRG45tdK/Z6imrbj22fGNOdpUS5w7YL+hLI1DY/CmKbig+dBauswF/Q6Fd/SNCCMcLXgdISMWkqxpVhmmLZoNCzsh+U156yZtWOnVLuHUIK0HpR+SzeL8auWlRjLmed7WdGCD283QBaNDic=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m8e7AZIs; arc=none smtp.client-ip=209.85.216.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787802789; c=relaxed/simple;
+	bh=Sbvd8kTMYsXTYqaL0tXB2IjQ5gRdfuUudguhdWObp2E=;
+	h=From:To:Cc:In-Reply-To:References:Date:Message-ID:MIME-Version:
+	 Content-Type:Subject; b=Iyklceb0AegaEAsnwWaxYvnanMcVv3USmNwLzY6I/qTg6mJay6ww/81XEK6sPFmeVJR3mQpdQgW4pH8hoc2dFymcWOL45bO3mXDqo4S1x6T8FtMIEYNJ2GqmJgURX4S6EX+wvWfERAIvdkYcstwMXk3HEl3w9y+OpL74MSiS/nc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xmission.com; spf=pass smtp.mailfrom=xmission.com; dkim=pass (1024-bit key) header.d=xmission.com header.i=@xmission.com header.b=cOh1qRKB; arc=none smtp.client-ip=166.70.13.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xmission.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xmission.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m8e7AZIs"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-38dc4553f62so387064a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 20:52:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787802733; x=1788407533; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cJfrPdFq+EA9k3+W6F0OPeNTLDq5MohHxFERw6Hx1bo=;
-        b=m8e7AZIsD7kdqLgeokh8eqNjcdbuW+SWyNNlOIq2Id//PyKBds3Af0j19qHjQ2YWvH
-         QMnEECy6gj6wnO4kNrer746kaCvGAz419/bWKL016PF0scpROiPolCW2+RFGx7dSvBbl
-         IArOfoFr79l83SZQs4tVIoZ7/hhs8ESe/ThAD9+sMa5LhBTrdPYxYSsStpATxr0ZAPwe
-         eyUzoP3yeszLkDw0jpSiGX1IH18mD4LOxoq0qoXjBmA04RFG7wRDv2l0i5w7MHrMPlc3
-         MoCfeBeG/w3sAry88pKSdEp+rIf3IdGl2w/OVWo2SkASkgcPpCYrhoia8OwBkdsM1tXj
-         2+eg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787802733; x=1788407533;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cJfrPdFq+EA9k3+W6F0OPeNTLDq5MohHxFERw6Hx1bo=;
-        b=KEXRvLpdGO/ym1EbmlX4c24t4LAo3r7lbxQ5WVOWcfMslmKpdcX6ubKhX6e3UBfDqE
-         3rIyLyQ0lZGA7KcU+lzdjf3o5hE4A9gcNdGOYKUD600tuOYXhxdth2jet7LMaLCpT5Z9
-         VqCbJiOyTOXDPNE2Sqemw1ahm932Td/gb7X8MiGg5pnCn6FmmMjp2PUAUY1BClBXvpOu
-         T2nUXFdwQQKK+Ng98YQlmbpVShzgnzrtPGrrrwmV4ZiaFYoiN7USMDUy6M/myg6nG2o6
-         C8jw2ZPp28hYDCKFEtglLZ467qKspdQIMWqAJLuGW/VrNIHh0xMalRERjnxNh80ACiAP
-         Ud3g==
-X-Forwarded-Encrypted: i=1; AHgh+RonO4q0GQVaXRal7biZN2UeRAqNlos5MXhdfiV+Y/Rmk18dwZRMWFGZiAUDayudLcXL9iPFilIN36/tcOw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mry5T3G9uGRv07OeZKtt/sq23xCruOsjmHPpX8Y1FFbXCzJIOu
-	KvFGmp8d36Ghakqcx7iuOoFCOHbKUVwtdiz5J4cG47Oz9zoxpE1lG2+S
-X-Gm-Gg: AR+sD10Ik0DpANMKA2pL/FJOSAZ+gsEoXd9p3Yv71hyGix5kdC+yZeGFrzgKej8wXaV
-	gIVn+vvdMiX9XH9B0lmT/PNAlRbJf0/a/37jB9nxiga6wnWKUDgxmfWdcIFFgIt0suxTeV7rLBi
-	mXnLVTm+wfhcISxoiDCVB6v3o/XZ5t+O96cyItKLXm+JgzLRaDt8G6NPCelBEun55B4OKi2c3DG
-	d6RGwSdAmhFqR8cda519gWrvmLiRI/q7jAQ0drX9nlvGEBSVu95uGUX5mLLPj9wFgvZKSjYtoOg
-	L8xuzRiYm8CVmqTn8i/LgH8hDJ/S2nFNZWlJolldZJ6XrQk/0+1DS8wQhzaI2mz561wnqNJ+LL+
-	QhEqe29FJrm/awO0D/5qVk6TAqoakE2/y2ST4n8+SZbWG9V3GDBkJXh+2wYxZiZ69Kyh6gJ60DC
-	krsT3cm+r54L6pSBB4NBsOnlH0C3CmIt+KvBXHA9mLMnPZGViW6/t36Rl8jE7AStLjBVjdsYoUE
-	H4vfg==
-X-Received: by 2002:a17:90a:d2ce:b0:393:1d92:db5 with SMTP id 98e67ed59e1d1-3966d3dc5ecmr25814435a91.10.1787802732642;
-        Wed, 26 Aug 2026 20:52:12 -0700 (PDT)
-Received: from Default ([2409:40f4:1012:4330:756d:2890:a615:2db9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3283d60c2b4sm20222630eec.5.2026.08.26.20.52.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 20:52:11 -0700 (PDT)
-From: Jeffin Philip <jeffinphilip14@gmail.com>
-To: jeffinphilip14@gmail.com
-Cc: hverkuil+cisco@kernel.org,
-	kees@kernel.org,
-	linma@zju.edu.cn,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	mchehab@kernel.org,
-	ribalda@chromium.org,
-	sakari.ailus@linux.intel.com,
-	stable@vger.kernel.org,
-	syzbot+37578f730d38898f4b74@syzkaller.appspotmail.com
-Subject: Re: [PATCH] media: dvbdev: fix uaf in dvb_remove_device()
-Date: Thu, 27 Aug 2026 09:21:55 +0530
-Message-ID: <20260827035155.10725-1-jeffinphilip14@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260822112256.12346-1-jeffinphilip14@gmail.com>
-References: <20260822112256.12346-1-jeffinphilip14@gmail.com>
+	dkim=pass (1024-bit key) header.d=xmission.com header.i=@xmission.com header.b="cOh1qRKB"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=simple/simple; d=xmission.com;
+	 s=xmission; h=Subject:Content-Type:MIME-Version:Message-ID:Date:References:
+	In-Reply-To:Cc:To:From:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=Sbvd8kTMYsXTYqaL0tXB2IjQ5gRdfuUudguhdWObp2E=; b=cOh1qRKB1Re+N7f5YlDisRuyqZ
+	wJ5fnZpZQVVqzOUphU+WJ3POxbli6YolFE/xENyqZl37NEJb+VnrepXUBhr7mmfklp5MdZ/Je5okZ
+	TlMKnemOy8O/hj1bE3DWuQuojozTpSgda6oFivNA48CK6lWcIHED5EbtbX/L6gG/0DTs=;
+Received: from in01.mta.xmission.com ([166.70.13.51]:52102)
+	by out03.mta.xmission.com with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.93)
+	(envelope-from <ebiederm@xmission.com>)
+	id 1wzQoH-006iSd-MR; Wed, 26 Aug 2026 21:29:49 -0600
+Received: from ip72-198-198-28.om.om.cox.net ([72.198.198.28]:41050 helo=email.froward.int.ebiederm.org.xmission.com)
+	by in01.mta.xmission.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.93)
+	(envelope-from <ebiederm@xmission.com>)
+	id 1wzQoG-002hvQ-Tt; Wed, 26 Aug 2026 21:29:49 -0600
+From: "Eric W. Biederman" <ebiederm@xmission.com>
+To: Oleg Nesterov <oleg@redhat.com>
+Cc: Thomas Gleixner <tglx@kernel.org>,  Frederic Weisbecker
+ <frederic@kernel.org>,  Hyunwoo Kim <imv4bel@gmail.com>,
+  brauner@kernel.org,  peterz@infradead.org,  anna-maria@linutronix.de,
+  linux-kernel@vger.kernel.org
+In-Reply-To: <ao8_NUo0ACPAA4QB@redhat.com> (Oleg Nesterov's message of "Wed,
+	26 Aug 2026 21:32:05 +0200")
+References: <875x10hrkt.ffs@fw13> <8733w3j1i1.ffs@fw13>
+	<aowkvvxg8cPP5V0X@redhat.com> <aoww8qi_ce_8ECA9@redhat.com>
+	<aoxOVAd8ooqHFW12@localhost.localdomain> <87pkz6gms6.ffs@fw13>
+	<ao3kt-eRxw4agOj7@redhat.com> <87fr02gegn.ffs@fw13>
+	<ao6zmDB9EjsqPIVN@redhat.com> <87zey8g05g.ffs@fw13>
+	<ao8_NUo0ACPAA4QB@redhat.com>
+Date: Wed, 26 Aug 2026 22:29:42 -0500
+Message-ID: <87ecfki6l5.fsf@email.froward.int.ebiederm.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-XM-SPF: eid=1wzQoG-002hvQ-Tt;;;mid=<87ecfki6l5.fsf@email.froward.int.ebiederm.org>;;;hst=in01.mta.xmission.com;;;ip=72.198.198.28;;;frm=ebiederm@xmission.com;;;sPfnum=0;;;sPf=pass
+X-XM-AID: U2FsdGVkX19/5CokmWIysed0hbmY4RVOG5JDYLtprxU=
+X-Spam-Level: 
+X-Spam-Report: 
+	* -1.0 ALL_TRUSTED Passed through trusted hosts only via SMTP
+	*  0.1 BAYES_50 BODY: Bayes spam probability is 40 to 60%
+	*      [score: 0.4998]
+	*  0.5 XMGappySubj_01 Very gappy subject
+	*  0.7 XMSubLong Long Subject
+	*  0.0 T_TM2_M_HEADER_IN_MSG BODY: No description available.
+	* -0.0 DCC_CHECK_NEGATIVE Not listed in DCC
+	*      [sa06 1397; Body=1 Fuz1=1 Fuz2=1]
+	*  0.0 T_TooManySym_01 4+ unique symbols in subject
+	*  0.0 T_TooManySym_02 5+ unique symbols in subject
+X-Spam-DCC: XMission; sa06 1397; Body=1 Fuz1=1 Fuz2=1 
+X-Spam-Combo: ;Oleg Nesterov <oleg@redhat.com>
+X-Spam-Relay-Country: 
+X-Spam-Timing: total 307 ms - load_scoreonly_sql: 0.04 (0.0%),
+	signal_user_changed: 11 (3.5%), b_tie_ro: 9 (3.0%), parse: 0.79 (0.3%),
+	 extract_message_metadata: 2.8 (0.9%), get_uri_detail_list: 1.12
+	(0.4%), tests_pri_-2000: 2.8 (0.9%), tests_pri_-1000: 1.99 (0.6%),
+	tests_pri_-950: 0.89 (0.3%), tests_pri_-900: 0.69 (0.2%),
+	tests_pri_-90: 53 (17.4%), check_bayes: 52 (17.0%), b_tokenize: 5
+	(1.7%), b_tok_get_all: 7 (2.2%), b_comp_prob: 2.2 (0.7%),
+	b_tok_touch_all: 34 (10.9%), b_finish: 1.10 (0.4%), tests_pri_0: 215
+	(70.1%), check_dkim_signature: 0.43 (0.1%), check_dkim_adsp: 2.6
+	(0.9%), poll_dns_idle: 1.03 (0.3%), tests_pri_10: 2.3 (0.8%),
+	tests_pri_500: 9 (3.0%), rewrite_mail: 0.00 (0.0%)
+Subject: Re: [PATCH] signal: Use list_del_init_careful() in flush_sigqueue()
+X-SA-Exim-Connect-IP: 166.70.13.51
+X-SA-Exim-Rcpt-To: linux-kernel@vger.kernel.org, anna-maria@linutronix.de, peterz@infradead.org, brauner@kernel.org, imv4bel@gmail.com, frederic@kernel.org, tglx@kernel.org, oleg@redhat.com
+X-SA-Exim-Mail-From: ebiederm@xmission.com
+X-SA-Exim-Scanned: No (on out03.mta.xmission.com); SAEximRunCond expanded to false
 
-On Sat, 22 Aug 2026 16:52:56 +0530, Jeffin Philip wrote:
->In dvb_remove_device(), dvb_media_device_free(), device_destroy()
->and list_del() all dereference dvbdev regardless of its refcount.
->Thus, if refcount for dvbdev is 1, it can be freed and we
->operate on freed memory causing a UAF. Fix this by moving
->dvb_device_put() at the end of dvb_remove_device() so dvbdev
->members can be safely freed and assigned NULL when dvbdev is alive.
+Oleg Nesterov <oleg@redhat.com> writes:
+
+> Thomas,
 >
->Reported-by: syzbot+37578f730d38898f4b74@syzkaller.appspotmail.com
->Closes: https://syzkaller.appspot.com/bug?extid=37578f730d38898f4b74
->Fixes: 0fc044b2b5e2 ("media: dvbdev: adopts refcnt to avoid UAF")
->Cc: stable@vger.kernel.org
->Signed-off-by: Jeffin Philip <jeffinphilip14@gmail.com>
->---
-> drivers/media/dvb-core/dvbdev.c | 3 ++-
-> 1 file changed, 2 insertions(+), 1 deletion(-)
+> I am already sleeping, but let me ask anyway
 >
->diff --git a/drivers/media/dvb-core/dvbdev.c b/drivers/media/dvb-core/dvbdev.c
->index d753d329502a..9aa4b8fd7379 100644
->--- a/drivers/media/dvb-core/dvbdev.c
->+++ b/drivers/media/dvb-core/dvbdev.c
->@@ -598,7 +598,6 @@ void dvb_remove_device(struct dvb_device *dvbdev)
-> 
-> 	down_write(&minor_rwsem);
-> 	dvb_minors[dvbdev->minor] = NULL;
->-	dvb_device_put(dvbdev);
-> 	up_write(&minor_rwsem);
-> 
-> 	dvb_media_device_free(dvbdev);
->@@ -606,6 +605,8 @@ void dvb_remove_device(struct dvb_device *dvbdev)
-> 	device_destroy(dvb_class, MKDEV(DVB_MAJOR, dvbdev->minor));
-> 
-> 	list_del(&dvbdev->list_head);
->+
->+	dvb_device_put(dvbdev);
-> }
-> EXPORT_SYMBOL(dvb_remove_device);
-> 
->-- 
+> On 08/26, Thomas Gleixner wrote:
+>>
+>> On Wed, Aug 26 2026 at 11:36, Oleg Nesterov wrote:
+>> >
+>> > So. With this change release_task()->flush_sigqueue(&old_leader->pending)
+>> > can still race with posixtimer_send_sigqueue(), but it will do nothing.
+>> >
+>> > But it also does "nothing" if tmr->sigq is already pending (!list_empty)
+>> > so I am starting to think about the change below again...
+>>
+>> Sure, but that's an orthogonal optimization once we fixed the exec()
+>> mess :)
+>
+> I am almost sure I missed something again. But I thought that this "optimization"
+> can also fix the exec() mess we discuss in this thread?
+>
+> No?
 
-Friendly ping, let me know if you want me to fix anything.
+I haven't been through all of this in detail lately but I have a thought
+about cleaning up the exec "mess".
 
-Thanks,
-Jeffin.
+Could the posix timers cleanup be moved from __exit_signal in
+release_task (which is really for cleanup for zombies but has
+been historically abused because it was the only place that
+knew when the whole group was dead), into somewhere in do_exit?
+
+Say near where hrtimers_cancel and exit_itimers are called.
+
+Then perhaps move the posix timer disabling before de_thread?
+
+I think that would allow ignoring the whole exchange_tids
+aspect of things because the timers would simply not be running.
+
+I think that would make a good general cleanup as well as avoiding
+the craziness of moving thread ids.
+
+I think.
+
+Am I missing something that keeps that from working?
+
+Is that change simply too much to contemplate to sort out this
+situation?
+
+Eric
+
+p.s.  I wish years ago I had the energy to get glibc to stop assuming on
+a newly started process that thread-id == process_id.  Then this
+exchanging of id's on tasks could have been completely removed from the
+kernel.  Oh well.
+
