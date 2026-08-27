@@ -1,116 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013024.outbound.protection.outlook.com [40.107.159.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49BB73AE1BB
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:56:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787864212; cv=none; b=YxzaAnWM+tRSNOTZccn2n3Kt48VZ0yTR9Vrd7cvcHtnpp04D9FK90R/IPQSpmjdFXhLojA2BABH8VSgiKjA/kSqjEyeocVXNofABNFF2ab4XpY8tNcEYmQzV071QX9ErOSKRQA174tZX2uVOvfsc7DxgfKuKYy4QUvqCgpOWK1M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787864212; c=relaxed/simple;
-	bh=7yixmW/lYFaw6J9IIxo9w/V++ZvuZvPmLMynfg+E/W4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Q4PHCXNXA5GqTRzltmKQH/KTh+2i+LX/E4oDz5aR8VCSVEjQ2mzmvavVNudSj76PxtidAzprMGFgKq4+CuIO4icHyzoHkcT/LGe4Glq4XqAsuSNnnIimn19sf1f3P0WTQfwvnKXWQTsqbHzeAi5mxkIYSSRGSu98VhDD66t/cwQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZvAU74ZH; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C2F03F105E
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:57:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.24
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787864243; cv=fail; b=OApfxzd40K8Q96nFpRHhZ5R3ehD1kTKi07Z/wwLylJrHvCavBMZYwLFASRqR7MoCw2mAaLZ5U+PYPtKSaze4Z6wJGY6N57oSd12sYwgKo0SdToK2q1fkr9uQAWei6z3NERgfw2xhOhE0UZi0O/znBT2T2Pn3nqu0teCARVG9bkQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787864243; c=relaxed/simple;
+	bh=wXUess2igCfyyZl/+t0E0Wx20qp1iBEwA5guLSqOzN8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=f3ngTKXNCQ3kchjBHUcWu32G1lRySw/vABdNqLEy6RV7fWxF9LVuc3oB1qvapbcaJ8g/hJKHQ45XGL00gHgfnIG1ff6uWPJF36auwSBzU0bA+bFrqpBZ2cTcJWmjSnVTbOkCEM5s43q2aBJNfRhabIdic02eNaX1jbK4Sirq9bw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=S2ZRXir6; arc=fail smtp.client-ip=40.107.159.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZvAU74ZH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A2431F00A3A
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:56:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787864211;
-	bh=VjYAWPiQ04nVMvEDvoWYbY4Zi757dubUtTrhEx+rKv4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=ZvAU74ZHc8E1DZBZjJkqpNrlDujqQDWwxQiH26QNuTInqR0lAXLav4WK4K+XMAITC
-	 J4hchCDLGgLlQAd/xiA/Ez7Wzc3psLyS10O5W1JBlZ16CifIBCv9R/LA9+2yVc0bco
-	 I++Dd56aPvrum83TwlvOCYSGGIcS4EpnVI85w6lkX56XDkibU4RlZkiVAPtT4frfXg
-	 CqmCc8gozT0zWNEF0pBz9ayNcPZbSfNP4okjmgbaLLcPBzDLMwAqHa1Aym/XiuX+Bn
-	 GOb6hQ//P8ij82TbtAGdDFWJfqYRIuwOK+L3afWJVUR82nAaLgANV9bkKEdwBRE2ss
-	 3QtrqS9NGoOuQ==
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c1600d040e4so37818366b.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:56:50 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RoZvi02k9gstRH7Y2isyRkwAiNDz8ZUFiOF8kAcq95mMFEThw6wjbCKpJyOA1X+ggFeQFFFV01nQapBwGs=@vger.kernel.org
-X-Gm-Message-State: AFuF++lWLnQbkJAMKkygv9ne5/FmQxKXq/BdMn7GBk2uJF1cwXx4gjaO
-	iQxqoiIqMFZYzCWSBWcXOgWl5NfiCqIlYWPXthqc4bZ9Aw/9Dm7BJZdFjPEjwc3iNgr6bTau2Dj
-	GgNjX37dOS++ssE3SH+nhBLD7dBXpZoM=
-X-Received: by 2002:a17:907:d15:b0:c12:8a:7d7b with SMTP id
- a640c23a62f3a-c2535eab8efmr718462766b.1.1787864209998; Thu, 27 Aug 2026
- 13:56:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="S2ZRXir6"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PZTzmkFuAU9O1fhEK34M5mZSDz18rX/iShAH0+U1nnJPcWRsTa4XGuuNKFu75cW9eRfLkCmZdj8Q3EA6qtUSp6zimyBJizD3rlchnetwqnNhk3uKuQ29SIrurAZ0Xq+j6B070/SXNcF9SUUu/k41OEerzP6j7dd/KuTPyrS38zvt636xbKCj+gXT4haTWImT5zlP+tVWmA7dRWNI6BiTat5iVOoSjg5NHfUzeC+k547JeXN556JqfaPRvt92iIEo4Hhd7BMS4pmyeV0xfsmIKfuu+wDeoBlC13QjKgNu13IgkOCRVfL+L13rkL2SAlCDmhR+BYnHsS66nbGK2JNfcw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8tGM9AW+WOJ4aOkd0eHhkkRK+rwSWeG0CUwho4v4eyU=;
+ b=E3UzyX/P2g4KDuhwneGD9NP8n0/HLqyZlEwqeDOYrJvJLc5RWfRNWwMzAS1oAeM2MBiWFjFtJGKeFvfJQpAcsNgDmY2JwNA/vK9UBX9pDg+VL9jYkLX6KoXmQoKMS8Nzj+D3LpXYi9HpHYqNSZ6OqDP0Q6EAiCXOgtRxpo1/cb6OIl3g2uWu5dUNLRLtwfv85oYaI0035lp4in44OrA5eatuvCBUodmByvHSPZZnbSt5q2nBI2bEDLQFWx/RTZblPvR20KFmumeg8kVL0Lj+VBDO4/SLD7FwTyvhx6ss3kWKVw9WFuXeySiN4RLnLLzDEchinYT03/DWj2raFZs5Hw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8tGM9AW+WOJ4aOkd0eHhkkRK+rwSWeG0CUwho4v4eyU=;
+ b=S2ZRXir6fuDmAzJpN7S1V18aaI13GO+EYZL//dk/wjkl/wd200WHQRre+pXAueX4kNFhwO+nflZe5hl/czquGHo3u8ymKm9m3VBv9AiJrApWe7oQf/w3n34PlKb8wwt5DMKw07xgqpNdrvppoiCP6P1sySdDbRp7Rzgpot0svz3C6v4ZYWKgnfVMKDWBBTuzBql023GMm9DRLNErEHFE5wVEXEmUqtoFetK9Z3RXEPj2vNP4Q7DyEriWiEr0JHzwwou3+DCdH2p/vgxW+7pXwUXr96IZE8Sh+af7TuzywuarorAIwNzFHaM4VT/dxvUhyGpda4nol8+3zvEsQKtyPw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by PAWPR04MB11569.eurprd04.prod.outlook.com (2603:10a6:102:50a::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
+ 2026 20:57:18 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
+ 20:57:18 +0000
+Date: Thu, 27 Aug 2026 16:57:10 -0400
+From: Frank Li <Frank.li@oss.nxp.com>
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 05/11] accel: ethosu: Ensure SRAM region size matches job
+Message-ID: <apCkpjQtKRaTNQ1n@lizhi-Precision-Tower-5810>
+References: <20260827-ethosu-fixes-v1-0-346f9ea8791c@kernel.org>
+ <20260827-ethosu-fixes-v1-5-346f9ea8791c@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827-ethosu-fixes-v1-5-346f9ea8791c@kernel.org>
+X-ClientProxiedBy: PH7P220CA0131.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:327::33) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826233919.998904-1-seanjc@google.com> <20260826233919.998904-14-seanjc@google.com>
- <CAO9r8zOOq05nWk6c1sCnPAimFTuZLxc3BDrZLro-fXPR6ZMmTw@mail.gmail.com>
- <apCd5RSDYH13g0qR@google.com> <CAO9r8zPF7yPWopSQD=YSLuAxDU5YAacEWwEMbt3s_s9a=niCoQ@mail.gmail.com>
- <apCitFa82WHmiebf@google.com>
-In-Reply-To: <apCitFa82WHmiebf@google.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Thu, 27 Aug 2026 13:56:38 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zOK5D3UMk1MM2X01FJhCW4mXsLpR-66T9+T9aeR5fcQZA@mail.gmail.com>
-X-Gm-Features: AcwNN1VEcaJXZNSJH-Jvpv5QfotBnhkVHaAPPNiZWZXjmPhHgjvDEik7T1khfW8
-Message-ID: <CAO9r8zOK5D3UMk1MM2X01FJhCW4mXsLpR-66T9+T9aeR5fcQZA@mail.gmail.com>
-Subject: Re: [PATCH v3 13/13] KVM: selftests: Add and use double-underscore
- versions of vmlaunch() and vmresume()
-To: Sean Christopherson <seanjc@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	f734222792@gmail.com, Vitaly Kuznetsov <vkuznets@redhat.com>, 
-	Sashiko Bot <sashiko-bot@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PAWPR04MB11569:EE_
+X-MS-Office365-Filtering-Correlation-Id: e76b4fae-f05a-470a-c0fc-08df047dc842
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|366016|376014|19092799006|56012099006|10067099003|11063799006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	SRJNkx7+NrRiVJ5UWf/yXAsSFv7SffFLH0Eaewpg6tc25w1W4XjrIFy3mvOa8sCWojomZ7Tr46s7mAZvXlKcjD74WpzsuRxqcL/1muqtWnp3xaaMjbt9husBPfRpIIhLvRcwY+6jdx3icRTKf+K6FiZV7Zx32hGbvlSAw46YPJnh9wmGkIk5MeVKmSS+5E+0K3Uw8JuVv142J1D4MT3d62OU4iS0T7INRuiAGa+qQBsuWdn/XTTs9QmA5Gy1ZvVuVrZIX/qCYyosAoVBpYEHgyfY+rxX7wk+Hy9q/td8LHudSGijPSdvE980MC8lym7zEpJrb9aL1RAAxXdmWd51lW8PvzomwlsVu/WvqW4/gGDC3Ub3xtGob8bG5KV+9k8YUB/51RQw0Vvm7fLeAm8R3ajnYWE+FGxcqE/ZT8eoUDkix7EQ+OnM1rO4F8D8FWrZwi8gUatNuyjHfqpgmJ1ZgsoI7F5dirMTWwLssvLTlWUnhfrY3h+WryJ1sgNsOPOVH76n3HP85rYrTQVi1VNO1w19kloHQ1CaIDuKsEo5mvUjHZ5kaENE3CG71P4t4NZFM5ErvZfPk/R6bFdg2Fvg1nBz49ChTB8rYVfnN3RczW8w+gA+qtzH2n2dxxZ2cqiIIOle8PhjlAeS9AM2IgUsNT2mfLbQy+QGbep6HIfdjG8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(19092799006)(56012099006)(10067099003)(11063799006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?NJUG4srbzmCmMFj+AoBE74UMLKT+iQlheiLageMZCMnaFTcENi7jOc4gbfwv?=
+ =?us-ascii?Q?TSQ9D3UJi+ZQh9/CYLNvcm5Cc+t2Ln33v+5YIJ2ECW4und4p3yFzn4GjakI1?=
+ =?us-ascii?Q?5Ux92a9IsPYptpl9Mhe/Fp/bp4rv9Mqi5eCjYWY63Jv1NLN68xd9VIpIlaPm?=
+ =?us-ascii?Q?EeHX8N/ztGGgFX0rhUrnXXnwJf/p6lbP90cQ68XQWofgLjyV7YD5sgD/azrH?=
+ =?us-ascii?Q?nTGEFJaLCYUcR86lq82tJ791ZHbf5WZbay9rdzcN7cGjoWw4n74eVC0JnDod?=
+ =?us-ascii?Q?RdbQajsQL5rLouBeuAgCpqlaKlMmVs1hIffNlIZgfT4yq0uEjMCKbgVbZE9z?=
+ =?us-ascii?Q?6dXfQuSjml9YZ+Gq2spotxEUQE4pkY5lKXikTBnwr5O3Rwux/ZQEQrZUSS9v?=
+ =?us-ascii?Q?08R2RYck2f4M0vsJPW8y0ILDqjfVGifYHh6mtppS/HuhIfxE9L9yVR0iV9Mp?=
+ =?us-ascii?Q?NAD8i2VB5J/qRQSFMPbr7t4zrwJuSGMWLSwxsMKosQGyuCsobeE78svoZYRo?=
+ =?us-ascii?Q?H7Jn59+RrzBAxWnfwx5F4I1mFbCIkBHSXJtRaTbQSYhlvy9PWeHc7s41rndT?=
+ =?us-ascii?Q?bA1mnFXXR/MvM7NGY8ODYq4G1nNCu1dtz/BfDkyvcSQDArq8D2pXNSaXIVMK?=
+ =?us-ascii?Q?mL4WicYHEsfHsHi6we6DoUSGJsSVEEQ11sZrfVZlnlhqs4WSHi+9WiIS36Ix?=
+ =?us-ascii?Q?Oz5ITBf5b8vsO8td4M+bl5zUfmB/3a4ag1AcqlL+UKc51APta1/3aBWmTQK8?=
+ =?us-ascii?Q?h2MfXLZZNaKWgFrV6S13a51JFVvHNcThRns2HPLmSRLxh/+Ich00FbB5stNZ?=
+ =?us-ascii?Q?hD/xFJrqazfUmbLw9bm3XeJ/9Jlz7IgNxp1TXtDldfDZnxf6JHSvbIvw25ig?=
+ =?us-ascii?Q?0uCGttG2lFd8yGCMOerytp9UMfcpx9aRCqMUfq8J0WeqANfytahpUSys2CO+?=
+ =?us-ascii?Q?3UwzbXh9DEgdbq5TgBE7OFW0waz3bn3+F0GlXtXG9C/oITy315O9oxj16/2S?=
+ =?us-ascii?Q?4cGjmC1jrmp/YzuIEla49ooueiwb1bGRn5jO4SDnjvfpvEPkeO0xWyo6wL3h?=
+ =?us-ascii?Q?OKf4/JoE6WKBD8FE0E0K9rO2uhQ5yV5ergOury3uzHjDpCWTNxOe36oCDvJB?=
+ =?us-ascii?Q?jw82BDDs3pWVpvIoauWATRAyotK9P/PO4O14Mmn9968UQa3bpawxoJ68BKp/?=
+ =?us-ascii?Q?IF3Vn6klkGp3Qb7vvtBjKX2eS/VBgh2RpTRXuFMfrkKzWC7vTXWugn5AwI/S?=
+ =?us-ascii?Q?LQvvVmX/97OIYYUrG3dX5BaXVQJkMJoFYpjydIB0M64JdZWyUvzh48KLrwRu?=
+ =?us-ascii?Q?kwDy+P1ziMPdeOnW0LGjcArmeQzNZxq6XfFAzres/F5e+ttRZhk2uHDA7ThU?=
+ =?us-ascii?Q?3MG3xPJHZQKr35UbyGiLRseBaW5o/jMVbP2A0/sAzG4JppTJzs3eR4lYpKhm?=
+ =?us-ascii?Q?BSA93j9PR70C04fu4pwLGJFcE4/hEL5vp/5I2wUosuBD9pmu3fw9tkBuuaul?=
+ =?us-ascii?Q?JhIBi5KGsqGe/1OPUWunR70LIjxzXU4Tm7Jo5W5T+9g2PMV2YpKzVjf9AMWn?=
+ =?us-ascii?Q?UjMtsdmCdGITABFSWy9TX1pB+e+NLMaDTEsp2zQAso+Xh3IJRAJQlMrMUS9t?=
+ =?us-ascii?Q?a66pIiO2VcOOQkqOt9DRl5CzxkSc2K/XjkR0A2Uc9pTHiZ/rBDASc32cN31d?=
+ =?us-ascii?Q?eLwG6TvVgTUwBcAQHtVVvO+PdmBf1nqTKvUhOEOEnYZjxQ78oQ9awmFilNE2?=
+ =?us-ascii?Q?xzqCmwJvUBtH9iG9euL42wQHY73A3SbC1MkvWyLE+7aaqS8iLmb/?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e76b4fae-f05a-470a-c0fc-08df047dc842
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 20:57:18.8728
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IBSlz8+f4sYCIjZMgi1EKtaOZedqsTyYeolIOletbljOrjedGMqIRqKBmmv0MtCU1fy+t/yGr0qR2osDFrqqLemH+1jgKSO4DgIhn0Y7xENy/WcAnnrBFQbpAX6u+VQi
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR04MB11569
 
-On Thu, Aug 27, 2026 at 1:48=E2=80=AFPM Sean Christopherson <seanjc@google.=
-com> wrote:
+On Thu, Aug 27, 2026 at 03:33:04PM -0500, Rob Herring (Arm) wrote:
+> It is possible for userspace to set the job SRAM size to 0, but then still
+> have SRAM accesses in the command stream. When the job SRAM size is 0,
+> setting the region base register is skipped and a stale base address from
+> a prior job is used.
 >
-> On Thu, Aug 27, 2026, Yosry Ahmed wrote:
-> > On Thu, Aug 27, 2026 at 1:28=E2=80=AFPM Sean Christopherson <seanjc@goo=
-gle.com> wrote:
-> > > Yeah.  Another idea would be:
-> > >
-> > >   void vmenter(bool do_vmlaunch)
-> > >   {
-> > >         if (do_vmlaunch)
-> > >                 vmlaunch();
-> > >         else
-> > >                 vmresume();
-> > >   }
-> > >
-> > > To yield:
-> > >
-> > >         vmenter(vector =3D=3D SS_VECTOR);
-> > >         vmenter(!i);
-> > >
-> > > Never mind, that's a terrible idea, the call sites are inscrutable.
-> >
-> > Yeah, but I do agree that vmlaunch() vs vmresume() handling in
-> > selftests is annoying (e.g. see run_l2() in [1]).
-> >
-> > If you wanna go scorched earth on the nested VMX infra, what if we
-> > track launch vs resume (e.g. set launch=3Dtrue in prepare_vmcs() and
-> > lauch=3Dfalse in vmlaunch()), then provide a single vmenter() API for
-> > tests (with no arguments)?
+> Check the region size against the job's SRAM size instead of just the size
+> of the SRAM. The job's SRAM size was already checked against the total SRAM
+> size.
 >
-> For selftests, it would be much more difficult to do correctly, as compar=
-ed to
-> KUT.  KUT has a "fixed" number of vCPUs, doesn't need to worry about pCPU=
-:vCPU
-> bindings, and has a strong need for per-vCPU state for other reasons (bec=
-ause
-> it's more like per-pCPU state than per-vCPU state).
->
-> Selftests doesn't have per-vCPU state, so making the tracking thread-safe=
- would
-> be challenging.  And I don't really want to add per-vCPU state because ma=
-king
-> GS (or FS) off-limits is actually problematic when the goal is often to d=
-o "bad"
-> things to vCPU state (I've debugged weird KUT failures due to GS getting =
-clobbered
-> more than once).
+> Fixes: 9cff90774872 ("accel: ethosu: Validate SRAM size on submit")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> ---
 
-Isn't vmx_pages effectively per-vCPU state (for nested)?
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
+>  drivers/accel/ethosu/ethosu_job.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
 >
-> > [1]https://lore.kernel.org/kvm/20260728003557.1136583-29-yosry@kernel.o=
-rg
+> diff --git a/drivers/accel/ethosu/ethosu_job.c b/drivers/accel/ethosu/ethosu_job.c
+> index c33f2877b385..0982722a9195 100644
+> --- a/drivers/accel/ethosu/ethosu_job.c
+> +++ b/drivers/accel/ethosu/ethosu_job.c
+> @@ -441,13 +441,13 @@ static int ethosu_ioctl_submit_job(struct drm_device *dev, struct drm_file *file
+>  			if (!cmd_info->region_size[i])
+>  				continue;
+>  			if (i == ETHOSU_SRAM_REGION) {
+> -				if (cmd_info->region_size[i] <= edev->npu_info.sram_size)
+> +				if (cmd_info->region_size[i] <= ejob->sram_size)
+>  					continue;
+>
+>  				dev_err(dev->dev,
+> -					"cmd stream region %d size greater than SRAM size (%llu > %u)\n",
+> +					"cmd stream region %d size greater than job SRAM size (%llu > %u)\n",
+>  					i, cmd_info->region_size[i],
+> -					edev->npu_info.sram_size);
+> +					ejob->sram_size);
+>  				ret = -EINVAL;
+>  				goto out_cleanup_job;
+>  			}
+>
+> --
+> 2.53.0
+>
