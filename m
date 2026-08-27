@@ -1,143 +1,176 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66B4623E35F
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:10:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787789431; cv=none; b=RNguBZsal6XUU/VwejFYSRf/ppVohVCQlvfhivjQ+GlJozJhvI4U29DwWrze7u5D9Vif8pk2cMKCjHAnkvM1bG7vE6RZe1xUbF5vRi83nqbxvevQIH1/xHlWQ2Fu/coHqnDC57SFHyuFsl3G0kXfWDsXAt0v/YpIiRXH46On3Ig=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787789431; c=relaxed/simple;
-	bh=NpFoAN3ARoByq+Fs2sx4uXcEiHmYv9k+CBvlMh5NByY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fZdvRFwGKSpDs4Ma9XNk6BcoM6R+VGUXKfIXR+/8Rsae29AhvR1iPcARNukogmiyxZ2wIy+4AsFNeGrhROwKaY7Qr8YtVv5m+Gr2x7Z106Vl4UfcpFSYmQyJ/SHhJmkTFO5uPS0BGoqyHzU9ET1DMcKfWM8Bi0yObUpIAIwx5l4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Smk83bzV; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=DX1Aueue; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E10B224DD17
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:11:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787789475; cv=pass; b=Ht/wzclc9MFyklPfR2t0dNg7YfCiGPAqjHUJUwedb++Muz+botOZiQgu9S/FE8di26RdR32yuRgUG7sNyi1Te5j9CWHI+LWgKizlNGunyZPncoCFQ0qnZ4wI+qeSbgx+nw7y/MB5gzqLpZvS6DOxxngKS9uC65uS0dwOSthkfxI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787789475; c=relaxed/simple;
+	bh=q9fPaqLMvwojY1sDSJE1KOtBByV27/rWMVd0RMgF7LA=;
+	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jUc+HVcq84WHVH33wa/1wmAskcFGCN1i/DcTnFprRpouankAtkJJYCdtVvcAyr3PajlN07sg34HgeNHwaHoywiD2mRVSKhRrDHeNh2iq0kNnjWEzE6Wii0f8HqcMbAXxq6T3r7JaTWbtdgDz8MA1kBTJKZ9BgSCSMhL+JTNm03U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=DDHytNYH; arc=pass smtp.client-ip=209.85.219.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Smk83bzV";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="DX1Aueue"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787789427;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7kI48VtjA0m79pfKThr79GcCuUw/Tq7WCD7HinJujWM=;
-	b=Smk83bzVDcKDOlhffKdsWDNIW76PbyUVLHJmf1FIlZCuFiWc5R4VZvGBw+eNN77qAAns5D
-	d9wc4OZdBJ6GqJQyglKg9HTIsI2BGavD/Y0L+ty7nnj+L2R0Ya+PhSPt0qi2KzDPpoJSU+
-	x0meOwTrhAhKqyWbDV3saKqoVFBOrr8=
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
- [209.85.216.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-149-JALLveDON4emZU9MMOJsAQ-1; Wed, 26 Aug 2026 20:10:25 -0400
-X-MC-Unique: JALLveDON4emZU9MMOJsAQ-1
-X-Mimecast-MFC-AGG-ID: JALLveDON4emZU9MMOJsAQ_1787789425
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-39533bb224cso2774982a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 17:10:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="DDHytNYH"
+Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-90ccbca8bdeso8406656d6.2
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 17:11:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787789473; cv=none;
+        d=google.com; s=arc-20260327;
+        b=khSjs79vkj9zStEsVDNMM+A9vrN70YT/3gIwOBteqsxUQDd2jsFOpcipVwyt+wK54J
+         APWQetTLMfkGGz5sk0Ru0QU/Cm6HWuTmeHX/Z//WPtVOPePHCGpQKV6u3ECs8l0iWhGH
+         AzXR+1OA8OPLRizdyCiWGUUJoKZJfTjxgqVX1Zt0R4cKFpAA7fQfPkL93PcQds3ICmfn
+         I4DdKdnxxoyeUAu/VdgJ20xJJoSwT+lYihpZw1GWO61v7mjJ/ZVOhjKLFPsmW4gUb2z+
+         hgkizPeDbPgs7FX9wBy7o/QEYs5RCStOpO1K4JWaOt1y99MPC6lT/9YlDRKDzgL1WPUP
+         8l/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
+         :from:dkim-signature;
+        bh=AnLRTMnfrf4Gj+REZ5Itvxt0IiZsf+yGH35mZtX0wjs=;
+        fh=VPNBPzIIr2ZDHGsAtkI3Jf5gmhgDSHG0rhAFoL8UMC8=;
+        b=ZheVPqI0yb1LoOqrZmYStY9ATLo3Tv4jd5uAWwJGYvTy0+nRQldKdmHvwpwPhRJXYS
+         Y/Y9Jf1ee1wZ0Y+dsw+0YdMl5cRTFXYXa7mm+lYpuFr3bnb0f34w1XoVYhA2qo43rXq0
+         5ee7BQqrUcHUcQ8Q9oGJAZPvNMyUMh6cishfAFgSrLCkuga3G2BmfmuRZ3s5VMdX2NEo
+         GO7QJuxqH/fHzo9v2mqFczGbJ2zqYOF5r8tpbZ7T0i8ZhngPFyMYkGP7yuBOElOfu9uo
+         u+6//ezmeo7T0gSil4RaZF6I6uGOWBdBaqfLBIlMgnAZ2oUocdDUlh2Ea2jF8x4WtNVc
+         5baA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1787789424; x=1788394224; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1787789473; x=1788394273; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=7kI48VtjA0m79pfKThr79GcCuUw/Tq7WCD7HinJujWM=;
-        b=DX1Aueuee4LYfJ9W27naBvENe8PUUiZkwCO9PKwt1GJJwpD7pyCTXO2IM5AlntgJWh
-         mSo967J9Kgrr4kUxCS7OqVPwcUhHauUvrB1ULeSWmCegjH156pFa9qDvqUSF4GvqAx3w
-         iHkQJIgYJy7kpdRjcznJlBH4FqG7BdtuTlL+HjEzzlwJAXW9l69V6d6zf/IdV0cH84px
-         9pti+Tdd5ZNT6KtykU/LWadGbFAHC29k15LlxdfHk8S9ewchQ6D1VePmLf2jRTrNdGoP
-         vrRIO8WuWnLPERR+JCi+srIo8jrP+bLei5ZxKBUeS/6i9dOPN3ZHHfnZHQkZiZQIGWIG
-         VCwQ==
+        bh=AnLRTMnfrf4Gj+REZ5Itvxt0IiZsf+yGH35mZtX0wjs=;
+        b=DDHytNYHmL8ZZFfUZQMn9dv9i2pHGtixDiXKH9NcxPc4aJG167NL84W4W1eFrg82s6
+         K6FGfBmIu0OB/N4HK5JAFeA1UGR0z5TlKmc3aM+GLZARcczL7zef3x1NOk3gnKVBbErt
+         xi4wq6VzqorqIOe3iRB2OmS6mFTNQfV99usutBR7zO4DRLOWqjr7mfDN5C7fBQb5JJdH
+         p2T/sZgpckboyIVBPJAuAoTIcUqpQdX0fSP1tMUoo2TLb4tdTLhQG1ds/xrwWWn36i8l
+         cCnl653nK2rd+DQLX4EaUe9yQIPUT0c7flfn4QVBnz+eNFPfHNpbIF014eIJsP8Ak4Tx
+         3CoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787789424; x=1788394224;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1787789473; x=1788394273;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=7kI48VtjA0m79pfKThr79GcCuUw/Tq7WCD7HinJujWM=;
-        b=qDZ1ELo10P5KrRObhKYiKGg0OIMpNTN9U8PEYUDMW5KMTg2IXTYF7QaVyASuwGAGbf
-         FJofz7pC1R74FzvS1yA0sXGgI6dTcCfFfD7VXxVEdLP4PcMfvpZ3Dx+L+vdGLiadJW0b
-         o83UB101CWm9Z7Nu6I2svzvFM9MjIaJ7gQDa7BfYAEfACf6AM5n5DRGCwWLrjLtDNF35
-         BKTpEXg40zTdMQ/Knmpzb+73zfvQSXGvXhKziz37o+HkbJ84bjBaYwXPCG015GDqum4k
-         fzgFzq6xT4IsiYDUnl47wzrRZSvTu4xi4u/B2FWyS5lWBfj7dQcXQzs/v4SOLCkS8Vu+
-         EHgg==
-X-Forwarded-Encrypted: i=1; AHgh+Roq4cepYYU9IhX0EIkS8siPX2nBcLt1NQgJ0PklfU+hYTGHNPtfy/Z3w/VDPyig9owtzmn5j5Er2gXSP+4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lipCQ+4edXM5cWBUzkdCdcgEZuUGJEV1UG/zDGG7GhmhQO61JD
-	85k0e9jy3NosrYHd+ZLm44rYepogMOYb2ZGE77svN+Pvx3lSrUtjanZcq459i3BTVxAdot0nJEo
-	oe03dyWN/rpB/JRyhX6b9mhC1xSFjQdRIE2EUOWF1xboDm+hySYG3QUtQ7Yw44ilkOg==
-X-Gm-Gg: AR+sD13pMYcTln8F3NWTBivtpFqdS3lA9plM6DjFsnQAu5bwbSjmhGDCn8tkbTgGrZA
-	yksdFB9tP8FcNll1KXO2x+axhMjRdCQTsAZIUfE2T1uUmwRzF4/6rlbZBFCsPDplWda/W6EFjWe
-	0b7jwnOgiWsZHk9xWwFbP2x3s2RmQJoU+GJ/gLAEMwcnK/QRJ9AnGSUTSZqz5N0w5+9oFqAiVT+
-	uVvFH+DraIch0aMy8XGJHMGGj01mzoemRh4Pb42/hzfy7D5z8lAhjSokHh5NxQy2+a5xps2WVq7
-	Ko5nO/KpzmQzlPUST9m4GP6Hkf8ZbWtz/CYAVgjsYkTfjGtsrWbRv65Vd2Mo6fdPZVXi3f6azCR
-	jXVIRv7mHQXSCafBkrhpzapaFAZCyscyGPD6oFISHfg==
-X-Received: by 2002:a17:90b:1dce:b0:381:cef1:11ac with SMTP id 98e67ed59e1d1-3966d3e1cfdmr21940246a91.10.1787789424344;
-        Wed, 26 Aug 2026 17:10:24 -0700 (PDT)
-X-Received: by 2002:a17:90b:1dce:b0:381:cef1:11ac with SMTP id 98e67ed59e1d1-3966d3e1cfdmr21940059a91.10.1787789423479;
-        Wed, 26 Aug 2026 17:10:23 -0700 (PDT)
-Received: from [192.168.68.51] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3283da048d3sm12020839eec.28.2026.08.26.17.10.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 26 Aug 2026 17:10:22 -0700 (PDT)
-Message-ID: <996cd400-44e2-4b4a-8286-1235c3248750@redhat.com>
-Date: Thu, 27 Aug 2026 10:10:13 +1000
+        bh=AnLRTMnfrf4Gj+REZ5Itvxt0IiZsf+yGH35mZtX0wjs=;
+        b=T3eXzGa3a4TZMrFoqWzR1cr8HNupoFPuL8Bs5n+qRnAVqWclhQlXtcC8gYtjuUVkY7
+         bpndMiA5L5shkbBtQsHCznON9rAOtinLJVKSYupe+wpdnTLXjRU447fEZk5Y5v0JSkCY
+         mFeGh2aGkPXAEmpuQtPiDOX3HVywjKXFC0EpqndUTfwcmPrjPR4D7d2cwfTyPWjcEMqg
+         +reUSKP8M1yxOKlk0eyUWYyBUp8HU7aAUxjrtcJdmaUD2VbTvlzDVI4LRnOVQtFaQ4fq
+         c6W/b7knC9IwcMQkdURchzZGIL82Rw9QWTOxlhy+SweUl2o4m8E7/Ly4Vp7KESJIMUFG
+         Ckeg==
+X-Forwarded-Encrypted: i=1; AHgh+Rq/nmPqSwPFA20TPj1ntPrzMoxaiZ0mZKIpbofmSbGN/rHnBbVEo4aaf65uhUKynultHkimmhxzGGIMFdY=@vger.kernel.org
+X-Gm-Message-State: AFuF++k/c0js508q42qACyDkHJmHjcXxOk9f+DqbAUNyXuU4rtlrtWEQ
+	lyY9WkOx7lu6IEM8L+F89egk8MTHe3sTUZIBoztYOqzYxO3px/RgUPCVUHTsFUJ5E9WY//WpocB
+	EZ9OvgRf4FbhtCnPblvBbc0qvyuFzm3WZ4f3zYkba
+X-Gm-Gg: AR+sD13jhvAdkIfwZw0zyDU21qKdMwP/BzMjOAmYnJA2PJnn6m70N0sb7JScWjS1r4W
+	/sgAKcHuTkOeYbKvErdjHsPkomHjUCa9tTOQ90+9NW0edV20Btt1jMVXhjPy705AE9cXU8MODDI
+	c9R02iJ5J2+cay66SrfzUTJxVfbIjhLCXnDPkAVvt5UmVsFzVSkXdHpUTfxT2Gg9aph262nQlWx
+	GMX5a+cx0Nefab4Nv3UJACuyVrpb6WFWK3vKpmei22Rr5zRADHn7DFtLM//+oib1SyAXAyVbsI7
+	oL7s9CFcjSkE8Pkk9x/F0S7BvgVBSP2fFB5FUj3qiTW6FyvXbjTUoqJUfoaq59myN3suEdZWmYv
+	PuVU=
+X-Received: by 2002:a05:6214:4602:b0:908:98fa:f374 with SMTP id
+ 6a1803df08f44-90cc7858733mr168107566d6.6.1787789472172; Wed, 26 Aug 2026
+ 17:11:12 -0700 (PDT)
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 26 Aug 2026 17:11:11 -0700
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 26 Aug 2026 17:11:11 -0700
+From: Ackerley Tng <ackerleytng@google.com>
+In-Reply-To: <ao8pCI3AaUssIO8S@google.com>
+References: <20260823-memory-failure-mf-delayed-fix-v5-0-d97a5703e45a@google.com>
+ <20260823-memory-failure-mf-delayed-fix-v5-5-d97a5703e45a@google.com>
+ <8a99f753-0713-4194-8eb5-90da0724e647@kernel.org> <ao8pCI3AaUssIO8S@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 12/12] arm_mpam: detect and enable MPAM-Fb PCC support
-To: Andre Przywara <andre.przywara@arm.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Hanjun Guo
- <guohanjun@huawei.com>, Sudeep Holla <sudeep.holla@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
- James Morse <james.morse@arm.com>, Ben Horgan <ben.horgan@arm.com>,
- Reinette Chatre <reinette.chatre@intel.com>, Fenghua Yu <fenghuay@nvidia.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
- Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>,
- Ganapatrao Kulkarni <ganapatrao.kulkarni@oss.qualcomm.com>,
- Trilok Soni <tsoni@quicinc.com>, Srinivas Ramana <sramana@qti.qualcomm.com>,
- Niyas Sait <niyas.sait@arm.com>, Lee Trager <lee@trager.us>,
- Ritwick Sharma <ritwick.sharma@arm.com>, linux-acpi@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260807105451.3728284-1-andre.przywara@arm.com>
- <20260807105451.3728284-13-andre.przywara@arm.com>
-Content-Language: en-US
-From: Gavin Shan <gshan@redhat.com>
-In-Reply-To: <20260807105451.3728284-13-andre.przywara@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Date: Wed, 26 Aug 2026 17:11:11 -0700
+X-Gm-Features: AcwNN1XfQOKyfEIZtdcwN4-zBTAXGB_PV6TdJFFinygb6qNke6evcDePz3wbfQE
+Message-ID: <CAEvNRgHAwAJee6_ra9-zioDh_BqHM9Lbu+TGXxWHbG7za=g5Aw@mail.gmail.com>
+Subject: Re: [PATCH v5 5/5] mm: selftests: Add shmem into memory failure test
+To: Lisa Wang <wyihan@google.com>, "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Shuah Khan <shuah@kernel.org>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, Andi Kleen <andi@firstfloor.org>, 
+	Hidehiro Kawai <hidehiro.kawai.ez@hitachi.com>, Rik van Riel <riel@redhat.com>, 
+	Yu Zhang <yu.c.zhang@linux.intel.com>, Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, rientjes@google.com, seanjc@google.com, 
+	vannapurve@google.com, michael.roth@amd.com, jiaqiyan@google.com, 
+	tabba@google.com, dave.hansen@linux.intel.com, 
+	Isaku Yamahata <isaku.yamahata@intel.com>, Xiaoyao Li <xiaoyao.li@intel.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 8/7/26 8:54 PM, Andre Przywara wrote:
-> The Arm MPAM-Fb specification [1] describes a protocol to access MSC
-> registers through a firmware interface. This requires a shared memory
-> region to hold the message, and a mailbox to trigger the access.
-> For ACPI this is wrapped as a PCC channel, described using existing
-> ACPI abstractions.
-> 
-> Add code to parse those PCC table descriptions associated with an MSC,
-> and store the parsed information in the MSC struct.
-> There can be multiple PCC channels, and each channel can serve multiple
-> MSCs, so we need to keep track of the channel usage, using a list and
-> a refcount.
-> 
-> This will be used by the MPAM-Fb access wrapper code.
-> 
-> [1] https://developer.arm.com/documentation/den0144/latest
-> 
-> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
-> Tested-by: Ritwick Sharma <ritwick.sharma@arm.com> # on Arm AGI CPU
-> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-> Tested-by: Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>
-> ---
->   drivers/resctrl/mpam_devices.c  | 112 +++++++++++++++++++++++++++++++-
->   drivers/resctrl/mpam_fb.c       |  41 ++++++++++++
->   drivers/resctrl/mpam_internal.h |   2 +
->   3 files changed, 153 insertions(+), 2 deletions(-)
-> 
+Lisa Wang <wyihan@google.com> writes:
 
-Reviewed-by: Gavin Shan <gshan@redhat.com>
+> On Mon, Aug 24, 2026 at 03:00:47PM +0200, David Hildenbrand (Arm) wrote:
+>> > +++ b/tools/testing/selftests/mm/memory-failure.c
+>> > @@ -20,6 +20,10 @@
+>> >
+>> >  #include "vm_util.h"
+>> >
+>> > +#ifndef fallthrough
+>> > +# define fallthrough __attribute__((__fallthrough__))
+>> > +#endif
+>>
+>> This doesn't belong into this test.
+>>
+>> rseq/rseq.c selftest already uses it.
+>>
+>> I think tools/testing/include/ already provides it.
+>>
+>> Maybe
+>>
+>> 	#include <linux/compiler.h>
+>>
+>> does the trick?
+>
+> Hi David,
+> Thank you for replying.
+> Would it be better to change it to /* FALLTHROUGH */
+> like the rest of the mm selftests?
+>
+> If we prefer to include <linux/compiler.h>, we can
+> certainly do that, but we would also need to update
+> the Makefile and fix a redefinition in pkey-helpers.h.
+>
+> --- a/tools/testing/selftests/mm/Makefile
+> +++ b/tools/testing/selftests/mm/Makefile
+> @@ -37,7 +37,7 @@ endif
+>  # LDLIBS.
+>  MAKEFLAGS += --no-builtin-rules
+>
+> -CFLAGS = -Wall -O2 -I $(top_srcdir) $(EXTRA_CFLAGS) $(KHDR_INCLUDES) $(TOOLS_INCLUDES)
+> +CFLAGS = -Wall -O2 -I $(top_srcdir) $(EXTRA_CFLAGS) $(KHDR_INCLUDES) $(TOOLS_INCLUDES) -I$(top_srcdir)/tools/include
+>  CFLAGS += -Wunreachable-code
+>  LDLIBS = -lrt -lpthread -lm
+>
+> --- a/tools/testing/selftests/mm/pkey-helpers.h
+> +++ b/tools/testing/selftests/mm/pkey-helpers.h
+> @@ -22,7 +22,7 @@
+>  typedef __u8   u8;
+>  typedef __u16  u16;
+>  typedef __u32  u32;
+> -typedef __u64  u64;
+> +// typedef __u64       u64;
 
+Removing this u64 typedef seems to be unrelated, the layers of includes
+probably has some weirdness that needs to be ironed out.
+
+If the weirdness is not too complex to iron out to be in time for 7.4, I
+think we can iron that out, if not perhaps using /* FALLTHROUGH */ is
+fine, to be aligned with the other mm selftests.
+
+>
+>
+> Lisa
