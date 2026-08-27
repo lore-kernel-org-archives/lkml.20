@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36DF4483BFF
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 15:09:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFE3F483BD8;
+	Thu, 27 Aug 2026 15:09:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787843366; cv=none; b=L63VxuRmVt39gh4ew7M15Po+gJbzbbFT1NOZp2Zc+cUl1d/JKaxWyDaXliWGgdr+bZp2Ux1dxI+ztViXrDKWVMEdi3uJ6HzCn6hPozKqTnmjTDVe8xqNsaggCJk7w7HtXIc8Jtm4xYDkWRif8XDy9eFrbjZQkcH1NeeBWtH5biM=
+	t=1787843366; cv=none; b=qE368lZyAQiPXWqYQ+eoJqJvHICWtBBrcOWGMRXAIEl8BDYEYz9IiWLh+eXRRSXliiXci1C3e9qpG9fylQHYkgLfNvDC2egn3nCcSTuHKYRVn10PK2nK0qair9moz+hqAV5rfgdTPfPg/s1q2EkWB7qpcZAaxMwt3dMoPnSMjlU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787843366; c=relaxed/simple;
-	bh=/F6DF9N6aI26k2SDHGgLnmmPKxBwn4ZVAH11GI8tveE=;
+	bh=3IpjydfBdKSdOv0gibALtpPNd7MBnOHOPknnrtM0Q3k=;
 	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=dUyWCyRYjRYtq6m6lydqIjPAQyKOieNta3lE+2AQu5k8fAZjuzoP+a3A2ewtKHmOH1KA5a8DmqdTCdVJRryDy82v+Iz6LdJ6UbiCi+KZsqR2UKNaLLJq31CCvBKLHeTWH6FxDExAOSCWiWIlgcAzAPuX5CULr0nosawy84bpDSE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aVwm26yt; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type; b=Vb0dU2zoCSm36FeVfigWSnSnQNt57fRm5YBBQxNrdmJP2iRc9h5NvMOY14QYjD4aMNvcSiLsIiIDqLxEmkQUHy9Sk6YvuhVLdf1aNISuk+4JWRkAUQxyLc9Ohx4+mGD/cEXFxAi24x+HiTbGMTF0Lu8l77+RkYBynpgrFHRGWS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LqqeF/iJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aVwm26yt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF1201F00ACF;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LqqeF/iJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3ED61F00AC4;
 	Thu, 27 Aug 2026 15:09:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1787843363;
-	bh=b9FCRmxqVb1GJL/GzWj6/s/4yvGvvUOtw/dfPPgDqJ0=;
+	bh=bKsi1VJGfYifc0X2FDO2ozZA/yp+juJv4gMOzdPOn4I=;
 	h=Date:From:To:Cc:Subject:References;
-	b=aVwm26ytG5vCtBjhbP4WGCbepn+mVciOnp2gejjpx6ib2uCPVtzharPqBH9i9pEFm
-	 BYMKUanTVW6sq7JptmoDDatIiEtfUlrNzd+SliMzLv0HYawdYrgwTNXt1k9rfFE6Dm
-	 K3iGT4SMJfnv7plQZdCFugOKWw5oXgWOEtw/VnMz7vAuGvdkYYXsGl2khUIfLP4q1W
-	 2yUuadg0FZnHsSjd0ZeE6czeus0mcNQusV0+fSJGqlRPQ++r8pN5+0Qql942U/9iTB
-	 agVa5yPJqIkKs/gZH5gW4umb8Gv0bhoDbSnlaq8SiJr3tMKaaMgaVRNr62CS1+qCv0
-	 tZgbyRCp20oIQ==
+	b=LqqeF/iJaW2SL6kaq5B7Gg5biJKDjXYb/ghEhhcbZFM5+6H0UxanehvkgQtGpQCiG
+	 LjLnSM40jhLWFFQ5kZRTR7eKHuQ2AlRFBdxZo4H8HqGT8WWNx7KKFpxNw+Usih8HGk
+	 kSMHVmtS+dnKXJMlmNJKTf7vfOeu3/ivWTSikmdLmDoVk9vJTxuen1JhyUum9nq422
+	 ivkacrQeNfRb6xv/zqmwtnxBEIXcilnrnE29RsCeJeWIMIDB1w3tQF078lLGIrr7dD
+	 3hA8DxIPlKJKDyolFPzTollsNXFR/vQbXVGUELUmfPOjZ1vnAW4PhuWVfbwMTCK5qm
+	 SmDoF+wTSspEA==
 Received: from rostedt by gandalf with local (Exim 4.99.4)
 	(envelope-from <rostedt@kernel.org>)
-	id 1wzbk3-00000008PHU-3RVF;
+	id 1wzbk3-00000008PGU-2ByI;
 	Thu, 27 Aug 2026 11:10:11 -0400
-Message-ID: <20260827151011.689123441@kernel.org>
+Message-ID: <20260827151011.389282397@kernel.org>
 User-Agent: quilt/0.69
-Date: Thu, 27 Aug 2026 11:09:56 -0400
+Date: Thu, 27 Aug 2026 11:09:54 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
@@ -42,9 +42,10 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Deepanshu Kartikey <kartikey406@gmail.com>,
  Haotian Zhang <vulab@iscas.ac.cn>,
  Hui Su <sh_def@163.com>,
- Vincent Donnefort <vdonnefort@google.com>
-Subject: [for-linus][PATCH 7/7] samples/ftrace: Fix kthread_stop() on ERR_PTR in
- ftrace-direct-multi-modify
+ Vincent Donnefort <vdonnefort@google.com>,
+ stable@vger.kernel.org,
+ syzbot+3ef80b4ed02226d04a06@syzkaller.appspotmail.com
+Subject: [for-linus][PATCH 5/7] eventfs: Initialize ei->children and ei->list in init_ei()
 References: <20260827150949.304280511@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -54,50 +55,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-From: Haotian Zhang <vulab@iscas.ac.cn>
+From: Deepanshu Kartikey <kartikey406@gmail.com>
 
-ftrace_direct_multi_init() assigns kthread_run()'s return value to
-simple_tsk without an IS_ERR() check. When kthread_run() fails it
-returns ERR_PTR(-ENOMEM), but init still returns 0, so the module loads
-with simple_tsk holding an error pointer. On unload,
-ftrace_direct_multi_exit() then passes that ERR_PTR to kthread_stop(),
-leading to a null-pointer-dereference.
+eventfs_create_dir() allocates the eventfs_inode and initializes it with
+init_ei(). But this does not initialize the eventfs_inode list_heads. If
+the eventfs_create_dir() fails due to memory pressure, it will call
+free_ei() before it initialized the lists, and that checks to make sure
+the eventfs_inode has no children. But because the list wasn't
+initialized, it will give a false warning.
 
-Check the return value of kthread_run() with IS_ERR(); on failure,
-unregister the ftrace direct call and propagate the error code.
+Fix it by moving the list initialization into init_ei().
 
-Link: https://patch.msgid.link/20260826015050.10772-1-vulab@iscas.ac.cn
-Fixes: e1067a07cfbc ("ftrace/samples: Add module to test multi direct modify interface")
-Suggested-by: Steven Rostedt <rostedt@goodmis.org>
-Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
+Cc: stable@vger.kernel.org
+Fixes: 5790b1fb3d67 ("eventfs: Remove eventfs_file and just use eventfs_inode")
+Reported-by: syzbot+3ef80b4ed02226d04a06@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=3ef80b4ed02226d04a06
+Link: https://patch.msgid.link/20260824144653.54044-1-kartikey406@gmail.com
+Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+[ Rewrote change log ]
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- samples/ftrace/ftrace-direct-multi-modify.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+ fs/tracefs/event_inode.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
 
-diff --git a/samples/ftrace/ftrace-direct-multi-modify.c b/samples/ftrace/ftrace-direct-multi-modify.c
-index 7a7822dfeb50..b03766c6217b 100644
---- a/samples/ftrace/ftrace-direct-multi-modify.c
-+++ b/samples/ftrace/ftrace-direct-multi-modify.c
-@@ -364,9 +364,15 @@ static int __init ftrace_direct_multi_init(void)
- 
- 	ret = register_ftrace_direct(&direct, my_tramp);
- 
--	if (!ret)
--		simple_tsk = kthread_run(simple_thread, NULL, "event-sample-fn");
--	return ret;
-+	if (ret)
-+		return ret;
-+	simple_tsk = kthread_run(simple_thread, NULL, "event-sample-fn");
-+	if (IS_ERR(simple_tsk)) {
-+		unregister_ftrace_direct(&direct, my_tramp, true);
-+		return PTR_ERR(simple_tsk);
-+	}
-+
-+	return 0;
+diff --git a/fs/tracefs/event_inode.c b/fs/tracefs/event_inode.c
+index 604ba3e841d2..6e3513b13cfa 100644
+--- a/fs/tracefs/event_inode.c
++++ b/fs/tracefs/event_inode.c
+@@ -438,6 +438,8 @@ static inline struct eventfs_inode *init_ei(struct eventfs_inode *ei, const char
+ 	if (!ei->name)
+ 		return NULL;
+ 	kref_init(&ei->kref);
++	INIT_LIST_HEAD(&ei->children);
++	INIT_LIST_HEAD(&ei->list);
+ 	return ei;
  }
  
- static void __exit ftrace_direct_multi_exit(void)
+@@ -729,8 +731,6 @@ struct eventfs_inode *eventfs_create_dir(const char *name, struct eventfs_inode
+ 	ei->entries = entries;
+ 	ei->nr_entries = size;
+ 	ei->data = data;
+-	INIT_LIST_HEAD(&ei->children);
+-	INIT_LIST_HEAD(&ei->list);
+ 
+ 	scoped_guard(mutex, &eventfs_mutex) {
+ 		if (!parent->is_freed)
+@@ -802,9 +802,6 @@ struct eventfs_inode *eventfs_create_events_dir(const char *name, struct dentry
+ 	ei->attr.uid = uid;
+ 	ei->attr.gid = gid;
+ 
+-	INIT_LIST_HEAD(&ei->children);
+-	INIT_LIST_HEAD(&ei->list);
+-
+ 	ti = get_tracefs(inode);
+ 	ti->flags |= TRACEFS_EVENT_INODE;
+ 	ti->private = ei;
 -- 
 2.53.0
 
