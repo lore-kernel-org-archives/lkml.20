@@ -1,103 +1,122 @@
-Received: from sg-2-2.ptr.blmpb.com (sg-2-2.ptr.blmpb.com [71.18.227.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3729E4457BC
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:02:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 503963AFD0D
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:02:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787832145; cv=none; b=lkRmyU06Emyex5mc+7RtceUzsN2J2vhrC+K15HDZOvKEmzkJV1umfTV6ALDIY+vu6RvqNBRy5nd3BRNrBl7DJSBc1A4EYm4oIqK1XvzDZ/DN8PC3RPkV2Y713Z7WS9ZE5VNS+KZqxs6ENim3Nezo59GD9QG2a2mJ7CwANcV07Io=
+	t=1787832152; cv=none; b=P9fMqIhEjCUiiNohip0XcSXXALQa+IsbLqNbE0B3M32mO0CM87lp7+r5LKU42TP5ZpHqmh/9JcZF+cZV2TTLxFbDd/SJo8SCwKdEt5K/a1oV8rLwexSAx7RdjLa0HlLWBxuxfJooee9wcjVqv/0NC4IflgfuqtyjBTFz/WsND4Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787832145; c=relaxed/simple;
-	bh=jbkWxXQHrVMLMxBZ+dP2Rs/rmyCOkzm7VYJsPlAsWks=;
-	h=Message-Id:Content-Type:To:Subject:Mime-Version:From:Cc:Date; b=lrjAUq++z9nGYBhVISnPFgH+dOmTOP0ijIUJBHgLsQCNET4rTbj+7Z4yPbAKrfpe60ralEuln658hfSR/iTKPmeQIldp1/bbSOGufnJ/WT+8Rp/8gWdvsQp+mKp2lomq6sOcvNLAzl2m4ITB0cRBEB1vKGS4UO3LgIoljruvel8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=zkM0RHiU; arc=none smtp.client-ip=71.18.227.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
+	s=arc-20240116; t=1787832152; c=relaxed/simple;
+	bh=xy7XKD/bymlK+Ksss8En9NkgtwUVdpivc5xveG7VynQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=P0T8WNNA4m2yTcoTNnLFIdJMW1K066byYPdEk+XIP2aR0Mw0ApGHCDRVqmpwn5qUqkY15ubDcIwJIyqlfV5p5ApRsLj8TN9vXQUpThAtgFMXkD4xQo3+abeBftyyLp+IuO+4SYB9cIIyzOrJCRx0WvhGa3mDtGR6PPVAayDUjCw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bb3BqZBk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="zkM0RHiU"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604220257; d=cherr.cc; t=1787832135; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=HYI4526PYKexYfh8uePtoxBT5q11xKZ7dZyYzPC/mxU=;
- b=zkM0RHiUKAIHO2B6qvlHCAwdrvtgcdNTX7Wh4OJyYfGUxU24IQ23km763sEhTDffYonycP
- vFmpo3ueIaDfYpVIReqeFmQz9I1+BnEYFnkkXEX+KlWHLM9rIKQMqGc1KkQuiS+XltZz7F
- p9kXjGWR66BLYu/xIMzsx1NYR+dlaRyNoGGJ4tzQPwZTbTpIV9L+BAnF6utZYXHCzFyESN
- 1YVRUA22OW1xcn2v3/VQTrcdbrubCAXUZZQX+KjkEnLES7nuCxdNsKID4Mr+b9mXYpq06U
- 8WuPtywb4XGKdszaRfakiHqVvHYizMpgwkLtA6399CUk8p34uTMEFrucu9x71g==
-X-Lms-Return-Path: <lba+26a902745+2f3288+vger.kernel.org+me@cherr.cc>
-Message-Id: <20260827-go7007-i2c-buf-bound-v1-1-4555cc3d0464@cherr.cc>
-Content-Type: text/plain; charset=UTF-8
-X-Change-Id: 20260827-go7007-i2c-buf-bound-d4fbe42a4a79
-Received: from [192.168.9.107] ([111.42.148.29]) by smtp.feishu.cn with ESMTPS; Thu, 27 Aug 2026 20:02:12 +0800
-To: "Hans Verkuil" <hverkuil@kernel.org>, 
-	"Mauro Carvalho Chehab" <mchehab@kernel.org>, 
-	"Greg Kroah-Hartman" <gregkh@suse.de>
-Subject: [PATCH] media: go7007: bound EZ-USB I2C transfers to the usb_buf size
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bb3BqZBk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F33F1F00A3A;
+	Thu, 27 Aug 2026 12:02:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787832150;
+	bh=2XsxeEPR3/Rk7rjBdJvlKvo98WGdtvIZTN2N8+2tZQM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Bb3BqZBkCy12z/XYEtwhaP4jdrDxearjy1VX5lOWm3vJo60wfk987M2UrfvVy920O
+	 iw3Olx8b6JTkkj8q8ioUhGJWt5ep9HybbQExO3t7OgMDtF0sn5YLA4HE++v+JGatPj
+	 aCIrx6SRt+vZDaxlKypBpBTTTFnjLmZOVH9bKNl7Ya8QhChxdoPxFCoswIxxAk1jMC
+	 oVr6q6lg3qjxecFQOg58k2XwDKPV4d85t3eq/b41tiGIMsPYwSajuDpSgooKQsDpUo
+	 gbzWJSSYGaSOTe458yLIzoEl8Xqh12uH3tZSLcXAS1fb4ih4D46Y2ab4o9wQ0IDVK0
+	 cgUmJJrgg2L1Q==
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 04F11198006A;
+	Thu, 27 Aug 2026 08:02:19 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Thu, 27 Aug 2026 08:02:27 -0400
+X-ME-Sender: <xms:SyeQaoKo4tb8bnlH35Szx0wbWy1NZzrTNp7vZHlBAy7-Fq4uFp-eiA>
+    <xme:SyeQarFtcvavQQbVlnXTqwtmjArg-w4o6Ar6lS5E8jAZUR7yVzO1kMBJNzgQYLg2F
+    dVhC-lD7rF7m35p74_UP39j9dC5zeKcCs-ESRSXIPDxDgRCgZMm4KQ>
+X-ME-Received: <xmr:SyeQasEhQH8TtHVEGB_dbkCL2SlmpH8VDjVoQNmre6hRRmzmxEEpLkqdwsU>
+X-ME-Proxy-Cause: dmFkZTEirA8p/Fg2Vt0IQ3sbf8tygsd6g4HGOD50ZYQXuEOzvK3DDnN+iPIFENoOnOzS8y
+    jl4cteOEz9eDzItp1psFvzkCM8nSgtIDdtXPBJUOsZUni9pif7kyC1W52Cbg5Y5o4uXe65
+    VqjwEt9ummVrtTdk+rpysdpOiyf5vZ9yetWZQoeBBoc+hPU4GIoq6romIJ6qEM6rH+0v7t
+    OBnCBYkMaKf1tYtVOe0M2Ct7auJ71LhpDbgT1P/lz9P3MFwvlMkwlj2+xrVs8UmZMr74kE
+    RP/8923JcU3qWpmArRahVMHSYtCWOWanNLthEMna1K6MswnvpxEy649NmN9nHdrRrGzBbW
+    W/k1jezLaTAJc73o/EXawFGSUYoJR4c+TXIzR7h20OG7HDRGWp0bK9L+wkAlAJYhtry1YW
+    sJ6WIBHNqylTjDtXfscT6bsb+fxgd+t/Ew3ALSICZinX2t+XlOJp4HolZ4C7IdMTv4hHWH
+    +t8SZPqTgfyzBoelXA+4SfIjRWtn9U2ZpWT4mGQvrNivXc7daUyWHp3sDOkyxYDXoQcmbq
+    yV4DrKa+59naxi6Pj7cBVsnTFEGxK7FsGKZcsuXdDqAdLJIuVE6szwyIGDdiPnskEaEVih
+    QWuXHPSyTDwaLSAQhXmFzfXcK8Uhx2Pk992kJhYYzXVdDq7ovWBWIfhGRHxg
+X-ME-Proxy: <xmx:SyeQas6x_CJAKC10gEebMtWvee83j2n4rr6KZqH9u-QrgV25nhpENA>
+    <xmx:SyeQaobfSR2oXdZfYfuMbYFgWhmZIlwMBfH9GtmIZCEj6lSEoQBxbQ>
+    <xmx:SyeQaoswysIcl7AWGL07Q0fQFEhknHXPx5s0slrJlXtovuG8C79AOg>
+    <xmx:SyeQai2eUUcBLktxZoPLt_q8cP0i2UUXT3PadRIqdG8xhqrvOK51Fw>
+    <xmx:SyeQaioTmw4oBvOWObMpNP3HJglgHG0vOGhDDJbax1PZhaE0uqr0wCVD>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 27 Aug 2026 08:02:17 -0400 (EDT)
+Date: Thu, 27 Aug 2026 13:02:16 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Hugh Dickins <hughd@google.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ 	Ackerley Tng <ackerleytng@google.com>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ 	Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Barry Song <baohua@kernel.org>, 	Binbin Wu <binbin.wu@linux.intel.com>,
+ Christian Brauner <brauner@kernel.org>, 	Christoph Hellwig <hch@lst.de>,
+ Christoph Lameter <cl@gentwo.org>,
+ 	Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ David Hildenbrand <david@kernel.org>, 	JP Kobryn <jp.kobryn@linux.dev>,
+ Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>,
+ 	Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <ryncsn@gmail.com>,
+ 	Lance Yang <lance.yang@linux.dev>, Leonardo Bras <leobras.c@gmail.com>,
+ 	Lorenzo Stoakes <ljs@kernel.org>, Marcelo Tosatti <mtosatti@redhat.com>,
+ 	Matthew Wilcox <willy@infradead.org>,
+ Mel Gorman <mgorman@techsingularity.net>,
+ 	Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>,
+ Minchan Kim <minchan@kernel.org>, 	Muchun Song <muchun.song@linux.dev>,
+ Oscar Salvador <osalvador@suse.de>,
+ 	Peter Zijlstra <peterz@infradead.org>, Qi Zheng <qi.zheng@linux.dev>,
+ Rik van Riel <riel@surriel.com>,
+ 	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ 	Suren Baghdasaryan <surenb@google.com>,
+ Vlastimil Babka <vbabka@kernel.org>,
+ 	Yang Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>,
+ Zach O'Keefe <zokeefe@google.com>, 	Zi Yan <ziy@nvidia.com>,
+ linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ 	linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH 07/25] mm/fbatch: LRU_NEXT_ACTIVATE bit to optimize
+ folio_activate()
+Message-ID: <apAllneItXmyjRPo@thinkstation>
+References: <14a16945-529b-8bc0-ab38-3ea97e54e223@google.com>
+ <16b39f43-d91e-7b23-900e-90cec13837ff@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: "Shengzhuo Wei" <me@cherr.cc>
-X-B4-Tracking: v=1; b=H4sIADsnkGoC/yXMTQ7CIBBA4as0s3YSOiGlehXjgp+hThfQgBiTp ncX6/JbvLdD5SJc4TbsUPgtVXLqGC8D+KdNC6OEbiBFk5rJ4JKNUgaFPLoW0eWWAgYdHWuy2po r9HQrHOVzbu+Pv2tzK/vX7wXH8QXT0grmeAAAAA==
-X-Original-From: Shengzhuo Wei <me@cherr.cc>
-Cc: <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<stable@vger.kernel.org>, "Shengzhuo Wei" <me@cherr.cc>
-Date: Thu, 27 Aug 2026 20:02:04 +0800
-X-Mailer: b4 0.16.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <16b39f43-d91e-7b23-900e-90cec13837ff@google.com>
 
-go7007_usb_i2c_master_xfer() copies msgs[i].len bytes into go->usb_buf,
-a 16-byte buffer embedded in struct go7007, without any length check.
-The adapter declares no transfer limits, so an SMBus block transfer
-issued through /dev/i2c-N can write up to 34 bytes into it and corrupt
-the struct fields that follow the buffer.
+On Mon, Aug 24, 2026 at 07:09:34AM -0700, Hugh Dickins wrote:
+> @@ -355,6 +356,8 @@ bool lru_add_del_folio(struct folio *folio)
+>  	/* BUG_ON(folio_test_lru(folio)); */
+>  	if (!(folio->lru_next & BIT(LRU_NEXT_BATCHED)))
+>  		return false;
+> +	if (folio->lru_next & BIT(LRU_NEXT_ACTIVATE))
+> +		folio_set_active(folio);
+>  	folio->lru.next = LIST_POISON1;
+>  	/* BUG_ON(folio->lru_next & BIT(LRU_NEXT_BATCHED)); */
+>  	return true;
 
-Bound the transfer size with i2c_adapter_quirks so the I2C core
-rejects oversized messages before they reach the driver.
+folio_activate()'s try_cmpxchg() can land in between two lru_next reads.
+Logically, it is safe but I suspect KCSAN would not be happy about it.
 
-Fixes: 7955f03d18d1 ("[media] go7007: move out of staging into drivers/media/usb.")
-Cc: stable@vger.kernel.org
-Cc: Hans Verkuil <hverkuil@kernel.org>
-Signed-off-by: Shengzhuo Wei <me@cherr.cc>
----
-The EZ-USB I2C adapter in the go7007 driver copies message payloads
-into the 16-byte usb_buf embedded in the go7007 device struct without
-any length limit, so an SMBus block transfer through /dev/i2c-N can
-write past the buffer and corrupt the struct fields that follow it.
-Bound the transfer size through i2c_adapter_quirks.
----
- drivers/media/usb/go7007/go7007-usb.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+Maybe READ_ONCE() here?
 
-diff --git a/drivers/media/usb/go7007/go7007-usb.c b/drivers/media/usb/go7007/go7007-usb.c
-index c0cb92fa6ab9..867548d655b3 100644
---- a/drivers/media/usb/go7007/go7007-usb.c
-+++ b/drivers/media/usb/go7007/go7007-usb.c
-@@ -1029,10 +1029,16 @@ static const struct i2c_algorithm go7007_usb_algo = {
- 	.functionality	= go7007_usb_functionality,
- };
- 
-+static const struct i2c_adapter_quirks go7007_usb_quirks = {
-+	.max_write_len	= 12,
-+	.max_read_len	= 15,
-+};
-+
- static struct i2c_adapter go7007_usb_adap_templ = {
- 	.owner			= THIS_MODULE,
- 	.name			= "WIS GO7007SB EZ-USB",
- 	.algo			= &go7007_usb_algo,
-+	.quirks			= &go7007_usb_quirks,
- };
- 
- /********************* USB add/remove functions *********************/
+Other note, page_pool (pp_magic) seems to be using bit 2, but I don't
+think there's a real conflict.
 
----
-base-commit: 075b74841bd0065a3bda3440873c747938e69b68
-change-id: 20260827-go7007-i2c-buf-bound-d4fbe42a4a79
-
-Best regards,
---  
-Shengzhuo Wei <me@cherr.cc>
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
