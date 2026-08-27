@@ -1,90 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp153-141.sina.com.cn (smtp153-141.sina.com.cn [61.135.153.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 122FC427F91;
-	Thu, 27 Aug 2026 09:43:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94BFF429022
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:43:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=61.135.153.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787823822; cv=none; b=RG8eGn9w7rslFgvbbtAbCUUki5vqsrd7RWnSoqorUnyOdM8jpWgs4OtXS0iJRlcOi+LTwabW4bki5AcxCyqhvWE7xr87e63ee8OOupQ+0wABhpHLgQeVKxZVOc3S6sA+tIYOo6faUDtyXsC8EOMj3dRZPdwQvAQhENgSptBJBz8=
+	t=1787823843; cv=none; b=EAy4Ew5bU99RzHJqVfl01FkYaRmw1YR/6YsyJPcNvhj4/P0Jps55tBvOdhhT8k9VaaWPEiZoKV33ssLut2PYcA2c3+TEug1P4rlWgZYS2qetJZSbYR/2f1X0NhLf21aCWcOPrIdDIfB7UrkF7LJmF4ta57QCBGohFgHMP9kOukQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787823822; c=relaxed/simple;
-	bh=Kml3UFpqKmuyNf6MPWVigrUiYTDyfoerBU7UcsXJHck=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hiTInyXVJvDuWXEVKfKaGoWVK83iHB98NFNZvW1njBTi6OW7qeoc35cvQj5xPnflpCrdPLyZBX1+28oaBrYTwZDaiAX/HqnHc8r7DR/0L6PgMjxz3cYKR8Vd1AaxwsRVKbQQzqQpNTjoe3Z9stydErLQnyxm1hTA5woparlZ4XA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PpGWjk39; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787823843; c=relaxed/simple;
+	bh=+/S5JdccxRXxb1Tws1/ESquT7DfOnvAO0+7CCZj3fjA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=lsx3zeoE6e8sygviX311B438NhdTr9d7TBnd0gf4hEF7hyXi2AwkLiO9ivgCOo/twOCC8nLGaX24Y7HcsyW+5ZTIa34Q/z/w599C8ewJnSGQOVrnZom5qzAJGO4jpKdvEVxKMg0tf20o2UMo9GzpDl4bXXjpWKBl65rIKZkvQ2U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=HhIUssrl; arc=none smtp.client-ip=61.135.153.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PpGWjk39"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EA2B1F000E9;
-	Thu, 27 Aug 2026 09:43:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787823817;
-	bh=Y4cZ0UoCXxH9qXg2RynlUOzzxRFmakF4LP9Cl47C+ak=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PpGWjk39akJN778WuJcEBg1B5/32So6V0zQonbpf5DoI+Q4CWlAJJNNIh3pfjv8md
-	 u91T8xEgnqA6GLetH4c/IDHs2exbv4ofeoBiCnY97zOljqsJYym6b4a8o+87X4x1G3
-	 rrFBWwA+hsMUnIt3jPcU4puz0Dan2h997V21PNLqzvxlROPPyBbRG4Th5vdsBanIkR
-	 8UmZrfuCz5sNHFQ3KdvINnlMxEQpAkmcFbAFa10BZFILKRq8JsRbOZgzKWg4fM8pyA
-	 V6zlmMojIYiNFCHItBvQCi9VZk9Zww7EocOGrPD6XrtS/0Oq++89LPJ+kSX6LQlmca
-	 lF90qjvqR15nw==
-Received: from johan by xi.lan with local (Exim 4.99.4)
-	(envelope-from <johan@kernel.org>)
-	id 1wzWdy-00000002iAA-30xi;
-	Thu, 27 Aug 2026 11:43:34 +0200
-Date: Thu, 27 Aug 2026 11:43:34 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Andi Shyti <andi.shyti@kernel.org>
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/3] i2c: dev: fix blocked adapter deregistration
-Message-ID: <apAGxmeDmdTTYgCQ@hovoldconsulting.com>
-References: <20260827090804.638565-1-johan@kernel.org>
- <20260827090804.638565-2-johan@kernel.org>
+	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="HhIUssrl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1787823836;
+	bh=SxUaRcD6PsFyAO3d5Jd9la0pXzi8eGzLdE8LTLuL1/A=;
+	h=From:Subject:Date:Message-ID;
+	b=HhIUssrl6579qoVf/80FJX0U5RUPklFerQ2VPqvf4t6IHOPhnZ5WfzlqoSanf1uha
+	 dwTGY7cVC+9p4xcCm1bFR2qIVa/PmmTUSKDhRAUu5lhHHh+qBQR7d9BAo3v8jTwFcQ
+	 ZZLNyqUquJvAZ3galTLxDxH5YbcOlVwpclCAu7Ok=
+X-SMAIL-HELO: lxu-ped-host..
+Received: from unknown (HELO lxu-ped-host..)([111.198.231.89])
+	by sina.com (10.54.253.31) with ESMTP
+	id 6A9006CE00005EF7; Thu, 27 Aug 2026 17:43:47 +0800 (CST)
+X-Sender: eadavis@sina.com
+X-Auth-ID: eadavis@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=eadavis@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=eadavis@sina.com
+X-SMAIL-MID: 8287396815987
+X-SMAIL-UIID: 709DCF60E8174745ABCBBA26089F6AF7-20260827-174347-1
+From: Edward Adam Davis <eadavis@sina.com>
+To: eadavis@sina.com
+Cc: almaz.alexandrovich@paragon-software.com,
+	linux-kernel@vger.kernel.org,
+	ntfs3@lists.linux.dev,
+	syzbot+04cf7b83f6dd2c3a54c8@syzkaller.appspotmail.com,
+	syzkaller-bugs@googlegroups.com
+Subject: [PATCH v2] fs/ntfs3: Refine the ni cleanup
+Date: Thu, 27 Aug 2026 17:43:40 +0800
+Message-ID: <20260827094340.174628-1-eadavis@sina.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260827081556.168390-1-eadavis@sina.com>
+References: <20260827081556.168390-1-eadavis@sina.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827090804.638565-2-johan@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Aug 27, 2026 at 11:08:02AM +0200, Johan Hovold wrote:
-> The i2c subsystem allows controllers to be used by non-child devices
-> that may remain registered after an adapter goes away.
-> 
-> To handle this, adapter deregistration blocks until the last reference
-> to the adapter is released. Albeit unorthodox, this is mostly fine for
-> the vast majority of controllers but can cause some trouble when
-> controllers reside on hotpluggable buses.
-> 
-> Specifically, userspace can prevent an adapter from being deregistered
-> indefinitely by holding an i2c-dev character device file open. And with
-> USB attached controllers this prevents further hub events from being
-> processed by the parent hub until the file is closed.
-> 
-> Fix the i2c-dev implementation by dropping the additional reference
-> taken at open() and using an rwsem to make sure the adapter is only
-> accessed while registered.
-> 
-> Note that before commit 611e12ea0f12 ("i2c: core: manage i2c bus device
-> refcount in i2c_[get|put]_adapter") an adapter going away would instead
-> have resulted in a use-after-free.
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Johan Hovold <johan@kernel.org>
+A failure to create a new inode triggered an issue [1] during inode
+reclamation because ni->base had not been initialized.
+
+Initialize ni->base earlier to ensure it can be reclaimed correctly.
+
+[1]
+KASAN: null-ptr-deref in range [0x0000000000000210-0x0000000000000217]
+RIP: 0010:run_close fs/ntfs3/ntfs_fs.h:1034 [inline]
+Call Trace:
+ ni_clear+0x5d/0x630 fs/ntfs3/frecord.c:110
+ evict+0x624/0xb50 fs/inode.c:822
+ ntfs_new_inode+0x8c/0x120 fs/ntfs3/fsntfs.c:1719
+ ntfs_create_inode+0x6e7/0x3420 fs/ntfs3/inode.c:1520
+ ntfs_mkdir+0x37/0x50 fs/ntfs3/namei.c:234
+
+Fixes: be310476e886 ("fs/ntfs3: Add basic support for alternative data streams")
+Reported-by: syzbot+04cf7b83f6dd2c3a54c8@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=04cf7b83f6dd2c3a54c8
+Tested-by: syzbot+04cf7b83f6dd2c3a54c8@syzkaller.appspotmail.com
+Signed-off-by: Edward Adam Davis <eadavis@sina.com>
+---
+v1 -> v2: unify email addresses
+
+ fs/ntfs3/fsntfs.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/fs/ntfs3/fsntfs.c b/fs/ntfs3/fsntfs.c
+index 97c04ab2763a..e439ba59d999 100644
+--- a/fs/ntfs3/fsntfs.c
++++ b/fs/ntfs3/fsntfs.c
+@@ -1700,6 +1700,7 @@ struct ntfs_inode *ntfs_new_inode(struct ntfs_sb_info *sbi, CLST rno,
+ 		return ERR_PTR(-ENOMEM);
  
->  static int i2cdev_open(struct inode *inode, struct file *file)
->  {
-> -	unsigned int minor = iminor(inode);
-> +	struct i2c_dev *i2c_dev = container_of(inode->i_cdev, struct i2c_dev, cdev);
-> +	struct i2c_adapter *adap = i2c_dev->adap;
+ 	ni = ntfs_i(inode);
++	ni->base = ni;
+ 
+ 	err = mi_format_new(&ni->mi, sbi, rno, flag, false);
+ 	if (err)
+@@ -1711,8 +1712,6 @@ struct ntfs_inode *ntfs_new_inode(struct ntfs_sb_info *sbi, CLST rno,
+ 		goto out;
+ 	}
+ 
+-	ni->base = ni;
+-
+ out:
+ 	if (err) {
+ 		make_bad_inode(inode);
+-- 
+2.43.0
 
-Bah, I of course need to take the rwsem here as well as pointed out by
-Sashiko.
-
-Let me respin.
-
-Johan 
