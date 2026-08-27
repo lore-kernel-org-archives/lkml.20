@@ -1,123 +1,106 @@
-Received: from mta0.migadu.com (out-225.mta0.migadu.com [91.218.175.225])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61B79332615
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:05:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.225
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BC2F332615;
+	Thu, 27 Aug 2026 07:05:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787814319; cv=none; b=PLewDqY6vum3Gi5eRibHL1/kin95dj5KvvaeuevW3Lu5Wcv7oWwXIaGoSRHRN35UQqF5h8nG3rIXo6dBCIkX1K5UXJcN79PvjF3fP4yjoVPSRfmRQp1qLe/fiYgXAwB0VwzQV2dQn6bY5syZiDNR1dG69O9GiZakWz4Bw+CRjB4=
+	t=1787814327; cv=none; b=oGUroaBZXfTJW97Xi2cDLsTNGFhWh698G/ax4InwLnXR31UbTkd8grISsb6UpJI6tPywmd3YdhzRbKYDJSRym/WuoPLZZaz/WD5I8keWibGLfFaVpgrq4cA9QUGd1gs7aXRz32JJ8Kk+G5nSSy4WfntzGZvqDaPAgSRz9p5SzrI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787814319; c=relaxed/simple;
-	bh=J/q53GV7BVk1Lr8b5iatkIuwYAEhyAk7tPRMPNXwllA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uCz9G2zkcgQ7pzW4fo43lzYgQnBayHO3vadoB3VoXLFUwoE92zpcYQVdn9GOEFd5juFnIcV1GLB/uzMlVCP6+9XjK6aRJ0Py0TRHDWB2riLgwcde71dceB9DFBqpEbD1PJH7IKQL/4AS/pCv5qhXi8/dUDalXH2b8kX4qTBzyUk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=JS8qtwgi; arc=none smtp.client-ip=91.218.175.225
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787814327; c=relaxed/simple;
+	bh=+r9mEjlNZ0g+i2JYBEDW6avkvezIwKOf1doASyqzTA8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=O0CIQ/RytGO8Ru9+1XdLzrylQL1CS8wqP9e5YfjLYB6Wifs5MVXrFvL7XDWcqQ5l6RHB2lb0frGo+rsNA8cV7NS/XIXlXbWDj5XfiKU/ZZJ0R7FCtnfdh31BAbMG8QT1mRpopQCy2zhGdwIhh3a18FGk16Ifikzg6WOlu5psrrE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DVMw4U82; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="JS8qtwgi"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=J/q53GV7BVk1Lr8b5iatkIuwYAEhyAk7tPRMPNXwllA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787814315; v=1; x=1788419115;
- b=JS8qtwgiAZQ2Qdf174qcLU+hXBqNFytk0d5q54hscRbTbdaQyVC7fapU+KR9IpoIeUy2I/+q
- schgzd2laIWC8AZ/LTAmoZdTczp91BsK8F6lUBWy4aRFPZeuc+3FH08g/VVKpbjOlm3PolQSreq
- 1pQ3LvY/Tv9syNnfrYRe2IWY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: from [IPV6:2408:820c:b608:6660:20e9:11e4:d882:2911] (2408:820c:b608:6660:20e9:11e4:d882:2911)
-	by smtp.migadu.com with ESMTPS id 30122852869e774a;
-	Thu, 27 Aug 2026 07:05:15 +0000
-X-Mizu-Trace-ID: 30122852869e774a
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <512af244-e4af-4d85-9be6-b3bd8141e092@linux.dev>
-Date: Thu, 27 Aug 2026 15:05:09 +0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DVMw4U82"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787814326; x=1819350326;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=+r9mEjlNZ0g+i2JYBEDW6avkvezIwKOf1doASyqzTA8=;
+  b=DVMw4U82gf+899Fe9e8e6JM3sq8VIj8tigC4Rg1k87al4hj9v1p70Hfx
+   byOWzBoFoVx4EjvSaoG2ZWOD5xxYlIsmD4pxJdEBgW+M+V8ljycQIQTAQ
+   RqRRXEvFbNCN2q3j96amJwOlaEm6M/np7QdSR8hhiwjE3vqSkoMJ3aTUZ
+   cCEMX9lT4NPXUJXfH7H7Y7W11e3tXFSIXEizjRmNCFLSzLPvA4QzbpxLO
+   y5eYyd1nkLWGuNBok1218eD8HFvv4HUAkAIeCCs2Yhl/t239XF/t2q/Xg
+   2DsQoapeWewvtd7P5PsOx1BKqjhJfeaLfA1pNn6Bya6NtrXca8dgWeVH+
+   A==;
+X-CSE-ConnectionGUID: B6QPxtwvS2mOEC3GXHhnig==
+X-CSE-MsgGUID: O6fbMe6pTPiYtzeFrBRprQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="88071160"
+X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
+   d="scan'208";a="88071160"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 00:05:25 -0700
+X-CSE-ConnectionGUID: kyN3eVXuQ2iWhD6Sgj/WVQ==
+X-CSE-MsgGUID: HsHMs/ogQhuXmxhDOqbHng==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
+   d="scan'208";a="267827068"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.125])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 00:05:22 -0700
+Date: Thu, 27 Aug 2026 10:05:19 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Yash Suthar <yashsuthar983@gmail.com>
+Cc: jic23@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
+	andy@kernel.org, grondon@gmail.com, linusw@kernel.org,
+	hexlabsecurity@proton.me, sakari.ailus@linux.intel.com,
+	srinivas.pandruvada@linux.intel.com, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/3] iio: accel: bmc150: use DMA-safe buffers for
+ regmap bulk reads
+Message-ID: <ao_hr-0BelQWI27t@ashevche-desk.local>
+References: <20260825085156.212042-1-yashsuthar983@gmail.com>
+ <20260825085156.212042-3-yashsuthar983@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net: fix refcnt_tracker use-after-free on netns
- creation failure
-To: Eric Dumazet <edumazet@google.com>,
- Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>
-Cc: netdev@vger.kernel.org,
- syzbot+d3f912a2e30e2079a512@syzkaller.appspotmail.com,
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Christian Brauner <brauner@kernel.org>, Kuniyuki Iwashima
- <kuniyu@google.com>, Jan Kara <jack@suse.cz>,
- Qiliang Yuan <realwujing@gmail.com>, Jeff Layton <jlayton@kernel.org>,
- linux-kernel@vger.kernel.org
-References: <20260827052219.290380-1-jiayuan.chen@linux.dev>
- <CANn89iKK5jxVa34F7QMPjp5wormMQrZgoK4THJCqVp76Tw1NNA@mail.gmail.com>
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-In-Reply-To: <CANn89iKK5jxVa34F7QMPjp5wormMQrZgoK4THJCqVp76Tw1NNA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260825085156.212042-3-yashsuthar983@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
+
+On Tue, Aug 25, 2026 at 02:21:55PM +0530, Yash Suthar wrote:
+> The FIFO and read_raw buffers are passed to regmap bulk/raw reads,
+> which is not DMA-safe. Moved them into struct bmc150_accel_data
+> after scan, each buffer are protected by mutex, placing them
+> after ensure DMA safety.
+
+...
+
+>  		j = 0;
+>  		iio_for_each_active_channel(indio_dev, bit)
+> -			memcpy(&data->scan.channels[j++], &buffer[i * 3 + bit],
+> +			memcpy(&data->scan.channels[j++],
+> +			       &data->fifo_buff[i * 3 + bit],
+>  			       sizeof(data->scan.channels[0]));
+
+While this works, I find a bit confusing usage of [j++] and [0] together.
+
+IIUC the below is an equivalent
+
+		iio_for_each_active_channel(indio_dev, bit) {
+			__le16 *val = &data->scan.channels[j++];
+
+			memcpy(val, &data->fifo_buff[i * 3 + bit], sizeof(val));
+		}
+
+and if go further we may use asm/byteorder.h macros instead of plain memcpy().
+
+...
+
+Maybe this is for a separate change, I dunno. I leave it to others to decide.
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-在 8/27/26 2:56 PM, Eric Dumazet 写道:
-> On Thu, Aug 27, 2026 at 7:22 AM Jiayuan Chen <jiayuan.chen@linux.dev> wrote:
->> The copy_net_ns() error path tears the net down via net_passive_dec(),
->> which only exits notrefcnt_tracker. refcnt_tracker is exited in
->> __put_net(), which this path never reaches, so it is left alive.
->>
->> Since ref_tracker_dir_init() started registering a debugfs file per
->> dir, that file must be dropped by ref_tracker_dir_exit(). The missing
->> exit leaves the file pointing at the freed net, so reading it walks
->> net->refcnt_tracker.lock and hits a use-after-free.
->>
->> The missing exit has been there all along, but before the debugfs file
->> refcnt_tracker was just an in-memory ledger and empty on this path, so
->> skipping it leaked nothing and did no harm. Only the commit below, which
->> gives every dir a debugfs file, turned it into a use-after-free, so
->> Fixes points there.
->>
->> Exit refcnt_tracker on the failure path.
->>
->> Fixes: 65b584f53611 ("ref_tracker: automatically register a file in debugfs for a ref_tracker_dir")
->> Reported-by: syzbot+d3f912a2e30e2079a512@syzkaller.appspotmail.com
-> Missing `Closes:` tag makes analysis cumbersome.
->
->> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
->> ---
->>   net/core/net_namespace.c | 4 ++++
->>   1 file changed, 4 insertions(+)
->>
->> diff --git a/net/core/net_namespace.c b/net/core/net_namespace.c
->> index a91d2b58aadd..0c3f169d9afb 100644
->> --- a/net/core/net_namespace.c
->> +++ b/net/core/net_namespace.c
->> @@ -591,6 +591,10 @@ struct net *copy_net_ns(u64 flags,
->>                  key_remove_domain(net->key_domain);
->>   #endif
->>                  put_user_ns(user_ns);
->> +               /* setup_net() failure is not routed through __put_net(), so the
->> +                * refcnt_tracker (and its debugfs file) has to be released here.
->> +                */
->> +               ref_tracker_dir_exit(&net->refcnt_tracker);
->>                  net_passive_dec(net);
->>   dec_ucounts:
->>                  dec_net_namespaces(ucounts);
-> I am a bit confused. I thought this was already discussed and fixed by
-> Tetsuo Handa?
->
-> f85dc137aabf ("net: add missing ref_tracker_dir_exit() to net_passive_dec()")
-> should be fixing this?
-
-
-Thanks Eric, now I find it it in net tree. I should anylyze it base net 
-tree not net-next.
-
-Please ignore my patch.
-
-
-pw-bot:cr
-
-
->
-> Tetsuo also followed up with 3220b62fbb8a  ("net: fix a resource leak
-> in copy_net_ns() error handling path").
