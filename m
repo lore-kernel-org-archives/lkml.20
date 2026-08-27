@@ -1,36 +1,35 @@
-Received: from mta0.migadu.com (out-205.mta0.migadu.com [91.218.175.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 611A6360EF9
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:59:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 655C9442380;
+	Thu, 27 Aug 2026 17:00:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787849975; cv=none; b=RJ9FjZltLg9qWEB+pActwkd5lN812ydFqE8TGf5MMFKH7xN2p/xSxlugbGPp5IvPDM3z9tIU9MubDNXpr1t843mVBjVNgrJ/hMrjMbhOT1OkYku1WhUfHbnIQjO4vqlVHEDZW3Ve4ZUMxvqih03EQrp1h+eolGLdwl2zkF/6ncg=
+	t=1787850054; cv=none; b=YNcUsZoHloTq2OkwGpWsAXdpa7FMneoVUBoPPmot9V+O5Pf4AepOi8cZnbod74SVaUmo38h0n3SipecrRTclvSYxMpYQ6J0lrjtG3hD2O2c1VtVGzTIYAgAIb3IluezxvlOH9SPalSGzrsFBjDhrqbOvAwD6Jhr+0iierdgtPY8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787849975; c=relaxed/simple;
-	bh=g44yd/hweVFdZ2tdpXc5nNvC9GyyPylCXjjvYMZpNQ8=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=U10sBhsCFCv4r2dm9tvNIAAPGguGyb2tNGFe3Ze1/bwAXb7FlDDFp1j1Yb4YMEd5e3F0Bh2tFj+yQ6NJEWf6ZpP4Co22r3ISUTLAfhkW9jA8Qycuivylu8UfXJCqSHME7rf4fPVAhwBPxuLLCe5nyZmrI7FJuTI0o1Jhcm0tmj4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=JJIWKSU3; arc=none smtp.client-ip=91.218.175.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787850054; c=relaxed/simple;
+	bh=8CPFdDy6NOfigbNONpR1ggpFFYNQfVkCaVZha2P6VmU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Wv3dQR9VVQqKSQf2QQVDxWCMZxPx8XbDZYO45mf4CYzmznLXFM79JI3i3vJACUCciwxCs73SZKuMFx5eu0bokiZ4dnzlKQXFYw3j9I8BmF3jAPTUUC8aQYROtf1ijbf3CNestc2L3PEiKOtNLryVSN/0LsMN6kuH3vy/MtusUUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=GPQLHb1i; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="JJIWKSU3"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=g44yd/hweVFdZ2tdpXc5nNvC9GyyPylCXjjvYMZpNQ8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787849971; v=1; x=1788454771;
- b=JJIWKSU3wPXkKOliZEhMd2ETQUEShCmsOSKakU3F+XYrL4hGvnB/L1G0eqTYajjGNvqNKR7I
- G6xsSAyTcMLpNfWrTE/LHpq+ZLclZaaPTRv8q/yDHGihog+A69MrUq7jtRoX7v+Sv2/D3OLXr4u
- 2bxIJ+l1aQYiYPCDC+DjOfSc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id cde2c297ff49e951;
-	Thu, 27 Aug 2026 16:59:31 +0000
-X-Mizu-Trace-ID: cde2c297ff49e951
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <542d7a2c-a435-4b0c-b860-42e2209eac3a@linux.dev>
-Date: Thu, 27 Aug 2026 09:59:18 -0700
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="GPQLHb1i"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9FE9511D051;
+	Thu, 27 Aug 2026 19:00:35 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1787850039;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=OD3WDKVPKy4gFKDQyvFk0U8Q8vSh1Hf0rGi/7d2Ce6I=;
+	b=GPQLHb1iRWr07a51QmhBSJYtn/FKuxaKOgOQIUO2Un5lYyCRvSZJ9MKrvoSUN9nETTGrQh
+	QoE4gpk2xigPEGZFO3Id4JPgU1IOHNIKsbj1dj4njz+hIK5jZsx6IToaA7jmRocIsq/oWK
+	RgVh4dLbArZL7B6KD7zRjrRTj3TW4TGdQzGmvU3ylGVzXxAm5IHU3x2eyDa8r0VUt+wCda
+	A39LgKSS566fU7hIydInXNYlArHQnJaZyj+QKaYrUlFUhhA7YimXEuRRdkYKC1XQNLkShh
+	fQO4l3ipFHSygK9CxVQV/xOzbbXQNVfieZ+IXrvQ4zdA1v0KfbNpuV8XuSn0mw==
+Message-ID: <34c48ff1-524f-4d24-b53f-99e7171d08db@nabladev.com>
+Date: Thu, 27 Aug 2026 16:53:36 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,58 +37,63 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next v7 0/9] bpf: add support for KASAN checks in
- JITed programs
-From: Ihor Solodrai <ihor.solodrai@linux.dev>
-To: =?UTF-8?Q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- John Fastabend <john.fastabend@gmail.com>,
- Andrii Nakryiko <andrii@kernel.org>, Martin KaFai Lau
- <martin.lau@linux.dev>, Eduard Zingerman <eddyz87@gmail.com>,
- Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>,
- Jiri Olsa <jolsa@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
- Shuah Khan <shuah@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Andrey Konovalov <andreyknvl@gmail.com>,
- Emil Tsalapatis <emil@etsalapatis.com>, Yafang Shao <laoar.shao@gmail.com>
-Cc: ebpf@linuxfoundation.org,
- Bastien Curutchet <bastien.curutchet@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, bpf@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-References: <20260822-kasan-v7-0-99afee6ef7fd@bootlin.com>
- <DKWOY12R4ZJJ.A8KDS1DU1PHS@gmail.com>
- <1c34603a-9170-4074-b826-e98d9871e2d8@linux.dev>
- <DKZJ7GFLAU12.1WHACTBREQQV2@bootlin.com>
- <a96f8530-114d-491d-9802-83d72dfab16e@linux.dev>
+Subject: Re: [PATCH v3 1/9] dt-bindings: phy: Document ST STM32MP25 USB2-FEMTO
+ PHY
+To: Krzysztof Kozlowski <krzk@kernel.org>, linux-usb@vger.kernel.org
+Cc: fabrice.gasnier@foss.st.com, Pankaj Dev <pankaj.dev@st.com>,
+ Rahul Kumar <rahul.kumar05@st.com>,
+ =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clement.legoffic@foss.st.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Christian Bruel <christian.bruel@foss.st.com>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+ Rosen Penev <rosenp@gmail.com>, Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+ Vinod Koul <vkoul@kernel.org>, devicetree@vger.kernel.org,
+ kernel@dh-electronics.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+References: <20260822074816.548662-1-marex@nabladev.com>
+ <20260822074816.548662-2-marex@nabladev.com>
+ <7a16614a-bd1b-462a-be13-4a9c22aa588e@kernel.org>
 Content-Language: en-US
-In-Reply-To: <a96f8530-114d-491d-9802-83d72dfab16e@linux.dev>
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <7a16614a-bd1b-462a-be13-4a9c22aa588e@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 2026-08-27 9:56 a.m., Ihor Solodrai wrote:
-> On 2026-08-27 12:01 a.m., Alexis Lothoré wrote:
->>
->>  [...]
->>
->> If despite the comment above, teaching check-kernel-splat.sh how to
->> ignore the kasan selftests specific splats remains a better solution,
->> sure, I can work on this.
+On 8/27/26 2:54 PM, Krzysztof Kozlowski wrote:
+> On 22/08/2026 09:46, Marek Vasut wrote:
+>> +description:
+>> +  USB2 PHY block in STM32 is attached to USB 2.0 Host controller and
+>> +  USB 2.0 side of DWC3 DRD controller, and provides the USB LS/FS/HS
+>> +  connectivity. Both PHYs are the FEMTO-PHY, but their configuration
+>> +  bits in the system control register are different for each variant.
+>> +
+>> +maintainers:
+>> +  - Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+>> +  - Marek Vasut <marex@nabladev.com>
+>> +  - Pankaj Dev <pankaj.dev@st.com>
+>> +
+>> +properties:
+>> +  compatible:
+>> +    enum:
+>> +      - st,stm32mp25-usb2phy1
+>> +      - st,stm32mp25-usb2phy2
+>> +
+>> +  "#clock-cells":
+>> +    const: 1
+>> +
 > 
-> No need. Let's do the SPLAT_ALLOWLIST, I'll take a look at your CI PR
-> shortly.
+> As pointed out by different patchset built on top of it, this is wrong.
 
-Sorry, I assumed it's already there.
-Please submit one to kernel-patches/vmtest whenever you get a chance.
+What is wrong in this (V3) of the patchset ? I think the ST patches were 
+fixing up V2 and what they were fixing up is already fixed here in V3.
 
-Thanks you!
-
-> 
->>
->> Thanks,
->>
->> Alexis
->>
-> 
-
+> I do not understand why Fabrice Gasnier cannot reply HERE that this is
+> wrong and instead another patch is sent for in-flight code. That's not
+> your Marek problem, but lack of responsible review from ST...
+ACK
