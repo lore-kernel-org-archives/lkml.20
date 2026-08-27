@@ -1,132 +1,164 @@
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013010.outbound.protection.outlook.com [40.107.162.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64BA9370AE0
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:54:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.200
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787864045; cv=none; b=ZHRz22PJKh+CJNXPknZQJV2ILCHX04km0MGqynndT7Tqf1vj1UvtBNELVKcRfBqsm/IPt+Oo1uwUeJ+irbZt+pcleRokpFp2OQ+9LWBvRQdBoFZXwCH9sLmpzbRPG2c9hl48xgYGS/ZnVJ5u8pitfPMQB+GUdqN6RNymppPBQTU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787864045; c=relaxed/simple;
-	bh=584T2Fi+jYdHnPMPryAzdeyBmBsauq81+2zQRXO51LQ=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=ufhrbj9vvAITT7fv/zPQRn82RE4PVOCNZMgbVyxjpUCfd5WRCDCrQ4LnfkYCCD+y+Z/Sd2A3g/y4oq2EVsnPQlVfNAkzyHWskzZGIUw9C4iuhIJwDdZx2YBJNT9buBrNHzHjZbFnZGCOGHJD+QuPDahGEwEyu/oZqKDhvE1doWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NDhHjzQU; arc=none smtp.client-ip=209.85.210.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3C6A31E832
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:55:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.10
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787864138; cv=fail; b=ZrxbplKcq4QFw7kAKE4Cs57dLGsg89pfl1rratrZvhFtFQUjO4P9Addgvnu/LtRSBBC2nRa1dAm+XlkdgLwEYkvI5jdPpnxi3Y2H0t1gOeCRgV9dhKEcIb0ojYk+O0rSzBIaSQJCPZuzJb3nZTU1jijrGcYLqWVkBGFau1THkHQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787864138; c=relaxed/simple;
+	bh=fDVaxdkVLYS1f1wMDtGY9RQ73q/MDUhd06Pu3sOJwgc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=iaMcnmvRVtgIV+BkYnkaBR+syAhsbzZDCTLaCIy+9qGK2rVCr0AM3zXgqI+YZBvL3lLu0JGgHH0OxCPOCUg6T1MQK76UyrAdnhAzCWmK1YvRzWIngfqbMrSze3i6QnETUpL9UaA0rYrWm7EizbzzfYVSyBVcjKb9zBKsHn+NLTo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=XXtZCXq/; arc=fail smtp.client-ip=40.107.162.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NDhHjzQU"
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-85602449126so742424b3a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:54:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787864044; x=1788468844; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZEfQxTOKQyDG0uZqNyCVnRw0wmiuuoqTc9XyRDn+pn0=;
-        b=NDhHjzQUvh3ExnAjwNkVIJFwsPZcmuA2IniGkFO/nza1s9PQ7UM+5SBSybByx8jfzC
-         9H76VzzIzoNit3xu/+s7pMEmDNzD/0TaoOmS3lzHmaCl3jnT0cx350Cy2zY2AKZARIdx
-         UuaaQUkt10uQ2St3MJ7eZcVmDbXDw+4NTJFh8pjHVBgXnTfepFdpYbWWoX0PWX9/asJN
-         Fq+Bvtpe7qZpck9RIc+q76+2w3yqqe5rKZsboxBBolUEN2/nSmQjxLRV6Iv0be9wYMUH
-         FAx9lcKQxR5EtlqPw+mnJ4X/uuVyLHwt7LvL7KWV7uzVe5Cu4MOsoGK6wumcbonDoEFQ
-         Sq8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787864044; x=1788468844;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZEfQxTOKQyDG0uZqNyCVnRw0wmiuuoqTc9XyRDn+pn0=;
-        b=MaIXWD9PkD8EJz7UUmnBC20yoL9VHPj9Y5Z98p9qbInYyZjj25tWLxQzK3aOF7I5Uj
-         0U0jbPTy45zWOe/L/crmiq4olXckBzM0+WGaDsg5vW3Hr1IbJgysTSk4rT4RsWnlByr9
-         3T+prG9IEZMiGRSisedS6f6m47CD9YxRGnnbTgf36K6YeuVhUtkkROP5USNzmMBzVLgg
-         IcdOa6RHLg+gDolFVRQ9wCAZP/61gcK3WB35bpTRFxz9TleHUKucMp2qQS9ac7swvBJg
-         8SLuI4DGldzqgWgq35C0qvh6dH65DwdCHKyffrsZHkiCZnHiHtJAqGd7rIEp93iLAMQw
-         kiug==
-X-Forwarded-Encrypted: i=1; AHgh+Ro7M741heUQGYXCCkkx4WMYB9xpaVT1nEBJ2RZyhP8HQXaU1k0JU2nsfyvIvFZrAE87khpiHkjVUryPLYA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mtmB8rZMe3/H10EHqt5z8fJt8+7KJATnttxz2xXP5ZycC08Kh0
-	09ukf1xvHFDihUgRzzbETQqlvowXdXJWvxF4aYqeInu7X33UOz9sGfWO7JuyJ2XsUC4Um5aAvpi
-	BU6uyhw==
-X-Received: from pfbkr16.prod.google.com ([2002:a05:6a00:4b50:b0:848:5480:9ac7])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:e09:b0:851:fb36:a702
- with SMTP id d2e1a72fcca58-85629f09cc5mr4062708b3a.9.1787864043380; Thu, 27
- Aug 2026 13:54:03 -0700 (PDT)
-Date: Thu, 27 Aug 2026 13:54:02 -0700
-In-Reply-To: <ztufznh6v5md5cn56t7pvokubvbpc3yki6dhiilgebb5uq3ju3@aa4xc6wwte5r>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="XXtZCXq/"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SvJfcRZDJ3Nu2ltCIcUndinYXh6prYkiy6Xm8nWuvOUXU8YhAbNH+OWuUN4pDyQy8ElR5r1xP/H92OOMpM4m28y8l6oZwECJ2juN49TJaGfKcwqidqqsh4HSLRy5rqgVkYayV+KzG26fRuxU4Xn2GiWhE/i/En0mB/ATRH6CLnrof7kRYvxebHso8dyG959XIflgV3GyJHn5OQi1v5W46o8wjCsiqjghs24K5ExGotXMuVIvRUDGvhcvhXPOF8wlTyv1iEgfO52FXe4NLNDA+7SgXCZSm5hnx2Sk7yO6ievdd0kqnv2NPqwxhDcbccdrAyY0kR94tRsj8g3njzaj0g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hfb1g/B9d+5fvgQxZpttjcmE8zRiwL1waWPfEKOg6EY=;
+ b=eD3atW1r4Zr2DGh2ynTcv9fnWtW0cY+P8hYBQsVN9Y5WMbcXiZbRy1Yaw+BlqyRl9GagvD4v+wKYUgVZ8WN34dJ2nyCAwvdqYJfhnSOYyLem/gzTYkyLDypZ0UT9YDnrtp+Fgvb2Cui1pxKYlCo7YcyIRHYM/cBNEK9lObernz+ycj+x+VeBT7MkjbJOXHiV9gKVdhS14bOTURcrxrhzYbeIqMnOewVPEE9gPlkwW5wyum+fy+4uT44KKZ25kghkMzFTXM1Q7UOxWSbQRrNNhbERWZi2tfI5Yk2dzJmWCf7k59QgEgMUJevBhbJvhQvWyHQp3+4noxhspcpoTW53AQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hfb1g/B9d+5fvgQxZpttjcmE8zRiwL1waWPfEKOg6EY=;
+ b=XXtZCXq/2qRx0c3B9q3h2/A4YMnZxV0Kt/Rbsrhg5Ucs3InSaHRJk7X6V3bXLJ1YF7bHoKJ+EGakkHyiLLpwYHmpRNcDZK1IfiHEf4LqUkk8vMfIcBpHaPPUUHuSfXJqIgo5Ehq0DOxIcsqKYCRG1oj0bZ6b7Vb30TUyt1fvnry7iP/OZJ3QquxfEnTNBoVkkV6KoBQXCcvqxaZtGeP7DAo2/wGwe8AEXLon4f+vSRX5l6EuRR6elZqIHeY3bi/1Io3LP6O1taHKdEM4ckd7AvO+QZ8OPln+yNay8EgCgIPTk4gdx1YREv7Wn7BZ0vXpvLfoolPCJWswglYaDmp5Tg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by PAWPR04MB11569.eurprd04.prod.outlook.com (2603:10a6:102:50a::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
+ 2026 20:55:33 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
+ 20:55:33 +0000
+Date: Thu, 27 Aug 2026 16:55:26 -0400
+From: Frank Li <Frank.li@oss.nxp.com>
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 04/11] accel: ethosu: Ensure SRAM size is 0 on mapping
+ failure
+Message-ID: <apCkPrt8qZvWRsvl@lizhi-Precision-Tower-5810>
+References: <20260827-ethosu-fixes-v1-0-346f9ea8791c@kernel.org>
+ <20260827-ethosu-fixes-v1-4-346f9ea8791c@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827-ethosu-fixes-v1-4-346f9ea8791c@kernel.org>
+X-ClientProxiedBy: SN7P222CA0011.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:806:124::32) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260826-gmem-inplace-conversion-v11-0-0a15d8a799aa@google.com>
- <20260826-gmem-inplace-conversion-v11-15-0a15d8a799aa@google.com>
- <ao9CKMXAX-hScRSa@google.com> <mtbqvvvpwbzybgy6z47lwui6ag53kyubub3hkczui7u72zxesl@lnwsglrgwl5p>
- <ao9px1j7CLYXMiGP@google.com> <ztufznh6v5md5cn56t7pvokubvbpc3yki6dhiilgebb5uq3ju3@aa4xc6wwte5r>
-Message-ID: <apCj6gz8x24Dkle8@google.com>
-Subject: Re: [PATCH v11 15/46] KVM: guest_memfd: Call arch make_shared
- callback for to-shared conversion
-From: Sean Christopherson <seanjc@google.com>
-To: Michael Roth <michael.roth@amd.com>
-Cc: Ackerley Tng <ackerleytng@google.com>, aik@amd.com, andrew.jones@linux.dev, 
-	binbin.wu@linux.intel.com, brauner@kernel.org, chao.p.peng@linux.intel.com, 
-	david@kernel.org, jmattson@google.com, jthoughton@google.com, 
-	oupton@kernel.org, pankaj.gupta@amd.com, qperret@google.com, 
-	rick.p.edgecombe@intel.com, rientjes@google.com, shivankg@amd.com, 
-	steven.price@arm.com, willy@infradead.org, wyihan@google.com, 
-	yan.y.zhao@intel.com, forkloop@google.com, pratyush@kernel.org, 
-	suzuki.poulose@arm.com, aneesh.kumar@kernel.org, liam@infradead.org, 
-	Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
-	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Shuah Khan <shuah@kernel.org>, Vishal Annapurve <vannapurve@google.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
-	Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
-	Wei Xu <weixugc@google.com>, Youngjun Park <youngjun.park@lge.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Baoquan He <baoquan.he@linux.dev>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, tarunsahu@google.com, 
-	Fuad Tabba <fuad.tabba@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-mm@kvack.org, linux-coco@lists.linux.dev
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PAWPR04MB11569:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1633a0f6-267d-4bf4-d7c3-08df047d8959
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|366016|376014|19092799006|56012099006|10067099003|11063799006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	HecMJRKNrPa1E2Y4Vwy3Wpi1cqcl/j2DrWN/GQVfhk1DNBZ3xM55UmP7sMU56DpVq/brOLsEqOmv+A8YrAOTAQZPOXkDa7QAPcNkomb/0vs69KDDcjP2A1io8nhqf3x95I/vsRZMgx/a96wUkR/5bSyCZkB93/MWsmETSPXe6ykRGpCDFHCCLafBMDROoxtvArtZoE9gzMNrXoRq4u79zxFehZOjZ9CxVcf/wt1YPYf4UyzAvvBvWAZEN8HABTsqYyHrv/cn3i6GdTo7gmxRzPP0Ax1hvoQKO1qBcZ7Cf0q1yLjqpwH8NlCj/UVTMOGxIWeO8in3VFjJu8g/pIKarPfFzMBAkzfjsnRRLLKvav2+IoMR60Wp+QXg6rNCmwMN+n+Wgy1g1Csbe1umQ0aLZXHay3K2ykATdb8TXF57G4xhg3YKZ67aOfkMhVcRrSSMWfIAbvNL2gk8RpnFiWzod0dEWSW0PIfXlEkmO87e7qL2dD8SzTOcwek4Af1DYVlDUR/idaaT1OxbOE4l2nzszaZGPVa0ZiEqQiQu4/XsabfAeJlO84Mp6h3L/LsFPr8sT1K6Eo1zq31SmU2lDSsXUAMdgeasIL+g/t/+6r4sS/NnV3hvSkBQy13kNE69TMBAq8E1KQK8uswtM5fH4/ALvGRdj8v9zX3X+JFvhp3pPOU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(19092799006)(56012099006)(10067099003)(11063799006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?nIQHj+D0b2O6jg4ZiwtJ4niaavudQuoCjm9RcCvk+aDXp5PS20kdpR+Eaglk?=
+ =?us-ascii?Q?+BSoRkz3mT01fSoq7e3KZuUIx1nXLkQDeHclCnxiPjNN8YukoHdbkcOjn0Pa?=
+ =?us-ascii?Q?RCXh+yj9zNFD7oyds1zxB/KBniogy44yiDSrjysPFNpemhVa2LtkRmsqsxJp?=
+ =?us-ascii?Q?qveDmDELDt1s4bInkdzrsw8x3Nft0XIs2KAz/9pSbJhQ3dnuXJl62ZuJafzg?=
+ =?us-ascii?Q?kPN3YmSgnYVwLazVZ3yqu0ip8Y8tVt/FqQ4UbRbYCAmpOt+nZ03hjGfMKVJ8?=
+ =?us-ascii?Q?tWPCikot84LVX6BqIgpSV/72BUu4811yBhabTX2pDwoc2eNjWQoIoVQCttRG?=
+ =?us-ascii?Q?JQmcbK82eWIosfiLZBetHpUZnVRCKn2V3PsFght++U8u5Fj1wAnfvw2i3RPG?=
+ =?us-ascii?Q?VPkXG34Zdb1HfTSWhih0gr6KbJ1yU56mCHKrflzNY/QJ7RMJsfzwmiGosxG3?=
+ =?us-ascii?Q?nhZ0Dyo8C/hgBtZeNYg27iOJ3n8PNOBwe1bwofrD2M6R14ohKely0KFxx8sd?=
+ =?us-ascii?Q?p5UfZw3eLw6UQ0eqHb6imOolfilRSpGg34EdwEHwCNHET8myiPx6nIjbC6vs?=
+ =?us-ascii?Q?6OwqLO9NIgc+eWJ8uVwmqAFixSBH64Rzyrgi2uR4qvr23RiPRclLEjc4IgCt?=
+ =?us-ascii?Q?kxaXq0zEde7b8QlSIf11mCnt3hM9bMA32fz1m0xlph3x8WNg96YNvupWjWoQ?=
+ =?us-ascii?Q?NhZAOk1FBP724VVyYah7OtdPg1eAMf0BDzKL6A2Q1ZWDp3uT3xOvEjUx3o/t?=
+ =?us-ascii?Q?KnmdV6W5INHi5p1aGgz3aA++g0J2Vz0zqfmcHB8qxy3i34cW3EeV4eSLCoo4?=
+ =?us-ascii?Q?yRtC7aKMLy7lGtwHmvkdNeKGAzQsSd8eQkZ16pMAb2Q2qN0sT8LTQTEyudFX?=
+ =?us-ascii?Q?b/y20PAO/HLEkKXdovlFyDcsYCGszxA/nR7ywL2DQOraPxM/v61B6GlnxVDy?=
+ =?us-ascii?Q?Z+E5LaRVaxQxbWMEJLHSLJ8BVMpqDOCPMQbqwxq0MUMpONlzM13t2+bNEmfM?=
+ =?us-ascii?Q?gKNGHvWXl9LGnqF+NEvA7vid7IBX9pv/dKkDB3isottVOwuUcpC/JfHjeP/3?=
+ =?us-ascii?Q?gFR1fq3rI6dkb6UPtlhCCCY6KitNjGpLrK1kUoIagV5V0mA+ZbwzDc7k0O/I?=
+ =?us-ascii?Q?EUWpEcYwqo9FbzreEFkjPid+Ur2cfoGKXJawD7e3IAmwuGfbBp8Upyv8O0WK?=
+ =?us-ascii?Q?XHGpeyk7kt08z3s1NKTz7Nhs48OltgeDYpK7BZXGTd9HQaJvt+fKZ4t0RT/8?=
+ =?us-ascii?Q?yCKA3GNvhrdQ1lKm9+o2DHTwg2D+9BDfXPlLVmgd/KgSrO5yVMuKZroqA6C/?=
+ =?us-ascii?Q?Kaq1TkN/YmqZQ6QjW0K6YeMm4n/G8dFbVn3vA1s2NfaFGXr87eS60imyL7qa?=
+ =?us-ascii?Q?8aUF0dcbj2lwq5Fj//T+66PERhKuGrgjz6eDH4dsg6So/a2oL7p20Pd3Pxgj?=
+ =?us-ascii?Q?q6TZIX+hGF7IITmfZqxmxfjHplu0HgvsVMvOL+w8X5hTiZDoKwt4c5+qnOWb?=
+ =?us-ascii?Q?IMsyZIPkXz1SMj4+v4/DlgC7WgqPDEwrypi1ZSWqG17T+Yp4Qhio/DH1ReTh?=
+ =?us-ascii?Q?HpYrsT01PlbuMi9Kl/mVTSTrX0CGEas6hAathFjbuE3cfYL8J+WlVyJAe9CJ?=
+ =?us-ascii?Q?w94lWGY/CctV1MJmRSqU9b3s3aRQ9u/QykzpqmOlL28eS8NukAG3/GX7rUI9?=
+ =?us-ascii?Q?VWjVJs25I2IePMxiuE6U9ZG5YjufSvgPWVqLZy6N/QjrHwPceUD+XUunJIZV?=
+ =?us-ascii?Q?xwXcpRKtfYQitHnOZYkK1bA0hmsRZwkYRJ5QMLcStmuXxSe3l2nO?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1633a0f6-267d-4bf4-d7c3-08df047d8959
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 20:55:33.3782
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gndYtlD1xTExGBBrrHR44N1QM+ftXeKkPTuWXpEf2Fg13DkOf/W5XGfC2FynoMXyK6tA/mpoR50OQzBtOxhhjOO4To8VFJdnNIQ2aoXY1D4uXtg6aOa09yZrD0lz0I9u
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR04MB11569
 
-On Wed, Aug 26, 2026, Michael Roth wrote:
-> On Wed, Aug 26, 2026 at 03:33:43PM -0700, Sean Christopherson wrote:
-> > > So there's real performance differences here but it's sort of been
-> > > addressed through a solution that offers additional performance
-> > > benefits on top so there's no longer as much to be gained here I think.
-> > 
-> > Or another way to look at it, eager conversion would allow QEMU to drop its
-> > workaround.
-> 
-> True, for SNP at least, but pre-map is nice too, and not really gmem's
-> place, so most likely KVM_PRE_FAULT_MEMORY would remain regardless.
+On Thu, Aug 27, 2026 at 03:33:03PM -0500, Rob Herring (Arm) wrote:
+> On a mapping failure of the SRAM, the SRAM size is left as non-zero. The
+> probe will succeed as the error return is not checked since having SRAM is
+> not a hard requirement. The non-zero size allows jobs to access SRAM which
+> is left pointing to physical base address 0x0.
+>
+> Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> ---
 
-Hmm, good point.  And as below, we can't sanely avoid the check in kvm_gmem_get_pfn()
-without reintroducing the preparation tracking, so the lazy approach is probably
-the best option at this point.
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-> > To be clear, I'm a-ok with the code as-is, I just want to make sure we document
-> > exactly why we're choosing this implementation.
-> 
-> Agreed. My understanding of the current design choice is basically that
-> it doesn't *need* to happen here, since kvm_gmem_get_pfn() will already
-> trigger it on-demand when it is actually needed (or not), and that tends
-> to happen at fault time when other platforms like TDX handle it. 
-
-Oh, this jogged my memory.  For out-of-place conversion, waiting until
-kvm_gmem_get_pfn() to update the RMP makes sense because KVM doesn't know whether
-or not the SHARED backing as been allocated, and can't easily get at it in the
-first place.
-
-> To handle it differently would be to go out of our way to make SNP special in
-> this flow in exchange for performance, 
-
-Not really?  We'd still need kvm_gmem_get_pfn() to update the RMP to handle PFNs
-that were never explicitly converted.  Either that or KVM would have to preallocate
-everything (ewww).
+>  drivers/accel/ethosu/ethosu_drv.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+>
+> diff --git a/drivers/accel/ethosu/ethosu_drv.c b/drivers/accel/ethosu/ethosu_drv.c
+> index d121fb0d7732..f1af7b3ea038 100644
+> --- a/drivers/accel/ethosu/ethosu_drv.c
+> +++ b/drivers/accel/ethosu/ethosu_drv.c
+> @@ -281,8 +281,6 @@ static int ethosu_device_suspend(struct device *dev)
+>
+>  static int ethosu_sram_init(struct ethosu_device *ethosudev)
+>  {
+> -	ethosudev->npu_info.sram_size = 0;
+> -
+>  	ethosudev->srampool = of_gen_pool_get(ethosudev->base.dev->of_node, "sram", 0);
+>  	if (!ethosudev->srampool)
+>  		return 0;
+> @@ -293,6 +291,7 @@ static int ethosu_sram_init(struct ethosu_device *ethosudev)
+>  							     ethosudev->npu_info.sram_size,
+>  							     &ethosudev->sramphys);
+>  	if (!ethosudev->sram) {
+> +		ethosudev->npu_info.sram_size = 0;
+>  		dev_err(ethosudev->base.dev, "failed to allocate from SRAM pool\n");
+>  		return -ENOMEM;
+>  	}
+>
+> --
+> 2.53.0
+>
