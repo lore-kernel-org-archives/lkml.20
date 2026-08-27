@@ -1,177 +1,160 @@
-Received: from mta0.migadu.com (out-19.mta0.migadu.com [91.218.175.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5F033446CB
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:14:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC98A35BDC7
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:15:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.16.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787811258; cv=none; b=TpN4CnuyvVbUuezm1AZP/CyvrVmhkrHLiH92O1I85TkErUbEsHitrNqyoWv4ZZezjExgHTumUZl5LzwScL5g0yeaeJ2dzNCIlGecuOkoODsWyojFR/a/OiYuRsXZgf8HoP2hjPx/OWpTHJrzTWXtOi0AQEm9eCwIsH0UOA0J31c=
+	t=1787811314; cv=none; b=jhBgMgoiLz7cFMdKiMUNRHOkg4KwNv9b8AIFSZt2kYu9amcGDAktzu4IC0kJ2sg5AceYwYMCQPRv+9ZX7nfiJrMA3ZAcEMbvbYrd6TeqymTtPInjYSjhwEp0wHjzs+rtQ5wrl4wmdeAaHbE7NqTaSkXQlumvfiY6btHNFSG6v9Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787811258; c=relaxed/simple;
-	bh=faw8/dnfmpbaj8fTupjGI2ULYE/JNU+cOt0zt+zua4Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=A77exvZYH//r6GCO/KA0MQYp40n8LBzT7eAn1a4TgOX4MKf26vNUrzYQl5jYr0GoZoxDyidW9dlWnqdcqeN7jRI9HzmLvM9QEnWhL9/6tK6oVuDh2661GUBOUdcCPd52kHeEDfkcmw6GcfcS3aNQe3FzrpsgC+1E41g2610ffq4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=IlyJ+mDg; arc=none smtp.client-ip=91.218.175.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787811314; c=relaxed/simple;
+	bh=Vr+ifSkddLNDpPhV+L+RvZEIQyNI9JYGK5E1zcaEvJg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=XhX4/ItTjiXV7tSRsVpX9wOhMeo8nachsVUal14KCi4sL3VjFRtjJKdOxGwmDvmc0uu7wWWX/vWn3q+rMRG3XTW2ek+2ZFnoiY19bmvxld2M9nm8MrxhDs9yforK4zyFKfSEvM9Qmyt8Ym3Q4gsFQFjUk7+3PpJLmFja/9I1wJE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=TojY1/HZ; arc=none smtp.client-ip=54.206.16.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="IlyJ+mDg"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=faw8/dnfmpbaj8fTupjGI2ULYE/JNU+cOt0zt+zua4Y=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787811253; v=1; x=1788416052;
- b=IlyJ+mDgZyxsjJ7alptizi63kNQdr/WTpmKHALmxb4ECTdlWb4GlXeTXvQUN9QuE1A450L0S
- jR3ZPf3fdk0F6/nlyoUnvpFWHMr1I9nVbvIHqQVqYNFNm7PTKucn2556VW38UYeWfrO2i4sNCer
- ZgMahvvYBRWP9zfOaOMuE1YM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: from localhost (223.70.159.239)
-	by mta10.migadu.com with ESMTPS id 7489c2729e336ee7;
-	Thu, 27 Aug 2026 06:14:02 +0000
-X-Mizu-Trace-ID: 7489c2729e336ee7
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 27 Aug 2026 14:13:51 +0800
-From: Baoquan He <baoquan.he@linux.dev>
-To: Kairui Song <ryncsn@gmail.com>
-Cc: Barry Song <baohua@kernel.org>, akpm@linux-foundation.org,
-	linux-mm@kvack.org, axelrasmussen@google.com,
-	baolin.wang@linux.alibaba.com, chenridong@xiaomi.com,
-	david@kernel.org, hannes@cmpxchg.org, lianux.mm@gmail.com,
-	linux-kernel@vger.kernel.org, ljs@kernel.org, lyugaofei@xiaomi.com,
-	mhocko@kernel.org, qi.zheng@linux.dev, shakeel.butt@linux.dev,
-	stevensd@chromium.org, wangzicheng@honor.com, weixugc@google.com,
-	yuanchu@google.com, zhangbo56@xiaomi.com
-Subject: Re: [PATCH 3/6] mm/mglru: enhance cold/hot inversion handling in
- inc_min_seq()
-Message-ID: <ao_Vn9GIEROHlhVK@MiWiFi-R3L-srv>
-References: <20260821102538.22642-1-baohua@kernel.org>
- <20260821102538.22642-4-baohua@kernel.org>
- <ao6qTTtk2xkkeKob@fedora>
- <CAGsJ_4ywk7mA1xfk=emtqby1UAwFsaH9PChmk2TuZoDKrMzuXw@mail.gmail.com>
- <ao-I8rYv_G5j4wz4@MiWiFi-R3L-srv>
- <CAGsJ_4zoXvyXG6-qAH+=nv6V92w_U_tk78YAPKMihRniqvTe8A@mail.gmail.com>
- <ao-dewgE9XAfP0rU@MiWiFi-R3L-srv>
- <CAMgjq7CgT9yCz9bhfNtrsjNHh8=1F4zV7BKG4FRB5xWaLh+NNw@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="TojY1/HZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1787811292;
+	bh=UlgYSJd/xcW4+hCbQ3uouGgjyZy182Ko3L9ALTzfoDg=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=TojY1/HZSHHg6mOHK3TBVzC8RrgbZDzcvdmCs3UO2fZs4dUtesNLJmEmyqyJKqcsQ
+	 RBTqbUA8GiOO/Bwqau4nw7gu5FhpJl3EK1Ntn1YM3z1mJrsi+S8Qopvx+5lOjUccHC
+	 abf8CVfQDLS61B8qLJyvPUR/BmpetW8wTfmcRX1g=
+X-QQ-mid: zesmtpsz2t1787811287t512c8b0f
+X-QQ-Originating-IP: 6fiioAjwYK904nrzfdtEv0Z+Ux3oU01XA4aCIqKt4oA=
+Received: from uniontech.com ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 27 Aug 2026 14:14:45 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 8092243094390795113
+EX-QQ-RecipientCnt: 4
+From: Yichong Chen <chenyichong@uniontech.com>
+To: dhowells@redhat.com
+Cc: netfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Yichong Chen <chenyichong@uniontech.com>
+Subject: [PATCH] cachefiles: fix out-of-bounds read in coherency trace
+Date: Thu, 27 Aug 2026 14:14:44 +0800
+Message-Id: <20260827061444.2404961-1-chenyichong@uniontech.com>
+X-Mailer: git-send-email 2.20.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAMgjq7CgT9yCz9bhfNtrsjNHh8=1F4zV7BKG4FRB5xWaLh+NNw@mail.gmail.com>
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: NnHSgyOaHlCIauvGsnwfNwgn2NqTzUAfAO86OrTihRBN79zl8PBo3wHE
+	+HdXUEANdjWPETFh1wyeRZFdVIVw7YA/2rgXZ9bJaAcWVDjH/MOiiK5wtmfPFF85HHgEV+U
+	uSclNogzYKmpwF0Nqk58u1G3LyktsD9TjN+3QQ5yl6im9VAtM31UeJp4FjRloP7lCNFB+A3
+	hnyW6g0oqRxakToz3hYpzdYc+FU0tZ7Wo5SLXRBFpfPUaNva/FHj4/2pJymKQ5oRLUO+VtH
+	kZPfBOdNBz90x+Kuc/qQcWlcvzWHgGRf7Cclx468+uftX+3SkFwhADSiyE5Bn6VZTLriIHT
+	aN9p+1w5aeevzBHNkHeC3k5leSulUH46FhORCYKO82d6WOlkKWtvS/id+rT7+EnLt/nWSF9
+	1R8eIVx+/2o4RKS0fIO6FAkIEp8D6IINGe7DGwnpc5EfOze0yup+0p0UlfjTasV7BUhG9/q
+	ACoeKsOEGjQ/Wv5v1APSisSc1ofOjgHByNZoDMS/niXN5e9VJCOsE6OoZ9ze2bsdogpSfDL
+	u/mULFXfjN9t8u2Y/bF9tH9pjg3NimkgL+r3yktvaDkcuUu5Unrn8t9ApM1NXhGgmiq8SfH
+	U0iEeKJzT2YdTQQQLrfsuaCJyruAWS+wjeZacSVU9LAG4lbXDs+ANvyERBReoGos5Iyklvp
+	5srbFmgrxG0gYmt9Ml61jqthB5rS4wTe7GleQzcHM5KAQVemogZvA2hu1nkMd1Z5Z3tMuju
+	LHj2qBQmRMAl2Sq3sn04cHBeeTNyNeOC6wNSsXfj9d1GJLU55DqrbNw4gh2083TCLPhl37d
+	2rK+jO5my7PwZB5YFfODyeKJFdQdAbuYvdiAitfLfBjpOtpDeSAJyabf9F4iZzINt93AuSj
+	OM24zz9FY5sk1CO1LwFyXCPvD4gVPzG0pTI9pPumI063Ycno89NmHhVkfz3I5zSlpRGLkNg
+	EKYPsuMjZN2uN4vsUtoEXnrAJeJe4kWxyi4YUG0lb2kX42G7/QXQ7FKsrvObv6x3sR1M0TE
+	3AinjV7OPCgbWZgDAXXHKISvS+ZpbkS9rhBvl8d7NU0SLk1cp1doR2Tzc/JERJ7e5/TA7Bk
+	A==
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-RECHKSPAM: 0
 
-On 08/27/26 at 12:30pm, Kairui Song wrote:
-> On Thu, Aug 27, 2026 at 10:14 AM Baoquan He <baoquan.he@linux.dev> wrote:
-> >
-> > On 08/27/26 at 09:24am, Barry Song wrote:
-> > > On Thu, Aug 27, 2026 at 8:46 AM Baoquan He <baoquan.he@linux.dev> wrote:
-> > > >
-> > > > On 08/27/26 at 05:43am, Barry Song wrote:
-> > > > > On Wed, Aug 26, 2026 at 4:56 PM Baoquan He <baoquan.he@linux.dev> wrote:
-> > > > > >
-> > > > > > On 08/21/26 at 06:25pm, Barry Song (Xiaomi) wrote:
-> > > > > > > During aging, a folio's generation may already have been updated by
-> > > > > > > folio_update_gen(), even though it has not yet been moved to the
-> > > > > > > corresponding generation list. Such folios are hotter than those
-> > > > > > > already in that generation.
-> > > > > > >
-> > > > > > > It makes sense for inc_min_seq() to increment the generation of
-> > > > > > > folios that were never promoted during aging and move them to the
-> > > > > > > tail of the new oldest generation. However, folios that were already
-> > > > > > > promoted should instead be moved to the head of their updated
-> > > > > > > generation, just as sort_folio() does in scan_folios().
-> > > > > >
-> > > > > > While sort_folio() move protected folio to the head of next gen too.
-> > > > > > It only moves ineligible folios to the tail of next gen.
-> > > > > >
-> > > > >
-> > > > > Hi Baoquan,
-> > > > >
-> > > > > Thanks for the review! I’m not quite sure I understand what you mean :-)
-> > > > > Could you please clarify what you’re suggesting?
-> > > >
-> > > > Sorry for the confusion, Barry. I meant this is a good one, and
-> > > > sort_folio() has the similar issue in which the protected folios are
-> > > > moved to the head, wondering if that need be adjusted too. One consistent
-> > > > rule for both is better.
-> > >
-> > > I think it might be fine for sort_folio() to move protected folios to the
-> > > head, since those folios have either been accessed multiple times or have
-> > > reached a tier higher than tier_idx. They are sort of hot in theory, right?
-> > >
-> > > if (tier > tier_idx || refs + workingset == BIT(LRU_REFS_WIDTH) + 1)
-> > >
-> > > But for inc_min_seq(), it is just catching up to make sure the newest
-> > > generation doesn't overlap with the oldest generation. Those non-promoted
-> > > folios themselves aren't hot , so I feel these are actually different?
-> >
-> > I got your point, sort_folio() considers the hottness, inc_min_seq()
-> > doesn't. I agree with you now. Thanks for the explanation.
-> >
-> > BUT no matter what it is, protected folios, lazily promoted folios,
-> > and no matter where it is, put in head of next gen or tail of next gen,
-> > their refs are cleared by folio_inc_gen(). Then in sort_folio(), they
-> > are all tier 0 of the oldest gen and must be reclaimed.
-> 
-> Hi all,
-> 
-> I think this part is not true? a folio's PG_workingset will never
-> be gone after set, that pinns the folio to tier 3 through folio_inc_gen.
+cachefiles traces the netfs coherency data stored in the object xattr by
+reading the xattr data field as a 64-bit big-endian value.  The coherency
+data length is controlled by the netfs cookie and may be shorter than 8
+bytes.
 
-You are right, I missed the PG_workingset part. 
+For example, 9p uses a 4-byte qid version as the cookie aux data.  When the
+cachefiles_coherency tracepoint is enabled, cachefiles_set_object_xattr()
+then reads past the end of the allocated xattr buffer, which KASAN reports
+as a slab-out-of-bounds read.
 
-But then folios of refs 0 will get the same treatment as folios of
-refs 4, even though later the tier_idx == 1 or 2 in sort_folio(). This
-sounds not reasonable.
+Copy at most the available aux bytes into a zero-padded 64-bit value before
+tracing it.  Also avoid reading xattr buffer fields on the getxattr failure
+path, where the buffer contents are not valid.
 
-> 
-> In fact, I consider this a pitfall rather than a gain; many workloads
-> have seen regression due to the over protection of such folios.
-> Especially with that "refs + workingset == BIT(LRU_REFS_WIDTH) + 1"
-> 
-> Resetting the tier to a lower position is better if the folio is
-> promoted by one gen due to protection, to avoid over protection IMO.
+Signed-off-by: Yichong Chen <chenyichong@uniontech.com>
+---
+ fs/cachefiles/xattr.c | 21 +++++++++++++++++----
+ 1 file changed, 17 insertions(+), 4 deletions(-)
 
-Yeah, I got your point and agree. I am thinking of this too, agree we
-should respect more on gen than tier for protected folio moving, while
-it's not easy to implement.
-
-> .
-> Changing that semantic will require many other adjustments; I suggest
-> we just ignore that here.
-
-Hmm, my thinking is if we should differentiate folios w/ refs with
-folios w/o refs or folios w/ a certain lower refs. Moving them all to
-the head of next gen, this at least giving them more time to live and
-update refs because eviction pick folios from the tail; or moving them
-to tail of next gen, retain limited refs.
-
-> 
-> >
-> > So here, I think differentiating them and moving them into head or tail
-> > doesn't make sense, the thing is whether if we need do something to
-> > retain refs of folios when gen_increased. At least, for lazily promoted
-> > folios, it should not be put in the tail of next gen and refs cleared.
-> > What do you think?
-> 
-> Actually, retaining refs has a very limited effect on the current
-> MGLRU implementation.
-> 
-> Basically I agree we should keep the refs if the folios are not lazy
-> promoted or protected, e.g. in inc_min_seq. But somehow we need a way
-> to "soft reset" the refs to a slight lower value so the higher tier in
-> lower gen won't looks hotter than lower tiers in higher gen.
-> 
-> This is not very doable right now, the closest thing we can archive is
-> just reset the refs field and not touch the PG_workingset bit, which
-> already done right now. (BTW there is a LRU_REFS_WORKIGNSET reset in
-> the FG series for this :-)
-
-Yeah. I rechecked your patchset and saw the changing, as I said
-privately, the big patch better be split into smaller ones like Barry
-has done in this patchset according to logic unit, then reviewing and
-discussing will be much easier.
+diff --git a/fs/cachefiles/xattr.c b/fs/cachefiles/xattr.c
+index f8ae78b3f7b6..2e21abedc83a 100644
+--- a/fs/cachefiles/xattr.c
++++ b/fs/cachefiles/xattr.c
+@@ -33,6 +33,15 @@ struct cachefiles_vol_xattr {
+ 	__u8	data[];		/* netfs volume coherency data */
+ } __packed;
+ 
++static u64 cachefiles_xattr_get_aux(const struct cachefiles_xattr *buf,
++				    unsigned int len)
++{
++	__be64 aux = 0;
++
++	memcpy(&aux, buf->data, min_t(unsigned int, len, sizeof(aux)));
++	return be64_to_cpu(aux);
++}
++
+ /*
+  * set the state xattr on a cache file
+  */
+@@ -77,7 +86,7 @@ int cachefiles_set_object_xattr(struct cachefiles_object *object)
+ 		trace_cachefiles_vfs_error(object, file_inode(file), ret,
+ 					   cachefiles_trace_setxattr_error);
+ 		trace_cachefiles_coherency(object, file_inode(file)->i_ino,
+-					   be64_to_cpup((__be64 *)buf->data),
++					   cachefiles_xattr_get_aux(buf, len),
+ 					   buf->content,
+ 					   cachefiles_coherency_set_fail);
+ 		if (ret != -ENOMEM)
+@@ -86,7 +95,7 @@ int cachefiles_set_object_xattr(struct cachefiles_object *object)
+ 				"Failed to set xattr with error %d", ret);
+ 	} else {
+ 		trace_cachefiles_coherency(object, file_inode(file)->i_ino,
+-					   be64_to_cpup((__be64 *)buf->data),
++					   cachefiles_xattr_get_aux(buf, len),
+ 					   buf->content,
+ 					   cachefiles_coherency_set_ok);
+ 	}
+@@ -106,6 +115,8 @@ int cachefiles_check_auxdata(struct cachefiles_object *object, struct file *file
+ 	unsigned int len = object->cookie->aux_len, tlen;
+ 	const void *p = fscache_get_aux(object->cookie);
+ 	enum cachefiles_coherency_trace why;
++	enum cachefiles_content content = CACHEFILES_CONTENT_NO_DATA;
++	u64 disk_aux = 0;
+ 	ssize_t xlen;
+ 	int ret = -ESTALE;
+ 
+@@ -131,6 +142,9 @@ int cachefiles_check_auxdata(struct cachefiles_object *object, struct file *file
+ 		goto out;
+ 	}
+ 
++	content = buf->content;
++	disk_aux = cachefiles_xattr_get_aux(buf, len);
++
+ 	if (buf->type != CACHEFILES_COOKIE_TYPE_DATA) {
+ 		why = cachefiles_coherency_check_type;
+ 	} else if (memcmp(buf->data, p, len) != 0) {
+@@ -148,8 +162,7 @@ int cachefiles_check_auxdata(struct cachefiles_object *object, struct file *file
+ 
+ out:
+ 	trace_cachefiles_coherency(object, file_inode(file)->i_ino,
+-				   be64_to_cpup((__be64 *)buf->data),
+-				   buf->content, why);
++				   disk_aux, content, why);
+ 	kfree(buf);
+ 	return ret;
+ }
+-- 
+2.51.0
 
