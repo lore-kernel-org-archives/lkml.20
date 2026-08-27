@@ -1,112 +1,74 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 339B344606D;
-	Thu, 27 Aug 2026 13:33:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 031653783C3;
+	Thu, 27 Aug 2026 13:34:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787837625; cv=none; b=uDpwGGfYYf/omMmXc429T+x4w8qEoskyPtyTjP9Rs2CNUdLDPvOl3II+lZWvOFalwESjhpERxNvTIUvKRAhE1B/PsEtN86pEBf2a+BYqQjNYy1eEie5aEV9X8cq1Brqw4paqhAR7GRochaOfxg/ryzPbHWeMzAZmjhi5O8VGznQ=
+	t=1787837662; cv=none; b=AfKtF/fWzPeC4LzekgXhQecr2cW49TuLmJnYY5RTMen/lSWunUSYP432mTnN5hzp88DgE1fomwU9QIScxdBMXZDXW2tgyKDhk+kFSAqHWxwkSpxn/FUYyUl7GrkRU7yd9R6N5K1sdsjyisrU+5P5FCOt73MjkXA5EYttM2gQyiw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787837625; c=relaxed/simple;
-	bh=aikjkH4eA9w6grwtrnwsLSLiV0hqYSJ5yEX6K35R6h4=;
+	s=arc-20240116; t=1787837662; c=relaxed/simple;
+	bh=yglYERUhEwE9WdPmeX7+7IeEZN4xdX2MI6DKXIoYrA4=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=dwzEguP4ufmdKAOY966DpKHI0CHtEGIQMB/hccF2WujM6z0qSM503qFFsbSHcLp5tP1fs6WKjuvwk25VkChRHC88MzKG67H/j8tZxweCtw1TcW8IzwHcq7ZGbFhrvktmlCBwUzOOQ09rFJ5Slu7o9yHd1qLGvfGY6/oEuQwvpts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from ratatoskr.pengutronix.de (unknown [IPv6:2a0a:edc0:0:701:c3a7:c242:e5e7:34c7])
-	(Authenticated sender: str@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 41D9B201B99;
-	Thu, 27 Aug 2026 15:33:32 +0200 (CEST)
-From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Conor Dooley <conor@kernel.org>,  Andrew Lunn <andrew+netdev@lunn.ch>,
-  "David S. Miller" <davem@davemloft.net>,  Eric Dumazet
- <edumazet@google.com>,  Jakub Kicinski <kuba@kernel.org>,  Paolo Abeni
- <pabeni@redhat.com>,  Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski
- <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,  Andrew Davis
- <afd@ti.com>,  Heiner Kallweit <hkallweit1@gmail.com>,  Russell King
- <linux@armlinux.org.uk>,  netdev@vger.kernel.org,
-  devicetree@vger.kernel.org,  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] dt-bindings: dp83867: add binding for
- output-impedance
-In-Reply-To: <d944329d-9ad5-4acf-a7d3-b2f8eaf1e92c@lunn.ch> (Andrew Lunn's
-	message of "Thu, 27 Aug 2026 14:47:30 +0200")
-References: <20260826-v7-2-topic-dp83867-v2-0-a97b4cec6e93@pengutronix.de>
-	<20260826-v7-2-topic-dp83867-v2-2-a97b4cec6e93@pengutronix.de>
-	<20260826-salutary-skype-524c69932dc2@spud>
-	<87ik4wgfbc.fsf@pengutronix.de>
-	<d944329d-9ad5-4acf-a7d3-b2f8eaf1e92c@lunn.ch>
-User-Agent: mu4e 1.14.3; emacs 30.2
-Date: Thu, 27 Aug 2026 15:33:31 +0200
-Message-ID: <87a4q74ris.fsf@pengutronix.de>
+	 MIME-Version:Content-Type; b=H4kdQX7Kh3Q67c0pfQmz87TGd+MXNZVArlJKSwvqaro1L3ylaMHvMEdo8oI+GAxDYvObdHAboSYUKI0bweRTGtNE8pxJXdRDLVDk1ddDwpkotMJKmG8+ofx7A1ye7ycoXnMcwcLqOdSMiQ0g5hWhVb64jfwoehzIpiVrsRwy8t8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VGQJzEfI; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VGQJzEfI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60D1B1F000E9;
+	Thu, 27 Aug 2026 13:34:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787837659;
+	bh=yglYERUhEwE9WdPmeX7+7IeEZN4xdX2MI6DKXIoYrA4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=VGQJzEfIbi8odtYbJdOPGneocktB1zprgt1QlrMbSCcEIeDvxY42e/DtGfFLOLGAX
+	 6pZ/nhfmrUrNmtLkKLCDCQjeJ9Q/42W1rRsVusVHrvHokpWxUP5bPNQLxJNjcrl7pA
+	 OZxsGBLGFfJ3WT/ExcZIEZiwO7OpmYETLkgeOwCfnbfFiTvdhR0TXXFaBLGX72MKhE
+	 NKcM9WHw+NFAkKp/qqCMGLPMdFpeJzLzPPRnxMZizDMRo8cSoqB2Zzi1f/smdQC8+2
+	 /rZJtOO1bI65RgyGxI/bV+g5NgzzfQUSv+aV6hy1XRl2NwrqivzHRPcTjC8Q2WhkkT
+	 i/HQ5QJhA9KZw==
+From: Andreas Hindborg <a.hindborg@kernel.org>
+To: Mike Lothian <mike@fireburn.co.uk>, rust-for-linux@vger.kernel.org
+Cc: Mike Lothian <mike@fireburn.co.uk>, Boqun Feng <boqun@kernel.org>,
+ FUJITA Tomonori <fujita.tomonori@gmail.com>, Frederic Weisbecker
+ <frederic@kernel.org>, Lyude Paul <lyude@redhat.com>, Thomas Gleixner
+ <tglx@kernel.org>, Anna-Maria Behnsen <anna-maria@linutronix.de>, John
+ Stultz <jstultz@google.com>, Stephen Boyd <sboyd@kernel.org>, Miguel Ojeda
+ <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn?= Roy
+ Baron
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Alice Ryhl
+ <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich
+ <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir
+ Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>,
+ Onur =?utf-8?Q?=C3=96zkan?= <work@onurozkan.dev>,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 7/9] rust: hrtimer: expose interrupt state in hard
+ callbacks
+In-Reply-To: <20260826162851.2497-8-mike@fireburn.co.uk>
+References: <20260826162851.2497-1-mike@fireburn.co.uk>
+ <vvlRCp9WRvF052uH5l_VHNzJULWceLx6qUZP8emq1gxj4vwQSBzEHRqdZuHJHjcw8ZvU7tVwktsqURiNy6N8cQ==@protonmail.internalid>
+ <20260826162851.2497-8-mike@fireburn.co.uk>
+Date: Thu, 27 Aug 2026 15:34:04 +0200
+Message-ID: <87a4q71ycz.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; format=flowed
+Content-Type: text/plain
 
-On 2026-08-27 at 14:47 +02, Andrew Lunn <andrew@lunn.ch> wrote:
+"Mike Lothian" <mike@fireburn.co.uk> writes:
 
-> On Thu, Aug 27, 2026 at 10:04:07AM +0200, Steffen Trumtrar wrote:
-> > On 2026-08-26 at 17:01 +01, Conor Dooley <conor@kernel.org> wrote:
-> > 
-> > > On Wed, Aug 26, 2026 at 02:48:40PM +0200, Steffen Trumtrar wrote:
-> > > > Currently, the output-impedance can only be set to default, minimum or
-> > > > maximum or via a nvmem cell.
-> > > > In cases where there is no backend for a nvmem cell, a value can not be
-> > > > set.
-> > > > > Add a DT binding, 'ti,output-impedance-ohms', for specifying the
-> > > > output-impedance via a fixed value. The existing boolean values for
-> > > > minimum and maximum still take precedence over the new value.
-> > > > > Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-> > > > ---
-> > > >  Documentation/devicetree/bindings/net/ti,dp83867.yaml | 16 ++++++++++++++++
-> > > >  1 file changed, 16 insertions(+)
-> > > > > diff --git a/Documentation/devicetree/bindings/net/ti,dp83867.yaml
-> > > b/Documentation/devicetree/bindings/net/ti,dp83867.yaml
-> > > > index 7a6fe516bab27..49fafe3ce6f47 100644
-> > > > --- a/Documentation/devicetree/bindings/net/ti,dp83867.yaml
-> > > > +++ b/Documentation/devicetree/bindings/net/ti,dp83867.yaml
-> > > > @@ -38,6 +38,16 @@ properties:
-> > > >      items:
-> > > >        - const: io_impedance_ctrl
-> > > >  > +  ti,output-impedance-ohms:
-> > > > +    description: |
-> > > > +      MAC Interface Impedance control to set the programmable output impedance.
-> > > > +      Valid range is 0x00 to 0x1f (32 steps).
-> > > > +      - 0x1f = 35 ohms (minimum impedance)
-> > > > +      - 0x00 = 70 ohms (maximum impedance)
-> > > > +      - Step size varies with process.
-> > > > +    minimum: 0
-> > > > +    maximum: 31
-> > > 
-> > > Your property is named in ohms, but not implemented in ohms.
-> > 
-> > So without the -ohms?
-> 
-> No. DT uses real unit, Ohms, Meters, Volts, Degrees Centigrade, Seconds
-> etc.
-> 
-> Have the driver do the conversion from Ohms to the magical register
-> value.
+> Hard hrtimer modes guarantee that their callbacks run with local
+> interrupts disabled. Carry that guarantee through HrTimerCallbackContext
+> so users of IRQ-aware locks do not need to assert the callback
+> context themselves.
 
-Fair enough and I agree, but the datasheet says:
-
-Output impedance approximate range from 35-70 Ohm in 32 steps. Lowest being 11111 and highest being 00000. Range and step size will vary with process.
-
-I mean, the difference will be miniscule, but the binding can't specify the exact ohm value, because it is not guaranteed to be correct. There are more values than steps and even the range is only an approximate range.
-
-So, just allow values between 35 and 70 in the binding and then convert that value to something near the truth in the driver?
-
+This looks good to me. We were pondering on removing the context type
+though [1]. We might have to keep it around for this to work.
 
 Best regards,
-Steffen
+Andreas Hindborg
 
--- 
-Pengutronix e.K.                | Dipl.-Inform. Steffen Trumtrar |
-Steuerwalder Str. 21            | https://www.pengutronix.de/    |
-31137 Hildesheim, Germany       | Phone: +49-5121-206917-0       |
-Amtsgericht Hildesheim, HRA 2686| Fax:   +49-5121-206917-5555    |
+[1] https://lore.kernel.org/rust-for-linux/20260825-expires-v2-v1-3-90411c6217c7@kernel.org/
+
