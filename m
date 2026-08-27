@@ -1,38 +1,38 @@
 Received: from frasgout.his.huawei.com (frasgout.his.huawei.com [185.176.79.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE06C486624
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB1EE47CA87
 	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:24:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.176.79.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787847890; cv=none; b=hBxWlsblcQ2gLLfB3MNFSHZVrxd7V/Y1g7vEd4ngetOK04Y0mEVXhMCSou8kQ9Hm8DgpoVJBM2DXfZu07OEsuc+9BMZdG0hF5cAAz22E9CKevRXHga7c6/7aV1fAc6gmyhX7ps2LaV8EmKiXyKvIAZ8dWCtN/upHZXQaOluOBUk=
+	t=1787847889; cv=none; b=j+EGMRDhZEgp9LEywaPBF1cIPLxl7T5GNQ9DM/OoEchopuukAgbUN83NhHJ70oIfd9GoeTlCEe3LBcj5bP9TpjaX4Vws3YiGTDcoObZe7ucMoJN4jEj0tNeHX4QWfxlGaZ6fZ2eab1Kxz+ZuToUi5JHR6gfnx11U+KSmw+HWcQM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787847890; c=relaxed/simple;
-	bh=Fucb+sl9nfCsiqQfaI/j3sVJ9rSyNnuwL/cuXtatQmY=;
+	s=arc-20240116; t=1787847889; c=relaxed/simple;
+	bh=wsoq5ycG3ToejydWj8Zt1+Cz6fm27uvK0qo+ezLvB6o=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=a0+XZRGAXm6rHLqBydq/n25OJsKPwgKWNzdRGxkE44wOAD1D5lHfC1/8lw203Mq6ZQJSwvtfPzySG/CwqvP3c8PCZaN0yWmTosyNCpPDs2CYrAUeG97h4LRzzU5wANRvjr4h6SSEyGfbfqg+OiTSu0LaAFAzBuvIiEJwsayWBfs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=wtbL8sbN; arc=none smtp.client-ip=185.176.79.56
+	 MIME-Version:Content-Type; b=fituS+DY7ennWxUY5nOeNrYX/HLf6OUbpK3g48+OAijDd4PQUyTGeaYJx9tp5VcJHatzuSIsfSojhZCYq7n2a7Pspa3kQLuXx44BLeA+kLFStU9cDlkvGBLrMVR5B6/vRCqsc6grWMGvYbJoNyVAxoswKJuTXJh/F6MkJDlv3Jc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=SKY3L7vC; arc=none smtp.client-ip=185.176.79.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="wtbL8sbN"
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="SKY3L7vC"
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=uOTDgBkjYJFHvNQbfBQWTD/6fFe89tZAtGOjlb0y990=;
-	b=wtbL8sbN6tNfhYL36YDbdr/ivXINVqVkk90pUmq92rN8cLBL20/oYfcOC+UfURGULymSn/Yf1
-	u0XqUbwXc5kYu2UuEba9a35jtyCNeRQF9KydgYEbxyPLIDONF88jLBvoo555mEitZA4/pudQ3PI
-	/DPolqoyPJU9gC8IkMbs54k=
-Received: from mail.maildlp.com (unknown [172.18.224.107])
-	by frasgout.his.huawei.com (SkyGuard) with ESMTPS id 4hW6KF1XKkzHnH5S;
-	Fri, 28 Aug 2026 00:24:01 +0800 (CST)
+	bh=UfxEk7T6JyEQqsUbsOIOBOw3o1DLsBcu07jRZivHztM=;
+	b=SKY3L7vCGkgTSi/KQ22wZIdzfe/u4jTApdIfM0GcFZOaP2qSaY8c/zr5l1/36iDTjFDpDUA7O
+	UrwwRuiQncZvbhNNPoZvfOw1Z+UzhAVIvBPmVXFX0z5iJfvI9onj3Yu6VZSipEiJJQo/FQPTKvD
+	IEPRflEz2cCmIVDQejLXU5M=
+Received: from mail.maildlp.com (unknown [172.18.224.150])
+	by frasgout.his.huawei.com (SkyGuard) with ESMTPS id 4hW6KV2tftzJ46Dv;
+	Fri, 28 Aug 2026 00:24:14 +0800 (CST)
 Received: from mscpeml500004.china.huawei.com (unknown [7.188.26.250])
-	by mail.maildlp.com (Postfix) with ESMTPS id 3ACEA4058E;
-	Fri, 28 Aug 2026 00:24:37 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id EBE4940572;
+	Fri, 28 Aug 2026 00:24:35 +0800 (CST)
 Received: from mscphis00949.huawei.com (10.123.66.11) by
  mscpeml500004.china.huawei.com (7.188.26.250) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 27 Aug 2026 19:24:36 +0300
+ 15.2.2562.45; Thu, 27 Aug 2026 19:24:35 +0300
 From: Nikita Panov <panov.nikita@huawei.com>
 To: <catalin.marinas@arm.com>, <akpm@linux-foundation.org>,
 	<david@kernel.org>, <ljs@kernel.org>, <vbabka@kernel.org>, <cl@gentwo.org>,
@@ -42,9 +42,9 @@ To: <catalin.marinas@arm.com>, <akpm@linux-foundation.org>,
 CC: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
 	<linux-arm-kernel@lists.infradead.org>, <wangkefeng.wang@huawei.com>,
 	<artem.kuzin@huawei.com>, <panov.nikita@huawei.com>
-Subject: [RFC PATCH 11/18] mm: enable per-NUMA node kernel text and rodata replication
-Date: Fri, 28 Aug 2026 00:11:51 +0800
-Message-ID: <20260827161158.3618409-12-panov.nikita@huawei.com>
+Subject: [RFC PATCH 03/18] mm: allow per-NUMA node local P4D/PUD/PMD/PTE allocation
+Date: Fri, 28 Aug 2026 00:11:43 +0800
+Message-ID: <20260827161158.3618409-4-panov.nikita@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260827161158.3618409-1-panov.nikita@huawei.com>
 References: <20260827161158.3618409-1-panov.nikita@huawei.com>
@@ -66,133 +66,423 @@ Acked-by: Ilya Hanov <ilya.hanov@huawei-partners.com>
 Acked-by: Denis Darvish <darvish.denis@huawei.com>
 Signed-off-by: Nikita Panov <panov.nikita@huawei.com>
 ---
- arch/arm64/mm/context.c |  1 -
- arch/arm64/mm/mmu.c     |  8 ++++++--
- include/linux/mm.h      |  3 +++
- init/main.c             | 17 +++++++++++++++++
- mm/mm_init.c            |  3 +++
- 5 files changed, 29 insertions(+), 3 deletions(-)
+ include/asm-generic/pgalloc.h       | 90 +++++++++++++++++++++++++++++
+ include/asm-generic/pgtable-nop4d.h |  5 ++
+ include/asm-generic/pgtable-nopmd.h |  5 ++
+ include/asm-generic/pgtable-nopud.h |  5 ++
+ include/linux/mm.h                  | 87 +++++++++++++++++++++++++++-
+ mm/memory.c                         | 68 ++++++++++++++++++++++
+ 6 files changed, 259 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/mm/context.c b/arch/arm64/mm/context.c
-index 3afdae62784e..0f4a28b87469 100644
---- a/arch/arm64/mm/context.c
-+++ b/arch/arm64/mm/context.c
-@@ -11,7 +11,6 @@
- #include <linux/sched.h>
- #include <linux/slab.h>
- #include <linux/mm.h>
--#include <linux/numa_kernel_replication.h>
- 
- #include <asm/cpufeature.h>
- #include <asm/mmu_context.h>
-diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
-index fa12461c0d8e..4bc8b748e303 100644
---- a/arch/arm64/mm/mmu.c
-+++ b/arch/arm64/mm/mmu.c
-@@ -1040,10 +1040,10 @@ void __init create_pgd_mapping(struct mm_struct *mm, phys_addr_t phys,
- 				 pgd_pgtable_alloc_special_mm, flags);
+diff --git a/include/asm-generic/pgalloc.h b/include/asm-generic/pgalloc.h
+index 051aa1331051..79d10806c0fc 100644
+--- a/include/asm-generic/pgalloc.h
++++ b/include/asm-generic/pgalloc.h
+@@ -85,6 +85,26 @@ static inline pgtable_t __pte_alloc_one_noprof(struct mm_struct *mm, gfp_t gfp)
  }
+ #define __pte_alloc_one(...)	alloc_hooks(__pte_alloc_one_noprof(__VA_ARGS__))
  
 +#ifdef CONFIG_KERNEL_REPLICATION
- static void populate_mappings_prot(phys_addr_t phys, unsigned long virt,
- 				   phys_addr_t size, pgprot_t prot)
- {
--#ifdef CONFIG_KERNEL_REPLICATION
- 	int nid;
- 
- 	for_each_memory_node(nid) {
-@@ -1051,10 +1051,14 @@ static void populate_mappings_prot(phys_addr_t phys, unsigned long virt,
- 			page_to_phys(walk_to_page_node(nid, (void *)virt)),
- 			virt, size, prot, NULL, 0);
- 	}
-+}
- #else
-+static void populate_mappings_prot(phys_addr_t phys, unsigned long virt,
-+				   phys_addr_t size, pgprot_t prot)
++static inline pgtable_t __pte_alloc_one_node_noprof(unsigned int nid,
++					     struct mm_struct *mm, gfp_t gfp)
 +{
- 	early_create_pgd_mapping(init_mm.pgd, phys, virt, size, prot, NULL, 0);
--#endif /* CONFIG_KERNEL_REPLICATION */
++	struct ptdesc *ptdesc;
++
++	ptdesc = pagetable_alloc_node_noprof(nid, gfp, 0);
++	if (!ptdesc)
++		return NULL;
++	if (!pagetable_pte_ctor(mm, ptdesc)) {
++		pagetable_free(ptdesc);
++		return NULL;
++	}
++
++	return ptdesc_page(ptdesc);
++}
++
++#define __pte_alloc_one_node(...) alloc_hooks(__pte_alloc_one_node_noprof(__VA_ARGS__))
++#endif
++
+ #ifndef __HAVE_ARCH_PTE_ALLOC_ONE
+ /**
+  * pte_alloc_one - allocate a page for PTE-level user page table
+@@ -99,6 +119,17 @@ static inline pgtable_t pte_alloc_one_noprof(struct mm_struct *mm)
+ 	return __pte_alloc_one_noprof(mm, GFP_PGTABLE_USER);
  }
-+#endif /* CONFIG_KERNEL_REPLICATION */
- 
- static void update_mapping_prot(phys_addr_t phys, unsigned long virt,
- 				phys_addr_t size, pgprot_t prot)
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 8a7083c02203..0f3592038823 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -4240,6 +4240,9 @@ extern int __meminit early_pfn_to_nid(unsigned long pfn);
+ #define pte_alloc_one(...)	alloc_hooks(pte_alloc_one_noprof(__VA_ARGS__))
++
++#ifdef CONFIG_KERNEL_REPLICATION
++static inline pgtable_t pte_alloc_one_node_noprof(unsigned int nid,
++					   struct mm_struct *mm)
++{
++	return __pte_alloc_one_node(nid, mm, GFP_PGTABLE_USER | __GFP_THISNODE);
++}
++
++#define pte_alloc_one_node(...)	alloc_hooks(pte_alloc_one_node_noprof(__VA_ARGS__))
++#endif
++
  #endif
  
- extern void mem_init(void);
-+#ifdef CONFIG_KERNEL_REPLICATION
-+extern void preallocate_vmalloc_pages(void);
-+#endif
- extern void __init mmap_init(void);
- 
- extern void __show_mem(unsigned int flags, const nodemask_t *nodemask, int max_zone_idx);
-diff --git a/init/main.c b/init/main.c
-index d9d936707c19..249307e46818 100644
---- a/init/main.c
-+++ b/init/main.c
-@@ -109,6 +109,7 @@
- #include <linux/unaligned.h>
- #include <linux/vdso_datastore.h>
- #include <linux/hazptr.h>
-+#include <linux/numa_kernel_replication.h>
- #include <net/net_namespace.h>
- 
- #include <asm/io.h>
-@@ -1038,12 +1039,20 @@ void start_kernel(void)
- 	 * These use large bootmem allocations and must precede
- 	 * initalization of page allocator
- 	 */
-+	numa_replication_init();
- 	setup_log_buf(0);
- 	vfs_caches_init_early();
- 	sort_main_extable();
- 	trap_init();
- 	mm_core_init();
- 	maple_tree_init();
-+	/*
-+	 * Kernel text replication should be done before
-+	 * alloc/init first mm struct, due to it is necessary
-+	 * to setup per-NUMA node translation tables and kernel
-+	 * instances properly.
-+	 */
-+	numa_replicate_kernel_text();
- 	poking_init();
- 	ftrace_init();
- 
-@@ -1571,6 +1580,14 @@ static int __ref kernel_init(void *unused)
- 	free_initmem();
- 	mark_readonly();
- 
-+	/*
-+	 * RODATA replication is done here due to
-+	 * it is necessary to finalize the kernel
-+	 * and modules initialization before
-+	 */
-+	numa_replicate_kernel_rodata();
-+	numa_replication_fini();
+ /*
+@@ -154,6 +185,33 @@ static inline pmd_t *pmd_alloc_one_noprof(struct mm_struct *mm, unsigned long ad
+ 	return ptdesc_address(ptdesc);
+ }
+ #define pmd_alloc_one(...)	alloc_hooks(pmd_alloc_one_noprof(__VA_ARGS__))
 +
- 	/*
- 	 * Kernel mappings are now finalized - update the userspace page-table
- 	 * to finalize PTI.
-diff --git a/mm/mm_init.c b/mm/mm_init.c
-index 1533aebafb68..d2b13d8887c8 100644
---- a/mm/mm_init.c
-+++ b/mm/mm_init.c
-@@ -2679,6 +2679,9 @@ void __init mm_core_init(void)
- 	ptlock_cache_init();
- 	pgtable_cache_init();
- 	debug_objects_mem_init();
 +#ifdef CONFIG_KERNEL_REPLICATION
-+	preallocate_vmalloc_pages();
++static inline pmd_t *pmd_alloc_one_node_noprof(unsigned int nid,
++					struct mm_struct *mm,
++					unsigned long addr)
++{
++	struct ptdesc *ptdesc;
++	gfp_t gfp = GFP_PGTABLE_USER;
++
++	if (mm == &init_mm)
++		gfp = GFP_PGTABLE_KERNEL;
++
++	gfp |= __GFP_THISNODE;
++
++	ptdesc = pagetable_alloc_node_noprof(nid, gfp, 0);
++	if (!ptdesc)
++		return NULL;
++	if (!pagetable_pmd_ctor(mm, ptdesc)) {
++		pagetable_free(ptdesc);
++		return NULL;
++	}
++	return ptdesc_address(ptdesc);
++}
++
++#define pmd_alloc_one_node(...)	alloc_hooks(pmd_alloc_one_node_noprof(__VA_ARGS__))
++#endif /* CONFIG_KERNEL_REPLICATION */
++
+ #endif
+ 
+ #ifndef __HAVE_ARCH_PMD_FREE
+@@ -191,6 +249,27 @@ static inline pud_t *__pud_alloc_one_noprof(struct mm_struct *mm, unsigned long
+ }
+ #define __pud_alloc_one(...)	alloc_hooks(__pud_alloc_one_noprof(__VA_ARGS__))
+ 
++#ifdef CONFIG_KERNEL_REPLICATION
++static inline pud_t *__pud_alloc_one_node_noprof(unsigned int nid,
++					  struct mm_struct *mm,
++					  unsigned long addr)
++{
++	gfp_t gfp = GFP_PGTABLE_USER;
++	struct ptdesc *ptdesc;
++
++	if (mm == &init_mm)
++		gfp = GFP_PGTABLE_KERNEL;
++
++	gfp |= __GFP_THISNODE;
++	ptdesc = pagetable_alloc_node_noprof(nid, gfp, 0);
++	if (!ptdesc)
++		return NULL;
++	return ptdesc_address(ptdesc);
++}
++
++#define __pud_alloc_one_node(...)	alloc_hooks(__pud_alloc_one_node_noprof(__VA_ARGS__))
++#endif /* CONFIG_KERNEL_REPLICATION */
++
+ #ifndef __HAVE_ARCH_PUD_ALLOC_ONE
+ /**
+  * pud_alloc_one - allocate memory for a PUD-level page table
+@@ -206,6 +285,17 @@ static inline pud_t *pud_alloc_one_noprof(struct mm_struct *mm, unsigned long ad
+ 	return __pud_alloc_one_noprof(mm, addr);
+ }
+ #define pud_alloc_one(...)	alloc_hooks(pud_alloc_one_noprof(__VA_ARGS__))
++
++#ifdef CONFIG_KERNEL_REPLICATION
++static inline pud_t *pud_alloc_one_node_noprof(unsigned int nid,
++					struct mm_struct *mm, unsigned long addr)
++{
++	return __pud_alloc_one_node(nid, mm, addr);
++}
++
++#define pud_alloc_one_node(...)	alloc_hooks(pud_alloc_one_node_noprof(__VA_ARGS__))
++#endif /* CONFIG_KERNEL_REPLICATION */
++
+ #endif
+ 
+ static inline void __pud_free(struct mm_struct *mm, pud_t *pud)
+diff --git a/include/asm-generic/pgtable-nop4d.h b/include/asm-generic/pgtable-nop4d.h
+index 89c21f84cffb..95c03ceeeea0 100644
+--- a/include/asm-generic/pgtable-nop4d.h
++++ b/include/asm-generic/pgtable-nop4d.h
+@@ -48,6 +48,11 @@ static inline p4d_t *p4d_offset(pgd_t *pgd, unsigned long address)
+  * inside the pgd, so has no extra memory associated with it.
+  */
+ #define p4d_alloc_one(mm, address)		NULL
++
++#ifdef CONFIG_KERNEL_REPLICATION
++#define p4d_alloc_one_node(nid, mm, address)	NULL
 +#endif
- 	vmalloc_init();
- 	/* If no deferred init page_ext now, as vmap is fully initialized */
- 	if (!deferred_struct_pages)
++
+ #define p4d_free(mm, x)				do { } while (0)
+ #define p4d_free_tlb(tlb, x, a)			do { } while (0)
+ 
+diff --git a/include/asm-generic/pgtable-nopmd.h b/include/asm-generic/pgtable-nopmd.h
+index 36b6490ed180..9849760b3751 100644
+--- a/include/asm-generic/pgtable-nopmd.h
++++ b/include/asm-generic/pgtable-nopmd.h
+@@ -60,6 +60,11 @@ static inline pmd_t * pmd_offset(pud_t * pud, unsigned long address)
+  * inside the pud, so has no extra memory associated with it.
+  */
+ #define pmd_alloc_one(mm, address)		NULL
++
++#ifdef CONFIG_KERNEL_REPLICATION
++#define pmd_alloc_one_node(nid, mm, address)	NULL
++#endif
++
+ static inline void pmd_free(struct mm_struct *mm, pmd_t *pmd)
+ {
+ }
+diff --git a/include/asm-generic/pgtable-nopud.h b/include/asm-generic/pgtable-nopud.h
+index 356cbfbaab24..0acbac9961d0 100644
+--- a/include/asm-generic/pgtable-nopud.h
++++ b/include/asm-generic/pgtable-nopud.h
+@@ -56,6 +56,11 @@ static inline pud_t *pud_offset(p4d_t *p4d, unsigned long address)
+  * inside the p4d, so has no extra memory associated with it.
+  */
+ #define pud_alloc_one(mm, address)		NULL
++
++#ifdef CONFIG_KERNEL_REPLICATION
++#define pud_alloc_one_node(nid, mm, address)	NULL
++#endif
++
+ #define pud_free(mm, x)				do { } while (0)
+ #define pud_free_tlb(tlb, x, a)		        do { } while (0)
+ 
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index dd09c438fa23..95213a81907c 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -3595,8 +3595,24 @@ static inline int __p4d_alloc(struct mm_struct *mm, pgd_t *pgd,
+ {
+ 	return 0;
+ }
+-#else
++
++#ifdef CONFIG_KERNEL_REPLICATION
++static inline int __p4d_alloc_node(unsigned int nid,
++				   struct mm_struct *mm,
++				   pgd_t *pgd, unsigned long address)
++{
++	return 0;
++}
++#endif
++
++#else /* !__PAGETABLE_P4D_FOLDED */
+ int __p4d_alloc(struct mm_struct *mm, pgd_t *pgd, unsigned long address);
++
++#ifdef CONFIG_KERNEL_REPLICATION
++int __p4d_alloc_node(unsigned int nid, struct mm_struct *mm,
++		     pgd_t *pgd, unsigned long address);
++#endif
++
+ #endif
+ 
+ #if defined(__PAGETABLE_PUD_FOLDED) || !defined(CONFIG_MMU)
+@@ -3605,12 +3621,27 @@ static inline int __pud_alloc(struct mm_struct *mm, p4d_t *p4d,
+ {
+ 	return 0;
+ }
++
++#ifdef CONFIG_KERNEL_REPLICATION
++static inline int __pud_alloc_node(unsigned int nid,
++				   struct mm_struct *mm,
++				   p4d_t *p4d, unsigned long address)
++{
++	return 0;
++}
++#endif /* CONFIG_KERNEL_REPLICATION */
++
+ static inline void mm_inc_nr_puds(struct mm_struct *mm) {}
+ static inline void mm_dec_nr_puds(struct mm_struct *mm) {}
+ 
+ #else
+ int __pud_alloc(struct mm_struct *mm, p4d_t *p4d, unsigned long address);
+ 
++#ifdef CONFIG_KERNEL_REPLICATION
++int __pud_alloc_node(unsigned int nid,
++		     struct mm_struct *mm,
++		     p4d_t *p4d, unsigned long address);
++#endif /* CONFIG_KERNEL_REPLICATION */
+ static inline void mm_inc_nr_puds(struct mm_struct *mm)
+ {
+ 	if (mm_pud_folded(mm))
+@@ -3633,12 +3664,27 @@ static inline int __pmd_alloc(struct mm_struct *mm, pud_t *pud,
+ 	return 0;
+ }
+ 
++#ifdef CONFIG_KERNEL_REPLICATION
++static inline int __pmd_alloc_node(unsigned int nid,
++				   struct mm_struct *mm,
++				   pud_t *pud, unsigned long address)
++{
++	return 0;
++}
++#endif /* CONFIG_KERNEL_REPLICATION */
++
+ static inline void mm_inc_nr_pmds(struct mm_struct *mm) {}
+ static inline void mm_dec_nr_pmds(struct mm_struct *mm) {}
+ 
+ #else
+ int __pmd_alloc(struct mm_struct *mm, pud_t *pud, unsigned long address);
+ 
++#ifdef CONFIG_KERNEL_REPLICATION
++int __pmd_alloc_node(unsigned int nid,
++		     struct mm_struct *mm,
++		     pud_t *pud, unsigned long address);
++#endif /* CONFIG_KERNEL_REPLICATION */
++
+ static inline void mm_inc_nr_pmds(struct mm_struct *mm)
+ {
+ 	if (mm_pmd_folded(mm))
+@@ -3710,6 +3756,32 @@ static inline pmd_t *pmd_alloc(struct mm_struct *mm, pud_t *pud, unsigned long a
+ 	return (unlikely(pud_none(*pud)) && __pmd_alloc(mm, pud, address))?
+ 		NULL: pmd_offset(pud, address);
+ }
++
++#ifdef CONFIG_KERNEL_REPLICATION
++static inline p4d_t *p4d_alloc_node(unsigned int nid,
++		struct mm_struct *mm,
++		pgd_t *pgd, unsigned long address)
++{
++	return (unlikely(pgd_none(*pgd)) && __p4d_alloc_node(nid, mm, pgd, address)) ?
++		NULL : p4d_offset(pgd, address);
++}
++
++static inline pud_t *pud_alloc_node(unsigned int nid,
++		struct mm_struct *mm,
++		p4d_t *p4d, unsigned long address)
++{
++	return (unlikely(p4d_none(*p4d)) && __pud_alloc_node(nid, mm, p4d, address)) ?
++		NULL : pud_offset(p4d, address);
++}
++
++static inline pmd_t *pmd_alloc_node(unsigned int nid,
++		struct mm_struct *mm,
++		pud_t *pud, unsigned long address)
++{
++	return (unlikely(pud_none(*pud)) && __pmd_alloc_node(nid, mm, pud, address)) ?
++		NULL : pmd_offset(pud, address);
++}
++#endif /* CONFIG_KERNEL_REPLICATION */
+ #endif /* CONFIG_MMU */
+ 
+ enum pt_flags {
+@@ -3812,6 +3884,19 @@ static inline void pagetable_free_kernel(struct ptdesc *pt)
+ 	__pagetable_free(pt);
+ }
+ #endif
++
++#ifdef CONFIG_KERNEL_REPLICATION
++
++static inline struct ptdesc *pagetable_alloc_node_noprof(int nid, gfp_t gfp,
++						  unsigned int order)
++{
++	struct page *page = alloc_pages_node_noprof(nid, gfp | __GFP_COMP, order);
++
++	return page_ptdesc(page);
++}
++
++#endif
++
+ /**
+  * pagetable_free - Free pagetables
+  * @pt:	The page table descriptor
+diff --git a/mm/memory.c b/mm/memory.c
+index 8b0c2c735d3d..05853e4fb266 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -6906,6 +6906,28 @@ vm_fault_t handle_mm_fault(struct vm_area_struct *vma, unsigned long address,
+ EXPORT_SYMBOL_GPL(handle_mm_fault);
+ 
+ #ifndef __PAGETABLE_P4D_FOLDED
++
++#ifdef CONFIG_KERNEL_REPLICATION
++int __p4d_alloc_node(unsigned int nid,
++		struct mm_struct *mm,
++		pgd_t *pgd, unsigned long address)
++{
++	p4d_t *new = p4d_alloc_one_node(nid, mm, address);
++	if (!new)
++		return -ENOMEM;
++
++	spin_lock(&mm->page_table_lock);
++	if (pgd_present(*pgd)) { /* Another has populated it */
++		p4d_free(mm, new);
++	} else {
++		smp_wmb(); /* See comment in pmd_install() */
++		pgd_populate(mm, pgd, new);
++	}
++	spin_unlock(&mm->page_table_lock);
++	return 0;
++}
++#endif /* CONFIG_KERNEL_REPLICATION */
++
+ /*
+  * Allocate p4d page table.
+  * We've already handled the fast-path in-line.
+@@ -6929,6 +6951,28 @@ int __p4d_alloc(struct mm_struct *mm, pgd_t *pgd, unsigned long address)
+ #endif /* __PAGETABLE_P4D_FOLDED */
+ 
+ #ifndef __PAGETABLE_PUD_FOLDED
++
++#ifdef CONFIG_KERNEL_REPLICATION
++int __pud_alloc_node(unsigned int nid,
++		struct mm_struct *mm,
++		p4d_t *p4d, unsigned long address)
++{
++	pud_t *new = pud_alloc_one_node(nid, mm, address);
++	if (!new)
++		return -ENOMEM;
++
++	spin_lock(&mm->page_table_lock);
++	if (!p4d_present(*p4d)) {
++		mm_inc_nr_puds(mm);
++		smp_wmb(); /* See comment in pmd_install() */
++		p4d_populate(mm, p4d, new);
++	} else  /* Another has populated it */
++		pud_free(mm, new);
++	spin_unlock(&mm->page_table_lock);
++	return 0;
++}
++#endif /* CONFIG_KERNEL_REPLICATION */
++
+ /*
+  * Allocate page upper directory.
+  * We've already handled the fast-path in-line.
+@@ -6974,6 +7018,30 @@ int __pmd_alloc(struct mm_struct *mm, pud_t *pud, unsigned long address)
+ 	spin_unlock(ptl);
+ 	return 0;
+ }
++
++#ifdef CONFIG_KERNEL_REPLICATION
++int __pmd_alloc_node(unsigned int nid,
++		struct mm_struct *mm,
++		pud_t *pud, unsigned long address)
++{
++	spinlock_t *ptl;
++	pmd_t *new = pmd_alloc_one_node(nid, mm, address);
++	if (!new)
++		return -ENOMEM;
++
++	ptl = pud_lock(mm, pud);
++	if (!pud_present(*pud)) {
++		mm_inc_nr_pmds(mm);
++		smp_wmb(); /* See comment in pmd_install() */
++		pud_populate(mm, pud, new);
++	} else { /* Another has populated it */
++		pmd_free(mm, new);
++	}
++	spin_unlock(ptl);
++	return 0;
++}
++#endif /* CONFIG_KERNEL_REPLICATION */
++
+ #endif /* __PAGETABLE_PMD_FOLDED */
+ 
+ static inline void pfnmap_args_setup(struct follow_pfnmap_args *args,
 -- 
 2.34.1
 
