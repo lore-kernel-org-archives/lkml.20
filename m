@@ -1,43 +1,102 @@
-Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EE373D890F;
-	Thu, 27 Aug 2026 23:38:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 479523B71DF
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 23:41:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787873902; cv=none; b=on/JJvhiT42fYcUM656b1utOKSoY00CsM2/BTGuJfkpnH6BsBZiqLwNZ52SWMn74RXPB1EDO0w1F81z309SMty0GvBWQtevDQiWozVa4MEKmWbo1g11FBtFCQ+lpr6xZoOaG0+aZu+pa9wddn5odOUgC6zKh31hD+7fbFbF/AMY=
+	t=1787874068; cv=none; b=CRkDBaQQsL3/bDevwTFMZyYgBfFAaHl3R842g8PZPdlfxY2Ae3rppI/upJ+BrnXuy/pybIhbZehpj9wCTvYWQTmK/I13f/fVGW8rXuIq/85Q7j9DW0FA7BIX8KmbTcejv87o+iscIsfAJZhFKow2vAZ7/xfJ3ZmQAdUDlUgy/50=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787873902; c=relaxed/simple;
-	bh=1RwU5fvHVJ9sE/KHEQbCOKdjhF2yFRswREVupkyZDLc=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=a05STeJGa++LNYyERKUH4uCFBc2iLAbeMUgKJgJsXqWx/byBluEhaFf/Deck5mF6j524RDjHePwSMskb+nFM7J7ozHpAyqc3nlMYtYE8I/U3F9IzYxFNXl6PDkQkOzCH6vByFOlRTNjEja4J1Lt8WSIAO2KbsDG0iq5s226ny6I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=rPbrrgIA; arc=none smtp.client-ip=185.70.43.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1787874068; c=relaxed/simple;
+	bh=VhXID8Q2Dlk7SGe+8uD8VtqeZ11RIRSkFnVIvMqoK1Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=M14q84aEIEXqc7KG4/Nc+fZ3teRFsRp+F9LFv4FLG557MRqNeTDeX5wQz6NmVCzOdVuoxpiF11ifHPcDa8JUzr9iTw+7SlVoeNmRvBCaSUU3uc8oLT3SG/1SkNr2fghHSk1imX0ypv4tFzn1QNBwvw1L4QpRz2nqmSom4rNjJYA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=Wj4kbHJr; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="rPbrrgIA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1787873898; x=1788133098;
-	bh=GhkKQ/yNTlAm89/vtdaJit4+1X2iL5wuRhao6qGXmxk=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=rPbrrgIAABo5avGB3RGOdf27pddP+IENsOpgQR8pInOse2RqMFWg9kl3FdpC2Ec8A
-	 z1OfXYbndNEcEmoSEZ9MFosfEH1jMJrkjjOa/A0fCvL5hl+O9lofK6wA0y8OQw2ZSK
-	 oqSRtmTg01KwUaRoBnDs1mY5GgSjWWboEFH1NzI9xE7J79XrbYQ05tEELMzz6ZUyik
-	 ehFZI+RmwraM2dSa73vx4ldYcjgPD01CsuiTHdvDNsTQCFDbouP3w6nAcLsm9ypItz
-	 v9qvk9cuF0ow2flFE+i80pQikUrpq6PdnU6la94IBBW3sjveZTmfHALdBoS2bGd+FL
-	 rw+SgvLLHIfFA==
-Date: Thu, 27 Aug 2026 23:38:11 +0000
-To: Miklos Szeredi <miklos@szeredi.hu>, Stefan Hajnoczi <stefanha@redhat.com>, Vivek Goyal <vgoyal@redhat.com>, German Maglione <gmaglione@redhat.com>, Shuah Khan <shuah@kernel.org>
-From: Aaron Paterson <apaterson@pm.me>
-Cc: =?utf-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, fuse-devel@lists.linux.dev, linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org, virtualization@lists.linux.dev, linux-kernel@vger.kernel.org, Aaron Paterson <apaterson@pm.me>
-Subject: [PATCH 5/5] virtiofs: report a request refused for a live nodeid as stale
-Message-ID: <aa359b6b96737a97e92dd091f0817221916e2ebe.1787873791.git.apaterson@pm.me>
-In-Reply-To: <cover.1787873791.git.apaterson@pm.me>
-References: <cover.1787873791.git.apaterson@pm.me>
-Feedback-ID: 6356313:user:proton
-X-Pm-Message-ID: 65c8d97bb95cda0d9675916e00fdfd03930ac4db
+	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="Wj4kbHJr"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-38a0c7e841fso769044a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:41:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1787874066; x=1788478866; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:mail-followup-to:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gAjqfC0SW4nxG2w1tJx7WfUnmE/BSNkbt+YGxZxti/o=;
+        b=Wj4kbHJraKww5MW0qB++UX3yBLjeqjvLWC5TVjCxGn8HsiYdf4mXM9gII73C9GbAER
+         So4Pm+xsD4RXICdYcvRJ/WXMpDNISuAfJ4K6uz/cYlEjg7nR6zQKjfSqOVc07Kv4eQeD
+         dFbXQfRggl8iWyexbPVw3y0dQsY/uLA9k+XNrS3VDeWWKvbsbIIuXcCkfnA3/PO37+IQ
+         bMeFhCk6K2LY8bY+rRIsmD/sYipNHj28/hsR4edJrHeyn4ECBgPoN6wpLc1xW8Z2+dGo
+         LnbEmmfrfrbRN1VvlM9av03JAx6YCJX0os+4A66yIDXfkLLZ1NdlaQNJJuuCpUukCpfu
+         64NQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787874066; x=1788478866;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:mail-followup-to:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gAjqfC0SW4nxG2w1tJx7WfUnmE/BSNkbt+YGxZxti/o=;
+        b=sRuR7daxvJOUClf5uxE8zLqw7PccHXA5WAwVBCAiHB+KFVGla7mXDY2aXCABo+ifsE
+         Tirihj6FxdxHlwjnWJn/O/ELsE8X6T+hYJBeyD/CCA2Y9b3PfeclwGxktc2KRJkxtr8o
+         jCq/zflySo9vCWnzxT15aOAVIGcUN5OyFu6uLd0Z1eEW3/TCNq50w4auoS7gRq+YcqTQ
+         4Ez6oWbA11kS6kO+1kUhfUF8VV3eHHyrwbRuQJsD9mZuYNtTEnXuNFDl81dxJbsSw/F4
+         xwo9lZhM6/B2qknHuVpAyMerYVaKcwspcxrssWddB39HtjfvV6s3c+bSpxHpvSCBdTmL
+         WYwQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrMgkLZrhi/xUU/To8d+54/ZFp0u0u3u+qcnaZdQ6xG3ke3K0aoO22NyEyU3WeVRFtQKhfRSeniywUoV1g=@vger.kernel.org
+X-Gm-Message-State: AFuF++nANAwVxjofOyifRN1xRqPpNhhoRWvvYrI34jcpVo6mMeM1Ss6O
+	pl4MwZdDE5ynZREXPo1NS7kbsgGNff3Nqo5DjBfYhjLoa3V2u7x1fojC5dtI4XPRtBE=
+X-Gm-Gg: AR+sD13ZEW5T6iXnHpuqQFSpis39xDZutXl5ms6WPXOvj1ATdonB5eemRCoszu1Cf5o
+	9lbRAid5Zh9O3Ejskb9RJK085EbJmTLZ+EoJhtnWzVRXtfSxCC9RS0DUUja/necyL/TNmAuIyfm
+	q+inMk3nZX0EKyXMTevgVeQWAK4fBDX6r2TTJH+1++nVwZSih3dsakTLHgpjulG29S3Yifg50Cl
+	bNX8zG+h3+3k/8wZEgZioTOgf27cyeFwWhuXrvtcJ2RWL0Jd2PmLvGnCatvssmRVRUEplRC6m8w
+	93YxWo3Gn2uz5YRM5tpuYF8EsUUD20OwJV6gwmnkHVe+NW36Q2FLU3jjib9yNQFBYiXEktcGkkc
+	XbPVdlSTY/svtMGrnNCzsQ9LrWKb+wb5I7C3KUsIZsmiFcg/eLzOIPMK3hiovE3YXDJaqryDXaG
+	lKhI6Eqiwvd4u/R/FqRYaunH3jpxfTBP4ghdmIaURGEQ==
+X-Received: by 2002:a17:90b:51d2:b0:38f:26c7:165e with SMTP id 98e67ed59e1d1-396d0f8ffdamr5528045a91.9.1787874066635;
+        Thu, 27 Aug 2026 16:41:06 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:74::])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b1992e05sm4677116a91.15.2026.08.27.16.41.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 16:41:05 -0700 (PDT)
+Date: Thu, 27 Aug 2026 16:41:05 -0700
+From: Joe Damato <joe@dama.to>
+To: Michael Chan <michael.chan@broadcom.com>
+Cc: netdev@vger.kernel.org, Pavan Chebbi <pavan.chebbi@broadcom.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Colin Winegarden <colin.winegarden@broadcom.com>,
+	Rukhsana Ansari <rukhsana.ansari@broadcom.com>,
+	Kalesh AP <kalesh-anakkur.purayil@broadcom.com>, horms@kernel.org,
+	linux-kernel@vger.kernel.org, raphaelcf@meta.com,
+	stable@vger.kernel.org, llvm@lists.linux.dev
+Subject: Re: [PATCH net v3] bnxt_en: Bound SW TPA IDs to prevent crashes
+Message-ID: <apDLEbEu1PLTGU+f@devvm20253.cco0.facebook.com>
+Mail-Followup-To: Joe Damato <joe@dama.to>,
+	Michael Chan <michael.chan@broadcom.com>, netdev@vger.kernel.org,
+	Pavan Chebbi <pavan.chebbi@broadcom.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Colin Winegarden <colin.winegarden@broadcom.com>,
+	Rukhsana Ansari <rukhsana.ansari@broadcom.com>,
+	Kalesh AP <kalesh-anakkur.purayil@broadcom.com>, horms@kernel.org,
+	linux-kernel@vger.kernel.org, raphaelcf@meta.com,
+	stable@vger.kernel.org, llvm@lists.linux.dev
+References: <20260827185700.2157164-1-joe@dama.to>
+ <CACKFLikJiCdjej4ezF=U16Leef3oAjSZGQAyetRnF=nLRvUfZA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,159 +104,29 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CACKFLikJiCdjej4ezF=U16Leef3oAjSZGQAyetRnF=nLRvUfZA@mail.gmail.com>
 
-A request naming a nodeid and nothing else is only sent for an inode the
-client has looked up and holds a reference to, and the server owes the
-client that inode until it is sent FUSE_FORGET. ENOENT to such a request
-describes a handle the server was obliged to honour rather than
-something that has gone away, and the caller cannot tell the difference.
+On Thu, Aug 27, 2026 at 04:07:16PM -0700, Michael Chan wrote:
+> On Thu, Aug 27, 2026 at 11:57 AM Joe Damato <joe@dama.to> wrote:
+> 
+> > @@ -3831,6 +3834,7 @@ static int bnxt_alloc_tpa_info(struct bnxt *bp)
+> >         int i, rc;
+> >
+> >         bp->max_tpa = MAX_TPA;
+> > +       bp->max_tpa_roundup_size = MAX_TPA;
+> 
+> This is strictly not needed.  If we return early below, it means the
+> chip does not support TPA at all.  We skip allocating the TPA array
+> for every ring, so it really makes no difference.
+> 
+> BNXT_SUPPORTS_TPA() will be false if we return early.  LRO and HW_GRO
+> will not be supported.  So I would say it's a false positive from
+> Sashiko.  Thanks.
 
-Report it at request completion so the caller can recover.
+Sorry, I should have been more explicit in my last message: is it worth a
+respin to remove this? Unless I am misunderstanding something, it's harmless
+and while not necessary, might be more clear for a human reader?
 
-The opens say EOPENSTALE, which is what an open says when the cached
-information it started from has gone stale. path_openat() decides what
-that means for the walk in progress, answering ECHILD under LOOKUP_RCU
-so it drops to REF-walk and ESTALE otherwise so the name is resolved
-again under LOOKUP_REVAL. NFS reports its own stale opens the same way.
-
-The rest say ESTALE, which retry_estale() answers by repeating the
-lookup once under LOOKUP_REVAL. fs/namei.c, fs/open.c, fs/stat.c,
-fs/statfs.c, fs/utimes.c and fs/xattr.c all reach it. EOPENSTALE would
-be wrong for these, since path_openat() is the only place that
-translates it and nothing would outside an open.
-
-Converted: FUSE_OPEN, FUSE_OPENDIR, FUSE_GETATTR, FUSE_SETATTR,
-FUSE_READLINK and FUSE_STATFS, the last sending no payload beside the
-nodeid.
-
-Not converted:
-
-- Requests carrying a name, where ENOENT is ambiguous and is often what
-  the caller asked to be told. FUSE_LOOKUP reports a missing name in a
-  living directory and the directory operations carry a parent nodeid
-  beside one. The xattr requests carry an attribute name, and a server
-  answering ENOENT rather than ENODATA for a missing attribute would
-  have a correct reply turned into a retry that cannot succeed.
-
-- Requests against an already open descriptor, which have no equivalent
-  retry to reach, and FUSE_IOCTL and FUSE_POLL, which hand the server's
-  errno to userspace verbatim.
-
-commit 68b69fa0edb2 ("virtiofs: add FUSE protocol validation") already
-inspects replies at this point for servers that break the protocol.
-Nodeid lifetime is another rule a server can break.
-
-Found with a server that releases an inode as soon as a rename displaces
-the name it was looked up by, where roughly one open in eight during a
-rename race is refused while stat continues to describe the file.
-
-Signed-off-by: Aaron Paterson <apaterson@pm.me>
----
- fs/fuse/virtio_fs.c | 62 +++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 62 insertions(+)
-
-diff --git a/fs/fuse/virtio_fs.c b/fs/fuse/virtio_fs.c
-index f15e516ebcb5..7b03bf87c2ae 100644
---- a/fs/fuse/virtio_fs.c
-+++ b/fs/fuse/virtio_fs.c
-@@ -780,6 +780,66 @@ static bool virtio_fs_verify_response(struct fuse_req =
-*req, unsigned int len)
- =09return true;
- }
-=20
-+/*
-+ * Report a request refused for a live nodeid as stale.
-+ *
-+ * These requests carry a nodeid and no name, so the client only sends the=
-m for
-+ * an inode it has already looked up and holds a reference to, and a serve=
-r owes
-+ * the client that inode until it is sent FUSE_FORGET. A server answering =
-with
-+ * ENOENT is describing a handle it was obliged to honour rather than a na=
-me
-+ * that has gone away, and the caller has no reason to doubt it.
-+ *
-+ * Saying the handle is stale is something the caller knows how to answer:=
- it
-+ * repeats the lookup under LOOKUP_REVAL and acts on whatever the name ref=
-ers to
-+ * now. A name that genuinely has gone fails the retried lookup, so a call=
-er
-+ * still learns it is gone. retry_estale() is what does this, and fs/namei=
-.c,
-+ * fs/open.c, fs/stat.c, fs/statfs.c, fs/utimes.c and fs/xattr.c all reach=
- it,
-+ * which is what makes the conversion useful rather than a rename of the e=
-rror.
-+ *
-+ * A request that names something which can itself be absent is left alone=
-,
-+ * because ENOENT is then ambiguous and is frequently the answer the calle=
-r
-+ * asked for. FUSE_LOOKUP reports a missing name in a living directory and=
- the
-+ * directory operations carry a parent nodeid beside one, so neither can b=
-e
-+ * read as a statement about the inode. The extended attribute requests be=
-long
-+ * with them: they carry an attribute name, and while a server should repo=
-rt a
-+ * missing attribute as ENODATA, one that answers ENOENT instead would hav=
-e a
-+ * correct reply turned into a retry that cannot succeed.
-+ *
-+ * Requests against an already open descriptor are also left alone, since =
-there
-+ * is no equivalent retry to reach and converting the error would rename a
-+ * failure rather than repair it, and FUSE_IOCTL and FUSE_POLL hand the
-+ * server's errno to userspace verbatim.
-+ */
-+static void virtio_fs_fixup_stale_error(struct fuse_req *req)
-+{
-+=09if (req->out.h.error !=3D -ENOENT)
-+=09=09return;
-+
-+=09switch (req->in.h.opcode) {
-+=09case FUSE_OPEN:
-+=09case FUSE_OPENDIR:
-+=09=09/*
-+=09=09 * An open says EOPENSTALE, and path_openat() decides what the
-+=09=09 * walk in progress should make of it: ECHILD under LOOKUP_RCU
-+=09=09 * so it drops to REF-walk, ESTALE otherwise so the name is
-+=09=09 * resolved again under LOOKUP_REVAL. Naming ESTALE here would
-+=09=09 * take the second in both cases and skip a cheaper retry.
-+=09=09 */
-+=09=09req->out.h.error =3D -EOPENSTALE;
-+=09=09break;
-+=09case FUSE_GETATTR:
-+=09case FUSE_SETATTR:
-+=09case FUSE_READLINK:
-+=09case FUSE_STATFS:
-+=09=09/*
-+=09=09 * Nothing translates EOPENSTALE outside the open path, so
-+=09=09 * these say ESTALE directly, which retry_estale() answers.
-+=09=09 */
-+=09=09req->out.h.error =3D -ESTALE;
-+=09=09break;
-+=09}
-+}
-+
- /* Work function for request completion */
- static void virtio_fs_request_complete(struct fuse_req *req,
- =09=09=09=09       struct virtio_fs_vq *fsvq)
-@@ -810,6 +870,8 @@ static void virtio_fs_request_complete(struct fuse_req =
-*req,
-=20
- =09clear_bit(FR_SENT, &req->flags);
-=20
-+=09virtio_fs_fixup_stale_error(req);
-+
- =09fuse_request_end(req);
- =09spin_lock(&fsvq->lock);
- =09dec_in_flight_req(fsvq);
---=20
-2.55.0.553.g4ad8c266be
-
-
+LMK what you think.
