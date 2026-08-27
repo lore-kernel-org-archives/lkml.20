@@ -1,103 +1,291 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+Received: from mail.muc.de (mail.muc.de [193.149.48.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0051135294E;
-	Thu, 27 Aug 2026 18:52:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A1AE483BE8
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:52:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.149.48.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787856763; cv=none; b=pfn1bGnIhhX/RNhg5rgFMZ1fZqn6mtjGXdQtL0TFX5vOz98mTx8LaJWzUyT3Eb3FveaveF5CbBJQH3Syq3e/UmnExmmxyOVxpfdIRtgmsou/D3EwVBzQumsngy5y8BSLkz2lFl+mHcj7Lz6bZn2xc2ndWRS9ghwNkWbWriqt1S4=
+	t=1787856775; cv=none; b=WXJVsl9ZRCPNYA0ORMUcc/UuFg+/7XNLHnIgD7w3Xg84w0ZjtD/yFA9+6LxJr8Fi+j+qc6aKw4Lbh/KBrkZAKbbELYSP2Cvscq86I/Qq4tIcHRJFpBrUjFVMdYceWkVPxiVxvB7tPihNHnnl85h3lCrnps+pI2F4XTC+iuI96H8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787856763; c=relaxed/simple;
-	bh=rYPoexo/R4rS6k4X2ngPUdyKUrEtQSFsxJeDJvvGiE0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nms8PxaupD1UxfAoYCagdgGrNMI9yN9M+5rQ7wE8bNvBZWzsMtnkOWFBsSprxgGj2HLBSv54LhbddxXsx+Y5CGomdmtRm7lGUltCNGNbTMymPOf//OaP76tRJhhZmFmdGhFt2y9vNPfbxSfBjJ84BWXmNinpM3dqCLdVr6+KY0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jhKP6lne; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jhKP6lne"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787856761; x=1819392761;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=rYPoexo/R4rS6k4X2ngPUdyKUrEtQSFsxJeDJvvGiE0=;
-  b=jhKP6lne5HY3vavC626L1nQ8rNxfYNz2o/rRyl2BIPCFiT2p82+Kxgb5
-   YjYtKiJC0/qKMR8LOlEz/W/psykSqxDDnmcchKt9yJ/IXLvV2MsYFTw+4
-   Hp29PvOG5qkYbheKJPBKFJlz6KLW8SxsK2bi4mmufryl0iOU0/gdyW3L6
-   S4i1ILl49QhjpNqRKnYOLyVIpoiC64HKMvpJqbS6dGijbLNZiucSq/mv/
-   70+t5wB2yx/gn35frsCQsnWkYrJ+7t817cuau3BEapd3OaxKHQddz0qFp
-   BzHGhx+IFUzgtdr0ETiNUvizfNRV5HXbARwXzQW0591EaEWdzs9l29MEO
-   w==;
-X-CSE-ConnectionGUID: /MaRDTa3TaaoioVhkybiPA==
-X-CSE-MsgGUID: St9NiyisT/KK0gB549+tHw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="99527345"
-X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
-   d="scan'208";a="99527345"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 11:52:41 -0700
-X-CSE-ConnectionGUID: Lp9RAStkS0euqODl6m0SBQ==
-X-CSE-MsgGUID: IvnO0SqOTtOOx+FF/IWDLg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
-   d="scan'208";a="266147446"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.125])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 11:52:39 -0700
-Date: Thu, 27 Aug 2026 21:52:36 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Radek =?iso-8859-1?Q?V=E1lko?= <rvalko@lipicko.cz>
-Cc: Andy Shevchenko <andy@kernel.org>,
-	Linus Walleij <linus.walleij@linaro.org>,
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] pinctrl: denverton: Fix probe of MFD-created platform
- device
-Message-ID: <apCHdNBSQ7ub6lNi@ashevche-desk.local>
-References: <20260827184259.32386-1-rvalko@lipicko.cz>
+	s=arc-20240116; t=1787856775; c=relaxed/simple;
+	bh=Kvce6yieCudu+/9pDz/WS/3YBvKiVqD/uWc/BTwazh0=;
+	h=Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:From; b=U/CC0+3tht8YWHP5bdTYKPsMjLkHL2ikLJR0NW0OuRTN/V/fHXKuJaSFXrm0geFUUxbl9vlQ8nYf70lzYKrZGc8pavhcI73BCNmWuP8Zkkf/klx4Gv3vUM1uxihzCykkJTnoROtjXYhHa0w/eLUsbYgk1cXt39Adi49Jjt/BPv8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=muc.de; spf=pass smtp.mailfrom=muc.de; arc=none smtp.client-ip=193.149.48.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=muc.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=muc.de
+Received: (qmail 21440 invoked by uid 3782); 27 Aug 2026 20:52:50 +0200
+Received: from muc.de (p4fe15cdf.dip0.t-ipconnect.de [79.225.92.223]) (using
+ STARTTLS) by colin.muc.de (tmda-ofmipd) with ESMTP;
+ Thu, 27 Aug 2026 20:52:49 +0200
+Received: (qmail 31137 invoked by uid 1000); 27 Aug 2026 18:52:48 -0000
+Date: Thu, 27 Aug 2026 18:52:48 +0000
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+  Jiri Slaby <jirislaby@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+  linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
+  Helge Deller <deller@gmx.de>, Thomas Zimmermann <tzimmermann@suse.de>,
+  linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org
+Cc: acm@muc.de
+Subject: [Patch 6/9]: vt: Use u32 and typedef u1632 to handle whole glyphs
+Message-ID: <apCHgPpGWGfVz2cI@MAC.fritz.box>
+References: <apCEDM2sWv_M354-@MAC.fritz.box>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260827184259.32386-1-rvalko@lipicko.cz>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <apCEDM2sWv_M354-@MAC.fritz.box>
+X-Submission-Agent: TMDA/1.3.x (Ph3nix)
+From: Alan Mackenzie <acm@muc.de>
+X-Primary-Address: acm@muc.de
 
-On Thu, Aug 27, 2026 at 08:42:58PM +0200, Radek Válko wrote:
-> The Denverton pinctrl device can be instantiated by the Intel LPC
-> driver as an MFD platform device named "denverton-pinctrl".
-> 
-> On affected systems the platform device does not carry the INTC3000
-> ACPI match data itself. As a result, intel_pinctrl_probe_by_hid()
-> fails to obtain the SoC data using device_get_match_data() and
-> returns -ENODATA.
-> 
-> This results in:
-> 
->   denverton-pinctrl denverton-pinctrl.0:
->   probe with driver denverton-pinctrl failed with error -61
-> 
-> Denverton has a single fixed intel_pinctrl_soc_data instance. Pass
-> dnv_soc_data directly to intel_pinctrl_probe() instead of requiring
-> firmware match data for the MFD-created platform device.
-> 
-> Tested on an Intel Atom C3000 system with LPC/eSPI device 8086:19dc.
-> Before this change the Denverton pinctrl driver failed to probe and
-> no Denverton GPIO controller was registered. After the change,
-> denverton-pinctrl.0 registers with pinmux and pinconf support and
-> exposes 154 GPIO lines.
+vt: 32b glyph: 6. Use u32 and typedef u1632 to handle whole glyphs
 
-Thanks for the report.
+The glyph size u1632 is an either 32- or 16-bit unsigned word
+depending on whether or not CONFIG_FB_GLYPH_21BIT is #defined.
 
-Can you instead try to replace device_get_match_data() in
-intel_pinctrl_probe_by_hid() by intel_pinctrl_get_soc_data() in the way how
-it's done in intel_pinctrl_probe_by_uid()?
+Signed-off-by: Alan Mackenzie <acm@muc.de>
+
+diff --git a/drivers/tty/vt/vt.c b/drivers/tty/vt/vt.c
+index 8f467b22b799..0c389a564357 100644
+--- a/drivers/tty/vt/vt.c
++++ b/drivers/tty/vt/vt.c
+@@ -322,12 +323,12 @@ static inline u16 *screenpos(const struct vc_data *vc, unsigned int offset,
+ 	return (u16 *)(origin + offset);
+ }
+ 
+-static void con_putc(struct vc_data *vc, u16 ca, unsigned int y, unsigned int x)
++static void con_putc(struct vc_data *vc, u32 ca, unsigned int y, unsigned int x)
+ {
+ 	if (vc->vc_sw->con_putc)
+ 		vc->vc_sw->con_putc(vc, ca, y, x);
+ 	else
+-		vc->vc_sw->con_putcs(vc, &ca, 1, y, x);
++		vc->vc_sw->con_putcs(vc, (u16 *)&ca, 1, y, x);
+ }
+ 
+ /* Called  from the keyboard irq path.. */
+@@ -782,7 +773,7 @@ void invert_screen(struct vc_data *vc, int offset, int count, bool viewed)
+ void complement_pos(struct vc_data *vc, int offset)
+ {
+ 	static int old_offset = -1;
+-	static unsigned short old;
++	static unsigned int old;
+ 	static unsigned short oldx, oldy;
+ 
+ 	WARN_CONSOLE_UNLOCKED();
+@@ -3194,7 +3250,7 @@ static int vc_con_write_normal(struct vc_data *vc, int tc, int c,
+ {
+ 	int next_c;
+ 	unsigned char vc_attr = vc->vc_attr;
+-	u16 himask = vc->vc_hi_font_mask;
++	u32 himask = vc->vc_hi_font_mask;
+ 	u8 width = 1;
+ 	bool inverse = false;
+ 
+diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
+index 9f5c4c101581..18fbf7cf11dd 100644
+--- a/drivers/video/fbdev/core/fbcon.c
++++ b/drivers/video/fbdev/core/fbcon.c
+@@ -313,7 +313,7 @@ static inline bool fbcon_is_active(struct vc_data *vc, struct fb_info *info)
+ }
+ 
+ static int get_color(struct vc_data *vc, struct fb_info *info,
+-		     u16 c, bool is_fg)
++		     u32 c, bool is_fg)
+ {
+ 	int depth = fb_get_color_depth(&info->var, &info->fix);
+ 	int color = 0;
+@@ -379,12 +379,12 @@ static int get_color(struct vc_data *vc, struct fb_info *info,
+ 	return color;
+ }
+ 
+-static int get_fg_color(struct vc_data *vc, struct fb_info *info, u16 c)
++static int get_fg_color(struct vc_data *vc, struct fb_info *info, u32 c)
+ {
+ 	return get_color(vc, info, c, true);
+ }
+ 
+-static int get_bg_color(struct vc_data *vc, struct fb_info *info, u16 c)
++static int get_bg_color(struct vc_data *vc, struct fb_info *info, u32 c)
+ {
+ 	return get_color(vc, info, c, false);
+ }
+@@ -1639,8 +1657,8 @@ static void fbcon_redraw_move(struct vc_data *vc, struct fbcon_display *p,
+ 	while (count--) {
+ 		unsigned short *start = s;
+ 		unsigned short *le = advance_row(s, 1);
+-		unsigned short c;
++		unsigned int c;
+ 		int x = 0;
+-		unsigned short attr = 1;
++		unsigned int attr = 1;
+ 
+ 		do {
+@@ -1668,7 +1688,7 @@ static void fbcon_redraw_blit(struct vc_data *vc, struct fb_info *info,
+ 	int offset = ycount * vc->vc_cols;
+ 	unsigned short *d = (unsigned short *)
+ 	    (vc->vc_origin + vc->vc_size_row * line);
+-	unsigned short *s = d + offset;
++	unsigned short *s = d + ((long) offset) * GLYPH_HW;
+ 	struct fbcon_par *par = info->fbcon_par;
+ 
+ 	while (count--) {
+@@ -1719,8 +1739,8 @@ static void fbcon_redraw(struct vc_data *vc, int line, int count, int offset)
+ 	while (count--) {
+ 		unsigned short *start = s;
+ 		unsigned short *le = advance_row(s, 1);
+-		unsigned short c;
++		unsigned int c;
+ 		int x = 0;
+-		unsigned short attr = 1;
++		unsigned int attr = 1;
+ 
+ 		do {
+@@ -2030,7 +2052,7 @@ static void updatescrollmode_accel(struct fbcon_display *p,
+ #ifdef CONFIG_FRAMEBUFFER_CONSOLE_LEGACY_ACCELERATION
+ 	struct fbcon_par *par = info->fbcon_par;
+ 	int cap = info->flags;
+-	u16 t = 0;
++	u32 t = 0;
+ 	int ypan = FBCON_SWAP(par->rotate, info->fix.ypanstep, info->fix.xpanstep);
+ 	int ywrap = FBCON_SWAP(par->rotate, info->fix.ywrapstep, t);
+ 	int yres = FBCON_SWAP(par->rotate, info->var.yres, info->var.xres);
+@@ -2146,6 +2168,7 @@ static bool fbcon_switch(struct vc_data *vc)
+ 	struct fbcon_par *par;
+ 	struct fbcon_display *p = &fb_display[vc->vc_num];
+ 	struct fb_var_screeninfo var;
++	unsigned short *d, *s;
+ 	int i, ret, prev_console;
+ 
+ 	info = fbcon_info_from_console(vc->vc_num);
+diff --git a/drivers/video/fbdev/core/fbcon.h b/drivers/video/fbdev/core/fbcon.h
+index 407d207b14f1..5aaef363a343 100644
+--- a/drivers/video/fbdev/core/fbcon.h
++++ b/drivers/video/fbdev/core/fbcon.h
+@@ -217,7 +211,7 @@ static inline int real_y(struct fbcon_display *p, int ypos)
+ }
+ 
+ 
+-static inline int get_attribute(struct fb_info *info, u16 c)
++static inline int get_attribute(struct fb_info *info, u32 c)
+ {
+ 	int attribute = 0;
+ 
+diff --git a/include/linux/console_struct.h b/include/linux/console_struct.h
+index fe915afdece5..5afce52057ca 100644
+--- a/include/linux/console_struct.h
++++ b/include/linux/console_struct.h
+@@ -110,7 +119,7 @@ unsigned int vc_font_size(const struct vc_font *font);
+  * (vc_origin +            |                      |  \ EMPTY, to be filled by
+  *  vc_screenbuf_size)     |                      |  / vc_video_erase_char
+  *                         +----------------------+-'
+- *                         <---- 2 * vc_cols ----->
++ *                         <--- 2/4 * vc_cols ---->
+  *                         <---- vc_size_row ----->
+  *
+  * Note that every character in the console buffer is accompanied with an
+@@ -178,7 +190,7 @@ struct vc_data {
+ 		 int	vc_utf_char;
+ 	DECLARE_BITMAP(vc_tab_stop, VC_TABSTOPS_COUNT);	/* Tab stops. 256 columns. */
+ 	unsigned char   vc_palette[16*3];       /* Colour palette for VGA+ */
+-	unsigned short * vc_translate;
++	u1632		*vc_translate;
+ 	unsigned int	vc_bell_pitch;		/* Console bell pitch */
+ 	unsigned int	vc_bell_duration;	/* Console bell duration */
+ 	unsigned short	vc_cur_blink_ms;	/* Cursor blink duration */
+diff --git a/include/linux/consolemap.h b/include/linux/consolemap.h
+index 539d488fdc03..5e50b4d4bd0b 100644
+--- a/include/linux/consolemap.h
++++ b/include/linux/consolemap.h
+@@ -19,11 +19,21 @@ enum translation_map {
+ 
+ #include <linux/types.h>
+ 
++#ifdef CONFIG_FB_GLYPH_21BIT
++#define u1632 u32
++#else
++#define u1632 u16
++#endif
++
+ struct vc_data;
+ 
++extern u8 dfont_unicount[];	/* Defined in consolemap_deftbl.c */
++extern u16 dfont_unitable[];	/* Ditto */
++
+ #ifdef CONFIG_CONSOLE_TRANSLATIONS
+-u16 inverse_translate(const struct vc_data *conp, u16 glyph, bool use_unicode);
+-unsigned short *set_translate(enum translation_map m, struct vc_data *vc);
++u1632 inverse_translate(const struct vc_data *conp, u1632 glyph,
++			bool use_unicode);
++u1632 *set_translate(enum translation_map m, struct vc_data *vc);
+ int conv_uni_to_pc(struct vc_data *conp, long ucs);
+ u32 conv_8bit_to_uni(unsigned char c);
+ int conv_uni_to_8bit(u32 uni);
+@@ -32,7 +42,7 @@ unsigned int ucs_get_width(uint32_t cp);
+ u32 ucs_recompose(u32 base, u32 mark);
+ u32 ucs_get_fallback(u32 cp);
+ #else
+-static inline u16 inverse_translate(const struct vc_data *conp, u16 glyph,
++static inline u1632 inverse_translate(const struct vc_data *conp, u16 glyph,
+ 		bool use_unicode)
+ {
+ 	return glyph;
+diff --git a/include/linux/selection.h b/include/linux/selection.h
+index bab7d30d3446..44bc2b2892d8 100644
+--- a/include/linux/selection.h
++++ b/include/linux/selection.h
+@@ -33,7 +33,7 @@ extern unsigned char default_grn[];
+ extern unsigned char default_blu[];
+ 
+ unsigned short *screen_pos(const struct vc_data *vc, int w_offset, bool viewed);
+-u16 screen_glyph(const struct vc_data *vc, int offset);
++u32 screen_glyph(const struct vc_data *vc, int offset);
+ u32 screen_glyph_unicode(const struct vc_data *vc, int offset);
+ void complement_pos(struct vc_data *vc, int offset);
+ void invert_screen(struct vc_data *vc, int offset, int count, bool viewed);
+@@ -41,8 +41,8 @@ void invert_screen(struct vc_data *vc, int offset, int count, bool viewed);
+ void getconsxy(const struct vc_data *vc, unsigned char xy[static 2]);
+ void putconsxy(struct vc_data *vc, unsigned char xy[static const 2]);
+ 
+-u16 vcs_scr_readw(const struct vc_data *vc, const u16 *org);
+-void vcs_scr_writew(struct vc_data *vc, u16 val, u16 *org);
++u32 vcs_scr_readw(const struct vc_data *vc, const u16 *org);
++void vcs_scr_writew(struct vc_data *vc, u32 val, u16 *org);
+ void vcs_scr_updated(struct vc_data *vc);
+ 
+ int vc_uniscr_check(struct vc_data *vc);
+diff --git a/include/linux/vt_kern.h b/include/linux/vt_kern.h
+index d008c3d0a9bb..af99aeefe177 100644
+--- a/include/linux/vt_kern.h
++++ b/include/linux/vt_kern.h
+@@ -56,14 +56,20 @@ int tioclinux(struct tty_struct *tty, unsigned long arg);
+ /* consolemap.c */
+ 
+ struct unipair;
++struct unipair21;
++#ifdef CONFIG_FB_GLYPH_21BIT
++#define unipair8_21 unipair21
++#else
++#define unipair8_21 unipair
++#endif
+ 
+ int con_set_trans_old(unsigned char __user * table);
+ int con_get_trans_old(unsigned char __user * table);
+ int con_set_trans_new(unsigned short __user * table);
+ int con_get_trans_new(unsigned short __user * table);
+ int con_clear_unimap(struct vc_data *vc);
+-int con_set_unimap(struct vc_data *vc, ushort ct, struct unipair __user *list);
+-int con_get_unimap(struct vc_data *vc, ushort ct, ushort __user *uct, struct unipair __user *list);
++int con_set_unimap(struct vc_data *vc, u32 ct, struct unipair8_21 *list);
++int con_get_unimap(struct vc_data *vc, u32 ct, u1632 __user *uct, struct unipair8_21 *list);
+ int con_set_default_unimap(struct vc_data *vc);
+ void con_free_unimap(struct vc_data *vc);
+ int con_copy_unimap(struct vc_data *dst_vc, struct vc_data *src_vc);
+
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+Alan Mackenzie (Nuremberg, Germany).
