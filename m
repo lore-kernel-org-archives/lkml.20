@@ -1,73 +1,74 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 663EB3CF694
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 23:26:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 488163D3338
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 23:26:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787873200; cv=none; b=WsnQOTyXOtqs6ZkOpvZ1MVuTQMyTj8dKrbvHqc6oXPytDu7dVUfOeiklELRXTs1Rf3dVqq6NAQLRBZYZYuPt5HIXR2GacCMbF4JAAHeNE+bqE16nYyXqS0b4LLvf8yvonYXGlI0Pv0BEQ3IguJ972SmWKvmW8DgigcYBIQdHtHU=
+	t=1787873202; cv=none; b=VgdfOXzwmjezeT8w/GjpCq4ccSPcRmOiHwuCkaeSFW7xhJhtfepyMkhdUFZLlOO3IWrBD4uBiDQrKB+ExyqUP7S9VGcmk+8QQMsIRoLxJRsMIQdZBTuUAISaDPAu3T0Kc5MiUBY9otAhu2O/Gfw2gFm3Bg6RgxtQqwNZbuUccgY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787873200; c=relaxed/simple;
-	bh=YksPChi/EoVfJI9NHvL0KIqXyqu81Sg4wRemUaUylhQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LwW35hEqd96GYbpq9h5WhJNkN8aU+JmC+7IlNq+lX5N3mtWhgHbrLL1FKDD3eJ+x203DE8xxLwD/vVjpHf8LaTDhg0x7Vbr/x6eADlrv6cvD+sy84yQgG3g5PBgVvJHuUYvgGZ2jmHdxmm6/n3WdONwevG4Blh35wJfcXGnLbG4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qd6lLyBn; arc=none smtp.client-ip=209.85.221.50
+	s=arc-20240116; t=1787873202; c=relaxed/simple;
+	bh=UA3HgTL2/3fiKoMvjcd1YQpPArg7+zF0NnGj2ZlC1vM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FeQgfmNngeT8fvndOCerNfZLPjD5Su4/f8EEEQbBfdiIp3+qOzicr9YGLV+PBi7Ea4VxNxzp76GDe8O0j2eWUr371BRsFIucBOD89KaB+2AUwTR7yFpmr2GgvGoz66nh0dJpGGycEX4hU79Te9FgPtTjyzA1cZaVIaj7FB4vJzY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k1+568o5; arc=none smtp.client-ip=209.85.128.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qd6lLyBn"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-47f96c5b722so232653f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:26:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k1+568o5"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49b0dd3c9a0so2211725e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:26:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787873196; x=1788477996; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787873198; x=1788477998; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rhxvKj9HTkh2M35sEpZ3bErnbD52nBKxqfsNzhJSlms=;
-        b=qd6lLyBnpEtoJByhF9XVfUmDSpqV3VFlpb6wAAfVcdnpXX5jPjgFhKC6XOklAj5Q1m
-         Q5JAwyxCLfo1iSr1wSreFMfpGlvbyoaSTw5IG591FYGewQ4q0dvfZeNXc64xRc3ORY3F
-         nbJKAJmk0zESSoQJ3Ddib4iEFcZLawPkSRn4l6EyPG19P/pcDoCasnBV0dOQ9HuG6sau
-         5KkUvViKuIHik93niWt+ovF/cF8b1ZWdVjdxgebILREcdl6WrLLx7+T1dWxqitZ+eiXA
-         0C81I5KUkUIkfdlhLRiP/gF/cl8Dxdblhg9HfAGP4y7IcknApf8hscu09RXl5n3C8TBS
-         RUsw==
+        bh=h567K50/oXSByLqwixw9RWT+27INaS5M3SHo3Ovf/9c=;
+        b=k1+568o5AEWwWBVhfyfsmLwuCjZDArWj0e59LLIHxc2Lt6txfZb0JaIzOYJvrZXGT9
+         jRnx0C8ZuqDyxabEDGtJkWRomkpX5yciRwgLn+2rVQvTfs9DCrLxwLAafZzeLtXSgTR8
+         sCsh1LJNuuv1Hg7Okv9hbd0WgZLrAsyA2xhP9D2LDley8Lc75vl1yaUj5rfYRFhTc1GH
+         9rUlUeEilXogXTdXgsquTbm2PQiHLN5eWMX+9M9nEt3qSnwLUbRWK78ZDPLPu2CqF/+Y
+         a6Tnj2pmQETbmDhA/5e6pBJXGxfHuevtnjkWePfN2xUG6IeAH9MUP1sxlAV4kB74h0u8
+         zeQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787873196; x=1788477996;
+        d=1e100.net; s=20251104; t=1787873198; x=1788477998;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=rhxvKj9HTkh2M35sEpZ3bErnbD52nBKxqfsNzhJSlms=;
-        b=GglM3pN8X2bah10O3dOgS8M6ZavbOjXYYvWLNP84RBYMamb3wrnlGrduNbUi4GTHHR
-         GM90jvlQNN6GoLrBGCNtvJg9nMmmBKKPhcqTdSCfdud3n4D/C+kGIAyktq5tC3WnWDEf
-         +8vO4xm4PtqUGCNzQWrQYod2p0L3Ry2P2x1I+Ub6FduvJWufo9TIM5jdeyzhWnxaScwI
-         W6cdtBZrdcUc/66kgG8hYbTgtUtgsEeQ14gH/aP+NwDdbQdnlcE2NqMKrI7ULC82tP/w
-         EpFCQFhghRfwyVUSBRHznFY0HFmpY23n2l+VQAUXK15PzQRvcwmccmgf/jVoL8iOgQa9
-         WKlQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rr9MkCYYSqXrbL/6wM7AiNUum7NjW55MiDYkRTpa+7mPvEvaev/Z5J1FE7CmX7Y9dkFpxiW5wvNY75NAVU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kchLOmCXEjYHsHPRVMgr27Y0VR9PkpqcYeuWaMPfEVPZkuju6T
-	7yKTjprytFaalE6IMajexeb7HigUD3DcXqNkbYbADdpG/Bs8Tofqv2wm1ExwI/3uAmad
-X-Gm-Gg: AR+sD11q6yrkTWQA7dzgo1mKOnDVyTX58PmGHwfMTEGF/b+ptCrM2SXPCdYflrcqjV2
-	XImi0dAGsNquu14gF22LFbZxluE4t5dwFlCh6aq5KzRXOoO8VwyVBJBtqIJ/wiZzEsbHfYoo88v
-	x5wE9ExyB0unRyojXS7tppil9JbZq7AqAcAm4jO4+u/gMJ1KeRFDKaBzts6cZwuuMvh3Z+U2lDW
-	0v5yEI+GSCe7QK/oNfV1C3euKzH6BmE8/e2EpwcZrq+TQvpWJiZpRHHWaEDrbA0df8ozU65GtNM
-	4xVeVjnFpxi6t1WZxxUWF5a4bOIj9fgl2fIOoYZIPaFOHlh0mrGFDHDEg/cEPmygFwymAc81tZ5
-	jKzzBnyKpRN/mDQcXMAEtRxFsuuO3bdPWRDvMxiCsxlav14Nmyf9j7SorUhdpmPeXIgxyVR47MR
-	qOzHoJMzjm7FzCfDgWliNWcFepkPNyB3CiAYf0Wac7IQwqcoiRL5awcApRmOGC97cr/VAJ8F5QH
-	cvTlDCPT8+q
-X-Received: by 2002:a05:6000:4a1e:b0:47f:96f9:a99f with SMTP id ffacd0b85a97d-482f79bf369mr3206807f8f.13.1787873196396;
-        Thu, 27 Aug 2026 16:26:36 -0700 (PDT)
+        bh=h567K50/oXSByLqwixw9RWT+27INaS5M3SHo3Ovf/9c=;
+        b=P5yExRutyJp+QaW1AFvGizUORcvOdb+dpdnZGkH7Kt8Ta2Shk3IyhVtFthJpAYZKtL
+         skoDsVf5IoiRzfbLigTijRhqSpaPCEc5ngRd+V0GofSyxmqaw59zgw4jSNoEbpEauRUv
+         0JFTjYFzt1jScoclF4FwssSd7rxh4iWlyC4DYFm099J/cMycSd9agCf/Zgf7BBA9Z6+T
+         gK5JBYlTvVlkzyedxYe2WNy7o88fYEeF9ye1BBZSrOXg8NX+1n8KpuPunIQxDFQ++j1K
+         5+haDfCVzUfF8co8plgW+8urAPEl/okJVOt/LWDH9Yo4U8jn7qcT/cjFK8OC/NyaQvXp
+         R9UQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rr6Q3gjMoUU5LlKO8KbEai5lalpqNy540zmca5au/vsrflKJBzEu8zVvm/GzAoc7ULeEOfFfolPXh795i0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kV0as0btKeV4/FgkWa6QRPdKlQjCPolNT6mdsb/c3wkclT4mJF
+	fpyxDphYLc0EFtH3NHxJIwE7oIFzOTLmjmW3YuZKrpHckNVOmy2aqbw=
+X-Gm-Gg: AR+sD12TqXp08U69rLj/0bxDhW5ahuoQXQRMhcIBprXAkjvsK9e3FMJFCTSmFOxuF1a
+	LhIGlvkmdenRyJY8sB9bfjlr5zQpE2QvXP08jjiColZlqvqjoR6kCqFpHNHJErZ2kmxvcfq1hOI
+	NejmDSQboFk4MeduAKL4uQ/uG7Lvce0DINYcmEmXbPnRAvUVU98CnIj1A0s+knjKxWo1hiTGjh2
+	CEgOkIpoP3n3nd53J9MFoKwvgL/6f0Kw9k97k0qtwEOUM8j522foDHvVYFrqx/e2/8RvG4ZHcIr
+	Voqbu9FGkc4CaZ7B9jpOUgcY/5Tk/oG4P2EX9Vuvgn2s06Maqc4z2Vk3PjditrpLzHNEwXoCoNL
+	Yre3/sP4Uo43yrPo8WzEr3RN35DidjEhiBfFEZcxg/a2Jf6TK2+Ksz2dPg7mZxyQxZ+pDfDKRJ6
+	IT7WDkq2Oj7dNVzFp3uUaTyPCxbngRukQowG3M8Ob4i1f8U8JBzp37cvg7B/HXfhzEwSVATBai1
+	ce53bcMJYq76Q==
+X-Received: by 2002:a05:600c:1f8f:b0:499:b65d:1250 with SMTP id 5b1f17b1804b1-49b91c1fc4bmr20835875e9.2.1787873198171;
+        Thu, 27 Aug 2026 16:26:38 -0700 (PDT)
 Received: from surface.. ([217.61.227.23])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e28dbe29sm12550988f8f.17.2026.08.27.16.26.35
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e28dbe1dsm12869238f8f.22.2026.08.27.16.26.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 16:26:35 -0700 (PDT)
+        Thu, 27 Aug 2026 16:26:37 -0700 (PDT)
 From: "D. Manresa" <dmanresa@gmail.com>
-To: Daniel Scally <dan.scally@ideasonboard.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bingbu Cao <bingbu.cao@intel.com>,
+	Dan Scally <dan.scally@ideasonboard.com>
 Cc: "D . Manresa" <dmanresa@gmail.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilpo Jarvinen <ilpo.jarvinen@linux.intel.com>,
-	platform-driver-x86@vger.kernel.org,
+	Tianshu Qiu <tian.shu.qiu@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: int3472: discrete: 4-char GPIO supply name limit and unhandled vendor GPIO type 0x08 leave OV8865 unpowered (Surface Pro 7+)
-Date: Fri, 28 Aug 2026 01:26:34 +0200
-Message-ID: <20260827232634.93131-1-dmanresa@gmail.com>
+Subject: ipu-bridge: software nodes are never unregistered; PCI remove/rescan of IPU6 fails with -EEXIST and leaves dangling properties
+Date: Fri, 28 Aug 2026 01:26:36 +0200
+Message-ID: <20260827232636.93145-1-dmanresa@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -79,131 +80,136 @@ Content-Transfer-Encoding: 8bit
 
 Hi,
 
-On the Microsoft Surface Pro 7+ the rear camera (OV8865, ACPI INT347A)
-can never be powered up by the int3472 driver, for two independent
-reasons: its second power rail is declared by ACPI with the
-vendor-specific _DSM GPIO type 0x08, which the driver does not handle,
-and even if it were handled, the supply name the ov8865 driver most
-plausibly needs ("dovdd") cannot be expressed at all because
-GPIO_SUPPLY_NAME_LENGTH only allows 4 characters plus NUL. A related
-con_id mismatch also leaves the OV7251 IR camera (INT347E) unpowered.
+ipu-bridge registers software nodes at probe time but has no teardown
+path at all: nothing unregisters them when the IPU device goes away.
+After a PCI remove/rescan of the IPU6, re-probe fails with -EEXIST,
+the orphaned nodes stay in /sys/kernel/software_nodes/, and once the
+module has been unloaded their properties reference freed module
+memory, so sensor drivers that re-probe read garbage. There is no
+userspace interface to remove software nodes; only a reboot recovers.
 
 Hardware / kernel
 -----------------
-- Microsoft Surface Pro 7+, IPU6 Tiger Lake (PCI 8086:9a19)
-- rear OV8865 at ACPI INT347A, discrete PMIC INT3472:01
-- IR OV7251 at ACPI INT347E
-- observed on linux-surface 6.19.8-surface-3 (base v6.19.8)
+- Microsoft Surface Pro 7+, IPU6 Tiger Lake (PCI 8086:9a19, 0000:00:05.0)
+- sensors OV5693 (INT33BE), OV8865 (INT347A, dw9719 VCM), OV7251
+  (INT347E)
+- linux-surface 6.19.8-surface-3 (base v6.19.8). The linux-surface
+  patchset only adds entries to ipu_supported_sensors[]; the
+  registration/teardown paths discussed here are unmodified mainline.
+  Line references are against mainline v6.19.
 
-All file/line references below are against mainline v6.19. The
-linux-surface patchset does modify this area (see below); where the
-observed dmesg comes from its downstream patch this is marked.
+Analysis
+--------
+ipu_bridge_init() (drivers/media/pci/intel/ipu-bridge.c:837), called
+from ipu6_isys_init() (drivers/media/pci/intel/ipu6/ipu6.c:378) during
+probe:
 
-1) GPIO_SUPPLY_NAME_LENGTH cannot hold "dovdd"
-----------------------------------------------
-include/linux/platform_data/x86/int3472.h:36:
+- kzallocs struct ipu_bridge (ipu-bridge.c:854); on success it is
+  intentionally never freed -- the comment at ipu-bridge.c:870 keeps
+  data in the struct "so that it survives if the module is unloaded
+  along with the rest of the struct";
+- registers the IPU HID node "INT343E" (IPU_HID,
+  include/media/ipu-bridge.h:11) via software_node_register()
+  (ipu-bridge.c:864);
+- registers one node group per sensor via
+  software_node_register_node_group() in ipu_bridge_connect_sensor()
+  (ipu-bridge.c:729);
+- points the sensor ACPI fwnode at the swnodes: primary->secondary =
+  fwnode (ipu-bridge.c:743), and set_secondary_fwnode(dev, fwnode) for
+  the IPU itself (ipu-bridge.c:893).
 
-	/* E.g. "avdd\0" */
-	#define GPIO_SUPPLY_NAME_LENGTH				5
+The only unregister calls in the file are error paths inside init
+itself: ipu_bridge_unregister_sensors() (static, ipu-bridge.c:681,
+called at 784 and 898) and software_node_unregister(
+&bridge->ipu_hid_node) (ipu-bridge.c:900). No teardown function is
+exported, and nothing on the ipu6 remove path unregisters the nodes or
+clears the secondary fwnodes.
 
-and skl_int3472_register_regulator() enforces it,
-drivers/platform/x86/intel/int3472/clk_and_regulator.c:204:
+Because the swnodes and their property_entry arrays live in the leaked
+heap struct they survive unbind, but they are not self-contained:
 
-	if (strlen(supply_name) >= GPIO_SUPPLY_NAME_LENGTH) {
-		dev_err(int3472->dev, "supply-name '%s' length too long\n",
-			supply_name);
-		return -E2BIG;
-	}
+- the property name strings are pointers into the module image
+  (sensor->prop_names = prop_names at ipu-bridge.c:367; static const
+  prop_names at ipu-bridge.c:124);
+- the "link-frequencies" values point at cfg->link_freqs inside the
+  module-rodata table ipu_supported_sensors[] (property built at
+  ipu-bridge.c:433, table at ipu-bridge.c:51).
 
-"dovdd" is the standard OmniVision I/O rail name and is what sensor
-drivers actually request, e.g. drivers/media/i2c/ov8865.c:2970:
+So after ipu_bridge.ko is unloaded, the still-registered nodes carry
+dangling pointers, and the sensors' ACPI fwnodes still have
+fwnode->secondary aimed at them.
 
-	sensor->dovdd = devm_regulator_get(dev, "dovdd");
+Observed behaviour (live, 2026-08-27)
+-------------------------------------
+Attempting to recover a wedged ISYS by PCI remove/rescan:
 
-At 5 characters it is rejected, so no int3472_gpio_map[] entry and no
-future type mapping can ever route a GPIO-gated regulator to a sensor
-driver's "dovdd" supply. (The buffer that motivates the limit is
-supply_name_upper[GPIO_SUPPLY_NAME_LENGTH] at int3472.h:101.)
+  echo 1 > /sys/bus/pci/devices/0000:00:05.0/remove
+  modprobe -r intel_ipu6_isys intel_ipu6    # ipu_bridge unloads too
+  echo 1 > /sys/bus/pci/rescan
+  modprobe intel_ipu6
 
-2) GPIO type 0x08 is declared by this platform and unhandled
-------------------------------------------------------------
-The _DSM of INT3472:01 declares a second power GPIO (pin 0xaf) with
-type 0x08. In mainline, int3472_get_con_id_and_polarity()
-(drivers/platform/x86/intel/int3472/discrete.c:169) falls through to
-the default case (con_id "unknown", discrete.c:232), and
-skl_int3472_handle_gpio_resources() then ignores the pin entirely with
-the warning at discrete.c:376:
+dmesg (verbatim, trimmed):
 
-	"GPIO type 0x%02x unknown; the sensor may not work\n"
+  sysfs: cannot create duplicate filename
+   '/kernel/software_nodes/INT343E'
+  Call Trace:
+   sysfs_warn_dup+0x8b/0xb0
+   ...
+   swnode_register+0x165/0x240
+   software_node_register+0xd2/0x120
+   ipu_bridge_init+0x192/0xeb0 [ipu_bridge]
+   ipu6_pci_probe+0x417/0xbe0 [intel_ipu6]
+   ...
+  kobject: kobject_add_internal failed for INT343E with -EEXIST, don't
+   try to register things with the same name in the same directory.
+  intel-ipu6 0000:00:05.0: Failed to register the IPU HID node
+  intel-ipu6 0000:00:05.0: error -EEXIST: IPU6 bridge init failed
+  intel-ipu6 0000:00:05.0: probe with driver intel-ipu6 failed with
+   error -17
 
-The warning is accurate: with only the type 0x0b rail powered
-(registered as "avdd"), the sensor's first I2C access fails with
--EREMOTEIO and probe dies. Verbatim dmesg from this machine (note:
-this kernel carries the linux-surface downstream patch,
-patches/6.19/0013-cameras.patch, added for the Surface Pro 9, which
-registers type 0x08 as a regulator under con_id "pwr1"; the first
-three lines are from that patch and would not appear on pure
-mainline -- the end result is identical because no sensor driver
-requests a "pwr1" supply):
+The sensor drivers, re-probing against the stale secondary fwnodes,
+then read poisoned link-frequencies (verbatim):
 
-	int3472-discrete INT3472:01: GPIO type 0x08 detected on pin 0xaf
-	int3472-discrete INT3472:01:   con_id=pwr1, flags=0x0
-	int3472-discrete INT3472:01:   register_regulator returned: 0
-	ov8865 i2c-INT347A:00: supply dvdd not found, using dummy regulator
-	ov8865 i2c-INT347A:00: supply dovdd not found, using dummy regulator
-	ov8865 i2c-INT347A:00: failed to perform sw reset
-	ov8865 i2c-INT347A:00: Error -121 runtime-resuming sensor, cannot
-	 instantiate VCM
+  ov5693 i2c-INT33BE:00: supported link freq 419200000ll not found
+  ov5693 i2c-INT33BE:00: probe with driver ov5693 failed with error -22
+  ov7251 i2c-INT347E:00: error -EINVAL: no supported link freq found
+  ov7251 i2c-INT347E:00: probe with driver ov7251 failed with error -22
+  ov8865 i2c-INT347A:00: failed to find 360000000 clk rate in endpoint
+   link-frequencies
 
-3) The rail is real: mapping it powers the sensor
--------------------------------------------------
-Mapping the type 0x08 GPIO to INT3472_GPIO_TYPE_POWER_ENABLE with
-con_id "dvdd" makes the OV8865 probe and stream correctly (verified,
-including the dw9719 VCM coming up). Which physical rail the GPIO
-gates (DVDD or DOVDD) is unknown -- ACPI provides no name, and "dovdd"
-cannot even be tried because of (1).
+(The ov5693/ov7251 on this machine carry local patches, so the exact
+wording of their two lines may differ from pure mainline; the ov8865
+line is the unmodified mainline driver, and the values being missed --
+419200000, 360000000 -- are exactly what the bridge publishes for
+these sensors at ipu-bridge.c:61 and :69, so the properties no longer
+return their original contents.)
 
-Related: the INT347E (OV7251) power-enable GPIO is registered with the
-default con_id "avdd" (discrete.c:222), but the ov7251 driver requests
-vdda/vddd/vdddo, so that sensor is never powered either:
-
-	ov7251 i2c-INT347E:00: ov7251_write_reg: write reg error -121:
-	 reg=103, val=1
-	ov7251 i2c-INT347E:00: probe with driver ov7251 failed with
-	 error -121
-
-An int3472_gpio_map[] entry mapping INT347E POWER_ENABLE to "vdda"
-fixes that one; it fits the existing mechanism.
+/sys/kernel/software_nodes/ afterwards still lists INT343E, INT33BE-4,
+INT347A-1, INT347E-5 and dw9719-1. There is no userspace interface to
+unregister a software node, so the system cannot be recovered without
+a reboot.
 
 Reproducer
 ----------
-Boot a Surface Pro 7+ on mainline v6.19 with the IPU6/ipu-bridge stack
-and the ov8865/ov7251 drivers enabled. int3472 warns about GPIO type
-0x08 and both sensors fail probe with -121 as above. (Note the INT3472
-GPIO enumeration only happens at probe, so each test needs a fresh
-boot or driver rebind.)
+On any IPU6 machine handled by ipu-bridge:
 
-Workaround
-----------
-We currently carry a local patch (not proposed as the proper fix):
-it maps type 0x08 on INT347A to a power-enable regulator whose con_id
-is a module parameter defaulting to "dvdd", and adds the INT347E ->
-"vdda" map entry:
+  1. boot normally, wait for "Connected N cameras"
+  2. echo 1 > /sys/bus/pci/devices/0000:00:05.0/remove
+  3. modprobe -r intel_ipu6_isys intel_ipu6
+  4. echo 1 > /sys/bus/pci/rescan
+  5. modprobe intel_ipu6
 
+Step 5 (or the automatic probe at step 4) fails with the -EEXIST trace
+above and the cameras are gone until reboot.
+
+Expected: either an idempotent/refcounted ipu_bridge_init() that
+reuses already-registered nodes across rebinds, or a real teardown
+that unregisters the node groups and clears the secondary fwnodes on
+unbind (at which point the deliberate struct leak could go as well).
+
+Workaround: none other than not touching the PCI device; documented as
+an operational trap in
 https://github.com/dmanresa-saes/surface-ipu6-cameras
-(patches/int3472-surface-sensors.patch)
-
-Open questions before attempting a real fix:
-
-- Should GPIO_SUPPLY_NAME_LENGTH simply be raised to 6 so "dovdd"
-  fits, or is the limit load-bearing somewhere beyond the two arrays
-  in int3472.h?
-- Since ACPI does not say which rail a power GPIO feeds, is a
-  per-sensor (HID + type -> con_id) table like int3472_gpio_map[] the
-  right place for these, entry by entry? That does not scale well.
-- Is there any documentation of the vendor _DSM GPIO types 0x08 (and
-  0x10, also seen on Surface devices) from the Windows camera stack
-  side that would let them be handled generically?
 
 Happy to test patches on this hardware.
 
