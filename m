@@ -1,51 +1,52 @@
 Received: from bg-bec.cloudflare-smtp.org (bg-bec.cloudflare-smtp.org [104.30.16.142])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 712162FE56A
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:42:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13BE12FA0C6
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:42:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=104.30.16.142
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787834537; cv=none; b=kvMaYWgaBF3snQ8l+TX4jSMG4kZ2fLBkl2JpoZXKwyNjOIXc6q1zMrFpklGD/0PxcFgdvwgwno4Gw3zAOyOADgzG5H+LJ4cgyZsiWN+OxRhQ6ZhCIP/Wtk5H9EM58tZJQ3e6CWu6+3psY57afjJnP+b06zICzzhugcGax8s3mIE=
+	t=1787834543; cv=none; b=LnuOuejT6FL90v4/MR1/yBxEGMh2gd1bGCCmwbLJxOt+ntXDDVnv6JQrPbbBGj6I054N/Mffs/SMVfZZOmvXVDBGGTkW90qBasr/4OILAXA9BbYWw8dJIxLw57kr7PMpEE/+Cl1TvmEMUu9GD2AqpSzTAK0tg4E3NdnmDmI4Y34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787834537; c=relaxed/simple;
-	bh=6UdXvmcxiyNgsz6+w7pMYno+sCHdZX6CqOByXzxekDs=;
-	h=From:Message-ID:Date:Subject:To:MIME-Version:Content-Type; b=tiYAvtxk6Ia0ymemB82E9g0O/J/YQqQS+0eOLf3JRzU/ai3mh9+Vt07f/Tpyywhh+UPoMAcsgvjSf84lvghsk/NTjE6dayVxQABGkSPx/c5OCRMEshIevZtU7KsN61JhjTGBvwbwfbh1FCRXP9znakCrNCEKX/k2t8M902DSzR0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh; spf=pass smtp.mailfrom=cf-bounce.bugs.sh; dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b=LIwHcUZ2; dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b=aQx50E0u; arc=none smtp.client-ip=104.30.16.142
+	s=arc-20240116; t=1787834543; c=relaxed/simple;
+	bh=R+Gzx4wF/f/nN9wBJ0TOlVsVE0es6pz+b1hE+LHy7KE=;
+	h=From:Message-ID:Date:Subject:To:MIME-Version:Content-Type; b=db4mCFJ0tW7EWfvwgJm45gcnj5Rd/ldHLbvoospiAK+fJgXSIpsePl2TNeTmAzt1Vmjv6N2BQGjc0R/+LYewLDKa2/AlTfw/6kp+cdEwBA6HHhjqinveEBubpE3/vkDWmH7dICeIzLgLPkFkX86SHUvtMThUUZRb5heao28CbYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh; spf=pass smtp.mailfrom=cf-bounce.bugs.sh; dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b=PK0A25kg; dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b=GLzWGCti; arc=none smtp.client-ip=104.30.16.142
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cf-bounce.bugs.sh
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b="LIwHcUZ2";
-	dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b="aQx50E0u"
+	dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b="PK0A25kg";
+	dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b="GLzWGCti"
 DKIM-Signature: v=1; a=rsa-sha256; s=cf2024-1; d=cloudflare-smtp.org; c=relaxed/relaxed;
 	h=To:Subject:Date:From:Feedback-ID:from:reply-to:cc:resent-date
 	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
 	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
-	:list-owner:list-archive; t=1787834533; x=1788439333; bh=Jcox8l/ThO6XMTGwSm
-	80cpy3q3O7GlZqpuHdohAJm6g=; b=LIwHcUZ25iy/mXN08NFMVB7qwIFGlwzQBGUD+eGqFQgHM
-	fCHO0KP1JEU+emQY1POT/5+gZTR+a/QsGw1gW/P2mjm3HlnqH1CloTdWaoIS4prCUmTAUWTiseI
-	tjRV6OOI926wf+ZerFsqnkj1QYdrqrx8ItEVDGhppmRTWg6kNuHVa7h1WHc1/EShqh57BDyXxJ9
-	8mZzME2BuBbcEM9tF3SqnvyVJ5jfq0GYxQMATZ+Frdc0ENugzAaz52xr5lu/ypCPaxTCNjiOD4Y
-	yRrkbQq0gK0A8Dnom1fgyx9fPsplWaPZQpp/+fSGskpMm94t0e/5PrdqiwpaXxxIb+SS6CRw==;
+	:list-owner:list-archive; t=1787834539; x=1788439339; bh=5mA2MLPVtnhfcq5Bqs
+	NPBbOEgYBf8lR5/QGqu07JtM4=; b=PK0A25kgxeN8iRqRVx0JgKUEQxkBC/R/ARIivpVsciSq0
+	SV4isFmDeaXqGubWgqWT1SoGJRwPioY3ohGeQpIrU6v19j3GMTfvl5kP8yFp8zdMtbIPIJWaCMZ
+	J5p6j7o3m88s1DtSJVzIIljYykromL77t7yqNVd3eqPKozO44QSl/uib2nxwnkLd60aK86MT9BA
+	8CMdlZADbmj+wZe5Dq6n+i98PWnKMVnb6Fo/fGj1hs4ZhQ1XHrFL0itueKN476LvuZlPa/P6BTN
+	4x+w6m9MRWStFT+iDGXsFKClB5T1Eb4iZmZyS/bA140B4y6fN9hwoeT3ePOOly/hgVC9OlBw==;
 DKIM-Signature: v=1; a=rsa-sha256; s=cf-bounce; d=bugs.sh; c=relaxed/relaxed;
 	h=To:Subject:Date:From:Feedback-ID:from:reply-to:cc:resent-date
 	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
 	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
-	:list-owner:list-archive; t=1787834533; x=1788439333; bh=Jcox8l/ThO6XMTGwSm
-	80cpy3q3O7GlZqpuHdohAJm6g=; b=aQx50E0ugIVquDWiN5ftWUoNDdaOWWhgFulABPwYVmOls
-	iYQSlarDLs/Xh5LSililP+ZbdIqReFIXUuimtMpBf9Xr7pWxmIy2fkVEHlM8aGDPG4sm4zH7lUC
-	p3pc9vRE+UA64Il+17YnXt8LR5ceeoQuYyehezcYHMak+tFzyHsLzUb5J1QpVuQSgTcUG0rqbBR
-	AiY7TBbRai43MNa67fbSJinZIPY6zY7RcK1Ge3Jfy8RoTy3gqruqxRyx9SW/La+2qhoGHhfgM/I
-	IJrYDoVpKz3FKwGXmGTOaHLnDZ2E6Wa4hlCll+EcfzPWqSVjuYL0GnWNInAKTAAyDdDrISQA==;
+	:list-owner:list-archive; t=1787834539; x=1788439339; bh=5mA2MLPVtnhfcq5Bqs
+	NPBbOEgYBf8lR5/QGqu07JtM4=; b=GLzWGCtiynSxmA0F8vGMEdh4IYpU2wmXUMGwxhEd5KayH
+	55mglv5fgVo92kK0wK1JGa7Thh6AEXO9W5p0AEraww5gUG6gx1R98lc9zmGTCzBRKp0yUooftel
+	Iyw6hvIMZ5pAl2ANDLh75LtKNQwrusJVeStEZNU725lszTeKCVJOc6AWCy/fieJ8AOcEDz8TFTG
+	vOlHTvKFUSWyQVCB5eWCntS/JOJNU/AusKFtiM5Zcc/r3t2M2em9wZKXS5hZEyUZSK7uMvT8ZlM
+	0X4+Gem3QfsZaMzZakpNM/t+5lTwznzD5w1gZ8FHjDUasYkH3j8pg36i2rnE/Ux/EmQbM6iA==;
 Feedback-ID: bugs.sh:5:6:Cloudflare
-From: co <co+6a581c4284f721d4@bugs.sh>
-Message-ID: <jS2KwfrOeQPAnc2xZL0obs0OW3eVUUvpe6Yt@bugs.sh>
-Date: Thu, 27 Aug 2026 12:42:08 +0000
-Subject: [BUG] security/keys: out-of-bounds in tpm2_unseal_trusted()
-To: linux-integrity@vger.kernel.org, keyrings@vger.kernel.org, linux-security-module@vger.kernel.org, "James
- Bottomley" <James.Bottomley@HansenPartnership.com>, "Jarkko Sakkinen" <jarkko@kernel.org>, "Mimi
- Zohar" <zohar@linux.ibm.com>, "David Howells" <dhowells@redhat.com>, "Paul
- Moore" <paul@paul-moore.com>, "James Morris" <jmorris@namei.org>, "Serge E.
- Hallyn" <serge@hallyn.com>, linux-kernel@vger.kernel.org
+From: co <co+2c72469dbbec34af@bugs.sh>
+Message-ID: <YG9s0PiBKJZcXAKld3MToa1IVRJOUoKiaA57@bugs.sh>
+Date: Thu, 27 Aug 2026 12:42:14 +0000
+Subject: [BUG] net/ipv4: NULL pointer dereference in tcp_v4_rcv()
+To: netdev@vger.kernel.org, "Eric Dumazet" <edumazet@google.com>, "Neal
+ Cardwell" <ncardwell@google.com>, "David S. Miller" <davem@davemloft.net>, "Jakub
+ Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>, "Kuniyuki
+ Iwashima" <kuniyu@google.com>, "Simon Horman" <horms@kernel.org>, "Salam
+ Noureddine" <noureddine@arista.com>, "David Ahern" <dsahern@kernel.org>, "Dmitry
+ Safonov" <0x7f454c46@gmail.com>, "Francesco Ruggeri" <fruggeri@arista.com>, linux-kernel@vger.kernel.org
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -57,10 +58,10 @@ Content-Transfer-Encoding: quoted-printable
 
 We found a bug reachable in:
 
-    path    security/keys/trusted-keys
-    crash   out-of-bounds in tpm2_unseal_trusted()
-    commit  2709dd5ae32f ("Merge tag 'sched-urgent-2026-08-22' of git://git=
-.kernel.org/pub/scm/linux/kernel/git/tip/tip")
+    path    net/ipv4
+    crash   NULL pointer dereference in tcp_v4_rcv()
+    commit  7cbfb180945c ("net/sched: sch_cake: fix autorate reconfiguratio=
+n throttling")
 
 Config, environment, the sanitizer report and a C reproducer follow.
 
@@ -70,7 +71,7 @@ Config, environment, the sanitizer report and a C reproducer follow.
     If you patch the bug based on our artifacts, a tag would be
     appreciated:
 
-Reported-by: co+6a581c4284f721d4@bugs.sh
+Reported-by: co+2c72469dbbec34af@bugs.sh
 
     Everything in this mail is validated by the reproducer below.
 
@@ -80,8 +81,8 @@ Reported-by: co+6a581c4284f721d4@bugs.sh
     human review, so both still require validation before you send or
     apply them. Available on:
 
-        patch.diff  https://bugs.sh/b/6a581c4284f721d4/patch.diff
-        report.md   https://bugs.sh/b/6a581c4284f721d4/report.md
+        patch.diff  https://bugs.sh/b/2c72469dbbec34af/patch.diff
+        report.md   https://bugs.sh/b/2c72469dbbec34af/report.md
 
     This is an open science project. The code and the full set of PoCs
     are not public at this moment, as we intend to disclose our findings
@@ -95,68 +96,66 @@ Reported-by: co+6a581c4284f721d4@bugs.sh
 =3D=3D Environment =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-    Reproduced on  2709dd5ae32f ("Merge tag 'sched-urgent-2026-08-22' of gi=
-t://git.kernel.org/pub/scm/linux/kernel/git/tip/tip")
-    VM setup       https://bugs.sh/b/6a581c4284f721d4/run.sh
-    config         https://bugs.sh/b/6a581c4284f721d4/config.gz
-    poc            https://bugs.sh/b/6a581c4284f721d4/repro.c
+    Reproduced on  7cbfb180945c ("net/sched: sch_cake: fix autorate reconfi=
+guration throttling")
+    VM setup       https://bugs.sh/b/2c72469dbbec34af/run.sh
+    config         https://bugs.sh/b/2c72469dbbec34af/config.gz
+    poc            https://bugs.sh/b/2c72469dbbec34af/repro.c
 
 =3D=3D Sanitizer Report =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-BUG: KASAN: slab-out-of-bounds in tpm2_unseal_trusted (./include/linux/unal=
-igned.h:48 (discriminator 1) security/keys/trusted-keys/trusted_tpm2.c:408 =
-(discriminator 1) security/keys/trusted-keys/trusted_tpm2.c:595 (discrimina=
-tor 1))
-Read of size 2 at addr ffff8880125db7aa by task exploit/149
-CPU: 0 UID: 1000 PID: 149 Comm: exploit Tainted: G        W           7.2.0=
-+ #31 PREEMPTLAZY
+Oops: general protection fault, probably for non-canonical address 0xdffffc=
+0000000010: 0000 [#1] SMP KASAN NOPTI
+KASAN: null-ptr-deref in range [0x0000000000000080-0x0000000000000087]
+CPU: 1 UID: 0 PID: 145 Comm: exploit Not tainted 7.2.0+ #63 PREEMPTLAZY
+RIP: 0010:tcp_v4_rcv+0x2637/0x3fe0  (net/ipv4/tcp_ipv4.c:1055 <- net/ipv4/t=
+cp_ipv4.c:2333)
 Call Trace:
-dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
-print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
-kasan_report (mm/kasan/report.c:595)
-tpm2_unseal_trusted (./include/linux/unaligned.h:48 (discriminator 1) secur=
-ity/keys/trusted-keys/trusted_tpm2.c:408 (discriminator 1) security/keys/tr=
-usted-keys/trusted_tpm2.c:595 (discriminator 1))
-trusted_tpm_unseal (security/keys/trusted-keys/trusted_tpm1.c:928)
-trusted_instantiate (security/keys/trusted-keys/trusted_core.c:196)
-__key_instantiate_and_link (security/keys/key.c:446)
-__key_create_or_update (security/keys/key.c:941)
-key_create_or_update (security/keys/key.c:1021)
-__do_sys_add_key (security/keys/keyctl.c:134)
-do_syscall_64 (arch/x86/entry/syscall_64.c:61 arch/x86/entry/syscall_64.c:8=
-4)
-entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
-Allocated by task 149:
-kasan_save_stack (mm/kasan/common.c:57)
-kasan_save_track (mm/kasan/common.c:78)
-__kasan_kmalloc (mm/kasan/common.c:398 mm/kasan/common.c:415)
-__kmalloc_noprof (./include/linux/kasan.h:263 mm/slub.c:5337 mm/slub.c:5362)
-tpm2_unseal_trusted (./include/linux/slab.h:992 security/keys/trusted-keys/=
-trusted_tpm2.c:119 security/keys/trusted-keys/trusted_tpm2.c:384 security/k=
-eys/trusted-keys/trusted_tpm2.c:595)
-trusted_tpm_unseal (security/keys/trusted-keys/trusted_tpm1.c:928)
-trusted_instantiate (security/keys/trusted-keys/trusted_core.c:196)
-__key_instantiate_and_link (security/keys/key.c:446)
-__key_create_or_update (security/keys/key.c:941)
-key_create_or_update (security/keys/key.c:1021)
-__do_sys_add_key (security/keys/keyctl.c:134)
-do_syscall_64 (arch/x86/entry/syscall_64.c:61 arch/x86/entry/syscall_64.c:8=
-4)
-entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
-The buggy address belongs to the object at ffff8880125db7a0
-which belongs to the cache kmalloc-8 of size 8
-The buggy address is located 2 bytes to the right of
-allocated 8-byte region [ffff8880125db7a0, ffff8880125db7a8)
-The buggy address belongs to the physical page:
-page dumped because: kasan: bad access detected
-Memory state around the buggy address:
-ffff8880125db680: 00 fc fc fc fa fc fc fc 00 fc fc fc fc fc fc fc
-ffff8880125db700: fc fc fc fc fc fc fc fc fa fc fc fc 00 fc fc fc
->ffff8880125db780: fc fc fc fc 00 fc fc fc fa fc fc fc fc fc fc fc
-^
-ffff8880125db800: fc fc fc fc fa fc fc fc 07 fc fc fc fc fc fc fc
-ffff8880125db880: fa fc fc fc fc fc fc fc fc fc fc fc 00 fc fc fc
+ <IRQ>
+ ip_protocol_deliver_rcu+0x66/0x310  (net/ipv4/ip_input.c:207 (discriminato=
+r 1))
+ ip_local_deliver_finish+0x356/0x4f0  (net/ipv4/ip_input.c:241 (discriminat=
+or 1))
+ ip_local_deliver+0x25c/0x2c0  (./include/linux/netfilter.h:325 <- ./includ=
+e/linux/netfilter.h:319 <- net/ipv4/ip_input.c:262)
+ ip_rcv+0x301/0x370  (./include/net/dst.h:480 (discriminator 6) <- net/ipv4=
+/ip_input.c:492 (discriminator 6) <- ./include/linux/netfilter.h:325 (discr=
+iminator 6) <- ./include/linux/netfilter.h:319 (discriminator 6) <- net/ipv=
+4/ip_input.c:612 (discriminator 6))
+ __netif_receive_skb_one_core+0x166/0x1b0  (net/core/dev.c:6264 (discrimina=
+tor 4))
+ process_backlog+0x1d7/0x700  (net/core/dev.c:6377 <- net/core/dev.c:6728)
+ __napi_poll+0xa1/0x560  (net/core/dev.c:7787)
+ net_rx_action+0x401/0xd80  (net/core/dev.c:7850 <- net/core/dev.c:8007)
+ handle_softirqs+0x1a4/0x620  (kernel/softirq.c:645)
+ do_softirq.part.0+0x3b/0x60  (kernel/softirq.c:546 (discriminator 20))
+ </IRQ>
+ __local_bh_enable_ip+0x6d/0x70  (kernel/softirq.c:538 <- kernel/softirq.c:=
+473)
+ __dev_queue_xmit+0x83e/0x36a0  (./include/linux/bottom_half.h:33 (discrimi=
+nator 1) <- ./include/linux/rcupdate.h:914 (discriminator 1) <- net/core/de=
+v.c:4961 (discriminator 1))
+ ip_finish_output2+0x8da/0x19c0  (./include/linux/netdevice.h:3461 <- ./inc=
+lude/net/neighbour.h:544 <- ./include/net/neighbour.h:558 <- net/ipv4/ip_ou=
+tput.c:236)
+ ip_output+0x162/0x2c0  (./include/linux/netfilter.h:314 <- net/ipv4/ip_out=
+put.c:437)
+ __ip_queue_xmit+0x7cf/0x1dc0  (net/ipv4/ip_output.c:533)
+ __tcp_transmit_skb+0x303b/0x4a30  (net/ipv4/tcp_output.c:1716 (discriminat=
+or 4))
+ tcp_connect+0x2a92/0x5060  (net/ipv4/tcp_output.c:1734 <- net/ipv4/tcp_out=
+put.c:4383)
+ tcp_v4_connect+0x1186/0x17c0  (net/ipv4/tcp_ipv4.c:345)
+ __inet_stream_connect+0x224/0xf60  (net/ipv4/af_inet.c:684)
+ inet_stream_connect+0x57/0xa0  (net/ipv4/af_inet.c:755)
+ __sys_connect+0x101/0x130  (net/socket.c:2183)
+ __x64_sys_connect+0x72/0xb0  (net/socket.c:2189 <- net/socket.c:2186 <- ne=
+t/socket.c:2186)
+ do_syscall_64+0x94/0x450  (arch/x86/entry/syscall_64.c:61 <- arch/x86/entr=
+y/syscall_64.c:84)
+ entry_SYSCALL_64_after_hwframe+0x76/0x7e  (arch/x86/entry/entry_64.S:121)
+Kernel panic - not syncing: Fatal exception in interrupt
 
 
 ---
