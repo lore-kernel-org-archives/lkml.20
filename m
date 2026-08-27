@@ -1,48 +1,46 @@
-Received: from smtp153-171.sina.com.cn (smtp153-171.sina.com.cn [61.135.153.171])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0ADE246770
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:05:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=61.135.153.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 446EE1B4223;
+	Thu, 27 Aug 2026 06:06:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787810767; cv=none; b=m+2ltbpTz7hXkF8LehIaAnsRecBIs1ydL109kgHv+05IY04GwiiebExT1PO6RwELriiA9nHhCqjOG0FXo044RGSrxuV77P/wo7a2TLwkaeYOMmdpITnMjccLV+JzPlBOdvmPou3lAvb3u321IFh8UBXxb7GgOQqh1uVRmIfn6k8=
+	t=1787810789; cv=none; b=REXeBLKwCoUIFCRWkhJpuYvYFIkkKaWEa3BWYh8RMpSXcfFnXO8/N0huyMgAKssJU3alrrFivNsZLd1AUTMtxcR0+txvi3DmJBl+bqD07wrNvfClrQKE0a//viVvtfmEsjt9wo3ByDUs9rzdUTw7exxevIyVyuhfMSFPRc53FNE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787810767; c=relaxed/simple;
-	bh=8zodDge3o/qibwNwpqsUJ7+0//bkgeJuseh0oSKMKsw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=M2u8hpmexfhuXZJ+wB/AwX9n3P5qoZBlBkxQ4IW0svD8Pdp2TpJe+Bo6ovCqjKmmDzM0XyW8mj2YgoHm17mQbAff8V5IGVTO7logVHctX4vLjU9MCqxZBRPC/SS4qHmRS0PMhKC/2jAxZiXVowtmBMps3YQmDG7NYTF/E4bQHis=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=wCuKs6R4; arc=none smtp.client-ip=61.135.153.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	s=arc-20240116; t=1787810789; c=relaxed/simple;
+	bh=9BuPj2Q6nnqmomxr5ojIWuAlLQGEjeEupTUTB2nIRY8=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=mfz3j4esKR95qDumhyZcnEftfU+gJhVCCTzr6YMu5QLqpY5F+/Mk5uPdXCHu3SG1c4B9EOImkxqEK+QgYG1ErkfM202DTAJNLSqbSa0NZjqVOoOs3dypKcKTVMKAQQq3hrcC0DsmSvvbPvZ5yG8wGfVLhZX/HbRpbcXlg/oRKqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=SAjoJuRP; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="wCuKs6R4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1787810760;
-	bh=kxLjF8qWVRouJ6hSyKBmio1bVTVcz3/7BhM5Yc84c4s=;
-	h=From:Subject:Date:Message-ID;
-	b=wCuKs6R4584CYRDxK1Kgh6hXKpmmD5A313KdlelU/MIiyQz3Z3RC1HilfHpEY9p/j
-	 elL5vKHf38aKcxtL3VOl69qPyG7zEHaxquEchbDLhdJGqXtdjO+D6fWk2wCnCAlq14
-	 h5cQIw6grOBEcNxoLsMp0wndGulQMXuQ5desO+GE=
-X-SMAIL-HELO: localhost.localdomain
-Received: from unknown (HELO localhost.localdomain)([114.249.62.194])
-	by sina.com (10.54.253.34) with ESMTP
-	id 6A8FD32C00004CE1; Thu, 27 Aug 2026 14:03:27 +0800 (CST)
-X-Sender: hdanton@sina.com
-X-Auth-ID: hdanton@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=hdanton@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=hdanton@sina.com
-X-SMAIL-MID: 5981956292094
-X-SMAIL-UIID: 242C103D4013432DACE858AC845B89C1-20260827-140327-1
-From: Hillf Danton <hdanton@sina.com>
-To: syzbot <syzbot+dd764a450d93885d847f@syzkaller.appspotmail.com>
-Cc: linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [syzbot] [kernfs?] possible deadlock in kernfs_link_sibling (2)
-Date: Thu, 27 Aug 2026 14:03:13 +0800
-Message-ID: <20260827060314.1793-1-hdanton@sina.com>
-In-Reply-To: <6a8f3f8b.50659fcc.60cd.0005.GAE@google.com>
-References: 
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="SAjoJuRP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=wa
+	CNnpILeDgl2UscKzIFsRiLjz7qOYqJMN3bvwNOKRo=; b=SAjoJuRPtHadpTReHu
+	+2V7XUOxTsUHWuB32YQXsi/sH+ieyfS4BkWE+0XuSGOQJuKTmV1osXptlK6AGHSM
+	GtWIDsu5cBKRsSJHh2n+Wh95zebbEAsbjcGCfDHWMHPSRbYI/FMHSgsmgXTUvTEv
+	Qt9sQD4Bz5FRL9DPfPniPyuiE=
+Received: from localhost.localdomain (unknown [])
+	by gzsmtp4 (Coremail) with SMTP id PygvCgBnFyvF049q9Y7gOQ--.42204S3;
+	Thu, 27 Aug 2026 14:05:59 +0800 (CST)
+From: ghuicao@163.com
+To: Song Liu <song@kernel.org>
+Cc: Yu Kuai <yukuai@fygo.io>,
+	Li Nan <magiclinan@didiglobal.com>,
+	Xiao Ni <xiao@kernel.org>,
+	linux-raid@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Cao Guanghui <caoguanghui@kylinos.cn>
+Subject: [PATCH v2 2/3] md/raid5: fix leak and use-after-free in resize_stripes error path
+Date: Thu, 27 Aug 2026 14:05:53 +0800
+Message-Id: <20260827060554.77849-2-ghuicao@163.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260827060554.77849-1-ghuicao@163.com>
+References: <20260827023803.36602-1-ghuicao@163.com>
+ <20260827060554.77849-1-ghuicao@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,129 +48,88 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PygvCgBnFyvF049q9Y7gOQ--.42204S3
+X-Coremail-Antispam: 1Uf129KBjvJXoWxCryUuryDCF1ktFW8CF13twb_yoW5Xw48pr
+	W3KFs3Z3WUW3s3twnrCw48uF1fG3yvqFWrGFya9w4vvFs8Kr10yr1rKrWDWryjyrn3tay2
+	qFZ0q395JF1vy3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j-a93UUUUU=
+X-CM-SenderInfo: 5jkxxuldr6il2tof0z/xtbC4AekN2qP08cChAAA3D
 
-> Date: Wed, 26 Aug 2026 12:33:31 -0700	[thread overview]
-> syzbot has found a reproducer for the following issue on:
-> 
-> HEAD commit:    818bebeb63dd drm/xe: Don't hand out the flat CCS storage a..
-> git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-> console output: https://syzkaller.appspot.com/x/log.txt?x=10059625580000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
-> dashboard link: https://syzkaller.appspot.com/bug?extid=dd764a450d93885d847f
-> compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13de8d49580000
+From: Cao Guanghui <caoguanghui@kylinos.cn>
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 818bebeb63dd
+resize_stripes() has two issues in how conf->disks is replaced:
 
---- x/kernel/locking/lockdep.c
-+++ y/kernel/locking/lockdep.c
-@@ -947,6 +947,34 @@ look_up_lock_class(const struct lockdep_
- 	return NULL;
- }
+1. Memory leak: conf->disks is replaced with ndisks in Step 3, but
+   pool_size is only updated at the end with "if (!err)".  If Step 4
+   (allocating pages for new stripe slots) fails, pool_size retains the
+   old value.  On teardown, free_conf() iterates only pool_size entries,
+   leaking (newsize - pool_size) extra_page allocations.
+
+2. Use-after-free: conf->disks is freed and replaced without holding
+   mddev->lock, while raid5_status() (called from /proc/mdstat via
+   md_seq_show) reads conf->disks[i].rdev under mddev->lock.  The
+   freeing and replacement happen under reconfig_mutex and
+   cache_size_mutex, which do not exclude mddev->lock holders.
+
+Fix both by deferring the conf->disks replacement until after Step 4
+succeeds, and performing the pointer swap under mddev->lock so that
+concurrent readers in raid5_status() see either the old or new array,
+never a freed one.  If Step 4 fails, ndisks is freed instead.
+
+This also preserves the original retry behavior: pool_size is only
+updated on full success, so check_reshape() correctly calls
+resize_stripes() again on retry.
+
+Fixes: ad01c9e3752f ("[PATCH] md: Allow stripes to be expanded in preparation for expanding an array")
+Cc: stable@vger.kernel.org
+Signed-off-by: Cao Guanghui <caoguanghui@kylinos.cn>
+---
+
+Changes in v2:
+  - Defer conf->disks replacement to after Step 4 instead of setting
+    pool_size early, which would break reshape retry logic (Sashiko)
+  - Add spinlock protection around the pointer swap to fix a concurrent
+    use-after-free in raid5_status() (Sashiko)
+
+ drivers/md/raid5.c | 19 +++++++++++--------
+ 1 file changed, 11 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
+--- a/drivers/md/raid5.c
++++ b/drivers/md/raid5.c
+@@ -2639,9 +2639,7 @@ static int resize_stripes(struct r5conf *conf, int newsize)
+ 				if (ndisks[i].extra_page)
+ 					put_page(ndisks[i].extra_page);
+ 			kfree(ndisks);
+-		} else {
+-			kfree(conf->disks);
+-			conf->disks = ndisks;
++			ndisks = NULL;
+ 		}
+ 	} else
+ 		err = -ENOMEM;
+@@ -2685,8 +2683,20 @@ static int resize_stripes(struct r5conf *conf, int newsize)
+ 	}
+ 	/* critical section pass, GFP_NOIO no longer needed */
  
-+static __always_inline bool lock_class_cache_is_valid(const struct lockdep_map *lock,
-+						      const struct lock_class *class,
-+						      unsigned int subclass)
-+{
-+	unsigned int class_subclass;
+-	if (!err)
++	if (!err && ndisks) {
++		struct disk_info *old_disks = conf->disks;
 +
-+	if (!class)
-+		return false;
-+
-+	if (unlikely(class < lock_classes || class >= lock_classes + MAX_LOCKDEP_KEYS))
-+		return false;
-+
-+	if (unlikely(!arch_test_bit(class - lock_classes, lock_classes_in_use)))
-+		return false;
-+
-+	if (unlikely(!lock->key))
-+		return false;
-+
-+	class_subclass = subclass ? subclass : class->subclass;
-+	if (unlikely(class_subclass >= MAX_LOCKDEP_SUBCLASSES))
-+		return false;
-+
-+	if (unlikely(READ_ONCE(class->key) != lock->key->subkeys + class_subclass))
-+		return false;
-+
-+	return true;
-+}
-+
- /*
-  * Static locks do not have their class-keys yet - for them the key is
-  * the lock object itself. If the lock is in the per cpu area, the
-@@ -1379,9 +1407,9 @@ out_unlock_set:
- 
- out_set_class_cache:
- 	if (!subclass || force)
--		lock->class_cache[0] = class;
-+		WRITE_ONCE(lock->class_cache[0], class);
- 	else if (subclass < NR_LOCKDEP_CACHING_CLASSES)
--		lock->class_cache[subclass] = class;
-+		WRITE_ONCE(lock->class_cache[subclass], class);
- 
- 	/*
- 	 * Hash collision, did we smoke some? We found a class with a matching
-@@ -4941,7 +4969,7 @@ void lockdep_init_map_type(struct lockde
- 	int i;
- 
- 	for (i = 0; i < NR_LOCKDEP_CACHING_CLASSES; i++)
--		lock->class_cache[i] = NULL;
-+		WRITE_ONCE(lock->class_cache[i], NULL);
- 
- #ifdef CONFIG_LOCK_STAT
- 	lock->cpu = raw_smp_processor_id();
-@@ -5006,12 +5034,15 @@ EXPORT_SYMBOL_GPL(__lockdep_no_track__);
- void lockdep_set_lock_cmp_fn(struct lockdep_map *lock, lock_cmp_fn cmp_fn,
- 			     lock_print_fn print_fn)
- {
--	struct lock_class *class = lock->class_cache[0];
-+	struct lock_class *class = READ_ONCE(lock->class_cache[0]);
- 	unsigned long flags;
- 
- 	raw_local_irq_save(flags);
- 	lockdep_recursion_inc();
- 
-+	if (!lock_class_cache_is_valid(lock, class, 0))
-+		class = NULL;
-+
- 	if (!class)
- 		class = register_lock_class(lock, 0, 0);
- 
-@@ -5103,8 +5134,11 @@ static int __lock_acquire(struct lockdep
- 	if (DEBUG_LOCKS_WARN_ON(subclass >= MAX_LOCKDEP_SUBCLASSES))
- 		return 0;
- 
--	if (subclass < NR_LOCKDEP_CACHING_CLASSES)
--		class = lock->class_cache[subclass];
-+	if (subclass < NR_LOCKDEP_CACHING_CLASSES) {
-+		class = READ_ONCE(lock->class_cache[subclass]);
-+		if (!lock_class_cache_is_valid(lock, class, subclass))
-+			class = NULL;
++		spin_lock_irq(&conf->mddev->lock);
++		conf->disks = ndisks;
++		spin_unlock_irq(&conf->mddev->lock);
++		kfree(old_disks);
+ 		conf->pool_size = newsize;
++	} else if (ndisks) {
++		for (i = conf->pool_size; i < newsize; i++)
++			if (ndisks[i].extra_page)
++				put_page(ndisks[i].extra_page);
++		kfree(ndisks);
 +	}
- 	/*
- 	 * Not cached?
- 	 */
-@@ -5307,9 +5341,9 @@ static noinstr int match_held_lock(const
- 		return 1;
+ 	mutex_unlock(&conf->cache_size_mutex);
  
- 	if (hlock->references) {
--		const struct lock_class *class = lock->class_cache[0];
-+		const struct lock_class *class = READ_ONCE(lock->class_cache[0]);
- 
--		if (!class)
-+		if (!lock_class_cache_is_valid(lock, class, 0))
- 			class = look_up_lock_class(lock, 0);
- 
- 		/*
---- x/lib/once.c
-+++ y/lib/once.c
-@@ -93,6 +93,6 @@ void __do_once_sleepable_done(bool *done
- {
- 	*done = true;
- 	mutex_unlock(&once_mutex);
--	static_branch_disable(once_key);
-+	once_disable_jump(once_key, mod);
- }
- EXPORT_SYMBOL(__do_once_sleepable_done);
---
+ 	return err;
+-- 
+2.34.1
+
