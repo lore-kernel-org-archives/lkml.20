@@ -1,418 +1,254 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4828841D626
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:31:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787823082; cv=pass; b=gUUjI2lORnyDwZP7CNkYKkJQIPTxyPod9pxDS5uiJ2pnOWUUlZ0k5CYDzOPcZYNlSxgH1XQb0RVQj+INJyDgmDRT+WbguiMPhWcRnV2Gj3mtMTuose8s/fa6Ck9qktuMiAN8aWhGuJPM0z+az7c83+bM0WFuqjacMU7eqPzn69E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787823082; c=relaxed/simple;
-	bh=+OFocx1aEP+9vQ3gcP1bnLrVbBnXFhujaRLhWeC6sfk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=atzcITdgRCfq0odzxiiWVF9g1G+gBxiTmEBnbqlfpmoi4UbeZKU2B+N5Litaoq8rqmdbifzI9ybJ9wuEaNfD5/JwUXSF1YXQf+piekXz9cdQBYgxVg9RpfZ21SZN8ovLKWmUrb00IaExKiEHLPFOlBCP17HvUokKZdFNnzj1nao=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=puXp5hrK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Ezf6T6+/; arc=pass smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="puXp5hrK";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ezf6T6+/"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67R9IEdg3978562
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:31:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	e0bRS/1/Y3fWl7X8ODZrF2DAl/+US1luAoJB+jji9gM=; b=puXp5hrKOrTO+euL
-	jJObPvmyUHIUELmdbOpdfaZoie+lfFKTkRGROkQehzHwRcHIQelKzdMUX2Sj3Jm6
-	pwlEVqgh+pqwNIuIvtDTddujHwVDYSS0cljIaWfKN8Xr9tlIE1ivtn+oFGb6fc+B
-	HF7kS7f6U7n9xfeyDyNRuwsMH4Kt1BMDvBYDo9HRoNuXath02FhlepGDhX9oPWTb
-	9Hue1xQeRCOHHbGun6a6U5jviRtcLlZpwIY8fD3sb1WdvK2SGpQEztzHdGO5lwZJ
-	0z/iYjkkOE3flq1vK12OoiDSrJGsWGG5B0W4yZm0gBWXFQhm/DC7Pi+w/6TMeGEe
-	GOiacA==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ga4egk3ma-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:31:19 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-9308eafb465so343316285a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 02:31:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787823079; cv=none;
-        d=google.com; s=arc-20260327;
-        b=P/olBKkNhXcRnqe94EGMVxUmuFPSujDGfk4RrKy/hKt4+6wuZJYXxL5rl5Fr8Jaf9K
-         TwhHQYnXGfoLcUFCKB73eMQAekOzW5tJXtx2dty7k1BLKsgvsNHU9BqTiCdQ6stUPv/p
-         AC7Wz5QYiIG0qng5TlQkmmwSMeS7zOUf01kRAi/6r5drJmcQsztUhNj0R+rnUxV435EQ
-         sN7PbjF+25BG04GY8aTiBWCkDlufBhWFUWUHvMFNFfvnHWjt4Y+sRI14fEb0F4mlUEcQ
-         K0DEU1DbGGXUXcSSB9B4inUWoi2L9+8fBUmKtr4zH5U9GZ39Idf0Ybc/Srszm6vDjbZe
-         OqQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=e0bRS/1/Y3fWl7X8ODZrF2DAl/+US1luAoJB+jji9gM=;
-        fh=TbvD84whBmYto/NR4IGRrK8zTDIGNDWzCSAkRJPud6s=;
-        b=HC6eC/BCLRpJgPowUAXD9Y3oofVAv5M+ulSXB0oc+xRlE3lu7mjjZ+Cv+v+88rGAEv
-         fNvACdz74ndybckXncmoVwcVEvMaJaH3314KmYWJkYS6ogg3AbCLT7V0m7S9aI+wneGH
-         7+eSRSevaBRbYHEJT0q298avD4yWQT2Vh3oxTe9ghBFl3l+2uEHEiaRTiYrzHXUIskeb
-         WA9L6Ll4Eb0qOxE8ArOg084l/LwanNZrW6H2m9dOYAAO16VR/uIQc+kAPCcm2Fu3NhQS
-         v5yowUByig1QKPlDAI9PfW332zXUS1n98FKlAMTEZqi0mPjbmr+kxSFPDlL67fcv1rE5
-         gIhQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787823079; x=1788427879; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=e0bRS/1/Y3fWl7X8ODZrF2DAl/+US1luAoJB+jji9gM=;
-        b=Ezf6T6+/SaUKZrLnJqz9O5dEAZirnj2OOrzxGxhPLEyi2A1v+ldJQvNfoL7+PRRPBx
-         7qujxU1Mx4zdOAN2GL6yHNdaGyz+FC+m04Pc8jlbav6CeukhRm/F5AsdUbtMB3w4hoiy
-         knI0ZKLSDtE6zZSKAPwS86GsT8pyBkmjLWmItgXsBvtlssPcPz0voqV4ob/MwzXzhaxp
-         fJHP+RKnpOrpXBFshICUrQTiuoiirSER4BjwNYbuNRitE+tm8I/DjrMPSp/5JWZ3TXOn
-         4mb7KumT4K6QHy3cILdAt5GV3ya9OSluzDyYeQJ4frNKv/ZDxx5SZe7AQFm+hOHDmBm7
-         BQdA==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ED8A3B47FD
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:31:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787823103; cv=none; b=bsnslpAoJMS2KQYz57hkc8FmFeTwNfgWdf6GwT6MYaJPtXlfJvgE/lp6u3yV26FLq+l407bvtvU/AH/qOJwvT+TS4WEgdlcDEP4A1uxbI8dyn6cIVpOQOrUxs1ssXPLM8HgHGsqPr8BH3coIftbajW+MJH20ivUvBLu41/0hN5U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787823103; c=relaxed/simple;
+	bh=P3fpSl01EL+JlZZ7pcW5UeLGCEoiQ5sAzTvO6JoKySg=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=XURVYatF9QTgvu1zBmtOWGtV+TYfU8WbKJrzUXHfgKA5ppSLwLXzZleVuceBDlce/TJL8Ap6HYirWxxc991DQzviMtZiRW1DJtDdlnbEJuMke+eRD4HXcAd+A3ORwWrn1PTVuLrMZyottd+uwb6R7CCCsyeXFWEUgRVDpCOwJuw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4ab8b4887d4so1688152b6e.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 02:31:38 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787823079; x=1788427879;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=e0bRS/1/Y3fWl7X8ODZrF2DAl/+US1luAoJB+jji9gM=;
-        b=dhjGgZGDKEBLonY1QGTNJm3DBVsFz1xqC1ltN8G2bKKHHdfG9LgjkosZTdZsuIuO2J
-         zO3HML/k8OzY//KeNUgHQwNPDNxCWrS2k1dzfPeVFUyppnv+jRTkF5pOP0CWfV3no/vp
-         8GtPnuR3zzJC4PUikFSCg2sEgXrNDkLbeZRMzRT0UvNSyKxLTQAaQ0oqzh7c3i7rKTu1
-         1TZVF/NZz6U5wl8aCUyvi9s0Fc4Nxr5xTK05homChVYQgjRPUDtSYSfDgobNa8g3X2tq
-         iV4mKZhRup9eWmeReSs8R5NeNCvXYhkxo/5W+iIDOqHdtWF5tkj2seDtxDzmqJMB2aub
-         jZBQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rpc8gfG01pQuU7R7ag5LwJPKMwG+DmWQP/sji/lkobZ5WFP1Nn9+7gkiwdno3tGMxpvNYE2V6vx/wgAqdY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nEXssaMErvlEVwTjw+poSZ+DkxOJ3AcJhlYI2qaU7nP2FzcqPH
-	LYWinOm1YIq/QHa3pZl/cl6RquT1nEpJ8BVCjyqsRA3Djw7YR+CPAglVWCQrF2vSlL3F0Bh9Jwh
-	Jekk1SMMKAcWTJtqF/P78mMf5oJzgwX2Iz2plA8Bqoi3fo4JdhRhFAZ30ustXv3ytlXgXyoDPrp
-	yAUX57TN75UYhxxRR9Iq4+I3UPqDEIHnW/jDvnKoRmzLfCzOG45VwWRj4=
-X-Gm-Gg: AR+sD1326Dc1ZtSnMhDsnEta9b0EEKzckJjoQGMmnXuaYskJs/1i86QqtcA/rzd7fvU
-	oaQim6kTJAtmtcC171651FNYqu7pgfEF2YufVW29xHkogOL0Jjybk1f2jSvk9/kMVQRgcUVRso/
-	lHW7d1TpdiROB6lpeEDXWB1zdvjOMdWbFLTipkWmKtYSK0DyE319M2gMFeZf2y5Vlhgm/kJZYeI
-	L2isCTv3Iqw0O7Ecl27oihX7zkLzbv2vuW2hDq4R8sgv+CNbaPQGcUf4o2CKkX/4cqbPqohy+0=
-X-Received: by 2002:a05:620a:4414:b0:939:682:684f with SMTP id af79cd13be357-93906826933mr234773085a.17.1787823079204;
-        Thu, 27 Aug 2026 02:31:19 -0700 (PDT)
-X-Received: by 2002:a05:620a:4414:b0:939:682:684f with SMTP id
- af79cd13be357-93906826933mr234766785a.17.1787823078637; Thu, 27 Aug 2026
- 02:31:18 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787823097; x=1788427897;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=BJoli19LrMNg//Htjj7MlH5QuL1/UfWbHFfI+Ddim1M=;
+        b=mSJdziKNmae7NzqpDQ5ZAAkv27+NYUO0pe9oieZ0q7zLsFiCapd8VmVbBnxCvqSu8R
+         T5Zb7otibaVIzIg9wS2PZ6Ltybc2LbZY3pVaF8xXzZTap8NwGl1x5QNBk1vQ+2TEzDTq
+         CddKt3JylTrTOVSs5sxXAPIyDypQILMQ8QjWA4rYP05PzdNppVtDBpV/30HzMLFCEQfA
+         ew1ag1WIGc7OWZmv7CmJY4Dat+KlYI959sIaA59mSLxUDSyqD+0GHeLj4zpaOAS4NezQ
+         16uFrxLYKisi/nT8BMN/L2rcc1SL32oznNt8PCtduQlSboK4Yx84sgVkc8TdrbvzG0RC
+         786Q==
+X-Forwarded-Encrypted: i=1; AHgh+RrdkuUV1WbfQm3npE2pnvg1ftmSoKstsAwFDT175z9CVQHtnOGEu6iabtJKryjUtEXHq7y27Z1yumuzsr4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mbptyMThEid57l1BTo+qGyPVF4UhFI/A85d2XxDsTbSpn6MKtF
+	fgy53BZxO+q3qxyWrwnjXSTnsB9/ZNLXubZbXq/4FBxq/lB/k4ydApMEjLvuw0KW0QQ4D5hnEQv
+	w/+XeITCIHDX10WyJLVNDMywJWLc5FuHCqf+taqoh/g6V5JWzrwLhNk/qZgw=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260801-cci-clk-fix-v4-0-e1d80da54e01@oss.qualcomm.com>
- <20260801-cci-clk-fix-v4-4-e1d80da54e01@oss.qualcomm.com> <8af313a1-5f7f-431f-91f6-9e22119d456b@linaro.org>
-In-Reply-To: <8af313a1-5f7f-431f-91f6-9e22119d456b@linaro.org>
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Thu, 27 Aug 2026 11:31:06 +0200
-X-Gm-Features: AcwNN1UvaL1W-zyD8Eglxdfy81HKEI8nddcPmZVpUkhnUF7SybxDrqSKZKvr1qg
-Message-ID: <CAFEp6-10Dz8EJjMNrM0FPHwmaMr2ownKLBh2=F70PmkFn9Ke2Q@mail.gmail.com>
-Subject: Re: [PATCH v4 4/5] i2c: qcom-cci: Share the timing table across CCI revisions
-To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-Cc: Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
-        Wolfram Sang <wsa+renesas@sang-engineering.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Luca Weiss <luca@lucaweiss.eu>, linux-i2c@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        konradybcio@kernel.org, stephan.gerhold@linaro.org
+X-Received: by 2002:a05:6808:3505:b0:493:a860:5809 with SMTP id
+ 5614622812f47-4b3668b1451mr14124640b6e.4.1787823097520; Thu, 27 Aug 2026
+ 02:31:37 -0700 (PDT)
+Date: Thu, 27 Aug 2026 02:31:37 -0700
+In-Reply-To: <6a8c451c.dbb3a75c.7844.0004.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9003f9.27659fcc.2ceef7.0012.GAE@google.com>
+Subject: Re: [syzbot] [media?] KASAN: slab-use-after-free Read in vidtv_bridge_on_new_pkts_avail
+From: syzbot <syzbot+c7fc4794e59786f5b4dc@syzkaller.appspotmail.com>
+To: dwlsalmeida@gmail.com, gregkh@linuxfoundation.org, 
+	jeffinphilip14@gmail.com, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, mchehab@kernel.org, stable@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-GUID: 7n8mGU4yzWCEVrjhmaKFEtq3liG2S3Jl
-X-Proofpoint-ORIG-GUID: 7n8mGU4yzWCEVrjhmaKFEtq3liG2S3Jl
-X-Authority-Analysis: v=2.4 cv=DsRmPm/+ c=1 sm=1 tr=0 ts=6a9003e7 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=3WHJM1ZQz_JShphwDgj5:22 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8
- a=8nvrDW3bclPgcZMhjs4A:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
- a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDA3OCBTYWx0ZWRfXxaTBRWiyHMCT
- F4bu8r0R3Y690NnyxRgg+2yOWytOuZLTolIUJS+HV4BFFBCCaCvvUHxfwIWfMrnv6kagE7djDSs
- i4nPbtCCJtXaqUnsM/k1T/0n/Hx1KoXNfcvqG/Qo/VyKFKULdUJ6Ww9F/abpOCCuFMfn5JSvplo
- TIEvu62vO3K2pE9pur5fT5ZJgoD9YcOkG6VHYrH4MPYezm48eNpC8pobVOFC34Y+i+ofPacqO8A
- rZkw1zp+erVlXq1x/r2kgjtsz2qvqewhb0v8ERQ2gyYx+R09Li9wp8Gay7Eh8QiU4iJG1Agan2m
- 8AJljpFm2CTn/zxB0ZkCf2Auhn/E4g5r9lK1E8+YQ0oqRGVQATHwFlzguO3l48u4qADEymmLF9W
- KwzNqBDaxvQiJ9r/PspmQ5O5oiy2Ws1Gs2mj87FtFjoLQh9o9FSnT2s06z8B3lY9LIeTDOzMTWd
- z9ruZAw1k2G1/Zf2LeA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDA3OCBTYWx0ZWRfX+M3QO2DEbLaq
- Vo9hsnurrOzDGXQwbwaavKOrrTff1qpvHORUOk/bYTyTho8lqcuuqJ7ov01QORKzkSF/LKmYW2X
- oPy4C3cf90i66RJHygfndLQOrRxCwAw=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-27_04,2026-08-26_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0 malwarescore=0
- clxscore=1015 priorityscore=1501 phishscore=0 adultscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608270078
 
-Hi Vlad,
+syzbot has found a reproducer for the following issue on:
 
-On Wed, Aug 19, 2026 at 1:31=E2=80=AFPM Vladimir Zapolskiy
-<vladimir.zapolskiy@linaro.org> wrote:
->
-> On 8/1/26 23:10, Loic Poulain wrote:
-> > The hw_params timing values only depend on the CCI clock rate and the
-> > I2C mode, not on the hardware revision: every per-variant table used
-> > identical values for a given [rate][mode]. Only the set of supported
-> > modes differs between revisions.
-> >
-> > Move the timings into a single shared cci_hw_params[rate][mode] table
-> > and describe each variant's highest supported mode in cci_data with
-> > max_mode instead of duplicating the timing values. This removes the
-> > per-variant timing tables without any functional change.
-> >
-> > Suggested-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-> > Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> > ---
-> >   drivers/i2c/busses/i2c-qcom-cci.c | 181 +++++++++++++++--------------=
----------
-> >   1 file changed, 70 insertions(+), 111 deletions(-)
-> >
-> > diff --git a/drivers/i2c/busses/i2c-qcom-cci.c b/drivers/i2c/busses/i2c=
--qcom-cci.c
-> > index b6fa37a306758ec33ede6fcc39ce4412b86d9a84..21695c744502f7fb5d333f1=
-272f3771e4d9d5508 100644
-> > --- a/drivers/i2c/busses/i2c-qcom-cci.c
-> > +++ b/drivers/i2c/busses/i2c-qcom-cci.c
-> > @@ -124,7 +124,8 @@ struct cci_data {
-> >       unsigned int num_masters;
-> >       struct i2c_adapter_quirks quirks;
-> >       u16 queue_size[NUM_QUEUES];
-> > -     struct hw_params params[NUM_CCI_CLK_RATES][NUM_I2C_MODES];
-> > +     /* Highest I2C mode supported by this variant. */
-> > +     u8 max_mode;
-> >   };
-> >
-> >   struct cci {
-> > @@ -249,13 +250,76 @@ static int cci_clk_rate_idx(unsigned long rate)
-> >       return -EINVAL;
-> >   }
-> >
-> > +static const struct hw_params cci_hw_params[NUM_CCI_CLK_RATES][NUM_I2C=
-_MODES] =3D {
-> > +     [CCI_CLK_RATE_19_2MHZ][I2C_MODE_STANDARD] =3D {
-> > +             .thigh =3D 78,
-> > +             .tlow =3D 114,
-> > +             .tsu_sto =3D 28,
-> > +             .tsu_sta =3D 28,
-> > +             .thd_dat =3D 10,
-> > +             .thd_sta =3D 77,
-> > +             .tbuf =3D 118,
-> > +             .scl_stretch_en =3D 0,
-> > +             .trdhld =3D 6,
-> > +             .tsp =3D 1
-> > +     },
-> > +     [CCI_CLK_RATE_19_2MHZ][I2C_MODE_FAST] =3D {
-> > +             .thigh =3D 20,
-> > +             .tlow =3D 28,
-> > +             .tsu_sto =3D 21,
-> > +             .tsu_sta =3D 21,
-> > +             .thd_dat =3D 13,
-> > +             .thd_sta =3D 18,
-> > +             .tbuf =3D 32,
-> > +             .scl_stretch_en =3D 0,
-> > +             .trdhld =3D 6,
-> > +             .tsp =3D 3
-> > +     },
-> > +     [CCI_CLK_RATE_37_5MHZ][I2C_MODE_STANDARD] =3D {
-> > +             .thigh =3D 201,
-> > +             .tlow =3D 174,
-> > +             .tsu_sto =3D 204,
-> > +             .tsu_sta =3D 231,
-> > +             .thd_dat =3D 22,
-> > +             .thd_sta =3D 162,
-> > +             .tbuf =3D 227,
-> > +             .scl_stretch_en =3D 0,
-> > +             .trdhld =3D 6,
-> > +             .tsp =3D 3
-> > +     },
-> > +     [CCI_CLK_RATE_37_5MHZ][I2C_MODE_FAST] =3D {
-> > +             .thigh =3D 38,
-> > +             .tlow =3D 56,
-> > +             .tsu_sto =3D 40,
-> > +             .tsu_sta =3D 40,
-> > +             .thd_dat =3D 22,
-> > +             .thd_sta =3D 35,
-> > +             .tbuf =3D 62,
-> > +             .scl_stretch_en =3D 0,
-> > +             .trdhld =3D 6,
-> > +             .tsp =3D 3
-> > +     },
-> > +     [CCI_CLK_RATE_37_5MHZ][I2C_MODE_FAST_PLUS] =3D {
-> > +             .thigh =3D 16,
-> > +             .tlow =3D 22,
-> > +             .tsu_sto =3D 17,
-> > +             .tsu_sta =3D 18,
-> > +             .thd_dat =3D 16,
-> > +             .thd_sta =3D 15,
-> > +             .tbuf =3D 24,
-> > +             .scl_stretch_en =3D 0,
-> > +             .trdhld =3D 3,
-> > +             .tsp =3D 3
-> > +     },
-> > +};
-> > +
-> >   static const struct hw_params *cci_get_hw_params(struct cci *cci, int=
- mode)
-> >   {
-> >       unsigned long rate =3D clk_get_rate(cci->cci_clk);
-> >       int ri =3D cci_clk_rate_idx(rate);
-> >
-> > -     if (ri >=3D 0 && cci->data->params[ri][mode].thigh)
-> > -             return &cci->data->params[ri][mode];
-> > +     if (ri >=3D 0 && mode <=3D cci->data->max_mode && cci_hw_params[r=
-i][mode].thigh)
->
-> This earlier introduced sanity check for non-zero 'cci_hw_params[ri][mode=
-].thigh'
-> is not needed anymore, right?
+HEAD commit:    818bebeb63dd drm/xe: Don't hand out the flat CCS storage a..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=14fb5625580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
+dashboard link: https://syzkaller.appspot.com/bug?extid=c7fc4794e59786f5b4dc
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1033b415580000
 
-It's still needed. max_mode captures the platform limitation, the
-thigh check captures the clock-rate limitation. E.g. we don't define
-Fast+ params for the 19.2 MHz entry, so the two checks aren't
-equivalent.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+c7fc4794e59786f5b4dc@syzkaller.appspotmail.com
 
->
-> > +             return &cci_hw_params[ri][mode];
-> >
-> >       return NULL;
-> >   }
-> > @@ -696,30 +760,7 @@ static const struct cci_data cci_v1_data =3D {
-> >               .max_write_len =3D 10,
-> >               .max_read_len =3D 12,
-> >       },
-> > -     .params[CCI_CLK_RATE_19_2MHZ][I2C_MODE_STANDARD] =3D {
-> > -             .thigh =3D 78,
-> > -             .tlow =3D 114,
-> > -             .tsu_sto =3D 28,
-> > -             .tsu_sta =3D 28,
-> > -             .thd_dat =3D 10,
-> > -             .thd_sta =3D 77,
-> > -             .tbuf =3D 118,
-> > -             .scl_stretch_en =3D 0,
-> > -             .trdhld =3D 6,
-> > -             .tsp =3D 1
-> > -     },
-> > -     .params[CCI_CLK_RATE_19_2MHZ][I2C_MODE_FAST] =3D {
-> > -             .thigh =3D 20,
-> > -             .tlow =3D 28,
-> > -             .tsu_sto =3D 21,
-> > -             .tsu_sta =3D 21,
-> > -             .thd_dat =3D 13,
-> > -             .thd_sta =3D 18,
-> > -             .tbuf =3D 32,
-> > -             .scl_stretch_en =3D 0,
-> > -             .trdhld =3D 6,
-> > -             .tsp =3D 3
-> > -     },
-> > +     .max_mode =3D I2C_MODE_FAST,
-> >   };
-> >
-> >   static const struct cci_data cci_v1_5_data =3D {
-> > @@ -729,30 +770,7 @@ static const struct cci_data cci_v1_5_data =3D {
-> >               .max_write_len =3D 10,
-> >               .max_read_len =3D 12,
-> >       },
-> > -     .params[CCI_CLK_RATE_19_2MHZ][I2C_MODE_STANDARD] =3D {
-> > -             .thigh =3D 78,
-> > -             .tlow =3D 114,
-> > -             .tsu_sto =3D 28,
-> > -             .tsu_sta =3D 28,
-> > -             .thd_dat =3D 10,
-> > -             .thd_sta =3D 77,
-> > -             .tbuf =3D 118,
-> > -             .scl_stretch_en =3D 0,
-> > -             .trdhld =3D 6,
-> > -             .tsp =3D 1
-> > -     },
-> > -     .params[CCI_CLK_RATE_19_2MHZ][I2C_MODE_FAST] =3D {
-> > -             .thigh =3D 20,
-> > -             .tlow =3D 28,
-> > -             .tsu_sto =3D 21,
-> > -             .tsu_sta =3D 21,
-> > -             .thd_dat =3D 13,
-> > -             .thd_sta =3D 18,
-> > -             .tbuf =3D 32,
-> > -             .scl_stretch_en =3D 0,
-> > -             .trdhld =3D 6,
-> > -             .tsp =3D 3
-> > -     },
-> > +     .max_mode =3D I2C_MODE_FAST,
-> >   };
-> >
-> >   static const struct cci_data cci_v2_data =3D {
-> > @@ -762,66 +780,7 @@ static const struct cci_data cci_v2_data =3D {
-> >               .max_write_len =3D 11,
-> >               .max_read_len =3D 12,
-> >       },
-> > -     .params[CCI_CLK_RATE_19_2MHZ][I2C_MODE_STANDARD] =3D {
-> > -             .thigh =3D 78,
-> > -             .tlow =3D 114,
-> > -             .tsu_sto =3D 28,
-> > -             .tsu_sta =3D 28,
-> > -             .thd_dat =3D 10,
-> > -             .thd_sta =3D 77,
-> > -             .tbuf =3D 118,
-> > -             .scl_stretch_en =3D 0,
-> > -             .trdhld =3D 6,
-> > -             .tsp =3D 1
-> > -     },
-> > -     .params[CCI_CLK_RATE_19_2MHZ][I2C_MODE_FAST] =3D {
-> > -             .thigh =3D 20,
-> > -             .tlow =3D 28,
-> > -             .tsu_sto =3D 21,
-> > -             .tsu_sta =3D 21,
-> > -             .thd_dat =3D 13,
-> > -             .thd_sta =3D 18,
-> > -             .tbuf =3D 32,
-> > -             .scl_stretch_en =3D 0,
-> > -             .trdhld =3D 6,
-> > -             .tsp =3D 3
-> > -     },
-> > -     .params[CCI_CLK_RATE_37_5MHZ][I2C_MODE_STANDARD] =3D {
-> > -             .thigh =3D 201,
-> > -             .tlow =3D 174,
-> > -             .tsu_sto =3D 204,
-> > -             .tsu_sta =3D 231,
-> > -             .thd_dat =3D 22,
-> > -             .thd_sta =3D 162,
-> > -             .tbuf =3D 227,
-> > -             .scl_stretch_en =3D 0,
-> > -             .trdhld =3D 6,
-> > -             .tsp =3D 3
-> > -     },
-> > -     .params[CCI_CLK_RATE_37_5MHZ][I2C_MODE_FAST] =3D {
-> > -             .thigh =3D 38,
-> > -             .tlow =3D 56,
-> > -             .tsu_sto =3D 40,
-> > -             .tsu_sta =3D 40,
-> > -             .thd_dat =3D 22,
-> > -             .thd_sta =3D 35,
-> > -             .tbuf =3D 62,
-> > -             .scl_stretch_en =3D 0,
-> > -             .trdhld =3D 6,
-> > -             .tsp =3D 3
-> > -     },
-> > -     .params[CCI_CLK_RATE_37_5MHZ][I2C_MODE_FAST_PLUS] =3D {
-> > -             .thigh =3D 16,
-> > -             .tlow =3D 22,
-> > -             .tsu_sto =3D 17,
-> > -             .tsu_sta =3D 18,
-> > -             .thd_dat =3D 16,
-> > -             .thd_sta =3D 15,
-> > -             .tbuf =3D 24,
-> > -             .scl_stretch_en =3D 0,
-> > -             .trdhld =3D 3,
-> > -             .tsp =3D 3
-> > -     },
-> > +     .max_mode =3D I2C_MODE_FAST_PLUS,
-> >   };
-> >
-> >   static const struct of_device_id cci_dt_match[] =3D {
-> >
->
-> --
-> Best wishes,
-> Vladimir
+==================================================================
+BUG: KASAN: slab-use-after-free in vidtv_bridge_check_demod_lock drivers/media/test-drivers/vidtv/vidtv_bridge.c:145 [inline]
+BUG: KASAN: slab-use-after-free in vidtv_bridge_on_new_pkts_avail+0x126/0x140 drivers/media/test-drivers/vidtv/vidtv_bridge.c:162
+Read of size 8 at addr ffff88802e860118 by task kworker/2:3/5832
+
+CPU: 2 UID: 0 PID: 5832 Comm: kworker/2:3 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Workqueue: events vidtv_mux_tick
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0x13d/0x4b0 mm/kasan/report.c:482
+ kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
+ vidtv_bridge_check_demod_lock drivers/media/test-drivers/vidtv/vidtv_bridge.c:145 [inline]
+ vidtv_bridge_on_new_pkts_avail+0x126/0x140 drivers/media/test-drivers/vidtv/vidtv_bridge.c:162
+ vidtv_mux_tick+0xb95/0x1460 drivers/media/test-drivers/vidtv/vidtv_mux.c:426
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3387
+ process_scheduled_works kernel/workqueue.c:3470 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3551
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+
+Allocated by task 1:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
+ __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __kmalloc_cache_noprof+0x2e7/0x6b0 mm/slub.c:5484
+ _kmalloc_noprof include/linux/slab.h:988 [inline]
+ _kzalloc_noprof include/linux/slab.h:1309 [inline]
+ vidtv_demod_i2c_probe+0x6e/0x8a0 drivers/media/test-drivers/vidtv/vidtv_demod.c:421
+ i2c_device_probe+0x658/0xd10 drivers/i2c/i2c-core-base.c:593
+ call_driver_probe drivers/base/dd.c:628 [inline]
+ really_probe+0x241/0xa60 drivers/base/dd.c:706
+ __driver_probe_device+0x210/0x460 drivers/base/dd.c:868
+ driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
+ __device_attach_driver+0x1df/0x320 drivers/base/dd.c:1026
+ bus_for_each_drv+0x159/0x1e0 drivers/base/bus.c:500
+ __device_attach+0x1e4/0x4d0 drivers/base/dd.c:1098
+ device_initial_probe+0xaf/0xd0 drivers/base/dd.c:1153
+ bus_probe_device+0x64/0x160 drivers/base/bus.c:620
+ device_add+0x121d/0x1970 drivers/base/core.c:3776
+ i2c_new_client_device+0x660/0xd30 drivers/i2c/i2c-core-base.c:1020
+ dvb_module_probe+0x165/0x310 drivers/media/dvb-core/dvbdev.c:1039
+ vidtv_bridge_probe_demod drivers/media/test-drivers/vidtv/vidtv_bridge.c:354 [inline]
+ vidtv_bridge_dvb_init drivers/media/test-drivers/vidtv/vidtv_bridge.c:430 [inline]
+ vidtv_bridge_probe+0x370/0xa30 drivers/media/test-drivers/vidtv/vidtv_bridge.c:510
+ platform_probe+0x106/0x1d0 drivers/base/platform.c:1507
+ call_driver_probe drivers/base/dd.c:628 [inline]
+ really_probe+0x241/0xa60 drivers/base/dd.c:706
+ __driver_probe_device+0x210/0x460 drivers/base/dd.c:868
+ driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
+ __driver_attach+0x21f/0x5b0 drivers/base/dd.c:1292
+ bus_for_each_dev+0x13e/0x1d0 drivers/base/bus.c:383
+ bus_add_driver+0x305/0x5b0 drivers/base/bus.c:763
+ driver_register+0x1e2/0x360 drivers/base/driver.c:174
+ vidtv_bridge_init+0x52/0x80 drivers/media/test-drivers/vidtv/vidtv_bridge.c:602
+ do_one_initcall+0x11c/0x6f0 init/main.c:1353
+ do_initcall_level init/main.c:1415 [inline]
+ do_initcalls init/main.c:1431 [inline]
+ do_basic_setup init/main.c:1451 [inline]
+ kernel_init_freeable+0x6ea/0x7b0 init/main.c:1666
+ kernel_init+0x21/0x1e0 init/main.c:1556
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+Freed by task 6035:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
+ poison_slab_object mm/kasan/common.c:253 [inline]
+ __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:285
+ kasan_slab_free include/linux/kasan.h:235 [inline]
+ slab_free_hook mm/slub.c:2678 [inline]
+ slab_free mm/slub.c:6372 [inline]
+ kfree+0x22b/0x6c0 mm/slub.c:6687
+ i2c_device_remove+0x81/0x280 drivers/i2c/i2c-core-base.c:632
+ device_remove+0xcb/0x180 drivers/base/dd.c:616
+ __device_release_driver drivers/base/dd.c:1349 [inline]
+ device_release_driver_internal+0x44e/0x620 drivers/base/dd.c:1372
+ bus_remove_device+0x2bc/0x560 drivers/base/bus.c:664
+ device_del+0x376/0x9b0 drivers/base/core.c:3965
+ device_unregister+0x1d/0xe0 drivers/base/core.c:4006
+ i2c_unregister_device+0xf5/0x270 drivers/i2c/i2c-core-base.c:1076
+ dvb_module_release drivers/media/dvb-core/dvbdev.c:1061 [inline]
+ dvb_module_release+0x69/0x90 drivers/media/dvb-core/dvbdev.c:1055
+ vidtv_bridge_remove+0xd8/0x140 drivers/media/test-drivers/vidtv/vidtv_bridge.c:556
+ platform_remove+0x5f/0x80 drivers/base/platform.c:1524
+ device_remove+0xcb/0x180 drivers/base/dd.c:616
+ __device_release_driver drivers/base/dd.c:1349 [inline]
+ device_release_driver_internal+0x44e/0x620 drivers/base/dd.c:1372
+ unbind_store+0xf8/0x110 drivers/base/bus.c:244
+ drv_attr_store+0x74/0xb0 drivers/base/bus.c:125
+ sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
+ kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x6af/0x1050 fs/read_write.c:687
+ ksys_write+0x12a/0x250 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+The buggy address belongs to the object at ffff88802e860000
+ which belongs to the cache kmalloc-2k of size 2048
+The buggy address is located 280 bytes inside of
+ freed 2048-byte region [ffff88802e860000, ffff88802e860800)
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff88802e864000 pfn:0x2e860
+head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+flags: 0xfff00000000240(workingset|head|node=0|zone=1|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 00fff00000000240 ffff88801c042f00 ffffea000071b010 ffffea0000993a10
+raw: ffff88802e864000 0000000800080007 00000000f5000000 0000000000000000
+head: 00fff00000000240 ffff88801c042f00 ffffea000071b010 ffffea0000993a10
+head: ffff88802e864000 0000000800080007 00000000f5000000 0000000000000000
+head: 00fff00000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
+head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000008
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 3, migratetype Unmovable, gfp_mask 0xd20c0(__GFP_IO|__GFP_FS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 1, tgid 1 (swapper/0), ts 15032077504
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
+ prep_new_page mm/page_alloc.c:1879 [inline]
+ get_page_from_freelist+0x110d/0x35b0 mm/page_alloc.c:3943
+ __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
+ alloc_slab_page mm/slub.c:3267 [inline]
+ allocate_slab mm/slub.c:3382 [inline]
+ new_slab+0xa5/0x640 mm/slub.c:3428
+ refill_objects+0xe3/0x410 mm/slub.c:7305
+ refill_sheaf mm/slub.c:2805 [inline]
+ __pcs_replace_empty_main+0x372/0x680 mm/slub.c:4677
+ alloc_from_pcs mm/slub.c:4775 [inline]
+ slab_alloc_node mm/slub.c:4907 [inline]
+ __kmalloc_cache_noprof+0x47b/0x6b0 mm/slub.c:5480
+ _kmalloc_noprof include/linux/slab.h:988 [inline]
+ _kzalloc_noprof include/linux/slab.h:1309 [inline]
+ wakeup_source_device_create+0x46/0x2e0 drivers/base/power/wakeup_stats.c:144
+ wakeup_source_sysfs_add+0x1c/0x90 drivers/base/power/wakeup_stats.c:183
+ wakeup_source_register+0x154/0x3e0 drivers/base/power/wakeup.c:218
+ device_wakeup_enable+0xce/0x2e0 drivers/base/power/wakeup.c:336
+ device_init_wakeup include/linux/pm_wakeup.h:238 [inline]
+ alarmtimer_rtc_add_device+0x1da/0x320 kernel/time/alarmtimer.c:99
+ device_add+0x13cc/0x1970 drivers/base/core.c:3799
+ cdev_device_add+0x12b/0x270 fs/char_dev.c:553
+ __devm_rtc_register_device+0x456/0x8d0 drivers/rtc/class.c:418
+ cmos_do_probe drivers/rtc/rtc-cmos.c:1112 [inline]
+ cmos_platform_probe+0xe3b/0x1100 drivers/rtc/rtc-cmos.c:1451
+page last free pid 24 tgid 24 ts 14981723256 stack trace:
+ reset_page_owner include/linux/page_owner.h:26 [inline]
+ __free_pages_prepare mm/page_alloc.c:1418 [inline]
+ free_pages_prepare+0x586/0xe00 mm/page_alloc.c:1463
+ __free_contig_range_common+0x14f/0x250 mm/page_alloc.c:7060
+ __free_contig_range mm/page_alloc.c:7105 [inline]
+ free_pages_bulk+0x12a/0x200 mm/page_alloc.c:5322
+ vm_area_free_pages+0xad/0x2b0 mm/vmalloc.c:3462
+ vfree mm/vmalloc.c:3511 [inline]
+ vfree+0x108/0x730 mm/vmalloc.c:3485
+ delayed_vfree_work+0x56/0x80 mm/vmalloc.c:3415
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3387
+ process_scheduled_works kernel/workqueue.c:3470 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3551
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+Memory state around the buggy address:
+ ffff88802e860000: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff88802e860080: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+>ffff88802e860100: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                            ^
+ ffff88802e860180: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff88802e860200: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+==================================================================
+
+
+---
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
