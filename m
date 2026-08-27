@@ -1,503 +1,176 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35506473C66;
-	Thu, 27 Aug 2026 16:03:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5DC047D45D
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:05:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787846627; cv=none; b=j1nUKssSKYFRGOUGRA+rBPdS0VBb8yIOJV+Lwqry+TPvVIB9q01WiI9ZzmhufpMeZbzIYY+FUULoMpnfRJnWJqL/NYyOGD91FPYiFbwXLdrpUfX6/XEPuYFMyIGWsQ3xqde1G9aCzwSDUtsHMouiHdNNsNhJzak83fueoqd8aRU=
+	t=1787846726; cv=none; b=TlamVSZ+NVsKZvQCuRBqQzM6q92brubJ3h6XV1LYKckK70pNDnArJU6AUz35oC9kn2z7xX4rnpLn070s6YkLsZ4/6siJ+SqQ0xBp21a/KvhZO0NiMwSupJdxP8frRkHOmR4ZlYjAwaI0K/ZaqWpV2L4CEPtDPsHYZXaceaQQcVQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787846627; c=relaxed/simple;
-	bh=Nik9sJwYjEv3cw2vckL5N7WOKhAF2MblAvlONONkswk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eXJhyAo1sDgqJjGC4wnb2kKoO+LURx6I+LYF99R5eGOgifqCRZnS2TFi0Dr8XHWJfni2M5UkoLF7FiP/J/3PUgTXUe8S0p8tbgTjsbx4WZ4V4C/oFA1vvLgIa0TH+HY7rhxT1M33hpF9T7PeNVFKNq0hpJeG8bDe5hnbeZIHfsg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HdGCSKa5; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787846726; c=relaxed/simple;
+	bh=gETAEBgYwDXWClB5e9959ZIcXDa0GZBBwA4nXRnjY6o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rAgh87d3piGZiDz4mmZytBbahFSUjquTO+3VYm0dCFhxj3utwJiRAz6xY3HQ+KD26ZglCKbn0dA4PkFKIPjdSJf5U5s7QZDqmCZnfKqqHZJPJ89bNyy34ufc0r2QIDKgmIUmadXGC6Xr+UYYCKlHsv45zTI9MVeK+xDlZ2GIbTw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=kHuWm5MM; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HdGCSKa5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787846625; x=1819382625;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=Nik9sJwYjEv3cw2vckL5N7WOKhAF2MblAvlONONkswk=;
-  b=HdGCSKa5m3v/3sd5W8eGwpP2kAtlstvXVeEx04HIxPfuRbYWBiip4kSE
-   iLn8keSh6EVWQv5bgwqrU2gEBKpPmHh4Lnmdk6mlz9iIEv2k6tDLzdhOk
-   sOtNWcNxgdFzqk5xS10lxKAy8NYw2cL0elwp3JzWYP/zS5iYkYozlCUNG
-   DLifDq1FbOGEbHSqbeXNnF1JURZVt3XGZmgzEbB6Zafvff1mEYmHWuzap
-   hWjZCb2yPl3temdTc3FIbwXFUdVgETuDvmGMVuXWZfks+DGjT87WFc+7H
-   LciSDuu+VAWUr9XmWSfLUOxKzp1Nhs2SeUF53+YfLjHxwZ1PKeHw04RBZ
-   g==;
-X-CSE-ConnectionGUID: dIiSIZOaR4WTLQ3o1rC8bQ==
-X-CSE-MsgGUID: O0bLP9WlQNWbwZ/VEkW6Sg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="105725792"
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="105725792"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 09:03:44 -0700
-X-CSE-ConnectionGUID: i/YRYntsSXOkRfTAaY0fiQ==
-X-CSE-MsgGUID: uAwv8KziRKSNwJI2R7qCeg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="267942034"
-Received: from rchatre-mobl4.amr.corp.intel.com (HELO [10.125.109.124]) ([10.125.109.124])
-  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 09:03:43 -0700
-Message-ID: <4ce6682d-526b-4d78-8bff-1dd26422496a@intel.com>
-Date: Thu, 27 Aug 2026 09:03:42 -0700
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="kHuWm5MM"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-499add6348fso51185e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:05:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787846722; x=1788451522; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CmON3stCzHBRSuZfkMe1xGImPljQrocTgH9KyyEufC0=;
+        b=kHuWm5MM0zJWDGdXTa+vHNdO1Q/hFlaTg/9QJvGEUFuXqut/JfPxQPUo2EM+4utIOK
+         ikPDXk8uZnUYhnIByIJmVoX9xJHTZt2/TrlmJRavSntpgA9f/598K1PUYuQXh/InbMJf
+         aVzFC5HTgqpRQOIJEADSfDce6u/7nYwZe6X01S4vWKcSQGIW/rDO97uDnf5Nhy/Y5s4o
+         Rq+ZZOOQ7tId/L0bLYY84OPPtFHs8VW/d3qY3YCCjMM2QmsMzwwRlh4P5HmvJiEXrZhW
+         1ut8oOri1W4nIK9+ZMYrRtHdn2gPg8TqVyvf1dAuHhylP63SzGwQ0gbR6DjLbucR8+iz
+         6i9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787846722; x=1788451522;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CmON3stCzHBRSuZfkMe1xGImPljQrocTgH9KyyEufC0=;
+        b=oACaE1efPhAdZAVzpjXw2gMGmw3BiK1+Z7ch4HM/lj6Pkgl+LjAtRKBbOl8/+nAd4D
+         vz2QpAHZXQtMCAFX0ywo2iiWPItXdhjUdAgerB+Y9dOHEq9JvmCoMIBSzW1oG5Q6Y1nB
+         DBRaorlczxu95OqXzrnl6h6fC9a+MS1ohXmfM2xk29KrPcc/wr7MyFtiUmz1tkyxBSKJ
+         n0EfIyYST1jdD7W0u1iFjyUYWAX2bbyXlxd2e58BpTLB9XyRm9jpVKfseLgQ3rhJgHJi
+         GTlIs/lKa9JWxQsIS4ypRbMDxPhECxLAQBy2KnUF2A5DcfC+JLXLkHe4QSjErTOUsWIU
+         Y4nw==
+X-Forwarded-Encrypted: i=1; AHgh+RrvfEYwELLFwyfbA6/ja/gIyLMqHRkjk1Ehc9CiVn/lxGZKVrr/KciLe4+mWi0G05TR5UcHNy7A7NPUqmw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nsdYl8rF07UZ3Y4zpT8f+GYzNF0Ju9ipGAQJK8aAmuMYe/E0RC
+	G7J5vgXfE3Y0kbFCtZ1fr9apTuHkwAX4J4vfoS09h78NWOUmX7uho61sC587WEleYA==
+X-Gm-Gg: AR+sD12/AGi5gYzfPPRot1TkeVtsQB+uSc4+G3PaYxbDf5FCdM47NgJa2ckRwBTog8c
+	wVlyGY8ajY+9sY9sGXsF8gX4D+3EAc6QsFIiu/4cFE9F6UF7WiQBPBt2ql2QQiK7f1mbBa91axK
+	fa2s7Iz8jKpLG4IPKYpnZKKAPV/+lowz1AzwBCuEAxwrKCQK08Dj+9MigD5fTNbFXhsXIzwuCSd
+	kDnzgHo217vFD0EVaf8C/Ah3rgPw5vJOJ7tju7jWzekNGk+QLau8jLBPWRDH2NU2t5Nw+PSMV6g
+	XfP0VNW8KwPf38c0Lj3jrzwbcy4tdo3opZi6nckOi6hPQ9aBDxQBMtO0Zs6JGg/Xo1NZLv/wcMY
+	bzWYzTyMuMLepPmei5yhXt/VYUfu4+Hn8Q6YiOWFUKvKBAL1WN9Cs1mOpeBRhQVX1OSU7xx4yz5
+	B9XrRKuk5s2n0KQN0iDFQbevIj55W8C+UyVUoafPCsot0zcxjNih80ENvB/nBXlqRa5IQqglFIe
+	jxE8aEnTM+6ccDtfg2R/6CNKoFM+Q4pMLgjYEK7
+X-Received: by 2002:a05:600c:468b:b0:499:7da3:dd0c with SMTP id 5b1f17b1804b1-49b0e3a0067mr1313355e9.0.1787846721412;
+        Thu, 27 Aug 2026 09:05:21 -0700 (PDT)
+Received: from google.com (250.192.189.35.bc.googleusercontent.com. [35.189.192.250])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b4dfdf00csm57599795e9.14.2026.08.27.09.05.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 09:05:18 -0700 (PDT)
+Date: Thu, 27 Aug 2026 16:05:14 +0000
+From: Mostafa Saleh <smostafa@google.com>
+To: Yuanhe Shu <xiangzao@linux.alibaba.com>
+Cc: joro@8bytes.org, will@kernel.org, jgg@ziepe.ca, robin.murphy@arm.com,
+	baolu.lu@linux.intel.com, kevin.tian@intel.com, praan@google.com,
+	skhawaja@google.com, iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] iommu: Drop IOMMU_DEBUG_PAGEALLOC refs on iommupt
+ domain teardown
+Message-ID: <apBgOqEP4Fv6cOaV@google.com>
+References: <20260827145855.1616223-1-xiangzao@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 10/16] NTB: ntb_transport: Implement direct-DMA QP session
- handshake
-To: Koichiro Den <den@valinux.co.jp>, Jon Mason <jdmason@kudzu.us>,
- Frank Li <Frank.Li@kernel.org>, Allen Hubbe <allenbh@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Niklas Cassel <cassel@kernel.org>, Nicholas Bellinger <nab@linux-iscsi.org>
-Cc: ntb@lists.linux.dev, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260810165136.2292436-1-den@valinux.co.jp>
- <20260810165136.2292436-11-den@valinux.co.jp>
-From: Dave Jiang <dave.jiang@intel.com>
-Content-Language: en-US
-In-Reply-To: <20260810165136.2292436-11-den@valinux.co.jp>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827145855.1616223-1-xiangzao@linux.alibaba.com>
 
+Hi Yuanhe,
 
-
-On 8/10/26 9:51 AM, Koichiro Den wrote:
-> A logical QP can be reused while its shared memory still contains RX
-> addresses and completions from the previous instance. Without a session
-> ID, the new QP could accept that stale state.
+On Thu, Aug 27, 2026 at 10:58:53PM +0800, Yuanhe Shu wrote:
+> Since commit b948a8722848 ("iommu: Fix up map/unmap debugging for
+> iommupt domains") iommu_map() takes an IOMMU_DEBUG_PAGEALLOC reference
+> for every page it maps into a domain, and the only path that drops
+> those references is the IOVA based unmap.  When a generic_pt domain is
+> freed while mappings are still installed, pt_iommu_deinit() releases
+> the page table memory without going through that path, so every mapped
+> page keeps its reference forever and each later allocation or free of
+> it trips:
 > 
-> Give each QP instance a fresh session ID and enable direct DMA only
-> after both peers acknowledge it. Teardown also exchanges the final
-> issued boundary so RX mappings remain valid until all outstanding
-> transfers have completed.
+>     WARNING: drivers/iommu/iommu-debug-pagealloc.c:91 at __iommu_debug_check_unmapped+0x4e/0x70, CPU#0: init/1
+>     iommu: Detected page leak!
 > 
-> Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> ---
->  drivers/ntb/ntb_transport.c | 275 ++++++++++++++++++++++++++++++++++--
+> Freeing a domain with mappings still installed is not driver misuse:
+> the deinit contract in include/linux/generic_pt/iommu.h only requires
 
-Will you considered moving most of the ntb_direct code to ntb_transport_direct.c instead of increasing the size of ntb_transport.c? Just from an organization perspective this may be better for maintenance and reading in the future.
+Which drivers cause this?
 
-DJ
+AFAICT, users of the DMA-API must unmap the pages, otherwise they
+run into bigger issue (as leaking IOVA).
+This is stated in Documentation/core-api/dma-api-howto.rst
+  Every dma_map_{single,sg}() call should have its dma_unmap_{single,sg}()
+  counterpart, because the DMA address space is a shared resource and
+  you could render the machine unusable by consuming all DMA addresses.
 
->  1 file changed, 267 insertions(+), 8 deletions(-)
+On the other side, there are very few driver that use the IOMMU API
+directly, and from what I can see they do iommu_unmap().
+
+Some page table implementations might tolerate it (because it is simpler
+and more efficient to implement instead of descending to last level
+tables) but I don't think that makes it right.
+
+Thanks,
+Mostafa
+
+
+> the table to be removed from HW access and caches, with no requirement
+> to unmap first.  iommu_setup_default_domain() frees the old domain with
+> its IOMMU_RESV_DIRECT mappings still installed (those pages normally
+> never return to the page allocator, so it does not WARN today), and the
+> generic_pt kunit suite (CONFIG_IOMMU_PT_KUNIT_TEST) does the same in
+> pt_kunit_iommu_exit().
 > 
-> diff --git a/drivers/ntb/ntb_transport.c b/drivers/ntb/ntb_transport.c
-> index 67044d0ea0ff..ca08cb690311 100644
-> --- a/drivers/ntb/ntb_transport.c
-> +++ b/drivers/ntb/ntb_transport.c
-> @@ -58,6 +58,7 @@
->  #include <linux/limits.h>
->  #include <linux/module.h>
->  #include <linux/pci.h>
-> +#include <linux/random.h>
->  #include <linux/slab.h>
->  #include <linux/seq_file.h>
->  #include <linux/types.h>
-> @@ -153,6 +154,14 @@ struct ntb_rx_info {
->  	unsigned int entry;
->  };
->  
-> +enum ntb_direct_state {
-> +	NTB_DIRECT_DOWN,
-> +	NTB_DIRECT_HANDSHAKE,
-> +	NTB_DIRECT_ACTIVE,
-> +	NTB_DIRECT_QUIESCING,
-> +	NTB_DIRECT_QUIESCED,
-> +};
-> +
->  struct ntb_transport_qp {
->  	struct ntb_transport_ctx *transport;
->  	struct ntb_dev *ndev;
-> @@ -195,6 +204,8 @@ struct ntb_transport_qp {
->  	struct ntb_direct_shared *direct_shared;
->  	struct ntb_direct_shared __iomem *peer_direct_shared;
->  	unsigned int direct_ring_entries;
-> +	/* Serialize direct session, TX ring, and RX publication state. */
-> +	spinlock_t direct_lock;
->  	u32 *direct_rx_cpl;
->  	dma_addr_t direct_rx_cpl_dma;
->  	u32 *direct_tx_cpl;
-> @@ -203,6 +214,9 @@ struct ntb_transport_qp {
->  	u32 direct_rx_cons;
->  	u32 direct_tx_issue;
->  	u32 direct_tx_cons;
-> +	u32 direct_session;
-> +	u32 direct_peer_session;
-> +	enum ntb_direct_state direct_state;
->  	void *rx_buff;
->  	unsigned int rx_index;
->  	unsigned int rx_max_entry;
-> @@ -509,6 +523,228 @@ static bool ntb_direct_layout(struct ntb_transport_ctx *nt)
->  #define QP_TO_MW(nt, qp)	((qp) % nt->mw_count)
->  #define NTB_QP_DEF_NUM_ENTRIES	100
->  #define NTB_LINK_DOWN_TIMEOUT	10
-> +#define NTB_DIRECT_TEARDOWN_RETRY_INTERVAL_MS	10
-> +
-> +static bool ntb_direct_rx_mode(struct ntb_transport_qp *qp)
-> +{
-> +	struct ntb_transport_ctx *nt = qp->transport;
-> +
-> +	return (nt->direct_features & NTB_DIRECT_FEAT_RX) &&
-> +	       (nt->peer_direct_features & NTB_DIRECT_FEAT_TX);
-> +}
-> +
-> +static bool ntb_direct_tx_mode(struct ntb_transport_qp *qp)
-> +{
-> +	struct ntb_transport_ctx *nt = qp->transport;
-> +
-> +	return (nt->direct_features & NTB_DIRECT_FEAT_TX) &&
-> +	       (nt->peer_direct_features & NTB_DIRECT_FEAT_RX);
-> +}
-> +
-> +static bool ntb_direct_link_capable(struct ntb_transport_qp *qp)
-> +{
-> +	return ntb_direct_rx_mode(qp) || ntb_direct_tx_mode(qp);
-> +}
-> +
-> +static void ntb_transport_notify_peer(struct ntb_transport_qp *qp)
-> +{
-> +	if (qp->use_msi)
-> +		ntb_msi_peer_trigger(qp->ndev, PIDX, &qp->peer_msi_desc);
-> +	else
-> +		ntb_peer_db_set(qp->ndev, BIT_ULL(qp->qp_num));
-> +}
-> +
-> +static bool ntb_direct_tx_idle(struct ntb_transport_qp *qp)
-> +{
-> +	return qp->direct_tx_issue == qp->direct_tx_cons;
-> +}
-> +
-> +static bool ntb_direct_rx_drained(struct ntb_transport_qp *qp)
-> +{
-> +	struct ntb_direct_shared *shared = qp->direct_shared;
-> +	u32 session = qp->direct_session;
-> +
-> +	if (!shared || !session || READ_ONCE(shared->quiesce) != session)
-> +		return false;
-> +
-> +	/* quiesce is written after its final issue boundary. */
-> +	dma_rmb();
-> +	return READ_ONCE(qp->direct_rx_cons) ==
-> +	       READ_ONCE(shared->quiesce_issue);
-> +}
-> +
-> +static bool ntb_direct_tx_acked(struct ntb_transport_qp *qp)
-> +{
-> +	struct ntb_direct_shared *shared = qp->direct_shared;
-> +	u32 session = qp->direct_session;
-> +
-> +	return shared && session &&
-> +	       READ_ONCE(shared->quiesce_ack) == session;
-> +}
-> +
-> +static bool ntb_direct_control_pending(struct ntb_transport_qp *qp)
-> +{
-> +	struct ntb_direct_shared *shared = qp->direct_shared;
-> +	enum ntb_direct_state state = READ_ONCE(qp->direct_state);
-> +	u32 peer_session = READ_ONCE(qp->direct_peer_session);
-> +	u32 session = READ_ONCE(qp->direct_session);
-> +
-> +	if (!shared)
-> +		return false;
-> +	if (state == NTB_DIRECT_HANDSHAKE)
-> +		return READ_ONCE(shared->session) != peer_session ||
-> +		       READ_ONCE(shared->session_ack) == session;
-> +	if (state != NTB_DIRECT_ACTIVE)
-> +		return false;
-> +
-> +	return READ_ONCE(shared->session) != peer_session ||
-> +	       READ_ONCE(shared->quiesce) == session;
-> +}
-> +
-> +static void ntb_direct_control_publish_locked(struct ntb_transport_qp *qp)
-> +{
-> +	struct ntb_direct_shared __iomem *peer = qp->peer_direct_shared;
-> +	u32 peer_session = qp->direct_peer_session;
-> +
-> +	lockdep_assert_held(&qp->direct_lock);
-> +
-> +	/* Publish the completion array address before its session. */
-> +	iowrite32(lower_32_bits(qp->direct_rx_cpl_dma), &peer->cpl_addr_lo);
-> +	iowrite32(upper_32_bits(qp->direct_rx_cpl_dma), &peer->cpl_addr_hi);
-> +
-> +	iowrite32(qp->direct_session, &peer->session);
-> +	if (!peer_session)
-> +		return;
-> +
-> +	iowrite32(peer_session, &peer->session_ack);
-> +	if (qp->direct_state == NTB_DIRECT_QUIESCING) {
-> +		/* Publish the final exclusive TX boundary before its marker. */
-> +		iowrite32(qp->direct_tx_issue, &peer->quiesce_issue);
-> +		iowrite32(peer_session, &peer->quiesce);
-> +	}
-> +	if (ntb_direct_rx_drained(qp))
-> +		iowrite32(peer_session, &peer->quiesce_ack);
-> +}
-> +
-> +/*
-> + * Accept the peer session during HANDSHAKE. In ACTIVE or QUIESCING, a
-> + * replacement peer session or quiesce request enters the local teardown path.
-> + */
-> +static bool ntb_direct_control_progress(struct ntb_transport_qp *qp)
-> +{
-> +	struct ntb_direct_shared *shared = qp->direct_shared;
-> +	u32 peer_session, session_ack, quiesce;
-> +	bool published = false;
-> +	bool cleanup = false;
-> +	bool ready = false;
-> +
-> +	if (!qp->transport->link_is_up || !shared ||
-> +	    !qp->peer_direct_shared ||
-> +	    !ntb_direct_link_capable(qp) ||
-> +	    ntb_link_is_up(qp->ndev, NULL, NULL) != 1)
-> +		return true;
-> +
-> +	peer_session = READ_ONCE(shared->session);
-> +	session_ack = READ_ONCE(shared->session_ack);
-> +	quiesce = READ_ONCE(shared->quiesce);
-> +
-> +	scoped_guard(spinlock_bh, &qp->direct_lock) {
-> +		if (!qp->direct_session)
-> +			goto out;
-> +
-> +		if (qp->direct_state == NTB_DIRECT_HANDSHAKE && peer_session) {
-> +			qp->direct_peer_session = peer_session;
-> +		} else if (qp->direct_state == NTB_DIRECT_ACTIVE && peer_session &&
-> +			   peer_session != qp->direct_peer_session) {
-> +			qp->direct_state = NTB_DIRECT_QUIESCING;
-> +		}
-> +
-> +		if (quiesce == qp->direct_session &&
-> +		    (qp->direct_state == NTB_DIRECT_HANDSHAKE ||
-> +		     qp->direct_state == NTB_DIRECT_ACTIVE)) {
-> +			qp->direct_state = NTB_DIRECT_QUIESCING;
-> +			cleanup = qp->client_ready;
-> +		}
-> +
-> +		ntb_direct_control_publish_locked(qp);
-> +		published = true;
-> +		if (qp->direct_state == NTB_DIRECT_HANDSHAKE &&
-> +		    qp->direct_peer_session &&
-> +		    session_ack == qp->direct_session)
-> +			qp->direct_state = NTB_DIRECT_ACTIVE;
-> +		ready = qp->direct_state == NTB_DIRECT_ACTIVE;
-> +	}
-> +
-> +out:
-> +	if (published)
-> +		ntb_transport_notify_peer(qp);
-> +	if (cleanup)
-> +		schedule_work(&qp->link_cleanup);
-> +
-> +	return ready;
-> +}
-> +
-> +static void ntb_direct_session_start(struct ntb_transport_qp *qp)
-> +{
-> +	u32 session;
-> +
-> +	if (!ntb_direct_link_capable(qp) || !qp->direct_shared)
-> +		return;
-> +
-> +	session = get_random_u32_above(0);
-> +
-> +	memset(qp->direct_shared, 0, sizeof(*qp->direct_shared));
-> +	/* Complete local shared-state reset before publishing the new session. */
-> +	dma_wmb();
-> +
-> +	guard(spinlock_bh)(&qp->direct_lock);
-> +	qp->direct_session = session;
-> +	qp->direct_peer_session = 0;
-> +	qp->direct_state = NTB_DIRECT_HANDSHAKE;
-> +}
-> +
-> +static void ntb_direct_quiesce(struct ntb_transport_qp *qp)
-> +{
-> +	bool done;
-> +
-> +	if (!ntb_direct_link_capable(qp))
-> +		return;
-> +
-> +	scoped_guard(spinlock_bh, &qp->direct_lock) {
-> +		if (qp->direct_state == NTB_DIRECT_DOWN ||
-> +		    qp->direct_state == NTB_DIRECT_QUIESCED)
-> +			return;
-> +		if (!qp->direct_peer_session) {
-> +			/*
-> +			 * No peer session means RX publication and TX
-> +			 * submission never became active.
-> +			 */
-> +			qp->direct_state = NTB_DIRECT_QUIESCED;
-> +			return;
-> +		}
-> +		qp->direct_state = NTB_DIRECT_QUIESCING;
-> +	}
-> +
-> +	/*
-> +	 * Keep the mappings until the peer acknowledges the final boundaries,
-> +	 * or until the link is down or the peer starts a new session.
-> +	 */
-> +	for (;;) {
-> +		ntb_direct_control_progress(qp);
-> +
-> +		scoped_guard(spinlock_bh, &qp->direct_lock)
-> +			done = ntb_direct_tx_idle(qp) &&
-> +			       ntb_direct_tx_acked(qp) &&
-> +			       ntb_direct_rx_drained(qp);
-> +		if (done || ntb_link_is_up(qp->ndev, NULL, NULL) != 1)
-> +			break;
-> +
-> +		msleep(NTB_DIRECT_TEARDOWN_RETRY_INTERVAL_MS);
-> +	}
-> +
-> +	guard(spinlock_bh)(&qp->direct_lock);
-> +	qp->direct_state = NTB_DIRECT_QUIESCED;
-> +}
->  
->  /**
->   * ntb_transport_rx_queue_size - Query the RX queue depth
-> @@ -1204,6 +1440,9 @@ static void ntb_qp_link_context_reset(struct ntb_transport_qp *qp)
->  	qp->direct_rx_cons = 0;
->  	qp->direct_tx_issue = 0;
->  	qp->direct_tx_cons = 0;
-> +	qp->direct_session = 0;
-> +	qp->direct_peer_session = 0;
-> +	qp->direct_state = NTB_DIRECT_DOWN;
->  }
->  
->  static void ntb_qp_link_down_reset(struct ntb_transport_qp *qp)
-> @@ -1221,6 +1460,7 @@ static void ntb_qp_link_cleanup(struct ntb_transport_qp *qp)
->  	dev_info(&pdev->dev, "qp %d: Link Cleanup\n", qp->qp_num);
->  
->  	cancel_delayed_work_sync(&qp->link_work);
-> +	ntb_direct_quiesce(qp);
->  	ntb_qp_link_down_reset(qp);
->  
->  	if (qp->event_handler)
-> @@ -1457,6 +1697,7 @@ static void ntb_qp_link_work(struct work_struct *work)
->  						   link_work.work);
->  	struct pci_dev *pdev = qp->ndev->pdev;
->  	struct ntb_transport_ctx *nt = qp->transport;
-> +	bool direct_ready;
->  	int val;
->  
->  	if (!qp->client_ready)
-> @@ -1466,13 +1707,17 @@ static void ntb_qp_link_work(struct work_struct *work)
->  
->  	val = ntb_spad_read(nt->ndev, QP_LINKS);
->  
-> +	if (qp->direct_state == NTB_DIRECT_DOWN)
-> +		ntb_direct_session_start(qp);
-> +
->  	ntb_peer_spad_write(nt->ndev, PIDX, QP_LINKS, val | BIT(qp->qp_num));
-> +	direct_ready = ntb_direct_control_progress(qp);
->  
->  	/* query remote spad for qp ready bits */
->  	dev_dbg_ratelimited(&pdev->dev, "Remote QP link status = %x\n", val);
->  
->  	/* See if the remote side is up */
-> -	if (val & BIT(qp->qp_num)) {
-> +	if ((val & BIT(qp->qp_num)) && direct_ready) {
->  		dev_info(&pdev->dev, "qp %d: Link Up\n", qp->qp_num);
->  		qp->link_is_up = true;
->  		qp->active = true;
-> @@ -1559,6 +1804,7 @@ static int ntb_transport_init_queue(struct ntb_transport_ctx *nt,
->  	spin_lock_init(&qp->ntb_rx_q_lock);
->  	spin_lock_init(&qp->ntb_tx_free_q_lock);
->  	spin_lock_init(&qp->ntb_tx_offl_q_lock);
-> +	spin_lock_init(&qp->direct_lock);
->  
->  	INIT_LIST_HEAD(&qp->rx_post_q);
->  	INIT_LIST_HEAD(&qp->rx_pend_q);
-> @@ -2054,6 +2300,11 @@ static void ntb_transport_rxc_db(struct work_struct *work)
->  	dev_dbg(&qp->ndev->pdev->dev, "%s: doorbell %d received\n",
->  		__func__, qp->qp_num);
->  
-> +	if (ntb_direct_control_pending(qp))
-> +		ntb_direct_control_progress(qp);
-> +	if (!qp->active)
-> +		goto clear_db;
-> +
->  	/* Limit the number of packets processed in a single interrupt to
->  	 * provide fairness to others
->  	 */
-> @@ -2070,7 +2321,11 @@ static void ntb_transport_rxc_db(struct work_struct *work)
->  		/* there is more work to do */
->  		if (qp->active)
->  			queue_work(system_dfl_wq, &qp->rxc_db_work);
-> -	} else if (ntb_db_read(qp->ndev) & BIT_ULL(qp->qp_num)) {
-> +		return;
-> +	}
-> +
-> +clear_db:
-> +	if (ntb_db_read(qp->ndev) & BIT_ULL(qp->qp_num)) {
->  		/* the doorbell bit is set: clear it */
->  		ntb_db_clear(qp->ndev, BIT_ULL(qp->qp_num));
->  		/* ntb_db_read ensures ntb_db_clear write is committed */
-> @@ -2080,7 +2335,9 @@ static void ntb_transport_rxc_db(struct work_struct *work)
->  		 * ntb_process_rxc and clearing the doorbell bit:
->  		 * there might be some more work to do.
->  		 */
-> -		if (qp->active)
-> +		if (qp->active ||
-> +		    (qp->client_ready &&
-> +		     READ_ONCE(qp->direct_state) == NTB_DIRECT_HANDSHAKE))
->  			queue_work(system_dfl_wq, &qp->rxc_db_work);
->  	}
->  }
-> @@ -2128,10 +2385,7 @@ static void ntb_tx_copy_callback(void *data,
->  	dma_mb();
->  	ioread32(&hdr->flags);
->  
-> -	if (qp->use_msi)
-> -		ntb_msi_peer_trigger(qp->ndev, PIDX, &qp->peer_msi_desc);
-> -	else
-> -		ntb_peer_db_set(qp->ndev, BIT_ULL(qp->qp_num));
-> +	ntb_transport_notify_peer(qp);
->  
->  	/* The entry length can only be zero if the packet is intended to be a
->  	 * "link down" or similar.  Since no payload is being sent in these
-> @@ -2586,6 +2840,7 @@ void ntb_transport_free_queue(struct ntb_transport_qp *qp)
->  
->  	cancel_work_sync(&qp->link_cleanup);
->  	cancel_delayed_work_sync(&qp->link_work);
-> +	ntb_direct_quiesce(qp);
->  	qp->active = false;
->  
->  	if (qp->tx_offload_thread) {
-> @@ -2636,6 +2891,7 @@ void ntb_transport_free_queue(struct ntb_transport_qp *qp)
->  	/* Catch cleanup queued while draining RX processing. */
->  	cancel_work_sync(&qp->link_cleanup);
->  	cancel_delayed_work_sync(&qp->link_work);
-> +	ntb_qp_link_context_reset(qp);
->  
->  	qp->cb_data = NULL;
->  	qp->rx_handler = NULL;
-> @@ -2822,6 +3078,7 @@ void ntb_transport_link_down(struct ntb_transport_qp *qp)
->  		return;
->  
->  	qp->client_ready = false;
-> +	ntb_direct_quiesce(qp);
->  
->  	val = ntb_spad_read(qp->ndev, QP_LINKS);
->  
-> @@ -2927,7 +3184,9 @@ static void ntb_transport_doorbell_callback(void *data, int vector)
->  		qp_num = __ffs(db_bits);
->  		qp = &nt->qp_vec[qp_num];
->  
-> -		if (qp->active)
-> +		if (qp->active ||
-> +		    (qp->client_ready &&
-> +		     READ_ONCE(qp->direct_state) == NTB_DIRECT_HANDSHAKE))
->  			queue_work(system_dfl_wq, &qp->rxc_db_work);
->  
->  		db_bits &= ~BIT_ULL(qp_num);
-
+> Patch 1 adds __iommu_debug_unmap_phys(), the physical address based
+> counterpart of __iommu_debug_map().  Patch 2 wires it into the deinit
+> walk: a debug_unmap flag makes __collect_tables() drop the reference of
+> every OA leaf it destroys, symmetric to how iommu_map() created them.
+> 
+> io-pgtable has the same gap in __arm_lpae_free_pgtable(), but its
+> cookies cannot reach the struct iommu_domain, so that fix needs an ABI
+> change or per-driver handling and is left as a follow-up.
+> 
+> The kunit suite doubles as an in-tree reproducer: with
+> CONFIG_IOMMU_DEBUG_PAGEALLOC=y and CONFIG_IOMMU_PT_KUNIT_TEST=y, boot
+> with iommu.debug_pagealloc=1
+> kunit.filter_glob=x86_64_iommu_test.test_pgsize_boundary, then
+> allocate and free most of memory (the case maps 128K at the hard-coded
+> OA 0x208b95d000 and never unmaps it, so the machine needs enough RAM
+> for that address to be online memory - a 150G guest was used here, and
+> the sweep was a tmpfs filled to 95% of RAM):
+> 
+>     unpatched:          64 page leak WARNINGs
+>     with this series:   0
+> 
+> The 64 is one WARNING for each of the 32 mapped pages on both its
+> allocation and free.  On unpatched mainline the suite already fails
+> test_random_map's NR_SECONDARY_PAGETABLE assertion, which aborts its
+> cleanup and cascades into the following cases, hence the isolation.  An
+> out-of-tree module mapping a page into an amdv1 domain and freeing the
+> domain without unmapping shows the same behaviour, 384 WARNINGs over
+> 64 iterations unpatched and none with the series; each leaked page is
+> reported again on every later allocation and free, so the count
+> exceeds the 64 leaked pages.  The control case that unmaps first stays
+> silent.
+> 
+> The generic_pt format code can be built as a module (e.g.
+> CONFIG_IOMMU_PT_AMDV1=m), so the new helper and the
+> iommu_debug_initialized static key are exported GPL.
+> 
+> Yuanhe Shu (2):
+>   iommu: Add __iommu_debug_unmap_phys() to drop refs by physical address
+>   iommupt: Drop pagealloc references during domain deinit
+> 
+>  drivers/iommu/generic_pt/iommu_pt.h   | 22 +++++++++++++++++---
+>  drivers/iommu/iommu-debug-pagealloc.c | 30 ++++++++++++++++++++++++---
+>  drivers/iommu/iommu-priv.h            | 24 +++++++++++++++++++++
+>  3 files changed, 70 insertions(+), 6 deletions(-)
+> 
+> base-commit: 45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229
+> -- 
+> 2.43.5
