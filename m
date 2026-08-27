@@ -1,245 +1,71 @@
-Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2548C3C2B95
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 23:55:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F1103C2B95;
+	Thu, 27 Aug 2026 23:57:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787874920; cv=none; b=UVkYaCeAripoZw6sna4cWLqC/9P72ErREb/aaByO23q5eHLDWUQbAoaZVyo7GUVyZxDpRmjJoe5acteZqujtX6Dxp4ANzn78ufkefpbT9lf/mWk04TERDCn9YYwsJTp0/OYMmfXw1mmIuRJEe2H1822zbH5SaZO2/AjWSmC50nE=
+	t=1787875067; cv=none; b=ZvoYFJNgOk91PAa9eREYPAm5VQd3Y4cFb+gyQnzu4gNexExUvIXdF/HQgtS8OCMvU/OEh8B5xwyqM9DcnWYk5k+hqyDd79VtF0e62ra4FP3lp1oqODTnHS6D8+0yq/kSzPgd3cFxXPqQGkhubi5ldMO8iY9OENUggIM6tQBTcNU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787874920; c=relaxed/simple;
-	bh=17DL7rhafk1dsgIeYoK4mS2o50WhRjWyO2dEKqAEpdI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LohHnAiwqquA2Cm/bgNUgCkCATX67LjzBKHDklB3rZegbw+8sn/eG14KyeiWCoMOrGr19xTiaUTGsjhpi+uGggqWO1kKZv26jLc0zFbD9Vl5CWTupskYIb0L2MT1OutWcBMGCTZkUFBYeObTczBnxxriJiWpK3g2bVA7wBHcQCY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sC3pQT9w; arc=none smtp.client-ip=74.125.224.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787875067; c=relaxed/simple;
+	bh=AeXBOWxzTaJfYER35sQedV/BBWNAZINVKknSLEFgUEU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=q8E9c/OEyD3RkTALrGLR7uB6DtedGmJD9xarDvYAV0QnpGiNeIKvKgrWYX36rFIhEcI5wUXdpBzvDW5COrJthQe8BCG6OiOy3DPPbwxmQv0L4T8Oc2cbM5S4bmU8GDrX6Hqz1DzsIttsG+4XEDHBpZKWm7TYvFJTVmIYvgCv45E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UK/WQdyf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sC3pQT9w"
-Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-66d116f0de8so770768d50.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:55:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787874916; x=1788479716; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jvm7J3YSk1/1T92COXCSTc907ZSd3vJ2D2ODqJKXqh8=;
-        b=sC3pQT9w16X8e1FpEkMG6skdnkz3y6W25eGE49xth0hbRGOZG8r9cJy7vO7hb7XVh1
-         HccgqlnWExlRcyHVA8kceftioB0FQVFphc9IDS195xgzYP6AdHXVkUfpGbWT2yqo1urv
-         6HBqjCNaTGuSz77ZNtDQGSOx6fyE/fMRl+6uU/D8huih79l4QcFg46gXATGclQf62NgP
-         Y2ZJf4iXR9gBQ/jYy3yLN29KXKpBGaB6z/tjF57XDBRTtCpIQ85QvGI7s0HbQaTlcqIJ
-         Iaqie7fqQL88FJFqsTiUDmu9ACHXSAxX8NijAIw/70hC2TxHMVlarBQ0yCN/sbVC9wsD
-         QKWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787874916; x=1788479716;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jvm7J3YSk1/1T92COXCSTc907ZSd3vJ2D2ODqJKXqh8=;
-        b=Ta3Gin6op74vc1QCwU4QS+y5W840U+/UaTfhmBr4imNDmPchcItNDBdqipSWpUESOW
-         JnYIlsjCUllMTN1TxtnK8JOmdXHUU0jCLLJJkHvmbQ/q3VKK1tHt1KwXDR9LaXbbleGT
-         w9TBfwDCbCSrdFf/QNeyl8UowuRKh+41aKZruhdf9dFn6zVVpzFBZntXBHb9/ddeJPFM
-         LYwbw7HNA0kicP9Uxev5eLy7B4UABopSf6ddQFJt43jGeGXBx1C7SqbC9F//0IlBbbYt
-         1wrGGMEr505YxxzI0widPJ6+BhtVm6LOX9bfbo6Xr4b7AKfVBJt3Pz1eeT7ZTJfNdyhh
-         2JAw==
-X-Forwarded-Encrypted: i=1; AHgh+RouTOlvHWie0lqQE3PqoIebdz0d/gDegJ3S0VCqObwhKlc6a5BMmHCVgN5cFIqTs1RRGLLTomn3nCpJuQs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nLqi/f1yY3izBuDuQHAjxSsOu/1UB1BnDb6ZTgZXVMPiamAOJA
-	nMvK25rgKFmulE67ZFGws3S5pnjyEaN4n7G5/Ywl3O08q2RMx1dNJC+z
-X-Gm-Gg: AR+sD136GZrdgnR+HA6SSpTRuQRe5W1SdArk4ml+uE8rUN3EbG0TltdwO8NamvABq5U
-	dE2OszMp9tF+guD7Wanx+gmgVALsXQ1b3pwErvB/bsxuUbA28EeXPw9chLfTo//kwS0pBErpxbT
-	wcz9A2SPmrKvXSSbsP+/gtBPNcN5R5LMVap2R9zOeFp+eT4ZkL9ekgWJBc3LjQxQGDhGuYsX0KS
-	Jn35iUv8O4zyYz/Lr5NsGZ1f53bThDwubC/jQI+Pi+WwttlZpDlAEV4pYk/aVl6XdyuaaukIXfz
-	sqdH6fMvU8tw9wTHfcXVlVWxB8iBjHJHxkEhPm8A9TDO15BmTWkpjQt+rSGClcUrT+PGRbCrQS+
-	WnbJ8Y7XD1A5XO3ajAhHs44kRrK/GQfP3MO4fem+MATAGp852G7wm8oCWyL8rU1UEQP72Zi0J1L
-	xAQ+YEEHXOtxi745HLSMOupg36VlUgQUacm4lNDwwx9NJxBi/KLi3Cv6lt3VQ6HHcPljE1+g2MJ
-	2Rykw==
-X-Received: by 2002:a53:b812:0:b0:66d:2b87:67d2 with SMTP id 956f58d0204a3-66e4c6505demr643968d50.14.1787874914413;
-        Thu, 27 Aug 2026 16:55:14 -0700 (PDT)
-Received: from mac.lan ([136.55.173.105])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66e4eb3dcdbsm55704d50.4.2026.08.27.16.55.13
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 27 Aug 2026 16:55:14 -0700 (PDT)
-From: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>
-To: edumazet@google.com,
-	ncardwell@google.com,
-	davem@davemloft.net,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: kuniyu@google.com,
-	horms@kernel.org,
-	matttbe@kernel.org,
-	martineau@kernel.org,
-	geliang@kernel.org,
-	yhs@fb.com,
-	kafai@fb.com,
-	andriin@fb.com,
-	ast@kernel.org,
-	netdev@vger.kernel.org,
-	mptcp@lists.linux.dev,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	AutonomousCodeSecurity@microsoft.com,
-	xmei5@asu.edu,
-	tgopinath@linux.microsoft.com,
-	kys@microsoft.com,
-	blbllhy@gmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH net v3 1/2] tcp: fix use-after-free in do_tcp_getsockopt(TCP_CONGESTION)
-Date: Thu, 27 Aug 2026 19:55:10 -0400
-Message-ID: <d3f97f1acbf0010898148be6e6406e4b8b4a5c84.1787870710.git.blbllhy@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1787870710.git.blbllhy@gmail.com>
-References: <cover.1787870710.git.blbllhy@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UK/WQdyf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 818F41F000E9;
+	Thu, 27 Aug 2026 23:57:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787875065;
+	bh=AeXBOWxzTaJfYER35sQedV/BBWNAZINVKknSLEFgUEU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UK/WQdyfU+4JSZ+kiY2Jm+/Aonw2uuT2D7a29KnjbRdRW3G/Vx7wLGq6lChtcq/Rj
+	 VV5YgATlCSSWcBeFT7Tp892635fhpcfRsjaEQT9R1hN2Qn1SuRboU9jaorsCx8d1zz
+	 THTyfyuW4PymOVUsmjpwQjh+hpTeG+xUre92fZBG9LN7WR7fhYFuhyO/zeJefoSbP4
+	 Itus9CdzgvqM9DFmw5fgFKYnJHW0f6fvzpto2y7h1iyVQBGfrWcxcfpSaAzeK0zGxU
+	 dEPffqVzkug54Jf+EIVfa3vX8JO1hpRZHjtV621PHQgX2/NQ/XIpbfLdN7Ehe0iLW/
+	 uVRQ1tN7avyug==
+Date: Fri, 28 Aug 2026 01:57:42 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Alex Tran <alex.tran@oss.qualcomm.com>
+Cc: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>, 
+	Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] i2c: busses: i2c-qcom-geni: Use resume and get pm
+ runtime interface
+Message-ID: <apDOtUKlsgKl71tv@zenone.zhora.eu>
+References: <20260826-i2c-qcom-geni-pm-runtime-resume-get-v1-1-25ee55d1f0c8@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260826-i2c-qcom-geni-pm-runtime-resume-get-v1-1-25ee55d1f0c8@oss.qualcomm.com>
 
-From: "Cen Zhang (Microsoft Security FORGE Labs)" <blbllhy@gmail.com>
+Hi Alex,
 
-do_tcp_getsockopt() reads icsk->icsk_ca_ops->name without holding
-rcu_read_lock(). Since commit 0baf26b0fcd7 ("bpf: tcp: Support
-tcp_congestion_ops in bpf"), icsk_ca_ops can point to dynamically
-allocated BPF struct_ops memory that may be freed concurrently via
-setsockopt(TCP_CONGESTION), leading to a use-after-free.
+I reworded a bit the title to:
 
-  BUG: KASAN: slab-use-after-free in _copy_to_user+0x37/0x60
-  Read of size 16 at addr ffff888013505260 by task exploit/149
-   _copy_to_user+0x37/0x60
-   do_tcp_getsockopt+0x158a/0x2460 (net/ipv4/tcp.c:4585)
-   tcp_getsockopt+0x91/0xf0
-   __sys_getsockopt+0xf7/0x170
+i2c: busses: Use pm_runtime_resume_and_get()
 
-Fix this by holding rcu_read_lock() around the ca_ops->name access,
-using READ_ONCE() to load icsk_ca_ops, and copying the name to a
-stack buffer before releasing the lock. Also annotate the relevant
-icsk_ca_ops stores with WRITE_ONCE() to fix the accompanying KCSAN
-data-race issue.
+It's more understandable.
 
-Fixes: 0baf26b0fcd7 ("bpf: tcp: Support tcp_congestion_ops in bpf")
-Suggested-by: Eric Dumazet <edumazet@google.com>
-Reported-by: Xiang Mei (Microsoft) <xmei5@asu.edu>
-Link: https://lore.kernel.org/all/20260821182449.79785-2-blbllhy@gmail.com/
-Cc: AutonomousCodeSecurity@microsoft.com
-Cc: stable@vger.kernel.org
-Assisted-by: GitHub-Copilot:claude-opus-4.6
-Reviewed-by: Eric Dumazet <edumazet@google.com>
-Signed-off-by: Cen Zhang (Microsoft Security FORGE Labs) <blbllhy@gmail.com>
----
-Note: The adjacent TCP_ULP case has a similar read pattern on
-icsk_ulp_ops->name, but icsk_ulp_ops always points to static
-module data (no BPF struct_ops equivalent), so it is not affected.
+On Wed, Aug 26, 2026 at 10:19:26AM -0700, Alex Tran wrote:
+> Utilize the provided pm_runtime_resume_and_get api
+> to increase the usage count and call the rpm resume
+> callback. Upon failure, the function takes care of
+> calling pm_runtime_put_noidle. Remove the explicit
+> call to put no idle.
 
-Changes in v3:
-- Fix the build failure by loading icsk_ca_ops inline.
-- Drop the unrelated WRITE_ONCE() conversion in mptcp_ca_reset().
+I added here Mukesh' suggestion.
 
-Changes in v2:
-- Add READ_ONCE() for the icsk_ca_ops load.
-- Add WRITE_ONCE() for every explicit icsk_ca_ops store.
----
- net/ipv4/tcp.c           | 14 +++++++++++---
- net/ipv4/tcp_cong.c      |  4 ++--
- net/ipv4/tcp_dctcp.c     |  2 +-
- net/ipv4/tcp_minisocks.c |  2 +-
- net/ipv4/tcp_output.c    |  2 +-
- 5 files changed, 16 insertions(+), 8 deletions(-)
+> Signed-off-by: Alex Tran <alex.tran@oss.qualcomm.com>
 
-diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
-index 455441f1b..55ca74f60 100644
---- a/net/ipv4/tcp.c
-+++ b/net/ipv4/tcp.c
-@@ -4576,16 +4576,24 @@ int do_tcp_getsockopt(struct sock *sk, int level,
- 		val = !inet_csk_in_pingpong_mode(sk);
- 		break;
- 
--	case TCP_CONGESTION:
-+	case TCP_CONGESTION: {
-+		char ca_name[TCP_CA_NAME_MAX] = {};
-+
- 		if (copy_from_sockptr(&len, optlen, sizeof(int)))
- 			return -EFAULT;
- 		len = min_t(unsigned int, len, TCP_CA_NAME_MAX);
- 		if (copy_to_sockptr(optlen, &len, sizeof(int)))
- 			return -EFAULT;
--		if (copy_to_sockptr(optval, icsk->icsk_ca_ops->name, len))
-+
-+		rcu_read_lock();
-+		memcpy(ca_name, READ_ONCE(icsk->icsk_ca_ops)->name,
-+		       sizeof(ca_name));
-+		rcu_read_unlock();
-+
-+		if (copy_to_sockptr(optval, ca_name, len))
- 			return -EFAULT;
- 		return 0;
--
-+	}
- 	case TCP_ULP:
- 		if (copy_from_sockptr(&len, optlen, sizeof(int)))
- 			return -EFAULT;
-diff --git a/net/ipv4/tcp_cong.c b/net/ipv4/tcp_cong.c
-index e9f6c77e0..8e83ef81f 100644
---- a/net/ipv4/tcp_cong.c
-+++ b/net/ipv4/tcp_cong.c
-@@ -223,7 +223,7 @@ void tcp_assign_congestion_control(struct sock *sk)
- 	ca = rcu_dereference(net->ipv4.tcp_congestion_control);
- 	if (unlikely(!bpf_try_module_get(ca, ca->owner)))
- 		ca = &tcp_reno;
--	icsk->icsk_ca_ops = ca;
-+	WRITE_ONCE(icsk->icsk_ca_ops, ca);
- 	rcu_read_unlock();
- 
- 	memset(icsk->icsk_ca_priv, 0, sizeof(icsk->icsk_ca_priv));
-@@ -253,7 +253,7 @@ static void tcp_reinit_congestion_control(struct sock *sk,
- 	struct inet_connection_sock *icsk = inet_csk(sk);
- 
- 	tcp_cleanup_congestion_control(sk);
--	icsk->icsk_ca_ops = ca;
-+	WRITE_ONCE(icsk->icsk_ca_ops, ca);
- 	icsk->icsk_ca_setsockopt = 1;
- 	memset(icsk->icsk_ca_priv, 0, sizeof(icsk->icsk_ca_priv));
- 
-diff --git a/net/ipv4/tcp_dctcp.c b/net/ipv4/tcp_dctcp.c
-index 274e628e7..99f68c299 100644
---- a/net/ipv4/tcp_dctcp.c
-+++ b/net/ipv4/tcp_dctcp.c
-@@ -111,7 +111,7 @@ __bpf_kfunc static void dctcp_init(struct sock *sk)
- 	/* No ECN support? Fall back to Reno. Also need to clear
- 	 * ECT from sk since it is set during 3WHS for DCTCP.
- 	 */
--	inet_csk(sk)->icsk_ca_ops = &dctcp_reno;
-+	WRITE_ONCE(inet_csk(sk)->icsk_ca_ops, &dctcp_reno);
- 	INET_ECN_dontxmit(sk);
- }
- 
-diff --git a/net/ipv4/tcp_minisocks.c b/net/ipv4/tcp_minisocks.c
-index 6ab3e3a0b..def3b25ab 100644
---- a/net/ipv4/tcp_minisocks.c
-+++ b/net/ipv4/tcp_minisocks.c
-@@ -507,7 +507,7 @@ void tcp_ca_openreq_child(struct sock *sk, const struct dst_entry *dst)
- 		ca = tcp_ca_find_key(ca_key);
- 		if (likely(ca && bpf_try_module_get(ca, ca->owner))) {
- 			icsk->icsk_ca_dst_locked = tcp_ca_dst_locked(dst);
--			icsk->icsk_ca_ops = ca;
-+			WRITE_ONCE(icsk->icsk_ca_ops, ca);
- 			ca_got_dst = true;
- 		}
- 		rcu_read_unlock();
-diff --git a/net/ipv4/tcp_output.c b/net/ipv4/tcp_output.c
-index d7c1444b5..e72ebfe7b 100644
---- a/net/ipv4/tcp_output.c
-+++ b/net/ipv4/tcp_output.c
-@@ -4092,7 +4092,7 @@ static void tcp_ca_dst_init(struct sock *sk, const struct dst_entry *dst)
- 	if (likely(ca && bpf_try_module_get(ca, ca->owner))) {
- 		bpf_module_put(icsk->icsk_ca_ops, icsk->icsk_ca_ops->owner);
- 		icsk->icsk_ca_dst_locked = tcp_ca_dst_locked(dst);
--		icsk->icsk_ca_ops = ca;
-+		WRITE_ONCE(icsk->icsk_ca_ops, ca);
- 	}
- 	rcu_read_unlock();
- }
--- 
-2.43.0
+Merged to i2c/i2c.
+
+Thanks,
+Andi
