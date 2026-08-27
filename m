@@ -1,311 +1,329 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com [209.85.221.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DB9E439322
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 19:26:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787858809; cv=none; b=QMdMNfg/gF/1bwJ2F4WWGTGMblBB++fbLOZywuga0XT4YfHn4By/DatXBxwJ+JuKfqZIHkqg/jEV3Xm680GsdnWVgbOCvG1h4US7h6aXVuLiLDZiUEzKTtCe/9AEFzYn19Pvg6V19IwLu87nVtarhcplJ8YJNoM4in810CX9HSE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787858809; c=relaxed/simple;
-	bh=YC79HeWvnLoyma6IwIqP+gAXtzxEjRgm2akZa7/5MNw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SWfyB/S+Infc1tATFX8KLOMdg5lJUVaVe4Y/A8SWKF843CH9oQTNx4Ur3Bz37Diln/Z4uyEKzkbmvrgvZ9oGSEFYtrhEblN2dXbol9clNB9jKv5IqvdRtOInb1roRHtQ2vZ0nlwPMBQrxK8o1jPPgUBbGqORkMCAI4HxfoOu5/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FvhnjjUA; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=L24IK5Zx; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 624F53890E8
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 19:27:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.175
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787858871; cv=pass; b=BVtNwLaYpHob9s8E8Qb3OYcS8joJOKDDAZ9Sg4d7LuDDfni/BBgaxb6tS/GluUYzQQ8jqj2Vltrzv+6SrjPbJ6yKts1c4Q7upcoWpoQNGP1cAvJQmP/naBUCh1pDI42+tlGe3MEEoW51u9aEm4o6bdqtw1/jwRO4QvShCRvLshI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787858871; c=relaxed/simple;
+	bh=NdUlHkTDXhyZF/jvCiueksVyJDuLzPdAbNjo8+S5HG0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lK2onDfoc2gs/tyIjh4B4OMYTeU8/RsjpjlnUul1981dHllpTOlj1Ak/Fy40yP6rWHD1tSz3VnD2cR0sctrkBxFSqMmc+mRNAJmFAXVWxxo4tszC8a2pEwEc1pTh9tBoHnVcX5xT/12y769vMeymj0xnDdeIQGnEOxk25cxPesQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=lR/2uj3t; arc=pass smtp.client-ip=209.85.221.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FvhnjjUA";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="L24IK5Zx"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67RJLpna3848243
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 19:26:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	zZ9jZYAushPEfiwAksE6M7BwCZChPUs7hwDd556RB3M=; b=FvhnjjUATfdF579N
-	DrGSEAZdxxuvKjN/4tiaZ8kpRi8jp8z7lnofCPTJCV3d66DZxmLXN5kzDYn3NLHi
-	Qz+5tF/n0FjP5Ka5S2Z5/aD7c3lEele00Q97nTofIGj0XN5NZGA0Z940NUdu+gPo
-	NiuPkF9i01Wqp0xKt2NP0SLQRKKVQMEX/nToDLmSZtnstriWtgzjzBMafmXMSwmj
-	aVr/t1gaRXbam3caYio3Xv6Q1eV47Ao8UdYTAtai3uJpLqPgfuTEtB6Z0ULbX6DX
-	k0tTMQQYLD66WjL2V5SmZoyNCpPSzMczVhbd6tHcQUIgqmZj8ycZUSOoi+yVjF4y
-	XQCL8w==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gatnc05e2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 19:26:46 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38e8fee6af3so350098a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:26:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="lR/2uj3t"
+Received: by mail-vk1-f175.google.com with SMTP id 71dfb90a1353d-5bfb3347ce0so102018e0c.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:27:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787858868; cv=none;
+        d=google.com; s=arc-20260327;
+        b=JieTxj/LDW9CWiJgnD64r5Z8ddOOIms99QHazqjuj/AkGSwD9P2PwYALXcNRSDHbOu
+         3j2acZ1xsiq/hFTvYpGVNYbvqusKQRuvDUWURZZxmRE110R+LjMoyu8H1c1NniQDP+e5
+         gr5C6iFcQ8Hqtu1uUhuQACiv8RmckeXVxgA3XH7v36Uedg6WgVyv1b+hIDAQZy1HK47I
+         uGGPR3Yai8VLKn1YxcgItHT6CnPn5xkZb488iLFfmhpf9q7LiPuITJeef+3UiydG5bN5
+         tYKHKlFnXZW9Jmy3b/i4dcQFkTIHDcxeLl0qoYP9NeqCOK48FBjiWZU2fgvTkm+hP1Vd
+         myYA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=b72u2M+8y+CGho4VPPb79RPEx+HN6SXrYRRxoCIGgqE=;
+        fh=krEeNIPFfHErH5rUl240kRBrwKiELWqLSKZtOqSn28Y=;
+        b=N3GdZc/tTVQHqJvZZv81KCVpN+YBXVKLXcP6e7kDgg9cIz1VJY00pkTDoDHKf8k9y3
+         BdnLjktdugCOS4K2lrCwbqWchzkofApGqB1560xbVsDffb6eTRPo08IpF4e5PpjJlFPW
+         oM+X98BmuuXaPjptTHQ/W7s4MH0j60lKShTHLJafcVkzw1zQG2syF91/YlQ2/VKRgMaH
+         aNqfVqXxcKS6OpbEDoMXy3aqfyvn0bcjmsHDam2eomsZHDIQ2ZfE+DWiL3kkbNw7O+lF
+         uxLKH3bsML+vAJLhvkTz4FR/+yQEE7qxVuj312wDYre49ZiUI/re9JLJMbdBaku4RPF4
+         G6ew==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787858806; x=1788463606; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zZ9jZYAushPEfiwAksE6M7BwCZChPUs7hwDd556RB3M=;
-        b=L24IK5Zxx1ANDnc2t1LNhAFCxUcoSy+mT7n5KHZ5rw9qWBw30uWZzdTN84tqLyKEch
-         +heManH+5cnsuErD50GgsRPcaXOcWpZ8XhxsW00nYIODcZ19q4BA5fOBephYEATvzfN9
-         C9MF9cXI/Mg/VYiRvAKyUgNGUKM1F8cPek0/+t6c3v278eYn2zSiteHTCRlZ/FE6L9l1
-         t1fq/VHxdB5DKBYoSor52LNlBSM1t3V88UGDKFJufws+ScTWka6uX/+PjkRf5iRktOPB
-         5hcHF4OQwxU6ViZnI4O7gAk9aIua0+sTr1n0RoLYxIPbm0OQovc3f/XgYZ3i+0eya3LN
-         UaxA==
+        d=google.com; s=20251104; t=1787858868; x=1788463668; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=b72u2M+8y+CGho4VPPb79RPEx+HN6SXrYRRxoCIGgqE=;
+        b=lR/2uj3tCGVfUiwkWyPtnNiZaMXmuQKONNKWaSy8ZtFK/MzTCGiXbUYgWglzFALxSv
+         u4l9y/M5mesNDVSrvioeeAW3fixSjdPaYZGMriFaBTd+uhBlb7KtXnBOCU6hsMK/9phA
+         sL0W+vfa0zPGPqYsPyyceqCcCgKVGj+hrc07iByH6Eju6zYY1r0lned6LLVm4u9ptj0C
+         ky76l44cfzQvDGKmecbinprsN50mGC98gRt9aJATes+l4X+YCEHDk4NT06TTvqDCzntN
+         E/3I4t7ztZQqsdd35uKyHpc0McP8hmxlUfWzlBIGCPoE8HNyoHIJEYxBLgX2s5FT7ryA
+         TU8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787858806; x=1788463606;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zZ9jZYAushPEfiwAksE6M7BwCZChPUs7hwDd556RB3M=;
-        b=P1ERzZdDxc+RllmlLXwvIsUJYJUjmPIVYduRedLXNu5nZP3ePcKrDeIx/0rVtV1Ja0
-         B+8OQdY845Veu2Fsb5O16HtPzuSa3zUZTXErvpy/uTAulm40iX5cTrMbp6SeJkyNIGWy
-         Jj+jbLE6wdOL2+PmJUFUqMRD3G530GBmjKia/lTWi8QHRHEuSBqVzDBt+/I+7BHxPlVP
-         ilj4+MCxvQpkI37vTp81/5cVZLV3ZIBZUpnNwGblPy8+ORpARJIepxWHQjuxJX/lhba8
-         OOu87TtKYdIzq9ysYVl+3F+coACp1Tu0Jtgr0ZS9EUC+tMH18/HEwqWJ1LHM+0FEufmN
-         9A9g==
-X-Forwarded-Encrypted: i=1; AHgh+RrM7ITMP3nEppPPCeyrWAneUdSHwPjmiFhQ9uLoNjGqjHQhiV9Nd2I19dQY5kdb5Q8PTAG33frOvHG/ggE=@vger.kernel.org
-X-Gm-Message-State: AFuF++m0oQy4AYXURDbwlZZY33cprpkeJSvHfS83AXWn/rFHU1UbQlfa
-	hkvMLPP4OXrZe7Td6/k5VzIbla0kRDHqTp+uJkS6e7ippemPHdfcls9whB2WzXiqsYuY8LFuHl9
-	Ntxh2R2kH6vbsXkzZMmedUFmuLC0hn0z+piUPsVJg15FS4NEJbY9mCE+IZ1higbaulLU=
-X-Gm-Gg: AR+sD11aiulFhfgc9uI25mxWCK9TMtX1gai9PyaaU+9XYbr4IuQC/UP7h3SU3SpKsAp
-	SKjmE6D+Dw6/ZvfAyGKK6BBoM8LV6UZDEjpe/eG6aikvMfskPuRmqQDaaq/8l/Nt7C9dcnbyony
-	xLGm0KjkDk5roMNF68d6ARFr500jNoieqMqy1SqfydyGRmulkothykYU+XT6u5QykrmKMMhGuaG
-	gx5VPeQGn2Ua3pqSM95qiHqAIRG0XB3jCwbZs/y6Qpla111jlYO39cIukIKdTeZbMsO0lqKOWGF
-	iNtbApVKi3Tcuw3MmwHTTnfpMABpi/6p6qxj5+Oqx61GP9x9TdSehu6y7JPD/NQ1cUPk3NMqyFR
-	dKPvRITQzlJP4Q966jx1cxb0KjserimhoHA==
-X-Received: by 2002:a17:90b:43:b0:396:673f:fe56 with SMTP id 98e67ed59e1d1-396d0f2dc87mr2778455a91.9.1787858806145;
-        Thu, 27 Aug 2026 12:26:46 -0700 (PDT)
-X-Received: by 2002:a17:90b:43:b0:396:673f:fe56 with SMTP id 98e67ed59e1d1-396d0f2dc87mr2778361a91.9.1787858805578;
-        Thu, 27 Aug 2026 12:26:45 -0700 (PDT)
-Received: from [192.168.1.5] ([106.222.229.32])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3283d60c2b4sm33313437eec.5.2026.08.27.12.26.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 27 Aug 2026 12:26:45 -0700 (PDT)
-Message-ID: <f69d4f56-82c7-403e-98b9-f78b79ac5906@oss.qualcomm.com>
-Date: Fri, 28 Aug 2026 00:56:41 +0530
+        d=1e100.net; s=20251104; t=1787858868; x=1788463668;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=b72u2M+8y+CGho4VPPb79RPEx+HN6SXrYRRxoCIGgqE=;
+        b=LzT4qCu2bt/m2L1alaXTY1rf5MiXjx2bcSBKNWKKC1/8SLHbBHNmMOYVaEL0n5wzW8
+         xDib75DIDRzz32qBq3gAtGpqrPz+OVm0RZZL2krkcNH0rNOY4pzURYANc3N3mJKa/tGM
+         ckpno5RBjt/CYGNRRlkE2raa0RbmGETFBq6BOjcWhZELJDcFimkIBipZ0v1Sk0eyPEAR
+         5ZWHUExN2zTDmw6++330Yyb+FE7pfza3aEwKXU6hEC8EHdY+kpuRO4Hmu7SmZ/dFYCUq
+         fcE9a8uUqTVTcevBO++N6WVweATVDSLTxUx1TPYDtxJ4hLjtRlYOOehvn9m0u+UB1A6i
+         Hc9w==
+X-Forwarded-Encrypted: i=1; AHgh+Roalktuq4xhZhD3NUwLsr7/hmsJG0JLeFu25kfEMazHaYFXE/ZVHb1pXVH5mpvDZJmBZ7qq2IqhHEfGoj8=@vger.kernel.org
+X-Gm-Message-State: AFuF++ns8rc7+lvkpfXutIHPmDfk9GolouswJVT9vncQQS8YCSkZA2d8
+	jDRtOBLCNi7xNU56XWArsOL2T1aUioWYGXwKl1HAaz4m2VmCEFn6qTXuvb4TTCxO4giFHD7VyHm
+	hNYD2khswrVb00lULIKUtn0et/eRMpu3Sww2POW4=
+X-Gm-Gg: AR+sD10wmtXAWTaTYCab4HK/bdw7Pueyfa8YBcaOLpV3au8fzQ9kjXNN/oNvVJovEos
+	ucxzl0RpNCybjtqebqTxcgiKXnOEN2Yb91ITD9gKqCOW1LqIDNJWU1ouKos/u3ZQg/1GUQjwvit
+	D6nTbrbH1FutQqOh0Byo+5vz0hzQEIu1y1p9dYtiM2+daSp4rXveV2qKxfqYDmLSILJ1PstyKnm
+	rUf31Alm7BdSn4Yu4WKTEnt00WCX2SVnQV5pJKdWzeEca9c7UnEPux+A5B6eULHHJKhdANexZ4S
+	X8rATauqVCEKHQ1hbZTpC0iayv5t+zoLOt5L4vstzsQKod66wYY6kjXUwbm1jrpM+fO74vUGK6H
+	Bwhm97yvS5u9lCZbcFcln0n+5QRecuZLNEweVehaw50QeoEfdS0ni
+X-Received: by 2002:a05:6102:50a9:b0:783:79ac:9dc3 with SMTP id
+ ada2fe7eead31-7859a49efb7mr213153137.10.1787858867328; Thu, 27 Aug 2026
+ 12:27:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dmaengine: qcom-gpi: Add I2C High-Speed mode
- configuration support
-To: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>,
-        Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-        Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
-        Andi Shyti <andi.shyti@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org
-References: <20260824-i2c-hs-v1-0-8dd94e5c6113@oss.qualcomm.com>
- <20260824-i2c-hs-v1-1-8dd94e5c6113@oss.qualcomm.com>
-Content-Language: en-US
-From: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
-In-Reply-To: <20260824-i2c-hs-v1-1-8dd94e5c6113@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDE2NCBTYWx0ZWRfXzJ25WdFdhY/n
- 1Pd1IP9Qp2+QHcT5pwa+epBijgRUig2L1Xg/5wrhlvvb6R8R/zo8h5Tai77pcCAXqPqiJTlSdol
- aqqEC9FVpcFJQC8MIfgzYk5pzAaPlChyUW0LcesimzqCFqTO2i5Qco3ipG1Ej7nTc5R2MUztugD
- QOfxV3SXftZAVGLQsZkWuWMm5OdBEYgDm4GJl/10raWf9XwA8pCeE5J+BAGa7oK6peJyc7kWcTY
- Sj9CeKZuMlarVhcQhhBYkstaEGBBvhGiLYF02abCgPZmyuORwUDpRleW5eBjIKJ8pODJCzBSMcy
- FlZNccHI1EJp/CKt+4xNQRKDJwPdjC56xjY8fGW1d3LIti2Xjggz/bvZbFk9VYmnUz8S6cBSoJ+
- cT6PGOidRtq4mPHFjEGysrTcGIx9M5uEnkuZz05+PNQzIH+CDMzunKZ5YgGn8jMwj25P1F43fWS
- /oyjoSvvPj8ELVq8Oag==
-X-Proofpoint-ORIG-GUID: AtXXaAfp98GJD8JbYCe57yKSzQDY1zlC
-X-Authority-Analysis: v=2.4 cv=HfUkiCE8 c=1 sm=1 tr=0 ts=6a908f76 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=n+669z1BX7WhZ/F6bI95gA==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=cWZROLwJx0uAb0cS5nkA:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDE2NCBTYWx0ZWRfX6/VQEW1cGA+7
- Q50cocYEdW0+la7TAbBcKMqOvgA1vzyZ9+hmql+pB4zFxIUFi5KimmzoVdSDi2llxD44WJfZk5y
- jFgek4Q1LoE0PWzGv834rzCAzVrLckc=
-X-Proofpoint-GUID: AtXXaAfp98GJD8JbYCe57yKSzQDY1zlC
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-27_08,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 adultscore=0 impostorscore=0 bulkscore=0 priorityscore=1501
- suspectscore=0 malwarescore=0 clxscore=1015 lowpriorityscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608270164
+References: <20260823125155.1136740-1-morbo@google.com> <20260826220041.4075333-1-morbo@google.com>
+ <20260826220041.4075333-2-morbo@google.com> <20260827152612-d0c71c10-cbe5-49f3-9be0-47eb76cd9b48@linutronix.de>
+In-Reply-To: <20260827152612-d0c71c10-cbe5-49f3-9be0-47eb76cd9b48@linutronix.de>
+From: Bill Wendling <morbo@google.com>
+Date: Thu, 27 Aug 2026 12:27:30 -0700
+X-Gm-Features: AcwNN1XiOnfT531iWNl0-gc8eQp4_JJ1nwZ_yZ69L-Yg0O1qe56FqF7NVdO22QM
+Message-ID: <CAGG=3QWPTL5z8MfAxJLpHb0P-3Ah6K+FzgrVHyRRcvRK7-6dSA@mail.gmail.com>
+Subject: Re: [PATCH v4 2/2] userns: Add KUnit test suite for uid_gid_map
+To: =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+Cc: Bradley Morgan <brads@mainlining.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Christian Brauner <brauner@kernel.org>, 
+	Aleksa Sarai <cyphar@cyphar.com>, Jan Kara <jack@suse.cz>, Nathan Chancellor <nathan@kernel.org>, 
+	Miguel Ojeda <ojeda@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, Alice Ryhl <aliceryhl@google.com>, 
+	Douglas Anderson <dianders@chromium.org>, Anand Moon <linux.amoon@gmail.com>, 
+	Oleg Nesterov <oleg@redhat.com>, codemender-patching+linux@google.com, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Thu, Aug 27, 2026 at 6:37=E2=80=AFAM Thomas Wei=C3=9Fschuh
+<thomas.weissschuh@linutronix.de> wrote:
+>
+> On Wed, Aug 26, 2026 at 10:00:35PM +0000, Bill Wendling wrote:
+> > Add a KUnit test suite to verify the insertion and sorting of mappings
+> > in struct uid_gid_map. This test suite validates both base extent
+> > insertion (<=3D 5 mappings) and extended extent insertion (> 5 mappings=
+,
+> > which triggers the allocation of the forward and reverse pointers).
+> >
+> > This is especially useful for verifying that the __counted_by_ptr
+> > attribute added to 'forward' and 'reverse' pointers works correctly
+> > without causing any runtime bounds-checking panics or traps.
+> >
+> > Assisted-by: Gemini:3.1-pro-preview
+> > Signed-off-by: Bill Wendling <morbo@google.com>
+> > ---
+> > v2 - Remove Gerrit tag.
+> > v3 - s/KUNIT_EXPECT_NOT_ERR_OR_NULL/KUNIT_ASSERT_NOT_ERR_OR_NULL/
+> >    - Fixed Kconfig tests.
+> > v4 - Actually test on unsorted data. Corrected the "Assisted-by" tag.
+> > ---
+> > Cc: Bradley Morgan <brads@mainlining.org>
+> > Cc: Thomas Wei=C3=9Fschuh <thomas.weissschuh@linutronix.de>
+> > Cc: Kees Cook <kees@kernel.org>
+> > Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+> > Cc: Christian Brauner <brauner@kernel.org>
+> > Cc: Aleksa Sarai <cyphar@cyphar.com>
+> > Cc: Jan Kara <jack@suse.cz>
+> > Cc: Nathan Chancellor <nathan@kernel.org>
+> > Cc: Miguel Ojeda <ojeda@kernel.org>
+> > Cc: Thomas Gleixner <tglx@kernel.org>
+> > Cc: Nicolas Schier <nsc@kernel.org>
+> > Cc: Gary Guo <gary@garyguo.net>
+> > Cc: "Thomas Wei=C3=9Fschuh" <thomas.weissschuh@linutronix.de>
+> > Cc: Alice Ryhl <aliceryhl@google.com>
+> > Cc: Douglas Anderson <dianders@chromium.org>
+> > Cc: Anand Moon <linux.amoon@gmail.com>
+> > Cc: Oleg Nesterov <oleg@redhat.com>
+> > Cc: codemender-patching+linux@google.com
+> > Cc: linux-kernel@vger.kernel.org
+> > Cc: linux-hardening@vger.kernel.org
+> > ---
+> >  init/Kconfig                  | 10 ++++
+> >  kernel/.kunitconfig           |  3 ++
+> >  kernel/user_namespace.c       |  4 ++
+> >  kernel/user_namespace_kunit.c | 92 +++++++++++++++++++++++++++++++++++
+> >  4 files changed, 109 insertions(+)
+> >  create mode 100644 kernel/.kunitconfig
+> >  create mode 100644 kernel/user_namespace_kunit.c
+> >
+> > diff --git a/init/Kconfig b/init/Kconfig
+> > index f63bf5e05e79..d460344539a5 100644
+> > --- a/init/Kconfig
+> > +++ b/init/Kconfig
+> > @@ -1457,6 +1457,16 @@ config USER_NS
+> >
+> >         If unsure, say N.
+> >
+> > +config USER_NAMESPACE_KUNIT_TEST
+> > +     bool "Test user namespace map insertion" if !KUNIT_ALL_TESTS
+> > +     depends on KUNIT=3Dy
+>
+> Urgh.
+>
+?? What's wrong? It's identical to the conditional for EXEC_KUNIT_TEST:
 
+config EXEC_KUNIT_TEST
+     bool "Build execve tests" if !KUNIT_ALL_TESTS
+     depends on KUNIT=3Dy
+     default KUNIT_ALL_TESTS
+     help
+          This builds the exec KUnit tests, which tests boundary conditions
+          of various aspects of the exec internals.
 
-On 8/24/2026 4:55 PM, Jyothi Kumar Seerapu wrote:
-> Add support in the Qualcomm GPI (Generic Packet Interface) DMA engine
-> to configure I2C High-Speed (HS) mode transfers.
-> 
-> Introduce support for CONFIG1 Transfer Ring Element (TRE) to convey
-> HS-specific timing parameters to the hardware. Define a new
-> gpi_i2c_config1 structure containing tcycle_cnt and tlow_cnt fields,
-> with default values of 28 and 38 respectively, as required for 3.4 MHz
-> HS mode operation.
-> 
-Little more enhanced -
+> > +     default KUNIT_ALL_TESTS
+> > +     help
+> > +       This builds the KUnit test for user namespace uid/gid map inser=
+tion.
+> > +       It validates map insertion, limits, dynamic allocation of the
+> > +       extended extents array, and mapping sorting functions.
+> > +       If unsure, say N.
+> > +
+> >  config PID_NS
+> >       bool "PID Namespaces"
+> >       default y
+> > diff --git a/kernel/.kunitconfig b/kernel/.kunitconfig
+> > new file mode 100644
+> > index 000000000000..7314dce05dc2
+> > --- /dev/null
+> > +++ b/kernel/.kunitconfig
+> > @@ -0,0 +1,3 @@
+> > +CONFIG_KUNIT=3Dy
+> > +CONFIG_USER_NS=3Dy
+> > +CONFIG_USER_NAMESPACE_KUNIT_TEST=3Dy
+> > diff --git a/kernel/user_namespace.c b/kernel/user_namespace.c
+> > index 786dbf0506ca..0e7373085af9 100644
+> > --- a/kernel/user_namespace.c
+> > +++ b/kernel/user_namespace.c
+> > @@ -1417,3 +1417,7 @@ static __init int user_namespaces_init(void)
+> >       return 0;
+> >  }
+> >  subsys_initcall(user_namespaces_init);
+> > +
+> > +#if IS_ENABLED(CONFIG_USER_NAMESPACE_KUNIT_TEST)
+> > +#include "user_namespace_kunit.c"
+> > +#endif
+> > diff --git a/kernel/user_namespace_kunit.c b/kernel/user_namespace_kuni=
+t.c
+> > new file mode 100644
+> > index 000000000000..88467361efdf
+> > --- /dev/null
+> > +++ b/kernel/user_namespace_kunit.c
+> > @@ -0,0 +1,92 @@
+> > +// SPDX-License-Identifier: GPL-2.0
+> > +/*
+> > + * KUnit test for user namespace map insertion and sorting.
+> > + */
+> > +
+> > +#include <kunit/test.h>
+> > +#include <linux/user_namespace.h>
+> > +
+> > +static void test_user_ns_map_insert_base(struct kunit *test)
+> > +{
+> > +     struct uid_gid_map map;
+> > +     struct uid_gid_extent extent;
+> > +     int i, ret;
+> > +
+> > +     memset(&map, 0, sizeof(map));
+> > +
+> > +     /* Insert up to UID_GID_MAP_MAX_BASE_EXTENTS (5) elements */
+> > +     for (i =3D 0; i < UID_GID_MAP_MAX_BASE_EXTENTS; i++) {
+> > +             extent.first =3D i * 10;
+> > +             extent.lower_first =3D i * 100;
+> > +             extent.count =3D 5;
+> > +
+> > +             ret =3D insert_extent(&map, &extent);
+> > +             KUNIT_ASSERT_EQ(test, ret, 0);
+> > +             KUNIT_EXPECT_EQ(test, map.nr_extents, i + 1);
+> > +             KUNIT_EXPECT_EQ(test, map.extent[i].first, i * 10);
+> > +             KUNIT_EXPECT_EQ(test, map.extent[i].lower_first, i * 100)=
+;
+> > +             KUNIT_EXPECT_EQ(test, map.extent[i].count, 5);
+> > +     }
+> > +}
+>
+> The extended test below already tests everything the 'base' one does.
+> Do we need both?
+>
+The one below tests the sorting algorithm.
 
-dmaengine: qcom: gpi: Add I2C High-Speed mode frequency support
+> > +
+> > +static void test_user_ns_map_insert_extended(struct kunit *test)
+> > +{
+> > +     struct uid_gid_map map;
+> > +     struct uid_gid_extent extent;
+> > +     int i, ret;
+> > +
+> > +     memset(&map, 0, sizeof(map));
+> > +
+> > +     /* Insert more than UID_GID_MAP_MAX_BASE_EXTENTS (e.g., 10) eleme=
+nts */
+>
+> When UID_GID_MAP_MAX_BASE_EXTENTS is ever increased, this might not be tr=
+ue anymore.
+> Add an assertion or make the iteration count dynamic.
+>
+Sure, I can make it something like "UID_GID_MAP_MAX_BASE_EXTENTS + 42"
+or something. Let me know about the "Urgh" comment above first.
 
-Introduce CONFIG1 Transfer Ring Element (TRE) support to program
-I2C High-Speed (HS) mode timing parameters through the Qualcomm
-GPI DMA engine.
+> > +     for (i =3D 0; i < 10; i++) {
+> > +             int value =3D 9 - i;
+> > +
+> > +             extent.first =3D value * 10;
+> > +             extent.lower_first =3D value * 100;
+> > +             extent.count =3D 5;
+> > +
+> > +             ret =3D insert_extent(&map, &extent);
+> > +             KUNIT_ASSERT_EQ(test, ret, 0);
+> > +             KUNIT_EXPECT_EQ(test, map.nr_extents, i + 1);
+> > +
+> > +             if (i < UID_GID_MAP_MAX_BASE_EXTENTS) {
+> > +                     KUNIT_EXPECT_EQ(test, map.extent[i].first, value =
+* 10);
+> > +             } else {
+> > +                     KUNIT_EXPECT_EQ(test, map.forward[i].first, value=
+ * 10);
+> > +                     KUNIT_EXPECT_EQ(test, map.forward[i].lower_first,=
+ value  * 100);
+> > +                     KUNIT_EXPECT_EQ(test, map.forward[i].count, 5);
+> > +             }
+> > +     }
+> > +
+> > +     /* Now sort the map to set up reverse mapping */
+> > +     ret =3D sort_idmaps(&map);
+> > +     KUNIT_EXPECT_EQ(test, ret, 0);
+> > +     KUNIT_ASSERT_NOT_ERR_OR_NULL(test, map.reverse);
+> > +
+> > +     /* Verify sorting is correct */
+> > +     for (i =3D 0; i < map.nr_extents; i++) {
+> > +             KUNIT_EXPECT_EQ(test, map.forward[i].first, i * 10);
+> > +             KUNIT_EXPECT_EQ(test, map.forward[i].lower_first, i * 100=
+);
+> > +             KUNIT_EXPECT_EQ(test, map.forward[i].count, 5);
+> > +
+> > +             KUNIT_EXPECT_EQ(test, map.reverse[i].first, i * 10);
+> > +             KUNIT_EXPECT_EQ(test, map.reverse[i].lower_first, i * 100=
+);
+> > +             KUNIT_EXPECT_EQ(test, map.reverse[i].count, 5);
+> > +     }
+>
+> Isn't this the same as the original order?
+>
+No. The original order uses "9 - i" for the base value, so it's not in
+sorted order (though it's not exactly random either).
 
-Add a new gpi_i2c_config1 structure containing tcycle_cnt and
-tlow_cnt fields. The fields are initialized to the hardware
-recommended values of 28 and 38, enabling 3.4 MHz HS-mode I2C
-transfers.
+-bw
 
-
-> Signed-off-by: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
-> ---
->   drivers/dma/qcom/gpi.c           | 54 +++++++++++++++++++++++++++++++++++-----
->   include/linux/dma/qcom-gpi-dma.h | 28 ++++++++++++++++++++-
->   2 files changed, 75 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/dma/qcom/gpi.c b/drivers/dma/qcom/gpi.c
-> index a5055a6273af..52a7800ed4f5 100644
-> --- a/drivers/dma/qcom/gpi.c
-> +++ b/drivers/dma/qcom/gpi.c
-> @@ -21,6 +21,7 @@
->   #define TRE_TYPE_IMMEDIATE_DMA	0x11
->   #define TRE_TYPE_GO		0x20
->   #define TRE_TYPE_CONFIG0	0x22
-> +#define TRE_TYPE_CONFIG1	0x23
->   
->   /* TRE flags */
->   #define TRE_FLAGS_CHAIN		BIT(0)
-> @@ -58,9 +59,14 @@
->   #define TRE_I2C_C0_TX_PACK	BIT(24)
->   #define TRE_I2C_C0_RX_PACK      BIT(25)
->   
-> +/* I2C Config1 WD0 */
-> +#define TRE_I2C_C1_TLOW		GENMASK(9, 0)
-> +#define TRE_I2C_C1_TCYCLE	GENMASK(19, 10)
-> +
-
-Not sure why above two not looking aligned by tab
-
->   /* I2C GO WD0 */
->   #define TRE_I2C_GO_CMD          GENMASK(4, 0)
-
-[...]
-
->   
-> -	/* create the GO tre for Tx */
-> -	if (i2c->op == I2C_WRITE) {
-> +	/* Create CONFIG1 TRE if requested */
-> +	if (i2c->set_config1) {
-can we move this set_config1 into else if part of set_config, above ?> 
-		tre = &desc->tre[tre_idx];
->   		tre_idx++;
->   
-> +		/* CONFIG1 TRE with timing parameters */
-> +		tre->dword[0] = u32_encode_bits(i2c->config1.tlow_cnt, TRE_I2C_C1_TLOW);
-> +		tre->dword[0] |= u32_encode_bits(i2c->config1.tcycle_cnt, TRE_I2C_C1_TCYCLE);
-> +		tre->dword[1] = 0;
-> +		tre->dword[2] = 0;
-> +		tre->dword[3] = u32_encode_bits(TRE_TYPE_CONFIG1, TRE_FLAGS_TYPE);
-> +		tre->dword[3] |= u32_encode_bits(1, TRE_FLAGS_CHAIN);
-> +	}
-> +
-> +	/* create the GO tre for Tx */
-> +	if (i2c->op == I2C_WRITE || i2c->op == I2C_HS_WRITE) {
-> +		u8 master_code = 0; /* Default master code for Linux EE */
-why for Linux EE ? what else could be ?> +		u32 cmd_opcode;
-> +		bool is_hs_mode = false;
-> +
-> +		tre = &desc->tre[tre_idx];
-> +		tre_idx++;
-> +
-> +		is_hs_mode = (i2c->op == I2C_HS_WRITE || i2c->op == I2C_HS_READ);
-> +
-> +		/* Determine the command opcode based on HS mode and multi_msg flag */
-Comment is mostly restates the code, would write as -
-/* Select HS-mode or standard I2C opcode. */
->   		if (i2c->multi_msg)
-> -			tre->dword[0] = u32_encode_bits(I2C_READ, TRE_I2C_GO_CMD);
-> +			cmd_opcode = is_hs_mode ? I2C_HS_READ : I2C_READ;
-can you add explanation of cmd opcode into commit log too ? That would 
-make story describing changes.>   		else
-> -			tre->dword[0] = u32_encode_bits(i2c->op, TRE_I2C_GO_CMD);
-> +			/* I2C HS write vs Regular I2C write */
-> +			cmd_opcode = is_hs_mode ? I2C_HS_WRITE : i2c->op;
-> +
-what if i write as below, will be simplified ?
-i2c->op = cmd_opcode ; //OR can store directly into i2c->op.
-tre->dword[0] = u32_encode_bits(i2c->op, TRE_I2C_GO_CMD);
-
-> +		tre->dword[0] = u32_encode_bits(cmd_opcode, TRE_I2C_GO_CMD);
-> +
-> +		if (is_hs_mode)
-> +			tre->dword[0] |= u32_encode_bits(master_code, TRE_I2C_GO_MASTER_CODE);
->   
->   		tre->dword[0] |= u32_encode_bits(i2c->addr, TRE_I2C_GO_ADDR);
->   		tre->dword[0] |= u32_encode_bits(i2c->stretch, TRE_I2C_GO_STRETCH);
-> @@ -1674,7 +1708,7 @@ static int gpi_create_i2c_tre(struct gchan *chan, struct gpi_desc *desc,
->   			tre->dword[3] |= u32_encode_bits(1, TRE_FLAGS_CHAIN);
->   	}
->   
-> -	if (i2c->op == I2C_READ || i2c->multi_msg == false) {
-> +	if (i2c->op == I2C_READ || i2c->op == I2C_HS_READ || i2c->multi_msg == false) {
->   		/* create the DMA TRE */
->   		tre = &desc->tre[tre_idx];
->   		tre_idx++;
-> @@ -1826,6 +1860,14 @@ gpi_prep_slave_sg(struct dma_chan *chan, struct scatterlist *sgl,
->   	if (direction == DMA_DEV_TO_MEM) /* rx */
->   		nr_tre = 1;
->   
-> +	/* I2C High-Speed mode sends an extra CONFIG1 TRE ahead of the GO TRE */
-> +	if (gchan->protocol == QCOM_GPI_I2C) {
-> +		struct gpi_i2c_config *i2c = gchan->config;
-> +
-> +		if (i2c->set_config1)
-> +			nr_tre++;
-> +	}
-> +
->   	/* calculate # of elements required & available */
->   	nr = gpi_ring_num_elements_avail(ch_ring);
->   	if (nr < nr_tre) {
-> diff --git a/include/linux/dma/qcom-gpi-dma.h b/include/linux/dma/qcom-gpi-dma.h
-> index 332be28427e4..6e9f09fc109a 100644
-> --- a/include/linux/dma/qcom-gpi-dma.h
-> +++ b/include/linux/dma/qcom-gpi-dma.h
-
-[...]
-
->   
->   /**
-> @@ -62,15 +82,19 @@ enum i2c_op {
->    * @high_count: high period of clock
->    * @low_count: low period of clock
->    * @clk_div: source clock divider
-> + * @clk_src: serial clock
-source clock right ?>    * @addr: i2c bus address
->    * @stretch: stretch the clock at eot
-> - * @set_config: set peripheral config
-> + * @set_config: set peripheral config (CONFIG0)
-> + * @set_config1: set peripheral config1 (CONFIG1)
-> + * @config1: I2C HS mode timing configuration (CONFIG1 TRE parameters)
->    * @rx_len: receive length for buffer
->    * @op: i2c cmd
->    * @multi_msg: is part of multi i2c r-w msgs
->    */
->   struct gpi_i2c_config {
->   	u8 set_config;
-> +	u8 set_config1;
->   	u8 pack_enable;
->   	u8 cycle_count;
->   	u8 high_count;
-> @@ -78,6 +102,8 @@ struct gpi_i2c_config {
->   	u8 addr;
->   	u8 stretch;
->   	u16 clk_div;
-> +	u32 clk_src;
-> +	struct gpi_i2c_config1 config1;
->   	u32 rx_len;
->   	enum i2c_op op;
->   	bool multi_msg;
-> 
-
+> > +
+> > +     kfree(map.forward);
+> > +     kfree(map.reverse);
+> > +}
+>
+> (...)
