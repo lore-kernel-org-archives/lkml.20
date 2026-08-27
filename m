@@ -1,128 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D426F38F65C;
-	Thu, 27 Aug 2026 21:41:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D795305699
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 21:42:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787866917; cv=none; b=hLnOfVQ2Ha6P1P7+6tzPN24t0ln2TUFYMyRnK6TIwUrmYIOSjMzBGeHmLQ0Qin1wJrwVNjaqL9qx7w6I+F1eAHA9mlx8QBvv971wCGztfohxQDRgmegr8tbdRqD1YLrYmQSHkgxOxynHsvCsniYFw6bcnIDGD9d5PZ2HOuKJl8c=
+	t=1787866935; cv=none; b=O3BMC+h8iYf1uK6XLe/M4jaWCr7Qr2YO1zy+JR74TPKPv6g/UNPNQbJeH0hVDqMrxG1gC0E8CLbucji6v+yLwS6JXVvG0Ti5TqUKCrcF5tBebCFVi06opr3N1o9En8DYvcZn78KPzAX8W2jujuXJ4mWqG9KgNP2WJkXqPf86IbU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787866917; c=relaxed/simple;
-	bh=vx7ibqNK4H4bQvtmSpwOhxA78qBlIj1ZhgMs+cKy6vc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=U5aiEP8BGiVv19nbCXyCQAzM3A+WXsJ8h7gMAXpOCmRXlUnzjPBkugAI6rYM5kaeMxgGKpcXHZr4DUr7GAkC1cmi9AUvgelqBeqcik6yOji1O0vGGuxgO4N/nizt78gRAmcpK8e6beeH68SMqGVxG6d1BP+p4+P/l/fsgVq4nwE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OnfQnoc3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787866935; c=relaxed/simple;
+	bh=9tHK6tvUsgxuqmiU95IJiGTH3iXvv2ChShXtSHUzgrM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ensIDP7mrC5oLzc7bD6Dx/5+duO/k9/MTrNgQaweVXou7mqurFpJEVztOTCv9Sqdksax8cfO27aJfErYlJQ2DIix1XqjMEJbpuUCaO/HpymwhKPfc3DP1bRW0fffagoEPkySzad0OOU8qwaHzc/1LzR0mq2R1j8elaBznX6c3jA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NfWSWZR4; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OnfQnoc3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CF601F00A3A;
-	Thu, 27 Aug 2026 21:41:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787866908;
-	bh=+dJ2/89KzJA+YU6uGo5TNo5P0os2bn6e5V8Hm1Oz+DI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OnfQnoc334MVL1rqM4T9D31HFX7jfHs0Bilng0Pyr/1N9g76l9ZjCj1tvsb32Tvg+
-	 NbZFOaPvr9c+YrBJIG1sBBMJh3fKztI/Rgaktyp2zN+w2mkG7qBlwg3d/iwwwgtJg5
-	 eUOmwMLNOsfv8Zz2LrTpZMkA3Vi3vLmd+cH8MRdwvRkqxTZ3xcmMQEeHRv09vn/p3W
-	 vfhdZ420Tlxqw4CZUuTdAe0KL4kMNP68JVKdAJOREBlzVjjHnUgqXcIzivwloSlrJf
-	 TMy8d3IkWxZNmcaRPuqEdq8G6lw8ugX7HwrgLnmcvivIg2Z54ycAQ55Dq9H7QZIycM
-	 6qmCuWqTR3UyA==
-Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
-	id 330E4C67629; Thu, 27 Aug 2026 22:41:45 +0100 (BST)
-Date: Thu, 27 Aug 2026 22:41:45 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-Cc: "bill.roberts@foss.arm.com" <bill.roberts@foss.arm.com>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
-	"debug@rivosinc.com" <debug@rivosinc.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-hardening@vger.kernel.org" <linux-hardening@vger.kernel.org>,
-	"linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>
-Subject: Re: Shadow Stack Locking Semantics between arch's
-Message-ID: <apCvGct9U1yprAUE@sirena.org.uk>
-References: <a1946d93-370e-4ca9-85d6-60b4a20ffd47@arm.com>
- <3bb672e0-7bc3-434f-904e-aa00394dd01f@foss.arm.com>
- <d20ccb74-69ed-45d7-a810-846904873588@sirena.org.uk>
- <01b0fe86d5700847f78b0e6f839119f54ac88b04.camel@intel.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NfWSWZR4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787866929;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=RCPK14Ec0AqueyxbiRrbVKvWDjNgHHCpXefmqR1aOKA=;
+	b=NfWSWZR4asWlMrhJbNgRrhU8iUkb5TqwFYkQfxmHzBIVD1V/w8gsqDzxl8xk7txIc7SAow
+	ZVry+JXnBDx2t0X7CeUaxARvsNeSrWc5tmpc1LI7xcf7OaKQ9RvZjyg//U60NjhprJIWK5
+	Qp30JIQ0QoaBIjKlS93le17UU4pgc3c=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-404-mmqMtOhQM86VeA_FXXtWdw-1; Thu,
+ 27 Aug 2026 17:42:06 -0400
+X-MC-Unique: mmqMtOhQM86VeA_FXXtWdw-1
+X-Mimecast-MFC-AGG-ID: mmqMtOhQM86VeA_FXXtWdw_1787866924
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 87A271955DEA;
+	Thu, 27 Aug 2026 21:42:04 +0000 (UTC)
+Received: from [100.90.56.12] (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id C9F4430002EE;
+	Thu, 27 Aug 2026 21:42:01 +0000 (UTC)
+Message-ID: <018f411b-9c7e-4baf-9d55-a153eab64dc4@redhat.com>
+Date: Thu, 27 Aug 2026 23:41:55 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="sz/kjGTpENLdkZcp"
-Content-Disposition: inline
-In-Reply-To: <01b0fe86d5700847f78b0e6f839119f54ac88b04.camel@intel.com>
-X-Cookie: I think, therefore I am... I think.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] KVM: nSVM: Reject KVM_SET_NESTED_STATE if L1 has
+ EFER.LMA=1 && EFER.LME=0
+To: Sean Christopherson <seanjc@google.com>, Yosry Ahmed <yosry@kernel.org>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Stefan Teodorescu <fane@google.com>
+References: <20260826211844.884951-1-seanjc@google.com>
+ <20260826211844.884951-2-seanjc@google.com>
+ <CAO9r8zMnPwXVf6wx_gDMzv4j47xWa7idLD+vVm9DUiB=huiLaw@mail.gmail.com>
+ <apA9eLuaMxCLdCmn@google.com>
+ <CAO9r8zNm1QcVh29rTCzAFnYdUCS4y8ZSQOvrs2DD18XASuktoQ@mail.gmail.com>
+ <apB1A5Ln_lGTI4oy@google.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Content-Language: en-US
+Autocrypt: addr=pbonzini@redhat.com; keydata=
+ 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
+In-Reply-To: <apB1A5Ln_lGTI4oy@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
+On 8/27/26 19:33, Sean Christopherson wrote:
+>>> If anything is wrong, it's the CR0.PG check.  Presumably that got carried forward
+>>> from commit c0725420cfdc ("KVM: SVM: Add helper functions for nested SVM").  I
+>>> don't see anything in the APM that requires paging to be enabled, and nothing in
+>>> that ancient series points at concrete documentation either.
+>>
+>> Oh yeah you're right, for some reason I thought it was paging not
+>> protected mode. Well then, it seems like
+>> nested_svm_check_permissions() is also incorrectly checking paging as
+>> well, seems like both checks are incorrect? Also, I don't see anything
+>> in the APM about checking RFLAGS.VM before VMRUN.
+> 
+> Presumably it's covered by the !PROTECTED_MODE clause.
+> 
+>    IF ((MSR_EFER.SVME == 0) || (!PROTECTED_MODE))  // This instruction can only be executed in protected
+>      EXCEPTION [#UD]                               // mode with SVM enabled
+> 
+> Section "1.3.4 Legacy Modes" describes "Protected Mode" and "Virtual-8086 Mode"
+> as separate submodes.  And the tables for most instructions differentiate between
+> Real, Virtual 8086, and Protected modes when enumerating exceptions.
 
---sz/kjGTpENLdkZcp
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Right.
 
-On Thu, Aug 27, 2026 at 09:27:06PM +0000, Edgecombe, Rick P wrote:
-> On Thu, 2026-08-27 at 19:14 +0100, Mark Brown wrote:
-> > On Thu, Aug 27, 2026 at 12:52:28PM -0500, Bill Roberts wrote:
+As to CR0.PG it does seem incorrect to check it entirely, however note 
+that there is this too (15.25.3 Enabling Nested Paging):
 
-> > > I am proposing and have questions over the following:
-> > > 1. What should the behavior be if you had write locked and disable the
-> > > shadow stack?
-> > > =A0 - I can argue both ways here, -EPERM or success. I think I and mo=
-st arches
-> > > lead to failure.
+	If VMRUN is executed with hCR0.PG cleared to zero and
+	NP_ENABLE set to 1, VMRUN terminates with
+	#VMEXIT(VMEXIT_INVALID)
 
-> > Given that RISC-V doesn't support control of writes it's moot there
-> > at the minute, and x86 currently uses arch_prctl() so will need an
-> > additional API, it seems the path of least resistance is to allow it.
-> > This also avoids locking writes (or pushes, for arm64) on effectively
-> > also locking enable which seems neater.
+which would have to be checked in nested_vmcb_check_controls().
 
-> Hmm. I can't think of a reason to lock writes and not lock shadow stack t=
-oo.
-> Given likely no one is doing this, I wonder if we could change x86's beha=
-vior to
-> match the others?
+>> If the goal here is to keep the checks here consistent with
+>> nested_svm_check_permissions(), aside from the new EFER check, then
+>> maybe we should also check CPL here?
+Perhaps, but nested_svm_check_permissions() is not reached with CPL=0 
+because the #GP overrides the interception (table 15-7, instruction 
+intercepts).  The same should be true about EFLAGS.VM=1.
 
-> The API would makes more sense to prevent disabling shadow stack if write=
-s were
-> enabled. It could return an EINVAL regardless if it is locked or not? Is =
-that
-> the arm behavior (forgetting about locked)?
+Paolo
 
-arm64 currently treats each bit independently for simplicity.  The main
-use case I see for actually doing that is for preventing enabling writes
-or pushes, though in practice I'd expect something doing locks to just
-fully lock everything after having enabled the shadow stack.  We can compose
-the features easily enough so it seemed most straightforward to just let
-userspace decide what it wants, it keeps the implementation simpler.
-
-> > It has been on my list to look at this
-> > repitition at some point, it had been held up by the clone3() stuff but
-> > that seems to have died a death for now.
-
-> Oh? What was the blocker?
-
-Basically the glibc people weren't convinced they'd ever want to reuse a
-shadow stack at which point having the kernel free and reallocate each time
-is just as easy.  It saves having to handle corner cases with threads that
-didn't exit cleanly.
-
---sz/kjGTpENLdkZcp
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqQrxMACgkQJNaLcl1U
-h9DLvAf/aD6cLja4vh624NoCAxT31xAb2Z0qfo5lbjna4gi96N7QofiM8YSxwqzY
-uERaK8TZBR93wojxkcg9W919KwU9yEHlT9nFeyl8wIwpuMKytvR06lOvwh5NRcCU
-Vaa8qjM4Sgl1MHes7onoDrjNVprq7Z3ORz5k/ccIjVQue0S1qJoYciFaxw8gQLTp
-NJqHqErqED4YmsnbjW94wK8jJGZzvSORNHmk/+i3HkwdmEmg9MIhj7l/uzVuY2V3
-+A2aaqVAiOdvscucQ5DV/gzjM4dJc+3qBoEl1OSVF/oXPkbSTC522w2xrJ4tQGQc
-cnYEBs+MNTbaDQJ/lzGwAhbr8aoKWg==
-=/1d8
------END PGP SIGNATURE-----
-
---sz/kjGTpENLdkZcp--
