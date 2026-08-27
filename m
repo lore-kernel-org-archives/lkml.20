@@ -1,64 +1,64 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55EA3499F0D
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:21:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22BA34963C8
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:21:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787851302; cv=none; b=O9V1qw0lDFH0FD7MHGsHtNNm1OBFnnaT6DFH/ke7yK2v8S/+1WV53KLHRg5i7725431Vh26ifb6hcvt9iTuKALAE0od7TK6KEjvKv7YVCOqEIqgGsYofB80SpdWh8DyLm/O7mYDBPP0ksoRcSvkmLfYmekxAQDQIU3VdfGusSTI=
+	t=1787851308; cv=none; b=qKP+P6ziukLpk4tjgUur5NR9G0+f0CmPSEsgPYQwNoaz+wNwgnyVjPgRsyA/QRlVYkF6v0m+maDZHJLfzBW2bVffqJe58RDJFfh6ef8fdILQVRyabdo2oAT0+8XJmccVZFFUlhhOeHm+5MpVyPF+Hb6eNqJ/0hcyY4hDCkU8448=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787851302; c=relaxed/simple;
-	bh=i4ZF5tM1Z8ws8bEdVnkjHemZs7/wJkd9n0+slBx1btk=;
+	s=arc-20240116; t=1787851308; c=relaxed/simple;
+	bh=Xvm4nW+2P4F0n2X493r3Kfa+UVebUnUFiPYaF5DZ4z4=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=XJLQB7JDHFVuSrAYO50vmt4NLXtf7DwQRgDahKdElaF5sQI8Xud5XWfpmcm0MONX6eBzTjcuZjSCIGKT7NoQwFTVdOdKivakRjy1x+mYzInoKnC3etLZUkcK1B/oDiI3bfE6EkZ+902ZE2/+atnU4wQ8jYcKg8jBRaebYortRZo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JaBTrjnb; arc=none smtp.client-ip=209.85.216.51
+	 MIME-Version; b=KuZmOAQp7M70xFrCiAC1RDQn7bFhEmWZhn3qol3qiEXff/s/Ei/FAJivlECyTQ6yalOZP7a7FX2c4S8zhQomqCc7r3hS7A9lDq4DUkWRYI7lCnxuAiY/J77XHn16QZC01sKB4QfHDoeAIMoLzwlo3Xl0hWdS8wdXmxskrXeZOjs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X3wlUI0z; arc=none smtp.client-ip=209.85.215.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JaBTrjnb"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-38e7109321dso162017a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:21:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X3wlUI0z"
+Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cc11a905ba5so114616a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:21:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787851301; x=1788456101; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787851304; x=1788456104; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=hUyG3QvGU6Q+HKsY6Ncct0FACqa/9VKrloUu7M3UGwc=;
-        b=JaBTrjnbHbx15X8ZBStA7BXajy2ItOyCciIXoeq74yt26V6xnNHVNtTrbKHlrImUDt
-         apP3P2nqDwcv77SsBBtj4dSA/ZiKXLxRjuN9YW4gChUcADOqGFE3go7iWUJO2UX4Se7Z
-         IF/bw/IdTbDeVa74YJuom6fLqVUYaQP+1vfRs40ISQ+yIy94PbyZhX87X5gjuLoezugD
-         wpJfo+NPCAlQygHX0jPLpqlite8WaBqFf1Vz6u+GgOvTylMAz3jEnOpqAoBRCjkQ18Io
-         y8slw7EsChqMn7S8lZ0Tz6X8PUUG/0uykNnbBmHnTTIcUwdR0Ia4UDS2+o4RydDFcRun
-         OChQ==
+        bh=refqYpnhzgPaSHSNEFWOu6CJsyfTdwor7wN0Moi5irg=;
+        b=X3wlUI0zVcmUd7kX0E49qG6NSSjerq11J4S7Yvr8Tujd0ryT+Q6voJZkRY5659grXn
+         Gq1CFJpBbn9geb1lYCA4bGgRup2u6bT+cu0YhGTVg9h+1gi/ozMpGnJ+OuutXjKtllJ0
+         trKhXfcQq9PpzJ3OSBwKlw6MjkCrIzvdto+3kekeN3H/XT3PVocmrzkxtXDoUCIqodnJ
+         xdg/5K8zs+9NQsqJjPzlvFMbCLGlNnUXbBfbODWUa/HFmjzl1Dp+GzTUA0fUQ6OQM2Rg
+         fRcc0RGB3u3n1IVgjU12HI7PTTm/b8S3r23z75Z4BHg/HQ3zibFAqqmk5mcNbthw+kmQ
+         0A7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787851301; x=1788456101;
+        d=1e100.net; s=20251104; t=1787851304; x=1788456104;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hUyG3QvGU6Q+HKsY6Ncct0FACqa/9VKrloUu7M3UGwc=;
-        b=bVMecW9wiW2IZQsCJb3UCsNxXAq9cd16CUlAMld4pYzr89kIc2yvWtwjFAJDL1HQ+H
-         BXYo6wUD9zRDc6zKKTcF+KXe7/OWBlXSGNtj1vQU5urBYgIQMM1LfgS0HDlacAIeF4fB
-         bttPmYvV/QTB6i0FWx+RdTT5QP3ngB8h0qhm7Ry1PAB09tzMRIl1IiUnb8627yPSEDZw
-         R+WiW4i0Pg7fhtA3MoDFonCvHSFcTSVILwTcZxZAsfRB8svdyTZ7CIHkwi0aTG0sHb/5
-         zab8OfKveSRXedBaza8xvwIHpdDZOjDmLTQZ4JMtYo21DM9SFu4pHEtHS0ZmyLk74d9x
-         2wZQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrK82c//x5MFy3XamIw++TeBoi9ctQGZS77pT2LhruSQoTMAuvEkByi1INra+g+EV2r4kBOYL9XZ7Gw9Dg=@vger.kernel.org
-X-Gm-Message-State: AFuF++k3ZENyXxMWEGySIACRE2gFsQDqOxFDq+e5uIx31ezEI05D1ikR
-	hi5NjWlxq4+9v6aaD6KBbL8xHi7e5bzllgi+hh1KgoKmY9fXmI/1hoaa
-X-Gm-Gg: AR+sD10IOJ11Ciuy81VvCpa7h+K76e4VhosQ77r1H9ZpaYUeZyoq319rXGz3cuwUTay
-	w2uLkZRv7k3F7rzC8mCLHOhYzrXFLlDxgNLc9epNkJxkv694/8LHnjTe5VYf3D0UDoLn/5zffxD
-	pQe8PAF9cSRIBsRHEsR8i7CqO6HVmKJRYT7pmPumNN71bUyZn+ri5C3K0wGmMhlMxKI2tM3OjQN
-	sMzQZgAPSU9msOxhnsoo55idM3KsrcKFq8aEbLTsVabKJlsiB+Np1Q5cMmVSthsOBj5JNv9eO5W
-	zs4TlfgodlIjjHV9yOFXSU6zyD9p/3pfZ4r3NUCuaoh1ZfPQaC7A/cG4xPNHRSUC01K1SaIRk+v
-	m/bjRbpOuw+IhfZEgHF97ZYFl62POO6MGv0S41cbsBNqKRAWasYmHIck+5cF5yzvgt7Ki/MsBHc
-	UC+6T+lhpi+tSpwCffmMn5TrQQlJIeZKdDluRigcbjfP5inlaXeGspktp4cAU6rTt4xOjs/PuLa
-	mMc1ppFtf4ugHjwpMgv45Y4MtaBa4HV981o
-X-Received: by 2002:a17:90b:17c7:b0:38e:9ef9:eb97 with SMTP id 98e67ed59e1d1-396d0fc1b2fmr1308289a91.16.1787851300583;
-        Thu, 27 Aug 2026 10:21:40 -0700 (PDT)
+        bh=refqYpnhzgPaSHSNEFWOu6CJsyfTdwor7wN0Moi5irg=;
+        b=GKxt4m8lqr8B7qjZgWwAIEKCeuVkngHjmJtg+1HgFSTSneFhoedjbY0vjb7Q5FvI9c
+         ILKRJ6TWXjePtCvtRd/HSzxTo72kXGud5yy3GJsWYfHoYTJ9coymEg5LCVQp4DBbqFe2
+         uFfV6NpKk0w9x448RaCYM/HxdVWQW/cpSIsJUbh8J1Ak0KWWqCQ9SWHWKa/BwJRfwR7w
+         4ZmWutAO8J2OcqSxInscrNYj/cUEa8KoYbbUThgOtxn7+SIQYBSDYB2bpfspGB/P9z0Z
+         V5mQrqLvMfE6qhRr29bKZiwB+EWXR2MJr45hBsVfdrBhe5/20mBPzhVxNYlRGj4fjKAu
+         9o8Q==
+X-Forwarded-Encrypted: i=1; AHgh+RqsKaNBQDgiqo44SLRqxfvlFen4Pl9ourvnb2lJRuig7OnbfdyVY7hTn8/ttGZmQtSNWB5ZjB6zOjsaYEI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mBUZuMHNikJw0xEACIsSn2PmoyQO59Y8f1qEsF2QtOduh62PNC
+	zhdvlNDkdTXg64pzRsg1x7lCzxRjFmGF8U1upCkHC4Tp1TkT5sOAvXzz
+X-Gm-Gg: AR+sD13T1k9P0rCa6DTxlmwfXAnllbIXI32DwOLS6By1mMKd3i7f0QzJor927r726I2
+	ojvAuKmw4LzcncoFIgJeMxIUH1+UXT46I+7B4UcAhovfE5O5eZk/cnhNd8iFzMEYIjs3KcWx/OP
+	RGq0pfIA508Z+qhf4weHOAQnOrzlR1j12D/yCWIth+g6A8IaKe2bZ06d3dAhN16RxPbABA8M9Yk
+	S1dB8rVxuz7inURMuN15DDWx1bjnRj2FGyNhJNpsWYt4qD814PxlIViwGJ7KH4DX2eaOgHWcR4o
+	aWk1d+dUssmjdn14XbW7CTARpCJyBPcVFdmLJD+YEfBP/ju6VFXBg4pEHu4Ku8M7YKSgxwVENDI
+	NiMbxvnZCFl5Y8Fyblsb0y8SKXqBxmoS0F1AUyLNQNZVdM2w0MM9hN/DaNDSXy6/AE+rTcXwFc0
+	mBo6t200r9ppBhaOSpb/AUf1iCwc1nHBU5lkUn5dE7Mn29KCQ29yjjX3jBh563azUZmPSHojzND
+	Pdk040b0TBCOUnKAHqUMNkVy6fWnBSCxvgX
+X-Received: by 2002:a17:90b:2f0f:b0:396:41d1:cbc7 with SMTP id 98e67ed59e1d1-396d0d92d15mr1655610a91.3.1787851304248;
+        Thu, 27 Aug 2026 10:21:44 -0700 (PDT)
 Received: from debian.ari ([47.30.51.191])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a8eedd13sm17797165c88.1.2026.08.27.10.21.33
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a8eedd13sm17797165c88.1.2026.08.27.10.21.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 10:21:39 -0700 (PDT)
+        Thu, 27 Aug 2026 10:21:43 -0700 (PDT)
 From: Archit Anant <architanant5@gmail.com>
 To: jic23@kernel.org
 Cc: dlechner@baylibre.com,
@@ -68,9 +68,9 @@ Cc: dlechner@baylibre.com,
 	linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Archit Anant <architanant5@gmail.com>
-Subject: [PATCH v4 1/8] iio: adc: ti-ads1015: use DEFINE_RUNTIME_DEV_PM_OPS()
-Date: Thu, 27 Aug 2026 22:50:53 +0530
-Message-Id: <20260827172100.39176-2-architanant5@gmail.com>
+Subject: [PATCH v4 2/8] iio: adc: ti-ads1015: sort headers alphabetically
+Date: Thu, 27 Aug 2026 22:50:54 +0530
+Message-Id: <20260827172100.39176-3-architanant5@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20260827172100.39176-1-architanant5@gmail.com>
 References: <20260827172100.39176-1-architanant5@gmail.com>
@@ -82,57 +82,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Replace the deprecated SET_RUNTIME_PM_OPS() with the modern
-DEFINE_RUNTIME_DEV_PM_OPS() macro. This allows for the removal of the
-macro automatically handles dropping unused functions when PM is
-disabled.
+Reorder include headers alphabetically to comply with the preferred
+coding style and improve maintainability.
 
-Update the driver struct to use pm_ptr() to avoid unused variable
-warnings.
+No functional changes.
 
 Signed-off-by: Archit Anant <architanant5@gmail.com>
 ---
- drivers/iio/adc/ti-ads1015.c | 12 +++++-------
- 1 file changed, 5 insertions(+), 7 deletions(-)
+ drivers/iio/adc/ti-ads1015.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/iio/adc/ti-ads1015.c b/drivers/iio/adc/ti-ads1015.c
-index 0fbfa4e499aa..93a165c5416a 100644
+index 93a165c5416a..ef03b74bda3e 100644
 --- a/drivers/iio/adc/ti-ads1015.c
 +++ b/drivers/iio/adc/ti-ads1015.c
-@@ -1059,7 +1059,6 @@ static int ads1015_probe(struct i2c_client *client)
- 	return devm_iio_device_register(&client->dev, indio_dev);
- }
+@@ -11,24 +11,24 @@
+  *	* 0x4B - ADDR connected to SCL
+  */
  
--#ifdef CONFIG_PM
- static int ads1015_runtime_suspend(struct device *dev)
- {
- 	struct iio_dev *indio_dev = i2c_get_clientdata(to_i2c_client(dev));
-@@ -1080,12 +1079,11 @@ static int ads1015_runtime_resume(struct device *dev)
+-#include <linux/module.h>
+ #include <linux/cleanup.h>
++#include <linux/delay.h>
++#include <linux/i2c.h>
+ #include <linux/init.h>
+ #include <linux/irq.h>
+-#include <linux/i2c.h>
++#include <linux/module.h>
++#include <linux/mutex.h>
++#include <linux/pm_runtime.h>
+ #include <linux/property.h>
+ #include <linux/regmap.h>
+-#include <linux/pm_runtime.h>
+-#include <linux/mutex.h>
+-#include <linux/delay.h>
  
- 	return ret;
- }
--#endif
++#include <linux/iio/buffer.h>
++#include <linux/iio/events.h>
+ #include <linux/iio/iio.h>
+-#include <linux/iio/types.h>
+ #include <linux/iio/sysfs.h>
+-#include <linux/iio/events.h>
+-#include <linux/iio/buffer.h>
+-#include <linux/iio/triggered_buffer.h>
+ #include <linux/iio/trigger_consumer.h>
++#include <linux/iio/triggered_buffer.h>
++#include <linux/iio/types.h>
  
--static const struct dev_pm_ops ads1015_pm_ops = {
--	SET_RUNTIME_PM_OPS(ads1015_runtime_suspend,
--			   ads1015_runtime_resume, NULL)
--};
-+static DEFINE_RUNTIME_DEV_PM_OPS(ads1015_pm_ops,
-+				 ads1015_runtime_suspend,
-+				 ads1015_runtime_resume,
-+				 NULL);
+ #define ADS1015_DRV_NAME "ads1015"
  
- static const struct ads1015_chip_data ads1015_data = {
- 	.channels	= ads1015_channels,
-@@ -1140,7 +1138,7 @@ static struct i2c_driver ads1015_driver = {
- 	.driver = {
- 		.name = ADS1015_DRV_NAME,
- 		.of_match_table = ads1015_of_match,
--		.pm = &ads1015_pm_ops,
-+		.pm = pm_ptr(&ads1015_pm_ops),
- 	},
- 	.probe		= ads1015_probe,
- 	.id_table	= ads1015_id,
 -- 
 2.39.5
 
