@@ -1,31 +1,31 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A47A733D4E4;
-	Thu, 27 Aug 2026 06:31:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4408C2C15AC;
+	Thu, 27 Aug 2026 06:31:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787812283; cv=none; b=df9SqH3JdjCfzUodLbxmHmxP1fZ7gdTVF6wTp8obtNXsiL5RJc1YvrZf3Cr+X+RGuya133zC/sMmlabBfnikKbsz9JzQSj1Sj9wfWTvs+5NaOxVhjh4hbdqhTdcMbqbQtODy3t8V6TLdGWSXBBGcsMdtuaHGdeksYz1c4o+/8FI=
+	t=1787812284; cv=none; b=pXi+EPx1jQ2JyS7GF0iNMr+g6HfXMxhfkC4RC029J2Jwm2ELzRdwA+UwEiJ/FbhBoxCAEya1fxZfoMsU2JnznLNuFF3zpgxTSHfyI/Ux68IHpgcqy8bcpVWJav65WwGWDfSpiwwEibEM4MX24a3wE6Y1g690qlNGhMPPcfZg4vM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787812283; c=relaxed/simple;
-	bh=9QzkUxNBz5ZQQplQi8yLgRlQWqlVR1d6iUUyRE357zY=;
+	s=arc-20240116; t=1787812284; c=relaxed/simple;
+	bh=VyvBlNJ8+5NGWPT0TeOwPz9DYpbQ4Wj1Uvy+rpRx9Fw=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=OveOv8BweDhKYZS752d0PquV3ixoj2RY2+DM5ElX1IVMRtnwtZ0WsNbvlXznQ+kETbfYGVQSa62jEMCdruFMVQ+faNchVYAa9Xzo9JsNiFbLOSDRXFFOZqJjDonplV4A/19brKJcO2OVCtYV3laj0C1aD5///tjXHBTm6VSBEpA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=VTBIcU7p; arc=none smtp.client-ip=217.140.110.172
+	 MIME-Version; b=JkWVTGxJg+GcgtYtHQQrt17qJ+bIQhIz1BJU4GfHvI+wj4d596kZONMF/nn/wKj1cp507SZk1FtkBUBIV0sQ8QBirPFvQMuCSQ+0T77+VxOMso8Ul7fjSXOZr47oHKR1IiXcgV3Mnfgfswoqovf8VwKK8p3+0j7tLrF1G/u8qkc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=EU2CyrR1; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="VTBIcU7p"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="EU2CyrR1"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 47A281691;
-	Wed, 26 Aug 2026 23:31:13 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C2E3E169E;
+	Wed, 26 Aug 2026 23:31:18 -0700 (PDT)
 Received: from e127648.arm.com (unknown [10.57.73.34])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 8426F3F85F;
-	Wed, 26 Aug 2026 23:31:14 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 4EE923FB7F;
+	Wed, 26 Aug 2026 23:31:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1787812277; bh=9QzkUxNBz5ZQQplQi8yLgRlQWqlVR1d6iUUyRE357zY=;
+	t=1787812282; bh=VyvBlNJ8+5NGWPT0TeOwPz9DYpbQ4Wj1Uvy+rpRx9Fw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=VTBIcU7pDXMry4EjC6VYzHagpFOlNsh6SzvjiKzsoMX3zWPnpzgGTUTfi/QkG8EZU
-	 z+MUvn5DFOYZM/aXnKNm2K9h4x2IXXO2nRHeWInr2ehNvEJb1tlQUL/tkCKVYOuFo3
-	 JQlNTsuD5VMep/Wjb+bucAdIUoPMBqtNfAuBCzyQ=
+	b=EU2CyrR1FwdNlgtn22krkD/VG4Dd8oqTbLzMCAm3fc4HKpP/DPwChduazl9J3nYoc
+	 97IqvIB07/Str24yCGOwdRMcj6PYo+yHr1YskJdHW+Mq3fupfWyeT+a0U9FSmkHFt3
+	 pcgQICVSb+B3xVrB0M7ggW2QFxG+BVB2felP9cWM=
 From: Christian Loehle <christian.loehle@arm.com>
 To: "Rafael J . Wysocki" <rafael@kernel.org>,
 	Viresh Kumar <viresh.kumar@linaro.org>
@@ -42,9 +42,9 @@ Cc: linux-pm@vger.kernel.org,
 	zhongqiu.han@oss.qualcomm.com,
 	Christian Loehle <christian.loehle@arm.com>,
 	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v5 03/15] ACPI: CPPC: Propagate performance-control write errors
-Date: Thu, 27 Aug 2026 07:30:48 +0100
-Message-Id: <20260827063100.2741066-4-christian.loehle@arm.com>
+Subject: [PATCH v5 05/15] ACPI: CPPC: Serialize PCC single-register payload updates
+Date: Thu, 27 Aug 2026 07:30:50 +0100
+Message-Id: <20260827063100.2741066-6-christian.loehle@arm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260827063100.2741066-1-christian.loehle@arm.com>
 References: <20260827063100.2741066-1-christian.loehle@arm.com>
@@ -56,256 +56,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-cppc_set_perf() can skip malformed controls, discard cpc_write() failures,
-and report success without programming the requested performance tuple.
+The PCC doorbell protocol requires OSPM to confirm ownership of the shared
+subspace before placing a command and its payload there.
+cppc_set_reg_val_in_pcc() instead modifies the payload before taking
+pcc_lock.
 
-Return every control-write error to the caller. For mixed PCC and non-PCC
-performance controls, complete all requested non-PCC writes before taking
-PCC ownership or changing its payload. A non-PCC failure therefore cannot
-submit only the PCC portion of a request. Once ownership is held, stage
-only PCC controls and mark the command pending after successful staging.
+A concurrent command can consequently overwrite or consume the staged
+value, and OSPM can write the shared region while the platform still owns
+it.
 
-Treat zero Minimum and Maximum Performance as values rather than omitted
-updates. Lowest Performance may legitimately be zero, and skipping such a
-request can leave a stale nonzero minimum programmed. All in-tree callers
-provide both bounds when calling cppc_set_perf().
+Take the PCC write lock first, wait for the previous command to complete,
+and keep the lock held while staging the value and submitting CMD_WRITE.
+This follows the ownership sequence in ACPI 6.5 Section 14.5 and the
+existing contract documented by send_pcc_cmd().
 
-Validate every requested PCC field before the first payload store. The
-current PCC accessor can fail only for a malformed type or unsupported
-width, and the descriptor type is already known to be writable. Checking
-all widths up front prevents a later malformed field from leaving an
-earlier value in shared memory for a subsequent doorbell to commit.
+If ownership acquisition or staging fails, abort any older performance
+batch before dropping the exclusive lock. This advances its generation and
+wakes cppc_set_perf() callers which otherwise wait indefinitely for a
+command this path did not submit.
 
-Multiple Phase-I callers may set the pending flag to true while holding the
-shared side of pcc_lock. Mark this intentional same-value store with
-WRITE_ONCE(); transitions back to false remain protected by the exclusive
-side.
-
-If PCC staging fails while another CPU has already staged a request, take
-the exclusive PCC lock and abort the pending batch before returning. This
-advances the write generation and wakes Phase-II waiters which would
-otherwise wait indefinitely for a doorbell that no CPU will ring.
-
-Cross-address-space updates cannot be atomic, but this ordering ensures a
-known non-PCC failure never commits the PCC portion by itself.
-
-Fixes: 337aadff8e45 ("ACPI: Introduce CPU performance controls using CPPC")
+Fixes: e05c75072c2e ("ACPI: CPPC: Add cppc_set_reg_val()")
 Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://sashiko.dev/#/patchset/20260724134251.1632824-1-christian.loehle%40arm.com
 Link: https://sashiko.dev/#/patchset/20260807111303.1062391-1-christian.loehle%40arm.com
 Signed-off-by: Christian Loehle <christian.loehle@arm.com>
 ---
- drivers/acpi/cppc_acpi.c | 143 ++++++++++++++++++++++++++++-----------
- 1 file changed, 104 insertions(+), 39 deletions(-)
+ drivers/acpi/cppc_acpi.c | 21 ++++++++++++++++-----
+ 1 file changed, 16 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
-index d9d5c877b9fd..3fbfb2eea6cf 100644
+index 1caac71d3e00..3f025cfa30f6 100644
 --- a/drivers/acpi/cppc_acpi.c
 +++ b/drivers/acpi/cppc_acpi.c
-@@ -233,6 +233,19 @@ show_cppc_data(cppc_get_perf_ctrs, cppc_perf_fb_ctrs, wraparound_time);
- 			     (reg)->space_id != ACPI_ADR_SPACE_PLATFORM_COMM) ? \
- 			    (8 << ((reg)->access_width - 1)) : (reg)->bit_width)
- 
-+static bool cpc_pcc_write_supported(const struct cpc_register_resource *reg)
-+{
-+	switch (GET_BIT_WIDTH(&reg->cpc_entry.reg)) {
-+	case 8:
-+	case 16:
-+	case 32:
-+	case 64:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
- /* Shift and apply the mask for CPC reads/writes */
- #define MASK_VAL_READ(reg, val) (((val) >> (reg)->bit_offset) &				\
- 					GENMASK(((reg)->bit_width) - 1, 0))
-@@ -373,13 +386,45 @@ static int check_pcc_chan(int pcc_ss_id, bool chk_err_bit)
- 	return ret;
- }
- 
-+static void cppc_complete_pcc_write(struct cppc_pcc_data *pcc_ss_data,
-+				    int ret)
-+{
-+	int i;
-+
-+	if (unlikely(ret)) {
-+		for_each_possible_cpu(i) {
-+			struct cpc_desc *desc = per_cpu(cpc_desc_ptr, i);
-+
-+			if (!desc)
-+				continue;
-+
-+			if (desc->write_cmd_id == pcc_ss_data->pcc_write_cnt)
-+				desc->write_cmd_status = ret;
-+		}
-+	}
-+
-+	pcc_ss_data->pcc_write_cnt++;
-+	wake_up_all(&pcc_ss_data->pcc_write_wait_q);
-+}
-+
-+/* The caller must hold pcc_lock for write. */
-+static void cppc_abort_pending_pcc_write(struct cppc_pcc_data *pcc_ss_data,
-+					 int ret)
-+{
-+	if (!pcc_ss_data->pending_pcc_write_cmd)
-+		return;
-+
-+	pcc_ss_data->pending_pcc_write_cmd = false;
-+	cppc_complete_pcc_write(pcc_ss_data, ret);
-+}
-+
- /*
-  * This function transfers the ownership of the PCC to the platform
-  * So it must be called while holding write_lock(pcc_lock)
-  */
- static int send_pcc_cmd(int pcc_ss_id, u16 cmd)
+@@ -1504,7 +1504,7 @@ static int cppc_get_reg_val(int cpu, enum cppc_regs reg_idx, u64 *val)
+ static int cppc_set_reg_val_in_pcc(int cpu, struct cpc_register_resource *reg, u64 val)
  {
--	int ret = -EIO, i;
-+	int ret = -EIO;
- 	struct cppc_pcc_data *pcc_ss_data = pcc_data[pcc_ss_id];
- 	struct acpi_pcct_shared_memory __iomem *generic_comm_base =
- 					pcc_ss_data->pcc_channel->shmem;
-@@ -471,21 +516,8 @@ static int send_pcc_cmd(int pcc_ss_id, u16 cmd)
- 		mbox_client_txdone(pcc_ss_data->pcc_channel->mchan, ret);
- 
- end:
--	if (cmd == CMD_WRITE) {
--		if (unlikely(ret)) {
--			for_each_possible_cpu(i) {
--				struct cpc_desc *desc = per_cpu(cpc_desc_ptr, i);
--
--				if (!desc)
--					continue;
--
--				if (desc->write_cmd_id == pcc_ss_data->pcc_write_cnt)
--					desc->write_cmd_status = ret;
--			}
--		}
--		pcc_ss_data->pcc_write_cnt++;
--		wake_up_all(&pcc_ss_data->pcc_write_wait_q);
--	}
-+	if (cmd == CMD_WRITE)
-+		cppc_complete_pcc_write(pcc_ss_data, ret);
- 
- 	return ret;
- }
-@@ -2164,7 +2196,7 @@ int cppc_set_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls)
- 	struct cpc_register_resource *desired_reg, *min_perf_reg, *max_perf_reg;
  	int pcc_ss_id = per_cpu(cpu_pcc_subspace_idx, cpu);
- 	struct cppc_pcc_data *pcc_ss_data = NULL;
--	bool regs_in_pcc;
-+	bool desired_pcc, min_pcc, max_pcc, regs_in_pcc;
- 	int ret = 0;
+-	struct cppc_pcc_data *pcc_ss_data = NULL;
++	struct cppc_pcc_data *pcc_ss_data;
+ 	int ret;
  
- 	if (!cpc_desc) {
-@@ -2175,8 +2207,31 @@ int cppc_set_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls)
- 	desired_reg = &cpc_desc->cpc_regs[DESIRED_PERF];
- 	min_perf_reg = &cpc_desc->cpc_regs[MIN_PERF];
- 	max_perf_reg = &cpc_desc->cpc_regs[MAX_PERF];
--	regs_in_pcc = CPC_IN_PCC(desired_reg) || CPC_IN_PCC(min_perf_reg) ||
--		      CPC_IN_PCC(max_perf_reg);
-+	desired_pcc = cpc_is_writable(desired_reg) && CPC_IN_PCC(desired_reg);
-+	min_pcc = cpc_is_writable(min_perf_reg) && CPC_IN_PCC(min_perf_reg);
-+	max_pcc = cpc_is_writable(max_perf_reg) && CPC_IN_PCC(max_perf_reg);
-+	regs_in_pcc = desired_pcc || min_pcc || max_pcc;
-+	if ((desired_pcc && !cpc_pcc_write_supported(desired_reg)) ||
-+	    (min_pcc && !cpc_pcc_write_supported(min_perf_reg)) ||
-+	    (max_pcc && !cpc_pcc_write_supported(max_perf_reg)))
-+		return -EFAULT;
+ 	if (pcc_ss_id < 0) {
+@@ -1512,15 +1512,26 @@ static int cppc_set_reg_val_in_pcc(int cpu, struct cpc_register_resource *reg, u
+ 		return -ENODEV;
+ 	}
+ 
+-	ret = cpc_write(cpu, reg, val);
+-	if (ret)
+-		return ret;
+-
+ 	pcc_ss_data = pcc_data[pcc_ss_id];
++	if (!pcc_ss_data)
++		return -ENODEV;
+ 
+ 	down_write(&pcc_ss_data->pcc_lock);
 +
-+	/* Do not stage PCC data if a fallible non-PCC write has failed. */
-+	if (cpc_is_writable(desired_reg) && !desired_pcc) {
-+		ret = cpc_write(cpu, desired_reg, perf_ctrls->desired_perf);
-+		if (ret)
-+			return ret;
-+	}
-+	if (cpc_is_writable(min_perf_reg) && !min_pcc) {
-+		ret = cpc_write(cpu, min_perf_reg, perf_ctrls->min_perf);
-+		if (ret)
-+			return ret;
-+	}
-+	if (cpc_is_writable(max_perf_reg) && !max_pcc) {
-+		ret = cpc_write(cpu, max_perf_reg, perf_ctrls->max_perf);
-+		if (ret)
-+			return ret;
-+	}
++	ret = check_pcc_chan(pcc_ss_id, false);
++	if (ret)
++		goto out;
++
++	ret = cpc_write(cpu, reg, val);
++	if (ret)
++		goto out;
++
+ 	/* after writing CPC, transfer the ownership of PCC to platform */
+ 	ret = send_pcc_cmd(pcc_ss_id, CMD_WRITE);
++
++out:
++	if (ret)
++		cppc_abort_pending_pcc_write(pcc_ss_data, ret);
+ 	up_write(&pcc_ss_data->pcc_lock);
  
- 	/*
- 	 * This is Phase-I where we want to write to CPC registers
-@@ -2199,30 +2254,32 @@ int cppc_set_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls)
- 				return ret;
- 			}
- 		}
--		/*
--		 * Update the pending_write to make sure a PCC CMD_READ will not
--		 * arrive and steal the channel during the switch to write lock
--		 */
--		pcc_ss_data->pending_pcc_write_cmd = true;
--		cpc_desc->write_cmd_id = pcc_ss_data->pcc_write_cnt;
--		cpc_desc->write_cmd_status = 0;
- 	}
- 
--	if (CPC_SUPPORTED(desired_reg))
--		cpc_write(cpu, desired_reg, perf_ctrls->desired_perf);
-+	if (desired_pcc) {
-+		ret = cpc_write(cpu, desired_reg, perf_ctrls->desired_perf);
-+		if (ret)
-+			goto out_pcc_read_unlock;
-+	}
- 
--	/*
--	 * Only write if min_perf and max_perf not zero. Some drivers pass zero
--	 * value to min and max perf, but they don't mean to set the zero value,
--	 * they just don't want to write to those registers.
--	 */
--	if (perf_ctrls->min_perf && CPC_SUPPORTED(min_perf_reg))
--		cpc_write(cpu, min_perf_reg, perf_ctrls->min_perf);
--	if (perf_ctrls->max_perf && CPC_SUPPORTED(max_perf_reg))
--		cpc_write(cpu, max_perf_reg, perf_ctrls->max_perf);
-+	if (min_pcc) {
-+		ret = cpc_write(cpu, min_perf_reg, perf_ctrls->min_perf);
-+		if (ret)
-+			goto out_pcc_read_unlock;
-+	}
-+	if (max_pcc) {
-+		ret = cpc_write(cpu, max_perf_reg, perf_ctrls->max_perf);
-+		if (ret)
-+			goto out_pcc_read_unlock;
-+	}
- 
--	if (regs_in_pcc)
-+	if (regs_in_pcc) {
-+		/* Block a PCC read until the staged payload has been submitted. */
-+		WRITE_ONCE(pcc_ss_data->pending_pcc_write_cmd, true);
-+		cpc_desc->write_cmd_id = pcc_ss_data->pcc_write_cnt;
-+		cpc_desc->write_cmd_status = 0;
- 		up_read(&pcc_ss_data->pcc_lock);	/* END Phase-I */
-+	}
- 	/*
- 	 * This is Phase-II where we transfer the ownership of PCC to Platform
- 	 *
-@@ -2281,9 +2338,17 @@ int cppc_set_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls)
- 				   cpc_desc->write_cmd_id != pcc_ss_data->pcc_write_cnt);
- 
- 		/* send_pcc_cmd updates the status in case of failure */
--		ret = cpc_desc->write_cmd_status;
-+		if (!ret)
-+			ret = cpc_desc->write_cmd_status;
- 	}
  	return ret;
-+
-+out_pcc_read_unlock:
-+	up_read(&pcc_ss_data->pcc_lock);
-+	down_write(&pcc_ss_data->pcc_lock);
-+	cppc_abort_pending_pcc_write(pcc_ss_data, ret);
-+	up_write(&pcc_ss_data->pcc_lock);
-+	return ret;
- }
- EXPORT_SYMBOL_GPL(cppc_set_perf);
- 
 -- 
 2.34.1
 
