@@ -1,231 +1,111 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5BC6B444719;
-	Thu, 27 Aug 2026 11:07:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4B0143E06B;
+	Thu, 27 Aug 2026 11:08:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787828857; cv=none; b=G8bT1cVrdGeCqJ7c6OdPCNiENkFCCqbZXsE8mNv+Sc842jvh4DQLLgTzySmTiQLTBuqfSr9Sp3PKUuI2dyQHUy3xnlLXgL5xFqSqjBQy4jgSEHmf5CSFliAyrhMvgqqIwMZAjcskBEO0/gWLY15q92SShy4gYBJHhlzpHbXQewI=
+	t=1787828900; cv=none; b=GxuDKKpsN09dRpLc9pBws3aBo2Gl7do0j0v3TTetRI5jZNoAAcnECh6deWXeHG1f/LWn9kooZ7Ecgr0Xh+oexXz5iND/z8AHTQtCYZc3fUQOftqlvoYj5uGboRVS9713RdEo3+MiXZMj8bh0ncjABgJDNCsBKvBj4AfYeW77uuo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787828857; c=relaxed/simple;
-	bh=Bb6IpuhdEkbgnnxFzFYvwpnFto7goaBHSkROsm2tLck=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Nyr0e4ZO5dY8sPG94ohIRRR6wRCBCFkj+nyHDsPDTYNrRSt5oy0lL/1vhl1Awur/auZvAiiN9fv1HiPlXLRQJf7LXKCfnL3rPVUZ8YjBdF0m/652QNnXlbXliNqFpc5bOLjZRlGl0xiR4+m9e6PRYJnA+udB/2I+Rq7h2gOxpq4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=LMFKcVhA; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1787828900; c=relaxed/simple;
+	bh=v8bnhWflCPUrVI9KtziGsaISsyzVzYm9Ksc7/ZngXH0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=NtZ5E2hhwt2D4v54BvtTkHT2Ive0ozDopNCOZEyaJq1xTkhlmoAP3fE2AZX9wTrLGSTFedqD/lrP70Fph1VN8HTtNkWomgREbV6VopJ+MxUcxsqwETpNE3z3V54Ed7/VHvDNAsHan8vZdOoE9gegBzCEVyTCFmn5aACdJTmH0XU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PWfO2zCy; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="LMFKcVhA"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C8B5F1688;
-	Thu, 27 Aug 2026 04:07:25 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 87D9F3F66F;
-	Thu, 27 Aug 2026 04:07:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1787828849; bh=Bb6IpuhdEkbgnnxFzFYvwpnFto7goaBHSkROsm2tLck=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=LMFKcVhAoW7tMilIOZ+sY7RpXhT2S/bEff6fX2Sf+5qk8vGMKPUTxdJ/zbWJuyt+U
-	 +mbEnz3OQBj2jNL6rHpLBTdnjTdM1A0Ul2MzvwS0VUhVuEwpfF/n6dxHMNGHipsgRW
-	 IiR5tFgMAuUcERVDOswGYT34SS0ppdpkDFmjtYro=
-Date: Thu, 27 Aug 2026 12:07:24 +0100
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Yeoreum Yun <yeoreum.yun@arm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
-	Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] kselftest: mm: replace usage of /proc/self/smaps
- for check_huge_xxx() helper
-Message-ID: <apAabBIpmyH6lsgs@e129823.arm.com>
-References: <20260826-fix_split-v2-0-71153c7f579a@arm.com>
- <20260826-fix_split-v2-2-71153c7f579a@arm.com>
- <0107447a-7c1f-44f8-94fb-109b0f850677@linux.alibaba.com>
- <44d36fb6-fdf4-4a8b-8e74-084a4b4f802e@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PWfO2zCy"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 3ECF6C2BCF6;
+	Thu, 27 Aug 2026 11:08:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1787828900;
+	bh=v8bnhWflCPUrVI9KtziGsaISsyzVzYm9Ksc7/ZngXH0=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=PWfO2zCydCpsSn9hzUilZc+pMAHeJR996e56I6edrgZVU1ED7wHWHvSqhrk0gHNGt
+	 2CJbpPkpNEqO4gKk0QlJJSKKLs//njLaO5xQ19tKvDN70Fc8go85hEPReRLMZzBKak
+	 HteuTrJNFZvOngumWlp+q2BObKb+y0hBv4K1B40Q4PsXsBx0BCq+W/TJG0/Vz8I6fd
+	 SxBprv6XaBKyM1R0sjsJ9Kfyf0zPbVg7alhqMdyRNgHfHbnaMEku5LWgu6QOUcPN0v
+	 oziFLRlhTBrMw+P0z6rLK/VPzT2bktLFkV3fmzV85tLxMOW3jIEEwB4sAu2w/VxZfN
+	 Un4kJ+r9mLCLQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1EBBEC61DC2;
+	Thu, 27 Aug 2026 11:08:20 +0000 (UTC)
+From: Xiubo Li via B4 Relay <devnull+xiubo.li.clyso.com@kernel.org>
+Date: Thu, 27 Aug 2026 04:08:16 -0700
+Subject: [PATCH v3 1/2] ceph: mark the superblock active after mounting
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <44d36fb6-fdf4-4a8b-8e74-084a4b4f802e@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260827-b4-b4-ceph-dentry-caps-v3-1-f0619f4134e0@clyso.com>
+References: <20260827-b4-b4-ceph-dentry-caps-v3-0-f0619f4134e0@clyso.com>
+In-Reply-To: <20260827-b4-b4-ceph-dentry-caps-v3-0-f0619f4134e0@clyso.com>
+To: Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
+ Viacheslav Dubeyko <slava@dubeyko.com>, Jeff Layton <jlayton@kernel.org>, 
+ David Howells <dhowells@redhat.com>
+Cc: ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Xiubo Li <xiubo.li@clyso.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787828896; l=1739;
+ i=xiubo.li@clyso.com; s=20260625; h=from:subject:message-id;
+ bh=dFUEqOSrOHAakZbyyjYXWOCJ/emNp8RsIJQoj61TVKs=;
+ b=hZQaQbQg/zU0SKRICVoupHO+JVlSiE5VXkASBmhATuzSOtjcuje8spJ5wyKqbrF6uN0A+PX9m
+ YGX2pchvEKgBIG9FB4VLJ8o1rdBQdSwi3yGnmU/T+91Wp1ejdgubhYU
+X-Developer-Key: i=xiubo.li@clyso.com; a=ed25519;
+ pk=V3NGr0AgAopiUhaLY51ipBkLN5LlcLhjOEfLEq1RoZ8=
+X-Endpoint-Received: by B4 Relay for xiubo.li@clyso.com/20260625 with
+ auth_id=840
+X-Original-From: Xiubo Li <xiubo.li@clyso.com>
+Reply-To: xiubo.li@clyso.com
 
-On Thu, Aug 27, 2026 at 12:56:20PM +0200, David Hildenbrand (Arm) wrote:
-> On 8/27/26 10:28, Baolin Wang wrote:
-> > 
-> > 
-> > On 8/26/26 8:24 PM, Yeoreum Yun wrote:
-> >> Since glibc commit 321e1fc73f (“malloc: Enable 2MB THP by default on AArch64”),
-> >> glibc may call madvise(MADV_HUGEPAGE) for sufficiently large allocations
-> >> made by memalign().
-> >>
-> >> The underlying VMA may start at a different address from the aligned
-> >> address returned by memalign(). Furthermore, a subsequent
-> >> madvise(MADV_HUGEPAGE) call does not split the VMA because the flag is
-> >> already set.
-> >>
-> >> This causes split_huge_page_test to fail because the check_huge_xxx()
-> >> helpers incorrectly require the address returned by memalign() to
-> >> match the VMA start address reported in /proc/self/smaps.
-> >>
-> >> Fix this by using /proc/self/pagemap and /proc/kpageflags instead of
-> >> /proc/self/smaps to detect huge pages.
-> >>
-> >> Reported-by: David Hildenbrand (Arm) <david@kernel.org>
-> >> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
-> >> ---
-> >>   tools/testing/selftests/mm/vm_util.c | 130 ++++++++++++++++++++---------------
-> >>   tools/testing/selftests/mm/vm_util.h |   1 +
-> >>   2 files changed, 77 insertions(+), 54 deletions(-)
-> >>
-> >> diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/
-> >> mm/vm_util.c
-> >> index 4821a3563036..1d0959b3b9e8 100644
-> >> --- a/tools/testing/selftests/mm/vm_util.c
-> >> +++ b/tools/testing/selftests/mm/vm_util.c
-> >> @@ -351,31 +351,13 @@ char *__get_smap_entry(void *addr, const char *pattern,
-> >> char *buf, size_t len)
-> >>       return entry;
-> >>   }
-> >>   -static bool __check_pmd_huge(void *addr, char *pattern, int nr_hpages,
-> >> -          uint64_t hpage_size)
-> >> -{
-> >> -    char buffer[MAX_LINE_LENGTH];
-> >> -    uint64_t thp = -1;
-> >> -    char *entry;
-> >> -
-> >> -    entry = __get_smap_entry(addr, pattern, buffer, sizeof(buffer));
-> >> -    if (!entry)
-> >> -        goto err_out;
-> >> -
-> >> -    if (sscanf(entry, "%9" SCNu64 " kB", &thp) != 1)
-> >> -        ksft_exit_fail_msg("Reading smap error\n");
-> >> -
-> >> -err_out:
-> >> -    return thp == (nr_hpages * (hpage_size >> 10));
-> >> -}
-> >> -
-> >> -static bool check_large_folios(void *addr, size_t len, int nr_hpages,
-> >> -        uint64_t hpage_size)
-> >> +static bool check_large_folios(int pagemap_fd, int kpageflags_fd,
-> >> +                   void *addr, size_t len, int nr_hpages,
-> >> +                   uint64_t hpage_size)
-> >>   {
-> >>       int order = 0, pagesize = getpagesize();
-> >>       unsigned int nr_pages = hpage_size / pagesize;
-> >>       int orders[MAX_NR_ORDERS], status;
-> >> -    int pagemap_fd, kpageflags_fd;
-> >>       bool ret = false;
-> >>         if (!nr_pages)
-> >> @@ -386,15 +368,6 @@ static bool check_large_folios(void *addr, size_t len,
-> >> int nr_hpages,
-> >>           ksft_exit_fail_msg("invalid order\n");
-> >>         memset(orders, 0, sizeof(int) * MAX_NR_ORDERS);
-> >> -    pagemap_fd = open(PAGEMAP_PATH, O_RDONLY);
-> >> -    if (pagemap_fd == -1)
-> >> -        ksft_exit_fail_msg("read pagemap fail\n");
-> >> -
-> >> -    kpageflags_fd = open(KPAGEFLAGS_PATH, O_RDONLY);
-> >> -    if (kpageflags_fd == -1) {
-> >> -        close(pagemap_fd);
-> >> -        ksft_exit_fail_msg("read kpageflags fail\n");
-> >> -    }
-> >>         status = gather_folio_orders(addr, len, pagemap_fd,
-> >>               kpageflags_fd, orders, MAX_NR_ORDERS);
-> >> @@ -405,48 +378,97 @@ static bool check_large_folios(void *addr, size_t len,
-> >> int nr_hpages,
-> >>           ret = true;
-> >>     out:
-> >> -    close(pagemap_fd);
-> >> -    close(kpageflags_fd);
-> >>       return ret;
-> >>   }
-> >>   -bool check_huge_anon(void *addr, size_t len, int nr_hpages, uint64_t
-> >> hpage_size)
-> >> +enum check_huge_type {
-> >> +    CHECK_HUGE_ANON,
-> >> +    CHECK_HUGE_FILE,
-> >> +    CHECK_HUGE_SHMEM,
-> >> +};
-> >> +
-> >> +static bool __check_pmd_huge(void *addr, size_t len, int nr_hpages,
-> >> +                 uint64_t hpage_size, enum check_huge_type type)
-> > 
-> > The original __check_pmd_huge() is only for PMD-sized large folios, but now it
-> > not only checks PMD-sized large folios but also mTHP large folios, which I find
-> > confusing. Please keep its original semantics, and only check PMD-sized large
-> > folios.
-> > 
-> >>   {
-> >> -    uint64_t pmd_pagesize = read_pmd_pagesize();
-> >> +    int pagemap_fd, kpageflags_fd;
-> >> +    uint64_t pmd_pagesize, granule;
-> >> +    uint64_t categories, kpf;
-> >> +    unsigned long pfn;
-> >> +    bool check_large, huge_mapped;
-> >> +    char *start = addr;
-> >> +    char *end = start + len;
-> >>   +    pmd_pagesize = read_pmd_pagesize();
-> >>       if (!pmd_pagesize)
-> >>           ksft_exit_fail_msg("reading PMD pagesize failed\n");
-> >>   -    if (hpage_size == pmd_pagesize)
-> >> -        return __check_pmd_huge(addr, "AnonHugePages: ", nr_hpages, hpage_size);
-> >> +    if (nr_hpages > 0) {
-> >> +        check_large = true;
-> >> +        granule = hpage_size;
-> >> +    } else {
-> >> +        check_large = false;
-> >> +        granule = psize();
-> >> +    }
-> > 
-> > This is incorrect for the mTHP large folio check. I already hit a selftest
-> > failure. Please test your patches before sending them out.
-> > 
-> > [root@]./khugepaged -c 4 mthp_khugepaged:anon
-> > TAP version 13
-> > # Save THP and khugepaged settings... OK
-> > 1..4
-> > # Allocate huge page on fault... OK
-> > # Split huge PMD on MADV_DONTNEED... OK
-> > ok 1 allocate on fault and split
-> > #
-> > # Run test: collapse_full (mthp_khugepaged:anon)
-> > # Collapse multiple fully populated PTE table.... OK
-> > ok 2 collapse_full
-> > #
-> > # Run test: collapse_empty (mthp_khugepaged:anon)
-> > # Do not collapse empty PTE table.... OK
-> > ok 3 collapse_empty
-> > #
-> > # Run test: collapse_single_mthp (mthp_khugepaged:anon)
-> > # Collapse PTE table with half PTE entries present.... Fail
-> > not ok 4 collapse_single_mthp
-> > # Totals: pass:3 fail:1 xfail:0 xpass:0 skip:0 error:0
-> 
-> FWIW, the CI flags this as well:
-> 
-> https://github.com/linux-mm/linux-mm/actions/runs/33028595020/job/98375618491
+From: Xiubo Li <xiubo.li@clyso.com>
 
-Yeap. I've overlooked that case and here is the fix:
-  - https://lore.kernel.org/all/apAVAvfxZSeEvf50@e129823.arm.com/
-> 
-> -- 
-> Cheers,
-> 
-> David
+ceph_get_tree() calls sget_fc() directly and so never goes through
+vfs_get_super(), which is what sets SB_ACTIVE after fill_super for
+filesystems that use it.  Before commit 82995cc6c5ae ("libceph, rbd,
+ceph: convert to use the new mount API") the flag used to be set by
+get_sb_nodev(), which did this for ceph, but the conversion dropped it.
+
+SB_ACTIVE is required for iput_final() to retain an inode on the
+inode LRU instead of evicting it once its last reference goes away.
+This has gone unnoticed because ceph sets inode_just_drop() for
+->drop_inode, which always asks for eviction, so the retain branch in
+iput_final() was never reachable.  The next patch makes ->drop_inode()
+able to retain inodes, and that needs the flag to actually work.
+
+Set it once the mount is up, like nfs_get_tree() does.
+
+Fixes: 82995cc6c5ae ("libceph, rbd, ceph: convert to use the new mount API")
+Signed-off-by: Xiubo Li <xiubo.li@clyso.com>
+---
+ fs/ceph/super.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/fs/ceph/super.c b/fs/ceph/super.c
+index 6c6e9a1100db..88ea9aa53adc 100644
+--- a/fs/ceph/super.c
++++ b/fs/ceph/super.c
+@@ -1371,6 +1371,15 @@ static int ceph_get_tree(struct fs_context *fc)
+ 	doutc(fsc->client, "root %p inode %p ino %llx.%llx\n", res,
+ 		    d_inode(res), ceph_vinop(d_inode(res)));
+ 	fc->root = fsc->sb->s_root;
++
++	/*
++	 * The mount is up.  sget_fc() leaves SB_ACTIVE unset, and, unlike
++	 * filesystems that go through vfs_get_super(), nothing else sets
++	 * it here, so iput_final() would always evict an inode whose
++	 * ->drop_inode() asks to retain it.  Set it like nfs_get_tree()
++	 * does.
++	 */
++	sb->s_flags |= SB_ACTIVE;
+ 	return 0;
+ 
+ out_splat:
 
 -- 
-Sincerely,
-Yeoreum Yun
+2.53.0
+
+
