@@ -1,108 +1,124 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from mail3-relais-sop.national.inria.fr (mail3-relais-sop.national.inria.fr [192.134.164.104])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B190C3644A4;
-	Thu, 27 Aug 2026 11:59:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55C7144239A;
+	Thu, 27 Aug 2026 12:00:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.134.164.104
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787831955; cv=none; b=NXRmSDGfjtQyWfQDnIdDp93VKbYs5DLM6sew3dkimkE/2hYAdUw73r0/QvL3GL/9cKJ8hS84MJuq7ENPKKZ1UrkfN1/cUlwgIe0k/+axfy47V+jTQoSiVyjnaFaB6p/3u+uUH2oK3aZW+uXMCoozA4D6knal+w3+BjNSjutduFw=
+	t=1787832012; cv=none; b=VslCIYM4J20sM0hIdwaOi2gChrAhQGHvw2MwPC0vxZLn+Nw5XpRkg/KLgeQVq0AnLsCPUQTZ/JuBqJfIcsn3iDJr9mDyhCYhzo1GUEloYJluyxPawIg7jJuRJ85O8kHNUQcTn0/61yVCHcHqu+JBSOIaGwW+CvQQ219flEHQrBY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787831955; c=relaxed/simple;
-	bh=gl7Ypggdt6+OInYK5seGvYHZ3ns4wQAaeLb/KQCSOfw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pk8OETrGbV6KdnTBWiI/SWcviIrUh6F9Cqc2NFgTPjLV/L1brK9lDR8VERenNc9lNeE9iK27GF6H4+DOyxEjuuJXkrOFgdAgL4ih1vnUJw3UkaVessM0ZSwnEvh6I8v+2BCeP5FewfKKn7pr+GGNG7xx5nYRHEr/dWB9psNlxDM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mMCare4E; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1787832012; c=relaxed/simple;
+	bh=GTmJbqWO2G+JwtACRSzR5BR2F80bBvrZ0TXrXaxFoNg=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=GcGwRhYOxtvdT4YiP0nJOganeID24/lshc9lp/QVE2AQyFM9ZK+nYBXewn83Xo6rlPqfrj+d/284gGuvzEZuQXKrKv4lRafQDCQVH0EnA7usq8rLEnTrTiuHklRXztg+acFejJkQwYsmrezTWHzaagN8GseLdnI5RDp3OFbGbkk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr; spf=pass smtp.mailfrom=inria.fr; dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr header.b=Om//ueuu; arc=none smtp.client-ip=192.134.164.104
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inria.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mMCare4E"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787831954; x=1819367954;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=gl7Ypggdt6+OInYK5seGvYHZ3ns4wQAaeLb/KQCSOfw=;
-  b=mMCare4E9c8zGSJW0bzv6f3tESo0YDlEOgs+PpKt9Vg7PXK6xLIgePMg
-   CB3UQNFnPM+J1FrhqFxEA6ekTSlsd+D657J+2YsxbPdDDWZ0w2jVK9Ksd
-   wM+2R+2cLC7gmVwPUiJKvFdE4M/htAQTf904ix/rLBBDoWrU3m1ZSJagI
-   uqMPIZYAhK7mH1qEAWvE+KLZ/hhud43EpwaEGaY7eqHvgktpUIEVKyH8C
-   EUxyACMOEF6bEMH+rs35LEKz2PFEuEcwCz477vRDLS7jt8xqmerwlifSm
-   VrqjM0AVDWh0y01jE3BttcPFKfl/x8CWT8PE0o3hph48RSgph95j4CcWA
-   A==;
-X-CSE-ConnectionGUID: ufvTOtf9RCmNxgJxhrDbVw==
-X-CSE-MsgGUID: KO58nqLlRYOR19eg5CeztQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="105704515"
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="105704515"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 04:59:14 -0700
-X-CSE-ConnectionGUID: T5mZF9iCT9KzrcrE8fY1yQ==
-X-CSE-MsgGUID: eAYSQsFJQgm/QV5Io8v0Lw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="271652792"
-Received: from amilburn-desk.amilburn-desk (HELO kekkonen.fi.intel.com) ([10.245.244.174])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 04:59:10 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id F28C7120DF1;
-	Thu, 27 Aug 2026 14:59:06 +0300 (EEST)
-Date: Thu, 27 Aug 2026 14:59:06 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Maurizio Casciano <mauriziocasciano7@gmail.com>,
-	linux-media@vger.kernel.org,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Bingbu Cao <bingbu.cao@amd.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Nicholas Roth <nicholas@rothemail.net>,
-	Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jose Maria Martin <jmmartinf@hotmail.com>,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/8] media: ov8858: support 19.2 MHz clock and CHT gain
- setup
-Message-ID: <apAmisduSqFoTrpG@kekkonen.localdomain>
-References: <20260826132256.3343451-1-mauriziocasciano7@gmail.com>
- <20260826132256.3343451-2-mauriziocasciano7@gmail.com>
- <apAGGD27ZUFHQ6Aa@ashevche-desk.local>
+	dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr header.b="Om//ueuu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=inria.fr; s=dc;
+  h=date:from:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=ZezuO2NgwuOKZZT46NB5n0n9jBETCPGkKkIHPY19i1k=;
+  b=Om//ueuuGBuKyoMKhklNTNn/a4xt28I9NO5LMt+0G+l5vGgADzcXAgU4
+   MB4LUqP6OSB2fobbg5u/4GFjEc65kv28KNklYFjbZ3pm4vrk9B7Z9IGXK
+   5B7J0KEo0Gje/tIwYUs65DlS9UpTmmWZxQniNPiZEqh6ythTVUbXp1Lzx
+   M=;
+X-CSE-ConnectionGUID: kUUrCOlrQG+IFxsgUdOTDw==
+X-CSE-MsgGUID: kt5pwAjhTl6ACnTAinlsVg==
+Authentication-Results: mail3-relais-sop.national.inria.fr; dkim=none (message not signed) header.i=none; spf=SoftFail smtp.mailfrom=julia.lawall@inria.fr; dmarc=fail (p=none dis=none) d=inria.fr
+X-IronPort-AV: E=Sophos;i="6.25,246,1779141600"; 
+   d="scan'208";a="155185037"
+Received: from dt-lawall.paris.inria.fr ([128.93.67.65])
+  by mail3-relais-sop.national.inria.fr with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 14:00:01 +0200
+Date: Thu, 27 Aug 2026 14:00:00 +0200 (CEST)
+From: Julia Lawall <julia.lawall@inria.fr>
+To: Markus Elfring <Markus.Elfring@web.de>
+cc: Ricardo Ribalda <ribalda@chromium.org>, cocci@inria.fr, 
+    linux-input@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
+    linux-doc@vger.kernel.org, Bastien Nocera <hadess@hadess.net>, 
+    Benjamin Tissoires <bentiss@kernel.org>, 
+    Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+    =?ISO-8859-15?Q?Filipe_La=EDns?= <lains@riseup.net>, 
+    Jiri Kosina <jikos@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+    Nicolas Palix <nicolas.palix@imag.fr>, 
+    Shuah Khan <skhan@linuxfoundation.org>
+Subject: Re: [cocci] [PATCH] HID: fix semantic patch and improve its
+ performance
+In-Reply-To: <eaca9bae-fba2-4824-9219-faad0b9f766e@web.de>
+Message-ID: <ec917c17-dcee-bbed-b59f-49e3cde23cc@inria.fr>
+References: <20260827112949.2431233-1-Julia.Lawall@inria.fr> <eaca9bae-fba2-4824-9219-faad0b9f766e@web.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apAGGD27ZUFHQ6Aa@ashevche-desk.local>
+Content-Type: multipart/mixed; boundary="8323329-444202327-1787832000=:3521"
 
-On Thu, Aug 27, 2026 at 12:40:40PM +0300, Andy Shevchenko wrote:
-> > static int ov8858_init_ctrls(struct ov8858 *ov8858)
-> 
-> >  	struct v4l2_ctrl_handler *handler = &ov8858->ctrl_handler;
-> >  	const struct ov8858_mode *mode = &ov8858_modes[0];
-> >  	struct v4l2_fwnode_device_properties props;
-> > +	u32 digital_gain_default = OV8858_LONG_DIGIGAIN_DEFAULT;
-> > +	u32 digital_gain_max = OV8858_LONG_DIGIGAIN_MAX;
-> > +	u32 digital_gain_min = OV8858_LONG_DIGIGAIN_MIN;
-> >  	s64 exposure_max, vblank_def;
-> >  	unsigned int pixel_rate;
-> >  	struct v4l2_ctrl *ctrl;
-> 
-> >  			  OV8858_LONG_GAIN_MIN, OV8858_LONG_GAIN_MAX,
-> >  			  OV8858_LONG_GAIN_STEP, OV8858_LONG_GAIN_DEFAULT);
-> >  
-> > +	if (ov8858->xvclk_rate == OV8858_XVCLK_FREQ_19_2MHZ) {
-> > +		digital_gain_min = OV8858_MWB_GAIN_MIN;
-> > +		digital_gain_max = OV8858_MWB_GAIN_MAX;
-> > +		digital_gain_default = OV8858_MWB_GAIN_DEFAULT;
-> > +	}
-> 
-> Instead, use 'else' branch so all assignments are close to each other.
-> Also possible to avoid adding local variables.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Or better yet, put them into an array and pick and index based on the
-frequency of the clock.
+--8323329-444202327-1787832000=:3521
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
--- 
-Sakari Ailus
+
+
+On Thu, 27 Aug 2026, Markus Elfring wrote:
+
+> > Replace "expression" with "identifier" in the declaration of hdev.
+> > This is necessary because hdev is used as the name of a function
+> > parameter.
+> …
+> > +++ b/scripts/coccinelle/hid/ff_race.cocci
+> …
+> > -@r@
+> > +@r exists@
+> >  identifier probe_fn;
+> > -expression hdev, flags;
+> > +identifier hdev;
+>
+> May the following SmPL code variant be applied?
+>
+>  identifier hdev, probe_fn;
+
+Yes, but it doesn't matter.
+
+>
+>
+> > +expression flags;
+> >  position p1, p2;
+> >  @@
+> >
+> >  probe_fn(struct hid_device *hdev, ...) {
+> > -  <...
+> > +  ... when any
+> >    hid_hw_start@p1(hdev, flags)
+> >    ...
+> > -  \(input_ff_create\|input_ff_create_memless\)@p2(...)
+> > -  ...>
+> > +  \(input_ff_create@p2\|input_ff_create_memless@p2\)(...)
+>
+> How do you think about to use the following SmPL code variation?
+>
+> (input_ff_create@p2
+> |input_ff_create_memless@p2
+> )(...)
+
+I find this completely unreadable.
+
+julia
+
+>
+>
+> > +  ... when any
+> >  }
+> >
+> >  @script:python depends on report@
+>
+> Regards,
+> Markus
+>
+--8323329-444202327-1787832000=:3521--
