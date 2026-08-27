@@ -1,161 +1,168 @@
-Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020096.outbound.protection.outlook.com [52.101.196.96])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDDCB57C9F
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:37:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.196.96
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787863074; cv=fail; b=kTtj77yGSqOMcq2X8iQy1qpXkvpBxyAfeotzPU/oeZlyiKSYoRuqwlVP2rV9dIWhYqrCMA8j0L47R2lZr6gFYn3/Z2ytcYbkwqSj3D+oDmpDDdQ5FYK+5dTtjAFTzDd+AyMNRm2hA4h3QafU9ugieaclig8lIyUFtrD2JXBKe2A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787863074; c=relaxed/simple;
-	bh=O86DfLqnxUvb8dCYp7CdHbzPqMWFAwzYV4yHr483aKA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=T3kyCddiAtP/ywc5V1CGBtuWJVklqlkH2m3MAEaJOfxzmKcEQ0OhMNPQnygrWECzR6oR1PnoJyhvYusteukk5QRKPd1DNPY3qJUutbyEotDvFWFhdnEM1/0Yej6AIDgoujAuzAKCqfiKpQ0LokGPF2BVArHlWBvtdnjdt94P2/8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.196.96
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BKEbhfXAMhpUR0V5V49joM0PioSYYI9aMeNhB63ZuxdiZOle4AC9qwGYuTCLo9fUDhXC6G1HK0CtMC9wkxUF/+cLb13POqib2LzourabXpGzCv5F/y2nXq5/Usci2g5Eod/b2kE78uXOGz5YqhXONHnxkx2gc/Ladk5h5HlxvhqO3KMi6VJ2TB4dp/S+5nq5ObqFkVnm4c3iNlpBmegaSy1uI2qTEBrzOf1bw17f6mRJt88Nd6rxxK1eCBGr/BuPurMxtgb4m7mE3hF9QOUiJ6Lta6o8sCP0blKh5h6yvfSI0wbu6/QYtYjZQE6tH50kwf8doCcvy6dWakHVr5Ekng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=L6dLuwVPwpNP3bVVvrjGEk87oCaeCsYN38RaJLrzp98=;
- b=pnkRDkQIUmpNsdg25hahN52Sc+UsKnFKwCGWVdRIBilNKHl6BRBCcEXnS91nOU0TtETy0B4uHNq7iyY7qjMmSsqKIk5DvgpLJ80IXF7HaEk6y3epBmOoFGcQNiJwTn7jlthBM4YtuE12DghrmKgUfzUD0+31jBQ9b8fab/kMaU2hzfnazJ3lO46XZehPG3vTgBwoVEHXaJHH8+XCuns3skphqq7SwHHwbxzh4mWSW9Sq4eZDxrzsPQeUm6UVDZfgpQvlNnGgslRolC60uBNvYxNpS/oZhhQ2i7jUxz0WI4/vyja4YzCjVr1a5Dkq72UPh40y67awGEEMd5cJt/pZUA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
- dkim=pass header.d=atomlin.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=atomlin.com;
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
- by LO0P123MB7718.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:42a::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.11; Thu, 27 Aug
- 2026 20:37:41 +0000
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
- 20:37:41 +0000
-Date: Thu, 27 Aug 2026 16:37:39 -0400
-From: Aaron Tomlin <atomlin@atomlin.com>
-To: mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com, 
-	vincent.guittot@linaro.org
-Cc: paulmck@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org, 
-	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, 
-	zhanxusheng1024@gmail.com, neelx@suse.com, chjohnst@mail.com, mproche@mail.com, 
-	sean@ashe.io, steve@abita.co, rishil1999@outlook.com, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v8 1/6] sched: Annotate rq->rd with __rcu and update
- lockless readers
-Message-ID: <zekeanf2poef2qh2dkinxxwhme5utfibmz6bmvqrz2dzd3o6ub@gfokk2j2xroc>
-References: <20260827194014.977758-1-atomlin@atomlin.com>
- <20260827194014.977758-2-atomlin@atomlin.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260827194014.977758-2-atomlin@atomlin.com>
-X-ClientProxiedBy: LO4P265CA0042.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2ac::7) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:400:183::5)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 662D82DCC13
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:37:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787863081; cv=none; b=P4HMoOekkQBvRqb3nO3RwS3QivCV4XSAxAf/BpO7ZBxeVT0gBekgJHsOlZBHJGE1/rzBBqse/DhA57FvGeVSKtkg1I7lhVK4/eqDfWK9Dx/g5AIn1YVblNf0Tkrz/tcSDeZ6r314OvF0pqLsDRFmnH9wLHS7wRZ7duhdE/tD6o0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787863081; c=relaxed/simple;
+	bh=qAn6HeAQO4Oygk+dnkielaw+I1j97nWbA+S1CcWQLik=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rE0m6/QCsmZLDcSRgqMkhRyu9rpqd9Xo6zHRra1Vxm6s7ZtbicFWQzmtBmn+q/qW9P7/RQ2V3mPCYAPaoaKenRvkq1PKLavo39+NtnqJRA9Z3xQ4UdFswZRkC/KaQcFbP4BLvZNu4+BABiRFgq/IhjUxq+wM9LDHvaxau2YwQqA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VxrjdFBl; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VxrjdFBl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6150E1F00A3E
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:37:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787863076;
+	bh=uU0ynFxcIFKopGhYpZ9DKYM749aSjOjKh65yHWXZG8U=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=VxrjdFBlHY60fYBZ63hcmuGF3bKzqKNln0RG6uM/+VEq5+eoGduaFemqWFfcKmQ1c
+	 RiNlWzlvJvb6m71Vt7vWxe3jOF7HnZBex9IN65tQjVJFHiJAg3YYojPH8Nk40Re2wU
+	 RdfAJz9m9K1fRH8HyCUc56K9vU1V4Gwa1b5gYMfHSP8JrW10zGgrZZ467IO+pPCNfi
+	 3eIIyJu1PWxJvev4wAtxiJ4L44LJZtN9APWDj5hZwdaCaZL4dFGCIDGY1ufxMq4VYo
+	 M7MGCKogwPZ/kae09ZalR7n3029/cQkBbEVNgWqKvrxkF79V7Em8MtX7Y16h1W+9K/
+	 k32J1peru8vyQ==
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c2544ff970dso14781066b.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:37:56 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqzfaJCBmcM0qI9X/DsKypc+tToAeWT3pwexKamWU8S63BMOBe95yRLlUwkr6hvygywAF7macS+fBUZBWo=@vger.kernel.org
+X-Gm-Message-State: AFuF++kK0ZC+oEI+TCqtxP7ZX07GcgoqD3tTvqX4LKsiwrPC2fX+LgcQ
+	jxy+68akwwNdQyQKwhAIaZrud+GB1ymON+wU2ejYSuJinruPe/YdRbihM5KCGW5Ny1UfNe1XgZg
+	wCzHZBhEvWyj1ZPLSoaCGKpE/+bJo010=
+X-Received: by 2002:a17:906:ef0d:b0:c20:3679:a2e6 with SMTP id
+ a640c23a62f3a-c2556d82939mr91521066b.10.1787863075337; Thu, 27 Aug 2026
+ 13:37:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LO0P123MB7718:EE_
-X-MS-Office365-Filtering-Correlation-Id: 89f44237-edd7-4c06-6be0-08df047b0a1d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|7416014|22082099003|18002099003|56012099006|4143699003|3023799007|6133799003|5023799004|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	QKTQWIqpLvIGvzMFS8oI0DC+ZWvXRECbjcwBI/erCfdY0qgmNTcDJl4EbJlPUw08yJUhuCdOOoGzNcDn1JzPA7p9IOkL21UudbGiRUXqOoBJhwPl7jn2pIvarAVL0a95cPQKIjdvapEZMvW4oOsJGQ8Uii6E2LyJUe1fQbByDkOXnWkruxw4fxGhlK9iUU58PqFeLtEcmDXgKZ42gzd4G9Fm6LL6+BYCH53eHeaei1ii/S3PFupUilOZ435c0zHbefofyvfW70qiC5r47ysJo4XfwCE/+yWD4d73lFVApugr5edl5MSYleQGCrwnT3NdHRLYry6Jz6/HNdMttfKnu8pTu2tAGg6aP5ZXM8Ls5Swz6kCYgh19F10ZXN9P2FX6msqpbtmHRsi4XOHAFvAeXuABHEUzq/Mq5wLyVVoOB27mAqiXH1Uk1cY1c6kjyuM4rndUVF4ElXZeGs9n2fED9zy5RuXLnFt+k80ejsoBts+tPY0HFzAKCwoYKlP0u1sEed79V2tkW2udOY9D86b+f3Q+0f6EdLKmN6v/iSjGjpjja8mYxhvEaIGdzBQAmSv9LF6dFlRhGP5jiCcZGDzrS3i0kCzJoowJujdJ9cYQde0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(22082099003)(18002099003)(56012099006)(4143699003)(3023799007)(6133799003)(5023799004)(10067099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RUNLekY4Y3pZb0tVOE9mMFBORkNyOStnbzExSjRDOU9CVnRrTVZ0L2JlaGZF?=
- =?utf-8?B?d3ZSd20wQnNTbm5jZ1ZyU0pmVUhzZWxvcSsyRjJtcUM1bWdHMEx2QmJBcHQw?=
- =?utf-8?B?SXZtVnZ1U20yZjVFdlZWMVNCUk5pNkl4djJFV3h3R2pYWHRJUEtHRE1vOXNE?=
- =?utf-8?B?TUx1NktQNTRaazNNcEhMTG5vWlJoamFuLy9hYXdUOUlXY0ZGTzhyZ1VvOFRk?=
- =?utf-8?B?d1pSS2h2dXJpNVp4RHhVd1ZmcG9BSUdEdlYxOFYxRUhBSm1YMmpPVlNvNGpr?=
- =?utf-8?B?THF5SVhhaDUrYi9meUt5S3RFT3dXS0hHc05HRk5qdWlqcmpiY1phZXhiS3Zu?=
- =?utf-8?B?T0lGWkJzTEFVL1liZ3ZybWNWMjIzd1A3TGZDVTkvYnZlazc3eklUb0dpelVT?=
- =?utf-8?B?cDZmck15ZTVZT214eDVKbGNBM3lUaXJ1NUtRT29QaVRIVzltckZqRUtNYjE5?=
- =?utf-8?B?Wm5vR3RWTXNYWnE4QUY3SXdkWmZiSDFEMHhjWTlQT0IxcWZlbHFpK1Z3akJX?=
- =?utf-8?B?NG1FSStlUDljTUxYbXhtWC81NzhNYU9Ra01QWWdhQUw3S0kxVEE0cHJUVXFL?=
- =?utf-8?B?eERWNC9rRE1lTitFem1EbmxWSnlOWmtqZ1ZhdE9CQ2F5am43N2ZPWUFZVzc4?=
- =?utf-8?B?SG12b2MxVDlCMHRuRStpWkYwR1BxSTBKdjRQSDhVMWYvK0VZZWVjbUtKTUJG?=
- =?utf-8?B?QjFCaDJxWWZHbHRDVTJLL05uazFJU2ZRa3g1eEhEYXBpT0pPQjZ1N1huV0ky?=
- =?utf-8?B?NjZvMmtVV2JEZHdjanVhc0JuU3pTdFRHQnBRa2xwMzk5bHN5ZmR1a3RNLzhD?=
- =?utf-8?B?WElBMktzMFYxS3FnRU0rVndOVTZ3MXlJUHY1ZktXVExjM0ZjZGRLZEVURzB4?=
- =?utf-8?B?V21Sc0d4dWlZd2NSRnlEVHBDbGpZU0Zpdy9QU09DeWtISmpaSkFXMTZaUXow?=
- =?utf-8?B?RmFJcUtwWXl4Z0pMVkNzQXE1RWJrM3dIaElIZXhsVWxEcjU5NzB5ekFjTTBo?=
- =?utf-8?B?YXRvclpETVI3UEVHRmFvdUFmUDY0Tk5lbzZyUHdadjAxMWZGUDQvc2lBTnBE?=
- =?utf-8?B?SW9Pb3UzOVR5Zi8zRGhRR28yc0xxRnl6em9WNEVTVm54bTlHUVZmd1BLSFhF?=
- =?utf-8?B?RVNTdkNoWnlLQUZkOUNEbE0xNXk5QXRnZVk0b0R5Vk5Dc2JhM2haTTc4UWJh?=
- =?utf-8?B?dWFTYm5rOXFmeENNeHVGc1RmNHpUa2NJaHZpMzQ1ODIvSndWRkozNmNtNWZK?=
- =?utf-8?B?VGJPQlFQK0NiWEFsMGlRdnZYRi9FRTZuRExINnZBcnlZR3dGcm00cHZWMk9h?=
- =?utf-8?B?Ym0vM0VNdjNNR010dmk2Z0JkMGljOGZadUliYWQ4RmJiRVN0Wk5ab1dpSytv?=
- =?utf-8?B?aUprcjFMTlNDdWZMM2ZxS0FPUTAvQS9qRnF1NnZ2MUZGOWJvc0ZSWWp5Ymoz?=
- =?utf-8?B?dFg5OUt1YkdBYUhCTzhxNmZlcXI4V2p6Tk52UG8zVVdiOHYxdTU5TGxJTy9M?=
- =?utf-8?B?b1g3OE9ObmRaTDZEYk1KeHNYM1UwRys3UjIxdWlvSHBxa3pNbG93bDBSU1hL?=
- =?utf-8?B?eTZIcXZEWkxPV0Q2N2grVUVMY3BJNnU4MExERUgrK1BTSjlQLzJkNWFkbG5Z?=
- =?utf-8?B?ZVlrVWRlb2FncGxuYnZybUJ3cHYvVllHR3dtNDZIRG81ZjlZaWNtVzJDQUhR?=
- =?utf-8?B?S0l3ZzAyNUQ2UkdGK1RidlZrckNtdEZZcHZmaGJBcnZqeVNSclFiV3g5bkJ0?=
- =?utf-8?B?d3ZJOXFUelR6MlF5QitxNC8xTFIzTHpRclhHWERyeUM0QmpPTldhQVZTa3FE?=
- =?utf-8?B?WXIxQWdDa1N6ci9uWk4wUTVWdnVDSTg0WkdPcG1UNkJvVkVTZmZSR0QxWnF1?=
- =?utf-8?B?bUhOU01tYmxzY3AxeXJjNS9XY3BVVzhnalhWRk5CVEtvZzNJclF5ZFcwVXd5?=
- =?utf-8?B?MUhEUlUzaWZrR0xRYmZTaGYxMjRTUXJ3NXgwZ2xTcjJyclY4azdzUHBOUnpT?=
- =?utf-8?B?NDJZYkhCVHFhK3NycHpqMjNLaldtSzhSQUJpWTRDb1I5aHNaV3pFeUNrdTNM?=
- =?utf-8?B?bEpzRHk4U3paVCsyN0NSN21tZFRTaVlLNDNrWUxSbURFQTNPK2RmbGFuUDJI?=
- =?utf-8?B?ZWNaT3o5ellwdG1XNW9DdVVJYlFmNzBlT2dCOVhHK1FwSkhNYTd2U3BHU3Bp?=
- =?utf-8?B?THJ0OURwVGZiZlNweWhUU1NFWTRDU1hmdE56ZXY0Z2E4ODZ1bkg0ZTgzeEpJ?=
- =?utf-8?B?VTh3M0hpV25QeFEzUndYVWxoTmZpQXB1Y2IzdWVoekhlL01LamN4ZFpKakxk?=
- =?utf-8?Q?I8Kjinksppf9468+u0?=
-X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 89f44237-edd7-4c06-6be0-08df047b0a1d
-X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 20:37:40.9264
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DHtdiJUBzdfQdvjqtjijjVvC2n0bk9CcEKN2TQy+PKH6VflZdVEyeamHgrtYjeYB9GNxK2sVuVEhR9/WRXL0cA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P123MB7718
+References: <20260826233919.998904-1-seanjc@google.com> <20260826233919.998904-14-seanjc@google.com>
+ <CAO9r8zOOq05nWk6c1sCnPAimFTuZLxc3BDrZLro-fXPR6ZMmTw@mail.gmail.com> <apCd5RSDYH13g0qR@google.com>
+In-Reply-To: <apCd5RSDYH13g0qR@google.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Thu, 27 Aug 2026 13:37:43 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zPF7yPWopSQD=YSLuAxDU5YAacEWwEMbt3s_s9a=niCoQ@mail.gmail.com>
+X-Gm-Features: AcwNN1WuIUJWExKIoWQAGcMNXDikuEI908HWNia6xQh5jw2WY37kSbr_ADCb82A
+Message-ID: <CAO9r8zPF7yPWopSQD=YSLuAxDU5YAacEWwEMbt3s_s9a=niCoQ@mail.gmail.com>
+Subject: Re: [PATCH v3 13/13] KVM: selftests: Add and use double-underscore
+ versions of vmlaunch() and vmresume()
+To: Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	f734222792@gmail.com, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Sashiko Bot <sashiko-bot@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Aug 27, 2026 at 03:40:09PM -0400, Aaron Tomlin wrote:
-> @@ -3355,10 +3363,7 @@ static void set_cpus_allowed_dl(struct task_struct *p,
->  bool dl_task_needs_bw_move(struct task_struct *p,
->  			   const struct cpumask *new_mask)
->  {
-> -	if (!dl_task(p))
-> -		return false;
-> -
-> -	return !cpumask_intersects(task_rq(p)->rd->span, new_mask);
-> +	return !cpumask_intersects(rcu_dereference_root_domain(task_rq(p)->rd)->span, new_mask);
->  }
+On Thu, Aug 27, 2026 at 1:28=E2=80=AFPM Sean Christopherson <seanjc@google.=
+com> wrote:
+>
+> On Wed, Aug 26, 2026, Yosry Ahmed wrote:
+> > On Wed, Aug 26, 2026 at 4:39=E2=80=AFPM Sean Christopherson <seanjc@goo=
+gle.com> wrote:
+> > > diff --git a/tools/testing/selftests/kvm/x86/aperfmperf_test.c b/tool=
+s/testing/selftests/kvm/x86/aperfmperf_test.c
+> > > index 11f5894d8ac7..a082658c1e48 100644
+> > > --- a/tools/testing/selftests/kvm/x86/aperfmperf_test.c
+> > > +++ b/tools/testing/selftests/kvm/x86/aperfmperf_test.c
+> > > @@ -83,7 +83,7 @@ static void l1_vmx_code(struct vmx_pages *vmx)
+> > >                 vmreadz(CPU_BASED_VM_EXEC_CONTROL) | CPU_BASED_USE_MS=
+R_BITMAPS);
+> > >
+> > >         GUEST_ASSERT(!vmwrite(GUEST_RIP, (u64)l2_guest_code));
+> >
+> > Do we wanna give the same treatment to vmwrite()?
+>
+> Yes, and vmreadz().  Assuming '0' is simultaneously a reasonable failure =
+and "safe"
+> value is so stupid, especially since AFAICT literally none of the users a=
+ctually
+> need to gracefully tolerate failure.
+>
+> LOL, and it can't possibly work, because vmread() clobbers the zeroed val=
+ue on
+> VM-Fail.  Hilarious.
+>
+> I didn't include those changes purely because I had "#$*@ this code" fati=
+gue. :-)
+> But since this is going to conflict the world over, yeah, it makes sense =
+to just
+> fix everything.
+>
+> > > -       GUEST_ASSERT(!vmlaunch());
+> > > +       vmlaunch();
+> > >  }
+> > >
+> > >  static void guest_code(void *nested_test_data)
+> > [..]
+> > > diff --git a/tools/testing/selftests/kvm/x86/nested_emulation_test.c =
+b/tools/testing/selftests/kvm/x86/nested_emulation_test.c
+> > > index 2b38eff4f516..11fe4a31eda0 100644
+> > > --- a/tools/testing/selftests/kvm/x86/nested_emulation_test.c
+> > > +++ b/tools/testing/selftests/kvm/x86/nested_emulation_test.c
+> > > @@ -102,7 +102,7 @@ static void guest_code(void *test_data)
+> > >                         exit_insn_len =3D vmcb->control.next_rip - vm=
+cb->save.rip;
+> > >                         GUEST_ASSERT_EQ(vmcb->save.rip, (u64)l2_instr=
+uction);
+> > >                 } else {
+> > > -                       GUEST_ASSERT_EQ(i ? vmresume() : vmlaunch(), =
+0);
+> > > +                       i ? vmresume() : vmlaunch();
+> >
+> > Ewww
+> >
+> > >                         exit_reason =3D vmreadz(VM_EXIT_REASON);
+> > >                         exit_insn_len =3D vmreadz(VM_EXIT_INSTRUCTION=
+_LEN);
+> > >                         GUEST_ASSERT_EQ(vmreadz(GUEST_RIP), (u64)l2_i=
+nstruction);
+> > > diff --git a/tools/testing/selftests/kvm/x86/nested_exceptions_test.c=
+ b/tools/testing/selftests/kvm/x86/nested_exceptions_test.c
+> > > index 50c271a03692..c36c11b5f518 100644
+> > > --- a/tools/testing/selftests/kvm/x86/nested_exceptions_test.c
+> > > +++ b/tools/testing/selftests/kvm/x86/nested_exceptions_test.c
+> > > @@ -112,7 +112,7 @@ static void vmx_run_l2(void *l2_code, int vector,=
+ u32 error_code)
+> > >  {
+> > >         GUEST_ASSERT(!vmwrite(GUEST_RIP, (u64)l2_code));
+> > >
+> > > -       GUEST_ASSERT_EQ(vector =3D=3D SS_VECTOR ? vmlaunch() : vmresu=
+me(), 0);
+> > > +       vector =3D=3D SS_VECTOR ? vmlaunch() : vmresume();
+> >
+> > Ewwwww
+> >
+> > Can we make these if/else statements? It was already ugly, but it
+> > looks even more ugly outside of GUEST_ASSERT_EQ().
+>
+> Yeah.  Another idea would be:
+>
+>   void vmenter(bool do_vmlaunch)
+>   {
+>         if (do_vmlaunch)
+>                 vmlaunch();
+>         else
+>                 vmresume();
+>   }
+>
+> To yield:
+>
+>         vmenter(vector =3D=3D SS_VECTOR);
+>         vmenter(!i);
+>
+> Never mind, that's a terrible idea, the call sites are inscrutable.
 
-Hi Peter, Vincent,
+Yeah, but I do agree that vmlaunch() vs vmresume() handling in
+selftests is annoying (e.g. see run_l2() in [1]).
 
-Please ignore; I will address this in the next iteration.
+If you wanna go scorched earth on the nested VMX infra, what if we
+track launch vs resume (e.g. set launch=3Dtrue in prepare_vmcs() and
+lauch=3Dfalse in vmlaunch()), then provide a single vmenter() API for
+tests (with no arguments)?
 
-Sashiko [1] correctly reported that dl_task_needs_bw_move(), is invoked
-while holding cpuset_mutex in process context, with neither
-sched_domains_mutex held nor an active RCU read-side critical section.
-
-I subsequently confirmed this using virtme-ng:
-
-    [  170.335047] WARNING: suspicious RCU usage
-    [  170.335052] 7.2.0-rc7-virtme-00041-g6509e33120f4 #23 Not tainted
-    [  170.335054] -----------------------------
-    [  170.335056] kernel/sched/deadline.c:3366 suspicious rcu_dereference_check() usage!
-
-[1]: https://sashiko.dev/#/patchset/20260827194014.977758-1-atomlin%40atomlin.com
-
-Additionally, direct dereferences of the __rcu pointer still require
-suitable conversion.
-
-Kind regards,
--- 
-Aaron Tomlin
+[1]https://lore.kernel.org/kvm/20260728003557.1136583-29-yosry@kernel.org/
