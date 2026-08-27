@@ -1,136 +1,126 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF25731B130;
-	Thu, 27 Aug 2026 12:29:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2704B4503B
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:30:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787833764; cv=none; b=hPoYd+V7kaRd+XZt7j9cAZbBJaaJb5HxEUewsgXpDxpr+zfLB205WYN2tJpmW4iZ6+M8f1MdnD58/gjonG+yhDTlpQq82hC762/x33qcKwyn/UORTW4lQTaMGcg6JnuHlX0sTzLK+FhsL+ZyMgx8HUs7aP9uYFy2BIkU/wJK4tc=
+	t=1787833806; cv=none; b=i6DVgTni9P31aR16voMdbqaLAZsx1kqMeCO29Jj//xGTLRMukjYvlBE/5Ako/Ii8seKYxiIfnK+FALx+YA6nHccztUAweMW6Hp6JFKiKcPhaqkra+py3txQ5fdX2HnyJ80S6KGV8K9TuAOh1GFVR7/Mntlbb/YYxClcmtXZdboE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787833764; c=relaxed/simple;
-	bh=zfMn9iXKfI3ENhFuiYb63ayz/K4vBbvMISeAgximqwE=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=L0NG0iKoqtk+9Vlv+dTI6MkYAQ2hOHPSHWcLQ+bOvaZLyPSDHuPzFFJASjRvZ3wEb3pyOKY6njLJq2bVAOzp4jE5oxcR9clPnMj5Z+oNgi5ufyqcVoUyxvBIFf4IB4yZelYRi3W0esj0QAaTRSBBu7mb7VvlWhO4mPg81hJabug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=RF0NsA8e; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=SXDpLn8P; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1787833806; c=relaxed/simple;
+	bh=B3zdOqVmIxLHUNHyacumPu1KWZMrgXOPAscx40uJgy4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ew4dlFfDeVBu14M7gJP7odwJyL1IJ7RWMtGI83lLYvdJWnx5cQ4GxXMQc5yAKnZKWugkkj3SIsWgpYkqskVWMcO2cBU1zOxIpUYhufemsW3t4DUUONqSRVqo/Aw1hj03RwcC6hIOYEos5szk6AAbnVTwIF9uEjdg5nFRsO2Rbc8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JYnvcx4l; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="RF0NsA8e";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="SXDpLn8P"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1787833760; bh=vYWS7FJFrWNFzqcVBE7+ytV
-	qgWZhai1nR8bp/OZEK8s=; b=RF0NsA8e3uKaB/7GpPXMKI9nUCf/RvEc8i2u67Gk9eVhgyQijv
-	SJV0+MQVK1TSFzJALxHjQ/3GvhqmHjIAVmWOMetUMwmtp5PXLrtGsCJK0uUxTAtG3TbtwR1fUF/
-	/swt36hdmFYZ4tWIncWJweoxEegp/Amu+a0FDZyOyPydCQkV0ALht/4XA6EvV6V7tHUog19mmra
-	sZ2pQl0Lq+0rGexFLCTB9luVO1J6k/UlKLVCI7oNEVIzy02KUfMLJHS8NeJTB0RL/9AG5ZVFCQV
-	pw4ijoq05yJrei+ouMjYrHZuN6nV4fTcwq5RHH7B1cC4Aki0wzTqChDai3rZWKbGrXQ==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1787833760; bh=vYWS7FJFrWNFzqcVBE7+ytV
-	qgWZhai1nR8bp/OZEK8s=; b=SXDpLn8PeIvV8rFJ6tCFYqXpawCmG9jkJQa0mV7a/ktduLQcU8
-	P8Brdr2qZif/++tZNTJSHBjSBN6LpkC6ZsBg==;
-Date: Thu, 27 Aug 2026 13:29:20 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: =?ISO-8859-1?Q?J=E9r=E9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>,
- Steven Rostedt <rostedt@goodmis.org>
-CC: mhiramat@kernel.org, mathieu.desnoyers@efficios.com,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2=5D_tracing/user=5Fevents=3A_Clear_c?=
- =?US-ASCII?Q?opied_tracing_state_before_fork_duplication?=
-In-Reply-To: <3beb0339407a35c0b995856eae74d870@oss.cyber.gouv.fr>
-References: <20260826214414.1971632-2-Jeremy.Jean@oss.cyber.gouv.fr> <20260827080839.35e44d04@gandalf.local.home> <A4F580CE-2211-4D05-9D3D-15AB427C74A4@mainlining.org> <20260827081915.320fe2c3@gandalf.local.home> <3beb0339407a35c0b995856eae74d870@oss.cyber.gouv.fr>
-Message-ID: <CE51AB37-6584-4001-9375-24AA00C8B79D@mainlining.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JYnvcx4l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4321F1F000E9;
+	Thu, 27 Aug 2026 12:30:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787833804;
+	bh=B3zdOqVmIxLHUNHyacumPu1KWZMrgXOPAscx40uJgy4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JYnvcx4lpC5rt0tODkszIRfP1q1k1oz945jyMgiKjOGzq4R1nOGGt+1Lb/UlzwdKC
+	 vIVpEfluDNsxwWv7AyyTHfpSnt4D4oSjg8K2sADBRhiHh7wiBiLKhmUIxk9DGwitlj
+	 ExhlNc2+dTqKeH9LrxLAR+udFLMru7dj4+ZLWhnhkTjH5orRpHvVcI8vZYKtQYBvIS
+	 hfp60poiTMqWvnHxcs5thAtgVPx6gYexl4V51gOurYlmlmlPCIGBlDOyS13BsjThE3
+	 l+K2h1nOY66feR6Y6baoS5M0wuKerXtuQ/h6xUPXewrfRqZVe0kB/acyZmpbCl2uu3
+	 mknGl3E5w57hA==
+Date: Thu, 27 Aug 2026 14:30:01 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Viktor =?utf-8?B?SsOkZ2Vyc2vDvHBwZXI=?= <viktor_jaegerskuepper@freenet.de>
+Cc: maarten.lankhorst@linux.intel.com, tzimmermann@suse.de, 
+	dri-devel@lists.freedesktop.org, airlied@gmail.com, broonie@kernel.org, daniels@collabora.com, 
+	jani.nikula@linux.intel.com, miguel.ojeda.sandonis@gmail.com, pekka.paalanen@collabora.com, 
+	simona@ffwll.ch, penguin-kernel@i-love.sakura.ne.jp, tytso@mit.edu, 
+	ville.syrjala@linux.intel.com, linux-kernel@vger.kernel.org, 
+	Leandro Ribeiro <leandro.ribeiro@collabora.com>, Daniel Stone <daniel@fooishbar.org>
+Subject: Re: [PATCH v2 1/1] drm: use drm_warn() in
+ validate_blend_mode_for_alpha_formats()
+Message-ID: <20260826-brave-nyala-of-elevation-d23aea@houat>
+References: <20260731154232.37020-1-leandro.ribeiro@collabora.com>
+ <20260731154232.37020-2-leandro.ribeiro@collabora.com>
+ <CAPj87rPvh6cz1JmRjfev5VJWZHhZqwyPn_nA3x43q6_qVDf=Tw@mail.gmail.com>
+ <29aca774-e502-4e5b-8ebf-7319bc8df77c@freenet.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-On 27 August 2026 13:27:44 BST, "Jérémy Jean"
-<jeremy.jean@oss.cyber.gouv.fr> wrote:
->On 2026-08-27 14:19, Steven Rostedt wrote:
->> On Thu, 27 Aug 2026 13:09:44 +0100
->> Bradley Morgan <brads@mainlining.org> wrote:
->> 
->>> >> @@ -865,9 +865,12 @@ void user_event_mm_remove(struct task_struct
->*t)
->>> >>
->>> >>  void user_event_mm_dup(struct task_struct *t, struct user_event_mm
->>> >*old_mm)
->>> >>  {
->>> >> -	struct user_event_mm *mm = user_event_mm_alloc(t);
->>> >> +	struct user_event_mm *mm;
->>> >
->>> >Why this change?
->>> >
->>> >>  	struct user_event_enabler *enabler;
->>> >>
->>> >> +	t->user_event_mm = NULL;
->>> >> +	mm = user_event_mm_alloc(t);
->>> >
->>> >I don't see why you moved the mm assignment down here. The
->>> >t->user_event_mm
->>> >is not used in user_event_mm_alloc().
->>> 
->>> Uff, not wrong, I must be dummy dumb dumb, well, I base my reviews off
->>> 
->>> Does this fix the bug? And is this a small fix?
->>> 
->> 
->> The bug is fixed because it needs to NULL out that value. I asked from
->v1
->> to move that change to this function. But this function only needs to
->add
->> that line before the return. It doesn't need to modify anything else in
->> that function.
->> 
->> That is, something like this:
->> 
->> diff --git a/kernel/trace/trace_events_user.c
->b/kernel/trace/trace_events_user.c
->> index 8c82ecb735f4..6b89d225b189 100644
->> --- a/kernel/trace/trace_events_user.c
->> +++ b/kernel/trace/trace_events_user.c
->> @@ -868,6 +868,9 @@ void user_event_mm_dup(struct task_struct *t, struct
->user_event_mm *old_mm)
->>  	struct user_event_mm *mm = user_event_mm_alloc(t);
->>  	struct user_event_enabler *enabler;
->> 
->> +	/* On failure, do not free parent's copy */
->> +	t->user_event_mm = NULL;
->> +
->>  	if (!mm)
->>  		return;
->> 
->> 
->> -- Steve
->
->Hello Steve,
->
->Thanks for this. I thought that my previous version was okay
->so that it was not required to read the details of
->user_event_mm_alloc() to get convinced whether user_event_mm is
->accessed or not, but it's true that in the end, this is not
->required. Your fix is simpler. Do you want me to send a v3
->with that simplification and the same changelog as in the v2?
->
->Regards,
->Jérémy
-I wouldn't mind, add my tag, I review differently from Steven, so Steven
-may not be happy at me :(
-
-I review on
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="ow3ueemvc4qjemei"
+Content-Disposition: inline
+In-Reply-To: <29aca774-e502-4e5b-8ebf-7319bc8df77c@freenet.de>
 
 
-1: does this do what it's intended
-2: does it fix X?
-3: Any comments, any new functions used instead, any way to get the line count shorter?
+--ow3ueemvc4qjemei
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 1/1] drm: use drm_warn() in
+ validate_blend_mode_for_alpha_formats()
+MIME-Version: 1.0
 
+On Thu, Aug 27, 2026 at 01:25:18PM +0200, Viktor J=E4gersk=FCpper wrote:
+> On 8/14/26 15:42, Daniel Stone wrote:
+> > Hi Leandro,
+> >=20
+> > On Fri, 31 Jul 2026 at 16:43, Leandro Ribeiro
+> > <leandro.ribeiro@collabora.com> wrote:
+> >> Commit 860e748bddcc ("drm: ensure blend mode supported if pixel format
+> >> with alpha exposed") introduced a WARN() to let driver developers know
+> >> that a previously valid behavior should now be changed.
+> >>
+> >> But WARN() should not be used for that, as it's a kernel warning report
+> >> mechanism for conditions that are not expected to happen. It also
+> >> produces a stack trace. Instead, a simple warning-level log message
+> >> should have been used, as drivers were expected to trigger the
+> >> condition.
+> >>
+> >> This is causing problems for fuzzers, as they may stop when encounteri=
+ng
+> >> a "BUG:" or "WARNING:" in the logs.
+> >>
+> >> Replace WARN() with drm_warn() in this function, avoiding these issues.
+> >>
+> >> Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format=
+ with alpha exposed")
+> >> Signed-off-by: Leandro Ribeiro <leandro.ribeiro@collabora.com>
+> >=20
+> > Thanks, this is:
+> > Reviewed-by: Daniel Stone <daniels@collabora.com>
+> >=20
+> > I'll fix up the newline when applying.
+>=20
+> Hi Maarten, Maxime and Thomas,
+>=20
+> can you cherry-pick this fix for drm-misc-fixes and send a pull-request
+> to Dave and Simona before the end of this week? I think this should land
+> in rc1 because people are already complaining about the warnings and it
+> will take some time to fix all affected drivers. I'm not even sure if
+> those fixes can land in mainline after rc1.
+>=20
+> If you don't have the time to do this or the other fixes in
+> drm-misc-fixes are not yet ready for mainline, I will ask Linus to pick
+> this fix directly.
 
-And others, I apologise if I'm wrong. I just review in a different style.
---- Thanks!
-https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+This has been sent last week:
+https://lore.kernel.org/dri-devel/20260820-fabulous-nimble-woodpecker-ffa69=
+5@houat/
+
+Maxime
+
+--ow3ueemvc4qjemei
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCapAtyAAKCRAnX84Zoj2+
+dtg4AX4ljZnSxKXFZVfAS4/mgs1gRfOlBlzU1a7n0S8hWV7p10ignjVCSnoMehCJ
+LeScKdoBgNJDbnBtt26jZQs2opiLr0n2DHe1zBV+Y+MzYoF5s0nLcaPP7DP5mpJ8
+OhAIOGWOSg==
+=Ro9b
+-----END PGP SIGNATURE-----
+
+--ow3ueemvc4qjemei--
