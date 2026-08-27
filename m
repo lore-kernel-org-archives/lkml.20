@@ -1,64 +1,62 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBA4845A2A5
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:16:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36A4B453A5D
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:16:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787836577; cv=none; b=hV0ioeIqt/oGEtK0PPq5rc6RJ3Imr6XqX477epQlwv3L4wMNUPgrk2RRBuxZF8iOOX+ObDqf434iEescTVsSifjJ8EJCKZQi9hX0b+eAf519bocf1+e1AFqLT69BGVqFNv/85dYCL7wzjS7/NWqL6E9Hp9crZMdCMkd5jTxWu/4=
+	t=1787836580; cv=none; b=T3KU1GuPRbjRWdjlAqZEbh700UcNWOJnL/D+MOZNX+K2qcMXWtCwOxUWpMghNgBDsR2VuUOYf4g+wXUsSoAgOlm8UVJKyThcv2b2aK3HybXhA401Yns1Y/QHYDJpQ5jYvT4jTmvLue55NTVHFBBmELDqTH+UUlOMSWQPAmMY7fY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787836577; c=relaxed/simple;
-	bh=9uQY2oAxzu/a3z8lJZrMRZ6tlUX6yn5rLUtGT6ZfB9Y=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XZC8fPU+5BLI9ykTkzY43dEEPWOGZm0NcgIuLtyoUuPe7hvNfZHHHo+A7uZNSp9aXH+DgiSRCYDIJs8g8UKwmmCAi0lJZbWVJOBzXRYceTyODamP0+cAT8WkCGnaG2TsVJfgeCwf8WwiNfSU8WT5WmCVy+ZSp0uUaGXwYBKXsQ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A/01fo9j; arc=none smtp.client-ip=209.85.221.48
+	s=arc-20240116; t=1787836580; c=relaxed/simple;
+	bh=d17alDKmCRuWwyfr1cSfkyALNGmVJjvcCEUPOg8gE3c=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=hlHEEZ5L+PjT9eO57cR7cag7UMUtQAXevYjdOuUCGPJE2sCtnLMrVHbjkDqaIfo7IOw8IFCtOysVP3Osuspl3PsrsvrQ5IUrS9RRlnLk0WPU1y0qwpHOOTV0izUIl6Ybiv6kJ8on/1dbwoZvX11Ox6r8sPIh3wbd6kT1NGABEwE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DqIl4EHW; arc=none smtp.client-ip=209.85.221.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A/01fo9j"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-482e1bfcc63so763604f8f.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DqIl4EHW"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-47de0093c42so1730729f8f.3
         for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:16:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787836562; x=1788441362; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Ozh67gvExXsrnwoDUAZ22g3egdKS3V6pXOMWX1pqEkU=;
-        b=A/01fo9jy/3KiYpjGqL5BX8JWBh6how8gDhsC5OEvwV52lOjx55xVl3uvp+L2KkLr7
-         c742XsQe+nGsUsOzK2jyTUY8jdovD/QZaOZIjnaOeAWYH3ldm2fY11Qs+Qkw/AuWbXAM
-         0nttYsfNRUBEjoC8p3HW+ruMLqcNFuqZ8oIqtu+rZJ0Tg9CCB2HF9GHh76Rd0SlAEUDn
-         K4cflZ1n8w5dtRuXkxIqMrbGsuaxsPOi79UipHxe3pYQJUSauxJIswckQG7qsgpUgVJI
-         L9eBSTHqgGu8NQ5cM9fftAHocXUubT5+AyUcny7pW1G4rA/khjuuIXjSCKIHiKyb+TKq
-         GbEw==
+        d=gmail.com; s=20251104; t=1787836559; x=1788441359; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Zau8axskQfgYwgId3j7+r2m2G5GC3NQebm9qgyCpq/Q=;
+        b=DqIl4EHWPWchPYr4T5dXTZ6jOmSNMnLeh2hqT6CLXQ0KmnyIZIDV+z6hOu7ipDbmOh
+         tmx8/iQaBAk7GoA5KQErxc5eYEzfkKauh91hhYOu4/sYOAifKpn50x6CLE4Pqa+EiNtH
+         CrE534vmjX2uQM7EYa2D0IYbrsuJbgQTwo1Cs7dFeQVDD2WeK/0if0mtap2dsNEi9BHg
+         MQVdQP5peoIP4JAgrWjRhmMl7u03Y8mg603b+6HQX9R2gHjf4x4tF5x2y9+Z/1caZ+LL
+         C1Sd6hbUB8EoEDhy+0CEr83R4dG9bZFYNfdPJCg/NOYBCOUEjtbSoZfkALo+kjfVtVYF
+         SmPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787836562; x=1788441362;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Ozh67gvExXsrnwoDUAZ22g3egdKS3V6pXOMWX1pqEkU=;
-        b=jm/v159Cz/I+Uq2vNPJ2irNdGCbiNxX6gDqhC7f6/IbweBnPcNIzaVeT1+mskBsfOg
-         shYbxgo+1jo2FONNbw9WgltI2lnl2h/1/qhzeUlKBzWix4KGZoiK318Qx/FcLQGJl7Tt
-         Nl4soowMbQ65hcNLw2THMoh0xlK3FdqEXew71lMkCz9etPfVeLzyzLf1OojYGHK4OfD0
-         +kGQSK39dzejAnUrbPG5mLEFhVfNRDpjAhH6SKaen96D4+tjlh9cWN8WwgwkxJHYbP6S
-         0Ynncg23BXBxH5fXEWhg7TBAdSMy1hO95zCntZZtVZvUoZFI6mp8HUQdWKEn/P3LCAQU
-         X3Eg==
-X-Forwarded-Encrypted: i=1; AHgh+RpSZMkCfcNVtCpVsy2xqXrFTDXIKYyCDhc6Deox2dAJImhkxhC+C5F9+l0rYvFtKPlFrVTa+ZM7FhYcPYw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kxBbPQMJAfQWe4XoPQ2VqMSV5Hv/88jRfddDQXxG1R+9c4tYtG
-	aU+61AIaPfNN4vP48uySDJV7JBkOK92Gexvwh1qab2Sck5ABSeeNWpeP
-X-Gm-Gg: AR+sD11ZosqE969mya5WXD1EM7q7ebpai+W9L0o2SKW4bYSl8pccIs7VRwo+iSxuHwb
-	s7MtJLOUw2saV2/1qYi+T7Um0MOlRAEvVXYD7y7WdQ2w0juD5u68aBOxcluMTlSQLADiUBjoHfs
-	GYKWvrtQTIQmrbHH3CZM3SAAaC6atLWpYeWso5X+Dr5IKtON1BWU0ePi6+j7WsAoP2L7qmg3HjU
-	72pn5N6uimNCs/t1QW7RZiguQUIIy75oLhwCyZU2krDoTlLGbvJl6+0vmugI8CHeFyemLZjVEzZ
-	lVBx5ExVvHrno1hOWnUmLpPrsiNK52Q4P6dwXYj8Mtq8w2kI3/v3rI3pOD1Htp98YgarECnGnhr
-	x72xMVLpE+4ndYH6tQJ6YxXSd/BMuLWLpGIWSC/bXHldxuwn/ttcfPqbwbwzRL4BiDcNMgJlr4f
-	2yayl7Phe/ldUTo9GteqoMEtIk+Y6hJmZIz0OJbnCeSRcGjdVMAmFcIHorJa2i809ZmL2uIFp0/
-	aj1OltOu7fsI0J+J32vId2oc74DQpNnL6z04Rh5bgIV6GhEc7Rh
-X-Received: by 2002:a05:6000:4305:b0:481:5dea:c014 with SMTP id ffacd0b85a97d-482eabb5cc6mr8398077f8f.14.1787836561549;
-        Thu, 27 Aug 2026 06:16:01 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787836559; x=1788441359;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Zau8axskQfgYwgId3j7+r2m2G5GC3NQebm9qgyCpq/Q=;
+        b=qltVtBH9sccwKXJo7mdWcACgBGXypl7B1RXQpyilFW53vLZXyNhpA1j5Kd0Jq62jd4
+         3gsHEBGn8Kqr3shpYPPIKN3CG7/pZLPkIbEas07KvknndJTkT4nrTXDFn0W6vcIWgd8q
+         0TRZ1lj8KA/AAhzIYdnyxHbx9KoWaraWjbHCdcjFIl9peHVlm73ijDk9562+ilCBsZzO
+         QSxDK/rZbu6y8PhiunRUHVSK1cgWfAcIHZ1KvvKfoeACSJqpLbdvdFswzFqC8UzLmAcB
+         K8ewe7F4X4uSiCXdUgKpwroAMEUBDai1OPnw6LYr5O9ENuKRTZfUBLXgZqNwbeNLozVj
+         6vEQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rp3VXJD/40fM0jf+GgfFwNSIT2EBNF4MWxBUU6imR4o7RJqPVL30lI52nYN1R4MGO0zR6Vw2p6XqKfe/V0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lEXy8GtPZl4O4Dry529C+GvixKWglx0nl32pmEgeT3P4ULQZHw
+	hj7Il3pfiEEVKxBBNEQxSBXDa96lU4+eJlbUsx/2p/S+fBARLf5rF39J
+X-Gm-Gg: AR+sD12kiT97K0lcQeXl6zpJvUXHM0eqactOsj816WwvB2tsMd5Crg+Bllsp+x4wVLq
+	Ila7nyo5sb8EDQLSlr0IZToVipRGGN9HERavlUpFuE0Co1fvKht4/E7Ar/3ELYyjyE6bVWux80C
+	su9UjjLYl8D009phPxsmZaY96p6dc7PtWhB/7YataFV4CDEznPa5zyyj4f+F70ebniC3y3WfcbM
+	lF3pMPudF35yPwQh2fzA6F1yUyHAChgYUUa/L1x+tTcr9rUcwttNqLSS2d3PbIxQDriWk55qCUU
+	d2k8aUk906DuxritOVUwtAa8VrOo1sLXw5PfhiACeBPQEndRydO3phn9kdcmGtib4JQYyI0pW8B
+	EYBLe8eMM0yevlSiN7BxCCR4DgPD2+I0nFlEmK0u4n7GiPE45vMbuir2xOPzWxgEEZlQai33iKf
+	68fHG4DyIXcs5FtVQxTQbXmMjvbxcTeiheOwuJS+mrttWyeUHPS96Jur0MTeK/lsNkdCe+LKpKs
+	zh48M2VaFFJf8Pb3L4gCQOZO0pm5hHU5eRMcJBoKZhMUMzLtYlaHA==
+X-Received: by 2002:a05:6000:4808:b0:482:f435:76b7 with SMTP id ffacd0b85a97d-482f435781cmr5464065f8f.2.1787836559059;
+        Thu, 27 Aug 2026 06:15:59 -0700 (PDT)
 Received: from Ansuel-XPS24.localdomain (host-79-26-252-140.retail.telecomitalia.it. [79.26.252.140])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-482e28dc3f5sm9367192f8f.21.2026.08.27.06.16.00
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-482e28dc3f5sm9367192f8f.21.2026.08.27.06.15.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 06:16:01 -0700 (PDT)
+        Thu, 27 Aug 2026 06:15:58 -0700 (PDT)
 From: Christian Marangi <ansuelsmth@gmail.com>
 To: Vinod Koul <vkoul@kernel.org>,
 	Neil Armstrong <neil.armstrong@linaro.org>,
@@ -69,12 +67,10 @@ To: Vinod Koul <vkoul@kernel.org>,
 	linux-phy@lists.infradead.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 2/3] dt-bindings: phy: airoha: Document support for AN7583 Gen2 PCIe PHY
-Date: Thu, 27 Aug 2026 15:15:46 +0200
-Message-ID: <20260827131551.26725-3-ansuelsmth@gmail.com>
+Subject: [PATCH v3 0/3] phy: Add support for Airoha AN7583 USB PHY
+Date: Thu, 27 Aug 2026 15:15:44 +0200
+Message-ID: <20260827131551.26725-1-ansuelsmth@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260827131551.26725-1-ansuelsmth@gmail.com>
-References: <20260827131551.26725-1-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,88 +79,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Document support for AN7583 Gen2 PCIe PHY used to make the Gen2 PCIe port
-work. Add the required register to configure the PCIe PHY and provide an
-example for it.
+This small series add support for Airoha USB PHY and Gen2 PCIe
+PHY.
 
-Similar to the USB 3.0 PHY, a dedicated phys property is required to
-configure the serdes for PCIe or Ethernet usage.
+Changes v3:
+- Fix broken patch for YAML patch
+- Split the YAML for USB and PCIe
+- Rework driver to direct node for PCIe PHY
 
-Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
----
- .../phy/airoha,an7583-pcie-gen2-phy.yaml      | 63 +++++++++++++++++++
- 1 file changed, 63 insertions(+)
+Changes v2:
+- Add Documentation
+- Out of RFC
+- Rework to Serdes PHY instead of SCU (following
+  for consistency AN7581 implementation)
+  Link: https://lore.kernel.org/all/20260811124724.702467-1-ansuelsmth@gmail.com/
+
+Christian Marangi (3):
+  dt-bindings: phy: airoha: Document support for AN7583 USB PHY
+  dt-bindings: phy: airoha: Document support for AN7583 Gen2 PCIe PHY
+  phy: airoha: Add support for Airoha AN7583 USB PHY
+
+ .../phy/airoha,an7583-pcie-gen2-phy.yaml      |   63 +
+ .../bindings/phy/airoha,an7583-usb-phy.yaml   |  133 ++
+ drivers/phy/Kconfig                           |    1 +
+ drivers/phy/Makefile                          |    3 +-
+ drivers/phy/airoha/Kconfig                    |   11 +
+ drivers/phy/airoha/Makefile                   |    3 +
+ drivers/phy/airoha/phy-an7583-usb.c           | 2016 +++++++++++++++++
+ 7 files changed, 2229 insertions(+), 1 deletion(-)
  create mode 100644 Documentation/devicetree/bindings/phy/airoha,an7583-pcie-gen2-phy.yaml
+ create mode 100644 Documentation/devicetree/bindings/phy/airoha,an7583-usb-phy.yaml
+ create mode 100644 drivers/phy/airoha/Kconfig
+ create mode 100644 drivers/phy/airoha/Makefile
+ create mode 100644 drivers/phy/airoha/phy-an7583-usb.c
 
-diff --git a/Documentation/devicetree/bindings/phy/airoha,an7583-pcie-gen2-phy.yaml b/Documentation/devicetree/bindings/phy/airoha,an7583-pcie-gen2-phy.yaml
-new file mode 100644
-index 000000000000..f31d838871fc
---- /dev/null
-+++ b/Documentation/devicetree/bindings/phy/airoha,an7583-pcie-gen2-phy.yaml
-@@ -0,0 +1,63 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/phy/airoha,an7583-pcie-gen2-phy.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Airoha AN7581 SoC PCIe Gen2 PHY
-+
-+maintainers:
-+  - Christian Marangi <ansuelsmth@gmail.com>
-+
-+description: >
-+  The Airoha AN7583 SoC PCIe Gen2 PHY describes the PCIe PHY for the
-+  Gen2 PCIe controller.
-+
-+  This PCIe PHY makes use of a dedicated USB PHY for PCIe usage and
-+  can also be used for Ethernet usage for SGMII or HSGMII mode.
-+
-+properties:
-+  compatible:
-+    const: airoha,an7583-pcie-phy
-+
-+  reg:
-+    items:
-+      - description: ana register
-+      - description: pma register
-+      - description: dig register
-+
-+  reg-names:
-+    items:
-+      - const: ana
-+      - const: pma
-+      - const: dig
-+
-+  phys:
-+    items:
-+      - description: phandle to Serdes PHY
-+
-+  '#phy-cells':
-+    const: 0
-+
-+required:
-+  - compatible
-+  - reg
-+  - reg-names
-+  - phys
-+  - '#phy-cells'
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    phy@1fa5f000 {
-+        compatible = "airoha,an7583-pcie-phy";
-+        reg = <0x1fa5f000 0xff>,
-+              <0x1fa5e000 0x3ff>,
-+              <0x1fa5a000 0x8ff>;
-+        reg-names = "ana", "pma", "dig";
-+
-+        phys = <&serdes_phy>;
-+
-+        #phy-cells = <0>;
-+    };
 -- 
 2.53.0
 
