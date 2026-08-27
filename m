@@ -1,144 +1,179 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D76A4503FA
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:41:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F165E48EBF6;
+	Thu, 27 Aug 2026 16:42:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787848886; cv=none; b=Cknw8wcdw4f9m79EisfrOqvRkNw87ros4seFTe2BkDlRFVqyyFCrDLZkuJLsWBFQoMhc9fMxNmhI9pe4Ifm0zYp7JidtRupszNneb5++41j13XE5aqbq2KhM4MtNizFmMzOANsmKj7sdEAABoE1FqEdJTKMVOURswPL9U+jslDg=
+	t=1787848962; cv=none; b=Zvh8seFbhCiBg0hZUT90LqU3Q1qQMHQTVYD19GOCtM8Duoe+P1SniIQEoqvtvkrLgasnnBbCw3C6YL2TQ6sZvHT69r5vIDekxQ6+jqZ6AbDWHrjRcfjtZCaZCvnXj80mLpNCWT112njoHmtXQSw88cySbwDgH0OHfUo1DxclvcA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787848886; c=relaxed/simple;
-	bh=2zTYhk88WLx2och3aa0V7gw2pEB+rHtf/p4xCkJ87D4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oTG9ExWO8HsRotAPfLGspCXbt/txeXtZj49oDjufeBdjKBhtItt8yCmOU3yR2/yr+37ce6sYEe0FgRaLXaYuB0XTbVtn0+L4CVsO7RsWwuN10WEK0Wmh+Imz/rF76l0+/v9YhEL4jlZCZ2l9kTI2Cyqbmvtwd8xY1UNQZ4ME/YI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b6xaLIzY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787848962; c=relaxed/simple;
+	bh=RWy7VoSdkmvWae0B198ao+ApfqPaFZqbhecVEXf7evk=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=QoAsoHCwO3w1vn1+/+LMemycizITYQotADTnu1Ogq+Szetvs+RENbG2nXIOg8o2pAGacRQX/YQ+3qc4enGqOqBRbn8tmyku3NeZdmh/dWpt37AFOSpvn2n0D8MTLrXz+9VGrv5gDRK3bIr7WxFfoFJGFkMSWqmCOluO09RjmORU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=DcmKzu2F; arc=none smtp.client-ip=96.67.55.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b6xaLIzY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A42D1F000E9;
-	Thu, 27 Aug 2026 16:41:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787848884;
-	bh=bCC2CkHOGwlKpi+16PhEFCGSE3IEc/igKIbUU+uMh80=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=b6xaLIzYah4sJVfBReqcEi5FQT78DXP9WZ9cbcGxuv06r/N6WfCkWKg/xp1UBhRPP
-	 Hyk0oWIix07jekjKLzCKIEqj/ottYR2QZR0DgQwyCNTM098m2ur1cma/eJM8+jCjmZ
-	 fBaL8WR3ptaZK/QPO5BETCTgamTASyLgnU8jhziDK4faVCLPUjSEQAjsuhMIizvrk9
-	 bDXmGFi0V+2lKxGqX8tM5BvqNbSj2r13pkPpZtQRn+spAXvMeA5ao70UJfpt6civlM
-	 Qj7ZzlWe7VA7pdpK5Pc07Zb8ijR8Bi7vrzKDFX9/jt9uQzIgEVQoccxBAJnfIpIlUK
-	 hdkd4kxMJm2Yw==
-Message-ID: <5ee65970-abb9-47ea-b548-5430b382cf7c@kernel.org>
-Date: Thu, 27 Aug 2026 18:41:17 +0200
+	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="DcmKzu2F"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
+	; s=mail; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+	Subject:Cc:To:From:Date:Sender:Reply-To:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	In-Reply-To:References; bh=3r/alrbSbcVmDatS8Yh9hNLCfL/BVX8bJGJSCiSzcPg=; b=Dc
+	mKzu2FNueMOxSYiKI89DPfchGUJmy9iwaoBVeiAj3DvfSeoFn2oEavdggGjDyqrE1a8f5DYno00aF
+	07dLgEFc5wvJtHBtxIQZ+XMHO6Vo/fKfzt17XNmE/lNClqj6W8R2qMw4W2z6UxSKQ3S2L8WSp5RdQ
+	WKjhKLchv7M1b0g4735lU/jlrBLcTIfQImVHBERJ+6823tkbAU444TBpIyMlfRbXClFyKH3z7natj
+	hmclMiWBQjm9Kvn0dtye9BihnT90canw3RgRqymfN3CIYvR0wvr6VAaTSUAvlHVD7K65W0wzjEfqQ
+	OuauJUryyfXq7nGucxui4mfjkEH8sicQ==;
+Received: from [2601:18c:8100:a0e0:5a47:caff:fe78:8708] (helo=fangorn)
+	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <riel@surriel.com>)
+	id 1wzdB6-00000008X7x-2KC2;
+	Thu, 27 Aug 2026 16:42:12 +0000
+Date: Thu, 27 Aug 2026 12:42:11 -0400
+From: Rik van Riel <riel@surriel.com>
+To: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Michal Hocko <mhocko@kernel.org>, Roman Gushchin
+ <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, Muchun
+ Song <muchun.song@linux.dev>, Andrew Morton <akpm@linux-foundation.org>,
+ cgroups@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ kernel-team@meta.com
+Subject: [PATCH] mm/memcg: fix UAF in drain_all_stock() async work during
+ offline
+Message-ID: <20260827124211.3b94b103@fangorn>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 11/18] mm/huge_memory: allow splitting mappingless swap
- cache folios
-To: kasong@tencent.com, linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
- Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
- Shivam Kalra <shivamkalra98@zohomail.in>, Kairui Song <ryncsn@gmail.com>
-References: <20260821-swap-thp-cleanup-v3-0-9b43f5163238@tencent.com>
- <20260821-swap-thp-cleanup-v3-11-9b43f5163238@tencent.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
- dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
- QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
- XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
- Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
- PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
- WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
- UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
- jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
- B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
- ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
- AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
- 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
- g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
- ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
- 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
- /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
- jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
- DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
- HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
- 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
- LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
- 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
- VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
- /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
- iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
- 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
- zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
- azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
- FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
- sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
- 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
- EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
- IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
- 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
- Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
- sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
- yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
- 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
- r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
- 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
- CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
- qIws/H2t
-In-Reply-To: <20260821-swap-thp-cleanup-v3-11-9b43f5163238@tencent.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
+drain_all_stock() queues drain work on remote CPUs via
+schedule_drain_work() -> queue_work_on(memcg_wq) and returns
+immediately without waiting. The worker, drain_local_memcg_stock()
+/ drain_local_obj_stock(), dereferences per-CPU stock caches with
+READ_ONCE(stock->cached[i]) and does css_put() / obj_cgroup_put().
 
-> +	if (anon_vma) {
->  		if (!ret && !folio_is_device_private(folio))
->  			ttu_flags = TTU_USE_SHARED_ZEROPAGE;
->  		remap_page(folio, 1 << old_order, ttu_flags);
-> @@ -4259,6 +4261,7 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
->  		struct page *split_at, struct page *lock_at,
->  		struct list_head *list, enum split_type split_type)
->  {
-> +	bool is_swapcache = folio_test_swapcache(folio);
->  	struct folio *end_folio = folio_next(folio);
->  	bool is_anon = folio_test_anon(folio);
->  	int old_order = folio_order(folio);
-> @@ -4285,8 +4288,11 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
->  	}
->  
->  	if (is_anon)
-> -		ret = __folio_split_unmap_and_freeze_anon(folio, new_order, split_at, true,
-> -							  true, list, split_type);
-> +		ret = __folio_split_unmap_and_freeze(folio, new_order, split_at, true,
-> +						     true, list, split_type);
-> +	else if (is_swapcache)
-> +		ret = __folio_split_unmap_and_freeze(folio, new_order, split_at, true,
-> +						     false, list, split_type);
+mem_cgroup_css_offline() calls drain_all_stock(memcg) to
+optimize reclamation latency, but never flushes memcg_wq. If
+that races with cgroup removal, free can happen while workers
+are still pending, causing UAF. The drain work could also have
+been queued by somebody else before offline started (e.g. high
+throttling), not just by the offline path itself.
 
-These two boolean parameters are really a pain. There must be a better way.
+Timeline illustrating the race:
 
-Also, I don't like that __folio_split_unmap_and_freeze() sounds generic again.
+  CPU0 (rmdir + offline)                CPU1 (charge cache holder)
+  -------------------------             ----------------------------
+  cgroup_rmdir()
+    cgroup_destroy_locked()
+      kill_css_sync()
+      ...
 
-There must be a better way for that as well. We had a clean split and now we
-mangle it again.
+                                      refill_stock(victim)
+                                        css_get(victim)
+                                        WRITE_ONCE(cached[i]=victim)
 
+  percpu_ref kill confirmed, css_killed_ref_fn() called
 
-... but I am just before my PTO and out of puff, so others can brainstorm on how
-to do this cleaner :)
+  css_killed_work_fn() [offline_wq]
+    mem_cgroup_css_offline(victim)
+      drain_all_stock(victim)
+        is_memcg_drain_needed()
+          READ_ONCE(cached) -> victim
+        queue_work_on(CPU1, memcg_wq, work)
+        // no flush!
+      mem_cgroup_private_id_put()
+    css_put() -> refcnt may hit 0
 
+  [RCU GP]
+  css_free_rwork_fn()
+    mem_cgroup_free(victim)
+    // victim struct freed
+
+                                        // worker delayed by scheduler/
+                                        // WQ concurrency
+                                        drain_local_memcg_stock()
+                                          old = READ_ONCE(cached[i])
+                                          // UAF: old == freed victim
+                                          memcg_uncharge(old)
+                                          css_put(&old->css)
+
+Fix by having the offline path wait for the workqueue to be
+done with the memcg, before freeing the memcg.
+
+Found through a code audit with kres.
+
+Fixes: 591edfb10a94 ("mm: drain memcg stocks on css offlining")
+Cc: stable@vger.kernel.org
+Assisted-by: Hermes:muse-spark-1.2 kres
+Signed-off-by: Rik van Riel <riel@surriel.com>
+---
+ mm/memcontrol.c | 29 +++++++++++++++++++++++++----
+ 1 file changed, 25 insertions(+), 4 deletions(-)
+
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index 6dc4888a90f3..c95a1f6ec799 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -2273,12 +2273,18 @@ static void schedule_drain_work(int cpu, struct work_struct *work)
+  * Drains all per-CPU charge caches for given root_memcg resp. subtree
+  * of the hierarchy under it.
+  */
+-void drain_all_stock(struct mem_cgroup *root_memcg)
++static void __drain_all_stock(struct mem_cgroup *root_memcg, bool sync)
+ {
+ 	int cpu, curcpu;
+ 
+-	/* If someone's already draining, avoid adding running more workers. */
+-	if (!mutex_trylock(&percpu_charge_mutex))
++	/*
++	 *  If someone's already draining, avoid starting more workers.
++	 *  Synchronous callers need to guarantee all the last things
++	 *  are flushed, e.g. before a memcg is removed.
++	 */
++	if (sync)
++		mutex_lock(&percpu_charge_mutex);
++	else if (!mutex_trylock(&percpu_charge_mutex))
+ 		return;
+ 	/*
+ 	 * Notify other cpus that system-wide "drain" is running
+@@ -2316,6 +2322,21 @@ void drain_all_stock(struct mem_cgroup *root_memcg)
+ 	mutex_unlock(&percpu_charge_mutex);
+ }
+ 
++void drain_all_stock(struct mem_cgroup *root_memcg)
++{
++	__drain_all_stock(root_memcg, false);
++}
++
++void drain_all_stock_sync(struct mem_cgroup *root_memcg)
++{
++	/*
++	 * Make sure the workqueue is done with this memcg
++	 * before freeing it.
++	 */
++	__drain_all_stock(root_memcg, true);
++	flush_workqueue(memcg_wq);
++}
++
+ static int memcg_hotplug_cpu_dead(unsigned int cpu)
+ {
+ 	/* no need for the local lock */
+@@ -4305,7 +4326,7 @@ static void mem_cgroup_css_offline(struct cgroup_subsys_state *css)
+ 	wb_memcg_offline(memcg);
+ 	lru_gen_offline_memcg(memcg);
+ 
+-	drain_all_stock(memcg);
++	drain_all_stock_sync(memcg);
+ 
+ 	mem_cgroup_private_id_put(memcg, 1);
+ }
 -- 
-Cheers,
+2.55.0
 
-David
+
