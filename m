@@ -1,64 +1,59 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9235447989F;
-	Thu, 27 Aug 2026 14:26:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 609DC47A0D7;
+	Thu, 27 Aug 2026 14:27:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787840807; cv=none; b=TDuMMM7j+QEbBEasyXC9KsmlJH6QGV28Fi/9fdzdluLXUK4J0x+HqJ7goYh/sQcwEzmRpylcr7RIMLyZ1pcX7kcwV1knBVaJHvSjtl+OMGc8yLI+rgcUJMHxYm6QMoplWPDCgWSXRo/R9kyUFYxvZMIUIKoOC06ZI5KVYLuewSA=
+	t=1787840842; cv=none; b=iuyZW3n4jbQ40uL4DOorwIcmwhS1iInqTtZ8N1m2XuqpE57LZ4NKRDWHR0DBGP0/j7ifY+c2AFc+ZpK4ea2K8zgdDoPV+LrRvXHK5HekExf/05fA2oPK0tqbVbL8njst6RmtyF86pzmT/ai4TqFu9ol66lgf42jHZnzrehxpI1g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787840807; c=relaxed/simple;
-	bh=Ru0l4PHF29l4rw7OpPV0iZi7pIsMNwPPPjv9m9TfRP8=;
+	s=arc-20240116; t=1787840842; c=relaxed/simple;
+	bh=r0ySLqPyuNENyTpsvEaGFphpnJIcH3tX6bc1QHr9jqg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LroYVHSd62kdImubGG/CydeM0zmA7vpipb1+knuPHtFsxP+R00Qa5ToZEfY1o1OP7hv/QUdwuV8p9/k/0BMkDPRZwJJszvSyPqNfCaKVdeBi+Nh2I2otRfHYAhNdhFEc7/wEQBHdqPtV0a2DDeQhAjHVB0h4ohb9NZzwY7l7l50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HVCPfSYR; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=exfOroNXRZSQ1hEH3stUTk3tscAfJvZVMYNjfW25VfplgksqapX+spZW91o+T00LI4BzM1R4uA04zczAvRPPeXfKHQlsSP87dAZsXirpo48pGJpQRglZSn54E5jqFJv/tHHinq1TVat+FNg7vEZ2Dolc2Wmk3ESW8GJAHVsHKQo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=IeV45dqg; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HVCPfSYR"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787840804; x=1819376804;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Ru0l4PHF29l4rw7OpPV0iZi7pIsMNwPPPjv9m9TfRP8=;
-  b=HVCPfSYRXj7nD4pC4wm1ujRw12UfdRcCNf9lghZLfRjHKJdL2AHIW19N
-   K/PMojp8BKwmF1Nsy6PZxBSHOZRQFTAVDdBjf4A1I1/jkm9XkInFjXPhT
-   wuWFIJcsKkbzEFF47V/SpH9tLBDApVeIadIaSxHlxQqcTwvw7m9qypEba
-   l9xWDqnxVcGsdUDByk4H4b5KodfBqAlAbzfnlQzOUHxiwWnDj9zN/j7d2
-   pZS+B3ftBMitxsNrky/Z9igygEJEQ0sI7cJwIMMvYGE2xpvImhf2JLYUM
-   D1c8SuYPZUei6GJwFmaf8rQqw3lIgnEQfUfG7wNZmzEG3XYIkBJurXI71
-   Q==;
-X-CSE-ConnectionGUID: tWAZJASkTOK3tAbibrHUYA==
-X-CSE-MsgGUID: 91QHePESRTi2kOSMjFZgTA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="105715805"
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="105715805"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 07:26:42 -0700
-X-CSE-ConnectionGUID: 0vje0uXgSgy3e1cb8o6J7Q==
-X-CSE-MsgGUID: X/IGFMJLQuGDU+4330Sx0A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="265302616"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.125])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 07:26:39 -0700
-Date: Thu, 27 Aug 2026 17:26:36 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Maurizio Casciano <mauriziocasciano7@gmail.com>
-Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bingbu Cao <bingbu.cao@amd.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Nicholas Roth <nicholas@rothemail.net>,
-	Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jose Maria Martin <jmmartinf@hotmail.com>,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 5/8] media: atomisp: support the Yoga Book OV2740 link
-Message-ID: <apBJHHhAPowUs8Kj@ashevche-desk.local>
-References: <20260826132256.3343451-1-mauriziocasciano7@gmail.com>
- <20260826132256.3343451-6-mauriziocasciano7@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="IeV45dqg"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 77BF71691;
+	Thu, 27 Aug 2026 07:27:12 -0700 (PDT)
+Received: from localhost (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F32CB3F7D8;
+	Thu, 27 Aug 2026 07:27:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1787840836; bh=r0ySLqPyuNENyTpsvEaGFphpnJIcH3tX6bc1QHr9jqg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=IeV45dqgx4mRaxoEbmuZZLi7m359mdGCaHjEZzT8ye+3dWAGoS8D9re32lynaa88z
+	 JeSfSWhc2s3EO8J3VgE/iJvR6Od4/WQWFvSAn5IM61hKHm5org2eLQ1hd31ZLY6VFx
+	 qy4wuTAMTjSNYGKKfU4BMKZpRvEeF5DPdPO/fCsU=
+Date: Thu, 27 Aug 2026 15:27:14 +0100
+From: Leo Yan <leo.yan@arm.com>
+To: James Clark <james.clark@linaro.org>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Mike Leach <mike.leach@arm.com>,
+	John Garry <john.g.garry@oracle.com>, Will Deacon <will@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>,
+	Leo Yan <leo.yan@linux.dev>, linux-arm-kernel@lists.infradead.org,
+	coresight@lists.linaro.org, linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@redhat.com>,
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH v2 05/14] perf cs-etm: Increase default timestamp
+ generation period
+Message-ID: <20260827142714.GM8904@e132581.arm.com>
+References: <20260821-james-cs-unformatted-per-thread-fix-v2-0-00c4fd0701b4@linaro.org>
+ <20260821-james-cs-unformatted-per-thread-fix-v2-5-00c4fd0701b4@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -67,191 +62,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260826132256.3343451-6-mauriziocasciano7@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260821-james-cs-unformatted-per-thread-fix-v2-5-00c4fd0701b4@linaro.org>
 
-On Wed, Aug 26, 2026 at 03:22:53PM +0200, Maurizio Casciano wrote:
-> The YB1-X91L firmware does not describe the complete camera link. Its
-> front OV2740 uses two CSI-2 lanes at a 288 MHz link frequency and sends
-> a 1932x1092 BGGR transport frame with 12 pixels of horizontal and
-> vertical padding around the 1920x1080 image.
+On Fri, Aug 21, 2026 at 10:49:03AM +0100, James Clark wrote:
+> The original purpose of timestamps in per-CPU mode was to roughly emit
+> samples in the order they occurred across multiple CPUs, rather than
+> emit all the trace from CPU 1 followed by all from CPU 2 etc.
+> Previously there was no way to change the interval from the minimum of 1
+> cycle, but custom intervals are now supported by the driver.
 > 
-> Allow the AtomISP bridge to provide per-sensor link frequencies and
-> padding, add the matching OV2740 mode, and derive ISP2401 D-PHY timing
-> from the sensor link-frequency control.
+> Drastically reduce the number of timestamps emitted by increasing the
+> interval, which is more than enough to interleave sample generation.
+> This reduces the size of the trace generated.
 > 
-> The register values are hardware configuration facts checked against
-> the Lenovo YB1-X91L configuration and physical captures; no proprietary
-> driver code or tuning binary is included.
-> 
-> Tested on a Lenovo Yoga Book YB1-X91L with continuous front-camera raw
-> capture.
+> Signed-off-by: James Clark <james.clark@linaro.org>
 
-...
-
->  #define OV2740_LINK_FREQ_360MHZ		360000000ULL
-> +#define OV2740_LINK_FREQ_288MHZ		288000000ULL
->  #define OV2740_LINK_FREQ_180MHZ		180000000ULL
-
-At some point would be good to use HZ_PER_MHZ multiplier from units.h.
-
-...
-
-> struct ov2740_mode {
-
->  	/* Link frequency needed for this resolution */
->  	u32 link_freq_index;
->  
-> +	/* Optional common settings applied before the mode-specific settings */
-> +	const struct ov2740_reg_list init_reg_list;
-> +
->  	/* Sensor register settings for this resolution */
->  	const struct ov2740_reg_list reg_list;
-> +
-> +	/* Bayer order produced by this mode */
-> +	u32 code;
-
-Check with `pahole`.
-
->  };
-
-...
-
-> +++ b/drivers/media/pci/intel/ipu-bridge.c
-> @@ -520,11 +520,16 @@ static void ipu_bridge_create_fwnode_properties(
->  					sensor->prop_names.remote_endpoint,
->  					sensor->local_ref);
->  
-> -	if (cfg->nr_link_freqs > 0)
-> -		sensor->ep_properties[3] = PROPERTY_ENTRY_U64_ARRAY_LEN(
-> -			sensor->prop_names.link_frequencies,
-> -			cfg->link_freqs,
-> -			cfg->nr_link_freqs);
-> +	if (sensor->nr_link_freqs > 0)
-> +		sensor->ep_properties[3] =
-> +			PROPERTY_ENTRY_U64_ARRAY_LEN(names->link_frequencies,
-> +						     sensor->link_freqs,
-> +						     sensor->nr_link_freqs);
-> +	else if (cfg->nr_link_freqs > 0)
-> +		sensor->ep_properties[3] =
-> +			PROPERTY_ENTRY_U64_ARRAY_LEN(names->link_frequencies,
-> +						     cfg->link_freqs,
-> +						     cfg->nr_link_freqs);
-
-Why do we need this? The sensors are listed in the supported ones in the IPU
-bridge code. Also, if required, some data can be altered by using driver_data
-field in ACPI ID table.
-
-...
-
-> +++ b/drivers/staging/media/atomisp/pci/atomisp_csi2.h
-
->  int atomisp_csi2_bridge_init(struct atomisp_device *isp);
->  int atomisp_csi2_bridge_parse_firmware(struct atomisp_device *isp);
-> +bool atomisp_csi2_get_sensor_padding(struct device *dev, u32 *padding_w,
-> +				     u32 *padding_h);
-
-Better to split logically.
-
-bool atomisp_csi2_get_sensor_padding(struct device *dev,
-				     u32 *padding_w, u32 *padding_h);
-
->  void atomisp_csi2_configure(struct atomisp_sub_device *asd);
-
-...
-
-> +bool atomisp_csi2_get_sensor_padding(struct device *dev, u32 *padding_w,
-> +				     u32 *padding_h)
-> +{
-
-Ditto.
-
-> +	struct acpi_device *adev = ACPI_COMPANION(dev);
-
-Split the assignment. The current way is prone to subtle mistakes in the
-future.
-
-> +	bool override = false;
-> +	char *str_val;
-> +	unsigned int val;
-
-Try to use reversed xmas tree order.
-
-> +	*padding_w = pad_w;
-> +	*padding_h = pad_h;
-
-	adev = ACPI_COMPANION(dev);
-
-> +	if (!adev)
-> +		return false;
-> +
-> +	str_val = gmin_cfg_get(adev, "CsiPaddingWidth");
-> +	if (str_val) {
-> +		if (!kstrtouint(str_val, 0, &val) && val <= 64 && !(val & 1)) {
-> +			*padding_w = val;
-> +			override = true;
-> +		} else {
-> +			acpi_handle_warn(adev->handle,
-> +					 "%s: Invalid CSI padding width %s\n",
-> +					 dev_name(dev), str_val);
-> +		}
-> +		kfree(str_val);
-> +	}
-> +
-> +	str_val = gmin_cfg_get(adev, "CsiPaddingHeight");
-> +	if (str_val) {
-> +		if (!kstrtouint(str_val, 0, &val) && val <= 64 && !(val & 1)) {
-> +			*padding_h = val;
-> +			override = true;
-> +		} else {
-> +			acpi_handle_warn(adev->handle,
-> +					 "%s: Invalid CSI padding height %s\n",
-> +					 dev_name(dev), str_val);
-> +		}
-> +		kfree(str_val);
-> +	}
-
-This is dup of the code, please create a helper to deduplicate these.
-Also, what's wrong with gmin_cfg_get_int()?
-
-> +	return override;
-> +}
-
-...
-
->  {
->  	const struct acpi_device_id *id;
-> +	char *link_freq_str;
-> +	unsigned long long link_freq;
-
-Reversed xmas tree order.
-
->  	int ret, clock_num;
->  	bool vcm = false;
->  	int lanes = 1;
-
-...
-
-> +	link_freq_str = gmin_cfg_get(adev, "CsiLinkFreq");
-> +	if (link_freq_str) {
-> +		ret = kstrtoull(link_freq_str, 0, &link_freq);
-> +		kfree(link_freq_str);
-> +		if (ret || !link_freq) {
-> +			acpi_handle_err(adev->handle,
-> +					"%s: Invalid CSI link frequency\n",
-> +					dev_name(&adev->dev));
-> +			return ret ?: -EINVAL;
-> +		}
-
-gmin_cfg_get_int()
-
-> +		sensor->link_freqs[0] = link_freq;
-> +		sensor->nr_link_freqs = 1;
-> +	}
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Reviewed-by: Leo Yan <leo.yan@arm.com>
