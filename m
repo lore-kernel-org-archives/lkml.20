@@ -1,203 +1,136 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com [209.85.160.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A74113CB551;
-	Thu, 27 Aug 2026 22:27:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 854AA29B78D
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 22:27:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787869651; cv=none; b=LxPQj3N0a+NXGvyMnwzYPiJbeskrA9XLbUv2DEtdjUr/2hdUl6EGPOGx1I36ANFSZ1/N7FIZd62rNb2Q0bgVzbQimDsOeCzVjica8i+u4KGOL+i80IRIRQR39sLcPa3fLSkhg2kPiNNijt06MV9zTGxw28OsG31cQz6EXOLYmZY=
+	t=1787869656; cv=none; b=OzZW0LjcmMpBZ1qT0SlQsNjCjE70qevNhS6fQWgtA4kpKBuDfDbzPcqArrUSUVOwg9fTWyFAvSbXjjOcwLxiZSLqD+Ly1PAepAgxJo5z21z0N4zzMvHDd7pW4qyOJDflFyZhOPnJ3WbkvW/xS+psamM3bDid2So6M8+LJlNe/y4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787869651; c=relaxed/simple;
-	bh=gtlRShEerTmXLVaNSdAoVPjPTYg+EfMoVtC2sJsIRyE=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=WHm/+8epoS9YQIYoJMyLElBGiHsZEZ5oLZ9JR+fmCZGnRrhQMVf0KcooWAb7oEqK4qwUeddbK4ebelGzOozqOL7MQqlSPn0ad0vcoWbqaMc9KCpv4R8KQuqjXygWzbruewKwrZqmYrhpvIavls5UsDR5VLwzHcxMOGDs5mzDQr0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Mw9BkywE; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1787869656; c=relaxed/simple;
+	bh=KK5wwKYdmpiqZuHKhQ/895QfuAy9l5rfkrVu6CKJNjE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=tadlnkVNmt82Fa/m6x2gMPTa+6CvFy9iK+DGIjFdZ/B3WM+WQphLqbpHaRU65MxQqci5ZH23Wkh0kHAm1kK3dxUIJmj5WW/+1Ktl27rPvDbW8hE+Xdod6PWQLg5NO6kFYH1aVT9wBdKAeXQfw0DsY7hLSLyTnt4YFG93MjBET4U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Vm6OAapS; arc=none smtp.client-ip=209.85.160.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Mw9BkywE"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id B390C1A1888;
-	Thu, 27 Aug 2026 22:27:18 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 610DF5FFF4;
-	Thu, 27 Aug 2026 22:27:18 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1933811C7801A;
-	Fri, 28 Aug 2026 00:27:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1787869633; h=from:subject:date:message-id:to:cc:mime-version:content-type;
-	bh=XppBOrI9ALRujrEJWF1HE2DUDoS/W8T8anKZvDrtxJY=;
-	b=Mw9BkywE9YkZmBDBnTxoNAFB/nZkakGJvgcw+c1OSkblB+WkjCeixZUFJRQZ0ethvK0aHS
-	TRn+gGE3xJTl9e6Iv0NYFrORl0bt3hhlP23gYB0SOdcguR1Bk7vx/s72X2YPJrcKUkKOfK
-	rZSx4QPGzO8kOV9SHwDYI6RfFX3jWbJ/WRiARVHVQsz0K7oSJI+lAUxSvbCP0GOgJJiJHj
-	zs3Jtid3hePVihSJ972xcLBqmhJR0kTMkblJ4LSpr6C6xcjuWhyhQHQoDt9j50hyHrLUAQ
-	/7jIASj2krD08EqOLvSxva1Kiaw+0zG9zL/HnP0Kb1DGJd3AyNXFAhX8sH/hIA==
-Date: Fri, 28 Aug 2026 00:27:12 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-rtc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [GIT PULL] RTC for 7.3
-Message-ID: <202608272227121fa40dbe@mail.local>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Vm6OAapS"
+Received: by mail-oa1-f47.google.com with SMTP id 586e51a60fabf-455ee8f529dso97827fac.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 15:27:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1787869648; x=1788474448; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=j3a4OCom4f4+u6zoLwVfnSDf3nEPs11dIFGC+l4WRG0=;
+        b=Vm6OAapSZqUs3DEP/Y4+C9R+tHHp7iPrzslI5Eu7GFYuW4Cu6iV+3/b7ZoD+oX1WbM
+         4+Gm5Y7mPozFG02rTB9M+QwhQAaaHIZHXY7ObYoqS9Agn1XVOwrh6MH5BycdI/0a0LI1
+         Mi8bevsFNzSdXL6DldyrLkDJ3Vti+TfvHKXnL4pVEXpg2CnX/eoE5uLvIl7EW08Qe0EI
+         kpqB3Gw9YAGQXcYYCjhhav38agpv7ug1uJeDD47Tjc2VM728CGWvQ7vLYx9jb7i2ocWE
+         HMDswWB8qBDXFqgY4cyQYBgqzWju2q5B9A4s69H0P03eWhUo+Q37SRz7PHulcWgt9ROL
+         VLnA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787869648; x=1788474448;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=j3a4OCom4f4+u6zoLwVfnSDf3nEPs11dIFGC+l4WRG0=;
+        b=G+UBEo9FgHJbqW0biI8p1qf06WXETKhaSm1+GDejN4lwFmYVz5NydKNfG7MxJVC39o
+         /jKIseOkScx8bxBKOQmj066h80+pp0tXQhUVy3hQ0ig83zD8obz2eciqeaJNed4oa/Qd
+         jn2cFrSDIXXOLwXcV7Z/CSURyheQXykpsHlJ+CaeQL2VdoglRY7PoQrhHUYoklJF5i29
+         5ZgzIC/GfbJ2/yQEGHg/2spmX033xfExBgjbRkzpcqVR+ts5uHiBU7I2PqEmwVMlNmxd
+         wGrbB+4X0MOXkgsEeh+Y0WPBeF3JBGkJDaqwWNl3it5beQSmeY6bbjxtmhE+vUDlj2um
+         cUXQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqeOtPxVq7VlTxndakfM8rVaNCBPnxXeCGVeHPjiWQbPaJVean1l/MTD32xnNuQ+OWntfMt7bNI2MwG9H8=@vger.kernel.org
+X-Gm-Message-State: AFuF++n2RAJ241esQdTxLsUwYxRwPEKqYnTTvOa0G6Va/WSrZpZx5NH4
+	qVkLgN6/8r0gmByIYGXXFo3VuSZEPUxiAV5pgQISzh2X2WeE0MGsnip0NTLbxjRSnq8=
+X-Gm-Gg: AR+sD13uWXmT2lKQAneCm2rvO0X2XfNOjbvJhboEYGRWeScxLB9ukVxGFwtoohy4dnx
+	FW1xxogv41/qyCGHd7Dr6fShapiolSwPv8IvyF43nsENB2COdJTaWyyFcTUtwxbI0uzHIazyqIo
+	OxY/W73IJ+rwY8BT1XV63dFlUDu7fQiSXpnyh6AdhFqtBCnp1naKD5Oss3/HFfwPqIy0ZnlSS4P
+	V3JVobJ5aOA37wm2rWLs3h4Nb5unDXs6JYX2KUE2ziODfevdciYJaib7QiQ28IdFaxwFqfmZayL
+	QN+TkPtS2DOrquK8gpct0+WTaLZ9EKxkhfEQ8Y/VmSeMniK8QCYuRApSLzdUxVko0NZpqGhZdvT
+	EvTfdMaYHAPpjBTtrrg/r88A+dkjaGAXsmxQM9FYnJiul6S+Mb4CFgaPrtMHLrpCO9JUGdLlygF
+	PoTCLHxFGeJ9zQ46AQiD7IHPSahw2PHatmGOcukCj/ur742HoxSFFTdWXBHd94DQjixFw164eIE
+	gA6
+X-Received: by 2002:a05:6870:e184:b0:45e:edc5:f464 with SMTP id 586e51a60fabf-468352c3460mr2950734fac.2.1787869648030;
+        Thu, 27 Aug 2026 15:27:28 -0700 (PDT)
+Received: from [127.0.1.1] ([2600:8803:e7e4:500:d288:6f77:e285:6925])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-46736444b99sm3336392fac.3.2026.08.27.15.27.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 15:27:26 -0700 (PDT)
+From: "David Lechner (TI)" <dlechner@baylibre.com>
+Subject: [PATCH v2 0/2] iio: adc: ti-ads112c14: add burnout current support
+Date: Thu, 27 Aug 2026 17:27:01 -0500
+Message-Id: <20260827-iio-adc-ti-ads112c14-burnout-v2-0-00a1fab9e2d1@baylibre.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42Qy2rDMBBFf8VoXdWSLDuJV/mPkIUek2RKLbV6m
+ Ibgf+/YKXRXuhouXM650oNlSAiZjc2DJZgxYwwU1EvD3M2EK3D0lJkSahA7pTli5MY7XpBOllI
+ 5qbmtKcRauNzrTuhhOMihZ4T4SHDBrw1/Oj9zrvYNXFmZP40En5W85Vn71dKKP6UuhoKhxpr5F
+ D1w72W/F7teD+Iwzt1KtyYD9aYJy9jQltwmmCKZWiK2dAlwZeuyG+YS0337h1luQ/735FlywS9
+ CCe3AWejM0Zr7O9oEryRm52VZvgEKwJkgZQEAAA==
+X-Change-ID: 20260724-iio-adc-ti-ads112c14-burnout-184304669165
+To: Jonathan Cameron <jic23@kernel.org>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>
+Cc: Chris Hall <c-hall@ti.com>, Patrick Edwards <pedwards@ti.com>, 
+ Kurt Borja <kuurtb@gmail.com>, linux-iio@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, "David Lechner (TI)" <dlechner@baylibre.com>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1745; i=dlechner@baylibre.com;
+ h=from:subject:message-id; bh=KK5wwKYdmpiqZuHKhQ/895QfuAy9l5rfkrVu6CKJNjE=;
+ b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBqkLm4Fz2mHtHyWQ0XBc2Qmj/qjJh3TPk1P8TtK
+ miB43F87G2JATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCapC5uAAKCRDCzCAB/wGP
+ wN8SB/9p+4CvlDjcxefSHjG+EDisTQf2XHYH+MGad2FjQNiA/7AUnbPHRbHFYtkRXRjDODYO8tE
+ IdCXHESBTof23jrih1RstxGrO3ttvCpgk0YCF/56bpILOvSrVXbaED9T+i/9ZdeuXy5tgnyLpX3
+ Tamt8RU1yF6F8gklEpzRYRD6vrgKMpl2AURQvkB7is/QT/VAJvpQ4PKRJkiok101zrg6CjHVftk
+ t1NEKsUjcryUI4FJGUHwNf0JVpMMz6kug8l9b1Cava++6/4wizNfx4nlEz35suGDxpUpjsMCcyt
+ D1ou8XsLYCBL2j9A0PWSUrkHG9gpZyVORbWHgssRYte/+6VO
+X-Developer-Key: i=dlechner@baylibre.com; a=openpgp;
+ fpr=8A73D82A6A1F509907F373881F8AF88C82F77C03
 
-Hello Linus,
+The TI ADS112C14 ADC has a feature to enable a "burnout" current when
+taking a measurement. This can be used to detect open/short circuit
+conditions of a connected sensor. However, enabling this affects the
+accuracy of the reading. So we add a custom "burnoutraw" attribute for
+this. This works like the standard raw attribute to do a direct read
+but does so with the burnout current enabled.
 
-Here is the RTC subsystem pull request for 7.3. The RZN1 driver got a
-fairly comprehensive cleanup. More DT binding are converted to DT
-schema, leaving only 5 remaining files to convert.
+If this sounds familiar, it is because we discussed this on a similar
+chip recently [1]. And this is why I put the ABI docs in a common ADC
+file rather than one specific to this chip.
 
-The following changes since commit dc59e4fea9d83f03bad6bddf3fa2e52491777482:
+[1]: https://lore.kernel.org/linux-iio/20260622110223.7e854dde@jic23-huawei/
 
-  Linux 7.2-rc1 (2026-06-28 12:01:31 -0700)
+Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
+---
+Changes in v2:
+- Rebased on "[PATCH v4 0/3] iio: adc: ti-ads112c14: continuous mode support"
+- Link to v1: https://patch.msgid.link/20260724-iio-adc-ti-ads112c14-burnout-v1-0-f0204cecbe3a@baylibre.com
 
-are available in the Git repository at:
+---
+David Lechner (TI) (2):
+      iio: adc: ti-ads112c14: add burnout current support
+      iio: ABI: add sysfs attribute for _burnoutraw
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/abelloni/linux.git tags/rtc-7.3
+ Documentation/ABI/testing/sysfs-bus-iio-adc |   9 ++
+ drivers/iio/adc/ti-ads112c14.c              | 126 ++++++++++++++++++++++++++--
+ 2 files changed, 126 insertions(+), 9 deletions(-)
+---
+base-commit: 22359083a9e74d538ce383d5c0ee30cc20182187
+change-id: 20260724-iio-adc-ti-ads112c14-burnout-184304669165
+prerequisite-change-id: 20260724-iio-adc-ti-ads112c14-continuous-mode-dd1580754609:v3
+prerequisite-patch-id: 0be96266a72458a63f7da7ca876d87cdf5769a8b
+prerequisite-patch-id: 32ba48fd5eacaee60d50a0272557859cc9ea83ca
+prerequisite-patch-id: c1eb09689bd5f259ea0110cbbfb3fa76689bdb04
 
-for you to fetch changes up to afce9701d6423a63194a349d2f1e34c50ce76482:
+Best regards,
+--  
+David Lechner (TI) <dlechner@baylibre.com>
 
-  MAINTAINERS: update rtc subsystem patchwork location (2026-08-27 23:35:24 +0200)
-
-----------------------------------------------------------------
-RTC for 7.3
-
-Subsystem:
- - patchwork project is moving to kernel.org
- - fully initialize clk_init_data
- - add missing MODULE_DEVICE_TABLE()
- - DT bindings conversions to DT schema
-
-Drivers:
- - ds1307: fix WADA bit for alarms on RX8130
- - rzn1: add support for RZ/T2H and RZ/N2H, many fixes
-
-----------------------------------------------------------------
-Alexandre Belloni (3):
-      rtc: mv: fix potential race condition
-      rtc: mv: remove mv_rtc_remove
-      MAINTAINERS: update rtc subsystem patchwork location
-
-Bhargav Joshi (1):
-      dt-bindings: rtc: ti,omap-rtc: Convert to DT schema
-
-Cosmo Chou (1):
-      rtc: pcf85363: Add error checking to regmap calls in probe()
-
-Daniel Palmer (1):
-      rtc: msc313: Select by default on MSTARV7
-
-Eduard Bostina (1):
-      dt-bindings: rtc: Convert TI Palmas RTC to DT schema
-
-Geert Uytterhoeven (5):
-      rtc: hym8563: Make sure clk_init_data is fully initialized
-      rtc: m41t80: Make sure clk_init_data is fully initialized
-      rtc: nct3018y: Make sure clk_init_data is fully initialized
-      rtc: philips: Make sure clk_init_data is fully initialized
-      rtc: microcrystal: Make sure clk_init_data is fully initialized
-
-Jack Lee (1):
-      rtc: ds1343: replace symbolic permissions with octal
-
-Lad Prabhakar (17):
-      dt-bindings: rtc: renesas,rzn1-rtc: Add RZ/T2H and RZ/N2H support
-      rtc: rzn1: Handle EPROBE_DEFER for optional pps interrupt
-      rtc: rzn1: Fix weekday underflow when alarm crosses month boundary
-      rtc: rzn1: Handle unset alarm weekday in rzn1_rtc_read_alarm
-      rtc: rzn1: Fix alarm range check truncation on 32-bit systems
-      rtc: rzn1: Disable alarm interrupt before reprogramming alarm registers
-      rtc: rzn1: Fix malformed MODULE_AUTHOR string
-      rtc: Kconfig: Broaden RTC_DRV_RZN1 dependency to ARCH_RENESAS
-      rtc: rzn1: Use pm_runtime_put_sync()
-      rtc: rzn1: Replace remove callback with devm_add_action_or_reset()
-      rtc: rzn1: Dynamically calculate synchronization delay based on clock rate
-      rtc: rzn1: Use temporary variable for struct device
-      rtc: rzn1: Consistently use dev_err_probe()
-      rtc: rzn1: use FIELD_PREP/FIELD_GET and GENMASK for register access
-      rtc: rzn1: Add OF match data to gate SUBU register access
-      rtc: rzn1: Drop trailing comma from OF match table sentinel
-      rtc: rzn1: Add support for Renesas RZ/T2H and RZ/N2H SoCs
-
-Linkai Gong (1):
-      rtc: gamecube: check return value of devm_rtc_register_device()
-
-Pengpeng Hou (4):
-      rtc: zynqmp: Return optional clock lookup errors
-      rtc: s32g: add missing MODULE_DEVICE_TABLE()
-      rtc: brcmstb-waketimer: add missing MODULE_DEVICE_TABLE()
-      rtc: ab-eoz9: add missing MODULE_DEVICE_TABLE()
-
-Robert Leussler (1):
-      rtc: ds1307: fix RX8130 wakeup alarm WADA bit for day-of-month mode
-
-Rosen Penev (1):
-      rtc: st-lpc: get IRQ via platform_get_irq()
-
-Sang-Heon Jeon (1):
-      rtc: pcf2127: remove conditional return with no effect
-
-Surendra Singh Chouhan (1):
-      rtc: spacemit: handle regmap_test_bits() error return
-
-Teja Sai Charan Bellamkonda (1):
-      dt-bindings: rtc: Convert rtc-cmos binding to YAML
-
-Udaya Kiran Challa (1):
-      dt-bindings: rtc: microchip,pic32mzda-rtc: Convert to DT schema
-
-Yi Ding (1):
-      rtc: pcf8563: fix clock provider leak on unbind
-
- .../bindings/rtc/microchip,pic32-rtc.txt           |  21 ---
- .../bindings/rtc/microchip,pic32mzda-rtc.yaml      |  50 ++++++
- .../devicetree/bindings/rtc/renesas,rzn1-rtc.yaml  |  35 +++-
- Documentation/devicetree/bindings/rtc/rtc-cmos.txt |  27 ---
- .../devicetree/bindings/rtc/rtc-cmos.yaml          |  63 +++++++
- Documentation/devicetree/bindings/rtc/rtc-omap.txt |  53 ------
- .../devicetree/bindings/rtc/rtc-palmas.txt         |  32 ----
- .../devicetree/bindings/rtc/ti,omap-rtc.yaml       | 140 +++++++++++++++
- .../devicetree/bindings/rtc/ti,palmas-rtc.yaml     |  57 ++++++
- MAINTAINERS                                        |   2 +-
- drivers/rtc/Kconfig                                |   8 +-
- drivers/rtc/rtc-ab-eoz9.c                          |   1 +
- drivers/rtc/rtc-brcmstb-waketimer.c                |   1 +
- drivers/rtc/rtc-ds1307.c                           |   2 +-
- drivers/rtc/rtc-ds1343.c                           |   4 +-
- drivers/rtc/rtc-gamecube.c                         |   4 +-
- drivers/rtc/rtc-hym8563.c                          |   2 +-
- drivers/rtc/rtc-m41t80.c                           |   2 +-
- drivers/rtc/rtc-mv.c                               |  41 +----
- drivers/rtc/rtc-nct3018y.c                         |   2 +-
- drivers/rtc/rtc-pcf2127.c                          |   7 +-
- drivers/rtc/rtc-pcf85063.c                         |   2 +-
- drivers/rtc/rtc-pcf85363.c                         |  17 +-
- drivers/rtc/rtc-pcf8563.c                          |   6 +-
- drivers/rtc/rtc-rv3028.c                           |   2 +-
- drivers/rtc/rtc-rv3032.c                           |   2 +-
- drivers/rtc/rtc-rzn1.c                             | 197 ++++++++++++---------
- drivers/rtc/rtc-s32g.c                             |   1 +
- drivers/rtc/rtc-spacemit-p1.c                      |   5 +-
- drivers/rtc/rtc-st-lpc.c                           |   9 +-
- drivers/rtc/rtc-zynqmp.c                           |   7 +-
- 31 files changed, 507 insertions(+), 295 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/rtc/microchip,pic32-rtc.txt
- create mode 100644 Documentation/devicetree/bindings/rtc/microchip,pic32mzda-rtc.yaml
- delete mode 100644 Documentation/devicetree/bindings/rtc/rtc-cmos.txt
- create mode 100644 Documentation/devicetree/bindings/rtc/rtc-cmos.yaml
- delete mode 100644 Documentation/devicetree/bindings/rtc/rtc-omap.txt
- delete mode 100644 Documentation/devicetree/bindings/rtc/rtc-palmas.txt
- create mode 100644 Documentation/devicetree/bindings/rtc/ti,omap-rtc.yaml
- create mode 100644 Documentation/devicetree/bindings/rtc/ti,palmas-rtc.yaml
-
--- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
