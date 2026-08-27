@@ -1,82 +1,102 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6BCC330659;
-	Thu, 27 Aug 2026 07:08:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45381346A02
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:08:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787814495; cv=none; b=paiJMnEgcV1ujidIwgUQyvmbGfL+Fl5uaV802T4rPxD8poj3lntSNgu9WYwEKdcSMWdLXuKKL0rmq6iAdKUCKTEqYoeI95lt/E5jjH3qf0K4JLnSP07/96WvVUMSI9TVUj1CniwdCYnL3b5AZs5UiNfrjLYMq2b3ALab3RxiMlI=
+	t=1787814522; cv=none; b=BMekpFoohTvTYAkwPAQcFzTwWggMbzcNbGhr4g42tMYm7IgaKi4huMDosTV93ZnSmy66I1aaInRAfI7urpn08sDpom2DDFsnecuTFgfIsqIMjrKOq4DdVKN6ats4w5njSI7/345S1cBhM8flMjVPH7kBQzbIshR+K3HNrJxHJ5w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787814495; c=relaxed/simple;
-	bh=l9KEf0r5sCVU6nqwZPCowgL9QNHlmvVxYQkL4RKqc3Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Y42dvnFYFiTBsDfff7DJ4iLR7Ub6R1zgrd/40Paf9vC14EbHBL/HKntp0AyG4H28gzFggoQ4T11CeQJjGzErdvMC0VVCzLQogd/gXDro6ke46iasmYBuwan5c9BARYj7m9bIEEQzrLddHQfYW9q5mHh6fqufXAGn9AiJpauRnCY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EeDoB+Eo; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787814522; c=relaxed/simple;
+	bh=dQf27oAC4dBGe/SyI1+0GsuR50NE5X8GkWKLYmc4X3w=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=FkAlGfTEGab6gLVB0WZmURuXJfnNwypMj74oJQX4gQbFDnrLwD89TWglGf5fYPBef0XHcvwHtbk4Q058cQhwG2yMfHR6TGBycoer7LROEQ/S4Z+JZMzccO+fAkY89u8NFa9m4dtkCDqPktjOlBgECON0gjcE8I18kd9tB4yN7ns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i6zJRpa9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EeDoB+Eo"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787814493; x=1819350493;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=l9KEf0r5sCVU6nqwZPCowgL9QNHlmvVxYQkL4RKqc3Q=;
-  b=EeDoB+EoJ00gRYvstoiyTNdgRFEQvIGAczp6qXjGcDDsA7o/F3C66hpc
-   Kbwb8aQmDwsTn0v5+vU4y6ZqqzcHfJQhvFOWGGK6DFLi76C7c/AesaUpN
-   lDjgi91V/lhoiuk30ImsoBvfzDU7qQqwBhLz1rf3CzoNYNB8k/+TaH//M
-   Nny6O/qlVchq+AVUAWE991ryCCbyJFVGQ659lCMxLRMNhEOMrzwH3oCoJ
-   04V20i7rsyI8TpJ+43YWgJVTsK/WF85w3KIJx/Z49yjZKQ4M4RAdPV0w7
-   w7TwcbNGaMKKAYxsEYuy6WyihylY5NBlsIPSgQq9DxgOLGhQi0Rv6IM16
-   Q==;
-X-CSE-ConnectionGUID: /6fwVaPaQMaD+lpYwFql5w==
-X-CSE-MsgGUID: deVhsyhkQWSH3CtTEkm4Fw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="88335394"
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="88335394"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 00:08:13 -0700
-X-CSE-ConnectionGUID: zhjCxEpOSAKsxWAsp4C5Ag==
-X-CSE-MsgGUID: sVuUyIrzTQ22u9FihpLYCA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="261666899"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.125])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 00:08:09 -0700
-Date: Thu, 27 Aug 2026 10:08:07 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Yash Suthar <yashsuthar983@gmail.com>
-Cc: jic23@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
-	andy@kernel.org, grondon@gmail.com, linusw@kernel.org,
-	hexlabsecurity@proton.me, sakari.ailus@linux.intel.com,
-	srinivas.pandruvada@linux.intel.com, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/3] iio: accel: bmc150: use
- iio_push_to_buffers_with_ts()
-Message-ID: <ao_iV2xg-1Oc5Ttb@ashevche-desk.local>
-References: <20260825085156.212042-1-yashsuthar983@gmail.com>
- <20260825085156.212042-4-yashsuthar983@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i6zJRpa9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E988B1F00A3E
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:08:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787814519;
+	bh=hm9FQNMTULRI5PbphxoLf0euP/KXUzuUHsfwhItuw4M=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=i6zJRpa9ogYypqtYJevNbiYc7OWsqazL2hJ9QrDTTHe9zmwgrw1tWKi3sXXnp9j/Z
+	 38AuDTWqo8RtQ4tnXbVvdt/EGCd/qNuuX3T4E1n+Ba8usPhdUmF42e/s92cAB2L3xW
+	 YMzLKd09nmzXx5bPNNAwaywaaOUXYtBvVZxygPwRxhPltlJs+b0NyCkBZqsvRGeaFl
+	 jox8aoEAWlR6NF/ZnXhZcxxNOLX2FjD3HV5X7q26doOX1TffK7dkhRyQtZA0AeTp6N
+	 HNajv6kVAd0ETtBSRT83pnHvCbQXK1SWmrKPlto9CikynHoINu+mNkkI29ivz8HpAj
+	 JILnKO96vRiag==
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c2055573c8cso272402666b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:08:39 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RpTBAwGlumUoFpY9W8kLyV4rPQaUUAKDw2jzdEnnkTeAUTzWqM6hmLtRkZiQGmDnZ0WmMIY15zA2UrTcd4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lWaKUFJvw2mPSiK7MCup5e2pVcdMQ6hZIJ5F/iBPqzJE0utpee
+	vmMmpXrdYJEmY+nTlGTiOXzGMsOAUxsvYrg22cE+J6jav6lz2nmjbtBWxg0VYl1WktRj9G7igN8
+	j6aPryAdW+5HcBc6fj2NlQ0E7Ml8D0Do=
+X-Received: by 2002:a17:906:2081:b0:c25:2e93:28a6 with SMTP id
+ a640c23a62f3a-c252e932fe8mr701170966b.3.1787814518868; Thu, 27 Aug 2026
+ 00:08:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260825085156.212042-4-yashsuthar983@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20260826211844.884951-1-seanjc@google.com> <20260826211844.884951-4-seanjc@google.com>
+In-Reply-To: <20260826211844.884951-4-seanjc@google.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Thu, 27 Aug 2026 00:08:27 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zM7KSRX5r-PazJ87QaZze3wkB5WmJL4e6az5akmJLterQ@mail.gmail.com>
+X-Gm-Features: AcwNN1UNE2kyRdaKjw4CnNNb1QW-6POFF94C18u1aNFWrrjITYoTs7pQZcwdWYU
+Message-ID: <CAO9r8zM7KSRX5r-PazJ87QaZze3wkB5WmJL4e6az5akmJLterQ@mail.gmail.com>
+Subject: Re: [PATCH 3/4] KVM: x86/mmu: Bug the VM if KVM calcs a CPU role with
+ EFER.LMA=1 && CR4.PAE=0
+To: Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Stefan Teodorescu <fane@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Aug 25, 2026 at 02:21:56PM +0530, Yash Suthar wrote:
-> Replace deprecated iio_push_to_buffers_with_timestamp() with
-> iio_push_to_buffers_with_ts() to allow source size runtime checks.
+On Wed, Aug 26, 2026 at 2:18=E2=80=AFPM Sean Christopherson <seanjc@google.=
+com> wrote:
+>
+> Bug the VM if KVM attempts to construct a CPU role with the should-be-
+> impossible combination of long mode being active without PAE paging being
+> enabled.  KVM's MMU construction assumes that EFER.LMA can be set if and
+> only CR4.PAE is set, and will create a completely invalid MMU if that
+> assumption fails.  FNAME(walk_addr_generic) already has sanity checks to
+> try and mitigate the fallout, but attempt to catch such bugs earlier, as
+> this is (at least) the second time KVM has had bugs that escaped into
+> FNAME(walk_addr_generic), and it's entirely possible the bad state could
+> cause problems elsewhere.
+>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> ---
+>  arch/x86/kvm/mmu/mmu.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+> index 064ecc33b926..81c30e2c74f3 100644
+> --- a/arch/x86/kvm/mmu/mmu.c
+> +++ b/arch/x86/kvm/mmu/mmu.c
+> @@ -5910,6 +5910,9 @@ static union kvm_cpu_role kvm_calc_cpu_role(struct =
+kvm_vcpu *vcpu,
+>                 return role;
+>         }
+>
+> +       if (KVM_BUG_ON(____is_efer_lma(regs) && !____is_cr4_pae(regs), vc=
+pu->kvm))
 
-With this you might want to use IIO_DECLARE_DMA_BUFFER_WITH_TS() in the
-definition of the scan buffer.
+Can we shove this into the existing if (____is_efer_lma(regs)) below?
 
--- 
-With Best Regards,
-Andy Shevchenko
+> +               *(u64 *)&regs->efer &=3D ~EFER_LMA;
 
+Why do this if we will crash the VM anyway (and Sashiko doesn't like it)?
 
+> +
+>         role.base.efer_nx =3D ____is_efer_nx(regs);
+>         role.base.cr0_wp =3D ____is_cr0_wp(regs);
+>         role.base.cr4_smep =3D ____is_cr4_smep(regs);
+> --
+> 2.55.0.887.g758fc8c411-goog
+>
