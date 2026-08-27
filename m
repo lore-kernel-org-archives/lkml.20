@@ -1,123 +1,177 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB1A828850E;
-	Thu, 27 Aug 2026 04:33:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2F382FBE1F;
+	Thu, 27 Aug 2026 04:34:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787805216; cv=none; b=Y2jMWm9SOzHu/CslkOGl/dNPGt+Qx+0PEJlztSLS5XSOtc0Ab3KZhQU9xcXemRCxYPMFme9J9/rKtE6OpUsqff9MucywDJVHopD1KnrunxrTjIELc3YF+eD/VbBDHcO7rtgi90gAxny54ivzYARJ1mBPcmuSytWxpc952+XmBF4=
+	t=1787805250; cv=none; b=MkMaU4qcmUjkWdY8qPhSiHb90bbSYWbzXsr4OfG3zZEc34NxDBGvXak55nNNgz+E/GGFnncBAh2RvBR5lcXsZdzBc/cgWg8JgjseJAMOWLj+JlRsY7b16vSz0//m5qHn1jLoksTvQUK5RhPTZGmytFiClIw/YXDOFL5HeU6ngOk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787805216; c=relaxed/simple;
-	bh=AlrT28RSsUofChiqrzLpOS4n4oecYPjYKR+b3pCjGJY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=t5tOOl01SCoAxIzgdl4RKkSrEwgO83+WACICXnh38nf9+5oSI9f1AxJYShWVjXrem+4USqDrEjgxnNGjWM0MUZkonDOawdWcQmlLzr42diDq4uE0XMhKavk1DCK0TmS+i6nDS4V9ixleULL7u0xFuFaQoDR1ziTR/e/ywJUISaE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Hh6V4YPo; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1787805250; c=relaxed/simple;
+	bh=1BH16QiWc0Qjb48YHhn9W5XUR+q9xRxcLUk2RYcQIi0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hiBOI49VnchY6xmEEM29t0AGKU6Lk3WiPyNE7ne6zGhWWLNXmSjtPARHFk0U9UAy/TlI4uHfCkWrfkiqF0SNJlbVrIpZXgyes61NR1l9N2eLOjlXiaG9M3xZy9lgJM6vnv5shdxOiLrfaydD1eyS4t3u6B+aomZhcGndxdbKtzA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=CxbT6Z72; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Hh6V4YPo"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787805214; x=1819341214;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=AlrT28RSsUofChiqrzLpOS4n4oecYPjYKR+b3pCjGJY=;
-  b=Hh6V4YPonSqV0HsrUCGvfDLZeCQPkXF56zFhoZ2lnfD0Y+JRGmuAVNS5
-   gfrlaEONPQkDxL6iiK1Qm/TA8c2Ia2gUUjLOVwwP1/+WJIlVsV3XCNbCI
-   IcsS4I4hJg1n6AA0k8HTzZh+YpNXHDGxbgBG2DxHk8MpebP7u/oJ/7RlZ
-   SHSxmsDRjWE6iJ9GLOvZx0ZeoJQ9plTb4tLTekpeGCyEFLvJyGf3gLuu3
-   DNfBb1NQL2T3zKjXT8/TUrgclf5hYQIvQ95X8qVoSMECrsyEb+C5qUCI8
-   zrppYx94wo6G7t4VxgZwWSlhkSTpYmxRwJrc8rrYQhAGUC4r6Asm+TYB0
-   g==;
-X-CSE-ConnectionGUID: JizrJs+LROWZ0UgJCQ2QyQ==
-X-CSE-MsgGUID: cA7x+VoSTRWUUzZluucxVA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="92115293"
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="92115293"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 21:33:33 -0700
-X-CSE-ConnectionGUID: gxsSGgWNTEeFBFhyXpvTtg==
-X-CSE-MsgGUID: 71slt69TQD2bCTlzhb/Vkw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="273009032"
-Received: from guptapa-desk.jf.intel.com (HELO desk) ([10.165.239.46])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 21:33:33 -0700
-Date: Wed, 26 Aug 2026 21:33:21 -0700
-From: Pawan Gupta <pawan.kumar.gupta@linux.intel.com>
-To: Kim Phillips <kim.phillips@amd.com>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org, 
-	linux-coco@lists.linux.dev, kvm@vger.kernel.org, Sean Christopherson <seanjc@google.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
-	Nikunj A Dadhania <nikunj@amd.com>, Tom Lendacky <thomas.lendacky@amd.com>, 
-	Michael Roth <michael.roth@amd.com>, Borislav Petkov <borislav.petkov@amd.com>, 
-	Borislav Petkov <bp@alien8.de>, Naveen Rao <naveen.rao@amd.com>, 
-	David Kaplan <david.kaplan@amd.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	Nathan Fontenot <nathan.fontenot@amd.com>
-Subject: Re: [PATCH v5 2/8] x86/bugs: Allow spectre_v2=ibrs on x86 vendors
- other than Intel
-Message-ID: <eqafo3gmypwdvjw6ygzqsk5zdelscuzfulvbdryt7anmftpcuc@tmi3er6x47wa>
-References: <20260826223510.3669875-1-kim.phillips@amd.com>
- <20260826223510.3669875-3-kim.phillips@amd.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="CxbT6Z72"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=PRoXD4sZgycHw3w5/hnLgpayzzS06vs5edBN/I94MWc=;
+	b=CxbT6Z72WSbtkVnrJTNytTTxgQQdQXdSv+j1NOkIYbnVqwReA5n0r7zb507ScU
+	uZgqQg49YPRIQgd8bGPnfxGYR008ITLwLE8H6e7k6wLW0BvWxjILF5HyDkPZTS3Q
+	Yp3DJtakRQ85VpRXHsKhbfwrwC0zfqoJn++Oygjh5UrLA=
+Received: from [IPV6:2409:8900:1ef4:8f82:6a1b:f1a6:cbdd:11fe] (unknown [])
+	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wCnoe0dvo9q_WUwDw--.46122S2;
+	Thu, 27 Aug 2026 12:33:35 +0800 (CST)
+Message-ID: <6bf63800-e169-4ff7-baa2-52c4d42bb35e@163.com>
+Date: Thu, 27 Aug 2026 12:33:33 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260826223510.3669875-3-kim.phillips@amd.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] ntfs: fix race between fallocate and mmap reads
+To: Hongling Zeng <zhongling0719@126.com>,
+ Hongling Zeng <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
+ hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Baolin Liu <liubaolin@kylinos.cn>
+References: <20260827031647.1605970-1-zenghongling@kylinos.cn>
+ <bd197da8-a8ec-40ad-a50d-dc579840d680@163.com> <6A8FB73D.30104@126.com>
+Content-Language: en-US
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <6A8FB73D.30104@126.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wCnoe0dvo9q_WUwDw--.46122S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxGw45tFyrtry7ArWkZFW5Wrg_yoWrGw1fpr
+	WqgF4jkr48XrWUuF1vgw4j9F1Fg340grW5urW3J3WIvrn8KFn2gF1UKr4xuryFyFZ3Jrs3
+	X3WUJrZruFyYv3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UaJPiUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwh81AGqPvh-OlwAA31
 
-On Wed, Aug 26, 2026 at 05:35:04PM -0500, Kim Phillips wrote:
-> Prepare for legacy IBRS toggling on AMD, where the BTB Isolation
-> SEV-SNP feature uses it to optimize the VM exit-to-re-entry path.
-> Commit 7c693f54c873 ("x86/speculation: Add spectre_v2=ibrs option to
-> support Kernel IBRS") restricted the option to Intel because that was the
-> only vendor that needed it at the time; nothing about the mechanism
-> is Intel-specific.
-> 
-> Keep the IBRS-trumps-retbleed logic in retbleed_update_mitigation()
-> Intel-only.  Legacy SPEC_CTRL.IBRS does not mitigate AMD's Branch
-> Type Confusion RETBleed variant (RET prediction uses the Return
-> Address Predictor, not the indirect branch predictors IBRS
-> restricts), so letting SPECTRE_V2_IBRS trump retbleed on AMD would
-> silently drop the UNRET/IBPB mitigation that does cover it.
-> 
-> On AMD the decoupling is total: retbleed mitigation selection never
-> consults spectre_v2=, so spectre_v2=ibrs neither adds nor removes
-> RETBleed coverage.  A kernel built without MITIGATION_UNRET_ENTRY and
-> MITIGATION_IBPB_ENTRY already reports RETBleed as "Vulnerable" via the
-> retbleed sysfs node and boot log regardless of the spectre_v2= value,
-> so there is no silent gap in the spectre_v2=ibrs path to warn about --
-> and a warning there would wrongly imply the Intel-style IBRS/RETBleed
-> coupling exists on AMD.
-> 
-> Also drop CPU_SUP_INTEL from CONFIG_MITIGATION_IBRS_ENTRY's depends
-> line: the IBRS_ENTER/IBRS_EXIT macros are vendor-neutral, and the
-> Intel-only restriction would silently redirect spectre_v2=ibrs to
-> AUTO on AMD-only kernels.
-> 
-> In spectre_v2_apply_mitigation(), route AutoIBRS-capable CPUs to
-> EFER.AUTOIBRS only for the eIBRS modes.  Previously any IBRS mode used
-> EFER.AUTOIBRS when the CPU had AutoIBRS, which was unreachable while
-> spectre_v2=ibrs was Intel-only, but would now hand spectre_v2=ibrs the
-> always-on AutoIBRS behaviour instead of the toggleable SPEC_CTRL.IBRS
-> the option asks for.
-> 
-> Finally, clear EFER.AUTOIBRS at the top of cpu_select_mitigations(),
-> alongside the existing SPEC_CTRL kexec cleanup.  head_64.S preserves
-> incoming EFER bits, so a kexec from a kernel that ran in AutoIBRS mode
-> carries the bit into the new kernel; without an explicit clear the CPU
-> stays in AutoIBRS mode while sysfs reports e.g. "Mitigation: IBRS" or a
-> retpoline mode, diverging from the actual hardware state.  On a normal
-> cold boot the bit is already clear, so the msr_clear_bit() is a no-op
-> there.  Clearing on the boot CPU suffices for APs, since it precedes the
-> init_real_mode() EFER snapshot used by the AP trampoline.
-> 
-> Reported-by: Tom Lendacky <thomas.lendacky@amd.com>
-> Cc: Pawan Gupta <pawan.kumar.gupta@linux.intel.com>
-> Cc: Borislav Petkov (AMD) <bp@alien8.de>
-> Signed-off-by: Kim Phillips <kim.phillips@amd.com>
 
-Reviewed-by: Pawan Gupta <pawan.kumar.gupta@linux.intel.com>
+
+在 2026/8/27 12:04, Hongling Zeng 写道:
+> 
+> 在 2026年08月27日 11:37, liubaolin 写道:
+>>
+>>
+>> 在 2026/8/27 11:16, Hongling Zeng 写道:
+>>> The fallocate implementation only takes invalidate_lock for punch hole,
+>>> collapse range, and insert range operations. For standard allocation 
+>>> modes
+>>> (mode == 0, FALLOC_FL_KEEP_SIZE), the lock is not held.
+>>>
+>>> During ntfs_attr_fallocate(), new clusters are mapped to the runlist via
+>>> ntfs_attr_map_cluster() before being zeroed by ntfs_dio_zero_range(). 
+>>> This
+>>> creates a window where concurrent mmap page faults can read 
+>>> uninitialized
+>>> disk data.
+>>>
+>>> Since mmap uses filemap_fault() which takes invalidate_lock in shared 
+>>> mode,
+>>> it can fault in pages during this window and expose old disk contents to
+>>> userspace. This is an information leak and data integrity issue.
+>>>
+>>> Fix by taking invalidate_lock for all fallocate operations, not just for
+>>> punch/collapse/insert modes. This prevents concurrent page faults from
+>>> accessing unzeroed clusters during the allocation window.
+>>>
+>>> Fixes: 495e90fa3348 ("ntfs: update attrib operations")
+>>> Cc: stable@vger.kernel.org
+>>> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+>>> Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
+>>> Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+>>> ---
+>>> Change in v2:
+>>>   -Remove now-unnecessary map_locked variable.
+>>> ---
+>>>   fs/ntfs/file.c | 7 ++-----
+>>>   1 file changed, 2 insertions(+), 5 deletions(-)
+>>>
+>>> diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
+>>> index 88747217ba61..779baafa0319 100644
+>>> --- a/fs/ntfs/file.c
+>>> +++ b/fs/ntfs/file.c
+>>> @@ -1153,11 +1153,8 @@ static long ntfs_fallocate(struct file *file, 
+>>> int mode, loff_t offset, loff_t le
+>>>       }
+>>>         inode_dio_wait(vi);
+>>> -    if (mode & (FALLOC_FL_PUNCH_HOLE | FALLOC_FL_COLLAPSE_RANGE |
+>>> -            FALLOC_FL_INSERT_RANGE)) {
+>>> -        filemap_invalidate_lock(vi->i_mapping);
+>>> -        map_locked = true;
+>>> -    }
+>>> +    /* Take invalidate_lock for all fallocate operations to prevent 
+>>> races */
+>>> +    filemap_invalidate_lock(vi->i_mapping);
+>>>         switch (mode & FALLOC_FL_MODE_MASK) {
+>>>       case FALLOC_FL_ALLOCATE_RANGE:
+>>
+>> Hi Hyunchul and Hongling,
+>>
+>> I think map_locked might still be needed though.
+>>
+>> Before filemap_invalidate_lock() is taken, there's this check:
+>>
+>>         inode_lock(vi);
+>>         if (NInoCompressed(ni) || NInoEncrypted(ni) || 
+>> NInoWofCompressed(ni)) {
+>>                 err = -EOPNOTSUPP;
+>>                 goto out;
+>>         }
+>>
+>>         inode_dio_wait(vi);
+>>         filemap_invalidate_lock(vi->i_mapping);
+>>
+>> If that goto is taken, we reach the exit path without having locked.
+>> Without map_locked, we'd call filemap_invalidate_unlock() on a lock
+>> we never took.
+>>
+>> Would it make sense to either:
+>> 1. Keep map_locked as a guard for the unlock, or
+>> 2. Change that goto to inode_unlock() + direct return, so the shared
+>>      exit path always holds the lock?
+>>
+>> I'd appreciate your thoughts on this.
+>>
+>> Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+>>
+>> Thanks,
+>> Baolin.
+> Hi  Baolin and Hyunchul
+>   You're right — that's exactly the unbalanced-unlock path we spotted while
+>    preparing v3, and option 2 is what v3 implements. The early exit now 
+> does
+>    inode_unlock() + direct return, so every path reaching out: holds
+>    invalidate_lock, which let us drop map_locked entirely:
+> 
+>     inode_lock(vi);
+>     if (NInoCompressed(...) ) {
+>             inode_unlock(vi);
+>             return -EOPNOTSUPP;
+>     }
+>     inode_dio_wait(vi);
+>     filemap_invalidate_lock(vi->i_mapping);
+>     ...
+>     out:
+>             filemap_invalidate_unlock(vi->i_mapping);
+>     v3 with this cleanup is on its way / attached.
+> 
+>   Would this v3 approach be OK with you?
+> 
+>     Thanks,
+>     Hongling
+
+Hi Hyunchul,
+    I think this approach is good.Looking forward to your feedback.
+
+Thanks,
+Baolin.
+
