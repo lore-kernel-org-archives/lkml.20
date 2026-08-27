@@ -1,140 +1,192 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11023096.outbound.protection.outlook.com [52.101.83.96])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A67A442B10
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:21:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787829705; cv=none; b=SJZIQGEwKBDOzFUH7kfpr7/WZ08wvqyPtOS73F+gGvzd4WsL5bqic0YVl9/zVsxyRi+B3l7BFHQzOBbQVAG31VrVC/m14osMdjazNuSODl9+uW+RCcnG2/MzhydhcSYJdb11rIrcfPbOAtOMZLWzqYxKMNHNqEQ2mXs8Ap26Uc4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787829705; c=relaxed/simple;
-	bh=hZojfrBXhXNQGWoCuaBeqrPbG5tWmRusyDbxj30vlUo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LFP+4yNkVEIXOryGKEyRvf2w1EU4icke3/WT+jQUOivPmZWczk4qXYXEo3GezL+cyc5VTztI4xO+DCY7cGZWgcSaUzSGEsk5Cm7DkYZCO1Fr9VZtqgnlbO7vksSwtYRdWZ3DHBhLwcRAre0r7LKtt58uk144GHcxG97LkMI303I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f1LHCRVA; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C618D3644BE
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:21:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.96
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787829718; cv=fail; b=BDb1EspHypI8bm/zUldO/FaRIBWhtG45tmOeckmQTREjP7tatTWpNJBbt+pyQ1z1THAY/jR3BKuQQtuyyOZPP3Zgc0IBv2TXyRFt7TMq+z6B/KeGXKX63QouSrco82bZHv7vxeeu9IZ0HTPUk2GmwFC1Q1kvm7HZVyXexqoLucA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787829718; c=relaxed/simple;
+	bh=VnnjR1xk2ci7ELPZaqD0kYH8H4+tvFeVExjWLdEoIaY=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=HXwVCCasyB2zKa12AB+fnnqFmuf1EerKyuBwqyRMqUt5VkFnPFUyI5TPt+iqfbLGZXClgmSymlB4WV/ZAcC/SHc1v3+k1ieHOu90dfnFJjOiB22joIi1QbzJNZERckcWbEcRRZ04cYCqw/4kmzBkqinOhffx+ejOT8c+6p6C5n4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=codasip.com; spf=pass smtp.mailfrom=codasip.com; dkim=pass (2048-bit key) header.d=codasip.com header.i=@codasip.com header.b=i+jH8nFl; arc=fail smtp.client-ip=52.101.83.96
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=codasip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codasip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f1LHCRVA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 505351F00A3F
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:21:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787829701;
-	bh=0UIgM9wZ4RI/8wrWJM1FMTtmf/qGX7io7Fd5Y0z2gPc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=f1LHCRVAF0p7WV1uJK9MuRI7poMNWprYq8VQhdMPLaiNA1JpsbYvcGhkmPdy287bN
-	 dXv5RTxSbqiTw0DB5Sohqd9Hp6y+Tq7qC/NngZdMVdQPGdCQwQQkpNutMcvuAZ+lOv
-	 UIbFBABcSIlEgXW/LQi33OHwRK8JgsxgJM/pXdDw/O0SScLqwEBX35LVHE4j8/uhmQ
-	 0ElbhxNh61iQBRebTGRcljtthxtK5++74ZLJoi4SMaNUJDMN2NfbW0oqXJlwlNQAA0
-	 laeY1aqOFndAh1VnKDinpy4wIrtqvvMNFwi0HSwStga0e10SEcT9y0VuguHSvB6+7C
-	 NavCRzQl330Mg==
-Received: by mail-qk1-f177.google.com with SMTP id af79cd13be357-9377f717879so111698185a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 04:21:41 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RoM0D3SI+a4bDmVYZPhAdJwxAZxJqA3WtA6+r2ZHvkqnrmNfbfFSX6c7hecba/6O4HqV8zKk6W/eAzLbzU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kC7dEQ4z/l4ZrYlkR3PU37Q1CCbwYzbS3upiq6reJQ7DNZAUXl
-	NwDM3099M1kG+OxfUiobZabORQwWrU++5lJarT3CDFXkyalLqqii64VBRrKJR0Uth1YfhM5ESRq
-	7rzHe0/fpW9KMVdWZ4M1pblLEYbCG+DU=
-X-Received: by 2002:a05:620a:aa0e:b0:934:970a:beb2 with SMTP id
- af79cd13be357-93780490d8emr1295635785a.26.1787829700622; Thu, 27 Aug 2026
- 04:21:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=codasip.com header.i=@codasip.com header.b="i+jH8nFl"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cD7rLIbmujYLEMA1DCIKbCpOS0WfjzSwYgFbwv6yaxQqGgIhHq6BkigRV9ONqAJbecgvsadKZWAcGatxNNXk0xTugDpkQZcHV4aLzmLrTgEfQtmIUgAst8/kI/9ZmdupTt6atq3lVE34eeoomrDzJDFZAUmlD9FoXqfzb5tyxbvvrwDwS14us2+xpIFxxLAT0/sanviz29P4TsJOQ+8PHYQ8D8HEeWChFiMNfsMqf/QBUrU9I8FF8cheVOTFv4qGkbD6fnTxxi+iW5UZMsU4/XNfmkycBYaH3peoZvp7i/tWL3HvK6XevC5ZE6fjjR6PoZR5UTZVmZxQWuzhFf4oMg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=m8MnArjUx0HOdi0t72v2E2g9+msO687bRGIOLbx02n8=;
+ b=SEBHa0vQJfv6FbUkUxWCHpVnUyCGYP1kAnx4tBV56jAL4xEYMdvdhv+4PDY8UzyQK41R139aYyI6Ci7oNp58MAfzWBciPDDIx8GkDjjKwlEHOPyo8ZMHzdN/H94m5woZefkusOQR3BXaEmuiQ133dS4C5YFikgUoGHaFzeqSAOcPDg1fFurMY9idO70dwKSLp9eCXAIxPNl4YLW0Kk17gnLzUT1nM4gbKuoIIzKZWBsp9Axui0m/sfKyGY3aoq8WrVDBxK7RfkOJpMx87APi1FmrzaoITs9s1YMTNlazlxvzFTFy5KZ8IkyH2Dnd87HyNSi6S1COvzj5WP9K3Js6Hw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=codasip.com; dmarc=pass action=none header.from=codasip.com;
+ dkim=pass header.d=codasip.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codasip.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=m8MnArjUx0HOdi0t72v2E2g9+msO687bRGIOLbx02n8=;
+ b=i+jH8nFlfgeKJTDDcEdYlCrWR3+ZMb5DUiXRMxdpbbFmJZmjDHIkmngR48Dny3+Abaittc5uLD+mFN3w92wsL7uc1mSb0JlrGptWYKp3miyEPilgzPA+/UwGBXMlz6JqPF5v4neXrvmc75CPv3uVgUgodwggLN20l6+THKIFyIXEd9Bk1yVdaGcAnIkLv9cQDUE66LdjiUIL+Cw1ZP94zYciIFfQ+g2FX2GEvjQ/T2YUlc7eyP0fMUVVUCwdEsJNBxYk8wEVMf1uHbJwb9tT6NrGEJviAxgKYd5KJQ8AbYLagZZ3WLx01+MKnmm2KLEAyfyrW9SYfANdtVW+P/OujQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=codasip.com;
+Received: from AM9P192MB0983.EURP192.PROD.OUTLOOK.COM (2603:10a6:20b:1f4::5)
+ by PAXP192MB1558.EURP192.PROD.OUTLOOK.COM (2603:10a6:102:28e::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.8; Thu, 27 Aug
+ 2026 11:21:46 +0000
+Received: from AM9P192MB0983.EURP192.PROD.OUTLOOK.COM
+ ([fe80::f0e5:8465:302:9a9c]) by AM9P192MB0983.EURP192.PROD.OUTLOOK.COM
+ ([fe80::f0e5:8465:302:9a9c%3]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
+ 11:21:46 +0000
+Message-ID: <babc7c19-8b33-425b-a872-1569e036c722@codasip.com>
+Date: Thu, 27 Aug 2026 13:21:45 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] riscv: module: Use scope-based resource management for
+ scratch buf
+To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
+Cc: Andrew Jones <ajones@ventanamicro.com>,
+ Samuel Holland <samuel.holland@sifive.com>, Miaoqian Lin
+ <linmq006@gmail.com>, Sean Chang <seanwascoding@gmail.com>,
+ linux-riscv@lists.infradead.or, linux-kernel@vger.kernel.org
+References: <20260512063359.713142-1-florian.schmaus@codasip.com>
+Content-Language: en-US
+From: Florian Schmaus <florian.schmaus@codasip.com>
+In-Reply-To: <20260512063359.713142-1-florian.schmaus@codasip.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR5P281CA0002.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f2::20) To AM9P192MB0983.EURP192.PROD.OUTLOOK.COM
+ (2603:10a6:20b:1f4::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260821102538.22642-1-baohua@kernel.org> <20260821102538.22642-2-baohua@kernel.org>
- <CAMgjq7AZtqdu-yJ3TSa9Zq=Cwuqv-NY+ptz3Qpive-iFXR6e0w@mail.gmail.com>
-In-Reply-To: <CAMgjq7AZtqdu-yJ3TSa9Zq=Cwuqv-NY+ptz3Qpive-iFXR6e0w@mail.gmail.com>
-From: Barry Song <baohua@kernel.org>
-Date: Thu, 27 Aug 2026 19:21:28 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4x1ckY2uFoOYq=Vw=d167u+-yVpt-TSWxju41ivth2iLw@mail.gmail.com>
-X-Gm-Features: AcwNN1VUXhvl5pivnqOcuFtVFnj2RfhRRiUYKbPKlJdZakv6BIoplbtIqVZG-RU
-Message-ID: <CAGsJ_4x1ckY2uFoOYq=Vw=d167u+-yVpt-TSWxju41ivth2iLw@mail.gmail.com>
-Subject: Re: [PATCH 1/6] mm/mglru: batch update lrugen->nr_pages in inc_min_seq()
-To: Kairui Song <ryncsn@gmail.com>
-Cc: akpm@linux-foundation.org, linux-mm@kvack.org, axelrasmussen@google.com, 
-	baolin.wang@linux.alibaba.com, baoquan.he@linux.dev, chenridong@xiaomi.com, 
-	david@kernel.org, hannes@cmpxchg.org, lianux.mm@gmail.com, 
-	linux-kernel@vger.kernel.org, ljs@kernel.org, lyugaofei@xiaomi.com, 
-	mhocko@kernel.org, qi.zheng@linux.dev, shakeel.butt@linux.dev, 
-	stevensd@chromium.org, wangzicheng@honor.com, weixugc@google.com, 
-	yuanchu@google.com, zhangbo56@xiaomi.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM9P192MB0983:EE_|PAXP192MB1558:EE_
+X-MS-Office365-Filtering-Correlation-Id: 687587f2-1365-4833-403a-08df042d6142
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|376014|366016|10070799003|23010399003|10067099003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	LbCb3E25SAlC9Cik4K+WXZNGa054SIbS+Yvv+AH9LHCUAl2o4ZCJBzDW3W+nR5KrafZgi9k68vqnp0IlJ/OAyOIkI5tZsu1k88AghVeQAYR8RJcQwrg0UIllYJRO4qupJYbogrGE+tGpdWvqEbl6bZFnb1Z1CTT1gQaEhWazZj2LbJSlYCCrSUc9rPCtZnphRljL1VDMGW3B+IoRd3rrOR5J7+P4wQTWYnUPzKOS4Idy57lkHQiYOwTr0pCjrmiNhS33p4b/DKSTkPbqqrF7GUgSgq2h2UyJzOpvk2dfDPCsJW3fzoWp4TULX1qndvOGPq4eKWcJgbVEbpT2pX6D8jdfxj8dxM0ePv9uAB+X6QpWzuGmvkPaT+jU22U1utuEMa8iQ62PYrRTryqiYccQA1B77JNp4PwA4HGmFTKVopu6PAuR1VTLgA5SjmaP1I++ZxDFlAoVIzwDmsL8G/Yx0uGZ8AVvYjsTHU9mkN/8Y1Cbi23anbPT2IcyZIUXooFfIb1caxVIuLoqZhH0ADJnMn9vfDDy1iAr0yjpkBo07EEI4MQdzeahogKzvMep1bK3FWUoga3cjd1jaBLHSVOwJZkhTFpP0oljZQ3vNUp6sRLe8BJIYi9d/VUfYslct/5372uF7FQD6n9xmf0eTeKQ6HZML/at4ScfqUr42BhByu4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9P192MB0983.EURP192.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(10070799003)(23010399003)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bWFDZGhrRXJ5OTRUWjcvQmZPdDF2K1ZnRWl0cWVmWGlvTjlLVm9PaG45UzZR?=
+ =?utf-8?B?RTV2b1IydWVOaGZ4aWxqY3ZYcWFETHdIcGZFNSsyWVpOclhrUXhEajJPVDVC?=
+ =?utf-8?B?dmUweEVtUk5SdjdMY1gyK2IrR0hxdEdrRFF3d0dIZ1JQVEkvb1F1RjdYOFd4?=
+ =?utf-8?B?KzhSclNYKzNZbkpXb0xOVUErd044M0ZSN004aGpxNXBoWXozUldGbGVoekpl?=
+ =?utf-8?B?dUJ1MG92TXFHSG1yTVZvbjAwdG01Q2QrcFp2WlMxOC9yU05PQVdQME5JMC8w?=
+ =?utf-8?B?R24xZmZqT21lNHlYbkt1TUJSeUVkMklUVHpXMmdvVHBCY1VuN0VhWndKMTZi?=
+ =?utf-8?B?WmR3RWRLVjJIaE1JSEN1QW1MZ3VUekhHQ1dsSFpjSElRRTNXUmJhUlBFNGky?=
+ =?utf-8?B?b2tRNGVCV0hxNnVkYjhqUzFyU3IvZmI2OGp4a05WU2JzNEFnTis0SjlpT2Fm?=
+ =?utf-8?B?Tm5jQW9xQzFNa3RML3ZSUlA5Q2x4WEZ2K1YweXYwdE0zTzZCMXJsSkROTnRv?=
+ =?utf-8?B?RldoYzVuV2l0U1VOS2xTTytNUVhrdkN1bElKd2VPaDh5SllaTVdlTEUvT0t6?=
+ =?utf-8?B?a1BEUFBIbTJJcVYrMHV0NExSY3FNdm1QbVJCcVdNSTA2ZXJyMnhITnI5RXUz?=
+ =?utf-8?B?cUV5c0VKc09Dd1FDaUZDSWh2cnFYV2lmeSt0S0doTnRFUTl4Wkx3V1hIVzZP?=
+ =?utf-8?B?WHNMVHlDeUZtZ0FBM0thQlB2SldxOXVKeGJaU1NlTXVOT05ENUJKVWtJY05X?=
+ =?utf-8?B?UlN4L1pDL1VyK0pMeGZMeWVKbEU4TlNqMU1vbVZNcEMwcGhTWjU0dHdLbks5?=
+ =?utf-8?B?WEFnYk9nUGxzZk1wNHJEY1hKWHhFVk1ibVNtSGNjUVhZaE4wWkVjbFFEK2hR?=
+ =?utf-8?B?QTVUR01zZlZSeTJtQk1reVpxU2FKTXlwYnZ5ak5naGF1KzFMdTQzUkx2dC9p?=
+ =?utf-8?B?UFZQTzl1dVEwQ3pVMVBkVWZSeDZLUGdaL3E3T2t5TnJNcHU4S2VBSkg5bEJU?=
+ =?utf-8?B?QjliZUVSdmlSekV2UXNSaDJuUllkc3VYS3FoQnVKUjZ3RERhVkY1MTAraVNq?=
+ =?utf-8?B?UmFJTGxaTHk1NHUzWThxVndKU2haUUtENUZCaEMralk4bFdkS1VCVS9XSWpP?=
+ =?utf-8?B?czNVWVVtMkZqSjNPMzJrVElPTGRMdEVCMGhEVFF4UENKc1c2emFoOEQzbGNz?=
+ =?utf-8?B?T29GdkkvYm51dEhoY2VYWVZIYmRiLzZMYVZBbHBjcXVMUWVMRGJnb1ZmR1Rt?=
+ =?utf-8?B?eDFjZ3paTEd5bmN5bzJ0UGVNeXRVL0RuS0RDdzhPRHF0WVduWXpGaVg0RmlO?=
+ =?utf-8?B?b3RTSXZFY1Y1em9saTVTVHBmcDdOd0gvTzdzOSsrOUFRVmg5TTg4VTBnT1Vq?=
+ =?utf-8?B?WkFNUEljdDEvVXRVVFM4d20wUS8zbU1qL2Z4eXRzUkM0blRvRTcwemdoQ1Rk?=
+ =?utf-8?B?WWk1bmJWeXQzK21SQWZrY1RPOW90RzEvd1NXOUR2OVA3UEpsTXVHTHRVOHFt?=
+ =?utf-8?B?b0RNR25JeDhMTWEwSC9VWHp2OGFydkZaNEg2eXpTYkNHa0Q3eUhRRWdWTmhk?=
+ =?utf-8?B?SWZDQklMMkZnMFIrQ3gvQ2JqOUo2TW9INUN0MURLVGI4a2RIbEJKeS9rSjVn?=
+ =?utf-8?B?MDlzeFVNQ21pN0VJVWpiNlhZNWplMGk5V2lSNkE2ZFArUDhFUnhVZDB5dVdj?=
+ =?utf-8?B?clJMSmVFTERFL2dOdjFQY2ZHN3k0Y2x1aUVxejB6YXNQOWovVjJ1SGdHcCsx?=
+ =?utf-8?B?VytNeThmZWtIOFgzWlN0NElaQnY1ak1jQXdIdTRLaEZuTDB1bjBHNEp6WmJj?=
+ =?utf-8?B?aVI0bVJvZHVLSllLOEJJVVVHT2VxSGdldjdnV3A2bm9qdlJjRTVpdGdQcElZ?=
+ =?utf-8?B?N05NQUdiREwxVHNHQ29OT2pIdFVlNHZQYThYMzVjUW1neG4zMXIyRjJFcDBt?=
+ =?utf-8?B?ZG84ZWRwMzlsNWVTd2ZuclRDRFFQc2pvTEF0emNVUWgyQkVZeUJpNEpaM2hY?=
+ =?utf-8?B?cW5iMlZ5NXRQMENKdFJqbEQ2SlJHcWVoc0psa2FxL3VzV0RldXVVTDdMVmxr?=
+ =?utf-8?B?ellpOTVHZjN1bFVrQXZuRmlpcXV0NmlWcmpsVEF5YkJIR3RNUkZMalJWRGFI?=
+ =?utf-8?B?SlgyNmk4dEtQWFhMZG9JV2FoSTBOVGYxNEl4TTB0TnFndlREeEJVNTFIbG9G?=
+ =?utf-8?B?b052aElVTi9oM0s0NUp4ZGVqSUtyWmtBNzgrZWxES2hqOWRKbkVROTdlTUNh?=
+ =?utf-8?B?RDZsTytNZDd6T1V4QXF1M2RLMUE5a21YbXNab3pia2MzazEyVmlKT2lFMFRS?=
+ =?utf-8?B?czlJeFk2blU2NEJOdXRlWHJPdWFBUWo1Q25nSjExdGtpM1VQejVsM0d5aGZh?=
+ =?utf-8?Q?3sLFRdVfN5kSyGymD+yH91SSNCgI0kz1R2LNHErN8Btie?=
+X-MS-Exchange-AntiSpam-MessageData-1: IWVtiBu20fLAWBYIxwcP+2Dd6wpl9qOT2GA=
+X-OriginatorOrg: codasip.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 687587f2-1365-4833-403a-08df042d6142
+X-MS-Exchange-CrossTenant-AuthSource: AM9P192MB0983.EURP192.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 11:21:46.3981
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0d91ffef-bb81-4cbd-b9b8-552583685f20
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DG36TokhLJYJisWXj5k8lw2g9jQgwCVz6iu9Hrv94cT2Ar/h5PXv8zXN3aYcvwzv8xyeN8lzD1OVX3BYoPSsdfqHQLUU3Nkd2vvx42yuwRc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXP192MB1558
 
-On Thu, Aug 27, 2026 at 11:21=E2=80=AFAM Kairui Song <ryncsn@gmail.com> wro=
-te:
->
-> On Fri, Aug 21, 2026 at 7:09=E2=80=AFPM Barry Song (Xiaomi) <baohua@kerne=
-l.org> wrote:
-> >
-> > Currently, folio_inc_gen() updates lrugen->nr_pages for every folio
-> > as it advances generations. Instead, accumulate the size changes
-> > and update lrugen->nr_pages in a batch after scanning the entire
-> > oldest generation, or when the scan stops because remaining reaches
-> > zero.
-> >
-> > Since we only move folios from the oldest generation to the second
-> > oldest generation, the active/inactive state cannot change. We can
-> > therefore skip __lru_update_size().
-> >
-> > Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
-> > ---
-> >  mm/vmscan.c | 46 +++++++++++++++++++++++++++++++++++-----------
-> >  1 file changed, 35 insertions(+), 11 deletions(-)
->
-> Hello Barry
->
-> Thanks for the patch!
->
-> >
-> > diff --git a/mm/vmscan.c b/mm/vmscan.c
-> > index c1404a59523d..0d74fc00abd3 100644
-> > --- a/mm/vmscan.c
-> > +++ b/mm/vmscan.c
-> > @@ -3296,20 +3296,21 @@ static int folio_update_gen(struct folio *folio=
-, int gen, const vma_flags_t *vma
-> >  }
-> >
-> >  /* protect pages accessed multiple times through file descriptors */
-> > -static int folio_inc_gen(struct lruvec *lruvec, struct folio *folio)
-> > +static int __folio_inc_gen(struct folio *folio, int old_gen, bool *inc=
-reased)
->
-> I feel the naming is a bit confusing, the __ prefix doesn't tell how
-> it differs from folio_inc_gen very well, maybe just name one
-> folio_inc_gen (the old gen could be any gen), another one is
-> folio_inc_min_gen (the old gen can only be min_seq), and with sanity
-> check in folio_inc_min_gen that expects get_nr_gens =3D=3D 4, and
-> lru_gen_is_active(min_seq) =3D=3D lru_gen_is_active(min_seq + 1)? This
-> could be a build-time sanity check instead of a runtime debug check.
+On 12/05/2026 08.33, Florian Schmaus wrote:
+> The scratch buffer in module_frob_arch_sections() is currently managed
+> manually, requiring explicit calls to kvfree().
+> 
+> Convert it to use scope-based resource management via the
+> __free(kvfree) attribute. This automatically guarantees that the
+> buffer is freed when it goes out of scope, preventing potential memory
+> leaks. Most notably, it simplifies the kvrealloc() error path by
+> removing the need to manually free the original buffer before
+> returning -ENOMEM.
+> 
+> Signed-off-by: Florian Schmaus <florian.schmaus@codasip.com>
+> ---
+>   arch/riscv/kernel/module-sections.c | 8 +++-----
+>   1 file changed, 3 insertions(+), 5 deletions(-)
+> 
+> diff --git a/arch/riscv/kernel/module-sections.c b/arch/riscv/kernel/module-sections.c
+> index b3b11b7f7ed9..ed3be8be377e 100644
+> --- a/arch/riscv/kernel/module-sections.c
+> +++ b/arch/riscv/kernel/module-sections.c
+> @@ -116,7 +116,7 @@ int module_frob_arch_sections(Elf_Ehdr *ehdr, Elf_Shdr *sechdrs,
+>   	size_t num_scratch_relas = 0;
+>   	unsigned int num_plts = 0;
+>   	unsigned int num_gots = 0;
+> -	Elf_Rela *scratch = NULL;
+> +	Elf_Rela *scratch __free(kvfree) = NULL;
+>   	Elf_Rela *new_scratch;
+>   	size_t scratch_size = 0;
+>   	int i;
+> @@ -168,10 +168,9 @@ int module_frob_arch_sections(Elf_Ehdr *ehdr, Elf_Shdr *sechdrs,
+>   		if (scratch_size_needed > scratch_size) {
+>   			scratch_size = scratch_size_needed;
+>   			new_scratch = kvrealloc(scratch, scratch_size, GFP_KERNEL);
+> -			if (!new_scratch) {
+> -				kvfree(scratch);
+> +			if (!new_scratch)
+>   				return -ENOMEM;
+> -			}
+> +
+>   			scratch = new_scratch;
+>   		}
+>   
+> @@ -184,7 +183,6 @@ int module_frob_arch_sections(Elf_Ehdr *ehdr, Elf_Shdr *sechdrs,
+>   		/* sort the accumulated PLT/GOT relocations so duplicates are adjacent */
+>   		sort(scratch, num_scratch_relas, sizeof(*scratch), cmp_rela, NULL);
+>   		count_max_entries(scratch, num_scratch_relas, &num_plts, &num_gots);
+> -		kvfree(scratch);
+>   	}
+>   
+>   	mod->arch.plt.shdr->sh_type = SHT_NOBITS;
 
-Thanks very much for your suggestion, Kairui.
+Friendly ping. Have the RISC-V maintainer had a chance to look at the 
+patch? It's a minor cleanup.
 
-I tried splitting this into two functions, folio_inc_min_gen() and
-folio_inc_gen(). I tried a couple of approaches, but I think I=E2=80=99ll g=
-ive up
-on this direction.
-folio_inc_min_gen() and folio_inc_gen() share some common code while
-also having some differences. It=E2=80=99s hard to avoid ugly code duplicat=
-ion
-because folio_inc_gen() cannot call folio_inc_min_gen(). However,
-folio_inc_gen() can call __folio_inc_gen().
-
-The __ prefix currently indicates that we don=E2=80=99t update the LRU size=
-s in
-this case. The sizes can either be updated in a batch later or updated once
-by folio_inc_gen().
-Maybe we could add a comment to make this easier to read, or use a better
-name for __folio_inc_gen()?
-
->
-> I saw baoquan also mentioned the debug check on
-> lru_gen_is_active(min_seq) =3D=3D lru_gen_is_active(min_seq + 1), which I
-> agree.
->
-
-Agreed. But I feel we only need to do this once in inc_min_seq(),
-rather than for each folio.
-
-Best Regards
-Barry
+Thanks!
+  Florian
