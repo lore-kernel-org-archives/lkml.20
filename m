@@ -1,386 +1,128 @@
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B36453839AA;
-	Thu, 27 Aug 2026 21:40:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787866838; cv=pass; b=BSQ094e3RV+MEb09H9zj8NWYT+cKoSXaENakeJFHnZFUGx1sXD1YGYgSDxuUejF8bNZNJUbNJ3rjgtjNNdUGv7gn5vhBxff6YBzIt5aJhn/7mgkgt2uwYWPucXBlwNhZoArVp3R+JGMOV+YvEDQEJeS+aqb+CGxnEhXaOOKANgc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787866838; c=relaxed/simple;
-	bh=wCOZgLmWDdBot6IK8CsDbvJ5Pq3VPyXZCQnnavsnt3I=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=Eo//M1QvT5Nj5TqGcvN0dwulj8glfA1Orfcewd/8/4T/9OoeBvn779Bvi5Zp3VSI/JtU7PjjniDDcsP7vXw4j08nyu3c/33bVzwtFZaagsXpVMfVh9rKM7HPkLpzG6GiUfoCcnjJeGKcIMhr4WdlICfOAv1vDdVM7CKSj8CNnAQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b=gaTduDR0; arc=pass smtp.client-ip=136.143.188.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D426F38F65C;
+	Thu, 27 Aug 2026 21:41:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787866917; cv=none; b=hLnOfVQ2Ha6P1P7+6tzPN24t0ln2TUFYMyRnK6TIwUrmYIOSjMzBGeHmLQ0Qin1wJrwVNjaqL9qx7w6I+F1eAHA9mlx8QBvv971wCGztfohxQDRgmegr8tbdRqD1YLrYmQSHkgxOxynHsvCsniYFw6bcnIDGD9d5PZ2HOuKJl8c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787866917; c=relaxed/simple;
+	bh=vx7ibqNK4H4bQvtmSpwOhxA78qBlIj1ZhgMs+cKy6vc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=U5aiEP8BGiVv19nbCXyCQAzM3A+WXsJ8h7gMAXpOCmRXlUnzjPBkugAI6rYM5kaeMxgGKpcXHZr4DUr7GAkC1cmi9AUvgelqBeqcik6yOji1O0vGGuxgO4N/nizt78gRAmcpK8e6beeH68SMqGVxG6d1BP+p4+P/l/fsgVq4nwE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OnfQnoc3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="gaTduDR0"
-ARC-Seal: i=1; a=rsa-sha256; t=1787866801; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=E0fHXY+UtvBcGAma5LOFFnP+TJjUdG0LXZ4CqgvfyR8GHUTaQOXWFgm9mRPhVdg3WrZrI0RU6G1w/Q/B7cKZBW2ahHiIrA+L6+2x+TDVXkvkjlMuWZ4ebCgi23oq/WMtELwFBiCjRPVDQYZJYoKJN8GH3rRgKHV7Dsx6lSh0jKA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1787866801; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=ouJ4pnIcjU5aisMBl2GcMf/o5PCWQtQIdfmg1FkijNY=; 
-	b=j3p1qgFjfSNVkmMXPwR+NbDs1UujquF/bhxPBSJbgewC311TZ93jYVXfbz+A6FjZeVJOfGwFcpXEjQfLEKLZ1DZl96OSGJ/IdhFeax+yBZpWjukI9tayNiHZAlHOqfPNkfDUTzSqf6C1J78IgvfhzgsD+9qKY4vWUIA6b48g8RU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
-	dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787866801;
-	s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
-	h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
-	bh=ouJ4pnIcjU5aisMBl2GcMf/o5PCWQtQIdfmg1FkijNY=;
-	b=gaTduDR06svGWN9xI5vSQ2MHNAUhSQp8EuCtclGdI8KY9jqaM4pbiuHd8jbApZ8C
-	XFdK8lVq5d2bY4U/mAy6fj9OwaPW3FK7Cv5iehX4chqE0mXGkmV0nFRyA5uyflonL4A
-	ztLb7yphzOnBgc+VM+iJLpmUidh4hLmUaccaGwmo=
-Received: by mx.zohomail.com with SMTPS id 1787866799207937.3277570745092;
-	Thu, 27 Aug 2026 14:39:59 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OnfQnoc3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CF601F00A3A;
+	Thu, 27 Aug 2026 21:41:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787866908;
+	bh=+dJ2/89KzJA+YU6uGo5TNo5P0os2bn6e5V8Hm1Oz+DI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OnfQnoc334MVL1rqM4T9D31HFX7jfHs0Bilng0Pyr/1N9g76l9ZjCj1tvsb32Tvg+
+	 NbZFOaPvr9c+YrBJIG1sBBMJh3fKztI/Rgaktyp2zN+w2mkG7qBlwg3d/iwwwgtJg5
+	 eUOmwMLNOsfv8Zz2LrTpZMkA3Vi3vLmd+cH8MRdwvRkqxTZ3xcmMQEeHRv09vn/p3W
+	 vfhdZ420Tlxqw4CZUuTdAe0KL4kMNP68JVKdAJOREBlzVjjHnUgqXcIzivwloSlrJf
+	 TMy8d3IkWxZNmcaRPuqEdq8G6lw8ugX7HwrgLnmcvivIg2Z54ycAQ55Dq9H7QZIycM
+	 6qmCuWqTR3UyA==
+Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
+	id 330E4C67629; Thu, 27 Aug 2026 22:41:45 +0100 (BST)
+Date: Thu, 27 Aug 2026 22:41:45 +0100
+From: Mark Brown <broonie@kernel.org>
+To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
+Cc: "bill.roberts@foss.arm.com" <bill.roberts@foss.arm.com>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
+	"debug@rivosinc.com" <debug@rivosinc.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-hardening@vger.kernel.org" <linux-hardening@vger.kernel.org>,
+	"linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
+	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>
+Subject: Re: Shadow Stack Locking Semantics between arch's
+Message-ID: <apCvGct9U1yprAUE@sirena.org.uk>
+References: <a1946d93-370e-4ca9-85d6-60b4a20ffd47@arm.com>
+ <3bb672e0-7bc3-434f-904e-aa00394dd01f@foss.arm.com>
+ <d20ccb74-69ed-45d7-a810-846904873588@sirena.org.uk>
+ <01b0fe86d5700847f78b0e6f839119f54ac88b04.camel@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
-Subject: Re: [PATCH v2 5/6] rust: workqueue: add ScopedQueue for lifetime
- bound items
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <20260807165252.3849875-6-dakr@kernel.org>
-Date: Thu, 27 Aug 2026 18:39:40 -0300
-Cc: tj@kernel.org,
- jiangshanlai@gmail.com,
- aliceryhl@google.com,
- ojeda@kernel.org,
- boqun@kernel.org,
- gary@garyguo.net,
- bjorn3_gh@protonmail.com,
- lossin@kernel.org,
- a.hindborg@kernel.org,
- tmgross@umich.edu,
- tamird@kernel.org,
- acourbot@nvidia.com,
- work@onurozkan.dev,
- jhubbard@nvidia.com,
- rust-for-linux@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- driver-core@lists.linux.dev
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="sz/kjGTpENLdkZcp"
+Content-Disposition: inline
+In-Reply-To: <01b0fe86d5700847f78b0e6f839119f54ac88b04.camel@intel.com>
+X-Cookie: I think, therefore I am... I think.
+
+
+--sz/kjGTpENLdkZcp
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <AC117B3B-1C56-4EB5-A6CB-61670614E12A@collabora.com>
-References: <20260807165252.3849875-1-dakr@kernel.org>
- <20260807165252.3849875-6-dakr@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>
-X-Mailer: Apple Mail (2.3826.700.81)
-X-ZohoMailClient: External
 
+On Thu, Aug 27, 2026 at 09:27:06PM +0000, Edgecombe, Rick P wrote:
+> On Thu, 2026-08-27 at 19:14 +0100, Mark Brown wrote:
+> > On Thu, Aug 27, 2026 at 12:52:28PM -0500, Bill Roberts wrote:
 
+> > > I am proposing and have questions over the following:
+> > > 1. What should the behavior be if you had write locked and disable the
+> > > shadow stack?
+> > > =A0 - I can argue both ways here, -EPERM or success. I think I and mo=
+st arches
+> > > lead to failure.
 
-> On 7 Aug 2026, at 13:52, Danilo Krummrich <dakr@kernel.org> wrote:
->=20
-> From: Onur =C3=96zkan <work@onurozkan.dev>
->=20
-> Add a workqueue wrapper for work items that are not 'static.
->=20
-> Tyr reset work is queued from a handle that owns a Controller<'bound>
-> where the work item holds references tied to the lifetime of the bound
-> device and its mapped IO state. The existing API only accepts 'static
-> work items which cannot express that relationship.
->=20
-> Introduce ScopedQueue for this case. It owns the underlying workqueue
-> and ties enqueued work to the queue lifetime so borrowed state cannot
-> outlive the queue that may still run it.
->=20
-> Construction is unsafe because the queue must not be leaked.
->=20
-> `compile_fail` doc-tests are ignored for now as KUnit doesn't support
-> that. Enabling those tests as regular code block would raise this =
-error:
->=20
->    ERROR:root:error[E0597]: `data` does not live long enough
-> --> rust/doctests_kernel_generated.rs:22029:44
->  |
->    22027 |         let data =3D ();
->  |             ---- binding `data` declared here
->    22028 |         // SAFETY: Queue is not leaked.
->    22029 |         queue =3D unsafe { new_queue(&data)? };
->  |                                            ^^^^^ borrowed value =
-does not live long enough
->    22030 |     }
->  |     - `data` dropped here while still borrowed
->    ...
->    22034 | }
->  | - borrow might be used here, when `queue` is dropped and runs the =
-`Drop` code for type `ScopedQueue`
->  |
->  =3D note: values in a scope are dropped in the opposite order they =
-are defined
->=20
-> which is exactly the constraint ScopedQueue is meant to enforce.
->=20
-> Suggested-by: Danilo Krummrich <dakr@kernel.org>
-> Signed-off-by: Onur =C3=96zkan <work@onurozkan.dev>
-> [ Move from scoped_queue.rs to scoped.rs, which can be shared with
->  ScopedWork; add missing inline annotations. - Danilo ]
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
-> ---
-> rust/kernel/workqueue/mod.rs    |   3 +
-> rust/kernel/workqueue/scoped.rs | 190 ++++++++++++++++++++++++++++++++
-> 2 files changed, 193 insertions(+)
-> create mode 100644 rust/kernel/workqueue/scoped.rs
->=20
-> diff --git a/rust/kernel/workqueue/mod.rs =
-b/rust/kernel/workqueue/mod.rs
-> index 8eb2d037be83..551fa1401b85 100644
-> --- a/rust/kernel/workqueue/mod.rs
-> +++ b/rust/kernel/workqueue/mod.rs
-> @@ -212,6 +212,9 @@
-> mod builder;
-> pub use self::builder::Builder;
->=20
-> +mod scoped;
-> +pub use self::scoped::ScopedQueue;
-> +
-> /// Creates a [`Work`] initialiser with the given name and a =
-newly-created lock class.
-> #[macro_export]
-> macro_rules! new_work {
-> diff --git a/rust/kernel/workqueue/scoped.rs =
-b/rust/kernel/workqueue/scoped.rs
-> new file mode 100644
-> index 000000000000..18a4b6f6cf18
-> --- /dev/null
-> +++ b/rust/kernel/workqueue/scoped.rs
-> @@ -0,0 +1,190 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +
-> +//! Lifetime-scoped workqueues.
-> +//!
-> +//! Provides [`ScopedQueue`] for work items that may borrow data with =
-some
-> +//! non-`'static` lifetime.
-> +//!
-> +//! Unlike [`Queue`] which only accepts `'static` work items, =
-[`ScopedQueue`]
-> +//! owns its underlying queue and relies on that queue being dropped =
-to drain
-> +//! pending and running work before borrowed data can go out of =
-scope.
-> +//!
-> +//! TODO: Remove `ignore` once KUnit supports `compile_fail` on =
-doc-tests.
-> +//! ```compile_fail,ignore
-> +//! use kernel::prelude::*;
-> +//! use kernel::workqueue::ScopedQueue;
-> +//!
-> +//! /// # Safety
-> +//! ///
-> +//! /// Returned queue must not be leaked.
-> +//! unsafe fn new_queue<'bound>(_: &'bound ()) -> =
-Result<ScopedQueue<'bound>> {
+> > Given that RISC-V doesn't support control of writes it's moot there
+> > at the minute, and x86 currently uses arch_prctl() so will need an
+> > additional API, it seems the path of least resistance is to allow it.
+> > This also avoids locking writes (or pushes, for arm64) on effectively
+> > also locking enable which seems neater.
 
-nit: is it me, or =E2=80=9Cbound=E2=80=9D sounds out of place here? =
-Perhaps =E2=80=99scope instead?
+> Hmm. I can't think of a reason to lock writes and not lock shadow stack t=
+oo.
+> Given likely no one is doing this, I wonder if we could change x86's beha=
+vior to
+> match the others?
 
-Same comment throughout the whole example.
+> The API would makes more sense to prevent disabling shadow stack if write=
+s were
+> enabled. It could return an EINVAL regardless if it is locked or not? Is =
+that
+> the arm behavior (forgetting about locked)?
 
-> +//!     // SAFETY: Caller guarantees that the returned queue is not =
-leaked.
-> +//!     unsafe { ScopedQueue::new(c"scoped_queue") }
-> +//! }
-> +//!
-> +//! fn queue_outlives_borrowed_data() -> Result {
-> +//!     let queue;
-> +//!
-> +//!     {
-> +//!         let data =3D ();
-> +//!         // SAFETY: Queue is not leaked.
-> +//!         queue =3D unsafe { new_queue(&data)? };
-> +//!     }
-> +//!     // Here the `compile_fail` is fulfilled as `queue` would be =
-dropped
-> +//!     // after `data`.
-> +//!     Ok(())
-> +//! }
-> +//! ```
-> +//!
-> +//! TODO: Remove `ignore` once KUnit supports `compile_fail` on =
-doc-tests.
-> +//! ```compile_fail,ignore
-> +//! use kernel::prelude::*;
-> +//! use kernel::sync::Arc;
-> +//! use kernel::workqueue::{
-> +//!     impl_has_work,
-> +//!     new_work,
-> +//!     ScopedQueue,
-> +//!     Work,
-> +//!     WorkItem,
-> +//! };
-> +//!
-> +//! #[pin_data]
-> +//! struct BorrowedWork<'bound> {
-> +//!     data: &'bound (),
-> +//!     #[pin]
-> +//!     work: Work<BorrowedWork<'bound>>,
-> +//! }
-> +//!
-> +//! impl_has_work! {
-> +//!     impl{'bound} HasWork<BorrowedWork<'bound>> for =
-BorrowedWork<'bound> { self.work }
-> +//! }
-> +//!
-> +//! impl<'bound> WorkItem for BorrowedWork<'bound> {
-> +//!     type Pointer =3D Arc<Self>;
-> +//!
-> +//!     fn run(_this: Arc<Self>) {}
-> +//! }
-> +//!
-> +//! impl<'bound> BorrowedWork<'bound> {
-> +//!     fn new(data: &'bound ()) -> Result<Arc<Self>> {
-> +//!         Arc::pin_init(
-> +//!             pin_init!(Self {
-> +//!                 data,
-> +//!                 work <- new_work!("BorrowedWork::work"),
-> +//!             }),
-> +//!             GFP_KERNEL,
-> +//!         )
-> +//!     }
-> +//! }
-> +//!
-> +//! struct Handle<'bound> {
-> +//!     work: Arc<BorrowedWork<'bound>>,
-> +//!     wq: ScopedQueue<'bound>,
-> +//! }
-> +//!
-> +//! impl<'bound> Handle<'bound> {
-> +//!     /// # Safety
-> +//!     ///
-> +//!     /// Returned handle must not be leaked.
-> +//!     unsafe fn new(data: &'bound ()) -> Result<Self> {
-> +//!         Ok(Self {
-> +//!             work: BorrowedWork::new(data)?,
-> +//!             // SAFETY: Caller guarantees that the returned handle =
-is not leaked.
-> +//!             wq: unsafe { ScopedQueue::new(c"handle_wq")? },
-> +//!         })
-> +//!     }
-> +//! }
-> +//!
-> +//! fn handle_outlives_borrowed_data() -> Result {
-> +//!     let handle;
-> +//!
-> +//!     {
-> +//!         let data =3D ();
-> +//!         // SAFETY: Handle is not leaked.
-> +//!         handle =3D unsafe { Handle::new(&data)? };
-> +//!
-> +//!         let _ =3D handle.wq.enqueue(handle.work.clone());
-> +//!     }
-> +//!     // Here the `compile_fail` is fulfilled as `handle` would be =
-dropped
-> +//!     // after `data`.
-> +//!     Ok(())
-> +//! }
-> +//! ```
-> +
-> +use super::{
-> +    OwnedQueue,
-> +    Queue,
-> +    RawWorkItem, //
-> +};
-> +
-> +use crate::{
-> +    bindings,
-> +    ffi,
-> +    prelude::*, //
-> +};
-> +
-> +use core::marker::PhantomData;
-> +
-> +/// An owned workqueue that can enqueue work items borrowing from =
-`'scope`.
-> +///
-> +/// A `ScopedQueue` must not outlive data borrowed by its work items.
-> +pub struct ScopedQueue<'scope> {
-> +    inner: OwnedQueue,
-> +    _scope: PhantomData<&'scope mut &'scope ()>,
-> +}
-> +
-> +impl<'scope> ScopedQueue<'scope> {
-> +    /// Creates an ordered scoped workqueue.
-> +    ///
-> +    /// # Safety
-> +    ///
-> +    /// The caller must not leak the returned queue or otherwise =
-prevent its
-> +    /// [`Drop`] implementation from running since dropping the queue =
-drains
-> +    /// pending and running work that may borrow from `'scope`.
-> +    #[inline]
-> +    pub unsafe fn new(name: &'static CStr) -> Result<Self> {
+arm64 currently treats each bit independently for simplicity.  The main
+use case I see for actually doing that is for preventing enabling writes
+or pushes, though in practice I'd expect something doing locks to just
+fully lock everything after having enabled the shadow stack.  We can compose
+the features easily enough so it seemed most straightforward to just let
+userspace decide what it wants, it keeps the implementation simpler.
 
-Does this really need to be =E2=80=99static?
+> > It has been on my list to look at this
+> > repitition at some point, it had been held up by the clone3() stuff but
+> > that seems to have died a death for now.
 
-> +        Ok(Self {
-> +            inner: Queue::new_ordered().build(name)?,
-> +            _scope: PhantomData,
-> +        })
-> +    }
-> +
-> +    /// Enqueues a work item on this scoped queue.
-> +    #[inline]
-> +    pub fn enqueue<W, const ID: u64>(&self, work: W) -> =
-W::EnqueueOutput
-> +    where
-> +        W: RawWorkItem<ID> + Send + 'scope,
-> +    {
-> +        let queue_ptr =3D self.inner.0.get();
-> +
-> +        // SAFETY:
-> +        // - Closure returns `false` only if `queue_work_on` returns =
-`false`
-> +        //   and that means `work_ptr` is already in a workqueue.
-> +        //
-> +        // - `W: 'scope` and dropck keep borrowed data alive until =
-this queue is
-> +        //   dropped. The constructor requires that the queue is not =
-leaked and
-> +        //   dropping `inner` drains pending and running work so the =
-function
-> +        //   pointer is not called after any lifetime in `W` expires.
-> +        //
-> +        // - The last requirement of `__enqueue` is not relevant here =
-because `W`
-> +        //   is `Send`.
-> +        unsafe {
-> +            work.__enqueue(move |work_ptr| {
-> +                bindings::queue_work_on(
-> +                    bindings::wq_misc_consts_WORK_CPU_UNBOUND as =
-ffi::c_int,
-> +                    queue_ptr,
-> +                    work_ptr,
-> +                )
-> +            })
-> +        }
-> +    }
-> +}
-> +
-> +impl Drop for ScopedQueue<'_> {
-> +    #[inline]
-> +    fn drop(&mut self) {
-> +        // This impl makes dropck require `'scope` to outlive =
-`OwnedQueue`.
-> +        // See: =
-https://doc.rust-lang.org/nomicon/phantom-data.html#generic-parameters-and=
--drop-checking
-> +        let _ =3D &self._scope;
-> +    }
-> +}
-> --=20
-> 2.55.0
->=20
+> Oh? What was the blocker?
 
-Would a conversion from OwnedQueue to ScopedQueue
-make sense in the future?
+Basically the glibc people weren't convinced they'd ever want to reuse a
+shadow stack at which point having the kernel free and reallocate each time
+is just as easy.  It saves having to handle corner cases with threads that
+didn't exit cleanly.
 
-Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>=
+--sz/kjGTpENLdkZcp
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqQrxMACgkQJNaLcl1U
+h9DLvAf/aD6cLja4vh624NoCAxT31xAb2Z0qfo5lbjna4gi96N7QofiM8YSxwqzY
+uERaK8TZBR93wojxkcg9W919KwU9yEHlT9nFeyl8wIwpuMKytvR06lOvwh5NRcCU
+Vaa8qjM4Sgl1MHes7onoDrjNVprq7Z3ORz5k/ccIjVQue0S1qJoYciFaxw8gQLTp
+NJqHqErqED4YmsnbjW94wK8jJGZzvSORNHmk/+i3HkwdmEmg9MIhj7l/uzVuY2V3
++A2aaqVAiOdvscucQ5DV/gzjM4dJc+3qBoEl1OSVF/oXPkbSTC522w2xrJ4tQGQc
+cnYEBs+MNTbaDQJ/lzGwAhbr8aoKWg==
+=/1d8
+-----END PGP SIGNATURE-----
+
+--sz/kjGTpENLdkZcp--
