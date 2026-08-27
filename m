@@ -1,221 +1,135 @@
-Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E86146E00B;
-	Thu, 27 Aug 2026 16:01:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=43.163.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39AC7485519
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:01:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787846495; cv=none; b=OSjl+mekfU05W2V0PWq/aDVKNoWfY12rr0Ajtkab+fVYdAPA675BCw6zAJl5XAMB+jgDfHHODRuCqwBN15GIBrPSoVONOjaMmsNtJS0detWkq6vV/8pasMJ/Q+n58/HafBN49k9iEB+wls3M5T84V77fmhMOzxjnghguyGP9ho0=
+	t=1787846501; cv=none; b=u4RY+uLN/CpKRnsuXg+Z3od5gxx3Chqn+UQsvSM+t/XopVji5UE/5QjF/UDU3xU7G9QdCfOd013dnTXBFSCjm6S5S83j70dBbjYRSqIdORLMYvUr44KhE2Cu4xvP/pou/4Rie4OO3adamvCsiMhOrWq5mrRaQyosCIS0Q0gBI+M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787846495; c=relaxed/simple;
-	bh=psvcIENqM3ib+o9exTVqDBxYfUhIqT3+CN4Bgi8xBwI=;
-	h=Message-ID:From:To:Cc:Subject; b=MJlmtgN5FVfPBzq6MPAiaf7NUgLKLNvLm9lPdgbbH6YNb/t5Z+96bMPh0ApxaaDTdxAbxvNG9brC0//Zla4bYzmDR1S3QeYbw8suf3KBx0x2nreT8ApNDGzgxTX4RxyCa+CFXRX79/gYxenBkdX//JoiTMEj7iTVQX9tjq3mLBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=ZG4LIFcb; arc=none smtp.client-ip=43.163.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1787846501; c=relaxed/simple;
+	bh=z3xqMp1MUI+DdpcryOxO1d3qlD/FUcrPFBehjuu5bQA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=srwvyDdCvIyw9CBSQ6YyjjBzM9AxEHszzDnxN259J2tlym5XCmtMmZR1MffyeLC2AHl5aPjIyyn3HifHrroEnudwkFTFPe+TdC9kJteB8GBFXv23T3QKLxBanfrV0ehQ6SCyHaepT4f6r/zar39CKRl7XgUHmQ9/ugjQyylesW0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=snu.ac.kr; spf=pass smtp.mailfrom=snu.ac.kr; dkim=pass (1024-bit key) header.d=snu.ac.kr header.i=@snu.ac.kr header.b=H7p2Wuwe; arc=none smtp.client-ip=209.85.210.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=snu.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=snu.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="ZG4LIFcb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1787846481; bh=iSbbXSsZIEmVykoYpmduKfIhXEaTKa33hYcHeHMV02U=;
-	h=From:To:Cc:Subject;
-	b=ZG4LIFcbrElozzORC/y/zC60y3pGqa5Vk2yhgsQLN+ZVPH3bGK0fNh27PFtKda7iu
-	 lgCHxhTg5FFiEPdTqce6RGLgaCQrQnqgpPqJ2+z0NmIQ6I/eOSdicgKg2tzZvqqwa/
-	 y+s+E9wqLoSZBScGhWcYs66Ig6A52RFdVl3/w900=
-Received: from localhost ([59.67.37.28])
-	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
-	id 5192C71; Fri, 28 Aug 2026 00:01:17 +0800
-X-QQ-mid: xmsmtpt1787846477tfv1z6p55
-Message-ID: <tencent_72A978D4934F50D46D2ACFF7D70896938806@qq.com>
-X-QQ-XMAILINFO: NmRjDopJZVxOX2ndgblU9/Z/Q9ob2FaUDyunUQPbYNYzdcpDVGtq/hc4aXPamk
-	 EFMMz2aF0s2geYGzP6MuJqCNAJtRZ2Q235ZLNB/UY9h7SgLs5FABEkaVRQtDeaJ1krU1+MrJlTVG
-	 s26QtvxMQzm7DXM86xMynSgA0/6HDXbXZADkQHqqg467q69suICaY+gafdmlGbMqxwjJposTOGZ9
-	 Uij4Qi3wodf3Nr8xeB2Cyt0c8dDBluYX92NYLoTeDJV+kqErHyTUC5gSL+MbJiGpteGNbWCgUHpY
-	 QjA22m5AS46TOIj7IBGSKYbDfBVf5IEz/7Gvqlvw0lb7gEq8S27GbuA9Wjg+q/ln4gh/txFJl8Bf
-	 OCyurEiDlP9C1HXVXhYEloFr1ndf/nvLSDxiLi1Qx0Txb7YHWOYmt+qEVOqXK02u9vDCqk+Bqzir
-	 MwTPUeS3OXWeoL8NgmGBQCcGpy1fmPBvWGNzNOERkkHutFIRy7lG85s+80msbYat4/wv4PX+OtJM
-	 vlvcrO0aZs8sMtkU8xkOM5XLgHY8EOhsDvoz660YJi9v/Ir418JB3EBsqDae9scwzHFcXoCRX6IT
-	 TnaMNyN06XBeqi740Q5tlEF0BDYsS8vMu+QrG18hY5fShCfnKxIHEhtG4xxQ6XwGrZ9OJHvzrWhN
-	 TjgMoTKl86w/RDYmfz5ftF/6G7etThJRHkQfpbB1EO8+cmx3+07sC3tPa7cs+qewGGUCwhJPNqyR
-	 CB2IaVdPss23/Dyo7o2jQC2Fe/bTM4+KR2sOUDhe8FbE7ZNdOgNbG+M8HbFq6UgYnCgcyHRX7jcY
-	 uH3Yh/C6QsvXKrBJr595t/5d3X0XeZDgeLEWlrBFVv6S3Y0BO94c0Ekb8I+gUxfRrbZWIfm0Kjj7
-	 L+08SMr47z316W8q0nGGUKO0rYE8QvZsgtVMaAR/dAYSMLFXr2177oXJM/G+zNPaVeSm9IYD1Mg3
-	 H3VaZYy1assdRkXxqaRletcDlZgXaU+tuANjdu8+2mfpnmgkFsKEHEdWDYjvsvQAs9dcrw8dOBv6
-	 4EX7s3We9+peTdnAV/PTo2dhEJlEA=
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-From: Guikun Yang <2855020996@qq.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-    Hans Verkuil <hverkuil+cisco@kernel.org>,
-    linux-media@vger.kernel.org
-Cc: Yun Zhou <yun.zhou@windriver.com>,
-    Yousef Alhouseen <alhouseenyousef@gmail.com>,
-    Edward Adam Davis <eadavis@qq.com>,
-    Dan Carpenter <error27@gmail.com>,
-    Kees Cook <kees@kernel.org>,
-    Ricardo Ribalda <ribalda@chromium.org>,
-    linux-kernel@vger.kernel.org,
-    syzbot+1eb177ecc3943b883f0a@syzkaller.appspotmail.com
-Subject: Re: [PATCH v3] media: dvb-core: fix use-after-free in dvb_frontend_open
+	dkim=pass (1024-bit key) header.d=snu.ac.kr header.i=@snu.ac.kr header.b="H7p2Wuwe"
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-853c947bfefso1090920b3a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:01:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=snu.ac.kr; s=google; t=1787846496; x=1788451296; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7sryVqJwijt526l6++VdXSITZiFhPfcV5wF4kc67w4s=;
+        b=H7p2WuweXCRxDgU+uRpGmKKl0ZVCFEJtDKal39tan6LK/lsw2qcpYHTVTVonGsfJwF
+         V+bTAzIMkC+hUlWQTfkfOd2Cgx1fYg+BzCV99JndZVRISo76XVuRFrldtfRJ30H6NzXz
+         DtgSmF3os2f7plpGLDcbLD5FAQrxT207RvBZk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787846496; x=1788451296;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7sryVqJwijt526l6++VdXSITZiFhPfcV5wF4kc67w4s=;
+        b=ADDHdsJI8bq3cGSn0IqKbIH6x0NbAbg+Afvr5Xocp4C7qK3hW1PzT+xCcetcu3z2l5
+         fllgbC9qmCTeuTTe1tCCtskm7la5H49YBOWQskbai7/K0Vckt63/RqrsM/UmrwvTWtY/
+         86mv+j+KIJvcsHu0gUT0H3KNgBQbHdeN+/+bqnqTxqn1LvzET3WJWcfry/S3oj3wk1+M
+         OBG6etRUR12L/QSlctokw2ZcGvSU11Ekm9PyowYoWKKL/HJ6FIuxFC9R0oyUDheDMRz8
+         TgRZlNvSSjtTJP4LmRrmlrxLqLWlDDnypm79gQRI89TbihcuicWjQHTyDEDedQI2O2Ea
+         XisQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rq6JM28ExGLTqijEW+SD1QXmxLcc8KSnOYVz8/n6mILrBVFzWTE839DZ/pZRB16Z4fzCoDBvrLu5gvK7eI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nvYYfZ6E3cDZhgJpFd45sClKoIacMe8ktnTJ2GHlJ1PU93eQho
+	57A/tJGuc0NVNpqtiJ2JPpMtEUq8C8JoWnzgMYiO8OurcEI3aPR4HvD4r4JCQxGQBkMjqq/EUc0
+	weMIxOovzQw==
+X-Gm-Gg: AR+sD12cZVFlUy8WVIle0/91WRdmsM5l3f64qJlKbebwRuHZnK5I+ERlzCUnWV1VElK
+	X4L7kCtX5r6POOglHmekdp4NlcVhFnbex+0wUlGZPcQ07VO+gWKQaV6Sief1DzIJEkLDIfI4L1p
+	MXy1Sgkw8IKQ/auGy7RykDEYDeSY/z4WSgbZjI2AI8gB+1rDfQtVXaNonM6s5u+iq8Q/fGGld6u
+	k7stQ2D59taR56zlDvqLmR7UraZiryjdLAZRVv//rIdpL3Cmp5bF2Ba+SB6dQwl2uWWrAaqy75T
+	CUfts6v04R82oc7p3WUBClnqvbTjm355Fc9VCu/f1WlSO5VGHJFKIq5mpzp98da0ExZLHlaCCaJ
+	Etlh4Xsb5HNt6EXdgcOnPeNCKLqIlCEpwpMsVyeABqDDR68zicsxfZH86SDGKmuIefxMMMHzfkz
+	ZdxASVmyz3KMEy+X0XnpqQY5r4PFvV6Kc7bEYqMWq5aJCoCFpFqagngJURxw==
+X-Received: by 2002:a05:6a00:4fd0:b0:84b:9a69:156d with SMTP id d2e1a72fcca58-8562543f74cmr429998b3a.0.1787846494915;
+        Thu, 27 Aug 2026 09:01:34 -0700 (PDT)
+Received: from 1c1aead48890.. ([49.142.45.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8535a8bd941sm2178632b3a.18.2026.08.27.09.01.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 09:01:34 -0700 (PDT)
+From: Seongjun Hong <hsj0512@snu.ac.kr>
+To: Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	=?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse@redhat.com>
+Cc: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Seongjun Hong <hsj0512@snu.ac.kr>,
+	Sashiko AI Review <sashiko-bot@kernel.org>
+Subject: [PATCH] drm/radeon: fix double-free/UAF of ttm->sg on userptr pin failure
+Date: Thu, 27 Aug 2026 16:01:22 +0000
+Message-ID: <20260827160124.679309-1-hsj0512@snu.ac.kr>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260827091532.340141F000E9@smtp.kernel.org>
+References: <20260827091532.340141F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-In-Reply-To: <1c0aa133-b44b-4cca-91cd-82a80769b494@windriver.com>
-References: <1c0aa133-b44b-4cca-91cd-82a80769b494@windriver.com>
+If sg_alloc_table_from_pages() or dma_map_sgtable() fails inside
+radeon_ttm_tt_pin_userptr(), the error path frees ttm->sg with
+kfree(). But ttm->sg is not owned by this function - it is allocated
+once in radeon_ttm_tt_populate() and is only supposed to be freed by
+radeon_ttm_tt_unpopulate(), which persists across multiple bind/unbind
+cycles of the same ttm_tt.
 
-Hi Yun, all,
+kfree()'ing it here without resetting ttm->sg to NULL leaves a
+dangling pointer:
 
-Continuing this thread: the v3 series (and the related "avoid dropping
-device ref" / "pin frontend device" attempts from June) has not been
-merged as of v7.3-rc1 -- I confirmed dvb_frontend_open() still calls
-dvb_generic_release() on its err2 path in mainline today, and the
-underlying bug is still live (syzbot hit it again on 2026/08).
+ - radeon_ttm_tt_unpopulate() will kfree() the same pointer again
+   later, a double-free.
 
-I'd like to propose an alternative fix that I believe is more robust,
-with fault-injection reproduction on 7.2-rc7 / 7.3-rc1.
+ - Anything that dereferences ttm->sg in the meantime (e.g. the
+   "!ttm->sg || !ttm->sg->sgl" check in
+   radeon_ttm_tt_unpin_userptr(), or a retried bind calling
+   sg_alloc_table_from_pages(ttm->sg, ...) again) is a
+   use-after-free.
 
-Root cause
-----------
-dvb_device_open() takes one device reference for the file and drops it
-itself when ->open() fails (a2dd235df435).  dvb_frontend_open() undoes
-the users/readers/writers accounting of dvb_generic_open() on its error
-paths by calling dvb_generic_release().  But dvb_generic_release() also
-drops the file's device reference, so on a frontend open failure the
-same reference is dropped twice:
+Additionally, if sg_alloc_table_from_pages() succeeded but
+dma_map_sgtable() failed, kfree() only frees the struct sg_table
+header, not the sgl entries array it allocated internally, leaking
+that allocation.
 
-  dvb_device_open()                dvb_frontend_open()
-  ------------------------------   ---------------------------------
-  dvb_device_get()          ref+1
-  file->f_op->open()
-                                   dvb_generic_open()
-                                   err3: dvb_frontend_start() fails
-                                         (e.g. -ENOMEM)
-                                   err2: dvb_generic_release()  ref-1
-  err != 0
-  dvb_device_put()          ref-1
+Use sg_free_table() instead, which releases only the sgl entries
+this function allocated and leaves the ttm->sg header intact for
+radeon_ttm_tt_unpopulate() to free later, matching the ownership the
+normal (non-error) unpin path already assumes.
 
-The extra put can drop the last reference and free the device while it
-is still registered in dvb_minors[], so a subsequent open() dereferences
-freed memory (KASAN: slab-use-after-free in dvb_device_open, syzbot
-extid 1eb177ecc3943b883f0a, first reported 2024/12).
-
-Why a different approach
-------------------------
-Previous proposals (v1-v3 in this thread, plus the June patches)
-balance the counters around dvb_generic_release() -- e.g. incrementing
-the refcount before the call so the put inside it nets out, or restoring
-users/writers/readers by hand.  That works, but it keeps the subtle
-coupling: dvb_generic_release() still has the side effect of dropping
-the device reference, which is only correct on a successful open.
-
-This patch instead splits that single responsibility out: the counter
-restore becomes dvb_generic_open_undo(), which does NOT touch the
-device reference, and dvb_frontend_open() uses it on its error paths.
-The reference remains owned and released by dvb_device_open().  This
-makes the ownership explicit and removes the class of double-put bugs
-for every future ->open implementation, not just the frontend.
-
-Verification
-------------
-syzbot reproducer (open of /dev/dvb/adapter0/frontend0 with fail_nth: 8,
-failing the kthread allocation in dvb_frontend_start()):
-  * unpatched 7.2-rc7: reproduces the KASAN UAF within seconds
-  * patched: survives 90s of continuous fault-injected opens, zero
-    KASAN / refcount warnings; FAULT_INJECTION traces confirm the error
-    path is exercised each time
-
-Fixes: 0fc044b2b5e2 ("media: dvbdev: adopts refcnt to avoid UAF")
-Cc: stable@vger.kernel.org
-Reported-by: syzbot+1eb177ecc3943b883f0a@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=1eb177ecc3943b883f0a
-Tested-by: Guikun Yang <2855020996@qq.com>
-Signed-off-by: Guikun Yang <2855020996@qq.com>
+Fixes: f72a113a71ab ("drm/radeon: add userptr support v8")
+Reported-by: Sashiko AI Review <sashiko-bot@kernel.org>
+Signed-off-by: Seongjun Hong <hsj0512@snu.ac.kr>
 ---
- drivers/media/dvb-core/dvb_frontend.c |  6 +++++-
- drivers/media/dvb-core/dvbdev.c       | 29 +++++++++++++++++++++++++++++
- include/media/dvbdev.h                | 11 +++++++++++
- 3 files changed, 45 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/radeon/radeon_ttm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/media/dvb-core/dvb_frontend.c b/drivers/media/dvb-core/dvb_frontend.c
-index d082b6c57c76..5ef7756c3413 100644
---- a/drivers/media/dvb-core/dvb_frontend.c
-+++ b/drivers/media/dvb-core/dvb_frontend.c
-@@ -2887,7 +2887,11 @@ static int dvb_frontend_open(struct inode *inode, struct file *file)
- 	mutex_unlock(&fe->dvb->mdev_lock);
- err2:
- #endif
--	dvb_generic_release(inode, file);
-+	/*
-+	 * Undo dvb_generic_open() only: the file's device reference is
-+	 * dropped by dvb_device_open() when this open fails.
-+	 */
-+	dvb_generic_open_undo(file);
- err1:
- 	if (dvbdev->users == -1 && fe->ops.ts_bus_ctrl)
- 		fe->ops.ts_bus_ctrl(fe, 0);
-diff --git a/drivers/media/dvb-core/dvbdev.c b/drivers/media/dvb-core/dvbdev.c
-index d753d329502a..8623df718ea0 100644
---- a/drivers/media/dvb-core/dvbdev.c
-+++ b/drivers/media/dvb-core/dvbdev.c
-@@ -172,6 +172,35 @@ int dvb_generic_release(struct inode *inode, struct file *file)
- }
- EXPORT_SYMBOL(dvb_generic_release);
+diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gpu/drm/radeon/radeon_ttm.c
+index 22fc35a0e8d8..cbc0339cf127 100644
+--- a/drivers/gpu/drm/radeon/radeon_ttm.c
++++ b/drivers/gpu/drm/radeon/radeon_ttm.c
+@@ -374,7 +374,7 @@ static int radeon_ttm_tt_pin_userptr(struct ttm_device *bdev, struct ttm_tt *ttm
+ 	return 0;
  
-+/**
-+ * dvb_generic_open_undo - undo dvb_generic_open() on a failed ->open
-+ *
-+ * @file: pointer to &struct file.
-+ *
-+ * Restores the users/readers/writers accounting done by
-+ * dvb_generic_open(), without dropping the file's device reference:
-+ * that reference is taken by dvb_device_open(), which also releases
-+ * it when ->open fails.  Using dvb_generic_release() on an error path
-+ * of an ->open implementation would therefore drop the reference
-+ * twice and could free a device that is still registered in
-+ * dvb_minors[].
-+ */
-+void dvb_generic_open_undo(struct file *file)
-+{
-+	struct dvb_device *dvbdev = file->private_data;
-+
-+	if (!dvbdev)
-+		return;
-+
-+	if ((file->f_flags & O_ACCMODE) == O_RDONLY)
-+		dvbdev->readers++;
-+	else
-+		dvbdev->writers++;
-+
-+	dvbdev->users++;
-+}
-+EXPORT_SYMBOL(dvb_generic_open_undo);
-+
- long dvb_generic_ioctl(struct file *file,
- 		       unsigned int cmd, unsigned long arg)
- {
-diff --git a/include/media/dvbdev.h b/include/media/dvbdev.h
-index e5a00d126612..a32998afd804 100644
---- a/include/media/dvbdev.h
-+++ b/include/media/dvbdev.h
-@@ -354,6 +354,17 @@ int dvb_generic_open(struct inode *inode, struct file *file);
-  */
- int dvb_generic_release(struct inode *inode, struct file *file);
+ release_sg:
+-	kfree(ttm->sg);
++	sg_free_table(ttm->sg);
  
-+/**
-+ * dvb_generic_open_undo - undo dvb_generic_open() on a failed ->open
-+ *
-+ * @file: pointer to &struct file.
-+ *
-+ * Restores the users/readers/writers accounting done by
-+ * dvb_generic_open() without dropping the file's device reference,
-+ * which dvb_device_open() releases itself when ->open fails.
-+ */
-+void dvb_generic_open_undo(struct file *file);
-+
- /**
-  * dvb_generic_ioctl - Digital TV close function, used by DVB devices
-  *
+ release_pages:
+ 	unpin_user_pages(ttm->pages, pinned);
 -- 
-2.0.0
+2.43.0
 
