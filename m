@@ -1,99 +1,63 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA833264DA;
-	Thu, 27 Aug 2026 17:09:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 478D04854EF;
+	Thu, 27 Aug 2026 17:09:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787850556; cv=none; b=K7RO2UBZq0diwXxGNxhFTlbefHpCposCc4S7rz7oIsNZilg3jEV6j+xk712ZoPp/IlCpk2A9QBWnpzrcPDMefw/mhpkcCGlrZ7QnRqO/0FvI18w6PnOPiBeZjrcLmQz9dezBIyYTbYApaPaCa4FZBNan5E5J6DxtYkCpG3DE2d4=
+	t=1787850559; cv=none; b=A7Kk/AMAcqKvxL9TYWa/tSfi8vmity0XerJlT7KW8mhfuPyowihkMcyO3Ny+yapdmACqizbqw7/MQCYiwYbShQyopU7A9IP3heZO03Fs05SU5XSXKNBhvOvkGXjey+OhFMEX/ayfZ/JsStal4bgqFaXyYG79FqJn6rkTHE2qfX0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787850556; c=relaxed/simple;
-	bh=XsgjWEza/jlVxyJ3C6ruuoSk3ktRa5DTQ+KkAq38LYA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QOY8MhG+3KvYDryVBgZewOH6KxqaUpNnykyaW1gpxZGjIJJvVnXy1XaLcJ9B53UA8ZTGTDHpEQCdQgZIkvTbydzVMpazfqoKnVr4A80zX3W5KPaEsoKZYBP1KtlLz/VXTFVXa3Z9Uiw40dWWJLt0uroEzRW9Pg1t4dhEvkjETFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VIqrCKX+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787850559; c=relaxed/simple;
+	bh=ENSCz2PGcJTimwlpnBspYAGijaGtdVkCkzbyhQryWvU=;
+	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=t07LXsO9gn9b6K4tehp9jJmla4uIW4V70IUGz8OnrvnQnaEIzLE3k76vSWXxbtU+1XfDPvPUs53KybBq4otqfH2tTvyCnquyJf1XuX9vf/mGMC8BlTrd3ytTTuQVMUWvnVj3IxJjg8zPVkaq3fI3Z+skmW8Z6FGtXJeBEbnCPZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IlqsaUiu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VIqrCKX+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F33F01F000E9;
-	Thu, 27 Aug 2026 17:09:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IlqsaUiu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1689D1F000E9;
+	Thu, 27 Aug 2026 17:09:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787850555;
-	bh=pxe2I/QgTe79nkIJa+GTgxKyMaq8Csj03/OYd3xEmvk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VIqrCKX+wTnEtyc/9X0BbcUg6tAVAJ9EMfYxSM8vmU3EhE/Yt5rr5/fOgjMkfh58Y
-	 ets88aLe5ekWPr0NVaExRb/K6efqyMVnP1WMEsDryNmV+aQlHDOzuY7PBBQKFRjjvp
-	 N0HhCHm6ADoqx9YwUov91e6cZ27S8QV7NoSsKmObVbhPbiAtpiAKF4ieKi65jsYzHy
-	 cam03ruaoNkQ67HEdw04GLiXfPvbXcd+9ydohe7v/ysuhRNsDRsuMhOA4TTZO3RDUw
-	 Xu0X0fv/0c+57n3yGziCLiAbmpkxC9ds8YKp/X2jE2yrEvpvlEjyu2d6zqmOcCWciS
-	 Xvl24iyzVJIeA==
-Date: Thu, 27 Aug 2026 20:09:11 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Konstantin Sinyuk <ksinyuk@kernel.org>
-Cc: dri-devel@lists.freedesktop.org,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Francois Dugast <francois.dugast@intel.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Donald Hunter <donald.hunter@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Ilia Levi <ilia.levi@intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-doc@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 0/12] drm/fabric: vendor-neutral topology
- infrastructure for scale-up accelerator interconnects
-Message-ID: <20260827170911.GG42790@unreal>
-References: <cover.1787552412.git.ksinyuk@kernel.org>
- <20260826093222.GC42790@unreal>
- <fabric-leon-reply.1787844400.ksinyuk@kernel.org>
+	s=k20260515; t=1787850558;
+	bh=2+TtOTWAn9+K8+57S9u3rhptl8PsUZnys96Z6mm5eEk=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc;
+	b=IlqsaUiubPVhLE71yfQCZwtFSXNDceRztFia7OehE3IagvK7OxB6h7BkRC0tOA5Ti
+	 LfqnUwyepxWQBy/uIYgOigX7i/ZBYBTXxW9dVqbyYE//UIV/WGvoevPVY6mvIGot59
+	 qMwt4OPBLZ/C13fxbOtsqXJ9eT3DbdtwHjN6hSY4lSixfX8G3lPOb91rf0YsTT6B7R
+	 UoxVDmb0eda/oqu+3ivLBLmjN/SykmoocsTO5CejYYlwsJqrosNcp4W0tYbwlvIt/W
+	 etld41JqN87WlrW/hWoMSNqyDNhLbGtY6V3hrFTrSXvsXunycy/fPkit1Mw67r1gBr
+	 du+FGoVRqOrTA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0C203809A89;
+	Thu, 27 Aug 2026 17:08:24 +0000 (UTC)
+Subject: Re: [GIT PULL] additional MM updates for 7.3-rc1
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <20260826152330.9cdd482b43726942d6c149cb@linux-foundation.org>
+References: <20260826152330.9cdd482b43726942d6c149cb@linux-foundation.org>
+X-PR-Tracked-List-Id: <linux-mm.kvack.org>
+X-PR-Tracked-Message-Id: <20260826152330.9cdd482b43726942d6c149cb@linux-foundation.org>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm tags/mm-stable-2026-08-26-15-22
+X-PR-Tracked-Commit-Id: 0685630fdccb62dcb0e3f44525a40578da5f6dc8
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 18fbf5151d2c0bfe433c7428eef03cabf5fdb2fa
+Message-Id: <178785050350.1753754.11441521265176590388.pr-tracker-bot@kernel.org>
+Date: Thu, 27 Aug 2026 17:08:23 +0000
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, linux-mm@kvack.org, mm-commits@vger.kernel.org, linux-kernel@vger.kernel.org
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <fabric-leon-reply.1787844400.ksinyuk@kernel.org>
 
-On Wed, Aug 26, 2026 at 06:38:58PM +0300, Konstantin Sinyuk wrote:
-> On Wed, Aug 26, 2026 at 12:32:22PM +0300, Leon Romanovsky wrote:
-> > Tell your AI that this is not how things work in the real world. The chances
-> > of multiple hardware implementations fitting a software model designed
-> > without considering the actual hardware are effectively zero. This is why
-> > successful subsystems have emerged from consolidating support for multiple
-> > existing hardware implementations.
-> 
-> Fair point. The simulator validates the implementation, not whether the
-> abstraction fits real hardware.
-> 
-> The model was shaped by the public amdgpu xGMI implementation, and the
-> cover letter asks AMD whether it covers their requirements. It still
-> needs validation against production implementations, and the read-only
-> milestone will not be proposed for merge without a production provider.
-> I will fix the wording in the next revision.
+The pull request you sent on Wed, 26 Aug 2026 15:23:30 -0700:
 
-The wording alone is not sufficient. Your proposal should be backed by
-real devices representing different architectures from different
-vendors.
+> git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm tags/mm-stable-2026-08-26-15-22
 
-The current proposal is based on a single implementation, which is
-unlikely to be ported to this new framework in the foreseeable future.
-The amdgpu xGMI implementation already exposes the required UAPI through
-sysfs and would need very strong incentives to abandon its "legacy"
-users in favor of this new netlink interface.
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/18fbf5151d2c0bfe433c7428eef03cabf5fdb2fa
 
-The last new subsystem I am aware of was introduced with implementations
-from three different vendors to demonstrate its robustness. You should
-probably aim for a similar level of coverage here.
+Thank you!
 
-Thanks
-
-> 
-> Thanks,
->  Konstantin.
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
