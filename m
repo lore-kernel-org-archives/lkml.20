@@ -1,148 +1,212 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF40443935B;
-	Thu, 27 Aug 2026 09:58:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 715A743B3E5;
+	Thu, 27 Aug 2026 09:59:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787824732; cv=none; b=pnIeKFBOxaFEoBWURr91WUJ4GOOCAL8SuqDUtpxNbgD9H2ku/mnQmPJjNqOGAUIh8MJMTySunon5w+R0pZlxhoVw1rcbn3ExlX/UMrzXhfiMBGGKKlxHARMpJS1Ras8Uqli68H8wq4RT0KPkOaJ4tZxfeL7JokGbz0wggytF8C0=
+	t=1787824753; cv=none; b=saCdKYkjDCodmg6OWZkniJj/sG7YBcHLig8nwJCfjOHZbr++muehI4TfFVPyFnq3eXyEyeykIgjEDrTgc0Y576IaE66wGIXa/R7DOfSQm0I7fk6aLOYk8zKJ/Ro4F9Uw8Hq7bD9oUmdBmlsTj1zBCHKjEWgheof/uZxV1iTjzsw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787824732; c=relaxed/simple;
-	bh=UqoKhV7yztLaz/tXSq6KyFocjM8Bhj2wmABbotIXxrc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qXbgUeWGNNGJzOi/VcQhPx84prtKWv5Tnsxbi/9+9CiiJF7tBwd3BTypEpM+06hGvUGic9mjH6JJckJqkrVM2WvVgcBGXznbOl+84ivXZVswwlDb01wYuM/doF94WHi/vSIGEIQSaQFdoHSBwelet8Uyk3QViPVbw6r5OeIbJ3I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=K5eXv5hb; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787824753; c=relaxed/simple;
+	bh=9zWHX1koS7Y08c8z6OqdIcI8jre+mu/ZH79BynCwR7I=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NLZIeLbXxukBb+fAoSjHin54Pg2huw7PtsJU9ySpieLi98MZE5nxX4VhKnD/lblCx3cVUw1vCqFUiKNoi5lty8Bnk1/81Z4wfIzBcCKa8Sn7y9RZY/vL/Mf43PThhea+WO/a0YXz48K/XP4PpENZH8XH4NUH8U2638nFRgoHWks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=rJVdl54x; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="K5eXv5hb"
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="rJVdl54x"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787824725; x=1819360725;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1787824749; x=1819360749;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:content-transfer-encoding:in-reply-to;
-  bh=UqoKhV7yztLaz/tXSq6KyFocjM8Bhj2wmABbotIXxrc=;
-  b=K5eXv5hbqZJRr9MmnK02eyefO84NCQsrdSgoxrenbG5fT31A5yCH5ppQ
-   nKx2FAvsfQ9lALK4wF6LMoca0mWAlqBp5f7osLHMa2rrhxFhK40vGqMHK
-   /z1ivzh7IjNF2JI+z1omri7CZ1DzatpDGd798NXy6c5YEOaG488rjX200
-   il8ANyP0ZRE+XHufczMOCBnlz/w5Ngrm23zP5+HWMw4Xsbh1DPq/f1gCc
-   3/SUEs8G5cu6/8Mi47UQCSVBv4qfyQjI9kEw/3HYVSWeV6+P7ctzjRNrg
-   Fz5QmCbFzIIgqkmGv9SOZnTd4TwBb6FFt2GpPPlc7y4I1mdsK1kmB8diy
+  bh=9zWHX1koS7Y08c8z6OqdIcI8jre+mu/ZH79BynCwR7I=;
+  b=rJVdl54xWdwPmieXltYO74HZpuuMhkTad9vsCKiZ17eJgpe/hkTO12PZ
+   iSl3DxQJ8skr15WeMwWfvKjDGMPPxX4olxvJ5ve9bSxAITfwnJNXnQp9p
+   niB7e/njPB8NaOuSspZrEkqHFbU5cnGR79tu6T8f1ZCCXBvc1ftb2nDmn
+   LxZQ6U5JyRC7o2CcxxvySCCapgRQa+jw23ppGZl1VLd5Dfv0YAeoV7a+W
+   W72AeWh/XanVhzpjbqg4IpMqyy6cOLQbIxT81tTjGL1d0i9j7a8vkrSAe
+   T3P/JDL88VJukgmMYlcIdEM8nZYWTsQj2uG93TDa+AwarUSsqiQLz+4x6
    g==;
-X-CSE-ConnectionGUID: oucW2d+XT6m9B6fcS8kmJA==
-X-CSE-MsgGUID: prohowsmQL++e+nR+Uj/4A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="87264546"
+X-CSE-ConnectionGUID: TKd9ukl7SMmUnG5Q+MYsKQ==
+X-CSE-MsgGUID: Wh+SSoq1RgyeT1qOVKnEPA==
 X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="87264546"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 02:58:37 -0700
-X-CSE-ConnectionGUID: YFSEcZr5RbCCcgjuwk5yug==
-X-CSE-MsgGUID: SD7WMwloS5CrOxfNzrbG/w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="261706616"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.125])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 02:58:33 -0700
-Date: Thu, 27 Aug 2026 12:58:31 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Maurizio Casciano <mauriziocasciano7@gmail.com>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>
-Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bingbu Cao <bingbu.cao@amd.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Nicholas Roth <nicholas@rothemail.net>,
-	Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jose Maria Martin <jmmartinf@hotmail.com>,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/8] media: i2c: Add Yoga Book camera ACPI IDs
-Message-ID: <apAKR_wiAUhI0ZQn@ashevche-desk.local>
-References: <20260826132256.3343451-1-mauriziocasciano7@gmail.com>
- <20260826132256.3343451-3-mauriziocasciano7@gmail.com>
+   d="scan'208";a="294132463"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 27 Aug 2026 02:59:02 -0700
+Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Thu, 27 Aug 2026 02:59:01 -0700
+Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Thu, 27 Aug 2026 02:58:57 -0700
+Date: Thu, 27 Aug 2026 11:58:57 +0200
+From: Daniel Machon <daniel.machon@microchip.com>
+To: Jakub Kicinski <kuba@kernel.org>
+CC: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
+	<pabeni@redhat.com>, Horatiu Vultur <horatiu.vultur@microchip.com>, "Steen
+ Hegelund" <steen.hegelund@microchip.com>, <UNGLinuxDriver@microchip.com>,
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+	Jesper Dangaard Brouer <hawk@kernel.org>, John Fastabend
+	<john.fastabend@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>, "Herve
+ Codina" <herve.codina@bootlin.com>, Arnd Bergmann <arnd@arndb.de>, "Greg
+ Kroah-Hartman" <gregkh@linuxfoundation.org>, Mohsin Bashir
+	<mohsin.bashr@gmail.com>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <bpf@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>
+Subject: Re: [PATCH net-next v5 09/13] net: lan966x: add PCIe FDMA support
+Message-ID: <20260827095857.nt2zngzhoq777qou@DEN-DL-M70577.microsemi.net>
+References: <20260520-lan966x-pci-fdma-v5-0-ca56197ae05b@microchip.com>
+ <20260520-lan966x-pci-fdma-v5-9-ca56197ae05b@microchip.com>
+ <20260522185637.1fe72213@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset="utf-8"
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260826132256.3343451-3-mauriziocasciano7@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260522185637.1fe72213@kernel.org>
 
-On Wed, Aug 26, 2026 at 03:22:50PM +0200, Maurizio Casciano wrote:
-> The Lenovo Yoga Book YB1-X91 firmware enumerates the front OV2740 as
-> OVTI2740 and the rear OV8858 as INT3477. Neither ID currently matches
-> its sensor driver, so both I2C devices remain unbound.
+> On Wed, 20 May 2026 10:12:21 +0200 Daniel Machon wrote:
+> > Add PCIe FDMA support for lan966x. The PCIe FDMA path uses contiguous
+> > DMA buffers mapped through the endpoint's ATU, with memcpy-based frame
+> > transfer instead of per-page DMA mappings.
+> >
+> > With PCIe FDMA, throughput increases from ~33 Mbps (register-based I/O)
+> > to ~620 Mbps on an Intel x86 host with a lan966x PCIe card.
 > 
-> Add the IDs to the corresponding ACPI match tables. Sensor
-> configuration and CSI lane quirks are kept in later patches.
+> > diff --git a/drivers/net/ethernet/microchip/lan966x/Makefile b/drivers/net/ethernet/microchip/lan966x/Makefile
+> > index 4cdbe263502c..ac0beceb2a0d 100644
+> > --- a/drivers/net/ethernet/microchip/lan966x/Makefile
+> > +++ b/drivers/net/ethernet/microchip/lan966x/Makefile
+> > @@ -18,6 +18,10 @@ lan966x-switch-objs  := lan966x_main.o lan966x_phylink.o lan966x_port.o \
+> >  lan966x-switch-$(CONFIG_LAN966X_DCB) += lan966x_dcb.o
+> >  lan966x-switch-$(CONFIG_DEBUG_FS) += lan966x_vcap_debugfs.o
+> >
+> > +ifdef CONFIG_MCHP_LAN966X_PCI
+> 
+> ifeq ()
+> 
+> would be more common in a Makefile?
 
-For the record can you provide an DSDT excerpt of this device object (no need
-to put into commit message, just reply here)?
+Switching to ifneq ($(CONFIG_MCHP_LAN966X_PCI),) in v6.
 
-...
+> 
+> > +lan966x-switch-y += lan966x_fdma_pci.o
+> > +endif
+> > +
+> 
+> > diff --git a/drivers/net/ethernet/microchip/lan966x/lan966x_main.c b/drivers/net/ethernet/microchip/lan966x/lan966x_main.c
+> > index cc3c7b6c65ae..7036b1d937d5 100644
+> > --- a/drivers/net/ethernet/microchip/lan966x/lan966x_main.c
+> > +++ b/drivers/net/ethernet/microchip/lan966x/lan966x_main.c
+> > @@ -7,6 +7,7 @@
+> >  #include <linux/ip.h>
+> >  #include <linux/of.h>
+> >  #include <linux/of_net.h>
+> > +#include <linux/pci.h>
+> >  #include <linux/phy/phy.h>
+> >  #include <linux/platform_device.h>
+> >  #include <linux/reset.h>
+> > @@ -49,6 +50,9 @@ struct lan966x_main_io_resource {
+> >  static const struct lan966x_main_io_resource lan966x_main_iomap[] =  {
+> >       { TARGET_CPU,                   0xc0000, 0 }, /* 0xe00c0000 */
+> >       { TARGET_FDMA,                  0xc0400, 0 }, /* 0xe00c0400 */
+> > +#if IS_ENABLED(CONFIG_MCHP_LAN966X_PCI)
+> 
+> why config option being enabled changes the targets?
+> Can someone with a non-PCI device enable that option too
+> (sure it would be useless but given that/if they can guarding
+> with an #if seems like a waste of LoC)
+> 
 
->  static const struct acpi_device_id ov2740_acpi_ids[] = {
->  	{"INT3474"},
-> +	{"OVTI2740"},
->  	{}
->  };
+Rationale was to only map in the PCIE_DBI target if actually needed. Sure, can
+drop the conditional in v6.
 
-Add a separate patch that converts these to use C99 initialisers and follows
-the proper style of the formatting (added spaces, removed unneeded blank line).
+> > +     { TARGET_PCIE_DBI,             0x400000, 0 }, /* 0xe0400000 */
+> > +#endif
+> >       { TARGET_ORG,                         0, 1 }, /* 0xe2000000 */
+> >       { TARGET_GCB,                    0x4000, 1 }, /* 0xe2004000 */
+> >       { TARGET_QS,                     0x8000, 1 }, /* 0xe2008000 */
+> > @@ -1100,6 +1104,13 @@ static int lan966x_reset_switch(struct lan966x *lan966x)
+> >
+> >  static const struct lan966x_fdma_ops *lan966x_get_fdma_ops(struct device *dev)
+> >  {
+> > +#if IS_ENABLED(CONFIG_MCHP_LAN966X_PCI)
+> > +     for (struct device *p = dev->parent; p; p = p->parent) {
+> > +             if (dev_is_pci(p))
+> 
+> If the PCIe devices also use an intermediate platform device for
+> probing, can't they explicitly have some flag / state to indicate
+> they are PCIe? The device walk in such a constrained env seems
+> like an overkill
+> 
 
-static const struct acpi_device_id ov2740_acpi_ids[] = {
-	{ .id = "INT3474" },
-	{ }
-};
-MODULE_DEVICE_TABLE(acpi, ov2740_acpi_ids);
+I think it could be possible to pass some state between lan966x_pci and the
+switch driver, however that seems like a much more complex solution than this.
+The parent bus node already implies the same — the switch device only ever sits
+under a PCI-created bus in the PCIe case, so an explicit flag/state would just
+restate what the topology already tells us. The walk itself is deliberate, v1
+checked dev->parent->parent directly, and I opened it up to a walk so PCIe
+detection keeps working if the overlay's DT topology gains or loses an
+intermediate bus node. I'd like to keep as it.
 
-...
+> > +                     return &lan966x_fdma_pci_ops;
+> > +     }
+> > +#endif
+> > +
+> >       return &lan966x_fdma_ops;
+> >  }
+> >
+> > diff --git a/drivers/net/ethernet/microchip/lan966x/lan966x_main.h b/drivers/net/ethernet/microchip/lan966x/lan966x_main.h
+> > index 5f4dbeda17cd..e7fdd4447fb6 100644
+> > --- a/drivers/net/ethernet/microchip/lan966x/lan966x_main.h
+> > +++ b/drivers/net/ethernet/microchip/lan966x/lan966x_main.h
+> > @@ -17,6 +17,9 @@
+> >  #include <net/xdp.h>
+> >
+> >  #include <fdma_api.h>
+> > +#if IS_ENABLED(CONFIG_MCHP_LAN966X_PCI)
+> > +#include <fdma_pci.h>
+> > +#endif
+> 
+> Conditional #includes make build testing harder, better to avoid them
+> 
 
-> +#include <linux/acpi.h>
+Ack.
 
-Why?! We only use a single data structure definition which is defined in a
-separate header. If this is what Uwe's rework required, I'm pretty much against.
-We should not include the all-in-one acpi.h for the cases when we only use
-the ID data structure.
+> >  #include <vcap_api.h>
+> >  #include <vcap_api_client.h>
+> >
+> > @@ -288,6 +291,10 @@ struct lan966x {
+> >
+> >       void __iomem *regs[NUM_TARGETS];
+> >
+> > +#if IS_ENABLED(CONFIG_MCHP_LAN966X_PCI)
+> > +     struct fdma_pci_atu atu;
+> > +#endif
+> > +
+> >       int shared_queue_sz;
+> >
+> >       u8 base_mac[ETH_ALEN];
+> > @@ -586,6 +593,10 @@ void lan966x_fdma_wakeup_netdev(struct lan966x *lan966x);
+> >  int lan966x_fdma_get_max_frame(struct lan966x *lan966x);
+> >  int lan966x_qsys_sw_status(struct lan966x *lan966x);
+> >
+> > +#if IS_ENABLED(CONFIG_MCHP_LAN966X_PCI)
+> > +extern const struct lan966x_fdma_ops lan966x_fdma_pci_ops;
+> > +#endif
+> 
+> There should be no need to wrap extern in an #if
 
-I expect to see here linux/device-id/acpi.h.
-
->  #include <linux/clk.h>
->  #include <linux/delay.h>
->  #include <linux/device.h>
-
-...
-
-> +static const struct acpi_device_id ov8858_acpi_match[] = {
-> +	{ "INT3477" },
-> +	{ /* sentinel */ },
-> +};
-> +MODULE_DEVICE_TABLE(acpi, ov8858_acpi_match);
-
-See above about the style. Also This patch should be split on per-driver basis.
-
-...
-
->  static struct i2c_driver ov8858_i2c_driver = {
->  	.driver = {
->  		.name = "ov8858",
->  		.pm = &ov8858_pm_ops,
-> +		.acpi_match_table = ACPI_PTR(ov8858_acpi_match),
-
-This is wrong to have here (it will induce compiler warning). And in general —
-no ACPI_PTR() in a new code.
-
->  		.of_match_table = ov8858_of_match,
->  	},
->  	.probe		= ov8858_probe,
-
--- 
-With Best Regards,
-Andy Shevchenko
+Ack.
 
 
+/Daniel
