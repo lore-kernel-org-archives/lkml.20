@@ -1,31 +1,31 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D1B1F31280D;
-	Thu, 27 Aug 2026 06:31:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 55B4D303CAB;
+	Thu, 27 Aug 2026 06:31:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787812293; cv=none; b=fN6d2h3fd6Yq6T7vh7eucUyhs2fa1+daIUjNqnGtoDlE6vhVPwljLulYzrUVlNiGyg8CJfwKD/aW2ncG/hz2mInbHQIEJXM4nYT5/xSGsG/XAKK1s8uSfxj3+dsjjXMljW0fqMK/v/9gt7Bmc0RC/cdTLyU42Lf9jYwT7E1NFWA=
+	t=1787812294; cv=none; b=Y6IsEyAvV8cyg5akff8wZBwNQ01IGLTSrtJZq0AL7EomylCwlCZofcGq2AVmP5cfCF27zuRRq5EVWMb5Xg6euHeOraMtDdbLwu2cL/NzXrT0np0mDkUPj9sCQmIOJ3Jli6Pwm1zlgGmzmkjil2AjS7xDXOAL8eeSR/MlbH3qbAQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787812293; c=relaxed/simple;
-	bh=qrD+HDx7Kose91g5YGgkV5DPoyJT8XGYdnyGmqLKoFU=;
+	s=arc-20240116; t=1787812294; c=relaxed/simple;
+	bh=kgT7HbsQTTEuGbH31fzxChvTf7/zr7ejraUuGK7rw1E=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=QK+6U3O/NJ39GCR1A3TN+H/iufwClP71lmKxQ5/2Y4wvTojSDrWBErYo9UgaG49fIE6dZf3X6NOkhrRG275jQZd9TcNx1MZ2wxJx2PrKy7xvL6Lm0Q733lU8MRY6uKXPoqZlyQ65hznMk2ilj55e7SjLlw9Lt4tiCZ905kfLM1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=pEkRGqVC; arc=none smtp.client-ip=217.140.110.172
+	 MIME-Version; b=Y9LJVEECcid4ojUrp7waf3qnTkVqHob4gfg8WpRuqvq5R9Wa3222OnmaQ49MNrNxV5SjLwQqkyNzqsX5X/5wdxl3MM8d9+kTYvb1n9Jw6lqbILCrZxdVzo7Lf8UCkYjgi/Me1IrGVRvznH2FIJ7/DmTGbs319+WUhmgmB3ARIac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=gqLFIG/r; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="pEkRGqVC"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="gqLFIG/r"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8B7DA1CDD;
-	Wed, 26 Aug 2026 23:31:26 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1E717169E;
+	Wed, 26 Aug 2026 23:31:24 -0700 (PDT)
 Received: from e127648.arm.com (unknown [10.57.73.34])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 4084C3F85F;
-	Wed, 26 Aug 2026 23:31:28 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id AD4293F85F;
+	Wed, 26 Aug 2026 23:31:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1787812290; bh=qrD+HDx7Kose91g5YGgkV5DPoyJT8XGYdnyGmqLKoFU=;
+	t=1787812287; bh=kgT7HbsQTTEuGbH31fzxChvTf7/zr7ejraUuGK7rw1E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=pEkRGqVCnao/a9S1W/2YqcQHfUkTLGn+Y0YEoQAtIEmtqrwn1i9VBQDlmbYbszGxf
-	 0A78uOpPZ1zdiS02iDoOFWfej0AkYQvi4H0sMwLMVKKIjYRkraGLHyhGfKqopeLdFR
-	 +DHePue06RESNLlrNFJTenAldoqQ88aUr3Rh5OPw=
+	b=gqLFIG/rgiLVcaWh9T1Hch/YKEtKkhc3fy8pVFwdNK5/aiF5IvVubMV+zmUsyiS0U
+	 GCKutUvBMn0/hNU+yHamN6EmeeK6DVhWl9Dw+ViEMkFsmAxnpGq2IQVyLUsMpp2DN3
+	 D7lG7Gkw/MALNeUmA90jdNaLQcPpTRmXI7TjaRFk=
 From: Christian Loehle <christian.loehle@arm.com>
 To: "Rafael J . Wysocki" <rafael@kernel.org>,
 	Viresh Kumar <viresh.kumar@linaro.org>
@@ -40,10 +40,11 @@ Cc: linux-pm@vger.kernel.org,
 	Sudeep Holla <sudeep.holla@arm.com>,
 	Ionela Voinescu <ionela.voinescu@arm.com>,
 	zhongqiu.han@oss.qualcomm.com,
-	Christian Loehle <christian.loehle@arm.com>
-Subject: [PATCH v5 08/15] ACPI: CPPC: Release PCC data after probe failures
-Date: Thu, 27 Aug 2026 07:30:53 +0100
-Message-Id: <20260827063100.2741066-9-christian.loehle@arm.com>
+	Christian Loehle <christian.loehle@arm.com>,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH v5 07/15] ACPI: CPPC: Release CPC descriptors through kobject
+Date: Thu, 27 Aug 2026 07:30:52 +0100
+Message-Id: <20260827063100.2741066-8-christian.loehle@arm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260827063100.2741066-1-christian.loehle@arm.com>
 References: <20260827063100.2741066-1-christian.loehle@arm.com>
@@ -55,299 +56,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-pcc_data_alloc() takes a per-processor reference while parsing the first
-PCC register. Every later probe failure currently frees the CPC descriptor
-without dropping that reference. Depending on where probe fails, this
-leaks an unacquired PCC object, an acquired mailbox channel, or an extra
-reference to a shared channel.
+The CPC descriptor embeds the kobject used for its sysfs directory, but
+it has no release callback and processor exit frees the descriptor
+immediately after kobject_put(). It also unmaps register resources and
+releases PCC state before sysfs removal has drained active attribute
+callbacks.
 
-Factor the teardown into pcc_data_put() so it handles both acquired and
-unacquired state, and invoke it on every failure after allocation.
+Provide a release callback which unmaps and frees the descriptor, and use
+the same cleanup helper before kobject initialization. Once initialized,
+let kobject_put() own descriptor cleanup so its error path cannot free the
+object twice.
 
-Allocation, reference updates, channel setup, and teardown of a shared
-subspace are also unsynchronized. Concurrent processor probe and removal
-can lose a reference update, free a live object, or request and initialize
-the same mailbox channel twice. Protect that lifecycle with a mutex and
-publish pcc_channel_acquired only after its lock and wait queue have been
-initialized.
+On processor exit, first unpublish the per-CPU descriptor and remove its
+sysfs directory, then release PCC state and drop the kobject reference.
+This keeps all resources valid while sysfs callbacks are active and also
+works with delayed kobject release.
 
-Do not store the temporary pcc_data_alloc() result in the eventual probe
-return value. A successful allocation must not make a later parsing failure
-run cleanup and then return success.
-
-A later processor-start step can fail after CPPC probe has published its
-descriptor. Reuse that descriptor when processor start is retried instead
-of resetting its PCC index and reparsing _CPC. This prevents the live
-descriptor from becoming detached from its PCC reference.
-
-The per-CPU PCC subspace index is zero-initialized. If probe returns before
-assigning it, a later processor exit can consequently drop the reference
-for subspace 0 even though this CPU never acquired one. Initialize the
-index to -1 before any probe return and only release it from exit after a
-CPC descriptor has been published.
-
-Fixes: 85b1407bf6d2 ("ACPI / CPPC: Make CPPC ACPI driver aware of PCC subspace IDs")
+Fixes: 158c998ea44b ("ACPI / CPPC: add sysfs support to compute delivered performance")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://sashiko.dev/#/patchset/20260724134251.1632824-1-christian.loehle%40arm.com
 Signed-off-by: Christian Loehle <christian.loehle@arm.com>
 ---
- drivers/acpi/cppc_acpi.c | 159 ++++++++++++++++++++++++++-------------
- 1 file changed, 106 insertions(+), 53 deletions(-)
+ drivers/acpi/cppc_acpi.c | 50 +++++++++++++++++++++++-----------------
+ 1 file changed, 29 insertions(+), 21 deletions(-)
 
 diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
-index 4bf17d954d87..118001e1687a 100644
+index 0fda08628c27..4bf17d954d87 100644
 --- a/drivers/acpi/cppc_acpi.c
 +++ b/drivers/acpi/cppc_acpi.c
-@@ -36,6 +36,7 @@
- #include <linux/delay.h>
- #include <linux/iopoll.h>
- #include <linux/ktime.h>
-+#include <linux/mutex.h>
- #include <linux/rwsem.h>
- #include <linux/wait.h>
- #include <linux/topology.h>
-@@ -81,6 +82,7 @@ struct cppc_pcc_data {
+@@ -350,7 +350,27 @@ static struct attribute *cppc_attrs[] = {
+ };
+ ATTRIBUTE_GROUPS(cppc);
  
- /* Array to represent the PCC channel per subspace ID */
- static struct cppc_pcc_data *pcc_data[MAX_PCC_SUBSPACES];
-+static DEFINE_MUTEX(pcc_data_lock);
- /* The cpu_pcc_subspace_idx contains per CPU subspace ID */
- static DEFINE_PER_CPU(int, cpu_pcc_subspace_idx);
- 
-@@ -735,35 +737,51 @@ EXPORT_SYMBOL_GPL(acpi_get_psd_map);
- 
- static int register_pcc_channel(int pcc_ss_idx)
- {
-+	struct cppc_pcc_data *data;
- 	struct pcc_mbox_chan *pcc_chan;
- 	u64 usecs_lat;
-+	int ret = 0;
- 
--	if (pcc_ss_idx >= 0) {
--		pcc_chan = pcc_mbox_request_channel(&cppc_mbox_cl, pcc_ss_idx);
--
--		if (IS_ERR(pcc_chan)) {
--			pr_err("Failed to find PCC channel for subspace %d\n",
--			       pcc_ss_idx);
--			return -ENODEV;
--		}
-+	if (pcc_ss_idx < 0 || pcc_ss_idx >= MAX_PCC_SUBSPACES)
-+		return -EINVAL;
- 
--		pcc_data[pcc_ss_idx]->pcc_channel = pcc_chan;
--		/*
--		 * cppc_ss->latency is just a Nominal value. In reality
--		 * the remote processor could be much slower to reply.
--		 * So add an arbitrary amount of wait on top of Nominal.
--		 */
--		usecs_lat = NUM_RETRIES * pcc_chan->latency;
--		pcc_data[pcc_ss_idx]->deadline_us = usecs_lat;
--		pcc_data[pcc_ss_idx]->pcc_mrtt = pcc_chan->min_turnaround_time;
--		pcc_data[pcc_ss_idx]->pcc_mpar = pcc_chan->max_access_rate;
--		pcc_data[pcc_ss_idx]->pcc_nominal = pcc_chan->latency;
-+	mutex_lock(&pcc_data_lock);
-+	data = pcc_data[pcc_ss_idx];
-+	if (!data) {
-+		ret = -ENODEV;
-+		goto out_unlock;
++static void cppc_free_desc(struct cpc_desc *cpc_ptr)
++{
++	unsigned int i;
++
++	for (i = 2; i < cpc_ptr->num_entries; i++) {
++		void __iomem *addr = cpc_ptr->cpc_regs[i - 2].sys_mem_vaddr;
++
++		if (addr)
++			iounmap(addr);
 +	}
-+	if (data->pcc_channel_acquired)
-+		goto out_unlock;
- 
--		/* Set flag so that we don't come here for each CPU. */
--		pcc_data[pcc_ss_idx]->pcc_channel_acquired = true;
-+	pcc_chan = pcc_mbox_request_channel(&cppc_mbox_cl, pcc_ss_idx);
-+	if (IS_ERR(pcc_chan)) {
-+		pr_err("Failed to find PCC channel for subspace %d\n",
-+		       pcc_ss_idx);
-+		ret = -ENODEV;
-+		goto out_unlock;
- 	}
- 
--	return 0;
-+	data->pcc_channel = pcc_chan;
-+	/*
-+	 * cppc_ss->latency is just a Nominal value. In reality
-+	 * the remote processor could be much slower to reply.
-+	 * So add an arbitrary amount of wait on top of Nominal.
-+	 */
-+	usecs_lat = NUM_RETRIES * pcc_chan->latency;
-+	data->deadline_us = usecs_lat;
-+	data->pcc_mrtt = pcc_chan->min_turnaround_time;
-+	data->pcc_mpar = pcc_chan->max_access_rate;
-+	data->pcc_nominal = pcc_chan->latency;
-+	init_rwsem(&data->pcc_lock);
-+	init_waitqueue_head(&data->pcc_write_wait_q);
 +
-+	/* Set flag so that we don't come here for each CPU. */
-+	data->pcc_channel_acquired = true;
-+
-+out_unlock:
-+	mutex_unlock(&pcc_data_lock);
-+	return ret;
- }
- 
- /**
-@@ -805,19 +823,49 @@ bool __weak cpc_supported_by_cpu(void)
-  */
- static int pcc_data_alloc(int pcc_ss_id)
- {
-+	struct cppc_pcc_data *data;
-+	int ret = 0;
-+
- 	if (pcc_ss_id < 0 || pcc_ss_id >= MAX_PCC_SUBSPACES)
- 		return -EINVAL;
- 
--	if (pcc_data[pcc_ss_id]) {
--		pcc_data[pcc_ss_id]->refcount++;
--	} else {
--		pcc_data[pcc_ss_id] = kzalloc_obj(struct cppc_pcc_data);
--		if (!pcc_data[pcc_ss_id])
--			return -ENOMEM;
--		pcc_data[pcc_ss_id]->refcount++;
-+	mutex_lock(&pcc_data_lock);
-+	data = pcc_data[pcc_ss_id];
-+	if (!data) {
-+		data = kzalloc_obj(struct cppc_pcc_data);
-+		if (!data) {
-+			ret = -ENOMEM;
-+			goto out_unlock;
-+		}
-+		pcc_data[pcc_ss_id] = data;
- 	}
-+	data->refcount++;
- 
--	return 0;
-+out_unlock:
-+	mutex_unlock(&pcc_data_lock);
-+	return ret;
++	kfree(cpc_ptr);
 +}
 +
-+static void pcc_data_put(int pcc_ss_id)
++static void cppc_kobj_release(struct kobject *kobj)
 +{
-+	struct cppc_pcc_data *data;
++	cppc_free_desc(to_cpc_desc(kobj));
++}
 +
-+	if (pcc_ss_id < 0 || pcc_ss_id >= MAX_PCC_SUBSPACES)
-+		return;
-+
-+	mutex_lock(&pcc_data_lock);
-+	data = pcc_data[pcc_ss_id];
-+	if (!data || --data->refcount)
-+		goto out_unlock;
-+
-+	pcc_data[pcc_ss_id] = NULL;
-+	if (data->pcc_channel_acquired)
-+		pcc_mbox_free_channel(data->pcc_channel);
-+
-+	kfree(data);
-+
-+out_unlock:
-+	mutex_unlock(&pcc_data_lock);
- }
- 
- /*
-@@ -865,8 +913,15 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
- 	acpi_handle handle = pr->handle;
- 	unsigned int num_ent, i, cpc_rev;
- 	int pcc_subspace_id = -1;
-+	bool pcc_data_ref = false;
- 	acpi_status status;
- 	int ret = -ENODATA;
-+	int err;
-+
-+	if (per_cpu(cpc_desc_ptr, pr->id))
-+		return 0;
-+
-+	per_cpu(cpu_pcc_subspace_idx, pr->id) = -1;
- 
- 	if (!osc_sb_cppc2_support_acked) {
- 		pr_debug("CPPC v2 _OSC not acked\n");
-@@ -999,8 +1054,12 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
- 			if (gas_t->space_id == ACPI_ADR_SPACE_PLATFORM_COMM) {
- 				if (pcc_subspace_id < 0) {
- 					pcc_subspace_id = gas_t->access_width;
--					if (pcc_data_alloc(pcc_subspace_id))
-+					err = pcc_data_alloc(pcc_subspace_id);
-+					if (err) {
-+						ret = err;
- 						goto out_free;
-+					}
-+					pcc_data_ref = true;
- 				} else if (pcc_subspace_id != gas_t->access_width) {
- 					pr_debug("Mismatched PCC ids in _CPC for CPU:%d\n",
- 						 pr->id);
-@@ -1126,13 +1185,10 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
- 		goto out_free;
- 
- 	/* Register PCC channel once for all PCC subspace ID. */
--	if (pcc_subspace_id >= 0 && !pcc_data[pcc_subspace_id]->pcc_channel_acquired) {
-+	if (pcc_subspace_id >= 0) {
- 		ret = register_pcc_channel(pcc_subspace_id);
- 		if (ret)
- 			goto out_free;
--
--		init_rwsem(&pcc_data[pcc_subspace_id]->pcc_lock);
--		init_waitqueue_head(&pcc_data[pcc_subspace_id]->pcc_write_wait_q);
- 	}
- 
- 	/* Everything looks okay */
-@@ -1153,7 +1209,7 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
+ static const struct kobj_type cppc_ktype = {
++	.release = cppc_kobj_release,
+ 	.sysfs_ops = &kobj_sysfs_ops,
+ 	.default_groups = cppc_groups,
+ };
+@@ -1133,7 +1153,7 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
  	if (ret) {
  		per_cpu(cpc_desc_ptr, pr->id) = NULL;
  		kobject_put(&cpc_ptr->kobj);
--		goto out_buf_free;
-+		goto out_pcc_put;
+-		goto out_free;
++		goto out_buf_free;
  	}
  
  	kfree(output.pointer);
-@@ -1163,6 +1219,11 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
- 	pr_err("CPU%d: failed to initialize _CPC: %d\n", pr->id, ret);
- 	cppc_free_desc(cpc_ptr);
+@@ -1141,15 +1161,7 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
  
-+out_pcc_put:
-+	if (pcc_data_ref)
-+		pcc_data_put(pcc_subspace_id);
-+	per_cpu(cpu_pcc_subspace_idx, pr->id) = -1;
-+
+ out_free:
+ 	pr_err("CPU%d: failed to initialize _CPC: %d\n", pr->id, ret);
+-
+-	/* Free all the mapped sys mem areas for this CPU */
+-	for (i = 2; i < cpc_ptr->num_entries; i++) {
+-		void __iomem *addr = cpc_ptr->cpc_regs[i-2].sys_mem_vaddr;
+-
+-		if (addr)
+-			iounmap(addr);
+-	}
+-	kfree(cpc_ptr);
++	cppc_free_desc(cpc_ptr);
+ 
  out_buf_free:
  	kfree(output.pointer);
- 	return ret;
-@@ -1178,28 +1239,20 @@ EXPORT_SYMBOL_GPL(acpi_cppc_processor_probe);
+@@ -1166,10 +1178,14 @@ EXPORT_SYMBOL_GPL(acpi_cppc_processor_probe);
  void acpi_cppc_processor_exit(struct acpi_processor *pr)
  {
  	struct cpc_desc *cpc_ptr;
--	int pcc_ss_id = per_cpu(cpu_pcc_subspace_idx, pr->id);
-+	int pcc_ss_id;
+-	unsigned int i;
+-	void __iomem *addr;
+ 	int pcc_ss_id = per_cpu(cpu_pcc_subspace_idx, pr->id);
  
- 	cpc_ptr = per_cpu(cpc_desc_ptr, pr->id);
--	if (cpc_ptr) {
--		per_cpu(cpc_desc_ptr, pr->id) = NULL;
--		kobject_del(&cpc_ptr->kobj);
-+	if (!cpc_ptr) {
-+		per_cpu(cpu_pcc_subspace_idx, pr->id) = -1;
-+		return;
++	cpc_ptr = per_cpu(cpc_desc_ptr, pr->id);
++	if (cpc_ptr) {
++		per_cpu(cpc_desc_ptr, pr->id) = NULL;
++		kobject_del(&cpc_ptr->kobj);
++	}
++
+ 	if (pcc_ss_id >= 0 && pcc_data[pcc_ss_id]) {
+ 		if (pcc_data[pcc_ss_id]->pcc_channel_acquired) {
+ 			pcc_data[pcc_ss_id]->refcount--;
+@@ -1180,20 +1196,12 @@ void acpi_cppc_processor_exit(struct acpi_processor *pr)
+ 			}
+ 		}
  	}
- 
--	if (pcc_ss_id >= 0 && pcc_data[pcc_ss_id]) {
--		if (pcc_data[pcc_ss_id]->pcc_channel_acquired) {
--			pcc_data[pcc_ss_id]->refcount--;
--			if (!pcc_data[pcc_ss_id]->refcount) {
--				pcc_mbox_free_channel(pcc_data[pcc_ss_id]->pcc_channel);
--				kfree(pcc_data[pcc_ss_id]);
--				pcc_data[pcc_ss_id] = NULL;
--			}
--		}
--	}
--	per_cpu(cpu_pcc_subspace_idx, pr->id) = -1;
-+	pcc_ss_id = per_cpu(cpu_pcc_subspace_idx, pr->id);
-+	per_cpu(cpc_desc_ptr, pr->id) = NULL;
-+	kobject_del(&cpc_ptr->kobj);
- 
--	if (!cpc_ptr)
--		return;
-+	pcc_data_put(pcc_ss_id);
 +	per_cpu(cpu_pcc_subspace_idx, pr->id) = -1;
  
+-	cpc_ptr = per_cpu(cpc_desc_ptr, pr->id);
+ 	if (!cpc_ptr)
+ 		return;
+ 
+-	/* Free all the mapped sys mem areas for this CPU */
+-	for (i = 2; i < cpc_ptr->num_entries; i++) {
+-		addr = cpc_ptr->cpc_regs[i-2].sys_mem_vaddr;
+-		if (addr)
+-			iounmap(addr);
+-	}
+-
  	kobject_put(&cpc_ptr->kobj);
+-	kfree(cpc_ptr);
  }
+ EXPORT_SYMBOL_GPL(acpi_cppc_processor_exit);
+ 
 -- 
 2.34.1
 
