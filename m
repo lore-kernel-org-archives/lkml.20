@@ -1,34 +1,34 @@
 Received: from frasgout.his.huawei.com (frasgout.his.huawei.com [185.176.79.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2424948F830
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2439448F833
 	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:24:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.176.79.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787847896; cv=none; b=LddNmNyKWoCKfSbk2tHYb1heOYUcA2Ty75RiBxJiWg92amUTeivrS81ejdscu14hTjBJIWa7oo+xfvl8zTTG/78+bqvx5Ju3z49ziXUyp+LvtzJZUhumA/X1nv7TpAH0xPEchk6kaDgm4Cc9srd21+dXYbCJn/TVydFv+AvxXsY=
+	t=1787847895; cv=none; b=GIlea0XcGLoP8+vfFnTrWqCNlLdwTkq2xXMagP5b5BARK3BAeerUwBdNZJxc3RlN5Gjl4pYsk2qaqldbb1+pu48at+3gUm7EtjQ66oHe39rMDnWNIo5Ai9IVR9seok5Z+nTnvjcVP96PVJDognbHIykdV54wy+blGlMgm9u1RWs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787847896; c=relaxed/simple;
-	bh=Hzhaxw/Y44kMWGiScMy4uMzYjI1VVlV4Rpa3MtTyC1U=;
+	s=arc-20240116; t=1787847895; c=relaxed/simple;
+	bh=VA2qbvtc9D3WAUublEK754KUy3iM7l5IKInc4JhiwpI=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PtX6CPdjN919b9+RyfIfDMne9jdLuoDlbu7RNNLKKLNJVFWc/dqHk3RiFab2SFRxRQq1HQtCq9ZDy4lnS9BLz6pusHHFbQehwKzwNqSLP0VqgstB0DO47jT8fYUFq+3IrwJn0qO+fV21q0vk5KY5a3TQ+I5a1NLGXyRimqLqdIc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=CccpWaUs; arc=none smtp.client-ip=185.176.79.56
+	 MIME-Version:Content-Type; b=YKom9/H2uOxsp5QxBReACk/lbeDIZJUqc4LXgXVfLoMdvcIIIOdqpoxpzKsK6owrRKl46Xyox5d9Ah4ByrJET3xOTEpuJnXVB/SSw6ybd3CZOUGLDIokmKCVZetp0B1qPLgOlte+iWLm/uNb9OSzuC73KLjsgYK0uuLEA4RXGkM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=2TvuhQxU; arc=none smtp.client-ip=185.176.79.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="CccpWaUs"
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="2TvuhQxU"
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=fUa7pS4OHibv7k1aZNkFDzTCnQ9Tn89o+Rildjw0B6k=;
-	b=CccpWaUsRgM2J3CMlge2JDc32pT8dih8KCHNscYv2r+jgWhSa/BbR/8RILkH8O5kbpzttbHXn
-	6tbp/SC/chqJ3BbIXL3K7I04ctuktFcHeXy6i4fEkUR+lXXsoWpfO3tQGirIX0pTiGi04wxJ/z+
-	pCpZ1bHP36L3Y9WHJC9YEtw=
+	bh=5euHgUF21bp60qTQigBwKjH4x6Qvg0qe8ONZJ9cd938=;
+	b=2TvuhQxUFr+fy+TYSZfwfzt2uKWRPMUlYGvkIcqkpSYVM6SYMIi2cNT3oGpFWAEDEkYLVmcp3
+	27DLLJT6/TOlAQbpxu6X1KM8Trmh2Y7QCzb+ecElRL9a3atlGgKwmDr08QkmlRpPCcLbQ5ati4P
+	s1CxhEaZ6wolohHl03XhMkk=
 Received: from mail.maildlp.com (unknown [172.18.224.150])
-	by frasgout.his.huawei.com (SkyGuard) with ESMTPS id 4hW6KF5v67zHnH3h;
-	Fri, 28 Aug 2026 00:24:01 +0800 (CST)
+	by frasgout.his.huawei.com (SkyGuard) with ESMTPS id 4hW6KG1l3lzHnH3h;
+	Fri, 28 Aug 2026 00:24:02 +0800 (CST)
 Received: from mscpeml500004.china.huawei.com (unknown [7.188.26.250])
-	by mail.maildlp.com (Postfix) with ESMTPS id D049140572;
-	Fri, 28 Aug 2026 00:24:37 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id 4117C40570;
+	Fri, 28 Aug 2026 00:24:38 +0800 (CST)
 Received: from mscphis00949.huawei.com (10.123.66.11) by
  mscpeml500004.china.huawei.com (7.188.26.250) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
@@ -42,9 +42,9 @@ To: <catalin.marinas@arm.com>, <akpm@linux-foundation.org>,
 CC: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
 	<linux-arm-kernel@lists.infradead.org>, <wangkefeng.wang@huawei.com>,
 	<artem.kuzin@huawei.com>, <panov.nikita@huawei.com>
-Subject: [RFC PATCH 15/18] arm64: add support of NUMA replication for ptdump
-Date: Fri, 28 Aug 2026 00:11:55 +0800
-Message-ID: <20260827161158.3618409-16-panov.nikita@huawei.com>
+Subject: [RFC PATCH 16/18] arm64: add kernel modules text and rodata replication support
+Date: Fri, 28 Aug 2026 00:11:56 +0800
+Message-ID: <20260827161158.3618409-17-panov.nikita@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260827161158.3618409-1-panov.nikita@huawei.com>
 References: <20260827161158.3618409-1-panov.nikita@huawei.com>
@@ -66,65 +66,38 @@ Acked-by: Ilya Hanov <ilya.hanov@huawei-partners.com>
 Acked-by: Denis Darvish <darvish.denis@huawei.com>
 Signed-off-by: Nikita Panov <panov.nikita@huawei.com>
 ---
- arch/arm64/mm/ptdump.c | 24 ++++++++++++++++++++++--
- 1 file changed, 22 insertions(+), 2 deletions(-)
+ arch/arm64/kernel/module.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/arch/arm64/mm/ptdump.c b/arch/arm64/mm/ptdump.c
-index 5a76c59b5ada..17c4de4b9b3e 100644
---- a/arch/arm64/mm/ptdump.c
-+++ b/arch/arm64/mm/ptdump.c
+diff --git a/arch/arm64/kernel/module.c b/arch/arm64/kernel/module.c
+index 24adb581af0e..61f605f74d86 100644
+--- a/arch/arm64/kernel/module.c
++++ b/arch/arm64/kernel/module.c
 @@ -18,6 +18,7 @@
- #include <linux/ptdump.h>
- #include <linux/sched.h>
- #include <linux/seq_file.h>
-+#include <linux/numa_kernel_replication.h>
+ #include <linux/moduleloader.h>
+ #include <linux/random.h>
+ #include <linux/scs.h>
++#include <linux/vmalloc.h>
  
- #include <asm/fixmap.h>
- #include <asm/kasan.h>
-@@ -328,7 +329,7 @@ static struct ptdump_info kernel_ptdump_info __ro_after_init = {
- 	.mm		= &init_mm,
- };
+ #include <asm/alternative.h>
+ #include <asm/insn.h>
+@@ -25,6 +26,16 @@
+ #include <asm/sections.h>
+ #include <asm/text-patching.h>
  
--bool ptdump_check_wx(void)
-+static bool ptdump_check_wx_pgd(struct mm_struct *mm, pgd_t *pgd)
- {
- 	struct ptdump_pg_state st = {
- 		.seq = NULL,
-@@ -353,7 +354,7 @@ bool ptdump_check_wx(void)
- 		}
- 	};
- 
--	ptdump_walk_pgd(&st.ptdump, &init_mm, NULL);
-+	ptdump_walk_pgd(&st.ptdump, mm, pgd);
- 
- 	if (st.wx_pages || st.uxn_pages) {
- 		pr_warn("Checked W+X mappings: FAILED, %lu W+X pages found, %lu non-UXN pages found\n",
-@@ -367,6 +368,25 @@ bool ptdump_check_wx(void)
- 	}
- }
- 
-+
 +#ifdef CONFIG_KERNEL_REPLICATION
-+bool ptdump_check_wx(void)
++void module_replicate(void *ptr)
 +{
-+	bool res = false;
-+	int nid;
++	gfp_t gfp_mask = GFP_KERNEL;
 +
-+	for_each_memory_node(nid)
-+		res |= ptdump_check_wx_pgd(&init_mm, per_node_pgd(&init_mm, nid));
-+
-+	return res;
++	__vmalloc_node_replicate_range(ptr, gfp_mask,
++			PAGE_KERNEL, 0);
 +}
-+#else
-+bool ptdump_check_wx(void)
-+{
-+	return ptdump_check_wx_pgd(&init_mm, init_mm->pgd);
-+}
-+#endif
++#endif /*CONFIG_KERNEL_REPLICATION*/
 +
- static int __init ptdump_init(void)
- {
- 	u64 page_offset = _PAGE_OFFSET(vabits_actual);
+ enum aarch64_reloc_op {
+ 	RELOC_OP_NONE,
+ 	RELOC_OP_ABS,
 -- 
 2.34.1
 
