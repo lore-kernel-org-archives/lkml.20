@@ -1,31 +1,33 @@
-Received: from www262.sakura.ne.jp (www262.sakura.ne.jp [202.181.97.72])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C522C47F782;
-	Thu, 27 Aug 2026 15:32:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.181.97.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47765451998;
+	Thu, 27 Aug 2026 15:33:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787844756; cv=none; b=MFj0qidFlCsXhe0nG54o2+O/megt4oEkG4qhoTzFFyK5QC3xw0gNZOO9grahEhy2jud0J51jQsgpC1EPWzBD8G6xrqkXz2lhjrf07qH8/1fXe0wddP+xAtLjClmaYzlj7cwViM1cNAD00f+jSlJH4hCUYssH8vVEObDRjSaPyuc=
+	t=1787844797; cv=none; b=DZwJcOxiU0dWEg3zRYfVNwL0m/eRwgP3pZTg7R015+jW8xjFVI+Wx5cBqHyijyrAMGAJfIstnCeqKKNCB81kEg6LT8iZJo8EMDMvrmSWTsaXnRpf7Od0tfhLJjsx6naFhzPaLrt1XIrFGv5+TtDBUn+m1SVSX9lPtf6bu3Senwg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787844756; c=relaxed/simple;
-	bh=5fULEVdiLNaeaGPmNGVav3cRmsOv0HEjjh0adnjLFWM=;
+	s=arc-20240116; t=1787844797; c=relaxed/simple;
+	bh=drsQcz7vpLHCPTbJHf54XFIKntywsoBGoQH3UYvoEbE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Jb/0jWqUlp+UiC+QTOFw0K16cj4d8imHUmHTc46z6MWhtYxzlfufhI0Ho+onbeX2KaU7areMKo4Dg/uhHuj9gAssLtsqAK8CostpwBkJDrV0JqAy5dVcrAB6/T7SPfJOJwzcL41rFlpBCvABkfSoExlYOHOuZjZOUaEOKUPROM4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp; arc=none smtp.client-ip=202.181.97.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp
-Received: from www262.sakura.ne.jp (localhost [127.0.0.1])
-	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id 67RFUkJh066871;
-	Fri, 28 Aug 2026 00:30:46 +0900 (JST)
-	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
-Received: from [192.168.1.6] (M106072072000.v4.enabler.ne.jp [106.72.72.0])
-	(authenticated bits=0)
-	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id 67RFUdpm066842
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NO);
-	Fri, 28 Aug 2026 00:30:45 +0900 (JST)
-	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
-Message-ID: <e5518546-701e-4d3c-a077-18e34aa8c188@I-love.SAKURA.ne.jp>
-Date: Fri, 28 Aug 2026 00:30:39 +0900
+	 In-Reply-To:Content-Type; b=LkMoR1szY9e+YGwrNKwPtqfcZCHmVeS55jL3aXlkYQYmLWd12pePS2ZGztVDDcu2EgpsOeSaWQI0H8z/npvmg3JSAaEepOACdVzDcra9moYeJC0q0pb+/aahgJbKf8czGYs03MYblQCTN6CZQ0JXhNpl+6Ta/mrtXwsDaOI88No=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EkNYY/2T; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EkNYY/2T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCE3B1F000E9;
+	Thu, 27 Aug 2026 15:33:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787844796;
+	bh=4oPsdO8UvwcZK2FdI47sHipp2PYwd210CEtnNDq551M=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=EkNYY/2TymrOw7w04hBE9IzFqwAjn5BgIOiM6RWUrh5Qfag3j75kKyb4vFjwl82Y5
+	 eN4wrbtBg7rSkenawg9mXdvqwt8Gxnn0qe0Xsh1uhNF5NTiNml1qchqWzC0fOcXsd1
+	 6O9D1qnQsjw4oie5swpFjwE790AdyxOibGLbMp0zdm+9+WmnVSbmke7Cg34vww2oz1
+	 tlmx7K/+Mv1dzXxGj4bLlUMFgcA7+iBh0b4S3ZZTNqomzOB086eTD/mOYn/QnvVFd0
+	 SzDsoGoZUCnzIHbfVnon2aV2/STL73s7N5BvjyFTuCO3CeJUcDP6vVqv8+Ny7aYpI0
+	 3iJd3sClIgkYg==
+Message-ID: <fbde1932-5433-48e8-b352-bf27eb545149@kernel.org>
+Date: Thu, 27 Aug 2026 17:33:02 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -33,103 +35,101 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6] loop: Fix NULL pointer dereference in lo_rw_aio()
-To: Bart Van Assche <bvanassche@acm.org>,
-        Markus Elfring <Markus.Elfring@web.de>, linux-block@vger.kernel.org,
-        linux-fsdevel@vger.kernel.org,
-        Alexander Viro <viro@zeniv.linux.org.uk>,
-        Damien Le Moal <dlemoal@kernel.org>, Jens Axboe <axboe@kernel.dk>
-Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org, lkp@intel.com,
-        oe-lkp@lists.linux.dev, Christian Brauner <brauner@kernel.org>,
-        Christoph Hellwig <hch@infradead.org>, Christoph Hellwig <hch@lst.de>,
-        Hillf Danton <hdanton@sina.com>,
-        Linus Torvalds <torvalds@linux-foundation.org>,
-        Mark Brown <broonie@kernel.org>, Oliver Sang <oliver.sang@intel.com>,
-        linux-btrfs@vger.kernel.org
-References: <8dedfc40-9cae-44ff-9960-e0eb1825e963@I-love.SAKURA.ne.jp>
- <550ff0b4-df39-46d2-9781-c8688df10c93@web.de>
- <38ad64c1-edc7-431d-8f52-fba572ebf3eb@I-love.SAKURA.ne.jp>
- <372ca5f6-81a0-4f6c-8f55-ebeeada9f955@acm.org>
- <27bcb147-bead-4432-8cd0-981489f36228@acm.org>
- <c41e9198-86a8-4bcd-a608-6f457b24f345@I-love.SAKURA.ne.jp>
- <7e51bca8-218a-40b8-8ff8-fc59671f5add@acm.org>
- <3bb080d0-4421-4012-8a62-6a2bf165cbd9@I-love.SAKURA.ne.jp>
- <d2f387b9-031a-4306-9323-56f98a8241b7@acm.org>
+Subject: Re: [PATCH v7 2/3] wifi: mwifiex: add dt flag to avoid conflict with
+ platform reg domain
+To: Georgi Valkov <gvalkov@gmail.com>, briannorris@chromium.org,
+ johannes@sipsolutions.net, andrew@lunn.ch, krzk+dt@kernel.org
+Cc: francesco@dolcini.it, johannes.berg@intel.com, kees@kernel.org,
+ miriam.rachel.korenblit@intel.com, rongqianfeng@vivo.com,
+ wenst@chromium.org, rafael.beims@toradex.com, avraham.stern@intel.com,
+ error27@gmail.com, s.kerkmann@pengutronix.de, gregory.clement@bootlin.com,
+ sebastian.hesselbarth@gmail.com, robh@kernel.org, conor+dt@kernel.org,
+ Frank.Li@nxp.com, chunfan.chen@gmail.com, arend.vanspriel@broadcom.com,
+ peddolla.reddy@oss.qualcomm.com, linux-arm-kernel@lists.infradead.org,
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, stable@vger.kernel.org
+References: <20260827130335.6606-1-gvalkov@gmail.com>
+ <20260827130335.6606-2-gvalkov@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-In-Reply-To: <d2f387b9-031a-4306-9323-56f98a8241b7@acm.org>
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260827130335.6606-2-gvalkov@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Anti-Virus-Server: fsav415.rs.sakura.ne.jp
-X-Virus-Status: clean
 
-On 2026/08/27 2:44, Bart Van Assche wrote:
-> Releasing and reacquiring disk->open_mutex from __loop_clr_fd() seems
-> risky to me. There is plenty of code in block/bdev.c that assumes that
-> disk->open_mutex is not released by lo_release().
-
-sashiko's review did not find problems
-( https://sashiko.dev/#/patchset/8dedfc40-9cae-44ff-9960-e0eb1825e963%40I-love.SAKURA.ne.jp ).
-This callback is the last code which is performed immediately before releasing disk->open_mutex.
-
+On 27/08/2026 15:03, Georgi Valkov wrote:
+> WRT3200ACM and WRT32x routers always report a fixed US regulatory domain
+> from the mwifiex ROM, which conflicts with the platform regulatory
+> configuration on units sold outside the US market. For example:
+> - phy0 mwlwifi 5 GHz, hard-coded region 98 EU mapped to FR
+> - phy1 mwlwifi 2.4 GHz, hard-coded region 98 EU mapped to FR
+> - phy2 mwifiex 2.4 and 5 GHz, hard-coded region US
 > 
-> I think there is another solution: instead of draining the workqueue
-> from inside __loop_clr_fd(), postpone it until the next time the loop
-> device is bound. See also the patch below.
-
-That is too late to avoid NULL pointer dereference problem.
-We need to flush before setting lo->lo_backing_file to NULL.
-
+> When the system boots, it detects a conflict between the user selected
+> region and the radios, e.g. BG FR US, and applies extreme restrictions,
+> preventing phy0 from starting on any DFS channel. phy2 works.
 > 
-> Regarding your earlier request for a Sashiko review: I will look into
-> configuring Sashiko such that I can run "sashiko review ${commit_id}"
-> locally. The only part I'm missing right now is a Sashiko API key.
-While Sashiko considers a static blk_mq_freeze_queue() sufficient to avoid
-the NULL pointer dereference, relying on freezing the queue inside __loop_clr_fd()
-while holding `disk->open_mutex` is a dangerous decision.
+> Add a device-tree flag, which allows affected devices, where the radio
+> conflicts with the platform to ignore the incorrect regulatory hint in
+> the ROM of the radio, so the platform regulatory domain can be used.
+> This does not allow the user to change the regulatory configuration of
+> any radio. It only allows phy0 to start and operate according to its
+> certified configuration.
+> 
+> The change affects only platforms which explicitly define this flag, and
+> helps overcome the incorrect behaviour of proprietary radio firmware.
+> 
+> [1] https://github.com/kaloz/mwlwifi/issues/173#issuecomment-307879699
+> [2] https://github.com/openwrt/openwrt/issues/9956
+> 
+> Tested-on: WRT3200ACM, OpenWrt
 
-It is true that blk_mq_freeze_queue() alone is equivalent to
-synchronize_rcu() + drain_workqueue() + blk_mq_freeze_queue().
+OK, so this comment from v6 was not about binding, but this is still
+wrong - there is no such tag. Just make it a standard sentence.
 
-Although omitting drain_workqueue() causes lockdep to stop complaining, not
-using drain_workqueue() does not avoid the runtime deadlock situation shown below.
-As long as there is a possibility of an in-flight I/O holding or waiting on a
-lock that subsequently tries to acquire `disk->open_mutex`, the deadlock
-risk remains. Lockdep will remain silent here simply because it cannot inspect
-the wake-up conditions inside wait_event() during a queue freeze.
+Do not introduce OpenWRT rules in to the upstream kernel.
 
-Here is the exact execution timeline that leads to the silent deadlock:
-
-Thread 1:                         Thread 2:                         Thread 3:
-========================================================================================
-                                                                    Holds a global lock 
-                                                                    (e.g., system_transition_mutex).
-
-                                  Block core increments 
-                                  `q_usage_counter`.
-
-Block core holds `disk->open_mutex`.
-
-lo_release() tries to wait for 
-`q_usage_counter` to reach 0 
-via blk_mq_freeze_queue() 
-  => BLOCKED by Thread 2.
-                                  loop_handle_cmd() tries 
-                                  to hold the global lock 
-                                    => BLOCKED by Thread 3.
-                                                                    Tries to hold 
-                                                                    `disk->open_mutex` 
-                                                                      => BLOCKED by Thread 1.
-========================================================================================
-
-Since Thread 1 will never release `disk->open_mutex`, Thread 3 can never release
-the global lock, and Thread 2 can never reach blk_mq_end_request() to unblock Thread 1.
-
-I've tried offloading __loop_clr_fd() entirely to task_work context in v3 patch, but
-it did not work due to module lifecycle restrictions
-( https://sashiko.dev/#/patchset/fda8abc8-6aa2-463b-bf72-865f6b838034@I-love.SAKURA.ne.jp ).
-
-Therefore, I consider that temporarily releasing `disk->open_mutex` within the process
-context to safely perform flushing/draining before clearing the backing file pointer
-is the most robust architectural solution to break this deadlock chain.
-
+Best regards,
+Krzysztof
