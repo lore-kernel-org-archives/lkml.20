@@ -1,125 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44BBB306775;
-	Thu, 27 Aug 2026 07:49:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE15361950
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:50:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787816985; cv=none; b=K8TNBarMgtBsMPAKdta/ImXk9cmvHTAHsQhv8KocWetnY6VDfbvgR95qbqsldE8aB5MGc+eQ7Z82jFkrY5LZzEu8PcNi46x0MxBndWnbQOCHRZaAxVXEiQfvVGa/rbyKAJOqv7uu/loVkOtb/DYBpDLkw4xSitO7I/qtCp2CCTM=
+	t=1787817053; cv=none; b=DvcabALcT38kHsBC2YJnGDdCSs59ZoeyuuJ5PQPOA0iyNUoFTj70gedIgKnM3pS4xnu7crQ9FbS+0Vc7CdoZYcMPKq5vEfyT1o4Cb2ptpq+Et2KRpDqlcir76MGrCwO/w7lxdDIvHtLULY8neAU/Xlynsuu+1g+WIBw9Uvy6F5k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787816985; c=relaxed/simple;
-	bh=rydCR8oMmRj25kCWFiF8JjPsK1p8C9eCD8o7nMiXdDs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YGrxDBt26qpy86b+rtHCg+WxEwUJry7JFgIgvyfvg1UVKrP/C/GTmPpa9oq6zoY+g/SGrqQV0GszNeO3/jY1gehDSHwAz3eMZ6KeT1mzkU3XMlJgsnLEvuKaPUBouH41PVx91oAZavboq/drbf3Kkd926TEFrd4QPemODgQDjN4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XP5GUoKs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787817053; c=relaxed/simple;
+	bh=ombfWduYmRzuQM+qSTOW1ygfQL83duLTVFuIzr1u56M=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=f+rCf3PkewRMHzvj/QvDx6T9cQ4ULYOP78U3RjWkeO8jTRb8iXn0U82GbALl2U1bDkFMyWRhc1mJzEya9VS36uJO/WOuKw0ZcSvtkjR05wov2Iz5eOJyg5l4kKO0ksKycBi/QnOuLxdj3+QACsLUx8O4vSmZHvRoA381CQIWcSs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jWQVZIjG; arc=none smtp.client-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XP5GUoKs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1DFB1F000E9;
-	Thu, 27 Aug 2026 07:49:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787816983;
-	bh=pXKPSGKEnYpUCi4b1Zk1PpaxxASDBVDKKvWhbUsQzzE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XP5GUoKscwLfu7Wd9nUZA5nENI+S/18k7abGqbbmVOSzWIZOZFrV9h7aPu5Asmf7U
-	 OwJFJSoNI9m1vYcI4QoNpM5xvoy8mOk6jaM1Q97ewpFzcC1YTjN1uSUpnYNCOKnOwk
-	 6j7TJRULs5vWsgaNPseFCq3o9vlEli8peP2xq6qfnlFJ60vivszWc0cYPoskntdmIv
-	 +q4aMFrl0i+M+oKTIqkT1+z5EdtxBtdRNeTn9qouluLVwxVfm7s09i/032hvBQHd+D
-	 d/tiFEHJfC3XWiDyJzXWpQM4SBVsoSAqHACxmgKU+e97L6OVESE17Qpvxy508ZLpxM
-	 mF/83rFlBH63Q==
-Date: Thu, 27 Aug 2026 10:49:30 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Barry Song <baohua@kernel.org>, Dev Jain <dev.jain@arm.com>,
-	Hugh Dickins <hughd@google.com>, Jann Horn <jannh@google.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
-	Jonathan Corbet <corbet@lwn.net>, Lance Yang <lance.yang@linux.dev>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Michal Hocko <mhocko@suse.com>, Muchun Song <muchun.song@linux.dev>,
-	Nico Pache <nico.pache@linux.dev>,
-	Oscar Salvador <osalvador@suse.de>,
-	Pedro Falcato <pfalcato@suse.de>, Peter Xu <peterx@redhat.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Usama Arif <usama.arif@linux.dev>,
-	Vlastimil Babka <vbabka@kernel.org>, Zi Yan <ziy@nvidia.com>,
-	linux-doc@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH 5/6] userfaultfd: decouple fault reason from VMA flags
-Message-ID: <ao_sCh5zP0IC9H2S@kernel.org>
-References: <20260823-uffd-vm-flags-v1-v1-0-3086981b33cf@kernel.org>
- <20260823-uffd-vm-flags-v1-v1-5-3086981b33cf@kernel.org>
- <5bb86e34-6196-4b50-b553-be2ff7c1fa32@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jWQVZIjG"
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-851d4de33a3so81755b3a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:50:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787817051; x=1788421851; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QJxok4wgUB8E2b2EBexjp7DU43elN9IiB4VyNdbeBMI=;
+        b=jWQVZIjGm1P24DRfClznD9+7yzaeXVPc0wzpMJbuAd/RNGPmN7gVHVYvo6Zc8OjUfg
+         CKiJ7OW2aKP6+T0mhBxULF00v7cqfLQXZgwcbwkeN5dIto9u7cYw8n+Zj0PSYYkmXhsx
+         l9IdtO+Dr8tCqbzJixZu/rzCfiDKn0cGzedji1xD2swihZIX3u4jL9cLMuDcmGbfCdzU
+         OKU5gtW5b0+Rd2C2y915qsfdX0OGLeOii9uwNrFIfCe/ODxrthMqcjvmdnLplepyw0wL
+         bG6j7t55kP7awbmZLX304OyhBrolPJf6QFHXqqZJcFHVi1TavE+3zO4ORvgNNk6NDBLZ
+         WB2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787817051; x=1788421851;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QJxok4wgUB8E2b2EBexjp7DU43elN9IiB4VyNdbeBMI=;
+        b=VF6gy/SCL1q5vl8p2osOfwoAppfloLPfEODukssu1gGUFHC3f2gftLs31S77apFaDu
+         wNjABKaiWsncIukRQBtJzZLMTCT2DNS9gOFA+0BIyYW38gyP6KqZj5sQTdWDKgyP15Kg
+         mjO3vaFjIMnZJ0MSnf87YwNKo3k1vTzFbEjfs2hLy8k1gLTdyPPxvxEqUzOlpEtRFnho
+         hxS3/UCrh9w4QRcsQOF6bgrzN7/55LD09Md6otdf3UXVtUph2Ri+bu4slrnd3gYf/yZB
+         8kRVnkREqf8TI36zYSA3R6dS1wc+jBya2k1QAWd1ps+odBVBgrcrMyAf93AIRYKjCKQo
+         RADw==
+X-Forwarded-Encrypted: i=1; AHgh+Roo2+JVGphY6h1rkyJzI93lCT1XjC5UlgPPkW4l90cIfPLkHVn+0lZUKvMaEYqJTVVKpShMAsGYzd8iMZs=@vger.kernel.org
+X-Gm-Message-State: AFuF++kCcJJv2nJS5V97XohIEJ0pgfLruYrckpeJ2Uxs5DwEH/HE3Ekz
+	5gurdhrVXj/Vb5CnVHB93cDb0pxM98sWlTdYPcVdA7urs63W5dpdWLNA
+X-Gm-Gg: AR+sD12IZU2Ovfnp/eM5bHaJhetMqVNXlES17233+mVr6MQ2w5SVu2eyITH8nk/bBrn
+	/rLCPP8EfcuEJtNIuET/awtVZ9o9lyYV2MwdDehYkYV+s5y6bi72FQQLB6o0AwmYGE5p8c3ky8i
+	py8v3WB6zbRuY28JMT8w3/urf2JYy1gLa7O8vVFApLcDGKo1iDfLX2vtFgk8QdM0poFYjWIs6zt
+	8KPzhqLttIaXgkJTLA9wLdafgtOIdMUvecLGrWZb1D9baykZ8op2Z510SXig7CnBc6z8KA+wKGT
+	tDqTCW4wBkVKyeNAP9u18pe+llChtcYU7qO0YkHAM8C3a2se0/+KpNUDwTwixjmXA87W60DIhMi
+	pCJ3ah+XkPwXAEvFfhtV6p8zJFywN/yEKp1VF1nGGtXhnlVHEE8njIQlPMctsRPUNOnQlwPsQq6
+	zk2dxBzbo5iRiX8dg2oOLXRnGuEQtxe4whQDaZxtNv8dTJp3xB/rG9CNaml/PMnEt3DKXEka4bP
+	+OQNM/zn0l1Wy47ukZMpBuKgzTX2Q==
+X-Received: by 2002:a05:6a21:c147:20b0:3d1:56e6:daad with SMTP id adf61e73a8af0-3d156e6db8emr2237492637.0.1787817050967;
+        Thu, 27 Aug 2026 00:50:50 -0700 (PDT)
+Received: from localhost.localdomain ([189.1.242.96])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1bec80fdesm1761524a12.24.2026.08.27.00.50.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 00:50:50 -0700 (PDT)
+From: Yiqi Sun <sunyiqixm@gmail.com>
+To: marcelo.leitner@gmail.com,
+	lucien.xin@gmail.com
+Cc: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	linux-sctp@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yiqi Sun <sunyiqixm@gmail.com>
+Subject: [PATCH net] sctp: avoid livelock while updating retransmit path
+Date: Thu, 27 Aug 2026 15:50:06 +0800
+Message-Id: <20260827075006.3979566-1-sunyiqixm@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5bb86e34-6196-4b50-b553-be2ff7c1fa32@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 24, 2026 at 04:46:14PM +0200, David Hildenbrand (Arm) wrote:
-> On 8/23/26 14:17, Mike Rapoport (Microsoft) wrote:
-> > Introduce enum uffd_reason to define reasons for user faults rather than
-> > overload VM_UFFD_* VMA flags for that.
-> > 
-> > Using a dedicated enum makes the code clearer and decoupling the fault
-> > reason from VMA flags clears the way for moving the uffd mode bits out
-> > of VMA namespace.
-> > 
-> > No functional change.
-> > 
-> > Assisted-by: copilot:claude-opus-4.6
-> > Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> > ---
-> >  include/linux/userfaultfd_k.h    | 16 ++++++++++++++--
-> >  include/uapi/linux/userfaultfd.h |  6 +++---
-> >  mm/huge_memory.c                 |  6 +++---
-> >  mm/hugetlb.c                     | 10 +++++-----
-> >  mm/memory.c                      | 10 +++++-----
-> >  mm/shmem.c                       |  4 ++--
-> >  mm/userfaultfd.c                 | 30 +++++++++++++++---------------
-> >  7 files changed, 47 insertions(+), 35 deletions(-)
-> > 
-> > diff --git a/include/linux/userfaultfd_k.h b/include/linux/userfaultfd_k.h
-> > index 45355bdb4ec7..f401623f315d 100644
-> > --- a/include/linux/userfaultfd_k.h
-> > +++ b/include/linux/userfaultfd_k.h
-> > @@ -9,6 +9,18 @@
-> >  #ifndef _LINUX_USERFAULTFD_K_H
-> >  #define _LINUX_USERFAULTFD_K_H
-> >  
-> > +#include <linux/bits.h>
-> > +
-> > +/* Fault reason #PF handler passes to handle_userfault() */
-> > +enum uf_reason {
-> 
-> Can we just call this "userfault_reason" or "uffd_reason" ? Maybe the latter is
-> actually what we want?
+sctp_assoc_update_retran_path() walks the association transport list from
+the current retransmit path's successor and stops once it reaches the
+current retransmit path again. However, the loop skips transports in
+SCTP_UNCONFIRMED state before checking for the wraparound condition.
 
-userfault_reason sounds better to me.
+This makes the loop non-terminating when the association contains only
+UNCONFIRMED transports at that point and asoc->peer.retran_path is also
+UNCONFIRMED. One way to reach that state is through ASCONF wildcard
+DEL-IP processing after an unconfirmed address is selected as the
+primary transport. sctp_assoc_del_nonprimary_peers() then removes the
+other transports one by one; when removing the current retran_path,
+sctp_assoc_rm_peer() calls sctp_assoc_update_retran_path() before
+unlinking it. If the remaining candidate and the current retran_path are
+both UNCONFIRMED, the loop repeatedly continues before it can observe
+that it has completed a full pass.
 
-It describes what kind of user fault we are handling and the 'fd' part has
-nothing to do with it. 
-We do use uffd as a short name for the subsystem, but still most if not all
-userfaultfd "external" APIs use userfault_ prefix.
+The same reproducer that exercised the bug fixed by commit 9b2854f86f0b
+("sctp: don't free the ASCONF's own transport in DEL-IP processing") can
+still trigger this CPU stall after that fix is applied. With the UAF
+prevented, the ASCONF processing no longer dereferences the freed
+transport, but it can still reach the retransmit-path update described
+above and spin in the all-UNCONFIRMED case.
 
-uf_ was an attempt to make it wee shorter :)
+Fix this by remembering whether the current transport is the original
+retran_path, still considering it as a candidate when it is not
+UNCONFIRMED, and then breaking after the candidate logic. This preserves
+the existing fallback semantics while making the full-pass termination
+independent of the transport state.
+
+Also restore the NULL guard around the retran_path assignment. In the
+all-UNCONFIRMED case there is no eligible replacement transport, and
+installing NULL would leave later retransmit-path users and the debug
+print with a NULL path.
+
+Fixes: 4c47af4d5eb2 ("net: sctp: rework multihoming retransmission path selection to rfc4960")
+Signed-off-by: Yiqi Sun <sunyiqixm@gmail.com>
+---
+ net/sctp/associola.c | 19 +++++++++++--------
+ 1 file changed, 11 insertions(+), 8 deletions(-)
+
+diff --git a/net/sctp/associola.c b/net/sctp/associola.c
+index c0512c827d0f..6f19eb0b01e2 100644
+--- a/net/sctp/associola.c
++++ b/net/sctp/associola.c
+@@ -1272,6 +1272,7 @@ void sctp_assoc_update_retran_path(struct sctp_association *asoc)
+ {
+ 	struct sctp_transport *trans = asoc->peer.retran_path;
+ 	struct sctp_transport *trans_next = NULL;
++	bool last = false;
  
-> -- 
-> Cheers,
-> David
-
+ 	/* We're done as we only have the one and only path. */
+ 	if (asoc->peer.transport_count == 1)
+@@ -1289,18 +1290,20 @@ void sctp_assoc_update_retran_path(struct sctp_association *asoc)
+ 		/* Manually skip the head element. */
+ 		if (&trans->transports == &asoc->peer.transport_addr_list)
+ 			continue;
+-		if (trans->state == SCTP_UNCONFIRMED)
+-			continue;
+-		trans_next = sctp_trans_elect_best(trans, trans_next);
+-		/* Active is good enough for immediate return. */
+-		if (trans_next->state == SCTP_ACTIVE)
+-			break;
++		last = trans == asoc->peer.retran_path;
++		if (trans->state != SCTP_UNCONFIRMED) {
++			trans_next = sctp_trans_elect_best(trans, trans_next);
++			/* Active is good enough for immediate return. */
++			if (trans_next->state == SCTP_ACTIVE)
++				break;
++		}
+ 		/* We've reached the end, time to update path. */
+-		if (trans == asoc->peer.retran_path)
++		if (last)
+ 			break;
+ 	}
+ 
+-	asoc->peer.retran_path = trans_next;
++	if (trans_next)
++		asoc->peer.retran_path = trans_next;
+ 
+ 	pr_debug("%s: association:%p updated new path to addr:%pISpc\n",
+ 		 __func__, asoc, &asoc->peer.retran_path->ipaddr.sa);
 -- 
-Sincerely yours,
-Mike.
+2.34.1
+
