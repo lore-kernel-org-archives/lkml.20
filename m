@@ -1,437 +1,201 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8DA5314D34;
-	Thu, 27 Aug 2026 07:22:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787815359; cv=none; b=Jt8dRyWfgbrhV9cnIgjBOH1Dpbp5OQaZtijraJKFgy5mmaEr0Eue3soO6X1DBRimk4ZkmqZ8Y8YQ4J5vVasPO2orllbXu4HAG0+iGT97an3nf9hF86/vGe1aGD9mC1jPr9YhPP2qTSw/k5uI+rdIUzsiWIgMTqpx30a5xlK8eTI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787815359; c=relaxed/simple;
-	bh=3tV7qGA1nYvHeA0DhkjOetoQYV6wl7gKDBvMfhd0xxU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gGapaKXgB5CInWLpR05p2ZUhWJpRv7WEJp3ffLZaTp14ydg3x9UMhoKdNNyuzUk+syVJqT8tq0J48juOwdRqyhyIfHhUWtYKgvQwQQkPsiLiuI0b4Y+DuaRk6vDme8xUX766JmRC0kl79zDrgCFzZpZmOJFWFSzAeJbfcF63pac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DqV3RX45; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90A15332909;
+	Thu, 27 Aug 2026 07:22:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=60.244.123.138
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787815376; cv=fail; b=X2iEkGvf6fVJ8P0F+KlUQc/HzAlRN7sVDDMOs0NplM5z1oZyBH331eUPuWvLkwCLP5VrZLVKQDvELmjezsOptfKwpQ0oC9X8eYgSPbd4ixRV3HItSJKFvEbHpZBaRE/c9P2ERxz9SvDzMxXI31rMgcz2Nfh7uHP3VfLwXOH8chs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787815376; c=relaxed/simple;
+	bh=jvhpzmw0HO0k3cBAsvHxqQDqA8gpTqhDnPOlwYZU0Gw=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=SqRVE1E2OQKe+leFrcRnXcy8KOfsD+hJAUa1lbvWC0ecQO18JQWRAOW9v8G64OtXJkVWG2kZKBRe9JWGtw8h6wNm9LHQuSrJXV5XEVLvAIGaL/UbTNl8DIl8PIFI6DfmLoqo3Axac4A58AcIqjXmvyZZfNm4q/taAOLpC4Sfl+g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=cZDfHhLf; dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b=HHwC4nKJ; arc=fail smtp.client-ip=60.244.123.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DqV3RX45"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787815356; x=1819351356;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=3tV7qGA1nYvHeA0DhkjOetoQYV6wl7gKDBvMfhd0xxU=;
-  b=DqV3RX45WuBI6xdBza0xQgiPwnZICFq4d++M/7tilMfLCySBiOT9JZc8
-   I9RVlg6V8eQCYtxR9KKPTswFuIPG5DQx1DS86hkm2NZb9tZ24a9h3zuc9
-   NZBQQpVklPYJqzGrE8GA3k8iDgj8a3P59QMet4RRJmlKbUkgCIXH6hUV0
-   65+bAUHOJa6HvcA7zk/70x4ax6nj+Mqgmg4i8JZoeRGYcv+VHzVJymcwK
-   HRMAYYV9fsvaHhJAPm7iT2EDFafPpt/G0rMxKiQHTjCkOH75ewJ9VKz/i
-   B4yPByod8XGtJYlrvvKPepRnRvpJRuygeO/0ytojNJ0OzWrupXQUPqkGk
-   w==;
-X-CSE-ConnectionGUID: klUXkyLIT3KzxxcoxU+dUA==
-X-CSE-MsgGUID: d2az8FfoT0Cg3YRtgTvKmg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="88326417"
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="88326417"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 00:22:35 -0700
-X-CSE-ConnectionGUID: IqC5x+sNQBO2RPQJ+oRgXw==
-X-CSE-MsgGUID: eWUQ4qmERdGkarDX5FzriQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="266490692"
-Received: from blu2-desk.sh.intel.com (HELO [10.239.156.26]) ([10.239.156.26])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 00:22:29 -0700
-Message-ID: <5f8963c4-f6b1-44b3-ab2c-ed658822efb4@linux.intel.com>
-Date: Thu, 27 Aug 2026 15:22:26 +0800
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="cZDfHhLf";
+	dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b="HHwC4nKJ"
+X-UUID: 19f64bb8a1e811f1b1788b6acf885367-20260827
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From; bh=jvhpzmw0HO0k3cBAsvHxqQDqA8gpTqhDnPOlwYZU0Gw=;
+	b=cZDfHhLf5QvcwDULSLlnG4zkhNrqJJcyN8t6CzuPffDv3KQPqMH9VvwW0lSpSxVBUZKWzp4OVY/uAuVcRpzTTrx51LSnhiK5RsH+X8teyiI+mGybRrjIEWsYk0rn+feDL+X2bMigqcFkPQ9xR4KFmA6fWbrkFl36bHVQIAI3bmY=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:639c9232-7dce-4839-ac80-ccd35a52dd0e,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:9a7a68b9-70a6-46ee-89b5-5e757858aa60,B
+	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|110|111|836|865|888|898,TC:-5,
+	Content:0|15|50|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-
+	1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 19f64bb8a1e811f1b1788b6acf885367-20260827
+Received: from mtkmbs14n1.mediatek.inc [(172.21.101.75)] by mailgw01.mediatek.com
+	(envelope-from <ck.hu@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 2024199454; Thu, 27 Aug 2026 15:22:46 +0800
+Received: from mtkmbs10n2.mediatek.inc (172.21.101.183) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Thu, 27 Aug 2026 15:22:45 +0800
+Received: from SI4PR04CU002.outbound.protection.outlook.com (172.21.101.237)
+ by mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Thu, 27 Aug 2026 15:22:45 +0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LBdIQnYmvg1wfDFJzauUYHcXwe/O8KUYsIPyK8/8EGlTM7xg3bEQ/5D1TxJT0hmpE03NjZXKwpOwmWZOr+qlXM1/IC4by3LU7YaHfZtaptI6l9MFy3esYHtaJQS2YfPglfiHx6BfP7E4//wxICNE5eNx4fIKjokrbG6GYeevnQwdDWf9giA67HZyIVIJ/S+dEbx3MdDmNcWRDJN+Fu6BqExCCaHmx5Ot/z7PvzmJtcnxjLCeyjv28u/vLy6tHXBpstSQRgvPgY5n8SgiU5J6M4igqruDCcd2ooZcpLfcCaK9F8myNYmmkbZBoJ1ADoTOnKN7ieB7n/8hLMhjh8oo0g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jvhpzmw0HO0k3cBAsvHxqQDqA8gpTqhDnPOlwYZU0Gw=;
+ b=xvp2wSqdYFz/NRYC4xWiNw4dJtLL3thy+wZQ/w1y0iSJ4gr9pEF8c3/sRKS+HuIdytP0IUAHH55Y6X7aBhFs5XqjomaGJtnT4rdKpW/r2x3KbzBVAerzIMbobTYFeWCWotGjcmI53zvmNaTQOlY1aPsMuHTSLamOoH8gE1KIIUyPVRF4z4i3vulSwy/AIl2qFJHoy6cL+yYkLX8iaxM8538lL3TaHA9KycGSl4lrYp59oYwYaMMMtr7kFeJs9olw2l+qey10xZRr86mST+UnE3N9WahK3ebKKJDAi65kPYGMCmeNZFRE4r3bPD/ZcQRVF9Pul+Xyp7XEk9N28wrrtw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
+ dkim=pass header.d=mediatek.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jvhpzmw0HO0k3cBAsvHxqQDqA8gpTqhDnPOlwYZU0Gw=;
+ b=HHwC4nKJ+q7mbIKFG1L9z83P0RdFnOxGPgrT9OfzCM6/gtsCMUotdzl2D65S7nGCocIC4ssT7LZvKTVMGM50qC9jzBHc9gAxXrlnEG+dReXScqslADmiPYr6YAXUWi/b+Ow7RpahgcOP9Nor3tTHgxuT0BSd1RXfoBkoccLT0TQ=
+Received: from TYZPR03MB6624.apcprd03.prod.outlook.com (2603:1096:400:1f4::13)
+ by JH0PR03MB8233.apcprd03.prod.outlook.com (2603:1096:990:46::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
+ 2026 07:22:42 +0000
+Received: from TYZPR03MB6624.apcprd03.prod.outlook.com
+ ([fe80::a3c2:b94a:70f:e640]) by TYZPR03MB6624.apcprd03.prod.outlook.com
+ ([fe80::a3c2:b94a:70f:e640%4]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
+ 07:22:42 +0000
+From: =?utf-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	"chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>
+CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+	"kernel@collabora.com" <kernel@collabora.com>, "robh@kernel.org"
+	<robh@kernel.org>, Alexandre Mergnat <amergnat@baylibre.com>,
+	"tzimmermann@suse.de" <tzimmermann@suse.de>, "dmitry.osipenko@collabora.com"
+	<dmitry.osipenko@collabora.com>, =?utf-8?B?Sml0YW8gU2hpICjnn7PorrDmtpsp?=
+	<jitao.shi@mediatek.com>, "simona@ffwll.ch" <simona@ffwll.ch>,
+	"mripard@kernel.org" <mripard@kernel.org>,
+	"maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
+	=?utf-8?B?SmFzb24tSkggTGluICjmnpfnnb/npaUp?= <Jason-JH.Lin@mediatek.com>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "granquet@baylibre.com"
+	<granquet@baylibre.com>, "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
+	"airlied@gmail.com" <airlied@gmail.com>,
+	=?utf-8?B?SnVzdGluIFllaCAo6JGJ6Iux6IyCKQ==?= <Justin.Yeh@mediatek.com>,
+	"matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>,
+	=?utf-8?B?UmV4LUJDIENoZW4gKOmZs+afj+i+sCk=?= <Rex-BC.Chen@mediatek.com>
+Subject: Re: [PATCH v4 04/12] drm/mediatek: mtk_dp: Fix hdmi codec and phy
+ driver unregistration
+Thread-Topic: [PATCH v4 04/12] drm/mediatek: mtk_dp: Fix hdmi codec and phy
+ driver unregistration
+Thread-Index: AQHdD5as9lnz2ceHaUuezTo9MSBQi7axyoOA
+Date: Thu, 27 Aug 2026 07:22:41 +0000
+Message-ID: <fb8e444ce71ea3e0dcd66724181cc05c242024a2.camel@mediatek.com>
+References: <20260709113148.49090-1-angelogioacchino.delregno@collabora.com>
+	 <20260709113148.49090-5-angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20260709113148.49090-5-angelogioacchino.delregno@collabora.com>
+Accept-Language: zh-TW, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+user-agent: Evolution 3.52.3-0ubuntu1 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=mediatek.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TYZPR03MB6624:EE_|JH0PR03MB8233:EE_
+x-ms-office365-filtering-correlation-id: 7ff21b05-93aa-4286-65b6-08df040bfb74
+x-ld-processed: a7687ede-7a6b-4ef6-bace-642f677fbe31,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|42112799006|38070700021|10067099003|56012099006|11063799006|4143699003|22082099003|18002099003;
+x-microsoft-antispam-message-info: vBi3YFzCpCSQUyaQ1YZL9de1cbsF69+yR3V9NmTw+PPaJNk2M69wLtMG+SJBRFnCsyCNjWvOLzeZluwrT+dstAapaolagg6CCofDzbUWJybjRgwCiRWOlqIqhDVNL1dRMSquOrWpFU4bJ+LMFPGhf0avhHmdp/Ujd2muQO6MkBr19LYvjHIP0C9dq7lBL3/XC89PmAjc40v1a1XBWF0Oh38LkFsM89kHWddFePPhhemYshXOztsXYVxJBUriLgpT7xWwhC/7j8a5urBqU7AcVW08x2/5N7MXu1pDZoVXvcaeGpqNfFK0m0MiYyIG8sJyPfMsML+C3CR/CtXBHKDKvNDlPZ89y8079I/Z90Mb96ONOw1YsK8ea8L3A0BCU40ckQNssPDjdCOtfa4DcoCFEyjLni5xIKNVLO/maqcw19cnvH15iyhr1V+/lOlj0InBeASQHE4Iofah8vuTgX4UGxMsjE9QcoCv+rMCMYkbHH0osUxThUSqKhhgV6J2GJ8Ahc8HY65aAU8rwrGuTerkQQVxByXKE6VNO1bztCGx4DTvsXElful1OSaFmjad+ovaLykQmGZv16mfMLYA5ChRvJ4zBbhni/CiXP7yTOMRtWlAEK8AjiyPPWbj1dqVC5vH1v/ebMSg8b3SRbK9tc5n+gXqxS48JiXjGdjXAFHgdJ0Y6C67N+Sw1W4N2yjQnTjoqGOyJ+xEnuZxOEIWFqQ9N8rHFB87dcS5Cn6J5+kkTj8=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYZPR03MB6624.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(42112799006)(38070700021)(10067099003)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?VXljL1kwM1VsUXNZUGorbGNEdjE5TUx4UFgzVlN2SGtFYlZoZnNZSWJxQktn?=
+ =?utf-8?B?OFE1dUcvd2Rub0pYcGIxU3AwQWRFL2hzMmxoQVc2TFl1bkErL2VreC9vSGM1?=
+ =?utf-8?B?eEhaYm5uVExYRVBCL29KYkN3VjFoWXNXcmx5a0ZYVFAweFFrYThKMlFJYjhl?=
+ =?utf-8?B?OGJCOG4xNEdwQzNlWmRnbjAwS0gzaDE5TitJVmFiNXZ6UmtuOGlGZElNK25s?=
+ =?utf-8?B?Z2F0aFB0NnJpMjN6SHhjWGV4MExoNnhEaUxXVjNUSEFqaHdWTWVlVC82NDA3?=
+ =?utf-8?B?emloTFJ1MGtnbHJaUXF6ODVzQ0NHUEpwUTFHSWVyL1NKOC9TQ0k4eEFCNWdG?=
+ =?utf-8?B?d1BJTHRqMmJ1UWRUVHc2b3VxTSthbTFIdHM3Yjc4VG43djNMb0lnY2RvMjEv?=
+ =?utf-8?B?ZXRHY05CK1RBNkF4RGVJMG9aNll4VmQwUUJWQzQwR0NMTmdzQjVTa0pVK0tx?=
+ =?utf-8?B?cjZVQXpGNFl3R3hTeHhXemlhU1A0ZkpoYTcrU2pHcmQvU0licmpwSWpsZEdZ?=
+ =?utf-8?B?eVdlT0FteGg0SHljTWFmcWJ6Nm9LWkFRemM2TUxFOWdMTTRFNFV1SVMrVFV0?=
+ =?utf-8?B?MTdHSFp2TWNwUnVoUkRNYmV6aTlVcnJQaG5Mc01Yd0k1ZnpHY1Q0bU1FSFNz?=
+ =?utf-8?B?YXRZdGVDRm5nNHhEclRtYkl4dXo2c2dxYll6OHlqc2IxY3ZMQmF2MEMyWnB4?=
+ =?utf-8?B?Uk00czVZQ0RKY2M3OHgxaWdibFNDVWdMREUrSjJ4NUltT3pnak9YVERzVG95?=
+ =?utf-8?B?YldFSWNSZXdNZVJFMHVQTm1VeHpaRTY0Sk41Vi9NenBFbkJqcmU3V3dkSW4y?=
+ =?utf-8?B?b3FRR3p5VENXdUJlamFUcGNLYmlMUUVNS2FQWCs4bzk2R3RFbnRBenpnSlFC?=
+ =?utf-8?B?ZWZPc2JTaWVSQS9NM0xKOUo5Q05sYTZnT2llVVpwZjZqd2FXTmR6VWJ0aytI?=
+ =?utf-8?B?SWVibzB5ZStXVXJSUDk0d3hHb2lQK2RZVTNCTDFnWXd5M1VBekgwVlhudEZG?=
+ =?utf-8?B?OExyZUFPTWxpQUEvTTlsQXRmRzRQa2NUaGJ1VWdiNWVjOVlHRmVQamRPWGJL?=
+ =?utf-8?B?S2lWWTVRenlBMEJmTlRzTW03TmRFUXNnV3ZMakZlUEV6ZjB5MUo4UFNLS09n?=
+ =?utf-8?B?ZmpHenNjaHNKb3lodHNxWGZFVUU0OXo4KzhtTGFsNWUzYm9MNitFNkMvWUFX?=
+ =?utf-8?B?VjF5elFmMENYRU9KT0RLNHEwSkg5VFpSUzNZK0ZwcHNNRjdCNnhpQlBtTk1l?=
+ =?utf-8?B?S0FhdmxKTjBYeHREOFJHSVJvbUQ4VUh3cHp0WUp2NXNtd29TZWVvKzN4dG5Z?=
+ =?utf-8?B?ejRFcEVYNXhpU3FIMTdkRnZuaVJUUCtDTlVnUTFZbm5PRFY2Wktsd3pkSVBa?=
+ =?utf-8?B?Zmw1Q1dzelQ5eVJlYlB0em1nY0x0eVU1V24wbm9MT2ZUcEFFU0J5c05Camk1?=
+ =?utf-8?B?bDAydExnM08xbUQxM0IzRE9ZWWJ2VTh4UUwrTzBVU0wxeEg3RlQ1czIwbFcz?=
+ =?utf-8?B?NEh2RitrZTZtaGR1MFdWSnQvbTUwVlRVUnFuMlVkTGNQcTl2djZUVWVxSmJR?=
+ =?utf-8?B?Q3pIMEw2SFIrTjJOWUdSaG1tN3Vycm5XZlVoTkxiTEd2QUdaSTY5ekJoSmc5?=
+ =?utf-8?B?NXZvNW5wQnVFNFE2NkVUSVJwRGxEdE0rR0x0RVdxZUYvbjZoajg2N2ZnaVM0?=
+ =?utf-8?B?c2cxOHdIT2ViSVdwdUFlNHN5djNROWczSkF4NzhEbDhSMkNTSSsxN0xTSGhJ?=
+ =?utf-8?B?TU8yNGpaOEJBUnN2Y1Z5NFV1TE9xdzZFT29XSkllM241emhyTUJ0dWc0QkRH?=
+ =?utf-8?B?bTZsRUM4U1ZydFYxUVlHOTN3M2E5RjU3bEhPYU5UZmhyOHJiTzVTemJXdWZU?=
+ =?utf-8?B?clNtaEV6ZDhzYUxacFZHMlpCRSttSFJiVkVYYUVYbnJmSVlKVnBRNnZOOXUr?=
+ =?utf-8?B?Tks3RkpIbXlabWxnZU9icXprTHpudENlVFh2MUVJcFFUM09ENzhOSHI4ZHRD?=
+ =?utf-8?B?eWR4VjJ1dWNjaEpkWEFYdEdFUkUvWHBpblhqUU03elRNNnhYV2Nkbml4T3lI?=
+ =?utf-8?B?NGQ1Um1jekJxYURSdHkrV3lFSGZyOUhhZ21YQ2tzc2pWZ1BlWVo1aUc2ZFVR?=
+ =?utf-8?B?VTdFUHBoMkhyem9OOVgzTldWdnZWZkZkcXp6YWxCdG1pSWdCcUxGT1c0Y1NP?=
+ =?utf-8?B?NkJBeUoyUWVoS3hhbDFwU0JpdTBUSnpRZll4Qi85Nzk4SXZvOUozWnY2bGFN?=
+ =?utf-8?B?d1NwaVN0TnczRzlTa3JUQ1JkTzN5Z2p1M3hVT1pRMVprN0dXWVo5Ny83bkJH?=
+ =?utf-8?B?NFMvSS9uZFJtWVRkbjZKSGIyMDg5M3pkOXBBalQ5ZUpTOFYyeHNrUT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <A4297DD5FA7BAA44917B1FD19588BDF7@apcprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 10/18] iommu/vt-d: Restore IOMMU state and reclaimed
- domain ids
-To: Samiullah Khawaja <skhawaja@google.com>,
- David Woodhouse <dwmw2@infradead.org>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Robin Murphy <robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>,
- Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>,
- iommu@lists.linux.dev, linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
- Pratyush Yadav <pratyush@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- David Matlack <dmatlack@google.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Pranjal Shrivastava <praan@google.com>, Vipin Sharma <vipinsh@google.com>
-References: <20260808022723.3893618-1-skhawaja@google.com>
- <20260808022723.3893618-11-skhawaja@google.com>
-Content-Language: en-US
-From: Baolu Lu <baolu.lu@linux.intel.com>
-In-Reply-To: <20260808022723.3893618-11-skhawaja@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-Exchange-RoutingPolicyChecked: 0rYJ/ESU4dDoXaLWNqnbyB6OjuAiuTaV0rU/g8YUPLR/GzcDX1Qy50AUuwFI4NltkIu04n15dGThDGG1THlw/tKXk6yXplC9/GWFtPEx41L+sbqT/WhPQk2AR658I0CAxyLPtszw/rZnVGcixbUVjgYu+9/SbhXlBAN25oN6bNypIIx3pxdcQjfIFQDjxyWj59fxBYzk89PlbtXjjxCVEYSUh3FJjhTMIc7ksSanBp8Bi/gifx5C5fd0xa0sTuG3jryGMokzPj2Je5ek9INVl2cVaG56KlxTaLA24Ra403zYYc2rPCWbVpIsCWuGoUDu7NpkOBU9nGlKhtxh4Id9cw==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB6624.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7ff21b05-93aa-4286-65b6-08df040bfb74
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Aug 2026 07:22:41.9615
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 8B43vUJOz9WlKs5EClTrUs4c6UkIyscSyemkomrOcoc2eW6XxPb1Tf/CMjWT6rlTvrFHmgsQj6l9zsDLZo5pvA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: JH0PR03MB8233
+X-MTK: N
 
-On 8/8/26 10:27, Samiullah Khawaja wrote:
-> During boot fetch the preserved state of IOMMU unit and if found then
-> restore the state.
-> 
-> - Reuse the root_table that was preserved in the previous kernel.
-> - Reclaim the domain ids of the preserved domains for each preserved
->    devices so these are not acquired by another domain.
-> 
-> Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
-> ---
->   drivers/iommu/intel/iommu.c      | 111 +++++++++++++++++++------------
->   drivers/iommu/intel/iommu.h      |   7 ++
->   drivers/iommu/intel/liveupdate.c |  69 +++++++++++++++++++
->   3 files changed, 144 insertions(+), 43 deletions(-)
-> 
-> diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
-> index eca3944d9cf5..42d3ff6db281 100644
-> --- a/drivers/iommu/intel/iommu.c
-> +++ b/drivers/iommu/intel/iommu.c
-> @@ -980,28 +980,30 @@ static void iommu_disable_translation(struct intel_iommu *iommu)
->   	raw_spin_unlock_irqrestore(&iommu->register_lock, flag);
->   }
->   
-> -static void disable_dmar_iommu(struct intel_iommu *iommu)
-> +static void release_dmar_iommu(struct intel_iommu *iommu)
->   {
-> -	/*
-> -	 * All iommu domains must have been detached from the devices,
-> -	 * hence there should be no domain IDs in use.
-> -	 */
-> -	if (WARN_ON(!ida_is_empty(&iommu->domain_ida)))
-> -		return;
-> +	struct iommu_hw_ser *iommu_ser;
->   
-> -	if (iommu->gcmd & DMA_GCMD_TE)
-> -		iommu_disable_translation(iommu);
-> -}
-> +	iommu_ser = iommu_get_preserved_data(iommu->reg_phys, IOMMU_INTEL);
-> +	if (!iommu_ser) {
-> +		/*
-> +		 * All iommu domains must have been detached from the devices,
-> +		 * hence there should be no domain IDs in use.
-> +		 */
-> +		WARN_ON(!ida_is_empty(&iommu->domain_ida));
-> +
-> +		if ((iommu->gcmd & DMA_GCMD_TE))
-> +			iommu_disable_translation(iommu);
-> +	}
->   
-> -static void free_dmar_iommu(struct intel_iommu *iommu)
-> -{
->   	if (iommu->copied_tables) {
->   		bitmap_free(iommu->copied_tables);
->   		iommu->copied_tables = NULL;
->   	}
->   
-> -	/* free context mapping */
-> -	free_context_table(iommu);
-> +	/* free context mapping if there is no serialized state. */
-> +	if (!iommu_ser)
-> +		free_context_table(iommu);
->   
->   	if (ecap_prs(iommu->ecap))
->   		intel_iommu_finish_prq(iommu);
-> @@ -1612,12 +1614,19 @@ static int copy_translation_tables(struct intel_iommu *iommu)
->   
->   static int __init init_dmars(void)
->   {
-> +	struct iommu_hw_ser *iommu_ser;
->   	struct dmar_drhd_unit *drhd;
->   	struct intel_iommu *iommu;
->   	int ret;
->   
->   	for_each_iommu(iommu, drhd) {
-> +		iommu_ser = iommu_get_preserved_data(iommu->reg_phys, IOMMU_INTEL);
->   		if (drhd->ignored) {
-> +			if (WARN_ON(iommu_ser)) {
-> +				ret = -EINVAL;
-> +				goto free_iommu;
-> +			}
-> +
->   			iommu_disable_translation(iommu);
->   			continue;
->   		}
-> @@ -1635,7 +1644,9 @@ static int __init init_dmars(void)
->   		}
->   
->   		intel_iommu_init_qi(iommu);
-> -		init_translation_status(iommu);
-> +
-> +		if (!iommu_ser)
-> +			init_translation_status(iommu);
->   
->   		if (translation_pre_enabled(iommu) && !is_kdump_kernel()) {
->   			iommu_disable_translation(iommu);
-> @@ -1644,14 +1655,18 @@ static int __init init_dmars(void)
->   				iommu->name);
->   		}
->   
-> -		/*
-> -		 * TBD:
-> -		 * we could share the same root & context tables
-> -		 * among all IOMMU's. Need to Split it later.
-> -		 */
-> -		ret = iommu_alloc_root_entry(iommu);
-> -		if (ret)
-> -			goto free_iommu;
-> +		if (iommu_ser) {
-> +			intel_iommu_liveupdate_restore_root_table(iommu, iommu_ser);
-> +		} else {
-> +			/*
-> +			 * TBD:
-> +			 * we could share the same root & context tables
-> +			 * among all IOMMU's. Need to Split it later.
-> +			 */
-> +			ret = iommu_alloc_root_entry(iommu);
-> +			if (ret)
-> +				goto free_iommu;
-> +		}
->   
->   		if (translation_pre_enabled(iommu)) {
->   			pr_info("Translation already enabled - trying to copy translation structures\n");
-> @@ -1687,7 +1702,10 @@ static int __init init_dmars(void)
->   	 */
->   	for_each_active_iommu(iommu, drhd) {
->   		iommu_flush_write_buffer(iommu);
-> -		iommu_set_root_entry(iommu);
-> +
-> +		iommu_ser = iommu_get_preserved_data(iommu->reg_phys, IOMMU_INTEL);
-> +		if (!iommu_ser)
-> +			iommu_set_root_entry(iommu);
->   	}
->   
->   	check_tylersburg_isoch();
-> @@ -1732,10 +1750,8 @@ static int __init init_dmars(void)
->   	return 0;
->   
->   free_iommu:
-> -	for_each_active_iommu(iommu, drhd) {
-> -		disable_dmar_iommu(iommu);
-> -		free_dmar_iommu(iommu);
-> -	}
-> +	for_each_active_iommu(iommu, drhd)
-> +		release_dmar_iommu(iommu);
->   
->   	return ret;
->   }
-> @@ -2116,17 +2132,28 @@ int dmar_parse_one_satc(struct acpi_dmar_header *hdr, void *arg)
->   static int intel_iommu_add(struct dmar_drhd_unit *dmaru)
->   {
->   	struct intel_iommu *iommu = dmaru->iommu;
-> +	struct iommu_hw_ser *iommu_ser;
->   	int ret;
->   
-> +	/* Use IOMMU HW unit MMIO base to identify the preserved state. */
-> +	iommu_ser = iommu_get_preserved_data(iommu->reg_phys, IOMMU_INTEL);
-> +
->   	/*
->   	 * Disable translation if already enabled prior to OS handover.
->   	 */
-> -	if (iommu->gcmd & DMA_GCMD_TE)
-> +	if (!iommu_ser && iommu->gcmd & DMA_GCMD_TE)
->   		iommu_disable_translation(iommu);
->   
-> -	ret = iommu_alloc_root_entry(iommu);
-> -	if (ret)
-> -		goto out;
-> +	if (iommu_ser) {
-> +		if (WARN_ON(dmaru->ignored))
-> +			return -EINVAL;
-> +
-> +		intel_iommu_liveupdate_restore_root_table(iommu, iommu_ser);
-> +	} else {
-> +		ret = iommu_alloc_root_entry(iommu);
-> +		if (ret)
-> +			goto out;
-> +	}
->   
->   	intel_svm_check(iommu);
->   
-> @@ -2145,23 +2172,23 @@ static int intel_iommu_add(struct dmar_drhd_unit *dmaru)
->   	if (ecap_prs(iommu->ecap)) {
->   		ret = intel_iommu_enable_prq(iommu);
->   		if (ret)
-> -			goto disable_iommu;
-> +			goto out;
->   	}
->   
->   	ret = dmar_set_interrupt(iommu);
->   	if (ret)
-> -		goto disable_iommu;
-> +		goto out;
-> +
-> +	if (!iommu_ser)
-> +		iommu_set_root_entry(iommu);
->   
-> -	iommu_set_root_entry(iommu);
->   	iommu_enable_translation(iommu);
->   
->   	iommu_disable_protect_mem_regions(iommu);
->   	return 0;
->   
-> -disable_iommu:
-> -	disable_dmar_iommu(iommu);
->   out:
-> -	free_dmar_iommu(iommu);
-> +	release_dmar_iommu(iommu);
->   	return ret;
->   }
->   
-> @@ -2175,12 +2202,10 @@ int dmar_iommu_hotplug(struct dmar_drhd_unit *dmaru, bool insert)
->   	if (iommu == NULL)
->   		return -EINVAL;
->   
-> -	if (insert) {
-> +	if (insert)
->   		ret = intel_iommu_add(dmaru);
-> -	} else {
-> -		disable_dmar_iommu(iommu);
-> -		free_dmar_iommu(iommu);
-> -	}
-> +	else
-> +		release_dmar_iommu(iommu);
->   
->   	return ret;
->   }
-> diff --git a/drivers/iommu/intel/iommu.h b/drivers/iommu/intel/iommu.h
-> index 6c971f04ead3..b33a12528066 100644
-> --- a/drivers/iommu/intel/iommu.h
-> +++ b/drivers/iommu/intel/iommu.h
-> @@ -1307,6 +1307,8 @@ int intel_iommu_preserve(struct iommu_device *iommu,
->   void intel_iommu_unpreserve(struct iommu_device *iommu,
->   			    struct iommu_hw_ser *iommu_ser);
->   void clear_unpreserved_context_entries(struct intel_iommu *iommu);
-> +void intel_iommu_liveupdate_restore_root_table(struct intel_iommu *iommu,
-> +					       struct iommu_hw_ser *iommu_ser);
->   #else
->   static inline int intel_iommu_preserve_device(struct device *dev,
->   					      struct iommu_device_ser *device_ser)
-> @@ -1333,6 +1335,11 @@ static inline void intel_iommu_unpreserve(struct iommu_device *iommu,
->   static inline void clear_unpreserved_context_entries(struct intel_iommu *iommu)
->   {
->   }
-> +
-> +static inline void intel_iommu_liveupdate_restore_root_table(struct intel_iommu *iommu,
-> +							     struct iommu_hw_ser *iommu_ser)
-> +{
-> +}
->   #endif
->   
->   #ifdef CONFIG_INTEL_IOMMU_SVM
-> diff --git a/drivers/iommu/intel/liveupdate.c b/drivers/iommu/intel/liveupdate.c
-> index b5aaebeeb5c1..480eab2d966b 100644
-> --- a/drivers/iommu/intel/liveupdate.c
-> +++ b/drivers/iommu/intel/liveupdate.c
-> @@ -273,6 +273,75 @@ static int preserve_iommu_context_tables(struct device_domain_info *info)
->   	return 0;
->   }
->   
-> +static void restore_iommu_context(struct intel_iommu *iommu)
-> +{
-> +	struct context_entry *context;
-> +	int i;
-> +
-> +	for (i = 0; i < ROOT_ENTRY_NR; i++) {
-> +		context = iommu_context_addr(iommu, i, 0, 0);
-> +		if (context)
-> +			iommu_restore_pages(virt_to_phys(context));
-> +
-> +		if (!sm_supported(iommu))
-> +			continue;
-> +
-> +		context = iommu_context_addr(iommu, i, 0x80, 0);
-> +		if (context)
-> +			iommu_restore_pages(virt_to_phys(context));
-> +	}
-> +}
-> +
-> +static int _restore_used_domain_ids(struct iommu_device_ser *ser, void *arg)
-> +{
-> +	int id = ser->domain_iommu_ser.attachment_id;
-> +	struct iommu_hw_ser *iommu_hw_ser;
-> +	struct intel_iommu *iommu = arg;
-> +
-> +	if (WARN_ON(!ser->domain_iommu_ser.iommu_phys))
-> +		return 0;
-> +
-> +	iommu_hw_ser = phys_to_virt(ser->domain_iommu_ser.iommu_phys);
-> +	if (iommu_hw_ser->type != IOMMU_INTEL)
-> +		return 0;
-> +
-> +	/* Only allocate domain ID from associated IOMMU HW unit */
-> +	if (iommu_hw_ser->intel.phys_addr != iommu->reg_phys)
-> +		return 0;
-> +
-> +	/*
-> +	 * This can fail as multiple preserved devices can share the same domain
-> +	 * ID. Since this is done during DMAR init so these failures can be
-> +	 * ignored.
-> +	 */
-> +	ida_alloc_range(&iommu->domain_ida, id, id, GFP_ATOMIC);
-
-This mixes two different cases:
-
-- another preserved device has already reserved the same DID.
-- the DID is not reserved because ida_alloc_range() failed (for example,
-   memory allocation failure).
-
-Case #1 is expected. Case #2 must not be ignored, because it means
-restore failed. So this should probably be something like (not tested):
-
-	mutex_lock(&iommu->did_lock);
-	if (ida_find_first_range(&iommu->domain_ida, id, id) >= 0)
-		BUG_ON(ida_alloc_range(&iommu->domain_ida, id, id, GFP_KERNEL) < 0)
-	mutex_unlock(&iommu->did_lock);
-
-?
-
-By the way, why GFP_ATOMIC here at all?
-
-> +	return 0;
-> +}
-> +
-> +/**
-> + * intel_iommu_liveupdate_restore_root_table() - Restore root table and reclaim domain IDs
-> + * @iommu: Target IOMMU
-> + * @iommu_ser: Serialized IOMMU hardware state from previous kernel
-> + *
-> + * Restores the preserved root table and context tables for the IOMMU hardware
-> + * instance across Live Update, and reclaims all domain IDs previously allocated
-> + * to preserved devices so they are not reused.
-> + */
-> +void intel_iommu_liveupdate_restore_root_table(struct intel_iommu *iommu,
-> +					       struct iommu_hw_ser *iommu_ser)
-> +{
-> +	if (!iommu_ser->intel.restored)
-> +		iommu_restore_pages(iommu_ser->intel.root_table);
-> +
-> +	iommu->root_entry = __va(iommu_ser->intel.root_table);
-> +
-> +	if (!iommu_ser->intel.restored)
-> +		restore_iommu_context(iommu);
-> +
-> +	iommu_ser->intel.restored = 1;
-
-This uses iommu_ser->intel.restored to prevent restoring the root and
-context tables multiple times. For this to work safely, iommu_ser-
- >intel.restored must be 0 the first time restore runs after kexec.
-
-The problem is: this field is inside struct iommu_hw_ser, and that
-struct is allocated in the old kernel. How to ensure that the previous
-kernel has zeroed this out? Maybe I’m overthinking this.
-
-> +	BUG_ON(iommu_for_each_preserved_device(_restore_used_domain_ids, iommu));
-> +}
-> +
->   /**
->    * intel_iommu_preserve_device() - Intel IOMMU callback to preserve device state
->    * @dev: Target device
-
-Thanks,
-baolu
+T24gVGh1LCAyMDI2LTA3LTA5IGF0IDEzOjMxICswMjAwLCBBbmdlbG9HaW9hY2NoaW5vIERlbCBS
+ZWdubyB3cm90ZToNCj4gRHVyaW5nIHByb2JlLCB0aGlzIGRyaXZlciBpcyByZWdpc3RlcmluZyB0
+d28gcGxhdGZvcm0gZGV2aWNlczogb25lDQo+IGZvciB0aGUgSERNSSBDb2RlYyBkcml2ZXIgYW5k
+IG9uZSBmb3IgdGhlIERpc3BsYXlQb3J0IFBIWSBkcml2ZXIuDQo+IA0KPiBJbiB0aGUgcHJvYmUg
+ZnVuY3Rpb24sIG5vbmUgb2YgdGhlIGVycm9yIGNhc2VzIGFyZSB1bnJlZ2lzdGVyaW5nDQo+IGFu
+eSBvZiB0aGUgdHdvIHBsYXRmb3JtIGRldmljZXMgYW5kIHRoaXMgbWF5IGNhdXNlIHJlZ2lzdHJh
+dGlvbg0KPiBvZiBtdWx0aXBsZSBpbnN0YW5jZXMgb2YgdGhvc2UgaW4gY2FzZSB0aGlzIGRyaXZl
+ciByZXR1cm5zIG9uZSBvcg0KPiBtb3JlIHByb2JlIGRlZmVycmFsKHMpIGluIHRoZSAid3Jvbmci
+IHNwb3RzLg0KPiANCj4gSW4gb3JkZXIgdG8gZml4IHRoaXMsIGFkZCBkZXZtIGFjdGlvbnMgdG8g
+dW5yZWdpc3RlciB0aG9zZSBhbmQNCj4gcmVtb3ZlIHRoZSBtYW51YWwgY2FsbHMgdG8gcGxhdGZv
+cm1fZGV2aWNlX3VucmVnaXN0ZXIgaW4gdGhlDQo+IG10a19kcF9yZW1vdmUoKSBmdW5jdGlvbiwg
+YXMgdGhvc2Ugd291bGQgb3RoZXJ3aXNlIGJlIHJlZHVuZGFudC4NCg0KUmV2aWV3ZWQtYnk6IENL
+IEh1IDxjay5odUBtZWRpYXRlay5jb20+DQoNCj4gDQo+IEZpeGVzOiBlNzFhOGViYmUwODYgKCJk
+cm0vbWVkaWF0ZWs6IGRwOiBBdWRpbyBzdXBwb3J0IGZvciBNVDgxOTUiKQ0KPiBGaXhlczogY2Fm
+MmFlNDg2NzQyICgiZHJtL21lZGlhdGVrOiBkcDogQWRkIHN1cHBvcnQgZm9yIGVtYmVkZGVkIERp
+c3BsYXlQb3J0IGF1eC1idXMiKQ0KPiBTaWduZWQtb2ZmLWJ5OiBBbmdlbG9HaW9hY2NoaW5vIERl
+bCBSZWdubyA8YW5nZWxvZ2lvYWNjaGluby5kZWxyZWdub0Bjb2xsYWJvcmEuY29tPg0KPiAtLS0N
+Cg0K
