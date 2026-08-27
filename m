@@ -1,184 +1,317 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011062.outbound.protection.outlook.com [40.107.130.62])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19FD33955CA
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 14:45:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787841927; cv=none; b=InuPw6Gad1U1zCOivvjwMQeWOhhtdao2Ea1WiM8LUKi61wyy3+0C/ahBwnb55MfxUbqQ0Yy1c8qYs9+SbjAp1CXJW59TMVgDcodMrupLY9dRrUsQnHRXKb26Ajk1hdrLr0RkEd+CXYwJxXPlO6mr98be0knzO8PU7UUh4c5KReQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787841927; c=relaxed/simple;
-	bh=omudWtBkWpT0fLqCHfFjIgmvQ50mMiBpyOC3JL70bIc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Hj4eqvSXNklNc0Ovi3SRuhtWPGbyI2R1bwps84VlSMY13EbZSRhv6TwF14YDURfz73zknbC8KsFPtn1X3FLg6223DPM8R5deg25p6CFMUGCPih8Y3iAnF6rcYgTMUBHvCzSV6zkW52nVNzP/mUvuniugtSQEx11uF/NWUaxWX8Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=K1kUxPgL; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28E7633ADB3;
+	Thu, 27 Aug 2026 14:46:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.62
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787841990; cv=fail; b=FJT+pNh13jJ9xJhm/yiurB+CEYNE0JLV+RExQPtOx2Ofg68nxr+GuUVE8aDJZuiL23fRs3b7ir4ygeOjm6HNBoOjN1SXWFvNALLzQilXOKNAIq+NCySnTXMd6WETvbx1DCeuiMK3dlx84HmQYtloMzoJql61GerMokvFqgrNoj8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787841990; c=relaxed/simple;
+	bh=sgwLG/D/JoOjlltNKr6VIFQyt3YJY2wY6rdSy7Tn9xY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=Aui0lYHNuTw4gOG4EWETNEMkibtPKQyOo7M9ETCX7jucYjFU3T6I94l8JeRTXCvSosfTT+77wxf4LSXIux7CJmwi89sudRCJ9BlCWPoTEG3u3BlXGER5Ug5vEWgxk6UXXjKwKUn7MO0OXMs4CZc8mUjycJxN3QQi9Ovs6tmHMtI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=hGZT+Z7t; arc=fail smtp.client-ip=40.107.130.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="K1kUxPgL"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67REVxiP3333991;
-	Thu, 27 Aug 2026 14:45:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=9Wsdf8rVeG8RWU3k0TB6qxezFClQPADVajE5uS5jr
-	FU=; b=K1kUxPgLYOP1BZT45K3gVMptFc+QZVJSTvqyRbbeqRuOE0ZW14Ebjevcz
-	PkhQOi3MJUCnPAf8FlbSSq2gJeWWeu++0vwJlHYLI9Q6bwoospjVQT2XoSjGHtTU
-	Eimr0l33CMDErEIHdBIV/PpT0PJmXw0/gPO4ywFy6ly3d4NiR3vMYRRowtatbmrr
-	aWdAMk9DjzgA7Rcm5EgFAIfUvXZsKYBW12fP4QDxHZz2BFHLLQXfxnzyLLPnERCR
-	vr3A8YSiK6DrkxqV81QJchBY3wjSFM0OvcfkVd0nBHOccEgrL8zCwraAC1ZlYNZp
-	COeVMLQyJgJkeuaimlGv22x4jKvcQ==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g73dxnn5g-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 27 Aug 2026 14:45:04 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67REfF4O026300;
-	Thu, 27 Aug 2026 14:45:04 GMT
-Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4g7rsygasf-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 27 Aug 2026 14:45:03 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67REj2em37487042
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 27 Aug 2026 14:45:02 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 258A12004B;
-	Thu, 27 Aug 2026 14:45:02 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 73E7920040;
-	Thu, 27 Aug 2026 14:44:56 +0000 (GMT)
-Received: from li-4f5ba44c-27d4-11b2-a85c-a08f5b49eada.ibm.com.domain.name (unknown [9.67.160.40])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Thu, 27 Aug 2026 14:44:56 +0000 (GMT)
-From: Sourabh Jain <sourabhjain@linux.ibm.com>
-To: linux-kernel@vger.kernel.org
-Cc: Sourabh Jain <sourabhjain@linux.ibm.com>,
-        Albert Ou <aou@eecs.berkeley.edu>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
-        Palmer Dabbelt <palmer@dabbelt.com>,
-        Pasha Tatashin <pasha.tatashin@soleen.com>,
-        Paul Walmsley <pjw@kernel.org>, Pratyush Yadav <pratyush@kernel.org>,
-        linux-riscv@lists.infradead.org, kexec@lists.infradead.org
-Subject: [PATCH] kexec_file: remove unused arch_kexec_locate_mem_hole hook
-Date: Thu, 27 Aug 2026 20:14:52 +0530
-Message-ID: <20260827144452.508328-1-sourabhjain@linux.ibm.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="hGZT+Z7t"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=a94ncca1qpXRF2NHR7rLDo3GhYVtoElGAIT7xrbiEQoVCT63W2uiIy8JFYhMA2wsCLEGJQ1+ZiRoqt2Yd2oUxsFvYoiMpJBGQ0VOzmFDxTNtarAuP5SL5hatEDv/y36U0gadlzr8bNbGApLBmIFUjbTITStu2CMwioMUrgaJrbM09gdMQ9ZYV3Vozh3trhoDxZA9SWMDBm8BhwEwE4F4XQ0bkJ1LdPFLmijzAuBJLeeEFiIT7B5ERVKgMPUo941Sc8MhcftYvWMtGEUCbVFSqK4gx0AbuXzV4n1pjsS1V0aMiPdVuHduWYK69rMj+qeaoT4LqxnoxryXBQLtm2esJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kqzHX3PjvaKGiG9oZ24IXsSCpIlD3GTPoZV7PmlD7rI=;
+ b=GnvGWJWa3wTJURCEfK/S+Id8hnzZW/GOQGhOHYUXpgaixiOtjVZ+sjg1Yx6crilg4N+ZtUVnw2CIUpuGF1hZmPj38Z9VdIVojATDF5R20VimfoOoICb17t9hnPIC4GmyLCwsbh44WPzmIMVGP4umN7tW2VssHjtobZXm/bJWoDcrAeMnrUdBCK4JxyPzmBmYi4ALuNDEGZuS7oK8ggw/CmrhQdpA5uMTJhOioYGkUwsJt+hYqk6CB3pLtKe54v7yYkXlmDM45fg7nTcoRFNG7mLMBL9CB0V/4/PeFpOqK+bRUzJsE8RvjPQfnrrXBRb964iNY3Xs+RPYLTWKFCsUhw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kqzHX3PjvaKGiG9oZ24IXsSCpIlD3GTPoZV7PmlD7rI=;
+ b=hGZT+Z7tpJROWu6/UAUjr1rFMTFVEC+hyDfmKou2qccWlo9UeB1LnR/6l7/4k2laJGKt4+izkWUtrRzSpPctJdNrDx3ivEqP5KRugTgZQSwmFklXZs+dI12Mli4feI8YhQoCGlDcfdg0xn2VvG/5gknV08jtodh+w3TRFvYHDQGA3gE0jL5CwU2YpZLQWvi2oLL/tg1SM74ZHjepf8kJ5SNJlcbewElQILCNRFFZWMHXfEpL5MwQAQ+NtJfsHG4xi5oR9QgY7HkRCAG5pYq3HNjOIIB5h9hvuPOF4pArHzQQ6Z2bZ6n5IZiyrWD6wVDONQLlPfzD33ssNatnQboyMw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by PA1PR04MB10817.eurprd04.prod.outlook.com (2603:10a6:102:485::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Thu, 27 Aug
+ 2026 14:46:11 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
+ 14:46:11 +0000
+Date: Thu, 27 Aug 2026 09:45:59 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Larisa Ileana Grigore <larisa.grigore@oss.nxp.com>
+Cc: NXP S32 Linux Team <s32@nxp.com>, Alim Akhtar <alim.akhtar@samsung.com>,
+	Avri Altman <avri.altman@sandisk.com>,
+	Bart Van Assche <bvanassche@acm.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	"James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
+	"Martin K . Petersen" <martin.petersen@oracle.com>,
+	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
+	Ajay Neeli <ajay.neeli@amd.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Pedro Sousa <pedrom.sousa@synopsys.com>, clizzi@redhat.com,
+	aruizrui@redhat.com, eballetb@redhat.com, echanude@redhat.com,
+	linux-scsi@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH 06/10] dt-bindings: ufs: Add compatibles for S32N79 Host
+ Controller platform driver
+Message-ID: <apBNp1ybnHsNrHSL@SMW015318>
+References: <20260826134048.854748-1-larisa.grigore@oss.nxp.com>
+ <20260826134048.854748-7-larisa.grigore@oss.nxp.com>
+ <ao75lU2zYDeOZi2f@SMW015318>
+ <ccacc3bc-7f81-4363-a273-a6076e468618@oss.nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ccacc3bc-7f81-4363-a273-a6076e468618@oss.nxp.com>
+X-ClientProxiedBy: SA9PR13CA0178.namprd13.prod.outlook.com
+ (2603:10b6:806:28::33) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDEyMiBTYWx0ZWRfXy84UX2sXhnLT
- LaNtJyz+aF9qIImZWKYxb+r7rlmbGmQIil5i+oGlFlw1b1IUSmp2nZelsysTHq5Dk9d6uTnpgpd
- V6ufqUDaM75hzMTDTCmE5t0hrBuHR6Y=
-X-Authority-Analysis: v=2.4 cv=AYuB2XXG c=1 sm=1 tr=0 ts=6a904d70 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=RzCfie-kr_QcCd8fBx8p:22 a=Z4Rwk6OoAAAA:8 a=VwQbUJbxAAAA:8 a=_O3DOGVWAAAA:8
- a=7ipKWUHlAAAA:8 a=JfrnYn6hAAAA:8 a=VnNF1IyMAAAA:8 a=RFyrcEgT9I63OMj7VqIA:9
- a=HkZW87K1Qel5hWWM3VKY:22 a=2TKV-7w1aU1AVAwN0oqT:22 a=gpc5p9EgBqZVLdJeV_V1:22
- a=1CNFftbPRP8L7MoqJWF3:22
-X-Proofpoint-ORIG-GUID: La38qUEpUZRLxheRuQ91YouAfAvZu4Kz
-X-Proofpoint-GUID: La38qUEpUZRLxheRuQ91YouAfAvZu4Kz
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDEyMiBTYWx0ZWRfX9uFIUwCD1ZsR
- hMFNu0gvVhiL6e2uEo8oTTVETLUBxFNVWFkrUG2fcRXH1u9GDVoZ9ZEZuFeKzF+b0b2VbE1QoIj
- 08ZpC8j3Uar9R0J+wRE/MQDivcmA0s4sL0A05P8dHYGZ4XpFMa5bwMbWll2VyHkp1y117NtHuJc
- XlSijr+5KDKXpaUj04Dr7/tEz7ohGAM4fG9ak6+q5K+U85aqLrDHUvxu7/jykAs8lVI5NhDPiYw
- iO6XG608zXp+X7SXW9pzDiXPzjWYmWMkHqZba4Bg3zUg2pU/r6zauHiOU/UY6N5gLG95VcFSrxT
- xIRMKkVqL2D5W7Oub8ykcBARuHHaTwn47BvrGx6gosqHE/VGM7p+t+sWjVhNIwA9y3ffk663ZFZ
- wETs83wfBC1jECRppsospXXsMbIjHHTsAf5CRJGPc7hMAWDPlliyDrjaINHBBT6uP1Bafu59r/j
- /RcM5YQm1ZD1OaR2fMw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-27_05,2026-08-27_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 clxscore=1011 adultscore=0 bulkscore=0
- impostorscore=0 priorityscore=1501 lowpriorityscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608270122
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PA1PR04MB10817:EE_
+X-MS-Office365-Filtering-Correlation-Id: d475b4d6-55ef-4164-434e-08df0449ef7f
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|23010399003|19092799006|376014|7416014|1800799024|366016|10067099003|56012099006|4143699003|6133799003|11063799006|3023799007|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+ GEoqqsc7FCzhDFvzXk3gtCthSTgIkn9jrsBYQi7Z5O5Xb/YVs3qbUvp9k60cnDred3jNFCVILV3V4GIVfmF/fFsaC+l1XSxgEhTd57JVyD+nLKbMGOLgE7tMjpiwLw/Zo2X4wXu9hG+HW1mFhmTTlazVTdep10bZ3q3oN4d+ij5b4uRc04O8hSJh51WaGFesLwf3CAyORB55NZ+tCdaq5RWNyRZ8B/cN/wgLscstdKqTEFYnZ6GD+nQljAQNj0tjK1Gg0EyKyLGhFKD6fJMs16fk2hdQrz8MvvcLYqJngC9RSDuGUiR/R0pfHmpWzWXuMXegIfDLgcIOFgN+/XFv9ApRfQazu3OE0TyxAzeBefXubgoeq0DhNGOxRATF7CluylO2lCBsF7/hQbeIpnRzUlBr1exuwfxNAoqFemphUFYZ1e8PhN8AfnjNrxTrRM5SHGkW8CBSt1ULHMnprgFdqnHSCTvjXL9kH9PqLlCK0rvFeImP5xBNa9Nj6RDHPt28L7bBBZnrIDgwDd6IoPRnUM7wWOMq4XF7FOPX7IGHvL1MXH1ZDSwGuZUqw1GRgvxRthLH6C4q0znYEJBupJqoWwbi3whwbUz8Z0ZLMdIDcmtVGoHRFFuTMv1ZTUFa2Pl5
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(376014)(7416014)(1800799024)(366016)(10067099003)(56012099006)(4143699003)(6133799003)(11063799006)(3023799007)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?us-ascii?Q?kHYV2sMVG9r0PwAKxwg3mYOL1R8HdKtsar4h4Vs11KJoyfQIkA/8CNl176Pp?=
+ =?us-ascii?Q?X6sGgYdX3s6Jg/Iil47UPp4xEmP95w6wUnpDFOit2t3Fz5TSpG+nGVfkIu4F?=
+ =?us-ascii?Q?JQew7hGslrIw+rFFTYF9CVIOkzUWWMYutQkI2AoblLsXc7aTYeU6XvP4Pzp7?=
+ =?us-ascii?Q?1Kn8o4FX7D9/OkxyBi3bZRI7r7i2ci9Llkzr2GI7t0dSus/iGj4xMPY4Q3HZ?=
+ =?us-ascii?Q?cIJuw4lPrNGs2UXeSP48snphO/Vl7Mmbj9FQfn1c83p/MziWQnEqN5STqwbr?=
+ =?us-ascii?Q?5jd9G24IYbhptvGZjyMBdD+Gw0eY9QPu4dnTdAFS3LczXin0bcFriPrnOzK4?=
+ =?us-ascii?Q?hc/OVtVoK2mAPSX2lEA5UgiYekC6CXA1XqbUCZlQA3HVR7rewEM88GehU+hy?=
+ =?us-ascii?Q?vYUEII2smM24cMjs1j5Ml7Eas1iEbBrVQBgwK8SJJjIeVAt4Tk2+wayHCC6L?=
+ =?us-ascii?Q?rsLcDpYtY0rScf+BnDe8W8ukkCZgk3/vVasntwZxb5mDkB6fWgaXsDPocaGA?=
+ =?us-ascii?Q?TKnpUrjelvwIc49GZN3E+5gGxHgLwNQwpmPvSMBwuycJ4BjRZZSiSJF5vC99?=
+ =?us-ascii?Q?tY1IVVGr3c/HiI8H/RtimceH3TZEzZxpyaHO1dA3RxP6+72u1Ys8GiVQyHGS?=
+ =?us-ascii?Q?75DzR92wzke2Dx70WBwkdowOMCRnq/6SZJOjHukEcW1AqYw1jZyOQepzxSEF?=
+ =?us-ascii?Q?EyXAZd7VzgR9khuzK2Zzd+Px9NH7dCTNBTw9GuQJTlpYF0C2Jejuksy5Q57h?=
+ =?us-ascii?Q?RXqFgy3fIDGiyT0vHU9aw7WuuI7C3qVMcmiAIDF3/Zw1ykIIF5OAiQlHmlbQ?=
+ =?us-ascii?Q?loKOdf2wWzvnbleT6kkS6iyBRWSaXMnpDxC95lfhOtdaBGC/4VE26NcEcfjx?=
+ =?us-ascii?Q?4+rK8C01WF7T+kXmjFEErXo2Q3rXRmP/gyWaNund6DsdtJWyxLKAmt9JouIh?=
+ =?us-ascii?Q?ADE9LZMyQnZxY30UnS3u8/Yoyv7f+yZN5+mAiwwmmA9iqzyVZyP8mWnIxf4C?=
+ =?us-ascii?Q?vX9ynsMIgeUmrb8eGUd3bW3pa6+n1+JSso00RKHePmFllI7Ayc5/+bXDGX4x?=
+ =?us-ascii?Q?uqG9Vh7REJl2BHm6+LCVYpsQb/5oX4nWp9wf9d1OEFo0LwX8CpsOnZHp0wbi?=
+ =?us-ascii?Q?as65D4n38QxOs6JqBFAGnW4mCSGgiTBCgzorB9rbwTE57cSfyqp9e2tPKVu+?=
+ =?us-ascii?Q?p0V9smE+oJA4dunls1MHKSuR52ZXdmKGIHpo9NgyqAhVStyP0HG9E0ieR6TQ?=
+ =?us-ascii?Q?UEXgvvAok737ZkOLuBIiyY4fVbTtQmSrV0B7jZuOg19zWjluRGy+yKuLx4Cw?=
+ =?us-ascii?Q?gb+PEn3fxq5VikKaOfwfSqn8yg+jhE6F3b6UHZITdlv8jOjzOZDraTFHvot/?=
+ =?us-ascii?Q?hzr19PnIyK6Uq0PuwuXeFUkg3/V0bDDJ9Z5Mk8tVA23tHzzZns+ZkZBGT6qJ?=
+ =?us-ascii?Q?3KzsFKz6tpdfjnIuomqsjt9FcgBCYLVZ5wBSEIcHEDG33q/kta2bBkPE2iw1?=
+ =?us-ascii?Q?tNqqw7NVZIwP+jseKCU64Tj45HyOEdTesy/AjX0Ptr8rXTecfW+RZd77Cgfg?=
+ =?us-ascii?Q?MfKEGVPmVz1/f28v07WFHuelX7k/gm5Ta5QJIeUtZKIIXpPEXQaYF4mH1s9X?=
+ =?us-ascii?Q?oKI62vVouoCIHQWpu7xfgZ2swaQOsnWNnbRyO9jvTtBDuI8WhDSos9TR4l3o?=
+ =?us-ascii?Q?W/tXbPt+qWD0RovMdcuR6+mQxOlCs3IYXA9VY6aq5vkrFwbPkohL42S2YwJu?=
+ =?us-ascii?Q?dJVSdnLe9dbcIbBkUXomkklSWS7Jl3Q3auQkT4/MtWzIeJfF2u6M?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d475b4d6-55ef-4164-434e-08df0449ef7f
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 14:46:11.4806
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qJLHFjGCnVcj4wE3PBb7NEYSsi+0Z6vyFuF13ulSuoj6nYc3Sw+s5xc8N6/ztG8N4q1lopInl9s23CUPECt6AyGpKu9Z0w3DrETheQVqM8liNaYD8XZdOua4s9Z+i8Vp
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB10817
 
-No architecture provides an implementation of
-arch_kexec_locate_mem_hole(). Use kexec_locate_mem_hole() directly
-and remove the unused fallback wrapper from the kexec header.
+On Thu, Aug 27, 2026 at 05:36:27PM +0300, Larisa Ileana Grigore wrote:
+> On 8/26/2026 5:35 PM, Frank Li wrote:
+> > On Wed, Aug 26, 2026 at 03:40:44PM +0200, Larisa Grigore wrote:
+> > > [You don't often get email from larisa.grigore@oss.nxp.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> > >
+> > > Document the device tree binding for the NXP S32N79 DWC-based UFS host
+> > > controller which is compliant with JESD-223D "Universal Flash Storage Host
+> > > Controller Interface" v3.0.
+> > >
+> > > The controller requires access to the SCM register block and the core
+> > > clock rate when M-PHY initialization is performed. Add the optional
+> > > nxp,mphy-boot-mode property to select the M-PHY firmware execution
+> > > environment.
+> > > Currently, the M-PHY firmware can only run from ROM. If the property is
+> > > omitted, M-PHY initialization is assumed to be handled externally.
+> > >
+> > > Signed-off-by: Larisa Grigore <larisa.grigore@oss.nxp.com>
+> > > ---
+> > >   .../bindings/ufs/nxp,s32n7-ufshc.yaml         | 99 +++++++++++++++++++
+> > >   1 file changed, 99 insertions(+)
+> > >   create mode 100644 Documentation/devicetree/bindings/ufs/nxp,s32n7-ufshc.yaml
+> > >
+> > > diff --git a/Documentation/devicetree/bindings/ufs/nxp,s32n7-ufshc.yaml b/Documentation/devicetree/bindings/ufs/nxp,s32n7-ufshc.yaml
+> > > new file mode 100644
+> > > index 000000000000..d9d5669be313
+> > > --- /dev/null
+> > > +++ b/Documentation/devicetree/bindings/ufs/nxp,s32n7-ufshc.yaml
+> > > @@ -0,0 +1,99 @@
+> > > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> > > +%YAML 1.2
+> > > +---
+> > > +$id: http://devicetree.org/schemas/ufs/nxp,s32n7-ufshc.yaml#
+> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > +
+> > > +title: NXP S32N79 Universal Flash Storage (UFS) Controller
+> > > +
+> > > +maintainers:
+> > > +  - Larisa Grigore <larisa.grigore@oss.nxp.com>
+> > > +
+> > > +# Select only our matches, not all jedec,ufs
+> > > +select:
+> > > +  properties:
+> > > +    compatible:
+> > > +      contains:
+> > > +        const: nxp,s32n79-ufshc
+> > > +  required:
+> > > +    - compatible
+> > > +
+> > > +properties:
+> > > +  compatible:
+> > > +    items:
+> > > +      - const: nxp,s32n79-ufshc
+> > > +      - const: jedec,ufs-3.0
+> >
+> > Any place actually use this fallback?
+>
+> You're right Frank! I will switch to `jedec,ufs-2.0` in v2.
+>
+> >
+> > > +
+> > > +  reg:
+> > > +    minItems: 1
+> > > +    items:
+> > > +      - description: UFS Host Controller registers
+> > > +      - description: System Control Module registers
+> > > +
+> > > +  reg-names:
+> > > +    description: |
+> > > +      Names for the register regions. The first entry must be "ufshc".
+> > > +      The second entry "scm" is mandatory only when nxp,mphy-boot-mode
+> > > +      property is present.
+> >
+> > you already us if - else branch to restrict this limition, needn't
+> > description here.
+>
+> Thank you! Will drop reg-names description in v2.
+>
+> > > +    minItems: 1
+> > > +    items:
+> > > +      - const: ufshc
+> > > +      - const: scm
+> > > +
+> > > +  clocks:
+> > > +    maxItems: 1
+> > > +    description: UFS core clock
+> > > +
+> > > +  clock-names:
+> > > +    items:
+> > > +      - const: core_clk
+> >
+> > Needn't suffix _clk, just "core", generally needn't clock-names if only
+> > one clocks.
+>
+> I will rename it to "core" in v2, if that works for you.
+>
+> > > +
+> > > +  nxp,mphy-boot-mode:
+> > > +    description: |
+> > > +      MPHY initialization mode. Defines how the MPHY firmware should be
+> > > +      initialized and executed during UFS controller startup.
+> > > +      If this property is not specified, MPHY initialization will be skipped.
+> > > +    $ref: /schemas/types.yaml#/definitions/string
+> > > +    enum:
+> > > +      - rom
+> >
+> > why not use standard "phy" property, if no "phy" means ROM init it.
+>
+> First, apologies for not including enough background in the commit message.
+>
+> On the S32N79, the M-PHY firmware can be brought up in one of three ways,
+> selected through the SoC's SCM MPHY_RAM_CONFIG_STATUS register:
+>
+> 1. running MPHY from internal FW ROM,
+> 2. running MPHY from a (modified) FW ROM copy in external SRAM, or
+> 3. running MPHY from a FW image in external SRAM.
+>
+> `nxp,mphy-boot-mode` was introduced to select which of these boot sequences
+> the controller driver programs. Today only option 1, "rom", is implemented
+> and validated, but the property was meant to leave room for the two
+> SRAM-based modes.
 
-This simplifies the kexec memory allocation path without changing
-its behavior.
 
-Cc: Albert Ou <aou@eecs.berkeley.edu>
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: Baoquan He <baoquan.he@linux.dev>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Palmer Dabbelt <palmer@dabbelt.com>
-Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
-Cc: Paul Walmsley <pjw@kernel.org>
-Cc: Pratyush Yadav <pratyush@kernel.org>
-Cc: linux-riscv@lists.infradead.org
-Cc: kexec@lists.infradead.org
-Signed-off-by: Sourabh Jain <sourabhjain@linux.ibm.com>
----
- arch/riscv/kernel/kexec_elf.c |  2 +-
- include/linux/kexec.h         | 15 ---------------
- kernel/kexec_file.c           |  2 +-
- 3 files changed, 2 insertions(+), 17 deletions(-)
+You need define all options in binding.  who load FW?
 
-diff --git a/arch/riscv/kernel/kexec_elf.c b/arch/riscv/kernel/kexec_elf.c
-index 3e9a32acb8f2..ca5abbad59e5 100644
---- a/arch/riscv/kernel/kexec_elf.c
-+++ b/arch/riscv/kernel/kexec_elf.c
-@@ -91,7 +91,7 @@ static int elf_find_pbase(struct kimage *image, unsigned long kernel_len,
- 	kbuf.memsz = ALIGN(kernel_len, PAGE_SIZE);
- 	kbuf.cma = NULL;
- 	kbuf.top_down = false;
--	ret = arch_kexec_locate_mem_hole(&kbuf);
-+	ret = kexec_locate_mem_hole(&kbuf);
- 	if (!ret) {
- 		*old_pbase = lowest_paddr;
- 		*new_pbase = kbuf.mem;
-diff --git a/include/linux/kexec.h b/include/linux/kexec.h
-index 0af8ae4fdd08..e5f1cfc11fef 100644
---- a/include/linux/kexec.h
-+++ b/include/linux/kexec.h
-@@ -259,21 +259,6 @@ int kexec_kernel_verify_pe_sig(const char *kernel, unsigned long kernel_len);
- extern int kexec_add_buffer(struct kexec_buf *kbuf);
- int kexec_locate_mem_hole(struct kexec_buf *kbuf);
- 
--#ifndef arch_kexec_locate_mem_hole
--/**
-- * arch_kexec_locate_mem_hole - Find free memory to place the segments.
-- * @kbuf:                       Parameters for the memory search.
-- *
-- * On success, kbuf->mem will have the start address of the memory region found.
-- *
-- * Return: 0 on success, negative errno on error.
-- */
--static inline int arch_kexec_locate_mem_hole(struct kexec_buf *kbuf)
--{
--	return kexec_locate_mem_hole(kbuf);
--}
--#endif
--
- #ifndef arch_kexec_apply_relocations_add
- /*
-  * arch_kexec_apply_relocations_add - apply relocations of type RELA
-diff --git a/kernel/kexec_file.c b/kernel/kexec_file.c
-index 59fb9d71e9d8..9a981359addd 100644
---- a/kernel/kexec_file.c
-+++ b/kernel/kexec_file.c
-@@ -784,7 +784,7 @@ int kexec_add_buffer(struct kexec_buf *kbuf)
- 	kbuf->cma = NULL;
- 
- 	/* Walk the RAM ranges and allocate a suitable range for the buffer */
--	ret = arch_kexec_locate_mem_hole(kbuf);
-+	ret = kexec_locate_mem_hole(kbuf);
- 	if (ret)
- 		return ret;
- 
--- 
-2.55.0
+Frank
 
+>
+> Given this setup, what would you suggest as the appropriate DT
+> representation? I would greatly appreciate any guidance you can provide.
+>
+> > Frank
+> > > +
+> > > +required:
+> > > +  - compatible
+> > > +  - reg
+> > > +
+> > > +allOf:
+> > > +  - $ref: ufs-common.yaml
+> > > +  - if:
+> > > +      required:
+> > > +        - nxp,mphy-boot-mode
+> > > +    then:
+> > > +      properties:
+> > > +        reg:
+> > > +          minItems: 2
+> > > +        reg-names:
+> > > +          minItems: 2
+> > > +      required:
+> > > +        - reg-names
+> > > +        - clocks
+> > > +        - clock-names
+> > > +    else:
+> > > +      properties:
+> > > +        reg:
+> > > +          maxItems: 1
+> > > +        reg-names:
+> > > +          maxItems: 1
+> > > +
+> > > +unevaluatedProperties: false
+> > > +
+> > > +examples:
+> > > +  - |
+> > > +    ufshc@4ac80000 {
+> > > +        compatible = "nxp,s32n79-ufshc", "jedec,ufs-3.0";
+> > > +        reg = <0x4ac80000 0x1000>, <0x4ac40000 0x1000>;
+> > > +        reg-names = "ufshc", "scm";
+> > > +        interrupt-parent = <&irqsteer_coss>;
+> > > +        interrupts = <211>;
+> > > +        clocks = <&sys_clk>;
+> > > +        clock-names = "core_clk";
+> > > +        nxp,mphy-boot-mode = "rom";
+> > > +    };
+> > > --
+> > > 2.43.0
+> > >
+> > >
+>
