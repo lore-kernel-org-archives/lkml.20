@@ -1,135 +1,98 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1A04367283;
-	Thu, 27 Aug 2026 07:13:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B95EA352F86;
+	Thu, 27 Aug 2026 07:13:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787814806; cv=none; b=BSYqB5Jfv1Va1PQDgpygAl9RWSdfmrj5LYSgP8ZWSJfvK6XeQ9hpABinis5b07IdxiUUx2x1jnkTKMQNxF2eIGEbdk/CdYMc73malxl0Q97C7pufCTb49LRXLegrWXQMl4vaTAvHanW3HkRVtDhUE0POx8GGu9t4YZtPFj4D64I=
+	t=1787814841; cv=none; b=n+Vh3T8446u0fpeI08aUmlkE0HUplocoGJOfsicNMZ0aTqgFBHIphUZBBJ3TZ7d4lq7PILLq64ANFCHwMbesR2upH6dxWZ/snJiPOEjQwhc0Tc4XiMp0B+9G61INP2ZR6Z6S5ryolQG3Wh0nlSTjPMDVo13LvAD/gIkq4XBwDrA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787814806; c=relaxed/simple;
-	bh=vo1KBADmx8VTmnrxF0EBVFe9m872EmDBj3vs19TZEi8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=E/FdY1uaTZ6CPQ1oaB6rAUG3AGvspnko1KfssmKw4ykCr1N9BIFzjZ3nqbm7oMdOEo3p94ZaxXiEYEe0IKQqllZ36HgjwgxH9Eb+q/1mD4A+YnoPp2h9BwILFXSKbTxv24sznLHKzoNUQjpShMbyv2atUw/KSM2ezUx0GQVDpLE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=YpHj/4Bj; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
+	s=arc-20240116; t=1787814841; c=relaxed/simple;
+	bh=TPN6JLky9xxCtPRlxyln7iu7yuY5PMUDMuigR75lduY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=q4v+PCvts3/tKPlxOuhQZh+2mhm/2o3PrRgHSpK90iWT/3k8/4iZuH/WuwZyxqeYrUXGts8cgH/Sp4e9zV4XEeP96IHsg83cTUTnKchAsH9XYw2uA10YdWTrA/CISBy8m2Xx9rV5DZl+7z+l2q6nsDTQRfISzEZXos1GR+fbwTA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gry4e1Xl; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="YpHj/4Bj"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3D6781F1760;
-	Thu, 27 Aug 2026 09:13:16 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1787814799; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=JHAy/NzVPXyzEamEkl/c/g9e4oxVYuroBuj/BO0tMnc=;
-	b=YpHj/4BjOQMitBuAToYnJ+MFb3Ng59HM2s9QjtcM9ZInIgzLvITdP0v13kzTBgjyL4+4xQ
-	EV/CS6xOf3CCn9NgaNGHd9lpsNR6RzuCwhXCTVLcgMj4Ld6Us72XpdRH6FMkdnWX66/nbG
-	OS5jp0cC8ZLexVNMiTq+FHcF2G7HxzgXMW8+Tv2kxUntMXsSyTjXiAIp0O35iNjq7vQxkC
-	5bErW8ML9GWHmFSCJziOqnFYJ7c6ytZbcxmviSWjR7vGW8vpWaJ1T6YqIWavB4YgdornY4
-	S7XBQUaRozyKiNY0VUc7Iw+hp0tS/vU8im/kqUjgQGdyi6FYYWDqNd+bWVywTw==
-Message-ID: <d305329a-f8c8-41a6-a265-8a1eeaeca19c@cjdns.fr>
-Date: Thu, 27 Aug 2026 09:13:15 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gry4e1Xl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787814838; x=1819350838;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=TPN6JLky9xxCtPRlxyln7iu7yuY5PMUDMuigR75lduY=;
+  b=gry4e1Xlwax4Un79AL3APBSVnCP16kvNPsc32AT07MHcb68jUtTAv25T
+   E9ZW9S/+LhBGElXJravT0E0me8Xuvj8rrfiyNhmWin2Z0wDCmJ9qRAuPu
+   9FJr7Ibs7WoyemzOy48ij7aqyXcShfxga88ofTk7nZrZahlSKOw9MZvRn
+   jIGRRuFT07YYkV6f+fxwr7OqRNbl1Uv031B51R8WV/xs/yn8XEi4NKZnp
+   lIC2qdJg8wi0XKmmKAjCCAnVK1ZtgKARqVwZR5goPodcnLeJ5YGLp5rVm
+   /l6pYmrHtso2en5SEkt36eEiPRJMxps490ZS412srcuiWJidjFTEsKKMX
+   Q==;
+X-CSE-ConnectionGUID: mv4NiI0vT6KPsmscKKZ4Hg==
+X-CSE-MsgGUID: Q0Z9z/10S3SakRFAdpvT3w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="92124786"
+X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
+   d="scan'208";a="92124786"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 00:13:58 -0700
+X-CSE-ConnectionGUID: jYpRzVsJSJak1bxzcRX1uQ==
+X-CSE-MsgGUID: 0GbjsYz1SIKNjbQyH/PY1g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
+   d="scan'208";a="272022052"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.125])
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 00:13:54 -0700
+Date: Thu, 27 Aug 2026 10:13:52 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Thierry Chatard <tchatard@gmail.com>
+Cc: linux-kernel@vger.kernel.org, hansg@kernel.org, lee@kernel.org,
+	platform-driver-x86@vger.kernel.org, ilpo.jarvinen@linux.intel.com,
+	djrscally@gmail.com, linux-media@vger.kernel.org,
+	mchehab@kernel.org, sakari.ailus@linux.intel.com,
+	jacopo.mondi@ideasonboard.com, nicholas@rothemail.net,
+	v.vitovt@gmail.com
+Subject: Re: [PATCH v8 1/6] platform/x86: intel_lpss: add resource conflict
+ quirk for Dell Latitude 5285
+Message-ID: <ao_jsFUSa8GmgHnr@ashevche-desk.local>
+References: <20260826112452.13539-1-tchatard@gmail.com>
+ <20260826112452.13539-2-tchatard@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH net-next] net: phy: mediatek: add driver for EcoNet Fast
- Ethernet SoC PHYs
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: netdev@vger.kernel.org, hkallweit1@gmail.com, linux@armlinux.org.uk,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com, daniel@makrotopia.org,
- naseefkm@gmail.com, joey@tinyisr.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-References: <20260825180421.1804729-1-cjd@cjdns.fr>
- <177dc347-4cf9-48ca-97fe-b0f3cd46d8e3@lunn.ch>
- <4fa1ab31-cdcb-4488-b038-c5869966b6ec@cjdns.fr>
- <e37d97cf-f4aa-499e-b372-21701f2e3782@lunn.ch>
-Content-Language: en-US
-From: Caleb James DeLisle <cjd@cjdns.fr>
-In-Reply-To: <e37d97cf-f4aa-499e-b372-21701f2e3782@lunn.ch>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260826112452.13539-2-tchatard@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
+
+Again, there is an in-thread new version, DO NOT DO this!
+If you send a new version, start a *new* email thread.
+With that, the v8 has no cover letter...
+
+Note, using `b4` tool will help you in preparing patch series properly.
+
+On Wed, Aug 26, 2026 at 01:24:46PM +0200, Thierry Chatard wrote:
+
+> The Dell Latitude 5285 2-in-1 has a BIOS bug where the ACPI GEXP device
+> and the I2C4 controller (INT3446) both claim the same MMIO region via the
+> shared SB04 variable. This causes intel_lpss_acpi to fail binding to I2C4
+> with -EBUSY, preventing the front camera (OV5670) sensor from being
+> registered.
+> 
+> Match the affected machine by DMI and the affected device by ACPI ID,
+> carrying QUIRK_IGNORE_RESOURCE_CONFLICTS in the ACPI match data and
+> applying it to the per-device info in probe. This follows the quirk
+> organisation used by the PCI counterpart.
+
+It's okay now,
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-On 26/08/2026 04:08, Andrew Lunn wrote:
-> On Wed, Aug 26, 2026 at 02:08:50AM +0200, Caleb James DeLisle wrote:
->> On 25/08/2026 21:40, Andrew Lunn wrote:
->>>> Also provide support for the older EN7512 Fast Ethernet SoC PHYs found
->>>> in EN751221 chips with do not have the MCM switch. That is chips which
->>>> do not have a "G" in the name. As these PHYs bear the ID 03a2.9412
->>>> which collides with MTK_GPHY_ID_MT7530 gigabit PHY, do not match them
->>>> and instead rely on the user to override the PHY ID in the device tree
->>>> if they wish to use this driver.
->>> Is there a way to tell them apart using other registers?
->>
->> The reference code differentiates this PHY from the other because this one
->> does not advertise gigabit capability. I sent it like this because the idea
->> of a matcher made me nervous and this felt more conservative, but I'm open
->> to guidance about what is the most appropriate solution.
-> If it is as simple as that, i suggest you detect it at runtime.
->
-> In the driver structure, you provide a match_phy_device()
-> function. This get called independent of what ID value you have in the
-> structure. So you first need to check if the ID matches. Then check
-> the 1G capability.
->
-> Ideally you want the code in the same driver, because module loading
-> happens based on the ID. I'm not sure user space will load two drivers
-> if they both indicate the same ID. Something you can experiment with.
-Tested and it worked, re-sent.
->
->>>> +	for (;;) {
->>> It is unusual to do loops like this. Can it be turned into a do while
->>> loop? And without looking deep into it, it is not clear if this is
->>> endless if the hardware stops responding.
->>
->> You raise a good point in that it's hard to reason out the default exit
->> scenario, and I will figure out how to improve that. I'm not sure I can
->> actually get rid of the infinite loop without making the code worse, because
->> the default exit condition needs to assign ret and goto the error out label.
-> Consider adding comments as well. Also consider replacing the infinite
-> loop with a bounded loop, and return -EIO if the it goes around the
-> loop too many times. What you are trying to avoid is on hardware error
-> a CPU constantly spinning until power off.
-Changed loop for readability, return -EIO, and added a comment as well.
->
->>>> +static int en751221_fephy_config_init(struct phy_device *phydev)
->>>> +{
->>>> +	struct econet_socphy_shared *shared = phy_package_get_priv(phydev);
->>>> +	u16 l0r26_temp;
->>>> +	int ret;
->>>> +	int i;
->>>> +
->>>> +	if (!shared->phydev_p0) {
->>>> +		phydev_err(phydev, "Port zero must be configured\n");
->>>> +		return -EOPNOTSUPP;
->>>> +	}
->>> What is the issue here? Why must port 0 be first?
->> It doesn't need to be configured first but it must be probed because these
->> PHYs are not independent, they exist as a group and some configuration must
->> be done on the first phy in the group. I will re-send with clarification in
->> a comment.
-> Consider using phy_package_init_once() to configure the shared things
-> by the first PHY to probe, independent of what address it is.
-
-That doesn't solve the problem, but I re-sent with much more effort put 
-into explaining what the problem is. In short, these PHYs are not 
-independent - they exist in a group, and there is a "master" PHY of the 
-group which has extra registers that are used by all PHYs of the group. 
-If the master is not configured, then calibration cannot proceed for any 
-PHY of the group.
-
-
-Thank you for your review and advice.
-
-Caleb
-
->
-> 	Andrew
->
