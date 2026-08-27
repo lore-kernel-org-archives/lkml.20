@@ -1,212 +1,197 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010050.outbound.protection.outlook.com [52.101.229.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 715A743B3E5;
-	Thu, 27 Aug 2026 09:59:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787824753; cv=none; b=saCdKYkjDCodmg6OWZkniJj/sG7YBcHLig8nwJCfjOHZbr++muehI4TfFVPyFnq3eXyEyeykIgjEDrTgc0Y576IaE66wGIXa/R7DOfSQm0I7fk6aLOYk8zKJ/Ro4F9Uw8Hq7bD9oUmdBmlsTj1zBCHKjEWgheof/uZxV1iTjzsw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787824753; c=relaxed/simple;
-	bh=9zWHX1koS7Y08c8z6OqdIcI8jre+mu/ZH79BynCwR7I=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NLZIeLbXxukBb+fAoSjHin54Pg2huw7PtsJU9ySpieLi98MZE5nxX4VhKnD/lblCx3cVUw1vCqFUiKNoi5lty8Bnk1/81Z4wfIzBcCKa8Sn7y9RZY/vL/Mf43PThhea+WO/a0YXz48K/XP4PpENZH8XH4NUH8U2638nFRgoHWks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=rJVdl54x; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0BFF3E3D90;
+	Thu, 27 Aug 2026 10:00:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787824830; cv=fail; b=a2iNOvmsj5RgDs/336wWmLw2RXxYMysVkq12Dhq7/Cw7SirPugGKaWoXev8EpxmXAyMz1ex6g8aG6KWIrfOxpiCewPeg39Acdh6TUyWwenkItCepPfSmPE84mrQNVhEOutfyEJ8xMFU+a8HBkyN0SGicEwxzkrBrutFXKTrYPgA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787824830; c=relaxed/simple;
+	bh=6m/QlYE4gcep549wZkARotYpnKEELAddxj90m6MsFlo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=VeFbuMXTZEX9rsLzKyWHQbNOzJxrItB33QLWxdVi/IH+KUG2/J1mR0PlZ/hJRNukRtLpZbvbk9bcIy0bD5K0N8Qdnmq3WLXIdDL/mDLIR3xt3dRoNPcV3Bd+Ale3lNGW9Tc1Z83Ci63bHEyenO0l7pZyo48MxFncluG8mkJbgUo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=isRx0Dq8; arc=fail smtp.client-ip=52.101.229.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="rJVdl54x"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1787824749; x=1819360749;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=9zWHX1koS7Y08c8z6OqdIcI8jre+mu/ZH79BynCwR7I=;
-  b=rJVdl54xWdwPmieXltYO74HZpuuMhkTad9vsCKiZ17eJgpe/hkTO12PZ
-   iSl3DxQJ8skr15WeMwWfvKjDGMPPxX4olxvJ5ve9bSxAITfwnJNXnQp9p
-   niB7e/njPB8NaOuSspZrEkqHFbU5cnGR79tu6T8f1ZCCXBvc1ftb2nDmn
-   LxZQ6U5JyRC7o2CcxxvySCCapgRQa+jw23ppGZl1VLd5Dfv0YAeoV7a+W
-   W72AeWh/XanVhzpjbqg4IpMqyy6cOLQbIxT81tTjGL1d0i9j7a8vkrSAe
-   T3P/JDL88VJukgmMYlcIdEM8nZYWTsQj2uG93TDa+AwarUSsqiQLz+4x6
-   g==;
-X-CSE-ConnectionGUID: TKd9ukl7SMmUnG5Q+MYsKQ==
-X-CSE-MsgGUID: Wh+SSoq1RgyeT1qOVKnEPA==
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="294132463"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 27 Aug 2026 02:59:02 -0700
-Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Thu, 27 Aug 2026 02:59:01 -0700
-Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Thu, 27 Aug 2026 02:58:57 -0700
-Date: Thu, 27 Aug 2026 11:58:57 +0200
-From: Daniel Machon <daniel.machon@microchip.com>
-To: Jakub Kicinski <kuba@kernel.org>
-CC: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
-	<pabeni@redhat.com>, Horatiu Vultur <horatiu.vultur@microchip.com>, "Steen
- Hegelund" <steen.hegelund@microchip.com>, <UNGLinuxDriver@microchip.com>,
-	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
-	Jesper Dangaard Brouer <hawk@kernel.org>, John Fastabend
-	<john.fastabend@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>, "Herve
- Codina" <herve.codina@bootlin.com>, Arnd Bergmann <arnd@arndb.de>, "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>, Mohsin Bashir
-	<mohsin.bashr@gmail.com>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <bpf@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>
-Subject: Re: [PATCH net-next v5 09/13] net: lan966x: add PCIe FDMA support
-Message-ID: <20260827095857.nt2zngzhoq777qou@DEN-DL-M70577.microsemi.net>
-References: <20260520-lan966x-pci-fdma-v5-0-ca56197ae05b@microchip.com>
- <20260520-lan966x-pci-fdma-v5-9-ca56197ae05b@microchip.com>
- <20260522185637.1fe72213@kernel.org>
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="isRx0Dq8"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=l2LQPBGmr/vFZm4JJT74A/UfqdlxrJIla7lEDe7S6BO/jT8d0EUyNw06NTwjj3rS20LK0xznjHjcCX1sJD/LXekWAwnb25rCOV7LJfKnmvUWg3c21mgMrG6Rz4grzXp/ripRLWieHsxu47ldr/AF1MASrVK0fpI4LG3p0WwVm2NfaLElfHSh/oZ4fPcyaaOXM333qd0McOlERTyb2r9TPHVjEMmHvRsrH1eAh+ci7XoPyk13mTDPhYFV1u+TnUheSDxDNpRAt8JOBwXlsu9Oa/FuNpIreTQNDDk4it340OepL9nG8hto5h7rhEBpg/EOi6yjwcHwM+2g/61ZBprZVQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uePma76aRyYkLRL6Zo56VDAnPGK3kllYY3nVk5G0rJs=;
+ b=mFVcRTgqq4W+Eq2wUQ7ppr8AL0x2vVpVFnO0kTYLoCsXEZokaqf+GCkDYMe0do7Y7rc/oEhSSlGK41GCIWswCkgYo4ggkwlr3fjthKoQHdmVJTeiTiCNZU+DGXFTZmUQF/oFyizPe37vwy701I7joPd6VeVBkmkSkJFVlIIVGaObGRfSLHY9Q4TRSAlWOGhwSIvsBPZ8x0lE9+IlbcRH3UOcfBqnvvCYi5x437uG/f+Zz20bX9dcophedWTuGU0DdC7Xjj4cyzk/uozAp213Tm2tQh4lXTmjUSfkv3rbSArSSxOX83XcdiTDinuUvwUEJPekHupXKVXSHgmYVmwdKA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uePma76aRyYkLRL6Zo56VDAnPGK3kllYY3nVk5G0rJs=;
+ b=isRx0Dq8aGNuyrx7i8LOY94mRQg9Ic3IvsYvg9Uvojh83XLymBPjp970zGWZJWLCud6qfMWgOV6DZvw6xLBadqkGQ7FuEqbncelP1cNhXQDD3cy+jvvy9aKB//h14iddySPtRKtiuMPPybjQyWIrHwhnmfxnQPGk6X96dVvQRcw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com (2603:1096:405:18d::7)
+ by OS9PR01MB17815.jpnprd01.prod.outlook.com (2603:1096:604:447::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
+ 2026 10:00:08 +0000
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828]) by TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828%4]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
+ 10:00:08 +0000
+Date: Thu, 27 Aug 2026 11:59:57 +0200
+From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+To: Biju <biju.das.au@gmail.com>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH v3 03/13] drm: renesas: rzg2l_mipi_dsi: Move global
+ timings into hardware info struct
+Message-ID: <apAKnQLSjTP8tma8@tom-desktop>
+References: <20260826174854.199139-1-biju.das.jz@bp.renesas.com>
+ <20260826174854.199139-4-biju.das.jz@bp.renesas.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260826174854.199139-4-biju.das.jz@bp.renesas.com>
+X-ClientProxiedBy: FR5P281CA0026.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f1::11) To TYRPR01MB13588.jpnprd01.prod.outlook.com
+ (2603:1096:405:18d::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260522185637.1fe72213@kernel.org>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYRPR01MB13588:EE_|OS9PR01MB17815:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2a92f2d7-07c9-487d-5024-08df0421f986
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|52116014|7416014|366016|56012099006|11063799006|4143699003|10067099003|18002099003|22082099003|38350700014;
+X-Microsoft-Antispam-Message-Info:
+	NIDdY9VkvIm/oqCByjreQGYWl+dRnIXhGqs38cLi9hK6EsLVP8F16AY63PtOJmiNomNJVBrGKY6MdMAkL/5tTlvRzvyma2pN1zmond6axWU1Q1Q/F5JFwXilXRItIgC5BeSAY38ljNBNgHEEUNSz5Uz10LRaYHBTLyxw4jxL02sK2HgspsjofUNaGyvfPa3PdeSKit9k8T2+curBK/2XdMELmZdtWqZvML2+V8dC9JM7spPTNqa7sUNsWsuwt2WXZuW+scfx1vOwoavIPb8xlxqEuHMYEHZtnmOxpEZeY/mQagu90yXHfphLZh3O/L0zHF67Dk06ZaXAUBZ1rad8fruWwT8w5N5Yi/jGTeLl/uE3aXNu8yQvcUXYrfenuWMyg9rTtaKtg2s6yN+T+PWzMTno7jKB98kzKIJG+JT+3ad8Pef5XrrEGxBEIXjU+njZ3ZBclCJsPKhxIUdqgom1G3yfiTmM87YsUuBj9odCAe+RI3mVnC4usd+vmBlLGoW8YcoJVdgVwEmpw2+/Qha9RLGQd9WVanpqKrRx3/5X7F/2gw8vj1C9P4B4IhYIWAhG17/KL9jM5gu9ZQrN6ID9YOqfcP4xDoQUTPl1SeS1ZAYC2zZN4oPkKFgILJCn4ox9ZObZ43Rn68lejEHWLfxMPsC7u9PEqFtux8N8KjXI6cfk6Z3aM1BTJbsKKNLYlr+Ov6ojGLGnKrUdss4GH3MM4Q==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYRPR01MB13588.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(52116014)(7416014)(366016)(56012099006)(11063799006)(4143699003)(10067099003)(18002099003)(22082099003)(38350700014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?SNIU9QR6q1CsJvi7YdddDVtx7iPV0MBZo0x5yUUoogWmI3c/OWHtgDS1Nk9r?=
+ =?us-ascii?Q?GD8w1fkU1y0F669TasdSEKiruZNjx7aWv+Rv31lFImZXYKi4yPMIbHp1WYB0?=
+ =?us-ascii?Q?uRJ6qx7fkw9kvjQgVb744i0RnPXxeimaptM5QHyh5m7GzDgg3KD+ePPMH6tD?=
+ =?us-ascii?Q?E7Wjh1sYBuMe9q/BhGB/eH25BCQ7GMMd/t6+Q5adtckrYrUji/BtVa4Rkyob?=
+ =?us-ascii?Q?suVB9BdO5drdX8PZLUbRFb8e8no44ont7DM+WXbTbEi0IMLZOdT24DVUx5RC?=
+ =?us-ascii?Q?PhpcKNHk9XDuVktOox0uMOKdZxWfTKWstFAJM8/K1AL7GmLVUu0Xap2SFCeH?=
+ =?us-ascii?Q?FkqwPN5ZVfhnFypu6lGcuUx67tdVL2ftZEkeJyopsPQLL4gYsabHubYnIZIF?=
+ =?us-ascii?Q?9ucj5kyjaImHuJBsdrOztbYyOJobzuT4NP3QkhNVPEQk/dF3ghIKEGowjWCz?=
+ =?us-ascii?Q?z8x7DPQlohWIHs2jw7vt+Vdh8JPm14upuFr1jfQh0Rg1k/ImZwGSNPSYDXxZ?=
+ =?us-ascii?Q?NC0IcFwjOyStzbCwKrG8q5MbCUejGjGIv5DGyGflLvGTU0F0dJEmsrSDbzSe?=
+ =?us-ascii?Q?9Ti9MIiS8Ro6de09hSrtJic8XWpEAA2R8EWd6//KxnJwElsk7ijQEXJDhaCA?=
+ =?us-ascii?Q?LT10mMm0PLRU9V5qoeoS1/2L0huobTrkHhgBSOOVQfziECfGqoNtyDL24JLC?=
+ =?us-ascii?Q?MVAWrczvqz36OpRwIZBAmzGxgmm/VkqLLvoo32og/TXhnIxUtxv5mkGmzDb+?=
+ =?us-ascii?Q?6Yv1b1zhudqKXmYTeDiTDtCBJ9/GERDpOEWO/uXp78wg7WchIJaM9ppyJ+4g?=
+ =?us-ascii?Q?08DZMqGtbAUCIPBD4aTOoJ9Vf3P250palzgb1Fpqupy5Q8xaYTEElD0I2jxD?=
+ =?us-ascii?Q?kzd7OFP8JkKIsdb9QYRz3xbjk7Z7r8L5Zk8KY9vUSTRY6jYfEBCmFfZjB/em?=
+ =?us-ascii?Q?H3LXuxo4CY47u69Ksn2Mpg3jf+oC3/OBnj1zwJhuN0LLOJuuXdkOoTnId2yf?=
+ =?us-ascii?Q?geQXaorr54Ss62/hutHqZ/QEAGlmxtewoFmMtE/IbI7QAwl9N6EklQhvBL+G?=
+ =?us-ascii?Q?1VnxE9niKy8YVmyawPNMah5rcQOx6d/gQVjXtP7QStxxwod5KVHPuUHa67tI?=
+ =?us-ascii?Q?KxXmBKCHkbEUU/8Tm7pAGIevpxp2lb9i1GbcAUdU6/b5Er0ZgN+QVFuLqZKx?=
+ =?us-ascii?Q?/YaeKtyd8WTaz69f8uHh8Cw634JgQ+0j8X2y8O/RqglLwOl0/insSYftsD0X?=
+ =?us-ascii?Q?Hc7Bnq6jpQ3nYhzW9cWZkvVyV62TITtZrtv628JygkBnNZaPRvwyy7Q3iECS?=
+ =?us-ascii?Q?1nalrbTcMow0hwqpjxkr/TRDewiAuHPSuQ9ER9SZqyN2/3G1VWgJ4a5ITH/s?=
+ =?us-ascii?Q?mqYgZOXRLHyYmmpokh9cnSLrkd7k7ZHAalttscGONx0SJofmFVy1n7D9OBj6?=
+ =?us-ascii?Q?9aJAnzaquZxg3M0jVA2UU42n2bVF/i2g4yiSdUIYJbxLAW2RzuwYZSjSmm0i?=
+ =?us-ascii?Q?j8m5TamyX8iqQ+uwuM5SSfMbyA1qeZiSuu7o5iU6ruED1raI7szITkSM1fFJ?=
+ =?us-ascii?Q?/0Gms9UoPSnhbuN6OJU1t4KOLSLN99Lhx3oDL6JLK9rZCqwYhVOQNbtdAwoU?=
+ =?us-ascii?Q?JBgwPO6eoBUbGSMq9czrpcp5VpI0WUF+yzSQ0BYkeGoVJHCGyuFzwW5K9Aw4?=
+ =?us-ascii?Q?Uzv+9tvrJgVsuEwN1vU0qyG9H3D10+cyQinXBl6RxF6LpY7hAM0p3vjbH+fp?=
+ =?us-ascii?Q?ANasJdXq5NUQptNStjZ4WNI8eWSZ7HceTetrRA4y3PS1+DxaVyje?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2a92f2d7-07c9-487d-5024-08df0421f986
+X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB13588.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 10:00:08.4353
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: T429XOLeKbN5GFL2+8AmOIGqcA5gads1vrSYIIVyvreMVtuV/nMLx6CT+wLfxea7YG58cexUWpGlWHn5lnm4LttWTJ747ffbWIpMnSxYPob808ToliplWfilpmKQiWl+
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS9PR01MB17815
 
-> On Wed, 20 May 2026 10:12:21 +0200 Daniel Machon wrote:
-> > Add PCIe FDMA support for lan966x. The PCIe FDMA path uses contiguous
-> > DMA buffers mapped through the endpoint's ATU, with memcpy-based frame
-> > transfer instead of per-page DMA mappings.
-> >
-> > With PCIe FDMA, throughput increases from ~33 Mbps (register-based I/O)
-> > to ~620 Mbps on an Intel x86 host with a lan966x PCIe card.
-> 
-> > diff --git a/drivers/net/ethernet/microchip/lan966x/Makefile b/drivers/net/ethernet/microchip/lan966x/Makefile
-> > index 4cdbe263502c..ac0beceb2a0d 100644
-> > --- a/drivers/net/ethernet/microchip/lan966x/Makefile
-> > +++ b/drivers/net/ethernet/microchip/lan966x/Makefile
-> > @@ -18,6 +18,10 @@ lan966x-switch-objs  := lan966x_main.o lan966x_phylink.o lan966x_port.o \
-> >  lan966x-switch-$(CONFIG_LAN966X_DCB) += lan966x_dcb.o
-> >  lan966x-switch-$(CONFIG_DEBUG_FS) += lan966x_vcap_debugfs.o
-> >
-> > +ifdef CONFIG_MCHP_LAN966X_PCI
-> 
-> ifeq ()
-> 
-> would be more common in a Makefile?
+Hi Biju,
+Thanks for your patch.
 
-Switching to ifneq ($(CONFIG_MCHP_LAN966X_PCI),) in v6.
-
+On Wed, Aug 26, 2026 at 06:48:37PM +0100, Biju wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
 > 
-> > +lan966x-switch-y += lan966x_fdma_pci.o
-> > +endif
-> > +
+> Move rzg2l_mipi_dsi_global_timings and its array size out of the hardcoded
+> ARRAY_SIZE reference in rzg2l_mipi_dsi_dphy_init() and into the struct
+> rzg2l_mipi_dsi_hw_info. This allows future hardware variants to supply
+> their own timing tables rather than sharing a single global array, making
+> the driver more extensible without code duplication.
 > 
-> > diff --git a/drivers/net/ethernet/microchip/lan966x/lan966x_main.c b/drivers/net/ethernet/microchip/lan966x/lan966x_main.c
-> > index cc3c7b6c65ae..7036b1d937d5 100644
-> > --- a/drivers/net/ethernet/microchip/lan966x/lan966x_main.c
-> > +++ b/drivers/net/ethernet/microchip/lan966x/lan966x_main.c
-> > @@ -7,6 +7,7 @@
-> >  #include <linux/ip.h>
-> >  #include <linux/of.h>
-> >  #include <linux/of_net.h>
-> > +#include <linux/pci.h>
-> >  #include <linux/phy/phy.h>
-> >  #include <linux/platform_device.h>
-> >  #include <linux/reset.h>
-> > @@ -49,6 +50,9 @@ struct lan966x_main_io_resource {
-> >  static const struct lan966x_main_io_resource lan966x_main_iomap[] =  {
-> >       { TARGET_CPU,                   0xc0000, 0 }, /* 0xe00c0000 */
-> >       { TARGET_FDMA,                  0xc0400, 0 }, /* 0xe00c0400 */
-> > +#if IS_ENABLED(CONFIG_MCHP_LAN966X_PCI)
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+> ---
+> v2->v3:
+>  * Dropped .dsi_global_timings from rzv2h_mipi_dsi_info as it uses
+>    different path.
+
+Thanks for doing that.
+Patch LGTM now.
+
+Reviewed-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+
+Kind regards,
+Tommmaso
+
+> v1->v2:
+>  * No change.
+> ---
+>  drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
 > 
-> why config option being enabled changes the targets?
-> Can someone with a non-PCI device enable that option too
-> (sure it would be useless but given that/if they can guarding
-> with an #if seems like a waste of LoC)
+> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+> index 1538eeece2b5..d67e1230b70c 100644
+> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+> @@ -54,6 +54,8 @@ struct rzg2l_mipi_dsi_hw_info {
+>  		const u8 *table;
+>  		const u8 table_size;
+>  	} cpg_plldsi;
+> +	const struct rzg2l_mipi_dsi_timings *dsi_global_timings;
+> +	unsigned int num_dsi_global_timings;
+>  	u32 phy_reg_offset;
+>  	u32 link_reg_offset;
+>  	u32 dphyctrl0_init_val;
+> @@ -488,8 +490,8 @@ static int rzg2l_mipi_dsi_dphy_init(struct rzg2l_mipi_dsi *dsi,
+>  	u32 dphytim3;
+>  
+>  	/* All DSI global operation timings are set with recommended setting */
+> -	for (i = 0; i < ARRAY_SIZE(rzg2l_mipi_dsi_global_timings); ++i) {
+> -		dphy_timings = &rzg2l_mipi_dsi_global_timings[i];
+> +	for (i = 0; i < dsi->info->num_dsi_global_timings; ++i) {
+> +		dphy_timings = &dsi->info->dsi_global_timings[i];
+>  		if (hsfreq <= dphy_timings->hsfreq_max)
+>  			break;
+>  	}
+> @@ -1530,6 +1532,8 @@ static const struct rzg2l_mipi_dsi_hw_info rzg2l_mipi_dsi_info = {
+>  	.dphy_init = rzg2l_mipi_dsi_dphy_init,
+>  	.dphy_exit = rzg2l_mipi_dsi_dphy_exit,
+>  	.dphy_conf_clks = rzg2l_dphy_conf_clks,
+> +	.dsi_global_timings = rzg2l_mipi_dsi_global_timings,
+> +	.num_dsi_global_timings = ARRAY_SIZE(rzg2l_mipi_dsi_global_timings),
+>  	.link_reg_offset = 0x10000,
+>  	.dphyctrl0_init_val = DSIDPHYCTRL0_CAL_EN_HSRX_OFS | DSIDPHYCTRL0_CMN_MASTER_EN |
+>  			      DSIDPHYCTRL0_RE_VDD_DETVCCQLV18 | DSIDPHYCTRL0_EN_BGR,
+> -- 
+> 2.43.0
 > 
-
-Rationale was to only map in the PCIE_DBI target if actually needed. Sure, can
-drop the conditional in v6.
-
-> > +     { TARGET_PCIE_DBI,             0x400000, 0 }, /* 0xe0400000 */
-> > +#endif
-> >       { TARGET_ORG,                         0, 1 }, /* 0xe2000000 */
-> >       { TARGET_GCB,                    0x4000, 1 }, /* 0xe2004000 */
-> >       { TARGET_QS,                     0x8000, 1 }, /* 0xe2008000 */
-> > @@ -1100,6 +1104,13 @@ static int lan966x_reset_switch(struct lan966x *lan966x)
-> >
-> >  static const struct lan966x_fdma_ops *lan966x_get_fdma_ops(struct device *dev)
-> >  {
-> > +#if IS_ENABLED(CONFIG_MCHP_LAN966X_PCI)
-> > +     for (struct device *p = dev->parent; p; p = p->parent) {
-> > +             if (dev_is_pci(p))
-> 
-> If the PCIe devices also use an intermediate platform device for
-> probing, can't they explicitly have some flag / state to indicate
-> they are PCIe? The device walk in such a constrained env seems
-> like an overkill
-> 
-
-I think it could be possible to pass some state between lan966x_pci and the
-switch driver, however that seems like a much more complex solution than this.
-The parent bus node already implies the same — the switch device only ever sits
-under a PCI-created bus in the PCIe case, so an explicit flag/state would just
-restate what the topology already tells us. The walk itself is deliberate, v1
-checked dev->parent->parent directly, and I opened it up to a walk so PCIe
-detection keeps working if the overlay's DT topology gains or loses an
-intermediate bus node. I'd like to keep as it.
-
-> > +                     return &lan966x_fdma_pci_ops;
-> > +     }
-> > +#endif
-> > +
-> >       return &lan966x_fdma_ops;
-> >  }
-> >
-> > diff --git a/drivers/net/ethernet/microchip/lan966x/lan966x_main.h b/drivers/net/ethernet/microchip/lan966x/lan966x_main.h
-> > index 5f4dbeda17cd..e7fdd4447fb6 100644
-> > --- a/drivers/net/ethernet/microchip/lan966x/lan966x_main.h
-> > +++ b/drivers/net/ethernet/microchip/lan966x/lan966x_main.h
-> > @@ -17,6 +17,9 @@
-> >  #include <net/xdp.h>
-> >
-> >  #include <fdma_api.h>
-> > +#if IS_ENABLED(CONFIG_MCHP_LAN966X_PCI)
-> > +#include <fdma_pci.h>
-> > +#endif
-> 
-> Conditional #includes make build testing harder, better to avoid them
-> 
-
-Ack.
-
-> >  #include <vcap_api.h>
-> >  #include <vcap_api_client.h>
-> >
-> > @@ -288,6 +291,10 @@ struct lan966x {
-> >
-> >       void __iomem *regs[NUM_TARGETS];
-> >
-> > +#if IS_ENABLED(CONFIG_MCHP_LAN966X_PCI)
-> > +     struct fdma_pci_atu atu;
-> > +#endif
-> > +
-> >       int shared_queue_sz;
-> >
-> >       u8 base_mac[ETH_ALEN];
-> > @@ -586,6 +593,10 @@ void lan966x_fdma_wakeup_netdev(struct lan966x *lan966x);
-> >  int lan966x_fdma_get_max_frame(struct lan966x *lan966x);
-> >  int lan966x_qsys_sw_status(struct lan966x *lan966x);
-> >
-> > +#if IS_ENABLED(CONFIG_MCHP_LAN966X_PCI)
-> > +extern const struct lan966x_fdma_ops lan966x_fdma_pci_ops;
-> > +#endif
-> 
-> There should be no need to wrap extern in an #if
-
-Ack.
-
-
-/Daniel
