@@ -1,110 +1,212 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FA4E48C3EF;
-	Thu, 27 Aug 2026 17:58:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E46D837F32C
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:59:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787853523; cv=none; b=PYTRD7kXS42iE+ZB2FE/6DoIfhC83S7rz1MXQoPgal27mAUMG/JT9q6jaL6J4tKg5VLRrgIBRQ5Esuk407bFMs4uwzIHtXxoq467ZBZb7LOScCCT7S/GSzj/i8rIhZhi+nZFIJhpfif49M2Dx/9Ups0IVP8fnx1iRlooRpIzByE=
+	t=1787853571; cv=none; b=MtF8omySwk3vBQGhRmL0yleTbNMN2ovZJSYI/G3ldbpXvEzLEfZqRI99sIsvKMWz93mZCxp2aRpPjknr2X2E1njC/CjRtUashcjXz6WCkRpZn4SBubff9gLYRN6ZB10lYucsJvrGawBT8iae8Oc1pJUE7tiz2wna4XfFsdJboXY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787853523; c=relaxed/simple;
-	bh=uxPNHXRJeIxxq9wsFgY5J7jo9C6N6ctAc7uy7DAdfyo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FvdLxIdcYTT4oGo1C+CH1sqPQ8IOn+wejIVMjCpZIGVmuclwccQMQMYpi5e3t/jbQfWGajnTmRTk1s1IR1wCqQWv/9SWCK/d92zqS5Uvren9DfstDe4T0oso8zZjoeEFY1UGHG7gpKKRt7nAsr0i8pLnShVokFEVXrXcpiFsk54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S7OLt49Y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787853571; c=relaxed/simple;
+	bh=RT9cVmIbfwOZKUIPB+Gz0YsQqIXuZo0OuYUTvQn1+1g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nHJuR7uEYs3RHh5WFpRng/etTbHNCCLcnhJA+b99S8kj2+EfHQkgjxtGU6yBA5ATfQu02zpKGqKEmxaDIETX7/x/o0SaHf8O/O4mACCY1cW8plUjfV1nSI/t4Bl+9PfTefE0e4Lryao5XWoAuZC7Z7SQ/WI0CqII0v9j7x/GiBw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XgNUYOQ3; arc=none smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S7OLt49Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC21B1F000E9;
-	Thu, 27 Aug 2026 17:58:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787853520;
-	bh=JxlJpDQyQFzHEq4tuOreXaxxV5u5t+RTGSliu4umBE8=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=S7OLt49YZeiVVdQw9iTWDVyJIr4WGoWnCYZo/8ffdVwRk/CiD3d/nhY1EDacv2PEk
-	 Xp3SxjZ9N7kcHbLJyODO9RXgCvitUuCdEaEs35qKeHNdeaVmKAxO/LX2SbXrK09s6F
-	 fiqSlGmOHwc2PiZrUbRODRd4plRaPVgQxJaUStg4qeOU6iAivSuFiaWB3VNwsVGeLV
-	 mpikoTL5H1EO6SDHQikzQdDH84FwdKmUVrJB2aGrp2hHEIeh2rCuoRk5vCeQThzQZL
-	 olUf1SwHi5f4X41KLV0hUxjCWklDONegKLq4lc7FVE1/16MvMCeaCTjVML1geeWA/A
-	 B4fwVWwdYhjRg==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 84FD3CE1496; Thu, 27 Aug 2026 10:58:40 -0700 (PDT)
-Date: Thu, 27 Aug 2026 10:58:40 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Longlong Xia <xialonglong2025@163.com>
-Cc: frederic@kernel.org, neeraj.upadhyay@kernel.org, joelagnelf@nvidia.com,
-	josh@joshtriplett.org, boqun@kernel.org, urezki@gmail.com,
-	rostedt@goodmis.org, mathieu.desnoyers@efficios.com,
-	jiangshanlai@gmail.com, qiang.zhang@linux.dev,
-	vineeth@bitbyteword.org, joel@joelfernandes.org,
-	rcu@vger.kernel.org, linux-kernel@vger.kernel.org,
-	xialonglong@kylinos.cn
-Subject: Re: [PATCH v2] rcu: fix shrink budget underflow in
- lazy_rcu_shrink_scan
-Message-ID: <cab37470-6e76-4163-9a9a-155e74cfb728@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20260826082150.3311391-1-xialonglong2025@163.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XgNUYOQ3"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-482e4998d28so76415f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:59:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787853567; x=1788458367; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FQA+MbWA84U8xUhabSSJVM6HHDc0tjYMMoyc9Az9yO0=;
+        b=XgNUYOQ3+5mOSVbULYqMcOBedz1+pYgkQ+YH4Wm0lkVhVD2YD7XIzShbEbKsZE9Xal
+         vvMJw/kdkkwhS0tg6TNHGTgfBFUkbo1AhgSM8Dlf2BxPtcUzbrl7BhjXBrLKwnOLbEBJ
+         V4OuR147WZ36Cwbys0MQYf7ztimk292wqA0wxeqjA4tOozqMcSgngjDB9AIQSKBEKd36
+         6W8+rHtGbvq5rB2qgRXoeXoCuwrjzUGnRSSLpDWD7Eut8oajevsf5rLwkjx5Eodev0rJ
+         /BZYxd4ffQLJhQWsjBUL2JmzQG/F+Qt+bJutfceh3+MS0MZXFVZxg7RcPtRSzgU+w7WT
+         08pA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787853567; x=1788458367;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FQA+MbWA84U8xUhabSSJVM6HHDc0tjYMMoyc9Az9yO0=;
+        b=E1d4zPYqc57coxkssZsmdZSm91jL8L22AtvpAYlXOHJu/+zerqk9RxQqKRg1p2d3wt
+         nzOmH+EkM/XWODNQNgipVD0xorqu1aAdvGiyRxBERbsmxMPTqCTIHVJw4dl86avgfSSI
+         4a5Sxiq4/rOeiqIEXDVErReU8TugZ7K8PnyZYXJl1vjn/vVe7XS5IRvQMFytJefApn8W
+         eZzmd56g3W7oAbGzAxzZLeNFfKLZ9tYFpVEMA6LGnoqJi2VpqKgvcv1uaSNN2VNEiOLd
+         Y/xgqfWlE1QHyHAmEn1HSG7D7dG75gENPkYw8PclkWPKWRck1NZDILnXEE+QJX0Lgt9p
+         ECUA==
+X-Forwarded-Encrypted: i=1; AHgh+RqggD7IjQUWxX6a1qZQh/bYiyXJV8pPNJ/tFeq+5MSvna+MH860KDoYqsGxzlWSddje8arZ6kSboDTI/Jc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mH5XKjIJTRFkrLk4QDseiqKA6jpOwFMWf2veyT8RhkYp1fS8Wn
+	npMNRRCHR8B0pqzRdIIYqvAJNGj4fTRQ8ROIi1PJGY4log381BbO5PRB
+X-Gm-Gg: AR+sD12nnOiu4GRMCBGdi/0SmcnRrLvEpkxooJuQ+QlUWQX9ljPhIw7occUWt3b+0Wg
+	ANeFgnm8Rkikr0uktWsMoaIDMQ41tdQCyNs11PLwGmGm2DBAi6Aq7nNEWTzPTnAsUJh9sRexdsN
+	XsPKS2WKLitku9UV5YeIV2Ty/Xf0ndYo+A7Vn51t5pp0MqIeF3y1I+Mq9CklgRZJ4Ewow5Ix0gH
+	u39DU+mh1hYA/LvbmY96aCj5V6Or6lPlqP/Ev6d+Ylzdl03GTfrC5DDblcDKU1YvnccH91wN9og
+	BSXC31FrZwVl99X0CnmeRr6scgcD62G1etFcHREhfez83UIASZblFS1y0y5VNJtWC+xz2Y+rbdC
+	a0/pSev+hLtqpIC1D8ZGnOHp4a6GwYKoRuw1MwvtWSzERvsC2SOc05es3sMtPlnDby1r0FxYk26
+	1YnplJaB4coAl07XBUvyKAAHxEMRih/w09wD3F2ZictVd2RzFEYeUl+qz7cSUxHv5nSdCCAc2qc
+	pxEc8I69+vsqVnDhXlGF6kh9+XGOOoGVpU+uPnJxUEWXa98+D1hMS+eW6vX8kr0
+X-Received: by 2002:a05:6000:4810:b0:482:e451:681f with SMTP id ffacd0b85a97d-482f79c9430mr708273f8f.10.1787853566950;
+        Thu, 27 Aug 2026 10:59:26 -0700 (PDT)
+Received: from localhost.localdomain ([85.118.83.238])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e27a9945sm10272342f8f.9.2026.08.27.10.59.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 10:59:26 -0700 (PDT)
+From: Georgi Valkov <gvalkov@gmail.com>
+To: briannorris@chromium.org,
+	johannes@sipsolutions.net,
+	andrew@lunn.ch,
+	krzk+dt@kernel.org
+Cc: francesco@dolcini.it,
+	johannes.berg@intel.com,
+	kees@kernel.org,
+	miriam.rachel.korenblit@intel.com,
+	rongqianfeng@vivo.com,
+	wenst@chromium.org,
+	rafael.beims@toradex.com,
+	avraham.stern@intel.com,
+	error27@gmail.com,
+	s.kerkmann@pengutronix.de,
+	gregory.clement@bootlin.com,
+	sebastian.hesselbarth@gmail.com,
+	robh@kernel.org,
+	conor+dt@kernel.org,
+	Frank.Li@nxp.com,
+	chunfan.chen@gmail.com,
+	arend.vanspriel@broadcom.com,
+	peddolla.reddy@oss.qualcomm.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	gvalkov@gmail.com,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v9 1/3] dt-bindings: net: wireless: add flag marvell,invalid-reg-hint-in-rom
+Date: Thu, 27 Aug 2026 20:58:48 +0300
+Message-ID: <20260827175850.89395-1-gvalkov@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260826082150.3311391-1-xialonglong2025@163.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 26, 2026 at 04:21:50PM +0800, Longlong Xia wrote:
-> From: Longlong Xia <xialonglong@kylinos.cn>
-> 
-> The lazy RCU shrinker decremented sc->nr_to_scan (unsigned long)
-> and then tested the result with <= 0.  When a single CPU's lazy
-> callback count exceeds the remaining budget, the subtraction wraps
-> to a large positive value and the <= 0 comparison, which is
-> equivalent to == 0 for an unsigned type, never fires again.  The
-> scan loop then iterates through every nocb CPU instead of honouring
-> the reclaim budget.
-> 
-> Accumulate into count and stop once count >= nr_to_scan.
-> 
-> Fixes: c945b4da7a448 ("rcu: Shrinker for lazy rcu")
-> Assisted-by: Zcode:GLM-5.2
-> Signed-off-by: Longlong Xia <xialonglong@kylinos.cn>
+WRT3200ACM and WRT32x routers always report a fixed US regulatory domain
+from the mwifiex ROM, which conflicts with the platform regulatory
+configuration on units sold outside the US market. For example:
+- phy0 mwlwifi 5 GHz, hard-coded region 98 EU mapped to FR
+- phy1 mwlwifi 2.4 GHz, hard-coded region 98 EU mapped to FR
+- phy2 mwifiex 2.4 and 5 GHz, hard-coded region US
 
-OK, I should have read ahead.
+When the system boots, it detects a conflict between the user selected
+region and the radios, e.g. BG FR US, and applies extreme restrictions,
+preventing phy0 from starting on any DFS channel. phy2 works.
 
-This one looks even more plausible, and quite a bit simpler.  I have
-replaced your v1 with this patch.
+Add a device-tree flag, which allows affected devices, where the radio
+conflicts with the platform to ignore the incorrect regulatory hint in
+the ROM of the radio, so the platform regulatory domain can be used.
+This does not allow the user to change the regulatory configuration of
+any radio. It only allows phy0 to start and operate according to its
+certified configuration.
 
-Frederic, thoughts?
+[1] https://github.com/kaloz/mwlwifi/issues/173#issuecomment-307879699
+[2] https://github.com/openwrt/openwrt/issues/9956
 
-							Thanx, Paul
+Signed-off-by: Georgi Valkov <gvalkov@gmail.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+v9:
+1. no change
+2. drop Cc: stable
+3. drop Cc: stable
 
-> ---
-> Changes in v2:
-> - Rework to accumulate into count directly and compare count >= nr_to_scan
->   instead of decrementing nr_to_scan, matching the kfree_rcu_shrink_scan()
->   fix reworked per Hao Li's suggestion.
-> 
-> Link: https://lore.kernel.org/all/20260824133142.2293426-1-xialonglong2025@163.com/
-> ---
->  kernel/rcu/tree_nocb.h | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/kernel/rcu/tree_nocb.h b/kernel/rcu/tree_nocb.h
-> index 19bb42672baf..b6cfee4e5039 100644
-> --- a/kernel/rcu/tree_nocb.h
-> +++ b/kernel/rcu/tree_nocb.h
-> @@ -1332,9 +1332,8 @@ lazy_rcu_shrink_scan(struct shrinker *shrink, struct shrink_control *sc)
->  		rcu_nocb_try_flush_bypass(rdp, jiffies);
->  		rcu_nocb_unlock_irqrestore(rdp, flags);
->  		wake_nocb_gp(rdp);
-> -		sc->nr_to_scan -= _count;
->  		count += _count;
-> -		if (sc->nr_to_scan <= 0)
-> +		if (count >= sc->nr_to_scan)
->  			break;
->  	}
->  
-> -- 
-> 2.43.0
-> 
+v8:
+1. no change
+2. drop invalid tag Tested-on, replace it with description of the fix
+3. no change
+
+v7:
+1. drop Cc: stable, the first patch only documents a binding
+2. restore colon after Tested-on as requested by openwrt-ai
+3. mention the added wifi@1 node
+
+v6:
+Rename flag:
+marvell,ignore-regulatory-hint -> marvell,invalid-reg-hint-in-rom
+
+Clarify commit description:
+The patch series allows affected devices, where the radio conflicts with
+the platform to ignore the incorrect regulatory hint in the ROM of the
+radio, so the platform regulatory domain can be used.
+
+This does not allow the user to change the regulatory configuration of
+any radio. It only allows phy0 to start and operate according to its
+certified configuration.
+
+The change affects only platforms which explicitly define this flag, and
+helps overcome the incorrect behaviour of proprietary radio firmware.
+
+Rearrange patches so that the flag is implemented in the driver, before
+being added to the board for WRT3200ACM.
+
+Link:
+https://lore.kernel.org/linux-wireless/20260728103536.25012-1-gvalkov@gmail.com/T/#u
+
+v5:
+1. description: remove tag Tested-on
+2. add #address-cells = <1>, #size-cells = <0> to fix a warning:
+arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts:183.3-13:
+Warning (reg_format): /soc/internal-regs/sdhci@d8000/wifi@1:reg:
+property has invalid length (4 bytes) (#address-cells == 2, #size-cells == 1)
+
+3. description: add info about testing
+
+v4:
+1. Add binding documentation for flag marvell,ignore-regulatory-hint
+2. Add dt for sd8897 and move the flag there, I used sample from docs
+3. Use device_property_read_bool in the driver
+
+v3:
+I implemented and tested a better approach with no board specific code:
+1. check for a device-tree flag in mwifiex_register_cfg80211in()
+  !of_property_read_bool(of_root, "marvell,ignore-regulatory-hint")
+2. add this flag to the root device tree of each affected board
+Currently this affects only armada-385-linksys-rango.dts,
+because Linux has no dts for venom. OpenWrt will take care of that.
+This approach is more flexible and scalable, because the flag can
+also be used in other drivers, e.g. mwlwifi (not part of Linux).
+
+v2:
+Replace the compatible device names, which are currently only available on
+OpenWrt with board names which are available on both Linux and OpenWrt.
+
+ .../devicetree/bindings/net/wireless/marvell,sd8787.yaml    | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/net/wireless/marvell,sd8787.yaml b/Documentation/devicetree/bindings/net/wireless/marvell,sd8787.yaml
+index 930b700b73d0..9f905ef5c2c0 100644
+--- a/Documentation/devicetree/bindings/net/wireless/marvell,sd8787.yaml
++++ b/Documentation/devicetree/bindings/net/wireless/marvell,sd8787.yaml
+@@ -59,6 +59,12 @@ properties:
+     description: Calibration data for sub-band 3 in the 5GHz band.
+     maxItems: 502
+ 
++  marvell,invalid-reg-hint-in-rom:
++    $ref: /schemas/types.yaml#/definitions/flag
++    description:
++      The regulatory hint in ROM conflicts with platform configuration.
++      It should be ignored, so the platform regulatory domain can be used.
++
+   marvell,wakeup-pin:
+     $ref: /schemas/types.yaml#/definitions/uint32
+     description:
+-- 
+2.55.0
+
