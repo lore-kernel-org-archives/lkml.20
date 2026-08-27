@@ -1,24 +1,24 @@
-Received: from mta1.migadu.com (out-124.mta1.migadu.com [95.215.58.124])
+Received: from mta0.migadu.com (out-198.mta0.migadu.com [91.218.175.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02A2F36DA00
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:45:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9151943CE4F
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:45:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787823949; cv=none; b=jMnFOCHubXc5Nz3I3r4N5Oz/I6kndlsAbTqN+sDaeRcQkDygLYq0ksx65heoP5vLKn8mEu0VtOEqWPPW6+jvfBzBdA2/HydIDAeJljngQ+P45+aFAVc50TRX+JtMMWniV8PzFQZRYmUt4FYrIdj0Q5Sf0CFoULZx2aFGe9V+4a0=
+	t=1787823956; cv=none; b=khvC5mhL8M/uOUWB5E2eQps7+IVovECFL2+OyDZKS8hln/oOeKNXSuUZlGcQOKlIUyH/fxgacQ0E5xkMjQqat+JFETWZ7AHUtkH4ML1VPyscaUANXvsJReq0OKDHsmpR3BUQooVYd/vMfk+Ci7XnxsVU7H0ZaVe3jCTG0xViqdU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787823949; c=relaxed/simple;
-	bh=uEpOqa+GFGtH/T36HAdjQsrVSLvCN9LoiBv5DWWA4uo=;
+	s=arc-20240116; t=1787823956; c=relaxed/simple;
+	bh=TOZrgZBL2nqq9rVeu8yyBvw2pItZAocX5D7PLiqwuPg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-type; b=h0LYpjHBvLyOudQVX56nuMFxfmwm0ssNEtpvtDRhJethjbANjnDo18w6I2s3p6P/d+9/31nLqky7M9OjSSYWY9aIoQbNTXB5reGJw5OJTIWb/DWa0rKSYkxqIribDSR9enxSurglA59qYbSgYSR7HeuStz9fKoHgsbGjpxcotm8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=linux.dev; arc=none smtp.client-ip=95.215.58.124
+	 MIME-Version:Content-Type:Content-type; b=G/emlVWj51xPYzwl4yVPElBn1BJ1YKHUhRrTNS6KL4+PAfrIs9zHmsqJoxZ8r38JFiWi1tOokYcLie73bI3wMkjmTxzYI7UF3FScNTPQwSHhhOkLjd2UJu6+etU0VGy65ODFyIlFKTrka8xeeQbgQ5b8Gyf0EYwJwDFH3+uMpKY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=linux.dev; arc=none smtp.client-ip=91.218.175.198
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 X-Envelope-To: linux-kernel@vger.kernel.org
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id fe1cfcd6d97b5eae;
-	Thu, 27 Aug 2026 09:45:44 +0000
-X-Mizu-Trace-ID: fe1cfcd6d97b5eae
+Received: by mta10.migadu.com with ESMTPS id 8048e88cfe4c95cd;
+	Thu, 27 Aug 2026 09:45:52 +0000
+X-Mizu-Trace-ID: 8048e88cfe4c95cd
 X-Migadu-Flow: FLOW_OUT
 From: Baoquan He <hebaoquan@kylinos.cn>
 To: linux-mm@kvack.org
@@ -36,9 +36,9 @@ Cc: akpm@linux-foundation.org,
 	david@kernel.org,
 	linux-kernel@vger.kernel.org,
 	Baoquan He <hebaoquan@kylinos.cn>
-Subject: [PATCH 06/16] mm, swap: add sysfs create interface for xswap
-Date: Thu, 27 Aug 2026 17:44:56 +0800
-Message-ID: <20260827094509.1016740-7-hebaoquan@kylinos.cn>
+Subject: [PATCH 07/16] mm, swap: add xswap grow trigger on cluster allocation
+Date: Thu, 27 Aug 2026 17:44:57 +0800
+Message-ID: <20260827094509.1016740-8-hebaoquan@kylinos.cn>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260827094509.1016740-1-hebaoquan@kylinos.cn>
 References: <20260827094509.1016740-1-hebaoquan@kylinos.cn>
@@ -48,249 +48,88 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-type: text/plain
 Content-Transfer-Encoding: 8bit
 
-xswap devices have no backing storage, so there is no file to swapon.
-Add a sysfs interface to create them directly:
+When cluster_alloc_swap_entry() fails to find a free cluster and
+the xswap device still has room to grow, expand the mapped range
+by XSWAP_GROW_CLUSTERS clusters.
 
-  /sys/kernel/mm/xswap/create    write a percent (0 = use default) to
-                                 create a device
+Since xswap is always SWP_SOLIDSTATE, no locks need to be dropped
+before calling xswap_map_clusters(), global_cluster_lock is never
+held on this path.
 
-The initial cluster ceiling (nr_clusters) for a new device is set by
-XSWAP_DEFAULT_CLUSTER_PERCENT of totalram_pages.  The device appears in
-/proc/swaps as "xswap<N>".  Per-device runtime sizing is tuned via the
-debugfs knob added later in this series.
+The grow sequence:
+1. Check nr_clusters_mapped < nr_clusters and free list empty
+2. Call xswap_map_clusters() to allocate and map more physical pages
+3. Add newly mapped clusters to si->free_clusters under si->lock
+4. Retry allocation from the fresh free clusters
+
+This makes the xswap cluster space grow transparently as swap usage
+increases, without any userspace intervention.
 
 Signed-off-by: Baoquan He <hebaoquan@kylinos.cn>
 ---
- mm/swapfile.c | 165 ++++++++++++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 161 insertions(+), 4 deletions(-)
+ mm/swapfile.c | 45 +++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 45 insertions(+)
 
 diff --git a/mm/swapfile.c b/mm/swapfile.c
-index 06f73c0a504a..1127e3d6596b 100644
+index 1127e3d6596b..c6a01d74298a 100644
 --- a/mm/swapfile.c
 +++ b/mm/swapfile.c
-@@ -16,6 +16,8 @@
- #include <linux/kernel_stat.h>
- #include <linux/swap.h>
- #include <linux/vmalloc.h>
-+#include <linux/kobject.h>
-+#include <linux/sysfs.h>
- #include <linux/pagemap.h>
- #include <linux/namei.h>
- #include <linux/shmem_fs.h>
-@@ -60,13 +62,79 @@
-  */
- #define XSWAP_GROW_CLUSTERS \
- 	max_t(unsigned long, PAGE_SIZE / sizeof(struct swap_cluster_info), 16)
-+#define XSWAP_DEFAULT_CLUSTER_PERCENT 30
- 
- static int xswap_map_clusters(struct swap_info_struct *si,
- 			      unsigned long start_idx, unsigned long nr);
- static void xswap_unmap_clusters(struct swap_info_struct *si,
- 				 unsigned long start_idx, unsigned long nr);
- static int xswap_check_mapped(pte_t *pte, unsigned long addr, void *data);
--#endif
-+
-+#ifdef CONFIG_SYSFS
-+static int xswap_create(int percent);
-+/* /sys/kernel/mm/xswap/: create.
-+ * Per-device runtime size is tuned via debugfs type<N>_cluster_limit.
-+ */
-+
-+static ssize_t xswap_create_store(struct kobject *kobj,
-+				  struct kobj_attribute *attr,
-+				  const char *buf, size_t count)
-+{
-+	unsigned long percent;
-+	int err;
-+
-+	if (!capable(CAP_SYS_ADMIN))
-+		return -EPERM;
-+
-+	err = kstrtoul(buf, 0, &percent);
-+	if (err)
-+		return err;
-+
-+	/* 0 means "use the default percent" */
-+	if (percent == 0)
-+		percent = XSWAP_DEFAULT_CLUSTER_PERCENT;
-+
-+	err = xswap_create(percent);
-+	if (err < 0)
-+		return err;
-+
-+	return count;
-+}
-+
-+static struct kobj_attribute xswap_create_attr = __ATTR(create, 0200, NULL,
-+							xswap_create_store);
-+
-+static struct attribute *xswap_attrs[] = {
-+	&xswap_create_attr.attr,
-+	NULL,
-+};
-+
-+static const struct attribute_group xswap_attr_group = {
-+	.attrs = xswap_attrs,
-+};
-+
-+static struct kobject *xswap_kobj;
-+
-+static void xswap_sysfs_init(void)
-+{
-+	xswap_kobj = kobject_create_and_add("xswap", mm_kobj);
-+	if (!xswap_kobj) {
-+		pr_err("xswap: failed to create sysfs kobject\n");
-+		return;
-+	}
-+	if (sysfs_create_group(xswap_kobj, &xswap_attr_group))
-+		pr_err("xswap: failed to create sysfs group\n");
-+}
-+#else
-+static inline void xswap_sysfs_init(void)
-+{
-+}
-+#endif /* CONFIG_SYSFS */
-+#else /* !CONFIG_XSWAP */
-+static inline void xswap_sysfs_init(void)
-+{
-+}
-+#endif /* CONFIG_XSWAP */
- 
- static void swap_range_alloc(struct swap_info_struct *si,
- 			     unsigned int nr_entries);
-@@ -3312,7 +3380,7 @@ static void *swap_start(struct seq_file *swap, loff_t *pos)
- 		return SEQ_START_TOKEN;
- 
- 	for (type = 0; (si = swap_type_to_info(type)); type++) {
--		if (!(si->swap_file))
-+		if (!(si->swap_file) && !(si->flags & SWP_XSWAP))
- 			continue;
- 		if (!--l)
- 			return si;
-@@ -3333,7 +3401,7 @@ static void *swap_next(struct seq_file *swap, void *v, loff_t *pos)
- 
- 	++(*pos);
- 	for (; (si = swap_type_to_info(type)); type++) {
--		if (!(si->swap_file))
-+		if (!(si->swap_file) && !(si->flags & SWP_XSWAP))
- 			continue;
- 		return si;
+@@ -1273,6 +1273,51 @@ static unsigned long cluster_alloc_swap_entry(struct swap_info_struct *si,
+ 		if (found)
+ 			goto done;
  	}
-@@ -3375,7 +3443,14 @@ static int swap_show(struct seq_file *swap, void *v)
- 	inuse = K(swap_usage_in_pages(si));
- 
- 	file = si->swap_file;
--	len = seq_file_path(swap, file, " \t\n\\");
-+	if (file)
-+		len = seq_file_path(swap, file, " \t\n\\");
-+	else {
-+		char name[16];
 +
-+		len = scnprintf(name, sizeof(name), "xswap%d", si->type);
-+		seq_puts(swap, name);
-+	}
- 	seq_printf(swap, "%*s%s\t%lu\t%s%lu\t%s%d\n",
- 			len < 40 ? 40 - len : 1, " ",
- 			swap_type_str(si),
-@@ -3897,6 +3972,86 @@ static int setup_swap_clusters_info(struct swap_info_struct *si,
- 	return err;
- }
- 
 +#ifdef CONFIG_XSWAP
-+#ifdef CONFIG_SYSFS
-+/* Create a file-less xswap device. si->max = full RAM; @percent sets the
-+ * runtime nr_clusters ceiling.
-+ */
-+static int xswap_create(int percent)
-+{
-+	struct swap_info_struct *si;
-+	unsigned long ram, maxpages, init_clusters;
-+	int error;
++	/*
++	 * For xswap: if no free cluster was found and more clusters
++	 * can be mapped, grow the cluster_info array and retry.
++	 */
++	if (!found && (si->flags & SWP_XSWAP) &&
++	    READ_ONCE(si->nr_clusters_mapped) < READ_ONCE(si->nr_clusters) &&
++	    list_empty(&si->free_clusters)) {
++		unsigned long nr_new = min(READ_ONCE(si->nr_clusters) -
++					  READ_ONCE(si->nr_clusters_mapped),
++					  XSWAP_GROW_CLUSTERS);
++		unsigned long start = READ_ONCE(si->nr_clusters_mapped);
++		unsigned long i;
 +
-+	if (percent < 1 || percent > 100)
-+		return -EINVAL;
++		if (!xswap_map_clusters(si, start, nr_new)) {
++			unsigned long added = 0;
 +
-+	si = alloc_swap_info();
-+	if (IS_ERR(si))
-+		return PTR_ERR(si);
++			for (i = start; i < start + nr_new; i++) {
++				struct swap_cluster_info *ci = &si->cluster_info[i];
 +
-+	INIT_WORK(&si->discard_work, swap_discard_work);
-+	INIT_WORK(&si->reclaim_work, swap_reclaim_work);
++				/*
++				 * A concurrent grower may have already added
++				 * these clusters to the free list.  Only add
++				 * clusters that are still off-list (NONE).
++				 * Lock ci->lock first: move_cluster() takes
++				 * si->lock internally.
++				 */
++				spin_lock(&ci->lock);
++				if (ci->flags == CLUSTER_FLAG_NONE) {
++					move_cluster(si, ci, &si->free_clusters,
++						     CLUSTER_FLAG_FREE);
++					added++;
++				}
++				spin_unlock(&ci->lock);
++			}
++			WRITE_ONCE(si->nr_free_tail,
++				   READ_ONCE(si->nr_free_tail) + added);
 +
-+	ram = totalram_pages();
-+	maxpages = min_t(unsigned long, ram, swapfile_maximum_size);
-+	if ((unsigned int)maxpages == 0)
-+		maxpages = UINT_MAX;
-+	if (maxpages < 2)
-+		maxpages = 2;
-+
-+	si->bdev = NULL;
-+	si->flags |= SWP_XSWAP | SWP_SOLIDSTATE;
-+	si->max = maxpages;
-+	si->pages = maxpages - 1;
-+	/* no backing file: mirror the xswap branch of setup_swap_extents() */
-+	si->ops = &swap_bdev_ops;
-+
-+	error = setup_swap_clusters_info(si, NULL, maxpages);
-+	if (error)
-+		goto bad_swap;
-+
-+	/* VM_SPARSE covers full RAM; runtime nr_clusters starts at percent. */
-+	init_clusters = div_u64((u64)maxpages * percent, 100 * SWAPFILE_CLUSTER);
-+	init_clusters = max_t(unsigned long, init_clusters, XSWAP_GROW_CLUSTERS);
-+	if (init_clusters > si->nr_clusters)
-+		init_clusters = si->nr_clusters;
-+	si->nr_clusters = init_clusters;
-+	si->pages = min_t(unsigned long, init_clusters * SWAPFILE_CLUSTER, si->max) - 1;
-+
-+	error = zswap_swapon(si->type, si->max);
-+	if (error)
-+		goto bad_swap;
-+
-+	mutex_lock(&swapon_mutex);
-+	si->prio = DEF_SWAP_PRIO;
-+	si->list.prio = -si->prio;
-+	si->avail_list.prio = -si->prio;
-+	/* si->swap_file stays NULL: this is a file-less device */
-+	enable_swap_info(si);
-+	mutex_unlock(&swapon_mutex);
-+
-+	pr_info("xswap: adding extendable swap type %d (%d%% of %lu pages = %u pages, max %lu)\n",
-+		si->type, percent, ram, si->pages, maxpages);
-+	atomic_inc(&proc_poll_event);
-+	wake_up_interruptible(&proc_poll_wait);
-+
-+	return si->type;
-+
-+bad_swap:
-+	kfree(si->global_cluster);
-+	si->global_cluster = NULL;
-+	destroy_swap_extents(si, NULL);	/* safe: xswap never sets SWP_ACTIVATED */
-+	free_swap_cluster_info(si);
-+	si->cluster_info = NULL;
-+	spin_lock(&swap_lock);
-+	si->flags = 0;
-+	spin_unlock(&swap_lock);
-+	return error;
-+}
-+#endif /* CONFIG_SYSFS */
-+#endif /* CONFIG_XSWAP */
-+
- SYSCALL_DEFINE2(swapon, const char __user *, specialfile, int, swap_flags)
- {
- 	struct swap_info_struct *si;
-@@ -4240,6 +4395,8 @@ static int __init swapfile_init(void)
- 		swap_migration_ad_supported = true;
- #endif	/* CONFIG_MIGRATION */
- 
-+	xswap_sysfs_init();
-+
- 	return 0;
- }
- subsys_initcall(swapfile_init);
++			/* Retry allocation from the free list */
++			found = alloc_swap_scan_list(si, &si->free_clusters,
++						    folio, false);
++		}
++	}
++#endif
+ done:
+ 	if (!(si->flags & SWP_SOLIDSTATE))
+ 		spin_unlock(&si->global_cluster_lock);
 -- 
 2.54.0
 
