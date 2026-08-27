@@ -1,287 +1,176 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 105754A2E1C
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:51:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3E34B0482
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:51:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787853110; cv=none; b=HZ32gUS/Wk02o8PSFD8zH9oz4o5SeUaVF96gEzEamIIrti9F8d/fv0LNH/sBdJ8Ajc18fe/PLJH2/u4OLwDd7GMPDfbK4R1XySg0Lm+PCvMeoMnruPgOWjckd3c6HumfcnTOkGyGOjTP23/0LAQgTANheNPV1ZqKmyo6A3wQO7Q=
+	t=1787853115; cv=none; b=ogT65HBqTV4W+GyBnanljtUcLcgGgqz5CQjafjWqwoP5//n59VpPZ5x/S63ba9+zq0c0MR3Glg43p6VcBx8BO7l6D7WKLS5UInk9LxuChqNKsIlQWDLxYFf6EUK27S9oSKBl81lJ+OPNpJgOa87ZG+LQYR2LHKFXFOGPK6pF0Gc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787853110; c=relaxed/simple;
-	bh=T2tkDEOHndMoaIub4e5PKFpO2ZM3G550YypurBfow2g=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=UnQVfyFu++wRGTnbd9Hk1s8R6Mzqk1U4mgG405ZevFEakOYYFjOMji54IiV9gNaqrSPyhpR5dh7uoEZSbUt0JJDIcr7veJDR9c8PTYMELDmLlOuJk9/J5WBJGjmLzszvgg6WchDdJjBGmzMQPB6wd7XrDpMwgSr2IAroYE5fBmE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sq68anAG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787853115; c=relaxed/simple;
+	bh=PwVD29DtUH4dIGkOMbXE9qMjiF+K6OUxLIjMJeof/6o=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=s2S7XYTYuhF2xl5FdxA7Lq+ASPUbMa3pfy2CBG7uvZZN+goGCWtj/cesIvLxfsIi5WPLGQjH0wXN0CQ+t3bbRfd5/6g3PbY6tFUT1WuflRFG6DlPFyPJdpu4dx2VFPWBV7OW24tcJnph6Fs22g95VIz/I5jNnESUZ92iibTH15Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OrkbTqbq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Vqxf4+Q9; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sq68anAG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CAC61F00A3F;
-	Thu, 27 Aug 2026 17:51:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787853109;
-	bh=IkmCuwYCIyOyQTowqI44mjsyuNN22PK3ZMnQIRyifA8=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=Sq68anAGhb1qfgM62+rWWV91ihJvRHPPzBt5DgWpdXPPo4oYJP23g5gJKCQ7k+nYO
-	 vxCT1B6cAGo7104CBJZnuUOmqp/dpzgbZCQXSwQ0uyTCXmj/Zml2R5bfac1xjHOyKW
-	 cBIm6NLrlrLXPes+bZ8EnM2oqctNK3TSoNz/qtv22UmCib6AM7h3Q55DGgIb+VH5II
-	 fXEwA8hyIKslgM32EjSabO55CtqdddMgpqgiXDd/I4l+/JnVib/N2zZHh6k5+Qndji
-	 eAwNY34azHU5qIeUh075zIwaylxNvogM8pzqKTF3HQLPyErKAZh2+eIXSsFrWHGbBg
-	 X33VJDw2DiI9Q==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Oleg Nesterov <oleg@redhat.com>
-Cc: Frederic Weisbecker <frederic@kernel.org>, Hyunwoo Kim
- <imv4bel@gmail.com>, brauner@kernel.org, peterz@infradead.org,
- anna-maria@linutronix.de, ebiederm@xmission.com,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] signal: Use list_del_init_careful() in flush_sigqueue()
-In-Reply-To: <87pkz3g39u.ffs@fw13>
-References: <875x10hrkt.ffs@fw13> <8733w3j1i1.ffs@fw13>
- <aowkvvxg8cPP5V0X@redhat.com> <aoww8qi_ce_8ECA9@redhat.com>
- <aoxOVAd8ooqHFW12@localhost.localdomain> <87pkz6gms6.ffs@fw13>
- <ao3kt-eRxw4agOj7@redhat.com> <87fr02gegn.ffs@fw13>
- <ao6zmDB9EjsqPIVN@redhat.com> <87zey8g05g.ffs@fw13>
- <ao8_NUo0ACPAA4QB@redhat.com> <87pkz3g39u.ffs@fw13>
-Date: Thu, 27 Aug 2026 19:51:45 +0200
-Message-ID: <87h5kffo3y.ffs@fw13>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OrkbTqbq";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Vqxf4+Q9"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67RHXnjt1568596
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:51:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	zPYfTHbFrfi2XEod5q3VXPMVscV9WPdiBhHDyk/uC10=; b=OrkbTqbqWLWzXeag
+	Y6XXLkqEaCKKrZXZSJD6fFjtW+arBtUSejC8LlmqYkZGo1Frz97/GS1qSFnEmtLp
+	YhrS3g+zXKYkgfs1iz7sBl3HodoWvnfSxpf3d3QydT3ID2gs/poLNXfgasgEgg10
+	t+YK2IuDEzUmvUKW9QjXGbXwuvWLH3IeXv99ppVoX0J2C2ppS54vIS3+q3ZdVudY
+	m0SKc4O5tMYH8nOyLYvthdbfXn9AbPA1yXp2B+SjKwFpFdAi0xOGqA3yl5XOTNYx
+	Ci3O4TFE+r8M9WC7Ms4Byt5ElEsXMDCIoIeBuEyNX788p2kTP1/3bvUN36Zvjosg
+	JgAG6g==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ga8m5m9qn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:51:53 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d6f75c1219so1667805ad.3
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:51:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787853112; x=1788457912; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zPYfTHbFrfi2XEod5q3VXPMVscV9WPdiBhHDyk/uC10=;
+        b=Vqxf4+Q92MctupiPADBLZjeOED9mwvhAgX6482IhIK2+2jpKRSdusIL/uAL65lJWSe
+         WC0E+B1MnRztc7g9iVuFg4AbmybXr7aUX5/kdNuoPidNOqM76MU+uq+ZWd8FCRa9Fh5o
+         k+ItmAGImDDxTHuuuXVmiv4CzYSdHOHrkWeGCNbH9851+fQoVqWMeCaGry32QRDH940Q
+         KzwudAX4Q7b/cSPDsAv1u8jKEd1L+deWyzNtQ9A15Aqlz1E3dGGT/HWdrwAal5tcdQfh
+         iFbAI65bCf7Xe5Rrh2nHtjX4drIQWayWeZ11rrQH48Os4NnwlicgpMsMeIGzNpADIvdO
+         PSIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787853113; x=1788457913;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zPYfTHbFrfi2XEod5q3VXPMVscV9WPdiBhHDyk/uC10=;
+        b=J2Lf+4eplOLrEu6f+tNnjeySU87jGkgq8gy1zfRFfpcBqAKQK2U8tNQhM4j5pESFm1
+         vKRLx86SOndi2mhqweTfo7yP/QptjumJCZbPTD0xtp+TnWjjVYEbem/zHQr2LhEIvOqZ
+         FBthNMOgbFq6J6/DjP1Y0oY7DLYfdwQYSWiz7NXwVS2val22sF4X53SbpdG1rznMqNJl
+         me3w9HyR7x/opcjxWTmRylpjMwR4CVHnpahRenBXRxy4efZWPm9o2m/xAbbBjIsux6Ij
+         fq+Z+xvVkP/lchBR4OVRTImJ4DOjP8LBlGNfsY7MJokvxj5YhXONezDAS04pDQoLhfzd
+         QT/w==
+X-Forwarded-Encrypted: i=1; AHgh+RqYh6OSoBFUwtgT9rfHoQpmx4djOxZPAw+f0+8tgYdLoXHZonAqv1gvdnobB0E6iOxy4KaWTQpEQG+K8IY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kQWfdFHVqEi4o/+94Guzb23Qx+hrXasNuVcHVmAZilQWI6nJXU
+	JFGkJ94EfogXrgKi+7G4+onqgq7Q+1WwbtAWOXYeyf8XsTQvehzAY77mHWZYRilGxIBR6AhRTsg
+	cE3BQESpz8Es+A/tcdxIbaIPaCeuanoFVAj93KstyfTHO/jouJYQ9wgbLYt7c9aPksuw=
+X-Gm-Gg: AR+sD10auP4XbqnGpMA/RRB+MPBqctv8tmNlaxcFRjyvylUkOPPh4XkII1skvD53k29
+	+YNJJR1KObAp3bn7X5w28zcUHWLF6IK1FyFYnAjLE3zXRJ7g1nMstdpu6C88dBZQZXM27SFl3Dh
+	fSW3Zyeajmclm8+7phB9PdrWpvmpPy9ITGMtlD7SnLH+5ntY2zZEU3Zp7CFnlXfluAVLm9tRRn1
+	dlaeqB4EjrC35f05ab5gQXsWJs7csmDx0/mBbPPhDNJBynHVkOytLY7eYU2qQ1l/zu/rGfAzfef
+	+Ts0tqnPpk0lqx3TFirwj9/2ZfEAT2bkYJo8hGBqxnIN/GczZ0j4yegoMDLyMSNyAqy50k34BxM
+	RIUWKx94EOLvWkq5AYrRiPjqChFe1f0FtxpPfpuboi7EHAtZ0BkYrKs5COW0I6auFUI4XBdcjQe
+	uJpNhTOETJQ/ZXZapdsaSuQQ4=
+X-Received: by 2002:a17:902:d588:b0:2d7:1e07:4859 with SMTP id d9443c01a7336-2d74dbe40e6mr13925165ad.2.1787853112432;
+        Thu, 27 Aug 2026 10:51:52 -0700 (PDT)
+X-Received: by 2002:a17:902:d588:b0:2d7:1e07:4859 with SMTP id d9443c01a7336-2d74dbe40e6mr13924515ad.2.1787853112019;
+        Thu, 27 Aug 2026 10:51:52 -0700 (PDT)
+Received: from hu-hardshar-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3283d60d25esm23889316eec.4.2026.08.27.10.51.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 10:51:51 -0700 (PDT)
+From: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
+Date: Thu, 27 Aug 2026 23:21:07 +0530
+Subject: [PATCH v5 04/15] dt-bindings: clock: qcom,rpmhcc: Add Kuno RPMh
+ clock controller
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260827-kuno-soc-support-v5-4-6d47636a8f09@oss.qualcomm.com>
+References: <20260827-kuno-soc-support-v5-0-6d47636a8f09@oss.qualcomm.com>
+In-Reply-To: <20260827-kuno-soc-support-v5-0-6d47636a8f09@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Georgi Djakov <djakov@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Linus Walleij <linusw@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+        Radu Rendec <radu@rendec.net>, Robert Marko <robimarko@gmail.com>,
+        Guru Das Srinagesh <linux@gurudas.dev>,
+        Taniya Das <taniya.das@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-pm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-gpio@vger.kernel.org,
+        Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
+X-Mailer: b4 0.15-dev-47773
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787853069; l=902;
+ i=hardeep.sharma@oss.qualcomm.com; s=20260204; h=from:subject:message-id;
+ bh=PwVD29DtUH4dIGkOMbXE9qMjiF+K6OUxLIjMJeof/6o=;
+ b=624VoE6RT/CK7yFN44c4vo43lHBpjAc7wHgne3hVVyn8wYeeopVl6LTMwJWZJuoDMQFApxSf7
+ MCtWLZ/tVAvDZQGkWqsNg8O2BvuWsSs/K3ckjUs5KoziGaqjuojV5us
+X-Developer-Key: i=hardeep.sharma@oss.qualcomm.com; a=ed25519;
+ pk=IvwPDKA2xr6jWaCIBBY2ran/H0124QUzVfun+CtEikM=
+X-Proofpoint-ORIG-GUID: CZ2rb2TiZ9eEaxBpOMm3QCqjDFmCzUWl
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDE1MSBTYWx0ZWRfXzfwUUSyEa18X
+ Gg8gtE2dgG5MEN3IEA+/5dWsU2EXaF6MMczM6FFRKXKH3X60bL1xMZVkQJc157r5J3OUi/rOqqv
+ LsVrgoW1mOPZzVPXD8rqfxIMLyn46Fc=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDE1MSBTYWx0ZWRfXz7eZTaZzvRFl
+ tyyWHLe8RHqPSb3d7eoP2T0ZnXT5RrXkYffiHYYj3Gr874PEOTe693QsSwSRaAEyLYTQ/Y4YDQT
+ 8wJo7E2IiygX/R1h1yhUiCfq4dViHqEJBLTgohiKKb4oTDBBof3zIUn+o8g6ZzDq+VBGuqM1g5C
+ S6IxT0B4ueNdUWoyoarHlpwpg5OATxS9uP+OeehqyTo+JGTFMqrlvyLKBUjk3Y2vw0H0bWU7Auw
+ jLOXAdUSsvAkpRBsHzF4sFiw/btKA0aR99CARAH2eAPcvEsWwc7NCbdKtr7V2zWw8JQ03sS/BWA
+ pwcbAuKByb4Q/B1ipB7rza8yC5dQotfV3NpK3tqXUgWyIck9/kHKR7MXIrejPNIW38XQWOYx1dC
+ SaEvKN/0tcHEj/WH1aGciTxIYGWVYX25T6ry2G17fiqyYkTwY7jO1ozrUIlg6D3hhI9TG7dP1eD
+ /pAJ1Nj6tbmKxaxWDEQ==
+X-Proofpoint-GUID: CZ2rb2TiZ9eEaxBpOMm3QCqjDFmCzUWl
+X-Authority-Analysis: v=2.4 cv=SomgLvO0 c=1 sm=1 tr=0 ts=6a907939 cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=VE4QQHX-7aIn0oL__EwA:9 a=QEXdDO2ut3YA:10
+ a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-27_07,2026-08-27_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 clxscore=1015 phishscore=0 spamscore=0 priorityscore=1501
+ suspectscore=0 bulkscore=0 impostorscore=0 lowpriorityscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608270151
 
-On Thu, Aug 27 2026 at 14:24, Thomas Gleixner wrote:
-> I'm actually tempted to move the posix timer cleanup _before_
-> de_thread() and just make sure that no new timers can be created anymore.
+Document the RPMh clock controller compatible for the Qualcomm Kuno SoC.
 
-Something like that:
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
+---
+ Documentation/devicetree/bindings/clock/qcom,rpmhcc.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
---- a/fs/exec.c
-+++ b/fs/exec.c
-@@ -1148,6 +1148,16 @@ int begin_new_exec(struct linux_binprm *
- 	 */
- 	bprm->point_of_no_return = true;
- 
-+	/*
-+	 * This sets SIGNAL_EXEC in current::signal::flags, which prevents new
-+	 * POSIX timers from being created and further POSIX timer signals from
-+	 * being queued. It also deletes all existing POSIX timers and flushs
-+	 * the corresponding signals from current's and the shared pending list.
-+	 */
-+	retval = signal_exec_start();
-+	if (retval)
-+		goto out;
-+
- 	/* Make this the only thread in the thread group */
- 	retval = de_thread(me);
- 	if (retval)
-@@ -1192,14 +1202,6 @@ int begin_new_exec(struct linux_binprm *
- 	if (retval)
- 		goto out_unlock;
- 
--#ifdef CONFIG_POSIX_TIMERS
--	spin_lock_irq(&me->sighand->siglock);
--	posix_cpu_timers_exit(me);
--	spin_unlock_irq(&me->sighand->siglock);
--	exit_itimers(me);
--	flush_itimer_signals();
--#endif
--
- 	/*
- 	 * Make the signal table private.
- 	 */
-@@ -1324,6 +1326,8 @@ int begin_new_exec(struct linux_binprm *
- 		}
- 		bprm->execfd = retval;
- 	}
-+
-+	signal_exec_done();
- 	return 0;
- 
- out_unlock:
---- a/include/linux/posix-timers.h
-+++ b/include/linux/posix-timers.h
-@@ -119,6 +119,7 @@ bool posixtimer_init_sigqueue(struct sig
- void posixtimer_send_sigqueue(struct k_itimer *tmr);
- bool posixtimer_deliver_signal(struct kernel_siginfo *info, struct sigqueue *timer_sigq);
- void posixtimer_free_timer(struct k_itimer *timer);
-+void posixtimer_flush_exec(void);
- long posixtimer_create_prctl(unsigned long ctrl);
- 
- /* Init task static initializer */
-@@ -146,6 +147,7 @@ static inline void posixtimer_rearm_itim
- static inline bool posixtimer_deliver_signal(struct kernel_siginfo *info,
- 					     struct sigqueue *timer_sigq) { return false; }
- static inline void posixtimer_free_timer(struct k_itimer *timer) { }
-+static inline void posixtimer_flush_exec(void) { }
- static inline long posixtimer_create_prctl(unsigned long ctrl) { return -EINVAL; }
- #endif
- 
---- a/include/linux/sched/signal.h
-+++ b/include/linux/sched/signal.h
-@@ -261,6 +261,8 @@ struct signal_struct {
- #define SIGNAL_STOP_STOPPED	0x00000001 /* job control stop in effect */
- #define SIGNAL_STOP_CONTINUED	0x00000002 /* SIGCONT since WCONTINUED reap */
- #define SIGNAL_GROUP_EXIT	0x00000004 /* group exit in progress */
-+#define SIGNAL_EXEC		0x00000008 /* exec in progress */
-+
- /*
-  * Pending notifications to parent.
-  */
-@@ -285,6 +287,24 @@ extern void ignore_signals(struct task_s
- extern void flush_signal_handlers(struct task_struct *, int force_default);
- extern int dequeue_signal(sigset_t *mask, kernel_siginfo_t *info, enum pid_type *type);
- 
-+static inline int signal_exec_start(void)
-+{
-+	scoped_guard(spinlock_irq, &current->sighand->siglock) {
-+		/* Is a group action in progress already? */
-+		if (current->signal->flags & (SIGNAL_GROUP_EXIT | SIGNAL_EXEC))
-+			return -EAGAIN;
-+		current->signal->flags |= SIGNAL_EXEC;
-+	}
-+	posixtimer_flush_exec();
-+	return 0;
-+}
-+
-+static inline void signal_exec_done(void)
-+{
-+	guard(spinlock_irq)(&current->sighand->siglock);
-+	current->signal->flags &= SIGNAL_EXEC;
-+}
-+
- static inline int kernel_dequeue_signal(void)
- {
- 	struct task_struct *task = current;
---- a/kernel/signal.c
-+++ b/kernel/signal.c
-@@ -1991,6 +1991,23 @@ void posixtimer_send_sigqueue(struct k_i
- 		return;
- 
- 	/*
-+	 * If the process is in the middle of exec(), don't queue signals as the
-+	 * posix timers of this process are not longer accessible and about to
-+	 * be removed. This prevents a race between queueing the signal on a
-+	 * exiting former thread group leader in case of a non-leader exec().
-+	 * Aside of that it makes no sense to queue anything now when it has to
-+	 * be flushed a split second later anyway.
-+	 *
-+	 * As this conditional is required just use the opportunity and check
-+	 * for a group exit too, where queueing signals is equally pointless.
-+	 *
-+	 * If the signal is already pending or on the ignore list, then nothing
-+	 * changes and the final posix timer and signal cleanup will handle them.
-+	 */
-+	if (unlikely(t->signal->flags & (SIGNAL_GROUP_EXIT | SIGNAL_EXEC)))
-+		goto unlock;
-+
-+	/*
- 	 * Update @tmr::sigqueue_seq for posix timer signals with sighand
- 	 * locked to prevent a race against dequeue_signal().
- 	 */
-@@ -2081,6 +2098,7 @@ void posixtimer_send_sigqueue(struct k_i
- 	result = TRACE_SIGNAL_DELIVERED;
- out:
- 	trace_signal_generate(sig, &q->info, t, tmr->it_pid_type != PIDTYPE_PID, result);
-+unlock:
- 	unlock_task_sighand(t, &flags);
- }
- 
---- a/kernel/time/posix-timers.c
-+++ b/kernel/time/posix-timers.c
-@@ -462,6 +462,24 @@ static int common_timer_create(struct k_
- 	return 0;
- }
- 
-+static bool timer_set_valid(struct k_itimer *new_timer)
-+{
-+	guard(spinlock)(&current->sighand->siglock);
-+
-+	/* If there is a group action in progress, fail */
-+	if (current->signal->flags & (SIGNAL_GROUP_EXIT | SIGNAL_EXEC))
-+		return false;
-+
-+	/*
-+	 * new_timer::it_signal contains the signal pointer with
-+	 * bit 0 set, which makes it invalid for syscall operations.
-+	 * Store the unmodified signal pointer to make it valid.
-+	 */
-+	WRITE_ONCE(new_timer->it_signal, current->signal);
-+	hlist_add_head_rcu(&new_timer->list, &current->signal->posix_timers);
-+	return true;
-+}
-+
- /* Create a POSIX.1b interval timer. */
- static int do_timer_create(clockid_t which_clock, struct sigevent *event,
- 			   timer_t __user *created_timer_id)
-@@ -552,20 +570,33 @@ static int do_timer_create(clockid_t whi
- 	 * sighand::siglock is required to protect signal::posix_timers.
- 	 */
- 	scoped_guard (spinlock_irq, &new_timer->it_lock) {
--		guard(spinlock)(&current->sighand->siglock);
-+		if (timer_set_valid(new_timer)) {
-+			/*
-+			 * After unlocking @new_timer is subject to concurrent removal and
-+			 * cannot be touched anymore
-+			 */
-+			return 0;
-+		}
-+
- 		/*
--		 * new_timer::it_signal contains the signal pointer with
--		 * bit 0 set, which makes it invalid for syscall operations.
--		 * Store the unmodified signal pointer to make it valid.
-+		 * A group exit or exec() is in progress. The timer has not been
-+		 * marked valid for syscall operations, so it can't be armed or
-+		 * firing and the sigqueue is guaranteed to be not queued
-+		 * anywhere.
-+		 *
-+		 * This still needs to invoke kc::timer_del() so that the
-+		 * underlying clock implementation can do their cleanups if
-+		 * required. E.g. POSIX CPU timers need to put the reference on
-+		 * timer::it::cpu::pid.
-+		 *
-+		 * As the timer cannot be firing kc::timer_del() cannot fail
-+		 * with TIMER_RETRY.
- 		 */
--		WRITE_ONCE(new_timer->it_signal, current->signal);
--		hlist_add_head_rcu(&new_timer->list, &current->signal->posix_timers);
-+		WARN_ON_ONCE(kc->timer_del(new_timer));
-+		/* Fall through and unhash the timer */
-+		error = -ESRCH;
- 	}
--	/*
--	 * After unlocking @new_timer is subject to concurrent removal and
--	 * cannot be touched anymore
--	 */
--	return 0;
-+
- out:
- 	posix_timer_unhash_and_free(new_timer);
- 	return error;
-@@ -1120,6 +1151,25 @@ void exit_itimers(struct task_struct *ts
- 	}
- }
- 
-+/* Invoked by the task which runs exec() via signal_exec_start() */
-+void posixtimer_flush_exec(void)
-+{
-+	/*
-+	 * Contrary to do_exit() don't invoke posix_cpu_timers_exit(). The
-+	 * timers are all mopped up in exit_itimers() right away and the
-+	 * SIGNAL_EXEC flag ensures that no new ones can be created.
-+	 */
-+	exit_itimers(current);
-+
-+	/*
-+	 * Now that all timers are gone flush queued POSIX timer signals in
-+	 * current::pending and current::signal::shared_pending. If this is a
-+	 * multi-threaded exec() then the other tasks will flush their
-+	 * task::pending signals in release_task().
-+	 */
-+	flush_itimer_signals();
-+}
-+
- SYSCALL_DEFINE2(clock_settime, const clockid_t, which_clock,
- 		const struct __kernel_timespec __user *, tp)
- {
+diff --git a/Documentation/devicetree/bindings/clock/qcom,rpmhcc.yaml b/Documentation/devicetree/bindings/clock/qcom,rpmhcc.yaml
+index 2b446aca5207..9d521ac9c33f 100644
+--- a/Documentation/devicetree/bindings/clock/qcom,rpmhcc.yaml
++++ b/Documentation/devicetree/bindings/clock/qcom,rpmhcc.yaml
+@@ -22,6 +22,7 @@ properties:
+           - qcom,glymur-rpmh-clk
+           - qcom,hawi-rpmh-clk
+           - qcom,kaanapali-rpmh-clk
++          - qcom,kuno-rpmh-clk
+           - qcom,milos-rpmh-clk
+           - qcom,nord-rpmh-clk
+           - qcom,qcs615-rpmh-clk
+
+-- 
+2.43.0
+
