@@ -1,208 +1,96 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47C9C30BF6B
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:47:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9F10361947
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:47:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787856458; cv=none; b=Yk0WeXv/XbSrruTRP/+C5h9AnuDxgDfQjGTJS8+EsZYiZYXFyrWq5a33q5EnIKmn0plQwFL+vr1+5ONo8fzI0R10kVy4Jj1cta9Ojzzn9Ix1ggVIoND3uAbmvcjrwEMtp2lAAcib4kSEOTd15sjGj1ddd9GigXPHGitLm6fQvPE=
+	t=1787856476; cv=none; b=VV/7lseGQVw1mmgdQhfibdz+uahC01mpsjZwqPX7oZWFjtPl08Ba/iVHTwxL2B9BNa5+c6XEFgJa6f0sBRsP9fNXca4JDiaIM08UPkfL6w1EMwjfjt9fE4SQuflxdkLb6MkqAy5nObqS5o1XsmjaCO0mPyQJl44+HamRyzPtV5k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787856458; c=relaxed/simple;
-	bh=s6TDNkQ3m5Ifn1QOQ+tRlAhnTRhRVstkHNNtZuESBYc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ky0mQ4IuVn4g3ZldgocGUPQV9NOfK6ZEdRE9X+nJhL7e4Dw1KtldigD9clPSiuIR/ECv/8sHBQARyvUmh3rERnmJhfrWJiENI1poQav9pkd0t3vJ8C+fe6XDXp8AEvTmQv03fq+nJViqSaHJ3tK3zjmaminxlW+rqOnvFn1Vmh0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=JPuqmhjK; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1787856476; c=relaxed/simple;
+	bh=jsgWk1VusxjuNYW8zxDP4dFWFs2R4p8/8pRdi3Q+A2c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IoQF7iOREySVtJ/HDVBF6xHNJEqE/7AGCUVANgz43F62jDflYErKH824Y9KuqCqPA2EUwPUnSEZP5b0SveBJuZDIBzRV9tVRhOUmAJJ0wRPh4NYFEuM/RHarIldbuv9lkwpyW36Xr7bvXbXMZeQgantmPgGafu4YoP7hIASwusw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=aJZy2zA6; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=EVhRsF9t; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="JPuqmhjK"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2cede6375caso21665ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:47:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787856457; x=1788461257; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8TWHy0fq0LlmFIRlDT3XzMY9bVByxWoJTpTIiV/A2Vg=;
-        b=JPuqmhjKG7loyaJfYdeMgvjAZlO1mM1YxE/2BrSknH2TZviGHx+bhqtbGxEhLiI7la
-         BfHOj9l0jnCrPr1acbxz1evgzKBuf93Ej8oBNsGM9yFdxy+PUARvFspdFHYHABHlQ8KH
-         n+0HTY6EgFDL2hF3NObjbdKL3F37AWyFOcxUrGqqW1GcRKihGVhciBSdz4qwTPxZLBbT
-         O4mS1+x5jO0ynONu1YRvB1sFLzzghXTeRlQtVDezU2smf9V3MkZhnOPRoDqP1wsf9lVd
-         s/G/Sng6rKFL4Ok+G5KDmuFo7spgwcrzQ/eqdW1+4YbMYgjNnHjSEW573Kmlf7/ByiQu
-         9S2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787856457; x=1788461257;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=8TWHy0fq0LlmFIRlDT3XzMY9bVByxWoJTpTIiV/A2Vg=;
-        b=Gu6IL3onJFtbHGOPj1ymKPt5aFuqydRogEhxbGXblBfJ7dYZK+PLb6kG3hWBRZSO1F
-         rA/hxLulnSYSExvZFyFkGMeiHDC1LoxXXbUyASBGh4hbSh9x1ZwEvcir6an8g4MQRnRz
-         XH3OcxB/wrWmofXNyOkXRbA7ZaknGebgYaC3xz5jO4O1BNnCiBYFEOHaa9H9DKgMyhEE
-         m/WeNiDkNyN0YC4IQk3kHC+JlcqypIgAYVLFhKvGvH9xFW8Dbqtc2KwcK80wTFJgeatw
-         fzWiA4YPZ6dah4CekAUiBEP0uBYQjGPGzipq8C8x+9gbX1OoT9lvxnyy2MkkD2XbLUi8
-         yiTQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rpl/efW4LCorrblS6IJxPu9jgrEqXxwD5cpd5Y5YAdy2Da48XsnXoFQAtkPYgg5d8/iASYXO0gqFGdMWCg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mESEvgIVEpPQ+DNe+WcAQLaAyCYHvDsIxxDFpSRev/ks4VATJ7
-	nUV1VOuKQ8Em6UiGbneIc1sVeg6hAMq5P1X6fPz7Y5aeqClC/yiFhhQWvMsEIGdhQQ==
-X-Gm-Gg: AR+sD10qfpgu/Yx+3I0mv5WDR+nv/xy6g3sVEk5r/cdLuhtq5c36zir4r6y9X+GJ30w
-	BXqJijLn3Xbku01Ot0GfCEU9H5Edi68RF5MbMVPKOU65a9FUgYWCGD5GZeOXxXbkXZhdg58qf2j
-	ITi7B8VHnXUf1PFzBTFEU5M2aQKeSm3AmsdyP1a7zG2rFJLiV5yFQF9QRixNPS7BDxkReTD+b0e
-	8zj9x3EvhkoQzYbZGyNqdtIj7npkidbO1xf+ZrFQoZNezT5nHkxcZpnYhEiplLcdN2wWbOqTemq
-	5v2E9VKYkmK/91Canp24d9un1tHgWC5ju3E/wVTHE7FRm24PlP0hlgCmpFjTastSVr7BjHX/eag
-	gaJdtsP7HTLJF91sFPwwVkOolp6Y77UGoYEpAh+4FgbRTyNqmXnw6G1EzgqW4wfGOOAf9v+0Uq9
-	aMM3pmJHdBGjRWC4GEwqwhxSOaSpYb+GeR6lqufal0Vr7pkU+nLuFcjWKXapqTGky+cBXHInEMf
-	mqFEDPKmPeV2KF7cdVYTzir4fTTaC4GopuaMt7QGb7H3gsVhzgow/lsLq8=
-X-Received: by 2002:a17:903:2c10:b0:2d5:db3d:1a41 with SMTP id d9443c01a7336-2d74f558e45mr1373495ad.14.1787856456011;
-        Thu, 27 Aug 2026 11:47:36 -0700 (PDT)
-Received: from google.com (210.87.127.34.bc.googleusercontent.com. [34.127.87.210])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85359cd5eb4sm2424811b3a.11.2026.08.27.11.47.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 11:47:35 -0700 (PDT)
-Date: Thu, 27 Aug 2026 18:47:31 +0000
-From: Samiullah Khawaja <skhawaja@google.com>
-To: Baolu Lu <baolu.lu@linux.intel.com>
-Cc: David Woodhouse <dwmw2@infradead.org>, Joerg Roedel <joro@8bytes.org>, 
-	Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	Robin Murphy <robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>, 
-	Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, kvm@vger.kernel.org, Pratyush Yadav <pratyush@kernel.org>, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, David Matlack <dmatlack@google.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Pranjal Shrivastava <praan@google.com>, 
-	Vipin Sharma <vipinsh@google.com>
-Subject: Re: [PATCH v4 10/18] iommu/vt-d: Restore IOMMU state and reclaimed
- domain ids
-Message-ID: <apCC3xMkYkEyQRID@google.com>
-References: <20260808022723.3893618-1-skhawaja@google.com>
- <20260808022723.3893618-11-skhawaja@google.com>
- <5f8963c4-f6b1-44b3-ab2c-ed658822efb4@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="aJZy2zA6";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="EVhRsF9t"
+From: John Ogness <john.ogness@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1787856471;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=UJqk4J7gtiIPTsna8qIz1pQeIJREclVPjsaKykcmDxE=;
+	b=aJZy2zA6u/gxi2axTTOznlgoyd6OVZ4iIYGDFY9VSalZzHd7DvRzHS9lTH6ilfJ31HrSz4
+	ENzPG+zOIYVl0536qe1vQcztgwNGXfJeQ3qBxXyFqbxlfLroXR/Ihe+fu8uaRfGLI9dfn7
+	/fNQM1P7nKq9KDrwL5zuy1NocVqE5h8GorPeCNDNLWzc5E0kuexzCzvl5oKUKe53/eAR9r
+	YPWk3AHrJmwqvpnDwG/yLvXWzXCCCqiRUJ63e6vjUF1OH9eRPo9xXQkhkT7zxL7yVwuer+
+	/x2X6unyT+q+OaLdNojS8qcGqcrunNqRcrnNFd/PYSWALm1C2TUxx8WxK2G75w==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1787856471;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=UJqk4J7gtiIPTsna8qIz1pQeIJREclVPjsaKykcmDxE=;
+	b=EVhRsF9tmpL5ryEpbwfmcljlFS6RSu/3A9QWg9XBGe8y2nA8ypfwnBep2ciseP4RcP1HM3
+	+S+URdLznzLhz1Cw==
+To: Petr Mladek <pmladek@suse.com>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	"Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+	linux-kernel@vger.kernel.org,
+	Thomas Gleixner <tglx@kernel.org>
+Subject: [PATCH printk] printk/nbcon: Change nbcon_irq_work to IRQ_WORK_LAZY
+Date: Thu, 27 Aug 2026 20:53:38 +0206
+Message-ID: <20260827184750.203521-1-john.ogness@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <5f8963c4-f6b1-44b3-ab2c-ed658822efb4@linux.intel.com>
 
-On Thu, Aug 27, 2026 at 03:22:26PM +0800, Baolu Lu wrote:
->On 8/8/26 10:27, Samiullah Khawaja wrote:
->>During boot fetch the preserved state of IOMMU unit and if found then
->>restore the state.
->>
->>- Reuse the root_table that was preserved in the previous kernel.
->>- Reclaim the domain ids of the preserved domains for each preserved
->>   devices so these are not acquired by another domain.
->>
->>Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
->>---
->>  drivers/iommu/intel/iommu.c      | 111 +++++++++++++++++++------------
->>  drivers/iommu/intel/iommu.h      |   7 ++
->>  drivers/iommu/intel/liveupdate.c |  69 +++++++++++++++++++
->>  3 files changed, 144 insertions(+), 43 deletions(-)
->>
+For some platforms it is a problem to queue irq_work when entering
+cpuidle states. Since nbcon uses irq_work for waking the printing
+kthreads, any printk() calls when entering cpuidle states can lead
+to the affected hardware hanging. Tegra20 and Tegra30 are examples
+of such platforms. Avoiding raising the irq_work IRQ has shown to
+circumvent the problem.
 
-[snip]
+Change the nbcon_irq_work to be IRQ_WORK_LAZY, thus not raising
+an IRQ upon irq_work queuing. The irq_work is then handled on the
+next interrupt (worst case, kernel tick). This additional delay is
+acceptable because nbcon_irq_work is only responsible for
+non-emergency deferred printing, which is delayed anyway. This also
+has the benefit of not needing to raise an IRQ for each printk()
+call.
 
->>+
->>+static int _restore_used_domain_ids(struct iommu_device_ser *ser, void *arg)
->>+{
->>+	int id = ser->domain_iommu_ser.attachment_id;
->>+	struct iommu_hw_ser *iommu_hw_ser;
->>+	struct intel_iommu *iommu = arg;
->>+
->>+	if (WARN_ON(!ser->domain_iommu_ser.iommu_phys))
->>+		return 0;
->>+
->>+	iommu_hw_ser = phys_to_virt(ser->domain_iommu_ser.iommu_phys);
->>+	if (iommu_hw_ser->type != IOMMU_INTEL)
->>+		return 0;
->>+
->>+	/* Only allocate domain ID from associated IOMMU HW unit */
->>+	if (iommu_hw_ser->intel.phys_addr != iommu->reg_phys)
->>+		return 0;
->>+
->>+	/*
->>+	 * This can fail as multiple preserved devices can share the same domain
->>+	 * ID. Since this is done during DMAR init so these failures can be
->>+	 * ignored.
->>+	 */
->>+	ida_alloc_range(&iommu->domain_ida, id, id, GFP_ATOMIC);
->
->This mixes two different cases:
->
->- another preserved device has already reserved the same DID.
->- the DID is not reserved because ida_alloc_range() failed (for example,
->  memory allocation failure).
->
->Case #1 is expected. Case #2 must not be ignored, because it means
->restore failed. So this should probably be something like (not tested):
->
->	mutex_lock(&iommu->did_lock);
->	if (ida_find_first_range(&iommu->domain_ida, id, id) >= 0)
->		BUG_ON(ida_alloc_range(&iommu->domain_ida, id, id, GFP_KERNEL) < 0)
->	mutex_unlock(&iommu->did_lock);
+Link: https://lore.kernel.org/lkml/f3757a75-0ba1-4558-bf57-f19ab7e59a4c@nvidia.com
+Fixes: 76f258bf3f2a ("printk: nbcon: Introduce printer kthreads")
+Signed-off-by: John Ogness <john.ogness@linutronix.de>
+---
+ kernel/printk/nbcon.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-This is a good point, I will update this. Actually, I was thinking of
-adding a new struct in the preserved state that represents the
-association between domain-iommu-device. All the drivers have this, so
-it is better to have a representation of this. Let me evaluate that.
->
->?
->
->By the way, why GFP_ATOMIC here at all?
+diff --git a/kernel/printk/nbcon.c b/kernel/printk/nbcon.c
+index a5921a84a80ed..ad79e30afd647 100644
+--- a/kernel/printk/nbcon.c
++++ b/kernel/printk/nbcon.c
+@@ -1782,7 +1782,7 @@ bool nbcon_alloc(struct console *con)
+ 	}
+ 
+ 	rcuwait_init(&con->rcuwait);
+-	init_irq_work(&con->irq_work, nbcon_irq_work);
++	con->irq_work = IRQ_WORK_INIT_LAZY(nbcon_irq_work);
+ 	atomic_long_set(&ACCESS_PRIVATE(con, nbcon_prev_seq), -1UL);
+ 	nbcon_state_set(con, &state);
+ 
 
-Will update as you suggested.
->
->>+	return 0;
->>+}
->>+
->>+/**
->>+ * intel_iommu_liveupdate_restore_root_table() - Restore root table and reclaim domain IDs
->>+ * @iommu: Target IOMMU
->>+ * @iommu_ser: Serialized IOMMU hardware state from previous kernel
->>+ *
->>+ * Restores the preserved root table and context tables for the IOMMU hardware
->>+ * instance across Live Update, and reclaims all domain IDs previously allocated
->>+ * to preserved devices so they are not reused.
->>+ */
->>+void intel_iommu_liveupdate_restore_root_table(struct intel_iommu *iommu,
->>+					       struct iommu_hw_ser *iommu_ser)
->>+{
->>+	if (!iommu_ser->intel.restored)
->>+		iommu_restore_pages(iommu_ser->intel.root_table);
->>+
->>+	iommu->root_entry = __va(iommu_ser->intel.root_table);
->>+
->>+	if (!iommu_ser->intel.restored)
->>+		restore_iommu_context(iommu);
->>+
->>+	iommu_ser->intel.restored = 1;
->
->This uses iommu_ser->intel.restored to prevent restoring the root and
->context tables multiple times. For this to work safely, iommu_ser-
->>intel.restored must be 0 the first time restore runs after kexec.
->
->The problem is: this field is inside struct iommu_hw_ser, and that
->struct is allocated in the old kernel. How to ensure that the previous
->kernel has zeroed this out? Maybe I’m overthinking this.
+base-commit: ffe0486b139e45cd9c9ca2584f04a1910fe4f8a6
+-- 
+2.47.3
 
-This is a valid point. However, the old kernel allocates this struct
-with GFP_ZERO and it never touches the restored field prior to kexec.
-So it should be zero in the new kernel.
->
->>+	BUG_ON(iommu_for_each_preserved_device(_restore_used_domain_ids, iommu));
->>+}
->>+
->>  /**
->>   * intel_iommu_preserve_device() - Intel IOMMU callback to preserve device state
->>   * @dev: Target device
->
->Thanks,
->baolu
-
-Thanks,
-Sami
