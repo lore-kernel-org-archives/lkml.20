@@ -1,137 +1,124 @@
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CC8E33D4E4;
-	Thu, 27 Aug 2026 23:08:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F147D3D9025
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 23:08:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.41
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787872083; cv=pass; b=VzZlxztktM2rVTDKW5DiKCbp3HRXUYcUZ1lkD8QN/+++D0RX2tzIm0Dx6IQMe+3oLzLcudO1JEkVWObEFfJ3EOySTJqMl0+EI7gB9lbqZZLmNG2UCsF+t6GubmXtzPIcjDmN/jJdYDrj6fk3mAD3SWDHU6eEmcVaCsCUK1CMGwk=
+	t=1787872134; cv=pass; b=dw+Ky/uycCzFhLQP4uce3xAsnN/9HYseW8Am9marWCJhAgF6dTpbt2KVpm8EN6TSZ770y6vZ07eiAO3OIeuuI0RkQzKzcJT62kRZb4SIzQOMgkIAC3RtOFa+B0uBLZFb26HsQ/IrxVegrlJSoYyb1CVjZmdUtfO1GxawRdMAxJ8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787872083; c=relaxed/simple;
-	bh=JN3rSnKGqqfDq/eQLtVOB8blkZVlaaGIGUYSZdLukz0=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=BKYzIqdprR0dt6WjjAakFQkkG38lFvtIGkpYQnwfA7vm0HyvMWmDRAI3LEH5ZUzTYxWiU0Vb5BP4nLAB+4XqBphSdF1CqB8+/m3y38Gcp8JGU4h2aOnfWBdwzUNgMt4yqKwMMHLau7JHx0xrLDibEv7oCse2phrLVr2MqCqws8Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b=a5WONbZ9; arc=pass smtp.client-ip=136.143.188.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1787872134; c=relaxed/simple;
+	bh=QE5r8Hefclm76uVhId1kbMmsj7Fs1WnSDJQ72lFByhs=;
+	h=From:MIME-Version:Date:Message-ID:Subject:To:Cc:Content-Type; b=DqNIkppfVi2lZGJV35md5nI/2nPpB6mmVKpgbor+SOf0+ymh3h3ehBrYIi/ZdLxRxdvbCblWS57lXFC7YbZX4ORARGmXyZxEtccSUhfsoYLxvni2VUm4NaNPzqEjYfC7XeMJSWaeUcGh1FaWvKf2IBQ1MVPv4CH+R/26OtcT230=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu; spf=pass smtp.mailfrom=berkeley.edu; dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b=MzrwqrSM; arc=pass smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berkeley.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="a5WONbZ9"
-ARC-Seal: i=1; a=rsa-sha256; t=1787872055; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=UB0UsIC6SHTKqP5ChI+TmVTJV7ZOcBxq239G2/ARTA0WIUuCaU4GVOyR6HlUJXNz9a02Qagqkol8ndI2ZnmR3nTMuO8k60vtSE/N/1d8nUPITWkbwPtDg3PgtLBOgGQrflbNZRhb+IuhpxLB/64MKKqgO9fxCH76kAOV09+Q1Ns=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1787872055; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=iLWnyVnmxOQ+B7kTcDs1wmKhTGpUrtmBx77S2Imtshc=; 
-	b=dhVlQAYSvC6TfRk1EXpzr4dhlUs0AlwmXVQ3MtHhwVaCHw3UHjXYaYqTCrHuhXqdWo3kwd6Bg65RT8JwcByjxv097+O6XWDCoJwNArUNcTJNv81gx2pC8SRgLZjLigzsq0NOi1iYwdYzClK/cUVjgJ4Kt+n2f0JViS2brmcWFsk=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
-	dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787872055;
-	s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
-	h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
-	bh=iLWnyVnmxOQ+B7kTcDs1wmKhTGpUrtmBx77S2Imtshc=;
-	b=a5WONbZ93sBitwOhLCJyJmHS6qGMS29PFxJ6lNjDP65y2zWGXICSEtJq4eBosL8S
-	TAqO83vJNgY5qfmCArwCiggttp0f/XBdwMDwz6I1X9uvEhB0OIaTIkiHuB58aLRAZEi
-	h8Nxjd7ySHpFMPlXu+13CniTxjwhyt2o/XiyeiBg=
-Received: by mx.zohomail.com with SMTPS id 1787872053915579.0836722582136;
-	Thu, 27 Aug 2026 16:07:33 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
+	dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b="MzrwqrSM"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-383b4a3755fso572051a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:08:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787872132; cv=none;
+        d=google.com; s=arc-20260327;
+        b=fr35BUOvPsiWn7utlWMZ/mt0D0Rilyq+mKlzrQSlMkwjF5Nb1xUjUBd8KMNWRa1cD/
+         jwNene91SCzIOYY2CxTqnpUcs7PIYkDCCWJIh7alVr9ARkVY2Qv7WSYxlO48z/nmDoDq
+         ggp6mseKHUOVKAyGcCaDD8mCCc+9dHhARJrJMCDLH9KLSQ5YdVVXYbyE0ivlRKNlvoxQ
+         xCaRHAa3ud0Xl9x4AqUNek2AtUV6JxXwD5deTqN94Pbh+Sagosz6XgDYzo/xHP81GwiB
+         losgKRnxiPui0E9/8QbC+DwTgHsUi6arxKJScSt1EcWTWevRXt+AMiXZlH8H22Y9UFya
+         Z/9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
+        bh=JdtPX2uer4IOAQhgeqeDxfMKbOSrBGipE39HlDMAV7Y=;
+        fh=fkH+W/SWFpb6e2eYLP+Xmk3/HhQAoqMv0QYjJe7LEXI=;
+        b=WPt+IADXwK/392Gl8Pq55LikJGlE/eeRG+dSoxtM0dYNKrZgejLtjcRZ6dLP784iLP
+         +8qhaHfpJvns4ekKXYxeHuKhNK5HRczzx15QLNqj7KCf23lBaW6vQfhWyRYv6DjryUSg
+         8Dk+/ZZFMZ+gRsaBYrXf7tJ66ujcNagQP6L9T03ihDv7vYD9bYdsoTkohBgPgGbxdmfa
+         64M17JWBgjQjRsIE1rKVqpqd39ND1j68k3OiLLViBBd1rj/a34ibdMRbbm58sSihJ8Nn
+         tDrSjpRSBRqZpcaKN2V1N4H0uUeAAedRAarE7ojUa8MBkg2QRyCoZhMus6dof3zeN/Z4
+         57hQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=berkeley.edu; s=google; t=1787872132; x=1788476932; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JdtPX2uer4IOAQhgeqeDxfMKbOSrBGipE39HlDMAV7Y=;
+        b=MzrwqrSMJuh1MCLtMwBFoLtEj8HIT2tiVoE4pFY5qBN/YJW+qjRRpA3WDjqyrFc+wc
+         uZUGzc8k+VHe/SA7RE2JfnKPh66Zg8N9SPLJrkb8Gi1gpvscxjMZ6K1E0hBvtsEmlp7n
+         +NBoWrjFREqpUAixvJOHJpVXz+8/8sh6CIWiPiVQEEk7XGezwJTzqmHullWeEL2UpMQR
+         YDlD70oq+N+ZDrU9E+0XlZ3018QL0nOPrO3TBYP7etEp4l1cOO9ldkSltDUWh3RVXWhZ
+         8EMQGmNeR0Ya0Ma5fivmIpPZdClK/audSCbdY/v3tLXJ8UDm1dpVsvhKuJJJ6Gumkc3Z
+         1dlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787872132; x=1788476932;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=JdtPX2uer4IOAQhgeqeDxfMKbOSrBGipE39HlDMAV7Y=;
+        b=tWxTaD+IiHmyEsNAK8eJJP8NEvzm8IczhuAbj2pq05ofCBntJ1Ra7gpvdySwi+hvo9
+         IkMhu+qRsYqYzNYHOdoiFxQSobTygYbRc3qMnkVwBU67aXBoL/Dk5gKyiGRUiq71oMlQ
+         10WWs0nSo2le7I3RsJ+W3FsjNi/bBP1s64PST0REdiW41eqsSQpDRwU66MV9hCtnKuMi
+         r7+3TvuTN+4HqMoNxixJ/1P0oMX0J2ne/hSb6k0glb6g8w4/di7xIf28cLjnxtk/5vAH
+         EEzSfAgitg3ckz1E669sfkKJMpftGrBu/xyxM0UOMKT8IF/za+VhH1r3VMcM+/x/gNpj
+         NaZg==
+X-Forwarded-Encrypted: i=1; AHgh+Rq1npOjRUdJJJYpUhVk9B15fKSmyznD6yHc0yQogdFo7toiON1+rzUdl3nJaxt7679HK2+z+0KP22JDftg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mt7KQ82YBb3I6vd3aHHKEgvJFbcY6tBLIYd5/mx7qWzI0y13kr
+	3eIm2ZzNzPPLll1xcbONlxxYAhfYh5qtxaGwgjXWNs+i1yZM4Gashl5cFQG1VPRT1T/HPZU+DiN
+	Dzg/bG2OjpUwxJhey0yJ36zbxV/RCjVPrsjAh3+2hfu3Gbv5Jqsq3Tw==
+X-Gm-Gg: AR+sD13NL1eIIMtsZNBBCBMExOltuPMtsRTKasWrxJulw8iDai+0pMQaWk1xrztUB4e
+	Z0v06arB62KzIJaPuxg/k4S6PfKlcsDHANkBnR55sqW9/W6F7rwhr50gdr3EVuZyMnfwjc36tIG
+	C1vcH9YS43ih7k6nEDX1C4ymieXDY61LBdF6YV5G8luCULs7BidgosdGdzdsLNhoujOaGKjM0HN
+	GA/CgfcR+G3M08U9HIpPpaDlXjMS9bQYe4faqhM8p6uaM3EQdGzLD/Iyu6BCRCo19iqvNRDfHKe
+	y3/TnJJpFok+myiBIdMmqxL6so6sYTvcYKoZ6a2ha1qpRhDe5jj1HfWQRRoGarGrqfI7tNGrgbz
+	T1xtS38ARvx0p0gnY1oU34ClIUC/RuOyX
+X-Received: by 2002:a17:90b:39ac:b0:38e:6f90:eabd with SMTP id
+ 98e67ed59e1d1-396d0ea5451mr3577011a91.5.1787872131206; Thu, 27 Aug 2026
+ 16:08:51 -0700 (PDT)
+Received: from 474444807712 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 27 Aug 2026 23:08:50 +0000
+Received: from 474444807712 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 27 Aug 2026 23:08:50 +0000
+From: Farhad Alemi <farhad.alemi@berkeley.edu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
-Subject: Re: [PATCH v2 6/6] rust: workqueue: add ScopedWork for non-'static
- work items
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <20260807165252.3849875-7-dakr@kernel.org>
-Date: Thu, 27 Aug 2026 20:07:16 -0300
-Cc: tj@kernel.org,
- jiangshanlai@gmail.com,
- aliceryhl@google.com,
- ojeda@kernel.org,
- boqun@kernel.org,
- gary@garyguo.net,
- bjorn3_gh@protonmail.com,
- lossin@kernel.org,
- a.hindborg@kernel.org,
- tmgross@umich.edu,
- tamird@kernel.org,
- acourbot@nvidia.com,
- work@onurozkan.dev,
- jhubbard@nvidia.com,
- rust-for-linux@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- driver-core@lists.linux.dev
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <62F91620-6211-46BD-8095-4655726D52A2@collabora.com>
-References: <20260807165252.3849875-1-dakr@kernel.org>
- <20260807165252.3849875-7-dakr@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>
-X-Mailer: Apple Mail (2.3826.700.81)
-X-ZohoMailClient: External
+MIME-Version: 1.0
+Date: Thu, 27 Aug 2026 23:08:50 +0000
+X-Gm-Features: AcwNN1VbtQ_TKORfhlFpdsm_n8MBcq9xHZjdMpqeltBevAURlMvwXQR-2yvryik
+Message-ID: <CA+0ovCjUB=g+56ZCrT4MPfWjqBJX_CO=vfp12JLOrh7B53uVWQ@mail.gmail.com>
+Subject: [BUG] ksmbd: use-after-free on iface_list from the netdev notifier
+To: Namjae Jeon <linkinjeon@kernel.org>, Namjae Jeon <linkinjeon@samba.org>, 
+	Steve French <smfrench@gmail.com>, Steve French <sfrench@samba.org>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>
+Cc: falemi@asu.edu, linux-cifs@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
->=20
-> /// Creates a [`Work`] initialiser with the given name and a =
-newly-created lock class.
-> #[macro_export]
-> @@ -283,23 +289,39 @@ pub unsafe fn from_raw<'a>(ptr: *const =
-bindings::workqueue_struct) -> &'a Queue
->     /// This may fail if the work item is already enqueued in a =
-workqueue.
->     ///
->     /// The work item will be submitted using `WORK_CPU_UNBOUND`.
-> +    #[inline]
->     pub fn enqueue<W, const ID: u64>(&self, w: W) -> W::EnqueueOutput
->     where
->         W: RawWorkItem<ID> + Send + 'static,
-> +    {
-> +        // SAFETY: `W: 'static` guarantees the work item remains =
-valid indefinitely,
-> +        // so the `enqueue_scoped` requirement that the work item =
-stays valid until
-> +        // the work function runs (or is cancelled) is trivially =
-satisfied.
-> +        unsafe { self.enqueue_scoped(w) }
-> +    }
-> +
-> +    /// Enqueues a work item that may not be `'static`.
-> +    ///
-> +    /// Unlike [`Queue::enqueue`], this does not require the work =
-item to be `'static`.
-> +    ///
-> +    /// The work item will be submitted using `WORK_CPU_UNBOUND`.
-> +    ///
-> +    /// # Safety
-> +    ///
-> +    /// The caller must ensure that the work item's destructor runs =
-before any
-> +    /// lifetime it captures expires (i.e., the work item must not be =
-forgotten).
+Hello Namjae Jeon, Namjae Jeon,
 
-It seems like this requirement is due to cancel_work_sync(). But what =
-happens
-if the item is enqueued with enqueue_scoped() on two work queues
-simultaneously? Would cancel_work_sync() wait for both queues?
+While fuzzing Linux 7.1-rc5 with syzkaller, as part of research at ASU's
+SEFCOM lab, we hit the crash below. Crash reports can be found here:
 
-Docs seem to warn against it, IIUC?
+  https://github.com/farhad-alemi/public_bug_reports/tree/main/117-ksmbd-unlocked-iface_list-uaf-netdev-event/
 
-"Cancel work and wait for its execution to finish. This function can be =
-used
-even if the work re-queues itself or migrates to another workqueue. On =
-return
-from this function, work is guaranteed to be not pending or executing on =
-any
-CPU =E2=80=94> as long as there aren=E2=80=99t racing enqueues. <=E2=80=94=
-"
+  refcount_t: addition on 0; use-after-free.
+  WARNING: lib/refcount.c:25 at refcount_warn_saturate+0x9f/0x110
+lib/refcount.c:25, CPU#1: kworker/u8:3/9983
+  Modules linked in:
+  CPU: 1 UID: 0 PID: 9983 Comm: kworker/u8:3 Not tainted 7.1.0-rc5 #1
+PREEMPT(full)
+  Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS
+1.16.3-debian-1.16.3-2 04/01/2014
+  Workqueue: netns cleanup_net
+  RIP: 0010:refcount_warn_saturate+0x9f/0x110 lib/refcount.c:25
+  Code: eb 66 85 db 74 3e 83 fb 01 75 4c e8 db 45 27 fd 48 8d 3d 04 03
+1a 0b 67 48 0f b9 3a eb 4a e8 c8 45 27 fd 48 8d 3d 01 03 1a 0b <67> 48
+0f b9 3a eb 37 e8 b5 45 27 fd 48 8d 3d fe 02 1a 0b 67 48 0f
 
-> +    #[inline]
-> +    pub unsafe fn enqueue_scoped<W, const ID: u64>(&self, w: W) -> =
-W::EnqueueOutput
-> +    where
-> +        W: RawWorkItem<ID> + Send,
->     {
+Our reproducer.c is available upon request.
 
+Happy to test a patch if that would help.
+
+Regards,
