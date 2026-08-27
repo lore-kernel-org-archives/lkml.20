@@ -1,123 +1,110 @@
-Received: from mta1.migadu.com (out-236.mta1.migadu.com [95.215.58.236])
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB5B533F5BE
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:07:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.236
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E070F33F5BE
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:07:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787814429; cv=none; b=ddFQL5IeyfLxUiuN1WQoNj5HFq9gYmktLWqwHcsOlXkHyMYdP1Jy2wa+CUmOMLxv6V90M/0CGqD3UKUua08UzpT3JoAx4f2yAjt7F39VQSKpdnfSI8qOlRjF+bcxtR50Ot9JslhBMR0im/tCifldlyNnFK/JecX+OC94cifIwaA=
+	t=1787814441; cv=none; b=OMQ6/XromQ+DZAaYbqaiuEfQfsuI2yd9LPqto2Fe2xc8eYDgShmWi6W1rVFMA7FXkjV3+vn5r7FEWOBdvTu/AXqK+d1mjqc0wwYKz04PKgjDGngNI11SN96Ny5vc42cW1JDj44A+QoGy4VNT4Dx2JGeB9KokEArj2kGLJ31Muko=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787814429; c=relaxed/simple;
-	bh=J/q53GV7BVk1Lr8b5iatkIuwYAEhyAk7tPRMPNXwllA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UHJ8hnaqjJ2A77XDidRF3thUXeX2bKWf0ZqV9D/DNHZE8YJPJ1wD8/8TU/mtwl4SRGZQ6KSdQYiPzj6TuBvfcM0eq399cfawmLi5cGFvExk1mvA7Tz0M4I1NmGGzCUPMi+XaRuJqRGDVXT6GN/UWZY08HMQncrFrJkRE34FSeiI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=L4S69/wD; arc=none smtp.client-ip=95.215.58.236
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787814441; c=relaxed/simple;
+	bh=frSre1v5Om1Mt9PRWv9NljklK2QQii8E839jlKyf2es=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=XwguHAGB52qqs9y3bEsMVfpHUbzndgQryvq1bNsVbUZ0sRtcmTBNmuJKEEmnlU2m18ykq1++7T+WMj7C9/wiVXKMbUUOeG5zRFV4fPR/7jR9DVhbDRp//YaLjqsrhFfo2cdO/8CFEmFCo2f6OMgrmVfA505ujcMMGm6DqjKjeAQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=SN6o4TFh; arc=none smtp.client-ip=209.85.128.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="L4S69/wD"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=J/q53GV7BVk1Lr8b5iatkIuwYAEhyAk7tPRMPNXwllA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787814425; v=1; x=1788419225;
- b=L4S69/wD4IkQsidrJ/tiAikm26LO0oiRSFb4clmp6g4zVuK/B3Dla/FRzmqb6skVHrCvzpDd
- S+BiZAVbFyQtZtY6yhwZ6BtRRZ4pk7kaYz0yA0sm1zQjoVV3UP6GiWUm3CR/qwBWPqDLN9HEKBt
- FBCdermIeqQnurznznQoo/o4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: from [IPV6:2408:820c:b608:6660:20e9:11e4:d882:2911] (2408:820c:b608:6660:20e9:11e4:d882:2911)
-	by smtp.migadu.com with ESMTPS id 8e5ec811f77e8d7d;
-	Thu, 27 Aug 2026 07:07:04 +0000
-X-Mizu-Trace-ID: 8e5ec811f77e8d7d
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <01794194-4a01-4725-ab41-282b8ac93d1f@linux.dev>
-Date: Thu, 27 Aug 2026 15:06:58 +0800
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="SN6o4TFh"
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-495569acf8dso7373605e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:07:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787814438; x=1788419238; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MdBlfvNYe443u9na/jxTiwQT1qyXEmR9O5lMoXJvQMg=;
+        b=SN6o4TFh+jKAKYstRJWDqEIVK19slEQZ2ixpUz+CIPm8dTWB8F7GiE8Q4UwJ4z4e4C
+         rGoxHDQr9h2RG4Cko+DUgZ6sOhNRSuiRp/USGAZ+lAnqkHhYnZLx21ltBFUeRhmnXEcA
+         QU9LGnWWzz1Wn5kNskJIpHyLPM4vsA1W7x4cVr4Rei1Y3/Ub/5hE49+CU/7yCOgQoOJR
+         On/v4aHYw5n74maflCi2voKtm0GLTvasVP7Y7Wtk/Lv5XeTTYR72kkvxia2QWsGjMdc1
+         Y3SX5UQxA9cViwgtH/dNUeRknElloXhUo51Tl4mKjaYrguFVTQ6osCyzXoAZ0KOOJlxy
+         8ubg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787814438; x=1788419238;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MdBlfvNYe443u9na/jxTiwQT1qyXEmR9O5lMoXJvQMg=;
+        b=oOtV8d8reh4QaWSoWIMLJwnw1KDXskS/VPxQYNeMLBMoReIjGBu/YAyBFG6RaVQR7g
+         qUDShO9mAlrJ/5cWPe0toaEXQgEYZEn0hJeRa+KHQd2HLm43/qTQMHqmqeAaytQ8QJiL
+         wYZ+wpWBdQjZq3eOz6lLYziRrJbrLcs5/s/OB2zqgbyiNxRQC05EfpRZufqWVhQix9+l
+         haZZmHjC8FFLfyyeqDRM2HgPeZDPh5DJyLq0prd8gmo7+b1aeIjtW4CHwdH5z5tDeKXl
+         zOmneDufaX4Pl5ccXScNuAf78xyRyZ309ha9nx2JFWTwPSoQTko1fCXvVicO2fDchL/L
+         wZ6A==
+X-Gm-Message-State: AFuF++kPN9vTN8qytLTMnA3SUznIXezGIiiMnU0Bnj04DUpWvg+SdRBi
+	NHXGh+OG06skbr1lJIvaLY5o2lVESn1bu75BYs+T830gyMXPhwGmaicW8Vz9+BpYGRiUUhGXTuQ
+	QYrR27Cp689t7KuhUwQ==
+X-Received: from wmdp22.prod.google.com ([2002:a05:600c:5d6:b0:49b:1255:efaf])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:8b5b:b0:495:4d5c:903e with SMTP id 5b1f17b1804b1-499dc703474mr121726535e9.7.1787814437822;
+ Thu, 27 Aug 2026 00:07:17 -0700 (PDT)
+Date: Thu, 27 Aug 2026 07:07:16 +0000
+In-Reply-To: <20260825161712.41471-1-scadastrangelove@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net: fix refcnt_tracker use-after-free on netns
- creation failure
-To: Eric Dumazet <edumazet@google.com>,
- Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>
-Cc: netdev@vger.kernel.org,
- syzbot+d3f912a2e30e2079a512@syzkaller.appspotmail.com,
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Christian Brauner <brauner@kernel.org>, Kuniyuki Iwashima
- <kuniyu@google.com>, Jan Kara <jack@suse.cz>,
- Qiliang Yuan <realwujing@gmail.com>, Jeff Layton <jlayton@kernel.org>,
- linux-kernel@vger.kernel.org
-References: <20260827052219.290380-1-jiayuan.chen@linux.dev>
- <CANn89iKK5jxVa34F7QMPjp5wormMQrZgoK4THJCqVp76Tw1NNA@mail.gmail.com>
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-In-Reply-To: <CANn89iKK5jxVa34F7QMPjp5wormMQrZgoK4THJCqVp76Tw1NNA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260825161712.41471-1-scadastrangelove@gmail.com>
+Message-ID: <ao_iJG-f8707OjL9@google.com>
+Subject: Re: rust_binder: use KVVec for files_to_translate
+From: Alice Ryhl <aliceryhl@google.com>
+To: scadastrangelove <scadastrangelove@gmail.com>
+Cc: linux-kernel@vger.kernel.org, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	"Arve =?utf-8?B?SGrDuG5uZXbDpWc=?=" <arve@android.com>, Todd Kjos <tkjos@android.com>, 
+	Christian Brauner <christian@brauner.io>, Carlos Llamas <cmllamas@google.com>
+Content-Type: text/plain; charset="utf-8"
 
+On Tue, Aug 25, 2026 at 07:17:12PM +0300, scadastrangelove wrote:
+> From: Sergey Gordeychik <scadastrangelove@gmail.com>
+> 
+> The num_fds value in a binder_fd_array_object is bounded by the
+> transaction buffer. However, its in-kernel metadata is larger than the
+> u32 array on the wire.
+> 
+> On 64-bit systems, FileEntry occupies 24 bytes. About 900,000 entries
+> therefore make files_to_translate request roughly 20.6 MiB of
+> physically contiguous memory, triggering a warning in
+> __alloc_frozen_pages_noprof.
+> 
+> translate_fds() later allocates Reservation entries from the same
+> count. At 16 bytes per entry, this requires another 13.7 MiB contiguous
+> allocation.
+> 
+> Neither vector requires physical contiguity. Use KVVec for both so
+> large allocations can fall back to vmalloc.
+> 
+> Keep close_on_free as KVec because its u32 storage matches the wire
+> representation and does not reach the allocation sizes above.
+> 
+> Tested under QEMU/KVM. The 900,000-entry reproducer no longer triggers
+> a page allocator warning, and a 300,000-entry transaction that repeats
+> one valid fd reaches translate_fds() without WARN or BUG.
+> 
+> Suggested-by: rust-in-peace agentic pipeline
+> Signed-off-by: Sergey Gordeychik <scadastrangelove@gmail.com>
 
-在 8/27/26 2:56 PM, Eric Dumazet 写道:
-> On Thu, Aug 27, 2026 at 7:22 AM Jiayuan Chen <jiayuan.chen@linux.dev> wrote:
->> The copy_net_ns() error path tears the net down via net_passive_dec(),
->> which only exits notrefcnt_tracker. refcnt_tracker is exited in
->> __put_net(), which this path never reaches, so it is left alive.
->>
->> Since ref_tracker_dir_init() started registering a debugfs file per
->> dir, that file must be dropped by ref_tracker_dir_exit(). The missing
->> exit leaves the file pointing at the freed net, so reading it walks
->> net->refcnt_tracker.lock and hits a use-after-free.
->>
->> The missing exit has been there all along, but before the debugfs file
->> refcnt_tracker was just an in-memory ledger and empty on this path, so
->> skipping it leaked nothing and did no harm. Only the commit below, which
->> gives every dir a debugfs file, turned it into a use-after-free, so
->> Fixes points there.
->>
->> Exit refcnt_tracker on the failure path.
->>
->> Fixes: 65b584f53611 ("ref_tracker: automatically register a file in debugfs for a ref_tracker_dir")
->> Reported-by: syzbot+d3f912a2e30e2079a512@syzkaller.appspotmail.com
-> Missing `Closes:` tag makes analysis cumbersome.
->
->> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
->> ---
->>   net/core/net_namespace.c | 4 ++++
->>   1 file changed, 4 insertions(+)
->>
->> diff --git a/net/core/net_namespace.c b/net/core/net_namespace.c
->> index a91d2b58aadd..0c3f169d9afb 100644
->> --- a/net/core/net_namespace.c
->> +++ b/net/core/net_namespace.c
->> @@ -591,6 +591,10 @@ struct net *copy_net_ns(u64 flags,
->>                  key_remove_domain(net->key_domain);
->>   #endif
->>                  put_user_ns(user_ns);
->> +               /* setup_net() failure is not routed through __put_net(), so the
->> +                * refcnt_tracker (and its debugfs file) has to be released here.
->> +                */
->> +               ref_tracker_dir_exit(&net->refcnt_tracker);
->>                  net_passive_dec(net);
->>   dec_ucounts:
->>                  dec_net_namespaces(ucounts);
-> I am a bit confused. I thought this was already discussed and fixed by
-> Tetsuo Handa?
->
-> f85dc137aabf ("net: add missing ref_tracker_dir_exit() to net_passive_dec()")
-> should be fixing this?
+A few things. One it looks like you're missing [PATCH] in the email
+title. Also, as checkpatch points out, Suggested-by must be an email
+address.
 
+Also, should the close_on_free vector also be a KVVec?
 
-Thanks Eric, now I find it it in net tree. I should anylyze it base net 
-tree not net-next.
+Otherwise this looks good to me.
 
-Please ignore my patch.
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
 
-
-pw-bot:cr
-
-
->
-> Tetsuo also followed up with 3220b62fbb8a  ("net: fix a resource leak
-> in copy_net_ns() error handling path").
+Alice
