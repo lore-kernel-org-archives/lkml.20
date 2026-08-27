@@ -1,24 +1,24 @@
-Received: from mta1.migadu.com (out-150.mta1.migadu.com [95.215.58.150])
+Received: from mta0.migadu.com (out-224.mta0.migadu.com [91.218.175.224])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AFFE43B3CC
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:46:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.150
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCA593B19B4
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:46:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.224
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787823975; cv=none; b=Sv302d1fxjXyT3adTFdv+Zu8QCAMNPWCFNqca+MqBBcsyW9Wo+bBdDCraNh5PhrxO3DeamvXqCJx/y+/zBLbDYWNfgqzCUnKIs27AE3VpIbWVMwK/QGMrJ7tuIFm2VC7h/TgaDL2e1/WKn4/GLG7Ws2NQNYx5KMMrH2om4BkmLM=
+	t=1787823984; cv=none; b=CKYR+X466MGKAFn0mCm8+zLd53Sj7TnY/nKIxQYsMMVDtS4+UB+H2+7AxfRpMcBj9Fq2Ttb6ckvX/53tXY+pNi1oSKULfdcbZB9hNyVeaCnADQ9oJOuFHd/a7D8vPpEhqWj/Bkgb2UdLnRkCqnHA+4QTdzPPqjr3HVbVBRizTcQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787823975; c=relaxed/simple;
-	bh=SxYywDe3Iu0NSS2rwpnfD1i8VOZHWdZ/DIUSU0ZnM7s=;
+	s=arc-20240116; t=1787823984; c=relaxed/simple;
+	bh=4QMaK8pIwefYllhl8tVYISrvD4szXPyY60gTjx6CwyM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-type; b=eDCVYJV0OW6g3j6bNUMF1BUQ7R3y0rKFKYQjfIWr38UTQaMx4moJyUyEiFQ5KZYgpNFCghMoRMnmUmJGsfsa7Gtgh+JoZFAADyFlOGoBhab60ZgyddBh1UcP0EDi/pd0ZYbMO4pHqn35Ypumfds+GzOPX33b4AKevGdq1i64Rxw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=linux.dev; arc=none smtp.client-ip=95.215.58.150
+	 MIME-Version:Content-Type:Content-type; b=UYveOvGBZqyHKASnLh0ELWZWxd6s7umSTVWtgNPlmnY5smiF0yA4dkpCxxNdvvqkcrfs4vx6kVxYhloj6sOBbK29J7gVh1S7eYRXSZ2/dzlNaax3Oaiqq0LW1kUnGkWvVVKYxmGvAI/jx2Jl1QeAhG6jHffEFfdvX0F2DO+nbKM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=linux.dev; arc=none smtp.client-ip=91.218.175.224
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 X-Envelope-To: linux-kernel@vger.kernel.org
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 79c451e103023864;
-	Thu, 27 Aug 2026 09:46:10 +0000
-X-Mizu-Trace-ID: 79c451e103023864
+Received: by mta11.migadu.com with ESMTPS id e19cfcc88f543739;
+	Thu, 27 Aug 2026 09:46:19 +0000
+X-Mizu-Trace-ID: e19cfcc88f543739
 X-Migadu-Flow: FLOW_OUT
 From: Baoquan He <hebaoquan@kylinos.cn>
 To: linux-mm@kvack.org
@@ -36,9 +36,9 @@ Cc: akpm@linux-foundation.org,
 	david@kernel.org,
 	linux-kernel@vger.kernel.org,
 	Baoquan He <hebaoquan@kylinos.cn>
-Subject: [PATCH 10/16] mm, swap: add nr_free_tail for O(1) xswap shrink detection
-Date: Thu, 27 Aug 2026 17:45:00 +0800
-Message-ID: <20260827094509.1016740-11-hebaoquan@kylinos.cn>
+Subject: [PATCH 11/16] mm, swap: add adjustable runtime ceiling (nr_clusters) for xswap
+Date: Thu, 27 Aug 2026 17:45:01 +0800
+Message-ID: <20260827094509.1016740-12-hebaoquan@kylinos.cn>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260827094509.1016740-1-hebaoquan@kylinos.cn>
 References: <20260827094509.1016740-1-hebaoquan@kylinos.cn>
@@ -52,222 +52,133 @@ Content-Type: text/plain; charset=UTF-8
 Content-type: text/plain
 Content-Transfer-Encoding: 8bit
 
-Track contiguous free clusters at the tail of the mapped range in
-si->nr_free_tail, maintained across alloc/free/grow paths.  This
-eliminates the backwards scan on every shrink check.
+Split the xswap cluster limit into two fields:
+- nr_clusters_max: immutable hard limit set at device creation
+- nr_clusters: current growth ceiling, adjustable at runtime (<= nr_clusters_max)
 
-Three paths maintain the counter:
+The grow path already uses nr_clusters as the ceiling. Shrink now also
+respects it: when nr_clusters drops below nr_clusters_mapped, shrinking
+fires on free until the mapped count reaches the ceiling.  When
+nr_clusters == nr_clusters_max (default), shrink is effectively
+disabled - all growth and no shrink.
 
-1. xswap_update_free_tail(): called on cluster free.  If the freed
-   cluster is adjacent to the existing tail boundary, increment and
-   extend backwards to include already-free clusters now connected.
-
-2. xswap_trim_free_tail(): called on cluster allocation.  If the
-   allocated cluster lies within the tail free region, truncate the
-   count to end just before it.
-
-3. Grow path: nr_free_tail += added - only the clusters actually
-   added to the free list extend the tail; a concurrent grower that
-   lost the race added none.
-
-xswap_try_shrink() simplifies to a threshold check:
-  if nr_free_tail >= XSWAP_GROW_CLUSTERS -> unmap
-
-Setup initializes nr_free_tail = nr_clusters_mapped - 1 (all but
-cluster 0 are free at the tail).
+At creation, nr_clusters starts at nr_clusters_max (full size).
 
 Signed-off-by: Baoquan He <hebaoquan@kylinos.cn>
 ---
- include/linux/swap.h |   1 +
- mm/swapfile.c        | 128 +++++++++++++++++++++++++++++++++++++------
- 2 files changed, 112 insertions(+), 17 deletions(-)
+ include/linux/swap.h |  3 ++-
+ mm/swapfile.c        | 29 +++++++++++++++++++++--------
+ 2 files changed, 23 insertions(+), 9 deletions(-)
 
 diff --git a/include/linux/swap.h b/include/linux/swap.h
-index c2744fa8a009..fea0005b9f51 100644
+index fea0005b9f51..c55af4a95ef7 100644
 --- a/include/linux/swap.h
 +++ b/include/linux/swap.h
-@@ -252,6 +252,7 @@ struct swap_info_struct {
+@@ -250,7 +250,8 @@ struct swap_info_struct {
+ 	struct swap_cluster_info *cluster_info; /* cluster info. Only for SSD */
+ #ifdef CONFIG_XSWAP
  	struct vm_struct	*cluster_vm;	/* VM_SPARSE area for xswap dynamic cluster_info */
- 	unsigned long		nr_clusters;	/* total cluster count for xswap */
+-	unsigned long		nr_clusters;	/* total cluster count for xswap */
++	unsigned long		nr_clusters_max;/* upper limit from swap header */
++	unsigned long		nr_clusters;	/* current growth ceiling (≤ nr_clusters_max) */
  	unsigned long		nr_clusters_mapped; /* currently mapped cluster count */
-+	unsigned long		nr_free_tail;	/* contiguous free clusters at tail */
+ 	unsigned long		nr_free_tail;	/* contiguous free clusters at tail */
  	struct mutex		xswap_lock;	/* serialize map/unmap operations */
- #endif
- 	struct list_head free_clusters; /* free clusters list */
 diff --git a/mm/swapfile.c b/mm/swapfile.c
-index 0fe4834eadde..5235c6d07ab2 100644
+index 5235c6d07ab2..b2c3bb21f082 100644
 --- a/mm/swapfile.c
 +++ b/mm/swapfile.c
-@@ -71,6 +71,9 @@ static int xswap_map_clusters(struct swap_info_struct *si,
- static void xswap_unmap_clusters(struct swap_info_struct *si,
- 				 unsigned long start_idx, unsigned long nr);
- static int xswap_check_mapped(pte_t *pte, unsigned long addr, void *data);
-+static void xswap_trim_free_tail(struct swap_info_struct *si, unsigned long idx);
-+static void xswap_update_free_tail(struct swap_info_struct *si,
-+				    unsigned long freed_idx);
- static void xswap_try_shrink(struct swap_info_struct *si);
- 
- #ifdef CONFIG_SYSFS
-@@ -701,6 +704,7 @@ static void __free_cluster(struct swap_info_struct *si, struct swap_cluster_info
- 	move_cluster(si, ci, &si->free_clusters, CLUSTER_FLAG_FREE);
- 	ci->order = 0;
- #ifdef CONFIG_XSWAP
-+	xswap_update_free_tail(si, ci - si->cluster_info);
- 	xswap_try_shrink(si);
- #endif
- }
-@@ -1049,6 +1053,9 @@ static bool __swap_cluster_alloc_entries(struct swap_info_struct *si,
- 	if (cluster_is_empty(ci))
- 		ci->order = order;
- 	ci->count += nr_pages;
-+#ifdef CONFIG_XSWAP
-+	xswap_trim_free_tail(si, cluster_index(si, ci));
-+#endif
- 	swap_range_alloc(si, nr_pages);
- 
- 	return true;
-@@ -3918,37 +3925,124 @@ static int xswap_check_mapped(pte_t *pte, unsigned long addr, void *data)
- }
- 
- /*
-- * Try to shrink the cluster_info tail: unmap contiguous free clusters
-- * at the end of the mapped range.
-+ * Maintain si->nr_free_tail, the number of contiguous free clusters at
-+ * the tail of the mapped range.  Called when a cluster at @freed_idx is
-+ * freed.  Provides O(1) shrink detection: if nr_free_tail is non-zero,
-+ * the tail can be unmapped without scanning cluster_info[].
-+ *
-+ * Only increments when @freed_idx is the cluster immediately before the
-+ * existing tail region.  Then scans backwards for already-free clusters
-+ * now connected to the tail, bounded by XSWAP_GROW_CLUSTERS at a time.
+@@ -3235,6 +3235,7 @@ static void free_swap_cluster_info(struct swap_info_struct *si)
+ 			xswap_unmap_clusters(si, 0, si->nr_clusters_mapped);
+ 		free_vm_area(si->cluster_vm);
+ 		si->cluster_vm = NULL;
++		si->nr_clusters_max = 0;
+ 		si->nr_clusters = 0;
+ 		si->nr_clusters_mapped = 0;
+ 		return;
+@@ -4005,16 +4006,27 @@ static void xswap_trim_free_tail(struct swap_info_struct *si, unsigned long idx)
   */
--static void xswap_try_shrink(struct swap_info_struct *si)
-+static void xswap_update_free_tail(struct swap_info_struct *si,
-+				   unsigned long freed_idx)
+ static void xswap_try_shrink(struct swap_info_struct *si)
  {
-+	unsigned long nr_mapped, nr_tail, tid, i;
+-	unsigned long start_idx, nr_unmap, i;
++	unsigned long nr_mapped, nr_ceiling, nr_tail, nr_unmap;
++	unsigned long start_idx, i;
  	struct swap_cluster_info *ci;
--	unsigned long last, idx;
  
  	if (!(si->flags & SWP_XSWAP))
  		return;
--	if (READ_ONCE(si->nr_clusters_mapped) <= 1) /* keep cluster 0 */
+-	if (si->nr_free_tail < XSWAP_GROW_CLUSTERS)
 +
 +	nr_mapped = READ_ONCE(si->nr_clusters_mapped);
++	nr_ceiling = READ_ONCE(si->nr_clusters);
 +	nr_tail = READ_ONCE(si->nr_free_tail);
 +
-+	/* Protect against concurrent shrink that races past us */
-+	if (nr_tail >= nr_mapped)
++	if (nr_mapped <= nr_ceiling)
 +		return;
-+
-+	tid = nr_mapped - nr_tail - 1;
-+
-+	/* Only the cluster immediately before the tail region counts */
-+	if (freed_idx != tid)
++	if (nr_tail < XSWAP_GROW_CLUSTERS)
  		return;
  
--	/* Find the last non-free cluster from the tail */
--	last = READ_ONCE(si->nr_clusters_mapped);
--	while (last > 1) {
--		idx = last - 1;
--		ci = &si->cluster_info[idx];
--		if (ci->count || ci->flags != CLUSTER_FLAG_FREE)
-+	nr_tail++;
-+	WRITE_ONCE(si->nr_free_tail, nr_tail);
-+
-+	/* Extend: include already-free clusters now connected to the tail */
-+	for (i = 1; i < XSWAP_GROW_CLUSTERS; i++) {
-+		nr_mapped = READ_ONCE(si->nr_clusters_mapped);
-+		nr_tail = READ_ONCE(si->nr_free_tail);
-+		if (nr_tail >= nr_mapped - 1)
-+			break; /* reached cluster 0 */
-+		tid = nr_mapped - nr_tail - 1;
-+		ci = &si->cluster_info[tid];
-+
-+		if (READ_ONCE(ci->count) ||
-+		    READ_ONCE(ci->flags) != CLUSTER_FLAG_FREE)
+-	nr_unmap = round_down(si->nr_free_tail, XSWAP_GROW_CLUSTERS);
+-	start_idx = si->nr_clusters_mapped - nr_unmap;
++	nr_unmap = min(round_down(nr_tail, XSWAP_GROW_CLUSTERS),
++		       nr_mapped - nr_ceiling);
++	if (nr_unmap < XSWAP_GROW_CLUSTERS)
++		return;
++	start_idx = nr_mapped - nr_unmap;
+ 
+ 	/*
+ 	 * Verify the tail clusters are still free before unmapping.  Count the
+@@ -4023,7 +4035,7 @@ static void xswap_try_shrink(struct swap_info_struct *si)
+ 	 * leave a partial run off the free list if it proved too short to unmap.
+ 	 */
+ 	spin_lock(&si->lock);
+-	for (i = start_idx; i < si->nr_clusters_mapped; i++) {
++	for (i = start_idx; i < nr_mapped; i++) {
+ 		ci = &si->cluster_info[i];
+ 		if (ci->flags != CLUSTER_FLAG_FREE)
  			break;
--		last = idx;
-+		nr_tail++;
-+		WRITE_ONCE(si->nr_free_tail, nr_tail);
- 	}
-+}
+@@ -4042,7 +4054,7 @@ static void xswap_try_shrink(struct swap_info_struct *si)
+ 	spin_unlock(&si->lock);
  
--	if (last == si->nr_clusters_mapped)
--		return; /* nothing to shrink */
-+/*
-+ * Trim si->nr_free_tail when a cluster in the tail region is allocated.
-+ * @idx: index of the cluster being allocated.
-+ */
-+static void xswap_trim_free_tail(struct swap_info_struct *si, unsigned long idx)
-+{
-+	unsigned long nr_mapped, nr_tail, tail_start;
- 
--	/* Only unmap if we can free at least one full page of clusters */
--	if (si->nr_clusters_mapped - last < XSWAP_GROW_CLUSTERS)
-+	if (!(si->flags & SWP_XSWAP))
- 		return;
- 
--	xswap_unmap_clusters(si, last, si->nr_clusters_mapped - last);
-+	/*
-+	 * nr_clusters_mapped and nr_free_tail are read locklessly;
-+	 * concurrent updates may cause nr_free_tail to be trimmed
-+	 * slightly less than ideally, which is harmless.
-+	 */
-+	nr_mapped = READ_ONCE(si->nr_clusters_mapped);
-+	nr_tail = READ_ONCE(si->nr_free_tail);
-+	tail_start = nr_mapped - nr_tail;
-+	if (idx >= tail_start)
-+		WRITE_ONCE(si->nr_free_tail, nr_mapped - idx - 1);
-+}
-+
-+/*
-+ * Try to shrink the cluster_info tail.  Uses si->nr_free_tail which
-+ * is maintained incrementally during alloc/free — no scanning needed.
-+ */
-+static void xswap_try_shrink(struct swap_info_struct *si)
-+{
-+	unsigned long start_idx, nr_unmap, i;
-+	struct swap_cluster_info *ci;
-+
-+	if (!(si->flags & SWP_XSWAP))
-+		return;
-+	if (si->nr_free_tail < XSWAP_GROW_CLUSTERS)
-+		return;
-+
-+	nr_unmap = round_down(si->nr_free_tail, XSWAP_GROW_CLUSTERS);
-+	start_idx = si->nr_clusters_mapped - nr_unmap;
-+
-+	/*
-+	 * Verify the tail clusters are still free before unmapping.  Count the
-+	 * contiguous free run first, then detach it in a second pass once the
-+	 * whole run is confirmed long enough.  Detaching while counting would
-+	 * leave a partial run off the free list if it proved too short to unmap.
-+	 */
-+	spin_lock(&si->lock);
-+	for (i = start_idx; i < si->nr_clusters_mapped; i++) {
-+		ci = &si->cluster_info[i];
-+		if (ci->flags != CLUSTER_FLAG_FREE)
-+			break;
-+	}
-+	nr_unmap = i - start_idx;
-+	if (nr_unmap < XSWAP_GROW_CLUSTERS) {
-+		spin_unlock(&si->lock);
-+		return;
-+	}
-+
-+	for (i = start_idx; i < start_idx + nr_unmap; i++) {
-+		ci = &si->cluster_info[i];
-+		list_del_init(&ci->list);
-+		ci->flags = CLUSTER_FLAG_NONE;
-+	}
-+	spin_unlock(&si->lock);
-+
-+	xswap_unmap_clusters(si, start_idx, nr_unmap);
-+	si->nr_free_tail -= nr_unmap;
+ 	xswap_unmap_clusters(si, start_idx, nr_unmap);
+-	si->nr_free_tail -= nr_unmap;
++	WRITE_ONCE(si->nr_free_tail, nr_tail - nr_unmap);
  }
  #endif /* CONFIG_XSWAP */
  
+@@ -4066,6 +4078,7 @@ static int setup_swap_clusters_info(struct swap_info_struct *si,
+ 
+ 		cluster_info = vm->addr;
+ 		si->cluster_vm = vm;
++		si->nr_clusters_max = nr_clusters;
+ 		si->nr_clusters = nr_clusters;
+ 		si->cluster_info = cluster_info;
+ 
+@@ -4103,6 +4116,8 @@ static int setup_swap_clusters_info(struct swap_info_struct *si,
+ 			}
+ 		}
+ 
++		/* All mapped clusters except cluster 0 are free at the tail */
++		si->nr_free_tail = si->nr_clusters_mapped - 1;
+ 		return 0;
+ 
+ err_unmap:
+@@ -4595,7 +4610,6 @@ void __folio_throttle_swaprate(struct folio *folio, gfp_t gfp)
+ static int __init swapfile_init(void)
+ {
+ 	swapfile_maximum_size = arch_max_swapfile_size();
+-
+ 	/*
+ 	 * Once a cluster is freed, it's swap table content is read
+ 	 * only, and all swap cache readers (swap_cache_*) verifies
+@@ -4605,7 +4619,6 @@ static int __init swapfile_init(void)
+ 		swap_table_cachep = kmem_cache_create("swap_table",
+ 				    sizeof(struct swap_table),
+ 				    0, SLAB_PANIC | SLAB_TYPESAFE_BY_RCU, NULL);
+-
+ #ifdef CONFIG_MIGRATION
+ 	if (swapfile_maximum_size >= (1UL << SWP_MIG_TOTAL_BITS))
+ 		swap_migration_ad_supported = true;
 -- 
 2.54.0
 
