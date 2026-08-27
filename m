@@ -1,354 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABF633F2118;
-	Thu, 27 Aug 2026 09:26:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55A5B410D19;
+	Thu, 27 Aug 2026 09:28:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787822814; cv=none; b=XAQGSJYDSzlPPQznk1oHFa0q+iKnw0IKYGCVFWEm/IZ45SG1JFkhB+/kcawMhgwEPgzVei+Gqh88h1mUcilpevOZ2Y4/XUCfQMYVP88RXzRhhtM1PgJYl8ZtPFUQazOtvNOO1A2NtZG3k77LU404VOf07Y3p8Txig7A7oF8XcuU=
+	t=1787822893; cv=none; b=mAfm0/ESRYzXPCEmLBagHjMUSeysJQYJqBHc4bt/6b0YyZLcvNNarbCYLKrjDIwTzvUwS4O1MRcM7x70BRjtnOqRV2CbFBff6PxXN1gVrJgEk474EiZvh7blxb9KCjvJtdcbKMb3wsJ6yOMR2zaZjHUcrpBCSUo0g04XQEB9XcE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787822814; c=relaxed/simple;
-	bh=jLzvZjqDnxlyZd2/yg5KilJ6gkcPsBkyU3U//aFt+Z0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=d9qriEQnd9BK583qzArjHSl34D+fbztDFkF9GH4PMBaaaU7uskg76ESkb7nTvw6RGIkilBzlxbg5Ij1rFH/d0mly7F9TNj10M0Vx2l4wmpenopSzH6tQujj5O0XxseMlGsZHTcTkimkdFivF9pDsu9iL9D0szGLERLjJTW7D1iA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZWY6CLF4; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1787822893; c=relaxed/simple;
+	bh=KUOrSl08kaq3wxQo7kc9XBplvBbpwDE1HnwhooL6FxI=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=ElvvaQv6CyLiZ7L7ARK7EVhW76F35gEeRObQS/WZiILR8kFXzhBaDaM8nNvAR2rkQxl8MmnFVJgQTy5S9I8rl0mht/1plFrqupwOyYIBuO8Ug8KRSrYn7cvJNU/RA199KEXLu/4qJ4H2z6FciGghX2D9SFY2bWXeXpMCwaBVd9Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oCkYl5r5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZWY6CLF4"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 2D71DC19425;
-	Thu, 27 Aug 2026 09:26:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1787822814;
-	bh=jLzvZjqDnxlyZd2/yg5KilJ6gkcPsBkyU3U//aFt+Z0=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=ZWY6CLF4rTX2tZ1AomGcBeZkxS/t5sE1A0ly+VRHUkUUZSBj84Vux+n5gO7OU/QU6
-	 unsKJ3x8EmBxpMZ1ZfBWNryc/R2Rb4zHbaeHuOAmKAjKScg/W9z6gw0nvIkGzIHkMc
-	 MZIFptOZM3EA8cs9o7VE9dIOWGyikFoFc9FHftrcUm56j4MVe17Pj/Esu/kl3gcraj
-	 /L04X9d1iQwe4M8n0y+G4ntvdEOfHbtMbluemLO8BeJAvscIWpfjLkABwPom8Pb2Ke
-	 niJdzpH4lwxkzNvGgFuhayUFMbtVa1hvgpaHNuzklv3Me4e160cMSVu24iOKkT8eAP
-	 886yOOM3MxqLA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0B084C61DC7;
-	Thu, 27 Aug 2026 09:26:54 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Thu, 27 Aug 2026 11:26:53 +0200
-Subject: [PATCH v2] media: imx355: reuse existing CCS defines
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oCkYl5r5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C85111F000E9;
+	Thu, 27 Aug 2026 09:28:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787822891;
+	bh=xpIxcszEdXdDhoogOCnntsApVSnYnaEd7+uCkyTP6xY=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=oCkYl5r5VN+zKUyBPRrm4rC2z2Oe7+nJw0kgbxSS/MIggF2d7+dMSamjbfLMSD6Le
+	 vU1LuGCBVicpSPMsTsOqtUMulV4Fi1DzntvwlEV/7i9h0S9xbD4Ql4waZFuP3aSWz4
+	 MXL0bWjfBdwHfmNk2+XAYr+cNvyV5vo1m7y9OEQikMeUY3ZjF/QOv6MkFegcNND7Ih
+	 xq1feCGXJ776ACK7YwJ83XHp7nRftXvSKmuUjmluNVUaiqr2EnEVkmyVuRFIn1Ug3U
+	 i7sylulZ+GuIthCp1WAIb5hVpSS5m783yLCjvmjbSeWdBcIfJrq0x9SFMG5xtYMjZI
+	 8ilAVegfsZsdw==
+Message-ID: <d4473111-f9a5-4ebb-befe-c2d690c81009@kernel.org>
+Date: Thu, 27 Aug 2026 11:28:05 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/3] interconnect: qcom: Add CAMNOC interconnect
+ provider driver
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+Cc: Georgi Djakov <djakov@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-pm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
+References: <20260819093211.1436275-1-atanas.filipov@oss.qualcomm.com>
+ <20260819093211.1436275-3-atanas.filipov@oss.qualcomm.com>
+ <20260827-adept-traditional-earwig-e2c8c6@quoll>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260827-adept-traditional-earwig-e2c8c6@quoll>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260827-imx355-ccsify-v2-1-3a97bc708315@ixit.cz>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNQQ6CMBBFr0JmbU1bLKAr72FYyDiVMRFMWwlIe
- ndbXLt8yfvvr+DJMXk4FSs4mtjzOCTQuwKwvw53EnxLDFrqSjbqKPg5l8YIRM92EY2psDHS1MY
- qSJuXI8vz1ru0P/bv7kEYciQbPfswumU7nFT2/rUnJZSQXYVk65rKgzzzzGGPH2hjjF+O9wQSu
- gAAAA==
-X-Change-ID: 20260819-imx355-ccsify-856c850575f1
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10030; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=8fjmIEf2Uou5I7hSyXj2MRgsHK14tG7lVR5oqFFpIqQ=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqkALdaU7SCL9MD2CLhpq7GVVTKytztNX37egim
- 9gfQ5I8Ra+JAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCapAC3QAKCRBgAj/E00kg
- civREADP0/akWHg818ryfVEvANU5flZiBcQagxj5ESZ0pvy8+1sEi6Hka/aUUrj0Un6SO/32xcQ
- fyFHIv5g5OrQKCpIy/0q4ro6AclzE9iu7R3TGAACipS4DXcFm8Z6XP5SDikO47kIRDOJe+26ai0
- 5iQcKkQsvXj9iJb6mc/mdNDKQekGMnmVQ45x8EYI3rfiZ+H3cjWNbSOFyHkzUXL9B8IGRkm6+kY
- RezZxNT2gxHmHQW8+l44SILcJVLIrl4zAmm0Bl06ysMnTJnZ50n31FaMcg4mldUjkNAZFDOpZdq
- EMst8ev6O/pp+XpgSLlyavKZlqsQyaZGcHrHWM8U2CKqkki8NoooVOU+kIfVacEfsOH3ivybDJm
- C29JH3BmIa+ROq/IijFZkXwiDHiqG7Xa75LygU8smIY1NVK+JomSj7W+dHt88haqtagKhyZbHp7
- cWuNnKCYJS4cGtxKOM+Q9lvzQdBjjl7n6xSMNaKj/1e6oel92AtW7WPuuNEggMdsXWgkac38Inq
- 2q9NKWuRGFYC8PU/pBN6vaKrxNVPwPn/k1E8ErZ3vYIjC5QuWIMv9M3JrqV6Cy3k/jtTsz6TEuv
- MHFvMh4xoosKFv+7s34g9WUWfjFVGPnKx2mmbA0UMnt7jiGOHeKSn/j4cvMD3/FR8wi+2m5cdCi
- us5zaHndb613qgw==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
 
-From: David Heidelberg <david@ixit.cz>
+On 27/08/2026 11:25, Krzysztof Kozlowski wrote:
+>> +static int qcom_camnoc_set(struct icc_node *src, struct icc_node *dst)
+>> +{
+>> +	struct qcom_camnoc_icc_provider *cp =
+>> +		to_camnoc_provider(src->provider);
+>> +	unsigned long rate;
+>> +
+>> +	/*
+>> +	 * peak_bw is the aggregated max across all consumers (kBps).
+>> +	 * Consumers encode the required clock frequency directly as kBps,
+>> +	 * so the conversion is simply: rate_hz = peak_bw * 1000.
+>> +	 * A vote of 0 means no requirement; leave the clock at its minimum.
+>> +	 */
+>> +	rate = icc_units_to_bps(dst->peak_bw);
+>> +
+>> +	return clk_set_rate(cp->clk, rate);
+> 
+> This driver does nothing to the ICC hardware, no votes. It only
+> translates kbps to Hz. This is not the purpose of ICC drivers.
+> 
+> Looks heavily incomplete.
 
-The driver may not be MIPI CCS compliant, but does use same address and
-often set same values as compliant drivers. Do not redefine registers we
-already know and are standard.
-
-No functional changes.
-
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
-Changes in v2:
-- Replaced all occurences with CCS ones.
-- Link to v1: https://patch.msgid.link/20260819-imx355-ccsify-v1-1-0b6cef77e340@ixit.cz
----
- drivers/media/i2c/imx355.c | 84 ++++++++++++++--------------------------------
- 1 file changed, 25 insertions(+), 59 deletions(-)
-
-diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
-index 8eb8588cb71bb..2c845b7b3df4f 100644
---- a/drivers/media/i2c/imx355.c
-+++ b/drivers/media/i2c/imx355.c
-@@ -14,89 +14,55 @@
- #include <linux/unaligned.h>
- 
- #include <media/v4l2-cci.h>
- #include <media/v4l2-ctrls.h>
- #include <media/v4l2-device.h>
- #include <media/v4l2-event.h>
- #include <media/v4l2-fwnode.h>
- 
--#define IMX355_REG_MODE_SELECT		CCI_REG8(0x0100)
--#define IMX355_MODE_STANDBY		0x00
--#define IMX355_MODE_STREAMING		0x01
-+#include "ccs/ccs-regs.h"
- 
--/* Chip ID */
--#define IMX355_REG_CHIP_ID		CCI_REG16(0x0016)
- #define IMX355_CHIP_ID			0x0355
- 
--#define IMX355_REG_LANE_SEL		CCI_REG8(0x0114)
--
- /* PLL registers that depend on the external clock frequency */
--#define IMX355_REG_EXTCLK_FREQ		CCI_REG16(0x0136)
- #define IMX355_REG_PLL_OP_PREDIV	CCI_REG8(0x030d)
--#define IMX355_REG_PLL_OP_MUL		CCI_REG16(0x030e)
- #define IMX355_REG_PLL_IVT_PCK_DIV	CCI_REG8(0x0301)
- #define IMX355_REG_PLL_IVT_SYSCK_DIV	CCI_REG8(0x0303)
- #define IMX355_PLL_OP_PREDIV		2
- #define IMX355_PLL_IVT_PCK_DIV		5
- 
- /* V_TIMING internal */
--#define IMX355_REG_FLL			CCI_REG16(0x0340)
- #define IMX355_FLL_MAX			0xffff
- #define IMX355_VBLANK_MIN		20
- 
--#define IMX355_REG_LLP			CCI_REG16(0x0342)
- #define IMX355_LLP_MAX			0xffff
- 
--#define IMX355_REG_X_ADD_START		CCI_REG16(0x0344)
--#define IMX355_REG_Y_ADD_START		CCI_REG16(0x0346)
--#define IMX355_REG_X_ADD_END		CCI_REG16(0x0348)
--#define IMX355_REG_Y_ADD_END		CCI_REG16(0x034a)
--#define IMX355_REG_X_OUT_SIZE		CCI_REG16(0x034c)
--#define IMX355_REG_Y_OUT_SIZE		CCI_REG16(0x034e)
--
- /* Exposure control */
--#define IMX355_REG_EXPOSURE		CCI_REG16(0x0202)
- #define IMX355_EXPOSURE_MIN		1
- #define IMX355_EXPOSURE_STEP		1
- #define IMX355_EXPOSURE_DEFAULT		0x0282
- #define IMX355_EXPOSURE_OFFSET		10
- 
- /* Analog gain control */
--#define IMX355_REG_ANALOG_GAIN		CCI_REG16(0x0204)
- #define IMX355_ANA_GAIN_MIN		0
- #define IMX355_ANA_GAIN_MAX		960
- #define IMX355_ANA_GAIN_STEP		1
- #define IMX355_ANA_GAIN_DEFAULT		0
- 
- /* Digital gain control */
- #define IMX355_REG_DPGA_USE_GLOBAL_GAIN	CCI_REG8(0x3070)
--#define IMX355_REG_DIG_GAIN_GLOBAL	CCI_REG16(0x020e)
- #define IMX355_DGTL_GAIN_MIN		256
- #define IMX355_DGTL_GAIN_MAX		4095
- #define IMX355_DGTL_GAIN_STEP		1
- #define IMX355_DGTL_GAIN_DEFAULT	256
- 
--/* Test Pattern Control */
--#define IMX355_REG_TEST_PATTERN		CCI_REG16(0x0600)
--#define IMX355_TEST_PATTERN_DISABLED		0
--#define IMX355_TEST_PATTERN_SOLID_COLOR		1
--#define IMX355_TEST_PATTERN_COLOR_BARS		2
--#define IMX355_TEST_PATTERN_GRAY_COLOR_BARS	3
--#define IMX355_TEST_PATTERN_PN9			4
--
-+/* Link rate register: 16-bit wide, unlike the CCS 32-bit one */
- #define IMX355_REG_REQ_LINK_BIT_RATE	CCI_REG16(0x0820)
- 
--#define IMX355_REG_BINNING_MODE		CCI_REG8(0x0900)
--#define IMX355_REG_BINNING_TYPE		CCI_REG8(0x0901)
--#define IMX355_REG_BINNING_WEIGHTING	CCI_REG8(0x0902)
--
--/* Flip Control */
--#define IMX355_REG_ORIENTATION		CCI_REG8(0x0101)
--
- #define IMX355_PIXEL_ARRAY_TOP		0
- #define IMX355_PIXEL_ARRAY_LEFT		0
- #define IMX355_PIXEL_ARRAY_WIDTH	3280
- #define IMX355_PIXEL_ARRAY_HEIGHT	2464
- 
- struct imx355_reg_list {
- 	u32 num_of_regs;
- 	const struct cci_reg_sequence *regs;
-@@ -616,39 +582,39 @@ static int imx355_set_ctrl(struct v4l2_ctrl *ctrl)
- 	 * when power is up for streaming
- 	 */
- 	if (!pm_runtime_get_if_in_use(imx355->dev))
- 		return 0;
- 
- 	switch (ctrl->id) {
- 	case V4L2_CID_ANALOGUE_GAIN:
- 		/* Analog gain = 1024/(1024 - ctrl->val) times */
--		ret = cci_write(imx355->regmap, IMX355_REG_ANALOG_GAIN,
-+		ret = cci_write(imx355->regmap, CCS_R_ANALOG_GAIN_CODE_GLOBAL,
- 				ctrl->val, NULL);
- 		break;
- 	case V4L2_CID_DIGITAL_GAIN:
--		ret = cci_write(imx355->regmap, IMX355_REG_DIG_GAIN_GLOBAL,
-+		ret = cci_write(imx355->regmap, CCS_R_DIGITAL_GAIN_GLOBAL,
- 				ctrl->val, NULL);
- 		break;
- 	case V4L2_CID_EXPOSURE:
--		ret = cci_write(imx355->regmap, IMX355_REG_EXPOSURE,
-+		ret = cci_write(imx355->regmap, CCS_R_COARSE_INTEGRATION_TIME,
- 				ctrl->val, NULL);
- 		break;
- 	case V4L2_CID_VBLANK:
- 		/* Update FLL that meets expected vertical blanking */
--		ret = cci_write(imx355->regmap, IMX355_REG_FLL,
-+		ret = cci_write(imx355->regmap, CCS_R_FRAME_LENGTH_LINES,
- 				format->height + ctrl->val, NULL);
- 		break;
- 	case V4L2_CID_TEST_PATTERN:
--		ret = cci_write(imx355->regmap, IMX355_REG_TEST_PATTERN,
-+		ret = cci_write(imx355->regmap, CCS_R_TEST_PATTERN_MODE,
- 				ctrl->val, NULL);
- 		break;
- 	case V4L2_CID_HFLIP:
- 	case V4L2_CID_VFLIP:
--		ret = cci_write(imx355->regmap, IMX355_REG_ORIENTATION,
-+		ret = cci_write(imx355->regmap, CCS_R_IMAGE_ORIENTATION,
- 				imx355->hflip->val | imx355->vflip->val << 1,
- 				NULL);
- 		break;
- 	default:
- 		ret = -EINVAL;
- 		dev_info(imx355->dev, "ctrl(id:0x%x,val:0x%x) is not handled",
- 			 ctrl->id, ctrl->val);
- 		break;
-@@ -823,75 +789,75 @@ static int imx355_start_streaming(struct imx355 *imx355)
- 	crop = v4l2_subdev_state_get_crop(state, 0);
- 	mode = v4l2_find_nearest_size(supported_modes,
- 				      ARRAY_SIZE(supported_modes),
- 				      width, height, fmt->width, fmt->height);
- 	cci_multi_reg_write(imx355->regmap, mode->reg_list.regs,
- 			    mode->reg_list.num_of_regs, &ret);
- 
- 	/* Set readout crop and size registers  */
--	cci_write(imx355->regmap, IMX355_REG_X_ADD_START, crop->left,
-+	cci_write(imx355->regmap, CCS_R_X_ADDR_START, crop->left,
- 		  &ret);
--	cci_write(imx355->regmap, IMX355_REG_Y_ADD_START, crop->top, &ret);
--	cci_write(imx355->regmap, IMX355_REG_X_ADD_END,
-+	cci_write(imx355->regmap, CCS_R_Y_ADDR_START, crop->top, &ret);
-+	cci_write(imx355->regmap, CCS_R_X_ADDR_END,
- 		  crop->width + crop->left - 1, &ret);
--	cci_write(imx355->regmap, IMX355_REG_Y_ADD_END,
-+	cci_write(imx355->regmap, CCS_R_Y_ADDR_END,
- 		  crop->height + crop->top - 1, &ret);
--	cci_write(imx355->regmap, IMX355_REG_X_OUT_SIZE, fmt->width, &ret);
--	cci_write(imx355->regmap, IMX355_REG_Y_OUT_SIZE, fmt->height, &ret);
-+	cci_write(imx355->regmap, CCS_R_X_OUTPUT_SIZE, fmt->width, &ret);
-+	cci_write(imx355->regmap, CCS_R_Y_OUTPUT_SIZE, fmt->height, &ret);
- 
- 	binning_mode = ((crop->width / fmt->width) << 4) |
- 			(crop->height / fmt->height);
--	cci_write(imx355->regmap, IMX355_REG_BINNING_MODE,
-+	cci_write(imx355->regmap, CCS_R_BINNING_MODE,
- 		  binning_mode == 0x11 ? 0x00 : 0x01, &ret);
--	cci_write(imx355->regmap, IMX355_REG_BINNING_TYPE, binning_mode, &ret);
--	cci_write(imx355->regmap, IMX355_REG_BINNING_WEIGHTING, 0x00, &ret);
-+	cci_write(imx355->regmap, CCS_R_BINNING_TYPE, binning_mode, &ret);
-+	cci_write(imx355->regmap, CCS_R_BINNING_WEIGHTING, 0x00, &ret);
- 
- 	/* Set PLL registers for the external clock frequency */
--	cci_write(imx355->regmap, IMX355_REG_EXTCLK_FREQ,
-+	cci_write(imx355->regmap, CCS_R_EXTCLK_FREQUENCY_MHZ,
- 		  imx355->clk_params->extclk_freq, &ret);
--	cci_write(imx355->regmap, IMX355_REG_PLL_OP_MUL,
-+	cci_write(imx355->regmap, CCS_R_OP_PLL_MULTIPLIER,
- 		  imx355->clk_params->pll_op_mpy[lane_idx], &ret);
- 	cci_write(imx355->regmap, IMX355_REG_PLL_OP_PREDIV,
- 		  imx355->clk_params->pll_op_prediv[lane_idx], &ret);
- 	cci_write(imx355->regmap, IMX355_REG_PLL_IVT_SYSCK_DIV,
- 		  lane_idx ? 2 : 1, &ret);
- 
- 	/* Set MIPI configuration */
--	cci_write(imx355->regmap, IMX355_REG_LANE_SEL,
-+	cci_write(imx355->regmap, CCS_R_CSI_LANE_MODE,
- 		  imx355->hwcfg->num_lanes - 1, &ret);
- 
- 	link_bitrate = imx355->link_freq->qmenu_int[imx355->link_freq->val] *
- 		       imx355->hwcfg->num_lanes * 2;
- 	do_div(link_bitrate, 1000000);
- 	cci_write(imx355->regmap, IMX355_REG_REQ_LINK_BIT_RATE, link_bitrate,
- 		  &ret);
- 
- 	/* set digital gain control to all color mode */
- 	cci_write(imx355->regmap, IMX355_REG_DPGA_USE_GLOBAL_GAIN, 1, &ret);
- 
- 	/* set line length */
--	cci_write(imx355->regmap, IMX355_REG_LLP,
-+	cci_write(imx355->regmap, CCS_R_LINE_LENGTH_PCK,
- 		  imx355->hblank->val + fmt->width, &ret);
- 
- 	/* Apply customized values from user */
- 	if (!ret)
- 		ret = __v4l2_ctrl_handler_setup(imx355->sd.ctrl_handler);
- 
--	cci_write(imx355->regmap, IMX355_REG_MODE_SELECT, IMX355_MODE_STREAMING,
-+	cci_write(imx355->regmap, CCS_R_MODE_SELECT, CCS_MODE_SELECT_STREAMING,
- 		  &ret);
- 
- 	return ret;
- }
- 
- /* Stop streaming */
- static int imx355_stop_streaming(struct imx355 *imx355)
- {
--	return cci_write(imx355->regmap, IMX355_REG_MODE_SELECT,
--			 IMX355_MODE_STANDBY, NULL);
-+	return cci_write(imx355->regmap, CCS_R_MODE_SELECT,
-+			 CCS_MODE_SELECT_SOFTWARE_STANDBY, NULL);
- }
- 
- static int imx355_set_stream(struct v4l2_subdev *sd, int enable)
- {
- 	struct imx355 *imx355 = to_imx355(sd);
- 	struct v4l2_subdev_state *state;
- 	int ret = 0;
- 
-@@ -931,17 +897,17 @@ static int imx355_set_stream(struct v4l2_subdev *sd, int enable)
- }
- 
- /* Verify chip ID */
- static int imx355_identify_module(struct imx355 *imx355)
- {
- 	int ret;
- 	u64 val;
- 
--	ret = cci_read(imx355->regmap, IMX355_REG_CHIP_ID, &val, NULL);
-+	ret = cci_read(imx355->regmap, CCS_R_SENSOR_MODEL_ID, &val, NULL);
- 	if (ret)
- 		return ret;
- 
- 	if (val != IMX355_CHIP_ID) {
- 		dev_err(imx355->dev, "chip id mismatch: %x!=%llx",
- 			IMX355_CHIP_ID, val);
- 		return -EIO;
- 	}
-
----
-base-commit: 5453bc3279e9f8578ac3e534d476240e40c879e1
-change-id: 20260819-imx355-ccsify-856c850575f1
+And another proof of uselessness of this driver is that your example DTS
+references ICC path between camss components. Internal camss stuff does
+not need ICC representation in DT.
 
 Best regards,
---  
-David Heidelberg <david@ixit.cz>
-
-
+Krzysztof
