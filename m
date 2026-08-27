@@ -1,98 +1,95 @@
-Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEBA247045A
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:10:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34850364052
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:12:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787836235; cv=none; b=iHi3HjOwDxT2YKlHBFliVYDjJaAOzKvBBAEs4TF8G1dtowvaty+VOLGYmLchLAK3LUznH01OiSfWpgiV+mHwrn2B+qym4zfwxQ9tLyMgPAA/7BW0/0GHW7Y4WKAWkNXIhD7D1+Z8Snxy7/wLdCh5WFesxw6mMBW1epwlQdKi0z4=
+	t=1787836368; cv=none; b=R5F9jb+JsUHeit0M/0m7SSlIqQ4+KevDCQQZUcMk3WDagxJsIsQ+1t6sJCCV76BBwz6PPdwXpNvaN0Orjb5TTIGiO8lZtzttsRqwiPGG+yx1Yd0lOWcNZnC2ywiCYNmxDqeSIFz+75I5pTF8n82OPeKyoNH/dgNPImIlnn7jB6M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787836235; c=relaxed/simple;
-	bh=ODna5VuKF+k/H3KNl1U5Jwcfx/yL3NhPgueLFtXANYw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hn/DI1j1fwezzNS7S3Nk/sCskZZg5QVPMFDv6cJ6b1h7v9v3lBDCRrS15buixatwpFiSlIf1ANHsQqjMTqAOH1597/66UKq8Ji0RZFsR9SQZRsLI59l4PkOmLYkb4vU+wrFxaRyCrqAsEbIgg6+BZUiqeb/Nxz90jpkrZr+fDRU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=JGieIMG0; arc=none smtp.client-ip=209.85.222.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	s=arc-20240116; t=1787836368; c=relaxed/simple;
+	bh=b0Za19fw+eHquh8yAgvDA4W6/FkCDg7o3v27TiWVqLA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Vaa5Zor6PVwiCgIn+wJDgvQr6hccxZxeSX3OP/IBcGgxWTChHgSyrkiCgaoE2EmDt5kJDCUWz4FbceA4cwv8dvIU1K/Gj2HR46YrwkhgGoP3bhBRcXOVbe4MRZu/iy/ro0afG1ANmBmWxWFpwMh8cLymus28zYzlB9xvMY8WYYU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZZ+Tme52; arc=none smtp.client-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="JGieIMG0"
-Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-92f0b5ed131so185642985a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:10:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZZ+Tme52"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38dc4553f62so1046246a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:12:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1787836227; x=1788441027; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ndKIThMIJu+DQfTWfwfS9UtTsZjKDkhTAUOgVWRNeBc=;
-        b=JGieIMG0pZjf0rDyJJ1pvyxUJ/uGuoEj9jL9+QpT3d87Qyx+2lcKm4yWba81F3AukM
-         3IxsylOcTwfgXarIQ5/csJWTMi1k225ocYxiD7ev31sPaIHKV4rs3ccFp4OItkGV3+XY
-         EymlSnlK35J9/i9EdkglqmpSSPfpx2GKVoqBcnXG+Pr8TknjIGwOsrGN1KUtOmAHBkIP
-         IAnO5P4yq16S80awZZDFpA2hjoPoX5dsqPOIwfDT9uvs4vDFDFQtpPMO1lWjjelOgG3m
-         OXzmqnS2OTQMD6j8TKt8WwuYlFQKRQi81LResoZcNHE93KQgOP7A+yAP20TZQy9i3nls
-         QTiQ==
+        d=gmail.com; s=20251104; t=1787836348; x=1788441148; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=b0Za19fw+eHquh8yAgvDA4W6/FkCDg7o3v27TiWVqLA=;
+        b=ZZ+Tme52cL8+rgDyh2ivVx5JOatDuDdmOKSqbiwIMC//138eAgfmrkcOaES2UkdfQx
+         dqZVit+EUm1OmXatnfIaTZTM8XQS6/gogXZP0b1z6lqRT3Unz8+gJyFSnND5bj6M6iMa
+         3zNtGPbdvU7jZ2InP5TE3RWIxnfuufxZk+6ItBZThy23GaZq4a03U+F22xBBCkDxDyCp
+         vORPWhMHazfZgHBVj7gsmoYQam94zR8qjU9DMkg38V1jNFFj8GlvfXbCWdHKWT5BPx+9
+         zIigYXfrZ6IrcoBEnFyLwvcMheCie6P2M0dx66Enzk6UKjWpkjk15UFZE83qctdL2Xwj
+         MXBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787836227; x=1788441027;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ndKIThMIJu+DQfTWfwfS9UtTsZjKDkhTAUOgVWRNeBc=;
-        b=OKnCzFs7UzJXEYe2YdRPqTCEGom2/G5ZwzdssFnLuzQV/KYvnoh4D2MIYLdvPjTSDn
-         bWb5XT63y9oEmUA6vVQIzrfV7loujObd0J5TLILa4ILzMoNklaFUtPHdreKTEHSa2JaV
-         7FuLv1kKB6Fv0SCcdv8MiMLe+xy6exN0MQ/lFkFLXmOAfT4jzr+QlOJCRmJcaGUee0LE
-         5NPnwbe9Zlj91uBw7j+Fs0PvMxJ4ySLFMmp9w1e9kLAAtxZ/s8oeWBgVZtZcJsUdwo1q
-         4Fg9V7WMWGzW5zvnHQzYwwturWnE+v4SrsBpZyPgDNiyLbKqz8AJi/3fBijKXmP3l52b
-         DdzA==
-X-Forwarded-Encrypted: i=1; AHgh+Rr9qkAsk/DgON8BsaFVZSU12f8+lpcqNlC7q3T+MaD0FtBT99SYqQAn46D98XJDFs5Yf6xVsuHMSjSrRoM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lekqUse3lSaysXdrH3FgEacQFiJ38K7ihkHzXfQCJb77DGqNBL
-	+N6pnrSBQ/KWB2t5vzZlLSytnJ9xdDu1k0sdQIH5fX/TY7R35exacF5US5eQ3qdrySw=
-X-Gm-Gg: AR+sD117CDZttvt4PLhUXDqp2WI8gq8jkwu/UvlIzVRNNfY//uwSta3BL/Kmga4DyFH
-	pjNOl/0eymAbP1kSJGDYaw7PnO1FVxlGLQGqaoI/CblIbSzDnlVcCEDJYI9dI1fLjEbT+d/6o9B
-	ZlXvk8e0aWvlszfU9vYaTpypL4UTE9+NuhujAF+zibIen1oA7HkBlU4MlFaXub9VYL1j0dCO6Oj
-	XgJBuX6PCSZ3RXaOd6MtanloS6gCB+dm3vJdNpVeX7QR6Du5o23E7oxU6wzKU93IxZW+P8F4K6x
-	105VU2AFgESXgA3dndJ5vvIu0K/uErjR+0/4w0TFKLg6YslAbHVCTMWnyHjj3pf3zdySRNfJbmu
-	LkbNInMnFv9sOBeI/u9ORvprDnolo3IyBoE1RuQEFR00u1lZTomzCZ1/gJ/YJU3foBHtpT4KlWA
-	P+AoQs8W5X4cPgP7H3G2H9v5Ux8adMUfTJKvKk8Mk1BTACIeQfjZu+MNp8ltv596ql69B519L5m
-	Q5HNWY1R487oj8wC0SQfLqieAJQ3QNT2UixdAA7Z061zQ==
-X-Received: by 2002:a05:620a:40c8:b0:939:869:a8bb with SMTP id af79cd13be357-9390869b48bmr364870585a.14.1787836227038;
-        Thu, 27 Aug 2026 06:10:27 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9377e30adcesm438997585a.4.2026.08.27.06.10.26
+        d=1e100.net; s=20251104; t=1787836348; x=1788441148;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=b0Za19fw+eHquh8yAgvDA4W6/FkCDg7o3v27TiWVqLA=;
+        b=ivR9QX6Iswt409lbyWK6vHMdadowi8yNdeDduw5dbqeg7rt/5L1rzBY8xFzf8sUbbb
+         7oLz6B/Lo+XQNs38hJDc+oX7sBvMUXxs/lzjEq6KHl9crHj4ZQItPJCfQ376DVots06N
+         e0lyY9H9ZTiSDS6nSPsESC1Z+OeV6kP8vpAXDF/REr/dOr2ps86Cp8oB0yo3MsBeo9bi
+         Rg98DOqAmuxRFFMsB14HpkspZ+ItuWaAD5JWiQ2ks2+t+Aqzg7Mhys2XoxSw8EqjxWsB
+         Vxx9mCO8SR3xfkgnjacKuvcvQcqwZbLBsQN0A8z3DLxfIIxdsdQD0tr+oJhOB1OmMILE
+         oQuQ==
+X-Gm-Message-State: AFuF++mlRF8UWnSyAOhzY7WLJSx8xAY+MMvMT+/jKUzp8qbK2oD4aexT
+	+ic4rq1qfW5oK66LlexYkGqHdPUsisOskV2mYekVQz2rQ7x76xbdrY+C06NOCw==
+X-Gm-Gg: AR+sD10eyCDdamb+ULEOJsbBwp4KyhunSrhgCvkCKAsaNYVpgtv/oHF6SZgLNH2nsqZ
+	Yvx6pyhprPkqNyVM9ROunMeWWCYbYzgyCdt+GH6fxR12sIUrT5TLCUZj3I2yTL6epH8V+ShFqi3
+	ErPDB1kVYFvtGK/uyueIlW+1clVOnheEO8FvoNXhJj2X0XTDMRwCyRK/7V71QEKOqavxuYCl434
+	aKQ/TnyqI2Vo2XgylHZdnroeX/aSejkvRGSVLVYlKY/D05wqynimPJFMPPMiCs9DAENlawXSyBJ
+	JBV7yo2ENmCjn4R/pXGgO/ETz4HmCxoqNgaiKQFkebYwM1EUi5HhRZHgpkfpEFyOzDBt0L33RhG
+	PMtbrvHBX3NpojIBn34h4xx3p3KStX/0P3XP9irh524bB1ET0XYQZb4M0KuWwzEK5/EULV0MuAh
+	sQ0CoFmAQGLNu7Hm0clXVi/dthple7iWblJs2TwXCdbPSfLJHkgSOiW/qlbgP2COJa
+X-Received: by 2002:a17:90b:384e:b0:38e:57a3:f218 with SMTP id 98e67ed59e1d1-3966d4232fcmr28605232a91.13.1787836348245;
+        Thu, 27 Aug 2026 06:12:28 -0700 (PDT)
+Received: from Default ([2409:40f4:100d:ce02:df7d:ac3d:4a05:c45a])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3283fa89e8fsm28978904eec.8.2026.08.27.06.12.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 06:10:26 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1wzZs9-0000000FntS-2wGs;
-	Thu, 27 Aug 2026 10:10:25 -0300
-Date: Thu, 27 Aug 2026 10:10:25 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Zhaoyu Liu <liuzhaoyu.zackary@picoheart.com>
-Cc: joro@8bytes.org, will@kernel.org, robin.murphy@arm.com,
-	baolu.lu@linux.intel.com, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iommu/sva: remove iommu_sva_present flag
-Message-ID: <20260827131025.GF1449020@ziepe.ca>
-References: <aoq8VGFL/Mdjd/M5@hostpc>
+        Thu, 27 Aug 2026 06:12:27 -0700 (PDT)
+From: Jeffin Philip <jeffinphilip14@gmail.com>
+To: tiwai@suse.de
+Cc: linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org
+Subject: Re: [PATCH] ALSA: control: Don't add invalid kcontrols to LED layer
+Date: Thu, 27 Aug 2026 18:42:11 +0530
+Message-ID: <20260827131211.11946-1-jeffinphilip14@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260827113951.893291-1-tiwai@suse.de>
+References: <20260827113951.893291-1-tiwai@suse.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aoq8VGFL/Mdjd/M5@hostpc>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Aug 23, 2026 at 05:24:36PM +0800, Zhaoyu Liu wrote:
-> The global iommu_sva_present bool merely mirrors
-> !list_empty(&iommu_sva_mms) under the same mutex. Remove it and rely
-> on list_for_each_entry to handle the empty list case, which is a no-op.
-> 
-> Signed-off-by: Zhaoyu Liu <liuzhaoyu.zackary@picoheart.com>
-> ---
->  drivers/iommu/iommu-sva.c | 14 +++-----------
->  1 file changed, 3 insertions(+), 11 deletions(-)
+On 8/27/26 13:39, Takashi Iwai wrote:
 
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+>The kcontrol LED state layer tries to track the all associated
+>kcontrol elements with naive assumptions that they are readable.
+>But one can create a write-only element that has no get callback (even
+>a user element can do it), and this may lead to a NULL dereference at
+>the call chain of snd_ctl_led_notify(), as found by syzkaller.
+>
+>For avoiding the Oops, add a sanity check of the kcontrol's info and
+>get callbacks, and just skip the invalid kcontrols before assigning
+>the kctl to the LED layer.
 
-Jason
+I don't think a user can attach a device via sysfs without root permissions,
+(correct me if I am wrong). I attempted it on my device and got Permission
+Denied. But otherwise, seems to be okay.
+
+Thanks,
+Jeffin.
