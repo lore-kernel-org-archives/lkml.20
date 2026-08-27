@@ -1,167 +1,115 @@
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE15361950
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:50:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88FA73A168E
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:50:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787817053; cv=none; b=DvcabALcT38kHsBC2YJnGDdCSs59ZoeyuuJ5PQPOA0iyNUoFTj70gedIgKnM3pS4xnu7crQ9FbS+0Vc7CdoZYcMPKq5vEfyT1o4Cb2ptpq+Et2KRpDqlcir76MGrCwO/w7lxdDIvHtLULY8neAU/Xlynsuu+1g+WIBw9Uvy6F5k=
+	t=1787817056; cv=none; b=E4Oy3YT9tuBVUwfUPFU04fd1H5wHHnx6D8Q+g9FijmspXZvXUO4CHZ7RwKgMg8cWbonhp09lvdG+AaVw2Pe5HzrWSeVqAoPaav5wrU5COrLQqRNFY/lFQ9YItyUm7QLMJOeUr8SeC2fzdGG99C9Uh835d4iLZSXHFNgJrMgYm6g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787817053; c=relaxed/simple;
-	bh=ombfWduYmRzuQM+qSTOW1ygfQL83duLTVFuIzr1u56M=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=f+rCf3PkewRMHzvj/QvDx6T9cQ4ULYOP78U3RjWkeO8jTRb8iXn0U82GbALl2U1bDkFMyWRhc1mJzEya9VS36uJO/WOuKw0ZcSvtkjR05wov2Iz5eOJyg5l4kKO0ksKycBi/QnOuLxdj3+QACsLUx8O4vSmZHvRoA381CQIWcSs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jWQVZIjG; arc=none smtp.client-ip=209.85.210.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787817056; c=relaxed/simple;
+	bh=o9SfOayrWajRW/+NG/zMKHW/ffcQ2S0g3uodt2BKZtE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iGwrqdEpy7uLakORI1wFtY/yTuZ5PtXcJD3dLrfJ07TbxwH0xUIiKBNJn7hIaAdU+5AogM9sXqU44+xqI57QaIuZPLfTdGOvWncp2LgwYWgJa4yUtK3LL8aVByytaXKb6CRQ5rtyZdzO045D4sEXqFR61RchFm/Q3CYMyPrh3ws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=monstr.eu; spf=none smtp.mailfrom=monstr.eu; dkim=pass (2048-bit key) header.d=monstr-eu.20251104.gappssmtp.com header.i=@monstr-eu.20251104.gappssmtp.com header.b=Us1jmtvQ; arc=none smtp.client-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=monstr.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=monstr.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jWQVZIjG"
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-851d4de33a3so81755b3a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:50:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=monstr-eu.20251104.gappssmtp.com header.i=@monstr-eu.20251104.gappssmtp.com header.b="Us1jmtvQ"
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c15d3cd51b2so290196766b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:50:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787817051; x=1788421851; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QJxok4wgUB8E2b2EBexjp7DU43elN9IiB4VyNdbeBMI=;
-        b=jWQVZIjGm1P24DRfClznD9+7yzaeXVPc0wzpMJbuAd/RNGPmN7gVHVYvo6Zc8OjUfg
-         CKiJ7OW2aKP6+T0mhBxULF00v7cqfLQXZgwcbwkeN5dIto9u7cYw8n+Zj0PSYYkmXhsx
-         l9IdtO+Dr8tCqbzJixZu/rzCfiDKn0cGzedji1xD2swihZIX3u4jL9cLMuDcmGbfCdzU
-         OKU5gtW5b0+Rd2C2y915qsfdX0OGLeOii9uwNrFIfCe/ODxrthMqcjvmdnLplepyw0wL
-         bG6j7t55kP7awbmZLX304OyhBrolPJf6QFHXqqZJcFHVi1TavE+3zO4ORvgNNk6NDBLZ
-         WB2g==
+        d=monstr-eu.20251104.gappssmtp.com; s=20251104; t=1787817051; x=1788421851; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3TC/uq2OAWBJlRWDS0+FgLZUaW3+hNg8rcbu4E+WX7w=;
+        b=Us1jmtvQ5pmBNvHxw8AS0DXXd2Q63sIGJuBeYkO4Qz3HOZFdHzVohMwPxz9Y0xhPQx
+         FXcGbF2HavRovHFtKDHIMgYQY1qzvIzhf/6NuYLMuZdg4neRhdtKMV/Q56FtL1h85Vcu
+         g/ID7qaw6izcA8x/+7gLznEmxsDrwSj5Ng8P7knMZu51YjVizOTwQDkRumMP9uOXYRfd
+         dyQKdLLfSvUVs52Xb4a9hu4li/+HWs/YmhagFrWH+bY1L9u0SRSYK9n0ResDrDPU53r3
+         3nz0B59yvpWSlt5OBbTU3m0QDvhx2sbDwfRmahfUaEPncykrolIpuUG0Ayc/EPZlNDUM
+         kscw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1787817051; x=1788421851;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=QJxok4wgUB8E2b2EBexjp7DU43elN9IiB4VyNdbeBMI=;
-        b=VF6gy/SCL1q5vl8p2osOfwoAppfloLPfEODukssu1gGUFHC3f2gftLs31S77apFaDu
-         wNjABKaiWsncIukRQBtJzZLMTCT2DNS9gOFA+0BIyYW38gyP6KqZj5sQTdWDKgyP15Kg
-         mjO3vaFjIMnZJ0MSnf87YwNKo3k1vTzFbEjfs2hLy8k1gLTdyPPxvxEqUzOlpEtRFnho
-         hxS3/UCrh9w4QRcsQOF6bgrzN7/55LD09Md6otdf3UXVtUph2Ri+bu4slrnd3gYf/yZB
-         8kRVnkREqf8TI36zYSA3R6dS1wc+jBya2k1QAWd1ps+odBVBgrcrMyAf93AIRYKjCKQo
-         RADw==
-X-Forwarded-Encrypted: i=1; AHgh+Roo2+JVGphY6h1rkyJzI93lCT1XjC5UlgPPkW4l90cIfPLkHVn+0lZUKvMaEYqJTVVKpShMAsGYzd8iMZs=@vger.kernel.org
-X-Gm-Message-State: AFuF++kCcJJv2nJS5V97XohIEJ0pgfLruYrckpeJ2Uxs5DwEH/HE3Ekz
-	5gurdhrVXj/Vb5CnVHB93cDb0pxM98sWlTdYPcVdA7urs63W5dpdWLNA
-X-Gm-Gg: AR+sD12IZU2Ovfnp/eM5bHaJhetMqVNXlES17233+mVr6MQ2w5SVu2eyITH8nk/bBrn
-	/rLCPP8EfcuEJtNIuET/awtVZ9o9lyYV2MwdDehYkYV+s5y6bi72FQQLB6o0AwmYGE5p8c3ky8i
-	py8v3WB6zbRuY28JMT8w3/urf2JYy1gLa7O8vVFApLcDGKo1iDfLX2vtFgk8QdM0poFYjWIs6zt
-	8KPzhqLttIaXgkJTLA9wLdafgtOIdMUvecLGrWZb1D9baykZ8op2Z510SXig7CnBc6z8KA+wKGT
-	tDqTCW4wBkVKyeNAP9u18pe+llChtcYU7qO0YkHAM8C3a2se0/+KpNUDwTwixjmXA87W60DIhMi
-	pCJ3ah+XkPwXAEvFfhtV6p8zJFywN/yEKp1VF1nGGtXhnlVHEE8njIQlPMctsRPUNOnQlwPsQq6
-	zk2dxBzbo5iRiX8dg2oOLXRnGuEQtxe4whQDaZxtNv8dTJp3xB/rG9CNaml/PMnEt3DKXEka4bP
-	+OQNM/zn0l1Wy47ukZMpBuKgzTX2Q==
-X-Received: by 2002:a05:6a21:c147:20b0:3d1:56e6:daad with SMTP id adf61e73a8af0-3d156e6db8emr2237492637.0.1787817050967;
+        bh=3TC/uq2OAWBJlRWDS0+FgLZUaW3+hNg8rcbu4E+WX7w=;
+        b=FKRnceIJMY6jYlt7O/pEpEOZKPYxFFOSWbaRABZBcBZS0A3FBQBlOXslMTu6M86uR6
+         ugOaClLanKDPPSdzEo93nDyW8R7Vb3pSumI9DGQs40MGc69MKV7RhI1a6JNLyPj+x4zj
+         b5j3/cIHgs90PlGC2+bl8jUKHaciFxTF09mf/YuO7OeiTIUL4QWW9T/f7Qv74qEgx0Pb
+         qhhM0Rq93AC4GwNkOLzwNj9JT+PLsrMni95H6TZ1/XgQzkeNPzvNyGA7ifSmcN3WR6Sc
+         PyafIB+3ZIXZ1yBctaiAISgBFBo3VP51/FiNJFVrqxLhdoMOuowHwSYbt9RovBoposMm
+         iZtw==
+X-Forwarded-Encrypted: i=1; AHgh+Rrzxn+AI1oZ1TyIHhM18csPRbBF0Q2yPoyEG2UYxVvcS8/zc/ODR26WCTd15pP9UgnFQxuHjRVMm+mF19s=@vger.kernel.org
+X-Gm-Message-State: AFuF++kE68iOo5H9slXg08FKAVki9XC2dRx5vLqwOvto9c1qwTR6E3b5
+	9LoI/S5IrqQ14kw6HqiiaolP0Ja83hHqEIgw0Xlg9NCjVhRvNf7diZFTabJrxl5piQ==
+X-Gm-Gg: AR+sD11mP/RaNQWqGQFSmf/GCazb6Nt7foDdIDtxxpLt3ujFYJDrn0KVZpcwluyLn/l
+	X0drJTKsZm/gvIZL3yQq/4YinKrXtRwdsViQOPAvPEo8cEjbcPR+Y05dscMG2/gf/dcZAtV+7jA
+	08J9L2C/Qi0qiTX5irOY3CSt8E2X90FmK9JmjtPLUONYLIKBQyISAIAyppw6BS16xk83xFypJ+T
+	gT05UN5UnxK6F5b7vxyfnLZoRFSefgAAg1rg1eb7tJl8+W5gLO5hZHLUIq+fgy2BAQjpObnlGcs
+	PU9VFm9TSar70vzy62wSg2sgbS9ck2+LrzHM0vXaDFih68tsa9Nk+ntRAUs9vz7jivxH205oIOt
+	zGfJ/PsH8DnjGnNKLA5JQQfsg0G93choP1LuBaiTEoSa5gesE16Nlf+xhOeQO59lHWSRTDjFaxw
+	Hyu3i1gTxCbbniPo4E6abX1ELbTsLtYakMOUjADiiziHUazmQRgBMnb9vVHbqNpWTTC1lKChZJx
+	nGMNSFghy4LPa7pcDU7ew==
+X-Received: by 2002:a17:907:930b:b0:c24:680b:3944 with SMTP id a640c23a62f3a-c250c330febmr1350343566b.13.1787817050958;
         Thu, 27 Aug 2026 00:50:50 -0700 (PDT)
-Received: from localhost.localdomain ([189.1.242.96])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1bec80fdesm1761524a12.24.2026.08.27.00.50.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+Received: from [10.254.183.223] ([149.199.62.131])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a722400sm652641166b.23.2026.08.27.00.50.47
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
         Thu, 27 Aug 2026 00:50:50 -0700 (PDT)
-From: Yiqi Sun <sunyiqixm@gmail.com>
-To: marcelo.leitner@gmail.com,
-	lucien.xin@gmail.com
-Cc: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	linux-sctp@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yiqi Sun <sunyiqixm@gmail.com>
-Subject: [PATCH net] sctp: avoid livelock while updating retransmit path
-Date: Thu, 27 Aug 2026 15:50:06 +0800
-Message-Id: <20260827075006.3979566-1-sunyiqixm@gmail.com>
-X-Mailer: git-send-email 2.34.1
+Message-ID: <702a199e-6439-4890-9dbf-0111aa76aee1@monstr.eu>
+Date: Thu, 27 Aug 2026 09:50:43 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] microblaze: Fix MB_MANAGER build with older binutils
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Appana Durga Kedareswara rao <appana.durga.kedareswara.rao@amd.com>,
+ kernel test robot <lkp@intel.com>, oe-kbuild-all@lists.linux.dev,
+ Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260813024026.5402-1-kmehltretter@gmail.com>
+ <ao-3jrT0aP0_fSBA@gmail.com>
+Content-Language: en-US
+From: Michal Simek <monstr@monstr.eu>
+In-Reply-To: <ao-3jrT0aP0_fSBA@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-sctp_assoc_update_retran_path() walks the association transport list from
-the current retransmit path's successor and stops once it reaches the
-current retransmit path again. However, the loop skips transports in
-SCTP_UNCONFIRMED state before checking for the wraparound condition.
 
-This makes the loop non-terminating when the association contains only
-UNCONFIRMED transports at that point and asoc->peer.retran_path is also
-UNCONFIRMED. One way to reach that state is through ASCONF wildcard
-DEL-IP processing after an unconfirmed address is selected as the
-primary transport. sctp_assoc_del_nonprimary_peers() then removes the
-other transports one by one; when removing the current retran_path,
-sctp_assoc_rm_peer() calls sctp_assoc_update_retran_path() before
-unlinking it. If the remaining candidate and the current retran_path are
-both UNCONFIRMED, the loop repeatedly continues before it can observe
-that it has completed a full pass.
 
-The same reproducer that exercised the bug fixed by commit 9b2854f86f0b
-("sctp: don't free the ASCONF's own transport in DEL-IP processing") can
-still trigger this CPU stall after that fix is applied. With the UAF
-prevented, the ASCONF processing no longer dereferences the freed
-transport, but it can still reach the retransmit-path update described
-above and spin in the all-UNCONFIRMED case.
+On 8/27/26 06:06, Karl Mehltretter wrote:
+> On Thu, Aug 13, 2026 at 04:40:26AM +0100, Karl Mehltretter wrote:
+>> The suspend mnemonic is an alias for mbar 24, and both encode as
+>> 0xbb020004. Use the underlying instruction, which GNU as 2.30 already
+>> supports.
+>>
+>> Fixes: 88707ebe77e2 ("microblaze: Add custom break vector handler for mb manager")
+>> Reported-by: kernel test robot <lkp@intel.com>
+>> Closes: https://lore.kernel.org/oe-kbuild-all/202310310151.UhB396Qs-lkp@intel.com/
+>> Suggested-by: Michal Simek <monstr@monstr.eu>
+>> Cc: stable@vger.kernel.org
+>> Assisted-by: Codex:gpt-5.6-sol
+>> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> 
+> Just a friendly ping in case this got missed.
 
-Fix this by remembering whether the current transport is the original
-retran_path, still considering it as a candidate when it is not
-UNCONFIRMED, and then breaking after the candidate logic. This preserves
-the existing fallback semantics while making the full-pass termination
-independent of the transport state.
+will look at it after rc1.
 
-Also restore the NULL guard around the retran_path assignment. In the
-all-UNCONFIRMED case there is no eligible replacement transport, and
-installing NULL would leave later retransmit-path users and the debug
-print with a NULL path.
-
-Fixes: 4c47af4d5eb2 ("net: sctp: rework multihoming retransmission path selection to rfc4960")
-Signed-off-by: Yiqi Sun <sunyiqixm@gmail.com>
----
- net/sctp/associola.c | 19 +++++++++++--------
- 1 file changed, 11 insertions(+), 8 deletions(-)
-
-diff --git a/net/sctp/associola.c b/net/sctp/associola.c
-index c0512c827d0f..6f19eb0b01e2 100644
---- a/net/sctp/associola.c
-+++ b/net/sctp/associola.c
-@@ -1272,6 +1272,7 @@ void sctp_assoc_update_retran_path(struct sctp_association *asoc)
- {
- 	struct sctp_transport *trans = asoc->peer.retran_path;
- 	struct sctp_transport *trans_next = NULL;
-+	bool last = false;
- 
- 	/* We're done as we only have the one and only path. */
- 	if (asoc->peer.transport_count == 1)
-@@ -1289,18 +1290,20 @@ void sctp_assoc_update_retran_path(struct sctp_association *asoc)
- 		/* Manually skip the head element. */
- 		if (&trans->transports == &asoc->peer.transport_addr_list)
- 			continue;
--		if (trans->state == SCTP_UNCONFIRMED)
--			continue;
--		trans_next = sctp_trans_elect_best(trans, trans_next);
--		/* Active is good enough for immediate return. */
--		if (trans_next->state == SCTP_ACTIVE)
--			break;
-+		last = trans == asoc->peer.retran_path;
-+		if (trans->state != SCTP_UNCONFIRMED) {
-+			trans_next = sctp_trans_elect_best(trans, trans_next);
-+			/* Active is good enough for immediate return. */
-+			if (trans_next->state == SCTP_ACTIVE)
-+				break;
-+		}
- 		/* We've reached the end, time to update path. */
--		if (trans == asoc->peer.retran_path)
-+		if (last)
- 			break;
- 	}
- 
--	asoc->peer.retran_path = trans_next;
-+	if (trans_next)
-+		asoc->peer.retran_path = trans_next;
- 
- 	pr_debug("%s: association:%p updated new path to addr:%pISpc\n",
- 		 __func__, asoc, &asoc->peer.retran_path->ipaddr.sa);
+M
 -- 
-2.34.1
+Michal Simek, Ing. (M.Eng), OpenPGP -> KeyID: FE3D1F91
+w: www.monstr.eu p: +42-0-721842854
+Maintainer of Linux kernel - Xilinx Microblaze
+Maintainer of Linux kernel - Xilinx Zynq ARM and ZynqMP/Versal ARM64 SoCs
+U-Boot custodian - Xilinx Microblaze/Zynq/ZynqMP/Versal/Versal NET SoCs
+TF-A maintainer - Xilinx ZynqMP/Versal/Versal NET SoCs
 
