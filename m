@@ -1,41 +1,57 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83753378D6B;
-	Thu, 27 Aug 2026 19:14:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65B1E4D90D7
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 19:16:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787858056; cv=none; b=g+pcFVz4rCVWHFtruEO7kjjRBJBVbNCmP93p2hNuu2qYU8jGALCoTTvQnwC3I+eFF3YmZiY+B9xKXIX6JWJ0q1uMPcGuuRTnnkLrNvXlsz2mPpqXQ8lwQHadpPI6k6CHBOBhmTLvJU7xSnNRDbYBz/onyS3hxx6v4B+N8OSb0m0=
+	t=1787858185; cv=none; b=rYPelS/VPAkw+Jgo/Ua7td1ol71dfhfFzXT4ZAN5DDgGec3m9oFD8nlp27LugzkiVHyUwAh8nY55uo01ByDjdn3xy+Ub7doSVNGxaQXh+4MXjhJLxONsMl46j8/rPaf+ITd/ZCo+RcVcb9A4Rsm7hTLTGvSs8vuCG80bYeDm1e0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787858056; c=relaxed/simple;
-	bh=ON3ozEPj6VPqr9MH1NdFS8n5MaotiwRL/tVsnWJL848=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NA904J1T93dx+U7qRZ1TFeGbYjUHzjf4YeWRWOWZn6PdPIoT7yk6kFU9zdvWgqBetRBqBkr5VhnyRmT+wkqUZWw6xvFT314Rh9HUV5edMFPeh+GIUjQvfBORCK8sGJbCYMtJny+NqTSxFBG5ql/Xw9InRT94lxjIOxmFGoVDVI8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ik/+Zm7u; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787858185; c=relaxed/simple;
+	bh=GjdOIGYWp4HEVuHhPCx+5H5n9C6gsK95CVbktczjjYY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=LAspafgLma/bk8mVvxH04B3RmfyMg/Ly2cbGz1n6qfmZKXN3Z+1Bdbrz9j7RA1XO8Xxh9hQ6oSEHp3S2vL7nU3VzV9SSOJtY2IVfiRSCin6xCXZ+HFZrQiJM5/+53/7+H1WSBVoWQjTizDnSri52P4y6k5nOGN9jZnrUjeUnJt4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=OC1IzNRf; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ik/+Zm7u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E22161F000E9;
-	Thu, 27 Aug 2026 19:14:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787858055;
-	bh=ON3ozEPj6VPqr9MH1NdFS8n5MaotiwRL/tVsnWJL848=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Ik/+Zm7uSoD+2hWmBkhUaOXTZRvGANRu8iiQ1EcvYqG+XXri5fXlefD+XMxtLIPBj
-	 TvqoKbm5fIHVGkMy0vsx9JChR7yBPN42y/oPs6I0EnDWu2dqqIRamKKGCzcyK/HsHd
-	 L23jAtAbaJN+s8tNY4zCulUS82ds38ij3DRiihSw1iFMblIL4HDFM00ihyt1KKASw+
-	 GOMfiofkTdQ+mhiNcwxaQQ4/0NHBF4Bkg9MEHyj26h39p+Prcm2t9UgQ+giUh6fnV2
-	 4o+oJkPkDq/i9IeaulbabfXBiwtJf+BwcYhyA08WxHW6M0sMkbd5PsdtOIEf4BmnW2
-	 mfpo6Kjaxottg==
-Date: Thu, 27 Aug 2026 12:14:14 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Yang Zi <2959243019@qq.com>
-Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-Subject: Re: [PATCH] niu: validate num_ports against NIU_MAX_PORTS
-Message-ID: <20260827121414.3275d710@kernel.org>
-In-Reply-To: <tencent_A16FB6B3A899F3D4CBEC0F2F5531DD502807@qq.com>
-References: <tencent_A16FB6B3A899F3D4CBEC0F2F5531DD502807@qq.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="OC1IzNRf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787858180;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dDs39916KY8yMr535HS+jAAi0uFdmvYbtN+CYHR40MA=;
+	b=OC1IzNRfMQXY2XJM/KQaAhZjc3F716ujNcg5A4SQCyKRawxXXKVEMoQ/+E8snIXvuFWfP7
+	oasomzDYngx7V5WO3ePVC9CmcLe5BJRmYZteD0cpDPVV+rUJiAv9SmEY/L6sYPDvgl4WSr
+	t2Zx7HBN1mOSM1LhpWf4rpEPDRKQTUs=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-676-TdHVXDHgPMCgKYeqjbe9SA-1; Thu,
+ 27 Aug 2026 15:16:15 -0400
+X-MC-Unique: TdHVXDHgPMCgKYeqjbe9SA-1
+X-Mimecast-MFC-AGG-ID: TdHVXDHgPMCgKYeqjbe9SA_1787858174
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 88BB2185BEB8;
+	Thu, 27 Aug 2026 19:16:14 +0000 (UTC)
+Received: from pasta.redhat.com (unknown [10.44.32.182])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id D7AB91800640;
+	Thu, 27 Aug 2026 19:16:12 +0000 (UTC)
+From: Andreas Gruenbacher <agruenba@redhat.com>
+To: Jiacheng Xu <stitch@zju.edu.cn>
+Cc: Andreas Gruenbacher <agruenba@redhat.com>,
+	gfs2@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/5] gfs2: protect sysfs callbacks from superblock teardown
+Date: Thu, 27 Aug 2026 21:16:08 +0200
+Message-ID: <20260827191611.687345-1-agruenba@redhat.com>
+In-Reply-To: <6a91508.162bd.1a0228251e8.Coremail.stitch@zju.edu.cn>
+References: <6a91508.162bd.1a0228251e8.Coremail.stitch@zju.edu.cn> <dae9f1e.152f1.1a018d2dd73.Coremail.stitch@zju.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -43,25 +59,258 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-On Tue, 25 Aug 2026 17:42:42 +0800 Yang Zi wrote:
-> niu_get_and_validate_port() obtains parent->num_ports from hardware
-> (nr64(ESPC_NUM_PORTS_MACS) & ESPC_NUM_PORTS_MACS_VAL), an 8-bit value that
-> can range from 0 to 255, with no upper-bound check.=C2=A0 The driver's pe=
-r-port
-> arrays (rxchan_per_port[], txchan_per_port[], rdc_group_cfg[]) are only
-> NIU_MAX_PORTS (4) entries, so niu_divide_channels() and
-> niu_divide_rdc_groups() iterate num_ports times and write out of bounds
-> whenever num_ports is greater than 4.
->=20
-> Reject num_ports > NIU_MAX_PORTS with -EINVAL so the probe aborts before =
-any
-> of these arrays are written.
->=20
-> Covers fuzzing bug IDs 321, 322, 323 and 324 (same root cause).
->=20
-> Signed-off-by: Yang Zi <2959243019@qq.com>
+Hello,
 
-this is a waste of time, please don't send any more patches to linux
-networking this year
+On Fri, Aug 21, 2026 at 6:09 AM Jiacheng Xu <stitch@zju.edu.cn> wrote:
+> The GFS2 sysfs files become visible before fill_super() completes and
+> remain present until after filesystem resources have been released.
+> Consequently, callbacks that access quota, statfs, glock or journal
+> state can race with mount failure rollback or unmount teardown.
+>
+> The quota refresh fix was originally sent as a standalone [PATCH]. This
+> version folds it into a complete series and adds the corresponding
+> lifetime protection for the other affected sysfs callbacks.
+>
+> All callbacks use down_read_trylock() on s_umount and verify SB_ACTIVE.
+> Returning -EAGAIN avoids deadlock when mount failure or unmount holds
+> the write side of s_umount while removing the sysfs files.
+
+thanks for these patches, they look useful.  I would like to suggest
+some changes; please see the below patch.  Could you please apply those
+to the individual patches and repost?
+
+> Changes in v2:
+> - Folded the original quota refresh fix into a five-patch series.
+> - Added statfs_sync, quota_sync, demote_rq and status fixes.
+>
+> Jiacheng Xu (5):
+>   gfs2: protect quota refresh from superblock teardown
+>   gfs2: protect statfs sync sysfs callback
+>   gfs2: protect quota sync sysfs callback
+>   gfs2: protect demote requests during superblock teardown
+>   gfs2: protect status sysfs reads during teardown
+
+With the patch I've just posted to the gfs2 mailing list [*], dumping
+the status file shouldn't require any additional locking, so the last
+patch in qour queue can be dropped.
+
+[*] https://lore.kernel.org/gfs2/20260827190632.686583-1-agruenba@redhat.com/T/#u
+
+Thanks,
+Andreas
+
+--
+
+ fs/gfs2/quota.c | 19 +-------------
+ fs/gfs2/sys.c   | 70 ++++++++++++++++++++++++++-----------------------
+ 2 files changed, 38 insertions(+), 51 deletions(-)
+
+diff --git a/fs/gfs2/quota.c b/fs/gfs2/quota.c
+index b1fb60b4cd10..dbfc21693dd5 100644
+--- a/fs/gfs2/quota.c
++++ b/fs/gfs2/quota.c
+@@ -1387,36 +1387,19 @@ int gfs2_quota_sync(struct super_block *sb, int type)
+ 
+ int gfs2_quota_refresh(struct gfs2_sbd *sdp, struct kqid qid)
+ {
+-	struct super_block *sb = sdp->sd_vfs;
+ 	struct gfs2_quota_data *qd;
+ 	struct gfs2_holder q_gh;
+ 	int error;
+ 
+-	/*
+-	 * The sysfs files are created before fill_super completes. Avoid
+-	 * blocking on s_umount because the mount failure path removes the
+-	 * sysfs files while holding it for writing.
+-	 */
+-	if (!down_read_trylock(&sb->s_umount))
+-		return -EAGAIN;
+-
+-	if (!(sb->s_flags & SB_ACTIVE)) {
+-		error = -EAGAIN;
+-		goto out_unlock;
+-	}
+-
+ 	error = qd_get(sdp, qid, &qd);
+ 	if (error)
+-		goto out_unlock;
++		return error;
+ 
+ 	error = do_glock(qd, FORCE, &q_gh);
+ 	if (!error)
+ 		gfs2_glock_dq_uninit(&q_gh);
+ 
+ 	qd_put(qd);
+-
+-out_unlock:
+-	up_read(&sb->s_umount);
+ 	return error;
+ }
+ 
+diff --git a/fs/gfs2/sys.c b/fs/gfs2/sys.c
+index 345d0527675f..ff90ec2eb798 100644
+--- a/fs/gfs2/sys.c
++++ b/fs/gfs2/sys.c
+@@ -63,20 +63,30 @@ static ssize_t id_show(struct gfs2_sbd *sdp, char *buf)
+ 			MAJOR(sdp->sd_vfs->s_dev), MINOR(sdp->sd_vfs->s_dev));
+ }
+ 
++static bool super_trylock_shared_active(struct super_block *sb)
++{
++	if (!down_read_trylock(&sb->s_umount))
++		return false;
++	if (sb->s_flags & SB_ACTIVE)
++		return true;
++	up_read(&sb->s_umount);
++	return false;
++}
++
++static void super_unlock_active(struct super_block *sb)
++{
++	up_read(&sb->s_umount);
++}
++
+ static ssize_t status_show(struct gfs2_sbd *sdp, char *buf)
+ {
+ 	struct super_block *sb = sdp->sd_vfs;
+ 	unsigned long f;
+ 	ssize_t s;
+ 
+-	if (!down_read_trylock(&sb->s_umount))
++	if (!super_trylock_shared_active(sb))
+ 		return -EAGAIN;
+ 
+-	if (!(sb->s_flags & SB_ACTIVE)) {
+-		s = -EAGAIN;
+-		goto out_unlock;
+-	}
+-
+ 	f = sdp->sd_flags;
+ 	s = sysfs_emit(buf,
+ 		     "Journal Checked:          %d\n"
+@@ -136,8 +146,7 @@ static ssize_t status_show(struct gfs2_sbd *sdp, char *buf)
+ 		     atomic_read(&sdp->sd_log_thresh1),
+ 		     atomic_read(&sdp->sd_log_thresh2));
+ 
+-out_unlock:
+-	up_read(&sb->s_umount);
++	super_unlock_active(sb);
+ 	return s;
+ }
+ 
+@@ -236,19 +245,13 @@ static ssize_t statfs_sync_store(struct gfs2_sbd *sdp, const char *buf,
+ 	if (val != 1)
+ 		return -EINVAL;
+ 
+-	if (!down_read_trylock(&sb->s_umount))
++	if (!super_trylock_shared_active(sb))
+ 		return -EAGAIN;
+ 
+-	if (!(sb->s_flags & SB_ACTIVE)) {
+-		error = -EAGAIN;
+-		goto out_unlock;
+-	}
+-
+ 	gfs2_statfs_sync(sb, 0);
+ 
+-out_unlock:
+-	up_read(&sb->s_umount);
+-	return error ? error : len;
++	super_unlock_active(sb);
++	return len;
+ }
+ 
+ static ssize_t quota_sync_store(struct gfs2_sbd *sdp, const char *buf,
+@@ -267,24 +270,19 @@ static ssize_t quota_sync_store(struct gfs2_sbd *sdp, const char *buf,
+ 	if (val != 1)
+ 		return -EINVAL;
+ 
+-	if (!down_read_trylock(&sb->s_umount))
++	if (!super_trylock_shared_active(sb))
+ 		return -EAGAIN;
+ 
+-	if (!(sb->s_flags & SB_ACTIVE)) {
+-		error = -EAGAIN;
+-		goto out_unlock;
+-	}
+-
+ 	gfs2_quota_sync(sb, 0);
+ 
+-out_unlock:
+-	up_read(&sb->s_umount);
+-	return error ? error : len;
++	super_unlock_active(sb);
++	return len;
+ }
+ 
+ static ssize_t quota_refresh_user_store(struct gfs2_sbd *sdp, const char *buf,
+ 					size_t len)
+ {
++	struct super_block *sb = sdp->sd_vfs;
+ 	struct kqid qid;
+ 	int error;
+ 	u32 id;
+@@ -300,13 +298,19 @@ static ssize_t quota_refresh_user_store(struct gfs2_sbd *sdp, const char *buf,
+ 	if (!qid_valid(qid))
+ 		return -EINVAL;
+ 
++	if (!super_trylock_shared_active(sb))
++		return -EAGAIN;
++
+ 	error = gfs2_quota_refresh(sdp, qid);
++
++	super_unlock_active(sb);
+ 	return error ? error : len;
+ }
+ 
+ static ssize_t quota_refresh_group_store(struct gfs2_sbd *sdp, const char *buf,
+ 					 size_t len)
+ {
++	struct super_block *sb = sdp->sd_vfs;
+ 	struct kqid qid;
+ 	int error;
+ 	u32 id;
+@@ -322,7 +326,12 @@ static ssize_t quota_refresh_group_store(struct gfs2_sbd *sdp, const char *buf,
+ 	if (!qid_valid(qid))
+ 		return -EINVAL;
+ 
++	if (!super_trylock_shared_active(sb))
++		return -EAGAIN;
++
+ 	error = gfs2_quota_refresh(sdp, qid);
++
++	super_unlock_active(sb);
+ 	return error ? error : len;
+ }
+ 
+@@ -363,14 +372,9 @@ static ssize_t demote_rq_store(struct gfs2_sbd *sdp, const char *buf, size_t len
+ 	if (glops == NULL)
+ 		return -EINVAL;
+ 
+-	if (!down_read_trylock(&sb->s_umount))
++	if (!super_trylock_shared_active(sb))
+ 		return -EAGAIN;
+ 
+-	if (!(sb->s_flags & SB_ACTIVE)) {
+-		rv = -EAGAIN;
+-		goto out_unlock;
+-	}
+-
+ 	if (!test_and_set_bit(SDF_DEMOTE, &sdp->sd_flags))
+ 		fs_info(sdp, "demote interface used\n");
+ 	rv = gfs2_glock_get(sdp, glnum, glops, NO_CREATE, &gl);
+@@ -381,7 +385,7 @@ static ssize_t demote_rq_store(struct gfs2_sbd *sdp, const char *buf, size_t len
+ 	rv = 0;
+ 
+ out_unlock:
+-	up_read(&sb->s_umount);
++	super_unlock_active(sb);
+ 	return rv ? rv : len;
+ }
+ 
+-- 
+2.55.0
+
