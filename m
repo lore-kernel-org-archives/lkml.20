@@ -1,177 +1,254 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3815243BDAF
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:40:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F6FB43BDD2;
+	Thu, 27 Aug 2026 09:40:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787823609; cv=none; b=JT5+C3e+cbIitSUgGEcQhyk6o0t35t/YjmMtjDa6ZeedDLAy0X2PElE5v+Y9MHVmG5JHKTUedy9SQXA+7HBJuqaw7gWMjafUo2yD2JH2QlqIIUP54BXRFQUvoQYFmd59Ok6lLmG5JJWMzKEbTJBA+8idHZhmg56Cik+GBUGvRUA=
+	t=1787823652; cv=none; b=NCFDkdysk/5lWOnWFpbiXl8zGqJ/QlYwFPC3v6LYEVzJ7FpIkNhQJnFRM/6Ud6JLJZpVZni6jXN7DJspJWX2jmSRGCKtoplVLkEHETKXCR+duNmGe9tlUyRW93Dpv+MQ5vHIiykGBQBI8f2Q2ZC8WWDFze2SzoPOe/lhvgCDtV8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787823609; c=relaxed/simple;
-	bh=xjb5979/QIug4PmWxujJWqtP1uK1jBCSYMrRh2EIv5s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=O08aHsO+T/srvZSx5oitQmGqFNHBvr6H4P1xd5PV4Uu5W3NXnD5HxoZ4fYCCV54STH6j7yFYQb/6cwhwqUXz72X9i5qc8QoHdu8/BoFVdyo9c5VY8P5q/biiYM3ioPyO3xbez8R1EsZMLL30dxnZ/3+IkN9yuKW71eNavRoUPC4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=CJWfz/SM; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1787823652; c=relaxed/simple;
+	bh=rL9TYM9yLmhnQCd5sDRb/i0eElotMdsEjEZcYkZOnFg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dtlNNbMlDmkQvj7Y8fKpTX6zyXcLra3v8Iu0w/eVBmjHEtl7RRMPTs0E00/dpB/TRdoBH/oGcokKwGhH8wnn0d58/m4U3Vmo/M9fW1hJsgS/neOAVbq2mdbwx2rg9A1rO9hEFjHHG0yXCjz+6d8YiBcq7lRUruMHFq3x0S60kJw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hYsVqHxR; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="CJWfz/SM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787823601;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=kULfUyQq7EqkKb8DB+KYwFU87ezqhr1+/Exo1PKTlDQ=;
-	b=CJWfz/SMsQRKfM/+mFoavFLrVsoycyPyMvPJH0UKzPWdQVuGxbsGIt/3BXWuiaWTr85yn4
-	LgU1EYbF/dMeAoq0dujvm6iRWWWmbCIw9QRKX2OdHZw7qERX0qi0bgDupNOAf9OiD7/nek
-	cOrZg1z8iIEvFguzOyxcybZRmYO27B0=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-556-Jlguz078NyalceJlyShADQ-1; Thu,
- 27 Aug 2026 05:38:43 -0400
-X-MC-Unique: Jlguz078NyalceJlyShADQ-1
-X-Mimecast-MFC-AGG-ID: Jlguz078NyalceJlyShADQ_1787823521
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 9C3561801344;
-	Thu, 27 Aug 2026 09:38:41 +0000 (UTC)
-Received: from warthog.com (unknown [10.22.88.47])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 92B661955F04;
-	Thu, 27 Aug 2026 09:38:38 +0000 (UTC)
-From: David Howells <dhowells@redhat.com>
-To: Christian Brauner <christian@brauner.io>
-Cc: David Howells <dhowells@redhat.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	netfs@lists.linux.dev,
-	linux-afs@lists.infradead.org,
-	linux-cifs@vger.kernel.org,
-	ceph-devel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 00/10] netfs, cachefiles: Miscellaneous fixes
-Date: Thu, 27 Aug 2026 10:38:15 +0100
-Message-ID: <20260827093828.1956211-1-dhowells@redhat.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hYsVqHxR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787823648; x=1819359648;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=rL9TYM9yLmhnQCd5sDRb/i0eElotMdsEjEZcYkZOnFg=;
+  b=hYsVqHxRJxGO9GPI4eVMeBXaPhMpGEPpSPd6KlZeLgtjm8Sk6KxrZUTl
+   V3Lmi9JDhEH5I2WeTGg/9LJ8E0XqDi7iDxIqVB47JtGCEGXFNEY8dfK8h
+   1Rs60ZsuyKIiG6d+wZfgnY7/nQUVeudGKtYBNCI0B/63TAS/nHSx1BtWN
+   9IKvz3WDaltgelisgFJJk55ydInGbuxTrlwdUM54GWety79kGWZ6tcfeq
+   AFhk1P019hELvLh5rnd01gMv7YM9jUX+Q6etOamg/HpkmBQa1kchofVVn
+   /A1uted5BrOUCTgLZxVVjVBNduUxjxcMkqvXtDwdeG8L6DJQ7S16qr6Oh
+   w==;
+X-CSE-ConnectionGUID: 7Z5flkA4TeSzQcJCIQIMwg==
+X-CSE-MsgGUID: +Shlav/+TraB46NMbjnc7A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="75861194"
+X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
+   d="scan'208";a="75861194"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 02:40:46 -0700
+X-CSE-ConnectionGUID: 6r0+pXMlQW2SkceJaqe+5Q==
+X-CSE-MsgGUID: f/YZL4bKRAKHWmuwdJ+coA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
+   d="scan'208";a="266042179"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.125])
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 02:40:42 -0700
+Date: Thu, 27 Aug 2026 12:40:40 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bingbu Cao <bingbu.cao@amd.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Nicholas Roth <nicholas@rothemail.net>,
+	Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jose Maria Martin <jmmartinf@hotmail.com>,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/8] media: ov8858: support 19.2 MHz clock and CHT gain
+ setup
+Message-ID: <apAGGD27ZUFHQ6Aa@ashevche-desk.local>
+References: <20260826132256.3343451-1-mauriziocasciano7@gmail.com>
+ <20260826132256.3343451-2-mauriziocasciano7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260826132256.3343451-2-mauriziocasciano7@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Christian,
+On Wed, Aug 26, 2026 at 03:22:49PM +0200, Maurizio Casciano wrote:
+> The Yoga Book drives its OV8858 from a 19.2 MHz platform clock, while
+> the existing mode tables program the sensor PLL for 24 MHz. Reusing
+> those settings produces incorrect internal and CSI-2 clocks.
+> 
+> Accept both input rates and use the actual rate for the reset delay. For
+> 19.2 MHz, apply the Cherry Trail MRD PLL and black-level settings after
+> the generic mode table.
+> 
+> The 19.2 MHz platform uses the per-channel manual white-balance
+> registers for digital gain. Program registers 0x5032, 0x5034 and 0x5036
+> and expose their 1x-to-4x range, while retaining the existing
+> long-exposure gain block for 24 MHz systems.
+> 
+> The manual white-balance register definitions and programming follow
+> the GPL-2.0 Intel OV5670 driver, so retain its 2017 Intel copyright
+> notice in this file. No proprietary source or tuning binary is included.
+> 
+> Tested on the Lenovo Yoga Book YB1-X91L OV8858 with full-range test bars
+> and real 10-bit Bayer frames.
 
-Here are some miscellaneous fixes for netfslib and one for cachefiles, if
-you could pick them up?
+...
 
-The first six are all in unbuffered/DIO write:
+>  #define OV8858_LINK_FREQ		360000000U
+> -#define OV8858_XVCLK_FREQ		24000000
+> +#define OV8858_XVCLK_FREQ_19_2MHZ	19200000
+> +#define OV8858_XVCLK_FREQ_24MHZ		24000000
 
- (1) Fix an uninitialised return value from netfs_unbuffered_write().
+While at it, use HZ_PER_MHZ multiplier from units.h.
 
- (2) Fix the normal error return, preferring partial transfer size over
-     request error over immediate error (e.g. EINTR).
+...
 
- (3) Fix the async error return, preferring partial transfer size over
-     error.
+>  #define OV8858_REG_LONG_DIGIGAIN	OV8858_REG_16BIT(0x350a)
+>  #define OV8858_LONG_DIGIGAIN_H_MASK	0x3fc0
+>  #define OV8858_LONG_DIGIGAIN_L_MASK	0x3f
+>  #define OV8858_LONG_DIGIGAIN_H_SHIFT	2
+>  #define OV8858_LONG_DIGIGAIN_MIN	0x0
+>  #define OV8858_LONG_DIGIGAIN_MAX	0x3fff
+> -#define OV8858_LONG_DIGIGAIN_STEP	1
+>  #define OV8858_LONG_DIGIGAIN_DEFAULT	0x200
+>  
+> +#define OV8858_DIGITAL_GAIN_STEP	1
+> +
 
- (4) Fix the update of i_size on partial transfer ending in an error.
+What has been changed here? Why?
 
- (5) Fix a subrequest leak in an error path.
+...
 
- (6) Fix the code to handle subrequest allocation failure.
+>  struct ov8858 {
+>  	struct clk		*xvclk;
+> +	unsigned long		xvclk_rate;
+>  	struct gpio_desc	*reset_gpio;
+>  	struct gpio_desc	*pwdn_gpio;
+>  	struct regulator_bulk_data supplies[ARRAY_SIZE(ov8858_supply_names)];
 
-Then there's:
+I understand the logic of location of a new field, but can you confirm with
+`pahole` that this is optimal as well from alignment perspective?
 
- (7) Fix synchronisation issues with using a progressive rolling buffer for
-     readahead by fetching everything into it upfront so that the issues
-     don't arise.  Dropping the refs so acquired is deferred until after
-     I/O is begun.
+>  	unsigned int		num_lanes;
+>  };
 
- (8) Change the marking of folios to be copied to the cache to be done
-     whilst subreqs are being issued rather than at the time they're
-     collected.  Whilst this is not strictly a fix, it means that the
-     collector thread doesn't need to try and keep track of that, which
-     means that delayed progress reporting will not be a problem in patch
-     (9).
+...
 
- (9) Fix read progress reporting to avoid 64-bit tearing on a 32-bit
-     machine.  This has been modified from the previous submission as part
-     of a different series to take account of a sashiko reported issue[1].
+> +	/* The mode tables contain PLL settings for a 24 MHz input clock. */
+> +	if (ov8858->xvclk_rate == OV8858_XVCLK_FREQ_19_2MHZ) {
+> +		ret = ov8858_write_array(ov8858,
+> +					 ov8858_cht_mrd_19_2mhz);
 
-(10) Fix a potential UAF/KASAN warning reported by sashiko[1] in cachefiles
-     in which the coherency data buffer is cast to a __be64* and
-     dereferenced in a tracepoint - even though it might not be at least
-     that large (or aligned).
+It's perfectly a single line.
 
-The patches can also be found here:
 
-	https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/log/?h=netfs-fixes
+> +		if (ret)
+> +			return ret;
+> +	}
 
-Thanks,
-David
+...
 
-Changes
-=======
-ver #3)
-- Fixed a number of issues reported by Sashiko[3]:
-  - Fixed netfs_unbuffered_write() to return -ENOMEM to async writes too.
-  - Added a patch to preload the entire readahead folio collection up front
-    to avoid producer-consumer synchronisation issues.
-  - Added a patch to premark buffered read folios with whether or not
-    they're going to require caching so that the read-progress fix works
-    correctly.
+> +static int ov8858_set_digital_gain(struct ov8858 *ov8858, u32 gain)
+> +{
+> +	u16 long_gain;
+> +	int ret;
+> +
+> +	if (ov8858->xvclk_rate != OV8858_XVCLK_FREQ_19_2MHZ) {
+> +		long_gain = (gain & OV8858_LONG_DIGIGAIN_L_MASK) |
+> +			    ((gain & OV8858_LONG_DIGIGAIN_H_MASK) <<
+> +			     OV8858_LONG_DIGIGAIN_H_SHIFT);
 
-ver #2)
-- Imported a patch to add subreq alloc failure handling in unbuffered/DIO
-  write.
-- Fixed a number of issues reported by Sashiko[2]:
-  - Added four patches to fix bugs in unbuffered/DIO write.
-  - Added a patch to fix readahead rolling buffer issues.
-  - Fixed the cachefiles xattr stuff to use max() not min() when
-    allocating.
-  - Fixed the cachefiles trace comment with regard to alignment.
-  - Fixed netfs_read_set_unlock_at() to use folioq_count(), not
-    folio_nr_slots().
+I don't see the usefulness of these MASKs and SHIFTs in this case.
+Can't we simply
 
-[1] https://sashiko.dev/#/patchset/20260810144746.574036-1-dhowells%40redhat.com
-[2] https://sashiko.dev/#/patchset/20260824120224.504575-1-dhowells%40redhat.com
-[3] https://sashiko.dev/#/patchset/20260825132045.1000787-1-dhowells%40redhat.com
+#define OV8858_LONG_DIGIGAIN_MASK
+	(OV8858_LONG_DIGIGAIN_L_MASK | OV8858_LONG_DIGIGAIN_H_MASK)
 
-David Howells (8):
-  netfs: Fix unbuffered/DIO write partial transfer error return
-  netfs: Fix error vs transferred passed to ->ki_complete()
-  netfs: Fix i_size update for partial transfer
-  netfs: Fix subreq ref leak
-  netfs: Fix readahead synchronisation issues by loading all folios
-    upfront
-  netfs: Mark folios with COPY_TO_CACHE whilst issuing subreqs
-  netfs: Fix read progress reporting
-  cachefiles: Fix potential UAF/KASAN warning
+and then
+		long_gain = gain & OV8858_LONG_DIGIGAIN_MASK;
 
-Edward Adam Davis (1):
-  netfs: break unbuffered write when netfs_alloc_subrequest() fails
+?
 
-Karl Mehltretter (1):
-  netfs: Fix uninitialized return value in netfs_unbuffered_write()
+> +		return ov8858_write(ov8858, OV8858_REG_LONG_DIGIGAIN,
+> +				    long_gain, NULL);
+> +	}
+> +
+> +	ret = ov8858_write(ov8858, OV8858_REG_MWB_RED_GAIN, gain, NULL);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = ov8858_write(ov8858, OV8858_REG_MWB_GREEN_GAIN, gain, NULL);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return ov8858_write(ov8858, OV8858_REG_MWB_BLUE_GAIN, gain, NULL);
+> +}
 
- fs/cachefiles/xattr.c             |  16 +--
- fs/netfs/buffered_read.c          | 165 ++++++++++++++++++++++--------
- fs/netfs/direct_write.c           |  31 ++++--
- fs/netfs/internal.h               |   2 +
- fs/netfs/misc.c                   |  19 ++++
- fs/netfs/objects.c                |  32 +++---
- fs/netfs/read_collect.c           | 103 ++++++++++++-------
- fs/netfs/read_pgpriv2.c           |  13 ++-
- fs/netfs/read_retry.c             |   7 ++
- fs/netfs/read_single.c            |   2 +
- fs/netfs/rolling_buffer.c         |  81 +++++++++------
- fs/netfs/write_issue.c            |   2 +
- include/linux/netfs.h             |   5 +-
- include/linux/rolling_buffer.h    |   6 +-
- include/trace/events/cachefiles.h |  19 +++-
- include/trace/events/netfs.h      |  30 +++++-
- 16 files changed, 381 insertions(+), 152 deletions(-)
+...
+
+>  	struct i2c_client *client = v4l2_get_subdevdata(&ov8858->subdev);
+>  	struct v4l2_mbus_framefmt *format;
+>  	struct v4l2_subdev_state *state;
+> -	u16 digi_gain;
+>  	s64 max_exp;
+>  	int ret;
+>  
+> @@ -1570,17 +1647,7 @@ static int ov8858_set_ctrl(struct v4l2_ctrl *ctrl)
+>  				   ctrl->val, NULL);
+>  		break;
+>  	case V4L2_CID_DIGITAL_GAIN:
+> -		/*
+> -		 * Digital gain is assembled as:
+> -		 * 0x350a[7:0] = dgain[13:6]
+> -		 * 0x350b[5:0] = dgain[5:0]
+> -		 * Reassemble the control value to write it in one go.
+> -		 */
+> -		digi_gain = (ctrl->val & OV8858_LONG_DIGIGAIN_L_MASK)
+> -			  | ((ctrl->val & OV8858_LONG_DIGIGAIN_H_MASK) <<
+> -			      OV8858_LONG_DIGIGAIN_H_SHIFT);
+> -		ret = ov8858_write(ov8858, OV8858_REG_LONG_DIGIGAIN,
+> -				   digi_gain, NULL);
+> +		ret = ov8858_set_digital_gain(ov8858, ctrl->val);
+>  		break;
+
+So this part with the above can be split to a preparatory patch.
+
+...
+
+> -	delay_us = DIV_ROUND_UP(8192, OV8858_XVCLK_FREQ / 1000 / 1000);
+> +	delay_us = DIV_ROUND_UP(8192, ov8858->xvclk_rate / 1000 / 1000);
+
+Also HZ_PER_MHZ
+
+...
+
+> static int ov8858_init_ctrls(struct ov8858 *ov8858)
+
+>  	struct v4l2_ctrl_handler *handler = &ov8858->ctrl_handler;
+>  	const struct ov8858_mode *mode = &ov8858_modes[0];
+>  	struct v4l2_fwnode_device_properties props;
+> +	u32 digital_gain_default = OV8858_LONG_DIGIGAIN_DEFAULT;
+> +	u32 digital_gain_max = OV8858_LONG_DIGIGAIN_MAX;
+> +	u32 digital_gain_min = OV8858_LONG_DIGIGAIN_MIN;
+>  	s64 exposure_max, vblank_def;
+>  	unsigned int pixel_rate;
+>  	struct v4l2_ctrl *ctrl;
+
+>  			  OV8858_LONG_GAIN_MIN, OV8858_LONG_GAIN_MAX,
+>  			  OV8858_LONG_GAIN_STEP, OV8858_LONG_GAIN_DEFAULT);
+>  
+> +	if (ov8858->xvclk_rate == OV8858_XVCLK_FREQ_19_2MHZ) {
+> +		digital_gain_min = OV8858_MWB_GAIN_MIN;
+> +		digital_gain_max = OV8858_MWB_GAIN_MAX;
+> +		digital_gain_default = OV8858_MWB_GAIN_DEFAULT;
+> +	}
+
+Instead, use 'else' branch so all assignments are close to each other.
+Also possible to avoid adding local variables.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
