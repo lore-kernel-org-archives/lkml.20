@@ -1,92 +1,64 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5AFC43D50E;
-	Thu, 27 Aug 2026 09:39:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A42C243BDB1;
+	Thu, 27 Aug 2026 09:39:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787823583; cv=none; b=q+J8t4DL1IxOp+IbxLJTx7BF8b9RJk8jnxUdP6WthNyvhcjUWuUroBQJtwSTDT73W9LeW5nI5jUDrofZj/ZwTaXqG2Gl9J4YxaIOqU2JrRFlvCDb4cmFjvHKNtlWkZZICMTUua8okOxkRlR3ZY3CyYzKOXToQE/Tb0qzTC02zSQ=
+	t=1787823598; cv=none; b=L3xqEQqg/uADy0IDCHiDZ00GQhzZ0Jyji1bapWO61s7A6juY3sHiKzMGAlce7JF3xW4z9EFz/CEzhORRwXhgzVZG2if/MJ96iFHzNfPwZu+zh2tAHp73YRHZYzatgflq+LPjPbtbp6BoiHDP7k7VbtrHU02LSmok3X6g/sRzohs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787823583; c=relaxed/simple;
-	bh=s0Eq4yoMm4TIyvptiyH7uIUTwi7ED+e2e5uUwjUeQDU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=tjss4MYVe27qN5nsQPx7Q4WceixVpsbpQK/Fr0irFz0Jc89rHnqcVjMOkfyvhL7KxuL/24Uy//ohvoBckvAeRGNgmH6qeOnjOU96sr66ZiZVbckr6Xt2+q0oeWWob8eKztehqGFi/Ml7MsUzTx82tDQA4x8j85CYQUqAXU+pHXc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 33ca1214a1fb11f19a56ed5b684f684d-20260827
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:98bc76fa-3a6e-4c61-9ed2-121a71121b8e,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-5
-X-CID-META: VersionHash:7db8b62,CLOUDID:7e4c55709b8396e1e132c328ba1a06ae,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:n
-	il,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LE
-	S:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 33ca1214a1fb11f19a56ed5b684f684d-20260827
-X-User: lilinmao@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <lilinmao@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 962789048; Thu, 27 Aug 2026 17:39:30 +0800
-From: Linmao Li <lilinmao@kylinos.cn>
-To: thierry.reding@kernel.org,
-	lpieralisi@kernel.org,
-	kwilczynski@kernel.org,
-	mani@kernel.org
-Cc: robh@kernel.org,
-	bhelgaas@google.com,
-	jonathanh@nvidia.com,
-	mmaddireddy@nvidia.com,
-	linux-tegra@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Linmao Li <lilinmao@kylinos.cn>
-Subject: [PATCH] PCI: tegra264: Fix Link Capabilities register offset
-Date: Thu, 27 Aug 2026 17:39:19 +0800
-Message-Id: <20260827093919.2825467-1-lilinmao@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1787823598; c=relaxed/simple;
+	bh=VGyMKIVsOm5V0rT1WZipfM3sOw2lv5lQJmJcylAqY94=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aDLyES8eo4udR+agyyGew7douVNPvX4AOdUYpYa/1iptcItMKjlQHGrZNfCU5JXm1b8CVoyKEzu5muIXrw4GP1MIvKH7ydXdWNI9wtcP5bd9nTSmSa7s8+pxNdoo4qEysLFEsTPgtPJneOhc2n7YKMK221QExsEdXwsdCJd2G6s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pbs2iwtv; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pbs2iwtv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8466D1F000E9;
+	Thu, 27 Aug 2026 09:39:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787823593;
+	bh=yNvvXnZTcToeWcmo8q9ZLG/glHngblgB9JGX2UP3+gE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Pbs2iwtvEcx323tU36kyX+fTx+qPqKzIlu0xUOApQXJSATiA1jbtfjmydttUPq1Y2
+	 rjkcXEIN8273sf6v/1KLqFlnfAzQXIvhC36Mo6KdzrEOa+2YQhIoVP1B8Gt1Ne60m8
+	 s/sUeHS/xz69VICrHF21AJNAKzLmVCfQVyQZHzoe+hQrMKc7kW8pPcghkMlDIlN8QA
+	 hkdKybaJJJuLTLdP0Ney2RoUgSnBCHbINwCe/qk/qKXjpGKBbKx6uJHHHo04dj8U4a
+	 oAEIeBUmAB/4dQMWodWZkrxgrPOa1lBZ/hfZ4Po6p1d1DKzHiFt4yVcsTp98WTRKWa
+	 HxPPskxfbEEow==
+Date: Thu, 27 Aug 2026 11:39:49 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Marek Vasut <marex@nabladev.com>
+Cc: linux-usb@vger.kernel.org, fabrice.gasnier@foss.st.com, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Conor Dooley <conor+dt@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Sebastian Reichel <sebastian.reichel@collabora.com>, 
+	devicetree@vger.kernel.org, kernel@dh-electronics.com, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [PATCH 1/4] dt-bindings: usb: Document ST UCPD
+Message-ID: <20260827-angelic-paper-mantis-c5c13f@quoll>
+References: <20260819163410.119755-1-marex@nabladev.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260819163410.119755-1-marex@nabladev.com>
 
-The PCI Express Link Capabilities and Link Status registers are at offsets
-0x0c and 0x12 from the capability header, respectively.  Since the driver
-uses 0x5a for Link Status, Link Capabilities starts at 0x54, not 0x56.
+On Wed, Aug 19, 2026 at 06:33:52PM +0200, Marek Vasut wrote:
+> Document ST UCPD Type-C block. The UCPD integrates the physical
+> layer of the Power Delivery (PD), with CC signaling method, for
+> operation with Type-C cables. Vbus and Vconn control is performed
+> using an external chip, usually ST TCPP01/TCPP02/TCPP03 or similar.
+> 
+> Signed-off-by: Marek Vasut <marex@nabladev.com>
 
-Reading a 16-bit value at 0x56 returns the upper half of the Link
-Capabilities register.  When a hotplug-capable port has no link during
-probe, tegra264_pcie_icc_set() consequently derives the maximum speed and
-width from unrelated bits and requests the wrong interconnect bandwidth.
+Unresolved Sashiko comments.
 
-Use the correct Link Capabilities offset.
-
-Fixes: 01c3c27a0ef6 ("PCI: tegra264: Add Tegra264 support")
-Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
----
- drivers/pci/controller/pcie-tegra264.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/pci/controller/pcie-tegra264.c b/drivers/pci/controller/pcie-tegra264.c
-index 653136db401e0..3a672d18c4d2d 100644
---- a/drivers/pci/controller/pcie-tegra264.c
-+++ b/drivers/pci/controller/pcie-tegra264.c
-@@ -49,7 +49,7 @@
- #define XAL_RC_BAR_CNTL_STANDARD_64B_BAR_EN	BIT(2)
- 
- /* XTL registers */
--#define XTL_RC_PCIE_CFG_LINK_CAPS		0x56
-+#define XTL_RC_PCIE_CFG_LINK_CAPS		0x54
- #define XTL_RC_PCIE_CFG_LINK_STATUS		0x5a
- 
- #define XTL_RC_MGMT_PERST_CONTROL		0x218
--- 
-2.25.1
+Best regards,
+Krzysztof
 
