@@ -1,165 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23DEB46C4C8
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:11:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54D4B419FCC
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:12:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787850716; cv=none; b=OYgLEQTupMy+v1Z0ST59ATD8guc7IlcwdsEEAcScZ/BOywvwUMbjfOW+sFhnkPLXOg2OOkho0pEYxGHSY+n7RoUmTMuOomvOrfB1Dhk7XruJYOMAIDC5MqZftXjoFYGVHscZXYMgso9N6itqulP1FeCSR76mOClbIisM6bGrK+o=
+	t=1787850779; cv=none; b=NGIRpVTpVrxmrr06CvNcAJqezfvkBAExIv2BkkAiH519swSMYvmURC7Dz7OlIU7dWOPWPRDXOQYRKWKljQovUvBj/ffSVrObdLQ8UB4Hhc9dnX1JPfYmSd6aCwEBNm3Wv+0b1f6QNzUHjtG5eMmKBxxiiN8BWcoLU6fWLxC07Ao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787850716; c=relaxed/simple;
-	bh=YeZfJ4ixwhHx4MF9x/gqgmZDLcDSzH+ZBm04tViAjo4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uuJ1L/WLDZru9pgT5pxO8MWeP77rhC7NxFzWK21nvQy1idZumVL4PKqjtwzcpBnt7garuMdEWEKDrcwOcI+hUjC0qQmESGADeWHVv/aqzVLnShOXEHaZGsQyWurXSZaIALAPLOqAZUFuaPdj3nzedp1d+P++pYgzmL50JOCTOMw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lYMFXQSv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787850779; c=relaxed/simple;
+	bh=G05FvWZ3ROG79TGw2T2POGYVVd9pzh+yGgHjP3yfwrY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Mv+rge3wKb/reQMNDlzRnu2S83kRzQEdKn+QI55yDn8fFdF/fdkA7MkKnPNn8Gn4riFKAiGcxRlTSy0SzXfeFFYooYHfnzFjt4Lyrnn00NHyJVaArk2P7tzRtNEfA+GSs2/p1wkAwKJWERPPxZR7ca1//vjPYtR7G/nH+nq1c1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=resnulli.us; spf=none smtp.mailfrom=resnulli.us; dkim=pass (2048-bit key) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.b=d8kjHvLI; arc=none smtp.client-ip=209.85.208.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=resnulli.us
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=resnulli.us
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lYMFXQSv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B2DD1F000E9;
-	Thu, 27 Aug 2026 17:11:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787850712;
-	bh=RC+J973SAcXYzaJ91LaXDV4phn83jHym1gNT+C92v1U=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=lYMFXQSvDbWchSW5xmpB6eVYqqlP8eYiKnuzPWtU9NymdYwvQS94x1If5qq+1EYJ1
-	 vYEOon0PHx6xyBBQEh3pETITRZkyEhNVIqqlP52TxOAgFBduJ2QouqyemTsCFUb8Ui
-	 3K5DbHrit6x8VuGwxBFB0d153pM0bKPB40evpPBcyDJKZh9DDa1sUBze3K5//C37lI
-	 YVcOloGj3qu4WB+nqROoSHLqDyhVPGDZ4pdZ2dIUSlIEisqK09w0Z4CzAlqLE38kei
-	 iemmaIYK5DJytkuxo6Zsy/8iyOYS8phgw8DjOXVxcSEL9GHJtVRQmMGzohBdmXAN/c
-	 ViK5A27oc2K3Q==
-Message-ID: <6f828d1e-0c31-441c-acec-80dca98b03d9@kernel.org>
-Date: Thu, 27 Aug 2026 19:11:44 +0200
+	dkim=pass (2048-bit key) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.b="d8kjHvLI"
+Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-39da69c5ba3so604741fa.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:12:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=resnulli-us.20251104.gappssmtp.com; s=20251104; t=1787850773; x=1788455573; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=G05FvWZ3ROG79TGw2T2POGYVVd9pzh+yGgHjP3yfwrY=;
+        b=d8kjHvLI2KlB16hQnNc8jmPycUPw0Jvs4sFNtxiCtp4fnRvNJlZK68xhLGocVJqDkC
+         u2gfv93duOM+0d6lYP+ID4c3CzXVUXGHFf22dlCUAomy5f+kdGY8RC9hhN+AuzInw+Uv
+         Yj3i2pDHVv8W3Zm9WMzzZoeU680WM76SaacajWw2fpszXddtfOZunQhsq7f5v/Gwz9HV
+         CIliovyz2ZJjEZsm0/mRM1MHOrBQM5Khc9x0mVZZ28qdWylY7G4R1jMrOTRxQvBFwcXr
+         wtENCFpjBPX+QfNAU350zl8wCc32TPbPXF51W+p2LZaTms+VuPmi+LhN4ZQRt2sactnA
+         UluQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787850773; x=1788455573;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=G05FvWZ3ROG79TGw2T2POGYVVd9pzh+yGgHjP3yfwrY=;
+        b=j9zI84Jou55Y3F06D0C01WjYKLBpWKKRJoGa0YC4YYvp4pCgXWSXbX3kIWK2r8Kf5+
+         YjOxiCi3nGFgirL4X8J7BYZfkpgfb3/xrQ8+BijFGesRX5dQTXYdJmysyMG1FxlfOGUM
+         vKC7QJ9omzkqFOwTyflc3gSd9bm6AP09JQWnoxKY4pANlukVT8p4f3Kp1KCmi7ijp1yB
+         dpClxjwS2/76Y0hbk/NvQEmP+EJbZlyzEjoXvheXd0dY1N32snvbs4OdktQJzrw9VsDX
+         lojHC+j4LiZu0HNUdXYyfjtgTCYZDZtckoKkxLU2HPtEQqCx+aUhbbdPmevu1hgSMBwS
+         NWxg==
+X-Forwarded-Encrypted: i=1; AHgh+RqAduOCWvO/k0hlKveV+zQAIFU8sdyQrp1hB8t5RFFPj1WRXDM0GA8Vy4hhyPzxaWIuh334K0BoPSvKjAc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nFnriB/Q0+am/RrVO0Ag1Y0a3FDqd++HwriELDQTsHYJcqYtSB
+	HH4WvNOtPr2pZc2d+yjZmOJ19xzf8IEyKdVbqOk3Bwp88i2C5vf1hYoyW1FinKHUoyk=
+X-Gm-Gg: AR+sD11CKjlNChXRp2+okwWv3TR2P5B3sG3RUtjRY8/BqVl8jEepGBCCPtYDsk34xjL
+	JxoxZkRYOUKkSiFgJnkAKkNZCs/g4OJ+N7t9jTNQJvODIiWBUgUa5YoZS/AALz9EPI5iV32YpXK
+	7hoXB9ZkHADUo2ji3JnZfZtWjFI751/QPFsWDxvzzPoDWmwWRGqv8udGQaigrfXFDoNZz2lRjBV
+	/9BdxPkR6eTqDzvdBjrsLt275bvAdOwRprdoR/I6fZ3+0zR0ydr0s3K01ReteShPBZa8YUEeiAA
+	qABW0t1EizOW73wrI7VhWq3Wxl4RewCB6sEWU0SOvljIOa+eQF5iMjpFBYXbJXO/PGqw9dqvwCF
+	BvZqhYyjzT+vDVQyk5w+SClu2H4hP9ePVewm0nKtyuB21OLEvOwOqtxW9SU9R19hBR1MnoFTLGR
+	tboSaHkCsGKCoI/HHNCdUr4748zCK3aSEKHYzbUV1eKtKSX2uj7itNuUWpoSZNm76H+v9yBY3Ji
+	7So1/A55w==
+X-Received: by 2002:a05:651c:30ca:b0:3a1:5172:c287 with SMTP id 38308e7fff4ca-3a1fd4a1fb5mr44250431fa.5.1787850772908;
+        Thu, 27 Aug 2026 10:12:52 -0700 (PDT)
+Received: from localhost ([140.209.217.211])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a26be2acfesm6108311fa.21.2026.08.27.10.12.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 10:12:52 -0700 (PDT)
+Date: Thu, 27 Aug 2026 19:12:48 +0200
+From: Jiri Pirko <jiri@resnulli.us>
+To: Ali Rouhi <arouhi@sitime.com>
+Cc: "vadim.fedorenko@linux.dev" <vadim.fedorenko@linux.dev>, 
+	"ivecera@redhat.com" <ivecera@redhat.com>, "kuba@kernel.org" <kuba@kernel.org>, 
+	"arkadiusz.kubalewski@intel.com" <arkadiusz.kubalewski@intel.com>, "robh@kernel.org" <robh@kernel.org>, 
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>, 
+	"cjubran@nvidia.com" <cjubran@nvidia.com>, 
+	"Oleg.Zadorozhnyi@devoxsoftware.com" <Oleg.Zadorozhnyi@devoxsoftware.com>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net-next v7 3/3] dpll: add SiTime SiT9531x DPLL clock
+ driver
+Message-ID: <apBv_Kik3Mak3GzL@FV6GYCPJ69>
+References: <20260815221919.64226-1-arouhi@sitime.com>
+ <20260815221919.64226-4-arouhi@sitime.com>
+ <6a529684-bd6a-4187-9ed9-bb40f4b98065@linux.dev>
+ <ao1Zh0uHO0mWj-2t@FV6GYCPJ69>
+ <20260825215523.84195-1-arouhi@sitime.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 02/18] mm/huge_memory: fix rejection of swap cache
- folios with a mapping
-To: Kiryl Shutsemau <kirill@shutemov.name>
-Cc: kasong@tencent.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
- Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
- Shivam Kalra <shivamkalra98@zohomail.in>, Kairui Song <ryncsn@gmail.com>
-References: <20260821-swap-thp-cleanup-v3-0-9b43f5163238@tencent.com>
- <20260821-swap-thp-cleanup-v3-2-9b43f5163238@tencent.com>
- <50bb70bc-d442-43df-ab4f-a158c8b05ac7@kernel.org>
- <apBtGfatUUecH6Lo@thinkstation>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <apBtGfatUUecH6Lo@thinkstation>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260825215523.84195-1-arouhi@sitime.com>
 
-On 8/27/26 19:02, Kiryl Shutsemau wrote:
-> On Thu, Aug 27, 2026 at 06:00:33PM +0200, David Hildenbrand (Arm) wrote:
->> On 8/20/26 20:55, Kairui Song via B4 Relay wrote:
->>> From: Kairui Song <kasong@tencent.com>
->>>
->>> A folio in the swap cache cannot be split if it has a mapping (shmem).
->>> The split code does a defensive check for this in
->>> __folio_freeze_and_split_unmapped, after the folio ref has been frozen
->>> and the NR_SHMEM_THPS/NR_FILE_THPS counters have been decremented. It
->>> rejects the split and returns -EINVAL without unfreezing the folio or
->>> restoring the counters. That error path is buggy: if it is ever taken,
->>> it leaves the folio frozen and stuck, skews the counters, and fires
->>> the VM_WARN_ON_ONCE_FOLIO for a state that is actually legitimate.
->>>
->>> Check for this case up front in folio_check_splittable and return
->>> -EBUSY before any state is modified, so the split routine always backs
->>> out cleanly.
->>>
->>> Also fix a bracket style issue that checkpatch.pl keeps complaining
->>> about.
->>>
->>> Fixes: 00527733d0dc ("mm/huge_memory: add two new (not yet used) functions for folio_split()")
->>> Fixes: 714b056c8321 ("mm/huge_memory: convert VM_BUG* to VM_WARN* in __folio_split")
->>> Reviewed-by: Zi Yan <ziy@nvidia.com>
->>> Signed-off-by: Kairui Song <kasong@tencent.com>
->>> ---
->>>  mm/huge_memory.c | 27 ++++++++++++++++-----------
->>>  1 file changed, 16 insertions(+), 11 deletions(-)
->>>
->>> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
->>> index ced400f72d43..a6759a14e057 100644
->>> --- a/mm/huge_memory.c
->>> +++ b/mm/huge_memory.c
->>> @@ -3878,6 +3878,9 @@ static int __split_unmapped_folio(struct folio *folio, int new_order,
->>>  int folio_check_splittable(struct folio *folio, unsigned int new_order,
->>>  			   enum split_type split_type)
->>>  {
->>> +	bool is_anon = folio_test_anon(folio);
->>> +	bool is_swapcache = folio_test_swapcache(folio);
->>
->> Both const please.
-> 
-> I see a lot of const everywhere in mm code now. I feel I missed the memo.
-> Do they make a difference? 
+Tue, Aug 25, 2026 at 11:55:24PM +0200, arouhi@sitime.com wrote:
+>On 25/08/2026 11:00, Jiri Pirko wrote:
+>> It's a new driver. Linear review in one hunk. I think it is better that
+>> way as you see the whole thing right away.
+>
+>Jiri, Vadim, Ivan - the reviews point in opposite directions, so I would
+>rather ask than guess.
+>
+>Vadim asked for a split. Ivan agreed with him, suggested low-level ops,
+>then core ops, then features one by one, and pointed at the zl3073x git
+>history as the example to follow. I agreed to that, and the plan for v8
+>was 13 patches on that shape, each building and working on its own, with
+>the end state identical to v7. Jiri would rather it stayed one patch.
 
-You tell the compiler that you expect this not not be an ordinary variable but
-instead ... a constant.
+I don't care that much.
 
-Any future code changes that would try to modify this variable will get a
-friendly greeting from the compiler stating that someone assumes this value to
-never change.
-
-The compiler can't do that for you if you don't tell it about what you consider
-constant.
-
--- 
-Cheers,
-
-David
+>
+>The breakdown is in my reply of 21 August, in case it did not reach your
+>mailbox:
+>
+>https://lore.kernel.org/netdev/20260821010556.95192-1-arouhi@sitime.com/
+>
+>Tell me which you would rather have and I will do that. My default is to
+>go ahead with the split.
+>
+>Thanks,
+>Ali
+>This email message and any attachments are for the sole use of the intended recipient and contain proprietary and/or confidential information that may be privileged or otherwise protected from disclosure. Any unauthorized review, use, disclosure, copying or distribution of the information included in this message and any attachment is prohibited and may be unlawful. If you are not an intended recipient, please contact the sender by reply email and permanently delete and destroy the original message and any attachments, and any printouts or copies of the message and attachments to the original message. Thank you.
