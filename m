@@ -1,302 +1,249 @@
-Received: from mail-oa2-f0.google.com (mail-oa2-f0.google.com [74.125.231.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from esa.hc6817-7.iphmx.com (esa.hc6817-7.iphmx.com [216.71.152.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13A334D2EE9
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:51:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.64
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787856694; cv=none; b=utoS92Ga0HSUt14nc1T9Z/DevRfYLB3Z6eA+oqWozKfR3YZXJ8dI84aqI5NOz8rxLtl0ILiVrVKN4mkqj1WmaaiEb92wO6ReuaB0nZEs+XsJfdwjLOQiQQMmauduoEg6DX6mQrC0DmFZYiFCX3O3cPgQzLXVdl+iYHSrjLyx7Rg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787856694; c=relaxed/simple;
-	bh=gxdlnPH3RuTfUj8t5QyWPKwM7uBOKfTDVM9t610Nm5s=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=WzYqDInkJf4C0pGMhNi2pBYqq2GliOBrpeDULfJUoCd8a12MASxXFF4+LqtRUKBLEzWyviTH2g74/wTP6xFhMj0/TWV3h9BosKtuKADeY9i0OpoV3B/Ac42eOD9lsZb7HYsuz7Unl1uY8961Vkp5oTbT/giGReJh/9gsC19qI9A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa2-f0.google.com with SMTP id 586e51a60fabf-451e8472960so209666fac.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:51:31 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787856691; x=1788461491;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mCkwPdV5GG5TxBlUKjdprtvkjiIChmQMMFvc1y51XvQ=;
-        b=AOKH2TLZgiEUX9Oyl9YBKLkETWm3kVtVgHmhdU47qJPG+yU86/sLLTty4cBdlCKKS9
-         pBpyIo7Hlpbp9fpO2Ft1fdywHhK132glaFWodGNp4hMXLgOZX2UWzT5mW1lt67U+4d4s
-         HYu6/e6Gg7L12nZhq4D0RcdRE0b7hm3sr/35Zpd2k14ray7NCSHAD7koAVC51AZJIKds
-         vGriDdOFnFTL7vYGZf3eYdzc5MFmm1E7pbGQiP/Olw209x77e8o+J7uYIfea+DGTR21u
-         hwf8I/Qx5rOAkvzmRnx3116CVvQabW0pbD9ucR7kCAmmQsB2J3yE9SodQHbuzrY3XfFf
-         wd6Q==
-X-Forwarded-Encrypted: i=1; AHgh+RpfxlSgfCXOsp9viF3zVzRzFqB4+PtEApSP7xKMSyrmqDcCe7whb5JgS8SbnOwxIRvWd/3j+AeG/YeWshg=@vger.kernel.org
-X-Gm-Message-State: AFuF++ml+/EioxzoYK2E1fqtVsfeJ/3TAAF+fEchRuqgnF87COo+uaQ0
-	0kMjefx1LJgNff3hAOvpsET0XNXvrrtDeYrZgU0uAtG3DjyEhXrTlKU+hbJo23rjYHQgtCHCaaz
-	yD+GiIGKbO/OyqxMzX4d04a3755yvVx+g/+TMoYeXUVTs+QwdFSXOeNKsraM=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82A2B49482B
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:52:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=216.71.152.95
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787856736; cv=fail; b=meJO5RM9jtErXOawBDSpRZzRnhdR73Psv5+VOUwqsDwncFtg62WS9i+13eMN5W/QQDoz9bbgumevnmhIOEgDzEsVqvl2c3NqiyrtF9Orhyrrxqo/MHdltPTwkIwFN1fnPyYOq2SEgtoW2QIoBQfkXp7qQXJx8ar7m9VQZL+939I=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787856736; c=relaxed/simple;
+	bh=JtBX/aBUN09AWsxwadoJAg/+zMrcD1hLnk0HfZm4hJc=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=F+rvSzJvWeheamm7fVLakNCNMw7lBz/n0rcxRH2awztxhYBxu4sOraSQduOXv3Y8/InsqMGtoC38o4IHUqSzrgNHY8J/mFB4vkdvRnGNG91fG3YP+fLsjJRM0zH9wL7vmoSMCso/MMGZ2ZNrSAVg+lAfUVqhB+BrYKFu9qCdSzU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sandisk.com; spf=pass smtp.mailfrom=sandisk.com; dkim=pass (2048-bit key) header.d=sandisk.com header.i=@sandisk.com header.b=vxhZ1iR+; arc=fail smtp.client-ip=216.71.152.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sandisk.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sandisk.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=sandisk.com header.i=@sandisk.com header.b="vxhZ1iR+"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=sandisk.com; i=@sandisk.com; q=dns/txt;
+  s=dkimnew.sandisk.com; t=1787856733; x=1819392733;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=JtBX/aBUN09AWsxwadoJAg/+zMrcD1hLnk0HfZm4hJc=;
+  b=vxhZ1iR+8bNyh1JBGz20pXbcqIYzbxm9AVx9Fq43SqOUwrRc8hrzn2xa
+   /WY98ONgKo+S8WAdRqOiLWGvb026y3MNjGxXCSLUV28ogv7ne9yXm+I5W
+   5EZlq4xB/3pD939xhi4hCwrcViO5eFB+T4JBB6fseorymLOi9yRyPHnh3
+   rotZSDTHKd6eeXMfY8+pW3qaTNIBHlQ4g4bGY11iKSP0MHCFmRCmjCHat
+   nyihLrDThiliGlO+l2Nv9veaYXbs4TXV9mlY0D6NaUxoPKuiduZXz/bQp
+   jHguiI2l/R6oh+vvHnfI4LrDg+3o0MR0GCIaYCH/gIHi+wIn7Eg2CIncM
+   Q==;
+X-CSE-ConnectionGUID: JA8pCxuRSwiz/kKpKuHNmA==
+X-CSE-MsgGUID: gup5AhNTTo+047IfErFfXA==
+X-IronPort-RemoteIP: 52.101.43.127
+X-IronPort-MID: 29001589
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutgoingMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+Received: from mail-westusazon11022127.outbound.protection.outlook.com (HELO SJ2PR03CU001.outbound.protection.outlook.com) ([52.101.43.127])
+  by ob1.hc6817-7.iphmx.com with ESMTP; 27 Aug 2026 11:52:12 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xGI5cT3+bfmVUQidhrkk0pQip++Oyu27vBuVC9iDvo3yuioD49Lw0wSeXaosufGG8SMjRVT7P3Mfg3GCOV0lhI8+eSEbbCBeY5xK210cZ1UEaTBBqpWbpETN/5NjjmZI/jyZIe81M9ZYhAOljjL54AmV5rzEcD4E0zIFDfnZwjHeQasVNkHttwa26ZNP3fxslPHfqIBiKZizSsU0u8ZLsZNxH8AIq5a6BJUQpp2ZViavgebu7dPhA4/6uRXXGVvB0oyjZL+ZsrmT4R7Oy89EvYd6wVKVuRwSIz9b2oLxfr3VlmKMR+zks4jTKBW+p/yvqMLjehaATfghV8EMr+D67w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/obGtHXal1IANk3/PIALr0lCRNbTZ89xgWJ3aY1PmwI=;
+ b=E1uUYEIMuroTZXianzg6pZ9JfSyGbFr+s/889XH1Nwr/au93Up6Lshd0fFFioiRD7GCsel5M+seHeNEVk8pFGhrcjfH4XSPWRRHEy+tTThcG98XSRbFUOhbyQeE2jbUFXHU+C/roMl7WR9pf7mRBGxcgZoleBPJqdNwigLml70HnUWX6xkPoKehPNiDtfLVqCk97UoaSZaVrzBpKhTljbHthQWx1FJJdeq7z+lavRMtL4JNm9CDDNCGWG87i/GIfo02/ItthtoAi9omb3oSNYqx6MqQzm5F3wdeLBg7ncbl+tzEf5cdqN2rwRxjkcPRPot3gxWcW8xUaL16W0lh+rQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=sandisk.com; dmarc=pass action=none header.from=sandisk.com;
+ dkim=pass header.d=sandisk.com; arc=none
+Received: from DS4PR16MB6924.namprd16.prod.outlook.com (2603:10b6:8:31f::17)
+ by SJ0PR16MB4721.namprd16.prod.outlook.com (2603:10b6:a03:429::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
+ 2026 18:52:08 +0000
+Received: from DS4PR16MB6924.namprd16.prod.outlook.com
+ ([fe80::977c:faf6:2b68:f082]) by DS4PR16MB6924.namprd16.prod.outlook.com
+ ([fe80::977c:faf6:2b68:f082%3]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
+ 18:52:08 +0000
+From: Alexey Bogoslavsky <Alexey.Bogoslavsky@sandisk.com>
+To: Ferran Duarri <ferran.duarri@me.com>, Keith Busch <kbusch@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>, Sagi Grimberg
+	<sagi@grimberg.me>, Yehuda Hahn <Yehuda.Hahn@sandisk.com>
+CC: "linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH] nvme: lower default APST max latency to 25ms
+Thread-Topic: [PATCH] nvme: lower default APST max latency to 25ms
+Thread-Index: AQHyoQ3ATROJkKaMw9FUI4dwULo0cbaHZgBw
+Date: Thu, 27 Aug 2026 18:52:08 +0000
+Message-ID:
+ <DS4PR16MB692456B5425BE0974054C45692AD2@DS4PR16MB6924.namprd16.prod.outlook.com>
+References: <20260820195415.275608-1-ferran.duarri@me.com>
+In-Reply-To: <20260820195415.275608-1-ferran.duarri@me.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=sandisk.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS4PR16MB6924:EE_|SJ0PR16MB4721:EE_
+x-ms-office365-filtering-correlation-id: a7625416-4df0-4225-0aa4-08df046c4b97
+x-ms-exchange-atpmessageproperties: SA
+sndkipoutbound: EOP-TRUE
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|10067099003|6133799003|5023799004|11063799006|56012099006|55112099003|18002099003|22082099003|38070700021;
+x-microsoft-antispam-message-info:
+ 6/JvAkNXqiPkpbQfJcXsSfEeaZpt7Lz3h4My5Sh0S7nAU3qq2gDgvZIYes9K38JCG0UemmnduBxSgDdCcw44CNcOV3gDZ1qS+jgAXndA+n0CdcSiBbGljcSgVI7Fh9sbIq0U0LiTACSAy8u3bmmsW0ryzneDBeNDGSuLxy5VjtzNvSL8FyuJR4uhwQFTNMRobvayePfqlvA9M1PtAHivCTo9gOWKevfQ6NHa9R7W/d1vERdFOtnj+shcTY+3/oKZHeZvRKwuH9GZ40cjcJJTm3+nSs9wkHHC0Ec2vZnrhZrpCNDFGXeMEYKIJGgCg8DFfedyFiR3FAsnJIDj4bYm6cQDxFF8tEjX4KjazgaoBzj+KD7tQvudemuLo5HNZl40NxyiNjDMwkW3oRYZvA5pYwkx4SLKcsVr4Kk5sQWvPjsbboAE70qtNNlKxM3BF7Wcd+7Fmbu9NwchuEEBSkQI+Ys1K1BMBjWhTieFK6AOBsua1jIol3z9iGNIwyA6yMNVFAyIQikCvXXIKAiQNnLGaXcNxL80s2UE4NY1jyMSmLwz1Ra+Qb3mwDtjLQ0+tcPk25DV3OWfX+q3cAcsmLts2a/7PH7Jx+06yDWWg1wmawRdM/QzFjEs3Ui/h35jVhkI7KuuxhtVGuEDHhFeuDwUoInZxQKU3JPsThB7NhgL7RN7G9AIhvwuaDTHNlDnpLCxPiWz/dStYt/aF9LC7yZkAFNPiQD3h4bD9qdRaMt8i1k=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PR16MB6924.namprd16.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(10067099003)(6133799003)(5023799004)(11063799006)(56012099006)(55112099003)(18002099003)(22082099003)(38070700021);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?xEqF01PNGA0qUtE6jQrboTim6TQkrVV5yJPSY5apc4JjcMsT5lMxMM7UoSwA?=
+ =?us-ascii?Q?tEOVKnIrnB+hhChULeimZLXXUIvY7hYB28XDDpw3dUCg6b1kWpkjWY8EpRnc?=
+ =?us-ascii?Q?IxYOhLYMZV6/AB6qqrq8OZthm0SrO6UfiK6qft3Gw+SFdK6R7pLMntG1J6jQ?=
+ =?us-ascii?Q?YrvfIGLrFAIHmJw8whrE/7l3Fy8vTmzsca0EPHVAppEeAJpgDCy9/vJ/90UF?=
+ =?us-ascii?Q?RttLuymAEAwF6tMeisLSr8swSw/57weVpymzuGvaCJm14nYQLLypZLfMMBaa?=
+ =?us-ascii?Q?nwvOyqvfmkr+maAePjv0xq+dB9FVzV3yd/bQEsxamz/WmlVQFxLAO7X9DzY7?=
+ =?us-ascii?Q?tURkUUWA5Itoe8TcBi5Ob6zzPgJqsjQSoweeabqmMRKwCuWuXJ8UgJD/M7RO?=
+ =?us-ascii?Q?YaNGMasmwC1df8fwaJwqcMVL1LD/gJQ8ae1fCBVT1p6hhdalPqcVv0Sz2N/l?=
+ =?us-ascii?Q?WPqd0hpAmcfJ1mNPMrbr3OFZuZ2yTozQWnql6czbIVVdwON0tb4nH2QNsGZq?=
+ =?us-ascii?Q?bxC2ZKVGhO0JHqSZOTSh+Xosjm8+ifCRJtERAiLDNDknI7Vpjlt7MO5Q8X6b?=
+ =?us-ascii?Q?kbGuTPAjGp+btplgiAyHK9WHuLast5czV0QNGZoLdiyiKxJiTnKT4dKymhmp?=
+ =?us-ascii?Q?FvNzAGZKxPIHGMmlEt2pCpgI2BDeJ5ddcf4P+fVgtPk4tnT68+Bh3ku5G+wx?=
+ =?us-ascii?Q?sAmZkIRKYoBhhdAtpIaEtGAT9qV2vXaDHpug272STgBsQUPFA14SeHh32Flz?=
+ =?us-ascii?Q?tisF2HQNLTC7mBTsJWBlgVSEonZozxgYvXgfT8O1wMG5KxRgfF8odymWfH4G?=
+ =?us-ascii?Q?v06uPDIZwXCgnik0kGJkVbSQc6Y5+7bOQFukN9j//tN27Hk5aTb4v/auOUnd?=
+ =?us-ascii?Q?he8Ts/OkVkuliSNH5Fh169PSkFnzasPL4V4RT2WHEdEOGmZiZFEHEEWK6aZI?=
+ =?us-ascii?Q?42ZygdZ9o6jlmCT6fpcqfiGf9Ejo0I5Lqc29MvBySalLI/xI6ePo2ktRV7AR?=
+ =?us-ascii?Q?lE0D1sD77xhO4yisBybuSS5FoWF3yroKxslEk5lZZckU++FaUpGRmvLYXqgw?=
+ =?us-ascii?Q?IQ4GECvPviH2c+s6jF++qfFkZE8gu5VyTgrdCppPRpLAXZ7zQidGUG1ZwGPw?=
+ =?us-ascii?Q?NEs9fHv6xl4Vq5WQJHrs59XkMYQbh+v/VMIvdNADmyhxjvdHaYucOU8ADYiy?=
+ =?us-ascii?Q?6K9Vw6+qeiKJ5j0cnvN46zmZK33t5C0sVDy/uU1kTf5nekatTHsy7r6DNtLD?=
+ =?us-ascii?Q?7Z+jL0ZFk/Wh4I6JaanxhACen0ywQkySaC9NxUeegAu+1J3XnGNHPxGaBgjR?=
+ =?us-ascii?Q?xc8U6dhCynIxotbVtQn7RiClbXIeAlqslIiGpGVv3YLiMg0S+kz4s22N+YQu?=
+ =?us-ascii?Q?oVYoAXGiZSUgohOwlGlk3+QzUPWZBvRoC+gvi9HuI1jo4H7zm355w9WdwzQJ?=
+ =?us-ascii?Q?+UPywxNgEjmqwCZjkiBYHxqLH8PT87uoJ7cnsZ515YkEGDDyY5y2ECkmMtBT?=
+ =?us-ascii?Q?kjCOsP1DGuNrZgEHLZ0JJTgeZJUh8UnXLGA+lg6nK3fIfGk8cYdRB1+dF2c2?=
+ =?us-ascii?Q?q3rfRBQuX1n5ixCWMYOvcFziot/VzDoDLF5I8OgIusgm3y+UV/Dv5xwqQ16g?=
+ =?us-ascii?Q?3ovejXm5TOlmxV5azADl9OVxtjCV4DkedbUb6V5oTFwLqUKb9JaoiaihLDuY?=
+ =?us-ascii?Q?T+hXeYoKMhKdGLH0hgxiDdURUWALGKW6s6Ga+LlPhieMBR+9o1Pshj3Yh8uo?=
+ =?us-ascii?Q?8Wx+xN+DU9JLCuWJcGfwBDiQ0bd62EM=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:16ab:b0:6b1:c376:d35f with SMTP id
- 006d021491bc7-6b1c629cb32mr747370eaf.0.1787856691146; Thu, 27 Aug 2026
- 11:51:31 -0700 (PDT)
-Date: Thu, 27 Aug 2026 11:51:31 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a908733.1d9ded08.62e62.00d8.GAE@google.com>
-Subject: [syzbot] [greybus?] [usb?] KASAN: slab-out-of-bounds Write in gb_operation_message_alloc
-From: syzbot <syzbot+2fd6aefc361af86911d5@syzkaller.appspotmail.com>
-To: elder@kernel.org, gregkh@linuxfoundation.org, greybus-dev@lists.linaro.org, 
-	johan@kernel.org, linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	linux-staging@lists.linux.dev, linux-usb@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+X-Exchange-RoutingPolicyChecked:
+	g74KWIvCEPA40EMIHp2hxZOTeaYSRmVTXCo9Pveo0U/lKCJcNB9gXsQmc6UZB+DF8gWSTsODe+wr5CtbaJeXt7GEl+OPitkqJjIJNWRPQvp7Txqw1Sm5eiIkuPQG/aGnRHUr9orLSdeQEZMt9EJf2VqWXBGQRzXqBWKTgNPgLHuH4K61UlvV2hzchCEtR28q+Hf0PPTmHqOsX11sFJP4o8vFfw0CQ5A+UiJayh/pS3tEJkwZfhF8yN7sLBEf/HgMEEBXs1Kg1cf3X1zaBNEDt+MVnZLkihCJDr6pEv37G2fHw3L8BYKAP/tSuG8QSqwGagogZmtqlplvd/rmCQTWTA==
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	1c+Yq3VfoC/FzPH7JEJZU/FX8nsPpEalVyrbO7yCo1mtvFMo8y3IzW7CQdgnxR/9Zyk6DRCdapXsuZ6aLpovNQyV81inldSaKdO0u/uvIkWp9OxwXjkMTUJLF0i6lv4JYismI0hdYeWsXD9U8pM6OEeVOd9VfwFPevFv7XlwqofoNRcml55oDnz/5Fh4dlPm71iDYMVSGiAj89iAJ3VJ2HBdxrBoliaBX7snyj2KUih6voNYXVy4unN5hpKte9ez5gIGhqBBtUpUKsGBjeg+3HRlv7joz8b95vNjQbSHQoaJxVCjCEVZ1r7ZLVd9ZpyiwINkrNKSVOANXcru4eeSKDLJ8+Gi2F100QRGh0EirZkxNhANsc64nPQ7/3app/Lsvw3yZBTTWLizFuPv+0Mme78q6fMxw8JyRFgvBERvPcCZt7UiN/P0qwThMR/L4BIIVoS2rSBSnzZENsDogr8y/0xBdqB+zXdhqxGGtCS+bNXULBoNbtjmCc6fQERISbxRQsi7Rw/a6xszWvwe2l5wK+b50srIv0VZ6JKVhPwdq1iAvN1kJY35fmlBy9yI1oZIyqkWwfsr6j0BwbA28Zo9LV1KmLoye9rOu+PUjZdk3d5/6jW08ed6QI8tgjX461DdYv+s48b/N3RdcG0vbj9/lQ==
+X-OriginatorOrg: sandisk.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS4PR16MB6924.namprd16.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a7625416-4df0-4225-0aa4-08df046c4b97
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Aug 2026 18:52:08.0973
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 7ffe0ff2-35d0-407e-a107-79fc32e84ec4
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: tjxVxdYH987L+FPY6/gdTDE8bDKxmaatmJn6vRVXEKucZEdgPs6mFDTg/MVy+l57DQdFhiXM8578+tsgp8f0EKbAX9GGTjnwstLLaz3d+is=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR16MB4721
 
-Hello,
+On Thu, Aug 20, 2026 at 09:54:14PM +0200, Ferran Duarri wrote:
+> That one bound decides how deep a device may sleep. On a device that
+> advertises a non-operational state an order of magnitude slower than the
+> next one up, the 100ms default silently selects the slow one, and the
+> first read after an idle period pays that wake in full. It shows up as a
+> stall rather than as reduced throughput, being a one-shot cost on a cold
+> access rather than a steady-state penalty. The workload that prompted
+> this is staging large model weights from NVMe, where a cold mmap fault
+> on a multi-gigabyte checkpoint is exactly that access.
 
-syzbot found the following issue on:
+> Measured on a Samsung SSD 990 EVO Plus 4TB (fw 2B2QKXG7), which
+> advertises two non-operational states:
 
-HEAD commit:    45c13f3f9e3b Merge tag 'hwlock-v7.3' of git://git.kernel.o..
-git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git usb-testing
-console output: https://syzkaller.appspot.com/x/log.txt?x=17ab5299580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=9b0fc292fc5639c
-dashboard link: https://syzkaller.appspot.com/bug?extid=2fd6aefc361af86911d5
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=137a3579580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=173ed625580000
+>  ps 3   exit  4.6ms   0.0800W
+>  ps 4   exit 43.0ms   0.0070W
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/ac6556827073/disk-45c13f3f.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/01ff014f18d2/vmlinux-45c13f3f.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/77e9c6302a14/bzImage-45c13f3f.xz
+> At 100000 the APST table targets ps 4; at 25000 it targets ps 3. Cold
+> 4KiB O_DIRECT reads after an idle period, 60 trials per setting, the two
+> settings interleaved trial by trial:
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+2fd6aefc361af86911d5@syzkaller.appspotmail.com
+                     p50      p90      p99      max
+>  100000 (ps 4)     3.3ms   33.0ms   33.5ms   33.5ms
+>  25000  (ps 3)     3.2ms    3.6ms    3.7ms    4.2ms
+>  warm, no idle     0.2ms    0.3ms    1.7ms    3.6ms
 
-usb 4-1: invalid cport id 160 received
-==================================================================
-BUG: KASAN: slab-out-of-bounds in gb_operation_message_init drivers/greybus/operation.c:341 [inline]
-BUG: KASAN: slab-out-of-bounds in gb_operation_message_alloc+0x26e/0x2c0 drivers/greybus/operation.c:385
-Write of size 2 at addr ffff888100b7e582 by task syz.3.17/3979
+> Observed worst case falls from 33.5ms to 4.2ms. Both states measured 78%
+> of their advertised exit latency, which is the cross-check that the two
+> figures measure the same thing at two magnitudes.
 
-CPU: 1 UID: 0 PID: 3979 Comm: syz.3.17 Not tainted syzkaller #0 PREEMPT(lazy) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-Call Trace:
- <IRQ>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0x13d/0x4b0 mm/kasan/report.c:482
- kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
- gb_operation_message_init drivers/greybus/operation.c:341 [inline]
- gb_operation_message_alloc+0x26e/0x2c0 drivers/greybus/operation.c:385
- gb_operation_create_common+0x9f/0x710 drivers/greybus/operation.c:532
- gb_operation_create_incoming drivers/greybus/operation.c:644 [inline]
- gb_connection_recv_request drivers/greybus/operation.c:926 [inline]
- gb_connection_recv+0x1dc/0x1050 drivers/greybus/operation.c:1063
- greybus_data_rcvd+0x244/0x600 drivers/greybus/connection.c:89
- cport_in_callback+0x1fb/0x280 drivers/greybus/es2.c:840
- __usb_hcd_giveback_urb+0x38e/0x610 drivers/usb/core/hcd.c:1657
- usb_hcd_giveback_urb+0x3ca/0x4a0 drivers/usb/core/hcd.c:1741
- dummy_timer+0xdb2/0x3700 drivers/usb/gadget/udc/dummy_hcd.c:2019
- __run_hrtimer kernel/time/hrtimer.c:2067 [inline]
- __hrtimer_run_queues+0x462/0x9c0 kernel/time/hrtimer.c:2124
- hrtimer_run_softirq+0x1ca/0x360 kernel/time/hrtimer.c:2141
- handle_softirqs+0x1d9/0x9b0 kernel/softirq.c:645
- __do_softirq kernel/softirq.c:679 [inline]
- invoke_softirq kernel/softirq.c:519 [inline]
- __irq_exit_rcu+0x192/0x210 kernel/softirq.c:767
- irq_exit_rcu+0x9/0x30 kernel/softirq.c:784
- instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
- sysvec_apic_timer_interrupt+0x8f/0xb0 arch/x86/kernel/apic/apic.c:1062
- </IRQ>
- <TASK>
- asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
-RIP: 0010:lock_acquire+0x5e/0x370 kernel/locking/lockdep.c:5890
-Code: 05 4f b0 92 0b 83 f8 07 0f 87 da 00 00 00 48 0f a3 05 de da 84 09 0f 82 b1 02 00 00 8b 35 7e e8 84 09 85 f6 0f 85 c7 00 00 00 <48> 8b 44 24 30 65 48 2b 05 ed af 92 0b 0f 85 f1 02 00 00 48 83 c4
-RSP: 0018:ffffc90001567328 EFLAGS: 00000206
-RAX: 0000000000000046 RBX: 0000000000000000 RCX: 0000000000000000
-RDX: 0000000000000000 RSI: ffffffff89304d6c RDI: ffffffff87d29880
-RBP: ffffffff898e49a0 R08: 00000000ef9d33e4 R09: 0000000000000007
-R10: 0000000000000200 R11: 0000000000000000 R12: 0000000000000002
-R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
- rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- rcu_read_lock include/linux/rcupdate.h:849 [inline]
- class_rcu_constructor include/linux/rcupdate.h:1216 [inline]
- unwind_next_frame+0xd1/0x2090 arch/x86/kernel/unwind_orc.c:495
- arch_stack_walk+0x94/0xf0 arch/x86/kernel/stacktrace.c:25
- stack_trace_save+0x8e/0xc0 kernel/stacktrace.c:122
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- unpoison_slab_object mm/kasan/common.c:340 [inline]
- __kasan_slab_alloc+0x6e/0x70 mm/kasan/common.c:366
- kasan_slab_alloc include/linux/kasan.h:253 [inline]
- slab_post_alloc_hook mm/slub.c:4683 [inline]
- slab_alloc_node mm/slub.c:4996 [inline]
- kmem_cache_alloc_noprof+0x264/0x650 mm/slub.c:5010
- alloc_pid+0x1bd/0x1930 kernel/pid.c:188
- copy_process+0x52a8/0x8100 kernel/fork.c:2323
- kernel_clone+0x176/0x9d0 kernel/fork.c:2766
- __do_sys_clone3+0x214/0x290 kernel/fork.c:3069
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x119/0x710 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fc24a59eec9
-Code: 90 b8 01 00 00 00 b9 01 00 00 00 eb ec 0f 1f 40 00 b8 ea ff ff ff 48 85 ff 74 28 48 85 d2 74 23 49 89 c8 b8 b3 01 00 00 0f 05 <48> 85 c0 7c 14 74 01 c3 31 ed 4c 89 c7 ff d2 48 89 c7 b8 3c 00 00
-RSP: 002b:00007fff626e2d18 EFLAGS: 00000206 ORIG_RAX: 00000000000001b3
-RAX: ffffffffffffffda RBX: 00007fc24a55a460 RCX: 00007fc24a59eec9
-RDX: 00007fc24a55a460 RSI: 0000000000000058 RDI: 00007fff626e2d70
-RBP: 00007fc24a3bd6c0 R08: 00007fc24a3bd6c0 R09: 00007fff626e2e57
-R10: 0000000000000008 R11: 0000000000000206 R12: ffffffffffffffe8
-R13: 0000000000000006 R14: 00007fff626e2d70 R15: 00007fff626e2e58
- </TASK>
+> The p50 at 100000 needs reading carefully: roughly five trials in six did
+> not finish descending to ps 4 inside the idle window and were sampled at
+> ps 3 depth, which pulls that row's median down to the 25000 row's value.
+> The ps 4 column therefore rests on the remaining sixth, where it was
+> tightly reproducible, 32.9ms to 33.5ms. That effect can only understate
+> the cost of the current default, never overstate it.
 
-Allocated by task 3979:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
- __kasan_kmalloc+0x8f/0xa0 mm/kasan/common.c:415
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __do_kmalloc_node mm/slub.c:5414 [inline]
- __kmalloc_noprof+0x315/0x7e0 mm/slub.c:5439
- _kmalloc_noprof include/linux/slab.h:995 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- gb_operation_message_alloc+0x9b/0x2c0 drivers/greybus/operation.c:380
- gb_operation_create_common+0x9f/0x710 drivers/greybus/operation.c:532
- gb_operation_create_incoming drivers/greybus/operation.c:644 [inline]
- gb_connection_recv_request drivers/greybus/operation.c:926 [inline]
- gb_connection_recv+0x1dc/0x1050 drivers/greybus/operation.c:1063
- greybus_data_rcvd+0x244/0x600 drivers/greybus/connection.c:89
- cport_in_callback+0x1fb/0x280 drivers/greybus/es2.c:840
- __usb_hcd_giveback_urb+0x38e/0x610 drivers/usb/core/hcd.c:1657
- usb_hcd_giveback_urb+0x3ca/0x4a0 drivers/usb/core/hcd.c:1741
- dummy_timer+0xdb2/0x3700 drivers/usb/gadget/udc/dummy_hcd.c:2019
- __run_hrtimer kernel/time/hrtimer.c:2067 [inline]
- __hrtimer_run_queues+0x462/0x9c0 kernel/time/hrtimer.c:2124
- hrtimer_run_softirq+0x1ca/0x360 kernel/time/hrtimer.c:2141
- handle_softirqs+0x1d9/0x9b0 kernel/softirq.c:645
- __do_softirq kernel/softirq.c:679 [inline]
- invoke_softirq kernel/softirq.c:519 [inline]
- __irq_exit_rcu+0x192/0x210 kernel/softirq.c:767
- irq_exit_rcu+0x9/0x30 kernel/softirq.c:784
- instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
- sysvec_apic_timer_interrupt+0x8f/0xb0 arch/x86/kernel/apic/apic.c:1062
- asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
+> 25ms is not derived from this device. It is a bound on latency an
+> interactive reader notices; any value between 4.6ms and 43ms behaves
+> identically here. The device is an existence proof that the 100ms
+> default admits a state far slower than the next available one, not the
+> source of the constant. On a device whose deepest non-operational state
+> exits well under 25ms this changes nothing, which is correct for a bound.
 
-The buggy address belongs to the object at ffff888100b7e580
- which belongs to the cache kmalloc-8 of size 8
-The buggy address is located 2 bytes inside of
- allocated 3-byte region [ffff888100b7e580, ffff888100b7e583)
+> The cost is idle power. Excluding ps 4 leaves ps 3 as the deepest state
+> the device reaches autonomously, 0.0800W rather than 0.0070W, so roughly
+> 73mW more on an idle drive.
 
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x100b7e
-flags: 0x200000000000000(node=0|zone=2)
-page_type: f5(slab)
-raw: 0200000000000000 ffff888100041500 dead000000000100 dead000000000122
-raw: 0000000000000000 0000000000800080 00000000f5000000 0000000000000000
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2c00(GFP_NOIO|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 1, tgid 1 (swapper/0), ts 4953479885
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0xf4b/0x3430 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x2d7/0x2f70 mm/page_alloc.c:5436
- alloc_slab_page mm/slub.c:3347 [inline]
- allocate_slab mm/slub.c:3462 [inline]
- new_slab+0xa9/0x6e0 mm/slub.c:3513
- refill_objects+0xe3/0x410 mm/slub.c:7410
- refill_sheaf mm/slub.c:2885 [inline]
- __pcs_replace_empty_main+0x35e/0x650 mm/slub.c:4774
- alloc_from_pcs mm/slub.c:4850 [inline]
- slab_alloc_node mm/slub.c:4984 [inline]
- __do_kmalloc_node mm/slub.c:5413 [inline]
- __kmalloc_node_track_caller_noprof+0x634/0x820 mm/slub.c:5545
- __kmemdup_nul mm/util.c:64 [inline]
- kstrdup+0x51/0xe0 mm/util.c:84
- kstrdup_const+0x63/0x80 mm/util.c:104
- __kernfs_new_node+0x9b/0xa10 fs/kernfs/dir.c:661
- kernfs_new_node+0x117/0x150 fs/kernfs/dir.c:751
- kernfs_create_link+0xcc/0x240 fs/kernfs/symlink.c:39
- sysfs_do_create_link_sd+0x90/0x140 fs/sysfs/symlink.c:44
- sysfs_do_create_link fs/sysfs/symlink.c:80 [inline]
- sysfs_create_link+0x61/0xc0 fs/sysfs/symlink.c:92
- __add_disk+0x619/0xe40 block/genhd.c:500
- add_disk_fwnode+0x118/0x480 block/genhd.c:593
-page last free pid 47 tgid 47 ts 4951179657 stack trace:
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1418 [inline]
- __free_frozen_pages+0x714/0xfc0 mm/page_alloc.c:2962
- __kasan_populate_vmalloc_do mm/kasan/shadow.c:393 [inline]
- __kasan_populate_vmalloc+0x1ea/0x210 mm/kasan/shadow.c:424
- kasan_populate_vmalloc include/linux/kasan.h:580 [inline]
- alloc_vmap_area+0x95d/0x2bb0 mm/vmalloc.c:2146
- __get_vm_area_node+0x1ed/0x350 mm/vmalloc.c:3249
- __vmalloc_node_range_noprof+0x262/0x1460 mm/vmalloc.c:4065
- __vmalloc_node_noprof+0xad/0xf0 mm/vmalloc.c:4166
- alloc_thread_stack_node kernel/fork.c:359 [inline]
- dup_task_struct kernel/fork.c:930 [inline]
- copy_process+0x803/0x8100 kernel/fork.c:2133
- kernel_clone+0x176/0x9d0 kernel/fork.c:2766
- user_mode_thread+0xd1/0x120 kernel/fork.c:2843
- call_usermodehelper_exec_work kernel/umh.c:169 [inline]
- call_usermodehelper_exec_work+0xcb/0x180 kernel/umh.c:155
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3387
- process_scheduled_works kernel/workqueue.c:3470 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3551
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x69f/0xc90 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+As you noted, the advertised latency is not necessarily the real
+latency. But you may not have taken into account why the latencies
+are advertised the way they are. In client devices, the EXLAT+ENLAT
+values are derived from Microsoft guidelines available here:
+https://learn.microsoft.com/en-us/windows-hardware/design/
+component-guidelines/power-management-for-storage-hardware-devices-nvme
+To get to a situation in Windows where PS3 is used most of the time,
+the PS4 latency is sometimes advertised as much higher than in reality.
+Also, transitional energy can be high and is not measurable using just
+the power state values (transitional energy in worst case is PS0 power
+for the entire EXLAT, but in reality it's generally lower).
 
-Memory state around the buggy address:
- ffff888100b7e480: 02 fc fc fc 07 fc fc fc 05 fc fc fc 07 fc fc fc
- ffff888100b7e500: 07 fc fc fc 07 fc fc fc 00 fc fc fc fa fc fc fc
->ffff888100b7e580: 03 fc fc fc 00 fc fc fc 00 fc fc fc 05 fc fc fc
-                   ^
- ffff888100b7e600: 05 fc fc fc 05 fc fc fc 05 fc fc fc 05 fc fc fc
- ffff888100b7e680: 05 fc fc fc 05 fc fc fc 02 fc fc fc 02 fc fc fc
-==================================================================
-----------------
-Code disassembly (best guess):
-   0:	05 4f b0 92 0b       	add    $0xb92b04f,%eax
-   5:	83 f8 07             	cmp    $0x7,%eax
-   8:	0f 87 da 00 00 00    	ja     0xe8
-   e:	48 0f a3 05 de da 84 	bt     %rax,0x984dade(%rip)        # 0x984daf4
-  15:	09
-  16:	0f 82 b1 02 00 00    	jb     0x2cd
-  1c:	8b 35 7e e8 84 09    	mov    0x984e87e(%rip),%esi        # 0x984e8a0
-  22:	85 f6                	test   %esi,%esi
-  24:	0f 85 c7 00 00 00    	jne    0xf1
-* 2a:	48 8b 44 24 30       	mov    0x30(%rsp),%rax <-- trapping instruction
-  2f:	65 48 2b 05 ed af 92 	sub    %gs:0xb92afed(%rip),%rax        # 0xb92b024
-  36:	0b
-  37:	0f 85 f1 02 00 00    	jne    0x32e
-  3d:	48                   	rex.W
-  3e:	83                   	.byte 0x83
-  3f:	c4                   	.byte 0xc4
+I would recommend Linux keep aligning with the Windows values since
+those are the ones client devices optimize for. Selecting 25ms as the
+default will ensure that PS4 is never used in devices that are aligned
+with Windows, which will cost more power even though it will improve
+responsiveness. Some OEMs will find it unacceptable, as was the case
+before I introduced the current APST algorithm back in 2021.
 
+I believe that whenever latency is that important in the workload,
+users should explicitly disable power management (as one would do on
+Windows by switching to performance mode), but this shouldn't be the
+default.
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+> This changes only the compiled-in default. default_ps_max_latency_us is
+> consumed once per controller in nvme_add_ctrl(), so it applies from the
+> kernel command line as nvme_core.default_ps_max_latency_us=3D. A running
+> controller instead follows its per-device PM QOS value
+> (pm_qos_latency_tolerance_us), which is how the two settings above were
+> compared without a reboot. Any system preferring deeper idle states can
+> restore the old behaviour without a rebuild.
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+> Signed-off-by: Ferran Duarri <ferran.duarri@me.com>
+> ---
+>  drivers/nvme/host/core.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+> diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
+> index c3032d6ad6b1..e3038b880e8b 100644
+> --- a/drivers/nvme/host/core.c
+> +++ b/drivers/nvme/host/core.c
+> @@ -66,7 +66,7 @@ static u8 nvme_max_retries =3D 5;
+>  module_param_named(max_retries, nvme_max_retries, byte, 0644);
+>  MODULE_PARM_DESC(max_retries, "max number of retries a command may have"=
+);
 
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+> -static unsigned long default_ps_max_latency_us =3D 100000;
+> +static unsigned long default_ps_max_latency_us =3D 25000;
+>  module_param(default_ps_max_latency_us, ulong, 0644);
+> MODULE_PARM_DESC(default_ps_max_latency_us,
+>                "max power saving latency for new devices; use PM QOS to c=
+hange per device");
