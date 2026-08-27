@@ -1,45 +1,45 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AF2F3B6341;
-	Thu, 27 Aug 2026 08:04:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC0543B71D8;
+	Thu, 27 Aug 2026 08:04:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.16.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787817853; cv=none; b=OFpEy0BtUoSelACXrjA/WTeG41OvmuFCdZmwbVOKJMX+cv9TlMOzcCFv085F0Bv4Tchpk7qBwu908eYP+JFkk4rGTSZQI2KjvTZ4ICH6bClyWt/DjKooJkOfLqmJN86wWC3KqDohhKKzNIeqwxKCtZBIV3ujNYgRyek9E5iHNFg=
+	t=1787817861; cv=none; b=jo90KLcEKqvuS0J7UMPsBpJBEUN0EURZco67i5Txjj3ynfbeCbCDkfyD1SrckGwhb+JPHCeqALJb9uBp8frp7Wo1QPacAC94JDnO7dq1XTpXegfQf02tRTh8NTvYCgIWtDSqvofuEo9CFWKknhII19z4fftEYjF62Yd0D0W5Dj4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787817853; c=relaxed/simple;
-	bh=SZK2uKu99FCmOiH6CtTNvIURwBng/uRczIPfDS5zYAo=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=rhNssCEJq0s6UVWyMb9hK93V9ZIRHsC2AFsmln1VMFNTvaoeNlLeiyw319Fej4XC7Xm1WkugjYI0T1hweb7nDq9MOc+n45S6FIk9ELMXlDX6rBZge4FPo/W3g/8ltLUGgf+bcxWX5/fsURkwijv7h0tcbM7F15L17F/xDFSqWLA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=eBbC7aWG; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="eBbC7aWG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=th
-	hfpAm3W3+gvrnvVKZRRufjJwObxV/nCEwA2o7XeDY=; b=eBbC7aWG8ej8FBJoOg
-	QBSN3swUdVuTqvzMBxDOQEMGZ42Mzj5iAKbl3vUGDPn3pnkLYlXYtSd5hQzFg3wz
-	QZYXv8ea2vMM1KTwM5m9REbkdVg5bRn7yez0KNLz36rywLLAOeSpsY6hfviuaSps
-	txsj5pJFtQS0oC2xYFLLqPh6Y=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgD3_wxe749qoz9pPQ--.29344S2;
-	Thu, 27 Aug 2026 16:03:43 +0800 (CST)
-From: ghuicao@163.com
-To: Song Liu <song@kernel.org>
-Cc: Yu Kuai <yukuai@fygo.io>,
-	Li Nan <magiclinan@didiglobal.com>,
-	Xiao Ni <xiao@kernel.org>,
-	linux-raid@vger.kernel.org,
+	s=arc-20240116; t=1787817861; c=relaxed/simple;
+	bh=4hoHcqjlyOAs+Q+rCTSUjMpIlCks10LeX6y2eVEoCMg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Yi8sob9FLc1pTP1IQN/tHMcqmF/G6JllP2F4yaOo9rh0pRqxeZ4JC2HVcUQPIoX02JoyBO2I2dmvgTbi5FcfFvor4hNzR1uNgPqWa+e05H++qp4B71lamK+FF2SKFtuFRWpthxuMywpC8J1ORiwizEJEL/uVA9/c7iLX7czfQcA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinsec.com.cn; spf=pass smtp.mailfrom=kylinsec.com.cn; arc=none smtp.client-ip=54.206.16.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinsec.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinsec.com.cn
+X-QQ-mid: zesmtpgz1t1787817806t73a14df5
+X-QQ-Originating-IP: EQuvAfVQvBDQc+OBqFpqyOCsJlKRNpzxMs3t9Ors+V0=
+Received: from rd.. ( [111.8.45.130])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 27 Aug 2026 16:03:23 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 8051406103579778583
+EX-QQ-RecipientCnt: 10
+From: Liu Dalin <liudalin@kylinsec.com.cn>
+To: Hans Ulli Kroll <ulli.kroll@googlemail.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-rtc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Cao Guanghui <caoguanghui@kylinos.cn>
-Subject: [PATCH v4 1/2] md/raid5: track disks array size to fix extra_page leak on error paths
-Date: Thu, 27 Aug 2026 16:03:40 +0800
-Message-Id: <20260827080341.112296-1-ghuicao@163.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260827063235.85375-1-ghuicao@163.com>
-References: <20260827063235.85375-1-ghuicao@163.com>
+	Liu Dalin <liudalin@kylinsec.com.cn>,
+	Deng Yingchao <dengyingchao@kylinsec.com.cn>,
+	Qin Yungao <qinyungao@kylinsec.com.cn>,
+	Luo Qiu <luoqiu@kylinsec.com.cn>
+Subject: [PATCH v2 0/3] rtc: ftrtc010: fix resource management and integer overflow
+Date: Thu, 27 Aug 2026 16:03:17 +0800
+Message-ID: <B61B30904C7ACEEF+20260827080320.3351155-1-liudalin@kylinsec.com.cn>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260827021054.0963C1F000E9@smtp.kernel.org>
+References: <20260827021054.0963C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,87 +47,65 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgD3_wxe749qoz9pPQ--.29344S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxuFy5Ar4UJr4kJryfuw48WFg_yoW5XrWrpw
-	sru34UZa1UWrs3Jr17Z3yUuF15Kw4qqrWxGFW3W3yvvF9agrySyr1rGFZ0krWjyF93Kayf
-	tFZ8trnxJr1rtrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jrYFZUUUUU=
-X-CM-SenderInfo: 5jkxxuldr6il2tof0z/xtbC-B+RJGqP71872AAA3g
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:kylinsec.com.cn:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: NEtAzFYxEdvUlw66KnVgHRLUGs39t65vDz4Yjo6NG1USV2fMvKx973IG
+	VfD3eImyXPrbDJElyALKyR6fm56r1thtVhxu0nO1bKOif+SR08j/Z0YsHLcKNLcHJtXKhLB
+	gCf1MbUDGijLwZg+heZr121ATzv9WnwLRKaH6OF3v2Ly2OjLcd/rDmTICzAFb8RhPAxTe0a
+	lGlkJZLUCjPvczEcihsSuDR8heP3Vl2lIujTRi5S3uiQipvk8K+fXMk4rtIsNDuUfZdFqXf
+	Ud6FGeEa9QsK8yzpA651uE6S07GMyoAzczkmtJ/mb8HPL9mU/0yw2Tfja4dKENjjO3lhyvm
+	TeXfC2gyVgKZkfrBdmOP/7X7+vNHm8Vv7SOxGcD+ocgCBsBPBlMe2RDGxhEoChwIcLvdK9k
+	HAfCZJK67ir6Ve2s0Vf1pHKzp9+CmsV3Oo+5HeNOebCu/Jc9rwLRfHEYKVl2Q8/1KQZl0Vl
+	Ye2KXchI29t9PqTNAvt6vm2jbQtdXqHpZdYvHpLGPp5O/XulL1MtI7RxWyxQa4LLY+EcXa4
+	49bSYLSmdClEhpdSsPFprqC5CWt+5TvyegmjrdzDXhUWM2+KQNlXmd6F5FMHon57XoQtV3c
+	iow2tj5/nRGn3IzOjDcTEvjmb+DEsuf/ooPFirjjh5yHFe8kX4Vgz5W41owhKlN2A9EvDzx
+	+xJpuyhr7OYfv2FcN/NcJ78e76Fmuom0GA1YMG3XKcIayVH/yDpUX40J1fIlTagQQ4Ys5A9
+	FO5dwbmSI5s+UVaq87vjXERciBDzTK0b/mHYqQCg7G8U/hxNmD/CFvKth9l6utjnwtRXPNU
+	EDu4H9Ia8zESFte4gGjfalv4CDBgyui6mrYUAfqwh8BMNZ9l9ek9Hj3IxHG5srqcmaagkoX
+	6dq/euJEXeh7PC2rcRYOD9CEkGEQmIc0RDdlc4XejwCmtU7hjPfalvUR9/qLNMfcTdu8kVm
+	GLYd2uCdOcTda+RUDsiQO82/AAPM7mU8zpUXZeJHOG4yLvdNLodexsHO2NkfcdAA6fYorEX
+	z6Of+2WieF8RhTJSvpM3RKLptmfH0KY+MDPnp5XDDRy3yk85eAhv41zhNueajsbCtVXXI8I
+	dypk1ByAcsuKA8k+PXtQjRPlC/XU39brwJNpP3xeCvnzJoRlBna9HFr9SL0TDItmKWXeF4N
+	EbpD
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
 
-From: Cao Guanghui <caoguanghui@kylinos.cn>
+This series fixes three issues in the Faraday FTRTC010 RTC driver
+found by Sashiko AI static analysis:
 
-free_conf() iterates conf->pool_size entries to free extra_page
-allocations, but pool_size may not reflect the actual size of the
-conf->disks array.  Two scenarios cause a mismatch:
+Patch 1: Fixes a clock resource leak when devm_rtc_register_device()
+fails in ftrtc010_rtc_probe().
 
-1. setup_conf() early abort: pool_size is 0 (not yet set by
-   grow_stripes) but conf->disks has max_disks entries with
-   extra_page allocated.  The loop iterates 0 times, leaking all
-   pages.
+Patch 2: Replaces manual clock management with devm APIs to fix a
+use-after-disable vulnerability in ftrtc010_rtc_remove(). The RTC
+device is registered via devm_rtc_register_device() but clocks are
+manually disabled in .remove() before devres cleanup, creating a
+window where MMIO reads on clock-gated hardware can cause a
+synchronous external abort.
 
-2. resize_stripes() Step 4 failure: conf->disks was replaced with
-   a newsize-entry array in Step 3, but pool_size is only updated
-   on success.  The loop iterates pool_size (old, smaller value)
-   times, leaking (newsize - pool_size) pages.
+Patch 3: Fixes integer overflow in ftrtc010_rtc_read_time() and
+ftrtc010_rtc_set_time() where u32 arithmetic wraps for dates
+beyond year 2106.
 
-Add a dedicated disks_cnt field to track the actual number of
-entries in conf->disks.  Set it immediately after each allocation
-or replacement (in setup_conf and resize_stripes Step 3, where the
-array is safely stalled with no concurrent access), and use it in
-free_conf() instead of pool_size.
+All three patches are based on v7.2-rc2 and have been verified
+with checkpatch.pl --strict.
 
-This leaves pool_size untouched, preserving the check_reshape()
-retry behavior that depends on pool_size only being updated on
-full success.
+Changes since v1:
+- Added reply to Sashiko AI review comments on pre-existing issues
+  (shared IRQ handler, sequential read rollover, TOCTOU race)
+  explaining why they are not in scope for these patches.
+- Clarified that PCLK/EXTCLK are required by the hardware and
+  devicetree binding, so the old "optional" behavior was a bug.
+- Patch 3 received no Sashiko AI review comments, confirming the
+  integer overflow fix is correct.
 
-Fixes: d7bd398e97f2 ("md/r5cache: handle alloc_page failure")
-Cc: stable@vger.kernel.org
-Signed-off-by: Cao Guanghui <caoguanghui@kylinos.cn>
----
- drivers/md/raid5.c | 4 +++-
- drivers/md/raid5.h | 1 +
- 2 files changed, 4 insertions(+), 1 deletion(-)
+Liu Dalin (3):
+  rtc: ftrtc010: fix clock resource leak on probe failure
+  rtc: ftrtc010: use devm clock APIs to fix use-after-disable in remove
+  rtc: ftrtc010: fix integer overflow in time calculation
 
-diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
---- a/drivers/md/raid5.c
-+++ b/drivers/md/raid5.c
-@@ -2642,6 +2642,7 @@ static int resize_stripes(struct r5conf *conf, int newsize)
- 		} else {
- 			kfree(conf->disks);
- 			conf->disks = ndisks;
-+			conf->disks_cnt = newsize;
- 		}
- 	} else
- 		err = -ENOMEM;
-@@ -7552,7 +7553,7 @@ static void free_conf(struct r5conf *conf)
- 	free_thread_groups(conf);
- 	shrink_stripes(conf);
- 	raid5_free_percpu(conf);
--	for (i = 0; i < conf->pool_size; i++)
-+	for (i = 0; i < conf->disks_cnt; i++)
- 		if (conf->disks[i].extra_page)
- 			put_page(conf->disks[i].extra_page);
- 	kfree(conf->disks);
-@@ -7733,7 +7734,7 @@ static struct r5conf *setup_conf(struct mddev *mddev)
- 
- 	if (!conf->disks)
- 		goto abort;
--
-+	conf->disks_cnt = max_disks;
- 	for (i = 0; i < max_disks; i++) {
- 		conf->disks[i].extra_page = alloc_page(GFP_KERNEL);
- 		if (!conf->disks[i].extra_page)
-diff --git a/drivers/md/raid5.h b/drivers/md/raid5.h
---- a/drivers/md/raid5.h
-+++ b/drivers/md/raid5.h
-@@ -667,6 +667,7 @@ struct r5conf {
- 	unsigned long		cache_state;
- 	struct shrinker		*shrinker;
- 	int			pool_size; /* number of disks in stripeheads in pool */
-+	int			disks_cnt; /* number of entries in disks[] array */
- 	spinlock_t		device_lock;
- 	struct disk_info	*disks;
- 	struct bio_set		bio_split;
--- 
-2.34.1
+ drivers/rtc/rtc-ftrtc010.c | 72 ++++++++++++++------------------------
+ 1 file changed, 25 insertions(+), 47 deletions(-)
 
+--
+2.43.0
