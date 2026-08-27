@@ -1,149 +1,145 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E69A468C0D
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:06:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6FE646D095
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:06:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787836007; cv=none; b=nZqz+mKMA2fi1CKi94cD3c3wcEkueAlSGufTBB9BxfJJt120t3w8C71ytl1aOogkjyF3eS7XihSmcE14o8g5Izzc8v7R7oplxp2ZXUKQbU5vL4pVQA48XZIe96Qvb5MlvsbttVFKJ3RCWukxwYXi7vYNoZroiUWwTBdTplJWl/E=
+	t=1787836031; cv=none; b=Ucnt9Y7/RhhCGLEJoql+/RZSRvrdbpgVWzKEBw/jC28Mkk7q6JcYaMgI/uMs1NjWCPqJJrOZfR30eSi2tfTaexQO1b/fzxFzptbo5KS4HLpZNVgz/shUK3fr2fxQLk3stfmuaOaN/2JJZgdiJv9qzLDcQCtHPvTU/a+ogPorlTc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787836007; c=relaxed/simple;
-	bh=D0HBwAIvzJNMhfik4eK7FAFYtPWgdl8TcYYSAC6k9y4=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=LQYRB3OAJ8L+mDs/VKiNXA5/N5fSJAj7dlyxnWcMampNc9j9i+HyMBC2jll1q/Usrcr3XBs+wol88AeZY7WGfoaDpusjwZoKGVh9dWF6TQraCkLuJGItCtESFVqkVOpzAaxI214U4TbTgcvOcGIWhW5a1KOrmUz4/JBM/1Vy55w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hRtn/HQc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787836031; c=relaxed/simple;
+	bh=aJa8GkM03fEh8NtHJaRKAJ/tp0xmeMNgj/Rj1HV5SfA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uB3i8QQkKOPl/gtx3C7WHewKnREUavp9VZtjmOFdEXOqcADWIsEOs4JnjxLozPOg2wNABmnuVhVAYas7fotNfpYkj8Gs9oKF2cKtxaq2UgEH9M85Y163NWUAp2qkAv5lM4zF/gZ6dBxRdRfNxXNnBu7/yoQXLiqwOaZVttcb7pk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lfne+dj1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hRtn/HQc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C2DC1F000E9;
-	Thu, 27 Aug 2026 13:06:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lfne+dj1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F9951F000E9;
+	Thu, 27 Aug 2026 13:06:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787835993;
-	bh=cJTSlEd68RZuGL06M3/Lyd/r+uxyOtiVJOKCOkVdyrM=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=hRtn/HQc7WBAfrSiwvoiPVfQLcHIPVDgzuajduCSlNfjzVYIjqoI867rH3BEqbn2m
-	 avD5LSfiyAHM7d30P0PLA5EiLlQogePWUlATtiOwJgKE364R1ogA5OHyzQo+Gg0Jtt
-	 t4UzmLtnhZZmqghArpDdMwZdx+bdaAJ6cYVgnJ0FW2o0ox8xQugDE1x16unFfHBOGI
-	 3D9oVsGLpUdSY75gW8Z3r9tGxACRX7NWtJi7A77qaPTNIlTiR/zbgDs/MQjWAfe36Y
-	 y5HXIUyekEEy7IF2oHPuwhn/bPKp5R4wS2VjXGNXUaAeazTOtIcr5CdnWqIeQO7Mw0
-	 FkGfzY5Z0Awvg==
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 3B45BF40066;
-	Thu, 27 Aug 2026 09:06:32 -0400 (EDT)
-Received: from phl-imap-15 ([10.202.2.104])
-  by phl-compute-10.internal (MEProxy); Thu, 27 Aug 2026 09:06:32 -0400
-X-ME-Sender: <xms:WDaQarG5hoYYQLBRNaBeNq6jqahLWHyBWSGuRIfVgwM-jBcqTnfIGQ>
-    <xme:WDaQajLq7NpwhG4peRInKs29aXOLFREdeatRWSipYvTUi95TLEeXnzFgfaWs2DA2C
-    d_XXUD25dSLif17Ak73ndWAKnLRfL1XW85JbUlSG8QxTgwtYscSQw>
-X-ME-Proxy-Cause: dmFkZTFV6UjLByR+IHaYGJ2LqCsZhmTmv9hYxnrT+FBBtmogQP5ZID/Ow/TX+AWKibHNdv
-    o9KTcq7NOn0bJfxy7jxZhcYQR32aHz1Q7ySDS12L5fkj2TmkbqjSWmK64ViLDcOf77yeWy
-    hPWeKtAuSZ1Iw/3mU3EnB8DJZjrQcqpIgVpkiux5uDt8McEPZcjJ8Dz1ZbSoOGVO23HeJr
-    ZABVBZyh1KC3FtvsBSrIBR54Qpurl3HXbAzJeZnHVP5gTfbUK5icQZFQWqj+e4f67sxRY7
-    F/nMoIOPcHnjENN52CmHYK/ulxrCMBN4WsCczUOm6lZDsc4CEpGqNDvMQx7ljPCxfS6GU5
-    6pAeheTngMhXCJj+hxQ5krjp5vJACzB2ByRD8LIgVV8HCM1Bh4zYLl4BpLp2vfQIhxf0Ne
-    IH/KkaIVTN7U9JNAFOmR+SZXvZYPZiNpryLjBIVLM68FgnIggcHzQsak0doP/LLYnVgINn
-    V8AM9Ywa89tJld2alik0jA0dz30xj+5DIeDQj19k2BzJLjT6nrPFB2WNKC6X0eKvuh85Zr
-    FEYDvl3fJJp0614f/ccekjhXn/UH35EJGAQcF7Kcu1PReqt7hX6QIaUUmYmwTnzu0VRCdu
-    jWV1dIWwA1zQ/M7A0l3iPezcJ7Z9whOXFhHGfuciP4RCdcHnhdlvU4IlnDdw
-X-ME-Proxy: <xmx:WDaQavQLtp0iJBgyfoBr4-5AnF0SJ7YUwJqlH1L0oSPy9BlF5aVKBA>
-    <xmx:WDaQamzGMitFRZ1NQwNbh6e_SdVY8LDniQkssfKJSJ7YEcYGYJWOTg>
-    <xmx:WDaQavrsMyo3rCpnKMTO6-l_xS1WBCsUy-aWe6IgaVkLI7UYiewQKQ>
-    <xmx:WDaQah2T7qNfCutUEpwuP4zHnEJfPjzri6GzuSPfJWS9NWx8OHa62A>
-    <xmx:WDaQanxz93IWRNTi7zChd6OQsmV3NZXZTj-Iuo21EKK1zvzYGRuFIJwc>
-Feedback-ID: ifa6e4810:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 0AC7D7811F3; Thu, 27 Aug 2026 09:06:32 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=k20260515; t=1787836015;
+	bh=ZSuTZwdeaDVo8ilObKv1yNCokL2S+sutd5WfT+a22kU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Lfne+dj1c3eOzsZQQYORIe2wqZ8Hd+nnFmlXRR9bizxkA+mm4PhiSkK5JctbFRHGz
+	 qgV8h6Wc0gV0ZMxA6x+hSPrSm3ygBn0HrueK7XlRZb0iNKWW+8FGnTj8q+f2biCu+4
+	 Q9cSAqrKCLhK+c/U70mG8ugw5cyQpbyozWw+Cj/P3JXRfnTpWNe0OYlLR1zgldPcjO
+	 FtA9ORbeowfPJFxXkZhf225GQXYsT4V7MqyFWcevVPYKDfx8LKp1bDsXfmtIWmlq6f
+	 arXv9VxGH+aF1hWSC4X+N52gAZlC2aQ11S0n1JhbViwPKu7JCs0XpI1G0HzUsfNo3X
+	 bZ3Xv5Ul1Qsiw==
+Date: Thu, 27 Aug 2026 14:06:49 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "Lian Wang (ProcessMission)" <lianux.mm@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH] MAINTAINERS: remove myself as THP co-maintainer
+Message-ID: <apA1Bm2BwpqPc86v@gremlin>
+References: <20260826-drop-thp-maintainership-v1-1-3d102748fa17@kernel.org>
+ <ao7Nr_FALfP7cTY5@gremlin>
+ <20260827082352.26769-1-lianux.mm@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: A0AurJh4UZM-
-Date: Thu, 27 Aug 2026 09:06:13 -0400
-From: "Chuck Lever" <cel@kernel.org>
-To: "Prabhakar Pujeri" <prabhakar.pujeri@dell.com>,
- "Jeff Layton" <jlayton@kernel.org>
-Cc: NeilBrown <neil@brown.name>, "Olga Kornievskaia" <okorniev@redhat.com>,
- "Dai Ngo" <Dai.Ngo@oracle.com>, "Tom Talpey" <tom@talpey.com>,
- "Donald Hunter" <donald.hunter@gmail.com>,
- "Jakub Kicinski" <kuba@kernel.org>, linux-nfs@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Message-Id: <1c53950d-66ba-490a-872f-b2318c584d3c@app.fastmail.com>
-In-Reply-To: <20260827045139.4353-1-prabhakar.pujeri@dell.com>
-References: 
- <3fd25e2178458fbb44f57f1b0e068c12a6503d17.1787638668.git.prabhakar.pujeri@dell.com>
- <1046756851d9d7d688ac612a7f175e48745d2b84.camel@kernel.org>
- <20260827045139.4353-1-prabhakar.pujeri@dell.com>
-Subject: Re: [PATCH v1 1/3] nfsd: report NFSv4 grace state through Netlink
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260827082352.26769-1-lianux.mm@gmail.com>
 
+On Thu, Aug 27, 2026 at 04:23:27PM +0800, Lian Wang (ProcessMission) wrote:
+> On Wed, 26 Aug 2026 12:31:09 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
+>
+> > Since it's 2026 :) I asked Claude to look at my time as THP co-maintainer:
+> >
+> > 	~107,000 words of review across 948 emails (in 279 distinct
+> > 	threads), counting only prose you actually wrote — quoted text,
+> > 	signatures and attribution lines stripped. That's a full novel's
+> > 	worth of review commentary.
+> >
+> > 	Along the way you handed out 194 Reviewed-by and 15 Acked-by tags,
+> > 	and your longest single review was 2,404 words (mTHP collapse
+> > 	support, v12 — the khugepaged/mTHP collapse saga accounts for most
+> > 	of your top-10 longest reviews).
+> >
+> > 	Estimated review time: roughly 300–500 hours, centred around ~400
+> > 	(i.e. ~7 hours/week for 14 months).
+> >
+> > 	1,615 THP-related emails in the window: 948 reviews of others'
+> > 	work, 278 replies on your own THP-touching series threads (~31k
+> > 	more words responding to review), 382 patch emails, and a handful
+> > 	of MAINTAINERS bits. Busiest months: March 2026 (131 review
+> > 	emails), June 2026 (113), August 2026 (111); quietest was December
+> > 	2025 (5).
+> >
+> > Think I can be happy with that!
+> >
+> > --
+> > Cheers, Lorenzo
+>
+> You certainly can.  Thank you very much for everything you have done for
+> THP and for all the people whose work you have reviewed.
+Thanks :)
 
+>
+> You and David were among the first people to review the first patch I
+> sent.  Later, SJ, Zi Yan, Mark Brown, and many others also began helping
+> me.  Although I kept making mistakes, I genuinely wanted to learn enough
+> to share some of the review and maintenance load that you have been
+> carrying.
 
-On Thu, Aug 27, 2026, at 12:51 AM, Prabhakar Pujeri wrote:
-> On Tue, 2026-08-25 at 08:10 -0400, Jeff Layton wrote:
->> What's your interest in reporting this info?
->
-> My interest is in making nfsd's operational state observable to
-> monitoring and validation tooling without parsing nfsdfs.
->
-> Concretely, I'm building a validation harness for NFS server
-> restart and failover behaviour: bounce the server, drive reclaim from a
-> set of clients, and check that state comes back the way it should. That
-> kind of test has to know when the grace period has actually lifted
-> before it can move on to the next phase. Polling
-> /proc/fs/nfsd/v4_end_grace works, but it is a text interface, it only
-> answers for nfsd's v4 lock manager, and new nfsd control and
-> observability interfaces are going to the netlink family instead.
->
-> So I would rather frame this as parity than as new information: grace
-> state is already exported, this puts it on the interface that is
-> replacing the one exporting it, and -- per your point below -- fixes
-> the semantics on the way over.
->
->> Just because the v4 recovery is done does not mean that you will be
->> able to access files. The overall system grace period is a union of
->> both the NLM and v4 grace periods.
->>
->> This patch is reporting just the v4 one. If the goal is for the admin
->> to reliably tell when the grace period has been lifted, then this
->> won't tell us that.
->
-> Agreed, and "has the grace period lifted" is the question I actually
-> care about. I mirrored the semantics of /proc/fs/nfsd/v4_end_grace
-> without stopping to ask whether those were the useful semantics to
-> expose in a new interface. They aren't.
->
->> Maybe this should just return the result of locks_in_grace() instead?
->>
->> Or, do you plan to add similar functionality to lockd? Then you can
->> just do the union in userland to figure out if it has been lifted.
->
-> I don't think lockd needs to grow anything -- fs/nfs_common/grace.c
-> already gives us both halves, and nfsd calls into both helpers today:
->
->   - locks_in_grace() is the union you describe: true while any lock
->     manager in the net ns is still in grace.
->
->   - opens_in_grace() is true only while a manager with ->block_opens
->     is in grace, which per the comment on struct lock_manager is the
->     NFSv4-and-up case; NLM doesn't set it.
->
-> So for v2 I'll report locks_in_grace(), which answers "can this server
-> hand out normal locks and opens yet" rather than "is nfsd's v4 lock
-> manager done". If it's ever worth distinguishing the two, a second
-> attribute carrying opens_in_grace() gets there without touching lockd,
-> and userland can derive the NLM-only case as (locks && !opens). I'd
-> rather not add that speculatively, but say the word if you'd like both
-> in v2.
+I'm glad I was able to help :) and mistakes are just part of being human, I
+make the dumbest mistakes _constantly_ :>) so the key is really trying to
+always find ways to quickly fix things up and improve.
 
-Although NFSD does not yet support putting individual exports in
-grace, that is an open possibility for handling things like the
-reboot of a backend NFS server for a re-exported NFS client. I'd
-like any new API to avoid foreclosing the ability to move exports
-in and out of grace individually rather than as a single unit.
+>
+> I still have a great deal to learn, but I have started to slow down, think
+> more carefully, and improve both the technical quality of my work and the
+> way I submit it.  The help I have received from the community means a lot
+> to me, and your patience and reviews were an important part of that.
 
+I really think going over and thinking carefully about the code and the
+approach is really helpful.
 
--- 
-Chuck Lever
+Also review really helps with getting perspective on what other people are
+doing and how things fit together so is super helpful for improving too
+(part of why I do a lot of it!).
+
+Am very glad the feedback has helped :) I know that sometimes I am not
+quite as patient as I could be but I do try to do my best, and felt I've
+developed over time as a reviewer, albeit never quite being perfect on that
+front :)
+
+>
+> I know none of this changes the workload that led you to step down, but
+> reading this made me realize again how much time and care you gave to all
+> of us.  I will be at LPC this year, and I hope I can thank you in person.
+
+Thanks, feel free to come say hi :)
+
+>
+> I will also be more disciplined about patch preparation, testing evidence,
+> email formatting, revision history, and the overall submission and review
+> workflow.  I hope that, over time, I can take on a useful share of the work
+> rather than add to it.
+
+Amazing, yeah I think the key thing to realise is that while feedback can
+be painful (for me too!), everybody is aiming at the same thing - trying to
+make things better and improve the kernel for everybody.
+
+>
+> Thank you again, Lorenzo.  I will miss having you as a THP co-maintainer,
+> though I am very glad that you will still be around.
+
+Thanks again for your kind words! :)
+
+>
+> Thanks,
+> Lian
+
+--
+Cheers, Lorenzo
