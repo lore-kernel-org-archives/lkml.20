@@ -1,84 +1,121 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B3EA3F1065;
-	Thu, 27 Aug 2026 23:48:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D9E237F006
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 23:50:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787874497; cv=none; b=kPaim/bRJnEXbVdIBpdHMEhcAb383iv5ao3lFMgHH7UsStJVocXHy9BC3akQUQ/zK0U8RcswGmKXatXjlmD6690+hEZoGotWcOE4oAQF4PF+2/eUvKUjnMcIan1loB8Tlth9EvkavT3JuXvcotlCxQCsFl2ZIY3yJYfimsRawh8=
+	t=1787874644; cv=none; b=MfTdhuog30B6/5Ak/Ifmj5ig/eHbsTq1TbX1pTxFejD7mo4SppaHvkdFurRq51hlkT5FOlgRPB2SaSfX6EW6dXf9Tw5616U1Yrj0q6jwzGNRWmigicpJxejeLQcxS8vKKFWUxdvWcgRfr9uD+8BOHkiE0fKHEJFGGk59dEOQ61Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787874497; c=relaxed/simple;
-	bh=79Ppe89qsYq40c+DjqrR7Kiv7DFxwdoetJ9eL0V6bD4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tWPRjxKA/b2RO2YG1zDpCjLvKfZhXAjnV8hvVPU77IJukD0yZdqm5YIHJOfiPdRO5e4TfgrgZVphsuBk5C1nYGuMlMU8Vp2mN8wkTGbq6prPeXFyxr1wEgQhozlVMm5+nTSlcuUhs8ets6vCeKDJbD7pmNUCKE4O6opOf3CsCRk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=sOiEYcWR; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1787874644; c=relaxed/simple;
+	bh=I0w28eDwn55wNUcSFkFqUL0WZNi+JsnEzbOiyxoDOZA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=T1SC4LLYvfbaV/XqcHsHmZCy6BOW7DZOR9sTX23t3AhXb92agkxP8cTODcWlXiZJ68fcPlDtkp03xXVmkQL+siVZxkumx37UL1iwxlbRdm8cMprDWpLy4378Yd1dkFs9EjMjEAdphGsr0Fe2/Bd2rYTSFMJ7K4CcqknyUA1RPLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i2m3tXfu; arc=none smtp.client-ip=74.125.224.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="sOiEYcWR"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=WbrA5H4Yvk57EOsBNWlV0ekpieSDSLCMYYWZTClSrEA=; b=sOiEYcWRvCSxRASVuNIzInC47i
-	zNErCUzEMfXUGe0/SHQHaSCS6dB+wMNihofRUzgJpMfPm1xlgGmlDApET+ujz9oKz0qr0Lm0e65fv
-	gJuIGjg6P8vAREnZELW3c7qIs4vS5iQ8YP1ix6Fy6TS4S8SzWVziYYpfbw3W+YfkjIQk1i0AwDByL
-	mngleurW924PpzgIEnqId4llZUwhECm8TP4gIVKxO10MQ2a4qE2UkUjRPGJXlEDZczTRzCTA4mscp
-	tPFUGksNR5nn/tVEHedLSjEk2tR5tSxNXqCZzVckNM7s/VPY7WJMLucXfA8261xYtmynDIor2bjm9
-	TaSgwyMA==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1wzjpL-00000004vYb-1Jb0;
-	Thu, 27 Aug 2026 23:48:11 +0000
-Message-ID: <6bd84489-88e4-4b72-b1f8-af5e1866a37e@infradead.org>
-Date: Thu, 27 Aug 2026 16:48:10 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i2m3tXfu"
+Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-66d1082054fso768759d50.3
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:50:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787874642; x=1788479442; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oDf2cFz2MJ91PpGfYzlKTBbzHYxayWBZgz3Ltr8pzsg=;
+        b=i2m3tXfuxbRtRkKd+HwICRWj6nH3W+zCDHcVezGriGsdAlrvO1A1fJ6YTqI1o2yxrM
+         C16GJDvzrUcQMaZlGLLnIZfnSYibk/aH8hgXPLe9BlozfkuXFEMqwdt08THg5fJEtHbL
+         hNlULDQ+pMNzCzO/jiJEHASN5qQu5oRA+BnooZTrRwSenGFbxV/Vs1mKuWEcxXYnKUw9
+         TFhKJCIkdTD6IOn6MD92GvwehV9sioXVgOO4NFXq5/Ef3pNStymKNwx8zvb2qteAzD4z
+         z5R0snxAVUeRzJaRJs8JRw9ko5HvkjTO3sVovTOhbj7FD7ogq+Bodnsouh2deSv39PmZ
+         0ZFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787874642; x=1788479442;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oDf2cFz2MJ91PpGfYzlKTBbzHYxayWBZgz3Ltr8pzsg=;
+        b=PJ5RGGKrz2JDryrJo9Bzj54xDKwrbdX5QxCakTmKkUHYLVCNkQScIC1V+AWTm/kNew
+         +6odIE7D5S20uZuXQaVwhUs2cU5BmgjPixSw4qFWiFizRc5S+n3utrc8xG4Chk66Fo9u
+         D3KjRuDNxECccyzUI/aWgzW5caQe0klhx0NMfaQ+678KythBYEaGnGan/4/Ut2FpEkFD
+         I/XgftxM0votcq4owjULgB1dW0dVkb4L/UDwie0KPhJ/PfHEUdOAjj85O9CIVBuXucX9
+         B6N/73dbkC1WSM/gq6613t+YYeJtiq02Yhv8RG+i8wuDXcHp3DmpIHbegZNIPEcDN5yT
+         VxUg==
+X-Forwarded-Encrypted: i=1; AHgh+RrjnjER4iJANXQ3Ulkk6BJ/mybRKuLVarabtH77gsb5sAXqX4oOdE946yNLuNhUhj7PU2mX9eGOBYWAEg0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lSi2EqZWvYw1/DEjDRGL4YPA45+ckv513uYLD8m3cCYO86IfEW
+	TPOaXDqv7srgWhWzD2HYIzkng4zLkvuUzgrlQjiQZBel39hvoAAwajNy
+X-Gm-Gg: AR+sD126EOy3rX4asvPoFGwaONIwtI/5XxCwCi3tUCjuAS2S+sc+Tg6pTjoQmHheT4b
+	+ITHe41h6pzn2so9AlTtKlxRydri3ok/q2NO3Sl8O+E2f4+kO5c+iMf8qehA8mQPY/bobqcSDmQ
+	ZEvQP4/05lOXGB7NB4Ic9ytXewzfHlzjsTUM0MYzo91ELZfz18uzsfONEworBTHg8impyu5dK04
+	XSIk87c1/2C+J8I9CuLw+Tm06Zf+KdqKOI6S8e3zxeNpeo0Je1qeSgyRtYICpS/MmB4Qe26QziV
+	pg0Vym8UiASAstnyrIAVsCVIcP97MwHVBDz1p7F0kxNXQyNkL7yCEFp46JB5c7sXzosUGyb79DZ
+	GnIwCClZA557iXy2i4MMcLrb5I01Rk8WBAksz6oUWSYa062/QLEPB8ed36h/FWYAcav7CixEKeq
+	ifMP91rTqP8MtqAK+ANLQB9bZsT47eHLr4/e5O+shKePE2BhqJIB7KtEW78Fdz+xBrchV9q6cPC
+	Mr36A==
+X-Received: by 2002:a53:bb4f:0:b0:668:43a3:9db2 with SMTP id 956f58d0204a3-66e4c522f11mr741772d50.32.1787874642003;
+        Thu, 27 Aug 2026 16:50:42 -0700 (PDT)
+Received: from mac.lan ([136.55.173.105])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66e4eb3de54sm51533d50.1.2026.08.27.16.50.41
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 27 Aug 2026 16:50:41 -0700 (PDT)
+From: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>
+To: matttbe@kernel.org
+Cc: AutonomousCodeSecurity@microsoft.com,
+	andriin@fb.com,
+	ast@kernel.org,
+	blbllhy@gmail.com,
+	bpf@vger.kernel.org,
+	davem@davemloft.net,
+	edumazet@google.com,
+	geliang@kernel.org,
+	horms@kernel.org,
+	kafai@fb.com,
+	kuba@kernel.org,
+	kuniyu@google.com,
+	kys@microsoft.com,
+	linux-kernel@vger.kernel.org,
+	martineau@kernel.org,
+	mptcp@lists.linux.dev,
+	ncardwell@google.com,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	stable@vger.kernel.org,
+	tgopinath@linux.microsoft.com,
+	xmei5@asu.edu,
+	yhs@fb.com
+Subject: Re: [PATCH net v2 1/2] tcp: fix use-after-free in do_tcp_getsockopt(TCP_CONGESTION)
+Date: Thu, 27 Aug 2026 19:50:39 -0400
+Message-ID: <20260827235039.82217-1-blbllhy@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <1db6cf46-c3cf-49e2-ad97-752afdd78c00@kernel.org>
+References: <1db6cf46-c3cf-49e2-ad97-752afdd78c00@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] MIPS: config: Add EcoNet EN751221 defconfig
-To: Caleb James DeLisle <cjd@cjdns.fr>, linux-mips@vger.kernel.org
-Cc: tsbogend@alpha.franken.de, linux-kernel@vger.kernel.org,
- jonas.gorski@gmail.com, julianbraha@gmail.com
-References: <20260817220344.2931634-1-cjd@cjdns.fr>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20260817220344.2931634-1-cjd@cjdns.fr>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+On Thu, Aug 27, 2026 at 12:38:36PM +0200, Matthieu Baerts wrote:
+> It looks like you (or your assistant) forgot to declare ca_ops:
+>
+>   const struct tcp_congestion_ops *ca_ops;
+>
+> Also, I *guess* a 'rcu_read_lock' is needed in mptcp_ca_reset() from
+> net/mptcp/protocol.c, above the modification you did, to get the name, no?
 
+Thanks for catching this. I messed up the local version and missed the
+undeclared ca_ops. I will fix it in v3.
 
-On 8/17/26 3:03 PM, Caleb James DeLisle wrote:
-> Add config based on OpenWrt for EN751221 boards.
-> Of note: EcoNet bootloader has a 7.2MB kernel size limit so
-> ZBOOT is assumed to be needed in all cases.
-> 
-> Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
-> ---
-> Updated to work after SERIAL_8250 and SERIAL_OF_PLATFORM removed
-> from Kconfig.
-> Link: https://lore.kernel.org/linux-mips/20260815235109.666268-1-julianbraha@gmail.com/
-> ---
->  MAINTAINERS                                 |   1 +
->  arch/mips/configs/econet_en751221_defconfig | 264 ++++++++++++++++++++
->  2 files changed, 265 insertions(+)
->  create mode 100644 arch/mips/configs/econet_en751221_defconfig
-> 
-...
-> 
-> base-commit: 3b7711be02612845e44b5e9ef7c0b9f203cf29b6
-> prerequisite-patch-id: 0f044e47a76450ebb4fe52dc60a6b2f79625bbff
-> prerequisite-patch-id: 6380783b9da35b966b64c237b0ef50c31c7425d6
+I also checked mptcp_ca_reset(). It is only called before the socket is
+published (mptcp_init_sock) or with the socket lock held
+(mptcp_disconnect). The ca_ops->name copy sits between
+tcp_assign_congestion_control() and tcp_cleanup_congestion_control(), so
+the ops object stays referenced and that read is already safe. The v2
+WRITE_ONCE() on the subsequent NULL store is on the MPTCP meta socket,
+not the TCP sockets these two UAFs race with, so I will drop it in v3.
 
-Hi,
-Can you identify these 2 prerequisite patches?
-They are not in linux-next so I can't test this patch.
-
-thanks.
--- 
-~Randy
-
+Thanks,
+Cen
