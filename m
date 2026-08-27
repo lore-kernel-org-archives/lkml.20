@@ -1,254 +1,262 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23A3841E6D6;
-	Thu, 27 Aug 2026 19:18:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 174DA42E435;
+	Thu, 27 Aug 2026 19:19:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787858320; cv=none; b=WVgRuNXjpR1flu0o3Xm4c/kLCX4g5aiO5P/5nVC8yzcszW4ImHffxthXEqTJJCvPyRqTTZyUuVgZ4534A8OLmweeBGUCIItnNGOB5nBKtIjAMIoM0Q4xEKiSBiIx+teYSteZKumSwGZqqpfxE9VV/M3q9fe7ccqg0Zed9BHWwUg=
+	t=1787858388; cv=none; b=KtRVlPEUMlSY4PobA6JIc/bYH65E3qAvyatEm7ALTZ+HCWnRchNzcrM0Q9BYz4xYpXEqNrZcQlnKGpMAd62XvvvwQf8PzMEV4CJieTNe9BsPWWRbGUQLfXgCdvAsQ2OuUinMAaV0Q4xpjqfXQvDxymiNVSjdjvXsHZmaqz+GUGk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787858320; c=relaxed/simple;
-	bh=ZEvghn5iUqKMeGcDHG1wGNG7qY9SwnARynbhSwp0i1Y=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=d2syEzXxkeoTap0GG8fn+JgLR5T2Yrw+Ytovg2lgznaMq5Rdqr519UJI8WV2WqxMyF48qORWTRFcW5pY5eyHfJi+gYC8NSSe0nXxrVXnGxp7RzTsskAxU5RXg6Wn8msxWCdu3qRAaFb7u0z2zgFGBuizUv753mV3ROKCDqq3DP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZqeGMP6p; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1787858388; c=relaxed/simple;
+	bh=NQ5aDbI68dfVIprQJGaOPpQjMfOiPb/kMhr2+W2vzGU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=sI2qowv4FgReqje/HpJAdLjKdVQ0o892xl0pqwt54alRX+B8FOIm96DGLSAI9IyC8Pc3odRmZjvhmxQ4qHJb5qNQpwwxxvyfIlPA1T6qMMsmzLe+o+sOM2i7s48FilQxU5Ts9d1M7fCqj1gKfaMBXoz4iil4KOqUnxXG2UFM8OI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V/Bs3Saf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZqeGMP6p"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787858316; x=1819394316;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=ZEvghn5iUqKMeGcDHG1wGNG7qY9SwnARynbhSwp0i1Y=;
-  b=ZqeGMP6pDr+V/FpCR9e2LlLGP43I6HAyiMFvfkSouPcmqp4VpjKwmY5P
-   5VWWgsXWIXjnXQPMS17jMh7koZSDyKUBMJ3G9NEseWgITapw8zqT9ITa9
-   Da9aQpj1NoVT+0Y9+ghHDg7fbXnFtG+WkYZ6ILrUbiUPVvLQP6o5TUhNA
-   NuDmPHhTko7PZdiGB90vn9kTXam990CAICBI+Bbbk/xGAOmO4ue4QT+Us
-   FaJMy+BKGXdeGa8C1vumRdFRLBz25biA/UPYTLhjmBJC32rrYVPtufKPr
-   nf+4EcRNBYM+1BB0wxYRzNpnsv7bkF5R2SHlBBM0q0jwtMkaSZnunQh/s
-   A==;
-X-CSE-ConnectionGUID: Fohm4VWeTXmlXHfdajtgXA==
-X-CSE-MsgGUID: O7bukribTOK6CvCvxzGebw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="99884407"
-X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
-   d="scan'208";a="99884407"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 12:18:35 -0700
-X-CSE-ConnectionGUID: L0/Yj2PwQey07ZTfhx1ceg==
-X-CSE-MsgGUID: iNlDjpvRT0m8hk8uRUzQRw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
-   d="scan'208";a="297854378"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO [10.245.245.26]) ([10.245.245.26])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 12:18:32 -0700
-Message-ID: <7f13dc482e5ea2d22ddff75fe30c03cd8df42fb5.camel@linux.intel.com>
-Subject: Re: [Linaro-mm-sig] [PATCH 2/2] dma-buf: Document how exporters and
- importers agree on mapping lifetime
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
- Logan Gunthorpe <logang@deltatee.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>,  Christian =?ISO-8859-1?Q?K=F6nig?=
-	 <christian.koenig@amd.com>, Sumit Semwal <sumit.semwal@linaro.org>
-Cc: linux-pci@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org
-Date: Thu, 27 Aug 2026 21:18:29 +0200
-In-Reply-To: <20260825-document-dma-buf-v1-2-5ecfb3e1371c@nvidia.com>
-References: <20260825-document-dma-buf-v1-0-5ecfb3e1371c@nvidia.com>
-		 <20260825-document-dma-buf-v1-2-5ecfb3e1371c@nvidia.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V/Bs3Saf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C51F91F000E9;
+	Thu, 27 Aug 2026 19:19:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787858386;
+	bh=FDSlhYpZ7SK0VWnxLFVVVQi00Pd+n+HLWSAlwciDTdI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=V/Bs3Safp1L8PscctK/tMZ2L3zg+eetFGpnefO1L1aK+Jl2u2Gz8O5a2viljUu68b
+	 4OvzhBuzJbNJDvkqYhYKCkn8txyNsIBu2HarLlTNu9/SDgmDpZ/HEv/MbQB+/nTRlL
+	 8P1SeZzKwcj5uumJDOpp9WjfvYduKeLMvnR7jcJGzd41h5gXVgApF4/eVpLVgNJhFY
+	 EVswFaVZFWe++EC4nWOs/3TqxQUXW/mSUABJKTrnmEf9Yg4wc1P/IMS77XQ64fzXFP
+	 ixyrVcs9kiSnwIP2RU3eg7DhSVndSE6IYAzEA3+fZFPxv0OSQCOX0CDfba/4fu7T4Y
+	 TPpHTHiAwMitg==
+From: Jakub Kicinski <kuba@kernel.org>
+To: jiayuan.chen@linux.dev
+Cc: Jakub Kicinski <kuba@kernel.org>,
+	bpf@vger.kernel.org,
+	netdev@vger.kernel.org,
+	syzbot+237bbeed8dfe0699b7f5@syzkaller.appspotmail.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	pabeni@redhat.com,
+	ast@kernel.org,
+	daniel@iogearbox.net,
+	hawk@kernel.org,
+	john.fastabend@gmail.com,
+	sdf@fomichev.me,
+	horms@kernel.org,
+	martin.lau@linux.dev,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev,
+	shuah@kernel.org,
+	kuniyu@google.com,
+	liuhangbin@gmail.com,
+	krikku@gmail.com,
+	mkarsten@uwaterloo.ca,
+	toke@redhat.com,
+	lorenzo.bianconi@oss.qualcomm.com,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH bpf v2 1/2] bpf, veth: xdp: fix page_pool page leak on skb-backed XDP
+Date: Thu, 27 Aug 2026 12:19:43 -0700
+Message-ID: <20260827191943.4007831-1-kuba@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260824030705.266049-1-jiayuan.chen@linux.dev>
+References: <20260824030705.266049-1-jiayuan.chen@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi,
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+---
+bpf, veth: xdp: fix page_pool page leak on skb-backed XDP
 
-Some comments below:
+This adds a new xdp_buff flag, XDP_FLAGS_FRAGS_PAGE_POOL, which the two
+skb-cow sites (generic XDP and veth) set when a non-linear skb has been
+cow'd into page_pool memory.  bpf_xdp_shrink_data() then frees a released
+frag to the page_pool instead of using xdp->rxq->mem.type.
 
-On Tue, 2026-08-25 at 09:28 +0300, Leon Romanovsky wrote:
-> From: Leon Romanovsky <leonro@nvidia.com>
->=20
-> Pinned, revoked and movable mappings are selected by which optional
-> callbacks each side implements and by whether dma_buf_pin() succeeds,
-> not by any flag or enum. Nothing in Documentation/ says so, and the
-> rules are spread over the kdoc of dma_buf_ops.pin,
-> dma_buf_attach_ops.invalidate_mappings and
-> dma_buf_invalidate_mappings(),
-> so a driver author has to know the symbol names before finding them.
->=20
-> Name, per flow, the callbacks both sides have to implement to end up
-> in
-> it, describe dma_buf_pin() as the runtime negotiation, and record
-> that
-> the pin is what tells a revoke from a move.
->=20
-> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-> ---
-> =C2=A0Documentation/driver-api/dma-buf.rst |=C2=A0 6 +++
-> =C2=A0drivers/dma-buf/dma-buf.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 | 85
-> +++++++++++++++++++++++++++++++++++-
-> =C2=A02 files changed, 90 insertions(+), 1 deletion(-)
->=20
-> diff --git a/Documentation/driver-api/dma-buf.rst
-> b/Documentation/driver-api/dma-buf.rst
-> index 2f36c21d9948..39c201f38aa6 100644
-> --- a/Documentation/driver-api/dma-buf.rst
-> +++ b/Documentation/driver-api/dma-buf.rst
-> @@ -113,6 +113,12 @@ Basic Operation and Device DMA Access
-> =C2=A0.. kernel-doc:: drivers/dma-buf/dma-buf.c
-> =C2=A0=C2=A0=C2=A0 :doc: dma buf device access
-> =C2=A0
-> +Mapping Lifetime Negotiation
-> +~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> +
-> +.. kernel-doc:: drivers/dma-buf/dma-buf.c
-> +=C2=A0=C2=A0 :doc: mapping lifetime negotiation
-> +
-> =C2=A0CPU Access to DMA Buffer Objects
-> =C2=A0~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> =C2=A0
-> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> index d504c636dc29..30afec7365bc 100644
-> --- a/drivers/dma-buf/dma-buf.c
-> +++ b/drivers/dma-buf/dma-buf.c
-> @@ -684,7 +684,90 @@ static struct file *dma_buf_getfile(size_t size,
-> int flags)
-> =C2=A0 *=C2=A0=C2=A0=C2=A0 reference acquired with dma_buf_get() by calli=
-ng
-> dma_buf_put().
-> =C2=A0 *
-> =C2=A0 * For the detailed semantics exporters are expected to implement
-> see
-> - * &dma_buf_ops.
-> + * &dma_buf_ops. Whether the exporter may still move or destroy the
-> backing
-> + * storage after step 3 depends on what exporter and importer
-> implement, see
-> + * the mapping lifetime negotiation section below.
-> + */
-> +
-> +/**
-> + * DOC: mapping lifetime negotiation
-> + *
-> + * No flag or enum says whether the exporter may move or take away
-> the backing
-> + * storage while an importer holds a mapping. Each side implements a
-> set of
-> + * optional callbacks, and dma_buf_pin() settles the result at
-> runtime. Three
-> + * flows come out of it:
-> + *
-> + * - Pinned: the storage never moves and is never taken away.
-> + * - Revoked: the storage never moves, but the exporter may take it
-> away.
-> + * - Movable: the exporter may relocate the storage at any time.
+Closes: https://syzkaller.appspot.com/bug?extid=237bbeed8dfe0699b7f5
 
-Perhaps add "even temporarily to locations that are not available for
-DMA".
+> diff --git a/drivers/net/veth.c b/drivers/net/veth.c
+> index 6ed3ee81153fb..0afa0661ada16 100644
+> --- a/drivers/net/veth.c
+> +++ b/drivers/net/veth.c
+> @@ -775,6 +775,11 @@ static int veth_convert_skb_to_xdp_buff(struct veth_rq *rq,
+>  	if (skb_shinfo(skb)->nr_frags) {
+>  		skb_shinfo(skb)->xdp_frags_size = skb->data_len;
+>  		xdp_buff_set_frags_flag(xdp);
+> +		/* A nonlinear skb was cow'd into rq->page_pool above, so the
+> +		 * frags must be freed to that pool, not via the rxq's
+> +		 * MEM_TYPE_PAGE_SHARED.
+> +		 */
+> +		xdp_buff_set_frag_pp(xdp);
+>  	} else {
+>  		xdp_buff_clear_frags_flag(xdp);
+>  	}
 
-> + *
-> + * Every exporter implements &dma_buf_ops.map_dma_buf,
-> + * &dma_buf_ops.unmap_dma_buf and &dma_buf_ops.release.
-> dma_buf_export()
-> + * rejects an exporter missing any of them.
-> + *
-> + * An importer reaches its flow like this:
-> + *
-> + * 1. Attach with dma_buf_dynamic_attach(). Leaving
-> + *=C2=A0=C2=A0=C2=A0 &dma_buf_attach_ops.invalidate_mappings NULL rules =
-out
-> everything but the
-> + *=C2=A0=C2=A0=C2=A0 pinned flow, because the importer can then never be=
- told
-> anything.
-> + * 2. Call dma_buf_pin() under the reservation lock.
-> + * 3. On failure run the movable flow, or give up.
-> + * 4. On success the storage stays put. Whether the exporter may
-> still take it
-> + *=C2=A0=C2=A0=C2=A0 away, which makes this the revoked flow instead of =
-the pinned
-> one, is the
-> + *=C2=A0=C2=A0=C2=A0 exporter's choice and is not reported back.
-> + *
-> + * dma_buf_attach() is the shorthand for an importer which only ever
-> wants the
-> + * pinned flow. It passes no &dma_buf_attach_ops, and DMA-buf then
-> pins around
-> + * every dma_buf_map_attachment() and waits for the
-> DMA_RESV_USAGE_KERNEL
-> + * fences on the importer's behalf. Peer to peer needs
-> + * dma_buf_dynamic_attach(), because
-> &dma_buf_attach_ops.allow_peer2peer lives
-> + * in the attach ops.
-> + *
-> + * Pinned flow:
-> + *
-> + * - Exporter: implement &dma_buf_ops.pin and &dma_buf_ops.unpin to
-> hold the
-> + *=C2=A0=C2=A0 storage still on request. An exporter whose storage never=
- moves
-> implements
-> + *=C2=A0=C2=A0 neither, and dma_buf_pin() then succeeds on its own. An
-> exporter which
-> + *=C2=A0=C2=A0 refuses to be pinned implements &dma_buf_ops.pin and fail=
-s it.
-> + * - Importer: nothing more. The mapping stays valid until it
-> unmaps.
-> + *
-> + * Revoked flow:
-> + *
-> + * - Exporter: answer dma_buf_pin() as above. Call
-> + *=C2=A0=C2=A0 dma_buf_invalidate_mappings() when the storage goes away =
-and
-> fail
-> + *=C2=A0=C2=A0 &dma_buf_ops.map_dma_buf while it is gone. The two waits =
-which
-> complete a
-> + *=C2=A0=C2=A0 revocation are described in dma_buf_invalidate_mappings()=
-.
-> + * - Importer: &dma_buf_attach_ops.invalidate_mappings has to unmap
-> within
-> + *=C2=A0=C2=A0 bounded time and drop the pin.
-> + *
-> + * Movable flow:
-> + *
-> + * - Exporter: call dma_buf_invalidate_mappings() before each move,
-> then wait
-> + *=C2=A0=C2=A0 for the &dma_buf.resv fences. &dma_buf_ops.pin and
-> &dma_buf_ops.unpin play
-> + *=C2=A0=C2=A0 no part here.
-> + * - Importer: hold no pin. &dma_buf_attach_ops.invalidate_mappings
-> drops the
-> + *=C2=A0=C2=A0 cached mapping and has to lead to dma_buf_unmap_attachmen=
-t()
-> within
-> + *=C2=A0=C2=A0 bounded time.
+[Severity: Critical]
+Does this flag survive past the point where veth deliberately drops the
+page_pool association?
 
-Hear I would want to see the exporter being allowed to force unmap the
-dma mappings and reclaim thestorage when the fences mentioned above
-have signaled, but the importer has not yet called
-dma_buf_unmap_attachment(). That would allow importers to call
-dma_buf_unmap_attachment() lazily, just before the next map_attachment,
-which would allow simplifying importer implementations. More of a
-related idea than something that needs fixing for this patch.
+In veth_xdp_rcv_skb(), the XDP_TX and XDP_REDIRECT arms do:
 
->  It need not stop the hardware, because access runs until the
-> + *=C2=A0=C2=A0 importer's &dma_buf.resv fences retire. Map again before =
-the
-> next DMA.
+	case XDP_TX:
+		veth_xdp_get(xdp);
+		consume_skb(skb);
+		xdp->rxq->mem = rq->xdp_mem;
 
-A successful map will mean the exporter has placed the data in storage
-compatible with what was agreed during attachment?
+veth_xdp_get() takes a plain get_page() on each frag, then consume_skb()
+-> skb_release_data() -> napi_pp_put_page() finds page_ref_count() != 1,
+so page_pool_return_netmem() -> page_pool_clear_pp_info() sets
+netmem->pp = NULL.  veth then resets rxq->mem to MEM_TYPE_PAGE_SHARED,
+which matches the now plain pages, but XDP_FLAGS_FRAGS_PAGE_POOL is never
+cleared.
 
-Thanks,
-Thomas
+The flag then leaves the buff:
 
+include/net/xdp.h:xdp_update_frame_from_buff() {
+	...
+	xdp_frame->flags = xdp->flags;
+}
+
+include/net/xdp.h:xdp_convert_frame_to_buff() {
+	...
+	xdp->flags = frame->flags;
+}
+
+so a second-stage consumer that rebuilds a buff from the frame and runs a
+program inherits it.  veth_xdp_rcv_one() does exactly that, with no
+xdp_init_buff() to reset flags:
+
+drivers/net/veth.c:veth_xdp_rcv_one() {
+	...
+	xdp_convert_frame_to_buff(frame, xdp);
+	xdp->rxq = &rq->xdp_rxq;
+	vxbuf.skb = NULL;
+
+	act = bpf_prog_run_xdp(xdp_prog, xdp);
+}
+
+cpu_map_bpf_prog_run_xdp() and dev_map_bpf_prog_run() inherit frame->flags
+the same way.
+
+If that peer program calls bpf_xdp_adjust_tail() with a negative offset
+that consumes a whole frag, bpf_xdp_shrink_data() takes the new branch and
+forces mem_type = MEM_TYPE_PAGE_POOL for a page that is no longer a
+page_pool page.  __xdp_return() skips the netmem_is_pp() check for that
+type:
+
+net/core/xdp.c:__xdp_return() {
+	...
+		/* No need to check netmem_is_pp() as mem->type knows this a
+		 * page_pool page
+		 */
+		page_pool_put_full_netmem(netmem_get_pp(netmem), netmem,
+					  napi_direct);
+}
+
+netmem_get_pp() is NULL here, so page_pool_put_unrefed_netmem() reads
+pool->cpuid in page_pool_napi_local() (or pool->dma_sync on PREEMPT_RT)
+off a NULL pool in softirq context.  Since pp_ref_count is still 1 for a
+frag that owns a whole page, is this deterministic rather than
+refcount-dependent?  A veth pair with an xdp.frags program on both sides
+looks sufficient to reach it.
+
+Would clearing the flag in the XDP_TX / XDP_REDIRECT arms next to
+xdp->rxq->mem = rq->xdp_mem, or masking it out in
+xdp_update_frame_from_buff(), be the right fix?
+
+Related to this, the commit message says:
+
+    So record it in the xdp_buff. Add a XDP_FLAGS_FRAGS_PAGE_POOL flag; the two
+    skb-cow sites set it, and bpf_xdp_shrink_data() frees the frag to the
+    page_pool when it is set, otherwise it keeps falling back to
+    xdp->rxq->mem.type unchanged. No other path changes behaviour.
+
+Given that xdp_frame->flags carries the bit into frame-based paths, is "No
+other path changes behaviour" accurate?
+
+> diff --git a/include/net/xdp.h b/include/net/xdp.h
+> index aa742f413c358..b389dc527adce 100644
+> --- a/include/net/xdp.h
+> +++ b/include/net/xdp.h
+> @@ -81,6 +81,10 @@ enum xdp_buff_flags {
+>  	 * XDP program is not attached.
+>  	 */
+>  	XDP_FLAGS_FRAGS_UNREADABLE	= BIT(2),
+> +	/* frags are page_pool memory even though rxq->mem.type is not: a
+> +	 * skb-backed XDP buff (generic XDP, veth) is cow'd into a page_pool.
+> +	 */
+> +	XDP_FLAGS_FRAGS_PAGE_POOL	= BIT(3),
+>  };
+
+[Severity: Medium]
+This comment documents a general ownership rule for frags, but is the rule
+only implemented in bpf_xdp_shrink_data()?
+
+The other frag release paths still key exclusively on rxq->mem.type or
+xdpf->mem_type and never consult xdp_buff_is_frag_pp():
+
+net/core/xdp.c:xdp_return_frag() {
+	__xdp_return(netmem, xdp->rxq->mem.type, true, NULL);
+}
+
+net/core/xdp.c:xdp_return_buff() {
+	...
+	for (u32 i = 0; i < sinfo->nr_frags; i++)
+		__xdp_return(skb_frag_netmem(&sinfo->frags[i]),
+			     xdp->rxq->mem.type, true, xdp);
+}
+
+plus the frame-side loops used by xdp_return_frame(),
+xdp_return_frame_rx_napi() and xdp_return_frame_bulk(), which use
+xdpf->mem_type.
+
+xdp_convert_buff_to_frame() also stores two independent descriptions of the
+same memory in one frame:
+
+include/net/xdp.h:xdp_convert_buff_to_frame() {
+	...
+	if (unlikely(xdp_update_frame_from_buff(xdp, xdp_frame) < 0))
+		return NULL;
+
+	/* rxq only valid until napi_schedule ends, convert to xdp_mem_type */
+	xdp_frame->mem_type = xdp->rxq->mem.type;
+}
+
+so xdp_frame->flags can say page_pool while xdp_frame->mem_type says
+MEM_TYPE_PAGE_SHARED.  I could not construct a live caller that frees a
+flagged buff through the generic helpers today, but should the contract be
+made consistent (either honour the flag in the generic release helpers, or
+scope the comment to the shrink path only) so a future caller does not
+silently reintroduce the same "Bad page state ... page_pool leak"?
+
+> diff --git a/net/core/filter.c b/net/core/filter.c
+> index 61940e7535523..d34ba56d79d8f 100644
+> --- a/net/core/filter.c
+> +++ b/net/core/filter.c
+> @@ -4378,6 +4378,13 @@ static bool bpf_xdp_shrink_data(struct xdp_buff *xdp, skb_frag_t *frag,
+>  	if (mem_type == MEM_TYPE_XSK_BUFF_POOL) {
+>  		netmem = 0;
+>  		zc_frag = bpf_xdp_shrink_data_zc(xdp, shrink, tail, release);
+> +	} else if (xdp_buff_is_frag_pp(xdp)) {
+> +		/*
+> +		 * Skb-backed XDP (generic XDP, veth) cow's the frags into a
+> +		 * page_pool while the rxq stays MEM_TYPE_PAGE_SHARED, so free
+> +		 * the frag to the pool, not via page_frag_free().
+> +		 */
+> +		mem_type = MEM_TYPE_PAGE_POOL;
+>  	}
+>  
+>  	if (release) {
+
+[ ... ]
