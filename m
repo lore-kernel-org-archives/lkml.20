@@ -1,275 +1,128 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFBBA3DA7F8
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:18:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 700263B19B4
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:19:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787818717; cv=none; b=fLMFr06VRX1WH2nwBshaQLWLh6+XWOf0BD7pVZW/Q98G1hzvS/SHffswI9sv+I3KBW0EZ7zqwJ9bWhhCiZVdPSBAgd+0dDDXYrgnl0P2+P1LbSSMtOypAr7GvKSFpBOEkNSH+0sb0V6Niic3z19iT3du+6C1rBAOMhUAluFaUes=
+	t=1787818784; cv=none; b=OMtZkEglQMQ+LqDBwC5dokEpSTrLQ2N7PABAvDOqN+1IJMLzR647JOAlT4aodz/qvxHOoZtFKaf1Xg8FGJorp8/3tjIv5wHv+XgJ4zjSnJc+0JUt6l46AX2nKG3k4cUBbNS1/66V9rFDn0kW1jQHtdIjAmQMC9xBh0+Mg8oPFp8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787818717; c=relaxed/simple;
-	bh=+f0CNIxvIeYqfF1de6wzqTeVVwJY0SE8+kB5zidrYPs=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=E8jABeCOxU4TEDhRTNUEE40lS7tc2/4agutPh/lnZpw5KubH3vSG2kEdk66StUJOtZLwXUZYy1e96W26TajpGKQzUgAzT7WMBQbu4pKIBwmGGbCxaSqGWmkPVrGpmH85lcN+TcCV8//sEMnLprIwbgAUxsn+ZKar7ThV6+X05KA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=SpNESQ4F; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=nelvHdPG; arc=none smtp.client-ip=170.10.129.124
+	s=arc-20240116; t=1787818784; c=relaxed/simple;
+	bh=/2CgVl31wv4sSObo0af19ir9kjm3WN8DPIOwijvUzqU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QutDtz0+lQju+pZYwD5AJqM/PspNAR6tSI/b4RXYyxcEx3UOaGpdF7fPs2bMis3mNEOmhkuC+64fR1N0nN6EUq0TExObwHlCL0n+I6zRRZE3m+k8N1vA8fX5WA47VGZ7N1p/BgkilcwpB4XW2zSJqlQ3+WvrTbDeXtJbGGIsjuU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ZQossVzU; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=GVl7y00V; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SpNESQ4F";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="nelvHdPG"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ZQossVzU";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="GVl7y00V"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787818714;
+	s=mimecast20190719; t=1787818782;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=+f0CNIxvIeYqfF1de6wzqTeVVwJY0SE8+kB5zidrYPs=;
-	b=SpNESQ4FTm0EOCkcTScKpjgxHbINKZ1pXZZV44lgUh61g5nAKOSgoBr/RyjZk2E3sRNTjx
-	1s5UeCKc+PH4lkXZYsq1BfGuNV/PHnsOjg05qZnD2xf4xri92Ci39heDRDgJR14Gj+l/O9
-	1THOh23VDpltV14mfpNhJHntUtEYhBA=
-Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
- [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
+	 in-reply-to:in-reply-to:references:references;
+	bh=pT8QHmdIgh8C/99Uph+9sWbsTLGNaTSQ6OcKusUcL0k=;
+	b=ZQossVzUDsQ+vVemwjvQ7xYZwIW9Z8Y+2xxXDDTppueh9GCRwlWdgSJcRRPKp/z6gdm0vL
+	QgQS9ZQjaq8nEZELPsqxMLe0zM/0Vx+KXy/+O++qmDPibuVngYEZH+kA871Udcxj3ECeT4
+	Qivv3llDFK3a4ep49en/a54PPePu9tA=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-61-DMasvrL9MM6izKXSWKpX1w-1; Thu, 27 Aug 2026 04:18:33 -0400
-X-MC-Unique: DMasvrL9MM6izKXSWKpX1w-1
-X-Mimecast-MFC-AGG-ID: DMasvrL9MM6izKXSWKpX1w_1787818712
-Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c1c232fa136so91381166b.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 01:18:32 -0700 (PDT)
+ us-mta-324-CtPNM9T7NaKZQYvmStgKUA-1; Thu, 27 Aug 2026 04:19:40 -0400
+X-MC-Unique: CtPNM9T7NaKZQYvmStgKUA-1
+X-Mimecast-MFC-AGG-ID: CtPNM9T7NaKZQYvmStgKUA_1787818779
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-499b99a8a10so5750395e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 01:19:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1787818712; x=1788423512; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+f0CNIxvIeYqfF1de6wzqTeVVwJY0SE8+kB5zidrYPs=;
-        b=nelvHdPGlJWXIIvwOO9kj7VIqc32UmQzJLT3u+kihyYkPXBKoYyxcsy0x1mDxCbSV6
-         EJ4XNcseB5oVXfqHRJqVAtDB1OzmGjEQgKyiZ87mPJA+q+zgTpyKNBSiOa40YOnfSlkG
-         dxJ7XO7MDTwMET1rA1g0k2FRXThb+RGG6OayMD+aZzCpjKF6bcxsTJvFi1ecX1Gcz5Uw
-         sKO/8AtLI+qVCvJTRSoDs7y4CFhaPwqz0ccc4R9Mw2kP8x8WnJHhvYjndoycgWYtXHpU
-         wZ9+E9SlMpbixmR3ZGPvR8EzY8XjxjqzpWuikV8LAFbU58zswwKsgEKHpFVDox9cOIpi
-         VeeQ==
+        d=redhat.com; s=google; t=1787818779; x=1788423579; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pT8QHmdIgh8C/99Uph+9sWbsTLGNaTSQ6OcKusUcL0k=;
+        b=GVl7y00V6DnGXeiP9lF9dx+5looE7eYNhowv8GDUJsXVGzyPzc0om+BoBLRtLmjNeF
+         xmjmf3VHV0mzelv6GgLI7eQO70NulhK9LHtbPpRdPETLJcFxwxymNJJC8BnVwaY5J8hm
+         BmbEfmFnsOIegK0hBakIMAfXZFEH5Fd99rnDHTG6b5uc/Xko8SMdy4oABv/RrPHLmggm
+         noTHlenQUzaMrHPEgJSTqbRlhUey0OoxOn731yptFKZXzCltH+Ur6HRn9b53P6gvwmhP
+         TwcYi0MWjnLbFdaANvtmVV7hdI7K1V0Oop805hwvoHbDT4LoXG4bxzU09OpEiKgpmT2U
+         w2jA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787818712; x=1788423512;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=+f0CNIxvIeYqfF1de6wzqTeVVwJY0SE8+kB5zidrYPs=;
-        b=LALAJmQcn8MM5f0Of3dLqu4b+ZCDH1sjE53h7AuTPKpuzIFqUcjJ44aKNvAGLIev38
-         NqLgpMQrzhBU2XDKwhWJbZu7fCpj3PUlHO34f0HjUmLaEU4WZ1F5ERUd8nHMF+4f6MUs
-         +gvh8+Blzf2WqcvExEcEaMip4irdnG3W0ZhPRAoJwHVnrYY574t6dTBkNpKefuyxJq4v
-         i6a8/L34KOWjGpqkWem2osG1hSO69g8VUHCk17vsis9pGTeNxrKe4l0D35rGoXiuYiBf
-         HNd6JZDwkSWeqWLewuGy0CznwsKd2PKVYT99HXVid2VWbJayMgIN/++GbiV4e3/MXHvk
-         /K1g==
-X-Forwarded-Encrypted: i=1; AHgh+Rq5TAEhjVbU+nvVNPzGy5jeMDLZ6UMrFSa5BsIajskpYqTf/9y77lLgn9K5Y6u5jNsWMHlN53XMUFd1Llk=@vger.kernel.org
-X-Gm-Message-State: AFuF++ndJAVuclMvS98qYwUbZgMqIx3kiLplC1HqTjht/kUuEdjgPBwv
-	7nd53Cv6zCm3s+UYzMe2lQzUt5IQnI2J8Ay2fJEenHJpDd6DgF2NXIIezCbWVXXj5uzq+7s1Mwa
-	fS1MVqWg/qtvwLvtoaAnYD07C/LNySVHRiTaAI/Texc1vpdVfgqCz3poUnabtNW537Q==
-X-Gm-Gg: AR+sD13+uEPkBZ9WvxXCbYGhnee93gtYVkQNW/EuYM3qIRz1spAyQ/OHVWs6vEt5ec8
-	E0XKdqw/RvYPVjK1Z4s6j/s71E1CTcOY72Ed7darVVffly5hkAgq4fDa7GQL2cxOZvM1zSLdJax
-	KdpC2SbaxaODnCZNp70LXyDa//YUqeE+agylTQrcB2jWwAVtQu9qFHNNwEWNq8IVb6BnKgyh53Z
-	v6BjzdiFHWnyxaWAoteg9gvbZ1tCsnK5oVKuNvMH04aL1XX9EyF6jNLW6mkIi1EyhIjR6+kJPB0
-	BLfE6G9TtX7CmwJB/kpmENNuCR2RQI7kfREFqDZeZZnzCoKVNDTRHeKKIEVpnoyd4IvGKKs32n3
-	gBKnaypTlMiDqGYOC2niceBEDuIDT7mqh2RZs4zvZWxxM2qL1R8eog5E8ATsKdcy3QB2qfA==
-X-Received: by 2002:a17:907:c084:b0:c24:6382:2648 with SMTP id a640c23a62f3a-c2535f4bc77mr425514666b.5.1787818711792;
-        Thu, 27 Aug 2026 01:18:31 -0700 (PDT)
-X-Received: by 2002:a17:907:c084:b0:c24:6382:2648 with SMTP id a640c23a62f3a-c2535f4bc77mr425510966b.5.1787818711265;
-        Thu, 27 Aug 2026 01:18:31 -0700 (PDT)
-Received: from gmonaco-thinkpadt14gen3.rmtit.csb (212-8-243-115.hosted-by-worldstream.net. [212.8.243.115])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c254ab6e16csm4939666b.11.2026.08.27.01.18.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 01:18:30 -0700 (PDT)
-Message-ID: <40084ae4b7139fc20543a8989cdc349cf9b6bcdb.camel@redhat.com>
-Subject: Re: [RFC 0/3] rv: per-edge dwell-time statistics for per-cpu
- monitors
-From: Gabriele Monaco <gmonaco@redhat.com>
-To: Tobias Schaffner <tobias.schaffner@siemens.com>, Steven Rostedt
-	 <rostedt@goodmis.org>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>,  Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Jan Kiszka	
- <jan.kiszka@siemens.com>, Philippe Gerum <rpm@xenomai.org>, 
-	linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Thu, 27 Aug 2026 10:18:29 +0200
-In-Reply-To: <20260827072400.45734-1-tobias.schaffner@siemens.com>
-References: <20260827072400.45734-1-tobias.schaffner@siemens.com>
-Autocrypt: addr=gmonaco@redhat.com; prefer-encrypt=mutual;
- keydata=mDMEZuK5YxYJKwYBBAHaRw8BAQdAmJ3dM9Sz6/Hodu33Qrf8QH2bNeNbOikqYtxWFLVm0
- 1a0JEdhYnJpZWxlIE1vbmFjbyA8Z21vbmFjb0BrZXJuZWwub3JnPoiZBBMWCgBBFiEEysoR+AuB3R
- Zwp6j270psSVh4TfIFAmjKX2MCGwMFCQWjmoAFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgk
- Q70psSVh4TfIQuAD+JulczTN6l7oJjyroySU55Fbjdvo52xiYYlMjPG7dCTsBAMFI7dSL5zg98I+8
- cXY1J7kyNsY6/dcipqBM4RMaxXsOtCRHYWJyaWVsZSBNb25hY28gPGdtb25hY29AcmVkaGF0LmNvb
- T6InAQTFgoARAIbAwUJBaOagAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgBYhBMrKEfgLgd0WcK
- eo9u9KbElYeE3yBQJoymCyAhkBAAoJEO9KbElYeE3yjX4BAJ/ETNnlHn8OjZPT77xGmal9kbT1bC1
- 7DfrYVISWV2Y1AP9HdAMhWNAvtCtN2S1beYjNybuK6IzWYcFfeOV+OBWRDQ==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+        d=1e100.net; s=20251104; t=1787818779; x=1788423579;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pT8QHmdIgh8C/99Uph+9sWbsTLGNaTSQ6OcKusUcL0k=;
+        b=Nxj+OwqgAYvj4E2AOdC++/MLLYKJhvjfdiTfvqIEHqW6wmmy2WRKrASSonPMhqcUnZ
+         2gJsuaPdt7ZXub2OMNOQCv95MVOPijspFtfCmm1HSNKnZlGLTAvqiQ+QPvdl+wIhXMO+
+         hbXSb0IDODNEro2k2q0wgyOas1dpnS0YRXnT9gzVs1MMuMBz3unkYw7kUAcu9Pz4mP0A
+         qOkNWnV88PSYI3mv3qM9mIQEZIgO+K7BQKmktHb7Z8cfPz8Orgdq3oywotqBbc4w3vOi
+         DZOhzaltWgeu7Wcz+/nwFpof6jQjjtHuJw8BQ9qp4tBEFn4+/MWR+NArXlW4HT94yw3g
+         kVlg==
+X-Forwarded-Encrypted: i=1; AHgh+RrEjAbQHBFvn1aVVEWipAJchJXmpqhTMrDR6yysEbAFhBH4FZPBjM0THYzYCBFlvfqxnLxA78aHyPollEU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nh46l99eNS+A9TbzIa9Ch4esJ28fRndSAGj83JF+4AqFoixmnb
+	ZzLQ4rCBQkSw+o/rqLuJTd/osbDTVt4uzR++siJAaISYx++ErfebFNtQyd8aHFi5InXD9m4n65O
+	b5R5/YaKAKpaYIL0KIjHmHIezH8b/VFgfvdaN0s1xAkRgRX5TXMPhag035H0F2VS3sQ==
+X-Gm-Gg: AR+sD13OBCS0DD1GTNm2kgEH0kIrpanV6/aC/mk/2VoTOw1oS9tB9do0zUOUqewCUSk
+	9OCL8Fh2Lv1nLay0ILpWt6Rs515GMJBqERigxOW8mfMT36LO+OVGJ9bCNFlPATcipIh8KwcFRD+
+	KcQ1AVhbdgE7dr2HvyiPjeLLBXNwJNEApzuDKwXq82Loc0ivBJMWPFLJgeVbESusCOnx181sl09
+	yxspG1/4yG+X6asTeEQnouHNMYDFavBJPAv6sEI4266VLQhEDZCVzcYkz7TwWZCWBCYRVtoSNIa
+	H08uuPMlvWuJS+kWjC7llYHVIpfn+yNyOCM7diMVPQZUwhiwRltIAVXKBunqaffrk4pK4PoSx0y
+	08XyJBwl+KAs3eC1bwLObqjQGr3QGEKUcTemnyWEAxw3V5yCl4j+2GRa1Eni91BHWXVvZfCM=
+X-Received: by 2002:a05:600c:3b25:b0:493:f783:c46a with SMTP id 5b1f17b1804b1-49b0dfcd4c2mr46298535e9.6.1787818779461;
+        Thu, 27 Aug 2026 01:19:39 -0700 (PDT)
+X-Received: by 2002:a05:600c:3b25:b0:493:f783:c46a with SMTP id 5b1f17b1804b1-49b0dfcd4c2mr46298095e9.6.1787818779033;
+        Thu, 27 Aug 2026 01:19:39 -0700 (PDT)
+Received: from [192.168.188.103] (ip46-47-231-195.pool-bba.aruba.it. [195.231.47.46])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b0dd3e148sm29013275e9.1.2026.08.27.01.19.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 27 Aug 2026 01:19:38 -0700 (PDT)
+Message-ID: <ad731f07-3b80-4d48-a6fa-c0e405eedefd@redhat.com>
+Date: Thu, 27 Aug 2026 10:19:36 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 net-next 0/3] net: phy: mediatek: support EcoNet
+ EN751221 gbit SoC PHY
+To: Caleb James DeLisle <cjd@cjdns.fr>, netdev@vger.kernel.org,
+ ansuelsmth@gmail.com
+Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ daniel@makrotopia.org, dqfext@gmail.com, SkyLake.Huang@mediatek.com,
+ matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org
+References: <20260826202103.2280645-1-cjd@cjdns.fr>
+From: Paolo Abeni <pabeni@redhat.com>
+Content-Language: en-US
+In-Reply-To: <20260826202103.2280645-1-cjd@cjdns.fr>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, 2026-08-27 at 09:23 +0200, Tobias Schaffner wrote:
-> Hi Steven, Gabriele,
->=20
-> I am using the RV system for a downstream project called EVL (aka Xenomai=
-4).
-> It is a small co-kernel system, small enough that I can model the whole
-> co-kernel with RV instead of just a fragment of it.
+On 8/26/26 10:21 PM, Caleb James DeLisle wrote:
+> NOTE: This patchset bases on https://lore.kernel.org/netdev/20260708102341.53919-1-ansuelsmth@gmail.com/
+> 
+> Add support for the EcoNet EN751221 SoC gigabit PHY, as identified by
+> product IDs 9451, and 9471.
+## Form letter - net-next-closed
 
-Hi Tobias,
+net-next pull request for v7.3 has already been merged, and therefore
+the net-next tree is closed for new drivers, features, code refactoring
+and optimizations. We are currently accepting bug fixes only.
 
-Haven't heard about Xenomai in a while.. That sounds very interesting.
+Please repost when net-next reopens after Aug 31st.
 
-Since it's something out-of-tree you likely don't want to submit monitors
-upstream, but if you can trigger BPF events from your co-kernel you may wan=
-t to
-have a look at RV BPF monitors, which I'm likely going to submit in a coupl=
-e of
-days.
+RFC patches sent for review only are obviously welcome at any time.
 
-Otherwise we can always get out-of-tree monitors as modules, currently not
-supported just out of a missing use-case.
+See:
+https://www.kernel.org/doc/html/next/process/maintainer-netdev.html#development-cycle
+-- 
+pw-bot: defer
+pv-bot: closed
 
-> The patches in this series add a per-monitor "stats" file that exposes ho=
-w
-> often an edge has been visited and the dwell time in the prior state for
-> per-cpu monitors.
-
-The idea crossed my mind a few times, good you came up with an implementati=
-on!
-
-> This allows me to not only check if the model is correct but also to see =
-if
-> all paths are exercised by my stress tooling and to decompose the latency=
- of
-> the co-kernel's wakeup path.
-
-Your first need (see if all paths are exercised) doesn't really require the=
- stat
-to be per-monitor-instance (i.e. per-cpu) right?
-You could have a global accumulator matrix, at least for count and sum wher=
-e you
-can be atomic. This could extend the feature to other types of monitors.
-
-Just brainstorming here though.
-
-> I think that some of the upstream monitors like e.g. the sts monitor coul=
-d
-> also
-> profit from this.
->=20
-> As an example, here is the sts monitor on a StarFive VisionFive2 running =
-an rt
-> kernel (isolcpus=3D2-3), after enabling it and generating some scheduler =
-load.
-> Only the edges the automaton actually takes are non-zero:
->=20
-> =C2=A0 # cat monitors/sched/sts/stats
-> =C2=A0 # cpu edge label count max_ns sum_ns
-> =C2=A0 0 0 can_sched:irq_disable 367732 3998500 14773091250
-> =C2=A0 0 4 can_sched:schedule_entry 40282 398750 45510750
-> =C2=A0 0 7 cant_sched:irq_enable 367732 32500 532791750
-> =C2=A0 0 8 cant_sched:irq_entry 26188 6250 38357250
-> =C2=A0 0 13 disable_to_switch:irq_enable 4933 12500 12275000
-> =C2=A0 0 14 disable_to_switch:irq_entry 31 2250 35250
-> =C2=A0 0 15 disable_to_switch:sched_switch 35373 26750 111615750
-> =C2=A0 0 18 enable_to_exit:irq_disable 373 3250 649750
-> =C2=A0 0 19 enable_to_exit:irq_enable 373 20000 1676250
-> =C2=A0 0 20 enable_to_exit:irq_entry 309 4750 420000
-> =C2=A0 0 23 enable_to_exit:schedule_exit 40298 3000 37335000
-> =C2=A0 0 25 in_irq:irq_enable 31 12250 140750
-> =C2=A0 0 30 scheduling:irq_disable 40337 18000 45449500
-> =C2=A0 0 37 switching:irq_enable 35373 9250 72471000
-> =C2=A0 [ cpus 1-2 omitted ]
-> =C2=A0 3 0 can_sched:irq_disable 567 3983750 300860250
-> =C2=A0 3 4 can_sched:schedule_entry 150 1500 171000
-> =C2=A0 3 7 cant_sched:irq_enable 567 21500 1777500
-> =C2=A0 3 8 cant_sched:irq_entry 76 6500 164750
-> =C2=A0 3 15 disable_to_switch:sched_switch 150 4250 413750
-> =C2=A0 3 23 enable_to_exit:schedule_exit 150 1500 147750
-> =C2=A0 3 30 scheduling:irq_disable 150 1500 166000
-> =C2=A0 3 37 switching:irq_enable 150 3750 277000
->=20
-> The sts model splits the schedule->switch path into separate states, so t=
-he
-> per-edge dwell decomposes the scheduler's interrupts-off window: on cpu0 =
-the
-> prep phase (disable_to_switch, irqs off until the switch) tops out at 26.=
-8us
-> and the switch itself (switching:irq_enable) at 9.3us, over 35k switches.=
- The
-> counts also line up with the model, e.g. every irq_disable in can_sched h=
-as a
-> matching irq_enable in cant_sched (367732 =3D=3D 367732). The isolated cp=
-us 2-3
-> take almost no switches (150 on cpu3, versus 35k on cpu0) and their worst=
- case
-> is tighter still (~4us), so the same file also makes the effect of cpu
-> isolation visible per cpu.
->=20
-> The changes are gated by CONFIG_RV_EDGE_STAT and dormant until a monitor =
-is
-> enabled, so existing setups are unaffected. When enabled, each accepted
-> transition adds one local_clock() and a few lock-free local64_t updates. =
-With
-> the config off there is no code on the hot path at all.
->=20
-> I focused on per-cpu monitors as a first step. Per-task and per-object
-> monitors would have to aggregate entities that share a cpu, which is hard=
-er
-> to get right, so I left them out for now.
-
-As said before, I haven't really played with an implementation but I think
-atomic types may help here.
-
-> What is your opinion on this? Do you think this is worth getting upstream=
-ed?
-
-I will have a look at your patches but it's definitely something I'd want.
-
-Thanks,
-Gabriele
-
->=20
-> Thanks for taking a look,
-> Tobias
->=20
-> Tobias Schaffner (3):
-> =C2=A0 rv: add per-edge dwell-time statistics primitive
-> =C2=A0 rv: add per-monitor edge-stat facility and stats file
-> =C2=A0 rv: collect per-edge dwell time for per-cpu DA/HA monitors
->=20
-> =C2=A0.../trace/rv/runtime-verification.rst=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0 24 ++++
-> =C2=A0MAINTAINERS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- |=C2=A0=C2=A0 1 +
-> =C2=A0include/linux/rv.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 18 +++
-> =C2=A0include/linux/rv_edge_stat.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 60 =
-+++++++++
-> =C2=A0include/rv/da_monitor.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 |=C2=A0 53 ++++++++
-> =C2=A0kernel/trace/rv/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 |=C2=A0 11 ++
-> =C2=A0kernel/trace/rv/rv.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 116 +++++++++++++++++-
-> =C2=A0tools/testing/selftests/verification/config=C2=A0=C2=A0 |=C2=A0=C2=
-=A0 1 +
-> =C2=A0.../verification/test.d/rv_edge_stats.tc=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 |=C2=A0 32 +++++
-> =C2=A09 files changed, 315 insertions(+), 1 deletion(-)
-> =C2=A0create mode 100644 include/linux/rv_edge_stat.h
-> =C2=A0create mode 100644
-> tools/testing/selftests/verification/test.d/rv_edge_stats.tc
 
