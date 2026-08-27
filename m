@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94271483BC0;
-	Thu, 27 Aug 2026 15:09:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFF12483BDE
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 15:09:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787843365; cv=none; b=P7BFmadwPDWEp7Y4rvD4K/SAfnVLaP9vI6xslabs7QfFdXCZXJvmD04kzly1oNy4fgETKRxeav7bKQV8I1U627EUBAd8Bmzu6e4QGTkgWGov3HR+OEUV9GHjHNaE260RZ9bvV9THzERJw/2jAhI75Pqgudmik6ibSmnwszXRYA4=
+	t=1787843366; cv=none; b=Xoq1PzAR7Xrww7T40Z0DP2ow+MHd+dN6aU2NS9FRRXKRnHQ/2okSP5+4fkx2KPqIyoxzsI2zDsCOeuCc+LS8mxx4W74Diw/4qA5DvLF4rmnEUNNRTOKrg+9Dhp+PxxBPscfvquoQaia5/CURnJqXszdw7VfRG1k8IZm3p0oKXws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787843365; c=relaxed/simple;
-	bh=rE9ONnbb64DmnGnBJPTYkqY0J4giVPlIuQ5Z+fpA4+g=;
+	s=arc-20240116; t=1787843366; c=relaxed/simple;
+	bh=THvfUMg5TbfzBxeyN4QirCFqOs9S7SFIChRddP64VeM=;
 	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=SL65XPJG76UUANvW22cMAISbpyFKO7nQFS0joPlrH4MhOw5dnYgPYCjFhCQfApXDtVrHnJaJ+Vvl0whYrzLArB9Ij58VQcx+YDgABqgi5O+N2aHwRHGNg0dbfRuO4a+XjZvSeyldKiNzs3s+33PSRys5WAhTSp66w+Ho9caTJxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gkfPyTx9; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type; b=dTIcRFjJv89ZKJ4r2/BPbw7uwQGcKL6zdsODhFTWPOD0QADvybGVPtoS7nnEfeLywfWfrFcJ+osU6g8eH3DYGcvXRyjzrj2eEwKIzXHpMybKkS/moL8BVMEo6KjV0sRO9Kaw+WVX8nhqpk4bOBtuxTVcmJIRqfCwxGQZrG1hqLM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l3Xc6vnv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gkfPyTx9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 778EB1F00A3F;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l3Xc6vnv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6DC41F00ACA;
 	Thu, 27 Aug 2026 15:09:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1787843363;
-	bh=zyjyAs9XuohXcWHmBc/uGuYEOCdR4P0MDF3YsN/etfQ=;
+	bh=OoOb25/cKzKtyIcy2W/62Wt5IvtdO4qR8/ih5HeWboY=;
 	h=Date:From:To:Cc:Subject:References;
-	b=gkfPyTx9Rm4YIxdb+n+U6v8o5UD4k//4Hjy2Unt5WkmBglKjo24E6DmZJmJLLILL1
-	 Sst4R7kz0LpKU42qyItGkz3A27chHcP3LAGjBMuM1C/a5517wvVa99AqJnuoRRlBcL
-	 c4UH1Iie/gxhzxTCdqG+gKT0Ut3pEAhsuMt64upsqBGZU504mEro83FvprHeJTbeTw
-	 V2ROIXtIdxyN9XZ4HqsTMWUcHc5I8tm4pn/ZX7/06vq+hnzK4n6O6J4BGU+KBFiMLp
-	 FVcQ+hQjqBiq7+aovssRNC31XnmzAU2eRc//64cK5IjE18NA8wdbWHbGDhNcflR3kL
-	 TO+7+JhgosH/Q==
+	b=l3Xc6vnvOOfGj26hVfx232SQZA/YZYTqqyRxpt1Bn3+V65oE5hkIk8Cpedkm+gPhN
+	 n4wG7gZvBxrUpranFA2Ftrq8nAsqJx9gyLznnKuzp2dO5pR+1a3SQzJ/FuQqCUwOxm
+	 wRvJyZPZhqakZN0+/6WeqwmAL9ZmFQXUG7Vn05rSRmDcRIOyTyIAoOg/DmeQ+K7ld8
+	 ldlNy39C7slc+HhD9NjSU/CE/wumj1fALa8MWGdtg+oJJCRiduh1QP6a/NDwXgznJ2
+	 uScUv0i+u7/BOOM1UXpgX3yvQZfejsBwktSTSmlCPvP2TPIHsH/tvRtmdWVQ0EIP21
+	 pyLCspLJTNEcw==
 Received: from rostedt by gandalf with local (Exim 4.99.4)
 	(envelope-from <rostedt@kernel.org>)
-	id 1wzbk3-00000008PG0-1ZBc;
+	id 1wzbk3-00000008PGy-2onS;
 	Thu, 27 Aug 2026 11:10:11 -0400
-Message-ID: <20260827151011.232932653@kernel.org>
+Message-ID: <20260827151011.539857810@kernel.org>
 User-Agent: quilt/0.69
-Date: Thu, 27 Aug 2026 11:09:53 -0400
+Date: Thu, 27 Aug 2026 11:09:55 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
@@ -42,12 +42,8 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Deepanshu Kartikey <kartikey406@gmail.com>,
  Haotian Zhang <vulab@iscas.ac.cn>,
  Hui Su <sh_def@163.com>,
- Vincent Donnefort <vdonnefort@google.com>,
- stable@vger.kernel.org,
- syzbot+685955db58555575fdd2@syzkaller.appspotmail.com,
- Bradley Morgan <include@grrlz.net>
-Subject: [for-linus][PATCH 4/7] tracing: Fix use-after-free in trace_pipe read on sub-buffer order
- change
+ Vincent Donnefort <vdonnefort@google.com>
+Subject: [for-linus][PATCH 6/7] samples/ftrace: Fix kthread_stop() on ERR_PTR in ftrace-direct-modify
 References: <20260827150949.304280511@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -57,66 +53,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-From: Deepanshu Kartikey <kartikey406@gmail.com>
+From: Haotian Zhang <vulab@iscas.ac.cn>
 
-Writing to buffer_subbuf_size_kb calls ring_buffer_subbuf_order_set(),
-which frees every sub-buffer of the ring buffer, including the reader
-page, and replaces them with newly allocated ones.
+ftrace_direct_init() assigns kthread_run()'s return value to simple_tsk
+without an IS_ERR() check. When kthread_run() fails it returns
+ERR_PTR(-ENOMEM), but init still returns 0, so the module loads with
+simple_tsk holding an error pointer. On unload, ftrace_direct_exit()
+then passes that ERR_PTR to kthread_stop(), leading to a
+null-pointer-dereference.
 
-Readers of trace_pipe hold pointers into those pages. ring_buffer_peek()
-looks up an event under cpu_buffer->reader_lock but returns the event
-pointer after dropping the lock, and peek_next_entry() then calls
-ring_buffer_event_length() and ring_buffer_event_data() on it. If the
-sub-buffer order is changed in that window, the reader dereferences
-freed memory:
+Check the return value of kthread_run() with IS_ERR(); on failure,
+unregister the ftrace direct call and propagate the error code.
 
-  BUG: KASAN: use-after-free in ring_buffer_peek+0x3e0/0x430
-  Read of size 1 at addr ffff88802a4cf010 by task syz-executor989/6002
-
-  Freed by:
-   free_buffer_page kernel/trace/ring_buffer.c:398 [inline]
-   ring_buffer_subbuf_order_set+0x1325/0x18e0 kernel/trace/ring_buffer.c:7444
-   buffer_subbuf_size_write+0x182/0x280 kernel/trace/trace.c:8221
-
-Take trace_access_lock(RING_BUFFER_ALL_CPUS) around the order change.
-This is the lock trace_pipe readers already hold across their entire
-peek-and-print loop, so the swap can no longer race with a reader that
-is dereferencing a peeked event.
-
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260817140655.5694-1-kartikey406@gmail.com
-Fixes: f9b94daa542a ("ring-buffer: Set new size of the ring buffer sub page")
-Reported-by: syzbot+685955db58555575fdd2@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=685955db58555575fdd2
-Tested-by: syzbot+685955db58555575fdd2@syzkaller.appspotmail.com
-Reviewed-by: Bradley Morgan <include@grrlz.net>
-Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+Link: https://patch.msgid.link/20260826015034.10755-1-vulab@iscas.ac.cn
+Fixes: ae0cc3b7e7f5 ("ftrace/samples: Add a sample module that implements modify_ftrace_direct()")
+Suggested-by: Steven Rostedt <rostedt@goodmis.org>
+Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- kernel/trace/trace.c | 3 +++
- 1 file changed, 3 insertions(+)
+ samples/ftrace/ftrace-direct-modify.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-index 740c5f358b75..60c87977f1e3 100644
---- a/kernel/trace/trace.c
-+++ b/kernel/trace/trace.c
-@@ -8214,6 +8214,8 @@ buffer_subbuf_size_write(struct file *filp, const char __user *ubuf,
- 	/* Do not allow tracing while changing the order of the ring buffer */
- 	tracing_stop_tr(tr);
+diff --git a/samples/ftrace/ftrace-direct-modify.c b/samples/ftrace/ftrace-direct-modify.c
+index 1ba1927b548e..164d9dd6fd92 100644
+--- a/samples/ftrace/ftrace-direct-modify.c
++++ b/samples/ftrace/ftrace-direct-modify.c
+@@ -320,9 +320,15 @@ static int __init ftrace_direct_init(void)
+ 	ftrace_set_filter_ip(&direct, (unsigned long) my_ip, 0, 0);
+ 	ret = register_ftrace_direct(&direct, my_tramp);
  
-+	trace_access_lock(RING_BUFFER_ALL_CPUS);
+-	if (!ret)
+-		simple_tsk = kthread_run(simple_thread, NULL, "event-sample-fn");
+-	return ret;
++	if (ret)
++		return ret;
++	simple_tsk = kthread_run(simple_thread, NULL, "event-sample-fn");
++	if (IS_ERR(simple_tsk)) {
++		unregister_ftrace_direct(&direct, my_tramp, true);
++		return PTR_ERR(simple_tsk);
++	}
 +
- 	old_order = ring_buffer_subbuf_order_get(tr->array_buffer.buffer);
- 	if (old_order == order)
- 		goto out;
-@@ -8253,6 +8255,7 @@ buffer_subbuf_size_write(struct file *filp, const char __user *ubuf,
- #endif
- 	(*ppos)++;
-  out:
-+	trace_access_unlock(RING_BUFFER_ALL_CPUS);
- 	if (ret)
- 		cnt = ret;
- 	tracing_start_tr(tr);
++	return 0;
+ }
+ 
+ static void __exit ftrace_direct_exit(void)
 -- 
 2.53.0
 
