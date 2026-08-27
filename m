@@ -1,233 +1,243 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f195.google.com (mail-pg1-f195.google.com [209.85.215.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13F68419304;
-	Thu, 27 Aug 2026 19:56:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F65D3F1053
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 19:57:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787860577; cv=none; b=hWwJm+j+t7GWY3JuAROFnMkB7q//4tNv9Ejwfq95APBZKBOlXpSumiiv2j7K083SeRiGrHagrqKa5HrIDZWk4tzU8bta39SrRhM2Btf47dg6xsDCemvOtBrciFmYb+YgCxUEK/s1Y2sM80osrdEjrt5rNCSNShzx1cWckemaucE=
+	t=1787860629; cv=none; b=sVvN7kieT+wrzxi6LwI6QtYILoKhBKT4EIhFXBjdNlgapBtjl2md9S1f5+6n/fKpkGWyy3KJ1dI7mXxptU+sWe7J71ePGXKV1I2KGSgHllUdcize8Hf1E5EFrtltDWBO5Uj6dDNkFoHpdiDGHQcsTIlPVYpZMQWobtZ9Bd1jQUc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787860577; c=relaxed/simple;
-	bh=h4rmM/F/oNz34A4BdZhkckrXP4Zm0dW0AF2/rRuAMLo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=X0ck5E3c6anZUm5r6VnvsU0cv4a1Pv8Bg7UNFmzOYSinfvKuPRP3G9E5NIB0FmYTjIlmyabokUfigbAOJnRcVuGSYka2m91HA63oRZOkXDgN/6l/vglP1HmJrhpDtjRSRib4DlljPy0P+ASszH2Ukhrf2TvMhrx1Otc4H+25Jcc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CqvpX0jc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787860629; c=relaxed/simple;
+	bh=vDu5qVZi5+B2YTh94nK7d3oZgqw1oQXWOUqDYalHD4Q=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=TNRgeCNg+kArcfHvb3kk8HYoFqwkYzYJ+26qQUqmO6hzIbbr+0AA5559Wm7YFdwx4RVVNtaXH29zb6CfSXzl0zAhhdjcHIxxFd9ejpHD0iwwdswT1QpUFpp2eV0B1+8iAGPB+MB12cjY07mgkMiMMOmOpkV3xqrfBHeUqYmJ4aM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FqFYZsOr; arc=none smtp.client-ip=209.85.215.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CqvpX0jc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 085971F000E9;
-	Thu, 27 Aug 2026 19:56:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787860573;
-	bh=yXmT+LEQ61WRjbUCLimpBHndS1SBsTfjBnnvx00VCQw=;
-	h=From:Date:Subject:To:Cc;
-	b=CqvpX0jc2vi3EeZtwyvsdALHmWqfFBu9TPA54ePXXCKBye6bDmz608MGBIBKYgAea
-	 De8XOGagcpUghO118Jj9V2yMEVxL8+IQ5ZNqxci8Nziv1q4a41XWqFgph53l6G1N7k
-	 fMJKr0xl78xlHmyChj/90LdR1VE6rY64PV9OpdDOFl6AJTPKVuNf7aIQaO6vtFXOaM
-	 thIj631uIBq4fE3s9yfK/y4uEylczFepyStGQZKY5ldBIW1rqYC+Rb8cl/GQjYodf7
-	 0CZTMe3mJskgA6MAxIbO5GlqZs4lMIjkoZV3lQs1jpszzFm05Q83jtbDzYMqpXlG8+
-	 ST1sDQ74gWVrA==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Thu, 27 Aug 2026 20:55:57 +0100
-Subject: [PATCH] mm/huge_memory: bypass THP tuneables for huge pfnmap
- mappings
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FqFYZsOr"
+Received: by mail-pg1-f195.google.com with SMTP id 41be03b00d2f7-cc147d86bebso260816a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:57:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787860627; x=1788465427; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QKSwaBw0Qfs+/Q4v+yYjSyUPLlZIbYu5DPza0B2CzMo=;
+        b=FqFYZsOrHipINoFni0BAz7C2EHuyWWsKI6CytT7CAJGPh7kMLccFbMocxC/ptl2MQ0
+         qdsxcfJU1EmjlaoNaR9ne5h6wVhUVhowWQ9c/fyCuGbwqUCUQrF7HxRZwH0e0LHMmU7w
+         mieHqL9OJXSDgE6AfUIc5liQaN6JwQrMf1t6EiB0rGUw//bstKENxO6GE5JWfI2tenOX
+         7DXCcgf+2QcBTpmu1aa1NG5tAp8bviEAAzMXbuLvTvFF/6FyTW3nZkzNL0dg8OT4xnb8
+         3FuedqydLb1bWUM35E2EPTju5f7Tka7EOSwdK6CJP5Zf0Bg/+bpzhD0tQHEz7lQI7aIT
+         dufw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787860627; x=1788465427;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QKSwaBw0Qfs+/Q4v+yYjSyUPLlZIbYu5DPza0B2CzMo=;
+        b=oqWxQl/uUCDRB69KobCMc4D/T08i9Qbld0ewMDWMeWmg1JiCv7TK//37kfcWSUjgG0
+         0JLYYVyca2OyX2JhKUKo4AXaAl6TaJJPDRkgD9CRvB5HuqwK6cQm+qwLvBS9K5gYPCfn
+         k3NedCet88r+QHxgqDuhS3XwW47SGLSC3iX9Hq7laE8wlksHKQC7Vc5Gl4ouhtH3RE2H
+         hRlRU7jE7Zh//aolD7pMVb+i2MQAVv5amwxTVchdtGVWx/VObHlf0Ir9jAg1xeB1DWmG
+         ukmlWBnw4S6YwPpCw6MLRkTsFrr1Z9B52vCZUBnVNWHxI+lNUj2IAW768AQf6othq6q7
+         KQ7g==
+X-Forwarded-Encrypted: i=1; AHgh+RpYt6LIYkyYtVv+M3qh87Crne4yo587gf4gS7WRX7pMRdH2IS3tnUfgzEfEgOA7LJMa91bjOpKPpUJIoZc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lZ944oPtf1/23LoxzAOBeobuuDffrqq1sgEj4tFFKnwAm47UmH
+	hGDAOpmTWvogWcps3eBJ6oTWHlNNsek8vdLlDwH77pTxZgixa44+J+cb
+X-Gm-Gg: AR+sD139ynX50SoLdtSQIa5xJ9a8+64/2j26yx1gdwqrZoE2d2Cpfg04ea0cEcSnrLr
+	OinuBFBAtsDwp35ebBw93u0YmdiqJduxozyrpVSI4MUpb7yor3/c5bVGZ11gSH+pelvL+NxjqeW
+	5HPSRmOv84tmZf6dCzFNiy8BYDoNkoHhdW+GLvWiPb6c53g5kdb7ooG886BWcN84c/WKd5oLz8S
+	/7AB7+q4p6WmwZvEzI8mhtCO2co+l8iKmcTS3apq1hr4nle/e2sE0T3VMX4dJ+EdSn/OsT+ib3W
+	vAeqrHWoxyev1urQBzDQp3ggYWiRyKAt/jZlVwabJgn1OAtLm+eq2FhO2C4UsgfSfe3YfiWsy8R
+	3Hjtedp2QKlnSGskYfLKLAR9ywsg0rAhrEwrnwcM48gJqvbjCk10kJlyFLNK5PV3jyDuljcTHnt
+	XVOBWzu5N3J/PsfM6iQXPeIvtII5i6Ne5+zBisAhnMezCy7V/h+7uKUAWDZsNYXG+dl8A4a1rK
+X-Received: by 2002:a17:90b:4fd0:b0:38e:9784:dd47 with SMTP id 98e67ed59e1d1-3969ba3c181mr13031508a91.1.1787860627206;
+        Thu, 27 Aug 2026 12:57:07 -0700 (PDT)
+Received: from Mahmudul.. ([103.139.196.183])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3285a5f96efsm9258581eec.11.2026.08.27.12.57.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 12:57:06 -0700 (PDT)
+From: "Md. Mahmudul Hasan Mabud" <mdmahmudulhasan1511@gmail.com>
+To: jic23@kernel.org,
+	nuno.sa@analog.com,
+	Michael.Hennerich@analog.com,
+	gregkh@linuxfoundation.org
+Cc: andy@kernel.org,
+	dlechner@baylibre.com,
+	linux@analog.com,
+	linux-iio@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	"Md. Mahmudul Hasan Mabud" <mdmahmudulhasan1511@gmail.com>
+Subject: [PATCH v5] staging: iio: adc: ad7816: Use modern IIO attribute macros
+Date: Fri, 28 Aug 2026 01:56:42 +0600
+Message-Id: <20260827195642.12831-1-mdmahmudulhasan1511@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260827-hugepfn-allowable-orders-v1-1-94819c8807c8@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MSQqAMAxA0atI1ga04oBXERdVEw2UVlIcQLy7x
- eVb/P9AJBWK0GcPKJ0SJfiEMs9g3qxfCWVJBlOYpuhMi9ux0s4erXPhspMjDLqQRmSuTMVdzXP
- dQsp3JZb7Xw/j+36QQrp/agAAAA==
-X-Change-ID: 20260827-hugepfn-allowable-orders-ff323f85fc57
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, Peter Xu <peterx@redhat.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- Cedric Le Goater <clg@redhat.com>, Saravanan D <saravanand@crusoe.ai>, 
- stable@vger.kernel.org, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5776; i=ljs@kernel.org;
- h=from:subject:message-id; bh=h4rmM/F/oNz34A4BdZhkckrXP4Zm0dW0AF2/rRuAMLo=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLImTAuz/G8TaGmjtc9Fcv2ptndfEyxcpJdNqlnWvOqg4
- E6Lq63rO0pZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCR8+WMDK9q7bq0zwk+mLRt
- Scm07w4XfIN0g6Lru75HX1r/bFFhby0jw65tKb5bfFQO3lnZZvpMdyfz532iBSL+WdrhHqc2T3q
- awA8A
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Transfer-Encoding: 8bit
 
-The sysfs THP tuneables at /sys/kernel/mm/transparent_huge_pages/ rather
-confusingly only control the behaviour of THP in some instances.
+Replace the legacy IIO_DEVICE_ATTR() macros with the modern
+IIO_DEVICE_ATTR_RW() and IIO_DEVICE_ATTR_RO() macros.
 
-They are not applicable to MADV_COLLAPSE operations, nor to DAX mappings.
+This includes renaming driver-specific callback functions to
+standard <name>_show() and <name>_store() formats.
 
-Long-term, THP is predicated upon compaction being able to obtain large
-folios to populate THP ranges.
-
-However, vm_normal_folio() returns NULL for PFN map mappings, thus their
-reference count is maintained by the driver, not core mm.
-
-As a consequence, the folios are not subject to reclaim nor compaction, so
-are not truly part of the THP mechanism at all.
-
-However, since commit 5dd40721f147 ("mm: allow THP orders for PFNMAPs")
-introduced the ability to establish huge PFN maps, they have been subject
-to THP tuneables.
-
-This is incorrect - if a huge PFN map is available (defined by
-vma->vm_ops->huge_fault being non-NULL for a VMA_PFNMAP_BIT VMA), then it
-should be mapped huge upon fault-in.
-
-Correct this by explicitly checking for this while ensuring that smaps
-continues to accurately report THPeligible statistics.
-
-While here, abstract the entire file-backed THP check in
-vma_can_map_huge_file(), with sensible separation of logic into helper
-functions.
-
-Note that drm_gem_shmem_mmap() and panthor_gem_mmap() establish huge PFN
-maps of shmem folios, however they are marked unevictable in
-drm_gem_get_pages(), and in any case would fail the reference check in
-__remove_mapping() even if they weren't.
-
-Failing to map huge PFN maps has resulted in significant real-world
-performance degradation, see links for details.
-
-Reported-by: Cedric Le Goater <clg@redhat.com>
-Closes: https://lore.kernel.org/linux-mm/20260805055544.1568534-1-clg@redhat.com/
-Reported-by: Saravanan D <saravanand@crusoe.ai>
-Closes: https://lore.kernel.org/linux-mm/20260821070520.25759-1-saravanand@crusoe.ai/
-Fixes: 5dd40721f147 ("mm: allow THP orders for PFNMAPs")
-Cc: stable@vger.kernel.org
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Md. Mahmudul Hasan Mabud <mdmahmudulhasan1511@gmail.com>
 ---
- mm/huge_memory.c | 86 +++++++++++++++++++++++++++++++++++++++++---------------
- 1 file changed, 64 insertions(+), 22 deletions(-)
+v5:
+  - Converted to a standalone single patch (previously part of the v3/v4 series).
+  - Updated commit message and fixed function header line lengths and wrapping based on Andy Shevchenko's feedback on v3.
+    Link: https://lore.kernel.org/linux-iio/act9ovNVsJvWO6Cx@ashevche-desk.local/
+v4:
+  - Sent by mistake without updates.
+v3:
+  - Initial version (as patch 4/4 of the series).
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index afbb5974bd22..4bf7b670586d 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -92,7 +92,7 @@ unsigned long huge_anon_orders_madvise __read_mostly;
- unsigned long huge_anon_orders_inherit __read_mostly;
- static bool anon_orders_configured __initdata;
- 
--static inline bool file_thp_enabled(struct vm_area_struct *vma)
-+static inline bool file_thp_enabled(const struct vm_area_struct *vma)
- {
- 	struct inode *inode;
- 
-@@ -118,6 +118,67 @@ static bool vma_is_special_huge(const struct vm_area_struct *vma)
- 	return vma_test_any(vma, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT);
+ drivers/staging/iio/adc/ad7816.c | 64 ++++++++++++--------------------
+ 1 file changed, 24 insertions(+), 40 deletions(-)
+
+diff --git a/drivers/staging/iio/adc/ad7816.c b/drivers/staging/iio/adc/ad7816.c
+index 30644d2d7..62bbd7b34 100644
+--- a/drivers/staging/iio/adc/ad7816.c
++++ b/drivers/staging/iio/adc/ad7816.c
+@@ -116,9 +116,8 @@ static int ad7816_spi_write(struct ad7816_chip_info *chip, u8 data)
+ 	return ret;
  }
  
-+static bool vma_bypass_thp_tuneables_file(const struct vm_area_struct *vma,
-+		enum tva_type type)
-+{
-+	const bool has_huge_fault = vma->vm_ops->huge_fault;
-+
-+	/* MADV_COLLAPSE ignores tuneables. */
-+	if (type == TVA_FORCED_COLLAPSE)
-+		return true;
-+	/* Huge PFN mappings are uncompactable so the policy doesn't apply. */
-+	if (vma_test(vma, VMA_PFNMAP_BIT) && has_huge_fault)
-+		return true;
-+	return false;
-+}
-+
-+static bool vma_thp_tuneables_allow_file(vm_flags_t vm_flags)
-+{
-+	/* THP=always? */
-+	if (hugepage_global_always())
-+		return true;
-+	/* THP=madvise and marked MADV_HUGEPAGE? */
-+	if (hugepage_global_enabled() && (vm_flags & VM_HUGEPAGE))
-+		return true;
-+	return false;
-+}
-+
-+static bool vma_check_thp_tuneables_file(const struct vm_area_struct *vma,
-+		vm_flags_t vm_flags, enum tva_type type)
-+{
-+	return vma_bypass_thp_tuneables_file(vma, type) ||
-+		vma_thp_tuneables_allow_file(vm_flags);
-+}
-+
-+static bool vma_can_map_huge_file(const struct vm_area_struct *vma,
-+		vm_flags_t vm_flags, enum tva_type type)
-+{
-+	const bool has_huge_fault = vma->vm_ops->huge_fault;
-+
-+	/*
-+	 * Enforce THP collapse requirements as necessary. Anonymous vmas
-+	 * were already handled in thp_vma_allowable_orders().
-+	 */
-+	if (!vma_check_thp_tuneables_file(vma, vm_flags, type))
-+		return false;
-+
-+	switch (type) {
-+	case TVA_PAGEFAULT:
-+		/*
-+		 * Trust that ->huge_fault() handlers know what they are doing
-+		 * in fault path.
-+		 */
-+		return has_huge_fault;
-+	case TVA_SMAPS:
-+		if (has_huge_fault)
-+			return true;
-+		fallthrough;
-+	default:
-+		/* Only regular file is valid in collapse path. */
-+		return file_thp_enabled(vma);
-+	}
-+}
-+
- unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
- 					 vm_flags_t vm_flags,
- 					 enum tva_type type,
-@@ -190,27 +251,8 @@ unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
- 						   vma, vma_start_pgoff(vma), 0,
- 						   forced_collapse);
+-static ssize_t ad7816_show_mode(struct device *dev,
+-				struct device_attribute *attr,
+-				char *buf)
++static ssize_t mode_show(struct device *dev, struct device_attribute *attr,
++			 char *buf)
+ {
+ 	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
+ 	struct ad7816_chip_info *chip = iio_priv(indio_dev);
+@@ -128,10 +127,8 @@ static ssize_t ad7816_show_mode(struct device *dev,
+ 	return sysfs_emit(buf, "full\n");
+ }
  
--	if (!vma_is_anonymous(vma)) {
--		/*
--		 * Enforce THP collapse requirements as necessary. Anonymous vmas
--		 * were already handled in thp_vma_allowable_orders().
--		 */
--		if (!forced_collapse &&
--		    (!hugepage_global_enabled() || (!(vm_flags & VM_HUGEPAGE) &&
--						    !hugepage_global_always())))
--			return 0;
--
--		/*
--		 * Trust that ->huge_fault() handlers know what they are doing
--		 * in fault path.
--		 */
--		if (((in_pf || smaps)) && vma->vm_ops->huge_fault)
--			return orders;
--		/* Only regular file is valid in collapse path */
--		if (((!in_pf || smaps)) && file_thp_enabled(vma))
--			return orders;
--		return 0;
--	}
-+	if (!vma_is_anonymous(vma))
-+		return vma_can_map_huge_file(vma, vm_flags, type) ? orders : 0;
+-static ssize_t ad7816_store_mode(struct device *dev,
+-				 struct device_attribute *attr,
+-				 const char *buf,
+-				 size_t len)
++static ssize_t mode_store(struct device *dev, struct device_attribute *attr,
++			  const char *buf, size_t len)
+ {
+ 	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
+ 	struct ad7816_chip_info *chip = iio_priv(indio_dev);
+@@ -147,24 +144,19 @@ static ssize_t ad7816_store_mode(struct device *dev,
+ 	return len;
+ }
  
- 	if (vma_is_temporary_stack(vma))
- 		return 0;
-
----
-base-commit: 234e77148199ae43b83a0a03a3f481e03460a286
-change-id: 20260827-hugepfn-allowable-orders-ff323f85fc57
-
-Best regards,
+-static IIO_DEVICE_ATTR(mode, 0644,
+-		ad7816_show_mode,
+-		ad7816_store_mode,
+-		0);
++static IIO_DEVICE_ATTR_RW(mode, 0);
+ 
+-static ssize_t ad7816_show_available_modes(struct device *dev,
+-					   struct device_attribute *attr,
+-					   char *buf)
++static ssize_t available_modes_show(struct device *dev,
++				    struct device_attribute *attr,
++				    char *buf)
+ {
+ 	return sysfs_emit(buf, "full\npower-save\n");
+ }
+ 
+-static IIO_DEVICE_ATTR(available_modes, 0444, ad7816_show_available_modes,
+-			NULL, 0);
++static IIO_DEVICE_ATTR_RO(available_modes, 0);
+ 
+-static ssize_t ad7816_show_channel(struct device *dev,
+-				   struct device_attribute *attr,
+-				   char *buf)
++static ssize_t channel_show(struct device *dev, struct device_attribute *attr,
++			    char *buf)
+ {
+ 	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
+ 	struct ad7816_chip_info *chip = iio_priv(indio_dev);
+@@ -172,10 +164,8 @@ static ssize_t ad7816_show_channel(struct device *dev,
+ 	return sysfs_emit(buf, "%d\n", chip->channel_id);
+ }
+ 
+-static ssize_t ad7816_store_channel(struct device *dev,
+-				    struct device_attribute *attr,
+-				    const char *buf,
+-				    size_t len)
++static ssize_t channel_store(struct device *dev, struct device_attribute *attr,
++			     const char *buf, size_t len)
+ {
+ 	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
+ 	struct ad7816_chip_info *chip = iio_priv(indio_dev);
+@@ -205,14 +195,10 @@ static ssize_t ad7816_store_channel(struct device *dev,
+ 	return len;
+ }
+ 
+-static IIO_DEVICE_ATTR(channel, 0644,
+-		ad7816_show_channel,
+-		ad7816_store_channel,
+-		0);
++static IIO_DEVICE_ATTR_RW(channel, 0);
+ 
+-static ssize_t ad7816_show_value(struct device *dev,
+-				 struct device_attribute *attr,
+-				 char *buf)
++static ssize_t value_show(struct device *dev, struct device_attribute *attr,
++			  char *buf)
+ {
+ 	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
+ 	struct ad7816_chip_info *chip = iio_priv(indio_dev);
+@@ -236,7 +222,7 @@ static ssize_t ad7816_show_value(struct device *dev,
+ 	return sysfs_emit(buf, "%u\n", data);
+ }
+ 
+-static IIO_DEVICE_ATTR(value, 0444, ad7816_show_value, NULL, 0);
++static IIO_DEVICE_ATTR_RO(value, 0);
+ 
+ static struct attribute *ad7816_attributes[] = {
+ 	&iio_dev_attr_available_modes.dev_attr.attr,
+@@ -266,9 +252,8 @@ static irqreturn_t ad7816_event_handler(int irq, void *private)
+ 	return IRQ_HANDLED;
+ }
+ 
+-static ssize_t ad7816_show_oti(struct device *dev,
+-			       struct device_attribute *attr,
+-			       char *buf)
++static ssize_t oti_show(struct device *dev, struct device_attribute *attr,
++			char *buf)
+ {
+ 	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
+ 	struct ad7816_chip_info *chip = iio_priv(indio_dev);
+@@ -286,10 +271,10 @@ static ssize_t ad7816_show_oti(struct device *dev,
+ 	return sysfs_emit(buf, "%u\n", chip->oti_data[chip->channel_id]);
+ }
+ 
+-static inline ssize_t ad7816_set_oti(struct device *dev,
+-				     struct device_attribute *attr,
+-				     const char *buf,
+-				     size_t len)
++static inline ssize_t oti_store(struct device *dev,
++				struct device_attribute *attr,
++				const char *buf,
++				size_t len)
+ {
+ 	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
+ 	struct ad7816_chip_info *chip = iio_priv(indio_dev);
+@@ -327,8 +312,7 @@ static inline ssize_t ad7816_set_oti(struct device *dev,
+ 	return len;
+ }
+ 
+-static IIO_DEVICE_ATTR(oti, 0644,
+-		       ad7816_show_oti, ad7816_set_oti, 0);
++static IIO_DEVICE_ATTR_RW(oti, 0);
+ 
+ static struct attribute *ad7816_event_attributes[] = {
+ 	&iio_dev_attr_oti.dev_attr.attr,
 -- 
-Lorenzo Stoakes (ARM) <ljs@kernel.org>
+2.34.1
 
