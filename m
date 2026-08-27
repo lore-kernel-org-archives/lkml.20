@@ -1,62 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-192.mta0.migadu.com [91.218.175.192])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F0D738AC75;
-	Thu, 27 Aug 2026 09:18:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1555E41F7EE
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:18:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.192
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787822302; cv=none; b=lIBmHSG4MDwRAWHugrE4bbBjXnWNUS6TtSqYfB2lVS9etgj/jzaSM/i9rRzG5kHqTEjwTISaGfntoBEq/RcM88UuY0RKYSaVfSq+DXSmNa0/ldCj50+5ExG5odhDJcCewX0P8IJacj+U9sQFWdCxo2qvH4sOVs74E9DG4/Jy5t0=
+	t=1787822333; cv=none; b=mDuMPsDZGu6DUqh7pJIBqoV2XoDeXWPAc/oTrKD217VpE17hTlki8geILoGsBT8AOsD57+0g9+lAejKtPysmIqInRe8U2sDZRAb1JEuk4eMklyz9Wk6QzoKameFOmp1X9jtFqYVfvH0hcwnmzIaLiFdH0qiEOFoZrzbaDk+Ru6s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787822302; c=relaxed/simple;
-	bh=ZRAjFHXj/6/sPZ/NuRcag1lz2FvWLfuUSJuuarqYqY4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Kp3JSCLJoQ3blJahCmMooRIhE1fJX/sArwug3iMA/oGP190k8rrZHOD4E3LMkUitP1bMj3mEl1eN1E5UpAxnpjSNvavkhvAuh9YyhVNFnNNsU1qZ7U+KX0JYTtOjb9Oi0rEHXSDb9P8Rvjk/cnF2VgqxcjueXi5jce4U/k4PrQo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TOcSFRHJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787822333; c=relaxed/simple;
+	bh=geZOW1WODXXVi+0e58r8VoYK2l317YOTRPYNa/62Gi0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jMJZ/ydScwD8iawAobwzP+hukja6c7e+d6y8UMivibC4kGNQDPWPZZ9bzJAhR4e71yCNiY69GGqr9GsRkFuLXtuTjIUS/LRBnYnK7fHllbFLQwML9x/eJ1DgTSE5atIfWk9toGSvdBF9BtwZZIMXXPEOv7RBu4C7uocDa2YmuxY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=gW6CCbBi; arc=none smtp.client-ip=91.218.175.192
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TOcSFRHJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BAA21F000E9;
-	Thu, 27 Aug 2026 09:18:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787822289;
-	bh=kRiJjHIjv8Oj4y9OhdNBK5KA/+B1HhJBl1bx8mjL94U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TOcSFRHJIvYLYD0go+pfrGXEY9zc5Fl2qk/j2zPdVuVHgAhH/H8m0t9/4ixVZrX3Y
-	 9JI8HSTrUQTJCaggk0kHIKbXpMX6u3UOTWS4HZbO9m0+vIamYd2pfn1X8MHb6LCeah
-	 EJkkIOeruc5uPgegnzO7qWDO+Ux/4jdZUO2vlkQlzoAW062YkUm05xjoME57qKinPj
-	 zqEjz4ss48mXU3fqPg74OE8t4sCeBGm2j34o5LtX7c4In/91tRMg6KTeKozYblBVKo
-	 H8Mo8DScO74jiADO9fSuiMA2ZdFgpVbN7JP+6zK+9vVss0dGG0OakZ8GxSxDOPMdR5
-	 x49zUpzU7W1og==
-Date: Thu, 27 Aug 2026 11:18:05 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-usb@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] dt-bindings: usb: dwc3: Document Renesas R-Car
- Gen5 DWC3 xHCI USB controller
-Message-ID: <20260827-magnificent-mamba-of-improvement-07b30d@quoll>
-References: <20260819050109.681890-1-marek.vasut+renesas@mailbox.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="gW6CCbBi"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=geZOW1WODXXVi+0e58r8VoYK2l317YOTRPYNa/62Gi0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787822316; v=1; x=1788427116;
+ b=gW6CCbBiyjVh9Qp4y0feZ2bOqcX6iQ3ILUlfboAWZ4qdUvgXTiPMTdpjB6YoxFF+qC4Ub/dF
+ CaB4u3ztZlDRmDTWuoXdboKUBmWmtAbSGD544cIx8y0v3R6Qzp5hLeFoMjgxM/Y7bEh3ewABewJ
+ lU6RRiTJw9oicYbKjBM0crUo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 75b3eba5054843c9;
+	Thu, 27 Aug 2026 09:18:36 +0000
+X-Mizu-Trace-ID: 75b3eba5054843c9
+X-Migadu-Flow: FLOW_OUT
+From: Hao Li <hao.li@linux.dev>
+To: hannes@cmpxchg.org,
+	mhocko@kernel.org,
+	roman.gushchin@linux.dev,
+	shakeel.butt@linux.dev
+Cc: muchun.song@linux.dev,
+	akpm@linux-foundation.org,
+	cgroups@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Hao Li <hao.li@linux.dev>
+Subject: [PATCH] mm: memcontrol: treat disabled memcg as kmem accounting disabled
+Date: Thu, 27 Aug 2026 17:17:50 +0800
+Message-ID: <20260827091813.22327-1-hao.li@linux.dev>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260819050109.681890-1-marek.vasut+renesas@mailbox.org>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 19, 2026 at 07:00:51AM +0200, Marek Vasut wrote:
-> The Renesas R-Car Gen5 SoC contains multiple instances of DWC3 USB
-> controller with glue logic wrapper around them. Document the glue
-> logic and DWC3 controller.
-> 
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+mem_cgroup_kmem_disabled() currently only checks whether the
+"cgroup.memory=nokmem" option is specified. However, kmem accounting is
+also unavailable when memcg itself is disabled.
 
-Unanswered Sashiko report, looking valid. Dropping from DT Patchwork.
+Check both conditions to ensure the function accurately reflects the
+kmem accounting state.
 
-Best regards,
-Krzysztof
+Signed-off-by: Hao Li <hao.li@linux.dev>
+---
+ mm/memcontrol.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index 1ebceade4021..b28f6165c354 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -132,7 +132,7 @@ static DEFINE_SPINLOCK(objcg_lock);
+ 
+ bool mem_cgroup_kmem_disabled(void)
+ {
+-	return cgroup_memory_nokmem;
++	return cgroup_memory_nokmem || mem_cgroup_disabled();
+ }
+ 
+ static void memcg_uncharge(struct mem_cgroup *memcg, unsigned int nr_pages);
+-- 
+2.54.0
 
