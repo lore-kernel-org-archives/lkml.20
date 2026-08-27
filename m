@@ -1,228 +1,104 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 152BD385D86
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:55:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A21B7447803;
+	Thu, 27 Aug 2026 17:55:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787853335; cv=none; b=eSHAM7PZOCE0mIn836cG5WSCSWb5P0UBgmcUZQKl15fJ3vOW49PhQUDeVfvQxWgycn9KgObm/0+cV17H5ENr3hFr16EI9PsPOxwZchHC9KdX2gYls67KibOXdrGUTieayvXVZrPtk08o0rMfMDKO0D8YYNbddG77+fjpOi2E9f8=
+	t=1787853359; cv=none; b=TnmTn86PAmbEl+GihG8RrqzSr+sfVSosmrRtfN4rIRp6t9AOlIZ28XAnO3JjicFj23DU3EABgcAYXKEzXDiie6VYvzLTHGnt0z5Zj5fnbauTTuTeKwZ5GqNtbnDTqLruQSQtdZQJ7K3c4NwV9ldQIh8dsGAmgC6JRYv9hIcziQM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787853335; c=relaxed/simple;
-	bh=JquNSy4x+4LWMK12YHrDgFVH96J4CylpGTzlZ6A+yuk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PPn6A/afFRIyPqDjQTM8UsLF6S7fgQAH7jkTggS4bGI4IDGQylssDuYQYWG6epRZqkOTRuEJ5T9uaZD5T1ngTs8uUVhGnFHtqLDACHfNlvyY5575orfzwOP3yxyLyWjv7lTVVVnU62jWPHJ9pBgSoXlr+tts26GKvqj15uK2oOQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GqyCQCh/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787853359; c=relaxed/simple;
+	bh=L8KCDHot62Y6Ew7k3XqT9pvexPdRxmDuCVaqn6m/f0A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Rj7mRYTX/D7VqrWVprH2xyugSbe/Sq/Tlorsji7rNtClklEa/ceoO/nzPV3hkuZRQdRP6/RFNmLCb99OCHbH7iPgbZkZlKRryOLTtSgcvIHzKLfash3uOcuS/Z6LY3Jq6BsJQIwhgjrfqCmQNvwemEgakcCnRkIbGOK8KyWEP9w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aMBtxnHa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GqyCQCh/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA92C1F00A3D
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:55:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aMBtxnHa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4624D1F000E9;
+	Thu, 27 Aug 2026 17:55:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787853328;
-	bh=J0OapQGESg1AGMSebGOFhwIaFUe07bM0WphS89XQMkI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=GqyCQCh/Z0GVCHvMNP3XKvWd4KGH1srRW7ir5f7zgF8+AqP0KCwpcmotAbyASSEeq
-	 AjklrRkNmbXozU0/WBhsS0Dz9cXBkneKvmVsYpLef8V88wk3xAM86MyKqwvV98u5ms
-	 TqhEErKYVCB1uDrSUhB5DJEHy80AgjRt3q2A7ygVMFjVC/PZXF1XPsmqr2huei9ura
-	 +V5FXs7qgnzS/C8kadRVmHMIEGjfr6Mtg62u6z2QCD+0eDOpYPIh59MNLubMvhtdym
-	 ugmo1wbWz5E7KO5cN4oPW3eps237uLivSps+aXZL4YcOQ0Gu3ZZuYzHOG/UkRXsNX4
-	 LZwc+Pggac5xg==
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-698ae09e356so80206a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:55:28 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RrQmBhqcSl+Q58661uZBpZG+azuuscP5VRX5UhTOnSYwh0C6Xqh14+tCSPB0ZweCvOBHyAsEDay6JRW3TA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kxuPcqSZOJ+9KV702hGj3axOBBw5AxdM/YZg3V7djBXw1V1Xsc
-	vbtlIYe7+PIKKVlfWgZU4u3TTHhm+AdD3WnFxnf//EZg/xBkyQ0VujSyMTJm9oZBKG2TzGCbaBX
-	QNBYCZdf+30+bya0CsUZoxP5ur0CWpBI=
-X-Received: by 2002:a17:907:1988:b0:c25:4cff:5cf5 with SMTP id
- a640c23a62f3a-c2557181532mr37092066b.14.1787853327732; Thu, 27 Aug 2026
- 10:55:27 -0700 (PDT)
+	s=k20260515; t=1787853358;
+	bh=vZ7C2/CTlac1zgMJppc2AjQ/Uy0zQfoKz02KlYqLtHw=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=aMBtxnHaexduBS9V6dJUQv1F5BkzFuYq0SUx4IUVcGroR9Nhs5pcSlcdmAt15kjO3
+	 rYEuGP4aED58t9++sVmmNklA2A/aXXE7cK1rC7zARxE07LeIKJQfqYymkSLyBLCvSd
+	 l24gGHOS4VCgU/NosATsUSySC9oYJW3eZIE1AxudZv6TLAfmctBl5rsCiUBqaOg7Yh
+	 AFVzLQMwIJwn2T9kV8HCK8GcD+qgLTkXJ4HlnieIFSW1GlpwGfcbVc6ylzrmH71Bnh
+	 0zQMhZSzQldSiz7l0iTeW3TGh3P+8WKKcf9egiEHrm0Qxnrq7VM+Xc8OU6mEKcEw+K
+	 tgvcs3PXvFA+Q==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 03112CE1496; Thu, 27 Aug 2026 10:55:58 -0700 (PDT)
+Date: Thu, 27 Aug 2026 10:55:57 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Longlong Xia <xialonglong2025@163.com>, frederic@kernel.org
+Cc: frederic@kernel.org, neeraj.upadhyay@kernel.org, joelagnelf@nvidia.com,
+	josh@joshtriplett.org, boqun@kernel.org, urezki@gmail.com,
+	rostedt@goodmis.org, mathieu.desnoyers@efficios.com,
+	jiangshanlai@gmail.com, qiang.zhang@linux.dev,
+	vineeth@bitbyteword.org, joel@joelfernandes.org,
+	rcu@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Longlong Xia <xialonglong@kylinos.cn>
+Subject: Re: [PATCH 1/1] rcu: fix shrink budget underflow in
+ lazy_rcu_shrink_scan
+Message-ID: <2dfd3f5c-0a06-4353-a9bf-ea9f9100a4ca@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20260824133142.2293426-1-xialonglong2025@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826211844.884951-1-seanjc@google.com> <20260826211844.884951-2-seanjc@google.com>
- <CAO9r8zMnPwXVf6wx_gDMzv4j47xWa7idLD+vVm9DUiB=huiLaw@mail.gmail.com>
- <apA9eLuaMxCLdCmn@google.com> <CAO9r8zNm1QcVh29rTCzAFnYdUCS4y8ZSQOvrs2DD18XASuktoQ@mail.gmail.com>
- <apB1A5Ln_lGTI4oy@google.com>
-In-Reply-To: <apB1A5Ln_lGTI4oy@google.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Thu, 27 Aug 2026 10:55:14 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zPtriVwkVqmvRDv5mQ8HmvOp=NrXdJvjRuog6FY_S1DRQ@mail.gmail.com>
-X-Gm-Features: AcwNN1WqOh8rFfqyGrYERI0p2r1fGiTKetWhpzfBQCuYNbXaxs2qnIWnH_Pl58k
-Message-ID: <CAO9r8zPtriVwkVqmvRDv5mQ8HmvOp=NrXdJvjRuog6FY_S1DRQ@mail.gmail.com>
-Subject: Re: [PATCH 1/4] KVM: nSVM: Reject KVM_SET_NESTED_STATE if L1 has
- EFER.LMA=1 && EFER.LME=0
-To: Sean Christopherson <seanjc@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Stefan Teodorescu <fane@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260824133142.2293426-1-xialonglong2025@163.com>
 
-On Thu, Aug 27, 2026 at 10:33=E2=80=AFAM Sean Christopherson <seanjc@google=
-.com> wrote:
->
-> On Thu, Aug 27, 2026, Yosry Ahmed wrote:
-> > On Thu, Aug 27, 2026 at 6:37=E2=80=AFAM Sean Christopherson <seanjc@goo=
-gle.com> wrote:
-> > >
-> > > On Thu, Aug 27, 2026, Yosry Ahmed wrote:
-> > > > On Wed, Aug 26, 2026 at 2:18=E2=80=AFPM Sean Christopherson <seanjc=
-@google.com> wrote:
-> > > > >
-> > > > > Reject KVM_SET_NESTED_STATE if the incoming L1 host state has wha=
-t is
-> > > > > effectively an impossible EFER combination of LMA=3D1 but LME=3D0=
-, i.e. if the
-> > > > > state says long mode is active but not enabled.  Unlike VMX, SVM =
-doesn't
-> > > > > have an explicit consistent check for the illegal combination; pr=
-esumably
-> > > > > hardware simply ignores EFER.LMA if EFER.LME=3D0.
-> > > > >
-> > > > > Unfortunately, KVM doesn't ignore EFER.LMA in this case and consu=
-mes the
-> > > > > illegal state when constructing the shadow MMU for L2.  E.g. if u=
-serspace
-> > > > > also clears CR4.PAE, then kvm_calc_cpu_role() will compute a role=
- with 4 or
-> > > > > 5 levels of paging, but shadow_mmu_init_context() will wire up th=
-e MMU to
-> > > > > use the paging32 template, which maxes out its levels at 2.
-> > > >
-> > > > Isn't the "right" thing to do what hardware (presumably) does and
-> > > > ignore EFER.LMA if EFER.LME=3D0?
-> > >
-> > > No, because (a) this is KVM uAPI, not emulation of hardware, and (b) =
-it's a check
-> > > on L1 state, not L2 state.  It should be impossible for L1 state to h=
-ave this
-> > > combination through "natural" means, and so a snapshot provided by KV=
-M should
-> > > never have this combo either, which there's zero reason to allow user=
-space to
-> > > provide garbage.
-> >
-> > Right, I understand that KVM can do whatever it wants here. I was wonde=
-ring
-> > if we wanted to make the uAPI behavior match the  VMRUN behavior, but I=
- guess
-> > we're free to make it more strict.
->
-> But again, this *does* match VMRUN behavior, because it's impossible for =
-L1 to
-> have EFER.LMA=3D1, EFER.LME=3D0, and EFER.PAE=3D0 at the time of VMRUN.
->
-> > > > > Note, the "real badness" is effectively the same as what happened=
- with the
-> > > > > nVMX bug fixed by commit 112e66017bff ("KVM: nVMX: add missing co=
-nsistency
-> > > > > checks for CR0 and CR4").  Unfortunately, the sanity check added =
-by commit
-> > > > > 72e2fb24a0b0 ("KVM: x86/mmu: Bug the VM if a vCPU ends up in long=
- mode
-> > > > > without PAE enabled") doesn't work for this case, since L2 state =
-is active
-> > > > > at the time of the page fault, but it's L1 that has the bad state=
-.
-> > > > >
-> > > > > Fixes: cc440cdad5b7 ("KVM: nSVM: implement KVM_GET_NESTED_STATE a=
-nd KVM_SET_NESTED_STATE")
-> > > > > Cc: stable@vger.kernel.org
-> > > > > Cc: Yosry Ahmed <yosry@kernel.org>
-> > > > > Reported-by: Stefan Teodorescu <fane@google.com>
-> > > > > Signed-off-by: Sean Christopherson <seanjc@google.com>
-> > > > > ---
-> > > > >  arch/x86/kvm/svm/nested.c | 1 +
-> > > > >  1 file changed, 1 insertion(+)
-> > > > >
-> > > > > diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.=
-c
-> > > > > index 73f37b050d0a..49fb10ad1f9f 100644
-> > > > > --- a/arch/x86/kvm/svm/nested.c
-> > > > > +++ b/arch/x86/kvm/svm/nested.c
-> > > > > @@ -2028,6 +2028,7 @@ static int svm_set_nested_state(struct kvm_=
-vcpu *vcpu,
-> > > > >         if (!(save->cr0 & X86_CR0_PG) ||
-> > > > >             !(save->cr0 & X86_CR0_PE) ||
-> > > > >             (save->rflags & X86_EFLAGS_VM) ||
-> > > > > +           ((save->efer & EFER_LMA) && !(save->efer & EFER_LME))=
- ||
-> > > >
-> > > > I just realized I have no idea why we check X86_CR0_PE and
-> > > > X86_EFLAGS_VM here. Commit 6906e06db9b04 ("KVM: nSVM: Add missing
-> > > > checks for reserved bits to svm_set_nested_state()") says it's to d=
-o
-> > > > the same checks as VMRUN, but I don't think that's actually the cas=
-e?
-> > > > The checks here seem arbitrary to me?
-> > >
-> > > Again, this is L1 state when L2 is active (the !KVM_STATE_NESTED_GUES=
-T_MODE path
-> > > has already bailed), and VMRUN "can only be executed in protected mod=
-e with SVM
-> > > enabled".  Amusingly, the APM says #VMEXIT "Forces CR0.PE =3D 1, RFLA=
-GS.VM =3D 0.",
-> > > so I guess it means business.
-> > >
-> > > If anything is wrong, it's the CR0.PG check.  Presumably that got car=
-ried forward
-> > > from commit c0725420cfdc ("KVM: SVM: Add helper functions for nested =
-SVM").  I
-> > > don't see anything in the APM that requires paging to be enabled, and=
- nothing in
-> > > that ancient series points at concrete documentation either.
-> >
-> > Oh yeah you're right, for some reason I thought it was paging not
-> > protected mode. Well then, it seems like
-> > nested_svm_check_permissions() is also incorrectly checking paging as
-> > well, seems like both checks are incorrect? Also, I don't see anything
-> > in the APM about checking RFLAGS.VM before VMRUN.
->
-> Presumably it's covered by the !PROTECTED_MODE clause.
->
->   IF ((MSR_EFER.SVME =3D=3D 0) || (!PROTECTED_MODE))  // This instruction=
- can only be executed in protected
->     EXCEPTION [#UD]                               // mode with SVM enable=
-d
->
-> Section "1.3.4 Legacy Modes" describes "Protected Mode" and "Virtual-8086=
- Mode"
-> as separate submodes.  And the tables for most instructions differentiate=
- between
-> Real, Virtual 8086, and Protected modes when enumerating exceptions.
->
-> The APM weasels around 64-bit mode by also saying "Before enabling and ac=
-tivating
-> long mode, system software must first enable protected mode".  E.g. the t=
-able for
-> SYSENTER describes the #UD due to "This instruction is not recognized in =
-long mode"
-> as scenario that's unique to Protected Mode.
->
-> Stating the obvious, it would be lovely if the APM explicitly stated what=
- the
-> exact checks are, though that's about as likely as AMD gifting me a pony.
->
-> FWIW, if that reading is wrong (though I'm pretty sure it's not), then th=
-e only
-> issue is that KVM is synthesizing #UD instead of #GP, because Virtual 808=
-6 always
-> runs at CPL=3D3.
->
->   IF (CPL !=3D 0)                                   // This instruction i=
-s only allowed at CPL 0
->     EXCEPTION [#GP]
+On Mon, Aug 24, 2026 at 09:31:42PM +0800, Longlong Xia wrote:
+> From: Longlong Xia <xialonglong@kylinos.cn>
+> 
+> The lazy RCU shrinker decremented sc->nr_to_scan (unsigned long)
+> and then tested the result with <= 0.  When a single CPU's lazy
+> callback count exceeds the remaining budget, the subtraction wraps
+> to a large positive value and the <= 0 comparison, which is
+> equivalent to == 0 for an unsigned type, never fires again.  The
+> scan loop then iterates through every nocb CPU instead of honouring
+> the reclaim budget.
+> 
+> Reorder the logic to compare _count against nr_to_scan before
+> subtracting, so the loop exits as soon as the budget is met.
+> 
+> Fixes: c945b4da7a448 ("rcu: Shrinker for lazy rcu")
+> Assisted-by: Zcode:GLM-5.2
+> Signed-off-by: Longlong Xia <xialonglong@kylinos.cn>
 
-I see, thanks for digging this up. Either way I think we want to keep
-things consistent between here and nested_svm_check_permissions(). We
-probably want a CPL check here, and it would be a superset of
-X86_EFLAGS_VM as you mentioned. We probably wanna drop the CR0.PG
-check from both places, and add an explicit X86_EFLAGS_VM check in
-nested_svm_check_permissions() to #UD instead of #GP?
+Good catch, and plausible fix.  Queued for further review and testing.
 
->
->
-> > If the goal here is to keep the checks here consistent with
-> > nested_svm_check_permissions(), aside from the new EFER check, then
-> > maybe we should also check CPL here?
+Frederic, thoughts?
+
+							Thanx, Paul
+
+> ---
+>  kernel/rcu/tree_nocb.h | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/kernel/rcu/tree_nocb.h b/kernel/rcu/tree_nocb.h
+> index 19bb42672baf..afc3ab84cc47 100644
+> --- a/kernel/rcu/tree_nocb.h
+> +++ b/kernel/rcu/tree_nocb.h
+> @@ -1332,10 +1332,11 @@ lazy_rcu_shrink_scan(struct shrinker *shrink, struct shrink_control *sc)
+>  		rcu_nocb_try_flush_bypass(rdp, jiffies);
+>  		rcu_nocb_unlock_irqrestore(rdp, flags);
+>  		wake_nocb_gp(rdp);
+> -		sc->nr_to_scan -= _count;
+>  		count += _count;
+> -		if (sc->nr_to_scan <= 0)
+> +
+> +		if (_count >= sc->nr_to_scan)
+>  			break;
+> +		sc->nr_to_scan -= _count;
+>  	}
+>  
+>  	mutex_unlock(&rcu_state.nocb_mutex);
+> -- 
+> 2.43.0
+> 
