@@ -1,52 +1,49 @@
 Received: from bg-bec.cloudflare-smtp.org (bg-bec.cloudflare-smtp.org [104.30.16.142])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CD7E327BEC
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:43:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43C5F441616
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:43:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=104.30.16.142
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787834625; cv=none; b=GC+igTFLwFLzrfVb8plEZd/B3hZ9qkYKP+HzOYB4PHGA0UX0OF44SZHOiVC1IDzcPgBv1VbrkrFXumw9l5DQIqdMZXf9mVeqcgeD5wO6qTty3SpCqt6hd3LHes9HX6/NXHEPrMZc0a/D3ZKYHiyimEJS9ZnSxmt09o7sikwh3D4=
+	t=1787834631; cv=none; b=QBJluMI/FssLlHhw16WDtXdhU6ONn4VpV7eQZXEYuRmG+PmbIJpJLrK8ayFJcg5i23vuVCeyu3zLS8J8pQjK0dOwbhuidXbtO76cebVGwt/W1WpzhAt3GHB8qZfcktAFm1LIOMZniNEY8Iv2zIlLpQoqiLUBwXPBr277r8BNOss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787834625; c=relaxed/simple;
-	bh=q8JUi+sBLEsD3aAuLeK4+q4xd/6RpI0p5FTkaClmncs=;
-	h=From:Message-ID:Date:Subject:To:MIME-Version:Content-Type; b=iVieaies9MgAvPt6KuxcoB9c6wNcOzJRE0lkhNU0ext3R8KNSqiiwtQa8NDsPj/dzSPOmm6jKTmmza3VMJpZ/NACU6m3SaRWWqnPYan/JKZ33yK9zZu8tgmzMo4cb0V7oJE+VBw2JQ1/9hew5C8rvkjJXNsDq6VNPeNvPgHxd0A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh; spf=pass smtp.mailfrom=cf-bounce.bugs.sh; dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b=JvbWdbaT; dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b=gWettobn; arc=none smtp.client-ip=104.30.16.142
+	s=arc-20240116; t=1787834631; c=relaxed/simple;
+	bh=f8e0Fnj0VJy3IlG1lJqRKPLxR1n5C5Pnk8GZEKpjirM=;
+	h=From:Message-ID:Date:Subject:To:MIME-Version:Content-Type; b=TuPSxvJN1f/0f1MrvQTxpR5rqkIYD6wlWMcOMEEad6jlR0IKoJavlb9UWREGlU/zw/88Z0digeXFFiljZpmTWDKJBGrK+b9Ph5A65GZRvqjJdc3xv4djybq6X2TiHlQOvIatKEndreT9YpQbUTinYhpcszb6arSKzfoQlMD4hiY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh; spf=pass smtp.mailfrom=cf-bounce.bugs.sh; dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b=IYD9edtu; dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b=Pr3CmNwc; arc=none smtp.client-ip=104.30.16.142
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cf-bounce.bugs.sh
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b="JvbWdbaT";
-	dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b="gWettobn"
+	dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b="IYD9edtu";
+	dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b="Pr3CmNwc"
 DKIM-Signature: v=1; a=rsa-sha256; s=cf2024-1; d=cloudflare-smtp.org; c=relaxed/relaxed;
 	h=To:Subject:Date:From:Feedback-ID:from:reply-to:cc:resent-date
 	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
 	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
-	:list-owner:list-archive; t=1787834612; x=1788439412; bh=/SyfQl9CLBwpujeN1/
-	3FRGnSEmpv2gLnAd/W66Uu8KE=; b=JvbWdbaTzivFYPSs6u437zroZSh3NItJYhR/rljuOu2lT
-	ncVHGtsxwCa0KO0GW80RS5ymnwoR7k1vZ3QPOJ/cwm9bfyIbxl4bZjFeafZS44tiKblQ1qJdvXZ
-	7LgvOMGkR7ly94lZqmTMK6vrH8sljraIP3AW2Qwx7Pq+4M3dwLfOfhSFwWDfVMjqfcAjNdXfc1B
-	iJeFXqvJa59xZNUoVkXbXuwUMi6H0/+3EwS4hnu0J0cg1gCJiCu7uHV6shThwR3uTTmMwcmVg0w
-	eqJq/6/6+3Q2MISwiHYrCriQBpzbwGa4THe94nsxkSmin6fQ0ZD7fOeLfq5A8lFaz9hWz9fA==;
+	:list-owner:list-archive; t=1787834621; x=1788439421; bh=ybdv1l55cYdaAZRHPa
+	yzjZTPrUKjnSWWBRLovv9blPg=; b=IYD9edtuT6rCC8EMn9qcH6zNzrVCF2w12SNAxT38Jzyqy
+	fVGyjl+L0OH58go9mFLv9Cil1oAxP4DUNmB12EczeTk5LDpFsRJwpN92MN+Z31i8z5Rv45v0PVq
+	rrMdxGxImGWz/iwsrBSveNUzMauvSbn9Wn2wwUaNhMMzrQ9zGLsohWWaMqDPvC/nG5MqjDLPBc2
+	qZsFkEC483ze8ROPiU94uI8yeL55g9krup3HL9XrP0s6luL7bs911zvkoBXTLkjzFWE5Lr4RTkh
+	pGNmiFOb4JPTrHbBOY34rr9nIK86Psg3a75oytmVpOFrnAtGIrwJExG7ZFwrc/voKbkzc2oQ==;
 DKIM-Signature: v=1; a=rsa-sha256; s=cf-bounce; d=bugs.sh; c=relaxed/relaxed;
 	h=To:Subject:Date:From:Feedback-ID:from:reply-to:cc:resent-date
 	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
 	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
-	:list-owner:list-archive; t=1787834612; x=1788439412; bh=/SyfQl9CLBwpujeN1/
-	3FRGnSEmpv2gLnAd/W66Uu8KE=; b=gWettobngGjLSU8VEBV+aJ6ShVcfeuQVfZWfQpG1msIMh
-	pQXbdvUwznHkbj9BesIg6lLWao0omEsMtGVgdTPWnQ5a1NK+rp6Aa/htdlgaoq/yOAE9MtdhYzO
-	EkdEkBRVplb4MBkvMvOmJu1tth8R7pym2HuqUKaisjBlyiAW1wpebgyX0UvBbbD3ELX/KIwvfQs
-	VACA8Ac1dRaeGBwM3M2fDxaCMYuPLwGnR6Qfhmzxa5SfASOQ1Gu2DUfJYtDbVSr55m2JKWBO1xv
-	VFh/LE9uQCD6g22pwF7Hw1nr87G7JBH+uhcyETTwVDQ3sUjGZJ08gg7FW/ua8oTiIiGIvNNg==;
+	:list-owner:list-archive; t=1787834621; x=1788439421; bh=ybdv1l55cYdaAZRHPa
+	yzjZTPrUKjnSWWBRLovv9blPg=; b=Pr3CmNwc9pwp3KSM/WdtxyNquuLeCyolh1+Vd8/OyI3w/
+	qoYnHKnoOSsyZnYJr0wJ+zcI+/B8lylgrhYRIY46Whb5RD4Mwiw+W4LDUwxoz1DF2p5UK3uLc+f
+	JZ5XXHbIUsec5+nDYmfpoksSZD+wGqkqt3b2mTx3vwZ6WGvsXxGr3ZdfRhC8vUL0Lv+1eSMQBL/
+	8yszBczNEU5B/ZhQQJGkKZ2lCYbUNwhVzEm0Bzzb5b5VicEX1se1MnezCHnaRNWj2TzzNWh2wGG
+	jtsPOPD951zptRjqiRiC9CuAAg72shGyPKuYIgbUk5xRz5Wwl6mW9BjYHTdmw155fSHdn7ZQ==;
 Feedback-ID: bugs.sh:5:6:Cloudflare
-From: co <co+c25629c98ba36ebe@bugs.sh>
-Message-ID: <f2Kf9GYn1lKR5S1dbvGVtykMxK1RlgP5z8sW@bugs.sh>
-Date: Thu, 27 Aug 2026 12:43:25 +0000
-Subject: [BUG] drivers/video: use-after-free in _copy_to_user()
-To: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, "Simona
- Vetter" <simona@ffwll.ch>, "Helge Deller" <deller@gmx.de>, "Petr Mladek" <pmladek@suse.com>, "Thomas
- Zimmermann" <tzimmermann@suse.de>, "Geert Uytterhoeven" <geert+renesas@glider.be>, "Song
- Liu" <song@kernel.org>, "Biju Das" <biju.das.jz@bp.renesas.com>, "Oleg
- Nesterov" <oleg@redhat.com>, "Andrea Righi" <righi.andrea@gmail.com>, "Andrew
- Morton" <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org
+From: co <co+1875dd47169bd757@bugs.sh>
+Message-ID: <eI5CjpXt3iSkALGbLLgJa6Pj4lq2BbU7Fmjj@bugs.sh>
+Date: Thu, 27 Aug 2026 12:43:33 +0000
+Subject: [BUG] drivers/video: out-of-bounds in tile_putcs()
+To: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, "Helge
+ Deller" <deller@gmx.de>, "Thomas Zimmermann" <tzimmermann@suse.de>, "Simona
+ Vetter" <simona@ffwll.ch>, linux-kernel@vger.kernel.org
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -58,8 +55,8 @@ Content-Transfer-Encoding: quoted-printable
 
 We found a bug reachable in:
 
-    path    drivers/video/fbdev/core/fb_chrdev.c`, `drivers/video/fbdev/core
-    crash   use-after-free in _copy_to_user()
+    path    drivers/video/fbdev/core/tileblit.c`, `drivers/video/fbdev/core
+    crash   out-of-bounds in tile_putcs()
     commit  843bc34db94b
 
 Config, environment, the sanitizer report and a C reproducer follow.
@@ -70,7 +67,7 @@ Config, environment, the sanitizer report and a C reproducer follow.
     If you patch the bug based on our artifacts, a tag would be
     appreciated:
 
-Reported-by: co+c25629c98ba36ebe@bugs.sh
+Reported-by: co+1875dd47169bd757@bugs.sh
 
     Everything in this mail is validated by the reproducer below.
 
@@ -80,8 +77,8 @@ Reported-by: co+c25629c98ba36ebe@bugs.sh
     human review, so both still require validation before you send or
     apply them. Available on:
 
-        patch.diff  https://bugs.sh/b/c25629c98ba36ebe/patch.diff
-        report.md   https://bugs.sh/b/c25629c98ba36ebe/report.md
+        patch.diff  https://bugs.sh/b/1875dd47169bd757/patch.diff
+        report.md   https://bugs.sh/b/1875dd47169bd757/report.md
 
     This is an open science project. The code and the full set of PoCs
     are not public at this moment, as we intend to disclose our findings
@@ -96,90 +93,57 @@ Reported-by: co+c25629c98ba36ebe@bugs.sh
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
     Reproduced on  843bc34db94b
-    VM setup       https://bugs.sh/b/c25629c98ba36ebe/run.sh
-    config         https://bugs.sh/b/c25629c98ba36ebe/config.gz
-    poc            https://bugs.sh/b/c25629c98ba36ebe/repro.c
+    VM setup       https://bugs.sh/b/1875dd47169bd757/run.sh
+    config         https://bugs.sh/b/1875dd47169bd757/config.gz
+    poc            https://bugs.sh/b/1875dd47169bd757/repro.c
 
 =3D=3D Sanitizer Report =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-BUG: KASAN: slab-use-after-free in _copy_to_user (include/linux/instrumente=
-d.h:129 include/linux/uaccess.h:201 lib/usercopy.c:24)
-Read of size 512 at addr ffff88800dd12800 by task exploit/147
-CPU: 1 UID: 0 PID: 147 Comm: exploit Tainted: G        W           7.2.0-rc=
-2+ #6 PREEMPTLAZY
+BUG: KASAN: slab-out-of-bounds in tile_putcs (drivers/video/fbdev/core/tile=
+blit.c:69)
+Write of size 4 at addr ffff88800c622000 by task exploit/143
 Call Trace:
 dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
 print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
 kasan_report (mm/kasan/report.c:595)
-kasan_check_range (mm/kasan/generic.c:186 mm/kasan/generic.c:200)
-_copy_to_user (include/linux/instrumented.h:129 include/linux/uaccess.h:201=
- lib/usercopy.c:24)
-fb_cmap_to_user (include/linux/uaccess.h:230 drivers/video/fbdev/core/fbcma=
-p.c:211)
-do_fb_ioctl (drivers/video/fbdev/core/fb_chrdev.c:114)
+tile_putcs (drivers/video/fbdev/core/tileblit.c:69)
+fbcon_putcs (drivers/video/fbdev/core/fbcon.c:1392 (discriminator 3))
+do_update_region (drivers/tty/vt/vt.c:656)
+redraw_screen (drivers/tty/vt/vt.c:1008)
+fbcon_blank (drivers/video/fbdev/core/fbcon.c:2315)
+do_unblank_screen (drivers/tty/vt/vt.c:4756 drivers/tty/vt/vt.c:4724)
+vt_ioctl (drivers/tty/vt/vt_ioctl.c:276 drivers/tty/vt/vt_ioctl.c:381 drive=
+rs/tty/vt/vt_ioctl.c:743)
+tty_ioctl (drivers/tty/tty_io.c:2792)
 __x64_sys_ioctl (fs/ioctl.c:51 fs/ioctl.c:597 fs/ioctl.c:583 fs/ioctl.c:583)
 do_syscall_64 (arch/x86/entry/syscall_64.c:63 arch/x86/entry/syscall_64.c:9=
 4)
 entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
-Allocated by task 1:
-kasan_save_stack (mm/kasan/common.c:57)
-kasan_save_track (mm/kasan/common.c:78)
-__kasan_kmalloc (mm/kasan/common.c:398 mm/kasan/common.c:415)
-__kmalloc_noprof (include/linux/kasan.h:263 mm/slub.c:5362 mm/slub.c:5387)
-fb_alloc_cmap_gfp (include/linux/slab.h:973 include/linux/slab.h:1290 drive=
-rs/video/fbdev/core/fbcmap.c:108)
-vfb_probe (drivers/video/fbdev/vfb.c:459)
-platform_probe (drivers/base/platform.c:1439)
+Allocated by task 143:
+__kmalloc_cache_noprof (include/linux/kasan.h:263 mm/slub.c:5515)
+do_register_framebuffer (include/linux/slab.h:969 drivers/video/fbdev/core/=
+fbmem.c:502)
+register_framebuffer (drivers/video/fbdev/core/fbmem.c:602)
+ark_pci_probe (drivers/video/fbdev/arkfb.c:1051)
+local_pci_probe (drivers/pci/pci-driver.c:332)
+pci_device_probe (drivers/pci/pci-driver.c:394 drivers/pci/pci-driver.c:455=
+ drivers/pci/pci-driver.c:489)
 really_probe (drivers/base/dd.c:628 drivers/base/dd.c:706)
 __driver_probe_device (drivers/base/dd.c:868)
 driver_probe_device (drivers/base/dd.c:898)
-__device_attach_driver (drivers/base/dd.c:1026)
-bus_for_each_drv (drivers/base/bus.c:500)
-__device_attach (drivers/base/dd.c:1098)
-device_initial_probe (drivers/base/dd.c:1153)
-bus_probe_device (drivers/base/bus.c:620)
-device_add (drivers/base/core.c:3772)
-platform_device_add (drivers/base/platform.c:762)
-vfb_init (drivers/video/fbdev/vfb.c:525)
-do_one_initcall (init/main.c:1347)
-kernel_init_freeable (init/main.c:1409 (discriminator 1) init/main.c:1425 (=
-discriminator 1) init/main.c:1445 (discriminator 1) init/main.c:1658 (discr=
-iminator 1))
-kernel_init (init/main.c:1548)
-ret_from_fork (arch/x86/kernel/process.c:158)
-ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
-Freed by task 144:
-kasan_save_stack (mm/kasan/common.c:57)
-kasan_save_track (mm/kasan/common.c:78)
-kasan_save_free_info (mm/kasan/generic.c:584)
-__kasan_slab_free (mm/kasan/common.c:253 mm/kasan/common.c:285)
-kfree (include/linux/kasan.h:235 mm/slub.c:2705 mm/slub.c:6405 mm/slub.c:67=
-20)
-fb_dealloc_cmap (drivers/video/fbdev/core/fbcmap.c:151)
-vfb_remove (drivers/video/fbdev/vfb.c:489)
-device_release_driver_internal (drivers/base/dd.c:1349 drivers/base/dd.c:13=
-72)
-unbind_store (drivers/base/bus.c:244)
+__driver_attach (drivers/base/dd.c:1292)
+bus_for_each_dev (drivers/base/bus.c:383)
+new_id_store (drivers/pci/pci-driver.c:249)
 kernfs_fop_write_iter (fs/kernfs/file.c:345)
 vfs_write (fs/read_write.c:595 fs/read_write.c:687)
 ksys_write (fs/read_write.c:739)
 do_syscall_64 (arch/x86/entry/syscall_64.c:63 arch/x86/entry/syscall_64.c:9=
 4)
 entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
-The buggy address belongs to the object at ffff88800dd12800
-which belongs to the cache kmalloc-512 of size 512
-The buggy address is located 0 bytes inside of
-freed 512-byte region [ffff88800dd12800, ffff88800dd12a00)
-The buggy address belongs to the physical page:
-page dumped because: kasan: bad access detected
-Memory state around the buggy address:
-ffff88800dd12700: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-ffff88800dd12780: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
->ffff88800dd12800: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-^
-ffff88800dd12880: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-ffff88800dd12900: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+The buggy address belongs to the object at ffff88800c620000
+which belongs to the cache kmalloc-8k of size 8192
+The buggy address is located 0 bytes to the right of
 
 
 ---
