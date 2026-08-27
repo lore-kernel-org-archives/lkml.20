@@ -1,160 +1,177 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDF5E3DB303;
-	Thu, 27 Aug 2026 09:09:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787821768; cv=none; b=NYh2pJaA7EcCVIljUfqk1CwIs0INS1KhcRQTBAojMhy/ReULMdAiEk3q9lFk1vmle2695uJXLwONmuNu8mYyBdXEtg5gRHFFCAgv5D2fFtraYtzj3zSsLqLrB7LCkutOz0vNtDesrtuUiQS3cDrrxfxjvHxC5QpbCFsDstczhXE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787821768; c=relaxed/simple;
-	bh=nj08DtLLOo31GmcfAdM92lCdx6IL9ddHq0eaPzUjsRI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=i4VhZsMiuVyCid2xcsyOS1hSaL6nGUZyUkR4s4w/E7bZ4W/qVm8X+xhsiCVoZQUT5wne9vEgwInlytdf+m2x3O3kCrUmslrVJgq2t09ie7xzP1cZWRprqgE8/eXEnyWdnHj8S2jWcxbTu0Ip7sBpAnsff+lZoW95VMDisC0KTFk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZFiuJ2aK; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE3E93DA7D1
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:10:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787821837; cv=pass; b=S7eFAwaFCDL+Ol4Cdd4aarzLWqWImdt8dCcrjBSjs8NCt4PG1F6wFjNjqoSbyGjRl0/KL/rD6qo8ZZGfZ9dK+22z7aS3qQtYdTMGqnqzOU2B96QNqlpPcaVbicUT3OGdAzQ8toqqSwLLB09yFvDMC0+zY6iaPNBlLAIvDiegNss=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787821837; c=relaxed/simple;
+	bh=ffk7yhkMn5yWaeiktxqoQY7y03JdGLhOcXTrnlS50cM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=YeuMtD66T9gznds3dqfIoejnA0EsCe9IkGlHy8MSS10Rzztke4rR+6PUOAFy20S1ni65sl16BFD50zgVaEhQ4S4I1UXs1eythHbPkaglFoc+Cos9pS9JA+QwDrfLkXmyAqBMM/ampOmbmTsMKhb9LrZ9qgsl1dZtZkgEE309N9s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=VGYA5+mG; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=eZMjUpwT; arc=pass smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZFiuJ2aK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F71A1F000E9;
-	Thu, 27 Aug 2026 09:09:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787821767;
-	bh=RpGiMBMHM5Gzcxil2Rgh4TexxSKnGvufNkrztx+joGU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZFiuJ2aKTkIPolcpnhdNN4ZOC0buG+VC/7mPcURAZVx/F9rT2gBbpwQJJXMWr4Nlm
-	 1dgzM4NJthTfp3ZG7NLeYjCPkvVydK8hJGR/4IK8wGTlJzncBIIYNfAQLG/51lIvXC
-	 WMPvsWYMUx4LbdLfjkLSrm0Mg7lcmXd/3bno4cSpOVcUV3xFXnsrjcBpI/S3A/Pk5T
-	 DEI6NaSXhOUwM2JtYiy92dwxr9GQ0NxWs4OWexmA6ILGV6dkBoG25PiEh1voDngCNg
-	 vcrw2JJZ9sFm7WbCEXq2CW/pdL8ShXEkZpNx2fo17ugyLZqOTIj21OCni6H+Xf2fb/
-	 h1pUsqwaSmLFw==
-Date: Thu, 27 Aug 2026 12:09:13 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Barry Song <baohua@kernel.org>, Dev Jain <dev.jain@arm.com>,
-	Hugh Dickins <hughd@google.com>, Jann Horn <jannh@google.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
-	Jonathan Corbet <corbet@lwn.net>, Lance Yang <lance.yang@linux.dev>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Michal Hocko <mhocko@suse.com>, Muchun Song <muchun.song@linux.dev>,
-	Nico Pache <nico.pache@linux.dev>,
-	Oscar Salvador <osalvador@suse.de>,
-	Pedro Falcato <pfalcato@suse.de>, Peter Xu <peterx@redhat.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Usama Arif <usama.arif@linux.dev>,
-	Vlastimil Babka <vbabka@kernel.org>, Zi Yan <ziy@nvidia.com>,
-	linux-doc@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH 5/6] userfaultfd: decouple fault reason from VMA flags
-Message-ID: <ao_-uZrrsVX9lzbz@kernel.org>
-References: <20260823-uffd-vm-flags-v1-v1-0-3086981b33cf@kernel.org>
- <20260823-uffd-vm-flags-v1-v1-5-3086981b33cf@kernel.org>
- <5bb86e34-6196-4b50-b553-be2ff7c1fa32@kernel.org>
- <ao_sCh5zP0IC9H2S@kernel.org>
- <e8aaddde-0a07-4197-9874-5ca0ea8af43f@kernel.org>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="VGYA5+mG";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="eZMjUpwT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787821834;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=y2mD1VpOn6zsGqEXcVvc0XCXSBCkdT2KooQ2hM2MFC0=;
+	b=VGYA5+mGRdLdVBKR7TU7ohB+NpXM/npPY0E/eGnr9Z3GZERS+nywDkPGEjUuBec071yKSx
+	9QBxeYcXiwkpqhZOgLMhdTKu6ucMJundE+uIDk2BSGMgs29ZFpE+MBVa+jje72mMjLB5je
+	0Ka/vQKDoiuBrozg80uFtEMQ0+4cEfE=
+Received: from mail-yx1-f71.google.com (mail-yx1-f71.google.com
+ [74.125.224.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-619-H9xG73q_PFqh1Amd2XRMlA-1; Thu, 27 Aug 2026 05:10:32 -0400
+X-MC-Unique: H9xG73q_PFqh1Amd2XRMlA-1
+X-Mimecast-MFC-AGG-ID: H9xG73q_PFqh1Amd2XRMlA_1787821831
+Received: by mail-yx1-f71.google.com with SMTP id 956f58d0204a3-66c70f73f8dso1273972d50.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 02:10:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787821831; cv=none;
+        d=google.com; s=arc-20260327;
+        b=As8b1mX/M9q4pTn/6rS7yvqYerTlMgsn//SRB9/R479TPBl7SWR75O3nYSD41eVxr5
+         d/DJ5kEABvUsXZiMp2+QETPOd59r15M4h5ijN5M/dBHEbGduP/pAOUBElgcNPK3L0LQ/
+         1JwdEgOTeNDJp4c7VXYsZ7OhPqCma8jagNgKqmjF0qFFUs7T8YrK7ThuhLcvqAqaMYor
+         1kcFz35aFRtx8J5vISocj9fu1e+ck9r4wp6uTQpHz0HTZvNmWP+VwZ7wkpjIe7a1UmrR
+         l0Emy+CC5rgRe2Nckh56EZ9wTvRBFdVfJCOc1Jj9rW8zokONWRlWF6eAF2e+m0t9gll7
+         x7bg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=y2mD1VpOn6zsGqEXcVvc0XCXSBCkdT2KooQ2hM2MFC0=;
+        fh=nrFhkHu0CavEOFnkappOsgHa5FDhGPQSS56mdMOoqFo=;
+        b=JU10uwwQW2EnLFMvg2On60xxZmgSjaPNJQbABx39LYM+4lblZxGZj8qFByHFDRvRsZ
+         1w2UdslTlMiZR4mobdRs45Tacgvzky+UxInO+fLPaD+RafRNksKjBPDyxg/+006t9/d3
+         gL5NrWfG50uZ2rMg2k5EepwgAxPoq44oAXyDxnu7M19G32kbawE87pYHRH3zbqPJmJxf
+         1gusFcHy9dX9gBikyfK7Kh5LtXxHstQsgyxijFBMGpqvt7RSslbdzyDbetotlntM6O8e
+         BABGxoW5v23LZszRGIQ4hFa7i5O7wBiWU4lJPDt1h5U9d7G6vmJGQKXgxFZrXTrz9WZk
+         dNcg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1787821831; x=1788426631; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=y2mD1VpOn6zsGqEXcVvc0XCXSBCkdT2KooQ2hM2MFC0=;
+        b=eZMjUpwTyQT8QxlQyMwn6Bkq1l1ArbeNL1kBu7q/cN/3INtustUeSti1RQSczIPjvB
+         u1UcTkaSoO/5te6i39tUVmu0rx+eUbQuoaxfUQ4FBMJ79FFKOLYeYdrpLL1dX08XiJYC
+         999Fp0LEt4fYTI5fUvB/ON0BtCD0Ha+vKHwRebLpY30EfaSTrbmqbdTyB4OAfjY9vXZE
+         y56W6kZIkxA0rKpmMHU8lSuhXi9wbxdvxkQfdePlGraTnz3kV4SgUIR1un0S+PUvEb6x
+         f0O3vJ5GrA8jii8mnB0Eas76FW3EeWqSHgxAHTqbHhPJafFogwex+pmW37JQQrJZCgRo
+         B32g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787821831; x=1788426631;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=y2mD1VpOn6zsGqEXcVvc0XCXSBCkdT2KooQ2hM2MFC0=;
+        b=UoFN9M+pWewfEU2IyFgjxXw+aX903cgvpoEY8d33+s+vYFyzmmcKqni2e1Dr6XDULr
+         vTvQprtJjEOVerDwNtZOqV0rM/B1y5puDVUfoREO80VTChrZkAev0PB/QhKpa2LaKjZD
+         oH7DuR2+VEzhjFc5KWAJso6uptQtbQb0CZmgTrmAP1/Yg0cXsBpNnYDbPj63UcdIUKih
+         6Gjz85V88tx4X+jRM4/2i0M51YIgDuoE0Oc+YMstq0H9ESKojMcX4Ux193Azca69WY9q
+         2TSE0Oe5JhtxuQunyAQAqUsjltWs95b6Z1ljAnt6g5So8Rxn8VzGb0WZsoLW8/eG8tqc
+         59HA==
+X-Forwarded-Encrypted: i=1; AHgh+RoMvqSCrcFK0wsGHL+n1TInfw/17l3N4S4ZvFqtniyVJuHT12B0JzoXHzriUITkBBDNZvD6jvDCgUKWvPU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kOuXypSqhGJnlUj0UQKo4TZAaHpsMPPM0Lu9eYj9mWVDXyxeuP
+	wKlcyGhTJU8F9pQAmmqKrBPYnpADh2kWSdktmlSt5XF4QKUHXUhZQ/oOAcjDdPCgEi4ZdZwc4l1
+	xgCWcfOalCIBo57AJ5CaZb7cbixxD8TTEj12LoxJ3slCFhDNGF6yngg3pvjSpjTnYUNBKZXT/Z+
+	nqPCoo1pVyS6ld55ySenzxCiqmaSFRk3iMNoTcVFUI
+X-Gm-Gg: AR+sD11DABUqWcL+7ocmRP8ydHZiAnjt3dEBcpnCewfroPLx+YlpsHLL6yR+RHrppuJ
+	wxEDBciwHEDQAykV4JIdCfS4+mGNnW8MtWaBCAGdm1iU11/9joIAn7NOp9UfFinmhqJyfySBzsU
+	envd5Ozo3um7VPvshCWGjEcGJZZ9hA8PaiGJJF8/43paE1/b0V/lduDaj9aUFXdFvd/WeCJEpuf
+	oj2dDt9hSUOWR4FkOh5KRJZR4DZHbfZgVjkui6O+QOL
+X-Received: by 2002:a53:d00a:0:b0:66d:207b:a0c3 with SMTP id 956f58d0204a3-66d256f8603mr4641443d50.16.1787821831317;
+        Thu, 27 Aug 2026 02:10:31 -0700 (PDT)
+X-Received: by 2002:a53:d00a:0:b0:66d:207b:a0c3 with SMTP id
+ 956f58d0204a3-66d256f8603mr4641433d50.16.1787821830908; Thu, 27 Aug 2026
+ 02:10:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e8aaddde-0a07-4197-9874-5ca0ea8af43f@kernel.org>
+References: <20260804023335.2682101-1-tao1.yu@intel.com>
+In-Reply-To: <20260804023335.2682101-1-tao1.yu@intel.com>
+From: Andreas Gruenbacher <agruenba@redhat.com>
+Date: Thu, 27 Aug 2026 11:10:19 +0200
+X-Gm-Features: AcwNN1XG81zp5CJlHewSW_-zrnsK3_wAdrPX97RAd3puwNxaVd5zvf-xZxXStos
+Message-ID: <CAHc6FU7_gUr3wHY-78qcENsH28v2dd_HcpFttkzSqCfj+ORcYA@mail.gmail.com>
+Subject: Re: [PATCH] gfs2: mark the VFS superblock read-only before quota cleanup
+To: Tao Yu <tao1.yu@intel.com>
+Cc: gfs2@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	syzbot+cb79de2cc8b76fbf474f@syzkaller.appspotmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Aug 27, 2026 at 10:10:24AM +0200, David Hildenbrand (Arm) wrote:
-> On 8/27/26 09:49, Mike Rapoport wrote:
-> > On Mon, Aug 24, 2026 at 04:46:14PM +0200, David Hildenbrand (Arm) wrote:
-> >> On 8/23/26 14:17, Mike Rapoport (Microsoft) wrote:
-> >>> Introduce enum uffd_reason to define reasons for user faults rather than
-> >>> overload VM_UFFD_* VMA flags for that.
-> >>>
-> >>> Using a dedicated enum makes the code clearer and decoupling the fault
-> >>> reason from VMA flags clears the way for moving the uffd mode bits out
-> >>> of VMA namespace.
-> >>>
-> >>> No functional change.
-> >>>
-> >>> Assisted-by: copilot:claude-opus-4.6
-> >>> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> >>> ---
-> >>>  include/linux/userfaultfd_k.h    | 16 ++++++++++++++--
-> >>>  include/uapi/linux/userfaultfd.h |  6 +++---
-> >>>  mm/huge_memory.c                 |  6 +++---
-> >>>  mm/hugetlb.c                     | 10 +++++-----
-> >>>  mm/memory.c                      | 10 +++++-----
-> >>>  mm/shmem.c                       |  4 ++--
-> >>>  mm/userfaultfd.c                 | 30 +++++++++++++++---------------
-> >>>  7 files changed, 47 insertions(+), 35 deletions(-)
-> >>>
-> >>> diff --git a/include/linux/userfaultfd_k.h b/include/linux/userfaultfd_k.h
-> >>> index 45355bdb4ec7..f401623f315d 100644
-> >>> --- a/include/linux/userfaultfd_k.h
-> >>> +++ b/include/linux/userfaultfd_k.h
-> >>> @@ -9,6 +9,18 @@
-> >>>  #ifndef _LINUX_USERFAULTFD_K_H
-> >>>  #define _LINUX_USERFAULTFD_K_H
-> >>>  
-> >>> +#include <linux/bits.h>
-> >>> +
-> >>> +/* Fault reason #PF handler passes to handle_userfault() */
-> >>> +enum uf_reason {
-> >>
-> >> Can we just call this "userfault_reason" or "uffd_reason" ? Maybe the latter is
-> >> actually what we want?
-> > 
-> > userfault_reason sounds better to me.
-> > 
-> > It describes what kind of user fault we are handling and the 'fd' part has
-> > nothing to do with it. 
-> > We do use uffd as a short name for the subsystem, but still most if not all
-> > userfaultfd "external" APIs use userfault_ prefix.
-> > 
-> > uf_ was an attempt to make it wee shorter :)
-> 
-> Yeah, I got that; while uffd is a known acronym, the uf_ not so much (and also I
-> wouldn't suggest it to become a thing, lol :) )
-> 
-> I've been wondering for a while whether it really should be called
-> 
-> 	handle_userfault()
-> 
-> And not instead
-> 
-> 	handle_userfaultfd()
+On Tue, Aug 4, 2026 at 4:34=E2=80=AFAM Tao Yu <tao1.yu@intel.com> wrote:
+> During unmount, gfs2_put_super() calls gfs2_make_fs_ro(), which shuts
+> down quota/statfs activity and then frees the quota bitmap via
+> gfs2_quota_cleanup().
+>
+> However, gfs2_make_fs_ro() did not mark the VFS superblock read-only
+> before that cleanup. As a result, later inode eviction could still
+> enter the deallocation path through gfs2_evict_inode() ->
+> gfs2_dinode_dealloc() -> gfs2_quota_hold() -> slot_get(), even though
+> sd_quota_bitmap had already been freed and cleared. That leads to a
+> NULL pointer dereference in find_first_zero_bit().
+>
+> Set SB_RDONLY after the final quota/statfs sync and log shutdown, but
+> before gfs2_quota_cleanup(). This keeps subsequent inode eviction from
+> re-entering write-side quota/deallocation paths once quota state has
+> been torn down.
+>
+> This fixes a crash reported by syzbot:
+>
+>   Oops: general protection fault in _find_first_zero_bit
+>   KASAN: null-ptr-deref in slot_get()
+>
+> Reported-by: syzbot+cb79de2cc8b76fbf474f@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3Dcb79de2cc8b76fbf474f
+> Signed-off-by: Tao Yu <tao1.yu@intel.com>
+> ---
+>  fs/gfs2/super.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+>
+> diff --git a/fs/gfs2/super.c b/fs/gfs2/super.c
+> index 4d854556b5299..6b5457f965673 100644
+> --- a/fs/gfs2/super.c
+> +++ b/fs/gfs2/super.c
+> @@ -565,6 +565,14 @@ void gfs2_make_fs_ro(struct gfs2_sbd *sdp)
+>                                    HZ * 5);
+>                 gfs2_assert_warn(sdp, gfs2_log_is_empty(sdp));
+>         }
+> +
+> +       /*
+> +        * Once the final quota/statfs sync and log shutdown are complete=
+, the VFS
+> +        * must see the filesystem as read-only so later inode eviction c=
+annot
+> +        * re-enter deallocation paths that still expect live quota state=
+.
+> +        */
+> +       sdp->sd_vfs->s_flags |=3D SB_RDONLY;
+> +
+>         gfs2_quota_cleanup(sdp);
+>  }
+>
+> --
+> 2.34.1
+>
 
-The 'fd' part here sounds really weird :)
- 
-> Or maybe even better
-> 
-> 	handle_uffd_fault()
+Thanks for the patch but no, that's not it. Instead, I've added this:
 
-That's somehow tautological, but maybe using uffd_ as prefix would make it
-a "subsystem namespace", so tautology won't be as blunt:
+https://lore.kernel.org/gfs2/20260827090637.676820-1-agruenba@redhat.com
 
-	uffd_handle_fault()
- 
-> And then have
-> 
-> 	uffd_fault_reason
+Andreas
 
-Could work, yes. No strong feelings between this one and userfault_reason.
- 
-> ... but just a thought.
-> 
-> -- 
-> Cheers,
-> 
-> David
-
--- 
-Sincerely yours,
-Mike.
