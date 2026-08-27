@@ -1,166 +1,139 @@
-Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25A6B3DC4D7
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:11:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787821902; cv=pass; b=RcfMmaiz7eP5ujt8qNb+bexBmwUOBOvOevlGRdPW8xMwZO0f7ihaHsjY87cBL/EeSpioZXSNmmhdT+OzyRPOaFl0eKpWlbYQ7AQQh0zBGuxiyyO08VzTyRAUaLZEFkc8AClh6Iscb388LDguf2OSqW2OTLODBpgA2zzGify24Iw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787821902; c=relaxed/simple;
-	bh=5A5U1mywmc0grhiTqrdHhJFn841cGWgqTfm0zuSxEDs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=q3z7RpkNeoxczeXJpj3zfDek4lJWR+h3K2eKpyR/yES/044toJgMGtuYlwwSn3dHHu1z/w6qYYsjmZW4nwl3cJRSPc52yzx3J8y5nPzA0RMr+p7M0OiwBL9TKXHf6U280f4mE96l9Zi6t4ohB26Fmqi2onUzz5I3srQRQvUq0+E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xq/Ogjk7; arc=pass smtp.client-ip=209.85.160.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1301363094
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:11:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787821910; cv=none; b=cDC8sk3KDtMR+i+A1zgEmxdvRVtMGkzmY427fTirecOiRHgLURE/9ZPidXG8qb71nP6W7w2S4UrFO/DJn47Ut8Jt4mIn/daxk/U4iiOIdJsXm4PugVV9kZJxPUJjRQ7Vpl/NJ5wrpuny6hecH//N5wHEA+Fsowwnpn9JJm0x96o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787821910; c=relaxed/simple;
+	bh=UShlGlM7yf15Wa0oAMuYJOAACgtpp+GFjTVEVwTvaso=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ni6SlplglwSmul6pgjPdxPwTJn9hcn8jIhWMJ95GeZPhJrerl+7KRvjQLvd1XD7n6euSL9pI7gRR+J1SKBuNawdtJYEBh/ZBGEPOSA3i5gWOgcZOWQwWwROtZ1OdaWyOL6AYBh2i711AJ5lOldQj9TUjqlQoT57XSD4hL4loWM8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V4eMOnbC; arc=none smtp.client-ip=209.85.216.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xq/Ogjk7"
-Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-52de178a66aso13677471cf.3
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 02:11:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787821900; cv=none;
-        d=google.com; s=arc-20260327;
-        b=deMDMygQj/xTDvYkcpF3TXxAquzwTUnCDHiSpCUlPZj/L85oXSrMhknYvhQ8vw6pdz
-         eEhzOkrBa9ETAks8yp6kHECZnRrQinCWl+SMS8eXkdUMNLupjKMa3mCXrqNEHHhiD+lO
-         6uCT+p0htiAimnFcuT267BT/yhgq9tXy3/wPhie1M0SQVejhKZqLEPldZWUSgVPPfEP3
-         9vLSLRmJWXtLMwPxjN/jgr3/jnF7BRZf2G4W/CtrCZvE0eJvpot3dpg21hWSDFiVs131
-         YWHuEwe2TjzEKzrolw0WO4fJaFYIV03lAOceQd9cs2V9hTd6RYMrL9QHu5+v/vnF+WxO
-         dTZg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=5A5U1mywmc0grhiTqrdHhJFn841cGWgqTfm0zuSxEDs=;
-        fh=Fw+4O7VvhE4y0H18j9G2GM6jZm7ZcP2wN3p5B+DAcYA=;
-        b=OwzxniybE0Mxd/rzuog5/3us21kGDmQHKmmFCEOHCIXdM65NNQdAU+TPAHME8k6Hu8
-         vNcvy3+iODna3mmVmSy7eol0jwRXFhK6YvYnYjZCib2OwESYtKyA8LWnVkKj+jEMsWcq
-         MS8rej2/8TH2dEkObbMNSauPkx8MkCLMr32lKCu4YqyEYKXFeTr4lYFz8Vxot3+5NqA2
-         PdkabxpkVJ6zEBntvCUUT0wwt93oIbMqayluELDfal5WOPWrjo+suOkqJjnuBvMkLrMy
-         Nr/K39R2LOgj5bf1cqT6iGvUCo9u0n13SNveReRD1BZAJ3LHuVjJBs55tUGu/jLV0Syo
-         kZbA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V4eMOnbC"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-39675172593so1711843a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 02:11:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787821900; x=1788426700; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5A5U1mywmc0grhiTqrdHhJFn841cGWgqTfm0zuSxEDs=;
-        b=Xq/Ogjk7CMmIcC79QocK2qZ+d53P+cINMf/6qctDL9NZ11rgmUOsoFMM4VZUDc1mRJ
-         r5yNFsR/IPPi9wav/BtoYJXGTr1toNBuKOsNEQuqg7YmBifLpsxsl3VdV0GYTJWYkuEw
-         24ePTpXojFaGDZsaxRfWDVMF5IQnS3jQDtk6lDbM8dt1hhyIW4iJ73CmsY2dVOl9lqPq
-         5NBI+l1ODO/ElSQOUXOYeDPCQHe6h8UVwiwAyBJ3HlpdVxWrPt5C+aRuZBDvn+hNucu2
-         Xfgd4pnz1NNOhCyAcOZsdkwo7kZXVDSblGOSEF+grkUyXJxyXuLrKbVTKXUHcq8qBAoP
-         /yIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787821900; x=1788426700;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1787821908; x=1788426708; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=5A5U1mywmc0grhiTqrdHhJFn841cGWgqTfm0zuSxEDs=;
-        b=cG1C86HrLt5f/MZ/2waLItYYFsKcCd9RCum18mGBnLuYQVU/pmFSfY/VfSvHRzNhbQ
-         uDB4wkvF3+maAX6u0syRy7RUtjl5J6aasIsZPqO1BKd7Bl3b8j1TMXbFB0QV/+HubH1n
-         kEOyveSdjgQYwtcCls6EFqsZCBFHdnSCTuh2ybUpETAXzlIFyIcZxDjKVwl8vbZQsmdw
-         giMtpZn8IsreNn8TuF9Efm1rfOiAAgQeWnZJzkSbJKmFGAp/p68WLHc55V8BM8DWxPRB
-         dHb09UphipDXktBQYjPa93/JV1qYSRsWp7inwO5z8qEgRazdiN5e1+UQtdQ5Z0wwYHtB
-         A45w==
-X-Forwarded-Encrypted: i=1; AHgh+Rr021bkNJdEBHKLpCuLlpA1wUVx2Xs8HnMrvuJ3rta69i2OL+a+fPXuwITQzpAOxyNnlDKUlCalPf9EB0M=@vger.kernel.org
-X-Gm-Message-State: AFuF++lqJefHq5hiQSFFTB7606L7Tkfo8HWe7mInKNACHZKQSpsdkEAe
-	rnrVIIMkIkGfSInMQ3WTzcB30JHY8Mw5/XE0k+q2KpMdkUvGF+AW5EfSreUSixIQVe0eSs+YicW
-	JniMgqWtlAp1ngt4zmW/wAV61vOF3fqA=
-X-Gm-Gg: AR+sD11wYk6g9Oa6SDt3sLANZ8OAv7TYUkv2HN9TEUuR77F3TWnFzuZakH9Z/bQWHMb
-	2skpPA2knEMadPhuggwl6nb5hzD3mGgaf/Of/jgASSJHQ07P4l7kwsR8g0jSjb9A2CFoEzoCgY0
-	LjS9mE7WbwTWXUyPhVh5KC0s6ypVv6bGLAjfGrg7+gZPf5mTmFGLCeh7o3WTmV1tYA3r2rW/sbJ
-	y39L/Gyrte7fscvgps+/VpRIa3NcQvJE0//LJ4dn2v3ahnxMyl/l1KYNbfHqsrpOWREofC9VuKP
-	FGrO/qAGtsH4n7dPhsqDVAw+a+/Mc5A/G8o31iKJi8o/a8u+s+Ni7RM2
-X-Received: by 2002:a05:622a:5a19:b0:51c:2022:cef5 with SMTP id
- d75a77b69052e-52e42344bd3mr160664931cf.26.1787821899586; Thu, 27 Aug 2026
- 02:11:39 -0700 (PDT)
+        bh=mg/h6fTjci5ec1PS11v10182m44lAJ1lV6itb9+QYfo=;
+        b=V4eMOnbCCjJ08Sh6/9EkgRR+08DyJsdAFIxRHeAPlgD4ihpq+SvLS+vhtmgntLOKgy
+         O3lUzV0iDrD5u4lVY2zEXmPQWB/UE5PColicHQfxLXXcnpIwwtpff4+ILNqNYrLrbaw+
+         9DracsoAzHAmA6Z/+iHHlgJIcicodl91+txeXTU1uPIE0h2TrS+V+MII0jbVebjON7nm
+         jaWlMNGGZ+PGGmtU2tRjcmO5P/2+ePvYE77ivsFtLfZD2MrgKymPQK2kdzQZsqJD9WRX
+         ICINdbfWdOPnL01iT2j9rHddc39xOa4jl4IVt8Lla/YSMcaXc/2kejDxM9o39t6kCFh6
+         zYeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787821908; x=1788426708;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mg/h6fTjci5ec1PS11v10182m44lAJ1lV6itb9+QYfo=;
+        b=nL/V2KeW5NkJdw+7zZk2hS4RjhUkCw9a5BPnAaPugiNMpwa5/S9yWYGF5lh/0liS5G
+         XSNF4uqNp0FLc1iNHf5X8pZpkgkHixrDDYuCgAulzG7Rv8M6rJ1B3n/W9m+rbv4K7Y2x
+         fXnB/5r/u30UBhiX4VEm5jUXSoW9gaZE7nZQkhvGsPAFY4oF+QNO5kpmS+6UWvjGlhSo
+         w4yFPSh8phLiFrrO3vH0u62i5VcSdhsmE171W0zWVnhtTBoX+UyvCeBQp2bLP1tK6oRC
+         dAm7xiHxKGCi0ijfDf/XehNE5/VV/43511DjLr7ZOgEr9iLFVYqVJ1x/H2W+EjyFYE5E
+         tiYg==
+X-Forwarded-Encrypted: i=1; AHgh+Rp7mt+sBoqD2k5ZcVWYqcTSeHxsV+A9v7UTJIEdSJyIg5c5myiJaeR1aKRirUip0HjM0nDCuwu+nhPqkx4=@vger.kernel.org
+X-Gm-Message-State: AFuF++m3zLQmg8aFg9lhzbspezi71a/WzBy9k9d/sKGRkMu1/xYtlYWS
+	AcKW5N5C0hd1lTUWyhtzyZKy5ZWkkqYt/2dBk39f3nD72G/HxIgLKIpb29BfWmJv08Y=
+X-Gm-Gg: AR+sD131AjO1tfRnYCBVB/nReL/W1gIHowY0JkGoAlVnV0lURPk1NNbGrYvsaTF7Hjs
+	Shnoy/kefeSfR0CezJqu+G1W/HEeqOqJUe51AghIxmR3dDtR+tMofAbH5Sw35yd7hsiskyxYg42
+	tVxPJSyHibDQXxeyqRRqrGcTcuHxP0ZQGeHB39/SbIQQx7PsmTRjWVDtEVHVZ78AVmWCYtuYT40
+	BkG2e6rMh4MiKnab7GD5NKOhhPB1+lI3XvdYtJg/qp5yb4JDLhYocK1RvdTp+OUBCzay38gjaL4
+	d7pU434JThR2QICPCT48z4tFFA2pkhu/AAL/qhHKWbk5H4EM9xp+Kx5tnAA1JVGA3ku9jH46zI5
+	5ZujbOGCDn+13JQHq/7k77l7IijHNXd+FJ+bHDJdnzPSCsR1baTA8ZRCP7Vy02cy3NdlU1DX6Xq
+	keisJafQmuwgGxhE2FaXzjZe1cjzT2+88B17T6Kv3u/UxZQMHH7Dcsi9YZOoqeC8WF3GJ7
+X-Received: by 2002:a17:90b:4c8e:b0:396:65dd:4093 with SMTP id 98e67ed59e1d1-3966d44daf1mr22284412a91.14.1787821908265;
+        Thu, 27 Aug 2026 02:11:48 -0700 (PDT)
+Received: from [192.168.55.196] ([218.49.81.87])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b1992e05sm1959634a91.15.2026.08.27.02.11.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 27 Aug 2026 02:11:47 -0700 (PDT)
+Message-ID: <f85c60a0-81d7-41a4-9926-f69cf10222d0@gmail.com>
+Date: Thu, 27 Aug 2026 18:11:45 +0900
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260811072830.10028-1-seanwang1@lenovo.com> <anrzT-ez3b7uYaCt@arm.com>
- <SI2PR03MB6688D1DC0796AC6F6A373C2E93DC2@SI2PR03MB6688.apcprd03.prod.outlook.com>
- <anxSsfvpZHHsVnp_@arm.com> <aoX_jiuhv3dyMS-g@arm.com> <CAB8ipk_4Zbhb=azTDGQEQ1S=n2Zhzvqs7pYr6ZfOOWL8meE_4Q@mail.gmail.com>
- <ao_9EiKz9Cmx_YHh@arm.com>
-In-Reply-To: <ao_9EiKz9Cmx_YHh@arm.com>
-From: Xuewen Yan <xuewen.yan94@gmail.com>
-Date: Thu, 27 Aug 2026 17:11:28 +0800
-X-Gm-Features: AcwNN1WMellCGNam0VYOTagPOg-9X9_IhSGS0spY85eL_CK-6sC-A-EA_adMUno
-Message-ID: <CAB8ipk9KknqBFeQrDYXAqRxGbM_bjtU0w7Jid95XucnzkgUdkg@mail.gmail.com>
-Subject: Re: [External] Re: [PATCH v3] arm64: topology: add source check in arch_cpu_idle_enter()
-To: Beata Michalska <beata.michalska@arm.com>
-Cc: Sean Wang1 <seanwang1@lenovo.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Sudeep Holla <sudeep.holla@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "rafael@kernel.org" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Lifeng Zheng <zhenglifeng1@huawei.com>, 
-	Xuewen Yan <xuewen.yan@unisoc.com>, Geert Uytterhoeven <geert+renesas@glider.be>, 
-	Sumit Gupta <sumitg@nvidia.com>, Yunhui Cui <cuiyunhui@bytedance.com>, 
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"driver-core@lists.linux.dev" <driver-core@lists.linux.dev>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [BUG] srcu: false-positive WARN in cleanup_srcu_struct() after
+ 78a38cbf6f20
+To: Zqiang <qiang.zhang@linux.dev>, rcu@vger.kernel.org
+Cc: paulmck@kernel.org, linux-kernel@vger.kernel.org,
+ syzbot+d4faf7db59e11f6fd1ab@syzkaller.appspotmail.com
+References: <20260824105625.3725157-1-shpark061104@gmail.com>
+ <494f3e0cdb3692bf13690f4cddd3b40098b51627@linux.dev>
+ <24c0edd6-3cdc-4536-ac78-394bf785aad4@gmail.com>
+ <0e74e6799bf042293fd1e34e2f242c56786c3de4@linux.dev>
+ <9e216978-d884-4d56-b39f-d134f78a4999@gmail.com>
+ <eb2132ad05cd3804a8f2a170de441d79afa793e9@linux.dev>
+Content-Language: en-US
+From: Sunho Park <shpark061104@gmail.com>
+In-Reply-To: <eb2132ad05cd3804a8f2a170de441d79afa793e9@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Thu, Aug 27, 2026 at 5:02=E2=80=AFPM Beata Michalska <beata.michalska@ar=
-m.com> wrote:
->
-> On Mon, Aug 24, 2026 at 05:21:03PM +0800, Xuewen Yan wrote:
-> > On Thu, Aug 20, 2026 at 3:11=E2=80=AFAM Beata Michalska <beata.michalsk=
-a@arm.com> wrote:
-> > >
-> > Should we distinguish between events?
-> We could although for this particular issue clearing the source is the on=
-e that
-> needs attention. But I do not see why we could not have both.
-> This was just sharing the idea, not a final patch.
-> >
-> > > ---
-> > >
-> > > This is just a rough idea, and needs ironing out the wrinkles, which =
-are there,
-> > > but that allows leaving the idle enter as is. I also believe this is =
-the right
-> > > approach for the interface itself, although I also see some drawbacks=
- and
-> > > potential issues (in its current state), especially that the function=
-ality is
-> > > being exposed to modules.
-> > > Nevertheless, those are my two cents, untested, just sketched.
-> >
-> > As an aside, could we verify the functionality of the AMU's
-> > SYS_AMEVCNTR0_CONST_EL0 in the current CPU before enabling amu_file?
-> > To my knowledge, many chips currently have inaccurate errata in this co=
-unter.
-> > Alternatively, could we introduce a command line that allows users to
-> > dynamically disable this feature?
-> >
-> > Thanks!
-> Do you have any particular issue in mind ?
-> So far, from what I have been able to track, the issues reported are eith=
-er
-> handled by existing erratum or by the latest change that reads the counte=
-rs in
-> 'one go'. Can you share the details of the issue you are facing ?
-> That would be helpful in potentially finding the right solution.
+On 8/27/26 08:53, Zqiang wrote:
+> Based on your description below, the 5.srcu_barrier() did not intercept the callback of 4.call_srcu(),
+> this means that 4.call_srcu() and 5.srcu_barrier() concurrent calls, or calls after 5.srcu_barrier().
+> 
+> The combination of srcu_barrier() and cleanup_srcu_struct() typically occurs on the module exit path.
+> srcu_barrier() ensures that all previously inserted callbacks complete，so therefore, theoretically,
+> there shouldn't be any callbacks left to execute after we finish executing srcu_barrier().
+> and of course, there are also shouldn't be any ongoing or newly started SRCU grace period and the
+> WARN_ON() in cleanup_srcu_struct() is designed to detect it.
+> 
+> If when the cleanup_srcu_struct() detects an incomplete SRCU grace period or any srcu callbacks
+> that have not yet been executed, this is a risk that needs to be reported, even if the
+> cleanup_srcu_struct() can intercept it internally.
+>   
+> Therefore, we should investigate this issue to ensure that 5.srcu_barrier() can intercept the step 4 callback.
+> 
+> Thanks
+> Zqiang
 
-For example:
-There is an A725 errata:
-[A725]The CNT_CYCLES event can have a significant increment error due to WF=
-E/WFI
-Status
-Fault type: Programmer Category B
-Fault status: Present in r0p0, r0p1, and r0p2. Open.
-......
-Workaround
-There is no workaround.
+Before 5. srcu_barrier() call, the 4. call_srcu() is finished and the 
+callback was enqueued, and srcu_barrier() did intercept it by appending 
+barrier cb after it. They can't be called concurrently because when 
+call_srcu() is called inside kvm_io_bus_register_dev(), the kvm 
+reference count is nonzero and kvm_destroy_vm() which calls 
+srcu_barrier() could not be started.
 
-Thanks!
->
-> ---
-> BR
-> Beata
->
+In my debugging, all five __free_bus() callbacks enqueued by 
+kvm_io_bus_register_dev() were invoked before the barrier cb, and only 
+then the barrier cb is called and srcu_barrier() returns. So all the 
+real callbacks were executed and practically there were no callbacks 
+left to execute when srcu_barrier() returns, but a stale n_cbs > 0 is 
+left because srcu_invoke_callbacks()'s invoking loop has not finished.
+
+KVM logic correctly called srcu_barrier() and cleanup_srcu_struct() 
+without calling call_srcu() in between. In my opinion, the root causes 
+are as follows:
+
+1) for timer_delete_sync(): the srcu_gp_end() which ended the last grace 
+period (from 4. ) arms sdp->delay_work to expire at jiffies + 1 even 
+though the invoke work (queued in 3. ) is already queued, and 
+cleanup_srcu_struct() runs before that one-jiffy timer expires, so 
+timer_delete_sync() cancels that pending timer and returns true.
+
+2) for n_cbs: srcu_invoke_callbacks() calls rcu_segcblist_add_len(-len) 
+only at the end of the work item, after the barrier callback has been 
+invoked and srcu_barrier() has already returned, so 
+cleanup_srcu_struct() observes a stale n_cbs > 0 while the cblist is 
+physically empty.
+
+Thanks
+Sunho Park
