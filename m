@@ -1,185 +1,150 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62AB93F9F26
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:47:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 004FA3DDAF6
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:48:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787820475; cv=none; b=YQ3WdcDTfqVAJuJlU3GfkekO1JrtiV0p18ICN+2ehC0K1/eZcOVlvJeujR/u8Jb/do8al8GJZUyFPUVsMtyxY86IA07gLFvw0Lb1423J+jv+qsonROe+sEwTMy0CupMR9YvIvmuuNyapuojlXt5golfdOsLtIbcjU66+Mg87sSk=
+	t=1787820517; cv=none; b=utOR37haecMfPX31QWxWp8rtygAIl2LotFG6LlMyqMPXeo7GeO6fsdArbyj2BaUFCjCADaxg85d9K8ikFfVe1+IjTaHY2/FKVxhX1oOq2ShqIFVlewWfev4hc5QZ6i1kK4igOfR2SNDLzWP1eZgxWmB+echUfuwl9/xhuw6ZrEk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787820475; c=relaxed/simple;
-	bh=mA30AduXyStobxtBMt7yxuIZHtu4wfbxWYCgCHvxRKE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bL31W9QGNGTuWgzANucWLbAkGS7lzO4f2SL3Qba3DI/arMjZ1cUSmg9NqKtwCk+wPtTesc4VR6GhigkqH5znk17Fkr21rya14iDUGGLTamt7cWpm/xKFnSENYrQOThUuYtryGZt1PCke49b6w76UrunTfIQO6OMzKxoqUGYB/fM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MbGNhjXm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NUYvsL4q; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MbGNhjXm";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NUYvsL4q"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67R6R5gs2143793
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:47:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=L6SX71fzzR7itcx4t/pTijxV
-	Fm3CAO7RKTuuqSh0i70=; b=MbGNhjXmN1zqZeS/hPrCbCFJzkgAjdFDjFnDS99R
-	f7IOPISYwKyUVhzbXudIN4/qCIMOTaNmezSJYoNDiLo24hYUELj7xP0Ibjlr4Wv9
-	Hc7kQ2JN4Ocx7Lb4LLN/NPSWLRJe2oy7q537rNdQuEdyN5bmVU9McbSJzd+b/33i
-	FMgRGWxeqFs6Kr4YHwbggNyTqq1fLK/l/0azLWqrfxOOotXSk2I8J+0j7jF6P9v4
-	8DXfNZHhRmCKDRrulhC7nvjAeGSkXC6wrFuCE85CaHKUB5E963M/YFccNb6y2HV9
-	ABThaIHjQxukZnWFfGUhbnrreQc/o0tX9YsxpDshUfGQww==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gab7t1hby-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:47:52 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-8f0ed4fe79aso33800296d6.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 01:47:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787820471; x=1788425271; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=L6SX71fzzR7itcx4t/pTijxVFm3CAO7RKTuuqSh0i70=;
-        b=NUYvsL4qLXAP0HMirRjhRDM02/5WDHshr7yx9XbEX682NBtMxuFCEjq7vmkZd2smL2
-         bfyAX/o7V6KzpmcHufyxgPitRc0OleisrDV6ouBSHND0L2IpzQOELqERFuUn2LzucgLu
-         fjN9/cYSudOqGwzke9xEgviZttLFdXeLS1oVyw5PS+EeNnNFj0Iki6UTIRyiyL7D7mG1
-         0P8H+TRe+1Z5oPBDEJeg5nAU2FMNCmFmaxJMzbyte6typ496ViX6SHkK7ZB/gnLMdejb
-         K0/r/umGjFgw/gwtnrYjUHIELJ0/c7xnCNfT4ha2CPOLS7GWJ6u9Q8s1hgLu+GJ6ML2Z
-         WLXg==
+	s=arc-20240116; t=1787820517; c=relaxed/simple;
+	bh=ZWzqkQLtX7zz0s1ftCBsHz18fzzkbkjrDXkDpSa/SoU=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=s0oB0EYJghXqHmfs+LqH+hZCl2PRYhhnoqdXCeZSVFXFQTLuy4Q02DT24GUdkGgo+EeNYXxYBP6d5vfcH3524/ksatok4q5Be3DAmeUNWIdih7cD6cDEHT38D0MOkw2cvGrsyEyV8pZY42vepTIjUnyjk242M/tama/N5N38rX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b28db6c77aso3449347b6e.3
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 01:48:35 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787820471; x=1788425271;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=L6SX71fzzR7itcx4t/pTijxVFm3CAO7RKTuuqSh0i70=;
-        b=PhP2TvG+iRT9GL/wQpZbSy5lxMIW9RMsQzC2ZWqWNc6B5U2g56ZDCabWrswX8Vbx2e
-         Hqk1Fvce6bJWXRKHy+sabhLQdcBNdKqYqg6j9MWys7eRGXFX3egn7sf1lqyPkk05xy39
-         SD0FY18OtGFdr1lTl0xV3TvS32UZpYXCe240zi7MUagoUVCj7hGxMXPsV9Ensy7MclJc
-         fN+7+9kscnE5JUUAd8V8oaB9kgUUiiU8muncIrxzRfwc9FN79PT1vuJGwrDlpxmHvSp2
-         ZJbBfFnSFxCqn85q4oB42WRoiG45nMlbJs+IpROsjS159R5Y6nluRc2n2ug3y0cs6sEo
-         gQLg==
-X-Forwarded-Encrypted: i=1; AHgh+RpgG/bAWr5aLoIncYInDlVMrRM1dUZHq07zUZ7RNo8E73zqKFE59csfPnJoUnCfT6m0ijWbAjVKmXKgBVg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lKeU9FhGSlUx7r8Ydihx6Jb2giY3GMuC3utQrzAXLqdZKD5cIC
-	BOl1cs8dNlose1WcdLwQ9+l8i7rt/jG/iIH/wG+sFZXJeVjOubKg+9yAVpfX1rvEWCzNwq2ZnLi
-	T9ECFSubA5N+PRvzY6KuUmAvvdv1WmE6ldY9pjQ7nKS7JcDcq/7wAIkKpPa+TT3IeoFI=
-X-Gm-Gg: AR+sD10aU+pUmzJp3a+KOpWdjHDiimRQm2jTjigm+w/gWhuqO47KOgbCX55lWiZFaJ3
-	/LNMZQymz+VPkoWnZjCnP2d+gzEh7NecCGDe7EHHDRBk/r8w+hr+MHnTra2OeFMJnop3OSlfBv+
-	kJHXERrgCbQhcCtQ2EzgEMGXzicBrxzy8wCX9Qr4FGEcgox1ieXVzAGVW2M1/r+A/5oZwV9Wglv
-	hhc9oHaxy1qxP1vZPNMws3C1szb1DA8a0IDTGV9azDTOHfHb/V32Kqs0AB2tSz7oouO5wefcut2
-	ntyuRVXjjHPxYm/sZM+rClqNgMZaOoL7oVkYN8sftgZW6lcJFKa+F5MqBDGwT0mNj27A8iPAKQg
-	oVheuGAC7bX43uOLSdxy93Aa9G5gVfunhWNY=
-X-Received: by 2002:ac8:5fc3:0:b0:52d:6c92:b5e1 with SMTP id d75a77b69052e-52e423e01d9mr134394871cf.27.1787820471032;
-        Thu, 27 Aug 2026 01:47:51 -0700 (PDT)
-X-Received: by 2002:ac8:5fc3:0:b0:52d:6c92:b5e1 with SMTP id d75a77b69052e-52e423e01d9mr134394501cf.27.1787820470600;
-        Thu, 27 Aug 2026 01:47:50 -0700 (PDT)
-Received: from localhost (ip-86-49-251-7.bb.vodafone.cz. [86.49.251.7])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499dd56dfb8sm50721065e9.3.2026.08.27.01.47.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 01:47:48 -0700 (PDT)
-Date: Thu, 27 Aug 2026 10:47:47 +0200
-From: Andrew Jones <andrew.jones@oss.qualcomm.com>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: linux-riscv@lists.infradead.org, iommu@lists.linux.dev,
-        linux-kernel@vger.kernel.org, tomasz.jeznach@linux.dev,
-        tjeznach@rivosinc.com, joro@8bytes.org, will@kernel.org,
-        robin.murphy@arm.com, pjw@kernel.org, palmer@dabbelt.com,
-        anup@brainfault.org, tglx@kernel.org, kevin.tian@intel.com,
-        fangyu.yu@linux.alibaba.com
-Subject: Re: [PATCH v4 02/21] iommufd: Add iommufd_sw_map_msi()
-Message-ID: <lxrej2bonrvt5ew7e6wjupcaptj7nxpesnzwvktjusawg3od2u@v3zb2bdjdilo>
-References: <20260824170417.GR244917@nvidia.com>
- <3gdj54zcs5dncgom3zlntyredyuh2xe5ueg7nd4pdrcksmnwfl@k3fyky4h6556>
- <20260825140334.GA3325090@nvidia.com>
- <cxbneh42ui3gbkoqrsnoatxoec5exzbprfbgxcy4iekqmbceho@gouiwn5q5uzs>
- <20260825165209.GB3325090@nvidia.com>
- <iltwtfmgnmofsroo7eqrvjx6yhqbptwutywq65mgm7adudz7pq@2mdg3dhvtoud>
- <20260825175901.GE3325090@nvidia.com>
- <pzutriwhwe4whonj3veoo4hzxmq5tlmmyui5u6gt4bgl5wxxrg@qjsq2pvd7by3>
- <20260826163234.GN3325090@nvidia.com>
- <l3xyzbhqfremod6swwiks54znvoqy57hmqpsdlpcji5czjja4w@4qgiuwhwlie3>
+        d=1e100.net; s=20251104; t=1787820515; x=1788425315;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Lk+8DHm03+mbNTwBCk8aXo/WXlgLh75aMPO/lE04rrk=;
+        b=iR+MFgfl8+cq4tOaRH9sJhv+ZEHsJormqECrFbNjnO1vBe4Bu4ojzfn9ieKSoZsMsn
+         go029SvbpbSCJ3KUMKKdGXZ46yyZ0YajyUC14jh6ZGl1Rxx9eDs+89nSF2UYyGR3Ax+m
+         DWCU18md+TY44hEfY5DMgqHVjUM6tvU19j3R5oLvzmV0zjl5eFfWc9N0y5lBQ0Gil1AY
+         5JO0JbzrK0QZjaZ/j5mU1aACOwzZYs0xqC22zfnHzEWfYfRIMxdpPryGOBGDwnUEb/fG
+         /GeTgpj68i0/Cw2g4FhKcbXMb++iClFUhuzTZyjJje7Fm0tdiJTGfBesGL5Ujmo2T4lt
+         nSkw==
+X-Forwarded-Encrypted: i=1; AHgh+RoS+fdHfjCOPhSqYy1qOjH91HB0VqojBGfFilKHvfCtnGFMc3wIbif/wxHT9T2IFEIisQoSXuOCxxYAkaY=@vger.kernel.org
+X-Gm-Message-State: AFuF++keEttTiXVjz+DXEntrCaz22mg5pVBV5XmiUA3rrukIJKlAfdIt
+	ZkKj8s9ZLfI2YycsnzcCZzkHSV6ppOz+YyoZMi7Gdr28V5ZKNl4kEC9ounJfDK+JlNDnm+4sxCX
+	+tBu9Zs/59Y/wh3ngF298u4SxK382ZBtsscDd03KjyMSo3BDbjQWqzk0kHeA=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <l3xyzbhqfremod6swwiks54znvoqy57hmqpsdlpcji5czjja4w@4qgiuwhwlie3>
-X-Authority-Analysis: v=2.4 cv=X6Bi7mTe c=1 sm=1 tr=0 ts=6a8ff9b8 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=on9AXyaqQ0RhfYpiXjjEXA==:17
- a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=iiT1TCLmThQewConTdcA:9 a=CjuIK1q_8ugA:10 a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-ORIG-GUID: HjGgaYSQ3qIDFq7aEPIZDIc2h8Wg3goJ
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDA3MiBTYWx0ZWRfX6nJQfSuGrm2R
- Q1tV9vaUxty1DRJaRLvmCsZDJNROXY2zgiEnzn1C+aNWjxUZpocTLKE/+adjNvR/XDlHhPV8fXS
- uePlYKqDck8IWKShkcpFcPixu7acBXQ=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDA3MiBTYWx0ZWRfXzgaKFsFCCv4X
- uFpJhblobTXRthiSrT5LJiEkxQDjBd3DeriabA/DQAhJrMnYMIm397xf9Lfxv3AqMwMjtDDzjqQ
- TpirVxKe60+Z428Zz8QX7L8/hFuVHk0u2uyFwy4Rsxi4ndYOzmn1us/c/+vOXWdXuuyN7POXi0c
- atida2SpFoTIsqpwSkClriBRgZdDGLbiBMs5QbyCTZ0a0qZxYDOXFnTOeWjQiVXMMm21H6I1RA8
- mGeqskfFUWScA6DwQBHRpFFlJBiwFOtGhzSLyPKUXiJ7MC2kXb6VZ9IjHNPOWqbTTVq4DEOt4q/
- li8DQjQWDtdRqbEVSlqRighc3Q3LpIVArrYAT0OjEgdx3xBPBcZmTkmEjRa9Io6kKc4rdOuZSFV
- /c8vfj70UDmRTc7c8HOCAfLOnAkzz9G2u/+ryYc25rM/5x/gy8rbUsnxhqESluh/lQ3t81zUaQb
- +wBTOSon8SveQnzxg7Q==
-X-Proofpoint-GUID: HjGgaYSQ3qIDFq7aEPIZDIc2h8Wg3goJ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-27_03,2026-08-26_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 impostorscore=0 adultscore=0 clxscore=1015
- priorityscore=1501 suspectscore=0 spamscore=0 phishscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608270072
+X-Received: by 2002:a05:6808:2f1a:b0:495:ff85:d33d with SMTP id
+ 5614622812f47-4b366af5570mr14345201b6e.12.1787820514926; Thu, 27 Aug 2026
+ 01:48:34 -0700 (PDT)
+Date: Thu, 27 Aug 2026 01:48:34 -0700
+In-Reply-To: <6a8d5538.91706f20.ef82.0009.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a8ff9e2.1d9ded08.62e62.00c9.GAE@google.com>
+Subject: Re: [syzbot] [net?] WARNING in trace_event_raw_event_icmp_send
+From: syzbot <syzbot+6d2762674103618994b0@syzkaller.appspotmail.com>
+To: davem@davemloft.net, dsahern@kernel.org, edumazet@google.com, 
+	eric.dumazet@gmail.com, he.peilin@zte.com.cn, horms@kernel.org, 
+	idosch@nvidia.com, jiayuan.chen@linux.dev, kuba@kernel.org, 
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org, pabeni@redhat.com, 
+	rostedt@goodmis.org, syzkaller-bugs@googlegroups.com, xu.xin16@zte.com.cn
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Aug 26, 2026 at 08:11:58PM +0200, Andrew Jones wrote:
-> On Wed, Aug 26, 2026 at 01:32:34PM -0300, Jason Gunthorpe wrote:
-> > On Wed, Aug 26, 2026 at 10:23:20AM +0200, Andrew Jones wrote:
-> > > RISC-V uses the same basic model as x86 (an IOMMU-owned interrupt
-> > > remapping IRQ domain). x86 makes that domain per-IOMMU because its IRTE
-> > > resources belong to the IOMMU instance. RISC-V makes it per-device because
-> > > its callbacks operate on the device's attached IOMMU domain and preserve
-> > > that device's existing MSI parent. The IRQ callbacks provide the lifecycle
-> > > hooks, even though the mappings, MSI table, and device context all remain
-> > > IOMMU state.
-> > 
-> > The irq domain isn't per device, it is per msi table, many devices can
-> > share the same table, and the VM should have a single shared table
-> > across all devices. That's the core uniquely RISCV wrinkle I think.
-> > 
-> > IDK how Thomas would like to model this, but you will get a better
-> > result if it is very clearly explained and asked.
-> > 
-> > I would like to keep the iommu out of it, so I prefer if IRQ code
-> > patches in its MSI table pointer broadly the same way AMD does.
-> > Though AMD doesn't have the restriction that remapping only works with
-> > a S2 domain :(
-> >
-> 
-> The per-device irqdomain model allows multiple devices to share the same
-> S2 IOMMU domain and MSI table. Unlike AMD, however, the RISC-V remapping
-> state belongs to a replaceable S2 domain rather than the physical IOMMU.
-> The IRQ hierarchy must remain stable across domain changes, so a stable
-> per-device irqdomain which operates on the currently attached S2 domain
-> may be the closest practical equivalent. I'll explore this further while
-> reworking the irqbypass series.
->
+syzbot has found a reproducer for the following issue on:
 
-I think it should be possible to follow AMD's model more closely. I'll
-create one IOMMU-owned irqdomain and install it as each device's MSI
-parent at probe time, provided the device currently uses the expected
-IMSIC MSI domain, which will be the IOMMU irqdomain's parent. The
-irqdomain will contain no per-device or MSI-table state and its callbacks
-can recover the device and operate on its currently attached S2 domain.
-This is better than the per-device irqdomain since sharing it avoids
-redundant domains.
+HEAD commit:    68f892e99df9 Merge branch 'for-next/core' into for-kernelci
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=10735625580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=d1128bc53f2ef7f3
+dashboard link: https://syzkaller.appspot.com/bug?extid=6d2762674103618994b0
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+userspace arch: arm64
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=104dd579580000
 
-I'll give that a go for the next posting of the irqbypass series, based on
-v5 of this host-remapping series. v5 itself will not introduce an IOMMU
-irqdomain.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+6d2762674103618994b0@syzkaller.appspotmail.com
 
-Thanks,
-drew
+------------[ cut here ]------------
+WARNING: ./include/linux/skbuff.h:3087 at skb_transport_header include/linux/skbuff.h:3087 [inline], CPU#1: syz-executor414/5032
+WARNING: ./include/linux/skbuff.h:3087 at udp_hdr include/linux/udp.h:23 [inline], CPU#1: syz-executor414/5032
+WARNING: ./include/linux/skbuff.h:3087 at do_trace_event_raw_event_icmp_send include/trace/events/icmp.h:30 [inline], CPU#1: syz-executor414/5032
+WARNING: ./include/linux/skbuff.h:3087 at trace_event_raw_event_icmp_send+0x48c/0x6ec include/trace/events/icmp.h:11, CPU#1: syz-executor414/5032
+Modules linked in:
+CPU: 1 UID: 0 PID: 5032 Comm: syz-executor414 Not tainted syzkaller #0 PREEMPT 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/07/2026
+pstate: 83400005 (Nzcv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
+pc : skb_transport_header include/linux/skbuff.h:3087 [inline]
+pc : udp_hdr include/linux/udp.h:23 [inline]
+pc : do_trace_event_raw_event_icmp_send include/trace/events/icmp.h:30 [inline]
+pc : trace_event_raw_event_icmp_send+0x48c/0x6ec include/trace/events/icmp.h:11
+lr : skb_transport_header include/linux/skbuff.h:3087 [inline]
+lr : udp_hdr include/linux/udp.h:23 [inline]
+lr : do_trace_event_raw_event_icmp_send include/trace/events/icmp.h:30 [inline]
+lr : trace_event_raw_event_icmp_send+0x48c/0x6ec include/trace/events/icmp.h:11
+sp : ffff8000985f6d60
+x29: ffff8000985f6e40 x28: ffff0000da5d0340 x27: ffff0000dec03d36
+x26: 000000000000ffff x25: ffff7000130bedb4 x24: 000000000000ffff
+x23: 0000000000000030 x22: 1fffe0001bd807a6 x21: ffff0000dec03c80
+x20: ffff0000c1afa014 x19: ffff0000d477d7c8 x18: 0000000000000000
+x17: ffff80008a7d6000 x16: 0000000000000004 x15: ffff800084be8404
+x14: ffff800084be8240 x13: 0000000000000001 x12: 0000000000000000
+x11: 0000000000000000 x10: 000000000000007f x9 : 0000000000000400
+x8 : 0000000000000000 x7 : 0000000000000000 x6 : 0000000000000000
+x5 : 0000000000000000 x4 : 0000000000000008 x3 : ffff800085503d58
+x2 : 000000000000ffff x1 : ffff0000d477d7c0 x0 : 0000000000000000
+Call trace:
+ skb_transport_header include/linux/skbuff.h:3087 [inline] (P)
+ udp_hdr include/linux/udp.h:23 [inline] (P)
+ do_trace_event_raw_event_icmp_send include/trace/events/icmp.h:30 [inline] (P)
+ trace_event_raw_event_icmp_send+0x48c/0x6ec include/trace/events/icmp.h:11 (P)
+ __traceiter_icmp_send include/trace/events/icmp.h:11 [inline]
+ __do_trace_icmp_send include/trace/events/icmp.h:11 [inline]
+ trace_icmp_send+0x320/0x49c include/trace/events/icmp.h:11
+ __icmp_send+0xcfc/0x11d8 net/ipv4/icmp.c:1013
+ ipv4_send_dest_unreach net/ipv4/route.c:1280 [inline]
+ ipv4_link_failure+0x57c/0x8dc net/ipv4/route.c:1287
+ dst_link_failure include/net/dst.h:438 [inline]
+ vti_xmit net/ipv4/ip_vti.c:271 [inline]
+ vti_tunnel_xmit+0xe40/0x17a4 net/ipv4/ip_vti.c:307
+ __netdev_start_xmit include/linux/netdevice.h:5397 [inline]
+ netdev_start_xmit include/linux/netdevice.h:5406 [inline]
+ xmit_one net/core/dev.c:3889 [inline]
+ dev_hard_start_xmit+0x1dc/0x9d4 net/core/dev.c:3905
+ __dev_queue_xmit+0xed4/0x2bc0 net/core/dev.c:4878
+ dev_queue_xmit include/linux/netdevice.h:3448 [inline]
+ packet_xmit+0x6c/0x314 net/packet/af_packet.c:276
+ packet_snd net/packet/af_packet.c:3107 [inline]
+ packet_sendmsg+0x2f40/0x3e78 net/packet/af_packet.c:3139
+ sock_sendmsg_nosec net/socket.c:775 [inline]
+ __sock_sendmsg+0xc8/0x17c net/socket.c:790
+ __sys_sendto+0x250/0x328 net/socket.c:2252
+ __do_sys_sendto net/socket.c:2259 [inline]
+ __se_sys_sendto net/socket.c:2255 [inline]
+ __arm64_sys_sendto+0xec/0x10c net/socket.c:2255
+ __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
+ invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
+ el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
+ do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
+ el0_svc+0x64/0x260 arch/arm64/kernel/entry-common.c:758
+ el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:777
+ el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:590
+irq event stamp: 12633
+hardirqs last  enabled at (12632): [<ffff8000804e3a00>] __call_rcu_common kernel/rcu/tree.c:3184 [inline]
+hardirqs last  enabled at (12632): [<ffff8000804e3a00>] call_rcu+0x460/0x75c kernel/rcu/tree.c:3279
+hardirqs last disabled at (12633): [<ffff80008690cc28>] el1_brk64+0x20/0x54 arch/arm64/kernel/entry-common.c:445
+softirqs last  enabled at (12592): [<ffff800084c0e4cc>] __alloc_skb+0x1c0/0x610 net/core/skbuff.c:698
+softirqs last disabled at (12598): [<ffff800084c7a6c0>] local_bh_disable include/linux/bottom_half.h:20 [inline]
+softirqs last disabled at (12598): [<ffff800084c7a6c0>] rcu_read_lock_bh include/linux/rcupdate.h:893 [inline]
+softirqs last disabled at (12598): [<ffff800084c7a6c0>] __dev_queue_xmit+0x1fc/0x2bc0 net/core/dev.c:4796
+---[ end trace 0000000000000000 ]---
+
+
+---
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
