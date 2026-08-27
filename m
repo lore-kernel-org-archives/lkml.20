@@ -1,171 +1,221 @@
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2115.outbound.protection.partner.outlook.cn [139.219.146.115])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011061.outbound.protection.outlook.com [52.101.70.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 263CD311592;
-	Thu, 27 Aug 2026 07:24:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.115
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDC973112B2;
+	Thu, 27 Aug 2026 07:24:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.61
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787815448; cv=fail; b=L+Z1DgVYUrdOagEDpdp4g8inlbzjyB7YBS482j88L+7d0UPrllHUusGUHMXLAR3bPnln8nMNILYGAByC3f/KfKGNPa6o931gvleeS+M2VMb1GdAE6V8CKORvQA3F0Cge/SsAqxTAJcfl1VVUJ6S0ENnJJqSEhgjQa3kJEiHcTJs=
+	t=1787815455; cv=fail; b=E28W2rssAGJmdqMdrlFi2/OlQSChPnd2LtouHW24j45LPHgSfAcOQiaOrFc7lcgp2j/pEthRYC531sDTwIZXu9tPiOjKZ6snERqfJom08N3+aH8KdWVmye3QuWVexwPrPimKy07hNcUDT8+z/06u+V2+3gsotgMebCVSI6V9rsA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787815448; c=relaxed/simple;
-	bh=6AOuAD9mflAy11AHNU3UqHfv9/q4JfgPBN6BeO6t39w=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=baLMSvhJF7b2p3mC3u7McgxgxONDWHukaEIL4l2N/B8NROLtiYPLGmZwPzDeW5lxJnYqZ2b/WjGWAR79XEZ8V2O/Vqs0REYSyd90NhtIk9IfpXOeodROnXbTQXoxaqWFnPPXb+5gKiApta6wKMePZVM2YsmMWPx9nuM6XLGkXAM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.115
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mqGOlfklBGheyIXgDQd2FjjuaOJEJFtXeWr+1+iCr3x9XyVa6MjR0EM8jQkUIy9NE03Pg/1d+fdlbV0rsnOo3RzjAjkIZw9xaAS3c111WhYoFrLnyW3jR9tyFCVoGEyq/m4MOfr4IlRh/bayXtk88t5DVpxMIk0Ke2EAFWty/6OrbqIt4khllSuS0qf+n7G5DJh+SmC3fdoaH3EiWKDjJwURUawX8DVhMMSO3rs2AU2+fXjDByKE/ssE4LoMPEYepgIxVXwzxl4xpzpde+DCPIeOhlO5/y7hwBv+L7+3Vw6tSKJPciLfTGbdUMpnui6pg+ZzwW4/sdzxQeHShqxxeQ==
+	s=arc-20240116; t=1787815455; c=relaxed/simple;
+	bh=SQf//+CY+Y6kst3vr4zV8f/awMBLDKOPiG8k1gnvbME=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=AeBJR491SRiCWCEhkb3rBX/UH/IXgoU72wbEIzG2ctzF2KWu7KtImij6CYX9xbN3VqTeIcaW+9Wz/sZQQqjp8Xe3SGaMzh1ViC+I1CkXPvxb6UQUAwwASJ3Ym9JsaNgrC7ZV2wJNL2nWDu8Ay+B08hp8xSRFKsclsXfHoVjjrmI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=@siemens.com header.b=FE9VFrsg; arc=fail smtp.client-ip=52.101.70.61
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siemens.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=siemens.com header.i=@siemens.com header.b="FE9VFrsg"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jzFg6TlFYXtLk92fQIL85qC4rPhzezs9EIwOkVC6oPV4jPPVlEpnIeFnzN5D66dnBvds3xEOG0tvp4WdDRITUiu3rWpwZbxVHtQrd9mVgDFztJV90ARo9EGjOzcL3Eljb+5k4BNQrgeVWczQCZkf/RMH6en4/n16KUzKZKA8NWY2MBEg6ujLpNr9lENVJiUYHoHgmUod4J5TIzkrc21/3kyir502iNyY+A8Mqz54VjOqPG3k+eQxuu0iUo7uuOxWCpJRwUMKstiIfSSIkJEyOkdDU+qsF4J9C77+F/V6saPBSBrb8k04yuNgUwLJ21GzJs5ZLTqRCKOWbZGpb47B4g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
+ s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fzLmtunYd4LHJfH2eTGyBNtSSpjKBTtfl/Vd1JinhXc=;
- b=hTpn06Nvn7iN9nMRGjKpGL8CCG3RIgpYXk/3LnPhYUnkMF/MBLs8HqbiyzpGEMTqtUnlTAC1rDaroLtreaN2IA0B+s//3QhXWXOKIuUKTt59cjnA5FDW3jLb9pL18yedt+VFfDAeN3sSmAWj8XGnbmSxW8BIhSHtgoRu8ug5Mx3LGR7XLk+Bk/cBUEpSsPsUGyDqCj8OxiPst1gMQ7w1H2r8wouYLEfsYsBA6OY0ChSgaYIIllz+haev8XO/+q2aBPD7pdQapNRMAWVNbUHDw5ij4B6FAoK2yPmyKPDKYBRmcxYRQgSmYVMDT8cqYeCVnZTwxPM110N2qGGlp9Xo1Q==
+ bh=uAgZ2eApBqO+yzARqjo1g7OlLuIkoYxMtHkw7H12ueA=;
+ b=LaRYzd22kMMoR/r9eGkHnsO1LKcmmjAv2h9ftv5dPvkYSjx6zJbQIFyxXaCeqsxCCSncq15w3Jx8MslB0WyOBgD3oVnp/Ez0Fz4vF4dm0dMZ3oHIgfrkOL8V1wRJW2ZcCQvcDgjoTDb70hj+8/WLKAfhib40zbJMMnCTAMv7aa6WZOvyjlRrxqNXIEr3Hyg1fXqp8XNhDYY0mKIDzIIDO5QgFPFf88IRua8GAXQ+CksPglxfH8iWFBXF6LxHcS/t7ayMYIgiJFfDdA5F/f9lrXcSQFOLZSy+44Mh0qZwyvTgCW3spb+MvrJ/7+aOduzx0JdXW2/8d5eRABqfquzsxw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1316.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:14::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.13; Thu, 27 Aug
- 2026 07:23:50 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
- with mapi id 15.21.0315.011; Thu, 27 Aug 2026 07:23:50 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Brian Masney <bmasney@redhat.com>
-CC: Michael Turquette <mturquette@baylibre.com>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>, Paul Walmsley
-	<pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
-	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Philipp Zabel
-	<p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>, Chen Wang
-	<unicorn_wang@outlook.com>, Inochi Amaoto <inochiama@gmail.com>, Alexey
- Charkov <alchark@gmail.com>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Keguang Zhang <keguang.zhang@gmail.com>, "linux-clk@vger.kernel.org"
-	<linux-clk@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-riscv@lists.infradead.org"
-	<linux-riscv@lists.infradead.org>
-Subject: Re: [PATCH v4 2/8] clk: starfive: Add system-0 domain PLL clock
- driver
-Thread-Topic: [PATCH v4 2/8] clk: starfive: Add system-0 domain PLL clock
- driver
-Thread-Index: AQHdJ6GLvS5NNuAYikeWCGx3U49v07aXvOuAgAEEKZCAGNmroA==
-Date: Thu, 27 Aug 2026 07:23:50 +0000
-Message-ID:
- <ZQ4PR01MB1202DDA7F5CCBC378932A7A3F2AD2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
-References: <20260809015054.210577-1-changhuang.liang@starfivetech.com>
- <20260809015054.210577-3-changhuang.liang@starfivetech.com>
- <anozO_Q-a7AFQkaE@redhat.com>
- <ZQ4PR01MB12022BC787EF8C07DBB34E34F2DD2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
-In-Reply-To:
- <ZQ4PR01MB12022BC787EF8C07DBB34E34F2DD2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1316:EE_
-x-ms-office365-filtering-correlation-id: 99424c52-a426-4943-c965-08df040c2460
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|376014|366016|23010399003|7416014|56012099006|10067099003|22082099003|18002099003|4143699003|38070700021;
-x-microsoft-antispam-message-info:
- 4dtEcRZ0Ai48xbByZHkFCSVQZwYdp9EI2tWh0P+uch8KS/buwH8TMN2gho9s63UnR7JOKnk1B+HmVS8d40rz92Tq64dlT/JXFVD3ctsrL4dRVWdYxJgyOtbyGYrb920QN6az+ztQPLlqX+kWYeg9FY358LZg3mVxWEaFZ4RAeMZOEXYuG0D2NeQWGy3r7TKcH06uOGbn7RzU4w95E7fsXyfzFW9ozOZPTJ4r4NRy3W5fkyn3nPagQ9X6qyb5/ZNl/W+gQbFtDIJL6rpavCtETuTHv9tzNv+XxF+LcH7IbwIVsuwnkMvagkX4U2W6s1oJVlqBtNj8T1UXlntMQjjKN5n58P0AUSgVv9RJpSA6iyzMbDiCVAhqWSzvPx9llHwm9lY6DTg/bHo9SEHoFIUjTImnKPOJIRKBUiOv89lspdGuVkVHedRq10Lh5hJa0Ppq+nl5+SMMqFMbXlLW286kjPF7XhTXl3leFL4tKd7ezVTLQOm/iSTY7w7S/VkrU+/icoRdp47kNtK4smwVQ48UYA5EwtnOnKNy6ALB7RyG+nbpHsAXtNwAXiTRR/tuUktA
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(7416014)(56012099006)(10067099003)(22082099003)(18002099003)(4143699003)(38070700021);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?kuB+FpH98vhbWq/wNA5q5I3iqkSgPooPUu5c7KBjgNXvRslaw+pbZzEFE9cT?=
- =?us-ascii?Q?tfiE34I2mSGTd2hITgFMZ11eB2c9+hZX2B6WfnBIMNMwg2STGaJgZLCrdyFb?=
- =?us-ascii?Q?BrjpXeSrwvb8LoMtdwNM93zncdoQ+mkATEL1BvgaHu27yHW+KBNCINQaxyhQ?=
- =?us-ascii?Q?QwDZYnATE4LdtD+OcNe/LxSGpzox5G/PI4tCa5YOYQpQpy3gi8qWt2A3Uv3u?=
- =?us-ascii?Q?3GnHxQP5SAbDPfvZHpJlxB/0a2oQn91Kui36YZXKmb5fHVP5xIXJwC3UfE/1?=
- =?us-ascii?Q?uT60cRxnrvfddcY7inpk2SfdqxqWvlZMvVYD7zL3UwerjRgImN753nyTlHOL?=
- =?us-ascii?Q?Fe2VOAtX4jharVjt+77pNd7t/UySlLDY2VdqVFolMFgUkg3V5kcyHmHDYkLL?=
- =?us-ascii?Q?PyULazoRU+stNIhwvxSO0zD/4vc3G0xGpYT+u0ko4Rf/NhQXIJq+fGeYOph5?=
- =?us-ascii?Q?DnAjOVPkuezFvrWJ2O3IKpmn87O6HlHDhlbNnDKxTPxOj06FMAPfReqXmGKO?=
- =?us-ascii?Q?6H5WjT7BzYHDlu00iNzLV0Lo7GJkXRu3BEuyqbe7Xs2vfdDmrZGfCoYrwGHN?=
- =?us-ascii?Q?A9FFzo6JH2+7ZblYwwsyPe6B62xCfJEiqil+NOBO+6PdvMgdSn1Af3SFx/v0?=
- =?us-ascii?Q?ar7s9O7rVsI9QASFFWw4Xb37TJjqLLMz5Pwi27UpIoTTOEQ62/pIhAtF01i+?=
- =?us-ascii?Q?JFsdts65G3K6b4baxVeC6IBzxOYOzMrdy92EJbZOr+cb9SQHtkYAeiqoHqWp?=
- =?us-ascii?Q?rpGSM/Zx0PFJlVtsr/2iHZwgnAT6xF2+ApXLJvU8hmqWdxTHcV2Bhqht8o8D?=
- =?us-ascii?Q?rbY7x6pQSIgWf18IzhAE3Jaxl9YR5EOcxnTpnGnsPfIv6jtL16G/SB2bfBBs?=
- =?us-ascii?Q?XY60fgDqyUcGjVCY0uQ5X3tszpiEajJto/sKphl0Wi4e465Wo++wYbYUeusM?=
- =?us-ascii?Q?bQeejlQyNgZO0Ldos+blUQEuyJy9zEbaV6W/YdVwAuTGeUyj4fFNFwXJYIZ+?=
- =?us-ascii?Q?oU5Vghzv2Rw5GNM6PbDvO9GzwPrmvCo7bmVRvJWBgggLbWAsKR6qLxE2ICCz?=
- =?us-ascii?Q?cXNd/TJXHeR+tAXfQuwwTemG60PATIyHUKqwH45+n0tY+Essg9B3eZAc4HjJ?=
- =?us-ascii?Q?2DtJNZKe823N7ANs/Z2EZWFfjvut3j+I7O8quHXkC0EfZFcs3oaP08Z7weSM?=
- =?us-ascii?Q?rXnywrTPom1veQMX1rC/CO9UFb1zTLP9tfOCPtFTKve0YKkEHcR7knCiL/R1?=
- =?us-ascii?Q?ElOQnMiqcCkkoMP0gpcdgowWkFqAUQWIp7Etyu9aVqc5/GQxieCBIX5oFsYT?=
- =?us-ascii?Q?4U+KH7mNNVCGQGBV2HQbqGCbSpDbB+BhennmM3QyaUmQ2fXsZjgaqD9XUPkr?=
- =?us-ascii?Q?30NxT2e/gzVJmvG8nI7c9R+I1Fg3mteMMb9YpomvF/X6dKiOWFf1bRzoM7fl?=
- =?us-ascii?Q?IVxJnGKfeESgfZarP6C7EemDkTAu4u/0QJDm7iu6UOLMj5oYLLXciHX/eBbo?=
- =?us-ascii?Q?b3Of0mKHBFa6dSXhuNh0BRm1qjBC+DgVvMorbwq/3cfQtwJoPIueszdMt/ZU?=
- =?us-ascii?Q?XZW/+XjidHw28HYCdlBrCyMQVu333uKAusWZtG0Mth4L/Q4l4g2YOxEq4pLp?=
- =?us-ascii?Q?Fo4kJCF6jkS1YO3HPSv9wltbG44VsK/7I/BqSrPwNAZ3Bojj4TqwoYuPZKPo?=
- =?us-ascii?Q?gVWHbS2tr+rJ8HDt69JYJGliEzpJhQIzDWtyk4mH1125Q9IWTak+YHGR4IQX?=
- =?us-ascii?Q?NkDet2ufE0zJSTzs4aj2wOoh6jB/2Hk=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ smtp.mailfrom=siemens.com; dmarc=pass action=none header.from=siemens.com;
+ dkim=pass header.d=siemens.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siemens.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uAgZ2eApBqO+yzARqjo1g7OlLuIkoYxMtHkw7H12ueA=;
+ b=FE9VFrsgEyKWWZva0m86lFeqXbAYKwCJIHx3LzrkmBooHD5GvdVaWwMnmLedYrMdMJ2h+xTRBs9rXG6tVo7OOW3OSxb5RAN3O5iTbauhr5z+v1fGF4LYVbwHz/Wg/zswF2xb9Ust8ww0CDLMzu15unxE+4oiyasZuzfcSuv/VHR/Tltg2HO+9g/YMIXVMkTFDgSKmAb+twizUMnxm6fXN+Qrn9d6JrpFWbyufansB0CQR1Cq8j84FVNqEJHR48J8rVF0dX9wWGzW77vVX/vABgBJKTHjxhwS72IQF/ZC3lAPS4MnVNisSjnzVV227d5G6x6XU0lJdbHN6c6/IQ4rhQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=siemens.com;
+Received: from AM9PR10MB4992.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:3dd::5)
+ by GV1PR10MB8608.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:150:1d1::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
+ 2026 07:24:08 +0000
+Received: from AM9PR10MB4992.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::5f49:b0e9:d295:22d8]) by AM9PR10MB4992.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::5f49:b0e9:d295:22d8%6]) with mapi id 15.21.0339.008; Thu, 27 Aug 2026
+ 07:24:08 +0000
+From: Tobias Schaffner <tobias.schaffner@siemens.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Gabriele Monaco <gmonaco@redhat.com>
+Cc: Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Jan Kiszka <jan.kiszka@siemens.com>,
+	Philippe Gerum <rpm@xenomai.org>,
+	linux-trace-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tobias Schaffner <tobias.schaffner@siemens.com>
+Subject: [RFC 0/3] rv: per-edge dwell-time statistics for per-cpu monitors
+Date: Thu, 27 Aug 2026 09:23:57 +0200
+Message-ID: <20260827072400.45734-1-tobias.schaffner@siemens.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: FR3P281CA0071.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:4b::7) To AM9PR10MB4992.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:20b:3dd::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: starfivetech.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM9PR10MB4992:EE_|GV1PR10MB8608:EE_
+X-MS-Office365-Filtering-Correlation-Id: d13f968a-7ebc-4cbb-74b2-08df040c2e98
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|10070799003|366016|6133799003|10067099003|56012099006|11063799006|55112099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	5CNFsZbpS4+qITvqjUkKGjRbcPDO1iVPzOIqiBkEbXnJ06b3MVg6V/JF4/nG5b/Hq3OlGmEAO6xDbZCmiOsTFoCkbWQ9VPyW1nq9d7xSxDEoe3RtOJGI+NqfqF9P6dHH7JdWSGt9B5DRG5zU3fwvC+Z28L+s9WbQGZsVZjePEWgVB8/UXgg5TSRPeT5L2BjdKfTARU+35Hz+3FbZ+csrHGgNqKyEWsbgYQN9iM4T7msC1+8GDQGnB+3HCASjBX/OItCk2u3LJKL9cP9NSNmPjq3+RyT9rTWg4aBi7M5NayyWEGeaWhvtbSJWE+1k8GFgIJjx5MsxZK1hi0kvukti/9GkXPy/QwR08i9sv6/wCgiC3VbAp1WWHXaRBBxb0B6EAsq8uANQ6iHzQOOzOboXpv8zPEXb9w1CsCtAgULCemub0ncAf07cYvRmLZG8WLkclj2vre6zJDBl+l87XkgkdtrdGG48sO4Yx9E/kYAkHS3wMP6m+BfTs5a1k+i6b9UwuZnc4JJ0QENDH9w5JXF7nKSm1V7p3NPSNKFobuVjqPbZlBToiqgeDboxK5qISYyShD4vvra3RNkFj77adiR4V8wUteKIJ6Icx8kmzkdOm+ZWh6S9HfPQXnnUTNTnq3UwuZEB+iossPeb8GLDShJj/L8PudKbdb8YoLgMahzT0+0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR10MB4992.EURPRD10.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(10070799003)(366016)(6133799003)(10067099003)(56012099006)(11063799006)(55112099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?tjsrj4Qaoiq2ALd/tl4gZwlqosukmEvjNg07r9nbHk4yeSNaWVqUEEC8o4uk?=
+ =?us-ascii?Q?xfEnl8GCJAKs4kzy5w+BDjmEKaJgqh7HcL1hi6mZ5dWLvWVQEi3cyepg9Ujq?=
+ =?us-ascii?Q?3iaaELx4npjl8EFJMviPYdC9r21NV4dpBAXR7TVf0SjiYI9/3qc8TfNoVqrI?=
+ =?us-ascii?Q?uj+cMrTgLi0GlC95lVbCaKMDFX6X84AAF4+I+43fOFSNEDGfYEaOfbYPuLcc?=
+ =?us-ascii?Q?esemS3cHKPGFuvC+kaCrwx5swyQnibRpqllnjpxat0cZrdDSM69E95j9WaT7?=
+ =?us-ascii?Q?A/3Drx1LViA8o6f3ukOzMNZme30xQysI8KkcnAD9D1zTptpW3aBhnFy52hBa?=
+ =?us-ascii?Q?n9Plugn+/RDsOb3Lewf7mYs6YY64QVAMrmmm715Rci1lK45zthj165ntqw58?=
+ =?us-ascii?Q?F32lz2aoeMCD1SgBRo6fr+yWQkBTvx2DLgkK+zszHUvFIMhqXbsCKLmEPV5A?=
+ =?us-ascii?Q?adncSCzBJDSXq20NMNiehQi9fJnCmSaIAZvBPyYw/Svcz478motB4yiVqot2?=
+ =?us-ascii?Q?7Y/kORYnZKmLLBX+k5WUyanu8D5VrdQY+OYez7KUk7ZUWMiTqyHglrVuXCtu?=
+ =?us-ascii?Q?f4SFc57EYjkREJdrlghWV0NEOIxkNZuv1S/a3/qhY37FPDrxEagTOxCZ08FM?=
+ =?us-ascii?Q?QiEWvl8bkydubZVdGpvQ6AmzwrKtTRGfPJ3bouEi/F9tF2Ce6vRBDI4p8LCU?=
+ =?us-ascii?Q?JxpeUpCDqP2OA2236Y9MlVnWOFD2s5WDGGVbiyz3hUaAGi70EgfVYq/0Kz+d?=
+ =?us-ascii?Q?Q+5l2QPPj/NLxF2Np849xQ9qSgYH23B7T7eH/8NH0xF/llXAPJGD82sUiXj1?=
+ =?us-ascii?Q?JaXRBJFjMSl1WvKnt1kHiXd3g1br7BSMxPHa7zJxGStQ20h/AvbCrYK7YpW4?=
+ =?us-ascii?Q?eLK4FgkmqUusowM7zj5cxJplZQv+r76Ih9tZu+VFeJJn+RJ5aFmfQhS5m498?=
+ =?us-ascii?Q?5rw0M9VS9MJ7d5uuOm9cEoVbwIB+SzAdv0Npj2s4G9rrsvtRh2RIVnS+crr9?=
+ =?us-ascii?Q?YXQ+fSnk4Cz3OknpsKfdro/lbHNGIDxVPC9mSusrHpjXF75fllyQ12uWYz9Q?=
+ =?us-ascii?Q?F5ZM+k6UUh8QzcUVqyNT8fsjgS001+LaUBR1zgKvedrWqP7yftFCXVtdFg94?=
+ =?us-ascii?Q?uJzQ3Yeu54UvZmTpadBW5pux/9ULtPIwGY1SrukqwcJP87Hz9y3FRcDsZ71Y?=
+ =?us-ascii?Q?ASEXiuU1QyLGRsksAZnYjJjYPd2kfDpr1ls3spXFc+O5/ztgk40L22OaS9n2?=
+ =?us-ascii?Q?RzZJfoO0+m0Gu6gmSGwLB0AtH/vatb478XzVWf1Cekx/RSNPrRFqYxJ+zhjq?=
+ =?us-ascii?Q?yk73DTr5s91POEyyoK13+FWnkrkyL+mQKJsJN/GM8+FrMgLgwdkvr8uZhqWk?=
+ =?us-ascii?Q?xUEacE7BE6ktADluFIpz0u4Me+viU2kAro57PyaVdYOBgYTMzbQ1HTbf7CJk?=
+ =?us-ascii?Q?XBZ/VEsdmER7lao9hn0K3ZRFBIpAIAiyin2IILYJurVrxrrFxLkzYdSjz4/I?=
+ =?us-ascii?Q?3YrUV4gxR60LnPDwxkrHlprQYa0+XCd67U8H3sHBBsajsjcEAYIL5ZByFsLj?=
+ =?us-ascii?Q?YMSmzxo9qeGJYwvpFq/S1OUEOfMsmgfbFQleRJtza0Zvtm//FXgwMtLHvK/M?=
+ =?us-ascii?Q?OjgaWs2GI+oTKr3Tmh8RA8TEQMxnTX8QzjD4VkD0au8nvy+u/2JIhMTvy2vi?=
+ =?us-ascii?Q?C+qJCFQRRnmWqQK4LpK2KaOK6w03Ti31nE7F/M5JAkGuo4wXCnBY6pDtwCcM?=
+ =?us-ascii?Q?hPSAXtk9WTM7+/k1VfL0VLkXGD5mDWL2SYeHPferVtyBNJA/kYsSmk6V2Zk6?=
+X-MS-Exchange-AntiSpam-MessageData-1: kMHqePU/ptG9BZbgcL0XlR1nSmne9GUA2iE=
+X-OriginatorOrg: siemens.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d13f968a-7ebc-4cbb-74b2-08df040c2e98
+X-MS-Exchange-CrossTenant-AuthSource: AM9PR10MB4992.EURPRD10.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-Network-Message-Id: 99424c52-a426-4943-c965-08df040c2460
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Aug 2026 07:23:50.5913
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 07:24:08.0713
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: U59mQIGmn4BWm+JHIWVhwZ0aMVr2vtxqsjMNvDMWy0s8VsrEW942FN/u4gXD6mmGGbPw/fepn2p7S4pis67nyMBX29DpK0b1aH/c1d61SPbRctRQpvjBGtADqc9Z27rG
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1316
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 38ae3bcd-9579-4fd4-adda-b42e1495d55a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: bHqYqxpMnXaux8jFERhw8wfXjbJXzQntkpucsbt6p4T9pc3GB4HYOON01Fs8LBJUa4Jx6mM0LDCOSdG+SbEtJc9hg5zD9fp+WbkbIoBMoUg=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR10MB8608
 
-Hi, Brian
+Hi Steven, Gabriele,
 
-> > On Sat, Aug 08, 2026 at 06:50:48PM -0700, Changhuang Liang wrote:
-> > > Add system-0 domain PLL clock driver for StarFive JHB100 SoC.
-> > >
-> > > Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
-> > > ---
-> > >  drivers/clk/starfive/Kconfig                  |   8 +
-> > >  drivers/clk/starfive/Makefile                 |   1 +
-> > >  .../clk/starfive/clk-starfive-jhb100-pll.c    | 535
-> ++++++++++++++++++
-> > >  3 files changed, 544 insertions(+)
-> > >  create mode 100644 drivers/clk/starfive/clk-starfive-jhb100-pll.c
-> > >
-> > > diff --git a/drivers/clk/starfive/Kconfig
-> > > b/drivers/clk/starfive/Kconfig index 852464949334..a39dd22112fa
-> > > 100644
-> > > --- a/drivers/clk/starfive/Kconfig
-> > > +++ b/drivers/clk/starfive/Kconfig
-> > > @@ -117,6 +117,14 @@ config CLK_STARFIVE_JHB100_PER3
-> > >  	  Say yes here to support the peripheral-3 clock controller
-> > >  	  on the StarFive JHB100 SoC.
-> > >
-> > > +config CLK_STARFIVE_JHB100_PLL
-> > > +	bool "StarFive JHB100 PLL clock support"
-> >
-> > Can this be a tristate?
->=20
-> I checked again, this doesn't affect the critical clock, so it can be cha=
-nged to
-> tristate
+I am using the RV system for a downstream project called EVL (aka Xenomai4).
+It is a small co-kernel system, small enough that I can model the whole
+co-kernel with RV instead of just a fragment of it.
 
-I need to correct this again, this affects the clock registration during st=
-artup,=20
-so it cannot be changed to tristate.
+The patches in this series add a per-monitor "stats" file that exposes how
+often an edge has been visited and the dwell time in the prior state for
+per-cpu monitors.
 
-Best Regards,
-Changhuang
+This allows me to not only check if the model is correct but also to see if
+all paths are exercised by my stress tooling and to decompose the latency of
+the co-kernel's wakeup path.
+
+I think that some of the upstream monitors like e.g. the sts monitor could also
+profit from this.
+
+As an example, here is the sts monitor on a StarFive VisionFive2 running an rt
+kernel (isolcpus=2-3), after enabling it and generating some scheduler load.
+Only the edges the automaton actually takes are non-zero:
+
+  # cat monitors/sched/sts/stats
+  # cpu edge label count max_ns sum_ns
+  0 0 can_sched:irq_disable 367732 3998500 14773091250
+  0 4 can_sched:schedule_entry 40282 398750 45510750
+  0 7 cant_sched:irq_enable 367732 32500 532791750
+  0 8 cant_sched:irq_entry 26188 6250 38357250
+  0 13 disable_to_switch:irq_enable 4933 12500 12275000
+  0 14 disable_to_switch:irq_entry 31 2250 35250
+  0 15 disable_to_switch:sched_switch 35373 26750 111615750
+  0 18 enable_to_exit:irq_disable 373 3250 649750
+  0 19 enable_to_exit:irq_enable 373 20000 1676250
+  0 20 enable_to_exit:irq_entry 309 4750 420000
+  0 23 enable_to_exit:schedule_exit 40298 3000 37335000
+  0 25 in_irq:irq_enable 31 12250 140750
+  0 30 scheduling:irq_disable 40337 18000 45449500
+  0 37 switching:irq_enable 35373 9250 72471000
+  [ cpus 1-2 omitted ]
+  3 0 can_sched:irq_disable 567 3983750 300860250
+  3 4 can_sched:schedule_entry 150 1500 171000
+  3 7 cant_sched:irq_enable 567 21500 1777500
+  3 8 cant_sched:irq_entry 76 6500 164750
+  3 15 disable_to_switch:sched_switch 150 4250 413750
+  3 23 enable_to_exit:schedule_exit 150 1500 147750
+  3 30 scheduling:irq_disable 150 1500 166000
+  3 37 switching:irq_enable 150 3750 277000
+
+The sts model splits the schedule->switch path into separate states, so the
+per-edge dwell decomposes the scheduler's interrupts-off window: on cpu0 the
+prep phase (disable_to_switch, irqs off until the switch) tops out at 26.8us
+and the switch itself (switching:irq_enable) at 9.3us, over 35k switches. The
+counts also line up with the model, e.g. every irq_disable in can_sched has a
+matching irq_enable in cant_sched (367732 == 367732). The isolated cpus 2-3
+take almost no switches (150 on cpu3, versus 35k on cpu0) and their worst case
+is tighter still (~4us), so the same file also makes the effect of cpu
+isolation visible per cpu.
+
+The changes are gated by CONFIG_RV_EDGE_STAT and dormant until a monitor is
+enabled, so existing setups are unaffected. When enabled, each accepted
+transition adds one local_clock() and a few lock-free local64_t updates. With
+the config off there is no code on the hot path at all.
+
+I focused on per-cpu monitors as a first step. Per-task and per-object
+monitors would have to aggregate entities that share a cpu, which is harder
+to get right, so I left them out for now.
+
+What is your opinion on this? Do you think this is worth getting upstreamed?
+
+Thanks for taking a look,
+Tobias
+
+Tobias Schaffner (3):
+  rv: add per-edge dwell-time statistics primitive
+  rv: add per-monitor edge-stat facility and stats file
+  rv: collect per-edge dwell time for per-cpu DA/HA monitors
+
+ .../trace/rv/runtime-verification.rst         |  24 ++++
+ MAINTAINERS                                   |   1 +
+ include/linux/rv.h                            |  18 +++
+ include/linux/rv_edge_stat.h                  |  60 +++++++++
+ include/rv/da_monitor.h                       |  53 ++++++++
+ kernel/trace/rv/Kconfig                       |  11 ++
+ kernel/trace/rv/rv.c                          | 116 +++++++++++++++++-
+ tools/testing/selftests/verification/config   |   1 +
+ .../verification/test.d/rv_edge_stats.tc      |  32 +++++
+ 9 files changed, 315 insertions(+), 1 deletion(-)
+ create mode 100644 include/linux/rv_edge_stat.h
+ create mode 100644 tools/testing/selftests/verification/test.d/rv_edge_stats.tc
+
+-- 
+2.43.0
 
