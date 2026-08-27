@@ -1,119 +1,118 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFDBB32BF4B;
-	Thu, 27 Aug 2026 23:14:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBF7E33D4E4
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 23:16:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787872468; cv=none; b=GC/VXffzmIrqayLJatL4y5YPJkBNvAxWivQ4x7Wjp30FjVzBu1ypKVvvHWVAijwyv0Gwz86M5zM0PGxacF/tKeNIuxcvtpsB7IEcX/n4ZyPkama/QWeH0wuP4z+9hJY6R9ooiSWIUpWgD8a85ak9xAf8uSW+BAHwnsFvUfAg4D8=
+	t=1787872605; cv=none; b=lHZOaHQ3vHLNoL/afOMig7mdOs5JkLgUcN765HESPaQsTALcoTOO0ixzacjXXIWIVl1tBJvLAWT25/RNZ68QAGzI4TCcTfQgLILfsukJN+AHui6lBSxKDphOHcQJzntyDShERRIK/Cl3LpJ79Qkszxap7xVgE0hFNsSu+0Z18LM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787872468; c=relaxed/simple;
-	bh=U04iR+qtdCoxG9gK1Z5LrwRMGX8xdLDMkZOI3f7jHsQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NTPNa4IDUNj3OLz2pvRB/etnOR9+xZPM+pFm++54ADpIqXnWTqZfq6LYaqi8rIJ23rGBD5bjpbI9n5A0CY08Pa2v0RV3UiCLY07pFAvozR/NcNl/8YLcuqOF8MKXRHqP5Qu+UIWmGrPBw3Khd/N+aEvBw5WCIwFPUPkcpwJT0p8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=i7CL2o6S; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1787872605; c=relaxed/simple;
+	bh=UdT3hGNALeUvnboImYmMvZ5TECkCwAEoQ9XDAhgPc1Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MuW8ZtMS2JJLciif0EMgjzaQVSFfWwSG+U0cGqHIFpC2HrmNcyTb+M4G9HWwl0SLpCj65n22BpbSQdNARSofFrNB1hULFt5Pgk9vIDVTghASgz3Eb2ssVH2idXCsWw3W55NLFeI/ioTC3yhRHHzQHkWHPI/WfPQvwSXcBucaL1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hpYHT4Iy; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="i7CL2o6S"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C1AA711C5D3;
-	Fri, 28 Aug 2026 01:14:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1787872460;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=gjJ6weS85s22FsCPd+HQktbWCP2SfOGkFBLAdeRpKpo=;
-	b=i7CL2o6SLSrZdwX0d5+AsU2vabHXYQ1NNmnV/xx2ISa23sMUmdIGRb53cNIhJNGVbZsTdx
-	WAdF9ERf6Uf1CaoM097RPCbumDaf+d475mXRefKf7E7+X43sCbomSMuwll7k0fkXQffzdB
-	SBs+jMee+mA+bafgxAFrGyRltI7WCGMsa1gPCTxJpGarj6jWNq8H4dKdfA97nEK9HNF9m6
-	+eoWKLE7AVgdSFiIdQW8feBK8viOr+0M1k4N8Bivc0VUQEMLpewdXAcly+bg2aBeCZgbl9
-	h8RkaXiO6LcP9y7SaIxMYoqAi+28TMwMG5q2J5j9uzvv/EIWpD+n0M2ipwuSbA==
-Message-ID: <84bd4b0b-69c3-451e-9e0b-690191f52537@nabladev.com>
-Date: Fri, 28 Aug 2026 01:14:16 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hpYHT4Iy"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4953e04ef16so2970465e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:16:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787872602; x=1788477402; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VPhJkcevED7Y+KnWzw97fILHTL0049NkaJvngpw2zCc=;
+        b=hpYHT4IyZnHuCgT7gsmtgEumiHvzIyRATexAxnncZOMfC+kuXdK9WrNqsX1UUegIH0
+         hFM34SbWBkvqY62/XTzZWUXABYokysa9nkoVgPdtb5nGTHUPG1wqrddaj/mjNj5JK3sI
+         NrP8WKN4nvMByTW4v0mHeEvtJUQY8PFSTX1/3Bq64undtMmPsg93GwJRA+9sbYke4gbi
+         ce20f53SZJsR7BgVyoMQoB6sPzugamhUKpFMK+FURoL1ywrj0Y3VXtdqmTOrhZ0kk6qb
+         i4xPA04Nfvkk492IaRpyltiK+XdZbrjHBrixuswjRu7pjpgAnLDfUWeOLF1o30PK69P8
+         CSYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787872602; x=1788477402;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VPhJkcevED7Y+KnWzw97fILHTL0049NkaJvngpw2zCc=;
+        b=dofa0NzDY6Ot7iDlyFbW3N5eazF5CwxPuuECYyHaB1iL2Gaa525E0ApNXXvWFIOXr8
+         RE1hLAHtxgiZPuGSdUzyL7DLLm/EMKA1d5UahWHpkfPGIK/EJqf0bj3x6gt6DQHeyOdE
+         SgmQYzml8/srzEXvyjFsvT21x6s8SAmli3z83mk4GoNlL4NrD+m13lwNA+N5LzMx2dhC
+         CNaM94DyGREvMvyhpfmbaMby/yCGmLuUGQZ8fACxeWA6/iazCrD++xaDH+hi76xfK+D6
+         IjPsH+Kc+7u3h2is5Z2hg8Q013SH+oFh5PHI68QY7jCgPq+Q9cmOTpAtcn+ZtUd6MLTg
+         VrZA==
+X-Forwarded-Encrypted: i=1; AHgh+RpFgONMpIGntU0CuQzIm6aCxBY9BS+5oKC+aQNyZ/Hzqqcm6QhnvtPLzEs+BUuYwGLJvR/wMj93TL+H4EU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mw2KcsYBfex891zZaES+x+yhzBXYi9657YgSN7E/HWrNem6qXs
+	187GXQ9jW5uS/uPYZMUg7BkoCrDH+iFOJ+aM6Ru+8FHvwg6zh/lLqBRJ
+X-Gm-Gg: AR+sD13T/ELddWeFRpz406h3SWYnUdKsZPMTD4jJbEtzXCnzteQiiGfj/iTkAJ5xWLR
+	pWPvm6AMNFOQoQ94MC1kBG5BdfSr3IA860w87zVCrZBKubrBMJ8xSpTvp0Pv7hmoRs0cBaDFmQn
+	i9ud/ZwivAr9d05dpOaXTRvlEGkmMoSOZaIOnoDmtrnn55TY/Vv6lTmc4IKy7w7FE7bqotiveq7
+	jLTOJJBYXg1d8m3cVysBwTKg679Z4BiIzda7kOTLK2y//kOQn0QdiOaJmrvnkOpST4I4D669v5K
+	Hu+1n7DLzSotUv/gakcithppd7QjTihfSBSjRAx7ndrWP5bI48yz31gRJVffJu+3CJoXqpbz40j
+	1g1RN0C0CVtPiE8u0NUzmbOJ0Xrp89auJIc8f6UIBEaex7L8XIikT8oBAua+J9sqaTTH9n2K0Y+
+	+u3DxL1M+Txsghblu/uY7ellsdPPJuWfGaq9D/BqfOgG33A+KQuL4ZO9VrEq9XSJSlYp73wsk/t
+	wW9F89O0ZZed/srbRsRPadMikT8yGKvVEOfH5W2yhiV
+X-Received: by 2002:a05:600c:1d1d:b0:49b:d45:703e with SMTP id 5b1f17b1804b1-49b91c2dfecmr31994195e9.8.1787872601879;
+        Thu, 27 Aug 2026 16:16:41 -0700 (PDT)
+Received: from 1Z10 ([78.213.170.242])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b9269f1b6sm9835725e9.4.2026.08.27.16.16.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 16:16:41 -0700 (PDT)
+From: Maurizio Casciano <mauriziocasciano7@gmail.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Maurizio Casciano <mauriziocasciano7@gmail.com>
+Subject: [PATCH v2 0/2] Input: drv260x: restore configuration across power loss
+Date: Fri, 28 Aug 2026 01:16:35 +0200
+Message-ID: <cover.input-v2.1787872237.git.mauriziocasciano7@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/9] dt-bindings: phy: Document ST STM32MP25 USB2-FEMTO
- PHY
-To: Krzysztof Kozlowski <krzk@kernel.org>, linux-usb@vger.kernel.org
-Cc: fabrice.gasnier@foss.st.com, Pankaj Dev <pankaj.dev@st.com>,
- Rahul Kumar <rahul.kumar05@st.com>,
- =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clement.legoffic@foss.st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Christian Bruel <christian.bruel@foss.st.com>,
- Conor Dooley <conor+dt@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Rosen Penev <rosenp@gmail.com>, Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
- Vinod Koul <vkoul@kernel.org>, devicetree@vger.kernel.org,
- kernel@dh-electronics.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-References: <20260822074816.548662-1-marex@nabladev.com>
- <20260822074816.548662-2-marex@nabladev.com>
- <7a16614a-bd1b-462a-be13-4a9c22aa588e@kernel.org>
- <34c48ff1-524f-4d24-b53f-99e7171d08db@nabladev.com>
- <25e10cfe-40dc-45f4-8a92-cd81263420ea@kernel.org>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <25e10cfe-40dc-45f4-8a92-cd81263420ea@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-On 8/27/26 11:33 PM, Krzysztof Kozlowski wrote:
-> On 27/08/2026 16:53, Marek Vasut wrote:
->> On 8/27/26 2:54 PM, Krzysztof Kozlowski wrote:
->>> On 22/08/2026 09:46, Marek Vasut wrote:
->>>> +description:
->>>> +  USB2 PHY block in STM32 is attached to USB 2.0 Host controller and
->>>> +  USB 2.0 side of DWC3 DRD controller, and provides the USB LS/FS/HS
->>>> +  connectivity. Both PHYs are the FEMTO-PHY, but their configuration
->>>> +  bits in the system control register are different for each variant.
->>>> +
->>>> +maintainers:
->>>> +  - Fabrice Gasnier <fabrice.gasnier@foss.st.com>
->>>> +  - Marek Vasut <marex@nabladev.com>
->>>> +  - Pankaj Dev <pankaj.dev@st.com>
->>>> +
->>>> +properties:
->>>> +  compatible:
->>>> +    enum:
->>>> +      - st,stm32mp25-usb2phy1
->>>> +      - st,stm32mp25-usb2phy2
->>>> +
->>>> +  "#clock-cells":
->>>> +    const: 1
->>>> +
->>>
->>> As pointed out by different patchset built on top of it, this is wrong.
->>
->> What is wrong in this (V3) of the patchset ? I think the ST patches were
->> fixing up V2 and what they were fixing up is already fixed here in V3.
-> 
-> Probably I got confused... but I had impression the ST patches were
-> adding here "reg" property, no?
-It is there in V3:
+The DRV260x enable GPIO disables the I2C interface and resets volatile
+configuration when lowered. Closing the input device or suspending the
+system can therefore leave the controller unconfigured when it is used
+again.
 
-"
-+  "#clock-cells":
-+    const: 1
-+
-+  "#phy-cells":
-+    const: 0
-+
-+  reg: <------------------ HERE
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  resets:
-+    maxItems: 1
-"
+Restore the actuator configuration when the input device is reopened and
+after system resume. Quiesce asynchronous force-feedback work during
+suspend, restore a usable state if regulator shutdown fails, and keep the
+firmware-selected actuator mode unchanged during playback.
+
+Changes since v1:
+
+- add a separate first patch restoring configuration after input close;
+- stop overwriting the configured actuator mode during playback; and
+- retain the suspend/resume sequencing fix while restoring all volatile
+  configuration after the enable GPIO is asserted.
+
+The previously posted optional-vbat change is withdrawn, as requested by
+Dmitry. The Yoga Book enable-GPIO mapping has also been removed from the
+generic Input driver and is provided by board software nodes in the
+separately posted platform/x86 v2 series.
+
+Both patches pass strict checkpatch, W=1 and sparse v0.6.5-rc1. They were
+tested on a Lenovo Yoga Book YB1-X91L with both DRV2604 devices. An
+RTC-timed suspend-to-RAM and resume completed without rebooting, and both
+force-feedback devices played effects afterwards without drv260x, I2C or
+configuration-restore errors.
+
+With Best Regards,
+Maurizio Casciano
+
+Maurizio Casciano (2):
+  Input: drv260x: Restore configuration after device close
+  Input: drv260x: Fix suspend and resume sequencing
+
+ drivers/input/misc/drv260x.c | 58 +++++++++++++++++++++++++++++-------
+ 1 file changed, 48 insertions(+), 10 deletions(-)
+
+
+base-commit: 9a29ee801f525bcad71fea021bfe2a030885c8df
+-- 
+2.53.0
