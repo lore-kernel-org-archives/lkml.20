@@ -1,65 +1,86 @@
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8BD8480974;
-	Thu, 27 Aug 2026 15:37:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 401EA448B9A;
+	Thu, 27 Aug 2026 15:38:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787845061; cv=none; b=mGR3dJwVaCmLCrz9qkDE7/If3qLZpbtM3BoOc0Mvx11z+V47yHd8JA6OphibcCSB6rDlYzXe3s4EzWTDIcsx+uq5GmAaP/l3teU8/Hzte25qvq5CnJDcon72NQuPVtvMOqk2X9pDSCvCC1hUSH8evuJWhj0337TItbgiNSSqKVA=
+	t=1787845125; cv=none; b=kqu31QtWqwikN8nWl9I8lPAlJRVc1/0z/apRa0XhwnG0Fgqy2nXzQIkpmB/LvqLYdCLpyuTZigug46Y1Jt70caFtXcq1ZIY11wStHucfmurdRzdmMIQ03+HNGByk3GaF8r+WAX6KeSdG5MyM5KHDlaTCB92tnCEGK2TWs0N97t8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787845061; c=relaxed/simple;
-	bh=7kNzrzrR628KWy4wv+ht+DrCY9yJ3kaAaVVyyCEwKtU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=N0JNTKncY3W/2Y/Ed07aFRdomiE76Mn1QLsUJf9cYIrI9jUEDSjAPWL5Tcy8WWEhdyRtPb8sKHx1MYKQbTCfuyVw0M5OzMU4MCi44igXPMQ5VAUrArri1XCGSGsrfCVECWdnFPrP0ep9UmRVxDd0Wflo8x6b9bIGGnwPaEs2+wM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=FONL3r8v; arc=none smtp.client-ip=216.40.44.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1787845125; c=relaxed/simple;
+	bh=521mHSM5BJqZW88mReqJnYqgYws97tVrmMSpaKLStS4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GHQf4MWRCIz2X19cuSAIkH4ZCO9zM0CcgQvW3oPvHSGMv8ksrMeaRXARKdJK4uqHRuva+uKKrme8hA4+Js8kbr9cxOZwdMCyemPbm5zDPwgNG7F5aeDbfnGGNr8LMeTdfbL3qg/38SLyX9Lb6WpH6LVwCcEhppINnM22UoCgGFM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nG94hv2t; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="FONL3r8v"
-Received: from omf07.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay04.hostedemail.com (Postfix) with ESMTP id 278BA1A0482;
-	Thu, 27 Aug 2026 15:37:30 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf07.hostedemail.com (Postfix) with ESMTPA id 1FCF02002D;
-	Thu, 27 Aug 2026 15:37:28 +0000 (UTC)
-Date: Thu, 27 Aug 2026 11:38:15 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Xiang Gao <gxxa03070307@gmail.com>
-Cc: Xiang Gao <gaoxiang17@xiaomi.com>, Masami Hiramatsu
- <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Lorenzo Stoakes <ljs@kernel.org>, Gao Xu <gaoxu2@honor.com>,
- yinchuang1@xiaomi.com, linux-trace-kernel@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [RFC] tracing: aggregate ring-buffer memory statistics
-Message-ID: <20260827113815.0a0e37fb@gandalf.local.home>
-In-Reply-To: <20260825141015.3539553-1-gaoxiang17@xiaomi.com>
-References: <20260825141015.3539553-1-gaoxiang17@xiaomi.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nG94hv2t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57B201F000E9;
+	Thu, 27 Aug 2026 15:38:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787845124;
+	bh=U5sS71ijkMIiJx32c1p1EoxWAzNmtSPxJ+sc2YkN9Cw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nG94hv2tO4r2tZ/THXCu/wYZYlog97GRK/gM9cX49ixVI0K4ry3KhBwOHINEZyanR
+	 AiZBlBmDZeAuuFs1Jm+cUWPmvo87Xp2QrNOjPfIQmB4Dod7Vpu6QhYgHBBOrQ88UU+
+	 sX4UPwy6/ciW6PnFgYKPLw9KK+loBjjwpz6hFGfHd3ZIdX4eZnFMUUxrtAKvrhK4nx
+	 SSXYmutpMv/kSxvaDT4Ao8sPMwjJJ5Reej/SSJvGYJ1oobNsIzlP9+bB4tvjXsPuHt
+	 /2iMcaosXCXddo4dRa0tcLpES1zm9uGKgX5K/9miJuvnmZkugybReYFlxkqMNr9h3+
+	 O3r/+otmSaPdQ==
+Date: Thu, 27 Aug 2026 16:38:39 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Jon Hunter <jonathanh@nvidia.com>
+Cc: Abraham Zukor <abe@maticrobots.com>,
+	Laxman Dewangan <ldewangan@nvidia.com>,
+	Mikko Perttunen <mperttunen@nvidia.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	linux-spi@vger.kernel.org, linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] spi: tegra114: initialize native chip selects inactive
+Message-ID: <c6868d2a-f55f-4196-9914-f096420cbabc@sirena.org.uk>
+References: <20260826000517.631736-1-abe@maticrobots.com>
+ <420de339-53d2-40d9-b04a-a54428450830@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: gz36t9ay3xuqryqmakdzi6jrhuz5y3wc
-X-Rspamd-Server: rspamout02
-X-Rspamd-Queue-Id: 1FCF02002D
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX19Fp3vd/XZK9ZzG0XmgGs7MuhfPTImg7hI=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=B5sy7Dnu1doW9a8EFJ94rs455TnrWVmiKgWn+uT2Rbs=; b=FONL3r8vVCTADP1UST9B/fX3+5aKKZ7xbiAlpU42sd1V3VwC35sjsDYOBNEx4+EIUrx0rZytYRZ1t4hCbWPPIGvm9y9arUuUFAgQKEYFtcGjAVszth4+3rz8P/xaS2PLeteHewFcWR+RYYmtliOZ0sfuJoBkxL9Vns2ewGsGrMk=
-X-HE-Tag: 1787845048-712360
-X-HE-Meta: U2FsdGVkX18whgPuv0OOvjJempj+iG/EOSFqn+7N5rNU8fC7dXwUwav+ugDIJ6Y0Z9NvMXRtR7FcDQpOja1wgFmR5m1Q1i6Ql91tZDcwQjTFOVfUTNkZwEqNDIdhGFEuWj6lLZWKInkjLyPKrXvq8QPHGBEtXjaokSO4AHEFAMJkJA0WfEpeXJ3FThNsUCmCGbcHtY2P/r3lxI3XG0EV3lYM3TMQxZXglw/wwQUS/s35TYrWfMebhoiyX3mcg4BzOeDT51KWiSFJer6mne2uUgVQpGILuf62aD/CBOGMKlVDKD4RFGcDs6ydBGTcTlzaqXlCbTmUIhJsqnpqjzU02nGzRRwpPg/p
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="hnU5T92HxfV03qaA"
+Content-Disposition: inline
+In-Reply-To: <420de339-53d2-40d9-b04a-a54428450830@nvidia.com>
+X-Cookie: Alimony is the high cost of leaving.
 
-On Tue, 25 Aug 2026 22:10:15 +0800
-Xiang Gao <gxxa03070307@gmail.com> wrote:
 
-> Slab-allocated ring-buffer metadata is not included.
-> 
-> One open question is whether reporting page memory only is acceptable
-> for the initial version.
+--hnU5T92HxfV03qaA
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-As supposed to what? The meta-data? I think meta-data is also good to show,
-if it is allocated. Maybe as a separate line item?
+On Thu, Aug 27, 2026 at 04:18:23PM +0100, Jon Hunter wrote:
 
--- Steve
+> Thanks for updating this. This looks fine to me, the only comment
+> I have is whether we should check and warn for any badly configured
+> device-trees where the same CS is used on multiple devices even if
+> one is disabled? It shouldn't be, but could be good to flag this.
+
+I can see a system having multiple variants with the bootloader
+selecting which device is active in the DT based on runtime
+enumeration.  Not sure if anyone is *actually* doing that, but given the
+state of the world with overlays...
+
+--hnU5T92HxfV03qaA
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqQWf4ACgkQJNaLcl1U
+h9DbkQf8Chm3XOSx9gFAz8Wi4gZ5e2aw4/NbhK3crDJ3o4WGOJTMBi2DVURqDYYr
+ohoH58aa8OCag5Q0WMmFChcDKvF/XSBDWjttn/MIBRUbuibLg7mgJ9pnjb8KtQAA
+/l2ht0Tq807jLR1z7LAuyjgkYiIqNsLnQBuVqX+/OLUaYfoJEBhrswx39OmnN/Ol
+m6637SsJIiBtu2oUsJ6vfsKHEH/kVgDENfI7M/WAgdgiFEGOXy7q05tweHmmVphY
+1TgjBMhGFWfVJ0z4GKac6gP762NwAWQmvUHeEh0PQxlFk4ycAduj1EvAzyF6Q0lc
+KHWSyL4wbDC/QoRXeUfYmGBgwz8F2w==
+=AiJ8
+-----END PGP SIGNATURE-----
+
+--hnU5T92HxfV03qaA--
