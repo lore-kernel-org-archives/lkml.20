@@ -1,532 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4C0643FD05;
-	Thu, 27 Aug 2026 11:08:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42CC74418F2
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:08:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787828900; cv=none; b=NQ/s02ZHCwyf4Z6AGoToY/fAsQcFr/FADtNcEiQOHXgTPl80yBf8i9tzRg9SooZzUNlEKeMEa1MmOWWIcb9NANnfWTl76kts1vVYhs4w+K3HF0iYlmDG8AQhVw3F7gwvnrjFTj1ZruslsaCgSQPkXKNaXC/BgvgGrCFn6NTV7Ro=
+	t=1787828913; cv=none; b=L+TyseNX5rjAJguktr4VObWhew1Q3t3C+vluTK4dVUVXDFA014vINhGinjY2V0A8dBsc1e6CwPoA31qO0Two8m3Uf+RyCgspRuXrceQ3xAH1iotLl9nJMEj0Crxap+DiSDRkjR6Lnz4fkAvf1sRpleNR5ldCy7Dg+SicG1drxf0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787828900; c=relaxed/simple;
-	bh=ECFXT2baqq7hUOV8D66GxTCx31ryyNPVGo6wBm12d1M=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=TDrxQImvPlC0N2lIH4GTKCmOevmG26ZGT+WKMNPIU+qeM+W092pVFAMBv+lF17V0772QITaNqu+Vwmo1Ww/GdlZRAWGJ0uvb9nY61BX7hvXG8xktXDxec8et4yRVgiV/4CVwnygkMfNKSmA/6aTNX87CndI8Lm0FrcCquDOb8Ss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b+Lfwf/8; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1787828913; c=relaxed/simple;
+	bh=5ZykGnMPOhvzMIA2h9GZFruy1aASyXjtb5HZuu8hA1E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NzCNVB6pj7J3znSt445ooZ2fwYbqJ2kFX9IbzQ9KVBKFevhX3CZjI8knZ0j+NsFIZkJp12xicwoYjMrAuX47yOoKY72l6N9rsOA35uuAvBzzvzD8ZJsUlhMGNJiXq78Cbi4OPDFhEgYv78icxS7oHmYXoKlqIUvlBdd/fjIkbdE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q/cKQ6g/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b+Lfwf/8"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 30B5BC19425;
-	Thu, 27 Aug 2026 11:08:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1787828900;
-	bh=ECFXT2baqq7hUOV8D66GxTCx31ryyNPVGo6wBm12d1M=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=b+Lfwf/8F+T0iQ4iHWVespbMOMZFlcbtKiay6cqF8QZYT5aCIi57W20Bx/gbLo2M6
-	 w/gtnLJpy1WX1ZBlVAiLY4c0cr0vzqMUv3lAWFyCEBGBQtyyH9idMOwBCjOpxUFKIp
-	 CDAE2VGo7h8XU+sVMrUurdiIzvUaK48bNUTxML5z8zQ6b5tGD6lY25s8AjcucsGHnu
-	 4ojaNp0d5hOwtYt1Sp9n55F6YQHajVrHftwhKoNyXSRlO2EvMy/KEjF/H/mp0Q397j
-	 pPj68FOiyCvOhE0hvWiuYUBWUg/ZCO/CLJdPnsVWyb86kQGWZQBY6YplHUpQtKDd2H
-	 L7y/6asOPj6hQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0B547C61DC6;
-	Thu, 27 Aug 2026 11:08:20 +0000 (UTC)
-From: Xiubo Li via B4 Relay <devnull+xiubo.li.clyso.com@kernel.org>
-Subject: [PATCH v3 0/2] ceph: keep the inode, not the name, when a dentry
- lease expires
-Date: Thu, 27 Aug 2026 04:08:15 -0700
-Message-Id: <20260827-b4-b4-ceph-dentry-caps-v3-0-f0619f4134e0@clyso.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q/cKQ6g/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 821A61F000E9;
+	Thu, 27 Aug 2026 11:08:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787828910;
+	bh=1x0zBWdMtgqZiQur8SMfQr/RwwtWwQSC5GfZhLiryLQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Q/cKQ6g/TLt2dqqMpsGuq4/xHZqR0cRp812aS7hA6QfuKfmqgPUfUEGoaLLYDZZSP
+	 Mnwc9dN0Fa4TBFOATCyM5pjkeuce0Ze+S5aZwmujhkdFGXeY0sVALZBN/qsnxUC6U7
+	 KIsJCoTQrzzE1GLC/6MtPhl2YgjQqcIlWKWsUQdfucgVgLS2JDA9Q9LXNDNs9BzCqC
+	 oYvSwn3BKOaIrBbwftXxpOfNhz1n0pJNLtDOkDPGuYHtFc1KaopfCiw8UtG7ernwwz
+	 y8BdEGIWDRT7DkM0z3vpvaLrmHg1lgcJdOfb4vuxdkud813Qa1MaFqyL9GgP0N3UPQ
+	 KZWhg2/Ca3zcQ==
+Message-ID: <21329b69-1a58-4b3e-918b-26753a961339@kernel.org>
+Date: Thu, 27 Aug 2026 13:08:24 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNQQ6CMBBFr0K6dkxbCgVX3sO4KO0gNUpJi42Ec
- HcpbtgYk9m85M97MwnoLQZyymbiMdpgXb9CfsiI7lR/Q7BmZcIpL2nFGTQincahA4P96CfQagi
- gjBAyFwZVVZD1efDY2vcmvly/HF7NHfWYbGnR2TA6P23lyNLubyQyYNC2dSNlwZiu5Vk/puCO2
- j1JikS+1xQ/NRwoCMYpM1KJqqz2mmVZPhCTBtsVAQAA
-X-Change-ID: 20260821-b4-b4-ceph-dentry-caps-ad44734dea85
-To: Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
- Viacheslav Dubeyko <slava@dubeyko.com>, Jeff Layton <jlayton@kernel.org>, 
- David Howells <dhowells@redhat.com>
-Cc: ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Xiubo Li <xiubo.li@clyso.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787828896; l=18952;
- i=xiubo.li@clyso.com; s=20260625; h=from:subject:message-id;
- bh=vCeS/JocqgPkZ3TyBm7IxfV7A1PZqxnPw40nmnI665A=;
- b=t1rku4SbpK+Nn63eEMBN7I7VYY42aGDgxyEYUWz4YlGOImsEq3/iWVb/FK5n/ifRXnl1NZW8Y
- FadTaUYkrebDs1yP9Xl+3F34sfpeGzDjnn8LvAXZAVUx+ZUcpetlIxS
-X-Developer-Key: i=xiubo.li@clyso.com; a=ed25519;
- pk=V3NGr0AgAopiUhaLY51ipBkLN5LlcLhjOEfLEq1RoZ8=
-X-Endpoint-Received: by B4 Relay for xiubo.li@clyso.com/20260625 with
- auth_id=840
-X-Original-From: Xiubo Li <xiubo.li@clyso.com>
-Reply-To: xiubo.li@clyso.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] riscv: mm: Flush vmemmap TLB after sparse_init()
+To: Yaxing Guo <guoyaxing@bosc.ac.cn>, Paul Walmsley <pjw@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>
+Cc: Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>, Andrew Morton <akpm@linux-foundation.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, Zhizun Wang <anzoso@outlook.com>
+References: <20260827073603.141426-1-guoyaxing@bosc.ac.cn>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260827073603.141426-1-guoyaxing@bosc.ac.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Xiubo Li <xiubo.li@clyso.com>
+On 8/27/26 09:36, Yaxing Guo wrote:
+> Commit 4267739cabb8 ("arch, mm: consolidate initialization of SPARSE
+> memory model") moved sparse_init() from RISC-V arch setup code into
+> free_area_init(), but left the RISC-V VMEMMAP TLB flush in
+> misc_mem_init(). RISC-V now flushes the VMEMMAP range before
+> sparse_init() populates the vmemmap page tables.
+> 
+> RISC-V supports caching non-present entries in the TLB. If a hart cached
+> a non-present translation for the VMEMMAP range, installing the vmemmap
+> page-table entries is not guaranteed to be observed until an sfence.vma
+> invalidates the stale entry. The first access to the corresponding
+> struct page during memmap initialization can then hit the old non-present
+> entry.
+> 
+> Call an arch hook at the end of sparse_init(), after the boot-time
+> vmemmap population has completed.
 
-When a dentry lease expires, ceph_d_delete() unhashes the dentry and,
-because ceph uses inode_just_drop() for ->drop_inode, that last dput()
-evicts the inode too, discarding a page cache that the inode's caps
-still vouch for.  A workload that opens and closes files repeatedly
-therefore re-reads everything from the OSDs after every dentry purge
-(30s lease by default on the MDS side), even though both the caps and
-the pages were still valid.
+If it's a vmemmap thing, it should go into the vmemmap machinery, not slapped
+into sparse.c.
 
-v1 kept the expired name hashed in the dcache instead.  Alex Markuze
-pointed out that this breaks the d_find_alias()-based cap auth in
-ceph_open() and __ceph_setattr(), and that the retention bound claimed
-in the changelog did not exist.  v2 therefore leaves dentry lifetime
-alone and moves the retention to the inode: the expired dentry is
-unhashed exactly as before, and the next lookup reattaches to the same
-inode via iget5_locked() on the vino, with the page cache intact.
+Why can't the proposed vmemmap_populate_finalize() [1] cleanly take care of that?
 
-Patch 1 marks the superblock active after mounting.  ceph_get_tree()
-calls sget_fc() directly and so never goes through vfs_get_super(),
-which is what sets SB_ACTIVE; the flag has been missing since the new
-mount API conversion (Fixes: 82995cc6c5ae) and the bug was invisible
-because ceph's ->drop_inode() always asked for eviction.  Patch 2 makes
-->drop_inode() able to retain inodes, so it needs the flag to work.
+[1]
+https://lore.kernel.org/linux-riscv/20260630-mark-after-vmemmap-populate-v4-1-febbc15da028@iscas.ac.cn/
 
-Patch 2 restores ceph_drop_inode() (removed in 52dd0f1b3f94) and keeps
-a regular file's inode while it still has cached pages and still holds
-real caps.  The retention is bounded by the page cache itself: an
-inode holding real folios is not shrinkable, so page reclaim empties
-the mapping first and only then can the inode shrinker evict it, and
-unmount evicts it regardless.  trim_caps_cb() gets an explicit
-override in the one-shot CEPH_I_EVICT_ON_FINAL_IPUT_BIT, which
-ceph_drop_inode() consumes with test_and_clear_bit(), so an MDS cap
-recall still evicts the inode and releases its caps.
+(independent of that, I really don't enjoy the suggested callback name)
 
-Verified on a vstart cluster: after drop_caches the inode and its cap
-survive and a reopen is served from the page cache (no OSD reads); an
-MDS cap recall runs the full chain (trim_caps_cb -> EVICT_ON_FINAL_IPUT
--> ceph_drop_inode -> ceph_evict_inode -> __ceph_remove_caps) in both
-the no-alias and the d_prune_aliases() cases; and the reopen after the
-trim reads from the OSDs again.
+-- 
+Cheers,
 
----
-Changes in v3:
-- ceph_drop_inode(): consult fscrypt_drop_inode() after
-  inode_generic_drop() and before the retention, so an inode whose
-  encryption key has been removed is still evicted and the plaintext
-  page cache goes with the key (Alex Markuze)
-- Link to v2: https://patch.msgid.link/20260825-b4-b4-ceph-dentry-caps-v2-0-41201d7a4868@clyso.com
-
-Changes in v2:
-- dropped the dentry change entirely; expired names are unhashed
-  exactly as before, so d_find_alias() never sees a stale hashed name
-- moved the retention from dentry lifetime to inode lifetime (restore
-  ceph_drop_inode())
-- added patch 1 fixing the missing SB_ACTIVE, a prerequisite for the
-  retain branch in iput_final()
-- replaced the bogus 60s caps_wanted_delay_max bound with a bound by
-  the page cache itself
-- Link to v1: https://patch.msgid.link/20260821-b4-b4-ceph-dentry-caps-v1-1-ff9b77511c97@clyso.com
-
-Test program
-------------
-The script below runs the whole scenario on a vstart cluster and prints
-PASS/FAIL per case (Test C: retention, MDS recall override, post-trim
-re-read from the OSDs; Test B: both trim_caps_cb() exits).  The last
-section needs the CEPHDBG debug patch included below (not part of this
-series) to print the per-inode chain from dmesg.
-
-#!/bin/bash
-#
-# Test B/C for "ceph: keep the inode, not the name, when a dentry lease
-# expires".
-#
-# Build the test kernel with /tmp/ceph-v2-debug-trace.patch applied and
-# run this on the client:
-#
-#     sudo bash /tmp/ceph-v2-test-bc.sh <cephfs-mountpoint> [mds-rank]
-#
-# Test C proves the retention + MDS-trim-override lifecycle:
-#   write+close -> dentry/prune -> reopen reads page cache (no OSD read)
-#   -> MDS cap recall -> inode evicted, its cap line gone from
-#   /sys/kernel/debug/ceph/*/caps -> reopen reads from OSDs again.
-#
-# Test B covers the two trim_caps_cb() exits:
-#   case 1: no alias at all   (drop_caches=2 frees the dentry, the parked
-#                               inode keeps its pages, so it is NOT on the
-#                               inode LRU and survives)
-#   case 2: alias still present (d_prune_aliases() path)
-#
-# Each case prints PASS/FAIL. With the debug patch, dmesg should show the
-# full chain per inode:
-#   CEPHDBG trim_caps X set EVICT_ON_FINAL_IPUT
-#   CEPHDBG drop_inode X consumed EVICT_ON_FINAL_IPUT -> drop
-#   CEPHDBG evict_inode X
-#   CEPHDBG remove_caps X
-
-set -u
-
-MNT="${1:?usage: $0 <cephfs-mountpoint> [mds-rank]}"
-MDS_RANK="${2:-0}"
-
-# Prefer the system ceph CLI (it knows /etc/ceph/ceph.conf); the
-# developer-mode build CLI needs the cluster conf on its own.  Override
-# with CEPH_CLI=/path/to/ceph if needed.
-CEPH_CLI="${CEPH_CLI:-}"
-if [ -z "$CEPH_CLI" ]; then
-	CEPH_CLI=$(command -v ceph)
-	[ -n "$CEPH_CLI" ] || CEPH_CLI="/home/xiubli/workspace/ceph/build/bin/ceph"
-fi
-[ -x "$CEPH_CLI" ] || { echo "SKIP: ceph CLI not found (set CEPH_CLI=/path/to/ceph)"; exit 2; }
-
-# The client's debugfs dir is named <fsid>.<clientid>; pick the one for
-# this mount.  The fsid lives in the device field of /proc/mounts, e.g.
-#   admin@0819baf2-55c8-40c7-a480-3ff47b20180d.a=/   (or with a mon list
-#   and optional @ before the fsid, as in mon1,mon2@<fsid>.a=/).
-CFG="$(grep -m1 " $MNT " /proc/mounts)"
-FSID=$(echo "$CFG" | awk '{print $1}' | grep -oE '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}')
-[ -n "$FSID" ] || { echo "FAIL: cannot find fsid for $MNT"; exit 2; }
-DBG=$(find /sys/kernel/debug/ceph -maxdepth 1 -type d -name "$FSID.*" 2>/dev/null | head -1)
-[ -d "$DBG" ] || { echo "FAIL: no debugfs dir for $MNT (is debugfs mounted?)"; exit 2; }
-
-CAPS="$DBG/caps"
-METRICS_FILE="$DBG/metrics/file"
-METRICS_LAT="$DBG/metrics/latency"
-
-WORK="$MNT/.v2-retention-test.$$"
-FILE="$WORK/t.bin"
-SIZE=$((4*1024*1024))
-
-fail() { echo "FAIL: $*"; exit 1; }
-
-# per-inode cap line from debugfs caps: "0x<ino> <mds> <issued> <implemented>"
-cap_line_for() {
-	local ino="$1"
-	grep -E "^0x$ino " "$CAPS" || true
-}
-
-# per-inode debug line from dmesg
-dmesg_line_for() {
-	dmesg | grep -E "$1" | tail -1
-}
-
-wait_for() { # desc, timeout_s, check_fn...
-	local desc="$1" timeout="$2"; shift 2
-	local deadline=$((SECONDS + timeout))
-	while ! "$@" 2>/dev/null; do
-		[ $SECONDS -lt $deadline ] || return 1
-		sleep 1
-	done
-	return 0
-}
-
-reads_total() { awk '/^read[ \t]/{print $2}' "$METRICS_LAT" | head -1; }
-inodes_total() { awk '/total inodes/{print $3}' "$METRICS_FILE"; }
-
-# Trigger an MDS cap recall.  The MDS only recalls a session down to
-# mds_min_caps_per_client caps (default 100), so a kernel client with a
-# handful of caps must have both knobs lowered: mds_recall_max_caps so
-# one recall message is enough, and mds_min_caps_per_client so the
-# session may actually be trimmed.  Old values are restored at exit.
-RECALL_OLD_MAX=""
-RECALL_OLD_MIN=""
-
-recall_caps() {
-	RECALL_OLD_MAX=$("$CEPH_CLI" config get mds mds_recall_max_caps 2>/dev/null | tail -1)
-	RECALL_OLD_MIN=$("$CEPH_CLI" config get mds mds_min_caps_per_client 2>/dev/null | tail -1)
-	[ -n "$RECALL_OLD_MAX" ] || RECALL_OLD_MAX=30000
-	[ -n "$RECALL_OLD_MIN" ] || RECALL_OLD_MIN=100
-	# Lower the knobs FIRST: with the defaults the MDS answers "Success"
-	# but recalls 0 caps, because mds_min_caps_per_client is the floor a
-	# session is never trimmed below.
-	if ! "$CEPH_CLI" config set mds mds_recall_max_caps 1 >/dev/null 2>&1; then
-		return 1
-	fi
-	if ! "$CEPH_CLI" config set mds mds_min_caps_per_client 0 >/dev/null 2>&1; then
-		return 1
-	fi
-	"$CEPH_CLI" tell "mds.${MDS_RANK}" cache drop >/dev/null 2>&1 || return 1
-	return 0
-}
-
-restore_recall() {
-	if [ -n "$RECALL_OLD_MAX" ]; then
-		"$CEPH_CLI" config set mds mds_recall_max_caps "$RECALL_OLD_MAX" >/dev/null 2>&1 || true
-	fi
-	if [ -n "$RECALL_OLD_MIN" ]; then
-		"$CEPH_CLI" config set mds mds_min_caps_per_client "$RECALL_OLD_MIN" >/dev/null 2>&1 || true
-	fi
-	RECALL_OLD_MAX=""
-	RECALL_OLD_MIN=""
-}
-trap restore_recall EXIT
-
-# --- setup ---------------------------------------------------------------
-mkdir -p "$WORK" || fail "mkdir $WORK"
-dd if=/dev/urandom of="$FILE" bs=1M count=$((SIZE/1024/1024)) status=none || fail dd
-ino=$(stat -c %i "$FILE")
-INOX=$(printf '%llx' "$ino")
-
-echo "== mount=$MNT debugfs=$DBG ino=0x$INOX size=$SIZE =="
-echo "== MDS knobs: recall_max_caps=$("$CEPH_CLI" config get mds mds_recall_max_caps 2>/dev/null | tail -1) min_caps_per_client=$("$CEPH_CLI" config get mds mds_min_caps_per_client 2>/dev/null | tail -1) =="
-
-# --- Test C: retention, then trim, then OSD read --------------------------
-echo
-echo "== Test C: page cache retained, trim override, re-read from OSD =="
-
-rm -f /tmp/v2-test-read.$$ /tmp/v2-test-read2.$$
-dd if=/dev/urandom of="$FILE" bs=1M count=$((SIZE/1024/1024)) conv=notrunc status=none
-sync
-echo 1 > /proc/sys/vm/drop_caches   # force the first read to go to the OSDs
-cat "$FILE" > /tmp/v2-test-read.$$ || fail "read 1"
-R0=$(reads_total); [ -n "$R0" ] || fail "cannot read metrics/latency"
-echo "  reads after first read:   $R0"
-
-# Free the dentry; the inode keeps its pages, so it must NOT be evicted.
-echo 2 > /proc/sys/vm/drop_caches
-sleep 1
-I1=$(inodes_total)
-[ "$(cap_line_for "$INOX")" ] || fail "cap already gone after drop_caches"
-# NB: "total inodes" is not a reliable retention signal: it has been
-# observed reading 0 while a live inode with a cap is still cached
-# (the metric drifts across recall/evict cycles).  The cap line above
-# and the read counts below are the real assertions.
-[ -n "$I1" ] && (( I1 >= 1 )) \
-	|| echo "  note: total inodes = ${I1:-?} (metric unreliable on this box, ignoring)"
-
-cat "$FILE" > /tmp/v2-test-read2.$$ || fail "read 2"
-R1=$(reads_total)
-echo "  reads after reopen:       $R1"
-if [ "$R1" -eq "$R0" ]; then
-	echo "  PASS: reopen served from page cache (no OSD read)"
-else
-	fail "reopen read from OSDs ($R0 -> $R1)"
-fi
-
-recall_caps || fail "could not trigger MDS cap recall"
-wait_for "cap removed after recall" 30 test -z "$(cap_line_for "$INOX")" \
-	|| fail "cap line for 0x$INOX still present 30s after recall"
-I2=$(inodes_total)
-[ "$I2" -lt "$I1" ] 2>/dev/null \
-	|| echo "  note: total inodes $I1 -> $I2 (did not drop?)"
-echo "  PASS: recall evicted the inode and its cap"
-
-cat "$FILE" > /tmp/v2-test-read3.$$ || fail "read 3"
-R2=$(reads_total)
-echo "  reads after post-trim reopen: $R2"
-if [ "$R2" -gt "$R1" ]; then
-	echo "  PASS: post-trim reopen read from OSDs"
-else
-	fail "post-trim reopen did not read from OSDs ($R1 -> $R2)"
-fi
-
-echo
-echo "== Test B: the two trim_caps_cb() exits =="
-
-# --- Test B case 2: alias still present -----------------------------------
-echo "-- case 2: alias present (d_prune_aliases path) --"
-echo 3 > /proc/sys/vm/drop_caches
-dd if=/dev/urandom of="$FILE" bs=1M count=$((SIZE/1024/1024)) conv=notrunc status=none
-cat "$FILE" > /dev/null
-# keep the dentry around (no drop_caches after this)
-[ "$(cap_line_for "$INOX")" ] || fail "no cap after setup (case 2)"
-recall_caps || fail "recall (case 2)"
-if wait_for "cap removed" 30 test -z "$(cap_line_for "$INOX")"; then
-	echo "  PASS: d_prune_aliases + EVICT_ON_FINAL_IPUT released the cap"
-else
-	echo "  FAIL: cap still present 30s after recall"
-fi
-
-# --- Test B case 1: no alias at all ---------------------------------------
-echo "-- case 1: no alias (d_find_any_alias() == NULL path) --"
-dd if=/dev/urandom of="$FILE" bs=1M count=$((SIZE/1024/1024)) conv=notrunc status=none
-cat "$FILE" > /dev/null
-echo 2 > /proc/sys/vm/drop_caches       # dentry gone, pages stay, inode parked
-sleep 1
-[ "$(cap_line_for "$INOX")" ] || fail "no cap after setup (case 1)"
-recall_caps || fail "recall (case 1)"
-if wait_for "cap removed" 30 test -z "$(cap_line_for "$INOX")"; then
-	echo "  PASS: no-alias parked inode was marked and evicted"
-else
-	echo "  FAIL: no-alias inode keeps its cap 30s after recall"
-fi
-
-# --- dmesg chain (debug patch only) ---------------------------------------
-echo
-echo "== dmesg chain for 0x$INOX (expect all four lines, in this order) =="
-for pat in "CEPHDBG trim_caps ${INOX}" \
-	   "CEPHDBG drop_inode ${INOX}.*consumed" \
-	   "CEPHDBG evict_inode ${INOX}" \
-	   "CEPHDBG remove_caps ${INOX}"; do
-	dmesg_line_for "$pat" || echo "  (no CEPHDBG line matching: '$pat' — debug patch not applied?)"
-done
-
-# --- cleanup ---------------------------------------------------------------
-rm -rf "$WORK" /tmp/v2-test-read.$$ /tmp/v2-test-read2.$$ /tmp/v2-test-read3.$$
-echo
-echo "== done =="
-
-Debug patch
------------
-Apply to the test kernel to get the CEPHDBG per-inode chain in dmesg.
-Not part of this series.
-
-diff --git a/fs/ceph/caps.c b/fs/ceph/caps.c
-index 6466e11ca783..ba3a373342b8 100644
---- a/fs/ceph/caps.c
-+++ b/fs/ceph/caps.c
-@@ -1427,6 +1427,7 @@ void __ceph_remove_caps(struct ceph_inode_info *ci)
- 	/* lock i_ceph_lock, because ceph_d_revalidate(..., LOOKUP_RCU)
- 	 * may call __ceph_caps_issued_mask() on a freeing inode. */
- 	spin_lock(&ci->i_ceph_lock);
-+	pr_info("CEPHDBG remove_caps %llx.%llx\n", ceph_vinop(inode));
- 	p = rb_first(&ci->i_caps);
- 	while (p) {
- 		struct ceph_cap *cap = rb_entry(p, struct ceph_cap, ci_node);
-diff --git a/fs/ceph/inode.c b/fs/ceph/inode.c
-index 0b1aaf38886f..8a0fedc1635e 100644
---- a/fs/ceph/inode.c
-+++ b/fs/ceph/inode.c
-@@ -741,6 +741,7 @@ void ceph_evict_inode(struct inode *inode)
- 	struct rb_node *n;
-
- 	doutc(cl, "%p ino %llx.%llx\n", inode, ceph_vinop(inode));
-+	pr_info("CEPHDBG evict_inode %llx.%llx\n", ceph_vinop(inode));
-
- 	percpu_counter_dec(&mdsc->metric.total_inodes);
-
-@@ -820,11 +821,15 @@ void ceph_evict_inode(struct inode *inode)
- int ceph_drop_inode(struct inode *inode)
- {
- 	struct ceph_inode_info *ci = ceph_inode(inode);
-+	int ret;
-
- 	/* the MDS asked for this one back */
- 	if (test_and_clear_bit(CEPH_I_EVICT_ON_FINAL_IPUT_BIT,
--			       &ci->i_ceph_flags))
-+			       &ci->i_ceph_flags)) {
-+		pr_info("CEPHDBG drop_inode %llx.%llx consumed EVICT_ON_FINAL_IPUT -> drop\n",
-+			ceph_vinop(inode));
- 		return 1;
-+	}
-
- 	if (inode_generic_drop(inode))
- 		return 1;
-@@ -837,7 +842,17 @@ int ceph_drop_inode(struct inode *inode)
- 		return 1;
-
- 	/* keep the pages only while the inode still holds real caps */
--	return !__ceph_is_any_real_caps(ci);
-+	ret = !__ceph_is_any_real_caps(ci);
-+	pr_info("CEPHDBG drop_inode %llx.%llx nrpages=%lu -> %s\n",
-+		ceph_vinop(inode), inode->i_data.nrpages,
-+		ret ? "drop" : "KEEP");
-+	if (!ret)
-+		pr_info("CEPHDBG keep_state %llx.%llx state=%#lx shrinkable=%d empty=%d caps=%d\n",
-+			ceph_vinop(inode), inode_state_read(inode),
-+			mapping_shrinkable(&inode->i_data),
-+			mapping_empty(&inode->i_data),
-+			__ceph_is_any_real_caps(ci));
-+	return ret;
- }
-
- static inline blkcnt_t calc_inode_blocks(u64 size)
-diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
-index f5d0590df8b2..20463e229ce4 100644
---- a/fs/ceph/mds_client.c
-+++ b/fs/ceph/mds_client.c
-@@ -2346,9 +2346,12 @@ static int trim_caps_cb(struct inode *inode, int mds, void *arg)
- 			 * then runs ceph_evict_inode(), which is what hands
- 			 * the cap back.
- 			 */
--			if (S_ISREG(inode->i_mode) && inode->i_data.nrpages)
-+			if (S_ISREG(inode->i_mode) && inode->i_data.nrpages) {
- 				set_bit(CEPH_I_EVICT_ON_FINAL_IPUT_BIT,
- 					&ci->i_ceph_flags);
-+				pr_info("CEPHDBG trim_caps %llx.%llx set EVICT_ON_FINAL_IPUT\n",
-+					ceph_vinop(inode));
-+			}
-
- 			count = icount_read_once(inode);
- 			if (count == 1)
-diff --git a/fs/inode.c b/fs/inode.c
-index 31c5b9ee3a81..7c691510e094 100644
---- a/fs/inode.c
-+++ b/fs/inode.c
-@@ -23,6 +23,7 @@
- #include <linux/rw_hint.h>
- #include <linux/seq_file.h>
- #include <linux/debugfs.h>
-+#include <linux/magic.h>	/* CEPHDBG test probe only */
- #include <trace/events/writeback.h>
- #define CREATE_TRACE_POINTS
- #include <trace/events/timestamp.h>
-@@ -990,6 +991,12 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
- 	}
-
- 	WARN_ON(inode_state_read(inode) & I_NEW);
-+	pr_info("CEPHDBG lru_evict ino=%lx state=%#lx nrpages=%lu shrinkable=%d empty=%d count=%d\n",
-+		inode->i_ino, inode_state_read(inode),
-+		inode->i_data.nrpages,
-+		mapping_shrinkable(&inode->i_data),
-+		mapping_empty(&inode->i_data),
-+		icount_read(inode));
- 	inode_state_set(inode, I_FREEING);
- 	list_lru_isolate_move(lru, &inode->i_lru, freeable);
- 	spin_unlock(&inode->i_lock);
-@@ -1986,6 +1993,13 @@ static void iput_final(struct inode *inode)
- 	else
- 		drop = inode_generic_drop(inode);
-
-+	if (sb->s_magic == CEPH_SUPER_MAGIC)
-+		pr_info("CEPHDBG iput_final ino=%lx drop=%d dontcache=%d sb_active=%d state=%#lx\n",
-+			inode->i_ino, drop,
-+			!!(inode_state_read(inode) & I_DONTCACHE),
-+			!!(sb->s_flags & SB_ACTIVE),
-+			inode_state_read(inode));
-+
- 	if (!drop &&
- 	    !(inode_state_read(inode) & I_DONTCACHE) &&
- 	    (sb->s_flags & SB_ACTIVE)) {
-
-Test results
-------------
-Full run of the test program on a vstart cluster (kernel built with the
-debug patch; the script lowers mds_recall_max_caps/mds_min_caps_per_client
-for the recall and restores them on exit):
-
-  PASS: reopen served from page cache (no OSD read)
-  PASS: recall evicted the inode and its cap
-  PASS: post-trim reopen read from OSDs
-  PASS: d_prune_aliases + EVICT_ON_FINAL_IPUT released the cap
-  PASS: no-alias parked inode was marked and evicted
-
-Retention, from dmesg:
-
-  CEPHDBG drop_inode 1000000020c.fffffffffffffffe nrpages=1024 -> KEEP
-  CEPHDBG keep_state 1000000020c.fffffffffffffffe state=0x0 shrinkable=0 empty=0 caps=1
-  CEPHDBG iput_final ino=1000000020c drop=0 dontcache=0 sb_active=1 state=0x0
-
-Trim chain, from dmesg:
-
-  CEPHDBG trim_caps 1000000020c.fffffffffffffffe set EVICT_ON_FINAL_IPUT
-  CEPHDBG drop_inode 1000000020c.fffffffffffffffe consumed EVICT_ON_FINAL_IPUT -> drop
-  CEPHDBG evict_inode 1000000020c.fffffffffffffffe
-  CEPHDBG remove_caps 1000000020c.fffffffffffffffe
-
----
-Xiubo Li (2):
-      ceph: mark the superblock active after mounting
-      ceph: keep the inode, not the name, when a dentry lease expires
-
- fs/ceph/inode.c      | 59 ++++++++++++++++++++++++++++++++++++++++++++++++++++
- fs/ceph/mds_client.c | 37 ++++++++++++++++++++++++++------
- fs/ceph/super.c      | 11 +++++++++-
- fs/ceph/super.h      |  2 ++
- 4 files changed, 102 insertions(+), 7 deletions(-)
----
-base-commit: 3e5e634912819a56c91f78f0d9bf9d6c416455a4
-change-id: 20260821-b4-b4-ceph-dentry-caps-ad44734dea85
-
-Best regards,
---  
-Xiubo Li <xiubo.li@clyso.com>
-
-
+David
