@@ -1,160 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42A0A477E23
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 14:17:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E72C13E638E
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 14:17:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787840231; cv=none; b=Y33oF1vk3dzOlKAhWbGQYq8odprBYjBQQFz6yequOQOTTS+RP67pcM9kmFAT5qRrE3FfKkYqHmlMsrxxuKDdjHuWuib69mZTLe4qSNyhm/ZCgWLBSUpCPDGWYEZz+jGT37j7T1+DZD/f62hx+K2oFjAkyVMCiXJ7Zeo6g5yMoKY=
+	t=1787840251; cv=none; b=uVFwIoD/lnPPLPQAQgPzUO4tUNe8yHB2IU5dnf2J73yMmM62cMhNdXfXfgj7LgTft2jzzNiAJ1H5lUqiu1a4y0mAPGebLlh5wC3biU12jgw3me0DU3xgY3+X0J5I5URpG+EWos2+vC9WLyFVSK7vq8YMUFPqSIn3nhaZBQkJpg8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787840231; c=relaxed/simple;
-	bh=mEf9ndDDkP/zBpQScU8+/HYJVwPjKOZHk3JeFq95lAk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SPoCLM2+1EzivGXuFd9Z/qvFSvEEOky6qQ0W3qx4sxZAesoAG/npqnL4aCWCrWbHyMltN3AQyfBGBa7Tg8VoHYxOXiTF8dOw26sSJNGIjme/MlgL523QknJaUoewLlm1ibjTBsPY/h7bi7cn+ermbyKUtbaPg0CpX1wE6PQXqjk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LOOuDyD1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787840251; c=relaxed/simple;
+	bh=CzGD0M+GV0Z2XyN3jEMf9PGYCT7WsEp7DuhwxBrrJDw=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=tXMRmHMH3V1YzNeQyZMy+eSpYho0zG6b6dvCogRLNXaP2qvZza/o56i5JAZknDoUBz2H/SR2aevxahvHtYyzlgB1kPC/Bn+Q2QUJDPf9v4iMCHWYtpD7B/4rT1jpKqd3xXMbWY7SKJpc8J+z5GUlqVk3HTq8wL8xNVSNlwY7liM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=j3/RNop4; arc=none smtp.client-ip=209.85.214.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LOOuDyD1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A01B1F000E9;
-	Thu, 27 Aug 2026 14:17:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787840228;
-	bh=SRS6X6TXw6Tr+PFBiZcsPHGo5nRK4IWPTb7UQu+FNwU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LOOuDyD1bld19rGBu8oHAHMiweAT/Te66dh5B+NbY34f+CmejOjHIq9nTHRXW/uEZ
-	 D4b1L46WgQJnV0e4gnFWE7mszOSJ/PMQPzId1vHY6PWFj+S5/66sKQJpEN/jglF65J
-	 E2BzvdctpNl7LKh331P3vgzpvAPozUc3FFQlMZpuSXtl/MV0bqXubI8MnyqKVqGEYg
-	 yiIqoMnZXTWiabr4DFJiBexZKXlgWCXIPXfZ6ThRad0UYimgqlgiDCTcd9y5v2PVvP
-	 Ov+jNbQTZ3lKRizZWwuezlN+mFrChWxAZEq0C4AjOW+Kw2GewlJu4iO+7yVd6VKENg
-	 DHrK4LzA99R0g==
-Date: Thu, 27 Aug 2026 16:17:04 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Linus Walleij <linusw@kernel.org>, Inki Dae <inki.dae@samsung.com>, 
-	Jagan Teki <jagan@amarulasolutions.com>, Marek Szyprowski <m.szyprowski@samsung.com>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Hui Pu <Hui.Pu@gehealthcare.com>, 
-	Ian Ray <ian.ray@gehealthcare.com>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 04/11] drm/panel: merge the drm_kms_helper module into
- the drm module
-Message-ID: <apBGjqt9GI5egQW6@houat>
-References: <DKR7VTBLRBQW.2LLJMDO74KXNO@bootlin.com>
- <20260824-cuddly-aardwark-of-reward-0d93d4@houat>
- <DKX8KDDOTPM7.3OS616IO3E4UA@bootlin.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="j3/RNop4"
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2cfca8558d2so30211305ad.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:17:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787840249; x=1788445049; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XWmnW83IzTswbxgz8o7s09c8o1T6+xe+Q9kAf0B9pfI=;
+        b=j3/RNop4MCQP0J85W3PCsU2g1ToDWiDXy2T1v7QyAaM7udKPv4s3PRn4ukpuXtMost
+         7Ih1VXkzZn+SA5nTopxzpdV5wzrS9ihPzHkWwiwp6day+U6LS/6IjTaW96YExMVCohHu
+         jDhRDcx7kj5K75hFhQlxxCB3WGGo6NyJPJ2hW/zo5lbSrueB9a3VWSX8WXXr1YF09p5p
+         o1O1rpv2JXPAtqFg0d1u9Phx0aHPFrthubME/liaz1rgxoR7CFNS03yd7GXCQMWRHTrL
+         WBrXK7c2kYV/wDSllwJK336sSPyqoRXH+qCS/q06dqCH7ok3HPJuiMoxB/BEOk6hDcv0
+         OSoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787840249; x=1788445049;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XWmnW83IzTswbxgz8o7s09c8o1T6+xe+Q9kAf0B9pfI=;
+        b=Q1WIX8rj5NRPcrtUMBtXIpBzQL2ZKEsvGTggo+WU/m4WsCrs9G2DnMPafBGNqaFY7h
+         xaslyP+b8W5SZ9ePQoGa6p7ASHNGFzT4j9IpYJEvd12ocTpNGaZ8vv/0TTIz/s4Vcw0s
+         cTEpScZeyR9D8WKiLQGkv/F4W9uaAeGdZ+UqZgxejLClvNvylZWYVvBdbGVTtZFp8O44
+         Uvg5bGDxVsft+8W/RUySu00KXVKJqJc4Dt+kjHio9unqSu8vO/ubTqNjkBD78ZbcOhUB
+         CnHIREqv2YxCgemlrh5/d+UeN/xqqhutBxpg5xpn6F6ibwLEYUvxTtLI3K0eNE+/BAez
+         Ei7g==
+X-Forwarded-Encrypted: i=1; AHgh+RrEemSLTN1kEu0SzBtX+pxo5ZVP7oU0KDHWL2tT/T14PjJY/PAp1L0LEpBEu4WbYb5X8WPT4YJ3LgFPTEg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mxbaZd0J8mns8uglzamLauq0Cp8FmjtUTWeURYIHGqar2M4LYw
+	CUCOAc11IWll0AfrixaMFDjmzBeuicRbuLOygwg9wOO4nmJJUWpaSwoRM4gj94NYtfk3/3p+eAW
+	GOM8GAA==
+X-Received: from plih4.prod.google.com ([2002:a17:903:37c4:b0:2cf:afd2:6506])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:cf4c:b0:2d6:f9e2:af7f
+ with SMTP id d9443c01a7336-2d707a3485fmr332494315ad.1.1787840248482; Thu, 27
+ Aug 2026 07:17:28 -0700 (PDT)
+Date: Thu, 27 Aug 2026 07:17:27 -0700
+In-Reply-To: <d0d318a4-3f27-40dd-b089-2dd2638e8c53@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
-	protocol="application/pgp-signature"; boundary="3h6vkmrdieos4f6d"
-Content-Disposition: inline
-In-Reply-To: <DKX8KDDOTPM7.3OS616IO3E4UA@bootlin.com>
+Mime-Version: 1.0
+References: <20260826171246.777729-1-seanjc@google.com> <20260826171246.777729-5-seanjc@google.com>
+ <d0d318a4-3f27-40dd-b089-2dd2638e8c53@intel.com>
+Message-ID: <apBG9wO5VeWKur9J@google.com>
+Subject: Re: [PATCH v2 4/8] KVM: VMX: Rename posted interrupt prefixes from
+ "vmx" to "vt"
+From: Sean Christopherson <seanjc@google.com>
+To: Xiaoyao Li <xiaoyao.li@intel.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, Binbin Wu <binbin.wu@linux.intel.com>, 
+	Kai Huang <kai.huang@intel.com>, Yan Zhao <yan.y.zhao@intel.com>
+Content-Type: text/plain; charset="us-ascii"
 
+On Thu, Aug 27, 2026, Xiaoyao Li wrote:
+> On 8/27/2026 1:12 AM, Sean Christopherson wrote:
+> > diff --git a/arch/x86/kvm/vmx/common.h b/arch/x86/kvm/vmx/common.h
+> > index 4b1d46eafd0f..ff4f6a2b6402 100644
+> > --- a/arch/x86/kvm/vmx/common.h
+> > +++ b/arch/x86/kvm/vmx/common.h
+> > @@ -170,8 +170,8 @@ static inline void kvm_vcpu_trigger_posted_interrupt(struct kvm_vcpu *vcpu,
+> >    * Post an interrupt to a vCPU's PIR and trigger the vCPU to process the
+> >    * interrupt if necessary.
+> >    */
+> > -static inline void __vmx_deliver_posted_interrupt(struct kvm_vcpu *vcpu,
+> > -						  struct pi_desc *pi_desc, int vector)
+> > +static inline void __vt_deliver_posted_interrupt(struct kvm_vcpu *vcpu,
+> > +						 struct pi_desc *pi_desc, int vector)
+> 
+> Nit: Maybe we can just name it vt_deliver_posted_interrupt() without
+> underscore since no collide with vmx_deliver_posted_interrupt() anymore?
+> 
+> But it's OK to keep the underscore to indicate it's an common inner helper.
 
---3h6vkmrdieos4f6d
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 04/11] drm/panel: merge the drm_kms_helper module into
- the drm module
-MIME-Version: 1.0
-
-On Mon, Aug 24, 2026 at 04:16:02PM +0200, Luca Ceresoli wrote:
-> Hi Maxime,
->=20
-> On Mon Aug 24, 2026 at 9:48 AM CEST, Maxime Ripard wrote:
-> > On Mon, Aug 17, 2026 at 02:27:58PM +0200, Luca Ceresoli wrote:
-> >> On Mon Aug 17, 2026 at 10:31 AM CEST, Maxime Ripard wrote:
-> >> > On Fri, Aug 14, 2026 at 04:05:52PM +0200, Luca Ceresoli wrote:
-> >> >> Work is in progress to make every drm_panel automatically create a
-> >> >> panel_bridge [0][1].
-> >> >>
-> >> >> This requires the panel code to call the drm_panel_bridge APIs. How=
-ever
-> >> >> this would create a circular dependency loop on modular builds:
-> >> >>
-> >> >> __devm_drm_panel_alloc() [drm]
-> >> >>    -> drm_panel_bridge_add() [drm_kms_helper]
-> >> >>       -> drm_bridge.c APIs [drm]
-> >> >>
-> >> >> Moving just the panel_brige.o file from [drm_kms_helper] to [drm] d=
-oes not
-> >> >> work because the panel bridge code uses the drm_atomic_helper and
-> >> >> drm_probe_helper which add further dependencies on symbols in the
-> >> >> [drm_kms_helper] module.
-> >> >>
-> >> >> So take a simple approach, and move the entire drm_kms_helper into =
-the
-> >> >> [drm] module.
-> >> >>
-> >> >> Link: https://lore.kernel.org/all/emuj2innmp6zmzd7pyakqzjqpdzhly6qf=
-hakya3ydwmd63pl26@5jwxaidpikjw/ [0]
-> >> >> Link: https://lore.kernel.org/lkml/20250206-hotplug-drm-bridge-v6-8=
--9d6f2c9c3058@bootlin.com/ [1]
-> >> >> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> >> >
-> >> > So, that's not an option. However, why do we need drm_panel_bridge_a=
-dd()
-> >> > after this work is done? If we want to create a bridge for every pan=
-el,
-> >> > then the bridge implementation can live in drm_panel.c, which is par=
-t of
-> >> > the drm module.
-> >> >
-> >> > And we'd essentially move drm_panel_bridge into drm_panel.c, and mak=
-e it
-> >> > private.
-> >>
-> >> Yes in theory, but the panel_bridge code uses other parts of the
-> >> drm_kms_helper module: drm_atomic_helper and drm_probe_helper, maybe m=
-ore,
-> >> so we'd have to move them into the drm module too.
-> >
-> > Ah, right. What would happen if we were doing it the other way around
-> > then? Move drm_panel out of the main drm module?
->=20
-> Into the drm_kms_helper module?
->=20
-> I had a look and did some experiments and I found at least one user in th=
-e drm
-> module calling a drm_panel API, and guess who:
->=20
->  drm_of_find_panel_or_bridge() (in drm_of.c, drm module)
->     -> calls of_drm_find_panel (in drm_panel.c, drm_kms_helper module)
->=20
-> Based on our discussion after patch 3, I'm not sure
-> drm_of_find_panel_or_bridge() will disappear soon. If it doesn't, I guess
-> we can try to move drm_of_find_panel_or_bridge() into bridge/panel.c which
-> is in the drm_kms_helper module (and from drm_of.h info
-> drm_bridge.h?). That however might trigger build failures for drivers whi=
-ch
-> currently don't select DRM_KMS_HELPER and which would have to select it.
->=20
-> I'll give it a try, and if I see major drawbacks I will get back to moving
-> all the drm_kms_helper code into the main drm module.
-
-No, I meant into its own module. Do we have any dependency from the main
-drm module into drm_panel?
-
-Maxime
-
---3h6vkmrdieos4f6d
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCapBG3AAKCRAnX84Zoj2+
-dncAAX9e0Le80mECcRvZjSFwfKDsJn14yX3qpt61zpnr4XCT7oYutU6uDr1R3/aq
-BtDoNW8BgKN0pJx0d4WvMJowi4FKM9HLeXIVZOanNJQlHbCV551rvrJJHQkcpP9u
-wtO4YWM9TA==
-=RS0G
------END PGP SIGNATURE-----
-
---3h6vkmrdieos4f6d--
+Yeah, I went through pretty much the exact same sequence of thoughts.  I'll keep
+the underscores unless someone feels strongly that they do more harm than good.
+They're a bit odd, here and in the EPT violation handler, but I do think it helps
+communicate/capture that VMX/TDX-specific code needs to run before/after invoking
+the inner helper.
