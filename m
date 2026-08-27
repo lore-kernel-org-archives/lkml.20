@@ -1,123 +1,263 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAB233E49FC
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:35:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 599393B6BF1;
+	Thu, 27 Aug 2026 08:35:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787819709; cv=none; b=WjFF2xGJWzsy2m3AN+UnRV38o3osjbNWzGdXaJtso/Uhzv+EaG4AWkOnIjJy8nLzCkdKMw4TpTsetxPmqmz2JjgUWQBJZRzZt+R3G+AZa7/DPfUd91vu+3cRxiMVTSc8KlA2x89Puukhe33O2nKyzhJuHuckvRezH5MLHXeSppU=
+	t=1787819720; cv=none; b=O5CTSa/K6G1oAZBw6Ofiln05fmiQHVWfjopqY8V7Mwwndpw8XB78wSnDwtkIr/CPUn8CDrawytTkf4iKQw1nPQHfG6F854flCbaeCmopqqlLEwMwHHBelrEdhbsNTZku7z7Z/sYvtaBYvHPllM9f7dpc0d3IyNBenfeiwzdGsmg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787819709; c=relaxed/simple;
-	bh=aY6nh6kFnaUy0X3Gx8FdRy6Aa/JjqWlqST5uY5iu/GY=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=oWlRWusllt4t2hJmnb78mNwCqDNvlCNM5e/0MyjnYfh2ObXLta+ReoerDkySLJBsPxuKDYNW5SmfR6mgTk8q+D8q5mSkIMJxYfkbMh1zcn2E/WqYxwVr8QTYU2a057+i8rGE4u0qkihW7speeK98l/cDxiOeM7u5PCmlhLo/Y9o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Oh6w7USj; arc=none smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Oh6w7USj"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-47fde295992so617209f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 01:35:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787819705; x=1788424505; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Dik6jzlimTu6ELuxYKoIuh8koP7biCebfRQVKpaWB38=;
-        b=Oh6w7USjGJcvsHhR5Gefd19vIh7AuedVrpYGq6j0LhMitETgGwNw6U/UvLO7RjVzNB
-         60dS8QWCzi100D2/fhVMG47lQhq3Sx4t//ZgzeAqAGLwpsl80QwkkyP4Vxf+m1/Kwmzi
-         URq3ybmzWd0CM3EHeuFoZaze/f8I9ueTdXz2+E10Gzv1F3qoPHI9fTs9xyBt2ueXjSlv
-         mDlvpdoZhBfWm1P0MMcjtRg6ridCiqlOMCZnLwLsjmqwsjrYl/U38+yTNPwyuQGfZ1PZ
-         vo75ZUXaeRI5wP4El2MH8nzENIK4dCvlPgLj9tu9o/pC5Ry5TfbjmIgUurle6wEpuQ4n
-         Dolw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787819705; x=1788424505;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Dik6jzlimTu6ELuxYKoIuh8koP7biCebfRQVKpaWB38=;
-        b=muisl2OJVWY4ZqlCmd/ygBj2TmWSXOItVPqYTurnM1fo7J5GjKEHMaqT0umS5OI/m5
-         HcamLWsfOsEBjxRG4rsq1wBeCNOPZy7OMjpq56mgJqRqSSnr5FrhqPUw8gTwTnUitZMG
-         ADnWL2fvv3d6FTxWDugbr2VpdMD/QXEPl9D9+vtaZpnb9Dj9VkzjJsd69mxnzFe32yzn
-         0qzibQLYe4dXCTOa8NUdIHuHnRrBq/hBhZbx2MB/AsIcXo87LYwO5wANmpKNh76A1kfJ
-         qztgwwOaxt049gv+/IOA3W4SaFSM6tA5k/mIYimVD/Nj8BlExmq2E09/Eja1WKQnbxq9
-         foZQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rq6hu8Z7woVj26YGnJT3lxWI5sNWwMnmb8CajMudxvtlnwGLQc+ydD8dBxCEaD/XwGdcBK4YBtgm1eF0KQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nFat1nxbF76thHGON4x3Gj9a3dlYNF4Z4jVR7Pg89jfVsFBTfv
-	bdbsr2aykDpVB7EEZdORBm1kLX6pwcptz4V6q4uRjNVe/CDkgW+ikf0bJUk7OCnK
-X-Gm-Gg: AR+sD12iJ9z+qgqBjjx96l6s3u6uKpaLYoUgNDps1aX+4NcwXZirbyFkbhLDt5Vw3WG
-	VgLgWAlA/uGa8grYiydiDr5j4Xibdio/+7HYRduyyV4tiIq5e1EPBFxZNhl5bvisEMxMsOxQJqZ
-	CuK4VCEWmOS7XWEF1Eb0f3ZbCfLHJ8eOBXdNyofKTrSPdvCFRUfWfBfp9gAajKW9125/yrbI7go
-	RHEDetatxqPaF9Kkm6AQiPOLC2s3HSm5qOqS1vq9nMC/CHnsIl1dpdOMVWUWUSB/Zqs+2qbtJZ+
-	D7+ocGm+uZ6zHborCE8xJmDhaaao1/XBQyPtnI3Oa0teeSpvvjhGODi/3Abe5da06DvHkxdVFJZ
-	vEX655M/JxOEWsnbHVDUZSicYHG40sSyAgg87fXyhVAYBJnRMtf2gWY3CqtzY4dJs0FPuWKmXXL
-	qAd013fguPFZu/7fRrJqBSSnXln5lCyETNEcMKRz0CRJM9H6zUpTX2W7l4b/4ge6GW84CjQQUkX
-	X+Av79fEePY137LGjjiyAr+eSHHFdxfhOG0
-X-Received: by 2002:a05:6000:644:b0:482:e658:7a39 with SMTP id ffacd0b85a97d-482eaba7f73mr5971287f8f.11.1787819704450;
-        Thu, 27 Aug 2026 01:35:04 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e28e81besm7082559f8f.25.2026.08.27.01.35.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 01:35:04 -0700 (PDT)
-Date: Thu, 27 Aug 2026 09:35:02 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Alexander Usyskin <alexander.usyskin@intel.com>, Arnd Bergmann
- <arnd@arndb.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Vitaly
- Lubart <lubvital@gmail.com>, Karol Wachowski
- <karol.wachowski@linux.intel.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] issei: INTEL_SSEI should depend on X86
-Message-ID: <20260827093502.23b6b062@pumpkin>
-In-Reply-To: <CAMuHMdWDcfrUM4tKGOO3fHJQ3FnYBu-tPG61BY_069Yv_TxXKw@mail.gmail.com>
-References: <7145ead76cf7cf399eb4e1e6039f51cae07b49b4.1786009079.git.geert+renesas@glider.be>
-	<20260826100848.12eaf40e@pumpkin>
-	<CAMuHMdWDcfrUM4tKGOO3fHJQ3FnYBu-tPG61BY_069Yv_TxXKw@mail.gmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	s=arc-20240116; t=1787819720; c=relaxed/simple;
+	bh=itB94wTQlwNYicYIyKZFxxm65o+9Hyfh28OpfKFQB+k=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=aguw793ysCxM5K+3RRRblW/dWeqXiHNoz5h6/CZJnR+6hgTGBKCcoAaTNGNLxlzsdUhT//PG08VLj3htyT3wHAeqVPwt7GAKIqA980kzkupUj96AGviJ8/jFAwYsIh4dJWkAKhbwAPuaCkCCQoOkF4HLNOCnqQEX+oFYj3kFibc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.198])
+	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hVvvW66F7zKHMqg;
+	Thu, 27 Aug 2026 16:34:31 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.252])
+	by mail.maildlp.com (Postfix) with ESMTP id C1F464057D;
+	Thu, 27 Aug 2026 16:35:13 +0800 (CST)
+Received: from ultra.huawei.com (unknown [10.90.53.71])
+	by APP3 (Coremail) with UTF8SMTPA id _Ch0CgCHdUTA9o9q6DNYDw--.35223S2;
+	Thu, 27 Aug 2026 16:35:13 +0800 (CST)
+From: Pu Lehui <pulehui@huaweicloud.com>
+To: bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hou Tao <houtao@huaweicloud.com>
+Cc: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Pu Lehui <pulehui@huawei.com>,
+	Pu Lehui <pulehui@huaweicloud.com>
+Subject: [PATCH bpf v2] bpf: Fix UAF due to concurrent consumption of waiting_for_gp_ttrace
+Date: Thu, 27 Aug 2026 08:40:13 +0000
+Message-Id: <20260827084013.1062816-1-pulehui@huaweicloud.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_Ch0CgCHdUTA9o9q6DNYDw--.35223S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3GF4fur1rXF1Uur4rury5twb_yoW3XF15pF
+	WfGr95JF4rZFWI9a4Iqrs7CwsxZw40qa43JayUur9a9r15Zw1qqFyfAry7uFyY9rWIyFW3
+	tryvgryxCr4UZF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
+	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
+	zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF
+	4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWU
+	CwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCT
+	nIWIevJa73UjIFyTuYvjfUonmRUUUUU
+X-CM-SenderInfo: psxovxtxl6x35dzhxuhorxvhhfrp/
 
-On Wed, 26 Aug 2026 16:03:11 +0200
-Geert Uytterhoeven <geert@linux-m68k.org> wrote:
+From: Pu Lehui <pulehui@huawei.com>
 
-> Hi David,
-> 
-> On Wed, 26 Aug 2026 at 11:08, David Laight <david.laight.linux@gmail.com> wrote:
-> > On Thu,  6 Aug 2026 11:46:55 +0200
-> > Geert Uytterhoeven <geert+renesas@glider.be> wrote:  
-> > > The Intel Silicon Security Engine is only present on systems with Intel
-> > > Lunar Lake CPUs.  Hence add a dependency on X86, to prevent asking the
-> > > user about this subsystem when configuring a kernel for a non-x86
-> > > architecture.  
-> >
-> > Should it be X86_64 ?  
-> 
-> I don't know. Can you still run 32-bit kernels on these CPUs?
+Syzkaller repeatedly triggered UAF splats related to nodes in
+waiting_for_gp_ttrace within the bpf memalloc:
 
-You should be able to, but there is no need to support new features.
+BUG: KASAN: slab-use-after-free in llist_del_first+0x85/0x110 lib/llist.c:61
+Read of size 8 at addr ffff8881572cd080 by task syz.4.470/5112
+ ...
+ llist_del_first+0x85/0x110 lib/llist.c:61
+ alloc_bulk+0x193/0x460 kernel/bpf/memalloc.c:229
+ bpf_mem_refill+0x386/0x560 kernel/bpf/memalloc.c:436
 
-David
+Freed by task 14:
+ ...
+ __free_rcu kernel/bpf/memalloc.c:281 [inline]
+ __free_rcu_tasks_trace+0x48/0xd0 kernel/bpf/memalloc.c:291
+ rcu_tasks_invoke_cbs+0x1ec/0x3e0 kernel/rcu/tasks.h:571
+ rcu_tasks_one_gp+0x13d/0x220 kernel/rcu/tasks.h:621
+ rcu_tasks_kthread+0xf3/0x120 kernel/rcu/tasks.h:651
 
-> 
-> > > --- a/drivers/misc/issei/Kconfig
-> > > +++ b/drivers/misc/issei/Kconfig
-> > > @@ -2,6 +2,7 @@
-> > >  # Copyright (C) 2023-2026 Intel Corporation
-> > >  config INTEL_SSEI
-> > >       tristate "Intel Silicon Security Engine Interface"
-> > > +     depends on X86 || COMPILE_TEST
-> > >       help
-> > >         The ISSEI (Intel Silicon Security Engine Interface)
-> > >         subsystem provides a communication channel between the host and the  
-> 
-> Gr{oetje,eeting}s,
-> 
->                         Geert
-> 
+Initially, we suspected that alloc_bulk() lacked RCU Tasks Trace
+protection when accessing waiting_for_gp_ttrace. However, explicitly
+adding rcu_read_lock_trace() did not help.
+
+This is expected because, as noted in commit 57b23c0f612d ("bpf: Retire
+rcu_trace_implies_rcu_gp()"), an RCU Tasks Trace GP currently implies
+(and will continue to imply in the future) a normal RCU GP. Since
+alloc_bulk() runs in an RCU read-side CS (!PREEMPT_RT runs in IRQ
+context, PREEMPT_RT runs with guard(rcu)), an RCU Tasks Trace GP cannot
+complete while alloc_bulk() is accessing the list. Thus, the callback
+__free_rcu cannot run concurrently, ruling out missing RCU read-side
+locks as the cause. And same for free_by_rcu_ttrace list.
+
+Further investigation revealed that the UAF does not occur before the
+RCU Tasks Trace grace period expires, but rather during the execution of
+its callback. When the callback invokes llist_del_all to reclaim
+waiting_for_gp_ttrace nodes, there is no synchronization protecting
+against concurrent alloc_bulk() calls. If alloc_bulk() operates on
+waiting_for_gp_ttrace simultaneously, a race condition ensues, as
+illustrated below:
+
+CPU0                                           CPU1
+                                               __free_rcu (RCU Tasks Trace callback)
+alloc_bulk (RCU read-side CS)
+  llist_del_first(&c->waiting_for_gp_ttrace)
+    entry = smp_load_acquire(&head->first);
+    do {
+      if (entry == NULL)
+        return NULL;
+                                               free_all(llist_del_all(&c->waiting_for_gp_ttrace))
+                                                 llist_for_each_safe(pos, t, llnode)
+                                                   free_one(pos);
+      next = READ_ONCE(entry->next); <-- trigger UAF
+    } while (!try_cmpxchg(&head->first, &entry, next));
+
+Since alloc_bulk() operates on waiting_for_gp_ttrace under RCU read-side
+CS, Fix this by introducing a raw spinlock to synchronize the concurrent
+consumption (llist_del_first vs llist_del_all) on waiting_for_gp_ttrace.
+
+Note that free_by_rcu_ttrace does not suffer from this issue as it only
+has a single active consumer during normal operation.
+
+Fixes: 04fabf00b4d3 ("bpf: Allow reuse from waiting_for_gp_ttrace list.")
+Suggested-by: Alexei Starovoitov <ast@kernel.org>
+Suggested-by: Hou Tao <houtao1@huawei.com>
+Signed-off-by: Pu Lehui <pulehui@huawei.com>
+---
+ kernel/bpf/memalloc.c | 31 +++++++++++++++++++++++++------
+ 1 file changed, 25 insertions(+), 6 deletions(-)
+
+diff --git a/kernel/bpf/memalloc.c b/kernel/bpf/memalloc.c
+index e9662db7198f..58296e92a4fe 100644
+--- a/kernel/bpf/memalloc.c
++++ b/kernel/bpf/memalloc.c
+@@ -119,6 +119,7 @@ struct bpf_mem_cache {
+ 	struct llist_head waiting_for_gp_ttrace;
+ 	struct rcu_head rcu_ttrace;
+ 	atomic_t call_rcu_ttrace_in_progress;
++	raw_spinlock_t lock;
+ };
+ 
+ struct bpf_mem_caches {
+@@ -207,6 +208,7 @@ static void add_obj_to_free_list(struct bpf_mem_cache *c, void *obj)
+ static void alloc_bulk(struct bpf_mem_cache *c, int cnt, int node, bool atomic)
+ {
+ 	struct mem_cgroup *memcg = NULL, *old_memcg;
++	unsigned long flags;
+ 	gfp_t gfp;
+ 	void *obj;
+ 	int i;
+@@ -228,12 +230,14 @@ static void alloc_bulk(struct bpf_mem_cache *c, int cnt, int node, bool atomic)
+ 	if (i >= cnt)
+ 		return;
+ 
++	raw_spin_lock_irqsave(&c->lock, flags);
+ 	for (; i < cnt; i++) {
+-		obj = llist_del_first(&c->waiting_for_gp_ttrace);
++		obj = __llist_del_first(&c->waiting_for_gp_ttrace);
+ 		if (!obj)
+ 			break;
+ 		add_obj_to_free_list(c, obj);
+ 	}
++	raw_spin_unlock_irqrestore(&c->lock, flags);
+ 	if (i >= cnt)
+ 		return;
+ 
+@@ -279,8 +283,14 @@ static int free_all(struct bpf_mem_cache *c, struct llist_node *llnode, bool per
+ static void __free_rcu(struct rcu_head *head)
+ {
+ 	struct bpf_mem_cache *c = container_of(head, struct bpf_mem_cache, rcu_ttrace);
++	struct llist_node *llnode;
++	unsigned long flags;
+ 
+-	free_all(c, llist_del_all(&c->waiting_for_gp_ttrace), !!c->percpu_size);
++	raw_spin_lock_irqsave(&c->lock, flags);
++	llnode = __llist_del_all(&c->waiting_for_gp_ttrace);
++	raw_spin_unlock_irqrestore(&c->lock, flags);
++
++	free_all(c, llnode, !!c->percpu_size);
+ 	atomic_set(&c->call_rcu_ttrace_in_progress, 0);
+ }
+ 
+@@ -297,6 +307,7 @@ static void enque_to_free(struct bpf_mem_cache *c, void *obj)
+ static void do_call_rcu_ttrace(struct bpf_mem_cache *c)
+ {
+ 	struct llist_node *llnode, *t;
++	unsigned long flags;
+ 
+ 	if (atomic_xchg(&c->call_rcu_ttrace_in_progress, 1)) {
+ 		if (unlikely(READ_ONCE(c->draining))) {
+@@ -307,8 +318,10 @@ static void do_call_rcu_ttrace(struct bpf_mem_cache *c)
+ 	}
+ 
+ 	WARN_ON_ONCE(!llist_empty(&c->waiting_for_gp_ttrace));
++	raw_spin_lock_irqsave(&c->lock, flags);
+ 	llist_for_each_safe(llnode, t, llist_del_all(&c->free_by_rcu_ttrace))
+-		llist_add(llnode, &c->waiting_for_gp_ttrace);
++		__llist_add(llnode, &c->waiting_for_gp_ttrace);
++	raw_spin_unlock_irqrestore(&c->lock, flags);
+ 
+ 	if (unlikely(READ_ONCE(c->draining))) {
+ 		__free_rcu(&c->rcu_ttrace);
+@@ -535,6 +548,7 @@ int bpf_mem_alloc_init(struct bpf_mem_alloc *ma, int size, bool percpu)
+ 			c->objcg = objcg;
+ 			c->percpu_size = percpu_size;
+ 			c->tgt = c;
++			raw_spin_lock_init(&c->lock);
+ 			init_refill_work(c);
+ 			prefill_mem_cache(c, cpu);
+ 		}
+@@ -557,7 +571,7 @@ int bpf_mem_alloc_init(struct bpf_mem_alloc *ma, int size, bool percpu)
+ 			c->objcg = objcg;
+ 			c->percpu_size = percpu_size;
+ 			c->tgt = c;
+-
++			raw_spin_lock_init(&c->lock);
+ 			init_refill_work(c);
+ 			prefill_mem_cache(c, cpu);
+ 		}
+@@ -609,7 +623,7 @@ int bpf_mem_alloc_percpu_unit_init(struct bpf_mem_alloc *ma, int size)
+ 		c->objcg = objcg;
+ 		c->percpu_size = percpu_size;
+ 		c->tgt = c;
+-
++		raw_spin_lock_init(&c->lock);
+ 		init_refill_work(c);
+ 		prefill_mem_cache(c, cpu);
+ 	}
+@@ -620,6 +634,8 @@ int bpf_mem_alloc_percpu_unit_init(struct bpf_mem_alloc *ma, int size)
+ static void drain_mem_cache(struct bpf_mem_cache *c)
+ {
+ 	bool percpu = !!c->percpu_size;
++	struct llist_node *llnode;
++	unsigned long flags;
+ 
+ 	/* No progs are using this bpf_mem_cache, but htab_map_free() called
+ 	 * bpf_mem_cache_free() for all remaining elements and they can be in
+@@ -629,7 +645,10 @@ static void drain_mem_cache(struct bpf_mem_cache *c)
+ 	 * on these lists, so it is safe to use __llist_del_all().
+ 	 */
+ 	free_all(c, llist_del_all(&c->free_by_rcu_ttrace), percpu);
+-	free_all(c, llist_del_all(&c->waiting_for_gp_ttrace), percpu);
++	raw_spin_lock_irqsave(&c->lock, flags);
++	llnode = __llist_del_all(&c->waiting_for_gp_ttrace);
++	raw_spin_unlock_irqrestore(&c->lock, flags);
++	free_all(c, llnode, percpu);
+ 	free_all(c, __llist_del_all(&c->free_llist), percpu);
+ 	free_all(c, __llist_del_all(&c->free_llist_extra), percpu);
+ 	free_all(c, __llist_del_all(&c->free_by_rcu), percpu);
+-- 
+2.34.1
 
