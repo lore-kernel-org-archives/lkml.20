@@ -1,88 +1,124 @@
-Received: from mailgw1.hygon.cn (unknown [101.204.27.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E8F99202C29
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:33:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.204.27.37
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AA5F02F60CC
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:34:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787834043; cv=none; b=hAMo+7NgbpRy+Q1bAIYFoyNpzEQ4gX7uxhjFZkIHB7SwwU/BOzgaQF94jkHGRzr7rA4FGGmZDSJK3ax3TZblCeWxoLoDoI4VSvDzG64eGJCNDPwmT3AfvDRxMmhbA23AEs1cNEtyi33B1G/mNoxwKz+foVGyDlhGkkhEpicW0Kc=
+	t=1787834045; cv=none; b=i1WSztO/38vNcn60GI1I/DAfOrSOqOX0YA1YBVruQIi9G3bqy9dM3caNgCuwvbLXrAeDxMolKn3+9d9tcxuDjunltBQefBIKohabVoJ4YRlU8in84IRSTtDw7regciN11z+/v+wwBBNvTAO6wHsQuaGJAPHrVdkx/xkkmrPnh+E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787834043; c=relaxed/simple;
-	bh=j4Z/7VwcyXrTp6+GjwrDcW1OtRsi8tlmYV/gx4LOeeY=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lqOTzEwVJD1U11Z0I+eXsBor3qKk7GS0h8pzrndc7DxfO6LlCpHBzqDStWb+Bqc5Vs00MwuSp0l8ZaBP4Ogpjrp7BSIQHMg/BY1FbPJm6BfoTLymUBaysTz78DwnOo7QOJMI5x3eEQGc/frs5JjURKxCn38KqHk22x09TzgoWIs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn; spf=pass smtp.mailfrom=hygon.cn; arc=none smtp.client-ip=101.204.27.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
-Received: from maildlp2.hygon.cn (unknown [127.0.0.1])
-	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hW1CS0WpPzBJb6y;
-	Thu, 27 Aug 2026 20:33:40 +0800 (CST)
-Received: from maildlp2.hygon.cn (unknown [172.23.18.61])
-	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hW1CR1NWszBJb6w;
-	Thu, 27 Aug 2026 20:33:39 +0800 (CST)
-Received: from cncheex04.Hygon.cn (unknown [172.23.18.114])
-	by maildlp2.hygon.cn (Postfix) with ESMTPS id 00DA736F1F84;
-	Thu, 27 Aug 2026 20:29:57 +0800 (CST)
-Received: from jianyong.hygon.cn (172.19.20.52) by cncheex04.Hygon.cn
- (172.23.18.114) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Thu, 27 Aug
- 2026 20:33:37 +0800
-From: Jianyong Wu <wujianyong@hygon.cn>
-To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
-	<vincent.guittot@linaro.org>, Chen Yu <yu.c.chen@intel.com>, Tim Chen
-	<tim.c.chen@linux.intel.com>
-CC: Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt
-	<rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman
-	<mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak
-	<kprateek.nayak@amd.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, Phil Auld
-	<pauld@redhat.com>, Andrew Morton <akpm@linux-foundation.org>, David
- Hildenbrand <david@kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-mm@kvack.org>, <wujianyong@hygon.cn>, <jianyong.wu@outlook.com>,
-	<zhongyuan@hygon.cn>, <huangsj@hygon.cn>, <wangfengyu@hygon.cn>,
-	<yingzhiwei@hygon.cn>, <justin.he@arm.com>
-Subject: [RFC PATCH v2 14/23] sched/cache: Drop prefer_sibling restriction for llc_balance
-Date: Thu, 27 Aug 2026 20:28:07 +0800
-Message-ID: <20260827122816.756234-15-wujianyong@hygon.cn>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260827122816.756234-1-wujianyong@hygon.cn>
-References: <20260827122816.756234-1-wujianyong@hygon.cn>
+	s=arc-20240116; t=1787834045; c=relaxed/simple;
+	bh=mY3Eav+LjuHZMwXDTdn++FZAjJ/U1MT/NAZX93Cyy4U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=o/WiAND2Co3lQcJrqza6sm03lFVk8/cyOQaz75jbW4MJA4TEtHAjs3dSzDKZa8zzGVg9HLt3d8dvqvpuARHmG3i3XxAe2/+f42lyM5b4Az/fyK0MVH9zJJuCUsxMKAL5bOQI+cCUqeniBaGjpqZuBWTxfcMl4xQizu2HibP2ML8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=OsFUMBHE; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="OsFUMBHE"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C4401169E;
+	Thu, 27 Aug 2026 05:33:57 -0700 (PDT)
+Received: from arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DD2EF3F85F;
+	Thu, 27 Aug 2026 05:33:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1787834041; bh=mY3Eav+LjuHZMwXDTdn++FZAjJ/U1MT/NAZX93Cyy4U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=OsFUMBHEaz0MEEtpQe2t/mV0Bh0yAMbABVuevsnZfzq2jdkZC7jCmm1dBlOs17pWq
+	 WZ55pKQ6caopkWdxmTSrDDeBrXYHU+P0eoZQCtRXzYJLjqvkMAgpWZVClF0upnWdGN
+	 Y8BmeN/1xOQ58RPN8/J1H5NGvzOTt1q3snNZ/ufo=
+Date: Thu, 27 Aug 2026 14:33:50 +0200
+From: Beata Michalska <beata.michalska@arm.com>
+To: Xuewen Yan <xuewen.yan94@gmail.com>
+Cc: Sean Wang1 <seanwang1@lenovo.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"rafael@kernel.org" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Lifeng Zheng <zhenglifeng1@huawei.com>,
+	Xuewen Yan <xuewen.yan@unisoc.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Sumit Gupta <sumitg@nvidia.com>,
+	Yunhui Cui <cuiyunhui@bytedance.com>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"driver-core@lists.linux.dev" <driver-core@lists.linux.dev>
+Subject: Re: [External] Re: [PATCH v3] arm64: topology: add source check in
+ arch_cpu_idle_enter()
+Message-ID: <apAurrE3JOpM3wE0@arm.com>
+References: <20260811072830.10028-1-seanwang1@lenovo.com>
+ <anrzT-ez3b7uYaCt@arm.com>
+ <SI2PR03MB6688D1DC0796AC6F6A373C2E93DC2@SI2PR03MB6688.apcprd03.prod.outlook.com>
+ <anxSsfvpZHHsVnp_@arm.com>
+ <aoX_jiuhv3dyMS-g@arm.com>
+ <CAB8ipk_4Zbhb=azTDGQEQ1S=n2Zhzvqs7pYr6ZfOOWL8meE_4Q@mail.gmail.com>
+ <ao_9EiKz9Cmx_YHh@arm.com>
+ <CAB8ipk9KknqBFeQrDYXAqRxGbM_bjtU0w7Jid95XucnzkgUdkg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: cncheex05.Hygon.cn (172.23.18.115) To cncheex04.Hygon.cn
- (172.23.18.114)
+In-Reply-To: <CAB8ipk9KknqBFeQrDYXAqRxGbM_bjtU0w7Jid95XucnzkgUdkg@mail.gmail.com>
 
-group_llc_balance performs balancing across LLC and NUMA domains.
-The prefer_sibling constraint unnecessarily limits its scope, so remove
-this requirement entirely from the branch condition.
+On Thu, Aug 27, 2026 at 05:11:28PM +0800, Xuewen Yan wrote:
+> On Thu, Aug 27, 2026 at 5:02 PM Beata Michalska <beata.michalska@arm.com> wrote:
+> >
+> > On Mon, Aug 24, 2026 at 05:21:03PM +0800, Xuewen Yan wrote:
+> > > On Thu, Aug 20, 2026 at 3:11 AM Beata Michalska <beata.michalska@arm.com> wrote:
+> > > >
+> > > Should we distinguish between events?
+> > We could although for this particular issue clearing the source is the one that
+> > needs attention. But I do not see why we could not have both.
+> > This was just sharing the idea, not a final patch.
+> > >
+> > > > ---
+> > > >
+> > > > This is just a rough idea, and needs ironing out the wrinkles, which are there,
+> > > > but that allows leaving the idle enter as is. I also believe this is the right
+> > > > approach for the interface itself, although I also see some drawbacks and
+> > > > potential issues (in its current state), especially that the functionality is
+> > > > being exposed to modules.
+> > > > Nevertheless, those are my two cents, untested, just sketched.
+> > >
+> > > As an aside, could we verify the functionality of the AMU's
+> > > SYS_AMEVCNTR0_CONST_EL0 in the current CPU before enabling amu_file?
+> > > To my knowledge, many chips currently have inaccurate errata in this counter.
+> > > Alternatively, could we introduce a command line that allows users to
+> > > dynamically disable this feature?
+> > >
+> > > Thanks!
+> > Do you have any particular issue in mind ?
+> > So far, from what I have been able to track, the issues reported are either
+> > handled by existing erratum or by the latest change that reads the counters in
+> > 'one go'. Can you share the details of the issue you are facing ?
+> > That would be helpful in potentially finding the right solution.
+> 
+> For example:
+> There is an A725 errata:
+> [A725]The CNT_CYCLES event can have a significant increment error due to WFE/WFI
+> Status
+> Fault type: Programmer Category B
+> Fault status: Present in r0p0, r0p1, and r0p2. Open.
+> ......
+> Workaround
+> There is no workaround.
 
-Signed-off-by: Jianyong Wu <wujianyong@hygon.cn>
+Right.
+Will be sharing a patch for that one soon.
+
 ---
- kernel/sched/fair.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 584297528a9e..5c35a43e5e38 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -13274,9 +13274,9 @@ static struct sched_group *sched_balance_find_src_group(struct lb_env *env)
- 	 * Try to move all excess tasks to a sibling domain of the busiest
- 	 * group's child domain.
- 	 */
--	if (sds.prefer_sibling && local->group_type == group_has_spare &&
--	    (busiest->group_type == group_llc_balance ||
--	    sibling_imbalance(env, &sds, busiest, local) > 1))
-+	if (local->group_type == group_has_spare &&
-+	    ((busiest->group_type == group_llc_balance) || (sds.prefer_sibling &&
-+	    sibling_imbalance(env, &sds, busiest, local) > 1)))
- 		goto force_balance;
- 
- 	if (busiest->group_type != group_overloaded) {
--- 
-2.34.1
-
-
+BR
+Beata
+> 
+> Thanks!
+> >
+> > ---
+> > BR
+> > Beata
+> >
