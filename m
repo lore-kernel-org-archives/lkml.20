@@ -1,263 +1,150 @@
-Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 599393B6BF1;
-	Thu, 27 Aug 2026 08:35:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14A483DA7D1;
+	Thu, 27 Aug 2026 08:36:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787819720; cv=none; b=O5CTSa/K6G1oAZBw6Ofiln05fmiQHVWfjopqY8V7Mwwndpw8XB78wSnDwtkIr/CPUn8CDrawytTkf4iKQw1nPQHfG6F854flCbaeCmopqqlLEwMwHHBelrEdhbsNTZku7z7Z/sYvtaBYvHPllM9f7dpc0d3IyNBenfeiwzdGsmg=
+	t=1787819821; cv=none; b=tCs/Jc3TvUC1SB7N+xZKZqcrASjSgdBvNs7gzfh8j79vWAokk/KjJm6Ex5cXuVfJ2OPDorbMFfsI24+PCI7IW0JEK1Zpd3NiOF0zSXgP3Gm3fh2VKohZ44Fjjnoh1zz55Aa8AyHhkRfi/4U79ZAkg+/0kdkjwjaGp0LLNScGFug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787819720; c=relaxed/simple;
-	bh=itB94wTQlwNYicYIyKZFxxm65o+9Hyfh28OpfKFQB+k=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=aguw793ysCxM5K+3RRRblW/dWeqXiHNoz5h6/CZJnR+6hgTGBKCcoAaTNGNLxlzsdUhT//PG08VLj3htyT3wHAeqVPwt7GAKIqA980kzkupUj96AGviJ8/jFAwYsIh4dJWkAKhbwAPuaCkCCQoOkF4HLNOCnqQEX+oFYj3kFibc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.198])
-	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hVvvW66F7zKHMqg;
-	Thu, 27 Aug 2026 16:34:31 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.252])
-	by mail.maildlp.com (Postfix) with ESMTP id C1F464057D;
-	Thu, 27 Aug 2026 16:35:13 +0800 (CST)
-Received: from ultra.huawei.com (unknown [10.90.53.71])
-	by APP3 (Coremail) with UTF8SMTPA id _Ch0CgCHdUTA9o9q6DNYDw--.35223S2;
-	Thu, 27 Aug 2026 16:35:13 +0800 (CST)
-From: Pu Lehui <pulehui@huaweicloud.com>
-To: bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hou Tao <houtao@huaweicloud.com>
-Cc: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Pu Lehui <pulehui@huawei.com>,
-	Pu Lehui <pulehui@huaweicloud.com>
-Subject: [PATCH bpf v2] bpf: Fix UAF due to concurrent consumption of waiting_for_gp_ttrace
-Date: Thu, 27 Aug 2026 08:40:13 +0000
-Message-Id: <20260827084013.1062816-1-pulehui@huaweicloud.com>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1787819821; c=relaxed/simple;
+	bh=O49pBanThnRwtkT1TJiXChrH5PYlmKW1VkdM3d8Lt0c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dAwIFAl+rdOJN9V0TlGUKY1wGsqCEtN2eX/E5LR+NVVCXZWwbcf4RmjW/I1lotc9LDX1iMTZ686ylUc1bxT/gTcdyBYnDQOkShCGEMpC609efjxEo9nvqXIkSvpJ6g3N/weS9sHzGiZGt7TSk1p1xZB9FsIYdWxY+LSSL3O9zFk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LOWJ40ZD; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LOWJ40ZD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DE571F000E9;
+	Thu, 27 Aug 2026 08:36:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787819817;
+	bh=rkzdP2S548RxnrFBhwG8u6sLOgpp1gNeiux6b/1cAoM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LOWJ40ZDmi5YS420LN9xd2O1jW1tratjVPqUYSVCBSg8n3KTiSQy3pxU0RsuiaiP8
+	 6abWQINXVjomSW7EwwZ3ydvqAxdzRPEsBTJuKurEXKbFBc+i2SSSFYywxbAVHfB41R
+	 rBfjDPoAVfrAkSZv9tQPxXwAfjmluaRgD7s0FMLLQIA/r+Eo+3vToKJoTjuYxZS/B8
+	 LcbNples+T4+Hwqo+ajKrfDO6K5no/1myIhZi1dA2czKmK21v7byTR2DWTrjsdBtY0
+	 uZ+5TtaTHFRdb7pmsK0zoaFAJeM6oAQnqZS02DNGu5SGMnyDWka15cPq9n4toxZ+I4
+	 4XKQo09+wjilQ==
+Date: Thu, 27 Aug 2026 09:36:52 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Li Xinhai <lixinhai.lxh@gmail.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	syzbot+f12658786a4153df5113@syzkaller.appspotmail.com, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/mremap: reset unfaulted VMA page offset for
+ MREMAP_DONTUNMAP
+Message-ID: <ao_25iegD62xA2u3@gremlin>
+References: <20260825-fix-mremap-dontunmap-pgoff-v1-1-39a40b2c98b3@kernel.org>
+ <34fa1a4d-e5fb-4e27-a53b-b57b96be3f8c@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_Ch0CgCHdUTA9o9q6DNYDw--.35223S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3GF4fur1rXF1Uur4rury5twb_yoW3XF15pF
-	WfGr95JF4rZFWI9a4Iqrs7CwsxZw40qa43JayUur9a9r15Zw1qqFyfAry7uFyY9rWIyFW3
-	tryvgryxCr4UZF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
-	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
-	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
-	zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF
-	4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWU
-	CwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCT
-	nIWIevJa73UjIFyTuYvjfUonmRUUUUU
-X-CM-SenderInfo: psxovxtxl6x35dzhxuhorxvhhfrp/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <34fa1a4d-e5fb-4e27-a53b-b57b96be3f8c@kernel.org>
 
-From: Pu Lehui <pulehui@huawei.com>
+On Thu, Aug 27, 2026 at 10:32:15AM +0200, Vlastimil Babka (SUSE) wrote:
+> On 8/25/26 9:55 AM, Lorenzo Stoakes (ARM) wrote:
+> > Uniquely an mremap() invocation using the MREMAP_DONTUNMAP flag can reset
+> > a faulted VMA into an unfaulted one.
+> >
+> > It does so after the page tables have been moved to the copied VMA with
+> > MREMAP_DONTUNMAP leaving the old VMA in place which is naturally unfaulted
+> > as the page tables it had are no longer present.
+> >
+> > However, in doing so, it violates the invariant that the anonymous page
+> > offset of an unfaulted VMA is vma->vm_start >> PAGE_SHIFT.
+> >
+> > This is because a VMA may have been faulted in, mremap()'d (causing a delta
+> > between its page offset and vma->vm_start >> PAGE_SHIFT), and then
+> > mremap()'d again with MREMAP_DONTUNMAP resulting in the unfaulting.
+> >
+> > This condition is a violation of a fundamental assumption in mm, but now
+> > also triggers an assert in assert_sane_pgoff() which explicitly checks for
+> > this condition.
+>
+> Oof. So what's the worst thing that could happen before the assert was
+> added? We'd use the "unfaulted" state to allow a merge, but the wrong
+> pgoff could mess up the result of the merge somehow?
 
-Syzkaller repeatedly triggered UAF splats related to nodes in
-waiting_for_gp_ttrace within the bpf memalloc:
+Yep you'd just get merging not working. It's a bit of a unique set of
+circumstances so it's not a huge impact, but it's an edge case that'd break
+scalable CoW assumptions that I want to use to avoid having to track remaps
+so it's a good one to find :)
 
-BUG: KASAN: slab-use-after-free in llist_del_first+0x85/0x110 lib/llist.c:61
-Read of size 8 at addr ffff8881572cd080 by task syz.4.470/5112
- ...
- llist_del_first+0x85/0x110 lib/llist.c:61
- alloc_bulk+0x193/0x460 kernel/bpf/memalloc.c:229
- bpf_mem_refill+0x386/0x560 kernel/bpf/memalloc.c:436
+Definitely incorrect however even if low impact in the past.
 
-Freed by task 14:
- ...
- __free_rcu kernel/bpf/memalloc.c:281 [inline]
- __free_rcu_tasks_trace+0x48/0xd0 kernel/bpf/memalloc.c:291
- rcu_tasks_invoke_cbs+0x1ec/0x3e0 kernel/rcu/tasks.h:571
- rcu_tasks_one_gp+0x13d/0x220 kernel/rcu/tasks.h:621
- rcu_tasks_kthread+0xf3/0x120 kernel/rcu/tasks.h:651
+>
+> > Correct it by resetting the VMA's page offset at the point of completing
+> > the MREMAP_DONTUNMAP operation.
+> >
+> > Reported-by: syzbot+f12658786a4153df5113@syzkaller.appspotmail.com
+> > Closes: https://lore.kernel.org/all/6a87853b.ae6ddae5.3da009.0023.GAE@google.com/
+> > Fixes: 1583aa278f5f ("mm: mremap: unlink anon_vmas when mremap with MREMAP_DONTUNMAP success")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>
+> Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
-Initially, we suspected that alloc_bulk() lacked RCU Tasks Trace
-protection when accessing waiting_for_gp_ttrace. However, explicitly
-adding rcu_read_lock_trace() did not help.
+Thanks!
 
-This is expected because, as noted in commit 57b23c0f612d ("bpf: Retire
-rcu_trace_implies_rcu_gp()"), an RCU Tasks Trace GP currently implies
-(and will continue to imply in the future) a normal RCU GP. Since
-alloc_bulk() runs in an RCU read-side CS (!PREEMPT_RT runs in IRQ
-context, PREEMPT_RT runs with guard(rcu)), an RCU Tasks Trace GP cannot
-complete while alloc_bulk() is accessing the list. Thus, the callback
-__free_rcu cannot run concurrently, ruling out missing RCU read-side
-locks as the cause. And same for free_by_rcu_ttrace list.
+>
+> > ---
+> >  mm/mremap.c | 22 +++++++++++++++++-----
+> >  1 file changed, 17 insertions(+), 5 deletions(-)
+> >
+> > diff --git a/mm/mremap.c b/mm/mremap.c
+> > index e8df5cdb0ac9..2b4b523a86b8 100644
+> > --- a/mm/mremap.c
+> > +++ b/mm/mremap.c
+> > @@ -1331,18 +1331,30 @@ static void dontunmap_complete(struct vma_remap_struct *vrm,
+> >  {
+> >  	unsigned long start = vrm->addr;
+> >  	unsigned long end = vrm->addr + vrm->old_len;
+> > -	unsigned long old_start = vrm->vma->vm_start;
+> > -	unsigned long old_end = vrm->vma->vm_end;
+> > +	struct vm_area_struct *vma = vrm->vma;
+> > +	unsigned long old_start = vma->vm_start;
+> > +	unsigned long old_end = vma->vm_end;
+> >
+> >  	/* We always clear VMA_LOCKED[ONFAULT]_BIT on the old VMA. */
+> > -	vma_clear_flags_mask(vrm->vma, VMA_LOCKED_MASK);
+> > +	vma_clear_flags_mask(vma, VMA_LOCKED_MASK);
+> >
+> >  	/*
+> >  	 * anon_vma links of the old vma is no longer needed after its page
+> >  	 * table has been moved.
+> >  	 */
+> > -	if (new_vma != vrm->vma && start == old_start && end == old_end)
+> > -		unlink_anon_vmas(vrm->vma);
+> > +	if (new_vma != vma && start == old_start && end == old_end) {
+> > +		const pgoff_t pgoff_unfaulted = vma->vm_start >> PAGE_SHIFT;
+> > +
+> > +		unlink_anon_vmas(vma);
+> > +		/*
+> > +		 * The VMA is now unfaulted and it is an invariant that
+> > +		 * unfaulted anonymous VMAs have page offset equal to
+> > +		 * vma->vm_start >> PAGE_SHIFT.
+> > +		 */
+> > +		vma_set_anon_pgoff(vma, pgoff_unfaulted);
+> > +		if (vma_is_anonymous(vma) && !vma->vm_file)
+> > +			vma_set_pgoff(vma, pgoff_unfaulted);
+> > +	}
+> >
+> >  	/* Because we won't unmap we don't need to touch locked_vm. */
+> >  }
+> >
+> > ---
+> > base-commit: efecab401cb15fd3bb9bc05990609acb6b267ff2
+> > change-id: 20260824-fix-mremap-dontunmap-pgoff-a687134e995e
+> >
+> > Best regards,
+>
 
-Further investigation revealed that the UAF does not occur before the
-RCU Tasks Trace grace period expires, but rather during the execution of
-its callback. When the callback invokes llist_del_all to reclaim
-waiting_for_gp_ttrace nodes, there is no synchronization protecting
-against concurrent alloc_bulk() calls. If alloc_bulk() operates on
-waiting_for_gp_ttrace simultaneously, a race condition ensues, as
-illustrated below:
-
-CPU0                                           CPU1
-                                               __free_rcu (RCU Tasks Trace callback)
-alloc_bulk (RCU read-side CS)
-  llist_del_first(&c->waiting_for_gp_ttrace)
-    entry = smp_load_acquire(&head->first);
-    do {
-      if (entry == NULL)
-        return NULL;
-                                               free_all(llist_del_all(&c->waiting_for_gp_ttrace))
-                                                 llist_for_each_safe(pos, t, llnode)
-                                                   free_one(pos);
-      next = READ_ONCE(entry->next); <-- trigger UAF
-    } while (!try_cmpxchg(&head->first, &entry, next));
-
-Since alloc_bulk() operates on waiting_for_gp_ttrace under RCU read-side
-CS, Fix this by introducing a raw spinlock to synchronize the concurrent
-consumption (llist_del_first vs llist_del_all) on waiting_for_gp_ttrace.
-
-Note that free_by_rcu_ttrace does not suffer from this issue as it only
-has a single active consumer during normal operation.
-
-Fixes: 04fabf00b4d3 ("bpf: Allow reuse from waiting_for_gp_ttrace list.")
-Suggested-by: Alexei Starovoitov <ast@kernel.org>
-Suggested-by: Hou Tao <houtao1@huawei.com>
-Signed-off-by: Pu Lehui <pulehui@huawei.com>
----
- kernel/bpf/memalloc.c | 31 +++++++++++++++++++++++++------
- 1 file changed, 25 insertions(+), 6 deletions(-)
-
-diff --git a/kernel/bpf/memalloc.c b/kernel/bpf/memalloc.c
-index e9662db7198f..58296e92a4fe 100644
---- a/kernel/bpf/memalloc.c
-+++ b/kernel/bpf/memalloc.c
-@@ -119,6 +119,7 @@ struct bpf_mem_cache {
- 	struct llist_head waiting_for_gp_ttrace;
- 	struct rcu_head rcu_ttrace;
- 	atomic_t call_rcu_ttrace_in_progress;
-+	raw_spinlock_t lock;
- };
- 
- struct bpf_mem_caches {
-@@ -207,6 +208,7 @@ static void add_obj_to_free_list(struct bpf_mem_cache *c, void *obj)
- static void alloc_bulk(struct bpf_mem_cache *c, int cnt, int node, bool atomic)
- {
- 	struct mem_cgroup *memcg = NULL, *old_memcg;
-+	unsigned long flags;
- 	gfp_t gfp;
- 	void *obj;
- 	int i;
-@@ -228,12 +230,14 @@ static void alloc_bulk(struct bpf_mem_cache *c, int cnt, int node, bool atomic)
- 	if (i >= cnt)
- 		return;
- 
-+	raw_spin_lock_irqsave(&c->lock, flags);
- 	for (; i < cnt; i++) {
--		obj = llist_del_first(&c->waiting_for_gp_ttrace);
-+		obj = __llist_del_first(&c->waiting_for_gp_ttrace);
- 		if (!obj)
- 			break;
- 		add_obj_to_free_list(c, obj);
- 	}
-+	raw_spin_unlock_irqrestore(&c->lock, flags);
- 	if (i >= cnt)
- 		return;
- 
-@@ -279,8 +283,14 @@ static int free_all(struct bpf_mem_cache *c, struct llist_node *llnode, bool per
- static void __free_rcu(struct rcu_head *head)
- {
- 	struct bpf_mem_cache *c = container_of(head, struct bpf_mem_cache, rcu_ttrace);
-+	struct llist_node *llnode;
-+	unsigned long flags;
- 
--	free_all(c, llist_del_all(&c->waiting_for_gp_ttrace), !!c->percpu_size);
-+	raw_spin_lock_irqsave(&c->lock, flags);
-+	llnode = __llist_del_all(&c->waiting_for_gp_ttrace);
-+	raw_spin_unlock_irqrestore(&c->lock, flags);
-+
-+	free_all(c, llnode, !!c->percpu_size);
- 	atomic_set(&c->call_rcu_ttrace_in_progress, 0);
- }
- 
-@@ -297,6 +307,7 @@ static void enque_to_free(struct bpf_mem_cache *c, void *obj)
- static void do_call_rcu_ttrace(struct bpf_mem_cache *c)
- {
- 	struct llist_node *llnode, *t;
-+	unsigned long flags;
- 
- 	if (atomic_xchg(&c->call_rcu_ttrace_in_progress, 1)) {
- 		if (unlikely(READ_ONCE(c->draining))) {
-@@ -307,8 +318,10 @@ static void do_call_rcu_ttrace(struct bpf_mem_cache *c)
- 	}
- 
- 	WARN_ON_ONCE(!llist_empty(&c->waiting_for_gp_ttrace));
-+	raw_spin_lock_irqsave(&c->lock, flags);
- 	llist_for_each_safe(llnode, t, llist_del_all(&c->free_by_rcu_ttrace))
--		llist_add(llnode, &c->waiting_for_gp_ttrace);
-+		__llist_add(llnode, &c->waiting_for_gp_ttrace);
-+	raw_spin_unlock_irqrestore(&c->lock, flags);
- 
- 	if (unlikely(READ_ONCE(c->draining))) {
- 		__free_rcu(&c->rcu_ttrace);
-@@ -535,6 +548,7 @@ int bpf_mem_alloc_init(struct bpf_mem_alloc *ma, int size, bool percpu)
- 			c->objcg = objcg;
- 			c->percpu_size = percpu_size;
- 			c->tgt = c;
-+			raw_spin_lock_init(&c->lock);
- 			init_refill_work(c);
- 			prefill_mem_cache(c, cpu);
- 		}
-@@ -557,7 +571,7 @@ int bpf_mem_alloc_init(struct bpf_mem_alloc *ma, int size, bool percpu)
- 			c->objcg = objcg;
- 			c->percpu_size = percpu_size;
- 			c->tgt = c;
--
-+			raw_spin_lock_init(&c->lock);
- 			init_refill_work(c);
- 			prefill_mem_cache(c, cpu);
- 		}
-@@ -609,7 +623,7 @@ int bpf_mem_alloc_percpu_unit_init(struct bpf_mem_alloc *ma, int size)
- 		c->objcg = objcg;
- 		c->percpu_size = percpu_size;
- 		c->tgt = c;
--
-+		raw_spin_lock_init(&c->lock);
- 		init_refill_work(c);
- 		prefill_mem_cache(c, cpu);
- 	}
-@@ -620,6 +634,8 @@ int bpf_mem_alloc_percpu_unit_init(struct bpf_mem_alloc *ma, int size)
- static void drain_mem_cache(struct bpf_mem_cache *c)
- {
- 	bool percpu = !!c->percpu_size;
-+	struct llist_node *llnode;
-+	unsigned long flags;
- 
- 	/* No progs are using this bpf_mem_cache, but htab_map_free() called
- 	 * bpf_mem_cache_free() for all remaining elements and they can be in
-@@ -629,7 +645,10 @@ static void drain_mem_cache(struct bpf_mem_cache *c)
- 	 * on these lists, so it is safe to use __llist_del_all().
- 	 */
- 	free_all(c, llist_del_all(&c->free_by_rcu_ttrace), percpu);
--	free_all(c, llist_del_all(&c->waiting_for_gp_ttrace), percpu);
-+	raw_spin_lock_irqsave(&c->lock, flags);
-+	llnode = __llist_del_all(&c->waiting_for_gp_ttrace);
-+	raw_spin_unlock_irqrestore(&c->lock, flags);
-+	free_all(c, llnode, percpu);
- 	free_all(c, __llist_del_all(&c->free_llist), percpu);
- 	free_all(c, __llist_del_all(&c->free_llist_extra), percpu);
- 	free_all(c, __llist_del_all(&c->free_by_rcu), percpu);
--- 
-2.34.1
-
+--
+Cheers, Lorenzo
