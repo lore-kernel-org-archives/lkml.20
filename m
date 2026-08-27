@@ -1,88 +1,45 @@
-Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E0E14766A9
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 14:52:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F0F2481AAC;
+	Thu, 27 Aug 2026 14:52:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787842346; cv=none; b=Bpfw5mTikLeBIA2qa8Fr9Jd3dPouKJjERLCTLubOfPG9ieb8fFW5qnWwqY6v1doK+c9k33RnrFhPRmBkHrpdMzgFT5vEUmbP0kE4EoTtRQED/sWW4G5PGiMpHAUXSMD1gWhQwvJj5ZMI3s27iIIcp6C/bMLerU2r/an4gzgelNg=
+	t=1787842369; cv=none; b=isMbquVFhkcxyGUUMwwK0Fhu6GgRzWvi1UkEypPwdHNx2EQuYhtmM5KMIhsiwVTrbNTYmAQ4pm18I7T5LFNKnkB3KW9cLfj52i9kqusZXIda/ea1bPv2ajAlR8QQsOcA5wmRthhL0DwKcuaEoOrxLR3FGnOvtJUCFh7o3QxmQ4k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787842346; c=relaxed/simple;
-	bh=IRn4Qs3ZfELuL6Zf2MFClaZaLle/GcI7tEOGt8JybBQ=;
+	s=arc-20240116; t=1787842369; c=relaxed/simple;
+	bh=TOwwUCm3aMU3KaYZSXThW3DCIQz1ArqP+11cnzza8rk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mMlPHcjmg8JVI32HeRfKawbZUc+41ZE8gpS7MXkzkW7wVvS9n0+0B/OwtUm1CUzoxhDBF1Ly/Zgym7OjpOHvJExKIjGd7jb9DSn+ZHTov07ZAVSgSnL5RRmCLKMYxhJdRwZJPfMyaVwzsX5yfBgf4hvAcGn0Q6FeWP9wXD0ZHRI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=sk1m66IQ; arc=none smtp.client-ip=209.85.128.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=GJhl9c/gzL87Z0pm2avMR51VlfUoHoLeYENvUDoCug7wrjVPV6iczoodh34two7Uo378WoRyIGZLTJFKUAL2v/fSc6kFsxxKPcA/0hso3lZW1mxtXMVd65XbH1dhaB1U1gnN1PgnmVJJ1TI38e6C1pCaHs91p/xRedD4wMXrVDc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W/Wrgi1c; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="sk1m66IQ"
-Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-81ecf499af9so40371107b3.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:52:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1787842335; x=1788447135; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2PhM8hHOikt+Le7MMX66XCq3uKxujYXBd3b3EMmxqtI=;
-        b=sk1m66IQUs8NOnDaBLKYzpse7epXKRdX6nbtwX9q757hxwTHftMq7lE7e/OEUUiJWB
-         N478q9Zx5oc9OT9stndnRqPvgfJiDaKRyF5ZL7UwkwwuHS46f3ui7bm8OI7N8riMlDOj
-         7uCItxia/yfCbWtzQLgxRVa4AFtQETB909X3uokb1jbDBidCqjIHjalfUVByHLMqDyqj
-         zAv0sTOyLvvcmZYSah7fTn0g5jRecFlkR0ZqW//MGlhLFST/0P+ID1YH4/1vwy9TD9A6
-         QKtU5t+pOTliS226dD/aiDuneTcx0j9gyV08A1GM32wOOpavikrdiqJppqDmqDYKsJKX
-         3pxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787842335; x=1788447135;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2PhM8hHOikt+Le7MMX66XCq3uKxujYXBd3b3EMmxqtI=;
-        b=bLRfX/5SdN7ZIlJfj3TRNGqCsli/1oIs1oBgjaLtQLkWWz8fm2LxRwqsQeeyt4oWSF
-         tC7FhWehhjnQ3mYOQvqCrhowA/2TFx0B8A9he0n1OfgeTLzRMiItkuycCd38aTfjNBW9
-         IlzXDA82yqbxY0mY1Mfq9D7ifROwKKA+xGWBP2sgYWfASiKMji+bCjRUPJ/7K/JODSqq
-         L2VpDlckYDoVnYjQ1hDtE8eDnux4lps3A+6ecdP7x8SioI7FspCeWicNl1CqbGFtrSYX
-         xNtmbZpIgfOpaZVC6g145UnsbcuACvNqJSUaJBaLeBmR0+7jMPciaun/Wk5mgeq0MB4G
-         viog==
-X-Forwarded-Encrypted: i=1; AHgh+Rrmh4CjWCBvjl3DHqw+MhsWfUgEAiJ2RjRVZArzAsR1373ziYlRloWB6YBVHbZzn7+GhA2mnHwC8wWWh10=@vger.kernel.org
-X-Gm-Message-State: AFuF++nvXXevrrt8tRXOxtsTSW+LruuJ7EKBSjiNsYW34wy7dluIXa+R
-	8nAKOgemp2yzFFCuBoZx+kyUUupw71SJ+v/6S9ulxktQc7T9jVBHRSxuljGhTQCzUuE=
-X-Gm-Gg: AR+sD132lbnjzqcCpxRPcROPflyoBoFvCwLlSr0pWZiSjXz7vvGlJxo60ahfERIItID
-	p0ZOYm0ZK5Yw8epexNHhjQakHzJbN93XtMVFUAyL163rxzOLHTOTW3Nj86wHtKQIM8CqrnXEJF3
-	+AK9FZlDtOb9d0DdozlYGNoi1M9y8vQ2+Z/AjVhtoujdoCrIoNKNbfk7jH0eF0uXGWdpvvsWUyC
-	Qljxn6eDvi4iC9Jlmw4JoXRO+sjhQrBkBIgWhnGDJx/WBkPqBnAeidAjw1DpC20MgxfzHRKwy2o
-	z3bhKjZ0sbM2VbVkf6xMoqrDoPybzgg5zvPLRDMlhL4UCTWi+iWt3ZsjoTDCHTidr75AoNw/TcH
-	Xmb1VPPbA12VZb295jl/U+1LWSMCVTVzaaPHtpFz7tKVE+vhYwieOiQ6Gp5zrq3NZZXh870FVFp
-	GkUt5m8Yh6Ip8kVaTgWq46CEt+I3ToHcrf+t0WR9mZ5rYeNa9oqR5m3bYxBkj4
-X-Received: by 2002:a05:690e:150b:b0:66c:e3db:e14e with SMTP id 956f58d0204a3-66d256611f2mr5655360d50.8.1787842334856;
-        Thu, 27 Aug 2026 07:52:14 -0700 (PDT)
-Received: from localhost ([2605:8600:200:1a83:fe59:7385:2855:8588])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66d2471d460sm3060976d50.12.2026.08.27.07.52.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 07:52:13 -0700 (PDT)
-Date: Thu, 27 Aug 2026 10:52:09 -0400
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Ridong Chen <ridong.chen@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Zi Yan <ziy@nvidia.com>, Kairui Song <kasong@tencent.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	Ridong Chen <chenridong@xiaomi.com>
-Subject: Re: [PATCH] memcg: sink mem_cgroup_uncharge_folios() into
- free_unref_folios()
-Message-ID: <20260827145209.GA3004@cmpxchg.org>
-References: <20260827030516.462926-1-ridong.chen@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W/Wrgi1c"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8BF71F000E9;
+	Thu, 27 Aug 2026 14:52:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787842359;
+	bh=j6K2IwFpe5CIehfsd9uWcWn+lN920C2qwKtqbLQ7Ggk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=W/Wrgi1cgPXGQr7nZnU2yykJLHlcAqRYK5r781zx3+yA+pCBpNZGLISHJr7oQ9FU8
+	 yS3dYforbQCQWwRWGC/w/BkvlZg3qAp9Y+I8HID2xb3dFamTJ45UmIBJtDD3nf8NSg
+	 hY6yZKwGj6SylM0ZXmoqhpJWO2pwXIYA3Wjngnuv6xXyG7JUwD1eHcRlqhheVvGxIz
+	 LFB5vxQ0jPAAr4IfdDeME4Sb2rKFSsSliwOUa6ZXz4kQItQHJGXphr2XuXrywMWij7
+	 4pEw7VQaeRVg5eHJz9O/On7XF0Jyum/ftLq7NpoErdje9XHs7R+m9OO0UXc6/tI7x8
+	 FpIIMPG7gXjzA==
+Date: Thu, 27 Aug 2026 09:52:37 -0500
+From: Rob Herring <robh@kernel.org>
+To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+Cc: Saravana Kannan <saravanak@kernel.org>,
+	Frank Rowand <frowand.list@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Shawn Guo <shawn.guo@linaro.org>,
+	Grant Likely <grant.likely@secretlab.ca>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 02/10] of: hold a reference on of_aliases during alias
+ path resolution
+Message-ID: <20260827145237.GA3212208-robh@kernel.org>
+References: <20260805-nh-of-alias-overlay-v6-0-74f21d440819@nexthop.ai>
+ <20260805-nh-of-alias-overlay-v6-2-74f21d440819@nexthop.ai>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -91,23 +48,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260827030516.462926-1-ridong.chen@linux.dev>
+In-Reply-To: <20260805-nh-of-alias-overlay-v6-2-74f21d440819@nexthop.ai>
 
-On Thu, Aug 27, 2026 at 11:05:16AM +0800, Ridong Chen wrote:
-> From: Ridong Chen <chenridong@xiaomi.com>
+On Wed, Aug 05, 2026 at 01:31:01PM -0700, Abdurrahman Hussain wrote:
+> of_find_node_opts_by_path() walks the property list of of_aliases
+> without taking a reference on the node and passes pp->value straight
+> to of_find_node_by_path().
 > 
-> Every caller of free_unref_folios() invokes mem_cgroup_uncharge_folios()
-> on the same batch immediately beforehand.  This pattern is duplicated
-> across shrink_folio_list(), move_folios_to_lru(), folio_batch_move_lru()
-> and folios_put_refs().
+> Take a reference across the walk. The walk itself stays lock-free
+> like every other property iteration: it can race property surgery and
+> see a stale view (a removed property's ->next is repointed at the
+> deadprops list), but nothing it can reach is freed while the node
+> reference is held. devtree_lock covers only the pointer load,
+> pairing it with a later patch in this series that clears of_aliases
+> and drops its reference when the node is detached at runtime.
 > 
-> Move the uncharge into free_unref_folios() itself so the batch is
-> uncharged in one place before the folios are freed.  This removes the
-> repeated boilerplate at every call site and makes it impossible to free
-> a batch without uncharging it first.  No functional change intended.
+> Validate the value before resolving it. of_alias_value_ok() requires
+> a non-empty, NUL-terminated, absolute path:
+> 
+>   - an empty property has a NULL value and crashes in strchr()
+>   - a value without a NUL inside the property is read past its end
+>   - a relative value naming another alias (loop = "loop") recurses
+>     through of_find_node_by_path() until the stack is exhausted
+> 
+> All three are reachable with a malformed boot FDT today.
+> 
+> The name comparison loses its redundant strlen() pass while here.
+> 
+> Assisted-by: Claude:claude-fable-5 [Claude Code]
+> Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+> ---
+>  drivers/of/base.c       | 20 +++++++++++++++-----
+>  drivers/of/of_private.h |  8 ++++++++
+>  2 files changed, 23 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/of/base.c b/drivers/of/base.c
+> index 477017ed6f49..eca1f55eee87 100644
+> --- a/drivers/of/base.c
+> +++ b/drivers/of/base.c
+> @@ -995,6 +995,8 @@ struct device_node *of_find_node_opts_by_path(const char *path, const char **opt
+>  
+>  	/* The path could begin with an alias */
+>  	if (*path != '/') {
+> +		struct device_node *aliases;
+> +		const char *value = NULL;
+>  		int len;
+>  		const char *p = strchrnul(path, '/');
+>  
+> @@ -1002,16 +1004,24 @@ struct device_node *of_find_node_opts_by_path(const char *path, const char **opt
+>  			p = separator;
+>  		len = p - path;
+>  
+> -		/* of_aliases must not be NULL */
+> -		if (!of_aliases)
+> +		/* the load pairs with writers that retire the node */
+> +		raw_spin_lock_irqsave(&devtree_lock, flags);
+> +		aliases = of_node_get(of_aliases);
+> +		raw_spin_unlock_irqrestore(&devtree_lock, flags);
 
-Hm, IMO this is confusing. You're making uncharging an included
-service in a subset of the page allocator freeing API. Batch freeing
-uncharges, but single page freeing does not.
+There's no need to take the spinlock for just a get. Furthermore, as 
+long as the of_aliases pointer is exposed to the rest of the kernel, a 
+reference should always be held. Not that you should rely on that 
+here...
 
-I don't think saving 7 lines is worth that API caveat.
+Rob
