@@ -1,224 +1,131 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 074454399D0;
-	Thu, 27 Aug 2026 09:37:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C276F4399E0;
+	Thu, 27 Aug 2026 09:38:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787823439; cv=none; b=Oc+FTzV0kHUUWX/+v0ZB1HE7KbIZvwIw0KmdsHe89Z+LHnQhwebGLlGv4tXV1Q5c+356lqCXqIKxI8Xv67hvbx0Ve3swtw66ju35rBKgbwjfdVmaWH7TFNM7w/KEtiGb4ODw+8T0zc4KhfVfdlvuy79KduzPJgXMWrhb/UXFtUM=
+	t=1787823485; cv=none; b=Og32YQDoGkt+KfNcg6FKFHa0t0LGSe22U102dmEKAAKQ04SEkvOTldSVZ1cZvrvpXZu4rvjQIEU8fY7edubbmR9crp6X/h9lUu2cx9mG6ZHc4ic3RhRiuLI4jqq4MRCbLyMyxW9a011C8Hgii6V+LB5BixGuzjKZUvQeBNvmKgU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787823439; c=relaxed/simple;
-	bh=Ulp7fjlDiH/NLh7PI3530EdULLeh0kw2lAh1u+NzR+Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RW5QKhdWc26BWHogLkDcTgjRCDwXQ8mm39aA2qx/5pv13tJabdZL3N9uMfT2Tt+b4Xzkr5kbQms0AQAcWDT3wC0SZ0v1heJxlUsGIpCC0FmPPd8Q/C/aN2oGruTfXw5dbhpRcMEWfXI5w9qXXnmPLOBocETcCUH7OvNRsQdxtgs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au; spf=pass smtp.mailfrom=gandalf.ozlabs.org; dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b=vAONMtrE; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	s=arc-20240116; t=1787823485; c=relaxed/simple;
+	bh=CH1SGJVPSE5UXzYAy4RjkOk7GjiRK45TQ6DP7IwFhl4=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=Bn/t4+OhgciQ3st4S1X4ttSXW77JlW43Olp/mG2ksI1NR6RqSWqoKbqmdP6f3XfLFDZrjiol7T8sRUnbb3ab69JgN9K4z3jkLoxAzTNYIEkPL/ghS8lrMuYMX20aX5jKlllcVKHPlWpSBnGkw68By/GIfnRJiXLPv7Jf27jLCy0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J0QhkLdH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b="vAONMtrE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202608; t=1787822969;
-	bh=ai1xYp5emqk2YpS2O6a4Jw7jIO6yNdgWU2U7WUgZugM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=vAONMtrEyhxnZ5eFAY8RFiswUVw8/SxrPvViNPlmSPKe62b1c473v1LhuC/K3tpDv
-	 sEtJnEVA0mhr43H/LWzuHXmENAMJM2YnRTCyw0IjEhvMOb54dG5lcREvXQNpcpnGvQ
-	 6ofvkOP26P0Fxfud2hHTo624ts8phFUiL9yJPMh+pWeR11DbFTVddtuv1aB8ZKQBAe
-	 WxHzESBMunbZHLSuSiZy8CFvhM4UiH5RqSed2wgrrXs+MeR+nAhR9wu3sEMasG6hpy
-	 y6MKkAYJvraJNKTJ8fjgTqvB8d6vs2P6njOLu1/l/H5xYg0sb+guI9vHnbc++UR6cZ
-	 kmw6BCv5wTc3Q==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4hVx6x154Qz4w1d; Thu, 27 Aug 2026 19:29:29 +1000 (AEST)
-Date: Thu, 27 Aug 2026 13:55:14 +1000
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Ayush Singh <ayush@beagleboard.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
-	Hui Pu <hui.pu@gehealthcare.com>,
-	Ian Ray <ian.ray@gehealthcare.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v3 01/15] fdtget: Use libfdt iterators instead of open
- coded loops
-Message-ID: <ao-1FMFyANQVwy9K@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
- <20260826083146.304291-2-herve.codina@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J0QhkLdH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 584531F000E9;
+	Thu, 27 Aug 2026 09:37:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787823478;
+	bh=kY9rdvBsO9uw6/8YaHM8vYu2zSCSBKCDyPP+3dDwwko=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=J0QhkLdHjlTOnt0Qp2hG3h+HCoFMYIiLSoW+I5lxSZVC1atDFYF/36mZq5G2iDvVC
+	 WNAbwyyncDgceSEndvaF9DiuEU/325axAGQfwrcPXSMAvyWT4P6Ud7bX9tB1r8GkIr
+	 ULKkSj4AyYTlhyNlsEuu4mQY8v/EEeCQzEgBYIFQxIlJwI/tqMTfy1qth1PdF8ideK
+	 m0zRzj15K/N5Aa3yKLX84G/dVp1cOnwK2ei4bGMKS2c/TSz5orNf4o8/sANKODtxT8
+	 TmVnvg+Msqq0nvcCP53T/ZaiQ7i1+zqq2TQ1+I71BQfEooVlD0IbcWRB3Sm8LtZPPJ
+	 AtrQ36cuGFw+A==
+Message-ID: <409e398b-eb8f-48eb-a0d3-ed8fa811328f@kernel.org>
+Date: Thu, 27 Aug 2026 11:37:51 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3c5wEsAoZhgnQUpy"
-Content-Disposition: inline
-In-Reply-To: <20260826083146.304291-2-herve.codina@bootlin.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/8] dt-bindings: reset: Add mt6589 toprgu reset IDs
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Cc: linux-mediatek@lists.infradead.org,
+ Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck
+ <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-watchdog@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260809160643.33991-1-l.scorcia@gmail.com>
+ <20260809160643.33991-2-l.scorcia@gmail.com>
+ <20260811-amethyst-seriema-of-gallantry-ca9c7f@quoll>
+ <CAORyz2KXJf4gU46649w1ncb7TAOErdoGmfOMzwKr8b+eGdAgVA@mail.gmail.com>
+ <20260812-smooth-artichoke-kittiwake-f6e85e@quoll>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260812-smooth-artichoke-kittiwake-f6e85e@quoll>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
---3c5wEsAoZhgnQUpy
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 12/08/2026 12:35, Krzysztof Kozlowski wrote:
+> On Tue, Aug 11, 2026 at 04:20:11PM +0200, Luca Leonardo Scorcia wrote:
+>>
+>>> We do not take bits, but identifiers of resets.
+>>
+>> Currently the existing mtk_wdt.c driver does not use a reset table
+>> that binds identifiers to bits for any of the existing devices. There
+>> are a bunch of mediatek,mt*.h files under dt-bindings/reset [3] that
+>> point directly to reset bits instead of being indexes.
+> 
+> Many got accepted unnoticed, many times we did not care, but the point
+> is still valid - pure hardware numbers do not belong to the bindings,
+> because they do not bind any pieces of code. The proper binding header
+> constants bind DTS with SW implementation, so two pieces of code. Not
+> applicable here.
+> 
+>> I can introduce a reset table in the driver, but it would break
+>> existing devices as those bits are referred in device trees and they
+>> are often non-contiguous (e.g. [4]). As before, it could be done by
+> 
+> Then these bits stay as is in DTS but bindings header is not needed. You
+> can have of course DTS header, as we did in the past multiple times for
+> such hardware constants.
 
-On Wed, Aug 26, 2026 at 10:31:32AM +0200, Herve Codina wrote:
-> fdtget uses directly fdt_{first,next}_property_offset() with a while(1)
-> loop to iterate over node properties.
->=20
-> It also uses the low level primitive fdt_next_tag() with custom tags,
-> level and depth handling to iterates over subnodes.
->=20
-> It is worth noting that FDT_NOP can be returned by fdt_next_tag() and
-> this tag is not taken into account in the fdtget open coded loop. This
-> will lead to an incorrect error if a FDT_NOP tag is encountered.
->=20
-> libfdt provides iterators to iterate over node properties and subnodes.
-> The subnode iterator provided by libfdt is robust against FDT_NOP tags
-> and will be robust in the future when new tags are introduced.
->=20
-> Replace fdtget open coded loops by iterators provided by libfdt and
-> designed to perform those operations.
->=20
-> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+So I wrote above this to myself and can be ignored completely? Then why
+would we not ignore your patches?
 
-Nice cleanup, merged.  A test case to prevent any regressions on that
-FDT_NOP bug would be a nice addition.
-
-> ---
->  fdtget.c | 73 ++++++++++++++++++--------------------------------------
->  1 file changed, 23 insertions(+), 50 deletions(-)
->=20
-> diff --git a/fdtget.c b/fdtget.c
-> index dd709854..c6169691 100644
-> --- a/fdtget.c
-> +++ b/fdtget.c
-> @@ -138,21 +138,20 @@ static int show_data(struct display_info *disp, con=
-st char *data, int len)
->  static int list_properties(const void *blob, int node)
->  {
->  	const char *name;
-> +	const void *p;
->  	int prop;
-> =20
-> -	prop =3D fdt_first_property_offset(blob, node);
-> -	do {
-> -		/* Stop silently when there are no more properties */
-> -		if (prop < 0)
-> -			return prop =3D=3D -FDT_ERR_NOTFOUND ? 0 : prop;
-> -		fdt_getprop_by_offset(blob, prop, &name, NULL);
-> -		if (name)
-> +	fdt_for_each_property_offset(prop, blob, node) {
-> +		p =3D fdt_getprop_by_offset(blob, prop, &name, NULL);
-> +		if (p && name)
->  			puts(name);
-> -		prop =3D fdt_next_property_offset(blob, prop);
-> -	} while (1);
-> -}
-> +	}
-> =20
-> -#define MAX_LEVEL	32		/* how deeply nested we will go */
-> +	if ((prop < 0) && (prop !=3D -FDT_ERR_NOTFOUND))
-> +		return prop;
-> +
-> +	return 0;
-> +}
-> =20
->  /**
->   * List all subnodes in a node, one per line
-> @@ -163,47 +162,21 @@ static int list_properties(const void *blob, int no=
-de)
->   */
->  static int list_subnodes(const void *blob, int node)
->  {
-> -	int nextoffset;		/* next node offset from libfdt */
-> -	uint32_t tag;		/* current tag */
-> -	int level =3D 0;		/* keep track of nesting level */
->  	const char *pathp;
-> -	int depth =3D 1;		/* the assumed depth of this node */
-> -
-> -	while (level >=3D 0) {
-> -		tag =3D fdt_next_tag(blob, node, &nextoffset);
-> -		switch (tag) {
-> -		case FDT_BEGIN_NODE:
-> -			pathp =3D fdt_get_name(blob, node, NULL);
-> -			if (level <=3D depth) {
-> -				if (pathp =3D=3D NULL)
-> -					pathp =3D "/* NULL pointer error */";
-> -				if (*pathp =3D=3D '\0')
-> -					pathp =3D "/";	/* root is nameless */
-> -				if (level =3D=3D 1)
-> -					puts(pathp);
-> -			}
-> -			level++;
-> -			if (level >=3D MAX_LEVEL) {
-> -				printf("Nested too deep, aborting.\n");
-> -				return 1;
-> -			}
-> -			break;
-> -		case FDT_END_NODE:
-> -			level--;
-> -			if (level =3D=3D 0)
-> -				level =3D -1;		/* exit the loop */
-> -			break;
-> -		case FDT_END:
-> -			return 1;
-> -		case FDT_PROP:
-> -			break;
-> -		default:
-> -			if (level <=3D depth)
-> -				printf("Unknown tag 0x%08X\n", tag);
-> -			return 1;
-> -		}
-> -		node =3D nextoffset;
-> +	int subnode;
-> +
-> +	fdt_for_each_subnode(subnode, blob, node) {
-> +		pathp =3D fdt_get_name(blob, subnode, NULL);
-> +		if (pathp =3D=3D NULL)
-> +			pathp =3D "/* NULL pointer error */";
-> +		if (*pathp =3D=3D '\0')
-> +			pathp =3D "/";	/* root is nameless */
-> +		puts(pathp);
->  	}
-> +
-> +	if (subnode < 0 && (subnode !=3D -FDT_ERR_NOTFOUND))
-> +		return subnode;
-> +
->  	return 0;
->  }
-> =20
-> --=20
-> 2.55.0
->=20
->=20
-
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
-
---3c5wEsAoZhgnQUpy
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmqPtRQACgkQzQJF27ox
-2GfF3RAArA6maELFSVz2YeMeCLE0nJoK0u4Q4h1nNQG8/rezhsKFDsX1n5HsESP7
-4eqfmJXmfXzP84jGRDpXAS8GGYcoGhq63HimuZrcsDwVuAeKNUd8d9aDBecMeaMc
-3zv7438WnPrwi2U2/X3zLGjq5zfRafP8YH98X9n1c2vzN7AzJReWGgN1IZWBUZ+4
-Ng/1VzyhZJv6OI1AHOCHNS+u28L6IpFkppsXur6yikVl9nfSQN2wg70z03wfD5Vy
-hcR8I7KEr3p1JX2RFCfc3NQPBfHzNbRGI8I5hAN7MUDK9YVuaD9tvhSs8eufOQcs
-dsd9IEDbkkVABcbG3AajTMuHp337KS8D+htTJaO7oLmvhNaDQPSqr3vXQ6zlhnJF
-JuFMTikmpqBNdbnFALS217JpJZWloSza2TTkby02/AkBdM3Bk04i7DXFDTcsu3eR
-2JwE3iLA8Uy/Wb+MkotZbRqQRb6PeN38XdAaWIedye06gDMMvl1NVChYxyUV3V01
-WTPf5yxVySUhIzdg/L5XYGszYc9ZEhxK2g+6erybLNtJvrUUALWVwn73tIHXYIgc
-L1DOa3zXEW35QrwFsDU4aRCi6RuH7SyStyEDvYExNdMU4yCffcv9d3lh/39hxeh0
-zeLpcEA/7Q6BOizuAAqyb3g0Q7nokCCisikhP2ESuvmpkZLpmls=
-=LIbf
------END PGP SIGNATURE-----
-
---3c5wEsAoZhgnQUpy--
+Best regards,
+Krzysztof
