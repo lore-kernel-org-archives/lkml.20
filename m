@@ -1,370 +1,211 @@
-Received: from mta1.migadu.com (out-165.mta1.migadu.com [95.215.58.165])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013040.outbound.protection.outlook.com [40.107.201.40])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 443842AEE1
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:01:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.165
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787788895; cv=none; b=VMxNmdb5oqXoazVU7DvEvIAqiZ9uUE9fpLelSo/ROqR+KbRfSn7Bh1QEZLhDdJklG0uQVVdwA/cewMb3r7G/bFEAYO5elup2WXzmrn4zfANu5K46HIZUkTup9z3M02cHbsJ0zHcNB4Tw7cn5Q7g8DwsfB/SxssYF16LJKBs3b+Q=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787788895; c=relaxed/simple;
-	bh=TvqWBTb479dLnNj7XyocETAhU2b6NUuFp6SZAzpJMuQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Mmzz4NVCl9xvPgRa1FOso3CRNVyZVBG3mTkrWP2S2f7DDEecSl/oZvnam4MO/DkWCiUNP7z3N/qnaGnF6yUR8vj88Cy+yUAHm/tIpq7mppWzLZhrRklSocrs7XSj8CrQlcJi2fOOSnW1YC192HMcXuMb+VtHkydbcm2ChZWVroI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=nfwScI9x; arc=none smtp.client-ip=95.215.58.165
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FB2F26AE5;
+	Thu, 27 Aug 2026 00:04:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.40
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787789052; cv=fail; b=s2OMy8u40T3SIzWj5sXuNRl1qpOQrQMwn6VAucddusMM9yQ2jPMfnPyd7btP7ZUqlh2xt1dlMs5HYFoec/9MIDzx3ECYa+CwEfc2fZbhw6KzsNiWwEYnUuBZ0RYyn4dx7cIwktxIDnJW66Sot/kUIihcHaADYBlkH+/onxEdCZw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787789052; c=relaxed/simple;
+	bh=+hixaVB7NAHpwjDh7U+s2wZ2ciDa1563aWBfLnyENt8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=NU97yxoQ+V9Zi8TOzaUbXsy7s9WUKlbomsuudAcQe++nrzj4xQ50yEsAArmosoxiIpQgJITZOhzxw3IT0IeRXmkIDy/P8nqP1Dv3NNhaUpF6EHrRKf8jj2LgIFqFW/4ZsCtQmFthgdSy4lHGVxcWe+WXd49t94ISycJzxC2vk0w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=cOLEemFy; arc=fail smtp.client-ip=40.107.201.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="nfwScI9x"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=TvqWBTb479dLnNj7XyocETAhU2b6NUuFp6SZAzpJMuQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787788891; v=1; x=1788393691;
- b=nfwScI9xTcsU9uL+MqNEbZDDK3Mx+1ycMdr9kC2gRPEfVHXHYE3YQhZOZLicEN2LIMnrVyY7
- pyrVJLDxy1rozlNb/3cgr8pQdMgMByft9Yj52LIN65kbxPT+BOUgAK1pq19GMOFOz9tTJY6HSxP
- zLQ/8XPRxXX5WLkgDI/V4Oc0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: from dragon-master.speedport.ip (2003:fc:df23:7abd:c598:7cec:94a0:927b)
-	by smtp.migadu.com with ESMTPS id 98be105a5da1ca64;
-	Thu, 27 Aug 2026 00:01:31 +0000
-X-Mizu-Trace-ID: 98be105a5da1ca64
-X-Migadu-Flow: FLOW_OUT
-From: Md Haris Iqbal <haris.iqbal@linux.dev>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: linux-block@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jonathan Corbet <corbet@lwn.net>,
-	Md Haris Iqbal <haris.iqbal@linux.dev>,
-	Christoph Hellwig <hch@lst.de>
-Subject: [RFC for-next 2/3] block: allow error injection rules to delay bios
-Date: Thu, 27 Aug 2026 02:01:14 +0200
-Message-ID: <20260827000115.128093-3-haris.iqbal@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260827000115.128093-1-haris.iqbal@linux.dev>
-References: <20260827000115.128093-1-haris.iqbal@linux.dev>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="cOLEemFy"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MioIPVx5sMsT+LWNKXsPjqeQEkENmI93tHdqDqKoc5fNTREtijFoVeWwOpaZMGoTnIXivL4vf3Q+Hp9+QUQTeS4tPKoxOnP2XlLX0G9nizyk2dbilOsm8O3RsEDuodoWd/MQr2lyTqe0P28d6pEp9CCUBlJpaL33fA4Wq3Wil1gN5MdVTcyv61LxzQuxFmojqsbYyPepJ4ExOhKEqjQbz79+7rPAhw1Tfv7F6UWHB8biDvsl6JHltetCt8BhWWl67RaxTQi1DPi0WJ8D2kgJv0hhTCH3d9MxKokofSDHvmYC3LNi+po+K8s8DeV1WYiHm5uQg+eN54OGeaG7xstzdA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XN3mt2w3egd9vQ1O7U7pDdnGu453OBb+4tgEr1dECfs=;
+ b=iP5UZKwRjnEFEfTj2dntubu5O3gzFuEU/2S5KNhKPXEBKELE+5to+kvp4EZEqiXYd6BvoRQTnqHPixPVA3plje+hslDVahpOknkjclTrCSbKyeV0XdGO3dvxtxEpOuTu0OCcre5fOfMLecjNtKwI0UgY+A4G9wc9QE063oUGkNrw/ur2Omia33lbG4JaGpwSnJJtloqEnWjkUUoPpNCNXIg/kcjUnKPYITyr5reNrKSP0vEdxH2yDql0MJoa5TLGC65zwNjkxE9a7kb5FgnZ990JxMKb7U7E8zgsvbLEJSnuQQCKEmHgti4pPvfYBXe/+wdiHuIghmRtiOQAHeKa3Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XN3mt2w3egd9vQ1O7U7pDdnGu453OBb+4tgEr1dECfs=;
+ b=cOLEemFyrNv3tD9+n3XbG7Bwb6gpzEpfaa8motuciBRNJkBVneWKtMAsdaCPBAy29cR1Qh5P5s1pJYBBt0OX0EqaE4YGX1TEKI7p5qsDuLhZIS7A2TwiCPOvcdJXfC2jSf0KRCNyvWwxoLmXl0HSq0aTDi6OpeUtjPwJDHGcL8Te/zwiJKWxKMTiwKWAhUKNPQMLGj4sOCZCVgK5M3qpvKyfZf63gyQgXUb+O2DtPayqZPYWW98/re66+owbBTMbsxRiFVpGdhTWvjmPs9vB509akGSp+RT/wwYc7ZwHfkjKtEL/XFC5xwdUOmtI76VWLvl1kyx7U2jskhkY1As2DA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MN0PR12MB5977.namprd12.prod.outlook.com (2603:10b6:208:37c::22)
+ by SN7PR12MB6910.namprd12.prod.outlook.com (2603:10b6:806:262::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.12; Thu, 27 Aug
+ 2026 00:03:56 +0000
+Received: from MN0PR12MB5977.namprd12.prod.outlook.com
+ ([fe80::d8:f725:258:2f28]) by MN0PR12MB5977.namprd12.prod.outlook.com
+ ([fe80::d8:f725:258:2f28%4]) with mapi id 15.21.0360.005; Thu, 27 Aug 2026
+ 00:03:56 +0000
+Date: Thu, 27 Aug 2026 10:03:50 +1000
+From: Alistair Popple <apopple@nvidia.com>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: nova-gpu <nova-gpu@lists.linux.dev>, Alice Ryhl <aliceryhl@google.com>, 
+	David Airlie <airlied@gmail.com>, Alexandre Courbot <acourbot@nvidia.com>, 
+	Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	Eliot Courtney <ecourtney@nvidia.com>, John Hubbard <jhubbard@nvidia.com>, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH v4 4/7] drm: nova: Add a GPU info ioctl
+Message-ID: <ao6gDTdk49aoSRhh@nvdebian.thelocal>
+References: <20260811050657.646799-1-apopple@nvidia.com>
+ <20260811050657.646799-5-apopple@nvidia.com>
+ <DKRHW6G6P4K5.15H1A4DGR6672@kernel.org>
+ <aofWfMSZtV-bNYrr@nvdebian.thelocal>
+ <DKXETHVKYVV4.1P8RNJ6AXV3X8@kernel.org>
+ <ao1AnG7fUhJ8a1U-@nvdebian.thelocal>
+ <DKYDUOFB4C8P.3STNQMZY571XI@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DKYDUOFB4C8P.3STNQMZY571XI@kernel.org>
+X-ClientProxiedBy: SY8P282CA0002.AUSP282.PROD.OUTLOOK.COM
+ (2603:10c6:10:29b::9) To MN0PR12MB5977.namprd12.prod.outlook.com
+ (2603:10b6:208:37c::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR12MB5977:EE_|SN7PR12MB6910:EE_
+X-MS-Office365-Filtering-Correlation-Id: 52b73a52-cae5-4076-b4b4-08df03ceafdf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|18002099003|10067099003|4143699003|56012099006|22082099003|5023799004|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	O1K+y0ISqu/5HBSeX7PBL4t8hER70I9EVdFSdzo/bGNFtCcnqOGRMjKDG90x8ouBtekufo6UkXUdYWQar1sXyMfxghJROokKgmfOR3gnq9WHjhSH/MKIBB136tpal8KRwjWbewNOPGvSrvdZnQIOqYpzg+oIbA+Jyd0jaIxfSEJEIGDi+UwRvYgQ6QvueoIO1vvCHN4VrBGJWGz2YUwmsrEP4SMCWDVlaK7cW9df+FCwgxHad80/KCu2haEbkdgBxPntsdyCbUPdEtPxnq3GiXp90BZ6oEKmN/xxQ9Sds6vCh8NkhZ/4Uan/87LZ1BtIx1U2GZce1Stx+nm1XfKOFEr6Ezbr9WFAajLgsiFdm8fgtgD+G1qE+Tl/etmtAp6ukz4LfnDsO5n95lmLfLwIinNEkHrCbs1Mxg+YFyVBXzLD5OgzuKLmKqBHkQL6Qr+4Pxtp6vqlW/1EBIUXqW9hCESNPsDcdHLF5fB+O5ttPNfsWKtikCYHY4n2wgyXY3/7/o6xFZDSib1b/XBgFfjbQME6Jxc7eqg3TgVAJJd7ENYmfh4meCBFVInWAmGQo6B/3uF3WADw0y5/RDAEgC/IgMSlQKk8vAA7odYx4kMz3VDEef+sbMGwktJlAjpx7rFCaHa7T79ZZaP9TvLfefcBUEFCmakvW8kJywR/tzGIPck=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR12MB5977.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(18002099003)(10067099003)(4143699003)(56012099006)(22082099003)(5023799004)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?1G/lLGTdJ7PN+gFKBZ8s50u87sq2lIQlv93rK4XD79r9goCSp7wPN/V7C7l4?=
+ =?us-ascii?Q?Ab4yJFHqeDR/QjneoSyr/14EUVqkpnuCSKouUEe2KzoyI5Y82FTP5CbEH5fj?=
+ =?us-ascii?Q?D+ueuSovhpI6/R2Im8vKgI/sIvTUSEhr9NNg6A7awpxA0KqGnFhrsy7sFe/s?=
+ =?us-ascii?Q?TdNL6a4x7WQPNcP90oJ9fgU/eCw4JB2ypB0I1WYWz3uWreDj6Ej8DIdoKqfT?=
+ =?us-ascii?Q?Wqp1yfJNLlBq+0VicZwSJcAeCq88AFnakMIx85EZKCj8Tt0OUjp8sp8DtLBi?=
+ =?us-ascii?Q?j9XcXa6mVrweHO/yp0/Edg+wBZiag3OkOdDui7QGwmyi7oVYz/YGNUGh5Ytl?=
+ =?us-ascii?Q?ZasrLDRLkD0GSIbsPmzzQsN/NuydPnYFAOHICuP1/W38OJcASdvNo+me8xsK?=
+ =?us-ascii?Q?JCI0bZagotX6nDgBER55UWUWOgJvAqMmrjJs6d4vm0XiJ4voXKHwP1LkEAza?=
+ =?us-ascii?Q?oSM7ck7hEiItD8WR8MDI4Ej5QR0VMku4cZvr4/Y7CZII9NE+Hnob4xjONUZU?=
+ =?us-ascii?Q?Uejk8QONVetBEevV3CQoZBXxUKhsCPQHE6v+TSHoLIGel+wz9nknqTo9xhZh?=
+ =?us-ascii?Q?ddY/9w3FtunMkpb686PnvNIXQY8q9JI1Wz/qwln5mcXYRS7UpdItBhylHWaQ?=
+ =?us-ascii?Q?cDipYfFfDhIK9hR63kUexSijJNcDjF1C5VO86UBY913VSk6TsWgi3+Xb36QX?=
+ =?us-ascii?Q?MmR0CZ6l91PfjIgrHUj0tBwYlOiELTiNqm37ygTx+VXsC7szJ4fi6ZCGShCj?=
+ =?us-ascii?Q?Fnvhx5nftHFpdEE4y+6UDsZkeLhsHPelrDeCZwHXfhlTDWfRv98slW8he560?=
+ =?us-ascii?Q?IPtqjq/E0GpYz73d+PXitvs8cR+HT5hjFnpTcX74ylF1CMfpau95NAJg2TlF?=
+ =?us-ascii?Q?8692DEtcHFoLy8r+IFyhpgbUTizZC3PRNATncjsPpH+FchPzX2gT1mMdCg8b?=
+ =?us-ascii?Q?0K/FLTk3WCn/bJk4YzcLKDgQtxoNEOR2Bf+KD7nqr1FYMhPXMfmCs1vANidQ?=
+ =?us-ascii?Q?yI5SPRpqhWxmLIPNTkQKNfoiySLClOvyXDunfCwkoLLRB0qZBna/xRN9cXjq?=
+ =?us-ascii?Q?dC//XjrMYNI+ym0a7kY/usK6UdwD6dXpJdMoqw2a6tL4apYtdvFpL5H1qYhl?=
+ =?us-ascii?Q?kvQIGRTm1Vmjr3+kVM2eUO1btLbDvi14J2JsghfZmdE085UNvhzRQxy8P6wZ?=
+ =?us-ascii?Q?zIylJ1HaFqksJ/QzmpgGqqlqWl5ketmPjOucCn79cyyHaEDM9e9uammv/2ZD?=
+ =?us-ascii?Q?VNjN/Rn6fdNtnXQGUCb5bkENzDf0uxCD4WgxdQSZEh0pg/8U0jRZcI4u6eaF?=
+ =?us-ascii?Q?RE37GWtNdDPG8yDAv1Xqd4IF0lXEpDiRnpkgvxsQWPh8LaTWRoBcpu7Skaos?=
+ =?us-ascii?Q?BO8MiIeEBgibqz2Ei3AyBdYkbXtvcYo6Yw66xABq/C6N0fGzgXbsk0i/7MUE?=
+ =?us-ascii?Q?OFEX4pkgVBUeSmfkuE0AzKrHfeyZ68S4otSePDLtJyH8+SnwhiuRgvctZq3+?=
+ =?us-ascii?Q?dxPnD7B5jAfUK0LVaX0/L0MHzF/slqQe1MeWHVhA9BIiWeYXqQHokS+ScXvX?=
+ =?us-ascii?Q?TtBqPZZxcEwJZJLkc6VCMij8vp5pLD9ajSesXkrIzsZc6yXYelyXgpNQLoqB?=
+ =?us-ascii?Q?atFVbW4fzt/osID+IZhjBOAhH5+ynqMnVLLJjzUU0fMOWYSMoZKsRYqGNf9/?=
+ =?us-ascii?Q?PansAxNP9HoQqtkBvPRdkGwFNqq7liRceiQqrM3qy8p1BvIqiezgxsLodXOR?=
+ =?us-ascii?Q?pIt+vL8Hfg=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 52b73a52-cae5-4076-b4b4-08df03ceafdf
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB5977.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 00:03:55.9989
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2HC/Z1RXBPh724bO90qA2JJHQ4BYY3Aau+zwdPWTBpge7kvImarIaLTpMFM874A9R98XeZ85WPbEcgZfS5loAQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6910
 
-Error injection can only fail a bio today.  Add a delay_us option so that
-a rule can hold a bio back first, to model a slow device.
+On 2026-08-26 at 08:37 +1000, Danilo Krummrich <dakr@kernel.org> wrote...
+> On Tue Aug 25, 2026 at 9:32 AM CEST, Alistair Popple wrote:
+> > On 2026-08-25 at 05:10 +1000, Danilo Krummrich <dakr@kernel.org> wrote...
+> >> I don't think we are really concerned about running out of ioctls, but it seems
+> >> cleaner and more self-contained than having N ioctls for different info structs
+> >> and in the worst case having v2...vN info ioctls.
+> >
+> > But isn't v2...vN info ioctls dealt with in the usual way by extending the
+> > existing struct and bumping the size? That seems like a pretty clean and
+> > self-contained API to me.
+> 
+> To be clear, my main point is that having a single info ioctl with different
+> info types is more self-contained and provides more flexibility to introduce new
+> info types whenever we think it is warranted. Long term I expect it to be the
+> cleaner API.
+> 
+> >> It also allows us to define a new info type struct whenever we think something
+> >> is a new logical info group. Making it per ioctl will always raise the question
+> >> of "do we really need a new ioctl for this, can't we just fit it in X", which
+> >> over time tends to get messy.
+> >
+> > Doesn't that question also apply to adding GETPARAM N+1 though? If we're not
+> > worried about running out of top-level ioctls I don't understand why they
+> > are considered special enough to warrant the extra complexity of creating and
+> > decoding a hiearchy of sub-ioctls.
+> 
+> I think the code would be rather trivial:
 
-If a matching rule has delay_us set, the bio is held for that long.  It is
-then failed if the rule also has a status, or resubmitted below the
-injection hook so that the rules are not applied to it again.
+Yeah, I agree it's nothing too complicated. It is still more code though, and
+therefore more code for people to grok and more code for every userspace user
+to implement (not always in Rust!) rather than relying on existing code. And it
+does add another layer of semantics to understand, even if they are similar, so
+in that sense I regard it as more complex.
 
-The bio is submitted from a workqueue rather than from the timer, because
-submitting a bio can sleep.  Bios with REQ_NOWAIT are never delayed, and
-values above 600 seconds are rejected.
+But it seems unlikely further discussion will change much here and I'd like to
+get this merged soon. Obviously you consider this worthwhile so I'll just go
+ahead with this approach for v5.
 
-Cc: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Md Haris Iqbal <haris.iqbal@linux.dev>
----
- block/blk-core.c        |  13 ++--
- block/blk.h             |   1 +
- block/error-injection.c | 147 ++++++++++++++++++++++++++++++++++++----
- 3 files changed, 142 insertions(+), 19 deletions(-)
+> 
+> 	fn write_info<T: AsBytes>(info: &mut uapi::drm_nova_info, value: &T) -> Result {
+> 	    let len = size_of_val(value).min(info.size);
+> 	    let uptr = UserPtr::from_addr(info.data);
+> 	    let mut writer = UserSlice::new(uptr, len).writer();
+> 
+> 	    // Note: I made this up, as I think we want to add this method to
+> 	    // `UserSliceWriter`, to avoid having to call `as_bytes()`.
+> 	    writer.write_truncated(&value)?;
+> 	    info.size = len;
+> 
+> 	    Ok(())
+> 	}
+> 
+> 	match info.id {
+> 	    uapi::DRM_NOVA_INFO_GPU => write_info(info, &uapi::drm_nova_gpu_info { ... })?,
+> 	    uapi::DRM_NOVA_INFO_MEM => write_info(info, &uapi::drm_nova_mem_info { ... })?,
+> 	    _ => return Err(EINVAL),
+> 	}
+> 
+> Honestly, I think this is even less complicated that adding a new ioctl for a
+> new info struct.
+> 
+> And on the userspace side:
+> 
+> 	fn query_info<T: Default>(fd: &DrmDevice, id: DrmNovaInfoId) -> Result<T> {
+> 	    let mut value = T::default();
+> 	    let mut info = drm_nova_info {
+> 	        id: id.as_raw(),
+> 	        size: size_of::<T>(),
+> 	        data: ptr::from_mut(&mut value) as u64,
+> 	    };
+> 
+> 	    fd.ioctl(DRM_IOCTL_NOVA_INFO, &mut info)?;
+> 	    Ok(value)
+> 	}
+> 
+> 	let gpu_info: drm_nova_gpu_info = query_info(&dev, DRM_NOVA_INFO_GPU)?;
+> 	let mem_info: drm_nova_mem_info = query_info(&dev, DRM_NOVA_INFO_MEM)?;
+> 
+> (I pushed a few cleanups to drm-test, so this code should work.)
 
-diff --git a/block/blk-core.c b/block/blk-core.c
-index 196bccf27f58..f28ccc4633d4 100644
---- a/block/blk-core.c
-+++ b/block/blk-core.c
-@@ -759,11 +759,8 @@ static void __submit_bio_noacct_mq(struct bio *bio)
- 	current->bio_list = NULL;
- }
- 
--void submit_bio_noacct_nocheck(struct bio *bio, bool split)
-+void __submit_bio_noacct_nocheck(struct bio *bio, bool split)
- {
--	if (unlikely(blk_error_inject(bio)))
--		return;
--
- 	blk_cgroup_bio_start(bio);
- 
- 	if (!bio_flagged(bio, BIO_TRACE_COMPLETION)) {
-@@ -793,6 +790,14 @@ void submit_bio_noacct_nocheck(struct bio *bio, bool split)
- 	}
- }
- 
-+void submit_bio_noacct_nocheck(struct bio *bio, bool split)
-+{
-+	if (unlikely(blk_error_inject(bio)))
-+		return;
-+
-+	__submit_bio_noacct_nocheck(bio, split);
-+}
-+
- static blk_status_t blk_validate_atomic_write_op_size(struct request_queue *q,
- 						 struct bio *bio)
- {
-diff --git a/block/blk.h b/block/blk.h
-index 50abfd932886..cdf6d8964da6 100644
---- a/block/blk.h
-+++ b/block/blk.h
-@@ -61,6 +61,7 @@ bool __blk_freeze_queue_start(struct request_queue *q,
- 			      struct task_struct *owner);
- int __bio_queue_enter(struct request_queue *q, struct bio *bio);
- void submit_bio_noacct_nocheck(struct bio *bio, bool split);
-+void __submit_bio_noacct_nocheck(struct bio *bio, bool split);
- int bio_submit_or_kill(struct bio *bio, unsigned int flags);
- 
- static inline bool blk_try_enter_queue(struct request_queue *q, bool pm)
-diff --git a/block/error-injection.c b/block/error-injection.c
-index 47cdd8973adc..9b823edf3f8a 100644
---- a/block/error-injection.c
-+++ b/block/error-injection.c
-@@ -6,9 +6,17 @@
- #include <linux/blkdev.h>
- #include <linux/parser.h>
- #include <linux/seq_file.h>
-+#include <linux/workqueue.h>
- #include "blk.h"
- #include "error-injection.h"
- 
-+/*
-+ * Cap the delay so that a typo can't wedge a device for good.  This is still
-+ * well beyond the default hung task timeout, which is one of the things a
-+ * delay is useful for triggering.
-+ */
-+#define BLK_ERROR_INJECT_MAX_DELAY_US	(600 * USEC_PER_SEC)
-+
- struct blk_error_inject {
- 	struct list_head		entry;
- 	sector_t			start;
-@@ -18,14 +26,91 @@ struct blk_error_inject {
- 
- 	/* only inject every 1 / chance times */
- 	unsigned int			chance;
-+
-+	/* hold the bio for this long before submitting or failing it */
-+	unsigned int			delay_us;
- };
- 
-+/*
-+ * A bio held by a delay rule.  This is self-contained on purpose: it does not
-+ * point back at the rule, so rules can be removed while delayed bios are
-+ * outstanding, and it does not point at the gendisk, so nothing has to be
-+ * cleaned up when the disk goes away.  A delayed bio holds no queue usage
-+ * counter reference either, so one that outlives its disk is failed by the
-+ * GD_DEAD check in __bio_queue_enter() once it is finally submitted.
-+ */
-+struct blk_error_inject_delay {
-+	struct delayed_work		dwork;
-+	struct bio			*bio;
-+	blk_status_t			status;
-+};
-+
-+static struct workqueue_struct *blk_error_inject_wq;
-+
- DEFINE_STATIC_KEY_FALSE(blk_error_injection_enabled);
- 
-+static void blk_error_inject_delay_work(struct work_struct *work)
-+{
-+	struct blk_error_inject_delay *d = container_of(to_delayed_work(work),
-+			struct blk_error_inject_delay, dwork);
-+	struct bio *bio = d->bio;
-+	blk_status_t status = d->status;
-+
-+	kfree(d);
-+
-+	if (status != BLK_STS_OK) {
-+		bio->bi_status = status;
-+		bio_endio(bio);
-+	} else {
-+		/*
-+		 * Submit below the injection hook.  Re-entering it would match
-+		 * the same rule again and the bio would never be issued, so a
-+		 * bio that was delayed once skips error injection entirely
-+		 * from here on, including any other rule that covers it.
-+		 */
-+		__submit_bio_noacct_nocheck(bio, false);
-+	}
-+}
-+
-+/*
-+ * Hand the bio to a workqueue that submits or fails it once the delay has
-+ * expired.  Both blk_mq_submit_bio() and ->submit_bio can sleep, so this can't
-+ * be completed from the timer itself.
-+ *
-+ * Returns false if the bio can't be delayed, in which case the caller handles
-+ * it immediately instead.
-+ */
-+static bool blk_error_inject_delay(struct gendisk *disk, struct bio *bio,
-+		blk_status_t status, unsigned int delay_us)
-+{
-+	struct blk_error_inject_delay *d;
-+
-+	/* never block a bio that asked not to be blocked */
-+	if (bio->bi_opf & REQ_NOWAIT)
-+		return false;
-+
-+	d = kmalloc_obj(*d, GFP_NOIO);
-+	if (!d)
-+		return false;
-+
-+	pr_info_ratelimited("%pg: delaying %s at sector %llu:%u by %uus\n",
-+			disk->part0, blk_op_str(bio_op(bio)),
-+			bio->bi_iter.bi_sector, bio_sectors(bio), delay_us);
-+
-+	d->bio = bio;
-+	d->status = status;
-+	INIT_DELAYED_WORK(&d->dwork, blk_error_inject_delay_work);
-+	queue_delayed_work(blk_error_inject_wq, &d->dwork,
-+			usecs_to_jiffies(delay_us));
-+	return true;
-+}
-+
- bool __blk_error_inject(struct bio *bio)
- {
- 	struct gendisk *disk = bio->bi_bdev->bd_disk;
- 	struct blk_error_inject *inj;
-+	blk_status_t status = BLK_STS_OK;
-+	unsigned int delay_us = 0;
- 
- 	rcu_read_lock();
- 	list_for_each_entry_rcu(inj, &disk->error_injection_list, entry) {
-@@ -45,29 +130,38 @@ bool __blk_error_inject(struct bio *bio)
- 		if (inj->chance > 1 && (get_random_u32() % inj->chance) != 0)
- 			continue;
- 
--		pr_info_ratelimited("%pg: injecting %s error for %s at sector %llu:%u\n",
--				disk->part0, blk_status_to_str(inj->status),
--				blk_op_str(inj->op), bio->bi_iter.bi_sector,
--				bio_sectors(bio));
--		bio->bi_status = inj->status;
--		rcu_read_unlock();
--		bio_endio(bio);
--		return true;
-+		status = inj->status;
-+		delay_us = inj->delay_us;
-+		break;
- 	}
- 	rcu_read_unlock();
--	return false;
-+
-+	if (delay_us && blk_error_inject_delay(disk, bio, status, delay_us))
-+		return true;
-+	if (status == BLK_STS_OK)
-+		return false;
-+
-+	pr_info_ratelimited("%pg: injecting %s error for %s at sector %llu:%u\n",
-+			disk->part0, blk_status_to_str(status),
-+			blk_op_str(bio_op(bio)), bio->bi_iter.bi_sector,
-+			bio_sectors(bio));
-+	bio->bi_status = status;
-+	bio_endio(bio);
-+	return true;
- }
- 
- static int error_inject_add(struct gendisk *disk, enum req_op op,
- 		sector_t start, u64 nr_sectors, blk_status_t status,
--		unsigned int chance)
-+		unsigned int chance, unsigned int delay_us)
- {
- 	struct blk_error_inject *inj;
- 	int error = -EINVAL;
- 
- 	if (op == REQ_OP_LAST)
- 		return -EINVAL;
--	if (status == BLK_STS_OK)
-+	if (status == BLK_STS_OK && !delay_us)
-+		return -EINVAL;
-+	if (delay_us > BLK_ERROR_INJECT_MAX_DELAY_US)
- 		return -EINVAL;
- 
- 	inj = kzalloc_obj(*inj);
-@@ -86,6 +180,7 @@ static int error_inject_add(struct gendisk *disk, enum req_op op,
- 	inj->start = start;
- 	inj->status = status;
- 	inj->chance = chance;
-+	inj->delay_us = delay_us;
- 
- 	pr_debug_ratelimited("%pg: adding %s injection for %s at sector %llu:%llu\n",
- 			disk->part0, blk_status_to_str(status),
-@@ -139,6 +234,7 @@ enum options {
- 	Opt_nr_sectors		= (1u << 18),
- 	Opt_status		= (1u << 19),
- 	Opt_chance		= (1u << 20),
-+	Opt_delay_us		= (1u << 21),
- 
- 	Opt_invalid,
- };
-@@ -151,6 +247,7 @@ static const match_table_t opt_tokens = {
- 	{ Opt_nr_sectors,		"nr_sectors=%u"		},
- 	{ Opt_status,			"status=%s"		},
- 	{ Opt_chance,			"chance=%u"		},
-+	{ Opt_delay_us,			"delay_us=%u"		},
- 	{ Opt_invalid,			NULL,			},
- };
- 
-@@ -189,7 +286,7 @@ static ssize_t blk_error_injection_parse_options(struct gendisk *disk,
- 		char *options)
- {
- 	enum { Unset, Add, Removeall } action = Unset;
--	unsigned int option_mask = 0, chance = 1;
-+	unsigned int option_mask = 0, chance = 1, delay_us = 0;
- 	enum req_op op = REQ_OP_LAST;
- 	u64 start = 0, nr_sectors = 0;
- 	blk_status_t status = BLK_STS_OK;
-@@ -232,6 +329,9 @@ static ssize_t blk_error_injection_parse_options(struct gendisk *disk,
- 			if (!error && chance == 0)
- 				error = -EINVAL;
- 			break;
-+		case Opt_delay_us:
-+			error = match_uint(args, &delay_us);
-+			break;
- 		default:
- 			pr_warn("unknown parameter or missing value '%s'\n", p);
- 			error = -EINVAL;
-@@ -243,7 +343,7 @@ static ssize_t blk_error_injection_parse_options(struct gendisk *disk,
- 	switch (action) {
- 	case Add:
- 		return error_inject_add(disk, op, start, nr_sectors, status,
--				chance);
-+				chance, delay_us);
- 	case Removeall:
- 		if (option_mask & ~Opt_removeall)
- 			return -EINVAL;
-@@ -279,10 +379,11 @@ static int blk_error_injection_show(struct seq_file *s, void *private)
- 
- 	rcu_read_lock();
- 	list_for_each_entry_rcu(inj, &disk->error_injection_list, entry) {
--		seq_printf(s, "%llu:%llu op=%s,status=%s,chance=%u",
-+		seq_printf(s, "%llu:%llu op=%s,status=%s,chance=%u,delay_us=%u",
- 			   inj->start, inj->end,
- 			   blk_op_str(inj->op),
--			   blk_status_to_tag(inj->status), inj->chance);
-+			   blk_status_to_tag(inj->status), inj->chance,
-+			   inj->delay_us);
- 		seq_putc(s, '\n');
- 	}
- 	rcu_read_unlock();
-@@ -317,3 +418,19 @@ void blk_error_injection_exit(struct gendisk *disk)
- {
- 	error_inject_removeall(disk);
- }
-+
-+static int __init blk_error_injection_init_wq(void)
-+{
-+	/*
-+	 * WQ_MEM_RECLAIM so that a delayed bio on the reclaim path can still
-+	 * find a worker under memory pressure.  Note that this only guarantees
-+	 * a worker exists, not that it is free: submitting a bio can block on
-+	 * a queue freeze or on tag allocation, so a delayed bio can still be
-+	 * held up behind another one.
-+	 */
-+	blk_error_inject_wq = alloc_workqueue("blk_error_inject", WQ_MEM_RECLAIM | WQ_UNBOUND, 0);
-+	if (!blk_error_inject_wq)
-+		panic("Failed to create blk_error_inject wq\n");
-+	return 0;
-+}
-+subsys_initcall(blk_error_injection_init_wq);
--- 
-2.53.0
+Thanks. I've already taken a look at drm-test, seems fairly easy to follow.
 
+ - Alistair
