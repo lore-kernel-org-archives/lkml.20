@@ -1,75 +1,77 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE10D456DF7;
-	Thu, 27 Aug 2026 12:50:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F0592222D9;
+	Thu, 27 Aug 2026 12:50:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787835039; cv=none; b=Eye2KnktLBWH85XdcI4gAZCbq82a8gz8mHeH59DumOSC92Pf0Lr0bfsR26z5R4oqo1b4LykIYq4QvPy4uRX5pRNOz6YDEOmY205jyp+hDRvExycEpyItdlu6pteMrYWAdr5vMpJ/vz+lJLIQrzDofaR1Fpi4taNB7N2uOhM4Sjc=
+	t=1787835046; cv=none; b=dnX4wGoDm7b/eRgwkWQYMiPSVYdIa/7mMenJt+/kD+m88VE49g7ZnKFeNxOJIiJNQQVFeX7L2vOOJLqzC/7ddu9+n+p0BIzsqOeypS24HSQjeCPH2L3hT0NpcHQMcULMIWDKK3f50shlRx0SNjeTXcr3yuthJ5tMrJ8yLqCfl34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787835039; c=relaxed/simple;
-	bh=1iIpC9RkPuPku/UCFkG/HdiqF/EnhMoNVdpT9LubIwA=;
+	s=arc-20240116; t=1787835046; c=relaxed/simple;
+	bh=pIB3W+m87tpQMK5+7acR9i0kj8Zkt42U18eqwtF1vp4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=abOinkjf8KO0JYE2MqPkMXgkNhfJJtmWJwRgWL27GA0w3BtvYQWm5BTA2M2ajkYJJZ6H9z20cyMgW8Wh4BPkEXEnCiRSbVpdv19p0QnphiXf3gJ8t9Et4Vl8Gt5bcwHY4K9ucgXvzrMLYnmuMNoYbwHEWmzx+XkbmpV8pFjrtOQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=lES0SR6u; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=P62BEqetFwjGWbdN+gxIxth9nx+ItKGeiXKyN+asU/mhqHNgnh2cuAFmup1th2Q9J9PyyPDcPYghYcWsEscL+f/kVFAhYLrwQaYOkdWEgW3BR8JUB5+qc4KYyBe/6l+NmYeplfNJRoa+5+yN1TAmk2wmQ1O6KSto3cer/4ow35s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZS7YSSTK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="lES0SR6u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A63D1F000E9;
-	Thu, 27 Aug 2026 12:50:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787835019;
-	bh=gtS6q6O/w1dDUK31mqtpp0OkjQMD1ZAPP6gYriMN9xI=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZS7YSSTK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FCAD1F00A3A;
+	Thu, 27 Aug 2026 12:50:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787835025;
+	bh=4GtGc5XU481HY1RkNJwA+hKA7bsxUsuivKCYU3DiUQc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lES0SR6u/MkJorNAwCbTun/UAL83NHvGMKDjnA7tlU4hQw3LIbsNuJTxJ3pVs533v
-	 FwCNrM7DmkIPCyPWHdagxejRgP77RjR6KV0zqxMKEkZ3F8zTRWJSzqG4lsXAcx4BSH
-	 7Bn6rtd5u5NyxFeKuzJHvMZKb5zZx4ZA25w6ReEQ=
-Date: Thu, 27 Aug 2026 14:50:17 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: co <co+fd80bc5967eb22c3@bugs.sh>
-Cc: linux-usb@vger.kernel.org, Mathias Nyman <mathias.nyman@intel.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [BUG] drivers/usb: out-of-bounds in xhci_queue_bulk_tx()
-Message-ID: <2026082732-flaccid-overpay-0985@gregkh>
-References: <D4tcSGerkYkIV1DmaUo1t8TaR5qQElDLkidn@bugs.sh>
+	b=ZS7YSSTKr7N6ZZMqitF1pSbEXNHoZw2WXHKNPPrEJCKJ5mCC9Jqm3zbwCKoWQtFg+
+	 nuUx/Hfn6rxAiGnRCw0f+H+jAVKd2ZiGZWUEuVOD98kTCKRYiNbowevZ6QTZb7xEpZ
+	 Y3L/oman752U9vUR4N4BKjeTaoCWDUMh10lps9TPF6AVZe+73SVtUDF4/hhaFHgO4W
+	 BM43qX+1RkMCblITdfljC3mj0e/xLtBfoVajYqbhD96br+oW9fJQzuDu2vx0MMITLW
+	 nkpYabqS7iSLLgK65P4UOIJ1LSShwiS1ickF2fLCEDCelyqyQ72P2rfppKDRKysG3c
+	 eroF9gSosb4aQ==
+Date: Thu, 27 Aug 2026 14:50:21 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Christian Bruel <christian.bruel@foss.st.com>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Mark Brown <broonie@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
+	Marek Vasut <marex@nabladev.com>, Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Pankaj Dev <pankaj.dev@st.com>, linux-usb@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org, 
+	linux-phy@lists.infradead.org
+Subject: Re: [PATCH 13/16] dt-bindings: arm: stm32mp2: allow child nodes
+ since simple-mfd transition
+Message-ID: <20260827-micro-junglefowl-of-contentment-8b0c6f@quoll>
+References: <20260821-ucpd-host-fusb340-v7-2-rfc-v1-0-c5e27cbc0795@foss.st.com>
+ <20260821-ucpd-host-fusb340-v7-2-rfc-v1-13-c5e27cbc0795@foss.st.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <D4tcSGerkYkIV1DmaUo1t8TaR5qQElDLkidn@bugs.sh>
+In-Reply-To: <20260821-ucpd-host-fusb340-v7-2-rfc-v1-13-c5e27cbc0795@foss.st.com>
 
-On Thu, Aug 27, 2026 at 12:43:58PM +0000, co wrote:
-> We found a bug reachable in:
+On Fri, Aug 21, 2026 at 06:23:24PM +0200, Fabrice Gasnier wrote:
+> Adapt stm32-syscon on stm32mp2, since transition to simple-mfd, to support
+> usb2phy child nodes, that has a unit address.
+> This is a temporary update, as it depends on Marek's series [1]. This
+> should be dropped in later series revision.
+> It's a precursor to validate further DT addition on USB and Type-C.
 > 
->     path    drivers/usb/host
->     crash   out-of-bounds in xhci_queue_bulk_tx()
->     commit  bd5f485f3f02 ("Merge tag 'soc-arm-7.3' of git://git.kernel.org/pub/scm/linux/kernel/git/soc/soc")
-> 
-> Config, environment, the sanitizer report and a C reproducer follow.
-> 
-> == Notes ===============================================================
->     If you patch the bug based on our artifacts, a tag would be
->     appreciated:
-> 
-> Reported-by: co+fd80bc5967eb22c3@bugs.sh
-> 
->     Everything in this mail is validated by the reproducer below.
-> 
->     We also hold an LLM-generated root-cause analysis and a candidate
->     patch. The patch passes an A/B test: the same reproducer panics the
->     unpatched kernel and runs clean on the patched one. Neither has had
->     human review, so both still require validation before you send or
->     apply them. Available on:
-> 
->         patch.diff  https://bugs.sh/b/fd80bc5967eb22c3/patch.diff
->         report.md   https://bugs.sh/b/fd80bc5967eb22c3/report.md
+> [1] https://lore.kernel.org/linux-phy/20260816213849.1044073-8-marex@nabladev.com/
 
-Please validate and ensure that this is correct before sending this to
-us.  No need for us to dig through random web links, right?
+NAK
 
-thanks,
+So you allow buggy code to get in just to send a followup immediately,
+insteas of just commenting there.
 
-greg k-h
+ST MUST start reviewing other ST-related patches or ST contributions
+should be ignored.
+
+Best regards,
+Krzysztof
+
