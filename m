@@ -1,325 +1,140 @@
-Received: from mail-oa1-f46.google.com (mail-oa1-f46.google.com [209.85.160.46])
+Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com [209.85.167.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50F37391E59
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 22:23:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787869428; cv=none; b=fXQNF3aMTFR0RLtGMv+1ClnHIYGCixCWiGMVBEL2sr0U0YOliJc9zNk+yk1zjlAgLWFYGEp8o4RRIZQ/lBU4XZwocmcFLdRKrkgL+39aBzl6N9SH1zWAokKW+2o90u++AZjK7scDS8H4JMoD8Ot1rmbxhlZwbSfNpIvxDgHXuUU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787869428; c=relaxed/simple;
-	bh=TwIhk0gHwdW74C9n7Lk9ObmxhDawcmqBJgUdPP9yn14=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=tu8I5LjhSmK/qNj4wL4EKQyZDW6a0w7uIKXel5ckkO1zKJJMCGslhSoVxM4dWFSD15PQFnv9VXlAt4JTRNkNgyvOOEjxgCC3kUz/fMF8Da12oW0c7uuKYR7eAtz0c/Oy/wNsG1DbHZvsPe00exd9anTT1fo5g0djPCcJ0k3N0io=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=NCA+oCyR; arc=none smtp.client-ip=209.85.160.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EECF3B5306
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 22:25:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.181
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787869518; cv=pass; b=LuZrMJ85/169tm48SdJ9dZ8vACjXvSymBEim01s2ym0bkDcmzMjMqd+vgr0+/qm6TlfbqmO7gKlaeR2ES1+RO2ncLewLeeKe7iQbfLFo2ooQXIUpBOcJi5RVCcM27ZkZuCy/HEvuCnuFVh6iydx+c9siLA2V4aUoFyffA9F+R44=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787869518; c=relaxed/simple;
+	bh=/E1qm0j3abWKQXo6pZVeXLBEXmyK9cxZP8Mn4Y8KCu4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UQjTGwVX30CCH6UtDstF8XYRb6YSeVP96cDNWkA/pWqum8maprqoMwzWkG41RQlRgB7TE6hN1nray9VRRtGscwaw4j4S3fW7dCN9RfvenI5zMF/6sEZrLX1pMERfINFWMf8v0oKc5AWDge/K3AFgb0/ove59432U4DM077tuAY8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Rlg/BSlY; arc=pass smtp.client-ip=209.85.167.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="NCA+oCyR"
-Received: by mail-oa1-f46.google.com with SMTP id 586e51a60fabf-448b0ff4a57so772775fac.2
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 15:23:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Rlg/BSlY"
+Received: by mail-oi1-f181.google.com with SMTP id 5614622812f47-4af173320f9so434284b6e.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 15:25:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787869504; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mx/S8HPRAjlaZeLN8hUg6sY3K48EjsiOiXS0rZQE20oHtM1+vv9OWUKuRBuB2boQTR
+         K4to0laQLeQYK8u0SBjIdWa5MkFYjibL4E8DKuIeVkyS389uM3osHiQRhT7G9CrhkAZb
+         zi0rrlS7Y9y8xXOx6EZw5727ZelSyX3ATfsGdBXrJcM5C8v0KEj+Il6/7B3ExY08wRmp
+         jMPUGwmPIKKxTqBnj+wr0IFC1FJyXgYB3tbndaM1KG726bJLrN2EfD9dMt8xeLa95nwg
+         j+y8UgXif8BbkvcWjuG6CBA4dxUrowgrNnthK+Razr+le3yTWkEKpKZjaZI+PzAC8BlI
+         WuyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=u8HPimuwgbeLD9+T7JiRFwzxuWXrmdfq6VOgvHXgXYU=;
+        fh=Y2b8m6plocJabs7WVwukdb7x4FJoMiavtK9V3M6B9+I=;
+        b=Ie0Aa/rs2yvu36VSRXV0a1tseMG3ZCR4TjuUrj6C4tghQrPT4Gb/XVeyEg8ubKTgKW
+         XWY0zCclmyldGUnMZ6LNkuDJlq+i2K/Vdy85dSp+/EBScfeWrLJvPz656D3A9Au+BICX
+         YDPOYXcAzOcLx6pNiPETRhVyacoBdBPEcpRVuPoh84sTiIkCmpCIJaZxVnXo6erPcwQG
+         SFOMm/4nCpOTGI76HdlkYRnERZLBraT2jXewlaOQZ65kEZwPjISt8r7tjJvSm9574iPq
+         PRYw0MH8LC2Asjvl6nQwEKnjng8nBX3oMcgYZYvCeTinC2Pf40IQUWwBd3i3oz3XwjbO
+         JIQg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1787869415; x=1788474215; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hl/XEo5fNZ0wthCiWH8FBPhlGjw4oj7mSGF4lVQ3i5k=;
-        b=NCA+oCyRTH/aCnGQnSCLfBrWHc5ElmYjgeM0oerqaIeISDJEDdrkuPi+dPdjGg7FA2
-         E7xIqR4aRRnksp9hhvJVNs8yGnrwwfRvKj6An+pn1KLeoIMun9kZzit2rQPT++vi8Z1d
-         Yz4L/5JQrkpXmSFyzI7l27XfdkvsanZuONCdmqtDIF4yf9y9DqZrI63QLrRe3sK8/UUx
-         JVnXOM69RWUNh5sjbqyNuvlj9ut766qMKOtODPeV6zfXwc8Nvl0s3rHSrwyBWKxzSY0W
-         DGyX07WKEq/Q0h0QP4loG3I/XraWK1e8kHN8lJzhVH2Zr8mrXfpjz9sp7cZ/ExFGZR4f
-         RLgw==
+        d=gmail.com; s=20251104; t=1787869504; x=1788474304; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=u8HPimuwgbeLD9+T7JiRFwzxuWXrmdfq6VOgvHXgXYU=;
+        b=Rlg/BSlY/gpTlLV7z2nbfF+KLA2KWCj5YHmSGCZSjOxwxTyh5HF827bvPva0z3RfGy
+         sVqLCwYDr8gLFOZy2pUzGUNNKlm5tmG5DpHrZH3RAMRbhGSoG3eidZrGrQgpCjVbvcqN
+         Dj5b9rmiEbGFH/Qnsc0vlb89j7xwtUrQf1KuIjSqFjg3VFMMOiHpW5y6f/no7nYwRmjE
+         q3d5Pc69UjGMNoW6iBFYtzZCK08SgqFhW6lVU9ygLoFDec4uNC0s8+KMm9iX9TA75nKZ
+         oZaB4qhEedfMwPcwsrf2b4upCBZeek3ePgKCT2hXqXwTxjU88fW32SRdPm1hC57Snm6H
+         YtWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787869415; x=1788474215;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20251104; t=1787869504; x=1788474304;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=hl/XEo5fNZ0wthCiWH8FBPhlGjw4oj7mSGF4lVQ3i5k=;
-        b=tRP1G6M93QQnLy6UO+xgkf6OlSPSxjQTa6slCQpfd3BqMUDEN+xBxuDe1QsWZc+WZ/
-         U3chAHUQQg6Ff+Q2jGzuJkkmQvD3v9h5i5qPX0yAL26fLHQyGr0QjBK0l2//XZEMuqIn
-         JbGwDhHnHzggeeg0jWrgmolda1RKOM4T8i7NGNxcsK5d+OH+3V0MiT9qU0Jlni0Q+h+3
-         +NhVLtbvuKi84t1enm1SWIcepwEwBmFbf1MQ1PfCWj/9d9YSU7Zd+XV+em19j/6/G5zv
-         8fBRFJT0VDNtnm2NWWgPoYQWyhc435N1tdldU+EkYwou2mAYNRMGEvZFmRXmNLicwa70
-         rgEg==
-X-Forwarded-Encrypted: i=1; AHgh+Rrtfi2wna1t6oNf7cdGdWgjIL/JOxH+ay2ddOtMZhnOmhZzDgw7H+IbMudWLpMs4T/g1XhWY2aW6MhreA8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kfp5ufU1wD7+KsZZ1ydvke9uwsxxAtiF0eeKp6PDXjm5Bl7QOl
-	NTYLSArFmLPfJN2GOZd2akr+uV1QxQwmTi/pqRPILpAX88lLygeFGNRFKl41DGPsm4Y=
-X-Gm-Gg: AR+sD10sa6PC8wLP6dOhZswoYf1telA1e0XVnULDGeQRYZk/EZS1pGoxO6u+bUiQ9Q/
-	pt2UYJH053dOVp0zmwrqbVVgssAbXI8C19YvMeVSVUjwL4HIeg4qjbWpa3Jvpmdyn6b530iwyFs
-	5knT2B/hrMkTuLN66Ua/mu0fboOyD1qDX1A7BZlzyAwrR5kv9PPk04ZWUlY/z8BXdNTLBwFXh76
-	l8ccSgemAdfuCV6Q+d2Q9/ueKYOQLkrL9fxGO+2ey7EhE84/Sge4hmGBhRZY1JEzz0u6YYvgyQN
-	OvM/S+mIeMcs2Yk0f73WaPwKo2WtZ7nGxZnZjrXnEAh9ELfdICB3D/a+9WloSazJEkEyKWRQtpD
-	0Gp1PlZ2IhZzepb/Ulq16vNMQl6878OsOkxCJnk87sIacyb8lflAuj2G3qOZvjVdu1+CQyAyRuM
-	sdG9P2FEdToxyDFmZnu2y+9uVtErMRow7LFSxbPmVTYbLS/ie7E4eszb4honyzCrrZVQ==
-X-Received: by 2002:a05:6820:708c:20b0:6b1:4cfe:ea6 with SMTP id 006d021491bc7-6b1c672778emr1621661eaf.32.1787869414852;
-        Thu, 27 Aug 2026 15:23:34 -0700 (PDT)
-Received: from [127.0.1.1] ([2600:8803:e7e4:500:d288:6f77:e285:6925])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-46736445d6csm3176880fac.2.2026.08.27.15.23.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 15:23:33 -0700 (PDT)
-From: "David Lechner (TI)" <dlechner@baylibre.com>
-Date: Thu, 27 Aug 2026 17:22:55 -0500
-Subject: [PATCH v4 3/3] iio: adc: ti-ads112c14: add continuous mode support
+        bh=u8HPimuwgbeLD9+T7JiRFwzxuWXrmdfq6VOgvHXgXYU=;
+        b=amm6yrt8nLBIruNxptkP1Si+rii9CaxMeol/RL3E1T4LC0ys1MHt1lhWz9jgz4E6OA
+         ZbFzEuNup9LtyJ+EgY17H45Iu6bIiOB989OWYNiEZyJq7JeSj91fTjj/+uq3/2ecqNqw
+         sJJ48bLPMrCEc1LQymMyc38fK6HldmoR3asJAGx16eFj4s/8tu3oAP1vQtvEL6SPfbIO
+         kacUfLrDTwxpvDkwxGICKmVLavDKiqAVmF0uogUWEaNesMxxHkXVdDbiz7fEn90ZFInD
+         LlX9YKgqplBnKOm0Pj0+G0eHoMo/rOMw/YLu8kJoQkSM0CwAosLf77pqoz3W+YaQL6gD
+         +A+w==
+X-Forwarded-Encrypted: i=1; AHgh+RrhiLoz7Vd14UF4IB9fWrY/EkacbBAuIPQ9cj6TRb+pB4ASlG6kGdfBQWS7OfHqs9vlxJlkdXT+PZzFj2A=@vger.kernel.org
+X-Gm-Message-State: AFuF++kKeYZy1aCkhmr10LET+50q/DBQ/TTuCfxefsiygcPz3P6EX58J
+	mW/+XzeRWYAwOTFcK7+YxOA0F6ide4H46/6uJ1g6hZ85bP5EIhBRjb6EyY0Wr5BgqXxV5ept5BD
+	r9Z8Xl9+n3xJeWXP4ISeqb5VfF2lAo6c=
+X-Gm-Gg: AR+sD119oOBh513++Hk7uWrCyjJuj3JaoEDYuw1LwdY/bVOSZnDGadP+JyBNpogK5Vr
+	iPSBDv1ja52reItljxdxHTN0VSjuBBwy4Fl9KjtWmba0k/uoLz9CzbXx9AUSCv/Jr78N53896y9
+	hU09AhKW+AiX6cKfXezmJF7uESxVZybFYM32ZfS9CTWZNNZL6vP6WC80jPVa60cM5sJPaFjsVwS
+	hv4yfuj8LMW/KaCWtQaBhNl/LOzov6DxhYShSyqB7KCwO6HMpfUUC+1NH8iitA1TbXBW8R0i3Mk
+	LF3WqxcPWDNrqBYrApYFW2SOyhG7n2HUQCCuN9emhfZFKL7zrY3Fci2cyCeeGoVMBzMhTSi6qOO
+	KYuN+1mW6QyY=
+X-Received: by 2002:a05:6808:c1e8:b0:4b3:3e1:4999 with SMTP id
+ 5614622812f47-4b398434703mr2911222b6e.15.1787869503851; Thu, 27 Aug 2026
+ 15:25:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260827-iio-adc-ti-ads112c14-continuous-mode-v4-3-1e51a6e20a69@baylibre.com>
-References: <20260827-iio-adc-ti-ads112c14-continuous-mode-v4-0-1e51a6e20a69@baylibre.com>
-In-Reply-To: <20260827-iio-adc-ti-ads112c14-continuous-mode-v4-0-1e51a6e20a69@baylibre.com>
-To: Jonathan Cameron <jic23@kernel.org>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>
-Cc: Chris Hall <c-hall@ti.com>, Patrick Edwards <pedwards@ti.com>, 
- Kurt Borja <kuurtb@gmail.com>, linux-iio@vger.kernel.org, 
- linux-kernel@vger.kernel.org, "David Lechner (TI)" <dlechner@baylibre.com>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7065; i=dlechner@baylibre.com;
- h=from:subject:message-id; bh=TwIhk0gHwdW74C9n7Lk9ObmxhDawcmqBJgUdPP9yn14=;
- b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBqkLjYvaFd8ahyjKFx5Etej4HhFqXGgX/mXsDzg
- QeewpL8h2yJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCapC42AAKCRDCzCAB/wGP
- wHygB/4nhIIc01sxoqHqrN9oeeyKm1kdRc/CbA6KyejQdrouRaFLzVKJunc/idzj0Cd42Nf45QV
- APSty9oihjNhbBDvn/R4/+I18+UIdy48W1lUV4X73g76W+maVFeRRjuRrpvoAYHsA3IvEIlK+Ml
- PJEArJ39qwSn482uYaEdKoMPoZzecOYMhQ4iSXblV0U3a7F9OsMlwnQ6oIFfbw/OEgUTYVZ7iUy
- +YIkQQzq2SSYblvb4TcsJO7CIvx+hZYXrLGNOTT98MLpjfBPTGAu6iGRMBouxNEFBJ20aqIN/1v
- 8RlCKAIvoMyXUs80iI0vSvctWnZ0cvVoijYXP6waVY9WLQlh
-X-Developer-Key: i=dlechner@baylibre.com; a=openpgp;
- fpr=8A73D82A6A1F509907F373881F8AF88C82F77C03
+References: <20260826213140.37437-1-rishab.madhugiri@gmail.com> <ao_cCHTp9kKfOV-U@ashevche-desk.local>
+In-Reply-To: <ao_cCHTp9kKfOV-U@ashevche-desk.local>
+From: Rishab M <rishab.madhugiri@gmail.com>
+Date: Thu, 27 Aug 2026 15:24:52 -0700
+X-Gm-Features: AcwNN1V1VmnOS3aWyFnmKIS-D0GyiW-IwL_nYHb8pdkGVa2FiKvsmCJoIXlfs5w
+Message-ID: <CANc32tPtHyJdg-PJa0iZHcqX4WDtMFikZFD+4aO96B1+zmf0_Q@mail.gmail.com>
+Subject: Re: [PATCH v2] iio: core: Replace BUG() with WARN_ON_ONCE() and error return
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: jic23@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com, 
+	andy@kernel.org, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add support for continuous mode in the TI ADS112C14 ADC driver. In this
-mode the ADC itself is starting each conversion, so we add a trigger
-based on the DRDY interrupt to read each sample. This mode is also
-limited in that only one channel can be enabled at a time since the
-chip does not have a sequencer or simultaneous sampling capability.
-Continuous mode will only be used when this new trigger is the current
-trigger.
+Thanks for the feedback.  I totally understand the perspective on code chur=
+n
+versus making tree wide cleanups, and I will let Jonathan make the final ca=
+ll
+on whether this is suitable.  I've also noted the wrapping width feedback f=
+or
+commit messages in the future.
 
-Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
----
- drivers/iio/adc/ti-ads112c14.c | 143 ++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 141 insertions(+), 2 deletions(-)
+Best,
+Rishab
 
-diff --git a/drivers/iio/adc/ti-ads112c14.c b/drivers/iio/adc/ti-ads112c14.c
-index 23f15be303fb..878764deffc5 100644
---- a/drivers/iio/adc/ti-ads112c14.c
-+++ b/drivers/iio/adc/ti-ads112c14.c
-@@ -9,6 +9,7 @@
-  */
- 
- #include <linux/bitfield.h>
-+#include <linux/bitmap.h>
- #include <linux/cleanup.h>
- #include <linux/completion.h>
- #include <linux/crc8.h>
-@@ -18,6 +19,7 @@
- #include <linux/i2c.h>
- #include <linux/iio/buffer.h>
- #include <linux/iio/iio.h>
-+#include <linux/iio/trigger.h>
- #include <linux/iio/trigger_consumer.h>
- #include <linux/iio/triggered_buffer.h>
- #include <linux/interrupt.h>
-@@ -257,6 +259,7 @@ struct ads112c14_measurement {
- struct ads112c14_data {
- 	const struct ads112c14_chip_info *chip_info;
- 	struct regmap *regmap;
-+	struct iio_trigger *drdy_trig;
- 	/* Synchronizes access to register value fields. */
- 	struct mutex lock;
- 	int drdy_irq;
-@@ -280,11 +283,18 @@ static irqreturn_t ads112c14_drdy_irq_handler(int irq, void *private)
- 	struct iio_dev *indio_dev = private;
- 	struct ads112c14_data *data = iio_priv(indio_dev);
- 
--	complete(&data->drdy_completion);
-+	if (indio_dev->trig && iio_trigger_using_own(indio_dev))
-+		iio_trigger_poll(data->drdy_trig);
-+	else
-+		complete(&data->drdy_completion);
- 
- 	return IRQ_HANDLED;
- }
- 
-+static const struct iio_trigger_ops ads112c14_trigger_ops = {
-+	.validate_device = iio_trigger_validate_own_device,
-+};
-+
- static bool ads112c14_writeable_reg(struct device *dev, unsigned int reg)
- {
- 	switch (reg) {
-@@ -952,6 +962,19 @@ static int ads112c14_read_label(struct iio_dev *indio_dev,
- 	return sysfs_emit(label, "%s\n", label_source);
- }
- 
-+static const struct iio_chan_spec *
-+ads112c14_first_active_channel(struct iio_dev *indio_dev)
-+{
-+	unsigned int scan_mask_len = iio_get_masklength(indio_dev);
-+	unsigned int i;
-+
-+	i = find_first_bit(indio_dev->active_scan_mask, scan_mask_len);
-+	if (i == scan_mask_len)
-+		return NULL;
-+
-+	return &indio_dev->channels[i];
-+}
-+
- static irqreturn_t ads112c14_trigger_handler(int irq, void *private)
- {
- 	struct iio_poll_func *pf = private;
-@@ -961,6 +984,26 @@ static irqreturn_t ads112c14_trigger_handler(int irq, void *private)
- 	u32 i;
- 	int ret;
- 
-+	if (iio_trigger_using_own(indio_dev)) {
-+		const struct iio_chan_spec *chan;
-+
-+		chan = ads112c14_first_active_channel(indio_dev);
-+		if (!chan)
-+			goto out;
-+
-+		ret = ads112c14_scan_read(data, (u8 *)&data->scan[0]);
-+		if (ret) {
-+			dev_err_once(indio_dev->dev.parent,
-+				     "failed to read channel %d: %pe; additional errors will be suppressed\n",
-+				     chan->channel, ERR_PTR(ret));
-+			goto out;
-+		}
-+
-+		iio_push_to_buffers_with_ts(indio_dev, data->scan,
-+					    sizeof(data->scan), pf->timestamp);
-+		goto out;
-+	}
-+
- 	iio_for_each_active_channel(indio_dev, i) {
- 		const struct iio_chan_spec *chan = &indio_dev->channels[i];
- 
-@@ -992,6 +1035,88 @@ static const struct iio_info ads112c14_info = {
- 	.read_label = ads112c14_read_label,
- };
- 
-+static bool ads112c14_using_drdy_trigger(struct iio_dev *indio_dev)
-+{
-+	struct ads112c14_data *data = iio_priv(indio_dev);
-+
-+	return data->drdy_trig && indio_dev->trig == data->drdy_trig;
-+}
-+
-+static bool ads112c14_validate_scan_mask(struct iio_dev *indio_dev,
-+					 const unsigned long *mask)
-+{
-+	if (!ads112c14_using_drdy_trigger(indio_dev))
-+		return true;
-+
-+	return iio_validate_scan_mask_onehot(indio_dev, mask);
-+}
-+
-+static int ads112c14_buffer_postenable(struct iio_dev *indio_dev)
-+{
-+	struct ads112c14_data *data = iio_priv(indio_dev);
-+	const struct iio_chan_spec *chan;
-+	int ret;
-+
-+	if (!ads112c14_using_drdy_trigger(indio_dev))
-+		return 0;
-+
-+	chan = ads112c14_first_active_channel(indio_dev);
-+	if (!chan)
-+		return -EINVAL;
-+
-+	guard(mutex)(&data->lock);
-+
-+	ret = ads112c14_prepare_channel(data, chan);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_update_bits(data->regmap, ADS112C14_REG_DEVICE_CFG,
-+				 ADS112C14_DEVICE_CFG_CONV_MODE,
-+				 FIELD_PREP(ADS112C14_DEVICE_CFG_CONV_MODE,
-+					    ADS112C14_DEVICE_CFG_CONV_MODE_CONTINUOUS));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(data->regmap, ADS112C14_REG_CONVERSION_CTRL,
-+			   ADS112C14_CONVERSION_CTRL_START);
-+	if (ret) {
-+		regmap_update_bits(data->regmap, ADS112C14_REG_DEVICE_CFG,
-+				   ADS112C14_DEVICE_CFG_CONV_MODE,
-+				   FIELD_PREP(ADS112C14_DEVICE_CFG_CONV_MODE,
-+					      ADS112C14_DEVICE_CFG_CONV_MODE_SINGLE_SHOT));
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int ads112c14_buffer_predisable(struct iio_dev *indio_dev)
-+{
-+	struct ads112c14_data *data = iio_priv(indio_dev);
-+	int ret;
-+
-+	if (!ads112c14_using_drdy_trigger(indio_dev))
-+		return 0;
-+
-+	guard(mutex)(&data->lock);
-+
-+	ret = regmap_write(data->regmap, ADS112C14_REG_CONVERSION_CTRL,
-+			   ADS112C14_CONVERSION_CTRL_STOP);
-+	if (ret)
-+		return ret;
-+
-+	return regmap_update_bits(data->regmap, ADS112C14_REG_DEVICE_CFG,
-+				  ADS112C14_DEVICE_CFG_CONV_MODE,
-+				  FIELD_PREP(ADS112C14_DEVICE_CFG_CONV_MODE,
-+					     ADS112C14_DEVICE_CFG_CONV_MODE_SINGLE_SHOT));
-+}
-+
-+static const struct iio_buffer_setup_ops ads112c14_buffer_setup_ops = {
-+	.postenable = ads112c14_buffer_postenable,
-+	.predisable = ads112c14_buffer_predisable,
-+	.validate_scan_mask = ads112c14_validate_scan_mask,
-+};
-+
- static int ads112c14_populate_idac_mag(u32 current_nA, u8 *idac_mag)
- {
- 	u32 current_uA = current_nA / (NANO / MICRO);
-@@ -1480,6 +1605,19 @@ static int ads112c14_probe(struct i2c_client *client)
- 				       0, dev_name(dev), indio_dev);
- 		if (ret)
- 			return ret;
-+
-+		data->drdy_trig = devm_iio_trigger_alloc(dev, "%s-dev%d-drdy",
-+							 info->name,
-+							 iio_device_id(indio_dev));
-+		if (!data->drdy_trig)
-+			return -ENOMEM;
-+
-+		data->drdy_trig->ops = &ads112c14_trigger_ops;
-+		iio_trigger_set_drvdata(data->drdy_trig, indio_dev);
-+
-+		ret = devm_iio_trigger_register(dev, data->drdy_trig);
-+		if (ret)
-+			return ret;
- 	}
- 
- 	ads112c14_populate_tables(data);
-@@ -1490,7 +1628,8 @@ static int ads112c14_probe(struct i2c_client *client)
- 
- 	ret = devm_iio_triggered_buffer_setup(dev, indio_dev,
- 					      iio_pollfunc_store_time,
--					      ads112c14_trigger_handler, NULL);
-+					      ads112c14_trigger_handler,
-+					      &ads112c14_buffer_setup_ops);
- 	if (ret)
- 		return ret;
- 
-
--- 
-2.43.0
-
+On Wed, Aug 26, 2026 at 11:41=E2=80=AFPM Andy Shevchenko
+<andriy.shevchenko@intel.com> wrote:
+>
+> On Wed, Aug 26, 2026 at 09:31:40PM +0000, Rishab Madhugiri wrote:
+> > As documented in Documentation/process/deprecated.rst, the
+> > use of BUG() and BUG_ON() should be avoided as they could
+> > cause a complete system crash, preventing further debugging.
+>
+> Right, but deprecation doesn't mean the _old_ existing code must be immed=
+iately
+> changed. I leave it to Jonathan, but I see no value in this change except
+> the unneeded churn. If we ever want to drop BUG(), it should be done tree=
+ wide.
+> Hence no tag given.
+>
+> > In iio_get_time_ns() and current_timestamp_clock_show(), the
+> > clock type is already validated against supported clock
+> > types prior to these calls, making the default switch
+> > branches expected to be unreachable. Replace these with
+> > WARN_ON_ONCE(1) followed by an error return to avoid a
+> > crash and to log the highly unexpected condition.
+>
+> There is like 10+ character space on each line, the commit message should=
+n't
+> be that condensed.
+>
+> --
+> With Best Regards,
+> Andy Shevchenko
+>
+>
