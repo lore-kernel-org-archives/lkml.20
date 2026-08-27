@@ -1,113 +1,100 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AF0B43CE45
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:57:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9D11415F1F
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:58:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787828268; cv=none; b=t4VFmfgULjxOv7rOnNHN4RgiA8ABRxGN0VsHQaPlrXjafQdeexnbgefeU5XrDHZI06ti9oWzM4uKW2NWl/oyeME4IoejXHEO6r0SizeneibZeDoilkdyo1hG8Mp245RLN3PL3l26pDQNmTqQlFgqeMmppKzF7A6GNP8l0zF6sE8=
+	t=1787828318; cv=none; b=Evf06BY4lefXpZaB4K3vBMEYoVfhAglAmwCTyFl/hVntAkmQHM9PAgMWAfSZnS2neMbXvuq3OrJoWxO2Ve+BBn/h6Cv/emHxxfIhmRxAjh7IktHH9Ipr6Dme95V1YV9+LZd3dOXaDwrgHOoz2E4QODaqvHaejmN3EKngKcWOkww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787828268; c=relaxed/simple;
-	bh=ZZqfBGCZfSe4hR0/zIUzrYcpc4DmFc9ey6Ju3c4LDuA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gPHDJF/l2XxyL+XlFmfFgjtJ6o5pdn23lyUNLhwwAuGW/kSsBx3UpvDfpk1Qu5UI/oQevJgqClqy8ZaDxG1NCeA8HfG6jtcrxTfsXSCMGcYfP26WoX1gUh3H/KNhIDTs7lbCR6/rEdxrIzyums8LoaN7KjDCKHI8X0lc4hS2puM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=RbJqce52; arc=none smtp.client-ip=209.85.215.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1787828318; c=relaxed/simple;
+	bh=UvIMv1zVGSgTI6n5HYa7Zx9yz+/Ky53foDBG/QT+8Bo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=avk9e8JcCZwlHHPfTiDKfYgMuVF/5MF2GCzi34Xy3qx2T2NoFV1oHeIsFDdOlawuffPAGiGmOBvnNCk1oifiNukKOMIodj2SAGw906O+YLEENDX3xbtn0kcqqEeIXF9R38Gdcp4PRsZaBMqYU+ZYykT1Iq1EahlH3PlB364ijkw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K1xoM4Hc; arc=none smtp.client-ip=209.85.215.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="RbJqce52"
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cc1cf287ef8so1161218a12.3
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 03:57:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K1xoM4Hc"
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cc1d57602e8so779108a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 03:58:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1787828265; x=1788433065; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ntmVipoSayOwXs57Kc1THh0tKdh0WN7s/EHA02RtOpA=;
-        b=RbJqce52Hdp8RQ7BGkrDX7TqTGwQZ8PHZvbYP6vaQ00Jf9IatpJ3bbQYMo6r10J7Ay
-         PsAqgWwsCKlYCA2CGNWfyqOEKLCNnlgndbTi+hYa0KeTSNKcOT6uuRzqa3YvuRby6cY6
-         uHEfFVt8ap8CoOWlIRBPyAAxr6Ccx8+RepizU=
+        d=gmail.com; s=20251104; t=1787828317; x=1788433117; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uja6zaOnTlyUUbBqlUy2HwDT1zP/Roz+ZNzUtgYPkw0=;
+        b=K1xoM4HctP8Qnho7a0SdG5XChV6/0DtFJRQM10YEgb9C+L4C39MIue/eirHBtd43DA
+         fIRhhUpWa4gom6evujbfD3vYZeoE/r47ZX/85KG7JvlCft/fKdv2MyJQScLlN04+DFV1
+         9qZycVsZB6nPtPnjfxIx8v3+GiZU4oE+GnXHrAzPom6yK5WPJcajIzsTup73FqrXXO/X
+         g9YkPnDOgLiCoeqBtWNZlUn2Cdv0ToCd9utQl1Cx04JX0bT6cGmIGx6OdzVR2yjkOhq4
+         laqDrNK+oYxAxgbBFYPIsVJbql/TTpG0JoXEa03TdeLfvbGztzDAG7hfR+hS/i9SSjKo
+         eY8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787828265; x=1788433065;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ntmVipoSayOwXs57Kc1THh0tKdh0WN7s/EHA02RtOpA=;
-        b=V7pMIfU2sWRFhJsFrJ30BWDZXPa3vXPlFcAtYD7Q3gKA0njN7MbyaxfZ/NYeqnUISz
-         7800H+BXsRjFZQjYbVfrBxyT4nQ1JzE1AYG/SMBqFaNsauL1ibES2zL/bcOLQCpny9nF
-         p7r9SL29mVkzlkHJCg88NNkZHx7ss+p9Iga+83hOl77ChYMlRe19iFddBwyVKT2j9o+J
-         FrbVY4X9Grm4tQqjDJ9qFQwFeWw9dvmv0kkEV+WTs9ECpsg3BcbpoOz0rUz48YnveNhn
-         imX+I26qgMtgd8VVYkN+lfvEpzR+SaIfqOdZC0GwQT5h98BQd05Ox7TDa+tTIFUoGp/d
-         dx9Q==
-X-Forwarded-Encrypted: i=1; AHgh+RrS9bw49KTB4eWWSDCLv1TX+qPnTu2nlt8O/qtt/AG5MYRvm7wOJWZ+bV4itO18yKJ1GQlaVbPF+lF9FBo=@vger.kernel.org
-X-Gm-Message-State: AFuF++luExf2HK3w7ad5cMYMGUN89rYZyApXKmRl8odBH0PH32JXGgNu
-	N49PIW3bRkjhC+SRsKYpujtHJnjF3Ri1bzLpviPlMIiFufdiuOWA+VZuY0gRFm0CoQ==
-X-Gm-Gg: AR+sD11p8eo4tNsDjD+mzWNG/X+0rDh2TL1WL7my+hhWhcps46sle/f/rmo9oBGYisn
-	k5RMneJPgfeyaNFHzOR7/TK3tPNWPOhwaYU2Ud3zJ1BV5YDXfeDpkIokmvTU3Iyim0ivBsBjl2e
-	IVKOsZQmUqVuO4Jzz1a9lruwBD7ORHwUn1s+LLaTMI7AiApR6qDvqIOv/9lQBPPOrpytU4EqeBE
-	FkFx6qSdtUme3buAvZx5mGKLX7k2Yyw0pClzejl2mcHQIeuZQ4t0bI68OATdk4lutidd2CNvyLy
-	qwS8IH/HmH5ZwEDFYvBLifJdT6LHbjc7lcVjOJ6l2liXjLr3Z10Lwzoq2qDKmrtPAqchul5L4/Q
-	/rG6bn74dWwaxhDLzGi+QrMoJo2qoGFREE3lSJrZvLXGAeMkFf0FBDb8HhHisn0HN6UvB2QHFJU
-	BAj1iQF6K5CT6DkEXa1Lewgh9MBJuhiZoJNDglAHz16ajb/zlma7AiVNunfFQldkmSLVNPWEvdj
-	6HxO/a9g36w5CaoTVu7IUfErDistbZ/y4FfoNnkJiYyvJqQGzJM/eoSrQ==
-X-Received: by 2002:a17:90b:3fc4:b0:38f:dec8:f7e9 with SMTP id 98e67ed59e1d1-3966d443146mr29645548a91.12.1787828264658;
-        Thu, 27 Aug 2026 03:57:44 -0700 (PDT)
-Received: from wenst-7875.tpe.corp.google.com ([2a00:79e0:201d:8:b7d8:fa42:587e:234d])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b186807bsm2434123a91.12.2026.08.27.03.57.41
+        d=1e100.net; s=20251104; t=1787828317; x=1788433117;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uja6zaOnTlyUUbBqlUy2HwDT1zP/Roz+ZNzUtgYPkw0=;
+        b=I/cbXoyCMnzwlL0D+h2t8TpmSxUQaEcs6DnPntYeVwAGyBKSsnSCoi8XE4usw6siCD
+         FCspS8qILZzmPQrOPsK5B1YKkAAif9iy9vqmRDsuruHyfeB3m5s09Cq/5NH/u1IJA4WY
+         MPSpUx1mw/fg4G+XV8NXVZfnESJaa9LlollCSQvmxZm/TkbiHqH/N0YfwF+R56cLX1eh
+         /EGQk+1RD62y0qOI3t12GI8iEkkWURb7Mt/yPueJKaZfVgVmJVvBfLpxD31cyAQYnq8g
+         lJN5LwYSsPvliTLb6VXj22YPXdb854AEnICWEbkKgaQcIIfb3fhn+oj6LaSWlohNj395
+         sfXQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrYrCGEv9wcefTW4OHBJYPnoi7uZLE2H942/n3obJR5B0O9+Qw3+fE4OGeVCB/y3EJq2D1BU1//R7qA74w=@vger.kernel.org
+X-Gm-Message-State: AFuF++nUIsLqSkKVjmQiOluwZdkpzwoM/Gi34khok5LvA/nHG984gO4/
+	PmtxjMCYy4h8xr9TAvnEJOgLLNJXZG4nMslUQkVYdpXpA5wKpiQEu6LD
+X-Gm-Gg: AR+sD111HdOsFJcId3ajQAcc18btvvyaz5QIJaoX7ZfB5yimh+R8Q6xceZEGsmIzobO
+	LlphOmgfFzTUdIss9BxGfU8U0Pjrf9YcWvlV3/txcFMKAg5tKD/ESqBMdVVafKFfYjcPRRJGs8a
+	5VcZViMMgg3+Ep9n/ph4vdm0ilTUEHXu1OSyvQuEYrLES7qmQeg39zmJmGju6aKa5/52PYE6ZKu
+	0JShQ4BZfJApn5TpDC9IokxIT2fgpInQPxrpkBfwOnwHy0EYlKDCkUVYGpkDRWFLiP/uek3wXSx
+	oWofPb0r16fQeuucvT+phnRw1OM19XeTzfg0SiQzr2X0Qc2fYxvh3Y+Yp4NZOfr/UJU1UJKPTnU
+	z2nOepqIDM1TpF1E6R8EtWxk861TLQmCAV1NY99ivmE70LGpEKvEvYXlWJhcxksNRSESBE6nJAe
+	Xi4mYfmOQ9/yQjYPtP65jccA8sgSU80B2BLow1G5uS823kFOAeq8AZVgnZy+LvVHhHD0iAn277r
+	SE+3XWSf0Tbdh3g2Nzv4gJGdLVaFAVhzqXDhkDn
+X-Received: by 2002:a17:90b:3b92:b0:393:288:29e3 with SMTP id 98e67ed59e1d1-3966d5d91e7mr26710723a91.10.1787828316996;
+        Thu, 27 Aug 2026 03:58:36 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:d96d:bc4e:98d7:146f])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a8f20036sm27269939c88.5.2026.08.27.03.58.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 03:57:43 -0700 (PDT)
-From: Chen-Yu Tsai <wenst@chromium.org>
-To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Chen-Yu Tsai <wenst@chromium.org>,
-	linux-pwm@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Jitao Shi <jitao.shi@mediatek.com>
-Subject: [PATCH] pwm: mtk-disp: Fix period readback
-Date: Thu, 27 Aug 2026 18:57:36 +0800
-Message-ID: <20260827105738.8570-1-wenst@chromium.org>
-X-Mailer: git-send-email 2.55.0.887.g758fc8c411-goog
+        Thu, 27 Aug 2026 03:58:36 -0700 (PDT)
+Date: Thu, 27 Aug 2026 03:58:33 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Cc: linux-input@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>, 
+	Mark Brown <broonie@kernel.org>, David Heidelberg <david@ixit.cz>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] Input: drv260x: Map ACPI enable GPIO
+Message-ID: <apAXfjxVv8e-yxJ7@google.com>
+References: <20260826132211.3341936-1-mauriziocasciano7@gmail.com>
+ <20260826132211.3341936-3-mauriziocasciano7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260826132211.3341936-3-mauriziocasciano7@gmail.com>
 
-The period value stored in the register is the number of clock cycles - 1.
+Hi Maurizio,
 
-Account for the offset when calculating the period in nanoseconds. This
-fixes the discrepancy reported by the pwm core when CONFIG_PWM_DEBUG=1:
+On Wed, Aug 26, 2026 at 03:22:11PM +0200, Maurizio Casciano wrote:
+> Some ACPI DRV2604 devices describe the enable line as the first GPIO
+> resource in _CRS but provide no _DSD mapping for its function. The GPIO
+> consumer lookup then returns no descriptor, leaving Yoga Book haptics
+> unable to complete calibration.
+> 
+> Add a managed ACPI GPIO mapping before requesting the optional enable
+> line so these devices can power their haptic path.
 
-    mediatek-disp-pwm 1100e000.pwm: .apply is not idempotent
-    	(ena=1 pol=0 281500/499875) -> (ena=1 pol=0 281500/499750)
+I would prefer to avoid encoding board behaviors in a generic driver.
+Can we try using a software node to provide GPIO mapping for the device?
+Maybe in drivers/platform/x86/lenovo/yogabook.c?
 
-Calculation discrepancy in the driver was found by AI run by a colleague
-while debugging another PWM related issue. Check against SoC datasheet
-and fix done by the author.
+Thanks.
 
-Fixes: 3f2b16734914 ("pwm: mtk-disp: Implement atomic API .get_state()")
-Cc: Jitao Shi <jitao.shi@mediatek.com>
-Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
----
- drivers/pwm/pwm-mtk-disp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/pwm/pwm-mtk-disp.c b/drivers/pwm/pwm-mtk-disp.c
-index b5409e15dac8..68a4512e821a 100644
---- a/drivers/pwm/pwm-mtk-disp.c
-+++ b/drivers/pwm/pwm-mtk-disp.c
-@@ -212,7 +212,7 @@ static int mtk_disp_pwm_get_state(struct pwm_chip *chip,
- 	 * period has 12 bits, clk_div 11 and NSEC_PER_SEC has 30,
- 	 * so period * (clk_div + 1) * NSEC_PER_SEC doesn't overflow.
- 	 */
--	state->period = DIV64_U64_ROUND_UP(period * (clk_div + 1) * NSEC_PER_SEC, rate);
-+	state->period = DIV64_U64_ROUND_UP((period + 1) * (clk_div + 1) * NSEC_PER_SEC, rate);
- 	high_width = FIELD_GET(PWM_HIGH_WIDTH_MASK, con1);
- 	state->duty_cycle = DIV64_U64_ROUND_UP(high_width * (clk_div + 1) * NSEC_PER_SEC,
- 					       rate);
 -- 
-2.55.0.887.g758fc8c411-goog
-
+Dmitry
