@@ -1,76 +1,55 @@
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0302E3DA7D1
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:10:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 690B640B6E2;
+	Thu, 27 Aug 2026 09:11:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787821861; cv=none; b=tAs7aKbBdZJu0UuDLDIDUFr+UvUJC9guleDzLkpsaObjPUDffill3EM9VFn3+uHuPiO0qoABu7CIxPgR2N4FyNjzTjaKQXvJiftb6Stv9Cab/6Ktr4y5QYSeR4AkR7ihQHEuqFejwJTSH+o8h2BV6kmAV6mip0iVLnpSISR6v5o=
+	t=1787821886; cv=none; b=OlZ33HBwQrysIkdQNZmCgI/lKorTm84Dv49xAZvlzykv2Ttb64Pbhg9aw+hm0WXh9kp4bVF4s5fZPcJKY4NPwB6sT5LjRo3mX5igFkta/Q8l+df0gvgiGt2dV0k0DmLXZUx9PyTVNz7rF7kdUJlaIgKZlA41h6+zE+6Hm3yZob0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787821861; c=relaxed/simple;
-	bh=LqgdIrtJQQneXjCqqx/hAKf/sXya9n253v07jls08PI=;
+	s=arc-20240116; t=1787821886; c=relaxed/simple;
+	bh=QKU+9q4pENcnompvJW0fhnGbUV8ZmvmR3+gMvGi7I0k=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SPGt8ag9F6ESPs6/Ww28pgvQNbU0ZMxtM1TEaJi2vkTUeXrZ8QX8xaz+wcOl4B/tOltz1ky9T2R3yOqwss3V6wDZI0WfrxJjboTaOXG1NqGN5omx9Sz+niB2cRvlXPawAGZnK4EttM1+3ZVbLR1A7AE960hQLv03qg3s4m89rEU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nRvgfzhw; arc=none smtp.client-ip=209.85.210.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=Rl5N+cXjmR2q15D0ODb8sl5PzG2DOqi2ZDxUyo1RQN84yUDqhkH0V8dnqcYQ3HBLMQr1m3Y2dKWUcljpgce07nkwhKIW7ZoxThjxGV/IOxvAMllpT5SCrgK+IdOCYePK1EO6dFMGUxvVu46vhzF9Aos3r+YC13M+2qB8JaC/dWo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=B78f3fUn; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nRvgfzhw"
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-84f38f3b36eso1627886b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 02:10:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787821859; x=1788426659; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tu2ly/KH2dLnBZR31VNk1zmOFGKKWjw22JUwhd3exbg=;
-        b=nRvgfzhw01M/waXXz4U2CUUJb582RTjmoQ7wb8JkYCZbfGirukmyuLma+5+zVsOa1/
-         LGEN4KwiCihviA6L4B1ajk4kwvCSHjppPHMiDajmL4cwAaVNT67KQb8kUvM+vkMcKWa9
-         dyyqWrYDpDVfVp5UfQrxnmeJgAUsm/7IJGqHtB5FOs5UiSWgEv25hVSd7QKjOAhAP5zW
-         5SR5ublVcJ7OtVB6cHNTW7Vapoqdczopsg4K1qFGbJeNsvDW+DHNdykDTt8+DaWhc+Xr
-         onaGJ3CBmnsqf354Ns4eOqRUHz9npIOVPNlhCswsgYbpTs5Z2jd2yyrvTrw0WLI7+nyy
-         J71w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787821859; x=1788426659;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=tu2ly/KH2dLnBZR31VNk1zmOFGKKWjw22JUwhd3exbg=;
-        b=VADfw74p+hzyjY4j9tHA6FCd40RzTA1+ASDZD9kioyrscMeZFyIvaaDOI89/kJ4WBf
-         HPtpCJh2YxrXfL6Lmj9a+iQ+879/ZVMvcX+9JXrpDul323PMYu81bhWu478DfDBL416k
-         pmnG6bzqAK23uq3fYlbUSwz53/b9fs2gyKBIggMbaE0ORwfjaQW1UicFFbICgvT8quoq
-         pZeIPx3JmQhWxx4aqGzCPeBeq7GWdeKoMwQ/F0CeBkYhF8OBnb69UpTKbapn2xxbvXwn
-         DRRZbpTzVCWbzWXVXn4wqZQ5deSRH92vqtDMnGhVrEFEVMedK0fJA8CmB9CNgsLzlJDi
-         opHQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrSC0z+AOcVC5LRdbttCzZ1o7fv8ycxzueNLGbqzZEYdHJLM8Gcw2J7ovoNGETIyoOE6WUTgQqSzC20Om0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nNO8GCCuI8TNsEwb1DWkIDdPuSxSp9z0HB2mQQORGlvvqIVIMI
-	iNNCtRTixAInbPXQzAfs9FThK3oKZ5kfX4IbOTGpPPJYyLmtwENzKdav
-X-Gm-Gg: AR+sD13kIq55k2bzS980i2GiKDyu41TXQz44zys4DX4FJXCE/SNUSlH7Dfqx9fLPQwt
-	Hz40lIEnK8GcFHWIVolztRj+E7qV7qz/9TR7v7CKLcAYbXtIf+eQ11WGJFFGAcsgWhg76TVR1l1
-	nre59m2a2gF9n5UHxw1/aOGlghh3RpF1o+l2bCJNuXFjYlsHpx9JcXZ5hcLGbbugKYJK8rDEb3f
-	HarX+IB6A6xoprY+5hl5qOVwRkQshtvE0bm7NPiNZ92WPw7pHkRlVR2EILaEUZqXd3HIjJUwBq/
-	QqQjS7Go7ZjNSTQI2zIGGp2Twqo173fWK5BTmhBKxo1MfuIvq3tuaacF5pV/AZqsrrbZw4B9Azf
-	g8mV0UYBw0U7RkSe/E+BABQfSr2bMVg+lImrGw5KgjbJVRttczAs5sqrgVtGI0m9aR2ouNs0VB0
-	cCVwVBeSFle9c8yE/F9eSQ/oeZ+BLPGd3WhghoFbF4ON5NP+MzFG7Pg+D/l9e0GcjjNXPwmg+36
-	I+7Q16wblbwaZVq4aMgYvG1O7YUIYMB+6I=
-X-Received: by 2002:a05:6a00:2914:b0:84e:f90e:492f with SMTP id d2e1a72fcca58-853729a9f0fmr26681240b3a.7.1787821859257;
-        Thu, 27 Aug 2026 02:10:59 -0700 (PDT)
-Received: from KASONG-MC4 ([43.132.141.20])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8535a7c2570sm1860103b3a.17.2026.08.27.02.10.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 02:10:58 -0700 (PDT)
-Date: Thu, 27 Aug 2026 17:10:54 +0800
-From: Kairui Song <ryncsn@gmail.com>
-To: Kemeng Shi <shikemeng@huaweicloud.com>
-Cc: akpm@linux-foundation.org, chrisl@kernel.org, kasong@tencent.com, 
-	nphamcs@gmail.com, baoquan.he@linux.dev, youngjun.park@lge.com, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] mm, swap: Fix potential NULL dereference when
- trying a sleep table allocation
-Message-ID: <ao_ybL9yRO_pHphW@KASONG-MC4>
-References: <20260820115505.20027-1-shikemeng@huaweicloud.com>
- <20260820115505.20027-2-shikemeng@huaweicloud.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="B78f3fUn"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BAA691691;
+	Thu, 27 Aug 2026 02:11:19 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F04703F66F;
+	Thu, 27 Aug 2026 02:11:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1787821883; bh=QKU+9q4pENcnompvJW0fhnGbUV8ZmvmR3+gMvGi7I0k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=B78f3fUnTn4z7rhLL+do+CgyE8kOHsCC7k1NgDAp1/gfwIIO8Nh6AzoSw8HaJGJhM
+	 Fyq5N3VpBFcpwtbtozzYzAIyDnvbzPrNyZ30ZkXOdOKNLF7++7wUcq7q8tgo2022sl
+	 pMbahu2ZxtcFvFBT7bMpwqg4cTC1U5HPz+Vv0L/E=
+Date: Thu, 27 Aug 2026 10:11:18 +0100
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
+	Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] kselftest: mm: replace usage of /proc/self/smaps
+ for check_huge_xxx() helper
+Message-ID: <ao__Noj3IkhfHVRE@e129823.arm.com>
+References: <20260826-fix_split-v2-0-71153c7f579a@arm.com>
+ <20260826-fix_split-v2-2-71153c7f579a@arm.com>
+ <0107447a-7c1f-44f8-94fb-109b0f850677@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,74 +59,162 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260820115505.20027-2-shikemeng@huaweicloud.com>
+In-Reply-To: <0107447a-7c1f-44f8-94fb-109b0f850677@linux.alibaba.com>
 
-On Thu, Aug 20, 2026 at 07:55:02PM +0800, Kemeng Shi wrote:
-> The root cause of this issue is because multi-tables are updated in non
-> atomic context. To be more specific, the issue could be triggerred as
-> following:
+On Thu, Aug 27, 2026 at 04:28:01PM +0800, Baolin Wang wrote:
 > 
-> swap_alloc_fast         swap_cluster_populate()
->                          /* Try a sleep allocation */
->                          spin_unlock(&ci->lock);
->                          swap_cluster_alloc_table()
->                           rcu_assign_pointer(ci->table, table);
 > 
->  ci = swap_cluster_lock(si, offset)
->  cluster_is_usable(ci, order）
->   if (!cluster_table_is_alloced(ci)) // ok
->  alloc_swap_scan_cluster()
->   cluster_scan_range()
->    __swap_table_get()
+> On 8/26/26 8:24 PM, Yeoreum Yun wrote:
+> > Since glibc commit 321e1fc73f (“malloc: Enable 2MB THP by default on AArch64”),
+> > glibc may call madvise(MADV_HUGEPAGE) for sufficiently large allocations
+> > made by memalign().
+> > 
+> > The underlying VMA may start at a different address from the aligned
+> > address returned by memalign(). Furthermore, a subsequent
+> > madvise(MADV_HUGEPAGE) call does not split the VMA because the flag is
+> > already set.
+> > 
+> > This causes split_huge_page_test to fail because the check_huge_xxx()
+> > helpers incorrectly require the address returned by memalign() to
+> > match the VMA start address reported in /proc/self/smaps.
+> > 
+> > Fix this by using /proc/self/pagemap and /proc/kpageflags instead of
+> > /proc/self/smaps to detect huge pages.
+> > 
+> > Reported-by: David Hildenbrand (Arm) <david@kernel.org>
+> > Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+> > ---
+> >   tools/testing/selftests/mm/vm_util.c | 130 ++++++++++++++++++++---------------
+> >   tools/testing/selftests/mm/vm_util.h |   1 +
+> >   2 files changed, 77 insertions(+), 54 deletions(-)
+> > 
+> > diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/mm/vm_util.c
+> > index 4821a3563036..1d0959b3b9e8 100644
+> > --- a/tools/testing/selftests/mm/vm_util.c
+> > +++ b/tools/testing/selftests/mm/vm_util.c
+> > @@ -351,31 +351,13 @@ char *__get_smap_entry(void *addr, const char *pattern, char *buf, size_t len)
+> >   	return entry;
+> >   }
+> > -static bool __check_pmd_huge(void *addr, char *pattern, int nr_hpages,
+> > -		  uint64_t hpage_size)
+> > -{
+> > -	char buffer[MAX_LINE_LENGTH];
+> > -	uint64_t thp = -1;
+> > -	char *entry;
+> > -
+> > -	entry = __get_smap_entry(addr, pattern, buffer, sizeof(buffer));
+> > -	if (!entry)
+> > -		goto err_out;
+> > -
+> > -	if (sscanf(entry, "%9" SCNu64 " kB", &thp) != 1)
+> > -		ksft_exit_fail_msg("Reading smap error\n");
+> > -
+> > -err_out:
+> > -	return thp == (nr_hpages * (hpage_size >> 10));
+> > -}
+> > -
+> > -static bool check_large_folios(void *addr, size_t len, int nr_hpages,
+> > -		uint64_t hpage_size)
+> > +static bool check_large_folios(int pagemap_fd, int kpageflags_fd,
+> > +			       void *addr, size_t len, int nr_hpages,
+> > +			       uint64_t hpage_size)
+> >   {
+> >   	int order = 0, pagesize = getpagesize();
+> >   	unsigned int nr_pages = hpage_size / pagesize;
+> >   	int orders[MAX_NR_ORDERS], status;
+> > -	int pagemap_fd, kpageflags_fd;
+> >   	bool ret = false;
+> >   	if (!nr_pages)
+> > @@ -386,15 +368,6 @@ static bool check_large_folios(void *addr, size_t len, int nr_hpages,
+> >   		ksft_exit_fail_msg("invalid order\n");
+> >   	memset(orders, 0, sizeof(int) * MAX_NR_ORDERS);
+> > -	pagemap_fd = open(PAGEMAP_PATH, O_RDONLY);
+> > -	if (pagemap_fd == -1)
+> > -		ksft_exit_fail_msg("read pagemap fail\n");
+> > -
+> > -	kpageflags_fd = open(KPAGEFLAGS_PATH, O_RDONLY);
+> > -	if (kpageflags_fd == -1) {
+> > -		close(pagemap_fd);
+> > -		ksft_exit_fail_msg("read kpageflags fail\n");
+> > -	}
+> >   	status = gather_folio_orders(addr, len, pagemap_fd,
+> >   			kpageflags_fd, orders, MAX_NR_ORDERS);
+> > @@ -405,48 +378,97 @@ static bool check_large_folios(void *addr, size_t len, int nr_hpages,
+> >   		ret = true;
+> >   out:
+> > -	close(pagemap_fd);
+> > -	close(kpageflags_fd);
+> >   	return ret;
+> >   }
+> > -bool check_huge_anon(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
+> > +enum check_huge_type {
+> > +	CHECK_HUGE_ANON,
+> > +	CHECK_HUGE_FILE,
+> > +	CHECK_HUGE_SHMEM,
+> > +};
+> > +
+> > +static bool __check_pmd_huge(void *addr, size_t len, int nr_hpages,
+> > +			     uint64_t hpage_size, enum check_huge_type type)
 > 
->                           /* free table when more table allocation fails */
->                           ci->memcg_table = kzalloc_obj(*ci->memcg_table,
->                                                         gfp);
->                           if (!ci->memcg_table)
->                            swap_cluster_free_table()
->                             rcu_assign_pointer(ci->table, NULL);
-> 
->     table = rcu_dereference_check(ci->table, lockdep_is_held(&ci->lock));
->      atomic_long_read(&table[off]); // NULL dereference
-> 
-> Fix the issue by making tables visible at end of swap_cluster_populate().
+> The original __check_pmd_huge() is only for PMD-sized large folios, but now
+> it not only checks PMD-sized large folios but also mTHP large folios, which
+> I find confusing. Please keep its original semantics, and only check
+> PMD-sized large folios.
 
-I think you mean "end of swap_cluster_alloc_table".
+Okay. thanks!
 
+> >   {
+> > -	uint64_t pmd_pagesize = read_pmd_pagesize();
+> > +	int pagemap_fd, kpageflags_fd;
+> > +	uint64_t pmd_pagesize, granule;
+> > +	uint64_t categories, kpf;
+> > +	unsigned long pfn;
+> > +	bool check_large, huge_mapped;
+> > +	char *start = addr;
+> > +	char *end = start + len;
+> > +	pmd_pagesize = read_pmd_pagesize();
+> >   	if (!pmd_pagesize)
+> >   		ksft_exit_fail_msg("reading PMD pagesize failed\n");
+> > -	if (hpage_size == pmd_pagesize)
+> > -		return __check_pmd_huge(addr, "AnonHugePages: ", nr_hpages, hpage_size);
+> > +	if (nr_hpages > 0) {
+> > +		check_large = true;
+> > +		granule = hpage_size;
+> > +	} else {
+> > +		check_large = false;
+> > +		granule = psize();
+> > +	}
 > 
-> Fixes: 2fe7a6f5024b8 ("mm/memcg, swap: store cgroup id in cluster table directly")
-
-Hmm, wrong commit id again, should be
-
-Fixes: b197d41462c2 ("mm/memcg, swap: store cgroup id in cluster table directly")
-
-> Signed-off-by: Kemeng Shi <shikemeng@huaweicloud.com>
-> ---
->  mm/swapfile.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
+> This is incorrect for the mTHP large folio check. I already hit a selftest
+> failure. Please test your patches before sending them out.
 > 
-> diff --git a/mm/swapfile.c b/mm/swapfile.c
-> index 615d90867111..4561c864f806 100644
-> --- a/mm/swapfile.c
-> +++ b/mm/swapfile.c
-> @@ -466,8 +466,6 @@ static int swap_cluster_alloc_table(struct swap_cluster_info *ci, gfp_t gfp)
->  	if (!table)
->  		return -ENOMEM;
->  
-> -	rcu_assign_pointer(ci->table, table);
-> -
->  #ifdef CONFIG_MEMCG
->  	if (!mem_cgroup_disabled()) {
->  		VM_WARN_ON_ONCE(ci->memcg_table);
-> @@ -487,6 +485,12 @@ static int swap_cluster_alloc_table(struct swap_cluster_info *ci, gfp_t gfp)
->  		return -ENOMEM;
->  	}
->  #endif
-> +
-> +	/*
-> +	 * Make tables visible to cluster_is_usable() after everything is
-> +	 * ready.
-> +	 */
-> +	rcu_assign_pointer(ci->table, table);
+> [root@]./khugepaged -c 4 mthp_khugepaged:anon
+> TAP version 13
+> # Save THP and khugepaged settings... OK
+> 1..4
+> # Allocate huge page on fault... OK
+> # Split huge PMD on MADV_DONTNEED... OK
+> ok 1 allocate on fault and split
+> #
+> # Run test: collapse_full (mthp_khugepaged:anon)
+> # Collapse multiple fully populated PTE table.... OK
+> ok 2 collapse_full
+> #
+> # Run test: collapse_empty (mthp_khugepaged:anon)
+> # Do not collapse empty PTE table.... OK
+> ok 3 collapse_empty
+> #
+> # Run test: collapse_single_mthp (mthp_khugepaged:anon)
+> # Collapse PTE table with half PTE entries present.... Fail
+> not ok 4 collapse_single_mthp
+> # Totals: pass:3 fail:1 xfail:0 xpass:0 skip:0 error:0
 
-Hmm, but for the error paths above, they will leak the new allocated table?
+Oh sorry. I've forgotten to this case to test.
+
+Thanks!
+
+ 
+
+-- 
+Sincerely,
+Yeoreum Yun
