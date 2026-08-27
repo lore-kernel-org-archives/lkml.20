@@ -1,135 +1,96 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5155233E34B;
-	Thu, 27 Aug 2026 06:33:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21A8233E34B;
+	Thu, 27 Aug 2026 06:35:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787812398; cv=none; b=u8dbKd3qpFtng0srzD7KSOcNoyWN+A1FJt0a6zS5TeXrtZWwAqvKLmAdj63Gx6yL3S4qTlj89hrm/wfhvQMhBLodcRzhlqYUaAF1n7dRqCkB7yHOmN9mtny4xnmvh26Pd6oTJH0gy7dyHpyPsS/OZSQHUAyBFXYy3nui69es2ro=
+	t=1787812510; cv=none; b=kbytY/ktONwAae7H57DEqipmSbvyZk1rhWQ7QrexAUoyY5tUj/JFu0gj3WOgNw+79ka9BDNWZunS28Ng1t4Jn7lIxhLej92h0rqhuAjMKhemTeg7kc0UVoYmv/ZCyOzSSh6/G2LPKiH9+WH9Y88FLttGpNuk/AwNJQs4UWdSBkc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787812398; c=relaxed/simple;
-	bh=9BuPj2Q6nnqmomxr5ojIWuAlLQGEjeEupTUTB2nIRY8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=r/EPDHMbJYBebLKTjXk5+hxXn3Bklt32EuLyFQh6B0jvciI3jIFvGr4vDZY/JxdzxUlhE0P+Rmo/ZJWzb2CjqZHghimTPhkrD/ou/AxroF8yotlByg0hHvzo53qHnUsK1A67roL2Ei52SY5t3MwDY6ToWX5sfKZOyFgSV49fBC8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=nOvRnxZT; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1787812510; c=relaxed/simple;
+	bh=WqchggjH9hn51vCdzs4WlFOEV7ma0Z4vukFOFOaqXcs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=u1l8jj/563N3DSovuwl7Ns+8+wsNGwvF3eVaVN45tN4zHJhf8FiVBe5oFbFYYWprIvJI4jXc0m40bDd5KIkRptad3LxJw8lT4YJALeJDBl6mQtpbN8jY2D5dCwN3FsWUUJ6O+DLmDT+MOW+uUkrSZWeXDqu/lU+sfiLtzwIjwI4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DPwwr8VR; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="nOvRnxZT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=wa
-	CNnpILeDgl2UscKzIFsRiLjz7qOYqJMN3bvwNOKRo=; b=nOvRnxZT4C9KY3YSRH
-	BD42IJCb+EwMyFMzMikH7+NlUVlX2O3fjSiUYSS2/jqo/l44LkgPPUqPBxIo5DX8
-	/+CIyD9A+Gct6w4fD1g+/JKLxLGitPVdVti+RDnBSEIfYsrgwZfm3vkk7oqJoEZ9
-	S3ovoYCYHZQ/hz5dec2t06kv0=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3j4oG2o9q0hcgSQ--.17256S3;
-	Thu, 27 Aug 2026 14:32:40 +0800 (CST)
-From: ghuicao@163.com
-To: Song Liu <song@kernel.org>
-Cc: Yu Kuai <yukuai@fygo.io>,
-	Li Nan <magiclinan@didiglobal.com>,
-	Xiao Ni <xiao@kernel.org>,
-	linux-raid@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Cao Guanghui <caoguanghui@kylinos.cn>
-Subject: [PATCH v3 2/3] md/raid5: fix leak and use-after-free in resize_stripes error path
-Date: Thu, 27 Aug 2026 14:32:34 +0800
-Message-Id: <20260827063235.85375-2-ghuicao@163.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260827063235.85375-1-ghuicao@163.com>
-References: <20260827023803.36602-1-ghuicao@163.com>
- <20260827063235.85375-1-ghuicao@163.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DPwwr8VR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787812507; x=1819348507;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=WqchggjH9hn51vCdzs4WlFOEV7ma0Z4vukFOFOaqXcs=;
+  b=DPwwr8VRwItPicEj4wewun2cDpGEQTNFf7g01gVhYHFCXNaI6Ng7AW95
+   83FyWBsXPAjHPYlBFAJxEemsDlGqYhr/QYVzpfte5M9CU9TKkDKYbx8lb
+   EhbM95WQnF8qBNGbxirpambCqgBINQLVFPeCmY5COiq8U+spgk52v0m7S
+   yBZgAa/wDZSUL5Cx2O/XVyd+69n8iv7rqhCOm8K8mhjAj8xEwLUn6gL1z
+   bJAqIr709tbbiIGZ7fUm05zxS2Mxxtxx54GiIVy/gsYZtjdlYfGitU4tG
+   r3j4pMxCu/NtTicEw7nIxyGgHnZ5TdKa9dBsmLDzfHfyXU0oThF6/cgA1
+   g==;
+X-CSE-ConnectionGUID: Bc3RbpwNTsGDNN4kJ1UFlg==
+X-CSE-MsgGUID: +7ICXO5UReydSXMTNiQcoQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="99656350"
+X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
+   d="scan'208";a="99656350"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 23:35:07 -0700
+X-CSE-ConnectionGUID: hgx/yuobSAy2bYalaVILkA==
+X-CSE-MsgGUID: g+Nc/osFRdehqhiX6rRgPw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
+   d="scan'208";a="306004445"
+Received: from nneronin-mobl1.ger.corp.intel.com (HELO [10.94.252.51]) ([10.94.252.51])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 23:35:05 -0700
+Message-ID: <fdc17e7b-5b79-4b52-a1a9-929ec1565768@linux.intel.com>
+Date: Thu, 27 Aug 2026 09:34:50 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3j4oG2o9q0hcgSQ--.17256S3
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCryUuryDCF1ktFW8CF13twb_yoW5Xw48pr
-	W3KFs3Z3WUW3s3twnrCw48uF1fG3yvqFWrGFya9w4vvFs8Kr10yr1rKrWDWryjyrn3tay2
-	qFZ0q395JF1vy3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jTD73UUUUU=
-X-CM-SenderInfo: 5jkxxuldr6il2tof0z/xtbC4Ag3yWqP2giuVgAA3Z
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] usb: xhci: fix ERST max field conversion
+To: Youngjoon Lee <getfeus@gmail.com>, Mathias Nyman <mathias.nyman@intel.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260827053748.3755-1-getfeus@gmail.com>
+Content-Language: en-US
+From: "Neronin, Niklas" <niklas.neronin@linux.intel.com>
+In-Reply-To: <20260827053748.3755-1-getfeus@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Cao Guanghui <caoguanghui@kylinos.cn>
 
-resize_stripes() has two issues in how conf->disks is replaced:
 
-1. Memory leak: conf->disks is replaced with ndisks in Step 3, but
-   pool_size is only updated at the end with "if (!err)".  If Step 4
-   (allocating pages for new stripe slots) fails, pool_size retains the
-   old value.  On teardown, free_conf() iterates only pool_size entries,
-   leaking (newsize - pool_size) extra_page allocations.
+On 27/08/2026 8.37, Youngjoon Lee wrote:
+> Commit 6d45e9556d4a ("usb: xhci: standardize multi bit-field
+> macros") converted the ERST maximum calculation from BIT() to a
+> left shift. These operations are not equivalent because the
+> HCS_ERST_MAX field contains an exponent.
+> 
+> On an MT8173 xHCI controller where HCS_ERST_MAX is zero, the new
+> calculation produces zero event ring segments. This reaches
+> dma_alloc_coherent() with a zero size, triggers a page allocator
+> warning, and prevents xHCI from probing with -ENOMEM.
+> 
+> Preserve the original calculation by applying BIT() to the value
+> extracted with FIELD_GET().
+> 
+> This restores the USB 2.0 and USB 3.0 root hubs on MT8173. A USB
+> webcam and both USB 2.0 and USB 3.0 hubs enumerate successfully,
+> and the previous ERST allocation failure is no longer present.
+> 
+> Fixes: 6d45e9556d4a ("usb: xhci: standardize multi bit-field macros")
+> Signed-off-by: Youngjoon Lee <getfeus@gmail.com>
 
-2. Use-after-free: conf->disks is freed and replaced without holding
-   mddev->lock, while raid5_status() (called from /proc/mdstat via
-   md_seq_show) reads conf->disks[i].rdev under mddev->lock.  The
-   freeing and replacement happen under reconfig_mutex and
-   cache_size_mutex, which do not exclude mddev->lock holders.
+Thanks for the report and patch.
 
-Fix both by deferring the conf->disks replacement until after Step 4
-succeeds, and performing the pointer swap under mddev->lock so that
-concurrent readers in raid5_status() see either the old or new array,
-never a freed one.  If Step 4 fails, ndisks is freed instead.
+This issue has already been addressed in:
 
-This also preserves the original retry behavior: pool_size is only
-updated on full success, so check_reshape() correctly calls
-resize_stripes() again on retry.
+https://lore.kernel.org/linux-usb/7e6648ad-7459-4248-8c6c-227cfc2586d8@linux.intel.com/
 
-Fixes: ad01c9e3752f ("[PATCH] md: Allow stripes to be expanded in preparation for expanding an array")
-Cc: stable@vger.kernel.org
-Signed-off-by: Cao Guanghui <caoguanghui@kylinos.cn>
----
-
-Changes in v2:
-  - Defer conf->disks replacement to after Step 4 instead of setting
-    pool_size early, which would break reshape retry logic (Sashiko)
-  - Add spinlock protection around the pointer swap to fix a concurrent
-    use-after-free in raid5_status() (Sashiko)
-
- drivers/md/raid5.c | 19 +++++++++++--------
- 1 file changed, 11 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
---- a/drivers/md/raid5.c
-+++ b/drivers/md/raid5.c
-@@ -2639,9 +2639,7 @@ static int resize_stripes(struct r5conf *conf, int newsize)
- 				if (ndisks[i].extra_page)
- 					put_page(ndisks[i].extra_page);
- 			kfree(ndisks);
--		} else {
--			kfree(conf->disks);
--			conf->disks = ndisks;
-+			ndisks = NULL;
- 		}
- 	} else
- 		err = -ENOMEM;
-@@ -2685,8 +2683,20 @@ static int resize_stripes(struct r5conf *conf, int newsize)
- 	}
- 	/* critical section pass, GFP_NOIO no longer needed */
- 
--	if (!err)
-+	if (!err && ndisks) {
-+		struct disk_info *old_disks = conf->disks;
-+
-+		spin_lock_irq(&conf->mddev->lock);
-+		conf->disks = ndisks;
-+		spin_unlock_irq(&conf->mddev->lock);
-+		kfree(old_disks);
- 		conf->pool_size = newsize;
-+	} else if (ndisks) {
-+		for (i = conf->pool_size; i < newsize; i++)
-+			if (ndisks[i].extra_page)
-+				put_page(ndisks[i].extra_page);
-+		kfree(ndisks);
-+	}
- 	mutex_unlock(&conf->cache_size_mutex);
- 
- 	return err;
--- 
-2.34.1
+-Niklas
 
