@@ -1,63 +1,79 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 478D04854EF;
-	Thu, 27 Aug 2026 17:09:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 42065384CED;
+	Thu, 27 Aug 2026 17:09:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787850559; cv=none; b=A7Kk/AMAcqKvxL9TYWa/tSfi8vmity0XerJlT7KW8mhfuPyowihkMcyO3Ny+yapdmACqizbqw7/MQCYiwYbShQyopU7A9IP3heZO03Fs05SU5XSXKNBhvOvkGXjey+OhFMEX/ayfZ/JsStal4bgqFaXyYG79FqJn6rkTHE2qfX0=
+	t=1787850581; cv=none; b=djXirXBim9m7CcBr24Vr9OB13CP9iEri7szs25PbiSMDh2abKBLHf6pKfPxc3+Ufg9K0KvamWScKtfP7n2bfldMfv4VzUQrkaQH1MFDGydtnXWac89JwoU9c+7nti61pbjj3OTjLXvK5+JXiKeql1m8G7iMYQMenld9vT2PzKhE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787850559; c=relaxed/simple;
-	bh=ENSCz2PGcJTimwlpnBspYAGijaGtdVkCkzbyhQryWvU=;
-	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=t07LXsO9gn9b6K4tehp9jJmla4uIW4V70IUGz8OnrvnQnaEIzLE3k76vSWXxbtU+1XfDPvPUs53KybBq4otqfH2tTvyCnquyJf1XuX9vf/mGMC8BlTrd3ytTTuQVMUWvnVj3IxJjg8zPVkaq3fI3Z+skmW8Z6FGtXJeBEbnCPZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IlqsaUiu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787850581; c=relaxed/simple;
+	bh=4kAGRHdSHxPiOWMZBYv/OUtAGNumoXB3lShsZOeAwc4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PpUZAhRYsf4T21oQmhSm48FfVKhEiVYnDEbEvrtvjODAO5cenmTD3aFSuSL371nZIBNVin0lTYzXGDeeloCPz/nVT2iUlzuxM82TrEMtDcYd6Dnina0Z7MHqIJUpxLhuJ08g9tfA9a0aE1aF6/FrRGH2tG4ZS4Ee4w9h2eeLkVE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=DC3H611y; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IlqsaUiu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1689D1F000E9;
-	Thu, 27 Aug 2026 17:09:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787850558;
-	bh=2+TtOTWAn9+K8+57S9u3rhptl8PsUZnys96Z6mm5eEk=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=IlqsaUiubPVhLE71yfQCZwtFSXNDceRztFia7OehE3IagvK7OxB6h7BkRC0tOA5Ti
-	 LfqnUwyepxWQBy/uIYgOigX7i/ZBYBTXxW9dVqbyYE//UIV/WGvoevPVY6mvIGot59
-	 qMwt4OPBLZ/C13fxbOtsqXJ9eT3DbdtwHjN6hSY4lSixfX8G3lPOb91rf0YsTT6B7R
-	 UoxVDmb0eda/oqu+3ivLBLmjN/SykmoocsTO5CejYYlwsJqrosNcp4W0tYbwlvIt/W
-	 etld41JqN87WlrW/hWoMSNqyDNhLbGtY6V3hrFTrSXvsXunycy/fPkit1Mw67r1gBr
-	 du+FGoVRqOrTA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0C203809A89;
-	Thu, 27 Aug 2026 17:08:24 +0000 (UTC)
-Subject: Re: [GIT PULL] additional MM updates for 7.3-rc1
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20260826152330.9cdd482b43726942d6c149cb@linux-foundation.org>
-References: <20260826152330.9cdd482b43726942d6c149cb@linux-foundation.org>
-X-PR-Tracked-List-Id: <linux-mm.kvack.org>
-X-PR-Tracked-Message-Id: <20260826152330.9cdd482b43726942d6c149cb@linux-foundation.org>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm tags/mm-stable-2026-08-26-15-22
-X-PR-Tracked-Commit-Id: 0685630fdccb62dcb0e3f44525a40578da5f6dc8
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 18fbf5151d2c0bfe433c7428eef03cabf5fdb2fa
-Message-Id: <178785050350.1753754.11441521265176590388.pr-tracker-bot@kernel.org>
-Date: Thu, 27 Aug 2026 17:08:23 +0000
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, linux-mm@kvack.org, mm-commits@vger.kernel.org, linux-kernel@vger.kernel.org
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="DC3H611y"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 91CB71688;
+	Thu, 27 Aug 2026 10:09:34 -0700 (PDT)
+Received: from localhost (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0218B3F7D8;
+	Thu, 27 Aug 2026 10:09:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1787850578; bh=4kAGRHdSHxPiOWMZBYv/OUtAGNumoXB3lShsZOeAwc4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=DC3H611yKNX0DjpwTHyf6vov6Eaz9SY/BvqGSCrwuCCoiadU6Yp0sdnhOagkBEtAK
+	 F3dmVu4Pg6tl9q6ZXOddebq6i4osd41kTf5gsNCkQ5m7Q2wjZT2Fy63vN2tQDYttv0
+	 MAQJhGJBtk95Oa0x/fN7g/rKIGZ+xXDLUnbNEyy8=
+Date: Thu, 27 Aug 2026 18:09:36 +0100
+From: Leo Yan <leo.yan@arm.com>
+To: James Clark <james.clark@linaro.org>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Mike Leach <mike.leach@arm.com>,
+	John Garry <john.g.garry@oracle.com>, Will Deacon <will@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>,
+	Leo Yan <leo.yan@linux.dev>, linux-arm-kernel@lists.infradead.org,
+	coresight@lists.linaro.org, linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@redhat.com>,
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH v2 09/14] perf cs-etm: Queue partial AUX records
+Message-ID: <20260827170936.GO8904@e132581.arm.com>
+References: <20260821-james-cs-unformatted-per-thread-fix-v2-0-00c4fd0701b4@linaro.org>
+ <20260821-james-cs-unformatted-per-thread-fix-v2-9-00c4fd0701b4@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260821-james-cs-unformatted-per-thread-fix-v2-9-00c4fd0701b4@linaro.org>
 
-The pull request you sent on Wed, 26 Aug 2026 15:23:30 -0700:
+On Fri, Aug 21, 2026 at 10:49:07AM +0100, James Clark wrote:
+> In snapshot mode AUX records may straddle the boundary of multiple trace
+> buffers. Currently we only queue AUX records whose range is contained
+> wholly within a single buffer.
+> 
+> Fix it by queuing any partial AUX range that overlaps any buffer.
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm tags/mm-stable-2026-08-26-15-22
+This issue has already existed before this series, so need a fix tag?
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/18fbf5151d2c0bfe433c7428eef03cabf5fdb2fa
+> Signed-off-by: James Clark <james.clark@linaro.org>
 
-Thank you!
+Otherwise:
 
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+Reviewed-by: Leo Yan <leo.yan@arm.com>
