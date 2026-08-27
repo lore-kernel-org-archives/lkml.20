@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FE0F360EF9;
-	Thu, 27 Aug 2026 21:33:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 578441A6806;
+	Thu, 27 Aug 2026 21:35:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787866422; cv=none; b=nMXAig6gJshJWd10SEOx993ziSJUKhqllJDhKmGHNFh6AMLdScuHwQwJCRC8Lk/5EYlLqkB9YrY4tXJD3ascFPT+DQj7CC0a79lx2Xj25gCFlD6xyzA7D/FIRZmvw65MDavuR6wbCvdnGAgI6znidzeZR2uAeLq3YNpOB/dTL74=
+	t=1787866513; cv=none; b=nbkQ1okI26PtHtOlUdxWns5+X77ta+2ofIf9Ww0IsjlAIAzWhUf4XGLeFmADdnvT29jfYhKoOL3OI186IFXPBwvTv8S0RfZBlr06+GE3FsVE2IpHoahQw88HzF4ykz8nsiYygaQ3A8tP41XECPtOReBWrOH+33Sk3QfL2ON7mJE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787866422; c=relaxed/simple;
-	bh=PQlOu+VW03V27gxX2cArVMUwaepjRL7qZlU23drSTik=;
+	s=arc-20240116; t=1787866513; c=relaxed/simple;
+	bh=iDG3uG/NsgmUQeqNnURTGnpePLGCtwQ+EDifwqxWHFk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TOF5P/EztIVyXzzk3whAC5gL2fZean/XGmyEI0jZ1Mb0giQkNwijrWd3LFcbT6BeKB82oGO/jnFB3xvvv+JSB/f3q5qjg+PyRmXqHp1Oqg3KdTilxNXtTBgc3nHae5Fta/+Geqr7XubkH9HbO+S6znUrzNrc9JHOpd5nQaWpkd8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fw1+9sqr; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=BGWkWuQtBOCD8YSI7lQHazgn+73sJJ77xAzDj97ieaf/9uk/Jy4ZTGtkuQaa/hwg++HLGo2wtFz5/7gsglxI4TDDJ2C6C+HoncvEsPNr5vm76qO+TVUvL2eqlfevVW6YJELkQsWvmE5hYfn4B8uiEWXbMtBWhN9ShFE7kVLanbc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kv31tegt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fw1+9sqr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DD031F000E9;
-	Thu, 27 Aug 2026 21:33:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kv31tegt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3B061F000E9;
+	Thu, 27 Aug 2026 21:35:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787866420;
-	bh=Zwa9OildEt0/MBeKDzpiohQ2SGijo2Fqu8IR99Uz1bc=;
+	s=k20260515; t=1787866511;
+	bh=fMgwm7oAdbEbWShlMjn5W9P2IwFpciRIvrfJQ3hlebs=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Fw1+9sqrLMgXn3ctkUbjhc4YaXPZA1bFizV1DDiocqaZcwOSj61O5UvptVU+MXrw3
-	 cHGuihh2s2WoNOH9f3D0QpemTdvRptaPyCKtIZMFbkXD9d/VMxFXfayWNN9FfRYI+L
-	 /S0vXfrJBDpVaovIu3iLv/4ZkcuNbg9CQUPwPHAK0QoPAOAZJTDdYcE1sps1QFi4K9
-	 cuz8oC5sptjv4ph7YeH38O0eI/GK9/KhbXsQY5pz0pC38yvEn3f8nZ6Vx55+uE5YU1
-	 1netFCyUhW11Rs/X3hU2T3XdxwORVGU2xfVSfh3PQHcy4+A+h6kKSeJCCwEiPPSpFu
-	 2/2SZU3rzGGVA==
-Message-ID: <25e10cfe-40dc-45f4-8a92-cd81263420ea@kernel.org>
-Date: Thu, 27 Aug 2026 23:33:31 +0200
+	b=Kv31tegt83bsz+VlPCa34qRYWSmnWi5RV8Xs155GFSTnKHvQIbr2IokQ0nBGQCBcj
+	 e70dR8XXatKAmItuZF9ah71o499QQRbJYkHL5H8RCz1J+4ZiPbH49KVhHAm1OZH3yL
+	 FbcDzmBahzHi9083Jj4sD6b9eV1C4Pxt5p4zXxqSK9ZcvGLeCCmM0t3SJgmReEzsVT
+	 H6sV9jF+zGY+ln3GNPdx3VEaijc04/g4lAT4rE6odXvGx1dTcYXX5sB+OUNYme1ijN
+	 B51dmO0oeMMBotXi1AZsK9tmEjMOEJxWscPji4rEiexejSp+u17Fj0HKCLjqN6UjfI
+	 /Rfn+NkzAXzQQ==
+Message-ID: <3264c2d2-4c53-44c0-8164-d2d83f75c175@kernel.org>
+Date: Thu, 27 Aug 2026 23:35:01 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,28 +35,27 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/9] dt-bindings: phy: Document ST STM32MP25 USB2-FEMTO
- PHY
-To: Marek Vasut <marex@nabladev.com>, linux-usb@vger.kernel.org
-Cc: fabrice.gasnier@foss.st.com, Pankaj Dev <pankaj.dev@st.com>,
- Rahul Kumar <rahul.kumar05@st.com>,
- =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clement.legoffic@foss.st.com>,
+Subject: Re: [PATCH v3 7/9] dt-bindings: arm: stm32: Switch
+ st,stm32mp23/25-syscfg into simple-mfd
+To: Marek Vasut <marex@nabladev.com>
+Cc: linux-usb@vger.kernel.org, fabrice.gasnier@foss.st.com,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Christian Bruel <christian.bruel@foss.st.com>,
  Conor Dooley <conor+dt@kernel.org>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Pankaj Dev <pankaj.dev@st.com>,
+ Rahul Kumar <rahul.kumar05@st.com>, Rob Herring <robh@kernel.org>,
  Rosen Penev <rosenp@gmail.com>, Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
  Vinod Koul <vkoul@kernel.org>, devicetree@vger.kernel.org,
  kernel@dh-electronics.com, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com
 References: <20260822074816.548662-1-marex@nabladev.com>
- <20260822074816.548662-2-marex@nabladev.com>
- <7a16614a-bd1b-462a-be13-4a9c22aa588e@kernel.org>
- <34c48ff1-524f-4d24-b53f-99e7171d08db@nabladev.com>
+ <20260822074816.548662-8-marex@nabladev.com>
+ <20260827-skilled-optimal-shellfish-c548e5@quoll>
+ <9b197208-dbb4-44dd-b0c0-b4dcaa57c403@nabladev.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -102,41 +101,30 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <34c48ff1-524f-4d24-b53f-99e7171d08db@nabladev.com>
+In-Reply-To: <9b197208-dbb4-44dd-b0c0-b4dcaa57c403@nabladev.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 27/08/2026 16:53, Marek Vasut wrote:
-> On 8/27/26 2:54 PM, Krzysztof Kozlowski wrote:
->> On 22/08/2026 09:46, Marek Vasut wrote:
->>> +description:
->>> +  USB2 PHY block in STM32 is attached to USB 2.0 Host controller and
->>> +  USB 2.0 side of DWC3 DRD controller, and provides the USB LS/FS/HS
->>> +  connectivity. Both PHYs are the FEMTO-PHY, but their configuration
->>> +  bits in the system control register are different for each variant.
->>> +
->>> +maintainers:
->>> +  - Fabrice Gasnier <fabrice.gasnier@foss.st.com>
->>> +  - Marek Vasut <marex@nabladev.com>
->>> +  - Pankaj Dev <pankaj.dev@st.com>
->>> +
->>> +properties:
->>> +  compatible:
->>> +    enum:
->>> +      - st,stm32mp25-usb2phy1
->>> +      - st,stm32mp25-usb2phy2
->>> +
->>> +  "#clock-cells":
->>> +    const: 1
->>> +
+On 27/08/2026 17:04, Marek Vasut wrote:
+> On 8/27/26 3:07 PM, Krzysztof Kozlowski wrote:
 >>
->> As pointed out by different patchset built on top of it, this is wrong.
+>> OTOH2, you have now patchset dependency which is nowwhere explained.
+>> Merging constraints are the most important part of cover letter so must
+>> be clearly stated. IMO, should be stated also here, because many
+>> maintainers do not read cover letters. Or just decouple dependencies
+>> with using 'compatibles' pattern (see Qualcomm msm/mdss display
+>> bindings).
+> I wonder, wouldn't it be better to write a driver which binds to 
+> st,stm32mp25-syscfg , handles the SYSCFG clock, and does some 
+> of_platform_populate() to bring up the PHYs (DT subnodes) ?
 > 
-> What is wrong in this (V3) of the patchset ? I think the ST patches were 
-> fixing up V2 and what they were fixing up is already fixed here in V3.
+> I think that would resolve the ABI break problem, since we wouldn't need 
+> the simple-mfd compatible anymore. And it would also correctly handle 
+> the SYSCFG clock.
+> 
+> What do you think ?
 
-Probably I got confused... but I had impression the ST patches were
-adding here "reg" property, no?
+Yes, it is better and more flexible approach. Solves ABI impact.
 
 Best regards,
 Krzysztof
