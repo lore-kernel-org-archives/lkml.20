@@ -1,165 +1,311 @@
-Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com [209.85.219.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CWXP265CU008.outbound.protection.outlook.com (mail-ukwestazon11020079.outbound.protection.outlook.com [52.101.195.79])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27A8B4A23
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 19:39:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787859554; cv=none; b=TCmFeRSNkvsA09GXon1V3xXEU5olgDulLO23lupqCNnpgxCOdS8fWBOE0d3tNXyRetII8DFo7agsqIlwvVF+qIvJdkONWcsKtx0nZdbo5AgNW0bdDmskAUJy6VbeZkw9uD71b3B+Uwy/CXtWEWxUmXrJymq3bVpeFGKiA/ReLcQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787859554; c=relaxed/simple;
-	bh=iPf7ChaqIsVoGcvfLFkYqgjfgPL7ty9oLZe40l5pQ94=;
-	h=Date:Message-ID:MIME-Version:Content-Type:From:To:Cc:Subject:
-	 References:In-Reply-To; b=V2QfnbnpsGn6aui5uiBkfxAblrOIgzishOgj/sN1NpPArH9FP/AY7yMfCV/+at9NrpH4VtiFrc9TRY6sbMassuOuKcBEtOkE3F7fHONZlQjPQ9YsregoTCBaRfl/nB0nUetbRFZQUFYTrY1xpJGb+4gDnfTrmC1JSk0FtKqtYQY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=HpOZ5ZZW; arc=none smtp.client-ip=209.85.219.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="HpOZ5ZZW"
-Received: by mail-qv1-f46.google.com with SMTP id 6a1803df08f44-90ce08834feso1418296d6.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:39:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=paul-moore.com; s=google; t=1787859552; x=1788464352; darn=vger.kernel.org;
-        h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
-         :content-type:mime-version:message-id:date:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mtXig1FMjrSYmMbsrTikOQfn2mLp1bwY+1B2vUa6dN4=;
-        b=HpOZ5ZZW8h78vYnfkwrPzKV8DX0KqSCR//l4g862xZTEXiKVVxyIcR2zzsem301V5o
-         P/4fPlMtdSMoYxb3tqRXMVZnPeaLd4uWE713kzq1d3jwoxdnDwKE5FuOY3gZXTJblRak
-         QQkjj5JncGdZ3w3Dq4iveA73hPubX69bFD3/I2G82ECysx4QaH/2KgUtdEPDvEFenTUZ
-         jYRhuLyJ4KzX9ZoAcjQsDbqtuBA+6TRMr+uxDibVsiMXe118kJGre5+Ic8Hx+0fusc5z
-         T/YZ+lgB4Ojagsb3774ECWnXt5iNCShHu3rzfaJJAIEAqIXHvT20aofkChCffRUTrvk/
-         fmtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787859552; x=1788464352;
-        h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
-         :content-type:mime-version:message-id:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mtXig1FMjrSYmMbsrTikOQfn2mLp1bwY+1B2vUa6dN4=;
-        b=WERm5PxztRNokOYkbmXyTI5hrw4DjfFpH0VAZx33UtwZBr133o3vXPCUE3Q6wSJoSP
-         6SxEg5BBVR7dn6W/zdqDO4VzGfKZAemCc1WoxKtd8YfhpDvs8uNXEC18mvym5U1q5QpM
-         SsfCsaX2X5Oges5EOGKq46RQDBoT05YghcpK4yRsgVWCtlK50Gq3NNK2VtFAxmip7d0r
-         mnVjzhqF440BgnGj0iehzQtwz8PhsPer5XlAsJWDV+9SSl1WDRe1tqcMYTFTeFI80upN
-         OBt+sW0qkGT5nSiQ7S9YxDD4T9y34RhfTiBwZYio2DimeVuWsZSUz+dBiVESQYZ1lPQC
-         kG2w==
-X-Forwarded-Encrypted: i=1; AHgh+RrDMsTw68BT4+jOCcHif9gWpvRFDMLoeXxvrj11JeL6fyj3wezpIdAUNT2TelMPIB3T1Zq0QYoJXYZoFuY=@vger.kernel.org
-X-Gm-Message-State: AFuF++m3ZZyOJo/1G5M7iSACIUWJWIel2la/ThPO8TjmyeZqdMdU0uj6
-	cCrQLQ9XwrE6Mam2BINF5ygyWU6n9M781HP5DeIJvuvShJjjPVq27+vFxEZ1ywa2mg==
-X-Gm-Gg: AR+sD11Cz5bvxnTQjoMABD5faurA4u9Cn17UU8ipDfgn+0Qt5ovpgUAZcK3jor4kn9M
-	+nyI8BhPzqpJyxlr1VBKs4twijIjA9WgWceD1xewSiQK0XL8zRSnoxkZCqfGrEUyBhiqAjrxsmi
-	ZhyM2HiMXKuToWvmn4yAH/jp3Y2nrZxLcOOfExnKf3TtK4lbxL/cTOHjRYOP6jRwfDvAaKa6LuI
-	WUH0ysMHozSdpH2UPrG1+NUte9u3+hNXJqSYnVZfW/6+96jNEvn6aehjQHaFu0s/joXRoBRsTEE
-	egzTgbeUA8R5zUdnQHnqOxg8q7+CrVBXC7BWofgWLZ2fmE2qMLDMrraP/4bwLKihS7ezWAm1aLO
-	wSASkuKDaJJmMyfQLx5fR1n4KDBHg8kUu+1vxFXdrrsP26Lt4z7T7CjxKVzvMija+D7kfwTXyIS
-	y43LPDE5EouA/UEmgK0MULKBNy4JQM4U9Nf/IMhOJvsv7AV7Cl4M+d55ROjWCuPehHq2fWKhTqd
-	98cFzDq8OptE/isoDFFETUR98bFXK3mvKm0kcKbB2pk
-X-Received: by 2002:a05:6214:e43:b0:908:9fd5:ed42 with SMTP id 6a1803df08f44-90ce0f06bdbmr20681366d6.28.1787859551742;
-        Thu, 27 Aug 2026 12:39:11 -0700 (PDT)
-Received: from localhost (pool-71-126-255-178.bstnma.fios.verizon.net. [71.126.255.178])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90cd73fc28dsm24026946d6.34.2026.08.27.12.39.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 12:39:10 -0700 (PDT)
-Date: Thu, 27 Aug 2026 15:39:10 -0400
-Message-ID: <5fa5ef078f41cd57d0e52ab2ab023094@paul-moore.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C417427FB9
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 19:40:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.195.79
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787859625; cv=fail; b=uGC8b6NCm3yKaCVUN/pqWYr0KgAzzZwHMFOVDfTJMGK94Voxqan7X63Y8NUV9IIjeqcYgZAbZLWv+CAI0r84TaJTpyzTawle+qrpIgw9SKciLNq1HMU8ZfhBXUG30Antz8/IjLVyu2LHEOVBzqvZJXQ4QcpKOhlLkQm7+lHaufA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787859625; c=relaxed/simple;
+	bh=zhJasRDeDGRyQfePCe5SabkL+/Jdftnm/K0mWAlhh5c=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=tGa5JT1pjaXFRF0gKad3bM+3LpMRe/q9nH3dUI/PPdv63j0dWNZhuZclyb+oxuY1ry8UgmbfAyhphLLd0Fr8kkXgvNK59+3/vkwIMN8UjBc9LLSYP7KJNgbfY7H2tE5A/27vFWkY+iaAdQKeun6DY9gzQJZX3A0tsQNITe0ut28=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.195.79
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=a7q0lBSkhqjbNBdtQz8A/0yOo/v4aTN0wx3uvESX3e8lX2NuPRG90e9Gfsgvvosp1q4UyresVpXAdxCHcYq3+0LQ4ik+yxNJGTYN6t5AyowKPXhQQPNyfvMa3q+5LN5JkaHjcoQrfelyu3oCVM/6ducDCoubo0l0qwH2Jwm4fSiD2M31SmGABXddgWFesJqL6AZFHldKShMsftTRnLb+fw6kfq5U9rZcWAHZTtBmLntM/ZgsD8fCgwdT7ZBBF0GlM3qRoKvVe7b7YoZi2LioY5fykv3soNZx4Pas3oCucH3TTySv+w8va6woRne/JXH2TOL/+kNeycNdOpl7HvAbXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=AkzT0NQEmoMyW0GY9tLLl/9RUJXDraEWhQpzbpK5abg=;
+ b=sm/pBnTWJVe+UqYyoTrmnXvSBE4PZoeLE9knVHPbSyoUHkG/dghVr0LffJpvdvzLNeN5td21d6oyPC65jAyBLmdJfZPrz5hayiVk3FKkxKtmdJrcnrloti+ZDEGVF/XFzii6Sr0yrfpEErlPPIWhXi08FsZacCdbE9LvmY5r6sIFbz/tircaiKWgjdkZmLCstRtAp3RMxA3SfPXO66/km7WK9d3S5lvICmJ5+JoCCQMx/BP8m6gSCv725Ube7RFfM5/CHdtg8WHfK1oSgJXspjeykQr/KxzoqNtYzphOtJMCCMXP6GsksUN1phivfNG/VAoW4WHfaqf1QPQoWE4a+g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
+ dkim=pass header.d=atomlin.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=atomlin.com;
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
+ by CW1P123MB7744.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:247::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
+ 2026 19:40:17 +0000
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
+ 19:40:16 +0000
+From: Aaron Tomlin <atomlin@atomlin.com>
+To: mingo@redhat.com,
+	peterz@infradead.org,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org
+Cc: paulmck@kernel.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	zhanxusheng1024@gmail.com,
+	neelx@suse.com,
+	atomlin@atomlin.com,
+	chjohnst@mail.com,
+	mproche@mail.com,
+	sean@ashe.io,
+	steve@abita.co,
+	rishil1999@outlook.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v8 0/6] Introduce per-CPU debugfs files
+Date: Thu, 27 Aug 2026 15:40:08 -0400
+Message-ID: <20260827194014.977758-1-atomlin@atomlin.com>
+X-Mailer: git-send-email 2.55.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: LO4P123CA0097.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:191::12) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:400:183::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 
-Content-Type: text/plain; charset=UTF-8 
-Content-Transfer-Encoding: 8bit 
-X-Mailer: pstg-pwork:20260827_1122/pstg-lib:20260827_1501/pstg-pwork:20260827_1122
-From: Paul Moore <paul@paul-moore.com>
-To: Karl Mehltretter <kmehltretter@gmail.com>, selinux@vger.kernel.org
-Cc: Karl Mehltretter <kmehltretter@gmail.com>, Stephen Smalley <stephen.smalley.work@gmail.com>, Ondrej Mosnacek <omosnace@redhat.com>, Miklos Szeredi <miklos@szeredi.hu>, Amir Goldstein <amir73il@gmail.com>, Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org, linux-unionfs@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] selinux: preserve user SID across nested backing files
-References: <20260820175832.44512-1-kmehltretter@gmail.com>
-In-Reply-To: <20260820175832.44512-1-kmehltretter@gmail.com>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|CW1P123MB7744:EE_
+X-MS-Office365-Filtering-Correlation-Id: ffdabfd5-4d48-409a-f526-08df0473051a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|366016|6133799003|3023799007|10067099003|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	iH3LlOxNDbZkWihxqQUFMluQnsQEGf7mo8yzw8mylM7R7EPKrG5VKXul2GYKO2Yrt5Ly/ojSTSfQ6xJhrMfCX1fu27fMv0osJDlCJtYlg8y2FCD1G6eZZBxG+SqlyI+OUfwWtFJijHSh6gihaHg2wpyPIo2EHhkYso8qqcbmEnmfTOKMwxW1VViTSrZpjezRGvvRyyGMf0bCNRCYlLoE/04IyNo3zKYpZahgcvi6GM16hMM03Jjc3ojdkga3Sk3IIHpKQKOcKVbI+YAXHFZEmqPx9xUcyeBidXffydSWVxaWU7NHChs/shoSx/ZyeVhYHZwOKX8ppZAjRIHI5E+E31b7GGWZc8NPpwOIjEdcTq+u6wkWbotEe+5/CBENQJQSEN6dVXJ8MFvkSIbPQ9+ZVbV/03sTzbG/TwqyqtNi0zDnR4DIo5i1NZX+RhTDjQc0Bd+KMX/8E8qhhd56Y9Csm0VbECmmckw571KI3Jyt1VoyVbnBZMIA6vlun8kp3oAwZ7XoU94vJOYBCZKXbtaCFz4In5Z/0MISWzOELOP1sTMHIy0gboO2dOBTxw88rF694QkQucYnmyH7Bq3x69dZzETrj4PL3tLRQUPx67uegMphEWxtsqSlbJ/6h96t9/AVJUSOMAK8vxb2oNUyKEtOmdWFyl82nApu257xmXtn0Tg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(366016)(6133799003)(3023799007)(10067099003)(56012099006)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?99CvBpeSqtzqug/ZmMcl2rVzm7z4L1ImcVneHJnls1Fx0vIjKVWyUCcrPZ6P?=
+ =?us-ascii?Q?wiHmFhcMNaT5FdxQ939GaBRNYoTo+PTh9SjTUmM7XrgcP3SR+kNpj5H1aqu/?=
+ =?us-ascii?Q?o7YfLXXoZkZSnqegy6MQ+CA4Q+18G5BRxDVe4Y8QKKoskjFnMks2YNoLdTd0?=
+ =?us-ascii?Q?KBEY5jRyvq8sitmndUyqZpm314giV9DOEuDfjqlMObuxVLu8WCn9a6Andw80?=
+ =?us-ascii?Q?1pfvWGKS445GzxMdAGyzVD0E2q7QCYe+5womoULIRMQmJ6988YeFtYbco/2p?=
+ =?us-ascii?Q?tsD4aQGi06ApF7Mnalud0EwxzdlpdjbgIy9N0QHlx4ZWha6XBb3HkK1APJEI?=
+ =?us-ascii?Q?c0q7OhyWDqaAapOU0jEk9en3UoBNeulOSv54miJ5BcX8ZMTgGzSDU0Cosb7k?=
+ =?us-ascii?Q?e/VaJyR5Aj4PLi/C8X4Ydur8wollAa6Nm7KPTu19TQVPNj78B9/XNn1PzUtz?=
+ =?us-ascii?Q?ogm0nRZwwSGbScMlNn9yFI31DID3HkGOY/cTIRKssXKcEZ9GMqTyewIUxCvO?=
+ =?us-ascii?Q?dVVY+nS2dydtXc+DCXhMTa0yMn1eRNJpv27TFr026KzlwZltaOE/EYojZzm0?=
+ =?us-ascii?Q?W04M8CcrB5spD344SUS0cmGXwd7uYHHTWGreWNe+MqCgW4p9HTLlvkEVnvic?=
+ =?us-ascii?Q?PUm01Ln8NDncrRLgPtrrdmVkJfTDNEwv2nKrMk5wLKRxbvTzgI5fSzFOT6Re?=
+ =?us-ascii?Q?Gp13XPuT9VKKWSRArUm6E5j9dcdKhMlOFdLcbV6ebWYEollfv3Wgzjzz2HmE?=
+ =?us-ascii?Q?zhAVvoN7wsiHo1UfDcLNcGviYAUMetBdvoR2+bPrZzg9IGKW1Ex7HjmJb+k7?=
+ =?us-ascii?Q?L3ZJfdIcnMK0WZdN2/yWl8BsmONdccP3gKwkOSEMz9cwvlYijYkvI1mvqr75?=
+ =?us-ascii?Q?2tbHT3s0d2caw+IWXERTnjp9OtvvECCjeewReGd7YMxSxKldOL/10goy8F4T?=
+ =?us-ascii?Q?pNx8SOtjwHzT6TGN9/WZA2bcAgAVCa9JfsN+OzA61xh6yeyRgjWARjwaFi0q?=
+ =?us-ascii?Q?kVkf4ynnC+pUEAMrY/AzIsPqkw9qb9KLfs8zLyQJOtnkkm7MpFbq8nJmkAL0?=
+ =?us-ascii?Q?u/BINtYNEnmQHSrvkoXi41h8RWNoaSQnUAXWkUzFcaXYybdSNuN9yuxr+3qS?=
+ =?us-ascii?Q?I9mdD9jC2ZUFI9iLV6q1C15x8hfFidw52RMFHV5MlnviZ8pIlFooGb6QBlm7?=
+ =?us-ascii?Q?s4jUnQBoV4gdO1nTGBNrubtaW8CIf4qOy6Zm6vOpuhXbrREgcim9XtWtfWof?=
+ =?us-ascii?Q?U9KLIp3MyThy1seslOo6b4L5sbAs6IjpjMuvDGLgIax9meTG0/LE2Px7Q+FY?=
+ =?us-ascii?Q?ri0o8owtIrqtdnS25hq9tKHrp/xmOg+BRU7+md0oG+oKuSQcxo9iAcbSeheN?=
+ =?us-ascii?Q?nbCIlmpq6r1zIJCWMXlgdEMzEj14dLxCP4dG7rJaPZKNeWKQcGZn67AIMfRN?=
+ =?us-ascii?Q?O+PqME1cXJ4kmFrd2+Kxa4NHgKX9fs0r1/fB/p81VRQ/w4EI5Seb7KcmvmRQ?=
+ =?us-ascii?Q?+X03LetrbjHLT0ydAhAU5x1NgvKnV5pkCZ7naSMJCKsJUYlrUD5WKe7XAGgP?=
+ =?us-ascii?Q?gvaiqn7PPGX+lwMPM0Z7ugXdpiz/1b/0H0a4bgb7/bLC6mQmGmpRVbU4hFS8?=
+ =?us-ascii?Q?zrsTj6uD5+/dKdjcpNKKHlfFRN4Ui40nv4y2xbaK9XUMIZnOa0RgriVk6o3x?=
+ =?us-ascii?Q?Q560Zxg3kO86fgrMJAiQ9tKj6s4hsis+QijUYADEwsEnUYHR1u1GxmIBRtdG?=
+ =?us-ascii?Q?Uzcwq7gl7w=3D=3D?=
+X-OriginatorOrg: atomlin.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ffdabfd5-4d48-409a-f526-08df0473051a
+X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 19:40:16.5530
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zQ+oa8kxUF55CYbNsO4Mjj2heHoJfrU3ZwvcN4xWpRsHCGM+Vf/gGqyRyQbj0YsjMAusGntc8/mS5aDgF6OjmQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P123MB7744
 
-On Aug 20, 2026 Karl Mehltretter <kmehltretter@gmail.com> wrote:
-> 
-> SELinux saves the user file SID in a backing-file security blob so it
-> remains available after mmap() replaces vma->vm_file with a backing file.
-> 
-> For nested backing files (overlayfs over overlayfs, or FUSE passthrough
-> backed by overlayfs), user_file may itself be a backing file.  Its
-> fsec->sid is the SID of the mounter that opened it, rather than the user
-> that opened the top-level file.  mprotect() then checks fd { use } against
-> the mounter SID.  This can incorrectly deny access without a domain
-> transition, or check the wrong target SID after one.
-> 
-> Copy the saved user SID when user_file is a backing file.  Keep using the
-> regular file SID for the first backing layer.
-> 
-> With two nested overlayfs mounts and SELinux enforcing,
-> mprotect(PROT_READ) returns EACCES with an fd { use } denial against the
-> mounter SID.  With this change, mprotect() succeeds.
-> 
-> Fixes: 82544d36b172 ("selinux: fix overlayfs mmap() and mprotect() access checks")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Codex:gpt-5.6-sol
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> Reviewed-by: Amir Goldstein <amir73il@gmail.com>
-> ---
-> Changes in v2:
-> - Add selinux_file_user_sid() helper instead of open-coding the lookup
->   (Amir).
-> 
-> Tested on arm64 QEMU at fd6e2388a3ea with SELinux enforcing and two
-> nested overlayfs mounts. The policy omitted only
-> base_t -> mounter_t:fd { use } among the relevant cross-domain allows:
-> 
->   baseline: mprotect(PROT_READ) returned EACCES with that denial
->   patched:  mprotect(PROT_READ) succeeded; test exited 0
+Hi Peter, Juri, Ingo, Vincent,
 
-If you could share the distro and some more details on the testing
-methodology that would be helpful.
+This patch series addresses a few pre-existing memory safety and list
+traversal concurrency issues in scheduler debugfs handlers, and introduces
+per-CPU debugfs files under /sys/kernel/debug/sched/cpu/cpu<N>/debug.
 
-> This patch fixes SID propagation only. backing_file_user_path() still
-> resolves to the middle layer for a nested mapping, so the audit path and
-> inode do not correspond to uf_sid, and that layer's mounter is not
-> re-checked. Preserving the full user path likely needs a VFS-side change,
-> such as having backing_file_open() store file_user_path(user_file).
+Patch 1 introduces a prerequisite patch that annotates struct rq's rd
+(root_domain) pointer with __rcu in kernel/sched/sched.h and introduces the
+rcu_dereference_root_domain() helper macro (i.e., mirroring
+rcu_dereference_sched_domain()), updating readers across the scheduler
+subsystem to ensure Sparse compliance, correct memory ordering, and clean
+Lockdep-RCU validation under both sched_domains_mutex and RCU-sched
+contexts.
 
-Additional comments below, and while this patch is useful in fixing some
-of the problems (thank you!), we obviously need to fix the others as
-well.  Is this something you think you will be able to work on?
+Patch 2 fixes a use-after-free in print_dl_rq() where cpu_rq(cpu)->rd is
+dereferenced locklessly to display deadline bandwidth statistics. During
+CPU hot-unplug or cgroup cpuset repartitioning events,
+partition_sched_domains() calls rq_attach_root() to detach the CPU from its
+root_domain and schedules free_rootdomain() via call_rcu(). Without an RCU
+read lock, an RCU grace period can resolve concurrently while debugfs reads
+the file, allowing free_rootdomain() to execute kfree() and causing a
+use-after-free when reading dl_bw->bw. This patch adds rcu_assign_pointer()
+on the writer side in rq_attach_root() and uses guard(rcu)() with
+rcu_dereference() in print_dl_rq().
 
-> diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-> index 1ead2eee1944..171b90412ff1 100644
-> --- a/security/selinux/hooks.c
-> +++ b/security/selinux/hooks.c
-> @@ -3843,13 +3843,20 @@ static int selinux_file_alloc_security(struct file *file)
->  	return 0;
->  }
->  
-> +static inline u32 selinux_file_user_sid(const struct file *file)
-> +{
-> +	if (unlikely(file->f_mode & FMODE_BACKING))
-> +		return selinux_backing_file(file)->uf_sid;
-> +	return selinux_file(file)->sid;
-> +}
+Patch 3 fixes a potential use-after-free in print_cpu() where rq->curr is
+dereferenced locklessly to output the running task's PID. If the task exits
+concurrently and its reference count drops to zero, put_task_struct()
+schedules __put_task_struct_rcu_cb() via call_rcu(). Without holding an RCU
+read lock, an RCU grace period can elapse concurrently and free the task
+structure via free_task(), leading to a use-after-free race condition. This
+patch protects rq->curr access using rcu_dereference() inside an RCU
+read-side critical section.
 
-I'm a little concerned that this only works for one additional level of
-filesystem stacking.  Yes, I know that OVL_MAX_NESTING and
-FILESYSTEM_MAX_STACK_DEPTH are currently set at "2", but it's not an
-unreasonable concern that at some point in the future that number will
-increase without proper notification or testing and we will once again
-have a problem.
+Patch 4 fixes both a time-of-check to time-of-use race condition and a
+potential use-after-free in sched_show_numa(), where p->mm is checked
+locklessly and then passed to P(mm->numa_scan_seq). If the task exits
+concurrently via exit_mm(p), current->mm is set to NULL under task_lock(p)
+before mmput() is called to free the struct mm_struct. Wrapping the p->mm
+check and dereference in task_lock(p) eliminates both hazards.
 
-At the absolute minimum we should have a BUILD_BUG_ON() for the stacking
-depth.  It would be good if we could watch both the overlayfs and vfs
-constants, but the overlayfs constant isn't available outside
-fs/overlayfs/inode.c (thankfully it is currently set to the vfs limit).
+Patch 5 fixes an RCU traversal violation in print_cfs_stats() where
+rq->leaf_cfs_rq_list is traversed locklessly using
+for_each_leaf_cfs_rq_safe(), which expands to list_for_each_entry_safe().
+Although leaf_cfs_rq_list is modified using list_add_rcu(),
+list_for_each_entry_safe() lacks READ_ONCE() and pre-fetches the next
+pointer without memory barriers. Furthermore, because cfs_rq nodes are
+re-linked on enqueue/dequeue without waiting for RCU grace periods,
+concurrent list churn can cause backward jumps or infinite loops. This
+patch introduces for_each_leaf_cfs_rq_rcu() using guard(rcu)(), bounds
+traversal with a per-CPU circuit-breaker ceiling, and emits an explicit
+truncation notice if the ceiling is reached.
 
-  BUIILD_BUG_ON(FILESYSTEM_MAX_STACK_DEPTH > 2);
+Patch 6 introduces per-CPU debugfs entries under
+/sys/kernel/debug/sched/cpu/cpu<N>/debug, allowing targeted inspection of
+an individual CPU's runqueue on demand. If the target CPU is currently
+offline, reading its file returns -ENODEV.
 
-Ideally, the code would be written to keep diving down the stack until
-it hit the true backing file.  No one likes to see recursion, but at the
-point where this function is called there should already be a reasonable
-bound on the stacking depth and the work involved.
+Changes since v7:
 
---
-paul-moore.com
+ - Removed incorrect rcu_dereference_protected() usages with
+   lockdep_is_held(&rq->__lock) in favour of a newly introduced
+   rcu_dereference_root_domain() helper, properly validating access under
+   either sched_domains_mutex or RCU-sched read-side critical sections
+   (Peter Zijlstra)
+
+ - Restored the comment in check_update_overutilized_status() in
+   kernel/sched/fair.c (Vincent Guittot)
+
+ - Linked to v7: https://lore.kernel.org/lkml/20260826224238.936456-1-atomlin@atomlin.com/
+
+Changes since v6:
+
+ - Updated rq->rd accessors across kernel/sched/ to use
+   rcu_dereference_sched() for lockless readers and
+   rcu_dereference_protected() for lock-held paths, eliminating false
+   Lockdep-RCU warnings under CONFIG_PROVE_RCU and all Sparse noderef
+   warnings
+
+ - Removed the __printf(3, 4) attribute from the !CONFIG_CGROUP_SCHED
+   fallback stub of SEQ_printf_task_group_path() in kernel/sched/sched.h to
+   prevent -Wformat build errors when CONFIG_CGROUP_SCHED is disabled
+  
+ - Expanded the commit changelog to clarify the per-CPU scope of
+   SCHED_DEBUG_MAX_ITER and the RCU memory safety guarantees for recycled
+   cfs_rq nodes
+
+ - Linked to v6: https://lore.kernel.org/lkml/20260825184637.888364-1-atomlin@atomlin.com/
+
+Changes since v5:
+
+ - Rebased against tip/sched/core (sched-core-2026-08-17)
+
+ - Linked to v5: https://lore.kernel.org/lkml/20260825141413.868997-1-atomlin@atomlin.com/
+
+Changes since v4:
+
+ - Added a new prerequisite patch to annotate struct rq's rd field with
+   __rcu and updated lockless readers to use
+   rcu_dereference()/rcu_dereference_sched()
+
+ - Updated print_dl_rq() to use guard(rcu)() and rcu_dereference() on
+   rq->rd (Daniel Vacek and K Prateek Nayak)
+
+ - Replaced READ_ONCE(p->mm) with task_lock(p)/task_unlock(p) in
+   sched_show_numa() to prevent use-after-free against concurrent exit_mm()
+   and mmput()
+
+ - Updated print_cfs_stats() to use guard(rcu)()
+
+ - Increased SCHED_DEBUG_MAX_ITER from 1024 to 4096 and added an explicit
+   truncation notice
+
+ - Moved SEQ_printf() and SEQ_printf_task_group_path() to
+   kernel/sched/sched.h, replaced strcpy() with strscpy(), and used
+   IS_ENABLED(CONFIG_FAIR_GROUP_SCHED) with a typed static inline fallback
+   stub
+
+ - Corrected the "Fixes:" commit tag in Patch 5 to 039ae8bcf7a5 ("sched/fair:
+   Fix O(nr_cgroups) in the load balancing path")
+
+ - Linked to v4: https://lore.kernel.org/lkml/20260810015812.428999-1-atomlin@atomlin.com/
+
+Changes since v3:
+
+ - Updated Patch 1 to use rcu_dereference(rq->curr) instead of READ_ONCE()
+   to preserve __rcu
+
+ - Added missing writer-side RCU publication barrier (rcu_assign_pointer())
+   in rq_attach_root() for Patch 2
+
+ - Added Patch 3 to fix a TOCTOU condition in sched_show_numa() using
+   READ_ONCE(p->mm)
+
+ - Added a safety iteration ceiling in print_cfs_stats() for Patch 4 to
+   prevent unbounded list iteration and RCU stalls under heavy
+   leaf_cfs_rq_list churn
+
+ - Linked to v3: https://lore.kernel.org/lkml/20260808235522.380038-1-atomlin@atomlin.com/
+
+Changes since v2:
+
+ - Protected lockless rq->curr dereferencing in print_cpu() with
+   rcu_read_lock() and READ_ONCE()
+
+ - Protected lockless rq->rd dereferencing in print_dl_rq() against CPU
+   hot-unplug and cgroup cpuset repartitioning races
+
+ - Introduced for_each_leaf_cfs_rq_rcu() using list_for_each_entry_rcu()
+   for lockless leaf_cfs_rq_list iteration
+
+ - Linked to v2: https://lore.kernel.org/lkml/20260728205238.18447-1-atomlin@atomlin.com/
+
+Changes since v1:
+
+ - Reframed commit message motivation around targeted interactive
+   debugging on large SMP topologies (Peter Zijlstra and Zhan Xusheng)
+
+ - Gated sched_debug_cpu_show() with a cpu_online(cpu) check
+   returning -ENODEV when target CPU is offline (Zhan Xusheng)
+
+ - Linked to v1: https://lore.kernel.org/lkml/20260728020309.6169-1-atomlin@atomlin.com/
+
+Aaron Tomlin (6):
+  sched: Annotate rq->rd with __rcu and update lockless readers
+  sched/debug: Protect lockless rq->rd access in print_dl_rq()
+  sched/debug: Protect lockless rq->curr access in print_cpu()
+  sched/debug: Protect p->mm access in sched_show_numa()
+  sched/fair: Use list_for_each_entry_rcu() in print_cfs_stats()
+  sched/debug: Introduce per-CPU debugfs files
+
+ kernel/sched/core.c     | 24 +++++++----
+ kernel/sched/deadline.c | 76 ++++++++++++++++++----------------
+ kernel/sched/debug.c    | 92 ++++++++++++++++++++++++-----------------
+ kernel/sched/fair.c     | 60 ++++++++++++++++++++-------
+ kernel/sched/rt.c       | 64 ++++++++++++++++------------
+ kernel/sched/sched.h    | 56 ++++++++++++++++++++++++-
+ kernel/sched/topology.c | 13 +++---
+ 7 files changed, 255 insertions(+), 130 deletions(-)
+
+
+base-commit: 68e37487810a3da43c48340fab7a55b3b6efdae3
+-- 
+2.55.0
+
