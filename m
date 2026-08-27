@@ -1,202 +1,362 @@
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com [209.85.160.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B68D4A23;
-	Thu, 27 Aug 2026 06:17:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=210.61.82.184
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787811452; cv=fail; b=dP2YmlUuDzil7EJjNx0o3jyqp3A1hRnFWEOcwb1BKoOPox7SS+Y3qiBsx6JjNkGIMZpSZFdJW2f5cJqwC26hUFC8RgtbFjq6omEv5n5jHO4jmWwSVdNmw6+exhN1ADP6+bU0VQXFXKE4vfM/MqcPJUOCWST7P3avpayt/Br0g4U=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787811452; c=relaxed/simple;
-	bh=1ji0DWZ4DH+zZCWxV3jvfT+oyXKohwDLDO5LuM49mos=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=iRMYEa5+broz5kT44gzLniqgPdDDhiHkLQMo9UhBQjF3ZbLo9E/kZ8/vbKjldxkaqTp8w6C4449M96kEoFhRnQsEAw5Rq3G2vZCwVZ+HfML2Ta+WMeX1p+nBhT6o33S/wayqS8KfHcHkqbrCQcujiL+LqLf4xQJhzLgq0LmOm5Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=MoRLmexf; dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b=gXucx+ht; arc=fail smtp.client-ip=210.61.82.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="MoRLmexf";
-	dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b="gXucx+ht"
-X-UUID: f8732834a1de11f18dc8c9802ae25ab1-20260827
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From; bh=1ji0DWZ4DH+zZCWxV3jvfT+oyXKohwDLDO5LuM49mos=;
-	b=MoRLmexfwbFWLdenG04hS/DVCHcHr5w7RGPmhScxZ9nWsQf6f3II1AMcWmsD+N5zQFtYuvhyfSV5NuNjloAzUs9A2R7B8cpW4uyZUSb/LmcxkbO/8r+R69+xXhuFJYP1ZqH+X3R+bnKgG2uLFg8u4VwsrxP0JEu7o7JNbdeBJRs=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:37300430-be24-4c32-bf31-9b3ca7175b80,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:e3423dc3-610e-480f-b463-9bb53aa0aeaf,B
-	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|110|111|836|865|888|898,TC:-5,
-	Content:0|15|50|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-
-	1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: f8732834a1de11f18dc8c9802ae25ab1-20260827
-Received: from mtkmbs14n2.mediatek.inc [(172.21.101.76)] by mailgw02.mediatek.com
-	(envelope-from <ck.hu@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 82667352; Thu, 27 Aug 2026 14:17:24 +0800
-Received: from mtkmbs10n2.mediatek.inc (172.21.101.183) by
- mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Thu, 27 Aug 2026 14:17:23 +0800
-Received: from SI4PR04CU002.outbound.protection.outlook.com (172.21.101.237)
- by mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Thu, 27 Aug 2026 14:17:23 +0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eShvDUTvD9mGc3K7AtmQR4jXp3n6xLzmuswOIdW+43VRqWzSOpZ/iSRQJaJKrbBuTF6MJ9BQWc4yvDMotmBJAGbgikKWrf5TdaH37I+oMHDaU58qlt5bdbDfZCD80eCutKMet0UI8HJjKYvsRiPrevs9V/3fR9nSO5XnTrOegzFREDRUFQurfXqT3akmzyI4B2X8Gn6wC31Kha1FzfBmtMrhO+0UyZeZschnuuKnMCvtownXmNO/JlIGxtoWzWE1ilqnWvGSUUoM/PsdtvE4adVh6EQ0am1BoZ0EtG8VEd6JPNAV65jvIkFvIWAYs6SktphzPXSyan/NelqgJqH0DA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1ji0DWZ4DH+zZCWxV3jvfT+oyXKohwDLDO5LuM49mos=;
- b=oxX6ZcIBU+seyY+f0Uochc365oTYD0pGWkROQCLMOT2HC3f/9ISQVVLj6aM2jjtlh7xXdxw10wHbS8JTVNq3azZOuXiC/WPzKVyfuO4cbzSXYUIYxokVeuUJrzL8XiooeRV4o649nzEZtBWU4D3gIj5lcLHWUxgQzuOfvXPTH1a4wpG5N2QS64y8LXjOS96ijoqTF+O7E9NqrlDcv7H6Az4JLyP3prcgdW2JkJKWtlzqILh7b6nvrDgrybtJIfdFPyCUm7voB0B2+nAOvQSF7/UYHk66nYqrqt9r3pg/xP72yv0ZZsELNb+t7oneDR/CHXCY8O2KnByaNi4cFplk4w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
- dkim=pass header.d=mediatek.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1ji0DWZ4DH+zZCWxV3jvfT+oyXKohwDLDO5LuM49mos=;
- b=gXucx+htl053Q832olK+GWU+ZbHTSPzrOOJBiWiCiNj0qreBJ/tg4h/mAr5+/Q3lWPPC/Ys/b4j8JQ04v9J2z8xjcPMxwz16e9PfyJ3MatLrATXI2dRyAMO5932uI9mWgdA7917HH0vYm1zBscl7/Iaofo3W2yQQpbVewfC/z0I=
-Received: from TYZPR03MB6624.apcprd03.prod.outlook.com (2603:1096:400:1f4::13)
- by SEZPR03MB7297.apcprd03.prod.outlook.com (2603:1096:101:12e::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.8; Thu, 27 Aug
- 2026 06:17:16 +0000
-Received: from TYZPR03MB6624.apcprd03.prod.outlook.com
- ([fe80::a3c2:b94a:70f:e640]) by TYZPR03MB6624.apcprd03.prod.outlook.com
- ([fe80::a3c2:b94a:70f:e640%4]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
- 06:17:15 +0000
-From: =?utf-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	"chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>
-CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
-	"kernel@collabora.com" <kernel@collabora.com>, "robh@kernel.org"
-	<robh@kernel.org>, Alexandre Mergnat <amergnat@baylibre.com>,
-	"tzimmermann@suse.de" <tzimmermann@suse.de>, "dmitry.osipenko@collabora.com"
-	<dmitry.osipenko@collabora.com>, =?utf-8?B?Sml0YW8gU2hpICjnn7PorrDmtpsp?=
-	<jitao.shi@mediatek.com>, "simona@ffwll.ch" <simona@ffwll.ch>,
-	"mripard@kernel.org" <mripard@kernel.org>,
-	"maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
-	=?utf-8?B?SmFzb24tSkggTGluICjmnpfnnb/npaUp?= <Jason-JH.Lin@mediatek.com>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "granquet@baylibre.com"
-	<granquet@baylibre.com>, "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
-	"airlied@gmail.com" <airlied@gmail.com>,
-	=?utf-8?B?SnVzdGluIFllaCAo6JGJ6Iux6IyCKQ==?= <Justin.Yeh@mediatek.com>,
-	"matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>,
-	=?utf-8?B?UmV4LUJDIENoZW4gKOmZs+afj+i+sCk=?= <Rex-BC.Chen@mediatek.com>
-Subject: Re: [PATCH v4 02/12] dt-bindings: display: mediatek: dp: Add
- compatible for MT8196 eDP
-Thread-Topic: [PATCH v4 02/12] dt-bindings: display: mediatek: dp: Add
- compatible for MT8196 eDP
-Thread-Index: AQHdD5arL7CCoF0PIkGysy/5ed2qS7axuDoA
-Date: Thu, 27 Aug 2026 06:17:15 +0000
-Message-ID: <c5bb863bb324d6ae6291cf4b9d7236208239f5b8.camel@mediatek.com>
-References: <20260709113148.49090-1-angelogioacchino.delregno@collabora.com>
-	 <20260709113148.49090-3-angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20260709113148.49090-3-angelogioacchino.delregno@collabora.com>
-Accept-Language: zh-TW, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Evolution 3.52.3-0ubuntu1 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mediatek.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TYZPR03MB6624:EE_|SEZPR03MB7297:EE_
-x-ms-office365-filtering-correlation-id: 4b38e7ac-517b-471d-e4e8-08df0402d744
-x-ld-processed: a7687ede-7a6b-4ef6-bace-642f677fbe31,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|366016|42112799006|38070700021|56012099006|10067099003|11063799006|4143699003|22082099003|18002099003;
-x-microsoft-antispam-message-info: Ls3VCBA+rA/Qx3m9aoFpaRqemQlMPHm5Ew7TWTbiRNOuMxP7OYb1nNeNH629EGGk5B3Ca/ibMvIN1xEIDdhNSDRr78uOiNPsSrPtKbVh/qS1shcQnp5eZoCMKb3wtT0lKUXUQoW68YM9TR+YYJiCpeCkPBLffuRiJlp5GDxYuc4g3Uy43zHnwYdXvk0e/iudHVy9PAX/Ka1ORnFWtwILTxXb1h9TABUhio6itvYwC2n/GPka72db7Tv5me/8EJC4bJ09cMPf20bhiOjfvNzmeOV0+py6omMLhirFDfRnKCSLoUWL1kC4Aq4Oqzq6X4INvoHo1U63QzKag+0MG6+PnFRO9gXIpgCNXyCM/lnJzlW7+oWUnAB0C8KSI2C04Sm8+60rsZfWryNo2jnKbO96qUp7PvWICuQhcUlpNjpzd3+tx/6r70otb8RFDLu5pELuO8mhU7iB0pdRe+3SAAdg8deH9GLWEPISNIE3vxmz05Mg47wIcFly/CdZAnkb9hYJ8tjsktO2S66b57sBYMuQ4Ejtu1nURKtdcEKveDMq7kLiDAXI1as8nuM1cEs9t8yiWO+GU3mE2oQMZ/wyB5qlp0zGP8Dze1Ez0/1+39Xc3Rj72zBOiZcIZLMjFuKX64AflojzJoIyZV6WvtVHouw+bRIpAz4JFE9FzQLBSPNHqnk7dW/F9iNNIOgPM6z+axZqbX3kd6Qw4S2SMSDOQ/ngtuIPLHtwOWJVSAWHwj80Fws=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYZPR03MB6624.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(366016)(42112799006)(38070700021)(56012099006)(10067099003)(11063799006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?QnhUS3p3eEpNWmhTZXlQZDhvK2tyVDFuMytaNUdIakVpbkdTa2xPK3lQWUpM?=
- =?utf-8?B?cDJHT3dPWXpNSSt4UWlqdkFkSC94V1Jkc1ZCUUFXNWtIelZsbWJZM28vOGpW?=
- =?utf-8?B?R0tONmtZbnVwVUY1UjRhTyt3enhEdVJDL3hrWVZQN0ErZ0JPYmQ2U1BnTTFD?=
- =?utf-8?B?T0QyWTdWaXN6MmhXalFLRWlraTFjbG10czNIeC9QRkpKRVRQZnNHelRqK2Y3?=
- =?utf-8?B?eDQ4TVRUN0F0OTdUeUJ6c3ZWUFgwbmFsYXhnQkdrY2Z1RW16NlNOMm9CNXNM?=
- =?utf-8?B?cmZPS3NBajRsZ3IrbkhNandQOWNLYloxczdvRnhTNEFXRWVVMGZLOWFCQ0Zo?=
- =?utf-8?B?Y3Z2TzJYT0g4ZWdNbGFROU1xVUJ1UFZKeml3anFuYmpHNnNTWi9WTXJpTllY?=
- =?utf-8?B?c0x6R3lUeFZxUHJLU1l0Sk1qWlpLdGlPRGFBa3d4SDIybzFLdTFkZVYvT0Zx?=
- =?utf-8?B?cEp3VzJiRnlLQ3NyMllzWmNqWHNpWG1CNjZIckN6UUNZOG5ja3JLQXJ4d3RT?=
- =?utf-8?B?NFBBVnR4b3I3UU9FRXN3bkZpTHNpQXRRMGZHNGFYT0JZcllYMnl3NUZoVWV3?=
- =?utf-8?B?UnBiVkJlNy95clJ4U2EzNTJZZis5U0pqTVF2c3d5RFVFZDRuQ0NHMm1oemlT?=
- =?utf-8?B?S2RnYWlENTk4RmVpMGJ6VElsNkp0OEE3ZlcvWUxZUER1ajNnTDRJNUVoN1Ft?=
- =?utf-8?B?enFob1dIV3AxbStKaVVPVmxabWp4aEZXRjJmTU5oSkFRM1hVKzliWlgwcmVL?=
- =?utf-8?B?U1JDOTJvWkI2OTRxRC9JSG81SUovekdYOTlqQWZBdUhhaTFJblhOOGxBRXMx?=
- =?utf-8?B?andzTjFDSU9lbDBSYUk1dTdHK3E1M2RYdEdNL2pvdkw4aW5yeVY3a1l5ODJi?=
- =?utf-8?B?akk0RmNFZm5nK1Rsd3dIRGx6MXpMamxOL1g4d0Y0MmhUdU5mR2kxenRQOCtF?=
- =?utf-8?B?NUhrZDc5MVQyR0FvVXFUS0xPdENHbTVCSlZLNm5rNVlSQ0phWVF1dk5pekNz?=
- =?utf-8?B?MG1hbkdkNkZoaC9QVXhub3J3a0Z2czBBeXMxK05LTnBGazRiRUFTRGhUdUtz?=
- =?utf-8?B?c0w0a1hzTXZEbkdNSzNKOTE4aG92Z2tERGczelAyNXhyYm1EVFRPTWt5NWEy?=
- =?utf-8?B?am13bm1rcmlGaGZXV040Rm1LR3J4K3ViUjFsUjZoSE1pZ3E5UHVhbENBc2M3?=
- =?utf-8?B?c2tqSFZETFcxWVUwekg1Lzh1ZTZESnk1K2VHRXM0YStoMmpRWmVXVndIaVE3?=
- =?utf-8?B?cld1TjQ4eG01bDhEWE1LYXRXelFLWDZYdDVtSVJrcUNOK2k5a09UOEtwd3hm?=
- =?utf-8?B?ekpaa3pwNmRuMFE1eXQ4VVNBSXBDWXgxYzlGWnQ4Z3lhZmhrMy9ESU04UUsr?=
- =?utf-8?B?MUYxd3ZBblRrN2ZQT1hvNzRRWVZDd1FRdkhuS00xR2hXa0hDNFZ5UCt4eTRS?=
- =?utf-8?B?czBVZEZZM04xQ1V5NFJNWWxGMW9TZzRPaEhobm1KdW1GelNrcWkrRnRzSFJC?=
- =?utf-8?B?WXg5TkVNWDMzZUJBR0hyamNKR0Y4NGV4Ym9NQnpTOGEwOEliWURRU0JjR2kx?=
- =?utf-8?B?ZFhyMGNuMnZabUY0SGlHaEVXQXVmZTY4N29xR0UzZVRFVURaOVUwdm55WHg1?=
- =?utf-8?B?Z3VsSjFYWTkyUVFFNzUrM0MvL2dhbDF0czRmbkU5a0JqWHAyMThhcU5uNkxC?=
- =?utf-8?B?U2RVaVJXNnMrU2NSYk5GSHNKN0Q4OEt5dE9XamhMNFg5QnZTZGhnYVZrY2ta?=
- =?utf-8?B?aVJVYUpkN0NGTUJNSTA0UlErcmUzdTBvOVNGa2JzbkNLa2dDamN0aG5FUGpx?=
- =?utf-8?B?VU5hOUpmMjRJMW5RQjhjSkl1VUpRdVJVamtQQ3lNZmtYdGJNM2hXdk8wRjZY?=
- =?utf-8?B?bGhiaXRJMy85QUh3Y2ZYTkNYRTk1Ny9qTVlqZUJwN1F6aEJlMGlKeEtxTTYv?=
- =?utf-8?B?RUJyVnlmVGVkSklHMjBVbnhKbzdJaFN1TlpPZTgyK2xML1FnNFByeEQyV0pr?=
- =?utf-8?B?N1FyTXpsUUlCcGlvWXJDMjFBZy9rcFdCWS84dUFKbmRqd1dHZzZPeXZUN1kx?=
- =?utf-8?B?VW9ic3N0UW5oUkI2K3p5UUV4aWNuK1JVQnMxa25TR0FjLzBnM2w1eVA2a1d0?=
- =?utf-8?B?WEh2NitZdEg1TnRxcGE1bWExRXQwcVpzUzMzcGNkL0d6SS9Vci81elMrT2lh?=
- =?utf-8?B?Zk12S0gvVElqaFo0T0tXdm5PV2F2Z0hFTVNnYUYvQXpzYitnUWEwc3ZPbzZw?=
- =?utf-8?B?S3JLWHVkbWtjZWdieTRpY3lEdkFtd09MUXhJZFZMb1F0eTVYQTVaYU9SRU1a?=
- =?utf-8?B?QmcwTGtBNDhPVHFnZzVZdUt2eXM4dHU2ZGpkbmRQbDJ5aytxdFArUT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <35837676674E3B469A0854AA2EE81BFF@apcprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B35A2931FF
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:21:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.72
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787811667; cv=none; b=u4jqMP4wTTS9K1l4qJlpyDwj85dZ6dLNGElGfcfyMBaxkTkebMIAAx6fkCGyWIZjNkubgldtpIgJfLKzrZsm9lWO6uqz6djJNmiPcBsmwS5YPBE3Xq2T6k6GrdTW8z4RGvo8N53UefNKbylay4SJCxwxaGpiM4+I/j+g6asQVtM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787811667; c=relaxed/simple;
+	bh=7i+6bXBzesU5+ozNMIvi8ydZGTiGz8duOAXWoA19Kgo=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=qoV/QP/G+tWnflaMbCA2U5kqEFCy2UCJMX7pRvD/wG3QeRZoy3n39BmmJQ85W0CYSZShYkBeAkPu2TgW9gl/hj9jAvwz6NisautUnZRYbzvVjEOEENFXvAltJwajKeTNf6qcd2T8WAhFLgQzD73guYu4F6ACMwmZzATwntgcx10=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-463ddb3b4f7so2402161fac.0
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 23:21:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787811664; x=1788416464;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=rSmIE+XnvWRAVD1SDx5r5GNoYowf1FIchYmEzE7pVKM=;
+        b=XYAKwX5dNmwYl+etlzKQG2Oem/wNuzfCtSi8F2VReSE6isIooAuDEtOFL03QceCESN
+         zjMfPoQTjMJvz0GvDoEjSXQu9LUgeA8B7DBVQvPlsgDInYO637yT1IsSxJhcDkVzQEnK
+         n8mj/0KsueYG5JZQY9AFnN+n7YRMkYV5Nl8yBeNcnQiILAHos1fWB/36e4Wnz9+eX8tH
+         TkKOrisbzAY2/jmaau79jTsR1d1GiNLGcasXRMFQZwQWNpeRG2YT3VvnVQ9aeK/leXCQ
+         u0+QBusNo5bQwUP4beFm40QZA7Jy6iVxYlMu0WnSv2cC+1d0cAHHiP7bxD4fpSIZC4qI
+         PGzw==
+X-Forwarded-Encrypted: i=1; AHgh+RrXPVlKvvjQYLr2FB/7+ylE9r0I0jHjQtgVxhawQe1f5+yPDUOacEIGGuODDm4PQVVhJ6MH1nj75R8aYoQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lJ/fuY9gcieOEeCJMTd7AoD4ShqQe9BFsoY6vSOktuW+e495VC
+	cT9ZQ/fIuUFgMXx4q3382G46EHKlvmzBTwLHrPY9bit5TiFKXYrucwpspKE4mv6WjgLNgVTRiHL
+	sb/t79ic0XBZzMO98ce5lzHOEHlJH3sOYcmwJb49a+9gUKea04vna0JlMK9w=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: oxFgNdc2urR+WuyOM4UujOaOcvF2onspF+X89BByloxPr1D9H7hXIGszDVBT6n6lYw1ZCJnS31weZSWrYUVJGZ7Ibu+vpXPU6832ZI42bpr+Guw7KT3iOGjAlzf81T2M0azBebdLLSXaFT9GxRtzCpTQ/B5WroQ89eZS8+cVqam1hFf+MAw1n/nWVzym5dBhLy6PYkZnwQAqRQpfaunp7h4O89zpqmzViWkKQQoDuz2LwReE+sgfv9AL6O0axw7zRsfgSqKmQ44IDvpWzjIiA7BNnPiUFJi7W/R0v8vOZfT7DY6q89wajIhL+1PkHFFcpm+Q2ZfNMlBP/jBqikq0eA==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB6624.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4b38e7ac-517b-471d-e4e8-08df0402d744
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Aug 2026 06:17:15.7499
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: rWu73uuZpbB/3TyZdTIoK0HQOpF0sXOZG8TfNmbGHx6DrDBCZ6/4r26/7q5hHPVVr/tTpXIGUiH7Z68Z70EL8A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR03MB7297
-X-MTK: N
+X-Received: by 2002:a05:6820:561c:b0:6b1:9f9d:79f3 with SMTP id
+ 006d021491bc7-6b1a049aa50mr7244587eaf.17.1787811663746; Wed, 26 Aug 2026
+ 23:21:03 -0700 (PDT)
+Date: Wed, 26 Aug 2026 23:21:03 -0700
+In-Reply-To: <20260827060314.1793-1-hdanton@sina.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a8fd74f.4d659fcc.734b4.000c.GAE@google.com>
+Subject: Re: [syzbot] [kernfs?] possible deadlock in kernfs_link_sibling (2)
+From: syzbot <syzbot+dd764a450d93885d847f@syzkaller.appspotmail.com>
+To: hdanton@sina.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-T24gVGh1LCAyMDI2LTA3LTA5IGF0IDEzOjMxICswMjAwLCBBbmdlbG9HaW9hY2NoaW5vIERlbCBS
-ZWdubyB3cm90ZToNCj4gQWRkIGEgbmV3IGNvbXBhdGlibGUgZm9yIHRoZSBFbWJlZGRlZCBEaXNw
-bGF5UG9ydCBJUCBmb3VuZCBpbiB0aGUNCj4gTVQ4MTk2IFNvQy4NCj4gDQo+IFRoaXMgSVAgaXMg
-Y29tcGF0aWJsZSB3aXRoIHRoZSBwcmV2aW91cyBvbmVzLCBidXQgbm90IGZ1bGx5Lg0KDQpSZXZp
-ZXdlZC1ieTogQ0sgSHUgPGNrLmh1QG1lZGlhdGVrLmNvbT4NCg0KPiANCj4gU2lnbmVkLW9mZi1i
-eTogQW5nZWxvR2lvYWNjaGlubyBEZWwgUmVnbm8gPGFuZ2Vsb2dpb2FjY2hpbm8uZGVscmVnbm9A
-Y29sbGFib3JhLmNvbT4NCj4gLS0tDQo+ICAuLi4vZGV2aWNldHJlZS9iaW5kaW5ncy9kaXNwbGF5
-L21lZGlhdGVrL21lZGlhdGVrLGRwLnlhbWwgICAgICAgIHwgMSArDQo+ICAxIGZpbGUgY2hhbmdl
-ZCwgMSBpbnNlcnRpb24oKykNCj4gDQo+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2Rldmlj
-ZXRyZWUvYmluZGluZ3MvZGlzcGxheS9tZWRpYXRlay9tZWRpYXRlayxkcC55YW1sIGIvRG9jdW1l
-bnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvbWVkaWF0ZWsvbWVkaWF0ZWssZHAu
-eWFtbA0KPiBpbmRleCA5ODBmNzY2NjdhZGEuLjNhNzUyYTk5OTQ5YSAxMDA2NDQNCj4gLS0tIGEv
-RG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvbWVkaWF0ZWsvbWVkaWF0
-ZWssZHAueWFtbA0KPiArKysgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvZGlz
-cGxheS9tZWRpYXRlay9tZWRpYXRlayxkcC55YW1sDQo+IEBAIC0yNSw2ICsyNSw3IEBAIHByb3Bl
-cnRpZXM6DQo+ICAgICAgICAtIG1lZGlhdGVrLG10ODE4OC1lZHAtdHgNCj4gICAgICAgIC0gbWVk
-aWF0ZWssbXQ4MTk1LWRwLXR4DQo+ICAgICAgICAtIG1lZGlhdGVrLG10ODE5NS1lZHAtdHgNCj4g
-KyAgICAgIC0gbWVkaWF0ZWssbXQ4MTk2LWVkcC10eA0KPiAgDQo+ICAgIHJlZzoNCj4gICAgICBt
-YXhJdGVtczogMQ0KDQo=
+Hello,
+
+syzbot has tested the proposed patch but the reproducer is still triggering an issue:
+possible deadlock in kernfs_link_sibling
+
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Not tainted
+------------------------------------------------------
+kworker/0:4/5891 is trying to acquire lock:
+ffff88801d6a5a10 (&root->kernfs_iattr_rwsem){++++}-{4:4}, at: kernfs_link_sibling+0x555/0x850 fs/kernfs/dir.c:411
+
+but task is already holding lock:
+ffff88801d6a5980 (&root->kernfs_rwsem){++++}-{4:4}, at: kernfs_add_one+0x38/0xaa0 fs/kernfs/dir.c:825
+
+which lock already depends on the new lock.
+
+
+the existing dependency chain (in reverse order) is:
+
+-> #9 (&root->kernfs_rwsem){++++}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5920 [inline]
+       lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5877
+       down_write+0x8b/0x1f0 kernel/locking/rwsem.c:1631
+       kernfs_add_one+0x38/0xaa0 fs/kernfs/dir.c:825
+       kernfs_create_dir_ns+0x157/0x2b0 fs/kernfs/dir.c:1130
+       internal_create_group+0x36f/0xfb0 fs/sysfs/group.c:176
+       cpuhp_invoke_callback+0x3b4/0x9a0 kernel/cpu.c:194
+       cpuhp_issue_call+0x1b8/0x970 kernel/cpu.c:2354
+       __cpuhp_setup_state_cpuslocked+0x431/0x880 kernel/cpu.c:2507
+       __cpuhp_setup_state+0xf7/0x2f0 kernel/cpu.c:2536
+       do_one_initcall+0x11c/0x6f0 init/main.c:1353
+       do_initcall_level init/main.c:1415 [inline]
+       do_initcalls init/main.c:1431 [inline]
+       do_basic_setup init/main.c:1451 [inline]
+       kernel_init_freeable+0x6ea/0x7b0 init/main.c:1666
+       kernel_init+0x21/0x1e0 init/main.c:1556
+       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #8 (cpuhp_state_mutex){+.+.}-{4:4}:
+
+-> #7 (cpu_hotplug_lock){++++}-{0:0}:
+       lock_acquire kernel/locking/lockdep.c:5920 [inline]
+       lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5877
+       percpu_down_read_internal include/linux/percpu-rwsem.h:53 [inline]
+       percpu_down_read include/linux/percpu-rwsem.h:77 [inline]
+       cpus_read_lock+0x42/0x170 kernel/cpu.c:490
+       static_key_slow_inc+0x12/0x30 kernel/jump_label.c:190
+       nbd_genl_reconnect_sock_cb+0x39f/0x990 drivers/block/nbd.c:1377
+       nbd_genl_foreach_sock+0x2ab/0x3e0 drivers/block/nbd.c:2152
+       nbd_genl_reconfigure+0x861/0xde0 drivers/block/nbd.c:2477
+       genl_family_rcv_msg_doit+0x214/0x300 net/netlink/genetlink.c:1114
+       genl_family_rcv_msg net/netlink/genetlink.c:1194 [inline]
+       genl_rcv_msg+0x560/0x800 net/netlink/genetlink.c:1209
+       netlink_rcv_skb+0x159/0x420 net/netlink/af_netlink.c:2556
+       genl_rcv+0x28/0x40 net/netlink/genetlink.c:1218
+       netlink_unicast_kernel net/netlink/af_netlink.c:1319 [inline]
+       netlink_unicast+0x585/0x850 net/netlink/af_netlink.c:1345
+       netlink_sendmsg+0x8b0/0xda0 net/netlink/af_netlink.c:1900
+       sock_sendmsg_nosec net/socket.c:800 [inline]
+       __sock_sendmsg net/socket.c:815 [inline]
+       __sys_sendto+0x48b/0x4e0 net/socket.c:2281
+       __do_sys_sendto net/socket.c:2288 [inline]
+       __se_sys_sendto net/socket.c:2284 [inline]
+       __x64_sys_sendto+0xe0/0x1c0 net/socket.c:2284
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #6 (&nsock->tx_lock){+.+.}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5920 [inline]
+       lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5877
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x1a4/0x1bc0 kernel/locking/mutex.c:821
+       nbd_handle_cmd drivers/block/nbd.c:1143 [inline]
+       nbd_queue_rq+0x42d/0xfa0 drivers/block/nbd.c:1207
+       blk_mq_dispatch_rq_list+0x428/0x1e60 block/blk-mq.c:2117
+       __blk_mq_do_dispatch_sched block/blk-mq-sched.c:168 [inline]
+       blk_mq_do_dispatch_sched block/blk-mq-sched.c:182 [inline]
+       __blk_mq_sched_dispatch_requests+0xcea/0x1620 block/blk-mq-sched.c:307
+       blk_mq_sched_dispatch_requests+0xd7/0x1c0 block/blk-mq-sched.c:329
+       blk_mq_run_work_fn+0x135/0x380 block/blk-mq.c:2531
+       process_one_work+0xac7/0x1b10 kernel/workqueue.c:3387
+       process_scheduled_works kernel/workqueue.c:3470 [inline]
+       worker_thread+0x5ef/0xe50 kernel/workqueue.c:3551
+       kthread+0x373/0x450 kernel/kthread.c:436
+       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #5 (&cmd->lock){+.+.}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5920 [inline]
+       lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5877
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x1a4/0x1bc0 kernel/locking/mutex.c:821
+       nbd_queue_rq+0xba/0xfa0 drivers/block/nbd.c:1199
+       blk_mq_dispatch_rq_list+0x428/0x1e60 block/blk-mq.c:2117
+       __blk_mq_do_dispatch_sched block/blk-mq-sched.c:168 [inline]
+       blk_mq_do_dispatch_sched block/blk-mq-sched.c:182 [inline]
+       __blk_mq_sched_dispatch_requests+0xcea/0x1620 block/blk-mq-sched.c:307
+       blk_mq_sched_dispatch_requests+0xd7/0x1c0 block/blk-mq-sched.c:329
+       blk_mq_run_work_fn+0x135/0x380 block/blk-mq.c:2531
+       process_one_work+0xac7/0x1b10 kernel/workqueue.c:3387
+       process_scheduled_works kernel/workqueue.c:3470 [inline]
+       worker_thread+0x5ef/0xe50 kernel/workqueue.c:3551
+       kthread+0x373/0x450 kernel/kthread.c:436
+       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #4 (set->srcu){.+.+}-{0:0}:
+       lock_sync kernel/locking/lockdep.c:5968 [inline]
+       lock_sync+0x9d/0x110 kernel/locking/lockdep.c:5956
+       srcu_lock_sync include/linux/srcu.h:199 [inline]
+       __synchronize_srcu+0xa2/0x300 kernel/rcu/srcutree.c:1481
+       blk_mq_wait_quiesce_done block/blk-mq.c:284 [inline]
+       blk_mq_wait_quiesce_done block/blk-mq.c:281 [inline]
+       blk_mq_quiesce_queue block/blk-mq.c:304 [inline]
+       blk_mq_quiesce_queue+0x149/0x1c0 block/blk-mq.c:299
+       elevator_switch+0x17b/0x7e0 block/elevator.c:576
+       elevator_change+0x352/0x530 block/elevator.c:681
+       elevator_set_default+0x29e/0x360 block/elevator.c:754
+       blk_register_queue+0x48e/0x630 block/blk-sysfs.c:992
+       __add_disk+0x73f/0xe40 block/genhd.c:524
+       add_disk_fwnode+0x118/0x480 block/genhd.c:593
+       add_disk include/linux/blkdev.h:798 [inline]
+       nbd_dev_add+0x779/0xb10 drivers/block/nbd.c:2026
+       nbd_init+0x2c5/0x2e0 drivers/block/nbd.c:2743
+       do_one_initcall+0x11c/0x6f0 init/main.c:1353
+       do_initcall_level init/main.c:1415 [inline]
+       do_initcalls init/main.c:1431 [inline]
+       do_basic_setup init/main.c:1451 [inline]
+       kernel_init_freeable+0x6ea/0x7b0 init/main.c:1666
+       kernel_init+0x21/0x1e0 init/main.c:1556
+       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #3 (&q->elevator_lock){+.+.}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5920 [inline]
+       lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5877
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x1a4/0x1bc0 kernel/locking/mutex.c:821
+       elevator_change+0x1bc/0x530 block/elevator.c:679
+       elevator_set_none+0x92/0xf0 block/elevator.c:769
+       blk_mq_elv_switch_none block/blk-mq.c:5102 [inline]
+       __blk_mq_update_nr_hw_queues block/blk-mq.c:5147 [inline]
+       blk_mq_update_nr_hw_queues+0x4c1/0x15f0 block/blk-mq.c:5212
+       nbd_start_device+0x1a6/0xbd0 drivers/block/nbd.c:1530
+       nbd_genl_connect+0xfc2/0x1760 drivers/block/nbd.c:2310
+       genl_family_rcv_msg_doit+0x214/0x300 net/netlink/genetlink.c:1114
+       genl_family_rcv_msg net/netlink/genetlink.c:1194 [inline]
+       genl_rcv_msg+0x560/0x800 net/netlink/genetlink.c:1209
+       netlink_rcv_skb+0x159/0x420 net/netlink/af_netlink.c:2556
+       genl_rcv+0x28/0x40 net/netlink/genetlink.c:1218
+       netlink_unicast_kernel net/netlink/af_netlink.c:1319 [inline]
+       netlink_unicast+0x585/0x850 net/netlink/af_netlink.c:1345
+       netlink_sendmsg+0x8b0/0xda0 net/netlink/af_netlink.c:1900
+       sock_sendmsg_nosec net/socket.c:800 [inline]
+       __sock_sendmsg net/socket.c:815 [inline]
+       __sys_sendto+0x48b/0x4e0 net/socket.c:2281
+       __do_sys_sendto net/socket.c:2288 [inline]
+       __se_sys_sendto net/socket.c:2284 [inline]
+       __x64_sys_sendto+0xe0/0x1c0 net/socket.c:2284
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #2 (&q->q_usage_counter(io)#49){++++}-{0:0}:
+       lock_acquire kernel/locking/lockdep.c:5920 [inline]
+       lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5877
+       blk_alloc_queue+0x610/0x790 block/blk-core.c:504
+       blk_mq_alloc_queue+0x174/0x290 block/blk-mq.c:4420
+       __blk_mq_alloc_disk+0x29/0x120 block/blk-mq.c:4467
+       nbd_dev_add+0x491/0xb10 drivers/block/nbd.c:1996
+       nbd_init+0x2c5/0x2e0 drivers/block/nbd.c:2743
+       do_one_initcall+0x11c/0x6f0 init/main.c:1353
+       do_initcall_level init/main.c:1415 [inline]
+       do_initcalls init/main.c:1431 [inline]
+       do_basic_setup init/main.c:1451 [inline]
+       kernel_init_freeable+0x6ea/0x7b0 init/main.c:1666
+       kernel_init+0x21/0x1e0 init/main.c:1556
+       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #1 (fs_reclaim){+.+.}-{0:0}:
+       lock_acquire kernel/locking/lockdep.c:5920 [inline]
+       lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5877
+       __fs_reclaim_acquire mm/page_alloc.c:4375 [inline]
+       fs_reclaim_acquire+0xc4/0x100 mm/page_alloc.c:4389
+       might_alloc include/linux/sched/mm.h:314 [inline]
+       slab_pre_alloc_hook mm/slub.c:4539 [inline]
+       slab_alloc_node mm/slub.c:4899 [inline]
+       kmem_cache_alloc_noprof+0x63/0x6a0 mm/slub.c:4933
+       __kernfs_iattrs+0x126/0x450 fs/kernfs/inode.c:36
+       kernfs_iattrs fs/kernfs/inode.c:60 [inline]
+       __kernfs_setattr+0x4d/0x3c0 fs/kernfs/inode.c:73
+       kernfs_iop_setattr+0xda/0x130 fs/kernfs/inode.c:127
+       notify_change+0xb25/0x1330 fs/attr.c:556
+       do_truncate+0x1df/0x240 fs/open.c:68
+       handle_truncate fs/namei.c:4300 [inline]
+       do_open fs/namei.c:4841 [inline]
+       path_openat+0x1e6d/0x2440 fs/namei.c:5000
+       do_file_open+0x20e/0x430 fs/namei.c:5029
+       do_sys_openat2+0x10f/0x1e0 fs/open.c:1417
+       do_sys_open fs/open.c:1423 [inline]
+       __do_sys_openat fs/open.c:1439 [inline]
+       __se_sys_openat fs/open.c:1434 [inline]
+       __x64_sys_openat+0x12d/0x210 fs/open.c:1434
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #0 (&root->kernfs_iattr_rwsem){++++}-{4:4}:
+       check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
+       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+       validate_chain kernel/locking/lockdep.c:3952 [inline]
+       __lock_acquire+0x1508/0x1f20 kernel/locking/lockdep.c:5287
+       lock_acquire kernel/locking/lockdep.c:5920 [inline]
+       lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5877
+       down_write+0x8b/0x1f0 kernel/locking/rwsem.c:1631
+       kernfs_link_sibling+0x555/0x850 fs/kernfs/dir.c:411
+       kernfs_add_one+0x1e7/0xaa0 fs/kernfs/dir.c:844
+       kernfs_create_dir_ns+0x157/0x2b0 fs/kernfs/dir.c:1130
+       sysfs_create_dir_ns+0x13a/0x2b0 fs/sysfs/dir.c:59
+       create_dir lib/kobject.c:73 [inline]
+       kobject_add_internal+0x2c8/0x930 lib/kobject.c:240
+       kobject_add_varg lib/kobject.c:374 [inline]
+       kobject_add+0x16a/0x1e0 lib/kobject.c:426
+       device_add+0x294/0x1970 drivers/base/core.c:3699
+       hid_add_device+0x2bf/0x440 drivers/hid/hid-core.c:3065
+       uhid_device_add_worker+0x3a/0x70 drivers/hid/uhid.c:73
+       process_one_work+0xac7/0x1b10 kernel/workqueue.c:3387
+       process_scheduled_works kernel/workqueue.c:3470 [inline]
+       worker_thread+0x5ef/0xe50 kernel/workqueue.c:3551
+       kthread+0x373/0x450 kernel/kthread.c:436
+       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+other info that might help us debug this:
+
+Chain exists of:
+  &root->kernfs_iattr_rwsem --> cpuhp_state_mutex --> &root->kernfs_rwsem
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  lock(&root->kernfs_rwsem);
+                               lock(cpuhp_state_mutex);
+                               lock(&root->kernfs_rwsem);
+  lock(&root->kernfs_iattr_rwsem);
+
+ *** DEADLOCK ***
+
+locks held by kworker/0:4/5891: 3, last CPU#0:
+ #0: ffff88801c0aa940 ((wq_completion)events){+.+.}-{0:0}, at: process_one_work+0x1466/0x1b10 kernel/workqueue.c:3362
+ #1: ffffc90003487d08 ((work_completion)(&uhid->worker)){+.+.}-{0:0}, at: process_one_work+0xa2c/0x1b10 kernel/workqueue.c:3363
+ #2: ffff88801d6a5980 (&root->kernfs_rwsem){++++}-{4:4}, at: kernfs_add_one+0x38/0xaa0 fs/kernfs/dir.c:825
+
+stack backtrace:
+CPU: 0 UID: 0 PID: 5891 Comm: kworker/0:4 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Workqueue: events uhid_device_add_worker
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_circular_bug.cold+0x178/0x1be kernel/locking/lockdep.c:2087
+ check_noncircular+0x146/0x160 kernel/locking/lockdep.c:2219
+ check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
+ check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+ validate_chain kernel/locking/lockdep.c:3952 [inline]
+ __lock_acquire+0x1508/0x1f20 kernel/locking/lockdep.c:5287
+ lock_acquire kernel/locking/lockdep.c:5920 [inline]
+ lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5877
+ down_write+0x8b/0x1f0 kernel/locking/rwsem.c:1631
+ kernfs_link_sibling+0x555/0x850 fs/kernfs/dir.c:411
+ kernfs_add_one+0x1e7/0xaa0 fs/kernfs/dir.c:844
+ kernfs_create_dir_ns+0x157/0x2b0 fs/kernfs/dir.c:1130
+ sysfs_create_dir_ns+0x13a/0x2b0 fs/sysfs/dir.c:59
+ create_dir lib/kobject.c:73 [inline]
+ kobject_add_internal+0x2c8/0x930 lib/kobject.c:240
+ kobject_add_varg lib/kobject.c:374 [inline]
+ kobject_add+0x16a/0x1e0 lib/kobject.c:426
+ device_add+0x294/0x1970 drivers/base/core.c:3699
+ hid_add_device+0x2bf/0x440 drivers/hid/hid-core.c:3065
+ uhid_device_add_worker+0x3a/0x70 drivers/hid/uhid.c:73
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3387
+ process_scheduled_works kernel/workqueue.c:3470 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3551
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+input: shield Haptics as /devices/virtual/input/input5
+shield 0003:0955:7214.0002: Registered Thunderstrike controller
+shield 0003:0955:7214.0002: : USB HID v0.00 Gamepad [shield] on 
+
+
+Tested on:
+
+commit:         818bebeb drm/xe: Don't hand out the flat CCS storage a..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=159e6d49580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
+dashboard link: https://syzkaller.appspot.com/bug?extid=dd764a450d93885d847f
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=111eb415580000
+
