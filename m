@@ -1,122 +1,84 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D65552C237C
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:04:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCCBC421227;
+	Thu, 27 Aug 2026 12:07:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787832259; cv=none; b=kIsvSV+2IyZD26zTUj/AgVUbovPNte7BYfYa1fvlJTwrr2vb6upfOpzOLohPQLqiKX0GekBfVLTpa8KwQ1Efd/IJPn+7fagm9h5nYOHvp92pqQEY37eFoM8mHNKBEBqRQKqsFMEd0TR/QQfd/eYk2KF/cxms98OPQJDYRsErzdM=
+	t=1787832478; cv=none; b=EIRO9NTB2v6pjhLdpazmDEymrCScmC4Hv36pekT0uUZ933rLG2nwFCt17KSvdNM8Trtn2dqcX3Yk+6fHo/tkvILJ4DiR3PcF/o7iV9SJtjKQUk/kW8ebphsvnO8ngh8Q5zuJFKd9+NGXQ4weqp0s5cGEi7YGrqONqDpORWqWD4Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787832259; c=relaxed/simple;
-	bh=sisPV8gzEpPlKpghtjt/eOx5vsk5qM8t0MCPsEmqUhA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=a84u6KtR0CLQw5mDthJNNiE5lifCFAcEgN607xFXJurytmAydNkg+l764Eh8vuWSd4CrcrHlGwa70wxSSCmgDsz68vwdsHVIdJpsy20whKO892LpxIjdXhJosNNxLjlKejLZX11GGUJAb1+pJEt2QEAy71pP1mvEVdfdC1vdP7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=Ptc/ttcQ; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1787832478; c=relaxed/simple;
+	bh=J0PiKCqqvozDaXTK1qBu7BVn4q6Ey0mJmZ91aBD+U34=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=UfF2wh+p9/JNqMLnvc/1ipU+xULaKOVbobk2lCi3lODkqspyv0T8ImUg4NVcPKgAyN1/FMXYJxQUk9Axuq2vBVDCNpf9eTo1/1WybDvk0zkHKhj6d1d8G08jpxRzWqYkd4xXI0hYgLlf4JuJRXWEL6TRu5aFOUXTU/O7sOTdyJo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=yyN1CkJ0; arc=none smtp.client-ip=216.40.44.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="Ptc/ttcQ"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-496bb7cdf51so8316675e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 05:04:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1787832256; x=1788437056; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GP97XYSOxAd4mwkEh8pXHynZ3Zgb6dcRm0VHZ16u2ys=;
-        b=Ptc/ttcQykigA1DF/F2r5O7S/7kxd/H7gnsic9BADBJlWlM586l+y2xqLMgdmDrX5K
-         PBiqR8ZwsqEw+bO6z8YcpN6FUapN7EwSaCm2XM9IQAobM5HzN/cuwwTQMgS0Hk8+snhI
-         ebUt7Ir1LW9S53JZKPADNbanBCOI+gGWiAMsiRbB9b+CCFZLtQYzSteFGKDk1iCjLc94
-         8vPKBd+WhxfgYoRInnOMnAnn+kUIoQzxbjxxwoRQ4Ef0rcK5xA+ltPNIxLtX8f+5EP35
-         v9Kprc5fIIVlYhLAL78L1/vSBFQgTHXlhi65jIcKhK/ZVJVvy/WqZlvEtdtAcCKEa/d4
-         DMKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787832256; x=1788437056;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GP97XYSOxAd4mwkEh8pXHynZ3Zgb6dcRm0VHZ16u2ys=;
-        b=Nh9imX1CnMVEuKR5hEEyx/2MzIZaIEO6dZ5yQfF2UNAGg9cvOMBeXVKtLgoBU/TaUb
-         9YsymFS5aO93GT5ntxshqt0SEEDKBhSRxsHokFvI2B2pN7XDKLkkcuABBwDW33m1QWsj
-         Finr3Ifduy81C5dG2z6IskkgfpkqAIUHdoY9ih29wPWYg0ymW3trel5vbCoEt5jwqjJ6
-         QxOPToBfTYzQ4Btp88d7U8VypBTK6bqa3RGD2LQPanq9VLGBgNMbnkvo/W896BB4H6TM
-         1+G+s32oxybO9XuqInc17nEMGl2jvSEUgmNDWM0dauohgnOupZ510lGps/utjtVlrZyg
-         3vnw==
-X-Forwarded-Encrypted: i=1; AHgh+Rq1q9Al9ELBszE6CXxYTIT8+hoze3FTOvUM5eP0tHwmdaG8eWanPhBabeXnrj2pBK4UnWwSMS3VIBGWtSU=@vger.kernel.org
-X-Gm-Message-State: AFuF++k1M75ZSUpWyuWv8qcnevOs0ixcquoD7SoA+HnA1y4ib2dmdVlN
-	K70f+zTRNBhVcVmVqa477IYNzUvm6vRYqN4zI2Hu59civL0Jq/9xijH+ZjQfc8rzi2g=
-X-Gm-Gg: AR+sD12tkFOBWtIrxVscI5LI9TOQaUmeB0Yyr+Tm5nTvZzkPHgy3eMbKZun3kyhvT6a
-	XIxfHiA+qL2UlXJXL3EV5jE8snXUlj8CYNjvJ+XtQs7rqTqSXey9X521gOT+T54l/7q8hnopPXJ
-	gvNVJjs7SbCx0Zi2izBuq4NffP0NsUn4z3I94EHwaeLQ8MyduWVxwRJb0kMzX4CGH8PVIVD/MsF
-	meXy1FDRLMgDe21/4fL5IuR1ZxMqFXOJnYPdYUSVzSROEyVehNBTgpiNwm04WLjdp61vTfXQgcI
-	PLrR//mq8DcdmTxOWN963wuE3XXXnVrxUEdTWBPAlzlwaYDS0w5dIr2YTSgHugPsRHyy1wmXlm1
-	0jqUzeS3qyBvjm211aAtrRvPHpyPB2jYPDw5A2rE1LzSmaO3jmu9N+lRLL2/R8I0Ignkgr/cVvo
-	0AeNJqJesd0WnJ8EivR4bE82fkJkt+qfQa8URwSSYIwuHDZT0cU70CUVZmgHJfqL6dGHDo+gobz
-	qsjKarVIn7i
-X-Received: by 2002:a05:600c:3513:b0:496:bbce:fc with SMTP id 5b1f17b1804b1-499dc82c0d7mr166799585e9.12.1787832255539;
-        Thu, 27 Aug 2026 05:04:15 -0700 (PDT)
-Received: from localhost (109-81-32-216.rct.o2.cz. [109.81.32.216])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e28dc134sm8549762f8f.20.2026.08.27.05.04.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 05:04:15 -0700 (PDT)
-Date: Thu, 27 Aug 2026 14:04:13 +0200
-From: Michal Hocko <mhocko@suse.com>
-To: Hao Li <hao.li@linux.dev>
-Cc: hannes@cmpxchg.org, roman.gushchin@linux.dev, shakeel.butt@linux.dev,
-	muchun.song@linux.dev, akpm@linux-foundation.org,
-	cgroups@vger.kernel.org, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm: memcontrol: treat disabled memcg as kmem accounting
- disabled
-Message-ID: <apAnveXHmeQlKJnU@tiehlicka>
-References: <20260827091813.22327-1-hao.li@linux.dev>
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="yyN1CkJ0"
+Received: from omf04.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay06.hostedemail.com (Postfix) with ESMTP id 3CB1CA3C22;
+	Thu, 27 Aug 2026 12:07:54 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf04.hostedemail.com (Postfix) with ESMTPA id 51A0A2002D;
+	Thu, 27 Aug 2026 12:07:52 +0000 (UTC)
+Date: Thu, 27 Aug 2026 08:08:39 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: =?UTF-8?B?SsOpcsOpbXk=?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Cc: mhiramat@kernel.org, mathieu.desnoyers@efficios.com,
+ brads@mainlining.org, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] tracing/user_events: Clear copied tracing state
+ before fork duplication
+Message-ID: <20260827080839.35e44d04@gandalf.local.home>
+In-Reply-To: <20260826214414.1971632-2-Jeremy.Jean@oss.cyber.gouv.fr>
+References: <20260826214414.1971632-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827091813.22327-1-hao.li@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Rspamd-Queue-Id: 51A0A2002D
+X-Stat-Signature: buiz1t5rx9trs5hepmek5sctm6r91a73
+X-Rspamd-Server: rspamout07
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1988ENOYCIU8H17Ec/Kmbx3v/QRwI7YBW4=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=yh6MsLLU+MMkHmVUoIFgI73amxCC+WQRuG0iaGy9p08=; b=yyN1CkJ0xnXDNZUXNDPtkAKxqn9E34yL4RLqAzXCx/YF+wHfm7X9OUNHq3XWbVgQmEeNmFuXpOhM+UfpD/O4x5GPavycfYfQkBi3ex1OzPRVUTlSWSOViO1frUiN3ZrnHoch2jHuT4T6GhGVuGYn9W2FpsLg1Bdp+8+fkMLE7Rc=
+X-HE-Tag: 1787832472-290276
+X-HE-Meta: U2FsdGVkX1/JFXqQ5yafWTxb9mNMK5Ht2yZ1xOHAUh6ZdV34hMeXOCALUDY8TWudmQ5QKJgetOAcjyXsZgj6h7LO7HOYGW+qVW8f1zjTTcSbqdyE7teAWfSEmjYdfJY0m6hj1u9BoCh9JlupSiNeXWzI5YK/kC8p8td8JzVLaK9SHoMHN6GCa/zYidUos9Awrm6hF6iuh8GG31P8R+rN0NQgkmEYD6IGZlf4gV8WXq8kcbjZcWmbpFVuJi896AbGDtu8S/22XKUDW5cmcZ6T8f1o6yIszRrJGAWiuNQdfIFfCCY+nFp2YKaXZ82u1Sz2
 
-On Thu 27-08-26 17:17:50, Hao Li wrote:
-> mem_cgroup_kmem_disabled() currently only checks whether the
-> "cgroup.memory=nokmem" option is specified. However, kmem accounting is
-> also unavailable when memcg itself is disabled.
-> 
-> Check both conditions to ensure the function accurately reflects the
-> kmem accounting state.
-
-It would be really great if you could describe how we could end up with
-the inconsistent memcg enabled but kmem enabled and what kind of effect
-does this have.
-
-AFAICS the inconsistency is possible and it would lead some wastage but
-no functional problems but the changelog should be more descriptive.
-
-> Signed-off-by: Hao Li <hao.li@linux.dev>
-> ---
->  mm/memcontrol.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> index 1ebceade4021..b28f6165c354 100644
-> --- a/mm/memcontrol.c
-> +++ b/mm/memcontrol.c
-> @@ -132,7 +132,7 @@ static DEFINE_SPINLOCK(objcg_lock);
->  
->  bool mem_cgroup_kmem_disabled(void)
+On Wed, 26 Aug 2026 21:44:15 +0000
+J=C3=A9r=C3=A9my Jean <Jeremy.Jean@oss.cyber.gouv.fr> wrote:
+> diff --git a/kernel/trace/trace_events_user.c b/kernel/trace/trace_events=
+_user.c
+> index 2bbc89d4a266..339e18085af3 100644
+> --- a/kernel/trace/trace_events_user.c
+> +++ b/kernel/trace/trace_events_user.c
+> @@ -865,9 +865,12 @@ void user_event_mm_remove(struct task_struct *t)
+> =20
+>  void user_event_mm_dup(struct task_struct *t, struct user_event_mm *old_=
+mm)
 >  {
-> -	return cgroup_memory_nokmem;
-> +	return cgroup_memory_nokmem || mem_cgroup_disabled();
->  }
->  
->  static void memcg_uncharge(struct mem_cgroup *memcg, unsigned int nr_pages);
-> -- 
-> 2.54.0
+> -	struct user_event_mm *mm =3D user_event_mm_alloc(t);
+> +	struct user_event_mm *mm;
 
--- 
-Michal Hocko
-SUSE Labs
+Why this change?
+
+>  	struct user_event_enabler *enabler;
+> =20
+> +	t->user_event_mm =3D NULL;
+> +	mm =3D user_event_mm_alloc(t);
+
+I don't see why you moved the mm assignment down here. The t->user_event_mm
+is not used in user_event_mm_alloc().
+
+-- Steve
+
+> +
+>  	if (!mm)
+>  		return;
+> =20
+
