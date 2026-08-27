@@ -1,65 +1,73 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0123E3DC4AF;
-	Thu, 27 Aug 2026 10:28:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64FDA43E06B
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:28:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787826524; cv=none; b=uDJHSOgwFczk8IvngxjVcGT38jInMyqFiRUIkSa0kljKud42aUVDJHPuThFgFEOSEDx+mLwIJL+pW07/iug62SErV4WlMvFYJQWYi2UFpsS7QUq2VWeiCwX0AgqnjDxhh4W68TA1hWf1DrY+cTBPFRAKD96u1vGE+qCYGGOdbEU=
+	t=1787826540; cv=none; b=unb4Vahkg8hmOdXpUce5Aj4NMpa6U2geucGK5YR0Y92KOM2TX0r1laXk+vWji5FK5qpWV8x4yQUljK4SGw9XpannoPbOSowdUcvX2lSPi9IQnUGunQz4cMqAZtFxCo+0WlqMsKKjm5xv2gfwtPvFrBUUUO0Z4v/8BqrO0j2/YAE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787826524; c=relaxed/simple;
-	bh=B5eRHQi4aVcRT9KSKSljHOGc4HHlTBM/d3rAxqR2Ty4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qr5RmGrjaOCyaprakexeozbU5+aNebJqcNdc+4YOMqHYkesTjnkY+ibbcuGTKeqx0zGzZVFa4UmS6NA20eWoPex0gs4lhnPdhm0uu81z9CMZ2dy5V452/3fUwQ3tVawaMgUeFasgdrTeVO5Uzx/bzBjxLopvMt3smoUc9KNyTxI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=S+RETZy7; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1787826540; c=relaxed/simple;
+	bh=cnZCmRpqAqEOWEgQ1ue8oKzm6+iLdIFaaz2cMdzlopQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=d5AwuZmub3DSh+n5QFp5R9pd4+38tb5EBZey2tdf87UlDH7Zcjk6r23N+G/Is2WCdgC+Rbuuwil9BPDvDPboBnVaYAb5D4h3v7TeoYnGWNP9fSG5EF5J9Ez2Ip9X92kEBC5rhHGcPeSqzS36Rq+TtoYPglLzxJqhlxZQnuyYDHs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IPAEx1bQ; arc=none smtp.client-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="S+RETZy7"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67R9Vef12663128;
-	Thu, 27 Aug 2026 10:28:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=YdZF/NKi8un+/ZN4rqJ+cFcLJaghGZGcJ3nVrs4lq
-	C8=; b=S+RETZy75aX8UiIGuKBrRUH5BbdOgxiztfy82A65Cchk3aaixWjPRUNJP
-	9a97GvXGmhAPK7OIegaAFmEHVL/qN8lpOvaWgMQwYTDAlNLvhSVT3DMS4Nl0pwos
-	jtS15Bpev4cbkZWHnkTFEEOQ95AcDOTp45dJIGIW1bILxdzpoLxLfKlV9OAbvHjl
-	tPwW/C2uB/cVwG7Y2c07f8+yL2hHAx3jiPuKwihuf2xRs4c2yVW1iKaV1OTzJBnC
-	wndcvEvPY4goFDfXn0oVk1qlJ9rwljN+SoPzkWdKfKRpuFCEZCdXNrOE/F3KF/Gr
-	9zdrE7MQ3fFfKjfL142drCYdxKFgw==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g73dxmbvw-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 27 Aug 2026 10:28:38 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67RAQM9H017017;
-	Thu, 27 Aug 2026 10:28:37 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4g7rsyf7ad-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 27 Aug 2026 10:28:37 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67RASX3v39190986
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 27 Aug 2026 10:28:33 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 357102004D;
-	Thu, 27 Aug 2026 10:28:33 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 193402004B;
-	Thu, 27 Aug 2026 10:28:33 +0000 (GMT)
-Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
-	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Thu, 27 Aug 2026 10:28:33 +0000 (GMT)
-From: Heiko Carstens <hca@linux.ibm.com>
-To: Alexander Gordeev <agordeev@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>
-Cc: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] s390/mm: Simplify crst_table_upgrade()
-Date: Thu, 27 Aug 2026 12:28:32 +0200
-Message-ID: <20260827102832.3823857-1-hca@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IPAEx1bQ"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-38f620399a0so1452395a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 03:28:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787826527; x=1788431327; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ptruR1AcBwxfHwWoiQ4jX61oJnM3pifrJ+nJdGn6vn4=;
+        b=IPAEx1bQry2AlAX2mC9XJG/+T07VNZ/k8yXnEqMekrpmKApYsBCo2P5Mu2zP0tDp/t
+         G8bQEw3j+UPOktJBuR47udztEhrxIK6Wo/ZUb31YjfCFiAjEIc+Bb1IvNXljtvA7tD+Q
+         HsWcmuGnAiufu9aXxQMuTc+QLf/pvKdm0uw3GHPr/UFx+XJATRpXQSx/OiZ3ey9S1+ZC
+         jKGG9HQ1kyi1MR87hY5TLAa6IWEwzE7ZqQ52n4J+tDVY2S8OPtOuzeUMyKj6cqX+Uzml
+         14VnQZ9jjNNrAchIHiEicRGOP7c40ZOkH6/JNhBRQfp+oyoQcexXfrQSflafg06m0YWL
+         2aFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787826527; x=1788431327;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ptruR1AcBwxfHwWoiQ4jX61oJnM3pifrJ+nJdGn6vn4=;
+        b=mAMeRsFZ/WlL6Uj+vZoKJHN4lVaCbhk0oK1QQ65jXdkoJnm8bsnhF3NVwgU0xiIc1h
+         fstddI0jNvoy1wkuzcHO1vYGdU146lK8z5eg7k4S5KYnOFZyH8ra5MTUtAaBMjwm7GMW
+         yhqw3bnBYYNS+e4Y9eWEveYJgTv57RmJUbhwIQdR+ajtHZO4MMIjFkjcKBUNAvT5gbm9
+         dpiBgj4pz2AKp2TcZomOdwHEARnL5haHjwSSVEr6ZA7fdAVsJSFKH6PzUC+6pIhzFPpN
+         oJ5d1Ed7b27t5iuj2ph7WaQSMUMyRC6GpmcaPSFKjSBOS0W5cKk/zCO8Iv63SSKOo6wS
+         c+2g==
+X-Gm-Message-State: AFuF++nmIK1k2KFNubhZfm/pYCHiyfNiW2S3hbrRguv64x71BdQ3aRLE
+	uKwbX2ACy1g57ByyKNxPT52pRfY2TIx2R7XBp6ghhkmFcjqVTTv82LP1
+X-Gm-Gg: AR+sD10eQPe8LtUb1vtz2wPsYjrxXoe2KndhC7gnePWFqjjfmxvxiZBssF8stk64nKh
+	udawbdZ894lO3bn4Z4oijnkwmC8t0REyhGbujjUnVxf2zymXg8ZxdGk75xT+EaHM6cqjKnPGGIe
+	Dxae8wHKQZrYhemzP+uzZEc9bpjdb/r7Jnx3EB7T4pmt59Njb/xs5EPJMsWqD+Gz7d9/1YbFcW1
+	tOh5MRXmvEniSZ6oeC95txVQ8e7G4uBPayoblYO6P/uyROL99UfmlnAOqE2fCv4evI1bqsQZTN9
+	jykOMkHP71nnj9IPon2fHRBtlvrf2fe07m92I4dIMLqzrQaxxQ74cbCoTDcS8jXxSBQTxvXqMCl
+	qBsVC6pe1itzOwqje0xq7R746aJUJwXFc6p/Wej6kacsh96nKXPgjPWFxmtGfu3Pn/XsN1G9DIT
+	xWHOMgkbm+VRRTnc8ylQmwk1fm8a/Y/AwwcZ3ibGjCu3A+QSuWrQmF7KBgeIbzabwgmg==
+X-Received: by 2002:a17:90b:1fc3:b0:38e:9eb2:9d43 with SMTP id 98e67ed59e1d1-3966d5c1384mr28463295a91.16.1787826526788;
+        Thu, 27 Aug 2026 03:28:46 -0700 (PDT)
+Received: from Default ([2409:40f4:1015:7531:12c9:ad3b:96d3:4379])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3285d1075ddsm5130994eec.29.2026.08.27.03.28.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 03:28:46 -0700 (PDT)
+From: Jeffin Philip <jeffinphilip14@gmail.com>
+To: syzbot+b7fe2760ea6f1ee44b4d@syzkaller.appspotmail.com
+Cc: linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com
+Subject: [syzbot] [sound?] BUG: unable to handle kernel NULL pointer dereference in snd_ctl_led_get
+Date: Thu, 27 Aug 2026 15:58:31 +0530
+Message-ID: <20260827102831.21012-1-jeffinphilip14@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <6a9007b3.1d9ded08.62e62.00cd.GAE@google.com>
+References: <6a9007b3.1d9ded08.62e62.00cd.GAE@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -67,160 +75,27 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDA4MyBTYWx0ZWRfXzGD0C8oM9eLU
- kpWHDfUHOfmybh+dxEXTOzE5oSlgzrNdZ2foiEgs0jmTUNOw3G5BbZdbnI2g46SQroYNYkEQBl9
- xyVSPlgtErHzPv2NkZBKSHzORVBk+s4=
-X-Authority-Analysis: v=2.4 cv=AYuB2XXG c=1 sm=1 tr=0 ts=6a901156 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8 a=rUPa83oKdi4ztXijT6IA:9
-X-Proofpoint-ORIG-GUID: z_Fmeo0mc5U4OBo2gg7ou1B2YqBY8rXa
-X-Proofpoint-GUID: z_Fmeo0mc5U4OBo2gg7ou1B2YqBY8rXa
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDA4MyBTYWx0ZWRfX6NFM4liurHki
- RwRbWO7yuDK4u1Es33oPEowLUiv7dvIfWiq+kIN7ZPPnc0WthgN8pxb8PSPuzdmG7OIjZm5ojbV
- wTMiHGF/S5RLApSh+QTDrukfVhjBOpdVzTD9d110/uj0sG5vlTY/LenQOdCgjAqlfiq9oOS6Zca
- /i/8uIeJRew/dS58txQSUZKnRzpP5kE2p4gJL2P0aWQ/WQOv+PxCKgoDorgE/gw12KYXf0gW0TW
- PNnYkZ/KWq1CKy+LDSgCrJQaUL+gv9EVaU7HvmzJsrXDld6N8iyDIIQALtOXC+YprMFbL39CRmR
- jHncSq7AORj6RkK0Zry5M6hwbEhwJIjZkV62GHgBPohx5v3V/Il1k/Q178/O9V/FjL6FMoi4D8S
- fJbSX+r1wQbcVUL2No7URuTn34jz/9w2k4FkNq8WYeTu45cDK7xk/vsefJ1CqyY8SlHbw7aJe2+
- /XQwQmDBTdbjzOyNkyA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-27_04,2026-08-26_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 clxscore=1015 adultscore=0 bulkscore=0
- impostorscore=0 priorityscore=1501 lowpriorityscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608270083
 
-In case of an upgrade from four to five level page tables, and a failing
-pgd allocation, the exit path of crst_table_upgrade() would incorrectly
-dereference the p4d NULL pointer via pagetable_dtor().
+#syz test: upstream 818bebeb63dd
 
-Address this by reworking crst_table_upgrade(), which basically is a
-revert of [1]. Take into account that GFP_KERNEL order-2 allocation
-failures are very unlikely. Therefore keep the code as simple as
-possible:
-
-In case of an upgrade from three to five levels, and an allocation
-failure of the fifth page table level, keep the upgrade to four levels
-instead of reverting back to three levels. This allows to keep error
-handling minimal.
-
-[1] commit 31932757c612 ("s390/mm: optimize page table upgrade routine")
-
-Reviewed-by: Alexander Gordeev <agordeev@linux.ibm.com>
-Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
----
- arch/s390/mm/pgalloc.c | 89 +++++++++++++++++-------------------------
- 1 file changed, 36 insertions(+), 53 deletions(-)
-
-diff --git a/arch/s390/mm/pgalloc.c b/arch/s390/mm/pgalloc.c
-index 9610770fcf6d..4b160eedc5a0 100644
---- a/arch/s390/mm/pgalloc.c
-+++ b/arch/s390/mm/pgalloc.c
-@@ -55,63 +55,46 @@ static void __crst_table_upgrade(void *arg)
- 
- int crst_table_upgrade(struct mm_struct *mm, unsigned long end)
- {
--	unsigned long *pgd = NULL, *p4d = NULL, *__pgd;
--	unsigned long asce_limit = mm->context.asce_limit;
-+	unsigned long *table, *pgd;
-+	int rc, notify;
- 
- 	mmap_assert_write_locked(mm);
--
- 	/* upgrade should only happen from 3 to 4, 3 to 5, or 4 to 5 levels */
--	VM_BUG_ON(asce_limit < _REGION2_SIZE);
--
--	if (end <= asce_limit)
--		return 0;
--
--	if (asce_limit == _REGION2_SIZE) {
--		p4d = crst_table_alloc(mm);
--		if (unlikely(!p4d))
--			goto err_p4d;
--		crst_table_init(p4d, _REGION2_ENTRY_EMPTY);
--		pagetable_p4d_ctor(virt_to_ptdesc(p4d));
-+	VM_BUG_ON(mm->context.asce_limit < _REGION2_SIZE);
-+	rc = 0;
-+	notify = 0;
-+	while (mm->context.asce_limit < end) {
-+		table = crst_table_alloc(mm);
-+		if (!table) {
-+			rc = -ENOMEM;
-+			break;
-+		}
-+		spin_lock_bh(&mm->page_table_lock);
-+		pgd = (unsigned long *)mm->pgd;
-+		if (mm->context.asce_limit == _REGION2_SIZE) {
-+			crst_table_init(table, _REGION2_ENTRY_EMPTY);
-+			p4d_populate(mm, (p4d_t *)table, (pud_t *)pgd);
-+			pagetable_p4d_ctor(virt_to_ptdesc(table));
-+			mm->pgd = (pgd_t *)table;
-+			mm->context.asce_limit = _REGION1_SIZE;
-+			mm->context.asce = __pa(mm->pgd) | _ASCE_TABLE_LENGTH |
-+				_ASCE_USER_BITS | _ASCE_TYPE_REGION2;
-+			mm_inc_nr_puds(mm);
-+		} else {
-+			crst_table_init(table, _REGION1_ENTRY_EMPTY);
-+			pgd_populate(mm, (pgd_t *)table, (p4d_t *)pgd);
-+			pagetable_pgd_ctor(virt_to_ptdesc(table));
-+			mm->pgd = (pgd_t *)table;
-+			mm->context.asce_limit = TASK_SIZE_MAX;
-+			mm->context.asce = __pa(mm->pgd) | _ASCE_TABLE_LENGTH |
-+				_ASCE_USER_BITS | _ASCE_TYPE_REGION1;
-+		}
-+		notify = 1;
-+		spin_unlock_bh(&mm->page_table_lock);
- 	}
--	if (end > _REGION1_SIZE) {
--		pgd = crst_table_alloc(mm);
--		if (unlikely(!pgd))
--			goto err_pgd;
--		crst_table_init(pgd, _REGION1_ENTRY_EMPTY);
--		pagetable_pgd_ctor(virt_to_ptdesc(pgd));
--	}
--
--	spin_lock_bh(&mm->page_table_lock);
--
--	if (p4d) {
--		__pgd = (unsigned long *) mm->pgd;
--		p4d_populate(mm, (p4d_t *) p4d, (pud_t *) __pgd);
--		mm->pgd = (pgd_t *) p4d;
--		mm->context.asce_limit = _REGION1_SIZE;
--		mm->context.asce = __pa(mm->pgd) | _ASCE_TABLE_LENGTH |
--			_ASCE_USER_BITS | _ASCE_TYPE_REGION2;
--		mm_inc_nr_puds(mm);
--	}
--	if (pgd) {
--		__pgd = (unsigned long *) mm->pgd;
--		pgd_populate(mm, (pgd_t *) pgd, (p4d_t *) __pgd);
--		mm->pgd = (pgd_t *) pgd;
--		mm->context.asce_limit = TASK_SIZE_MAX;
--		mm->context.asce = __pa(mm->pgd) | _ASCE_TABLE_LENGTH |
--			_ASCE_USER_BITS | _ASCE_TYPE_REGION1;
--	}
--
--	spin_unlock_bh(&mm->page_table_lock);
--
--	on_each_cpu(__crst_table_upgrade, mm, 0);
--
--	return 0;
--
--err_pgd:
--	pagetable_dtor(virt_to_ptdesc(p4d));
--	crst_table_free(mm, p4d);
--err_p4d:
--	return -ENOMEM;
-+	if (notify)
-+		on_each_cpu(__crst_table_upgrade, mm, 0);
-+	return rc;
- }
- 
- unsigned long *page_table_alloc_noprof(struct mm_struct *mm)
--- 
-2.53.0
+diff --git a/sound/core/control_led.c b/sound/core/control_led.c
+index 8cbacee57ce7..f6a46ed97d37 100644
+--- a/sound/core/control_led.c
++++ b/sound/core/control_led.c
+@@ -114,13 +114,11 @@ static int snd_ctl_led_get(struct snd_ctl_led_ctl *lctl)
+        info.id = kctl->id;
+        info.id.index += lctl->index_offset;
+        info.id.numid += lctl->index_offset;
+-       result = kctl->info(kctl, &info);
+-       if (result < 0)
++       if (!kctl->info || kctl->info(kctl, &info)
+                return -1;
+        memset(&value, 0, sizeof(value));
+        value.id = info.id;
+-       result = kctl->get(kctl, &value);
+-       if (result < 0)
++       if (!kctl->get || kctl->get(kctl, &value))
+                return -1;
+        if (info.type == SNDRV_CTL_ELEM_TYPE_BOOLEAN ||
+            info.type == SNDRV_CTL_ELEM_TYPE_INTEGER) {
 
