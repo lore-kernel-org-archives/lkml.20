@@ -1,165 +1,171 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013010.outbound.protection.outlook.com [52.101.72.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48F74332601;
-	Thu, 27 Aug 2026 07:01:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787814120; cv=none; b=mLhlru0B8KGmm2iuc6sQod8MECq/0nLiltCptxL9+Kny06KbCYI+fTaQrLPr8Wf+Fn6H3o4Om3PJ7u8SIk326quPO6wo2sl0jQWRe1oxRfGTdGAwyR2qLM18PEWHq/2Jm3VI/VuoAZc74jwTZEIvEKWLCDYPfUC8dY4stQ5vgO8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787814120; c=relaxed/simple;
-	bh=rMYhr+FFl3KMzJ4WopkMeaMaQqMYKgr/4WQwGO/gP5w=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Subject:Cc:
-	 References:In-Reply-To; b=kwJrvhLRoTjhu3gDVaKBPAsxE7DCt9pjfIcsucRn88Wrs3D1i4aq5kFs8v5xmJaEzSfW1GWiM98OZ23lPrPuLHl1ss8y3vomHXdpVC0HNSG7fHwgH403W5WS/t+y7xgmOhtpOn4Nsu+LPmskAqRV3hYPNQEeQjDGEH+pf+RrMkE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=zr5vWxlS; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A4FC2E736F;
+	Thu, 27 Aug 2026 07:02:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.10
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787814135; cv=fail; b=qGXHSbipkDLPmArmGKJkw3oqwjEo2b67XBYsY5BmO7WmOvGreh9SCqN0KKqUk+DIYykNyg8BOBxSUxULdNPON0G3Bd0e21e6c511TiKsu2r4vCYTJstk2PVXQDogOKKK0TiuFDmthAntqTV0A4cx5EqMrCuKCIQibxgMCbHuK0g=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787814135; c=relaxed/simple;
+	bh=fOBBLW8DUJy9wMWqvaHlsSK4iZpwhc0fvoLi1VotnB4=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=hbWoRws/cMNO/hfgN7G5wEl4Sok8JPEkA4UAnncFUChsFm0KTTGWM6CNdvELNH145/JWvCNYPHGdCjqrUTBEykuaWk6xha1tjGEcSGQPrX5T8kzUkNIZPPnYIHbhrJe0cFd8I1b3/3sqL2kqkQGg62XYTzSPyHd1x+NtXi+wGng=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=UnO2jZg4; arc=fail smtp.client-ip=52.101.72.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="zr5vWxlS"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 552701A185D;
-	Thu, 27 Aug 2026 07:01:55 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 1EF17602B8;
-	Thu, 27 Aug 2026 07:01:55 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BA8F311C78051;
-	Thu, 27 Aug 2026 09:01:43 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1787814109; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=LZbe2GS1y6n+NqZR8SC8iK/SbIh328ZBAhni88rkOIk=;
-	b=zr5vWxlScZ74+veUzn/MjjgAqEdRSSd6vg5uIl4X2OuAsAhLCDBhknPQZqRPSirB3PvGS1
-	0BZNIFc3f6hxlAI0A5Lis6e61+Nyyx8Wxl0y7YHgyVj2KmLJv8sV/lO2qc4EITOrKExqPh
-	KCRwUpP7ocG4fcdDhJEtLE7wK7CDgPL+eHBd0hDK1gKYE5IJqFl5lInz6ej4wcM2nBagZX
-	8oLn2uoGmYSRsjBWxj3BDaqP5xD6u+7eTtIIY3KG5MAnfApd9ywkc4Gzom1U+2rbcXNRhG
-	2QtleX3T+FB8C5xp8wGyqT53jUlpfEbfuLETeJBrzTp4eQox/y14vJy+afq6Aw==
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="UnO2jZg4"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JLdBrp0wNLjFIug2FXRYtsCsq4Y99w2TmW/dYJmFwkRt8BxFgHMbvLa3ZXncviqpOQxEjAw/boUe/1YyCojNTGlwVcLCbCRkaahdZqEkdJ2TVB/aXs9BEwPPe4+azHjOyrtT1VY6HdAq0rhowlP/LQPJKcenbOcmk+AMG+eyVTL4r2jyl2RdEJmJP371sVcHurP9jLTF7875TgI1n/Tv3MTkFGHsj6KUBYS5nkGcQm8EusTp5C+23/pPdwDP87Rnan7aNu97yLs2SEI6py6N+8B5TuF8S/G5oppSCRChI+Yn9cf1J2Zfvx1UX3RtJh+9tg7RdZ0IOo5enQuxbCaU8w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tZ8nqO2jb0FUxVeezvzmEySjIixnggCU8/+kvRM86ME=;
+ b=PYAPubzLSK9wYVTkUCEQF3rBqXbW3paKr/8o5j1EbM3+H5aZpiBLi+gBwa1bKB3TZJPIp9mPzJ/3ajBrf84s7LMHkvHmcAVd3Kj+xGEQW+TfXdNhT3gMWAuVijQyxiRG/Z4JJuVT16iLYGS/KHrbpQn8aPmSl+cZSk3cMAS2iRrni4l8+GJOLR6ykOMxCtucS7B4c5RMZuMJVnXtChsscHP+LUs4Vw/bW8jfUBF/u3ytQZLyKf3JFMWChzpbH/TSQV7MNFdlMTGsyd0r0pbn/p/hM/62Zshw2Fk+aK2K4ou2D5lJ73wPSYsyhETaukPSBIKPsjJbhM1jUC1kfnAPiQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tZ8nqO2jb0FUxVeezvzmEySjIixnggCU8/+kvRM86ME=;
+ b=UnO2jZg4Vpkc/nx6DrjsItVThsfXOwYV9T38M1fSSr5JCdi8oCAcecwfqA4HFYYZkOsvRQcnQAR/0SOAgnF+XFkY7BETJITi9zNQT5OpfKgBga1kiiUT/kSDjmIB/11ztGQKyqa/BlyI+2fuF3YOS1r+8Vyce1Kq8Px2pxc5hahG+iMQaM113nGZq+pCrttN/dbXu8twl/ursHYFTcT2VEdW6/PyF7iOBtdYPeYaTZ+YhcXMK9zNgAKeG+SvVJLWceM/UAVHcCWNh/BfVix7wv3FOr0yyV+vQYQJQhx3wTQ3awO7FOpxwcL8f1KtL5DXgKb4BNrWq3eyk66r//V0dQ==
+Received: from AS4PR04MB9362.eurprd04.prod.outlook.com (2603:10a6:20b:4e7::9)
+ by AS8PR04MB9111.eurprd04.prod.outlook.com (2603:10a6:20b:44a::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.8; Thu, 27 Aug
+ 2026 07:02:09 +0000
+Received: from AS4PR04MB9362.eurprd04.prod.outlook.com
+ ([fe80::abe7:4a6e:a51:baf0]) by AS4PR04MB9362.eurprd04.prod.outlook.com
+ ([fe80::abe7:4a6e:a51:baf0%6]) with mapi id 15.21.0360.006; Thu, 27 Aug 2026
+ 07:02:09 +0000
+From: Lakshay Piplani <lakshay.piplani@nxp.com>
+To: "Frank Li (OSS)" <frank.li@oss.nxp.com>
+CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-i3c@lists.infradead.org" <linux-i3c@lists.infradead.org>,
+	"alexandre.belloni@bootlin.com" <alexandre.belloni@bootlin.com>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "robh@kernel.org"
+	<robh@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"broonie@kernel.org" <broonie@kernel.org>, "lee@kernel.org" <lee@kernel.org>,
+	Frank Li <frank.li@nxp.com>, "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+	Vikash Bansal <vikash.bansal@nxp.com>, Priyanka Jain <priyanka.jain@nxp.com>,
+	Aman Kumar Pandey <aman.kumarpandey@nxp.com>
+Subject: RE: [PATCH v16 2/8] i3c: master: Add controller-only device operation
+ helpers
+Thread-Topic: [PATCH v16 2/8] i3c: master: Add controller-only device
+ operation helpers
+Thread-Index: AQHdNUcP3TjGiB9Bnk+X0ioOoWtULbawiRmAgADvlNA=
+Date: Thu, 27 Aug 2026 07:02:08 +0000
+Message-ID:
+ <AS4PR04MB9362C41BA3DB8DEFEFDAFEA2FBAD2@AS4PR04MB9362.eurprd04.prod.outlook.com>
+References: <20260826103819.1614843-1-lakshay.piplani@nxp.com>
+ <20260826103819.1614843-3-lakshay.piplani@nxp.com>
+ <ao8XXagBAhl6zANu@lizhi-Precision-Tower-5810>
+In-Reply-To: <ao8XXagBAhl6zANu@lizhi-Precision-Tower-5810>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_Enabled=True;MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_SiteId=686ea1d3-bc2b-4c6f-a92c-d99c5c301635;MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_SetDate=2026-08-27T06:59:34.0000000Z;MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_Name=NXP
+ Confidential;MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_ContentBits=3;MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AS4PR04MB9362:EE_|AS8PR04MB9111:EE_
+x-ms-office365-filtering-correlation-id: 8da8fecf-731b-4973-aed9-08df04091c8c
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|366016|19092799006|7416014|376014|23010399003|22082099003|18002099003|38070700021|10067099003|11063799006|4143699003|56012099006|5023799004|6133799003;
+x-microsoft-antispam-message-info:
+ 8BCZQLFq4BO8e7yCBsTiwnO2A+CNUq31R1fioyR4wjnRxnRqWXkB7+fEp2SXLdpqmR9LLeJhpgj45938Ckk18DGHXGtHa2lvxxQgz8iH9wnL6FMSlL4INUB8E1Fi7NRPhyogh4HhX+DTXUrfuj3RdCP4d20pPVaBBwbAAewwOPyBJf1qA6vE5CUrEEnwiY7GM+cZsgs/Kab2BvxY/9eZT01l9Mxa0lu12Lv0NEcgyvZ1bs+S/s+PcZZAPYx81yaI7FER84iDISbZi1pH7KiW1DzwE/gYrDpuJA972Pa1kjJpFqC6xXJaix7Mt/53eDW8D1lh6qZ0dzcpT/fIXpLdQwveGI2saG0ehvEr6hO1vKTLwTy/aUmn0iCmoqoPEIHuWqSkpGwGQ3vUODESgX11VOScRdRsBD6SM69RCI2QbV3hrje+XKp5cdMnZfDM5TW4NtZFXfWqoa41n1nFrnwij28pQjYOtwLOqfXLNKuApBqdiUzJyfW4C8h2qjYzUhe7U77cUfNKk0ZPJLGbzRLVpVfsSE8qEGRAroCuCMIlQc0y5NVNuCaTAcjq7wsN9qM0S4aiOwobIGAG5XK16x1h7rlRL8SXAL640kE5U1jpJlUYhaOwnirvWRvgj0BN2v20ItcX+Ex5waH92B8bUIKPZVzg1ycG/wE+X95uDk3c9kKq2bVRW4lsOJLm4nfZAZWa3F3ALcDjUjw6Jj+uGRsNTg==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS4PR04MB9362.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(19092799006)(7416014)(376014)(23010399003)(22082099003)(18002099003)(38070700021)(10067099003)(11063799006)(4143699003)(56012099006)(5023799004)(6133799003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?3TBKHU2khane2dHIvgIqHtijcrAWg0G7bxO2UT6GpXwNDBdVresUXkWdPGb7?=
+ =?us-ascii?Q?gCNyjuwV9Q8Fvvn76FIF60pEoY5LD987J+aqDQQ8n47IglxPXGfHlkz0RG1k?=
+ =?us-ascii?Q?/K9DC/3Jb65sLEmBLOX5itwj6tWHscWhQ6x6stRf6p81jpimb/9wn/sIGFbr?=
+ =?us-ascii?Q?qfqKO5x2+stXAynj00XTmqHwihX1FBkymuObetBmobIXDUwdu3JVhUVUjJFO?=
+ =?us-ascii?Q?WHCx9Yx3TK4nNDmvOmvklAkYmsrQx/oO11L5/nSyukyxzXzDlY4NqEVkhTJF?=
+ =?us-ascii?Q?rGxN7sshjoip3Ue787XafAhPIvxHgmuEwcVJ38V2+8mNeNelH3O+6jMPxFb8?=
+ =?us-ascii?Q?v8tWGPzdwL8Jmwk/Fzuxv6IaJVG043bAyNBD+m/XQ62/lgNKRP0HSJWLOWRp?=
+ =?us-ascii?Q?2VRAQAYTf+fwWZiQO52WXQmv5C4J7TCxKHrnbugNMHB/ABJoa6uQ3Qycl8fH?=
+ =?us-ascii?Q?IWj4yu+97Vsc6BSL/w2UVTNg5S62E4VVgVMU0jKr+3V8Pg+tr93NL+jYGY3f?=
+ =?us-ascii?Q?3LZyl1xuqBvHIz6LQnCFoYXkOF7qQmTZpGL+4rAlRnfCHWGrrUy31SNZ7k47?=
+ =?us-ascii?Q?JZmd0YBocuposIJQ2U+UUGzsjGj92tqs99DIgO7ILL9PfgY2D9zIwaDu+E4y?=
+ =?us-ascii?Q?0PvD4g1bx0AFYUEU0igDIPdDSM1kNynfM3d2wkgV0ULwqsQP9mAI/5eTLydz?=
+ =?us-ascii?Q?1lGfhD8wfmQwhRbUcq5Nm5YEhzGlJAzNlhF7AoXcTMK9NJRaRNLDQbqme1hQ?=
+ =?us-ascii?Q?rvbSnheecye287yvANt6CUXhlbmy6mtuWgAQcxST64nl8Z5mRRe8XaTcmth0?=
+ =?us-ascii?Q?WwAJ4CwCrjSrKsCSmpF9EZvCXyaLkK8iMvziS4QDHTjMFhpSitDbOBhk4Lz0?=
+ =?us-ascii?Q?3afA76rZeUuj5E/KVhcH1b7mh5dy7IdJrq2AeLIxNKo3+0s60l7d3cEMnabR?=
+ =?us-ascii?Q?VlDy8/Vqn4e9tuoWH6qjPpG7hLZQTOdVJUWpiU9hqAR3xlZiOwOO0EmRzB+2?=
+ =?us-ascii?Q?tFEIC+XQFukFrDhHy5Xn4rNViEHUA9XJZLS7PtmUD0unSMBNdIw4fD7OP0IN?=
+ =?us-ascii?Q?ow/1pjtEsA+e8JBblMPwK/3pk0ltIN+jCUm9xche44wgUCk34DRJcoPTbs3d?=
+ =?us-ascii?Q?NQSneqMoHA/cYMNjeY8ApmHQ+xBp+ESd2Qvv/L1SrjDGpQzajvBnRVXjVCJh?=
+ =?us-ascii?Q?NedPo2WC0qsLI+40DLyXe6vvzA0TGYhAZuzzuRD3zCI9hDwU7PZJVw4tMnVP?=
+ =?us-ascii?Q?oszwVK/QAyg59U4qOUXdoOeTBgMdhRwfopmdga3fK7EvJ8Ldt2kk7WXyErjZ?=
+ =?us-ascii?Q?vKJVDjgmdsEP/V9P3X9ZlRTr7VIvSx61i7QbtLL6m1rAEuB0SFtq5pXavJBt?=
+ =?us-ascii?Q?+ngNuceJ4SbfVm4fkFuXIRwfreo3Yaz98pZqUG6Vhz0tr5DC87IbNvQFRi8S?=
+ =?us-ascii?Q?dssDRhZ1ybZthdzFJaHTMFmQSigdsL1wt1ONgiMF8O4S7+HjZgtRsWOpLurI?=
+ =?us-ascii?Q?YgPC193kkn/f1F9fRFiqYKtXB3427wiqVa7XJFM+K8GqrII4Jgb52VG4aa9j?=
+ =?us-ascii?Q?e07SChljXG44vWa75wlovr+hvxCrs1l5R9gdUfvLmPk68wv44dyc8xaBV/mH?=
+ =?us-ascii?Q?5TxUq0qWGyBfGk4MPeceYJxOkk6fbwr5w88FBqYRiSZFi3KiABfgS3Msf2vB?=
+ =?us-ascii?Q?E7Q086h+gV+5CmQ5DC4CDKgFpCT1tp2VLaFPTYfBKXbWA3P5VEulJPsDlOrm?=
+ =?us-ascii?Q?9h9/fH3u7g=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 27 Aug 2026 09:01:42 +0200
-Message-Id: <DKZJ7GFLAU12.1WHACTBREQQV2@bootlin.com>
-From: =?utf-8?q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>
-To: "Ihor Solodrai" <ihor.solodrai@linux.dev>, "Kumar Kartikeya Dwivedi"
- <memxor@gmail.com>,
- =?utf-8?b?QWxleGlzIExvdGhvcsOpIChlQlBGIEZvdW5kYXRpb24p?=
- <alexis.lothore@bootlin.com>, "Alexei Starovoitov" <ast@kernel.org>,
- "Daniel Borkmann" <daniel@iogearbox.net>, "John Fastabend"
- <john.fastabend@gmail.com>, "Andrii Nakryiko" <andrii@kernel.org>, "Martin
- KaFai Lau" <martin.lau@linux.dev>, "Eduard Zingerman" <eddyz87@gmail.com>,
- "Song Liu" <song@kernel.org>, "Yonghong Song" <yonghong.song@linux.dev>,
- "Jiri Olsa" <jolsa@kernel.org>, "Thomas Gleixner" <tglx@kernel.org>,
- "Borislav Petkov" <bp@alien8.de>, "Dave Hansen"
- <dave.hansen@linux.intel.com>, <x86@kernel.org>, "H. Peter Anvin"
- <hpa@zytor.com>, "Shuah Khan" <shuah@kernel.org>, "Ingo Molnar"
- <mingo@redhat.com>, "Andrey Konovalov" <andreyknvl@gmail.com>, "Emil
- Tsalapatis" <emil@etsalapatis.com>, "Yafang Shao" <laoar.shao@gmail.com>
-Subject: Re: [PATCH bpf-next v7 0/9] bpf: add support for KASAN checks in
- JITed programs
-Cc: <ebpf@linuxfoundation.org>, "Bastien Curutchet"
- <bastien.curutchet@bootlin.com>, "Thomas Petazzoni"
- <thomas.petazzoni@bootlin.com>, <bpf@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260822-kasan-v7-0-99afee6ef7fd@bootlin.com>
- <DKWOY12R4ZJJ.A8KDS1DU1PHS@gmail.com>
- <1c34603a-9170-4074-b826-e98d9871e2d8@linux.dev>
-In-Reply-To: <1c34603a-9170-4074-b826-e98d9871e2d8@linux.dev>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AS4PR04MB9362.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8da8fecf-731b-4973-aed9-08df04091c8c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Aug 2026 07:02:08.9542
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: kDDwJfZFXrMTe+H6pDxTnPUlpCXKkbkGk5SklR+8yjtlPK7jYTAgPPIC97LVMkdxi35U2HH5jAMHueFe/A1YEw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB9111
 
-Hi Ihor,
+Hi Frank,
 
-On Wed Aug 26, 2026 at 11:00 PM CEST, Ihor Solodrai wrote:
-> On 2026-08-23 3:53 p.m., Kumar Kartikeya Dwivedi wrote:
->> On Sat Aug 22, 2026 at 12:39 AM CEST, Alexis Lothor=C3=A9 (eBPF Foundati=
-on) wrote:
->>> Hello,
->>> this is v7 of the series aiming to bring basic support for KASAN checks
->>> to BPF JITed programs. This new revision just makes the series rebased
->>> on top of current bpf-next_base.
->>>
->>> Please note that with the recent kernel splat detector introduced in
->>> kernel-patches/vmtest through commit 8109e5928cd0 ("ci: own the kernel
->>> splat matching (#509)"), CI runs on this series will fail with the
->>> following error.
->>>
->>>     Error: kernel splat detected: [  100.689549] BUG: KASAN: \
->>>     slab-use-after-free in \
->>>     bpf_prog_eba69524d1d949b1_st_not_on_stack+0x12f/0x17a \
->>>
->>> which is pretty normal, as the new selftests introduced by this series
->>> are expected to trigger KASAN splats (the test_progs part will pass,
->>> only the kernel_splats part will trigger errors). The right fix may be
->>> to just put a list of regex matching all the kasan subtests progs in th=
-e
->>> relevant SPLAT_ALLOWLIST file; something like:
->>>
->>> BUG: KASAN: slab-(out-of-bounds|use-after-free) in bpf_prog_([a-f0-9]){=
-16}_(st|ld)(x)?(_not)?_on_stack\+
->>> BUG: KASAN: slab-(out-of-bounds|use-after-free) in bpf_prog_([a-f0-9]){=
-16}_simple_atomic(_fetch)?(_not)_on_stack\+
->>> BUG: KASAN: slab-(out-of-bounds|use-after-free) in bpf_prog_([a-f0-9]){=
-16}_ldx_patched(_not)?_on_stack\+
->>> BUG: KASAN: slab-(out-of-bounds|use-after-free) in bpf_prog_([a-f0-9]){=
-16}_verifier_paths_stack_and_non_stack\+
->>> BUG: KASAN: slab-(out-of-bounds|use-after-free) in bpf_prog_([a-f0-9]){=
-16}_ldx_oob\+
->>> BUG: KASAN: slab-(out-of-bounds|use-after-free) in bpf_prog_([a-f0-9]){=
-16}_st_blinded\+
->>> BUG: KASAN: slab-(out-of-bounds|use-after-free) in bpf_prog_([a-f0-9]){=
-16}_(load_acquire|store_release)(_not)?_on_stack\+
->>>
->>> I can take care of opening the relevant PR in kernel-patches/vmtest wit=
-h
->>> this if it ends up being the correct solution, but it will make sense t=
-o
->>> do so only once the selftests list is validated (but before merging the
->>> series).
->>=20
->> We need to resolve this before landing the set. To me it looks inevitabl=
-e, esp.
->> if we exercise the support and produce such warnings. That said I'll let=
- Ihor
->> respond and provide guidance for this. We should probably land the vmtes=
-t PR
->> before v8 is posted, so that v8 can go through CI and be processed witho=
-ut
->> failures.
+Thanks for the review.
+
+> > +/**
+> > + * i3c_dev_recycle_ibi_slot_controller() - Recycle an IBI slot through
+> > + *                                    the current controller
+> > + * @dev: I3C device descriptor
+> > + * @slot: IBI slot to recycle
+> > + *
+> > + * Invoke the current controller's IBI slot recycling callback.
+> > + *
+> > + * The controller is responsible for synchronizing access to its IBI p=
+ool.
+> > + */
+> > +void i3c_dev_recycle_ibi_slot_controller(struct i3c_dev_desc *dev,
+> > +                                    struct i3c_ibi_slot *slot)
 >
-> This is a tricky one.
+> does this one need hold lock?
 >
-> IIUC the suggested allowlist regex will also mask the real splats, which
-> the whole KASAN-in-JIT project was supposed to catch.
+> Frank
 
-Not really: the proposed list of regex above just discards the splat
-emitted by the progs used by the tests related to the KASAN feature (so
-any prog in tools/testing/selftests/bpf/prog/{kasan.c,kasan_harden.c},
-which anyway generate "fake" KASAN splat for most of them, since we are
-manually poisoning some valid memory to trigger the splats. Any other
-program that generate a splat will be caught by the splat detector.
->
-> I think a good way to resolve this is to teach the kasan splat
-> detection script about these tests, and drop/skip them from the dmesg
-> log it inspects. For example, match begin / end of the test set.
-> Might require special log anchors printed by the test itself, but
-> you get the idea.
->
-> Alexis, do you mind trying this?
+No. It's called from i3c_master_handle_ibi() in workqueue context and just =
+forwards to ops->recycle_ibi_slot(); the controller synchronizes its own po=
+ol (generic pool uses its own spinlock).  I'll document the calling context=
+.
 
-If despite the comment above, teaching check-kernel-splat.sh how to
-ignore the kasan selftests specific splats remains a better solution,
-sure, I can work on this.
+Thanks
+Lakshay
 
-Thanks,
 
-Alexis
 
---=20
-Alexis Lothor=C3=A9, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
 
+NXP Confidential
