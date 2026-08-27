@@ -1,88 +1,193 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from SHSQR01.spreadtrum.com (mx1.unisoc.com [222.66.158.135])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CDB8417D9C;
-	Thu, 27 Aug 2026 09:15:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D9DF41B8F2;
+	Thu, 27 Aug 2026 09:15:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=222.66.158.135
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787822118; cv=none; b=CwO7m3agABES7Xh4n2KBSnQVyXLIry7LqAiyRLGEBZFgRb8OUYutMD0K/4F3xKSxa44MCEHy0ZXmqzYJZOXA2QMzgxE6euTDCc2HhdcZl6kOgULSW+T42qgvi1AmN3iTf4OgWffV+ZG9NT6Sc4gfj6tkUJ5FhYyp8u+O2FCkmbs=
+	t=1787822136; cv=none; b=kDjlU4kliuDBmIFQFkWHI6AKz/DQhANO1CfzxHr/0aJxm6SAFKMfcfxKcNQLgLNbV8eiFfOa9GTjV1Xh1isnrvN33d/Blc/1B5wBlA0CQlU55CE3b1ALVrYQEc8ebbVzudJKhJpyaAJ+KbldTbxrHQN/HDoPFfW1uEKDiTAmZbk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787822118; c=relaxed/simple;
-	bh=Kr7o/zNjit8WWWD191s7+7OMGGaB7zhVZg4obMvI8pA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Kq3/aEqX1EET3pYuojH/OxEc4SWWCZj7SHGIDb+8ZZGpSREd1WLQwwwI75L+4KSc2ptyM9L+vFDVF5zIa0RH2sVtFvLk0j3OtVXFSMJzSoGtR4CBtRMdMxjrsmEANgtOJD4lmcpttjZAXtqN79/l2Onc08oSA9fa9uDOShhkyeY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ix+B0AWX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787822136; c=relaxed/simple;
+	bh=XCbu7ilYLhdP+tRkDk0OhlG3kuV6naKq+6AHp3nxe5Q=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=tNBKRAwSCblbXqYzCkQorWP3/QoMSMjcxskfuykkPpuVKsDruJK92Ov2MZM5kIvLe5Px+67KxDovJIMjdmrsws4V2jXE9WKAlcaXMRqKo3qrC0HA3qYaBJN3RO1FGkeTShZFH97ZHbIX3IKK4x5pEmK/bkW92qfCHRUyf0d5I/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=unisoc.com; spf=pass smtp.mailfrom=unisoc.com; dkim=pass (2048-bit key) header.d=unisoc.com header.i=@unisoc.com header.b=PSQQxKmM; arc=none smtp.client-ip=222.66.158.135
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=unisoc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=unisoc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ix+B0AWX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7306C1F000E9;
-	Thu, 27 Aug 2026 09:15:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787822106;
-	bh=LdRXpOvpY8MU9GMUpEh8fPVPCUtndoEd5nrLrISpGFs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ix+B0AWXNJJWen1w78P2vTxR1ovIcsbPrDM3oBaZYsZ4Yz8UODavHLF+fd+FrxlDr
-	 69z/8n1uDLFKPcqThIe5Iu5S71zbYi1h/pJgVMcSDTTFkNlsKDw/cJ8opO0GLNl5T1
-	 yjtEvDmUWBi5wfgVsrGmCxmx1gSSpuzQKjz5IGDMecu9z4W68jHDm3FxFvg+NIHA29
-	 w+cbIdrpKCwBd1Z8XyAhWPA8fiORQjalN8SYdigZ+DI8D3ohOA6IZTKVcjMCDiaq+o
-	 MdHb8OFuC6c3HfN2NzgpBUUeFDFeRfCH7yje8CF7v4kX3aCkbSRZYjKeN9gyC2EQOw
-	 7KfuTHRDBTpPA==
-Date: Thu, 27 Aug 2026 11:15:03 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Sasha Finkelstein <k@chaosmail.tech>
-Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
-	Neal Gompa <neal@gompa.dev>, Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, asahi@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v7 1/6] dt-bindings: spmi: apple,spmi: Add t603x and t8122
-Message-ID: <20260827-curvy-competent-bee-fcd81d@quoll>
-References: <20260818-t603x-spmi-v7-0-dafebe6e7739@chaosmail.tech>
- <20260818-t603x-spmi-v7-1-dafebe6e7739@chaosmail.tech>
+	dkim=pass (2048-bit key) header.d=unisoc.com header.i=@unisoc.com header.b="PSQQxKmM"
+Received: from dlp.unisoc.com ([10.29.3.86])
+	by SHSQR01.spreadtrum.com with ESMTPS id 67R9EcQV079827
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+	Thu, 27 Aug 2026 17:14:38 +0800 (+08)
+	(envelope-from xiaojie.li2@unisoc.com)
+Received: from SHDLP.spreadtrum.com (zeshmbx09.spreadtrum.com [10.29.3.107])
+	by dlp.unisoc.com (SkyGuard) with ESMTPS id 4hVwmZ5GLHz2K4tL9;
+	Thu, 27 Aug 2026 17:13:34 +0800 (CST)
+Received: from zeshkernups02.spreadtrum.com (10.29.35.184) by
+ zeshmbx09.spreadtrum.com (10.29.3.107) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.48; Thu, 27 Aug 2026 17:14:37 +0800
+From: Xiaojie Li <xiaojie.li2@unisoc.com>
+To: Ulf Hansson <ulfh@kernel.org>
+CC: <linux-mmc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <Xiaojie.Li2@unisoc.com>, <Wenchao.Chen@unisoc.com>,
+        <Rain.Zhang@unisoc.com>, <Yuelin.Tang@unisoc.com>,
+        <cixi.geng@linux.dev>
+Subject: [PATCH] mmc: core: Modify the CMD1 transmission interval
+Date: Thu, 27 Aug 2026 17:14:36 +0800
+Message-ID: <20260827091436.1339716-1-xiaojie.li2@unisoc.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260818-t603x-spmi-v7-1-dafebe6e7739@chaosmail.tech>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SHCAS03.spreadtrum.com (10.0.1.207) To
+ zeshmbx09.spreadtrum.com (10.29.3.107)
+X-MAIL:SHSQR01.spreadtrum.com 67R9EcQV079827
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=unisoc.com;
+	s=default; t=1787822088;
+	bh=jCgLoZv8zqyMeIKn8YHg7wgDILHZdtAPRczDdROSP8E=;
+	h=From:To:CC:Subject:Date;
+	b=PSQQxKmMdnCfyu+PvKFoD8hPKizgkOmd8I/Be39kWpe2y7LHHgqloPUJSHfpahmLW
+	 UlWI3MhaVBLmgbpU7X1VPcxkbDFRm09ubXO6UyPWxH5Pygi8d4dDCyq1XwmADhDVUU
+	 HuGqfC1yAtNnlarYHjNy2Yr7q7VdWaoBk8NBjbpoLFqN601t0EtIx/8239uhg9/S6w
+	 jcQBiNWYfs5WjEYFCcbxfboP12T31Ev+3OJ/JU2Bgm+opKpDLt3XMi4otjHk1FZMMP
+	 61d6OoiuYgQKtfv6cXSgu6Mlmz40+r2n8b1DPywG8WsMs+M5PE2Uc4io024h1dhqPc
+	 xnbEQswoNG5XA==
 
-On Tue, Aug 18, 2026 at 08:32:40PM +0200, Sasha Finkelstein wrote:
-> Add t603x and t8122 compatibles, interrupt support, and support for
-> SPMI controllers that are not always-on.
-> 
-> Reviewed-by: Janne Grunau <j@jannau.net>
-> Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
-> ---
->  Documentation/devicetree/bindings/spmi/apple,spmi.yaml | 37 ++++++++++++++++++++++++++++++++++---
->  1 file changed, 34 insertions(+), 3 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/spmi/apple,spmi.yaml b/Documentation/devicetree/bindings/spmi/apple,spmi.yaml
-> index 3e5b14bc8c31..1d14025b44c5 100644
-> --- a/Documentation/devicetree/bindings/spmi/apple,spmi.yaml
-> +++ b/Documentation/devicetree/bindings/spmi/apple,spmi.yaml
-> @@ -20,8 +20,11 @@ properties:
->        - items:
->            - enum:
->                - apple,t6020-spmi
-> +              - apple,t6030-spmi
-> +              - apple,t6031-spmi
->                - apple,t8012-spmi
->                - apple,t8015-spmi
-> +              - apple,t8122-spmi
->            - const: apple,t8103-spmi
->        - items:
->            - enum:
-> @@ -34,9 +37,37 @@ properties:
->    reg:
->      maxItems: 1
->  
-> -required:
-> -  - compatible
-> -  - reg
+The current code's maximum udelay value is set to
+64ms. Since it uses usleep_range(udelay, udelay*2),
+this results in a maximum wait time of 128ms between
+two consecutive CMD1 commands. For lower-performance eMMC chips,
+local testing shows that compared to the old code which used
+mmc_delay(10), the total time required to wait for the busy
+bit in the CMD1 response to change has increased by approximately
+300ms, negatively impacting the overall eMMC initialization time.
 
-This stays. Which device does not need reg or compatible? I think none.
+Although the current code sends the CMD1 command fewer times than
+the old version, the total waiting time is significantly longer.
+To address this, it's proposed to modify the CMD1 sending interval
+to follow a pattern like 4ms, 6ms, 8ms, 10ms, 10ms, etc., effectively
+capping the longest single wait at 10ms. Local testing confirms that
+this approach can bring the total time waiting for the busy state
+change very close to the performance level of the old code.
 
-Best regards,
-Krzysztof
+The eMMC chip used for testing: manfid= 0x00009b, name= Y0S128, mdt= 2022-10
+The eMMC part number is: YMEC8B0TE2A2C3
+
+Signed-off-by: Xiaojie Li <xiaojie.li2@unisoc.com>
+---
+ drivers/mmc/core/mmc_ops.c | 85 ++++++++++++++++----------------------
+ 1 file changed, 36 insertions(+), 49 deletions(-)
+
+diff --git a/drivers/mmc/core/mmc_ops.c b/drivers/mmc/core/mmc_ops.c
+index a952cc8265af..3076666cf2ca 100644
+--- a/drivers/mmc/core/mmc_ops.c
++++ b/drivers/mmc/core/mmc_ops.c
+@@ -189,64 +189,51 @@ int mmc_go_idle(struct mmc_host *host)
+ 	return err;
+ }
+ 
+-static int __mmc_send_op_cond_cb(void *cb_data, bool *busy)
+-{
+-	struct mmc_op_cond_busy_data *data = cb_data;
+-	struct mmc_host *host = data->host;
+-	struct mmc_command *cmd = data->cmd;
+-	u32 ocr = data->ocr;
+-	int err = 0;
+-
+-	err = mmc_wait_for_cmd(host, cmd, 0);
+-	if (err)
+-		return err;
+-
+-	if (mmc_host_is_spi(host)) {
+-		if (!(cmd->resp[0] & R1_SPI_IDLE)) {
+-			*busy = false;
+-			return 0;
+-		}
+-	} else {
+-		if (cmd->resp[0] & MMC_CARD_BUSY) {
+-			*busy = false;
+-			return 0;
+-		}
+-	}
+-
+-	*busy = true;
+-
+-	/*
+-	 * According to eMMC specification v5.1 section 6.4.3, we
+-	 * should issue CMD1 repeatedly in the idle state until
+-	 * the eMMC is ready. Otherwise some eMMC devices seem to enter
+-	 * the inactive mode after mmc_init_card() issued CMD0 when
+-	 * the eMMC device is busy.
+-	 */
+-	if (!ocr && !mmc_host_is_spi(host))
+-		cmd->arg = cmd->resp[0] | BIT(30);
+-
+-	return 0;
+-}
+-
+ int mmc_send_op_cond(struct mmc_host *host, u32 ocr, u32 *rocr)
+ {
+ 	struct mmc_command cmd = {};
++	unsigned int udelay = MMC_OP_COND_PERIOD_US;
++	unsigned int udelay_max = 10000;
++	unsigned long timeout = jiffies + msecs_to_jiffies(MMC_OP_COND_TIMEOUT_MS) + 1;
+ 	int err = 0;
+-	struct mmc_op_cond_busy_data cb_data = {
+-		.host = host,
+-		.ocr = ocr,
+-		.cmd = &cmd
+-	};
+ 
+ 	cmd.opcode = MMC_SEND_OP_COND;
+ 	cmd.arg = mmc_host_is_spi(host) ? 0 : ocr;
+ 	cmd.flags = MMC_RSP_SPI_R1 | MMC_RSP_R3 | MMC_CMD_BCR;
+ 
+-	err = __mmc_poll_for_busy(host, MMC_OP_COND_PERIOD_US,
+-				  MMC_OP_COND_TIMEOUT_MS,
+-				  &__mmc_send_op_cond_cb, &cb_data);
+-	if (err)
+-		return err;
++	while (!time_after(jiffies, timeout)) {
++		err = mmc_wait_for_cmd(host, &cmd, 0);
++		if (err)
++			break;
++
++		if (mmc_host_is_spi(host)) {
++			if (!(cmd.resp[0] & R1_SPI_IDLE))
++				break;
++		} else {
++			if (cmd.resp[0] & MMC_CARD_BUSY)
++				break;
++		}
++
++		/*
++		 * According to eMMC specification v5.1 section 6.4.3, we
++		 * should issue CMD1 repeatedly in the idle state until
++		 * the eMMC is ready. Otherwise some eMMC devices seem to enter
++		 * the inactive mode after mmc_init_card() issued CMD0 when
++		 * the eMMC device is busy.
++		 */
++		if (!ocr && !mmc_host_is_spi(host))
++			cmd.arg = cmd.resp[0] | BIT(30);
++
++		usleep_range(udelay, udelay + 1000);
++
++		if (udelay < udelay_max)
++			udelay += 2000;
++		else
++			udelay = udelay_max;
++	}
++
++	if (time_after(jiffies, timeout))
++		err = -ETIMEDOUT;
+ 
+ 	if (rocr && !mmc_host_is_spi(host))
+ 		*rocr = cmd.resp[0];
+-- 
+2.34.1
 
