@@ -1,329 +1,261 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05A804B048C
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:52:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20C174ADD96
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:52:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787853166; cv=none; b=Ihw/jtQ3lKTbCKedUNrkKUWbf9GQpEpJsvP+K8D/taFGBmI1pBVjkDXL9rgL3eLBE0wFktUiVNEiyHs0kvCl9JxqdWQd3fhT8x3xwXmnY+l3pYz/BMYTpiu5u2D4EXvOmkmX/jVD3gJLMedRGTPNxuiZnpUA/yHqt/T7HzeabZk=
+	t=1787853177; cv=none; b=VkQvLDtYaIBxn7x7TgpKTV3UV8QBBY0vTdgTbccV6+Bb9HZR0l1K/d21rfEk4MVVSWl3NJUom+fKEjfZBHaUU6CkSHUZa1eVRE0JdRG0PPG5kFocD+XAXWsrTYrv/R95UgGHAQa2OD0mNZQo+PGzTS54P/Qt/r7iVP0pbwN//G4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787853166; c=relaxed/simple;
-	bh=9FPCV87eitw661yJc7gqbrscj5MlCzlDB1E+PFlfCyc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=XobYffzZRbNlsQnHAPFjF0/XYx43m45I1HASxwzBnwSb3oE0rX/6ipKK01CbxRWlrDbsu4mYlVTzcWge9N5Y/Un6TK8wZTp4/OdnBLQDVP0qSVHyffYeC5rlLze92bMXUhgeH0ksomJ4GGhMycPlen3u49wyDnG4duspSEms9FY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RZBq8IFp; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=feud1py8; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787853177; c=relaxed/simple;
+	bh=cF6NYXhDGfB74HoBaloQ4sZUldwQ5oUq/5AOtANebOY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=B+bcIf8bYn2OINVIqfV+D2Zm3spTZfs2/fv3D3ROw8UCwXLC8eKgYgx56nS+5OaqkQytij6UPkGQfZvm5i0dMLKLy8FAIrgP7P58IpVpbEXHZcAONbNi7LVgMKyA3o4cA24baCiYaBrCJ8+z5gqfMJVGCPozZ2NuSZPdcxbNrUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=VlZZMwpX; arc=none smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RZBq8IFp";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="feud1py8"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67RHXebH873746
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:52:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	XYHgBCRZLEB3XoVwSokcAPnaY99rEFsjH7u+mtUXlls=; b=RZBq8IFpwxbYDmxG
-	7Sos25G/67+VZyucyv805rbaSQqzgdPQE0d39PcfnmI3z/qArTK5hkVjx/2H6794
-	1GrbWk88RfDRlW3EthG891c65RFE24x0FiyMLDm0h4ffaCMklQ4DQBV/dlQg9fse
-	YH9KKETwt1l3TMyFaAIOSvq2P4TyfRH9gPqoX1aJH+l/kn0C8N2FJdGBvIWNqL3m
-	B28ppjKOPW/W29h+a5wlddmaQmc7anG8d19YHf9jiiG3AebB7Rnfrz5KsREDPGvm
-	UVppY2oZ8eTWzmZ4FVmHwAU0ka5YFvd1QRr5x5gOECW+6rOBt6aE1xr1P1vpjthB
-	LDAoWQ==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4garn0gfya-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:52:43 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38e4758ab46so381609a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:52:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="VlZZMwpX"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2d3b440b97aso10465ad.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:52:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787853162; x=1788457962; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XYHgBCRZLEB3XoVwSokcAPnaY99rEFsjH7u+mtUXlls=;
-        b=feud1py8P77nX7sSRUU6GgAao9uXLOjJeJmfLoyAVlNZUGC4EAKyGFq1IA/pNFNka9
-         x6+a4frGMmt1uuOp007C+JMF9MsIRprQq15U/9yrL057AM73KyW6fbZaZ/vu0KhmnWuW
-         aWtnkAvJrZfq+EEMfz9HYNC2td42dF7OvOi8JNoafvGQFEAESdwZTU+X08DfZ4YQSFoe
-         FLlo2uzQ3mYo45Ij5VrSC2fPBMRuz+4sgkBLukixhs0Jm/ydYIj4uAnvLAxMqJubmlLO
-         2auEbKoB9xgTp0atP3n6C+kGI72iAV87j36TWrZktZsYm7T0sXRmFYaU+5P8s1I0r6xL
-         x5ww==
+        d=google.com; s=20251104; t=1787853174; x=1788457974; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=P+fTw5/xN6iO4FdPKCmZVQ2MDNmjfRNyCIFQIOLN/Mk=;
+        b=VlZZMwpXKCiWoy34NONdNcg6sYjdoqm7IF4dW4o9Oxm66ZEKgUS4XMkwpSLym1/DSI
+         T/hzRIl91Y172EioNAhfyUWASY5quNyihpImZHoqsGAdmk6sn1eC0UvVU9EVu4JlbTT0
+         MjEKV/TM0lTRgXDaYVfpiPLNOEFdtOGxFCuH5lj3Cnwy7Wtr60TYFTjdP2qDA6GIL1Wx
+         OEmAgzg1oV8R612FqVhYyAKiEvdr+m71JhAj/HugjN1gL4Rh2KxOvFwSMY4/JqST9QZQ
+         eliwAgRA0cXLN3uF66BtG//890PLSthu/0BSBXJShBSpmuGjGC3WJwnrRNPGI1rVg0jv
+         JarQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787853162; x=1788457962;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20251104; t=1787853174; x=1788457974;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XYHgBCRZLEB3XoVwSokcAPnaY99rEFsjH7u+mtUXlls=;
-        b=iaQ3uhN18wzIqi0YtaPjclhdleIQqMRPnA29MxolMGrzmEdfn39fSwewNKR+l9LmaQ
-         YBLPpAPOwNDKPQN4u8CXSllOPKIEgcgnmBeqdqflKyNlCf6WTQBD/uwsQe8ROH0LsK3z
-         /yGfb8FBxOI9b0KxAhdZa5DSiiKO/MYXKr0lwVVZN3wj6YBzv7tMosdVmm/4wfOtbQ72
-         nwtQEE0c5G6kFAGXiDw47V7PGxjJPQGRg6v6Zhn5Pqwzw44g6Haus5ZO32et2YEryzhZ
-         VSbhMAW4eWbaJRCvBWOMkLLROaGbcGtl762/WYdZ5wvULFNAxZy3a1ayZFZ1JT7/DVm8
-         zrFA==
-X-Forwarded-Encrypted: i=1; AHgh+RodNLEIr53hwTfe8Yjiz+6UDFf6rF8YguG6/blg3EcbYty2vmdnEyixkqzwhLdCDCRfvZxsa603HrxgH+E=@vger.kernel.org
-X-Gm-Message-State: AFuF++k8kK/CD48A45N2ezYPxsFxKpOA9O7hsUK3iyIfhJtQ57pnTVG1
-	FAomjXqtTrmUJzl6grAaOe5jN20CRVYpyz/iKD31lOk8EGEl1gGUiXfsM0GOCWI84Oa6lJ9NuAr
-	HdiPZHsBTmi53u6qocDw2SIhtedwaw9K9SknMnpZ21Milen3F3Upu9nTgEdUuaAmODd8=
-X-Gm-Gg: AR+sD10MfbIrmuWB8hDezZzTP3NhdSAfDLsYpfhPfMnxOtZ/EiASRwxJguvIVE82p/+
-	c/UNpC9sh5aBgssEX+MD42pPg5wkb22fKftbtWvvtiEcLPnHgkoL/RwLSmtsk9XwiFP3nY4/xmb
-	1MzX6QF8LdPpP6vUHOMNQtVhHUlzM95DQujQtroOi5gaPUTtpi7MwobL6aF+ytLld99Jj2DZoW7
-	lQA5c4UHGB/dE/nrRS2obT4XoyNshjK51aSdPwQb7+hHmcSDHmzrSDieJRrNlBGc3jBv99TsGYC
-	RAD4yh1go0A6f8hURf5FbuXrP6Jh75dgM/jWGscyG67LqN706YXv4XCr6T8kCWn/YG2uVKLPR13
-	DCoV+5YHpAqbZXcHSwgs1sZ/MJRG+nKzHp1iXh8jarBF7v8grwpGz9xDBkOoZE4i+gjbrSEU8U9
-	NCEIOeCllCpvBS31G43NCaftk=
-X-Received: by 2002:a05:6a20:6a29:b0:3d1:be60:281b with SMTP id adf61e73a8af0-3d268ef9eb5mr1275236637.15.1787853162231;
-        Thu, 27 Aug 2026 10:52:42 -0700 (PDT)
-X-Received: by 2002:a05:6a20:6a29:b0:3d1:be60:281b with SMTP id adf61e73a8af0-3d268ef9eb5mr1275086637.15.1787853161631;
-        Thu, 27 Aug 2026 10:52:41 -0700 (PDT)
-Received: from hu-hardshar-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3283d60d25esm23889316eec.4.2026.08.27.10.52.34
+        bh=P+fTw5/xN6iO4FdPKCmZVQ2MDNmjfRNyCIFQIOLN/Mk=;
+        b=Wxhotxvgb6iW0hixWE2j1Zp1/NEQkA7+h3DikjfBbbrgdfJIsrqTSmHPco1UmZtMDr
+         VUaYShYcmsi3Ac2NJ3AOcBCX59aUE0bYkO95SsTGvn7qWZHTNI4E3HwH449ZNDaLk8dK
+         cNLMRPQGSXIc9Uf2hkCmTF5jNs/IxtUpTpj2+HK8ZMDiGwNbONXcYC0fuUUcCeu0h1hS
+         pvJaY2qlVOagonwSNYyVxT0iTAAcMwEqPJUx6O2X0SR00n2gULXxZaC+Tl3dopNiTU+t
+         bzvWym/W0fKdICgpJChfKU0iXx4CQ7lt6nv6CIzOieU/JExtJi9HyER1zs7m3rwntpAr
+         FJtg==
+X-Forwarded-Encrypted: i=1; AHgh+Rr5YL2UbXfCCE+QDofRbWSWpMNGZlITfYjBXahYaX/eNgVgQ02lwSIdAHELg27a4L9JVj08f+Svmt6wFp4=@vger.kernel.org
+X-Gm-Message-State: AFuF++myOkjf6gp88Ii82ch5beLrTfpRqjZ/ncIGoe5Gqy26qUblD38A
+	RdgSJuAaSJjYoGPudXcos3biDM7Drhl2xjUggPJJVbpK1H/cVfYJAqOPwQ3nRG9HEQ==
+X-Gm-Gg: AR+sD12g/olEB+l9/9lEE+9js8JWDlUWcjzCl67GzN1ko28qYW5w/BAvHJgNotwtuyv
+	bKLXZ6785FwVIxfWceqO3W1Zk6b7jn759ELSfSvGAQi5E10tYYQsL5mMpg839oOjvZx0bCY5FKn
+	t7KkYRp1Su+NRvIpA2cnjXpqsh4W6P+nVMjGV29PXkgIp5spFuhb30IJIHrmmr6+Sx3Rcc6+TbQ
+	V3TxSqBkI6pJesNPiK61QfS/0lhcqMPxCNJPXZLN7y2Lvq5/YKR7A4UkXpBzJfqsMGBAxZ7KVyw
+	RxnvDB3F9RPLvQrKUHQoxELgIG/oNZJiqJubx+O2oGhZGllD6qyj6WIXgjZvEdfSeMNs6AOXcSm
+	BYHTGAzxVEDn0m4BkI0plXmKdxgLRqF6/Il2CFM0ItDKekItn637Vi98ectcl8YC3qFjx++LUt0
+	kHSwkIg2UhpTT9645MqNp+n5JqxwdBxosTHTOBwIYdJdwA5g6Tt4vrn4TiFhnFWY5r76SIptQWa
+	L3r/NjA1zzbEbeduSayD+/C8q7L8eXeOVFhmq2AlXmMCfHoqEZlIi/54tA=
+X-Received: by 2002:a17:903:1b48:b0:2ca:6bf:5bac with SMTP id d9443c01a7336-2d74f53de42mr551995ad.8.1787853173817;
+        Thu, 27 Aug 2026 10:52:53 -0700 (PDT)
+Received: from google.com (210.87.127.34.bc.googleusercontent.com. [34.127.87.210])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b1123142sm3639572a91.15.2026.08.27.10.52.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 10:52:41 -0700 (PDT)
-From: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
-Date: Thu, 27 Aug 2026 23:21:13 +0530
-Subject: [PATCH v5 10/15] dt-bindings: clock: qcom: Add Kuno Global Clock
- Controller
+        Thu, 27 Aug 2026 10:52:52 -0700 (PDT)
+Date: Thu, 27 Aug 2026 17:52:49 +0000
+From: Samiullah Khawaja <skhawaja@google.com>
+To: Baolu Lu <baolu.lu@linux.intel.com>
+Cc: David Woodhouse <dwmw2@infradead.org>, Joerg Roedel <joro@8bytes.org>, 
+	Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	Robin Murphy <robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>, 
+	Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, kvm@vger.kernel.org, Pratyush Yadav <pratyush@kernel.org>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, David Matlack <dmatlack@google.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Pranjal Shrivastava <praan@google.com>, 
+	Vipin Sharma <vipinsh@google.com>
+Subject: Re: [PATCH v4 12/18] iommu/vt-d: Handle reattach of the restored
+ domain
+Message-ID: <apBso6So7UqwR3AX@google.com>
+References: <20260808022723.3893618-1-skhawaja@google.com>
+ <20260808022723.3893618-13-skhawaja@google.com>
+ <5b920299-260b-4025-ac4f-e8f83beebf95@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260827-kuno-soc-support-v5-10-6d47636a8f09@oss.qualcomm.com>
-References: <20260827-kuno-soc-support-v5-0-6d47636a8f09@oss.qualcomm.com>
-In-Reply-To: <20260827-kuno-soc-support-v5-0-6d47636a8f09@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Georgi Djakov <djakov@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Linus Walleij <linusw@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-        Radu Rendec <radu@rendec.net>, Robert Marko <robimarko@gmail.com>,
-        Guru Das Srinagesh <linux@gurudas.dev>,
-        Taniya Das <taniya.das@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-pm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-gpio@vger.kernel.org,
-        Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
-X-Mailer: b4 0.15-dev-47773
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787853069; l=5749;
- i=hardeep.sharma@oss.qualcomm.com; s=20260204; h=from:subject:message-id;
- bh=9FPCV87eitw661yJc7gqbrscj5MlCzlDB1E+PFlfCyc=;
- b=TY+V8SFVuEX+OQTKe4e7vYI961JtP+1FaDJZvDP3eLd8vPdFaIU9/VXdgz/qjVw2ALhuQ2IEm
- h6Syujh2JvoDrAoaczWfiqajzvI9Uj9OatzbmK3WIOBVqlxUw9NYmGh
-X-Developer-Key: i=hardeep.sharma@oss.qualcomm.com; a=ed25519;
- pk=IvwPDKA2xr6jWaCIBBY2ran/H0124QUzVfun+CtEikM=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDE1MSBTYWx0ZWRfX8dXujIHjNTKJ
- a//vKg1ZIPE9qtD0AWTouWN3Pi1yemY5NhKRvIlGhjjykLNikDj1I7J5UyDbeLF8KdNfLT/inLo
- WBPlKYjFOl+oxCcqxgosX7hz079e2Z8IPQH6VmO4JBymhMh/tGwnwDSOV07dBfQLT2UrCo+YA0z
- y25ayjvW4Qy5/jl7FjgPF535NcBU0M5s0C31MwlbN28NIE+jfNK0F4B+aLB7qxOarZwVeQAXUpi
- FlrkoR8XC1K++CtOOnWiy++RVGBT4zIEOZNmLxl2hQCIlhaKuHsKfvkA4AGQipOhTpf1YnI5jzi
- e8y6/uKatEz6FrIz3yRQFifLiedIhCrKm37b52k+0eRbXH//BrDCFTzw1qO4Gb6PXTLir3CN76r
- ooIoPH2nQvvhHS+dIcE/o1nMH1ihUtYMZ1VRKFcLrp7Hrgre7vbKbRv0NdNQHtVYfW2h8Sv+8T2
- bJVpl1NCd3u5jeyypHA==
-X-Proofpoint-GUID: MHJk8onlvLEHogisiCn6BEFacdt0-9cp
-X-Authority-Analysis: v=2.4 cv=C+3ZDwP+ c=1 sm=1 tr=0 ts=6a90796b cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=PKuh8qK-LUMqOkA3WUgA:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22 a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-ORIG-GUID: MHJk8onlvLEHogisiCn6BEFacdt0-9cp
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDE1MSBTYWx0ZWRfXy73n6QDnQd0v
- QV6QyfWtARmlmzYqAfIF7hbGlTPcNazSB0/ilkhuWgdXiKU3//9BdG3/iZXz0AtfSJhrGggy3CG
- //Bxy9XcYAhKh0mAroCf63bLcd9MZDg=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-27_07,2026-08-27_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 lowpriorityscore=0 suspectscore=0 adultscore=0 phishscore=0
- priorityscore=1501 spamscore=0 impostorscore=0 malwarescore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608270151
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <5b920299-260b-4025-ac4f-e8f83beebf95@linux.intel.com>
 
-Document the Global Clock Controller (GCC) binding and associated
-clock/reset IDs for the Qualcomm Kuno SoC.
+On Thu, Aug 27, 2026 at 04:12:01PM +0800, Baolu Lu wrote:
+>On 8/8/26 10:27, Samiullah Khawaja wrote:
+>>Reattach the restored domain to the preserved device using restored
+>>domain ID. While reattaching do not setup the context and PASID entries
+>>as those are preserved during liveupdate.
+>>
+>>Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
+>>---
+>>  drivers/iommu/intel/iommu.c      |   9 ++-
+>>  drivers/iommu/intel/iommu.h      |  10 +++
+>>  drivers/iommu/intel/liveupdate.c | 120 +++++++++++++++++++++++++++++++
+>>  3 files changed, 136 insertions(+), 3 deletions(-)
+>>
 
-Signed-off-by: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
----
- .../devicetree/bindings/clock/qcom,kuno-gcc.yaml   |  52 +++++++++++
- include/dt-bindings/clock/qcom,kuno-gcc.h          | 100 +++++++++++++++++++++
- 2 files changed, 152 insertions(+)
+[snip]
 
-diff --git a/Documentation/devicetree/bindings/clock/qcom,kuno-gcc.yaml b/Documentation/devicetree/bindings/clock/qcom,kuno-gcc.yaml
-new file mode 100644
-index 000000000000..7ae37033a1af
---- /dev/null
-+++ b/Documentation/devicetree/bindings/clock/qcom,kuno-gcc.yaml
-@@ -0,0 +1,52 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/clock/qcom,kuno-gcc.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Qualcomm Global Clock & Reset Controller on Kuno
-+
-+maintainers:
-+  - Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
-+
-+description: |
-+  Qualcomm global clock control module provides the clocks and resets on Kuno.
-+
-+  See also: include/dt-bindings/clock/qcom,kuno-gcc.h
-+
-+properties:
-+  compatible:
-+    const: qcom,kuno-gcc
-+
-+  clocks:
-+    items:
-+      - description: Board XO source
-+      - description: Board active-only XO source
-+      - description: Sleep clock source
-+      - description: PCIe pipe clock source
-+
-+required:
-+  - compatible
-+  - clocks
-+  - '#power-domain-cells'
-+
-+allOf:
-+  - $ref: qcom,gcc.yaml#
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/qcom,rpmh.h>
-+    clock-controller@80000 {
-+        compatible = "qcom,kuno-gcc";
-+        reg = <0x00080000 0x1f4200>;
-+        clocks = <&rpmhcc RPMH_CXO_CLK>,
-+                 <&rpmhcc RPMH_CXO_CLK_A>,
-+                 <&sleep_clk>,
-+                 <&pcie_pipe_clk>;
-+        #clock-cells = <1>;
-+        #reset-cells = <1>;
-+        #power-domain-cells = <1>;
-+    };
-+...
-diff --git a/include/dt-bindings/clock/qcom,kuno-gcc.h b/include/dt-bindings/clock/qcom,kuno-gcc.h
-new file mode 100644
-index 000000000000..a237b25a061d
---- /dev/null
-+++ b/include/dt-bindings/clock/qcom,kuno-gcc.h
-@@ -0,0 +1,100 @@
-+/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+#ifndef _DT_BINDINGS_CLK_QCOM_GCC_KUNO_H
-+#define _DT_BINDINGS_CLK_QCOM_GCC_KUNO_H
-+
-+/* GCC clocks */
-+#define GPLL0							0
-+#define GPLL0_OUT_EVEN						1
-+#define GPLL2							2
-+#define GPLL3							3
-+#define GPLL4							4
-+#define GPLL4_OUT_EVEN						5
-+#define GCC_EMAC0_AXI_CLK					7
-+#define GCC_EMAC0_PHY_AUX_CLK					8
-+#define GCC_EMAC0_PHY_AUX_CLK_SRC				9
-+#define GCC_EMAC0_PTP_CLK					10
-+#define GCC_EMAC0_PTP_CLK_SRC					11
-+#define GCC_EMAC0_RGMII_CLK					12
-+#define GCC_EMAC0_RGMII_CLK_SRC					13
-+#define GCC_EMAC0_SLV_AHB_CLK					14
-+#define GCC_EMAC_0_CLKREF_EN					15
-+#define GCC_GP1_CLK						16
-+#define GCC_GP1_CLK_SRC						17
-+#define GCC_GP2_CLK						18
-+#define GCC_GP2_CLK_SRC						19
-+#define GCC_GP3_CLK						20
-+#define GCC_GP3_CLK_SRC						21
-+#define GCC_PCIE_0_CLKREF_EN					22
-+#define GCC_PCIE_AUX_CLK					23
-+#define GCC_PCIE_AUX_CLK_SRC					24
-+#define GCC_PCIE_AUX_PHY_CLK_SRC				25
-+#define GCC_PCIE_CFG_AHB_CLK					26
-+#define GCC_PCIE_MSTR_AXI_CLK					27
-+#define GCC_PCIE_PIPE_CLK					28
-+#define GCC_PCIE_PIPE_CLK_SRC					29
-+#define GCC_PCIE_RCHNG_PHY_CLK					30
-+#define GCC_PCIE_RCHNG_PHY_CLK_SRC				31
-+#define GCC_PCIE_SLEEP_CLK					32
-+#define GCC_PCIE_SLV_AXI_CLK					33
-+#define GCC_PCIE_SLV_Q2A_AXI_CLK				34
-+#define GCC_PDM2_CLK						35
-+#define GCC_PDM2_CLK_SRC					36
-+#define GCC_PDM_AHB_CLK						37
-+#define GCC_PDM_XO4_CLK						38
-+#define GCC_QUPV3_WRAP0_CORE_2X_CLK				39
-+#define GCC_QUPV3_WRAP0_CORE_CLK				40
-+#define GCC_QUPV3_WRAP0_S0_CLK					41
-+#define GCC_QUPV3_WRAP0_S0_CLK_SRC				42
-+#define GCC_QUPV3_WRAP0_S1_CLK					43
-+#define GCC_QUPV3_WRAP0_S1_CLK_SRC				44
-+#define GCC_QUPV3_WRAP0_S2_CLK					45
-+#define GCC_QUPV3_WRAP0_S2_CLK_SRC				46
-+#define GCC_QUPV3_WRAP0_S3_CLK					47
-+#define GCC_QUPV3_WRAP0_S3_CLK_SRC				48
-+#define GCC_QUPV3_WRAP0_S4_CLK					49
-+#define GCC_QUPV3_WRAP0_S4_CLK_SRC				50
-+#define GCC_QUPV3_WRAP_0_M_AHB_CLK				51
-+#define GCC_QUPV3_WRAP_0_S_AHB_CLK				52
-+#define GCC_SDCC4_AHB_CLK					53
-+#define GCC_SDCC4_APPS_CLK					54
-+#define GCC_SDCC4_APPS_CLK_SRC					55
-+#define GCC_SNOC_CNOC_USB3_CLK					56
-+#define GCC_SYS_NOC_USB_SF_AXI_CLK				57
-+#define GCC_USB20_MASTER_CLK					58
-+#define GCC_USB20_MASTER_CLK_SRC				59
-+#define GCC_USB20_MOCK_UTMI_CLK					60
-+#define GCC_USB20_MOCK_UTMI_CLK_SRC				61
-+#define GCC_USB20_MOCK_UTMI_POSTDIV_CLK_SRC			62
-+#define GCC_USB20_SLEEP_CLK					63
-+#define GCC_USB2_CLKREF_EN					64
-+#define GCC_USB3_PRIM_CLKREF_EN					65
-+#define GCC_USB_PHY_CFG_AHB2PHY_CLK				66
-+#define GCC_BOOT_ROM_AHB_CLK					68
-+
-+/* GCC power domains */
-+#define GCC_EMAC0_GDSC						0
-+#define GCC_PCIE_GDSC						1
-+#define GCC_USB20_GDSC						2
-+
-+/* GCC resets */
-+#define GCC_EMAC0_BCR						0
-+#define GCC_PCIE_BCR						1
-+#define GCC_PCIE_LINK_DOWN_BCR					2
-+#define GCC_PCIE_NOCSR_COM_PHY_BCR				3
-+#define GCC_PCIE_PHY_BCR					4
-+#define GCC_PCIE_PHY_CFG_AHB_BCR				5
-+#define GCC_PCIE_PHY_COM_BCR					6
-+#define GCC_PCIE_PHY_NOCSR_COM_PHY_BCR				7
-+#define GCC_PDM_BCR						8
-+#define GCC_QUPV3_WRAPPER_0_BCR					9
-+#define GCC_QUSB2PHY_BCR					10
-+#define GCC_SDCC4_BCR						11
-+#define GCC_TCSR_PCIE_BCR					12
-+#define GCC_USB20_BCR						13
-+#define GCC_USB_PHY_CFG_AHB2PHY_BCR				14
-+
-+#endif
+>>+
+>>+static int domain_reattach_iommu(struct dmar_domain *domain,
+>>+				 struct intel_iommu *iommu,
+>>+				 struct iommu_device_ser *device_ser)
+>>+{
+>>+	struct iommu_domain_info *info, *curr;
+>>+	int restored_did;
+>>+	int ret;
+>>+
+>>+	if (!iommu_domain_restored_state(&domain->domain))
+>>+		return -EINVAL;
+>>+
+>>+	restored_did = device_ser->domain_iommu_ser.attachment_id;
+>>+	if (!ida_exists(&iommu->domain_ida, restored_did))
+>>+		return -EINVAL;
+>
+>It seems that checking only whether the domain ID is reserved on this
+>IOMMU may not be sufficient. It would be safer to also verify that:
+>
+>- device_ser->domain_iommu_ser.iommu_phys matches iommu->reg_phys, and
+>- device_ser->domain_iommu_ser.domain_phys matches @domain.
+>
+>?
 
--- 
-2.43.0
+Interesting.. The caller of this attach from core fetches the correct
+domain based on the checks you mentioned. But you are right, adding a
+check here makes sense to prevent anyone else calling attach with a
+mismatch.
+>
+>>+
+>>+	info = kzalloc_obj(*info);
+>>+	if (!info)
+>>+		return -ENOMEM;
+>>+
+>>+	guard(mutex)(&iommu->did_lock);
+>>+	curr = xa_load(&domain->iommu_array, iommu->seq_id);
+>>+	if (curr) {
+>>+		curr->refcnt++;
+>>+		kfree(info);
+>>+		return 0;
+>>+	}
+>>+
+>>+	info->refcnt	= 1;
+>>+	info->did	= restored_did;
+>>+	info->iommu	= iommu;
+>>+	curr = xa_cmpxchg(&domain->iommu_array, iommu->seq_id,
+>>+			  NULL, info, GFP_KERNEL);
+>>+	if (curr) {
+>>+		ret = xa_err(curr) ? : -EBUSY;
+>>+		goto err_unlock;
+>>+	}
+>>+
+>>+	return 0;
+>>+
+>>+err_unlock:
+>>+	kfree(info);
+>>+	return ret;
+>>+}
+>>+
+>>+/**
+>>+ * intel_iommu_restore_device() - Restore device domain attachment after live update
+>>+ * @domain: Restored domain
+>>+ * @dev: Restored device
+>>+ *
+>>+ * Return: 0 on success, or negative error code.
+>>+ */
+>>+int intel_iommu_restore_device(struct iommu_domain *domain,
+>>+			       struct device *dev)
+>>+{
+>>+	struct iommu_device_ser *device_ser = dev_iommu_restored_state(dev);
+>>+	struct device_domain_info *info = dev_iommu_priv_get(dev);
+>>+	struct dmar_domain *dmar_domain = to_dmar_domain(domain);
+>>+	struct intel_iommu *iommu = info->iommu;
+>>+	unsigned long flags;
+>>+	int ret;
+>>+
+>>+	if (!device_ser)
+>>+		return -EINVAL;
+>>+
+>>+	if (dev_is_real_dma_subdevice(dev))
+>>+		return -EOPNOTSUPP;
+>
+>... or, move above check here to ensure the attachment relationship
+>between the @device and @domain?
 
+I think it is good to keep it in the domain_reattach_iommu() as that
+does the iommu <-> domain association.
+>
+>>+
+>>+	ret = domain_reattach_iommu(dmar_domain, iommu, device_ser);
+>>+	if (ret)
+>>+		return ret;
+>>+
+>>+	info->domain = dmar_domain;
+>>+	info->domain_attached = true;
+>>+	spin_lock_irqsave(&dmar_domain->lock, flags);
+>>+	list_add(&info->link, &dmar_domain->devices);
+>>+	spin_unlock_irqrestore(&dmar_domain->lock, flags);
+>>+
+>>+	if (!sm_supported(iommu))
+>>+		intel_iommu_enable_pci_ats(info);
+>
+>Could you please clarify the PCI ATS behavior across live update?
+>
+>My understanding is that PCI devices may bypass reset during kexec and
+>are then re-initialized by the new kernel (is that correct?). If so, ATS
+>state in hardware would depend on its state before kexec in the old
+>kernel.
+>
+>In a normal reboot, ATS is expected to be disabled and the device ATC is
+>empty. But that assumption may not hold for live update. If that is
+>true, can we still use the same approach to keep hardware ATS state and
+>info->ats_enabled in sync?
+
+Regarding ATS, it remains enabled in the preserved device during kexec
+and we should keep it in sync with the info->ats_enabled here. We might
+have to disable it in the next kernel if it is unsupported (or disabled
+globally) in the next kernel. I will put those changes here in next
+revision.
+>
+>>+
+>>+	ret = cache_tag_assign_domain(dmar_domain, dev, IOMMU_NO_PASID);
+>>+	if (ret)
+>>+		goto err;
+>>+
+>>+	ret = iopf_for_domain_set(domain, dev);
+>>+	if (ret)
+>>+		goto err;
+>>+
+>>+	return 0;
+>>+
+>>+err:
+>>+	/*
+>>+	 * Detach the restored domain from device and iommu on failure, but keep
+>>+	 * the hardware state intact.
+>>+	 */
+>>+	info->domain_attached = false;
+>>+	cache_tag_unassign_domain(info->domain, dev, IOMMU_NO_PASID);
+>>+	spin_lock_irqsave(&info->domain->lock, flags);
+>>+	list_del(&info->link);
+>>+	spin_unlock_irqrestore(&info->domain->lock, flags);
+>>+
+>>+	domain_detach_reattached_iommu(info->domain, iommu);
+>>+	info->domain = NULL;
+>>+	return ret;
+>>+}
+>>+
+>>  /**
+>>   * intel_iommu_preserve_device() - Intel IOMMU callback to preserve device state
+>>   * @dev: Target device
+>
+>Thanks,
+>baolu
+
+Thanks,
+Sami
