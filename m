@@ -1,38 +1,38 @@
-Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
+Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B50E29B78B;
-	Thu, 27 Aug 2026 14:04:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.218
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BAFE46A60A;
+	Thu, 27 Aug 2026 14:04:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.226
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787839509; cv=none; b=BiNksiZuLRGtP9DagzZwroS4/+1lChFNPKL2sKLu+9vGuevIOvKRcZgkix+oGTayRSahhYo4ebgiOmed7d0/Cz1PESxDYcjrQF+mbxkuO+R7RmVXa5E/X69ruoJ0hc/KqYa3++pe7R0b0kqVcOYIu5F8c3YX9Q0V1HXfbQaNXf4=
+	t=1787839505; cv=none; b=NMd+p5ZqBJbb6XsUrhsO+Pbx0HteQ9/069UOMEK6iPKIa9e29GAjJrjvUNgT+248pEjgiDNWmyLD5VfCWchRkbsPZa0mhPShOP9oRgATONMqT9YyJf+EGVufie5eyY0s30oMyMeQhz3431793b4I9JM4cOkuqTo+M2dTWybzFCg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787839509; c=relaxed/simple;
-	bh=ThXLS+1EDeZcHtTvHRKNMqaMzxq7/pY3B7pJOrDYX+Y=;
+	s=arc-20240116; t=1787839505; c=relaxed/simple;
+	bh=XZdWI2/uERCtmwVerQF++k8KxZ1pBYG49agVILGT5HI=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BVWnB/zOlXcXEwykiTC+V+xUoMyz4VL4zUJ6ClcE1Ow/m2IzSu2OoLeRIG734MA1FA6n45Az/8xTQQmCzYEkRf5HQRq/ybUuAtK8+WndDQ1UGyZ6EsEhDd3ABkl0shXh7Adw9kXmSm10eA3Wymkfc3KXOg/EAQRMM0pBTELe/Fc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=2wqJOUsE; arc=none smtp.client-ip=113.46.200.218
+	 MIME-Version:Content-Type; b=b4wIMZ93ZV67oeKKcHsMQZE+/CVmjNs3YIE910VUKNdd/IZ+MrzEp0ryWKo/OI9PbBuCEw5QOPknVXZrLpB61HlyD3XrK/kpS9cVp8aDAlAqZsOJEfebhjl+qabbMXvbYCFPTYBfSXnhRcGsnp3MTIQ4lZPq4096RjXfxzwhiJM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=E1RWijJD; arc=none smtp.client-ip=113.46.200.226
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="2wqJOUsE"
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="E1RWijJD"
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=f7BWGKlrl6bmn8Sz57qbIUsb8dlk+ldZG55Zj1BFAvA=;
-	b=2wqJOUsEFUeIidsWW+5SgqYsTy9O/raW/8tZB4L4a8X7aty3GnYrvUa8TM/XKhh+zjfhQTgLG
-	/UTFOPozzuTotO4ytS+qhl+TFnqzW4e4Lff1LlG/Zf8AZA7t+9Jxq2/ywGa4tLZn7oT2r3rBk4l
-	BY+utr5keBSqNr9RVyCxtxw=
-Received: from mail.maildlp.com (unknown [172.19.163.0])
-	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4hW2zn4csHzpT0b;
-	Thu, 27 Aug 2026 21:53:41 +0800 (CST)
+	bh=iSczr4ylEvSlzQsXP0yrTMydq03M/MKujUS1yI+lF+g=;
+	b=E1RWijJDH2y6MtTQoBUDmPxKho5sLhlheqnfTQPRIKlgU4CI9NcgzRTNHJoO/vVQEAMBsJHHO
+	0evMi/X6JS11oRIoqgdJPlOTxoeztshiPcEpsfmUFaFjssxGC+ErZ9cUDLZ6rYuJuLMMSvC+b9c
+	GqD9X5HwfISgxYGamF5UvaQ=
+Received: from mail.maildlp.com (unknown [172.19.163.200])
+	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hW3076lRpzKm8W;
+	Thu, 27 Aug 2026 21:53:59 +0800 (CST)
 Received: from whupemo200004.china.huawei.com (unknown [7.152.184.18])
-	by mail.maildlp.com (Postfix) with ESMTPS id 1F4CC40537;
-	Thu, 27 Aug 2026 22:04:52 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id EDE9E40563;
+	Thu, 27 Aug 2026 22:04:49 +0800 (CST)
 Received: from huawei.com (10.50.163.32) by whupemo200004.china.huawei.com
  (7.152.184.18) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 27 Aug
- 2026 22:04:49 +0800
+ 2026 22:04:47 +0800
 From: Sizhe Liu <liusizhe5@huawei.com>
 To: <rostedt@goodmis.org>, <mhiramat@kernel.org>,
 	<mathieu.desnoyers@efficios.com>, <corbet@lwn.net>,
@@ -48,9 +48,9 @@ CC: <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
 	<linux-perf-users@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
 	<linux-doc@vger.kernel.org>, <linuxarm@huawei.com>,
 	<prime.zeng@hisilicon.com>, <liusizhe5@huawei.com>
-Subject: [PATCH v2 3/8] perf hisi-ptt: Extract the raw data printing part
-Date: Thu, 27 Aug 2026 22:04:37 +0800
-Message-ID: <20260827140442.2031128-4-liusizhe5@huawei.com>
+Subject: [PATCH v2 2/8] perf hisi-ptt: Complete the field names for 4DW and 8DW packets
+Date: Thu, 27 Aug 2026 22:04:36 +0800
+Message-ID: <20260827140442.2031128-3-liusizhe5@huawei.com>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20260827140442.2031128-1-liusizhe5@huawei.com>
 References: <20260827140442.2031128-1-liusizhe5@huawei.com>
@@ -65,78 +65,71 @@ Content-Type: text/plain
 X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
  whupemo200004.china.huawei.com (7.152.184.18)
 
-Extract the raw data printing part of the TLP header into
-hisi_ptt_print_raw_record() for reuse by subsequent patches that
-add field-level parsing of individual DW headers.
+Add the missing HISI_PTT_4DW_HEAD0 entry to the 4DW field name table
+and add the HISI_PTT_8DW_CHK_AND_RSV0/HISI_PTT_8DW_RSV1 entries to
+the 8DW field name table so that all DW indices have corresponding
+names.
 
 Signed-off-by: Sizhe Liu <liusizhe5@huawei.com>
 ---
- .../hisi-ptt-decoder/hisi-ptt-pkt-decoder.c   | 31 +++++++++----------
- 1 file changed, 15 insertions(+), 16 deletions(-)
+ .../hisi-ptt-decoder/hisi-ptt-pkt-decoder.c   | 20 +++++++++++--------
+ 1 file changed, 12 insertions(+), 8 deletions(-)
 
 diff --git a/tools/perf/util/hisi-ptt-decoder/hisi-ptt-pkt-decoder.c b/tools/perf/util/hisi-ptt-decoder/hisi-ptt-pkt-decoder.c
-index 766665414ad8..23ae99f33c9f 100644
+index ef72223d3854..766665414ad8 100644
 --- a/tools/perf/util/hisi-ptt-decoder/hisi-ptt-pkt-decoder.c
 +++ b/tools/perf/util/hisi-ptt-decoder/hisi-ptt-pkt-decoder.c
-@@ -79,23 +79,31 @@ static const char * const hisi_ptt_4dw_pkt_field_name[] = {
- 	[HISI_PTT_4DW_HEAD3]	= "Header DW3",
+@@ -54,6 +54,7 @@ enum hisi_ptt_8dw_pkt_field_type {
  };
  
--static void hisi_ptt_print_pkt(struct hisi_ptt_pkt_buf *pkt_buf,
--			       const char *desc)
-+static void hisi_ptt_print_raw_record(size_t offset, uint32_t value)
+ enum hisi_ptt_4dw_pkt_field_type {
++	HISI_PTT_4DW_HEAD0,
+ 	HISI_PTT_4DW_HEAD1,
+ 	HISI_PTT_4DW_HEAD2,
+ 	HISI_PTT_4DW_HEAD3,
+@@ -61,15 +62,18 @@ enum hisi_ptt_4dw_pkt_field_type {
+ };
+ 
+ static const char * const hisi_ptt_8dw_pkt_field_name[] = {
+-	[HISI_PTT_8DW_PREFIX]	= "Prefix",
+-	[HISI_PTT_8DW_HEAD0]	= "Header DW0",
+-	[HISI_PTT_8DW_HEAD1]	= "Header DW1",
+-	[HISI_PTT_8DW_HEAD2]	= "Header DW2",
+-	[HISI_PTT_8DW_HEAD3]	= "Header DW3",
+-	[HISI_PTT_8DW_TIME]	= "Time"
++	[HISI_PTT_8DW_CHK_AND_RSV0]	= "CHK & RSV0",
++	[HISI_PTT_8DW_PREFIX]		= "Prefix",
++	[HISI_PTT_8DW_HEAD0]		= "Header DW0",
++	[HISI_PTT_8DW_HEAD1]		= "Header DW1",
++	[HISI_PTT_8DW_HEAD2]		= "Header DW2",
++	[HISI_PTT_8DW_HEAD3]		= "Header DW3",
++	[HISI_PTT_8DW_RSV1]		= "RSV1",
++	[HISI_PTT_8DW_TIME]		= "Time"
+ };
+ 
+ static const char * const hisi_ptt_4dw_pkt_field_name[] = {
++	[HISI_PTT_4DW_HEAD0]	= "Header DW0",
+ 	[HISI_PTT_4DW_HEAD1]	= "Header DW1",
+ 	[HISI_PTT_4DW_HEAD2]	= "Header DW2",
+ 	[HISI_PTT_4DW_HEAD3]	= "Header DW3",
+@@ -100,7 +104,7 @@ static int hisi_ptt_8dw_pkt_desc(struct hisi_ptt_pkt_buf *pkt_buf)
  {
- 	const char *color = PERF_COLOR_BLUE;
- 	uint8_t byte;
--	uint32_t dw;
  	int i;
  
--	dw = get_unaligned_le32(pkt_buf->buf + pkt_buf->pos);
- 	printf(".");
--	color_fprintf(stdout, color, "  %08zx: ", pkt_buf->pos);
-+	color_fprintf(stdout, color, "  %08zx: ", offset);
- 	for (i = 0; i < HISI_PTT_FIELD_LENGTH; i++) {
--		byte = (dw >> (24 - i * 8)) & 0xFF;
-+		byte = (value >> (24 - i * 8)) & 0xFF;
- 		color_fprintf(stdout, color, "%02x ", byte);
- 	}
- 	for (i = 0; i < HISI_PTT_MAX_SPACE_LEN; i++)
- 		color_fprintf(stdout, color, "   ");
-+}
-+
-+static void hisi_ptt_print_pkt(struct hisi_ptt_pkt_buf *pkt_buf,
-+			       const char *desc)
-+{
-+	const char *color = PERF_COLOR_BLUE;
-+	uint32_t value;
-+
-+	value = get_unaligned_le32(pkt_buf->buf + pkt_buf->pos);
-+	hisi_ptt_print_raw_record(pkt_buf->pos, value);
-+
- 	color_fprintf(stdout, color, "  %s\n", desc);
- 	pkt_buf->pos += HISI_PTT_FIELD_LENGTH;
- }
-@@ -120,19 +128,10 @@ static int hisi_ptt_8dw_pkt_desc(struct hisi_ptt_pkt_buf *pkt_buf)
- static void hisi_ptt_4dw_print_dw0(struct hisi_ptt_pkt_buf *pkt_buf)
- {
- 	const char *color = PERF_COLOR_BLUE;
--	uint8_t byte;
- 	uint32_t dw;
--	int i;
+-	for (i = 0; i < HISI_PTT_8DW_TYPE_MAX; i++) {
++	for (i = HISI_PTT_8DW_CHK_AND_RSV0; i < HISI_PTT_8DW_TYPE_MAX; i++) {
+ 		/* Do not show 8DW check field and reserved fields */
+ 		if (i == HISI_PTT_8DW_CHK_AND_RSV0 || i == HISI_PTT_8DW_RSV1) {
+ 			pkt_buf->pos += HISI_PTT_FIELD_LENGTH;
+@@ -150,7 +154,7 @@ static int hisi_ptt_4dw_pkt_desc(struct hisi_ptt_pkt_buf *pkt_buf)
  
- 	dw = get_unaligned_le32(pkt_buf->buf + pkt_buf->pos);
--	printf(".");
--	color_fprintf(stdout, color, "  %08zx: ", pkt_buf->pos);
--	for (i = 0; i < HISI_PTT_FIELD_LENGTH; i++) {
--		byte = (dw >> (24 - i * 8)) & 0xFF;
--		color_fprintf(stdout, color, "%02x ", byte);
--	}
--	for (i = 0; i < HISI_PTT_MAX_SPACE_LEN; i++)
--		color_fprintf(stdout, color, "   ");
-+	hisi_ptt_print_raw_record(pkt_buf->pos, dw);
+ 	hisi_ptt_4dw_print_dw0(pkt_buf);
  
- 	color_fprintf(stdout, color,
- 		      "  %s %x %s %x %s %x %s %x %s %x %s %x %s %x %s %x\n",
+-	for (i = 0; i < HISI_PTT_4DW_TYPE_MAX; i++)
++	for (i = HISI_PTT_4DW_HEAD1; i < HISI_PTT_4DW_TYPE_MAX; i++)
+ 		hisi_ptt_print_pkt(pkt_buf, hisi_ptt_4dw_pkt_field_name[i]);
+ 
+ 	return hisi_ptt_pkt_size[HISI_PTT_4DW_PKT];
 -- 
 2.33.0
 
