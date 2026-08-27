@@ -1,120 +1,153 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EC123B71C0
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:01:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC6433CBE84
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:01:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787821280; cv=none; b=QA+Kd6VovWlQNeOZaRA65am9PkNcLrXynqkDRnfiEkZTbPG+/kXwmx9slk1yC0WA8pXu8eiizj9KkbR22cRX3THjNYS2G9wynN3v1VEaOrE6UGRNonmQLleeJIEs6rqAFhB6A7jgMjYhzSc4j80FZ6kSJRY9BpYfArpjYGTbV+A=
+	t=1787821315; cv=none; b=P9/M4RsL/RVQZeYUTeVlqKhHWao0dcJ+O9Oa3KGpJ1cQH25PEbjU1Qsp4CDC3kf2ZQib/sIfbggTtHLBorLk7Kl94lVg17Pn0OrEDrxLDh3WIuFRWDz2F/BIt6i6u9fOmFzVaCpt9t7c+shaIU5KtuC/D8jbQ1l0edLdAm7Tobk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787821280; c=relaxed/simple;
-	bh=ObrVljo3P2wYAJo68+wUeQqjsK64Lx5Z6QN9RsVEoks=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GBQDFm7WnEEt/ja8kBnICxbCtWEJZZTer64qY4SlZe+Ox/pOsKT8JxTLFsAHPOuTWQ/7c3qQ6aJ83Da69gCFwExrCCkWhO56hQdXdVzuPjVTMpvNHO0SdTVPsamuOufrYpbVuZLnY/Y7ubnl8IeQumnm1u+ztAjY1kFVchQz5QE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=snu.ac.kr; spf=pass smtp.mailfrom=snu.ac.kr; dkim=pass (1024-bit key) header.d=snu.ac.kr header.i=@snu.ac.kr header.b=Z2yQ0y3b; arc=none smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=snu.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=snu.ac.kr
+	s=arc-20240116; t=1787821315; c=relaxed/simple;
+	bh=wkTjDvro31Z7Cb9CrOFouQ5u3R4WipcefR5jbWng4UI=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=cQNEDRxSaGESd047uAbVc5g62y4wZ9jRmc5XywiO+tRXBBP1biqinu5jSaSLdV6cFGKND1b61BKPMHnuda8JMtdbOA1/bmjwoWRUT+FXENBqDrjKtU4gMzzCJs5SHoFssc2A8c2Oz0uiQofUQFjIEB6FvcnOt5geTtJ221G3vio=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o9WAhsox; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=snu.ac.kr header.i=@snu.ac.kr header.b="Z2yQ0y3b"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2cedda2ce6fso3011335ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 02:01:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o9WAhsox"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-496bb7cdf51so5863205e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 02:01:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=snu.ac.kr; s=google; t=1787821275; x=1788426075; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rgBLolzdPT4tsDrmX6mCnbe4xBVr2san57ni3P7/sf0=;
-        b=Z2yQ0y3b56J6LLYMT/yoHsGjTJtbQZMCa8VJ/XDx6M/AE2+LiTMscwMWawlhOw25kv
-         f1RaQsDi/gWuxIIHedzzhgi/jraYJzsquzilaOx7+MK6AotUbjqTA66GO62w0vvNoZHY
-         gkbqNRnkvBqoS/+avvc71bJTtsiv+CTwM6iKc=
+        d=gmail.com; s=20251104; t=1787821312; x=1788426112; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kb/Wi6oNPcoOC248sdfl/gNH6Pq4KEL0EAbb7WYkBJ8=;
+        b=o9WAhsoxAIRld9JGbZIgaeTZNTjm4YB8cYsQPng7L3rrmvV0cZuRc7F4ExpVQqvqoA
+         OrqmekMz5S2Y47NEVTnK2ZHpgyYqbIPGOGe4UZZtprHjw4pExoaVB/J40sZBxaGTj32E
+         IndRmnKlGJf9StqliZqUEZ972uGNNUbwyM0spIKQXnQ2Ww63trGxP4ipOmzyCzmZgkB/
+         feucI8UWIdrtqi1h33hAJfBvbZM+f7LBpAA90RCy4tf8GHQsGKZcXMTc8ZJfebjTMN1X
+         ofBlz5mJuuYEuI+i0H63OuKAGwBcr51wNcOa9gqRX4mMBI4RRlX8wMO7wTmm4jrAumgd
+         2Mhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787821275; x=1788426075;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rgBLolzdPT4tsDrmX6mCnbe4xBVr2san57ni3P7/sf0=;
-        b=e/unxk7pt8RfIrC4GvuzlRwwwK1vG1V7tmU+i8/PZVwSInQta/FJ0UuF891bFzJxMN
-         dfdRANCTYIloncbEkmgjzKH3YnSofzxq/W+RsLf1hLCVQd/bidH6KpER8KrPWAgUOGO7
-         NsT2cgLMV2dZJImYs/xn5V0aRdxb/arzhcutzRvynPffB0lRC/IxPs9lUnadwnMJsgB6
-         tkN8xjW2cae8DrcQIXTCcj92Ws+Z5nlcyNWuIKfdv/V+0v8F2ydW2Fv4oBEZBt5WE7vL
-         Amio7+ZnmJUS6twoFYdniatFKS9DyaS78TEsop5DewM61d5+80HXLJ0ZeeDtqRkB+JIc
-         d48Q==
-X-Forwarded-Encrypted: i=1; AHgh+RoF2gY+QavCRYSpV5UlvOSa7UKRHGfqh04KFdiKWRo8HutNw2EbUQbmFVH/lwJhUIwxj7yRZhol6FYx7Sc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kfsncFTSpwE4OTErwMz/p2csPjDl93yyqhxUUd+FcJgECJfo0T
-	3b1P4q9cqUJjRFBca5dObKYn/8RpQ9p1Rx3ALTVgEvU489typlMXi8Gdw7f1D6N8its=
-X-Gm-Gg: AR+sD13trVQKXh5Pi2fHdiBlWSydSR99gLleXOu2JMObdnrxqbLYfQ8WqiP76n/U+s6
-	AwZCVCvvPQ9TRbAaU3mOPL/iKGBWX+2FVnOFPH1wZpRIhf5khzzdCtPfAHpaa+FH1TKcszXuxDK
-	6KV0QV1xMezERub9g4hzLBU99nZw83mwoCoZ1xMEp7sLsBnX/TnEHPIgoy0wE5nU0GHb97E1sji
-	VvQpAkbtnjBY5MsSX3M78aR8YAej/YPV2RjJT9hSDVBQrczp/SRIE94ob+f3fqOVNJ5xo6jd6+w
-	Ew+Th9IwpXrDmvG3ijc/Ikpepy5SJOdrVPwvMQFDAFodScJiMdpxfTXqOcfD9wKKlS1ynDDR2XH
-	IHBMlZ0FjiixfkNfdumlHYAjzTXI2hnmoRb/L62L4KdY1rUokcmABaa4IlKf0Y/ui2reicEqIMV
-	QmZGTeWVaLu37kIbEBWrmA5FZhuucz/N7VI5Yj9Q4COFl+jOTgUBkg0bUdAA==
-X-Received: by 2002:a17:90a:d2c6:b0:392:c80b:8eff with SMTP id 98e67ed59e1d1-3966d866cc8mr28689376a91.11.1787821273852;
-        Thu, 27 Aug 2026 02:01:13 -0700 (PDT)
-Received: from 1c1aead48890.. ([49.142.45.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b112b57bsm2062845a91.17.2026.08.27.02.01.11
+        d=1e100.net; s=20251104; t=1787821312; x=1788426112;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kb/Wi6oNPcoOC248sdfl/gNH6Pq4KEL0EAbb7WYkBJ8=;
+        b=KlAJRwaQKtgEtBuDviKrhhbqTnTmsPviEbnsV9sfr4+i3WL2zJNhZZxotMdy7Q7DL1
+         oJxGVQZ2bMl2YtuZ+GaXwJAHdvfSqfB3krPeNbL74TnPeKgUdHaNA0TtNuBpHkp/1DIJ
+         ERjdtKROZgcJrHRmd+MDPinvvKlHbK711UinwhC2MtTte2xNWEJAyhmWw14NIkaKAcn7
+         BaLZLYxM7LSvz7Nbf9XTENTHXhoL9CgNm0GgIyvzxsyZcU7ZoiyQrI94FfPqX6iVSG/e
+         N31fnmTN9yA8OX//+9E02jGVAhpU5AH1PYgGM2DVzL4BdWKkUbE2QbbGw46hUKqFVPCU
+         9WkA==
+X-Forwarded-Encrypted: i=1; AHgh+RpNikUuD6nAFw6Jqgji0Qyz2V0HcM0nYKkNxYqzufp4lPXieBcxLNzxTk4CdWs9rofFEiiLtETsiivu17w=@vger.kernel.org
+X-Gm-Message-State: AFuF++kW8rFm0iZxLrFKnILS0zjwSRTXd3JohDxSTBQoPVpf6EeDBtK2
+	JoSIHE5EBtZdcpuriag7HQlje0Zdna2Bfe6/TBafqLoYCfgPU0khGfBW
+X-Gm-Gg: AR+sD137w8newsypeAaK2W5vWc7ZGxuTUL/R7FN9s7TaxWKbScR620D3PRgX++++WKl
+	4EIAUSBD8oZUP2n0NYgzxXuE4hfgHrzemA7TPjVNF5uvgR9tVQkYnpgki3DQ09DW+NgiQ6lOoIf
+	ExsWLAcD+upXNF1Ke6lv5akEL3Nv9lOz0P8fyS8CuDhNO8XjiesE9fOK0GB8uDWeMFic7fAYBR9
+	A8S5OqhBk/wQGZoLvplgMOeBU41fX4McITST66gyqquEnl22oKqqg48sVFLy4vHuNZY/BLlFvXR
+	4oZLgyk5SP6aT7+qRNJ+kCYR4C30e0/IU5m7206Qs0+spLjzna3IB7wfP89DMnUIjKBmgtYx6m5
+	LHwROzbXyABEAyMmBk4cao6gtjUR6vJfkUPoHhPcrFU4Js6EjxsJhnoHh5j48G7JU28oIvq2vSe
+	uFTxKFruV8f3y4M9EOwAtIX7JDo3oRYUnRZ1Yx08/r3/U6iTrSLA6JixRg3qMxACBPZjhtbtdJH
+	q0toE6s2B8Xi8h+X9tcxWx0qw==
+X-Received: by 2002:a05:600c:c0da:b0:499:83f1:398 with SMTP id 5b1f17b1804b1-499dc820705mr140148765e9.9.1787821311647;
+        Thu, 27 Aug 2026 02:01:51 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b49236515sm53313005e9.1.2026.08.27.02.01.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 02:01:13 -0700 (PDT)
-From: Seongjun Hong <hsj0512@snu.ac.kr>
-To: Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>
-Cc: Seongjun Hong <hsj0512@snu.ac.kr>,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/radeon: switch from get_user_pages to pin_user_pages
-Date: Thu, 27 Aug 2026 09:00:59 +0000
-Message-ID: <20260827090100.428302-1-hsj0512@snu.ac.kr>
-X-Mailer: git-send-email 2.43.0
+        Thu, 27 Aug 2026 02:01:51 -0700 (PDT)
+Date: Thu, 27 Aug 2026 10:01:49 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Uros Bizjak <ubizjak@gmail.com>
+Cc: Dave Hansen <dave.hansen@intel.com>, Sairaj Kodilkar <sarunkod@amd.com>,
+ "H. Peter Anvin" <hpa@zytor.com>, "Peter Zijlstra (Intel)"
+ <peterz@infradead.org>, Borislav Petkov <bp@alien8.de>, Dave Hansen
+ <dave.hansen@linux.intel.com>, Ingo Molnar <mingo@redhat.com>, Mathieu
+ Desnoyers <mathieu.desnoyers@efficios.com>, Paolo Bonzini
+ <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>, Thomas
+ Gleixner <tglx@kernel.org>, kvm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, x86@kernel.org, vasant.hegde@amd.com,
+ suravee.suthikulpanit@amd.com
+Subject: Re: [PATCH v3 1/2] x86/uaccess: Extend CMPXCHG user helpers to
+ 128-bit operands
+Message-ID: <20260827100149.10004212@pumpkin>
+In-Reply-To: <CAFULd4YFphkN4M0a_gC=vxN8Xgh4WWBGPo8dO-o6A3v9RGX4_g@mail.gmail.com>
+References: <20260826070004.8100-1-sarunkod@amd.com>
+	<20260826070004.8100-2-sarunkod@amd.com>
+	<e32c1437-44ab-45d9-9534-124a9e09f029@intel.com>
+	<CAFULd4YFphkN4M0a_gC=vxN8Xgh4WWBGPo8dO-o6A3v9RGX4_g@mail.gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Switch old api get_user_pages to pin_user_pages according to [1].
-It guarantees these DMA pages are pinned.
+On Wed, 26 Aug 2026 15:19:57 +0200
+Uros Bizjak <ubizjak@gmail.com> wrote:
 
-[1] Documentation/core-api/pin_user_pages.rst
+> On Wed, Aug 26, 2026 at 2:30=E2=80=AFPM Dave Hansen <dave.hansen@intel.co=
+m> wrote:
+> >
+> > On 8/26/26 00:00, Sairaj Kodilkar wrote: =20
+> > > Extend the existing user CMPXCHG helpers to support 16-byte operands =
+on
+> > > x86-64, using LOCK_PREFIX "cmpxchg16b".  This mirrors the existing
+> > > __try_cmpxchg64_user_asm() / cmpxchg8b path provided for 32-bit kerne=
+ls,
+> > > where KVM needs an atomic compare-exchange wider than the generic
+> > > cmpxchg helper can provide. =20
+> >
+> > Please take a good look at the Sashiko review:
+> >
+> > https://sashiko.dev/#/patchset/20260826070004.8100-2-sarunkod%40amd.com
+> >
+> > It looks like the "A" constraint isn't one that you can cleanly mirror
+> > from cmpxchg8b =3D> cmpxchg16b. =20
+>=20
+> Actually, "+A" will work for 64bit targets, as long as the variable is
+> 128-bit. The comment in asm.h applies to 64-bit values, where on
+> 32-bit targets they fit in eax *and* edx, while on 64-bit targets, the
+> 64-bit values fit into rax *or* rdx.
+>=20
+...
+>=20
+> That said, the approach with union of two 64-bit halves can lead to
+> slightly better code, because the compiler splits the value earlier in
+> the compilation pipeline.
 
-Signed-off-by: Seongjun Hong <hsj0512@snu.ac.kr>
----
- drivers/gpu/drm/radeon/radeon_ttm.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+I think I agree...
 
-diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gpu/drm/radeon/radeon_ttm.c
-index e7ab8162ac69..22fc35a0e8d8 100644
---- a/drivers/gpu/drm/radeon/radeon_ttm.c
-+++ b/drivers/gpu/drm/radeon/radeon_ttm.c
-@@ -349,7 +349,7 @@ static int radeon_ttm_tt_pin_userptr(struct ttm_device *bdev, struct ttm_tt *ttm
- 		uint64_t userptr = gtt->userptr + pinned * PAGE_SIZE;
- 		struct page **pages = ttm->pages + pinned;
- 
--		r = get_user_pages(userptr, num_pages, write ? FOLL_WRITE : 0,
-+		r = pin_user_pages(userptr, num_pages, write ? FOLL_WRITE : 0,
- 				   pages);
- 		if (r < 0)
- 			goto release_pages;
-@@ -377,7 +377,7 @@ static int radeon_ttm_tt_pin_userptr(struct ttm_device *bdev, struct ttm_tt *ttm
- 	kfree(ttm->sg);
- 
- release_pages:
--	release_pages(ttm->pages, pinned);
-+	unpin_user_pages(ttm->pages, pinned);
- 	return r;
- }
- 
-@@ -404,7 +404,7 @@ static void radeon_ttm_tt_unpin_userptr(struct ttm_device *bdev, struct ttm_tt *
- 			set_page_dirty(page);
- 
- 		mark_page_accessed(page);
--		put_page(page);
-+		unpin_user_page(page);
- 	}
- 
- 	sg_free_table(ttm->sg);
--- 
-2.43.0
+=46rom experiments I did with 64bit values on 32bit it is more the case
+that the value never gets assigned to a 64bit (on 32bit) 'virtual'
+register. If that ever happens all the operations are initially done
+with the 'wide' register and then later split (rather than being
+generated as a pair of 32bit ops).
+This causes excessive register pressure and even spilling of constant
+zero values to stack.
+You do seem to 'get away' with returning hi << 32 | lo.
+
+I'd guess the same happens for 128bit values on 64bit.
+(This is gcc, clang does a lot better.)
+
+David
+
+>=20
+> > Uros, any chance you can give these a good once-over? This seems to be
+> > just the kind of thing you've been fixing up lately. It would be nice to
+> > get them right the first time. =20
+>=20
+> Based on the above explanation, these *can* be copied from 32-bit asm
+> patterns. Even "q" constraint will include all integer registers on
+> 64-bit targets.
+>=20
+> Uros.
+>=20
 
