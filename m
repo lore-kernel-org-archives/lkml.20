@@ -1,123 +1,72 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E780F259C9C;
-	Thu, 27 Aug 2026 00:23:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C83E2F8EAC
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:25:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787790229; cv=none; b=blzgWY0SGS2vvlJBnN1sfDmGfRIjj2gswblmjQhw5x8hByyChRBuGET2SQsww/qNzzTElW1GUNoCb9EqoPOowt5JbD25FI4/8uyvx9KoZCuCpP2Lg1y33OXmMvRj9GuwSANC4ppfk4sdJM5IUTN/27AS1tkfVAKqEHEEgwVGpsU=
+	t=1787790305; cv=none; b=nSaF/W2l+5vJYVI38wmfFR+OKQc4j3eJTxEN55mEFbJXM8/UdEsMfpSE02RUNxZW7/0gzJvWEtRbuz8/ZiMKfz+fU5xg8O9DIWJ3teVYojgvDQZnNNlm2DOsTDJnwuduvcD69hl9LA85MQlDxeqjWzvGqoOv+tmWrdX/Njof2AM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787790229; c=relaxed/simple;
-	bh=crGY0vaQX0nuy5u0oY1fHp0M+2FR5BpUCDIzzsS7kns=;
-	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
-	 Content-Type; b=C0LhnZU5huENMmkR7teI/U0qbVAL+5Vi8+pq9yNjfR4IxiGS6rr+/2yI6AfeLbvorFNwXoLUbXyzXdaczW4WKsOM0P4q+Q83PRChKYjQkQ/sZMtYjzcNhPqubwM2pjq48OEkgc8S4eU0FpG6dViKEbJDUS/bYohLTk0+9Q9MTLM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=Iwbz1HMu; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=+tJZLGoB; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="Iwbz1HMu";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="+tJZLGoB"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1787790210; bh=NgPaRN5/tZCS06yH0JKmCV5
-	SMFeutpCfqewY1FAHsBg=; b=Iwbz1HMuMeHkYWctYTUD1OvD+jdVo0qEETg7e/W9Aecf0M35aT
-	gsJP5DA518R1Rm8p7NjshRJot4rjRGahBEUgpD+6ofhseG0qiEz6PNyq42vP/C6BJAcn3FfCH8M
-	7f8l07kv8MRpGMxbdfK+lV8NjKw9yl3obKUE6hbKmXJNST+CBNlDkddAQ9VhYbyvDhcPYuDvZ+k
-	Rkz/+ghUzee0Wyi1iTdt36ComjvJKoxpzJ9Wh3dUaGvqBk39AoZ5tRZDxVN79iT+Us4YQem9Zet
-	KYpMfvNpK+J/80CdC1yv0lWRsYiZiZBHDVUSoPasJYyOLtzeGmd41ktFDB+PAgoevjg==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1787790210; bh=NgPaRN5/tZCS06yH0JKmCV5
-	SMFeutpCfqewY1FAHsBg=; b=+tJZLGoBHI2wPKtv14/7o9KyxWibQY1aQ0gkqeau4Ht/Fpb9qv
-	NegUDvRHAx0D0HXC+erpPXSRs4GYvnUr3NDA==;
-Date: Thu, 27 Aug 2026 01:23:30 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: petr.pavlu@suse.com
-CC: akpm@linux-foundation.org, atomlin@atomlin.com, da.gomez@kernel.org,
- hao.ge@linux.dev, linux-kernel@vger.kernel.org,
- linux-modules@vger.kernel.org, mcgrof@kernel.org, samitolvanen@google.com,
- sashiko-bot@kernel.org, stable@vger.kernel.org, surenb@google.com
-Subject: Re: [PATCH] module: fix lost error code from codetag_load_module()
-In-Reply-To: <cd6b372d-cc68-445d-bcae-6cfc83d9e4db@suse.com>
-Message-ID: <4D26A8B8-A974-454C-8E38-7958443ADDBE@mainlining.org>
+	s=arc-20240116; t=1787790305; c=relaxed/simple;
+	bh=+t4U70GIW6NDmnWMvECxp+8oXtm+HO+jNlxHAE7A3Ug=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=emJQomr3hvRdrs8sRjqveOD8XjWmUULR43Mx5YscboxYn51RyTSDfDxzZImyy4qL4sCSqJ1dozdDrHBx8ibM/UOWkfkWCl8H1O1i0Zfdtv1sLHeJtRNxUDAFhzJ+hj9y9XgFmozjN8xUQ7x+/2Pj6wIB+4PLoQrh0YZs6MZ2br8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b2f2b8d88fso178782b6e.2
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 17:25:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787790303; x=1788395103;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=qzntTdZUw0SEDYvIi7eh2pwnpHIOPHK2jHvKlPJqkh0=;
+        b=Qz8ib5SPXxkc2g7MRtkBflhNm6RX+FlRrV18aHTOU0rRVMLw+7Q5ywQm66I8G3Wxvc
+         MSAmb6xyNdG7P99YMBuixj2muhGuKeSwXVLU6bOsDFhtSKtDy1v8Efg5FdD6qcV4Sd9F
+         fcGL5xOG2SRvpXOLHbwQaTnHW07yyxFKdbSlDQj08KpckAhGVpjEnYL6SJ1ygtEYQjIq
+         o+e075KDRyhIB8e1aATNWjMch3w2G2PmPMF2yYCVPmQNZtzbj7YAhNQ3C2xaw7dycVsI
+         4jBDztTSp/CSjKkR5ewdDfms2OLdOVzLIcljuRyE5iSU7czq7OyJQ2Z4KpGtJXpPuile
+         71GA==
+X-Forwarded-Encrypted: i=1; AHgh+Rpde1/MSRxrVPQpVJEgLppQMqsw1MTW8ArRX/yFLNKSoEBe1ilGi+YL9OX/1A/xN1P7T1VYHTShza/vJfs=@vger.kernel.org
+X-Gm-Message-State: AFuF++kRv8a4Hv3uzzdmaWZkiK1mdPf2ilb5XPBVvpgc0uRq5zgI3oJ7
+	azI+4DoZRywEpO/l3p91A/dkoJiWCDAZp6GpVFWlJt2mrX9FNVYFVs1y6MCjJmOpGSkWRbsQjwp
+	2j/7p61T1qMYX8JkpygXWYBs3ogqsd3wakG/uufAYEq+QtNGRsTrW7e6cOE0=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:17a4:b0:4b2:8dbe:b596 with SMTP id
+ 5614622812f47-4b3668b9b23mr10658226b6e.2.1787790303610; Wed, 26 Aug 2026
+ 17:25:03 -0700 (PDT)
+Date: Wed, 26 Aug 2026 17:25:03 -0700
+In-Reply-To: <CAHc6FU65VFmh_wOZcx=A80UFQbfuKSXNCeZPV26LrRJ+xbVhBA@mail.gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a8f83df.1d9ded08.62e62.00be.GAE@google.com>
+Subject: Re: [syzbot] [gfs2?] general protection fault in _find_first_zero_bit
+From: syzbot <syzbot+cb79de2cc8b76fbf474f@syzkaller.appspotmail.com>
+To: agruenba@redhat.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 26 August 2026 10:24:03 BST, Petr Pavlu <petr.pavlu@suse.com> wrote:
->On 8/24/26 3:47 AM, Hao Ge wrote:
->> If codetag_load_module() fails, err is never set and load_module()
->> returns 0 after the module has been torn down.
->> 
->> Fixes: 044d2aee6c57 ("alloc_tag: handle module codetag load errors as
->module load failures")
->> Reported-by: Sashiko <sashiko-bot@kernel.org>
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Hao Ge <hao.ge@linux.dev>
->> ---
->>  kernel/module/main.c | 3 ++-
->>  1 file changed, 2 insertions(+), 1 deletion(-)
->> 
->> diff --git a/kernel/module/main.c b/kernel/module/main.c
->> index 46dd8d25a605..afb810f0154c 100644
->> --- a/kernel/module/main.c
->> +++ b/kernel/module/main.c
->> @@ -3568,7 +3568,8 @@ static int load_module(struct load_info *info,
->const char __user *uargs,
->>  			goto sysfs_cleanup;
->>  	}
->>  
->> -	if (codetag_load_module(mod))
->> +	err = codetag_load_module(mod);
->> +	if (err)
->>  		goto sysfs_cleanup;
->>  
->>  	/* Get rid of temporary copy. */
->
->This looks ok to me but there appears another bug related to this code
->that would be good to fix at the same time. If the module is
->a livepatch, the preceding call to copy_module_elf() allocates
->mod->klp_info. However, if codetag_load_module() fails, the code doesn't
->free it.
->
->I think we want something like this (not tested):
->
->diff --git a/kernel/module/main.c b/kernel/module/main.c
->index d0e1e0bd2ad0..c1b34dc1e89a 100644
->--- a/kernel/module/main.c
->+++ b/kernel/module/main.c
->@@ -3581,8 +3581,9 @@ static int load_module(struct load_info *info, const char __user *uargs,
-> 			goto sysfs_cleanup;
-> 	}
-> 
->-	if (codetag_load_module(mod))
->-		goto sysfs_cleanup;
->+	err = codetag_load_module(mod);
->+	if (err)
->+		goto livepatch_cleanup;
-> 
-> 	/* Get rid of temporary copy. */
-> 	free_copy(info, flags);
->@@ -3592,6 +3593,9 @@ static int load_module(struct load_info *info, const char __user *uargs,
-> 
-> 	return do_init_module(mod);
-> 
->+ livepatch_cleanup:
->+	if (is_livepatch_module(mod))
->+		free_module_elf(mod);
->  sysfs_cleanup:
-> 	mod_sysfs_teardown(mod);
->  coming_cleanup:
->
->
+Hello,
 
-If patch is submitted!
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
+Reported-by: syzbot+cb79de2cc8b76fbf474f@syzkaller.appspotmail.com
+Tested-by: syzbot+cb79de2cc8b76fbf474f@syzkaller.appspotmail.com
 
---- Thanks!
-https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+Tested on:
+
+commit:         44c58550 gfs2: Validate metadata inode types and link ..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=103f3415580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=f8dd02b32fb43dc7
+dashboard link: https://syzkaller.appspot.com/bug?extid=cb79de2cc8b76fbf474f
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+
+Note: no patches were applied.
+Note: testing is done by a robot and is best-effort only.
