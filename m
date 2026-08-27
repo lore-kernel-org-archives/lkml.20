@@ -1,66 +1,34 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from mail.muc.de (mail.muc.de [193.149.48.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E58FE4DB575;
-	Thu, 27 Aug 2026 18:58:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8B3146A5E8
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:58:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.149.48.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787857102; cv=none; b=DaeDW+QZZ3VnMSiqYGOtIGypQpa686+9cENiLwJNWzSkJ/23sQAxoNpPRabRUohqRYY303dMGL5IiYUXKy8urMOki1mVXicDrCyb1QuBjPf4qKbVFUwefynq00qG/sioAXjHQoAAijcFa+c0IM4Xbd8NCYWFxXjaVSu4Yu9Gsfw=
+	t=1787857137; cv=none; b=H2Js52Q+vVE3KBFMs71HLhjfzVcsZ+5PQJqRG3EwrCVyXdGqpODQltDlgrlDYK8UwtsFID/JzQSUDZw0GHBwHT85o6ehimmcXqLMB01EsEp4UFDqXogKqOFJYSpnmjCgvmnWu96CgR5M/LQ9tlXCmRcpd6RhhViDtRt1fQ/Qa+E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787857102; c=relaxed/simple;
-	bh=4zcrTddowpSxiYhcSYOL05EQdrvjbZcH9gttjFlk72U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZpXcZm0h5lYw+l5V7vHR2Nd13/Bl9e6zsQuicOecFNQqzKbjtqlYqpg/saXus/sR1BJueoTv4u7WrZvW2M3Hn7UcCKarxd4D6uWqdxzWcpGn0fdgnibUk9NAC1Vvl0uAJfugNiEGcTXM4M8KvIrmO1/On+4t0HHdVUfhJS4LQJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BX7MBw0A; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BX7MBw0A"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787857092; x=1819393092;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=4zcrTddowpSxiYhcSYOL05EQdrvjbZcH9gttjFlk72U=;
-  b=BX7MBw0Agz/7wECjgjiuUSscGzNty2/h8PyNsO1XwmbVWuAY+wMW2AEj
-   u4E4s332QjvhQNWS+7DQO8IKf7tvwa0f7q/Qo0eM1ytm0jxwh7kwdjyDk
-   Wv533reo4T3G5ptLmsnNMyOZsTWslE5lZLUVqOzEUHgtpnAJC/4jviM4Y
-   d4d9RWD/2EsJyW9jetkSZq9sqqFmeXIPmw3bdiWmWLB016S67Sb35yuZy
-   9E0dPLPGyt5llitrjvwZMiU3tWCuFljlMfgb9iMfJ+euUj7c3t70Mc4UB
-   Yy216Q4FJ6s/eBOQ6DLrm0CBPytSZ2BFxXXpcJDzu+tKZGd6Xv+f9MOlx
-   w==;
-X-CSE-ConnectionGUID: PMDnzm/TRoS32hcPrIORKw==
-X-CSE-MsgGUID: WAZSE4fpTkm5a6SmF20X3w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="98965360"
-X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
-   d="scan'208";a="98965360"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 11:58:08 -0700
-X-CSE-ConnectionGUID: FVVv0PTfRDSMYeYN1XYNCA==
-X-CSE-MsgGUID: e4HhexLHSEK495d7uilDEA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
-   d="scan'208";a="297850150"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.125])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 11:58:04 -0700
-Date: Thu, 27 Aug 2026 21:58:02 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Maurizio Casciano <mauriziocasciano7@gmail.com>
-Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bingbu Cao <bingbu.cao@amd.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Nicholas Roth <nicholas@rothemail.net>,
-	Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jose Maria Martin <jmmartinf@hotmail.com>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 00/11] media: Add Lenovo Yoga Book YB1-X91 camera
- support
-Message-ID: <apCIuhDu9jI9ZbJl@ashevche-desk.local>
-References: <20260826132256.3343451-1-mauriziocasciano7@gmail.com>
- <20260827181756.2430054-1-mauriziocasciano7@gmail.com>
+	s=arc-20240116; t=1787857137; c=relaxed/simple;
+	bh=HjViuf1CgFYHCz//y2JoY6sU4NK6J/e0fdh+7UIi3Ss=;
+	h=Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:From; b=t01FgRhEAOOhMAzBZytIC5HpXZP5WXMPGi0cmC4gEZ0RfmD17AbuGY1Fltr9rOSXiUFWe+wndiaAGBtloiPGbeWQQJR/hx+jm3hxwBpLqGvogQpcT7zLzAG1wUm+IZLubyJpQqB2yteIBgJuZtwPW/GfOeef71Bcm4Uyy/Qhh0k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=muc.de; spf=pass smtp.mailfrom=muc.de; arc=none smtp.client-ip=193.149.48.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=muc.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=muc.de
+Received: (qmail 25878 invoked by uid 3782); 27 Aug 2026 20:58:49 +0200
+Received: from muc.de (p4fe15cdf.dip0.t-ipconnect.de [79.225.92.223]) (using
+ STARTTLS) by colin.muc.de (tmda-ofmipd) with ESMTP;
+ Thu, 27 Aug 2026 20:58:49 +0200
+Received: (qmail 31226 invoked by uid 1000); 27 Aug 2026 18:58:48 -0000
+Date: Thu, 27 Aug 2026 18:58:48 +0000
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+  Jiri Slaby <jirislaby@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+  linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
+  Helge Deller <deller@gmx.de>, Thomas Zimmermann <tzimmermann@suse.de>,
+  linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org
+Cc: acm@muc.de
+Subject: [Patch 9/9]: vt: Misc changes, e.g. to #include directives
+Message-ID: <apCI6JhoH5D7ss34@MAC.fritz.box>
+References: <apCEDM2sWv_M354-@MAC.fritz.box>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,54 +37,137 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260827181756.2430054-1-mauriziocasciano7@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <apCEDM2sWv_M354-@MAC.fritz.box>
+X-Submission-Agent: TMDA/1.3.x (Ph3nix)
+From: Alan Mackenzie <acm@muc.de>
+X-Primary-Address: acm@muc.de
 
-On Thu, Aug 27, 2026 at 08:17:45PM +0200, Maurizio Casciano wrote:
-> The Lenovo Yoga Book YB1-X91L exposes an OV2740 front sensor and an
-> OV8858 rear sensor through the Cherry Trail AtomISP. Its firmware does
-> not provide enough information for the existing sensor and IPU bridge
-> drivers to construct the complete camera links.
-> 
-> Add the ACPI IDs and bridge data, describe both AtomISP camera links,
-> support the Yoga Book sensor clocks and modes, expose raw Bayer capture,
-> add per-channel white-balance controls, and add the WV517S rear-camera
-> lens actuator.
-> 
-> Raw capture is selected through the normal V4L2 raw pixel formats. There
-> is no module parameter or separate private ABI. Processed formats retain
-> the existing behavior, while raw formats expose the complete CSI-2
-> transport frames required by the ISP2401 copy pipeline.
+vt: 32b glyph: 9. Misc changes, e.g. to #include directives
 
-Do not start new version in the email thread of the previous one!
+Rearrange some #include directives, add some clarifying
+comments, and some code changes which didn't fit elsewhere.
 
-> The series is based on mainline at 73e3f0710014.
+Signed-off-by: Alan Mackenzie <acm@muc.de>
 
-Unneeded statement, the --base puts data (and it did) in the cover letter.
-Tools know about it.
+diff --git a/drivers/tty/vt/keyboard.c b/drivers/tty/vt/keyboard.c
+index dfdea0842149..35da5e127a49 100644
+--- a/drivers/tty/vt/keyboard.c
++++ b/drivers/tty/vt/keyboard.c
+@@ -25,7 +25,6 @@
+ 
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+ 
+-#include <linux/consolemap.h>
+ #include <linux/init.h>
+ #include <linux/input.h>
+ #include <linux/jiffies.h>
+@@ -46,6 +45,7 @@
+ #include <linux/tty.h>
+ #include <linux/uaccess.h>
+ #include <linux/vt_kern.h>
++#include <linux/consolemap.h>
+ 
+ #include <asm/irq_regs.h>
+ 
+diff --git a/drivers/tty/vt/selection.c b/drivers/tty/vt/selection.c
+index 13f4e48b4142..18affdb3c7c5 100644
+--- a/drivers/tty/vt/selection.c
++++ b/drivers/tty/vt/selection.c
+@@ -48,6 +48,8 @@ static struct vc_selection {
+ 	.start = -1,
+ };
+ 
++static unsigned int size_row;
++
+ /* clear_selection, highlight and highlight_pointer can be called
+    from interrupt (via scrollback/front) */
+ 
+@@ -340,6 +342,7 @@ static int vc_selection(struct vc_data *vc, struct tiocl_selection *v,
+ {
+ 	int ps, pe;
+ 
++	size_row = vc->vc_size_row;
+ 	poke_blanked_console();
+ 
+ 	if (v->sel_mode == TIOCL_SELCLEAR) {
+diff --git a/drivers/tty/vt/vc_screen.c b/drivers/tty/vt/vc_screen.c
+index 7d40eacc21b3..f23d61fe10c1 100644
+--- a/drivers/tty/vt/vc_screen.c
++++ b/drivers/tty/vt/vc_screen.c
+@@ -201,6 +201,8 @@ static struct vc_data *vcs_vc(struct inode *inode, bool *viewed)
+ 
+ /**
+  * vcs_size - return size for a VC in @vc
++ * The size is the number of bytes required by a buffer reading to/writing from
++ * the entire device.
+  * @vc: which VC
+  * @attr: does it use attributes?
+  * @unicode: is it unicode?
+@@ -307,7 +314,9 @@ static unsigned int vcs_read_buf(const struct vc_data *vc, char *con_buf,
+ 		getconsxy(vc, con_buf + 2);
+ 
+ 		*skip += pos;
+-		count += pos;
++		count += pos;	/* COUNT is now the byte offset of the end
++				 * position from the start of the header.
++				 */
+ 		if (count > CON_BUF_SIZE) {
+ 			count = CON_BUF_SIZE;
+ 			filled = count - pos;
+diff --git a/drivers/tty/vt/vt.c b/drivers/tty/vt/vt.c
+index 8f467b22b799..0c389a564357 100644
+--- a/drivers/tty/vt/vt.c
++++ b/drivers/tty/vt/vt.c
+@@ -89,6 +89,7 @@
+ #include <linux/init.h>
+ #include <linux/mutex.h>
+ #include <linux/vt_kern.h>
++#include <linux/vt_buffer.h>
+ #include <linux/selection.h>
+ #include <linux/tiocl.h>
+ #include <linux/kbd_kern.h>
+@@ -4910,15 +4967,17 @@ static int con_font_get(struct vc_data *vc, struct console_font_op *op)
+ static int con_font_get(struct vc_data *vc, struct console_font_op *op)
+ {
+ 	struct console_font font;
+ 	int c;
+-	unsigned int vpitch = op->op == KD_FONT_OP_GET_TALL ? op->height : 32;
++	unsigned int vpitch =
++		op->op == KD_FONT_OP_GET_TALL ? vc->vc_font.height : 32;
+ 
+ 	if (vpitch > max_font_height)
+ 		return -EINVAL;
+ 
+ 	void *font_data __free(kvfree) = NULL;
++	c = DIV_ROUND_UP(vc->vc_font.width, 8) * vpitch * vc->vc_font.charcount;
+ 	if (op->data) {
+-		font.data = font_data = kvzalloc(max_font_size, GFP_KERNEL);
++		font.data = font_data = kvzalloc(c, GFP_KERNEL);
+ 		if (!font.data)
+ 			return -ENOMEM;
+ 	} else
+@@ -4935,8 +4994,6 @@ static int con_font_get(struct vc_data *vc, struct console_font_op *op)
+ 			return ret;
+ 	}
+ 
+-	c = DIV_ROUND_UP(font.width, 8) * vpitch * font.charcount;
+-
+ 	if (op->data && font.charcount > op->charcount)
+ 		return -ENOSPC;
+ 	if (font.width > op->width || font.height > op->height)
+diff --git a/include/linux/console_struct.h b/include/linux/console_struct.h
+index fe915afdece5..5afce52057ca 100644
+--- a/include/linux/console_struct.h
++++ b/include/linux/console_struct.h
+@@ -13,6 +13,7 @@
+ #ifndef _LINUX_CONSOLE_STRUCT_H
+ #define _LINUX_CONSOLE_STRUCT_H
+ 
++#include <linux/consolemap.h>
+ #include <linux/vt.h>
+ #include <linux/wait.h>
+ #include <linux/workqueue.h>
 
-> All patches pass strict
-> checkpatch with no errors, warnings or checks. Pahole reports a 64-byte
-> ov2740_mode with no holes and a 792-byte ov8858 with the new clock-rate
-> field naturally aligned. A clean 20-job bindeb-pkg build containing the
-> same final source state completed successfully.
-> 
-> Runtime testing used a Lenovo Yoga Book YB1-X91L. Both sensors, AtomISP
-> and WV517S bound. Focus position 300 was accepted. Captures passed with:
-> 
-> - front raw BG10: 1932x1092, 4472832 bytes;
-> - rear raw BG10: 3264x2448, 16293888 bytes;
-> - front processed YU12: 1920x1080; and
-> - rear processed JPEG: 3248x2432, 1530647 bytes.
-> 
-> The raw format was selected and streamed in the same v4l2-ctl invocation,
-> as reopening the video node restores its default format. Both raw files
-> were non-empty and distinct, and the rear full-resolution JPEG completed
-> without AtomISP, sensor or runtime-PM errors.
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+Alan Mackenzie (Nuremberg, Germany).
