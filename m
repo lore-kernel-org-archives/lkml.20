@@ -1,684 +1,191 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF8F237DE9D
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 02:22:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787797369; cv=none; b=egZrbfnZGoc3MWb5Dj2PeGSIFVrJaJ4ZEkYqQZFQ3uX8LH9np95iVQj4JDdPgTDjzxy6z2HZnMnWNipk6ccwHIyUxMOoXaxDEVzWZ7ZEuoNRWQAHKrlMZaX5sQBOVJWztGqxerFqsfMVvBNNI2JpXJdZzkNkPNW5IIZHJltAab4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787797369; c=relaxed/simple;
-	bh=dxlIe9+ac2QVv68uTEuCDjBZ36oPhGO3yyTMggwBK3I=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=DyIG8lQSAwg5Cjrao63VqQRXHzpOyFnFjkT/h0Z0cX54487IE5Qt40jVUhPvXp6LzoLaAlKAJ2mYIdHYj2/xKkVSd9jzrlNE7ryQm0k+oNHMY9KcaMrOlcvbTQw1Js/c+sWr4gnY1KPhmCdV2r41rUDHFbn0n24cW1/HOBa4VB0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XY6wV0/f; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7796E37E2F9;
+	Thu, 27 Aug 2026 02:23:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=60.244.123.138
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787797400; cv=fail; b=HNCxr0ZEXH72cGhr8fa13DFLfWBca5P+92Rc2pPmSeuWxQ7PwKDIdpSAki+MWeqZtbBZtJGcGYp/qf7PGYWeYuDqwExz2/2q6SoZG2uc29WmAQ3bFHwoZaIdQL0AiSevC/OW1orsr045aLxQqGgc001718VZEYQ4n9peCJK3S80=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787797400; c=relaxed/simple;
+	bh=Udjd/1Gsb94kZtOu8ASc4fNZoYWQocqTFq710VaSY8g=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=VtwzPaChpn+ILb2hKfu/nX+nrmNqXULEznvB4HLHoWS8Z32rCO9CCnQMw0cl9nvw87y892sqBm/fT2snbJu3pfMEcV7Wd7qErkEoEMINvrDrZnSQlmbk6uOpltKUmhNfFkbRGFKiJj49/K3X3h8FksIu5/YRXXm6DS5a4GVLlrg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=uJfFrzpN; dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b=viwE5Kzb; arc=fail smtp.client-ip=60.244.123.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XY6wV0/f"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF2B71F000E9;
-	Thu, 27 Aug 2026 02:22:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787797363;
-	bh=8CHEJu/ZTBGQAb/fShJcboLth9AOe/0yeUdeSixgz0g=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=XY6wV0/fnYmtCmNMYiz758V+jKUl91RZw4kExVDPxP8hUZV79rm6mOJGqJ7MbWSl5
-	 VRLfJ4HX2lv2kAQzME+pyXZk3VLoXPxKn2CoMT6VPFltbi4fs7EA7X8g9NN6yErDiT
-	 HjjYu6KRvFsRzF+gNY13d4H2BGJULkgnRYidk85+HBdv3/IrazdFI4Zq54AYN7kLUt
-	 zF9C0E1iSHvPK2zTG1U+/4DtQxCSqE63vKkTTfG2yVtd7g8FplxQbAf0uESN183xQ1
-	 0vlrM9n5Jkcow/g8gmclrxYCaboLaxlNPHGfzXujdo+QSIUcCtq6QeN8smNgxp0ZR5
-	 NcvoOuhUO5xcA==
-Message-ID: <2109b8de-bd1c-447a-b78d-cd0cd9f2e451@kernel.org>
-Date: Thu, 27 Aug 2026 10:22:41 +0800
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="uJfFrzpN";
+	dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b="viwE5Kzb"
+X-UUID: 3ec1f3e0a1be11f1b1788b6acf885367-20260827
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From; bh=Udjd/1Gsb94kZtOu8ASc4fNZoYWQocqTFq710VaSY8g=;
+	b=uJfFrzpNlpqagrf/byvOWnmdNAadAXQXq5cjJaH9C/jCPprGjy+siay4zhWO56htjYHBvhxGXP2WAnykMgkN+4uWo7cJligVKqSDRjQhOcDeVyWh3SeZ+2+kVfSaGywwemy4MhTygjvOW4Eu1Tb9pmXGJiB/yOeUxcD129rROts=;
+X-CID-CACHE: Type:Local,Time:202608271023+08,HitQuantity:1
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:aadc6e45-e209-4349-bef5-283e4a5596b8,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:96e93ac3-610e-480f-b463-9bb53aa0aeaf,B
+	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|110|111|136|836|865|888|898,TC
+	:-5,Content:0|15|50|99,EDM:-3|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:
+	nil,BEC:-1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC
+	:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 3ec1f3e0a1be11f1b1788b6acf885367-20260827
+Received: from mtkmbs10n2.mediatek.inc [(172.21.101.183)] by mailgw01.mediatek.com
+	(envelope-from <ck.hu@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 117271922; Thu, 27 Aug 2026 10:23:09 +0800
+Received: from mtkmbs10n1.mediatek.inc (172.21.101.34) by
+ mtkmbs13n1.mediatek.inc (172.21.101.193) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Thu, 27 Aug 2026 10:23:08 +0800
+Received: from SG2PR04CU010.outbound.protection.outlook.com (172.21.101.237)
+ by mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Thu, 27 Aug 2026 10:23:08 +0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hkAFONkvvCBIEWenpNzHLBpcMywlVx9CDY4RLz/uWWBT/4ofJoJRO52fwoHE6ySjYhfm9JS+Md08tp2AKWw1Yxs8LcUKMb+BNnXx481PQKxJEI5MFo5ido63ofH8/6E15islaWA0pxSDmBwBv7qbVyunSB27ZIEIGwgSFVDDbZrQMHpfmGMEakDjbqJui5Er6gZJmSST2SVHX+fPn8PSIwdYdCp2TkMWJPy9Un9gjKbdpD4OB4mRbYTzye53v0WhgRBsoZJiy+B0vRFkJI9hO9UfHWWB74wcRGd7KPNeWlq9Q7W1YzmnbwEfD7QV/lAPoY0Yr0fNA41zxLsv7nBaLQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Udjd/1Gsb94kZtOu8ASc4fNZoYWQocqTFq710VaSY8g=;
+ b=sywBSwpyDdqD566wxDPoqgKVyc+Tg2asxwFUAqH1Z75yf48vHyUCYtYl5rQD3LIEk916YUjNkpuLA+Qp3qjs/FMIzF2mmES/7so559VY5SEzzCh3w7XteyK+FlMUrHh8FaelVT6265N/n2JhLynFIbfAcLkpfiLtFO0dG1lIgZLh/IzxvN3zs/TAp4UZRHZKVEA9MILYPF9UnSaOy/fT7ufmd8mPqGTi4Y4mN/Kqo3I7XaAjnQRKSj5dBooGJIkt2dNO5m0e8N5W6rW3+9fQrFGm81sC7cCKq4TXBz4q35lCXjbhV8m2jR0l6LjfWSKEZgFaaXhjWJ5ljZTmNzDL9A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
+ dkim=pass header.d=mediatek.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Udjd/1Gsb94kZtOu8ASc4fNZoYWQocqTFq710VaSY8g=;
+ b=viwE5Kzb0ztx3ihcq8laKpV35DSwTDDmGdt2XR7ilaeHOBE0ygIod/eDbIPMFqCDqhxsMziu8GNAAoVeIE+jSXz9xPmJPAoqY9OuoSF+VXlfgCnODXWmc5Bu2gN9zOU+VJllH1tCM6oLidVkLSlU/pzdURmyo7nLlpSCyje9oaQ=
+Received: from TYZPR03MB6624.apcprd03.prod.outlook.com (2603:1096:400:1f4::13)
+ by TYUPR03MB7109.apcprd03.prod.outlook.com (2603:1096:400:354::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
+ 2026 02:23:04 +0000
+Received: from TYZPR03MB6624.apcprd03.prod.outlook.com
+ ([fe80::a3c2:b94a:70f:e640]) by TYZPR03MB6624.apcprd03.prod.outlook.com
+ ([fe80::a3c2:b94a:70f:e640%4]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
+ 02:23:04 +0000
+From: =?utf-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	"chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>
+CC: "kernel@collabora.com" <kernel@collabora.com>, "robh@kernel.org"
+	<robh@kernel.org>, "tzimmermann@suse.de" <tzimmermann@suse.de>,
+	"simona@ffwll.ch" <simona@ffwll.ch>, "mripard@kernel.org"
+	<mripard@kernel.org>, =?utf-8?B?Sml0YW8gU2hpICjnn7PorrDmtpsp?=
+	<jitao.shi@mediatek.com>, "linux-mediatek@lists.infradead.org"
+	<linux-mediatek@lists.infradead.org>, "maarten.lankhorst@linux.intel.com"
+	<maarten.lankhorst@linux.intel.com>, "dri-devel@lists.freedesktop.org"
+	<dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "p.zabel@pengutronix.de"
+	<p.zabel@pengutronix.de>, "airlied@gmail.com" <airlied@gmail.com>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "matthias.bgg@gmail.com"
+	<matthias.bgg@gmail.com>, =?utf-8?B?SnVzdGluIFllaCAo6JGJ6Iux6IyCKQ==?=
+	<Justin.Yeh@mediatek.com>, =?utf-8?B?SmFzb24tSkggTGluICjmnpfnnb/npaUp?=
+	<Jason-JH.Lin@mediatek.com>
+Subject: Re: [PATCH v6 08/11] drm/mediatek: mtk_dsi: Add support for MT8196
+Thread-Topic: [PATCH v6 08/11] drm/mediatek: mtk_dsi: Add support for MT8196
+Thread-Index: AQHdFGIAtcZbf0YUyEurgDw1dINDvLaxbTYA
+Date: Thu, 27 Aug 2026 02:23:04 +0000
+Message-ID: <68c076aece72a61683a894567a8a27ec58d917b7.camel@mediatek.com>
+References: <20260715135703.46540-1-angelogioacchino.delregno@collabora.com>
+	 <20260715135703.46540-9-angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20260715135703.46540-9-angelogioacchino.delregno@collabora.com>
+Accept-Language: zh-TW, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+user-agent: Evolution 3.52.3-0ubuntu1 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=mediatek.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TYZPR03MB6624:EE_|TYUPR03MB7109:EE_
+x-ms-office365-filtering-correlation-id: 45064da1-01a2-4530-16a7-08df03e2202c
+x-ld-processed: a7687ede-7a6b-4ef6-bace-642f677fbe31,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|1800799024|42112799006|366016|23010399003|7416014|56012099006|10067099003|3023799007|6133799003|18002099003|22082099003|4143699003|11063799006|38070700021;
+x-microsoft-antispam-message-info: NZSBgz41Y/YMjlza33t8apioKWJ4n4LTfZcclZyffgLnzgMpWWpcfOKk6lE49BkUDuGX2XSc8LQkYEE9JRUpslD1aPlgSkolspkihW/WviUIbHoTcbKXapAqotOMiw2XXjEIMcdfo9tnni9WUREcPLcK5Sr9W8hJDfM95P619m09Kt+D5v/dOfcn18T9WSfBqwymVrg2n0G7ZovFtzAhFRVVffrYQy8X/+2tTaFBg0yIeIqn3Mw1rIwPBdF+0P+BWyF0xgMp+Fii8puizFERe8Zty4H8rZ/6GCvp3VtRsB7uLtEcSpy+dgzL2/MR7/dRKI5zrRpZ0cZdVyKPwNMwye6y+9diQGTfbUj4OB+mdzUsRbA/LYsyVk5ffOBxgRcWIXmpjNxR/lC+9fsZaeK11jX+GSHrtEBbVRByc3fcprDpVwO2js7VhfW0UQ2ACRAFtqFmfTcI8CttSBWspItAZ2WlL28AEJpxkN0ORI588NGmNNg6N0xbfqtM76cdbEJRfB2rLhz1XyICzx1w1Iiyoi3SaZ1GSo2dVv/kIgAaHTfGW3BkCFJj++RoERZvEXehzprRgzNVjBVqsG5JHjreK90TF0cr7MWMZTj4ymLN717SzI0vAJQFb5g5igc9UV9kjzWy3Q0gyV9/YqD0k1gKtV8QEowm4Xpf0k3/VPDKjd4peaXvHPuTjXLQe5/mYC1KeTXsfeeM3KnB5/iPkDMyBGe4O2Z9RHZhS6is/3k9LtQ=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYZPR03MB6624.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(42112799006)(366016)(23010399003)(7416014)(56012099006)(10067099003)(3023799007)(6133799003)(18002099003)(22082099003)(4143699003)(11063799006)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?dmVKWUdtWER0R2JsK0g2L2FqNXA5aW0vc2pTZFVybk5KaTRaTzR3dGozUlRP?=
+ =?utf-8?B?dUEya2lFSDNJWTBpM3VwVUN3Q0RnR0c2RmZYeGwzMWpTYWFrUnpjNE10M0RR?=
+ =?utf-8?B?WjBBTlEzL2ZwYVpjKzV2NmN3RlJETUdVUlNqbG8vRE9VQXdqTFM2VFpkSVRk?=
+ =?utf-8?B?S1g4dmJKR2pOS3drRkphZ1VlWEprSFB5bnRONlowdTVFL2Z6aVh3T1VaQ1Bo?=
+ =?utf-8?B?SnBHYk9GTUI5dkdMM1d3bG9wNVMyakh4Zk9mME9pbFJoZ1lkY1ptV3lZdlE4?=
+ =?utf-8?B?cjRLZEg1bWUrdFk4b1BMZEhid0twK3dqZkpwK3dSblVyUjNHOFRSRlAyTHll?=
+ =?utf-8?B?amZQTmVSV2Y4bmV4YWtVdk9uQVhqUDVEUzZYbXdKbmhLVDkya05ncnJ5Q1Y3?=
+ =?utf-8?B?dDFaQXVJR2luaUhvKzJENS8yU0tKS0hab0VheHlTeENSSTZqdHphR3hacXlw?=
+ =?utf-8?B?OFphRDlqQ3dsZklrRFRTYXpMSWloVEVKWWVrdEVYMjVHSm5IMjAvZWZJZjVS?=
+ =?utf-8?B?VG5nMFhCUnY1eWxaSEUvQktGb3ZuZUE1Si9TR2RZYWpvb2pPY0ZVNkRadHVU?=
+ =?utf-8?B?d2ROZ1hYTFJvU3BidFpRcDJ1cmZpMHBNbTFGSndwcHRuVnB4VmgzT09RbFhB?=
+ =?utf-8?B?dUdMN3ZHbGNYYzJweE82YVlUWGZIZXFZVDNlVjVjdEJXdUdTMTJ0c1JLakVJ?=
+ =?utf-8?B?NFJRVDBQWGFOQWloZmcxTkVPeWNTOG12dDJmU1lQWHZYalpYbWpILytaVDFK?=
+ =?utf-8?B?NVFleFF3Ky9hZS9GOVhxQjkwL3NLYUZCckpFVEM0WjIvbVdOamp4SFp0UjdR?=
+ =?utf-8?B?enVCVDZER1J0S1poMEpYTzZaUEpsRm1WbEtSUGdrSEtPRDNlRk81MTVDNGxB?=
+ =?utf-8?B?V0VlZkV4bVNVNitEaDJNUDFBdXQwdnBFbE1ISHI0TUFOZlgxRGNlczZNOGhR?=
+ =?utf-8?B?R0gvdnpobmZuVytObHpETzhWTzNMc1d6TlN5VjErazc0NEJpQi92MkdycW1U?=
+ =?utf-8?B?SjA4Z2RtRzlmYzRjN3pBanVOMWFRejlGTDR5RHhjVFk4c1d6Z1VYY2doVFI1?=
+ =?utf-8?B?YzBxeHd3aXlZMkZFblB3RW5DTTJxMlZZUFBzanA0bmNGOSs1d2JpcUZHeTJZ?=
+ =?utf-8?B?WVVEZ0kvU29CYWp3OWZUQjUwNkF5eUptUVN4bVA3UjY2QmIvdVh3M2pHdGdD?=
+ =?utf-8?B?YTJ3c0UzMlNyaHhUMWtWV1BtSk1md2FTWE1ORWZoanE2dEFpbDNmVkhNeFZT?=
+ =?utf-8?B?bW9hSnoxSUp0TTBlaVVVdmZRQ3RvTGJyTWNpRGZHV1JmNDdnbDZCUXM5N1lC?=
+ =?utf-8?B?YXRZVEQrcTFHejd4TXVsVEFLTUl4Sk1BdVd3SjhWZDdEZEx3ZStQcjhEWFFD?=
+ =?utf-8?B?dDRQb2ZPdGJUU0JIRlhhNTNoZ0psMVY4ckdPUktNMGpqZG5zM0l1ZUJYdXFB?=
+ =?utf-8?B?UThnem10ZDh2aTVSdlM4bVNGL0NMR051RUVXUHE4RU9aanBmM055Y2FpMllZ?=
+ =?utf-8?B?U3NlbmZDVWxWcWV3SFlWdHhQOUxVenhJVVNOcFhwRmtTMG4yU1JTODFUUUVW?=
+ =?utf-8?B?eVJXeGIwbG8zcFlBRzlsL3BiM3Rwdjc2QTUrS2pMOEkyUTMwOWkzalZFbWNl?=
+ =?utf-8?B?UUlnakJ0blUrVXBmM0pMR1JuUStSdUdEYUVUU0pmWmxmcFVzOGw4bUlpbzVU?=
+ =?utf-8?B?WjdKYlluZmZyV1MwWkFTb1lPbWhUQWlhbmhTWENtZjROcEdrdVZlc2FMTjE4?=
+ =?utf-8?B?OS84ZHVhYnNaMEI1c3RaaTBETDN6azhlL2htUWszZXcycEZ1YnZ4TTd0TGRa?=
+ =?utf-8?B?Y0hUcWFKeUl1ZDRjcGdJUnVWSkNyMFFSbkI4MFRPSVllM0FjeEtWWGtvM043?=
+ =?utf-8?B?ZTgxVSt4RU1WWk0zb2ZQdnBsNDJaVnhoTWVBbC9jSmJBT1E0VXhQNFp2WThK?=
+ =?utf-8?B?dVI3Q2tyMEE2YkZJZVErd2p5Q3RKT3hDMGwveEptcHVvWE9SRk5uS2Fxa2Qv?=
+ =?utf-8?B?R29semdoRytnRkRGN1JNcFZPbXNKMG5Fb2Q1SU5PMGF2aEVYTUp4d3NsMjBG?=
+ =?utf-8?B?VmNCd0orMVdXVEd1azlxTWpaUmF3ck95blkzb1JFejBXMS96QkdBWnpIYi9M?=
+ =?utf-8?B?azJPa1dvQlRqMDB5Uk1oSS9QbVphZVBxUmZaS0NTQWFsTkNyNmJ4Vk5pVHVs?=
+ =?utf-8?B?QkxHTTVqTm9qT1dSL3NtbWZlOXNSalhOcUFZSlpnTVlTV0REMURub21ZOHZU?=
+ =?utf-8?B?VmJ0RVdWSXNLY1FLenZtR3FQbllVOTJWNldkNkoyeWhWUk5WMEVuZTJ3dXI3?=
+ =?utf-8?B?b1hRVEFQN2pacC9IeFg1VE5HY2NOMmxuTTljejNKQ05lNGllazBuZz09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <9589D5F9686CF7439B1C7348E2626879@apcprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, jaegeuk@kernel.org, linux-kernel@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net
-Subject: Re: [f2fs-dev] [PATCH v3 09/12] f2fs: cache: use compress cache
-To: Daeho Jeong <daeho43@gmail.com>
-References: <20260825130126.2078627-1-chao@kernel.org>
- <20260825130126.2078627-10-chao@kernel.org>
- <CACOAw_w+QMkTNK=McScLHh1gpm6UFjxLSnVxhFMsgsuArLA=qQ@mail.gmail.com>
-Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <CACOAw_w+QMkTNK=McScLHh1gpm6UFjxLSnVxhFMsgsuArLA=qQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-Exchange-RoutingPolicyChecked: z35/duxu+hAAqbiWRJpJdu+hJC2AldiqRptgkMACNT5gdihNhbn448DjKjLVSrdr5W7Aeo8HvAy91cgOfX+kDnCERWyhDcYNEo3q2OzNTiwYce/Y5h2DONedGjqnKDu8YKGyly15x2+uHfBBIA3OAZibYRRjqoO/Q4W/tFuzyhJbwMVKgTAWeSd53mSBVTRbh2BvSYpL4mFWqrJOGwoSH/WQ1KG2dQx0Rb32vAmj6eN+k7TanTNqHgrlm2yhNBvdfciPlZwvICSdpR1IknGvuuimnkVMDi4LA4LK1DS4JR58fvRTMP2NqgnNPeKKNVwRPu1dkhCx986m+mQGORkQNA==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB6624.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 45064da1-01a2-4530-16a7-08df03e2202c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Aug 2026 02:23:04.6878
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 9qpYay45o/T17+PQMuIG455FVezgkx8Ysm5ZubTgiFidz4VPcTEFL9TeONyoiiyQB9HWZjR6XU0O6nHY3Bq5Fw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYUPR03MB7109
+X-MTK: N
 
-On 8/27/26 04:04, Daeho Jeong wrote:
-> On Tue, Aug 25, 2026 at 6:03 AM Chao Yu via Linux-f2fs-devel
-> <linux-f2fs-devel@lists.sourceforge.net> wrote:
->>
->> This patch migrates compressed cluster caching from the fake VFS inode
->> page cache (sbi->compress_inode) to compress cache (sbi->compress_blocks).
->>
->> It converts compression caching and decompression paths to use
->> compress cache APIs, uses entry->ino for per-inode invalidation, and
->> removes sbi->compress_inode.
->>
->> Signed-off-by: Chao Yu <chao@kernel.org>
->> ---
->>  fs/f2fs/cache.c         |  14 ++--
->>  fs/f2fs/cache.h         |   1 +
->>  fs/f2fs/compress.c      | 158 ++++++++++++++++++----------------------
->>  fs/f2fs/debug.c         |   9 ++-
->>  fs/f2fs/f2fs.h          |   8 +-
->>  fs/f2fs/inode.c         |  49 +------------
->>  fs/f2fs/node.c          |   2 +-
->>  fs/f2fs/shrinker.c      |   3 +-
->>  fs/f2fs/super.c         |  15 ++--
->>  include/linux/f2fs_fs.h |   1 -
->>  10 files changed, 98 insertions(+), 162 deletions(-)
->>
->> diff --git a/fs/f2fs/cache.c b/fs/f2fs/cache.c
->> index 8431180bb1f8..5b9055ad49b9 100644
->> --- a/fs/f2fs/cache.c
->> +++ b/fs/f2fs/cache.c
->> @@ -417,13 +417,12 @@ static void f2fs_do_truncate_cache(struct f2fs_cached_block *entry,
->>         spin_unlock(&cache->list_lock);
->>  }
->>
->> -static void f2fs_truncate_cache(struct f2fs_cached_block *entry,
->> +void f2fs_truncate_cache(struct f2fs_cached_block *entry,
->>                                         bool drop_dirty)
-> 
-> -> __f2fs_truncate_cache() without locking?
-
-Actually, I'v relocated the lock into callers of f2fs_truncate_cache(),
-in order to support check entry->ino, entry->cache w/ the lock in
-f2fs_invalidate_compress_pages(), please take a look.
-
-> 
->>  {
->> -       f2fs_lock_cache(entry);
->> -       if (entry->cache)
->> -               f2fs_do_truncate_cache(entry, drop_dirty);
->> -       f2fs_unlock_cache(entry);
->> +       if (!entry->cache)
->> +               return;
->> +       f2fs_do_truncate_cache(entry, drop_dirty);
->>  }
->>
->>  static void f2fs_drop_cache(struct f2fs_cached_block_list *cache,
->> @@ -435,8 +434,9 @@ static void f2fs_drop_cache(struct f2fs_cached_block_list *cache,
->>         if (IS_ERR(entry))
->>                 return;
->>
->> +       f2fs_lock_cache(entry);
->>         f2fs_truncate_cache(entry, drop_dirty);
->> -       f2fs_put_cache(entry, false);
->> +       f2fs_put_cache(entry, true);
->>  }
->>
->>  void f2fs_drop_cache_range(struct f2fs_cached_block_list *cache,
->> @@ -478,7 +478,9 @@ void f2fs_drop_cache_range(struct f2fs_cached_block_list *cache,
->>
->>                 index = entry->index + 1;
->>
->> +               f2fs_lock_cache(entry);
->>                 f2fs_truncate_cache(entry, drop_dirty);
->> +               f2fs_unlock_cache(entry);
->>         }
->>         f2fs_cache_gang_release(entries, nr);
->>
->> diff --git a/fs/f2fs/cache.h b/fs/f2fs/cache.h
->> index b87feb3eb896..b66dbaefee2f 100644
->> --- a/fs/f2fs/cache.h
->> +++ b/fs/f2fs/cache.h
->> @@ -168,6 +168,7 @@ unsigned int f2fs_cache_gang_lookup_tag(struct f2fs_cached_block_list *cache,
->>                 unsigned int max_items, int tag);
->>  void f2fs_cache_gang_release(struct f2fs_cached_block **entries,
->>                                 unsigned int nr_entries);
->> +void f2fs_truncate_cache(struct f2fs_cached_block *entry, bool drop_dirty);
->>  int f2fs_writeback_cache(struct f2fs_cached_block_list *cache, bool sync);
->>  void f2fs_cache_wait_on_all_writeback(struct f2fs_cached_block_list *cache);
->>  void f2fs_cache_wait_writeback_cond(struct f2fs_cached_block *entry,
->> diff --git a/fs/f2fs/compress.c b/fs/f2fs/compress.c
->> index 676a5559357f..155be3a3d203 100644
->> --- a/fs/f2fs/compress.c
->> +++ b/fs/f2fs/compress.c
->> @@ -1918,30 +1918,19 @@ unsigned int f2fs_cluster_blocks_are_contiguous(struct dnode_of_data *dn,
->>         return compressed ? i - 1 : i;
->>  }
->>
->> -const struct address_space_operations f2fs_compress_aops = {
->> -       .release_folio = f2fs_release_folio,
->> -       .invalidate_folio = f2fs_invalidate_folio,
->> -       .migrate_folio  = filemap_migrate_folio,
->> -};
->> -
->> -struct address_space *COMPRESS_MAPPING(struct f2fs_sb_info *sbi)
->> -{
->> -       return sbi->compress_inode->i_mapping;
->> -}
->> -
->>  void f2fs_invalidate_compress_pages_range(struct f2fs_sb_info *sbi,
->>                                 block_t blkaddr, unsigned int len)
->>  {
->> -       if (!sbi->compress_inode)
->> +       if (!test_opt(sbi, COMPRESS_CACHE))
->>                 return;
->> -       invalidate_mapping_pages(COMPRESS_MAPPING(sbi), blkaddr, blkaddr + len - 1);
->> +
->> +       f2fs_drop_cache_range(COMPRESS_CACHE(sbi), blkaddr, len, false);
->>  }
->>
->>  static void f2fs_cache_compressed_page(struct f2fs_sb_info *sbi,
->>                 struct folio *folio, nid_t ino, block_t blkaddr)
->>  {
->> -       struct folio *cfolio;
->> -       int ret;
->> +       struct f2fs_cached_block *entry;
->>
->>         if (!test_opt(sbi, COMPRESS_CACHE))
->>                 return;
->> @@ -1952,49 +1941,43 @@ static void f2fs_cache_compressed_page(struct f2fs_sb_info *sbi,
->>         if (!f2fs_available_free_memory(sbi, COMPRESS_PAGE))
->>                 return;
->>
->> -       cfolio = filemap_get_folio(COMPRESS_MAPPING(sbi), blkaddr);
->> -       if (!IS_ERR(cfolio)) {
->> -               f2fs_folio_put(cfolio, false);
->> +       entry = f2fs_find_cache(COMPRESS_CACHE(sbi), blkaddr);
->> +       if (!IS_ERR(entry)) {
->> +               f2fs_put_cache(entry, false);
->>                 return;
->>         }
->>
->> -       cfolio = filemap_alloc_folio(__GFP_NOWARN | __GFP_IO, 0, NULL);
->> -       if (!cfolio)
->> -               return;
->> -
->> -       ret = filemap_add_folio(COMPRESS_MAPPING(sbi), cfolio,
->> -                                               blkaddr, GFP_NOFS);
->> -       if (ret) {
->> -               f2fs_folio_put(cfolio, false);
->> +       entry = f2fs_grab_cache(COMPRESS_CACHE(sbi), blkaddr,
->> +                                       F2FS_CACHE_LOCK_CREATE);
->> +       if (IS_ERR(entry))
->>                 return;
->> -       }
->>
->> -       folio_set_f2fs_data(cfolio, ino);
->> -
->> -       memcpy(folio_address(cfolio), folio_address(folio), PAGE_SIZE);
->> -       folio_mark_uptodate(cfolio);
->> -       f2fs_folio_put(cfolio, true);
->> +       entry->ino = ino;
->> +       memcpy(cache_address(entry), folio_address(folio), PAGE_SIZE);
->> +       f2fs_cache_set_uptodate(entry);
->> +       f2fs_put_cache(entry, true);
->>  }
->>
->>  bool f2fs_load_compressed_folio(struct f2fs_sb_info *sbi, struct folio *folio,
->>                                                                 block_t blkaddr)
->>  {
->> -       struct folio *cfolio;
->> +       struct f2fs_cached_block *entry;
->>         bool hitted = false;
->>
->>         if (!test_opt(sbi, COMPRESS_CACHE))
->>                 return false;
->>
->> -       cfolio = f2fs_filemap_get_folio(COMPRESS_MAPPING(sbi),
->> -                               blkaddr, FGP_LOCK | FGP_NOWAIT, GFP_NOFS);
->> -       if (!IS_ERR(cfolio)) {
->> -               if (folio_test_uptodate(cfolio)) {
->> +       entry = f2fs_find_cache(COMPRESS_CACHE(sbi), blkaddr);
->> +       if (!IS_ERR(entry)) {
->> +               f2fs_lock_cache(entry);
->> +               if (f2fs_is_compress_cache(entry) &&
->> +                               f2fs_cache_test_uptodate(entry)) {
->>                         atomic_inc(&sbi->compress_page_hit);
->>                         memcpy(folio_address(folio),
->> -                               folio_address(cfolio), folio_size(folio));
->> +                               cache_address(entry), folio_size(folio));
->>                         hitted = true;
->>                 }
->> -               f2fs_folio_put(cfolio, true);
->> +               f2fs_put_cache(entry, true);
->>         }
->>
->>         return hitted;
->> @@ -2002,71 +1985,70 @@ bool f2fs_load_compressed_folio(struct f2fs_sb_info *sbi, struct folio *folio,
->>
->>  void f2fs_invalidate_compress_pages(struct f2fs_sb_info *sbi, nid_t ino)
-> 
-> This is O(N) Full-tree scan on inode eviction.
-> 
-> WDYT to improve it?
->  - Per-inode tracking
->  - Re-evaluate eviction policy: Since compress cache blocks are
-> indexed by physical block address (blkaddr) and hold immutable disk
-> data, the cached blocks remain valid even after the inode is
-> closed/evicted.
-
-So you mean like extent cache policy, right? cache still keep valid before
-unlink/umount.
-
->    We should evaluate whether we actually need to synchronously purge
-> clean compress cache entries upon inode eviction, or if we can simply
-> let the memory shrinker reclaim them via LRU under memory pressure.
-
-I think your idea is good, also I'm good to improve compress cache, actually,
-in this patch I just want to do minimum replacement in between folio and internal
-cache, what do you think of improving it w/ a separated patch a bit later?
-
-> 
->>  {
->> -       struct address_space *mapping = COMPRESS_MAPPING(sbi);
->> -       struct folio_batch fbatch;
->> -       pgoff_t index = 0;
->> -       pgoff_t end = MAX_BLKADDR(sbi);
->> +       struct f2fs_cached_block_list *cache = COMPRESS_CACHE(sbi);
->> +       struct f2fs_cached_block *entries[F2FS_ONSTACK_CACHES];
->> +       unsigned long flags;
->> +       pgoff_t index = 0, end = ULONG_MAX;
->> +       int nr;
->> +       int i;
->>
->> -       if (!mapping->nrpages)
-> 
-> Why did you remove this line?
-
-Because compress_inode's mapping is not existing?
-
-> 
->> +       if (!test_opt(sbi, COMPRESS_CACHE))
->>                 return;
->> -
->> -       folio_batch_init(&fbatch);
->> -
->> -       do {
->> -               unsigned int nr, i;
->> -
->> -               nr = filemap_get_folios(mapping, &index, end - 1, &fbatch);
->> -               if (!nr)
->> +next:
->> +       spin_lock_irqsave(&cache->tree_lock, flags);
->> +       nr = radix_tree_gang_lookup(&cache->root, (void **)entries, index,
->> +               min((unsigned long)F2FS_ONSTACK_CACHES, end - index));
->> +       if (!nr)
->> +               goto out_unlock;
->> +
->> +       for (i = 0; i < nr; i++) {
->> +               struct f2fs_cached_block *entry = entries[i];
->> +
->> +               if (entry->index >= end) {
->> +                       nr = i;
->>                         break;
->> +               }
->> +               f2fs_cache_get(entry);
->> +       }
->> +out_unlock:
->> +       spin_unlock_irqrestore(&cache->tree_lock, flags);
->> +       if (!nr)
->> +               return;
->> +       for (i = 0; i < nr; i++) {
->> +               struct f2fs_cached_block *entry = entries[i];
->>
->> -               for (i = 0; i < nr; i++) {
->> -                       struct folio *folio = fbatch.folios[i];
->> +               index = entry->index + 1;
->>
->> -                       folio_lock(folio);
->> -                       if (folio->mapping != mapping) {
->> -                               folio_unlock(folio);
->> -                               continue;
->> -                       }
->> +               f2fs_lock_cache(entry);
->>
->> -                       if (ino != folio_get_f2fs_data(folio)) {
->> -                               folio_unlock(folio);
->> -                               continue;
->> -                       }
->> -
->> -                       generic_error_remove_folio(mapping, folio);
->> -                       folio_unlock(folio);
->> +               if (!f2fs_is_compress_cache(entry)) {
-> 
-> How is this possible?
-> or if (!entry->cache)?
-
-Looks like a impossible case, let me chaneg it to a f2fs_bug_on().
-
-Thanks,
-
-> 
-> Thanks,
-> 
->> +                       f2fs_unlock_cache(entry);
->> +                       continue;
->>                 }
->> -               folio_batch_release(&fbatch);
->> +               if (entry->ino != ino) {
->> +                       f2fs_unlock_cache(entry);
->> +                       continue;
->> +               }
->> +
->> +               f2fs_truncate_cache(entry, false);
->> +               f2fs_unlock_cache(entry);
->> +       }
->> +       f2fs_cache_gang_release(entries, nr);
->> +
->> +       if (index < end) {
->>                 cond_resched();
->> -       } while (index < end);
->> +               goto next;
->> +       }
->>  }
->>
->> -int f2fs_init_compress_inode(struct f2fs_sb_info *sbi)
->> +void f2fs_init_compress_cache_context(struct f2fs_sb_info *sbi)
->>  {
->> -       struct inode *inode;
->> -
->>         if (!test_opt(sbi, COMPRESS_CACHE))
->> -               return 0;
->> -
->> -       inode = f2fs_iget(sbi->sb, F2FS_COMPRESS_INO(sbi));
->> -       if (IS_ERR(inode))
->> -               return PTR_ERR(inode);
->> -       sbi->compress_inode = inode;
->> +               return;
->>
->>         sbi->compress_percent = COMPRESS_PERCENT;
->>         sbi->compress_watermark = COMPRESS_WATERMARK;
->> -
->>         atomic_set(&sbi->compress_page_hit, 0);
->> -
->> -       return 0;
->> -}
->> -
->> -void f2fs_destroy_compress_inode(struct f2fs_sb_info *sbi)
->> -{
->> -       if (!sbi->compress_inode)
->> -               return;
->> -       iput(sbi->compress_inode);
->> -       sbi->compress_inode = NULL;
->>  }
->>
->>  int f2fs_init_page_array_cache(struct f2fs_sb_info *sbi)
->> diff --git a/fs/f2fs/debug.c b/fs/f2fs/debug.c
->> index bedaade92677..8cd06f7ba9e7 100644
->> --- a/fs/f2fs/debug.c
->> +++ b/fs/f2fs/debug.c
->> @@ -225,8 +225,8 @@ static void update_general_status(struct f2fs_sb_info *sbi)
->>         si->node_caches = NODE_CACHE(sbi)->num_entries;
->>         si->meta_caches = META_CACHE(sbi)->num_entries;
->>  #ifdef CONFIG_F2FS_FS_COMPRESSION
->> -       if (sbi->compress_inode) {
->> -               si->compress_pages = COMPRESS_MAPPING(sbi)->nrpages;
->> +       if (test_opt(sbi, COMPRESS_CACHE)) {
->> +               si->compress_pages = COMPRESS_CACHE(sbi)->num_entries;
->>                 si->compress_page_hit = atomic_read(&sbi->compress_page_hit);
->>         }
->>  #endif
->> @@ -386,10 +386,11 @@ static void update_mem_info(struct f2fs_sb_info *sbi)
->>         si->page_mem += (unsigned long long)NODE_CACHE(sbi)->num_entries << PAGE_SHIFT;
->>         si->cache_mem += NODE_CACHE(sbi)->num_entries * sizeof(struct f2fs_cached_block);
->>  #ifdef CONFIG_F2FS_FS_COMPRESSION
->> -       if (sbi->compress_inode) {
->> -               unsigned long npages = COMPRESS_MAPPING(sbi)->nrpages;
->> +       if (test_opt(sbi, COMPRESS_CACHE)) {
->> +               unsigned long npages = COMPRESS_CACHE(sbi)->num_entries;
->>
->>                 si->page_mem += (unsigned long long)npages << PAGE_SHIFT;
->> +               si->cache_mem += npages * sizeof(struct f2fs_cached_block);
->>         }
->>  #endif
->>  }
->> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
->> index 5b1b3104ec20..d55749b03ed2 100644
->> --- a/fs/f2fs/f2fs.h
->> +++ b/fs/f2fs/f2fs.h
->> @@ -2078,7 +2078,6 @@ struct f2fs_sb_info {
->>         u32 compr_new_inode;
->>
->>         /* For compressed block cache */
->> -       struct inode *compress_inode;           /* cache compressed blocks */
->>         unsigned int compress_percent;          /* cache page percentage */
->>         unsigned int compress_watermark;        /* cache page watermark */
->>         atomic_t compress_page_hit;             /* cache hit count */
->> @@ -4821,13 +4820,11 @@ unsigned int f2fs_cluster_blocks_are_contiguous(struct dnode_of_data *dn,
->>  int f2fs_init_compress_ctx(struct compress_ctx *cc);
->>  void f2fs_destroy_compress_ctx(struct compress_ctx *cc, bool reuse);
->>  void f2fs_init_compress_info(struct f2fs_sb_info *sbi);
->> -int f2fs_init_compress_inode(struct f2fs_sb_info *sbi);
->> -void f2fs_destroy_compress_inode(struct f2fs_sb_info *sbi);
->> +void f2fs_init_compress_cache_context(struct f2fs_sb_info *sbi);
->>  int f2fs_init_page_array_cache(struct f2fs_sb_info *sbi);
->>  void f2fs_destroy_page_array_cache(struct f2fs_sb_info *sbi);
->>  int __init f2fs_init_compress_cache(void);
->>  void f2fs_destroy_compress_cache(void);
->> -struct address_space *COMPRESS_MAPPING(struct f2fs_sb_info *sbi);
->>  void f2fs_invalidate_compress_pages_range(struct f2fs_sb_info *sbi,
->>                                         block_t blkaddr, unsigned int len);
->>  bool f2fs_load_compressed_folio(struct f2fs_sb_info *sbi, struct folio *folio,
->> @@ -4876,8 +4873,7 @@ static inline void f2fs_put_folio_dic(struct folio *folio, bool in_task)
->>  static inline unsigned int f2fs_cluster_blocks_are_contiguous(
->>                         struct dnode_of_data *dn, unsigned int ofs_in_node) { return 0; }
->>  static inline bool f2fs_sanity_check_cluster(struct dnode_of_data *dn) { return false; }
->> -static inline int f2fs_init_compress_inode(struct f2fs_sb_info *sbi) { return 0; }
->> -static inline void f2fs_destroy_compress_inode(struct f2fs_sb_info *sbi) { }
->> +static inline void f2fs_init_compress_cache_context(struct f2fs_sb_info *sbi) { }
->>  static inline int f2fs_init_page_array_cache(struct f2fs_sb_info *sbi) { return 0; }
->>  static inline void f2fs_destroy_page_array_cache(struct f2fs_sb_info *sbi) { }
->>  static inline int __init f2fs_init_compress_cache(void) { return 0; }
->> diff --git a/fs/f2fs/inode.c b/fs/f2fs/inode.c
->> index aa6f4d4a55a7..1688d9cbafe1 100644
->> --- a/fs/f2fs/inode.c
->> +++ b/fs/f2fs/inode.c
->> @@ -573,15 +573,6 @@ static int do_read_inode(struct inode *inode)
->>         return 0;
->>  }
->>
->> -static bool is_meta_ino(struct f2fs_sb_info *sbi, unsigned int ino)
->> -{
->> -#ifdef CONFIG_F2FS_FS_COMPRESSION
->> -       if (test_opt(sbi, COMPRESS_CACHE) && ino == F2FS_COMPRESS_INO(sbi))
->> -               return true;
->> -#endif
->> -       return false;
->> -}
->> -
->>  struct inode *f2fs_iget(struct super_block *sb, unsigned long ino)
->>  {
->>         struct f2fs_sb_info *sbi = F2FS_SB(sb);
->> @@ -593,42 +584,17 @@ struct inode *f2fs_iget(struct super_block *sb, unsigned long ino)
->>                 return ERR_PTR(-ENOMEM);
->>
->>         if (!(inode_state_read_once(inode) & I_NEW)) {
->> -               if (is_meta_ino(sbi, ino)) {
->> -                       f2fs_err(sbi, "inaccessible inode: %lu, run fsck to repair", ino);
->> -                       set_sbi_flag(sbi, SBI_NEED_FSCK);
->> -                       ret = -EFSCORRUPTED;
->> -                       trace_f2fs_iget_exit(inode, ret);
->> -                       iput(inode);
->> -                       f2fs_handle_error(sbi, ERROR_CORRUPTED_INODE);
->> -                       fserror_report_file_metadata(inode, ret, GFP_NOFS);
->> -                       return ERR_PTR(ret);
->> -               }
->> -
->>                 trace_f2fs_iget(inode);
->>                 return inode;
->>         }
->>
->> -       if (is_meta_ino(sbi, ino))
->> -               goto make_now;
->> -
->>         ret = do_read_inode(inode);
->>         if (ret)
->>                 goto bad_inode;
->> -make_now:
->> +
->>         f2fs_set_inode_flags(inode);
->>
->> -       if (ino == F2FS_COMPRESS_INO(sbi)) {
->> -#ifdef CONFIG_F2FS_FS_COMPRESSION
->> -               inode->i_mapping->a_ops = &f2fs_compress_aops;
->> -               /*
->> -                * generic_error_remove_folio only truncates pages of regular
->> -                * inode
->> -                */
->> -               inode->i_mode |= S_IFREG;
->> -#endif
->> -               mapping_set_gfp_mask(inode->i_mapping,
->> -                       GFP_NOFS | __GFP_HIGHMEM | __GFP_MOVABLE);
->> -       } else if (S_ISREG(inode->i_mode)) {
->> +       if (S_ISREG(inode->i_mode)) {
->>                 inode->i_op = &f2fs_file_inode_operations;
->>                 inode->i_fop = &f2fs_file_operations;
->>                 inode->i_mapping->a_ops = &f2fs_dblock_aops;
->> @@ -879,7 +845,7 @@ static void f2fs_evict_inode_work(struct work_struct *work)
->>  /*
->>   * Return true, if we shouldn't go through post_evict_inode.
->>   */
->> -static bool f2fs_pre_evict_inode(struct inode *inode)
->> +static void f2fs_pre_evict_inode(struct inode *inode)
->>  {
->>         struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
->>         struct f2fs_inode_info *fi = F2FS_I(inode);
->> @@ -905,17 +871,12 @@ static bool f2fs_pre_evict_inode(struct inode *inode)
->>             test_opt(sbi, COMPRESS_CACHE) && f2fs_compressed_file(inode))
->>                 f2fs_invalidate_compress_pages(sbi, inode->i_ino);
->>
->> -       if (inode->i_ino == F2FS_COMPRESS_INO(sbi))
->> -               return true;
->> -
->>         f2fs_bug_on(sbi, get_dirty_pages(inode));
->>         f2fs_remove_dirty_inode(inode);
->>         f2fs_remove_donate_inode(inode);
->>
->>         if (!IS_DEVICE_ALIASING(inode))
->>                 f2fs_destroy_extent_tree(inode);
->> -
->> -       return false;
->>  }
->>
->>  static void f2fs_delete_inode(struct inode *inode)
->> @@ -1077,15 +1038,13 @@ static void f2fs_post_evict_inode(struct inode *inode)
->>   */
->>  void f2fs_evict_inode(struct inode *inode)
->>  {
->> -       if (f2fs_pre_evict_inode(inode))
->> -               goto clear_out;
->> +       f2fs_pre_evict_inode(inode);
->>
->>         if (!inode->i_nlink && !is_bad_inode(inode))
->>                 f2fs_delete_inode(inode);
->>
->>         f2fs_post_evict_inode(inode);
->>
->> -clear_out:
->>         fscrypt_put_encryption_info(inode);
->>         clear_inode(inode);
->>  }
->> diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
->> index 07c23b35e7f7..cf052008aa64 100644
->> --- a/fs/f2fs/node.c
->> +++ b/fs/f2fs/node.c
->> @@ -119,7 +119,7 @@ bool f2fs_available_free_memory(struct f2fs_sb_info *sbi, int type)
->>                  * exceed threshold, deny caching compress page.
->>                  */
->>                 res = (free_ram > avail_ram * sbi->compress_watermark / 100) &&
->> -                       (COMPRESS_MAPPING(sbi)->nrpages <
->> +                       (COMPRESS_CACHE(sbi)->num_entries <
->>                          free_ram * sbi->compress_percent / 100);
->>  #else
->>                 res = false;
->> diff --git a/fs/f2fs/shrinker.c b/fs/f2fs/shrinker.c
->> index 20b3fe1f8c07..e7d2830e6a23 100644
->> --- a/fs/f2fs/shrinker.c
->> +++ b/fs/f2fs/shrinker.c
->> @@ -40,7 +40,8 @@ static unsigned long __count_extent_cache(struct f2fs_sb_info *sbi,
->>  static unsigned long __count_cache(struct f2fs_sb_info *sbi)
->>  {
->>         return sbi->meta_blocks.num_entries +
->> -               sbi->node_blocks.num_entries;
->> +               sbi->node_blocks.num_entries +
->> +               sbi->compress_blocks.num_entries;
->>  }
->>
->>  unsigned long f2fs_shrink_count(struct shrinker *shrink,
->> diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
->> index 6b42b736a662..5787cfb76c6e 100644
->> --- a/fs/f2fs/super.c
->> +++ b/fs/f2fs/super.c
->> @@ -2050,8 +2050,6 @@ static void f2fs_put_super(struct super_block *sb)
->>
->>         f2fs_bug_on(sbi, sbi->fsync_node_num);
->>
->> -       f2fs_destroy_compress_inode(sbi);
->> -
->>         f2fs_destroy_cache(COMPRESS_CACHE(sbi));
->>         f2fs_destroy_cache(NODE_CACHE(sbi));
->>         f2fs_destroy_cache(META_CACHE(sbi));
->> @@ -5285,6 +5283,8 @@ static int f2fs_fill_super(struct super_block *sb, struct fs_context *fc)
->>
->>         f2fs_init_fsync_node_info(sbi);
->>
->> +       f2fs_init_compress_cache_context(sbi);
->> +
->>         /* setup checkpoint request control and start checkpoint issue thread */
->>         f2fs_init_ckpt_req_control(sbi);
->>         if (!f2fs_readonly(sb) && !test_opt(sbi, DISABLE_CHECKPOINT) &&
->> @@ -5363,13 +5363,9 @@ static int f2fs_fill_super(struct super_block *sb, struct fs_context *fc)
->>                 goto free_ino_entry;
->>         }
->>
->> -       err = f2fs_init_compress_inode(sbi);
->> -       if (err)
->> -               goto free_root_inode;
->> -
->>         err = f2fs_register_sysfs(sbi);
->>         if (err)
->> -               goto free_compress_inode;
->> +               goto free_root_inode;
->>
->>         sbi->umount_lock_holder = current;
->>  #ifdef CONFIG_QUOTA
->> @@ -5537,8 +5533,6 @@ static int f2fs_fill_super(struct super_block *sb, struct fs_context *fc)
->>         /* evict some inodes being cached by GC */
->>         evict_inodes(sb);
->>         f2fs_unregister_sysfs(sbi);
->> -free_compress_inode:
->> -       f2fs_destroy_compress_inode(sbi);
->>  free_root_inode:
->>         dput(sb->s_root);
->>         sb->s_root = NULL;
->> @@ -5655,7 +5649,8 @@ static void kill_f2fs_super(struct super_block *sb)
->>                  * compress inode cache.
->>                  */
->>                 if (test_opt(sbi, COMPRESS_CACHE))
->> -                       truncate_inode_pages_final(COMPRESS_MAPPING(sbi));
->> +                       f2fs_invalidate_compress_pages_range(sbi,
->> +                                       0, UINT_MAX);
->>  #endif
->>
->>                 if (is_sbi_flag_set(sbi, SBI_IS_DIRTY) ||
->> diff --git a/include/linux/f2fs_fs.h b/include/linux/f2fs_fs.h
->> index 105cfeedea74..53344e1f2b44 100644
->> --- a/include/linux/f2fs_fs.h
->> +++ b/include/linux/f2fs_fs.h
->> @@ -34,7 +34,6 @@
->>  #define F2FS_RESERVED_NODE_NUM         3
->>
->>  #define F2FS_ROOT_INO(sbi)     ((sbi)->root_ino_num)
->> -#define F2FS_COMPRESS_INO(sbi) (NM_I(sbi)->max_nid)
->>
->>  #define F2FS_MAX_QUOTAS                3
->>
->> --
->> 2.49.0
->>
->>
->>
->> _______________________________________________
->> Linux-f2fs-devel mailing list
->> Linux-f2fs-devel@lists.sourceforge.net
->> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
-
+T24gV2VkLCAyMDI2LTA3LTE1IGF0IDE1OjU3ICswMjAwLCBBbmdlbG9HaW9hY2NoaW5vIERlbCBS
+ZWdubyB3cm90ZToNCj4gQWRkIHN1cHBvcnQgZm9yIHRoZSBuZXcgRFNJIElQIGZvdW5kIGluIHRo
+ZSBLb21wYW5pbyBVbHRyYSBNVDgxOTYNCj4gU29DIGFuZCBpdHMgRGltZW5zaXR5IGFuZCBHZW5p
+byB2YXJpYW50cy4NCj4gDQo+IERpZmZlcmVudGx5IGZyb20gdGhlIG9sZGVyIERTSSBJUHMsIHRo
+ZSBvbmUgZnJvbSBNVDgxOTYgcmVxdWlyZXMNCj4gdGhlIGluaXRpYWxpemF0aW9uIG9mIGFsbCBv
+ZiB0aGUgUW9TIHBhcmFtZXRlcnMgYW5kIGNhbiBtYWtlIHVzZQ0KPiBvZiBhIERTSSBTUkFNIHJl
+c2VydmVkIGJ1ZmZlciAocHJlc2VudCBhbHNvIG9uIG9sZGVyIFNvQ3MgYnV0IG5vdA0KPiBtYW5k
+YXRvcnkgb24gdGhvc2UpLg0KDQpJIHdvdWxkIGxpa2UgdG8gc2VwYXJhdGUgdGhpcyBwYXRjaCBp
+bnRvIHR3byBwYXRjaGVzLg0KT25lIGlzIHRvIHNldCBRb1MgcGFyYW1ldGVyIGFuZCBTUkFNLg0K
+QW5vdGhlciBvbmUgaXMgdG8gc3VwcG9ydCBNVDgxOTYgRFNJLg0KDQpSZWdhcmRzLA0KQ0sNCg0K
+PiANCj4gU2lnbmVkLW9mZi1ieTogQW5nZWxvR2lvYWNjaGlubyBEZWwgUmVnbm8gPGFuZ2Vsb2dp
+b2FjY2hpbm8uZGVscmVnbm9AY29sbGFib3JhLmNvbT4NCj4gLS0tDQoNCg==
