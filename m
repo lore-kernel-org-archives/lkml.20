@@ -1,187 +1,174 @@
-Received: from cp2.siel.si (cp2.siel.si [46.19.12.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BCCF38886B;
-	Thu, 27 Aug 2026 07:57:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.19.12.180
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787817481; cv=none; b=otj6pRoQKSSenrKH05YGWO7v7yKn/nX7bCZln4OS5jKTHx9N5MlFmH/XUe5SQXP9Z25u8ckZm4vqIRrRnoYaCmBYMfO5JY6mY7S942rXLevNTjY4rETd2iGIScR0DpVCp0wJdlFT9FktUX3rpFdv1P/ZJSbT90qhfkU6Ulx5Zz8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787817481; c=relaxed/simple;
-	bh=wB7oQYB55ay6TpsBEEieK0+fs1L5wWTB14GeroUIITs=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Ry+PcZHn8J7y8jYSW86HTh5eyMaP/8XT9aF3/OdVQshAQEiFGWypo1rz7EkZrp9Pwg5XwdCih8atRmCZ6uk4dWiCSZP0kShaxlTOAVHH44C0l+n9prM8U7fYX7ksvJxkp1LtAiMDeSwROgAdMQCGDo4PV6KdCuBJTR3MG+0Riko=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com; spf=pass smtp.mailfrom=norik.com; dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b=S2vbAg6W; arc=none smtp.client-ip=46.19.12.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=norik.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74B273A4521
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:58:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787817498; cv=pass; b=N9wRquSr6i7JSD0xGqLkf9T6uYbU63K0W9kkct1zCG50xHEIr5KQsIulF6p1NLcRVCF9uW6hfOCR3Mc61qAckmepXXMpxOH+NiFkpb27XPeWXvzfzlLDJPMurKCrvZadFA+rPsnpk9LRE/7d+FDI5o6DEIAUWDLTg+Bgb53sB7k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787817498; c=relaxed/simple;
+	bh=lotjI7DGya2jvffM5uBbsyWkSe6sFtu18wkc9M1Lrzs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BvTpWH44HG8a9kNiwKVhh6yyh8Mf94mFoextPxXywPAV/6ZuAGs8sNECcadMe0b8wpu/wof2HMJb0k95JNbvVZt35Rf44y5VLi+UrUNMr+rPrwtIXww6+LRjh/G1GC/+K30AJlIAqCXUr0AGvtkVl5p45uFWg7D0SPnG76/sKZk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f+agFnWQ; arc=pass smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b="S2vbAg6W"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=norik.com;
-	s=default; h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:
-	Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
-	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
-	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=yvFziv4lNhYffP/GPGVZf1WyR/w9ddzuS5seHRU85Hk=; b=S2vbAg6WhN1L+tJiFtAtgDm0Hi
-	9GqoPnQaeEaWKG39TQkvot67tEywlo+Q/TT9gw3boyOw+bsuX/SMEROHWQYuAGIo1frfpjdne1zJf
-	hiygudBzL1onRe1hRIY59fPoGIT3lNchgbKi+3lWEwCq9oetGYuOOwc2mu18tEvvShp+woFoGpaf6
-	0UI54VhiRGm+5Xp3S2XQAWKSMC3Ap6uHXNCWnmDiUAth88Nb/mgxHk7/0MWdweNP1cAKiEtqXjNhG
-	Jt3dHH8yEZnwXNdSGndJwFXqD6VHYMQVRkG20G1J32yaGX8Grs2u7jzFAQGqw42zblQw/dtMGUejm
-	8333dJxQ==;
-Received: from 89-212-21-243.static.t-2.net ([89.212.21.243]:55640 helo=localhost.localdomain)
-	by cp2.siel.si with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <primoz.fiser@norik.com>)
-	id 1wzUzl-00000007oR4-0FED;
-	Thu, 27 Aug 2026 09:57:56 +0200
-From: Primoz Fiser <primoz.fiser@norik.com>
-To: Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	upstream@lists.phytec.de
-Subject: [PATCH] arm64: dts: imx8mp-phyboard-pollux: add PEB-WLBT-07 expansion board
-Date: Thu, 27 Aug 2026 09:57:54 +0200
-Message-Id: <20260827075754.2739119-1-primoz.fiser@norik.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f+agFnWQ"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-38e58034d05so435245a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:58:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787817496; cv=none;
+        d=google.com; s=arc-20260327;
+        b=kgP7z2dErsVjVYQYEc6BXdd7zMUivFpQESTwQILPrGSBA5D2Esmxy9bazevGR4C6Vs
+         8lDZ3nW3gfiUSTrul7fOGYtIzPtghYHzYr+T0eVKStvT82+hYBFhAXy+hyM6oGwGWnPK
+         C9qMRz0rXak3Q8BsAboDIeM1M+tXadYG55qOLEWhDNVYvmYlPFd3bPl6wk1fwg+uoeUN
+         hvO8AsE4XvcEgm7M+cCupoj/evEqxoKvAKvfbIMQA0evfw8XmBCvOBUamdMj2wHpnIy8
+         Kln/WtS3EeWjpfUkmcORKLlmaK8mvblKpbPtZhFy1Ue6UQSFgh7guncBm36bCm828MNB
+         YIyw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=Nrk8uUDBNanFfnr96a4o3nFXywW6wHqNdCn0K9fnuO8=;
+        fh=Up9Av/EXbXS1WgEx7O2pNnBZSpljyqIH1ATTVBZXRmw=;
+        b=ojNr2VZkLKuvro0wHSw4gOnbKiUshkT94JjQrDKt4JWnvsqU8dQOGsp8fe/JVo2tUU
+         bwj3qjk2cIoi9tCEjmfaZHBb9Nkdh4HcdqJNetsY7ygtOUPlG+G0dD5rDOx+u7+1wAoT
+         INSmr+JcIlsV/zJrGJyn5SGcneVVKesNKeWgvhBaMw+LPZNX2kIheohWZMCQ24vNeHAS
+         ZB+kp20O1Y58PjHQAt1+SrCRnXs08f49Hu62xpK1Tz+IWGXLH5dlcfcq+UwocU9gKuul
+         yn40n/qNg/NzxXwGN1blYcf8stRxv6paJVjogLcVmO9OawBglsTzb82bRvekEHlSkk68
+         VQag==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787817496; x=1788422296; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Nrk8uUDBNanFfnr96a4o3nFXywW6wHqNdCn0K9fnuO8=;
+        b=f+agFnWQdzfVJzq26Sxor8l0kPRutQBRGUGYa32Ue5TsaUDQAVTkkv6HL08DmxKmu8
+         MU+Iw9TNU0MwvHbIsDIHQHSoRnjKCu7dfZjLacyk2Ww60u2gzNgNlVh7tyAN2r0zZqOz
+         +XYosVZrgabCLVV6YFBsCaie1Yd1rPx46WtB+ebiyo8SRbuDKCUoJJTb+dElS6EIsF6p
+         tUNDPUir197+kEbxO6Li52JGFEB4wEw2m4sHxVHjViboFuJawf5+x17KecHay80ZO7XQ
+         6WqImGMt03Q4SVcs2FpJEozZiqKbyJ9M0XBy06wWy+vVl7zQq9t50qjNoYgTVeJwso/h
+         HLmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787817496; x=1788422296;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Nrk8uUDBNanFfnr96a4o3nFXywW6wHqNdCn0K9fnuO8=;
+        b=lDEDWLbLiF1T7N8YcYoU+VX5qaXFWmp6orlyir+gUwPquhS72fjS8eiZPtbeu+kB3h
+         WGutVUYVL8gPFtBxbozmM/TZlBRD/b6XZaWYgxbu/vfnTCEQWrIZfmeDBM8eTwf9FPq2
+         b9aEWje5NSYuDPV/YdRLS95+ev07F2qYomu2rOT5jlK19tZTxiv9vy69R1W1FudSgIkt
+         TanEISc50x944H4HpmrLbiz77A7SECuLwKU52RZn9XuefQhjxc99RJlAzZFFtxHqn3ME
+         +Fewl2HU5zHkoXy45qUYDmes31K22J8xH9Z7nKLbTPGgAY/c3YkjDzDovS/kI8hrRUuP
+         FrRg==
+X-Forwarded-Encrypted: i=1; AHgh+RqNS+GIYXqSJ5A1B0dOg+7WWIztJZLsM1tK/IR937g9QFUGg4OlJyylEpStQhJSxQqBVw80oU7dkjPJqcg=@vger.kernel.org
+X-Gm-Message-State: AFuF++l4OdVmk/va2Cm8S4xuH+nuHGVPjRkOx5wGtU3zA+mEii8e/+41
+	CawwZJQgoAS6lQnzcktOf8JENuydWYHjmQuY4DlJk1aiAsL9G+xFSYW10RBhZWzWJPrUpe9mULE
+	Qlw3zxvaZ3PVpMfMt+GL2HAlJ7+GZCVs=
+X-Gm-Gg: AR+sD11lN/U7Tw6ULCj6meIaf1ecbjaA+MIoe5zjkCPgCqOv5DQWIJC9JYG5O/5SaYX
+	VpIKVEJWWBqyn0zopEzR6VKdIBIH9ccjEsmMnZW71D66BZ7StBGQsmq/dIvraVhHNRCxtvsZxuG
+	HJkqDKFPYsQiKSKzGH+AWI5SMyj64KAhOgc1sD1OoWrYGFl0jWRgAz1on3hbNIS0o8ElC3giExB
+	0vN/qAqSuJUQPIAEZsA/uapOKM4MYtUQZGG1q0UQhjySlr0lgdELRsm4KT/OC2GcCm67TKHUm2l
+	j6UH2YK16UvbSV9zgPVrE2cpsRTrV97sPqnPilBpEpy89z+stx/c7SK1mcEbo62/Av5X3VfTBo1
+	06cKV63kaEREhAfZnOVNA6NKAdJzmMFFW06X0S0U+ApCzTNsbAhq/XTsy
+X-Received: by 2002:a17:90b:1649:b0:37f:fdc8:71b4 with SMTP id
+ 98e67ed59e1d1-3966d3fe36bmr25869449a91.2.1787817496356; Thu, 27 Aug 2026
+ 00:58:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - cp2.siel.si
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - norik.com
-X-Get-Message-Sender-Via: cp2.siel.si: authenticated_id: primoz.fiser@norik.com
-X-Authenticated-Sender: cp2.siel.si: primoz.fiser@norik.com
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+References: <20260821122928.41343-1-phucduc.bui@gmail.com> <20260821122928.41343-3-phucduc.bui@gmail.com>
+ <47c14ad6-0311-467b-907c-517ff5044438@intel.com>
+In-Reply-To: <47c14ad6-0311-467b-907c-517ff5044438@intel.com>
+From: Bui Duc Phuc <phucduc.bui@gmail.com>
+Date: Thu, 27 Aug 2026 14:58:04 +0700
+X-Gm-Features: AcwNN1XimKrPZge6zf8CptLL1uRO5gf5i0cHec8ah767upjHTgiSMh8y0Tz3b7w
+Message-ID: <CAABR9nHyDL8=EiSi+_GBpHM0xLZraH8az+HRXQWudG=1hLZ7qQ@mail.gmail.com>
+Subject: Re: [PATCH v2 2/4] ASoC: mediatek: mt8183: Fix APLL enable error handling
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Jaroslav Kysela <perex@perex.cz>, 
+	Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Add support for PEB-WLBT-07 which is an expansion board that provides
-WiFi 6 and Bluetooth 5.4 LE functionality. It features the u-blox
-MAYA-W2 module with the NXP IW612 chipset.
+Hi Cezary,
 
-Signed-off-by: Primoz Fiser <primoz.fiser@norik.com>
----
- arch/arm64/boot/dts/freescale/Makefile        |  3 +
- .../imx8mp-phyboard-pollux-peb-wlbt-07.dtso   | 76 +++++++++++++++++++
- 2 files changed, 79 insertions(+)
- create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-phyboard-pollux-peb-wlbt-07.dtso
+Thank you for your review.
 
-diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index 95ae85ab4adf..9c9dcf08c96b 100644
---- a/arch/arm64/boot/dts/freescale/Makefile
-+++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -456,6 +456,8 @@ imx8mp-phyboard-pollux-peb-av-10-etml1010g3dra-dtbs += imx8mp-phyboard-pollux-rd
- 	imx8mp-phyboard-pollux-peb-av-10-etml1010g3dra.dtbo
- imx8mp-phyboard-pollux-peb-av-10-ph128800t006-dtbs += imx8mp-phyboard-pollux-rdk.dtb \
- 	imx8mp-phyboard-pollux-peb-av-10-ph128800t006.dtbo
-+imx8mp-phyboard-pollux-peb-wlbt-07-dtbs += imx8mp-phyboard-pollux-rdk.dtb \
-+	imx8mp-phyboard-pollux-peb-wlbt-07.dtbo
- imx8mp-phyboard-pollux-ph128800t006-dtbs += imx8mp-phyboard-pollux-rdk.dtb \
- 	imx8mp-phyboard-pollux-ph128800t006.dtbo
- imx8mp-phyboard-pollux-rdk-no-eth-dtbs += imx8mp-phyboard-pollux-rdk.dtb imx8mp-phycore-no-eth.dtbo
-@@ -465,6 +467,7 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-phyboard-pollux-etml1010g3dra.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-phyboard-pollux-peb-av-10.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-phyboard-pollux-peb-av-10-etml1010g3dra.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-phyboard-pollux-peb-av-10-ph128800t006.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx8mp-phyboard-pollux-peb-wlbt-07.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-phyboard-pollux-ph128800t006.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-phyboard-pollux-rdk-no-eth.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-phyboard-pollux-wlbt.dtb
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-phyboard-pollux-peb-wlbt-07.dtso b/arch/arm64/boot/dts/freescale/imx8mp-phyboard-pollux-peb-wlbt-07.dtso
-new file mode 100644
-index 000000000000..008b6f9f46e5
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-phyboard-pollux-peb-wlbt-07.dtso
-@@ -0,0 +1,76 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+/*
-+* Copyright (C) 2026 PHYTEC Messtechnik GmbH
-+*/
-+
-+#include <dt-bindings/clock/imx8mp-clock.h>
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
-+#include "imx8mp-pinfunc.h"
-+
-+/dts-v1/;
-+/plugin/;
-+
-+&{/} {
-+	usdhc1_pwrseq: pwr-seq {
-+		compatible = "mmc-pwrseq-simple";
-+		reset-gpios = <&gpio2 7 GPIO_ACTIVE_LOW>;
-+	};
-+};
-+
-+&iomuxc {
-+	pinctrl_uart3: uart3grp {
-+		fsl,pins = <
-+			MX8MP_IOMUXC_SD1_RESET_B__UART3_DCE_RTS	0x140 /* RTS */
-+			MX8MP_IOMUXC_SD1_STROBE__UART3_DCE_CTS	0x140 /* CTS */
-+			MX8MP_IOMUXC_UART3_RXD__UART3_DCE_RX	0x140 /* RX */
-+			MX8MP_IOMUXC_UART3_TXD__UART3_DCE_TX	0x140 /* TX */
-+		>;
-+	};
-+
-+	pinctrl_usdhc1: usdhc1grp {
-+		fsl,pins = <
-+			MX8MP_IOMUXC_SD1_CLK__USDHC1_CLK	0x190 /* SDIO_CLK */
-+			MX8MP_IOMUXC_SD1_CMD__USDHC1_CMD	0x1d0 /* SDIO_CMD */
-+			MX8MP_IOMUXC_SD1_DATA0__USDHC1_DATA0	0x1d0 /* SDIO_D0 */
-+			MX8MP_IOMUXC_SD1_DATA1__USDHC1_DATA1	0x1d0 /* SDIO_D1 */
-+			MX8MP_IOMUXC_SD1_DATA2__USDHC1_DATA2	0x1d0 /* SDIO_D2 */
-+			MX8MP_IOMUXC_SD1_DATA3__USDHC1_DATA3	0x1d0 /* SDIO_D3 */
-+		>;
-+	};
-+
-+	pinctrl_wlbt: wlbtgrp {
-+		fsl,pins = <
-+			MX8MP_IOMUXC_SPDIF_EXT_CLK__GPIO5_IO05	0x106 /* WAKE_DEV */
-+			MX8MP_IOMUXC_SD1_DATA5__GPIO2_IO07	0x106 /* PDn */
-+			MX8MP_IOMUXC_SD1_DATA7__GPIO2_IO09	0x106 /* WAKE_HOST */
-+		>;
-+	};
-+};
-+
-+&uart3 {
-+	assigned-clocks = <&clk IMX8MP_CLK_UART3>;
-+	assigned-clock-parents = <&clk IMX8MP_SYS_PLL1_80M>;
-+	pinctrl-0 = <&pinctrl_uart3>;
-+	pinctrl-names = "default";
-+	uart-has-rtscts;
-+	status = "okay";
-+
-+	bluetooth {
-+		compatible = "nxp,88w8987-bt";
-+		vcc-supply = <&reg_vcc_3v3_sw>;
-+	};
-+};
-+
-+&usdhc1 {
-+	bus-width = <4>;
-+	keep-power-in-suspend;
-+	max-frequency = <50000000>;
-+	mmc-pwrseq = <&usdhc1_pwrseq>;
-+	non-removable;
-+	pinctrl-0 = <&pinctrl_usdhc1>, <&pinctrl_wlbt>;
-+	pinctrl-names = "default";
-+	vmmc-supply = <&reg_vcc_3v3_sw>;
-+	wakeup-source;
-+	status = "okay";
-+};
--- 
-2.34.1
 
+> I have mixed feelings about appl*_mux_setting().  Take a look at its
+> disable-path: if clk_set_parent() fails the follow up
+> clk_disable_unprepare() is skipped possibly leaving one of the clks
+> hanging.  I'd expect error paths of callers (of said mux_setting()
+> function) to ensure all the clks are disabled and unprepared
+> unconditionally.
+>
+
+Perhaps the primary purpose of the appl*_mux_setting() functions is to
+configure the mux, as their names suggest, which may explain why the disable
+path is currently structured this way. However, I think your point is valid.
+
+As far as I understand, calling clk_disable_unprepare() before
+clk_set_parent() should not cause any issues. Therefore, we could move both
+clk_disable_unprepare() calls before changing the parent in the disable path:
+
+------------------------------------
+clk_disable_unprepare(afe_priv->clk[CLK_TOP_MUX_AUD_ENG2]);
+clk_disable_unprepare(afe_priv->clk[CLK_TOP_MUX_AUD_2]);
+ret = clk_set_parent(afe_priv->clk[CLK_TOP_MUX_AUD_ENG2],
+                                 afe_priv->clk[CLK_CLK26M]);
+if (ret) {
+...
+goto EXIT;
+}
+ret = clk_set_parent(afe_priv->clk[CLK_TOP_MUX_AUD_2],
+                                afe_priv->clk[CLK_CLK26M]);
+if (ret) {
+...
+goto EXIT;
+}
+-------------------------------------
+
+To be honest, after looking at the code for other MediaTek SoCs, I found quite
+a few logic issues and inconsistent clock handling. This, along with
+the git log history,
+makes me wonder whether these code paths were ever properly tested on
+real hardware.
+Therefore, I have stopped at mt8186 for now.
+
+
+> >       /* setting for APLL */
+> > -     apll1_mux_setting(afe, true);
+> > +     ret = apll1_mux_setting(afe, true);
+> > +     if (ret)
+> > +             goto ERR_APLL1_MUX_SETTING;
+>
+> Why goto? The check is valid but the label in my opinion is unnecessary.
+>
+
+The function could return directly here, but I used goto to keep it
+consistent with
+the existing error handling in this function.
+
+> > +     apll1_mux_setting(afe, false);
+> > +ERR_APLL1_MUX_SETTING:
+>
+> While UPPER case for goto-labels is not part of the coding style I see
+> why you did it - to be cohesive with the rest of the file.
+
+Yes, that's right. However, I noticed that the mt8186 code uses
+lowercase names for goto labels,
+so the style is not consistent across the file.
+
+https://elixir.bootlin.com/linux/v7.2/source/sound/soc/mediatek/mt8186/mt8186-afe-clk.c#L303
+
+Best regards,
+Phuc
