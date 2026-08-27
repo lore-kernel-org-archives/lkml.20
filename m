@@ -1,410 +1,383 @@
-Received: from out30-133.freemail.mail.aliyun.com (out30-133.freemail.mail.aliyun.com [115.124.30.133])
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011052.outbound.protection.outlook.com [52.101.62.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C5183090C6
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:21:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.133
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787811707; cv=none; b=b8vIaPRBPfrtPURe5Yfzb9FBCKHLC+k4eU4kMLQMFe9+3F9ZxmhkAgDRmK5jKB+HxqPG6VTAtgRBWKI8gVLrzxKFwfn+gupGAnGZoPuf7Ha48QLOfIPKTtK2hwVMSTDrfj1E+ztdJPlK5J8b2clBYKVZisvO/JQa0JSHlqPGPpU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787811707; c=relaxed/simple;
-	bh=DidEs+Fu3upQhavGDahduKlaRKb4bM7KQeyqeHD0/ro=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YjQyP886+Flo3Kmz0Rzzm4szKxJNePYGCk30C7l7psWxBu3qCKRNt8ar9YKI2xn4V+scMS4RR7qBAw0KRYDkDy+4FmSWAsh5pIEqFjqSeVrTXkCMKZqZky0Wl+qBHFzSA/d6y8lFKjXiuNC6Oa6EYl8Yrm+wcbzATiAwDgxl8LU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=aX9mLAla; arc=none smtp.client-ip=115.124.30.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED9742931FF;
+	Thu, 27 Aug 2026 06:22:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787811738; cv=fail; b=C4uvTM89bGLG1pblS2TjSktmg5Pw4ANYGNyOZm6+SbIbVSnBTR1Q8J/d3dR255Zs04mDv4TvDPeRItUEkMxhAQ5VBl47kD4cAlP0j5QhatxGFz3KzMmkN47jF313wzrQiIY4MBxGrhQl43RX8NMimw6ZLUJUoDpkhnAbpuVPSy0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787811738; c=relaxed/simple;
+	bh=+gt02zbIfZ++db4dLDB7UR1HePEJVra4Yg75xYs12Zg=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=MiGaq35ihSoq6ji7H653bD/0gpvZ0ntPhIGz2nTU8sWFRceLBHR9Hadf+SXS6PERyZtisIzmWbEQptkbSxlLEa6gFr+qneTYIEM5GOWnii6ilVEqlHembSIfUVGCD7Bs3S1FEE5FQb7lym1dhoMi3gC2t6vs0gkIFGZYGI0ERkc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=jfWaby/L; arc=fail smtp.client-ip=52.101.62.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="aX9mLAla"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1787811696; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=ImPFWFRY5szdCXqhm0kmdf+B5mDUicA3YITvPHDWZdY=;
-	b=aX9mLAlaqOS9HE9bYTxNJW/LkBZTiqZOegd1rF/fBQqCRSimhoJH23xBRu7reVb4m9AohU1/Q59w3SAWZBzlgnsMz7DGwmqlUPbFmutMvyeNbHWLfpsIPSyQCvtACNdaGY6qq3Xv1jsnOUjQb2QH7RD79KBahj0U9he/l5LrBWs=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R871e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=20;SR=0;TI=SMTPD_---0X9ir0wo_1787811692;
-Received: from 30.74.144.120(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0X9ir0wo_1787811692 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 27 Aug 2026 14:21:33 +0800
-Message-ID: <70133332-966f-4bd2-99da-cfc5ad5fb6b6@linux.alibaba.com>
-Date: Thu, 27 Aug 2026 14:21:32 +0800
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="jfWaby/L"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DwXD7eMbdIBYQtvhG3sX0kRYWDiYhSrV2IO3oO43wrteVkbkuJoS6t9fje2qPRpgUrexQHYqpdJnoX/50sQHk6cypv6/qhl2bFrOa1jgOVLzmUNut0Z5vhHorZCVvOxeN8u+eH2QZ/ChGYB3+S1I9OsPXJKCipEnP/ri3chJ7J8bNobkaA98Gyt55vjZK7UPpMBAPAmnds3j1Th6mM6X9BgvfV8ZZXl97Nh84tuLuDbeLYu7uDiCNkmNSB+G33868Qg3NA8YifLk/wVU7/f0xbXN8fIPF8UeX1F3g/clnYwgF69fiZjz6Scwpzf7SDim5DhkAvMpiw3uHYYU5f6x9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=g5KyNvgJnWRa1SKjbGiMjSXI0HHvg2n7iF0u+QtJhPw=;
+ b=QNxmCqLktdtABIXUgBzmaAJw4sWnRVf6NzpDQJ2DICRdBvt6h17vAxigCADe3lpiWKHpiFtneh/RJoob5vH+eYKrUayPrxT59fnvINLZxBzE6CkyLAZC2LupONXDsRmG3RmpQGZ8awuwLDORDuqehKJAG30W6LefbVEK2q5Oy2rn4Si2qRLKGc0k0kl39wW08m2Cv9yfT9gyylyNP0ZHDNprPeCj7N2I7ax8svrROVmvlXu0kpa5EgcxVJV4pLSymhDuvEk/b1xePnvPHIj5tRjPvGK3YDWyjKTmdLxI87KZpUA3QvzJutCYhpm0uQzot3TTPbNtb4YVtIGo7242YA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=g5KyNvgJnWRa1SKjbGiMjSXI0HHvg2n7iF0u+QtJhPw=;
+ b=jfWaby/LDxHj7Rs+99q7yjFfG+RMcRSmSAe1gjcukZ1DT8h+Fkmx8zY2Cq58O4KPuNcElB/tyPIeCt/PbVIOK3eS+l3hSmLxouiI89ZHOPE+PaSylIs6427kQHre9C2G2Sm75P8UsbDkpMGmYMFWNNTeILtFWbOZgYWRSVjbhIE=
+Received: from BN9PR03CA0390.namprd03.prod.outlook.com (2603:10b6:408:f7::35)
+ by IA1PR12MB9523.namprd12.prod.outlook.com (2603:10b6:208:595::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
+ 2026 06:22:10 +0000
+Received: from LV8PEPF0000005F.namprd02.prod.outlook.com
+ (2603:10b6:408:f7:cafe::4) by BN9PR03CA0390.outlook.office365.com
+ (2603:10b6:408:f7::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.7 via Frontend Transport; Thu, 27
+ Aug 2026 06:22:10 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ LV8PEPF0000005F.mail.protection.outlook.com (10.167.245.137) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.3 via Frontend Transport; Thu, 27 Aug 2026 06:22:10 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 27 Aug 2026 01:22:05 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+	<srinivasan.shanmugam@amd.com>, Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
+	Matthew Brost <matthew.brost@intel.com>, =?UTF-8?q?Thomas=20Hellstr=C3=B6m?=
+	<thomas.hellstrom@linux.intel.com>, <dri-devel@lists.freedesktop.org>,
+	<intel-xe@lists.freedesktop.org>, <linux-media@vger.kernel.org>,
+	<linaro-mm-sig@lists.linaro.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH 1/2] drm: Add common drm_user_fence helper
+Date: Thu, 27 Aug 2026 11:51:41 +0530
+Message-ID: <20260827062142.4038272-2-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260827062142.4038272-1-srinivasan.shanmugam@amd.com>
+References: <20260827062142.4038272-1-srinivasan.shanmugam@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] mm/mglru: clean up isolate_folios and scan_folios for
- readability and clarity
-To: Barry Song <baohua@kernel.org>, Kairui Song <ryncsn@gmail.com>
-Cc: akpm@linux-foundation.org, linux-mm@kvack.org, axelrasmussen@google.com,
- baoquan.he@linux.dev, chenridong@xiaomi.com, david@kernel.org,
- hannes@cmpxchg.org, lianux.mm@gmail.com, linux-kernel@vger.kernel.org,
- ljs@kernel.org, lyugaofei@xiaomi.com, mhocko@kernel.org, qi.zheng@linux.dev,
- shakeel.butt@linux.dev, stevensd@chromium.org, wangzicheng@honor.com,
- weixugc@google.com, yuanchu@google.com
-References: <20260820045603.68809-1-baohua@kernel.org>
- <7e897a4e-2075-485a-8cc5-5bb928fba437@linux.alibaba.com>
- <CAMgjq7DFpKU=QdT4QNAREL8oLg-OAxM6zMcYkCECBVg=U5ECsg@mail.gmail.com>
- <56b8e283-f849-4fd7-9c2a-64b604176a82@linux.alibaba.com>
- <CAMgjq7Aemn51JRVx1_zxG=Z3ZhTBUW01erEpgHfDWT=BPGBLMw@mail.gmail.com>
- <CAGsJ_4xyurha07UNXB91jP5De+syHuVi4EyAXfMpMWZvr4n1kw@mail.gmail.com>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <CAGsJ_4xyurha07UNXB91jP5De+syHuVi4EyAXfMpMWZvr4n1kw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PEPF0000005F:EE_|IA1PR12MB9523:EE_
+X-MS-Office365-Filtering-Correlation-Id: 37d5333a-2f5d-4324-7d3f-08df0403871d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|376014|7416014|1800799024|36860700016|23010399003|11063799006|56012099006|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	SplyiW5dOtQGWhFvajXfI4tP81Uooc/D3mbkxXEYQSv6H5IDYndz7uJg3GEgWjsl1J8bF7F07vmF/C5zlpGNQ/3gq/nEVPKXRLCa6EkKDaiUbFz4To5OmfQrrtVwmUHnHwjX7TnwSyVJsCzx1a1zlyW9QdTapcVR3MGk0RgoBK039fIGh7aF/zklPtSV1qf4w5+NDbHkpamnWI7wUrcmsbON3k6jgZFyuVsnqbWl4qYk94ZsCLTFgAE4usq6IbUY59p7wKwfA+Ufzt/O7pIv1cSHcsmegJLklxqsCKZvHudpWoRjl6Vstp6tG2bwqBciCRlfxeXsMmrbpbE7Cd0dsQj9mNhDgLfyEaMmJToSK1rUJepmzQ3Kqh8hWi69EfpPo41sRUIjUDuB2eaHDBad9y/ZKWfeRb+5i2N8Kg5O2n/aHNfJMuyN7NIZY/5F6spacXDHOcMIeLalO9OyNicbsn8ae6pod+qZ8FsQcIzuCWePfTwjMZXm9szlMxUXgIf3PxDc+ZPUWbPTA4zeS/0/RoxZrgZQ2GvAViKP0NER4ois4mDgiydOxOA7VB5AnV1D/6FNeV8c4IiWlLYijK9ght27mMXKd6WZxo0mVHgRkht/s7OlXKv1+Dv7IFp4IvJeOAUmi6gjmkmJCwBl6NMrQLO+IqBbiK/LEBgF54nXvyyGg7ipvMgwc+EBttuqvY1lzOU276vWEDFDG2n0fFdHeg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(7416014)(1800799024)(36860700016)(23010399003)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	R4VY3W+zOYXHKLFQxHLIPU2B6ZvyNyYZ+92emq4ysyY0bqLKwwrs0rFeTyIPY6fXWJsVFq8Dll/DiJ9A6UdyxvrjqL6Dn5ytMIt0e6LK4PJ6QZlTKrziYmAKzlRqUipmTMDSGkxClhAdj86mbbH/h+C8o3DyFo8kU0ypkQva9HumJlHzKwgo79LiWr2NhHBYUGSPhf3UwsUFk6li+YJYlalEWFaiENQNjpWMyvtz14HUpaTW7dfiPpS86W5j3dlJLPfdPDAzTIOS/lpGv35WJQCIcZOkkCxktT1vLrC5qACNaQXFuI4EthUctbdhYaaj1MAbODjaER961Hf93c5CjC7/mdp4lK+sPbgjEviWwXuwP8lUzW+hJM62id3i+s3qelx0br61btZ9ejhmvYhir8jYbGTElfxQpndIyuJRw48kGKF0ygXEgzXzuFo1x9od
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 06:22:10.7716
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 37d5333a-2f5d-4324-7d3f-08df0403871d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	LV8PEPF0000005F.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB9523
 
+Introduce a common DRM user fence helper providing the kref-managed,
+MM-borrowing dma-fence-callback-to-workqueue pattern used by drivers
+that must access userspace memory from a kthread context when a GPU
+fence signals.
 
+XE uses this pattern (xe_sync.c) to write a fence completion value
+to a userspace VA. AMDGPU will use the same pattern to signal a
+per-queue eventfd from a user-queue EOP fence callback.
 
-On 8/26/26 5:11 AM, Barry Song wrote:
-> On Wed, Aug 26, 2026 at 2:10 AM Kairui Song <ryncsn@gmail.com> wrote:
->>
->> On Tue, Aug 25, 2026 at 5:06 PM Baolin Wang
->> <baolin.wang@linux.alibaba.com> wrote:
->>> On 8/24/26 7:05 PM, Kairui Song wrote:
->>>> On Mon, Aug 24, 2026 at 3:25 PM Baolin Wang
->>>> <baolin.wang@linux.alibaba.com> wrote:
->>>>> On 8/20/26 12:56 PM, Barry Song (Xiaomi) wrote:
->>>>>> This is a cleanup series split out from the MGLRU swappiness series [1],
->>>>>> with the cleanup changes separated to make them easier to review.
->>>>>>
->>>>>> Right now, isolate_folios() is quite difficult to follow:
->>>>>>
->>>>>> 1. It uses for_each_evictable_type(i, swappiness) to iterate over the
->>>>>> types, but i is not actually used as the type within the loop body.
->>>>>>
->>>>>> 2. It uses scanned == 0 to detect whether the current reclaim type is
->>>>>> exhausted, but this is not an accurate indication.
->>>>>>
->>>>>> 3. It has an internal retry when no folios can be isolated after scanning
->>>>>> some folios, but the retry is implemented in a way nobody can understand.
->>>>>>
->>>>>> This patchset makes these behaviors explicit and much easier to follow.
->>>>>>
->>>>>> Run kernel builds for several rounds in a 1 GB memcg and take the
->>>>>> average build time. The patchset shows almost no performance impact,
->>>>>> with a very small improvement that could simply be noise:
->>>>>
->>>>> Just FYI:
->>>>>
->>>>> I tested this patchset with a 3G memcg limit and a 10G zram device,
->>>>> running 'make -j32' to build kernel on my 32-core Arm machines, and got
->>>>> some performance improvement for ths sys time:
->>>>>           w/o patch       w/patch
->>>>> sys     1845s           1570s
->>>>>
->>>>
->>>> Hi Baoliln
->>>>
->>>> That's a very interesting result, can you share a bit more info about
->>>> it? e.g. vmstat? I'm curious how this happens.
->>>
->>> Sure.
->>>
->>>> I suspect patch 2 or 3 changes the swappiness / reclaim / aging type
->>>> selection behavior, or maybe it reduced the reclaim amount?
->>>
->>> I gathered the memcg stats as shown below.
->>>
->>> It looks like the direct reason for the performance improvement is an
->>> obvious reduction in anon refaults, which is what this patch aims to
->>> achieve I think. That is to say, we should respect the type chosen by
->>> the PID for reclaim, and try to exhaust that type before falling back to
->>> another.
->>>
->>> Before this series:
->>> workingset_refault_anon 59706846
->>> workingset_refault_file 9229283
->>> workingset_activate_anon 15108561
->>> workingset_activate_file 365660
->>> workingset_restore_anon 15108561
->>> workingset_restore_file 1018493
->>> workingset_nodereclaim 0
->>> pgsteal_kswapd 0
->>> pgsteal_direct 92589340
->>> pgsteal_khugepaged 549
->>> pgsteal_proactive 0
->>> pgscan_kswapd 0
->>> pgscan_direct 456629355
->>> pgscan_khugepaged 549
->>>
->>> After this series:
->>> workingset_refault_anon 41277086
->>> workingset_refault_file 9131522
->>> workingset_activate_anon 12924656
->>> workingset_activate_file 345901
->>> workingset_restore_anon 12924656
->>> workingset_restore_file 1005959
->>> workingset_nodereclaim 0
->>> pgsteal_kswapd 0
->>> pgsteal_direct 71723800
->>> pgsteal_khugepaged 4013
->>> pgsteal_proactive 0
->>> pgscan_kswapd 0
->>> pgscan_direct 342179445
->>> pgscan_khugepaged 9311
->>
->> Thanks for the info!
->>
->> I think it might matches what I had in mind: we currently have a very
->> subtle behavior for MGLRU: in try_to_inc_min_seq, it will refuse to
->> increase the gen min_seq beyound (max_seq - MIN_NR_GENS) even if the
->> last gen is empty, if another type still have MAX_NR_GENS left. As a
->> result, if one type is reclaimed more, and another type have many
->> folios stuck in the olest gen, the over reclaimed type will have a
->> very tiny oldest generation (all new folios land on the oldest
->> generation and are reclaimed immediately), that olest gen will stay at
->> a near zero size and gets exhausted very frequently, with min_seq not
->> increased.
->>
->> This will happen to file type very frequently if swappiness is low, or
->> happen very frequently to anon if files are frequently reclaimed,
->> really depends on the workload.
->>
->> The old "if (!scanned && type_fallback_allowed)" will return false and
->> raise the priority very frequently. Raising the priority means the
->> next reclaim cycle with run with larger reclaim ratio, resulting in
->> over-reclaim on both folios and slab. What's more, it might trigger
->> aging.
->>
->> With this series, it will see that as exhausted, and fall back to
->> other type, which in fact respects the swappiness / PID less, but also
-> 
-> We could have the following cases:
-> 
->   1. If the reclaimed type has 3 generations left (with its oldest generation
->     exhausted), while !type still has 4 generations left, falling back might
->     be the best behavior. There is no way to avoid the fallback by increasing
->     `sc->priority`, because `should_run_aging()` will not trigger aging while
->     !type still has 4 generations.
-> 
-> 2. If the reclaimed type has 3 generations left (and its oldest generation is
->     exhausted), while !type also has 3 generations left, falling back might
->     violate swappiness. If we return and increase `sc->priority`,
->     `should_run_aging()` may return true and trigger aging instead:
-> 
-> return evictable_min_seq(min_seq, swappiness) + MIN_NR_GENS == max_seq;
-> 
-> So maybe we could slightly adjust the code as shown below, although I’m
-> not sure if the added complexity is worthwhile:
-> 
-> diff --git a/mm/vmscan.c b/mm/vmscan.c
-> index 1f302386d8ab..181285463bbe 100644
-> --- a/mm/vmscan.c
-> +++ b/mm/vmscan.c
-> @@ -4878,9 +4878,10 @@ static int isolate_folios(unsigned long
-> nr_to_scan, struct lruvec *lruvec,
-> 
->          /*
->           * We are running out of the current reclaim type. Fall back to
-> -        * the other type if allowed.
-> +        * the other type if it has at least two generations to reclaim.
->           */
-> -       if (exhausted && type_fallback_allowed) {
-> +       if (exhausted && type_fallback_allowed &&
-> +           get_nr_gens(lruvec, !type) > MIN_NR_GENS + 1) {
->                  type = !type;
->                  type_fallback_allowed = false;
->                  goto retry;
-> 
->> avoid the raised priority and over reclaim in some cases. I did a test
->> on my machine and it seems matches that model:
+The helper provides:
+ - struct drm_user_fence: embeddable base structure
+ - struct drm_user_fence_ops: worker/destroy callbacks
+ - drm_user_fence_init(): initialize and grab the process MM
+ - drm_user_fence_get/put(): reference counting
+ - drm_user_fence_add_callback(): attach to a dma-fence
 
-With the above changes, I can also reproduce the slight regression with 
-NVMe swap (set swappiness = 100) mentioned by Kairui (but the zram case 
-still looks good):
+The worker callback receives a bool indicating whether the process
+MM was successfully obtained, allowing drivers to handle the
+unavailable-MM case (log, skip the userspace write, etc.) without
+duplicating the mmget/kthread_use_mm/mmput boilerplate.
 
-Before:
-sys: 757
-refault_anon 5554715
-refault_file 3867998
+Suggested-by: Christian König <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Cc: linux-media@vger.kernel.org
+Cc: linaro-mm-sig@lists.linaro.org
+Cc: linux-kernel@vger.kernel.org
+Cc: amd-gfx@lists.freedesktop.org
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+ drivers/gpu/drm/Makefile         |   1 +
+ drivers/gpu/drm/drm_user_fence.c | 130 +++++++++++++++++++++++++++++++
+ include/drm/drm_user_fence.h     |  68 ++++++++++++++++
+ 3 files changed, 199 insertions(+)
+ create mode 100644 drivers/gpu/drm/drm_user_fence.c
+ create mode 100644 include/drm/drm_user_fence.h
 
-After:
-sys: 765
-refault_anon 5791349
-refault_file 3939552
+diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+index e97faabcd783..52de1f474535 100644
+--- a/drivers/gpu/drm/Makefile
++++ b/drivers/gpu/drm/Makefile
+@@ -69,6 +69,7 @@ drm-y := \
+ 	drm_syncobj.o \
+ 	drm_sysfs.o \
+ 	drm_trace_points.o \
++	drm_user_fence.o \
+ 	drm_vblank.o \
+ 	drm_vblank_work.o \
+ 	drm_vma_manager.o \
+diff --git a/drivers/gpu/drm/drm_user_fence.c b/drivers/gpu/drm/drm_user_fence.c
+new file mode 100644
+index 000000000000..bd76e3d03120
+--- /dev/null
++++ b/drivers/gpu/drm/drm_user_fence.c
+@@ -0,0 +1,130 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright © 2024 The Linux Foundation
++ *
++ * Common DRM user fence helper.
++ *
++ * When a GPU dma-fence signals, drivers often need to write a value to a
++ * userspace VA or notify userspace via an eventfd. Both operations require
++ * a valid process MM, which is not available in IRQ context.
++ *
++ * This helper queues a work item on fence signal. The work item borrows the
++ * process MM via kthread_use_mm() and calls ops->worker(), which the driver
++ * implements to perform the actual userspace access.
++ */
++
++#include <linux/kthread.h>
++#include <linux/sched/mm.h>
++#include <linux/workqueue.h>
++
++#include <drm/drm_user_fence.h>
++
++static void drm_user_fence_destroy(struct kref *kref)
++{
++	struct drm_user_fence *ufence =
++		container_of(kref, struct drm_user_fence, refcount);
++
++	mmdrop(ufence->mm);
++	ufence->ops->destroy(ufence);
++}
++
++/**
++ * drm_user_fence_get - Acquire a reference to a user fence
++ * @ufence: user fence
++ */
++void drm_user_fence_get(struct drm_user_fence *ufence)
++{
++	kref_get(&ufence->refcount);
++}
++EXPORT_SYMBOL_GPL(drm_user_fence_get);
++
++/**
++ * drm_user_fence_put - Release a reference to a user fence
++ * @ufence: user fence
++ */
++void drm_user_fence_put(struct drm_user_fence *ufence)
++{
++	kref_put(&ufence->refcount, drm_user_fence_destroy);
++}
++EXPORT_SYMBOL_GPL(drm_user_fence_put);
++
++static void drm_user_fence_work(struct work_struct *w)
++{
++	struct drm_user_fence *ufence =
++		container_of(w, struct drm_user_fence, work);
++	bool mm_ok = false;
++
++	if (mmget_not_zero(ufence->mm)) {
++		kthread_use_mm(ufence->mm);
++		mm_ok = true;
++	}
++
++	ufence->ops->worker(ufence, mm_ok);
++
++	if (mm_ok) {
++		kthread_unuse_mm(ufence->mm);
++		mmput(ufence->mm);
++	}
++
++	drm_user_fence_put(ufence);
++}
++
++static void drm_user_fence_cb(struct dma_fence *fence, struct dma_fence_cb *cb)
++{
++	struct drm_user_fence *ufence =
++		container_of(cb, struct drm_user_fence, cb);
++
++	INIT_WORK(&ufence->work, drm_user_fence_work);
++	queue_work(ufence->wq, &ufence->work);
++}
++
++/**
++ * drm_user_fence_init - Initialize a user fence
++ * @ufence: user fence to initialize
++ * @wq: workqueue to run the worker on (must be ordered if sequencing matters)
++ * @ops: driver operations
++ *
++ * Must be called from process context. Grabs a reference to current->mm.
++ */
++void drm_user_fence_init(struct drm_user_fence *ufence,
++			 struct workqueue_struct *wq,
++			 const struct drm_user_fence_ops *ops)
++{
++	kref_init(&ufence->refcount);
++	ufence->mm = current->mm;
++	mmgrab(ufence->mm);
++	ufence->wq = wq;
++	ufence->ops = ops;
++}
++EXPORT_SYMBOL_GPL(drm_user_fence_init);
++
++/**
++ * drm_user_fence_add_callback - Attach a user fence to a dma-fence
++ * @ufence: user fence
++ * @fence: dma-fence to watch; caller retains ownership of this reference
++ *
++ * When @fence signals, a work item is queued that calls ops->worker() with
++ * the process MM active. If @fence has already signaled the work item is
++ * queued immediately.
++ *
++ * Return: 0 on success, negative errno on error.
++ */
++int drm_user_fence_add_callback(struct drm_user_fence *ufence,
++				struct dma_fence *fence)
++{
++	int err;
++
++	drm_user_fence_get(ufence);
++	err = dma_fence_add_callback(fence, &ufence->cb, drm_user_fence_cb);
++	if (err == -ENOENT) {
++		/* fence already signaled — queue work immediately */
++		INIT_WORK(&ufence->work, drm_user_fence_work);
++		queue_work(ufence->wq, &ufence->work);
++		err = 0;
++	} else if (err) {
++		drm_user_fence_put(ufence);
++	}
++
++	return err;
++}
++EXPORT_SYMBOL_GPL(drm_user_fence_add_callback);
+diff --git a/include/drm/drm_user_fence.h b/include/drm/drm_user_fence.h
+new file mode 100644
+index 000000000000..de8e3f47be18
+--- /dev/null
++++ b/include/drm/drm_user_fence.h
+@@ -0,0 +1,68 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright © 2024 The Linux Foundation
++ */
++
++#ifndef __DRM_USER_FENCE_H__
++#define __DRM_USER_FENCE_H__
++
++#include <linux/dma-fence.h>
++#include <linux/kref.h>
++#include <linux/workqueue.h>
++
++struct drm_user_fence;
++
++/**
++ * struct drm_user_fence_ops - driver callbacks for a DRM user fence
++ */
++struct drm_user_fence_ops {
++	/**
++	 * @worker: Called from workqueue context.
++	 *
++	 * If @mm_ok is true, kthread_use_mm() is active and userspace memory
++	 * (copy_to_user, eventfd_signal, etc.) may be accessed safely.
++	 * If @mm_ok is false, the process MM was already gone; the driver
++	 * should log a warning and skip the userspace write.
++	 *
++	 * wake_up() or other post-signal housekeeping should also happen here.
++	 */
++	void (*worker)(struct drm_user_fence *ufence, bool mm_ok);
++
++	/**
++	 * @destroy: Called when the last reference is dropped.
++	 * Free the containing structure here.
++	 */
++	void (*destroy)(struct drm_user_fence *ufence);
++};
++
++/**
++ * struct drm_user_fence - embeddable DRM user fence
++ *
++ * Drivers embed this in their own structure and implement
++ * &drm_user_fence_ops. Call drm_user_fence_init() at creation and
++ * drm_user_fence_add_callback() to arm on a dma-fence.
++ */
++struct drm_user_fence {
++	/** @refcount: Reference count. */
++	struct kref refcount;
++	/** @mm: Process MM grabbed at init time. */
++	struct mm_struct *mm;
++	/** @work: Work item queued when the dma-fence signals. */
++	struct work_struct work;
++	/** @cb: dma-fence callback. */
++	struct dma_fence_cb cb;
++	/** @wq: Workqueue to run @work on. */
++	struct workqueue_struct *wq;
++	/** @ops: Driver operations. */
++	const struct drm_user_fence_ops *ops;
++};
++
++void drm_user_fence_init(struct drm_user_fence *ufence,
++			 struct workqueue_struct *wq,
++			 const struct drm_user_fence_ops *ops);
++void drm_user_fence_get(struct drm_user_fence *ufence);
++void drm_user_fence_put(struct drm_user_fence *ufence);
++int drm_user_fence_add_callback(struct drm_user_fence *ufence,
++				struct dma_fence *fence);
++
++#endif /* __DRM_USER_FENCE_H__ */
+-- 
+2.34.1
 
->> Before:
->> *** Executing swappiness 1 ***
->> sys: 665.941
->> refault_file: 945242
->> refault_anon: 916129
->> pgscan_anon: 13195435
->> pgscan_file: 2419874
->> *** Executing swappiness 60 ***
->> sys: 650.801
->> refault_file: 238839
->> refault_anon: 1026646
->> pgscan_anon: 13082867
->> pgscan_file: 809642
->> *** Executing swappiness 100 ***
->> sys: 621.135
->> refault_file: 211113
->> refault_anon: 931943
->> pgscan_anon: 12008517
->> pgscan_file: 778586
->> *** Executing swappiness 150 ***
->> sys: 633.591
->> refault_file: 198239
->> refault_anon: 987093
->> pgscan_anon: 12645094
->> pgscan_file: 709927
->> *** Executing swappiness 200 ***
->> sys: 627.747
->> refault_file: 163649
->> refault_anon: 1024657
->> pgscan_anon: 12088189
->> pgscan_file: 653841
->>
->> After:
->> *** Executing swappiness 1 ***
->> sys: 729.234
->> refault_file: 962067
->> refault_anon: 1175614
->> pgscan_anon: 14588298
->> pgscan_file: 2396037
->> *** Executing swappiness 60 ***
->> sys: 677.685
->> refault_file: 238877
->> refault_anon: 1008627
->> pgscan_anon: 13744350
->> pgscan_file: 888445
->> *** Executing swappiness 100 ***
->> sys: 668.947
->> refault_file: 250359
->> refault_anon: 994929
->> pgscan_anon: 13307019
->> pgscan_file: 794981
->> *** Executing swappiness 150 ***
->> sys: 649.764
->> refault_file: 180899
->> refault_anon: 971073
->> pgscan_anon: 12238885
->> pgscan_file: 709684
->> *** Executing swappiness 200 ***
->> sys: 648.377
->> refault_file: 228112
->> refault_anon: 1237758
->> pgscan_anon: 12653346
->> pgscan_file: 734499
->>
->> So I think in theory we might see more ineffective swappiness after
->> this series, I'm also a bit concerned about the "lrugen->min_seq[type]
->> + MIN_NR_GENS == lrugen->max_seq;" check which is strictly related to
->> the limitation of try_to_inc_min_seq I mentioned here... In the long
->> term I think we better get rid of that limitation, not sure how the
->> behavior will change or fit after this.
-> 
-> In the earlier RFC, I got rid of the generation sync in
-> `try_to_inc_min_seq()`:
-> 
-> https://lore.kernel.org/linux-mm/20260726122123.7614-4-baohua@kernel.org/
-> 
-> It does help with swappiness, but also slightly increases sys time at
-> swappiness values around 60, so I dropped it from RFC v4.
-> 
-> Basically, letting file and anon catch up with each other seems to offer
-> the best performance at normal swappiness values such as 60–100, but it
-> essentially makes MGLRU's swappiness a toy.
-> 
->>
->> BTW the above tests were done with ordinary block SWAP, with ZRAM, I
->> see an improvement instead (it's related to how SYNC SWAP discards the
->> folio immediately and blocks the thread while ordinary SWAP does IO
->> asynchronously so there would be less concurrent reclaim, and changes
->> the dirty/writeback mix that evict_folios()'s
->>   loop sees, especially nr_reclaimed, and here we will avoid raise of priority):
->>
->> Before:
->> *** Executing swappiness 1 ***
->> sys: 599.135
->> refault_file: 925843
->> refault_anon: 1838025
->> pgscan_anon: 20390687
->> pgscan_file: 2423955
->> *** Executing swappiness 60 ***
->> sys: 591.367
->> refault_file: 336184
->> refault_anon: 2350551
->> pgscan_anon: 21099503
->> pgscan_file: 1109003
->> *** Executing swappiness 100 ***
->> sys: 593.672
->> refault_file: 328276
->> refault_anon: 2332940
->> pgscan_anon: 20894727
->> pgscan_file: 954910
->> *** Executing swappiness 150 ***
->> sys: 585.939
->> refault_file: 296374
->> refault_anon: 2063673
->> pgscan_anon: 20537898
->> pgscan_file: 935107
->> *** Executing swappiness 200 ***
->> sys: 574.283
->> refault_file: 313356
->> refault_anon: 2065897
->> pgscan_anon: 20145043
->> pgscan_file: 881381
->>
->> After:
->> *** Executing swappiness 1 ***
->> sys: 578.699
->> refault_file: 844457
->> refault_anon: 1793171
->> pgscan_anon: 19307170
->> pgscan_file: 2364248
->> *** Executing swappiness 60 ***
->> sys: 582.053
->> refault_file: 390580
->> refault_anon: 2066277
->> pgscan_anon: 20413030
->> pgscan_file: 1201373
->> *** Executing swappiness 100 ***
->> sys: 567.520
->> refault_file: 295709
->> refault_anon: 1923291
->> pgscan_anon: 19299837
->> pgscan_file: 978007
->> *** Executing swappiness 150 ***
->> sys: 582.983
->> refault_file: 311833
->> refault_anon: 2041126
->> pgscan_anon: 20547029
->> pgscan_file: 940061
->> *** Executing swappiness 200 ***
->> sys: 562.710
->> refault_file: 301914
->> refault_anon: 2005846
->> pgscan_anon: 19257095
->> pgscan_file: 839522
->>
->> So in summary I think the gain is avoiding priority increase (by
->> falling back to another type and satisfying the reclaim target in one
->> iteration, when one type have a tailing draning gen); the loss is less
->> effective swappiness. In fact, I think we might fall back to another
->> type MORE, especially when under pressure, not less, contrary to what
->> the patch message suggests. Not really against this change, just a
->> headup that there is a impact on swappiness / aging of this change in
->> an unexpected way, and things may gets more interesting if we want to
->> lift that limitation in try_to_inc_min_seq as this is directly related
->> to that.
-
-Thanks Kairui for your data and anylysis.
-
-I mostly agree. But on whether we should fallback more, I still prefer 
-Barry's idea. The current patch might be a bit too aggressive, cause it 
-only fallback to another type when the oldest generation is fully 
-exhausted. I've always felt that falling back too easily doesn't really 
-respect the PID's choice.
-
-Of course, there's also the concern you raised about the limitation in 
-try_to_inc_min_seq() when updating the min_seq. I think we can address 
-that together later, so that we respect the PID's choice (i.e., try the 
-reclaimed type as much as possible) without ending up with a tailing 
-draining generation that blocks aging. That may not be simple, though.
-
-Anyway, personally I'd prefer to keep the original code until more 
-impact investigation is done.
-
-Just my 2 cents.
