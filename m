@@ -1,81 +1,103 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sg-2-2.ptr.blmpb.com (sg-2-2.ptr.blmpb.com [71.18.227.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D5D8440A2B;
-	Thu, 27 Aug 2026 12:02:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3729E4457BC
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:02:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787832142; cv=none; b=EMbM6lisw2s8/I1LMf0Q45f/bhBXEuADmi6WKgPW4u+4ZzLZdNrO5YRcYHA+izTPV3AM5SnwhPji3tQNCm5JqMx7BV8CgeWGbcOAAzFb7MsZWiXKDV0jmj7bDrrzD3xYqj1KtF/5CymQ+BwdOjR3ezKVKSJPLqv7lHXRslbeWss=
+	t=1787832145; cv=none; b=lkRmyU06Emyex5mc+7RtceUzsN2J2vhrC+K15HDZOvKEmzkJV1umfTV6ALDIY+vu6RvqNBRy5nd3BRNrBl7DJSBc1A4EYm4oIqK1XvzDZ/DN8PC3RPkV2Y713Z7WS9ZE5VNS+KZqxs6ENim3Nezo59GD9QG2a2mJ7CwANcV07Io=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787832142; c=relaxed/simple;
-	bh=be5ermLBcn/MMm/K8MsiEZi1P1Uh3O3KEB+S1F4rOVo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nbg9acYrL0cWp4EIk+9PWmzvktBPGqaBhxwErsyjDvJqLDTztSXhlbwgN7mD9yqgfzan4YoVZg0sIYRffbRuOv/TlmbQsnWwhXkOHypbbgBfM4z6clGQyb/KNqw6GiTdsc/b4pTICPKySXhI47afWoEk5sx8/+u0sIvxpthx4BA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BSoXdZ7+; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787832145; c=relaxed/simple;
+	bh=jbkWxXQHrVMLMxBZ+dP2Rs/rmyCOkzm7VYJsPlAsWks=;
+	h=Message-Id:Content-Type:To:Subject:Mime-Version:From:Cc:Date; b=lrjAUq++z9nGYBhVISnPFgH+dOmTOP0ijIUJBHgLsQCNET4rTbj+7Z4yPbAKrfpe60ralEuln658hfSR/iTKPmeQIldp1/bbSOGufnJ/WT+8Rp/8gWdvsQp+mKp2lomq6sOcvNLAzl2m4ITB0cRBEB1vKGS4UO3LgIoljruvel8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=zkM0RHiU; arc=none smtp.client-ip=71.18.227.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BSoXdZ7+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787832141; x=1819368141;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=be5ermLBcn/MMm/K8MsiEZi1P1Uh3O3KEB+S1F4rOVo=;
-  b=BSoXdZ7+n26WDEOZruoAV1JG9S9ZofqjpSrARAsbAU2DwPaBRvePlV6+
-   WJ5+Y/Hu33kyFEYgNTcSly1reXOxqMkjiKH5CNNWTzjKwnf6gCIuXrXCn
-   JoNVZ3M9nCriWl5LBadcVv/wTOuVkAEOJzlpHu5H48UwtOasH4VlX0JG9
-   FgoJl+pU5dReTeksf6vwwEImJieJ4gfvblxOar0PGrUI4sAWxYzg24sdJ
-   ydwKvJGyUxiNbvAu+6hYWOVDXlrMounifJI9BasusihJdVVWBWk5n0QYn
-   vzZIQbTvHLbHsol6IeW0DCokNGBJUPdPVDwOdRn1X2vo+XiuY8atZ2MQx
-   w==;
-X-CSE-ConnectionGUID: 3bGrAYQ+TdSfkspj8Be1jA==
-X-CSE-MsgGUID: RubjCxPRTCiheQu5/OZ2zg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="88382769"
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="88382769"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 05:02:20 -0700
-X-CSE-ConnectionGUID: snHaFrKURi+w/a6fInEjjg==
-X-CSE-MsgGUID: l9XAuIWsQuKfVul8TESBng==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="269802601"
-Received: from xiaoyaol-hp-g830.ccr.corp.intel.com (HELO [10.124.240.119]) ([10.124.240.119])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 05:02:17 -0700
-Message-ID: <2aabf3e0-1eed-4f7e-984f-19f427856ad8@intel.com>
-Date: Thu, 27 Aug 2026 20:02:14 +0800
+	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="zkM0RHiU"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604220257; d=cherr.cc; t=1787832135; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=HYI4526PYKexYfh8uePtoxBT5q11xKZ7dZyYzPC/mxU=;
+ b=zkM0RHiUKAIHO2B6qvlHCAwdrvtgcdNTX7Wh4OJyYfGUxU24IQ23km763sEhTDffYonycP
+ vFmpo3ueIaDfYpVIReqeFmQz9I1+BnEYFnkkXEX+KlWHLM9rIKQMqGc1KkQuiS+XltZz7F
+ p9kXjGWR66BLYu/xIMzsx1NYR+dlaRyNoGGJ4tzQPwZTbTpIV9L+BAnF6utZYXHCzFyESN
+ 1YVRUA22OW1xcn2v3/VQTrcdbrubCAXUZZQX+KjkEnLES7nuCxdNsKID4Mr+b9mXYpq06U
+ 8WuPtywb4XGKdszaRfakiHqVvHYizMpgwkLtA6399CUk8p34uTMEFrucu9x71g==
+X-Lms-Return-Path: <lba+26a902745+2f3288+vger.kernel.org+me@cherr.cc>
+Message-Id: <20260827-go7007-i2c-buf-bound-v1-1-4555cc3d0464@cherr.cc>
+Content-Type: text/plain; charset=UTF-8
+X-Change-Id: 20260827-go7007-i2c-buf-bound-d4fbe42a4a79
+Received: from [192.168.9.107] ([111.42.148.29]) by smtp.feishu.cn with ESMTPS; Thu, 27 Aug 2026 20:02:12 +0800
+To: "Hans Verkuil" <hverkuil@kernel.org>, 
+	"Mauro Carvalho Chehab" <mchehab@kernel.org>, 
+	"Greg Kroah-Hartman" <gregkh@suse.de>
+Subject: [PATCH] media: go7007: bound EZ-USB I2C transfers to the usb_buf size
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 7/8] KVM: VMX: Move common VT getters/converters to
- common.h
-To: Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
- Rick Edgecombe <rick.p.edgecombe@intel.com>,
- Binbin Wu <binbin.wu@linux.intel.com>, Kai Huang <kai.huang@intel.com>,
- Yan Zhao <yan.y.zhao@intel.com>
-References: <20260826171246.777729-1-seanjc@google.com>
- <20260826171246.777729-8-seanjc@google.com>
-Content-Language: en-US
-From: Xiaoyao Li <xiaoyao.li@intel.com>
-In-Reply-To: <20260826171246.777729-8-seanjc@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
+From: "Shengzhuo Wei" <me@cherr.cc>
+X-B4-Tracking: v=1; b=H4sIADsnkGoC/yXMTQ7CIBBA4as0s3YSOiGlehXjgp+hThfQgBiTp ncX6/JbvLdD5SJc4TbsUPgtVXLqGC8D+KdNC6OEbiBFk5rJ4JKNUgaFPLoW0eWWAgYdHWuy2po r9HQrHOVzbu+Pv2tzK/vX7wXH8QXT0grmeAAAAA==
+X-Original-From: Shengzhuo Wei <me@cherr.cc>
+Cc: <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<stable@vger.kernel.org>, "Shengzhuo Wei" <me@cherr.cc>
+Date: Thu, 27 Aug 2026 20:02:04 +0800
+X-Mailer: b4 0.16.0
 
-On 8/27/2026 1:12 AM, Sean Christopherson wrote:
-> Move the "to" vCPU converters and common exit information getters from
-> vmx.h to common.h to capture that they are indeed common VT code.  Defer
-> renaming their prefixes to isolate the code movement from the massive
-> churn that will result from said renaming.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Sean Christopherson<seanjc@google.com>
+go7007_usb_i2c_master_xfer() copies msgs[i].len bytes into go->usb_buf,
+a 16-byte buffer embedded in struct go7007, without any length check.
+The adapter declares no transfer limits, so an SMBus block transfer
+issued through /dev/i2c-N can write up to 34 bytes into it and corrupt
+the struct fields that follow the buffer.
 
-Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
+Bound the transfer size with i2c_adapter_quirks so the I2C core
+rejects oversized messages before they reach the driver.
+
+Fixes: 7955f03d18d1 ("[media] go7007: move out of staging into drivers/media/usb.")
+Cc: stable@vger.kernel.org
+Cc: Hans Verkuil <hverkuil@kernel.org>
+Signed-off-by: Shengzhuo Wei <me@cherr.cc>
+---
+The EZ-USB I2C adapter in the go7007 driver copies message payloads
+into the 16-byte usb_buf embedded in the go7007 device struct without
+any length limit, so an SMBus block transfer through /dev/i2c-N can
+write past the buffer and corrupt the struct fields that follow it.
+Bound the transfer size through i2c_adapter_quirks.
+---
+ drivers/media/usb/go7007/go7007-usb.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/media/usb/go7007/go7007-usb.c b/drivers/media/usb/go7007/go7007-usb.c
+index c0cb92fa6ab9..867548d655b3 100644
+--- a/drivers/media/usb/go7007/go7007-usb.c
++++ b/drivers/media/usb/go7007/go7007-usb.c
+@@ -1029,10 +1029,16 @@ static const struct i2c_algorithm go7007_usb_algo = {
+ 	.functionality	= go7007_usb_functionality,
+ };
+ 
++static const struct i2c_adapter_quirks go7007_usb_quirks = {
++	.max_write_len	= 12,
++	.max_read_len	= 15,
++};
++
+ static struct i2c_adapter go7007_usb_adap_templ = {
+ 	.owner			= THIS_MODULE,
+ 	.name			= "WIS GO7007SB EZ-USB",
+ 	.algo			= &go7007_usb_algo,
++	.quirks			= &go7007_usb_quirks,
+ };
+ 
+ /********************* USB add/remove functions *********************/
+
+---
+base-commit: 075b74841bd0065a3bda3440873c747938e69b68
+change-id: 20260827-go7007-i2c-buf-bound-d4fbe42a4a79
+
+Best regards,
+--  
+Shengzhuo Wei <me@cherr.cc>
