@@ -1,110 +1,85 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-106111.protonmail.ch (mail-106111.protonmail.ch [79.135.106.111])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4218E3F20F9
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:46:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FCD43E4C99
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:46:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787820398; cv=none; b=bhaLOJg0n+s8AbCBAz+xu55XmMpyf1blLW9r0Qk8rbxgJm3xLzKHx5k5mI+jRcleQagof76C3gxZlWJ0Dehm1y6J3o/87OVVMLZA6HpZUGe6oMwU03KJaYZ6m5E4m339JfGwnoskMydpajNDVXtK9dkp2fNnUZf0mlmRfT62RB8=
+	t=1787820397; cv=none; b=E6IVWSCe0o3w/bN2LK1cMidYtN2BOqAbhBoIpaL55S9a8VJWAX+fcr/Is82cirLzQrWTzza71wpo4tHfM/0ZTVkTCHZPwqbZIcuV1afKV2XSWzq5I2jlzTBjxIAHMvAwYRG7xpOHWYkN6bCsIZW8HGxgqTVdhr3R2TMvkGeYfQg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787820398; c=relaxed/simple;
-	bh=VlK+yu9CQ1afWmkVemM9w7NYmgEvjZktOW/P/YBnAIc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=HGWoFYnlHEB+q4m869uo4KG3LZJ+4TsAbFeCDOKanWPRLGBhFv79L36mY59rxch90HzdkoOQTStMoaS3oM2T/LW3kdgCISbOnvLhtqfN9EhVRa00yohWDh1sAyXTbBBCMuEgrzLECg+sM+wZBg0u3G08mQXoi48v/zCxGHLy7Ik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MXuyidQw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787820397; c=relaxed/simple;
+	bh=8ygZIPyqi2xZTWKQ5iqfRw4RZdkrrwtAfcDOoqwNYU0=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=JaTvdt3Io7yfPJifvGD3ekGiaOdBMx9A6r9pS4TDix/cwT1/kl/hlDHQbRaqmzblyQz+y/NcaVsL6qHNcT7Ms9MjkVnePptu6atQ1aICgjb+Yh24YTQvi/efNgTo1ZFF24Fc5Np/5ZFb8qGQ8t8cph33uqhv+b0FmjfdnVkz50A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=fxufw8H0; arc=none smtp.client-ip=79.135.106.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MXuyidQw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 429071F00ADE
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:46:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787820393;
-	bh=784uPUxnXmdjZQ1kRjJ32yFBkoMi7jJfSK/kdFBuyNU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=MXuyidQwk/Zgk8w3+NI/w6MPMB0OZaxTRIF+B5IMhGA6+unsx5mB9a2TjK+3k2tU+
-	 iQpk+r2+hbejWmApYL6ddCwUCw3jZLkPfN2mikXQNfErSGTOxRaY6RSzvqtMKiCmSE
-	 CNkjDou/Y1OH2P27FGjWSbYOYIPVnztjqsjJuAlCLGiZCLNt20C0kVYuPPBC7F3ruV
-	 qzsXV7pvIWlyJ0TMwkZkaYJpaVTiUMcNtJaYaVog2x8AxIq+E84hasVdXqkIAcbkvn
-	 13O2+SOJoCMnniOXCabhv37O3k8EtvChRejhnQoWJQdmzF7kEoDcyhHNJ5lpqnQ+7/
-	 v/Y+fTiAXAJ4g==
-Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-92ed3993c1eso103920085a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 01:46:33 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpVosKXjAWhSiKsCfOqjR4p5WZXDUroxXu75cEnu4rHTNLNm+fH7pIR3DrQFEGJgIeXSrwAyOH7cEvoa4I=@vger.kernel.org
-X-Gm-Message-State: AFuF++kzg7zytKFWJ+gz6xraKx+dR4hDglVW0NoASp+FObsiJ9g30fWu
-	HJbxcBgofGsM5UnWaGAUHeM4lEehCMA3rBFBqJ4Mh8RGNeQZ9jsQE/MRyPZyX8LRpB3TDskSFDz
-	4CgCyTB5xuEop2Siu7ZELtaxG8mwXHi8=
-X-Received: by 2002:a05:620a:4056:b0:938:7751:c0fc with SMTP id
- af79cd13be357-9387751c37amr858807685a.39.1787820392579; Thu, 27 Aug 2026
- 01:46:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="fxufw8H0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail; t=1787820387; x=1788079587;
+	bh=lhxuzSSCiA9yo+vWB5G26kPpXv6+d3Y2XXAaEPMMCxs=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=fxufw8H0rYVX0gljTC5cW7Dhns3IVfsPfCCEX1pNfUN5a1WWscThCRevNWLM+blBu
+	 2Y7742Ge+XrsVrn+G1pej7VUnDqTSK1o2blfkGefEnFIzA2Fnfb+ggkxb6+ehs5rYm
+	 b7FiXHXj3p25EI4kHmzNuuU2DnvhDH1K0zjzXSIPHuuHu72pgTaM5VSO45b40jwB+4
+	 h6g6YaGVA9de+tlnbIHT1aLQSL4mwGLHJmJ9Dd/4iJoSFJME/mlioSrA71of3NfjOn
+	 RGpvgf6aG+QUU4ZhreRtk6M+Ebdwlzo7icT6MsTj/gcSPtJEZWrNanj48OfaxFbEVJ
+	 WPM/frx12sBuA==
+X-Pm-Submission-Id: 4hVw9F285Pz1DFFg
+From: Esben Haabendal <esben@geanix.com>
+To: "Rosen Penev" <rosenp@gmail.com>
+Cc: <netdev@vger.kernel.org>,  "Andrew Lunn" <andrew+netdev@lunn.ch>,
+  "David S. Miller" <davem@davemloft.net>,  "Eric Dumazet"
+ <edumazet@google.com>,  "Jakub Kicinski" <kuba@kernel.org>,  "Paolo Abeni"
+ <pabeni@redhat.com>,  "Michal Simek" <michal.simek@amd.com>,
+  <linux-arm-kernel@lists.infradead.org>,  <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net] net: ll_temac: Return actual error from
+ of_get_mac_address()
+In-Reply-To: <20260827012439.162651-1-rosenp@gmail.com> (Rosen Penev's message
+	of "Wed, 26 Aug 2026 18:24:39 -0700")
+References: <mWYTdXJIk1gD3_qHzfnWHAAyTs0Hh4I5P02_nisIqJdxRWM6DIMgOL9bIxaQqDTx37ldTpEm-0MsQQ3BWkTs9g==@protonmail.internalid>
+	<20260827012439.162651-1-rosenp@gmail.com>
+Date: Thu, 27 Aug 2026 10:46:24 +0200
+Message-ID: <87ik4wymqn.fsf@geanix.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260821-swap-thp-cleanup-v3-0-9b43f5163238@tencent.com> <20260821-swap-thp-cleanup-v3-2-9b43f5163238@tencent.com>
-In-Reply-To: <20260821-swap-thp-cleanup-v3-2-9b43f5163238@tencent.com>
-From: Barry Song <baohua@kernel.org>
-Date: Thu, 27 Aug 2026 16:46:21 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4x7ukyX1nUikuZd6fWtCdAJyfH8zJt+yRPByU7pZ8PPag@mail.gmail.com>
-X-Gm-Features: AcwNN1WxikwbEEtqYbvwE85-9z0wXWh1NODJWyhBapFeBjNBDCZFC5Ry8jne0oc
-Message-ID: <CAGsJ_4x7ukyX1nUikuZd6fWtCdAJyfH8zJt+yRPByU7pZ8PPag@mail.gmail.com>
-Subject: Re: [PATCH v3 02/18] mm/huge_memory: fix rejection of swap cache
- folios with a mapping
-To: kasong@tencent.com
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Chris Li <chrisl@kernel.org>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Youngjun Park <youngjun.park@lge.com>, 
-	Shivam Kalra <shivamkalra98@zohomail.in>, Kairui Song <ryncsn@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 
-On Fri, Aug 21, 2026 at 2:55=E2=80=AFAM Kairui Song via B4 Relay
-<devnull+kasong.tencent.com@kernel.org> wrote:
->
-> From: Kairui Song <kasong@tencent.com>
->
-> A folio in the swap cache cannot be split if it has a mapping (shmem).
-> The split code does a defensive check for this in
-> __folio_freeze_and_split_unmapped, after the folio ref has been frozen
-> and the NR_SHMEM_THPS/NR_FILE_THPS counters have been decremented. It
-> rejects the split and returns -EINVAL without unfreezing the folio or
-> restoring the counters. That error path is buggy: if it is ever taken,
-> it leaves the folio frozen and stuck, skews the counters, and fires
-> the VM_WARN_ON_ONCE_FOLIO for a state that is actually legitimate.
->
-> Check for this case up front in folio_check_splittable and return
-> -EBUSY before any state is modified, so the split routine always backs
-> out cleanly.
->
-> Also fix a bracket style issue that checkpatch.pl keeps complaining
-> about.
->
-> Fixes: 00527733d0dc ("mm/huge_memory: add two new (not yet used) function=
-s for folio_split()")
-> Fixes: 714b056c8321 ("mm/huge_memory: convert VM_BUG* to VM_WARN* in __fo=
-lio_split")
-> Reviewed-by: Zi Yan <ziy@nvidia.com>
-> Signed-off-by: Kairui Song <kasong@tencent.com>
+"Rosen Penev" <rosenp@gmail.com> writes:
 
-LGTM,
-Reviewed-by: Barry Song <baohua@kernel.org>
-
-[...]
+> When of_get_mac_address() fails, return the actual error code (rc)
+> instead of the hardcoded -ENODEV. This preserves the original error
+> information, which may be more specific (e.g., -EINVAL, -EPROBE_DEFER)
+> and helps callers handle the failure appropriately.
 >
-> -               if (folio_test_swapcache(folio)) {
-> -                       if (mapping) {
-> -                               VM_WARN_ON_ONCE_FOLIO(mapping, folio);
-> -                               return -EINVAL;
+> Fixes: 8425c41d1ef7 ("net: ll_temac: Extend support to non-device-tree platforms")
+> Assisted-by: opencode:big-pickle
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> ---
+>  drivers/net/ethernet/xilinx/ll_temac_main.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/net/ethernet/xilinx/ll_temac_main.c b/drivers/net/ethernet/xilinx/ll_temac_main.c
+> index 711ed9c2631b..81ec73e6e4c1 100644
+> --- a/drivers/net/ethernet/xilinx/ll_temac_main.c
+> +++ b/drivers/net/ethernet/xilinx/ll_temac_main.c
+> @@ -1581,7 +1581,7 @@ static int temac_probe(struct platform_device *pdev)
+>  		rc = of_get_mac_address(temac_np, addr);
+>  		if (rc) {
+>  			dev_err(&pdev->dev, "could not find MAC address\n");
+> -			return -ENODEV;
+> +			return rc;
+>  		}
+>  		temac_init_mac_address(ndev, addr);
+>  	} else if (pdata) {
+> --
+> 2.55.0
 
-BTW, I=E2=80=99m really curious whether you=E2=80=99ve ever encountered thi=
-s warning?
-
-Best Regards
-Barry
+Acked-by: Esben Haabendal <esben@geanix.com>
