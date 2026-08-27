@@ -1,93 +1,88 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1910374A0D;
-	Thu, 27 Aug 2026 08:33:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D60993DCDA7
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:33:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787819588; cv=none; b=H1IjpOAZIVbeO8lV5iD0ddUUbxUCYvI7Bd77gfb7u+NIPhtPY8sOk0hM3NhSjy9UR6tjQf5NvjI8IV8xraZT00IvuKUk0VKw8FpdLoP8AloI7T/r5clgpldEObA2ZfELYtwLu6nCoBNGkgYMLgyZu8NQqBiwAYSRnWFChlr6+tM=
+	t=1787819601; cv=none; b=Ykl89K+CpP8im4x0OmC+eLxbYgwqJeUlEPe9e4+FKNNXw7NCklZvroH+vjd3NQMTL4rYLTE0iiUeGVIwpBhwDIilkCvgNiW5i8JXJ1QUAtDOw/GYTCGa2SCeHXzmr/hA5h8Vn0bWumpDpTiuYXJRkedUdmQUHEFUSsPmFBMCgik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787819588; c=relaxed/simple;
-	bh=QyRMewST/3Bmbdb92oHtW42ZsbNMwMqsp0tL/EC46y4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NuAtsIMcGAsJQqO+KCah9ESdfFrBQaHZWHtLcQ2C7F0BCNfqqfasehXba+v5lpmyNUQEagorEEJWocd5qpkJoH1PywhA+08jxy5grt22HMcPHi8O5sUapFb+tb/sY/Go5cESi1ceUB+OYiG5zdnk6ix9SznXK49qKRRenDK7STE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=an7In7C/; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787819601; c=relaxed/simple;
+	bh=MXcYU0wpdxigUdN91eobDqnjz/40R6iSKgJHLhVwIdQ=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=ibLpUz5OQxu7wO2EkXmnw2X+YTGE1VSOyoqFKS38KXFlj7YJsEWwz4k50wjCSwtexnWiN4S/+5c1lWuD8D9nIk/J+s3OnmueuHxhDXkA8mDd0q+vgWaQP561PKoS3kRWmh1FanprMp7ZSX2SHiGRN9xRVyMLgXNlimVU0JHkw2U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=BDFAZGrB; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="an7In7C/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787819585; x=1819355585;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=QyRMewST/3Bmbdb92oHtW42ZsbNMwMqsp0tL/EC46y4=;
-  b=an7In7C/M9w3u001SFZNC0P2Zch1YGq0GGcFWR/oWkwbifdgzt7l/gIP
-   pO2tpCwIBGjXAUnxczuhWLAHHFqYoxvI5SnTvngilxewXEZ+Ea0rp2+DZ
-   aQJC7U6EBMk81UNmLs4w1hs0IhXmPdK/a0QeXzO6F60tnzv36G9TG+aE9
-   M46AnqP994qubRsGdxrEMtrpEjobZ+nlyHukNSKqiU0KjkCADEy4p2wBS
-   LXzKsDOtVdT5lY9I9uDGPduLqNQo0GZreudFo1GX88tXM4sXmAYEswmJ3
-   WBajKs38IpWPMz7D0w+ECKpRKLCobVv3pq1XDuYqjpXiWw2p/RFKAq3Sa
-   Q==;
-X-CSE-ConnectionGUID: dQP2cRETTpWyEFwVIz2axA==
-X-CSE-MsgGUID: 6dTHDUugRT+Hwid2I36yDw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="98647400"
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="98647400"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 01:33:03 -0700
-X-CSE-ConnectionGUID: UPDTF/WZTKi/VJp0ImibXQ==
-X-CSE-MsgGUID: I5uxyM2uTUeVWCrHDKm8GA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="297696948"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.125])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 01:33:00 -0700
-Date: Thu, 27 Aug 2026 11:32:57 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Thierry Chatard <tchatard@gmail.com>
-Cc: linux-kernel@vger.kernel.org, hansg@kernel.org, lee@kernel.org,
-	platform-driver-x86@vger.kernel.org, ilpo.jarvinen@linux.intel.com,
-	djrscally@gmail.com, linux-media@vger.kernel.org,
-	mchehab@kernel.org, sakari.ailus@linux.intel.com,
-	jacopo.mondi@ideasonboard.com, nicholas@rothemail.net,
-	v.vitovt@gmail.com
-Subject: Re: [PATCH v8 6/6] media: ov8858: add ACPI device ID INT3477
-Message-ID: <ao_2OdOHwcuL8uNi@ashevche-desk.local>
-References: <20260826112452.13539-1-tchatard@gmail.com>
- <20260826112452.13539-7-tchatard@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="BDFAZGrB"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 44D9B4E412EE;
+	Thu, 27 Aug 2026 08:33:08 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 10273602B8;
+	Thu, 27 Aug 2026 08:33:08 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DE5B111C783F8;
+	Thu, 27 Aug 2026 10:33:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1787819587; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=MXcYU0wpdxigUdN91eobDqnjz/40R6iSKgJHLhVwIdQ=;
+	b=BDFAZGrBnc9OcX8stWh9bwubCZ56sqUXoivFmTfpmjZhlbZqWZwfETMzz7ge4To9Np0x1H
+	Lb0yLVUQ3r87bdcbEq0bPc6t4SiO6aGh8pqM4Q/RQ4Ug1e6GnCUFxkPKNL0a9aavJU0Pwk
+	khI1c9118GZG4hBU54JkCL6yTBsnMDorIYywjd5+XPG1L8OXm4qeCmOpg2xRaonarPieKQ
+	CXqibtoCNgmGWsrGXAD+M+AHRfRX1ukEaJzCmHbuECUO+hO/YcQqiTOtYa2A4F6xlcddDq
+	LSoHgN6+LAxGGAlvD4A3Dk6w8Q6dgkgBOUK6Rlx1LSmoo1B2yzVQmM1AbxX8UQ==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: Tudor Ambarus <tudor.ambarus@linaro.org>,  Pratyush Yadav
+ <pratyush@kernel.org>,  Michael Walle <mwalle@kernel.org>,  Takahiro
+ Kuwano <takahiro.kuwano@infineon.com>,  Richard Weinberger
+ <richard@nod.at>,  Vignesh Raghavendra <vigneshr@ti.com>,
+  linux-mtd@lists.infradead.org,  linux-kernel@vger.kernel.org,
+  stable@vger.kernel.org,  Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: Re: [PATCH v5] mtd: spi-nor: core: Fix mutex leak in
+ spi_nor_rww_start_exclusive()
+In-Reply-To: <20260827082656.2772784-1-runyu.xiao@seu.edu.cn> (Runyu Xiao's
+	message of "Thu, 27 Aug 2026 16:26:56 +0800")
+References: <87tsoigz8x.fsf@bootlin.com>
+	<20260827082656.2772784-1-runyu.xiao@seu.edu.cn>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Thu, 27 Aug 2026 10:33:03 +0200
+Message-ID: <87jypcdku8.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260826112452.13539-7-tchatard@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, Aug 26, 2026 at 01:24:51PM +0200, Thierry Chatard wrote:
-> The Omnivision OV8858 appears in ACPI firmware under the HID INT3477 on
-> Intel IPU3-based platforms such as the Dell Latitude 5285 2-in-1. Add
-> INT3477 to the ACPI match table so the driver binds when instantiated by
-> ipu_bridge.
+On 27/08/2026 at 16:26:56 +08, Runyu Xiao <runyu.xiao@seu.edu.cn> wrote:
 
-This version looks pretty much okay to me, with the exceptions of some
-nit-picks here and there and the main issue is the process related, id est how
-the email thread is formed and absence of the cover letter.
+> spi_nor_rww_start_exclusive() is used as a wait_event_killable()
+> condition. When an RWW operation is already in progress, it returns
+> false while still holding nor->lock. The wait condition is then retried,
+> but spi_nor_rww_end_exclusive() needs the same lock to clear the RWW
+> state, so the wait can deadlock.
 
-Thanks for this work!
+This paragraph is a bit irrelevant, we don't really care about the
+feature itself: there was a conversion to scoped mutexes, this
+conversion missed one place, you fix it. That is the justification, but
+fine, let's stop iterating on such a trivial fix.
 
-So, since there is no cover letter, there is no clearness how this all is
-supposed to be merged. I assume either media tree or PDx86 with the immutable
-branch for others (MFD, and PDx86 or media). I'm not sure that MFD is a good
-choice to take it, so, Lee, please, ack the respective patch if you agree
-on the contents and the merge approach.
+> Use the same guard(mutex) pattern as the other RWW helpers so nor->lock
+> is released on both the busy and successful return paths.
+>
+> Fixes: 03e7bb864d9a ("mtd: spi-nor: use scope-based mutex cleanup helpers=
+")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
--- 
-With Best Regards,
-Andy Shevchenko
+Didn't I send a Reviewed-by tag already?
 
+Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
 
+Miqu=C3=A8l
