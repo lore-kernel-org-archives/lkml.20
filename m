@@ -1,64 +1,91 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+Received: from flow-a4-smtp.messagingengine.com (flow-a4-smtp.messagingengine.com [103.168.172.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F164C2D73B9;
-	Thu, 27 Aug 2026 14:32:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45DFC3E6386
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 14:33:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787841172; cv=none; b=PnPNZgrDi4WD/o8IcTTsgcqSKUZEaCvfhL/keNVJKWiVXY1joLj6zurIDZpn4adIc/P11fNtun4uLRurBVUFvPcixyMH2bVScrkiTn6vEJRWosrHFcLnBvVebRPdF82WBCUkkgRupgWJwH7rWyJse2ZE8v5ihUcX17KzxFrzxAs=
+	t=1787841214; cv=none; b=XikOMP2uKARv3AcEF0X5tPTEjFYGSzP/MlSX7CsUMo8L4W9hcs5sUkC4JoQ9gl4Llr6an2amiXxQui5Ep4N8JxtDZF53s2dWZoxSjAJPJ27S6Fbu0Fkh38/IUpsh96jkdtE3EntoxoiGoYNtWxrOcJg1+wL7jFgMdr/9/j/Wa94=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787841172; c=relaxed/simple;
-	bh=z5Pi0VPfTvC7nqMX0V205C3Qmo8YbY5AiDLIxa9ThB4=;
+	s=arc-20240116; t=1787841214; c=relaxed/simple;
+	bh=DWFGOUy3f4TOMDO+GwemUzp6lCbKmN55pIIJmZTCXrA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=n10GZ1WEJWuRm4JxHqS6P6WQiSOxGT5MeF5H/nBPHc2VLHIuYU3lR19nWMP+HVinUHUgeNTAg3nYFK6X3/SeYXKunbA/hnALvv8pCwacOmndiWHYweqYXXit6MLtoQZoU6qK4kR1JhYXftSSFMjNXWQPtl+/GD+XchG3n7/FN1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=W8Asmg2K; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=UhTQTbGIRs0ShqCDFldyyuxTAzXEQNykYAFjq8STffuJEL6hBU1pjXcak1kmrN6Ae9SdasJO8AYTTeU5c4t16T9N66zX810k1Wm3Xc6X4hbInC8v7H1PZDS8TGAAFuvWKCuMroSJKbgHXX4C6X+oqZEj38lfB9kWWBpaVh6rPIM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=P6HOkD4c; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=YMTw8S+r; arc=none smtp.client-ip=103.168.172.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="W8Asmg2K"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787841170; x=1819377170;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=z5Pi0VPfTvC7nqMX0V205C3Qmo8YbY5AiDLIxa9ThB4=;
-  b=W8Asmg2KtvuQwfsnEZ61gOf5i2ttia48PDuBczkZmPq0N4YX97fTRkED
-   MP4zrS6k1aSzksBTtcOTeCjaGCiQiVyQMmCS/tSX1bCTJaMp1Pw2r5d+J
-   mdjy1VoMnv4ZRHmWxDBll8Y5EmspWE47eRu6L0SWZ2Bd9j2aptElv1/E0
-   rc6qSqvH50XK8THYJKpDOmNS/Sooee1Ed45FELZ9VoK8ki/YT7s7g5owy
-   VPVOsxLDoQn7+wNYbmJ6Vfut4ouNFuUkOzcGO/hgCOu4vMC4i7zXxwVAB
-   PAP0nJFCuMKbQfn+kI8p0gbRtC9IfKZo/dZ+BeslaF06wUIXP+YuEz1t4
-   A==;
-X-CSE-ConnectionGUID: /qSVKL43SC2rTYEbDyPKtw==
-X-CSE-MsgGUID: 0A0QA7azRViz0yBaNMGkSA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="98676606"
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="98676606"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 07:32:49 -0700
-X-CSE-ConnectionGUID: jAfuLjBxS5K96+QewPIuag==
-X-CSE-MsgGUID: Yteh2gwlQeOPIesoS59t8w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="266095813"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.125])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 07:32:46 -0700
-Date: Thu, 27 Aug 2026 17:32:43 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Maurizio Casciano <mauriziocasciano7@gmail.com>
-Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bingbu Cao <bingbu.cao@amd.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Nicholas Roth <nicholas@rothemail.net>,
-	Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jose Maria Martin <jmmartinf@hotmail.com>,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 6/8] media: ov2740: add manual white balance controls
-Message-ID: <apBKi1MJI5pMwPUh@ashevche-desk.local>
-References: <20260826132256.3343451-1-mauriziocasciano7@gmail.com>
- <20260826132256.3343451-7-mauriziocasciano7@gmail.com>
+	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="P6HOkD4c";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="YMTw8S+r"
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailflow.phl.internal (Postfix) with ESMTP id 1980013801E4;
+	Thu, 27 Aug 2026 10:33:31 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-06.internal (MEProxy); Thu, 27 Aug 2026 10:33:31 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm2; t=1787841211; x=
+	1787848411; bh=Ln/cYU6R6kxXbvIePHIUyNjbzJC0uJlvXR+XQ3FbfZM=; b=P
+	6HOkD4c8lkSWtklz5AyfvXJ7Edo4Gcv5bsmBLyImsWdrC2VmfETzZcILTibLnWmy
+	HlaARwr76l8oyfS26SRdZKGrnWzbS+M/G8JrVSuW70Cof5qpLOzqgdR00Nv6RFs1
+	UEi4MW95w3ca7TjDsI/GEx4NfOv+peayyZvo3u6GFPlg+YYBas9n6phB0kpMpi6P
+	6S8QxD9dLtzVrZNH+4Q2tdlox1N62lvqRxGdvxlDttCmrSE58GBBeamlF5KEJ1Az
+	wnD17xvlWd0jdcUEhLgigUuKFMS/Y1MKNsPIcPxhKEp7pnwmN39KMLWgwCVfoVOA
+	F3LFGJy6+mgwxW8cP1KhA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1787841211; x=1787848411; bh=Ln/cYU6R6kxXbvIePHIUyNjbzJC0uJlvXR+
+	XQ3FbfZM=; b=YMTw8S+rmSG6bfUflT6pvk6RtchcWGVsTZRRSZ6gAMxjESCi6Su
+	OsEnf+FjOmcEVxQNqFjQjXD/pfVw6PvcqErRysrKQVq60sWD/HsvUy9xoz+4xZJg
+	lKOqcalaM6JjVmsWtmUsguUjqYyhF0UNXnaizrGbzGBUH67L3OuJDELmfFu3FrBm
+	N30Bh5rTErFqH1AsNgQwP79M1Be594Izc6y5/hedmx8C5YS0jNpulTngEtRANiJe
+	0wA1dO0q2BBiq+T/RxUXDbDk4YzF9CnptmBbptvUdPvSEKYxnkLdLffyvx/u6NtF
+	+2Cle9q7IFThxrOfZ73qUFyBoX3+Ccp8oOA==
+X-ME-Sender: <xms:uUqQan-tRh7Sn03rjf_CjLxkT-RG_p7KLSPEucC8cD3WGPMvgV1W3w>
+    <xme:uUqQaiIKfclPhGQ-bLuvrZZa5Vsq_DEAAop-iyyfKm9Fk9uj2HgR_xfYF3BYLbkdQ
+    WteC2AhiflnnL2zqK-zL4WRvDNJJGCVVsOezMFH6KLjnH5oipoKVzQ4>
+X-ME-Received: <xmr:uUqQasJjHPT8sYTq0n6AWxvyhREg1ky7oka_PYD84_zSe5g7oS5y2ZgFVjY>
+X-ME-Proxy-Cause: dmFkZTFX95w7oz8NPPCgwgK0v6r1e5zrRtNU9uoQ4ywzPNzXkyMIhPlNvTdMRpJ6fx+94i
+    pKd/HphuAZxxtsecVEssSbcYsWdECuVzgdv+juA9XC39CNmblKiHnup7SDLLALy6H1/DUi
+    i1Kq1aWXsxz5+GTeyQyGUo6yk/OFIkBURo4AtdrDvo3/ipHRIMtgGcsHlBYLPs85UZUFKU
+    6TYq1b3nBvnEFDcz0iEdfGT7czFRsH3Nlaxj3LGfSPwhBvbGugH7ZwQ5DHHUjqp10QPyUM
+    DEWYjS4Qf253nIKsPMVTJ6hP/T+5YXScE5HAlIRkeNn3cxgHqdmMiboL9DU82Ogr8665Xr
+    SXmV6Z3nvNk2z5JetqWIzfumfx95EkIgnqbW2fBHHOCEHekg9VcbCkOqa0hLefx+J30/1/
+    gy2cWQQCLuYRryE68+Q1d/u+i0Y7m9h++zWwIqOZ9PWfKHI2uc+fVEF+lIPWFrmQG7VBAr
+    kb9/A+IgZgTnXy3hA0IjOctFKjxedTqdNTKuC8KcJbo2zaBe4opafU1f6cMP1P+Qj+7zes
+    Pzx8V9RQpw79SyWDQhyNd6jSL741YR5Pab7hLsWKBrit6KTb8PftYbsO3u9ZFcCUAHmhDO
+    tvpwQxoUBVD4QGdr3yny9hNBGxC6cIXcidpcqmcCzIAwaTZyOCEdmWyIB8BQ
+X-ME-Proxy: <xmx:uUqQanB6yVa8CLu5WEwlK6ceNNitDUh5iijmbU1Kqcrvg9dJaJcc5w>
+    <xmx:uUqQavnd7RjnmserXeSj4PB_tdM0UF4VuavgePUgg7jjAfz2nZjp-Q>
+    <xmx:uUqQajHu4qztDTWaH2b93kVb5izoZ5j4-SAMK2PsTJS85qenPXSHaA>
+    <xmx:uUqQaugj-gscMeflSzeLmVuWdnUJ1Q8N2ZVfNR66avD-h8Ea7xVVWw>
+    <xmx:u0qQagVxlUR8y64wWFdWdoKhe-OP47Pks4e4VZkbm3qwnzZX-8yAN8v->
+Feedback-ID: ie3994620:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 27 Aug 2026 10:33:28 -0400 (EDT)
+Date: Thu, 27 Aug 2026 15:33:27 +0100
+From: Kiryl Shutsemau <kirill@shutemov.name>
+To: kasong@tencent.com
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, 
+	Shivam Kalra <shivamkalra98@zohomail.in>, Kairui Song <ryncsn@gmail.com>
+Subject: Re: [PATCH v3 02/18] mm/huge_memory: fix rejection of swap cache
+ folios with a mapping
+Message-ID: <apBJ7PeX7c2dD9kk@thinkstation>
+References: <20260821-swap-thp-cleanup-v3-0-9b43f5163238@tencent.com>
+ <20260821-swap-thp-cleanup-v3-2-9b43f5163238@tencent.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -67,102 +94,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260826132256.3343451-7-mauriziocasciano7@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260821-swap-thp-cleanup-v3-2-9b43f5163238@tencent.com>
 
-On Wed, Aug 26, 2026 at 03:22:54PM +0200, Maurizio Casciano wrote:
-> The sensor has separate red, green and blue manual white-balance gain
-> registers, but the driver currently writes the same digital-gain value
-> to all three channels. This prevents userspace from correcting the
-> strong color cast of raw Bayer capture.
+On Fri, Aug 21, 2026 at 02:55:15AM +0800, Kairui Song via B4 Relay wrote:
+> From: Kairui Song <kasong@tencent.com>
 > 
-> Expose red- and blue-balance controls relative to the digital gain,
-> update all three channels under group hold, and always release and
-> launch the group even when a channel write fails.
+> A folio in the swap cache cannot be split if it has a mapping (shmem).
+> The split code does a defensive check for this in
+> __folio_freeze_and_split_unmapped, after the folio ref has been frozen
+> and the NR_SHMEM_THPS/NR_FILE_THPS counters have been decremented. It
+> rejects the split and returns -EINVAL without unfreezing the folio or
+> restoring the counters. That error path is buggy: if it is ever taken,
+> it leaves the folio frozen and stuck, skews the counters, and fires
+> the VM_WARN_ON_ONCE_FOLIO for a state that is actually legitimate.
+
+If you are going to repost this, could you make "This error path is
+buggy" a new paragraph?
+
 > 
-> Tested on the Yoga Book OV2740 with live gain changes and continuous raw
-> capture.
+> Check for this case up front in folio_check_splittable and return
+> -EBUSY before any state is modified, so the split routine always backs
+> out cleanly.
+> 
+> Also fix a bracket style issue that checkpatch.pl keeps complaining
+> about.
+> 
+> Fixes: 00527733d0dc ("mm/huge_memory: add two new (not yet used) functions for folio_split()")
+> Fixes: 714b056c8321 ("mm/huge_memory: convert VM_BUG* to VM_WARN* in __folio_split")
 
-...
+This is inert bug, right? I don't think we want the commit to be
+backported. I expect stable machinery to pick it up based on Fixes.
 
-> -static int ov2740_update_digital_gain(struct ov2740 *ov2740, u32 d_gain)
-> +static int ov2740_update_mwb_gains(struct ov2740 *ov2740)
->  {
-> -	int ret;
-> +	u32 green_gain = ov2740->digital_gain->val;
-> +	u32 red_gain, blue_gain;
+Is there a way to express "not stable material" while keeping Fixes: in
+place?
 
-Split assignment and combine all three on a single line.
-Also, why not u64 from the start?
+> Reviewed-by: Zi Yan <ziy@nvidia.com>
+> Signed-off-by: Kairui Song <kasong@tencent.com>
 
-> +	int end_ret, launch_ret, ret;
-> +
-> +	/* Balance controls use 1024 as unity relative to the digital gain. */
-> +	red_gain = min_t(u64,
-
-No min_t() in the new code. This macro is very exceptional.
-
-> +			 DIV_ROUND_CLOSEST_ULL((u64)green_gain *
-> +					       ov2740->red_balance->val,
-> +					       OV2740_DGTL_GAIN_DEFAULT),
-
-Is _ULL variant really required? What are the ranges of the _gain and ->val?
-
-> +			 OV2740_DGTL_GAIN_MAX);
-> +	blue_gain = min_t(u64,
-> +			  DIV_ROUND_CLOSEST_ULL((u64)green_gain *
-> +						ov2740->blue_balance->val,
-> +						OV2740_DGTL_GAIN_DEFAULT),
-> +			  OV2740_DGTL_GAIN_MAX);
->  
->  	ret = ov2740_write_reg(ov2740, OV2740_REG_GROUP_ACCESS, 1,
->  			       OV2740_GROUP_HOLD_START);
->  	if (ret)
->  		return ret;
->  
-> -	ret = ov2740_write_reg(ov2740, OV2740_REG_MWB_R_GAIN, 2, d_gain);
-> +	ret = ov2740_write_reg(ov2740, OV2740_REG_MWB_R_GAIN, 2, red_gain);
->  	if (ret)
-> -		return ret;
-> +		goto release_group;
->  
-> -	ret = ov2740_write_reg(ov2740, OV2740_REG_MWB_G_GAIN, 2, d_gain);
-> +	ret = ov2740_write_reg(ov2740, OV2740_REG_MWB_G_GAIN, 2, green_gain);
->  	if (ret)
-> -		return ret;
-> +		goto release_group;
->  
-> -	ret = ov2740_write_reg(ov2740, OV2740_REG_MWB_B_GAIN, 2, d_gain);
-> -	if (ret)
-> -		return ret;
-> +	ret = ov2740_write_reg(ov2740, OV2740_REG_MWB_B_GAIN, 2, blue_gain);
->  
-> -	ret = ov2740_write_reg(ov2740, OV2740_REG_GROUP_ACCESS, 1,
-> -			       OV2740_GROUP_HOLD_END);
-> -	if (ret)
-> -		return ret;
-> +release_group:
-> +	end_ret = ov2740_write_reg(ov2740, OV2740_REG_GROUP_ACCESS, 1,
-> +				   OV2740_GROUP_HOLD_END);
-> +	launch_ret = ov2740_write_reg(ov2740, OV2740_REG_GROUP_ACCESS, 1,
-> +				      OV2740_GROUP_HOLD_LAUNCH);
->  
-> -	ret = ov2740_write_reg(ov2740, OV2740_REG_GROUP_ACCESS, 1,
-> -			       OV2740_GROUP_HOLD_LAUNCH);
-> -	return ret;
-> +	return ret ?: end_ret ?: launch_ret;
-
-To make this looking better it might be good to convert the driver to use CCI
-accessors [1]. Maybe Hans knows more about this as he worked a lot on this drivers
-and sensors in the past.
-
->  }
-
-[1]: include/media/v4l2-cci.h
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+  Kiryl Shutsemau / Kirill A. Shutemov
