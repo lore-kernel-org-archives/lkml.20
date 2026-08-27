@@ -1,125 +1,126 @@
-Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20EE912B143
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 15:02:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 808BF86341
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 15:02:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787842939; cv=none; b=Ek+NwJq/C+cIA47TWt8DcIqGjP0AeHrs9aEod6sCMIzuK79qekret2SQT8QdYrjXvsIcbicrbQbfqehAMpuW7OhD3K0H9NfcJNlahn5pYa/30TNbMWuwAzIe+MKIUNlcIj1KO1zTXCseVljpKL76Yo/UWAFuUrQ4TmWlkEuvfsY=
+	t=1787842950; cv=none; b=J/FoD1H5hmozfdRE2mLwNzw0/vq2YPlu4aI15NyaBVW5Ys8FPg6jtMigGItvN7W/3au3YOsFbjV5KNAs7YOZ/KtDJx+rS8Z8ASKQrtIOa41NvnreJJ9d3IFsq8KIKTGytu7eQ9CEED7Ug1ODb1lFA2oyfETlMKkfexMnLf4qqRE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787842939; c=relaxed/simple;
-	bh=oOCHTLFVKS2TkQuWSodeipJtYBIlhCkYg4CQC6hmFsE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CaexkTakOcMBP2tj7LgFTI0MarP1C/OBBpjMPTFZNne+zuZfcMQs4IA+6yJy0CpwysTsieW9eZBvfBgOscD+5YCzuqkRDhjsEZRqQrM/rf+IkCUia9ytr9EqDSqFPNlPNCqgDa/J/i4tIKlsyqrwzzWB5mYpImaIKJT3CUjzSjE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=A6qMcR+l; arc=none smtp.client-ip=209.85.128.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	s=arc-20240116; t=1787842950; c=relaxed/simple;
+	bh=ObIQRn/vjtcvL4sdmG6ZiBqkBLodyvFTNyqP+glWGbg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sIwPNycnyo9Fw9ia24j+KH3q8QWg1shNm5BNf0xg4II3GAfbGrLX4X9JuK5/CNWioD78wgFOI0fItUUf/VjPiPqbPZRbVvL8C+4ir5Ch5h1m5Z9NPdEJSZ8C00fN9dlWVWFQbUHr5tmas0FBeNeV7b5ETOZWk0CTuRqIgojQh8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=I0ATv8O/; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=TE5TEgrd; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="A6qMcR+l"
-Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-85a50f6a7f7so25699167b3.2
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:02:17 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="I0ATv8O/";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="TE5TEgrd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787842948;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PUTGt/6T2857LdQnAot7vE7NZU52FC/fuVGXZNjR5lw=;
+	b=I0ATv8O/fesqn3cms+ZN3Hf8b+zwRh9uDdXjfqXuMz1nliIRrrZvjS1Ks1ruSg0n/FsbTA
+	0MFDKIk9bHD5X97+lOvwRUwkckyndVMfd0kpm0Oz+pPLgIU1m3JlNAqO0u/b9X3p6EcwKh
+	TwFiG62wPO+tcoFgxLQAFWUGskOPkqA=
+Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com
+ [209.85.128.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-576-n2Efcd_nOeGJUGMv0Z15yw-1; Thu, 27 Aug 2026 11:02:27 -0400
+X-MC-Unique: n2Efcd_nOeGJUGMv0Z15yw-1
+X-Mimecast-MFC-AGG-ID: n2Efcd_nOeGJUGMv0Z15yw_1787842946
+Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-836d23866bcso44576397b3.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:02:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1787842937; x=1788447737; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=9Bf7BegkUo5SVTaJjTfnH0NRee4RexFhC+XH1o5griA=;
-        b=A6qMcR+lDmYIG8K2QOnIbTx9f51jJWMh1NIDIeG8rFWhV7wlCY4M5HYuUKzUW3Z+bu
-         VG683fJnIf1uBzM+kEHsJD3fu6rlfbgjN+Av7HKX2lHj1zUadhtJqqycqkShUR7VSYJK
-         O1GHuZcW+6sLBsuvUCb9r6fknMFZhorHI7pz1PeKLYVdqyiVBPXYL05ZYMf/t6sgFfph
-         iowrtKy5Be+PM+FtatNxJOc8HIExt4WXHn9/n7Y9HMHuxwSA7BFdjmuymm0Xp7d6VePj
-         rkmP/StqF90abg3UYTKVBX27B85INzNYibLYhFxgH9ZORIY+nRdO/wHO3NTGeNSfYx5I
-         iSKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787842937; x=1788447737;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=redhat.com; s=google; t=1787842946; x=1788447746; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=9Bf7BegkUo5SVTaJjTfnH0NRee4RexFhC+XH1o5griA=;
-        b=frg6+f857zQh3yNDevxn9gQNuOzY9mHLS58gCOTEYvmzabWmKTXjTsH3Nk9VEnmQvJ
-         xXBSLHWHBCFjJm4bfFJT/WAJWcrRBxihO9H0uTjnwICcCTEa0BfvuqWZS+alDsOXdMDz
-         E3advezCihrG1qN9fNoVVggeA1NSfOdH6Xss0B7iXuFRTvfIo9D3mQWSPKljmw0VXIAa
-         oxh3OipuTxPywez59qJ2cKdUOhFRKkOdvnkguzrusTncxY/+RQ7veQjJ+/P1C0wD21UO
-         vBtpPKUJJqI1B/SAnLioHrAq8hwA2dumRJlRIshtkyaQQJhV+sbGxXZ6/gxgkWfTEkZF
-         JMLA==
-X-Forwarded-Encrypted: i=1; AHgh+RrTAGBhToC1QvbW0V/SykwRlbcoQKsCAZ755V0jBrHI0rPEu68RofWQjG0ag28D6WCY66Llg50N4RUjp9E=@vger.kernel.org
-X-Gm-Message-State: AFuF++lE1qOnuD1TnTv2Bh1uMnYp7ufXpt3EYef775Hfzk6V3VYuY4hN
-	7M9PMHyERM5uR7a9JNeYKUzRHbb6Baj9g8/tS3tWVQv8eb/yrRIi/Ys/m3vJK8G+tNE=
-X-Gm-Gg: AR+sD13EJkSmT03KCqPt/ja2LSBxoBW9SeLB0pnjr8d1TKb0my0Z7p2y1Av0mS8du2x
-	7U0ZsSGdaHePmkBLDUtnh+a4g6A5BNbOc1OiEWKpkmM0Pb/txF60gywcEbYVm6bwzO4rBEphyK8
-	58i9uvlqKwY6x09idipdSH+Jy3LzLXlTuM0j9LD/YEEQV1goLKQvY9gEmQacXtBrO7at3BOCoBK
-	RwnFgLArUl4CwJurb6TB4Fq8asDDUBG/UTJJ+aCSQ7BOmJTm+EYB2D5d4mlKqMUu1aQmGdBSFgw
-	T9g97nysBiHNbAlzJHehq/mz5FR0mA25kVVvWx6dKk0P3aTc7WcGMxH0DvCD7mdm+XOfqhi2Sil
-	vb+xY9GTPrjyze3V7cVk03VGI6kct778j4lbHELbhsQyaeMqqlrjyqxTMm9GNLA8g1r6q0hnN5i
-	1oK1wsHH1V7q8XjHbXs/RMJB5BzI5+Ba4P6XG4W3BtBRaoJkae2Hrv+YcEwYaP
-X-Received: by 2002:a05:690c:2702:b0:820:b89:52c6 with SMTP id 00721157ae682-8574172ffd2mr75025547b3.33.1787842934644;
-        Thu, 27 Aug 2026 08:02:14 -0700 (PDT)
-Received: from localhost ([2605:8600:200:1a83:fe59:7385:2855:8588])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-85b626ec6ddsm11363877b3.46.2026.08.27.08.02.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 08:02:13 -0700 (PDT)
-Date: Thu, 27 Aug 2026 11:02:05 -0400
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Kiryl Shutsemau <kirill@shutemov.name>
-Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
-	usama.arif@linux.dev, lance.yang@linux.dev, ziy@nvidia.com,
-	hughd@google.com, baolin.wang@linux.alibaba.com, baohua@kernel.org,
-	liam@infradead.org, nico.pache@linux.dev, dev.jain@arm.com,
-	ryan.roberts@arm.com, balbirs@nvidia.com, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>
-Subject: Re: [PATCH 1/5] mm/huge_memory: do not touch frozen folios in
- deferred_split_isolate()
-Message-ID: <20260827150205.GC3004@cmpxchg.org>
-References: <20260826162101.1314941-1-kirill@shutemov.name>
- <20260826162101.1314941-2-kirill@shutemov.name>
+        bh=PUTGt/6T2857LdQnAot7vE7NZU52FC/fuVGXZNjR5lw=;
+        b=TE5TEgrdQXhC6HFlhBLTeAJ9jenuMY3OxtZSirL6KNM53pZY8MoWJ1eba1kQkWefaO
+         DdTD+Y6shJsW7j3S4UfqRMIC8hMvHo9MUEKUlkVOQTv/s9cqW7q1hJgUSoM7PluQRiRr
+         GbeN63g6DJ+WWJT5wKCw5wcXSfvZwWL3ChCIS8RXnX3kycPevynLf2D1vSyAHqzT7zLs
+         7jidKwfhdoo6yRaxTg3s9xg+HO07rLoc8Ku2n+TXMsCk8s9bhzrr4zCbfR2h4zFcjzqV
+         hnrQ/awh+BUVVIEd67iZdXx553Y3tYlHcEZ3UB0/fAYPEKXhfPLIRxhUDXlzsdi1bWZP
+         C+TQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787842946; x=1788447746;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PUTGt/6T2857LdQnAot7vE7NZU52FC/fuVGXZNjR5lw=;
+        b=O5MzrSsWtpgHsxXQN+uK2zAjm17Mqfe8fQcghEBXPqTnZXpt4CKtNj/mzIJBPwraQ3
+         HyY68FzYGVt3Mf24pLu1KL2vGynr7B7NbSGgdK9vZDEpkkrzgyPhMCuwftUkHp2wXZA9
+         d53OW6cxjwj0LHrYfWcm3Wpotv7LsRtNOQowjlY6xBNONHpMAYU0SGSz2x+3UoDLiPG1
+         93evapuKOj+d06y6mG074PwrERStNnHsj1x7YLfPvsxNJ96ULlMgX/3YPWQjQLqiJLkT
+         myAh6BQDqt8xcHfiBpeHkRQSot+ILFqIgdelVRZRzBeEbR5RXuh+Tt+Nqd8YOrM9dCWR
+         /8Jw==
+X-Forwarded-Encrypted: i=1; AHgh+RptadyiQO7LHVPaLY2vbICj+U2V6tBFC6vRG2aiO2cu2b/XDaN68KTGi1/DpTs85JflX5x6upzgsNwUNRo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nwrrVDLI2/kSorSZdgQ+5qzx5D4azDoxf0UG6hXpkwrQIp9JXr
+	IL20RV4TQnmvgFCgRVx9Q99434UXJVEmE3AgB5AnSyYiUNq3Lbp3TVNnVqw2fTxBZ30zQ+ytV8s
+	k5ZmlHy0+OyfynFxIhnrTDbY6EJ+3zDYvjrdq7DxV7kGYD9P89sV7YzOaDzrhkiu3Nw==
+X-Gm-Gg: AR+sD12qz/1+5R8+mOy0P+xk7SGr/iojUFYcJeYmYoDFucbEaIEDEO3KRQMxvTfxTDd
+	04ztREJdMznl4oGzrTNU0GvRnZCcXn7b6p9RcvRIutWrnQ67j6vgh2oB7bNj/Ac7osZLksEICtC
+	3BKb/xMWDiLzT51tSHrpiYUaNX/7TByVwFwnXNhT9Cc3gx076oTsYhgaEPDKn7DmR4J6V5rTP+l
+	CtAfDpTYyxuB4LEL2f4JIYnG7PFpyBgOxoDgSyZhd/8rpyZwyRT2fBFhm69wgduaTfoXOpj9f7E
+	7sReQibsD/JSoeu/77jqLiraCbMZuqhFroZfovDt6k9lzk+JzQLqiZrwPOgyG5exjdAJRW6Tcw5
+	KjohPQTdwX9XhhiBvtPvoZH/YPySC4yACSG1iIY8MAzjg3G/9j1w=
+X-Received: by 2002:a05:690c:6f04:b0:845:ddf4:a399 with SMTP id 00721157ae682-8573eb29e82mr76831767b3.11.1787842944167;
+        Thu, 27 Aug 2026 08:02:24 -0700 (PDT)
+X-Received: by 2002:a05:690c:6f04:b0:845:ddf4:a399 with SMTP id 00721157ae682-8573eb29e82mr76828737b3.11.1787842942569;
+        Thu, 27 Aug 2026 08:02:22 -0700 (PDT)
+Received: from ?IPV6:2603:6081:6e06:8bdb:3863:7a4e:feca:4412? ([2603:6081:6e06:8bdb:3863:7a4e:feca:4412])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-85b5bc331c5sm11402857b3.3.2026.08.27.08.02.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 27 Aug 2026 08:02:21 -0700 (PDT)
+Message-ID: <bd7734b4-b68e-4fa5-b6bf-433332c5c9c5@redhat.com>
+Date: Thu, 27 Aug 2026 11:02:20 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260826162101.1314941-2-kirill@shutemov.name>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] leds: gpio: Clear error pointers for skipped LEDs
+To: Lee Jones <lee@kernel.org>
+Cc: Pavel Machek <pavel@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Jacek Anaszewski <jacek.anaszewski@gmail.com>, linux-leds@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260710150841.19669-1-sdunnaga@redhat.com>
+ <20260724180412.43150-1-sdunnaga@redhat.com>
+ <20260813154559.2407-1-sdunnaga@redhat.com>
+ <20260827143631.GD2943942@google.com>
+Content-Language: en-US
+From: Steve Dunnagan <sdunnaga@redhat.com>
+In-Reply-To: <20260827143631.GD2943942@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Aug 26, 2026 at 05:20:57PM +0100, Kiryl Shutsemau wrote:
-> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-> 
-> deferred_split_isolate() probes each queued folio with folio_try_get().
-> folio_try_get() failure is treated as a lost race with folio_put(): clear
-> PG_partially_mapped, correct MTHP_STAT_NR_ANON_PARTIALLY_MAPPED, take
-> the folio off the queue.
-> 
-> The folio_put() race is the most common case for !folio_try_get(), but
-> it is not the only option. Another scenario is folio_ref_freeze().
-> 
-> A zero refcount in such cases does not mean the folio is going away.  It
-> means "don't touch me" and current deferred_split_isolate() doesn't
-> respect it. It can lead to unqueueing folios from the deferred list for
-> no reason:
-> 
->     CPU 0                            CPU 1
->     ---------------------------      ------------------------------
->     freeze a mapped folio            deferred_split_scan()
->       folio_ref_freeze()               folio_try_get() fails
->                                        folio_clear_partially_mapped()
->                                        NR_ANON_PARTIALLY_MAPPED--
->                                        folio off the queue
->     give up, put it back
->       folio_ref_unfreeze()
-> 
-> The folio is still partially mapped, but it is no longer a split candidate.
-> Nothing queues it again until part of it is unmapped once more.
-> 
-> Skip the folio instead: whoever freezes the folio, owns it and owner is
-> responsible for its fate. It also covers the folio_put() case:
-> __folio_put() unqueues the folio via folio_unqueue_deferred_split().
-> 
-> Reported-by: Lance Yang <lance.yang@linux.dev>
-> Link: https://lore.kernel.org/all/20260824131224.73344-1-lance.yang@linux.dev/
-> Assisted-by: Claude-Code:claude-opus-5
-> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Sorry for the noise, I missed the applied message.
 
-Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
+Thanks for applying it.
+
+Steve
+
+On 8/27/26 10:36 AM, Lee Jones wrote:
+> On Thu, 13 Aug 2026, Steve Dunnagan wrote:
+>
+>> Hi Lee, Pavel,
+>>
+>> Just checking whether anything else is needed for this v2.
+>>
+>> Linus Walleij replied with:
+>>
+>>    Reviewed-by: Linus Walleij <linusw@kernel.org>
+> I'm not sure what you're asking:
+>
+> https://lore.kernel.org/r/178602432127.2934315.922699465700010447.b4-ty@b4
+>
+
