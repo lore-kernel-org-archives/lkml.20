@@ -1,216 +1,338 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F01E3CB55A
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:13:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DEEE3CC300
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:13:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787818407; cv=none; b=RT6eKgdVU00ceyuk+fHrTcLFVVlcmbfzhyIM4a1ReRDWxteIut+dM3NZm2d0HnV/qZWs6Xsmd04rSGrW9FF4QEzdjcvTCjTJMxd/YKyHGvP0H0bBrd/5Ch7xzXMlNoKt3VLj/sICvdY9nxNIRGwiWz1mV5Dicsz6nYEnb1+9hRk=
+	t=1787818430; cv=none; b=cWF8jAbgiAydQs8mTgtDWQutNeSUgFp+cIWNMbYncKCEXcl+AZ9w2BJ2kBWanFdhRZL1plJsWcLGmbiWPOJlLPNstf8tJJXRw1gQpLs1pDmYLo/gtV++pPoEzV+j9ylx5E7X+SxcE+2A05WuniMRtOeHHXFKQGPayhi2nM10QsM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787818407; c=relaxed/simple;
-	bh=t8GjYgE6EMM19F6RxsbIprvmjnmTi3x/F720AMusbb0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Wq5aop3Lo0ELBNLa8DE7SDvvYKh31ujBu5NduElDs3Vlvm7ourwUvnnKJh0MFi6+uUv4rqBMNBCOKldQedr0yudA4BVOC0NfBgI5ttVEUFUTKrWH8SkssEl/QmZnoGrY+m1ujrIwnAmkd7jdAGS6r+eMYPyYGpFx/+IKpB5CVWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=T4TXXrG5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TPyJXvUJ; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1787818430; c=relaxed/simple;
+	bh=EcGvZsbnoCJNIDMssVScuqlTcYDHHVb5XgWdPanN+f8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DsZ0Y/GXD30MI/6vz3Vf8dyHae4X7wcL3ol8N4Y9KnuiQ4CnfcMCPBdg8xNB0LkShJRaMeACm7t46os4+XfQ+/FLgjVaGZIYK4qwaxTEvU/XH2ycFlX8YQNIKNVU+E6txS3TBTdka8vlrmgLnoOu0LknLFnVxMLt0S16ft4FdL8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YYph8g5C; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=g8z+2Q9/; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="T4TXXrG5";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TPyJXvUJ"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67R6R6PY2726540
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:13:22 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YYph8g5C";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="g8z+2Q9/"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67R6RDag3257928
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:13:40 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=id40phT/RVjPBVcSNSIiEA
-	JtrrPWIXKWs4eDewBUW7Y=; b=T4TXXrG5mznvvHMuzsQsomR5dUgk9AJf6OyNfB
-	lyAXpheWtmstCGBZNAxbj2C+VGa6lfxBrXGd9/l3UcELF6l68HODNctYtv3byaWy
-	+jWc5pZRZhMUDpElISKE4V2kX3AG7R+ZbulbzftrfIQuh85PA0CgZTkDFKqkEqkw
-	zZnLQR8WQacKpzTHzLS6HcO8WBS3qAlDArYMTDyn95VuXdnxCwAqk5i8M1rcmSH9
-	b5vsEOX/v/WFa4Iiupx/aEDu1h5pz+1GdnEP107XJs0DDj1GWSl5Bj4RqYgGB46n
-	UuTxNr2YZR1w3F6aSFLByd7I0VSU+7uT34o95OFghSV/YTkw==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ga6ett7v1-1
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=7knKTinTUheTHdWdoJsyJUaJ
+	WeLVQNabqsJFNmIigFg=; b=YYph8g5CqAiSfeGRCz1flJeDtistSfU9QRPTF5dy
+	7qIs6fqQVfW92VQgmfY1YAz9X7qLq6Zy9Bir7mIODQiPL5TS/LvuT+013XARXbJr
+	P9+x0LkipEufx6hq7GwHY9ygSm7LRULUbCqzafEt2nBupVBmTDxvTno3OiMd2QNZ
+	VrqqmgEOo6iIUMrOnaI/1lwr1U6ZigsYOJ/jvRHn2astdYx6c0WOydR+E0xs723S
+	uTNQcyURSNmkaS/coCs+qiy76R7Qu9zaOc+4zwoxeYVjJ0mJXsBSS6JqHnlUV5qN
+	erveudL4MLrtPrim5GnBylqhJtbFjo//kuWQRWD6sfWj6A==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ga4ecaqt2-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:13:21 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38f57e31b6eso2260327a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 01:13:21 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:13:40 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51c0e702df8so6256261cf.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 01:13:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787818401; x=1788423201; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=id40phT/RVjPBVcSNSIiEAJtrrPWIXKWs4eDewBUW7Y=;
-        b=TPyJXvUJFSuqZLYjtle5Avi+aaaB9QyiYnwnUaXAQmUvSis+ad69O9HRhA+XGeXrzS
-         z9zZ38rlfaHAiQEPt0PzBLSanRMJwzy+3srd3ZuE6FKKEhwbDTEa/bDiVIHz8zhEiH8J
-         u0pi+PqLd7rGaj60+Tnsd+Cgjb+C9dJZOFpnGB6zrzzF2C3rsf4z+8VHz055qzqWbZJz
-         Y9rHUvZSe6/y0/hVsq9lkwQluTh5MpbmC1WU+AWA7iG25AbemovU0Y2ZSi2NBOEOTUva
-         yClEdddDEUhhekS5dFrX2h8vMaT4WVLPD+JitjY47ldeDsXxsPI0Hif4++2vbL9XN7kL
-         KCnQ==
+        d=oss.qualcomm.com; s=google; t=1787818419; x=1788423219; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7knKTinTUheTHdWdoJsyJUaJWeLVQNabqsJFNmIigFg=;
+        b=g8z+2Q9/A0N/rzPfu283zutm/k043xNVCHIP7N4met6uBbPNYUxaO4/I3MratjP9yH
+         XTqKfp43qCJ96Mx9poP6QfbnPIwmDFLA6iYVjDIMvZPLUANhUhSMtGNy3Vk2+z+Dih8o
+         Ch342J8v+du0ci8cdPSoOvGCBnDHNw24pWMem2nsAbGScxduJUgnFcCdKchYnKrHdmfH
+         znNVzDOyhVjrTanzpZOZm/KRu2uW7Hu1cvdSYu2SFo15vtrK/smaze3P2Itw10wZZ0hS
+         4BInSYdPUFg/5phaqY5RfWa40e5bl73eDnEdZwy/ZvHkuOJTJDzY0T8pKxKp5vmKTDP7
+         9tfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787818401; x=1788423201;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=id40phT/RVjPBVcSNSIiEAJtrrPWIXKWs4eDewBUW7Y=;
-        b=RJRLLXygllGXUumI6dYOjZDauXSebpcOjnKyEp2lvL6bopZ4HilKmK2LlfP+Q5EizW
-         v99dD0Itrfhjc2Y4QwzMhrtL6cW8EMtHjvqdNOlrf1wk7IfOkDBGukByI3UDlHinxTql
-         C0T2FgLhi45U3WPlYbm2YeSU3YMo88k04LzSo8WmoamrL0+tgI83/0LhqnqJqYH8uihC
-         Ipgm5sDXIZ1/quP4D6nFfXTxda5gbg+RaJYWOGdQsuowimumYVnJW/DP6fe6mxWbnUIE
-         g6iX1Ih8QLaF6yLvPymo70XPtdqJOEQpcNjr/BYmC+xam+2UoyobOavIy0LITJG21Y8W
-         J21A==
-X-Forwarded-Encrypted: i=1; AHgh+RrG2NAqLQj3F9AL+07VSr/fAIFVWgNEuaHztaqBEpw4VntT6/EpG5mghR0mF6bT/SroUKB35zCoqMviY/I=@vger.kernel.org
-X-Gm-Message-State: AFuF++kO44DTp1ovxk+zlw3YrV/qPNhcm+MHH2XFach/FR6wY2z4RUDb
-	iLR4fInN7bjSGaKnsFguIsbjNim1GJRxj8YCg7iwHwyUyGC658bXaZuOjs7ECPkf7Z+Wfu+v0L/
-	6IHDc6ye8K2imBOnHGzg7g+O8Jwe/MYs07qwGTxl32sk6Qz6/NLMAfnPL3XrvaTQmOE4=
-X-Gm-Gg: AR+sD106LADUvss1iS2GbRMVfNpelRK/5sLKA4OC75jQmtx2xQtrobbe9Yuh5F0zXvp
-	n5uxPMVO1DVX/rDY8BQdOtvnZoU73WCL5vmzceYd4rj0qQUcAxRWrIs4xRSTbfjVW7UYoChTvYz
-	fhaR6GcMfXMzqfqr3Ril69Nug8Cmgjd6Ccvjqa5LACokf2wxP9ic7/seJuo2ghnMw+8U8nIYo5Q
-	UNzZ5R4es0qEu9POwnJ/MHQkTfPgHV6wYysGQjEQblSjJhFyyEj7eU0AevEhcAgsqe8RR0IxTVS
-	0f6xQZ4RZyt4MYO83iNCxiZHV7CMt+qDE3we/AS22Vtt+6oaVcSM6qRUPiURW0O1f7LFIYy+x0e
-	9D1CxTRPx5628SDE6ZM5GCJGJRY8434ZZyWpEpW0myQHIRanG+wgxW1G+/E+BGdxj
-X-Received: by 2002:a17:90b:2b4c:b0:38e:97f0:aa4b with SMTP id 98e67ed59e1d1-3966d4592fdmr28943900a91.13.1787818401070;
-        Thu, 27 Aug 2026 01:13:21 -0700 (PDT)
-X-Received: by 2002:a17:90b:2b4c:b0:38e:97f0:aa4b with SMTP id 98e67ed59e1d1-3966d4592fdmr28943788a91.13.1787818400563;
-        Thu, 27 Aug 2026 01:13:20 -0700 (PDT)
-Received: from hu-ggarmidi-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a8eedd13sm14214847c88.1.2026.08.27.01.13.19
+        d=1e100.net; s=20251104; t=1787818419; x=1788423219;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7knKTinTUheTHdWdoJsyJUaJWeLVQNabqsJFNmIigFg=;
+        b=LLZeVwlbXLmJZLM4fw+MPHiYz51zQWkpt4s3Hnx/+T4bnAy1oUa190fKNYcDRMzZFB
+         oXmkgdvynbWD4T7vH8vDGwGkprGeHGxgdbE9kv+tlEha0JXzS1w6HD7Ia2ZTR7AhZzhU
+         e0d50RAx/UzOYpgOkXD8Gu69afs33bJuBSwXO9Kl5iWJsAM5VRrLeY3xiUkXidaiXn9L
+         Amff+6EElhnmiKnx+gbXzSgOb3gVlnhU63KK7PGm3M/fqzeB0JjeZ43W+mtUWv+IWUFy
+         1uTbM/tfoS1htldkWL43yqa5eqCsXeYotFYHaIlU7CNYuKJrPNvJboHSF/Mr/tdTubjm
+         s4fA==
+X-Forwarded-Encrypted: i=1; AHgh+RrsbjqIBRQoUH/DR2aW5FWDT3LDjTe5/kleqYclckP+YKDbhLoyh4GB6bi1aqRlgdS4cA39il97AEAMZtQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++myq2BKUtDNwwFBMYREktCGbr3GmGzIQIXkUSIzPODcWLzBky6Z
+	vUYTXojwn8AnBNqKu0+snYfXdRx+v/oZ6kIdDYpAyIxBmrnWD2l+lRhMGHKjV8DlJ7HAbfrhT6i
+	oNwCGrCGLaGHdKarAosRZBKhYQn8K8WR47Mk5dPhgx6quqjBeK2qDvDqo6oNDuAErHzs=
+X-Gm-Gg: AR+sD12dJ6+HoVxguBMyoVObc668YJjMobD/5wgPpOjf7dciAbc5OyAZNkSk9EQ4cni
+	Uxrl+qIRaSGJGSxxs5bJUbQaZE6XlwBFIB0dKDrieCkw3W9BsAbnzS3P3lJ/EwQaGIrQTlk9T/b
+	DCg1SrYcd4L+YGyqXVkohXfybkfm5vpHDMP1vBeSjaH/uVzk/R37dkiKaYKmH3qiB51iu/FRp9X
+	PTFgKuNMMOmPz6szuhS9WuDsBo/cJ6gnju0LHo6ylJnevs88jhWZnsjtMuzwE721Eek6O0XHCs5
+	jbfM3Z43gxK5CcpcfL8Ei7ZInzyHc+6dPDaqePj7182OJmn8yqg5KLt418zUoJALx/mQpq1aeXc
+	7glUP4e0fYvwKsRWwRSGBEyHOENeeXX6P5pM=
+X-Received: by 2002:a05:622a:608a:b0:52d:99e8:46b7 with SMTP id d75a77b69052e-52e42323362mr147992101cf.22.1787818419434;
+        Thu, 27 Aug 2026 01:13:39 -0700 (PDT)
+X-Received: by 2002:a05:622a:608a:b0:52d:99e8:46b7 with SMTP id d75a77b69052e-52e42323362mr147991621cf.22.1787818418960;
+        Thu, 27 Aug 2026 01:13:38 -0700 (PDT)
+Received: from localhost (ip-86-49-251-7.bb.vodafone.cz. [86.49.251.7])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e27ab6d0sm7031965f8f.13.2026.08.27.01.13.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 01:13:20 -0700 (PDT)
-From: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
-Date: Thu, 27 Aug 2026 01:13:17 -0700
-Subject: [PATCH] soc: qcom: smem: fix 32-bit overflow in DDR frequency
- calculation
+        Thu, 27 Aug 2026 01:13:38 -0700 (PDT)
+Date: Thu, 27 Aug 2026 10:13:37 +0200
+From: Andrew Jones <andrew.jones@oss.qualcomm.com>
+To: iommu@lists.linux.dev, linux-kernel@vger.kernel.org
+Cc: jgg@ziepe.ca, kevin.tian@intel.com, robin.murphy@arm.com, joro@8bytes.org,
+        will@kernel.org
+Subject: Re: [RFC PATCH v1 0/8] iommu: Add contiguous MSI mapping support
+Message-ID: <wvwuvvhmhdoa5kbx3gqae7lrvrseubeg2hepc3xswwjad672xb@5n67tcvbkavm>
+References: <20260826145302.449904-1-andrew.jones@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260827-glymur_dramc-v1-1-eba358d504b8@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAJzxj2oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDCyMz3fScytzSoviUosTcZF1T0zSzRANTA4vEVAMloJaCotS0zAqwcdG
- xEH5xaVJWanIJyAyl2loAFiYxknAAAAA=
-X-Change-ID: 20260826-glymur_dramc-55f6a0508ae0
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Pankaj Patil <pankaj.patil@oss.qualcomm.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-        Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787818399; l=3071;
- i=gopikrishna.garmidi@oss.qualcomm.com; s=20260102;
- h=from:subject:message-id; bh=t8GjYgE6EMM19F6RxsbIprvmjnmTi3x/F720AMusbb0=;
- b=B0ErN2NGLU/2NSWGmZznEQYgJHMExgLbXLVYViJMztoFeovGlPkME0b0eHA3zk1LxFZKBmYJF
- rb8Y8wZvZoCBrsBElFQ6S68Vu8Hsw+UYy5O1szNAC29U6OjRJIENlRY
-X-Developer-Key: i=gopikrishna.garmidi@oss.qualcomm.com; a=ed25519;
- pk=TkSjNEhrfsj90i3wkABTZtAjLNr2cfYsujaTvyOIDsE=
-X-Authority-Analysis: v=2.4 cv=NrThtcdJ c=1 sm=1 tr=0 ts=6a8ff1a1 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=Y8tzQJoX9WwRSfPLOGYA:9 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-ORIG-GUID: WAMn2XR7r9w-1XkB4xM4i-_HSJrdGPNm
-X-Proofpoint-GUID: WAMn2XR7r9w-1XkB4xM4i-_HSJrdGPNm
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDA2NyBTYWx0ZWRfX4KwBqatlOkwb
- /Dgy72+xIF8gQKU3wuXyZUQVcEcyPeR8TmiA+UJge4oBUUvjrU0EqhS2qxJ6IENh5w0PSyT6t6L
- GlXYxKqX3e0PIkCf9OvCJazfIxXshrkbUIiuw4IMfBVGANyCd9mQarIcDJhap8XNjtwOvZOIz5z
- Ou/LNZCMFukWR7byf4RwTBk++G6JEPYHIwfcsfnLEYEXYTmSTzSYc7Pp4lhg15OwqojGI98aEk3
- FYVBIpxrqr/m/QWTmiq/NbGR7lYdv7gI4pcoZxZ5WKjFB1PFrSQiLLt9Vuta+cJxj0ngoSj33h3
- CD/TmgpWOM1HXIQCJXe0MSAKihSDFDG4oeD0vLBAH2n/LTFcfkfPRlHC3A46pA0Nqc1Oy3RFi1c
- NaC76ZKFduynjKME4ODb6L+Y+B3VVDZSMfeTtwJ+ntqVQODug318hI3liiyLZ5Q0DP+yxH5yVXp
- 4SP1lv1HeU3Miqlsbog==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDA2NyBTYWx0ZWRfX1BYzpWCSK139
- XPVtQ9OMPAC6u42344lxpJm84N6meX8Du7HRJVzFGH46cz79Ug4y+M7stteZPx/cK4di88FVz1e
- WftA0AfaMbBgKnWv3m9kitqopcdyWzg=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260826145302.449904-1-andrew.jones@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=KIBqylFo c=1 sm=1 tr=0 ts=6a8ff1b4 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=on9AXyaqQ0RhfYpiXjjEXA==:17
+ a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=2znifY0NdIQrjKshjbUA:9 a=CjuIK1q_8ugA:10 a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-ORIG-GUID: RJNJzBPLKfjy0Qb58TJfjI2ioDVCmPA_
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDA2NyBTYWx0ZWRfX+Z8ER33SO+Dd
+ MrwgbTMMzTuWOZom/vaQ5Cw27TKaNibTY84IKX41KlPsGZ2XtsYRAF8HnQsOVKawOj/QRok0HXI
+ VhQu2Y//3AX0pso6d/inUPc2+j8NXRB5dBSkMblaPWuIk8XQMJ7wlRJponrOwBmR5ELMfKN1wbg
+ B3C2UksuuCFmSAttB4qFWTQnmidvXQdKe4V3nNgHj4Qw6vKP96PmXiYehYhtJhRFRTghoPpTvV1
+ XQ0i+y9S3EWDxBKqM39WdcmPvt5ofReWrPD62Cmz4ob9gZRH5NmaB2/NHVNqDfzKNesJ215FV4D
+ CMpVfaccsobYtv7u7gFQTXDnLVVUbg4udCdR0n0TO74B8hh9H2ZiuYOGPmQmdEa//C7ERv3vu4Z
+ lL/hwwEzyFGLhnK+GAnseweqcn9AagohbJbyNqp7cPaAIRlsgGI1T8bci9qZzi+1o3z3pacPSe1
+ ca9IC0UV+Z6gdYJbxoA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDA2NyBTYWx0ZWRfX5tyI1fzZqlIB
+ 5Yh+/FBYHYxpHnYfSTsPhuIUIFSY2Ao01/b9z7nbQk3f4a6ujK48cHJB4I9lmpOK2vUlcM0riCu
+ JI94Uyo3mVtrNCaAyIIG8omnQ+m+l0Q=
+X-Proofpoint-GUID: RJNJzBPLKfjy0Qb58TJfjI2ioDVCmPA_
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-27_03,2026-08-26_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 adultscore=0 suspectscore=0 phishscore=0
- priorityscore=1501 lowpriorityscore=0 malwarescore=0 clxscore=1015
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608270067
+ malwarescore=0 clxscore=1015 impostorscore=0 spamscore=0 phishscore=0
+ adultscore=0 suspectscore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608270067
 
-The DDR frequency in SMEM is reported in kHz and converted to Hz by
-multiplying it by 1000. Since the SMEM frequency value is a u32, using
-an unsuffixed integer constant causes the multiplication to be performed
-with 32-bit arithmetic.
+On Wed, Aug 26, 2026 at 04:52:54PM +0200, Andrew Jones wrote:
+> The RISC-V IOMMU MSI remapping series [1] needs to prepare mappings for
+> every possible IMSIC target before MSI composition may occur in atomic
+> context. The previous approach mapped each physical address separately
+> and kept a driver-owned PA-to-IOVA lookup table.
+> 
+> Jason Gunthorpe suggested passing the complete list of physical
+> addresses through the existing MSI preparation flow. This series
+> implements that idea as iommu_dma_prepare_msi_list(), which maps the
+> ordered list into one contiguous IOVA range and records its base and
+> granule shift in the MSI descriptor. The interrupt-remapping driver can
+> then derive the IOVA for each list entry without maintaining a separate
+> IOVA array.
+> 
+> Both DMA-IOMMU and iommufd backends are extended to support these list
+> mappings. The existing per-page mapping objects are retained, while
+> the first object identifies the complete range so identical lists can
+> reuse an existing mapping. iommufd allocates and installs a complete
+> range atomically and grows its software-MSI bitmaps beyond their
+> previous 64-entry limit.
+> 
+> This is being posted separately from the RISC-V MSI remapping work for
+> early RFC review of the common DMA-IOMMU and iommufd interfaces. The
+> RISC-V adaptation to iommu_dma_prepare_msi_list() is still in progress
+> and will be posted later.
+>
 
-This overflows for DDR frequencies above 4294967 kHz, resulting in an
-incorrect frequency being reported through the SMEM DRAM interface.
+Applying this to riscv makes the MSI remapping surprisingly (to me) simple
+and unintrusive (IMHO) to the IMSIC driver. Only the changes below were
+needed.
 
-Use an unsigned long constant for the multiplication so the calculation
-is performed with 64-bit arithmetic on the supported Qualcomm platforms.
-Apply the fix consistently to the v3, v3.1, v4, v5, and v7 SMEM parsers.
+I'll post this series along with the imsic and kconfig changes as v5 of
+the riscv host msi remapping series without the RFC tag.
 
-Fixes: 1d234eeafc56 ("soc: qcom: smem: Expose DDR data from SMEM")
-Signed-off-by: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
----
- drivers/soc/qcom/smem_dramc.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+Thanks,
+drew
 
-diff --git a/drivers/soc/qcom/smem_dramc.c b/drivers/soc/qcom/smem_dramc.c
-index 63ebe7f6db59..9612230a03be 100644
---- a/drivers/soc/qcom/smem_dramc.c
-+++ b/drivers/soc/qcom/smem_dramc.c
-@@ -219,7 +219,7 @@ static void smem_dram_parse_v3_data(struct smem_dram *dram, void *data)
+
+diff --git a/drivers/irqchip/Kconfig b/drivers/irqchip/Kconfig
+index 42f2278a702d..c7cda52b21eb 100644
+--- a/drivers/irqchip/Kconfig
++++ b/drivers/irqchip/Kconfig
+@@ -656,6 +656,7 @@ config RISCV_IMSIC
+ 	select IRQ_DOMAIN_HIERARCHY
+ 	select GENERIC_IRQ_MATRIX_ALLOCATOR
+ 	select GENERIC_MSI_IRQ
++	select IRQ_MSI_IOMMU
+ 	select IRQ_MSI_LIB
  
- 		if (freq_entry->freq_khz && freq_entry->enabled) {
- 			u32 freq_khz = le32_to_cpu(freq_entry->freq_khz);
--			dram->frequencies[dram->num_frequencies++] = 1000 * freq_khz;
-+			dram->frequencies[dram->num_frequencies++] = 1000UL * freq_khz;
- 		}
- 	}
+ config RISCV_RPMI_SYSMSI
+diff --git a/drivers/irqchip/irq-riscv-imsic-platform.c b/drivers/irqchip/irq-riscv-imsic-platform.c
+index 643c8e459611..72f595c0d320 100644
+--- a/drivers/irqchip/irq-riscv-imsic-platform.c
++++ b/drivers/irqchip/irq-riscv-imsic-platform.c
+@@ -10,6 +10,7 @@
+ #include <linux/cpu.h>
+ #include <linux/interrupt.h>
+ #include <linux/io.h>
++#include <linux/iommu.h>
+ #include <linux/irq.h>
+ #include <linux/irqchip.h>
+ #include <linux/irqdomain.h>
+@@ -69,8 +70,10 @@ static void imsic_irq_ack(struct irq_data *d)
+ 	irq_move_irq(d);
  }
-@@ -232,7 +232,7 @@ static void smem_dram_parse_v3_14freqs_data(struct smem_dram *dram, void *data)
- 		struct ddr_freq_table *freq_entry = &details->ddr_freq_tbl.ddr_freq[i];
  
- 		if (freq_entry->freq_khz && freq_entry->enabled)
--			dram->frequencies[dram->num_frequencies++] = 1000 * freq_entry->freq_khz;
-+			dram->frequencies[dram->num_frequencies++] = 1000UL * freq_entry->freq_khz;
- 	}
+-static void imsic_irq_compose_vector_msg(struct imsic_vector *vec, struct msi_msg *msg)
++static void imsic_irq_compose_vector_msg(struct irq_data *d, struct imsic_vector *vec,
++					 struct msi_msg *msg)
+ {
++	struct msi_desc *desc = irq_data_get_msi_desc(d);
+ 	phys_addr_t msi_addr;
+ 
+ 	if (WARN_ON(!vec))
+@@ -79,6 +82,14 @@ static void imsic_irq_compose_vector_msg(struct imsic_vector *vec, struct msi_ms
+ 	if (WARN_ON(!imsic_cpu_page_phys(vec->cpu, 0, &msi_addr)))
+ 		return;
+ 
++	if (desc->iommu_msi_shift) {
++		const struct imsic_local_config *local;
++
++		local = per_cpu_ptr(imsic->global.local, vec->cpu);
++		msi_addr = (desc->iommu_msi_iova << desc->iommu_msi_shift) +
++			   local->smode_msi_pa_index * IMSIC_MMIO_PAGE_SZ;
++	}
++
+ 	msg->address_hi = upper_32_bits(msi_addr);
+ 	msg->address_lo = lower_32_bits(msi_addr);
+ 	msg->data = vec->local_id;
+@@ -86,7 +97,7 @@ static void imsic_irq_compose_vector_msg(struct imsic_vector *vec, struct msi_ms
+ 
+ static void imsic_irq_compose_msg(struct irq_data *d, struct msi_msg *msg)
+ {
+-	imsic_irq_compose_vector_msg(irq_data_get_irq_chip_data(d), msg);
++	imsic_irq_compose_vector_msg(d, irq_data_get_irq_chip_data(d), msg);
  }
  
-@@ -248,7 +248,7 @@ static void smem_dram_parse_v4_data(struct smem_dram *dram, void *data)
+ #ifdef CONFIG_SMP
+@@ -94,7 +105,7 @@ static void imsic_msi_update_msg(struct irq_data *d, struct imsic_vector *vec)
+ {
+ 	struct msi_msg msg = { };
  
- 		if (freq_entry->freq_khz && freq_entry->enabled) {
- 			u32 freq_khz = le32_to_cpu(freq_entry->freq_khz);
--			dram->frequencies[dram->num_frequencies++] = 1000 * freq_khz;
-+			dram->frequencies[dram->num_frequencies++] = 1000UL * freq_khz;
- 		}
- 	}
+-	imsic_irq_compose_vector_msg(vec, &msg);
++	imsic_irq_compose_vector_msg(d, vec, &msg);
+ 	irq_data_get_irq_chip(d)->irq_write_msi_msg(d, &msg);
  }
-@@ -265,7 +265,7 @@ static void smem_dram_parse_v5_data(struct smem_dram *dram, void *data)
  
- 		if (freq_entry->freq_khz && freq_entry->enabled) {
- 			u32 freq_khz = le32_to_cpu(freq_entry->freq_khz);
--			dram->frequencies[dram->num_frequencies++] = 1000 * freq_khz;
-+			dram->frequencies[dram->num_frequencies++] = 1000UL * freq_khz;
- 		}
- 	}
- }
-@@ -282,7 +282,7 @@ static void smem_dram_parse_v7_data(struct smem_dram *dram, void *data)
+@@ -225,7 +236,9 @@ static struct irq_chip imsic_irq_base_chip = {
+ static int imsic_irq_domain_alloc(struct irq_domain *domain, unsigned int virq,
+ 				  unsigned int nr_irqs, void *args)
+ {
++	msi_alloc_info_t *info = args;
+ 	struct imsic_vector *vec;
++	int ret;
  
- 		if (freq_entry->freq_khz && freq_entry->enabled) {
- 			u32 freq_khz = le32_to_cpu(freq_entry->freq_khz);
--			dram->frequencies[dram->num_frequencies++] = 1000 * freq_khz;
-+			dram->frequencies[dram->num_frequencies++] = 1000UL * freq_khz;
- 		}
- 	}
+ 	/* Multi-MSI is not supported yet. */
+ 	if (nr_irqs > 1)
+@@ -235,6 +248,13 @@ static int imsic_irq_domain_alloc(struct irq_domain *domain, unsigned int virq,
+ 	if (!vec)
+ 		return -ENOSPC;
+ 
++	ret = iommu_dma_prepare_msi_list(info->desc, imsic->smode_msi_pa,
++					 imsic->nr_smode_msi_pa, IMSIC_MMIO_PAGE_SZ);
++	if (ret) {
++		imsic_vector_free(vec);
++		return ret;
++	}
++
+ 	irq_domain_set_info(domain, virq, virq, &imsic_irq_base_chip, vec,
+ 			    handle_edge_irq, NULL, NULL);
+ 	irq_set_noprobe(virq);
+diff --git a/drivers/irqchip/irq-riscv-imsic-state.c b/drivers/irqchip/irq-riscv-imsic-state.c
+index b8d1bbbf42f7..082522081a2d 100644
+--- a/drivers/irqchip/irq-riscv-imsic-state.c
++++ b/drivers/irqchip/irq-riscv-imsic-state.c
+@@ -687,6 +687,32 @@ static int __init imsic_get_mmio_resource(struct fwnode_handle *fwnode,
+ 	return of_address_to_resource(to_of_node(fwnode), index, res);
  }
-
----
-base-commit: f82a5da2f04960df9fb57489992d03dd5e64ec6f
-change-id: 20260826-glymur_dramc-55f6a0508ae0
-
-Best regards,
---  
-Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
-
+ 
++static int __init imsic_init_smode_msi_pa(void)
++{
++	struct imsic_global_config *global = &imsic->global;
++	phys_addr_t *smode_msi_pa;
++	unsigned int cpu, index = 0;
++
++	smode_msi_pa = kcalloc(num_possible_cpus(), sizeof(*smode_msi_pa), GFP_KERNEL);
++	if (!smode_msi_pa)
++		return -ENOMEM;
++
++	for_each_possible_cpu(cpu) {
++		struct imsic_local_config *local = per_cpu_ptr(global->local, cpu);
++
++		if (!local->msi_pa)
++			continue;
++
++		local->smode_msi_pa_index = index;
++		smode_msi_pa[index] = local->msi_pa;
++		index++;
++	}
++
++	imsic->smode_msi_pa = smode_msi_pa;
++	imsic->nr_smode_msi_pa = index;
++	return 0;
++}
++
+ static int __init imsic_parse_fwnode(struct fwnode_handle *fwnode,
+ 				     struct imsic_global_config *global,
+ 				     u32 *nr_parent_irqs,
+@@ -937,6 +963,12 @@ int __init imsic_setup_state(struct fwnode_handle *fwnode, void *opaque)
+ 		goto out_local_cleanup;
+ 	}
+ 
++	rc = imsic_init_smode_msi_pa();
++	if (rc) {
++		pr_err("%pfwP: failed to initialize S-mode MSI addresses\n", fwnode);
++		goto out_local_cleanup;
++	}
++
+ 	/* Initialize matrix allocator */
+ 	rc = imsic_matrix_init();
+ 	if (rc) {
+@@ -962,6 +994,7 @@ int __init imsic_setup_state(struct fwnode_handle *fwnode, void *opaque)
+ out_free_local:
+ 	free_percpu(imsic->global.local);
+ out_free_priv:
++	kfree(imsic->smode_msi_pa);
+ 	kfree(imsic);
+ 	imsic = NULL;
+ 	return rc;
+diff --git a/drivers/irqchip/irq-riscv-imsic-state.h b/drivers/irqchip/irq-riscv-imsic-state.h
+index c42ee180b305..7bc519340b12 100644
+--- a/drivers/irqchip/irq-riscv-imsic-state.h
++++ b/drivers/irqchip/irq-riscv-imsic-state.h
+@@ -49,6 +49,8 @@ struct imsic_priv {
+ 
+ 	/* Global configuration common for all HARTs */
+ 	struct imsic_global_config		global;
++	phys_addr_t				*smode_msi_pa;
++	unsigned int				nr_smode_msi_pa;
+ 
+ 	/* Per-CPU state */
+ 	struct imsic_local_priv __percpu	*lpriv;
+diff --git a/include/linux/irqchip/riscv-imsic.h b/include/linux/irqchip/riscv-imsic.h
+index ce8fe1ead7a0..523022e0a144 100644
+--- a/include/linux/irqchip/riscv-imsic.h
++++ b/include/linux/irqchip/riscv-imsic.h
+@@ -40,6 +40,7 @@
+ struct imsic_local_config {
+ 	phys_addr_t				msi_pa;
+ 	void __iomem				*msi_va;
++	unsigned int				smode_msi_pa_index;
+ 
+ 	/* Number of guest interrupt files per-HART */
+ 	u32					nr_guest_files;
