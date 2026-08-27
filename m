@@ -1,84 +1,132 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C591332614
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:50:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EEC8347FC0
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:51:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787853031; cv=none; b=HOJZelKbrtAhgK71QTmDJDGHDSQctY2Sc42o6FHaEq+8krxyDPRBmCKZ2ZYle5ZIR3x7qiPDIh325zRG5uFKggJlCR30mOzozolCDFil1s3H/APng4gUikv7tqiWMOG+7Y2GmaHk/faidjB5WXl6WoLdZUS8o7atDxrZSBjrO1c=
+	t=1787853062; cv=none; b=L2VkIrlj1LBTYfx4kstW9a3scMw30qWYs4denyNh2yMWqu035R/49y6Wbv1nwjm4c295OCYrVz9qLHxKcXyWHR4VblJuGM99u/1pWptOQzxYBqzaTYSj+6gK6ZFhDNjm1phejua+NhhB+eyfk74zr7G3WS0sI/2YDx55wU+LKWQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787853031; c=relaxed/simple;
-	bh=JDSPgox7O4JApWFPJJWB+2XXaeIKA/wudHnaSYzTd5g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CgTaPNCtpRU0L4NCf4OOTxOR6KXlgmVqnQa6X8w8GkijwwsZkX5EzGAIzHqpSVKbKnqbA89ZrgbIU8OE366/HRqoUPuwsoBZvWMkIE4vUG8heqIG+VS8JviKyT2TbETjeLoph+E0bNE+lWi7gbhScftJKqO2yYGzQHobXpdv+Ec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fWvmVk25; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787853062; c=relaxed/simple;
+	bh=98xSLCeP/KtjNIE3URT2T3ktkLlRgaR2uDzIK7EVBC8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gJsowWhRMVLGqzuaWnXcclQltAJyQDPomYYE6A8kUGack5vUtcRErTVgq1JnRC/CK2hbYBkrxodPEdFxJt4vjFQsbnhRRR87ejEG/T9Hkscmyajv0MkJcMqgD3ddLseFD5G5af0TT/XzI8sOEtROXuhXbOVzGY6ot3GWrNa6W3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Iy4Qqmnw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fWvmVk25"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE8591F000E9;
-	Thu, 27 Aug 2026 17:50:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Iy4Qqmnw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E2741F00A3E
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:51:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787853030;
-	bh=7LyDiwZ/dL1+I6iznOnKyyWmM8BHa0i9q//GZQBdPIM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fWvmVk25vsFxN9BucJRSFoWwejL9SqfMeHC8Oec98TjRzyaTrrboulTp18D6s7ycy
-	 aC0eGeeU2PLt5/xIixbsS3sD0/c3+Kb+2ZaU2LTISaQI8gAQfSm1MvpboK5rYWfI9H
-	 6PSCj4k6dCl5xikrHD4ORtsB6uMnGgDIbFYDVpIVJBaOGwZmlx+FWhAVYug2v70zFk
-	 L7Ap9c3ZYUxouOXvnuL+OAiZCpWqQhuzCPvGp3XXVxEVkaZmHorJzn/vH7Gsdax2l0
-	 3tFZYqqYtX46EfMPk5MPImz67oTZs3qNqQL3aVsw0h+Jq8G23+9kAttqxGmyuyY/tW
-	 7RC39dvm46rWA==
-Date: Thu, 27 Aug 2026 18:50:25 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: syzbot <syzbot+5c417b73ac02e0e352c4@syzkaller.appspotmail.com>, 
-	jannh@google.com, liam@infradead.org, linux-kernel@vger.kernel.org, 
-	linux-mm@kvack.org, pfalcato@suse.de, syzkaller-bugs@googlegroups.com, 
-	vbabka@kernel.org
-Subject: Re: [syzbot] [mm?] WARNING in __split_vma
-Message-ID: <apB40XmmVSp5pwme@gremlin>
-References: <6a8ff666.27659fcc.2ceef7.000f.GAE@google.com>
- <20260827093322.f99541b28aad2a3c069ed155@linux-foundation.org>
+	s=k20260515; t=1787853061;
+	bh=AA9Eg0o6kfycCZiwUGvxKpK3Wz7lkTqnaLYtvXj6bv4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Iy4Qqmnwp1H9ZEqACqVv3bPqMPC0TfxCeWcUT+Z3KorgFGoHmiDaSPtsApnXaPF5i
+	 F+TcgDte0T215Pb4dfTYqMtJaY4QiIYEdzq4uZYdRmqtC8lqzQrEX6IP2OU4LKfOek
+	 +xalo5SpUjoRrIfrf00gXi8soQpQFw7+eSSFaa/GTI34zVpLH3GVfX/ap7IriblyLg
+	 5YgR2wHlbBY1KbOHZyAgH5Oj4L+TyUD0vr8Bhny8DUByDYt6Lpasds8x424JMKVjqW
+	 7Co24JReBCiP5ANVSb85Uw6oACV8bOTGSG7QH/X7y7BePBTL59usXOwaIwEcmL9TZV
+	 o77ah8Q7IfGXA==
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c247f6687dcso18872566b.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:51:00 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Ro9jG02K+vypZAUF9r+KT6XO9ziZD7Gj7xxrGEr06B7BL/nIkx6msGVMT1fEqayI6ZANZiG/liJNe3aTs4=@vger.kernel.org
+X-Gm-Message-State: AFuF++k6NY3Wn8PkpY26WER2ye3fxV9EVMFSThBGJxLEj7CaiBTSQnOi
+	lFjqsirwiRBm+mBDylSNP5xeIvBwVMFV4v+bJ+VgXAp2fgjZX9HVuUaUbAyYjilbQYG5ma4QinU
+	RScDz+sastsB6TuIlYA3tvtlmjUVqm8c=
+X-Received: by 2002:a05:6938:a084:10b0:c1c:64d4:5ba3 with SMTP id
+ a640c23a62f3a-c25571a8f9bmr24618066b.20.1787853059996; Thu, 27 Aug 2026
+ 10:50:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827093322.f99541b28aad2a3c069ed155@linux-foundation.org>
+References: <20260826233919.998904-1-seanjc@google.com> <20260826233919.998904-13-seanjc@google.com>
+ <CAO9r8zOuD+wU1Q80z077WHHpFBWvKomLk=TaXjH3gVnqj=mqFQ@mail.gmail.com>
+ <apBomFOn1ZqHEnAQ@google.com> <CAO9r8zP3O_80Lr=4eKL6v-OaM9etMXPsNzADizf6ztB6YBuLHA@mail.gmail.com>
+ <apBxMrqEkl_7khix@google.com> <CAO9r8zOLJs_fm9ixxCRV=uz5qwpOS67=oz5ATGtB=w2Yd2vtOw@mail.gmail.com>
+ <apB0-xly771CU7m_@google.com>
+In-Reply-To: <apB0-xly771CU7m_@google.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Thu, 27 Aug 2026 10:50:48 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zNBpMry1ipXcNcQgZgUkTSb4scDadiMNXN0AwqJiY=8pA@mail.gmail.com>
+X-Gm-Features: AcwNN1Wa9VbVW9ULNjRnPEstsY-Z3ikWYpJe-mFQA5YB7LB5wYWjhCZNky6CCWw
+Message-ID: <CAO9r8zNBpMry1ipXcNcQgZgUkTSb4scDadiMNXN0AwqJiY=8pA@mail.gmail.com>
+Subject: Re: [PATCH v3 12/13] KVM: selftests: Dedup assembly code for VMLAUNCH
+ and VMRESUME
+To: Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	f734222792@gmail.com, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Sashiko Bot <sashiko-bot@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Aug 27, 2026 at 09:33:22AM -0700, Andrew Morton wrote:
-> On Thu, 27 Aug 2026 01:33:42 -0700 syzbot <syzbot+5c417b73ac02e0e352c4@syzkaller.appspotmail.com> wrote:
+On Thu, Aug 27, 2026 at 10:33=E2=80=AFAM Sean Christopherson <seanjc@google=
+.com> wrote:
 >
-> > Hello,
+> On Thu, Aug 27, 2026, Yosry Ahmed wrote:
+> > On Thu, Aug 27, 2026 at 10:17=E2=80=AFAM Sean Christopherson <seanjc@go=
+ogle.com> wrote:
+> > > eVMCS is a memory operand, i.e. it's MOV RSP, [evmcs->host_rip].  The=
+ existing
+> > > evmcs_{vmresume,vmlaunch}() code is rather stupid and loads the addre=
+ss into a
+> > > register, and then manually encodes MOV RSP, [<reg>].
 > >
-> > syzbot found the following issue on:
-> >
-> > HEAD commit:    818bebeb63dd drm/xe: Don't hand out the flat CCS storage a..
-> > git tree:       upstream
-> > console output: https://syzkaller.appspot.com/x/log.txt?x=1645f979580000
-> > kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
-> > dashboard link: https://syzkaller.appspot.com/bug?extid=5c417b73ac02e0e352c4
-> > compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-> > syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=104a0d49580000
-> > C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13f35979580000
-> >
-> > Downloadable assets:
-> > disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-818bebeb.raw.xz
-> > vmlinux: https://storage.googleapis.com/syzbot-assets/6e4100526b12/vmlinux-818bebeb.xz
-> > kernel image: https://storage.googleapis.com/syzbot-assets/723c4783ee96/bzImage-818bebeb.xz
-> >
-> > IMPORTANT: if you fix the issue, please add the following tag to the commit:
-> > Reported-by: syzbot+5c417b73ac02e0e352c4@syzkaller.appspotmail.com
+> > Can't we keep it as a register operand just to avoid vmwrite_operand?
+> > Does it actually hurt in any way?
 >
-> Thanks.
+> ...
 >
-> Hopefully fixed by the pending "mm/mremap: reset unfaulted VMA page
-> offset for MREMAP_DONTUNMAP".
+> > > diff --git tools/testing/selftests/kvm/lib/x86/vmx.c tools/testing/se=
+lftests/kvm/lib/x86/vmx.c
+> > > index 1a8515de42b0..b5efd10950c7 100644
+> > > --- tools/testing/selftests/kvm/lib/x86/vmx.c
+> > > +++ tools/testing/selftests/kvm/lib/x86/vmx.c
+> > > @@ -179,7 +179,10 @@ void load_vmcs(struct vmx_pages *vmx)
+> > >         vmclear(vmx->shadow_vmcs_gpa);
+> > >  }
+> > >
+> > > -#define __BUILD_VMX_VM_ENTRY_HELPER(insn, prefix, vmwrite_insn, vmwr=
+ite_operand,       \
+> > > +const u64 HOST_RSP_ENCODING =3D HOST_RSP;
+> > > +const u64 HOST_RIP_ENCODING =3D HOST_RIP;
+> > > +
+> > > +#define __BUILD_VMX_VM_ENTRY_HELPER(insn, prefix, vmwrite_insn,     =
+   \
+> > >                                     __host_rsp, __host_rip)          =
+                   \
+> > >  static int __##prefix##_##insn(void)                                =
+                   \
+> > >  {                                                                   =
+                   \
+> > > @@ -196,16 +199,17 @@ static int __##prefix##_##insn(void)           =
+                                           \
+> > >                              VMX_SWITCH_GPRS_ASM                     =
+                   \
+> > >                              "pop %%rax;"                            =
+                   \
+> > >                              : [ret]"=3D&a"(ret)                     =
+                     \
+> > > -                            : [host_rsp]__stringify(vmwrite_operand)=
+(__host_rsp),      \
+> > > -                              [host_rip]__stringify(vmwrite_operand)=
+(__host_rip),      \
+> > > +                            : [host_rsp]"m"(__host_rsp),            =
+                   \
+> > > +                              [host_rip]"m"(__host_rip),            =
+                   \
+> >
+> > I suppose we can use "r" here though?
 >
-> https://lore.kernel.org/20260825-fix-mremap-dontunmap-pgoff-v1-1-39a40b2c98b3@kernel.org
+> No, because then the encoding for VMWRITE needs to be:
+>
+>   vmwrite %%rsp, %[host_rsp]
+>
+> but for MOV/eVMCS needs to be:
+>
+>   mov %%rsp, (%[host_rsp])
+>
+> Have fun feeding the '(' and ')' into the asm blob :-)
 
-Sorry, yeah, this looks to be the exact same thing, marked as dupe!
-
---
-Cheers, Lorenzo
+Semi-joking, what if we pass in the entire instruction instead?
