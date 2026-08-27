@@ -1,68 +1,68 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17CCD3DCDBC
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:14:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B980485CC3
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:14:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787854464; cv=none; b=NYnbubELXGi0bl7P18/GEjke8L7ysS8KvFUJLO2nK4nEm/tRPSWdsk4VhK0wze6NlZrBweo7+CtXyZHAR0IDIYx6x7eguv/RKn6vEx3D7hkc30SDZPu9ZvQVCJDi+DSsm1cqdQX0+RfnLq4hIwObOC8DjOymXeV0Jlidw473XNo=
+	t=1787854474; cv=none; b=qRtwOdHj7ZNKqTii1jbKXcYohroOpNZ30VAX7L/Xs/JOD3edGYPgpZUx/uURhy08PunOvohuwfpTO+oqsLmN3V2pvffbJfDojaiDzrsy6Cjy6emTLDRiWsjmdszGEHkqMyYMK4YmlmeNmvyHskxYYgZA2IXHCyBazHAVskvOOnc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787854464; c=relaxed/simple;
-	bh=W8X308jt+bvXYniV4DB7dpJR/uUmKnkQU1ppJ0MVFu0=;
+	s=arc-20240116; t=1787854474; c=relaxed/simple;
+	bh=3IQXMKl218PannBxAxFOsd0Xh9anJurCy6kfS6SMLEg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=N6UfzT7hoL3OxhjssSw2aDXdiz+2bGzH9CnYnVupJ5RPzbAWEkJfZAzql67yPJt+1zrd8/UZFu+NSWcLKO95wCcgh7xAT6EfpXHYXrqWs39HBbqkLT5fXlwX8nFr44gB/VSsOqT0+JAODS6AuTdBkjIR2kGH5RH+xcp+i5oWo24=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ramWr+xO; arc=none smtp.client-ip=209.85.221.42
+	 MIME-Version; b=ELqBdvj8r+sgqdFRYsBhUeorvTMdikdgnHE+TahCV/zFGFhKl/7omFiaz7JdKGzA7wr9gpb5kKOGT8sGrcOPwwtzOH0+yg+x5q4HGGc8P3dR1lkmKAmvabG/9ePEI+XvygTQvKGSsh81Dy3v2/4L14mJ1Aw7cKMLIZmTUbnQ/QA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R21+E5Wy; arc=none smtp.client-ip=209.85.128.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ramWr+xO"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-47f633e6058so104073f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:14:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R21+E5Wy"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4957eefd361so349295e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:14:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787854461; x=1788459261; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787854471; x=1788459271; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=W8X308jt+bvXYniV4DB7dpJR/uUmKnkQU1ppJ0MVFu0=;
-        b=ramWr+xOYrjQE/9kj6ldXyQ9Cgu+Vm+7EDCbMij0HuYBpzFp3/rtyFwLbu6cQJTEGu
-         Cdk4nJJ3J+JDaX5+b7VFTWnoLkXMTkmSquR69c5W22nnUM9q45j3JYRo2VuZ8Vl5JzCU
-         wRnffMtceqb3ahgL11GSPSjH5zVd6CYlh6rc0ToeAYGCOmxkDLDhDL1FTka3PgYncXr7
-         lQAUXwqNC2nLjbVRhdsJysPLuc6VIddqXKY5/qHf/eapP5Pzf65660fWbcnxmS0YDZM4
-         NiOdPWQ2IYqA9eAnF1jOom4BGowpOSz71ToIOPqBNqhX/KFo7HeZsmr/XcV4ZdjvIOEE
-         zZvw==
+        bh=3IQXMKl218PannBxAxFOsd0Xh9anJurCy6kfS6SMLEg=;
+        b=R21+E5WyEQoxB/juiO9DsJieZ66V8ZelCzJxs/PAHeGj3VLfMIyGgdDtABGOWfacDt
+         qB+M+qntgfPpQN1ITkQDAA1RIlPoBVXPvPTQr6Nz27MPrame/PXDi9ZfpRFd5P0qQoUE
+         y6qdtFcAvnRNCriSIwDbBs4jqwsrnI3jwqaG6gULOlFZ0vukDN1zGfyjfaVXjle0Czng
+         wplmxqcqfW/ys/eSY/mKGa4b67Urd3lDBIJxJPOL0zUXRRTdiAqeRJNr13Sc62wRTVaF
+         MtAr7YroWJtsoL0lFYAbkfOZSzLUY01SQ1Ltfp7DI1/5Cefft2yImQJXFStNPpej75t6
+         6c+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787854461; x=1788459261;
+        d=1e100.net; s=20251104; t=1787854471; x=1788459271;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=W8X308jt+bvXYniV4DB7dpJR/uUmKnkQU1ppJ0MVFu0=;
-        b=ll/X+lnGI9hmE4ILd3xDrPXOqudM9+uW99WMgVkZ6NA6URpPkJUF8iS+FPKUXSbxVv
-         dxBGrqws5gMpU11IK6GTgM1tKM0MTQA4uoMiQGj41ajDV7AhtGUn+ezpYvzF57k9tqPv
-         C1hEOPK3+SPtOozByUmoc7ed791RpZZj7EFKkRekr+dE1U7ni8gjDbWHDsLpyLRPydqI
-         LEusc1cMFKm9ztKxHpYHjGYNQ4A3UqRy+i0ypSWFozs3wChTtWM2jOIeq46zBbDv2uRW
-         9/aMDdgeo5UPHHcFvi1CebQ+NWL0ol2QLB9DezzMnI781wVsAy8yntZ4XE+7JQ24HBEt
-         DkxQ==
-X-Forwarded-Encrypted: i=1; AHgh+Ro6d0gJ7yNOLtg/7+MMtSZyioQEfXJarSVEczlMRQ/OYB4OdaEUJ64m+kRA9nXW4eBiJb8ou8oOEjniwho=@vger.kernel.org
-X-Gm-Message-State: AFuF++lRfy8O3E0tpRht8VSsc/LFGvCQumpSzxmTB5S4bnJKEcOeIcEf
-	3ty6sb1ycrtqvWk4XCTNzjUePmuraMnIT9iyvQPFu8dn6V2dfbNKnL5/
-X-Gm-Gg: AR+sD13BLN7VYMoyIRAlcdF1vp/gxQg6yXg/Ohss7mJ74QZKvdTTc+dRmVhlWR9Bbbz
-	VCqIbFN37ZFu54Iv7OLkjJzZpwezIl1m0UtV7pc8iuejvW0RHKishFZ4pPfYlotpWduU0z3w2xY
-	Tz5TsCrN3PKyh7c7EtjDfupqgPWgg4EWMWUpZiw1aa0PuBCDuVLnOW9iH6NhlHRsGmyPhwiDXsr
-	15+4wzK33duWlRSkTIcCAr7oHb8v3SERQ5K27FCWG+L+kkZb2P6mpljnObq4+ng7j3lurfprOqH
-	3/zSWl1COC2gci4G3dci/QUG5iz7p+/y810w3QMDD/JorwmCcfi0cmKnHkeMv4EhdmYq+zobCJm
-	+EVlETT1astB0hVA/5GihUPyH8KVrd/lWSoGQmgPIB/vdM3fOACGonJqHGp4+195VE+WjNl8DY/
-	f1ncU9RrJbI8PY5wG+6TN+fO/pEJDrsU+82JQIrNwbABV/hGK8iQJGIx6dj6ummcfyKRM9Udrok
-	m7iE3y61VUdG1cE1GVckC74WPvHe+8edj31c0FXmF+t/DqQEDmrCO0=
-X-Received: by 2002:a05:6000:4a0f:b0:482:e451:680c with SMTP id ffacd0b85a97d-482f79a7553mr1165103f8f.8.1787854461242;
-        Thu, 27 Aug 2026 11:14:21 -0700 (PDT)
+        bh=3IQXMKl218PannBxAxFOsd0Xh9anJurCy6kfS6SMLEg=;
+        b=DWD7fS5B/X+d8XN3qOqSE7kdqgDHrONaZZUh/70QrxAHAwPUnmm/E2yzBe1UeCOz1Q
+         strrcyY2kqo9fEbaW2nqz2Dlbhht7GVDXtIUrc6mCkEgQoZ7fgIEmfMvq6ckqFiICy9h
+         xJ23Xg+Ne8Cy0udKc1AMN+kNDaY7CZZI4Vxu8ideIqnJqrHXN0JXFNbfD8uongDa4CGC
+         JOCGmF+jGsxJtxBjbtAvNEsyeqX/lM5x0bEW6nXUb0ejK9w0i1AX1GL06vInwwcHP4AD
+         AEDFconOSyRS1hDuXiXf9z60r4NYX12TMoh1cEboc5F8bphb2/VI7RT91unNedlSE3jC
+         uqSg==
+X-Forwarded-Encrypted: i=1; AHgh+RonVx6vqP2WNdR/E1vgazJHaHbWxrOtNL2Ao1aWfA6dK5/45rDo4Yhc5dsxMEfS21CRZYxweGRVONuuyO8=@vger.kernel.org
+X-Gm-Message-State: AFuF++l47M+9lyEepPN2AO1U3wblXwwKIGy4xxNNFgDmi3e8IaZa1o8v
+	I/8g1PnBfg+Enkng6HfyjEpEf9C77P2p45qJPAq1ozKhB5mb3TAxN8em
+X-Gm-Gg: AR+sD119EVdAoCXrgl4t7MzP1HqzxYQtu/myGE/tpZNP4jhUldWjoybiBOuogUYJ7bR
+	vPN9h3as8y5HxyX7t85gv1ur5IG7JoWuhMMAWsMt2grWobl2h4ezMxQzTLNAk+lZTbTUt2oN1vY
+	dEOj4tVwjUL0XKjYpgvfph0+YEZNyoqrHll8xGckMAnViko/LBUkBN785vgCqe46x+Sf2C5tkUS
+	v/8XPT3zXpSE2Sby4+nj/u5nU3uutogxGtPwPAmh4o784QZo13zTIAivtXRUh5f7SRM2qz22DGe
+	1NfyUsolniM8SRYr8Ryd7FvXziQZwOuWcFw7oBQmRI9j1TRGmSisLtOGpk81ihT7TaojZj2UggW
+	elgLU1PxxpEKREtOZjN0Rp96etT2dHa3fnbZBZ7+x38MNJrt0KJtP7epMxNGnlNSFBEEik8+w+g
+	dNauxX8YHLqT3OexfZ9fwcq8t0241MrFN4HS7x4cOmyy3/AMDSO4XUlHrjS5IIGfOD7t/8SPKlx
+	SlNsPLRRfaq4ZNxA+mbs2xkqDJvWeJjVjlHSFCW0WDXyvl22xe+K5U=
+X-Received: by 2002:a05:600c:8b42:b0:496:c93d:e2f with SMTP id 5b1f17b1804b1-49b91c57d64mr11486265e9.15.1787854471407;
+        Thu, 27 Aug 2026 11:14:31 -0700 (PDT)
 Received: from 1Z10 ([78.213.170.242])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e28f5e2fsm9643283f8f.33.2026.08.27.11.14.19
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b4942366asm65174905e9.3.2026.08.27.11.14.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 11:14:20 -0700 (PDT)
+        Thu, 27 Aug 2026 11:14:30 -0700 (PDT)
 From: Maurizio Casciano <mauriziocasciano7@gmail.com>
-To: Yauhen Kharuzhy <jekhor@gmail.com>
+To: Mark Brown <broonie@kernel.org>
 Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
-	Mark Brown <broonie@kernel.org>,
+	Yauhen Kharuzhy <jekhor@gmail.com>,
 	Liam Girdwood <lgirdwood@gmail.com>,
 	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
 	Bard Liao <yung-chuan.liao@linux.intel.com>,
@@ -73,12 +73,12 @@ Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Maurizio Casciano <mauriziocasciano7@gmail.com>
-Subject: Re: [PATCH v4 0/2] ASoC: Intel: Add Lenovo Yoga Book RT5677 support
-Date: Thu, 27 Aug 2026 20:14:17 +0200
-Message-ID: <20260827181417.2424376-1-mauriziocasciano7@gmail.com>
+Subject: Re: [PATCH v4 1/2] ASoC: Intel: Add Cherry Trail RT5677 machine driver
+Date: Thu, 27 Aug 2026 20:14:28 +0200
+Message-ID: <20260827181428.2424693-1-mauriziocasciano7@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <CAKWEGV667AyGDpz-mJn3phTOjKZeVTC+of0Zx_OUZr4H3+_jxA@mail.gmail.com>
-References: <CAKWEGV667AyGDpz-mJn3phTOjKZeVTC+of0Zx_OUZr4H3+_jxA@mail.gmail.com>
+In-Reply-To: <901421b8-6e7b-404a-ba67-10c3166911f9@sirena.org.uk>
+References: <901421b8-6e7b-404a-ba67-10c3166911f9@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -87,12 +87,10 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-You are right, and I am sorry for dropping your ownership trailers in v4.
+Thank you. Both points are fixed in v5.
 
-Both v5 patches now retain your Co-developed-by immediately followed by your
-Signed-off-by, in addition to your copyright and the links to your original
-implementation and v3 posting. You are also CC'd on the complete v5 series.
-
-Thank you for continuing to help with this work.
+The trailers are now one contiguous block with the Co-developed-by directly
+followed by the corresponding Signed-off-by. The codec fixup now clears the
+SNDRV_PCM_HW_PARAM_FORMAT mask before calling params_set_format() for S24_LE.
 
 Maurizio
