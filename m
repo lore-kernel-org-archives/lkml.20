@@ -1,72 +1,92 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E039C43A7E9;
-	Thu, 27 Aug 2026 10:17:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0D1E41DE0D;
+	Thu, 27 Aug 2026 10:19:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787825861; cv=none; b=PaE4y/6fvBLQQQgNgFZGfOdOdbgzdOxnK21nGy7ZLePVTPrY5iDfiEPD7wet8sau1xMzEyPcu7vP+W4trV2DMLFCGpAOLT8n0o1V/jmt8+YeQlIQJuUK9owJt6AljZU1cVgJu5hoo3sKXLwdI/5ts0c/qtuhPaaXIlK/2hOH5cM=
+	t=1787825949; cv=none; b=ldRafrKg6YIrjnAPsxFWxt3GHyWOA/AW/u/2s5CqK7nB5FVoLX3C0ae1lc2hengyTIMCwW5dqyW+1eBzZkjBAlFpC/qku7Te5CVWDNDyQ6p7NMy8XJKTs3Gvpuvehf4nIVWt13Ds64utUUX0uxNjBeguS6JKVxDnulTJiM4VJIE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787825861; c=relaxed/simple;
-	bh=r4HsTiHvzg2AlQkD8+AeG2tkKnoHBQ5COc+qj98xNQU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=su/ktyn3bjf5cJaWZqGRrLShtMbUoucLUCIT4XoNAE+0ME4IuqEZ3BAF/FaA6E3wXI7LYyi/feglduh2QO/4y2Pk1yUXPtc6khknvjTcX1tLajSuF34TbbjQGHMlpRkRe1CIrtE+8mLk8j7ZfqDcp5QXplquXBY4YwvSKdL3xqM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=MHYCBGUv; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1787825949; c=relaxed/simple;
+	bh=b23i4JInd3NgcZWX9YdVLFKS7PQlXWm71AW8ccT03TM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AiF2UoYJbHvFTqbAfVOOoOl1SnwV87apZ3DEXapdC8ATyYmTMsYR8yhD7hWnxIQRbTPkYCKKSysI1IMXsifp1vk176UYG+ZVQMbeVCySiVjA0DoXfx75sFtRFdw0xsexL7Ug8AisJHIRinhzquxMAq7XiMLLHXE22L3RrYzgkrQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YkihwFH0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="MHYCBGUv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=r4
-	HsTiHvzg2AlQkD8+AeG2tkKnoHBQ5COc+qj98xNQU=; b=MHYCBGUvRT02yksjJD
-	Du8ID5eA70iOL/FxASbW+cMh2+ikbhM/kz16lBW1M328kl0Jzw4Y2lbFq9KmHttS
-	RlMVquDx+x//EzyD2s4fuVeGbNsLgaxfWRkvZE9Bwzt+H7yDPElHPfturOkgHia0
-	IVNUYIq0PHobitI9unFdXFU5I=
-Received: from localhost (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgCXX71tDpBqwQL_OQ--.51270S2;
-	Thu, 27 Aug 2026 18:16:14 +0800 (CST)
-From: Hui Su <sh_def@163.com>
-To: peterz@infradead.org,
-	mingo@redhat.com,
-	juri.lelli@redhat.com
-Cc: vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	sashiko-bot@kernel.org
-Subject: Re: [PATCH] sched/deadline: Fix DL server divide-by-zero for inactive CPUs
-Date: Thu, 27 Aug 2026 18:16:13 +0800
-Message-ID: <20260827101613.2664218-1-sh_def@163.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <an2BH9a8PWlZUGj6@jlelli-thinkpadt14gen4.remote.csb>
-References: <20260812123252.2355986-3-sh_def@163.com> <an2BH9a8PWlZUGj6@jlelli-thinkpadt14gen4.remote.csb>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YkihwFH0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCC191F000E9;
+	Thu, 27 Aug 2026 10:18:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787825940;
+	bh=RHMZgXDnYG9+lZOZk7gZyNeyINoTKCnT+RWVcPW3E2M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YkihwFH05IT2kv8KS9WydsuiR5v6RuRMQycw+UZd/Fm9gRfdkJWCg56rq+ly1ZHYr
+	 9s+uB0gt+Bh0npVqQkigGuNnAKt2wg9RMtxad8uHSfCxjqK2/bSG53Bvk2D4JDujJT
+	 qiYuI1H88tZ9Rd44eIipgxuIBd17/ECwPOf9PiPqRhFls4XV4sicluvPGhfGx6Ks5D
+	 ETonwaBVjOk9stp2x15FlD2QMXoZUNQ2Otn8yCrFU8YOGZKDyNJ10d29LxB37/GT3c
+	 l6L1PK+BDHvNkaYCEN92lUNNm8ozmr7eagAsLRB6EEp8dHy+aaf3Kvt2SCByF9Sr+J
+	 +xhIex1n3wIrg==
+Date: Thu, 27 Aug 2026 12:18:56 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Kristian Brox <isyourbrainfoss@proton.me>
+Cc: Luca Weiss <luca.weiss@fairphone.com>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v3 2/3] nfc: st-nci: add raw NCI path for ST21NFCD
+Message-ID: <20260827-garrulous-iguana-of-dignity-355fc7@quoll>
+References: <20260820-fp5-st21nfcd-v3-v3-0-5ee0a7f44d04@proton.me>
+ <20260820-fp5-st21nfcd-v3-v3-2-5ee0a7f44d04@proton.me>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgCXX71tDpBqwQL_OQ--.51270S2
-X-Coremail-Antispam: 1Uf129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxUjWlkDUUUU
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6g5dvGqQDm49hgAA3k
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260820-fp5-st21nfcd-v3-v3-2-5ee0a7f44d04@proton.me>
 
-Hi Peter, Ingo,
+On Thu, Aug 20, 2026 at 08:56:10PM +0000, Kristian Brox wrote:
+>  static const struct i2c_device_id st_nci_i2c_id_table[] = {
+> -	{ .name = ST_NCI_DRIVER_NAME },
+> -	{ }
+> +	{ ST_NCI_DRIVER_NAME },
+> +	{}
+>  };
+>  MODULE_DEVICE_TABLE(i2c, st_nci_i2c_id_table);
+>  
+> -static const struct acpi_device_id st_nci_i2c_acpi_match[] = {
+> -	{ .id = "SMO2101" },
+> -	{ .id = "SMO2102" },
+> -	{ }
+> +static const struct acpi_device_id st_nci_i2c_acpi_match[] __maybe_unused = {
+> +	{"SMO2101"},
+> +	{"SMO2102"},
 
-Gentle ping on this fix. Juri has provided an Acked-by.
+Odd. Previous code was correct, this is not.
 
-> Looks good to me, thanks!
->
-> Acked-by: Juri Lelli <juri.lelli@redhat.com>
+What are you doing here?
 
-Please let me know if any additional testing or changes are needed.
+> +	{}
+>  };
+>  MODULE_DEVICE_TABLE(acpi, st_nci_i2c_acpi_match);
+>  
+> -static const struct of_device_id of_st_nci_i2c_match[] = {
+> -	{ .compatible = "st,st21nfcb-i2c" },
+> -	{ .compatible = "st,st21nfcb_i2c" },
+> -	{ .compatible = "st,st21nfcc-i2c" },
+> -	{ }
+> +static const struct of_device_id of_st_nci_i2c_match[] __maybe_unused = {
+> +	{ .compatible = "st,st21nfcb-i2c", },
+> +	{ .compatible = "st,st21nfcb_i2c", },
 
-Thanks,
-Hui
+Why do you change the order of these entries?
+
+> +	{ .compatible = "st,st21nfcc-i2c", },
+> +	{ .compatible = "st,st21nfcd",
+> +	  .data = (void *)ST_NCI_I2C_PROTO_RAW_NCI },
+> +	{}
+
+Best regards,
+Krzysztof
 
