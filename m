@@ -1,120 +1,56 @@
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBDB238E5F9
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 03:48:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D6E9383328;
+	Thu, 27 Aug 2026 03:49:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787802501; cv=none; b=sNcnVndXjmwdjHqxVXO8hZ5DHcdgEs/IEvWL5D6Nfw+HEZO6bEJHg1xBaC7JV84UUYWGF4mS1b0qNRRNzURS/4Xzq52bw84ZfuibCVGMnYpC3lgpGDb/aZfD97JeeqgkCKIZtzmJx9PTeFC+nBVP5PDU8AXF5MHaF+143EVih9w=
+	t=1787802591; cv=none; b=gSjLIXw4DVjsSUct4a4HJyod3FOFglTSQiiNCcc8WWvJrhGsYXBdNWBjTeaJ6w0gC/3fXxuLoYRLkaL+92sl4FFuXQsa+jfDVzASulC0ECLfZ/6KtJQQWQVdh/xbsYt50sk0EkYQksm2FfDJuQ/mwkhorkUD9szcbS3SOnVYPFI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787802501; c=relaxed/simple;
-	bh=jG3ZUwUSX2nXMfyOcYVc2Ml1gXEQdWUYtyfSCh9PfM0=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=nv5R45XuWyxwIUQXrfaCYbZwE/WxM2Mc43lkjUzi0D1OygS8mdOBTTGklswoyQbx61lMm7KnVdudplXA4qtWyFLe7mjaCCgyYjgGEQyq6ASKp7jCy9gWprj9TYZpUylSbJXq4W8wsiTqV6Jvl6sDGjt3oS1AVeUssPeg3cJ3ivc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--wfelipe.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ClntCoV1; arc=none smtp.client-ip=209.85.210.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--wfelipe.bounces.google.com
+	s=arc-20240116; t=1787802591; c=relaxed/simple;
+	bh=igb50QrfF84eGcNXm1dpgl4szbeXCHNDQIoRj/Al6a0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cnh6kRRyZ3OQB5KDEY3VzwLlvoza9bIXJweGCFk+ACBWXfXxS7cJWLcuBfxi49ACEMlByXEHDxLX/WtLKlP/mB2wlLyhhepR1qwjUPrYcZ7HQE4cPe8rFb8rXvR8vuJeXfuzisF+igbw4qpQW5nz3s/is2ubrDHNCH9LZL3/vF8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dZGJl6Nn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ClntCoV1"
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-84a67b16217so2718942b3a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 20:48:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787802499; x=1788407299; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mytL1u/OX7fzFYMNNheR2pN3dLSUPiAgBvRmO/dMr4Q=;
-        b=ClntCoV11Kwm4S2U4C+FkpgI2rwE/JjYupK7YDGM1pCBtYv8DenIbSz7ihpLJSqSgF
-         0TVr/ODJt+f/I3eFbWFrdXnbqS/TR0t5tfyc79YqJ34T/JSGBd6v5hKUrkLjsYafdG4O
-         xKeDy01lhcaXy73PB1A3XE67WIpY9fYv/1AmyyM1YA95diyVY9BdTBjH0Zb5/gcxQtZR
-         tFRACUffgj9FN0PRkiu3cWbed/HKgZsZKnSKKqLED78A/LsiV3r7tLJ3rQAamZcz5VO6
-         OhYAr1/VH4zNMpeoxqQrQKeNg73l/Y7UeCUjS2Dk62q79NQDFTbvAx+gNbJqdORmFSzG
-         d/VA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787802499; x=1788407299;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mytL1u/OX7fzFYMNNheR2pN3dLSUPiAgBvRmO/dMr4Q=;
-        b=p/38qBDko+37c1Pe5acAd2X6MBFgJXfMaanGCn0EiJfbtZI/BLLsIfF+eNUGmnrhgH
-         HzoxxWgLgsHCsUxieJ3JR391JjWJslTVtvIglFWA5FqGsCVQo14H33j8s5tKFIz5tVlM
-         z0+WkhPM8iRoC2rH2B2rVI5gLPk1xT6piDHR7agchg69mWKUWMupnw/TIprl1dq9Svfj
-         y56TvYiEZ40FVyQux2/0xrm1Qir/KeHDLL/4uahDnurBd0/AvyWwqngh4bz64YqRIHHt
-         YBhr1VR3vprymkY9RKptP8K31XnmXEjkxUAiI9YpxFLxkOGPDKbADy+TPotNUz9L5ScQ
-         YJUA==
-X-Forwarded-Encrypted: i=1; AHgh+Rq8sG9e78yERfWiEQ0hG0h3HD9imdP74BypE2EWf0hhRdUo9SS41l12u64TNPmuZ25AFklLmjkgyR8mYSg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nb7qlc2NKxDPeBi+PCoKrDouGu9RwY2Zd1kJqa0S+M3KMsexwv
-	aDokqLIEyCxlOXgsVC4lv9vftF3PNbxPuk+OyT/fGU9UrTINd0UwbIiQM25fAeoo0ymhtgHZdHA
-	jf6DrghyvCg==
-X-Received: from pgnd25.prod.google.com ([2002:a63:7359:0:b0:cbe:e216:e75a])
- (user=wfelipe job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:1392:b0:852:131f:b9d2
- with SMTP id d2e1a72fcca58-853721a4ffamr20661049b3a.2.1787802498954; Wed, 26
- Aug 2026 20:48:18 -0700 (PDT)
-Date: Thu, 27 Aug 2026 03:47:42 +0000
-In-Reply-To: <20260827034807.2822234-1-wfelipe@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dZGJl6Nn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BBAE1F000E9;
+	Thu, 27 Aug 2026 03:49:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787802589;
+	bh=dhufDDpPatwfSinFpRRrx2lSqixbpL4CnJZGnUElFjk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dZGJl6NndyjeNODl/icVscwB4pN2OzsecgBtXgdUSnp3WXJhycaWn+eUsteJihbGH
+	 6WczQIB4D+BbRNd4tRPbl02cQdyVhmgU0RoIq7Quv5dxL3Hzgm4bRRDwWBiXgZThkB
+	 76v1jcscEbHlil2AoyEOanfJymCMqSKiZfJJ3nFZEEzZgb0acEY8Osg49oE33p5BLj
+	 sEtwS3gHAcqvzSwDFYr34Fi+VUDekkTHKemZiPfdPofgYWpsBPRmY4sS3PSipP9MrY
+	 bTwnZC1PmCkpQkLcHRQUWwa5R2ue++oltK7WnTZl1cyKEQxkef0zfHXBTMsbDSuOgY
+	 IBYEOpg3TIXeQ==
+Date: Wed, 26 Aug 2026 21:49:47 -0600
+From: Keith Busch <kbusch@kernel.org>
+To: Md Haris Iqbal <haris.iqbal@linux.dev>
+Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Jonathan Corbet <corbet@lwn.net>
+Subject: Re: [RFC for-next 0/3] block: delay support for error injection
+Message-ID: <ao-z23T9yE6Z2BTZ@kbusch-mbp>
+References: <20260827000115.128093-1-haris.iqbal@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260827034807.2822234-1-wfelipe@google.com>
-X-Mailer: git-send-email 2.55.0.887.g758fc8c411-goog
-Message-ID: <20260827034807.2822234-3-wfelipe@google.com>
-Subject: [PATCH v3 2/2] selftests/cgroup: test_zswap: fix implicit unsigned
- promotion bug in test_no_kmem_bypass
-From: Wilson Felipe Pereira <wfelipe@google.com>
-To: Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Yosry Ahmed <yosry@kernel.org>, Nhat Pham <nphamcs@gmail.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Tejun Heo <tj@kernel.org>, 
-	"=?UTF-8?q?Michal=20Koutn=C3=BD?=" <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>
-Cc: linux-mm@kvack.org, cgroups@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Wilson Felipe Pereira <wfelipe@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827000115.128093-1-haris.iqbal@linux.dev>
 
-In test_no_kmem_bypass(), delta (stored_pages * page_size - zswapped) is
-checked against stored_pages * page_size / 4 to verify that the pages
-pushed to zswap belong to the test memory cgroup.
+On Thu, Aug 27, 2026 at 02:01:12AM +0200, Md Haris Iqbal wrote:
+> Two things are worth a look.  A delayed bio is resubmitted below the
+> injection hook, so the rules are not applied to it again and it can never
+> pick up a status from another rule.  And holding a bio back reorders it
+> against bios submitted later, which breaks sequential write ordering on
+> zoned devices.  Both are documented in patch 3.
 
-Due to slight stat update timing differences, delta can evaluate to a small
-negative number (e.g. -5MB out of 1GB). Because delta is declared as a
-signed int and stored_pages is an unsigned size_t, C's usual arithmetic
-conversions implicitly promote a negative delta to a large unsigned 64-bit
-integer, causing `delta < stored_pages * page_size / 4` to falsely evaluate
-to 0 and fail the test.
-
-Fix this by declaring zswapped and delta as signed longs and comparing
-against a signed threshold, ensuring negative deltas correctly evaluate
-to true.
-
-Fixes: a549f9f31561a ("selftests: cgroup: add test_zswap with no kmem bypass test")
-Signed-off-by: Wilson Felipe Pereira <wfelipe@google.com>
----
- tools/testing/selftests/cgroup/test_zswap.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
-
-diff --git a/tools/testing/selftests/cgroup/test_zswap.c b/tools/testing/selftests/cgroup/test_zswap.c
-index a7ff525c1267..9e7d4fce3af8 100644
---- a/tools/testing/selftests/cgroup/test_zswap.c
-+++ b/tools/testing/selftests/cgroup/test_zswap.c
-@@ -621,11 +621,12 @@ static int test_no_kmem_bypass(const char *root)
- 			break;
- 		/* If memory was pushed to zswap, verify it belongs to memcg */
- 		if (stored_pages > stored_pages_threshold) {
--			int zswapped = cg_read_key_long(test_group, "memory.stat", "zswapped ");
--			int delta = stored_pages * page_size - zswapped;
--			int result_ok = delta < stored_pages * page_size / 4;
-+			long zswapped = cg_read_key_long(
-+				test_group, "memory.stat", "zswapped ");
-+			long delta = (long)stored_pages * page_size - zswapped;
-+			long max_delta = stored_pages * page_size / 4;
- 
--			ret = result_ok ? KSFT_PASS : KSFT_FAIL;
-+			ret = (delta < max_delta) ? KSFT_PASS : KSFT_FAIL;
- 			break;
- 		}
- 	}
--- 
-2.55.0.887.g758fc8c411-goog
-
+Would it be possible to do the delay on the completion side instead?
+That should avoid those submission order problems.
