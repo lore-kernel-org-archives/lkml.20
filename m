@@ -1,106 +1,183 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from esa9.hc1455-7.c3s2.iphmx.com (esa9.hc1455-7.c3s2.iphmx.com [139.138.36.223])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 327303BFAEB
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:07:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C099C3AF665;
+	Thu, 27 Aug 2026 08:08:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.138.36.223
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787818074; cv=none; b=K60ezHCkTUBX1iwtt2XUE2wKrPYEf0OhDu3rnh9Fy864jNlHSbLSWNpqFcp2KLXbUdZPhs5JWIo26/qDnBSeZtaFc+aFpDLgeDzQ41Fhm9PhbY80D5ufp4qnCcjwhQQ3b0n0fjK3Ftpe7fxFrLXIdp+DrndBSQ7jp485uaOgq6o=
+	t=1787818096; cv=none; b=fV/4ooffvCCtIiHtJSX+XjeXICI9ymajXCI066bmrBFgijaJ85XNUqf/N20jLJaKvNk5xhKPENZuT/zXG3KcW3f5oQ8BSrM1tIg1relb5/bTLTkEuOY9yo0sbPGuonwz1AStlbLy8KBHydghjxvZfHBvZV3mRX0n1QPU9bM2Kyg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787818074; c=relaxed/simple;
-	bh=l0WGRDYPQyeNPAdok/S3yyQr+tWsrY09QwEI6xb57lE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Js3/YMeoX3x/qju+ujghQySW4HBi3S+7HlMBKLeOQijo0pkZdOf8Qfsph8/mlyWhnyrJfcd9iRUdRWh+YmebCo4xkylFV144UUQXw5wmaCfp9G5ca2bQh3l2IyaqshYxwfoR477Zzq5dc69ppzYVD2X9F65vgM1cdQKoccyWrlI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 60a2d45ea1ee11f19a56ed5b684f684d-20260827
-X-CID-CACHE: Type:Local,Time:202608271603+08,HitQuantity:1
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:dd9acc03-49a5-4fc5-bfee-ca0e28bc3dd4,IP:0,U
-	RL:0,TC:0,Content:0,EDM:-20,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:-20
-X-CID-META: VersionHash:7db8b62,CLOUDID:14058bf1c06be5fcae16e6403fe6b496,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|102|865|898,TC:nil,Content:0|15|50,EDM:1|-10
-	0,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,A
-	V:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 60a2d45ea1ee11f19a56ed5b684f684d-20260827
-X-User: liwanwu@kylinos.cn
-Received: from kylinos.cn [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <liwanwu@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1974656026; Thu, 27 Aug 2026 16:07:42 +0800
-From: Wanwu Li <liwanwu@kylinos.cn>
-To: Tejun Heo <tj@kernel.org>,
-	David Vernet <void@manifault.com>,
-	Andrea Righi <arighi@nvidia.com>,
-	Changwoo Min <changwoo@igalia.com>
-Cc: linux-kernel@vger.kernel.org,
-	sched-ext@lists.linux.dev,
-	Wanwu Li <liwanwu@kylinos.cn>
-Subject: [PATCH] sched_ext: Check bpf_timer_start return values in scx_qmap
-Date: Thu, 27 Aug 2026 16:07:38 +0800
-Message-Id: <20260827080738.829103-3-liwanwu@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260827080738.829103-1-liwanwu@kylinos.cn>
-References: <20260827080738.829103-1-liwanwu@kylinos.cn>
+	s=arc-20240116; t=1787818096; c=relaxed/simple;
+	bh=HfubrEGF3eKsGUawx1MnfZr959FNLY03HrFmRB8niVo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pAajJXgZZLqOTNuxNTxmeRfVuto9fHc8OF3zCf7uuxilIWQyUC8fHkqOFf0K5Mn2sMaprsT7FpH8sE28rbUCJxZvp0R9j3A0BW2X/qk3C5nnKCZzMuHR8tRv+dmS1436YjmzJyv/9g07ZvpHqnvRY5OMMUbJfxkCnHQPyCREdYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com; spf=pass smtp.mailfrom=fujitsu.com; dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b=f6sapdUb; arc=none smtp.client-ip=139.138.36.223
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b="f6sapdUb"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
+  t=1787818093; x=1819354093;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=HfubrEGF3eKsGUawx1MnfZr959FNLY03HrFmRB8niVo=;
+  b=f6sapdUb5pqkzqKYG7tF/Y3nVHR5o112sf79c9M54tXt2ZoZZZ/N8Tx6
+   /Kb/tD6NSGvrAYxR8Ed2zpcEuoP2+2u91/OiX48mPxt4dqpd86Zsm8VMg
+   mZzj4QC3qMqnzOAPOzwR/eD5UhXoDlIByQB5+rt6bYQybgG5LsupqBHsP
+   98bSP9TGlEHsnsqmNvyPqO2dL2r+Ym52i79LvBwIUjjEfa269huCuaAUN
+   xgGS3LSvzWkk13rzeFt5ogr0s9dt8a5/112DGtvyly9/5kdI5TX0E8pul
+   UKDjJC6+++ERVqVvk2MEQXH5G97YFkKH6k5DeB3QKfLiE5ccAf6PjggcM
+   Q==;
+X-CSE-ConnectionGUID: 2rqeFhhEQNCqGlQEF1lAcQ==
+X-CSE-MsgGUID: qwMei9j+S6SBWUdAqUkaDQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="240335767"
+X-IronPort-AV: E=Sophos;i="6.25,246,1779116400"; 
+   d="scan'208";a="240335767"
+Received: from gmgwuk01.global.fujitsu.com ([172.187.114.235])
+  by esa9.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 17:07:52 +0900
+Received: from az2uksmgm2.o.css.fujitsu.com (unknown [10.151.22.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by gmgwuk01.global.fujitsu.com (Postfix) with ESMTPS id 515001C1C720;
+	Thu, 27 Aug 2026 08:07:52 +0000 (UTC)
+Received: from az2uksmom3.o.css.fujitsu.com (unknown [10.151.22.205])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by az2uksmgm2.o.css.fujitsu.com (Postfix) with ESMTPS id 0385418002F0;
+	Thu, 27 Aug 2026 08:07:52 +0000 (UTC)
+Received: from sm-arm-grace07 (unknown [10.124.178.20])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by az2uksmom3.o.css.fujitsu.com (Postfix) with ESMTPS id 670BD1004B16;
+	Thu, 27 Aug 2026 08:07:43 +0000 (UTC)
+Date: Thu, 27 Aug 2026 17:07:40 +0900
+From: Itaru Kitayama <itaru.kitayama@fujitsu.com>
+To: Sean Christopherson <seanjc@google.com>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Tianrui Zhao <zhaotianrui@loongson.cn>,
+	Bibo Mao <maobibo@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>,
+	Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Janosch Frank <frankja@linux.ibm.com>,
+	Claudio Imbrenda <imbrenda@linux.ibm.com>,
+	Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Atish Patra <atish.patra@linux.dev>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	David Hildenbrand <david@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+	kvm@vger.kernel.org, loongarch@lists.linux.dev,
+	kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org, Nicholas Piggin <npiggin@gmail.com>,
+	Ritesh Harjani <ritesh.list@gmail.com>
+Subject: Re: [PATCH 00/20] KVM: selftests: PPC pre-enabling
+Message-ID: <ao_wTAq6U2bvWzgu@sm-arm-grace07>
+References: <20260826230511.972824-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260826230511.972824-1-seanjc@google.com>
 
-monitor_timerfn(), lowpri_timerfn() and round_robin_timerfn() ignore
-bpf_timer_start()'s return value: a failed re-arm silently stops the
-periodic heartbeat, starving every task parked in LOWPRI_DSQ (lowpri)
-or freezing cid rotation (round-robin).  Check the returns and raise
-scx_bpf_error(), matching the init paths.
+On Wed, Aug 26, 2026 at 04:04:51PM -0700, Sean Christopherson wrote:
+> This is a big pile of cleanups and refactoring to prepare for PPC support in
+> KVM selftests.  PPC has paging modes that require multi-page page tables, and
+> those page tables need to be naturally aligned.  The original proposal was to
+> plumb in an @align param to the page allocators[*], but I didn't love the idea
+> of adding another rarely used param to the allocators.
+> 
+> Reworking the APIs to take a region type requires a fair bit of churn, and was
+> more painful than expected as I didn't realize just how many one-off tests did
+> weird things, but overall I think it's worth it?  If only to keep cutting down
+> on the use of magic memslot numbers in tests.
+> 
+> This needs explicit testing on s390.  I tested on arm64 and x86, and given the
+> number of failures I had to wade through, I wouldn't be at all suprised if I
+> broke something subtle on s390 as well.
+> 
+> I'm less concerned about RISC-V and LoongArch as they don't have any custom
+> tests that are affected (which is where I got burned).
 
-Signed-off-by: Wanwu Li <liwanwu@kylinos.cn>
----
- tools/sched_ext/scx_qmap.bpf.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+I ran kvm_page_table_test with this series applied on Grace CPUs.
 
-diff --git a/tools/sched_ext/scx_qmap.bpf.c b/tools/sched_ext/scx_qmap.bpf.c
-index 5bb8b90a275a..9f6e61d7ca07 100644
---- a/tools/sched_ext/scx_qmap.bpf.c
-+++ b/tools/sched_ext/scx_qmap.bpf.c
-@@ -1246,7 +1246,8 @@ static int monitor_timerfn(void *map, int *key, struct bpf_timer *timer)
- 			   scx_read_event(&events, SCX_EV_BYPASS_ACTIVATE));
- 	}
- 
--	bpf_timer_start(timer, ONE_SEC_IN_NS, 0);
-+	if (bpf_timer_start(timer, ONE_SEC_IN_NS, 0))
-+		scx_bpf_error("failed to re-arm stats timer");
- 	return 0;
- }
- 
-@@ -1268,7 +1269,8 @@ struct {
- static int lowpri_timerfn(void *map, int *key, struct bpf_timer *timer)
- {
- 	scx_bpf_dsq_reenq(LOWPRI_DSQ, 0);
--	bpf_timer_start(timer, LOWPRI_INTV_NS, 0);
-+	if (bpf_timer_start(timer, LOWPRI_INTV_NS, 0))
-+		scx_bpf_error("failed to re-arm lowpri timer");
- 	return 0;
- }
- 
-@@ -1747,7 +1749,8 @@ static void rr_advance(void)
- static int round_robin_timerfn(void *map, int *key, struct bpf_timer *timer)
- {
- 	rr_advance();
--	bpf_timer_start(timer, round_robin_ns, 0);
-+	if (bpf_timer_start(timer, round_robin_ns, 0))
-+		scx_bpf_error("failed to re-arm round-robin timer");
- 	return 0;
- }
- 
--- 
-2.25.1
+Passes across all the arm64 guest modes supported.
 
+Tested-by: Itaru Kitayama <itaru.kitayama@fujitsu.com>
+
+> 
+> [*] https://lore.kernel.org/all/df86b5ccdbdafc3509d9538bd5e6796737bab2db.1781093720.git.ritesh.list@gmail.com
+> 
+> Nicholas Piggin (1):
+>   KVM: selftests: Use goto instead of do-while to retry finding unused
+>     physical pages
+> 
+> Sean Christopherson (19):
+>   KVM: selftests: Use MEM_REGION_PT memslot instead of '0' for s390
+>     regions/segments
+>   KVM: selftests: Bump the minimum GPA for page tables to 0x200000
+>   KVM: selftests: Use vm_alloc_page_table() to allocate LoongArch page
+>     tables
+>   KVM: selftests: Rename "num" param to "nr_pages" for physical page
+>     allocators
+>   KVM: selftests: Extend page allocator to support naturally aligned
+>     allocations
+>   KVM: selftests: Make the single-page allocator APIs static inline
+>   KVM: selftests: Use the innermost page allocator API in the memslot
+>     perf test
+>   KVM: selftests: Use the innermost page allocator API in s390's IRQ
+>     routing test
+>   KVM: selftests: Add a wrapper API to allocate multiple page table
+>     pages
+>   KVM: selftests: Initialize vm->memslots[] with invalid memslots during
+>     creation
+>   KVM: selftests: Add APIs to override memory region types with custom
+>     memslots
+>   KVM: selftests: Add TEST_EXTRA memory region type for "special"
+>     memslots
+>   KVM: selftests: Use TEST_EXTRA region in arm64's vGIC LPI stress test
+>   KVM: selftests: Use TEST_EXTRA region in x86's smaller MAXPHYADDR test
+>   KVM: selftests: Use TEST_EXTRA region in set memory region test
+>   KVM: selftests: Take the memory region type, not memslot, in page
+>     allocators
+>   KVM: selftests: Use TEST_ASSERT(), not assert(), in
+>     vm_get_mem_region()
+>   KVM: selftests: Automatically pick min_gpa for allocations based on
+>     region type
+>   KVM: selftests: Add arch hook to force page tables to be naturally
+>     aligned
+> 
+>  .../selftests/kvm/arm64/page_fault_test.c     |  18 ++-
+>  .../selftests/kvm/arm64/vgic_lpi_stress.c     |  19 ++-
+>  .../testing/selftests/kvm/include/kvm_util.h  | 106 +++++++++++++--
+>  tools/testing/selftests/kvm/include/x86/smm.h |   2 +-
+>  .../selftests/kvm/lib/arm64/processor.c       |   4 +-
+>  tools/testing/selftests/kvm/lib/kvm_util.c    | 127 +++++++++++-------
+>  .../selftests/kvm/lib/loongarch/processor.c   |   5 +-
+>  .../selftests/kvm/lib/riscv/processor.c       |   4 +-
+>  .../selftests/kvm/lib/s390/processor.c        |   7 +-
+>  .../testing/selftests/kvm/lib/x86/processor.c |  15 ++-
+>  .../testing/selftests/kvm/memslot_perf_test.c |   3 +-
+>  tools/testing/selftests/kvm/s390/cmma_test.c  |  19 +--
+>  .../testing/selftests/kvm/s390/irq_routing.c  |   2 +-
+>  .../selftests/kvm/set_memory_region_test.c    |   8 +-
+>  .../x86/smaller_maxphyaddr_emulation_test.c   |   9 +-
+>  15 files changed, 219 insertions(+), 129 deletions(-)
+> 
+> 
+> base-commit: 76671054f9a1ff6abb976583cd8da37650acdc97
+> -- 
+> 2.55.0.887.g758fc8c411-goog
+> 
