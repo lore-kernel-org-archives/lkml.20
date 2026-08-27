@@ -1,190 +1,207 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FCF038E5DC
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:51:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B36D53812C2
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:52:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787849509; cv=none; b=IomtFm3hAp8AuKeUdXf2JSWKIMkAHnry9FAtuwel/fiEjIF5UcccAY3MJXDbGBoY2CM//yzCwXl05NNhCuNJ589eIRQZcITi3XeRsbzCDZSkhLuoroLZqX0V9W9blm0ytn+hdkwZSsGsewpQuhH5euBsn5D1VpI8UcyCNJdR2l8=
+	t=1787849579; cv=none; b=YZvu7RLMAAU4xerYzhPt08qUXAL6NjdS5cA14B2giJARZAJ36rFyYysJa3ySNd/q/2C5yI756DAuDBc5wb14J5SNUNERk4BIwurRjQpdn90Em7nFuQe2njWtRCk9vmqkrkDw0rWR7ant9eiuPEixSWdN5CtSL8rZjejVDfkKHtw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787849509; c=relaxed/simple;
-	bh=Cv42epPoNORB5PcqX0k0Mx2zGd1B1jSGrLyDLj5cWzY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Sr84kb3rdsJ7hd+klzAmdZwxRRTN7S0TMrKjFkIG1kRQTRm/+IJx0KSRsvffKEW0oFl27i4FJVlYr2WCk3CHwXuVwr+qbIG75bvs1A5KCsGRaVf4tvu1dZSE2MzE6BR2F3JrTj6FCilmtkP/GEaPRyfR08wtp7h91gcVnxEBUas=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; spf=pass smtp.mailfrom=9elements.com; dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b=UPmiKO5t; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=9elements.com
+	s=arc-20240116; t=1787849579; c=relaxed/simple;
+	bh=Hlom3LElFC/Talrh/JZKuOX6hUzFwHVaX+9vowq0D2A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=h1YB7Lgn5jv0EL1mvIWp0EqFke7M7Li2o0wAYXETaympAvS17r/vPpaA9fn603JC4BsBkQL5WDPFe3q+nRM3y0ydZFR9YXY9EUh42mzgFFFGoLqW7JYp3uyz2wt74Y5k0BX0XLZzBjCE+wQsFezbVQaCWkrmY+toY/uqn9TjJ/A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kSUBmPY/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b="UPmiKO5t"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49b0d78a801so12491955e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:51:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=9elements.com; s=google; t=1787849500; x=1788454300; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=tbqtOFs9zlL8i8nLzqSqayZV4ABdonTOL9PAP1vFtvs=;
-        b=UPmiKO5tjCBgg9Veof5q78GmapElJC/DKhi9U7xlb78/iVwe+eRPB9jz+4hozV3pFu
-         NwClMPn/fdvaA/Ft3eVHeKzIJrTGeCDFj2y10eiPtfufr7Rxqgz7iJCR6TsySmWmic90
-         JRc9lyixKDzgEXxOpkgkkpCtWSMhXWFMxW5R7lWD9r1I/2h/msNzeacDSvNa56mXD4mA
-         eV52zd5g3sNm1+3T2PT18RM34RNXE95uBOBFYHAibAo4oFMMkgUYDdONxgD80SxssHO0
-         9D7eayx8udJ8n4qUEL5wCjfsgLcTZkef3rv1qYK2EgQm6EOzH87oETH7srpONoJdGysb
-         164w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787849500; x=1788454300;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=tbqtOFs9zlL8i8nLzqSqayZV4ABdonTOL9PAP1vFtvs=;
-        b=QvZmxRmOyKwWr2DGxzTJhfFW8tRqiE2h00Kz4+x/3/BnurXQNU/qX7dS6SYkVMRhHD
-         16Saw/eF4wp6WRbqOf9RrG6wPkBxZkQx6ffJ5UyDMu4wKDfSTfQGgQYWSmV9aKFllxw2
-         5Wy+nWGrsQQP2ZCEsB6FCcfxRiY1x3GTftN5b4/Vhvk853M3tqUUG7sYuiTMhdscNx64
-         eVkUb2rQ4/ilOc9eZkv+EdgfhkTo4ZVvlA2dw01LKzVKZDrfgOODNF/SPkvFHhEZS7XL
-         IxvQlxNBxM+Tvyuu6idzGWEtB+tEc/IUg2g+3WiF33GUZfTTf7EWiUXX1ccmW5Godela
-         eN9g==
-X-Forwarded-Encrypted: i=1; AHgh+Rp3qk1p7S3qEO4/GUWkJxb0pJ4oRuJYClinvHHMFx4zRT3YkwpbaYUB/Mwl4q8VFyohId/9D1Fkp0hhEnI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mEzTiBTwkgQV+Gcpv+p0BwHOGUJmN480q8k1Z1e7j9HgqA58hi
-	+SCXzCB0OtZBifdBOKRktTVpzOTPs1iuZXTrZXEd/kkaUCf8c49H3RpkMsKvdsbpdg==
-X-Gm-Gg: AR+sD13g30fa3sug2LoPjZx67g2DxteZfjX7erXK+esqO+Tqi2S4RjHzg/ZprXuYu0u
-	3uYjERE+rG5+R09sMMI1h4YUMc6es/7iEtpDvNlumBbBAbSJx9dvL4pUf/oaQRT80nqyn6dnD4C
-	e8J/yVa+6J4xTpGBdDyjY1rHY3cCAv0NhRduvJNGU4IAUUOUswO8UO4KoOyzF0QRYXakDYwjUq/
-	+/1FjRJQLPaXPBEDZw7zU/5sv3e0MjMYPSKkDaeSi+R9EWk0rBwy2wvCL84HBa1bHMSYGkURgmQ
-	YXVqsYSX3ks7Mmlq35skulUKgdGp/c/NfxBv4HVfhLtYYK0udblBIn8RZVOZU8LyZj5mV9FoEjY
-	KNtCu5e0q9Bgg1MfVB20iW+M0HVQ3xOHb1TvFUKiZ/tKO0w4GZ9++Ti1/klDqZi+pGwvKAmRLEJ
-	0ai/egLNL+iRLreW9n5dCdZCXoG5zsJd1l1BdeLQ9lQyns6yUkUgMvtmzpXRTjtvUd4Cxk
-X-Received: by 2002:a05:600c:8581:b0:499:a760:722f with SMTP id 5b1f17b1804b1-49b91c47bf8mr3744675e9.13.1787849500201;
-        Thu, 27 Aug 2026 09:51:40 -0700 (PDT)
-Received: from [127.0.0.2] ([188.111.3.154])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499dd56826bsm78234015e9.4.2026.08.27.09.51.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 09:51:39 -0700 (PDT)
-From: Michal Gorlas <michal.gorlas@9elements.com>
-Date: Thu, 27 Aug 2026 18:51:00 +0200
-Subject: [PATCH RESEND v2] PCI: imx6: Enable ASPM L1 only iff CLKREQ# is
- supported
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kSUBmPY/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B6C51F00ADB
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:52:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787849577;
+	bh=/qMXLpKC/d7lTeX+trlbuLj331lUxLwBQTzncxUeZI4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kSUBmPY/YKqGAZNjanM/wBa5U+qYF5QfXkW7mJRQh5q+UoqHKXBKRBwafw8zovXi6
+	 ta7ZuhHOgc5MpVI+NcwKUTJO1j+5K9DeE66zWOpfU4ipb8sRUYd02Axg2MR8GnUrIX
+	 ZK9IsFh35daJ2tfVvuBq3pST12S0ZnZOtGNL3r1BKUafOGYz3X+xS8tSa1Dljca5qC
+	 4fl1zsQK+U0J8vqvDz8+UXXZOVvo4W9+9eRHttHdiHhrUwHY4DScJ8rwL1CLpLxN1G
+	 vDwlG97v4x3ewpwa0aehCcKnA+Lw7ELlidXYBvg0uXvhffVwSkSf+F/MMPDn5Eh5Md
+	 shAmiEcH586OQ==
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 31723F40066;
+	Thu, 27 Aug 2026 12:52:56 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-06.internal (MEProxy); Thu, 27 Aug 2026 12:52:56 -0400
+X-ME-Sender: <xms:aGuQaoAvjFGgMMo6UJKEqe84lFXmvf3nrLAA1Z3QWEL-zfMiEvBGxg>
+    <xme:aGuQaj2pSlnZ059h5mlPdFR2jDYHowP0O1NiNsZPShvOdU6LvPLJBBr5fxr7aYnec
+    pV6cv7PZ4gcGGbPLNvOfpEpg7GYSP-6OQaN6ryf6ShCqCM5RsH2v0I>
+X-ME-Received: <xmr:aGuQai2siGkVFyJGA9_6cYOu1JYqYLQnAdlhw5UVf2PQ7FBDA1CJdKM1orYOBtnYGukWWHH8jSAdO1Zauy1O66EDnRb1dqRE>
+X-ME-Proxy-Cause: dmFkZTGpAyVvSq+aFlI65LbBWK+d/UCiGOWcM+YRnyFMolEirGHgGfNXiHB2+xKPDReVYf
+    xsjqiXnQAWOnzHTp71awv7tIN9MBCJMDbhE/tchqhDd32uPOXm8WuiUKjey4W7aCNk2n0l
+    /HeghFbjVSfQ/b30CPwa3R9aAALl//WK2xVeFIAOR0ZF+F0QQwRYON1YaINRK0gqMmxqAf
+    3hcsSacjeNMv5wga1nxWrNWh9gFR08jQQQsXzRDwrStg+7dUY6xtDRRvekJbGzRxxcNS+R
+    964dVn7oi9FUSI3deIvJefh8IcM9m8NWXpws4aE/4KUgCh4Hwhd84uGBxW/EHb6CWJ2Ffy
+    Rk0zqLttQGYKDzSZ2EGhZCJ2FygpVU3KWSuTMb2Nw6H38nERNfOKum48+UPOmuXoH5A7b6
+    rLtqJLQJsrh7kgEa4wNg42hXlNycEx8hFIDHrtIz6H4M5hnN7cwJ0o4TAd3D81veGpFtGr
+    Zjx5KC4AWT6CBFvGSB/juPLculRok5600pVOnedpCN448ih4R04pSdtoykGTipD3Fyc6Rj
+    LzEgr+ioH8qqJPtezaHwHyF4lyOkbcxTNUmpM9X3WR3DfwXlOp+8pHZA91mCpgEugL+exY
+    np0AU/9cIlqvq3t1hyu8+uN3jmewltpnaikm5WiR7ecqp9VW6PpiGyvknyOg
+X-ME-Proxy: <xmx:aGuQagDcjQjEDTj_objHcH-CQEAk5sbnxGxoOaoYXV7LAJyzgbwd9A>
+    <xmx:aGuQap4iF_bhB9AUHD47zoGsxGgOAVaR6tCVAGthEodhtOABblJTYw>
+    <xmx:aGuQapK1aX2PxjBxabhzrmoZfXScKzr54tJur6cdk5vvT5IzA6cUKg>
+    <xmx:aGuQaitX_0hF3W3TOViSGHto5RIFdwVCWhHytOzJnRGLx3Dpo883uw>
+    <xmx:aGuQaoItXLGO4nn4A1AvFS-mb2v4Pm-eEOn9wIZRPHT75HvCUMiBWSh2>
+Feedback-ID: i8dbe485b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 27 Aug 2026 12:52:55 -0400 (EDT)
+Date: Thu, 27 Aug 2026 09:52:54 -0700
+From: Boqun Feng <boqun@kernel.org>
+To: Thomas Gleixner <tglx@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
+	linux-tip-commits@vger.kernel.org, x86@kernel.org
+Subject: Re: [PATCH] locking: Revert switching guards to
+ _irq_{disable,enable}()
+Message-ID: <apBrZuxU8bmCgG8h@tardis.local>
+References: <20260804161447.84806-8-boqun@kernel.org>
+ <178635226387.442315.3868294476114711805.tip-bot2@tip-bot2>
+ <20260824104704.GA4121339@noisy.programming.kicks-ass.net>
+ <20260824105523.GA4121620@noisy.programming.kicks-ass.net>
+ <aozw_7Txxaq2qE7c@tardis.local>
+ <877bldhkmq.ffs@fw13>
+ <ao4lO7U7L-7Zice1@tardis.local>
+ <87v78wezid.ffs@fw13>
+ <apA4M7Asz0mV9uaw@tardis.local>
+ <87jypbfu1t.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260827-l1-conditional-imx-v2-1-40b324aa2a94@9elements.com>
-To: Richard Zhu <hongxing.zhu@nxp.com>, 
- Lucas Stach <l.stach@pengutronix.de>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- imx@lists.linux.dev, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3161;
- i=michal.gorlas@9elements.com; h=from:subject:message-id;
- bh=Cv42epPoNORB5PcqX0k0Mx2zGd1B1jSGrLyDLj5cWzY=;
- b=owEBbQKS/ZANAwAKAWKaksyA3pPLAcsmYgBqkGsXl1XXO7CczlDW42hMAd4AcZI7L/miM5XQi
- 4HNMYkWKaiJAjMEAAEKAB0WIQTgoC0bQQLz7jVH2W9impLMgN6TywUCapBrFwAKCRBimpLMgN6T
- y4SzD/wJXnY4K3bTVEqMPYGKOQB6IFLjmxS3tCQvn8h7h8t5zTdtMDxOFbhTcZmNtsMWFM2KZ3b
- hGFQ41UMlczcyAe1IoHiRfx16B6MehkVhQYZaTR9Xc4yIhY4YPDHqMWll3BcRup8lRQDdeeU0z6
- bcPDaS0n9KjobxN5WwaVucD/5Bz423OQstjwCKLJcDCiGTVKIfMZF7uD420M1SBbMJIvwLiZi/A
- j8d8OYr9+QTsNKsU6HWf86ylOYXSwl2dH1fzh5rWkfmJitWKAqq7keIyhA3kbrCyVA9fsivsWQ2
- hOlnFLaXj7zbuKnsYSP1XJ3dlO5XtQ/Wnwt1/ZybSlFY5lVslsBm6Mssdn6ho8xejaRYHnH2/i7
- bC5g08hPvdLX+E0VkiN07CNG2LIdmYK6gW7+ckVek5T+ddG3i6+Cb/YBB71y4wlqS6o0g++uKzE
- +HK4CPkHupuSyC2MapHS1fDejhDh8/ab/nETLOz+uZ7SEMXlnCoHuXeCbEuhK0pzeY7VSFVje6V
- JyHtOsXDPTxO7JTcbhWO4v6rdu6+HAlbkJ/Bl/56rJmxXQqP9g8eK+zd+tIBoqkr+rRZgA37Aa7
- O0C3NOOnOWAKdeAMraI9QgkEix0O6xybs4nEcQSkUDsa33YGklAhit7mq0u2jBNjiK7Sa3NvDZz
- NwUnFbNbJkBgepw==
-X-Developer-Key: i=michal.gorlas@9elements.com; a=openpgp;
- fpr=B4EB74EA41969D1140A4D1791596726986433F8C
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87jypbfu1t.ffs@fw13>
 
-Since commit f3ac2ff14834 ("PCI/ASPM: Enable all ClockPM and ASPM
-states for devicetree platforms"), ASPM states are force enabled
-on all devicetree platforms. This causes PCI devices on some i.MX SoCs
-(for e.g. i.MX 8M Plus Kontron SMARC eval carrier) to enter L1 even
-though CLKREQ# is not supported (and consequently supports-clkreq is
-not set in pcie controller node of their DT), which causes the device to
-never wake up from L1.
+On Thu, Aug 27, 2026 at 05:43:26PM +0200, Thomas Gleixner wrote:
+> On Thu, Aug 27 2026 at 06:14, Boqun Feng wrote:
+> > On Thu, Aug 27, 2026 at 10:30:50AM +0200, Thomas Gleixner wrote:
+> >> The main problem is that you cover only half of it and there are
+> >> completely correct cases where this simply blows up in your face:
+> >> 
+> >>   local_irq_disable();                          // does not affect CNT
+> >>   ....
+> >>   guard(raw_spinlock)(&l1);                     // does not affect CNT
+> >>      foo()
+> >>        guard(raw_spinlock_irqsave)(&l2);        // observes CNT = 0
+> >> 
+> >> so the unlocking of &l2 will enable interrupts prematurely.
+> >> 
+> >
+> > If we are talking the switch in this patch, then no, the unlocking
+> > of &l2 will NOT enable interrupts prematurely. The above code expands as
+> > the following (using pseudo code to describe how
+> > raw_spin_lock_irq_disable(), raw_spin_lock_irq_enable(),
+> > local_interrupt_disable(), and local_interrupt_enable() work)
+> >
+> >    local_irq_disable();                          // does not affect CNT
+> >    ....
+> >    guard(raw_spinlock)(&l1);                     // does not affect CNT
+> >       foo()
+> >         guard(raw_spinlock_irqsave)(&l2): 
+> >           raw_spin_lock_irq_disable():
+> >             local_interrupt_disable():
+> > 	      CNT++;
+> >               this_cpu(state) = local_irq_save(); // record the current state
+> >             raw_spin_lock(&l2);
+> > 	  ...
+> >           raw_spin_lock_irq_enable():
+> >             raw_spin_unlock(&l2);
+> >             local_interrupt_enable():
+> >               CNT--;
+> >               if (CNT == 0)
+> >                 local_irq_restore(this_cpu(state)); // recover the previous state
+> >
+> > So local_interrupt_disable() and local_interrupt_enable() only recover
+> > to the previous state, as a result it'll not enable interrupt
+> > prematurely here. In other words, the following code works:
+> >
+> >     local_irq_disable();
+> >     local_interrupt_disable();
+> >     local_interrupt_enable();  // interrupt is not re-enabled here
+> >                                // similar to how preempt_disable() does
+> > 			       // in a nested preemption disable
+> > 			       // critical section.
+> >     local_irq_enable();
+> 
+> Fair enough. I misread that part.
+> 
+> But my main observation that the counter is inconsistent still stands
+> and I think that's a fundamental flaw because there is no way that code
+> can rely on that counter until everything has been converted over and
+> the interrupt/exception/nmi/syscall entry/exit code has been fixed up.
+> 
+> Just let me look at local_interrupt_disable() and __irq_exit_rcu()
+> again.
+> 
+> local_interrupt_disable()
+>    new_count = hardirq_disable_enter();
+> 
+>    /* Interrupts can happen here, but it's OK, see __irq_exit_rcu(). */
+> 
+>    if ((new_count & HARDIRQ_DISABLE_MASK) == HARDIRQ_DISABLE_OFFSET)
+>       _local_interrupt_disable();
+> 
+> This is absolutely not ok. Why?
+> 
+> The counter is incremented _before_ interrupts are actually
+> disabled. Now in __irq_exit_rcu():
+> 
+>         if (!in_interrupt() && !hardirq_disable_count() &&
+>             local_softirq_pending()) {
+> 
+> which prevents soft interrupt handling in a completely legitimate
+> situation. As a consequence _nothing_ will handle the pending soft
+> interrupt until:
+> 
+>      - an interrupt coming in which observes consistent state
+> 
+>      - a local_bh_enable() processes them
+> 
+> That explains that recently quite a few more spurious 'local soft irq
+> pending' printk's have been observed by people as there is no guarantee
+> that either one of those events happens _before_ a CPU reaches
+> idle. Even in the non-idle case deferring this to the next 'by chance'
+> handling is fundamentally broken. This needs to be removed ASAP.
+> 
+> But coming back to the problem underneath. The ordering in
+> local_interrupt_disable() is simply wrong. You need to disable first and
+> then update the counter. Reverse order for enable() obviously update
+> counter and enable, which you got right.
+> 
 
-Hence, disable L1 capability in the LNKCAP register if supports-clkreq
-is not set in the DT explicitly. For devices that set
-IMX_PCIE_FLAG_BROKEN_SUSPEND, disable L1 on resume as well, as these
-skip imx_pcie_host_init().
+Noted, the reason that I used the current order is to optimize
+local_interrupt_disable() from re-disabling interrupt every time:
 
-Note, the logic here is very similar to 613f3255a35a, only difference
-is that leaving L0s enabled does not cause issues (at least
-I never encountered them myself when testing on the device) as its
-not dependent on CLKREQ# being physically there.
-Since there is already a way of specifying its presence in the DT,
-the driver should be aware and disable L1.
+	https://lore.kernel.org/rust-for-linux/87a5eu7gvw.ffs@tglx/
 
-Fixes: f3ac2ff14834 ("PCI/ASPM: Enable all ClockPM and ASPM states for devicetree platforms")
-Signed-off-by: Michal Gorlas <michal.gorlas@9elements.com>
-Tested-by: Richard Zhu <hongxing.zhu@nxp.com>
-Reviewed-by: Richard Zhu <hongxing.zhu@nxp.com>
----
-Changes in v2:
-- disable L1 unconditionally on resume for platforms advertising
-IMX_PCIE_FLAG_BROKEN_SUSPEND (Sashiko)
-- typos in the commit message
-- Link to v1: https://patch.msgid.link/20260719-l1-conditional-imx-v1-1-a55a57915c68@9elements.com
----
- drivers/pci/controller/dwc/pci-imx6.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+but looks like we cannot do it without the fixups you mention below.
+For now I will reverse the order and remove the additional checking in
+softirq to fix the softirq pending issue.
 
-diff --git a/drivers/pci/controller/dwc/pci-imx6.c b/drivers/pci/controller/dwc/pci-imx6.c
-index 98e1db751132..1fdcbcd2422e 100644
---- a/drivers/pci/controller/dwc/pci-imx6.c
-+++ b/drivers/pci/controller/dwc/pci-imx6.c
-@@ -1318,6 +1318,22 @@ static void imx_pcie_assert_perst(struct imx_pcie *imx_pcie, bool assert)
- 	}
- }
- 
-+static void imx_pcie_disable_l1(struct dw_pcie *pci)
-+{
-+	u32 val;
-+	u8 offset;
-+
-+	offset = dw_pcie_find_capability(pci, PCI_CAP_ID_EXP);
-+
-+	dw_pcie_dbi_ro_wr_en(pci);
-+
-+	val = dw_pcie_readl_dbi(pci, offset + PCI_EXP_LNKCAP);
-+	val &= ~PCI_EXP_LNKCAP_ASPM_L1;
-+	dw_pcie_writel_dbi(pci, offset + PCI_EXP_LNKCAP, val);
-+
-+	dw_pcie_dbi_ro_wr_dis(pci);
-+}
-+
- static int imx_pcie_host_init(struct dw_pcie_rp *pp)
- {
- 	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
-@@ -1442,6 +1458,9 @@ static int imx_pcie_host_init(struct dw_pcie_rp *pp)
- 
- 	imx_setup_phy_mpll(imx_pcie);
- 
-+	if (!imx_pcie->supports_clkreq)
-+		imx_pcie_disable_l1(pci);
-+
- 	return 0;
- 
- err_phy_off:
-@@ -1748,6 +1767,7 @@ static int imx_pcie_resume_noirq(struct device *dev)
- 			return ret;
- 		imx_pcie_deassert_core_reset(imx_pcie);
- 		imx_pcie_assert_perst(imx_pcie, false);
-+		imx_pcie_disable_l1(imx_pcie->pci);
- 
- 		/*
- 		 * Using PCIE_TEST_PD seems to disable MSI and powers down the
+Regards,
+Boqun
 
----
-base-commit: a13c140cc289c0b7b3770bce5b3ad42ab35074aa
-change-id: 20260713-l1-conditional-imx-c2bfd20ae085
-
-Best regards,
--- 
-Michal Gorlas <michal.gorlas@9elements.com>
-
+> And to make stuff work correctly you need the fixups I pointed out in my
+> previous reply to the various entry/exit functions. It's exactly the
+> same problem as we handle in interrupt/exception/nmi entry/exit code
+> vs. RCU, lockdep, tracing etc.
+> 
+> So if disable() does:
+> 
+>    if (!count)
+>    	arch_local_irq_disable();
+>    count++;
+> 
+> then an interrupt hitting before arch_local_irq_disable() will always
+> observe the correct state. After that it can't be delivered.
+> 
+[...]
