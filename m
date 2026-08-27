@@ -1,118 +1,75 @@
-Received: from mx1.zhaoxin.com (MX1.ZHAOXIN.COM [210.0.225.12])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4FAB722A7F6;
-	Thu, 27 Aug 2026 07:43:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.0.225.12
+Received: from mail-oa1-f70.google.com (mail-oa1-f70.google.com [209.85.160.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A36C360ECE
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:44:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787816638; cv=none; b=XVK8f3yHWXMy6nHuQS3QkL8gXyyIUwK+8YjwdLzxBTPtN+94Slg3PPsBQbIqUZXK+WodFMuY6CKnuHh/0H+nDpHtSIR9jfwkXD5Wg3HJDmmuRKx0jq47Ad9efYq2uvHHe3UQ+N7PI5N7oF096WsSJq0cNOc8alOn1XH/dm3WUiY=
+	t=1787816645; cv=none; b=M6uPOtr/V99VqrMcO8U429+6mrenU2ji0ddszXHsFIUIAdig73uFPmsJfIa+jQJIImW8WV0QPDtw0WpqeWrXUh9XyPepCgwMBk85p/v2uBwsSqRv7YC3Bs04MOriJHhJr+dRbkU6nT5KQeoHQeYh0fHKc8HuMqQXuep7bV/njPo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787816638; c=relaxed/simple;
-	bh=aRWu0BCR75bZA36JVsM6pSTeAyLk+1fRzVYLR+qzZ+U=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ShU+Zokae9CFp883/WSIHfjoJOfPCz4j4jcAhx0m4sVT5NQt3hTquB9oWNhKudvI81PJ75E6lVITHih7kYeucLnM59UIb2lSotgbFft1/fcYKzFwJfzvl5e5lXwmKGZzBtlcgjeSFfezjH9ZMjnfJMgoHZM/UEnCftWTwS0xzyE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zhaoxin.com; spf=pass smtp.mailfrom=zhaoxin.com; arc=none smtp.client-ip=210.0.225.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zhaoxin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zhaoxin.com
-Received: from zhaoxin.com (unknown [127.0.0.1])
-	by mx1.zhaoxin.com (MTA) with ESMTP id 4hVtmw6ljNzbywch;
-	Thu, 27 Aug 2026 15:43:44 +0800 (CST)
-Received: from zhaoxin.com (unknown [10.28.208.166])
-	by mx1.zhaoxin.com (MTA) with ESMTP id 4hVtmv4mp1zbywch;
-	Thu, 27 Aug 2026 15:43:43 +0800 (CST)
-Received: from zjh-os.zhaoxin.com (zjh-os.zhaoxin.com [10.28.24.13])
-	by zhaoxin.com (8.30) with ESMTP01b69ef6ebedde94149aef5b3f1450d4
-	Thu, 27 Aug 2026 15:43:43 +0800
-X-Eyou-Smtpauth: jonaszhou-oc@zhaoxin.com
-X-Eyou-EnvelopeSender: jonaszhou-oc@zhaoxin.com
-X-Eyou-From: JonasZhou <jonaszhou-oc@zhaoxin.com>
-From: "=?UTF-8?B?Sm9uYXNaaG91LW9j?=" <jonaszhou-oc@zhaoxin.com>
-To: linux-ext4@vger.kernel.org
-Cc: tytso@mit.edu,
-	adilger.kernel@dilger.ca,
-	libaokun@linux.alibaba.com,
-	jack@suse.cz,
-	ojaswin@linux.ibm.com,
-	ritesh.list@gmail.com,
-	yi.zhang@huawei.com,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	jianhuizzzzz@gmail.com,
-	JonasZhou <jonaszhou-oc@zhaoxin.com>
-Subject: [RFC PATCH] ext4: cacheline-align inode cache to avoid false sharing
-Date: Thu, 27 Aug 2026 15:43:34 +0800
-Message-ID: <20260827074334.616360-1-jonaszhou-oc@zhaoxin.com>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1787816645; c=relaxed/simple;
+	bh=qLvwCXRy3RLAF1jAexP/5dC0+vxp3bNryOjD/RQVrGY=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=FdCxzLHhCbQvMVT48EjKHBU6VyvQJzImCcCfzaQe/+4oKd1WiUiIFy0H5F6Rxm4/lY0TW1ZrlgGMONYnXJJG7y3+NgbgXUP8MUk2xd6FgZF6d1TYnIrCuRcQapUB1iIg2t08y+/8M2uXEjc0CGGMAdOi7r3tC1Yle3vZuEZExYA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa1-f70.google.com with SMTP id 586e51a60fabf-458326d2d9aso1335015fac.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:44:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787816642; x=1788421442;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=U2oh1UrHxyt7XY5/MlGcd+3IUC5ZbqN/eEEyPs+3890=;
+        b=D7tWdAp7yK6/uV9r2UlJePI5fy7SXArrYrAr8fHgupBuZFZhhSuKCeMRRgoPKIm7l7
+         X+U9X/rtc7OFhM//xIXA2lVTAPCcrU5NG9dyKrteJ1S9QaXIckyXlEm4IfRMWAm9kMgZ
+         HhwgIPQQUK0sCotcfGUi5u5ZamlitJLzJGXILesOyTsmt8yPAjhOfUJ8DVQVIph6CI9g
+         2WFeClN0L+BPZjv/N0D9AzlrZxArdd2TK03fFf+V7rM0MZpOv4qcsDew/8GHEO2CNVyf
+         PbJm8HQ0uyvtvv/O2jXAi0aiMBvD96vE+w8w3fteSDEnt0yZCW60ek5AF4tWC9FKyfsc
+         jGaw==
+X-Forwarded-Encrypted: i=1; AHgh+RqqPzkEagXoIF9S7vjLr5izPvPBYBVyjbp/rkveVLzUZFXB+Jte8As/hDG64GHeacAw0Pz/bBc/u6ntEbw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lAhNh7EhgzpMdWJNdg8wrqXccJ+kxsmhY51ljc8mG+FOp2zo+L
+	KH2beE56EtWqnm596OxbD5nBbK5GxHAvbnDJRu42EW3PMlPXmVUChMdin1QZWyp0IcLc+RUC93q
+	ZkvOSqI0vLEC7r18GyDnicABs0YKNlANQ+U9FZiWa8mX0tI4fz2YG6cOhjGo=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Eyou-Sender: <jonaszhou-oc@zhaoxin.com>
+X-Received: by 2002:a4a:e2cc:0:b0:6b1:55d0:6e69 with SMTP id
+ 006d021491bc7-6b1a049cda9mr9733598eaf.18.1787816642360; Thu, 27 Aug 2026
+ 00:44:02 -0700 (PDT)
+Date: Thu, 27 Aug 2026 00:44:02 -0700
+In-Reply-To: <20260827080226.4ec229d3.michal.pecio@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a8feac2.50659fcc.60cd.0010.GAE@google.com>
+Subject: Re: [syzbot] [usb?] INFO: task hung in unbind_store
+From: syzbot <syzbot+fd7be5ad9795b7f29df3@syzkaller.appspotmail.com>
+To: dakr@kernel.org, driver-core@lists.linux.dev, gregkh@linuxfoundation.org, 
+	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
+	michal.pecio@gmail.com, rafael@kernel.org, stern@rowland.harvard.edu, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-struct ext4_inode_info embeds struct inode, but ext4_inode_cache does
-not request cache-line alignment.  On the tested x86-64 build,
-struct ext4_inode_info is 1072 bytes, so consecutive objects can start
-at different offsets within a 64-byte cache line.
+Hello,
 
-The embedded inode starts at offset 232, with i_ctime_nsec, i_blkbits,
-i_state, and i_rwsem at offsets 352, 366, 376, and 384, respectively.
-When the containing object is not cache-line aligned, inode metadata
-and i_rwsem can occupy the same cache line.  Metadata updates then
-invalidate the line used by CPUs contending on i_rwsem.
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-Add SLAB_HWCACHE_ALIGN to ext4_inode_cache.  This makes the containing
-objects start at cache-line boundaries and, with the tested layout,
-places i_rwsem at the start of a cache line separate from the preceding
-metadata.
+Reported-by: syzbot+fd7be5ad9795b7f29df3@syzkaller.appspotmail.com
+Tested-by: syzbot+fd7be5ad9795b7f29df3@syzkaller.appspotmail.com
 
-Tests were run on Linux 7.2 on a two-socket Intel Xeon Silver 4208
-system with 16 CPUs, SMT disabled, and the frequency fixed at 2 GHz.
-Ten normal-mode runs of each zjhbench workload gave:
+Tested on:
 
-                         before          after         change
-  unixbench.fstime       488330.6       543996.2       +11.40%
-  unixbench.fsdisk      1396385.0      1501352.5        +7.52%
+commit:         73e3f071 Merge tag 'nfs-for-7.3-1' of git://git.linux-..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=15bc4579580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=22381429a4c2735a
+dashboard link: https://syzkaller.appspot.com/bug?extid=fd7be5ad9795b7f29df3
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+userspace arch: i386
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=124f3979580000
 
-On this build, the slab allocation size grows from 1072 to 1088 bytes,
-an increase of 16 bytes (1.49%) per ext4 inode.
-
-RFC questions:
-
-1. Is using SLAB_HWCACHE_ALIGN for ext4_inode_cache acceptable when
-   the measured benefit depends on the current struct inode layout?
-
-2. Would it be preferable to enable the alignment only when
-   vfs_inode.i_rwsem is naturally cache-line aligned within
-   struct ext4_inode_info, rather than enabling it unconditionally?
-
-3. Should this false sharing instead be addressed in the generic VFS
-   inode layout, despite the significantly larger memory and
-   cross-filesystem impact?
-
-4. What additional workloads or configuration coverage would be
-   required before this could be considered as a non-RFC patch?
-
-Link: https://lore.kernel.org/linux-fsdevel/CAGudoHFgtM8Px4mRNM_fsmi3=vAyCMPC3FBCzk5uE7ma7fdbdQ@mail.gmail.com/
-Signed-off-by: JonasZhou <jonaszhou-oc@zhaoxin.com>
----
- fs/ext4/super.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/fs/ext4/super.c b/fs/ext4/super.c
-index 245f67d10ded..11090fca1613 100644
---- a/fs/ext4/super.c
-+++ b/fs/ext4/super.c
-@@ -1510,7 +1510,8 @@ static int __init init_inodecache(void)
- 	ext4_inode_cachep = kmem_cache_create("ext4_inode_cache",
- 				sizeof(struct ext4_inode_info),
- 				&args,
--				SLAB_RECLAIM_ACCOUNT | SLAB_ACCOUNT);
-+				SLAB_RECLAIM_ACCOUNT | SLAB_ACCOUNT |
-+				SLAB_HWCACHE_ALIGN);
- 
- 	if (ext4_inode_cachep == NULL)
- 		return -ENOMEM;
--- 
-2.43.0
-
-
+Note: testing is done by a robot and is best-effort only.
