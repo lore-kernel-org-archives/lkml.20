@@ -1,460 +1,296 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECC6D361947;
-	Thu, 27 Aug 2026 22:52:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A82EE3815CF;
+	Thu, 27 Aug 2026 22:55:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787871151; cv=none; b=qbZ0aLWiEBZQziQBzZyBTISPjp19Hmm3QufH5Mh47mghXBVghYQV/RRyZzCNYMVcMDRWFhugL6+dlkO0L8SgheEs7Tjr4XEXVf3HYj/SlyS+PZJ4AlrTNF1/swKA5PbIR1PDRAxbbMow2cFznXQ0iTfWole/3Vd+0mgMp4vvsKQ=
+	t=1787871336; cv=none; b=DAjRZyfxMCa546Z22n9qpwxBVXYPBlOBsEU6DUrit0yryKqQhb34sYeeSzZ9N0l5KVFgc0W7Y4yCswF59cQjH8BI1q/QyDL5CA1s7/L9VM9AlyStXMV24weJ73q0AqDZY8JJZntv/+fSfApgw8Drnpv+QFV4knGZciRqqM8lgMw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787871151; c=relaxed/simple;
-	bh=ie8eCO8d9rYdmbLawy5lLe2IJUuIJSJ82wOa0mcAUeI=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=uZAsnJgMfEaaKpRdR3SiJ2CKG+nK5X/tIK1aAI4EzGSEYHJZw6hZj0U91DudUWe6cnQnj8T8ZBAuumgQkygjyTr+Wc6tSFc9t1nlq78hedKjCkMwZrrubm9+ID6OgIS+s7pWoN25jhhtBVm0mvNKslU5h63VGkLQI7vwUD5h/ZE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mwq+ivvI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787871336; c=relaxed/simple;
+	bh=eaddR6f96ggg4HHHojQOBTu+dM9cuubOZ3SSaV61S1g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ln/3EmHVl7aH5zH7gsLQ2DyBMMWR4HYp+8Q6MktJtOekT2bY69gkiucSUlfMfblt6C0dQAYBqUCtPB96x4w7zmXL7UxbGj+zDN9/R5rRNjOGgeKi+8StgOfkzflheNrQK7EzBhr4zNCQOOqktocVxqTpQbMgeZRaoS37O61IpLg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MzxaSfDE; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mwq+ivvI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C85381F00A3A;
-	Thu, 27 Aug 2026 22:52:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787871149;
-	bh=lXAAlRJJICEwxPvO50wysYDy3+dxhI2WWZmqCrXCRYo=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=mwq+ivvIAuL2AOYpW6TudhUaWmYLqPiHCPc6tWW6AhtdlfgrFO6UNQV5Dauv0tj2K
-	 CotNhtkyx8YLO7Y7LeNCzryGR6XakrYxzL/FfYfHPxF9qGGa1umuoKc88p+x544bnt
-	 Ib0wBxqJ9fSRscsFZ7lFj1vE2Bw4YN5L0H4cCDzhPkwOGAblRkHBGyrlxt8QmuVCka
-	 9BTtwi3UNKIhqzec9nxxnJTdZoHlmyjVp3XCfw7NBEfiHWQEtwhmVQqm/EGVppwNTa
-	 vIDVjiJGifLclB00jKqjnQF3r+Psbwcmm9giAek9GKKBPxj38fvKxljQMgs90QmNJF
-	 Wfodl1PbT1JkA==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Boqun Feng <boqun@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
- linux-tip-commits@vger.kernel.org, x86@kernel.org
-Subject: Re: [PATCH] locking: Revert switching guards to
- _irq_{disable,enable}()
-In-Reply-To: <apCS3T63WUxHd1GH@tardis.local>
-References: <20260824104704.GA4121339@noisy.programming.kicks-ass.net>
- <20260824105523.GA4121620@noisy.programming.kicks-ass.net>
- <aozw_7Txxaq2qE7c@tardis.local> <877bldhkmq.ffs@fw13>
- <ao4lO7U7L-7Zice1@tardis.local> <87v78wezid.ffs@fw13>
- <apA4M7Asz0mV9uaw@tardis.local> <87jypbfu1t.ffs@fw13>
- <apBrZuxU8bmCgG8h@tardis.local> <87bjanfmzz.ffs@fw13>
- <apCS3T63WUxHd1GH@tardis.local>
-Date: Fri, 28 Aug 2026 00:52:26 +0200
-Message-ID: <87wltbdvmd.ffs@fw13>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MzxaSfDE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787871334; x=1819407334;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=eaddR6f96ggg4HHHojQOBTu+dM9cuubOZ3SSaV61S1g=;
+  b=MzxaSfDEmu+kbP7Q0MN5k+p9xuZk3CL37haAvq0z+Y7FuoYiH4iNYaLA
+   wJ5kD6dvLcfZZm8UZv10n2DkZXHouJpThp1g6QObmBlJnXP3iWFezQspd
+   qjW8xnoPiSHsI21O+7Bj3mXwzTCNonHoJZ/TRDthVu/9WGqWdw89H4zhp
+   NuEvQpsLWnpUxwQdoUDr0sOh+P8C/26H2Zqrvn+0hmKliN9D2ESXUo/+E
+   loLOipMjFqovfXX32OZ6HZPVuzCHCbKFctM2cuWk+Kpe9MMfMm9MVIhhH
+   9HGK22cJkhASOMDdLMYjr4oK5g+0mXt2BdbGDdEezDgYiWLSxW3o0NdV0
+   g==;
+X-CSE-ConnectionGUID: XfO31NL0QpWqAalQKGWJpQ==
+X-CSE-MsgGUID: uNjWqmtCQmCm9YyCu+tNSg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="88586859"
+X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
+   d="scan'208";a="88586859"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 15:55:33 -0700
+X-CSE-ConnectionGUID: qT413krZSUSrGhIiIwJqDA==
+X-CSE-MsgGUID: yhAyI4jFRvirvk5JFhfnDA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
+   d="scan'208";a="271813349"
+Received: from rchatre-mobl4.amr.corp.intel.com (HELO [10.125.109.124]) ([10.125.109.124])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 15:55:31 -0700
+Message-ID: <51c47dad-0517-43fa-80a1-da7d79fb90ea@intel.com>
+Date: Thu, 27 Aug 2026 15:55:29 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 1/7] cxl/features: Reject feature offset that overflows
+ 16-bit field
+To: Richard Cheng <icheng@nvidia.com>, dave@stgolabs.net, jic23@kernel.org,
+ alison.schofield@intel.com, vishal.l.verma@intel.com
+Cc: iweiny@kernel.org, ming.li@zohomail.com, gourry@gourry.net,
+ rrichter@amd.com, linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org,
+ kees@kernel.org, newtonl@nvidia.com, kristinc@nvidia.com,
+ kaihengf@nvidia.com, kobak@nvidia.com
+References: <20260826014508.9989-1-icheng@nvidia.com>
+ <20260826014508.9989-2-icheng@nvidia.com>
+From: Dave Jiang <dave.jiang@intel.com>
+Content-Language: en-US
+In-Reply-To: <20260826014508.9989-2-icheng@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Aug 27 2026 at 12:41, Boqun Feng wrote:
-> On Thu, Aug 27, 2026 at 08:15:44PM +0200, Thomas Gleixner wrote:
->> > For now I will reverse the order and remove the additional checking in
->> > softirq to fix the softirq pending issue.
->> 
->> That "fixes" another nasty bug which was latent for weeks and people
->> could not get a handle on it because it was absolutely not
->> reproducible. Given all that I'm absolutely not convinced that there
->> isn't another pile of latent surprises lurking.
->> 
->> Aside of that I'm worried about having this new counter exposed in the
->> current state of affairs. Nothing prevents arbitrary code from using
->> hardirq_disable_count(), which is definitely faster than
->> irqs_disabled(), but returns a random value depending on context. That's
->
-> Random how? Are you saying in the current (wrong) order? Because after
-> reversing the order, hardirq_disable_count() != 0 means the interrupt
-> has been disabled, no?
->
-> But I checked, actually with the reverse order, we don't need
-> hardirq_disable_count(), so we can remove it entirely. Will send a
-> follow up patch on this.
 
-The point is that the counter is only valid when used within the limits
-of the current coverage. Other than that it is not:
 
-        spin_lock_irq() // or any other non-covered mechanism
-            // observes 0
-            cnt = preempt_count() & HARDIRQ_DISABLE_MASK;
+On 8/25/26 6:45 PM, Richard Cheng wrote:
+> cxl_get_feature() and cxl_set_feature() build each mailbox command's
+> offset from the starting offset plus the amount of data already
+> transferred, then store it in a 16-bit field. A user-controlled fwctl
+> offset and transfer size can exceed the feature extent, allowing a later
+> offset to be truncated by cpu_to_le16() and target the wrong feature
+> data.
+> 
+> Reject requests whose transfer size exceeds the remaining 16-bit feature
+> range. Express the check as "size > U16_MAX - offset" so the validation
+> itself cannot wrap on 32-bit systems.
+> 
+> Change cxl_get_feature() to return ssize_t so invalid input and mailbox
+> failures are reported as negative errno rather than being conflated with
+> a zero-byte result. Update the EDAC callers to handle negative results.
+> Keep fwctl behavior unchanged by translating helper failures to the same
+> header-only RPC response carrying the CXL mailbox return code.
+> 
+> Fixes: 5e5ac21f629d ("cxl/mbox: Add GET_FEATURE mailbox command")
+> Fixes: 14d502cc2718 ("cxl/mbox: Add SET_FEATURE mailbox command")
+> Signed-off-by: Richard Cheng <icheng@nvidia.com>
 
-That's inconsistent and therefore it is a random number, no?
+Reviewed-by: Dave Jiang <dave.jiang@intel.com>
 
-You have no way to prevent that this happens and if it does it becomes a
-nightmare to debug for everyone. Guess who got the bug reports about
-preemption counter issues and local softirq pending messages in his
-inbox and dealt with them.
+> ---
+>  drivers/cxl/core/core.h     |  8 ++++----
+>  drivers/cxl/core/edac.c     | 20 +++++++++++++++-----
+>  drivers/cxl/core/features.c | 28 ++++++++++++++++++----------
+>  3 files changed, 37 insertions(+), 19 deletions(-)
+> 
+> diff --git a/drivers/cxl/core/core.h b/drivers/cxl/core/core.h
+> index 35eaf636adc9..bb380ec6daeb 100644
+> --- a/drivers/cxl/core/core.h
+> +++ b/drivers/cxl/core/core.h
+> @@ -217,10 +217,10 @@ int cxl_port_get_possible_dports(struct cxl_port *port);
+>  #ifdef CONFIG_CXL_FEATURES
+>  struct cxl_feat_entry *
+>  cxl_feature_info(struct cxl_features_state *cxlfs, const uuid_t *uuid);
+> -size_t cxl_get_feature(struct cxl_mailbox *cxl_mbox, const uuid_t *feat_uuid,
+> -		       enum cxl_get_feat_selection selection,
+> -		       void *feat_out, size_t feat_out_size, u16 offset,
+> -		       u16 *return_code);
+> +ssize_t cxl_get_feature(struct cxl_mailbox *cxl_mbox, const uuid_t *feat_uuid,
+> +			enum cxl_get_feat_selection selection,
+> +			void *feat_out, size_t feat_out_size, u16 offset,
+> +			u16 *return_code);
+>  int cxl_set_feature(struct cxl_mailbox *cxl_mbox, const uuid_t *feat_uuid,
+>  		    u8 feat_version, const void *feat_data,
+>  		    size_t feat_data_size, u32 feat_flag, u16 offset,
+> diff --git a/drivers/cxl/core/edac.c b/drivers/cxl/core/edac.c
+> index b321971fef58..f1df4b5cfe5b 100644
+> --- a/drivers/cxl/core/edac.c
+> +++ b/drivers/cxl/core/edac.c
+> @@ -78,7 +78,7 @@ static int cxl_mem_scrub_get_attrbs(struct cxl_mailbox *cxl_mbox, u8 *cap,
+>  				    u16 *cycle, u8 *flags, u8 *min_cycle)
+>  {
+>  	size_t rd_data_size = sizeof(struct cxl_scrub_rd_attrbs);
+> -	size_t data_size;
+> +	ssize_t data_size;
+>  	struct cxl_scrub_rd_attrbs *rd_attrbs __free(kfree) =
+>  		kzalloc(rd_data_size, GFP_KERNEL);
+>  	if (!rd_attrbs)
+> @@ -87,6 +87,8 @@ static int cxl_mem_scrub_get_attrbs(struct cxl_mailbox *cxl_mbox, u8 *cap,
+>  	data_size = cxl_get_feature(cxl_mbox, &CXL_FEAT_PATROL_SCRUB_UUID,
+>  				    CXL_GET_FEAT_SEL_CURRENT_VALUE, rd_attrbs,
+>  				    rd_data_size, 0, NULL);
+> +	if (data_size < 0)
+> +		return data_size;
+>  	if (!data_size)
+>  		return -EIO;
+>  
+> @@ -551,7 +553,7 @@ static int cxl_mem_ecs_get_attrbs(struct device *dev,
+>  	struct cxl_mailbox *cxl_mbox = &cxlmd->cxlds->cxl_mbox;
+>  	struct cxl_ecs_fru_rd_attrbs *fru_rd_attrbs;
+>  	size_t rd_data_size;
+> -	size_t data_size;
+> +	ssize_t data_size;
+>  
+>  	rd_data_size = cxl_ecs_ctx->get_feat_size;
+>  
+> @@ -563,6 +565,8 @@ static int cxl_mem_ecs_get_attrbs(struct device *dev,
+>  	data_size = cxl_get_feature(cxl_mbox, &CXL_FEAT_ECS_UUID,
+>  				    CXL_GET_FEAT_SEL_CURRENT_VALUE, rd_attrbs,
+>  				    rd_data_size, 0, NULL);
+> +	if (data_size < 0)
+> +		return data_size;
+>  	if (!data_size)
+>  		return -EIO;
+>  
+> @@ -583,7 +587,7 @@ static int cxl_mem_ecs_set_attrbs(struct device *dev,
+>  	struct cxl_ecs_fru_wr_attrbs *fru_wr_attrbs;
+>  	size_t rd_data_size, wr_data_size;
+>  	u16 num_media_frus, count;
+> -	size_t data_size;
+> +	ssize_t data_size;
+>  
+>  	num_media_frus = cxl_ecs_ctx->num_media_frus;
+>  	rd_data_size = cxl_ecs_ctx->get_feat_size;
+> @@ -596,6 +600,8 @@ static int cxl_mem_ecs_set_attrbs(struct device *dev,
+>  	data_size = cxl_get_feature(cxl_mbox, &CXL_FEAT_ECS_UUID,
+>  				    CXL_GET_FEAT_SEL_CURRENT_VALUE, rd_attrbs,
+>  				    rd_data_size, 0, NULL);
+> +	if (data_size < 0)
+> +		return data_size;
+>  	if (!data_size)
+>  		return -EIO;
+>  
+> @@ -1264,7 +1270,7 @@ cxl_mem_sparing_get_attrbs(struct cxl_mem_sparing_context *cxl_sparing_ctx)
+>  	struct cxl_memdev *cxlmd = cxl_sparing_ctx->cxlmd;
+>  	struct cxl_mailbox *cxl_mbox = &cxlmd->cxlds->cxl_mbox;
+>  	u16 restriction_flags;
+> -	size_t data_size;
+> +	ssize_t data_size;
+>  	u16 return_code;
+>  	struct cxl_memdev_sparing_rd_attrbs *rd_attrbs __free(kfree) =
+>  		kzalloc(rd_data_size, GFP_KERNEL);
+> @@ -1274,6 +1280,8 @@ cxl_mem_sparing_get_attrbs(struct cxl_mem_sparing_context *cxl_sparing_ctx)
+>  	data_size = cxl_get_feature(cxl_mbox, &cxl_sparing_ctx->repair_uuid,
+>  				    CXL_GET_FEAT_SEL_CURRENT_VALUE, rd_attrbs,
+>  				    rd_data_size, 0, &return_code);
+> +	if (data_size < 0)
+> +		return data_size;
+>  	if (!data_size)
+>  		return -EIO;
+>  
+> @@ -1750,7 +1758,7 @@ static int cxl_mem_ppr_get_attrbs(struct cxl_ppr_context *cxl_ppr_ctx)
+>  	struct cxl_memdev *cxlmd = cxl_ppr_ctx->cxlmd;
+>  	struct cxl_mailbox *cxl_mbox = &cxlmd->cxlds->cxl_mbox;
+>  	u16 restriction_flags;
+> -	size_t data_size;
+> +	ssize_t data_size;
+>  	u16 return_code;
+>  
+>  	struct cxl_memdev_ppr_rd_attrbs *rd_attrbs __free(kfree) =
+> @@ -1761,6 +1769,8 @@ static int cxl_mem_ppr_get_attrbs(struct cxl_ppr_context *cxl_ppr_ctx)
+>  	data_size = cxl_get_feature(cxl_mbox, &cxl_ppr_ctx->repair_uuid,
+>  				    CXL_GET_FEAT_SEL_CURRENT_VALUE, rd_attrbs,
+>  				    rd_data_size, 0, &return_code);
+> +	if (data_size < 0)
+> +		return data_size;
+>  	if (!data_size)
+>  		return -EIO;
+>  
+> diff --git a/drivers/cxl/core/features.c b/drivers/cxl/core/features.c
+> index ba6d2a5acb74..8d44ce829497 100644
+> --- a/drivers/cxl/core/features.c
+> +++ b/drivers/cxl/core/features.c
+> @@ -220,10 +220,10 @@ int devm_cxl_setup_features(struct cxl_dev_state *cxlds)
+>  }
+>  EXPORT_SYMBOL_NS_GPL(devm_cxl_setup_features, "CXL");
+>  
+> -size_t cxl_get_feature(struct cxl_mailbox *cxl_mbox, const uuid_t *feat_uuid,
+> -		       enum cxl_get_feat_selection selection,
+> -		       void *feat_out, size_t feat_out_size, u16 offset,
+> -		       u16 *return_code)
+> +ssize_t cxl_get_feature(struct cxl_mailbox *cxl_mbox, const uuid_t *feat_uuid,
+> +			enum cxl_get_feat_selection selection,
+> +			void *feat_out, size_t feat_out_size, u16 offset,
+> +			u16 *return_code)
+>  {
+>  	size_t data_to_rd_size;
+>  	struct cxl_mbox_get_feat_in pi;
+> @@ -235,7 +235,10 @@ size_t cxl_get_feature(struct cxl_mailbox *cxl_mbox, const uuid_t *feat_uuid,
+>  		*return_code = CXL_MBOX_CMD_RC_INPUT;
+>  
+>  	if (!feat_out || !feat_out_size)
+> -		return 0;
+> +		return -EINVAL;
+> +
+> +	if (feat_out_size > U16_MAX - offset)
+> +		return -EINVAL;
+>  
+>  	uuid_copy(&pi.uuid, feat_uuid);
+>  	pi.selection = selection;
+> @@ -259,7 +262,7 @@ size_t cxl_get_feature(struct cxl_mailbox *cxl_mbox, const uuid_t *feat_uuid,
+>  		if (rc < 0 || !mbox_cmd.size_out) {
+>  			if (return_code)
+>  				*return_code = mbox_cmd.return_code;
+> -			return 0;
+> +			return rc < 0 ? rc : -EIO;
+>  		}
+>  		data_rcvd_size += mbox_cmd.size_out;
+>  	} while (data_rcvd_size < feat_out_size);
+> @@ -288,6 +291,9 @@ int cxl_set_feature(struct cxl_mailbox *cxl_mbox,
+>  	if (return_code)
+>  		*return_code = CXL_MBOX_CMD_RC_INPUT;
+>  
+> +	if (feat_data_size > U16_MAX - offset)
+> +		return -EINVAL;
+> +
+>  	struct cxl_mbox_set_feat_in *pi __free(kfree) =
+>  			kzalloc(cxl_mbox->payload_size, GFP_KERNEL);
+>  	if (!pi)
+> @@ -462,6 +468,7 @@ static void *cxlctl_get_feature(struct cxl_features_state *cxlfs,
+>  	const struct cxl_mbox_get_feat_in *feat_in;
+>  	u16 offset, count, return_code;
+>  	size_t out_size = *out_len;
+> +	ssize_t data_size;
+>  
+>  	if (rpc_in->op_size != sizeof(*feat_in))
+>  		return ERR_PTR(-EINVAL);
+> @@ -482,16 +489,17 @@ static void *cxlctl_get_feature(struct cxl_features_state *cxlfs,
+>  	if (!rpc_out)
+>  		return ERR_PTR(-ENOMEM);
+>  
+> -	out_size = cxl_get_feature(cxl_mbox, &feat_in->uuid,
+> -				   feat_in->selection, rpc_out->payload,
+> -				   count, offset, &return_code);
+> +	data_size = cxl_get_feature(cxl_mbox, &feat_in->uuid,
+> +				    feat_in->selection, rpc_out->payload,
+> +				    count, offset, &return_code);
+>  	*out_len = sizeof(struct fwctl_rpc_cxl_out);
+> -	if (!out_size) {
+> +	if (data_size <= 0) {
+>  		rpc_out->size = 0;
+>  		rpc_out->retval = return_code;
+>  		return no_free_ptr(rpc_out);
+>  	}
+>  
+> +	out_size = data_size;
+>  	rpc_out->size = out_size;
+>  	rpc_out->retval = CXL_MBOX_CMD_RC_SUCCESS;
+>  	*out_len += out_size;
 
-There is a world outside of your safe rust zone and that needs to be
-safe too. This half finished attempt to make Rust work is absolutely
-not and I have zero interrest to deal with the fallout.
-
-It's not safe and no extra hacks will make it safe. Which means it is
-not ready. So the only sensible thing is to revert everything which
-touches that section of preempt_count() and provides interfaces.
-
-As this annoyed me, I rumaged through my poison cabinet and found the
-old patches again. They obviously don't apply anymore but I found the
-hints which corners need some care. With the generic entry code that
-also got way simpler.
-
-So I sat down and reverted
-
-  1b0866874833 ("locking: Switch to _irq_{disable,enable}() variants in cleanup guards")
-  e901c1510e24 ("irq,spin_lock: Add counted interrupt disabling/enabling")
-
-and then hacked it up just to see how far I get before vanishing to bed.
-
-Three hours later it surprisingly booted right away into a full distro
-kernel and survived kernel builds and a few test cases. :)
-
-Obviously I did not do any serious testing on it, but I wanted to share
-it as a starting point and food for thoughts.
-
-Yes, it needs to be enabled per architecture as the preempt counter
-initialization is architecture specific and it requires generic entry
-code. But those are not uncommon prerequisites and an incentive for
-architecture people to get their act together.
-
-But it is fully consistent and the fully refcounted thing can be
-built on top of it. If you look carefuly you'll notice that
-__raw_local_irq_disable/enable() are just optimized versions of
-__raw_local_irq_save/restore() as they don't have the conditionals, so
-they can be unified completely at least for debug builds or in general
-when it turns out that the overhead is neglible.
-
-There is a wide range of optimizations possible with that especially by
-combining preempt/interrupt modifications into one operation and
-rescheduling without changing the preemption counter in the first
-place. Which is what I hinted to in the mail you linked earlier. I'm so
-tempted to hack that up tomorrow once my brain is less fried than now
-and after I exposed it to some serious testing.
-
-Thanks,
-
-        tglx
----
---- a/arch/x86/Kconfig
-+++ b/arch/x86/Kconfig
-@@ -318,6 +318,7 @@ config X86
- 	select PCI_DOMAINS			if PCI
- 	select PCI_LOCKLESS_CONFIG		if PCI
- 	select PERF_EVENTS
-+	select PREEMPT_COUNT_IRQFLAGS
- 	select RTC_LIB
- 	select RTC_MC146818_LIB
- 	select SPARSE_IRQ
---- a/arch/x86/include/asm/preempt.h
-+++ b/arch/x86/include/asm/preempt.h
-@@ -61,8 +61,8 @@ static __always_inline void preempt_coun
-  */
- #define init_task_preempt_count(p) do { } while (0)
- 
--#define init_idle_preempt_count(p, cpu) do { \
--	per_cpu(__preempt_count, (cpu)) = PREEMPT_DISABLED; \
-+#define init_idle_preempt_count(p, cpu) do {						\
-+	per_cpu(__preempt_count, (cpu)) = PREEMPT_DISABLED | HARDIRQ_DISABLE_OFFSET;	\
- } while (0)
- 
- /*
---- a/include/linux/irq-entry-common.h
-+++ b/include/linux/irq-entry-common.h
-@@ -97,6 +97,7 @@ static __always_inline bool arch_in_rcu_
-  */
- static __always_inline void enter_from_user_mode(struct pt_regs *regs)
- {
-+	__preempt_count_inc_hardirqs_disable();
- 	arch_enter_from_user_mode(regs);
- 	lockdep_hardirqs_off(CALLER_ADDR0);
- 
-@@ -275,6 +276,7 @@ static __always_inline void exit_to_user
- 	user_enter_irqoff();
- 	arch_exit_to_user_mode();
- 	lockdep_hardirqs_on(CALLER_ADDR0);
-+	__preempt_count_dec_hardirqs_disable();
- }
- 
- /**
-@@ -385,6 +387,8 @@ static __always_inline irqentry_state_t
- 		.exit_rcu = false,
- 	};
- 
-+	__preempt_count_inc_hardirqs_disable();
-+
- 	/*
- 	 * If this entry hit the idle task invoke ct_irq_enter() whether
- 	 * RCU is watching or not.
-@@ -498,6 +502,7 @@ irqentry_exit_to_kernel_mode_after_preem
- 			instrumentation_end();
- 			ct_irq_exit();
- 			lockdep_hardirqs_on(CALLER_ADDR0);
-+			__preempt_count_dec_hardirqs_disable();
- 			return;
- 		}
- 
-@@ -514,6 +519,7 @@ irqentry_exit_to_kernel_mode_after_preem
- 		if (state.exit_rcu)
- 			ct_irq_exit();
- 	}
-+	__preempt_count_dec_hardirqs_disable();
- }
- 
- /**
---- a/include/linux/irqflags.h
-+++ b/include/linux/irqflags.h
-@@ -13,6 +13,7 @@
- #define _LINUX_TRACE_IRQFLAGS_H
- 
- #include <linux/irqflags_types.h>
-+#include <linux/preempt.h>
- #include <linux/typecheck.h>
- #include <linux/cleanup.h>
- #include <asm/irqflags.h>
-@@ -165,31 +166,124 @@ extern void warn_bogus_irq_restore(void)
- /*
-  * Wrap the arch provided IRQ routines to provide appropriate checks.
-  */
--#define raw_local_irq_disable()		arch_local_irq_disable()
--#define raw_local_irq_enable()		arch_local_irq_enable()
-+#ifdef CONFIG_PREEMPT_COUNT_IRQFLAGS
-+static __always_inline void raw_local_irq_disable(void)
-+{
-+	arch_local_irq_disable();
-+	preempt_count_add(HARDIRQ_DISABLE_OFFSET);
-+}
-+
-+static __always_inline void raw_local_irq_enable(void)
-+{
-+	preempt_count_sub(HARDIRQ_DISABLE_OFFSET);
-+	arch_local_irq_enable();
-+}
-+
-+static __always_inline unsigned long __raw_local_irq_save(void)
-+{
-+	unsigned long cnt = preempt_count();
-+
-+	if (!(cnt & HARDIRQ_DISABLE_MASK))
-+		arch_local_irq_disable();
-+	preempt_count_add(HARDIRQ_DISABLE_OFFSET);
-+
-+	// Probably not even needed unless something feeds 'flags' into
-+	// irqs_disabled_flags()
-+	return cnt;
-+}
-+
-+static __always_inline void __raw_local_irq_restore(unsigned long cnt)
-+{
-+	if (!(__preempt_count_sub_return(HARDIRQ_DISABLE_OFFSET) & HARDIRQ_DISABLE_MASK))
-+		arch_local_irq_enable();
-+}
-+
-+static __always_inline unsigned long __raw_local_save_flags(void)
-+{
-+	return preempt_count() & HARDIRQ_DISABLE_MASK;
-+}
-+
-+static __always_inline bool __raw_irqs_disabled_flags(unsigned long cnt)
-+{
-+	return !!cnt;
-+}
-+
-+static __always_inline bool raw_irqs_disabled(void)
-+{
-+	return preempt_count() & HARDIRQ_DISABLE_MASK;
-+}
-+
-+static __always_inline void raw_safe_halt(void)
-+{
-+	preempt_count_sub(HARDIRQ_DISABLE_OFFSET);
-+	arch_safe_halt();
-+}
-+
-+#else
-+
-+static __always_inline void raw_local_irq_disable(void)
-+{
-+	arch_local_irq_disable();
-+}
-+
-+static __always_inline void raw_local_irq_enable(void)
-+{
-+	arch_local_irq_enable();
-+}
-+
-+static __always_inline unsigned long __raw_local_irq_save(void)
-+{
-+	return arch_local_irq_save();
-+}
-+
-+static __always_inline void __raw_local_irq_restore(unsigned long flags)
-+{
-+	arch_local_irq_restore(flags);
-+}
-+
-+static __always_inline unsigned long __raw_local_save_flags(void)
-+{
-+	return arch_local_save_flags();
-+}
-+
-+static __always_inline bool __raw_irqs_disabled_flags(unsigned long flags)
-+{
-+	return arch_irqs_disabled_flags(flags);
-+}
-+
-+static __always_inline bool raw_irqs_disabled(void)
-+{
-+	return arch_irqs_disabled();
-+}
-+
-+static __always_inline void raw_safe_halt(void)
-+{
-+	arch_safe_halt();
-+}
-+
-+#endif
-+
- #define raw_local_irq_save(flags)			\
- 	do {						\
- 		typecheck(unsigned long, flags);	\
--		flags = arch_local_irq_save();		\
-+		flags = __raw_local_irq_save();		\
- 	} while (0)
- #define raw_local_irq_restore(flags)			\
- 	do {						\
- 		typecheck(unsigned long, flags);	\
- 		raw_check_bogus_irq_restore();		\
--		arch_local_irq_restore(flags);		\
-+		__raw_local_irq_restore(flags);	\
- 	} while (0)
- #define raw_local_save_flags(flags)			\
- 	do {						\
- 		typecheck(unsigned long, flags);	\
--		flags = arch_local_save_flags();	\
-+		flags = __raw_local_save_flags();	\
- 	} while (0)
- #define raw_irqs_disabled_flags(flags)			\
- 	({						\
- 		typecheck(unsigned long, flags);	\
--		arch_irqs_disabled_flags(flags);	\
-+		__raw_irqs_disabled_flags(flags);	\
- 	})
--#define raw_irqs_disabled()		(arch_irqs_disabled())
--#define raw_safe_halt()			arch_safe_halt()
- 
- /*
-  * The local_irq_*() APIs are equal to the raw_local_irq*()
---- a/include/linux/preempt.h
-+++ b/include/linux/preempt.h
-@@ -54,31 +54,31 @@
-  *             NMI_MASK:	0xf0000000
-  * (PREEMPT_NEED_RESCHED is in a different word)
-  */
--#define PREEMPT_BITS	8
--#define SOFTIRQ_BITS	8
-+#define PREEMPT_BITS		8
-+#define SOFTIRQ_BITS		8
- #define HARDIRQ_DISABLE_BITS	8
--#define HARDIRQ_BITS	4
--#define NMI_BITS	(1 + 3*IS_ENABLED(CONFIG_HAS_SEPARATE_PREEMPT_RESCHED_BITS))
-+#define HARDIRQ_BITS		4
-+#define NMI_BITS		(1 + 3*IS_ENABLED(CONFIG_HAS_SEPARATE_PREEMPT_RESCHED_BITS))
- 
--#define PREEMPT_SHIFT	0
--#define SOFTIRQ_SHIFT	(PREEMPT_SHIFT + PREEMPT_BITS)
-+#define PREEMPT_SHIFT		0
-+#define SOFTIRQ_SHIFT		(PREEMPT_SHIFT + PREEMPT_BITS)
- #define HARDIRQ_DISABLE_SHIFT	(SOFTIRQ_SHIFT + SOFTIRQ_BITS)
--#define HARDIRQ_SHIFT	(HARDIRQ_DISABLE_SHIFT + HARDIRQ_DISABLE_BITS)
--#define NMI_SHIFT	(HARDIRQ_SHIFT + HARDIRQ_BITS)
-+#define HARDIRQ_SHIFT		(HARDIRQ_DISABLE_SHIFT + HARDIRQ_DISABLE_BITS)
-+#define NMI_SHIFT		(HARDIRQ_SHIFT + HARDIRQ_BITS)
- 
--#define __IRQ_MASK(x)	((1UL << (x))-1)
-+#define __IRQ_MASK(x)		((1UL << (x))-1)
- 
--#define PREEMPT_MASK	(__IRQ_MASK(PREEMPT_BITS) << PREEMPT_SHIFT)
--#define SOFTIRQ_MASK	(__IRQ_MASK(SOFTIRQ_BITS) << SOFTIRQ_SHIFT)
-+#define PREEMPT_MASK		(__IRQ_MASK(PREEMPT_BITS) << PREEMPT_SHIFT)
-+#define SOFTIRQ_MASK		(__IRQ_MASK(SOFTIRQ_BITS) << SOFTIRQ_SHIFT)
- #define HARDIRQ_DISABLE_MASK	(__IRQ_MASK(HARDIRQ_DISABLE_BITS) << HARDIRQ_DISABLE_SHIFT)
--#define HARDIRQ_MASK	(__IRQ_MASK(HARDIRQ_BITS) << HARDIRQ_SHIFT)
--#define NMI_MASK	(__IRQ_MASK(NMI_BITS)     << NMI_SHIFT)
-+#define HARDIRQ_MASK		(__IRQ_MASK(HARDIRQ_BITS) << HARDIRQ_SHIFT)
-+#define NMI_MASK		(__IRQ_MASK(NMI_BITS)     << NMI_SHIFT)
- 
--#define PREEMPT_OFFSET	(1UL << PREEMPT_SHIFT)
--#define SOFTIRQ_OFFSET	(1UL << SOFTIRQ_SHIFT)
-+#define PREEMPT_OFFSET		(1UL << PREEMPT_SHIFT)
-+#define SOFTIRQ_OFFSET		(1UL << SOFTIRQ_SHIFT)
- #define HARDIRQ_DISABLE_OFFSET	(1UL << HARDIRQ_DISABLE_SHIFT)
--#define HARDIRQ_OFFSET	(1UL << HARDIRQ_SHIFT)
--#define NMI_OFFSET	(1UL << NMI_SHIFT)
-+#define HARDIRQ_OFFSET		(1UL << HARDIRQ_SHIFT)
-+#define NMI_OFFSET		(1UL << NMI_SHIFT)
- 
- #define SOFTIRQ_DISABLE_OFFSET	(2 * SOFTIRQ_OFFSET)
- 
-@@ -90,7 +90,11 @@
-  *
-  * Reset by start_kernel()->sched_init()->init_idle()->init_idle_preempt_count().
-  */
-+#ifdef CONFIG_PREEMPT_COUNT_IRQFLAGS
-+#define INIT_PREEMPT_COUNT	(PREEMPT_OFFSET + HARDIRQ_DISABLE_OFFSET)
-+#else
- #define INIT_PREEMPT_COUNT	PREEMPT_OFFSET
-+#endif
- 
- /*
-  * Initial preempt_count value; reflects the preempt_count schedule invariant
-@@ -322,6 +326,21 @@ do { \
- 
- #endif /* CONFIG_PREEMPT_COUNT */
- 
-+#ifdef CONFIG_PREEMPT_COUNT_IRQFLAGS
-+static __always_inline void __preempt_count_inc_hardirqs_disable(void)
-+{
-+	__preempt_count_add(HARDIRQ_DISABLE_OFFSET);
-+}
-+
-+static __always_inline void __preempt_count_dec_hardirqs_disable(void)
-+{
-+	__preempt_count_sub(HARDIRQ_DISABLE_OFFSET);
-+}
-+#else
-+static __always_inline void __preempt_count_inc_hardirqs_disable(void) { }
-+static __always_inline void __preempt_count_dec_hardirqs_disable(void) { }
-+#endif
-+
- #ifdef MODULE
- /*
-  * Modules have no business playing preemption tricks.
---- a/kernel/Kconfig.preempt
-+++ b/kernel/Kconfig.preempt
-@@ -152,6 +152,9 @@ config PREEMPT_DYNAMIC
- 	  Interesting if you want the same pre-built kernel should be used for
- 	  both Server and Desktop workloads.
- 
-+config PREEMPT_COUNT_IRQFLAGS
-+	bool
-+
- config SCHED_CORE
- 	bool "Core Scheduling for SMT"
- 	depends on SCHED_SMT
---- a/kernel/entry/common.c
-+++ b/kernel/entry/common.c
-@@ -171,6 +171,7 @@ irqentry_state_t noinstr irqentry_nmi_en
- {
- 	irqentry_state_t irq_state;
- 
-+	__preempt_count_inc_hardirqs_disable();
- 	irq_state.lockdep = lockdep_hardirqs_enabled();
- 
- 	__nmi_enter();
-@@ -202,4 +203,5 @@ void noinstr irqentry_nmi_exit(struct pt
- 	if (irq_state.lockdep)
- 		lockdep_hardirqs_on(CALLER_ADDR0);
- 	__nmi_exit();
-+	__preempt_count_dec_hardirqs_disable();
- }
