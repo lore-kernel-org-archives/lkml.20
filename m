@@ -1,71 +1,171 @@
-Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from bg-bec.cloudflare-smtp.org (bg-bec.cloudflare-smtp.org [104.30.16.142])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA38723BCEE;
-	Thu, 27 Aug 2026 12:41:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3185286881
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:41:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=104.30.16.142
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787834483; cv=none; b=uVv5TKKd7oMU5SR7VFCSQKUDbvtW7Q1+KdrJdZyuPotyUyPbuMwr8NV87DaU6Ks0/6VIKCWCivgBq9FOSSZABn6zUKyJ7zkjNnZ0SkszTmLxu65rl1SJHgOTry7YIwybrCCaFBo88JF8VS0tpBHWdu4pSWsxewWG4FWW0ucFUAs=
+	t=1787834517; cv=none; b=h9E/I7urBJBKWNRkqyOKwfZpaTu25Y7rEXePaDev+rs8CkIgvIo14vg71+4vGq8LSma17LZhYC1Ms7ytseFEKCiBzhdTfkUliJIens20Wvl8Yk6etesV8WfLS62twYF2DxANN/Nhx7+7uGFAs+u3BtYyWHYDCpUTUKOO1SlGwAs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787834483; c=relaxed/simple;
-	bh=AYLnfhHHeqd95bsgIutEAxRxecIAQZYovjUbRBUPbPM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XvU6aCCHj+RI18pruyMWbq2Ry+ybeu2mMHOGkSykqJRf4aE21qRWa1TXP7k9PdZnwRykeTK+XlMWaljdFronVmb+LY8oaRlyO5PctqSGVA0J3IIlFcIkLG81A/ikpLm5Yw1jdbQAie5gHFlUMFnoA+jIdwWu0f21eems7boaklM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=mYYqiuNl; arc=none smtp.client-ip=216.40.44.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1787834517; c=relaxed/simple;
+	bh=zkZbpzJ/hTqBLL/12FtKBo9jG1YH5wjhTJdGirG3RIc=;
+	h=From:Message-ID:Date:Subject:To:MIME-Version:Content-Type; b=p9vwRVEEE9361VWEOddmRZdsIOa+SLSSR9jfoei8k0ZOps3tMd48rl1lnPO5YRBZhWOkL7alkMXebztqL9OYR8Z8unIkRF9ZXKh9dS6svhDnSCUBISn9nz9kpWSsuftJGM+jfT2oIMZUgQr0MZ1YO/K4m2Benp1nmD2ZFceSQEk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh; spf=pass smtp.mailfrom=cf-bounce.bugs.sh; dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b=NnoEx2bw; dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b=aE22PJEq; arc=none smtp.client-ip=104.30.16.142
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cf-bounce.bugs.sh
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="mYYqiuNl"
-Received: from omf16.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay06.hostedemail.com (Postfix) with ESMTP id 2A378A3C27;
-	Thu, 27 Aug 2026 12:41:20 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf16.hostedemail.com (Postfix) with ESMTPA id 61E9320013;
-	Thu, 27 Aug 2026 12:41:18 +0000 (UTC)
-Date: Thu, 27 Aug 2026 08:42:05 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: =?UTF-8?B?SsOpcsOpbXk=?= Jean <jeremy.jean@oss.cyber.gouv.fr>
-Cc: Bradley Morgan <brads@mainlining.org>, mhiramat@kernel.org,
- mathieu.desnoyers@efficios.com, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] tracing/user_events: Clear copied tracing state
- before fork duplication
-Message-ID: <20260827084205.776f7cb7@gandalf.local.home>
-In-Reply-To: <3beb0339407a35c0b995856eae74d870@oss.cyber.gouv.fr>
-References: <20260826214414.1971632-2-Jeremy.Jean@oss.cyber.gouv.fr>
-	<20260827080839.35e44d04@gandalf.local.home>
-	<A4F580CE-2211-4D05-9D3D-15AB427C74A4@mainlining.org>
-	<20260827081915.320fe2c3@gandalf.local.home>
-	<3beb0339407a35c0b995856eae74d870@oss.cyber.gouv.fr>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b="NnoEx2bw";
+	dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b="aE22PJEq"
+DKIM-Signature: v=1; a=rsa-sha256; s=cf2024-1; d=cloudflare-smtp.org; c=relaxed/relaxed;
+	h=To:Subject:Date:From:Feedback-ID:from:reply-to:cc:resent-date
+	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
+	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
+	:list-owner:list-archive; t=1787834515; x=1788439315; bh=Fe5mwI+uyadpwilkS/
+	Ud1QcG+ym0QNHsLruGoVJ0/pE=; b=NnoEx2bwj+Xm1PubbVqWUkvcx20yyDjcqjINW3l5W50Lw
+	U5I4iMUpWbdJ3nGpi+70CisClRE6zT6kQ3+snK5XIzZ5Vm15t1JpU4cimt3vcrBjplDXxsXNeGD
+	Rk8ZJDUyPsSQCUozRuwz3cu475zMhFXxT1h/cqSdopw/WLMoU3VC1vumVpYNnH1F5AfETJMlBnA
+	Sn8GPLid9OVmLMlYIJRJKZRwspke2YWlfCvZNP0U3XvYxzHNlhy5VtOp152lVreXeiC8mLwIlsU
+	m1qsxADicwz19xjRuXlHD/0k8KFfw++tb/9KsDcuF3yl6EkbwNseRqfBs338AxVYMG37W27Q==;
+DKIM-Signature: v=1; a=rsa-sha256; s=cf-bounce; d=bugs.sh; c=relaxed/relaxed;
+	h=To:Subject:Date:From:Feedback-ID:from:reply-to:cc:resent-date
+	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
+	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
+	:list-owner:list-archive; t=1787834515; x=1788439315; bh=Fe5mwI+uyadpwilkS/
+	Ud1QcG+ym0QNHsLruGoVJ0/pE=; b=aE22PJEq3eFNkLqOsQOqozHaY8rf3sbmWq6Aia4OD6MB4
+	vbmCpFSn0NFobTbvZWyg/jzFWTOmUFv+mO628aGSdagqAdWcTkTqzmmgx5wqlyF3SBBslnh5f/E
+	QNAlyE345Bzl+eiToNmyU1dDDYoRCPkpD0yz9z4u+Wz72hioAZZevIw5qdRU8AcElLMkzDOalQn
+	FHOWWE2ui1SeXQwMgO4MhqIcmRZJjSTcqrGfpZ7EQFdTty4kMvTOnWy7E1tNr1sozX7xT2Pd8BO
+	Li0JayBQjwPZL/n0Q7MuF/rfb7gKmUOUj8ZwMZkRGITEyWT4pb0dYnMilPspAEuBn/RPjqGg==;
+Feedback-ID: bugs.sh:5:6:Cloudflare
+From: co <co+28eef7d8af9428e6@bugs.sh>
+Message-ID: <jH6u350kaBRuqklDjd3k3BW4nWzp0tYRjq3p@bugs.sh>
+Date: Thu, 27 Aug 2026 12:41:49 +0000
+Subject: [BUG] net/dsa: out-of-bounds in crc32_le()
+To: netdev@vger.kernel.org, "Florian Fainelli" <florian.fainelli@broadcom.com>, "Jonas
+ Gorski" <jonas.gorski@gmail.com>, "Andrew Lunn" <andrew@lunn.ch>, "Vladimir
+ Oltean" <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>, "Eric
+ Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>, "Paolo
+ Abeni" <pabeni@redhat.com>, "Simon Horman" <horms@kernel.org>,
+ =?utf-8?b?w4FsdmFybyBGZXJuw6FuZGV6IFJvamFz?= <noltari@gmail.com>, linux-kernel@vger.kernel.org
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-X-Stat-Signature: ggzpphufcf3p435khx4uxd6hb1zzymt1
-X-Rspamd-Server: rspamout08
-X-Rspamd-Queue-Id: 61E9320013
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX19YSHo9eWZBq40qy4Afec5+DmxVpZiQdqE=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=AYLnfhHHeqd95bsgIutEAxRxecIAQZYovjUbRBUPbPM=; b=mYYqiuNlY4J2Pa7pOSbDQSQ0J2e6Q9zmG+saYDa7ImavWlz+CQ+Rw1SBdJnje1CddiLnuTkLvJNcHc/s9UA7R5Xg6S7SUOKTRmA/A9k2GwqSCWGlUNvgCvevTIsPaVXH5xNxPoTYy1lBtXf7yiwUfOjPCqAmcfvIW0FYPqednFQ=
-X-HE-Tag: 1787834478-918267
-X-HE-Meta: U2FsdGVkX19rrap3+extfATw51zC1sd35BXY/S9Rr4Mp8qdBtlpEVwQ57yd4AOxkpiKn1FKyiKs7ZYGcKH57iwwF+T4OA21UUmKvryPf2frgKdmQG+fTO4eL/8YaZ+JorQNg0lxmhXMRTKSnoV4NzK2d4fAgvKTmJ9lwzFu+h90zVur5e894QRn/RQJ1fqVo2tXZalebq8nsKTjrZrk6MBYRWm43rqWWWXrGLZ548Z13zpXpKnmImQKVP5djQenxMo8m838aKN2bM9UtICndFYNcktj5mOtg8Nb0FJb2wKlvnvnYyRTzYPCemURjTWmR
 
-On Thu, 27 Aug 2026 14:27:44 +0200
-J=C3=A9r=C3=A9my Jean <jeremy.jean@oss.cyber.gouv.fr> wrote:
+We found a bug reachable in:
 
-> Thanks for this. I thought that my previous version was okay
-> so that it was not required to read the details of
-> user_event_mm_alloc() to get convinced whether user_event_mm is
-> accessed or not, but it's true that in the end, this is not
-> required. Your fix is simpler. Do you want me to send a v3
-> with that simplification and the same changelog as in the v2?
+    path    net/dsa
+    crash   out-of-bounds in crc32_le()
+    commit  7cbfb180945c ("net/sched: sch_cake: fix autorate reconfiguratio=
+n throttling")
 
-Yes, please send a v3.
+Config, environment, the sanitizer report and a C reproducer follow.
 
-Thanks,
+=3D=3D Notes =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+    If you patch the bug based on our artifacts, a tag would be
+    appreciated:
 
--- Steve
+Reported-by: co+28eef7d8af9428e6@bugs.sh
+
+    Everything in this mail is validated by the reproducer below.
+
+    We also hold an LLM-generated root-cause analysis and a candidate
+    patch. The patch passes an A/B test: the same reproducer panics the
+    unpatched kernel and runs clean on the patched one. Neither has had
+    human review, so both still require validation before you send or
+    apply them. Available on:
+
+        patch.diff  https://bugs.sh/b/28eef7d8af9428e6/patch.diff
+        report.md   https://bugs.sh/b/28eef7d8af9428e6/report.md
+
+    This is an open science project. The code and the full set of PoCs
+    are not public at this moment, as we intend to disclose our findings
+    in an ethical way.
+
+    Happy to test patches. Complaints and suggestions about our work
+    are welcome at:
+
+        cedalion@bugs.sh
+
+=3D=3D Environment =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+    Reproduced on  7cbfb180945c ("net/sched: sch_cake: fix autorate reconfi=
+guration throttling")
+    VM setup       https://bugs.sh/b/28eef7d8af9428e6/run.sh
+    config         https://bugs.sh/b/28eef7d8af9428e6/config.gz
+    poc            https://bugs.sh/b/28eef7d8af9428e6/repro.c
+
+=3D=3D Sanitizer Report =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+BUG: KASAN: slab-out-of-bounds in crc32_le (lib/crc/crc32-main.c:38 lib/crc=
+/x86/crc32.h:22 lib/crc/crc32-main.c:74)
+Read of size 1 at addr ffff8880131a4fc0 by task exploit/148
+CPU: 0 UID: 0 PID: 148 Comm: exploit Tainted: G S 7.2.0+ #63 PREEMPTLAZY
+Call Trace:
+dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
+print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
+kasan_report (mm/kasan/report.c:595)
+crc32_le (lib/crc/crc32-main.c:38 lib/crc/x86/crc32.h:22 lib/crc/crc32-main=
+.c:74)
+brcm_leg_fcs_tag_xmit (net/dsa/tag_brcm.c:343)
+dsa_user_xmit (net/dsa/user.c:942)
+dev_hard_start_xmit (./include/linux/netdevice.h:5429 ./include/linux/netde=
+vice.h:5438 net/core/dev.c:3937 net/core/dev.c:3953)
+__dev_queue_xmit (net/core/dev.c:4926)
+packet_sendmsg (net/packet/af_packet.c:3110 net/packet/af_packet.c:3142)
+__sys_sendto (net/socket.c:800 (discriminator 1) net/socket.c:815 (discrimi=
+nator 1) net/socket.c:2281 (discriminator 1))
+__x64_sys_sendto (net/socket.c:2288 net/socket.c:2284 net/socket.c:2284)
+do_syscall_64 (arch/x86/entry/syscall_64.c:61 arch/x86/entry/syscall_64.c:8=
+4)
+entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+Allocated by task 148:
+kasan_save_stack (mm/kasan/common.c:57)
+kasan_save_track (mm/kasan/common.c:78)
+__kasan_slab_alloc (mm/kasan/common.c:340 mm/kasan/common.c:366)
+kmem_cache_alloc_node_noprof (include/linux/kasan.h:253 mm/slub.c:4584 mm/s=
+lub.c:4917 mm/slub.c:4989)
+kmalloc_reserve (net/core/skbuff.c:615 (discriminator 2))
+__alloc_skb (net/core/skbuff.c:715)
+alloc_skb_with_frags (./include/linux/skbuff.h:1384 net/core/skbuff.c:6786)
+sock_alloc_send_pskb (net/core/sock.c:3012)
+packet_sendmsg (net/packet/af_packet.c:2959 net/packet/af_packet.c:3053 net=
+/packet/af_packet.c:3142)
+__sys_sendto (net/socket.c:800 (discriminator 1) net/socket.c:815 (discrimi=
+nator 1) net/socket.c:2281 (discriminator 1))
+__x64_sys_sendto (net/socket.c:2288 net/socket.c:2284 net/socket.c:2284)
+do_syscall_64 (arch/x86/entry/syscall_64.c:61 arch/x86/entry/syscall_64.c:8=
+4)
+entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+The buggy address belongs to the object at ffff8880131a4d00
+which belongs to the cache skbuff_small_head of size 704
+The buggy address is located 0 bytes to the right of
+allocated 704-byte region [ffff8880131a4d00, ffff8880131a4fc0)
+
+
+---
+The report format is based on syzbot bug report.
+
+This report is generated by a bot. It may contain errors.
+See https://github.com/n132/cedalion for more information.
+
+For any issue with this report, reach out to cedalion@bugs.sh
+
+If the report is already addressed, let us know by replying with:
+#co fix: <commit hash>
+
+If the report is a duplicate of another one, reply with:
+#co dup: <lore link>
+
+If you want to undo deduplication, reply with:
+#co undup
+
+
