@@ -1,249 +1,308 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17B94374A0D;
-	Thu, 27 Aug 2026 09:24:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4282F33F8B4;
+	Thu, 27 Aug 2026 09:25:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787822663; cv=none; b=hZzuK/Fs9J3rikFQkDy3pKVslzckGUODLnEDnUBqYLHqAACxmaVwmV/teRJBxdcqJy1jRo7nY+UJpzkfgUON1GSJ7MbqLny10oi4zygFDx9pgA6W5HKfA1hypO6JsA6dZS8vD7HM6/TrZtNUwyW87sgaglEHL5ctwJMojUbf7kM=
+	t=1787822746; cv=none; b=VAs7x+guMYGKEyts9giarx/b2oRL+l7E78s9V/yjDcydmovcWBZhp3T5mOjnmT3qC6BWHRyD5QZluGPTVZMqIUi/lvAwHoz1L/9dEZCmn9M+dJ9EPXsXLCkJ2uFeWUTlzmtVqNCinVfYoktxtlhD5wO323MCePH/4h/Z97wXy7U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787822663; c=relaxed/simple;
-	bh=yi4FWFFW1R9BUZu6btzY5pw2690an4UD3knvqdlAEOo=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=M1TMSxbPJJQG+17HuOzMrdT5t5LKuQT0w+CFceOzOPPNpN8f0oFi8bfSDoe3gGP+jn5qfv0TKisVUEJUkRUL5FR/JbQrqfULz8YCmC+mBKzbAqR/Ii6MFyD7SQx2xKya8CgzD17Y6rDIlYvthDttBKcg4t4IoSscmMCF2gclWtk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y2xtxj9C; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787822746; c=relaxed/simple;
+	bh=RZjmR9q3jrx/PKiqPTeIBpOVcrpjQ1zCM1N9LZyzEic=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HlcG2jFRQCVCeoU3S8dLTBT5OiP9FhqwMJIBPqoS2qviTRpBmw/hM0EjWOqmk0mkmN6Cq/77f3dBdF1MM9BK3nnx+FHxmLkkS/weVl2pTYvJfjwRfDWZXYvUvrv0CVnRr1G3e6JYARum/nC4YTleNMDTKLS99+7EhjRjMHI+Osc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZUHvJGsy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y2xtxj9C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 628BB1F00A3A;
-	Thu, 27 Aug 2026 09:24:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZUHvJGsy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD67A1F000E9;
+	Thu, 27 Aug 2026 09:25:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787822661;
-	bh=KWVAY4BZ3AVEK1ZPL4CSPdCNNEjWfyQJVycszOUYYdk=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=Y2xtxj9CpGQi82+p0am0fd5nxq0UbocVfTNAhhNfSWyqV2qQ8pvyX2jQLgqLtsWBM
-	 Z2PYIjBLi7x5XtKxDcUSrPY5hIN1y2C36psXgZCMV9xn052YRXSsjx7fmYua6Pa4u+
-	 G0Wo26E76flf613VBTTnwhG+oAEAnirucapw0kLRiEFWSVGThTD/DL5Y2A4coRcCXk
-	 OK1LYAmSrGSOkH2EwRNs0H5lFx+dN1ePf6oVz2TY0zdehlxH/RUx1SttU2DAH/1tw3
-	 n8ekW6raji6ih5s3cJ1KC8hAqci/K4il/upym8K8EaAYIWlnOId0Hg2UNFyJsuaQ1s
-	 UHXCgsJw1banQ==
-Content-Type: multipart/mixed; boundary="===============4410778294104359820=="
+	s=k20260515; t=1787822744;
+	bh=5iuu6oQOV13rRPLbowkvqMfKcFgdwhTyKjWaPY0AwFY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZUHvJGsyE/vAxFcgN1HSo8TaYA4jBRtAtIIY25E5uXZkGcFUusN1x9x8z3qd+oL+5
+	 jlLn5tc0cN3lXYea8LPnm0ApRQx/272ZjrXPHKLTwMipocckJvGCVCB3QojSVjmbl3
+	 8NqbhaxvsHRcqvy9LNcbHHbt/whktvzXpo6YUjKvM25bWkmlTOtkbGZYTHxcUd5P1n
+	 tB/GiL7HZZXJPhAk0ag11M1VrZ6yAjAVT3K4o7emyp0C8GXcBoF/3ByW1P7BLPCPjy
+	 f1vGqjPgqfN9O82vvkDkpkBl2njR1Ne7Vr1BSKkm9C5fLJFHB6KNOY7W8zzdp1tZqd
+	 I4e361sKq1deg==
+Date: Thu, 27 Aug 2026 11:25:41 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+Cc: Georgi Djakov <djakov@kernel.org>, linux-arm-msm@vger.kernel.org, 
+	linux-pm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
+Subject: Re: [PATCH v2 2/3] interconnect: qcom: Add CAMNOC interconnect
+ provider driver
+Message-ID: <20260827-adept-traditional-earwig-e2c8c6@quoll>
+References: <20260819093211.1436275-1-atanas.filipov@oss.qualcomm.com>
+ <20260819093211.1436275-3-atanas.filipov@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <497836f1914121810fa01a9a601342ad32a7fc76d62efebb02121d7b9f2e96e4@mail.kernel.org>
-In-Reply-To: <20260827084013.1062816-1-pulehui@huaweicloud.com>
-References: <20260827084013.1062816-1-pulehui@huaweicloud.com>
-Subject: Re: [PATCH bpf v2] bpf: Fix UAF due to concurrent consumption of waiting_for_gp_ttrace
-From: bot+bpf-ci@kernel.org
-To: pulehui@huaweicloud.com,bpf@vger.kernel.org,linux-kernel@vger.kernel.org,houtao@huaweicloud.com
-Cc: ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,yonghong.song@linux.dev,song@kernel.org,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,pulehui@huawei.com,pulehui@huaweicloud.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,clm@meta.com,ihor.solodrai@linux.dev
-Date: Thu, 27 Aug 2026 09:24:21 +0000 (UTC)
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260819093211.1436275-3-atanas.filipov@oss.qualcomm.com>
 
---===============4410778294104359820==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Wed, Aug 19, 2026 at 12:32:10PM +0300, Atanas Filipov wrote:
+> Add an ICC provider for the Qualcomm Camera NOC (CAMNOC). Multiple
+> camera sub-devices share CAM_CC_CAMNOC_AXI_CLK; direct clk_set_rate()
+> calls from each consumer cause a last-writer-wins race.
+>=20
+> Each consumer obtains an ICC path to SLAVE_CAMNOC_AXI and votes via
+> icc_set_bw(). The ICC core aggregates votes (max peak_bw) and the
+> set() callback converts the result to clk_set_rate(). Consumers
+> encode the required frequency as peak_bw in kBps.
+>=20
+> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+> ---
+>  drivers/interconnect/qcom/Kconfig       |  10 +
+>  drivers/interconnect/qcom/Makefile      |   2 +
+>  drivers/interconnect/qcom/qcom-camnoc.c | 279 ++++++++++++++++++++++++
+>  3 files changed, 291 insertions(+)
+>  create mode 100644 drivers/interconnect/qcom/qcom-camnoc.c
+>=20
+> diff --git a/drivers/interconnect/qcom/Kconfig b/drivers/interconnect/qco=
+m/Kconfig
+> index 5b8a094ca4ed..9d9d238019a0 100644
+> --- a/drivers/interconnect/qcom/Kconfig
+> +++ b/drivers/interconnect/qcom/Kconfig
+> @@ -135,6 +135,16 @@ config INTERCONNECT_QCOM_NORD
+>  	  the RPMh hardware and communicates via Bus Clock Manager (BCM)
+>  	  through the Resource State Coordinator (RSC).
+> =20
+> +config INTERCONNECT_QCOM_CAMNOC
+> +	tristate "Qualcomm CAMNOC interconnect driver"
+> +	depends on INTERCONNECT_QCOM || COMPILE_TEST
+> +	depends on ARM64 || COMPILE_TEST
 
-> diff --git a/kernel/bpf/memalloc.c b/kernel/bpf/memalloc.c
-> index e9662db7198f..58296e92a4fe 100644
-> --- a/kernel/bpf/memalloc.c
-> +++ b/kernel/bpf/memalloc.c
+missing default ARCH_QCOM
 
-[ ... ]
+> +	help
+> +	  Say y here to support the Camera Network-on-Chip (CAMNOC)
+> +	  interconnect driver for Qualcomm SoCs. It aggregates bandwidth
+> +	  requests from camera sub-devices (IFE, JPEG, BPS, etc.) and
+> +	  scales CAM_CC_CAMNOC_AXI_CLK accordingly.
+> +
+>  config INTERCONNECT_QCOM_OSM_L3
+>  	tristate "Qualcomm OSM L3 interconnect driver"
+>  	depends on INTERCONNECT_QCOM || COMPILE_TEST
+> diff --git a/drivers/interconnect/qcom/Makefile b/drivers/interconnect/qc=
+om/Makefile
+> index 1c7d410b40cc..52a5998ae6a8 100644
+> --- a/drivers/interconnect/qcom/Makefile
+> +++ b/drivers/interconnect/qcom/Makefile
+> @@ -18,6 +18,7 @@ qnoc-msm8974-objs			:=3D msm8974.o
+>  qnoc-msm8976-objs			:=3D msm8976.o
+>  qnoc-msm8996-objs			:=3D msm8996.o
+>  qnoc-nord-objs				:=3D nord.o
+> +icc-camnoc-objs				:=3D qcom-camnoc.o
+>  icc-osm-l3-objs				:=3D osm-l3.o
+>  qnoc-qcm2290-objs			:=3D qcm2290.o
+>  qnoc-qcs404-objs			:=3D qcs404.o
+> @@ -66,6 +67,7 @@ obj-$(CONFIG_INTERCONNECT_QCOM_MSM8974) +=3D qnoc-msm89=
+74.o
+>  obj-$(CONFIG_INTERCONNECT_QCOM_MSM8976) +=3D qnoc-msm8976.o
+>  obj-$(CONFIG_INTERCONNECT_QCOM_MSM8996) +=3D qnoc-msm8996.o
+>  obj-$(CONFIG_INTERCONNECT_QCOM_NORD) +=3D qnoc-nord.o
+> +obj-$(CONFIG_INTERCONNECT_QCOM_CAMNOC) +=3D icc-camnoc.o
+>  obj-$(CONFIG_INTERCONNECT_QCOM_OSM_L3) +=3D icc-osm-l3.o
+>  obj-$(CONFIG_INTERCONNECT_QCOM_QCM2290) +=3D qnoc-qcm2290.o
+>  obj-$(CONFIG_INTERCONNECT_QCOM_QCS404) +=3D qnoc-qcs404.o
+> diff --git a/drivers/interconnect/qcom/qcom-camnoc.c b/drivers/interconne=
+ct/qcom/qcom-camnoc.c
+> new file mode 100644
+> index 000000000000..9a703b052b2d
+> --- /dev/null
+> +++ b/drivers/interconnect/qcom/qcom-camnoc.c
+> @@ -0,0 +1,279 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + *
+> + * Qualcomm Camera NOC (CAMNOC) interconnect provider.
+> + *
+> + * CAMNOC is the internal AXI interconnect within the Qualcomm camera
+> + * subsystem. Multiple camera sub-devices (IFE, JPEG, BPS, etc.) share
+> + * CAM_CC_CAMNOC_AXI_CLK. This driver acts as an ICC provider so that
+> + * each sub-device can independently vote for bandwidth; the ICC core
+> + * aggregates the votes (max of peak_bw across all consumers) and this
+> + * driver translates the result into a clk_set_rate() call, avoiding
+> + * the last-writer-wins race that occurs with direct clk_set_rate().
+> + *
+> + * Consumers express their required clock rate directly as peak_bw in
+> + * kBps (e.g. 400000 for 400 MHz).  The driver converts kBps =E2=86=92 H=
+z:
+> + *   rate_hz =3D peak_bw_kBps * 1000
+> + */
+> +
+> +#include <linux/clk.h>
+> +#include <linux/interconnect-provider.h>
+> +#include <linux/interconnect.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/platform_device.h>
+> +
+> +#include <dt-bindings/interconnect/qcom,camnoc.h>
+> +
+> +#define to_camnoc_provider(_p) \
+> +	container_of(_p, struct qcom_camnoc_icc_provider, provider)
+> +
+> +struct qcom_camnoc_icc_provider {
+> +	struct clk *clk;
+> +	struct icc_provider provider;
+> +};
+> +
+> +struct qcom_camnoc_node {
+> +	const char *name;
+> +	u16 buswidth;
+> +};
+> +
+> +/* IFE */
+> +static const struct qcom_camnoc_node camnoc_master_ife_0 =3D {
+> +	.name =3D "master-camnoc-ife-0", .buswidth =3D 16
+> +};
+> +
+> +static const struct qcom_camnoc_node camnoc_master_ife_0_rdi =3D {
+> +	.name =3D "master-camnoc-ife-0-rdi", .buswidth =3D 16
+> +};
+> +
+> +static const struct qcom_camnoc_node camnoc_master_ife_1 =3D {
+> +	.name =3D "master-camnoc-ife-1", .buswidth =3D 16
+> +};
+> +
+> +static const struct qcom_camnoc_node camnoc_master_ife_1_rdi =3D {
+> +	.name =3D "master-camnoc-ife-1-rdi", .buswidth =3D 16
+> +};
+> +
+> +static const struct qcom_camnoc_node camnoc_master_ife_lite_0 =3D {
+> +	.name =3D "master-camnoc-ife-lite-0", .buswidth =3D 8
+> +};
+> +
+> +static const struct qcom_camnoc_node camnoc_master_ife_lite_1 =3D {
+> +	.name =3D "master-camnoc-ife-lite-1", .buswidth =3D 8
+> +};
+> +
+> +static const struct qcom_camnoc_node camnoc_master_ife_lite_2 =3D {
+> +	.name =3D "master-camnoc-ife-lite-2", .buswidth =3D 8
+> +};
+> +
+> +static const struct qcom_camnoc_node camnoc_master_ife_lite_3 =3D {
+> +	.name =3D "master-camnoc-ife-lite-3", .buswidth =3D 8
+> +};
+> +
+> +static const struct qcom_camnoc_node camnoc_master_ife_lite_4 =3D {
+> +	.name =3D "master-camnoc-ife-lite-4", .buswidth =3D 8
+> +};
+> +
+> +/* BPS */
+> +static const struct qcom_camnoc_node camnoc_master_bps =3D {
+> +	.name =3D "master-camnoc-bps", .buswidth =3D 16
+> +};
+> +
+> +/* IPE */
+> +static const struct qcom_camnoc_node camnoc_master_ipe_0 =3D {
+> +	.name =3D "master-camnoc-ipe-0", .buswidth =3D 16
+> +};
+> +
+> +static const struct qcom_camnoc_node camnoc_master_ipe_1 =3D {
+> +	.name =3D "master-camnoc-ipe-1", .buswidth =3D 16
+> +};
+> +
+> +/* JPEG */
+> +static const struct qcom_camnoc_node camnoc_master_jpeg =3D {
+> +	.name =3D "master-camnoc-jpeg", .buswidth =3D 16
+> +};
+> +
+> +static const struct qcom_camnoc_node camnoc_master_jpeg_dma =3D {
+> +	.name =3D "master-camnoc-jpeg-dma", .buswidth =3D 16
+> +};
+> +
+> +/* CDM */
+> +static const struct qcom_camnoc_node camnoc_master_cdm =3D {
+> +	.name =3D "master-camnoc-cdm", .buswidth =3D 4
+> +};
+> +
+> +/* FD */
+> +static const struct qcom_camnoc_node camnoc_master_fd =3D {
+> +	.name =3D "master-camnoc-fd", .buswidth =3D 16
+> +};
+> +
+> +/* SBI */
+> +static const struct qcom_camnoc_node camnoc_master_sbi =3D {
+> +	.name =3D "master-camnoc-sbi", .buswidth =3D 16
+> +};
+> +
+> +/* ICP */
+> +static const struct qcom_camnoc_node camnoc_master_icp =3D {
+> +	.name =3D "master-camnoc-icp", .buswidth =3D 8
+> +};
+> +
+> +/* Slave */
+> +static const struct qcom_camnoc_node camnoc_slave_axi =3D {
+> +	.name =3D "slave-camnoc-axi", .buswidth =3D 32
+> +};
+> +
+> +static const struct qcom_camnoc_node * const camnoc_nodes[] =3D {
+> +	[MASTER_CAMNOC_IFE_0]      =3D &camnoc_master_ife_0,
+> +	[MASTER_CAMNOC_IFE_0_RDI]  =3D &camnoc_master_ife_0_rdi,
+> +	[MASTER_CAMNOC_IFE_1]      =3D &camnoc_master_ife_1,
+> +	[MASTER_CAMNOC_IFE_1_RDI]  =3D &camnoc_master_ife_1_rdi,
+> +	[MASTER_CAMNOC_IFE_LITE_0] =3D &camnoc_master_ife_lite_0,
+> +	[MASTER_CAMNOC_IFE_LITE_1] =3D &camnoc_master_ife_lite_1,
+> +	[MASTER_CAMNOC_IFE_LITE_2] =3D &camnoc_master_ife_lite_2,
+> +	[MASTER_CAMNOC_IFE_LITE_3] =3D &camnoc_master_ife_lite_3,
+> +	[MASTER_CAMNOC_IFE_LITE_4] =3D &camnoc_master_ife_lite_4,
+> +	[MASTER_CAMNOC_BPS]        =3D &camnoc_master_bps,
+> +	[MASTER_CAMNOC_IPE_0]      =3D &camnoc_master_ipe_0,
+> +	[MASTER_CAMNOC_IPE_1]      =3D &camnoc_master_ipe_1,
+> +	[MASTER_CAMNOC_JPEG]       =3D &camnoc_master_jpeg,
+> +	[MASTER_CAMNOC_JPEG_DMA]   =3D &camnoc_master_jpeg_dma,
+> +	[MASTER_CAMNOC_CDM]        =3D &camnoc_master_cdm,
+> +	[MASTER_CAMNOC_FD]         =3D &camnoc_master_fd,
+> +	[MASTER_CAMNOC_SBI]        =3D &camnoc_master_sbi,
+> +	[MASTER_CAMNOC_ICP]        =3D &camnoc_master_icp,
+> +	[SLAVE_CAMNOC_AXI]         =3D &camnoc_slave_axi,
+> +};
+> +
+> +#define CAMNOC_NUM_NODES	ARRAY_SIZE(camnoc_nodes)
+> +
+> +static int qcom_camnoc_get_bw(struct icc_node *node, u32 *avg, u32 *peak)
+> +{
+> +	*avg =3D 0;
+> +	*peak =3D 0;
+> +
+> +	return 0;
+> +}
+> +
+> +static int qcom_camnoc_set(struct icc_node *src, struct icc_node *dst)
+> +{
+> +	struct qcom_camnoc_icc_provider *cp =3D
+> +		to_camnoc_provider(src->provider);
+> +	unsigned long rate;
+> +
+> +	/*
+> +	 * peak_bw is the aggregated max across all consumers (kBps).
+> +	 * Consumers encode the required clock frequency directly as kBps,
+> +	 * so the conversion is simply: rate_hz =3D peak_bw * 1000.
+> +	 * A vote of 0 means no requirement; leave the clock at its minimum.
+> +	 */
+> +	rate =3D icc_units_to_bps(dst->peak_bw);
+> +
+> +	return clk_set_rate(cp->clk, rate);
 
-> @@ -297,6 +307,7 @@ static void enque_to_free(struct bpf_mem_cache *c, void *obj)
->  static void do_call_rcu_ttrace(struct bpf_mem_cache *c)
->  {
->  	struct llist_node *llnode, *t;
-> +	unsigned long flags;
->
->  	if (atomic_xchg(&c->call_rcu_ttrace_in_progress, 1)) {
->  		if (unlikely(READ_ONCE(c->draining))) {
-> @@ -307,8 +318,10 @@ static void do_call_rcu_ttrace(struct bpf_mem_cache *c)
->  	}
->
->  	WARN_ON_ONCE(!llist_empty(&c->waiting_for_gp_ttrace));
-> +	raw_spin_lock_irqsave(&c->lock, flags);
->  	llist_for_each_safe(llnode, t, llist_del_all(&c->free_by_rcu_ttrace))
-> -		llist_add(llnode, &c->waiting_for_gp_ttrace);
-> +		__llist_add(llnode, &c->waiting_for_gp_ttrace);
-> +	raw_spin_unlock_irqrestore(&c->lock, flags);
+This driver does nothing to the ICC hardware, no votes. It only
+translates kbps to Hz. This is not the purpose of ICC drivers.
 
-Can this loop iteration count be bounded? The critical section covers
-the whole free_by_rcu_ttrace -> waiting_for_gp_ttrace transfer, so
-c->lock is held with IRQs disabled for a number of iterations that has
-no upper bound.
+Looks heavily incomplete.
 
-free_by_rcu_ttrace is filled from enque_to_free() by free_bulk() and,
-more significantly, by the batch append in __free_by_rcu():
+Best regards,
+Krzysztof
 
-kernel/bpf/memalloc.c:__free_by_rcu() {
-    llist_add_batch(llnode, c->waiting_for_gp_tail,
-                    &tgt->free_by_rcu_ttrace);
-}
-
-That batch is the whole c->waiting_for_gp chain, which builds from
-every bpf_mem_free_rcu()/unit_free_rcu() that happened while
-call_rcu_in_progress was set, proportional to the object-free rate
-without any watermark. While call_rcu_ttrace_in_progress is set,
-successive __free_by_rcu() invocations keep appending without anything
-draining it, so batches accumulate across rounds.
-
-Compare the other new critical sections in the patch, which are all
-O(1): __llist_del_all in __free_rcu and drain_mem_cache, or bounded by
-c->batch in alloc_bulk (roughly 48 iterations max). Only this one is
-unbounded, and raw_spinlock_t + irqsave means it is non-preemptible
-even on PREEMPT_RT, where do_call_rcu_ttrace() is reached from the
-rcuc/rcuop kthread via __free_by_rcu().
-
-The lock is only needed for the destination list. llist_del_all() on
-free_by_rcu_ttrace is an xchg and is already safe against concurrent
-llist_add() producers without a lock. Could the chain be re-linked (or
-its tail found) outside the lock and spliced into waiting_for_gp_ttrace
-with a single __llist_add_batch() under the lock, keeping the IRQ-off
-window O(1)?
-
-[ ... ]
-
-> @@ -620,6 +634,8 @@ int bpf_mem_alloc_percpu_unit_init(struct bpf_mem_alloc *ma, int size)
->  static void drain_mem_cache(struct bpf_mem_cache *c)
->  {
->  	bool percpu = !!c->percpu_size;
-> +	struct llist_node *llnode;
-> +	unsigned long flags;
->
->  	/* No progs are using this bpf_mem_cache, but htab_map_free() called
->  	 * bpf_mem_cache_free() for all remaining elements and they can be in
-> @@ -629,7 +645,10 @@ static void drain_mem_cache(struct bpf_mem_cache *c)
->  	 * on these lists, so it is safe to use __llist_del_all().
->  	 */
->  	free_all(c, llist_del_all(&c->free_by_rcu_ttrace), percpu);
-> -	free_all(c, llist_del_all(&c->waiting_for_gp_ttrace), percpu);
-> +	raw_spin_lock_irqsave(&c->lock, flags);
-> +	llnode = __llist_del_all(&c->waiting_for_gp_ttrace);
-> +	raw_spin_unlock_irqrestore(&c->lock, flags);
-> +	free_all(c, llnode, percpu);
-
-Does the comment above need updating? It says "Except for
-waiting_for_gp_ttrace list, there are no concurrent operations on these
-lists, so it is safe to use __llist_del_all()."
-
-Before the patch the comment matched the code: waiting_for_gp_ttrace
-was the one list drained with the atomic llist_del_all(), and the
-comment named it as the exception to "safe to use __llist_del_all()".
-
-After the patch waiting_for_gp_ttrace is the list that does use
-__llist_del_all() (now serialised by c->lock), while free_by_rcu_ttrace
-and waiting_for_gp still use the atomic llist_del_all(). The sentence
-now points at the opposite list from the code, and no longer explains
-why the new lock is needed here.
-
-A reader trying to work out which lists still need atomic accessors
-after this change gets the wrong answer from the comment. Should the
-comment say that concurrent consumption of waiting_for_gp_ttrace is now
-excluded by c->lock, so plain __llist_del_all() is safe, while
-free_by_rcu_ttrace / waiting_for_gp still need the atomic variants?
-
-[ ... ]
-
-commit 03e0a12c3be3d11fe9a3b87582070b2158a7bb74
-Author: Pu Lehui <pulehui@huawei.com>
-
->     bpf: Fix UAF due to concurrent consumption of waiting_for_gp_ttrace
->
->     Syzkaller repeatedly triggered UAF splats related to nodes in
->     waiting_for_gp_ttrace within the bpf memalloc:
-
-[ ... ]
-
->     This is expected because, as noted in commit 57b23c0f612d ("bpf: Retire
->     rcu_trace_implies_rcu_gp()"), an RCU Tasks Trace GP currently implies
->     (and will continue to imply in the future) a normal RCU GP. Since
->     alloc_bulk() runs in an RCU read-side CS (!PREEMPT_RT runs in IRQ
->     context, PREEMPT_RT runs with guard(rcu)), an RCU Tasks Trace GP cannot
->     complete while alloc_bulk() is accessing the list. Thus, the callback
->     __free_rcu cannot run concurrently, ruling out missing RCU read-side
->     locks as the cause. And same for free_by_rcu_ttrace list.
-
-Is the statement "Thus, the callback __free_rcu cannot run concurrently"
-accurate as written?
-
-Looking at the race diagram three paragraphs later, it shows exactly
-that scenario: __free_rcu on CPU1 executing in the middle of
-alloc_bulk's llist_del_first on CPU0. What the RCU argument actually
-establishes is narrower: the GP cannot complete during the particular
-read-side CS it is waiting on, so RCU read-side protection is not what
-is missing.
-
-Nothing prevents a new alloc_bulk() from starting after the GP has
-completed and running concurrently with the callback. __free_rcu runs
-from the rcu_tasks_trace kthread (process context, no irqs disabled, any
-CPU) while alloc_bulk runs from irq_work on the cache's own CPU; on
-PREEMPT_RT alloc_bulk is even preemptible, so same-CPU interleaving is
-possible too.
-
-A reviewer reading this sentence literally would conclude the race in
-the diagram is impossible. Could the paragraph say "RCU read-side
-protection is not what is missing; what is missing is mutual exclusion
-between the two llist consumers"?
-
->     Note that free_by_rcu_ttrace does not suffer from this issue as it only
->     has a single active consumer during normal operation.
-
-Is this premise correct? free_by_rcu_ttrace has two distinct consumers,
-and they are not confined to one CPU:
-
-  - alloc_bulk() memalloc.c:225 (still outside c->lock):
-
-    obj = llist_del_first(&c->free_by_rcu_ttrace);
-
-  - do_call_rcu_ttrace() memalloc.c:322, and drain_mem_cache()
-    memalloc.c:647:
-
-    llist_del_all(&c->free_by_rcu_ttrace)
-
-do_call_rcu_ttrace() is called as do_call_rcu_ttrace(tgt) with
-tgt = c->tgt from free_bulk() (memalloc.c:341, 364) and __free_by_rcu()
-(memalloc.c:370, 383). c->tgt is set to the cache that allocated the
-object, potentially another CPU's cache:
-
-kernel/bpf/memalloc.c:unit_free() {
-    c->tgt = *(struct bpf_mem_cache **)llnode;
-}
-
-So llist_del_all(&tgt->free_by_rcu_ttrace) on CPU1 can run concurrently
-with llist_del_first(&tgt->free_by_rcu_ttrace) in alloc_bulk(tgt) on
-tgt's own CPU. The file's own comment at memalloc.c:220-224 says as
-much: "Other CPUs might llist_add() and llist_del_all() in parallel."
-
-What actually keeps that pair harmless in the common case is the RCU
-deferral the changelog describes earlier, not single-consumer-ness: the
-nodes taken by llist_del_all() are moved to waiting_for_gp_ttrace and
-only freed by __free_rcu() after an RCU tasks trace GP, which cannot
-elapse while alloc_bulk() is inside its RCU read-side section. That
-argument does not cover the two draining paths, which free immediately
-while still only being ordered against alloc_bulk() by
-WRITE_ONCE(c->draining, true) / irq_work_sync().
-
-Since the changelog is what a reviewer will use to decide the fix is
-complete, should the sentence be corrected to state the real reason (RCU
-deferral) or should the residual draining-path window be acknowledged?
-
-Leon Hwang suggested in the v2 review that scoped_guard() could be used
-instead of explicit raw_spin_lock_irqsave/raw_spin_unlock_irqrestore to
-simplify the code and avoid needing the flags variable. This is a code
-style improvement that would make the locking more idiomatic. The
-suggestion applies to multiple locations: alloc_bulk(), __free_rcu(),
-do_call_rcu_ttrace(), and drain_mem_cache(). Is this something worth
-addressing before merge?
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/33055527430
---===============4410778294104359820==--
