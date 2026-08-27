@@ -1,126 +1,144 @@
-Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2BFB3FFACC
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:59:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.19.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 103F8455173;
+	Thu, 27 Aug 2026 12:59:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787835598; cv=none; b=aNR3ZHdBwlpdcbcS8nMCDjtu7klhXDFkNbxVnTPWBtRWmjkZn1z6VMv2tdrXe7NeawYgAPooRPvz7MfRvgn/29OEkWuq+FJC3FHeKsgXdP/0Ogozi6RDQGqoElmbKNJl0+dJEXsAGfQkYZwtLHTCXTBBPz3aXo6mpDLz7YYNlwA=
+	t=1787835606; cv=none; b=AKIt+CLnGcV6t0awaUmiviiqdwYc758bvaSJrJbJWbgeUo+yddbB5f2Ms4Ls0lpJyMCryHelIHmH6G5FFP0VVcwfcqgQPERVck2pxkG2TDyctsaAVyv2R+zgBJ01HB+hYYzGgXWdWBRHngILiTPJv1XkkK/bD7NtjMC0bWMQNgE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787835598; c=relaxed/simple;
-	bh=T+PbAjvDjs9UkwDIYLfn+71BTvBU7oss2V2Irly2PNI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hyA4wArkld5sh4I3a7rglq3822JhN7M5odrKAOcmDQHP2fU779fc06RaUIhXF6ktfQKyGEZ/kX4TrLB60Dhtzj9gQvvCAKx78DCmuNXzRyIaonnAszSlb1ySiRlZ2tU02QTLwcmQp/ixFbC56tSLlqyIDpj6lmBlXOiTM6b00Fw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=YfcbUzr6; arc=none smtp.client-ip=54.207.19.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1787835606; c=relaxed/simple;
+	bh=DmYQHPvuzN7w14pM+qNa9bDK8VfqhPzHtWD+USU/0mc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dZF3TWyqIrz7GvvNvhi55ql6vr5qx05cVSIcY0zydx5vMAl0CjFUOQh6BxO99/arUTaMEDxNnTxbGhFvyv20HchUA/FLwKwlwdFRFVvMRStponPxCgt67F80Ldr3Qsja5X3vM4p/isdHQnCaau1c5a0jl0I+fmNIIMd2LAHNars=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PQNM85ra; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="YfcbUzr6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1787835484;
-	bh=hDj/p8jypRxjLRWVJMSiEO7QZK3O8045pLQDz9Be/Nk=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=YfcbUzr6kc/zrwXJdIq8Dp3p/RbAQgccXE8rgAPejKsDfowzF389u7IX46b2umrib
-	 ylvZ01rf+fVvr317xgCOLITOybvgF+TKejbC5smI9qG9KYqSQA+HeJIm/rVteCzjN+
-	 0Cg/9L4TWqWOV1kxy7D91Jc+/HJXHUjU1EXGLhVE=
-X-QQ-mid: esmtpgz11t1787835467tf13d2e15
-X-QQ-Originating-IP: UjMqKlSEJhg9MokEB+W+80+C2/HVxYCgg29CDkeaDgk=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 27 Aug 2026 20:57:45 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 18087141386268091049
-EX-QQ-RecipientCnt: 7
-From: raoxu <raoxu@uniontech.com>
-To: kbusch@kernel.org
-Cc: axboe@kernel.dk,
-	hch@lst.de,
-	sagi@grimberg.me,
-	linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	raoxu@uniontech.com
-Subject: [PATCH nvme-7.3 v2 0/4] nvme-fabrics: localize string option parsing
-Date: Thu, 27 Aug 2026 20:57:10 +0800
-Message-ID: <0D24A9A3F19DBCF9+20260827125710.1381672-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PQNM85ra"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BFCE1F000E9;
+	Thu, 27 Aug 2026 12:59:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787835587;
+	bh=nHj2MclCk+X9SP4Q2c6F2gv56YQ8ZRF79zdrdZI3CCo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PQNM85raTj4YxX05iQsQNYL4K3pmBOKj8+SY1N9Rp95qrAdSBNPQIqAfAt0N7Vo1O
+	 NUYMPl6VlmBXwIrdldCjY4vNMB6OsVK4vkFWm7sxWj4PjKwVLR0zN/qZvt14DUaoLf
+	 q9Pq3dvGmHhK9MlVQjaEbrWrWt0aNCj0qjPhJAlHVvGj/ckov8IuZ4aFQfa3yXPeCB
+	 Islc4QKwFb5jcnOPcOztzUx/OH4NAHHo3hGLz2TIDrqjvbbEgG9sIwCwfP3BFY5Bn4
+	 E7dbYjLKuSnj1BcIn2sIt4/eW/yUz8VFsdOg3WOpUNoxy5pMTVw9cj+jtoN6G50PmZ
+	 LV1uSKjxDdaXQ==
+Date: Thu, 27 Aug 2026 14:59:44 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Marek Vasut <marex@nabladev.com>
+Cc: linux-usb@vger.kernel.org, fabrice.gasnier@foss.st.com, 
+	Pankaj Dev <pankaj.dev@st.com>, 
+	=?utf-8?Q?Cl=C3=A9ment?= Le Goffic <clement.legoffic@foss.st.com>, Gatien Chevallier <gatien.chevallier@foss.st.com>, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Christian Bruel <christian.bruel@foss.st.com>, 
+	Conor Dooley <conor+dt@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rahul Kumar <rahul.kumar05@st.com>, 
+	Rob Herring <robh@kernel.org>, Rosen Penev <rosenp@gmail.com>, 
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Vinod Koul <vkoul@kernel.org>, devicetree@vger.kernel.org, 
+	kernel@dh-electronics.com, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [PATCH v3 5/9] dt-bindings: usb: dwc3: Document ST STM32MP2 DWC3
+ xHCI USB controller
+Message-ID: <20260827-strategic-hallowed-lynx-ca3bcc@quoll>
+References: <20260822074816.548662-1-marex@nabladev.com>
+ <20260822074816.548662-6-marex@nabladev.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: Ma4CB9LXNscGQSrFP+zBHA91J6Tsd20GrJfFaO2KXCh9lyEKa4l3EdBS
-	ZuaxGF2yPdDLWMllj5yMSDHQJXKTgqpY9y9xApopkEunYyqBmcWmgOJPW8piwIFOUD3nQpo
-	3LqsSti/cprOOJNhBP4nc9kETMOrcjIm27X2Yf4NzFAE8EOPyCeqUOk02VsPCRz1pov19BB
-	gKBL7KQ+G84Ev/EfUvxGGLprdvZUyY/Fgd6supbkH66IWKdF+4U+dDi9Mk2vZ9GuDOhDUzu
-	k+nL2x2OJzJijdQtLaeb14WuT01Z1PP/PdHrA6+cmacG0xEKm+U915Fq7WoQtzPzGMt43B0
-	1IK5kRvBzjEjY6AwGu/hPE9B9DF49JQU1m0WkF1ajZNcX7i1naPzkyG5V7DPfp4UZha61Dy
-	oBZmLRvdKRrF5IHB0Iy0RGJ5ZX6lcLEKBXEghZsJdu9VhDSM2abjtMOzSlne+MZiY2jrARW
-	GtVqK5vmdPaa1wrstfFqsInavDaTCe8pJVYWZ5CNJEVC3LI4CiNj0+ReK4G15ReiKp3jm5x
-	HToVH/Eqj9OcnWDMmmf2w/5rxyDbdlJA0fJlT15v/65AKXZjr8UBdtX743SJom+tId30YCA
-	OJa27UXuWo8ia72Oyaws0F+ozBYT6JTSrqp9kkin8acnQnuT/FGQzTc1cNZ5dInKvmaNU7P
-	EY2Lfz1ag5BEwkh1/zLlr+tDZcWwwk+6EQ6ukDnpTOCD6srPN0JLxqHiJahxSDG7+7iPP7j
-	/p0du61stI+cIrU9svvD5Y5Iw0TTkipnYUjP4rnQurxWGWdY6W3f4WCs5hMrNphotjWMIqo
-	G4hg6c5pHQuBTrMO+sU2JxPoLqG3XtETRnaqDlAie/H2FYeOkBh1HE4Bt9XN9qvnBVT7iaG
-	TKSQi3JkOUkl1kw1pqmvQ50bnObVyiQUr7bcekaOgkDkkX6bxu7RFsJhoWUYFoShGnJzJ0W
-	MtjYGOIXFIKTerx1JKCcmsn4jda0g5QAwZMs5Ad3taBTO0/k/PTrYX/5zNcuCpRoobh0Dxc
-	2ESzT5CIRRqG5KuAmP/ctR3aRxfUqwMRiezZfil7fwhSYy26IMoOmkD+m1f8w=
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260822074816.548662-6-marex@nabladev.com>
 
-From: Xu Rao <raoxu@uniontech.com>
+On Sat, Aug 22, 2026 at 09:46:38AM +0200, Marek Vasut wrote:
+> The ST STM32MP2 SoC contains single instance of DWC3 USB controller with
+> glue logic wrapper around it controlled by syscon. Document the glue
+> logic and DWC3 controller.
+>=20
+> Co-developed-by: Pankaj Dev <pankaj.dev@st.com>
+> Signed-off-by: Pankaj Dev <pankaj.dev@st.com>
+> Co-developed-by: Cl=C3=A9ment Le Goffic <clement.legoffic@foss.st.com>
+> Signed-off-by: Cl=C3=A9ment Le Goffic <clement.legoffic@foss.st.com>
+> Co-developed-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+> Signed-off-by: Marek Vasut <marex@nabladev.com>
+> ---
+> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> Cc: Christian Bruel <christian.bruel@foss.st.com>
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+> Cc: Neil Armstrong <neil.armstrong@linaro.org>
+> Cc: Pankaj Dev <pankaj.dev@st.com>
+> Cc: Rahul Kumar <rahul.kumar05@st.com>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Rosen Penev <rosenp@gmail.com>
+> Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+> Cc: Vinod Koul <vkoul@kernel.org>
+> Cc: devicetree@vger.kernel.org
+> Cc: kernel@dh-electronics.com
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-phy@lists.infradead.org
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> Cc: linux-usb@vger.kernel.org
+> ---
+> V2: Fix up Sob/Cdb lines
+> V3: - Document maximum-speed
+>     - Switch resets to maxItems: 1
+>     - Drop label from example
+>     - Use generic over-current-active-low
+>     - Use ref: snps,dwc3-common.yaml and drop generic dr_mode/maximum-spe=
+ed/phys/phy-names
+> ---
+>  .../bindings/usb/st,stm32mp25-dwc3.yaml       | 97 +++++++++++++++++++
+>  1 file changed, 97 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/usb/st,stm32mp25-dw=
+c3.yaml
+>=20
+> diff --git a/Documentation/devicetree/bindings/usb/st,stm32mp25-dwc3.yaml=
+ b/Documentation/devicetree/bindings/usb/st,stm32mp25-dwc3.yaml
+> new file mode 100644
+> index 0000000000000..96bd557327252
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/usb/st,stm32mp25-dwc3.yaml
+> @@ -0,0 +1,97 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/usb/st,stm32mp25-dwc3.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: STMicroelectronics STM32 MPU DWC3 USB SoC controller
+> +
+> +description:
+> +  The STM32 MPU DWC3 USB SoC controller block supports both
+> +  Host(SS/HS/FS/LS) and Device(SS/HS/FS) mode operation
+> +
+> +maintainers:
+> +  - Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> +  - Marek Vasut <marex@nabladev.com>
+> +
+> +allOf:
+> +  - $ref: snps,dwc3-common.yaml#
 
-nvmf_parse_options() currently uses the same temporary pointer for option
-tokenization and for strings returned by match_strdup().  It also contains
-several copies of the same string replacement and DH-CHAP parsing logic.
+Honestly, I am lost. It seems this resolves my comment at v2, but now I
+went through patchset from Fabrice Gasnier which was ON TOP of this
+patch adding this line.
 
-This series keeps the changes deliberately small.  It separates the option
-tokenizer pointer from allocated strings, factors only parsing operations
-that are actually shared, and otherwise leaves option-specific code in
-place.
+It is not your fault, although if there are pending comments expressed
+not via review but via patchses on top of things being reviewed, then
+can you check for them?
 
-The series is split as follows:
+Best regards,
+Krzysztof
 
-  1/4 separates the option tokenizer pointer from the temporary pointer
-      used for match_strdup() results.
-
-  2/4 adds nvmf_parse_string_option() for the five direct owned-string
-      replacements: transport, traddr, trsvcid, host_traddr and host_iface.
-
-  3/4 reuses that helper for the subsystem NQN replacement only.  The
-      existing NQN length check and discovery-NQN update are left
-      unchanged, and hostnqn and hostid are not modified.
-
-  4/4 adds nvmf_parse_dhchap_secret() for dhchap_secret and
-      dhchap_ctrl_secret, which share the same validation and ownership
-      rules, including sensitive cleanup on rejection.
-
-This series is based on nvme-7.3 after the accepted
-"nvme-fabrics: fix DHCHAP secret leak on parse failure" change.
-
-No functional changes are intended.
-
-Changes in v2:
-  - Rework 3/4 in response to Sagi's feedback.  Drop the dedicated
-    identity helpers and limit the patch to reusing
-    nvmf_parse_string_option() for the subsystem NQN replacement.
-  - Leave hostnqn, hostid, nqnlen and the discovery-NQN code unchanged.
-  - Keep p for the remaining option-specific match_strdup() users.
-  - Keep the reviewed DH-CHAP helper logic unchanged; p remains declared
-    because hostnqn and hostid still use it.
-  - Add Sagi's Reviewed-by tags to 2/4 and 4/4.
-
-Xu Rao (4):
-  nvme-fabrics: separate option tokenizer pointer
-  nvme-fabrics: add helper for owned string options
-  nvme-fabrics: reuse string helper for subsystem NQN
-  nvme-fabrics: add helper for DH-CHAP secret options
-
- drivers/nvme/host/fabrics.c | 119 ++++++++++++++++--------------------
- 1 file changed, 54 insertions(+), 65 deletions(-)
-
--- 
-2.50.1
