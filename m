@@ -1,64 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BF232701D9;
-	Thu, 27 Aug 2026 02:14:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 594DB381EB1;
+	Thu, 27 Aug 2026 02:14:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787796875; cv=none; b=scnwrdOgsym7QjHgmDHtp9eu/91bi2C0rdjpr4bxWNxSyZUWIIh02hT26hcbrSeUMg8r4QY7W9EwG8LVdSrb8ELVKBB9obwTdx11rfDXZPBbSHU4rxOYIuEov1hKoxYud8Qb83FXwf9Z2lQUGXurbz/84SbQSmPgDmQ0REceMDw=
+	t=1787796893; cv=none; b=JXTC9bSrmzS/NGej6aSN1nUhmNiynN8QwALK+Ip1um5EhNWWw1lRVZmao5PcglIQCe2zWulBIs1cteRtqk9JY7JWSt3F1r9d/mbdxtPLA67Y0oeYZpuko6T4SkDEw1Q8f1whw/y6jgyL1sYR8ACM4fubvLDHIQIcXfXKP0Wxx90=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787796875; c=relaxed/simple;
-	bh=EMz3CLlSruM1oLo6SYgpHfz8DCXHc0BUFVA833NUF/A=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=T9HWjGnGJqYTn5TT6dKW0ABUqFnmVAvxDnbhPNw6eU7caZvQ0Lobukb7720jPVlWk8w3dLoRq6fuk8Ed69NrfDx9tJgLdHcMRrBzu7iMPpKH7gdyOV6m2vuh3bdAvpJhT5F+Y6Y2QEQX2gHSfwpBGiwEozoLLUdUOeRj8eqOKFE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=iYs8oDAK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787796893; c=relaxed/simple;
+	bh=6tuIyaDvXmh31TWjQ3Fr8iMEIgbL2yCeBF8chTUEt3s=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Fj7hFVpdaxpanLX+sgU4VESQuOGOMOnYsG3yRXNjhwMiLfYeeeXUTY6+6RQTJUrPf7YSOmJz1xqSvVFG/BYKn5hntmp1ZhH4KrlguH7BjbnwOAlK0AJZZFlQFcWOeVBPPfll6J+Mq0ZDnv9RWIssirWJG8qJ1U6B1fU7CWP6rqc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=KN8XQa+d; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="iYs8oDAK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3FFA1F000E9;
-	Thu, 27 Aug 2026 02:14:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1787796874;
-	bh=Cane1AOlUQJyHZIyoy0KeSRwQewjcMOk/ZLKOeepJe0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=iYs8oDAKJjVJVud930jSrVlON9IqVlQIIVkzomxm7HhwsfXPPeiNpOjYUksZ+4bdd
-	 K56fsXsFs3pMbR+BfTtO314sJurM1m/TFJszmmFHkBJ4kQoOTFxtRJEOwo1lGqZgTK
-	 Y29BV8qbdTFqze3QWHK8lyevmOKRmKQkH35NzP00=
-Date: Wed, 26 Aug 2026 19:14:33 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: ZhengYuan Huang <gality369@gmail.com>
-Cc: mark@fasheh.com, jlbec@evilplan.org, joseph.qi@linux.alibaba.com,
- ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
- baijiaju1990@gmail.com, r33s3n6@gmail.com, zzzccc427@gmail.com
-Subject: Re: [PATCH v2] ocfs2: reject inconsistent local xattr entries
-Message-Id: <20260826191433.c9208982c4eb7ff97f755969@linux-foundation.org>
-In-Reply-To: <20260806085012.2650042-1-gality369@gmail.com>
-References: <20260806085012.2650042-1-gality369@gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="KN8XQa+d"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=E4
+	xj27Uw381Jy5PBrpr36LbgUtdCjtZZw0rtEdvwSWo=; b=KN8XQa+dM2yBf/KtyH
+	fQGOdVgdyDvDnvpLBNXvxcKAzrrDCWfkZk1o6AqOLIqFr8Mxgs2Th4SxbLnd82ks
+	grnWP/VRnDY7eK2AP5rqTx8Kw2F1rLGDVNdGMx4e3PPrQo95B/ot0RGrQa61wlrq
+	DMuU1XtcTNfDdTGp8b+YL6wbM=
+Received: from thinkpadx13gen2i.. (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wDnj2V8nY9q+zxbSQ--.48447S2;
+	Thu, 27 Aug 2026 10:14:20 +0800 (CST)
+From: Zongmin Zhou <min_halo@163.com>
+To: srini@kernel.org,
+	gregkh@linuxfoundation.org
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Zongmin Zhou <zhouzongmin@kylinos.cn>
+Subject: [PATCH] slimbus: messaging: fix leaked PM vote on tid allocation failure
+Date: Thu, 27 Aug 2026 10:14:09 +0800
+Message-Id: <20260827021409.24500-1-min_halo@163.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDnj2V8nY9q+zxbSQ--.48447S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Jr1fWFWUAFW7Xw1rAFy3XFb_yoW8Jr17pF
+	48Ww12yrsYqry7AF1q9rWkXa43Zasa93yUCa1UKa93Aw1rJF40qryrtFy5tFWDAF1fAw1Y
+	vrs8ta4FkF1DCrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jno7tUUUUU=
+X-CM-SenderInfo: pplqsxxdorqiywtou0bp/xtbC0h0FsGqPnX1pcAAA3m
 
-On Thu,  6 Aug 2026 16:50:12 +0800 ZhengYuan Huang <gality369@gmail.com> wrote:
+From: Zongmin Zhou <zhouzongmin@kylinos.cn>
 
-> [BUG]
-> A corrupt OCFS2 xattr entry can set OCFS2_XATTR_ENTRY_LOCAL while
-> keeping xe_value_size larger than OCFS2_XATTR_INLINE_SIZE. When that
-> entry reaches namevalue_size_xe(), the filesystem hits its BUG_ON:
-> 
-> kernel BUG at fs/ocfs2/xattr.c:231!
->
-> ...
->
-> [FIX]
->
-> ...
+In slim_do_transfer(), when a transaction needs a tid and
+slim_alloc_txn_tid() fails, the function returns directly instead of
+jumping to slim_xfer_err. The runtime PM vote taken earlier with
+pm_runtime_get_sync() is then never released, leaving the controller
+permanently powered up.
 
-Thanks.  AI review might have found several issues - two are
-pre-existing and two introduced by this patch:
+As txn->tid is still 0 at that point, jumping to slim_xfer_err drops
+the vote exactly like it is done for other failed transactions.
 
-	https://sashiko.dev/#/patchset/20260806085012.2650042-1-gality369@gmail.com
+Fixes: d3062a2109309 ("slimbus: messaging: add slim_alloc/free_txn_tid()")
+Signed-off-by: Zongmin Zhou <zhouzongmin@kylinos.cn>
+---
+ drivers/slimbus/messaging.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/slimbus/messaging.c b/drivers/slimbus/messaging.c
+index e2dbe4a..ee127ef 100644
+--- a/drivers/slimbus/messaging.c
++++ b/drivers/slimbus/messaging.c
+@@ -139,7 +139,7 @@ int slim_do_transfer(struct slim_controller *ctrl, struct slim_msg_txn *txn)
+ 	if (need_tid) {
+ 		ret = slim_alloc_txn_tid(ctrl, txn);
+ 		if (ret)
+-			return ret;
++			goto slim_xfer_err;
+ 
+ 		if (!txn->msg->comp)
+ 			txn->comp = &done;
+-- 
+2.34.1
+
+
+No virus found
+		Checked by Hillstone Network AntiVirus
+
