@@ -1,135 +1,135 @@
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from www262.sakura.ne.jp (www262.sakura.ne.jp [202.181.97.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EE7338D404
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 15:32:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787844732; cv=pass; b=b+32OPxLtFaAy7gjlG1fQ9MJXGvxeK+wtiZST6Y02atDcMKYOz3s4Q5f/0sKHbmLMgz20Y9YjMPiREHSC7rL/1zCbjnFlmA0x1k62zSKmImMwQq3V8P6I9zJu5AmH9b7CQK18OQNLstgmLyJ0dN40EwLeyNreNb7ivgIqIWr8Ws=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787844732; c=relaxed/simple;
-	bh=OG0N9hfGAjQrVAX3fWQSJUJJsrOM4IzsIrO2Jd3scnM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pob9atiiDs/kNsbNEE89PwGaz7q+UhYmnWxWKOCZfxXGft24vqdYjXGEMUWMVxL+09qqaPdsMnzGvBevw2QEZWaa9pIOXkoUp9xbwgPgSgy7L4Uqj2HY5EnO74jQy/omvhB0Kab87vQ+Fqn0b/7ITl8aarma3JGXogrs4doT3Bw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Ix2QlMo2; arc=pass smtp.client-ip=209.85.208.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Ix2QlMo2"
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6a18840e2abso3802248a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:32:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787844729; cv=none;
-        d=google.com; s=arc-20260327;
-        b=g+IRRmBNXnSkNodFYi80JXVuHU+Ak+licrN7TkPw5U54BSNh2nhMyBM6phinhjaLK9
-         Dv9rcbkxYXiRPBYR9XWf/KK40HJc6gEcmRbVDd9nPPoqrL7hdxCbh2Lcth56tK1FG2Cz
-         HxvbLH1PYcWRH20l8tzfpuNWvEr95awjQL8DFTz3B7ehWdpNYo/PT1dqDKJM/YR0w19M
-         LZLS0l9D5NpO1cDd7e0NCF1Bk/YGcPiUm9gnowikUpOXAlKjJA6G3314o+v07PXks9BX
-         QNmPpmEyIwO2/gvFD4Y6cXo56pze1ncr64XhwjadCK9ikOO6oKrraJ2zxOt1pO4Konfs
-         i7/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=UIv7VSR1qWuO/v2ZJpqzpJWi1mJBnpbQ8X8B9JtI4ZE=;
-        fh=yNy3T06FhV8t2stzzVNa9Y59/SQKJwIqY9lvOA81d+8=;
-        b=mKb8WaC15tHf5o4CxDzS/7Twy+pzKfpW5Bn7mGCZM8PDZ8SQ+/n+BNOD1/hToOTpVB
-         LZ3E4HYJ2ySRTwvxcyEDgMBxJnUUIv4F4T68MtKPhF/durOLwsO66oO0V35E4VnHzJa1
-         vyej1iZl1vctyfbnhIJ6ElAC4IlAaqWZmzkOJL6HvlHeDMeMxR2SODgk8+HLZYHJ0OZS
-         ErlndIo5bVQoRu1OwMx3l97trRUQxuYetleZMIeMn3kTq9DcDM0YAeVLfo8FbduWSmUV
-         m46YKjtUlsdKNeNdBMPrLc8hMyHFbacvjHuPEtA6+tK89EKVsh7F+M419hSzaAL8FMOL
-         Vzsw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1787844729; x=1788449529; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UIv7VSR1qWuO/v2ZJpqzpJWi1mJBnpbQ8X8B9JtI4ZE=;
-        b=Ix2QlMo2aCHagueA2Hh1XX1FslIG9xVnD/5WBwwTxM/qR6UlLp8FOkyRvpkmrTeGDJ
-         dszpZW2M7O3NOg9bDwo7XPX3/3jNe2OJMX3rn6VXhWKfqAy9HPCR4v4GwnooTksC5Xfc
-         +0wVZTsL+PTiGyJOUWoWo5COzAtWmU5X6Jst6Ev7JX8OnOBmAR5HrZ4gZGa7cVw2huQb
-         dun/we43BfCXrf5/sygdlE25Kc2f6oa3dQasnnBnH+4K/u3QaNS0wgAJ6khz/8QwT32z
-         FKVFyZWMOTebbjRxvpWXbOZUPZEyC9OpyYTXWu4u0+g347ojWN6DiFfySHpEKgvcfrQf
-         b0IA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787844729; x=1788449529;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=UIv7VSR1qWuO/v2ZJpqzpJWi1mJBnpbQ8X8B9JtI4ZE=;
-        b=CLCgxoinT8TTI2hN6Qs4tWIVWOjbh1jX2WtK557Y6vaG8j0UXhUDhzXSaHtRkFoFBP
-         52vW9sUhtrbVzKP/7xCiV3dCS+XZjNkxUWecVJe212Wq+M0zATPe+bQbAsteu+wTu/5D
-         WJMAS5sUtiEl3Vd9Ex51h1Posrj7nZMJwtA2e6G6cstH6f1XjpsALeajQScn1lMf/6wW
-         FYYVkf5FmT7JRFqP5EVnByYcS+dBg6JxntmRmtDyTsOjHOUxoUQ2L5++wHHwxMyegSgf
-         W6Vg7OlCT/evMrW5fzkQPEHKOmpcGtX4LOnFIn9/EFuslMdLPOs/K1xSsgNbbscXLIk6
-         oVMA==
-X-Forwarded-Encrypted: i=1; AHgh+Rq1Wt62IJaUIgMwUHgA5h2yJkM6YvhUGaTL12M8rgcvCaOyZ8J+Txwr0xEHutJeKgTMAfa2cjo2OowoIvo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mYJQZtakbzThFGTJ/GK94dlqHe/vbN9ew6LrwvM8K2NYEhlLhP
-	gRoA5dRcjHcjplzLpNpy3efbwrED+r9W5PmIyeuWpe69g05KIMRH4yEymf0DCpm/zm7LtRIzNXD
-	gC9p46DFcRgwUWxppayxvPZ2/gr+2/1aT4h+l0l6I0oAEh9Q/cBW7
-X-Gm-Gg: AR+sD10rUbxFYTAB2qWuDfLaXeca7lgxdoJV/yjVmxN5RKhjgptnwKxbKRUqa6iUcOa
-	QMTEJ1fhzY7fGbyXbjY3qYEbTJs/JsZC9XDS1zzaJSq/V4woVzwTLI+eMLPsdpuxesvT3ViAYKR
-	sUnYdUW8ImDYStk+7lImXfrgr+PSI2Fx1hXEadG7cvasDW5/PoPNnUJtnKSoZciMo+BjnxbR6f/
-	KNIdUHGX28AKqQcri9GNICZ3vMqjHiu8+yU63DMtMnNoKbLhF2tMkSVftaf+CUHUaNFs2xdd/7p
-	GCzaQF8ssz6r7Ajs4X+nZPaFWnrofGpZWqDTEG2wJr+TBOLsCCF4iCHmi0h/o8kzXtvb5gS6dW0
-	PPJNO16B2KdmRwg==
-X-Received: by 2002:a05:6402:280d:b0:6a5:def7:b872 with SMTP id
- 4fb4d7f45d1cf-6a5df65b507mr15081475a12.9.1787844729501; Thu, 27 Aug 2026
- 08:32:09 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C522C47F782;
+	Thu, 27 Aug 2026 15:32:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.181.97.72
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787844756; cv=none; b=MFj0qidFlCsXhe0nG54o2+O/megt4oEkG4qhoTzFFyK5QC3xw0gNZOO9grahEhy2jud0J51jQsgpC1EPWzBD8G6xrqkXz2lhjrf07qH8/1fXe0wddP+xAtLjClmaYzlj7cwViM1cNAD00f+jSlJH4hCUYssH8vVEObDRjSaPyuc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787844756; c=relaxed/simple;
+	bh=5fULEVdiLNaeaGPmNGVav3cRmsOv0HEjjh0adnjLFWM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Jb/0jWqUlp+UiC+QTOFw0K16cj4d8imHUmHTc46z6MWhtYxzlfufhI0Ho+onbeX2KaU7areMKo4Dg/uhHuj9gAssLtsqAK8CostpwBkJDrV0JqAy5dVcrAB6/T7SPfJOJwzcL41rFlpBCvABkfSoExlYOHOuZjZOUaEOKUPROM4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp; arc=none smtp.client-ip=202.181.97.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp
+Received: from www262.sakura.ne.jp (localhost [127.0.0.1])
+	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id 67RFUkJh066871;
+	Fri, 28 Aug 2026 00:30:46 +0900 (JST)
+	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
+Received: from [192.168.1.6] (M106072072000.v4.enabler.ne.jp [106.72.72.0])
+	(authenticated bits=0)
+	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id 67RFUdpm066842
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NO);
+	Fri, 28 Aug 2026 00:30:45 +0900 (JST)
+	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
+Message-ID: <e5518546-701e-4d3c-a077-18e34aa8c188@I-love.SAKURA.ne.jp>
+Date: Fri, 28 Aug 2026 00:30:39 +0900
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826173901.2329068-2-tanmay.shah@amd.com>
-In-Reply-To: <20260826173901.2329068-2-tanmay.shah@amd.com>
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-Date: Thu, 27 Aug 2026 09:31:57 -0600
-X-Gm-Features: AcwNN1W_es1PGxYSzN0croBntB4Dm44YdKdLDhoQ3lXd14i2sPM4RZQ2S8ZcSo0
-Message-ID: <CANLsYkyWg-SQ4o8AiaNeu4ALP=rrxmUd5OY9KDHNC91vPtHnKA@mail.gmail.com>
-Subject: Re: [RESEND PATCH] remoteproc: xlnx: do not send new mailbox notification
-To: Tanmay Shah <tanmay.shah@amd.com>
-Cc: andersson@kernel.org, linux-remoteproc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6] loop: Fix NULL pointer dereference in lo_rw_aio()
+To: Bart Van Assche <bvanassche@acm.org>,
+        Markus Elfring <Markus.Elfring@web.de>, linux-block@vger.kernel.org,
+        linux-fsdevel@vger.kernel.org,
+        Alexander Viro <viro@zeniv.linux.org.uk>,
+        Damien Le Moal <dlemoal@kernel.org>, Jens Axboe <axboe@kernel.dk>
+Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org, lkp@intel.com,
+        oe-lkp@lists.linux.dev, Christian Brauner <brauner@kernel.org>,
+        Christoph Hellwig <hch@infradead.org>, Christoph Hellwig <hch@lst.de>,
+        Hillf Danton <hdanton@sina.com>,
+        Linus Torvalds <torvalds@linux-foundation.org>,
+        Mark Brown <broonie@kernel.org>, Oliver Sang <oliver.sang@intel.com>,
+        linux-btrfs@vger.kernel.org
+References: <8dedfc40-9cae-44ff-9960-e0eb1825e963@I-love.SAKURA.ne.jp>
+ <550ff0b4-df39-46d2-9781-c8688df10c93@web.de>
+ <38ad64c1-edc7-431d-8f52-fba572ebf3eb@I-love.SAKURA.ne.jp>
+ <372ca5f6-81a0-4f6c-8f55-ebeeada9f955@acm.org>
+ <27bcb147-bead-4432-8cd0-981489f36228@acm.org>
+ <c41e9198-86a8-4bcd-a608-6f457b24f345@I-love.SAKURA.ne.jp>
+ <7e51bca8-218a-40b8-8ff8-fc59671f5add@acm.org>
+ <3bb080d0-4421-4012-8a62-6a2bf165cbd9@I-love.SAKURA.ne.jp>
+ <d2f387b9-031a-4306-9323-56f98a8241b7@acm.org>
+Content-Language: en-US
+From: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+In-Reply-To: <d2f387b9-031a-4306-9323-56f98a8241b7@acm.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Anti-Virus-Server: fsav415.rs.sakura.ne.jp
+X-Virus-Status: clean
 
-On Wed, 26 Aug 2026 at 11:39, Tanmay Shah <tanmay.shah@amd.com> wrote:
->
-> Only write a new message to the tx mbox queue if slot is available in
-> the tx queue. If queue is full, then do not send new mbox notification.
->
-> Reviewed-by: Mathieu Poirier <mathieu.poirier@linaro.org>
-> Signed-off-by: Tanmay Shah <tanmay.shah@amd.com>
-> ---
->  drivers/remoteproc/xlnx_r5_remoteproc.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
->
+On 2026/08/27 2:44, Bart Van Assche wrote:
+> Releasing and reacquiring disk->open_mutex from __loop_clr_fd() seems
+> risky to me. There is plenty of code in block/bdev.c that assumes that
+> disk->open_mutex is not released by lo_release().
 
-We are finally closing the loop on this patchset.  I'll pick this up
-when RC1 comes out next week.
+sashiko's review did not find problems
+( https://sashiko.dev/#/patchset/8dedfc40-9cae-44ff-9960-e0eb1825e963%40I-love.SAKURA.ne.jp ).
+This callback is the last code which is performed immediately before releasing disk->open_mutex.
 
-Thanks,
-Mathieu
+> 
+> I think there is another solution: instead of draining the workqueue
+> from inside __loop_clr_fd(), postpone it until the next time the loop
+> device is bound. See also the patch below.
 
-> diff --git a/drivers/remoteproc/xlnx_r5_remoteproc.c b/drivers/remoteproc/xlnx_r5_remoteproc.c
-> index c685bb5fa62c..0e71edf8174c 100644
-> --- a/drivers/remoteproc/xlnx_r5_remoteproc.c
-> +++ b/drivers/remoteproc/xlnx_r5_remoteproc.c
-> @@ -381,7 +381,10 @@ static void zynqmp_r5_rproc_kick(struct rproc *rproc, int vqid)
->         int ret;
->
->         ipi = r5_core->ipi;
-> -       if (!ipi)
-> +       if (!ipi || !ipi->tx_chan)
-> +               return;
-> +
-> +       if (mbox_chan_tx_slots_available(ipi->tx_chan) == 0)
->                 return;
->
->         mb_msg = (struct zynqmp_ipi_message *)ipi->tx_mc_buf;
->
-> base-commit: d4d61a4b0a52e8f3cdb3e1578602850a3452ec3e
-> --
-> 2.43.0
->
+That is too late to avoid NULL pointer dereference problem.
+We need to flush before setting lo->lo_backing_file to NULL.
+
+> 
+> Regarding your earlier request for a Sashiko review: I will look into
+> configuring Sashiko such that I can run "sashiko review ${commit_id}"
+> locally. The only part I'm missing right now is a Sashiko API key.
+While Sashiko considers a static blk_mq_freeze_queue() sufficient to avoid
+the NULL pointer dereference, relying on freezing the queue inside __loop_clr_fd()
+while holding `disk->open_mutex` is a dangerous decision.
+
+It is true that blk_mq_freeze_queue() alone is equivalent to
+synchronize_rcu() + drain_workqueue() + blk_mq_freeze_queue().
+
+Although omitting drain_workqueue() causes lockdep to stop complaining, not
+using drain_workqueue() does not avoid the runtime deadlock situation shown below.
+As long as there is a possibility of an in-flight I/O holding or waiting on a
+lock that subsequently tries to acquire `disk->open_mutex`, the deadlock
+risk remains. Lockdep will remain silent here simply because it cannot inspect
+the wake-up conditions inside wait_event() during a queue freeze.
+
+Here is the exact execution timeline that leads to the silent deadlock:
+
+Thread 1:                         Thread 2:                         Thread 3:
+========================================================================================
+                                                                    Holds a global lock 
+                                                                    (e.g., system_transition_mutex).
+
+                                  Block core increments 
+                                  `q_usage_counter`.
+
+Block core holds `disk->open_mutex`.
+
+lo_release() tries to wait for 
+`q_usage_counter` to reach 0 
+via blk_mq_freeze_queue() 
+  => BLOCKED by Thread 2.
+                                  loop_handle_cmd() tries 
+                                  to hold the global lock 
+                                    => BLOCKED by Thread 3.
+                                                                    Tries to hold 
+                                                                    `disk->open_mutex` 
+                                                                      => BLOCKED by Thread 1.
+========================================================================================
+
+Since Thread 1 will never release `disk->open_mutex`, Thread 3 can never release
+the global lock, and Thread 2 can never reach blk_mq_end_request() to unblock Thread 1.
+
+I've tried offloading __loop_clr_fd() entirely to task_work context in v3 patch, but
+it did not work due to module lifecycle restrictions
+( https://sashiko.dev/#/patchset/fda8abc8-6aa2-463b-bf72-865f6b838034@I-love.SAKURA.ne.jp ).
+
+Therefore, I consider that temporarily releasing `disk->open_mutex` within the process
+context to safely perform flushing/draining before clearing the backing file pointer
+is the most robust architectural solution to break this deadlock chain.
+
