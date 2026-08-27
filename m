@@ -1,143 +1,130 @@
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50B1F47CC8D
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 15:25:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9382F40A929;
+	Thu, 27 Aug 2026 15:29:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787844330; cv=none; b=Hs+EBqYjGR2fgrS6gPvBYxsE+SmsG2zRowRUBF+VnIY8n4UZ3SvsdgARNJU5hbLeVF5k2kSO8yZ/Wnp6UtZDf5+A3gYGBDQSp95NRlMpXvfzpPnfT0OvZ/z042Aq0rTMsLhb8eXislL8JepNqacPmvyGLcpa+geVn+MGK4hwVcQ=
+	t=1787844591; cv=none; b=kkwvxwc9CzJWtr5fg1c/LFfBIzBsrjLNKePPSWvo4SkrwTu8Di9W2pGp6hGz6ejQzPawK1StHo5n5hzukwKln8RlF8CNEh3za/GrrE3EoKCr+6rjuG/OlLphmtAFIoOifxgXjUytu7P8JCmknGVXMaey3xAlvu7TP1qPQ31HoDY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787844330; c=relaxed/simple;
-	bh=Xh6FfhS2ea8UOTbehrIxN6G5Cb0/oxIDCneCcs8+/9o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=u9g2Y/SyWLOtFuUMDGoG8zpLlJExwAq3tRVU0S+rmgAaBfCWasYNpwuw9FagwAoOcucXqGr097SacM0+x/KGncVsXqgT7eA9j3jst8tkM95uS6oAWhvdWbC7a94LzHCHrCx19CdhTX+Yva0QS7YHaIJxQsG5JX07HKq/qkgDwAs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rAnsrMHf; arc=none smtp.client-ip=209.85.210.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787844591; c=relaxed/simple;
+	bh=gv5MeneO8rGeIoHG17wQ9Y+dy5Jv31dQhwVK5ld31Bk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ROaEKib7+YG9qliYdDbL7z93uukOo/SxbmU5xTUMLF9/X8+71mziO43jesNvsHWlTwFF6ADssZLEnO/ieBuMP3OAXGGyUdByg3bLoHtaauVWmJOP+L1lSCVoP4jJ/Hpu3uxeR2x3GbhV475h2AmTMB99zqtKgtljz1J13NWkphg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EGiOkJYx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rAnsrMHf"
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-851cbd64814so14259b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:25:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787844326; x=1788449126; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=flL6svFl5aWrkKlDeo/jWDXl1QN2synua0XBk3WWZZg=;
-        b=rAnsrMHfeqwa+MQBlie6QB/4lzRlfXnzMrzyMTC2yfyjOMkQkugfMRff7BX2+wasUp
-         LK1b5vV+AqMQyvwLpuJAR/YoudMiXbnAO3LKPzel9rAhb4dgQ9ZNG8rB1asTMg5VR1Vn
-         olHe2lCM1DKix+tgMxgyiLS09bAWc5RsMuEPY0OrPOuuu7kQNvV6DOVy/K2E7Di/7cGw
-         pFePjrtocYxn0B1bxj7eQMnKPUhBctdQgtWKf006Via0fUnw+1arjzWaH3GzHKIWpLI7
-         PgVeVA/nHI9Lr3V1+ZxkiyH90sqNVyTTC8hFTHguOVGhCSxEd6a1rPNnQl5dc1YhPcSC
-         OUqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787844326; x=1788449126;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=flL6svFl5aWrkKlDeo/jWDXl1QN2synua0XBk3WWZZg=;
-        b=P56qwJKUs8Agz70636pjRLuQdyIQ+eEG7mWs8ox+MiYAWVMvHcuVVgjtWT1jCbTXhn
-         82O6/cs6To4/a0dTQ+nTwSupTzV5NIdNF1KGssFzhlDTE7+R+HnoLAvRUfjGJeUhw9tG
-         7NL/y0dZbO3/bsz7+sYv4t6Dv7ztTPb6IbL587TGyyL8HqgIMQzng5q7Fpk2rYtwjRF7
-         4xgF6KwX5FB4E4PUAAPnHiLRZCRDAoXyqaMIz9TkRThtBh8aahDY7HqZ/fhAt2YkIpOC
-         x7fse9dnGQneq2e79fsLFFd8fhaSqLWYKVOi6v+6SXyxIGkhvkQRIT8L5yanehRd4lHQ
-         +i8A==
-X-Forwarded-Encrypted: i=1; AHgh+RqiZMAIfJXyj5HiZ3XgfJGFK3c0jb4Jlt7wMdyehOW6+HQRgP+ahypaw7x6DZNXwPWY/72gLxl3gnXhJwo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kYaDRhw/0JPXEhbHmqJHe2AY05uQmqDQ01f0Sl1ijrZrLUvaZV
-	R2u6/IAVfNeOgVNACLEWpIh2RUGdc96xnnGHjs95k50LgqTI+8VCOyB6
-X-Gm-Gg: AR+sD104FtJwhkh1tLZMFYSiaiAPJ/emdtukcj366vNnJoc2jrJyrgTeSuOKK9Xc4zg
-	OrYKnPQotgIpZsz2+LulGPB7ZbHLSXG2yLZOmTkWS8WDMuceE8GA7jc4FvJ8g7ALpAb8fG/HOOT
-	xC9aC8JkT1YvMDy2j1xKzjb44UOxIwfH4+1xsDCN1+E42c4mphnH/0iQPsoPRMfRikH25jYl/de
-	D3+ax1G2sTno7G+nwQ4mzE86/ac6WT3xkoHZUDB5LdD3gbvXTylDAeObqADcC2uS53IwfHUtR2J
-	P/2/2MX3BLSCve3AbCEuy3AwqSU6QpNLkRN2wGhBVHSTRsZSodDDn9NQ00i+MdPeEl5+2dKo0Bf
-	NCz/cIVmilNKEnS6BAhkA21K65AmcpanXQUbvt3J5TRJCNkP8UuK13S/f0bvq7hpVi2z6v3yjS1
-	ieBO2tVB0kSSaOXLByqz1BiMQZef1zKTUtyk5dlfOTnN5d6z8DyKU270qUwRBiolyebs4B6sHJU
-	UL+LXFXgP94gt6f3l1ZMXQEhyoi2c6ZZ4xu0OpeVCp7hhsyE29+mg==
-X-Received: by 2002:a05:6a00:17a3:b0:842:5b66:3c7f with SMTP id d2e1a72fcca58-85625842e10mr135248b3a.0.1787844326328;
-        Thu, 27 Aug 2026 08:25:26 -0700 (PDT)
-Received: from hnkz-ubuntu-vm1.mshome.net (flh4-125-195-69-140.tky.mesh.ad.jp. [125.195.69.140])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8535a8b8ce7sm2174914b3a.21.2026.08.27.08.25.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 08:25:25 -0700 (PDT)
-From: Kazuki Hanai <hnkz.64@gmail.com>
-To: hughd@google.com
-Cc: baolin.wang@linux.alibaba.com,
-	akpm@linux-foundation.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Kazuki Hanai <hnkz.64@gmail.com>
-Subject: [PATCH v2] tmpfs: fix unicode_map leaks in casefold option handling
-Date: Fri, 28 Aug 2026 00:25:16 +0900
-Message-ID: <20260827152516.805622-1-hnkz.64@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260827151426.796843-1-hnkz.64@gmail.com>
-References: <20260827151426.796843-1-hnkz.64@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EGiOkJYx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 223E71F000E9;
+	Thu, 27 Aug 2026 15:29:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787844590;
+	bh=n7xbdIKtruRdpyinp4Husr0KtpkuCgvJXKNeylEh/HU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=EGiOkJYxUIujF18dWtIw1SA6hnsLwUbrxNZOugHHuwt8No+4r9DuYwkCvvM1lhEFm
+	 7D+cWrBeCw5k8A3jP/GfMYtbIniTdOSOpAgjiVc+uuZ6CcaPZ5IG0m4J+biqHzrXwt
+	 T8UXlp8HkEvMyUs66QDRoEHdn2FuBJ9DjPhzb7GC84w6Wv31vVFXcbIwZKolaYx9DM
+	 NXqUd8S7QPo5tG0DN0K2QLkcurKkX+WzyR0SvyRbRLZuyOU5+zmfct8ebK+BnoshDk
+	 W9kzUxwUjAplKz/JyzJx1UkRMvJuRC1K+8IyPOPIFudpkMHh2o9On7Nax0aXDGzXPm
+	 6m5BuBncZJcMw==
+Message-ID: <9df516ad-ba24-4f2f-886e-195d93a11c6d@kernel.org>
+Date: Thu, 27 Aug 2026 17:29:42 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/7] watchdog: mediatek: Add wdt/toprgu resets for
+ mt6589
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Cc: linux-mediatek@lists.infradead.org,
+ Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck
+ <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-watchdog@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260819101853.44681-1-l.scorcia@gmail.com>
+ <20260819101853.44681-3-l.scorcia@gmail.com>
+ <20260827-clever-cherry-zebu-6a98f1@quoll>
+ <CAORyz2KCAzEEsCifDF4+_wKmi=M6t4EKVVqys-H5wOQqzBeVzw@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <CAORyz2KCAzEEsCifDF4+_wKmi=M6t4EKVVqys-H5wOQqzBeVzw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-shmem_parse_opt_casefold() stores the unicode_map returned by
-utf8_load() in ctx->encoding. The casefold parameter can be supplied
-more than once for the same filesystem context, but replacing the
-stored map does not release the previous reference.
+On 27/08/2026 16:28, Luca Leonardo Scorcia wrote:
+>>>  drivers/watchdog/mtk_wdt.c | 7 ++++++-
+>>>  1 file changed, 6 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/watchdog/mtk_wdt.c b/drivers/watchdog/mtk_wdt.c
+>>> index 91d110646e16..f8208fb0f723 100644
+>>> --- a/drivers/watchdog/mtk_wdt.c
+>>> +++ b/drivers/watchdog/mtk_wdt.c
+>>> @@ -10,6 +10,7 @@
+>>>   */
+>>>
+>>>  #include <dt-bindings/reset/mt2712-resets.h>
+>>> +#include <dt-bindings/reset/mediatek,mt6589-wdt.h>
+>>
+>> I do not see how you use the bindings here, so my previous comments
+>> stay. You just ignored it and never replied. In such case:
+>>
+>> NAK
+> 
+> The mtk_wdt driver requires the total number of available resets to
+> register the reset controller. This was defined as
+> MT6589_TOPRGU_SW_RST_NUM in the binding header, therefore the need for
+> including it.
 
-The final reference is also leaked when an unmounted filesystem
-context is freed.
+Number of signals almost never a binding. How do you even use it in DTS?
 
-Release the previous map before replacing it, clear ctx->encoding
-after transferring ownership to the superblock, and release any
-remaining reference from shmem_free_fc().
-
-An unprivileged user can repeatedly set the casefold parameter on a
-tmpfs filesystem context from a user namespace. This causes
-unbounded kernel memory consumption and can result in a local denial
-of service.
-
-Fixes: 58e55efd6c72 ("tmpfs: Add casefold lookup support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Kazuki Hanai <hnkz.64@gmail.com>
----
-Changes in v2:
-- Keep Fixes, Cc, and Signed-off-by in a single trailer block.
-
- mm/shmem.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/mm/shmem.c b/mm/shmem.c
-index 89a1495e55f7..62440caf2df5 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -4508,6 +4508,7 @@ static int shmem_parse_opt_casefold(struct fs_context *fc, struct fs_parameter *
- 	pr_info("tmpfs: Using encoding : utf8-%u.%u.%u\n",
- 		unicode_major(version), unicode_minor(version), unicode_rev(version));
- 
-+	utf8_unload(ctx->encoding);
- 	ctx->encoding = encoding;
- 
- 	return 0;
-@@ -4976,6 +4977,7 @@ static int shmem_fill_super(struct super_block *sb, struct fs_context *fc)
- 
- 	if (ctx->encoding) {
- 		sb->s_encoding = ctx->encoding;
-+		ctx->encoding = NULL;
- 		set_default_d_op(sb, &shmem_ci_dentry_ops);
- 		if (ctx->strict_encoding)
- 			sb->s_encoding_flags = SB_ENC_STRICT_MODE_FL;
-@@ -5073,6 +5075,9 @@ static void shmem_free_fc(struct fs_context *fc)
- 	struct shmem_options *ctx = fc->fs_private;
- 
- 	if (ctx) {
-+#if IS_ENABLED(CONFIG_UNICODE)
-+		utf8_unload(ctx->encoding);
-+#endif
- 		mpol_put(ctx->mpol);
- 		kfree(ctx);
- 	}
--- 
-2.53.0
-
+Best regards,
+Krzysztof
