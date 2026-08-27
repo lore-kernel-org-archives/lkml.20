@@ -1,160 +1,184 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67A204C6F08
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:59:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EC3F4C6F1C
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:59:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787853581; cv=none; b=futegugPQlqoYvFhjednPduX1CIFgIz/r476Ft3KsphRyWnXEa23LTrMA628sgwbVv+PaylFLcv7fZlgNForKXu1JI8cGpLGsHvG3iEdVIhTEjx5CNjdZjdZHXPZ9K+mNiRAyvsGo+CuDnzlxnFhgJNAPm6xOHPmdMlNkzLYWCs=
+	t=1787853584; cv=none; b=XwWgSzVwX6t4/51EIvLTpAX4JyZb/02FCeOVygW0ws9Y2uiurG2yn1Msri79Daf6ptVLcEDGemglwdq+SDbn40AxqUWtAD2zjfJkOxKyu4H87+bq7Bc1XcTgszGjK+Ra6FzjwDDjlgY7LmblgAmDkvEuoieMYAT87U2UniaKjZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787853581; c=relaxed/simple;
-	bh=fvwOjzjb68iLXfxjnAH+3KiPR2+e9W9RzpwuwKdgZAE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YTKGOtPAgsvC8Lnla7F9HYU1IS5lqBPpt8E+6THBOBxIGQ0EJc2xtZ/KhSmScVy9SbbGVSIc8yHkkyfhnPBklV4+iidMDPcjzueN1a0fhYGD9bZu0PgbO5A9XDZilAh2DrHl4fs+6mbv2vdrRfdoc3DK9oWCDRrqztgqyzzQyjI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qIcjQZMQ; arc=none smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787853584; c=relaxed/simple;
+	bh=GuJ2IiTNAbocaQLtHQ5QQk1lc6LqRCoanYaY2qkKLA8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=kG7ViB6UkApP5BSI7jFIxtrqiSSviowtBa09elHFmKDOHjKvsZyLwQ40MpZH2hyAbtN3i+VxdlbCMPTiYw/FVNLybMjOFsH5pkhRakIWMSW1c0P0w4XI/sEechK2EU86x73o9AGnWn/ueAkPvhav7bxoJGw7rVmK8n+N5oFkrVA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bMxcVnYh; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ggkCds9D; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qIcjQZMQ"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-482ddbc11aaso78740f8f.3
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:59:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bMxcVnYh";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ggkCds9D"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67RHXhRP614701
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:59:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	d4/+pFI9X3x+m5kaMfH/DHqftGBwKmr5KIRwmuCGmb8=; b=bMxcVnYhfYd5fNEJ
+	rjG+jRjG+rFtOUYWo+LAzlLiR6RK+WHe7LOHYhSaras3OG4qk9JcGO9wSJE5hMFz
+	o9Pi/cBz13QNhoCkGlOwrxBAnLpqnaSHr86X8hbXklfdqPBoJOTYnevWJNCPTEgn
+	G8jXN2Lg66YzXlQOBm5PYnma7vw0zSqzy7s7IFPM5K58NCHX0S8BnxfCh1eUTpqB
+	girVzr+TzWRbg/fDnPb8A0AoYdkk8qiP/FwHM0/Wo3QzgNzGlLmvRbJgaxghydqK
+	cVz3EHEatSVQll7TuHE6YEQJSvLTrdQBkwVMVQbvXr9n2rowYXVveM9RrawiXxnY
+	W3pifA==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ganr69b3e-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:59:41 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38e11baa66eso344889a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:59:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787853577; x=1788458377; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=oss.qualcomm.com; s=google; t=1787853580; x=1788458380; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=18Tf5eq7c7EPz0T/T046bTiRGn0IVK3Q1r6G0x0NgoA=;
-        b=qIcjQZMQ0vx+2TabnJY5Y8eTuKK1pBLKBGWNvqR9x1q+mP5JnT8kaCCJnwR78j2pL+
-         VPSdNgW9TvbY2IO7xQ7nGaSw1ke0ScDC3QxfE6KZk4j67MdrLZ/VEbxV429jIKyulaZY
-         UGUBRBIsOYYAU/Ga9joJxFq5dT7CS4RcIda3kqJHIj7NKMMHS9NFCpUZLkX9vXuqJBJq
-         FP9BGZ1XyHOznnG30eIg0Oc/FPKbCBYxQkmZ1cbEzF99JE28hvAAaqmHLDGVvli2IN7N
-         k2hvHWis3VTwuAioiDSBrD1+na+6hJbevqkpOl+E2ElyVlkIaZyPQl3rYNlZVkOz/8zj
-         0cdw==
+        bh=d4/+pFI9X3x+m5kaMfH/DHqftGBwKmr5KIRwmuCGmb8=;
+        b=ggkCds9DmsUuU69tDrqpGevoA2nMtfpgnzTNPCyeFBVfh7IgglOZK9fYl8P6GS+l/J
+         3rZ+lsm0zmuFbdKBp37iEhN4Qh/H9mFkXYfpCZcHgSjfoYfBAuReYdufyTePXxNwHTxP
+         i0gHmiYNmjg0zEIK3k918rRjrKczi1oibBIQ0/5xJJNlUEUta9dpIECPoYFpESyNso3X
+         ILqqYeuXZ90bbAq3OzfwDnAH0STgUl6Xl1/RSHoSEqB9b9LBw1G7XE6f9nfxkd6oPMcT
+         uvjZjqqqczETWdwWV7UVzd/K2BkpPDcxfapwq4GPkngXC8/e3+XUG1RXPMJFiq0UFc5e
+         NxjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787853577; x=1788458377;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=18Tf5eq7c7EPz0T/T046bTiRGn0IVK3Q1r6G0x0NgoA=;
-        b=sMAakJTl310JA97Z63lXOVCN48N0mp3cU3/wXE6Drp+lalTjh4wEyGE0Gr9g89qfQj
-         D64MMkGcFjs4K7rxJBONtejPQ9gLDEoPvjVkTgx+yeoKYR7Qh5xhmCTcm3+I1zY9FtrO
-         v/Vxl3oTf5ezN2evly2OZOYopcrtZEH/rM4+Z6GL7DWlxqk8dGoJyEwJlhab4amZYKF6
-         UdosfYFcUcByMxo7Ibb/gR3BgDazJlIUPDZ2IHi39nogcU/3rYVm05cCnIsk7yAaIPQx
-         4+tPVQ1xuy3WM4arR3eecdc6e/1y9G/hEXeB2VaXZ4mW0IMgOvJsiPtcVUrqk6Y2aDRx
-         4XZg==
-X-Forwarded-Encrypted: i=1; AHgh+Rqug3yV9SltQW9VUnLZ+GSQgBsGbb5EGA8Zv06twML9UmPeayFrJjeNc8TIOa4ncbE+CdxEszIeZSnlhnY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lWz3k+jp9Oj+Tbej/f1csoxKGNjngNP0fqXPEjlqTJAKTVeU5P
-	8z8J55A7A/vkFLrigptV6mpLjsiJfhIbU5hwzkEQz8CjRMfB0fkj9YSA
-X-Gm-Gg: AR+sD114a3tdj3oFVSBZx7UnSW5u1lfc5PP6TCjHSSkjdjI1Dx3l8yuddX63bnOwlHH
-	jETMwwCN5wD/Ph7ilT9lUxrseytEj3jwEbxusME29FuqqUzUCA0TgoUHTLc6VXJ27LdGoojhSh/
-	Yyei04aFEBrTxpD/MQbfQ5W7wx1a67tJ4wTMJrONQwuqKSTapvgch14/tlyM7fPBz4SoR04UkJR
-	h9t3bhqmSQ09bb6HBU1Y7PALwI6K1K34F5mCuZRcR8jySIXyMdswqAOoblx7kAprwnQ2kkqJ70x
-	z0+VpL16+lBZhHO78IsA8OwhRqTbJM+l3j3SKPIXixPldSbysotKK7iTBe+4sLtWXWekO5sE1/J
-	ndnK1xOcc0Ky0bVSjiVmWh8tSkXB6m4BI8qKzVRHdAEDMTeXx7qdK1TTHvj6ftkSQbXCIY3A4lW
-	fbijkqAeslh1Sh+nxVrBppe73zo4KNAixIYt5iPxnkdYPHcPM+Mdi7EEWEpACmIacCpBLh57mvR
-	0l0eRbzPWdrfVQvLd2V+1sILCNVTVQHecHqJz4t2Cj91NuzpBdo4kzx0cujOr63
-X-Received: by 2002:a05:6000:4b14:b0:47f:5ec2:d54 with SMTP id ffacd0b85a97d-482f799da2dmr823346f8f.5.1787853577114;
-        Thu, 27 Aug 2026 10:59:37 -0700 (PDT)
-Received: from localhost.localdomain ([85.118.83.238])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e27a9945sm10272342f8f.9.2026.08.27.10.59.34
+        d=1e100.net; s=20251104; t=1787853580; x=1788458380;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=d4/+pFI9X3x+m5kaMfH/DHqftGBwKmr5KIRwmuCGmb8=;
+        b=rjN9xMYuqh6VHj3zVUpH1FtOCkR6PDNbYjqgPytMngnG+eD793keTUVrQmvvEahH9V
+         mIIBTdCW48s1pz+/1mTAoY3uncdYf9ZYDMD0EthhBI85E/ZQbgNazFcb0g3c2Xb5JUG6
+         wDsOclyb058elQeLr0Nux1Us8je5MZ4E7dlf4bxsbqo76dhVIGPppVipNEUWd/6aUQY+
+         bL1lz88NkpbHKcm2Ll1A92qnOGNc01wmuM6y6DshHAkp/p0lMojcUxPMzNAqHS0NYOFM
+         kdRoSGScQ2l6jMUPA2EQLjSVwMI3YjnMbvn4+AeE8XCJ3eKmNa2Web/w0UwFuR9tvEY4
+         O+7g==
+X-Forwarded-Encrypted: i=1; AHgh+Rr7pm0OIC1pj7ikTWqWoO53hFcGClpWdX3vJ0nG7Fhw+s+Ka3pa/jTydjEZ+GcgPtrRBJT6oYHoHqHkEzc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kHLdk37csZ6IkG721NV5Y+ivVu+QXvHUxzYrZcr3nQ1sjG90tF
+	rgNw4nRuXV9/2ajXZl7l6+C8F30Y1jMK4ewkyrSD2AldBEuZPBcs+mwG7ick4g05zXhjA6b5Jv4
+	JEL0wODd9efM19VvAINpVwwnhkOR18NgWux9xqjPdE8iF4g1u7OnG7+vaLQkASO2IGwM=
+X-Gm-Gg: AR+sD11Z+h3v4a+14x6oPTimjShNNuCpyZDPFSApNUOmvDXYNdHMGJKtZc26nifvnZm
+	56bC0ZH053/kQcpGKKRqk8tAodDax/vpajmqwEzF79IPUmrWKjsWawgEaTG97MQ0SqSiGahHKPk
+	t9tsbuiS+MXEEZ70Fqqqaxi1kLxLAWQvtkVXhaCUOliBWYvu2/HqA0aBo67HaBSE2bHL/lfePDu
+	NM2s902cZ6/E9o3SWnw/5w1FAZwNVOhOPGnggWKaWB3AEReMjXoTHF7k92qtu+pi9gqyAAyXlb5
+	WUsx10/4dAJZsnFpjjw9h/MCAAlaPMEh6tJnW5gdivbRa0xVr8+1O1cgIeMW57/g/4xTG3BuWln
+	NKkrOcIz/GJ/mnS7XfvX2GWA7LwspANX0aw==
+X-Received: by 2002:a17:90a:dfcc:b0:380:f389:447b with SMTP id 98e67ed59e1d1-396d0fd3a24mr1900896a91.11.1787853580261;
+        Thu, 27 Aug 2026 10:59:40 -0700 (PDT)
+X-Received: by 2002:a17:90a:dfcc:b0:380:f389:447b with SMTP id 98e67ed59e1d1-396d0fd3a24mr1900802a91.11.1787853579715;
+        Thu, 27 Aug 2026 10:59:39 -0700 (PDT)
+Received: from hu-ptalari-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a905cf38sm27437523c88.12.2026.08.27.10.59.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 10:59:36 -0700 (PDT)
-From: Georgi Valkov <gvalkov@gmail.com>
-To: briannorris@chromium.org,
-	johannes@sipsolutions.net,
-	andrew@lunn.ch,
-	krzk+dt@kernel.org
-Cc: francesco@dolcini.it,
-	johannes.berg@intel.com,
-	kees@kernel.org,
-	miriam.rachel.korenblit@intel.com,
-	rongqianfeng@vivo.com,
-	wenst@chromium.org,
-	rafael.beims@toradex.com,
-	avraham.stern@intel.com,
-	error27@gmail.com,
-	s.kerkmann@pengutronix.de,
-	gregory.clement@bootlin.com,
-	sebastian.hesselbarth@gmail.com,
-	robh@kernel.org,
-	conor+dt@kernel.org,
-	Frank.Li@nxp.com,
-	chunfan.chen@gmail.com,
-	arend.vanspriel@broadcom.com,
-	peddolla.reddy@oss.qualcomm.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	gvalkov@gmail.com
-Subject: [PATCH v9 3/3] ARM: dts: armada: WRT3200ACM: add marvell,invalid-reg-hint-in-rom
-Date: Thu, 27 Aug 2026 20:58:50 +0300
-Message-ID: <20260827175850.89395-3-gvalkov@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260827175850.89395-1-gvalkov@gmail.com>
-References: <20260827175850.89395-1-gvalkov@gmail.com>
+        Thu, 27 Aug 2026 10:59:39 -0700 (PDT)
+From: Praveen Talari <praveen.talari@oss.qualcomm.com>
+Date: Thu, 27 Aug 2026 23:29:18 +0530
+Subject: [PATCH v2 1/9] pmdomain: arm: Fix -EINVAL from
+ scmi_pd_set_perf_state() on state 0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260827-derive_clk_perf_tbl_from_perf_domain_opp_table-v2-1-091697dbeb02@oss.qualcomm.com>
+References: <20260827-derive_clk_perf_tbl_from_perf_domain_opp_table-v2-0-091697dbeb02@oss.qualcomm.com>
+In-Reply-To: <20260827-derive_clk_perf_tbl_from_perf_domain_opp_table-v2-0-091697dbeb02@oss.qualcomm.com>
+To: konrad.dybcio@oss.qualcomm.com, Sudeep Holla <sudeep.holla@kernel.org>,
+        Cristian Marussi <cristian.marussi@arm.com>,
+        Ulf Hansson <ulfh@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Jiri Slaby <jirislaby@kernel.org>, Mark Brown <broonie@kernel.org>,
+        Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
+        Andi Shyti <andi.shyti@kernel.org>
+Cc: mukesh.savaliya@oss.qualcomm.com, chandana.chiluveru@oss.qualcomm.com,
+        arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-serial@vger.kernel.org,
+        linux-spi@vger.kernel.org, linux-i2c@vger.kernel.org,
+        Praveen Talari <praveen.talari@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787853566; l=1380;
+ i=praveen.talari@oss.qualcomm.com; s=20251114; h=from:subject:message-id;
+ bh=GuJ2IiTNAbocaQLtHQ5QQk1lc6LqRCoanYaY2qkKLA8=;
+ b=uHr3/INLh9B6c1OSy+HkMvDYKMGogOjcbm6b+zN0jVzPu8xWpULGobB+nh9HS0n4stNuFMgOJ
+ VBVVR+W8kmCB6yTAsu4IqWK8QP4Z1T4YLzVn1c50MlZWoGiWls+ogiQ
+X-Developer-Key: i=praveen.talari@oss.qualcomm.com; a=ed25519;
+ pk=NGK/88fjyHXgfhIKwag7+uIytOmyOypvZ/hDFaYPEss=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDE1MSBTYWx0ZWRfXyme3G573hDEF
+ Dff27oXuYk2uqVcW8BqFyLtVn1z5QKV0u9Csp4PaYqYDjtbZXPG7+2YqdKN/1iYlvF1ag1hhUNa
+ nbrK9DLr6HiO4qF4E1gEdC9YYAZSpHgdKeAYpkC/1PQ1amaK7cVFjDWlDt6Fu8mgwHlM4smiC4i
+ I84WwkcI7arPVSCqjtwy/eI6102eP0SzNIkilpvuDEyvLQ5rDY4YEdS+gcletE25eAPx/fvzBJ/
+ I+6Qk35cj6xIt8DS/1x9C/N3KS7mn7/HzMZ7dcdAOG+x3ggUpgxWu4rQV9C4LvLNrAhPlzRV4MS
+ YNn//8PCwygrUzXROgiBvhSK95jkWJ+KJAng6nzIUq1gwjHU3+TuUEWU7DjZzXoFVuETqftgjtv
+ fSKmcXUuOGZInJ0n9ppr7pehRR733IW6xTh7goQd5DhHscpmDSBDmVTTqxvT7+VTUk5Pof12D2O
+ 49zEygw8OJr5QnCdS6A==
+X-Authority-Analysis: v=2.4 cv=d5DFDxjE c=1 sm=1 tr=0 ts=6a907b0d cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=sIx0R2CjXXeYvnaWutoA:9 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-GUID: pr_CSLBuNpAu8_OZlQYseNCh2ZxMc1ol
+X-Proofpoint-ORIG-GUID: pr_CSLBuNpAu8_OZlQYseNCh2ZxMc1ol
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDE1MSBTYWx0ZWRfX8ZOOJoLFvufu
+ 8dREYuEZI5hQF9OPJDhBr5LFL1X0N3xt3VaOGYMlEIa64yoM2qF0d+dLdUYao+oC7/uLozAU3BJ
+ VfkAdtL/Jf0Qj61Pd95UrqsTQMc03nI=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-27_07,2026-08-27_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 malwarescore=0 lowpriorityscore=0 impostorscore=0 clxscore=1015
+ priorityscore=1501 spamscore=0 adultscore=0 suspectscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608270151
 
-WRT3200ACM and WRT32x routers always report a fixed US regulatory domain
-from the mwifiex ROM, which conflicts with the platform regulatory
-configuration on units sold outside the US market. For example:
-- phy0 mwlwifi 5 GHz, hard-coded region 98 EU mapped to FR
-- phy1 mwlwifi 2.4 GHz, hard-coded region 98 EU mapped to FR
-- phy2 mwifiex 2.4 and 5 GHz, hard-coded region US
+Currently, scmi_pd_set_perf_state() treats a performance state of 0 as
+invalid and returns -EINVAL. As a result, devices attached to SCMI
+performance domains can report failures when relinquishing their
+performance vote.
 
-When the system boots, it detects a conflict between the user selected
-region and the radios, e.g. BG FR US, and applies extreme restrictions,
-preventing phy0 from starting on any DFS channel. phy2 works.
+The OPP framework use performance state 0 to indicate that no performance
+vote is required. For example, dev_pm_opp_set_rate(dev, 0) is commonly
+used (by firmware or linux)  when a device is runtime suspended.
 
-Add node wifi@1 with a flag marvell,invalid-reg-hint-in-rom to the
-WRT3200ACM device-tree, which signals mwifiex that its regulatory
-hint from ROM conflicts with the platform and should be ignored, so the
-platform regulatory domain can be used. This does not allow the user to
-change the regulatory config of any radio. It only allows phy0 to start
-and operate according to its certified configuration. All radios in
-WRT3200ACM/WRT32x are locked to the hard-coded configuration for which
-they are certified.
+A zero performance state does not require any SCMI performance request
+to be sent. Treat it as a no-op and return success instead of reporting
+an error.
 
-On WRT3200ACM, the platform configuration is stored on the devinfo mtd3
-partition, which is read-only: cert_region=EU modelNumber=WRT3200ACM-EU
-
-The Linux kernel sources do not have support for WRT32x. An equivalent
-patch for these routers has to be sent to OpenWrt.
-
-[1] https://github.com/kaloz/mwlwifi/issues/173#issuecomment-307879699
-[2] https://github.com/openwrt/openwrt/issues/9956
-
-Signed-off-by: Georgi Valkov <gvalkov@gmail.com>
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Reviewed-by: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
+Signed-off-by: Praveen Talari <praveen.talari@oss.qualcomm.com>
 ---
- arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/pmdomain/arm/scmi_perf_domain.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts b/arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts
-index 4ab45f294de2..2bf29981a031 100644
---- a/arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts
-+++ b/arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts
-@@ -165,6 +165,15 @@ &sdhci {
- 	wp-inverted;
- 	bus-width = <8>;
- 	status = "okay";
-+
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	wifi@1 {
-+		compatible = "marvell,sd8897";
-+		reg = <1>;
-+		marvell,invalid-reg-hint-in-rom;
-+	};
- };
+diff --git a/drivers/pmdomain/arm/scmi_perf_domain.c b/drivers/pmdomain/arm/scmi_perf_domain.c
+index 3693423459c9..e390f902a444 100644
+--- a/drivers/pmdomain/arm/scmi_perf_domain.c
++++ b/drivers/pmdomain/arm/scmi_perf_domain.c
+@@ -33,7 +33,7 @@ scmi_pd_set_perf_state(struct generic_pm_domain *genpd, unsigned int state)
+ 		return 0;
  
- &usb3_1_vbus {
+ 	if (!state)
+-		return -EINVAL;
++		return 0;
+ 
+ 	ret = pd->perf_ops->level_set(pd->ph, pd->domain_id, state, false);
+ 	if (ret)
+
 -- 
-2.55.0
+2.34.1
 
