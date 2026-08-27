@@ -1,120 +1,118 @@
-Received: from ultrarisc.com (unknown [218.76.62.146])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7DDFE37A834;
-	Thu, 27 Aug 2026 02:20:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
+Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F369265606
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 02:21:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787797229; cv=none; b=Ohv3TPBVKS4hzhAK+IhCYgDHYOssIPmjkTcBa+a8a/t6FJqBZjTpYiwl9hVbg4zriJgs1u37f3s0GWzInCfxAyFAfrUIsvulSIIvJ7Z7zvBkLRsfV/jYpkDyUtudARv8IU4l4lvxr/COn70EVFmnKwfVYUYUwB+pIY/EI5eiBPI=
+	t=1787797286; cv=none; b=BmmREuphX9UHRA6aXnLgPSqvDe/DggepyAzLAPW1LwyZ7XuLBs2VEQZEVWT/qoXmamUshRc/tJp+jZnEatox9ohEy+O/elCZxhnHBZXI+pXlcYYYzN0teI5qMR3C7E/RA80N8G8QYoitV7YU4AcAnSL0W5Ktfx+DbnuPhkNcAHQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787797229; c=relaxed/simple;
-	bh=5OqQzlbqYVr45HuP8CzJ8xK1/ImXnbxc1gUkVx1yUQ8=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=B7QKwq/pZKJFvZBPpqeLx6PkKJFGYgXfoMDE5CcrbawZ/w8WEGAdxql+XhzHx+57mah7Pcy5seyUZahqicySmb0oc7X3MawtElfQGv86TM6Z1XExSGL7N+R5i1txhvAX2ju+2CMjZbbubgIqEbJcDNV+E1t2XfHPdQQlt2r9UmQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=TY2z6cPv; arc=none smtp.client-ip=218.76.62.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
+	s=arc-20240116; t=1787797286; c=relaxed/simple;
+	bh=JAzPJJH+4zwmEiUOV3hdmVYeuzFey/u895DwKnn/vZ0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JS7heqYb2C4GFmv0ilsZxJR4fEjtZNHS0N1bJwUKah2GZJMwHMUD4vwC8tMOAxP45lYH7RH+uWyGygl6o1loobWhluPgteIvGbjJlb5jvpfNJk/MV4j2/q/8a72N3CkEoD8C5f0NdaI7EB4p5x9QC7ax0eMFdYwpefOqS0nEpMA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sJ+72o1A; arc=none smtp.client-ip=74.125.227.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="TY2z6cPv"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sJ+72o1A"
+Received: by mail-pj2-f10.google.com with SMTP id 98e67ed59e1d1-39641d0dba5so1042394a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 19:21:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
-	References:Date:Message-Id; bh=w0EtslnP22yBs3lOjrkCV+37dpn1xRuqk
-	llSuzAy1I0=; b=TY2z6cPvsxabnuBwCtD79vWosmMoAH64x/bTx6yM5WNZY925K
-	tl7vL0ZviE4zkOgeIb2zeGGKrl6GlU9i+B8D00CIbbAbR1oh4NG6WpXwZ83AnY0N
-	jzKYvQMjNZgjMef2oKGiTm8RRXrucabW3P2evT9MlUjiD7Bu5SdjQg3Oag=
-Received: from [127.0.0.1] (unknown [192.168.100.1])
-	by localhost.localdomain (Coremail) with SMTP id AQAAfwB3V87Nno9qO1gBAA--.420S2;
-	Thu, 27 Aug 2026 10:19:57 +0800 (CST)
+        d=gmail.com; s=20251104; t=1787797284; x=1788402084; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=w5YaH8mokWPLQfhjUseDA3RHoFgBNedWh0XDxf4FNzc=;
+        b=sJ+72o1AxUV/TX1YB2mufb+nMJqOBoVaFoApt/vFzPLw5EdLwj9enUBkIivQ5DI1g8
+         +3elCb2Ii0324Fjwf1Uj5mme84aj5bjNBxyxYBoSlWw7QHEeWFZjD8XOC5cTv6bEdXyj
+         9NhrTnPz94UbmP/C6HzvHqauc+pZcti5zD84LnjsUjiOFKBQgVMspc4t25QHQcBJ25RQ
+         y2jD/DYcOYWtVUAnOq47lYumHE9/nHPJ9p8QbZXBk32SNNeQndBb9+8PERGlSJ/uffTy
+         Lb74mPEeOK1TXNtpnuo7hevxB0/XxlWEW/c2h3oZHRe1huI5tV+R7zGmfri93MePS8K1
+         zeMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787797284; x=1788402084;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=w5YaH8mokWPLQfhjUseDA3RHoFgBNedWh0XDxf4FNzc=;
+        b=pqML7eHp1+eju3DZB+6llx4HxGjo0jYSFOGfkciOxmxN+JWXv5s9jZEmLhX/OfhEhj
+         KdgbIFlPDfiKttqCPxD520JOkWc9wn0hGk36S8KvKmYXCeQoQ4s9SpLEOpVuKk2Dy5aJ
+         d+E0xxzBAJaH4HZhG0rRALoMdGHqp4Ow4gXC6eqp+vKutIu7IvqqztwX6kiAn3ZYnyZz
+         eVFvq70795giaeqdfxH/VSyVqk/zhgkP8qSxtTUqzDebDHrByBpa934AgLV6z4lCxwLQ
+         DFCxBmoelreI4l9lLe28njxV/AVcCvftzJez46qVAAKueVYrkIzp/Iw21fOlXfGhtHT2
+         GTXA==
+X-Forwarded-Encrypted: i=1; AHgh+RrH3wl4UR3kvcz6ds/WsMIboyT1vd3+I6UKqLZCeaCMfulFilUCkMxzaBvlt9H6MNlW5xb4DRKKEFL25Pg=@vger.kernel.org
+X-Gm-Message-State: AFuF++kP0XDEDPyAugdk9Ue5fZ7YelvM7+LX3hqWgY1Bk5Tl7oSAWX7w
+	Yx98VLtWts0ab+1GMrBlTjiGtUxkzJCefcUDkXbekR14Hd1UGiRQUa47
+X-Gm-Gg: AR+sD13ErZOb412aDXrviCPD8afCczgIPl34NMo+tJ3YQLEoXmx7IYjrvBZWrYJvHHc
+	CqHrHHWldJoHU0QtKSRrAeRZKpx768oaNaHN3xajoT3/zKtS4uQeT9Sb19Cj025B/qmu8rGBu7S
+	hB4x+Ebv0OKVJPltPveUi7V4qbPIMOgG+kQIFoS1yLba6Ejkp2pLfsvhoPG0aUJV65FgZLq8WJ5
+	YfgvDVMlDzIKSG8bumY7TZw4GXrz1nBmnVGqnl1eav9wRnkygYAxLNgsRYZLQkcK/vmGgvs7igt
+	s7a/rENlvrDU71jFvzNS/eaZzWG7z5r5TJo7NQOi6Eonwb8wk0X28bVrwUJDEUgbQIVs7MB8gHF
+	SB/6UfaufOTesMsM/wLkgkisVv3gyQFIpkGALKHb3EduF+R3i7Ca0kHcYdnxvrkkilETAvstp7z
+	LcWcl7hX4jkK+4MPcHWumbu4k/rdm63cEjvEbSrkKYXUtlj09dLAW5GqAg6E73mSD+lDQ/kHehj
+	hVvJis1f/0v0xv2PCtCMXa8vg==
+X-Received: by 2002:a17:90b:390a:b0:396:5785:843 with SMTP id 98e67ed59e1d1-3966d203a94mr21084902a91.8.1787797284194;
+        Wed, 26 Aug 2026 19:21:24 -0700 (PDT)
+Received: from DESKTOP-BDFNLNM.localdomain ([223.231.133.255])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3283d60c291sm20850538eec.6.2026.08.26.19.21.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 19:21:23 -0700 (PDT)
+From: tarund18303@gmail.com
+To: jani.nikula@linux.intel.com
+Cc: rodrigo.vivi@intel.com,
+	joonas.lahtinen@linux.intel.com,
+	tursulin@ursulin.net,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	tarun-tarun143 <tarund18303@gmail.com>
+Subject: [PATCH] drm/i915/dp_link_caps: Validate max link rate
+Date: Thu, 27 Aug 2026 02:20:34 +0000
+Message-ID: <20260827022035.3442-1-tarund18303@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 11/12] riscv: dts: ultrarisc: Add Shenzhen Rongda M0
- board device tree
-From: Jia Wang <wangjia@ultrarisc.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: wangjia@ultrarisc.com, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, 
- Samuel Holland <samuel.holland@sifive.com>, 
- Anup Patel <anup@brainfault.org>, Mark Brown <broonie@kernel.org>, 
- Andi Shyti <andi.shyti@kernel.org>, 
- Mika Westerberg <mika.westerberg@linux.intel.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
- Jose Abreu <joabreu@synopsys.com>, 
- Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>, 
- Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
- Paul Walmsley <paul.walmsley@sifive.com>, 
- Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>, 
- devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org, 
- linux-i2c@vger.kernel.org, netdev@vger.kernel.org, 
- dmaengine@vger.kernel.org
-In-Reply-To: <d93868e7-00c7-4251-9b23-8b3ed0535185@lunn.ch>
-References: <20260824-ultrarisc-dts-v1-0-61ab7aebe9e5@ultrarisc.com>
- <20260824-ultrarisc-dts-v1-11-61ab7aebe9e5@ultrarisc.com>
- <d93868e7-00c7-4251-9b23-8b3ed0535185@lunn.ch>
-Date: Thu, 27 Aug 2026 10:19:43 +0800
-Message-Id: <178779718359.1423015.16616466921659081322.b4-reply@b4>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787797183; l=664;
- i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
- bh=5OqQzlbqYVr45HuP8CzJ8xK1/ImXnbxc1gUkVx1yUQ8=;
- b=yHT5l7woiE13ali+aRwkhOVLsiVN7IAmPwkjvoIIymR9DjgUi8sK31AQOcIJn4H0uEettZWdH
- 43IbNZ6ebeQDn1/w+88/c3jZgTi80yZISTvM4ZaeSb9AU293MCOB4aG
-X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
- pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
-X-CM-TRANSID:AQAAfwB3V87Nno9qO1gBAA--.420S2
-X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYX7AC8VAFwI0_Wr0E3s1l1xkIjI8I6I8E
-	6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28Cjx
-	kF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUJVWUCwA2z4x0Y4vE2Ix0cI8I
-	cVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r1j6r4UM28EF7xvwVC2z280aV
-	CY1x0267AKxVW8JVW8Jr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE
-	5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeV
-	CFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1l
-	FIxGxcIEc7CjxVA2Y2ka0xkIwI1lc2xSY4AK6svPMxAIw28IcxkI7VAKI48JMxAqzxv26x
-	kF7I0En4kS14v26rWY6Fy7MxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_
-	Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWrXVW8Jr1lIxkGc2
-	Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_
-	Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMI
-	IF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUd8n5UUUUU
-	=
-X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAMEWqOWvsALAABs0
+Content-Transfer-Encoding: 8bit
 
-On 2026-08-24 15:02 +0200, Andrew Lunn wrote:
-> > +&ethernet {
-> > +	phy-handle = <&phy0>;
-> > +	/*
-> > +	 * YT8531 RGMII timing on this board requires no PHY internal delays.
-> 
-> Please extend this sentence with an explanation why it needs no delay?
-> 
-> There are times this is correct, but it is also mostly wrong. Without
-> an explanation, i cannot say if this is correct or not.
-> 
+From: tarun-tarun143 <tarund18303@gmail.com>
 
-Thanks for the review.
+Validate the maximum link rate against the source-supported rates
+before using the maximum link limits to calculate allowed
+configurations.
 
-The DP1000 SoC integration provides the required TX and RX RGMII clock
-skew, so enabling the YT8531 internal delays would apply the delay twice.
+This prevents an unsupported link rate from being accepted as a
+maximum link limit.
 
-I will clarify this in the next version.
+Signed-off-by: tarun-tarun143 <tarund18303@gmail.com>
+---
+ drivers/gpu/drm/i915/display/intel_dp_link_caps.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
->    Andrew
-> 
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_caps.c b/drivers/gpu/drm/i915/display/intel_dp_link_caps.c
+index 7b6cc6055da8..0934488153bb 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_link_caps.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_link_caps.c
+@@ -710,7 +710,10 @@ static bool max_link_limits_valid(struct intel_dp_link_caps *link_caps,
+ 	    !is_power_of_2(max_link_limits->lane_count))
+ 		return false;
+ 
+-	/* TODO: Validate max_link_limits->rate against the source supported rates. */
++	if (intel_dp_rate_index(link_caps->dp->source_rates,
++				link_caps->dp->num_source_rates,
++				max_link_limits->rate) < 0)
++		return false;
+ 
+ 	intel_dp_link_caps_get_forced_params(link_caps, &forced_params);
+ 	allowed_configs = calc_allowed_config_filter(link_caps, link_caps->enabled_configs,
 
-Best regards,
-Jia Wang
-
+base-commit: 73e3f0710014fe6d4ed98cfc02292f6121db7558
+-- 
+2.43.0
 
