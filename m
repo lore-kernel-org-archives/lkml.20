@@ -1,128 +1,120 @@
-Received: from mta0.migadu.com (out-72.mta0.migadu.com [91.218.175.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 007A7369985
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 02:20:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.72
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7DDFE37A834;
+	Thu, 27 Aug 2026 02:20:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787797205; cv=none; b=go/PNrHlNZP1mAZkGe0xNCzvBgnFnwGNTNPf9ww8p0JaldI45e7KW0pE/HULSR+FSJ0L5XrXtAYHyMf9Vwa7I/fKnKKMRulS5C+iX5CC8HCQqqwlVizs004Shdxffu8JgyMCI5tL1t/2e40wWkObjQYK+gGQB3W3IxqyS8Zbv/w=
+	t=1787797229; cv=none; b=Ohv3TPBVKS4hzhAK+IhCYgDHYOssIPmjkTcBa+a8a/t6FJqBZjTpYiwl9hVbg4zriJgs1u37f3s0GWzInCfxAyFAfrUIsvulSIIvJ7Z7zvBkLRsfV/jYpkDyUtudARv8IU4l4lvxr/COn70EVFmnKwfVYUYUwB+pIY/EI5eiBPI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787797205; c=relaxed/simple;
-	bh=/TpMjyqOvhWTUqglHXSxKj5Hxf2i55OsSPKaTfq8kvA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FQeRUJOEsIgwU2c+FmuLnEUos+Hp8a9gEJM2pAs/f2YwSCPXFLmUp1C6qDiJGOhXzcBHNeBPSOtxgm1WF2n93kH+M0cLKNBlyZhDsM6CeUgVbv4lp3GvWaKjZEugqKhxqYXIT7Dm+AvaELtx7priL9ozbbD0DJrX5Rdp7Q76Y/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=fQlFDKff; arc=none smtp.client-ip=91.218.175.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787797229; c=relaxed/simple;
+	bh=5OqQzlbqYVr45HuP8CzJ8xK1/ImXnbxc1gUkVx1yUQ8=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=B7QKwq/pZKJFvZBPpqeLx6PkKJFGYgXfoMDE5CcrbawZ/w8WEGAdxql+XhzHx+57mah7Pcy5seyUZahqicySmb0oc7X3MawtElfQGv86TM6Z1XExSGL7N+R5i1txhvAX2ju+2CMjZbbubgIqEbJcDNV+E1t2XfHPdQQlt2r9UmQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=TY2z6cPv; arc=none smtp.client-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="fQlFDKff"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=/TpMjyqOvhWTUqglHXSxKj5Hxf2i55OsSPKaTfq8kvA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787797200; v=1; x=1788402000;
- b=fQlFDKffFBrIo/FYQSpPhrFF7VNlj7tUNVnHMzfBT6RasPD59cnrjMvXL3Wy/seJ0uXt2EE9
- 6h6mUspDhd/wJPlWRcRq3VHGv/JZK3s3nSrsYS77OEreUh+2irxrXztQrbfdRl4g1PBHvMwluyA
- co3OjbRm15mm5fbuapjjc5kk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: from localhost (223.70.160.239)
-	by mta11.migadu.com with ESMTPS id a789069183687cf0;
-	Thu, 27 Aug 2026 02:20:00 +0000
-X-Mizu-Trace-ID: a789069183687cf0
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 27 Aug 2026 10:19:54 +0800
-From: Baoquan He <baoquan.he@linux.dev>
-To: Barry Song <baohua@kernel.org>
-Cc: akpm@linux-foundation.org, linux-mm@kvack.org, axelrasmussen@google.com,
-	baolin.wang@linux.alibaba.com, chenridong@xiaomi.com,
-	david@kernel.org, hannes@cmpxchg.org, kasong@tencent.com,
-	lianux.mm@gmail.com, linux-kernel@vger.kernel.org, ljs@kernel.org,
-	lyugaofei@xiaomi.com, mhocko@kernel.org, qi.zheng@linux.dev,
-	shakeel.butt@linux.dev, stevensd@chromium.org,
-	wangzicheng@honor.com, weixugc@google.com, yuanchu@google.com,
-	zhangbo56@xiaomi.com
-Subject: Re: [PATCH 3/6] mm/mglru: enhance cold/hot inversion handling in
- inc_min_seq()
-Message-ID: <ao-eyroFfnKzQU8a@MiWiFi-R3L-srv>
-References: <20260821102538.22642-1-baohua@kernel.org>
- <20260821102538.22642-4-baohua@kernel.org>
- <ao6qTTtk2xkkeKob@fedora>
- <CAGsJ_4ywk7mA1xfk=emtqby1UAwFsaH9PChmk2TuZoDKrMzuXw@mail.gmail.com>
- <ao-I8rYv_G5j4wz4@MiWiFi-R3L-srv>
- <CAGsJ_4zoXvyXG6-qAH+=nv6V92w_U_tk78YAPKMihRniqvTe8A@mail.gmail.com>
- <ao-dewgE9XAfP0rU@MiWiFi-R3L-srv>
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="TY2z6cPv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	References:Date:Message-Id; bh=w0EtslnP22yBs3lOjrkCV+37dpn1xRuqk
+	llSuzAy1I0=; b=TY2z6cPvsxabnuBwCtD79vWosmMoAH64x/bTx6yM5WNZY925K
+	tl7vL0ZviE4zkOgeIb2zeGGKrl6GlU9i+B8D00CIbbAbR1oh4NG6WpXwZ83AnY0N
+	jzKYvQMjNZgjMef2oKGiTm8RRXrucabW3P2evT9MlUjiD7Bu5SdjQg3Oag=
+Received: from [127.0.0.1] (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwB3V87Nno9qO1gBAA--.420S2;
+	Thu, 27 Aug 2026 10:19:57 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ao-dewgE9XAfP0rU@MiWiFi-R3L-srv>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 11/12] riscv: dts: ultrarisc: Add Shenzhen Rongda M0
+ board device tree
+From: Jia Wang <wangjia@ultrarisc.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: wangjia@ultrarisc.com, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, 
+ Samuel Holland <samuel.holland@sifive.com>, 
+ Anup Patel <anup@brainfault.org>, Mark Brown <broonie@kernel.org>, 
+ Andi Shyti <andi.shyti@kernel.org>, 
+ Mika Westerberg <mika.westerberg@linux.intel.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
+ Jose Abreu <joabreu@synopsys.com>, 
+ Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>, 
+ Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ Paul Walmsley <paul.walmsley@sifive.com>, 
+ Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>, 
+ devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org, 
+ linux-i2c@vger.kernel.org, netdev@vger.kernel.org, 
+ dmaengine@vger.kernel.org
+In-Reply-To: <d93868e7-00c7-4251-9b23-8b3ed0535185@lunn.ch>
+References: <20260824-ultrarisc-dts-v1-0-61ab7aebe9e5@ultrarisc.com>
+ <20260824-ultrarisc-dts-v1-11-61ab7aebe9e5@ultrarisc.com>
+ <d93868e7-00c7-4251-9b23-8b3ed0535185@lunn.ch>
+Date: Thu, 27 Aug 2026 10:19:43 +0800
+Message-Id: <178779718359.1423015.16616466921659081322.b4-reply@b4>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787797183; l=664;
+ i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
+ bh=5OqQzlbqYVr45HuP8CzJ8xK1/ImXnbxc1gUkVx1yUQ8=;
+ b=yHT5l7woiE13ali+aRwkhOVLsiVN7IAmPwkjvoIIymR9DjgUi8sK31AQOcIJn4H0uEettZWdH
+ 43IbNZ6ebeQDn1/w+88/c3jZgTi80yZISTvM4ZaeSb9AU293MCOB4aG
+X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
+ pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
+X-CM-TRANSID:AQAAfwB3V87Nno9qO1gBAA--.420S2
+X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYX7AC8VAFwI0_Wr0E3s1l1xkIjI8I6I8E
+	6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28Cjx
+	kF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUJVWUCwA2z4x0Y4vE2Ix0cI8I
+	cVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r1j6r4UM28EF7xvwVC2z280aV
+	CY1x0267AKxVW8JVW8Jr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE
+	5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeV
+	CFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1l
+	FIxGxcIEc7CjxVA2Y2ka0xkIwI1lc2xSY4AK6svPMxAIw28IcxkI7VAKI48JMxAqzxv26x
+	kF7I0En4kS14v26rWY6Fy7MxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_
+	Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWrXVW8Jr1lIxkGc2
+	Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_
+	Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMI
+	IF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUd8n5UUUUU
+	=
+X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAMEWqOWvsALAABs0
 
-On 08/27/26 at 10:14am, Baoquan He wrote:
-> On 08/27/26 at 09:24am, Barry Song wrote:
-> > On Thu, Aug 27, 2026 at 8:46 AM Baoquan He <baoquan.he@linux.dev> wrote:
-> > >
-> > > On 08/27/26 at 05:43am, Barry Song wrote:
-> > > > On Wed, Aug 26, 2026 at 4:56 PM Baoquan He <baoquan.he@linux.dev> wrote:
-> > > > >
-> > > > > On 08/21/26 at 06:25pm, Barry Song (Xiaomi) wrote:
-> > > > > > During aging, a folio's generation may already have been updated by
-> > > > > > folio_update_gen(), even though it has not yet been moved to the
-> > > > > > corresponding generation list. Such folios are hotter than those
-> > > > > > already in that generation.
-> > > > > >
-> > > > > > It makes sense for inc_min_seq() to increment the generation of
-> > > > > > folios that were never promoted during aging and move them to the
-> > > > > > tail of the new oldest generation. However, folios that were already
-> > > > > > promoted should instead be moved to the head of their updated
-> > > > > > generation, just as sort_folio() does in scan_folios().
-> > > > >
-> > > > > While sort_folio() move protected folio to the head of next gen too.
-> > > > > It only moves ineligible folios to the tail of next gen.
-> > > > >
-> > > >
-> > > > Hi Baoquan,
-> > > >
-> > > > Thanks for the review! I’m not quite sure I understand what you mean :-)
-> > > > Could you please clarify what you’re suggesting?
-> > >
-> > > Sorry for the confusion, Barry. I meant this is a good one, and
-> > > sort_folio() has the similar issue in which the protected folios are
-> > > moved to the head, wondering if that need be adjusted too. One consistent
-> > > rule for both is better.
-> > 
-> > I think it might be fine for sort_folio() to move protected folios to the
-> > head, since those folios have either been accessed multiple times or have
-> > reached a tier higher than tier_idx. They are sort of hot in theory, right?
-> > 
-> > if (tier > tier_idx || refs + workingset == BIT(LRU_REFS_WIDTH) + 1)
-> > 
-> > But for inc_min_seq(), it is just catching up to make sure the newest
-> > generation doesn't overlap with the oldest generation. Those non-promoted
-> > folios themselves aren't hot , so I feel these are actually different?
+On 2026-08-24 15:02 +0200, Andrew Lunn wrote:
+> > +&ethernet {
+> > +	phy-handle = <&phy0>;
+> > +	/*
+> > +	 * YT8531 RGMII timing on this board requires no PHY internal delays.
 > 
-> I got your point, sort_folio() considers the hottness, inc_min_seq()
-> doesn't. I agree with you now. Thanks for the explanation.
+> Please extend this sentence with an explanation why it needs no delay?
 > 
-> BUT no matter what it is, protected folios, lazily promoted folios,
-> and no matter where it is, put in head of next gen or tail of next gen,
-> their refs are cleared by folio_inc_gen(). Then in sort_folio(), they
-> are all tier 0 of the oldest gen and must be reclaimed.
+> There are times this is correct, but it is also mostly wrong. Without
+> an explanation, i cannot say if this is correct or not.
+> 
 
-Or mm walking will take a long time, it doesn't matter much about the
-refs in next gen in inc_min_seq() because there are a lot of chances
-refs are updated when it comes to sort_folio()?
+Thanks for the review.
 
+The DP1000 SoC integration provides the required TX and RX RGMII clock
+skew, so enabling the YT8531 internal delays would apply the delay twice.
+
+I will clarify this in the next version.
+
+>    Andrew
 > 
-> So here, I think differentiating them and moving them into head or tail
-> doesn't make sense, the thing is whether if we need do something to
-> retain refs of folios when gen_increased. At least, for lazily promoted
-> folios, it should not be put in the tail of next gen and refs cleared.
-> What do you think?
-> 
-> Thanks
-> Baoquan
+
+Best regards,
+Jia Wang
+
+
