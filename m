@@ -1,153 +1,134 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+Received: from mail-oi2-f5.google.com (mail-oi2-f5.google.com [74.125.231.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0049923507B
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:52:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 897154137B6
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:52:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787856762; cv=none; b=fHXNLfiep8FG014JJgVmWTRgianNvvLVa+g25HDO1W0W6pIGeeNnBkNZuWhuycF5cchXiQ9UNA6L787jlvZoRGvqQ19WLKB28wo1cWGi5CAXEBTrgZB99r0K8NQonNd4ujy0C5d2Zujn/15N05SXpCt+f6qu14ZTMZ0gju2YT1Y=
+	t=1787856763; cv=none; b=HTom1BFslexvcE6Mp3O7syjSPFeHvMFoEfDLVLqTniZlHfFK2EKcV8tLlQgOGJjPyN6I8OxTyEbe2UXwoxCR925gzPdWHd81Z3XBryh6Tct/eIlu47MqaJgY+xovNpkcjztpicg6Og+zbiIp04KBhw1H+GAg4Q4HC6nntItUnHw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787856762; c=relaxed/simple;
-	bh=g3kge71ub03QmZxyhlnVlBiSy0PKpsl0/Y87s/OWGSk=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=oj3r4rwO/pwlRlVYlx5Dc5tJS6nJaWsJoou/xOqCFquKEO1oKQQ3pTHVVD1AZXoF2QCC/rxuEiTjOFL0L5ahPAYfSe6Pfm8F4kK7SYrJsRa6rmsOAcw/6Had+7GX1RFfN0DkwYnnxXCvyqyV4RYESBljb8TBW38Q64nN5Y+kykI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+	s=arc-20240116; t=1787856763; c=relaxed/simple;
+	bh=BAty2H8OwA6bKDiDpF/Rjo6SdAVYaHKjVnT3HhDqPww=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=sRcuvfp3jelRsFY+G/vacGSms01XDbMmpWtG2JrHq3uNyKHnjvu8W/6eQAcAJebAlNGchYsiuXaSnv2BoT0LyS758t5cMIP9kPgtn3e8eHNKhGQ9owmPDO9ADJQNlHNugtWzVOIZ9i5h074U7zAcPqGpXVtRznRi6H33K8AxDrU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4959c49e054so12580b6e.3
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:52:40 -0700 (PDT)
+Received: by mail-oi2-f5.google.com with SMTP id 5614622812f47-4b385b9c4e8so17400b6e.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:52:41 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1787856760; x=1788461560;
         h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Gj66d4qKwHlx3vH+We3DVfK9THRY5zP8t9i/Eh5rDD0=;
-        b=II/jvDJsQ85+cJlmifgrH0hVcDbEXKCRtabwF4iiKPZ1ozcPRftb0UmoRNduYhdEyf
-         /jTptthlIU34A4pwfbb0oi3in1SWj0G1HRIDcNMqfx4ChBEDh8/Vh8lmGeZttH/ZB0RZ
-         Nf86id8h7v4tCFL6HK//i5QvAGoBiSoYu7v5dQ5VMt6NiTBwGkMkgVZOMSlsljFTd6ex
-         Y8eLP4um8cXLqCFO9NDfqs/CnPTlRe5tbDsD1z0pe927xnH+RDACDy9CgpF9R7N56nYR
-         l9kTMV5TPj5Q/+DaQ469UFICfxJbaLkmIR3L9Qn2uiujlZIYX95JojkFEnD4btz5dppQ
-         3fSg==
-X-Gm-Message-State: AFuF++nDohEQJavzF7An076oagaDYdU4Fs9d3SuCeYm7jXVh9UcsqLPk
-	c1Wxat49kpH1Wp7HFExsNSsZKsJPqELmW9UISMWH7ZG5LL6b8Qt12g4ckpsotQfidQzIldJhcwc
-	Fjs8Fqg3KBH1kH/b5Gh/Ye4sHbGCzJHqaw0WCkeYX8VdNEsC3ouIRvLnr9lQ=
+        bh=cg/6uiNhQFh+ysBpamnt6t32XVHFUPnInewO/EiDtj0=;
+        b=nv20nL4080oxWgUKuGS8Q10JUyoMbjeaLAHLwWiCN6+mPAtGC75RwPiW0URdmKa0wA
+         AUQLyGSHW+T17h2scRW5NIVXd1cTEFeGk7Gv0AbceYMjr0kl934YKlxDwh3YMZYpZBCL
+         +1bLWm4f6Vf2L8oE66Rv6zZPH3M0dkt0qnG52BAIBGKIFt04ew3VP1YtEj7LedZryqLX
+         QMqDwiN7jL0aWXBFVn77Hg+UmEK3tMf39xwFCAOeA9VVh2zxdZHGr3pvpUXxMrt26C5W
+         IyksqOjSaSsFbJj5pyGeXm3yfOnoa/pAKynr0q4UUUBQZaHnLIyU2YIk9N54kERJg1Nq
+         LEBQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqGNdOqAExMB+EmEVuflqxDqIjhBK8Qr62FdfGmPwpy+1Juu9IDOHfxd3dm0F9jG4QRPRaWV+q1UaYjV+I=@vger.kernel.org
+X-Gm-Message-State: AFuF++l00B7T1OIg7kLK1yDkZeYhVdiWhdlaYmnlLjmCOD7xYcI10i0O
+	GyMdIme0oMFFg6EoAeGPy81BaXJaDuxy70uKdFViR3ZrgoAAW/PZmmlTzOL8mA/AXm3+ofi4ROH
+	g0DDlzMtb/5/EgksHDx8/4aXjET2LZPjZrdard9UGz05ubzMTuI8UlbDsny0=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:f0b:b0:4ab:318c:6b38 with SMTP id
- 5614622812f47-4b397f71712mr1140437b6e.1.1787856759955; Thu, 27 Aug 2026
- 11:52:39 -0700 (PDT)
-Date: Thu, 27 Aug 2026 11:52:39 -0700
+X-Received: by 2002:a05:6808:4f51:b0:4b3:1a95:4160 with SMTP id
+ 5614622812f47-4b39830200emr1086896b6e.18.1787856760454; Thu, 27 Aug 2026
+ 11:52:40 -0700 (PDT)
+Date: Thu, 27 Aug 2026 11:52:40 -0700
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a908777.1d9ded08.62e62.00da.GAE@google.com>
-Subject: [syzbot] general protection fault in _wait_barrier
-From: syzbot <syzbot+3fe892ea5fc292e1353f@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Message-ID: <6a908778.1d9ded08.62e62.00dc.GAE@google.com>
+Subject: [syzbot] [kernel?] Internal error in futex_wake_op
+From: syzbot <syzbot+417a6b7c02d5d03f9aa6@syzkaller.appspotmail.com>
+To: andrealmeid@igalia.com, dave@stgolabs.net, dvhart@infradead.org, 
+	linux-kernel@vger.kernel.org, mingo@redhat.com, peterz@infradead.org, 
+	syzkaller-bugs@googlegroups.com, tglx@kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
 Hello,
 
 syzbot found the following issue on:
 
-HEAD commit:    818bebeb63dd drm/xe: Don't hand out the flat CCS storage a..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=1255d415580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
-dashboard link: https://syzkaller.appspot.com/bug?extid=3fe892ea5fc292e1353f
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13d96979580000
+HEAD commit:    68f892e99df9 Merge branch 'for-next/core' into for-kernelci
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
+console output: https://syzkaller.appspot.com/x/log.txt?x=13dc7415580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=d1128bc53f2ef7f3
+dashboard link: https://syzkaller.appspot.com/bug?extid=417a6b7c02d5d03f9aa6
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+userspace arch: arm64
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1512d625580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13e2859e580000
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/f98dd20a7b98/disk-68f892e9.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/441f1ad32549/vmlinux-68f892e9.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/8da5227b7dc8/Image-68f892e9.gz.xz
 
 IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+3fe892ea5fc292e1353f@syzkaller.appspotmail.com
+Reported-by: syzbot+417a6b7c02d5d03f9aa6@syzkaller.appspotmail.com
 
-Oops: general protection fault, probably for non-canonical address 0xdffffc0000000024: 0000 [#1] SMP KASAN NOPTI
-KASAN: null-ptr-deref in range [0x0000000000000120-0x0000000000000127]
-CPU: 1 UID: 0 PID: 6010 Comm: syz-executor394 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:_wait_barrier+0x8d/0x700 drivers/md/raid1.c:1066
-Code: 08 00 00 00 f3 c7 40 0c f3 f3 f3 f3 65 48 8b 05 31 1e 0e 0c 48 89 84 24 d0 00 00 00 31 c0 e8 ea 3f 91 f9 48 89 e8 48 c1 e8 03 <42> 80 3c 20 00 0f 85 11 06 00 00 4c 8b a3 20 01 00 00 4a 8d 04 ad
-RSP: 0018:ffffc90003487290 EFLAGS: 00010206
-RAX: 0000000000000024 RBX: 0000000000000000 RCX: 0000000000000000
-RDX: ffff888031924b00 RSI: ffffffff8879c1e6 RDI: 0000000000000000
-RBP: 0000000000000120 R08: 0000000000000001 R09: 0000000000000000
-R10: 0000000000000000 R11: ffffffff81d66229 R12: dffffc0000000000
-R13: 0000000000000000 R14: ffff88802750c000 R15: ffffc900034879d0
-FS:  00007fe51d1166c0(0000) GS:ffff8880d5ca2000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00005599d4a2eb80 CR3: 0000000035c6b000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- wait_barrier drivers/md/raid1.c:1154 [inline]
- raid1_write_request drivers/md/raid1.c:1506 [inline]
- raid1_make_request+0x484/0x31a0 drivers/md/raid1.c:1696
- md_handle_request+0x824/0x1230 drivers/md/md.c:417
- md_submit_bio+0x1e9/0x350 drivers/md/md.c:458
- __submit_bio block/blk-core.c:681 [inline]
- __submit_bio+0x20e/0x3d0 block/blk-core.c:670
- __submit_bio_noacct block/blk-core.c:724 [inline]
- submit_bio_noacct_nocheck+0x736/0xc00 block/blk-core.c:792
- submit_bio_noacct+0xc93/0x2130 block/blk-core.c:925
- bio_await+0x1fa/0x240 block/bio.c:1580
- submit_bio_wait+0x19/0x60 block/bio.c:1598
- __blkdev_direct_IO_simple+0x4cb/0x8c0 block/fops.c:98
- blkdev_direct_IO+0xbee/0x2030 block/fops.c:429
- blkdev_direct_write block/fops.c:699 [inline]
- blkdev_write_iter+0x703/0xd30 block/fops.c:767
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x6af/0x1050 fs/read_write.c:687
- ksys_pwrite64 fs/read_write.c:794 [inline]
- __do_sys_pwrite64 fs/read_write.c:802 [inline]
- __se_sys_pwrite64 fs/read_write.c:799 [inline]
- __x64_sys_pwrite64+0x1eb/0x250 fs/read_write.c:799
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fe51d1735de
-Code: 08 0f 85 f5 e2 ff ff 49 89 fb 48 89 f0 48 89 d7 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24 08 0f 05 <c3> 90 41 57 41 56 4d 89 c6 41 55 4d 89 cd 41 54 55 53 48 83 ec 08
-RSP: 002b:00007fe51d116128 EFLAGS: 00000246 ORIG_RAX: 0000000000000012
-RAX: ffffffffffffffda RBX: 00007fe51d1166c0 RCX: 00007fe51d1735de
-RDX: 0000000000001000 RSI: 0000555588ed6000 RDI: 0000000000000005
-RBP: 0000000000000021 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: ffffffffffffffd0
-R13: 0000000000000002 R14: 00007ffdb60faaa0 R15: 00007ffdb60fab88
- </TASK>
+futex_wake_op: syz.0.17 tries to shift op by 144; fix this program
+Internal error: synchronous external abort: 0000000096000010 [#1]  SMP
 Modules linked in:
+CPU: 0 UID: 0 PID: 4917 Comm: syz.0.17 Tainted: G   M                syzkaller #0 PREEMPT 
+Tainted: [M]=MACHINE_CHECK
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/07/2026
+pstate: 83000005 (Nzcv daif -PAN -UAO +TCO +DIT -SSBS BTYPE=--)
+pc : __llsc_futex_atomic_or arch/arm64/include/asm/futex.h:51 [inline]
+pc : __futex_atomic_or arch/arm64/include/asm/futex.h:239 [inline]
+pc : arch_futex_atomic_op_inuser arch/arm64/include/asm/futex.h:269 [inline]
+pc : futex_atomic_op_inuser kernel/futex/waitwake.c:251 [inline]
+pc : futex_wake_op+0x450/0xfe8 kernel/futex/waitwake.c:302
+lr : mte_enable_tco arch/arm64/include/asm/mte-kasan.h:62 [inline]
+lr : uaccess_enable_privileged arch/arm64/include/asm/uaccess.h:147 [inline]
+lr : __llsc_futex_atomic_or arch/arm64/include/asm/futex.h:51 [inline]
+lr : __futex_atomic_or arch/arm64/include/asm/futex.h:239 [inline]
+lr : arch_futex_atomic_op_inuser arch/arm64/include/asm/futex.h:269 [inline]
+lr : futex_atomic_op_inuser kernel/futex/waitwake.c:251 [inline]
+lr : futex_wake_op+0x43c/0xfe8 kernel/futex/waitwake.c:302
+sp : ffff800093197980
+x29: ffff800093197b40 x28: 0000000000010000 x27: 0000000000000000
+x26: 1fffe00018d2a3ad x25: dfff800000000000 x24: ffff0000c6951d40
+x23: ffff0000c6951d6c x22: 0000000000000002 x21: 1fffe00018d2a685
+x20: ffff0000c1df3780 x19: ffff0000c695342c x18: 0000000000000000
+x17: 72676f7270207369 x16: 687420786966203b x15: 3434312079622070
+x14: 6f20746669687320 x13: 0000000000000001 x12: 0000000000000000
+x11: 0000000000000000 x10: 00000000fffffff5 x9 : 0000000000000000
+x8 : 0000000000000080 x7 : ffff80008048c60c x6 : 0000000000000000
+x5 : 0000000000000000 x4 : 0000000000000000 x3 : ffff8000805b0678
+x2 : 0000000000000002 x1 : ffff0000c6951d40 x0 : 0000000000000000
+Call trace:
+ __llsc_futex_atomic_or arch/arm64/include/asm/futex.h:51 [inline] (P)
+ __futex_atomic_or arch/arm64/include/asm/futex.h:239 [inline] (P)
+ arch_futex_atomic_op_inuser arch/arm64/include/asm/futex.h:269 [inline] (P)
+ futex_atomic_op_inuser kernel/futex/waitwake.c:251 [inline] (P)
+ futex_wake_op+0x450/0xfe8 kernel/futex/waitwake.c:302 (P)
+ do_futex+0x200/0x378 kernel/futex/syscalls.c:144
+ __do_sys_futex kernel/futex/syscalls.c:210 [inline]
+ __se_sys_futex kernel/futex/syscalls.c:191 [inline]
+ __arm64_sys_futex+0x2e4/0x418 kernel/futex/syscalls.c:191
+ __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
+ invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
+ el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
+ do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
+ el0_svc+0x64/0x260 arch/arm64/kernel/entry-common.c:758
+ el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:777
+ el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:590
+Code: d500409f 1280014a f94057eb f9800171 (885f7d76) 
 ---[ end trace 0000000000000000 ]---
-RIP: 0010:_wait_barrier+0x8d/0x700 drivers/md/raid1.c:1066
-Code: 08 00 00 00 f3 c7 40 0c f3 f3 f3 f3 65 48 8b 05 31 1e 0e 0c 48 89 84 24 d0 00 00 00 31 c0 e8 ea 3f 91 f9 48 89 e8 48 c1 e8 03 <42> 80 3c 20 00 0f 85 11 06 00 00 4c 8b a3 20 01 00 00 4a 8d 04 ad
-RSP: 0018:ffffc90003487290 EFLAGS: 00010206
-
-RAX: 0000000000000024 RBX: 0000000000000000 RCX: 0000000000000000
-RDX: ffff888031924b00 RSI: ffffffff8879c1e6 RDI: 0000000000000000
-RBP: 0000000000000120 R08: 0000000000000001 R09: 0000000000000000
-R10: 0000000000000000 R11: ffffffff81d66229 R12: dffffc0000000000
-R13: 0000000000000000 R14: ffff88802750c000 R15: ffffc900034879d0
-FS:  00007fe51d1166c0(0000) GS:ffff8880d5ca2000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00005599d4a2eb80 CR3: 0000000035c6b000 CR4: 0000000000352ef0
 ----------------
 Code disassembly (best guess):
-   0:	08 00                	or     %al,(%rax)
-   2:	00 00                	add    %al,(%rax)
-   4:	f3 c7 40 0c f3 f3 f3 	xrelease movl $0xf3f3f3f3,0xc(%rax)
-   b:	f3
-   c:	65 48 8b 05 31 1e 0e 	mov    %gs:0xc0e1e31(%rip),%rax        # 0xc0e1e45
-  13:	0c
-  14:	48 89 84 24 d0 00 00 	mov    %rax,0xd0(%rsp)
-  1b:	00
-  1c:	31 c0                	xor    %eax,%eax
-  1e:	e8 ea 3f 91 f9       	call   0xf991400d
-  23:	48 89 e8             	mov    %rbp,%rax
-  26:	48 c1 e8 03          	shr    $0x3,%rax
-* 2a:	42 80 3c 20 00       	cmpb   $0x0,(%rax,%r12,1) <-- trapping instruction
-  2f:	0f 85 11 06 00 00    	jne    0x646
-  35:	4c 8b a3 20 01 00 00 	mov    0x120(%rbx),%r12
-  3c:	4a                   	rex.WX
-  3d:	8d                   	.byte 0x8d
-  3e:	04 ad                	add    $0xad,%al
+   0:	d500409f 	msr	pan, #0x0
+   4:	1280014a 	mov	w10, #0xfffffff5            	// #-11
+   8:	f94057eb 	ldr	x11, [sp, #168]
+   c:	f9800171 	prfm	pstl1strm, [x11]
+* 10:	885f7d76 	ldxr	w22, [x11] <-- trapping instruction
 
 
 ---
