@@ -1,61 +1,64 @@
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
+Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 245AA31E832
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 23:55:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2548C3C2B95
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 23:55:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787874922; cv=none; b=FtPMlggDi0MRGYZez5mwh1R5KbB4E+kltL4OjBnguKOXoJ/Rg1tD1t22bJwysKbhBfL+jyyYs4wjKyU4KaOC255OKcIwyCcvou2YZXLJJDnPGXanROtId51HResC/n8B42g6MvSkWoVvYfnZDO+TuC45O2nRWpNPHfYVhEovNBE=
+	t=1787874920; cv=none; b=UVkYaCeAripoZw6sna4cWLqC/9P72ErREb/aaByO23q5eHLDWUQbAoaZVyo7GUVyZxDpRmjJoe5acteZqujtX6Dxp4ANzn78ufkefpbT9lf/mWk04TERDCn9YYwsJTp0/OYMmfXw1mmIuRJEe2H1822zbH5SaZO2/AjWSmC50nE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787874922; c=relaxed/simple;
-	bh=h27YVKK/TYuusXE6taFKqIAn5VyxSn/kotJtG8PpEoM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=INceA9IFYoCCgTLBPPxLTTNnU19ckBtwlf+TBXpeU39NNfSvQHAVwRmY09I0N3KFKY3ELaFzINmGiYbDh4jsggq7Fsf+m7FQJG6ib0LcfisAPQ2RKT9acEy1hyUiY6bKp8EghHae8VbgXjSLg7d354Nq/5heUvqgqBKAXkEm1qc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N0NYHgL+; arc=none smtp.client-ip=209.85.128.180
+	s=arc-20240116; t=1787874920; c=relaxed/simple;
+	bh=17DL7rhafk1dsgIeYoK4mS2o50WhRjWyO2dEKqAEpdI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=LohHnAiwqquA2Cm/bgNUgCkCATX67LjzBKHDklB3rZegbw+8sn/eG14KyeiWCoMOrGr19xTiaUTGsjhpi+uGggqWO1kKZv26jLc0zFbD9Vl5CWTupskYIb0L2MT1OutWcBMGCTZkUFBYeObTczBnxxriJiWpK3g2bVA7wBHcQCY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sC3pQT9w; arc=none smtp.client-ip=74.125.224.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N0NYHgL+"
-Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8549a96e93cso1630947b3.3
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:55:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sC3pQT9w"
+Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-66d116f0de8so770768d50.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:55:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787874918; x=1788479718; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oCfWHkIpmLvJEZNt0kO4ZWyCArHHxMdSOeCJ5Kkvn7k=;
-        b=N0NYHgL+c2r3z30Z0QHNoJkQQMqA+eBAyGLHu+gyXUdWzKcKqVzTQYFzzOu0U92lJ5
-         +A1bqI4umyXYLfErtoaJr+358x5yyFqGrAdxPwnq1ZYs0JDnO/oWTF6/a4oxIiwvwb2M
-         qpn1MLSiEgLeOoCrNq35bMpsUBT5gzQQwd8uNTRqqYG2YdThnjdFopDZEy8/1hcW5bu6
-         34UDwTAFSMrH5DSdu74Lk0g4ZvQ+bd5MkGdKrYr0dx2KtaQOfuEmAFN6l0w9b1AVdF6W
-         Km7RcGBgrOV9VUEC4QhXWSITtaRc4+lkXnxH6xvvC0heRsk6wMbiXrzdT00isYdcmY7G
-         8XSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787874918; x=1788479718;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1787874916; x=1788479716; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=oCfWHkIpmLvJEZNt0kO4ZWyCArHHxMdSOeCJ5Kkvn7k=;
-        b=jCvOSOPLWI7WpsjcSelGY+l+E0ZUoZ7dDDUpFm/SnVgt7z1sPtXEhRBkDmtswVfzYt
-         WBlLxGVL9JOYomR+KH30UFMxTR8SIwSEus0/ifo2Q0Oik2CUIh1JLkl9GPI/8BHHVxTy
-         tbRELR4FAdbs9l8X5OH6cDhJvif3H40pV3q6mV2lDYEqjGlq0DIbWWGSIj2nf1pz4ru1
-         L5F926lNpLt3qjU59fdN+ZqLFPRcilo6cayqnyoOPk+Z5YLzJp7UWTEMBHrJLDJ1CWgx
-         TnzM9yNx1jqi2mCma/pW9LBAfXMzTaKm9MMlLjonf/FusKh21A+ZU7xLipvw2b7CN/uK
-         QhWA==
-X-Forwarded-Encrypted: i=1; AHgh+RoWbVmMGKjD++Uz++cjl/JVZtpcpYTKqPa0v5pJ3gOXNFersdE9A39MjYA8AYLKV/VjMlaizVRWpwr1xUw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nIqttl8Vmj+9zO4aDZCbY58Ybx3NU1CGemX3Im8ZB/m0mGPn+p
-	EEvF7OmIaEBTLgzLVOaZSgv6K6+40WOTPuuI/KhlkLo3flka51Z23vcL
-X-Gm-Gg: AR+sD12ba2jRCzC4ghQUX6kpcFtJJh2Q38hWUqCCCs3cpn/YEE/suKV+41vLvPCKWP+
-	elcIoDxIPpAzEZGAemeU4euDsNWmXsYNy7N9K1kgO4o9boDxOX72oPPGiTPyDruB+RTwA7Na5k4
-	7kUe9vPZ9o1rw9vsLZQjNSCY0HrgXRarCRW9sGeakX5Y+mmAuMT+ICzg9bhuh4qA20p3qIN8CN+
-	AEF14UOIMqHa5c82/WGCTl/DYOXeoxhskqmADOzsw0IFZrQ4UPc5LXeiHzwY9sd1XjC6qejGf9T
-	dEw7/q3xlvu/0WBoBDYIpPkSqIZoiN1d2hyO4cD9f9+kU0CqwTgtBgzx5HrvjHeeCkzD2hi8eoc
-	5Wng0Oj7NK6jLS3L6dTK2KknrctGxdGEcz9q6IMi2BiScH/MQ0eWAWmUXdt9MhTsvM4kVzOuZz2
-	cM5nuhDldh5+4VVcuM6MeDKeHPwspmRDOzKuGvo6GL35zrNQWY3OYaB+I7xwP64vJo/WU=
-X-Received: by 2002:a05:690e:428b:10b0:66c:d353:948a with SMTP id 956f58d0204a3-66e4c7645d8mr742101d50.39.1787874913018;
-        Thu, 27 Aug 2026 16:55:13 -0700 (PDT)
+        bh=jvm7J3YSk1/1T92COXCSTc907ZSd3vJ2D2ODqJKXqh8=;
+        b=sC3pQT9w16X8e1FpEkMG6skdnkz3y6W25eGE49xth0hbRGOZG8r9cJy7vO7hb7XVh1
+         HccgqlnWExlRcyHVA8kceftioB0FQVFphc9IDS195xgzYP6AdHXVkUfpGbWT2yqo1urv
+         6HBqjCNaTGuSz77ZNtDQGSOx6fyE/fMRl+6uU/D8huih79l4QcFg46gXATGclQf62NgP
+         Y2ZJf4iXR9gBQ/jYy3yLN29KXKpBGaB6z/tjF57XDBRTtCpIQ85QvGI7s0HbQaTlcqIJ
+         Iaqie7fqQL88FJFqsTiUDmu9ACHXSAxX8NijAIw/70hC2TxHMVlarBQ0yCN/sbVC9wsD
+         QKWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787874916; x=1788479716;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jvm7J3YSk1/1T92COXCSTc907ZSd3vJ2D2ODqJKXqh8=;
+        b=Ta3Gin6op74vc1QCwU4QS+y5W840U+/UaTfhmBr4imNDmPchcItNDBdqipSWpUESOW
+         JnYIlsjCUllMTN1TxtnK8JOmdXHUU0jCLLJJkHvmbQ/q3VKK1tHt1KwXDR9LaXbbleGT
+         w9TBfwDCbCSrdFf/QNeyl8UowuRKh+41aKZruhdf9dFn6zVVpzFBZntXBHb9/ddeJPFM
+         LYwbw7HNA0kicP9Uxev5eLy7B4UABopSf6ddQFJt43jGeGXBx1C7SqbC9F//0IlBbbYt
+         1wrGGMEr505YxxzI0widPJ6+BhtVm6LOX9bfbo6Xr4b7AKfVBJt3Pz1eeT7ZTJfNdyhh
+         2JAw==
+X-Forwarded-Encrypted: i=1; AHgh+RouTOlvHWie0lqQE3PqoIebdz0d/gDegJ3S0VCqObwhKlc6a5BMmHCVgN5cFIqTs1RRGLLTomn3nCpJuQs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nLqi/f1yY3izBuDuQHAjxSsOu/1UB1BnDb6ZTgZXVMPiamAOJA
+	nMvK25rgKFmulE67ZFGws3S5pnjyEaN4n7G5/Ywl3O08q2RMx1dNJC+z
+X-Gm-Gg: AR+sD136GZrdgnR+HA6SSpTRuQRe5W1SdArk4ml+uE8rUN3EbG0TltdwO8NamvABq5U
+	dE2OszMp9tF+guD7Wanx+gmgVALsXQ1b3pwErvB/bsxuUbA28EeXPw9chLfTo//kwS0pBErpxbT
+	wcz9A2SPmrKvXSSbsP+/gtBPNcN5R5LMVap2R9zOeFp+eT4ZkL9ekgWJBc3LjQxQGDhGuYsX0KS
+	Jn35iUv8O4zyYz/Lr5NsGZ1f53bThDwubC/jQI+Pi+WwttlZpDlAEV4pYk/aVl6XdyuaaukIXfz
+	sqdH6fMvU8tw9wTHfcXVlVWxB8iBjHJHxkEhPm8A9TDO15BmTWkpjQt+rSGClcUrT+PGRbCrQS+
+	WnbJ8Y7XD1A5XO3ajAhHs44kRrK/GQfP3MO4fem+MATAGp852G7wm8oCWyL8rU1UEQP72Zi0J1L
+	xAQ+YEEHXOtxi745HLSMOupg36VlUgQUacm4lNDwwx9NJxBi/KLi3Cv6lt3VQ6HHcPljE1+g2MJ
+	2Rykw==
+X-Received: by 2002:a53:b812:0:b0:66d:2b87:67d2 with SMTP id 956f58d0204a3-66e4c6505demr643968d50.14.1787874914413;
+        Thu, 27 Aug 2026 16:55:14 -0700 (PDT)
 Received: from mac.lan ([136.55.173.105])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66e4eb3dcdbsm55704d50.4.2026.08.27.16.55.12
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66e4eb3dcdbsm55704d50.4.2026.08.27.16.55.13
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 27 Aug 2026 16:55:12 -0700 (PDT)
+        Thu, 27 Aug 2026 16:55:14 -0700 (PDT)
 From: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>
 To: edumazet@google.com,
 	ncardwell@google.com,
@@ -79,11 +82,14 @@ Cc: kuniyu@google.com,
 	xmei5@asu.edu,
 	tgopinath@linux.microsoft.com,
 	kys@microsoft.com,
-	blbllhy@gmail.com
-Subject: [PATCH net v3 0/2] tcp: fix use-after-free in do_tcp_getsockopt()
-Date: Thu, 27 Aug 2026 19:55:09 -0400
-Message-ID: <cover.1787870710.git.blbllhy@gmail.com>
+	blbllhy@gmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH net v3 1/2] tcp: fix use-after-free in do_tcp_getsockopt(TCP_CONGESTION)
+Date: Thu, 27 Aug 2026 19:55:10 -0400
+Message-ID: <d3f97f1acbf0010898148be6e6406e4b8b4a5c84.1787870710.git.blbllhy@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <cover.1787870710.git.blbllhy@gmail.com>
+References: <cover.1787870710.git.blbllhy@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -94,47 +100,146 @@ Content-Transfer-Encoding: 8bit
 
 From: "Cen Zhang (Microsoft Security FORGE Labs)" <blbllhy@gmail.com>
 
-do_tcp_getsockopt() has two lockless reads of icsk_ca_ops. Since BPF
-struct_ops congestion control made icsk_ca_ops point to dynamically
-allocated memory, a concurrent setsockopt(TCP_CONGESTION) can replace
-the pointer and free the old object while either reader is using it.
+do_tcp_getsockopt() reads icsk->icsk_ca_ops->name without holding
+rcu_read_lock(). Since commit 0baf26b0fcd7 ("bpf: tcp: Support
+tcp_congestion_ops in bpf"), icsk_ca_ops can point to dynamically
+allocated BPF struct_ops memory that may be freed concurrently via
+setsockopt(TCP_CONGESTION), leading to a use-after-free.
 
-Patch 1 fixes the TCP_CONGESTION path by copying ca_ops->name to a
-stack buffer while holding rcu_read_lock(). It also uses READ_ONCE()
-for the lockless load and annotates the relevant icsk_ca_ops stores
-with WRITE_ONCE().
+  BUG: KASAN: slab-use-after-free in _copy_to_user+0x37/0x60
+  Read of size 16 at addr ffff888013505260 by task exploit/149
+   _copy_to_user+0x37/0x60
+   do_tcp_getsockopt+0x158a/0x2460 (net/ipv4/tcp.c:4585)
+   tcp_getsockopt+0x91/0xf0
+   __sys_getsockopt+0xf7/0x170
 
-Patch 2 fixes the TCP_CC_INFO path by keeping the READ_ONCE() load,
-ca_ops->get_info lookup, and call inside an RCU read-side critical
-section.
+Fix this by holding rcu_read_lock() around the ca_ops->name access,
+using READ_ONCE() to load icsk_ca_ops, and copying the name to a
+stack buffer before releasing the lock. Also annotate the relevant
+icsk_ca_ops stores with WRITE_ONCE() to fix the accompanying KCSAN
+data-race issue.
 
-Changes since v2 [1]:
-- Fix the TCP_CONGESTION build failure by loading icsk_ca_ops inline.
+Fixes: 0baf26b0fcd7 ("bpf: tcp: Support tcp_congestion_ops in bpf")
+Suggested-by: Eric Dumazet <edumazet@google.com>
+Reported-by: Xiang Mei (Microsoft) <xmei5@asu.edu>
+Link: https://lore.kernel.org/all/20260821182449.79785-2-blbllhy@gmail.com/
+Cc: AutonomousCodeSecurity@microsoft.com
+Cc: stable@vger.kernel.org
+Assisted-by: GitHub-Copilot:claude-opus-4.6
+Reviewed-by: Eric Dumazet <edumazet@google.com>
+Signed-off-by: Cen Zhang (Microsoft Security FORGE Labs) <blbllhy@gmail.com>
+---
+Note: The adjacent TCP_ULP case has a similar read pattern on
+icsk_ulp_ops->name, but icsk_ulp_ops always points to static
+module data (no BPF struct_ops equivalent), so it is not affected.
+
+Changes in v3:
+- Fix the build failure by loading icsk_ca_ops inline.
 - Drop the unrelated WRITE_ONCE() conversion in mptcp_ca_reset().
-- Add READ_ONCE() to dctcp_get_info()'s icsk_ca_ops comparison.
 
-Changes in v2 [2]:
-- Add READ_ONCE() to both lockless icsk_ca_ops loads.
-- Add WRITE_ONCE() to all six explicit icsk_ca_ops stores.
-- Include the data-race annotations in the UAF series as requested
-  by Eric Dumazet [3].
-
-[1] https://lore.kernel.org/all/20260826171344.4133-1-blbllhy@gmail.com/
-[2] https://lore.kernel.org/all/20260821182449.79785-1-blbllhy@gmail.com/
-[3] https://lore.kernel.org/all/CANn89iKr1ypEFeL+7te3xWoNaK5AFyYQmr+pDh2zSZAxfgNKjw@mail.gmail.com/
-
-Cen Zhang (Microsoft Security FORGE Labs) (2):
-  tcp: fix use-after-free in do_tcp_getsockopt(TCP_CONGESTION)
-  tcp: fix use-after-free in do_tcp_getsockopt(TCP_CC_INFO)
-
- net/ipv4/tcp.c           | 18 ++++++++++++++----
+Changes in v2:
+- Add READ_ONCE() for the icsk_ca_ops load.
+- Add WRITE_ONCE() for every explicit icsk_ca_ops store.
+---
+ net/ipv4/tcp.c           | 14 +++++++++++---
  net/ipv4/tcp_cong.c      |  4 ++--
- net/ipv4/tcp_dctcp.c     |  4 ++--
+ net/ipv4/tcp_dctcp.c     |  2 +-
  net/ipv4/tcp_minisocks.c |  2 +-
  net/ipv4/tcp_output.c    |  2 +-
- 5 files changed, 20 insertions(+), 10 deletions(-)
+ 5 files changed, 16 insertions(+), 8 deletions(-)
 
-
-base-commit: a3dee9bb902ee4357fa02e49b415d7724ee0140a
+diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
+index 455441f1b..55ca74f60 100644
+--- a/net/ipv4/tcp.c
++++ b/net/ipv4/tcp.c
+@@ -4576,16 +4576,24 @@ int do_tcp_getsockopt(struct sock *sk, int level,
+ 		val = !inet_csk_in_pingpong_mode(sk);
+ 		break;
+ 
+-	case TCP_CONGESTION:
++	case TCP_CONGESTION: {
++		char ca_name[TCP_CA_NAME_MAX] = {};
++
+ 		if (copy_from_sockptr(&len, optlen, sizeof(int)))
+ 			return -EFAULT;
+ 		len = min_t(unsigned int, len, TCP_CA_NAME_MAX);
+ 		if (copy_to_sockptr(optlen, &len, sizeof(int)))
+ 			return -EFAULT;
+-		if (copy_to_sockptr(optval, icsk->icsk_ca_ops->name, len))
++
++		rcu_read_lock();
++		memcpy(ca_name, READ_ONCE(icsk->icsk_ca_ops)->name,
++		       sizeof(ca_name));
++		rcu_read_unlock();
++
++		if (copy_to_sockptr(optval, ca_name, len))
+ 			return -EFAULT;
+ 		return 0;
+-
++	}
+ 	case TCP_ULP:
+ 		if (copy_from_sockptr(&len, optlen, sizeof(int)))
+ 			return -EFAULT;
+diff --git a/net/ipv4/tcp_cong.c b/net/ipv4/tcp_cong.c
+index e9f6c77e0..8e83ef81f 100644
+--- a/net/ipv4/tcp_cong.c
++++ b/net/ipv4/tcp_cong.c
+@@ -223,7 +223,7 @@ void tcp_assign_congestion_control(struct sock *sk)
+ 	ca = rcu_dereference(net->ipv4.tcp_congestion_control);
+ 	if (unlikely(!bpf_try_module_get(ca, ca->owner)))
+ 		ca = &tcp_reno;
+-	icsk->icsk_ca_ops = ca;
++	WRITE_ONCE(icsk->icsk_ca_ops, ca);
+ 	rcu_read_unlock();
+ 
+ 	memset(icsk->icsk_ca_priv, 0, sizeof(icsk->icsk_ca_priv));
+@@ -253,7 +253,7 @@ static void tcp_reinit_congestion_control(struct sock *sk,
+ 	struct inet_connection_sock *icsk = inet_csk(sk);
+ 
+ 	tcp_cleanup_congestion_control(sk);
+-	icsk->icsk_ca_ops = ca;
++	WRITE_ONCE(icsk->icsk_ca_ops, ca);
+ 	icsk->icsk_ca_setsockopt = 1;
+ 	memset(icsk->icsk_ca_priv, 0, sizeof(icsk->icsk_ca_priv));
+ 
+diff --git a/net/ipv4/tcp_dctcp.c b/net/ipv4/tcp_dctcp.c
+index 274e628e7..99f68c299 100644
+--- a/net/ipv4/tcp_dctcp.c
++++ b/net/ipv4/tcp_dctcp.c
+@@ -111,7 +111,7 @@ __bpf_kfunc static void dctcp_init(struct sock *sk)
+ 	/* No ECN support? Fall back to Reno. Also need to clear
+ 	 * ECT from sk since it is set during 3WHS for DCTCP.
+ 	 */
+-	inet_csk(sk)->icsk_ca_ops = &dctcp_reno;
++	WRITE_ONCE(inet_csk(sk)->icsk_ca_ops, &dctcp_reno);
+ 	INET_ECN_dontxmit(sk);
+ }
+ 
+diff --git a/net/ipv4/tcp_minisocks.c b/net/ipv4/tcp_minisocks.c
+index 6ab3e3a0b..def3b25ab 100644
+--- a/net/ipv4/tcp_minisocks.c
++++ b/net/ipv4/tcp_minisocks.c
+@@ -507,7 +507,7 @@ void tcp_ca_openreq_child(struct sock *sk, const struct dst_entry *dst)
+ 		ca = tcp_ca_find_key(ca_key);
+ 		if (likely(ca && bpf_try_module_get(ca, ca->owner))) {
+ 			icsk->icsk_ca_dst_locked = tcp_ca_dst_locked(dst);
+-			icsk->icsk_ca_ops = ca;
++			WRITE_ONCE(icsk->icsk_ca_ops, ca);
+ 			ca_got_dst = true;
+ 		}
+ 		rcu_read_unlock();
+diff --git a/net/ipv4/tcp_output.c b/net/ipv4/tcp_output.c
+index d7c1444b5..e72ebfe7b 100644
+--- a/net/ipv4/tcp_output.c
++++ b/net/ipv4/tcp_output.c
+@@ -4092,7 +4092,7 @@ static void tcp_ca_dst_init(struct sock *sk, const struct dst_entry *dst)
+ 	if (likely(ca && bpf_try_module_get(ca, ca->owner))) {
+ 		bpf_module_put(icsk->icsk_ca_ops, icsk->icsk_ca_ops->owner);
+ 		icsk->icsk_ca_dst_locked = tcp_ca_dst_locked(dst);
+-		icsk->icsk_ca_ops = ca;
++		WRITE_ONCE(icsk->icsk_ca_ops, ca);
+ 	}
+ 	rcu_read_unlock();
+ }
 -- 
 2.43.0
