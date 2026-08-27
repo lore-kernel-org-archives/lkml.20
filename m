@@ -1,76 +1,76 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 649484582C7
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:51:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 056211C2AA;
+	Thu, 27 Aug 2026 12:51:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787835110; cv=none; b=uTipVDu4ZgAVrUosf90tv+kw2FcQqhQNOcW84m+T7UzTPFvh31vAxnwUaKtRrCWdU1zigBul9lJwjHGGVVZkkwYrtfO57ad2T0SqCEkUTgUId+pNTcjyY3rVhTHuDEL3oh5Xx2PffSgI4LRqsRIeaLBv3DO6/XBmZYdgX0HEPSM=
+	t=1787835110; cv=none; b=XAMtyvuZRICHjivwXEtOR3QY1NLJE7iahClHSaIVumftPm9yA/gzkksHDtqPqSX7ZyXTQMP47ht7DvZVXh4AZfynoS2ii2rlJHNZdRuORLoouG5D7Qn47jW/+GKnnAYoowEc5kbAr1LqQknlD88Z9pc4b0LAUB9cIjruibCRt/c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787835110; c=relaxed/simple;
-	bh=v5jl+aCSpkkvQGNIYYVrCrKyR7mWn2LR3j2JbpKPgPM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=h2kzVWE4wZMAED1p8Xjqh7lyVOrkSqC0tU4iUvYP+Jn8XXidVg9s/1dLyzzuYWsogcRV8Y2lWQCPnp0FgqSCJRiAAGI5nsNeJsklgm1hk4SIq39imckkJPUkvU9NrM2E6XLrGwE4b5VX3ZM2R5To3U9z8rJQeEfuLyY2z8ZeKfY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KtQTj6od; arc=none smtp.client-ip=100.103.45.18
+	bh=pSCtQtzDK+fJZ7f2hYsxOpzN/pNRBJE/lezCI+3+LwY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BVcA0PMQbbizL7LWkBX0w0q8IOon6JhE4bB7b+yQyLaZ5hZFufsVBSGHVnthGk6rOfBM3n0gCcCd+JZrfN82WCrkuzb6XDGwLBN0uHYGjUdG87W9gk4LNsS3emRAWqRf5FqOBrmneFlfqAaA0r8GF26iFfx67XOdIwDjssmlG9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FKAtoyXI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KtQTj6od"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2F351F00A3F
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:51:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FKAtoyXI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8DB31F00A3A;
+	Thu, 27 Aug 2026 12:51:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787835095;
-	bh=v5jl+aCSpkkvQGNIYYVrCrKyR7mWn2LR3j2JbpKPgPM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=KtQTj6odrNbQo+tcT34S+sezcdJj2BTCjN3wknjvnntYyUiI90qbsBzeTMVewApK0
-	 c8DIsw4Wgzvso6nc6gmt81XPnusTt3oDL3rt0GekLCuVXJJ1SXDVS/feVGxFozA20T
-	 4r7wZbL3byPi4iq8xF3BNCVpz2xuHYpr7iUDBMmuOHMyQ4SETwJ7HOo3o8b3bCK/Jq
-	 K6rL04LtSK3xSpIuXCu4OukxiKEJDDD0ez3oHVPSK1jBGdTyAmETfiiWNPreyynodX
-	 3zV5mV/0E7KDRg0/mZm0M/5njbYkF2BydadedBDcenOEo0YZCX8+lBtKIDKV6cQfId
-	 QjY8sLiy1HAAw==
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c253358b121so89835466b.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 05:51:35 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Ro2Q59E0xij2hDPBxDQAl/fK2iqrknyLYBQ3X2IYTHVjtU+c4RYrzKAFr02y1DI3jeJ6ATS4PzIIkQt3Ek=@vger.kernel.org
-X-Gm-Message-State: AFuF++lPOfWY5kxNeB8QHH6VwBydlO++vjuI/AoGOzLp/Sm1Z7Fp+zxC
-	7kToMkNCsz0KwJ4VjOz25++/vi4TYio6gortBWUV1uLSfavVsJ37PhWAxKedW1IOLrTBMf8jL+J
-	ZdwQl/PiN4z1UAQ9jcVeCAJeMVtlRSE0=
-X-Received: by 2002:a17:906:2083:b0:c25:2a78:15ed with SMTP id
- a640c23a62f3a-c252a782276mr972912466b.6.1787835094458; Thu, 27 Aug 2026
- 05:51:34 -0700 (PDT)
+	s=k20260515; t=1787835097;
+	bh=XSQGFmuwvMzM5rXdfSlgZ1DfoF/Bil2FRcC3/j+QQw4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FKAtoyXIUVjVMDEn2bJ2rLkiz0oMg6z2un6eG+WB04Mgau1KeclOVrx/+jzMdmhfC
+	 AnrIP9Tsnsub67iuPDIL3qU/lNFwHldReFpB7+ysS36L8ng5D1VtE3pV9QT/NZ6TJu
+	 Uq/ZE21LXMyTUIFd/ZwUHSvk6nXmiNoPxb5ZXE+9OIKxhAwcondOTo4tus0uuh46Wd
+	 z0COv4vo1oIYzy8YTpqtm6RfIm52+H0xSls0tAmX8L7d80KaEpme4u3VlHjymgWtv0
+	 KDpnU8xhscrfmNplLUYCFI0vque73dKOdHNal978QclZWxCjJVCXItPiCIxpKq3NYc
+	 zI3h1p1Re4xKw==
+Date: Thu, 27 Aug 2026 14:51:33 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Christian Bruel <christian.bruel@foss.st.com>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Mark Brown <broonie@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
+	Marek Vasut <marex@nabladev.com>, Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Pankaj Dev <pankaj.dev@st.com>, linux-usb@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org, 
+	linux-phy@lists.infradead.org, Thomas Bourgoin <thomas.bourgoin@foss.st.com>
+Subject: Re: [PATCH 07/16] dt-bindings: nvmem: st,stm32-romem: align
+ patternProperties regex on nvmem-deprecated-cells.yaml
+Message-ID: <20260827-normal-amphibian-dormouse-9f8fdc@quoll>
+References: <20260821-ucpd-host-fusb340-v7-2-rfc-v1-0-c5e27cbc0795@foss.st.com>
+ <20260821-ucpd-host-fusb340-v7-2-rfc-v1-7-c5e27cbc0795@foss.st.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260824075935.170457-1-zenghongling@kylinos.cn>
-In-Reply-To: <20260824075935.170457-1-zenghongling@kylinos.cn>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Thu, 27 Aug 2026 21:51:22 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd8ZW7oGWVkgdW04WH828EAM2RwKptUxmobWJ9q2STsCtg@mail.gmail.com>
-X-Gm-Features: AcwNN1VXPH_P87koasaLISpCwL-nDqmjfpElMWmTsmzod6L3siUJMK1CCNs9_5E
-Message-ID: <CAKYAXd8ZW7oGWVkgdW04WH828EAM2RwKptUxmobWJ9q2STsCtg@mail.gmail.com>
-Subject: Re: [PATCH] ntfs: fix memmove overlap in ntfs_new_attr_flags
-To: Hongling Zeng <zenghongling@kylinos.cn>
-Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	zhongling0719@126.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260821-ucpd-host-fusb340-v7-2-rfc-v1-7-c5e27cbc0795@foss.st.com>
 
-On Mon, Aug 24, 2026 at 4:59=E2=80=AFPM Hongling Zeng <zenghongling@kylinos=
-.cn> wrote:
->
-> When the record shrinks while the payload offsets increase (e.g., enablin=
-g
-> compression reduces padding, making arec_size < old_arec_size, but the he=
-ader
-> grows by 8 bytes), moving the name first can overwrite the old mapping_pa=
-irs
-> before they are copied. Move mapping_pairs first in this case.
->
-> Since mp_ofs is derived from name_ofs, they always change in the same
-> direction. Checking name_ofs alone is sufficient.
->
-> Fixes: fc053f05ca28 ("ntfs: add reparse and ea operations")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
-Applied it to #ntfs-next.
-Thanks!
+On Fri, Aug 21, 2026 at 06:23:18PM +0200, Fabrice Gasnier wrote:
+> Align the regex with the one used in nvmem-deprecated-cells.yaml
+> ("@[0-9a-f]+(,[0-7])?$") so both patternProperties definitions apply
+> to the same set of node names.
+> 
+> The patternProperties key only matched node names of the form
+> "name@address" ("^.*@[0-9a-f]+$"). It did not match nodes using the
+> extra unit-address index used to disambiguate cells sharing the same
+> reg, e.g. "trim_rd_cc1@1e8,4", causing dtbs_check failures such as:
+
+That's not a valid name, underscores are not allowed.
+
+I don't get why this is part of USB and PHY and SoC patch, but whoever
+told you, that mixing FOUR independent subsystems is fine, was wrong. It
+is not fine.
+
+Best regards,
+Krzysztof
+
