@@ -1,109 +1,261 @@
-Received: from mx0b-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 174EF303CAB;
-	Thu, 27 Aug 2026 05:54:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.148.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75E981A238F
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 05:54:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787810058; cv=none; b=DY460jcc6E4xP5rJDZpS5pW0KYLMprvvFR/BTFc/LlB4Bm+M0wV8t956ysrVWResNt3UVtypUOZzHat2JM9TT4DyUHo3skmAuetU2N0sn/osg2hWlayBjdL/KRTgHks2bw99xQgeZ0mJbkpvyY0gwTOrU0SY9HPO337d9bHSBVg=
+	t=1787810060; cv=none; b=f5GNnvV7D209oNDx1+3CaeqN62kejMBP+2m9NJKlFUtMknshBXZkMmj7PVHkMQLOUgSn7uapgvHTuWL3ILaPQdD8ie5bWEPDzN+j6g2NpMDXYOhQfl87occPQn0WgTOiEu4qKZOlwscNXMJS/qS6EHj4Jb6qnTZcfeADbkyEPlM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787810058; c=relaxed/simple;
-	bh=/G6iAWc4FYPn/V+EoSVVwxeq1U5YZSLZd53vROooY04=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NnbqSG2n7qqnYqM8ri+4YREGKGK3IkWT0rrCDigJUTAbE2pzp+SRfI9un6L4+jECqBpKndCcDxKQUNY1B+IdFUwhwLYtGFyKXnaIxslgSaPrGHqbQCuEDMXSOalaCjx8DmDkdkjx7AYjG29R7GoNzZPDk9cnYEsn8QHXkEBseAg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=KdvJR7w1; arc=none smtp.client-ip=67.231.148.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+	s=arc-20240116; t=1787810060; c=relaxed/simple;
+	bh=fez0YwzSVBn5tO9zzq6eY6fAetQpiAth7VVLFi/VlxE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rZJpQEmOMtrDDmc+YqYjrIupBAOt4e8K6o7ZG1IH0poyTLXPp8ETg0hmt+wWf+LuYMJOGBzx+9xc7Ttn4XZzQbEkFJ7DNgzrtG4mWGAKxiO+V1OyUG92XXQsjOUgnRLCktt6ruOu0jitz8q5X2uGs3Wh7ViE542kAy6487TAKTo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jsfw/vnp; arc=none smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="KdvJR7w1"
-Received: from pps.filterd (m0045849.ppops.net [127.0.0.1])
-	by mx0a-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67R3KWXZ2560829;
-	Wed, 26 Aug 2026 22:53:55 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pfpt0220; bh=ewQFocWI4Gi3kw7+QTl0ecalB
-	8+/SU+XZVkXMXgdWPk=; b=KdvJR7w15slc4LW0v0GghdwuwNQ9j7yNA2V8wNL8y
-	tc+++R9YM3F6q8/q27TNk1tMSm9CEripXYVq0AaSJ5omeL0ix0ypOCXsOXD6tUHC
-	KZBsdlHdWiow5j2XdMTnQrzw9JTj2o6qlXlBd4UgLbtZggNiLAZaoAaq8QPa2FQg
-	sFmL/EaakYvfHTBjh3HqFY8p3T5C7JJ2oYm79VWci/UMpvwGKeob1phcFjav1NBv
-	VQHKMmDHcP66A61hfc3Hv4rlILj1pdmvzIFZOf0YBobUofiNBdkALBu0AwBb77tm
-	l2EuyYjJ3nbUIoZOrZgqA6qeMVSNORPXp5q29dgq8E57w==
-Received: from dc5-exch05.marvell.com ([199.233.59.128])
-	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 4g9xjqktjs-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 26 Aug 2026 22:53:55 -0700 (PDT)
-Received: from DC5-EXCH05.marvell.com (10.69.176.209) by
- DC5-EXCH05.marvell.com (10.69.176.209) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.25; Wed, 26 Aug 2026 22:53:54 -0700
-Received: from maili.marvell.com (10.69.176.80) by DC5-EXCH05.marvell.com
- (10.69.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
- Transport; Wed, 26 Aug 2026 22:53:54 -0700
-Received: from rkannoth-OptiPlex-7090 (unknown [10.28.36.165])
-	by maili.marvell.com (Postfix) with SMTP id 73BD43F709E;
-	Wed, 26 Aug 2026 22:53:51 -0700 (PDT)
-Date: Thu, 27 Aug 2026 11:23:50 +0530
-From: Ratheesh Kannoth <rkannoth@marvell.com>
-To: <davem@davemloft.net>, <gakula@marvell.com>,
-        <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
-        <sgoutham@marvell.com>
-CC: <andrew+netdev@lunn.ch>, <edumazet@google.com>, <kuba@kernel.org>,
-        <pabeni@redhat.com>
-Subject: Re: [PATCH v2 net] octeontx2-af: allocate qmem from page allocator
- to avoid CMA
-Message-ID: <ao_Q7lClzT-yeK-0@rkannoth-OptiPlex-7090>
-References: <20260825045616.3723078-1-rkannoth@marvell.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jsfw/vnp"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38dc4553f62so494615a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 22:54:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787810058; x=1788414858; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=plMv1alWLSmRUs996GTzyKVxl/InS+Hvvr87SnLX3mc=;
+        b=jsfw/vnpcLnai21A9zKVW8mZxnMzkhJzFXKzhpUh1wI8l8xts+Iy2rPFjqnOREBq7H
+         PrPhbZyYmFRTTX/LQGKItxh8NaSdRvH/vTXKb+9SW100lSejf7u6JBQ7hL8lFpjDAilX
+         +hWr/WkDPP5P5D35wFOkbu7SC+ctudvGAArJHrd3Alf6WTjbmAM3zm6Zd63FOLYfNU/u
+         XvEYYnyXePZMIDrej9V3LGJeRllRSHc1fL7aOOBbcU5M/9QHehZ8nthTq/HYvrUBfNiD
+         M0VpK7UxVaHir61VmJmrbWaQ7cz0qljlBBfVc+8QSPtEBxROp7EFqEE9ubgLXVoFWjo8
+         b/mA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787810058; x=1788414858;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=plMv1alWLSmRUs996GTzyKVxl/InS+Hvvr87SnLX3mc=;
+        b=bI11lm9pV05l8upKsv5Cs4XYrAZ6B74YtksWKp27AmxqGoJvqqch9VjtYqRgN4AC1N
+         kok0XvjPNvzg9UCw7I9dePu9sO1FoSJGG6ptd1+qb39lDXG42jkC/MHidrs3S2U/WpMM
+         5K1+PPC6oHTuqXnwcJSOIzWtlxokY3UbXHqv1Wsev5G1RB6uTCQkPgbIlmYHcLaQD1pK
+         Ki0LHLsDKkcuq4Zf9cPGC2JEefJjXka7kT9Vo9HSIAf4YQM3kevo0zaI0kNc5cLtrrl2
+         /QkDmMcFnhfo/C280Sb3vELmuGwTStEc6qWDgdo3Q39VDAddB7CteEXTqULFIPcPfWKG
+         gKVg==
+X-Forwarded-Encrypted: i=1; AHgh+RphWOSPK+56zRNj3cQtqjvXzBygEI4T7P9KSlbu3raRfgaVbCW0c2ibVLM0kSysprpHNT+D3fpGUZj2uWY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mpEqMjznuya0PCbucy4LyTpi6qULGRgDdY6KtW1famx1OW2xsH
+	7RJUjyWz7T460x2HOm+rWaEuzYo6qsEmRxgx1tO1ltbQpuoc2A6Y5ja+
+X-Gm-Gg: AR+sD109riV1srsBI6oMawcX6VvgLB+HGASJEf+6232gcLxJdP/Aczbs+cUXwDiWJH0
+	8cTLAaVB+cZdEUosnK5u+GFT56uK8hP5OS7RSpjt6EUxm7JZLR7tdXQWe3T0YlIK9UHU4wBkpy1
+	FTVCC61Md79EQcf7mHvWxFKHWg98Ku6yjkzRw/gt+JfTiTj9/n1BpaOi+n/6ICvLtSx0xONUA5Z
+	IpfkTYkuKFLHejmMIs7vFERrfN4JRWswGn8l2EksRbOuhi7X8YpHtB3qoak6ZF1TC8BPlIW8JqB
+	6Nh3TyZf9BLBXRauYV843WCxeidQAr5eVzAiHlVs/l+WjQlfSwyMARWaDsDaNqEact9SZP1K1dV
+	sstaOHJTMt2E5tL3cdF6I+K1QOClY7nbekn268hFl0RqvSQpD5BD7YznVlOtavp+AdY7IweFc/o
+	9cqwUBT1DR/yQyMQPHfHF9IECiraMrzngPiBOc0qPzrPIxKDL7qeXsNjrEQrkfLnzqnSeddnzHA
+	alW
+X-Received: by 2002:a17:90b:17d1:b0:38e:8300:af51 with SMTP id 98e67ed59e1d1-3966d20b09fmr23255966a91.8.1787810057653;
+        Wed, 26 Aug 2026 22:54:17 -0700 (PDT)
+Received: from celestia ([2402:1980:88cd:27c4:5897:46d2:587d:19e7])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b112b57bsm1361107a91.17.2026.08.26.22.54.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 22:54:17 -0700 (PDT)
+From: Liew Rui Yan <aethernet65535@gmail.com>
+To: SJ Park <sj@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH] mm/damon: fix damos quota walk-position tracking
+Date: Thu, 27 Aug 2026 13:54:26 +0800
+Message-ID: <20260827055426.16874-1-aethernet65535@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260825045616.3723078-1-rkannoth@marvell.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDA0NiBTYWx0ZWRfX2dxSBv+S2NfX
- sHTJtIX+5QKZYJC3JrKQv4znFock6wm4Q4i6AMsjFPbd+TOwzEy1HumUmA3+AhH6alE+m38k16Q
- lkv5MrZQ1XvHQFkLHIBCY2ouztp1oVg=
-X-Proofpoint-ORIG-GUID: AKENDr7iJ3urEj31f3ub611BSUOc6-A7
-X-Authority-Analysis: v=2.4 cv=C/jZDwP+ c=1 sm=1 tr=0 ts=6a8fd0f3 cx=c_pps
- a=rEv8fa4AjpPjGxpoe8rlIQ==:117 a=rEv8fa4AjpPjGxpoe8rlIQ==:17
- a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=l0iWHRpgs5sLHlkKQ1IR:22 a=EAYMVhzMl8SCOHhVQcBL:22 a=M5GUcnROAAAA:8
- a=F5F7DfbbKpmmxRlMgb4A:9 a=CjuIK1q_8ugA:10 a=OBjm3rFKGHvpk9ecZwUJ:22
- a=Oh551-UHZqmTy8JkqTUo:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDA0NiBTYWx0ZWRfXzbQ3fuy3U5/6
- kCHhaz7XoNSnhozG6H7Vwinp6Et51ffhyd7eVNq0tVAIhwUn2bn41jk/0p59T7OMDWvoWKCITcm
- RBDxDJEHtf44EwPfEGI3i7HM7ZtfnpVTRNYexNdZBYKF6oRg9e4lKDqWKrPyAeFxvaYIuRWCsSn
- 20DjPl1p0pGDfCU+JIX0pbl11AI73qKxqwnIbPFQE9mwLqIfyxjOkT0GjiBUTflAMDwR6f5XTJj
- +9q4GOJTTdzvIv6JcxSzwWy3jkyxwmoFgO4YpEpz1A0eb7lNHK3m7ZWIA84zFPEz8AYuV4C5MJq
- V8OPltbjLfW/AR7rp4verVZRK12NnDMNjb1SQ8VwYLKmKxcCS1a6thi8k+rytAxNW4MiQvjUdwW
- +Rt5oK7Kp5+wy4/jT2PZkoyO2EPOVFzZM069dvG5zc6UJ9HuHWCuuEW40XDbyJ24r2bQj3iFao6
- 3RVofys7gxbhgovu0hg==
-X-Proofpoint-GUID: AKENDr7iJ3urEj31f3ub611BSUOc6-A7
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-27_02,2026-08-26_02,2025-10-01_01
+Content-Transfer-Encoding: 8bit
 
-On 2026-08-25 at 10:26:16, Ratheesh Kannoth (rkannoth@marvell.com) wrote:
-> qmem_alloc() uses dma_alloc_attrs() with DMA_ATTR_FORCE_CONTIGUOUS so
-> CN10K LMTST regions get physically contiguous DMA memory across page
-> boundaries.  On platforms with CMA enabled, that attribute causes
-> allocations to be drawn from the CMA pool.  qmem is used for NIX and
-> NPA queue contexts, admin queues, and LMTST regions, so the footprint
-> grows with the number of enabled interfaces and is difficult to
-> provision in CMA.
->
-> Add otx2_dma_alloc_coherent() and otx2_dma_free_coherent() helpers
-> that allocate compound pages with __get_free_pages(__GFP_COMP),
-> DMA-map them with dma_map_page(), and retry with GFP_DMA32 when the
-> physical address exceeds the device DMA mask.  Switch qmem_alloc()
-> and qmem_free() to use them instead of
-> dma_alloc_attrs()/dma_free_attrs().
->
-> Fixes: 73d33dbc0723 ("octeontx2-af: Use DMA_ATTR_FORCE_CONTIGUOUS attribute in DMA alloc")
-> Signed-off-by: Ratheesh Kannoth <rkannoth@marvell.com>
+On Wed, 26 Aug 2026 17:44:38 -0700 SJ Park <sj@kernel.org> wrote:
 
-Will address sashiko comments in v3
+> On Wed, 26 Aug 2026 07:05:08 -0700 SJ Park <sj@kernel.org> wrote:
+> 
+> > On Wed, 26 Aug 2026 18:24:13 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
+> > 
+> > > On Tue, 25 Aug 2026 06:54:57 -0700 SJ Park <sj@kernel.org> wrote:
+> > > 
+> > > > On Tue, 25 Aug 2026 20:46:16 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
+> > > > 
+> > > > > DAMOS uses charge_target_from/charge_addr_from to remember how far a
+> > > > > quota-limited walk has progressed.  The current implementation has two
+> > > > > problems:
+> > > > > 
+> > > > > 1. Once set, the cursor unconditionally skips and resets at the last
+> > > > >    region of the tracked target, so the last region can be skipped even
+> > > > >    when it has not been processed.
+> > > > 
+> > > > I don't fully understand this.  Could you please clarify more?  Maybe adding a
+> > > > realistic example scenario would be helpful.
+> > > > 
+> > > 
+> > > Problem: Unconditional skip of the last region
+> > > 
+> > > In the current damos_skip_charged_region(), there is this logic:
+> > > 
+> > >     if (r == damon_last_region(t)) {
+> > >         quota->charge_target_from = NULL;
+> > >         quota->charge_addr_from = 0;
+> > >         return true; /* Skip */
+> > >     }
+> > > 
+> > > Scenario:
+> > > 1. Target has 2 regions: R1 (0-100 bytes) and R2 (100-200 bytes).
+> > > 
+> > > 2. Quota is configured to process only 50 bytes per window.
+> > > 
+> > > 3. Window 1: Processes R1 (0-50).  Quota is full.  Cursor is saved at
+> > >    (Target, 50).
+> > > 
+> > > 4. Window 2: Skips R1 (0-50).  Processes R1 (50-100).  Quota is full.
+> > >    Cursor is saved at (Target, 100), which is exactly the start of R2.
+> > > 
+> > > 5. Window 3: The loop reaches R2.  Because R2 is damon_last_region(t),
+> > >    the old code unconditionally returns true, skipping R2 entirely and
+> > >    resetting the cursor.
+> > > 
+> > > Result: R2 is permanently skipped even though it has never been
+> > > processed.
+> > 
+> > Ok, makes sense.  The user impact should be not that big, though.
+> > 
+> > > 
+> > > To fix this, the patch advances the cursor every time a region is
+> > > walked, regardless of whether it is applied or filtered out.  This
+> > > allows DAMON to accurately track whether the last region has already
+> > > been visited, eliminating the need for the unconditional reset.
+> > 
+> > Sounds like a big change compared to the problem.  Why we cannot modify the
+> > last region case?  Have you also considered other possible simpler approaches?
+> 
+> For example,
+> 
+> '''
+> --- a/mm/damon/core.c
+> +++ b/mm/damon/core.c
+> @@ -2686,14 +2686,15 @@ static bool damos_skip_charged_region(struct damon_target *t,
+>         if (quota->charge_target_from) {
+>                 if (t != quota->charge_target_from)
+>                         return true;
+> -               if (r == damon_last_region(t)) {
+> -                       quota->charge_target_from = NULL;
+> -                       quota->charge_addr_from = 0;
+> -                       return true;
+> -               }
+>                 if (quota->charge_addr_from &&
+> -                               r->ar.end <= quota->charge_addr_from)
+> +                               r->ar.end <= quota->charge_addr_from) {
+> +                       if (r->ar.end == quota->charge_addr_from ||
+> +                                       r == damon_last_region(t)) {
+> +                               quota->charge_target_from = NULL;
+> +                               quota->charge_addr_from = 0;
+> +                       }
+>                         return true;
+> +               }
+> 
+>                 if (quota->charge_addr_from && r->ar.start <
+>                                 quota->charge_addr_from) {
+> '''
+> 
 
-pw-bot: changes-requested
+Thank you for the example!
+
+While your approach works, I am curious, why should the cursor be reset
+every time the function returns false (does not skip)?
+
+In my opinion, a cleaner and more deterministic approach is to reset the
+cursor only after the target has been fully iterated through.  This
+separates "skip" logic from the "state reset" logic, making the flow
+easier to reason about.
+
+Here is my proposed minimal change:
+
+'''
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -2347,11 +2347,6 @@ static bool damos_skip_charged_region(struct damon_target *t,
+        if (quota->charge_target_from) {
+                if (t != quota->charge_target_from)
+                        return true;
+-               if (r == damon_last_region(t)) {
+-                       quota->charge_target_from = NULL;
+-                       quota->charge_addr_from = 0;
+-                       return true;
+-               }
+                if (quota->charge_addr_from &&
+                                r->ar.end <= quota->charge_addr_from)
+                        return true;
+@@ -2368,8 +2363,6 @@ static bool damos_skip_charged_region(struct damon_target *t,
+                        damon_split_region_at(t, r, sz_to_skip);
+                        return true;
+                }
+-               quota->charge_target_from = NULL;
+-               quota->charge_addr_from = 0;
+        }
+        return false;
+ }
+@@ -2658,18 +2651,26 @@ static void damon_do_apply_schemes(struct damon_ctx *c,
+                if (damos_quota_is_full(quota, c->min_region_sz))
+                        continue;
+ 
+-               if (damos_skip_charged_region(t, r, s, c->min_region_sz))
+-                       continue;
+-
+                if (s->max_nr_snapshots &&
+                                s->max_nr_snapshots <= s->stat.nr_snapshots)
+                        continue;
+ 
++               if (damos_skip_charged_region(t, r, s, c->min_region_sz)) {
++                       if (damon_is_last_region(r, t)) {
++                               quota->charge_target_from = NULL;
++                               quota->charge_addr_from = 0;
++                       }
++                       continue;
++               }
++
+                if (damos_valid_target(c, r, s))
+                        damos_apply_scheme(c, t, r, s);
+ 
+-               if (damon_is_last_region(r, t))
++               if (damon_is_last_region(r, t)) {
+                        s->stat.nr_snapshots++;
++                       quota->charge_target_from = NULL;
++                       quota->charge_addr_from = 0;
++               }
+        }
+ }
+'''
+
+> > > This patch ensures that every target is traversed sequentially and
+> > > deterministically, even when the quota is set very low.  I omitted this
+> > > benefit in the initial problem description.  If you think it is okay, I
+> > > will add it in the next revision.
+> > 
+> > What's the problem and benefit?  I still don't get it.  More clarification
+> > would be nice.
+
+My original idea was to ensure that every target would be checked
+sequentially, which seemed like a fairer approach.  However, upon
+further reflection, I realize this might not offer tangible benefits and
+could introduce unnecessary complexity.
+
+Since the DAMOS Quota min_score mechanism already ensures that regions
+truly needing action are prioritized, the current behavior (eventually
+resetting at the last region and moving on) is functionally sufficient
+for typical workloads.  Therefore, I do not see a strong justification
+for this change at this stage.
+
+Thank you for pointing this out and pushing me to clarify.  In the next
+revision, I will drop this changes and focus  on the minimal fix for
+Problem 1.
+
+Best regards,
+Rui Yan
