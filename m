@@ -1,136 +1,188 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1060540E8D7
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:55:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787828113; cv=none; b=DMq2zzDPK7L33wN8opi0dSZJWz66S+Lll5auefe6+969AwDqd3M61BlM8mqao064aDtq/MToVX7WCfqz0GUPxQLgvNygTmTmQjKQBSXzCRUSkXIHIzy2jTKez9I5mN524RjKo7oQCNdcp7oEuP0hCwRHCyIiPklDebiDNpVNGLI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787828113; c=relaxed/simple;
-	bh=2vEDbTV5u5xfkJVFpzOKcLm91VAFKFRWxlLRYf2tYEI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iuWGYIocmVRjb5grrWCkpqmnwDT4rrstYzSKDLFznE0S6or4aXDoIQ522+TjQ8POFkH55RtTh19Lb865O24j8WvcFP2/dT3leGsKTTi1lCcpro2ZZSVmF9w+MaKBqN/IA3qJaCXXoQZMtmIsb+PIK6TVmArEKJc1bUHofiMfZaA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=GKvVEHkC; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=SNyzplPB; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5FC343F8B1
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:55:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787828116; cv=pass; b=tchWqr/+C0NbtS0/9U5jvbNJWhAb4EhUkD89y2F0aGPJ7dplCToD3PfnWKi1CFk4svzt6GoRvEAl6PX3uTwgJtAyMBjBv0oleK5hmsK4Yqn+qC8dflTA2BehTwTScQOESv3OBISnnSUa4jb0/aWQfBAdxPZHktwjREMglPHUIoA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787828116; c=relaxed/simple;
+	bh=0fqy3af9PktavrL7zLUBrF1S/FaRBZ/LQmpCXI158wQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tponENQ0CALLim0G9u2hnvdMlIqMNBx6gV7BoW3jMMI9awbphXRYIgXTzRBmGD4kcfwL4vWQrHVc8c/UZZ/YIrGPH2kt8F1yZXazAnkdw66GtcNGQHsF3RIwJ2hdtQuhuuzq0KkAdFKQKyyp5uz5nrGT8ms+Ff1ApJxI+5Q+6WE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cOA3SN3c; arc=pass smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="GKvVEHkC";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="SNyzplPB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787828109;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yB9i88j5pk81rn9+4AiT0mA4kRNQA0X0aghVXDq5a7w=;
-	b=GKvVEHkC12g52CenK3oFMj5HYQsMGBbxpiMx5oCVxbQ8g4N/05E7zq/zC/xcRJYQWO1wF3
-	8/GhMXpLKycPVvIBdSPGhi9nUDs7UzfOL9x/tSfIoyBU0P/zKB6WQU22f4J5GonoaAk9xB
-	zpwP0xi74EgYKSsSlk7EAAlh1c2w5tI=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-552-VD6DSkigPPGrtWA8T68vSQ-1; Thu, 27 Aug 2026 06:55:07 -0400
-X-MC-Unique: VD6DSkigPPGrtWA8T68vSQ-1
-X-Mimecast-MFC-AGG-ID: VD6DSkigPPGrtWA8T68vSQ_1787828107
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-482e12bb58aso1159842f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 03:55:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cOA3SN3c"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-38511175ad3so646156a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 03:55:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787828114; cv=none;
+        d=google.com; s=arc-20260327;
+        b=iFekJMITcm9JHjpXWS/AYjOKF4sfyyxuublIWT9CFMfXvyLsL3+EZlF+auqbMk4zNr
+         uPnI4068ViK5FCgzO52hc9xKow6BVcJfxYgiDxDzNJUunNqwlcqkZjAeKp6jXdZmuRWM
+         gXHbvR9R43zORXbFnJ9/niQT2z4ZdiXoMkrLMno8y1GHn8+OVjqKFNCQDOpX5PlPkpPd
+         9tA+cw23UOsTiDBzdhZKr3vsmUbVZtzBSvYPDT4FivNzBXlBGsjMGB9u1JyzTiZ71CKZ
+         MoTPXxJYP/bwBzNBA5QtazOqZwI8J7D9EhXXGYAGxh+x4jRqfyNl6+Tqipt1V9/iusYf
+         c2Tg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=qI/lN7pL0l4yy2+hZsgq6Y+He1+tVhEiomdMwADOmaY=;
+        fh=tzMw13h/RvXl9+wvpq7yVGWw3t0ePfL5ykvKZAdL02E=;
+        b=Rnwpj2lqpqUGCFTo91t47jLk8K2TlojWhGLflAfEyuZfOMYK7uIiCyhy3Tb6NMGo3e
+         be06n/RuSM2L2eUyXIXdS1rKYaQ5vkoekJG0eX80zpl9ZzzoN8scp/I3zNhafisE7ns6
+         im0+aDFWxo1VfA+RqD7e4fQBLNhfi4zID/AvUs5SAx8vV/LOaJPqk8wTzoTxJBbJOKhc
+         1YcOK40tgiqUcbDg/0kKR53rmwy7d4TsSy6BIzZRsNPEGzQb6vCNsaoMLGsZURn0zPei
+         LTfdwDWa+MeWTAKWcQhM+plxeMTbsLQISV7sYZNIS28B9P6nZrcpFpM/ZY8TgIhPJ7xx
+         IxgQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1787828106; x=1788432906; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yB9i88j5pk81rn9+4AiT0mA4kRNQA0X0aghVXDq5a7w=;
-        b=SNyzplPBODx3sCWeq+Id02ApDxookm8JZ+k2+M+q1VgFhBoH4gdzde5gpkdzxOIyVj
-         0pUdXnXuGwCTwVMuOVJ9EjpzrZYg0B9f5SSkVPBOMW35MqASy6/zebH1fslXHPaWgKCH
-         VU2e0aFPozgMMUVYbYbCHtrai5EafoNumxdHP+4xlQgr9pjvJ0cLq/KrZ5DmUNMtUdoP
-         cyGCHveUE+rN7A7FUK3uoL6LuxeFkKrPmWgVVCK0PAHOrjdDoRlR+reQnr0ifHZTn2nS
-         j2A22MrwCJxPH4nwYSr+UeIucRO/afPeydjZSnD/hdqjLDdTHkVr2AFyv3+Nd5pp+30e
-         7bcA==
+        d=gmail.com; s=20251104; t=1787828114; x=1788432914; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qI/lN7pL0l4yy2+hZsgq6Y+He1+tVhEiomdMwADOmaY=;
+        b=cOA3SN3cj2UkcbMx83ukuTqB5nSkRZvzNvA/TqgMMgy3xJjrNu36stet3eXUFVznN+
+         16y9KoisE8u74D7o/Npw377gDqbixQSqDr1/VRrL21ZOCRC2duaVyfuqXnkzI9dTKXM4
+         gufnIpUGGn/WWWhY3mIUuaiBju2LM+G1HE0P2FSs5IpI63u22RyP3qyR6Ugnu1LhYopB
+         guVW5/XZnzIPTUQj5YQA3PcoQP4sP7PVC91hRzaYvt8rUksYPFZHCy2zLfStWKpYobx1
+         H70zxTlWHFZ33xoS4uFJceXuGgT6rMX+WonRHmNhi9hTb06+mW9bLPclnK0oNY9RJ0Hu
+         SPbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787828106; x=1788432906;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yB9i88j5pk81rn9+4AiT0mA4kRNQA0X0aghVXDq5a7w=;
-        b=Iq/OEPBgOBYtSVpZl4d8xzK39cyDLMWZQdoZUrKjLyUuunM903ZBZOecCVs19AKVc8
-         XlfEMQfRy2qTwPHxedsJXmZGCUGiMtanY8r6r3PAWHqkao+lkD04WphpLTma5Ez2WXAL
-         XxqFI5ZsUDNTkfupuzxHctCEofd6WckJEq1w2f7lsVESPYOfXsEw7ZpI3iAjFCgP6/Mt
-         DI0SYXR2HdsYvGO9vjvuMfBQpCb6NFYCIQt3bQ+ur0A095z5IDd59TtSIJwlgEEmSHg0
-         Ou2Euo9HcVzssw+xuCMOksQLEGuPqE+AfepKSZR9BO/IEyPB8AIu9V6prrWIIQ99qpAM
-         aokg==
-X-Forwarded-Encrypted: i=1; AHgh+RoVOPM1ChyTh0I4xedQJyeG3f1Pyu//G17EUFwRNMYjlxNYJwxhaP2hw3ARw7B0+FllAw5pmbUg9+UT/yU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lBcLFFKYP+tYhEJEdi+5JjHjKX5MuW9yB6WggTZVK0ikXOWfPJ
-	FU5HFfv+fNomvUrM9+aFsELolCoacHY6ADMO0EZN/VMlnpP2ATu3J1orH37BzI2iNZtdwjNbRVI
-	v0fJTV/hH6WMmHjlaSmX/TmSiLvYbaH9WpZTBOjWdj52DIz5R5f2FwnZ6fZxWd+hWNA==
-X-Gm-Gg: AR+sD118odWIUyKTM0ioqOg6kdXDv7yrho/euTjrBm3qanaSVeS9eOuuoNKc0KqhGaI
-	r4Hs1wettCb8QCP59t+qjuZqO3aSC82rA43Bt745jo9Kb45IeXT1fys0VwakmBcfoQwxxFDzDX5
-	YiIdv0buRHoRRX1K/t1ilcwYXwQhgsAXtKCFNI2oeVVNamc8kRLfy34yVPAqxU2a99oT0FfNpQy
-	qcE0aSn/pdcuHIyGq9a2gvhCQ5hjuWZXGm8L2FNhyjOb9T75Vonetw7UIIPT1Wxzue21wBywkaj
-	/Re07lXBf0DGSwb4bsPdQw5DT1A8ePW0rCxU0q4zgvd8hY+vPhAG1pcAcMraNkH8YN4/jRLIH1H
-	uPE3YiWVN9ckyBnIptpf/1cYh+Cxn/M48JQqbT814qiZIYXLY5fxou2d+/y2vnSHJtrNMVcA=
-X-Received: by 2002:a05:6000:25e8:b0:482:f4f8:7a00 with SMTP id ffacd0b85a97d-482f4f87a1cmr2544441f8f.16.1787828106563;
-        Thu, 27 Aug 2026 03:55:06 -0700 (PDT)
-X-Received: by 2002:a05:6000:25e8:b0:482:f4f8:7a00 with SMTP id ffacd0b85a97d-482f4f87a1cmr2544302f8f.16.1787828105890;
-        Thu, 27 Aug 2026 03:55:05 -0700 (PDT)
-Received: from [192.168.188.103] (ip46-47-231-195.pool-bba.aruba.it. [195.231.47.46])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e279eb1csm8227772f8f.4.2026.08.27.03.55.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 27 Aug 2026 03:55:05 -0700 (PDT)
-Message-ID: <08c53736-eaaa-47b9-a65c-b920d21b2993@redhat.com>
-Date: Thu, 27 Aug 2026 12:55:04 +0200
+        d=1e100.net; s=20251104; t=1787828114; x=1788432914;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qI/lN7pL0l4yy2+hZsgq6Y+He1+tVhEiomdMwADOmaY=;
+        b=ZJ/LUrUCyrrNXSeQzWtiND4HHxKMPETtx3nSSCVDR7sE7bkpN624sKBtPsu65j8ew9
+         ijNpgIdzioJRvV8tXSqpcVorGTQcJ4TNi4SmwTEzm8EFKqzJ+yW+Aw0CIcicc7SeLNmF
+         8/03ZgIWcuupu0RqC+Ixanko4xI2IJ/YsT1dkAYYnrgS6+O2yiai+yyS8iSsWub1Txmu
+         f3B0lC0Uy0Jv7N88ukAmAQjKoG1Ok7iEXBAPq59JjlGDYbqxIgSvQ3AVMgi1meIt6Veg
+         Vd+xmpW9jscM2OTBcWSrgYj9Cs4pL/lIFYMSMNXXPWnnpXspPzt8pSp2BqyTMimwIrZL
+         ZfrQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrTHwby8ukXeWbIukecoQF+6YpMF0I5g893VnbZ5+3ES70V7/c43doqJAuETFack9J0zOIUBhOF6Pwt4Dw=@vger.kernel.org
+X-Gm-Message-State: AFuF++ntqSDptLTnjaVoAFl1A/hupkkqrDdiONO8t61wFDXPr+/46MQ9
+	2ug4hqlaN5526E1SkVNGlzXND4pytTmbi7eNN34eUinYHs5yyN8swd9Oko1qA9AbO+1Z8esnIud
+	donm8f/i8CTfAbQJyh31dTN678MPAzUOSK2Fh
+X-Gm-Gg: AR+sD13lVEca3tXGjFjLDk0iAJ5C4cZ+DPhfjYCbRwI0siSQNqpW4IQKvrG+ldT7P+X
+	c+nvXKig/z55N1GD3L7eyqtYkpUdCBEmcRl2FoOZXMlHW4+AFUoA7ixf3W5VOlTuvbwLZlApCp6
+	tofqMKY2niwi2WYlj1l5NenNWyUnnvys7jvQhThzHPIkb70T2SNVbsLyrynPayNyS2dAxJ4bYCT
+	jg/ZdO2ZwCa6Oba6Cx0Noore0MjaoyZ47AWCBtWYRTzhRqjmsc44hRDUt8aOJHHvpS2ADcumV2L
+	sHCFgIj4P+e+fB0hBAdStKCei+50sQqEdIhuwd+965tTAw==
+X-Received: by 2002:a17:90b:530c:b0:396:635a:9b10 with SMTP id
+ 98e67ed59e1d1-3966d3dc393mr26464099a91.11.1787828114126; Thu, 27 Aug 2026
+ 03:55:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] netlink: specs: rt-link: fix ipv6 devconf doc
-To: =?UTF-8?Q?Asbj=C3=B8rn_Sloth_T=C3=B8nnesen?= <ast@fiberby.net>,
- Donald Hunter <donald.hunter@gmail.com>, Jakub Kicinski <kuba@kernel.org>
-Cc: "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Simon Horman <horms@kernel.org>,
- Felix Maurer <fmaurer@redhat.com>, Danielle Ratson <danieller@nvidia.com>,
- Fernando Fernandez Mancera <fmancera@suse.de>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260824103816.40040-1-ast@fiberby.net>
-From: Paolo Abeni <pabeni@redhat.com>
-Content-Language: en-US
-In-Reply-To: <20260824103816.40040-1-ast@fiberby.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260827072517.1401173-1-mauriziocasciano7@gmail.com>
+In-Reply-To: <20260827072517.1401173-1-mauriziocasciano7@gmail.com>
+From: Yauhen Kharuzhy <jekhor@gmail.com>
+Date: Thu, 27 Aug 2026 13:55:02 +0300
+X-Gm-Features: AcwNN1VdHEYwWlgzfD875mKEoO2bj-Q3vThq76c264VRfXQwV0io4s2nJvz1k1I
+Message-ID: <CAKWEGV667AyGDpz-mJn3phTOjKZeVTC+of0Zx_OUZr4H3+_jxA@mail.gmail.com>
+Subject: Re: [PATCH v4 0/2] ASoC: Intel: Add Lenovo Yoga Book RT5677 support
+To: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, Mark Brown <broonie@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, 
+	Bard Liao <yung-chuan.liao@linux.intel.com>, 
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, Jaroslav Kysela <perex@perex.cz>, 
+	Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 8/24/26 12:38 PM, Asbjørn Sloth Tønnesen wrote:
-> devconf is even odder than described in the blamed commit, where bpth
-> IPv4 and IPv6 are described in an identical way:
-> "u32 indexed by ipv?-devconf - 1 on output, on input it's a nest".
-> 
-> There are two issues with that line for IPv6:
-> 
-> 1) The subtraction is an IPv4 specific quirk, to avoid having an unused
->    u32 at index 0, thus saving 4 bytes per net device being dumped:
-> 
->    - In include/uapi/linux/ip.h the IPV4_DEVCONF_* enum begins with
->      IPV4_DEVCONF_FORWARDING = 1, so the enum starts at 1, which is
->      the reason for the subtraction in the IPv4 variant.
-> 
->    - In include/uapi/linux/ipv6.h the DEVCONF_* enum begins with
->      DEVCONF_FORWARDING = 0, so subtraction would underflow.
-> 
->    - ipv6_store_devconf() in net/ipv6/addrconf.c also doesn't do the
->      subtraction in the output path.
-> 
-> 2) Setting IPv6 devconf through Netlink is not yet supported, as
->    IFLA_INET6_CONF is not handled in inet6_set_link_af().
-> 
-> Fixes: 720447bd0b24 ("netlink: specs: rt-link: remove implicit structs from devconf")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Asbjørn Sloth Tønnesen <ast@fiberby.net>
-Nowadays net PRs are already too big due more-or-less security-relevant
-changes. I think this is better suited for net-next, with no 'fixes' tag
-nor stable cc, WDYT?
+Hi Maurizio,
 
-/P
+I am glad to see my (a bit abandoned) work to have YB1-X9* support in
+mainline be continued but please don't drop
+my ownership for patches when using them. Use Co-developed-by: to
+mention me as co-developer
+and keep my Signed-off-by: tags.
 
+For reference, my WiP v4 tree is here:
+https://github.com/jekhor/yogabook-linux-kernel/commits/b4/asoc-yogabook-v4=
+/
+
+=D1=87=D1=82, 27 =D0=B0=D0=B2=D0=B3. 2026=E2=80=AF=D0=B3. =D0=B2 10:25, Mau=
+rizio Casciano <mauriziocasciano7@gmail.com>:
+>
+> The Lenovo Yoga Book YB1-X91F/L uses a Cherry Trail SSP2 link with an
+> RT5677 codec and a TS3A227E headset detector. Its amplifiers and
+> headphone path also require board-specific GPIO sequencing.
+>
+> Add a generic Cherry Trail RT5677 machine driver and match the Yoga Book
+> ACPI codec ID. The machine entry supports both the legacy SST firmware
+> and the separately maintained SOF IPC3 topology.
+>
+> This continues Yauhen Kharuzhy's v3 work and supersedes my RFC series.
+> The driver retains Yauhen's copyright and links to both his original
+> implementation and the v3 posting.
+>
+> Changes since v3 and the RFC:
+>
+> - rename the driver, file and Kconfig symbol from Yoga Book-specific
+>   names to generic Cherry Trail RT5677 names;
+> - clone the card, DAI links and link components per device instead of
+>   mutating global templates;
+> - allocate the headset jack separately with the device lifetime;
+> - unwind MCLK enablement on PLL or sysclk setup failures;
+> - document the codec ASRC clock selections;
+> - add the complete SST and SOF machine entry once, reducing the series
+>   from three ASoC patches to two; and
+> - carry forward Yauhen's copyright and provenance links.
+>
+> The series is based on ASoC for-next at 8a070652d919. Both touched C
+> files passed sparse 0.6.5-rc1. Strict checkpatch reports no errors; its
+> only warning is the generic new-file MAINTAINERS prompt, while the
+> existing sound/soc/intel/ entry already covers the new driver. A clean
+> 20-job bindeb-pkg build completed successfully.
+>
+> Runtime testing used an integration kernel containing these exact v4
+> sources on a Lenovo Yoga Book YB1-X91L. It used the stock signed
+> intel/sof/sof-cht.ri firmware, version 2.2.0-57864, and the separately
+> maintained sof-cht-rt5677.tplg topology. The following passed:
+>
+> - UCM Speaker1 and Mic1 route enablement;
+> - PCM0 playback and capture at 48 kHz stereo in S16_LE, S24_LE and
+>   S32_LE formats;
+> - PCM1 deep-buffer playback at 48 kHz stereo in S32_LE format;
+> - a bounded routed speaker tone and a non-empty three-second Mic1
+>   capture; and
+> - PipeWire playback and capture with advancing PCM pointers and clean
+>   PCM closure after each stream.
+>
+> The GNOME Settings speaker and microphone tests also passed physical
+> verification. No SOF, IPC, XRUN or ASoC errors were logged during those
+> tests. The SOF topology source is maintained separately at:
+>
+> https://github.com/Yoga-Book/Yoga-Book-Sound-Open-Firmware/commits/featur=
+e/cht-rt5677-topology2-ipc3/
+>
+> Maurizio Casciano (2):
+>   ASoC: Intel: Add Cherry Trail RT5677 machine driver
+>   ASoC: Intel: cht: Add Yoga Book RT5677 machine entry
+>
+>  sound/soc/intel/boards/Kconfig                |  14 +
+>  sound/soc/intel/boards/Makefile               |   2 +
+>  sound/soc/intel/boards/cht_rt5677.c           | 611 ++++++++++++++++++
+>  .../intel/common/soc-acpi-intel-cht-match.c   |   8 +
+>  4 files changed, 635 insertions(+)
+>  create mode 100644 sound/soc/intel/boards/cht_rt5677.c
+>
+>
+> base-commit: 8a070652d9194babdd35bf7cbd2c6722b441e8f4
+> --
+> 2.53.0
+
+
+
+--=20
+Yauhen Kharuzhy
