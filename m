@@ -1,184 +1,63 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010030.outbound.protection.outlook.com [52.101.84.30])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B9F0241686
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 21:15:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.30
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787865302; cv=fail; b=VLziubRg7kvQx+CouvVXzXcXZT0LfcgbLCzuWtzB9ep5fdRHIJAwEGLw+AZGwx7jsFigK2a60zlmnFYojjQi48maCRXh4+TZS7YnYmi3A12ZDVDl+GcoiwnIlVhK1nG7iVDM+4D1rgA5LIhommJSuFHQqryvNwIpOytD+0qv51k=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787865302; c=relaxed/simple;
-	bh=sGJCnJf7wIIbOj2hdnNfJ5UwfJSAmTCNC9vdsJqANW8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=NWoF5SGyNumNdDFcjJRqAwVyws680f+kaWYCGiA9rEbVkVjNYhwk3xRbHDKYvhPDOXFB3WmPGQQf9isBa+YNw934bbVBgys/wnN8KgwYngWpsxXCrjcej/U+14BqfK/8QwE9X6wnYxHYDZZ39mmuGP3+OMUI4iBHiqaeTuhng+0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=exkjq94F; arc=fail smtp.client-ip=52.101.84.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 362B6370ACE;
+	Thu, 27 Aug 2026 21:15:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787865311; cv=none; b=eVy5YGS49hmnwEuy3AE9PfKB8Wh1a1x6XrlC0v4Xw58nXogta92OJzX5i2jzZlovN5V01UJL7w4oUz7PShaFchWA1WDL8fJJPnQFk1QDnkRcXahYL95dJ0ZpnxfotzsWFBHMi4s3J8hfbbSwfiVocFSM7F1DgQK3dcSbWUczXSQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787865311; c=relaxed/simple;
+	bh=bnuYzXISx5hbhXzBdSbmBKYin0x8SLA1elIXkcONKQk=;
+	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=H+2WYJC2J3rziAL7GvcQevR/p9GyGCFyr3hIaCx0woepgGDApkKVwzYFYfyRsZv8kgTjsSi5ajQrw6Oo5vOb1tfCzHJxosembPCD9EKkPxZv9NQwBQXGuHCxsOOhUFXcEt+Y4lf8AkxNf/VNOcSZ3gbAi79uhQSPwqrYJFErEOQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KJvi5yrG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="exkjq94F"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SadrDK4M1ddC6Sqfv/JYeMEtyCGtV3eSOcrMY8NINe7+NgeHt1f99kZdldrnfMv2QviX8PgeXExQGlPd000wJbPCYRVfRwPjunSYVXO+vWtjf1312JUw6sztbtdXuZysB+CUsGvhdAl+mNgMl1J/u9N6L24e6J8xdvnjd7ZuyAaCmnkj1WULsVbxM/PSHNH41etV90dhwfPwjr9momDbB53D20vrEH/SAPa4ULLgIzmJHxhll3pWwOitKgut6QK0HPc734QdOLywKu0plTeikZX+/4nOL0gJqX0sjV/17CV1Uhhs8wwsXiPIioFr2B6t/ZAn1GnFVVzsOrO4xMX2zQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=v2TJQ6viCcQgZw3Vk280IrPi7pLWbRv309RylcsvQXs=;
- b=TGGgBdMfB2BHruWitbyfM2oFl/KK5yq9mNvu9YCsyAqrVwDYgh6nwd3HYjEkCjYechbJTZXehKzf/nUIYuLMZixrebrFp0cT8YBILWVHlJx8nM6qRwK1UG9L/G0/rHDhCruX0Un66HKMoa5SB2KPKJSTFFTmOxFoAYILKIUUtoQEyrnQeUX6DCG9wwdwhuwo/ID/Mmn1clHRZ6gskHTF/4ZQkjzQ+oOP8UdlEqSlxNKvmlE4MO5QsknuvcA9Dx/cwJKQJ6DPxkEeFzG8JoC5cbYgij0t70XAS1WZCdZgbCLpg9DqwoPqE+6WotjO4xtSGn8VS09l+XxsqHtwzWJobg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=v2TJQ6viCcQgZw3Vk280IrPi7pLWbRv309RylcsvQXs=;
- b=exkjq94F4MbH5ngAsGXST6S1OPWfPr4yet6anNpQa+wdyiCpx++CNcpctbSXnr60GaPWhhS6tReljHy6tlRXzwNUQ8V8guBWg6Gkt/aXVvN49rrb6ZTmihd/RtQRqlQooAr75vyUuI4c11DYyMw2YuPpc0B5scWoWFn68Ec2MWuZV/0wltuwkTCVynjOPneK2S8RDvqAVb/j7zf6O/cVZwYLsVp2N8c6sqs1ws1llbMsnAKzCj4+mo0SSsMkWX14AtcENZJWlMzUa4+buB9y0iIvWNgFq/gqVsTRzly7uVYoQAPp7tr3ldFhJNnTDNM7tdvmwG6OTAQQkKFMuNSSNQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by VI0PR04MB398878.eurprd04.prod.outlook.com (2603:10a6:800:35f::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Thu, 27 Aug
- 2026 21:14:58 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
- 21:14:58 +0000
-Date: Thu, 27 Aug 2026 17:14:51 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 08/11] accel: ethosu: Validate secondary streams
-Message-ID: <apCoy6nN_0OvXYJF@lizhi-Precision-Tower-5810>
-References: <20260827-ethosu-fixes-v1-0-346f9ea8791c@kernel.org>
- <20260827-ethosu-fixes-v1-8-346f9ea8791c@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827-ethosu-fixes-v1-8-346f9ea8791c@kernel.org>
-X-ClientProxiedBy: PH7PR10CA0008.namprd10.prod.outlook.com
- (2603:10b6:510:23d::14) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KJvi5yrG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F03A71F000E9;
+	Thu, 27 Aug 2026 21:15:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787865310;
+	bh=1rSZaJWPhzFQBD1gNuXTbgMgUKNEMNt13YZEq5B1UGQ=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc;
+	b=KJvi5yrGG/eeGPgNO62MajU5Ibezt0sMnylruE1P1bO+Kzgr8omquI03dXz0BfM2V
+	 uXDq5o/VYzW8tAVHgvLMF4cTeTCDupzNo7XecY3DgeHJx0JHyjL3BqDTDB0jzUA3Vr
+	 su8Ju3Vmjaceki8F3epQR9+mLaWbXPTeM3nyTt1cQyZ3AcuD3W+nmEv00olNd4U89V
+	 uDIJMhoRbs3Vl4ADMaUjPw/WSgvt7AWTRmqSc3ArSKGOFPeXjSSS7JATgPxtzPardl
+	 El9UxL0xTc7N8mYbrXwtCGnEXJuyRo4JSgi8k0+ETtgwwvxrmQOAgZBdrauQXuN9iw
+	 4QmlGBJRPBUow==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 93B453809A8D;
+	Thu, 27 Aug 2026 21:14:16 +0000 (UTC)
+Subject: Re: [GIT PULL] Networking for v7.3-rc1
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <20260827205133.1242124-1-kuba@kernel.org>
+References: <20260827205133.1242124-1-kuba@kernel.org>
+X-PR-Tracked-List-Id: <netdev.vger.kernel.org>
+X-PR-Tracked-Message-Id: <20260827205133.1242124-1-kuba@kernel.org>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git tags/net-7.3-rc1
+X-PR-Tracked-Commit-Id: 4a9d62a8774f130a5b8de26ca9f415e6050a9d51
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 1b78070aaef63512688aebfbc82365ef9d6660f1
+Message-Id: <178786525515.1850666.17347770825528315703.pr-tracker-bot@kernel.org>
+Date: Thu, 27 Aug 2026 21:14:15 +0000
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: torvalds@linux-foundation.org, kuba@kernel.org, davem@davemloft.net, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, pabeni@redhat.com
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI0PR04MB398878:EE_
-X-MS-Office365-Filtering-Correlation-Id: 589e4d74-6287-4ba4-450f-08df04803f9f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|19092799006|1800799024|366016|23010399003|4143699003|10067099003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	DvPTpTMuvgQMf+TZ6MRJ1eQ3G2ZmmtAZLZdzE43KwWoftuuf4I6QGZsEfl7JlTz7JLFhJKLShxeA6MHVJ8HdrBgZt2hZyPr8sjXgjzuHG2zhudv6+d438+lyn08PQSNAu2X3zvhYYI6hLqFnBIvEv5uIIjB5DaVjarh15k4Fd+r7KTN7rx98WzUTeB0lnA9oAklPeOvldi+rAQSAfOmhCj87UugUvxMJl3WMSXmsRMDmvNqJgLoHbXD/5yD9KianR/ErbGoIbcSG2fAJQFvvEWc92cmwq5LVU8GtrlFgUkkq+DfmhG10qFc5sCa+zZo2teo2ScNgImXCsZGiUDof3+dm4sOPdpFs4FULbMSxs6TtfkypCR/zk+tvL39wEd6mzcqcccZQpBregYgB2ZqJ6Snqew+MXgWX/1g7WcUTsFKaDRpYP/5plqvsIPEZ4Wpqk83c3t7LFohXNhXGye1BzP2qteh3mHdRTREnzWNj/bFzbOpg5EKy5t80cXQ0IBbUN6cB2v/i00VLsE2E5OZyxMUGi1IEjThg5Sdm+LVOyw/CYI1AyN7V9ORMJe0kmcKiEFD1t4l0oEIk+h5sSurOKoisQFiO711FpPZ6M/HVriPvWA5gVOwNbT2G0SwZiBh6JSA6mI62uD35Wz/UGC8eft63jKBpXSTe8ayMCVzb/N4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(19092799006)(1800799024)(366016)(23010399003)(4143699003)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Ysp6V7/q2Xwn1zrCir3Bf57548LKp7eee3VC7x0Ozm9heAcnXZAzAklD8bVh?=
- =?us-ascii?Q?ILF5fvFrEaVxdHBdZRJnLJOQweWtSB7MoRAeWJM8Vy7QUV3deb6c2tcZxRPk?=
- =?us-ascii?Q?4yte8aSQbpRZN48QQXrnacGl0c+EdjOCptENRrLZIy2UKPDSZk7iFGt587Wn?=
- =?us-ascii?Q?7smBKwxikUOLVTgCG7bDwc7FIFntiQTFcZKnroTbAtLSPpPcSS5ySDC5B5rB?=
- =?us-ascii?Q?u1khtf/BCM1ObTVUskzgC8YQY+9HldIlZTiQxtV/Z7oWlWOCeK+8NGfR6jBw?=
- =?us-ascii?Q?3nXdZVniwCJQapWYSGU4kYQzW3bL0zgtfPoUNrCjj57Y780lgvqWHZFV999v?=
- =?us-ascii?Q?s0Zi7ao45hTF/1buXf4m1ZF7LzzIB8B8BhVUpRtgZP5VLX44DJ+cjsmKbRlS?=
- =?us-ascii?Q?SE/7dIvarYCgwSJXLHf5VtJI2KDGXq7yOXU0c3/gllu7bf3fDHHRg3xZTXJs?=
- =?us-ascii?Q?nCqHX0u+6hTsh3EIC7EPGZBbXvMdcXoEeAAJKNpFS8iJqxoWV9dGnzHyhs+d?=
- =?us-ascii?Q?AHxV17mJonm5Jm85i+N53rCKkfSWQtUeKeO8vKzt/lrGS6d+eLtbbaNB+dzv?=
- =?us-ascii?Q?Ww+9lvHOHr7rylolgEHhdeOAAa9+IaLjDEziPtcao+QIThM/tqSkCIrPKrKE?=
- =?us-ascii?Q?k4n51HevxIH410fulFDr0M1SZINLy8TTb/nSHoJ77MqJGf8fsfpu+Oum9iWQ?=
- =?us-ascii?Q?UghEZR48SBuKbZwwDtCMjwv79tAOs1a/am+9USM85vtNRZQDF+3JnX0RPc2v?=
- =?us-ascii?Q?wg1C4XjNIycKOtEbgZLIWamLdRuPQKNnBgR722JgHEx8HbW65ez78rIPbc24?=
- =?us-ascii?Q?gc9t3roPAlO5/3gYx0agWBSKf4zsWK9yMc6uwnwQPv2kuDiPYR0mpk3t6roX?=
- =?us-ascii?Q?cHEPr6PlMtTr01Bybp9UeeHdotiUKaOJcpEN0iMH3WkhKMPa2YtHihC0gxr+?=
- =?us-ascii?Q?pOwEplrRm6fAhpC4DrvKy71SDKV+V2Z9FeVYVCf/4ExXBFdGMrnvbc3ct0PQ?=
- =?us-ascii?Q?A588F1SupnFFtILvY+J8y+3fJmsLiO9k5NuoXIu4BiJob4C9aPZsk7k0xsNT?=
- =?us-ascii?Q?blbf8y81CuKvAzbilnw6SrMbuefMK8N3LH0M5teqQFpN7LG7p0lVLiwk+C3r?=
- =?us-ascii?Q?RDMiZ4T5qb+51t62iX1MnKP8acUSfohTUjdDG+ZOEJ3AsJrF0yxxQzaAVJog?=
- =?us-ascii?Q?5a3sPaWmCfpYHcKbd432NgUwCqSdn+bQnlaGqHgkq7LEEvJT+Ws9Co+HDJFT?=
- =?us-ascii?Q?53ZNmLcNtqjCXAPcSzuI4LpvD+Rl4JSRuTZ3Cq6+Lr6X8CUIdi1Ipcvcf8N4?=
- =?us-ascii?Q?aexBY9TR2+ip3HJZ92iFQeFk5vVZ9CvtmaaPygkcpSb715ugdJoK0rFiAsGi?=
- =?us-ascii?Q?Wz5aaCeBMCl2wnTi38GinlXVcuQTNylZQra/Tq2abi+ABdffvGVEh8Bo4kXk?=
- =?us-ascii?Q?2x3qL1Gj4qAadabWdZji9m1L+y1vt4PCBO3yV+PrSHTmPXD/q0RlcbOiRF+D?=
- =?us-ascii?Q?kknqEt+aTUzqLxarTFF6YyuJurEECm+xz+gy0hKQoiqHoyaaXLlIXS0qV/5J?=
- =?us-ascii?Q?jUlMUuWmKmLT45lMKDlKfjVEtUCVZNI/c3pH7xIv2j9V0EoJLQ9qSVo5KaL9?=
- =?us-ascii?Q?vfxpcBCUbf1DCNWlCecwThbPTUZXx2oMlN1OriJSfd4haK+jJsuUIgCcXf/9?=
- =?us-ascii?Q?/CEsq3Vbzow/Fe4UGABWvLsmnkdRopaPAZcqnt6KLlSyYbPPaalqFwIPgcDM?=
- =?us-ascii?Q?QsleUvAOj2lrt+HTYTze3wMA/a/F1F0oZdS1J7K5UQBN4h/l9hP3?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 589e4d74-6287-4ba4-450f-08df04803f9f
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 21:14:58.1597
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LOpaDJtQEwffxu1lyDxsTWjkEq9bCxba47g1eBY5umzx+XM9HDaGFi1dyqM0D6raDlVK05ySHkZz0lDTD3AqAZLy/XQORG1Ss2FQp9oDot16L7dnml8meUkIX1eoQcfB
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB398878
 
-On Thu, Aug 27, 2026 at 03:33:07PM -0500, Rob Herring (Arm) wrote:
-> The command-stream validator records the additional U65 scale and
-> weight stream addresses and the U85 weight decoder addresses, but only
-> checked stream 0 against its region buffer.
->
-> Check every configured secondary stream against the matching weight or
-> scale region before accepting a kernel operation.
->
-> Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
->  drivers/accel/ethosu/ethosu_gem.c | 15 +++++++++++++++
->  1 file changed, 15 insertions(+)
->
-> diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/ethosu_gem.c
-> index 9fce7caeeb9a..3d1f4121db4f 100644
-> --- a/drivers/accel/ethosu/ethosu_gem.c
-> +++ b/drivers/accel/ethosu/ethosu_gem.c
-> @@ -321,6 +321,15 @@ static int calc_sizes(struct drm_device *ddev,
->  			st->weight[0].base + st->weight[0].length - 1);
->  		if (buffer_size(info, &st->weight[0], st->weight[0].region))
->  			return -EINVAL;
-> +
-> +		for (int i = 1; i < ARRAY_SIZE(st->weight); i++) {
+The pull request you sent on Thu, 27 Aug 2026 13:51:33 -0700:
 
-why not also put 0 into this loop?
+> git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git tags/net-7.3-rc1
 
-> +			if (st->weight[i].base == U64_MAX &&
-> +			    st->weight[i].length == U32_MAX)
-> +				continue;
-> +
-> +			if (buffer_size(info, &st->weight[i], st->weight[0].region))
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/1b78070aaef63512688aebfbc82365ef9d6660f1
 
-Just make sure 0 of st->weight[0].region is not typo, all weight share
-one region?
+Thank you!
 
-Frank
-
-> +				return -EINVAL;
-> +		}
->  	}
->
->  	if (scale) {
-> @@ -329,6 +338,12 @@ static int calc_sizes(struct drm_device *ddev,
->  			st->scale[0].base + st->scale[0].length - 1);
->  		if (buffer_size(info, &st->scale[0], st->scale[0].region))
->  			return -EINVAL;
-> +
-> +		if (ethosu_is_u65(edev) &&
-> +		    (st->scale[1].base != U64_MAX ||
-> +		     st->scale[1].length != U32_MAX) &&
-> +		    buffer_size(info, &st->scale[1], st->scale[0].region))
-> +			return -EINVAL;
->  	}
->
->  	len = feat_matrix_length(edev, info, &st->ofm, st->ofm.width,
->
-> --
-> 2.53.0
->
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
