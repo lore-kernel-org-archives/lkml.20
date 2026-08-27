@@ -1,77 +1,76 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA91344AB8A
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:51:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 649484582C7
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:51:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787835081; cv=none; b=rIq2+N6j3t5P2gJ4r1nX8ccTtjXoxqrYwNma2aUAV4o/OX6KN4LSgg/A3MYY+DrC2sO+WrDFNpiOCUJhP07RPjiEqu3t/O2G/bM3xE7mwZbu6bHcb5brU8ltgf5zSnJYF4iZX5XXqNR0qsZCa15zbENbSt/eEtACr3ipkPyIwGc=
+	t=1787835110; cv=none; b=uTipVDu4ZgAVrUosf90tv+kw2FcQqhQNOcW84m+T7UzTPFvh31vAxnwUaKtRrCWdU1zigBul9lJwjHGGVVZkkwYrtfO57ad2T0SqCEkUTgUId+pNTcjyY3rVhTHuDEL3oh5Xx2PffSgI4LRqsRIeaLBv3DO6/XBmZYdgX0HEPSM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787835081; c=relaxed/simple;
-	bh=UORXZGvGUb7IOneOO+CMZ7fP3LHKabFsFB+ra4zY6Js=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NcJ9SxKrW83iB7gLXGWLWJB1NEh7MvPQnIC8WbD8AFFvkGahjqdZtGtRokNxS5c9CsBIsj0wLRuYgcSL7aAqMgS45cVu3CHsHbAVcb7n2B5WoGVVNq7ofrx18yIj8TTSMVQNwfXu7S91PY9kooZtqPR9vjfbK9aSa9lFR0+x7gE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=aFmMa+S5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787835110; c=relaxed/simple;
+	bh=v5jl+aCSpkkvQGNIYYVrCrKyR7mWn2LR3j2JbpKPgPM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=h2kzVWE4wZMAED1p8Xjqh7lyVOrkSqC0tU4iUvYP+Jn8XXidVg9s/1dLyzzuYWsogcRV8Y2lWQCPnp0FgqSCJRiAAGI5nsNeJsklgm1hk4SIq39imckkJPUkvU9NrM2E6XLrGwE4b5VX3ZM2R5To3U9z8rJQeEfuLyY2z8ZeKfY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KtQTj6od; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="aFmMa+S5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EF7B1F000E9;
-	Thu, 27 Aug 2026 12:51:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787835067;
-	bh=WrCyFeXrC9zMTDTtRcuYgQJTOt6HeJfsRR5UfmpciU4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aFmMa+S5Uv2AgTH4iRwJNPtZ0+W7ql7clXB7sEZ+XX/ETZCFFQat6lH8FaorBkFNE
-	 lSvGEISHaadTc2I8fxXnJpvBTJGjWKWcRIGIGq+P5cOy78Txkf1sYn3TYgpv6DhRny
-	 qnPbWrv5/Tyy/fP3jlQK4mTFa2WHb4aViZx24gpc=
-Date: Thu, 27 Aug 2026 14:51:05 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: co <co+9d44b184bc8f410d@bugs.sh>
-Cc: Bryan Tan <bryan-bt.tan@broadcom.com>,
-	Vishnu Dasa <vishnu.dasa@broadcom.com>,
-	Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	George Zhang <georgezhang@vmware.com>,
-	Dmitry Torokhov <dtor@vmware.com>, Andy king <acking@vmware.com>
-Subject: Re: [BUG] drivers/misc: out-of-bounds in qp_memcpy_to_queue_iter()
-Message-ID: <2026082744-tiptoeing-napkin-a2bc@gregkh>
-References: <1wU0VjMckz7b5ly5tzcr7MbjZKdV9kTFjcc4@bugs.sh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KtQTj6od"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2F351F00A3F
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:51:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787835095;
+	bh=v5jl+aCSpkkvQGNIYYVrCrKyR7mWn2LR3j2JbpKPgPM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=KtQTj6odrNbQo+tcT34S+sezcdJj2BTCjN3wknjvnntYyUiI90qbsBzeTMVewApK0
+	 c8DIsw4Wgzvso6nc6gmt81XPnusTt3oDL3rt0GekLCuVXJJ1SXDVS/feVGxFozA20T
+	 4r7wZbL3byPi4iq8xF3BNCVpz2xuHYpr7iUDBMmuOHMyQ4SETwJ7HOo3o8b3bCK/Jq
+	 K6rL04LtSK3xSpIuXCu4OukxiKEJDDD0ez3oHVPSK1jBGdTyAmETfiiWNPreyynodX
+	 3zV5mV/0E7KDRg0/mZm0M/5njbYkF2BydadedBDcenOEo0YZCX8+lBtKIDKV6cQfId
+	 QjY8sLiy1HAAw==
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c253358b121so89835466b.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 05:51:35 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Ro2Q59E0xij2hDPBxDQAl/fK2iqrknyLYBQ3X2IYTHVjtU+c4RYrzKAFr02y1DI3jeJ6ATS4PzIIkQt3Ek=@vger.kernel.org
+X-Gm-Message-State: AFuF++lPOfWY5kxNeB8QHH6VwBydlO++vjuI/AoGOzLp/Sm1Z7Fp+zxC
+	7kToMkNCsz0KwJ4VjOz25++/vi4TYio6gortBWUV1uLSfavVsJ37PhWAxKedW1IOLrTBMf8jL+J
+	ZdwQl/PiN4z1UAQ9jcVeCAJeMVtlRSE0=
+X-Received: by 2002:a17:906:2083:b0:c25:2a78:15ed with SMTP id
+ a640c23a62f3a-c252a782276mr972912466b.6.1787835094458; Thu, 27 Aug 2026
+ 05:51:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1wU0VjMckz7b5ly5tzcr7MbjZKdV9kTFjcc4@bugs.sh>
+References: <20260824075935.170457-1-zenghongling@kylinos.cn>
+In-Reply-To: <20260824075935.170457-1-zenghongling@kylinos.cn>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Thu, 27 Aug 2026 21:51:22 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd8ZW7oGWVkgdW04WH828EAM2RwKptUxmobWJ9q2STsCtg@mail.gmail.com>
+X-Gm-Features: AcwNN1VXPH_P87koasaLISpCwL-nDqmjfpElMWmTsmzod6L3siUJMK1CCNs9_5E
+Message-ID: <CAKYAXd8ZW7oGWVkgdW04WH828EAM2RwKptUxmobWJ9q2STsCtg@mail.gmail.com>
+Subject: Re: [PATCH] ntfs: fix memmove overlap in ntfs_new_attr_flags
+To: Hongling Zeng <zenghongling@kylinos.cn>
+Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	zhongling0719@126.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Aug 27, 2026 at 12:42:26PM +0000, co wrote:
-> We found a bug reachable in:
-> 
->     path    drivers/misc/vmw_vmci
->     crash   out-of-bounds in qp_memcpy_to_queue_iter()
->     commit  bd5f485f3f02 ("Merge tag 'soc-arm-7.3' of git://git.kernel.org/pub/scm/linux/kernel/git/soc/soc")
-> 
-> Config, environment, the sanitizer report and a C reproducer follow.
-> 
-> == Notes ===============================================================
->     If you patch the bug based on our artifacts, a tag would be
->     appreciated:
-> 
-> Reported-by: co+9d44b184bc8f410d@bugs.sh
-> 
->     Everything in this mail is validated by the reproducer below.
-> 
->     We also hold an LLM-generated root-cause analysis and a candidate
->     patch. The patch passes an A/B test: the same reproducer panics the
->     unpatched kernel and runs clean on the patched one. Neither has had
->     human review, so both still require validation before you send or
->     apply them. Available on:
-> 
->         patch.diff  https://bugs.sh/b/9d44b184bc8f410d/patch.diff
->         report.md   https://bugs.sh/b/9d44b184bc8f410d/report.md
-
-Same here, please do not just send us random links, but rather patches
-that you have verified work.
-
-greg k-h
+On Mon, Aug 24, 2026 at 4:59=E2=80=AFPM Hongling Zeng <zenghongling@kylinos=
+.cn> wrote:
+>
+> When the record shrinks while the payload offsets increase (e.g., enablin=
+g
+> compression reduces padding, making arec_size < old_arec_size, but the he=
+ader
+> grows by 8 bytes), moving the name first can overwrite the old mapping_pa=
+irs
+> before they are copied. Move mapping_pairs first in this case.
+>
+> Since mp_ofs is derived from name_ofs, they always change in the same
+> direction. Checking name_ofs alone is sufficient.
+>
+> Fixes: fc053f05ca28 ("ntfs: add reparse and ea operations")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+Applied it to #ntfs-next.
+Thanks!
