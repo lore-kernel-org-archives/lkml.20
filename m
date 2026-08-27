@@ -1,556 +1,806 @@
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 608B23AFCE9
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:51:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787863885; cv=pass; b=jZZYEKC9ofVlQpzc5swaOHevWeJ656v2Z8s415uccJYIaucjTOulk2FEen2RrTRXWqBpxXxqh7x401/De8ZOuZ/gWZiggOWmWl/PBK0/lnlmjHV5fsDGD6GgmrNViGXOPp6iSZUng+YRvbx7LAD6d59vU9mChTVOluwrl7yKXQw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787863885; c=relaxed/simple;
-	bh=9o9DOl4KaXBxVj0b5AA+e/iVmiKdE2w+ZukOm9SxuyA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CQh8XrNv/ZxULi/xwXzlfNEANKlvD+lSGyC65pXgKp/DA0IsovNsByjk74el+kinALGqqPlsLafyOlemWbfMCj2HHJesdVMGZRJWR8yKzeg420jk3FA16H0PDE7nXI1oIhaOORLoGWWgHI7QRoUdrcbL8LNHwIiaCv+pJ4iB8r4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zqq5lZu4; arc=pass smtp.client-ip=209.85.167.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BB83366075;
+	Thu, 27 Aug 2026 20:51:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787863896; cv=none; b=DnVUKnfNOvwBJbpIvLbuggdcJF1k+XOf3dUO4ECJj4UFRqKlYaoh3c0FUrfuWjSY3xyM6jpHCShzasMcelAsVAIpBFdGZ4JnbNQM7lanCglPrG6OYyR7o9P5WbtErm/JVq8aw9Sa1vk2GVQ1w7Yy7yly1CE0prN7joVx6SkN820=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787863896; c=relaxed/simple;
+	bh=xFjxa/dCnq7YMZ22xJ+8qPdYfJmyNqiRYUW5u4ucQ4Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=MQe/M+Anbygcn8ufKvFYXxrOgqMYClh5ocNKfvZSacQK3/3VtUvuyxlIyEb2oDC5r2qexwBOi5an1eZr/wDg1oK6E+t5Ew49cnrG7UQXlqeQHMSgAd2OT5Zgdm7/2JBYgon2aNJezkQvt9ClPLv98ndIYnDsuF11KC3L91N/Hxk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fiUQ1IJx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zqq5lZu4"
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5b4a9994c20so214164e87.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:51:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787863881; cv=none;
-        d=google.com; s=arc-20260327;
-        b=qOlJFTqTvJ22eyrOdq3GfPmS/oY4M4q0DZu416t5LU+tJpe2UoWMgraEXkuA9HpL72
-         jsleze7YekQllYt6rFJpfjz38a1vaJ2ETvyTRmnbGB7OtwsjRKTJtU3Fvd7KMVO9AAnH
-         bIK7M5hzu+bOGv7+NUcuYel/eKhJ2+oly36dIkBBrI9nqE9n5lhMAOaDdXzqiUZGh9cm
-         96HQtTsxL6QyvCeJ24EcFRee5YzwMkBv+um1c6c6Q9EEqSdhvJpPZYjnwY4enFtJLIoI
-         6Kkd1wv/dnoza8ts9FhRNHyu6lhtDfC/UCgr1kozrPxcUAPCwud73O1b+g4NS9EhqSe6
-         FyaQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=LRfBzLIcTrWFpMj02Z9UyVhgaZeKDSzem6f0ZAiirQo=;
-        fh=bLmE1v8Mo9SOSpZRgMKgpKjMuek/YtDpn4kQNosvgDM=;
-        b=WWGX8aAJ8//Vm4LCRROkN5GIxIh0cOeagEPVB26umNjrbJhDeuMy3NknnNSim/ZVzq
-         wv7FX78sBF+pX++cPlb+uVNj1wzVIQ3XKCjLMheQdMFwQmRNLKa1REzeghopq+4TWFud
-         3i1aD96OhPvFugRdhmMZSF9jgxQ6WqY3ExAtHzfmDNf1SrySJsCNq0eUlHTgLR28R5zM
-         gavU1xBYcARJOwZ8TQwmscPzQR38dfBV3euTbtuIiuzJapB+mTOZnfNa2xAIKwSQ/8Nc
-         DChLMDtbtfFQJ0U1a6y7tQR4rj0S4tZqkgyu4bhETr/U96X66gmGwqkaHrP1JYkixaLP
-         VZZw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787863881; x=1788468681; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=LRfBzLIcTrWFpMj02Z9UyVhgaZeKDSzem6f0ZAiirQo=;
-        b=Zqq5lZu4PodXqBO4gfLe+8DgRaPcGnQCU9ixyeCnT/ip2NghZyGN+89jrpHV7qATHQ
-         Gzptc1KQfkffI2dt7xcF48Lodw7BHW8mN93gBjpj4MVfo+JLD6QDWqQDnn6b7sfduRlf
-         fKaPhkmty9+EFsdNVrYzeagyHXGJuzK6jGdJBi6MHuvM4SI1FkJTkdjZ0ddUSMD5ct9R
-         RSESeXxyUU0kdIq87dCAmw6S/9WNPYkAfI2pApsC5SPjr3E4VptgKxn0u1iKQ+quywzW
-         eFb3wRHFNjrldd5VGnUXvNme+vDLxLUhDloUdBqVZJXsYloHI3qp/ob+hUPGr0TrtFJn
-         qbAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787863881; x=1788468681;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LRfBzLIcTrWFpMj02Z9UyVhgaZeKDSzem6f0ZAiirQo=;
-        b=f4BF9W7xlFptg98WyrG60yYx8C4X0u0IeihB8XgsLLWN7yiEytXtLDLpS7z6ApGrBO
-         5ZpFkFAbQrWrXjuFZRSbOb3U1627QgA9OK0XwgOV1dLOmt7iYtMtLMDDTpbVE3Xs+koQ
-         lzpUDSeosT4XZrSbJHXeCFIZ7Q2Y65cfSShbJmImx+PFGbuSto6I8zf9jYpxPOVdBAlr
-         8l92lbRjMm1UFOLgHQQyRJALpmv/3Y7aK7dS3AH/5JH5KjZqaiJoga1KXMRAT9+P4AiH
-         u1asGmVc1FmC9oFnZDQHX7hKOwwVs5KUcupGwxMMNTTTgBxpd2F11ac+x+Be86bXiIaN
-         KgVg==
-X-Forwarded-Encrypted: i=1; AHgh+RqXSTqbUF+FhFvdKgQxNDFmFjClwgjLH87oBBhlvkBt4KE1FVGFMOmXeGkiGkc0KvCwh8R3WsBPoAcq1Xo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kWUnus6nKmiHPXUx2p+utfbM7kDInpRdj1tPMMe3LTS4v4BP3s
-	RwjksvHvxPpkGHK4wHYTrycjQc5heBIOvpSkXblHv3k+gqHw5/GTeaJi7uclnIqWcd2OVqcmRae
-	OC8jXKyiFYi7qVf4X5+Uh195PGZozAXs=
-X-Gm-Gg: AR+sD10dzmN1t4TTd8gBjXM+bg7YjTi/c5DdHGYIo3A4QnWau7qoylzPHUvSwJO5a0v
-	8s6m+VXEfsUy5Wm6PZzEN+m694N0fx4IRHpDhwD7AXbuSQgc0ED87U0W7S/n0UTOVfT9LA7KIJF
-	LZjw20omkW66dh30pWeejZe8nCSi06V3Lf2TgxEyPs7CndmlloILvB+1Gb837WwUA2nuWfUWXMc
-	sWRxQoo/NvmgHDsLICK5MyoSYnablFyL4IawvbRs7krugw5pSF3x/bD29Ii/lzVEHBc9B8nQqOZ
-	FFpW5PkETDJfrhxPj3uGMTCPMW0R9t8jqbk4AbYXcJZ3RBlc5s1MF2baP4TgHxGddFKQjqisZ/r
-	1cgbmu3rzj7+qmXP7z03GDzuBBowS/s8=
-X-Received: by 2002:a05:6512:3b8f:b0:5b5:e2f1:e6f9 with SMTP id
- 2adb3069b0e04-5b5e68bc823mr437623e87.11.1787863880920; Thu, 27 Aug 2026
- 13:51:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fiUQ1IJx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 125031F000E9;
+	Thu, 27 Aug 2026 20:51:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787863894;
+	bh=BMiYNzoTbDh+Wsj+zicN5QdiYJUi2Ypttj1fKxwMkkY=;
+	h=From:To:Cc:Subject:Date;
+	b=fiUQ1IJxAx+8lQxeAo6kHXrCf5HO8PpEaa/sS2WPONwxt2TOsthdrp+BkncwzvNqQ
+	 PDjVfzDm0t6SrB010qThCBv2L/8hezR8uOwGUfdppgMRYWzLBXAWLyldygZEYkAT9e
+	 vbcX42CtB/AmYv2lmvjCZkapdvkWpR1qkn79Z5I0eQgY633OWcxxd9F2mf1J0vZigs
+	 JDSvetv3kJG5PN7sCY7JkvdMaEpQLijIMbGCO1XDk5meQy1sKeCNjbPDpO+eFfDF4E
+	 +ffFQZfVLOrb7MvO8RVQyCgWtAnSlydcqUYXFcay1Ey16a3b3dThLt13RHCYinLOso
+	 LGSuMacyXppXQ==
+From: Jakub Kicinski <kuba@kernel.org>
+To: torvalds@linux-foundation.org
+Cc: kuba@kernel.org,
+	davem@davemloft.net,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	pabeni@redhat.com
+Subject: [GIT PULL] Networking for v7.3-rc1
+Date: Thu, 27 Aug 2026 13:51:33 -0700
+Message-ID: <20260827205133.1242124-1-kuba@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826082641.2007658-1-zhaonanzhe@xiaomi.com>
- <20260826082641.2007658-2-zhaonanzhe@xiaomi.com> <22b18f2e-70f5-4292-b83e-8f6c374a627d@kernel.org>
-In-Reply-To: <22b18f2e-70f5-4292-b83e-8f6c374a627d@kernel.org>
-From: Daeho Jeong <daeho43@gmail.com>
-Date: Thu, 27 Aug 2026 13:51:06 -0700
-X-Gm-Features: AcwNN1XQ9ONGuGr9Z9-frjHGOF-TMgwF7HnquW5aR4Z7largiChuQH7j5LI7wQQ
-Message-ID: <CACOAw_zD_a32UCJZ+F7zD61o0K8QAh7QKJVuag4fm98qWy7SRQ@mail.gmail.com>
-Subject: Re: [f2fs-dev] [PATCH 01/14] f2fs: extend folio state for large folio
- write path
-To: Chao Yu <chao@kernel.org>
-Cc: Nanzhe Zhao <zhaonanzhe@xiaomi.com>, linux-f2fs-devel@lists.sourceforge.net, 
-	Jaegeuk Kim <jaegeuk@kernel.org>, Barry Song <baohua@kernel.org>, Juan Yescas <jyescas@google.com>, 
-	Dev Jain <Dev.Jain@arm.com>, linux-kernel@vger.kernel.org, 
-	David Hildenbrand <David.Hildenbrand@arm.com>, Bo Zhang <zhangbo56@xiaomi.com>, 
-	Kalesh Singh <kaleshsingh@google.com>, Nanzhe Zhao <nzzhao@126.com>, 
-	Pengfei Li <lipengfei28@xiaomi.com>, Ryan Roberts <Ryan.Roberts@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 26, 2026 at 11:59=E2=80=AFPM Chao Yu via Linux-f2fs-devel
-<linux-f2fs-devel@lists.sourceforge.net> wrote:
->
-> On 8/26/26 16:26, Nanzhe Zhao wrote:
-> > Large folio write path needs a subpage status bitmap and write
-> > pages pending counter, while keeping compatible with f2fs private
-> > flags.
-> >
-> > Move struct f2fs_folio_state to f2fs.h, add private_flags and
-> > subpage state bitmap, and change PAGE_PRIVATE functions to be
-> > compatible with f2fs_folio_state. Allocate f2fs_folio_state via kzalloc
-> > instead of kmem_cache, since the state size depends on the folio order.
-> >
-> > Note: Now if a path wants to use f2fs_folio_state, it must call
-> > `folio_has_ffs` instead of `folio_test_large`` to make check.
-> >
-> > Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
-> > ---
-> >  fs/f2fs/compress.c |  2 +
-> >  fs/f2fs/data.c     | 60 ++++++++++++++++--------------
-> >  fs/f2fs/f2fs.h     | 92 ++++++++++++++++++++++++++++++++++++----------
-> >  fs/f2fs/segment.c  |  2 +-
-> >  4 files changed, 108 insertions(+), 48 deletions(-)
-> >
-> > diff --git a/fs/f2fs/compress.c b/fs/f2fs/compress.c
-> > index 91855d91bbdd..84da3e39efb4 100644
-> > --- a/fs/f2fs/compress.c
-> > +++ b/fs/f2fs/compress.c
-> > @@ -78,6 +78,8 @@ bool f2fs_is_compressed_page(struct folio *folio)
-> >               return false;
-> >       if (folio_test_f2fs_nonpointer(folio))
-> >               return false;
-> > +     if (f2fs_folio_has_ffs(folio))
-> > +             return false;
->
-> Shouldn't this be changed in "f2fs: make compressed files compatible with
-> large folio" or other patch? I guess in this patch we only introduce new
-> ffs facilities.
->
-> >
-> >       f2fs_bug_on(F2FS_F_SB(folio),
-> >               *((u32 *)folio->private) !=3D F2FS_COMPRESSED_PAGE_MAGIC)=
-;
-> > diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-> > index 6ae0eb37d20f..578a90d427e2 100644
-> > --- a/fs/f2fs/data.c
-> > +++ b/fs/f2fs/data.c
-> > @@ -32,20 +32,13 @@
-> >
-> >  static struct kmem_cache *bio_post_read_ctx_cache;
-> >  static struct kmem_cache *bio_entry_slab;
-> > -static struct kmem_cache *ffs_entry_slab;
-> >  static mempool_t *bio_post_read_ctx_pool;
-> >  static struct bio_set f2fs_bioset;
-> >
-> > -struct f2fs_folio_state {
-> > -     spinlock_t              state_lock;
-> > -     unsigned int            read_pages_pending;
-> > -};
-> > -
-> >  struct f2fs_bio {
-> >       struct work_struct work;
-> >       struct bio bio;
-> >  };
-> > -
->
-> Unnecessary change.
->
-> >  #define      F2FS_BIO_POOL_SIZE      NR_CURSEG_TYPE
-> >
-> >  int __init f2fs_init_bioset(void)
-> > @@ -133,6 +126,9 @@ struct bio_post_read_ctx {
-> >       block_t fs_blkaddr;
-> >  };
-> >
-> > +static bool __ffs_mark_subrange_uptodate(struct folio *folio,
-> > +             struct f2fs_folio_state *ffs, size_t offset, size_t len);
-> > +
-> >  /*
-> >   * Update and unlock a bio's pages, and free the bio.
-> >   *
-> > @@ -155,7 +151,7 @@ static void f2fs_finish_read_bio(struct bio *bio, b=
-ool in_task)
-> >
-> >       bio_for_each_folio_all(fi, bio) {
-> >               struct folio *folio =3D fi.folio;
-> > -             unsigned nr_pages =3D fi.length >> PAGE_SHIFT;
-> > +             unsigned int nr_pages =3D fi.length >> PAGE_SHIFT;
->
-> No need to change in this patch?
->
-> >               bool finished =3D true;
-> >
-> >               if (!folio_test_large(folio) &&
-> > @@ -360,6 +356,7 @@ static void f2fs_write_end_bio(struct bio *bio)
-> >
-> >       bio_for_each_folio_all(fi, bio) {
-> >               struct folio *folio =3D fi.folio;
-> > +             unsigned int nr_pages =3D fi.length >> PAGE_SHIFT;
->
-> No need to change in this patch?
->
-> >               enum count_type type;
-> >
-> >               if (fscrypt_is_bounce_folio(folio)) {
-> > @@ -2516,17 +2513,32 @@ int f2fs_read_multi_pages(struct compress_ctx *=
-cc, struct bio **bio_ret,
-> >  }
-> >  #endif
-> >
-> > -static struct f2fs_folio_state *ffs_find_or_alloc(struct folio *folio)
-> > +struct f2fs_folio_state *f2fs_ffs_find_or_alloc(struct folio *folio)
-> >  {
-> > -     struct f2fs_folio_state *ffs =3D folio->private;
-> > +     struct f2fs_folio_state *ffs;
-> > +     unsigned int nr_subpages =3D folio_nr_pages(folio);
-> > +     unsigned long private_flags =3D 0;
-> > +
-> > +     f2fs_bug_on(F2FS_F_SB(folio), !folio_test_large(folio));
-> >
-> > -     if (ffs)
-> > -             return ffs;
-> > +     if (f2fs_folio_has_ffs(folio))
-> > +             return (struct f2fs_folio_state *)folio->private;
-> >
-> > -     ffs =3D f2fs_kmem_cache_alloc(ffs_entry_slab,
-> > -                     GFP_NOIO | __GFP_ZERO, true, NULL);
-> > +     if (folio_test_private(folio) && folio_test_f2fs_nonpointer(folio=
-))
-> > +             private_flags =3D (unsigned long)folio->private;
-> > +
-> > +     ffs =3D kzalloc(struct_size(ffs, state, BITS_TO_LONGS(2 * nr_subp=
-ages)),
-> > +                     GFP_NOIO | __GFP_NOFAIL);
+Hi Linus!
 
-Regarding __GFP_NOFAIL in f2fs_ffs_find_or_alloc():
+The following changes since commit 91ec2035134982b98fab0609a9fd8480e8217dc1:
 
-I understand it is used to avoid failing in-flight I/O or writeback
-when allocating
-the subpage state. However, invoking __GFP_NOFAIL in memory
-reclaim/writeback paths
-risks OOM livelocks under extreme memory pressure.
+  Merge tag 'net-next-7.3' of git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next (2026-08-20 08:16:04 -0700)
 
-Ideally, we should ensure ffs is always pre-allocated during write_begin() =
-and
-page_mkwrite() (where returning -ENOMEM to userspace is safe), so that
-the writeback
-path never has to allocate ffs on the fly with __GFP_NOFAIL.
+are available in the Git repository at:
 
-WDYT?
+  git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git tags/net-7.3-rc1
 
-> >
-> >       spin_lock_init(&ffs->state_lock);
-> > +     ffs->private_flags =3D private_flags;
-> > +     if (folio_test_uptodate(folio))
-> > +             bitmap_set(ffs->state, 0, nr_subpages);
-> > +     if (folio_test_dirty(folio))
-> > +             bitmap_set(ffs->state, nr_subpages, nr_subpages);
-> > +
-> > +     if (folio_test_private(folio))
-> > +             folio_detach_private(folio);
-> >       folio_attach_private(folio, ffs);
-> >       return ffs;
-> >  }
-> > @@ -2535,7 +2547,7 @@ static void ffs_detach_free(struct folio *folio)
-> >  {
-> >       struct f2fs_folio_state *ffs;
-> >
-> > -     if (!folio_test_large(folio)) {
-> > +     if (!f2fs_folio_has_ffs(folio)) {
-> >               folio_detach_private(folio);
-> >               return;
-> >       }
-> > @@ -2545,7 +2557,8 @@ static void ffs_detach_free(struct folio *folio)
-> >               return;
-> >
-> >       WARN_ON_ONCE(ffs->read_pages_pending !=3D 0);
-> > -     kmem_cache_free(ffs_entry_slab, ffs);
-> > +     WARN_ON_ONCE(atomic_read(&ffs->write_pages_pending));
-> > +     kfree(ffs);
-> >  }
-> >
-> >  static int f2fs_read_data_large_folio(struct inode *inode,
-> > @@ -2558,7 +2571,7 @@ static int f2fs_read_data_large_folio(struct inod=
-e *inode,
-> >       pgoff_t index, offset, next_pgofs =3D 0;
-> >       unsigned max_nr_pages =3D rac ? readahead_count(rac) :
-> >                               folio_nr_pages(folio);
-> > -     unsigned nrpages;
-> > +     unsigned int nrpages, len_blks;
-> >       struct f2fs_folio_state *ffs;
-> >       int ret =3D 0;
-> >       bool folio_in_bio =3D false;
-> > @@ -2634,7 +2647,7 @@ static int f2fs_read_data_large_folio(struct inod=
-e *inode,
-> >                * to prevent from premature folio_end_read() call on fol=
-io
-> >                */
-> >               if (folio_test_large(folio)) {
-> > -                     ffs =3D ffs_find_or_alloc(folio);
-> > +                     ffs =3D f2fs_ffs_find_or_alloc(folio);
-> >
-> >                       /* set the bitmap to wait */
-> >                       spin_lock_irq(&ffs->state_lock);
-> > @@ -2987,7 +3000,7 @@ bool f2fs_should_update_outplace(struct inode *in=
-ode, struct f2fs_io_info *fio)
-> >               return true;
-> >
-> >       if (fio) {
-> > -             if (page_private_gcing(fio->page))
-> > +             if (folio_test_f2fs_gcing(fio->folio))
->
-> Shouldn't this be changed in "f2fs: make GC migration large-folio aware"?
->
-> >                       return true;
-> >               if (unlikely(is_sbi_flag_set(sbi, SBI_CP_DISABLED) &&
-> >                       f2fs_is_checkpointed_data(sbi, fio->old_blkaddr))=
-)
-> > @@ -4586,21 +4599,12 @@ int __init f2fs_init_bio_entry_cache(void)
-> >       if (!bio_entry_slab)
-> >               return -ENOMEM;
-> >
-> > -     ffs_entry_slab =3D f2fs_kmem_cache_create("f2fs_ffs_slab",
-> > -                     sizeof(struct f2fs_folio_state));
-> > -
-> > -     if (!ffs_entry_slab) {
-> > -             kmem_cache_destroy(bio_entry_slab);
-> > -             return -ENOMEM;
-> > -     }
-> > -
-> >       return 0;
-> >  }
-> >
-> >  void f2fs_destroy_bio_entry_cache(void)
-> >  {
-> >       kmem_cache_destroy(bio_entry_slab);
-> > -     kmem_cache_destroy(ffs_entry_slab);
-> >  }
-> >
-> >  static int f2fs_iomap_begin(struct inode *inode, loff_t offset, loff_t=
- length,
-> > diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-> > index 16720f1f0a9c..2e8f85cea6d0 100644
-> > --- a/fs/f2fs/f2fs.h
-> > +++ b/fs/f2fs/f2fs.h
-> > @@ -1628,6 +1628,18 @@ static inline void f2fs_clear_bit(unsigned int n=
-r, char *addr);
-> >   * Layout B: lowest bit should be 0
-> >   * page.private is a wrapped pointer.
-> >   */
-> > +
-> > +struct f2fs_folio_state {
-> > +     spinlock_t              state_lock;
-> > +     unsigned int            read_pages_pending;
-> > +     atomic_t                write_pages_pending;
-> > +     unsigned long           private_flags;
-> > +     /* state[0..nr_subpages - 1] tracks uptodate subpages.
-> > +      * state[nr_subpages..2 * nr_subpages - 1] tracks dirty subpages.
-> > +      */
-> > +     unsigned long           state[];
-> > +};
-> > +
-> >  enum {
-> >       PAGE_PRIVATE_NOT_POINTER,               /* private contains non-p=
-ointer data */
-> >       PAGE_PRIVATE_ONGOING_MIGRATION,         /* data page which is on-=
-going migrating */
-> > @@ -1637,6 +1649,14 @@ enum {
-> >       PAGE_PRIVATE_MAX
-> >  };
-> >
-> > +static inline bool f2fs_folio_has_ffs(const struct folio *folio)
-> > +{
-> > +     unsigned long private =3D (unsigned long)folio->private;
-> > +
-> > +     return folio_test_large(folio) && private &&
-> > +             !(private & BIT(PAGE_PRIVATE_NOT_POINTER));
->
-> Is this a bug? in which case we will set PAGE_PRIVATE_NOT_POINTER in
-> a large folio? maybe I missed some cases...
->
-> folio_test_large(folio) && private is true and
-> (private & BIT(PAGE_PRIVATE_NOT_POINTER) is true?
->
-> > +}
-> > +
-> >  /* For compression */
-> >  enum compress_algorithm_type {
-> >       COMPRESS_LZO,
-> > @@ -2682,10 +2702,57 @@ static inline int inc_valid_block_count(struct =
-f2fs_sb_info *sbi,
-> >       return -ENOSPC;
-> >  }
-> >
-> > +static inline unsigned long f2fs_folio_get_private_flags(const struct =
-folio *folio)
-> > +{
-> > +     if (f2fs_folio_has_ffs(folio)) {
-> > +             struct f2fs_folio_state *ffs =3D folio->private;
-> > +
-> > +             return ffs->private_flags;
-> > +     }
-> > +
-> > +     return (unsigned long)folio->private;
-> > +}
-> > +
-> > +static inline void f2fs_folio_set_private_flags(struct folio *folio,
-> > +                                             unsigned long flags)
-> > +{
-> > +     if (f2fs_folio_has_ffs(folio)) {
-> > +             struct f2fs_folio_state *ffs =3D folio->private;
-> > +
-> > +             ffs->private_flags |=3D flags;
+for you to fetch changes up to 4a9d62a8774f130a5b8de26ca9f415e6050a9d51:
 
-Is this field protected by holding a lock properly?
+  Merge tag 'nf-26-08-27' of git://git.kernel.org/pub/scm/linux/kernel/git/netfilter/nf (2026-08-27 13:13:18 -0700)
 
-Thanks,
+----------------------------------------------------------------
+Including fixes from Bluetooth, IPSec and Netfilter.
 
-> > +             return;
-> > +     }
-> > +
-> > +     if (!folio_test_private(folio))
-> > +             folio_attach_private(folio, (void *)flags);
-> > +     else
-> > +             folio->private =3D (void *)((unsigned long)folio->private=
- | flags);
-> > +}
-> > +
-> > +static inline void f2fs_folio_clear_private_flags(struct folio *folio,
-> > +                                              unsigned long flags)
-> > +{
-> > +     unsigned long private;
-> > +
-> > +     if (f2fs_folio_has_ffs(folio)) {
-> > +             struct f2fs_folio_state *ffs =3D folio->private;
-> > +
-> > +             ffs->private_flags &=3D ~flags;
-> > +             return;
-> > +     }
-> > +
-> > +     private =3D (unsigned long)folio->private;
-> > +     private &=3D ~flags;
-> > +     if (private =3D=3D BIT(PAGE_PRIVATE_NOT_POINTER))
-> > +             folio_detach_private(folio);
-> > +     else
-> > +             folio->private =3D (void *)private;
-> > +}
-> > +
-> >  #define PAGE_PRIVATE_GET_FUNC(name, flagname) \
-> >  static inline bool folio_test_f2fs_##name(const struct folio *folio) \
-> >  {                                                                    \
-> > -     unsigned long priv =3D (unsigned long)folio->private;            =
- \
-> > +     unsigned long priv =3D f2fs_folio_get_private_flags(folio);      =
-         \
-> >       unsigned long v =3D (1UL << PAGE_PRIVATE_NOT_POINTER) |          =
- \
-> >                            (1UL << PAGE_PRIVATE_##flagname);          \
-> >       return (priv & v) =3D=3D v;                                      =
-   \
-> > @@ -2702,12 +2769,7 @@ static inline void folio_set_f2fs_##name(struct =
-folio *folio)          \
-> >  {                                                                    \
-> >       unsigned long v =3D (1UL << PAGE_PRIVATE_NOT_POINTER) |          =
- \
-> >                            (1UL << PAGE_PRIVATE_##flagname);          \
-> > -     if (!folio->private)                                            \
-> > -             folio_attach_private(folio, (void *)v);                 \
-> > -     else {                                                          \
-> > -             v |=3D (unsigned long)folio->private;                    =
- \
-> > -             folio->private =3D (void *)v;                            =
- \
-> > -     }                                                               \
-> > +     f2fs_folio_set_private_flags(folio, v);                         \
-> >  }                                                                    \
-> >  static inline void set_page_private_##name(struct page *page) \
-> >  { \
-> > @@ -2720,13 +2782,8 @@ static inline void set_page_private_##name(struc=
-t page *page) \
-> >  #define PAGE_PRIVATE_CLEAR_FUNC(name, flagname) \
-> >  static inline void folio_clear_f2fs_##name(struct folio *folio)       =
-       \
-> >  {                                                                    \
-> > -     unsigned long v =3D (unsigned long)folio->private;               =
- \
-> > -                                                                     \
-> > -     v &=3D ~(1UL << PAGE_PRIVATE_##flagname);                        =
- \
-> > -     if (v =3D=3D (1UL << PAGE_PRIVATE_NOT_POINTER))                  =
-   \
-> > -             folio_detach_private(folio);                            \
-> > -     else                                                            \
-> > -             folio->private =3D (void *)v;                            =
- \
-> > +     f2fs_folio_clear_private_flags(folio,                           \
-> > +                     1UL << PAGE_PRIVATE_##flagname);                 =
-       \
-> >  }                                                                    \
-> >  static inline void clear_page_private_##name(struct page *page) \
-> >  { \
-> > @@ -2752,7 +2809,7 @@ PAGE_PRIVATE_CLEAR_FUNC(atomic, ATOMIC_WRITE);
-> >
-> >  static inline unsigned long folio_get_f2fs_data(struct folio *folio)
-> >  {
-> > -     unsigned long data =3D (unsigned long)folio->private;
-> > +     unsigned long data =3D f2fs_folio_get_private_flags(folio);
-> >
-> >       if (!test_bit(PAGE_PRIVATE_NOT_POINTER, &data))
-> >               return 0;
-> > @@ -2763,10 +2820,7 @@ static inline void folio_set_f2fs_data(struct fo=
-lio *folio, unsigned long data)
-> >  {
-> >       data =3D (1UL << PAGE_PRIVATE_NOT_POINTER) | (data << PAGE_PRIVAT=
-E_MAX);
-> >
-> > -     if (!folio_test_private(folio))
-> > -             folio_attach_private(folio, (void *)data);
-> > -     else
-> > -             folio->private =3D (void *)((unsigned long)folio->private=
- | data);
-> > +     f2fs_folio_set_private_flags(folio, data);
-> >  }
-> >
-> >  static inline void dec_valid_block_count(struct f2fs_sb_info *sbi,
-> > diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-> > index ed6f2947210b..df10119d94ad 100644
-> > --- a/fs/f2fs/segment.c
-> > +++ b/fs/f2fs/segment.c
-> > @@ -3803,7 +3803,7 @@ static int __get_segment_type_6(struct f2fs_io_in=
-fo *fio)
-> >               if (is_inode_flag_set(inode, FI_ALIGNED_WRITE))
-> >                       return CURSEG_COLD_DATA_PINNED;
-> >
-> > -             if (page_private_gcing(fio->page)) {
-> > +             if (folio_test_f2fs_gcing(fio->folio)) {
->
-> Shouldn't this be changed in "f2fs: make GC migration large-folio aware"?
->
-> Thanks,
->
-> >                       if (fio->sbi->am.atgc_enabled &&
-> >                               (fio->io_type =3D=3D FS_DATA_IO) &&
-> >                               (fio->sbi->gc_mode !=3D GC_URGENT_HIGH) &=
-&
->
->
->
-> _______________________________________________
-> Linux-f2fs-devel mailing list
-> Linux-f2fs-devel@lists.sourceforge.net
-> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
+Current release - fix to a fix:
+
+ - netfilter: ipset: remove need to allocate memory on delete operations
+
+Current release - regressions:
+
+ - macb: drop CONFIG_OF #if block, fix build
+
+Previous releases - always broken:
+
+ - stream of fixes for SCTP continues
+
+ - inet: frags: strip GSO state from fragments before reassembly
+
+ - virtio-net: ensure that TCP packets don't overflow gso_segs
+
+ - tcp-ao: fix use-after-free of current_key on reconnect to another peer
+
+ - page_pool: remove zone/policy GFP flags when allocating XArray entries
+
+ - Bluetooth: L2CAP: reject accept queue add unless BT_LISTEN
+
+ - tls: device: fix out-of-bounds write in tls_append_frag()
+
+ - eth: bnxt:
+   - ring the doorbell when SW USO exits early, avoid packets stuck in Tx
+   - gate TPH enablement behind BNXT_SUPPORTS_QUEUE_API check, avoid users
+     of older NICs seeing non-actionable warning messages
+
+ - eth: qede: fix NULL pointer dereference in TPA fragment processing
+
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+
+----------------------------------------------------------------
+Abhijit Gangurde (1):
+      net: ionic: Fetch RCQ sign bit from firmware
+
+Aldo Ariel Panzardo (1):
+      net: mctp: hold a reference to the route device in mctp_route_lookup()
+
+Aleksandr Khromov (1):
+      slip: fix use-after-free in sl_sync()
+
+Alexandra Winter (1):
+      net/iucv: filter frames in afiucv_hs_rcv() by ingress device
+
+Ali Ahmet Memis (1):
+      Bluetooth: btnxpuart: Validate the FW dump header length
+
+Alice Mikityanska (6):
+      virtio-net: Ensure that TCP packets don't overflow gso_segs
+      net: Guard for gso_segs overflow in skb_segment
+      selftests: net: Wait for netserver to launch
+      selftests: net: Lower threshold on debug kernels for big_tcp_tunnels.sh
+      selftests: net: Lower threshold with csum offload off in big_tcp_tunnels.sh
+      selftests: net: Fix slow configurations in big_tcp_tunnels.sh
+
+Allison Henderson (1):
+      net/rds: use wq_has_sleeper() in rds_cong_map_updated()
+
+Andrea Mayer (1):
+      ipv6: rpl: fix NULL dereference of idev in ipv6_rpl_srh_rcv()
+
+Anshumali Gaur (3):
+      octeontx2-af: fix NULL deref in NIX TM tree debugfs read path
+      octeontx2-af: fix out-of-bounds read setting MSI-X irq affinity
+      octeontx2-vf: fix workqueue and netdev race in probe/remove
+
+Anton Danilov (1):
+      ipip: fix skb leak in collect_md mode when metadata_dst allocation fails
+
+Asim Viladi Oglu Manizada (1):
+      xfrm: ah6: validate routing header segments_left
+
+Breno Leitao (1):
+      net: fix spurious TX timeout after dev_activate()
+
+Cen Zhang (Microsoft) (3):
+      xsk: fix NULL pointer dereference in __xsk_rcv()
+      ipv6: avoid divide by zero in rt6_multipath_rebalance
+      gtp: add synchronize_net() in gtp_newlink() error path to prevent use-after-free
+
+Chengfeng Ye (3):
+      Bluetooth: RFCOMM: serialize security confirmation handling
+      Bluetooth: RFCOMM: serialize session teardown
+      vsock/virtio: flush works in dependency order
+
+Chris Lu (2):
+      Bluetooth: btmtksdio: Take exclusive ownership of the SKB before TX
+      Bluetooth: btmtksdio: Fix out-of-bounds DMA read in the TX path
+
+Christian Marangi (1):
+      net: phylink: correctly validate returned PCS in phylink_inband_caps
+
+Daniel Machon (2):
+      net: microchip: vcap: use port number instead of netdev name for debugfs
+      net: sparx5: fix sleep in atomic context in MAC table access
+
+Daniel Pawlik (1):
+      net: airoha: npu: fix missing streaming DMA mask
+
+Deepanshu Kartikey (1):
+      usb: atm: usbatm: fix invalid ci_range initialization
+
+Edoardo Pinci (1):
+      net: dsa: mxl862xx: enable assisted learning on CPU port
+
+Eric Biggers (1):
+      netfilter: nft_set_pipapo_avx2: add missing vzeroupper
+
+Eric Dumazet (8):
+      selftests: net: packetdrill: add tests for advertised MSS with PMTU exceptions
+      netdevsim: update queue NAPI association on queue reset
+      ip6mr: do not clone dst in ip6mr_cache_report()
+      inetpeer: randomize RB-tree node comparison using SipHash
+      vlan: fix skb_under_panic and races when toggling HW VLAN offload
+      net_sched: sch_fq: fix pacing delay underflow with pacing offload
+      net/sched: act_skbmod: fix length calculations and avoid invalid header warnings
+      slip: remove slip_hangup() to fix use-after-free in slip_receive_buf()
+
+Fan Ye (1):
+      net: thunderbolt: Count delivered packets in rx_packets and rx_bytes
+
+Fernando Fernandez Mancera (2):
+      netfilter: tproxy: use DEBUG_NET_WARN_ON_ONCE for protocol fallbacks
+      netfilter: conncount: use DEBUG_NET_WARN_ON_ONCE on reaching count limit
+
+Florian Westphal (1):
+      netfilter: ipset: remove need to allocate memory on delete operations
+
+Fourie Zhang (1):
+      netfilter: nf_tables: don't queue packet path object notifications
+
+Giuseppe Piscitelli (1):
+      net/sched: sch_cake: fix autorate reconfiguration throttling
+
+Gongwei Li (1):
+      Bluetooth: hci_uart: Fix false success return in hci_uart_setup()
+
+Guangshuo Li (3):
+      Bluetooth: hci_bcm: fix usage_count leak when autosuspend_delay is negative
+      Bluetooth: hci_h5: fix usage_count leak when autosuspend_delay is negative
+      Bluetooth: hci_intel: fix usage_count leak when autosuspend_delay is negative
+
+Guenter Roeck (1):
+      bnxt_en: Fix call to hardware monitoring event handler
+
+Hang Nan (1):
+      Bluetooth: ISO: fix use-after-free of listener socket in iso_conn_ready
+
+Harshit Varu (1):
+      mptcp: fix uninitialized local_id in syncookie MP_JOIN reconstruction
+
+Hidayath Khan (3):
+      net/smc: fix socket refcount leak in smc_switch_conns()
+      net/smc: stop killed, freed and out_of_sync sharing a byte
+      net/smc: fix use-after-free in smc_rx_pipe_buf_release()
+
+HyeongJun An (1):
+      Bluetooth: eir: Fix OOB read in eir_get_service_data()
+
+Hyunwoo Kim (3):
+      net/tcp-ao: fix use-after-free of current_key on reconnect to another peer
+      sctp: drop a chunk if its transport was removed
+      Bluetooth: RFCOMM: Validate MTU in rfcomm_apply_pn() to prevent infinite loop
+
+Ibrahim Abdelkader (1):
+      Bluetooth: hci_sync: Clear HCI_CMD_PENDING when dropping the last request
+
+Ismail Tarim (2):
+      Bluetooth: btmtk: Do not report success when subsys reset fails
+      Bluetooth: btmtk: Do not discard the subsystem reset timeout
+
+Jakub Kicinski (19):
+      Merge tag 'nf-next-26-08-18' of git://git.kernel.org/pub/scm/linux/kernel/git/netfilter/nf-next
+      Merge tag 'ipsec-2026-08-18' of git://git.kernel.org/pub/scm/linux/kernel/git/klassert/ipsec
+      Merge branch 'net-mlx5-preserve-speed-and-state-across-vport-modify-commands'
+      Merge branch 'forcedeth-two-register-window-bounds-fixes'
+      Merge branch 'ionic_rcq_shared' of https://github.com/abhijitG-xlnx/linux
+      Merge branch 'net-ntb_netdev-fix-tx-completion-and-error-handling'
+      Merge branch 'bridge-vxlan-fix-reading-neigh-ha-without-synchronization'
+      Merge tag 'batadv-net-pullrequest-20260821' of https://git.open-mesh.org/batadv
+      Merge branch 'net-ntb_netdev-fix-rx-statistics-accounting'
+      Merge branch 'net-sparx5-misc-fixes-for-sparx5-and-lan969x'
+      Merge branch 'net-smc-fix-out-of-bounds-and-use-after-free-in-smc-rv2-llc-processing'
+      Merge branch 'xsk-pre-existing-af_xdp-tx-metadata-fixes-from-sashiko'
+      Merge branch 'selftests-net-fixes-for-fin_ack_lat'
+      Merge branch 'net-smc-fix-use-after-free-in-smc_rx_pipe_buf_release'
+      Merge branch 'net-enetc-restore-rx-ring-congestion-mode-after-ring-reconfiguration'
+      Merge tag 'for-net-2026-08-24' of git://git.kernel.org/pub/scm/linux/kernel/git/bluetooth/bluetooth
+      Merge branch 'improve-stability-of-big_tcp_tunnels-sh-selftest'
+      Merge branch 'net-stmmac-more-selftest-related-fixes'
+      Merge tag 'nf-26-08-27' of git://git.kernel.org/pub/scm/linux/kernel/git/netfilter/nf
+
+Jamal Hadi Salim (10):
+      net: sched: fix 32-bit backlog wrap in gred, bfifo and plug enqueue
+      net/sched: account classifier filter allocations to memcg
+      net/sched: fq: add overflow bounds to quantum and initial quantum
+      net/sched: fq_codel: clamp default quantum and mtu
+      net/sched: sch_codel: clamp default mtu to avoid disabling CoDel
+      net/sched: fq_pie: clamp default quantum to avoid signed overflow
+      net/sched: hhf: clamp quantum before hhf_change() to avoid overflow
+      net/sched: sfq: clamp quantum to avoid signed overflow soft lockup
+      net/sched: bound qdisc_pkt_len to prevent qdisc soft lockup
+      net/sched: sch_htb: limit htb_classify inner-class filter hops
+
+Jian Shen (1):
+      net: hibmcge: fix page_pool DMA direction mismatch
+
+Jiangshan Yi (1):
+      bnx2x: fix double free in bnx2x_init_firmware() error path
+
+Jiawen Wu (3):
+      net: txgbe: fix MISC interrupt unmasking in non-MSI-X mode and device shutdown
+      net: libwx: fix concurrent bitmap overwrite in PTP setup
+      net: wangxun: use BIT_ULL() to prevent shift overflow on 32-bit archs
+
+Jiayuan Chen (4):
+      net: advertise TCP MSS from the configured MTU, not the learned PMTU
+      tls: device: fix out-of-bounds write in tls_append_frag()
+      tcp: fix corruption of urgent data on multi-segment retransmit
+      selftests/net: packetdrill: add tcp_urg_ptr_retransmit
+
+Joas Antonio dos Santos (1):
+      ipvs: fix integer overflow in ftp helper port/address parsing
+
+Joe Damato (2):
+      net: bnxt: ring the doorbell when SW USO exits early
+      bnxt_en: Write doorbell when linearizing skb fails
+
+Jorijn van der Graaf (1):
+      net: ipa: fix stalled modem TX queue after runtime resume
+
+Jun Yang (2):
+      sctp: distinguish sequence zero from wildcard in reconf lookup
+      sctp: fix stream->outcnt underflow on duplicate RECONF responses
+
+Junjie Cao (1):
+      Bluetooth: btusb: limit RTL8761B BROKEN_EXT_SCAN quirk to 0bda:a728
+
+Koichiro Den (6):
+      NTB: ntb_transport: Recycle TX entries before client callbacks
+      net: ntb_netdev: Fix TX busy and drop handling
+      NTB: ntb_transport: Fail TX enqueue when the QP link is down
+      NTB: ntb_transport: Reject oversized TX buffers
+      net: ntb_netdev: Avoid double-accounting netif_rx() drops
+      net: ntb_netdev: Count packets dropped on RX refill failure
+
+Kyle Zeng (3):
+      ipv6: seg6: clear IPv4 control block on IPIP decapsulation
+      batman-adv: reject unrepresentable multicast TVLV offsets
+      net/packet: defer vmalloc TX_RING free until skbs finish
+
+Long Li (1):
+      net: mana: Cap MSI-X vectors to the device MSI-X table size
+
+Lorenzo Bianconi (1):
+      net: stmmac: drop gso_enabled_types and rely on netdev features
+
+Lorenzo Stoakes (ARM) (1):
+      Bluetooth: hci_bcm4377: Ignore reserved PHY in ext adv reports on BCM4378
+
+Mahanta Jambigi (2):
+      net/smc: free stashed qentry before overwrite in REQ_ADD_LINK to ADD_LINK transition
+      net/smc: free pending qentry in smc_llc_flow_stop() before memset
+
+Maher Azzouzi (1):
+      esp: do not unref managed frag pages in esp_ssg_unref()
+
+Manush Prajwal (1):
+      net: ethernet: renesas: rswitch: fix device_node refcount leak in rswitch_get_port_node()
+
+Marek Czernohous (2):
+      forcedeth: fix off-by-one when saving/restoring non-PCI config space
+      forcedeth: stop the tx_timeout register dump past the requested window
+
+Mark Bloch (1):
+      net/mlx5: E-Switch, use state lock for vport state changes
+
+Maxime Chevallier (7):
+      net: stmmac: selftests: Pass the IP proto mask in the TC selftest
+      net: stmmac: selftests: Check multiple MMC counters
+      net: stmmac: dwmac1000: Account for the primary MAC address for UC filtering
+      net: stmmac: dwmac4: Account for the primary MAC address for UC filtering
+      net: stmmac: dwxgmac: Account for the primary MAC address for UC filtering
+      net: stmmac: selftests: Account for the UC filter list for filtering tests
+      net: stmmac: selftests: Don't test flow control for small rx fifos
+
+Md Rabbani (1):
+      net: stmmac: fix device node reference leaks in stmmac_mtl_setup()
+
+Mehrdad Afshari (1):
+      net: usb: cdc_ncm: add Apple MacBook Pro USB product ID 0x1902
+
+Mina Almasry (4):
+      net: core: propagate unreadable flag in skb_zerocopy
+      net: tcp: block mixing readable and unreadable frags
+      net: core: check skb_frags_readable before uncloning in skb_copy_ubufs
+      net: core: fix head-page leak in skb_zerocopy
+
+Naveen Mamindlapalli (1):
+      octeontx2-af: Fix TL3/TL2 link config ENA clearing
+
+Nikolay Aleksandrov (2):
+      net: bridge: arp/nd proxy: fix reading neigh ha
+      vxlan: fix reading neigh ha
+
+Norbert Szetei (4):
+      openvswitch: only skb_tx_error() a packet we are about to drop
+      net: skbuff: don't skb_tx_error() the source skb in skb_zerocopy()
+      net: skbuff: don't touch shared zerocopy state in skb_tx_error()
+      net: bridge: mcast: fix use-after-free of a master VLAN's multicast context
+
+Or Har-Toov (2):
+      net/mlx5: Move vport DOWN state check out of mlx5_query_vport_max_tx_speed()
+      net/mlx5: E-Switch, preserve max tx speed on vport state modification
+
+Pablo Neira Ayuso (10):
+      netfilter: nf_conntrack_expect: consolidate check for insertion of dead expectation
+      netfilter: ctnetlink: do not expose expectation DEAD flag
+      netfilter: nf_tables: move set_update_list to nftables per-netns
+      netfilter: nf_tables: call set ops .commit when building new ruleset blob
+      netfilter: nf_tables: move hardware offload step after building the chain blob
+      netfilter: x_tables: remove pr_debug
+      netfilter: x_tables: replace pr_{info,err}() by pr_info_ratelimited()
+      netfilter: nf_tables: skip double clone set expressions on element insert
+      netfilter: nf_tables: set on dead bit when performing early element removal
+      netfilter: nf_tables: remove leftover set_update_list
+
+Paolo Abeni (4):
+      Merge branch 'net-don-t-strip-zerocopy-frag-markers-from-a-forwarded-skb'
+      Merge branch 'net-sched-fix-quantum-mtu-overflow-in-fq-fq_codel-sch_codel-fq_pie-hhf-sfq'
+      Merge branch 'sctp-handle-wrapped-and-duplicate-reconf-responses'
+      Merge branch 'guard-against-gso_segs-overflows'
+
+Pascal Kneuper (1):
+      net: stmmac: restore NET_IP_ALIGN in the RX DMA offset
+
+Pauli Virtanen (4):
+      Bluetooth: L2CAP: access chan->conn safely in get/setsockopt
+      Bluetooth: L2CAP: reject accept queue add unless BT_LISTEN
+      Bluetooth: L2CAP: fix race l2cap_sock_cleanup_listen() vs. put_chan
+      Bluetooth: hci_sync: add conditional locking annotations
+
+Pavel Shpakovskiy (1):
+      Bluetooth: mgmt: fix 'hdev->discovery.uuids' NULL dereference
+
+Pengpeng Hou (1):
+      net: qlcnic: validate unified ROM sections before loading
+
+Qing Ming (2):
+      gtp: serialize PDP context updates
+      tcp: fix AO info use-after-free in tcp_ao_connect_init()
+
+Qingshuang Fu (2):
+      selftests/net: fix kill() argument order and wrapper cleanup in fin_ack_lat
+      selftests/net: check fork() return value in fin_ack_lat
+
+Radek Podgorny (1):
+      Bluetooth: do not leak an hci_conn when a second LE connect is rejected
+
+Rastislav Szabo (2):
+      net/tcp: fix TCP-AO key deletion in VRFs
+      selftests: net: tcp_ao: test VRF-scoped key deletion
+
+Rong Zhang (1):
+      net: page_pool: Remove zone/policy GFP flags when allocating XArray entries
+
+Ruoyu Wang (2):
+      net: bridge: Reject descending VLAN tunnel ranges
+      net: ipa: balance runtime PM reference on remove error
+
+Sabrina Dubroca (1):
+      xfrm: espintcp: fix UAF during close
+
+Sai Krishna (1):
+      octeontx2-af: fix cn20k mailbox lifetime on repeated rvu_mbox_init()
+
+Sanghyun Park (1):
+      xfrm: Fix skb double-free in xfrm_dev_direct_output()
+
+Sherry Sun (1):
+      Bluetooth: btnxpuart: Check remote M.2 connector availability before pwrseq
+
+Shiji Yang (1):
+      net: ethernet: mtk_wed: increase WED v2 WDMA RESV_BUFF to 0x80
+
+Stanislav Fomichev (2):
+      xsk: align TX metadata layout across ABIs
+      xsk: honor XDP_TX_METADATA in zero-copy path
+
+Stefan Wahren (1):
+      docs: oa-tc6-framework: Fix link to specification
+
+Steffen Klassert (1):
+      Revert "esp: do not unref managed frag pages in esp_ssg_unref()"
+
+Suman Ghosh (1):
+      octeontx2-pf: fix NULL deref of af_xdp_zc_qidx on rep setup
+
+Sven Eckelmann (8):
+      batman-adv: bla: avoid CRC corruption due to parallel claim add
+      batman-adv: bla: prevent CRC corruptions after claim flush
+      batman-adv: dat: avoid unaligned fault in IP extraction
+      batman-adv: dat: atomically update mac addresses
+      batman-adv: fix TX priority extraction for BATADV_FORW_MCAST
+      batman-adv: mcast: ensure unshared skb for multicast packets
+      batman-adv: mcast: linearize skbuff for packet generation
+      batman-adv: bla: fix freeing of claims on meshif deletion
+
+Tetsuo Handa (2):
+      net: add missing ref_tracker_dir_exit() to net_passive_dec()
+      net: fix a resource leak in copy_net_ns() error handling path
+
+Thomas Walsh (1):
+      bnxt_en: Gate TPH enablement behind BNXT_SUPPORTS_QUEUE_API check
+
+Théo Lebrun (1):
+      net: macb: drop CONFIG_OF #if block
+
+Triet Hoang (1):
+      tools: ynl: handle calloc failure in ynl_ntf_parse
+
+Vaibhav Nagare (1):
+      qede: Fix NULL pointer dereference in TPA fragment processing
+
+Valentin Kindschi (2):
+      Bluetooth: hci_conn: re-enable advertising only for peripheral role
+      Bluetooth: hci_event: clear HCI_LE_ADV only on a created connection
+
+Victor Nogueira (3):
+      net/sched: add get_fill_size callbacks for actions missing them
+      net/sched: act_ife: Only operate on Ethernet frames
+      net/sched: sch_teql: restore skb->dev on the slave failure path
+
+Vitaliy Sochnev (1):
+      net: phy: air_en8811h: move LED GPIO configuration to config_init
+
+Wei Fang (3):
+      ptp: netc: fix period truncation and potential divide-by-zero in PEROUT
+      net: enetc: restore RX ring congestion mode after ring reconfiguration
+      net: enetc: restore RX ring congestion mode for ENETC v4
+
+Weiming Shi (2):
+      xdp: fix zero-copy frame layout
+      sctp: fix NULL deref on untransmitted RECONF completion
+
+Xiang Mei (2):
+      xfrm6: fix out-of-bounds write in xfrm6_input_addr() when secpath is full
+      net: qualcomm: rmnet: restore skb->dev on deaggregated frames
+
+Xin Chen (1):
+      Bluetooth: hci_core: use skb_get() instead of skb_clone() for req_skb
+
+Xinyang Ge (1):
+      inet: frags: strip GSO state from fragments before reassembly
+
+Yehyeong Lee (3):
+      net/smc: fix use-after-free of the LLC qentry in smc_llc_srv_add_link()
+      net/smc: bound the peer rkey counts in SMC-Rv2 LLC messages
+      net/smc: carry oversized SMC-Rv2 LLC messages in the queue entry
+
+Yifei Chu (1):
+      net/smc: release the internal TCP sock on IPPROTO_SMC socket creation failure
+
+Yong Wang (1):
+      tcp: clamp route advmss to TCP_MIN_MSS
+
+Yuqi Xu (1):
+      openvswitch: Fix CT limit teardown use-after-free
+
+Yuyang Huang (1):
+      ipv6: use RCU iterator to dump route exceptions
+
+Zhan Xusheng (1):
+      ethtool: remove unused __ETHTOOL_LINK_MODE_MASK_NWORDS
+
+Zhiling Zou (4):
+      xfrm: drop ESP-in-TCP packets with no ingress device
+      batman-adv: fix stale receive device on merged fragments
+      netfilter: validate L4 headers after userspace packet writes
+      seg6: reset IP6CB after IPv6 decapsulation
+
+Zihan Xi (4):
+      xfrm: avoid lock inversion in nat keepalive work
+      xfrm: fix xfrm_state_construct() auth-trunc leak
+      xfrm: bound nat keepalive state collection
+      net: l2tp: do not propagate multicast notification errors
+
+bui duc phuc (2):
+      net: ethernet: sun4i-emac: Fix IRQ error handling
+      net: fec: only stop PTP if it was initialized
+
+ Documentation/networking/oa-tc6-framework.rst      |   2 +-
+ drivers/bluetooth/btmtk.c                          |  11 +-
+ drivers/bluetooth/btmtksdio.c                      |  37 +-
+ drivers/bluetooth/btnxpuart.c                      |  39 +-
+ drivers/bluetooth/btrtl.c                          |  13 -
+ drivers/bluetooth/btusb.c                          |   8 +
+ drivers/bluetooth/hci_bcm.c                        |   1 +
+ drivers/bluetooth/hci_bcm4377.c                    |   1 +
+ drivers/bluetooth/hci_h5.c                         |   4 +-
+ drivers/bluetooth/hci_intel.c                      |   1 +
+ drivers/bluetooth/hci_ldisc.c                      |   2 +-
+ drivers/bluetooth/hci_serdev.c                     |   2 +-
+ drivers/infiniband/hw/mlx5/main.c                  |   5 +-
+ drivers/net/dsa/mxl862xx/mxl862xx.c                |   1 +
+ drivers/net/ethernet/airoha/airoha_npu.c           |   2 +-
+ drivers/net/ethernet/allwinner/sun4i-emac.c        |   4 +-
+ drivers/net/ethernet/broadcom/bnx2x/bnx2x_main.c   |   3 +
+ drivers/net/ethernet/broadcom/bnxt/bnxt.c          |  25 +-
+ drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c      |   4 +-
+ drivers/net/ethernet/broadcom/bnxt/bnxt_hwmon.c    |   2 +-
+ drivers/net/ethernet/cadence/macb_main.c           |   4 +-
+ drivers/net/ethernet/freescale/enetc/enetc.c       |  72 +++-
+ drivers/net/ethernet/freescale/enetc/enetc.h       |   9 +
+ drivers/net/ethernet/freescale/enetc/enetc4_pf.c   |  16 +-
+ drivers/net/ethernet/freescale/enetc/enetc_pf.c    |  14 +-
+ drivers/net/ethernet/freescale/fec_main.c          |   6 +-
+ drivers/net/ethernet/hisilicon/hibmcge/hbg_txrx.c  |   2 +-
+ drivers/net/ethernet/intel/igc/igc_main.c          |   3 +-
+ .../net/ethernet/marvell/octeontx2/af/cn20k/api.h  |   1 +
+ .../marvell/octeontx2/af/cn20k/mbox_init.c         |  21 +-
+ drivers/net/ethernet/marvell/octeontx2/af/rvu.c    |  43 +-
+ .../ethernet/marvell/octeontx2/af/rvu_debugfs.c    |   6 +
+ .../net/ethernet/marvell/octeontx2/af/rvu_nix.c    |  11 +-
+ .../ethernet/marvell/octeontx2/nic/otx2_common.c   |   6 +-
+ .../ethernet/marvell/octeontx2/nic/otx2_ethtool.c  |   3 +-
+ .../net/ethernet/marvell/octeontx2/nic/otx2_vf.c   |  20 +-
+ .../net/ethernet/marvell/octeontx2/nic/otx2_xsk.c  |   3 +-
+ drivers/net/ethernet/mediatek/mtk_wed.c            |   5 +
+ drivers/net/ethernet/mediatek/mtk_wed_regs.h       |   1 +
+ .../net/ethernet/mellanox/mlx5/core/en/xsk/tx.c    |   2 +-
+ drivers/net/ethernet/mellanox/mlx5/core/en_rep.c   |  20 +-
+ .../ethernet/mellanox/mlx5/core/esw/adj_vport.c    |  22 +
+ .../ethernet/mellanox/mlx5/core/eswitch_offloads.c |   4 +
+ drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c  |   2 +
+ drivers/net/ethernet/mellanox/mlx5/core/vport.c    |  44 +-
+ .../net/ethernet/microchip/sparx5/sparx5_netdev.c  |  11 +-
+ .../ethernet/microchip/sparx5/sparx5_vcap_impl.c   |   5 +-
+ .../net/ethernet/microchip/vcap/vcap_api_debugfs.c |  21 +
+ .../net/ethernet/microchip/vcap/vcap_api_debugfs.h |  14 +
+ drivers/net/ethernet/microsoft/mana/gdma_main.c    |  19 +
+ drivers/net/ethernet/nvidia/forcedeth.c            |   6 +-
+ drivers/net/ethernet/pensando/ionic/ionic_if.h     |   6 +-
+ drivers/net/ethernet/qlogic/qede/qede.h            |   8 +-
+ drivers/net/ethernet/qlogic/qede/qede_fp.c         |   1 +
+ drivers/net/ethernet/qlogic/qlcnic/qlcnic_init.c   | 467 ++++++++++++---------
+ .../net/ethernet/qualcomm/rmnet/rmnet_map_data.c   |   1 +
+ drivers/net/ethernet/renesas/rswitch_main.c        |  18 +-
+ .../net/ethernet/stmicro/stmmac/dwmac1000_core.c   |   2 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c  |   2 +-
+ .../net/ethernet/stmicro/stmmac/dwxgmac2_core.c    |   2 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h       |   2 -
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  |  26 +-
+ .../net/ethernet/stmicro/stmmac/stmmac_platform.c  |   6 +-
+ .../net/ethernet/stmicro/stmmac/stmmac_selftests.c |  57 ++-
+ drivers/net/ethernet/wangxun/libwx/wx_ptp.c        |  18 +-
+ drivers/net/ethernet/wangxun/libwx/wx_type.h       |   2 +-
+ drivers/net/ethernet/wangxun/txgbe/txgbe_irq.c     |   5 +-
+ drivers/net/ethernet/wangxun/txgbe/txgbe_type.h    |   2 +-
+ drivers/net/gtp.c                                  |  23 +-
+ drivers/net/ipa/ipa_main.c                         |   6 +-
+ drivers/net/ipa/ipa_modem.c                        |  18 +-
+ drivers/net/netdevsim/netdev.c                     |   2 +
+ drivers/net/ntb_netdev.c                           |  38 +-
+ drivers/net/phy/air_en8811h.c                      |  18 +-
+ drivers/net/phy/phylink.c                          |   2 +-
+ drivers/net/slip/slip.c                            |  19 +-
+ drivers/net/thunderbolt/main.c                     |   6 +-
+ drivers/net/usb/cdc_ncm.c                          |   6 +
+ drivers/net/vxlan/vxlan_core.c                     |  20 +-
+ drivers/ntb/ntb_transport.c                        |  38 +-
+ drivers/ptp/ptp_netc.c                             |  10 +-
+ drivers/usb/atm/usbatm.c                           |   4 +-
+ include/linux/ethtool_netlink.h                    |   3 -
+ include/linux/mlx5/vport.h                         |   3 +-
+ include/linux/skbuff.h                             |  24 ++
+ include/linux/virtio_net.h                         |   4 +
+ include/net/bluetooth/hci_core.h                   |   2 +-
+ include/net/bluetooth/l2cap.h                      |   5 +
+ include/net/inetpeer.h                             |   4 +
+ include/net/ip.h                                   |  25 ++
+ include/net/ip6_route.h                            |  37 ++
+ include/net/libeth/xsk.h                           |   2 +-
+ include/net/netfilter/nf_tables.h                  |   3 +-
+ include/net/pkt_sched.h                            |   1 +
+ include/net/sctp/structs.h                         |   2 +-
+ include/net/tcp.h                                  |   5 +
+ include/net/xdp_sock_drv.h                         |  22 +-
+ include/net/xsk_buff_pool.h                        |   3 +-
+ include/uapi/linux/if_xdp.h                        |   1 +
+ net/8021q/vlan_dev.c                               |  39 +-
+ net/batman-adv/bridge_loop_avoidance.c             |  80 ++--
+ net/batman-adv/distributed-arp-table.c             |  66 ++-
+ net/batman-adv/main.c                              |   4 +
+ net/batman-adv/mesh-interface.c                    |   7 +-
+ net/batman-adv/multicast_forw.c                    |   7 +-
+ net/batman-adv/tvlv.c                              |   5 +-
+ net/batman-adv/types.h                             |   2 +-
+ net/bluetooth/eir.c                                |   3 +-
+ net/bluetooth/hci_conn.c                           |   3 +-
+ net/bluetooth/hci_core.c                           |   2 +-
+ net/bluetooth/hci_event.c                          |   7 +-
+ net/bluetooth/hci_sync.c                           |  16 +-
+ net/bluetooth/iso.c                                |   8 +
+ net/bluetooth/l2cap_sock.c                         | 100 +++--
+ net/bluetooth/mgmt.c                               |  18 +-
+ net/bluetooth/rfcomm/core.c                        |  14 +-
+ net/bridge/br_arp_nd_proxy.c                       |  24 +-
+ net/bridge/br_multicast.c                          |   4 +-
+ net/bridge/br_netlink_tunnel.c                     |   3 +-
+ net/core/net_namespace.c                           |  25 +-
+ net/core/page_pool.c                               |   7 +
+ net/core/skbuff.c                                  |  28 +-
+ net/core/xdp.c                                     |   4 +-
+ net/ife/ife.c                                      |  14 +-
+ net/ipv4/inet_fragment.c                           |   7 +
+ net/ipv4/inetpeer.c                                |  38 +-
+ net/ipv4/ipip.c                                    |   2 +-
+ net/ipv4/netfilter/ipt_ah.c                        |  10 +-
+ net/ipv4/netfilter/nf_tproxy_ipv4.c                |   2 +-
+ net/ipv4/route.c                                   |   4 +-
+ net/ipv4/tcp.c                                     |   3 +-
+ net/ipv4/tcp_ao.c                                  |  19 +-
+ net/ipv4/tcp_ipv4.c                                |   2 +-
+ net/ipv4/tcp_minisocks.c                           |   2 +-
+ net/ipv4/tcp_output.c                              |   8 +-
+ net/ipv6/ah6.c                                     |  29 +-
+ net/ipv6/exthdrs.c                                 |  26 +-
+ net/ipv6/ip6mr.c                                   |   3 +-
+ net/ipv6/netfilter/ip6t_ah.c                       |  27 +-
+ net/ipv6/netfilter/ip6t_frag.c                     |  41 +-
+ net/ipv6/netfilter/ip6t_hbh.c                      |  40 +-
+ net/ipv6/netfilter/ip6t_mh.c                       |   3 -
+ net/ipv6/netfilter/ip6t_rt.c                       |   6 +-
+ net/ipv6/netfilter/nf_tproxy_ipv6.c                |   2 +-
+ net/ipv6/route.c                                   |   6 +-
+ net/ipv6/seg6_local.c                              |  16 +
+ net/ipv6/tcp_ipv6.c                                |   2 +-
+ net/ipv6/xfrm6_input.c                             |   2 +-
+ net/iucv/af_iucv.c                                 |   2 +
+ net/l2tp/l2tp_netlink.c                            |  16 +-
+ net/mctp/route.c                                   |  19 +-
+ net/mptcp/syncookies.c                             |   1 +
+ net/netfilter/ipset/ip_set_hash_gen.h              | 174 +++++---
+ net/netfilter/ipset/ip_set_hash_netiface.c         |   1 -
+ net/netfilter/ipset/ip_set_hash_netportnet.c       |   1 -
+ net/netfilter/ipvs/ip_vs_ftp.c                     |  10 +-
+ net/netfilter/nf_conncount.c                       |   3 +-
+ net/netfilter/nf_conntrack_expect.c                |  11 +-
+ net/netfilter/nf_conntrack_netlink.c               |   2 +-
+ net/netfilter/nf_tables_api.c                      | 218 +++++-----
+ net/netfilter/nfnetlink_queue.c                    |  72 +++-
+ net/netfilter/nft_dynset.c                         |  25 +-
+ net/netfilter/nft_payload.c                        |  13 +
+ net/netfilter/nft_set_pipapo_avx2.c                |  17 +-
+ net/netfilter/xt_IDLETIMER.c                       |  68 +--
+ net/netfilter/xt_LOG.c                             |   4 +-
+ net/netfilter/xt_MASQUERADE.c                      |   4 +-
+ net/netfilter/xt_NETMAP.c                          |   6 +-
+ net/netfilter/xt_REDIRECT.c                        |   6 +-
+ net/netfilter/xt_cgroup.c                          |  12 +-
+ net/netfilter/xt_esp.c                             |  10 +-
+ net/netfilter/xt_hl.c                              |   4 +-
+ net/netfilter/xt_ipcomp.c                          |   8 +-
+ net/netfilter/xt_iprange.c                         |  32 +-
+ net/netfilter/xt_ipvs.c                            |   1 -
+ net/netfilter/xt_multiport.c                       |   4 -
+ net/netfilter/xt_sctp.c                            |  19 +-
+ net/netfilter/xt_tcpudp.c                          |   8 +-
+ net/openvswitch/conntrack.c                        | 120 ++++--
+ net/openvswitch/conntrack.h                        |   6 +-
+ net/openvswitch/datapath.c                         |  16 +-
+ net/openvswitch/datapath.h                         |   8 +-
+ net/packet/af_packet.c                             |  96 ++++-
+ net/rds/cong.c                                     |   4 +-
+ net/sched/act_api.c                                |   5 +-
+ net/sched/act_bpf.c                                |  26 ++
+ net/sched/act_ct.c                                 |  46 ++
+ net/sched/act_ctinfo.c                             |  11 +
+ net/sched/act_ife.c                                |  55 ++-
+ net/sched/act_pedit.c                              |  24 ++
+ net/sched/act_police.c                             |  12 +
+ net/sched/act_sample.c                             |   9 +
+ net/sched/act_skbmod.c                             |  12 +-
+ net/sched/act_tunnel_key.c                         |  80 ++++
+ net/sched/cls_api.c                                |   3 +-
+ net/sched/cls_basic.c                              |   6 +-
+ net/sched/cls_bpf.c                                |   6 +-
+ net/sched/cls_cgroup.c                             |   2 +-
+ net/sched/cls_flow.c                               |   2 +-
+ net/sched/cls_flower.c                             |   4 +-
+ net/sched/cls_fw.c                                 |   4 +-
+ net/sched/cls_matchall.c                           |   4 +-
+ net/sched/cls_route.c                              |   4 +-
+ net/sched/cls_u32.c                                |  11 +-
+ net/sched/sch_api.c                                |   7 +-
+ net/sched/sch_cake.c                               |   1 +
+ net/sched/sch_codel.c                              |   2 +-
+ net/sched/sch_fifo.c                               |   2 +-
+ net/sched/sch_fq.c                                 |  14 +-
+ net/sched/sch_fq_codel.c                           |   6 +-
+ net/sched/sch_fq_pie.c                             |   3 +-
+ net/sched/sch_generic.c                            |   2 +-
+ net/sched/sch_gred.c                               |   4 +-
+ net/sched/sch_hhf.c                                |   4 +
+ net/sched/sch_htb.c                                |   7 +-
+ net/sched/sch_plug.c                               |   2 +-
+ net/sched/sch_sfq.c                                |   3 +-
+ net/sched/sch_teql.c                               |   1 +
+ net/sctp/inqueue.c                                 |   7 +-
+ net/sctp/stream.c                                  |  48 ++-
+ net/smc/smc.h                                      |   6 +-
+ net/smc/smc_core.c                                 |  14 +-
+ net/smc/smc_inet.c                                 |  16 +
+ net/smc/smc_llc.c                                  | 125 ++++--
+ net/smc/smc_rx.c                                   |  11 +-
+ net/smc/smc_wr.c                                   |   6 +-
+ net/tls/tls_device.c                               |   3 +-
+ net/vmw_vsock/virtio_transport.c                   |   2 +-
+ net/xdp/xsk.c                                      |  30 +-
+ net/xdp/xsk_buff_pool.c                            |   7 +-
+ net/xfrm/espintcp.c                                |   9 +-
+ net/xfrm/xfrm_nat_keepalive.c                      |  53 ++-
+ net/xfrm/xfrm_output.c                             |   4 +-
+ net/xfrm/xfrm_user.c                               |   2 +-
+ tools/include/uapi/linux/if_xdp.h                  |   1 +
+ tools/net/ynl/lib/ynl.c                            |   3 +
+ tools/testing/selftests/net/big_tcp_tunnels.sh     |  38 +-
+ tools/testing/selftests/net/fin_ack_lat.c          |   5 +-
+ tools/testing/selftests/net/fin_ack_lat.sh         |   2 +-
+ .../net/packetdrill/tcp_advmss_pmtu_ipv4.pkt       |  67 +++
+ .../net/packetdrill/tcp_advmss_pmtu_ipv6.pkt       |  67 +++
+ .../net/packetdrill/tcp_urg_ptr_retransmit.pkt     |  65 +++
+ .../testing/selftests/net/tcp_ao/key-management.c  |  67 ++-
+ tools/testing/selftests/net/tcp_ao/lib/aolib.h     |   6 +-
+ tools/testing/selftests/net/tcp_ao/lib/sock.c      |   4 +-
+ 245 files changed, 2989 insertions(+), 1438 deletions(-)
+ create mode 100644 tools/testing/selftests/net/packetdrill/tcp_advmss_pmtu_ipv4.pkt
+ create mode 100644 tools/testing/selftests/net/packetdrill/tcp_advmss_pmtu_ipv6.pkt
+ create mode 100644 tools/testing/selftests/net/packetdrill/tcp_urg_ptr_retransmit.pkt
