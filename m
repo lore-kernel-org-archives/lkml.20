@@ -1,204 +1,155 @@
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AF451EFFA1
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:19:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.177
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787815166; cv=pass; b=N8zSYv8EhSuhcnnssW9dzi4iBzo9Rza1Y40roJnq1tr8NZrXxIXaBEvdNmuMVSOodCPYe1S01wouBwydbtmjyMYpgrxOLFUEBNlpQpO1GD5qlPT6SdKILEoUjFLyz6nfAnwR9vwUwrzNrjUerUxTVSUowf88uwyphPf5wOH39qA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787815166; c=relaxed/simple;
-	bh=VUasteM/1eK2m7/PtquDXotFQqnoyDt+RcdvdR9rizo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=csWtuAlUMwrqfd+Fnec6/N+ujwWSvFBplAbgTfaPGUO1U+hdRm7Uot91MMFT0bN8caNjukRnZ5RPSfYnb5iSeJjkuPjZbQdACn3CGj/5qcfCzSmbjhehr2qgSY8v6BJCNrFoTGNIf2E5TM04I92bwgJ4HqIWsMHAVuzjpyNOYPE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=IdrGu9YE; arc=pass smtp.client-ip=209.85.128.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69004288D0
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:20:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787815208; cv=none; b=biJ+1OL7pTnykFKt63jlwZ/BoJDgYANQcMaUVDLY5rfPxTArnev7Jr2IehFdfMAP8ZbcgDsqqTnqGPhXnq24S/2rOMqwQ6eNcGUA5JE070WO47ETDQ7mJVDVxRLKL7aNcHe3qLzMN7QKCS1eoMKCN5RtcF+SqfxaGtgKhOHzuNU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787815208; c=relaxed/simple;
+	bh=sRGU7AaQzEvMvtU/o6Fzq/lzwxUVeprDtN7OxmlMIGA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Z8ai7yieBpXzIMVQ2XlpQEY1CKOTLI5geTxb9TWynIzC6agkGN+kjW33fLxFVliCQ+f1w1EhhOHE1ttewQT5FMNcPzhGdk6K6AWwpB+m2YlNzWjcwBlITEP/dPOJ0g+xQCuVU9JX9yz9V2ZvFhX9EDav3n0K+I/qikFhcOReUwY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Cj+zEZGp; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="IdrGu9YE"
-Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-836c8bde2dcso25906267b3.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:19:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787815164; cv=none;
-        d=google.com; s=arc-20260327;
-        b=L0M9heIx/XosydYVuvg577bmO4NyF2PCTc4dJmVWUQwstAS1yzYGCj5XVg8lZpPhQx
-         MgJkPrVp1VHDfSeIrma2x4W+rwrr0K176ThJGMxm2uf4RgspkUutuwSA1nmAuTuAS8bS
-         gkR333mnBXwfx+Qz8K+5TcpZUVG2vBjfUgt6c3bWUNiiKGjUkSkxLbexZQctZ15MuzKE
-         VjQ9aINLIk63T1ip0JFJbccpThlscPP3YhAysT2XsgXC25iQuXpNrDM+2vt+Xg4sHTah
-         IEqi773rxxcBfYbwjU20OfCYlMOgirIpG3MRkLBu/1dddrQAAvVufFy/D8zdVREbPbdr
-         i6Rg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=IhU91M+LW4kUF2uW8BgolP2/H8Gx1gryC+2FQXRk+lc=;
-        fh=lE6IDXQrtqy55eDhsglzWhdzsViDuT8B/8rTqwcmp/Q=;
-        b=ClCN553Met6g8yTG7UojtR5q8UGA7J0yEmCNldmqfxNqrOpbhlu3U7Xggx17EhK2hW
-         2cPo6FS+CiqdqrsKBbnfpAEGSqPE2U+N8iaia0U4Gkqe+rurgOeUow3OkCohQ88IZHsM
-         EaOuCA+x8UgMT+2eh/01Dq7rwuoJ3eQgh4Y0OnPE3P1XYRmsXfVt5Qbeojg0OeonJYac
-         k4ifcFlOrutCDenMO8JazTtCVdxymUYEo8p/aYQxHdmT/H86y55IdzgYCbRNPKsCQPkt
-         66yd5PL6AvtvZf0Jkj1WSrxVbc4TDoqsG1UYsLJDvr/ugQ6FYlAtJdk/90B538EeO0vV
-         0/Sg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787815164; x=1788419964; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IhU91M+LW4kUF2uW8BgolP2/H8Gx1gryC+2FQXRk+lc=;
-        b=IdrGu9YE36MYY13oNBTdA56uURH0gEieApaMfaDMl+fvmNCmlVeCh9GWa2CTogs8RJ
-         esCPrzwaQW416UAThRvc6XULVbSUrv366i/cxNVkM3NvGqH5BAU+nvHBrq1eETxWCOeC
-         rJhp3i4RhSDJqxFMgwvhgj7r5mzcrNxaAwacwdtnWIzw7BFY5rV49IrxETKcyN9y3wRI
-         OlmQPOWlBOxn9lWWfa6TxhxBSgnGTZRakYQU3A64HR6R16Nhlgsj30orA8DyQtvhmwLS
-         qGjP+/l3HPC/3Ogl44ji3R4WM9orauF4GJ8yFNJlHbApMwYPhIs7LrPo7D1oF4blT7mq
-         ibDg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787815164; x=1788419964;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IhU91M+LW4kUF2uW8BgolP2/H8Gx1gryC+2FQXRk+lc=;
-        b=ZHwhIqfZnegUutgAY5GKO8H1Ou7GNWEdNUe52KyCQZnYPVvEZIE8xBCfAYgZ0yamFh
-         1RTGC9x3Sz4Y8KcJYnTSWD7S3DiRJ1jffZhZZUTlW1v4MSX9qnGZ3rnPKK0IUGrvyqXF
-         xjSHLZ1ej8/LmHfhedRoIXqp5ORP8Jv7ranjKBRh+svRJAlbIiB0OzksexX0dxxoxIq5
-         gTJ6Z5J9kqZwMRq+JFSwL2p6EMx/a7Tv4kM9b4GTLhj0QyA6DRakVweTDPc/gsM+ODXQ
-         TlkPRfcJI7QiJtwueLdcGrt4Lr4VCOG+BIVBG1QRSem4w1VZxenOFbUtLaIo0TScVMxW
-         /2gQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpU7/2ZDAJLnzwMhWXMhiNUuj3RoiJjCcsbZ1UHxZHMGaK230bipsS2Rwr6CBWQC7ivWVDRUWcbEejh1g8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mrKWuN2YVNd3B7+OKXrwSbwY+xaTGn0BTsVG/lFQnPtKHSmUOl
-	1xPWUnwumRrO2xu63LNdeoLPUY6xxRRfHwxNDnlmnzUa+8tU9giehmRxNtw2mCcfpzoJPW/4DyG
-	M+Au6CivwjNB3P+nE3f6ddB+d0TggrXFEQEizS/mJ
-X-Gm-Gg: AR+sD12koPpmFRFL3aq3uZsBJ9rPhhB4KzyqXod610DXMiNCtri570afU+OklMyw3X5
-	GHDKQuLMuz0YLbjR/Jd88HRyYLMD2XU3u8jTAxjDL49puBieSvZJKfskm1b61eUmhCt7HIUZjJj
-	nsuH5FO74jQJKagdfIpOFFOjiPW4bVedXsWwlKNZeX0R1O9nDPYM6VjEPM2wWV5HWParmt90CKH
-	SvmPUkGzKTtWXjESGXG4aFbiCefhUV6hVX6wrh0i4+9sh6yMwhaPVAwKqPaZqhJZ3Q2kr2YZGzN
-	FrK0v5XNHvJOYB5yAuqgVfzxRh5IO59hW7blYW2h8Cg4XLRNzDjgDo1lzSSv0zFUp6NRJEyqbvW
-	RvBS0gvOK0Ugsx50+7KaPeQup2LJGXFnN6czG65BgTYZAzzVum9ncpvbTeQ2s
-X-Received: by 2002:a05:690c:e288:20b0:855:f387:98c0 with SMTP id
- 00721157ae682-85740497376mr45849787b3.29.1787815155156; Thu, 27 Aug 2026
- 00:19:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Cj+zEZGp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1787815204;
+	bh=sRGU7AaQzEvMvtU/o6Fzq/lzwxUVeprDtN7OxmlMIGA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=Cj+zEZGp/GxsoCKw2kj6q1zoqhJNQNhtkx52vTWCothBtwy7DWwjc9ZKm7RlnFwM+
+	 7ejOSH9ETOSi/ZreQItktRA8HBfqT7DrjTODbwqAWVOaTMeHv5IjfYfcz/UfgSQdKU
+	 g820xdWEnEJiL9UdB04nkDClWwa1umnS/7KkMFRwfkB+ubEaO2iLudJz9Dn5B6gYzu
+	 /5AyuQZ9iwDCbyhZjUopdGXCpX73OpYH2ZWWiybzkcbj+r9Upo8APNJPRR4Vw6kJIF
+	 jrloAO4EYrDdkHontNN8Zbdr20QlPREgqaniSjL7XPUcMcsnYcDSw66epfIOpt9axI
+	 rIMo/iuFrAXrA==
+Received: from fedora-21.home (unknown [100.64.0.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bbrezillon)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id E313917E01B3;
+	Thu, 27 Aug 2026 09:20:03 +0200 (CEST)
+Date: Thu, 27 Aug 2026 09:19:59 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Chia-I Wu <olvaffe@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 0/9] drm/panthor: Reduce dma_fence signalling latency
+Message-ID: <20260827091959.6faf45bc@fedora-21.home>
+In-Reply-To: <20260825-panthor-signal-from-irq-v7-0-ebb5b4c891a4@collabora.com>
+References: <20260825-panthor-signal-from-irq-v7-0-ebb5b4c891a4@collabora.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260823142620.126424-1-shlomojune6@gmail.com> <CANn89i+5o16tSTk9MpLE24nCAn+SkMeZvHv0W=MqxnXGZDBBiQ@mail.gmail.com>
-In-Reply-To: <CANn89i+5o16tSTk9MpLE24nCAn+SkMeZvHv0W=MqxnXGZDBBiQ@mail.gmail.com>
-From: Eric Dumazet <edumazet@google.com>
-Date: Thu, 27 Aug 2026 09:19:03 +0200
-X-Gm-Features: AcwNN1Uv5avHkko0YacIDMfyYRxac66XxxBIaWUGZOqnwIzkejhBZ_2TAAKhfiE
-Message-ID: <CANn89iKck9W0KB8Sp7OFDQ+OTFJnBpy=jsmQbZ+VYhrm8yOUgw@mail.gmail.com>
-Subject: Re: [PATCH net] net: skbuff: reject invalid pull bounds
-To: Shihuang Liu <shlomojune6@gmail.com>
-Cc: netdev@vger.kernel.org, davem@davemloft.net, kuba@kernel.org, 
-	pabeni@redhat.com, horms@kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sun, Aug 23, 2026 at 4:51=E2=80=AFPM Eric Dumazet <edumazet@google.com> =
-wrote:
->
-> On Sun, Aug 23, 2026 at 4:26=E2=80=AFPM Shihuang Liu <shlomojune6@gmail.c=
-om> wrote:
-> >
-> > skb_maybe_pull_tail() subtracts skb_headlen(skb) from the unsigned max
-> > argument and passes the result to __pskb_pull_tail() as a signed int.  =
-The
-> > function does not ensure that max is at least skb_headlen(skb).
-> >
-> > This can happen while parsing IPv6 extension headers when an skb alread=
-y
-> > has a linear area larger than MAX_IPV6_HDR_LEN.  Once the parser needs =
-data
-> > beyond the linear area, max - skb_headlen(skb) wraps and is converted t=
-o a
-> > negative delta.  __pskb_pull_tail() then passes that negative length to
-> > skb_copy_bits(), where it can become a very large copy length.
-> >
-> > Reject this inconsistent bound before doing the subtraction.  In this c=
-ase
-> > pulling up to max cannot satisfy len because the initial check establis=
-hed
-> > that skb_headlen(skb) is smaller than len.
-> >
-> > Fixes: 1431fb31ecba ("xen-netback: fix fragment detection in checksum s=
-etup")
-> > Cc: stable@vger.kernel.org
-> > Assisted-by: LLM
->
-> > Signed-off-by: Shihuang Liu <shlomojune6@gmail.com>
-> > ---
-> >  net/core/skbuff.c | 3 +++
-> >  1 file changed, 3 insertions(+)
-> >
-> > diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-> > index c82a147..33022f7 100644
-> > --- a/net/core/skbuff.c
-> > +++ b/net/core/skbuff.c
-> > @@ -5838,6 +5838,9 @@ static int skb_maybe_pull_tail(struct sk_buff *sk=
-b, unsigned int len,
-> >         if (max > skb->len)
-> >                 max =3D skb->len;
-> >
-> > +       if (max < skb_headlen(skb))
-> > +               return -EPROTO;
-> > +
->
-> pw-bot: rejected
->
-> Please ask your LLM not to slow down the fast path, and find a better
-> fix in skb_checksum_setup_ipv6().
->
-> Note how skb_checksum_setup_ip() is fine.
->
-> diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-> index d4382b68d56e0b3b247868b4d29ab383cfcf7440..f77d7480594ca6a1dcce2fea7=
-37e421d5ea2d38d
-> 100644
-> --- a/net/core/skbuff.c
-> +++ b/net/core/skbuff.c
-> @@ -5974,7 +5974,8 @@ static int skb_checksum_setup_ipv6(struct
-> sk_buff *skb, bool recalculate)
->                         err =3D skb_maybe_pull_tail(skb,
->                                                   off +
->                                                   sizeof(struct ipv6_opt_=
-hdr),
-> -                                                 MAX_IPV6_HDR_LEN);
-> +                                                 off +
-> +                                                 sizeof(struct ipv6_opt_=
-hdr));
->                         if (err < 0)
->                                 goto out;
->
-> @@ -5989,7 +5990,8 @@ static int skb_checksum_setup_ipv6(struct
-> sk_buff *skb, bool recalculate)
->                         err =3D skb_maybe_pull_tail(skb,
->                                                   off +
->                                                   sizeof(struct ip_auth_h=
-dr),
-> -                                                 MAX_IPV6_HDR_LEN);
-> +                                                 off +
-> +                                                 sizeof(struct ip_auth_h=
-dr));
->                         if (err < 0)
->                                 goto out;
->
-> @@ -6004,7 +6006,8 @@ static int skb_checksum_setup_ipv6(struct
-> sk_buff *skb, bool recalculate)
->                         err =3D skb_maybe_pull_tail(skb,
->                                                   off +
->                                                   sizeof(struct frag_hdr)=
-,
-> -                                                 MAX_IPV6_HDR_LEN);
-> +                                                 off +
-> +                                                 sizeof(struct frag_hdr)=
-);
->                         if (err < 0)
->                                 goto out;
+On Tue, 25 Aug 2026 10:01:21 +0200
+Boris Brezillon <boris.brezillon@collabora.com> wrote:
 
+> Right now, panthor is one of the rare drivers to signal fences
+> from work items (not even from the threaded IRQ handler). We
+> tried moving the job_completion check to hardirq handlers like
+> other drivers do, but the duration of this handler gets
+> slightly over the few usec (20+ usecs) we usually expect from
+> hardird handlers, and we're not sure we want to hold off the
+> processing of other interrupts for that long. So this series
+> just gets rid of the threaded-handler -> work_item indirection
+> and checks for job completion (and thus, fence signalling)
+> directly in the threaded handler.
+> 
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 
-Following up on this, are you planning to send a V2?
+Queued to drm-misc-next.
 
-Thanks.
+> ---
+> Changes in v7:
+> - Adjust scg_slots comment to reflect the fact the priority field needs
+>   to be accessed with panthor_scheduler::lock held
+> - Don't disable IRQs when acquiring the fdinfo lock
+> - Link to v6: https://patch.msgid.link/20260811-panthor-signal-from-irq-v6-0-12f2ab53d735@collabora.com
+> 
+> Changes in v6:
+> - Rebase on drm-misc-next
+> - Link to v5: https://lore.kernel.org/r/20260625-panthor-signal-from-irq-v5-0-8836a74e0ef9@collabora.com
+> 
+> Changes in v5:
+> - Add a fix for a theoretical IOMEM access in suspended state (patch 1)
+> - Make sure we don't delay a pending immediate tick in
+>   sched_resume_tick() (patch 2)
+> - Make sure we initialize panthor_irq::state properly in the irq_request
+>   helper
+> - Link to v4: https://lore.kernel.org/r/20260625-panthor-signal-from-irq-v4-0-3d2908912afa@collabora.com
+> 
+> Changes in v4:
+> - Add a bunch of fixes for bugs reported by shashiko
+> - Link to v3: https://lore.kernel.org/r/20260623-panthor-signal-from-irq-v3-0-2ece396f8ee0@collabora.com
+> 
+> Changes in v3:
+> - Save/restore the irq state in the raw handler.
+> - Rename panthor_irq::mask_lock into panthor_irq::lock
+> - Use the __always_inline specifier on
+>   panthor_irq_default_threaded_handler()
+> - Use devm_request_threaded_irq() even when the threaded handler is
+>   NULL
+> - Drop the patch that dynamically enables request-related interrupts
+>   (FW-side race) after the polling period has expired
+> - Don't process FW events from the hardirq handler (too heavy for an
+>   hardirq handler according to our testing)
+> - Link to v2: https://lore.kernel.org/r/20260512-panthor-signal-from-irq-v2-0-95c614a739cb@collabora.com
+> 
+> Changes in v2:
+> - Fix commit message in patch 4
+> - Move devm_kasprintf() before panthor_irq_resume() in patch 3
+> - Fix erroneous lockdep_assert_held() in patch 6
+> - Make sure events_lock is held when calling
+>   csg_slot_sync_update_locked() in patch 6
+> - Restore a csg_slot_sync_update_locked() call in patch 7
+> - Fix a potential deadlock in patch 9
+> - Drop the IRQ coalescing patch (formerly patch 10)
+> - Change panthor_irq_request() so we don't have to define a dummy
+>   threaded handler, and we can let RT kernels move the hard handler
+>   to a thread
+> - Add patches to transition GPU event processing to the hard IRQ handler
+> - Link to v1: https://lore.kernel.org/r/20260429-panthor-signal-from-irq-v1-0-4b92ae4142d2@collabora.com
+> 
+> ---
+> Boris Brezillon (9):
+>       drm/panthor: Make panthor_irq::state a non-atomic field
+>       drm/panthor: Move the register accessors before the IRQ helpers
+>       drm/panthor: Replace the panthor_irq macro machinery by inline helpers
+>       drm/panthor: Don't update might_have_idle_groups in process_idle_event_locked()
+>       drm/panthor: Get rid of panthor_group::fatal_lock
+>       drm/panthor: Protect events processing with a separate spinlock
+>       drm/panthor: Don't defer job completion checks
+>       drm/panthor: Don't defer FW event processing
+>       drm/panthor: Automate CSG IRQ processing at group unbind time
+> 
+>  drivers/gpu/drm/panthor/panthor_device.h | 286 ++++++++---------
+>  drivers/gpu/drm/panthor/panthor_fw.c     |  22 +-
+>  drivers/gpu/drm/panthor/panthor_gpu.c    |  28 +-
+>  drivers/gpu/drm/panthor/panthor_mmu.c    |  39 +--
+>  drivers/gpu/drm/panthor/panthor_pwr.c    |  24 +-
+>  drivers/gpu/drm/panthor/panthor_sched.c  | 518 +++++++++++++++----------------
+>  6 files changed, 452 insertions(+), 465 deletions(-)
+> ---
+> base-commit: b961eb36d7b04147104cff2fd8bc0e94f4713324
+> change-id: 20260429-panthor-signal-from-irq-d33684f4d292
+> 
+> Best regards,
+> --  
+> Boris Brezillon <boris.brezillon@collabora.com>
+> 
+
