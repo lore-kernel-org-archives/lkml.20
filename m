@@ -1,207 +1,128 @@
-Received: from smtpbg151.qq.com (smtpbg151.qq.com [18.169.211.239])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-72.mta0.migadu.com [91.218.175.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 910A62641FC;
-	Thu, 27 Aug 2026 02:17:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.169.211.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 007A7369985
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 02:20:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787797046; cv=none; b=rGWEWNbNIQvShFxMOghCSEPh6AJ+YjwpDZXQnBWbM+TmgSCYFqYx4LT8e3cmYRm6uM4XnCHTZroBEzrcAZMjRhUuniixlTfb+kKMApPBBxJZsoetZcZVGCiUY/eJzsjcuDM4AWeqAoJGUGLAnGIXHHOecfUyi4xE7WkDMKRd4pI=
+	t=1787797205; cv=none; b=go/PNrHlNZP1mAZkGe0xNCzvBgnFnwGNTNPf9ww8p0JaldI45e7KW0pE/HULSR+FSJ0L5XrXtAYHyMf9Vwa7I/fKnKKMRulS5C+iX5CC8HCQqqwlVizs004Shdxffu8JgyMCI5tL1t/2e40wWkObjQYK+gGQB3W3IxqyS8Zbv/w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787797046; c=relaxed/simple;
-	bh=Otn8w1yt/gBzaL7xp39f/9GrkWA4bJSG9PRUIE/MBW4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FBHt+uhXhS9qZ2Glk1kI+U228CEXJfnPUuSfQ5qagCcsvZCki/7EnIkUTV7rfm7e75ugGAVQm40xLPCH+kzVq8qwxkR6nQhkyktT9w3wU/6dgxAyp4d+Z8PF63yjtKcjlyc9JOIXYVxkBTKNsXyhA6JxZH7wjrmEVmum7uY+Nyw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=kwUrPv/6; arc=none smtp.client-ip=18.169.211.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1787797205; c=relaxed/simple;
+	bh=/TpMjyqOvhWTUqglHXSxKj5Hxf2i55OsSPKaTfq8kvA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FQeRUJOEsIgwU2c+FmuLnEUos+Hp8a9gEJM2pAs/f2YwSCPXFLmUp1C6qDiJGOhXzcBHNeBPSOtxgm1WF2n93kH+M0cLKNBlyZhDsM6CeUgVbv4lp3GvWaKjZEugqKhxqYXIT7Dm+AvaELtx7priL9ozbbD0DJrX5Rdp7Q76Y/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=fQlFDKff; arc=none smtp.client-ip=91.218.175.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="kwUrPv/6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1787796950;
-	bh=dY0Ane/g6w6slG4WVya3Y1rgTK4uIbhwmWsfZq4NOqM=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=kwUrPv/6dRCuB5xGFEV/4IejvozKU13Y5s4J95ScEC2GfBUewQfXO5w2gAy8Em5to
-	 qL8wcqdc25w3jSah/HXKQIJuKPpu6uC4pPs+XlLq3UevXGp0HHoKA+8dlHsm2FzGD8
-	 LHHTEWSgxfNbvSq0zHerGhQOb0MdHSOO/x5h8nC4=
-X-QQ-mid: esmtpgz10t1787796930ta39a6dc6
-X-QQ-Originating-IP: Vr/DIm68OfOsFIB+dMR1e+jE5N+2Xsb6EvYj4ckGA8I=
-Received: from zzz-PC ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 27 Aug 2026 10:15:21 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 9858402169651406958
-EX-QQ-RecipientCnt: 7
-From: zhaozhengzhuo@uniontech.com
-To: sj@kernel.org,
-	shuah@kernel.org
-Cc: damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	zhaozhengzhuo <zhaozhengzhuo@uniontech.com>
-Subject: [PATCH] selftests/damon: prevent remaining cross-object state pollution
-Date: Thu, 27 Aug 2026 10:14:52 +0800
-Message-ID: <38E4AAAAEDFCC283+20260827021515.1316838-1-zhaozhengzhuo@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="fQlFDKff"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=/TpMjyqOvhWTUqglHXSxKj5Hxf2i55OsSPKaTfq8kvA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787797200; v=1; x=1788402000;
+ b=fQlFDKffFBrIo/FYQSpPhrFF7VNlj7tUNVnHMzfBT6RasPD59cnrjMvXL3Wy/seJ0uXt2EE9
+ 6h6mUspDhd/wJPlWRcRq3VHGv/JZK3s3nSrsYS77OEreUh+2irxrXztQrbfdRl4g1PBHvMwluyA
+ co3OjbRm15mm5fbuapjjc5kk=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: from localhost (223.70.160.239)
+	by mta11.migadu.com with ESMTPS id a789069183687cf0;
+	Thu, 27 Aug 2026 02:20:00 +0000
+X-Mizu-Trace-ID: a789069183687cf0
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 27 Aug 2026 10:19:54 +0800
+From: Baoquan He <baoquan.he@linux.dev>
+To: Barry Song <baohua@kernel.org>
+Cc: akpm@linux-foundation.org, linux-mm@kvack.org, axelrasmussen@google.com,
+	baolin.wang@linux.alibaba.com, chenridong@xiaomi.com,
+	david@kernel.org, hannes@cmpxchg.org, kasong@tencent.com,
+	lianux.mm@gmail.com, linux-kernel@vger.kernel.org, ljs@kernel.org,
+	lyugaofei@xiaomi.com, mhocko@kernel.org, qi.zheng@linux.dev,
+	shakeel.butt@linux.dev, stevensd@chromium.org,
+	wangzicheng@honor.com, weixugc@google.com, yuanchu@google.com,
+	zhangbo56@xiaomi.com
+Subject: Re: [PATCH 3/6] mm/mglru: enhance cold/hot inversion handling in
+ inc_min_seq()
+Message-ID: <ao-eyroFfnKzQU8a@MiWiFi-R3L-srv>
+References: <20260821102538.22642-1-baohua@kernel.org>
+ <20260821102538.22642-4-baohua@kernel.org>
+ <ao6qTTtk2xkkeKob@fedora>
+ <CAGsJ_4ywk7mA1xfk=emtqby1UAwFsaH9PChmk2TuZoDKrMzuXw@mail.gmail.com>
+ <ao-I8rYv_G5j4wz4@MiWiFi-R3L-srv>
+ <CAGsJ_4zoXvyXG6-qAH+=nv6V92w_U_tk78YAPKMihRniqvTe8A@mail.gmail.com>
+ <ao-dewgE9XAfP0rU@MiWiFi-R3L-srv>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz5b-2
-X-QQ-XMAILINFO: MGeqoSbHfHK69bPxTAzoCJdhw2kwrmioHHsWR2DTvlVmG1nTExeaCLmY
-	yzvlV+n+exkh3TYHz2ABo5dBBN4WQLdVLhEnu1Z/3KY43UCV242r2NDTQ1qqxIgDTUUeZWQ
-	Bpt2v4CgEssYMcGLPMX8hm/m2PgRaZgIp9ERA0dLwN50XptZLf98pxJrL8teIvls/2vlDNc
-	3qJGeqksIFJlQjb0Qyixhx8ZgI97KuJGS3uTE3BPryw7lORyxvpchEfzpg46voK1PVUrIvc
-	cy/k6OdsYFFF5nOZzdAFpDmQgZV0IRTB4lzc5zisWHtJvSI1e9Rm9HF9GhbFa3SnHBIJcCf
-	vcN3cIaBzdvLAWI5V3kWocBHzcy3SQvI4IUMQhNTyTUzrtCW6bVHwuUEXHij0C24GdGgW9F
-	I4G9CarW9m4jSK2CrM2Y0XfMJkYBo7+BiyiAJ02a6hRC4rdVWsfmQAZGkZSPUEmGtmOzbCY
-	KqkEvhGnfn4kehkwuDY6eT749wO2y4wwkdKfO30sGXNEZG1W0Xa1Wx/ecAhkykcHJ1dKqj4
-	1Gb83J8AiGtpHhEeYg1fI+STmR7CsOE32KidDWuOag1Sfj+rJ70UtUQEV70jHXRdV2gO0yI
-	wFEU6gMBcU0g+UCFt8ocoOQoN3e4D5/YeK+aCD6btwIICqIf5fG3LEUYOd/ofH0R35epA78
-	TX+dezv1L+P0T4aykeUrGEcobQqJJkD+yux7LeUduvjrpJTHly9dUfgLvEpVbQDgfg3W4+f
-	ZLAxyj1vkD6c7lMpt5akJc7DN7ngtbnPPTgxjBs+KjxHxwSYdwP+H9Chl9iHUvAlWLHNWeM
-	Hzp777pdeRNr7Lz8jo6g6e0ttOIK7eNZpDGrlvMmCONmhkrJDopamsWcFozg2Sw87U7X4T9
-	8l8Zn5wVacspNlod9pbswn4kZrVhbR5TZfEWjiXXy0i/k2hI4gOyg+uKvbG2cHSJ8+GIRdT
-	3jsPkDMd8FG6r/YTkJDfnjTcUGCiSsy90o+fGzldJvFUDKxIn606/xyD3EkWTx4nHcSo9/v
-	1PC1GQ9rXFN/ZCRyXx7H7L/xYr/SUNHKuHz6iDs8jbx/DKSqJO01sN4/zFw4M=
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-RECHKSPAM: 0
+In-Reply-To: <ao-dewgE9XAfP0rU@MiWiFi-R3L-srv>
 
-From: zhaozhengzhuo <zhaozhengzhuo@uniontech.com>
+On 08/27/26 at 10:14am, Baoquan He wrote:
+> On 08/27/26 at 09:24am, Barry Song wrote:
+> > On Thu, Aug 27, 2026 at 8:46 AM Baoquan He <baoquan.he@linux.dev> wrote:
+> > >
+> > > On 08/27/26 at 05:43am, Barry Song wrote:
+> > > > On Wed, Aug 26, 2026 at 4:56 PM Baoquan He <baoquan.he@linux.dev> wrote:
+> > > > >
+> > > > > On 08/21/26 at 06:25pm, Barry Song (Xiaomi) wrote:
+> > > > > > During aging, a folio's generation may already have been updated by
+> > > > > > folio_update_gen(), even though it has not yet been moved to the
+> > > > > > corresponding generation list. Such folios are hotter than those
+> > > > > > already in that generation.
+> > > > > >
+> > > > > > It makes sense for inc_min_seq() to increment the generation of
+> > > > > > folios that were never promoted during aging and move them to the
+> > > > > > tail of the new oldest generation. However, folios that were already
+> > > > > > promoted should instead be moved to the head of their updated
+> > > > > > generation, just as sort_folio() does in scan_folios().
+> > > > >
+> > > > > While sort_folio() move protected folio to the head of next gen too.
+> > > > > It only moves ineligible folios to the tail of next gen.
+> > > > >
+> > > >
+> > > > Hi Baoquan,
+> > > >
+> > > > Thanks for the review! I’m not quite sure I understand what you mean :-)
+> > > > Could you please clarify what you’re suggesting?
+> > >
+> > > Sorry for the confusion, Barry. I meant this is a good one, and
+> > > sort_folio() has the similar issue in which the protected folios are
+> > > moved to the head, wondering if that need be adjusted too. One consistent
+> > > rule for both is better.
+> > 
+> > I think it might be fine for sort_folio() to move protected folios to the
+> > head, since those folios have either been accessed multiple times or have
+> > reached a tier higher than tier_idx. They are sort of hot in theory, right?
+> > 
+> > if (tier > tier_idx || refs + workingset == BIT(LRU_REFS_WIDTH) + 1)
+> > 
+> > But for inc_min_seq(), it is just catching up to make sure the newest
+> > generation doesn't overlap with the oldest generation. Those non-promoted
+> > folios themselves aren't hot , so I feel these are actually different?
+> 
+> I got your point, sort_folio() considers the hottness, inc_min_seq()
+> doesn't. I agree with you now. Thanks for the explanation.
+> 
+> BUT no matter what it is, protected folios, lazily promoted folios,
+> and no matter where it is, put in head of next gen or tail of next gen,
+> their refs are cleared by folio_inc_gen(). Then in sort_folio(), they
+> are all tier 0 of the oldest gen and must be reclaimed.
 
-_damon_sysfs.py defines constructors with mutable default arguments,
-including DamosAccessPattern(), DamosQuota(), DamosWatermarks(),
-DamosDests(), IntervalsGoal(), and empty lists.
+Or mm walking will take a long time, it doesn't matter much about the
+refs in next gen in inc_min_seq() because there are a lot of chances
+refs are updated when it comes to sort_folio()?
 
-Default arguments are evaluated once at function definition time.
-Damos() instances created without explicit arguments therefore share
-the same DamosQuota(), and the other default-constructed sub-objects
-and lists are shared in the same way.  The sub-objects keep
-back-pointers to their owner scheme, so constructing the second Damos()
-rebinds the shared quota's scheme pointer to the second object.  An
-item appended to one object's default contexts or filters list is also
-visible from other default-constructed objects.
-
-The shared state can corrupt test configurations.  DamosQuota.sysfs_dir()
-derives the sysfs directory from its scheme pointer, so operating on
-the first scheme's default quota may write to the second scheme's
-directory.  The wrong values often match the defaults, so tests still
-pass, but the behavior depends on object creation order.
-
-Commit 8319dadcbd81 ("selftests/damon: prevent cross-context state
-pollution in DamonCtx") fixed the same pattern in DamonCtx only.  Fix
-the remaining constructors by defaulting to None and creating fresh
-objects or lists inside each constructor.  Explicit arguments keep
-their previous behavior.
-
-Signed-off-by: zhaozhengzhuo <zhaozhengzhuo@uniontech.com>
----
- tools/testing/selftests/damon/_damon_sysfs.py | 38 ++++++++++++++-----
- 1 file changed, 28 insertions(+), 10 deletions(-)
-
-diff --git a/tools/testing/selftests/damon/_damon_sysfs.py b/tools/testing/selftests/damon/_damon_sysfs.py
-index e6a2265d721e..f604b7d6530b 100644
---- a/tools/testing/selftests/damon/_damon_sysfs.py
-+++ b/tools/testing/selftests/damon/_damon_sysfs.py
-@@ -321,8 +321,10 @@ class DamosFilters:
-     filters = None
-     scheme = None   # owner scheme
- 
--    def __init__(self, name, filters=[]):
-+    def __init__(self, name, filters=None):
-         self.name = name
-+        if filters is None:
-+            filters = []
-         self.filters = filters
-         for idx, filter_ in enumerate(self.filters):
-             filter_.idx = idx
-@@ -368,7 +370,9 @@ class DamosDests:
-     dests = None
-     scheme = None   # owner scheme
- 
--    def __init__(self, dests=[]):
-+    def __init__(self, dests=None):
-+        if dests is None:
-+            dests = []
-         self.dests = dests
-         for idx, dest in enumerate(self.dests):
-             dest.idx = idx
-@@ -426,15 +430,21 @@ class Damos:
-     stats = None
-     tried_regions = None
- 
--    def __init__(self, action='stat', access_pattern=DamosAccessPattern(),
--                 quota=DamosQuota(), watermarks=DamosWatermarks(),
--                 core_filters=[], ops_filters=[], filters=[], target_nid=0,
--                 dests=DamosDests(), apply_interval_us=0):
-+    def __init__(self, action='stat', access_pattern=None, quota=None,
-+                 watermarks=None, core_filters=None, ops_filters=None,
-+                 filters=None, target_nid=0, dests=None,
-+                 apply_interval_us=0):
-         self.action = action
-+        if access_pattern is None:
-+            access_pattern = DamosAccessPattern()
-         self.access_pattern = access_pattern
-         self.access_pattern.scheme = self
-+        if quota is None:
-+            quota = DamosQuota()
-         self.quota = quota
-         self.quota.scheme = self
-+        if watermarks is None:
-+            watermarks = DamosWatermarks()
-         self.watermarks = watermarks
-         self.watermarks.scheme = self
- 
-@@ -448,6 +458,8 @@ class Damos:
-         self.filters.scheme = self
- 
-         self.target_nid = target_nid
-+        if dests is None:
-+            dests = DamosDests()
-         self.dests = dests
-         self.dests.scheme = self
- 
-@@ -568,10 +580,12 @@ class DamonAttrs:
-     context = None
- 
-     def __init__(self, sample_us=5000, aggr_us=100000,
--                 intervals_goal=IntervalsGoal(), update_us=1000000,
--            min_nr_regions=10, max_nr_regions=1000):
-+                 intervals_goal=None, update_us=1000000, min_nr_regions=10,
-+                 max_nr_regions=1000):
-         self.sample_us = sample_us
-         self.aggr_us = aggr_us
-+        if intervals_goal is None:
-+            intervals_goal = IntervalsGoal()
-         self.intervals_goal = intervals_goal
-         self.intervals_goal.attrs = self
-         self.update_us = update_us
-@@ -703,7 +717,9 @@ class Kdamond:
-     idx = None      # index of this kdamond between siblings
-     kdamonds = None # parent
- 
--    def __init__(self, contexts=[], refresh_ms=None):
-+    def __init__(self, contexts=None, refresh_ms=None):
-+        if contexts is None:
-+            contexts = []
-         self.contexts = contexts
-         self.refresh_ms = refresh_ms
-         for idx, context in enumerate(self.contexts):
-@@ -853,7 +869,9 @@ class Kdamond:
- class Kdamonds:
-     kdamonds = []
- 
--    def __init__(self, kdamonds=[]):
-+    def __init__(self, kdamonds=None):
-+        if kdamonds is None:
-+            kdamonds = []
-         self.kdamonds = kdamonds
-         for idx, kdamond in enumerate(self.kdamonds):
-             kdamond.idx = idx
--- 
-2.50.1
-
+> 
+> So here, I think differentiating them and moving them into head or tail
+> doesn't make sense, the thing is whether if we need do something to
+> retain refs of folios when gen_increased. At least, for lazily promoted
+> folios, it should not be put in the tail of next gen and refs cleared.
+> What do you think?
+> 
+> Thanks
+> Baoquan
