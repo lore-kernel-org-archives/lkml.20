@@ -1,176 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97EBC36C588;
-	Thu, 27 Aug 2026 16:18:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D5E3489898
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:19:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787847503; cv=none; b=jL2aIOTECUbKosHjo64on0MZ8qW/5+6oQZqCUhsr20gWh8V5ffQpAlW8b18SZWWO9xX/2tZSEeNnX0B3YixJePKn93yS+UZ56gJoDC0sDi3AReil25B2Bs3wvUdwF+y/l3IWlT9uELydl7ducKuEnbFMhFiR/T3SuMTV+dAdwMo=
+	t=1787847549; cv=none; b=Pe/KoGF//pIRBv73NWTs2jeIr2BjbrZofc9lSmwnFtto7oeu5uLbL4skzxw3P9amuwmexCbrmjcR2DBSyjAOKOi2EyscAxVtGVsa8wcbfy0oXmjNagedXsI7tK05ezNhi9ZF2scMq+oqoNNeVhAeB+1x4elxEFzaRYRd26wjmfk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787847503; c=relaxed/simple;
-	bh=NcrmYDp3/x1knGoO/dIS8c/CdSMEhACAx1xS7AEVeFc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=R/gBBam6rPIwavS+5ZoRLZtJpEmOkNI4zJ46Qvtv0+p0WezFWlhaLAdIgiwTMKx6fCMJLi6hjDb0kWtbpm3suoVnYbmc6smHnYEmkrBLGXrhAdWyap7yNz3Dvjys3qaVSxdhegXMY+n6zskuH4JyqF9usyyLONpxE9p8mA3X8po=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CTh/KTi+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787847549; c=relaxed/simple;
+	bh=DiUjG0T0zuWI7L/yvvGgeVYz8NadRp7w7Ygor662/N0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Suro/HtlVsfMmsjUCmUnLU/YblKfmdbu1jwMD689xscXNotell37R7xFqoMk2rQPjGJAvQROJBAkGrAUaILQB2xRvps94flYC49RLrG0+G+Z0SdGAX2Wfj1TT7YdCUTOPFOH9mF58f9PkiDiMfKZMGV0Doe0u1KFaCOcjZRmasU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=LYDRm7th; arc=none smtp.client-ip=209.85.219.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CTh/KTi+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00B8B1F000E9;
-	Thu, 27 Aug 2026 16:18:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787847502;
-	bh=mOqEaDKgcLq2GJL2+kULDh7kIMO3nrYg/DVzSD/Tr6w=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CTh/KTi+UnPULcjofyifqpF+4INUxrIxK1gcckqL7oc9RqIeS6Q9PPPW0/Klsh945
-	 NvwUXOgyOJ2rBoRiXjeI6ybstSPM20ii8QW5oLKWzV7h9+B4PO0qS3MxguFEECZ2UQ
-	 RbaBwtwE9Az8wteDRrlyBsaLuSyDopsgPef+udTF/yJMasfN1uoLd9Q41KZMBY1SH5
-	 QXcYZbSEe7dMPURmcn6t5tqTH3rwowFs02sz6LsFCKGV/uiaEDNETEVX249P3mDN24
-	 GrtUgY3OhcqKmv8uRxn6/UuIf1p2y2BaadVtKHm5szTwagBtiCwIYiU5v+UneEPXh+
-	 fcBBwXznJ7NAg==
-From: Jakub Kicinski <kuba@kernel.org>
-To: ljp1205831794@gmail.com
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	netdev@vger.kernel.org,
-	achender@kernel.org,
-	linux-rdma@vger.kernel.org,
-	rds-devel@oss.oracle.com,
-	linux-kernel@vger.kernel.org,
-	kerneljasonxing@gmail.com,
-	henrymei@tencent.com,
-	corvus@tencent.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net v2] net: rds: fix uninitialized trans dereference in CM event handler
-Date: Thu, 27 Aug 2026 09:18:20 -0700
-Message-ID: <20260827161820.3867858-1-kuba@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260825021223.3483044-1-ljp1205831794@gmail.com>
-References: <20260825021223.3483044-1-ljp1205831794@gmail.com>
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="LYDRm7th"
+Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-8ee43b3e5abso808376d6.3
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:19:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1787847547; x=1788452347; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=PHNKzqddJq8qH4vR69ILQzFreGWmgpWijEaEyQN0PLk=;
+        b=LYDRm7th34enxBDsL7TqbF/MVAVnirCgzdLFdEG9e3Jr9EIWaxU+hjjhCKHrVu4YJL
+         wAYiCR2R8gp+c8qd80cgntoknhR8OUjm0UEmUH5GoKlLTQLYchP4WSaZXIsohrD1rH8I
+         BJHlUzt/+ak7u8/fNI1jMfac5V4GIZ5vabyo+sWlYrZwH2sP5ELt52xSctSd2MkOxdGe
+         pg+p6LL4cj5iWjF/Tb8+F71zksgIKF1Q+hPnaHSM9pYgsxYSQ1Mwv0I3VHKQ9e7ErEig
+         B7SRD5uPZSHCjqGuIWsOXQRpX/DGDWZnXKosjl95ife5LBy41jybXnbbHjVmTVb6Xm8m
+         waKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787847547; x=1788452347;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PHNKzqddJq8qH4vR69ILQzFreGWmgpWijEaEyQN0PLk=;
+        b=jqdw019kIRJvsK/ZyTrXr8HAhOl8JRJCPj5vcmUQykutK/uKul6DILYGbdFiXqC8Lp
+         wBSIExSehydkXq/RFYO9nXCwU4ts7TND2MXDSNhQ4DlEXqtKX/BzF5Stn1sCm9jeLJb6
+         zg+7lDJ7bmiWKONS/fzZ6MCQk9R9UjAPtIy48Jx/1Y6j8Ipr0aFOIqxq7t2bGP7wbuZe
+         p9v4z7m4gjzLm2/Md5IXFbC1jqHXaFuIzk2NfddG7HCjflqJMGEwAbLufZk5qEJgjggK
+         ofNSoASaaF0/f3G4xqE37qJkIRdAlL8r5txVl/sh4g2oQmUJqlWmFanuThQB9vcaF+08
+         kI9A==
+X-Forwarded-Encrypted: i=1; AHgh+RoCVVvc9umRh+f0cPaa6KtNk7RPnczpJlX50pWiE/EPHSV9DmGxe9qkoIhrkZLWojHPCd6luyaUtwuF5r4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lZ4VHns4vNIe1BB6ooUbzKaHBuH6pQ5BAZDjrGsDDplQnL+4X0
+	d+X92fFIdvcdKV9nexnO0J5qqTsnK15xxJv5KLRs0dVNeUoNlmS+UmJdymCCouO3TQQ=
+X-Gm-Gg: AR+sD11wcXDDAErS5siQVEbGw0sO7Gp4hyF9uPfpwMrTRQgiZnuqgz7GfK0JZn6746l
+	qz+i5qRshINTeFVhlGq7/jLJSnwaCu33NBIdsiFrxYk9MF0SKe1a1nAObd5Ccpfc2RQSNZCkjbP
+	urSZBbonKJ3cVHW8KZHXdGLwAwFa9GucaTrD9/ARVTL5X/694Mp5dcCxE+fRvA6pay48xbCXfbA
+	MKWAs5CpaZFbn4/6JM6XsmDYMJX74cJV5X8cLVqMxRQxGySCGcq9MxTDvTM1DHya34NdkAj9ySv
+	Ni2K7PmeD+Ji4doXssHdBQoGEZn9u9Ehm1eIVHqIWvgfIQdgv7pNF1W+iFC2TS6brZghGeg7baQ
+	KVYnuoeF+753SLcqNCknaMtVX90ACnvC6TLowDDSVjuY3LKZBYmGSYtOLic8PZej2zeMOa108r7
+	vR+upfZ4yhqGVYBg6AzIh7b+fGjV05+1nbUQ9xZxgtadmvRtDqg5Xn445rQLB2ED9To03d4RTcd
+	nowXYbbyjO4tbPaRHHrPk3solfcuIXJde88r9+KyCyrnw==
+X-Received: by 2002:a05:6214:5b0f:b0:90c:5947:7e60 with SMTP id 6a1803df08f44-90ce0c3d7bemr5926226d6.4.1787847510292;
+        Thu, 27 Aug 2026 09:18:30 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90cd73fc2c9sm19944946d6.35.2026.08.27.09.18.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 09:18:29 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1wzco8-0000000G4Wr-2czS;
+	Thu, 27 Aug 2026 13:18:28 -0300
+Date: Thu, 27 Aug 2026 13:18:28 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Yuanhe Shu <xiangzao@linux.alibaba.com>
+Cc: joro@8bytes.org, will@kernel.org, robin.murphy@arm.com,
+	baolu.lu@linux.intel.com, kevin.tian@intel.com, smostafa@google.com,
+	praan@google.com, skhawaja@google.com, iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] iommupt: Drop pagealloc references during domain
+ deinit
+Message-ID: <20260827161828.GA3769797@ziepe.ca>
+References: <20260827145855.1616223-1-xiangzao@linux.alibaba.com>
+ <20260827145855.1616223-3-xiangzao@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827145855.1616223-3-xiangzao@linux.alibaba.com>
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
----
-net: rds: fix uninitialized trans dereference in CM event handler
+On Thu, Aug 27, 2026 at 10:58:55PM +0800, Yuanhe Shu wrote:
+> Since commit b948a8722848 ("iommu: Fix up map/unmap debugging for
+> iommupt domains") iommu_map() takes an IOMMU_DEBUG_PAGEALLOC reference
+> for every page it maps into a generic_pt domain, and those references
+> are only dropped by the IOVA based unmap path.  When a domain is freed
+> while mappings are still installed, pt_iommu_deinit() releases the page
+> table memory without dropping them, so every mapped page stays counted
+> as IOMMU-mapped after it returns to the buddy allocator and each later
+> allocation or free of it reports:
+> 
+>     WARNING: drivers/iommu/iommu-debug-pagealloc.c:91 at __iommu_debug_check_unmapped+0x4e/0x70, CPU#0: init/1
+>     iommu: Detected page leak!
+> 
+> Freeing a domain with mappings still installed is not driver misuse:
+> the deinit contract in include/linux/generic_pt/iommu.h only requires
+> the table to be removed from HW access and caches, with no requirement
+> to unmap first, and the kunit suite itself frees domains with live
+> mappings in pt_kunit_iommu_exit().
 
-This initializes trans to &rds_ib_transport at declaration in
-rds_rdma_cm_event_handler_cmn(), drops the conditional assignment based on
-cm_id->device->node_type, and adds an early bail-out that returns 1 for any
-event arriving on a device that is not RDMA_NODE_IB_CA.
+It is not misusing iommupt, but it is definitely misusing any iommu
+API built on top of it. How did you trigger this?
 
-> diff --git a/net/rds/rdma_transport.c b/net/rds/rdma_transport.c
-> index b15cf316b23a2..2c5481f1fcb4f 100644
-> --- a/net/rds/rdma_transport.c
-> +++ b/net/rds/rdma_transport.c
+> Verified with the generic_pt kunit suite as an in-tree reproducer:
+> running the x86_64 format's test_pgsize_boundary() with
 
-[ ... ]
+If this is the only trigger, then it is different testing things
+interacting badly and I don't think it should be fixed like this.
 
-> @@ -80,6 +77,12 @@ static int rds_rdma_cm_event_handler_cmn(struct rdma_cm_id *cm_id,
->  		}
->  	}
->  
-> +	/* Only the IB transport is supported. */
-> +	if (cm_id->device->node_type != RDMA_NODE_IB_CA) {
-> +		ret = 1;
-> +		goto out;
-> +	}
-> +
+Probably have the kunits directly unmap as they were being lazy
 
-[Severity: High]
-Should this non-zero return be limited to RDMA_CM_EVENT_CONNECT_REQUEST?
-As written it applies to every event type.
-
-include/rdma/rdma_cm.h documents what a non-zero return means:
-
-/**
- * rdma_cm_event_handler - Callback used to report user events.
- *
- * Notes: Users may not call rdma_destroy_id from this callback to destroy
- *   the passed in id, or a corresponding listen id.  Returning a
- *   non-zero value from the callback will destroy the passed in id.
- */
-
-The cma dispatchers implement exactly that, for example addr_handler() and
-cma_work_handler() in drivers/infiniband/core/cma.c:
-
-	if (cma_cm_event_handler(id_priv, &event)) {
-		destroy_id_handler_unlock(id_priv);
-		return;
-	}
-
-But RDS keeps ownership of connection cm_ids.  rds_ib_conn_path_connect()
-stores it:
-
-	ic->i_cm_id = rdma_create_id(&init_net, handler, conn,
-				     RDMA_PS_TCP, IB_QPT_RC);
-
-and rds_ib_conn_path_shutdown() later dereferences and destroys the same
-pointer, clearing it only afterwards:
-
-	if (ic->i_cm_id) {
-		rdsdebug("disconnecting cm %p\n", ic->i_cm_id);
-		err = rdma_disconnect(ic->i_cm_id);
-	...
-		rdma_destroy_id(ic->i_cm_id);
-	...
-		ic->i_cm_id = NULL;
-
-So if any event other than CONNECT_REQUEST is delivered with conn != NULL on
-a cm_id whose device node_type is not RDMA_NODE_IB_CA, does the core free the
-cm_id while ic->i_cm_id still points at it?  Can the following conn drop,
-socket close or module unload then hit freed memory in
-rds_ib_conn_path_shutdown(), including a second rdma_destroy_id() on the same
-id?
-
-A reachable path without any race: rds_ib_laddr_check() short-circuits via
-rds_ib_get_device(), which only walks the ipaddr_list of RDS's own IB
-devices:
-
-net/rds/ib_rdma.c:rds_ib_get_device() {
-	list_for_each_entry_rcu(rds_ibdev, &rds_ib_devices, list) {
-		list_for_each_entry_rcu(i_ipaddr, &rds_ibdev->ipaddr_list, list) {
-			if (i_ipaddr->ipaddr == ipaddr) {
-	...
-}
-
-while the device actually bound for the outgoing connection is picked later
-by cma_acquire_dev_by_src_ip(), which walks the global cma dev_list and can
-match a siw device on the same address.  siw_device_create() sets:
-
-	base_dev->node_type = RDMA_NODE_RNIC;
-
-In that configuration, rdma_resolve_addr() from rds_ib_conn_path_connect()
-binds a RDMA_NODE_RNIC device, and the resulting RDMA_CM_EVENT_ADDR_RESOLVED
-with conn != NULL now returns 1, so addr_handler() destroys the id while RDS
-still tracks it.
-
-The same function a few lines above already documents the opposite
-convention:
-
-		/* If the connection is being shut down, bail out
-		 * right away. We return 0 so cm_id doesn't get
-		 * destroyed prematurely */
-		if (rds_conn_state(conn) == RDS_CONN_DISCONNECTING) {
-			/* Reject incoming connections while we're tearing
-			 * down an existing one. */
-			if (event->event == RDMA_CM_EVENT_CONNECT_REQUEST)
-				ret = 1;
-			goto out;
-		}
-
-Separately, does the unconditional goto out also skip the rds_conn_drop()
-that the ADDR_ERROR, ROUTE_ERROR, CONNECT_ERROR, UNREACHABLE,
-DEVICE_REMOVAL, ADDR_CHANGE, DISCONNECTED and TIMEWAIT_EXIT cases perform,
-leaving the RDS connection stuck in CONNECTING or UP with no error
-propagated?
-
-Would something along these lines match the existing convention, while still
-dropping the conn for the remaining events:
-
-	ret = (event->event == RDMA_CM_EVENT_CONNECT_REQUEST) ? 1 : 0;
-
-or moving the node_type test into the RDMA_CM_EVENT_CONNECT_REQUEST case?
+Jason
