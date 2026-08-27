@@ -1,53 +1,51 @@
-Received: from mail-oi2-f2.google.com (mail-oi2-f2.google.com [74.125.231.194])
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EA6E39CCE6
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:52:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.194
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0049923507B
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:52:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787856762; cv=none; b=TJAg/iiqWPKMOE3vD8jyQQxJHrTbFBtxHczqOFrcq2S1245hcZMkB0qzz4pV2gjVSGNM7giDijqB0fUjef5XMb82dKDJcmv07lYHToFt8C24algeuZWN4E9oXgzihXg8E9tYmMolNxpLbq7D8Tp5gS430hMOQPm7tIX3nNE4cVA=
+	t=1787856762; cv=none; b=fHXNLfiep8FG014JJgVmWTRgianNvvLVa+g25HDO1W0W6pIGeeNnBkNZuWhuycF5cchXiQ9UNA6L787jlvZoRGvqQ19WLKB28wo1cWGi5CAXEBTrgZB99r0K8NQonNd4ujy0C5d2Zujn/15N05SXpCt+f6qu14ZTMZ0gju2YT1Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787856762; c=relaxed/simple;
-	bh=hncabP7aPdHnuobTgSgk9fapXLnpLfx/uBL89CqOutI=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=FiJaEpHsFZUdgbH7cnEr0TgocKWCXiR+ZJpgyBMe9t57yrY5dBGoOVO8JB6YPc3TdkoJbJior2ZFKNmGCynYak5FZSNA2VmGNt7oLM2PaUfglLPDW2Y58Fn/huUoShcWaeXQme+PlfH+SLlrLrJxae90yqpZPKLedYgL0G3qxIU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.194
+	bh=g3kge71ub03QmZxyhlnVlBiSy0PKpsl0/Y87s/OWGSk=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=oj3r4rwO/pwlRlVYlx5Dc5tJS6nJaWsJoou/xOqCFquKEO1oKQQ3pTHVVD1AZXoF2QCC/rxuEiTjOFL0L5ahPAYfSe6Pfm8F4kK7SYrJsRa6rmsOAcw/6Had+7GX1RFfN0DkwYnnxXCvyqyV4RYESBljb8TBW38Q64nN5Y+kykI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi2-f2.google.com with SMTP id 5614622812f47-495d5d27acfso134441b6e.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:52:41 -0700 (PDT)
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4959c49e054so12580b6e.3
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:52:40 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1787856760; x=1788461560;
         h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Z1iWycX4pkHURg1o4GzvWHnwxlT8370uqudXNgMPEzI=;
-        b=GTcb0rEa7pZXJKfItZh8jY/Lbwsf4ZGr3IiqHwYEE+ApBqxyci+TveBzvNtnq0wj6d
-         w49UL6l2M/FrX2jDtBPJFBl761VEjWHsqyh9+FsNX8iQnSHUFOMUAmmDgvmBL25q84E4
-         mG1hrZFO2x5SMYD6j5S0FVZds7nWMzHe1ktCh2jPLTCtO2SDSyU0J776/ZSkVsjd9jcl
-         KdKIF3uQAEusf2A6K8imn4bFA6jaDjQHbZrs7YmmkVj6X0ESJp/9ns4yj1jBPJrnf9RU
-         IyIjv8IS+RRsyCPwbpYaap+Z0IgHe+3XY1aQDTV5PaZNnm522rkNFmOIhZ+gTeugM/0M
-         LXHw==
-X-Forwarded-Encrypted: i=1; AHgh+RqsKCQjONlIspHXHE4IdqzXoKjAq8agCfFioW2UyBYMxORHCwnoIJurOLK3s45xQXA/dFf2vLKMMBaTqE8=@vger.kernel.org
-X-Gm-Message-State: AFuF++n030Im5tFC/cfXXbcCm5+04yZnViSuc3rbmSraxj/7QPb5sjCf
-	XGQlBz+OFT+ckYEenFaQg7DarFwWbZtFyKqO6/IscjCoUsUrNpbRDRjV/BcZV8thLUAMCkYGDYu
-	XBscOmBFEhRQn+UB/ILlAvDbteGuReCJhsX+ecS4R4JLszqqmt3+lfrlg/oI=
+        bh=Gj66d4qKwHlx3vH+We3DVfK9THRY5zP8t9i/Eh5rDD0=;
+        b=II/jvDJsQ85+cJlmifgrH0hVcDbEXKCRtabwF4iiKPZ1ozcPRftb0UmoRNduYhdEyf
+         /jTptthlIU34A4pwfbb0oi3in1SWj0G1HRIDcNMqfx4ChBEDh8/Vh8lmGeZttH/ZB0RZ
+         Nf86id8h7v4tCFL6HK//i5QvAGoBiSoYu7v5dQ5VMt6NiTBwGkMkgVZOMSlsljFTd6ex
+         Y8eLP4um8cXLqCFO9NDfqs/CnPTlRe5tbDsD1z0pe927xnH+RDACDy9CgpF9R7N56nYR
+         l9kTMV5TPj5Q/+DaQ469UFICfxJbaLkmIR3L9Qn2uiujlZIYX95JojkFEnD4btz5dppQ
+         3fSg==
+X-Gm-Message-State: AFuF++nDohEQJavzF7An076oagaDYdU4Fs9d3SuCeYm7jXVh9UcsqLPk
+	c1Wxat49kpH1Wp7HFExsNSsZKsJPqELmW9UISMWH7ZG5LL6b8Qt12g4ckpsotQfidQzIldJhcwc
+	Fjs8Fqg3KBH1kH/b5Gh/Ye4sHbGCzJHqaw0WCkeYX8VdNEsC3ouIRvLnr9lQ=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1918:b0:4b3:8ae8:7a47 with SMTP id
- 5614622812f47-4b398340b93mr1111506b6e.16.1787856760208; Thu, 27 Aug 2026
- 11:52:40 -0700 (PDT)
-Date: Thu, 27 Aug 2026 11:52:40 -0700
+X-Received: by 2002:a05:6808:f0b:b0:4ab:318c:6b38 with SMTP id
+ 5614622812f47-4b397f71712mr1140437b6e.1.1787856759955; Thu, 27 Aug 2026
+ 11:52:39 -0700 (PDT)
+Date: Thu, 27 Aug 2026 11:52:39 -0700
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a908778.1d9ded08.62e62.00db.GAE@google.com>
-Subject: [syzbot] [bluetooth?] WARNING in msft_do_close (2)
-From: syzbot <syzbot+14ce1b05b7d5a989abbe@syzkaller.appspotmail.com>
-To: linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	luiz.dentz@gmail.com, marcel@holtmann.org, syzkaller-bugs@googlegroups.com
+Message-ID: <6a908777.1d9ded08.62e62.00da.GAE@google.com>
+Subject: [syzbot] general protection fault in _wait_barrier
+From: syzbot <syzbot+3fe892ea5fc292e1353f@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
 
 Hello,
@@ -55,73 +53,101 @@ Hello,
 syzbot found the following issue on:
 
 HEAD commit:    818bebeb63dd drm/xe: Don't hand out the flat CCS storage a..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=15bde979580000
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=1255d415580000
 kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
-dashboard link: https://syzkaller.appspot.com/bug?extid=14ce1b05b7d5a989abbe
+dashboard link: https://syzkaller.appspot.com/bug?extid=3fe892ea5fc292e1353f
 compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=111a3979580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=14f88579580000
-
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-818bebeb.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/6e4100526b12/vmlinux-818bebeb.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/723c4783ee96/bzImage-818bebeb.xz
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13d96979580000
 
 IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+14ce1b05b7d5a989abbe@syzkaller.appspotmail.com
+Reported-by: syzbot+3fe892ea5fc292e1353f@syzkaller.appspotmail.com
 
-------------[ cut here ]------------
-DEBUG_LOCKS_WARN_ON(lock->magic != lock)
-WARNING: kernel/locking/mutex.c:625 at __mutex_lock_common kernel/locking/mutex.c:625 [inline], CPU#1: kworker/u34:2/5890
-WARNING: kernel/locking/mutex.c:625 at __mutex_lock+0x944/0x1bc0 kernel/locking/mutex.c:821, CPU#1: kworker/u34:2/5890
-Modules linked in:
-CPU: 1 UID: 0 PID: 5890 Comm: kworker/u34:2 Not tainted syzkaller #0 PREEMPT(full) 
+Oops: general protection fault, probably for non-canonical address 0xdffffc0000000024: 0000 [#1] SMP KASAN NOPTI
+KASAN: null-ptr-deref in range [0x0000000000000120-0x0000000000000127]
+CPU: 1 UID: 0 PID: 6010 Comm: syz-executor394 Not tainted syzkaller #0 PREEMPT(full) 
 Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Workqueue: hci0 hci_power_on
-RIP: 0010:__mutex_lock_common kernel/locking/mutex.c:625 [inline]
-RIP: 0010:__mutex_lock+0x94b/0x1bc0 kernel/locking/mutex.c:821
-Code: 0f b6 14 11 38 d0 7c 08 84 d2 0f 85 b4 10 00 00 44 8b 05 d8 d5 7a 05 45 85 c0 75 13 48 8d 3d ac da 7d 05 48 c7 c6 a0 d2 ef 8b <67> 48 0f b9 3a 90 e9 1b f8 ff ff 4d 8d a7 f0 0a 00 00 4c 89 e7 e8
-RSP: 0018:ffffc90002937890 EFLAGS: 00010246
-RAX: 0000000000000003 RBX: ffff88803c0a4440 RCX: 1ffffffff2287150
-RDX: 0000000000000000 RSI: ffffffff8befd2a0 RDI: ffffffff91468f60
-RBP: ffffc90002937a00 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 00000000000075eb R12: 0000000000000000
-R13: 0000000000000000 R14: dffffc0000000000 R15: ffff888056a15980
-FS:  0000000000000000(0000) GS:ffff8880d5ca2000(0000) knlGS:0000000000000000
+RIP: 0010:_wait_barrier+0x8d/0x700 drivers/md/raid1.c:1066
+Code: 08 00 00 00 f3 c7 40 0c f3 f3 f3 f3 65 48 8b 05 31 1e 0e 0c 48 89 84 24 d0 00 00 00 31 c0 e8 ea 3f 91 f9 48 89 e8 48 c1 e8 03 <42> 80 3c 20 00 0f 85 11 06 00 00 4c 8b a3 20 01 00 00 4a 8d 04 ad
+RSP: 0018:ffffc90003487290 EFLAGS: 00010206
+RAX: 0000000000000024 RBX: 0000000000000000 RCX: 0000000000000000
+RDX: ffff888031924b00 RSI: ffffffff8879c1e6 RDI: 0000000000000000
+RBP: 0000000000000120 R08: 0000000000000001 R09: 0000000000000000
+R10: 0000000000000000 R11: ffffffff81d66229 R12: dffffc0000000000
+R13: 0000000000000000 R14: ffff88802750c000 R15: ffffc900034879d0
+FS:  00007fe51d1166c0(0000) GS:ffff8880d5ca2000(0000) knlGS:0000000000000000
 CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f8ddaddcff8 CR3: 000000002b956000 CR4: 0000000000352ef0
+CR2: 00005599d4a2eb80 CR3: 0000000035c6b000 CR4: 0000000000352ef0
 Call Trace:
  <TASK>
- msft_do_close+0x32e/0x6a0 net/bluetooth/msft.c:698
- hci_dev_close_sync+0x1020/0x13c0 net/bluetooth/hci_sync.c:5596
- hci_dev_do_close+0x2e/0xb0 net/bluetooth/hci_core.c:502
- hci_power_on+0x1be/0x630 net/bluetooth/hci_core.c:940
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3387
- process_scheduled_works kernel/workqueue.c:3470 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3551
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ wait_barrier drivers/md/raid1.c:1154 [inline]
+ raid1_write_request drivers/md/raid1.c:1506 [inline]
+ raid1_make_request+0x484/0x31a0 drivers/md/raid1.c:1696
+ md_handle_request+0x824/0x1230 drivers/md/md.c:417
+ md_submit_bio+0x1e9/0x350 drivers/md/md.c:458
+ __submit_bio block/blk-core.c:681 [inline]
+ __submit_bio+0x20e/0x3d0 block/blk-core.c:670
+ __submit_bio_noacct block/blk-core.c:724 [inline]
+ submit_bio_noacct_nocheck+0x736/0xc00 block/blk-core.c:792
+ submit_bio_noacct+0xc93/0x2130 block/blk-core.c:925
+ bio_await+0x1fa/0x240 block/bio.c:1580
+ submit_bio_wait+0x19/0x60 block/bio.c:1598
+ __blkdev_direct_IO_simple+0x4cb/0x8c0 block/fops.c:98
+ blkdev_direct_IO+0xbee/0x2030 block/fops.c:429
+ blkdev_direct_write block/fops.c:699 [inline]
+ blkdev_write_iter+0x703/0xd30 block/fops.c:767
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x6af/0x1050 fs/read_write.c:687
+ ksys_pwrite64 fs/read_write.c:794 [inline]
+ __do_sys_pwrite64 fs/read_write.c:802 [inline]
+ __se_sys_pwrite64 fs/read_write.c:799 [inline]
+ __x64_sys_pwrite64+0x1eb/0x250 fs/read_write.c:799
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fe51d1735de
+Code: 08 0f 85 f5 e2 ff ff 49 89 fb 48 89 f0 48 89 d7 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24 08 0f 05 <c3> 90 41 57 41 56 4d 89 c6 41 55 4d 89 cd 41 54 55 53 48 83 ec 08
+RSP: 002b:00007fe51d116128 EFLAGS: 00000246 ORIG_RAX: 0000000000000012
+RAX: ffffffffffffffda RBX: 00007fe51d1166c0 RCX: 00007fe51d1735de
+RDX: 0000000000001000 RSI: 0000555588ed6000 RDI: 0000000000000005
+RBP: 0000000000000021 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: ffffffffffffffd0
+R13: 0000000000000002 R14: 00007ffdb60faaa0 R15: 00007ffdb60fab88
  </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:_wait_barrier+0x8d/0x700 drivers/md/raid1.c:1066
+Code: 08 00 00 00 f3 c7 40 0c f3 f3 f3 f3 65 48 8b 05 31 1e 0e 0c 48 89 84 24 d0 00 00 00 31 c0 e8 ea 3f 91 f9 48 89 e8 48 c1 e8 03 <42> 80 3c 20 00 0f 85 11 06 00 00 4c 8b a3 20 01 00 00 4a 8d 04 ad
+RSP: 0018:ffffc90003487290 EFLAGS: 00010206
+
+RAX: 0000000000000024 RBX: 0000000000000000 RCX: 0000000000000000
+RDX: ffff888031924b00 RSI: ffffffff8879c1e6 RDI: 0000000000000000
+RBP: 0000000000000120 R08: 0000000000000001 R09: 0000000000000000
+R10: 0000000000000000 R11: ffffffff81d66229 R12: dffffc0000000000
+R13: 0000000000000000 R14: ffff88802750c000 R15: ffffc900034879d0
+FS:  00007fe51d1166c0(0000) GS:ffff8880d5ca2000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00005599d4a2eb80 CR3: 0000000035c6b000 CR4: 0000000000352ef0
 ----------------
 Code disassembly (best guess):
-   0:	0f b6 14 11          	movzbl (%rcx,%rdx,1),%edx
-   4:	38 d0                	cmp    %dl,%al
-   6:	7c 08                	jl     0x10
-   8:	84 d2                	test   %dl,%dl
-   a:	0f 85 b4 10 00 00    	jne    0x10c4
-  10:	44 8b 05 d8 d5 7a 05 	mov    0x57ad5d8(%rip),%r8d        # 0x57ad5ef
-  17:	45 85 c0             	test   %r8d,%r8d
-  1a:	75 13                	jne    0x2f
-  1c:	48 8d 3d ac da 7d 05 	lea    0x57ddaac(%rip),%rdi        # 0x57ddacf
-  23:	48 c7 c6 a0 d2 ef 8b 	mov    $0xffffffff8befd2a0,%rsi
-* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
-  2f:	90                   	nop
-  30:	e9 1b f8 ff ff       	jmp    0xfffff850
-  35:	4d 8d a7 f0 0a 00 00 	lea    0xaf0(%r15),%r12
-  3c:	4c 89 e7             	mov    %r12,%rdi
-  3f:	e8                   	.byte 0xe8
+   0:	08 00                	or     %al,(%rax)
+   2:	00 00                	add    %al,(%rax)
+   4:	f3 c7 40 0c f3 f3 f3 	xrelease movl $0xf3f3f3f3,0xc(%rax)
+   b:	f3
+   c:	65 48 8b 05 31 1e 0e 	mov    %gs:0xc0e1e31(%rip),%rax        # 0xc0e1e45
+  13:	0c
+  14:	48 89 84 24 d0 00 00 	mov    %rax,0xd0(%rsp)
+  1b:	00
+  1c:	31 c0                	xor    %eax,%eax
+  1e:	e8 ea 3f 91 f9       	call   0xf991400d
+  23:	48 89 e8             	mov    %rbp,%rax
+  26:	48 c1 e8 03          	shr    $0x3,%rax
+* 2a:	42 80 3c 20 00       	cmpb   $0x0,(%rax,%r12,1) <-- trapping instruction
+  2f:	0f 85 11 06 00 00    	jne    0x646
+  35:	4c 8b a3 20 01 00 00 	mov    0x120(%rbx),%r12
+  3c:	4a                   	rex.WX
+  3d:	8d                   	.byte 0x8d
+  3e:	04 ad                	add    $0xad,%al
 
 
 ---
