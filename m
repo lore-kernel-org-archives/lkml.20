@@ -1,146 +1,186 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B929A3DCDBF
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 23:31:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A8AD3932C3
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 23:31:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787873484; cv=none; b=h9BLUXI/rHLBgLfffbBPV8So8q2k6f9LhxQyDhPO5rvrku2Nphlq6NAS/j/KmpGPftO52s3jhP3Pvr8RHu+726rs03+lHY5gYJbsgC6mR5mVUnH3A50iAn5gKvkZjyMEJLZNQOPe/iNbAYI+adXefQDM8PwyqZXQl2N1zx7Ad18=
+	t=1787873484; cv=none; b=rbUpKB3xoRR9MiV1fwxkxCJsFKdWMIpKhdNpp+CJ5VI5Vq21wG/bWh+YSQughk543VuNcdFlhJ+PDSZ/02l1U6tRrhd0F68cCmUJnKsCbFhbJnXt0FFX13amluJ6Hpsk6e5EMsc18r1rRS5iwVBbLS10eFaHMAVBwGaP2+WxZd8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787873484; c=relaxed/simple;
-	bh=/Etwo9DLyA1piEjryJIX/y39Y2LuaF2Cl5MFeAEYG5E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AUYHFL8PfB8j0qi1y44eX06w/QETkcl2lyYwKb/3BBk9i55TauwFu9mVQW3xwIRkjUTP+t8JEsvVmJxr3zhdzZ0NO7p8OEcdjQrNFVd0RWGu0eyUFro6KtrjRqgbfMAenCGz6xT7x8QReaB/ETjG5sZiIfhrULmGK/0jQtq3xcw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=INdbKFdq; arc=none smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
+	bh=dfPDgNVh62+kHVsnAbD/7Pdvo8mCB2lnJPdMqfNI/Gc=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=Oh6mmZz8Br3SLmvnYdVV+UvWuO3p42lAlqh8/f9dozwJHy/AffdKHsR+kdcI1qJsjJjFSb6cz2CVJH9ZOCdTjc6stkS0eDIznTR0aN2klDw0EMbMNcZwEMH+uirfMeULo3YyfguId0XLdl+8TXXxPLoAic6RX8MXnP7OU8GT4K4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stevensd.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Ot44G7at; arc=none smtp.client-ip=209.85.215.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stevensd.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="INdbKFdq"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-39686abd426so316512a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:31:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Ot44G7at"
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc1cdfb337eso660747a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:31:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1787873482; x=1788478282; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dyiy2y/avbYOe0BnQSrLgYOVHtwCGX72+qfVpLstJvk=;
-        b=INdbKFdqr+oOKdIS6fNi1KjYeQqVP7cMehmHLqCakBHQCuVKkVloj2KQZX+2BIBR4j
-         7kx7j83xIdi5cJsqnzr0XtbKYuBqmf408X3Y2EtY2kDHueyXTQtEKwB3USshpEn5cQ6j
-         ZKzYw1PXgAO+eq+bNA4DiecxtFzsaUpDox3y9M2kDqOta08fYRDnNYrHFTK+Qq33zqfk
-         nL1JjiXnDvLpc4ObbkYQ+ze1EVBS8YI4DK0Yce5R7v7HIgvbm9HHjqja43njYFTk5Ao6
-         3UPFGS5I9z3BQjaZ8QOLOd+GeRtxV2+Ffi0kyySfLCN1+ojKAIh/CkIsCJeAWhFofz5a
-         UytA==
+        d=google.com; s=20251104; t=1787873482; x=1788478282; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XRF3HmEVCSbkNryj4HHFEle4K2g8xeVsDlkdo6/RfiQ=;
+        b=Ot44G7atyvQiCmg1NPcjdfAjvjJk19lKqljvJjLPxH7VIjp1LAkK0R0AbufPd3ZhWM
+         KqZS0HxD7rstsZrRZ0GYfNsZV+E+FhpnLp2OBwwGfjO+4myg53cKaQe2GFZxYoCPnxji
+         onWpX7G956XlbE5nIzJo7z3VGNkMfNy+nTZAzxl9UpLvNvxy4F0sEKdU0FYN0OFaLBX7
+         qyEhoRBboQ1jNCx5J8WEi68Wlte+qkP3ls4UzxMncWbzeW5Fmw8+/uv3/+WPogplbP/g
+         iJpqb5IYuOWB7ZUHoilvdr6o5pNxPQcJc2iYj7CK3AUCIZsB9FFiI6E9scYAE+IyU4hQ
+         ChRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1787873482; x=1788478282;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=dyiy2y/avbYOe0BnQSrLgYOVHtwCGX72+qfVpLstJvk=;
-        b=CI4LqmZ9bckP0bOv8Ogjcs8FebXoMtVx1VwLN10nqRfUIjSxMzN0aI9rUdz9SLBWF8
-         QrDT9Rg/4WVHio4x8jsHViSqbflYocngdFrz5tiY3T1AJ6GkcIevB+7M7SghSNrjtoYT
-         3zBR6PN6HUmBdCP6qV0AnP1gTZ6bAXtPWGZ82NYeUTJuvQqDugAZS2X3ppNW0pbLPQfG
-         VR7bE3Y+dTRDtgdr0oTRK2HAOZUbiBVB00HJVw2z+k2xGxrLsFerNPL+ZnOsHMTVO4ip
-         lBsqFVZtgOQymIKws2OnBJbs6qFLMoUOg/Anhbgl9/FmdljP+BZoXwHAj6V1wfh/mkh6
-         Cc4g==
-X-Gm-Message-State: AFuF++le9Ksn1oJJ+zEDpJicTuKAdOelsgoO+cIkTnZRExJnPoi/8cem
-	bZZuJ/mJtBaPmvI1kCCqh/5LDJVprwnb43daUOQdPoawdciKd+9zYLpGnrmqf6xj3qpzZwUWJZG
-	EB2V5kTw=
-X-Gm-Gg: AR+sD13b+i6g3Z0J8LZzZ7AS+4Of1AniBMaIuC17V4Gf1yX8x/zPrkfhfLx81ZxaeJl
-	lK/ZKTLNgpfOE+tfCg9MqvuZYudveAP90OWX2Mz7serkWdubVoUpvoXemOFcP5NUPZz5CerXFN0
-	2o3BwXP3Hs3NZ9CVrupuDGDxDZJf8t68ONhRTJB35/q7Yqo9qSxpa32vPOHp1d/JZ5LQgnj+bQZ
-	ZRVDwvR5MOdqpKO1RZhew24bNF1i6s2OICRDc/LtRetAPyn9FsAbmObQDU/t2shYYm/uR2T2spD
-	emVl/SZjqS3/gNhecYCRx9vQF2gf8nVhkT+1JrhCK9GJZ2ouoMJ+X88Uef5f2PsPnmnqYjj1bPm
-	w7XLvaFRGTxhd2OeBzIyJVgHzSeaHTWZYpH+zo58RP0NbItSoeUKZiafHtXP9oitFf05x4DLPhQ
-	QtGB4yhl9tlAcnpKeMgBH4O18ciTIGLUvmIDnbxMrbNQ==
-X-Received: by 2002:a17:90b:1c0a:b0:396:54ba:8932 with SMTP id 98e67ed59e1d1-396d104e722mr3685624a91.16.1787873481701;
-        Thu, 27 Aug 2026 16:31:21 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:4a::])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b1ab4e12sm4501710a91.16.2026.08.27.16.31.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 16:31:21 -0700 (PDT)
-From: Joe Damato <joe@dama.to>
-To: linux-kernel@vger.kernel.org,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: Joe Damato <joe@dama.to>,
-	cgroups@vger.kernel.org,
-	linux-mm@kvack.org,
-	bpf@vger.kernel.org
-Subject: [PATCH] mm: memcontrol: raise MEMCG_MAX for charges that fail without reclaiming
-Date: Thu, 27 Aug 2026 16:31:18 -0700
-Message-ID: <20260827233119.411152-1-joe@dama.to>
-X-Mailer: git-send-email 2.53.0
+        bh=XRF3HmEVCSbkNryj4HHFEle4K2g8xeVsDlkdo6/RfiQ=;
+        b=BJ5jtiAhvrwjDqSTQLByhvB0EGYvhwsUdIyioCywrCaqVNUfK5nwf8C5jGPeydyfZS
+         +scQnzt2gp1z19s12kRUeP4kfUUU/7QMMIkpCXBD7zSBeHSkSu/yJ3JIWbNXzDc40cRR
+         //jnutwf7ET3J/zZHWkPrTJcFs0tKf4wWBp15sHm8Ki5W93OuWcfPTffG1IC10Ih/jay
+         eCXUIZcDKLxTqQBAP82tLw3Z6/eIitY6QiqwNfAm0bsI4LDB+4GSID6LneAKEYLDt2B9
+         7IIKiG492S3AztxhUWlVOdvfRTjrGdP51N0D4Uvg8QfTanR1wAF7anjpM01XroqFlUC5
+         HWuw==
+X-Gm-Message-State: AFuF++nRCFzYUaVSKbIYECU1y/CBJqQuno58dZCtGJjE3CgN+6nXPE8D
+	G8YgJES18FThZH7fpVf3KkK3GbYLLetJVaUat0tqvRtj4YhWKTt07f81AHkv+r/ZYdk8FCfEwe1
+	akxQqdkJY141ETQ==
+X-Received: from dyblf13.prod.google.com ([2002:a05:7301:a0d:b0:315:bf25:ce14])
+ (user=stevensd job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a20:94c9:b0:3d1:be60:2816 with SMTP id adf61e73a8af0-3d268cf776bmr3404563637.10.1787873482070;
+ Thu, 27 Aug 2026 16:31:22 -0700 (PDT)
+Date: Thu, 27 Aug 2026 16:29:41 -0700
+In-Reply-To: <20260827232948.2520558-1-stevensd@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260827232948.2520558-1-stevensd@google.com>
+X-Mailer: git-send-email 2.55.0.897.gb25b4bd76c-goog
+Message-ID: <20260827232948.2520558-4-stevensd@google.com>
+Subject: [RFC 03/10] fork: refactor vmap stack alloc/free into helpers
+From: David Stevens <stevensd@google.com>
+To: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H . Peter Anvin" <hpa@zytor.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+	Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, 
+	Vincent Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
+	Uladzislau Rezki <urezki@gmail.com>, David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, suleiman@google.com
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mm@kvack.org, linux-rt-devel@lists.linux.dev, 
+	David Stevens <stevensd@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Charges that exceed memory.max and return through the nomem label can
-raise no event and simply return -ENOMEM.
+Prepare for alternate implementations of some functions for reclaimable
+stacks by creating helpers for allocating and freeing vmap stacks. Also
+reorder some functions to consolidate the functions that will have
+alternate implementations.
 
-A non-blocking charge can hit the limit, get rejected, but is not
-visible in memory.events.
-
-This was noticed in a production setting where bpf_mem_alloc() attempted
-to refill its per-cpu freelists, which triggered a non-blocking charge
-while at the limit.
-
-Move the event so that it is raised as soon as the charge is known not
-to fit.
-
-Suggested-by: Shakeel Butt <shakeel.butt@linux.dev>
-Signed-off-by: Joe Damato <joe@dama.to>
+Signed-off-by: David Stevens <stevensd@google.com>
 ---
- mm/memcontrol.c | 15 +++++----------
- 1 file changed, 5 insertions(+), 10 deletions(-)
+ kernel/fork.c | 41 +++++++++++++++++++++++++++--------------
+ 1 file changed, 27 insertions(+), 14 deletions(-)
 
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index 1271d390b617..3904fe9a7b2e 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -2683,6 +2683,11 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
- 		goto retry;
+diff --git a/kernel/fork.c b/kernel/fork.c
+index f0e2e131a9a5..10bd76f6dd20 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -207,11 +207,6 @@ static DEFINE_PER_CPU(struct vm_struct *, cached_stacks[NR_CACHED_STACKS]);
+  */
+ #define GFP_VMAP_STACK (GFP_KERNEL | __GFP_ZERO | __GFP_SKIP_KASAN)
+ 
+-struct vm_stack {
+-	struct rcu_head rcu;
+-	struct vm_struct *stack_vm_area;
+-};
+-
+ static struct vm_struct *alloc_thread_stack_node_from_cache(struct task_struct *tsk, int node)
+ {
+ 	struct vm_struct *vm_area;
+@@ -272,6 +267,26 @@ static bool try_release_thread_stack_to_cache(struct vm_struct *vm_area)
+ 	return false;
+ }
+ 
++static void free_vmap_stack(struct vm_struct *vm_area)
++{
++	vfree(vm_area->addr);
++}
++
++static struct vm_struct *alloc_vmap_stack(int node)
++{
++	void *stack = __vmalloc_node(THREAD_SIZE, THREAD_ALIGN,
++				     GFP_VMAP_STACK,
++				     node, __builtin_return_address(0));
++	if (!stack)
++		return NULL;
++	return find_vm_area(stack);
++}
++
++struct vm_stack {
++	struct rcu_head rcu;
++	struct vm_struct *stack_vm_area;
++};
++
+ static void thread_stack_free_rcu(struct rcu_head *rh)
+ {
+ 	struct vm_stack *vm_stack = container_of(rh, struct vm_stack, rcu);
+@@ -280,7 +295,7 @@ static void thread_stack_free_rcu(struct rcu_head *rh)
+ 	if (try_release_thread_stack_to_cache(vm_stack->stack_vm_area))
+ 		return;
+ 
+-	vfree(vm_area->addr);
++	free_vmap_stack(vm_area);
+ }
+ 
+ static void thread_stack_delayed_free(struct task_struct *tsk)
+@@ -302,7 +317,7 @@ static int free_vm_stack_cache(unsigned int cpu)
+ 		if (!vm_area)
+ 			continue;
+ 
+-		vfree(vm_area->addr);
++		free_vmap_stack(vm_area);
+ 		cached_vm_stack_areas[i] = NULL;
  	}
  
-+	if (!raised_max_event) {
-+		__memcg_memory_event(mem_over_limit, MEMCG_MAX, allow_spinning);
-+		raised_max_event = true;
-+	}
-+
- 	/*
- 	 * Prevent unbounded recursion when reclaim operations need to
- 	 * allocate memory. This might exceed the limits temporarily,
-@@ -2711,9 +2716,6 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
- 	    mm_flags_test(MMF_OOM_SKIP, current->signal->oom_mm))
- 		goto nomem;
+@@ -338,7 +353,7 @@ static int alloc_thread_stack_node(struct task_struct *tsk, int node)
+ 	vm_area = alloc_thread_stack_node_from_cache(tsk, node);
+ 	if (vm_area) {
+ 		if (memcg_charge_kernel_stack(vm_area)) {
+-			vfree(vm_area->addr);
++			free_vmap_stack(vm_area);
+ 			return -ENOMEM;
+ 		}
  
--	__memcg_memory_event(mem_over_limit, MEMCG_MAX, allow_spinning);
--	raised_max_event = true;
--
- 	psi_memstall_enter(&pflags);
- 	nr_reclaimed = try_to_free_mem_cgroup_pages(mem_over_limit, nr_pages,
- 						    gfp_mask, reclaim_options, NULL);
-@@ -2773,13 +2775,6 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
- 	if (!(gfp_mask & (__GFP_NOFAIL | __GFP_HIGH)))
+@@ -356,15 +371,13 @@ static int alloc_thread_stack_node(struct task_struct *tsk, int node)
+ 		return 0;
+ 	}
+ 
+-	stack = __vmalloc_node(THREAD_SIZE, THREAD_ALIGN,
+-				     GFP_VMAP_STACK,
+-				     node, __builtin_return_address(0));
+-	if (!stack)
++	vm_area = alloc_vmap_stack(node);
++	if (!vm_area)
  		return -ENOMEM;
- force:
--	/*
--	 * If the allocation has to be enforced, don't forget to raise
--	 * a MEMCG_MAX event.
--	 */
--	if (!raised_max_event)
--		__memcg_memory_event(mem_over_limit, MEMCG_MAX, allow_spinning);
--
++	stack = vm_area->addr;
+ 
+-	vm_area = find_vm_area(stack);
+ 	if (memcg_charge_kernel_stack(vm_area)) {
+-		vfree(stack);
++		free_vmap_stack(vm_area);
+ 		return -ENOMEM;
+ 	}
  	/*
- 	 * The allocation either can't fail or will lead to more memory
- 	 * being freed very soon.  Allow memory usage go over the limit
-
-base-commit: 3d83758432b5e6ed9507500a57efb0f3af41ee7d
 -- 
-2.53.0-Meta
+2.55.0.897.gb25b4bd76c-goog
 
