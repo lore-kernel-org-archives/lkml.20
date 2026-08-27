@@ -1,144 +1,181 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3356D36A033
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:23:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787822608; cv=none; b=b13Saoac6FQnbBUb/6r8RtcjByW/TgYd+v6Gqq53tyLh6wA49MscPrXZhu1VI8K0SADJcgHytnFaMb1wvS9n54SiDlOLfDe5/QjEOsq1K/p+0MrNRbcnP4SqNrfdXdIJ6vFFHcqUFjmxxSw5kjj3ucZHSO0Dh7sc8ngtE04UlFA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787822608; c=relaxed/simple;
-	bh=EFvzre54JxGnezmSd2Zmn1F8pbR7B+VPAVWpl2PZLL0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kXSzC4wXfmXRKlpagEq/E8c1UwF3IKVDCGBDMA5wdQ0B4Mc76gMidiYmzbPYTGNkDgY28XC6DbOq6Lg0iSNco9hmTtul9hjTiVYpAN3BDRSMbuN1C1VyDPQ38Oppn8BIqrypS4tlyUrC8EYKGhnATFAmeA/SkVh+jFwQLq0IaPc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PDsUonT1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=C0TDuZMB; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76B03424D5A
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:23:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787822625; cv=pass; b=UKxWiE0ctr6k7YXqBqMo5Zhh0wqlkDEb/cz5TLI0tABg8rVksP0tVpaQByAQKJxMTU8wI3SbkVJSmTkXi1IeTaUOA6RYUNQERhPlTTcJcotEbWzLhKByiCPCFtCeN02If7WV2RMAdG2jZnuwyNroFdo+VhJHGQr2pOTsJu9Yaco=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787822625; c=relaxed/simple;
+	bh=DBHBD4i87XSNXLCWnW2smU6A62RZ/Q1PR1qnDwQ3R8M=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dOfjUzuzS7ru9xLFooIH3ElPJf/AiD57dxNF2zUTkl/Yt+ivi0gxN0/7EYEyBhi4KPRqaR/CvJuhh0ejm+MjUKSKoIeTWoV998BkO3IxV89YXvXd9I/f6cwqJBugDpyeOv+aQbPcfap/RZem7zI0VE9UKJxq0L1WvanVn0uFogs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=clyso.com; spf=pass smtp.mailfrom=clyso.com; dkim=pass (2048-bit key) header.d=clyso.com header.i=@clyso.com header.b=N/9CXmyH; arc=pass smtp.client-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=clyso.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=clyso.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PDsUonT1";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="C0TDuZMB"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67R9Gmb7470825
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:23:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=GRQ622yfIeZ4mbFm4NRuC4KD
-	EWeJhchUHxw/jWrkUso=; b=PDsUonT1qZtgzICr9wkFCgKI4C/dgi11f3zhFSzf
-	FQ11tvBWhzR3wObvm+UQOepH1GKHHD6D3401nSawWmMFQWlEGJ6+bgxG2hWPwYw4
-	A09NbXFrD4SjftVreF3bzkh6T+gkmWcHAqiJUKuy7dMjm6ePmjOqL4C5B6Ihpbgf
-	TPvFWhgt0AX/S7p/bNsE4kiuIYQBHuS76vI6EcIxV9Vqq2N5d638P+FcFvwymkNF
-	eeV5AQZ9WMhEddH40HcQZKs3U2FipQJhh3pYDBOrRHpNzlZg+WuhzFZ5HkU6FUFQ
-	HhTzzramSIjq/oSQskC/Qpo7W9fdkBoj/4ggMfxzv4JfZg==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ga8m5j1pb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:23:26 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-933023a5980so275726285a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 02:23:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=clyso.com header.i=@clyso.com header.b="N/9CXmyH"
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c2531f453eeso63982166b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 02:23:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787822618; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rfNeoX7fsKSjBSYLwQ4rQEnNQ90PNc/0nt7Oxp4QDJZ2pK0JK9FYUgr7a0WFm3Ml9P
+         3GhrLOZTTWSokqK2gl+2yG/abqSfkAJS3vYzyFry9uUmkIyJeqZDOmNdUIupi0pPrWuv
+         MRDQYJc57MLgItTrWcFC4lheCGBmyEV+N+Omi8+iJ17yY6X6vjDZp5wdKWGRJF/W7ZBZ
+         rpe1F0phE99z3kaL2bOhjm1x4v/bN4XBXNfpADjOlPR+pD6f8mPr4puvDWROW2hQIkfg
+         BMkKhBjHCkPi4ERkJl0BTYm4+r4iOiqYnnEdO6oIP9RNGCOH7In+KW2ZezSurAJJO6GM
+         rrDA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=Fph5DeMJCI7nJtUOB89Y9QP1q6g7bQDJlAzprLWOYQI=;
+        fh=s1qt0DwQI69/lSajuXmw9jw2F2oRsqM9GqTS7vxRshA=;
+        b=P03C9sUsZOkH9O9G6ADXxbcpKuOjOYSpIUHRUG193ipMFw+IFlFnupVgtiPF7c1o41
+         RwCsCIqByVIeuhnwjMF7Q4E09rI6Pz3zbyeW98kFvez2cb9J5wwLKVgQbh2ASelv8SSw
+         4jDJGgF4FfsWfjGhb2XVJ8QUXNHKiszc4HJokyUdmreoAMYzLDMFKq0YHHvAsgBREKaC
+         b0uoK+lWcLnOxi8K0j3uLJGQrIIec+60OJ/VgdDGJhPCmTsRKuIhGNXxs1aANis/T6TG
+         b68kobt2qsClw6TbcWG0sHuQf3TYCpYH3Me0xEjLywYlSOeU++nOjCbBnNNnWUG7ZA5Z
+         1sfA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787822605; x=1788427405; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GRQ622yfIeZ4mbFm4NRuC4KDEWeJhchUHxw/jWrkUso=;
-        b=C0TDuZMBi0mLJobqzvaI4lCkahAwMvYzd7wAW/gRyEVoRtttigIJ1OzNpcLZ/xZ8/0
-         A5Q5yy/BSsatWrsgYYHPbp1qUPDmpoRdmvqjNo6hBgKAwZkvGzOx1FJ7sZRI6q9IJLRr
-         696uZ5ACh3IMjYP9ICkDHuQgPuS7lU185rNez+WjMCQVzFV2QANWaLlfxqKswBR7GYwr
-         R/jWr+Nhyt72BiaBxKn1VufpEK1/BByaehKYzz4iNks82Y1L31exDjXI2VVqdEBj4KNP
-         rA/U+Q0nWCgOqpPvJ0xmgqLrFmQKC+wV2Z04l+hEzy4bC9+fBqzGOmGz28tOXofyk6u2
-         sptA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787822605; x=1788427405;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=clyso.com; s=google; t=1787822618; x=1788427418; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=GRQ622yfIeZ4mbFm4NRuC4KDEWeJhchUHxw/jWrkUso=;
-        b=qICl+/MLq5flF1fRG/ytAGHGTugpYBR5+31AhbTnBy5lZQdjcUIR8PfE+YOfWDG2mI
-         pTYHEjwF7VHgDRFKJWxlIV8G5cQ/ulODLBkL2R+hUvIGtFg83hJV0esf2fr+hYOegymr
-         NNZs2pVAH0I6+3hGVB/d3r78+dwpYKVNdWwyziE8DJAI4vgqmHzoOrpLi3K8Xn2vOEtz
-         U85Temui7NYgXxqK18sYK0ryXenjhsnwL3N2pYfkg2vRbc3KMYsm2UknBLxLrD+jxnOV
-         0I7Wv1H9F3+oxe1s5r9Yf9MvWJYN1vtGMIERL5+BRTFrrthjTapIhFtdO3E59Rs17Hz2
-         KIOg==
-X-Forwarded-Encrypted: i=1; AHgh+RoVauIJKHSeSs6Irxmrf2kO33JNfmBjxIyUJ69h+PWaOcP0QjMdW/RJI/YjRtw90UIR72TtmnICzpYmNKw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nsA13tpTQ2ncQmqLrsb0l1I9WBA7ono3V8FYZVCkqvMgsg36Gs
-	3B9SNpm0S6zOVmGn5xrrapNTSRuJbBW7e6bl/kLsc+od5VW7f72TrQe+hUhZm40qKTnSv3ba47C
-	xx+6OuctHb/+D/ZdndzykSqur+y6id0/Z0sXJL++JeNNh9vbsKd7TSqffFzgHO0K1aFTv8+MN13
-	s=
-X-Gm-Gg: AR+sD10hrg0JS6lhSINF28mLuXfVPXUFGuTcpay0YyVPRtuajeZ2NGjA4efgaeFSgiV
-	V2V2usgfWYmpxVZ+od/BPUsF7kC5bqnw6HKoMNS3i2Nr0gWMn04IcHbpF08AnFrZgK+pk1vAOSu
-	0xSZRMgEIMUQLlkfdiCrJ9y8I4I9ThEmirmiqypMhB4Mt6gFHxGrYEdUdyr8/se9P/21qh/yA7+
-	iMJIEuKGd6Z43pyr8BBf/s/6ynXo00oMeinR0FGWn7OsfT6tRdDYqTyzOdeexWyCZEcroUkeV8q
-	aGgHSBXlwZ9J89tn7Y01NVA5MjBTEQDmC0HFqU9+l12nSXp3u6b2qy4IvJfgKTy/p3j8R1odTVK
-	RpQ4BqA/4IpiDNg==
-X-Received: by 2002:a05:620a:3723:b0:936:6911:38ed with SMTP id af79cd13be357-9377fec4c48mr1254384485a.0.1787822604761;
-        Thu, 27 Aug 2026 02:23:24 -0700 (PDT)
-X-Received: by 2002:a05:622a:4815:b0:51c:61a:50fa with SMTP id d75a77b69052e-52e42472cd1mr153279081cf.39.1787822164661;
-        Thu, 27 Aug 2026 02:16:04 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.13])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499dd5616f7sm60354455e9.2.2026.08.27.02.16.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 02:16:03 -0700 (PDT)
-Date: Thu, 27 Aug 2026 12:16:01 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Danila Tikhonov <danila@mainlining.org>,
-        David Wronek <davidwronek@gmail.com>, linux-arm-msm@vger.kernel.org,
-        linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] dt-bindings: clock: qcom,sm6375-gcc: Merge SM7150
- into SM6375
-Message-ID: <u5ewh6gl367sc4f3x5f7xxyvzf54vznnuevjfztlgqhpjcpp6f@xvn43ih4qxtb>
-References: <20260827063940.44497-2-krzysztof.kozlowski@oss.qualcomm.com>
+        bh=Fph5DeMJCI7nJtUOB89Y9QP1q6g7bQDJlAzprLWOYQI=;
+        b=N/9CXmyH5ZA3yuT5sWoq6ccqE4jFAIAbKZDuYmufvz5csYrdBvAypgbiYduatTIWAH
+         r+9JZ1d9Z9/oCn7vHw8hxEaHnVfvTFowEBFqSxV/mMvLuXMgvv8Y+9ECu6DMx0ldMvwf
+         rrDwNy13uSIX9WCQXL31vz9UIXDnOGZNg01x7FInncPFC6kMNEiRJPtf0uU50/91Ujd7
+         5j1LaTrWgqY+prhgPpQyiwuf5fDijvlTELVYj9lcYnK5lWdp4KvgLwRyxC/n2a167PHA
+         F9nwX7EVvwZXFi0e92O8t7Hfr2ygUN6aZ/rgxy7SzjNEqJNDd97Jisv9/LTzAAAGm0c4
+         hJSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787822618; x=1788427418;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Fph5DeMJCI7nJtUOB89Y9QP1q6g7bQDJlAzprLWOYQI=;
+        b=p/WNxOy4QCUtOMyCNhGK/JITa0KCtHHVAl2dVh3FhVHlOzOgOQLYEAYUBNohSk00A2
+         MuykhBDRtZdzOigtPUrgZvSl5jJNnq2Ag5vlLQbQGr78RZwvsByshfVhOfVv5vm1lvZq
+         qyZ2ogVsNrlARv7apjTRXu0fNS3OUhKyxP7Jt53FtAlXlKczqgH2G0QFKk7JDSE84vt5
+         SrUDR2NXYftdGHAHrcI0yChymhkbu8AD15a52U1TwF6niO7OrSb2v3XQSaZ0OLWobj4C
+         3H6fcDqgQ9VmOuaX/hmq51iwIAuKeHNYJHZqCk3b38wS2ZFUHqDa2+GecXTKujbs4BMn
+         ASkA==
+X-Forwarded-Encrypted: i=1; AHgh+RqO41iSwGG9gCrssASTJprgb90sBlu4j4G3xgazhB/oIGnel0OFLymNXM+BXinmC4DYrjg9tFaIMm+Kvsk=@vger.kernel.org
+X-Gm-Message-State: AFuF++m6XsduJLtgWZEkwSz6XtJI0CP6+7eylVAEfEtlyqccCpVrTleJ
+	0rUS7QI01CxvDypMScosAfkWt92ra+f0cQMyWpFpzLHveqpIxvgaFhA6krdioPSO2LfZiMsByx4
+	Xtvj7vOGw0ew2vTu9SqhvkBnxWmIX3KzOlts75WleRQ==
+X-Gm-Gg: AR+sD11KovowmnIVqMJDRH9jfGm71VqfJNgv6apRi1O6IYW+Cn52IEStoeTUOGs6A/7
+	yf5rpzMYkwuYiUnkGDtG73Lzf5XN24n8qveHJSCd9RLf6t0yJbW8oC6OD5V4ysZPi+zgIaKbbN4
+	reanM8YR8ym2dRUM0c2Jm5K604OsmT9lZ4zas8mTOqQORHowRm0t5I++mm/qChPssfgkFd81p9Y
+	mHvf21ZeYsS3ef9/O/Jjn04n3XgEczDW9xcSsLREqY9WCSVRpXHWZcg382dvM+UYzbHRcZJ91Oh
+	pU206CZEPE+ZQ582dmI+Olihq8i4FAOo39tYXhN+onbYXwvtfUPqNGcc
+X-Received: by 2002:a17:906:9fd1:b0:c25:362e:fb8b with SMTP id
+ a640c23a62f3a-c25362efe10mr476489366b.7.1787822617738; Thu, 27 Aug 2026
+ 02:23:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827063940.44497-2-krzysztof.kozlowski@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: QPfYeKvICGDbPkgrVJovVTpxGvJ2ta0b
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDA3NiBTYWx0ZWRfX7OI63C410cfm
- CUbQvSGF4Ww1ontfBJEs4v5TZWyctGclrlmhgazIV1Tujs6OHMNio6ASj/qmKouOrQQPTGa0U7k
- DO0/OARzvQs7wWJ5KCAkxZlcuBaV5kg=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDA3NiBTYWx0ZWRfXxdFXsio24/u5
- NsHf6RSivrXU8XYVinIepzdh+49jKEjPNw59QLQqaCySBYvdmJBvseC06iFJniYoKsBr18XY+M4
- 3XYN74vWIbrs1a0VNE6Urhj+b70mQK5kSMXwGYEVOW61HsX8PjLoO07kyqSg+C4IluypfmU/UDa
- ZMt5xLJ38wIJVMwAPQcN55vLO/yeElz7NozpUy8Ua/aUhOaU4SqS8D1ZVuzofJu+f72nIJzAVUF
- kSvBcpdjBI3FsTeQxT4zhRQcWfDDDVRue0Mt95QXO405eD2LdSpnVF37aTUDiZOf4+gNYtjF2jB
- MeQp8Y/WnKfYEpDZxjeFkTDF8DapaDsis7TKxHDvLTSJQ3IUdIARYg8m+L55dzZiKLVU6ln7xrE
- uds2/WvlrHndTdVLVq58bf/NoOLE4S278XkhO8SIuUmTdelgIjP9r36hoCtjhLHW69j1kYy5FpQ
- 7Po4Rc0vMWAMYhQl63Q==
-X-Proofpoint-GUID: QPfYeKvICGDbPkgrVJovVTpxGvJ2ta0b
-X-Authority-Analysis: v=2.4 cv=SomgLvO0 c=1 sm=1 tr=0 ts=6a90020e cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=clBUptZa5v5FR042Ey+sjA==:17
- a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=wAkbjeueQAX_hA7IGqgA:9 a=CjuIK1q_8ugA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-27_04,2026-08-26_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 clxscore=1015 phishscore=0 spamscore=0 priorityscore=1501
- suspectscore=0 bulkscore=0 impostorscore=0 lowpriorityscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608270076
+References: <20260824164707.225547-1-max.kellermann@ionos.com>
+In-Reply-To: <20260824164707.225547-1-max.kellermann@ionos.com>
+From: Xiubo Li <xiubo.li@clyso.com>
+Date: Thu, 27 Aug 2026 02:23:24 -0700
+X-Gm-Features: AcwNN1UwIC-FqqFXy9MiN3M9lqUGjoxGkQeIpqgmUwjYu1w1OyWgOlMiaP06l8k
+Message-ID: <CAOJNxR+vqTNU-1k5tCO1XPBbaVYi+GK_X+x9M5cOtN+BFvecdw@mail.gmail.com>
+Subject: Re: [PATCH] ceph: lock mutex in ceph_mds_check_access()
+To: Max Kellermann <max.kellermann@ionos.com>
+Cc: idryomov@gmail.com, amarkuze@redhat.com, ceph-devel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 26-08-27 08:39:41, Krzysztof Kozlowski wrote:
-> Bindings for Qualcomm SM7150 and SM6375 GCC clock controllers are
-> identical, so this could be one file for less handling and encouraging
-> future grouping of similar devices (like SM7250 which also would fit here).
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+LGTM.
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Reviewed-by: Xiubo Li <xiubo.li@clyso.com>
+
+On Mon, 24 Aug 2026 at 09:47, Max Kellermann <max.kellermann@ionos.com> wrote:
+>
+> MDS session OPEN handling replaces mdsc->s_cap_auths under
+> mdsc->mutex, freeing the previous array and its strings.
+>
+> ceph_mds_check_access() traverses this array without holding the
+> mutex.  A concurrent session reopen can therefore free the array while
+> it is being inspected, resulting in a use-after-free like this:
+>
+>   Unable to handle kernel paging request at virtual address 003aaad64b2c8bb9
+>   [...]
+>   Internal error: Oops: 0000000096000004 [#1]  SMP
+>   Modules linked in:
+>   CPU: 56 UID: 2953037534 PID: 1253231 Comm: php-cgi8.4 Not tainted 6.18.45-i2-ampere #1146 NONE
+>   [..]
+>   pc : ceph_mds_check_access+0xd4/0x550
+>   lr : ceph_mds_check_access+0xc8/0x550
+>   [...]
+>   Call trace:
+>    ceph_mds_check_access+0xd4/0x550 (P)
+>    ceph_atomic_open+0x138/0xbe8
+>    path_openat+0xa24/0xfa8
+>    do_filp_open+0x94/0x158
+>    do_sys_openat2+0x88/0xf8
+>
+> Fixes: 596afb0b8933 ("ceph: add ceph_mds_check_access() helper")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
+> ---
+>  fs/ceph/mds_client.c | 4 ++++
+>  fs/ceph/mds_client.h | 1 +
+>  2 files changed, 5 insertions(+)
+>
+> diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
+> index 3c692ad02c85..0348e8b848ff 100644
+> --- a/fs/ceph/mds_client.c
+> +++ b/fs/ceph/mds_client.c
+> @@ -6532,11 +6532,13 @@ int ceph_mds_check_access(struct ceph_mds_client *mdsc, char *tpath, int mask)
+>         doutc(cl, "tpath '%s', mask %d, caller_uid %d, caller_gid %d\n",
+>               tpath, mask, caller_uid, caller_gid);
+>
+> +       mutex_lock(&mdsc->mutex);
+>         for (i = 0; i < mdsc->s_cap_auths_num; i++) {
+>                 struct ceph_mds_cap_auth *s = &mdsc->s_cap_auths[i];
+>
+>                 err = ceph_mds_auth_match(mdsc, s, cred, tpath);
+>                 if (err < 0) {
+> +                       mutex_unlock(&mdsc->mutex);
+>                         put_cred(cred);
+>                         return err;
+>                 } else if (err > 0) {
+> @@ -6558,6 +6560,7 @@ int ceph_mds_check_access(struct ceph_mds_client *mdsc, char *tpath, int mask)
+>         doutc(cl, "root_squash_perms %d, rw_perms_s %p\n", root_squash_perms,
+>               rw_perms_s);
+>         if (root_squash_perms && rw_perms_s == NULL) {
+> +               mutex_unlock(&mdsc->mutex);
+>                 doutc(cl, "access allowed\n");
+>                 return 0;
+>         }
+> @@ -6572,6 +6575,7 @@ int ceph_mds_check_access(struct ceph_mds_client *mdsc, char *tpath, int mask)
+>                       !!(mask & MAY_READ), !!(mask & MAY_WRITE));
+>         }
+>         doutc(cl, "access denied\n");
+> +       mutex_unlock(&mdsc->mutex);
+>         return -EACCES;
+>  }
+>
+> diff --git a/fs/ceph/mds_client.h b/fs/ceph/mds_client.h
+> index 0ece4c9e3529..8774c7d7d18d 100644
+> --- a/fs/ceph/mds_client.h
+> +++ b/fs/ceph/mds_client.h
+> @@ -603,6 +603,7 @@ struct ceph_mds_client {
+>         struct rw_semaphore     pool_perm_rwsem;
+>         struct rb_root          pool_perm_tree;
+>
+> +       /* protected by mutex */
+>         u32                      s_cap_auths_num;
+>         struct ceph_mds_cap_auth *s_cap_auths;
+>
+> --
+> 2.47.3
+>
