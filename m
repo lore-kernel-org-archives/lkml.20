@@ -1,120 +1,256 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5261E4446EA;
-	Thu, 27 Aug 2026 12:55:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA8804503FC;
+	Thu, 27 Aug 2026 12:56:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787835364; cv=none; b=ZRvOiJithcebdZJFdUk9eLgdfmyo5G83mu6iygjGRj/v0RKk/GfMdFQy8XgFoZq4jvABtUxnbYeZkIyFOqxZ/dgWkW+Lm4ITNkDdb7/2W6kMLSxAobNptl1n+J0gjCX/JDsOuihWtwXTMAnkUbLofyovGsMdPCiLIxKieYJAYWs=
+	t=1787835386; cv=none; b=Y7vU/9TbkKwBrSDOabHtxLZhhdfabmImAiX6fRxPU2wmZDm17s78Yu2O8/ZXPjCvZOiDM0Pfh7MO3tM+SfarwhXeg66LBmTKjQC2gTmA+MBfpfMGWSShJhvE31CTw4AxwbtHtGimo9WMK4h1BPJRe6AgpoW6R7kL7EHr2LiCt5s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787835364; c=relaxed/simple;
-	bh=oOuqcXN8p5l1Go4rya57YLfyUleiX8JJA6LRtEvfk/s=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=kjx4aPTbg+yPkclaDkFjTVZhNm5s8zFyiFm83hhD77HuU90SuaStn/A3hh8/mWZXAjYpaw6c1iUPCFb3iq8gRfGICRcsQtlxBG/F5I/o0GMX73gWLJFkbOUhJJwYlU/sXbs07HzbeCQl0I8gGtvrl4A1u3dvcXKWb6g1Y3YQmjk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HgcLRfmU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787835386; c=relaxed/simple;
+	bh=yjfAd5HzqoftbhQaKFAEymWiks9xoHxKsZAGMnolXHE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=e4shf0TiE7wC2yxwBiwwrlXx6SUbDI4rIhBHJz6iU6+RojokbdEl27/nDZjObwpkHZi9ZG1V4/dcI/hk8Cw8ZgZGxVjcEknLiXcWSaltAQkIk2I6gMm9SQ2rxmGJxrXjHseKvbMHtqTaUsNLMLKnMqwOsZVyfSXtAgf9/IQdmEA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=f6tlP77p; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HgcLRfmU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42E731F00A3A;
-	Thu, 27 Aug 2026 12:55:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787835338;
-	bh=GH4Mmke9PiLqPE4CVnynmuYKT0Ri8KBe11wFWr6tl/c=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=HgcLRfmUrh9vTgSGCwnZrnoTjgV3jvPxOlfLoSvIiEE88EFp5gutc4umGXG/RCVnF
-	 XZKBwy9M1kJiO3SdYBUiJIg38rEkS9BfhkEJzahhcI26jWXmOfzHrfWe4ZG0FT8YEK
-	 gtBlq4QKq2LVa0g5B6MdcDYAkWRmyJIwal4QHtlG/gp7rLPL1ROoo+Y+hIfRyxP8jg
-	 drZX7vhmcipyCO8EgmmFyexsAf9BmSrPE6m1m0sLcUDjUix34uybF9dkrbKJuF3Wyg
-	 083sW9rDatI4k/C4OCuVgvWpNl0PXjm0ncYsOBsyunYDqDdgxKMpJEdtP0+hz1sNH7
-	 WL+IUnihdXYiQ==
-Message-ID: <3b117e89-810f-451f-af13-4822eb57382a@kernel.org>
-Date: Thu, 27 Aug 2026 14:55:28 +0200
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="f6tlP77p"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67RCVgnU3056614;
+	Thu, 27 Aug 2026 12:55:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=3Xd30D
+	SJ7NtPUCB5YLdv6K4XXDXekQyh4v5AohRuQOg=; b=f6tlP77p8rsDqNanHBg/mR
+	SFGPnMureofD0asnngvcFKDo1/sP6tQt0475avRXaPbc2QxyqbUp1AlJG20SeTMc
+	sLVkKA3qCxC4LnbQsNlsKc+QI6bcGSVR77XLc7QwJguy/jkUaOtk/2lrcFU6jRYP
+	NZM7RtRSjdwW2OWYm6xzCk/6bEqW4+qOnJiAohRg1XLESISnXo0XCNoanbxbTIW8
+	o/lDL0ILnkYWF5nCB1MXrSHCtJxvoTmcY8UWvDma01tZ1DqxfsgisB/DDzzrTVFP
+	265jNcHiVrtIYEIWlUX8isemob51/tcmfeFlDFnCJb5D6FdSMTJIkwPEnXF7AcZw
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g73dxn25s-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 27 Aug 2026 12:55:13 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67RCfLlo031321;
+	Thu, 27 Aug 2026 12:55:12 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4g7q3k82uw-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 27 Aug 2026 12:55:12 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67RCt9m049938804
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 27 Aug 2026 12:55:09 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id EA13C2004F;
+	Thu, 27 Aug 2026 12:55:08 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id E0B2120043;
+	Thu, 27 Aug 2026 12:55:05 +0000 (GMT)
+Received: from p-imbrenda (unknown [9.111.92.98])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with SMTP;
+	Thu, 27 Aug 2026 12:55:05 +0000 (GMT)
+Date: Thu, 27 Aug 2026 14:55:02 +0200
+From: Claudio Imbrenda <imbrenda@linux.ibm.com>
+To: Hugh Dickins <hughd@google.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+        Ackerley Tng
+ <ackerleytng@google.com>,
+        Alexander Viro <viro@zeniv.linux.org.uk>,
+        Baolin
+ Wang <baolin.wang@linux.alibaba.com>,
+        Barry Song <baohua@kernel.org>, Binbin Wu <binbin.wu@linux.intel.com>,
+        Christian Brauner
+ <brauner@kernel.org>,
+        Christoph Hellwig <hch@lst.de>, Christoph Lameter
+ <cl@gentwo.org>,
+        David Hildenbrand <david@kernel.org>, JP Kobryn
+ <jp.kobryn@linux.dev>,
+        Jan Kara <jack@suse.cz>, Jens Axboe
+ <axboe@kernel.dk>,
+        Johannes Weiner <hannes@cmpxchg.org>, Kairui Song
+ <ryncsn@gmail.com>,
+        Kiryl Shutsemau <kas@kernel.org>, Lance Yang
+ <lance.yang@linux.dev>,
+        Leonardo Bras <leobras.c@gmail.com>, Lorenzo
+ Stoakes <ljs@kernel.org>,
+        Marcelo Tosatti <mtosatti@redhat.com>,
+        Matthew
+ Wilcox <willy@infradead.org>,
+        Mel Gorman <mgorman@techsingularity.net>,
+        Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>,
+        Minchan
+ Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+        Oscar
+ Salvador <osalvador@suse.de>,
+        Peter Zijlstra <peterz@infradead.org>, Qi
+ Zheng <qi.zheng@linux.dev>,
+        Rik van Riel <riel@surriel.com>,
+        Sebastian
+ Andrzej Siewior <bigeasy@linutronix.de>,
+        Shakeel Butt
+ <shakeel.butt@linux.dev>,
+        Suren Baghdasaryan <surenb@google.com>,
+        Vlastimil
+ Babka <vbabka@kernel.org>,
+        Yang Shi <yang@os.amperecomputing.com>, Yu Zhao
+ <yuzhao@google.com>,
+        "Zach O'Keefe" <zokeefe@google.com>, Zi Yan
+ <ziy@nvidia.com>,
+        linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH 20/25] s390/fbatch: no lru_add_drain_all() in
+ s390_wiggle_split_folio()
+Message-ID: <20260827145502.2fb4505b@p-imbrenda>
+In-Reply-To: <2319f670-fe0b-f032-c0dc-486cbec0f3e1@google.com>
+References: <14a16945-529b-8bc0-ab38-3ea97e54e223@google.com>
+	<7bf68e7b-f88c-6ca9-39ab-e9fedab0c8be@google.com>
+	<20260826155722.0198d3ce@p-imbrenda>
+	<2319f670-fe0b-f032-c0dc-486cbec0f3e1@google.com>
+Organization: IBM
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Subject: Re: [PATCH 14/16] arm64: dts: st: enable usb on stm32mp257f-ev1
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Christian Bruel <christian.bruel@foss.st.com>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Srinivas Kandagatla <srini@kernel.org>,
- Marek Vasut <marex@nabladev.com>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, Pankaj Dev <pankaj.dev@st.com>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org
-References: <20260821-ucpd-host-fusb340-v7-2-rfc-v1-0-c5e27cbc0795@foss.st.com>
- <20260821-ucpd-host-fusb340-v7-2-rfc-v1-14-c5e27cbc0795@foss.st.com>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260821-ucpd-host-fusb340-v7-2-rfc-v1-14-c5e27cbc0795@foss.st.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDEwNCBTYWx0ZWRfX0TZApJLkdtZ1
+ PtE0rU7ktQWVARMaJcd4vZ13/G8yHyRHM4u3EkB+SbNKBO7mZMEKkD16iaWBwlYzwAuGe9vvOym
+ vJ2I67XiTk6YxR75ZgRBPBeAYkBQUSQ=
+X-Authority-Analysis: v=2.4 cv=AYuB2XXG c=1 sm=1 tr=0 ts=6a9033b1 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=1XWaLZrsAAAA:8
+ a=QKwNBufzpuw2Nls-StEA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-ORIG-GUID: Wrj_BCzufVTI3xnHE8uI4nTHpOZ09pgb
+X-Proofpoint-GUID: kiq6mmh02NZYDyKGi_UG9okOaLOjTkKb
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDEwNCBTYWx0ZWRfX/GC60VEqff6H
+ AD+jIFLFniVC/xqIljwSPxusJt+WASSapWED2IMDwJBC5s8SXEzQ7Lw24xM/z5E8irvqBHKEEA8
+ TsW67q+rmn+Lv2a7dNWCRh2BztVeZUoe2yVSmLtzBxu4rSqHQQAV3yZwxg5jvqh6JgjK8wxQTwN
+ 3f2mo07mhERoXsbSGoy9prIWB/8kUt2YRvv+WDuqqOPTiMOVQvYC3s2bpCow5iwFaWuISYM30QX
+ IA2ZK7TtbtOUmEorzZpatwwaRI0Ydek+gChszZuyQyDyn5QQQneZm2xxTgg8aOPFGoO1Y5kjqnF
+ He3CpPU3+3/7Wld3khcvM4hXDOZAoZ60mnpZh92cwtJeFc+WqcM4HxUKlExo1CuVoR42aresGwi
+ PPIFJufe7OMchwSCXeYh1nHaPgz62e4WIlmmffUFctzQbF0Lfap2jfKSgXzReFafxjYYHG69fSV
+ zPDUH3nxbniYRLw4loQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-27_05,2026-08-26_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 clxscore=1015 adultscore=0 bulkscore=0
+ impostorscore=0 priorityscore=1501 lowpriorityscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608270104
 
-On 21/08/2026 18:23, Fabrice Gasnier wrote:
-> STM32MP257F-EV1 board uses two USB controllers:
-> - USB Host port, with external onboard HUB providing to connectors
-> - USB Dual role Type-C port
-> Both are capable of to operate in High-Speed mode.
-> The Type-C port management is done through integrated UCPD controller
-> and external TCPP03 I2C protection chip on I2C1.
+On Thu, 27 Aug 2026 01:49:12 -0700 (PDT)
+Hugh Dickins <hughd@google.com> wrote:
+
+> On Wed, 26 Aug 2026, Claudio Imbrenda wrote:
+> > On Mon, 24 Aug 2026 07:39:12 -0700 (PDT)
+> > Hugh Dickins <hughd@google.com> wrote:
+> >   
+> > > s390_wiggle_split_folio() has no good reason to lru_add_drain_all(),
+> > > now that the per-cpu fbatch references are gone.
+> > > 
+> > > Signed-off-by: Hugh Dickins <hughd@google.com>
+> > > ---
+> > >  arch/s390/kernel/uv.c | 1 -
+> > >  1 file changed, 1 deletion(-)
+> > > 
+> > > diff --git a/arch/s390/kernel/uv.c b/arch/s390/kernel/uv.c
+> > > index dc14ebc0105b..120a467026a5 100644
+> > > --- a/arch/s390/kernel/uv.c
+> > > +++ b/arch/s390/kernel/uv.c
+> > > @@ -364,7 +364,6 @@ int s390_wiggle_split_folio(struct mm_struct *mm, struct folio *folio)
+> > >  
+> > >  	lockdep_assert_not_held(&mm->mmap_lock);
+> > >  	folio_wait_writeback(folio);
+> > > -	lru_add_drain_all();
+> > >  
+> > >  	if (!folio_test_large(folio))
+> > >  		return 0;  
+> > 
+> > This is black magic for me, I am not sure I fully understand all the
+> > details, but what's the new purpose of lru_add_drain_all() ?
+> > 
+> > will we have a guarantee that no stray references to mapped folios will
+> > ever remain?
+> > 
+> > Any unexpected reference (i.e. not due to mappings, see
+> > expected_folio_refs()) will cause a protected guest to hang.  
 > 
-> Signed-off-by: Christian Bruel <christian.bruel@foss.st.com>
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> I most certanly don't know s390 or that code well enough to guarantee
+> you that no stray references to mapped folios can remain there. What I
+> can guarantee is that no references, of the kind which lru_add_drain_all()
+> used to be needed to remove, can exist there: so there will no longer
+> be any point in s390 (or others) calling it for that reason, to help
+> split_folio() to succeed.
 
-Please do not combine DTS with USB series (see also submitting patches
-in DT). It cannot be together as it MUST go via different maintainers.
+we are not using it to help split_folio() succeed (although that's a
+pleasant side effect). We need it even for small pages, to guarantee
+that no extra reference from LRU is present on the page.
 
+you just mentioned that, with this patch series, no such references
+will be there, so that would be enough for me
 
-Best regards,
-Krzysztof
+> 
+> You wonder then, what lru_add_drain_all()'s new purpose is, why it
+> still exists at all? I did hope to remove it completely, but found
+> two usages that I could not argue against: one is in user-forced page
+> reclaim (two memcg interfaces and a sysfs interface), where it's
+> still desirable to push folios on to the immediately reclaimable LRUs,
+> rather than leave any on the per-cpu fbatches preceding those LRUs;
+> the other is in memory hotremove, where it will be necessary to erase
+> stray addresses, through which a subsequent folio_try_get() might have
+> accessed a struct folio which (I imagine) might have been freed.
+> 
+> Yes, your split_folio() may still occasionally fail, because of
+> transient references and folio_try_get()s on that folio; but that's
+> so before and after the changes. And there is (in my mind anyway) an
+> open question of whether "folio_try_get() blips" will be visible a
+> little more than before.
+
+yes, it's fine if there are transient fails, as long as this won't
+block indefinitely (or for extended amounts of time)
+
+> 
+> Hmm, looking again at s390_wiggle_split_folio(), it seems rather
+> odd that it was doing an lru_add_drain_all() at all: because any
+> large (hence splittable) folios have themselves been immediately
+> flushed from the per-cpu fbatches, not left queued up there. Maybe
+
+yes, because as I mentioned above, we are not using it for
+split_folio(), but to guarantee that no extra references are present.
+
+We count how many references are present, how many we are expecting,
+and if any extra are present, we do the lru drain. If after the drain
+we still have extra references, then we try again, in the hope that the
+extra references go away quickly (i.e. we expect the extra references
+to be due to I/O)
+
+when a page transitions from "normal" to "secure-guest owned", we must
+make sure that no extra references are present.
+
+> there was an earlier time when mm did not enforce that; and Barry
+> is currently looking to relax that, so the limitation intended for
+> pmd-sized folios is no longer forced on the smallest large folios.
+> 
+> If Barry's relaxation goes in before my drainage changes, then
+> there is value in that s390 lru_add_drain_all() in the interim.
+
+hmmm so, should it stay for now, then?
+
+also: I'm working on completely reworking how the transition from
+non-secure to secure is handled, with the explicit goal of getting rid
+of that kludge we are currently using. That will also get rid of the
+lru drain. But it will take some time (I hope to have something by the
+end of the year)
+
