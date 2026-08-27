@@ -1,120 +1,115 @@
-Received: from out30-133.freemail.mail.aliyun.com (out30-133.freemail.mail.aliyun.com [115.124.30.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA89822D4E9
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 14:59:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3865D4432FD
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 14:59:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787842756; cv=none; b=gU++T5BqBqY95EDBSSHfZB62M/EowJ+k/KUoMXPiT61/OTs4bXMVY1ClDgriMOeOJmP3cq6D2U1VlK0UJe1+KLonbzecFeVAJpYR1m4S6RT2lqzcrZuTdj5i+QK5bsiZy07hOj9DyyiQAtyE1D4L+NcOkgLdtRVTFrnLwFJCOs4=
+	t=1787842762; cv=none; b=M7pbtc3k7e1yhCFcgRSO/vYKzs7IwBNtXMwcWxLKJqfXJrFvLyJnFc3eiAy4YGaFg3UZCJPvBBoEKPNJQ3B1qXLvA7/SPFfNaQnfZ22uvzSjb3Z6enyC1V+QmK2nxxPn+pMYQ19RQhCAQgabZbEFUV4qG17nhKllWJtN0LikGK8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787842756; c=relaxed/simple;
-	bh=dWc2LBW7tnbzd8aYpAR6curDlQuV3nqCzpnmJ7AjROQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=n0Ol1R0LvyXLLOYzMD8wPCIrvENLvxE4N6BZpNcGpwJ3bLkOM5O7JWuxHTZS5uWG5ZedU7Eog6b3fPPMufkhYR96oT4g6woU+C5FH4bT8t6jtdUkd9eVf/I/HE4ai0lxE7SY1BWBcVHNtf9bPYAJh38578ZrnnoluF6nOC/8tME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=lBorrZyG; arc=none smtp.client-ip=115.124.30.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1787842762; c=relaxed/simple;
+	bh=RR+IUy6BeU23gJRdnSXxRw8SirU1x2z1Zv0XN+mlf+c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=adIADVqjo3xPlLEhJg2LP0UtOU5wX3+fDQagWiZnG8Nv768ugmHUgC71OhnpqUJwCkkd87U4VhGkHBdslJ/zN8wKvOayZDI16jVGDh9vFznJTDJf/RTH2nTnPwQBygmF+HF54FZ2VXXrRpJujBxqJ+3E9jtikq+iT7iigValsEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=lFoZFqjD; arc=none smtp.client-ip=209.85.128.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="lBorrZyG"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1787842750; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=aP3yTfYoCLgwuuWPChjMO7/4qA/BZGkazKY2jAbx8uY=;
-	b=lBorrZyGMiCoykuwpMj1YkpLAc9ErhA27VDZbs74cVbkA64siDfbSNEnVXytQhC+BgtmrpU6x0oOr/UJUs+BoRBcLlqf1T+9WEcogtmKQ7IesTLdwCWtIBEGn9G8tbPFu3bOusOeE3gEPC3JorcO25IJp9dqreMMmupe3WA8csE=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R101e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=xiangzao@linux.alibaba.com;NM=1;PH=DS;RN=12;SR=0;TI=SMTPD_---0X9jzaBc_1787842739;
-Received: from banye.tbsite.net(mailfrom:xiangzao@linux.alibaba.com fp:SMTPD_---0X9jzaBc_1787842739 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 27 Aug 2026 22:59:10 +0800
-From: Yuanhe Shu <xiangzao@linux.alibaba.com>
-To: joro@8bytes.org,
-	will@kernel.org,
-	jgg@ziepe.ca
-Cc: robin.murphy@arm.com,
-	baolu.lu@linux.intel.com,
-	kevin.tian@intel.com,
-	smostafa@google.com,
-	praan@google.com,
-	skhawaja@google.com,
-	iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Yuanhe Shu <xiangzao@linux.alibaba.com>
-Subject: [PATCH 0/2] iommu: Drop IOMMU_DEBUG_PAGEALLOC refs on iommupt domain teardown
-Date: Thu, 27 Aug 2026 22:58:53 +0800
-Message-ID: <20260827145855.1616223-1-xiangzao@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.7
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="lFoZFqjD"
+Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-8565d77c277so36846507b3.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:59:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cmpxchg.org; s=google; t=1787842759; x=1788447559; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=d4lPcSEVrhw95aM0IABtxJRmbb0KihXHWFn9jTHO+gA=;
+        b=lFoZFqjDq9phDt72Un3JCDMdeZIOtIYGQ3jWW4EYhWYAo5CbPp0QcKiOnE+AJbaaYq
+         AYjewtTUfh+eGHC5p6ImFm9/Suxn0PAei/84jTYezOcu6QW30E9jfACTJl3odUB/rzki
+         mXWCYw1x4fZuy+MmpstiAfGk3sl6X36ssgJwW9lsGhJpoSk7uYIXCAHFGb1ng5Cc6NTt
+         Zts2ACxDcGj2hFRNU3hH5dnRzXIo5r+odb8Gmqkw55/zT0jn53Io4y5DmActQiBp2s0b
+         lQ6r9IjvBlj1GWtJt1uv0b+KMPvK7WieOrL7WAbrIMcYwe2XgIao6ZCexzg2yfuP6uBD
+         svRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787842759; x=1788447559;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=d4lPcSEVrhw95aM0IABtxJRmbb0KihXHWFn9jTHO+gA=;
+        b=osBs++B0AU8SqCGhFATMiNcNVm5+x5SLuuxBKffIrCs3VCeiUsV3o2FuBVs3vhmAT2
+         a4eNAWADw1X+2jNFlsa3H0MVM+j2ORfUUZ6HYGVY37tHSsHgVtvxVuOqWxdpcbs2tY42
+         7X4/bh5xIYCSn4S4pMoWOR5Rq5B3242sWvY485awt0KYxElDm0ecoZuODH8bQvW/fcZd
+         Oe0MX2Y+hybF6BNFU7WsPmaXm9s5RP4nx3ofaEUJJBGOOu+u6DiSMhKnqRGvoQRkVBhI
+         7XiZMAaLRYbGEdFhCNWGl29GPcgrUIV3b4H7n/+6exilu1P/gsgR/M/+kP7uSmdj3O1R
+         G+jw==
+X-Forwarded-Encrypted: i=1; AHgh+Rp1kcCK+PEp9g7JLEZDrBYHY5a/qSq8P0HsM/gd6yAqMa5/oQGGb5IYrymBjAIqeueZPeHkx/6rLbztWJA=@vger.kernel.org
+X-Gm-Message-State: AFuF++m5iDsvvXR5pZ2rUUfhSUev5mwA1rVJPfCF49o6gfJ7k+UqwR/h
+	ZX9kocI+lHZ4aLI7jQgxPd0RX2hfwEBVFLnAp9hKaM06wLyMMmp8uBVTA/km3MT9y3Q=
+X-Gm-Gg: AR+sD13y5k9EZZh8EW0kHhaZjrr/Xlstu0Y+eTrSaLLPMeSBxgK3EMJpuW8uypf3LLD
+	MkqAbtfvwx+IzPQiePhT7n80meica2LlGghFYdj60hf1qEcj6DHHwO/2qZu/0GW7+8qolcP2hw1
+	FDPzww14LML5ixbMzljbDzj2aRYqBe1aWLJIBLjDU6VPRg3MApFUSxB9aGjQy3izI0CeZg8C26E
+	vMNZ78rECJdi3gO0RqutJt3Ijxr/4aOPVp09mxjwFipILwXFLBENlFgitQso9LIy5hH3fDsdygb
+	m0xp/3ePv3aUYBd/XM4qqXTPhS31QgCfYnIVB1o2doNrJq3e4Wyic3a26GMqcImnmu+2PVcYT+P
+	g5u9qNms9/vK4IG3ebxzJIQGjfK0Q142QzVOEAyNnRyZTsfysXoFJcilLYA2oNOE3KkOQ+G9tOD
+	JD79X4i/rQRBvlxPvmL1ryNjXkwgK7M5BbdNFLk8jNf81aXA0vR1cCVJa+8sQ/
+X-Received: by 2002:a05:690c:e288:10b0:858:def3:3422 with SMTP id 00721157ae682-858def3356cmr38360687b3.27.1787842759108;
+        Thu, 27 Aug 2026 07:59:19 -0700 (PDT)
+Received: from localhost ([2605:8600:200:1a83:fe59:7385:2855:8588])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-85b5bc34efasm11365667b3.7.2026.08.27.07.59.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 07:59:18 -0700 (PDT)
+Date: Thu, 27 Aug 2026 10:59:17 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Jiayuan Chen <jiayuan.chen@linux.dev>
+Cc: linux-mm@kvack.org, stable@vger.kernel.org,
+	syzbot+ced4d9a8cadb5ef3adae@syzkaller.appspotmail.com,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Yosry Ahmed <yosry@kernel.org>, Chris Li <chrisl@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>, Jan Kara <jack@suse.cz>,
+	Tejun Heo <tj@kernel.org>, cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/memcontrol: fix data-race on reading jiffies_64
+Message-ID: <20260827145917.GB3004@cmpxchg.org>
+References: <20260827025457.116191-1-jiayuan.chen@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827025457.116191-1-jiayuan.chen@linux.dev>
 
-Since commit b948a8722848 ("iommu: Fix up map/unmap debugging for
-iommupt domains") iommu_map() takes an IOMMU_DEBUG_PAGEALLOC reference
-for every page it maps into a domain, and the only path that drops
-those references is the IOVA based unmap.  When a generic_pt domain is
-freed while mappings are still installed, pt_iommu_deinit() releases
-the page table memory without going through that path, so every mapped
-page keeps its reference forever and each later allocation or free of
-it trips:
+On Thu, Aug 27, 2026 at 10:54:56AM +0800, Jiayuan Chen wrote:
+> KCSAN reported a data-race between tick_do_update_jiffies64() updating
+> jiffies_64 and mem_cgroup_flush_stats_ratelimited() reading it directly.
+> 
+> Unlike jiffies, jiffies_64 is not volatile, so raw reads are plain
+> accesses and can even be torn on 32-bit. Use get_jiffies_64() instead,
+> and fix the same pattern in mem_cgroup_flush_foreign().
+> 
+> Cc: <stable@vger.kernel.org>
+> Fixes: 508bed884767 ("mm: memcg: change flush_next_time to flush_last_time")
+> Fixes: 97b27821b485 ("writeback, memcg: Implement foreign dirty flushing")
+> Reported-by: syzbot+ced4d9a8cadb5ef3adae@syzkaller.appspotmail.com
+> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
 
-    WARNING: drivers/iommu/iommu-debug-pagealloc.c:91 at __iommu_debug_check_unmapped+0x4e/0x70, CPU#0: init/1
-    iommu: Detected page leak!
+Acked-by: Johannes Weiner <hannes@cmpxchg.org>
 
-Freeing a domain with mappings still installed is not driver misuse:
-the deinit contract in include/linux/generic_pt/iommu.h only requires
-the table to be removed from HW access and caches, with no requirement
-to unmap first.  iommu_setup_default_domain() frees the old domain with
-its IOMMU_RESV_DIRECT mappings still installed (those pages normally
-never return to the page allocator, so it does not WARN today), and the
-generic_pt kunit suite (CONFIG_IOMMU_PT_KUNIT_TEST) does the same in
-pt_kunit_iommu_exit().
+Minor nit:
 
-Patch 1 adds __iommu_debug_unmap_phys(), the physical address based
-counterpart of __iommu_debug_map().  Patch 2 wires it into the deinit
-walk: a debug_unmap flag makes __collect_tables() drop the reference of
-every OA leaf it destroys, symmetric to how iommu_map() created them.
+> @@ -785,7 +785,7 @@ void mem_cgroup_flush_stats(struct mem_cgroup *memcg)
+>  void mem_cgroup_flush_stats_ratelimited(struct mem_cgroup *memcg)
+>  {
+>  	/* Only flush if the periodic flusher is one full cycle late */
+> -	if (time_after64(jiffies_64, READ_ONCE(flush_last_time) + 2*FLUSH_TIME))
+> +	if (time_after64(get_jiffies_64(), READ_ONCE(flush_last_time) + 2 * FLUSH_TIME))
+>  		mem_cgroup_flush_stats(memcg);
 
-io-pgtable has the same gap in __arm_lpae_free_pgtable(), but its
-cookies cannot reach the struct iommu_domain, so that fix needs an ABI
-change or per-driver handling and is left as a follow-up.
-
-The kunit suite doubles as an in-tree reproducer: with
-CONFIG_IOMMU_DEBUG_PAGEALLOC=y and CONFIG_IOMMU_PT_KUNIT_TEST=y, boot
-with iommu.debug_pagealloc=1
-kunit.filter_glob=x86_64_iommu_test.test_pgsize_boundary, then
-allocate and free most of memory (the case maps 128K at the hard-coded
-OA 0x208b95d000 and never unmaps it, so the machine needs enough RAM
-for that address to be online memory - a 150G guest was used here, and
-the sweep was a tmpfs filled to 95% of RAM):
-
-    unpatched:          64 page leak WARNINGs
-    with this series:   0
-
-The 64 is one WARNING for each of the 32 mapped pages on both its
-allocation and free.  On unpatched mainline the suite already fails
-test_random_map's NR_SECONDARY_PAGETABLE assertion, which aborts its
-cleanup and cascades into the following cases, hence the isolation.  An
-out-of-tree module mapping a page into an amdv1 domain and freeing the
-domain without unmapping shows the same behaviour, 384 WARNINGs over
-64 iterations unpatched and none with the series; each leaked page is
-reported again on every later allocation and free, so the count
-exceeds the 64 leaked pages.  The control case that unmaps first stays
-silent.
-
-The generic_pt format code can be built as a module (e.g.
-CONFIG_IOMMU_PT_AMDV1=m), so the new helper and the
-iommu_debug_initialized static key are exported GPL.
-
-Yuanhe Shu (2):
-  iommu: Add __iommu_debug_unmap_phys() to drop refs by physical address
-  iommupt: Drop pagealloc references during domain deinit
-
- drivers/iommu/generic_pt/iommu_pt.h   | 22 +++++++++++++++++---
- drivers/iommu/iommu-debug-pagealloc.c | 30 ++++++++++++++++++++++++---
- drivers/iommu/iommu-priv.h            | 24 +++++++++++++++++++++
- 3 files changed, 70 insertions(+), 6 deletions(-)
-
-base-commit: 45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229
--- 
-2.43.5
+time_is_after_jiffies64()
