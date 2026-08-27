@@ -1,72 +1,76 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DAD82FE074
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 05:38:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02739366045
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 05:39:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787809085; cv=none; b=DKHbr9j7m6TdBd5KsSKv+UbN/HTrUb9+7WEC4zgg6+OYg/aDLgdkFaLSeDnjlmhm7AP4CFSFPeWKmUO2N6BIm/KXVr2doLPC+o5uHZCCy2Ti3B9YxaCeWX7TvbtKmqz+JEMNq0UA2IWwLHhBsy99wdMs/pYUGcZqSouuppksNww=
+	t=1787809149; cv=none; b=iBYdhkUfFdN2DCbpNUt+mAmR+tuou17R9vKFMeN1xn+eKgoP2UAfjobEO/DUEMXEu3jTcNbCkxn3PgQwu58W+8vcPJR3FT0RYggxiaYX8h0Itq36nlkyGJHsrDA6eO4CBJDj6p50VR6k2CIdZ6DzFhF7Aa64zd2FtsEIQf3x3vA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787809085; c=relaxed/simple;
-	bh=Fi9frtw8kMPt1GrRNX58s9IxyDACuZ8FrDv4qp2ewVI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=j4detzzoSGLjhP8g1AGz/d2lJEaiFPYhbgo0Ac09TP7/vnO9yUjvXFi8xsx15ZgaKqmQPCAQd7tICJ11JqPSj6F6LJ+oahrhztPP+f3MAg1mq6EEMp9C3Hg2qnpo7jptTpTQHIB+Vvo3Uu2s7m9Ds238C+MM7oalYDqhkPkHbZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qdZ3x/kD; arc=none smtp.client-ip=209.85.216.51
+	s=arc-20240116; t=1787809149; c=relaxed/simple;
+	bh=xfQh0Y5R20vSZUxjaK2vmYzmU1LW79HxmsPiG+WbHk4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=NWfNfMl2Jbt9kJd6rJtgltCeG8SCk0hBmdI+XH+0t5I5zVhmuxUvKQYlU+kNhz9uJ22kRup+QcnIUCZ3IyCIiggdiO9IWgk41sV/w2Shyr6JIOjUp6V6yTDP2exWHhV9ry5G84cxpya5IL+sHUcUSxLO2BY4X/R5OOYo58x53g4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c3ijnRxm; arc=none smtp.client-ip=209.85.221.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qdZ3x/kD"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-395cf2535acso831382a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 22:38:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c3ijnRxm"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-482e2fdf6ebso180607f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 22:39:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787809084; x=1788413884; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787809146; x=1788413946; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iswCVfsJzx7eQJFCwsKKR1zCuDmwXO4EX3JbVp3VQ/s=;
-        b=qdZ3x/kD+wHKjqXl6vuSYxjWaJsxLEzTg0r0NhXFSz1srsGIQDZ0GkwDedGWG6WIvl
-         r2drE0tIEZYUPWGmKYCySFcYxERnTJ24tScyQyTldjQe7OBEdC9tjVfuWwqucL44gTDb
-         xKJrnoimk+jeOvcNjq00qWG/scFoWVu5anspOvJSTFymFNnooLRARQ8K/ZbmWOwaUFAl
-         JM+MBvr/iCFQPgMZKTe0V6+L+dxsSAy0an08vuc7xgfVFbpl05DAORo7vaQOkLdk56yt
-         J0DVmCbEegrDqXuMhnTdYbO8YQfj2wcSbW1eiVPnlr9Tp6qy5g/zXRRNY1Lx65HHCjCs
-         azXA==
+        bh=lOz3YD9m113l6BvHxW+pci6nfgveDpLEimxy0iOIiEM=;
+        b=c3ijnRxmJJGNX1Co5BRN6SCDFkviargZThXe98Dwp5eHrG01JVfRzw4BQssiQ8iRem
+         k4AUVtA7vc57GEoYqWuqbwYR27VTnifhBFdUonsd7w5972g2+XFTUoV78+oqBMwqkerf
+         VbFSbN0TIODlaO91kp8oKS2fMkBthjFUPxoAXH3TghfhqmwprnLqQ9zVv0IMIcSo5gnx
+         l32818GwfTJ8a+zQIwUtsVfVYY4J2W+Vqc807J4WAw9k/NUp3W0nQvOgS9p5l1vReRp2
+         Uwc9jcTTgoUyMf6jczXYFgMtme6Ht2/fpsXgk3UAU5fvMAhuYS3TG18Mh5vsxN1C2AuJ
+         y+/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787809084; x=1788413884;
+        d=1e100.net; s=20251104; t=1787809146; x=1788413946;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=iswCVfsJzx7eQJFCwsKKR1zCuDmwXO4EX3JbVp3VQ/s=;
-        b=rouraBDPVTd+KP4ENM9YvpKlxNj8Wwiw3RFT1qcceKeRJoUWveHJcQrt+MnVWHjdb0
-         4gmWMkffHzAwVhso1xpY5wqoh0UWHWV+oK5oKG0rgQw9rnoOVDZ9Xf1T1pY8ErIcJs7T
-         Xz4MdzHPCw5t9l4JnmreiX7tKJ/L+1kDHjlyxd3kLwOVuWRx04A1ekSSaA4bMcPGngmN
-         5vqq4W8RFpdpry+SmuxDZpp7AK8aAw3bh0yKcmdMlIJlSjKj8E+3USTDn8KTTnVEK4Xl
-         VPiWvWTvw9JuNKti3qLxDl2MOkVjs0vfN8uu95S7fkXQoCl5HY6ANag/gCaQ8UFRrGKO
-         dnzA==
-X-Forwarded-Encrypted: i=1; AHgh+RqT9mYG+Ej67y7J+JmC/AI2tSkfN4B3MfMzmhDGewWMk3csYfdlV7QLj19vl8w64i2SysC45hxvixK69f0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lOI0uOhjAHIYQmswzD51dNmD7CAW8y1yppJi2TRsv9xY1XLBHr
-	S8lQsKa83/jgOgPXJ+FkbqEgXfXVoldoajgrHKdphjEsOQJ+nzbKIPtN+b0RGA==
-X-Gm-Gg: AR+sD10njY+Khq4oeLQaj7MB+zjmQYOdLBKWew14gd2B+UbUtdrWkALwdIP4I3BdaTL
-	6BfLhfjEsxltl82ZxLygcqB2jfpdmnst8xxwUUmd7EgpFGUheqV/wAObElKTVT61dZSbizkwLFg
-	RPPhUa0MN05V3jt0AA5Qn6bIIex9vQNgeUlW8u/8e4U0gLTNAxAYFwhdMjEQRSMEuSpbKzLzvaP
-	oBfUdLQIJkics2FD7eMO4bf5btzobJZ9DGIcgDIo9anw1J9xiw2yMevWSJGB3D6rWg9xDhqVRXm
-	AzYe5QuKZis++7a1TL60zrmTwynxcuCR7FLkqZxe3sU7stPYMsUeNrjHdshV8WEmRIXGJDrhzgM
-	oJaTcqYxbktGWq2hJAJGgv6t+YAzJ96+XvE27dv7NOCsp6IkCyl6oaN5+RGSXC5QOp/zr9WdeRj
-	oELUoo8J7423GNfmIwNiIHNBrn0RLVqNdrihlLG0qeHs/8z0GAhZ/8KYBwa+BNnyA/vel4m5rxz
-	dhdZ/7apAzi1JtEbsXBpQgDXD/3DBlzYNSLtAnjt4arI4DDELFISTxUjlD8WQ0C
-X-Received: by 2002:a17:90b:2884:b0:38e:c232:9d2c with SMTP id 98e67ed59e1d1-3969ba558eamr5029727a91.2.1787809083744;
-        Wed, 26 Aug 2026 22:38:03 -0700 (PDT)
-Received: from localhost.localdomain (KD059138194111.ppp-bb.dion.ne.jp. [59.138.194.111])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b1123142sm1242134a91.15.2026.08.26.22.38.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 22:38:03 -0700 (PDT)
-From: Youngjoon Lee <getfeus@gmail.com>
-To: Mathias Nyman <mathias.nyman@intel.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Niklas Neronin <niklas.neronin@linux.intel.com>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] usb: xhci: fix ERST max field conversion
-Date: Thu, 27 Aug 2026 05:37:48 +0000
-Message-ID: <20260827053748.3755-1-getfeus@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        bh=lOz3YD9m113l6BvHxW+pci6nfgveDpLEimxy0iOIiEM=;
+        b=h91ydIxPzeq1+9rqdLhhm6V+2teadXn/11krvZct6WvNS5dckdUqh8A7oum7Aa9Bi5
+         L9BVlOfoa2FIr+Pw0336CblA9iS/X9QHAeKvncku/vewlbjPxuV73hrtDgMg4uxEkoiQ
+         q3pG/iNvZB5rFZjl8Rra6EvRVvo8fhtnEbDIXON5e2tACjMRu4SzJc6VbjdFL7TmYv3c
+         j5FbZFhZytr3rUZLCJ8hKcNtoNVLfjDA+juNA7oo/NSfOCvlYfiWtVBdoRgyVbcT8poZ
+         APHZPNIa0qDWT81o0NiOpeP3URTHvVgnDCERoskcXiMSy7tm2N9oYf8s9Gl04vohLp0r
+         d9BA==
+X-Forwarded-Encrypted: i=1; AHgh+RqksNlnwzY1heVs3nN3uJdD/BjUnpx/YDZfj4WeBQn8bR+b9wYdMN7UsMpiIidskp5lPyrLzBd0ZA0UFPI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kYQwh2fHU0vfcOEqC7RwKGuGt3d1I8OFsatUs17JGEiC38qljQ
+	DK6OioJE01CRGbMzwbkJQR8yKMixHQX3miNBHnF0J6nAenUm3RmF1DcN
+X-Gm-Gg: AR+sD10zKPixdHnEsE1/ga5rzXNwQmRZJO537UgIwKPpx9wwfdrYHgJAvff99gx5wfO
+	/MeyrIRndH0WMDSD1G3+c1zbu75QIVPuEzsP4nW1An6cRiL/BoBRHStbgLJJ6vcO4LDarXEUwCf
+	y3G+j5Y17zmWC3YIgN5Jaxdc+DKI3sknhN8/DmGPK6Xd/VKO64/uo+vBRITcjWm3eOddLeFWPGH
+	8KxECzmvpceQLfuxyvF3HwSYCz85jQdOv30I2GjDwzYLN4RB4UAWZrf5sePZGMmn8CLdptuv4HZ
+	jwKIzATFA1yPACmBSodoURs+WyyowyEw3JexArlbx+jeSx9VAqXqy/ddrjpltNVLMmXAfskBqtL
+	4+bMGl9G/S7LGzotVxtOPBqQw2hp/olyA6j8g0ODMousG6St3pntMWAH3p+Ag66Nzkh/XjMs/sO
+	UjfPqn/LD7vx9zpYixq1BwZMYpvbNQhr1mXQAFW99hIboissOk6Jm56lIAd9YPrWiHnrjYC0cIQ
+	9l8y0nVdP45jVhsBDnzY37N6tpcHf/tyQw/KzEYwRKULu5nH7+W588N6I/PctP2lV4L2B7LR9f4
+	o/ANgMYs2ujsfcoFpR44DRVxtw==
+X-Received: by 2002:adf:e00d:0:10b0:47f:6f9e:1e82 with SMTP id ffacd0b85a97d-482e26d7482mr10341961f8f.9.1787809146021;
+        Wed, 26 Aug 2026 22:39:06 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-095-114-154-097.95.114.pool.telefonica.de. [95.114.154.97])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e28dc3f5sm6397295f8f.21.2026.08.26.22.39.04
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 26 Aug 2026 22:39:05 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: "Rafael J . Wysocki" <rafael@kernel.org>,
+	linux-acpi@vger.kernel.org
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Len Brown <lenb@kernel.org>,
+	Anirudh Prasad <icarus@a0rg.com>,
+	Sashiko <sashiko-bot@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] ACPI: pfr_update: zero-initialize capability query result
+Date: Thu, 27 Aug 2026 07:37:41 +0200
+Message-Id: <20260827053741.79425-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,42 +79,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit 6d45e9556d4a ("usb: xhci: standardize multi bit-field
-macros") converted the ERST maximum calculation from BIT() to a
-left shift. These operations are not equivalent because the
-HCS_ERST_MAX field contains an exponent.
+query_capability() copies four ACPI buffers into fixed-size fields using
+the firmware-supplied lengths.  The existing overflow guard rejects
+oversized buffers, but shorter buffers are accepted and leave trailing
+bytes of the stack-allocated cap_hdr uninitialized.  PFRU_IOC_QUERY_CAP
+then copies the entire structure to userspace.
 
-On an MT8173 xHCI controller where HCS_ERST_MAX is zero, the new
-calculation produces zero event ring segments. This reaches
-dma_alloc_coherent() with a zero size, triggers a page allocator
-warning, and prevents xHCI from probing with -ENOMEM.
+Zero-initialize cap_hdr before querying the firmware.  This preserves the
+existing handling of short firmware responses while preventing disclosure
+of kernel stack data.  Oversized buffers remain rejected.
 
-Preserve the original calculation by applying BIT() to the value
-extracted with FIELD_GET().
+A QEMU _DSM returning one-byte buffers reproduced nonzero stack suffix
+bytes in all four fields.  With this change, the ioctl still succeeds and
+each unwritten suffix is zero-filled, while 64-byte buffers continue to
+return -EINVAL.
 
-This restores the USB 2.0 and USB 3.0 root hubs on MT8173. A USB
-webcam and both USB 2.0 and USB 3.0 hubs enumerate successfully,
-and the previous ERST allocation failure is no longer present.
-
-Fixes: 6d45e9556d4a ("usb: xhci: standardize multi bit-field macros")
-Signed-off-by: Youngjoon Lee <getfeus@gmail.com>
+Fixes: 0db89fa243e5 ("ACPI: Introduce Platform Firmware Runtime Update device driver")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/1a001e1fee9.637da6dc3533246.238498880682901704%40a0rg.com
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
- drivers/usb/host/xhci-mem.c | 2 +-
+ drivers/acpi/pfr_update.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/usb/host/xhci-mem.c b/drivers/usb/host/xhci-mem.c
-index 7a21ac81f9c8..af8d4b74c4ba 100644
---- a/drivers/usb/host/xhci-mem.c
-+++ b/drivers/usb/host/xhci-mem.c
-@@ -2301,7 +2301,7 @@ xhci_alloc_interrupter(struct xhci_hcd *xhci, unsigned int segs, gfp_t flags)
- 	if (!segs)
- 		segs = ERST_DEFAULT_SEGS;
+diff --git a/drivers/acpi/pfr_update.c b/drivers/acpi/pfr_update.c
+index 9afd2c52fdbd..98ace679601b 100644
+--- a/drivers/acpi/pfr_update.c
++++ b/drivers/acpi/pfr_update.c
+@@ -422,7 +422,7 @@ static int start_update(int action, struct pfru_device *pfru_dev)
  
--	max_segs = FIELD_GET(HCS_ERST_MAX, xhci->hcs_params2) << 2;
-+	max_segs = BIT(FIELD_GET(HCS_ERST_MAX, xhci->hcs_params2));
- 	segs = min(segs, max_segs);
- 
- 	ir = kzalloc_node(sizeof(*ir), flags, dev_to_node(dev));
+ static long pfru_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+ {
+-	struct pfru_update_cap_info cap_hdr;
++	struct pfru_update_cap_info cap_hdr = {};
+ 	struct pfru_device *pfru_dev = to_pfru_dev(file);
+ 	void __user *p = (void __user *)arg;
+ 	u32 rev;
 -- 
-2.55.0
+2.39.5 (Apple Git-154)
 
