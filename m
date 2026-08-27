@@ -1,143 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 085763CA486;
-	Thu, 27 Aug 2026 21:01:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D975639AD5E
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 21:02:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787864513; cv=none; b=A6/XZ8OpZH/AlFDUEDHKnrDFvikKwatie54ekBiwOTF09W8mEOc18Tk4gOya9NRfoeqC9VQ03psjj9vXEFvs/yW+a0nxIEsRgAn6cq6JeP0tOsYHLV6D1/1xsAO/JNUS1y6uc0MSVOQk6dD9A82ohxOXXZN6KyTmxzeX5AyVaBg=
+	t=1787864525; cv=none; b=CZ5j8HcvLj2Ouq7MiV3eXTFhYesUO/NMeVzQK8cgvkThr2ciqNyOPmdqajFNKCK7vGmW49YdLqADgA4Z45kXkZlPfs8P5PoceDI/0KiwCPNFrp00op6qcEq1ET4/leZXvB3v4gvPJMl8XIrtcQfaByK3g1WXJAjkXpxAGFXAGQU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787864513; c=relaxed/simple;
-	bh=z7g2QR/6D7EsZU71dJHbAnqAlfmfQGRRSVBKM3W0Zho=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=SNfa4nYNKTepOsfsEzDNGn+0syPXx9iUMk+hsajnvbytn2v96hpd8ZX3JSMOB0ZwPY+KC8O4LGf0QrUR85xV/mlaAy5mIESJb4UY9Fv6Kn9m06LsquQ9RWwhM3SsIVbwQl9oWiagUsqJv0xrgK+Pg391UDda2j0G1KuxoY5gdS8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MnGTbrfD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787864525; c=relaxed/simple;
+	bh=iKqXrXXEueLz0Wl+PbJ55dtQU+Zoh4YxTnXjCzPBsuI=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=lH/ChV3tc1sLbgFVXKZFyqib3+JuQ+E1D8ui6R/4hxfyVTxXfkasqfzA/1fqGsfTQCb7l1ABBw22dwOsL8VmXDeZUIp2/WvQNS7pClTjrZYhDbFAM89nZPlVx5yZSOMkDL422CLD8ksndYIeTHtRe0T+iKTizHdvSCe+c9VJu+k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=q3r+K9IG; arc=none smtp.client-ip=209.85.214.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MnGTbrfD"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 048FC1F000E9;
-	Thu, 27 Aug 2026 21:01:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787864511;
-	bh=wk8NtGvLNqSJDyy9AbjGsCvf7C2Ow3jcgzXTkEjtS2A=;
-	h=Date:From:To:Cc:Subject;
-	b=MnGTbrfD/rAlVfeCdf9DaMBRUbgll9qUblqEqHr0KP0A9Z+KYWjKg+hNetSy7qAbo
-	 yBe4qrTcCAjbI6zeH6q8O4zQEqAY2TE9d95C80tRhOTRILbeQVZlTauevNPdKqL2fp
-	 A5peZdBalZl0XZxQUqpewHAmr2MRdo56hdR3jpvWYQIjUoejNYN3XhTeEoJs8B67um
-	 n0VO5scXUo0atl5A5sW+/p4f4MHt7mmJ12BWKS2Reb55Pcs7fMl5Dl/QwBvU2Tr0LC
-	 IHgmD8HoplA1A9JkiUvfUwF78pA45MndevFk/JXjA27VwXYEzWrVAhZwiBjZQWGh3f
-	 b/Qx9ENTe8UVQ==
-Date: Fri, 28 Aug 2026 00:01:47 +0300
-From: jarkko@kernel.org
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
-	David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
-	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Ard Biesheuvel <ardb@kernel.org>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	trenchboot-devel@googlegroups.com,
-	Ross Philipson <ross.philipson@gmail.com>, x86@kernel.org
-Subject: [GIT PULL] TPM DEVICE DRIVER: for-next-tpm-7.3
-Message-ID: <apCluywYWo97vyYr@kernel.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="q3r+K9IG"
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2cf7dd9fd91so2820545ad.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 14:02:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787864523; x=1788469323; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=9TFR6u7il3e/CgCyGIr0QJPtUjW/Hrr6HrFoOjzuX0g=;
+        b=q3r+K9IGxkddtgcD7smxnv1Ng7QAba3h/XJ16viUhyAMfH94t7yzKtaPExSYmKAHXG
+         mg176cqK1pzJY83r6B4EXXXMQ0b57vRzqf9Lz7Vga/dlY/09epokSkTEn8Vu4/hvCULj
+         uJeYb40ztUIbfQRs/KB0IPAXstb1xEW4MGGSh9P6u3fzl5k1SqOOCXGrJ0VdEfv8TZP3
+         kJtcg810q8Y0AmvfAvV9YodzPmLJpJVYxFVkEe1LEju2ywuuH/phndO8ra/hzWgyTbcd
+         8wrKldjpL4WWkX0Fe+2XmJXxwbQSx4zjfd7msC9HXmlgBa0CUQT/hRAlKLyQvWg4VvU7
+         qc1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787864523; x=1788469323;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9TFR6u7il3e/CgCyGIr0QJPtUjW/Hrr6HrFoOjzuX0g=;
+        b=A0IVA7JwaN33il6r+W1wC905L0Lg30G66HhxD90PtAOIP4IzIMUxvc3igXsJahXX43
+         FKSH83UuRDo0XMRqO+5+UK5Q6+eDB/0EgEZT5NYw+WZxAK/WUY9+HSkWvDotqPB6VjI+
+         Re1fbSPFZGPO6pS9akSOpKz4SJn3u2nWCVzieZ0+pvFDG9PKBsreA8AOxH12nCcWNbqT
+         sj2LAzQcQV3bU0H5eTxlwvg/iFOLYxPTUX37r5kc8uFxi1IUSiMtjoNQu7wpb8/dMZbP
+         0CTJHKhdjsfUH0VVSPnA0JX8jEZ4zKvwg8zXHq6JXRDLWWVbKrRxTcAPPqq42Xces6DF
+         MFIg==
+X-Forwarded-Encrypted: i=1; AHgh+RqH5XODS8H9xoVGNzKb5++BcGhGafepeDanIPpBhXItTZdwNzsbQ/gl7ZSORMJSOQTsVMw8vwvP3l27sc0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kxA8qHsgnPP+s8wu89/7I3AgziSSYx+8/zq0ZjfloOQIIS3hH5
+	ME/3NOkbjSk565sq1+/HshKPGip3jC9npgU/au6hi84lNrNyTdAEgIUWs1TAwrUSGy1DmPREXhJ
+	d7/hOKA==
+X-Received: from plso4.prod.google.com ([2002:a17:902:bcc4:b0:2d3:83f2:7e3e])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:d58a:b0:2d2:da8e:9017
+ with SMTP id d9443c01a7336-2d74dc797cemr34204175ad.8.1787864522916; Thu, 27
+ Aug 2026 14:02:02 -0700 (PDT)
+Date: Thu, 27 Aug 2026 14:02:02 -0700
+In-Reply-To: <CAO9r8zOK5D3UMk1MM2X01FJhCW4mXsLpR-66T9+T9aeR5fcQZA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Mime-Version: 1.0
+References: <20260826233919.998904-1-seanjc@google.com> <20260826233919.998904-14-seanjc@google.com>
+ <CAO9r8zOOq05nWk6c1sCnPAimFTuZLxc3BDrZLro-fXPR6ZMmTw@mail.gmail.com>
+ <apCd5RSDYH13g0qR@google.com> <CAO9r8zPF7yPWopSQD=YSLuAxDU5YAacEWwEMbt3s_s9a=niCoQ@mail.gmail.com>
+ <apCitFa82WHmiebf@google.com> <CAO9r8zOK5D3UMk1MM2X01FJhCW4mXsLpR-66T9+T9aeR5fcQZA@mail.gmail.com>
+Message-ID: <apClyjROxUd8ACEs@google.com>
+Subject: Re: [PATCH v3 13/13] KVM: selftests: Add and use double-underscore
+ versions of vmlaunch() and vmresume()
+From: Sean Christopherson <seanjc@google.com>
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	f734222792@gmail.com, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Sashiko Bot <sashiko-bot@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-The following changes since commit 66498c75b4f8017f62d720d9b59675bdf3abce91:
+On Thu, Aug 27, 2026, Yosry Ahmed wrote:
+> On Thu, Aug 27, 2026 at 1:48=E2=80=AFPM Sean Christopherson <seanjc@googl=
+e.com> wrote:
+> >
+> > On Thu, Aug 27, 2026, Yosry Ahmed wrote:
+> > > On Thu, Aug 27, 2026 at 1:28=E2=80=AFPM Sean Christopherson <seanjc@g=
+oogle.com> wrote:
+> > > > Yeah.  Another idea would be:
+> > > >
+> > > >   void vmenter(bool do_vmlaunch)
+> > > >   {
+> > > >         if (do_vmlaunch)
+> > > >                 vmlaunch();
+> > > >         else
+> > > >                 vmresume();
+> > > >   }
+> > > >
+> > > > To yield:
+> > > >
+> > > >         vmenter(vector =3D=3D SS_VECTOR);
+> > > >         vmenter(!i);
+> > > >
+> > > > Never mind, that's a terrible idea, the call sites are inscrutable.
+> > >
+> > > Yeah, but I do agree that vmlaunch() vs vmresume() handling in
+> > > selftests is annoying (e.g. see run_l2() in [1]).
+> > >
+> > > If you wanna go scorched earth on the nested VMX infra, what if we
+> > > track launch vs resume (e.g. set launch=3Dtrue in prepare_vmcs() and
+> > > lauch=3Dfalse in vmlaunch()), then provide a single vmenter() API for
+> > > tests (with no arguments)?
+> >
+> > For selftests, it would be much more difficult to do correctly, as comp=
+ared to
+> > KUT.  KUT has a "fixed" number of vCPUs, doesn't need to worry about pC=
+PU:vCPU
+> > bindings, and has a strong need for per-vCPU state for other reasons (b=
+ecause
+> > it's more like per-pCPU state than per-vCPU state).
+> >
+> > Selftests doesn't have per-vCPU state, so making the tracking thread-sa=
+fe would
+> > be challenging.  And I don't really want to add per-vCPU state because =
+making
+> > GS (or FS) off-limits is actually problematic when the goal is often to=
+ do "bad"
+> > things to vCPU state (I've debugged weird KUT failures due to GS gettin=
+g clobbered
+> > more than once).
+>=20
+> Isn't vmx_pages effectively per-vCPU state (for nested)?
 
-  Merge tag 'dmaengine-7.3-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/vkoul/dmaengine (2026-08-24 12:21:15 -0700)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/jarkko/linux-tpmdd.git tags/for-next-tpm-7.3
-
-for you to fetch changes up to 55ba91d4c54ab31ee8387bae40e799de467f8269:
-
-  tpm-buf: Add TPM buffer support header for standalone reuse (2026-08-25 18:13:37 +0300)
-
-----------------------------------------------------------------
-Hi,
-
-I had to think a lot how to put this into few paragraphs.  I hope this will
-makes sense to you and I'm not too confusing.
-
-The bulk of this pull request are Ross Philipson's TPM enablers for the
-Trenchboot patch series.  The commits expose TPM constants, and decouple
-and improve robustness of tpm_buf a bit in order to implement a minimal
-early TPM driver.
-
-Early boot code will call either SKINIT on AMD or GETSEC[SENTER] on Intel
-before jumping into kernel's entry point.  They re-initalize TPM PCRs but
-leave up to the early boot code measure initrd, boot_params and Trenchboot
-associated metadata.
-
-The motivation here is just that we would want in future iterations of the
-series put our full focus to the x86 part of the review, and call it a day
-as per TPM changes.  Further, even if Trenchboot turned out to be empty
-lottery the worst possible outcome for TPM driver is that things get
-cleaned up a bit.
-
-BR, Jarkko
-
-----------------------------------------------------------------
-Alec Brown (1):
-      tpm: Remove main TPM header from TPM event log header
-
-Jarkko Sakkinen (3):
-      tpm-buf: Merge TPM_BUF_BOUNDARY_ERROR and TPM_BUF_OVERFLOW
-      tpm-buf: Remove chip parameter from tpm_buf_append_handle()
-      tpm-buf: Memory-safe allocations
-
-Karl Mehltretter (1):
-      tpm: atmel: depend on X86
-
-Li Jun (1):
-      tpm: tpm_tis_spi: fix nodef CR50 tpm_tis_spi_resume is null
-
-Myeonghun Pak (1):
-      tpm: tpm_i2c_nuvoton: disable IRQ on wait timeout
-
-Pan Chuang (1):
-      tpm: Remove redundant dev_err()
-
-Ross Philipson (6):
-      tpm: Initial step to reorganize TPM public headers
-      tpm: Move TPM1 specific definitions to the command header
-      tpm: Move TPM2 specific definitions to the command header
-      tpm: Move TPM common base definitions to the command header
-      tpm: Move platform specific definitions to the new PTP header
-      tpm-buf: Add TPM buffer support header for standalone reuse
-
-Ruoyu Wang (2):
-      tpm: st33zp24: Return zero on status read failure
-      tpm: st33zp24: Validate locality read result
-
- drivers/char/tpm/Kconfig                  |   3 +-
- drivers/char/tpm/st33zp24/st33zp24.c      |  13 +-
- drivers/char/tpm/tpm-buf.c                | 145 +++++----
- drivers/char/tpm/tpm-sysfs.c              |  26 +-
- drivers/char/tpm/tpm.h                    | 180 -----------
- drivers/char/tpm/tpm1-cmd.c               | 180 +++++------
- drivers/char/tpm/tpm2-cmd.c               | 321 ++++++++----------
- drivers/char/tpm/tpm2-sessions.c          | 164 +++++-----
- drivers/char/tpm/tpm2-space.c             |  57 ++--
- drivers/char/tpm/tpm_i2c_nuvoton.c        |   8 +-
- drivers/char/tpm/tpm_tis_core.h           |  64 +---
- drivers/char/tpm/tpm_tis_i2c_cr50.c       |   4 +-
- drivers/char/tpm/tpm_tis_spi.h            |   8 +-
- drivers/char/tpm/tpm_vtpm_proxy.c         |  30 +-
- include/keys/trusted_tpm.h                |   1 -
- include/linux/tpm.h                       | 230 +------------
- include/linux/tpm_buf.h                   |  60 ++++
- include/linux/tpm_command.h               | 518 +++++++++++++++++++++++++++++-
- include/linux/tpm_eventlog.h              |   2 +-
- include/linux/tpm_ptp.h                   | 133 ++++++++
- security/keys/trusted-keys/trusted_tpm1.c |  45 ++-
- security/keys/trusted-keys/trusted_tpm2.c | 166 +++++-----
- 22 files changed, 1255 insertions(+), 1103 deletions(-)
- create mode 100644 include/linux/tpm_buf.h
- create mode 100644 include/linux/tpm_ptp.h
+Yeah, but you said "with no arguments", there are tests that use helpers, a=
+nd
+IMO passing in a vmx_pages pointer is uglier than implicitly tracking launc=
+hed
+state.=20
