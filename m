@@ -1,140 +1,121 @@
-Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com [209.85.167.181])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EECF3B5306
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 22:25:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.181
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787869518; cv=pass; b=LuZrMJ85/169tm48SdJ9dZ8vACjXvSymBEim01s2ym0bkDcmzMjMqd+vgr0+/qm6TlfbqmO7gKlaeR2ES1+RO2ncLewLeeKe7iQbfLFo2ooQXIUpBOcJi5RVCcM27ZkZuCy/HEvuCnuFVh6iydx+c9siLA2V4aUoFyffA9F+R44=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787869518; c=relaxed/simple;
-	bh=/E1qm0j3abWKQXo6pZVeXLBEXmyK9cxZP8Mn4Y8KCu4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UQjTGwVX30CCH6UtDstF8XYRb6YSeVP96cDNWkA/pWqum8maprqoMwzWkG41RQlRgB7TE6hN1nray9VRRtGscwaw4j4S3fW7dCN9RfvenI5zMF/6sEZrLX1pMERfINFWMf8v0oKc5AWDge/K3AFgb0/ove59432U4DM077tuAY8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Rlg/BSlY; arc=pass smtp.client-ip=209.85.167.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90BC93AFAE4
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 22:26:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787869568; cv=none; b=UTxYosb6TIVow5kH/8P9l4JHfr2VSWEf0VXy0rtrdecClRlnDU36hg5atvLcB8b648BFEADgC2xoNftfqClvdMemsuLJrgZAOPL+Seo54bEXSBl4yfWVXrZEM49xhoXHStPd6Jzx6XIBSLJj5eS+8pWEUD5rbVDHaN+SyXmQuDs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787869568; c=relaxed/simple;
+	bh=TxvaZ4zayK7a2B63L4t8D8MbZm8/BwjOSwYLxeyM8RU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=MENqJPGCqQNrBJuXtrIdLJQDr0lj6ksTBk32PNRvjsz4WRFfg/H7C4l/ofQe3FezxP9K/y1CD/vMqLmEvZ2ZfFqPsTGur6KGIExPC3WtheU+RPUxE/1MT7UzR1KmcDNZGUFUgxP4YGnqWInFqL1f0G79eCzaKJiFtKt7SoVraYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IF5KNcA6; arc=none smtp.client-ip=209.85.128.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Rlg/BSlY"
-Received: by mail-oi1-f181.google.com with SMTP id 5614622812f47-4af173320f9so434284b6e.2
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 15:25:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787869504; cv=none;
-        d=google.com; s=arc-20260327;
-        b=mx/S8HPRAjlaZeLN8hUg6sY3K48EjsiOiXS0rZQE20oHtM1+vv9OWUKuRBuB2boQTR
-         K4to0laQLeQYK8u0SBjIdWa5MkFYjibL4E8DKuIeVkyS389uM3osHiQRhT7G9CrhkAZb
-         zi0rrlS7Y9y8xXOx6EZw5727ZelSyX3ATfsGdBXrJcM5C8v0KEj+Il6/7B3ExY08wRmp
-         jMPUGwmPIKKxTqBnj+wr0IFC1FJyXgYB3tbndaM1KG726bJLrN2EfD9dMt8xeLa95nwg
-         j+y8UgXif8BbkvcWjuG6CBA4dxUrowgrNnthK+Razr+le3yTWkEKpKZjaZI+PzAC8BlI
-         WuyA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=u8HPimuwgbeLD9+T7JiRFwzxuWXrmdfq6VOgvHXgXYU=;
-        fh=Y2b8m6plocJabs7WVwukdb7x4FJoMiavtK9V3M6B9+I=;
-        b=Ie0Aa/rs2yvu36VSRXV0a1tseMG3ZCR4TjuUrj6C4tghQrPT4Gb/XVeyEg8ubKTgKW
-         XWY0zCclmyldGUnMZ6LNkuDJlq+i2K/Vdy85dSp+/EBScfeWrLJvPz656D3A9Au+BICX
-         YDPOYXcAzOcLx6pNiPETRhVyacoBdBPEcpRVuPoh84sTiIkCmpCIJaZxVnXo6erPcwQG
-         SFOMm/4nCpOTGI76HdlkYRnERZLBraT2jXewlaOQZ65kEZwPjISt8r7tjJvSm9574iPq
-         PRYw0MH8LC2Asjvl6nQwEKnjng8nBX3oMcgYZYvCeTinC2Pf40IQUWwBd3i3oz3XwjbO
-         JIQg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IF5KNcA6"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49b0d78a801so2157675e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 15:26:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787869504; x=1788474304; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=u8HPimuwgbeLD9+T7JiRFwzxuWXrmdfq6VOgvHXgXYU=;
-        b=Rlg/BSlY/gpTlLV7z2nbfF+KLA2KWCj5YHmSGCZSjOxwxTyh5HF827bvPva0z3RfGy
-         sVqLCwYDr8gLFOZy2pUzGUNNKlm5tmG5DpHrZH3RAMRbhGSoG3eidZrGrQgpCjVbvcqN
-         Dj5b9rmiEbGFH/Qnsc0vlb89j7xwtUrQf1KuIjSqFjg3VFMMOiHpW5y6f/no7nYwRmjE
-         q3d5Pc69UjGMNoW6iBFYtzZCK08SgqFhW6lVU9ygLoFDec4uNC0s8+KMm9iX9TA75nKZ
-         oZaB4qhEedfMwPcwsrf2b4upCBZeek3ePgKCT2hXqXwTxjU88fW32SRdPm1hC57Snm6H
-         YtWg==
+        d=gmail.com; s=20251104; t=1787869559; x=1788474359; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KrToZPBnqDhx/hwRhT5E5yIhfEGUpGAvOCdqzL7a7pQ=;
+        b=IF5KNcA61mCdmQAodnOMCbggzzV5GrSxVQCEGQJCGP+SqnY/CbBiUNQpPohcXta6/K
+         NJe2uIl9cAqkhldVJeP/RHrhRUn7yJKKMjLsSzx6+PUyVtYqxVPTOjVnksM7d+0IGS5N
+         IOyTXSpEAjSHBLhgHkzxOKK4VpjTVLgm5rFiOo6d3Q/2pR5ckLDRn7RPbDRdf0QnPl40
+         qUueiIgrMI2dGZREPRUnf/e0U85r4aBQ+P5obu1ijGNY2ipD6EV8sK0/Ag/aXn4IuANN
+         3u7T3fs+tvg9It+W2/9VvHMwu1q3C4af4S5GFVgrQ/LQ2j4Npi+T1zwbe2IKpmj58hOY
+         JfOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787869504; x=1788474304;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=u8HPimuwgbeLD9+T7JiRFwzxuWXrmdfq6VOgvHXgXYU=;
-        b=amm6yrt8nLBIruNxptkP1Si+rii9CaxMeol/RL3E1T4LC0ys1MHt1lhWz9jgz4E6OA
-         ZbFzEuNup9LtyJ+EgY17H45Iu6bIiOB989OWYNiEZyJq7JeSj91fTjj/+uq3/2ecqNqw
-         sJJ48bLPMrCEc1LQymMyc38fK6HldmoR3asJAGx16eFj4s/8tu3oAP1vQtvEL6SPfbIO
-         kacUfLrDTwxpvDkwxGICKmVLavDKiqAVmF0uogUWEaNesMxxHkXVdDbiz7fEn90ZFInD
-         LlX9YKgqplBnKOm0Pj0+G0eHoMo/rOMw/YLu8kJoQkSM0CwAosLf77pqoz3W+YaQL6gD
-         +A+w==
-X-Forwarded-Encrypted: i=1; AHgh+RrhiLoz7Vd14UF4IB9fWrY/EkacbBAuIPQ9cj6TRb+pB4ASlG6kGdfBQWS7OfHqs9vlxJlkdXT+PZzFj2A=@vger.kernel.org
-X-Gm-Message-State: AFuF++kKeYZy1aCkhmr10LET+50q/DBQ/TTuCfxefsiygcPz3P6EX58J
-	mW/+XzeRWYAwOTFcK7+YxOA0F6ide4H46/6uJ1g6hZ85bP5EIhBRjb6EyY0Wr5BgqXxV5ept5BD
-	r9Z8Xl9+n3xJeWXP4ISeqb5VfF2lAo6c=
-X-Gm-Gg: AR+sD119oOBh513++Hk7uWrCyjJuj3JaoEDYuw1LwdY/bVOSZnDGadP+JyBNpogK5Vr
-	iPSBDv1ja52reItljxdxHTN0VSjuBBwy4Fl9KjtWmba0k/uoLz9CzbXx9AUSCv/Jr78N53896y9
-	hU09AhKW+AiX6cKfXezmJF7uESxVZybFYM32ZfS9CTWZNNZL6vP6WC80jPVa60cM5sJPaFjsVwS
-	hv4yfuj8LMW/KaCWtQaBhNl/LOzov6DxhYShSyqB7KCwO6HMpfUUC+1NH8iitA1TbXBW8R0i3Mk
-	LF3WqxcPWDNrqBYrApYFW2SOyhG7n2HUQCCuN9emhfZFKL7zrY3Fci2cyCeeGoVMBzMhTSi6qOO
-	KYuN+1mW6QyY=
-X-Received: by 2002:a05:6808:c1e8:b0:4b3:3e1:4999 with SMTP id
- 5614622812f47-4b398434703mr2911222b6e.15.1787869503851; Thu, 27 Aug 2026
- 15:25:03 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787869559; x=1788474359;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KrToZPBnqDhx/hwRhT5E5yIhfEGUpGAvOCdqzL7a7pQ=;
+        b=bSw/6NdQWGARH9PxS9cZ7ASp1wX7QM06KCaGHko/ScnuprUJQEvcCEMA2+iddMMiji
+         SPw+maawX4Ow3GuadxaIA6lHkHZWDrhOKjzCtdadRj7eUNQHAnODUgpGrdoReYCKxlUc
+         Vi0GDXJGPW96vXBqA56z64iz8lCuR2XsNl1w5E7v/m7RTkdA5I68Dl4DmbA11CYVoZXO
+         e65f4Y88oaNViGvdxpm9M3Ggu5/wJ2m9DPrlWhqnod8lW7odoIrA8cmFHCeOSp+I/m51
+         qh4ZX+u+e51e0kejf+B/Qq9V6Z5o+E/vkZT2v9cRwuXfPHW+I0NoEv/Zqumo4SYg9qVu
+         13uA==
+X-Forwarded-Encrypted: i=1; AHgh+RqnGqmC+qgLCVcb0SxLI8d1tCjqgWiWkcDLVhbsFBAQxh/1944HN7xfOLHlGi9gp0lRUj5cC9FzBr5r1u8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mLz8i4opdF19SYw/D63BPLgoeFWX0rgSvuzyZazppkFfzfj3sv
+	Aq+Xe4np8LWrDRIIlJ+NbQBun0na1CYe4QkD99aduCDQ5A3TmtLr1FoK
+X-Gm-Gg: AR+sD13oAzTzzGHLeLy5DTWERFAry6E+5JjH7O3XKB6oKCM1+oHievxEZQPBcprV15K
+	6L5T5Y/2YNqRgGtGb4JTlHg1+12w1W8jBFc3Goe38UxArlmkxnEBJCAwzxKKLlcRi9yaqDp4fso
+	gmiZNmeGg8VfI03YB3+5csYDSSDBU4delAtHqPsf0R07eYO0vTwio0qDVd+hlMYZdIHfkoLj/2F
+	15NdwoLFVrmW/eRE1M1UhYIzr0qc32ILq89WCHJqfo6s6vTpRoLO4+moHiW1gBvk71RcZRHu+lA
+	R8v9AjDmS0nAmsvBx0FbEQIgiJt4EBMGQEq4Y9eK01Ik1r1qQg0/gVi+ORPTUhsA4/WFnNZllRQ
+	JDN1m6qNmx378MZ4M4g2w8altTXT6Z0fGQGKxkbCIjCV9x4nRgFmhJmgFySdKNpL6ICtiEIa3n8
+	sJs/JD39h3yrJJwm19l69m1A74igWhvJ99rxR98wIUv5fxPj5tjl2YTMWPUD4=
+X-Received: by 2002:a05:600c:698c:b0:499:adb5:e7b2 with SMTP id 5b1f17b1804b1-49b91c3ddc7mr38429415e9.11.1787869558933;
+        Thu, 27 Aug 2026 15:25:58 -0700 (PDT)
+Received: from m2.. ([37.142.156.156])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49b494228bfsm79722395e9.2.2026.08.27.15.25.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 15:25:58 -0700 (PDT)
+From: Michael Zaidman <michael.zaidman@gmail.com>
+To: lee@kernel.org
+Cc: linusw@kernel.org,
+	jikos@kernel.org,
+	bentiss@kernel.org,
+	brgl@kernel.org,
+	linux-input@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 00/13] HID: ft260: add UART and GPIO support, plus I2C fixes
+Date: Fri, 28 Aug 2026 01:25:50 +0300
+Message-ID: <20260827222550.24634-1-michael.zaidman@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260827205116.GJ2943942@google.com>
+References: <20260827205116.GJ2943942@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826213140.37437-1-rishab.madhugiri@gmail.com> <ao_cCHTp9kKfOV-U@ashevche-desk.local>
-In-Reply-To: <ao_cCHTp9kKfOV-U@ashevche-desk.local>
-From: Rishab M <rishab.madhugiri@gmail.com>
-Date: Thu, 27 Aug 2026 15:24:52 -0700
-X-Gm-Features: AcwNN1V1VmnOS3aWyFnmKIS-D0GyiW-IwL_nYHb8pdkGVa2FiKvsmCJoIXlfs5w
-Message-ID: <CANc32tPtHyJdg-PJa0iZHcqX4WDtMFikZFD+4aO96B1+zmf0_Q@mail.gmail.com>
-Subject: Re: [PATCH v2] iio: core: Replace BUG() with WARN_ON_ONCE() and error return
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: jic23@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com, 
-	andy@kernel.org, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Thanks for the feedback.  I totally understand the perspective on code chur=
-n
-versus making tree wide cleanups, and I will let Jonathan make the final ca=
-ll
-on whether this is suitable.  I've also noted the wrapping width feedback f=
-or
-commit messages in the future.
+On Thu, 27 Aug 2026 at 21:51 +0100, Lee Jones wrote:
+> That's precisely what MFD is.  It's one chip, usually with a shared and
+> overlapping register spaces, that conducts multiple functions.  This is
+> no different to any other single-chip device or SoC.
+>
+> Shoving everything into a single driver isn't how things are done in
+> Linux.  This should be divided up into the associated sub-systems where
+> each part can be reviewed and looked after by the appropriate SMEs.
 
-Best,
-Rishab
+Understood, and I am not going to argue MFD scope with you. But this
+is not specific to my series, so I would rather not decide it here on
+my own.
 
-On Wed, Aug 26, 2026 at 11:41=E2=80=AFPM Andy Shevchenko
-<andriy.shevchenko@intel.com> wrote:
->
-> On Wed, Aug 26, 2026 at 09:31:40PM +0000, Rishab Madhugiri wrote:
-> > As documented in Documentation/process/deprecated.rst, the
-> > use of BUG() and BUG_ON() should be avoided as they could
-> > cause a complete system crash, preventing further debugging.
->
-> Right, but deprecation doesn't mean the _old_ existing code must be immed=
-iately
-> changed. I leave it to Jonathan, but I see no value in this change except
-> the unneeded churn. If we ever want to drop BUG(), it should be done tree=
- wide.
-> Hence no tag given.
->
-> > In iio_get_time_ns() and current_timestamp_clock_show(), the
-> > clock type is already validated against supported clock
-> > types prior to these calls, making the default switch
-> > branches expected to be unreachable. Replace these with
-> > WARN_ON_ONCE(1) followed by an error return to avoid a
-> > crash and to log the highly unexpected condition.
->
-> There is like 10+ character space on each line, the commit message should=
-n't
-> be that condensed.
->
-> --
-> With Best Regards,
-> Andy Shevchenko
->
->
+drivers/hid already registers other subsystems' devices from a
+hid_driver: hid-cp2112 adds an i2c_adapter and a gpiochip, hid-mcp2221
+adds an i2c_adapter, a gpiochip and an IIO device, and hid-ft260 has
+hosted the I2C adapter since v5.13, commit 6a82582d9fa4 ("HID: ft260:
+add usb hid to i2c host bridge driver").
+
+So the split you are asking for is not a change to this series. It
+means moving code that has been in drivers/hid since v5.13 into an MFD
+parent with cells, and the same reasoning would apply to cp2112 and
+mcp2221. I am willing to discuss that as its own conversion, but it
+needs the HID maintainers to agree on the direction first, and I do
+not think the UART and GPIO support should wait behind it.
+
+It would also spread the driver over four trees, so a fix touching the
+shared chip state becomes a cross-tree series with coordinated merges
+between four maintainers - a cost the single driver does not have.
+
+Jiri, Benjamin - this is your call. Do you want FT260 functionality to
+keep growing inside hid-ft260, as cp2112 and mcp2221 do today, or do
+you want a drivers/hid to MFD conversion for this class of USB HID
+bridge chips?
+
+Thanks,
+Michael
