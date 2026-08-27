@@ -1,164 +1,309 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013010.outbound.protection.outlook.com [40.107.162.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3C6A31E832
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:55:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787864138; cv=fail; b=ZrxbplKcq4QFw7kAKE4Cs57dLGsg89pfl1rratrZvhFtFQUjO4P9Addgvnu/LtRSBBC2nRa1dAm+XlkdgLwEYkvI5jdPpnxi3Y2H0t1gOeCRgV9dhKEcIb0ojYk+O0rSzBIaSQJCPZuzJb3nZTU1jijrGcYLqWVkBGFau1THkHQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787864138; c=relaxed/simple;
-	bh=fDVaxdkVLYS1f1wMDtGY9RQ73q/MDUhd06Pu3sOJwgc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=iaMcnmvRVtgIV+BkYnkaBR+syAhsbzZDCTLaCIy+9qGK2rVCr0AM3zXgqI+YZBvL3lLu0JGgHH0OxCPOCUg6T1MQK76UyrAdnhAzCWmK1YvRzWIngfqbMrSze3i6QnETUpL9UaA0rYrWm7EizbzzfYVSyBVcjKb9zBKsHn+NLTo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=XXtZCXq/; arc=fail smtp.client-ip=40.107.162.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0658131E832
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:56:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787864176; cv=none; b=gTTEy/i3DN625SJkuf1IfN9hjr1JGYGDX1miaNQiEEKlau5Ki907UtbBMfRNnuHa3G6SOEqthqVEOE7JmAlMeEXq9Gy9LYrW2kJHcySHszPEiyve+hWlCwWYkNrb0BNFnrCO2uCvvq8gKTFeRLpfbELloTI79Xz10ge1xPknulI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787864176; c=relaxed/simple;
+	bh=HAb4sKoq3/y24jGZpoYxsxYkCQ3UeXGVfGFniROwOL4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Mvg1Gb+q3oZjRNPACk8uBIdTryqb8HJtTmGzzNzmDqZhQ/HLXEdxda/ZNfr7fSQt30LpMfhfRe8Bm3hCHnaknK7a/Qu/wGMkgV+qwPxEkziGZryfgol/xPK4/jcex0BGnuev2Rr5eIT2WYUgsu/k6BAgUiX/CF4IG2AtPEW1Ohw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XabJXmco; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="XXtZCXq/"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SvJfcRZDJ3Nu2ltCIcUndinYXh6prYkiy6Xm8nWuvOUXU8YhAbNH+OWuUN4pDyQy8ElR5r1xP/H92OOMpM4m28y8l6oZwECJ2juN49TJaGfKcwqidqqsh4HSLRy5rqgVkYayV+KzG26fRuxU4Xn2GiWhE/i/En0mB/ATRH6CLnrof7kRYvxebHso8dyG959XIflgV3GyJHn5OQi1v5W46o8wjCsiqjghs24K5ExGotXMuVIvRUDGvhcvhXPOF8wlTyv1iEgfO52FXe4NLNDA+7SgXCZSm5hnx2Sk7yO6ievdd0kqnv2NPqwxhDcbccdrAyY0kR94tRsj8g3njzaj0g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hfb1g/B9d+5fvgQxZpttjcmE8zRiwL1waWPfEKOg6EY=;
- b=eD3atW1r4Zr2DGh2ynTcv9fnWtW0cY+P8hYBQsVN9Y5WMbcXiZbRy1Yaw+BlqyRl9GagvD4v+wKYUgVZ8WN34dJ2nyCAwvdqYJfhnSOYyLem/gzTYkyLDypZ0UT9YDnrtp+Fgvb2Cui1pxKYlCo7YcyIRHYM/cBNEK9lObernz+ycj+x+VeBT7MkjbJOXHiV9gKVdhS14bOTURcrxrhzYbeIqMnOewVPEE9gPlkwW5wyum+fy+4uT44KKZ25kghkMzFTXM1Q7UOxWSbQRrNNhbERWZi2tfI5Yk2dzJmWCf7k59QgEgMUJevBhbJvhQvWyHQp3+4noxhspcpoTW53AQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hfb1g/B9d+5fvgQxZpttjcmE8zRiwL1waWPfEKOg6EY=;
- b=XXtZCXq/2qRx0c3B9q3h2/A4YMnZxV0Kt/Rbsrhg5Ucs3InSaHRJk7X6V3bXLJ1YF7bHoKJ+EGakkHyiLLpwYHmpRNcDZK1IfiHEf4LqUkk8vMfIcBpHaPPUUHuSfXJqIgo5Ehq0DOxIcsqKYCRG1oj0bZ6b7Vb30TUyt1fvnry7iP/OZJ3QquxfEnTNBoVkkV6KoBQXCcvqxaZtGeP7DAo2/wGwe8AEXLon4f+vSRX5l6EuRR6elZqIHeY3bi/1Io3LP6O1taHKdEM4ckd7AvO+QZ8OPln+yNay8EgCgIPTk4gdx1YREv7Wn7BZ0vXpvLfoolPCJWswglYaDmp5Tg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by PAWPR04MB11569.eurprd04.prod.outlook.com (2603:10a6:102:50a::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
- 2026 20:55:33 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
- 20:55:33 +0000
-Date: Thu, 27 Aug 2026 16:55:26 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 04/11] accel: ethosu: Ensure SRAM size is 0 on mapping
- failure
-Message-ID: <apCkPrt8qZvWRsvl@lizhi-Precision-Tower-5810>
-References: <20260827-ethosu-fixes-v1-0-346f9ea8791c@kernel.org>
- <20260827-ethosu-fixes-v1-4-346f9ea8791c@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827-ethosu-fixes-v1-4-346f9ea8791c@kernel.org>
-X-ClientProxiedBy: SN7P222CA0011.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:806:124::32) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XabJXmco"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4995b0343c1so1585945e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:56:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787864173; x=1788468973; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9IUjECHGRPZ5AS1JgF5ljYEk0yP4ArA0eNWneDlgSHA=;
+        b=XabJXmcoD8ieX1XLELDEk+gHXUy5HRsbbDKgGwzZDJ7BEkwYPpH91mT8vJyRBCAs9z
+         dLV2E84Jyr/lWaW8lCG2z5hB619XrR9pK7d5ll1O6Ga1SBe27xhlwapDcEATYEv9FVFA
+         LKBQyjHQ1ZivKsqWouOgUFImRL87xvCWCCbVTInXJ+9/vfOT3bQXOhh+n4yGoqW1M12s
+         BByNPcZkOI1+1GNTAnfex2HOf7eZoKRfihq0tzYp1R8GGiIrWDcXC/6fiFm4ov9G848+
+         Bs+dFeAkQS1ipz+ewnu8KlA9D0St7jHk1GU5wLwQ0vugrnlzgcQeDP+kHX5ixygHLfPK
+         e0BQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787864173; x=1788468973;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9IUjECHGRPZ5AS1JgF5ljYEk0yP4ArA0eNWneDlgSHA=;
+        b=IYCIRv/qUMZIzzl+JeyBzofGqxHYEb3EJDaU4WfxAEVtGyXbShDVM4EEQJSOKBs2ZK
+         93cxYOW434p69aRT8vVGvlWI2k8iTpzJ3oR3+F/6ndkFgJwC1IyEwSsGlkO0iAoTsJN+
+         SxhwbQ0L1rpfp9zlpHkUtbQStBvUnh+quh2a0yMz4UGBcVKs+x48Xan9x5T9TtwnioKP
+         pxGdTFhWEFYHvc5rldtDIasZLHXg+JxHg4HPxatzuFsFykBGiY8XkQ0k8tNuCtOm5j3h
+         bfeYtzb8F+wlNfbpkWInmD5luDdvcqX6WisFjazKXDyFJqiwKNcxtkH6ddXGaYc8OZ8J
+         e+Wg==
+X-Forwarded-Encrypted: i=1; AHgh+Rr52KbgJ897EXmeBnqxvXOF6xqWQT9VzmpTl2u3kiZkjgUOVgMJdfHhWYWxOrObtGcQXqpkJBg7/0MMeW4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nGNUzWLpXudyKNIECmFObYkW0i2riZeZpL+8jf6ubHGrN2gNDn
+	ViPb4teZKzh0HLcytKAh4FjD7EDmPQN4uDIldjUGMO+ba/iRlefSmwqc
+X-Gm-Gg: AR+sD12lIGszjH5RbYuwnZCjTWCU5rHwi58WP1+oFYYGdtR2rSSOid6FpcZIhksXsFo
+	rX+8iLQ6mlEK46TYyf9TZSZzMXqZkiPwMNHWHDFoUtt61Wr9hR231t//Uu2VdbbmgYJvqO6ixoc
+	kSadZojzcf2SAbVuoahION5Kc/PcoMs6c7VEwQraPVfnyM4OzYq7cN64z2w5ZRJ/s4XT9Psf87Q
+	krNdDG6F7CF8N/JYoGK4FIDyH3GFxSUmZKpNz8h57aSY0rHEVtjEmozxsnDbo8D9HF6rUBVU/sJ
+	vpU6IvfgAyYXoXoBNvfW8R2u/NOaCUSiim9ZS0/phPePM7xlH2oixM6SPRCKWFlQ6LT1tlY0ptG
+	P8toZKsYSzTteQ02AieZcnIj/HkMKUMR3oAt0zFQB3vCODNFfUzYD5iuydBwjUI3RLRi0309LID
+	8JskI4NdMlRbKjX2cdcfTWMT6rhcLDV3S70ltInzaDP3aH78eUFKhgtT7+PHFx+zYMzaQ57MU8b
+	BakFTBh+UGeooIgro0e/kjRYJMmZUG0OrPR
+X-Received: by 2002:a05:600c:6091:b0:499:484a:98e7 with SMTP id 5b1f17b1804b1-49b91c4b3c5mr27624945e9.14.1787864172931;
+        Thu, 27 Aug 2026 13:56:12 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b9268e134sm4808735e9.4.2026.08.27.13.56.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 13:56:12 -0700 (PDT)
+Date: Thu, 27 Aug 2026 21:56:11 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Nikolay Aleksandrov <razor@blackwall.org>
+Cc: Hangbin Liu <hangbin.liu@linux.dev>, Jay Vosburgh <jv@jvosburgh.net>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+ <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+ <horms@kernel.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Hangbin Liu <liuhangbin@kylinos.cn>
+Subject: Re: [PATCH net v5 2/2] bonding: fix u32 overflow in compute_gap()
+Message-ID: <20260827215611.1cb9f252@pumpkin>
+In-Reply-To: <9e71daf9-aad4-4c8b-9fc4-7429f62130c7@blackwall.org>
+References: <20260825-bond_overflow-v5-0-7a800de133f1@kylinos.cn>
+	<20260825-bond_overflow-v5-2-7a800de133f1@kylinos.cn>
+	<20260827192048.39ea95e6@pumpkin>
+	<9e71daf9-aad4-4c8b-9fc4-7429f62130c7@blackwall.org>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PAWPR04MB11569:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1633a0f6-267d-4bf4-d7c3-08df047d8959
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|366016|376014|19092799006|56012099006|10067099003|11063799006|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	HecMJRKNrPa1E2Y4Vwy3Wpi1cqcl/j2DrWN/GQVfhk1DNBZ3xM55UmP7sMU56DpVq/brOLsEqOmv+A8YrAOTAQZPOXkDa7QAPcNkomb/0vs69KDDcjP2A1io8nhqf3x95I/vsRZMgx/a96wUkR/5bSyCZkB93/MWsmETSPXe6ykRGpCDFHCCLafBMDROoxtvArtZoE9gzMNrXoRq4u79zxFehZOjZ9CxVcf/wt1YPYf4UyzAvvBvWAZEN8HABTsqYyHrv/cn3i6GdTo7gmxRzPP0Ax1hvoQKO1qBcZ7Cf0q1yLjqpwH8NlCj/UVTMOGxIWeO8in3VFjJu8g/pIKarPfFzMBAkzfjsnRRLLKvav2+IoMR60Wp+QXg6rNCmwMN+n+Wgy1g1Csbe1umQ0aLZXHay3K2ykATdb8TXF57G4xhg3YKZ67aOfkMhVcRrSSMWfIAbvNL2gk8RpnFiWzod0dEWSW0PIfXlEkmO87e7qL2dD8SzTOcwek4Af1DYVlDUR/idaaT1OxbOE4l2nzszaZGPVa0ZiEqQiQu4/XsabfAeJlO84Mp6h3L/LsFPr8sT1K6Eo1zq31SmU2lDSsXUAMdgeasIL+g/t/+6r4sS/NnV3hvSkBQy13kNE69TMBAq8E1KQK8uswtM5fH4/ALvGRdj8v9zX3X+JFvhp3pPOU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(19092799006)(56012099006)(10067099003)(11063799006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?nIQHj+D0b2O6jg4ZiwtJ4niaavudQuoCjm9RcCvk+aDXp5PS20kdpR+Eaglk?=
- =?us-ascii?Q?+BSoRkz3mT01fSoq7e3KZuUIx1nXLkQDeHclCnxiPjNN8YukoHdbkcOjn0Pa?=
- =?us-ascii?Q?RCXh+yj9zNFD7oyds1zxB/KBniogy44yiDSrjysPFNpemhVa2LtkRmsqsxJp?=
- =?us-ascii?Q?qveDmDELDt1s4bInkdzrsw8x3Nft0XIs2KAz/9pSbJhQ3dnuXJl62ZuJafzg?=
- =?us-ascii?Q?kPN3YmSgnYVwLazVZ3yqu0ip8Y8tVt/FqQ4UbRbYCAmpOt+nZ03hjGfMKVJ8?=
- =?us-ascii?Q?tWPCikot84LVX6BqIgpSV/72BUu4811yBhabTX2pDwoc2eNjWQoIoVQCttRG?=
- =?us-ascii?Q?JQmcbK82eWIosfiLZBetHpUZnVRCKn2V3PsFght++U8u5Fj1wAnfvw2i3RPG?=
- =?us-ascii?Q?VPkXG34Zdb1HfTSWhih0gr6KbJ1yU56mCHKrflzNY/QJ7RMJsfzwmiGosxG3?=
- =?us-ascii?Q?nhZ0Dyo8C/hgBtZeNYg27iOJ3n8PNOBwe1bwofrD2M6R14ohKely0KFxx8sd?=
- =?us-ascii?Q?p5UfZw3eLw6UQ0eqHb6imOolfilRSpGg34EdwEHwCNHET8myiPx6nIjbC6vs?=
- =?us-ascii?Q?6OwqLO9NIgc+eWJ8uVwmqAFixSBH64Rzyrgi2uR4qvr23RiPRclLEjc4IgCt?=
- =?us-ascii?Q?kxaXq0zEde7b8QlSIf11mCnt3hM9bMA32fz1m0xlph3x8WNg96YNvupWjWoQ?=
- =?us-ascii?Q?NhZAOk1FBP724VVyYah7OtdPg1eAMf0BDzKL6A2Q1ZWDp3uT3xOvEjUx3o/t?=
- =?us-ascii?Q?KnmdV6W5INHi5p1aGgz3aA++g0J2Vz0zqfmcHB8qxy3i34cW3EeV4eSLCoo4?=
- =?us-ascii?Q?yRtC7aKMLy7lGtwHmvkdNeKGAzQsSd8eQkZ16pMAb2Q2qN0sT8LTQTEyudFX?=
- =?us-ascii?Q?b/y20PAO/HLEkKXdovlFyDcsYCGszxA/nR7ywL2DQOraPxM/v61B6GlnxVDy?=
- =?us-ascii?Q?Z+E5LaRVaxQxbWMEJLHSLJ8BVMpqDOCPMQbqwxq0MUMpONlzM13t2+bNEmfM?=
- =?us-ascii?Q?gKNGHvWXl9LGnqF+NEvA7vid7IBX9pv/dKkDB3isottVOwuUcpC/JfHjeP/3?=
- =?us-ascii?Q?gFR1fq3rI6dkb6UPtlhCCCY6KitNjGpLrK1kUoIagV5V0mA+ZbwzDc7k0O/I?=
- =?us-ascii?Q?EUWpEcYwqo9FbzreEFkjPid+Ur2cfoGKXJawD7e3IAmwuGfbBp8Upyv8O0WK?=
- =?us-ascii?Q?XHGpeyk7kt08z3s1NKTz7Nhs48OltgeDYpK7BZXGTd9HQaJvt+fKZ4t0RT/8?=
- =?us-ascii?Q?yCKA3GNvhrdQ1lKm9+o2DHTwg2D+9BDfXPlLVmgd/KgSrO5yVMuKZroqA6C/?=
- =?us-ascii?Q?Kaq1TkN/YmqZQ6QjW0K6YeMm4n/G8dFbVn3vA1s2NfaFGXr87eS60imyL7qa?=
- =?us-ascii?Q?8aUF0dcbj2lwq5Fj//T+66PERhKuGrgjz6eDH4dsg6So/a2oL7p20Pd3Pxgj?=
- =?us-ascii?Q?q6TZIX+hGF7IITmfZqxmxfjHplu0HgvsVMvOL+w8X5hTiZDoKwt4c5+qnOWb?=
- =?us-ascii?Q?IMsyZIPkXz1SMj4+v4/DlgC7WgqPDEwrypi1ZSWqG17T+Yp4Qhio/DH1ReTh?=
- =?us-ascii?Q?HpYrsT01PlbuMi9Kl/mVTSTrX0CGEas6hAathFjbuE3cfYL8J+WlVyJAe9CJ?=
- =?us-ascii?Q?w94lWGY/CctV1MJmRSqU9b3s3aRQ9u/QykzpqmOlL28eS8NukAG3/GX7rUI9?=
- =?us-ascii?Q?VWjVJs25I2IePMxiuE6U9ZG5YjufSvgPWVqLZy6N/QjrHwPceUD+XUunJIZV?=
- =?us-ascii?Q?xwXcpRKtfYQitHnOZYkK1bA0hmsRZwkYRJ5QMLcStmuXxSe3l2nO?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1633a0f6-267d-4bf4-d7c3-08df047d8959
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 20:55:33.3782
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gndYtlD1xTExGBBrrHR44N1QM+ftXeKkPTuWXpEf2Fg13DkOf/W5XGfC2FynoMXyK6tA/mpoR50OQzBtOxhhjOO4To8VFJdnNIQ2aoXY1D4uXtg6aOa09yZrD0lz0I9u
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR04MB11569
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, Aug 27, 2026 at 03:33:03PM -0500, Rob Herring (Arm) wrote:
-> On a mapping failure of the SRAM, the SRAM size is left as non-zero. The
-> probe will succeed as the error return is not checked since having SRAM is
-> not a hard requirement. The non-zero size allows jobs to access SRAM which
-> is left pointing to physical base address 0x0.
->
-> Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
+On Thu, 27 Aug 2026 22:09:04 +0300
+Nikolay Aleksandrov <razor@blackwall.org> wrote:
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> On 27/08/2026 21:20, David Laight wrote:
+> > On Tue, 25 Aug 2026 09:01:30 +0800
+> > Hangbin Liu <hangbin.liu@linux.dev> wrote:
+> >   
+> >> From: Hangbin Liu <liuhangbin@kylinos.cn>
+> >>
+> >> The TLB load-tracking fields tx_bytes, load_history, load, and
+> >> unbalanced_load are all u32. At sustained throughput above ~3.2 Gbit/s
+> >> over the 10-second rebalance interval the byte counters wrap, causing
+> >> compute_gap() to produce incorrect gap values and mis-select slaves.
+> >> Such speeds are common on modern NICs under heavy traffic.
+> >>
+> >> Widen these fields to u64. Use u64_stats_sync to protect the per-cpu
+> >> unbalanced_load_stats against tearing on 32-bit architectures, and
+> >> div_u64() for the 64-bit divisions. The tx_bytes and load_history
+> >> are protected in spin_lock. Also protect the slave load writing in
+> >> bond_alb_monitor() with spin_lock in case of tear on 32-bit.  
+> > 
+> > How about changing the rebalance interval to either 8 or 16 seconds
+> > to avoid the expensive divide?
+> > Alternatively multiply the other side of the comparisons by the interval,
+> > replacing the expensive divide with a cheap multiply.
+> > 
+> > David
+> >   
+> 
+> How is that relevant to these patches?
+> And how does that help at all if today that is done at about 10 second interval?
 
->  drivers/accel/ethosu/ethosu_drv.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
->
-> diff --git a/drivers/accel/ethosu/ethosu_drv.c b/drivers/accel/ethosu/ethosu_drv.c
-> index d121fb0d7732..f1af7b3ea038 100644
-> --- a/drivers/accel/ethosu/ethosu_drv.c
-> +++ b/drivers/accel/ethosu/ethosu_drv.c
-> @@ -281,8 +281,6 @@ static int ethosu_device_suspend(struct device *dev)
->
->  static int ethosu_sram_init(struct ethosu_device *ethosudev)
->  {
-> -	ethosudev->npu_info.sram_size = 0;
-> -
->  	ethosudev->srampool = of_gen_pool_get(ethosudev->base.dev->of_node, "sram", 0);
->  	if (!ethosudev->srampool)
->  		return 0;
-> @@ -293,6 +291,7 @@ static int ethosu_sram_init(struct ethosu_device *ethosudev)
->  							     ethosudev->npu_info.sram_size,
->  							     &ethosudev->sramphys);
->  	if (!ethosudev->sram) {
-> +		ethosudev->npu_info.sram_size = 0;
->  		dev_err(ethosudev->base.dev, "failed to allocate from SRAM pool\n");
->  		return -ENOMEM;
->  	}
->
-> --
-> 2.53.0
->
+The 10 seconds is almost certainly completely arbitrary.
+It is relevant because the 64bit divide is significantly expensive on 32bit.
+
+David
+
+> 
+> >>
+> >> Rework compute_gap() to use s64 arithmetic throughout. Return LLONG_MIN
+> >> when the speed is unknown.
+> >>
+> >> Detected by AI code review.
+> >>
+> >> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> >> Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
+> >> ---
+> >>   drivers/net/bonding/bond_alb.c | 52 ++++++++++++++++++++++++++++++------------
+> >>   include/net/bond_alb.h         | 11 +++++----
+> >>   2 files changed, 44 insertions(+), 19 deletions(-)
+> >>
+> >> diff --git a/drivers/net/bonding/bond_alb.c b/drivers/net/bonding/bond_alb.c
+> >> index 0afed2c39231..9a43a1f47893 100644
+> >> --- a/drivers/net/bonding/bond_alb.c
+> >> +++ b/drivers/net/bonding/bond_alb.c
+> >> @@ -6,6 +6,7 @@
+> >>   #include <linux/skbuff.h>
+> >>   #include <linux/netdevice.h>
+> >>   #include <linux/etherdevice.h>
+> >> +#include <linux/ethtool.h>
+> >>   #include <linux/pkt_sched.h>
+> >>   #include <linux/spinlock.h>
+> >>   #include <linux/slab.h>
+> >> @@ -74,8 +75,8 @@ static inline u8 _simple_hash(const u8 *hash_start, int hash_size)
+> >>   static inline void tlb_init_table_entry(struct tlb_client_info *entry, int save_load)
+> >>   {
+> >>   	if (save_load) {
+> >> -		entry->load_history = 1 + entry->tx_bytes /
+> >> -				      BOND_TLB_REBALANCE_INTERVAL;
+> >> +		entry->load_history = 1 + div_u64(entry->tx_bytes,
+> >> +				      BOND_TLB_REBALANCE_INTERVAL);
+> >>   		entry->tx_bytes = 0;
+> >>   	}
+> >>   
+> >> @@ -133,7 +134,7 @@ static int tlb_initialize(struct bonding *bond)
+> >>   	if (!new_hashtbl)
+> >>   		return -ENOMEM;
+> >>   
+> >> -	bond_info->unbalanced_load = alloc_percpu(struct unbalanced_load_stats);
+> >> +	bond_info->unbalanced_load = netdev_alloc_pcpu_stats(struct unbalanced_load_stats);
+> >>   	if (!bond_info->unbalanced_load)
+> >>   		goto out;
+> >>   
+> >> @@ -170,8 +171,14 @@ static void tlb_deinitialize(struct bonding *bond)
+> >>   
+> >>   static long long compute_gap(struct slave *slave)
+> >>   {
+> >> -	return (s64) (slave->speed << 20) - /* Convert to Megabit per sec */
+> >> -	       (s64) (SLAVE_TLB_INFO(slave).load << 3); /* Bytes to bits */
+> >> +	u32 raw_speed = READ_ONCE(slave->speed);
+> >> +
+> >> +	/* It's meaningless to compare gap on unknown speed NIC */
+> >> +	if (raw_speed == (u32)SPEED_UNKNOWN)
+> >> +		return LLONG_MIN;
+> >> +
+> >> +	return ((s64)raw_speed << 20) - /* Convert to bits per sec */
+> >> +	       ((s64)SLAVE_TLB_INFO(slave).load << 3); /* Bytes to bits */
+> >>   }
+> >>   
+> >>   static struct slave *tlb_get_least_loaded_slave(struct bonding *bond)
+> >> @@ -188,7 +195,7 @@ static struct slave *tlb_get_least_loaded_slave(struct bonding *bond)
+> >>   		if (bond_slave_can_tx(slave)) {
+> >>   			long long gap = compute_gap(slave);
+> >>   
+> >> -			if (max_gap < gap) {
+> >> +			if (!least_loaded || max_gap < gap) {
+> >>   				least_loaded = slave;
+> >>   				max_gap = gap;
+> >>   			}
+> >> @@ -1354,8 +1361,14 @@ static netdev_tx_t bond_do_alb_xmit(struct sk_buff *skb, struct bonding *bond,
+> >>   	if (!tx_slave) {
+> >>   		/* unbalanced or unassigned, send through primary */
+> >>   		tx_slave = rcu_dereference(bond->curr_active_slave);
+> >> -		if (bond->params.tlb_dynamic_lb)
+> >> -			this_cpu_add(bond_info->unbalanced_load->tx_bytes, skb->len);
+> >> +		if (bond->params.tlb_dynamic_lb) {
+> >> +			struct unbalanced_load_stats *pcpu_load;
+> >> +
+> >> +			pcpu_load = this_cpu_ptr(bond_info->unbalanced_load);
+> >> +			u64_stats_update_begin(&pcpu_load->syncp);
+> >> +			u64_stats_add(&pcpu_load->tx_bytes, skb->len);
+> >> +			u64_stats_update_end(&pcpu_load->syncp);
+> >> +		}
+> >>   	}
+> >>   
+> >>   	if (tx_slave && bond_slave_can_tx(tx_slave)) {
+> >> @@ -1539,21 +1552,27 @@ netdev_tx_t bond_alb_xmit(struct sk_buff *skb, struct net_device *bond_dev)
+> >>   	return bond_do_alb_xmit(skb, bond, tx_slave);
+> >>   }
+> >>   
+> >> -static u32 reset_unbalanced_load(struct alb_bond_info *bond_info)
+> >> +static u64 reset_unbalanced_load(struct alb_bond_info *bond_info)
+> >>   {
+> >> +	u64 delta, tx_bytes, total_bytes = 0;
+> >>   	struct unbalanced_load_stats *p;
+> >> -	u32 delta, total_bytes = 0;
+> >> +	unsigned int start;
+> >>   	int i;
+> >>   
+> >>   	for_each_possible_cpu(i) {
+> >>   		p = per_cpu_ptr(bond_info->unbalanced_load, i);
+> >> -		total_bytes += READ_ONCE(p->tx_bytes);
+> >> +		do {
+> >> +			start = u64_stats_fetch_begin(&p->syncp);
+> >> +			tx_bytes = u64_stats_read(&p->tx_bytes);
+> >> +		} while (u64_stats_fetch_retry(&p->syncp, start));
+> >> +
+> >> +		total_bytes += tx_bytes;
+> >>   	}
+> >>   
+> >>   	delta = total_bytes - bond_info->prev_total_unbalanced;
+> >>   	bond_info->prev_total_unbalanced = total_bytes;
+> >>   
+> >> -	return delta / BOND_TLB_REBALANCE_INTERVAL;
+> >> +	return div_u64(delta, BOND_TLB_REBALANCE_INTERVAL);
+> >>   }
+> >>   
+> >>   void bond_alb_monitor(struct work_struct *work)
+> >> @@ -1597,8 +1616,13 @@ void bond_alb_monitor(struct work_struct *work)
+> >>   	if (atomic_read(&bond_info->tx_rebalance_counter) >= BOND_TLB_REBALANCE_TICKS) {
+> >>   		bond_for_each_slave_rcu(bond, slave, iter) {
+> >>   			tlb_clear_slave(bond, slave, 1);
+> >> -			if (slave == rcu_access_pointer(bond->curr_active_slave))
+> >> -				SLAVE_TLB_INFO(slave).load = reset_unbalanced_load(bond_info);
+> >> +			if (slave == rcu_access_pointer(bond->curr_active_slave)) {
+> >> +				u64 new_load = reset_unbalanced_load(bond_info);
+> >> +
+> >> +				spin_lock_bh(&bond->mode_lock);
+> >> +				SLAVE_TLB_INFO(slave).load = new_load;
+> >> +				spin_unlock_bh(&bond->mode_lock);
+> >> +			}
+> >>   		}
+> >>   		atomic_set(&bond_info->tx_rebalance_counter, 0);
+> >>   	}
+> >> diff --git a/include/net/bond_alb.h b/include/net/bond_alb.h
+> >> index 6fb09b4fc7e2..32f1981033e4 100644
+> >> --- a/include/net/bond_alb.h
+> >> +++ b/include/net/bond_alb.h
+> >> @@ -57,12 +57,12 @@ struct tlb_client_info {
+> >>   				 * packets to a Client that the Hash function
+> >>   				 * gave this entry index.
+> >>   				 */
+> >> -	u32 tx_bytes;		/* Each Client accumulates the BytesTx that
+> >> +	u64 tx_bytes;		/* Each Client accumulates the BytesTx that
+> >>   				 * were transmitted to it, and after each
+> >>   				 * CallBack the LoadHistory is divided
+> >>   				 * by the balance interval
+> >>   				 */
+> >> -	u32 load_history;	/* This field contains the amount of Bytes
+> >> +	u64 load_history;	/* This field contains the amount of Bytes
+> >>   				 * that were transmitted to this client by
+> >>   				 * the server on the previous balance
+> >>   				 * interval in Bps.
+> >> @@ -118,19 +118,20 @@ struct tlb_slave_info {
+> >>   			 * are the entries that were assigned to use this
+> >>   			 * slave for transmit.
+> >>   			 */
+> >> -	u32 load;	/* Each slave sums the loadHistory of all clients
+> >> +	u64 load;	/* Each slave sums the loadHistory of all clients
+> >>   			 * assigned to it
+> >>   			 */
+> >>   };
+> >>   
+> >>   struct unbalanced_load_stats {
+> >> -	u32			tx_bytes;
+> >> +	u64_stats_t		tx_bytes;
+> >> +	struct u64_stats_sync	syncp;
+> >>   };
+> >>   
+> >>   struct alb_bond_info {
+> >>   	struct tlb_client_info	*tx_hashtbl; /* Dynamically allocated */
+> >>   	struct unbalanced_load_stats __percpu	*unbalanced_load;
+> >> -	u32			prev_total_unbalanced;
+> >> +	u64			prev_total_unbalanced;
+> >>   	atomic_t		tx_rebalance_counter;
+> >>   	int			lp_counter;
+> >>   	/* -------- rlb parameters -------- */
+> >>  
+> >   
+> 
+
