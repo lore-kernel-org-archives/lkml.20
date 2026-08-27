@@ -1,97 +1,146 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA80D377019;
-	Thu, 27 Aug 2026 20:14:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A52023E334
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:16:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787861696; cv=none; b=hv9jyTRhfVbya7r+13zP7EQMDpTbICjt6XoHFC68GcCj5fG+Cyj3PBwo0oTdO3sgStK0eY57b8QpDV3bbS7U/qqk/5gX5ebU8nG6gp/WDwKcvYhS+mOs0k3d1337Ql0ehvVGIRcZFe0wZuOPv+xEc5CVK6pUb/eIt6+C1wsjnfg=
+	t=1787861783; cv=none; b=fSXgpfBfcQ8ayt2q5MbpdER31ZqPat04RKKEHuZkM+D88ykjZ+yVad6zGTVlBw81Ca3TyD49+EXI8uEZvMIqwCPRcGadw2Un+juaf7z3ATTsLGd/2ka/75R5lGUIY2BCnYB0mIQWN9FVTgfI2u2ttBYEU45n9nUL54ztWrhiJbs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787861696; c=relaxed/simple;
-	bh=T6BZYAi0AfsVsygV7GVLz4LmL113jqV3G01/uWrHP1w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=THtYNVBjoiUYaaLKUYItZ94GAmMO5FBkc6t35kMZsEfyEB0DYFb4wuoJo+E1iUkU1XtrxfdSvBV5GjxiD+hYsjk2kVM9z5oWN/+VHJsFweEeOPDgsLYYhULGCkqzmD+60nzvoxiH3d6tWGgFAnZG4Kr4G+DD5ioe6fQmpH7pVU4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PjvIugXH; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787861783; c=relaxed/simple;
+	bh=sEs1+3kv0SkL/kcWY1NDLycL1KPJmbmndgHyx4qL61g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rekKxbRTddSccr9PTcOT6/n447mFMU26QXpZZoU3mFfoQ+Yc5nzgKboOFgpGGg603D4Qf4JvFGDn/qy8xGs8OR9Qgd5wnbhwXskHS9kPiAkWkJtZUBZN2vbhTgtCtMVgi8TrPrWz6XnpRyNF1khQ4rxKK88OUhjbvOOLaat/+aw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bzB1zxkn; arc=none smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PjvIugXH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787861695; x=1819397695;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=T6BZYAi0AfsVsygV7GVLz4LmL113jqV3G01/uWrHP1w=;
-  b=PjvIugXH+MXVtuom/nubzZv0XTxFfkKqZOGjch42PTThBhHvGyQxw5uo
-   NiLe+4JSP8dRjlhzEiCwuYleK/eneL0qu3iDkVB+Jy/MrUnpZq9VaZj8v
-   9f4pH4NSKc8F9707zxQaKr/UlQKOWPkjuVETJWMHaNg4BygpOGq6tVsPQ
-   4grqZnOc1XVnndCc07ftKxpVd+TO7r1A9SFWRV7tncXkEvc8rgyt8T6cl
-   yPMdwNua2QmrcvL/tFBQ/Qa0f2VPPZ/2GW+dzkKhP+maW+HoinZMzzWE6
-   MAYnc7u0cfai0rndEfG61kpLGjuwyaX+886t9/MZjGaekGlXPIpeJ/hnC
-   Q==;
-X-CSE-ConnectionGUID: 0A57+dVyT4y8Pmp8TeNfLA==
-X-CSE-MsgGUID: umZWfQkhSl+lexYlgnveGA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="105892953"
-X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
-   d="scan'208";a="105892953"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 13:14:54 -0700
-X-CSE-ConnectionGUID: 4gkvo1wpRYagxAhxdaN2hQ==
-X-CSE-MsgGUID: dfg/XU0NRbyszKrU0Ky+Tw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
-   d="scan'208";a="267368969"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.125])
-  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 13:14:51 -0700
-Date: Thu, 27 Aug 2026 23:14:48 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: "Md. Mahmudul Hasan Mabud" <mdmahmudulhasan1511@gmail.com>
-Cc: jic23@kernel.org, nuno.sa@analog.com, Michael.Hennerich@analog.com,
-	gregkh@linuxfoundation.org, andy@kernel.org, dlechner@baylibre.com,
-	linux@analog.com, linux-iio@vger.kernel.org,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5] staging: iio: adc: ad7816: Use modern IIO attribute
- macros
-Message-ID: <apCauAuswGTMGfVI@ashevche-desk.local>
-References: <20260827195642.12831-1-mdmahmudulhasan1511@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bzB1zxkn"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-4815bce4652so205778f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:16:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787861778; x=1788466578; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iXvKxCRwrOA7zm77R1LkD/sIJDTYXZSfnd5GgnuNsQ4=;
+        b=bzB1zxknVUtP2CuBxGVrX72cK6cbH/viUI0W7h9zhGStWyXwHB199KwIQGyKim198z
+         ax6vnw+rJB/JYJ+F4FfQKB46CU0SvuRDevmVpdaJVjal09mQOx16V19ctJ459Mq38KHf
+         wuUvN7cGFumLOPBYaIINnTlxICPJ8hqGmqNiA9LeiP00m80yBKvI0Aghf4QpkXTJ0RvL
+         aap7zALyzUYglJx1uWRJW2G0mKLN0KF6h0EMx/fpFwWRQtILdUXfT7deZM6qPs2zgvc+
+         1cGCrF15MeGl8gTCQDgEHESFqTNbWVqYp94xdgQwPNVHdDpWh5bZWPjdL7kBI43wlGIC
+         8PlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787861778; x=1788466578;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iXvKxCRwrOA7zm77R1LkD/sIJDTYXZSfnd5GgnuNsQ4=;
+        b=DHeEeb1PxTx/OvYR91+DJY9LIZQb42AAHRJrpvqgJij1MB33weRG4FDR4kHEDKvyqB
+         99dtBAjd4XCo1GtgLYkxFzXVkzSBed9qDpG0zzwiC8FLrbEOBIv30+iXAHfqpmZPFrsJ
+         Ju4D3g6x3EqMrevN8GUzEqytmfdAssuJIiOQhMn0IkOWPhqK8i1uDOv+TrwrNlZCNFw1
+         hvS/m7cIUVuO96cALE9A5p9ztYzCihXbd7kt7b1PRjWUnjizF2QZUbG30+3NzVNasHuP
+         WxSRiyPnPfIRJ+azB14l/I4TryMi0EEDQOtXK1qnpM/xWkPQyBc9e61Uzcu8Yz7i0XMh
+         jR7w==
+X-Gm-Message-State: AFuF++kBcC1kWzsoire6lF4Y1xjefT/XURMT80l/Sj9BCKbterEMvfMd
+	AoHcXxZdTlJScM5WgZ8J0fZs50cbmU7/cEkEUUVHMadevlsxSVuEAvY8u9kqpX8VZ0/HfQ==
+X-Gm-Gg: AR+sD13QUCZYxZAvFhbIeQVhk1gMcIG+iwrjy8yEWX/f2vE/14Kg5YKDbTHXSdbfZA8
+	vxJa/lmPkHzSnMOO/ihQGnCP6zHIydyoKZv6a/TaP9LIvuY++7QZSbDPKjzIwU5bUlq9TSaAgBr
+	M0HScEZHr8Av5LDVTE/gaeuvG72uLwi/rEtpHeyLviy39RzJN5uVpUIlYhnxdAJMy3o/+p1YVpc
+	EzeA2wM2Sas33jmjEGsiiwcCp/vZ8gcqAbJ1FS7rHiwOgZV+0dT6hvy4iKsRL7/ar+587o4DmUR
+	JTDxGROsMS+dITlZVypI19jrwXwpGif1wKfGC3rQ2Qhi1nRaH5mw2OpUV+hI5JEdwqh8fN9JGYI
+	BtdU/K+rPaflqub4ygxNJfsgl2oa/XAU/0dsgP/GM2s5DRDB9waMO8dHHI1yNqjBqIUTtbLIn5o
+	khbG8RQldPKUpFCaFpWJ+eXN2IKByDSi00M/Q06nk5I8FMJLbRWfoDscZT
+X-Received: by 2002:a05:600c:1d15:b0:499:d366:f572 with SMTP id 5b1f17b1804b1-49b91c4338cmr17257705e9.10.1787861778225;
+        Thu, 27 Aug 2026 13:16:18 -0700 (PDT)
+Received: from TC-LAPTOP ([2a01:e0a:b8a:2610:8824:7cb0:614c:86fd])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b4961004bsm91899855e9.4.2026.08.27.13.16.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 13:16:17 -0700 (PDT)
+From: Thierry Chatard <tchatard@gmail.com>
+To: linux-kernel@vger.kernel.org
+Cc: hansg@kernel.org,
+	lee@kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	ilpo.jarvinen@linux.intel.com,
+	djrscally@gmail.com,
+	linux-media@vger.kernel.org,
+	mchehab@kernel.org,
+	sakari.ailus@linux.intel.com,
+	jacopo.mondi@ideasonboard.com,
+	nicholas@rothemail.net,
+	andriy.shevchenko@intel.com,
+	v.vitovt@gmail.com,
+	Thierry Chatard <tchatard@gmail.com>
+Subject: [PATCH v9 0/6] Enable cameras on Dell Latitude 5285 2-in-1
+Date: Thu, 27 Aug 2026 22:16:05 +0200
+Message-ID: <20260827201611.99825-1-tchatard@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827195642.12831-1-mdmahmudulhasan1511@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 28, 2026 at 01:56:42AM +0600, Md. Mahmudul Hasan Mabud wrote:
-> Replace the legacy IIO_DEVICE_ATTR() macros with the modern
-> IIO_DEVICE_ATTR_RW() and IIO_DEVICE_ATTR_RO() macros.
-> 
-> This includes renaming driver-specific callback functions to
-> standard <name>_show() and <name>_store() formats.
+This series enables the front (OV5670/INT3479) and rear (OV8858/INT3477)
+cameras on the Dell Latitude 5285 2-in-1 under Linux.
 
-...
+Per Documentation/process/coding-assistants.rst: this work was developed
+with help from an AI coding assistant (Claude Code, by Anthropic). I used
+it to help reverse-engineer the ACPI/TPS68470 bring-up, iterate on the
+board data, and draft these patches; I have reviewed and tested all of it
+on the hardware and take responsibility for the result.
 
->  }
+The series is interdependent (all six patches are needed for working
+cameras) and touches three subsystems: mfd (patch 1), platform/x86 int3472
+(patches 2-4) and media (patches 5-6). It is probably best merged as one
+set - for example via platform-drivers-x86 with an immutable branch that
+the media and MFD trees can pull. Lee, an Acked-by on patch 1 (mfd) would
+help enable that; I'm happy to follow whichever merge approach the
+maintainers prefer.
 
->  
+Changes since v8 (addressing Andy Shevchenko's review):
+- Patch 1: correct the subject prefix to "mfd:"; carry Andy's Reviewed-by.
+- Patch 2: fold the reverse-xmas-tree reorder in with the unsigned int
+  conversion, so it is no longer left over in patch 3.
+- Patch 3: introduce a local "struct device *dev" and use it to shorten the
+  board-data lines; return -ENODATA rather than -ENODEV when the board data
+  is missing.
+- Regenerated as a single coherent series (one tree, git format-patch
+  --cover-letter) with a proper diffstat, and sent as a new thread.
+  Apologies for the malformed v8 posting.
 
-Also drop this blank line. Same for other cases.
+Earlier changelogs are in the v7 and v8 postings:
+  v8: https://lore.kernel.org/all/20260826112452.13539-1-tchatard@gmail.com/
+  v7: https://lore.kernel.org/all/20260819140107.1329091-1-tchatard@gmail.com/
 
-> -static IIO_DEVICE_ATTR(mode, 0644,
-> -		ad7816_show_mode,
-> -		ad7816_store_mode,
-> -		0);
-> +static IIO_DEVICE_ATTR_RW(mode, 0);
+Tested on Ubuntu 25.10 (kernel 6.17.0-22-generic) and Ubuntu 26.04 (kernel
+7.0.0-30-generic): both cameras working in Zoom, Chrome, and GNOME Camera
+via PipeWire. Also independently tested on the closely-related Dell Latitude
+5290 2-in-1 (same IPU3/TPS68470/OV5670/OV8858/DW9714 stack) by Vitalii
+Tytskyi:
+  https://github.com/vitovt/dell-5290-camera-kernel/tree/master/patches
 
-With that being done, I'm fine with the patch
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Thierry Chatard (6):
+  mfd: intel-lpss: add resource conflict quirk for Dell Latitude 5285
+  platform/x86: int3472: tps68470: use unsigned int for GPIO lookup loop
+    counters
+  platform/x86: int3472: tps68470: fix clock consumer registration for
+    Dell Latitude 5285
+  platform/x86: int3472: tps68470: add board data for Dell Latitude 5285
+  media: ipu-bridge: add sensor configuration for OV8858 (INT3477)
+  media: ov8858: add ACPI device ID INT3477
 
+ drivers/media/i2c/ov8858.c                    |   7 +
+ drivers/media/pci/intel/ipu-bridge.c          |   2 +
+ drivers/mfd/intel-lpss-acpi.c                 |  32 ++++
+ drivers/platform/x86/intel/int3472/tps68470.c | 109 ++++++-----
+ drivers/platform/x86/intel/int3472/tps68470.h |  10 ++
+ .../x86/intel/int3472/tps68470_board_data.c   | 170 +++++++++++++++++-
+ 6 files changed, 281 insertions(+), 49 deletions(-)
+
+
+base-commit: 6de23f81a5e08be8fbf5e8d7e9febc72a5b5f27f
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.53.0
 
