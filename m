@@ -1,140 +1,299 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011041.outbound.protection.outlook.com [40.107.130.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 096EB3FB046
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 19:06:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787857563; cv=none; b=JIxgoFvyl922/gTg6fcM/m8Nnv2eYPF7JUMqviRxy0jRodccPlnXOWnSkrEPimniYl2ORlbiyoQWIegcmEZJr9Zu+Z1xI5zk4Mr645DmcR/a7/wVfw8bEADvVb/jO1gNq7CJp9kvJQq/TH+BVXe8D+4ah12O2MbqsSjpb1lgY8w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787857563; c=relaxed/simple;
-	bh=E+90YyG8rFTayq6+/y5ItQ+4p+xUE5Od8M4P46rwFP8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QvWR5Y4MBNnLz+JpsFmgEA0kwZnCQ6luYlzmqtWLb2bw8mgzj1GC3j/VaJ8J8subcUldF+gyGSuh6QzvAlcfrfBginm6AuBSMpDk/ZlsXEFfTVc6l+mK1QyUObGGR/FEiJnNtVuQSyi21ZS5P6ayKH8gccRgQLscafT6aFULVwU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dvycqUr8; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76EAC342538;
+	Thu, 27 Aug 2026 19:06:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787857594; cv=fail; b=D4dTI+t0Uu2X1DkXO7wfRIn0Pg9hAJo1Mz2knQbOWiTySl+ZSxuTJHswhL692Nsd4FcrGLqp5sZD2zVMlFLpNs4NmZc2lJVWz46x+AyclKCV4wDRqg9JaauAMHRX3kosksUggDmNVt6lWMv+sFsFpjpH8VCP4DLc47zOQNrV4nA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787857594; c=relaxed/simple;
+	bh=P7k1hvrwzc1DkZUviyq8xaUaZJn03MduiVlujJIbfMM=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=OurFXq7KC1v6jEpfLl6kGnm3Jl9iSC9egAWo77pZkstoh7Y3hakbVgrHFvT1PyEBtM7QPFqb/zaegu2bAXsQLUKxvhvhZrvbXbSq76wZhXpcrO4WxGsatWe8Pvu0uNeqPH8d+GTp/s5awz6dIVVmlKbSAQK8e/F1YCBiUhHIXGI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=QyRqXiPY; arc=fail smtp.client-ip=40.107.130.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dvycqUr8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15B7D1F000E9;
-	Thu, 27 Aug 2026 19:05:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787857561;
-	bh=qvAjMUQfB68JhL8RVuJBxxq+2zV5hpIDxgxtvNxSWwY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=dvycqUr8nLdxAJSsmYmBehOuav+6pGYrnTBb9M8bBqCwslkLJLCEoCtZvOtKbaHIR
-	 ryAPQBlm7sHMrS7BJV1r443wYqfuBQhQlrxXWZxafTS2lLZ2vb0UrNjUA+jubDIjlZ
-	 HcUATpM7k2WspidyNx4/YWoWqzRZ0dCBNFd2QkyTQdyFLhVc4dYzfqh24xGdbN0O2z
-	 Q2empcC3PyH4s1m4N6AcGGrkOvt7V6okP4p56o07ybWLLbOOdOARJ32yxl5S9FeT+L
-	 UkSwaYcNxTcjCbw52ruUFCgufiEaZJDGK/EdJISib7XijKTUPhYbiJFn7IPyHQm0GM
-	 e38gChEbkc+Dg==
-Message-ID: <dbc740e2-660a-44be-8f62-61838603d838@kernel.org>
-Date: Thu, 27 Aug 2026 21:05:54 +0200
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="QyRqXiPY"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wIOGTFA5jvl1xsFUl5lRA+8vLcooyBqNc+18t47PkU33ZKnXj4Zr1hvTcsc/WW3dQk1OGT5xfWejyhRVarLdPaPfqAtq+7ocByPPRtEhjimgBLiKYTrF2nO4Cu6N2o76OYkLeYQX4QVi5qj98kW4hAIi8E16iKxarTwlpzgI5d3bV8FYxngT4HjdKqCnXt4QOh8n1Yi5atlAdqAxoB60JO4bEOstLHx/H4LIETXcYFDIzS5gDC67LxUqepThKqBif8TB/Q5/FRJYKGeHSV2vJmbhGO2Vp0vhNZI9qJ7PhOS7RNTD9trn0KoQyGXmmAXUaIqJ5lGtldoyu9d1X7wWcg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pJLTKFL4QygYLTosk5irzoAhNnR5UWjGu9zN+J61qTI=;
+ b=T3f9RNUy0hjCD4xq1j4b3c9v1mGW5c68VDUxn8sNXHZGYltQRluuPpXc7XYxMLdvPXpgiBDc41dx9YvGpN51LUeevHI1378keKkqt4qStVTayGMY/QcQy4cw8rU2lifQMbEVtd39a4VSXCbtXDcVqEtCdQWMwv83m6SMpF56X7QF9FlCGAEXoE7c1Jw9Et+Af9gChIDiP1Vp/jcuPw2IDeep+9QU7FwjxyKQ9MWltT/SMQDMBjY07ai29CjcBVKxSnb29mb8yWnd78ms1MA3Mh45sj7p61HIYhTW+2Y31lBHxOwLMqMJYAAnodj1lCMgYjb/3RY6/J/gvxuMLf0v2A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pJLTKFL4QygYLTosk5irzoAhNnR5UWjGu9zN+J61qTI=;
+ b=QyRqXiPYOwpKKN3Reu6QP9r1Kr4sWKTyviCgNYJftdp7FzNKSbNbdDLwkGgsadRS71osq1l5ZJ6KNIyTQOEV3tSZKvffYlIRQVLsgPr9EXftKWdZozGSS2M4kyz7EkYKd9co233Ji3Bg/Orey7cpXN7Zvm5NNSix6jt3Q4RjRkrZNir8jen6+rxkKc+AAY52sZhlxvSiVO82BRQ+DNRqpuGHhBwaThiDnJHljBnI+mnExoVQwQUeKJYqTFfNg4YvW9qzEDtI8FjBO3wHEwDpi1z1NHCp4k8tRc/hSHmOVtzz/IEqoCvzoONixw+8IH08fx5fOaewqm1Oiswp+GxG8g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by GV2PR04MB11374.eurprd04.prod.outlook.com (2603:10a6:150:2a0::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
+ 2026 19:06:26 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
+ 19:06:26 +0000
+From: Frank.Li@oss.nxp.com
+To: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	linux-media@vger.kernel.org (open list:OV2659 OMNIVISION SENSOR DRIVER),
+	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+	linux-kernel@vger.kernel.org (open list)
+Cc: imx@lists.linux.dev
+Subject: [PATCH v2 1/1] media: dt-bindings: move ovti,ov2659.txt into ovti,ov8858.yaml
+Date: Thu, 27 Aug 2026 15:04:50 -0400
+Message-ID: <20260827190501.56673-1-Frank.Li@oss.nxp.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SA0PR11CA0082.namprd11.prod.outlook.com
+ (2603:10b6:806:d2::27) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 04/18] mm/huge_memory: split the routine for splitting
- anon and file folio
-To: Kairui Song <ryncsn@gmail.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
- Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
- Shivam Kalra <shivamkalra98@zohomail.in>
-References: <20260821-swap-thp-cleanup-v3-0-9b43f5163238@tencent.com>
- <20260821-swap-thp-cleanup-v3-4-9b43f5163238@tencent.com>
- <e156c931-69b4-48d6-84bf-c06df134c9da@kernel.org>
- <CAMgjq7BzAkuibv+SyZQ+WzzbEL29dV-vPYyX2p43L0JDn3=wNg@mail.gmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <CAMgjq7BzAkuibv+SyZQ+WzzbEL29dV-vPYyX2p43L0JDn3=wNg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GV2PR04MB11374:EE_
+X-MS-Office365-Filtering-Correlation-Id: e34f40ab-8a21-4062-bc61-08df046e4b1c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|19092799006|1800799024|366016|23010399003|10067099003|56012099006|11063799006|6133799003|3023799007|18002099003|921020;
+X-Microsoft-Antispam-Message-Info:
+	HN39liXj7gKjQzKT1xKe99beKRynBPRgDr4grXh0g8tDA8pXqq/kuPNv6GJbtimfgq5vW5TRGzSpIbGiK6GShFhxbCrm0dBjIc+CgvTuMWXS3xceL1lenI9ng9Fvrxn8CpmwrQ+V1cYaw7La76vOm9l4hnKqy6m7xUs4RU/ct1MpJ2XOskjR0NwGsPjiw/ptBw2c/DYmDB/YO8UXTxoxzu6DhPGe15v1xlrudUml6yNPOrheE4TokKffNAbZhGs+yDd8lMwUM+w8qvz3doiNqGokcheChBhLDO2DRLouZTVhw5lDrCp82VB1MUPes91Nva9ALdPJFjPzL70pKppqRTdm63u8YH1k7J3w+mtqdwCN2t+8oa4xdsMwdoW/mW/FmdUALxrPbV4jorH+LHipbmquws5thfw+P5ZnNxe5a7Dr/HAb5EWG4neYNnC5oFQtPCxQ+7GDkAcJ7xjoiHkVckP7pUIfkRdjdZeYmnb/VfegNZU6njus5X76vkilEpSQfOWLjoLIyzHU69qJtgCXgVNGsRupSh7+f+Y9Iz/jdWgXRK8/NUyMvdMoBoxGbX1G4P/ciOVGCwv3K6KDVNL4FuMkN6Q34xaGVFblBxdImrR53PooSCAV8KTBsFkzqajaBSeHPNcVdAZE0etrVev2/s5hVV0REfmHfVH82hbN/eo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(19092799006)(1800799024)(366016)(23010399003)(10067099003)(56012099006)(11063799006)(6133799003)(3023799007)(18002099003)(921020);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?R28ildjXQOVv0U9JpSsH3iIFuO7blgEYSi7HZm3ba7tePtlY9TXuGOMgqrMi?=
+ =?us-ascii?Q?cg4kPGJdOXPUC1apqDkBptuZIe3VbTPXIv6sUwe3ZU1+7THmXnMe4kriouqT?=
+ =?us-ascii?Q?C+rdl4+B7xnNX61ogf1KCCvacLMsUVDsPHO4V/05qt31Yn0SblGZUkk8sBJR?=
+ =?us-ascii?Q?BEbJgyVhpCroQH8USE6DePuidqpi8cxlK/sshVgV+Bg+hmyj2YK8i4Xi6JjT?=
+ =?us-ascii?Q?wphebQzrA0v8d2k0SCOKP33c9e+zz+TQDoMdMSd5bwkfl5frO52V/WWCVXjF?=
+ =?us-ascii?Q?lFF9CMP033CTGsbsmdiuWHgJ4IdB2U68HLfRIy/lKq1S56u6ne5ciUW0PPYs?=
+ =?us-ascii?Q?7c2cnHQ4mcfQhxJU7YbpLJkCmoFaBw98t80L80QbI4C4JgYvJpxtVa0TU4tt?=
+ =?us-ascii?Q?9CuSq7XHNcScVRRxeT1WRtzxF+Zas3WkRQT3Z8ITKQM6KE1FwojHl0QEgITC?=
+ =?us-ascii?Q?OPBxN9BZgdJRo3Vgx17NVxLL/IuKW2xEatKoeEjB2LWHXReZGSyPOjMK0i3l?=
+ =?us-ascii?Q?n6Y8v+XdHmTDRmryfnlvhdPcBBBfbls0exTuXgOoxPBVcEUXTe2ibyirHu5c?=
+ =?us-ascii?Q?OxLuGv+1Jev/1/VxrI317mJLUEMO0Q02gLrQX8qlc73s3axQg1CQ63nOy8yW?=
+ =?us-ascii?Q?x2T+FTD9vZuxRZDAD0RFBvhaBK7O3nmN8jNsa8Afh4qs3PRIFYAMJuS8JYae?=
+ =?us-ascii?Q?cZNMc/2VjuSWLCfF9kQWHrfDqqp7xCTfq3/PROGXVT9Yh5L0ZUljEBdzBWne?=
+ =?us-ascii?Q?RY5THnVGSzVXvDY6Q81y1dUCdS/kQCxeCELz7JwbL+B864twc+tvfoJYi/Qj?=
+ =?us-ascii?Q?uNVYRi9HuhlHrWy700r2Otc55PiNI5GLHi7qDpPS8NNe9lb7rdB95i0ObW2a?=
+ =?us-ascii?Q?JGpNPq+JSXzFhOFHsZbJSstQawpRcISb5bpr9H948pxnQjhIZrYKc/CznvlB?=
+ =?us-ascii?Q?EKQ0Fu5YMBj+zMNJKFuaFznE84Bk3keadDP6oIOammevy5sDITtH7A4Qb6Ot?=
+ =?us-ascii?Q?o4xTW5wtcMQMD4wyjugwqLf8TZwKybgqoO+LNXLgjyJACkAj4d4Jt6P9oXmB?=
+ =?us-ascii?Q?xa7xHCEQtJDtCAMDjAR2NHE52JvFufSG4B1LpuE8frG0/tfGpceCsyNLxbpz?=
+ =?us-ascii?Q?RCdUagM1gXh9jNCgKrdoaROh4734RBXhvsPll4YWIr9dmQaqV1QL0m4RN4cU?=
+ =?us-ascii?Q?Pej2B8+uPLZCRLbz51mgReLjjZt+FTuvqwdDeY+laoNIdAdYvIbEC9kOrxP3?=
+ =?us-ascii?Q?fXhAtBdnPmMC91TKd5+oD7vYOLShcFBE5zLsbxXNiABUAvG92hbqfm8cmqDb?=
+ =?us-ascii?Q?UEnTyk0QvGgeQLiLszxRV125PnzvGJT9GvLJVWD1F4yKHkQ39BQo3L+vG7hO?=
+ =?us-ascii?Q?sQ75KtCW+PC7XUjl+R/OO2hPJxpqOZqN020HovOyMGVCZHunwoah9a3UIXo5?=
+ =?us-ascii?Q?GrPs9gNmYBvFHq/j1XwtAlwmKDgopK1zo3aYJ3unS6zcEyGvCgHNZwhUENti?=
+ =?us-ascii?Q?sr853vZ6342zK6CQpRRsElAXil4h0SWIxgGSnAOrY+hLdO7sHT+UJde7wdKB?=
+ =?us-ascii?Q?REiDiX60FMjZJKyuIyNlnlb66laCcn5qaIv8hUJdX8j73XmoglayXNF4bzIu?=
+ =?us-ascii?Q?WO8lQFpBSbpPWZoxHFFUKCPiSZBlb1Ops3CDEAQ3VOShekYsvB/14hTtFdIp?=
+ =?us-ascii?Q?qNX6vlw801l/44v2Yw01HK22edsJzeP/kxdV+sDv0v08bjqBrA63v7N2FOCO?=
+ =?us-ascii?Q?s5+4zJTl3njrOQlDeovb/6V3zbZdndf0ooDM48Xv/GXDP8UU+1s/?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e34f40ab-8a21-4062-bc61-08df046e4b1c
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 19:06:26.4956
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +lcUp9jfcEbaTJLVDWRa8B0NVFoooB9Y1g9x8dZfVUqGqzf4ecg+jBxq2K3Gu1kpicNiOqwDzmdhWbVAzuYh5dB8GsfKXzf61yetY3fKZTkenb/VThjH5XXnX/8amQkJ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR04MB11374
 
-> 
->>> +      * place. Keep the head @folio frozen until the end: sub entries
->>> +      * in swap cache must be updated first, so a concurrent
->>> +      * swap_cache_get_folio() cannot return the head folio for a sub
->>> +      * entry (folio_try_get() will fail on the head @folio until unfreeze).
->>> +      */
->>> +     for (new_folio = folio_next(folio); new_folio != end_folio;
->>> +          new_folio = next) {
->>> +             next = folio_next(new_folio);
->>> +             zone_device_private_split_cb(folio, new_folio);
->>> +             folio_ref_unfreeze(new_folio,
->>> +                                folio_cache_ref_count(new_folio) + 1);
->>> +             if (do_lru)
->>> +                     lru_add_split_folio(folio, new_folio, lruvec, list);
->>> +             if (ci)
->>> +                     __swap_cache_replace_folio(ci, folio, new_folio);
->>> +     }
->>
->> This smells like duplicate code now. That should better be factored out?
->>
-> 
-> There were some discussion on this in previous series, I tried to
-> implement a macro or helper, but it ended up being uglier. Right now
-> the duplication is just about 3 lines of for loop due to the split,
-> and the extra loop duplication existed before, so I think it's fine at
-> this point, maybe a helper later if this grows.
+From: Frank Li <Frank.Li@nxp.com>
 
-Actually I wanted to drop this comment after digging into the code, but forgot.
-So it's fine with me.
+Convert the OmniVision OV2659 camera sensor binding from plain text to
+YAML schema format.
 
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+change in v2
+- drop rob's review by because use new file
+- use new file ovti,2659 according to sakari's feedback
+- v1 (2025) https://lore.kernel.org/imx/aPdHqCWNdmVkch7S@valkosipuli.retiisi.eu/
+---
+ .../bindings/media/i2c/ovti,ov2659.txt        | 47 ---------
+ .../bindings/media/i2c/ovti,ov2659.yaml       | 95 +++++++++++++++++++
+ 2 files changed, 95 insertions(+), 47 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/media/i2c/ovti,ov2659.txt
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/ovti,ov2659.yaml
+
+diff --git a/Documentation/devicetree/bindings/media/i2c/ovti,ov2659.txt b/Documentation/devicetree/bindings/media/i2c/ovti,ov2659.txt
+deleted file mode 100644
+index 92989a619f292..0000000000000
+--- a/Documentation/devicetree/bindings/media/i2c/ovti,ov2659.txt
++++ /dev/null
+@@ -1,47 +0,0 @@
+-* OV2659 1/5-Inch 2Mp SOC Camera
+-
+-The Omnivision OV2659 is a 1/5-inch SOC camera, with an active array size of
+-1632H x 1212V. It is programmable through a SCCB. The OV2659 sensor supports
+-multiple resolutions output, such as UXGA, SVGA, 720p. It also can support
+-YUV422, RGB565/555 or raw RGB output formats.
+-
+-Required Properties:
+-- compatible: Must be "ovti,ov2659"
+-- reg: I2C slave address
+-- clocks: reference to the xvclk input clock.
+-- clock-names: should be "xvclk".
+-- link-frequencies: target pixel clock frequency.
+-
+-Optional Properties:
+-- powerdown-gpios: reference to the GPIO connected to the pwdn pin, if any.
+-  Active high with internal pull down resistor.
+-- reset-gpios: reference to the GPIO connected to the resetb pin, if any.
+-  Active low with internal pull up resistor.
+-
+-For further reading on port node refer to
+-Documentation/devicetree/bindings/media/video-interfaces.txt.
+-
+-Example:
+-
+-	i2c0@1c22000 {
+-		...
+-		...
+-		 ov2659@30 {
+-			compatible = "ovti,ov2659";
+-			reg = <0x30>;
+-
+-			clocks = <&clk_ov2659 0>;
+-			clock-names = "xvclk";
+-
+-			powerdown-gpios = <&gpio6 14 GPIO_ACTIVE_HIGH>;
+-			reset-gpios = <&gpio6 15 GPIO_ACTIVE_LOW>;
+-
+-			port {
+-				ov2659_0: endpoint {
+-					remote-endpoint = <&vpfe_ep>;
+-					link-frequencies = /bits/ 64 <70000000>;
+-				};
+-			};
+-		};
+-		...
+-	};
+diff --git a/Documentation/devicetree/bindings/media/i2c/ovti,ov2659.yaml b/Documentation/devicetree/bindings/media/i2c/ovti,ov2659.yaml
+new file mode 100644
+index 0000000000000..926e5cd966b8d
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/i2c/ovti,ov2659.yaml
+@@ -0,0 +1,95 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/ovti,ov2659.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: OmniVision OV2659 1/5-Inch 2Mp SOC Camera
++
++maintainers:
++  - Frank Li <Frank.Li@kernel.org>
++
++description:
++  The Omnivision OV2659 is a 1/5-inch SOC camera, with an active array size of
++  1632H x 1212V. It is programmable through a SCCB. The OV2659 sensor supports
++  multiple resolutions output, such as UXGA, SVGA, 720p. It also can support
++  YUV422, RGB565/555 or raw RGB output formats.
++
++properties:
++  compatible:
++    const: ovti,ov2659
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  clock-names:
++    items:
++      - const: xvclk
++
++  powerdown-gpios:
++    description:
++      Reference to the GPIO connected to the pwdn pin, if any.
++      Active high with internal pull down resistor.
++    maxItems: 1
++
++  reset-gpios:
++    description:
++      Reference to the GPIO connected to the resetb pin, if any.
++      Active low with internal pull up resistor.
++    maxItems: 1
++
++  port:
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    unevaluatedProperties: false
++
++    properties:
++      endpoint:
++        $ref: /schemas/media/video-interfaces.yaml#
++        unevaluatedProperties: false
++
++        properties:
++          link-frequencies:
++            description: Target pixel clock frequency.
++            maxItems: 1
++
++        required:
++          - link-frequencies
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++  - port
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        camera@30 {
++            compatible = "ovti,ov2659";
++            reg = <0x30>;
++
++            clocks = <&clk_ov2659 0>;
++            clock-names = "xvclk";
++
++            powerdown-gpios = <&gpio6 14 GPIO_ACTIVE_HIGH>;
++            reset-gpios = <&gpio6 15 GPIO_ACTIVE_LOW>;
++
++            port {
++                endpoint {
++                    remote-endpoint = <&vpfe_ep>;
++                    link-frequencies = /bits/ 64 <70000000>;
++                };
++            };
++        };
++    };
 -- 
-Cheers,
+2.43.0
 
-David
