@@ -1,213 +1,73 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C5B335C6A1
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:50:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAABB48095E
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:51:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787849404; cv=none; b=JGHks5B644yScyEg0nMThB+vr7CmT2SgMv2saRTHvj/tDJ166zO7KZ0SKUjkriulNL+GaYExljTlLQPda+nt7Ht7uEd+2bpbpuhGFXcDMZn5MHFXyMgVBc4xNqzdR7Y3pdAibcrmbn7moHoeCmJDZB7xaSMiY056dGbOFH3Bp9A=
+	t=1787849465; cv=none; b=I/ds3SmLRotDdsh0VKHQgp2PUJ8z4LHAJmK+X73j4vsHNP4xaONIXJFtP3J5XJ8bnyR7ZS9DFE6YC5un5Gcv1OTD4s/ygaO4I4IxqUzHga9WlbZf8CDGTiL4hMKcPDUi8/VVkhAypMbs9dHjgfKI07TY4ulyT9zjhA9zMIL9z3k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787849404; c=relaxed/simple;
-	bh=hq6Dd50QNE5pWnkdJ3+SExZCZgpC+xCCarGNcc61RpM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Kadj8bYvCNWvw5nkheES/RtCYhEKpiSYvhguZl8zCpRtJWCYRHb6hflx9X+ERDUra3mm012l63O7o/ryIu9zdaQQQr6EHfYKO+Ac6mVIixIexM/Y+UzjK1JalkOCnbO65SPmIMOVEiaLU28Iv9klH3duYlK2sXeoOvXRMmjqpzQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fnw2tHW7; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fnw2tHW7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0AFD1F00A3E
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:50:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787849402;
-	bh=A/HAoX1rGIxvt6EEdQNxTt9eQFJoQAsSXwVrATMnQi0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=fnw2tHW7/JQrFneuoDnsPVtBASjixPJmOmusU213TMDjOGxosTRME5M6qS4fz6zza
-	 +vBPRSOku1WgC7NZrRQhccTW4wQPPuWxuUK2AxVNEeqdyvbea1nldOt6eFMNM5Rcf4
-	 faxONOwZnCrhje0MaOdCNVsy+3mptZBd436U763i4tOJxykHH0lIMBeRlUeMYnk4K9
-	 yywJF9bKIWISA6yh31jsx2X4HNN1Hdyx/0pMLWDOLoQgA6ok73Xif/HUejjYio8uTr
-	 I5aC2QHisbja7NrmHyz62XZmjqk6a8/FB7v4b+V1M8O2NOWvYZ23j9Wi+UAQ42kMBo
-	 269U0RB1SvfNA==
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c169ae1cb26so270829866b.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:50:02 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RoWXXYe6Ir0KwUJSkLvKQno2mX1eaBCEn+HkqIkC9L36FeqtexTCLW9e30i3L9bV/duKRuFSGmBpgR0DVY=@vger.kernel.org
-X-Gm-Message-State: AFuF++loq7ufKOZBrtVlQ+hZ0Lmv+edxae8SgK1CVLYhFT3x3LPP33R8
-	iQ1JmrSG+8AbhUP0s+hf4bJSlGiXtxh1vNcYTd22fLfbpnU+ki4kcwTAye27sOxsFAz90VTmgAo
-	uIe1p0S/fWsf8UTreQ+JMXPSF1dcqiAg=
-X-Received: by 2002:a17:907:1c94:b0:c08:580e:899a with SMTP id
- a640c23a62f3a-c2553d1daf7mr27301666b.10.1787849401600; Thu, 27 Aug 2026
- 09:50:01 -0700 (PDT)
+	s=arc-20240116; t=1787849465; c=relaxed/simple;
+	bh=tFLQ3JuBry+GrFMTvnvNPPyuCdQR6pSnPsQLTnAgbCc=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=exrwFLFkCctACYoyegg6Lnbt924iqTvjVn1x9j/GQBA2zihr9veZE7cJKM7xbURlRJAX6MIe/weEFnxz7g7NwVcoi6OaEPJQL86md+2yE0hqJyyYDMkpQFGTjfFG5+2q6eKzao8PvmCnQ2j2zVeFeenkqIAu8xftrXuS9AOet/o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-7eb641eaf5eso136844a34.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:51:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787849462; x=1788454262;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=zFqjgAYe8iCKJQKyaWMIcLe0u+fWcArjSHpg11702jA=;
+        b=GLjGB6UnAmTTP2/v5r7psW+oq0YXxR1dKuas2g2ThmHxj8hOOg8ObpZAO4Z71Ys9N3
+         2+bGp3xnJH4Fhd2emKGGc1+JtEKMxaDZzKyF7ZWdfzgCwfDOuarSkAJOrpDV4IhTCB0G
+         vfJghHKAIrkaT5w0v6Xer8sAnBaUCfitTj4FVLixuOVJ2ZBMMgCyyqaGhV3Ee8rUsCQx
+         RnGWmf2XNBKq20oSxdaCe+M6ICF5VXHdd0Gwoc9Ztf/ILjMn2wSMIp5l0LF8mTph/yLn
+         hbusqUglY0Kv5Dv+Z0T7lyzKBakdkWVKK7P8V4KTPThGSuHiX1D5gEpQGQTpegOD7k0Y
+         M75g==
+X-Forwarded-Encrypted: i=1; AHgh+RqZA/z7tuUg3F1265BgSvE6Nvqrv7Tyfo0sXgxI526rF7m4usjwWn3U4sDE75vNCc/4na/TYotsCOknb/s=@vger.kernel.org
+X-Gm-Message-State: AFuF++kM+M2Cr233vdVZYVsj9cKhcwaL8ShffCT5Gfc/kZ5pg1O9w7gq
+	bECKkQvJ9NudkxihX7jLzuNrC19z9Na1Pw1xozy2an/f9PKLYA8uejl1su/0ALSQjQg1dwfshTZ
+	Gn3/D3y1GlYx6NsMkMd61zpylezipCK5psoo73noGJJzUVd3Yst7K+PFVsMA=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826233919.998904-1-seanjc@google.com> <20260826233919.998904-13-seanjc@google.com>
- <CAO9r8zOuD+wU1Q80z077WHHpFBWvKomLk=TaXjH3gVnqj=mqFQ@mail.gmail.com> <apBomFOn1ZqHEnAQ@google.com>
-In-Reply-To: <apBomFOn1ZqHEnAQ@google.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Thu, 27 Aug 2026 09:49:48 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zP3O_80Lr=4eKL6v-OaM9etMXPsNzADizf6ztB6YBuLHA@mail.gmail.com>
-X-Gm-Features: AcwNN1WbGRFrBMKj62JwHlPuclqja8iCvmGe-oH8-_V7feeYeeyNw27mngDjnYM
-Message-ID: <CAO9r8zP3O_80Lr=4eKL6v-OaM9etMXPsNzADizf6ztB6YBuLHA@mail.gmail.com>
-Subject: Re: [PATCH v3 12/13] KVM: selftests: Dedup assembly code for VMLAUNCH
- and VMRESUME
-To: Sean Christopherson <seanjc@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	f734222792@gmail.com, Vitaly Kuznetsov <vkuznets@redhat.com>, 
-	Sashiko Bot <sashiko-bot@kernel.org>
+X-Received: by 2002:a05:6820:1627:b0:6b1:a22c:1f12 with SMTP id
+ 006d021491bc7-6b1a22c22f3mr13088461eaf.9.1787849462373; Thu, 27 Aug 2026
+ 09:51:02 -0700 (PDT)
+Date: Thu, 27 Aug 2026 09:51:02 -0700
+In-Reply-To: <20260827092301.19883-1-jeffinphilip14@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a906af6.4d659fcc.734b4.0011.GAE@google.com>
+Subject: Re: [syzbot] [input?] [usb?] KASAN: slab-use-after-free Read in roccat_open
+From: syzbot <syzbot+d632e93ffcd1452bc61e@syzkaller.appspotmail.com>
+To: jeffinphilip14@gmail.com, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Aug 27, 2026 at 9:41=E2=80=AFAM Sean Christopherson <seanjc@google.=
-com> wrote:
->
-> On Wed, Aug 26, 2026, Yosry Ahmed wrote:
-> > On Wed, Aug 26, 2026 at 4:39=E2=80=AFPM Sean Christopherson <seanjc@goo=
-gle.com> wrote:
-> > >
-> > > Dedup the assembly code from VMLAUNCH vs. VMRESUME, the difference is
-> > > literally only the actual VM-Enter instruction.
-> >
-> > You couldn't resist macrofiying this too.
->
-> It's either that or throw a branch in the asm blob, which is surprisingly
-> difficult because VMX_SWITCH_GPRS_ASM subtly clobbers RFLAGS and obviousl=
-y
-> clobbers GPRs.  Which basically leaves pushing the value on the stack, wh=
-ich is
-> totally doable, but still annoying, and needs to be done immediately, bef=
-ore
-> vmcs.HOST_RSP is loaded.  Branching at runtime also makes the generated c=
-ode
-> harder to read, e.g. when debugging, as it's not immediately obvious whic=
-h
-> instruction was actually attempted.
->
-> That said, looking at this again made me realize evmcs_{vmlaunch,vmresume=
-}() have
-> the same core copy+paste mess.  Blech.  Macrofying the standard flows but=
- not the
-> eVMCS flows is rather silly.
->
-> Inlining these blobs *twice* (VMCS vs. eVMCS) at every VM-Enter is also r=
-idiculous.
-> E.g. at a glance, it's responsible for something ~100k bytes of code in t=
-he compiled
-> state_test.  While the code footprint of selftests isn't a priority, that=
-'s still
-> absurd.
->
-> So instead of macrofying everything, how about this?  Depending on how on=
-e feels
-> about macro shenanigans, it's either horrific or amazing.  Or both.  But =
-IMO it's
-> worth eliminating all of the copy+paste, and it makes the control flow mu=
-ch easier
-> to read, which in practice is likely what most people care about?  At lea=
-st until
-> the entry/exit sequence fails and they have to debug macro hell :-)
->
-> vmx.c:
->
->
->   #define __BUILD_VMX_VM_ENTRY_HELPER(insn, prefix, vmwrite_insn, vmwrite=
-_operand,      \
->                                     __host_rsp, __host_rip)              =
-               \
+Hello,
 
-The only part I really hate is vmwrite_operand. Why do we need it?
-Seems like all the current helpers use "r", I feel like I am missing
-something.
+syzbot tried to test the proposed patch but the build/boot failed:
 
->   static int __##prefix##_##insn(void)                                   =
-               \
->   {                                                                      =
-               \
->         int ret;                                                         =
-               \
->                                                                          =
-               \
->         __asm__ __volatile__("push $0;"                                  =
-               \
->                              __stringify(vmwrite_insn) " %%rsp, %[host_rs=
-p];"           \
->                              "lea 1f(%%rip), %%rax;"                     =
-               \
->                              __stringify(vmwrite_insn) " %%rax, %[host_ri=
-p];"           \
->                              VMX_SWITCH_GPRS_ASM                         =
-               \
->                              __stringify(insn)";"                        =
-               \
->                              "incq (%%rsp);"                             =
-               \
->                              "1: ;"                                      =
-               \
->                              VMX_SWITCH_GPRS_ASM                         =
-               \
->                              "pop %%rax;"                                =
-               \
->                              : [ret]"=3D&a"(ret)                         =
-                 \
->                              : [host_rsp]__stringify(vmwrite_operand)(__h=
-ost_rsp),      \
->                                [host_rip]__stringify(vmwrite_operand)(__h=
-ost_rip),      \
->                                GUEST_REGS_OFFSETS                        =
-               \
->                              : "memory", "cc");                          =
-               \
->         return ret;                                                      =
-               \
->   }
->
->   #define BUILD_VMX_VM_ENTRY_HELPER(insn) \
->         __BUILD_VMX_VM_ENTRY_HELPER(insn, _, vmwrite, r, (u64)HOST_RSP, (=
-u64)HOST_RIP)  \
->         __BUILD_VMX_VM_ENTRY_HELPER(insn, __evmcs, mov, m,               =
-               \
->                                     current_evmcs->host_rsp, current_evmc=
-s->host_rip)
->
->   BUILD_VMX_VM_ENTRY_HELPER(vmlaunch)
->   BUILD_VMX_VM_ENTRY_HELPER(vmresume)
->
->   int __vmlaunch(void)
->   {
->         if (enable_evmcs) {
->                 current_evmcs->hv_clean_fields =3D 0;
->                 return ____evmcs_vmlaunch();
->         }
->
->         return ____vmlaunch();
->   }
->
->   int __vmresume(void)
->   {
->         if (enable_evmcs) {
->                 /* HOST_RIP */
->                 current_evmcs->hv_clean_fields &=3D ~HV_VMX_ENLIGHTENED_C=
-LEAN_FIELD_HOST_GRP1;
->                 /* HOST_RSP */
->                 current_evmcs->hv_clean_fields &=3D ~HV_VMX_ENLIGHTENED_C=
-LEAN_FIELD_HOST_POINTER;
->                 return ____evmcs_vmresume();
->         }
->
->         return ____vmresume();
->   }
->
-> vmx.h:
->
->   int __vmlaunch(void);
->   int __vmresume(void);
->
->   static inline int vmlaunch(void)
->   {
->         return __vmlaunch();
->   }
->
->   static inline int vmresume(void)
->   {
->         return __vmresume();
->   }
+failed to apply patch:
+error: corrupt patch at line 12
+
+
+
+Tested on:
+
+commit:         903c1cf6 Add linux-next specific files for 20260821
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+kernel config:  https://syzkaller.appspot.com/x/.config?x=61cbaf6d30cb97db
+dashboard link: https://syzkaller.appspot.com/bug?extid=d632e93ffcd1452bc61e
+compiler:       
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=1513b415580000
+
