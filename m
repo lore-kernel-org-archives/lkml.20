@@ -1,192 +1,136 @@
-Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBD9A43E4A1
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 14:59:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.98
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787842768; cv=none; b=ugdGkCzvwupT5ZGvU9LdmDxDWTtAzHR21BOtfH/hg2ZE+nJz8N0Lan98Ysy1hZj2AZKp9eDBKZUC2V3yhkYsgSk37mAnifZud515njEGJNqTyVM8WqHehVv+2DX31WLjvsrUMiC+dTSLpBtUuyGZycr9ugGYpTa4YDVon62kgHQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787842768; c=relaxed/simple;
-	bh=paociO8MAvUZdGp2ol9uT1lVS8i5ldAFG/8g/i2XTKs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XXbnkQsdH3Ol8EAzXis1ZLJc95LwygE8U1TgPE4MvKNAvBS1wMwPoxoFQXjNnTwiJTM1aAhJvu+fX21kyQSCIgv9x/Jn+ZVzX2JLI/9jZFkeOTWn4gWrv8ug2ExmXsOpSg1C055e//y5J+aN0Tm2bARcpvoiPaZSPvcfU0+nTBk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=CGpKzJk9; arc=none smtp.client-ip=115.124.30.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E001047CA94
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 14:59:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787842772; cv=pass; b=U5YkO6uH1iit4t6TFPXwJ3DyXH4VRYkoPgRlOD5nF20igFE0px9UGdYMvEouJ9cU842No66jBcBGB4zPB0kRPCoW7oj5ZXwH87obnFeKnkJfi0o4B2aWtu2lV5sFqc3o3txcePai++BTvj8r7qXju3VbYua7fCOA5cFQj9XGwdk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787842772; c=relaxed/simple;
+	bh=41WewWIErbX3yd9Z3vKfnXfsdNWRVLs4FM/DXBSS53c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=h41YAcgn9YOcIPZTLnvJR79oGiYaAXlv9CgavCzSRTCJEkeA1t8oTwfU622wCNPsjNnjph8+rD1TR59ERvAaAW2CQKXW0xzkXWC/VlqCWvEKIwvh7WmeZYxWQjCiCC1En0JKckhzdZDqIGE4bsy3VDAbKDogso9taCfXkGON4FM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QMdgmt1W; arc=pass smtp.client-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="CGpKzJk9"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1787842756; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=ZKantfH/lQ8ahGeUH8Ydg3ebRGPbt0DV15/kwiMuxw8=;
-	b=CGpKzJk9T91oDXeoWCY3on7IFRpcY08+W8LElX56yd81NUz2pv6lu9aTgA5T0NX+ZHbWvF/X5H7L5Xr8uvCER35nsGd46g1KxLjHHVMJMHCSqEEITdVK7K5AVj8rK46ohSvWjKXUmESEkI7zAMkWt1IvuTIDX4XAwQ8+no26+g0=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R451e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=xiangzao@linux.alibaba.com;NM=1;PH=DS;RN=12;SR=0;TI=SMTPD_---0X9jzaFF_1787842750;
-Received: from banye.tbsite.net(mailfrom:xiangzao@linux.alibaba.com fp:SMTPD_---0X9jzaFF_1787842750 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 27 Aug 2026 22:59:15 +0800
-From: Yuanhe Shu <xiangzao@linux.alibaba.com>
-To: joro@8bytes.org,
-	will@kernel.org,
-	jgg@ziepe.ca
-Cc: robin.murphy@arm.com,
-	baolu.lu@linux.intel.com,
-	kevin.tian@intel.com,
-	smostafa@google.com,
-	praan@google.com,
-	skhawaja@google.com,
-	iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Yuanhe Shu <xiangzao@linux.alibaba.com>
-Subject: [PATCH 1/2] iommu: Add __iommu_debug_unmap_phys() to drop refs by physical address
-Date: Thu, 27 Aug 2026 22:58:54 +0800
-Message-ID: <20260827145855.1616223-2-xiangzao@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20260827145855.1616223-1-xiangzao@linux.alibaba.com>
-References: <20260827145855.1616223-1-xiangzao@linux.alibaba.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QMdgmt1W"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2d590f4c291so4350215ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:59:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787842770; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QjjE7KD9fEyrUYGOttpSs2VtvzhTq3WExCm8kBrHErtqbRc+o1Dci9BIc7YVaiYKY4
+         e3PiH+jeIjNqukIRwE8I8ccz3Xc/D+wt/dc22sB7iv/OMvxt10R/KsCZIVT0w8CFfMOu
+         LataQmU/EWq6IgoKHpZIGuQuuET+BM/Db+djDJ6UO4KGWINC05snwQYlDytbIepckpJO
+         g5dvZE8utTDh0I6f/Fm+pp0csbzA7ZsnIqPWkS1P0puk3aXC3VB1f7XtzURICsyHxoba
+         Un98ldCVtBdeWz5e3DPOAom7Ua2WkAAOZ/B/LQpscjtQKC3OqWHvZIvzaqSCVGX4ubP7
+         NNGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=3caV8jGIKYECCoF6AjoMVnw7A/xTQryGhAY1zu/DQLg=;
+        fh=lSFQK9+dxePzdzxSZKk+EsVokSlZkGHERef3Wad57Z8=;
+        b=ZCXyX4sy6M3yEixSlr/4n3iAPdIsTT+1Y5tvyiWOuNAZ4CCCd2qIzDpJq51m7If1p7
+         j7esa7/X5QOpNnnT6TuY0jyF+6bYMGQAvcnWaP9CBqQ1Qf2Pp8mdpsoqmY73BHuPN/fj
+         Vjkmm/mWqLvG6E8t4GrkLGVNVcXoUx59Mi35nspycK6jLQwMXgkmXfYUZeyUVtjALP38
+         6LgiE4rr5t9kTy7lI85e9WlQZyEDUgS8jS4AItamTmVPjHgWr/zJKBWC89qQPst9WpHo
+         QjLUn3dDnZjuMyKvgb7JwXsNJTwT7MMZ8qiwA6eS8PXUny9WiwBlqCXZmkd1iMWgEffM
+         z9KA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787842770; x=1788447570; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3caV8jGIKYECCoF6AjoMVnw7A/xTQryGhAY1zu/DQLg=;
+        b=QMdgmt1Wt/TKna15326h1CQJqqJV9kNggWJ+6lruH2vsyUr3pyLDAXl1c406Xb4TSp
+         e0Xfvl1P2YgarMjFpi4zKv3MZYJHxJ2eZPxjpwHYjwrhbv7I035qamC3uI+a9coeOCqF
+         voyjznUmKCH+ijuX8JbDR0EeKIC88y4aNojx/eUQ5VKhsGtddpASqNP6vsHrJ8z47LTs
+         P7TNEw3YkA9YbveCPvwh1/8nD2NGrPqwuU/UEWmpOaqeqjE9Z6w6XKRVV3Sxn7xwcl1h
+         9pSYjBDsPPuR2QnXPMxiO3jziFPicio449EOuxntLVg+U4O1Oj92UNVKgtSx50uSxOMS
+         qchg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787842770; x=1788447570;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3caV8jGIKYECCoF6AjoMVnw7A/xTQryGhAY1zu/DQLg=;
+        b=fkJ12FDqAD9dV1R+uYhrTx9Lt5PUz8ww3jKESFUvAPDe9IPadM7RpWWsmKSyAcP4xy
+         gRo3/jxZi/GibMEEBZO4I2xgg0rEt0Ph+gFLXqSxDiLq8en7Tt4x6a5hqABrDEQZBdwB
+         W00x7aICjy7z9L+r8bLKEhBTSuxxVtyigoa8Tuu1wzN50y54ll2Lo7fmWe2h3wDxomTy
+         strlMbs+swAIu4Q63JCK44DcvUWZeTuw5GOH8EushqUNil2BCluWCteEtBFqs8PWOe1e
+         UuB1krfDc34E28m0IWCIRQ/3F78btvb8ii8WPU+tN0xRX0rPguvN9CdaIbT54jxTOcPN
+         Qr/g==
+X-Forwarded-Encrypted: i=1; AHgh+RqJfKx7Fc5tYXeJba5/CSKK/3ybuDxsOrlCZUWcFMn9eJZA0QT3VG91eVTI8kqabQhnlvbV77TmdF/b0/Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++kwqXxHWYtvbJtTBSW269VZxXsJZUfBelAu8QBeYnr7s4dmBdox
+	hN4Ux3h1YK8sXwrUn7gS/g7uBPHfg1PZdWJPtzZiBs/AoEpem4Mfdj52OwR6j2TQ2CNBAMfzCDU
+	Aqy5wwTF7HK4wLWL92cbn10hQI8zfEMA=
+X-Gm-Gg: AR+sD104X01Qoe0wJ/fMWgZnYN5He85ccR0gHq8wB2Qaak84WlvRJQXGrsZHVuUMWDU
+	Y167ojjXd7F+4ygsyPNl7VT/nhVrkuNscw6PyncU4/8b/VEVwUsMEjb0v6l//vXTUbzZz8AOAAI
+	dcZ1ygruRXdg7b+Cayul7mW+0TQZU/6d7zUynTGLoJug8NED+xK7vVKv/owgfHFnvXr+aeIKwZ5
+	w5K9j7+M1RVdRLrL/QyZGcOG4POeeYoIYlAnIvenX2r3KR/gq/CSU2BEOW6rHfB7ftZx5+uvME8
+	J7rFXLCBA8MxdPjkqDN1835daezxu0LHIHOxm6jvlaSLNv2TmTB/cEzf4HCbCHvB+KDlo+9u80o
+	d6n9ywl5ExEEF7/cKFb34vtxGP/hyukWYoqixgxc7VXzoKnPs3aMGEGbi5uJC
+X-Received: by 2002:a17:903:3504:b0:2cf:9e90:8be with SMTP id
+ d9443c01a7336-2d71e4f74abmr88346095ad.4.1787842769819; Thu, 27 Aug 2026
+ 07:59:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260826163004.3365-1-mike@fireburn.co.uk> <20260826163004.3365-3-mike@fireburn.co.uk>
+In-Reply-To: <20260826163004.3365-3-mike@fireburn.co.uk>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Thu, 27 Aug 2026 16:59:15 +0200
+X-Gm-Features: AcwNN1W0d-V13zh5elWYWY1xq_Ye1PYxNifjQKCjt0be_UdVKV0D_eRNv-EoeZc
+Message-ID: <CANiq72nTu0JMOQ2ovkCnrHVr3sFE648f0e1My9nesqmKz1Gpig@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] rust: crypto: add synchronous RSA akcipher support
+To: Mike Lothian <mike@fireburn.co.uk>
+Cc: linux-crypto@vger.kernel.org, Herbert Xu <herbert@gondor.apana.org.au>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Biggers <ebiggers@kernel.org>, 
+	"Jason A. Donenfeld" <Jason@zx2c4.com>, Ard Biesheuvel <ardb@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Lyude Paul <lyude@redhat.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Asahi Lina <lina+kernel@asahilina.net>, Burak Emir <bqe@google.com>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>, Yury Norov <ynorov@nvidia.com>, 
+	David Gow <david@davidgow.net>, linux-kernel@vger.kernel.org, 
+	rust-for-linux@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The IOMMU_DEBUG_PAGEALLOC sanitizer takes a reference on each page at
-iommu_map() time, keyed by physical address, and the only way to drop
-them is the IOVA based iommu_debug_unmap_begin()/end().  A path that
-tears down a page table with mappings still installed has no IOVA to
-unmap with, so add a physical address based counterpart of
-__iommu_debug_map() for those paths, sharing the counting loop through
-__iommu_debug_update_phys().
+On Wed, Aug 26, 2026 at 6:30=E2=80=AFPM Mike Lothian <mike@fireburn.co.uk> =
+wrote:
+>
+> +__rust_helper void rust_helper_aes_enckey_zero(struct aes_enckey *key)
+> +{
+> +       memzero_explicit(key, sizeof(*key));
+> +}
 
-Export the iommu_debug_initialized static key, as the generic_pt format
-code using these helpers can be built as a module.
+Hmm... why does this one need to be a Rust helper? i.e. why doesn't it
+call the other helper from Rust?
 
-Signed-off-by: Yuanhe Shu <xiangzao@linux.alibaba.com>
----
-Build tested as built-in and as a module (AMD_IOMMU=n,
-CONFIG_IOMMU_PT_AMDV1=m).
+(Same for the other calls I notice here in the context of the patch to
+`memzero_explicit`.)
 
- drivers/iommu/iommu-debug-pagealloc.c | 30 ++++++++++++++++++++++++---
- drivers/iommu/iommu-priv.h            | 24 +++++++++++++++++++++
- 2 files changed, 51 insertions(+), 3 deletions(-)
+i.e. helpers are meant to be as minimal as possible -- just forwarders
+to the same functions unless there is a good reason not to.
 
-diff --git a/drivers/iommu/iommu-debug-pagealloc.c b/drivers/iommu/iommu-debug-pagealloc.c
-index 80164df5bab1..a2e55164e6a4 100644
---- a/drivers/iommu/iommu-debug-pagealloc.c
-+++ b/drivers/iommu/iommu-debug-pagealloc.c
-@@ -15,6 +15,8 @@
- 
- static bool needed;
- DEFINE_STATIC_KEY_FALSE(iommu_debug_initialized);
-+/* The generic_pt format code using the key can be built as a module */
-+EXPORT_SYMBOL_GPL(iommu_debug_initialized);
- 
- struct iommu_debug_metadata {
- 	atomic_t ref;
-@@ -96,7 +98,8 @@ void __iommu_debug_check_unmapped(const struct page *page, int numpages)
- 	}
- }
- 
--void __iommu_debug_map(struct iommu_domain *domain, phys_addr_t phys, size_t size)
-+static void __iommu_debug_update_phys(struct iommu_domain *domain,
-+				      phys_addr_t phys, size_t size, bool inc)
- {
- 	size_t off, end;
- 	size_t page_size = iommu_debug_page_size(domain);
-@@ -104,9 +107,30 @@ void __iommu_debug_map(struct iommu_domain *domain, phys_addr_t phys, size_t siz
- 	if (WARN_ON(!phys || check_add_overflow(phys, size, &end)))
- 		return;
- 
--	for (off = 0 ; off < size ; off += page_size)
--		iommu_debug_inc_page(phys + off);
-+	for (off = 0 ; off < size ; off += page_size) {
-+		if (inc)
-+			iommu_debug_inc_page(phys + off);
-+		else
-+			iommu_debug_dec_page(phys + off);
-+	}
-+}
-+
-+void __iommu_debug_map(struct iommu_domain *domain, phys_addr_t phys, size_t size)
-+{
-+	__iommu_debug_update_phys(domain, phys, size, true);
-+}
-+
-+/*
-+ * Physical address counterpart of __iommu_debug_map(), for teardown paths
-+ * that destroy mapped entries without an IOVA.  The OAs must have been
-+ * accounted by a prior iommu_map().
-+ */
-+void __iommu_debug_unmap_phys(struct iommu_domain *domain, phys_addr_t phys,
-+			      size_t size)
-+{
-+	__iommu_debug_update_phys(domain, phys, size, false);
- }
-+EXPORT_SYMBOL_GPL(__iommu_debug_unmap_phys);
- 
- static void __iommu_debug_update_iova(struct iommu_domain *domain,
- 				      unsigned long iova, size_t size, bool inc)
-diff --git a/drivers/iommu/iommu-priv.h b/drivers/iommu/iommu-priv.h
-index aaffad5854fc..12528a40bcd8 100644
---- a/drivers/iommu/iommu-priv.h
-+++ b/drivers/iommu/iommu-priv.h
-@@ -71,11 +71,18 @@ int iommu_replace_device_pasid(struct iommu_domain *domain,
- 
- void __iommu_debug_map(struct iommu_domain *domain, phys_addr_t phys,
- 		       size_t size);
-+void __iommu_debug_unmap_phys(struct iommu_domain *domain, phys_addr_t phys,
-+			      size_t size);
- void __iommu_debug_unmap_begin(struct iommu_domain *domain,
- 			       unsigned long iova, size_t size);
- void __iommu_debug_unmap_end(struct iommu_domain *domain,
- 			     unsigned long iova, size_t size, size_t unmapped);
- 
-+static inline bool iommu_debug_pagealloc_enabled(void)
-+{
-+	return static_branch_unlikely(&iommu_debug_initialized);
-+}
-+
- static inline void iommu_debug_map(struct iommu_domain *domain,
- 				   phys_addr_t phys, size_t size)
- {
-@@ -83,6 +90,13 @@ static inline void iommu_debug_map(struct iommu_domain *domain,
- 		__iommu_debug_map(domain, phys, size);
- }
- 
-+static inline void iommu_debug_unmap_phys(struct iommu_domain *domain,
-+					  phys_addr_t phys, size_t size)
-+{
-+	if (static_branch_unlikely(&iommu_debug_initialized))
-+		__iommu_debug_unmap_phys(domain, phys, size);
-+}
-+
- static inline void iommu_debug_unmap_begin(struct iommu_domain *domain,
- 					   unsigned long iova, size_t size)
- {
-@@ -101,11 +115,21 @@ static inline void iommu_debug_unmap_end(struct iommu_domain *domain,
- void iommu_debug_init(void);
- 
- #else
-+static inline bool iommu_debug_pagealloc_enabled(void)
-+{
-+	return false;
-+}
-+
- static inline void iommu_debug_map(struct iommu_domain *domain,
- 				   phys_addr_t phys, size_t size)
- {
- }
- 
-+static inline void iommu_debug_unmap_phys(struct iommu_domain *domain,
-+					  phys_addr_t phys, size_t size)
-+{
-+}
-+
- static inline void iommu_debug_unmap_begin(struct iommu_domain *domain,
- 					   unsigned long iova, size_t size)
- {
--- 
-2.43.5
+And then you can have a safe function abstracting the call and use
+that from the different places you may need in Rust (e.g. from
+`Secret` and `Aes128`).
 
+Thanks!
+
+Cheers,
+Miguel
