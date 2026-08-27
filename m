@@ -1,134 +1,173 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B5674B04AE;
-	Thu, 27 Aug 2026 18:23:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE585490C1D
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:24:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787855039; cv=none; b=svBxPwPTykk4MFMPOJKZLHu/mWq1yVQWmXxesMFFbPMQIOUKACJCOdEpaaNjw3sAHMtyHIoYYyn8/PxucSkYroTGJlbBjxhgi33lY8JXjhXOWi8K9Kn28vqNzAfwzi9AYtwneFegaSAmrFpU9eYFRWGPk9YLIH1nYWq8WpI1Jho=
+	t=1787855066; cv=none; b=MjUeUDsNNx6+u3c/YmTKF/puZtccegSMTNhR3fy8u1YiBIuNLc2d28+ojAq9RxORhlSjKCFhCSZdCKQDWzUEHWcYR1T0S8FIwBV6JqhdEnNgaYBUfSq4NYmdFvT5PAgRT6vUGCFDzKUG+2Fbntdd7jpkF8gqhQtHN5VH4Bf/viY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787855039; c=relaxed/simple;
-	bh=G/uPqElZfueOSCnwwOaTro8vtp2fBdZhLXQL2QOHKHw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MjO/qFTAtx6a82RWG4vha4tMt30UfIoO29eqU/PvQXA5I2p9Iw7Zk4LVX/OKjoyMbUb9ugBdqbokuUdG7nl+yZO5ZraimHWS32HrbFY+4EsahCh+XaHTWOSMKUzV+E1/W0ApJc1GLTq5LKof0HOeMTPW85K/A2zeaas3v7SdsF4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=rQUtyokI; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1787855066; c=relaxed/simple;
+	bh=N+HME9gmkABqcfsCnfcJksdZdUfnL13kr9cVHm3wFW8=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=WfaPyPL6P58+xyhFhJVtHjhzqFPx2s16inBWP7Vr30ldMJbJPqpV0lcBXBROwaML/QxAXw2H6b/g6wLJgyvX1qvsoggJNjq3QNgfvjPsDC6emHIdOSFYClP0yiAxkteDjKRTqIfxg6FwUFEgTeCXNxeUKb8QEXwoGiTs5J3nU98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=eP0nPvvl; arc=none smtp.client-ip=209.85.215.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="rQUtyokI"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Subject:Date:From:From:Reply-To;
-	bh=HO/5xE4JJZ1CCxn8HlprPB8vAIdq2WQK98oz1e8eTqk=; b=rQUtyokI1+jdIsJPy83y+Fg5Yl
-	Ykdlki6QcbiItfEuyFBe3MFOrNjpg8SmMHtqy4n3rHT/GB4Uf7zlPQQR9G8V2QeLoyzLECF2IpJJ5
-	TAaVZHOwz/Qd4UaT2u8Aeu6HxDfwc75H7UoQvHAhGlYsrdRPSIW1puQRu4jtrPBRwMT08rrdVUJ6D
-	TUA5o5K55J2OqHiH/yl37NoHMarjazIsWehaEVEWW1UOC7aRIAZqA2M+V0ErctgEAGXtGq1JpIvSd
-	84AxqBF9/cOrr/+t4sTQyffhDB9N/s4TH+T72yXmv+Oe2hTrJfPfe9BDjLxGEuMamETTdAPBgdPhU
-	aukUHCsw==;
-Received: from [187.57.78.212] (helo=[192.168.15.100])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1wzelM-00AOUg-Bn; Thu, 27 Aug 2026 20:23:44 +0200
-From: =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
-Date: Thu, 27 Aug 2026 15:23:04 -0300
-Subject: [PATCH v5 5/6] prctl: Add support for long user thread names
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="eP0nPvvl"
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc15155cde2so257025a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:24:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787855064; x=1788459864; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=6/8YxsptArxsqe20APqYOKDcCwiyYD2cPc64l8S4VRw=;
+        b=eP0nPvvlqCaHLN7cnxgcNlC1U2Ev+ZNlP7xDMVpRaCURxUGrQYHtdQ+SX5wnGFvUFH
+         HglBoR3UIYAxcIxbgoNeiM77ZtvkIl5vtKSZRYAy2jpVBUxMXC0B8M8Pewk9d+F/MWRJ
+         eZs3lqjRmSsVOHTjTIb9/W2xYwos82CSWg9MA9+/HJIfmJ6IeaMBwfs8hoJNyxmnc3XU
+         oLUYZO78/4RfBP66TgWVzQXTFJHiYoAxVH0omPjpEwOCSIhq6OPxUqrD9DbBryr5UphS
+         iERQ14bMuhXnw+cdgOpZN1ApDl8y/BlJXmF0MGw4Teci+JGd2/QyhJcf6CNIyM5PguIS
+         5LHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787855064; x=1788459864;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6/8YxsptArxsqe20APqYOKDcCwiyYD2cPc64l8S4VRw=;
+        b=rli5NlFwAPwpDpXzc26sAWsF8GGHF2e6vTepSs35hiUXCwq5HykS44KmB/FJssjL6O
+         q17QYd3QATNRothavr6UEHL8usnIC+1LbvkEoOuxO6MdTl97imotFNfGcXDPbPTWsd1M
+         hdkP3nI5MirYF06jWUBVdkgE4Vzb1ucsU4xW4mGFU6JMDC8Uenn6nDOQvPxr8ZOYQ27o
+         VXYjuCyM1gjvjDAgs8ajwa93gXBGJqJn0gM3+jqbiYCVYEwEV7htextYn36Jhri4ubZg
+         KxW7dIvMlCnc53yTMST1Qw+3TIVqNbavtf/tlLbGTc5IaJ6mkl/A0+jIexC94fgXW7YC
+         RaFw==
+X-Forwarded-Encrypted: i=1; AHgh+Rr0QWg6oAPxNvdRCjQMZjn48kSZDIEZQG9ysSPl3sf89DBzAxQTWH0tLMeT9SIli2p7XAAZ2kzuOQ3FgEc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mzcCtzSjaPddVyoF2xC6qKTwPpL647eJsgM8RuTGUFrEahHRjs
+	twchmIkdetEbZkakt/HNzxtXA/3Yuacv8XFR6TqczYjZzlb5shAina3tzNjMebqZct7Li0CxNgA
+	NiyMx8Q==
+X-Received: from pgcp11.prod.google.com ([2002:a63:740b:0:b0:cbe:9dc7:9eec])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:939b:b0:3d1:af47:5f80
+ with SMTP id adf61e73a8af0-3d26784f3ebmr1963897637.11.1787855063860; Thu, 27
+ Aug 2026 11:24:23 -0700 (PDT)
+Date: Thu, 27 Aug 2026 11:24:23 -0700
+In-Reply-To: <CAO9r8zPtriVwkVqmvRDv5mQ8HmvOp=NrXdJvjRuog6FY_S1DRQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+References: <20260826211844.884951-1-seanjc@google.com> <20260826211844.884951-2-seanjc@google.com>
+ <CAO9r8zMnPwXVf6wx_gDMzv4j47xWa7idLD+vVm9DUiB=huiLaw@mail.gmail.com>
+ <apA9eLuaMxCLdCmn@google.com> <CAO9r8zNm1QcVh29rTCzAFnYdUCS4y8ZSQOvrs2DD18XASuktoQ@mail.gmail.com>
+ <apB1A5Ln_lGTI4oy@google.com> <CAO9r8zPtriVwkVqmvRDv5mQ8HmvOp=NrXdJvjRuog6FY_S1DRQ@mail.gmail.com>
+Message-ID: <apCA17CwdWTriJxf@google.com>
+Subject: Re: [PATCH 1/4] KVM: nSVM: Reject KVM_SET_NESTED_STATE if L1 has
+ EFER.LMA=1 && EFER.LME=0
+From: Sean Christopherson <seanjc@google.com>
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Stefan Teodorescu <fane@google.com>
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260827-tonyk-long_name-v5-5-5fa843782a00@igalia.com>
-References: <20260827-tonyk-long_name-v5-0-5fa843782a00@igalia.com>
-In-Reply-To: <20260827-tonyk-long_name-v5-0-5fa843782a00@igalia.com>
-To: Peter Zijlstra <peterz@infradead.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Steven Rostedt <rostedt@goodmis.org>, 
- Christian Brauner <brauner@kernel.org>, Kees Cook <kees@kernel.org>, 
- Shuah Khan <shuah@kernel.org>, willy@infradead.org, 
- mathieu.desnoyers@efficios.com, David Laight <david.laight.linux@gmail.com>, 
- Linus Torvalds <torvalds@linux-foundation.org>, akpm@linux-foundation.org, 
- Yafang Shao <laoar.shao@gmail.com>, andrii.nakryiko@gmail.com, 
- arnaldo.melo@gmail.com, Petr Mladek <pmladek@suse.com>
-Cc: linux-kernel@vger.kernel.org, kernel-dev@igalia.com, linux-mm@kvack.org, 
- linux-api@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
- =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: quoted-printable
 
-Add support for getting and setting long user thread names with
-PR_{SET,GET}_EXT_NAME.
+On Thu, Aug 27, 2026, Yosry Ahmed wrote:
+> On Thu, Aug 27, 2026 at 10:33=E2=80=AFAM Sean Christopherson <seanjc@goog=
+le.com> wrote:
+> > > Oh yeah you're right, for some reason I thought it was paging not
+> > > protected mode. Well then, it seems like
+> > > nested_svm_check_permissions() is also incorrectly checking paging as
+> > > well, seems like both checks are incorrect? Also, I don't see anythin=
+g
+> > > in the APM about checking RFLAGS.VM before VMRUN.
+> >
+> > Presumably it's covered by the !PROTECTED_MODE clause.
+> >
+> >   IF ((MSR_EFER.SVME =3D=3D 0) || (!PROTECTED_MODE))  // This instructi=
+on can only be executed in protected
+> >     EXCEPTION [#UD]                               // mode with SVM enab=
+led
+> >
+> > Section "1.3.4 Legacy Modes" describes "Protected Mode" and "Virtual-80=
+86 Mode"
+> > as separate submodes.  And the tables for most instructions differentia=
+te between
+> > Real, Virtual 8086, and Protected modes when enumerating exceptions.
+> >
+> > The APM weasels around 64-bit mode by also saying "Before enabling and =
+activating
+> > long mode, system software must first enable protected mode".  E.g. the=
+ table for
+> > SYSENTER describes the #UD due to "This instruction is not recognized i=
+n long mode"
+> > as scenario that's unique to Protected Mode.
+> >
+> > Stating the obvious, it would be lovely if the APM explicitly stated wh=
+at the
+> > exact checks are, though that's about as likely as AMD gifting me a pon=
+y.
+> >
+> > FWIW, if that reading is wrong (though I'm pretty sure it's not), then =
+the only
+> > issue is that KVM is synthesizing #UD instead of #GP, because Virtual 8=
+086 always
+> > runs at CPL=3D3.
+> >
+> >   IF (CPL !=3D 0)                                   // This instruction=
+ is only allowed at CPL 0
+> >     EXCEPTION [#GP]
+>=20
+> I see, thanks for digging this up. Either way I think we want to keep
+> things consistent between here and nested_svm_check_permissions().
 
-Signed-off-by: André Almeida <andrealmeid@igalia.com>
----
- include/linux/sched.h      |  2 +-
- include/uapi/linux/prctl.h |  3 +++
- kernel/sys.c               | 15 ++++++++++++++-
- 3 files changed, 18 insertions(+), 2 deletions(-)
+Yes, for sure.  nested_svm_check_permissions() is... odd.
 
-diff --git a/include/linux/sched.h b/include/linux/sched.h
-index c41d61e9babf..4f2cd802f172 100644
---- a/include/linux/sched.h
-+++ b/include/linux/sched.h
-@@ -2032,7 +2032,7 @@ extern void kick_process(struct task_struct *tsk);
- 
- extern void __set_task_comm(struct task_struct *tsk, const char *from, bool exec);
- #define set_task_comm(tsk, from) ({			\
--	BUILD_BUG_ON(sizeof(from) != TASK_COMM_LEN);	\
-+	BUILD_BUG_ON(sizeof(from) < TASK_COMM_LEN);	\
- 	__set_task_comm(tsk, from, false);		\
- })
- 
-diff --git a/include/uapi/linux/prctl.h b/include/uapi/linux/prctl.h
-index b6ec6f693719..a07f8edadd65 100644
---- a/include/uapi/linux/prctl.h
-+++ b/include/uapi/linux/prctl.h
-@@ -56,6 +56,9 @@
- #define PR_SET_NAME    15		/* Set process name */
- #define PR_GET_NAME    16		/* Get process name */
- 
-+#define PR_SET_EXT_NAME    17		/* Set extended process name */
-+#define PR_GET_EXT_NAME    18		/* Get extended process name */
-+
- /* Get/set process endian */
- #define PR_GET_ENDIAN	19
- #define PR_SET_ENDIAN	20
-diff --git a/kernel/sys.c b/kernel/sys.c
-index 5ebd3c1dfddf..4caf6ef836f1 100644
---- a/kernel/sys.c
-+++ b/kernel/sys.c
-@@ -2535,7 +2535,7 @@ SYSCALL_DEFINE5(prctl, int, option, unsigned long, arg2, unsigned long, arg3,
- 		unsigned long, arg4, unsigned long, arg5)
- {
- 	struct task_struct *me = current;
--	unsigned char comm[TASK_COMM_LEN];
-+	unsigned char comm[TASK_COMM_EXT_LEN];
- 	long error;
- 
- 	error = security_task_prctl(option, arg2, arg3, arg4, arg5);
-@@ -2613,6 +2613,19 @@ SYSCALL_DEFINE5(prctl, int, option, unsigned long, arg2, unsigned long, arg3,
- 		if (copy_to_user((char __user *)arg2, comm, TASK_COMM_LEN))
- 			return -EFAULT;
- 		break;
-+	case PR_SET_EXT_NAME:
-+		comm[TASK_COMM_EXT_LEN - 1] = 0;
-+		if (strncpy_from_user(comm, (char __user *)arg2,
-+				      TASK_COMM_EXT_LEN - 1) < 0)
-+			return -EFAULT;
-+		set_task_comm(me, comm);
-+		proc_comm_connector(me);
-+		break;
-+	case PR_GET_EXT_NAME:
-+		strscpy_pad(comm, me->comm, TASK_COMM_EXT_LEN);
-+		if (copy_to_user((char __user *)arg2, comm, TASK_COMM_EXT_LEN))
-+			return -EFAULT;
-+		break;
- 	case PR_GET_ENDIAN:
- 		error = GET_ENDIAN(me, arg2);
- 		break;
+> We probably want a CPL check here,
 
--- 
-2.55.0
+Yes?  Though FWIW, that risks breaking userspace because currently KVM comp=
+letely
+ignores save.cpl and forces it to '0' in svm_copy_vmrun_state().  I mean, t=
+his
+change also risks breaking userspace, but at least in this case there's a v=
+ery
+good reason for doing so.  But I'm certainly not against trying to provide =
+sanity.
 
+> and it would be a superset of X86_EFLAGS_VM as you mentioned.=20
+
+It might not be?  Both CPL and VM8086 are bizarre, I wouldn't be surprised =
+if
+save.cpl could be '0' with VM8086 active.  E.g. on Intel, there is no expli=
+cit
+CPL, it's derived from SS.DPL (because CPL isn't actualy its own thing with=
+out
+virtualization, it's indeed a reflection of state).
+
+P.S. vmx->rmode.vm86_active doesn't track that the guest is in VM8086, it t=
+racks
+     that KVM has put the vCPU into VM8086 in order to emulate Real Mode, w=
+hich
+     is why __vmx_get_cpl() returns '0', not '3'.
+
+  static int __vmx_get_cpl(struct kvm_vcpu *vcpu, bool no_cache)
+  {
+	struct vcpu_vmx *vmx =3D to_vmx(vcpu);
+	int ar;
+
+	if (unlikely(vmx->rmode.vm86_active))
+		return 0;
+
+  }
+
+> We probably wanna drop the CR0.PG check from both places, and add an expl=
+icit
+> X86_EFLAGS_VM check in nested_svm_check_permissions() to #UD instead of #=
+GP?
+
+And add a CR0.PE check.  But to get it "right", we'll probably need to chec=
+k
+against real hardware, so practically speaking, I don't expect anyone to ta=
+ckle
+this anytime soon.
