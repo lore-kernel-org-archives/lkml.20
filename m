@@ -1,189 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDE4835C6B9;
-	Thu, 27 Aug 2026 07:11:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B89D335AC2C
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:12:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787814692; cv=none; b=NZ964/B710+Xyr5CT+FKQG4ZfMX42pu/rOWuIYLVKfgYe+lqDACankKXjbFsodLBS+a+v6v7oaPyRK6QF+5yM+xichwGxAr98EwF2ZGVuq4iwhP0HSG06zTAawgxBylAMyjWBE0wkaqdse7EbRz+x9pU9S85Dns9NgmWwcH3qqg=
+	t=1787814759; cv=none; b=Lo2Cs7PS8wn2kQ0rwraTNxIv9b9HBTsv47MQrd5nQVvN2Cflqd87Btb1stOeDDyxW+z8hG5lINzemTRZ/UGhNmICUhTxLp8BsdiV0O8WGIucHGXmIPyEAZyQ9BgmKFoWJRUwQiTZ1g8/z4uT1QGZO58uryPyGPscU6+cteQ2aLE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787814692; c=relaxed/simple;
-	bh=9psfMD2rBk9v5ZTKw0YTKJVLADHqnogUqFIO1Uu+XPI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=iqs1u+a7ic4My+wmfJlLNz2rqQd7iGMtIPa/ys4VLHVP4h6T60mBScSllb3Hrlck4h9jhBsxVbZ2MEC3ZJdz72EXqUq1tYIlgWi0q+xeLI4h5YpF8EEqswrZvT8HoMPqKVYV0SXKAkQFpare8L6v5uaee13KHaDXc8/daBtor6U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MoJ7PZhJ; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1787814759; c=relaxed/simple;
+	bh=+M2lq8eXiQpWBpa+2ZtEAztL2BJXiQ6mAIcL7vywVEI=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=tTLX/1ha7mM3a4feEDTVwbaUFQCUTB04vQsBdUtdR6QRvfDea92pBoVNjYxYmZMePCaU/GFPKXLEK0TQVHff9/1iOFwrg6JN/gSaWskF92zQqQlOfIlL95C1tyljBSJ7uFhW8Egp86xwAEJbMsPrVMe3QF1e9LRbQ2QgBqg+nmE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RYcBYR09; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=fxJgXgBK; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MoJ7PZhJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 55020C2BCF5;
-	Thu, 27 Aug 2026 07:11:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1787814692;
-	bh=9psfMD2rBk9v5ZTKw0YTKJVLADHqnogUqFIO1Uu+XPI=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=MoJ7PZhJeBM40solemJKt1oEugmCIcQXQLpcbdkyE1AV/TtBln16i9BGkRJm5I2sO
-	 SYqUswqT+72BbamOz8BGRE8M6mE7NDF3j22QmZ+ew9kMArUsRTwnu23GNZPk7GIGes
-	 dXMKQ320u/+wZsXRsV8RXyf84pENe/4vR73ZBxJ6Hb8ze9w7oLuej7CahQcF5+3WLT
-	 9lVDVGukg2DIGtVDt77XTijf5hhbxjdmC7NfvgLfC1TZfwGXMqOSRZdkCQhQOXDnVb
-	 FY2R4fkoG4GvlYzXUwE4wOEgxeqXxoDHECMl6CoEmdqMGz2E7+oyafUA435qzsVdQu
-	 t8BSwhy7tSfOA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3E99CC61DB9;
-	Thu, 27 Aug 2026 07:11:32 +0000 (UTC)
-From: Johnathan Browall via B4 Relay <devnull+johnathan.browall.topgolf.com@kernel.org>
-Date: Thu, 27 Aug 2026 09:11:25 +0200
-Subject: [PATCH net] bnxt_en: avoid redundant RX mask updates in UC
- overflow state
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RYcBYR09";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="fxJgXgBK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787814756;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zKar+nG5lsoxvqM8uItXzpn6DuwsTlDLsEfEBv9+YYg=;
+	b=RYcBYR09E9TwNgzXvewl9SHws5XQr+RsMJGyMXfdOEiDF7+YU3iT4zoBBgrpGZcHI8WtmJ
+	FKUnbe7zhqfZkAPZlgwH8meS7ct6Z2gngJ95AwsNIe7HtMe5PP5yrwIbSl2hZ84Z5zBnY+
+	cFbwgTwZDdas+sWNybtIvohyTZUEzVY=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-670-X_tiWG1bPY2UWEfdTNpNJg-1; Thu, 27 Aug 2026 03:12:34 -0400
+X-MC-Unique: X_tiWG1bPY2UWEfdTNpNJg-1
+X-Mimecast-MFC-AGG-ID: X_tiWG1bPY2UWEfdTNpNJg_1787814753
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49808ea1b64so4821045e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:12:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1787814753; x=1788419553; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zKar+nG5lsoxvqM8uItXzpn6DuwsTlDLsEfEBv9+YYg=;
+        b=fxJgXgBK2nrilfCan+XEljyJ/15SZXqzCeLYosrRmwT2z4K5GfDA40FHMEcuwaIk9f
+         Tu8C2mUXVRPz0GVJhJGRutjOWqX6qHz6nRmPxzagHSy+FteLeiS1L6YY+YOS9tIBdRWA
+         pIatOwxueE0nCvtxV8vJlAGEjoM18lCajB6YXdljP/CQoJQ/yHs9tED4zlD67mMNWYiU
+         SX72N1zw5EZH9HLJcYi/n3AYIkzIYs7y/vxMA2RpFLpqrZUjl1kEsGH71XuadqovB+ZK
+         wU8oCLNh6bSgV4K55NldlHjxDaVHr0Lt8Fw32Jmy6ELoh3qYutHdvoqFlBVXE998ddlH
+         Aj1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787814753; x=1788419553;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zKar+nG5lsoxvqM8uItXzpn6DuwsTlDLsEfEBv9+YYg=;
+        b=KLR5a5C01AksySHrQQZvEIcUkwi7QR06TtgLSx4WNFH7FOm/LK6Vn5UZDOCGjduGGk
+         2BXYFF0A8ZKxCGgxUL2AbAKOaRvrswG8DJseo7oe7zjCEg11Vi78Q4PFEcN9Qqd5Uto8
+         3HA6s+8JlJe+CsQ401y6QttHLoS5bRKZhSNrZXJ6URojgqKiXIOoSNGE2u1blYfoDxD0
+         Lv3agQdxFopEgZv/TLOJZh7Cl1N8V+mUsotYKCPsd40TqZAxppe4hOy5GruqOaNSiRRN
+         Vp3enB3+N5JHQZPHFBCb59AFzewqcuQ6xlsl/kFq7WbaKS3yOfoCSs5f1I6fa/Xih6O7
+         UF9w==
+X-Forwarded-Encrypted: i=1; AHgh+Rof4rIAAmuKLXoiUSnqccbTzlx5Ii5JKMCYkx9a/N3rQxKr9DORNP+Dl2oo4MgphhM4B/3BZ2I1z7xmCBw=@vger.kernel.org
+X-Gm-Message-State: AFuF++l0xD7F8/SIjjf9U1aaGV7P+8blsouktG6VYM+onq6vHjXIwop6
+	PUHR/5ZwMiib7UzGqT8Boi+NMiQd+aSNFUUpCMYzegtIQ/nFpJAWyJkHSZh1LPY1/UL0h06yxVN
+	gOhgK0D7iLJhZSbEzd7TfFTuU+lTpzYIYymq1ZYUPuRTdOA0cFDkxCnAV5oQmvhxAbw==
+X-Gm-Gg: AR+sD13csZ3RKOVEmxsbLhPx4V2TXOgjmFbG8vaCJGRNMCGPjyu70lVKqclPYQTq/b8
+	7a+5gl1xXkCZQuLjhlCkZNpqng9m0+u+H9Nyvo+y3R8STarRjEuq1bkvEIUCAC7nf+H8YrdUThf
+	HEd4SAVsk4ToeBkDWm9/vAPWpBdgRUe5/eTht4IoNbWlGmCLA+c9diXaQ8NLHMevwef/kzjqXz+
+	DA/YE76uIWqneMVLGnoThakXK+aZkJ02OpYibOwPr4ks9SFdqUQAGDrqSu9B8XqvomIs6xkLapx
+	mvoHPtyv6IZUDGUJ3JVzQ99ugQklJ9L4pu2sxCS6qCptfGZ7Zyzmonb0q7fRcyfn/d9kPCcp0Vc
+	=
+X-Received: by 2002:a05:600c:3b25:b0:493:f783:c46a with SMTP id 5b1f17b1804b1-49b0dfcd4c2mr41981095e9.6.1787814752599;
+        Thu, 27 Aug 2026 00:12:32 -0700 (PDT)
+X-Received: by 2002:a05:600c:3b25:b0:493:f783:c46a with SMTP id 5b1f17b1804b1-49b0dfcd4c2mr41978785e9.6.1787814751222;
+        Thu, 27 Aug 2026 00:12:31 -0700 (PDT)
+Received: from 172.16.32.78 ([95.12.116.85])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b465226d8sm29209475e9.0.2026.08.27.00.12.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 00:12:30 -0700 (PDT)
+From: Vitaly Kuznetsov <vkuznets@redhat.com>
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini
+ <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, Stefan Teodorescu
+ <fane@google.com>
+Subject: Re: [PATCH] KVM: x86: Zero reserved synic flags when delivering
+ message to avoid stack leak
+In-Reply-To: <20260826184449.814130-1-seanjc@google.com>
+References: <20260826184449.814130-1-seanjc@google.com>
+Date: Thu, 27 Aug 2026 09:12:29 +0200
+Message-ID: <874iggnijm.fsf@172.16.32.78>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260827-bnxt-uc-overflow-v1-1-f20d48864fe9@topgolf.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMywrCMBBFf6XctQM1Yij+irhw4qSdUhJJ0geU/
- rtRl+deztmRJalk3JodSRbNGkOF86mBG56hF9JXZZjW2LYzljhshWZHcZHkp7iSv/C1q4+xzKj
- aO4nX7Ze8I0jB4z/mmUdx5RvDcXwAl7BU2HkAAAA=
-X-Change-ID: 20260826-bnxt-uc-overflow-f3b5882626bb
-To: Michael Chan <michael.chan@broadcom.com>, 
- Pavan Chebbi <pavan.chebbi@broadcom.com>, netdev@vger.kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- =?utf-8?q?Pontus_H=C3=A5llstedt?= <pontus.hallstedt@topgolf.com>, 
- Johnathan Browall <johnathan.browall@topgolf.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787814691; l=5499;
- i=johnathan.browall@topgolf.com; s=20260826; h=from:subject:message-id;
- bh=4U2myiO1oDFh7prFk52MM8vNlU4NypZBLmBkndBL97o=;
- b=0KlDHFG7dkd488T0jnp+ZyUQ2EuxyAZh34SuX9VDDNs+oAZAjWPvl4WKWB7k5rD9mj0sbtNdp
- ahyVEujONtsBRlkZBP9x50fbZFmTQSSafnBfORH33KLacWMmLTM5tmZ
-X-Developer-Key: i=johnathan.browall@topgolf.com; a=ed25519;
- pk=w6Hvfd81SFSs3dF3Kpe2Y17SpDtiKU3eXu0RdWOCnZk=
-X-Endpoint-Received: by B4 Relay for johnathan.browall@topgolf.com/20260826
- with auth_id=976
-X-Original-From: Johnathan Browall <johnathan.browall@topgolf.com>
-Reply-To: johnathan.browall@topgolf.com
+Content-Type: text/plain
 
-From: Johnathan Browall <johnathan.browall@topgolf.com>
+Sean Christopherson <seanjc@google.com> writes:
 
-bnxt_cfg_rx_mode() stops programming individual L2 filters and turns
-on the promiscuous bit in the VNIC rx mask when the interface has more
-unicast addresses than the hardware has filter slots
-(BNXT_MAX_UC_ADDRS).  The driver state never becomes consistent after
-that: vnic->uc_filter_count stays at 1, so bnxt_uc_list_updated()
-keeps reporting the UC list as changed on every rx-mode callback, and
-bnxt_set_rx_mode() removes the promiscuous bit from the mask it
-computes (it only re-adds it for IFF_PROMISC), so the mask comparison
-also fails every time.
+> Ensure all reserved flags are zeroed when setting the msg_pending flag as
+> part of SynIC message delivery, as setting only msg_pending can leak seven
+> bits of kernel stack data to the guest.  E.g. gcc typically uses a
+> bitwise-OR to set the msg_pending flag, without initializing the on-stack
+> variable.
+>
+> Precisely zero the flags, e.g. as opposed to zeroing the entire structure,
+> to make it somewhat more obvious that the flags *need* to be zeroed.  E.g.
+> it would be quite easy to misread the initial read of guest memory and
+> think that zeroing the entire structure is completely superfluous.
+>
+> Fixes: 3a0e7731724f ("x86: kvm: hyperv: simplify SynIC message delivery")
+> Cc: stable@vger.kernel.org
+> Reported-by: Stefan Teodorescu <fane@google.com>
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> ---
+>  arch/x86/kvm/hyperv.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/arch/x86/kvm/hyperv.c b/arch/x86/kvm/hyperv.c
+> index 604651cb2739..8d2669d8ef34 100644
+> --- a/arch/x86/kvm/hyperv.c
+> +++ b/arch/x86/kvm/hyperv.c
+> @@ -802,7 +802,9 @@ static int synic_deliver_msg(struct kvm_vcpu_hv_synic *synic, u32 sint,
+>  		if (no_retry)
+>  			return 0;
+>  
+> +		hv_hdr.message_flags.asu8 = 0;
+>  		hv_hdr.message_flags.msg_pending = 1;
+> +
+>  		r = kvm_vcpu_write_guest_page(vcpu, msg_page_gfn,
+>  					      &hv_hdr.message_flags,
+>  					      msg_off +
+>
+> base-commit: 76671054f9a1ff6abb976583cd8da37650acdc97
 
-As a consequence, every rx-mode callback resends the same
-HWRM_CFA_L2_SET_RX_MASK to the firmware, including for requests that
-change nothing, such as setting a link flag to the value it already
-has, or a macvlan going up or down.  That would only cost an
-unnecessary firmware call if SET_RX_MASK processing did not affect
-traffic, but on BCM57416 and BCM57504 (firmware 23.3 and 23.6) it
-does: each invocation causes a short interval in which incoming
-unicast traffic is dropped.  We observed this in production as
-sequence gaps in GigE Vision camera streams on a PF carrying 19
-secondary unicast addresses, with HWRM tracing showing a SET_RX_MASK
-(and no filter alloc/free) for every repeated "ip link set ... arp on"
-that changed nothing.
+Reviewed-by: Vitaly Kuznetsov <vkuznets@redhat.com>
 
-Fix it by recording the overflow state in a new vnic flag.  While the
-flag is set, the UC list is only treated as updated once it has shrunk
-enough to fit the available filters (the content of the list does not
-matter while all unicast is accepted through promiscuous mode), and
-bnxt_set_rx_mode() keeps the promiscuous bit in the mask, subject to
-the same bnxt_promisc_ok() check that bnxt_cfg_rx_mode() applies.
-bnxt_cfg_rx_mode() sets the flag when the list does not fit and clears
-it, together with the promiscuous bit, when the list fits again.
+(although, I kind of like the idea of zeroing the whole structure with a
+comment that we don't read it as a whole from guest's memory too)
 
-An unchanged rx mode no longer causes any firmware call, and neither do
-UC list changes that stay above the limit.  Crossing the limit and
-real changes to the flags or the MC list are programmed as before.
-
-Tested with the equivalent patch on 6.12.y on BCM57416: the repeated
-SET_RX_MASK invocations no longer occur and the receive disruption is
-no longer reproducible.
-
-Fixes: c0c050c58d84 ("bnxt_en: New Broadcom ethernet driver.")
-Cc: stable@vger.kernel.org
-Co-developed-by: Pontus Hållstedt <pontus.hallstedt@topgolf.com>
-Signed-off-by: Pontus Hållstedt <pontus.hallstedt@topgolf.com>
-Signed-off-by: Johnathan Browall <johnathan.browall@topgolf.com>
----
- drivers/net/ethernet/broadcom/bnxt/bnxt.c | 21 +++++++++++++++++++++
- drivers/net/ethernet/broadcom/bnxt/bnxt.h |  1 +
- 2 files changed, 22 insertions(+)
-
-diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-index 9c2cc5027..4805ee63e 100644
---- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-+++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-@@ -13791,6 +13791,16 @@ static bool bnxt_uc_list_updated(struct bnxt *bp,
- 	struct netdev_hw_addr *ha;
- 	int off = 0;
- 
-+	/* In the overflow state all unicast is accepted through the
-+	 * promiscuous RX mask and no secondary L2 filters are in use,
-+	 * so the list only needs reprogramming once it fits the
-+	 * available filters again.  Reporting an update here would
-+	 * resend an identical SET_RX_MASK on every callback, which
-+	 * causes brief RX packet loss on some chips.
-+	 */
-+	if (vnic->flags & BNXT_VNIC_UC_PROMISC_FLAG)
-+		return netdev_hw_addr_list_count(uc) <= (BNXT_MAX_UC_ADDRS - 1);
-+
- 	if (netdev_hw_addr_list_count(uc) != (vnic->uc_filter_count - 1))
- 		return true;
- 
-@@ -13826,6 +13836,13 @@ static int bnxt_set_rx_mode(struct net_device *dev,
- 	if (dev->flags & IFF_PROMISC)
- 		mask |= CFA_L2_SET_RX_MASK_REQ_MASK_PROMISCUOUS;
- 
-+	/* Keep the promiscuous bit while the UC list is longer than the
-+	 * available L2 filters, so that an unchanged rx mode is not
-+	 * treated as a mask change.
-+	 */
-+	if ((vnic->flags & BNXT_VNIC_UC_PROMISC_FLAG) && bnxt_promisc_ok(bp))
-+		mask |= CFA_L2_SET_RX_MASK_REQ_MASK_PROMISCUOUS;
-+
- 	uc_update = bnxt_uc_list_updated(bp, uc);
- 
- 	if (dev->flags & IFF_BROADCAST)
-@@ -13869,7 +13886,11 @@ static int bnxt_cfg_rx_mode(struct bnxt *bp, struct netdev_hw_addr_list *uc,
- 	netif_addr_lock_bh(dev);
- 	if (netdev_hw_addr_list_count(uc) > (BNXT_MAX_UC_ADDRS - 1)) {
- 		vnic->rx_mask |= CFA_L2_SET_RX_MASK_REQ_MASK_PROMISCUOUS;
-+		vnic->flags |= BNXT_VNIC_UC_PROMISC_FLAG;
- 	} else {
-+		vnic->flags &= ~BNXT_VNIC_UC_PROMISC_FLAG;
-+		if (!(dev->flags & IFF_PROMISC))
-+			vnic->rx_mask &= ~CFA_L2_SET_RX_MASK_REQ_MASK_PROMISCUOUS;
- 		netdev_hw_addr_list_for_each(ha, uc) {
- 			memcpy(vnic->uc_list + off, ha->addr, ETH_ALEN);
- 			off += ETH_ALEN;
-diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.h b/drivers/net/ethernet/broadcom/bnxt/bnxt.h
-index ab894f8ad..53ad39f44 100644
---- a/drivers/net/ethernet/broadcom/bnxt/bnxt.h
-+++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.h
-@@ -1332,6 +1332,7 @@ struct bnxt_vnic_info {
- #define BNXT_VNIC_RFS_NEW_RSS_FLAG	0x10
- #define BNXT_VNIC_NTUPLE_FLAG		0x20
- #define BNXT_VNIC_RSSCTX_FLAG		0x40
-+#define BNXT_VNIC_UC_PROMISC_FLAG	0x80
- 	struct ethtool_rxfh_context *rss_ctx;
- 	u32		vnic_id;
- 	u16		default_rx_ring;
-
----
-base-commit: f967455fb2a5a2079b9eb5823e9ccf359174bf9f
-change-id: 20260826-bnxt-uc-overflow-f3b5882626bb
-
-Best regards,
---  
-Johnathan Browall <johnathan.browall@topgolf.com>
-
+-- 
+Vitaly
 
