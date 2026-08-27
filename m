@@ -1,47 +1,47 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012048.outbound.protection.outlook.com [52.101.66.48])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011061.outbound.protection.outlook.com [52.101.70.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D00D23C4F3;
-	Thu, 27 Aug 2026 07:24:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49F5313790B;
+	Thu, 27 Aug 2026 07:24:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.61
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787815457; cv=fail; b=CDvuHgHNlOBUE4DZNfep6/heuUDnP8ZI0EVEobw1anVWiYEJp2lomciEkgRgjQwexWOb40PPSJC4VCpWmMg1hXnc4rLJAbyRmYevsIZiuuYf4bu3xFIXS8cC0OYwl3IK8v3AW1bRtPac++AVP0YYYHGbMCmfnx1HJDUj5BNv+CE=
+	t=1787815467; cv=fail; b=pIyYeGe8kYVf4kDLHfwrZBhZzU98+YZ1z09RoOSGIeSrscFiIpxkE2a29uA2Heb4OK23MEQrG/p/sLYjHZ/zwTxvmZtNbFSDHDqrgmJRqGXlOq1F9DcNgwsyXd5ZMfieLaYCc9vxrIp95mv1VYoq7Res6+qboLLsBy8c/AxoTGw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787815457; c=relaxed/simple;
-	bh=CbH24tSQgZD3/J7kO7ij8xOxjR/yQS4KjCu+nX4cVFE=;
+	s=arc-20240116; t=1787815467; c=relaxed/simple;
+	bh=sGn5IngRTQCVmxcTM3LxLeRGJNIr5a00p0Fx6Ww1yww=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=VAvb9VY03egqXXb9S0Q1Og0cAbSUQZ3iohXq3zYzcK7J++oyWrz1h77gK5fmvf4ocd/aW0P24sfST1AJsE48UmsTmqLw/OfyB/1BrYv78uzTV/nbIHgOarEBjBfHKBuDjPOt73v/BNPL0bnUYB2GlFxyxRGLanVLfJSd4rLOPt0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=@siemens.com header.b=QNzKNAxw; arc=fail smtp.client-ip=52.101.66.48
+	 Content-Type:MIME-Version; b=WPGfLrVNQZFf2epxIRwDr6gvNoCIWXrJMiTag4w6Xs44dFa7OqqXj2eOJnH2GRn5qRP2ubaNIXNiggpLgPKF6nGPJeH4QKbTa4UtXmC5r2GUhpaYsi2kA5Dns4JztMpxzl9cHBad29yrJiJVpG7gDYZ7mLZrZ1Udc+dKaYZhDDo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=@siemens.com header.b=lzcIW4YG; arc=fail smtp.client-ip=52.101.70.61
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siemens.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=siemens.com header.i=@siemens.com header.b="QNzKNAxw"
+	dkim=pass (2048-bit key) header.d=siemens.com header.i=@siemens.com header.b="lzcIW4YG"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RE7yIlhiG5CmL/s689I4AdTLkFeSNYRHNS+vtQtYyppJ7WN4VxvXBKYRSzZgtkYHu9iYq+OCEZAGKLmC5v6Xj32aAUS/XQo3uuBCsFxDmDwn8V8P9i7zaU/laM4bD9zrsijOZ6dvoO8OSln5VXU5ZdpvdguSxu66mklUd8WMjGPzH9oow61DycdgWTH9JcLc5HyGEH1zbypw3HQG5x6+9ThYawiRFuscTiIqAMlqBYvkmXRoJTLBoJvwfqd7yu8JjuhphxG6NaHhCvNBgvRIBsBqgWTcnoW+CftZaRTk1zeGooke7/HZha9iCiUgMZTZSoTvPloWnxfRXztBjm++DQ==
+ b=wFvuKTIamLbPx/yVj8MWdf3lUh1DUSki6VzsbZGnd2L56/cReuZC53oZkoBs81032gmCm/pYDLFLwPqGqMlPQtv55rabGwO7B6ojdIuq1CIeJAM7qFiKU7XO70u8581niOx4cX+pPWrVmYjWqqpAaJ+F65IYLZ5EbzB8yC/GAXxihqe9sRVal7rdIbfKqVntmpegF8h5SYD/7gIU9bluECfE8SeufPekRfs7unD5UVWj/iTygWh3cpLa9PDTUuQETmAdVMZuCEVOzLQGyd5xQTa4mDQm/+djg7L/bHFdoNmXFAJJRfyEuG47Ajl+JHwVfugAVP80HdlH0iyceThZAg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eBaOH7eUoOkbG0PfDgQCuWbEC5Th9YF5kltGbORhnDA=;
- b=DSTaY9SrdZCBqI8HLNqRZ+yaCG+bJ3wGJ8oXhcXXOt7mVmktsockkMjU+GVV9MbpUeZSzggvUvK+5Kz3ydPt9HWwLkRWeF+0eli0DjHuv6wXOTuGG51rjPZTO18bw6TZeqjafjAi5os+6sx/7L9id9Uaz0TTUQnm8GnyEnxmvQq3REMTKTNSmqDyQV6nyIw2rBS4/QuRG/h4KC4SqUB2u5mBUM8oqV5ZlSdq/BUeDwkZmS1E/oLhZ7qEaZ/G95AnneC/tecPclN2xynxKVtEzemr1H3zToK4+dbu9r7sX793cLQV8uhO0kG0wx/bUe+pho1a+N3bzQkbqBNI1xAc6w==
+ bh=YVqO33XpiYY0gncD8uqn39VcoiFOU/lhwjBFZ6oaQaI=;
+ b=kVkd7fxJNaI74hIa5wF0YonwIflsr4UET8ZWHLKZCsfciNTVSq3FFEL42mR3SQNZZ11DZ5DB0RlnHU7JbCXIbLWt6xP/U4US84UEkRQpVmEQHRcTlSbN/3N99CTr1ZnA0EbcLOeVKi+aG7UtnXM77KbHXlg5QiOmFbd774N8zJMnAAZg2ZTOmlMlxyQk9y2ruMA5c1O9dJhOa5Gw5OgOu56eukoe6d7MOZxRjCSFDZnQPbWA1hyZgFeGAHiS3YFZ2Co9vGKvVu58xbzuIjwGrwTPI9RjKd48syOHyzSxzsufTtbA2s1U82bcA/xb3z+BszPa0rAskIX6bELINBtiJA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=siemens.com; dmarc=pass action=none header.from=siemens.com;
  dkim=pass header.d=siemens.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siemens.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eBaOH7eUoOkbG0PfDgQCuWbEC5Th9YF5kltGbORhnDA=;
- b=QNzKNAxwTng1hT+zj/PZHF9nSnNIt3qheMnxC25819odAtzzsXFcYMEdp+6MoL9VmdR99xw9JqQu1YzGYIbXzKg40n2lyecoK8GW7rWzB97hR5hBHHx0en+yUT9jBbtm1K68jDe4DiQjp7+18x6ylcbjD1UQ3yjSMzM3C8IdGv8GJdxgwKq58Wbm0KdJZEnq25l8ps4ObN77rJwQNwIkTBgNsxAwoPTCPqlMnwz4bxD+iKLL/d0k4vdyLwnnqUbDZ8WpnB0o/LFwIuM+Xn0KKU9AstglHsXy0tUmI/zRsOttUI3jOUHIUutFRrfbuM29VeeCrkKsxIe8p6BetfxnMw==
+ bh=YVqO33XpiYY0gncD8uqn39VcoiFOU/lhwjBFZ6oaQaI=;
+ b=lzcIW4YG+KLwPaZu+d0cXcVFmxoe8ifw9uZLY22cDSmtiwKHr4nyu7K92XKGY7MCe9tWs9IYCNfsyv3GiPRlGYYM4BwSnWBK71Qo5GkufASPNiOm1kveOjsggnnYzj66J12O7gUfjHC4Zytbq+4xSaaEzUxqYUupeoOKLJmp7z2dYtDIssjguj1x0InBWk21T+xZJeMMwRLf42ynsdageGffIgqpi/uW/gGgeXQbvzg9N1oh2XQ+w09gRhelhWG1Ram5duL7O5+w+9vwCFZUFENM5VCdxwiMt91Hp5joNEXtOEm3d/N6braiHHbErgAyPJhU1zUjGWcZWFwYDTc8xA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=siemens.com;
 Received: from AM9PR10MB4992.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:3dd::5)
- by VI1PR10MB3343.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:803:13e::11) with
+ by GV1PR10MB8608.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:150:1d1::19) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
- 2026 07:24:10 +0000
+ 2026 07:24:11 +0000
 Received: from AM9PR10MB4992.EURPRD10.PROD.OUTLOOK.COM
  ([fe80::5f49:b0e9:d295:22d8]) by AM9PR10MB4992.EURPRD10.PROD.OUTLOOK.COM
  ([fe80::5f49:b0e9:d295:22d8%6]) with mapi id 15.21.0339.008; Thu, 27 Aug 2026
- 07:24:10 +0000
+ 07:24:11 +0000
 From: Tobias Schaffner <tobias.schaffner@siemens.com>
 To: Steven Rostedt <rostedt@goodmis.org>,
 	Gabriele Monaco <gmonaco@redhat.com>
@@ -56,9 +56,9 @@ Cc: Jonathan Corbet <corbet@lwn.net>,
 	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Tobias Schaffner <tobias.schaffner@siemens.com>
-Subject: [RFC 2/3] rv: add per-monitor edge-stat facility and stats file
-Date: Thu, 27 Aug 2026 09:23:59 +0200
-Message-ID: <20260827072400.45734-3-tobias.schaffner@siemens.com>
+Subject: [RFC 3/3] rv: collect per-edge dwell time for per-cpu DA/HA monitors
+Date: Thu, 27 Aug 2026 09:24:00 +0200
+Message-ID: <20260827072400.45734-4-tobias.schaffner@siemens.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260827072400.45734-1-tobias.schaffner@siemens.com>
 References: <20260827072400.45734-1-tobias.schaffner@siemens.com>
@@ -74,367 +74,229 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM9PR10MB4992:EE_|VI1PR10MB3343:EE_
-X-MS-Office365-Filtering-Correlation-Id: 58cd89ad-3aa4-439f-5231-08df040c2fc1
+X-MS-TrafficTypeDiagnostic: AM9PR10MB4992:EE_|GV1PR10MB8608:EE_
+X-MS-Office365-Filtering-Correlation-Id: abeafbad-58a6-448b-798f-08df040c3055
 X-MS-Exchange-AtpMessageProperties: SA
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|10070799003|366016|6133799003|10067099003|56012099006|11063799006|22082099003|18002099003|55112099003;
+	BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|10070799003|366016|6133799003|10067099003|56012099006|11063799006|55112099003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	BbQk9ZGf3phwhV1V0WU37H4bqVannewEwx1KEOoZcn/l6QGl158X1WVVMoRDaZdtlEpghsS9QVlzdRkpwVvN8DZMaV/H2ud7m8DsIJE5A/ZyqG2lKx1Zx8DAlmVGDR3FexQOLlojBCt1GGVgjtIQL1ecjbnj/FuuVvz5N+TEvjfdg18oAaw5h0gjYtwt0T150feSPRr/zTJjLlgloTomL0vx6uv0w/GWynsuOSx3hk4VwrZwOIx3C81E18ep9xxrFqTSSgcd/tPCBIlU5fI6JhnjELETgXx5dfNPEIB3Bu4tqxbE/A6iV27YFqHsZNUymDBguq3ejX7BAnUkMTN2N7Rv09JGRckVAuQcNglS3SvseqcBX7BBIUzdarWrTZD4Mx8YNv9+mPI5Wyff49QyU929Fo186PeIhJkhA2Y2smsm7gU+KB12qAq+kCMazrJ87TaGv/i47nKHdol2tdPMYkgZkXtvi8QZppWJQycHQFVs8O7DygPmv3v2C1jYIJbTyYRiK5+YwMjbMuUc/FmbFj2m63OX6BpfgXO6rBJ06+jghzxJ8aY2ClXSTVYIGXPWkNlcmS0OoGf1+vB0B6tSmA5QPd5Bi0+6aX5nxC+hDS6/dDfVaxL6StYmJSQm0bpHkhFd2+q9Ex2gAx3mz42IESUfrP1ZcwnktYNMeMB1HGI=
+	hAVNQSd3AsPZ2vCGxo5KUUXsk3FuNDb/YJ3eLMA01/OEfVBZx4oKi6lnB25c6+9dcXKrjzwH/HdVuVdhikpLXX20N6bzzXf/5YKkAHV2Lh/cOFNszny1YNffOVXNILaiLr4ioo4Jj50AhGc4x3XcnAZJeLqZlTx4zs6D1knM7haLIdENxf8qlFg6OT/cbBLj2XxsNH/YkL72PF2hRkJJ4O9ZTp5BfU0iCuKKLP4rRsT2eSVGEwdQxXY8VvS8gQVOJaPVtHjba/SYU6BH/zGu3MyWqrgd5QW5rSIAzWee0wx3+wv6GNidKBAsYLLRuClJmhhz2DMpN7Koo0XZjRbQrsiHDhhSrgca2ETNLnWdSsJUAI7kkQv+1R9qAgQtP8eGnfb+T0h5ZJB3/TMCL9VIXmjBVTb+FytmXQuFYxdsf1n+a6HhWS/BuSnnvDZLHXyA2zX+3pzgAFWcJ1DH4mQ0vYgccDr9LAZUWc0Mmzrc7gHGcioLJdBv3Zl3lZqMUMpP0wnEBIDTA+qBPvQ/VFd4LxrYB72fIKFuqW3tSHs/coJ3rQngTm/A/Kx6/sBaElQaPin6yeX45p0E4JrNaIOnSVtUE+nRxTR5GK/S013cYdZFIuOh3C/FWJLPYVblNXIvNOwP8ajX6mU+hTrDOmg9yEp1wtZdSlxNXjVMOv6t+bE=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR10MB4992.EURPRD10.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(10070799003)(366016)(6133799003)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003)(55112099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR10MB4992.EURPRD10.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(10070799003)(366016)(6133799003)(10067099003)(56012099006)(11063799006)(55112099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?LYE2yg5BGQhdVLl419fyJBAlDDGQRQv01KrTij8SKUZc1Cc7dhagt3g14B+N?=
- =?us-ascii?Q?RqdozvFJLbP/KCBRBoAB7KdaEqrb5VPH/h7F+FrqPlpCibMKoxbTPW0hu9nt?=
- =?us-ascii?Q?Kh80zqPVF5Inv4YhV66J8Y15qKux3Ns4gQ4UFf2UcTHQPDkTU/HDvW1Tu9M3?=
- =?us-ascii?Q?3xOBOZxH82k2ShTzWLxsIcL9YwCjT+/6UZi/NnQo+c/tCXLzwrJ9kfVq2JqX?=
- =?us-ascii?Q?vOQj8RBGZCInvIUTrS9eAAfNKWBCH9OqpfisEyVhADleBGCUFUDWBMqA/rDD?=
- =?us-ascii?Q?odaZEdDlPM1FntMKKar4SkkuG2w4RU6IV6/SRgDsADLOuF1oJm3p4Snzyyix?=
- =?us-ascii?Q?toWRimwkBNT2lwQbB2Jm26ikSy3S4ytHMHvsqBAYRnafD2GfMxp+UOf93GjO?=
- =?us-ascii?Q?nclaXw7SZv/1GceI9IC3SYWBvLek3E3zKXwv06V8Bwgs4yZ9pfmjZ2UMl3c2?=
- =?us-ascii?Q?IWSmMaaL5q80swTpkTGPgACJGlpSMlYG03AOIuaxIFBU3QqyRaPzORQ0accd?=
- =?us-ascii?Q?3GJD99naIWpUdwiZRtydToq8zpEMo8L2jpajJUyzwXvH7Kx9Gq7WZLq+QZd0?=
- =?us-ascii?Q?fejxSubaccBETArt0eJV4o5UsQjk9wD13ofyY47HHQ64hqU2luol+533APV1?=
- =?us-ascii?Q?+WAXY4Aji0uoyhPhJCKju08t6YD1hoxQZFS0R1u8W5l0oW1DgTipfoMH/iaP?=
- =?us-ascii?Q?byups19zEGXL/jYOyqU3//8Hcsnm4hJN3rPOBeC54mqPChVLQyEAhPL10322?=
- =?us-ascii?Q?cL0P0IbK7mlt7Gz9ER4T2hNoDsqFgKwgFmYTBrmuKAcUl9jmykkb1kcMqVm4?=
- =?us-ascii?Q?XwvPjZKdE6LZel9k27hNDPbXXIyHZ8b0orD4vcbtXsiS1omKYSZ1A0o3swsV?=
- =?us-ascii?Q?6UEoYDf8leXdO+EDn7+GLu3DLGu0/TajneYPhMiGdX3OnL9sB4MM3bTX73yP?=
- =?us-ascii?Q?m9aW31Iywm9ZhznOTZPCdnCplTjhF9oqAOJJK7nPJwzonqzPBO8t+lFzg9Y2?=
- =?us-ascii?Q?SsRXb3A3nbWYPrS7Z+6EA8Mla2mPIw86QE/3LAqXJ1NyFOo1lQ+nnJMS+Mtx?=
- =?us-ascii?Q?mtuDMM3tFuh61Rz8AdrsR/0WqjxQUj1qc/E50bSvtFUCM1mkn77gWnrxAuOZ?=
- =?us-ascii?Q?6FWgVl78i+BN22PZ4Mmaf5n5AqZSS4Hz90ijnSPFvxiNnG2EBq4eD4FI2dcz?=
- =?us-ascii?Q?J3Odr40CvS9xBLNz2S89NPMfkYaW2GOtTh14+1g0tN5cfSLFnGcLcdAMf5Rt?=
- =?us-ascii?Q?hy+CxmI7fWqEDD5jmz0iV9Rak8bvu5PJtN4uFVBGZ7f/qWjiFOpuZ87bEVbF?=
- =?us-ascii?Q?TtkNwQ5RXAPHOL+1F1EMq/hOT4pu19X41Z2+TS8GU+uL7/sRv78qWnvQTmGs?=
- =?us-ascii?Q?tnaY1piYFp7SRO1rgnoF5qMPE/Fok5Cd5coSdZbUoIzzSdak75qeZX261hv5?=
- =?us-ascii?Q?hMEAinLO0nt+pIiF+SiLVzL/DxDfvkFZlPKKka9VFzaAt/PMxnY9E123ILyn?=
- =?us-ascii?Q?QxTTtTJFwpEIxN/SEK05wF3U8y9NCL7nUonfWEqgqgj6VXKP2N4njxMOjSjn?=
- =?us-ascii?Q?pigkpMMnzagvh52PjX4hdl/lYS6Ztg1+UUUJPPCa1acCYPJ+3n8hSLpflBYU?=
- =?us-ascii?Q?LcgZrM2PeM0v6KxVbLMtmzzi9psJx+x4j1Raapv05slgW4nlSzeV9GX3h6Z8?=
- =?us-ascii?Q?WYQ66lSgHjAaWW87qOujT9dizopNzFKlJE4rOTRWutgjoQjuzzjcbaDx3KOh?=
- =?us-ascii?Q?ApABoeVJOaeisvDwX4n88LUx5xWVG1J6/X3V9Q2hbGest58Dra69PzwDA2w7?=
-X-MS-Exchange-AntiSpam-MessageData-1: 45HfX1hUhW81Dr5pKJFNuzybuLelj7rjf4s=
+	=?us-ascii?Q?9WacdKKDkOxvjM64p0UuutjrvOXzJ8hk2y/hB3p/tmMzVcuXj+LPpg1PSEX0?=
+ =?us-ascii?Q?RdvnmGJ5b2F40JIhYD89zpf8M+cMo4aSUQ9Zd4iEjuIWTk10QPyPVUgatmjg?=
+ =?us-ascii?Q?4yjz7fOMkXHG65mmsK77P86T8AuwDhnZ/cBULFm48GPUFi0jxY+6zRVXyh45?=
+ =?us-ascii?Q?MDcTA5lxTcQSB65XFtIgvS2nWIQXfJKgrrYgQEzwslMZN0AgGREo72EFcnbT?=
+ =?us-ascii?Q?+DzPDa3a1LttlDs50NLlnkLoRaEI0mjsAK1NSvcNzpWyZziGkMomDiCtATO/?=
+ =?us-ascii?Q?D9YOWYdsK7NX0q7gz0Og6zkzYr25oDldS4pp4+nJfDAzOrDajeyIrJCBFO3V?=
+ =?us-ascii?Q?0xp8S/I+uDASOAh/jKkfctpaJUWD0p4tV/Xp/11nv432ZdEwn8PIKzmXmk1Z?=
+ =?us-ascii?Q?W7CHhc4hIjXB6ruZO/wKefmlMmzRw2F9MYpuseGLWul5xAlb42FgIjM0gEMd?=
+ =?us-ascii?Q?SL2OtSv4BPYA22aRt9a2XU3pV7aOpXUrNxrp2lGKq4nxPjCbywPlIqcvbhtR?=
+ =?us-ascii?Q?ZLfkcf69bUEI8KyQkB2kaT2x6sngODJAoDjDzrFeQPfYcU2sexxe4hdni7ln?=
+ =?us-ascii?Q?BfkPTe91btFZiBRar14yc9GLiXyKe5AhVHhOzJN7aklIG70vu5xvpgz2A5Hc?=
+ =?us-ascii?Q?SNXFbO9isHnbLFYlpk4exrfA6C66GN2+W+9bZlWEaSbC0e+RZcgXpa7TlIRo?=
+ =?us-ascii?Q?K3MOB0D89l6oKZSKnyp4GdFUpNe7n7ozK3m0Mbek8aFdtJKQXM0VTV0V/oH9?=
+ =?us-ascii?Q?xzkPdgYaj0I8Uh5mecW4tE38tcfE1EzQtKP/zSilq77IJOpDqBSAAuRBV7zv?=
+ =?us-ascii?Q?MgqkX4aLOxE0ddf3+FTZizDBJ4lqRnUHZPqW4tBRsFwFbA459RlSvPApp8nE?=
+ =?us-ascii?Q?Hsz+To0egKelvJqaSTfTg70ST/OWpBheTxeG+nq5sQ9UzZ8U/wypix0DdnCR?=
+ =?us-ascii?Q?nsA6zi7GfqsYB3wJvyTnPzqV5qG84oYiI0Phy20awsU9ZsXipQByFNFK6iNY?=
+ =?us-ascii?Q?Siaa2qLUE1qOLCU+dTrpdbTHFOKhzenK+ECGYGkHFUKFI/9tQ/ijWO87Ed5y?=
+ =?us-ascii?Q?oqnuDnBASpTS4RaHWQewPTCoOJqfcXKg6Dp7AyGFRDfNGC/AMlZGz8nBSg+r?=
+ =?us-ascii?Q?5OzbjY4kLKhjZZjLIGkhea1jlrdGwpM3JP1uSqusEaeS9cuNeqXmPaOWB5Y7?=
+ =?us-ascii?Q?Rg5fikeBCGWUHrSGHfJscLCavzNrBnSSYeF9mpPURmBxOvl3L+wvU6v1yfEl?=
+ =?us-ascii?Q?X/Tj2X2nqMn+70M+VoT9KyQ6zix6SbnUV3XYIOHwYq//gmUkQZVMfuZtrG4k?=
+ =?us-ascii?Q?PfoLmv0jHexCZzqmg2PDkLygZppiXQyPHUW8dg+ZrBCRxkYm7OJLYyDXK/5L?=
+ =?us-ascii?Q?R7GQii1zW3DTJhkmqfO/BUDcJR8iqLSsvoXzuF24Gwmiuf8m0T6HWOiWBxFm?=
+ =?us-ascii?Q?2MM6RJ8BELLMjlfJHSYMkw+RXJu/opy85C0mtLAr7FDcccmMmFyaC7S52Uc1?=
+ =?us-ascii?Q?a6pd9nPwNTRnRamIKCgMyIhAwRYA8FCikWXVgKSnc552IvFfX4nIlfxlW23F?=
+ =?us-ascii?Q?7i+6Qy7Qn9v8lp6olm/0HH4lCx3D78X6XaObfPik8FVSTQhRsApipTP6SYEj?=
+ =?us-ascii?Q?Bk0qAEVnQCrzQd2C/8dTacJutuZGU4h0tmCP6ui6JYiQn4ZJTnfg5nV98sVK?=
+ =?us-ascii?Q?Hzt90oH8jGsIYnaIZIgYV2SkttjKnDIXVNjK8Hg2VYcGzzGOwBOIYYXuWuk2?=
+ =?us-ascii?Q?b/Xmh3NAHtp+VER+Rigw/R3SmGv+wCGsKFd6dh8cyoNEm7OVZercoESDZkVK?=
+X-MS-Exchange-AntiSpam-MessageData-1: KC8cu/0T45EdLUbXUOkvmwm4V4m8QBTqCxw=
 X-OriginatorOrg: siemens.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 58cd89ad-3aa4-439f-5231-08df040c2fc1
+X-MS-Exchange-CrossTenant-Network-Message-Id: abeafbad-58a6-448b-798f-08df040c3055
 X-MS-Exchange-CrossTenant-AuthSource: AM9PR10MB4992.EURPRD10.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 07:24:09.8487
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 07:24:10.9855
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 38ae3bcd-9579-4fd4-adda-b42e1495d55a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: p7L61pyw9/2mN5GwHpSle26p5z+Spdgb9XbOZFHFrEPeW3tl4WdsnKV/OY8gDGmz6H55U4w23EsbKrSj8HJpwU/wayrya1Ny8cSwbWBKl3g=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR10MB3343
+X-MS-Exchange-CrossTenant-UserPrincipalName: lek9uBzbsaa+ZmfXcqG5JmVKHI9NE2gUh/pNX2AGj+NLegxwXQFyG+DZx4RF9QbuIoRnQ9bdti7pYubMSErxjc2j8+kiBuyoU2CFPhDizAE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR10MB8608
 
-Add CONFIG_RV_EDGE_STAT, an optional feature that records how long a
-monitor's automaton dwells in a state and exposes it per edge through a
-per-monitor "stats" tracefs file.
+With the core facility in place, hook it into the DA/HA layer so that any
+per-cpu automaton monitor also reports how long it lingers in each state.
 
-The core allocates a per-CPU buffer on first enable and reports, per edge
-and per CPU, the count, maximum and summed dwell time. Only the owning CPU
-writes the counters, so a reader snapshots them with local64_read() with no
-IPI and no locking on the accounting path.
+Add a selftest that enables a per-cpu monitor, checks the stats file
+appears and is populated under load, and skips cleanly otherwise.
 
 Signed-off-by: Tobias Schaffner <tobias.schaffner@siemens.com>
 ---
- .../trace/rv/runtime-verification.rst         |  24 ++++
- include/linux/rv.h                            |  14 +++
- include/linux/rv_edge_stat.h                  |  25 +++-
- kernel/trace/rv/Kconfig                       |  11 ++
- kernel/trace/rv/rv.c                          | 116 +++++++++++++++++-
- 5 files changed, 184 insertions(+), 6 deletions(-)
+ include/linux/rv.h                            |  4 ++
+ include/rv/da_monitor.h                       | 53 +++++++++++++++++++
+ tools/testing/selftests/verification/config   |  1 +
+ .../verification/test.d/rv_edge_stats.tc      | 32 +++++++++++
+ 4 files changed, 90 insertions(+)
+ create mode 100644 tools/testing/selftests/verification/test.d/rv_edge_stats.tc
 
-diff --git a/Documentation/trace/rv/runtime-verification.rst b/Documentation/trace/rv/runtime-verification.rst
-index c700dde9259c..194b2f9db461 100644
---- a/Documentation/trace/rv/runtime-verification.rst
-+++ b/Documentation/trace/rv/runtime-verification.rst
-@@ -229,3 +229,27 @@ For example::
-    nop
-    [panic]
-    printk
-+
-+**monitors/MONITOR/stats**
-+
-+Present only when the kernel is built with CONFIG_RV_EDGE_STAT=y and *MONITOR*
-+is a per-cpu DA/HA (automaton) monitor. It reports how long the automaton
-+dwells in each state before leaving it, timed with local_clock() and accounted
-+per outgoing edge and per CPU.
-+
-+- The first line is a header naming the columns.
-+- Each following line describes one edge on one CPU::
-+
-+   cpu edge label count max_ns sum_ns
-+
-+  *count* is the number of times the edge was taken, *max_ns* and *sum_ns* are
-+  the worst and total dwell in nanoseconds, and *label* is "state:event".
-+
-+The counters are reset each time the monitor is enabled.
-+
-+For example::
-+
-+   # cat monitors/wip/stats
-+   # cpu edge label count max_ns sum_ns
-+   0 0 preemptive:preempt_disable 4210 183200 95501200
-+   0 4 non_preemptive:preempt_enable 4208 42600 3812900
 diff --git a/include/linux/rv.h b/include/linux/rv.h
-index 541ba404926a..7eeecce17e50 100644
+index 7eeecce17e50..09363f79ca90 100644
 --- a/include/linux/rv.h
 +++ b/include/linux/rv.h
-@@ -136,6 +136,16 @@ struct rv_reactor {
- };
- #endif
- 
-+/**
-+ * struct rv_edge_cfg - per-edge dwell-time statistics for a monitor
-+ * @n_edges:	number of automaton edges (STATE_MAX * EVENT_MAX)
-+ * @edge_name:	optional, write a human name for @edge into @buf (may be NULL)
-+ */
-+struct rv_edge_cfg {
-+	unsigned int	n_edges;
-+	void		(*edge_name)(unsigned int edge, char *buf, size_t len);
-+};
-+
- struct rv_monitor {
- 	const char		*name;
- 	const char		*description;
-@@ -146,6 +156,10 @@ struct rv_monitor {
- #ifdef CONFIG_RV_REACTORS
- 	struct rv_reactor	*reactor;
- 	__printf(1, 0) void	(*react)(const char *msg, va_list args);
+@@ -27,6 +27,10 @@
+ struct da_monitor {
+ 	bool		monitoring;
+ 	unsigned int	curr_state;
++#ifdef CONFIG_RV_EDGE_STAT
++	/* local_clock() ns when curr_state was entered; 0 = not yet stamped. */
++	u64		state_ns;
 +#endif
-+#ifdef CONFIG_RV_EDGE_STAT
-+	const struct rv_edge_cfg	*edge_cfg;
-+	void __percpu			*edge_pcpu;
- #endif
- 	struct list_head	list;
- 	struct rv_monitor	*parent;
-diff --git a/include/linux/rv_edge_stat.h b/include/linux/rv_edge_stat.h
-index 751de8074dcc..fda30ff728a1 100644
---- a/include/linux/rv_edge_stat.h
-+++ b/include/linux/rv_edge_stat.h
-@@ -9,14 +9,11 @@
- #define _LINUX_RV_EDGE_STAT_H
+ };
  
- #include <linux/compiler.h>
-+#include <linux/percpu.h>
-+#include <linux/rv.h>
- #include <linux/types.h>
- #include <asm/local64.h>
+ #ifdef CONFIG_RV_LTL_MONITOR
+diff --git a/include/rv/da_monitor.h b/include/rv/da_monitor.h
+index 34b8fba9ecd4..59ca9a286c10 100644
+--- a/include/rv/da_monitor.h
++++ b/include/rv/da_monitor.h
+@@ -16,6 +16,8 @@
  
--/*
-- * Per-CPU counters kept in local64_t so accounting is safe against interrupt
-- * and NMI nesting on the owning CPU without disabling interrupts -- the same
-- * approach the trace ring buffer uses. Only the owning CPU writes.
-- */
- struct rv_edge_stat {
- 	local64_t	count;
- 	local64_t	sum_ns;
-@@ -42,4 +39,22 @@ void rv_edge_stat_account(struct rv_edge_stat *s, u64 dwell_ns)
- 	}
- }
- 
-+#ifdef CONFIG_RV_EDGE_STAT
-+/**
-+ * rv_edge_account - record a dwell of @dwell_ns on @edge of monitor @mon
-+ *
-+ * Cheap and lock-free: the local64_t counters make this safe against interrupt
-+ * and NMI nesting on the current CPU without disabling interrupts, so it does
-+ * not perturb the latency being measured. The caller only needs to stay on its
-+ * CPU for the call (as tracepoint probes already do).
-+ */
-+static __always_inline void
-+rv_edge_account(struct rv_monitor *mon, unsigned int edge, u64 dwell_ns)
-+{
-+	struct rv_edge_stat *e = this_cpu_ptr(mon->edge_pcpu);
-+
-+	rv_edge_stat_account(&e[edge], dwell_ns);
-+}
-+#endif /* CONFIG_RV_EDGE_STAT */
-+
- #endif /* _LINUX_RV_EDGE_STAT_H */
-diff --git a/kernel/trace/rv/Kconfig b/kernel/trace/rv/Kconfig
-index 3884b14df375..9d76dff394ca 100644
---- a/kernel/trace/rv/Kconfig
-+++ b/kernel/trace/rv/Kconfig
-@@ -59,6 +59,17 @@ config RV_PER_TASK_MONITORS
- 	  This option configures the maximum number of per-task RV monitors that can run
- 	  simultaneously.
- 
-+config RV_EDGE_STAT
-+	bool "Per-edge dwell-time statistics"
-+	depends on RV
-+	help
-+	  Record per-edge dwell-time statistics for per-cpu DA/HA monitors and
-+	  expose them through a per-monitor "stats" tracefs file. This times
-+	  each monitored automaton transition with local_clock(), so leave it
-+	  off if you do not need the statistics.
-+
-+	  If unsure, say N.
-+
- source "kernel/trace/rv/monitors/wip/Kconfig"
- source "kernel/trace/rv/monitors/wwnr/Kconfig"
- 
-diff --git a/kernel/trace/rv/rv.c b/kernel/trace/rv/rv.c
-index ee4e68102f17..88a0bbaec4d0 100644
---- a/kernel/trace/rv/rv.c
-+++ b/kernel/trace/rv/rv.c
-@@ -142,6 +142,12 @@
- #include <linux/module.h>
- #include <linux/init.h>
- #include <linux/slab.h>
-+#include <linux/seq_file.h>
-+#ifdef CONFIG_RV_EDGE_STAT
-+#include <linux/percpu.h>
+ #include <rv/automata.h>
+ #include <linux/rv.h>
 +#include <linux/rv_edge_stat.h>
-+#include <linux/smp.h>
-+#endif
++#include <linux/sched/clock.h>
+ #include <linux/stringify.h>
+ #include <linux/bug.h>
+ #include <linux/sched.h>
+@@ -30,6 +32,54 @@
  
- #ifdef CONFIG_RV_MON_EVENTS
- #define CREATE_TRACE_POINTS
-@@ -278,6 +284,9 @@ static void rv_disable_single(struct rv_monitor *mon)
- 	__rv_disable_monitor(mon, true);
- }
+ static struct rv_monitor rv_this;
  
-+static int rv_edge_setup(struct rv_monitor *mon);
-+static void rv_edge_reset(struct rv_monitor *mon);
-+
- static int rv_enable_single(struct rv_monitor *mon)
- {
- 	int retval;
-@@ -289,9 +298,15 @@ static int rv_enable_single(struct rv_monitor *mon)
- 
- 	retval = mon->enable();
- 
--	if (!retval)
-+	if (!retval) {
- 		mon->enabled = 1;
- 
-+		if (rv_edge_setup(mon))
-+			pr_warn("rv: %s: edge statistics unavailable (out of memory)\n",
-+				mon->name);
-+		rv_edge_reset(mon);
-+	}
-+
- 	return retval;
- }
- 
-@@ -412,6 +427,101 @@ static const struct file_operations interface_desc_fops = {
- 	.read	= monitor_desc_read_data,
- };
- 
-+#ifdef CONFIG_RV_EDGE_STAT
-+static size_t rv_edge_blob_size(const struct rv_monitor *mon)
++/* per-edge dwell statistics, wired up for per-cpu monitors. */
++#if defined(CONFIG_RV_EDGE_STAT) && RV_MON_TYPE == RV_MON_PER_CPU
++static void
++rv_this_edge_name(unsigned int edge, char *buf, size_t len)
 +{
-+	return mon->edge_cfg->n_edges * sizeof(struct rv_edge_stat);
++	snprintf(buf, len, "%s:%s", model_get_state_name(edge / EVENT_MAX),
++		 model_get_event_name(edge % EVENT_MAX));
 +}
 +
-+static void rv_edge_reset_ipi(void *info)
-+{
-+	struct rv_monitor *mon = info;
-+
-+	memset(this_cpu_ptr(mon->edge_pcpu), 0, rv_edge_blob_size(mon));
-+}
-+
-+/* rv_edge_reset - zero the statistics; call from a monitor reset/enable. */
-+static void rv_edge_reset(struct rv_monitor *mon)
-+{
-+	if (mon->edge_pcpu)
-+		on_each_cpu(rv_edge_reset_ipi, mon, 1);
-+}
-+
-+/*
-+ * The counters are per-CPU and only the owning CPU writes them, so a reader on
-+ * any CPU can snapshot them with local64_read().
-+ */
-+static int rv_edge_stats_show(struct seq_file *seq, void *v)
-+{
-+	struct rv_monitor *mon = seq->private;
-+	const struct rv_edge_cfg *cfg = mon->edge_cfg;
-+	unsigned int e;
-+	int cpu;
-+
-+	seq_puts(seq, "# cpu edge label count max_ns sum_ns\n");
-+
-+	if (!mon->edge_pcpu)
-+		return 0;
-+
-+	for_each_online_cpu(cpu) {
-+		struct rv_edge_stat *s = per_cpu_ptr(mon->edge_pcpu, cpu);
-+
-+		for (e = 0; e < cfg->n_edges; e++) {
-+			char lbl[48] = "";
-+
-+			if (cfg->edge_name)
-+				cfg->edge_name(e, lbl, sizeof(lbl));
-+			seq_printf(seq, "%d %u %s %llu %llu %llu\n",
-+				   cpu, e, lbl,
-+				   (u64)local64_read(&s[e].count),
-+				   (u64)local64_read(&s[e].max_ns),
-+				   (u64)local64_read(&s[e].sum_ns));
-+		}
-+	}
-+	return 0;
-+}
-+
-+static int rv_edge_stats_open(struct inode *inode, struct file *file)
-+{
-+	return single_open(file, rv_edge_stats_show, inode->i_private);
-+}
-+
-+static const struct file_operations rv_edge_stats_fops = {
-+	.open		= rv_edge_stats_open,
-+	.read		= seq_read,
-+	.llseek		= seq_lseek,
-+	.release	= single_release,
++static const struct rv_edge_cfg rv_this_edge_cfg = {
++	.n_edges   = STATE_MAX * EVENT_MAX,
++	.edge_name = rv_this_edge_name,
 +};
 +
-+/*
-+ * Allocate the per-CPU buffer and expose stats. Done on first enable
-+ * rather than at registration because a DA/HA monitor's edge_cfg is bound by
-+ * da_monitor_init(), which runs from the monitor's enable path.
-+ */
-+static int rv_edge_setup(struct rv_monitor *mon)
++/* Hand the model's edge descriptor to the core; called from da_monitor_init(). */
++static inline void rv_edge_bind(void)
 +{
-+	if (!mon->edge_cfg || !mon->edge_cfg->n_edges || mon->edge_pcpu)
-+		return 0;
++	rv_this.edge_cfg = &rv_this_edge_cfg;
++}
 +
-+	mon->edge_pcpu = __alloc_percpu(rv_edge_blob_size(mon),
-+					__alignof__(struct rv_edge_stat));
-+	if (!mon->edge_pcpu)
-+		return -ENOMEM;
++/* Stamp the moment a state is entered, so its dwell can be timed on exit. */
++static __always_inline void rv_da_edge_enter(struct da_monitor *da_mon)
++{
++	da_mon->state_ns = local_clock();
++}
 +
-+	if (!rv_create_file("stats", RV_MODE_READ, mon->root_d, mon,
-+			    &rv_edge_stats_fops)) {
-+		free_percpu(mon->edge_pcpu);
-+		mon->edge_pcpu = NULL;
-+		return -ENOMEM;
-+	}
++/* Account the dwell in @curr, then stamp entry into the next state. */
++static __always_inline void
++rv_da_edge_account(struct da_monitor *da_mon, enum states curr, enum events ev)
++{
++	u64 now = local_clock();
++	u64 prev = da_mon->state_ns;
 +
-+	return 0;
++	da_mon->state_ns = now;
++	/*
++	 * local_clock() is not guaranteed monotonic; drop the sample if it did
++	 * not advance so a backward step cannot underflow into a bogus dwell.
++	 */
++	if (rv_this.edge_pcpu && prev && now > prev)
++		rv_edge_account(&rv_this, curr * EVENT_MAX + ev, now - prev);
 +}
 +#else
-+static int rv_edge_setup(struct rv_monitor *mon) { return 0; }
-+static void rv_edge_reset(struct rv_monitor *mon) { }
-+#endif /* CONFIG_RV_EDGE_STAT */
++static inline void rv_edge_bind(void) { }
++static inline void rv_da_edge_enter(struct da_monitor *da_mon) { }
++static inline void
++rv_da_edge_account(struct da_monitor *da_mon, enum states curr, enum events ev) { }
++#endif /* CONFIG_RV_EDGE_STAT && RV_MON_PER_CPU */
 +
  /*
-  * During the registration of a monitor, this function creates
-  * the monitor dir, where the specific options of the monitor
-@@ -747,6 +857,10 @@ static const struct file_operations monitoring_on_fops = {
- 
- static void destroy_monitor_dir(struct rv_monitor *mon)
+  * Hook to allow the implementation of hybrid automata: define it with a
+  * function that takes curr_state, event and next_state and returns true if the
+@@ -113,6 +163,7 @@ static inline void da_monitor_reset(struct da_monitor *da_mon)
+ static inline void da_monitor_start(struct da_monitor *da_mon)
  {
-+#ifdef CONFIG_RV_EDGE_STAT
-+	free_percpu(mon->edge_pcpu);
-+	mon->edge_pcpu = NULL;
-+#endif
- 	rv_remove(mon->root_d);
+ 	da_mon->curr_state = model_get_initial_state();
++	rv_da_edge_enter(da_mon);
+ 	da_monitor_init_hook(da_mon);
+ 	/* Pairs with smp_load_acquire in da_monitoring(). */
+ 	smp_store_release(&da_mon->monitoring, 1);
+@@ -275,6 +326,7 @@ static inline void da_monitor_reset_state_all(void)
+  */
+ static inline int da_monitor_init(void)
+ {
++	rv_edge_bind();
+ 	da_monitor_reset_state_all();
+ 	return 0;
  }
- 
+@@ -696,6 +748,7 @@ static inline bool da_event(struct da_monitor *da_mon, enum events event, da_id_
+ 		if (likely(try_cmpxchg(&da_mon->curr_state, &curr_state, next_state))) {
+ 			if (!da_monitor_event_hook(da_mon, curr_state, event, next_state, id))
+ 				return false;
++			rv_da_edge_account(da_mon, curr_state, event);
+ 			da_trace_event(da_mon, model_get_state_name(curr_state),
+ 				       model_get_event_name(event),
+ 				       model_get_state_name(next_state),
+diff --git a/tools/testing/selftests/verification/config b/tools/testing/selftests/verification/config
+index 43072c1c38f4..de229777d5c8 100644
+--- a/tools/testing/selftests/verification/config
++++ b/tools/testing/selftests/verification/config
+@@ -1 +1,2 @@
+ CONFIG_RV=y
++CONFIG_RV_EDGE_STAT=y
+diff --git a/tools/testing/selftests/verification/test.d/rv_edge_stats.tc b/tools/testing/selftests/verification/test.d/rv_edge_stats.tc
+new file mode 100644
+index 000000000000..5fb2384d938c
+--- /dev/null
++++ b/tools/testing/selftests/verification/test.d/rv_edge_stats.tc
+@@ -0,0 +1,32 @@
++#!/bin/sh
++# SPDX-License-Identifier: GPL-2.0-or-later
++# description: Test per-edge dwell-time statistics (stats)
++
++MON=wip
++
++check_requires "$MON:monitor"
++
++# The "stats" file is created on first enable; if it is still missing the
++# kernel was built without CONFIG_RV_EDGE_STAT, so skip.
++echo 1 > "monitors/$MON/enable"
++if [ ! -e "monitors/$MON/stats" ]; then
++	echo 0 > "monitors/$MON/enable"
++	echo "CONFIG_RV_EDGE_STAT is not enabled."
++	exit_unsupported
++fi
++
++# The first line is the column header; the body has one line per (cpu, edge).
++head -n1 "monitors/$MON/stats" | grep -q "^# cpu edge label count max_ns sum_ns"
++[ "$(grep -cvE '^#' "monitors/$MON/stats")" -gt 0 ]
++
++# Drive some scheduler activity so the automaton records transitions.
++for _ in 1 2 3 4 5 6 7 8 9 10; do
++	(true) &
++	wait
++done
++
++# At least one edge must now show a non-zero count, with sum_ns >= max_ns > 0.
++grep -vE '^#' "monitors/$MON/stats" | \
++	awk '$4 > 0 && $5 > 0 && $6 >= $5 { hit = 1 } END { exit !hit }'
++
++echo 0 > "monitors/$MON/enable"
 -- 
 2.43.0
 
