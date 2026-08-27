@@ -1,155 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DF563C1983;
-	Thu, 27 Aug 2026 09:23:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 696C541BA75
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:23:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787822594; cv=none; b=OJcgarDVGSOHYoLmBN1h8N93oHlmu6Q63ktulG7QhQPCi2MksPHygWc51IYHWRqtWTpw0iMnF2p7SUXU+UqI+B5iOoYBTbCTsbaISE7P5You4VVm8JLLZff6Jz8LAF/pydyH98NQjHeakQteP/wRSOXpeyebjCZTuJfeIXCGEKo=
+	t=1787822599; cv=none; b=st2BAqsTQV4rtmHu3bHVHnR2RaHfoTHTdrSmLjjvywnwOeyfS+vzM+GyWqqtLP8Tfbq5T90mPhuln1h1sYE4B2RnbT1+tygtYKOZasApwERcfXRBFXR1ii274gCFOZ71+rbKbD0dmGXXcMdGfjG5DvA5PTcsd8mEmckIlD86zJ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787822594; c=relaxed/simple;
-	bh=Ie/cAy9KfD2GFFkBETq1farDKVxA0DobOvxLT5gKbdM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nE58f044cC2WfDOwPRnzAxKWI1JTgwrCQEUz8Eq3RqBjp6mUTSiCLmjtsWmMTYcln6LrUbM7wDxh8zMvFIBS0QuVSqZyHBtLBgBBwGLrg7wYlP0+xO9Yi/WiMe5FcHimbPLSFhiBkOwrMFAsh+lT2F5eZylRJOt+G/6duyURCFM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZAo8Mbiv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787822599; c=relaxed/simple;
+	bh=pilzqgLX23vrgU8x1OrQeeuvR+C3KBcsvDYv0GU7JNk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ph38n2BeiUmjeJilQoii2DrWobdzW7qqLvHhjw1mTGlV8DqHT5NYc8WpQZ0IVlL2PV6EpxpZ06JpNNHlMSy6tjIMsbIvVtDAh7g0gs/xqo71wRoE/+bpXT7Z5N8zL+AkE5YmZxY1C/at+GC4emVBKmuKP+2z49toGbuqYFRjzOc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d+VeMma7; arc=none smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZAo8Mbiv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 447F31F000E9;
-	Thu, 27 Aug 2026 09:23:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787822593;
-	bh=YpLVvCqE/ILN9yRjN+e3+yelyQFbjeo1FO+mT4iZEAM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZAo8MbivSaMM6VB4x3hWTb23uUkZRdAP/1Lwr7frPbKHkoe1XbTQ6x880wCmzrv8k
-	 80Agmzok9QTrw3t3noEKi8aslJFZ7tZRX4Z//IePMZbQwpUpl5Q2+r7WSekkKRRD76
-	 2Q3jPQhvXWLF2EC6C6Xc8ad7n8w3XDo4b6vmc5cDbDukbMi/6ex+bmXoxJaOTaXtEb
-	 9b6MqPIcXrX/HjfXr6NmHmLMai/giotLh4pZ9tfbAhZ74uNsU7UNp9Ic2QAzfeqm65
-	 A6TvKikprLN1htDXQFhY/gwACSHjeYdUmZuz6g5v/TytvjFjRXgaHbAhhl5b5KYjjF
-	 pM89CQa8kHyrg==
-Date: Thu, 27 Aug 2026 11:23:10 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-Cc: Georgi Djakov <djakov@kernel.org>, linux-arm-msm@vger.kernel.org, 
-	linux-pm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
-Subject: Re: [PATCH v2 1/3] dt-bindings: interconnect: Add Qualcomm CAMNOC
- ICC binding
-Message-ID: <20260827-thistle-puffin-of-chivalry-bccc47@quoll>
-References: <20260819093211.1436275-1-atanas.filipov@oss.qualcomm.com>
- <20260819093211.1436275-2-atanas.filipov@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d+VeMma7"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-38e07ebd263so1596471a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 02:23:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787822596; x=1788427396; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uaA1NG09mAC26Uk+RbGvv99dkflUecBsEoDtXvZSg1g=;
+        b=d+VeMma7DOFPbV6c8HI/j0lD2Gqq6H1sYrechKiHBrPkRzMQ+HWEP7v43q39LCnFcV
+         4wRcbQIOCX+/f3C/ptkpSKCXcb4GJoYEJIqVi+Yx1YM6FtyoTv+BFYtonlk0PVXCGPSV
+         aPWm8zZn42fKiYV8QNv+d7yOdCD6Pj4Z1jOwfwyi7y9ddr6fruJGVvg0xBW/o1iWXHL/
+         ISvavpbGdK2QiHtJBTV5eklEmsGa78nQEY1uaMBkCYoMgjpVgo1WTzku8Nbn1AkJZqzR
+         7WHL2CqaOE3bIQ4tK6VBJrYfk9DK5sJu0b+Rp37hcHCkrYwNr7pfjT79hv6qTNsPkbZp
+         +j1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787822596; x=1788427396;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uaA1NG09mAC26Uk+RbGvv99dkflUecBsEoDtXvZSg1g=;
+        b=sDQVTiqCAIq4L7xIzbVBSY9X0J++wW1j389wPe4DgGpRzA6ITupmKD9OfqAyGZMOnz
+         Lc8jleXcqnD4Wmnk2pYpKEQpKxyx3VQZYZLgKjVFz/3qPLgSPjZ4GY//9A7zYRk//Fi/
+         ksyk98xl5GVwTDFBcEPJNOkd2Td0P2EiBxwlaCQxYYS3TA4Ch+ltekLs45pD0fv/EV+Z
+         9mH9wHKtyYwJKr/1zbTidY/j92fySFzHZeqdJ4crx1gZ5TPJ3tV3Ghd+8VCS1pck07b4
+         dQC5/rHeVuurQNazDFseQUQqYvfgAqk+gYS4o3JMHLvgbdSbi0/yBJX8MnyTB7R8jpHF
+         Lx1g==
+X-Forwarded-Encrypted: i=1; AHgh+RovULyu3/YYgfidTPL/b3hFeN3WT8xMFCkOGwbRFPGqIYVyPkp2Z8UCQuBMvK5Pda+FNUURR5W9E3/c61o=@vger.kernel.org
+X-Gm-Message-State: AFuF++nd5lGPo02Pkn5inBoQay5/0w1Uwa/M5V9qRC+znyV6B5CcOInS
+	ODjlB/tk4WeBcaUmumXx5N/PXUWIezitWev7xmxrjBF62BQcg8d5+/5U
+X-Gm-Gg: AR+sD13Q65OAW4v+hkPQVulQnjaKW8fzaOaMdHIeJE46NoNNhlRpnNTRjkJXwnH2ssC
+	bxmHzu4NTtXHORi8SOBgV3rB3AeIbsiyZci6nhsYPVUFPpq3pVcDM6vZeluJb58XYhFxKWAf5oO
+	6120QPbanZOk5S60exzs+0GLYFhoVW82CmG0njfbNFrIMKlLxpzPiTAJk+rpt1Qvw8znxgkFNHp
+	Oihd1qERtNA0G1/FaeHVWBSQwyv/F+R21YzKzReTdOFJK5q+1vWr9OTLrflizfItcZuy7NX4Y53
+	jPMqypWlE7DsU1GDegKoFvRYpkzKaQMbiC+FLnliKsiuhcfLxBipsnQWRUIoMjd8aUkEMXM8BS8
+	3Hyed/7iTlPHGtuJSV65KD7L56R77x9gaiZOwPg8WHIMvK7vMcRne49AZAYxczzT9xu93FHOWFf
+	5S3mxxMAEzsfi8hNrD7bGFyxJLkX1OlbPSZSmS2H7yZ6dnPMjKj2vUk/4/ckJ/PnBg/w==
+X-Received: by 2002:a17:90b:164b:b0:38e:6a44:671b with SMTP id 98e67ed59e1d1-3966cdf6813mr25481388a91.0.1787822595919;
+        Thu, 27 Aug 2026 02:23:15 -0700 (PDT)
+Received: from Default ([2409:40f4:1015:7531:12c9:ad3b:96d3:4379])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a905c18bsm16037789c88.14.2026.08.27.02.23.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 02:23:15 -0700 (PDT)
+From: Jeffin Philip <jeffinphilip14@gmail.com>
+To: syzbot+d632e93ffcd1452bc61e@syzkaller.appspotmail.com
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com
+Subject: KASAN: slab-use-after-free Read in roccat_open
+Date: Thu, 27 Aug 2026 14:53:01 +0530
+Message-ID: <20260827092301.19883-1-jeffinphilip14@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <6a8fd9c8.50659fcc.60cd.000e.GAE@google.com>
+References: <6a8fd9c8.50659fcc.60cd.000e.GAE@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260819093211.1436275-2-atanas.filipov@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 19, 2026 at 12:32:09PM +0300, Atanas Filipov wrote:
-> Add binding for the Qualcomm CAMNOC interconnect provider. CAMNOC is
-> the internal AXI interconnect within the camera subsystem. Multiple
-> sub-devices share CAM_CC_CAMNOC_AXI_CLK; the ICC provider aggregates
-> their bandwidth votes and scales the clock accordingly, avoiding the
-> last-writer-wins race from direct clk_set_rate() calls.
-> 
-> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-> ---
->  .../bindings/interconnect/qcom,camnoc.yaml    | 124 ++++++++++++++++++
->  .../dt-bindings/interconnect/qcom,camnoc.h    |  52 ++++++++
->  2 files changed, 176 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/interconnect/qcom,camnoc.yaml
->  create mode 100644 include/dt-bindings/interconnect/qcom,camnoc.h
-> 
-> diff --git a/Documentation/devicetree/bindings/interconnect/qcom,camnoc.yaml b/Documentation/devicetree/bindings/interconnect/qcom,camnoc.yaml
-> new file mode 100644
-> index 000000000000..b2659db2cf27
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/interconnect/qcom,camnoc.yaml
+#syz test: upstream 903c1cf6dff9
 
-Filename must match compatible.
-
-> @@ -0,0 +1,124 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/interconnect/qcom,camnoc.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm Camera NOC (CAMNOC) Interconnect Provider
-> +
-> +maintainers:
-> +  - Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-> +
-> +description:
-> +  The Camera Network-on-Chip (CAMNOC) is the internal AXI interconnect
-> +  within the Qualcomm camera subsystem. It arbitrates AXI bandwidth
-> +  between camera sub-devices (IFE, JPEG, BPS, IPE, etc.) and the external
-> +  memory interconnect. Multiple consumers may independently request
-> +  bandwidth via icc_set_bw(); the CAMNOC ICC provider aggregates all active
-> +  votes and scales CAM_CC_CAMNOC_AXI_CLK accordingly, avoiding the
-> +  last-writer-wins race that arises when each consumer calls clk_set_rate()
-> +  directly on the shared clock.
-> +
-> +  Each camera sub-device driver that shares the CAMNOC AXI clock should
-> +  obtain an ICC path from its master port to SLAVE_CAMNOC_AXI and vote for
-> +  bandwidth using the port IDs defined in
-> +  include/dt-bindings/interconnect/qcom,camnoc.h.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - qcom,sm8250-cam-virt
-> +
-> +  clocks:
-> +    items:
-> +      - description: CAMNOC AXI clock
-> +
-> +  clock-names:
-> +    items:
-> +      - const: camnoc_axi
-> +
-> +  '#interconnect-cells':
-> +    const: 1
-> +
-> +required:
-> +  - compatible
-> +  - clocks
-> +  - clock-names
-> +  - '#interconnect-cells'
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/qcom,camcc-sm8250.h>
-> +    #include <dt-bindings/interconnect/qcom,camnoc.h>
-> +
-> +    /* CAMNOC ICC provider node */
-
-Drop, redundant.
-
-> +    cam_virt: interconnect-cam-virt {
-
-Drop unused label
-
-> +        compatible = "qcom,sm8250-cam-virt";
-> +        clocks = <&camcc CAM_CC_CAMNOC_AXI_CLK>;
-> +        clock-names = "camnoc_axi";
-> +        #interconnect-cells = <1>;
-> +    };
-> +
-> +    /*
-> +     * Simple consumer example: IFE sub-device voting for CAMNOC bandwidth
-
-
-And what are the writing schema/bindings asking about consumers? Or
-DTS101 slides? Look at other bindings instead of coming with own style.
-
-Best regards,
-Krzysztof
-
+diff --git a/drivers/hid/hid-roccat.c b/drivers/hid/hid-roccat.c
+index 4f15eb951039..505844890ed3 100644
+--- a/drivers/hid/hid-roccat.c
++++ b/drivers/hid/hid-roccat.c
+@@ -236,6 +236,7 @@ static int roccat_release(struct inode *inode, struct file *file)
+                        hid_hw_close(device->hid);
+                } else {
+                        roccat_free_device(device);
++                       devices[minor] = NULL;
+                }
+        }
+diff --git a/drivers/hid/hid-roccat.c b/drivers/hid/hid-roccat.c
+index 505844890ed3..220666bdd13d 100644
+--- a/drivers/hid/hid-roccat.c
++++ b/drivers/hid/hid-roccat.c
+@@ -370,8 +370,11 @@ void roccat_disconnect(int minor)
+ 
+        mutex_lock(&devices_lock);
+        device = devices[minor];
++       if (!device) {
++               mutex_unlock(&devices_lock);
++               return;
++       }
+        mutex_unlock(&devices_lock);
+-
+        device->exist = 0; /* TODO exist maybe not needed */
+ 
+        device_destroy(device->dev->class, MKDEV(roccat_major, minor));
