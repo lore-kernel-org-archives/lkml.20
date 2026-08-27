@@ -1,238 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-43.mta1.migadu.com [95.215.58.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1181F47426F;
-	Thu, 27 Aug 2026 13:37:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A61E6377EB8
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:40:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787837849; cv=none; b=QL9ThiWYBm1ufkB9ouPfK47BA/soD0L7B2IB8hu2v5K6KpkHoCsfftwrGHBaxj9fsnwdhcAR5BB5ndWzXYj0Ug99RLnVkPWGXSm93YYdCkkpmsoaPJf9tRSqa8xoidFBKFaFlhsttB5yCAOPxKZFRmuf2NgcObosfdMc0IwyqVc=
+	t=1787838015; cv=none; b=gOkgkBPOt23Uc5Ei1myVHSMjuP+IyDxYZJeBb4Qr1aIlCMQvOkK3T4kaNfm6i2V8ClE4Ez3W7qrdnURE0+vvqi+PWBCihO2HvnttYp4+5cbC4GQVYqC378XAjagZcFHeUZL2c4q0/2+gtdglXkGPi1+/ff/Nci2WeMg0/SZ7sd8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787837849; c=relaxed/simple;
-	bh=oY0c1AW+usFPalvGusOLX5O6JdebncBbHrokDzDAods=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Yflf0cuJUURXxccqqfd7BZsRPZq6Ul3cLpcf9ImccLhQR+dRx/IaM4Cz2P2delr+1io4Dlt0Mj3sI7EDxnDVg+KI9L7uLjAn8mDW2ngWMCO26vTVzIMkZp4v6QWZBf8pv5hSTBKi4r5zvADiXzs3UVatcuthQilYpj+QpY2OLXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EjJPsLHD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787838015; c=relaxed/simple;
+	bh=QbDr5AegvBQUfylRvluvNUQKq4sIMyDkgCg5Cj3a4Ks=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=DydQATZHYgY4jSlTkzyg8fScLtN7Ios3jZxlNi0zzZXmnLPAQ/clKul2Y/P+s3wzKUovNZTYKR5Uxxc1WWFa0uuGKk9wDpaUSUpfOPkG/hiIBcHO+qArhiAyzlLMyG+zQoG6+3anE9Qd5JR0ac9+6hVoNDTdX2RmkJ8E/09Bbkc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=IgQWXkEA; arc=none smtp.client-ip=95.215.58.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EjJPsLHD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10B3D1F00A3A;
-	Thu, 27 Aug 2026 13:37:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787837842;
-	bh=Nv36OJs/i5N81A8w6VnsxH1bGMLmb+1yrGEItGrsKAo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EjJPsLHDWlcdH9oc1cBBRFh+A5r1VkH6ZSeSmbXBpUIQM70sjTBYjZh5kAyvo9m+O
-	 irLt8peeL/4RC/y31+osaY9sQ/kuJenQJ/kEzZYEAjZP6OWSCFdy9l+WeNjTjLqY39
-	 2SZOjspV8OUsaJUehzctVCbAlb2/EVVVLnAwjhOVOMSiKjEubdH++OcMTznZBhS8zb
-	 34DIfptVKRPo/zVeNdKqmEecg0SPzbvd9Y5ZyRIntBuOJDegmDq2fSxEVBSfZgrzry
-	 qREY4rTOCLuRYf8K07kGzyofeWkIO7x267382H99g6+g3dxcLCTcZy18V9tPQgf0IO
-	 xha+cG0Nt1xfA==
-From: Simon Horman <horms@kernel.org>
-To: rkannoth@marvell.com
-Cc: Simon Horman <horms@kernel.org>,
-	davem@davemloft.net,
-	hkelam@marvell.com,
-	linux-kernel@vger.kernel.org,
-	naveenm@marvell.com,
-	netdev@vger.kernel.org,
-	sgoutham@marvell.com,
-	andrew+netdev@lunn.ch,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Subject: Re: [PATCH v2 net] octeontx2-pf: reset HTB scheduler topology before freeing queues
-Date: Thu, 27 Aug 2026 14:37:06 +0100
-Message-ID: <20260827133706.470757-1-horms@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260824072147.3524339-1-rkannoth@marvell.com>
-References: <20260824072147.3524339-1-rkannoth@marvell.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="IgQWXkEA"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=QbDr5AegvBQUfylRvluvNUQKq4sIMyDkgCg5Cj3a4Ks=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787838008; v=1; x=1788442808;
+ b=IgQWXkEArlPCNUsbte/zrCTOHXkMAvFS2YBt7w/iGARKp9Q/COQRpUNhP6ekCuFUz1GqtOtM
+ gOOOAEIFT5mukfw+A55pKihvOmwYCKZMx76u4umgUtNJqNA2ILU7TXLH/UMCM0i5A/0Q5Fl2V7U
+ YTNt6wRZ8Sn9pIuuxLqAJwAs=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 54c0bf2086df733c;
+	Thu, 27 Aug 2026 13:40:08 +0000
+X-Mizu-Trace-ID: 54c0bf2086df733c
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Thu, 27 Aug 2026 13:40:08 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Zqiang" <qiang.zhang@linux.dev>
+Message-ID: <d981cbddec4ebac0ba00fa0fce85d04982a45c42@linux.dev>
+TLS-Required: No
+Subject: Re: [BUG] srcu: false-positive WARN in cleanup_srcu_struct() after
+ 78a38cbf6f20
+To: "Sunho Park" <shpark061104@gmail.com>, paulmck@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+ syzbot+d4faf7db59e11f6fd1ab@syzkaller.appspotmail.com,
+ rcu@vger.kernel.org
+In-Reply-To: <28ac9afd-92dc-4c92-91f3-94f025977ca7@gmail.com>
+References: <20260824105625.3725157-1-shpark061104@gmail.com>
+ <494f3e0cdb3692bf13690f4cddd3b40098b51627@linux.dev>
+ <24c0edd6-3cdc-4536-ac78-394bf785aad4@gmail.com>
+ <0e74e6799bf042293fd1e34e2f242c56786c3de4@linux.dev>
+ <9e216978-d884-4d56-b39f-d134f78a4999@gmail.com>
+ <eb2132ad05cd3804a8f2a170de441d79afa793e9@linux.dev>
+ <f85c60a0-81d7-41a4-9926-f69cf10222d0@gmail.com>
+ <e6350377085ddd85d6ef00d8e9a67bd50c762d3c@linux.dev>
+ <698a4d8b6c559f9049ee6fa6b0bc99d45a3d7e44@linux.dev>
+ <d036078f31cd8f0fdf0b9185ce8cadef803cc375@linux.dev>
+ <28ac9afd-92dc-4c92-91f3-94f025977ca7@gmail.com>
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
-Full review at: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260824072147.3524339-1-rkannoth@marvell.com?part=1
----
-octeontx2-pf: reset HTB scheduler topology before freeing queues
+>=20
+>=20On 8/27/26 21:40, Zqiang wrote:
+>=20
+>=20>=20
+>=20> Now, I am trying to rephrase your problem in the following way:
+> >  1- the step1 call_srcu() trigger SRCU grace period has been end and =
+queue sdp->work.
+> >  2- the step4 queue srcu callback has been intercepted by step5 srcu_=
+barrier()
+> >  and start a new SRCU grace period.
+> >  3- this new SRCU grace period end, and invoke rcu_seq_end(&sup->srcu=
+_gp_seq), queue a timer.
+> >  4- the sdp->work begin run, and call srcu_segcblist_advance() with c=
+urrent sup->srcu_gp_seq.
+> >  so the step4's srcu callback and step5's barrier calback both to be =
+run.
+> >  all callback finished, but the len not yet update.
+> >  5- the srcu_barrier() return, begin call srcu_clean_up(), and then t=
+he srcu_clean_up
+> >  find the a timer is still pending and the cb_len also not be zero, t=
+rigger WARN_ON()
+> >  right?
+> >=20
+>=20Exactly. The real callbacks are properly invoked as srcu_barrier() gu=
+arantees. The WARN is triggered only by the two transient states: a pendi=
+ng delay_work timer and a stale cblist len. So I think this is a false po=
+sitive warning.
+>=20
+>=20Sorry if my explanations were too wordy.
 
-This patch adds otx2_qos_reset_schq_topology() and wraps
-otx2_txschq_free_one() in a new otx2_qos_free_hw_schq() helper so that
-NIX_AF_TLxX_TOPOLOGY is zeroed for TL1 through TL4 before an HTB scheduler
-queue is handed back to the AF. The new helper is used in the hierarchy
-teardown paths and in the cfg rollback path.
+Would you like to send a patch to fix it ?
 
-> diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/qos.c b/drivers/net/ethernet/marvell/octeontx2/nic/qos.c
-> index 69c0911e28e91..100342b68ffa2 100644
-> --- a/drivers/net/ethernet/marvell/octeontx2/nic/qos.c
-> +++ b/drivers/net/ethernet/marvell/octeontx2/nic/qos.c
-> @@ -235,6 +235,58 @@ static int otx2_qos_txschq_set_parent_topology(struct otx2_nic *pfvf,
->  	return rc;
->  }
->  
-> +static int otx2_qos_reset_schq_topology(struct otx2_nic *pfvf, u16 lvl,
-> +					u16 schq)
-> +{
-> +	struct mbox *mbox = &pfvf->mbox;
-> +	struct nix_txschq_config *cfg;
-> +	int rc;
-> +
-> +	if (lvl < NIX_TXSCH_LVL_TL4 || lvl > NIX_TXSCH_LVL_TL1)
-> +		return 0;
-> +
-> +	mutex_lock(&mbox->lock);
-> +
-> +	cfg = otx2_mbox_alloc_msg_nix_txschq_cfg(mbox);
-> +	if (!cfg) {
-> +		mutex_unlock(&mbox->lock);
-> +		return -ENOMEM;
-> +	}
-> +
-> +	cfg->lvl = lvl;
-> +	cfg->num_regs = 1;
-> +
-> +	if (lvl == NIX_TXSCH_LVL_TL4)
-> +		cfg->reg[0] = NIX_AF_TL4X_TOPOLOGY(schq);
-> +	else if (lvl == NIX_TXSCH_LVL_TL3)
-> +		cfg->reg[0] = NIX_AF_TL3X_TOPOLOGY(schq);
-> +	else if (lvl == NIX_TXSCH_LVL_TL2)
-> +		cfg->reg[0] = NIX_AF_TL2X_TOPOLOGY(schq);
-> +	else
-> +		cfg->reg[0] = NIX_AF_TL1X_TOPOLOGY(schq);
-> +
-> +	cfg->regval[0] = 0;
+remove WARN_ON() or use rcu_segcblist_empty(&sdp->srcu_cblist) to replace=
+ rcu_segcblist_n_cbs(&sdp->srcu_cblist) ?
 
-[Severity: High]
+Let's hear Paul's opinion.
 
-The level guard admits NIX_TXSCH_LVL_TL1, so the trailing else writes
-NIX_AF_TL1X_TOPOLOGY(schq) = 0.  Is zero the right value for TL1?
+Thanks
+Zqiang
 
-otx2_txschq_config() in otx2_common.c programs it with the aggregation
-level RR priority:
-
-	req->reg[1] = NIX_AF_TL1X_TOPOLOGY(schq);
-	req->regval[1] = hw->txschq_aggr_lvl_rr_prio << 1;
-
-and otx2_qos_root_add() depends on the same value for the HTB root:
-
-	/* Update TL1 RR PRIO */
-	if (root->level == NIX_TXSCH_LVL_TL1) {
-		root->child_dwrr_prio = pfvf->hw.txschq_aggr_lvl_rr_prio;
-
-On a PF the HTB root sits at TL1, since otx2_qos_alloc_root() does:
-
-	if (!is_otx2_vf(pfvf->pcifunc)) {
-		node->level = NIX_TXSCH_LVL_TL1;
-
-so every qdisc delete now reaches the new code with lvl == TL1:
-
-otx2_qos_root_destroy() -> otx2_qos_destroy_node() ->
-    otx2_qos_free_hw_cfg() -> otx2_qos_free_hw_schq(pfvf, TL1, root->schq)
-
-TL1 is the per-tx-link queue shared by the PF, its default (non-HTB) Tx
-hierarchy and all of its VFs.  nix_txsch_alloc() hands out the same queue
-for everyone on that link:
-
-	if (lvl >= hw->cap.nix_tx_aggr_lvl) {
-		start = link;
-		end = link;
-
-Can zeroing RR_PRIO and PRIO_ANCHOR there disturb DWRR arbitration for the
-PF's ordinary traffic and for its VFs, whose TL2 SCHEDULE[PRIO] is
-programmed with txschq_aggr_lvl_rr_prio?
-
-The AF does apply the write when it comes from a PF.
-rvu_mbox_handler_nix_txschq_cfg() only short-circuits aggregation level
-writes issued by VFs:
-
-	if (req->lvl >= hw->cap.nix_tx_aggr_lvl &&
-	    pcifunc & RVU_PFVF_FUNC_MASK) {
-
-and nix_tl1_default_cfg() will not put the default back, because
-NIX_TXSCHQ_CFG_DONE is already set:
-
-	/* Skip if PF has already done the config */
-	if (TXSCH_MAP_FLAGS(pfvf_map[schq]) & NIX_TXSCHQ_CFG_DONE)
-		return;
-
-Since otx2_txschq_config() only runs at interface open, does the zeroed TL1
-TOPOLOGY then persist until the interface is brought down and up again?
-
-Separately, is the TL1 write useful at all?  nix_txschq_free_one() never
-frees an aggregation level queue:
-
-	if (lvl >= hw->cap.nix_tx_aggr_lvl || schq >= txsch->schq.max)
-		return 0;
-
-That makes the commit message wording "before returning it to the AF" and
-"can survive in the shared scheduler pool and affect later allocations" not
-apply at TL1, while the register write still lands.  Would skipping
-lvl >= hw->cap.nix_tx_aggr_lvl, or writing
-hw->txschq_aggr_lvl_rr_prio << 1 instead of 0, be more appropriate?
-
-> +
-> +	rc = otx2_sync_mbox_msg(mbox);
-> +
-> +	mutex_unlock(&mbox->lock);
-> +
-> +	return rc;
-> +}
-> +
-> +static void otx2_qos_free_hw_schq(struct otx2_nic *pfvf, u16 lvl, u16 schq)
-> +{
-> +	int err;
-> +
-> +	err = otx2_qos_reset_schq_topology(pfvf, lvl, schq);
-
-[Severity: Low]
-
-This isn't a bug, but doing the sanitization in the PF/VF driver only covers
-cooperative in-kernel HTB teardown.
-
-nix_txschq_free() in rvu_nix.c (FLR, NIXLF free, VF removal) frees all of a
-pcifunc's schqs through nix_reset_tx_linkcfg(), nix_clear_tx_xoff(),
-nix_reset_tx_shaping() and nix_reset_tx_schedule(), and
-nix_reset_tx_schedule() touches only PARENT and SCHEDULE:
-
-	if (tlx_parent)
-		rvu_write64(rvu, blkaddr, tlx_parent, 0x0);
-
-	if (tlx_schedule)
-		rvu_write64(rvu, blkaddr, tlx_schedule, 0x0);
-
-So a PF or VF that is FLR'd while an HTB hierarchy is configured still
-returns queues with PRIO_ANCHOR/RR_PRIO programmed, which is the state the
-commit message describes.
-
-Would clearing TOPOLOGY inside nix_reset_tx_schedule() cover all callers
-instead, and also avoid the extra synchronous mbox message per freed schq
-that this patch adds to teardown?
-
-> +	if (err)
-> +		netdev_warn(pfvf->netdev,
-> +			    "QoS: failed to reset topology for schq %u at level %u: %d\n",
-> +			    schq, lvl, err);
-> +
-> +	otx2_txschq_free_one(pfvf, lvl, schq);
-> +}
-> +
->  static void otx2_qos_free_hw_node_schq(struct otx2_nic *pfvf,
->  				       struct otx2_qos_node *parent)
->  {
-
-[ ... ]
-
-> @@ -266,7 +318,7 @@ static void otx2_qos_free_hw_cfg(struct otx2_nic *pfvf,
->  	otx2_qos_free_hw_node_schq(pfvf, node);
->  
->  	/* free node hw mappings */
-> -	otx2_txschq_free_one(pfvf, node->level, node->schq);
-> +	otx2_qos_free_hw_schq(pfvf, node->level, node->schq);
->  
->  	mutex_unlock(&pfvf->qos.qos_lock);
->  }
-
-[ ... ]
+>=20
+>=20Thanks
+> Sunho Park
+>
