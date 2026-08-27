@@ -1,105 +1,235 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+Received: from mail-oa1-f44.google.com (mail-oa1-f44.google.com [209.85.160.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0E8E38AC88
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 03:56:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 871CD36897F
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 03:58:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787803017; cv=none; b=NnXz8VaF+NApGxJn5XIMeEO9V6/gNfkrYfhOWo1qScNP/D+vp8/6mx4NEuxvf8Z9zQ/kk/7v5cfMsCLA4OrT+O8/APgcfixrjRk4tUzEwSW8hMck209r2N5FHX8DfupZ7I4Fe084BM/4RJIASUgcqUyUFKvjXCDHl93ATNwDU0s=
+	t=1787803124; cv=none; b=h65s0I9NksBRlxbzCPFcBVyqDxsJXHiEh/ZeDFt6K8k/GIUazVRQgmg76tiUrrQKz0IYwcLnx94yEA6G7M/FcBWoojLCXsdq+WZXDekIiBodjg9kSO2iCGGbl4+m3aMdc8GTDtbsgjluiZv5i1IMVmRoghFyaY6LdOJSl3NLIRM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787803017; c=relaxed/simple;
-	bh=0A7pV1a7CKYmXnn1A7cvl103jyF3Qb8W9InhDuuvFiw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=luT/NfMiNRzkc5+2bMY9xkTjriHAakXmZOnPELOvOil9VzzJQI2Anc8RPjhw+hCbZiUlLATNAPcHZ5kHE32UGVM2VgUT7Qkw227EV1maklS3NC/MdqosrTcDvZ0PksYoPW1RDDngt8HQTNlgJ7/jWU6xbLFpiud7UMKspB/MpVY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iq9Fyjl5; arc=none smtp.client-ip=209.85.221.47
+	s=arc-20240116; t=1787803124; c=relaxed/simple;
+	bh=WBqoSJ078Ipt132g05hyxfLhIJ0n83c7RK8+glXV/VM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=bH48qSQpNxCLe50nbZd5YOVKYYTWZpEUFrB6ixM++hbKyIMsu9JuYYGW0shjMp9JE0BjknEn9VWnvH5/ytLgRk0Xp06NfZ/C3gfQiwAAvg9qm+SFTce2U4TUIfWogcge+nvCzROi37oEqtQOLgQ9BpYaazcGvv+iuEmyQ9fxpo4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MLA+0v/z; arc=none smtp.client-ip=209.85.160.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iq9Fyjl5"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-47f3b39f2a1so1347064f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 20:56:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MLA+0v/z"
+Received: by mail-oa1-f44.google.com with SMTP id 586e51a60fabf-451a49abd8aso1821380fac.3
+        for <linux-kernel@vger.kernel.org>; Wed, 26 Aug 2026 20:58:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787803014; x=1788407814; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IaSfFPZdEGUZY6hrb44h13Q/oeNF7xyFzDFwnZ79Vrs=;
-        b=iq9Fyjl5/6NLq8OQQxL/YR52Y7T5kmv30e/zWlyeEd2hx1UxxymRo53QacOu0SFKzc
-         F3cazlEO0w9bwggHSKgj+r0sPNrvCFawrwHd7Gs5CsJkTCo66isqb9X2LGTBgHr5pxzA
-         LDZwavjs0zHH74ZbEqtdoTIJQYavbcmmsLyLFqL+5AERKJcxUyp4idSVr7n3bKUHdkVZ
-         trNDYRFdQ6/mp0wRx85/csyZxhieJEgAtsZb1TUA7+a//j3oZi2+O7kfXaXacc1VRtX2
-         HY9eSCsxzPsQqzcnUz9T/7Zm+JaymeL4NpvTDIz1KZvMR/cc+srLPq1YycOzIC0K4NVp
-         el+g==
+        d=gmail.com; s=20251104; t=1787803121; x=1788407921; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=hk8xlYcQ992v4GPZklrqwELZ/QuZUmphMpwq4ovXMVs=;
+        b=MLA+0v/zu6o90/gIZlz+73hKTt7pDzG2z2nb0UU9doxDKvHEM/Q75KjO5f+rrdjhsF
+         NoA1ZczIMI53ASfk4QkwLjVyJ8JDYG6PvK5SDnJfYyMkGHIngLxXvS9E8/FViILcYDKp
+         EP41BH9AGpgNE+ExSXd0+cFKdeUjou76RcavmdfQaf+8MtVH59d8QeaQ4FgBRShaFsgZ
+         lCChxtwNiBlHAyqigMYu6Jf12I/CegNyDsbqE410n7V6FgCcIfBn+TEYcqTs3DsTXzyz
+         sdFYqT48mx3HrqoEDwGM2qSL8PFv3ETg+Aa49uSq6g3jcAJ3vGHYg/oIkJj56rWdYG6o
+         eoxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787803014; x=1788407814;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IaSfFPZdEGUZY6hrb44h13Q/oeNF7xyFzDFwnZ79Vrs=;
-        b=V5adnJjs8al5Rd/v6qmgijIlBYSawnfvgIf9G3zqCOCDMuK9Ay5Ze6X0yTr9pk+MXL
-         758J/UT6gjYxgUEIFoACMRm50m+TB4IpHDKmmaj2T8Z8Vpz20qzrEhul9iRyHuNtrVR6
-         evyWQBWC88HrbV+aQvsBg9I1/ber1LsbGqPCeZzfwIJeFa6WzuYNXtjRsgHRP+XD+I7j
-         LdrfwGlD0PqcD2DuBjd/OD75KLtIMz5spTYCo3UHtM+9CznHiOLvlk7W36pOC5j1KU8D
-         qmWZj0uC1YoJ7t9oj1iZn+DzDO+RvmE/oKp7nfEzC8XUWQwSGMTRe6JIHoe0pyhhmMDH
-         AYcw==
-X-Forwarded-Encrypted: i=1; AHgh+Roy5KbLuyZI1FkvaR3eFToynO/rUQoTYSBAiLhjtnII+dIsH8ZT8hb5xaqntSic+l4XGKj+3kA5Geb6SdI=@vger.kernel.org
-X-Gm-Message-State: AFuF++k6xIngYfW3BYScBpyBk2pzlOu9zQKoBzcEWzFuKy/XziuNwEgi
-	Dp+tWpoq9Hx5l1alkBK0UcGsm6og5LylIVqAJO/MaxKWYexXfix+qdwL
-X-Gm-Gg: AR+sD11g+dMMrv022zmT+n4HoF//Uj6g72x29HRMqsWjxnBsSrA6Pf3HTwICJ07FRE1
-	EArufCWdSXlyBQqdg7IoOhsZuEqdCyWE2bfWO4/IWxRZ6eneuvnMxGqq86DFuXTjZnLdJawEfpH
-	vXiwvza2LNs1XaNb4Aw3wSeknbs3F0fnG3oNbqzSND/YzuZ+5BR0GaQMXJJeQJfor7Z4wJbOvPJ
-	yV0jnK2rxeTzhv3DQmfQMOwsAvEhfpBau6BrrtYU9dtksXQZd7j34ZrA1YUEZRtjhhrIHNx6GoR
-	r0SYMKA71CRdvQFG2E2nrxeai/OZpNptrPHgY4K1Ii8qVFcPGoXLCvXrNZccVtYnV3Dx23+44Hs
-	1UrgBKGkK7IOKIANia6xA7CNmZ3KJxhFLZMI+oQSz90usjcAsGu7V1/65AjqLIq7Zlji4E1bhfO
-	T9v7F6HX6IloCplJPiydejiQtxcjqy9Z/6+cyF1lk0Y7StPYllUT/2dDWf0EeB9GPoDnFbfcQKN
-	Nb//atP/UXdGU2WjZUW7OFZRUmzdVenlMPW0MV4wAs9HRgiGlJgt81AF7iFX1zUsmlLVk0yvnOm
-	xOhaztOfOs03qzj2ypCnI7s=
-X-Received: by 2002:a05:6000:4384:b0:47f:e748:3ae3 with SMTP id ffacd0b85a97d-482e2696b9dmr9922200f8f.3.1787803013701;
-        Wed, 26 Aug 2026 20:56:53 -0700 (PDT)
-Received: from unknown748F3CBA5068 (dynamic-095-114-154-097.95.114.pool.telefonica.de. [95.114.154.97])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e28e8fb5sm5723467f8f.29.2026.08.26.20.56.52
+        d=1e100.net; s=20251104; t=1787803121; x=1788407921;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=hk8xlYcQ992v4GPZklrqwELZ/QuZUmphMpwq4ovXMVs=;
+        b=rQ1jPLmOS6efwtj8E2qtlL8toWltlpIYLSbWQRO2nk00Y9RwXHGceyL2tn/J4VR24f
+         2icNIK1jlv7Uq/gR6wn+IyQ2SVS3RjdJ3un/aAOuU5HEUAF4o2Ut/FOibXS6DOhCnDZn
+         Rk/8/0xt9k9YtRL1+Zw1BliqywYC6JUQgEGYlUZ8kcKON41FtqvgW0yXJs96q24B7/ii
+         6Ep7zo4XLzJbiA0wlnFvSynthbyt2gioC4UmtVNM3dCb/YyI6cqy2IHRAs+DI6oHONYR
+         2JWnUhPAc+k446KdNDwFC9FIzPNOZ5lqDmwgW1sia/nthF/CNtME8IkcZ/SqNWAT+DDW
+         jfhQ==
+X-Gm-Message-State: AFuF++k3MnwaCDK0TuOU87yFWBk+7vJNwtZ/6V58znGyhynvsRGCpnPp
+	tbWS0O/35e855MFIfJhKN2ZyW5bW7EOUde13zBdar7kuLXH6uiDbQpn/
+X-Gm-Gg: AR+sD11P8u7Z4fsyYOggUam8S4Kg2J4bAf1EZF+JSVkN65EEIGqzbO5G7k29tP06yDu
+	/h30v1bJ/l+hLlfBy/S3LUEtBS+dvKHABA3y65bjMXft1zrcLKf6PCih+SW0FrkXdW835cqefhJ
+	Y/J7wYDbMfgjGs6Y0tp0S90H7fAfUX4m3sIOIYtPaRo0elTmP5hPFaib3Ra2F7xS3VM+YBvLu9c
+	b7IlQJ8tFYMtM1OFJzXaiRQWIpUd/YPnDjRIHESJ67Hov0bubfAdjqaLLguZjErCiOjYeIXtuLt
+	YEr6VcNs7jbcvOlJwStoCu01fzkbBNQeTraBmNVMxTGuVzHPr7ZLWiOXRjCpFfdjBG5aRf/UZ7x
+	xzT4r+6mEBgfFLzDxIoJuZOlbxE7d+FmvIUwGU9tRT/aMC0bhfTa2rwRFzuCzI7m3QiIfZOtEcV
+	wxcBCFvoAGSfkE7KXsAth64PV2uwadUMIrJstghgnmRvf1MNEdpOWMp4CeBoov3sLrU3Z3N6J5O
+	2DPZuuuwY5ct5ugnAEmYt85l+gjBJoR4ct4fu6UQ5yekULKGxK7RD6OW3FIvlyQstGOxfl09q1y
+	I2Ut3TsQ
+X-Received: by 2002:a05:6871:e8c:b0:44c:a987:82f4 with SMTP id 586e51a60fabf-46599818af5mr13503843fac.10.1787803121206;
+        Wed, 26 Aug 2026 20:58:41 -0700 (PDT)
+Received: from [192.168.0.245] (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
+        by smtp.googlemail.com with ESMTPSA id 586e51a60fabf-467367af2bfsm900825fac.6.2026.08.26.20.58.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 20:56:53 -0700 (PDT)
-Date: Thu, 27 Aug 2026 05:56:21 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Russell King <linux@armlinux.org.uk>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] ARM: asid: Do not replace active_asids if already 0
-Message-ID: <ao-1AUkmBM0lVT97@gmail.com>
-References: <20260809180600.6049-1-kmehltretter@gmail.com>
+        Wed, 26 Aug 2026 20:58:40 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+Subject: [PATCH 0/8] lockdep: change 5 graph-db arrays to AofAs, fill from
+ memblock pool
+Date: Wed, 26 Aug 2026 21:58:32 -0600
+Message-Id: <20260826-lockdep-memblock-v1-v1-0-e2db855391ec@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260809180600.6049-1-kmehltretter@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MSQqAMAwAvyI5G2gjFfUr4kFrqsGVFoog/t3qb
+ eYwc0NgLxygyW7wHCXIsSfReQZ27veJUcbkQIpKVZHB9bDLyCduvA0fY9SoyaqqIDLsakjl6dn
+ J9V/b7nleeW76DWUAAAA=
+X-Change-ID: 20260825-lockdep-memblock-v1-12c083225ef9
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Waiman Long <longman@redhat.com>
+Cc: linux-kernel@vger.kernel.org, Jim Cromie <jim.cromie@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787803120; l=7481;
+ i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
+ bh=WBqoSJ078Ipt132g05hyxfLhIJ0n83c7RK8+glXV/VM=;
+ b=0AQYKqxewWYBtOLdFCl1DLEf8aFHAlcF2/AyzJUm6geUNhgoU8tc3stVgKIrCaXElvMHzZ4lT
+ b7AuOyb5Ni1CeGZeD1UNYSUkxmmbOnFePCyAt0W7WfBziPkI7ayGMNR
+X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
+ pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 
-On Sun, Aug 09, 2026 at 08:06:00PM +0100, Karl Mehltretter wrote:
-> This patch changes the xchg to cmpxchg so that the active_asids is only
-> updated if non-zero to avoid a race with an ASID roll-over on a
-> different CPU.
-> 
-> Cc: Russell King <linux@armlinux.org.uk>
-> Cc: Will Deacon <will@kernel.org>
-> Signed-off-by: Catalin Marinas <catalin.marinas@arm.com>
-> Tested-by: Karl Mehltretter <kmehltretter@gmail.com>
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> ---
-> This is similar to the arm64 patch [1], with the difference that
-> non-relaxed (cmp)xchg is used as in the existing ARM code.
-> 
-> This is a resubmission of Catalin Marinas' original 2018 patch. The
-> original submission was not merged, and the ARM32 equivalent of the arm64
-> ASID rollover fix remains missing.
-> 
+Lockdep cannot rely upon any other subsystem that uses locks, so since
+inception, its graph-db has been stored in static arrays, pinning ~10
+MB in .bss. This is a hardcoded compromise between embedded and
+enterprise hardware.
 
-Just a friendly ping in case this got missed.
+However, if it acts early, lockdep can pre-allocate a pool of slabs
+from memblock_alloc(), enough for its lifetime of anticipated workloads.
+Then it can allocate them as needed to provide new segments/slabs to
+the graph-db.
 
-Thanks,
-Karl
+With that idea, we:
+
+0. Add lockdep_early_init() hook in start_kernel() right before
+   mm_core_init() to grab a private pool of 64 KB slabs from memblock.
+
+1. Add DECLARE_CHUNKED_ARRAY() to build 2D chunk pointer tables.
+   Indexing uses a compile-time hybrid:
+   - Power-of-2 tables (lock_chains @ 2,048/slab, chain_hlocks @ 32,768/slab)
+     use single-cycle bit shifts (idx >> SHIFT) and masks (idx & MASK)
+     for zero-overhead cache verification.
+   - Non-power-of-2 structs (lock_classes @ 409/slab, list_entries @ 1,365/slab)
+     use Granlund-Montgomery reciprocal divide to achieve >99.8% slab
+     packing density, avoiding 1.75 MB of internal dead padding.
+
+2. Deploy chunked arrays across the 5 graph-db tables:
+   - lock_classes: struct lock_class (160 B) -> lock_class_chunk0 (409 / slab)
+   - list_entries: struct lock_list  (48 B)  -> list_entries_chunk0 (1,365 / slab)
+   - lock_chains:  struct lock_chain (32 B)  -> lock_chain_chunk0 (2,048 / slab)
+   - chain_hlocks: u16               (2 B)   -> chain_hlock_chunk0 (32,768 / slab)
+   - stack_trace:  unsigned long     (8 B)   -> stack_trace_chunk0 (8,192 / slab)
+   Each static name##_chunk0 in .bss (~320 kB total) provisions the graph-db
+   with initial storage to cover early boot until memblock is up.
+
+3. Embed struct lock_class.class_idx and struct lock_chain.chain_idx to
+   replace flat pointer arithmetic (ptr - base) with O(1) index queries
+   across disjoint 2D slabs.
+
+4. Dole slabs out on demand to the 5 consumers via an index bump under
+   graph_lock (zero allocator locks, zero recursion risk).
+
+5. Auto-tune the pool size based on RAM and accept boot overrides via
+   lockdep_slabs=N and lockdep_headroom=M%.
+
+6. At late_initcall, satisfy both constraints (slabs >= N and headroom
+   >= M%), and return all unused excess slabs to the buddy allocator
+   via free_reserved_page().
+
+7. Expose pool usage and remaining headroom via /proc/lockdep_stats and
+   log lifetime usage via a reboot notifier.
+
+8. On debug_locks_off() or OOM, immediately sacrifice all dynamically
+   claimed slabs back to the buddy allocator.
+
+Static .bss Memory Savings (vmlinux x86_64 defconfig):
+
+    Kernel                 .bss Section Size       Notes
+    ----------------------------------------------------------------------
+    Upstream (Static)      12.46 MB (13061164 B)   Fixed max-sized arrays
+    Patched (Memblock)      2.30 MB ( 2410988 B)   5 * 64 kB Chunk 0s in .bss
+    ----------------------------------------------------------------------
+    Net Savings            -10.16 MB (81.5% reduction in .bss)
+
+Memblock-Pool Elasticity & Buddy Return:
+
+  [ 0.850318] lockdep: boot complete : 9/64 slabs used, 41 kept (355% headroom), 23 returned to buddy (1472 kB freed)
+
+  That VM boot consumed 9 slabs (576 kB), keeps 41 slabs (2624 kB,
+  355% headroom) for runtime growth, and returns 23 slabs (1472 kB) to
+  buddy at late_initcall:
+
+  The boot-args let user specify the reserved-slab-pool size:
+    lockdep_slabs=N		# min ct of 64kb slabs kept
+    lockdep_headroom=N%		# added % to boot-complete numbers, default is 100%
+
+Workload Stress Performance & CPU Overheads (perf stat, 4 vCPUs):
+
+    Benchmark     Metric          Upstream (Base)     Patched (Memblock)  Delta
+    ---------------------------------------------------------------------------
+    hackbench     Runtime             8.482 s             8.278 s        -2.40%
+    hackbench     Cycles          52899510936         52033166458        -1.64%
+    hackbench     Instructions    29008189069         31698626928        +9.27%
+    netns         Runtime             9.704 s            13.321 s       +37.28%
+    netns         Cycles           3941156282          5077381493       +28.83%
+    netns         Instructions     2758079004          3008859260        +9.09%
+    vfs           Runtime            10.544 s            10.608 s        +0.60%
+    vfs           Cycles          48150692681         48840696114        +1.43%
+    vfs           Instructions    32621052088         35448537908        +8.67%
+    modstorm      Runtime             0.611 s             0.585 s        -4.17%
+    modstorm      Cycles            512425082           514784953        +0.46%
+    modstorm      Instructions      349890783           383054584        +9.48%
+
+    Under heavy lock contention (hackbench), the power-of-2 fast-path on
+    chain_hlocks and lock_chains brings total cycle consumption to parity
+    with or slightly faster than upstream baseline (-1.64% cycles).
+
+Workload specifics (virtme-ng, 4 vCPUs, 4 GB RAM):
+- hackbench: hackbench -p -g 8 -l 1000
+- netns:     40 netns add/del cycles with paired veth interfaces
+- vfs:       8 parallel workers creating 200 dirs, files, symlinks + rm -rf
+- modstorm:  10 sequential rounds of batch modprobe/rmmod (dummy loop null_blk brd tun)
+
+What's Unchanged:
+- All lockdep validation invariants, BFS graph algorithms, and deadlock
+  detection logic are completely unmodified.
+- RCU iteration semantics across lock classes and chains remain intact.
+- /proc/lockdep and /proc/lockdep_stats formatting is fully preserved.
+
+Series Structure:
+- Patch 1: Optimize zap_class() to traverse adjacency lists directly
+  rather than scanning the global bitmap.
+- Patch 2: Add chunked array infrastructure and embedded indices.
+- Patch 3: Pre-reserve early memblock slab pool for dynamic tables.
+- Patch 4: Convert 5 graph arrays to chunked tables backed by slab pool.
+- Patch 5: Fast-path power-of-2 tables with shift/mask indexing.
+- Patch 6: Free unused reservation slabs to buddy allocator at late boot.
+- Patch 7: Expose slab pool telemetry in /proc/lockdep_stats and initcalls.
+- Patch 8: On debug_locks_off or OOM, recycle all slabs to buddy.
+
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+Jim Cromie (8):
+      lockdep: Traverse adjacency lists directly in zap_class()
+      lockdep: Add chunked array infrastructure and embedded indices
+      lockdep: Pre-reserve early memblock slab pool for dynamic tables
+      lockdep: Convert 5 graph arrays to chunked tables backed by slab pool
+      lockdep: Fast-path power-of-2 tables with shift/mask indexing
+      lockdep: Free unused reservation slabs to buddy allocator at late boot
+      lockdep: Expose slab pool telemetry in /proc/lockdep_stats and initcalls
+      lockdep: on debug_locks_off or OOM, recycle all slabs to buddy
+
+ include/linux/lockdep.h            |   4 +-
+ include/linux/lockdep_types.h      |   1 +
+ init/main.c                        |   1 +
+ kernel/locking/lockdep.c           | 951 ++++++++++++++++++++++++++++---------
+ kernel/locking/lockdep_internals.h |  95 +++-
+ kernel/locking/lockdep_proc.c      |  63 ++-
+ 6 files changed, 875 insertions(+), 240 deletions(-)
+---
+base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
+change-id: 20260825-lockdep-memblock-v1-12c083225ef9
+
+Best regards,
+-- 
+Jim Cromie <jim.cromie@gmail.com>
+
