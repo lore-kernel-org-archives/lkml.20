@@ -1,114 +1,101 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail1.fiberby.net (mail1.fiberby.net [193.104.135.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 441833F210B
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:40:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C046445AC1;
+	Thu, 27 Aug 2026 11:40:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.104.135.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787830818; cv=none; b=tSbi86+/vb6JT2/Eq+CVp4ZQtcCoR8f6wgNoleTsVN0BvCIpcioctdGdMSDxJueZfnh4hYNKNCGJ9dnAtXfYU3gNywmJClcCJYsYFvMGq1+qjhdOwVRmeJXL4Xexkct7edJ+NhoF7PSJnujmNDJDgf3gCJJchu6iozXXBw+rgmU=
+	t=1787830819; cv=none; b=sSveqGmZkkV0AFhjQeY3957YnXPMiKs8AOmGPWex4/sjwtstNcPBo0/3JD1IojS9qvetVYcA2OFoNepGyGCngbhlum/XSYCm4u9tAK0RzFkP8JcPmCU9MCvCHfp37Z3ncMqSexJBtfWRd/Osm6Tvl0zb9OmJdcclRf4vPgjDRAA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787830818; c=relaxed/simple;
-	bh=mVZQb/UAW/e8qu9OIDpvgtvcZUEZbUx5AMSRAziBQg8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k0yAk5m9TW5BtIddbP1pe7ISQW4izQc44xIyk/egXdWNTAZbhTVuW+5Dtk5uIrgbHsw5ltTkkdXNeNDF0UTU5NpNl+DL2TPOlWO51S6S97AhMVHgUq65SIN6aKbWnYdVGT/qZ+QQ9YF8IN+4dzuzQiUvF920SuqZbAie/mFHrLY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mMGFBTcU; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787830819; c=relaxed/simple;
+	bh=P0zyNeIAZtPBTyCCY2YhnIKir0eAEwMza9FTKf/SPrk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jRHoC/OiVcH86oauaiRla3RWhozQFKeSTh4b7e381MrShjNkBnnyTAnLg4NiiED0DiHB2JzK6/RPA5/X0NoM7HIEhChVMX5s0/lgdIcYoXGg6XGQYGlJdlSy1LOSiinmWN4ZduquR1id0PSBz301u4wbzMNWkwfPh6kITRihmvE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fiberby.net; spf=pass smtp.mailfrom=fiberby.net; dkim=pass (2048-bit key) header.d=fiberby.net header.i=@fiberby.net header.b=FFCu+v42; arc=none smtp.client-ip=193.104.135.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fiberby.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fiberby.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mMGFBTcU"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-39266382df6so520930a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 04:40:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787830816; x=1788435616; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=t1JOPQJp+51uCszh+hJ8mwVKxXA1ndqmwYZcjdWNa5s=;
-        b=mMGFBTcUCm0eZQXodPE7WUJyah48hn0BQTQt0+JKDFEQwRyR6w71t3UAXeqBFLMuwc
-         fJZp55+uSBKc5//itBeym9hCnuzB+NWxPfyiTDLVI/y/7zpjIQR/qJ0JFnrj0w7HbbOm
-         QnGhKM5LQ5p782aKb4U3Q2GjNzkWebPRR+VCkauNI6zTUl4UCoFrGh5UGtu4wWNUSFlr
-         y0O6DPzSHbvWtzwY5JEgSjlZ/2GSnPmCufWu8d6wysF07IJbnPHbuXBaTz2n2AkugD8o
-         PX5rlU0D5IpOmvMGMAu/v4FsAhP025I1O2iAILJxIcyxawJlxdkl+vK4DQzY2pJql94a
-         vsjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787830816; x=1788435616;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=t1JOPQJp+51uCszh+hJ8mwVKxXA1ndqmwYZcjdWNa5s=;
-        b=o7B9nA8Tfx5oq+NamS7E5s2CtgypYPzD53FbGVKFxwanjuWboOTwX4M9SlIYUNPluN
-         DCbidu+aE5U1LePXyltLPdAyo8ea+4+ECke+1qBXxYO9lwcN0jU+BEMHvpu/uxV+zK6O
-         /xfcfDEH5v6AjQCijdwJ1CoHAHO2KpB6npmlF30U8BTqpXO1nAJWg+WmnRcWItj+HQkC
-         4MMywzBnji6s++r0cUUATt9InaoIatjfrFmS9h/vKRP1VOCS1IGKUOmaNL+d1EX0RCja
-         NgKyE8swEwOT+iE7uFcoC/TadRLFITx+w0IUOmqJpcxJrUQoX4Kz//jeQ0zRA9AKjbyQ
-         DZgg==
-X-Forwarded-Encrypted: i=1; AHgh+RqU8KtD+buvmj6PuoK5DTfarSsQpKexFXaWQTsGQd0zOZIWSSzwRHcLoTlR2S2ddctEhXfbl4ufuZPhmRc=@vger.kernel.org
-X-Gm-Message-State: AFuF++npzLfSVjFok9EXoskuUpV/g4kMRMFT85JzfJPmbUt/3O786WiZ
-	4kB6HIRaLnd/oYDXZUQXjzAxyE4Y2kHCHBOLxQcnhGekBJN3bG/SFJkd
-X-Gm-Gg: AR+sD13jQFFJVsI9pTijB563JtFW2ZjBfz5vc9fLPJNFp+fbKF/8QnUmb4sHaZh4k1p
-	BSkU7aYAgCmkZvV8VxNZ2qti8R/vPM1poxHr0PgbAEM8SFSeHrCnHsDHb0A9EvelNzHkpExbhJo
-	EiDMwGhoRJa7pLa3L3cQViLvEneBw6H0tMZ3qd5n7nobbKXY6Oc9/i8+HE/cLYIyC6bIQaexZ5s
-	pTW379EzsXDPDXAmp/bcSMhH7ipXJANzCYcfKtJKEI1ef3ww05ssA0KpWU0za9LunT5n2fpmSQl
-	3u8W3V82IFz35J4u9EkR0FqYC0aD2KnBJmA0F+y7MmuZjPrNWaWfHJJzQs8EQ+6BypsDHnWCj5l
-	tcPYHhKi8Sm4mg3vxFxFcgF8c1qpOHm3MehJXx17ZJyow4vLPdkH4HKVQvD2X79qKgNE17GtoG+
-	8mSJ8Vq5J0RIrCFZVdDQAzyYVkV7DQLfl2E+dsdqkjSWMD/dM6vmRSUPlw8X9pIWOKcMmHqxVdx
-	8HidoYwdviWZf//Zj8mFhwyMrM2U6Xy9/AFxTIGfsuk8CRZyUz4qYeaYXtpTd926Df1fJLT/s9f
-	90lCcSOCS7k=
-X-Received: by 2002:a17:90b:54cb:b0:37d:f206:a2ac with SMTP id 98e67ed59e1d1-3966d5b7c62mr30914853a91.7.1787830816480;
-        Thu, 27 Aug 2026 04:40:16 -0700 (PDT)
-Received: from nickhuang (2001-b400-e2da-56f3-9c0c-c5a1-7839-5c55.emome-ip6.hinet.net. [2001:b400:e2da:56f3:9c0c:c5a1:7839:5c55])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b0d3d7fbsm2475627a91.3.2026.08.27.04.40.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 04:40:15 -0700 (PDT)
-Date: Thu, 27 Aug 2026 11:40:11 +0000
-From: Nick Huang <sef1548@gmail.com>
-To: Yue Haibing <yuehaibing@huawei.com>
-Cc: akpm@linux-foundation.org, chrisl@kernel.org, kasong@tencent.com,
-	shikemeng@huaweicloud.com, nphamcs@gmail.com, baoquan.he@linux.dev,
-	baohua@kernel.org, youngjun.park@lge.com, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH -next] mm/swap: Remove unused declaration
- swapcache_clear()
-Message-ID: <apAiG61Phh7ANjzT@nickhuang>
-References: <20260827082722.1809702-1-yuehaibing@huawei.com>
+	dkim=pass (2048-bit key) header.d=fiberby.net header.i=@fiberby.net header.b="FFCu+v42"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fiberby.net;
+	s=202008; t=1787830811;
+	bh=P0zyNeIAZtPBTyCCY2YhnIKir0eAEwMza9FTKf/SPrk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=FFCu+v42kkQ1bre2fmgPLmoe2U3j2QCH67Q+OI8W9FuxjNdifVS3WNIe5bsIesGbD
+	 NNLUy4UYMB/5GVrh808wQOXSRZbIQpfXFBxrr6KopM9Qg1PZlibXmb+t1Xc5LbkzTb
+	 XUxWej1uHNdRx3WjvUcqM/sHVI3zlINQZhB2/1VHO4yD9rAQ8RDlxLqbVnTTgeAwdO
+	 BkgNpiu00XYBxITPhpSJ8QBIGGOnCNNsJn418Oo5anoxNyB34FXuvdN4oqM/rdjWci
+	 RIgs5fRiiwmLyB+Jd7cZraZETPROoGWedhQc7ZyJC30D06AdZWMkK9w5P2498bOP4X
+	 /pdyUumNO+JjA==
+Received: from x201s (193-104-135-243.ip4.fiberby.net [193.104.135.243])
+	by mail1.fiberby.net (Postfix) with ESMTPSA id 873BE60075;
+	Thu, 27 Aug 2026 11:40:05 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+	by x201s (Postfix) with ESMTP id 5A889200DEF;
+	Thu, 27 Aug 2026 11:39:31 +0000 (UTC)
+Message-ID: <83c08bb5-7977-405b-9a92-d846fec8e9ab@fiberby.net>
+Date: Thu, 27 Aug 2026 11:39:30 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827082722.1809702-1-yuehaibing@huawei.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] netlink: specs: rt-link: fix ipv6 devconf doc
+To: Paolo Abeni <pabeni@redhat.com>, Donald Hunter <donald.hunter@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>
+Cc: "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Simon Horman <horms@kernel.org>,
+ Felix Maurer <fmaurer@redhat.com>, Danielle Ratson <danieller@nvidia.com>,
+ Fernando Fernandez Mancera <fmancera@suse.de>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260824103816.40040-1-ast@fiberby.net>
+ <08c53736-eaaa-47b9-a65c-b920d21b2993@redhat.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Asbj=C3=B8rn_Sloth_T=C3=B8nnesen?= <ast@fiberby.net>
+In-Reply-To: <08c53736-eaaa-47b9-a65c-b920d21b2993@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Thu, Aug 27, 2026 at 04:27:22PM +0800, Yue Haibing wrote:
-> Commit c246d236b18b ("mm/shmem: never bypass the swap cache for
-> SWP_SYNCHRONOUS_IO") removed the implementations but leave this.
-> 
-> Signed-off-by: Yue Haibing <yuehaibing@huawei.com>
-> ---
->  mm/swap.h | 1 -
->  1 file changed, 1 deletion(-)
-> 
-> diff --git a/mm/swap.h b/mm/swap.h
-> index d077e5893a42..29060a305443 100644
-> --- a/mm/swap.h
-> +++ b/mm/swap.h
-> @@ -344,7 +344,6 @@ void __swap_cache_replace_folio(struct swap_cluster_info *ci,
->  				struct folio *old, struct folio *new);
->  
->  void show_swap_cache_info(void);
-> -void swapcache_clear(struct swap_info_struct *si, swp_entry_t entry, int nr);
->  struct folio *read_swap_cache_async(struct swap_io_ctx *ctx, swp_entry_t entry,
->  		gfp_t gfp_mask, struct vm_area_struct *vma, unsigned long addr);
->  struct folio *swap_cluster_readahead(swp_entry_t entry, gfp_t flag,
-> -- 
-> 2.34.1
->
-I checked the current tree and only the declaration remains:
+On 8/27/26 10:55 AM, Paolo Abeni wrote:
+> On 8/24/26 12:38 PM, Asbjørn Sloth Tønnesen wrote:
+>> devconf is even odder than described in the blamed commit, where bpth
+>> IPv4 and IPv6 are described in an identical way:
+>> "u32 indexed by ipv?-devconf - 1 on output, on input it's a nest".
+>>
+>> There are two issues with that line for IPv6:
+>>
+>> 1) The subtraction is an IPv4 specific quirk, to avoid having an unused
+>>     u32 at index 0, thus saving 4 bytes per net device being dumped:
+>>
+>>     - In include/uapi/linux/ip.h the IPV4_DEVCONF_* enum begins with
+>>       IPV4_DEVCONF_FORWARDING = 1, so the enum starts at 1, which is
+>>       the reason for the subtraction in the IPv4 variant.
+>>
+>>     - In include/uapi/linux/ipv6.h the DEVCONF_* enum begins with
+>>       DEVCONF_FORWARDING = 0, so subtraction would underflow.
+>>
+>>     - ipv6_store_devconf() in net/ipv6/addrconf.c also doesn't do the
+>>       subtraction in the output path.
+>>
+>> 2) Setting IPv6 devconf through Netlink is not yet supported, as
+>>     IFLA_INET6_CONF is not handled in inet6_set_link_af().
+>>
+>> Fixes: 720447bd0b24 ("netlink: specs: rt-link: remove implicit structs from devconf")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Asbjørn Sloth Tønnesen <ast@fiberby.net>
+> Nowadays net PRs are already too big due more-or-less security-relevant
+> changes. I think this is better suited for net-next, with no 'fixes' tag
+> nor stable cc, WDYT?
 
-$ git grep -n 'swapcache_clear'
-mm/swap.h:317:void swapcache_clear(struct swap_info_struct *si, swp_entry_t entry, int nr);
+The unsupported input is the main doc correction, that I would like to go into
+v7.3 and earlier, as Fernando is planning to add that support for v7.4.
 
-Acked-by: Nick Huang <sef1548@gmail.com>
+I stumbled upon this, as I was trying to getting rid of some sysctl calls
+in an internal provisioning tool.
+
+If the PR size is already an issue for rc1, then I can resubmit when net-next opens.
+(I assumed that you were trying to make the net PR sizes into an reversed xmas tree)
+
+It's likely going to end up in stable regardless, it's just easier for Greg and
+Sasha when it's tagged.
