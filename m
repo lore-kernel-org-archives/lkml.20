@@ -1,136 +1,108 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+Received: from sg-2-5.ptr.blmpb.com (sg-2-5.ptr.blmpb.com [71.18.227.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E001047CA94
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 14:59:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.169
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787842772; cv=pass; b=U5YkO6uH1iit4t6TFPXwJ3DyXH4VRYkoPgRlOD5nF20igFE0px9UGdYMvEouJ9cU842No66jBcBGB4zPB0kRPCoW7oj5ZXwH87obnFeKnkJfi0o4B2aWtu2lV5sFqc3o3txcePai++BTvj8r7qXju3VbYua7fCOA5cFQj9XGwdk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787842772; c=relaxed/simple;
-	bh=41WewWIErbX3yd9Z3vKfnXfsdNWRVLs4FM/DXBSS53c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=h41YAcgn9YOcIPZTLnvJR79oGiYaAXlv9CgavCzSRTCJEkeA1t8oTwfU622wCNPsjNnjph8+rD1TR59ERvAaAW2CQKXW0xzkXWC/VlqCWvEKIwvh7WmeZYxWQjCiCC1En0JKckhzdZDqIGE4bsy3VDAbKDogso9taCfXkGON4FM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QMdgmt1W; arc=pass smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83D55477E38
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 14:59:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787842775; cv=none; b=X+XrAF0nzHD5M6Iv5E/5v6EjQKAcZGwpgi9ISV9novFi/T+Eu13DVnDSepeCHA47enznJh5JSQLEh4twy4ydQTNEYgJdDLGUdFYPZgQNleK312Cbg3ous0K6mwKQLySELH+b+tjlh4QxSzK8YrXKO93N08BSTIc7ZyrlupkxCvo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787842775; c=relaxed/simple;
+	bh=uJqwj486hWxLAALuJR7oWC34BqTBbz7uaJxgRsqpTIY=;
+	h=From:Message-Id:Subject:Date:Content-Type:To:Cc:Mime-Version; b=fdmD5LR+ZdlFqInpwVfIE1i9/yNjHLikhvpofklynkNsYEZ4aPUkQny3vaw8YBooYDNEI99bNDUXlEpCuDkWJ4mFNpYvCJIyQkwwhzc6yQ68wCpCzoQC2rZESX0hut1D10i/xp6CWAVzkL/geirF0FLWFp5/OK1HT32eJh3Zafc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=jb6S7Wkf; arc=none smtp.client-ip=71.18.227.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QMdgmt1W"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2d590f4c291so4350215ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:59:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787842770; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QjjE7KD9fEyrUYGOttpSs2VtvzhTq3WExCm8kBrHErtqbRc+o1Dci9BIc7YVaiYKY4
-         e3PiH+jeIjNqukIRwE8I8ccz3Xc/D+wt/dc22sB7iv/OMvxt10R/KsCZIVT0w8CFfMOu
-         LataQmU/EWq6IgoKHpZIGuQuuET+BM/Db+djDJ6UO4KGWINC05snwQYlDytbIepckpJO
-         g5dvZE8utTDh0I6f/Fm+pp0csbzA7ZsnIqPWkS1P0puk3aXC3VB1f7XtzURICsyHxoba
-         Un98ldCVtBdeWz5e3DPOAom7Ua2WkAAOZ/B/LQpscjtQKC3OqWHvZIvzaqSCVGX4ubP7
-         NNGg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=3caV8jGIKYECCoF6AjoMVnw7A/xTQryGhAY1zu/DQLg=;
-        fh=lSFQK9+dxePzdzxSZKk+EsVokSlZkGHERef3Wad57Z8=;
-        b=ZCXyX4sy6M3yEixSlr/4n3iAPdIsTT+1Y5tvyiWOuNAZ4CCCd2qIzDpJq51m7If1p7
-         j7esa7/X5QOpNnnT6TuY0jyF+6bYMGQAvcnWaP9CBqQ1Qf2Pp8mdpsoqmY73BHuPN/fj
-         Vjkmm/mWqLvG6E8t4GrkLGVNVcXoUx59Mi35nspycK6jLQwMXgkmXfYUZeyUVtjALP38
-         6LgiE4rr5t9kTy7lI85e9WlQZyEDUgS8jS4AItamTmVPjHgWr/zJKBWC89qQPst9WpHo
-         QjLUn3dDnZjuMyKvgb7JwXsNJTwT7MMZ8qiwA6eS8PXUny9WiwBlqCXZmkd1iMWgEffM
-         z9KA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787842770; x=1788447570; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3caV8jGIKYECCoF6AjoMVnw7A/xTQryGhAY1zu/DQLg=;
-        b=QMdgmt1Wt/TKna15326h1CQJqqJV9kNggWJ+6lruH2vsyUr3pyLDAXl1c406Xb4TSp
-         e0Xfvl1P2YgarMjFpi4zKv3MZYJHxJ2eZPxjpwHYjwrhbv7I035qamC3uI+a9coeOCqF
-         voyjznUmKCH+ijuX8JbDR0EeKIC88y4aNojx/eUQ5VKhsGtddpASqNP6vsHrJ8z47LTs
-         P7TNEw3YkA9YbveCPvwh1/8nD2NGrPqwuU/UEWmpOaqeqjE9Z6w6XKRVV3Sxn7xwcl1h
-         9pSYjBDsPPuR2QnXPMxiO3jziFPicio449EOuxntLVg+U4O1Oj92UNVKgtSx50uSxOMS
-         qchg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787842770; x=1788447570;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3caV8jGIKYECCoF6AjoMVnw7A/xTQryGhAY1zu/DQLg=;
-        b=fkJ12FDqAD9dV1R+uYhrTx9Lt5PUz8ww3jKESFUvAPDe9IPadM7RpWWsmKSyAcP4xy
-         gRo3/jxZi/GibMEEBZO4I2xgg0rEt0Ph+gFLXqSxDiLq8en7Tt4x6a5hqABrDEQZBdwB
-         W00x7aICjy7z9L+r8bLKEhBTSuxxVtyigoa8Tuu1wzN50y54ll2Lo7fmWe2h3wDxomTy
-         strlMbs+swAIu4Q63JCK44DcvUWZeTuw5GOH8EushqUNil2BCluWCteEtBFqs8PWOe1e
-         UuB1krfDc34E28m0IWCIRQ/3F78btvb8ii8WPU+tN0xRX0rPguvN9CdaIbT54jxTOcPN
-         Qr/g==
-X-Forwarded-Encrypted: i=1; AHgh+RqJfKx7Fc5tYXeJba5/CSKK/3ybuDxsOrlCZUWcFMn9eJZA0QT3VG91eVTI8kqabQhnlvbV77TmdF/b0/Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++kwqXxHWYtvbJtTBSW269VZxXsJZUfBelAu8QBeYnr7s4dmBdox
-	hN4Ux3h1YK8sXwrUn7gS/g7uBPHfg1PZdWJPtzZiBs/AoEpem4Mfdj52OwR6j2TQ2CNBAMfzCDU
-	Aqy5wwTF7HK4wLWL92cbn10hQI8zfEMA=
-X-Gm-Gg: AR+sD104X01Qoe0wJ/fMWgZnYN5He85ccR0gHq8wB2Qaak84WlvRJQXGrsZHVuUMWDU
-	Y167ojjXd7F+4ygsyPNl7VT/nhVrkuNscw6PyncU4/8b/VEVwUsMEjb0v6l//vXTUbzZz8AOAAI
-	dcZ1ygruRXdg7b+Cayul7mW+0TQZU/6d7zUynTGLoJug8NED+xK7vVKv/owgfHFnvXr+aeIKwZ5
-	w5K9j7+M1RVdRLrL/QyZGcOG4POeeYoIYlAnIvenX2r3KR/gq/CSU2BEOW6rHfB7ftZx5+uvME8
-	J7rFXLCBA8MxdPjkqDN1835daezxu0LHIHOxm6jvlaSLNv2TmTB/cEzf4HCbCHvB+KDlo+9u80o
-	d6n9ywl5ExEEF7/cKFb34vtxGP/hyukWYoqixgxc7VXzoKnPs3aMGEGbi5uJC
-X-Received: by 2002:a17:903:3504:b0:2cf:9e90:8be with SMTP id
- d9443c01a7336-2d71e4f74abmr88346095ad.4.1787842769819; Thu, 27 Aug 2026
- 07:59:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="jb6S7Wkf"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604220257; d=cherr.cc; t=1787842756; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=jvHVGXLRnB/myR7QpYOFvo9mljYI+Hq1VtE6Y8mURT8=;
+ b=jb6S7WkfQpSCK9yBnW3/+Em4FtbZmkwoZs7ODGIRwldP2sGfN5l5hMc6q0l1TLfWFdJoMo
+ VA0ggLye3QfPAdR0EIsKK77aONYXHehIkVBeawNxS+aXtlqGOcnEX5Jq1CmBUQv6nsYVtv
+ q7hD17nwqQ++jHSU6XG45MTZT5eGqs0AIrliEIidoWiTQ2H6zzvdTvonVkK4FoHsyDSVhb
+ P+Ditwn80FpT9rNRxMf9cK+cqspMgpzn1RN6oF/ZDyVxk+Ab6CADAUphnPZN+KUQcSi7vz
+ UOtqOpKGlHfSZzJjUbeYZu0eE45u8zZLcWW3BNO2zuVOzo0mPr9vdh3UG279Vg==
+From: "Shengzhuo Wei" <me@cherr.cc>
+Message-Id: <20260827-go7007-i2c-buf-bound-v2-1-82b185f9cb82@cherr.cc>
+Received: from [192.168.9.107] ([111.42.148.163]) by smtp.feishu.cn with ESMTPS; Thu, 27 Aug 2026 22:59:14 +0800
+X-Lms-Return-Path: <lba+26a9050c2+fa4d82+vger.kernel.org+me@cherr.cc>
+Content-Transfer-Encoding: 7bit
+X-Change-Id: 20260827-go7007-i2c-buf-bound-d4fbe42a4a79
+Subject: [PATCH v2] media: go7007: bound EZ-USB I2C transfers to the usb_buf size
+Date: Thu, 27 Aug 2026 22:59:10 +0800
+X-Mailer: b4 0.16.0
+X-Original-From: Shengzhuo Wei <me@cherr.cc>
+Content-Type: text/plain; charset=UTF-8
+To: "Hans Verkuil" <hverkuil@kernel.org>, 
+	"Mauro Carvalho Chehab" <mchehab@kernel.org>, 
+	"Greg Kroah-Hartman" <gregkh@suse.de>
+Cc: <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<stable@vger.kernel.org>, "Shengzhuo Wei" <me@cherr.cc>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260826163004.3365-1-mike@fireburn.co.uk> <20260826163004.3365-3-mike@fireburn.co.uk>
-In-Reply-To: <20260826163004.3365-3-mike@fireburn.co.uk>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Thu, 27 Aug 2026 16:59:15 +0200
-X-Gm-Features: AcwNN1W0d-V13zh5elWYWY1xq_Ye1PYxNifjQKCjt0be_UdVKV0D_eRNv-EoeZc
-Message-ID: <CANiq72nTu0JMOQ2ovkCnrHVr3sFE648f0e1My9nesqmKz1Gpig@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] rust: crypto: add synchronous RSA akcipher support
-To: Mike Lothian <mike@fireburn.co.uk>
-Cc: linux-crypto@vger.kernel.org, Herbert Xu <herbert@gondor.apana.org.au>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Biggers <ebiggers@kernel.org>, 
-	"Jason A. Donenfeld" <Jason@zx2c4.com>, Ard Biesheuvel <ardb@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	Lyude Paul <lyude@redhat.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Asahi Lina <lina+kernel@asahilina.net>, Burak Emir <bqe@google.com>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>, Yury Norov <ynorov@nvidia.com>, 
-	David Gow <david@davidgow.net>, linux-kernel@vger.kernel.org, 
-	rust-for-linux@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+X-B4-Tracking: v=1; b=H4sIAL1QkGoC/4WNQQ6CMBBFr0Jm7ZhSC1VX3sOwoNMBxgUlLRAN4 e4CHsDlS95/f4HEUTjBPVsg8ixJQr+BPmVAXd23jOI3Bq10qa7aYhusUhZFE7qpQRem3qM3jWO ja1PbG2zTIXIj7yP7rH6cJvdiGvfWbnSSxhA/x++c796fiznHHE1RFEQXr0xpHtRxjGciqNZ1/ QJ5d9kqyQAAAA==
 
-On Wed, Aug 26, 2026 at 6:30=E2=80=AFPM Mike Lothian <mike@fireburn.co.uk> =
-wrote:
->
-> +__rust_helper void rust_helper_aes_enckey_zero(struct aes_enckey *key)
-> +{
-> +       memzero_explicit(key, sizeof(*key));
-> +}
+go7007_usb_i2c_master_xfer() copies msgs[i].len bytes into go->usb_buf,
+a 16-byte buffer embedded in struct go7007, without any length check.
+The adapter declares no transfer limits, so an SMBus block transfer
+issued through /dev/i2c-N can write up to 34 bytes into it and corrupt
+the struct fields that follow the buffer.
 
-Hmm... why does this one need to be a Rust helper? i.e. why doesn't it
-call the other helper from Rust?
+Bound the transfer size with i2c_adapter_quirks so the I2C core
+rejects oversized messages before they reach the driver.
 
-(Same for the other calls I notice here in the context of the patch to
-`memzero_explicit`.)
+Fixes: 7955f03d18d1 ("[media] go7007: move out of staging into drivers/media/usb.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shengzhuo Wei <me@cherr.cc>
+Assisted-by: GLM:5.3
+---
+The EZ-USB I2C adapter in the go7007 driver copies message payloads
+into the 16-byte usb_buf embedded in the go7007 device struct without
+any length limit, so an SMBus block transfer through /dev/i2c-N can
+write past the buffer and corrupt the struct fields that follow it.
+Bound the transfer size through i2c_adapter_quirks.
+---
+Changes in v2:
+- Drop the Cc: tag for the maintainer from the commit message; the
+  recipient is already covered by the Cc email header.
+- Link to v1: https://patch.msgid.link/20260827-go7007-i2c-buf-bound-v1-1-4555cc3d0464@cherr.cc
+---
+ drivers/media/usb/go7007/go7007-usb.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-i.e. helpers are meant to be as minimal as possible -- just forwarders
-to the same functions unless there is a good reason not to.
+diff --git a/drivers/media/usb/go7007/go7007-usb.c b/drivers/media/usb/go7007/go7007-usb.c
+index c0cb92fa6ab9..867548d655b3 100644
+--- a/drivers/media/usb/go7007/go7007-usb.c
++++ b/drivers/media/usb/go7007/go7007-usb.c
+@@ -1029,10 +1029,16 @@ static const struct i2c_algorithm go7007_usb_algo = {
+ 	.functionality	= go7007_usb_functionality,
+ };
+ 
++static const struct i2c_adapter_quirks go7007_usb_quirks = {
++	.max_write_len	= 12,
++	.max_read_len	= 15,
++};
++
+ static struct i2c_adapter go7007_usb_adap_templ = {
+ 	.owner			= THIS_MODULE,
+ 	.name			= "WIS GO7007SB EZ-USB",
+ 	.algo			= &go7007_usb_algo,
++	.quirks			= &go7007_usb_quirks,
+ };
+ 
+ /********************* USB add/remove functions *********************/
 
-And then you can have a safe function abstracting the call and use
-that from the different places you may need in Rust (e.g. from
-`Secret` and `Aes128`).
+---
+base-commit: 075b74841bd0065a3bda3440873c747938e69b68
+change-id: 20260827-go7007-i2c-buf-bound-d4fbe42a4a79
 
-Thanks!
-
-Cheers,
-Miguel
+Best regards,
+--  
+Shengzhuo Wei <me@cherr.cc>
