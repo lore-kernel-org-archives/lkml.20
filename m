@@ -1,369 +1,270 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11020110.outbound.protection.outlook.com [52.101.229.110])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF8EC4C8FEC
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 18:18:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787854688; cv=none; b=pVA0ov8Koc746VQ+cCZAu1X9lwbiUgk7FqXOY9q/GgrMm/36PVNkP3oKpDqA67zf6wB1IVzH/MR6AbW8uhAhC7kGH96ZRy1fI2dnMzRMaPYq4h0dlseGSwMIwfRaM9eQQ0Al2ldJbwSXst+7Zyc3T3qAuKl3CVSvPOrLl+RCpC8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787854688; c=relaxed/simple;
-	bh=YNX7By34Vbjk6uZtV8BsYmJMqcdL1930bdJ6ByoBlsw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uhjo4An6kiuNAhCPheCQ6AeDu+q2ZpckdS/76u0RG5jx1T7qWGQ/JMZKLllIKA7rX3Kvhouc8ExDuYteNWHBaNQotLgHspCuQyidCUfgzDXOYB8abfij5F8mS0Hn8eSjWqeXhtqD3wmhmgQUFF7asNbwzm182hwZgh+fTiOBeYs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q9jIBeTW; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F0644C9009;
+	Thu, 27 Aug 2026 18:18:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.110
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787854689; cv=fail; b=Sd4sz+MKybSw+dXv2OkYwGC9Adf53wFIqby3scaWmWa6ApsrKZwtbkxJQIzHxQOs5IyARHXHgrByN+f+Tf8PZu7JhMqpYhofhEq/qS0JCQzQlASmRRXuNQrO3ji4/MT3BescMcApJQfmi16GsCIhF5w177UHY8vBGf3jfmB0Fqg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787854689; c=relaxed/simple;
+	bh=ZVAWJbeS1cMRNOZdUquNA6kzX4Fpy57RThqp3H2xa60=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=dXGcR9BuLQVvMlUvZgJ12Y4IIDxfmbTjjQEzi/HRlEepuWuWfbCMu6DbCCeYVTDImpwyUAGn6UY0YMoVO2kTbaVdkBFUKlWtJN0ic2YU/I6DMAvAw2lhhGUirCPfTSrs02Xo8v1TxNrqHY01mL5Vr6BIIX4S6kcUYEeGoGSZd+4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp; spf=pass smtp.mailfrom=valinux.co.jp; dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b=ZY/BN/p3; arc=fail smtp.client-ip=52.101.229.110
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q9jIBeTW"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-482e2fdf5abso66060f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 11:18:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787854684; x=1788459484; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KrTE0NEaNw83u8vsZX/37KxgJO69Dmhio94naZrt9Sg=;
-        b=q9jIBeTWMCnox0J1gN15x0dBUkc1l+8ekBOwZg3S2YOXtwq+7/kNu59QYyDJ3vawZn
-         3RvAlqVHETF0KoWmC5Z8JIjdweM3FVlGyCcC9ssR5A45rxwO1CxvlfX6QeWU9JUFcIQu
-         HTIF9WoLqwcUg0PyLRQcLYtOWgflxnJMNnJFqZAQi8GrkaL3NJHICj+jap8/Sv/yQOan
-         uR94xRYYYjsKZxYcI+vaFereH9XkxH5XEmWpdgNH42qyipO2eWHsy+VgE3XBTw4LTA/9
-         YL3xHFNZw/skWRCx7FsrtJyL/e+c13niBsb4l02+vQQw6bgp4xTP0KC8r5r/DdSVXUZI
-         qdyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787854684; x=1788459484;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KrTE0NEaNw83u8vsZX/37KxgJO69Dmhio94naZrt9Sg=;
-        b=r30lRlSYvUNFBkpuFH2OhZos0D2vRvDn3SWhlRU0+e+ZZ+ykSiUL11Qk6RdNlV141T
-         2K175wrxxxn5vw88jyHCQRwdBUxbM4WSG5LTKQUISivI/aRENoNHrxHpi5m2/L576pdI
-         4pRZZP13zYtHjudkPsU+ZSYi7BWy0DzhSL6nzn3GFNoL7Sf+gdeeHgYrxHvQoB1SRDaV
-         V/DmB5Q/7Wv5gIbar5fBBcEjrGYWWYIITsggNdsiNvSQFWEuIxrv9VMs9d/xB1J4UASu
-         bgDy4sKOywUwK0+oCzCLwLCvw/oXQPBmvs6r7CO8QtiwZqMW7125Hdqp3CFcUz54Tejv
-         VLzg==
-X-Forwarded-Encrypted: i=1; AHgh+RoXAAtG2XFQeYFQoURCa7qmytsdqWHsCsmGyCt+vgsNtQ+hP98GAfRIJg3oxXtVoVBld76ayUe6nyOpQt8=@vger.kernel.org
-X-Gm-Message-State: AFuF++l49NJtIgr0/mq6itH+xR7MW81sNcxYi0xJQGUrSqEQSHldVgC3
-	O/jgwnDHy+bpOjsFduisLQxDD4rPgEoJr5U/TSj3EDqaRDSS85lge4k7l5Ht4ISD
-X-Gm-Gg: AR+sD12KBMY9eJ49Rp2fvROZhPIyVki+HMNOVMZelsfgSWm/b3O7IsBBSrKfeksqpT2
-	wB3axF1OkGKD+6sLbwb2nIc8a0K2wNzOwOP4hesBZ5P4sXVotuz34vBmgCxtG07i5XgKRHUhUb7
-	zaIS+ti8Vbf1cbkq5OO6ECsJKnSVP0nLwHcISBglmXzgGbMNSvoD2Jes76XhzwYrEokkAjnLt/T
-	09BUJ0zmfKhkNj+BAw/6DFLY7P9RXgZhprBNTdyzXM0Shwy1E/x1qm06MJgnZRXyeYOMhhR2xqo
-	g/p8hanNLZY+uAJNVH+xtKBBco9VgHhvPDij4T6qTrsLcZyTcGvtqctfqOExE1557mHdgpFlH6W
-	cn1DozCwytuKjDColPs72Sg4UZ8xjWp07FDPLAoVTyB0VKmatYTqemcmmvInZDFZpYhajfb/3vq
-	BXoY+CrLIg/RKZT2c3RASBmRJusLeJdMP/9nluUNF2UlbLgiDx4nKeWL/EI3IK4itLWJPyEOuEZ
-	NCtSspOpYkj2aeYog35rg6fX3hdl1iT2D/YP6zmtqN3
-X-Received: by 2002:a05:600c:a03:b0:499:93b3:91ea with SMTP id 5b1f17b1804b1-49b91c5096dmr9536175e9.15.1787854684140;
-        Thu, 27 Aug 2026 11:18:04 -0700 (PDT)
-Received: from 1Z10 ([78.213.170.242])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b497fa9c5sm66270655e9.4.2026.08.27.11.18.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 11:18:03 -0700 (PDT)
-From: Maurizio Casciano <mauriziocasciano7@gmail.com>
-To: linux-media@vger.kernel.org
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bingbu Cao <bingbu.cao@amd.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Nicholas Roth <nicholas@rothemail.net>,
-	Andy Shevchenko <andy@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jose Maria Martin <jmmartinf@hotmail.com>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Maurizio Casciano <mauriziocasciano7@gmail.com>
-Subject: [PATCH v2 02/11] media: ov8858: support 19.2 MHz clock and CHT gain setup
-Date: Thu, 27 Aug 2026 20:17:47 +0200
-Message-ID: <20260827181756.2430054-3-mauriziocasciano7@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260827181756.2430054-1-mauriziocasciano7@gmail.com>
-References: <20260826132256.3343451-1-mauriziocasciano7@gmail.com>
- <20260827181756.2430054-1-mauriziocasciano7@gmail.com>
+	dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b="ZY/BN/p3"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KKOlSXsC1It2wugOCsZkicmEFXzy7Wxk12HcEC8/WqiYyFr00QhpMla0dHkCt2NhL+Nxhfl0q48mvKs9pxPc5koh80pmDcCFH0+WIBDKjp1QWp8T102Ylg+lUlBNVqi/5QZ4Xn096eV9cyKm7iAtR03PJznR3ViF3/OwuZJghmwWN28xM9VB+EZG+dk4KXQvUALwcjumlOrMk+hMRP2PF2oPCSxXRJL4mH7PaOmBiMLmDriAqTUVsJ5rScb3rXwR82toSvwHYQKLAv2bnj2OPDIncXyAcphZiBc3hVaGjiktH4Igj9RYOi0m5qOLju/KbjTxTfxwgBzv65RsBFMuig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZfX3tGMQTaOVTQ4HXUaiGmhCuxVkQGv6GxMRHaDmPIM=;
+ b=oAVyAtCQYRx4dgOR9wZTxbq1wkJF9jDTnI3kZkJ2RD+n908KQPJ+f9rET8S16x9rYkQQ74JHUvdDTQ6uKPJuWfhwj7SdQawTNO7lhv0Rs3DhBjGykYhh6x0+korxA1fsVx9WA5Z01rg8jnk+49jwvQUKJR217Hl8KC32NDWnNosL9UZYePVqGS89bgDB0+mlDffoR3QFeH+ZdBqjX8GRU0jQ/hGjv/uc48TQ0LmRIz1t5xDInRiBvcTgk89jihVrNXWY9D5bkUGI479RrutyD0y2UOsU9JJa5tb7i3eYd3qf1FlLUMIrje8SS8vOrtH5h2D7xQm1Du0AS17oTOR6rQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZfX3tGMQTaOVTQ4HXUaiGmhCuxVkQGv6GxMRHaDmPIM=;
+ b=ZY/BN/p3HiqDZ9O+/mube+ZQD06LxkwFibMCu5xA2orlTPtOt4Obgw7OwY8H8gvD6g2Hg8vlbIpvTGDY75LxsY72LmG8Zfr4msr0Gmw/KghUuWGlMDd8IwZur5aqWfPE+k68voNZNrsBz6TeXAT7n/1K/1hU8yeKPVchdLyAk90=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:38f::10)
+ by TY7P286MB7058.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:31d::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
+ 2026 18:18:02 +0000
+Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::2305:327c:28ec:9b32]) by TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::2305:327c:28ec:9b32%4]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
+ 18:18:02 +0000
+From: Koichiro Den <den@valinux.co.jp>
+To: Manivannan Sadhasivam <mani@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Kishon Vijay Abraham I <kishon@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	Niklas Cassel <cassel@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Joao Pinto <jpinto@synopsys.com>
+Cc: linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] PCI: endpoint: Fix BAR backing DMA address alignment
+Date: Fri, 28 Aug 2026 03:17:57 +0900
+Message-ID: <20260827181757.1984374-1-den@valinux.co.jp>
+X-Mailer: git-send-email 2.51.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: TYCP286CA0186.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:382::14) To TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:38f::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY7P286MB7722:EE_|TY7P286MB7058:EE_
+X-MS-Office365-Filtering-Correlation-Id: 828a1b54-5721-4e15-c73e-08df04678857
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|23010399003|10070799003|366016|6133799003|10067099003|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	HbJaH7t8jYxY46uU4gR6VpimQL/XRo1eUgPhZTZlMqBl7a19WOvE9AulIP9WcgNPV3AQstISJOkIaKODF1JY5yTgjUDEULjP4MfH4KvnlGIIfLj7XDwXsWxN/Oz46AJDxD0BqDpcrJs91H0lEwM6WCITIhDgHqJLlNOGnexzFl3KfOgOGkbyE3FB9WBt1Pz8PDNvyvfHdAI4V1JsS1GEqoSbX9CslBb6VJuWytugWxg3RpcZIzO8gKyZphApN3zlzoV0WKA6UdPSMi/ZR73VL19F5+RggbL3hsrv7Q9/xtiktvn0HaDEkf2bRSHY6e/tIFkXVwax8p+wGuonBylQ5IRcA0qhQz7ez/3Qc3qcSwW6tvCP3z4bpbF9pGoJRl8X4h9Zk/3PCck/UIIKTs7IqR7s1CsYJcZvruc1mmYUeXCLFOnIDfjjkIvPDfXaeCTciuLUtW6ckjq0MiRc9agnpOWXTWhlPGlzwZJv8yzETjp+AHPjxj8XWEwlRAfPe7iZTI7FgtGeKYIZqucLyrN1SPCglPVYxR0eH0f3ERvwJWQWCjaYi2hCu4TGG0oyZ+WZqWtyTqRqPj5NETmQdzs96JVvBA2RMCPKzuxa0O5/moIzWprFH7sr/IS26VjEWnwZF2h9z8Nwpwi4SfvOfOBzH14L47CZnVSvalsJTTN+u4Q=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(10070799003)(366016)(6133799003)(10067099003)(56012099006)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?QrD6Eom/zGwlK7eeJs6G3HYMuSpkOI1/oMybHAQvqV3q7Nb7YADqlLA9qLoP?=
+ =?us-ascii?Q?fmtETY9fG4C/YIYnuUkDbVCFVP4k/SHlPL97OLd0AbNt2fgsTaSSgdg10skd?=
+ =?us-ascii?Q?mOzSDoAuw4q4z5CEEFFYXwKXkTCbDwjmMTBGrISSbIkOjOsy09BblnLxPwvP?=
+ =?us-ascii?Q?TcvPATcVRE8Ct/zrkKj6Al8otnvfdTdTTuIPxMF/e8bhqHyiF8q8iWz1LY2i?=
+ =?us-ascii?Q?vwjtENPOU2muTNPIco33NpMUsuYk/y13DnZFTidh2n/lNFGRagFIGADHJU8C?=
+ =?us-ascii?Q?/4prRUvtqTE60zAxxCWyVU/5M+frmtejmkwUln3sp3l56dxv2GsE0PVuErA1?=
+ =?us-ascii?Q?UZY18SK6Et2YpJKh44XLcUWfm209X4wxO6pfWqfzEdtjG8gWonYHktCk8rQD?=
+ =?us-ascii?Q?y6fFEbDBt0OWxgCcrRQ80PBBbsMcZfr93argu1udAgRlJITRJBn6BrRZhzO2?=
+ =?us-ascii?Q?r75AAT89a6auWqk0m4l3n/wKK+/jfI1lMN4m0XCS4HhZYQJHPDkH14pP8W5p?=
+ =?us-ascii?Q?O2QErW/F9xROt6TZX8HTwXt/+iKgokIEiBXTU+hQ4if9jeXCUCK1dz4i8bC5?=
+ =?us-ascii?Q?9l3cSouLdS/q1ni4Ly6504ak0mnk7KSETTsTFyfQc4QVuzYNHSG6eW4Hk57x?=
+ =?us-ascii?Q?6FKeKts2AzcU3UNctTlRMX4ZgN2MYq43NP1xyuJIx8DVZfUaew9LilIo9c3u?=
+ =?us-ascii?Q?axYk76CpEIIXWGkxOr0pLkJ6VJZTwwO20Si7rVh9K4PyYb5ZploejZcz5RXV?=
+ =?us-ascii?Q?hWiTtVsYKBC9Z6Ope05toVcpaRTpM+4Mof+4fOORzvcqY3j2EuUon89Gx2UP?=
+ =?us-ascii?Q?v07/4kjQlaJTZTNbQw3W9UhjSIr6ZW+ZbeihoHg5hr8SHLbwTCks7HfLfGy/?=
+ =?us-ascii?Q?nyVYjP1sPFyP6iSuidzYO75YUhx52Ty7s17HxvUqMUxPsmYnu7Gl863XvxoI?=
+ =?us-ascii?Q?QMKISHxRJys1H4DCkXjw6bGOlt9uSPTzPeCWMNN8r9mb/XPhd4wWgntnp7WC?=
+ =?us-ascii?Q?44EOZ1ZJpMt+pnactVsjnfQuzvS6Pr3/e8iB/ujUWxE0Xke0BIyY5n3q/IkV?=
+ =?us-ascii?Q?8ZzB8kUnGaAR5Ppw0z1ZSyIMrz8jPFfEuVYPHZ9CF1vlOxHtLDaCSg5wCyA2?=
+ =?us-ascii?Q?HCB08G9Isxaj62Ta29uma1F+/ymelqwra9SlDAvWX/eSzYRHKQmlPtY9piPl?=
+ =?us-ascii?Q?w/pvIyIIK83NZRY2sQKHodKUtTbiCsBY/HoxwfZ0XY27QGgUDMOjM/dllxDc?=
+ =?us-ascii?Q?+oySZfF/P7bBI3Iv7segtOqrlaZoUwLsyjVqvT5L6ddhzHr1jU4CIBvSeCWR?=
+ =?us-ascii?Q?/ltvCGvi+P1kassuDHt5fNDBGqeoXbZ133ydmr4Jv6m5zFoANYunCWpZt57W?=
+ =?us-ascii?Q?vUSvg8GXSLYtoUqN2Hw8jxGpIxXkUoVsaM16RMYCQn9CZtOUrZM8fODBTICi?=
+ =?us-ascii?Q?p6Pv49ZO+GDK44heRcMyFdwmB8nMrCckUMVRr7tXbxP10/cakeMM56bwR2qL?=
+ =?us-ascii?Q?cld5GYje8gR8Q016bZV9lCkUzl+mdXum0KshTZhJ7SqaCF6NvafWTzjGPv3U?=
+ =?us-ascii?Q?qXbvZGI1c5IBZCb75+59t71ia7G1Hp0t0OWKgaaPTrs6K1y+mAZh4YCJpk6d?=
+ =?us-ascii?Q?GWQIIgkcN9cjb1A5/szQdwL8SiP7JJsHgl/MzZWSI3Fzto0w/0vnkm9HaXMb?=
+ =?us-ascii?Q?3ZaSBh8JY6hXdUrXIjJTnRABdfN711kWiP5q08XNt1E4W5eYgVXAQ29+KiLG?=
+ =?us-ascii?Q?yZxF+L/3PutvNedRu92Myp3tJ1UNFuLRQ9JHnNLY20zWUDlpCysg?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: 828a1b54-5721-4e15-c73e-08df04678857
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 18:18:02.6606
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: hHmm8LxSQtQRVbuGOfKDAREjpYvP0DY8chwZZeRVBhWx8Noij90AagXEPw4HxlXfccJfwUQyhse5Yg6GJyY9mw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY7P286MB7058
 
-The Yoga Book drives its OV8858 from a 19.2 MHz platform clock, while
-the existing mode tables program the sensor PLL for 24 MHz. Reusing
-those settings produces incorrect internal and CSI-2 clocks.
+DWC BAR Match Mode requires the target address to be aligned to the BAR
+size. pci_epf_alloc_space() relies on dma_alloc_coherent() to provide
+that alignment. For CMA-backed allocations, the guaranteed physical
+alignment is capped at PAGE_SIZE << CONFIG_CMA_ALIGNMENT. With a direct
+DMA mapping, 4 KiB pages, and CONFIG_CMA_ALIGNMENT=8, a 2 MiB BAR may
+therefore receive a DMA address aligned to only 1 MiB.
+dw_pcie_prog_ep_inbound_atu() rejects such a mapping with -EINVAL.
 
-Accept both input rates and use the actual rate for the reset delay. For
-19.2 MHz, apply the Cherry Trail MRD PLL and black-level settings after
-the generic mode table.
+If the initial allocation is misaligned, free it and retry with
+mem_size - 1 bytes of padding. Select an aligned subrange and record its
+offset so pci_epf_free_space() can pass the original CPU address, DMA
+handle, and size to dma_free_coherent().
 
-The 19.2 MHz platform uses the per-channel manual white-balance
-registers for digital gain. Program registers 0x5032, 0x5034 and 0x5036
-and expose their 1x-to-4x range, while retaining the existing
-long-exposure gain block for 24 MHz systems.
-
-The manual white-balance register definitions and programming follow
-the GPL-2.0 Intel OV5670 driver, so retain its 2017 Intel copyright
-notice in this file. No proprietary source or tuning binary is included.
-
-Tested on the Lenovo Yoga Book YB1-X91L OV8858 with full-range test bars
-and real 10-bit Bayer frames.
-
-Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
-Assisted-by: Codex:gpt-5.6-sol sparse
+Fixes: 5e8cb4033807 ("PCI: endpoint: Add EP core layer to enable EP controller and EP functions")
+Signed-off-by: Koichiro Den <den@valinux.co.jp>
 ---
- drivers/media/i2c/ov8858.c | 138 +++++++++++++++++++++++++++++++------
- 1 file changed, 117 insertions(+), 21 deletions(-)
+ drivers/pci/endpoint/pci-epf-core.c | 39 +++++++++++++++++++++++------
+ include/linux/pci-epf.h             |  7 ++++--
+ 2 files changed, 37 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/media/i2c/ov8858.c b/drivers/media/i2c/ov8858.c
-index f0b3b4a5d3bd..b8c2f0d25505 100644
---- a/drivers/media/i2c/ov8858.c
-+++ b/drivers/media/i2c/ov8858.c
-@@ -3,10 +3,9 @@
-  * Copyright (C) 2023 Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-  * Copyright (C) 2022 Nicholas Roth <nicholas@rothemail.net>
-  * Copyright (C) 2017 Fuzhou Rockchip Electronics Co., Ltd.
-+ * Copyright (c) 2017 Intel Corporation.
-  */
+diff --git a/drivers/pci/endpoint/pci-epf-core.c b/drivers/pci/endpoint/pci-epf-core.c
+index 6987343c9e61..e8c3709d85c4 100644
+--- a/drivers/pci/endpoint/pci-epf-core.c
++++ b/drivers/pci/endpoint/pci-epf-core.c
+@@ -8,6 +8,7 @@
  
--#include <linux/unaligned.h>
--
- #include <linux/clk.h>
- #include <linux/delay.h>
  #include <linux/device.h>
-@@ -18,6 +17,8 @@
- #include <linux/property.h>
- #include <linux/regulator/consumer.h>
+ #include <linux/dma-mapping.h>
++#include <linux/overflow.h>
  #include <linux/slab.h>
-+#include <linux/unaligned.h>
-+#include <linux/units.h>
+ #include <linux/module.h>
  
- #include <media/media-entity.h>
- #include <media/v4l2-async.h>
-@@ -28,8 +29,9 @@
- #include <media/v4l2-mediabus.h>
- #include <media/v4l2-subdev.h>
+@@ -278,13 +279,15 @@ void pci_epf_free_space(struct pci_epf *epf, void *addr, enum pci_barno bar,
+ 	}
  
--#define OV8858_LINK_FREQ		360000000U
--#define OV8858_XVCLK_FREQ		24000000
-+#define OV8858_LINK_FREQ		(360 * HZ_PER_MHZ)
-+#define OV8858_XVCLK_FREQ_19_2MHZ	(192 * HZ_PER_MHZ / 10)
-+#define OV8858_XVCLK_FREQ_24MHZ		(24 * HZ_PER_MHZ)
+ 	dev = epc->dev.parent;
+-	dma_free_coherent(dev, epf_bar[bar].mem_size, addr,
+-			  epf_bar[bar].phys_addr);
++	dma_free_coherent(dev, epf_bar[bar].mem_size,
++			  (u8 *)addr - epf_bar[bar].alloc_offset,
++			  epf_bar[bar].phys_addr - epf_bar[bar].alloc_offset);
  
- #define OV8858_REG_SIZE_SHIFT		16
- #define OV8858_REG_ADDR_MASK		0xffff
-@@ -59,6 +61,14 @@
- #define OV8858_LONG_GAIN_STEP		1
- #define OV8858_LONG_GAIN_DEFAULT	0x80
- 
-+#define OV8858_REG_MWB_RED_GAIN		OV8858_REG_16BIT(0x5032)
-+#define OV8858_REG_MWB_GREEN_GAIN	OV8858_REG_16BIT(0x5034)
-+#define OV8858_REG_MWB_BLUE_GAIN	OV8858_REG_16BIT(0x5036)
-+#define OV8858_MWB_GAIN_MIN		0x400
-+#define OV8858_MWB_GAIN_MAX		0xfff
-+#define OV8858_MWB_GAIN_STEP		1
-+#define OV8858_MWB_GAIN_DEFAULT		0x400
-+
- #define OV8858_REG_LONG_DIGIGAIN	OV8858_REG_16BIT(0x350a)
- #define OV8858_LONG_DIGIGAIN_H_MASK	0x3fc0
- #define OV8858_LONG_DIGIGAIN_L_MASK	0x3f
-@@ -93,6 +103,33 @@ struct regval_modes {
- 	const struct regval *mode_4lanes;
- };
- 
-+struct ov8858_gain_range {
-+	u32 min;
-+	u32 max;
-+	u32 step;
-+	u32 def;
-+};
-+
-+enum ov8858_xvclk_index {
-+	OV8858_XVCLK_24MHZ,
-+	OV8858_XVCLK_19_2MHZ,
-+};
-+
-+static const struct ov8858_gain_range ov8858_digital_gain_ranges[] = {
-+	[OV8858_XVCLK_24MHZ] = {
-+		.min = OV8858_LONG_DIGIGAIN_MIN,
-+		.max = OV8858_LONG_DIGIGAIN_MAX,
-+		.step = OV8858_LONG_DIGIGAIN_STEP,
-+		.def = OV8858_LONG_DIGIGAIN_DEFAULT,
-+	},
-+	[OV8858_XVCLK_19_2MHZ] = {
-+		.min = OV8858_MWB_GAIN_MIN,
-+		.max = OV8858_MWB_GAIN_MAX,
-+		.step = OV8858_MWB_GAIN_STEP,
-+		.def = OV8858_MWB_GAIN_DEFAULT,
-+	},
-+};
-+
- struct ov8858_mode {
- 	u32 width;
- 	u32 height;
-@@ -104,6 +141,7 @@ struct ov8858_mode {
- 
- struct ov8858 {
- 	struct clk		*xvclk;
-+	unsigned long		xvclk_rate;
- 	struct gpio_desc	*reset_gpio;
- 	struct gpio_desc	*pwdn_gpio;
- 	struct regulator_bulk_data supplies[ARRAY_SIZE(ov8858_supply_names)];
-@@ -121,6 +159,41 @@ struct ov8858 {
- 	unsigned int		num_lanes;
- };
- 
-+/*
-+ * Cherry Trail MRD production settings for a 19.2 MHz input and 360 MHz
-+ * CSI-2 link. Apply these after the otherwise reusable 24 MHz mode table.
-+ *
-+ * Besides the corrected sensor/MIPI PLL divisors, keep the final common
-+ * black-level settings here. The per-mode tables retain their resolution
-+ * dependent black-column anchors and window sizes.
-+ */
-+static const struct regval ov8858_cht_mrd_19_2mhz[] = {
-+	{0x0300, 0x00},
-+	{0x0302, 0x27},
-+	{0x0303, 0x00},
-+	{0x0304, 0x03},
-+	{0x030b, 0x00},
-+	{0x030d, 0x27},
-+	{0x030e, 0x00},
-+	{0x030f, 0x04},
-+	{0x0312, 0x01},
-+	{0x031e, 0x0c},
-+	{0x3f08, 0x08},
-+	{0x400a, 0x01},
-+	{0x400d, 0x10},
-+	{0x4011, 0x20},
-+	{0x403e, 0x08},
-+	{0x4040, 0x07},
-+	{0x4041, 0xc6},
-+	{0x4202, 0x00},
-+	{0x4500, 0x58},
-+	{0x470b, 0x28},
-+	{0x4837, 0x15},
-+	{0x58f4, 0x32},
-+	{0x58f8, 0x3d},
-+	{REG_NULL, 0x00},
-+};
-+
- static inline struct ov8858 *sd_to_ov8858(struct v4l2_subdev *sd)
- {
- 	return container_of(sd, struct ov8858, subdev);
-@@ -1345,6 +1418,13 @@ static int ov8858_start_stream(struct ov8858 *ov8858,
- 	if (ret)
- 		return ret;
- 
-+	/* The mode tables contain PLL settings for a 24 MHz input clock. */
-+	if (ov8858->xvclk_rate == OV8858_XVCLK_FREQ_19_2MHZ) {
-+		ret = ov8858_write_array(ov8858, ov8858_cht_mrd_19_2mhz);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	/* 200 usec max to let PLL stabilize. */
- 	fsleep(200);
- 
-@@ -1526,18 +1606,26 @@ static int ov8858_enable_test_pattern(struct ov8858 *ov8858, u32 pattern)
- static int ov8858_set_digital_gain(struct ov8858 *ov8858, u32 gain)
- {
- 	u16 long_gain;
-+	int ret;
- 
--	/*
--	 * Digital gain is assembled as:
--	 * 0x350a[7:0] = dgain[13:6]
--	 * 0x350b[5:0] = dgain[5:0]
--	 * Reassemble the control value to write it in one go.
--	 */
--	long_gain = (gain & OV8858_LONG_DIGIGAIN_L_MASK) |
--		    ((gain & OV8858_LONG_DIGIGAIN_H_MASK) <<
--		     OV8858_LONG_DIGIGAIN_H_SHIFT);
-+	if (ov8858->xvclk_rate != OV8858_XVCLK_FREQ_19_2MHZ) {
-+		long_gain = (gain & OV8858_LONG_DIGIGAIN_L_MASK) |
-+			    ((gain & OV8858_LONG_DIGIGAIN_H_MASK) <<
-+			     OV8858_LONG_DIGIGAIN_H_SHIFT);
- 
--	return ov8858_write(ov8858, OV8858_REG_LONG_DIGIGAIN, long_gain, NULL);
-+		return ov8858_write(ov8858, OV8858_REG_LONG_DIGIGAIN,
-+				    long_gain, NULL);
-+	}
-+
-+	ret = ov8858_write(ov8858, OV8858_REG_MWB_RED_GAIN, gain, NULL);
-+	if (ret)
-+		return ret;
-+
-+	ret = ov8858_write(ov8858, OV8858_REG_MWB_GREEN_GAIN, gain, NULL);
-+	if (ret)
-+		return ret;
-+
-+	return ov8858_write(ov8858, OV8858_REG_MWB_BLUE_GAIN, gain, NULL);
+ 	epf_bar[bar].phys_addr = 0;
+ 	epf_bar[bar].addr = NULL;
+ 	epf_bar[bar].size = 0;
+ 	epf_bar[bar].mem_size = 0;
++	epf_bar[bar].alloc_offset = 0;
+ 	epf_bar[bar].barno = 0;
+ 	epf_bar[bar].flags = 0;
  }
- 
- static int ov8858_set_ctrl(struct v4l2_ctrl *ctrl)
-@@ -1622,9 +1710,6 @@ static int ov8858_power_on(struct ov8858 *ov8858)
- 	unsigned long delay_us;
- 	int ret;
- 
--	if (clk_get_rate(ov8858->xvclk) != OV8858_XVCLK_FREQ)
--		dev_warn(dev, "xvclk mismatched, modes are based on 24MHz\n");
--
- 	ret = clk_prepare_enable(ov8858->xvclk);
- 	if (ret < 0) {
- 		dev_err(dev, "Failed to enable xvclk\n");
-@@ -1643,7 +1728,7 @@ static int ov8858_power_on(struct ov8858 *ov8858)
- 	 * transaction, but a double sleep between the release of gpios
- 	 * helps with sporadic failures observed at probe time.
- 	 */
--	delay_us = DIV_ROUND_UP(8192, OV8858_XVCLK_FREQ / 1000 / 1000);
-+	delay_us = DIV_ROUND_UP(8192, ov8858->xvclk_rate / HZ_PER_MHZ);
- 
- 	gpiod_set_value_cansleep(ov8858->reset_gpio, 0);
- 	fsleep(delay_us);
-@@ -1701,9 +1786,11 @@ static int ov8858_init_ctrls(struct ov8858 *ov8858)
+@@ -308,8 +311,10 @@ void *pci_epf_alloc_space(struct pci_epf *epf, size_t size, enum pci_barno bar,
  {
- 	struct i2c_client *client = v4l2_get_subdevdata(&ov8858->subdev);
- 	struct v4l2_ctrl_handler *handler = &ov8858->ctrl_handler;
-+	const struct ov8858_gain_range *digital_gain_range;
- 	const struct ov8858_mode *mode = &ov8858_modes[0];
- 	struct v4l2_fwnode_device_properties props;
- 	s64 exposure_max, vblank_def;
-+	unsigned int xvclk_index;
- 	unsigned int pixel_rate;
- 	struct v4l2_ctrl *ctrl;
- 	u32 h_blank;
-@@ -1746,10 +1833,12 @@ static int ov8858_init_ctrls(struct ov8858 *ov8858)
- 			  OV8858_LONG_GAIN_MIN, OV8858_LONG_GAIN_MAX,
- 			  OV8858_LONG_GAIN_STEP, OV8858_LONG_GAIN_DEFAULT);
+ 	struct pci_epf_bar *epf_bar;
+ 	dma_addr_t phys_addr;
++	size_t alloc_offset = 0;
+ 	struct pci_epc *epc;
+ 	struct device *dev;
++	size_t alloc_size;
+ 	size_t mem_size;
+ 	void *space;
  
-+	xvclk_index = ov8858->xvclk_rate == OV8858_XVCLK_FREQ_19_2MHZ ?
-+		OV8858_XVCLK_19_2MHZ : OV8858_XVCLK_24MHZ;
-+	digital_gain_range = &ov8858_digital_gain_ranges[xvclk_index];
- 	v4l2_ctrl_new_std(handler, &ov8858_ctrl_ops, V4L2_CID_DIGITAL_GAIN,
--			  OV8858_LONG_DIGIGAIN_MIN, OV8858_LONG_DIGIGAIN_MAX,
--			  OV8858_LONG_DIGIGAIN_STEP,
--			  OV8858_LONG_DIGIGAIN_DEFAULT);
-+			  digital_gain_range->min, digital_gain_range->max,
-+			  digital_gain_range->step, digital_gain_range->def);
+@@ -326,16 +331,31 @@ void *pci_epf_alloc_space(struct pci_epf *epf, size_t size, enum pci_barno bar,
+ 	}
  
- 	v4l2_ctrl_new_std_menu_items(handler, &ov8858_ctrl_ops,
- 				     V4L2_CID_TEST_PATTERN,
-@@ -1887,6 +1976,13 @@ static int ov8858_probe(struct i2c_client *client)
- 		return dev_err_probe(dev, PTR_ERR(ov8858->xvclk),
- 				     "Failed to get xvclk\n");
- 
-+	ov8858->xvclk_rate = clk_get_rate(ov8858->xvclk);
-+	if (ov8858->xvclk_rate != OV8858_XVCLK_FREQ_19_2MHZ &&
-+	    ov8858->xvclk_rate != OV8858_XVCLK_FREQ_24MHZ)
-+		return dev_err_probe(dev, -EINVAL,
-+				     "Unsupported xvclk rate %lu Hz\n",
-+				     ov8858->xvclk_rate);
+ 	dev = epc->dev.parent;
+-	space = dma_alloc_coherent(dev, mem_size, &phys_addr, GFP_KERNEL);
+-	if (!space) {
+-		dev_err(dev, "failed to allocate mem space\n");
+-		return NULL;
++	alloc_size = mem_size;
++	space = dma_alloc_coherent(dev, alloc_size, &phys_addr, GFP_KERNEL);
++	if (!space)
++		goto err_alloc;
++	if (!IS_ALIGNED(phys_addr, mem_size)) {
++		dma_free_coherent(dev, alloc_size, space, phys_addr);
 +
- 	ov8858->reset_gpio = devm_gpiod_get_optional(dev, "reset",
- 						     GPIOD_OUT_HIGH);
- 	if (IS_ERR(ov8858->reset_gpio))
++		if (check_add_overflow(mem_size, mem_size - 1, &alloc_size))
++			return NULL;
++
++		space = dma_alloc_coherent(dev, alloc_size, &phys_addr,
++					   GFP_KERNEL);
++		if (!space)
++			goto err_alloc;
++
++		alloc_offset = ALIGN(phys_addr, mem_size) - phys_addr;
++		space = (u8 *)space + alloc_offset;
++		phys_addr += alloc_offset;
+ 	}
+ 
+ 	epf_bar[bar].phys_addr = phys_addr;
+ 	epf_bar[bar].addr = space;
+ 	epf_bar[bar].size = size;
+-	epf_bar[bar].mem_size = mem_size;
++	epf_bar[bar].mem_size = alloc_size;
++	epf_bar[bar].alloc_offset = alloc_offset;
+ 	epf_bar[bar].barno = bar;
+ 	if (upper_32_bits(size) || epc_features->bar[bar].only_64bit)
+ 		epf_bar[bar].flags |= PCI_BASE_ADDRESS_MEM_TYPE_64;
+@@ -343,6 +363,10 @@ void *pci_epf_alloc_space(struct pci_epf *epf, size_t size, enum pci_barno bar,
+ 		epf_bar[bar].flags |= PCI_BASE_ADDRESS_MEM_TYPE_32;
+ 
+ 	return space;
++
++err_alloc:
++	dev_err(dev, "failed to allocate mem space\n");
++	return NULL;
+ }
+ EXPORT_SYMBOL_GPL(pci_epf_alloc_space);
+ 
+@@ -413,6 +437,7 @@ int pci_epf_assign_bar_space(struct pci_epf *epf, size_t size,
+ 	epf_bar[bar].addr = NULL;
+ 	epf_bar[bar].size = bar_size;
+ 	epf_bar[bar].mem_size = aligned_mem_size;
++	epf_bar[bar].alloc_offset = 0;
+ 	epf_bar[bar].barno = bar;
+ 	if (upper_32_bits(size) || epc_features->bar[bar].only_64bit)
+ 		epf_bar[bar].flags |= PCI_BASE_ADDRESS_MEM_TYPE_64;
+diff --git a/include/linux/pci-epf.h b/include/linux/pci-epf.h
+index 8a6c64a35890..749c6611d7b9 100644
+--- a/include/linux/pci-epf.h
++++ b/include/linux/pci-epf.h
+@@ -131,8 +131,10 @@ struct pci_epf_bar_submap {
+  * @phys_addr: physical address that should be mapped to the BAR
+  * @addr: virtual address corresponding to the @phys_addr
+  * @size: the size of the address space present in BAR
+- * @mem_size: the size actually allocated to accommodate the iATU alignment
+- *            requirement
++ * @mem_size: size of the coherent allocation, including alignment padding, or
++ *            the required aligned backing size for assigned BAR space
++ * @alloc_offset: offset from the coherent allocation's CPU and DMA base
++ *                addresses to @addr and @phys_addr
+  * @barno: BAR number
+  * @flags: flags that are set for the BAR
+  * @num_submap: number of entries in @submap
+@@ -144,6 +146,7 @@ struct pci_epf_bar {
+ 	void		*addr;
+ 	size_t		size;
+ 	size_t		mem_size;
++	size_t		alloc_offset;
+ 	enum pci_barno	barno;
+ 	int		flags;
+ 
+
+base-commit: 0a6f72eda328c773324555491e1ad7f0b0153155
 -- 
-2.53.0
+2.51.0
 
