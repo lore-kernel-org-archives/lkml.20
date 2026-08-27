@@ -1,230 +1,160 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51A6C477299
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 14:16:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42A0A477E23
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 14:17:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787840200; cv=none; b=IutjJDU0QsZrDP+BrkmCpF5hHulHywp6kJQpi1GPqVyF1ZoUdzLKEv1FuL0FaNuJGg1LXMxovg16DP8FrNX+dWqIiuGHE6bdCTpU0yWAsr6qh7iy7D2JLz92EEMOFnMOwo10xeGu+G6ps1qW9yCVq8TmH2mb9Vq+lTNHjOuB9YQ=
+	t=1787840231; cv=none; b=Y33oF1vk3dzOlKAhWbGQYq8odprBYjBQQFz6yequOQOTTS+RP67pcM9kmFAT5qRrE3FfKkYqHmlMsrxxuKDdjHuWuib69mZTLe4qSNyhm/ZCgWLBSUpCPDGWYEZz+jGT37j7T1+DZD/f62hx+K2oFjAkyVMCiXJ7Zeo6g5yMoKY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787840200; c=relaxed/simple;
-	bh=Jf2Y++ByfUCWe+cwPAQmk2BlwH0jkQ2VUemigYlv5Bo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TYVfHYztSnlaYSwlIlCEIq3Z4C84Dtt2AAqz0k33+E1At31i5/T7xM0ja59yjXgKDAMwL0ksftyBRngCaGXp0sxNuud5yBR/458KCYEzNHUOxQCJzP9OFbivK+g0tvCUdkQ8nxgvbAYBcBBUWaFp/I9ezi//9i5roi3KvRtNKp0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=bw2d8TxR; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1787840231; c=relaxed/simple;
+	bh=mEf9ndDDkP/zBpQScU8+/HYJVwPjKOZHk3JeFq95lAk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SPoCLM2+1EzivGXuFd9Z/qvFSvEEOky6qQ0W3qx4sxZAesoAG/npqnL4aCWCrWbHyMltN3AQyfBGBa7Tg8VoHYxOXiTF8dOw26sSJNGIjme/MlgL523QknJaUoewLlm1ibjTBsPY/h7bi7cn+ermbyKUtbaPg0CpX1wE6PQXqjk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LOOuDyD1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="bw2d8TxR"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67RCVh2j3056633;
-	Thu, 27 Aug 2026 14:16:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=dcluX+
-	/mf8lazbWAYbxfRFNoZB8YSwa8nBk94K1KGpg=; b=bw2d8TxRtdi+hGjnlLQfxQ
-	MKhnyHYD+sXET3WLcEpQqRtPUC6z4W/G2RYDYVTFPXYJhm/MbG7GY/ceBPqjlWF5
-	SjdGRigMb2W+sb1gW2ixAb3hmufgYSwDEygmtRSGLL87dzrhT2DhZS9fArwaxeoI
-	h/hNZ13OBjvAaDiRS8992QFgAHFiQeNzFaa2517I7KprevFCq/KSdYrUaeJWl5nR
-	/V2dTxkzRKSFcdyL/DzDaasY7dehO0ttzjHHFprkRWNzy69U2aDq7v7nDb7AR2a+
-	8EzD2w4EaI5Fl27DhoiFRrPAt8SOzmNcu0lp4dnvWjaoTlNIV+6locY42vXdCXCg
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g73dxngk3-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 27 Aug 2026 14:16:28 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67RECE1F019730;
-	Thu, 27 Aug 2026 14:16:27 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4g7ragrakc-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 27 Aug 2026 14:16:27 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67REGNoF38404478
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 27 Aug 2026 14:16:23 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 9E4B12004D;
-	Thu, 27 Aug 2026 14:16:23 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id BF66F2004B;
-	Thu, 27 Aug 2026 14:16:20 +0000 (GMT)
-Received: from [9.67.92.114] (unknown [9.67.92.114])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Thu, 27 Aug 2026 14:16:20 +0000 (GMT)
-Message-ID: <d8edbbfc-4910-4c0b-b104-2fe51756ecc7@linux.ibm.com>
-Date: Thu, 27 Aug 2026 19:46:18 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LOOuDyD1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A01B1F000E9;
+	Thu, 27 Aug 2026 14:17:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787840228;
+	bh=SRS6X6TXw6Tr+PFBiZcsPHGo5nRK4IWPTb7UQu+FNwU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LOOuDyD1bld19rGBu8oHAHMiweAT/Te66dh5B+NbY34f+CmejOjHIq9nTHRXW/uEZ
+	 D4b1L46WgQJnV0e4gnFWE7mszOSJ/PMQPzId1vHY6PWFj+S5/66sKQJpEN/jglF65J
+	 E2BzvdctpNl7LKh331P3vgzpvAPozUc3FFQlMZpuSXtl/MV0bqXubI8MnyqKVqGEYg
+	 yiIqoMnZXTWiabr4DFJiBexZKXlgWCXIPXfZ6ThRad0UYimgqlgiDCTcd9y5v2PVvP
+	 Ov+jNbQTZ3lKRizZWwuezlN+mFrChWxAZEq0C4AjOW+Kw2GewlJu4iO+7yVd6VKENg
+	 DHrK4LzA99R0g==
+Date: Thu, 27 Aug 2026 16:17:04 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Linus Walleij <linusw@kernel.org>, Inki Dae <inki.dae@samsung.com>, 
+	Jagan Teki <jagan@amarulasolutions.com>, Marek Szyprowski <m.szyprowski@samsung.com>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Hui Pu <Hui.Pu@gehealthcare.com>, 
+	Ian Ray <ian.ray@gehealthcare.com>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 04/11] drm/panel: merge the drm_kms_helper module into
+ the drm module
+Message-ID: <apBGjqt9GI5egQW6@houat>
+References: <DKR7VTBLRBQW.2LLJMDO74KXNO@bootlin.com>
+ <20260824-cuddly-aardwark-of-reward-0d93d4@houat>
+ <DKX8KDDOTPM7.3OS616IO3E4UA@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: powerpc: userspace processes crash on abort() from libc.so.6
-To: Shrikanth Hegde <sshegde@linux.ibm.com>,
-        linuxppc-dev <linuxppc-dev@lists.ozlabs.org>, tglx@kernel.org
-Cc: linux-kernel@vger.kernel.org, maddy@linux.ibm.com,
-        christophe.leroy@csgroup.eu, riteshh@linux.ibm.com
-References: <e301014d-568f-4ed5-bc64-b8a85ca0b1e1@linux.ibm.com>
- <a147c153-0c73-422c-a183-dad5c5b9aa5c@linux.ibm.com>
-Content-Language: en-US
-From: Shivaprasad G Bhat <sbhat@linux.ibm.com>
-In-Reply-To: <a147c153-0c73-422c-a183-dad5c5b9aa5c@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDExOCBTYWx0ZWRfX5OrKWeDBh5AK
- caYK8a9HkZ8MSg7TxO1WDqe+QE+3fgNIeSi1yhceIFJBDN7OxjGfi0QPzua7dlyHaJVGxPXt6r4
- mHwUwhjPXztKAbGJsR3X9Y5VqUmg7M8=
-X-Authority-Analysis: v=2.4 cv=AYuB2XXG c=1 sm=1 tr=0 ts=6a9046bc cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=NEAV23lmAAAA:8
- a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=pnlxZmXi8QIVzasWyfMA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: A4KgM3yLy7F_mvNhXEZ2ZmrpIZ3EIgL6
-X-Proofpoint-GUID: A4KgM3yLy7F_mvNhXEZ2ZmrpIZ3EIgL6
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDExOCBTYWx0ZWRfXwsr9uiKhzBsw
- Yd3txQv3UExoUhd0S9PryQ8fVxy4OIk3uDHQjna+2JmOWZw34LmmJ92DtVjwgo9xpMLFyg1JLV+
- GGsihZ84G+pBCCMgHa3/wLW8xrYhmjgc6qF6kxfbP/5R9Vy+o09yCJ4QSuL613YJUI+huAJI4qH
- wDk3bPKCejT+A6LsRv8K679XFmNPCkcvFXBhDH8p97to1PboZH+UDp3CextRj+gFha8jSTtLQMl
- PXuZOZZtgNskozJkHG1LF3enDhni75f3hx/ebGXR8eiH7nqpQR+eD51X6K90aVh+yUEX6SJcbcz
- mFNYx3hAyRvj1nRxUub9+QmbxjcdvwyD8/4v9UUkkNnyg1hbGJMVj9a04BCZTMjz791rzz5YRrE
- VKYrEvtR3cEPB2zr85MtIZIB30bILj6gIKKoASRjUU/ed8yfmBnojZ36x8DemytkBzW3voGjpZf
- Fq1T0zs/eW6MqAGWEbA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-27_05,2026-08-26_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 clxscore=1015 adultscore=0 bulkscore=0
- impostorscore=0 priorityscore=1501 lowpriorityscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608270118
-
-Hi Shrikanth,
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="3h6vkmrdieos4f6d"
+Content-Disposition: inline
+In-Reply-To: <DKX8KDDOTPM7.3OS616IO3E4UA@bootlin.com>
 
 
-On 8/27/26 5:08 PM, Shrikanth Hegde wrote:
-> Hi Shivaprasad.
-> 
-> On 8/27/26 11:13 AM, Shivaprasad G Bhat wrote:
->>
->> Hi All, Thomas,
->>
->> On my PPC64 machine, I see the below systemd crash orginating from 
->> abort() during boot on top of the tree. Complete dmesg can be seen 
->> here [1]
->>        abort (libc.so.6 + 0x29484)
->>        __libc_message_impl (libc.so.6 + 0x9e00c)
->>        __libc_fatal (libc.so.6 + 0x9e06c)
->>        start_thread (libc.so.6 + 0xadffc)
->>        __clone (libc.so.6 + 0x152d68)
->>        __clone (libc.so.6 + 0x152d68)
->>        create_thread.constprop.0 (libc.so.6 + 0xad9c8)
->>
->> The git bisect pointed me to commit 3424d8c18a7da "(Merge tag 'core- 
->> entry-2026-08-17' of git://git.kernel.org/pub/scm/linux/kernel/git/ 
->> tip/tip)"
->>
->> Please find the kernel config used to build the kernel at [2].
->>
->> I have tried applying the pending fixes from Mukesh [3] and Ritesh [4] 
->> for the currently outstanding issues and still see the problem.
->>
->> The system is running Fedora 42, with glibc-2.41-7.fc42.ppc64le. The
->> complete list of toolchain and packages can be found here [5]
->>
->> Thanks and Regards,
->> Shivaprasad
->>
->> References:
->> 1 - https://gist.github.com/ 
->> shivaprasadbhat/6f166374bab12b4f4c1cd4ac829e562c
->> 2 - https://gist.github.com/shivaprasadbhat/ 
->> aa499468e124015eec5932fb13e88e05
->> 3 - https://lore.kernel.org/linuxppc-dev/ 
->> lda1jyut.ritesh.list@gmail.com/#t
->> 4 - https://lore.kernel.org/linuxppc-dev/20260820134718.2176411-1- 
->> mkchauras@gmail.com/
->> 5 - https://gist.github.com/shivaprasadbhat/ 
->> ae56ca849c3009e8642a6313dc465ea7
->>
->> =========
->> Backtrace from dmesg:
->> [   22.039343][ T1833] systemd-coredump[1833]: Module libsystemd- 
->> shared-257.6-1.fc42.so from rpm systemd-257.6-1.fc42.ppc64le
->> [   22.039378][ T1833] systemd-coredump[1833]: Stack trace of thread 
->> 1828:
->> [   22.039378][ T1833] systemd-coredump[1833]: Stack trace of thread 
->> 1828:
->> [   22.039401][ T1833] systemd-coredump[1833]: #0  0x00007fffa4c29484 
->> abort (libc.so.6 + 0x29484)
->> [   22.039401][ T1833] systemd-coredump[1833]: #0  0x00007fffa4c29484 
->> abort (libc.so.6 + 0x29484)
->> [   22.039429][ T1833] systemd-coredump[1833]: #1  0x00007fffa4c9e00c 
->> __libc_message_impl (libc.so.6 + 0x9e00c)
->> [   22.039429][ T1833] systemd-coredump[1833]: #1  0x00007fffa4c9e00c 
->> __libc_message_impl (libc.so.6 + 0x9e00c)
->> [   22.039461][ T1833] systemd-coredump[1833]: #2  0x00007fffa4c9e06c 
->> __libc_fatal (libc.so.6 + 0x9e06c)
->> [   22.039461][ T1833] systemd-coredump[1833]: #2  0x00007fffa4c9e06c 
->> __libc_fatal (libc.so.6 + 0x9e06c)
->> [   22.039491][ T1833] systemd-coredump[1833]: #3  0x00007fffa4cadffc 
->> start_thread (libc.so.6 + 0xadffc)
->> [   22.039491][ T1833] systemd-coredump[1833]: #3  0x00007fffa4cadffc 
->> start_thread (libc.so.6 + 0xadffc)
->> [   22.039521][ T1833] systemd-coredump[1833]: #4  0x00007fffa4d52d68 
->> __clone (libc.so.6 + 0x152d68)
->> [   22.039521][ T1833] systemd-coredump[1833]: #4  0x00007fffa4d52d68 
->> __clone (libc.so.6 + 0x152d68)
->> [   22.039551][ T1833] systemd-coredump[1833]: #5  0x00007fffa4d52d68 
->> __clone (libc.so.6 + 0x152d68)
->> [   22.039551][ T1833] systemd-coredump[1833]: #5  0x00007fffa4d52d68 
->> __clone (libc.so.6 + 0x152d68)
->> [   22.039580][ T1833] systemd-coredump[1833]: #6  0x00007fffa4cad9c8 
->> create_thread.constprop.0 (libc.so.6 + 0xad9c8)
->> [   22.039580][ T1833] systemd-coredump[1833]: #6  0x00007fffa4cad9c8 
->> create_thread.constprop.0 (libc.so.6 + 0xad9c8)
->> [   22.039614][ T1833] systemd-coredump[1833]: #7  0x00000000003af858 
->> n/a (n/a + 0x0)
->> [   22.039614][ T1833] systemd-coredump[1833]: #7  0x00000000003af858 
->> n/a (n/a + 0x0)
->> [   22.039639][ T1833] systemd-coredump[1833]: ELF object binary 
->> architecture: PowerPC64
->> [   22.039639][ T1833] systemd-coredump[1833]: ELF object binary 
->> architecture: PowerPC64
->> [   22.042109][    T1] systemd[1]: systemd-journald.service: Scheduled 
->> restart job, restart counter is at 1.
-> 
-> I was looking at merge patch and It is possible that TIF_SYSCALL_RET is 
-> still set when it is returned
-> and maybe causing a mismatch.
-> 
-> Does below help?
-> ---
-> 
-> --- a/arch/powerpc/kernel/syscall.c
-> +++ b/arch/powerpc/kernel/syscall.c
-> @@ -19,8 +19,10 @@ notrace long system_call_exception(struct pt_regs 
-> *regs, unsigned long r0)
->       long ret;
->       syscall_fn f;
-> 
-> -    if (unlikely(!syscall_enter_from_user_mode_randomize_stack(regs, 
-> &r0)))
-> +    if (unlikely(!syscall_enter_from_user_mode_randomize_stack(regs, 
-> &r0))) {
-> +        clear_thread_flag(TIF_SYSCALL_RET);
+--3h6vkmrdieos4f6d
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 04/11] drm/panel: merge the drm_kms_helper module into
+ the drm module
+MIME-Version: 1.0
 
-Yes. This worked.
+On Mon, Aug 24, 2026 at 04:16:02PM +0200, Luca Ceresoli wrote:
+> Hi Maxime,
+>=20
+> On Mon Aug 24, 2026 at 9:48 AM CEST, Maxime Ripard wrote:
+> > On Mon, Aug 17, 2026 at 02:27:58PM +0200, Luca Ceresoli wrote:
+> >> On Mon Aug 17, 2026 at 10:31 AM CEST, Maxime Ripard wrote:
+> >> > On Fri, Aug 14, 2026 at 04:05:52PM +0200, Luca Ceresoli wrote:
+> >> >> Work is in progress to make every drm_panel automatically create a
+> >> >> panel_bridge [0][1].
+> >> >>
+> >> >> This requires the panel code to call the drm_panel_bridge APIs. How=
+ever
+> >> >> this would create a circular dependency loop on modular builds:
+> >> >>
+> >> >> __devm_drm_panel_alloc() [drm]
+> >> >>    -> drm_panel_bridge_add() [drm_kms_helper]
+> >> >>       -> drm_bridge.c APIs [drm]
+> >> >>
+> >> >> Moving just the panel_brige.o file from [drm_kms_helper] to [drm] d=
+oes not
+> >> >> work because the panel bridge code uses the drm_atomic_helper and
+> >> >> drm_probe_helper which add further dependencies on symbols in the
+> >> >> [drm_kms_helper] module.
+> >> >>
+> >> >> So take a simple approach, and move the entire drm_kms_helper into =
+the
+> >> >> [drm] module.
+> >> >>
+> >> >> Link: https://lore.kernel.org/all/emuj2innmp6zmzd7pyakqzjqpdzhly6qf=
+hakya3ydwmd63pl26@5jwxaidpikjw/ [0]
+> >> >> Link: https://lore.kernel.org/lkml/20250206-hotplug-drm-bridge-v6-8=
+-9d6f2c9c3058@bootlin.com/ [1]
+> >> >> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> >> >
+> >> > So, that's not an option. However, why do we need drm_panel_bridge_a=
+dd()
+> >> > after this work is done? If we want to create a bridge for every pan=
+el,
+> >> > then the bridge implementation can live in drm_panel.c, which is par=
+t of
+> >> > the drm module.
+> >> >
+> >> > And we'd essentially move drm_panel_bridge into drm_panel.c, and mak=
+e it
+> >> > private.
+> >>
+> >> Yes in theory, but the panel_bridge code uses other parts of the
+> >> drm_kms_helper module: drm_atomic_helper and drm_probe_helper, maybe m=
+ore,
+> >> so we'd have to move them into the drm module too.
+> >
+> > Ah, right. What would happen if we were doing it the other way around
+> > then? Move drm_panel out of the main drm module?
+>=20
+> Into the drm_kms_helper module?
+>=20
+> I had a look and did some experiments and I found at least one user in th=
+e drm
+> module calling a drm_panel API, and guess who:
+>=20
+>  drm_of_find_panel_or_bridge() (in drm_of.c, drm module)
+>     -> calls of_drm_find_panel (in drm_panel.c, drm_kms_helper module)
+>=20
+> Based on our discussion after patch 3, I'm not sure
+> drm_of_find_panel_or_bridge() will disappear soon. If it doesn't, I guess
+> we can try to move drm_of_find_panel_or_bridge() into bridge/panel.c which
+> is in the drm_kms_helper module (and from drm_of.h info
+> drm_bridge.h?). That however might trigger build failures for drivers whi=
+ch
+> currently don't select DRM_KMS_HELPER and which would have to select it.
+>=20
+> I'll give it a try, and if I see major drawbacks I will get back to moving
+> all the drm_kms_helper code into the main drm module.
 
-Thanks,
-Shivaprasad>           return syscall_get_error(current, regs);
-> +    }
-> 
->       if (unlikely(test_and_clear_thread_flag(TIF_SYSCALL_RET)))
->           return syscall_get_error(current, regs);
+No, I meant into its own module. Do we have any dependency from the main
+drm module into drm_panel?
 
+Maxime
+
+--3h6vkmrdieos4f6d
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCapBG3AAKCRAnX84Zoj2+
+dncAAX9e0Le80mECcRvZjSFwfKDsJn14yX3qpt61zpnr4XCT7oYutU6uDr1R3/aq
+BtDoNW8BgKN0pJx0d4WvMJowi4FKM9HLeXIVZOanNJQlHbCV551rvrJJHQkcpP9u
+wtO4YWM9TA==
+=RS0G
+-----END PGP SIGNATURE-----
+
+--3h6vkmrdieos4f6d--
