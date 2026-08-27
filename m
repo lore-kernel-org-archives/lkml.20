@@ -1,85 +1,90 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E47EE37DEAB;
-	Thu, 27 Aug 2026 20:32:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDA66360EFC
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 20:33:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787862749; cv=none; b=rLJYooBu5rr+zak86tL+ET5RAbZ8tn++NC3A3n8ejDcmOh4airsE+NpWoaATJvTKwDcsuKiO1TJoUlvHwCFeUu7XXFh5OWc/yoZ48KWZg8DAVEdwTT9JVqhR0OC4feUQf2obPfoo/tXlxNiZvzEXG/Bjo2cnzd6JLUUyAm68Bzg=
+	t=1787862800; cv=none; b=Zv+0BXHY+XUwQA8uSfksKFIYrionxlWj+S5CHzU/F7Ef31g2lwi3xXtLvPW4yLUMzim08vshrDRYxzdtSMqpOUfgbeq3junHsDKgyyMFnCEMrM1A4V0fKRubkwqKo9qTf9bJ6IuCwjVeImHpyUhz+14U3ubNXk/N/MW0im9NML8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787862749; c=relaxed/simple;
-	bh=7Sj8lMmGcAd5DxlyEe4JSUdrAc2PhCi4KnDdgFgM8CI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WI4+OyE+6zSlsDVNxU8Fh06aCaLAtVIvhBqrqtuTmkNTa0C5G2WAkV6L66PViNz2OppdP3dLinH63+rbbBagaaonHe9JvhCPZ6Wd4Vw32zjhD4ifjmxQ7ahdSTJ/N4j5PtO42/xVkIh5V7czdbcOinWEsPhgcq8ppctI8INVW4k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZM9gMg3C; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787862800; c=relaxed/simple;
+	bh=rPtOMLzk146zv2eEvXEmxjqB0zivsCKY1TZEhUlzI/8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=WQJ+d90U9cRdPZ/SoHLh/niXOlYNbEB2ZVYR0Io6CLMK0xj7jhqPJwSARV2UCcWq2oS/y3o57jLjmG9HYJ+5wNeb4TTKBOHp5M6zKMGa28IP58AM1OAI4AhzuALM0/Eqbc+0tE5ZUgLzvvW7MJnXcMjETBAHEonQLo7Ea9fM7mE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PCkI4dbg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZM9gMg3C"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787862745; x=1819398745;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=7Sj8lMmGcAd5DxlyEe4JSUdrAc2PhCi4KnDdgFgM8CI=;
-  b=ZM9gMg3ChJnSATgW86B0YlKk+jaAhEoIfj8AY8fnE1q1bEqIiacK+y9/
-   v55NhaFsEBhU9mMAzTmnW4GLbYz9sWBZ7yY0h9fa/KwK53KoQIKqCpln1
-   twSBppRgq7b/Hl1FjfJdG13/mz9LSyVlBtTVfoUAVDfrTFeg+Fmjp8N2N
-   teFHHlZDmby1Vms4DiY9S1BFDKszrEEa0YDD3ObDrTVEDoeQgPsWInOtp
-   P8um2J8/3R5fwtUNjSrEOFqCifC7rhlaydqqGUa1jRcuJk8OVGlEJBGE0
-   zNwUrrVUKmg7nvlGRalCJyB8H21GvB2pbbcGb9t8H4UK0jQjTunqIscYZ
-   A==;
-X-CSE-ConnectionGUID: 30drY98mQNO6fIFL8hvV3Q==
-X-CSE-MsgGUID: fng9Z0QbSOGa1c36qUI9Jg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="99040561"
-X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
-   d="scan'208";a="99040561"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 13:32:20 -0700
-X-CSE-ConnectionGUID: tAwiDc0+QT2RI9ERGRpuVQ==
-X-CSE-MsgGUID: Tb4IkCtKSn+0Bdbkf9M+gA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
-   d="scan'208";a="263680387"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.125])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 13:32:17 -0700
-Date: Thu, 27 Aug 2026 23:32:15 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Thierry Chatard <tchatard@gmail.com>
-Cc: linux-kernel@vger.kernel.org, hansg@kernel.org, lee@kernel.org,
-	platform-driver-x86@vger.kernel.org, ilpo.jarvinen@linux.intel.com,
-	djrscally@gmail.com, linux-media@vger.kernel.org,
-	mchehab@kernel.org, sakari.ailus@linux.intel.com,
-	jacopo.mondi@ideasonboard.com, nicholas@rothemail.net,
-	v.vitovt@gmail.com
-Subject: Re: [PATCH v9 2/6] platform/x86: int3472: tps68470: use unsigned int
- for GPIO lookup loop counters
-Message-ID: <apCez6MBK9K5R_M_@ashevche-desk.local>
-References: <20260827201611.99825-1-tchatard@gmail.com>
- <20260827201611.99825-3-tchatard@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PCkI4dbg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FE811F000E9;
+	Thu, 27 Aug 2026 20:33:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787862797;
+	bh=hXeCrlr2H2UZCuLEvvGGoMqVWRnxMZcI2iWHVfhvG3k=;
+	h=From:Subject:Date:To:Cc;
+	b=PCkI4dbgyKdkB4OV5KuL8wg7G11MgCfPxQHpr72rgWdnBfDwiLkxYtcu3rar3QMY2
+	 4rfszF2eD2ukLUDQbO8EtZZqvJRyqi/anmwCGpIV2HGGgnAj8SQIb96ball0wDaPbg
+	 CnZ9fyPA3GOH7SNC05Wtee8TnYYwFlrruTwjJHrIIIJoTHHH3R6QbVaJEygsJor8lt
+	 AOzbnu9FVjTMpnvC+AE/pbZ70esfsKamc5hEizOcIFATYN2VzYKyh+7t+TASj2Ba1d
+	 YJPApV9gXic5Fr4YcI+ZR/rasbvpKAkXRBhFHnKiTnaGIFzstRbRhmYI7sTrRZdBA7
+	 gHJJrqG7eSclw==
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Subject: [PATCH 00/11] accel: ethosu: Another batch of fixes
+Date: Thu, 27 Aug 2026 15:32:59 -0500
+Message-Id: <20260827-ethosu-fixes-v1-0-346f9ea8791c@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827201611.99825-3-tchatard@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDCyNz3dSSjPziUt20zIrUYt3UVFMLYwuzVEsDAwMloJaColSwBFBHdCy
+ EX1yalJWaXAIyQ6m2FgB+EhHQcAAAAA==
+X-Change-ID: 20260827-ethosu-fixes-ee58386e9000
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
+ Frank Li <Frank.Li@nxp.com>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.16-dev
 
-On Thu, Aug 27, 2026 at 10:16:07PM +0200, Thierry Chatard wrote:
-> The GPIO lookup table loops in the probe and remove paths iterate up to
-> board_data->n_gpiod_lookups, which is unsigned int. Use unsigned int for
-> the loop counters to match and avoid a signed/unsigned comparison.
-> 
-> No functional change.
+This is another series of fixes to the ethosu driver. It's mostly probe 
+error paths and cmd stream validation fixes. It's a mixture of 
+AI reported issues, different solutions to other posted issues and 
+fixes[1] and my own fixes.
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+The series adds rejecting OFM tranpose in cmd stream, but then the last 
+patch adds support for it. I did this so the rejection can be 
+backported, but maybe supporting OFM transpose is small enough that it 
+should just be backported too?
 
--- 
-With Best Regards,
-Andy Shevchenko
+Rob
 
+[1] https://lore.kernel.org/all/20260717061145.1478139-1-zhaoguohan@kylinos.cn
+
+Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+---
+Rob Herring (Arm) (11):
+      accel: ethosu: Fix ethosu_job_open() return value
+      accel: ethosu: Drop IRQF_SHARED flag
+      accel: ethosu: Ensure cmd stream ends with a stop op
+      accel: ethosu: Ensure SRAM size is 0 on mapping failure
+      accel: ethosu: Ensure SRAM region size matches job
+      accel: ethosu: Fix probe error cleanup
+      accel: ethosu: Factor buffer bounds checks
+      accel: ethosu: Validate secondary streams
+      accel: ethosu: Reject unsupported commands
+      accel: ethosu: Validate all feature map tiles
+      accel: ethosu: Validate OFM transpose
+
+ drivers/accel/ethosu/ethosu_device.h |   6 +
+ drivers/accel/ethosu/ethosu_drv.c    |  17 ++-
+ drivers/accel/ethosu/ethosu_gem.c    | 240 ++++++++++++++++++++++++++++++-----
+ drivers/accel/ethosu/ethosu_job.c    |  22 ++--
+ 4 files changed, 233 insertions(+), 52 deletions(-)
+---
+base-commit: f7e3f4d9f425cf4c5577cd84a096e6e618488083
+change-id: 20260827-ethosu-fixes-ee58386e9000
+
+Best regards,
+--  
+Rob Herring (Arm) <robh@kernel.org>
 
