@@ -1,25 +1,25 @@
 Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022130.outbound.protection.outlook.com [52.101.101.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAD9432D7F1
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 22:18:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D578237F8A1
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 22:18:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.101.130
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787869106; cv=fail; b=DPxHpPdJp9UARr7vO+q9YGC1t8L8fxliPmAXjM8AwPRW/YmgBqTH5yPp3ObnI7/5ynbdrCxmpJnDSU05pSXIc0btAGP5nZiGgyG/Db61LY4P9+/US52VIdwBI04fzgNMlK8FRjb59XD4qAG3ioDzH9la0vzs2zFji4kEe8N5IP4=
+	t=1787869109; cv=fail; b=hm8tvhXZnAzhBaP2W86vhM/XrCeZiXxTclerSetclFBno2WoVODvMp67niiqviY+IE1s5wlcJGtCmwfiC4I0wg7Rznxp05EpMjNmRcJLDyn9x9oEvZqX1+kRbGtku4wLdWEXifkFujmmAB+euzuH5Pbx2xcuKVfm5jc61mMBGY0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787869106; c=relaxed/simple;
-	bh=EjWRLuMtddpGpEz0wwcKvBoRX/wKRrozMZJvimQ/Fmc=;
+	s=arc-20240116; t=1787869109; c=relaxed/simple;
+	bh=FAMBmEKNH0E3r93mDqrGDdpD1wt5J3bOKGCk+3QO3y0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Q3Y9rTYItFpnRG6ioW2cQzoxHsWEQncBK2w4NlYbXQP1JDj4K6hzrnw8f87W4Wtvia+T20KcZGw0ldqRFABVdSy87q0SVHhflhnGQWqZPrwCAnPs7C6qlWGuv66Uncz7QlfjeAfmSOs0ayXmIf1UKCoX+DUUc933Z79Ubx49aVA=
+	 Content-Type:MIME-Version; b=uZHr/zoer9lkVAtzD0vRl8b/et/tcFm7IzsB/AaDYr0CO/0/wWbpm4quWRS4Ph/K/G9EPhytBfVmH7k/+XYKZ0wAnMv29yezX2jOXCFB3khW8NaTHVWUg3oV+LS0K82xk1VfrnmYo++m9ZbgLoeBZ+zATxu+rJDHyL3x/3JbLH8=
 ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.101.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GzAFHyffu/VsYuMBAUXUJ5+sXc4/KgmkUJ36Yr6IesgePDDE2BHbkdoJicN7Sk0UubjV95NJzVOwg8BDVAAx1RzqcscS8UGzPEMskM+rj3xhlc5q06hG0gelxZdFInviXQkajA7bt678XlH6UKYbs02PCZemAUE2Azq0sALBmLcEVaxvVLEZbJeDfW9zkrFUV8cKjsme3CMpVZW8B9isrP4t7rbRruQl6vwv7urTOsoCDKyOdOpkidpQ4vvFXnL4euTlQAh5FiRhDF19rHo5T2gc2zlnFmtk0xplOHE+i3fijM1mPNMILZxtTQowU0YsyHYW/ZIF4ZFkiUkDX0lvPQ==
+ b=AKua2bZa1arP673e0CESkg83jbsyZN4fwk/3gtbHUsB2IP/TgHE98zW2sZ7c1+VEjXkBG5Gs+13WwU4WY+VYRRK3jq6/es2En+i/9f3bPGUNQkxEms1rD/7dlge7XmWoraCI4J4vR/e16CyzlAiCZr0sE55vg8wdfo4CxsEd32/2ReJBZwbwXTjis19wwYWqJBl33T4jIq4xK9S9gps3rrbsQo+28bmphgEy7/DmJeGeuOvHmqnGO/QE9wYfZ4a6eLYlYGWVOVkSuo0V2ppg5sc4IL1P2o3p009wEn8HI/9kEczbNngMBj4X1b8ODS1KmtzalPYpKT7s/CnTdXUeCg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=N4L2lHhG5/Tgj/tMXo3AuwJe4R1m6EosDrnQHHDyi3c=;
- b=tAkuqRsKS1DiwZItq4GUB/XDwHD22zRstbxvOR/XxAhXpQzPeouLo0ub9jvsO0ueNWwrsEPN4oi6vC5fb/rXuQJkNN2OCnk6ZmglqO+6V/kx3on5Jc3LxohWBihlfhPQjNL4wlv7/FoKWMvi7ZjVP121JWjUNGqkOPOE3N94kXvDFhU/19C3W4fYJtuhuRrXfdJ2EjBemmCqd/XStxFM6VUBzOCB+eocgEshkfI/6StG2xJUDk1uKwQVccduzzNI89QDk4Lk9UuiQlCM4jch9VQocVNDp3g3OxFfJuY4pSrAYHFtnHCK7QQrk+B3qTFdIdfUDNddv8zArr78GJpBFg==
+ bh=8LrLKpfCtcUw4SDnojsAv51pIUjB6Rdt3xL3H1e6+mg=;
+ b=JjQfatwZv5Lz+3hyfHIAnuqZJBC8v4QiGyJ32wjRPywkV/3XQJes3+XBjtwl3PAtahFbsWvUahZd/uNTOL8FZVPCssjfjgoevOiQkaZ9tkuk6lSwIo245qj9rYNWS/Le67A/9A3uQjc6pSgWgYuWMs30qMU3QxyNIXVoFYB801rCZGTLrATuMHPakCrEYi4doYKGHVLA0Ljl9/0PQIKAlnlSgPUgwpemAa4P1fTt0YvSEe8teZ+ndl4vbevLDzQYfTHIVoiZgxrK7CQ2HyCxz/he7oXuVdmuPeZMR6L6PknBpqhLNKODsG1/7oIoltTemYMq1UNvbiV5/tGn48YLQg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
  dkim=pass header.d=atomlin.com; arc=none
@@ -29,11 +29,11 @@ Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
  by LO6P123MB7095.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:342::13) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
- 2026 22:18:15 +0000
+ 2026 22:18:16 +0000
 Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
- 22:18:15 +0000
+ 22:18:16 +0000
 From: Aaron Tomlin <atomlin@atomlin.com>
 To: mingo@redhat.com,
 	peterz@infradead.org,
@@ -55,16 +55,16 @@ Cc: paulmck@kernel.org,
 	steve@abita.co,
 	rishil1999@outlook.com,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v9 3/6] sched/debug: Protect lockless rq->curr access in print_cpu()
-Date: Thu, 27 Aug 2026 18:18:05 -0400
-Message-ID: <20260827221809.988394-4-atomlin@atomlin.com>
+Subject: [PATCH v9 4/6] sched/debug: Protect p->mm access in sched_show_numa()
+Date: Thu, 27 Aug 2026 18:18:06 -0400
+Message-ID: <20260827221809.988394-5-atomlin@atomlin.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260827221809.988394-1-atomlin@atomlin.com>
 References: <20260827221809.988394-1-atomlin@atomlin.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: LO4P123CA0023.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:151::10) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-ClientProxiedBy: LO4P123CA0256.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:194::9) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  (2603:10a6:400:183::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -74,100 +74,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LO6P123MB7095:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1b508c76-bb19-4236-b58c-08df048916dd
+X-MS-Office365-Filtering-Correlation-Id: eeffd775-79fa-44f1-57a1-08df048917c9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
 	BCL:0;ARA:13230040|376014|7416014|1800799024|366016|23010399003|10067099003|56012099006|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	9jRCnkNvDn0gHLV88+3I8tpTGOl/imjYKOPzrQ0GloHXy1MFnnlXKdeLVfA7QK6IupodckAbxHM+sdhwDCxvmbzXjis34mnEv3eIKJByLjpm+j+fq9G52ZAO/V06pNowtGzn9nS2JcMVai9W/yXKABSwAdhJqX15Xg0iCRiADPZp7C02bE13w577Cs/rO50aH6MrL7NKrQFyF3vcU63gJw07MojtlJko+tILuJeEqVtQU1pAZ9qz8j69CuowYOhW3/ZMEVaQnrB82kDAU8nL8TyLbenPHKhDecMPnMcbHo4KsJ25K0m+g3mDPqppSDnJtHI6CyBu/UKp/KQ78ux+wc7EfZahzp+e53oR2AsUWUxJLaeSW7GQOlpPQk9Jxxv4Xsx5Krs0rR4R6ec81OctrCoDn8LlulMEnyP2jS0gdR8tyhfrGULaPIboKe/TU42OncuqcIqFPMVsdiRSsfNXR34N7ms2FvyFPWKS4F0mGsKzps8v3dw7n2ud4iWCj2d8qkBUI0Zo/+jKe3kR+QDLaEL7dnQOJ1svAs+3Dj/gmXa9t/OC03pSDLl7nvZBSn3lHLMFBfCCAS5MZKHlxLL1R0WvilBKTos8W6WL/GH4wWd2HOux9owPWbKXO/Us46AJkXNPsZFxNXXofhACqjQUtNo21XgqPsUoZbdHzyxP8ZM=
+	4VUSY4qfJalO7kPkc8JNne2c3sdFB/eFxAOffXmZCR4kV4mcgrDA0dpuT9lR1/cl0zPospxapuJAZbTpBDwrdGEXW1StKJyerEYf7pPbLXY6aFco4XvLpY2GActpRcGkQDtmNw5vXnI9KBiQsxOeKyAMnHu2mMtFQD0kjS6d2H2x+0rMc0f6dR9Kc3nuYiPSREI/TZOmBX/T8/azPo1rdbH2XeZy5i14MiIYznOeJJKuQLGmfWM/f7bdJbAyrj8iR/Yvyd02KWtVM+aXq+c3hahd2LsZxb8aakk3BnBWQn9mP1nAliRylq07Z7kDav14WI5rOQUvBBV58O80hEXiSDzxQdm6i8ffnStm3gy7KeAovWgew1gsyx4vl/xKLa0WbsllXnrdyYQvu8YJHbr/eZ0Z29FMmw+isy5/MkM0XX9aFd0HwmcJfk8cH42PsIGsO5RPhKbnVo5jWlENHwI/0033Evpfo1NQ3TSwGXPB/0PBc7uNCJLH8bBhi9TMr1nz0mh+dR6R7p3ez0zy/VQY6rZCvGKPTFnQrjNdnFccdHmxTJGmk+fCkmz1gPEZ9HQCBS9v1wMlcnGhXUMMDFEG2UfpVqSetsN2jbzB1vIUhU2qu23oshuQFACc8DMLV3nh4XjfoAXgkmYCpTiwgsB0LOWcmrCdiSzd3oj2tyl9yB0=
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?X1DrbFzTDGwa9RhMJGb/exK6U9QWV1WTwExdDKjBcrHlNqjIWhuh9a+nauc9?=
- =?us-ascii?Q?ZMLbGj+ZVpLeWyzExjpLmo4HTvufYhdGpFdE04XuShqnWKXx/PN2G9tbMawR?=
- =?us-ascii?Q?g/btB8FhaGxrkd3mtzyY/xZtQY3K8E5ulZhWYWbKAMwK1OOoStMKK/gR5AWr?=
- =?us-ascii?Q?40LM25QJFFD0+9GnfNwGdG7J+ox/N3NRGX9NFvd6dnMUgeddxVQws90scJH7?=
- =?us-ascii?Q?S5ffZiyi5vTt56A/QrdEnUzg6h9/x7uVwXT3iwQCBk0/EiFa/V7ZxUogKhXN?=
- =?us-ascii?Q?Uj7KJ4cwZgoZ8DAL6eRWnzhYz6Tiic7hGyfEZjgqVrQxtQkikrpZUXlKJlh3?=
- =?us-ascii?Q?uRinFxp8qPxgrG5+sIQ0BlnHNfPZ4a1cdBjBvgnAAcKIAZws6Dzn4IzO5XDq?=
- =?us-ascii?Q?AFVCXAIPAmiv562Yu0hcuPcYoDWTteqW9YjW0b5LW9ybco97RlAtpfZfCjk5?=
- =?us-ascii?Q?lTfD9ZC7wkBkT/9lTcivBIPograxYXYehrQLGyczPOBPd5/DaQIy9/5Z2XRM?=
- =?us-ascii?Q?4mgooGnyz3IO1shbShe3tjVlcdzItQDqu7gjQxeXqbgpDKDc3J/oNCPWu8+b?=
- =?us-ascii?Q?I/e6rQpLKKYO/tXmKnGpuMf0AQfbLEZcF7YyJnDEADof0tpUkW/X3bbWQa2Z?=
- =?us-ascii?Q?AO1jUJw0is8RScgkxizEsGo++SOHwQ0YnAlEkAKBFiHAjaF7Q0yuC6B/M8Zg?=
- =?us-ascii?Q?fsJ+JuS0y2O4TkKxmSkQLz+lsuCbIKvPivUX4lFyydD3PWD5tD71DhlKG7Y9?=
- =?us-ascii?Q?cI6FiFh9WoVdSg1lfcJF1GxMf2NoRj6MU/Xfsn7QyAZedc6IAbVM9J3LM/em?=
- =?us-ascii?Q?wVg47X/FESFfrTane1ayYmYPhQOizJkWaEG7N23Xq04vEdCHxQPVQBSFGowV?=
- =?us-ascii?Q?v/wOTOE3pgTRtcRL+J1DWKcViTkl5WhiO+dub7Nf/1jjny80hWrNa/4/1wz6?=
- =?us-ascii?Q?zZQFB56w4wTP2G2uyrvFNEHezp+5oP45EuYDko7k3AqUxY+jliCVC8SjhuaJ?=
- =?us-ascii?Q?1QxlbJUOqUPAIe2tQjz4lJHylfHwLZC39UKhR1oHEzO95/FmINe/mAfJwGzh?=
- =?us-ascii?Q?jUuI5aEvAMUGla5yUiN+NFF4GUKM/DH7Rrtjow6Ms3vhYlN+u2sF56Hhk1RY?=
- =?us-ascii?Q?YC1VSxncwleyslmcbIaY9dBRW6r9XEDPuYjShL0XD7T1u5d7a+uY5y2wgsJy?=
- =?us-ascii?Q?msoYQmLV3HbOdKYO9KHQMh8w/K565Fmgh0xjBZ1EHVC2B8SSvbrXjTTcfCz9?=
- =?us-ascii?Q?3HkLmIGCHKIjmjhvB7uHxd0nBdkYbPPwZUjENjPw+ZoDOJwEj8gIBPTPVXkx?=
- =?us-ascii?Q?2B+28wO6mcirfuvak12G2F8xqF8r4Nfh0bJnosK+pjPhvwm45nf7VSPJO00o?=
- =?us-ascii?Q?6Z5xu75gcl77ASOm3XhARFnYGSMMi62FwPbim1BKStqmcoWE6PKy+3L2+1tQ?=
- =?us-ascii?Q?k9wYqsCaJiT36PH8wNfwflzDiBfYcU3duzmiO8fwUAPEEBJxr7Y9Sft1ZrXM?=
- =?us-ascii?Q?wjvLYkvgHHk7rCvRZLjjdtvXKDn/VYO3rEjBDXyCX1L3NWX+HHFVlePr5Vrd?=
- =?us-ascii?Q?gOcNUvgRWzkpFmOVWvpLNe0akR6g7ZDXAJ6vvRyEQ75m1ATSEkRA+xFAEjwl?=
- =?us-ascii?Q?rOXh3/RKYRA8Jy9ybF4nI2i6tVZcCvrmIaravByD71yuLZk39SgSjzZPkLzk?=
- =?us-ascii?Q?iTBleGPKYORJRLRF+l+ZuQMajkEbbLFt0zJTN4aq5Jq8HWbj?=
+	=?us-ascii?Q?ZoWr4hFfeEMDAvhoTKmf2QnwWRMqep9k4nj6B9pSj5Q5/UnHhPxGWnARViPc?=
+ =?us-ascii?Q?ML7BQ1l50a/o3N0nFONpWb6SC5maKI8/ZFM4qAme7Bf783agcomffvqGv20p?=
+ =?us-ascii?Q?AEW21h99G84cd82/MJwwKNm4z940rjTNxXAf3Bsmecje7yuxF3l6n0xFiaPR?=
+ =?us-ascii?Q?NGJBy3hwQC1FoYr+jpCsBqiF5RidMU1pAOrdQvtUjImOq/P+1y9Thv9sOyx5?=
+ =?us-ascii?Q?4e0Ebxg9pqwAvjtBENZEFVM4gxdkqSsgc68THODM+McXSbj9LQSEjqMoj+QJ?=
+ =?us-ascii?Q?lNJ12eQs9h7o5udwbwB+mQvCT/7NTr6okQzaLUlUW2dWRhsCElf+yZYGPD+n?=
+ =?us-ascii?Q?i37AQGJjel64LzPUEZua1obuvpFwlypMd/SY+dAm0+UeN/wTG6UHNfhuBoAn?=
+ =?us-ascii?Q?ytTWGetIBOdz1ECQO/1eGEb322noJzKnTEMNaRfdjT8xE//JwbHGY7jFtcof?=
+ =?us-ascii?Q?KjqdYsEksk3yvKzZ8um3ycmoBW24LenHFK/wSY+RIipiA4LUz0ph/Jc69peG?=
+ =?us-ascii?Q?ZRA06tMCHZk7Bo6/II3GjF4uimOQE8fOyqNFJhhnsMzpec1dzW1IcKFaSAfN?=
+ =?us-ascii?Q?Mh1+ea8ZjUMBx/uXmM5sbLfPQQmVCrjoBzNjNSdtBNem958JuSZhpLQgd4jw?=
+ =?us-ascii?Q?kTavsgtJDsUp5wCZC2YqtPxmZaqsIgC1ziVWX4xBXyv0hqdWG11XE6RDOFeD?=
+ =?us-ascii?Q?bi6kOWQG95FvTdZMkZARYUa9G553RDp+dtpRJ+HQup0M6WD82Kn3XlKBWhua?=
+ =?us-ascii?Q?XZ/WP7ou8FCvqaeIbjyQGRVgfhLh8BUW6d2XH3FNcFsYc6XK5jQnQn18fHIp?=
+ =?us-ascii?Q?x2qYjo1Z45yUd90UzFTccKJ1NJs8EDNuMpDlFY1I6eILj27YVoEHe32yGXDM?=
+ =?us-ascii?Q?WFgMgcvP8l3lWe4zeUMf6dGGX2dfSRBN7/h82AoyaKMpNLWMddho48emKa1t?=
+ =?us-ascii?Q?K4+Ixg0V8kC0spyG31k70IjkHWwS3V6a0TcEoy5gOb2jI0lWdQalo93ODVM5?=
+ =?us-ascii?Q?O+OyS7yEfBpNQdLXFYkhiADFSsXDxqw+VO8+h9YG0lEbi9W7hd8OVWrmZ3wP?=
+ =?us-ascii?Q?kPmwDsPCF5jBNPNAAj/xdCw4yjn+0IOfx3/zLNJGdieegRqC5wPb4L0h/khD?=
+ =?us-ascii?Q?npf6igx80sD0aNz0wOGZtRvMPimDWDWhwfEDlssHMHt2E1WyhX4+Q8a+geVX?=
+ =?us-ascii?Q?XMP42TL+GOMt+lmf2Ri/GGIVN/TFp4bvbm1J7af+7EZlxgSz2fAk4+ayrYkU?=
+ =?us-ascii?Q?IkfkgZ7ROdwJkhwIEoZ60vU4mwj78LUoeNYG8R/ouB1CJRFv95UNzRRISl3p?=
+ =?us-ascii?Q?E2EHrDcDO6F0ohTs9kqBjF0+lOAzA+SrZEJXZoSLJ6aGHRAJgo3BsppUp1vE?=
+ =?us-ascii?Q?0nY86Qlq43wTPXrIVpfEG1iNbMoyQMX/yhUDDibn3RlwAModKo/T72CE7k9M?=
+ =?us-ascii?Q?eUIaRoaqZ274FWae1+r9lE2hBfmDe4y9SZ8SN5oSfVcwmJbx2r1IUcVJfXYo?=
+ =?us-ascii?Q?XPsnT9TPLUg+1H0pfv+kkka7b1NblMNEDRgRM+aVZStv9lnbMjbv7Ho6gOCr?=
+ =?us-ascii?Q?QOfhYl71YEC4dek/oYY+87x1s09Mv243qBQCS1lOeovrtLR29ib2gUtNpuGk?=
+ =?us-ascii?Q?d2TF4I+5kjOLrye7Z9d82m9tI7St21E3WrAS06gUWuxXzBndlx/a6I7mmhjU?=
+ =?us-ascii?Q?rHT9PZCMIWKsr9vgknE8aLPBt8/7dM47GKq3t/M2eJkc/O5d?=
 X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1b508c76-bb19-4236-b58c-08df048916dd
+X-MS-Exchange-CrossTenant-Network-Message-Id: eeffd775-79fa-44f1-57a1-08df048917c9
 X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 22:18:15.1592
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 22:18:16.6918
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IEh2VCgvJA/UNXwpCUwRyUlVymUwf1wIlpAjZOQO3PECikjPbO/MWtKlj+L1D3E53Bzc0CGgt4XrJquPfKoARw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: WZJIZ3TLMx6twZEWx7jZPI48sG3R7FNKoyr1ghb+rNnB/+N7lEaTiXl6CAcLz5S5KgTJeB7KBfHbjpQfrX9mYA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO6P123MB7095
 
-In print_cpu(), rq->curr is dereferenced locklessly to print the current
-task's PID via task_pid_nr(rq->curr).
+In sched_show_numa(), p->mm is checked locklessly and then passed to the
+P(mm->numa_scan_seq) macro. This presents both a time-of-change to
+time-of-use race and a potential use-after-free vulnerability.
 
-While accessing /sys/kernel/debug/sched/debug is inherently best-effort
-only; rq->curr is indeed expected to change dynamically while
-print_cpu() is executing. However, if the task currently running on the
-CPU exits concurrently and its reference count drops to zero,
-put_task_struct() calls call_rcu() to schedule
-__put_task_struct_rcu_cb(). Because print_cpu() does not hold the RCU
-read lock while dereferencing rq->curr, an RCU grace period can complete
-concurrently and free the task structure via free_task(), creating a
-potential use-after-free race condition.
+If a task exits concurrently via exit_mm(p), another CPU can set p->mm
+to NULL and call mmput(mm) to free the struct mm_struct. Dereferencing
+mm->numa_scan_seq without holding task_lock(p) can access freed memory if
+mmput() runs immediately after the check.
 
-Resolve this by reading rq->curr using rcu_dereference(rq->curr) inside an
-RCU read-side critical section. Holding the RCU read lock delays the
-invocation of __put_task_struct_rcu_cb() until after rcu_read_unlock(),
-ensuring that the struct task_struct memory remains valid while being
-accessed.
+Fix this by wrapping the p->mm check and macro dereference in
+task_lock(p) and task_unlock(p). In exit_mm(), current->mm is set to
+NULL under task_lock(p) before mmput() is called, guaranteeing that
+p->mm cannot be set to NULL or freed while task_lock(p) is held.
 
-Fixes: 02968ccf7b80 ("sched: add /proc/sched_debug file")
+Fixes: b32e86b4301e ("sched/numa: Add debugging")
 Reported-by: sashiko-bot <sashiko-bot@kernel.org>
 Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
 ---
- kernel/sched/debug.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ kernel/sched/debug.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/kernel/sched/debug.c b/kernel/sched/debug.c
-index 61932ef7ec4f..3d6248c50dad 100644
+index 3d6248c50dad..1b6d2a83d50f 100644
 --- a/kernel/sched/debug.c
 +++ b/kernel/sched/debug.c
-@@ -1210,7 +1210,10 @@ do {									\
- 	P(nr_switches);
- 	P(nr_uninterruptible);
- 	PN(next_balance);
--	SEQ_printf(m, "  .%-30s: %ld\n", "curr->pid", (long)(task_pid_nr(rq->curr)));
-+	rcu_read_lock();
-+	SEQ_printf(m, "  .%-30s: %ld\n", "curr->pid",
-+		   (long)(task_pid_nr(rcu_dereference(rq->curr))));
-+	rcu_read_unlock();
- 	PN(clock);
- 	PN(clock_task);
- #undef P
+@@ -1395,8 +1395,10 @@ void print_numa_stats(struct seq_file *m, int node, unsigned long tsf,
+ static void sched_show_numa(struct task_struct *p, struct seq_file *m)
+ {
+ #ifdef CONFIG_NUMA_BALANCING
++	task_lock(p);
+ 	if (p->mm)
+ 		P(mm->numa_scan_seq);
++	task_unlock(p);
+ 
+ 	P(numa_pages_migrated);
+ 	P(numa_preferred_nid);
 -- 
 2.55.0
 
