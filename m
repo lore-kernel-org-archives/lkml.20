@@ -1,169 +1,166 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A0F8385D6B
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:07:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1612E385D6B;
+	Thu, 27 Aug 2026 17:07:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787850446; cv=none; b=UUjZuMLyDgxcwrMVlGF9YqT6JAJGJmoLzJ4k6FcAcvcnArdiclDtjPpy4kPXFVuXPC3RliVMWeaaxjQNiKNwn77BwFqH4vy5vuhTGEdXYDRkSV18nxla1SvNazJJ47FGPOhOW59UcNz52+QtZqN5yOiWz0rBl+uAh3pLnC2LR7c=
+	t=1787850467; cv=none; b=EscIUGC9gmY/qocRgENyevcCoa4YPWCYLTreedx2XJFhVo55+PsJdyaJjnVVjNyVvIhUFvgbQba3iIOVkSbyZENTEQokfCluhIPMHWkMACG8a7U0PXPT/JKjzQ2sssuG0LxnX9eAk+z96L4u9FC8c1FMdSW+fUEkpIrZRLWLMJ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787850446; c=relaxed/simple;
-	bh=2SFNXBxgdI0HCVXFzGJAFG6tOT9qdrVngpU9Gwe0KHE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=W0LLXwuNGT+5CdcpU5Pl5OCjGfIH+3ivxbTq9YrkGmDf3eZUJVUr0i96q6nKL+HXpgpUM013Hw81TZElWzvDNPd/vRepCH8Agl/BesW6eJiuUZw4tL4nyRg3+s1PnyLRx86IHazpkTP6xxk7rn/S6Xd4WiaTilJs/XwIRRYqfD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PUhq3qtS; arc=none smtp.client-ip=209.85.215.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787850467; c=relaxed/simple;
+	bh=fxigzrezC8cr7rKcepltp+zIdguU7F/EVLGsBJ/Jo/g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kMUTszi0FEesBbmT11qG8Xpw19lueENP66uqRWhLZVVsO0ZosbqgP8g05g2gf6tZUgf7UeDNEUrg7atXUDM3JyxwDFoqBWvDSHdnKvRUj3wGrSF3ryE6aatghpvk0LZnBVRTRMo3Gp2kmBhg9s4BsczqV65MkDRUpB7nW4FLP8U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cpG3+WHr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PUhq3qtS"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc1cf287ef8so123139a12.3
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:07:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787850443; x=1788455243; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Gi6YEr+DF1axBW1gXA4gs50+nTUaB9ghIFL8GIX9VQU=;
-        b=PUhq3qtSGzfTiI+W/6GQtOzgY6s0ItbAYjJ+f8M7BfVwG5OJCsCUTklHGx4IDLzg+t
-         p8RmH1CBuIq7DfeyT02KnLx/tXw8l8lN1B65pwGs04oDnszptMseMdR/PWS6KBlgE6MR
-         ml86aQ5jlZi8LjTquEmvL2YihcvFAp5C3ZNboqkbWcacmSm+MZhtK4/2HaKOQcbDrV1F
-         xTt7ZYL0eI8E/lY+ZnUy+Bl+4m8tvHv1c64eJiatsVK0nFiA8tjCHI5R1WPdqc3NAGJm
-         tmzoGPeg846rrujaeubPhBSmCo38gW/SA0tKjrsWXqpA54ZkvMOcOXJ9GR1Jfk5i3pxc
-         4PHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787850443; x=1788455243;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Gi6YEr+DF1axBW1gXA4gs50+nTUaB9ghIFL8GIX9VQU=;
-        b=Na7RZwsg57Rqns2oN+4GsqS8dO3q8nI+36yqNWNMl+0gch6dZYBnZtlj440DoBYxnc
-         VPu/tjSl62MIrJVWxso/kOfgs74v9Svaohd5YadRptH0j/pQKGslfb1hYw+Bx2Kimkz5
-         3RI1qoL8qckoFwOO31+uSOOKDstuGmSLANEZAERxythbl2vqz803lEyQhM+I9rYaRq33
-         KyI2EXBvgax8T6E6PGwJRE0ljYTXBQ6iUwksRYsDwE9yi62CwP9AE0zFqK1kB0cPE6fh
-         u49ihq7Nxzj4Efek6pf/DK1wFU6iS5AxGTVL3lv+Ct0jVh/XHlT8sVVzrkExTuYgCll9
-         cIPA==
-X-Forwarded-Encrypted: i=1; AHgh+RoT3zo+ysbOZoBxnwU1NdOCdXkItxQXT7Z5X6bm8A0t03IY7chDEzj/othSdnVK27/iYRokg8mwcVjEXx0=@vger.kernel.org
-X-Gm-Message-State: AFuF++k/eTpyXknzEEnbvZ452Pfupk/Hiq9sYgHQmQog6pc0RZQuWGjW
-	CFiSWYnwy88Ud5XbD7L2zjeMLWcgcOQqngnJFVUVWKdV6mKLbJfPWj5q
-X-Gm-Gg: AR+sD13NfEBqhk0OqbiYfdda9nGASHMJ2Kn3jC66wvbTFhDfHGV2yza1vucI2ZKeHwG
-	IWpe4qplR+Iit86URFYgSTaTPkfEZ295qUiAdIQ2t8Yfcw2QNio4Sr0ouYKwuwL6oQA+XR7Gudm
-	Iwm/3FIbLnG6XOs3Ubqala2t5yHOt5fEWk9cnxMjAud1Zsk46d53cPPnFx7bh3q+oO8eOmEHh9k
-	VAlAkbhYrU//lmeuF5Jr3ILi4ehcmAWO5vdfi3GcnLvkV2+14Gx0yMPCU6KX56CmCy9FpsgI4hW
-	V5ZjDssHv5l4eh+kpFYM7kMyVADbOWvp9ptQc8On5k+WWYZZr5W1s1pv4Pt01r8xJT73QMCkkMQ
-	bjMV+OGMy9nJ7M8xLIHw3D/nkFCHZoqf0JBLDgmouAgy16JabXIoUMHgYRJmKYhjUwE+XF38AVo
-	5kXNCPZbrHLRr3nLxrAXvU1/ZEOXeP5/yaTleNBho/t37CNddWzRN6ndmmEGALeARVkLVBNKsIC
-	aUfCOHto2C2oFsp5GGzdu0ntMXL0zLweoNwWisHLhyoaQP6wc2oQEB0lmyeUOFKFjiIeEyYH0O+
-	2PUFvmw=
-X-Received: by 2002:a17:90b:3a45:b0:396:5785:843 with SMTP id 98e67ed59e1d1-396d0f09a46mr1214506a91.8.1787850443311;
-        Thu, 27 Aug 2026 10:07:23 -0700 (PDT)
-Received: from DESKTOP-TJS95SS.localdomain (36-232-192-191.dynamic-ip.hinet.net. [36.232.192.191])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39675922253sm2628890a91.4.2026.08.27.10.07.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 10:07:22 -0700 (PDT)
-From: Yuan-Hao Hsu <aa9736195201@gmail.com>
-To: Miklos Szeredi <miklos@szeredi.hu>,
-	Amir Goldstein <amir73il@gmail.com>
-Cc: linux-unionfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yuan-Hao Hsu <aa9736195201@gmail.com>
-Subject: [PATCH] ovl: implement ->get_unmapped_area()
-Date: Fri, 28 Aug 2026 01:07:18 +0800
-Message-ID: <20260827170718.497-1-aa9736195201@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cpG3+WHr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E39FF1F000E9;
+	Thu, 27 Aug 2026 17:07:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787850465;
+	bh=7Z6o8710DzidIAipF/VZF9PscAZF/OQSOxpmYRB67qA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=cpG3+WHrJbTUk6ZbVbYSUULv/PzBHhY+6COJiJmNTPFJTKr6aJSWimMlfMvmMnu6P
+	 F2R3oOVDJnLy9vt9Awvh2AUDRruAD+t92f9ZLGW4VHZ6CqW2nhJWaF6xFgviPPCyPL
+	 dXup5fMDE1HeIDpgjezNcmCLC1xcdq6TbRAE2z86KNgiR4nreCif9Ij1sWdrEahZi/
+	 +pqoBwMQ/LZd9h5nchLgeUifDMhcUX9+pU95sGscOSJIgbxAL1ENTo+SB2NRNYu0Eo
+	 uxp2yaS9dj37FaBXFnWeRueqTu+WU2BB9iWVd1joBj52hSJu0chjoiQ/+LDuflsUgh
+	 fZfGfIEAvuwdA==
+Message-ID: <01865a13-2c18-464e-94eb-466613de7bb3@kernel.org>
+Date: Thu, 27 Aug 2026 19:07:38 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] mm/madvise: use vm_normal_folio_pmd() in cold/pageout
+ PMD range
+To: Gregory Price <gourry@gourry.net>, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ akpm@linux-foundation.org, liam@infradead.org, ljs@kernel.org,
+ vbabka@kernel.org, jannh@google.com, ziy@nvidia.com,
+ matthew.brost@intel.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com,
+ byungchul@sk.com, ying.huang@linux.alibaba.com, apopple@nvidia.com,
+ peterx@redhat.com, jgg@ziepe.ca, sashiko-bot <sashiko-bot@kernel.org>,
+ stable@vger.kernel.org
+References: <20260821144947.167382-1-gourry@gourry.net>
+ <20260821144947.167382-3-gourry@gourry.net>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260821144947.167382-3-gourry@gourry.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-ovl_mmap() passes realfile to the underlying filesystem, so the VMA it
-returns is backed by realfile, not by the overlayfs file.
+On 8/21/26 16:49, Gregory Price wrote:
+> mmap a VM_MIXEDMAP region whose ->huge_fault installs a PMD through
+> vmf_insert_pfn_pmd() - mshv_vtl_low does this, and needs CAP_SYS_ADMIN to
+> open - then
+> 
+> 	madvise(p, PMD_SIZE, MADV_PAGEOUT);
+> 
+> With a stand-in module for the driver:
+> 
+>   BUG: unable to handle page fault for address: fffff587c0000008
+>   RIP: 0010:madvise_cold_or_pageout_pte_range+0x410/0x9b0
+>    walk_pgd_range+0x52b/0xaf0
+>    __walk_page_range+0x6a/0x1d0
+>    walk_page_range_vma_unsafe+0x8e/0x120
+>    madvise_pageout+0xb2/0x180
+>    madvise_vma_behavior+0x46b/0xa90
+>    do_madvise+0x108/0x190
+>    __x64_sys_madvise+0x26/0x30
+> 
+> Nothing validates the pfn on the way in:
+> 
+>   can_madv_lru_vma()     rejects VM_PFNMAP, but not VM_MIXEDMAP
+>   can_fault()            *pfn = vmf->pgoff & ~(mask >> PAGE_SHIFT);
+>   vmf_insert_pfn_pmd()   no pfn_valid() check
+>   pmd_folio()            pfn_to_page() -> unpopulated vmemmap
+> 
+> Even with a valid pfn the path is wrong.  The mapping carries no rmap, so
+> folio_maybe_mapped_shared() sees mapcount 0, and the walker goes on to
+> folio_deactivate(), or folio_isolate_lru() plus reclaim_pages(), against a
+> folio this mapping does not own.
+> 
+> Use vm_normal_folio_pmd() and skip on NULL, as the PTE half of this same
+> walker already does with vm_normal_folio().  The huge zero PMD is already
+> handled further up by is_huge_zero_pmd().
 
-Address selection is not delegated.  __get_unmapped_area() looks at the
-overlayfs file's f_op, ovl_file_operations does not implement
-->get_unmapped_area(), and the mapping lands wherever
-mm_get_unmapped_area() puts it.  ext4, xfs and btrfs all point
-->get_unmapped_area() at thp_get_unmapped_area(); none of that is reached.
+The last part doesn't make sense, see below.
 
-vaddr - file_offset is then not a multiple of PMD_SIZE,
-thp_vma_suitable_order() rejects the VMA, and the PMD-sized folios the
-underlying filesystem already has in the page cache are never mapped by
-a PMD.
+> 
+> Fixes: 3c8e44c9b369 ("mm: mark special bits for huge pfn mappings when inject")
+> Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/patchset/20260817220810.1175596-1-gourry%40gourry.net
+> Cc: <stable@vger.kernel.org> # v6.19+
+> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+> ---
+>  mm/madvise.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/mm/madvise.c b/mm/madvise.c
+> index ffd6a68320a8..ab362bc482a5 100644
+> --- a/mm/madvise.c
+> +++ b/mm/madvise.c
+> @@ -393,7 +393,9 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
+>  			goto huge_unlock;
+>  		}
+>  
+> -		folio = pmd_folio(orig_pmd);
+> +		folio = vm_normal_folio_pmd(vma, addr, orig_pmd);
+> +		if (!folio)
+> +			goto huge_unlock;
+I think you can now drop the is_huge_zero_pmd() check, because
+!vm_normal_folio_pmd() includes the huge zero folio.
 
-Delegate to the file ovl_mmap() will use.  Calling thp_get_unmapped_area()
-here instead would force alignment on filesystems that deliberately do
-not implement ->get_unmapped_area(), which commit 34d7cf637c43 ("mm:
-don't try THP alignment for FS without get_unmapped_area") avoided.
-fs/proc delegates the same way in pde_get_unmapped_area().
+-- 
+Cheers,
 
-Reading a 1025M ext4 file through mmap(NULL, ...), 97% of its page cache
-in PMD-sized folios, 15 runs:
-
-                     PMD congruent  minor faults  page tables
-  ext4, directly             15/15           764          68K
-  overlayfs, before            0/5         16186        2056K
-  overlayfs, after           15/15           764          68K
-
-Fault counts had 0 stddev.  Median read time 17.4ms -> 4.80ms, against
-4.92ms for the same file on ext4.
-
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Yuan-Hao Hsu <aa9736195201@gmail.com>
-
----
- fs/overlayfs/file.c |   26 ++++++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
-
-diff --git a/fs/overlayfs/file.c b/fs/overlayfs/file.c
-index f3d97eb146e8..0d985025f4c8 100644
---- a/fs/overlayfs/file.c
-+++ b/fs/overlayfs/file.c
-@@ -13,6 +13,7 @@
- #include <linux/security.h>
- #include <linux/fs.h>
- #include <linux/backing-file.h>
-+#include <linux/sched/mm.h>
- #include "overlayfs.h"
- 
- static char ovl_whatisit(struct inode *inode, struct inode *realinode)
-@@ -465,6 +466,30 @@ static int ovl_fsync(struct file *file, loff_t start, loff_t end, int datasync)
- 		return vfs_fsync_range(upperfile, start, end, datasync);
- }
- 
-+static unsigned long ovl_get_unmapped_area(struct file *file,
-+					   unsigned long addr, unsigned long len,
-+					   unsigned long pgoff, unsigned long flags)
-+{
-+	struct ovl_file *of = file->private_data;
-+	struct file *realfile = of->realfile;
-+
-+	/*
-+	 * ovl_mmap() hands realfile to the underlying filesystem, so the vma
-+	 * ends up backed by realfile.  Let that filesystem pick the address
-+	 * too, or one that needs a specific alignment - to allow PMD mappings,
-+	 * for example - never gets asked for one.
-+	 */
-+	if (realfile->f_op->get_unmapped_area)
-+		return realfile->f_op->get_unmapped_area(realfile, addr, len,
-+							 pgoff, flags);
-+
-+#ifdef CONFIG_MMU
-+	return mm_get_unmapped_area(file, addr, len, pgoff, flags);
-+#endif
-+
-+	return addr;
-+}
-+
- static int ovl_mmap(struct file *file, struct vm_area_struct *vma)
- {
- 	struct ovl_file *of = file->private_data;
-@@ -654,6 +679,7 @@ const struct file_operations ovl_file_operations = {
- 	.write_iter	= ovl_write_iter,
- 	.fsync		= ovl_fsync,
- 	.mmap		= ovl_mmap,
-+	.get_unmapped_area = ovl_get_unmapped_area,
- 	.fallocate	= ovl_fallocate,
- 	.fadvise	= ovl_fadvise,
- 	.flush		= ovl_flush,
-
-base-commit: 26260251022fbc2f248a3d747a9b2b961b18d2d8
+David
