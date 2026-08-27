@@ -1,76 +1,76 @@
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48BB022F01
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:54:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9921240928D
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 13:59:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787838853; cv=none; b=dp5o+mBjmsp0yOhll9QchDKBuwZrcqIZnUkTFNeVqBihGnOQpQr9T6oP+AAmSjWrIlPUqsWKWUwJJEtuSmbf7Xh1xONyfRpZR1Dpxn8BEZvO94nvzeOgv/MSzbpQpgp1DAwx/YazQIeOik7LIo4KsqTmYr3q/SLR3zCu6ltgeZM=
+	t=1787839170; cv=none; b=CcZLbzPKZMg4Y0q9jNYKCq+sHZzp+WuIRrGIS1QfTGAK0q/4A1xytMR6unjOMXGDi2fEm+s75jX1t7nGfO2MKUdW/MKWfDu35EYyd5Xrcwcb5cDeDyAf/mRgq/bwKvoPHdn/1j/LnKHy0dejGCsF5c8bSlKeEiGJNnlm+Y2odQw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787838853; c=relaxed/simple;
-	bh=LhwzPD0P3OjeMcJ7AtNCue92qbqUZ43pnOyWQijEXnk=;
+	s=arc-20240116; t=1787839170; c=relaxed/simple;
+	bh=4BApbd7xRD274am4qHzSTtPAUlhQ4Wf3kdL+o+NAvEU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RUIzYGH+yNQ9vP2Qpeibk9nYIT4NWAoBeg0UtDiguMOXi6vbwKIHI0qPIX6bE61FAIp6WBT3+PIyZTh3g0hpiFhmkcuS1UMuk2ntMJl/IFhlzzzHe7sOv1mizOSFYVhEDMv0/ManNkAf0xlp0HXP8E8wixCJb6rkcXHEKNHutak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HjbFAojO; arc=none smtp.client-ip=209.85.215.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=nclx6sAvK3+A1paPOjrkXQDvIxJlGgI0QFMCsaBuU/wAHpaxl/mShDiO9FsfjzOE/5YERgr6z9V2kKRhbfe6khMMHFFZEMvoTcSPvNMQR/jTLrQRK5xaeYfsXMFH4oRPfrP+5M8lvd7ASKrvUOXJZFJ0ggaWKv5ymL+NFjEQRu4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=siw2lhYn; arc=none smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HjbFAojO"
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cc1c3d79b9bso661093a12.3
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:54:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="siw2lhYn"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-383b4a3755fso2743893a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 06:59:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787838851; x=1788443651; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787839169; x=1788443969; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=G2nphZWcnnMoex1B7yQ0ZRrX4XuphVKjyNPO6DvSBBE=;
-        b=HjbFAojOKpeBsPIaH0GWFEgrwSd9kybN5uHf2f5dfxLf/8LDfJIMyjxikyNwTVeGhZ
-         jBcoirMcM89x54okhJ0HKRbAY0m/HOfZEN1EKBVNUmZ6D2HjfZxUvZkpom7P09HBnZ7q
-         VTlCG8ZXw9spZz7tp0kavT0Gj4cjXjjuEysGouu25eSvCFeu6bKlO0jYTJfvuzvrf0Oj
-         AS0UGXbQepbGHZKOBcBPcSdMrE7KZf/gplxJanVinbTwhQrwTbfJnLSbQ3bEicPSBAjY
-         M7dqtSd9p1iV+D4ri+XuQaWDV6xauloYXqm+vj1HPBzCEqMW+yTx6GjMM5zDMcgk9C7y
-         Jjjw==
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=B5StRPqIQTEZjnwEJl7/p40cn9Gtnc5osnnCjWoXWNI=;
+        b=siw2lhYnmzU1LcPxrKChEiGPBfGlLQ1r/QNN2wK17Dp0IeSO1pVOAOZZ9zOUFtS0WR
+         Kiy1dJj6eTaCZaEz3LWWDihP9PdQ2iUkgObF8atWGbCd6ZIcfD4IXgwqyojQTB5Fh3j2
+         AMmeCm9pYqF7LA7umk3q7y+kObIMnF5wTxys4Bxxfg/vZ//vUc2AzdUNxKKpl6rW5I4+
+         xCm1y7XRnAxhqQgaNisBYDADL7lFNQzkPYVK8msN4EzFaGdcUlk1hGE8/wxsyUrnUNd8
+         Lmy4VLgG33cJfXJBNdNcWUaVZzZKXNZIZ2547OfRCb2iRaK351LFc/g1s4YH5CKLMO07
+         WL7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787838851; x=1788443651;
+        d=1e100.net; s=20251104; t=1787839169; x=1788443969;
         h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=G2nphZWcnnMoex1B7yQ0ZRrX4XuphVKjyNPO6DvSBBE=;
-        b=AwNFrRs6S3mSMndfk+RLTTgu80dzE3xHF+QfPxCo31JvQktrrz8yYNQH7UCqeFk0wC
-         um5EJqAwh9vpAesrVzo+WGsnRS6vXO3+Ej605IZT/wlSSa1hox7GP+jzTrfIcLfINifT
-         7dGhK477JNQ9JIetzNR5w192rxMdD+TeGLYPq9dNkYhoRwh6C/mGqqX3wRXxqoSdbaI1
-         Hf71BfDvRQrOdlQ5MRrPNd9i0r+9q7VOQgDeDjcBU0ubAjK5u+S48qBW5ZT7Rv/T8a7l
-         2uPjMMvZwkyAHjSjR0yX5hl3rCjSX4mpdPSmtREYSI4+SVQjPqnMC9kPAp2uDxtL37p0
-         Y7pw==
-X-Forwarded-Encrypted: i=1; AHgh+Rp2mucT35qHEOZS701SXsjjUTxj4Rfc2IksTOYoFkhc1aM6ek16qQiy1suWkP6YT0l6jmhyp+tVcM1/jgc=@vger.kernel.org
-X-Gm-Message-State: AFuF++l+hHE7FJqon4bSV9G8S/uqB7hHAReDyAC29fescIXBkFmxmVYA
-	ofYPl3Bkr7hiqZqSg0yyIq3AedMfYpjub3fgEsbZ3+JRqXD5n7SWCrgg
-X-Gm-Gg: AR+sD13ZkQWJtAcH8JfltjPHCyQN8jXmlA1j/DhRK7W/kdfwqaTpW+At0d1gW3/zFdt
-	sistRKjYdM2lR/cvxzy3mmTqsd0cJLkmHc92+LBV84Je5MTxYfc7lBTPfwdVE58as511uKNLFcN
-	rdLFnK+phtWurwrWsO+OLdbVXyb2iTBtQJS5+hD63qJXQmqMwUTB5IZFTwt8UC039CQ/Z5TpLwh
-	zdQ7oRpuGWY92FlP5EdSPbxbcAXRnd5rfY6h4RPVt+UP77uQS0Ux4Ck8yqbkk/sWoauzUyc8bGv
-	hthARCgrOQnilLUZj3+sGUdtVcm6CDAZ9dtFEMsOv2J6GAI0LHPK/LGgA12UlD1RPub5dDk/14V
-	OtwLuRoI1QegsaFNuHCqwYH9Sj0EG5p1//lfQOpb7pT/YmupfsserPc5Fp3JRmAVSVusRakXgsI
-	Ji56j9j+FIh4aAY49vDlnBG2jRpp8WduPzO9tbsY53EcrEdtViXm+MyN0U+33ByoTIe41WCvUoI
-	Nj4mQPaUf0ira7F1pLLcq8W
-X-Received: by 2002:a17:90b:5291:b0:38e:e9b:ffa4 with SMTP id 98e67ed59e1d1-3966d45a53dmr32189396a91.6.1787838851555;
-        Thu, 27 Aug 2026 06:54:11 -0700 (PDT)
-Received: from KASONG-MC4 ([101.32.222.185])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b0d3c9e4sm2935044a91.2.2026.08.27.06.54.08
+        bh=B5StRPqIQTEZjnwEJl7/p40cn9Gtnc5osnnCjWoXWNI=;
+        b=MBVLkH38zp/bh511Vs6fmS7AdO9EC5BE0zDvGIbz0SFrgqm31mGRc9c8DmCKkuitlk
+         2htFH7pazUvVQXLkkIS3MUdrsn1N21XkSIbNQDN0zeTUDguqaJwgHNxHh4EGKXfeR9/d
+         RCC0dqCc4ad8DzglaY7SBhgP1WG1ldMZsGHDXkUxqs/vMnbZQUc0p/TuR4kEmdkD8tCo
+         EZ7WLkUQBaXHTvPzu2IDDrIxWBRs6LI70sLYLe1fq6YcvybaBIUKEDkNY2RoUaIejrxZ
+         rHbb58niofb3043Y4GNHRlM4G+PO67IRL2u5p9L2vyfpT8iM3mk4NLoSWneTeWzTyxZ1
+         tbbQ==
+X-Forwarded-Encrypted: i=1; AHgh+RprO5DABgCkM3Hr93HhfAfKVyUMOueyG+pWIsZfD8yK0mC46qMLNG+v6rHPJZM0WbpRqDSvyS0wsN53WDI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kCc4UeuYNoizFYw11zTizR7YtoZdWyuXdWplwl2hSq5dZ/GR/H
+	SFGwOcd7I8HqowfQa25eqqOXSMXrcVfrANpO8vpuQFrojRvx4Vupp2Nakbm0Vw==
+X-Gm-Gg: AR+sD12bbQRNumCG8iN4ocvCyhaGPB3TGrgteqhczIAri+lLaVUHnOseov0O3BnYM2U
+	gCpLqZElnc9azZdFWlcpFLnM3xTs2rZUd2L+YujBHtd5sKNalvSby2QB7AjVcUL3syx9WR2a+U2
+	4XBYRgXnx9oFrgVnlGWP3GGeO1qxUo2RsUJKMW0bd6wixY9g2pWCbUnZhd+6rN1PCNCVaZ0Z5J9
+	PfmaJCNnd4pE0XxpSC/4rXznaVwcVRqRe645GRXWvewQPjGVgNZnHd/Efr5WndC/Z9ICkkyN/Ya
+	7hrpseTiESSj+wkctW4qVgInpbecpt8e1FkRO7mU/kBMEEkU3I9+asPlcC0p9a/rdl0E8x2yR4C
+	qEUrGvGkqZ7S+47Ue7hKFncoPNEJLpw5qzbnbBB24Pe8H+nZ4OdQIAsvFRf8RR8CXjwOqc6Ek7D
+	pQ6LzxXJX0AmbNDmt1jinZvhHocSnDle5kimYlCgOxTjXzHg7J/NHQhKFlx5ZIipu7LbbUYgioG
+	g==
+X-Received: by 2002:a17:90b:1fd0:b0:38e:70d5:b12d with SMTP id 98e67ed59e1d1-3966d3ed042mr33079618a91.6.1787839168843;
+        Thu, 27 Aug 2026 06:59:28 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b0fd55a4sm2972734a91.7.2026.08.27.06.59.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 06:54:11 -0700 (PDT)
-Date: Thu, 27 Aug 2026 21:54:05 +0800
-From: Kairui Song <ryncsn@gmail.com>
-To: Kemeng Shi <shikemeng@huaweicloud.com>
-Cc: akpm@linux-foundation.org, chrisl@kernel.org, kasong@tencent.com, 
-	nphamcs@gmail.com, baoquan.he@linux.dev, youngjun.park@lge.com, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/4] mm, swap: return early from
- swap_extend_table_try_free() on first non-zero entry
-Message-ID: <apAsSRsJc1-pO0qK@KASONG-MC4>
-References: <20260820115505.20027-1-shikemeng@huaweicloud.com>
- <20260820115505.20027-4-shikemeng@huaweicloud.com>
+        Thu, 27 Aug 2026 06:59:27 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Thu, 27 Aug 2026 06:59:27 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Manush Prajwal <manushprajwal555@gmail.com>
+Cc: xingyu.wu@starfivetech.com, ziv.xu@starfivetech.com,
+	wim@linux-watchdog.org, linux-kernel@vger.kernel.org,
+	linux-watchdog@vger.kernel.org
+Subject: Re: [PATCH v2] watchdog: starfive: fix runtime PM usage counter leak
+ in pm_start
+Message-ID: <6cefb263-7f9c-4be5-aff2-6e1a66bdd4b5@roeck-us.net>
+References: <6a8b157b.8e75e0cb.2cc15f.4aae@mx.google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,19 +79,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260820115505.20027-4-shikemeng@huaweicloud.com>
+In-Reply-To: <6a8b157b.8e75e0cb.2cc15f.4aae@mx.google.com>
 
-On Thu, Aug 20, 2026 at 07:55:04PM +0800, Kemeng Shi wrote:
-> Return immediately when the first non-zero swap count is found as
-> any non-zero swap count prevents freeing extend_table and further
-> iteration is pointless.
+On Sun, Aug 23, 2026 at 09:14:59PM +0530, Manush Prajwal wrote:
+> starfive_wdt_pm_start() calls pm_runtime_get_sync() and returns its
+> error code directly on failure. Per Documentation/power/runtime_pm.rst,
+> pm_runtime_get_sync() does not drop the usage counter on error, so the
+> caller is expected to release the reference itself. The early return
+> here skips that, leaking a runtime PM usage count on wdd->parent on
+> every failed resume, which prevents the device from being suspended
+> correctly afterwards.
 > 
-> Signed-off-by: Kemeng Shi <shikemeng@huaweicloud.com>
-> Reviewed-by: Youngjun Park <youngjun.park@lge.com>
-> ---
->  mm/swapfile.c | 9 +++------
->  1 file changed, 3 insertions(+), 6 deletions(-)
+> Fix it by calling pm_runtime_put_noidle() before returning, mirroring
+> the same balance the counterpart starfive_wdt_pm_stop() already
+> maintains with pm_runtime_put_sync().
+> 
+> v1 only balanced the pm_runtime_get_sync() failure path. As Guenter
+> Roeck and the Sashiko AI review both pointed out, the same leak
+> remains if the subsequent starfive_wdt_start() call fails: the
+> runtime PM reference acquired by pm_runtime_get_sync() would still be
+> held while returning an error, again leaving the device unable to
+> suspend. Drop the reference on that failure path too.
+> 
+> Signed-off-by: manushprajwal <manushprajwal555@gmail.com>
 
-Looks good, nice optimization.
+checkpatch says:
 
-Acked-by: Kairui Song <kasong@tencent.com>
+WARNING: From:/Signed-off-by: email name mismatch: 'From: Manush Prajwal <manushprajwal555@gmail.com>' != 'Signed-off-by: manushprajwal <manushprajwal555@gmail.com>'
+
+... which means that I can not apply this patch. Please fix and resend.
+
+Thanks,
+Guenter
