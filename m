@@ -1,70 +1,54 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FE423D9540;
-	Thu, 27 Aug 2026 22:58:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7894B3AA9CA;
+	Thu, 27 Aug 2026 22:59:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787871518; cv=none; b=omCm+E2SotpWojJFEmEB1OsQzG+GXkJpdIxhxEjL9z4KkhvggUXV6JYvDsNgZvs/3ltAj7CMLADoKgJJ1VMVeo1DxKvBZtkqoS3bYkHyqnPjQy1d2ClgreEVrcIVtP3ULYtW8FStwStj4B2uQNxRtua0gb+w3t4YbBzOXl26pFU=
+	t=1787871571; cv=none; b=ZfnAiUEXDSiEeWbfhKEnuTYAjzpjfxqhxdzyUFeKGzUMNrRgAAvGTkJjmgqDemTrfIOLLofF3uD001AeJG6u6e2KAWVtRpSUzbu12aShyaW2WHAq1WhhgnXxEdc5d3ZswlPmQLT48jMRa8GzamPK/IkQ85tTanG96kWqnltV7Y0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787871518; c=relaxed/simple;
-	bh=5q1K0Y4OgILhKpFqC6V0wh5KJHs9+MupmQvC1o1Trrw=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=o6TAR6jY40lWrZioC77YfDVAREC3XrKfHj15rVvnk3r+Zgd8tOSMCBXAGt4QXCW8s8ldshnZC1foN0DsvYfAgO7c1hZuyaYtyowQ4vamgARF7o9wcNF9Yhl01p2PziDDuJo853gnjKN3pepualGB453NHV4t85M9PHmqZ3vXsuY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=uYjmXJ0o; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787871571; c=relaxed/simple;
+	bh=Bbt9HxWbrJ1lCK2u8DaGS18B13vieZ80j1irQqCa1O4=;
+	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Date:
+	 MIME-Version:Content-Type; b=t5mxGxR2dyo2ZBl+jpPbFhxgT7ku2oPD483h8GvItJkuPKIzz0fVtOmy9MWnzZ2hTaVmXGOuN+KiiyW181W7Rr3fexKWg8rb5BGD9a1/YPgWQ4vuG+Jo1I5eLVu817KyVUZVQYnA1YphOiX10QsXQWdLN/W7GKY55nrJW+KyBEM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=E5GlpDs6; arc=none smtp.client-ip=143.255.12.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="uYjmXJ0o"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 191751F000E9;
-	Thu, 27 Aug 2026 22:58:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1787871508;
-	bh=o+CbAiQiCIV+X/Q5GkUr3xptEh0VJF+8loj/KjFok3E=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=uYjmXJ0o0nclaaJYRmGvcWh+PMXoFy/4V5w+QgCWh8eiWJb/86f00TXFVBhbrLHhB
-	 8lQosBwA0un/NICBloB17fuu/r+IR/E6r6IhUBF68l7qps2RaUPak5VGjmfyDXCX/Q
-	 bRnygD5L99ynxU0xzCPn1/M1i0SWw9TtVfU7HRFk=
-Date: Thu, 27 Aug 2026 15:58:27 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Wilson Felipe Pereira <wfelipe@google.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Yosry Ahmed <yosry@kernel.org>,
- Nhat Pham <nphamcs@gmail.com>, Chengming Zhou <chengming.zhou@linux.dev>,
- Tejun Heo <tj@kernel.org>, =?ISO-8859-1?Q?"Michal_Koutn=FD"?=
- <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>, linux-mm@kvack.org,
- cgroups@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="E5GlpDs6"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
+	In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=Bbt9HxWbrJ1lCK2u8DaGS18B13vieZ80j1irQqCa1O4=; b=E5GlpDs6/A0/TwUajXhAmAp6n+
+	uU46VnkzLb1SvtK4+noQD1KQLoHNGiwqGmi7rQIH5ij1CsS5ggOddcCV2Pl1FU8v1rF6yq0cHok2n
+	M0LuojzjtkB7GEe9VLfUUF43OTtudCmS/Juv+TB8eed6bFT7qN5rxU10I+aeT0IYf9Trrttb5gA5I
+	7YYCFclqrDYAg/Z64K5lWOyYDyXV3/WO3wIzIavQvoF6boOE6Sg8yYbL+ZntG3nMHxGu/JOqbTBxX
+	/HOiePNUqWrWhDU/SM825XIw0ApewzSLXS19mKympqHW0Tg3uVAV43JKZA5erKaAV++mRdjhMACtB
+	lR3WPWOg==;
+Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
+	id 1wzj3z-000000008a3-3UGq;
+	Thu, 27 Aug 2026 19:59:15 -0300
+Message-ID: <e789bd4431e38ad9b76ab49a841fbfc3@manguebit.org>
+From: Paulo Alcantara <pc@manguebit.org>
+To: David Howells <dhowells@redhat.com>, Christian Brauner
+ <christian@brauner.io>
+Cc: David Howells <dhowells@redhat.com>, netfs@lists.linux.dev,
+ linux-afs@lists.infradead.org, linux-cifs@vger.kernel.org,
+ ceph-devel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/2] selftests/cgroup: fixes for test_zswap on single
- core VM
-Message-Id: <20260827155827.e40d5d88cee174437a16f432@linux-foundation.org>
-In-Reply-To: <20260827034807.2822234-1-wfelipe@google.com>
-References: <20260827034807.2822234-1-wfelipe@google.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+Subject: Re: [PATCH v4 00/10] netfs, cachefiles: Miscellaneous fixes
+In-Reply-To: <20260827134304.2075713-1-dhowells@redhat.com>
+References: <20260827134304.2075713-1-dhowells@redhat.com>
+Date: Thu, 27 Aug 2026 19:59:15 -0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain
 
-On Thu, 27 Aug 2026 03:47:40 +0000 Wilson Felipe Pereira <wfelipe@google.com> wrote:
+Looks good.
 
-> This series fixes two test failures in test_zswap observed when running on
-> a single-core VM (-smp 1) with 4GB of RAM.
-> 
-> Patch 1 addresses a race condition in test_zswap_writeback() where
-> waitpid() returns before the exiting child process is switched away by the
-> kernel, causing an immediate write of "+memory" to cgroup.subtree_control
-> to fail with -EBUSY. We fix this by waiting for cgroup.events to report
-> "populated 0".
-> 
-> Patch 2 fixes an implicit unsigned conversion bug in test_no_kmem_bypass()
-> where small negative timing differences between debugfs stored_pages and
-> cgroup zswapped bytes caused the comparison to falsely fail due to
-> unsigned promotion.
-
-Thanks.  Sashiko thinks there remain some
-signedness/truncation/overflow issues in there:
-
-	https://sashiko.dev/#/patchset/20260827034807.2822234-1-wfelipe@google.com
-
+Acked-by: Paulo Alcantara <pc@manguebit.org>
