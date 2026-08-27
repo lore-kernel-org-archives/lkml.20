@@ -1,200 +1,102 @@
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7017F279907
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:25:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787815556; cv=pass; b=g/kon6wsSm5Rkh30VQvwVCAKDubO+UAJDtsJdcR9XxSurqA2TGfqJYTbwmkqkoOHK+qKNjyzZseLc5rdEKAvrJi6fLrAha7wYKrxhB3wi4/k3LOPqDKWv3nfARotJR7RekNGfCmgFIHUmVOgBeE7sez0HER3mIqv8FZto7vaERg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787815556; c=relaxed/simple;
-	bh=nqdYAE3DzNwx8Re7WzkaOLHuzM46BuJSDTWTl0D7N68=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nN4tAYem4UASJ+MnE3YgR/E1649BTNI6n7qfFclwQDWaH00e7ifkXDYT29eJBN8yluTHESg7YjBD2v2/QjZ7nsE1C0Z7HjaEwapf+6RkT0GtDdnNaArq8N6FwRNIEvrHGES3i+/gqpBMQFV2cfQstOQHqxHNrXKddaj0yzt8/to=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b4kivCjK; arc=pass smtp.client-ip=209.85.208.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4893627FD43
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:26:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787815572; cv=none; b=fEJ2Ur4SD84AF4opwNThawHMRhbW9PnCeQBprh3tTaQr5qpv2URaJs0OL+E8ueS5HtMAbwEk5FzAM0nB1En5zEG/oceal3vaq+pdiBG+/cjam7QoQbdFOK3OzXJgE/xAJqndzQOmReezbYzcKnCskBCXTDgdAwa8Mv5cL7zMHIc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787815572; c=relaxed/simple;
+	bh=R2dVOVWitlq41IciP+E53pKe80rKTqLsCfZdLehVWlw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=kwDHuuvvfjnvkqnLLYxNeTZB2MXAzqGAbzqMYCTGhEHhTJKW1FSF1duXb9ZU+52SBuW98vMCF8xxrHuFkH23D15skGLLgvHkpcyZ48nUAC04EpK3NKawqPsA3VdgoSdqnAqLc4/03ejo4Qez2hYoZQtnFm0t3r+DRVPs2zW8sBw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rbUL8dye; arc=none smtp.client-ip=209.85.128.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b4kivCjK"
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6a18840e2abso3047840a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:25:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787815553; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jXBUAdHg1WU+xjVGHP8BGA5FwPxKLSnTj8DsVItGs9PBwMt8VDdydVWnb3GFtgJX7m
-         G1bGECMCbK5h4yzQs+6FRjO2omJBnoypf7LSxACKjnsSLEp2+ubhkAEfeZRkiak3IEAO
-         ONNsOBAIlesXJinHAy79n3zSNveXQ3YEQVrYm2twykAK0aU9+x0GcnakSCf20PWSLVm+
-         tM0yKEBgR2V0zFuYqgJ7Y2tMKC34GqiFUnLh7l3lzXZGnRAXmf3BXfvGkhzWlRFnIszF
-         BCvIX3PYURjHgxND0Cwh22kE69sc020j6sO4OGnVWKBayBIROsMwCLWpUGaC0yh8FHNN
-         z8jA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=nqdYAE3DzNwx8Re7WzkaOLHuzM46BuJSDTWTl0D7N68=;
-        fh=Pq8totMxK0UI2D0TS9FUT1cEDpHHeZf0LfmgV2LN7lA=;
-        b=FnIcP684g6Gn2tj1KQQG9pF9oiGhVpt46oLraBiCyxywyuG00YUiCLkbDz13Ytb95W
-         fq9pMdDKxGk1OUZ54FE1ANd4P2X+KpEFqsVa07n5hP/CCOosneDJV7vohGALwDpQ6Kuq
-         UDSnNw+nWNFsLwp0lw6Hluz2/VC32PQjwKucD2Zqpq4cbngwShSScOJyL5mbJkQjfoMz
-         OKYM0Y2wUVxvjFegzbq+dVBuDBpTmHnEZwN3euLQsaxsVWXy9hMzloqNgmeN2Aa8pUVA
-         VMYUbuG2+llsKY4cxyHIQgkZ0lAWvgeck2rjQ47IM6oojZpWEJJfsgyGGVgiXALkUl7L
-         udeg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rbUL8dye"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4953de5be0aso12725725e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:26:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787815553; x=1788420353; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nqdYAE3DzNwx8Re7WzkaOLHuzM46BuJSDTWTl0D7N68=;
-        b=b4kivCjKzC+dQykp7f6eCYz9X6XVnbBI1f+v9c+zHaHLMsm/n8nJcJ76ADb1wLY95C
-         2Y/VX73h/dxxD4lKBZTNgOxWb3oUBu01e25IOtChTxmqemf6RP6IMUX1qTUkIAv9oS/5
-         NQKIsFS+NfE5/SSRZUxzKRt5bBQcXQm421xlYNe0JsUDFkKWayBkWhcCrNsm8ywGysud
-         z+d1N/czbicxsQ5UtinU0RaFVAXgDtOGNoze7+j9ntylMaROlOWb8HzGzXM2B3dXLN9z
-         RWpHQ8357qGKkL2C1depG5BTe+KKcKXNQztZOObhkbpv22oTYOma5EAfIq8W+mRe++M0
-         P5jg==
+        d=gmail.com; s=20251104; t=1787815569; x=1788420369; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=R2dVOVWitlq41IciP+E53pKe80rKTqLsCfZdLehVWlw=;
+        b=rbUL8dyeMPltQAD910TezoAj/VhEe0Fj2xvluwmA5VuccU3Pt5FJtn47/chfxWYAdt
+         nqvmdHznarHdObJaEYJ8sR/l5NsXqvxo+Zo+UpkZP3M2+kNt8/6EW6a26igCl9uXLn0Y
+         KfOGHMc6V+xpKkw0kKl2sH1ENYHw8OwZe2jOsgkseJarV6CGWnq7VFk8XgM99sndvAnb
+         /NiPqM4KoBT7tZ5ioNIfarRMQlgHVh8ORDfYh/iF4FBaNF4U8VesRV4vc1ACAFplGof/
+         pFqFBrNkqVu8eDuN6Vp1EAX/Nrpxo/lrOY3W93lco40awWsZeOXgPP4O61c8aeV7UFKF
+         /AJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787815553; x=1788420353;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nqdYAE3DzNwx8Re7WzkaOLHuzM46BuJSDTWTl0D7N68=;
-        b=l7MIYstEf7R0E4zszNvqdZWliMQEB9jpP63EtlW/QKKoPBi37lhLEuyDwd6K9LueLu
-         5sI5TEZDKhg0NHxJ/FPmKDynysKeai0JUOW0QUE6eDB6Fy8fNc/lrKYLsYNEuvbDo/jX
-         FYFz6Y7XwyAEVVULOILbw7Uuj27/JcsIZqwpFuWabbgUJ2E0XOCQ+2y2DEULLR/ZAq1f
-         nS81ADt+9+0rYERKfNsF3kiFqPjmxzrGSKixjdVi2DbMk0UJlVjkpvRzddLqnPku/Y6A
-         OHyah7lg8ug4/FvySBrF70O5vZFdyE7Kt39E23axPrYl75t8+n2PmIVPKPBxCMgpg9OH
-         k+jA==
-X-Forwarded-Encrypted: i=1; AHgh+Roz4UApLfudAGrdXAkE20/P8EmxXpclDRXgsT2MCoHpBVnX1CyGWJx1PK6ae8ZwHXwKxSgRveLe11Y9G/A=@vger.kernel.org
-X-Gm-Message-State: AFuF++mRYRpOwl7to91fyKknNgmbyiroAFiBPTg7LZxsoZn2MnFkhxxs
-	1sviGevEtIgj/+AscvRDCiWN4SfjrrhrrW2w5Yqxnd2plqu/iB1KeUkjTgmjvF+eHPn+6SW8qTE
-	Zl99YUMe8AvfMrZSxl2h5utA5aZwnXSw=
-X-Gm-Gg: AR+sD10HyIBqfJwQcEZN34QFflq6IPuACMGaMdehDhxNPnn2ZB4CLrQz5tXk8oDSMGC
-	iV5PJ6+61blcjE4ZXIh7CKdwW4xeKwbYNMxEUqo1kdnYOd0yoliEZxB58aGn039XpueZ1quk1Hd
-	oVW7+ZxVXNDuLOTmTyTNck7OgaFSsiylY687qILYhDk5FnVgt6iq87I3LjeAsq8MjyJQ/tQcu0T
-	4C/bP2rLBiUlvwwHCwFtAZmUeOLOf/t8CebVqKSEJs4z3XDuqkKDuw0iO2ztRxLBbJRprlcRS0n
-	YgawrwiRr42pp8fH8+UJL/0nMRICDf8ZUZ4Iig2LQLL2NaWfHMlN+o4INCGbaOBz026lNjxHw6V
-	cDamx5AMZkoI=
-X-Received: by 2002:a05:6402:4508:b0:6a1:f895:1ba with SMTP id
- 4fb4d7f45d1cf-6a5df66c303mr12950074a12.12.1787815552468; Thu, 27 Aug 2026
- 00:25:52 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787815569; x=1788420369;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=R2dVOVWitlq41IciP+E53pKe80rKTqLsCfZdLehVWlw=;
+        b=VByvnS9Suc0C+VnLOzAEZiPeFion90lcs5ZF1ZNKrGrFrL9W3WVKQlmpUC29PVlm2f
+         yNC/5/rDDVJV0eh0T4LKYcopByX5bo8oYt3NosJcqSLvh9hK8seOSdJzNuv1oI2N4nLO
+         JoIpMiRWQLbXvzSuu5BxPOCSZWMm3bdTcKVWZU+z9eu1x9jDkOG56ZJvxcilJtnuCDMs
+         X4Xld+6jwJqCh52QyhygXotHVmkBUillCjxUvR9vctxIjLHk6EybaVg0B6zd4RS9Q9d0
+         qK0F1ynjCr8DTu6x2e85dbi8my3ajxDp19CJ1uNKkGRvJdY/ktOQ5QrOs57RgZWa+f0+
+         FdCA==
+X-Forwarded-Encrypted: i=1; AHgh+RpJn8/S8Jk/9NpiBAI2VuwB6XqeGWENwlE4nga2J+x5iA7wo2ZzC0bDrd9DQBQBQbu8nVsn/PCfSQ1sUOE=@vger.kernel.org
+X-Gm-Message-State: AFuF++noHmR/ZBjkpcC82d2VY1zK/Y3eTy+uJ5C1aCfbeWpNJ3C9H0E3
+	vUkW1E+hdngR4So8ljCWygHpYQ3XoBnQwzh7YY0Dxq8Nn42ap4s0IyPd
+X-Gm-Gg: AR+sD11ClDL0bAzMf8kigT5gtMNdT12afX6N0sztW83bMvsirMrxMP/KNwM3Q+ZuDMl
+	aH94LzdX+pHKS2DGQ7IaJ9eGsEt3Y2UhqBOtRQvOSN2EKXfylX2ugGjtEiW+awRs2+ezjYmGyLy
+	C2KtmH6QHIWtLcBvO4PPsDGiTw9+VCZ2Kw8jGa84ns2P4R6GirWAqWXAXYG+6zGiAHYXd/GIJ6F
+	//Bgldx/ilXRsTHQq62VAy0zsJ89z/ANYlzpuRkbPnbqEXI7kvaNVAUS9WJ2HXTyZsrgl5zt6YB
+	mSX8tb94GfaEQ2VBpEhjlKJhxTIPZ6m93HMv8l5WLTMY75PCsoeBq7PG0WSaj7T4QlrzzYg9CXy
+	GlGK8Xfg9AqXRKJMmTQxo8cQcmSxUH+SdTwXMkU+j++TYh/ghUVGTHw2nYnf0IElm5k4dHantMm
+	HOz0YHULlfzj7hWGdfa6nklMjQSNqP3iNBAHLuZpy9M8dyNKcwDRWU2eraocf+kAXAB174ghe4I
+	1CHnEH3GH6Bl82OzpAeoQcKmhQKsUlx0CSIQjBiprhQ
+X-Received: by 2002:a05:600c:4692:b0:499:da8b:1476 with SMTP id 5b1f17b1804b1-499dc8306f2mr126425545e9.14.1787815569279;
+        Thu, 27 Aug 2026 00:26:09 -0700 (PDT)
+Received: from 1Z10 ([78.211.107.127])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e4f0c8f7sm6695911f8f.27.2026.08.27.00.26.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 00:26:08 -0700 (PDT)
+From: Maurizio Casciano <mauriziocasciano7@gmail.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Cc: Mark Brown <broonie@kernel.org>,
+	Yauhen Kharuzhy <jekhor@gmail.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Maurizio Casciano <mauriziocasciano7@gmail.com>
+Subject: Re: [RFC PATCH 0/3] ASoC: Intel: Add Lenovo Yoga Book RT5677 support
+Date: Thu, 27 Aug 2026 09:26:07 +0200
+Message-ID: <20260827072607.1402351-1-mauriziocasciano7@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <538bbc27-8796-416e-a10c-3033d6168bcd@intel.com>
+References: <538bbc27-8796-416e-a10c-3033d6168bcd@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260820045603.68809-1-baohua@kernel.org> <7e897a4e-2075-485a-8cc5-5bb928fba437@linux.alibaba.com>
- <CAMgjq7DFpKU=QdT4QNAREL8oLg-OAxM6zMcYkCECBVg=U5ECsg@mail.gmail.com>
- <56b8e283-f849-4fd7-9c2a-64b604176a82@linux.alibaba.com> <CAMgjq7Aemn51JRVx1_zxG=Z3ZhTBUW01erEpgHfDWT=BPGBLMw@mail.gmail.com>
- <CAGsJ_4xyurha07UNXB91jP5De+syHuVi4EyAXfMpMWZvr4n1kw@mail.gmail.com> <70133332-966f-4bd2-99da-cfc5ad5fb6b6@linux.alibaba.com>
-In-Reply-To: <70133332-966f-4bd2-99da-cfc5ad5fb6b6@linux.alibaba.com>
-From: Kairui Song <ryncsn@gmail.com>
-Date: Thu, 27 Aug 2026 15:25:15 +0800
-X-Gm-Features: AcwNN1XzEIBdrYx_8QnqfHlcDN8ximssQJ-i7s0PfqTykhhYNXebXL6gRC8BgT4
-Message-ID: <CAMgjq7DudvXYMLD_1hnbK3ivPY0j6jUiO9b0JWdRg24B8vA7VA@mail.gmail.com>
-Subject: Re: [PATCH 0/3] mm/mglru: clean up isolate_folios and scan_folios for
- readability and clarity
-To: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Barry Song <baohua@kernel.org>, akpm@linux-foundation.org, 
-	linux-mm <linux-mm@kvack.org>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Ridong Chen <chenridong@xiaomi.com>, 
-	David Hildenbrand <david@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, Lian Wang <lianux.mm@gmail.com>, 
-	LKML <linux-kernel@vger.kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, lyugaofei@xiaomi.com, 
-	Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, David Stevens <stevensd@chromium.org>, 
-	wangzicheng <wangzicheng@honor.com>, Wei Xu <weixugc@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Aug 27, 2026 at 2:21=E2=80=AFPM Baolin Wang
-<baolin.wang@linux.alibaba.com> wrote:
->
-> With the above changes, I can also reproduce the slight regression with
-> NVMe swap (set swappiness =3D 100) mentioned by Kairui (but the zram case
-> still looks good):
->
-> Before:
-> sys: 757
-> refault_anon 5554715
-> refault_file 3867998
->
-> After:
-> sys: 765
-> refault_anon 5791349
-> refault_file 3939552
->
+Hi Cezary,
 
-...
+Thank you for the review. I addressed your feedback and sent the revised
+v4 series here:
 
->
-> Thanks Kairui for your data and anylysis.
->
-> I mostly agree. But on whether we should fallback more, I still prefer
-> Barry's idea. The current patch might be a bit too aggressive, cause it
-> only fallback to another type when the oldest generation is fully
-> exhausted. I've always felt that falling back too easily doesn't really
-> respect the PID's choice.
->
-> Of course, there's also the concern you raised about the limitation in
-> try_to_inc_min_seq() when updating the min_seq. I think we can address
-> that together later, so that we respect the PID's choice (i.e., try the
-> reclaimed type as much as possible) without ending up with a tailing
-> draining generation that blocks aging. That may not be simple, though.
+https://lore.kernel.org/linux-sound/20260827072517.1401173-1-mauriziocasciano7@gmail.com/
 
-Actually in the long term I think we should get away from the PID
-rather than respect it more for eviction choice :), and use a actual
-calculation that respects swappiness and IO cost (we can still use
-the data collected by it though).
+The driver is now named generically for Cherry Trail RT5677 systems,
+uses per-device card, DAI-link and component copies, allocates the jack
+separately with the device lifetime, and unwinds MCLK on the PLL and
+sysclk error paths. I also documented the ASRC clock selections and
+combined the complete SST/SOF machine entry into the series.
 
-There is another series form Barry (and the clean up here is extracted from=
- it):
-https://lore.kernel.org/linux-mm/20260812121658.69965-1-baohua@kernel.org/
+The v4 sources passed sparse and a clean kernel package build. They were
+also tested on the Yoga Book YB1-X91L; playback and capture passed, and
+the GNOME Settings speaker and microphone tests passed physical
+verification.
 
-To achieve reasonable swappiness following the PID and aging
-protection idea, we will inevitably increase overhead, and PID is
-really bad at protecting the cache anyway.
-
-PID controllers generally correct long-term linear statistic well, but
-they aren't well-suited to reacting to abrupt workload changes. While
-MM workloads are full of such bursts and phase changes. What's worse
-the design aggregates folios into tiers based on access, and the
-limited high tier means folios staying in the same high tier can have
-dramatically different access behaviors.
-
-I think PID still makes sense as a long-term reference: it can correct
-cross-generation behavior over time, but relying on it as the primary
-mechanism for for single type eviction or protection is problematic.
-In my view, this is also one of the major limitations that has made
-MGLRU difficult to generalize across a wide range of workloads.
-
-See: https://lore.kernel.org/linux-mm/20260804-mglru-fg-v1-0-4d8dad39dad6@t=
-encent.com/,
-by softening PID protection (still used, just with a much lower
-factor) and using FG protection, zipf and real workloads gets a much
-higher hit rate (much higher than 10%, and dramatically better in many
-cases, the basic 10% gain is end-to-end gain diluted by the overall
-cost).
-
-So in the long term I think: For promotion, we will use FG; for
-eviction (the issue being patched here and in that Barry's other
-patch), we will respect swappiness & IO cost based scan budget
-calculation. Currently, the IO cost is just the refault count, which
-seems fine, this is similar to classical LRU, but ignores scan cost
-because MGLRU's scan is special, full of lazy-promoted folios that
-already offset the scan budget well. PID can stay to catch long term
-characteristics, at a weaker factor.
-
-(BTW I know that PID have a way to be more adaptive to bursts;
-however, that's really hard to tune for MM, and doesn't fix the long
-time cold folio stay in same high tier issue).
-
-Maybe I'll just post a series soon for the eviction part.
-
->
-> Anyway, personally I'd prefer to keep the original code until more
-> impact investigation is done.
->
-> Just my 2 cents.
-
-No problem, I'm OK with this change for now.
+Thanks,
+Maurizio
