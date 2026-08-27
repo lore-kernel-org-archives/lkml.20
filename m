@@ -1,48 +1,48 @@
 Received: from bg-bec.cloudflare-smtp.org (bg-bec.cloudflare-smtp.org [104.30.16.142])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F9AE448D03
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:43:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9043C449B35
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 12:44:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=104.30.16.142
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787834647; cv=none; b=H5DTAUi4m87qMHA5VsyyZD9SieEqOQSTzf+I0asY+wDTX653gFLtDSISAlEXP8lko9AYiykazVP49yV9hAvBBlSQoouuWNx72IM1XpT+Fca/Qqv9WcDifKK6sVG+XaVY9QA1cC+5WD6Py2g25O45Czq7wQX9lO2ISXKRkxeBNGw=
+	t=1787834656; cv=none; b=bZiIqoFZZFsFx6DxKTBTsu6MMBTzxfCe/RokG+Bx7JrLDnoynn8SStw4KnA4spsx8SIwCJmR/1n4oyX8K0xjVfoxGAlKTdom3HHEEXezFaMtPGfulzZm08xjAmgB8Vc2mBCKTo4ux01iUnb3xxubOYo3g3Rz4JHaZjTnmfmuDwU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787834647; c=relaxed/simple;
-	bh=LPv4Z/p6wQWKl9SGeAjGOmxLHSFAlnBjojdhStDI3rw=;
-	h=From:Message-ID:Date:Subject:To:MIME-Version:Content-Type; b=Mrre9FiKtJJnw4IVBcxz0fTznYkU3crfxLMszVkcfzDrulyVrEw77qEmOunsWliFcCqMp781AM7kXQon1pAfOZbfoyrCHvshEAES4y0Ch3Fyzh/Q6Ob3ma729EC43r/RlLoIGtHwDlE1/8mpgHouPbDG4J2drE5w83458pr099c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh; spf=pass smtp.mailfrom=cf-bounce.bugs.sh; dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b=JXEjjsap; dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b=VIIPaCr8; arc=none smtp.client-ip=104.30.16.142
+	s=arc-20240116; t=1787834656; c=relaxed/simple;
+	bh=14T8OveI85rEOKNYcA4C63uM9Z+04kwOq5TRLekMaU8=;
+	h=From:Message-ID:Date:Subject:To:MIME-Version:Content-Type; b=J719CMFnNAdYJzXBnIcGQ6CJLI7KkVToc6W8ltJSBlvnHzed1GM8lksoYMdTF/Pgwe2jiDF9f2JL9CaJU6hlf/NWyWArLfuAmHTsyFglrVdK/Oz9reLV1tLb9t5HEA6XvYI8j0W/SLkn9XEeDpdCYXDp5kQ3O7Ntw23xE+Gdx38=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh; spf=pass smtp.mailfrom=cf-bounce.bugs.sh; dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b=ZVQpdaVJ; dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b=Xw0YVsaK; arc=none smtp.client-ip=104.30.16.142
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cf-bounce.bugs.sh
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b="JXEjjsap";
-	dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b="VIIPaCr8"
+	dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b="ZVQpdaVJ";
+	dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b="Xw0YVsaK"
 DKIM-Signature: v=1; a=rsa-sha256; s=cf2024-1; d=cloudflare-smtp.org; c=relaxed/relaxed;
 	h=To:Subject:Date:From:Feedback-ID:from:reply-to:cc:resent-date
 	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
 	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
-	:list-owner:list-archive; t=1787834638; x=1788439438; bh=CtMj3tj90W1+L9QjJW
-	pEeQE0iVf4lRqG1yY3kLY7D3o=; b=JXEjjsapYvAdFCJaPf8yXT2bGjShTeMz9SotZFU9KytF5
-	HxgUgFdqdRJFZ5OBmlWxvb2GKE8iD0LIuHKTPoRMBr38EjPS6R94oBdyrt690P1djqYaeaMG4HZ
-	SzPNBRyrgmIBEM11UwRmsJrW8JAKX+h/B8fjhqZBBfoGIGWWCJT0tR+upczaLSqBqqT3yHavh40
-	+X+6kU1PNcr8Ps+/m+pebWPtERKYsYN2GuddVLOkfOyeoOPbcirGEK2ufuKSrUaA0+Yub6fHVtv
-	d4fWqIfh6gp9pvEQNV0XWH4x82bU+f3mLkkKCF44NO9tIUwZrXFEa/uR0K07PYLw18zp2XLQ==;
+	:list-owner:list-archive; t=1787834648; x=1788439448; bh=aHWHG/lhF0ZHdimx0Y
+	6NP7K74OaN0ZNtNynBZeI1nbY=; b=ZVQpdaVJ6ZVfcVBy7aKdlPwTW7hE6lWE9R4orMhAl53rv
+	D2T/fVydO59tIX7wBOt4l53d3yL2bEXGWeDXi3xN+qnFLUHK03WA6TX/WYCd5L8boZzmdjBp3q1
+	PF+gc93Z72Q+qRmCOuYDQimt418ADBT64dJpLxtGiWDiEsY1HPVZuzLWwicLEX0yUVbyDWG0Smb
+	t4qssM2u8MHe8WhFAVUgDuTM+AVcCB8zu5HKB78MGg7NgnGws2jG6/Gq8O0Rr2t+vqX5SwRbJC4
+	tWqeMFYYjS+NDPwzjQAOH/4LuPibv3MYZGLpFoYsOrh12/+yrtKJFWWLTKjglUFNCgL1ABZw==;
 DKIM-Signature: v=1; a=rsa-sha256; s=cf-bounce; d=bugs.sh; c=relaxed/relaxed;
 	h=To:Subject:Date:From:Feedback-ID:from:reply-to:cc:resent-date
 	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
 	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
-	:list-owner:list-archive; t=1787834638; x=1788439438; bh=CtMj3tj90W1+L9QjJW
-	pEeQE0iVf4lRqG1yY3kLY7D3o=; b=VIIPaCr88eklH5lgODZGfpW88/v+y8GOCIxqkdDnqg3vs
-	MUju0K0I+0eG4sIFRD7CdS+dSGC3gRnqG84CvU+A7XGTKl2weO688RmfslCLDe/Lwnbm54+uH08
-	b4TEOFm8lGcpWvKdY2YmJTA7RzA8KuA8AF5hEunMALpDb3PYkiV6PoU/DrGXm2udFLN01OetNMc
-	/LLUY2uoliB8CVkrEPA1lVKrn0FvGs5fRPuKabCWU5pjLnYNaBWmatcI6QibzZDq+qQwlz3W5A+
-	bPFYaK+ZcCXWAyFkEYi2oaDxfJsRVaP59RAO233/IkjUTLesbbNqBGbN+m19RvEtxEHVGVYg==;
+	:list-owner:list-archive; t=1787834648; x=1788439448; bh=aHWHG/lhF0ZHdimx0Y
+	6NP7K74OaN0ZNtNynBZeI1nbY=; b=Xw0YVsaK+Akccjht4EaOo0fCH3JElKFF1pO+So+8mWrff
+	8piz+5cw7PKq9fzVzOANLZ/g2XZveNEnE8VoKS03XXrIkA1Y82/GxMgSLaQxbikiwp4m+aH9q3C
+	FF/htqyeHGx5zlYumjkDw+cWvRjux3OY2J5qmF0uP2W0GVto+NuYKtGqqiWAvrbUB0dHScGfadw
+	d6srmAZwXDMcuHWF4xIQZFyNDe19iPufUV/WW1wQwgBjpip23mPr1omFTb/lcC6rweu3IzgGjVM
+	ch7pLH52mvThI9BYOELD1iSDMiPQNDHt4CO/9coBqh/vZPw2+cGt9v5fpyDONJm5IuXzqROA==;
 Feedback-ID: bugs.sh:5:6:Cloudflare
-From: co <co+b240dc164119a46c@bugs.sh>
-Message-ID: <UFZgYBPFzraRy8BQcngd1LpE4nCofXZsBVbb@bugs.sh>
-Date: Thu, 27 Aug 2026 12:43:52 +0000
-Subject: [BUG] drivers/hid: use-after-free in u2fzero_recv()
-To: linux-input@vger.kernel.org, "Jiri Kosina" <jikos@kernel.org>, "Benjamin
- Tissoires" <bentiss@kernel.org>, "Andrej Shadura" <andrew.shadura@collabora.co.uk>, linux-kernel@vger.kernel.org
+From: co <co+fd80bc5967eb22c3@bugs.sh>
+Message-ID: <D4tcSGerkYkIV1DmaUo1t8TaR5qQElDLkidn@bugs.sh>
+Date: Thu, 27 Aug 2026 12:43:58 +0000
+Subject: [BUG] drivers/usb: out-of-bounds in xhci_queue_bulk_tx()
+To: linux-usb@vger.kernel.org, "Mathias Nyman" <mathias.nyman@intel.com>, "Greg
+ Kroah-Hartman" <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,9 +54,10 @@ Content-Transfer-Encoding: quoted-printable
 
 We found a bug reachable in:
 
-    path    drivers/hid
-    crash   use-after-free in u2fzero_recv()
-    commit  6f232446a629 ("Linux 6.12.77")
+    path    drivers/usb/host
+    crash   out-of-bounds in xhci_queue_bulk_tx()
+    commit  bd5f485f3f02 ("Merge tag 'soc-arm-7.3' of git://git.kernel.org/=
+pub/scm/linux/kernel/git/soc/soc")
 
 Config, environment, the sanitizer report and a C reproducer follow.
 
@@ -66,7 +67,7 @@ Config, environment, the sanitizer report and a C reproducer follow.
     If you patch the bug based on our artifacts, a tag would be
     appreciated:
 
-Reported-by: co+b240dc164119a46c@bugs.sh
+Reported-by: co+fd80bc5967eb22c3@bugs.sh
 
     Everything in this mail is validated by the reproducer below.
 
@@ -76,8 +77,8 @@ Reported-by: co+b240dc164119a46c@bugs.sh
     human review, so both still require validation before you send or
     apply them. Available on:
 
-        patch.diff  https://bugs.sh/b/b240dc164119a46c/patch.diff
-        report.md   https://bugs.sh/b/b240dc164119a46c/report.md
+        patch.diff  https://bugs.sh/b/fd80bc5967eb22c3/patch.diff
+        report.md   https://bugs.sh/b/fd80bc5967eb22c3/report.md
 
     This is an open science project. The code and the full set of PoCs
     are not public at this moment, as we intend to disclose our findings
@@ -91,106 +92,50 @@ Reported-by: co+b240dc164119a46c@bugs.sh
 =3D=3D Environment =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-    Reproduced on  6f232446a629 ("Linux 6.12.77")
-    VM setup       https://bugs.sh/b/b240dc164119a46c/run.sh
-    config         https://bugs.sh/b/b240dc164119a46c/config.gz
-    poc            https://bugs.sh/b/b240dc164119a46c/repro.c
+    Reproduced on  bd5f485f3f02 ("Merge tag 'soc-arm-7.3' of git://git.kern=
+el.org/pub/scm/linux/kernel/git/soc/soc")
+    VM setup       https://bugs.sh/b/fd80bc5967eb22c3/run.sh
+    config         https://bugs.sh/b/fd80bc5967eb22c3/config.gz
+    poc            https://bugs.sh/b/fd80bc5967eb22c3/repro.c
 
 =3D=3D Sanitizer Report =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-BUG: KASAN: slab-use-after-free in u2fzero_recv.constprop.0 (drivers/hid/hi=
-d-u2fzero.c:160)
-Read of size 4 at addr ffff88801fd0ad84 by task exploit/5205
-CPU: 0 UID: 0 PID: 5205 Comm: exploit Not tainted 6.12.77 #31
+BUG: KASAN: slab-out-of-bounds in xhci_queue_bulk_tx (drivers/usb/host/xhci=
+-ring.c:3564 (discriminator 6) drivers/usb/host/xhci-ring.c:3673 (discrimin=
+ator 6))
+Write of size 1024 at addr ffff88801489b400 by task exploit/146
+CPU: 0 UID: 0 PID: 146 Comm: exploit Not tainted 7.2.0+ #9 PREEMPTLAZY
 Call Trace:
-dump_stack_lvl (lib/dump_stack.c:123)
-print_report (mm/kasan/report.c:378 mm/kasan/report.c:481)
-kasan_report (mm/kasan/report.c:596)
-u2fzero_recv.constprop.0 (drivers/hid/hid-u2fzero.c:160)
-u2fzero_rng_read (drivers/hid/hid-u2fzero.c:226)
-rng_dev_read (drivers/char/hw_random/core.c:223 drivers/char/hw_random/core=
-.c:257)
-vfs_read (fs/read_write.c:567)
-ksys_read (fs/read_write.c:713)
-do_syscall_64 (arch/x86/entry/common.c:47  arch/x86/entry/common.c:78)
-entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:130)
-Allocated by task 5193:
-kasan_save_stack (mm/kasan/common.c:49)
-kasan_save_track (mm/kasan/common.c:61  mm/kasan/common.c:70)
-__kasan_kmalloc (mm/kasan/common.c:378 mm/kasan/common.c:395)
-__kmalloc_noprof (mm/slub.c:4333 mm/slub.c:4344)
-usb_alloc_urb (./include/linux/slab.h:882 drivers/usb/core/urb.c:75)
-u2fzero_probe (drivers/hid/hid-u2fzero.c:288  drivers/hid/hid-u2fzero.c:344)
-hid_device_probe (drivers/hid/hid-core.c:2703 drivers/hid/hid-core.c:2740)
-really_probe (drivers/base/dd.c:579 drivers/base/dd.c:657)
-__driver_probe_device (drivers/base/dd.c:799)
-device_driver_attach (drivers/base/dd.c:1127)
-bind_store (drivers/base/bus.c:268)
-drv_attr_store (drivers/base/bus.c:125)
-sysfs_kf_write (fs/sysfs/file.c:136)
-kernfs_fop_write_iter (fs/kernfs/file.c:88 fs/kernfs/file.c:356)
-vfs_write (fs/read_write.c:591  fs/read_write.c:683)
-ksys_write (fs/read_write.c:737)
-do_syscall_64 (arch/x86/entry/common.c:47  arch/x86/entry/common.c:78)
-entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:130)
-Freed by task 5223:
-kasan_save_stack (mm/kasan/common.c:49)
-kasan_save_track (mm/kasan/common.c:61  mm/kasan/common.c:70)
-kasan_save_free_info (mm/kasan/generic.c:582)
-__kasan_slab_free (mm/kasan/common.c:272)
-kfree (mm/slub.c:4651  mm/slub.c:4803)
-usb_free_urb.part.0 (drivers/usb/core/urb.c:98)
-usb_free_urb (drivers/usb/core/urb.c:98)
-hid_device_remove (drivers/hid/hid-core.c:2764)
-device_remove (drivers/base/dd.c:570)
-device_release_driver_internal (drivers/base/dd.c:1274 drivers/base/dd.c:12=
-95)
-unbind_store (drivers/base/bus.c:245)
-drv_attr_store (drivers/base/bus.c:125)
-sysfs_kf_write (fs/sysfs/file.c:136)
-kernfs_fop_write_iter (fs/kernfs/file.c:88 fs/kernfs/file.c:356)
-vfs_write (fs/read_write.c:591  fs/read_write.c:683)
-ksys_write (fs/read_write.c:737)
-do_syscall_64 (arch/x86/entry/common.c:47  arch/x86/entry/common.c:78)
-entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:130)
-The buggy address belongs to the object at ffff88801fd0ad00
-which belongs to the cache kmalloc-192 of size 192
-The buggy address is located 132 bytes inside of
-freed 192-byte region [ffff88801fd0ad00, ffff88801fd0adc0)
+dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
+print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
+kasan_report (mm/kasan/report.c:595)
+kasan_check_range (mm/kasan/generic.c:186 mm/kasan/generic.c:200)
+__asan_memcpy (mm/kasan/shadow.c:106 (discriminator 1))
+xhci_queue_bulk_tx (drivers/usb/host/xhci-ring.c:3564 (discriminator 6) dri=
+vers/usb/host/xhci-ring.c:3673 (discriminator 6))
+xhci_urb_enqueue (drivers/usb/host/xhci.c:1701)
+usb_hcd_submit_urb (drivers/usb/core/hcd.c:1542)
+proc_do_submiturb (drivers/usb/core/devio.c:1967)
+usbdev_ioctl (drivers/usb/core/devio.c:2002 drivers/usb/core/devio.c:2702 d=
+rivers/usb/core/devio.c:2826)
+__x64_sys_ioctl (fs/ioctl.c:51 fs/ioctl.c:597 fs/ioctl.c:583 fs/ioctl.c:583)
+do_syscall_64 (arch/x86/entry/syscall_64.c:61 arch/x86/entry/syscall_64.c:8=
+4)
+entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+Allocated by task 75:
+The buggy address belongs to the object at ffff88801489b400
+which belongs to the cache kmalloc-512 of size 512
+The buggy address is located 0 bytes inside of
+allocated 512-byte region [ffff88801489b400, ffff88801489b600)
 The buggy address belongs to the physical page:
-page: refcount:1 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x1fd0a
-flags: 0xfff00000000000(node=3D0|zone=3D1|lastcpupid=3D0x7ff)
-page_type: f5(slab)
-raw: 00fff00000000000 ffff88801ac413c0 ffffea0000af0fc0 dead000000000002
-raw: 0000000000000000 0000000000100010 00000001f5000000 0000000000000000
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 0, migratetype Unmovable, gfp_mask 0x52cc0(GF=
-P_KERNEL|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP), pid 1, tgid 1 (swapper/0),=
- ts 19090575597, free_ts 16417876266
-post_alloc_hook (./include/linux/page_owner.h:32 mm/page_alloc.c:1592)
-get_page_from_freelist (mm/page_alloc.c:1602 mm/page_alloc.c:3540)
-__alloc_pages_noprof (mm/page_alloc.c:4840)
-alloc_pages_mpol_noprof (mm/mempolicy.c:2271)
-new_slab (mm/slub.c:2463 mm/slub.c:2633 mm/slub.c:2687)
-___slab_alloc (mm/slub.c:3881)
-__slab_alloc.isra.0 (mm/slub.c:3971)
-__kmalloc_cache_noprof (mm/slub.c:4024 mm/slub.c:4185 mm/slub.c:4358)
-drm_atomic_helper_plane_duplicate_state (./include/linux/slab.h:878 drivers=
-/gpu/drm/drm_atomic_state_helper.c:374)
-drm_simple_kms_plane_duplicate_state (drivers/gpu/drm/drm_simple_kms_helper=
-.c:345)
-drm_atomic_get_plane_state (drivers/gpu/drm/drm_atomic.c:545)
-drm_client_modeset_commit_atomic (drivers/gpu/drm/drm_client_modeset.c:1030)
-drm_client_modeset_commit_locked (drivers/gpu/drm/drm_client_modeset.c:1180)
-drm_fb_helper_pan_display (drivers/gpu/drm/drm_fb_helper.c:1372 drivers/gpu=
-/drm/drm_fb_helper.c:1431)
-fb_pan_display (drivers/video/fbdev/core/fbmem.c:191)
-bit_update_start (drivers/video/fbdev/core/bitblit.c:406)
-page last free pid 83 tgid 83 stack trace:
-free_unref_page (./include/linux/page_owner.h:25 mm/page_alloc.c:1161 mm/pa=
-ge_alloc.c:2721)
+Memory state around the buggy address:
+ffff88801489b500: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+ffff88801489b580: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+>ffff88801489b600: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+^
+ffff88801489b680: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+ffff88801489b700: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
 
 
 ---
