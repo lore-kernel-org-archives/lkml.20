@@ -1,113 +1,62 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8FEE366075;
-	Thu, 27 Aug 2026 17:02:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D0FB4963DB
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 17:02:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787850137; cv=none; b=SgMeXim+NSFEO6wl8CuNYCXLNh23DcgSUplp3IIrEqD2zsOgmB6dNq7+Y/oQfbFPDOil+N4rXoy53X/MPQupWwWC/yb2UtKn9uQGzvkm8KJAB9CB2XNe8gRgAlY0vvwXLuJIF9uG2ZcNuFRF99siQuo5osA6YrhVdybj8nozkp0=
+	t=1787850141; cv=none; b=WYSrSyCR2cKrZHDqn4K9z3hJyztBXSzf+ZyBmIF1gE6O2y374mjL6ZIuPJzLjmEspDoqXX1Z2m84uujUHsvDdYsvoV7NTfE3fZ1aKoiYDUmf5itRJ9etZLQjaRBlHpeXLpi9QLIEVV1oc4QCGqputo5Tp9K/z0/khJ1cQBzmXGA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787850137; c=relaxed/simple;
-	bh=GhwDhOuJ5iCdI0aTMkGOuDyqy51ao91JlyyVXgOfHhc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ac8lMd4OrhvtfIJbL4rbY6dW4LL1xJwpHIYYcL6ccZeIEf4Xc5DnI7QdkkvR7zkQGxzu46QHfBmYG4wQdlyT6JJmG5QFOOFmqsuu/HSDhAciJZ+XjqE1RF+3BFSjfsxGVsrL2+DXHO4Xyf8ykHKo7gliVKIwslfLDvU9uUZppI4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IwCptYRJ; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IwCptYRJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9EFE1F000E9;
-	Thu, 27 Aug 2026 17:02:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787850127;
-	bh=WWuAugr4GhZS+rygnajCG04VHmetYx6vEJc+8qt5BAs=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=IwCptYRJDqA4cnGVlHa/18IrggpI6ek3E1bLH/s891nWjZvMTJtcJgI/B3JHSLyvU
-	 cNcAOFHogeVuanhlWWHmPxbmUHX5mfMwYODA9MeihVPTJK6l1Ylj1atZigVKqkca6P
-	 2YVkX2AxEZmVVy2TbE9h2XEX3GHwWNkZBLdk9oi3XS8upQoOWnIELiYELpA3oRYEY+
-	 CjHtIQ4jGIXIeLeW/H87+VpOvhWtS8QPCsfAWAuTSo54XGghl1Vu961qntJL0olFPH
-	 jqLR7nybgdYRAZZiZVvZ+qUbaMeEuP/kLHaR6qW761gzq9ka1hclcOsn7hIu+nz2Zg
-	 vVeCP5zNrJVbg==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id EC620CE1496; Thu, 27 Aug 2026 10:02:06 -0700 (PDT)
-Date: Thu, 27 Aug 2026 10:02:06 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Kunwu Chan <kunwu.chan@gmail.com>
-Cc: dave@stgolabs.net, josh@joshtriplett.org, frederic@kernel.org,
-	neeraj.upadhyay@kernel.org, joelagnelf@nvidia.com, boqun@kernel.org,
-	urezki@gmail.com, rostedt@goodmis.org,
-	mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com,
-	qiang.zhang@linux.dev, linux-kernel@vger.kernel.org,
-	rcu@vger.kernel.org
-Subject: Re: [PATCH] rcutorture: Fix divide-by-zero with fwd_progress_div=1
-Message-ID: <3837e540-13dd-4723-bd5f-a109ce6733a7@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20260820094228.540304-1-kunwu.chan@linux.dev>
+	s=arc-20240116; t=1787850141; c=relaxed/simple;
+	bh=NBc1rT5CCi+2emBDdoHbm7u+6opMlefYHErAyXgr7c0=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=FSrt9aP88TM6cyDEPAkz/PbsA9bUkuU8Cc6JAVgJuKQVo9BidMUMrs+5kSQAzPUsO9DItafq+h2HXhc0z8jAy+LZGyawPG/QR2TMgpmrbJg83FNxyMW9vyFfyxiGLBxVwd9rckhMY3uyxeZVsJxTMJO++o8sykoptxVnH1s5W74=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4ad778bacbeso273576b6e.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 10:02:12 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787850130; x=1788454930;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=NBc1rT5CCi+2emBDdoHbm7u+6opMlefYHErAyXgr7c0=;
+        b=qNz4+OUITenf/bb6+un4m6ygec3iO7fPNNi8n2gosvznaVMym/MiZZpA5Hlyvde03O
+         5d6ycNdf3elaTy1TBsllJwMJzHCqyv8ApcpOM2OOLmswfEPewX7yaL/GXmaqCUKytT7O
+         ikjl+rRqTYrNcPjx7w8ApcEqB6T/2Zm33G2QbrxBdGk/ovajkUzgQAQz0KrSCcwT3knV
+         OZJgvofvYXRMLgbfZxvctGn6Lmow/IJr+LXJVC5kWxDNR9Wa3FHuLDsj0nS7Pc2Gxkel
+         JQ8bS5iYpdItlYcEosdgNkLrnQP7K3LDrZJSJYH0h3ZG8xWzO3aLl9znHKFTkFMysRpz
+         ki2Q==
+X-Gm-Message-State: AFuF++kvkQup3Iz/l87gZFoml6cOX6hF/4CKh0YXEJjOPNsc92NRUXmE
+	WjMg83VI6WXbQ6nFn7XT4CqbLAhiVDCxYk5l3/bXPOJvLDD1V4aFzuwergqAJHlJTnFEt4RTTFD
+	ecS4M1jFWnm37Xz4gRp+MYekNXrEIsCpTygA8eMuqZfcH2TX4ni/4cLMHtEk=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260820094228.540304-1-kunwu.chan@linux.dev>
+X-Received: by 2002:a05:6808:1a24:b0:495:e997:528d with SMTP id
+ 5614622812f47-4b397f69f82mr242808b6e.3.1787850130190; Thu, 27 Aug 2026
+ 10:02:10 -0700 (PDT)
+Date: Thu, 27 Aug 2026 10:02:10 -0700
+In-Reply-To: <6a88e8f5.91706f20.16b6e3.02ac.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a906d92.1d9ded08.62e62.00d4.GAE@google.com>
+Subject: Forwarded: #syz test https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+ 73e3f0710014fe6d4ed98cfc02292f6121db7558
+From: syzbot <syzbot+489e907b2a026a6f5fa0@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Aug 20, 2026 at 05:42:28PM +0800, Kunwu Chan wrote:
-> From: Kunwu Chan <kunwu.chan@gmail.com>
-> 
-> When fwd_progress_div=1, the forward-progress test computes:
->   sd4 = (sd + div - 1) / div = sd
->   dur = sd4 + torture_random(&trs) % (sd - sd4) = sd4 + % 0
-> 
-> The modulo operation with a zero divisor triggers an integer
-> division by zero (undefined behavior at the C level, #DE trap on x86),
-> causing a kernel Oops and panic. On x86_64, this manifests as:
-> 
->   rcu_torture_fwd_prog_nr: Starting forward-progress test 0
->   Oops: divide error: 0000 [#1] SMP PTI
->   RIP: 0010:rcu_torture_fwd_prog+0x90b/0x1160
->   R12: 0000000000000000
-> 
-> The existing guard only handles non-positive values. However,
-> fwd_progress_div=1 also makes the random range empty because
-> sd4 == sd.
-> 
-> Change the guard to reject values below 2. The forward-progress test
-> only reaches this calculation when stall_dur() is positive, so
-> sd = stall_dur() + 1 >= 2. For fwd_progress_div >= 2, sd4 < sd,
-> ensuring that sd - sd4 is at least 1.
-> 
-> Keep the existing fallback to the default value of 4 for invalid
-> values.
-> 
-> Verified with QEMU/KVM: a 138-second run with fwd_progress_div=1
-> completed 81 forward-progress test cycles without a crash.
-> 
-> Fixes: 1b27291b1ea4f ("rcutorture: Add forward-progress tests for RCU grace periods")
-> Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-Good eyes!  Queued for further review and testing, thank you!
+***
 
-							Thanx, Paul
+Subject: #syz test https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 73e3f0710014fe6d4ed98cfc02292f6121db7558
+Author: dmantipov@yandex.ru
 
-> ---
->  kernel/rcu/rcutorture.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/kernel/rcu/rcutorture.c b/kernel/rcu/rcutorture.c
-> index 54bec8e21e71..ed2407e888b4 100644
-> --- a/kernel/rcu/rcutorture.c
-> +++ b/kernel/rcu/rcutorture.c
-> @@ -3990,7 +3990,7 @@ static int __init rcu_torture_fwd_prog_init(void)
->  	}
->  	if (fwd_progress_holdoff <= 0)
->  		fwd_progress_holdoff = 1;
-> -	if (fwd_progress_div <= 0)
-> +	if (fwd_progress_div < 2)
->  		fwd_progress_div = 4;
->  	rfp = kzalloc_objs(*rfp, fwd_progress);
->  	fwd_prog_tasks = kzalloc_objs(*fwd_prog_tasks, fwd_progress);
-> 
-> base-commit: c68271c3f83a46de3fca48d3aa9e27c4dec8e58a
-> -- 
-> 2.43.0
-> 
+#syz test https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 73e3f0710014fe6d4ed98cfc02292f6121db7558
