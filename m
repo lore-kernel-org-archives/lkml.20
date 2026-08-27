@@ -1,129 +1,114 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BCD53B9617;
-	Thu, 27 Aug 2026 08:04:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E14EA3B9DA6;
+	Thu, 27 Aug 2026 08:04:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787817867; cv=none; b=t1lh55Hq/R2xGyf8t75GEVsR7pMz/9XlCtTn5sCdoBrzBVb75bGiTLGq7K7CYoXtVMpnv1223ZG7qmEWP4HeZw+5vJetrTann4Wu1ixd8bjz6U5T/at7ulr1ntSF7oh3ZmPX6pP12xEF/1FuJIbLw9r6ttylGH2AGPk85BBzxAI=
+	t=1787817878; cv=none; b=s/iJc7l5ekgzWx3JdtpEYeqQI4pYSBlfCU2NI5FUUtPhH6mYrR437G5hNrzNQN1pc5eM9LOnMoTMTU+1l7c2nPJsdgpUz2swuV/S4fDNW5FkQrkJqqRd+BL47/9c8iw4iVMkq0mlQWsWsSSCPazKpZnG4PVVg+R9I6r1lO4XitQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787817867; c=relaxed/simple;
-	bh=SNyRT5rxQCCe6lGK+DFiDOerNMLATPQpc/CAw0TIWBU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=vDpq37WTosnJxhR355OGyDpob1E+d+0+kOJWoBH6coydrT3TxRoU5ezxys2OW2ctlZMjnSdDN08aHo4sRWnhz8wV4Q8aEaBzcc11mJz7Wt1k+ybscBX6bdaqEfwO8vFeOlYJSzYSKaUljjXbvq7wl+KO7/utxwpG7Zv7kww8kb0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 13989202200;
-	Thu, 27 Aug 2026 10:04:12 +0200 (CEST)
-Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=ratatoskr.pengutronix.de)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <s.trumtrar@pengutronix.de>)
-	id 1wzV5n-003ZJW-32;
-	Thu, 27 Aug 2026 10:04:12 +0200
-From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-To: Conor Dooley <conor@kernel.org>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,  "David S. Miller"
- <davem@davemloft.net>,  Eric Dumazet <edumazet@google.com>,  Jakub
- Kicinski <kuba@kernel.org>,  Paolo Abeni <pabeni@redhat.com>,  Rob Herring
- <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor
- Dooley <conor+dt@kernel.org>,  Andrew Davis <afd@ti.com>,  Andrew Lunn
- <andrew@lunn.ch>,  Heiner Kallweit <hkallweit1@gmail.com>,  Russell King
- <linux@armlinux.org.uk>,  netdev@vger.kernel.org,
-  devicetree@vger.kernel.org,  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] dt-bindings: dp83867: add binding for
- output-impedance
-In-Reply-To: <20260826-salutary-skype-524c69932dc2@spud> (Conor Dooley's
-	message of "Wed, 26 Aug 2026 17:01:26 +0100")
-References: <20260826-v7-2-topic-dp83867-v2-0-a97b4cec6e93@pengutronix.de>
-	<20260826-v7-2-topic-dp83867-v2-2-a97b4cec6e93@pengutronix.de>
-	<20260826-salutary-skype-524c69932dc2@spud>
-User-Agent: mu4e 1.14.3; emacs 30.2
-Date: Thu, 27 Aug 2026 10:04:07 +0200
-Message-ID: <87ik4wgfbc.fsf@pengutronix.de>
+	s=arc-20240116; t=1787817878; c=relaxed/simple;
+	bh=LoIxppfXfkAKK5goic8HLKwwdZaSM4Vo0F8gA33eUvA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=iysBGPg+xuSuNX84jL8SxD11+BAvWeTNOioVb0DvvWTwG/vJIAL6S508fy3LHz7RPMskeTullBaZP/MN20eQu5hd3ldoOKhQNsupRZJKr6L5jAVGdGQiC+GXwIcLWrpG1w/M762/QoXRerj/g2u5QwKsiXwZtGW5dEtHkL+e7zg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinsec.com.cn; spf=pass smtp.mailfrom=kylinsec.com.cn; arc=none smtp.client-ip=54.206.34.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinsec.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinsec.com.cn
+X-QQ-mid: zesmtpgz1t1787817814td7d3a987
+X-QQ-Originating-IP: Ptz95ERRE1amiAopFHAgp8ZWVU4j35InjTBb5Bw/64Y=
+Received: from rd.. ( [111.8.45.130])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 27 Aug 2026 16:03:28 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 8574756199102774927
+EX-QQ-RecipientCnt: 10
+From: Liu Dalin <liudalin@kylinsec.com.cn>
+To: Hans Ulli Kroll <ulli.kroll@googlemail.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-rtc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Liu Dalin <liudalin@kylinsec.com.cn>,
+	Deng Yingchao <dengyingchao@kylinsec.com.cn>,
+	Qin Yungao <qinyungao@kylinsec.com.cn>,
+	Luo Qiu <luoqiu@kylinsec.com.cn>
+Subject: [PATCH v2 1/3] rtc: ftrtc010: fix clock resource leak on probe failure
+Date: Thu, 27 Aug 2026 16:03:18 +0800
+Message-ID: <AC51B5F2C5FFEBB0+20260827080320.3351155-2-liudalin@kylinsec.com.cn>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260827080320.3351155-1-liudalin@kylinsec.com.cn>
+References: <20260827021054.0963C1F000E9@smtp.kernel.org>
+ <20260827080320.3351155-1-liudalin@kylinsec.com.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="=-=-=";
-	micalg=pgp-sha512; protocol="application/pgp-signature"
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:kylinsec.com.cn:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: NU2MhohCfzQFvFdngKdCegQT0pbsta6x5dL1Qo+PQhu77RcNOQbVsji0
+	0jfCNGZQ5pOMrljtn6g7G4gpbp86/dbFc3c/OgdRFp/mZ5noOoQ1b0fk/eGfQHEvtFF84oe
+	6eGlOxjQDwD79BOz/lPTduWKYqmb0lMtkLo8a2LDd3Njpqt3fmPB2hQLAcxYEXNUlx+KfE7
+	Ans4tazqAqXlDYrdqFnDjXR1xmaPxtWPLUMofB+k20AvxLjxcldgiuRXDFoiK0wDZ1WbU6D
+	YxIVe8cat+r2ezyvuarbyEjv3SwKEA6zgpuxL6QXv+9TwyEdz292X57xtHwB0hOhRNVYZ+j
+	f4AnmzMWT1kCtI5xTMy54NujmZT7EJDzvHdNvqNURCBwMuV8IH8wUdZTIpiuXvpIuSDAlK9
+	aCYLD92YZz0wDe0ch/h2Zu4p5BiUFH88+CgGB6yujiLwzH5OeqR/qMiY15hTuP0DJS3gGiB
+	eTperLSSJLHfC+26Kns0FsVg/M7Qt1tFZCvrRZGDg5b1PEdBcJwS05vgKSYbE+IxNgGgQke
+	EnLSx0KsHC4qEJ25w3Cc00v8IIN8Z2fUAK25S3qX3jVGfQiyV+4lCszzLJn/y38yWDch3UH
+	homWxIPHBdVDvpYMJmw2OuqCP61Y53kPMSjxtkB+R4X27PmUs/KHwI9t7JBeohtHUjiDp1d
+	GDO1xtEtPywXiMDvx9OuE22WbhB5YEAtXrdnRP4cwKNXNP7p/0sbIlYfvKrmbfEIU8bI4Fz
+	TI+YQwOjhyqkg7ygxJKmtUaM0i7hC6unYedD+b0w7J73I0ZB1a7NHqWh7BeyjU9i/Zy0Fbr
+	lP4KrkBs3f+r9qspkzdoS1zcZ7dFZl+/S2/MWjyolf2MPmQnF/pWLxqr7Wunb+IZzRkkxB0
+	OKQTUU5C0mYV7CZqujaJZD/xmCtK66gj0ytejAYXnwUcu66E89VCFiem9U5s+n6GrUX0TQT
+	txz9Blyfh28WH8WlGqIqJK5Q9WixZZ3jAI+MqRle3QvvDdijhsfdwZeuW0h01w2r1REtmtU
+	S5bjmSDR8cctI8jNVZPnSfO6GnyRlm07lUGei1cK8ulQI6rlAGya6UUYW5aB491hATnuZU0
+	KU42KwLt0GW294sWnhRK26RvRYahVh6NYQ7aa1AkguGMWvfIipuTCB0Ei1Pwfe+h1qpYfOA
+	328KVkXo2j9Fe70=
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+X-QQ-RECHKSPAM: 0
 
---=-=-=
-Content-Type: text/plain; format=flowed
+When devm_rtc_register_device() fails, ftrtc010_rtc_probe() returns
+the error directly without releasing clocks obtained via
+clk_prepare_enable(). This leaks both extclk and pclk resources,
+which may prevent subsequent probe attempts or module removal.
 
-On 2026-08-26 at 17:01 +01, Conor Dooley <conor@kernel.org> wrote:
+Capture the return value and jump to the error handling path to
+properly release clocks via clk_disable_unprepare().
 
-> On Wed, Aug 26, 2026 at 02:48:40PM +0200, Steffen Trumtrar wrote:
-> > Currently, the output-impedance can only be set to default, minimum or
-> > maximum or via a nvmem cell.
-> > In cases where there is no backend for a nvmem cell, a value can not be
-> > set.
-> > 
-> > Add a DT binding, 'ti,output-impedance-ohms', for specifying the
-> > output-impedance via a fixed value. The existing boolean values for
-> > minimum and maximum still take precedence over the new value.
-> > 
-> > Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-> > ---
-> >  Documentation/devicetree/bindings/net/ti,dp83867.yaml | 16 ++++++++++++++++
-> >  1 file changed, 16 insertions(+)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/net/ti,dp83867.yaml b/Documentation/devicetree/bindings/net/ti,dp83867.yaml
-> > index 7a6fe516bab27..49fafe3ce6f47 100644
-> > --- a/Documentation/devicetree/bindings/net/ti,dp83867.yaml
-> > +++ b/Documentation/devicetree/bindings/net/ti,dp83867.yaml
-> > @@ -38,6 +38,16 @@ properties:
-> >      items:
-> >        - const: io_impedance_ctrl
-> >  
-> > +  ti,output-impedance-ohms:
-> > +    description: |
-> > +      MAC Interface Impedance control to set the programmable output impedance.
-> > +      Valid range is 0x00 to 0x1f (32 steps).
-> > +      - 0x1f = 35 ohms (minimum impedance)
-> > +      - 0x00 = 70 ohms (maximum impedance)
-> > +      - Step size varies with process.
-> > +    minimum: 0
-> > +    maximum: 31
-> 
-> Your property is named in ohms, but not implemented in ohms.
+Fixes smatch warnings:
+- drivers/rtc/rtc-ftrtc010.c:189 ftrtc010_rtc_probe() warn:
+  'rtc->extclk' from clk_prepare_enable() not released on lines: 183.
+- drivers/rtc/rtc-ftrtc010.c:189 ftrtc010_rtc_probe() warn:
+  'rtc->pclk' from clk_prepare_enable() not released on lines: 183.
 
-So without the -ohms?
+Fixes: fdcfd854333b ("rtc: rework rtc_register_device() resource management")
+Assisted-by: smatch:2.0 [static analysis]
+Signed-off-by: Liu Dalin <liudalin@kylinsec.com.cn>
+---
+ drivers/rtc/rtc-ftrtc010.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-> pw-bot: changes-requested
-> 
-> Can't you just achieve the same result using the existing max property?
-
-The max property is a boolean which just says "use 70ohms".
-
-> I don't get the use case where you specify a max, but then don't want to
-> use that max. Just set the max to what you actually want?
-
-That's why I added the exclusion in the binding, because having nvmem-cells and/or any of the other output-impedance bindings doesn't make any sense.
-
-Best regards,
-Steffen
-
+diff --git a/drivers/rtc/rtc-ftrtc010.c b/drivers/rtc/rtc-ftrtc010.c
+index 98fa0f518303..512790bc3f2b 100644
+--- a/drivers/rtc/rtc-ftrtc010.c
++++ b/drivers/rtc/rtc-ftrtc010.c
+@@ -180,7 +180,11 @@ static int ftrtc010_rtc_probe(struct platform_device *pdev)
+ 	if (unlikely(ret))
+ 		goto err_disable_extclk;
+ 
+-	return devm_rtc_register_device(rtc_dev);
++	ret = devm_rtc_register_device(rtc_dev);
++	if (ret)
++		goto err_disable_extclk;
++
++	return 0;
+ 
+ err_disable_extclk:
+ 	clk_disable_unprepare(rtc->extclk);
 -- 
-Pengutronix e.K.                | Dipl.-Inform. Steffen Trumtrar |
-Steuerwalder Str. 21            | https://www.pengutronix.de/    |
-31137 Hildesheim, Germany       | Phone: +49-5121-206917-0       |
-Amtsgericht Hildesheim, HRA 2686| Fax:   +49-5121-206917-5555    |
+2.43.0
 
---=-=-=
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJAEARYKADgWIQQkoXgOFUjwSVmWFAoavSByCl5WIgUCao/vdxoccy50cnVtdHJh
-ckBwZW5ndXRyb25peC5kZQAKCRAavSByCl5WItC/AQD1VMwEkHhE52B58HmnCX+b
-wCkD46VgGZCu2CgbHn2j2wEA8NSy176kK7DWYdHnOtnWGgxAiFb0WzEbthvpscfI
-/Ak=
-=VG6h
------END PGP SIGNATURE-----
---=-=-=--
