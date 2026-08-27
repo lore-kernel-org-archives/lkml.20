@@ -1,133 +1,130 @@
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D975639AD5E
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 21:02:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7573B3AEF36
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 21:04:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787864525; cv=none; b=CZ5j8HcvLj2Ouq7MiV3eXTFhYesUO/NMeVzQK8cgvkThr2ciqNyOPmdqajFNKCK7vGmW49YdLqADgA4Z45kXkZlPfs8P5PoceDI/0KiwCPNFrp00op6qcEq1ET4/leZXvB3v4gvPJMl8XIrtcQfaByK3g1WXJAjkXpxAGFXAGQU=
+	t=1787864666; cv=none; b=cIAHycBjMJe7r1xR420hygVcVfMoC6Hi0JfWWh7d/FCWkaKo529qdvhkJHAL5qA7BwLhYN/fh5C8U+eizst1PIHXy6kdR9ZxWeuHFva6fQPP1ByzCPMcoGfABRPrhkQSZs6Vg+UfkDzF7CMymzULSb5mBONte1YxhzC5u0JYXeo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787864525; c=relaxed/simple;
-	bh=iKqXrXXEueLz0Wl+PbJ55dtQU+Zoh4YxTnXjCzPBsuI=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=lH/ChV3tc1sLbgFVXKZFyqib3+JuQ+E1D8ui6R/4hxfyVTxXfkasqfzA/1fqGsfTQCb7l1ABBw22dwOsL8VmXDeZUIp2/WvQNS7pClTjrZYhDbFAM89nZPlVx5yZSOMkDL422CLD8ksndYIeTHtRe0T+iKTizHdvSCe+c9VJu+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=q3r+K9IG; arc=none smtp.client-ip=209.85.214.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1787864666; c=relaxed/simple;
+	bh=Mmzu5piDzOR5VLGdR8g1iQaVB12Pi3zQ2wPUvmLua/8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mJYwPJ4lNC/TxAOY9GelZvfy+RK0FY7Na8S+800YvWpwRDeZ39kX5lrQ3jsINRqKP8NUGmmiBkzA8wBFL42i3te4DWmWAtAAu0NvrW+Jd5Upgma7dmJpfCfXaVf1qx8SJtO/7M6RFxztLHotOOUfN3+NWizqq960/9IuPJmeWBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=HessqCvS; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="q3r+K9IG"
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2cf7dd9fd91so2820545ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 14:02:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787864523; x=1788469323; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=9TFR6u7il3e/CgCyGIr0QJPtUjW/Hrr6HrFoOjzuX0g=;
-        b=q3r+K9IGxkddtgcD7smxnv1Ng7QAba3h/XJ16viUhyAMfH94t7yzKtaPExSYmKAHXG
-         mg176cqK1pzJY83r6B4EXXXMQ0b57vRzqf9Lz7Vga/dlY/09epokSkTEn8Vu4/hvCULj
-         uJeYb40ztUIbfQRs/KB0IPAXstb1xEW4MGGSh9P6u3fzl5k1SqOOCXGrJ0VdEfv8TZP3
-         kJtcg810q8Y0AmvfAvV9YodzPmLJpJVYxFVkEe1LEju2ywuuH/phndO8ra/hzWgyTbcd
-         8wrKldjpL4WWkX0Fe+2XmJXxwbQSx4zjfd7msC9HXmlgBa0CUQT/hRAlKLyQvWg4VvU7
-         qc1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787864523; x=1788469323;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9TFR6u7il3e/CgCyGIr0QJPtUjW/Hrr6HrFoOjzuX0g=;
-        b=A0IVA7JwaN33il6r+W1wC905L0Lg30G66HhxD90PtAOIP4IzIMUxvc3igXsJahXX43
-         FKSH83UuRDo0XMRqO+5+UK5Q6+eDB/0EgEZT5NYw+WZxAK/WUY9+HSkWvDotqPB6VjI+
-         Re1fbSPFZGPO6pS9akSOpKz4SJn3u2nWCVzieZ0+pvFDG9PKBsreA8AOxH12nCcWNbqT
-         sj2LAzQcQV3bU0H5eTxlwvg/iFOLYxPTUX37r5kc8uFxi1IUSiMtjoNQu7wpb8/dMZbP
-         0CTJHKhdjsfUH0VVSPnA0JX8jEZ4zKvwg8zXHq6JXRDLWWVbKrRxTcAPPqq42Xces6DF
-         MFIg==
-X-Forwarded-Encrypted: i=1; AHgh+RqH5XODS8H9xoVGNzKb5++BcGhGafepeDanIPpBhXItTZdwNzsbQ/gl7ZSORMJSOQTsVMw8vwvP3l27sc0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kxA8qHsgnPP+s8wu89/7I3AgziSSYx+8/zq0ZjfloOQIIS3hH5
-	ME/3NOkbjSk565sq1+/HshKPGip3jC9npgU/au6hi84lNrNyTdAEgIUWs1TAwrUSGy1DmPREXhJ
-	d7/hOKA==
-X-Received: from plso4.prod.google.com ([2002:a17:902:bcc4:b0:2d3:83f2:7e3e])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:d58a:b0:2d2:da8e:9017
- with SMTP id d9443c01a7336-2d74dc797cemr34204175ad.8.1787864522916; Thu, 27
- Aug 2026 14:02:02 -0700 (PDT)
-Date: Thu, 27 Aug 2026 14:02:02 -0700
-In-Reply-To: <CAO9r8zOK5D3UMk1MM2X01FJhCW4mXsLpR-66T9+T9aeR5fcQZA@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="HessqCvS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787864662;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=ow8pCpus5Oqslb30nDP6hej/UoGp7POUQCVM9ygYWLY=;
+	b=HessqCvSsU5jbkBlUjV2sLMu6xihNGG2bo0M512+wj8tdMcORykBui0wbMgJMko8JMKEvm
+	noJIZSEJJljKd9YI+4oJvpFQDF4KqCPWNSJFHQ+5y2wPNN60PHmLdAmO1PQU22rnO1OHYY
+	qppGu56ll5RWMJWsJm96CSPxBRJHFOg=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-541-a5NFsN_XOTGcR-41eqdJyQ-1; Thu,
+ 27 Aug 2026 17:03:53 -0400
+X-MC-Unique: a5NFsN_XOTGcR-41eqdJyQ-1
+X-Mimecast-MFC-AGG-ID: a5NFsN_XOTGcR-41eqdJyQ_1787864601
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E1A031800657;
+	Thu, 27 Aug 2026 21:03:20 +0000 (UTC)
+Received: from llong-thinkpadp16vgen1.rmtusnh.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 2FDF27DF;
+	Thu, 27 Aug 2026 21:03:19 +0000 (UTC)
+From: Waiman Long <longman@redhat.com>
+To: "K. Y. Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>,
+	Long Li <longli@microsoft.com>,
+	Saurabh Sengar <ssengar@linux.microsoft.com>,
+	Michael Kelley <mikelley@microsoft.com>
+Cc: linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Waiman Long <longman@redhat.com>
+Subject: [PATCH v4] Drivers: hv: Avoid infinite retry loop in init_vp_index()
+Date: Thu, 27 Aug 2026 17:03:13 -0400
+Message-ID: <20260827210313.670241-1-longman@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260826233919.998904-1-seanjc@google.com> <20260826233919.998904-14-seanjc@google.com>
- <CAO9r8zOOq05nWk6c1sCnPAimFTuZLxc3BDrZLro-fXPR6ZMmTw@mail.gmail.com>
- <apCd5RSDYH13g0qR@google.com> <CAO9r8zPF7yPWopSQD=YSLuAxDU5YAacEWwEMbt3s_s9a=niCoQ@mail.gmail.com>
- <apCitFa82WHmiebf@google.com> <CAO9r8zOK5D3UMk1MM2X01FJhCW4mXsLpR-66T9+T9aeR5fcQZA@mail.gmail.com>
-Message-ID: <apClyjROxUd8ACEs@google.com>
-Subject: Re: [PATCH v3 13/13] KVM: selftests: Add and use double-underscore
- versions of vmlaunch() and vmresume()
-From: Sean Christopherson <seanjc@google.com>
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	f734222792@gmail.com, Vitaly Kuznetsov <vkuznets@redhat.com>, 
-	Sashiko Bot <sashiko-bot@kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-On Thu, Aug 27, 2026, Yosry Ahmed wrote:
-> On Thu, Aug 27, 2026 at 1:48=E2=80=AFPM Sean Christopherson <seanjc@googl=
-e.com> wrote:
-> >
-> > On Thu, Aug 27, 2026, Yosry Ahmed wrote:
-> > > On Thu, Aug 27, 2026 at 1:28=E2=80=AFPM Sean Christopherson <seanjc@g=
-oogle.com> wrote:
-> > > > Yeah.  Another idea would be:
-> > > >
-> > > >   void vmenter(bool do_vmlaunch)
-> > > >   {
-> > > >         if (do_vmlaunch)
-> > > >                 vmlaunch();
-> > > >         else
-> > > >                 vmresume();
-> > > >   }
-> > > >
-> > > > To yield:
-> > > >
-> > > >         vmenter(vector =3D=3D SS_VECTOR);
-> > > >         vmenter(!i);
-> > > >
-> > > > Never mind, that's a terrible idea, the call sites are inscrutable.
-> > >
-> > > Yeah, but I do agree that vmlaunch() vs vmresume() handling in
-> > > selftests is annoying (e.g. see run_l2() in [1]).
-> > >
-> > > If you wanna go scorched earth on the nested VMX infra, what if we
-> > > track launch vs resume (e.g. set launch=3Dtrue in prepare_vmcs() and
-> > > lauch=3Dfalse in vmlaunch()), then provide a single vmenter() API for
-> > > tests (with no arguments)?
-> >
-> > For selftests, it would be much more difficult to do correctly, as comp=
-ared to
-> > KUT.  KUT has a "fixed" number of vCPUs, doesn't need to worry about pC=
-PU:vCPU
-> > bindings, and has a strong need for per-vCPU state for other reasons (b=
-ecause
-> > it's more like per-pCPU state than per-vCPU state).
-> >
-> > Selftests doesn't have per-vCPU state, so making the tracking thread-sa=
-fe would
-> > be challenging.  And I don't really want to add per-vCPU state because =
-making
-> > GS (or FS) off-limits is actually problematic when the goal is often to=
- do "bad"
-> > things to vCPU state (I've debugged weird KUT failures due to GS gettin=
-g clobbered
-> > more than once).
->=20
-> Isn't vmx_pages effectively per-vCPU state (for nested)?
+There is a retry loop in init_vp_index() where the CPUs from a certain
+node are stripped out if they have already been in the allocated cpumask
+or not in HK_TYPE_MANAGED_IRQ housekeeping cpumask. If there is no
+CPU left, the allocated cpumask is ignored and the process is retried
+again. However, if the HK_TYPE_MANAGED_IRQ housekeeping cpumask turns
+out not to contain any CPU in that particular node, that will become an
+infinite retry loop.  This particular problem was reported by sashiko
+[1]. This should rarely happen, but we still need to guard against this.
 
-Yeah, but you said "with no arguments", there are tests that use helpers, a=
-nd
-IMO passing in a vmx_pages pointer is uglier than implicitly tracking launc=
-hed
-state.=20
+Fix this infinite loop problem by also skipping NUMA node that has no
+housekeeping CPU in the inner while loop of init_vp_index(). Also update
+the early abort check to check for the absence of online housekeeping
+CPUs instead of just the emptiness of the cpumask. As the outer for
+loop will only be reached if the housekeeping cpumask has at least one
+online CPU, a NUMA node with housekeeping CPUs will eventually be found.
+
+Link: https://sashiko.dev/#/message/20260422030903.E1BFCC2BCB0%40smtp.kernel.org [1]
+Fixes: 6640b5df1a38 ("Drivers: hv: vmbus: Don't assign VMbus channel interrupts to isolated CPUs")
+Signed-off-by: Waiman Long <longman@redhat.com>
+---
+ drivers/hv/channel_mgmt.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/hv/channel_mgmt.c b/drivers/hv/channel_mgmt.c
+index 89d214dda360..9b5ac09fbcf0 100644
+--- a/drivers/hv/channel_mgmt.c
++++ b/drivers/hv/channel_mgmt.c
+@@ -752,13 +752,14 @@ static void init_vp_index(struct vmbus_channel *channel)
+ 	u32 i, ncpu = num_online_cpus();
+ 	cpumask_var_t available_mask;
+ 	struct cpumask *allocated_mask;
++	const struct cpumask *node_mask;
+ 	const struct cpumask *hk_mask = housekeeping_cpumask(HK_TYPE_MANAGED_IRQ);
+ 	u32 target_cpu;
+ 	int numa_node;
+ 
+ 	if (!perf_chn ||
+ 	    !alloc_cpumask_var(&available_mask, GFP_KERNEL) ||
+-	    cpumask_empty(hk_mask)) {
++	    !cpumask_intersects(hk_mask, cpu_online_mask)) {
+ 		/*
+ 		 * If the channel is not a performance critical
+ 		 * channel, bind it to VMBUS_CONNECT_CPU.
+@@ -780,14 +781,16 @@ static void init_vp_index(struct vmbus_channel *channel)
+ 				next_numa_node_id = 0;
+ 				continue;
+ 			}
+-			if (cpumask_empty(cpumask_of_node(numa_node)))
++			node_mask = cpumask_of_node(numa_node);
++			if (cpumask_empty(node_mask) ||
++			    !cpumask_intersects(node_mask, hk_mask))
+ 				continue;
+ 			break;
+ 		}
+ 		allocated_mask = &hv_context.hv_numa_map[numa_node];
+ 
+ retry:
+-		cpumask_xor(available_mask, allocated_mask, cpumask_of_node(numa_node));
++		cpumask_xor(available_mask, allocated_mask, node_mask);
+ 		cpumask_and(available_mask, available_mask, hk_mask);
+ 
+ 		if (cpumask_empty(available_mask)) {
+-- 
+2.55.0
+
