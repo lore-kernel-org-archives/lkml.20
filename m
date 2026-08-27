@@ -1,60 +1,60 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87028376BE0;
-	Thu, 27 Aug 2026 20:25:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FDF1376BC2;
+	Thu, 27 Aug 2026 20:25:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787862341; cv=none; b=n9f41cZpNwaNTXKWPpK3NMVzxzDzSEyCa+DATtSsvA7e6iqZ0gJqR7WcT9e//qusLp0mp82Gmm6htOh9iVMK+GIKtYLgCVttaBVsPKnKpy6Dpr9wW7D1iucUP8X7Y1L7f6JDRlybAvivs9Hz4qkbPvAnuQZ5Ye63gP4IRSnn7tw=
+	t=1787862343; cv=none; b=DxxsV363X5KRfO/DYL/vhZoHF3QwerBIWrNRcK0PyLruYiuNJcStJMFesEDeL7eMR9hW40wT8pkw2X3y8H2oxxUcH1kSJ4zDn6Q7uXw71QpEOYE5hKi6FP0zTg9t9cMvVdgGQCXH0NMrkGshV4iWQroWX8TQ37lzd10kMT0UoK4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787862341; c=relaxed/simple;
-	bh=JbY0CfSk/fbVstO/xdPqxdU7bvTM/n5pLvCK5VXX/wg=;
-	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=SCXmm3I1coeLpj3e4uIdwWYWMRLuybrYD4sTueWLxxxJ5e5JmiRd2po6+5V4bFRUFaJ1V8LoRERiI0Ex1/elIPWShX/LnuucJH6JShD3CUCHFqyvUxpeMNe6o55opeiyTFE/3pkqPtJgc56j4qxRW7l7UdFFuaYDU44H1NGiVbA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X8YlFJck; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787862343; c=relaxed/simple;
+	bh=luLC2ZXiKsBejSwnmFYZ1u+4SpxT4ZJ6yes4TmdBJ/o=;
+	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=D46fKZaZXBgHy+dr8Tedr5PpAGQqcHYwE5BlqNvlxq79+sguAqD9phSYNFevBsBFgY8sgC8ns/kqXYip/cF7YscUzuJ1Q5xuDKVTJiYHKsbtpHzZWlyYtttdd9S1j/H1IhYNWUDzDkMee6wJv/US5eSz8dWajA27GrtOnJ6jVDk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fYwFGHxs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X8YlFJck"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04DD71F000E9;
-	Thu, 27 Aug 2026 20:25:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fYwFGHxs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6EFF1F00A3A;
+	Thu, 27 Aug 2026 20:25:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787862340;
-	bh=sC961/+Sbi3dLhdisR818ptW/53nyvqh4YuAOmh+QQw=;
+	s=k20260515; t=1787862341;
+	bh=LM4LoupxT1zkzzs0m5yR4DW6kWEASa7J5Uzzh4GSP5M=;
 	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=X8YlFJck1XIG3fV5Y5+2MeiFRR2md4LOGzI9ssCjnTYeUVTC0iPAdGdvNol/xx+Tj
-	 QroEqmIqlYH6NoNwK2Pnx4dMuv7LLLtzhYz+5bfkG5pOTRz4FCEFfnhnv2Jl85y7Dv
-	 6uXw7P0H9x+5T/btqLYnMZT8HfHGiQ4RDzNmcfSf+Iu/NXb4PS8LL+SZxMX7+Lr6Oq
-	 +G+HYQXxHy4gXPE6/K7tiRy9B89gl3lvcYfdReD/P3w9YBpDu5/nGy5Kn9M248ca+l
-	 0DLA6jOmHh9al1FcBZpLui7w7hFhKEM+bWVsWrWQi2AxpcrU6skuZOWnP76E9Jk987
-	 Vfw8cvSKKUBqg==
+	b=fYwFGHxsojcC+hVNRbZlFag2FtUss38Qfnv5ELMnRF7KJ9Y5hRcOxOGsR777gdOKn
+	 UkeHEx9f4oP+3PxXInuVZNlVxPs2BRJ+hRqDr66VfAKZOdjQwnipIkVEMSAywdsqXc
+	 00r2S13Hv29Pq3VByAgAwZDZuUTl0wOxb8caDTpxTUiCe+WDzOTBsI42Ez6odChTeO
+	 M26zL3U8Md79sIgdNdcT7b8qUMLJNdAD1mPsuQv8xk1qgcPRNwxx3a/pAw6K80mMCa
+	 /KBVi2PXKo7zL/Pw7nTyL4WwDVLDhkP16+Bv3Wmr6vzBiAK2z/EkU+VjVSkvethcQd
+	 AlQSzFzOX55uA==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 93CF93809A8D;
-	Thu, 27 Aug 2026 20:24:46 +0000 (UTC)
-Subject: Re: [GIT PULL] SPI fixes for v7.3-merge-window
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 93A5E3809A8D;
+	Thu, 27 Aug 2026 20:24:48 +0000 (UTC)
+Subject: Re: [GIT PULL] dma-mapping fix for Linux 7.3
 From: pr-tracker-bot@kernel.org
-In-Reply-To: <35d342b33f882cd09e0eaee43805648a@kernel.org>
-References: <35d342b33f882cd09e0eaee43805648a@kernel.org>
-X-PR-Tracked-List-Id: <linux-spi.vger.kernel.org>
-X-PR-Tracked-Message-Id: <35d342b33f882cd09e0eaee43805648a@kernel.org>
-X-PR-Tracked-Remote: https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git tags/spi-fix-v7.3-merge-window
-X-PR-Tracked-Commit-Id: a9c2f0d401fd1e11ce59e4243946a59bd818e8c5
+In-Reply-To: <20260827103127.4074178-1-m.szyprowski@samsung.com>
+References: <CGME20260827103141eucas1p1a97fc08693ac663d8e8382e2ffb7f800@eucas1p1.samsung.com> <20260827103127.4074178-1-m.szyprowski@samsung.com>
+X-PR-Tracked-List-Id: <iommu.lists.linux.dev>
+X-PR-Tracked-Message-Id: <20260827103127.4074178-1-m.szyprowski@samsung.com>
+X-PR-Tracked-Remote: https://git.kernel.org/pub/scm/linux/kernel/git/mszyprowski/linux.git tags/dma-mapping-7.3-2026-08-27
+X-PR-Tracked-Commit-Id: 1476cca098f6d3a553fcec6fe9b7d86e15c00b59
 X-PR-Merge-Tree: torvalds/linux.git
 X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 9bb34313d94b17a379ea68fae65be0810c88ee64
-Message-Id: <178786228514.1831091.7343467797697862535.pr-tracker-bot@kernel.org>
-Date: Thu, 27 Aug 2026 20:24:45 +0000
-To: Mark Brown <broonie@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>
+X-PR-Merge-Commit-Id: 7cec13314dd8935afbfc0430d9d43fad75285b37
+Message-Id: <178786228724.1831091.2047778443859484545.pr-tracker-bot@kernel.org>
+Date: Thu, 27 Aug 2026 20:24:47 +0000
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, linux-kernel@vger.kernel.org, iommu@lists.linux.dev, Marek Szyprowski <m.szyprowski@samsung.com>, Robin Murphy <robin.murphy@arm.com>, Alexander Graf <graf@amazon.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 
-The pull request you sent on Thu, 27 Aug 2026 14:23:33 +0100:
+The pull request you sent on Thu, 27 Aug 2026 12:31:26 +0200:
 
-> https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git tags/spi-fix-v7.3-merge-window
+> https://git.kernel.org/pub/scm/linux/kernel/git/mszyprowski/linux.git tags/dma-mapping-7.3-2026-08-27
 
 has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/9bb34313d94b17a379ea68fae65be0810c88ee64
+https://git.kernel.org/torvalds/c/7cec13314dd8935afbfc0430d9d43fad75285b37
 
 Thank you!
 
