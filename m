@@ -1,83 +1,137 @@
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 230922D5926;
-	Thu, 27 Aug 2026 01:00:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787792451; cv=pass; b=UvIAE/DQMiZmDircOiX09AgNT4d5Ufn7F3IBLErRCcfR7aYaGOGvLYqJrm5sXwLWqVR7DMgFyna8bTXB/cpC2srZwhH8ih7ZhN4oVV7FgFsmVUk0Jtk8P74kwJic2XBBRjy5HlVLB+2DPtW91CvsV4iL8QtUulDxxuVBOYIJj0g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787792451; c=relaxed/simple;
-	bh=aTrG2U3nnsahZNHEmxNMi33V9p9IP53O5HAC6ElbmRA=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=DYAC7PosPNMLjEcr0kFxI0qbVwbsd71pEaTVuGpsnJ/WcdAA2aUN+i6j+pm0jbHy1K87PeFs4v3zF1ny6Wk6iomv56JsK9J7BPyWHQrsdjZxTI5we8+1vhPWmv0Q1I1t7lAN/Gspo9+0DpQTYoH47dG+Plde7XYe3glLE0a/PAI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b=iT6QIgop; arc=pass smtp.client-ip=136.143.188.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EC0F272E56;
+	Thu, 27 Aug 2026 01:01:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787792496; cv=none; b=KzIA/DLNEMz6id/dGQPq9oaN6MNILEqu72bqaKQY/atdf6yX3M5WSx6Gk52mjciexi41KqL7LcqGH6Of/1F1RD8mcJ727D65nZUlOvA/hkIg/wkBpNEAUVmEpunf/eXolAUSzSONB+A/+hIlwWqNFoBw+/9aPanLqI7EI+WJwYQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787792496; c=relaxed/simple;
+	bh=K387+5MOXgtRrXOoteyrozmkC8NODgD+4aUXFUZxW9o=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=BwuNQ5Qz1wdY6R88cnQ+m0fJtj/AitG0wFIS7V1x6J2bjkAFkaEdUcaG4ZDNQw/pdD1NnAeLwn9fynjdl5wmGB73LzfKzxa+MZKNgECjFjHhE0hmnq61Ve4XZSt0CttF3y5U/GXCJeJR2SXhj0lD9jJ5GgXfbLlM9F7T977tZ08=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AbBEDQdl; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="iT6QIgop"
-ARC-Seal: i=1; a=rsa-sha256; t=1787792388; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=CBO3da8lJVg2B4cJHrUIFYyYxtxZUkd1VtjRKcZZeAba59FmtEtB34kNhYL845cMrkY9C786k5pvyg6X8Ka3+Iljy1iJjL506rCt6rOpizQRm/nBREw5E/cfY+FQsYbeaVzXLz60Sr8QB+vnZ34fE6jqOrvmy/mHD2J/jyNLJic=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1787792388; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=aTrG2U3nnsahZNHEmxNMi33V9p9IP53O5HAC6ElbmRA=; 
-	b=YZJ7E/HWryfyLI2gIgGjq/Ou17+oOhS0oihX1NJhbGVIKdn/MFaMztKIfdPw/lpG87Ln99tfomyOgGhE1Q5wFHflFWk8tYdR6HWY9NH1PDU6DZ6V1xt+0MymX3HgYYEmC6dwpM0PZ6mM/setECrHCtmirHuUEFHd9NYfZk8qPZE=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
-	dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787792388;
-	s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
-	h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
-	bh=aTrG2U3nnsahZNHEmxNMi33V9p9IP53O5HAC6ElbmRA=;
-	b=iT6QIgopJbHL0/Egv2fhTRLQq1DqymZj9fhg6DoKt4q/Xc05QYpFn8+wwa4QHc7z
-	VmF5VNmT6yDICFCa3xJohEglBjblnHEeqtAUzzgIBh7H9cC14koHC3zSUUPfwEDVM6X
-	b2k+09Hb5bUBMXda7EfiIeA1vx8VBfldQFtQ+TPo=
-Received: by mx.zohomail.com with SMTPS id 1787792386008226.5796055590763;
-	Wed, 26 Aug 2026 17:59:46 -0700 (PDT)
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AbBEDQdl"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id BA349C2BCB9;
+	Thu, 27 Aug 2026 01:01:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1787792495;
+	bh=K387+5MOXgtRrXOoteyrozmkC8NODgD+4aUXFUZxW9o=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=AbBEDQdlMU/eYao8fqV/2MJIGj9LMPFNegRE6y926Zh+j6sE+j8mNVQ8s5NIuFluP
+	 DS7LZbRgY+ES33Aoj+LuMWJzUwWCQ7JMBvJXSHiTmK5ddY94wY5aPOra0BTLAF+hQi
+	 9j9hxCe/qh6f3KsMEnqYSmYgUQtgqMGAqLBEvYV5yVmn0on2fMVCXCqrvzhAWQzNAl
+	 nmdFVWv+nUjP1Idus04ACgh+1MXHfNnlvl7Z0drayoQMe2xE0TCIonAH9vL/Ph89h+
+	 WzmPtP1zzr+QFX5OirVH5f3r0kM6dFXziw7KypZPfxUG7aEmlrsM4VZTwjlGW10tBp
+	 u1rF04MlBOtuQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A5B92C61DC6;
+	Thu, 27 Aug 2026 01:01:35 +0000 (UTC)
+From: Charles Vosburgh via B4 Relay <devnull+theminershive.gmail.com@kernel.org>
+Date: Wed, 26 Aug 2026 21:01:30 -0400
+Subject: [PATCH net] sctp: validate chunk length in the inqueue parser
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
-Subject: Re: [PATCH v4 04/11] rust: xarray: use `xas_load` instead of
- `xa_load` in `Guard::load`
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <20260604-xarray-entry-send-v4-4-965f6028790e@kernel.org>
-Date: Wed, 26 Aug 2026 21:59:25 -0300
-Cc: Miguel Ojeda <ojeda@kernel.org>,
- Alex Gaynor <alex.gaynor@gmail.com>,
- Gary Guo <gary@garyguo.net>,
- =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Christoph Lameter <cl@gentwo.org>,
- David Rientjes <rientjes@google.com>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Tamir Duberstein <tamird@kernel.org>,
- Boqun Feng <boqun@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>,
- Harry Yoo <harry@kernel.org>,
- Hao Li <hao.li@linux.dev>,
- Daniel Gomez <da.gomez@kernel.org>,
- rust-for-linux@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- linux-mm@kvack.org
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <CEF7AC1D-4899-4EF2-8034-DBEACBA909E1@collabora.com>
-References: <20260604-xarray-entry-send-v4-0-965f6028790e@kernel.org>
- <20260604-xarray-entry-send-v4-4-965f6028790e@kernel.org>
-To: Andreas Hindborg <a.hindborg@kernel.org>
-X-Mailer: Apple Mail (2.3826.700.81)
-X-ZohoMailClient: External
+Message-Id: <20260826-sctp-zero-chunk-inqueue-v1-1-86769dcc7f8c@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAGmMj2oC/yWMwQ6CMBAFf4Xs2U2wkUr8FeMBlqesJgW7LTES/
+ t2qx5lkZiVDVBidqpUiFjWdQoH9riIZu3AD61CYXO183TrPJmnmN+LEMubwYA3PjAzuD8d2kK5
+ pnHgq9Rxx1dfvfKaARJe/tNzfIen7pG37AMBtY+GAAAAA
+X-Change-ID: 20260826-sctp-zero-chunk-inqueue-b478dca552c6
+To: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, 
+ Xin Long <lucien.xin@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+ Vlad Yasevich <vladislav.yasevich@hp.com>
+Cc: linux-sctp@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, security@kernel.org, 
+ Charles Vosburgh <theminershive@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787792493; l=2767;
+ i=theminershive@gmail.com; s=20260727; h=from:subject:message-id;
+ bh=vMqw/cZjBCZMhglW7zLT3gwURYELJivbP13I5N01yIA=;
+ b=AmMthM08XUQ5X5Ww1jjqDX9nET7jygzPCTaHbOa8fI2r79rQo6SpJ45SG3itooGWFrAhE2fma
+ bP9tGswl6nJDoONJJV1u1R8Ugp+D1++c0DcsIn5EUbQuFbpRVESWpsN
+X-Developer-Key: i=theminershive@gmail.com; a=ed25519;
+ pk=kxCwp20gY82hL3ixb5IXlZ2N0X9TDxiKPCpjPcWqN3E=
+X-Endpoint-Received: by B4 Relay for theminershive@gmail.com/20260727 with
+ auth_id=977
+X-Original-From: Charles Vosburgh <theminershive@gmail.com>
+Reply-To: theminershive@gmail.com
 
-Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+From: Charles Vosburgh <theminershive@gmail.com>
+
+SCTP chunks always include a four-byte generic header, but
+sctp_inq_pop() currently accepts shorter declared lengths. A zero-length
+chunk leaves chunk_end at the current header.
+
+When ASCONF is covered by the association's SCTP-AUTH policy,
+sctp_assoc_bh_rcv() can continue before the state machine performs its
+normal chunk-length check. sctp_inq_pop() then returns the same malformed
+chunk repeatedly and the receive softirq can lock up.
+
+A remote SCTP peer can trigger this after establishing an association on
+a kernel built with CONFIG_IP_SCTP and configured with
+net.sctp.addip_enable=1 and net.sctp.auth_enable=1. The reproducer did
+not require application credentials, a shared SCTP AUTH key, or
+net.sctp.addip_noauth_enable=1.
+
+On commit f967455fb2a5 ("seg6: reset IP6CB after IPv6 decapsulation"),
+one zero-length ASCONF caused repeated
+watchdog soft-lockup reports in a two-vCPU KVM guest. All 3 pre-trigger
+health probes succeeded, while 36 of 37 post-trigger probes failed. With
+this change, all 37 post-trigger probes succeeded and no equivalent
+soft-lockup signature appeared.
+
+Reject chunks shorter than the generic SCTP header at the shared inqueue
+parser boundary. Mark the packet for discard before either caller can
+continue processing it, while preserving the four-byte generic minimum.
+Declared-length 1 through 4 controls and kernel-generated ASCONF traffic
+remained healthy. The patched sctp_hello selftest passed for IPv4 and
+IPv6.
+
+The complete private reproducer and validation evidence are available
+directly to maintainers on request.
+
+Fixes: bbd0d59809f9 ("[SCTP]: Implement the receive and verification of AUTH chunk")
+Cc: stable@vger.kernel.org
+Assisted-by: ChatGPT:GPT-5.6-Sol
+Assisted-by: Vantix:claude-opus-5
+Assisted-by: Codex:GPT-5
+Signed-off-by: Charles Vosburgh <theminershive@gmail.com>
+---
+ net/sctp/inqueue.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/net/sctp/inqueue.c b/net/sctp/inqueue.c
+index 5f988b3a8814..12a46868165a 100644
+--- a/net/sctp/inqueue.c
++++ b/net/sctp/inqueue.c
+@@ -212,6 +212,11 @@ struct sctp_chunk *sctp_inq_pop(struct sctp_inq *queue)
+ 	chunk->chunk_end = ((__u8 *)ch) + SCTP_PAD4(ntohs(ch->length));
+ 	skb_pull(chunk->skb, sizeof(*ch));
+ 	chunk->subh.v = NULL; /* Subheader is no longer valid.  */
++	if (unlikely(ntohs(ch->length) < sizeof(*ch))) {
++		chunk->pdiscard = 1;
++		chunk->chunk_end = chunk->skb->data;
++		return chunk;
++	}
+ 
+ 	if (chunk->chunk_end + sizeof(*ch) <= skb_tail_pointer(chunk->skb)) {
+ 		/* This is not a singleton */
+
+---
+base-commit: f967455fb2a5a2079b9eb5823e9ccf359174bf9f
+change-id: 20260826-sctp-zero-chunk-inqueue-b478dca552c6
+
+Best regards,
+--  
+Charles Vosburgh <theminershive@gmail.com>
+
+
