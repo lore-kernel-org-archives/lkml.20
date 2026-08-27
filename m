@@ -1,153 +1,355 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC6433CBE84
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:01:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7A0B83B777F
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:02:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787821315; cv=none; b=P9/M4RsL/RVQZeYUTeVlqKhHWao0dcJ+O9Oa3KGpJ1cQH25PEbjU1Qsp4CDC3kf2ZQib/sIfbggTtHLBorLk7Kl94lVg17Pn0OrEDrxLDh3WIuFRWDz2F/BIt6i6u9fOmFzVaCpt9t7c+shaIU5KtuC/D8jbQ1l0edLdAm7Tobk=
+	t=1787821343; cv=none; b=DcuZB5Pc43fw+YgyO1KmiQixBActIw2tKoToYLMJqK+i5YSXP1G9cEw6jEtnqoDJCYMLwr2A+g/XFSU2zrrRlI7xIXQ9Vp6LYAxu4usJbGDNJPIOLK29w7eoqnCg3GLPAgxXpW5hSqX57jUsAvwcxW8IrczvVbCyKnSY02aUbpE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787821315; c=relaxed/simple;
-	bh=wkTjDvro31Z7Cb9CrOFouQ5u3R4WipcefR5jbWng4UI=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cQNEDRxSaGESd047uAbVc5g62y4wZ9jRmc5XywiO+tRXBBP1biqinu5jSaSLdV6cFGKND1b61BKPMHnuda8JMtdbOA1/bmjwoWRUT+FXENBqDrjKtU4gMzzCJs5SHoFssc2A8c2Oz0uiQofUQFjIEB6FvcnOt5geTtJ221G3vio=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o9WAhsox; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787821343; c=relaxed/simple;
+	bh=RzvA5+cq6RXhxah4+EXUoyA7cipEHnIfsxZfD757RXs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MgOxLoIKQmdP+t/zN0D5uBP8jf+gDbc1CWChF6nONG91JEPLuL1weCxA7pE8Gsj2cxm1SRCiVCObvFNEkz2Q6nCm+oY9KPCiCtdZUwgHOaA6Ct6uwzkocqjeB93KMytPS+EE5NRamTshIVQTQpTg/0+Q93bEPt/OkHeSgcPizzA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=GGEKJDAk; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o9WAhsox"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-496bb7cdf51so5863205e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 02:01:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787821312; x=1788426112; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kb/Wi6oNPcoOC248sdfl/gNH6Pq4KEL0EAbb7WYkBJ8=;
-        b=o9WAhsoxAIRld9JGbZIgaeTZNTjm4YB8cYsQPng7L3rrmvV0cZuRc7F4ExpVQqvqoA
-         OrqmekMz5S2Y47NEVTnK2ZHpgyYqbIPGOGe4UZZtprHjw4pExoaVB/J40sZBxaGTj32E
-         IndRmnKlGJf9StqliZqUEZ972uGNNUbwyM0spIKQXnQ2Ww63trGxP4ipOmzyCzmZgkB/
-         feucI8UWIdrtqi1h33hAJfBvbZM+f7LBpAA90RCy4tf8GHQsGKZcXMTc8ZJfebjTMN1X
-         ofBlz5mJuuYEuI+i0H63OuKAGwBcr51wNcOa9gqRX4mMBI4RRlX8wMO7wTmm4jrAumgd
-         2Mhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787821312; x=1788426112;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kb/Wi6oNPcoOC248sdfl/gNH6Pq4KEL0EAbb7WYkBJ8=;
-        b=KlAJRwaQKtgEtBuDviKrhhbqTnTmsPviEbnsV9sfr4+i3WL2zJNhZZxotMdy7Q7DL1
-         oJxGVQZ2bMl2YtuZ+GaXwJAHdvfSqfB3krPeNbL74TnPeKgUdHaNA0TtNuBpHkp/1DIJ
-         ERjdtKROZgcJrHRmd+MDPinvvKlHbK711UinwhC2MtTte2xNWEJAyhmWw14NIkaKAcn7
-         BaLZLYxM7LSvz7Nbf9XTENTHXhoL9CgNm0GgIyvzxsyZcU7ZoiyQrI94FfPqX6iVSG/e
-         N31fnmTN9yA8OX//+9E02jGVAhpU5AH1PYgGM2DVzL4BdWKkUbE2QbbGw46hUKqFVPCU
-         9WkA==
-X-Forwarded-Encrypted: i=1; AHgh+RpNikUuD6nAFw6Jqgji0Qyz2V0HcM0nYKkNxYqzufp4lPXieBcxLNzxTk4CdWs9rofFEiiLtETsiivu17w=@vger.kernel.org
-X-Gm-Message-State: AFuF++kW8rFm0iZxLrFKnILS0zjwSRTXd3JohDxSTBQoPVpf6EeDBtK2
-	JoSIHE5EBtZdcpuriag7HQlje0Zdna2Bfe6/TBafqLoYCfgPU0khGfBW
-X-Gm-Gg: AR+sD137w8newsypeAaK2W5vWc7ZGxuTUL/R7FN9s7TaxWKbScR620D3PRgX++++WKl
-	4EIAUSBD8oZUP2n0NYgzxXuE4hfgHrzemA7TPjVNF5uvgR9tVQkYnpgki3DQ09DW+NgiQ6lOoIf
-	ExsWLAcD+upXNF1Ke6lv5akEL3Nv9lOz0P8fyS8CuDhNO8XjiesE9fOK0GB8uDWeMFic7fAYBR9
-	A8S5OqhBk/wQGZoLvplgMOeBU41fX4McITST66gyqquEnl22oKqqg48sVFLy4vHuNZY/BLlFvXR
-	4oZLgyk5SP6aT7+qRNJ+kCYR4C30e0/IU5m7206Qs0+spLjzna3IB7wfP89DMnUIjKBmgtYx6m5
-	LHwROzbXyABEAyMmBk4cao6gtjUR6vJfkUPoHhPcrFU4Js6EjxsJhnoHh5j48G7JU28oIvq2vSe
-	uFTxKFruV8f3y4M9EOwAtIX7JDo3oRYUnRZ1Yx08/r3/U6iTrSLA6JixRg3qMxACBPZjhtbtdJH
-	q0toE6s2B8Xi8h+X9tcxWx0qw==
-X-Received: by 2002:a05:600c:c0da:b0:499:83f1:398 with SMTP id 5b1f17b1804b1-499dc820705mr140148765e9.9.1787821311647;
-        Thu, 27 Aug 2026 02:01:51 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b49236515sm53313005e9.1.2026.08.27.02.01.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 02:01:51 -0700 (PDT)
-Date: Thu, 27 Aug 2026 10:01:49 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Uros Bizjak <ubizjak@gmail.com>
-Cc: Dave Hansen <dave.hansen@intel.com>, Sairaj Kodilkar <sarunkod@amd.com>,
- "H. Peter Anvin" <hpa@zytor.com>, "Peter Zijlstra (Intel)"
- <peterz@infradead.org>, Borislav Petkov <bp@alien8.de>, Dave Hansen
- <dave.hansen@linux.intel.com>, Ingo Molnar <mingo@redhat.com>, Mathieu
- Desnoyers <mathieu.desnoyers@efficios.com>, Paolo Bonzini
- <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>, Thomas
- Gleixner <tglx@kernel.org>, kvm@vger.kernel.org,
- linux-kernel@vger.kernel.org, x86@kernel.org, vasant.hegde@amd.com,
- suravee.suthikulpanit@amd.com
-Subject: Re: [PATCH v3 1/2] x86/uaccess: Extend CMPXCHG user helpers to
- 128-bit operands
-Message-ID: <20260827100149.10004212@pumpkin>
-In-Reply-To: <CAFULd4YFphkN4M0a_gC=vxN8Xgh4WWBGPo8dO-o6A3v9RGX4_g@mail.gmail.com>
-References: <20260826070004.8100-1-sarunkod@amd.com>
-	<20260826070004.8100-2-sarunkod@amd.com>
-	<e32c1437-44ab-45d9-9534-124a9e09f029@intel.com>
-	<CAFULd4YFphkN4M0a_gC=vxN8Xgh4WWBGPo8dO-o6A3v9RGX4_g@mail.gmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="GGEKJDAk"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CB5D21691;
+	Thu, 27 Aug 2026 02:02:16 -0700 (PDT)
+Received: from arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 68E333F85F;
+	Thu, 27 Aug 2026 02:02:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1787821340; bh=RzvA5+cq6RXhxah4+EXUoyA7cipEHnIfsxZfD757RXs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=GGEKJDAkugKQcUfwP8SkW/J3ebFW93aiXqdrjAKVNRysFJDz7QGEdCV0OrP7Y7G1n
+	 koEQ2GJZAvGwBYl8AhNsL4TmNGZZZbCpP4KgGbYi6Bt+TrtGt+H+DEyaBJWbR2Ccmy
+	 CkO9nFcUl0+L8cTnYBRlZKw0Lsx1DD3SsjxkHZTs=
+Date: Thu, 27 Aug 2026 11:02:10 +0200
+From: Beata Michalska <beata.michalska@arm.com>
+To: Xuewen Yan <xuewen.yan94@gmail.com>
+Cc: Sean Wang1 <seanwang1@lenovo.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"rafael@kernel.org" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Lifeng Zheng <zhenglifeng1@huawei.com>,
+	Xuewen Yan <xuewen.yan@unisoc.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Sumit Gupta <sumitg@nvidia.com>,
+	Yunhui Cui <cuiyunhui@bytedance.com>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"driver-core@lists.linux.dev" <driver-core@lists.linux.dev>
+Subject: Re: [External] Re: [PATCH v3] arm64: topology: add source check in
+ arch_cpu_idle_enter()
+Message-ID: <ao_9EiKz9Cmx_YHh@arm.com>
+References: <20260811072830.10028-1-seanwang1@lenovo.com>
+ <anrzT-ez3b7uYaCt@arm.com>
+ <SI2PR03MB6688D1DC0796AC6F6A373C2E93DC2@SI2PR03MB6688.apcprd03.prod.outlook.com>
+ <anxSsfvpZHHsVnp_@arm.com>
+ <aoX_jiuhv3dyMS-g@arm.com>
+ <CAB8ipk_4Zbhb=azTDGQEQ1S=n2Zhzvqs7pYr6ZfOOWL8meE_4Q@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAB8ipk_4Zbhb=azTDGQEQ1S=n2Zhzvqs7pYr6ZfOOWL8meE_4Q@mail.gmail.com>
 
-On Wed, 26 Aug 2026 15:19:57 +0200
-Uros Bizjak <ubizjak@gmail.com> wrote:
-
-> On Wed, Aug 26, 2026 at 2:30=E2=80=AFPM Dave Hansen <dave.hansen@intel.co=
-m> wrote:
+On Mon, Aug 24, 2026 at 05:21:03PM +0800, Xuewen Yan wrote:
+> On Thu, Aug 20, 2026 at 3:11 AM Beata Michalska <beata.michalska@arm.com> wrote:
 > >
-> > On 8/26/26 00:00, Sairaj Kodilkar wrote: =20
-> > > Extend the existing user CMPXCHG helpers to support 16-byte operands =
-on
-> > > x86-64, using LOCK_PREFIX "cmpxchg16b".  This mirrors the existing
-> > > __try_cmpxchg64_user_asm() / cmpxchg8b path provided for 32-bit kerne=
-ls,
-> > > where KVM needs an atomic compare-exchange wider than the generic
-> > > cmpxchg helper can provide. =20
+> > On Wed, Aug 12, 2026 at 01:02:37PM +0200, Beata Michalska wrote:
+> > > On Wed, Aug 12, 2026 at 07:34:52AM +0000, Sean Wang1 wrote:
+> > > > On Tus, Aug 11, 2026 at 06:03PM, Beata Michalska wrote:
+> > > >
+> > > > > > --- a/arch/arm64/kernel/topology.c
+> > > > > > +++ b/arch/arm64/kernel/topology.c
+> > > > > > @@ -175,7 +175,8 @@ void arch_cpu_idle_enter(void)
+> > > > > >
+> > > > > >         /* Kick in AMU update but only if one has not happened already */
+> > > > > >         if (housekeeping_cpu(cpu, HK_TYPE_TICK) &&
+> > > > > > -
+> > > > > time_is_before_jiffies(per_cpu(cpu_amu_samples.last_scale_update, cpu)))
+> > > > > > +
+> > > > > time_is_before_jiffies(per_cpu(cpu_amu_samples.last_scale_update, cpu))
+> > > > > &&
+> > > > > > +           topology_is_scale_freq_source(SCALE_FREQ_SOURCE_ARCH, cpu))
+> > > > > >                 amu_scale_freq_tick();
+> > > > > I'm not entirely convinced you gained a lot by that.
+> > > > > It's one additional check per each enter_idle for case where AMUs are the
+> > > > > source vs 2 additional check when it is not.
+> > > > > Will try to figure out smth less 'invasive'.
+> > > > >
+> > > >
+> > > > First, I think that the rcu_read_lock_sched()/unlock() in
+> > > > topology_is_scale_freq_source() is unnecessary. arch_cpu_idle_enter()
+> > > > is called from do_idle() after local_irq_disable() at
+> > > > kernel/sched/idle.c:340, which satisfies the rcu_sched grace period
+> > > > requirement. This means we can call rcu_dereference_sched() directly
+> > > > without explicit RCU lock.
+> > > In this particular case RCU locking is not required, though you are exposing
+> > > an API that might be used in other curcumstances, so the least we could do is
+> > > document that.
+> > > >
+> > > > I have two options to propose:
+> > > >
+> > > > Option A: Keep the helper, but drop the explicit RCU lock
+> > > >
+> > > >     bool topology_is_scale_freq_source(enum scale_freq_source source,
+> > > >                                        unsigned int cpu)
+> > > >     {
+> > > >         struct scale_freq_data *sfd;
+> > > >         sfd = rcu_dereference_sched(*per_cpu_ptr(&sft_data, cpu));
+> > > >         return sfd && sfd->source == source;
+> > > >     }
+> > > >
+> > > > Option B: Drop the helper entirely, check directly in arch_cpu_idle_enter()
+> > > > If a generic exported helper feels too invasive, we can do the
+> > > > check locally within arch_cpu_idle_enter() without touching
+> > > > drivers/base/arch_topology.c at all:
+> > > >
+> > > >     if (housekeeping_cpu(cpu, HK_TYPE_TICK) &&
+> > > >         time_is_before_jiffies(per_cpu(cpu_amu_samples.last_scale_update, cpu))) {
+> > > >         struct scale_freq_data *sfd;
+> > > >         sfd = rcu_dereference_sched(*this_cpu_ptr(&sft_data));
+> > > >         if (sfd && sfd->source == SCALE_FREQ_SOURCE_ARCH)
+> > > >             amu_scale_freq_tick();
+> > > >     }
+> > > >
+> > > > This keeps the change entirely in arm64 code and avoids adding
+> > > > a new exported symbol. Which approach would you prefer?
+> > > I do not mind this additional helper. Besides, not my place to either mind it
+> > > or not.
+> > > What I do mind is doing the check in the arch idle enter path. I would rather
+> > > see some notification triggered when the source gets changed so that
+> > > the previous sfd code can do some state transition that would avoid us having
+> > > to run the check in the first place.
+> > > Still pondering on that one.
+> > > Preferably I would drop that 'tick' call from there completely, but apparently
+> > > this was needed on some platforms to make AMU readings more reliable.
 > >
-> > Please take a good look at the Sashiko review:
+> > How about smth between the lines of:
 > >
-> > https://sashiko.dev/#/patchset/20260826070004.8100-2-sarunkod%40amd.com
+> > diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology.c
+> > index b32f13358fbb1..aff33836488c8 100644
+> > --- a/arch/arm64/kernel/topology.c
+> > +++ b/arch/arm64/kernel/topology.c
+> > @@ -250,6 +250,22 @@ int arch_freq_get_on_cpu(int cpu)
+> >         return freq;
+> >  }
 > >
-> > It looks like the "A" constraint isn't one that you can cleanly mirror
-> > from cmpxchg8b =3D> cmpxchg16b. =20
->=20
-> Actually, "+A" will work for 64bit targets, as long as the variable is
-> 128-bit. The comment in asm.h applies to 64-bit values, where on
-> 32-bit targets they fit in eax *and* edx, while on 64-bit targets, the
-> 64-bit values fit into rax *or* rdx.
->=20
-...
->=20
-> That said, the approach with union of two 64-bit halves can lead to
-> slightly better code, because the compiler splits the value earlier in
-> the compilation pipeline.
+> > +static int amu_fie_source_notifier(struct notifier_block *nb,
+> > +                                  unsigned long event,
+> > +                                  void *data)
+> > +{
+> > +       const struct cpumask *cpus = data;
+> > +
+> > +       if (event == SCALE_FREQ_SOURCE_ARCH)
+> > +               cpumask_andnot(amu_fie_cpus, amu_fie_cpus, cpus);
+> 
+> Should we distinguish between events?
+We could although for this particular issue clearing the source is the one that
+needs attention. But I do not see why we could not have both.
+This was just sharing the idea, not a final patch.
+> 
+> > +
+> > +       return NOTIFY_OK;
+> > +}
+> > +
+> > +static struct notifier_block amu_fie_nb = {
+> > +       .notifier_call = amu_fie_source_notifier,
+> > +};
+> > +
+> >  static void amu_fie_setup(const struct cpumask *cpus)
+> >  {
+> >         int cpu;
+> > @@ -274,6 +290,8 @@ static void amu_fie_setup(const struct cpumask *cpus)
+> >
+> >         topology_set_scale_freq_source(&amu_sfd, cpus);
+> >
+> > +       if (cpumask_weight(cpus) == cpumask_weight(amu_fie_cpus))
+> > +               topology_register_scale_freq_source_notifier(&amu_fie_nb);
+> >         pr_debug("CPUs[%*pbl]: counters will be used for FIE.",
+> >                  cpumask_pr_args(cpus));
+> >  }
+> > @@ -339,9 +357,9 @@ static int cpuhp_topology_online(unsigned int cpu)
+> >         }
+> >
+> >         cpumask_set_cpu(cpu, amu_fie_cpus);
+> > -
+> >         topology_set_scale_freq_source(&amu_sfd, cpumask_of(cpu));
+> > -
+> > +       if (cpumask_weight(amu_fie_cpus) == 1)
+> > +               topology_register_scale_freq_source_notifier(&amu_fie_nb);
+> >         pr_debug("CPU[%u]: counter will be used for FIE.", cpu);
+> >
+> >         return 0;
+> > diff --git a/drivers/base/arch_topology.c b/drivers/base/arch_topology.c
+> > index 8c5e47c28d9a3..096430a99ee00 100644
+> > --- a/drivers/base/arch_topology.c
+> > +++ b/drivers/base/arch_topology.c
+> > @@ -22,11 +22,14 @@
+> >  #include <linux/rcupdate.h>
+> >  #include <linux/sched.h>
+> >  #include <linux/units.h>
+> > +#include <linux/notifier.h>
+> >
+> >  #define CREATE_TRACE_POINTS
+> >  #include <trace/events/hw_pressure.h>
+> >
+> >  static DEFINE_PER_CPU(struct scale_freq_data __rcu *, sft_data);
+> > +static struct blocking_notifier_head scale_freq_source_change =
+> > +       BLOCKING_NOTIFIER_INIT(scale_freq_source_change);
+> >  static struct cpumask scale_freq_counters_mask;
+> >  static bool scale_freq_invariant;
+> >  DEFINE_PER_CPU(unsigned long, capacity_freq_ref) = 0;
+> > @@ -67,6 +70,18 @@ static void update_scale_freq_invariant(bool status)
+> >         }
+> >  }
+> >
+> > +int topology_register_scale_freq_source_notifier(struct notifier_block *nb)
+> > +{
+> > +       return blocking_notifier_chain_register(&scale_freq_source_change, nb);
+> > +}
+> > +EXPORT_SYMBOL_GPL(topology_register_scale_freq_source_notifier);
+> > +
+> > +int topology_unregister_scale_freq_source_notifier(struct notifier_block *nb)
+> > +{
+> > +       return blocking_notifier_chain_unregister(&scale_freq_source_change, nb);
+> > +}
+> > +EXPORT_SYMBOL_GPL(topology_unregister_scale_freq_source_notifier);
+> > +
+> >  void topology_set_scale_freq_source(struct scale_freq_data *data,
+> >                                     const struct cpumask *cpus)
+> >  {
+> > @@ -95,6 +110,7 @@ void topology_set_scale_freq_source(struct scale_freq_data *data,
+> >         rcu_read_unlock();
+> >
+> >         update_scale_freq_invariant(true);
+> > +
+> >  }
+> >  EXPORT_SYMBOL_GPL(topology_set_scale_freq_source);
+> >
+> > @@ -102,8 +118,11 @@ void topology_clear_scale_freq_source(enum scale_freq_source source,
+> >                                       const struct cpumask *cpus)
+> >  {
+> >         struct scale_freq_data *sfd;
+> > +       cpumask_var_t cleared_mask __free(free_cpumask_var) = CPUMASK_VAR_NULL;
+> >         int cpu;
+> >
+> > +       zalloc_cpumask_var(&cleared_mask, GFP_KERNEL);
+> > +
+> >         rcu_read_lock();
+> >
+> >         for_each_cpu(cpu, cpus) {
+> > @@ -112,6 +131,8 @@ void topology_clear_scale_freq_source(enum scale_freq_source source,
+> >                 if (sfd && sfd->source == source) {
+> >                         rcu_assign_pointer(per_cpu(sft_data, cpu), NULL);
+> >                         cpumask_clear_cpu(cpu, &scale_freq_counters_mask);
+> > +                       if (cpumask_available(cleared_mask))
+> > +                               cpumask_set_cpu(cpu, cleared_mask);
+> >                 }
+> >         }
+> >
+> > @@ -124,6 +145,10 @@ void topology_clear_scale_freq_source(enum scale_freq_source source,
+> >         synchronize_rcu();
+> >
+> >         update_scale_freq_invariant(false);
+> > +
+> > +       if (cpumask_available(cleared_mask))
+> > +               blocking_notifier_call_chain(&scale_freq_source_change, source,
+> > +                                            cleared_mask);
+> >  }
+> >  EXPORT_SYMBOL_GPL(topology_clear_scale_freq_source);
+> >
+> > diff --git a/include/linux/arch_topology.h b/include/linux/arch_topology.h
+> > index ebd7f8935f969..4c31fd6dff0ef 100644
+> > --- a/include/linux/arch_topology.h
+> > +++ b/include/linux/arch_topology.h
+> > @@ -48,6 +48,8 @@ struct scale_freq_data {
+> >  void topology_scale_freq_tick(void);
+> >  void topology_set_scale_freq_source(struct scale_freq_data *data, const struct cpumask *cpus);
+> >  void topology_clear_scale_freq_source(enum scale_freq_source source, const struct cpumask *cpus);
+> > +int topology_register_scale_freq_source_notifier(struct notifier_block *nb);
+> > +int topology_unregister_scale_freq_source_notifier(struct notifier_block *nb);
+> >
+> >  DECLARE_PER_CPU(unsigned long, hw_pressure);
+> >
+> >
+> > ---
+> >
+> > This is just a rough idea, and needs ironing out the wrinkles, which are there,
+> > but that allows leaving the idle enter as is. I also believe this is the right
+> > approach for the interface itself, although I also see some drawbacks and
+> > potential issues (in its current state), especially that the functionality is
+> > being exposed to modules.
+> > Nevertheless, those are my two cents, untested, just sketched.
+> 
+> As an aside, could we verify the functionality of the AMU's
+> SYS_AMEVCNTR0_CONST_EL0 in the current CPU before enabling amu_file?
+> To my knowledge, many chips currently have inaccurate errata in this counter.
+> Alternatively, could we introduce a command line that allows users to
+> dynamically disable this feature?
+> 
+> Thanks!
+Do you have any particular issue in mind ?
+So far, from what I have been able to track, the issues reported are either
+handled by existing erratum or by the latest change that reads the counters in
+'one go'. Can you share the details of the issue you are facing ?
+That would be helpful in potentially finding the right solution.
 
-I think I agree...
+---
+BR
+Beata
 
-=46rom experiments I did with 64bit values on 32bit it is more the case
-that the value never gets assigned to a 64bit (on 32bit) 'virtual'
-register. If that ever happens all the operations are initially done
-with the 'wide' register and then later split (rather than being
-generated as a pair of 32bit ops).
-This causes excessive register pressure and even spilling of constant
-zero values to stack.
-You do seem to 'get away' with returning hi << 32 | lo.
 
-I'd guess the same happens for 128bit values on 64bit.
-(This is gcc, clang does a lot better.)
-
-David
-
->=20
-> > Uros, any chance you can give these a good once-over? This seems to be
-> > just the kind of thing you've been fixing up lately. It would be nice to
-> > get them right the first time. =20
->=20
-> Based on the above explanation, these *can* be copied from 32-bit asm
-> patterns. Even "q" constraint will include all integer registers on
-> 64-bit targets.
->=20
-> Uros.
->=20
-
+> >
+> > ---
+> > BR
+> > Beata
+> > >
+> > > >
+> > > > > Aside: I should have probably asked that earlier, but I am not sure I do fully
+> > > > > understand the case we are trying to fix here.
+> > > > > The topology_set_scale_freq_source prefers arch source to others. So if the
+> > > > > AMUs were chosen to server as the source for the freq scale - I do not see
+> > > > > why the sfd would be changed. That would require calling sequence clear-set
+> > > > > to get a different source in place. I do understand the issue itself, though how
+> > > > > did we end up there in the first place ?
+> > > >
+> > > > The issue arises when topology_clear_scale_freq_source() is called
+> > > > with SCALE_FREQ_SOURCE_ARCH to explicitly disable AMU-based frequency
+> > > > scaling. This API is exported (EXPORT_SYMBOL_GPL), so it is designed
+> > > > to be used by modules or subsystems that need to replace the frequency
+> > > > invariance mechanism at runtime.
+> > > >
+> > > So this is the bit I was missing: external module that does the switch
+> > > willingly giving up on arch provided freq scale source.
+> > > The rest is clear. Thanks.
+> > >
+> > > ---
+> > > BR
+> > > Beata
+> > >
+> > > > After clearing, the tick path (topology_scale_freq_tick()) correctly
+> > > > skips the AMU update because sft_data is set to NULL. However, the
+> > > > idle path (arch_cpu_idle_enter()) bypasses this check by calling
+> > > > amu_scale_freq_tick() directly, so arch_freq_scale still gets
+> > > > modified by AMU counters.
+> > > >
+> > > > This creates an inconsistency: the tick path respects
+> > > > topology_clear_scale_freq_source() but the idle path does not.
+> > > >
+> > > > The goal of this patch is to make the idle path consistent with
+> > > > the tick path, ensuring that topology_clear_scale_freq_source()
+> > > > fully disables AMU updates across all paths.
+> >
