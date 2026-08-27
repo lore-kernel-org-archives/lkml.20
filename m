@@ -1,195 +1,388 @@
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012018.outbound.protection.outlook.com [52.101.48.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F16F236D9E0
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 07:31:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787815871; cv=none; b=RftrMMEe/qlFiMe5Xj3e61Zl88hOSJU2nDJUjk22b7OD861iqlVlEdC/aCJ00RTRMaGrXcM1X2U8c6EYWK/D7M+lhGnqryFp4R90sa4Q5P/UlY3/WSbPAKNJ+A2GRsfBDCHjFmfRJKqNXJoD+pVTxVNge0LXy5SIB8sIQrgXA60=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787815871; c=relaxed/simple;
-	bh=PfIIOf3/SBUFiL4ggSPb5GvlN1y9GHqRMpF2ptnXpIc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZnJ21wxx5Aw9bhC9Cjp5bUltbivmxBu4WcrIQvs8zBx5mL4YIIIGVyFTKJkpA1PVUchGCggozMY9wd/czU75OFuJSUOvm66JiYPApUvg+0XeTBLGJmxBYTF7klCD4cDh3tgFAGE0b8mXoXGd2gdhxXmnqP7RGQ3kke+el/rDrRA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=dwYDffc1; arc=none smtp.client-ip=209.85.215.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40FCF36923F;
+	Thu, 27 Aug 2026 07:31:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.18
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787815874; cv=fail; b=c2TVPIjbVbmqmbb2/F4iDNUPYFUToyRY5z5uk1DKOm/n/vONdGlIpp3UgMJZ0mw1WlOfTnlQ5v/RqvfqIqGFcBGeiG686h9nFtOnC5TZ92OHjMFYBcuvXL6mZqViJFZ7tzyr3uBzC+qRnFDfy6jzo6DFJz5WamsRVKG4pIg49iE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787815874; c=relaxed/simple;
+	bh=Bp5mwHDnn+WV6nQRHsp4K1fCYmAedud2MnDmHMjZ1SQ=;
+	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
+	 To:Cc:MIME-Version; b=uFi3KF2kAW525kF6YD83JZDFeqXOaBU5oSoWf1OfnM3J2RIDaFDvUdhDxHyz7pmknQ9f4pFaTWt9GnVZY5tKedFLT56q7AB1PDVBhkG0niEwgPIQZoj32ZZ27YOKXyYNQTlwuJemQnPgkGUAODk5ABHzvrVPI+QTwTFVVnF4Iso=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=N7E69igB; arc=fail smtp.client-ip=52.101.48.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="dwYDffc1"
-Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cc1c9879395so1455399a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:31:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1787815869; x=1788420669; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BVRAfpWY0FEi1i3sGThUrg+YWV/e8fwxPwV0PaJXEV0=;
-        b=dwYDffc1UYDFeY3Koe71LumsB2jUBrwNVLc6itMjAA1/ZqWDEIgoWsO9+N6cZlUXfd
-         oKh/De7pQYY7p32jCjTPG1kJAfyVwbYCIHR9/6rUfhZw0l4F43ztu8OOhSq8/tCgXJY5
-         HbQD1BAsehdhh+3Xq6TaDJvdm9lMQIpvDCdfk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787815869; x=1788420669;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=BVRAfpWY0FEi1i3sGThUrg+YWV/e8fwxPwV0PaJXEV0=;
-        b=bf8SO29M+CXmEOMfG+/UWTW63mgnWNadESi6uxcEHlmD6vrD0y/gBwE7/8iA0OIw68
-         XVDrGA9V2EQcXEWsqXNMWn51T7lntI3RQTYNTsutPgeXALNWFT4DMNbMehbBvedAi5Zd
-         g6q0sL8LiSOI5zwhzFt2qLnu2JdvkGoPsx1jy+2DB/e6hSGfPmko7Iz0V7xpNPzbZBqS
-         OEsB9d7D7YZ2QWrkN6Jspg9mSP++j91yEdXBQJ1IpluOSOukaZ8WM+qAOflTBmo5OveE
-         5k9YyasD08e7199gnlhkOHFL1mHr8m8Qw9bLz5zekMKLqxYaL0iBMGSBPe0gNNviw1Rc
-         0x3g==
-X-Forwarded-Encrypted: i=1; AHgh+RqRsbqUWCEAI45G0W6bGib26gO1+5fUMaefWqFBhD25S1iRlnL3gRLz24q81HrjAgXrPuR2WOQwrT13GGE=@vger.kernel.org
-X-Gm-Message-State: AFuF++m9IYBmyKcOV4Qhh4e1hQ9s9lxSaiPLeq6/j69HrSUuhYsbNGgu
-	xpIKQE85OC3+/kacPhp8gg1Qb/D4kQNd1lYxcCYTRVSocx0KK+StxI4jKqFDpqR+4XlmBmux8HD
-	q7rpaI9VE
-X-Gm-Gg: AR+sD10WYErVIrYWXRE8XflWE5r0jLfuK0Mig+7dk1TbLeQbRHwRs2cX8pd3YyzXtoG
-	o8h0G1kntB771HmHVV4w++DFhkHcWXcbZ8DAb94KebW4PRsDzPLITRCMyh8FwtCDuSGN+2NmJq6
-	uVUrqC04b6yNiU8ILEs4+JWBj+Z4EXGVGUn0FWDXM77u0tZjRT7kzQ3Q2+APQc68aHUmu9/lGx+
-	vbTHSrzxiJw+n1fM3mMaXbyDO4jDruvY5DNvp/kTjGoKotf7I5GIQRUxDfXHduymnkrwYU3hpao
-	xF/F5I9YIlb66/wv/9uZh0/Rn+x+TzT4Xd1BGREvxprO1dG5Forp8PFGh5gl9nQu6oJDcwNdrkK
-	WVNf3SJ4M+p1K8Y6e/P69lAqopUgOo0I+s6NV+FOEn1WFpdFeVle9HYKGUv8m4Lp+W6mAiZo4Bu
-	aBSVrJcvaltdWOIEHkfxC09MHdAbDwAPSyy2PvTDUW+zh1ke9qoDlCr4OBJuws5pI/6c9I+uTZ0
-	471i79Y8xCHGIaoP/hj3W10iJ46dAgh57OJ
-X-Received: by 2002:a17:90b:4c8d:b0:395:4de4:92c7 with SMTP id 98e67ed59e1d1-3966d1443a1mr27214012a91.3.1787815869004;
-        Thu, 27 Aug 2026 00:31:09 -0700 (PDT)
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com. [209.85.216.51])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b0fd55a4sm1659192a91.7.2026.08.27.00.31.06
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 27 Aug 2026 00:31:07 -0700 (PDT)
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-38759bcd877so2536208a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 00:31:06 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqbiC+cLWc0MmKUDLWQM3JdPRCkGhmqokI6/oBmn5ZYEbfgl9st/sCzLbbI3hMvz+n+O9x/SmR6cZb+O9Q=@vger.kernel.org
-X-Received: by 2002:a17:90a:dfd0:b0:38f:bbc:6a0f with SMTP id
- 98e67ed59e1d1-3966d144247mr27737511a91.1.1787815865480; Thu, 27 Aug 2026
- 00:31:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="N7E69igB"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tQg9FsxuehNkC3uWKAUYgnFl+7DbPQ0lTgv6KVSc/qC7ftaTDLSWcA8XcCsCpQC8mIbEClYh91MX5cjAbOOk2URBD8alPbnK/97mkWabjdUbqd3DzepVbD3/7/aPBcTmFaRXWCx43ZAaiEZuwwLFpQO4vzlqyqGUMPYoVt1pYbO1MjMO1ZHHpHN+5H8OPiH9ZjxFIx08pE71+6uzzK8WGtdkdGAHQ2VQo66xm8rhSgZT88WEbphqY0287oi6sFerxr8aWG1iPUfTDwL3fzF0U2AOaK5Dzz6FelFe8sdhShWOLSjaEu/0bZ9F301OK37gXxu46U5su3C77R3cdw0jdQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mOL9E1SWgCT5IO15duXo33pD+7Q1p3nml0jkmG8nymM=;
+ b=KL1jwgoN0Awm0k9WK2jRiwDWsCGP2X2bNTzx/Ec2HqMOfhQTN/W7bS+AD/xbDNLStbz2HbhkRfWsxHPjPg8+5XcBNLWTCiE1XIOsPDDYStqAzpVDWlfE55KmtLICO4A4ODqyxLiwjgbujwnea4bHuE/xwa3LIpoRMGc2S9Gh3dV4CkZmlu0JyPIbyOjbrQeJ5aYyh11bEiS/cEANoeve3Arp4g46R18cr4ATDa7QgGTHCk8KNNeaS7t24n4NQ5cHozM0UazYGbqUkLsdLtlXQ30LA001niAlVUmKj+y8dbX44XARpP7kncj62dJamYYHSNM6QeinxHOKE7aS8d9Pig==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mOL9E1SWgCT5IO15duXo33pD+7Q1p3nml0jkmG8nymM=;
+ b=N7E69igBd6E9hnv9aT6d6aTgSQJeADPz35yAiw23XoK6Fsy0y9TMcY0g+MpA46RNdJleevxMDW7nzuSBAL10gok4D+Q9tZiTXgqNNt/2ZYg/DANeMb+EicI7qBeh4IQlF0awPdrflEpXUHVY7q9sFd6mhkD0SFRkw/akcRryQdQN61NwH6VYt7U/548aYyrhW0LRpyjUr4ye0HCK5rPPxDEAA7OItClTW8TeDE0vRX09VW1cnA8gKed8xGXr+3ah0ma604woOwUWsj4FKGwm5HFHaeIIvOPHgaq1prbrvKHKvYKewPvrd8vucODy21xe196YNs+GBN2EhEth799Pdg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ CH3PR12MB9342.namprd12.prod.outlook.com (2603:10b6:610:1cb::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.7; Thu, 27 Aug
+ 2026 07:31:05 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
+ 07:31:05 +0000
+From: Eliot Courtney <ecourtney@nvidia.com>
+Date: Thu, 27 Aug 2026 16:28:40 +0900
+Subject: [PATCH v8 12/12] gpu: nova-core: add ChannelIdPool
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260827-chid-v8-12-bc74c77d0214@nvidia.com>
+References: <20260827-chid-v8-0-bc74c77d0214@nvidia.com>
+In-Reply-To: <20260827-chid-v8-0-bc74c77d0214@nvidia.com>
+To: Alice Ryhl <aliceryhl@google.com>, Burak Emir <burak.emir@gmail.com>, 
+ Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>, 
+ Timur Tabi <ttabi@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ Eliot Courtney <ecourtney@nvidia.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: TYCP286CA0357.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:7c::15) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260725212332.64927-1-jordan.mymail@gmail.com>
- <CANiDSCsyVYanm5MowQv5-rGy1EYs080WRsZYJCT=J=SesPFnjQ@mail.gmail.com>
- <20260731151509.577383-1-jordan.mymail@gmail.com> <CANiDSCsS-JJrGMaoBqR-XX54dtp_uQEVVSct-BWL0gQNL4OfRQ@mail.gmail.com>
- <20260801050049.984234-1-jordan.mymail@gmail.com> <CAMdm4Cz-oREZfk2-_eQ16umQawWF+c9vA_AV4tBuHHvsbP0vqw@mail.gmail.com>
- <CANiDSCuNhC0-rDiBChZ02Q-PKtc=_a1ptukNUtMNMRWLUa2HeQ@mail.gmail.com> <20260821090340.3041867-1-jordan.mymail@gmail.com>
-In-Reply-To: <20260821090340.3041867-1-jordan.mymail@gmail.com>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Thu, 27 Aug 2026 09:30:50 +0200
-X-Gmail-Original-Message-ID: <CANiDSCvbOgth3U_3-Hqa=Pm-03UOi_9k1pQHnneQHy92g91xwA@mail.gmail.com>
-X-Gm-Features: AcwNN1WJlLceSvOUz3hEhGsDkqRtrZ3r0PTLIwDh4GGQfd6sssZD7TJUVjpH1sY
-Message-ID: <CANiDSCvbOgth3U_3-Hqa=Pm-03UOi_9k1pQHnneQHy92g91xwA@mail.gmail.com>
-Subject: Re: [PATCH] media: uvcvideo: query pan/tilt position from the device
- on every read
-To: Michael Jordan <jordan.mymail@gmail.com>
-Cc: linux-media@vger.kernel.org, hverkuil+cisco@kernel.org, 
-	laurent.pinchart@ideasonboard.com, hansg@kernel.org, mchehab@kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|CH3PR12MB9342:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3a99f2a5-ea69-433d-208a-08df040d2735
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|7416014|1800799024|10070799003|23010399003|921020|56012099006|10067099003|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	iz2g8aEgNzT+AAU0xH4wKybug45UosGlz0XeO/0Kg0HKroX1FuDJ2WVSCvYc4lzBDhpdMtXIYbsUb4CS+dEoWSy5DSrwp2GwY297zpWTNkbIIeu5dCuVdkIToj5W9vD+lyVvS8eMHKl6cz6US1P7Wjp1Lr9dhMSfvFMjX4nkRSdXKXDpZZH2nGma+fTOD1LUfZWNSUqDz149rjW3om1GKV3oGYTAlvpD5BU+5vKvSfOlCRkDQRaCI0OopeMVJPEaX7p7M4G6u1DB92S+JttDnuESZ9quSI2I0nSD11/hXPkFWJUsJylrB1hRYzk3kyhveCb+owPeynsmOXZWHtxFVCtCRTkncTyryDJS+h8NYLSvQaUt5dpg762BeLKAZ9OaExoXXxkeFvg88sdqykIXgc7E2/yA3GP93dBZLCtOrRjOsllUYCs9kYKW+BciDX4yhunwwC1DtKMM0PwfX7posusjmZ9kHwjki5hZFOZN5GrX4EqukvL26B8WcSbYXwSW1K+SCoBXvhpJ9vBODon0LCjDdhVObDDhyuUiTsiVcMto19klYM05XR48hOl9SoGjLuT76mtxLkknIWh/n7ycyOuTlAb3TapbnMHvBw4K1LaupVIvhpKQbF0Ftc70VWyNYIE0Ot57Me/G+dnphzrGLCnJ0fT7uIb5kUM2YdRhZL3ZkG3mh6B1Wa9IY6V8rQhU69H+34yCXkREJgyVX3sNsg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(10070799003)(23010399003)(921020)(56012099006)(10067099003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SnBGK1hsY1ZNd0JaTi9HSy9xV0NnNXVmT1FCbWkra2p6UVR6MjZ2a2tzWEVC?=
+ =?utf-8?B?eURPenhlcS9TMGQwVFlsNWgzRTByMmFqckg2LzZtY1dwMVZoeisxa0VlM2xt?=
+ =?utf-8?B?eXNNOU1vT0NMTE53YWhSRitWeTZ0d2N2MUN1SXJ0WVZzcDBXOURyd0VBdjRX?=
+ =?utf-8?B?TUVMTkNadWMwZEVON3pwcEI2SDJ3SkJWTDZkQWhIMEpiYW9qV1BOSllEZWN1?=
+ =?utf-8?B?UCt6Y3h5VGNxN1FkTGxLN1RybEFjWWwvOVJRTnJKQzB3U29vOXczWDJuSUNW?=
+ =?utf-8?B?bWtnTVU5VzF2NlNmWkllM0dPZnRtQndtaUIycjE2VkZZNWhJYjBhL0E2dFVX?=
+ =?utf-8?B?VE5LeXduOXl2SFRQcXBHeHZSRVNtU1dpTy81eldWVzIyNmxmTUJWbURoOGJZ?=
+ =?utf-8?B?TXgzem1tN29aenhmeVRYOXFCOWVaLy82VDdvZmpqZmJjYU1hOUFLOG1Vc1dQ?=
+ =?utf-8?B?OTluNENtKzY3cHBSZGJuekJWTE5XdFkzbjM1RGt1UWZadG1VYjRLYXNnYjY2?=
+ =?utf-8?B?Z2RJRnhkQXlmRFNneXh5N0VXSmwvTFdQSXVVMWd4b1NTNTZzZW1OMlEvZmdD?=
+ =?utf-8?B?dWxaL091NTF1UHZvN0FmM2l2bmVHcFQ4UUxIYm1TSVlUTWdMTk04MkRoOWh4?=
+ =?utf-8?B?V1QxUVRHN2Y3MmNLOCt5bW13UE9rM3N4dkIyME0xNkNTY2xCZWxxRUVnbURP?=
+ =?utf-8?B?WWpGaVl5U01lNy95Mi9SV3k5Zi9ETG5LZXN5RGFNZDlSdnB0b0JPaEwyd1Nu?=
+ =?utf-8?B?d3RRSHJrbnhtVDl1eXB3T3RoOC9sQWVyalBMaDRCWHZiSFIxMit2a0JLM1hm?=
+ =?utf-8?B?LzJ2c1ljVnlKMFppYm1mamNobkxXU1VYRjRwbWJEYVNLanE5RkhpV3oyUVZB?=
+ =?utf-8?B?aVIxUWU3NWhYYldkZ2NKaGpnU2NPU2FxREJ2eThZbGYwVWwyazhPOXB0TEFW?=
+ =?utf-8?B?Nkd3TDdJdHdERitzc2dYUTFVdEdUeThpWnRpeVQ2WU92K3FkR3ExRittSldv?=
+ =?utf-8?B?S2hkWXo4eHFkelFuVEluZS82VVRoZmptdW9YNzQ1MUlDb3A2NG1hbFBETklt?=
+ =?utf-8?B?a2hBeFpXQXpOeUZlaC8zc2ZaWmFyYjlrQlBEMktnbjVCbkg1RmhGNVNMQ1NB?=
+ =?utf-8?B?T3ljdWs5MWkxcmR3Ty80L0hUalc0djQrMHJkeEpDQU5iUWJaeXVJODJEczVM?=
+ =?utf-8?B?TWRXL0VlaGk5aWVERGxhZ05vWEZvRVd5d09VVXE5a3pISTY5MjZuZEs4S3E1?=
+ =?utf-8?B?blZ4Z1pIR2NlN1JUd285Q0gvYTFuSEpCRE4yUitUT1o4NDNQRXBGanlrMzJI?=
+ =?utf-8?B?OTZza0puZDJNclhxYUZWM2k2WTcrdDlqMG9LTnJoNXUvT0g3YmlyV0oxdGdC?=
+ =?utf-8?B?Z2FwQ2VQSWEzbjdBRkZLajR4RnBiM0N6Z1lDQnV4Wm5rYWhZY051Q0NWcnRG?=
+ =?utf-8?B?dWt6bG4yY0lHdHM2bGpRWitnS0ZydFEvSzlrVUROQStHVVpKYmtmTkVRdmRQ?=
+ =?utf-8?B?bHR3VU4yS3RTWmFHb1B3VHh5bHI1dXZudUd1eGpZaWd6d0VrM1JPWmFOckZv?=
+ =?utf-8?B?ZnRpMjZKa2QxZDJLT3JvUFUxM1NYQ1RYVTBQTDU2MjNqeWFTM3IwK3l3VjE3?=
+ =?utf-8?B?NE5rMTBpQ0w3dTlJTHVGbGM3TlY4Q3AveEl1VDcwdDl3Z3VybTlrV2V6dTVh?=
+ =?utf-8?B?aW1lUVRocmI0YVZTODlPWUw3eXJETzdIV3duVzdFR05NdEluU0NXRmM2RGVL?=
+ =?utf-8?B?MzREL2w5d21sTmI3V2wxTVVLR3hhTTZyVnpHQzJySE80ZHByMkdGemNWcnJG?=
+ =?utf-8?B?SEJ3dG9DeHYrTThUSDBnT3FuYXhNMWhJVmlqN0ROeWMyWWFsWitDN0hVS1lU?=
+ =?utf-8?B?MktGUm9RYlkwY2JwSEM5dCsvS1BNVkNaSUw0Y3NudFRaeE1BK1kvdU1UNXR5?=
+ =?utf-8?B?UHA4SHFiYUdnOWcvRHRubjZSdDF1TWRaSWRxZTdvVlZLc1JKWnlKVFRZNHp2?=
+ =?utf-8?B?OVNmYXl2L2RPaWJvTGJwcVNRZTM5MkNydlBjclF2a1RLRDVuZTM2V3hXblln?=
+ =?utf-8?B?SW5ZQUlYYXo0ZkhNV1p0RFRxVjVrSENSZHoreGtHTGdLdEZpY2cyRkpRR0tx?=
+ =?utf-8?B?dUt4VTVITEQ3UzRnWHRxSjBhZTh1bzl4STRPNU1vR1Noa2RMSUlRazBUNDdK?=
+ =?utf-8?B?dXprc0VsS05HM015Z1J1NW9XVjlOd1c1RnFwOVloaUkyQzdaMTB1eW1CalY2?=
+ =?utf-8?B?QkFmKzN2dE9WSEZqc3JKdTFFS2U5aUtGeVpXUU10L0pnWTJXRTE1WU9mZ3RL?=
+ =?utf-8?B?NUdUakRNVXo4dEg0Uzd2cGdWRTA2T0RrODZ2REx5ZWpBMUdNWWNOWGpwbnJG?=
+ =?utf-8?Q?bJisJ/MaNMYrQYSPrME4ZHNS/j5vCwU1eeg6uXxzwq0rs?=
+X-MS-Exchange-AntiSpam-MessageData-1: PAMNC3piAteBwg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3a99f2a5-ea69-433d-208a-08df040d2735
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 07:31:05.0245
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: i54WwGmfm+bW8hk7Re046983AnCQHIjtGPldHlQ57tN+yOqP/MtFVvxCuu8BupULblK9BH23R4KPdaVF1SlZ/A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9342
 
-Hi Michael
+Add `ChannelIdPool` which adds automatic tracking and releasing of
+channel IDs on top of `IdPool`. This is necessary for apportioning
+ranges of channel IDs to be used in e.g. vGPU.
 
-On Fri, 21 Aug 2026 at 11:03, Michael Jordan <jordan.mymail@gmail.com> wrote:
->
-> Hi Ricardo,
->
-> On Tue, 18 Aug 2026 13:30:57 +0200, Ricardo Ribalda <ribalda@chromium.org> wrote:
-> > I believe that if AUTO_UPDATE would be properly initialized, then, the
-> > values will always be fresh when you run G_CTRL o G_EXT_CTRLS from
-> > userspace:
-> >
-> > G_EXT_CTRLS
-> >  uvc_ioctl_g_ext_ctls()
-> >    uvc_ctrl_rollback()
-> >      uvc_ctrl_commit()
-> >         uvc_ctrl_commit_entity()
-> >             ctrl->loaded=0
->
-> You are right, and this corrects what I wrote on 14 August. The rollback
-> at the end of every G_EXT_CTRLS runs uvc_ctrl_commit_entity(), which
-> clears ->loaded for an AUTO_UPDATE control at the top of the loop, before
-> the dirty/rollback checks, so the following read re-queries the device. I
-> had only counted the Control Change interrupt and the SET_CUR commit as
-> cache-invalidation points and missed that the read path invalidates its
-> own cache. So on this device, once AUTO_UPDATE is restored, polling
-> G_EXT_CTRLS returns fresh data with no volatile flag involved. My claim
-> that "correcting the firmware would not make the position observable" was
-> wrong.
->
-> > Until they reply maybe you want to:
-> >   - rename uvc_ctrl_fixup_xu_info to uvc_ctrl_fixup_flags
-> >   - modify uvc_ctrl_get_flags so it calls uvc_ctrl_fixup_flags
-> >   - add your device information to uvc_ctrl_fixup_flags
->
-> I did this and tested it on the hardware. For the record, the device's
-> GET_INFO for CT_PANTILT_ABSOLUTE (entity 1, selector 0x0d) returns 0x03 --
-> GET|SET, no AUTOUPDATE bit -- so uvc_ctrl_get_flags() masks off the
-> UVC_CTRL_FLAG_AUTO_UPDATE that the static uvc_ctrls[] entry sets for this
-> control. Calling the fixup from uvc_ctrl_get_flags() unconditionally (so it
-> also runs when GET_INFO succeeds) and adding
->
->   { USB_DEVICE(0x3564, 0xfef8), 1, UVC_CT_PANTILT_ABSOLUTE_CONTROL,
->     UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE |
->     UVC_CTRL_FLAG_RESTORE | UVC_CTRL_FLAG_AUTO_UPDATE }
->
-> restores it. One detail worth noting: the existing fixup does
-> info->flags = fixups[i].flags, a full replace rather than a masked OR, so
-> a standard-control entry has to spell out the whole flag set, not just the
-> missing bit.
->
-> With that in place I verified on an OBSBOT Tiny 2 (3564:fef8) that polling
-> G_EXT_CTRLS tracks a physical slew on both axes, including motion the host
-> never commanded (moving the gimbal by hand), while a stock module returns
-> the stale value indefinitely for the same reads. So your suggestion covers
-> my use case, and I am going to carry the quirk rather than the volatile
-> change.
->
-> I have also switched my userspace to always send both axes in one
-> S_EXT_CTRLS, as you suggested. Both mappings land in UVC_CTRL_DATA_CURRENT
-> before the single commit, so whatever the read-modify-write loaded is fully
-> overwritten and the merge source stops mattering -- the write side is a
-> non-issue now regardless of the flags.
->
-> Given the rollback point, the general-case argument for the volatile patch
-> is weaker than I framed it: for the ioctl polling path a device with
-> correct (or fixed-up) flags does not need it. The only things it still does
-> that the quirk does not are to advertise V4L2_CTRL_FLAG_VOLATILE to
-> userspace and to keep the write-side RMW reading from a separate buffer,
-> and with always-send-both-axes I need neither. So I will not push the
-> volatile patch further unless you or Hans think the userspace-visible
-> VOLATILE flag is worth having on its own.
->
-> If it is useful I am happy to send the fixup as a proper patch with a
-> Suggested-by: you, or to leave it to you if you would rather fold it in.
-> Thanks for the review and the pointer -- both were right.
+Channel IDs are allocated as a contiguous sequence with a specific
+length and sometimes a specific alignment [1] for vGPU. The ID space is
+small (limited to 2048) and allocation is not on a hot path, so a
+bitmap-backed `IdPool` is a better fit than IDA/xarray (which allocate a
+single ID within a range, not a contiguous sequence) or a maple tree
+(where aligned allocation needs an alloc_range()+erase() retry loop that
+essentially reimplements bitmap_find_next_zero_area()) [2]. It is
+also faster than maple tree [3].
 
+Link: https://lore.kernel.org/all/84bc8bd2-e292-4b84-9580-a1b5df4c5bdc@nvidia.com/ # [1]
+Link: https://lore.kernel.org/all/20260710-chid-maple-v1-1-4ee869055268@nvidia.com/ # [2]
+Link: https://lore.kernel.org/all/20260717053241.916441-1-ynorov@nvidia.com/ # [3]
+Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+---
+ drivers/gpu/nova-core/gpu.rs         |   2 +
+ drivers/gpu/nova-core/gpu/channel.rs | 198 +++++++++++++++++++++++++++++++++++
+ 2 files changed, 200 insertions(+)
 
-Happy to hear that it works for you! A proper patchset would be
-awesome. I do not think we have to wait for Hans(es) to start
-reviewing it.
-
-How does this sound?:
-
-1) A patch to add V4L2_CTRL_FLAG_VOLATILE for all the
-UVC_CTRL_FLAG_AUTO_UPDATE controls ( I think that is missing)
-2) A patch to rename uvc_ctrl_fixup_xu_info to uvc_ctrl_fixup_flags
-and modify uvc_ctrl_get_flags so it calls it.
-3) A patch to add the quirk for your device. In the commit message,
-please include the lsusb -v output of your device and mention that you
-pinged the vendor to fix their firmware.
-
-The Suggested-by tag would be great :)
-
-Regards!
-
-
->
-> Best regards,
-> Michael Jordan
-
-
+diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
+index 42a4cd7971fa..66ea697a89f8 100644
+--- a/drivers/gpu/nova-core/gpu.rs
++++ b/drivers/gpu/nova-core/gpu.rs
+@@ -33,6 +33,8 @@
+     vgpu::VgpuManager, //
+ };
+ 
++#[cfg_attr(not(CONFIG_KUNIT = "y"), expect(dead_code))]
++mod channel;
+ mod hal;
+ 
+ macro_rules! define_chipset {
+diff --git a/drivers/gpu/nova-core/gpu/channel.rs b/drivers/gpu/nova-core/gpu/channel.rs
+new file mode 100644
+index 000000000000..485efaba059d
+--- /dev/null
++++ b/drivers/gpu/nova-core/gpu/channel.rs
+@@ -0,0 +1,198 @@
++// SPDX-License-Identifier: GPL-2.0
++// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
++
++//! Channel ID allocation.
++
++use core::{
++    num::NonZero,
++    ops::{
++        Deref,
++        Range, //
++    }, //
++};
++
++use kernel::{
++    id_pool::IdPool,
++    prelude::*,
++    ptr::Alignment,
++    sync::{
++        new_mutex,
++        Mutex, //
++    }, //
++};
++
++/// Pool for tracking reservations of channel IDs.
++#[pin_data]
++pub(crate) struct ChannelIdPool {
++    #[pin]
++    inner: Mutex<IdPool>,
++}
++
++impl ChannelIdPool {
++    /// Creates a pool managing `num_chids` channel IDs.
++    pub(crate) fn new(num_chids: NonZero<usize>) -> impl PinInit<Self, Error> {
++        try_pin_init!(Self {
++            inner <- new_mutex!(IdPool::with_capacity(num_chids.get(), GFP_KERNEL)?),
++        })
++    }
++
++    /// Reserves a contiguous area of `count` channel IDs starting at a multiple of `align`,
++    /// returning a guard that releases the area on drop.
++    pub(crate) fn reserve_ids(
++        &self,
++        count: NonZero<usize>,
++        align: Alignment,
++    ) -> Result<ChannelIdReservation<'_>> {
++        let mut ids = self.inner.lock();
++        let range = ids.reserve_ids(0, count, align).ok_or(ENOSPC)?;
++        Ok(ChannelIdReservation { pool: self, range })
++    }
++}
++
++/// A reserved contiguous area of channel IDs.
++///
++/// Releases the whole area back to its [`ChannelIdPool`] when dropped. Releasing locks a
++/// sleeping [`Mutex`], so the area must be dropped in a context that is allowed to sleep.
++#[must_use = "the channel ID reservation is released immediately when unused"]
++pub(crate) struct ChannelIdReservation<'a> {
++    pool: &'a ChannelIdPool,
++    range: Range<usize>,
++}
++
++impl Drop for ChannelIdReservation<'_> {
++    fn drop(&mut self) {
++        self.pool.inner.lock().release_ids(&self.range);
++    }
++}
++
++impl Deref for ChannelIdReservation<'_> {
++    type Target = Range<usize>;
++
++    fn deref(&self) -> &Self::Target {
++        &self.range
++    }
++}
++
++#[kunit_tests(nova_core_channel)]
++mod tests {
++    use super::*;
++    use kernel::sizes::SizeConstants;
++
++    #[test]
++    fn chid_reservation() -> Result {
++        let pool = KBox::pin_init(ChannelIdPool::new(cv!(2048)), GFP_KERNEL)?;
++
++        let first = pool.reserve_ids(cv!(48), Alignment::SZ_1)?;
++        assert_eq!(0, first.start);
++        assert_eq!(48, first.len());
++        assert_eq!(48, first.end);
++
++        let second = pool.reserve_ids(cv!(48), Alignment::SZ_1)?;
++        assert!(first.end <= second.start || second.end <= first.start);
++
++        let first_start = first.start;
++        drop(first);
++        assert_eq!(
++            first_start,
++            pool.reserve_ids(cv!(48), Alignment::SZ_1)?.start
++        );
++        Ok(())
++    }
++
++    #[test]
++    fn chid_reservation_drop() -> Result {
++        let pool = KBox::pin_init(ChannelIdPool::new(cv!(8)), GFP_KERNEL)?;
++
++        let a = pool.reserve_ids(cv!(3), Alignment::SZ_1)?;
++        let b = pool.reserve_ids(cv!(3), Alignment::SZ_1)?;
++        let c = pool.reserve_ids(cv!(2), Alignment::SZ_1)?;
++        assert_eq!(0, a.start);
++        assert_eq!(3, b.start);
++        assert_eq!(6, c.start);
++
++        drop(b);
++
++        // Only have space for 3 IDs right now.
++        assert_eq!(
++            Err(ENOSPC),
++            pool.reserve_ids(cv!(4), Alignment::SZ_1).map(|_| ())
++        );
++        let b = pool.reserve_ids(cv!(3), Alignment::SZ_1)?;
++        assert_eq!(3, b.start);
++
++        drop(a);
++        drop(c);
++        drop(b);
++
++        // Everything was dropped so the pool should be empty.
++        assert_eq!(0, pool.reserve_ids(cv!(8), Alignment::SZ_1)?.start);
++        Ok(())
++    }
++
++    #[test]
++    fn chid_bounded_by_num_chids() -> Result {
++        let pool = KBox::pin_init(ChannelIdPool::new(cv!(4)), GFP_KERNEL)?;
++
++        {
++            let a = pool.reserve_ids(cv!(1), Alignment::SZ_1)?;
++            let b = pool.reserve_ids(cv!(1), Alignment::SZ_1)?;
++            let c = pool.reserve_ids(cv!(1), Alignment::SZ_1)?;
++            let d = pool.reserve_ids(cv!(1), Alignment::SZ_1)?;
++            assert_eq!(0, a.start);
++            assert_eq!(1, b.start);
++            assert_eq!(2, c.start);
++            assert_eq!(3, d.start);
++            assert_eq!(
++                Err(ENOSPC),
++                pool.reserve_ids(cv!(1), Alignment::SZ_1).map(|_| ())
++            );
++        }
++
++        assert_eq!(0, pool.reserve_ids(cv!(4), Alignment::SZ_1)?.start);
++        assert_eq!(
++            Err(ENOSPC),
++            pool.reserve_ids(cv!(5), Alignment::SZ_1).map(|_| ())
++        );
++
++        let head = pool.reserve_ids(cv!(3), Alignment::SZ_1)?;
++        assert_eq!(0, head.start);
++        assert_eq!(
++            Err(ENOSPC),
++            pool.reserve_ids(cv!(2), Alignment::SZ_1).map(|_| ())
++        );
++        assert_eq!(3, pool.reserve_ids(cv!(1), Alignment::SZ_1)?.start);
++        Ok(())
++    }
++
++    #[test]
++    fn chid_reservation_aligned() -> Result {
++        let pool = KBox::pin_init(ChannelIdPool::new(cv!(16)), GFP_KERNEL)?;
++
++        // Alloc 0 so the first fit for the next area is unaligned.
++        let pad = pool.reserve_ids(cv!(1), Alignment::SZ_1)?;
++        assert_eq!(0, pad.start);
++
++        let a = pool.reserve_ids(cv!(4), Alignment::SZ_4)?;
++        assert_eq!(4, a.start);
++
++        // The area skipped over by the aligned allocation should still be available.
++        let b = pool.reserve_ids(cv!(1), Alignment::SZ_1)?;
++        assert_eq!(1, b.start);
++
++        let c = pool.reserve_ids(cv!(8), Alignment::SZ_8)?;
++        assert_eq!(8, c.start);
++
++        // Only 2 IDs left.
++        assert_eq!(
++            Err(ENOSPC),
++            pool.reserve_ids(cv!(4), Alignment::SZ_4).map(|_| ())
++        );
++        assert_eq!(
++            Err(ENOSPC),
++            pool.reserve_ids(cv!(1), Alignment::SZ_32).map(|_| ())
++        );
++
++        assert_eq!(2, pool.reserve_ids(cv!(2), Alignment::SZ_1)?.start);
++        Ok(())
++    }
++}
 
 -- 
-Ricardo Ribalda
+2.55.0
+
