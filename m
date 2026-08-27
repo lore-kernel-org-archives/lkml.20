@@ -1,152 +1,115 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD9B02DF717
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:22:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F8023A3830
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 08:23:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787818972; cv=none; b=FSlmA7GOFceEurPu90CvXsOVnUVeDfhm/OlSzcov0ouei1k6wtz/DCRMXrhspHdNFoT5WNIS8Wxu0oQZiP4FUMS2V60Bj9NYW6RY40It2+C/Gx7yzu8loglxVsLOEcfFP6F8q1VPZ1h2ihZoLRQ3SHD/5YrxImKFw89KeLxfWwc=
+	t=1787819005; cv=none; b=EmlLotgfJWm6cTd6lq6zmD5I6t24msLTtOyJo3uAWxjmCwW8RBlETSO9vClPRvvtXLmEoudWtzePfcEbXoz4OoDSYhOV5jQhVGengW/pJiIz8XiWwFsfIIAp2kD5hVLRIbehk+2LwMa7pFKokUqK9nrF8a7rgUBWdrCPBJqIkrs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787818972; c=relaxed/simple;
-	bh=6M+q8plwytqVuLkezGJ715SOoKUxxSuuUZbsWnkW0R4=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=oWecosIuBycKWTa1KM9JXrYiLrrjGSDeg7BldqRjIKH7w9v27Mx5ftVdB2WKQFfyp9cuhbYtlPKhFMlD/kkmNu6q+5NiADf71R381kf4uDNgEh0z6fTfo+as+DOi12i8IUGGQvNGFZshsd0yD3SaJiMJXDvLKHnfmobqws5ff0Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RCx+tQVZ; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=grt/mEcV; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1787819005; c=relaxed/simple;
+	bh=WPX0/BZ5LnEVrTPcPtmV68GfdYM6tPz4FQHz8zmVGXU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gnGlEjmfHHt9mOdMJVc20mxP3mnncpUMtLJIzgnHwIMR/spMHJuYOFZRkFkJxavPLCgeewU5s6f9nCwJi5jqP/cIkrxt6qmujWGmNFTNJ4oKKP3a6gYAkgDgSRNQ0q7Mc0n1v6zceo0yNx42cOzaLdlQNns1+e0lfmHKQ1D35w4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gDQrguZ3; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RCx+tQVZ";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="grt/mEcV"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787818970;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=SNJwJg0S3fs0+kduUqx/6yRTxLzuM/Ks1tVa5hY73r4=;
-	b=RCx+tQVZt9UnO3EvWH3V0/5yEMAj7qP4FGT7AgPA6pj+qToQ8bfsbW+WoXSdAqswq1TvMv
-	DIYBhn+F5nUYZuwolXL70UJci2L+tPzNHTK2197eEpgM2+lENIF2vEeou6IySjnCw1FtUb
-	9S4zVq5s3/eNChSXuwgBObzpVgIuX8Y=
-Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
- [209.85.218.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-50-ztSJgHiSMpqV5bfq37BeBQ-1; Thu, 27 Aug 2026 04:22:46 -0400
-X-MC-Unique: ztSJgHiSMpqV5bfq37BeBQ-1
-X-Mimecast-MFC-AGG-ID: ztSJgHiSMpqV5bfq37BeBQ_1787818965
-Received: by mail-ej1-f70.google.com with SMTP id a640c23a62f3a-c16711b9473so142102066b.2
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 01:22:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gDQrguZ3"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so16522465e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 01:23:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1787818965; x=1788423765; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SNJwJg0S3fs0+kduUqx/6yRTxLzuM/Ks1tVa5hY73r4=;
-        b=grt/mEcV6q/9puswVEgKmmxGGrGbYlz6Q+pRPMnFMKbMvdx+oUkGcE8iwIZr2KDBVF
-         99bOvV5rix8e+TlXZZPu8UWln3ZuSqyKKS9Y7b7f44lXRCMCHSKgX62BTamo741tz75z
-         i5AC1VNsuCx862XdxsF6ddpP7GYu7SCfdkzEoXJJkk4wUMRyYVXm68c9kNy3gj5b/if3
-         ydY6oADDda0Tiyo4LxWWje8aeiV4bCHP+EwWg0wQXv+y05MRZlBx+/a/0O/gPVDijXJX
-         RsToXTOBjNBLFROjcHViWY9Yz6O3SfR0nhmkijAgQjFgu/SudUYEVkDwPrpZq/1mR6Ql
-         eqoA==
+        d=gmail.com; s=20251104; t=1787819003; x=1788423803; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PCTHlFI9MBXTpjo0eWsv2vQlQ5fLMpFKRDETi0QkNLM=;
+        b=gDQrguZ3GbygbvSTSsbzOtdcDAZ/KmZ5QpeK0A0GJd92eCwnyEpTX/n7DykR5/EMRG
+         Do8E3XWkes0pQRMXViSHKRmqpVePXr3bC4zHHlg5Ca0sBusFMyTZMeEunbnUzUsKbZAT
+         UEEMBBYryLKIQTkkkoqCfB/e7uEnWUH3SZGLbxkaJZvT7lsgmfoYdADIPILIzvrsrE+h
+         F+/ZI7HTMWnDuTV/h1Taf/z3/PHm/BRYR4TZN940zEqJYqiQJe9f3VBepfxoFyvSAA/g
+         TAQuMhaaZOIdFOlatEXzjKk/aDp78x3HxhpqQ5a5nRDx+w1Y4k21OcJsYqRvCjMJw/ee
+         Q18g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787818965; x=1788423765;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=SNJwJg0S3fs0+kduUqx/6yRTxLzuM/Ks1tVa5hY73r4=;
-        b=IPqquJE7FAPjbvm5GaTgjQBByg4WGPSzIlKhTUYYQcyOHcmum439DmQGFXknoAaSlb
-         +0FoJFSphPcIsLUkUKcMIxxhdspOer+TVlWZG2xMxuKlBHAwf5Obj9T4GIBLeCdbCCPP
-         f7UZMjKmUTYvF+TT9ylmoxcMSjvbm1Ms5S/GgBr65QrHwm0fP0I7m2Mn3VOSbAEY1etp
-         tR6NCc5zlEh6gsn4V5KxDhhGw3rPXrkDk1vDl0aSUf8/WA0pQPZR1d/2ugZ4BKbtTUIm
-         AJ1HZWZAZ0++Gck/DZlZz1lz/gKWGbOdwDdxPAcWuNOc1Ys00z8GidfXcLZmx95Pty9T
-         3lfw==
-X-Forwarded-Encrypted: i=1; AHgh+Rpone0HG+kCvKblpAZgMv2nwmRmhQmpAJNkxESDvKPThbjrMyNvuXDhTa/KAQkGRNpMHXfTWOjVaV0OKlk=@vger.kernel.org
-X-Gm-Message-State: AFuF++mk/tx52xqbM6E0gpuLZtpB4DswEnWCkL/6+9Q3PmfUtLD4D90o
-	tjn56rxCoSr7OgUlZlqi2vwmTYAYaAY62oXiAoVcCUtWEEDv27rVJ9Kl1KF0Ww0hCKjWhw3EfRA
-	tmofUAKwL8han0xPJTQN6K5Zeq0PmnD9gt1xl9wQ/paOB7mQ50y/K/dCy8ErUeajj9A==
-X-Gm-Gg: AR+sD11sbHZW4U65+6mDoam/6c7B8/KTcSGkxuyS+QyEDYZESEA9ySGaPpPeDn+Yv2y
-	IYHLuHjXh09X068/Lx+JVhzMgc7fHZ5ab1dU2EHfcexktfrfsFk6i3MJgGUsUe/ZCDWO62Dnsiu
-	EYKVFDj8e4miQoTL7Si8oF0H/9zuXccznJ0xa0R0TgBYxyJDVomcuhBGDy/UwAQdXhNFswBQEvC
-	OkI9GAG1skXbjLj5fmdC/DRp+oCmBdsGmsSQftg6ss9F7KPqzp/NkYkU/9oGuu+fJLpUqU2PLpf
-	czTERzr0QRg5xbnjdWPSSsxQ6MVwR5eoifaz4XqzuydxSFcW0GlrBYaWs4J+n3C8kYq/Fn9kLL4
-	UJ/8BUKHRrjTRl13w1ktwWX0n+MnISY60G2MY8n9FWTsaKnhLqsvqHA9QyMqoVtr1zj7JQg==
-X-Received: by 2002:a17:907:6091:b0:c1c:2007:298e with SMTP id a640c23a62f3a-c250c408972mr1556837366b.24.1787818965154;
-        Thu, 27 Aug 2026 01:22:45 -0700 (PDT)
-X-Received: by 2002:a17:907:6091:b0:c1c:2007:298e with SMTP id a640c23a62f3a-c250c408972mr1556832966b.24.1787818964786;
-        Thu, 27 Aug 2026 01:22:44 -0700 (PDT)
-Received: from gmonaco-thinkpadt14gen3.rmtit.csb (212-8-243-115.hosted-by-worldstream.net. [212.8.243.115])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25127b66e5sm711301566b.45.2026.08.27.01.22.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 01:22:44 -0700 (PDT)
-Message-ID: <ba9a55fa6aeae4ef17873afc7373302a3fadc82d.camel@redhat.com>
-Subject: Re: [RFC 1/3] rv: add per-edge dwell-time statistics primitive
-From: Gabriele Monaco <gmonaco@redhat.com>
-To: Tobias Schaffner <tobias.schaffner@siemens.com>, Steven Rostedt
-	 <rostedt@goodmis.org>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>,  Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Jan Kiszka	
- <jan.kiszka@siemens.com>, Philippe Gerum <rpm@xenomai.org>, 
-	linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Thu, 27 Aug 2026 10:22:42 +0200
-In-Reply-To: <20260827072400.45734-2-tobias.schaffner@siemens.com>
-References: <20260827072400.45734-1-tobias.schaffner@siemens.com>
-	 <20260827072400.45734-2-tobias.schaffner@siemens.com>
-Autocrypt: addr=gmonaco@redhat.com; prefer-encrypt=mutual;
- keydata=mDMEZuK5YxYJKwYBBAHaRw8BAQdAmJ3dM9Sz6/Hodu33Qrf8QH2bNeNbOikqYtxWFLVm0
- 1a0JEdhYnJpZWxlIE1vbmFjbyA8Z21vbmFjb0BrZXJuZWwub3JnPoiZBBMWCgBBFiEEysoR+AuB3R
- Zwp6j270psSVh4TfIFAmjKX2MCGwMFCQWjmoAFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgk
- Q70psSVh4TfIQuAD+JulczTN6l7oJjyroySU55Fbjdvo52xiYYlMjPG7dCTsBAMFI7dSL5zg98I+8
- cXY1J7kyNsY6/dcipqBM4RMaxXsOtCRHYWJyaWVsZSBNb25hY28gPGdtb25hY29AcmVkaGF0LmNvb
- T6InAQTFgoARAIbAwUJBaOagAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgBYhBMrKEfgLgd0WcK
- eo9u9KbElYeE3yBQJoymCyAhkBAAoJEO9KbElYeE3yjX4BAJ/ETNnlHn8OjZPT77xGmal9kbT1bC1
- 7DfrYVISWV2Y1AP9HdAMhWNAvtCtN2S1beYjNybuK6IzWYcFfeOV+OBWRDQ==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+        d=1e100.net; s=20251104; t=1787819003; x=1788423803;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PCTHlFI9MBXTpjo0eWsv2vQlQ5fLMpFKRDETi0QkNLM=;
+        b=phReD3wejAIk7uHexY6b4mvXR4YSH0S94xJl69ineeZwK41YTIuy+ls87U/ISLCVPj
+         aI+J645bXXqElRjmS5dX1ccUntvVkQ6gCXcRfRNPEXiOJE3pIgkPJ/qwWhPqyJ1Yi24I
+         P6S+5PhBEuj+r9f2pgZyPdQVSxPbqB/jxsLifLcvceLzDAcPCK5aMhftEm/wSH27eRLb
+         T61dynZcnooFnhFseQ7afOU4XnFWwthQ229Am0g/orJEBo2QfpIK7K8+LFe0eLimy0wi
+         KCOHFSrJGiHKmIt0GPAWI53c18mLFjVhuNA6YdyOn9Bf0FzG9LsY/8ywoJU/ZGrvGDqh
+         UMDQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rq0dz0OgPWsk4pVei2RyGY1PIjxiiGqSrxV1ok4eHb0qwPYYJ/dK0KRlMypLa/aCH/gPgSZT8OgO3YsDNM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nRtxs/vVgZSq/30F+5K0n6mroc9+Kmbeg6tBBtm4RUrUis5v7N
+	H7uPlpVVfHhQqofUHd3jM6cScLj/FbC/yeLvgTWAtXN3ceSUcaDA9ur/
+X-Gm-Gg: AR+sD10jhehHKsVa7eEsYYMsrLEaPqHzb2wMkI3Sz6BdJG+iyX7L/veJHVDfY/aGq0S
+	Qp4GASsol6UyTeRiPHweqa7L65yyy+ywbe6clTb6Yj3eYWxF9lbjmqc8z1yhdFrJJzC0Nm4sDV7
+	5vO44iBfvZMe41+4nwRfeuISgccA/hZzL6vzHxDqgYa0b9dKaG0OhODJF6YGm8g0upkwC2r9kqw
+	clhZlhi9HCIWnlagq6OK0zfEw5rSep9w0MvbxcRqC/ooppxwaIjDRWc7s0WSsLIEPretEaTLBbC
+	pe0ir89zLUtsKfXBddmR4vpYKbjayowDTS+/Oak1OwTTyBW0shFoScL2EgutLv6fPrKbAKkJ1Ly
+	zhIG1qlz2Nl9EX0iggdOGZ3OnF6aFONjhn0Lpm2O7a4dHe3CNUPD2voDAEJO1Sa3sOXMqju0JT5
+	j1kDTwp+arVnNxvw2lI9S+yTHMcWMezCdPE8olnM4WL6vnSEbOPEJclSPHNWDIY88Q6UWL3PkcW
+	t/kuNPjmMKpQz/l
+X-Received: by 2002:a05:600c:3155:b0:499:4892:d022 with SMTP id 5b1f17b1804b1-499dc6feffcmr116979315e9.8.1787819002485;
+        Thu, 27 Aug 2026 01:23:22 -0700 (PDT)
+Received: from [10.51.121.166] ([193.118.38.99])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e27ab4dasm7350450f8f.15.2026.08.27.01.23.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 27 Aug 2026 01:23:21 -0700 (PDT)
+Message-ID: <c53ce2d5-4674-4bda-9e92-fb4fbdc32da8@gmail.com>
+Date: Thu, 27 Aug 2026 10:23:20 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/2] dt-bindings: Add GPIO-locked fixed clock
+To: Conor Dooley <conor@kernel.org>, Rob Herring <robh@kernel.org>
+Cc: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Brian Masney <bmasney@redhat.com>,
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20260726-feature-clock-guard-v4-0-e9c8b372b71c@bruker.com>
+ <20260726-feature-clock-guard-v4-1-e9c8b372b71c@bruker.com>
+ <20260810164000.GA1846263-robh@kernel.org>
+ <20260810165403.GA2145873-robh@kernel.org>
+ <20260810-smilingly-kung-1fddc5e18df6@spud>
+Content-Language: en-US
+From: Vyacheslav Yurkov <uvv.mail@gmail.com>
+In-Reply-To: <20260810-smilingly-kung-1fddc5e18df6@spud>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, 2026-08-27 at 09:23 +0200, Tobias Schaffner wrote:
-> Add a small primitive that records, per automaton edge, how long the
-> monitor dwelled before taking it with a count, a sum and a maximum.
->=20
-> The counters are per-CPU and lock-free, so a monitor's hot path can updat=
-e
-> them without disabling interrupts and without perturbing the very latency
-> being measured.
->=20
-> Signed-off-by: Tobias Schaffner <tobias.schaffner@siemens.com>
-> ---
-> =C2=A0MAINTAINERS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 1 +
-> =C2=A0include/linux/rv_edge_stat.h | 45 +++++++++++++++++++++++++++++++++=
-+++
-> =C2=A02 files changed, 46 insertions(+)
-> =C2=A0create mode 100644 include/linux/rv_edge_stat.h
->=20
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 8014b9f8253e..04589dda0873 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -23654,6 +23654,7 @@ L:	linux-trace-kernel@vger.kernel.org
-> =C2=A0S:	Maintained
-> =C2=A0F:	Documentation/trace/rv/
-> =C2=A0F:	include/linux/rv.h
-> +F:	include/linux/rv_edge_stat.h
-> =C2=A0F:	include/rv/
+On 10.08.2026 18:58, Conor Dooley wrote:
+> On Mon, Aug 10, 2026 at 11:54:03AM -0500, Rob Herring wrote:
+>> On Mon, Aug 10, 2026 at 11:40:00AM -0500, Rob Herring wrote:
+>>
+>> I missed that this is N input clocks and 1 output clock. But that leads
+>> to other questions. You've implemented a clock mux then? I still don't
+>> understand for what h/w that makes sense. Which input clock is selected?
+>> The locked one?
+> 
+> Yeah, I thought this was n inputs and n outputs, with each gpio
+> signalling that an individual PLL had locked.
 
-Any reason why you don't use include/rv/edge_stat.h ?
 
-You wouldn't need to touch the maintainers file and could just
+It is n input clocks and 1 output clock. It is kind of a mux, but the 
+CPU doesn't control the clocks or GPIO signals. The whole idea is that 
+peripherals check the output clock, when it's locked that means _all_ 
+the clocks are locked and GPIOs are in expected state. That's why the 
+selection operation is not really implemented.
 
-  #include <rv/edge_stat.h>
+Actually the number of input clocks don't have to correspond to the 
+number of the GPIOs, because the GPIO signals indicate the locked state 
+of the clocks that are not accessible to the CPU.
 
-Thanks,
-Gabriele
-
+Slava
