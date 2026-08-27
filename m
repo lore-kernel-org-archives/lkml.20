@@ -1,82 +1,85 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7645524E4C6
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 21:16:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F9201A6806
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 21:16:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787865409; cv=none; b=bNWhlEuEbRFaDf3MCzaGn07XZ9atN8rwYUof8A0volwv15OPFYzQC16VGCWuiM2BbCLYmyI4qtIjv/zZvsDrMSMNAzphKTzmzouN0duSCb7O/4enJj7oexw2pf1yVnpAEyjv1Q5r4P38hOxZS/ODeXv4m/GFhubrcBeBCdV5NBg=
+	t=1787865419; cv=none; b=uOOC4JAYk33aogIGaINXVr4nxQ8we4FIszRfhcH0HveOBD7lvcZQdjfsZEfICWXDl5GDhmUVHP6ubMw/xFEUpLSwbd/R6gJy5E9m4TT9W7A/umgHw0vxt4CZex8gN+1FtzVmAr3Bc7zRFShRAqKLtpQnOPp4YeU/GWq90apxomE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787865409; c=relaxed/simple;
-	bh=OStuMbIJRGR13QguPPMS5Cujr1HI19Kyd2Ubu5FBRLs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=at2d6zF7WCfeloDzJSr7YNtz5/UTWA6seDy8lqxshcVggLe6A1bcuT068pAfWJfWWJp7WCowpDviFl5BKlnpXCIUepnhgkiIB6fanJksZIc90y88aj8yps16VrYJS/Yw9LMAzSxkHg/NIT7f2Rw+zpR7rHFvQkk0jSRFtC5Y/Jg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=d/ervt//; arc=none smtp.client-ip=209.85.221.42
+	s=arc-20240116; t=1787865419; c=relaxed/simple;
+	bh=p+5zmtSK0nfRg48wX7x8rE5iAILPBqs1SSLH4sZoz4M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aB2W+NwhgKwlgLqrFexjI5dD7HEbEldmHPu5shEmXfNVIdgC85Msd63IW9V4DHzF3kg66yeG8P0i6qIwuNo22e+QQ+4V7+1oOVoDsURwQmnggLOHT1qNAJZjuCSGMMDZ1XEsFoKxL8wOmZ5kAI9Bx2vjJAwwWULDuusrXu+JJWA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=j0tEE0rl; arc=none smtp.client-ip=209.85.128.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="d/ervt//"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-47c2b362ee2so69887f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 14:16:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="j0tEE0rl"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4998b5a63e2so2322855e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 14:16:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=lex.la; s=google; t=1787865405; x=1788470205; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+A4DiEskWi8Pmb6CKBEIUqGXSf7tGcrNLyl+aIITkDY=;
-        b=d/ervt//lXz+rtvbC5jX3kBLuQKmScpYnNLa+6IyU4W5wON4rqxVqKdy69Uh1K4FGE
-         uERL04wsggr4P8zYwy4SFNfrdJmOyaKkTuvb5w2NQgJ3gqpcGZkuSd31HjYyl50WODZx
-         P2+4rCNog60zOtlYSXHhsbPE6eq8gBm50H9teafKWGCPN2z7tIrduLdv9y1+TrnhLPAv
-         lKu3gZ++NVoh6cJgd/AJgaE+utl/td9ixZOE77hHh6iDQiBTvHxkLanKxGcgpCPVwC8e
-         Ixm9E8kzV0gqgQCmYATu2SrWpCKyDyWsOlrM+aRboGwTeto3+xGqhvzYdSK6+1gvRS7C
-         gdpw==
+        d=lex.la; s=google; t=1787865416; x=1788470216; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=akfGOb5pkYggg80PmucZoF7nPoQ3Nyl03nn3uUvFbXA=;
+        b=j0tEE0rlVSSLOhvQK4UOoXctO7o941TZp4FVdSdUVsOAXT4Eu0SuK+qsT+y1Jd8O+s
+         BSY/kjB2wkah+Q5tJYPLdeo7KoYByYpO6rFkBMpN4RenvQS6tIWYEUHw4XoGSXUP6hfc
+         nbEDf5T8V7mSEBRwNNjyLfx11y1XKFfn9qfIAdqqx/d47orvmJYrPt2MUOnpWhxfhvSM
+         ip0QnmWjUdfHq3PLjNQzOl+9nwDQqYuoXSFcOpKjRXNHHSaSik1KgK5iorqQLJ5Ii6Cj
+         gOZ9Qpz6dCDRCAcHs3TxMJP4/Y/pz3t6WYzeoElFf3+F2I/v1O/8BJMgEzTHS/K2u6lv
+         dq1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787865405; x=1788470205;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+A4DiEskWi8Pmb6CKBEIUqGXSf7tGcrNLyl+aIITkDY=;
-        b=MibSzk2MnhdBy1Lcz3//g6q+d4q0AOcnwJYGNSnWFcIxkB9dfVk4+dkZmzbuqxt1Cb
-         ycz11Bmo4XvT++kFMYr++QhYO6Mev+J85qq8b88ztil882RqTtg7JM4I07Q5jXpn/App
-         VCOsD8Hja3L9MY1IIlPDm+OgnXCzekH9wsnZ0MI09CPp6nIhUYfgW8Jz1g3bjU2/rBEM
-         2kN0xYEj/Tfb7801fCq2geu5jYPGuvBgQXqCd0eRjuu1iCtqiOpcW/+jZ5GJBW6zEy4+
-         4bCN6aMLP7sQ3WwSkTz9vHHPn4NaKfcfL6tbuHuPu5j8dBU/AlbEah2ncC8PxP6KKtsk
-         AJ+A==
-X-Forwarded-Encrypted: i=1; AHgh+RqdQXOea0MtrtbqRJ0HeWR4Ca0h+LyIGvmenrHCQ3d/Y50wUXhl8ypFLhXGCXupOJvq0lb1Az+3IbgGYYQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++m2dVTx1Bkztj5VTcskSmHcrLpONaNASOItOD7XF/NCVgy5X39X
-	4aGURBjQBHJ/sj4McRG5sXAxx6gGKiMcE5MAqDcBDpudtrN/JoosbaVTLCYaj7SZ+ls=
-X-Gm-Gg: AR+sD13jg4IFl3Pa9H0IaQy12RmG4RXKRioU9Y6tSYcEPL1UpvyYV9y670vDX9hoVnv
-	FBK7ozmCmNISGIIiJaRvHwp4sn0NDi+vqU02dIVLh8Dd0UEK4oekQqDY8iLsbTpWeAwAQzcinCi
-	+TGZV8oLKh1NDxj6/pbdMrmtejVzzbWDRmWMjp6Uu7uZL+1yEiPDC9evow75IJjNKdnQvONhpCp
-	WTTYcFq3BZ0meWOb56owB7+LWlsUcYYNhRynWSQ6iW4ipf/mMYE9XwZIJOU9wItzrlp9g7sLe9l
-	1+fyOzzLptutTRNyVAHkvAmcfFo9P+eTNysQPPSF8UPxuXdqK5wttMDxTCCYMWLKB4U5Ag+UK5U
-	1bi81j1KxyFJUzwZ4XJ7vrJx43oPpU81adMhB3nHUt4WROQfjN908lI4IxvqL18P636rJY8x4Nb
-	8ICVxwSuolRHGF5wSy7wgJ99dl+lx858l3VyiNLm7ObWAx/KUMXDvX0Ok=
-X-Received: by 2002:a05:6000:2388:b0:47f:9283:1fb3 with SMTP id ffacd0b85a97d-482f7828315mr2228378f8f.0.1787865404806;
-        Thu, 27 Aug 2026 14:16:44 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787865416; x=1788470216;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=akfGOb5pkYggg80PmucZoF7nPoQ3Nyl03nn3uUvFbXA=;
+        b=Zl0yIkbSg6dTvK3B3WBonqOJcA+Q1Q4W1fcra1mp47f53VQORNRnU1ql6cgZq4PW+G
+         CQbqvsFAXhZMMWDVi+VpVtrFVp1nqGjY2x5XP+EWX+AYk7FtAE+FVJ9AYwh+x3MLXFeu
+         K5AHbbaZ1J2tPdcnqeKNRkg9NrSx9UANqyRPJVsu3uBAsNyhgzeAuHIh97z7V3RDScHK
+         CvALv3+9tro+1t4ZsFgeVkKsEvm+qQFFsSoEfOdySkqTC9zD6JZEH1L4cfmiJpgUnJcU
+         YSMD7lQl/91JVf4BcWJsbZjjDyqHDdJ6VjHe/gBK6QUVMDsa8Z4QAYTzfUoMK7J0dyYp
+         TxuA==
+X-Forwarded-Encrypted: i=1; AHgh+Ro03cpRwJMPw0l0GL6XQsywzfX2/sW7ORUeFi0TP5tN6fwPesweHVf46Yq13w4cXWXDOzp27lK2bQA4IjE=@vger.kernel.org
+X-Gm-Message-State: AFuF++niUpSr2OPO1JRSpuhRgGWfcVeQFQxL/SWY9a5AOrA7W09bfD83
+	mepCdbODFBhHHGJiTUds/zEkZE1nYc3SzBIIiO5pwQ2193+LyMNK3N0fNm6fn5uhsT0=
+X-Gm-Gg: AR+sD12G4vVdaOWetf4j97hHeICDUWxIfnt/aeFuPAXZuEgP/A0XZGif72BAezVTIaQ
+	JoywDrRJJBZ342nTFJJzwvFD+sfQ24ftb0OsC8/tjJfTAPIMo1gSQ9djcVWyqC7gHEL0OLr6i3l
+	ejHOOj5QNAKf8aarovFS5C76qxtr3QlOhJb4I8ydWuHnPI4AMZjHZN14jwmd3WxOtNNfYBYdU1G
+	XzV0RpIjfcGuCnKKY3A2+nqwi7MXbel0SmoCDyo+GK2pniS29zLlhIK1acy+TIeKI6xJ0LsumHl
+	zqorcAw7razwGjEFsPMy9bRlSBGksQvKHEt7gP1auVvZKjf99MqKUhIdJRk2+Dm48bKEgsSq1nv
+	VeNLsOuOT0xTsCW0+HZ/+ISEXCZTxvMyp+vJWM1icslQ8voN3DBlnwu4AzObZLxu+gVXOqCcNRD
+	Hie1H4GeWdV3/Ke8t8wxkiI0dQK5Jz+HF0JjTc7EoXC6ao30JKeMgOYFwq9Njty/6k0Q==
+X-Received: by 2002:a05:600c:3546:b0:499:dbc0:370d with SMTP id 5b1f17b1804b1-49b91c1dad9mr26372755e9.2.1787865416128;
+        Thu, 27 Aug 2026 14:16:56 -0700 (PDT)
 Received: from ownbook ([31.146.92.111])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e4f0c8f7sm11423442f8f.27.2026.08.27.14.16.43
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e27aa050sm11004557f8f.12.2026.08.27.14.16.53
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 27 Aug 2026 14:16:44 -0700 (PDT)
+        Thu, 27 Aug 2026 14:16:55 -0700 (PDT)
 From: Aleksei Sviridkin <f@lex.la>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>
-Cc: Aleksei Sviridkin <f@lex.la>,
+To: "Chester A . Unal" <chester.a.unal@arinc9.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Andrew Lunn <andrew@lunn.ch>,
 	Vladimir Oltean <olteanv@gmail.com>,
+	Felix Fietkau <nbd@nbd.name>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
 	"David S . Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@google.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v3 2/2] net: phy: restore the interrupt after a generic-driver bind cycle
-Date: Fri, 28 Aug 2026 00:16:38 +0300
-Message-ID: <20260827211638.63395-3-f@lex.la>
+	netdev@vger.kernel.org
+Cc: Aleksei Sviridkin <f@lex.la>,
+	Russell King <linux@armlinux.org.uk>,
+	Qingfang Deng <dqfext@gmail.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: [PATCH net v3 0/2] net: restore EEE on MediaTek switches and SoC MACs
+Date: Fri, 28 Aug 2026 00:16:50 +0300
+Message-ID: <20260827211652.63504-1-f@lex.la>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260827211638.63395-1-f@lex.la>
-References: <20260827211638.63395-1-f@lex.la>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -85,82 +88,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A PHY with no specific driver available at attach time gets the generic
-one, and phy_probe() sets phydev->irq to PHY_POLL because that driver
-has no interrupt callbacks. Neither end of that bind cycle puts the
-value back: phy_detach() releases the generic driver so a real one can
-bind later, and a generic probe that fails never reaches phy_detach()
-at all.
+Both drivers fill in phylink_config.lpi_capabilities and
+lpi_timer_default but never lpi_interfaces. phylink treats a MAC as
+supporting managed EEE only when the tx_lpi methods are implemented and
+BOTH bitmaps are non-empty, which phylink_create() decides once and for
+all, so EEE has been off on every mt753x port and on every mtk_eth_soc
+MAC that uses mtk_phylink_ops since the two conversions named in the
+Fixes: tags. Because the tx_lpi methods ARE implemented, phylink takes
+the other branch and calls phy_disable_eee(), which fills
+eee_disabled_modes - so userspace cannot enable EEE either.
 
-The specific driver that binds afterwards therefore starts with
-irq == PHY_POLL, and the PHY is polled for the rest of the uptime with
-no warning on that path. A DSA switch that connects its user ports
-before the rootfs holding the PHY driver module is mounted hits this on
-every boot.
+On an MT7981B board with an MT7531 switch, before these patches:
 
-mdiobus_alloc() fills bus->irq[] with PHY_POLL for every address, and
-the bind cycle never writes to that table, so the entry still holds
-whatever the bus registered there. Restore phydev->irq from it on both
-exits, and only where the cycle left PHY_POLL. That guard preserves an
-interrupt mode a MAC installed on the attached PHY after connect, and
-it keeps a restored interrupt number out of the
-phy_connect_direct()/phy_disconnect() asymmetry, where such a MAC would
-have the interrupt requested and never freed.
+  == lan1
+  Cannot get EEE settings: Not supported
+  == lan2
+  Cannot get EEE settings: Not supported
+  == lan3
+  Cannot get EEE settings: Not supported
+  == lan4
+  Cannot get EEE settings: Not supported
+  == wan
+  Cannot get EEE settings: Not supported
 
-Fixes: 00db8189d984 ("This patch adds a PHY Abstraction Layer to the Linux Kernel, enabling ethernet drivers to remain as ignorant as is reasonable of the connected PHY's design and operation details.")
-Signed-off-by: Aleksei Sviridkin <f@lex.la>
+lan1-3 are the MT7531 internal PHYs, lan4 is an EN8811H on switch port
+5 whose MAC side runs 2500BASE-X rate matched to a 1 Gbps media link,
+and wan is the mtk_eth_soc MAC with its directly attached 1 Gbps PHY -
+so both drivers are covered.
+
+Each patch fills lpi_interfaces from supported_interfaces and leaves
+2.5 Gbps out of both bitmaps for now. LPI above 1 Gbps is unvalidated
+rather than unsupported: both MACs fold 2.5 Gbps onto their 1 Gbps
+speed encoding, so the 1 Gbps EEE force bit is what would govern it.
+MediaTek's SDK driver sets the force bits for 100 Mbps and 1 Gbps only,
+EEE signalling on 2500BASE-X is outside 802.3, and the 1 us unit of the
+wakeup timers is undocumented at 2.5 times the port clock.
+
+Neither driver sets eee_enabled_default, so LPI stays off until
+userspace asks for it with ethtool --set-eee. The EEE advertisement is
+a different matter: phylink stops force-clearing it, so a PHY that
+advertises EEE out of reset advertises it again and the link may
+negotiate EEE, without this MAC asserting LPI. MT7531's internal PHYs
+and EN7528 are the exceptions, for the reasons in patch 1. Devicetree
+eee-broken-* marks act at the PHY level and keep working, so a board
+that already distrusts its PHYs stays protected: OpenWrt marks all
+modes broken on MT7621's internal PHYs.
+
+The two patches are independent and touch different subsystems; they
+are sent together because they are the same bug.
+
+Targeted at net as a regression fix with an active userspace lockout;
+can be retargeted at net-next if maintainers prefer.
+
+Based on net-next at 91ec20351349. Both driver files are byte
+identical in net/main and the series applies there unchanged.
+
+After the series, all five ports report:
+
+  EEE status: disabled
+  Tx LPI: disabled
+  Supported EEE link modes:  100baseT/Full
+                             1000baseT/Full
+  Advertised EEE link modes:  Not reported
+
+No 2.5G mode is offered, which is the narrowed lpi_capabilities, and
+nothing is advertised until userspace asks. On this board no PHY came
+out of reset advertising EEE, so the case where the advertisement
+returns once phylink stops clearing it is not exercised here.
+
+Enabling it on lan1, whose partner advertises EEE at both speeds:
+
+  # ethtool --set-eee lan1 eee on
+  EEE status: enabled - active
+  Advertised EEE link modes:  100baseT/Full 1000baseT/Full
+  Link partner advertised EEE link modes:  100baseT/Full 1000baseT/Full
+
+  # ethtool --set-eee lan1 eee on tx-lpi on
+  EEE status: enabled - active
+  Tx LPI: 30 (us)
+
+With LPI armed, 30 parallel ICMPv6 streams of 1400-byte payload, 300
+packets each one second apart - so every gap crosses the LPI threshold
+and the link enters and leaves LPI thousands of times over 300 s - lost
+nothing: 300/300 on every stream, tx and rx error counters unchanged,
+carrier_changes unchanged, and no mac_enable_tx_lpi errors in dmesg.
+
+On wan the link partner advertises no EEE, so enabling it settles at
+"enabled - inactive", which is the correct outcome, and the link
+survived the autonegotiation restart. Its Tx LPI reads 1000 (us)
+against lan1's 30; see the note below the scissors of patch 1.
+
+lan4 keeps EEE disabled and never arms LPI, which is what dropping
+2500BASE-X from lpi_interfaces is for. Forwarding through it was
+lossless with no carrier change.
+
 ---
-Both exits matter: phy_detach() for a generic driver that bound and is
-being released, and phy_attach_direct()'s error_module_put label for a
-generic probe that failed, which never calls phy_detach().
+v3: both commit messages cut down to the Why, with the mechanism left
+    to the diff and the detail below the scissors (Andrew Lunn); no
+    code changes.
+    https://lore.kernel.org/netdev/20260824024117.46154-1-f@lex.la/
+v2: commit messages rewritten to carry the Why only, mechanism notes
+    moved below the scissors (Andrew Lunn); comments and commit
+    messages reworded so the 2.5 Gbps exclusion reads as unvalidated
+    rather than impossible (Daniel Golle); no functional changes.
+    https://lore.kernel.org/netdev/20260822195252.2934-1-f@lex.la/
 
-Which buses and MAC drivers the bus interrupt table covers, which other
-paths to PHY_POLL the guard also restores and why none of them is
-harmed, and the sysfs unbind case this does not cover, are worked
-through under v2:
-https://lore.kernel.org/netdev/20260824024029.41310-3-f@lex.la/
- drivers/net/phy/phy_device.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+Aleksei Sviridkin (2):
+  net: dsa: mt7530: populate lpi_interfaces to fix EEE support
+  net: ethernet: mtk_eth_soc: populate lpi_interfaces to fix EEE support
 
-diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
-index 94b2e85e00a3..be4c35db8de9 100644
---- a/drivers/net/phy/phy_device.c
-+++ b/drivers/net/phy/phy_device.c
-@@ -1734,6 +1734,18 @@ static bool phy_drv_supports_irq(const struct phy_driver *phydrv)
- 	return phydrv->config_intr && phydrv->handle_interrupt;
- }
- 
-+/* Give back the interrupt phy_probe() parked when a driver with no interrupt
-+ * callbacks bound. mdiobus_alloc() defaults bus->irq[] to PHY_POLL and the
-+ * bind cycle does not touch the table, so whatever the bus recorded there
-+ * still stands. Only the parking is undone: any other value the PHY carries
-+ * was put there by someone else.
-+ */
-+static void phy_restore_genphy_irq(struct phy_device *phydev)
-+{
-+	if (phydev->irq == PHY_POLL)
-+		phydev->irq = phydev->mdio.bus->irq[phydev->mdio.addr];
-+}
-+
- /**
-  * phy_attach_direct - attach a network device to a given PHY device pointer
-  * @dev: network device to attach
-@@ -1896,6 +1908,7 @@ int phy_attach_direct(struct net_device *dev, struct phy_device *phydev,
- 
- error_module_put:
- 	module_put(d->driver->owner);
-+	phy_restore_genphy_irq(phydev);
- 	phydev->is_genphy_driven = 0;
- 	d->driver = NULL;
- error_put_device:
-@@ -1965,6 +1978,7 @@ void phy_detach(struct phy_device *phydev)
- 	 * real driver could be loaded
- 	 */
- 	if (phydev->is_genphy_driven) {
-+		phy_restore_genphy_irq(phydev);
- 		device_release_driver(&phydev->mdio.dev);
- 		phydev->is_genphy_driven = 0;
- 	}
+ drivers/net/dsa/mt7530.c                    | 24 ++++++++++++++++-----
+ drivers/net/ethernet/mediatek/mtk_eth_soc.c | 22 ++++++++++++++++---
+ 2 files changed, 38 insertions(+), 8 deletions(-)
+
 -- 
 2.55.0
 
