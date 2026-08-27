@@ -1,183 +1,245 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC1CE3FFD
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:38:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D64B348C400
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:38:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787848711; cv=none; b=c+PIhoJhJc/6X3P4OBHH8K2r57zGNZqhRLUXmYRly9G8IMz/iijUFmmJjJ+zkj7hDlet2ZMpEZcb/N/WToRShsz/lX6I2xWBF2qZ5+wyXlDEHfZ7KcJQVpr6phlrL4UAff91a+PxQYbQJHx1/07ene+EAUOCntCSyvLwvubUxgg=
+	t=1787848716; cv=none; b=EZFFUUyHmcdFmn7AvRMk38CKL8XotMCKgdMgiuYuvD3Uvoh+ldTmUrcmF2Nf3m2QMmXJVnsp9kl3pqfR6BhcSJhiUDfGYpFLcAvDwpv0Qw1dlbPZG20Ae6bKbC3+7IIWe3/l4+1DmKEaUt1p8K62gpJOOTf/Kch6mfCexXkQBy8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787848711; c=relaxed/simple;
-	bh=iY6li1N8aOWymAjX+i7+r5/1IUwgJvmB/19fYvr8jWE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=mNotinGC8AYaYJRdhjM0CB3fEWp7EH23HHgjZqAtLtGSok8Jl81Gb4YTP5d0BFufP/MA+kjQ8e5oH/lXqCd0iA6y+q/w0Gn4A5yaY/qF65bppfUQ+/c+3mqNcaW5RJ1VsweunJPgbWvrM89TODXaXbkUpYdKfr0HRKBFJaNb4yw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=l4Q5j3AK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=apANsr9N; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787848716; c=relaxed/simple;
+	bh=cCkF8f6xFgMdW8Cd6s+O/9FMEWCLYTUUuKxw51rIXgU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lQQkPiQDJnwswSiCVJN7jF0f4SlHH3bUB2L1i7krhszMfkikNktIdQxUYKKgS51r2KZBHLxGXgRG/+UD4sChhRaFS5YyO2cBb0V2ve50OhXURk0+WgBPZoBBgANhEszFq1o0QTbkL5/xQfvDEUBuXEGfrs4RJzcCoWgcaxLRoPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jywE9fJs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="l4Q5j3AK";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="apANsr9N"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67RFd8j7360315
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:38:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	jxfq3sde3/UWkYHQSyS+xk+eWHWNfmqXAOsgq3B6bQk=; b=l4Q5j3AKKRZ2xjcb
-	DdI/bb1qo09wy4ufoGY1y6PsHuZqDmmfvh+rrDEazraVOzLzKatEzaLg5vX6+5Bm
-	1L5+wbuOcd/Cx2Cs/Y66hrVLD8E4EipNFo1wnedrIwC6p3gLEN0sDIzfw3sHDsoV
-	g+qdMSK53JvglVdmaiAlTMRNVoZOXZURZkYopgtqEuQHET3B1RvpyZOULKEkFQN3
-	0ioRtQZ80jy/NIwJ1waivcsfuu/pFLCgkHK4rvmKGomz+AzM7ONKoT27Bp8BI17f
-	B+vMGjzjsHOGcNgfVwmITtvXKMcLgNwXosQl3G762Z1ar1/z4mU68VyAw/W6/RTb
-	HtrtqQ==
-Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ganr68v4d-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:38:28 +0000 (GMT)
-Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-7f4e98783d1so69304a34.2
-        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:38:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787848708; x=1788453508; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jxfq3sde3/UWkYHQSyS+xk+eWHWNfmqXAOsgq3B6bQk=;
-        b=apANsr9NvJb7GqYxDC1KXR9CRtHeSQUFUDAHuQJoNcn4L0SvOumTtsaswMUkpgA1qE
-         LQ4b7+8kYQrMfEfqSdRFT+V4966liPvMF2VIobVRK5ARN5yWJNp4r68JloWHUqYlyuMc
-         pnjRDC6/fHu3nsArI1fFKSAE2r8d4VT73OMVg5f1aHJI5pjOTsCiQJhIyAsJoTWzxtp4
-         ETAo4NeoPiFwvj1ilwtrn06yvv9rq772iQB3lP/mpmT+nij1i80cTbJpSOiwxoDnBxsH
-         rOFn2d7dLQX6t0M7qbqZqXLQPQCUN1qZ93nrXNK2SwpttKF4S0/6sR0W9SzJbyDT1a7i
-         BxPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787848708; x=1788453508;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jxfq3sde3/UWkYHQSyS+xk+eWHWNfmqXAOsgq3B6bQk=;
-        b=Vd3r8PJIvGBpemmVY5UrVV5Dwn45Fly4CnxATOx/LxWJAkgg/tB2uJZodQa1EqBwpa
-         QVeH1mzV8YZKZN22Pm92v8YQRMKiL1aLoExJGXZvJMoLcbT2DA1KBrOBcVZBgayGI4tp
-         sw+a4m5bvAFHr6rMb68uJriHOcfypIjEFFuJ1aMtUozvGMoYNaC8QRlXFMqKiMALIfhF
-         kgdqFS9r+mwjMrmlL1fvmGe/DTRqyksfOT5Bq4LhtwG1N9/2nlJP8I7+CeaFRp/5kxWC
-         WQQD7ELbXZeB3BX6F+SDXZSUCL1j1WD3iZtqinONX9Siv0Jk8YrAs4cAUi0tgwGOEhpm
-         7+6g==
-X-Forwarded-Encrypted: i=1; AHgh+RpG1Pb4M5JbA1ZBEGXwv6euewYtWCjGMbKAX+4fVyS/JG90/mTFEjVivX2wOpw0i9meVC290z+ffTMmuyY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lcs4HNozBeXBmHfZmX31kE1+F3C/UouI3tHz0LlOcKKAbNAvqm
-	s44DjQu5zbS+Lslr40tG2cW0XCOb51VG9Q7j9Kwucof7HQ7RfG8mDXobBtWj5Rrjr+Y4HX7Uvif
-	QOAVcT+Zz+5CPHcIz3ivGVF/byCntk/R4fUH7/S49vxOL1EFQETYZaslDRfqVgK4cpxw=
-X-Gm-Gg: AR+sD11e6IMXY1006diDGzehPfmZEhd0ZkAwdMf6S+wauXDLTomhNkZ7/h5wLamqY6U
-	KZNWqfmuIIEJ3aqem6r+u+MEdi1uxo86JXJ4FHaYa92yguO4yutSKJSywP++gARlZN5QE5pQ7dL
-	CwnU3r0H6DOZ+VvldMvKhV9KTEzXPFY+aZf5xaaS71uep1f95LZR/4j6a1CWOC2oa0JWfmQ37Ky
-	F/5I0ctmEdKq49CNa/EKyKQzI5yzikOO9MaswtWOEHcysqHQPOq9q+wBYa5x7UCJYHsk3SoMaBW
-	8b7vUZoBCDSYTX+EuQb4gPwVf+3qldNw2TAfl3ZlM9fypZRDsxMQsZklrv40VXcIiHSq2gR6uoN
-	dOH9B0O8EF1IU6u4A+6wGk4JzUAHAdiI+dKowlk6RcuO2UANxgpIQqg0kIJoLg2qr8TG5uGJ3m8
-	Gi0i9+EYRizBSQyDm0L6y5Sm8=
-X-Received: by 2002:a05:6820:c3c4:20b0:6b1:4250:6a43 with SMTP id 006d021491bc7-6b1a048bfccmr12513267eaf.17.1787848708217;
-        Thu, 27 Aug 2026 09:38:28 -0700 (PDT)
-X-Received: by 2002:a05:6820:c3c4:20b0:6b1:4250:6a43 with SMTP id 006d021491bc7-6b1a048bfccmr12513200eaf.17.1787848707822;
-        Thu, 27 Aug 2026 09:38:27 -0700 (PDT)
-Received: from hu-hardshar-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6b1a24bce78sm4253171eaf.3.2026.08.27.09.38.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 09:38:27 -0700 (PDT)
-From: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
-Date: Thu, 27 Aug 2026 22:08:02 +0530
-Subject: [PATCH v4 01/15] soc: qcom: geni-se: allow selection on 32-bit ARM
- Qualcomm SoCs
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jywE9fJs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69E071F00A3D
+	for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 16:38:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787848714;
+	bh=79LT1FTf1EQ7iIO60cu5IupbbRNT9ep0N1MKx/iPMBY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=jywE9fJsbOGEFcxhVFrJn0YxQOwZfmxfrhSw0E97IvQSOzwumMNc6PkrXjr6/S6Na
+	 hwjAHSd2FV+zdrG9BDBFLXzbEK1foihG8GDC1F4v/hoX33MjVOBvkME91y4wNbpCy1
+	 hSV8mNFaSCwCQt19NaH8wU95eNTiAyrnapCuW1lxJj0Zc38zQmTGoXWwWxtp5BoIDH
+	 9nZ8UzJ6BB5VGqHM/GpHix9faX9ZQeAOwFdMdRCJtS5havJ3C//kaBClrEE28sgTL+
+	 K3SigqHpdhswSAUJvXwKZ9Vjcefdr2pqWkaTLwu1+BlCQxNOzQtSGNiCAWgNQL0Udu
+	 qDm9BQcS/BksA==
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c2544ff970dso4487666b.2
+        for <linux-kernel@vger.kernel.org>; Thu, 27 Aug 2026 09:38:34 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rq+bO3Prj3jmB3wksRagNxNvPbY4dwuGL1D0IkLyK2u+G+tpPPskZex8kGl5+jXzCctojMo+3RdJheQf3U=@vger.kernel.org
+X-Gm-Message-State: AFuF++lSSDOBeEkNJo2qlN77ysYAA/N6UpCN+oWpgC+V5DgntgmUVqft
+	/aGeN5PIo4QqIyHZexHMQL13KgFpJvtZy6lovlDKg9l3GgNRL45Gt41thvO7jFsYJeLPiuEwSLW
+	Ocyh9YvDnCW+mRV95yZoiI4Se6ILmBDM=
+X-Received: by 2002:a17:907:3e0b:b0:c21:450d:cd7e with SMTP id
+ a640c23a62f3a-c250bbbf096mr1528043866b.9.1787848713280; Thu, 27 Aug 2026
+ 09:38:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260827-kuno-soc-support-v4-1-dd34f235fc1a@oss.qualcomm.com>
-References: <20260827-kuno-soc-support-v4-0-dd34f235fc1a@oss.qualcomm.com>
-In-Reply-To: <20260827-kuno-soc-support-v4-0-dd34f235fc1a@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Georgi Djakov <djakov@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Linus Walleij <linusw@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-        Radu Rendec <radu@rendec.net>, Robert Marko <robimarko@gmail.com>,
-        Guru Das Srinagesh <linux@gurudas.dev>,
-        Taniya Das <taniya.das@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-pm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-gpio@vger.kernel.org,
-        Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>,
-        Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>
-X-Mailer: b4 0.15-dev-47773
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787848688; l=1026;
- i=hardeep.sharma@oss.qualcomm.com; s=20260204; h=from:subject:message-id;
- bh=iY6li1N8aOWymAjX+i7+r5/1IUwgJvmB/19fYvr8jWE=;
- b=PITaWUSVe1ILdfSWnJT7MDHlrRiMajI8441g+W+TvDdCSITcQR5NuAOzL9/YNAEalt5NJrhL7
- ymArXsolShrDh6ElsdGabQEGbJvPnBuA2O1CruX3+oBz/ThJIsJCF8t
-X-Developer-Key: i=hardeep.sharma@oss.qualcomm.com; a=ed25519;
- pk=IvwPDKA2xr6jWaCIBBY2ran/H0124QUzVfun+CtEikM=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDE0MCBTYWx0ZWRfX8xB23x+VbuGm
- kFf2bInfD/ouexb038erL9VzN32l5jy421A2fCkJJGykb5zpmsjp1h6NWg7FaYANRhkj+Hriw8a
- MpcKPZw1eLZ5ow0S8U2UedR/p3Imd1ivBtsseSfqHzwy7jPOPUo++MySVRy//vFRxGVCbjIBRMR
- 9GcT/L5qUXXO6By8U5DZVKFnaZgG+d540Xk9t+ZijQD+hztRcPizNeiq3O7QlOlpmK65MxFUxxQ
- tQ73ar5kz23vyeSDtuFwhaF8Cm4PRq+wsKG2jyMLHJ3D/IiOygY1gAPBTdKgTFQclt/voAEsSv5
- yPZBpA8Sqve0nXR8Mdvk2cuILHOSLWoyrC+IBWV6d3VsgqdRUhMTmTmD/073z0YdoiWCeAHnFCU
- E1kAZ6i7YwEKgWyihQwTcELEBYrlArUbFPmYz/4jDn6wu5YxfpgevX1yGepo30r/06M7hwUZCTT
- Hn6ujZIpyP4ULfYCF8g==
-X-Authority-Analysis: v=2.4 cv=d5DFDxjE c=1 sm=1 tr=0 ts=6a906804 cx=c_pps
- a=+3WqYijBVYhDct2f5Fivkw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=I-wlBW6BsxmxmlAWD-0A:9 a=QEXdDO2ut3YA:10
- a=eYe2g0i6gJ5uXG_o6N4q:22
-X-Proofpoint-GUID: EDGAtt2pclQEiu4qvE5xy0tZXU7p3Rvw
-X-Proofpoint-ORIG-GUID: EDGAtt2pclQEiu4qvE5xy0tZXU7p3Rvw
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDE0MCBTYWx0ZWRfX2W+XRvJN2w2l
- nFQeAhIT2adwtikoZN1r1JXk1ojTBLPsLxjR7Vp9oUrGrrpD3iZUSeHegLqcXLU1aPBybeASQGd
- mt4jZyI07pAmQF5nCdLjibTea0mhypM=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-27_07,2026-08-27_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 malwarescore=0 lowpriorityscore=0 impostorscore=0 clxscore=1015
- priorityscore=1501 spamscore=0 adultscore=0 suspectscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608270140
+References: <20260826211844.884951-1-seanjc@google.com> <20260826211844.884951-4-seanjc@google.com>
+ <CAO9r8zM7KSRX5r-PazJ87QaZze3wkB5WmJL4e6az5akmJLterQ@mail.gmail.com> <apBQYmmBC8lE-KiQ@google.com>
+In-Reply-To: <apBQYmmBC8lE-KiQ@google.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Thu, 27 Aug 2026 09:38:20 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zOiPc=AdSZov9w5EN-WogpSTR54z8UuTd3oqKHiWCfNmA@mail.gmail.com>
+X-Gm-Features: AcwNN1Uf16kIBoba-w3xAyfXDcio3hnpMiCJElKz9P4Lzge3Sr8Lt37bi3y7Xp4
+Message-ID: <CAO9r8zOiPc=AdSZov9w5EN-WogpSTR54z8UuTd3oqKHiWCfNmA@mail.gmail.com>
+Subject: Re: [PATCH 3/4] KVM: x86/mmu: Bug the VM if KVM calcs a CPU role with
+ EFER.LMA=1 && CR4.PAE=0
+To: Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Stefan Teodorescu <fane@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Kuno, a 32-bit ARM Cortex-A7 Qualcomm SoC, uses the GENI-based QUP
-wrapper for its debug UART. Drop the explicit ARM64 dependency so the
-driver can be selected on 32-bit ARM as well; QCOM_GENI_SE already sits
-under the QCOM_SOC menuconfig, which is gated by ARCH_QCOM ||
-COMPILE_TEST, so no replacement dependency is needed.
+On Thu, Aug 27, 2026 at 7:57=E2=80=AFAM Sean Christopherson <seanjc@google.=
+com> wrote:
+>
+> On Thu, Aug 27, 2026, Yosry Ahmed wrote:
+> > On Wed, Aug 26, 2026 at 2:18=E2=80=AFPM Sean Christopherson <seanjc@goo=
+gle.com> wrote:
+> > >
+> > > Bug the VM if KVM attempts to construct a CPU role with the should-be=
+-
+> > > impossible combination of long mode being active without PAE paging b=
+eing
+> > > enabled.  KVM's MMU construction assumes that EFER.LMA can be set if =
+and
+> > > only CR4.PAE is set, and will create a completely invalid MMU if that
+> > > assumption fails.  FNAME(walk_addr_generic) already has sanity checks=
+ to
+> > > try and mitigate the fallout, but attempt to catch such bugs earlier,=
+ as
+> > > this is (at least) the second time KVM has had bugs that escaped into
+> > > FNAME(walk_addr_generic), and it's entirely possible the bad state co=
+uld
+> > > cause problems elsewhere.
+> > >
+> > > Cc: stable@vger.kernel.org
+> > > Signed-off-by: Sean Christopherson <seanjc@google.com>
+> > > ---
+> > >  arch/x86/kvm/mmu/mmu.c | 3 +++
+> > >  1 file changed, 3 insertions(+)
+> > >
+> > > diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+> > > index 064ecc33b926..81c30e2c74f3 100644
+> > > --- a/arch/x86/kvm/mmu/mmu.c
+> > > +++ b/arch/x86/kvm/mmu/mmu.c
+> > > @@ -5910,6 +5910,9 @@ static union kvm_cpu_role kvm_calc_cpu_role(str=
+uct kvm_vcpu *vcpu,
+> > >                 return role;
+> > >         }
+> > >
+> > > +       if (KVM_BUG_ON(____is_efer_lma(regs) && !____is_cr4_pae(regs)=
+, vcpu->kvm))
+> >
+> > Can we shove this into the existing if (____is_efer_lma(regs)) below?
+>
+> No, because there are three more checks on EFER.LMA:
+>
+>         role.ext.cr4_pke =3D ____is_efer_lma(regs) && ____is_cr4_pke(regs=
+);
+>         role.ext.cr4_la57 =3D ____is_efer_lma(regs) && ____is_cr4_la57(re=
+gs);
+>         role.ext.efer_lma =3D ____is_efer_lma(regs);
+>
+> and I don't want to have to condition them all on something that shouldn'=
+t happen.
 
-Acked-by: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Signed-off-by: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
----
- drivers/soc/qcom/Kconfig | 1 -
- 1 file changed, 1 deletion(-)
+Yeah I assumed that we don't care about the state anymore if we'll
+KVM_BUG_ON(), but apparently that's not the case based on your comment
+below.
 
-diff --git a/drivers/soc/qcom/Kconfig b/drivers/soc/qcom/Kconfig
-index 2b524154d9fb..9f703261d7ac 100644
---- a/drivers/soc/qcom/Kconfig
-+++ b/drivers/soc/qcom/Kconfig
-@@ -39,7 +39,6 @@ config QCOM_COMMAND_DB
- 
- config QCOM_GENI_SE
- 	tristate "Qualcomm GENI Serial Engine Driver"
--	depends on ARM64 || COMPILE_TEST
- 	default ARCH_QCOM
- 	help
- 	  This driver is used to manage Generic Interface (GENI) firmware based
+>
+> OMG, I hate SVM.  I resurrected the selftest hack I used to verify this b=
+ug, to
+> demonstrate that Sashiko's "technically that's undefined behavior and thi=
+s is
+> useless" complaint is wrong, because even though it's undefined behavior =
+and the
+> compiler *could* ignore the change, in practice the compiler probably won=
+'t ignore
+> the change.  And since this is defense-in-depth, it's "fine" if the paran=
+oid
+> hardening only isn't guaranteed to kick in.
+>
+> And in doing so managed to trip this KVM_BUG_ON() in *L0* when running th=
+e test
+> in L1, because as you kinda sorta noted in patch 1, KVM doesn't ignore EF=
+ER.LMA
+> when loading L2 state.
+>
+> I had actually tried to do exactly that, by having nested_vmcb_check_save=
+() clear
+> EFER.LMA if EFER.LME=3D0, but that doesn't work because svm_set_nested_st=
+ate() uses
+> the "cache" only for the checks, not for the actual loading of state.  *s=
+igh*
+>
+> So in addition to patch 1, we also need this to guard against configuring=
+ L2's
+> walk_mmu with bad state.
 
--- 
-2.43.0
+Hmm wouldn't it be simpler at this point to let KVM_SET_NESTED_STATE
+and nested VMRUN have the invalid LMA/LME combination and just ignore
+EFER.LMA if EFER.LME (or just always check EFER.LMA && EFER.LME)?
 
+>
+> diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
+> index 49fb10ad1f9f..23d29597d6bf 100644
+> --- a/arch/x86/kvm/svm/nested.c
+> +++ b/arch/x86/kvm/svm/nested.c
+> @@ -789,6 +789,10 @@ static void nested_vmcb02_prepare_save(struct vcpu_s=
+vm *svm)
+>
+>         kvm_set_rflags(vcpu, save->rflags | X86_EFLAGS_FIXED);
+>
+> +       /* SVM ignores EFER.LMA if EFER.LME=3D0 (instead of failing VMRUN=
+). */
+> +       if (!(svm->nested.save.efer & EFER_LME))
+> +               svm->nested.save.efer &=3D ~EFER_LMA;
+> +
+>         svm_set_efer(vcpu, svm->nested.save.efer);
+>
+>         svm_set_cr0(vcpu, svm->nested.save.cr0);
+>
+> Anyways, back to Sashiko's "technically this is wrong" statement, I confi=
+rmed
+> that tweaking the code to do this does NOT trigger the KVM_BUG_ON() with =
+at least
+> clang-21.  I.e. my assertion that clearing regs->efer.LMA could be useful=
+ holds
+> true.
+>
+> diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+> index b515a49c5e86..cab8690d0fa0 100644
+> --- a/arch/x86/kvm/mmu/mmu.c
+> +++ b/arch/x86/kvm/mmu/mmu.c
+> @@ -5932,8 +5932,10 @@ static union kvm_cpu_role kvm_calc_cpu_role(struct=
+ kvm_vcpu *vcpu,
+>                 return role;
+>         }
+>
+> -       if (KVM_BUG_ON(____is_efer_lma(regs) && !____is_cr4_pae(regs), vc=
+pu->kvm))
+> +       if (____is_efer_lma(regs) && !____is_cr4_pae(regs)) {
+> +               pr_warn("Forcing EFER.LMA=3D0 in calc CPU role\n");
+>                 *(u64 *)&regs->efer &=3D ~EFER_LMA;
+> +       }
+>
+>         role.base.efer_nx =3D ____is_efer_nx(regs);
+>         role.base.cr0_wp =3D ____is_cr0_wp(regs);
+> @@ -5941,6 +5943,8 @@ static union kvm_cpu_role kvm_calc_cpu_role(struct =
+kvm_vcpu *vcpu,
+>         role.base.smap_andnot_wp =3D ____is_cr4_smap(regs) && !____is_cr0=
+_wp(regs);
+>         role.base.has_4_byte_gpte =3D !____is_cr4_pae(regs);
+>
+> +       KVM_BUG_ON(____is_efer_lma(regs) && !____is_cr4_pae(regs), vcpu->=
+kvm);
+> +
+>         if (____is_efer_lma(regs))
+>                 role.base.level =3D ____is_cr4_la57(regs) ? PT64_ROOT_5LE=
+VEL
+>                                                         : PT64_ROOT_4LEVE=
+L;
+>
+> Side topic, I also (inadvertantly) somewhat justified keeping the
+>
+>         if (KVM_BUG_ON(is_long_mode(vcpu) && !is_pae(vcpu), vcpu->kvm) ||
+>
+> check in FNAME(walk_addr_generic) when testing the above.  If KVM manages=
+ to
+> configure a sane MMU, but still has a vCPU with the above state, then we =
+still
+> want to WARN and bail.
+
+Good point.
+
+>
+> > > +               *(u64 *)&regs->efer &=3D ~EFER_LMA;
+> >
+> > Why do this if we will crash the VM anyway (and Sashiko doesn't like it=
+)?
+>
+> Because there's a lot of code between here and checking KVM_VM_DEAD in
+> vcpu_enter_guest().  And has been proven far too many times this year, de=
+tecting
+> a flaw doesn't automagically mitigate true badness.
+
+Interesting, I always assumed we can do whatever we want after KVM_BUG_ON()=
+ :P
+
+>
+> > > +
+> > >         role.base.efer_nx =3D ____is_efer_nx(regs);
+> > >         role.base.cr0_wp =3D ____is_cr0_wp(regs);
+> > >         role.base.cr4_smep =3D ____is_cr4_smep(regs);
+> > > --
+> > > 2.55.0.887.g758fc8c411-goog
+> > >
